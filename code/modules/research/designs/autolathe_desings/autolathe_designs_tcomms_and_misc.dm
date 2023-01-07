@@ -300,3 +300,11 @@
 	materials = list(/datum/material/iron = 6500, /datum/material/glass = 50)
 	build_path = /obj/item/weaponcrafting/improvised_parts/trigger_assembly
 	category = list("initial", "Misc")
+
+/datum/design/record_disk //ATOM EDIT- start adds the record disk used to adding songs to be made in the autolathe
+	name = "Record disk"
+	id = "record_disk"
+	build_type = AUTOLATHE
+	materials = list(/datum/material/glass = 500)
+	build_path = /obj/item/record_disk
+	category = list("initial","Misc") //ATOM EDIT -end-

@@ -825,3 +825,11 @@
 	materials = list(MAT_METAL = 300, MAT_GLASS = 150)
 	build_path = /obj/item/key/collar
 	category = list("initial", "Misc")
+
+/datum/design/record_disk //ATOM EDIT- start adds the record disk used to adding songs to be made in the autolathe
+	name = "Record disk"
+	id = "record_disk"
+	build_type = AUTOLATHE
+	materials = list(MAT_GLASS = 500)
+	build_path = /obj/item/record_disk
+	category = list("initial","Tools") //ATOM EDIT- end

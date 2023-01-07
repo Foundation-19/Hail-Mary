@@ -11,7 +11,15 @@
 	var/stop = 0
 	var/volume = 70
 	var/datum/track/selection = null
+	var/obj/item/lock_part/lock = null //ATOM EDIT START 
+	var/open_tray = FALSE //usted to determine if the jukebox is open or not, needs a key
+	var/list/record_disks = list() //list of inserted disk inthe jukebox
+	var/obj/item/record_disk/selected_disk = null //the disk chosen to view or ejection
 
+/obj/machinery/jukebox/constructed //ATOM EDIT start- a sub jukebox with access for everyone
+	req_one_access = null
+	desc = "an improvised jukebox, made with scraps and hopes"
+//ATOM EDIT -end-
 /obj/machinery/jukebox/disco
 	name = "radiant dance machine mark IV"
 	desc = "The first three prototypes were discontinued after mass casualty incidents."
@@ -20,6 +28,20 @@
 	anchored = FALSE
 	var/list/spotlights = list()
 	var/list/sparkles = list()
+
+//ATOM EDIT -start
+/obj/machinery/jukebox/Initialize() //ATOM EDIT -start
+	. = ..()
+	lock = new /obj/item/lock_part()
+	lock.forceMove(src)
+	var/obj/item/key/vending/K = new /obj/item/key/vending()
+	K.name = "[src.name] key"
+	K.forceMove(src.loc)
+	if(lock)
+		lock.is_secured = 0
+		lock.store_key(K)
+		lock.is_secured = 1
+//ATOM EDIT -end
 
 /obj/machinery/jukebox/disco/indestructible
 	name = "radiant dance machine mark V"
@@ -44,7 +66,36 @@
 				setAnchored(FALSE)
 			playsound(src, 'sound/items/deconstruct.ogg', 50, 1)
 			return
+		if(istype(O, /obj/item/key)) //ATOM EDIT -start this one checks for a key used in the jukebox
+			if(lock.check_key(O)) //check if the key used is assinged to this lock
+				if(open_tray == FALSE)
+					open_tray = TRUE
+				else
+					open_tray = FALSE
+				playsound(src, 'sound/items/Ratchet.ogg', 60, 1)
+				return
+			else
+				playsound(src, 'sound/machines/DeniedBeep.ogg', 60, 1)
+				to_chat(usr, "Unknown key.")
+				return
+		else if(istype(O, /obj/item/record_disk)) //this one checks for a record disk and if the jukebox is open, it adds it to the machine
+			if(open_tray == FALSE)
+				to_chat(usr, "The Disk Tray is not open!")
+				return
+			var/obj/item/record_disk/I = O
+			record_disks += I
+			O.forceMove(src)
+			playsound(src, 'sound/effects/plastic_click.ogg', 100, 0)
+			if(I.R.song_path)
+				SSjukeboxes.add_song(I.R)
+			return//ATOM EDIT -end
 	return ..()
+/obj/machinery/jukebox/proc/eject_record(obj/item/record_disk/M) //ATOM EDIT -start- ejects a record as defined and removes it's song from the list
+	playsound(src, 'sound/effects/disk_tray.ogg', 100, 0)
+	src.visible_message("<span class ='notice'> ejected the [selected_disk] from the [src]!</span>")
+	M.forceMove(get_turf(src))
+	SSjukeboxes.remove_song(M.R)
+	selected_disk = null
 
 /obj/machinery/jukebox/update_icon_state()
 	if(active)
@@ -64,8 +115,30 @@
 		to_chat(user,span_warning("Error: No music tracks have been authorized for your station. Petition Central Command to resolve this issue."))
 		playsound(src, 'sound/misc/compiler-failure.ogg', 25, TRUE)
 		return UI_CLOSE
-	return ..()
-
+	var/list/dat = list()
+	dat +="<div class='statusDisplay' style='text-align:center'>"
+	dat += "<b><A href='?src=[REF(src)];action=toggle'>[!active ? "BREAK IT DOWN" : "SHUT IT DOWN"]<b></A><br>"
+	dat += "</div><br>"
+	dat += "<A href='?src=[REF(src)];action=select'> Select Track</A><br>"
+	dat += "<A href='?src=[REF(src)];action=loaded_tracks'> manage loaded tracks</A><br>" // ATOM EDIT- used for track management
+	dat += "<A href='?src=[REF(src)];action=eject_disk'> eject the currently selected disk</A><br>" //ATOM EDIT- ejects the chosen disk
+	if(istype(selection))
+		dat += "Track Selected: [selection.song_name]<br>"
+		dat += "Track Length: [DisplayTimeText(selection.song_length)]<br><br>"
+	else
+		dat += "Track Selected: None!<br><br>"
+	if(record_disks.len) //ATOM EDIT -start shows information of a the current music library
+		dat += "number of loaded tracks: [record_disks.len]<br>"
+	if(istype(selected_disk))
+		dat += "disk Selected: [selected_disk]<br>"
+		dat += "with song: [selected_disk.R.song_name]<br>"
+		dat += "Track duration: [DisplayTimeText(selected_disk.R.song_length)])<br>" //custom tracks should come out as number but just in case
+	else
+		dat += "Disk Selected: None!<br><br>" //ATOM EDIT -end
+	var/datum/browser/popup = new(user, "vending", "[name]", 400, 350)
+	popup.set_content(dat.Join())
+	popup.open()
+	
 /obj/machinery/jukebox/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
@@ -84,11 +157,26 @@
 	data["track_selected"] = null
 	data["track_length"] = null
 	data["track_beat"] = null
+	data["disk_selected"] = null //ATOM EDIT- start more tracks data
+	data["disk_selected_lenght"] = null
+	data["disk_beat"] = null //ATOM EDIT -end
 	if(selection)
 		data["track_selected"] = selection.song_name
 		data["track_length"] = DisplayTimeText(selection.song_length)
 		data["track_beat"] = selection.song_beat
 	data["volume"] = volume
+	data["loaded tracks"] = list() //ATOM EDIT -start- most of these are shown if at least a disk is in the jukebox
+	var/TN = 1
+	for(var/obj/item/record_disk in record_disks[TN])
+		var/list/track_data = list(
+			name = record_disks[TN]
+		)
+		data["loaded tracks"] += list(track_data)
+		TN ++
+	if(selected_disk)
+		data["disk_selected"] = selected_disk.R.song_name
+		data["disk_selected_lengt"] = selected_disk.R.song_length
+		data["disk_beat"] = selected_disk.R.song_beat //ATOM EDIT- end
 	return data
 
 /obj/machinery/jukebox/ui_act(action, list/params)
@@ -123,6 +211,21 @@
 				return
 			selection = available[selected]
 			return TRUE
+		if("loaded_tracks") //ATOM EDIT -start - this one chooeses a disk to manage
+			var/list/availabletracks = list()
+			for(var/obj/item/record_disk/RD in record_disks)
+				availabletracks[RD.name] = RD
+			var/selecteddisk = params["disk"]
+			if(QDELETED(src) || !selecteddisk || !istype(availabletracks[selecteddisk], /obj/item/record_disk))
+				return
+			selected_disk = availabletracks[selecteddisk]
+			return TRUE
+		if("eject_disk") // this one ejects a currently selected disk
+			if(!selected_disk)
+				to_chat(usr, span_warning("Error: no disk selected."))
+			return TRUE
+//ATOM EDIT -end
+
 		if("set_volume")
 			var/new_volume = params["volume"]
 			if(new_volume  == "reset")
@@ -137,6 +240,66 @@
 			else if(text2num(new_volume) != null)
 				volume = text2num(new_volume)
 				return TRUE
+		
+/obj/machinery/jukebox/Topic(href, href_list)
+	if(..())
+		return
+	add_fingerprint(usr)
+	switch(href_list["action"])
+		if("toggle")
+			if (QDELETED(src))
+				return
+			if(!active)
+				if(stop > world.time)
+					to_chat(usr, "<span class='warning'>Error: The device is still resetting from the last activation, it will be ready again in [DisplayTimeText(stop-world.time)].</span>")
+					playsound(src, 'sound/misc/compiler-failure.ogg', 50, 1)
+					return
+				if(!istype(selection))
+					to_chat(usr, "<span class='warning'>Error: Severe user incompetence detected.</span>")
+					playsound(src, 'sound/misc/compiler-failure.ogg', 50, 1)
+					return
+				if(!activate_music())
+					to_chat(usr, "<span class='warning'>Error: Generic hardware failure.</span>")
+					playsound(src, 'sound/misc/compiler-failure.ogg', 50, 1)
+					return
+				updateUsrDialog()
+			else if(active)
+				stop = 0
+				updateUsrDialog()
+		if("select")
+			if(active)
+				to_chat(usr, "<span class='warning'>Error: You cannot change the song until the current one is over.</span>")
+				return
+
+			var/list/available = list()
+			for(var/datum/track/S in SSjukeboxes.songs)
+				available[S.song_name] = S
+			var/selected = input(usr, "Choose your song", "Track:") as null|anything in available
+			if(QDELETED(src) || !selected || !istype(available[selected], /datum/track))
+				return
+			selection = available[selected]
+			updateUsrDialog()
+		if("loaded_tracks") //ATOM EDIT -start- how an user chooses a disk
+			if(!record_disks.len)
+				to_chat(usr, "<span class='warning'>Error: no tracks on the bin!.</span>")
+				return
+			var/list/availabledisks = list()
+			for(var/obj/item/record_disk/RR in record_disks)
+				availabledisks[RR.name] = RR
+			var/selecteddisk = input(usr, "Choose a disk to eject", "disk:") as null|anything in availabledisks
+			if(QDELETED(src) || !selecteddisk || !istype(availabledisks[selecteddisk], /obj/item/record_disk))
+				return
+			selected_disk = availabledisks[selecteddisk]
+			updateUsrDialog()
+		if("eject_disk") // sanity check for the disk ejection
+			if(!record_disks.len)
+				to_chat(usr, "<span class='warning'>Error: no disks in trays.</span>")
+				return
+			if(!selected_disk)
+				to_chat(usr,"<span class='warning'>Error: no disk chosen.</span>" )
+			eject_record(selected_disk)
+			updateUsrDialog()
+//ATOM EDIT -end
 
 /obj/machinery/jukebox/proc/activate_music()
 	var/jukeboxslottotake = SSjukeboxes.addjukebox(src, selection, 2)
@@ -453,3 +616,226 @@
 		for(var/mob/living/M in rangers)
 			if(prob(5+(allowed(M)*4)) && CHECK_MOBILITY(M, MOBILITY_MOVE))
 				dance(M)
+
+/obj/item/record_disk //ATOM EDIT START- the objets used in the creation o music
+	name = "record disk" //used to store tracks to add to the jukeboses
+	desc = "A disk for storing music. Dear god."
+	icon = 'icons/obj/machines/disk_recorder.dmi'
+	icon_state = "record_disk"
+	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
+	force = 5
+	throwforce = 16
+	throw_speed = 2
+	w_class = WEIGHT_CLASS_SMALL
+	attack_verb = list("sliced", "DISKED", "Played music to")
+	siemens_coefficient = 0 //Means it's insulated
+	sharpness = SHARP_EDGED
+	resistance_flags = NONE
+	max_integrity = 45
+	var/datum/track/R = new ()
+
+/obj/item/record_disk/Initialize() //moves them a bit so they are not all accumulated on the same pixel
+	..()
+	name = "Generic record disk" // the name changes with music
+	pixel_x = rand(-3, 3)
+	pixel_y = rand(-3, 3)
+
+/obj/item/record_disk/throw_impact() //since they are not made with petrolium they are a bit more fragile
+	..()
+	src.visible_message("<span class ='warning'>The spinning [src] shatters on impact!</span>")
+	Destroy()
+
+/obj/item/record_disk/Destroy()
+	playsound(src, 'sound/effects/record_shatter.ogg', 100, 0)
+	new /obj/item/record_shard(get_turf(src))
+	new /obj/item/record_shard(get_turf(src))
+	new /obj/item/record_shard(get_turf(src))
+	new /obj/item/record_shard(get_turf(src))
+	new /obj/item/record_shard(get_turf(src))
+	..()
+/obj/item/record_shard //if the disk breaks you get pieces of disk that can cut into your feet if you are not carefull
+	name = "record disk shard"
+	desc = "A broken shard of a record disk. Who knew record disks were so fragile."
+	icon = 'icons/obj/machines/disk_recorder.dmi'
+	icon_state = "record_shard"
+	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
+	w_class = WEIGHT_CLASS_TINY
+	force = 5
+	throwforce = 8
+	attack_verb = list("stabs", "DISKED", "sliced")
+	hitsound = 'sound/weapons/bladeslice.ogg'
+	resistance_flags = ACID_PROOF
+	armor = list("melee" = 100, "bullet" = 0, "laser" = 0, "energy" = 100, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 100)
+	max_integrity = 40
+	sharpness = SHARP_POINTY
+
+/obj/item/record_shard/suicide_act(mob/user)
+	user.visible_message("<span class='suicide'>[user] is slitting [user.p_their()] [pick("wrists", "throat")] with the record disk shard! It looks like [user.p_theyre()] trying to commit suicide.</span>")
+	return (BRUTELOSS)
+
+/obj/item/record_shard/Initialize()
+	. = ..()
+	AddComponent(/datum/component/caltrop, force)
+	AddComponent(/datum/component/butchering, 150, 65)
+	pixel_x = rand(-8, 8)
+	pixel_y = rand(-8, 8)
+
+/obj/item/record_shard/afterattack(atom/A as mob|obj, mob/user, proximity)
+	. = ..()
+	if(!proximity || !(src in user))
+		return
+	if(isturf(A))
+		return
+	if(istype(A, /obj/item/storage))
+		return
+	var/hit_hand = ((user.active_hand_index % 2 == 0) ? "r_" : "l_") + "arm"
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		if(!H.gloves && !HAS_TRAIT(H, TRAIT_PIERCEIMMUNE)) // golems, etc
+			to_chat(H, span_warning("[src] cuts into your hand!"))
+			H.apply_damage(force*0.5, BRUTE, hit_hand)
+	else if(ismonkey(user))
+		var/mob/living/carbon/monkey/M = user
+		if(!HAS_TRAIT(M, TRAIT_PIERCEIMMUNE))
+			to_chat(M, span_warning("[src] cuts into your hand!"))
+			M.apply_damage(force*0.5, BRUTE, hit_hand)
+
+/obj/machinery/gramophone_recorder //used to record new tracks to add to the jukeboxes
+	name = "Gramophone Recorder"
+	desc = "old gramaphone used to record sounds and audio."
+	icon = 'icons/obj/machines/disk_recorder.dmi'
+	icon_state = "gramophone_recorder"
+	verb_say = "transmit"
+	density = TRUE
+	circuit = /obj/item/circuitboard/machine/gramophone_recorder
+	var/list/music_to_burn
+	var/obj/item/record_disk/R //Our stored record disk
+	var/inuse = FALSE
+	var/list/menu_options = list("EJECT", "Burn existing music", "Burn custom music", "Rename disk", "Update Songs Library")
+	var/datum/track/music_file = null
+	var/custom_name
+	var/loaded_song_path
+	var/loaded_song_name
+	var/loaded_song_length
+	var/loaded_song_beat
+	var/loaded_song_associated_id
+
+/obj/machinery/gramophone_recorder/Initialize()
+	. = ..()
+	Update_library()
+	update_icon()
+
+/obj/machinery/gramophone_recorder/proc/Update_library() //this is used to check for the currently loaded songs
+	var/list/available[SSjukeboxes.songs.len]
+	if(available == null)
+		src.visible_message("<span class='warning'>no song in library</span>")
+	for(var/datum/track/S in SSjukeboxes.songs)
+		available[S.song_name] = S
+	music_to_burn = available
+
+/obj/machinery/gramophone_recorder/proc/diskProcess() //its an old piece of tech and it takes it's time
+	addtimer(CALLBACK(src, .proc/burnDisk), 40)
+	inuse = TRUE
+
+/obj/machinery/gramophone_recorder/proc/burnDisk() //basically just burns the gathered info into the loaded disk
+	R.R.song_path = loaded_song_path
+	R.R.song_name = loaded_song_name
+	R.R.song_length = loaded_song_length
+	R.R.song_beat = loaded_song_beat
+	R.R.song_associated_id = loaded_song_associated_id
+	R.name = "[R.R.song_name] record disk"
+	playsound(src, 'sound/machines/ping.ogg', 50, 1)
+	inuse = FALSE
+
+/obj/machinery/gramophone_recorder/attack_hand(mob/living/user)
+	if(stat & NOPOWER || stat & BROKEN)
+		update_icon()
+		return
+	if(!R)
+		to_chat(user, "<span class='warning'>There is no record disk inserted!</span>")
+		return
+	if(inuse)
+		to_chat(user, "<span class ='warning'>A disk is currently being burned!</span>")
+		return
+	var/choice = input(user, "Disk: [R] \nChoose an option", "[src] menu") as null|anything in menu_options
+	if(!user.Adjacent(src))
+		to_chat(user, "<span class='warning'>You are too far away!")
+		return
+	if(inuse)
+		to_chat(user, "<span class ='warning'>A disk is currently being burned!</span>")
+		return
+	switch(choice)
+		if(null)
+			return
+		if("EJECT")
+			playsound(src, 'sound/effects/disk_tray.ogg', 100, 0)
+			src.visible_message("<span class ='notice'>[user] ejects the [R] from the [src]!</span>")
+			R.forceMove(get_turf(src))
+			R = null
+			icon_state = "gramophone_recorder"
+			return
+		if("Burn existing music")
+			if(!SSjukeboxes.songs.len)
+				src.visible_message("<span class ='notice'> No songs loaded!")
+				return
+			var/list/available = list()
+			for(var/datum/track/S in SSjukeboxes.songs)
+				available[S.song_name] = S
+			music_file = input(user, "Choose a song from the library", "[src] menu") as null|anything in music_to_burn
+			if(QDELETED(src) || !music_file || !istype(available[music_file], /datum/track))
+				return
+			music_file = available[music_file]
+			loaded_song_path = music_file
+			loaded_song_name = music_file.song_name
+			loaded_song_length = music_file.song_length
+			loaded_song_beat = music_file.song_beat
+			loaded_song_associated_id = music_file.song_associated_id
+			diskProcess()
+		if("Burn custom music")
+			loaded_song_path = input(user, "Choose a custom song!") as null|sound //uses the server AllowedUpload, by the time of writting,it was about 1024kb
+			if(loaded_song_path == null)
+				return
+			loaded_song_name = input(user, "Enter the song's name") as null|text
+			if(loaded_song_name == null)
+				loaded_song_name = "CUSTOM"
+			loaded_song_length = input(user, "enter the song's duration (in seconds)") as null|text
+			loaded_song_length = text2num(loaded_song_length)
+			loaded_song_length *= 10 //why is server time in 0.1
+			if(loaded_song_length == null || !isnum(loaded_song_length))
+				loaded_song_length = 1800 //3 minutes is good for most songs, no?
+			loaded_song_beat = 10
+			loaded_song_associated_id = "CS00[loaded_song_path]" //while originally not used for much, associated ID can be used to identify different files when checking for songs to add
+			if(inuse)
+				to_chat(user, "<span class ='warning'>A disk is currently being burned!</span>")
+				return
+			diskProcess()
+		if("Rename disk")
+			custom_name = input(user, "Enter new disk name") as null|text
+			if(custom_name)
+				R.name = custom_name
+				src.audible_message("<span class='robot'><b>[src]</b> beeps, 'Record disk renamed to: [R]' </span>")
+				custom_name = null
+			else
+				to_chat(user, "<span class='warning'>Name selection invalid.</span>")
+		if("Update Songs Library")
+			Update_library()
+			src.audible_message("<span class='robot'><b>[src]</b> beeps, 'updated music library</span>")
+
+/obj/machinery/gramophone_recorder/attackby(obj/item/I, mob/user)
+	if(stat & NOPOWER || stat & BROKEN)
+		update_icon()
+		return
+	if(istype(I, /obj/item/record_disk))
+		if(!R) //only one disk on the tray
+			R = I
+			I.forceMove(src)
+			playsound(src, 'sound/effects/disk_tray.ogg', 100, 0)
+			usr.visible_message("<span class='notice'>[user] loads the [R] into the [src].</span>")
+			icon_state = "loaded_recorder"
+			return
+		else
+			to_chat(user, "<span class ='warning'>There is already a record disk loaded into the [src]!</span>")
+			return
+	..()

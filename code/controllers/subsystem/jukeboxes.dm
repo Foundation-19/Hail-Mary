@@ -115,3 +115,21 @@ SUBSYSTEM_DEF(jukeboxes)
 			M.playsound_local(currentturf, null, 100, channel = jukeinfo[2], S = song_played)
 			CHECK_TICK
 	return
+//ATOM EDIT start
+/datum/controller/subsystem/jukeboxes/proc/add_song(datum/track/NS) //proc usted to add a song, when a disk is added to a jukebox
+	if(SSjukeboxes.songs.len)
+		var/tracks = 1
+		for(var/datum/track/CT in SSjukeboxes.songs)
+			if(NS.song_associated_id == SSjukeboxes.songs[tracks].song_associated_id)
+				return FALSE
+			tracks ++
+	SSjukeboxes.songs += NS
+
+/datum/controller/subsystem/jukeboxes/proc/remove_song(datum/track/NS)  //proc usted to remove a song, when a disk is removed from a jukebox
+	var/tracks = 1
+	for(var/datum/track/RT in SSjukeboxes.songs)
+		if(NS.song_associated_id == SSjukeboxes.songs[tracks].song_associated_id)
+			SSjukeboxes.songs -= NS
+			return TRUE
+		tracks ++
+//ATOM EDIT -end
