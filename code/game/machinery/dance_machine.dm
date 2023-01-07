@@ -791,7 +791,7 @@
 			loaded_song_name = music_file.song_name
 			loaded_song_length = music_file.song_length
 			loaded_song_beat = music_file.song_beat
-			loaded_song_associated_id = music_file.song_associated_id
+			loaded_song_associated_id = "CS[music_file.song_associated_id]"
 			diskProcess()
 		if("Burn custom music")
 			loaded_song_path = input(user, "Choose a custom song!") as null|sound //uses the server AllowedUpload, by the time of writting,it was about 1024kb
