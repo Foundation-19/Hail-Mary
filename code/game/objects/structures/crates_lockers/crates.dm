@@ -115,11 +115,15 @@
 	desc = "Low metal locker for personal effects."
 	name = "footlocker"
 	icon_state = "footlocker"
+	dense_when_open = FALSE
 
 /obj/structure/closet/crate/footchest
 	desc = "A wooden chest with iron bands."
 	name = "personal chest"
 	icon_state = "footchest"
+	open_sound = 'modular_atom/sound/creak.ogg'
+	close_sound = 'modular_atom/sound/creak.ogg'
+	dense_when_open = FALSE
 
 /obj/structure/closet/crate/internals
 	desc = "An internals crate."
