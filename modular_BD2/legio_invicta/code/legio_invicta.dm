@@ -869,7 +869,7 @@
 /datum/mood_event/bathed
 	description = span_nicegreen("A warm bath felt nice.")
 	mood_change = 4
-	timeout = 5000
+	timeout = 9000
 
 
 // ------------------- SIGNS -----------------------------
@@ -980,6 +980,16 @@
 	plane = MOB_PLANE
 	layer = ABOVE_ALL_MOB_LAYER
 
+/obj/structure/statue/mars/examine(mob/user)
+	. = ..()
+	SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "inspired_art", /datum/mood_event/inspired_art)
+	. += "<span class='notice'>What a inspiring sight.</span>"
+
+/datum/mood_event/inspired_art
+	description = span_nicegreen("I have seen something inspiring.")
+	mood_change = 1
+	timeout = 9000
+
 
 // -------------- DECALS ----------------- 
 
@@ -1035,7 +1045,7 @@
 	if(!do_after(user, 20, TRUE, src))
 		return
 	else	
-		playsound(get_turf(src), 'modular_BD2/sound/doorchainsoft_open.ogg', 60, TRUE)
+		playsound(get_turf(src), 'modular_BD2/general/sound/doorchainsoft_open.ogg', 60, TRUE)
 		if(density)
 			icon_state = "handrail_legion_entrance_open"
 			src.density = 0
@@ -1104,7 +1114,7 @@
 	icon = 'modular_BD2/general/icons/primitive_medical.dmi'
 	icon_state = "sterilizer_honey"
 	apply_method = "smear"
-	sound_squirt = 'modular_BD2/sound/honey.ogg'
+	sound_squirt = 'modular_BD2/general/sound/honey.ogg'
 
 /* Added to base code
 sound_squirt
@@ -1309,15 +1319,15 @@ added to end of campfire/attackby
 	icon = 'modular_BD2/general/icons/door_barred.dmi'
 	icon_state = "barred_left"
 	door_type = "barred_left"
-	open_sound = 'modular_BD2/sound/doorchainsoft_open.ogg'
-	close_sound = 'modular_BD2/sound/doorchainsoft_close.ogg'
+	open_sound = 'modular_BD2/general/sound/doorchainsoft_open.ogg'
+	close_sound = 'modular_BD2/general/sound/doorchainsoft_close.ogg'
 
 /obj/structure/simple_door/metal/barred/right
 	icon = 'modular_BD2/general/icons/door_barred.dmi'
 	icon_state = "barred_right"
 	door_type = "barred_right"
-	open_sound = 'modular_BD2/sound/doorchainsoft_open.ogg'
-	close_sound = 'modular_BD2/sound/doorchainsoft_close.ogg'
+	open_sound = 'modular_BD2/general/sound/doorchainsoft_open.ogg'
+	close_sound = 'modular_BD2/general/sound/doorchainsoft_close.ogg'
 
 
 // -------------- PRE-STONE RINGED BONFIRE ----------------- 
