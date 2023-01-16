@@ -121,8 +121,8 @@
 	desc = "A wooden chest with iron bands."
 	name = "personal chest"
 	icon_state = "footchest"
-	open_sound = 'modular_atom/sound/creak.ogg'
-	close_sound = 'modular_atom/sound/creak.ogg'
+	open_sound = 'modular_BD2/general/sound/creak.ogg'
+	close_sound = 'modular_BD2/general/sound/creak.ogg'
 	dense_when_open = FALSE
 
 /obj/structure/closet/crate/internals
