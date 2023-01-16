@@ -8,7 +8,7 @@
 /obj/item/card/id/dogtag/legion
 	name = "recruit medallion"
 	desc = "A cheap metal disc stamped with the Legion's bull insignia."
-	icon = 'modular_atom/legio_invicta/icons/icons_legion.dmi'
+	icon = 'modular_BD2/legio_invicta/icons/icons_legion.dmi'
 	icon_state = "medallion_recruit"
 	item_state = null
 	assignment = "recruit medallion"
@@ -64,8 +64,8 @@
 /obj/item/card/id/legion_slave
 	name = "Legion slave brand"
 	desc = "Property of the Legion. Burned into the flesh with a cattle-iron."
-	icon = 'modular_atom/legio_invicta/icons/icons_legion.dmi'
-	mob_overlay_icon = 'modular_atom/legio_invicta/icons/onmob_legion.dmi'
+	icon = 'modular_BD2/legio_invicta/icons/icons_legion.dmi'
+	mob_overlay_icon = 'modular_BD2/legio_invicta/icons/onmob_legion.dmi'
 	icon_state = "brand_slave"
 	assignment = "Slave brand"
 	uses_overlays = FALSE
@@ -78,8 +78,8 @@
 /obj/item/card/id/rusted/legion_exile
 	name = "rusted medallion"
 	desc = "This Legion medallion is rusted and worn, kept as a memento."
-	icon = 'modular_atom/legio_invicta/icons/icons_legion.dmi'
-	mob_overlay_icon = 'modular_atom/legio_invicta/icons/onmob_legion.dmi'
+	icon = 'modular_BD2/legio_invicta/icons/icons_legion.dmi'
+	mob_overlay_icon = 'modular_BD2/legio_invicta/icons/onmob_legion.dmi'
 	icon_state = "medallion_exile"
 
 
@@ -88,10 +88,10 @@
 /obj/item/clothing/gloves/legion
 	name = "fingerless gloves"
 	desc = "Improves the grip on a machete even when slick with blood, widely used by Legion warriors."
-	icon = 'modular_atom/legio_invicta/icons/icons_legion.dmi'
-	mob_overlay_icon = 'modular_atom/legio_invicta/icons/onmob_legion.dmi'
-	righthand_file = 'modular_atom/legio_invicta/icons/onmob_legion_righthand.dmi'
-	lefthand_file = 'modular_atom/legio_invicta/icons/onmob_legion_lefthand.dmi'
+	icon = 'modular_BD2/legio_invicta/icons/icons_legion.dmi'
+	mob_overlay_icon = 'modular_BD2/legio_invicta/icons/onmob_legion.dmi'
+	righthand_file = 'modular_BD2/legio_invicta/icons/onmob_legion_righthand.dmi'
+	lefthand_file = 'modular_BD2/legio_invicta/icons/onmob_legion_lefthand.dmi'
 	icon_state = "gloves_fingerless"
 	item_state = "gloves_fingerless"
 
@@ -108,10 +108,10 @@
 /obj/item/clothing/mask/bandana/legion
 	name = "red bandana"
 	desc = "Simple cloth bandana dyed red. Very common in the Legion."
-	icon = 'modular_atom/legio_invicta/icons/icons_legion.dmi'
-	mob_overlay_icon = 'modular_atom/legio_invicta/icons/onmob_legion.dmi'
-	righthand_file = 'modular_atom/legio_invicta/icons/onmob_legion_righthand.dmi'
-	lefthand_file = 'modular_atom/legio_invicta/icons/onmob_legion_lefthand.dmi'
+	icon = 'modular_BD2/legio_invicta/icons/icons_legion.dmi'
+	mob_overlay_icon = 'modular_BD2/legio_invicta/icons/onmob_legion.dmi'
+	righthand_file = 'modular_BD2/legio_invicta/icons/onmob_legion_righthand.dmi'
+	lefthand_file = 'modular_BD2/legio_invicta/icons/onmob_legion_lefthand.dmi'
 	icon_state = "bandana_legion"
 	flags_inv = HIDEFACE
 	visor_flags_inv = HIDEFACE
@@ -143,8 +143,8 @@
 /obj/item/clothing/glasses/night/polarizing // possibly it would be better to make this just flash protect or such, and keep NVG to NVG looking goggle thingies. Dunno. 
 	name = "polarizing goggles"
 	desc = "Fancy goggles with rare polarizing glass from some old cache, usually reserved for commanders."
-	icon = 'modular_atom/legio_invicta/icons/icons_legion.dmi'
-	mob_overlay_icon = 'modular_atom/legio_invicta/icons/onmob_legion.dmi'
+	icon = 'modular_BD2/legio_invicta/icons/icons_legion.dmi'
+	mob_overlay_icon = 'modular_BD2/legio_invicta/icons/onmob_legion.dmi'
 	icon_state = "goggles_polarizing"
 	item_state = "goggles_polarizing"
 	darkness_view = 12
@@ -163,8 +163,8 @@
 /obj/item/clothing/glasses/f13/goggles_sandstorm
 	name = "sandstorm goggles"
 	desc = "Simple, tight-fitting goggles that protect your eyes from dust and sand."
-	icon = 'modular_atom/legio_invicta/icons/icons_legion.dmi'
-	mob_overlay_icon = 'modular_atom/legio_invicta/icons/onmob_legion.dmi'
+	icon = 'modular_BD2/legio_invicta/icons/icons_legion.dmi'
+	mob_overlay_icon = 'modular_BD2/legio_invicta/icons/onmob_legion.dmi'
 	icon_state = "goggles"
 	item_state = "goggles"
 	toggle_message = "You pull down the"
@@ -183,10 +183,10 @@
 /* Already copied to main
 /obj/item/storage/belt/military/legion
 	name = "legion marching belt"
-	icon = 'modular_atom/legio_invicta/icons/icons_legion.dmi'
-	mob_overlay_icon = 'modular_atom/legio_invicta/icons/onmob_legion.dmi'
-	righthand_file = 'modular_atom/legio_invicta/icons/onmob_legion_righthand.dmi'
-	lefthand_file = 'modular_atom/legio_invicta/icons/onmob_legion_lefthand.dmi'
+	icon = 'modular_BD2/legio_invicta/icons/icons_legion.dmi'
+	mob_overlay_icon = 'modular_BD2/legio_invicta/icons/onmob_legion.dmi'
+	righthand_file = 'modular_BD2/legio_invicta/icons/onmob_legion_righthand.dmi'
+	lefthand_file = 'modular_BD2/legio_invicta/icons/onmob_legion_lefthand.dmi'
 	icon_state = "belt_legion"
 	item_state = "belt_legion"
 */
@@ -195,10 +195,10 @@
 
 /* Already copied to main
 /obj/item/melee/onehanded/machete
-	icon = 'modular_atom/legio_invicta/icons/icons_legion.dmi'
-	mob_overlay_icon = 'modular_atom/legio_invicta/icons/beltslot.dmi'
-	righthand_file = 'modular_atom/legio_invicta/icons/onmob_legion_righthand.dmi'
-	lefthand_file = 'modular_atom/legio_invicta/icons/onmob_legion_lefthand.dmi'
+	icon = 'modular_BD2/legio_invicta/icons/icons_legion.dmi'
+	mob_overlay_icon = 'modular_BD2/legio_invicta/icons/beltslot.dmi'
+	righthand_file = 'modular_BD2/legio_invicta/icons/onmob_legion_righthand.dmi'
+	lefthand_file = 'modular_BD2/legio_invicta/icons/onmob_legion_lefthand.dmi'
 	icon_state = "machete_lawnmower"
 	item_state = "machete_lawnmower"
 
@@ -211,16 +211,16 @@
 	item_state = "machete"
 
 /obj/item/twohanded/sledgehammer/supersledge
-	icon = 'modular_atom/legio_invicta/icons/icons_legion.dmi'
-	mob_overlay_icon = 'modular_atom/legio_invicta/icons/backslot.dmi'
-	righthand_file = 'modular_atom/legio_invicta/icons/onmob_legion_righthand.dmi'
-	lefthand_file = 'modular_atom/legio_invicta/icons/onmob_legion_lefthand.dmi'
+	icon = 'modular_BD2/legio_invicta/icons/icons_legion.dmi'
+	mob_overlay_icon = 'modular_BD2/legio_invicta/icons/backslot.dmi'
+	righthand_file = 'modular_BD2/legio_invicta/icons/onmob_legion_righthand.dmi'
+	lefthand_file = 'modular_BD2/legio_invicta/icons/onmob_legion_lefthand.dmi'
 
 /obj/item/twohanded/spear/lance
 	name = "legion lance"
-	icon = 'modular_atom/legio_invicta/icons/icons_legion.dmi'
-	righthand_file = 'modular_atom/legio_invicta/icons/64x64_righthand.dmi'
-	lefthand_file = 'modular_atom/legio_invicta/icons/64x64_lefthand.dmi'
+	icon = 'modular_BD2/legio_invicta/icons/icons_legion.dmi'
+	righthand_file = 'modular_BD2/legio_invicta/icons/64x64_righthand.dmi'
+	lefthand_file = 'modular_BD2/legio_invicta/icons/64x64_lefthand.dmi'
 	icon_state = "lance"
 	icon_prefix = "lance"
 	wielded_icon = "lance_wield"
@@ -228,23 +228,23 @@
 	inhand_y_dimension = 64
 
 /obj/item/melee/unarmed/powerfist/goliath
-	icon = 'modular_atom/legio_invicta/icons/icons_legion.dmi'
-	mob_overlay_icon = 'modular_atom/legio_invicta/icons/onmob_legion.dmi'
-	righthand_file = 'modular_atom/legio_invicta/icons/onmob_legion_righthand.dmi'
-	lefthand_file = 'modular_atom/legio_invicta/icons/onmob_legion_lefthand.dmi'
+	icon = 'modular_BD2/legio_invicta/icons/icons_legion.dmi'
+	mob_overlay_icon = 'modular_BD2/legio_invicta/icons/onmob_legion.dmi'
+	righthand_file = 'modular_BD2/legio_invicta/icons/onmob_legion_righthand.dmi'
+	lefthand_file = 'modular_BD2/legio_invicta/icons/onmob_legion_lefthand.dmi'
 
 /obj/item/twohanded/thermic_lance
-	icon = 'modular_atom/legio_invicta/icons/icons_legion.dmi'
-	mob_overlay_icon = 'modular_atom/legio_invicta/icons/backslot.dmi'
-	righthand_file = 'modular_atom/legio_invicta/icons/64x64_righthand.dmi'
-	lefthand_file = 'modular_atom/legio_invicta/icons/64x64_lefthand.dmi'
+	icon = 'modular_BD2/legio_invicta/icons/icons_legion.dmi'
+	mob_overlay_icon = 'modular_BD2/legio_invicta/icons/backslot.dmi'
+	righthand_file = 'modular_BD2/legio_invicta/icons/64x64_righthand.dmi'
+	lefthand_file = 'modular_BD2/legio_invicta/icons/64x64_lefthand.dmi'
 
 /obj/item/twohanded/sledgehammer/rockethammer
 /obj/item/twohanded/fireaxe
 /obj/item/melee/powered/ripper
 
 /obj/item/twohanded/chainsaw
-	mob_overlay_icon = 'modular_atom/legio_invicta/icons/backslot.dmi'
+	mob_overlay_icon = 'modular_BD2/legio_invicta/icons/backslot.dmi'
 
 /obj/item/clothing/glasses/f13/sunglasses
 	name = "sunglasses"
@@ -272,10 +272,10 @@
 /obj/item/clothing/neck/apron/medicus_legion
 	name = "medicus apron"
 	desc = "Waxed cotton apron with a red bull on it. Marks the wearer as a healer following the wisdom of Caesar. Has pockets for some small medical equipment."
-	icon = 'modular_atom/legio_invicta/icons/icons_legion.dmi'
-	mob_overlay_icon = 'modular_atom/legio_invicta/icons/onmob_legion.dmi'
-	righthand_file = 'modular_atom/legio_invicta/icons/onmob_legion_righthand.dmi'
-	lefthand_file = 'modular_atom/legio_invicta/icons/onmob_legion_lefthand.dmi'
+	icon = 'modular_BD2/legio_invicta/icons/icons_legion.dmi'
+	mob_overlay_icon = 'modular_BD2/legio_invicta/icons/onmob_legion.dmi'
+	righthand_file = 'modular_BD2/legio_invicta/icons/onmob_legion_righthand.dmi'
+	lefthand_file = 'modular_BD2/legio_invicta/icons/onmob_legion_lefthand.dmi'
 	icon_state = "apron_medicus"
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/medical
 
@@ -283,20 +283,20 @@
 /obj/item/clothing/neck/apron/labor/blacksmith_legion
 	name = "blacksmith's apron"
 	desc = "A heavy leather apron designed for protecting the user when metalforging and help carry some minor tools. Marked with a yellow bull."
-	icon = 'modular_atom/legio_invicta/icons/icons_legion.dmi'
-	mob_overlay_icon = 'modular_atom/legio_invicta/icons/onmob_legion.dmi'
-	righthand_file = 'modular_atom/legio_invicta/icons/onmob_legion_righthand.dmi'
-	lefthand_file = 'modular_atom/legio_invicta/icons/onmob_legion_lefthand.dmi'
+	icon = 'modular_BD2/legio_invicta/icons/icons_legion.dmi'
+	mob_overlay_icon = 'modular_BD2/legio_invicta/icons/onmob_legion.dmi'
+	righthand_file = 'modular_BD2/legio_invicta/icons/onmob_legion_righthand.dmi'
+	lefthand_file = 'modular_BD2/legio_invicta/icons/onmob_legion_lefthand.dmi'
 	icon_state = "apron_blacksmith"
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/service
 /*
 /obj/item/clothing/neck/mantle/legion/treasurer
 	name = "treasurers mantle"
 	desc = "The grey and black mantle with gold thread trimming shows the wearer is entrusted with matters of money and records. Hidden inner pockets can store money, keys and documents safely, and a discrete sheath for a knife for self defence is also attached."
-	icon = 'modular_atom/legio_invicta/icons/icons_legion.dmi'
-	mob_overlay_icon = 'modular_atom/legio_invicta/icons/onmob_legion.dmi'
-	righthand_file = 'modular_atom/legio_invicta/icons/onmob_legion_righthand.dmi'
-	lefthand_file = 'modular_atom/legio_invicta/icons/onmob_legion_lefthand.dmi'
+	icon = 'modular_BD2/legio_invicta/icons/icons_legion.dmi'
+	mob_overlay_icon = 'modular_BD2/legio_invicta/icons/onmob_legion.dmi'
+	righthand_file = 'modular_BD2/legio_invicta/icons/onmob_legion_righthand.dmi'
+	lefthand_file = 'modular_BD2/legio_invicta/icons/onmob_legion_lefthand.dmi'
 	icon_state = "mantle_treasurer"
 	item_state = "mantle_treasurer"
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/treasurer
@@ -306,10 +306,10 @@
 /obj/item/clothing/neck/mantle/legion
 	name = "legion mantle"
 	desc = "A bull flag adapted to be worn, a honor not given to every warrior. Comes with a holster for a handgun."
-	icon = 'modular_atom/legio_invicta/icons/icons_legion.dmi'
-	mob_overlay_icon = 'modular_atom/legio_invicta/icons/onmob_legion.dmi'
-	righthand_file = 'modular_atom/legio_invicta/icons/onmob_legion_righthand.dmi'
-	lefthand_file = 'modular_atom/legio_invicta/icons/onmob_legion_lefthand.dmi'
+	icon = 'modular_BD2/legio_invicta/icons/icons_legion.dmi'
+	mob_overlay_icon = 'modular_BD2/legio_invicta/icons/onmob_legion.dmi'
+	righthand_file = 'modular_BD2/legio_invicta/icons/onmob_legion_righthand.dmi'
+	lefthand_file = 'modular_BD2/legio_invicta/icons/onmob_legion_lefthand.dmi'
 	icon_state = "mantle_legion"
 	item_state = "mantle_legion"
 	layer = NECK_LAYER
@@ -338,7 +338,7 @@
 /obj/item/storage/survivalkit/legion_rations
 	name = "ration package"
 	desc = "Waxed paper package with food and some minor accessories a warrior might need."
-	icon = 'modular_atom/legio_invicta/icons/icons_legion.dmi'
+	icon = 'modular_BD2/legio_invicta/icons/icons_legion.dmi'
 	icon_state = "survival_legion"
 
 /obj/item/storage/survivalkit/legion_rations/PopulateContents()
@@ -359,8 +359,8 @@
 /obj/item/storage/survivalkit/medical/legion
 	name = "medicine bag"
 	desc = "Medical kit compliant with the laws of Caesar."
-	icon = 'modular_atom/legio_invicta/icons/icons_legion.dmi'
-	mob_overlay_icon = 'modular_atom/legio_invicta/icons/onmob_legion.dmi'
+	icon = 'modular_BD2/legio_invicta/icons/icons_legion.dmi'
+	mob_overlay_icon = 'modular_BD2/legio_invicta/icons/onmob_legion.dmi'
 	icon_state = "survival_medical"
 
 /obj/item/storage/survivalkit/medical/legion/PopulateContents()
@@ -390,10 +390,10 @@
 /obj/item/storage/backpack/marching_satchel
 	name = "marching satchel"
 	desc = "A sturdy leather bag attacked to the belt, for carrying necessary supplies."
-	icon = 'modular_atom/legio_invicta/icons/icons_legion.dmi'
-	righthand_file = 'modular_atom/legio_invicta/icons/onmob_legion_righthand.dmi'
-	lefthand_file = 'modular_atom/legio_invicta/icons/onmob_legion_lefthand.dmi'
-	mob_overlay_icon = 'modular_atom/legio_invicta/icons/onmob_legion.dmi'
+	icon = 'modular_BD2/legio_invicta/icons/icons_legion.dmi'
+	righthand_file = 'modular_BD2/legio_invicta/icons/onmob_legion_righthand.dmi'
+	lefthand_file = 'modular_BD2/legio_invicta/icons/onmob_legion_lefthand.dmi'
+	mob_overlay_icon = 'modular_BD2/legio_invicta/icons/onmob_legion.dmi'
 	icon_state = "satchel_marching"
 	item_state = "satchel_marching"
 
@@ -408,10 +408,10 @@
 /obj/item/storage/belt/holster/rugged	// some sort of overlay system for the filled holsters would be better naturally but lack the time to figure it out.
 	name = "rugged holster"
 	desc = "A plain holster for a revolver."
-	icon = 'modular_atom/legio_invicta/icons/icons_legion.dmi'
-	righthand_file = 'modular_atom/legio_invicta/icons/onmob_legion_righthand.dmi'
-	lefthand_file = 'modular_atom/legio_invicta/icons/onmob_legion_lefthand.dmi'
-	mob_overlay_icon = 'modular_atom/legio_invicta/icons/onmob_legion.dmi'
+	icon = 'modular_BD2/legio_invicta/icons/icons_legion.dmi'
+	righthand_file = 'modular_BD2/legio_invicta/icons/onmob_legion_righthand.dmi'
+	lefthand_file = 'modular_BD2/legio_invicta/icons/onmob_legion_lefthand.dmi'
+	mob_overlay_icon = 'modular_BD2/legio_invicta/icons/onmob_legion.dmi'
 	icon_state = "holster_rugged"
 	item_state = "holster_rugged"
 
@@ -444,18 +444,18 @@
 
 /* copy pasted to base files
 /obj/item/storage/belt/utility/waster
-	icon = 'modular_atom/legio_invicta/icons/icons_legion.dmi'
-	righthand_file = 'modular_atom/legio_invicta/icons/onmob_legion_righthand.dmi'
-	lefthand_file = 'modular_atom/legio_invicta/icons/onmob_legion_lefthand.dmi'
-	mob_overlay_icon = 'modular_atom/legio_invicta/icons/onmob_legion.dmi'
+	icon = 'modular_BD2/legio_invicta/icons/icons_legion.dmi'
+	righthand_file = 'modular_BD2/legio_invicta/icons/onmob_legion_righthand.dmi'
+	lefthand_file = 'modular_BD2/legio_invicta/icons/onmob_legion_lefthand.dmi'
+	mob_overlay_icon = 'modular_BD2/legio_invicta/icons/onmob_legion.dmi'
 	icon_state = "belt_blacksmith"
 	item_state = "belt_blacksmith"
 
 /obj/item/storage/backpack/spearquiver
-	icon = 'modular_atom/legio_invicta/icons/icons_legion.dmi'
-	righthand_file = 'modular_atom/legio_invicta/icons/onmob_legion_righthand.dmi'
-	lefthand_file = 'modular_atom/legio_invicta/icons/onmob_legion_lefthand.dmi'
-	mob_overlay_icon = 'modular_atom/legio_invicta/icons/onmob_legion.dmi'
+	icon = 'modular_BD2/legio_invicta/icons/icons_legion.dmi'
+	righthand_file = 'modular_BD2/legio_invicta/icons/onmob_legion_righthand.dmi'
+	lefthand_file = 'modular_BD2/legio_invicta/icons/onmob_legion_lefthand.dmi'
+	mob_overlay_icon = 'modular_BD2/legio_invicta/icons/onmob_legion.dmi'
 */
 
 // proc to make the quiver look empty when empty
@@ -495,10 +495,10 @@
 // ------------------- SUIT -----------------------------
 
 /obj/item/clothing/suit/armor/light/legion
-	icon = 'modular_atom/legio_invicta/icons/icons_legion.dmi'
-	righthand_file = 'modular_atom/legio_invicta/icons/onmob_legion_righthand.dmi'
-	lefthand_file = 'modular_atom/legio_invicta/icons/onmob_legion_lefthand.dmi'
-	mob_overlay_icon = 'modular_atom/legio_invicta/icons/onmob_legion.dmi'
+	icon = 'modular_BD2/legio_invicta/icons/icons_legion.dmi'
+	righthand_file = 'modular_BD2/legio_invicta/icons/onmob_legion_righthand.dmi'
+	lefthand_file = 'modular_BD2/legio_invicta/icons/onmob_legion_lefthand.dmi'
+	mob_overlay_icon = 'modular_BD2/legio_invicta/icons/onmob_legion.dmi'
 
 
 /obj/item/clothing/suit/armor/light/legion/recruit
@@ -511,10 +511,10 @@
 	icon_state = "armor_explorer"
 
 /obj/item/clothing/suit/armor/medium/legion
-	icon = 'modular_atom/legio_invicta/icons/icons_legion.dmi'
-	righthand_file = 'modular_atom/legio_invicta/icons/onmob_legion_righthand.dmi'
-	lefthand_file = 'modular_atom/legio_invicta/icons/onmob_legion_lefthand.dmi'
-	mob_overlay_icon = 'modular_atom/legio_invicta/icons/onmob_legion.dmi'
+	icon = 'modular_BD2/legio_invicta/icons/icons_legion.dmi'
+	righthand_file = 'modular_BD2/legio_invicta/icons/onmob_legion_righthand.dmi'
+	lefthand_file = 'modular_BD2/legio_invicta/icons/onmob_legion_lefthand.dmi'
+	mob_overlay_icon = 'modular_BD2/legio_invicta/icons/onmob_legion.dmi'
 
 /obj/item/clothing/suit/armor/medium/legion/vet
 	icon_state = "armor_veteran"
@@ -534,10 +534,10 @@
 	icon_state = "armor_rangerhunter"
 
 /obj/item/clothing/suit/armor/heavy/legion
-	icon = 'modular_atom/legio_invicta/icons/icons_legion.dmi'
-	righthand_file = 'modular_atom/legio_invicta/icons/onmob_legion_righthand.dmi'
-	lefthand_file = 'modular_atom/legio_invicta/icons/onmob_legion_lefthand.dmi'
-	mob_overlay_icon = 'modular_atom/legio_invicta/icons/onmob_legion.dmi'
+	icon = 'modular_BD2/legio_invicta/icons/icons_legion.dmi'
+	righthand_file = 'modular_BD2/legio_invicta/icons/onmob_legion_righthand.dmi'
+	lefthand_file = 'modular_BD2/legio_invicta/icons/onmob_legion_lefthand.dmi'
+	mob_overlay_icon = 'modular_BD2/legio_invicta/icons/onmob_legion.dmi'
 
 /obj/item/clothing/suit/armor/heavy/legion/palacent
 	icon_state = "armor_paladinslayer"
@@ -548,10 +548,10 @@
 /obj/item/clothing/suit/armor/heavy/metal/smithed/legion
 	name = "smithed legion armor"
 	desc = "A set of plates with leather straps, protecting some vital areas. This one is combined with football shoulder pads and marked with the red X of Caesars Legion."
-	icon = 'modular_atom/legio_invicta/icons/icons_legion.dmi'
-	righthand_file = 'modular_atom/legio_invicta/icons/onmob_legion_righthand.dmi'
-	lefthand_file = 'modular_atom/legio_invicta/icons/onmob_legion_lefthand.dmi'
-	mob_overlay_icon = 'modular_atom/legio_invicta/icons/onmob_legion.dmi'
+	icon = 'modular_BD2/legio_invicta/icons/icons_legion.dmi'
+	righthand_file = 'modular_BD2/legio_invicta/icons/onmob_legion_righthand.dmi'
+	lefthand_file = 'modular_BD2/legio_invicta/icons/onmob_legion_lefthand.dmi'
+	mob_overlay_icon = 'modular_BD2/legio_invicta/icons/onmob_legion.dmi'
 	icon_state = "armor_smithed"
 	item_state = "armor_smithed"
 
@@ -559,16 +559,16 @@
 // ------------------- HELMETS -----------------------------
 
 /obj/item/clothing/head/helmet/f13/legion
-	icon = 'modular_atom/legio_invicta/icons/icons_legion.dmi'
-	righthand_file = 'modular_atom/legio_invicta/icons/onmob_legion_righthand.dmi'
-	lefthand_file = 'modular_atom/legio_invicta/icons/onmob_legion_lefthand.dmi'
-	mob_overlay_icon = 'modular_atom/legio_invicta/icons/onmob_legion.dmi'
+	icon = 'modular_BD2/legio_invicta/icons/icons_legion.dmi'
+	righthand_file = 'modular_BD2/legio_invicta/icons/onmob_legion_righthand.dmi'
+	lefthand_file = 'modular_BD2/legio_invicta/icons/onmob_legion_lefthand.dmi'
+	mob_overlay_icon = 'modular_BD2/legio_invicta/icons/onmob_legion.dmi'
 
 /obj/item/clothing/head/f13/servant
-	icon = 'modular_atom/legio_invicta/icons/icons_legion.dmi'
-	righthand_file = 'modular_atom/legio_invicta/icons/onmob_legion_righthand.dmi'
-	lefthand_file = 'modular_atom/legio_invicta/icons/onmob_legion_lefthand.dmi'
-	mob_overlay_icon = 'modular_atom/legio_invicta/icons/onmob_legion.dmi'
+	icon = 'modular_BD2/legio_invicta/icons/icons_legion.dmi'
+	righthand_file = 'modular_BD2/legio_invicta/icons/onmob_legion_righthand.dmi'
+	lefthand_file = 'modular_BD2/legio_invicta/icons/onmob_legion_lefthand.dmi'
+	mob_overlay_icon = 'modular_BD2/legio_invicta/icons/onmob_legion.dmi'
 	icon_state = "hat_servant"
 	item_state = "hat_servant"
 	dynamic_hair_suffix = "+generic"
@@ -611,7 +611,7 @@
 /obj/machinery/radioterminal/legion/wallmounted
 	name = "Legion radio control"
 	desc = "Cobbled together radio master set for disabling lost radios."
-	icon = 'modular_atom/legio_invicta/icons/icons_64x32_legion.dmi'
+	icon = 'modular_BD2/legio_invicta/icons/icons_64x32_legion.dmi'
 	icon_state = "radio_wall_legion"
 
 
@@ -620,7 +620,7 @@
 /obj/machinery/smartfridge/bottlerack/wardrobe
 	name = "large clothing rack"
 	desc = "holds clothing and various acessories."
-	icon = 'modular_atom/legio_invicta/icons/icons_legion.dmi'
+	icon = 'modular_BD2/legio_invicta/icons/icons_legion.dmi'
 	icon_state = "wardrobe"
 	layer = ABOVE_OBJ_LAYER
 	max_n_of_items = 30
@@ -715,7 +715,7 @@
 /obj/machinery/smartfridge/bottlerack/rack_melee
 	name = "melee weapon rack"
 	desc = "holds most melee and throwing weapons."
-	icon = 'modular_atom/legio_invicta/icons/icons_legion.dmi'
+	icon = 'modular_BD2/legio_invicta/icons/icons_legion.dmi'
 	icon_state = "rack_melee"
 	layer = ABOVE_OBJ_LAYER
 	max_n_of_items = 15
@@ -759,7 +759,7 @@
 /obj/machinery/smartfridge/bottlerack/legion_offering
 	name = "offerings to Mars"
 	desc = "Hang the dogtags of slain enemies and fallen brothers here so Mars can keep track."
-	icon = 'modular_atom/legio_invicta/icons/icons_legion.dmi'
+	icon = 'modular_BD2/legio_invicta/icons/icons_legion.dmi'
 	icon_state = "rack_trophy"
 	max_n_of_items = 12
 
@@ -782,10 +782,10 @@
 /obj/item/storage/belt/medical/surgical/primitive
 	name = "simple surgical toolbelt"
 	desc = "A belt designed for holding surgical tools."
-	icon = 'modular_atom/legio_invicta/icons/icons_legion.dmi'
-	righthand_file = 'modular_atom/legio_invicta/icons/onmob_legion_righthand.dmi'
-	lefthand_file = 'modular_atom/legio_invicta/icons/onmob_legion_lefthand.dmi'
-	mob_overlay_icon = 'modular_atom/legio_invicta/icons/onmob_legion.dmi'
+	icon = 'modular_BD2/legio_invicta/icons/icons_legion.dmi'
+	righthand_file = 'modular_BD2/legio_invicta/icons/onmob_legion_righthand.dmi'
+	lefthand_file = 'modular_BD2/legio_invicta/icons/onmob_legion_lefthand.dmi'
+	mob_overlay_icon = 'modular_BD2/legio_invicta/icons/onmob_legion.dmi'
 	icon_state = "belt_blacksmith"
 	item_state = "belt_blacksmith"
 
@@ -836,7 +836,7 @@
 /obj/item/statuebust/legion
 	name = "a bust of the great leader"
 	desc = "Caesar, a magnificent man, depicted in some tacky imitation of marble."
-	icon = 'modular_atom/legio_invicta/icons/icons_legion.dmi'
+	icon = 'modular_BD2/legio_invicta/icons/icons_legion.dmi'
 	icon_state = "bust_legion"
 
 
@@ -845,7 +845,7 @@
 /obj/structure/chair/comfy/bathtub
 	name = "bathtub"
 	desc = "A relaxing bath in hot water, or a endurance test in freezing water, depending on how lazy you are."
-	icon = 'modular_atom/legio_invicta/icons/icons_legion.dmi'
+	icon = 'modular_BD2/legio_invicta/icons/icons_legion.dmi'
 	icon_state = "bathtub"
 	max_integrity = 200
 	item_chair = null
@@ -853,23 +853,23 @@
 	flags_1 = NODECONSTRUCT_1
 
 /obj/structure/chair/comfy/bathtub/GetArmrest()
-	return mutable_appearance('modular_atom/legio_invicta/icons/icons_legion.dmi', "bathtub_bathing")
+	return mutable_appearance('modular_BD2/legio_invicta/icons/icons_legion.dmi', "bathtub_bathing")
 
 /obj/structure/chair/comfy/bathtub/post_buckle_mob(mob/living/M)
 	. = ..()
 	SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "bathed", /datum/mood_event/bathed)
 	handle_layer()
-	playsound(src, 'modular_atom/blacksmith/sound/water_splash2.ogg',50, 1)
+	playsound(src, 'modular_BD2/blacksmith/sound/water_splash2.ogg',50, 1)
 
 /obj/structure/chair/comfy/bathtub/post_unbuckle_mob()
 	. = ..()
 	handle_layer()
-	playsound(src, 'modular_atom/blacksmith/sound/water_splash2.ogg',50, 1)
+	playsound(src, 'modular_BD2/blacksmith/sound/water_splash2.ogg',50, 1)
 
 /datum/mood_event/bathed
 	description = span_nicegreen("A warm bath felt nice.")
 	mood_change = 4
-	timeout = 3000
+	timeout = 5000
 
 
 // ------------------- SIGNS -----------------------------
@@ -877,7 +877,7 @@
 /obj/structure/sign/legion
 	name = "war room"
 	desc = "For planning the next great victory!"
-	icon = 'modular_atom/legio_invicta/icons/icons_legion.dmi'
+	icon = 'modular_BD2/legio_invicta/icons/icons_legion.dmi'
 	icon_state = "sign"
 	layer = SIGN_LAYER
 
@@ -971,7 +971,7 @@
 /obj/structure/statue/mars
 	name = "statue of mars"
 	desc = "A monument to masculine virtue, made out of plaster and wood with a thin bronze outer layer."
-	icon = 'modular_atom/legio_invicta/icons/64x64_icons.dmi'
+	icon = 'modular_BD2/legio_invicta/icons/64x64_icons.dmi'
 	icon_state = "statue_mars"
 	anchored = TRUE
 	max_integrity = 1000
@@ -985,7 +985,7 @@
 
 /obj/structure/decoration/legion
 	name = "legion bull flag of high quality"
-	icon = 'modular_atom/legio_invicta/icons/icons_legion.dmi'
+	icon = 'modular_BD2/legio_invicta/icons/icons_legion.dmi'
 	icon_state = "decal_bull"
 
 /obj/structure/decoration/legion/spears
@@ -1013,7 +1013,7 @@
 /obj/structure/railing/handrail/legion
 	name = "handrail"
 	desc = "Wooden posts with connecting chain."
-	icon = 'modular_atom/legio_invicta/icons/icons_legion.dmi'
+	icon = 'modular_BD2/legio_invicta/icons/icons_legion.dmi'
 	icon_state = "handrail_legion"
 
 /obj/structure/railing/handrail/legion/underlayer
@@ -1035,7 +1035,7 @@
 	if(!do_after(user, 20, TRUE, src))
 		return
 	else	
-		playsound(get_turf(src), 'modular_atom/sound/doorchainsoft_open.ogg', 60, TRUE)
+		playsound(get_turf(src), 'modular_BD2/sound/doorchainsoft_open.ogg', 60, TRUE)
 		if(density)
 			icon_state = "handrail_legion_entrance_open"
 			src.density = 0
@@ -1058,7 +1058,7 @@
 /obj/structure/table/optable/primitive
 	name = "butchers table"
 	desc = "Used for painful, primitive medical procedures."
-	icon = 'modular_atom/icons/primitive_medical.dmi'
+	icon = 'modular_BD2/general/icons/primitive_medical.dmi'
 
 
 // ------------------- PRIMITIVE SURGERY STUFF -----------------------------  Could use more janky ghetto stuff feeling, messing about in the wound datums maybe or whatnot. Currently basically reskins with a bit slower speed.
@@ -1066,16 +1066,16 @@
 /obj/item/cautery/primitive
 	name = "primitive cautery"
 	desc = "A welding device tuned down to cauterize wounds. Not very precise."
-	icon = 'modular_atom/icons/primitive_medical.dmi'
-	righthand_file = 'modular_atom/legio_invicta/icons/onmob_legion_righthand.dmi'
-	lefthand_file = 'modular_atom/legio_invicta/icons/onmob_legion_lefthand.dmi'
+	icon = 'modular_BD2/general/icons/primitive_medical.dmi'
+	righthand_file = 'modular_BD2/legio_invicta/icons/onmob_legion_righthand.dmi'
+	lefthand_file = 'modular_BD2/legio_invicta/icons/onmob_legion_lefthand.dmi'
 	icon_state = "cautery_primitive"
 	toolspeed = 1.5
 
 /obj/item/circular_saw/primitive
 	name = "handsaw"
 	desc = "For sawing through wood or possibly bones."
-	icon = 'modular_atom/icons/primitive_medical.dmi'
+	icon = 'modular_BD2/general/icons/primitive_medical.dmi'
 	icon_state = "saw"
 	item_state = "saw"
 	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
@@ -1092,7 +1092,7 @@
 	name = "superglue (bonegel)"
 	singular_name = "superglue"
 	desc = "Good for gluing together broken bones!"
-	icon = 'modular_atom/icons/primitive_medical.dmi'
+	icon = 'modular_BD2/general/icons/primitive_medical.dmi'
 	icon_state = "superglue"
 	lefthand_file = NONE
 	righthand_file = NONE
@@ -1101,10 +1101,10 @@
 /obj/item/reagent_containers/medspray/sterilizine/honey
 	name = "medical honey (sterilizer)"
 	desc = "Pure honey has antiseptic properties, and probably works just as a sterilizing agent."
-	icon = 'modular_atom/icons/primitive_medical.dmi'
+	icon = 'modular_BD2/general/icons/primitive_medical.dmi'
 	icon_state = "sterilizer_honey"
 	apply_method = "smear"
-	sound_squirt = 'modular_atom/sound/honey.ogg'
+	sound_squirt = 'modular_BD2/sound/honey.ogg'
 
 /* Added to base code
 sound_squirt
@@ -1118,9 +1118,9 @@ Added to proc/attempt_spray
 /obj/item/storage/backpack/duffelbag/med/surgery/primitive
 	name = "surgical duffel bag"
 	desc = "A large duffel bag for holding extra medical supplies - this one seems to be designed for holding surgical tools."
-	icon = 'modular_atom/icons/primitive_medical.dmi'
-	righthand_file = 'modular_atom/legio_invicta/icons/onmob_legion_righthand.dmi'
-	lefthand_file = 'modular_atom/legio_invicta/icons/onmob_legion_lefthand.dmi'
+	icon = 'modular_BD2/general/icons/primitive_medical.dmi'
+	righthand_file = 'modular_BD2/legio_invicta/icons/onmob_legion_righthand.dmi'
+	lefthand_file = 'modular_BD2/legio_invicta/icons/onmob_legion_lefthand.dmi'
 	icon_state = "toolbag_primitive"
 
 /obj/item/storage/backpack/duffelbag/med/surgery/primitive/PopulateContents()
@@ -1147,7 +1147,7 @@ Added to proc/attempt_spray
 /obj/machinery/iv_drip/primitive
 	name = "wooden IV drip"
 	desc = "Simple frame for infusing liquids using gravity. Can't suck out fluids."
-	icon = 'modular_atom/icons/primitive_medical.dmi'
+	icon = 'modular_BD2/general/icons/primitive_medical.dmi'
 	anchored = TRUE
 	plane = MOB_PLANE
 
@@ -1170,7 +1170,7 @@ Added to proc/attempt_spray
 	update_icon()
 
 added this to make the overlay actually work
-			var/mutable_appearance/filling_overlay = mutable_appearance('modular_atom/icons/primitive_medical.dmi', "reagent")
+			var/mutable_appearance/filling_overlay = mutable_appearance('modular_BD2/icons/primitive_medical.dmi', "reagent")
 */
 
 
@@ -1178,7 +1178,7 @@ added this to make the overlay actually work
 
 /obj/machinery/defibrillator_mount/primitive
 	desc = "Holds a primitive defibrillator."
-	icon = 'modular_atom/icons/primitive_medical.dmi'
+	icon = 'modular_BD2/general/icons/primitive_medical.dmi'
 	icon_state = "defibrillator_mount"
 	density = FALSE
 	use_power = FALSE
@@ -1196,10 +1196,10 @@ added this to make the overlay actually work
 obj/item/storage/belt/medical/primitive
 	name = "primitive medical toolbelt"
 	desc = "This might look a bit like a toolbelt for a carpenter, but the items inside are meant to be used in surgery. No really."
-	icon = 'modular_atom/legio_invicta/icons/icons_legion.dmi'
-	righthand_file = 'modular_atom/legio_invicta/icons/onmob_legion_righthand.dmi'
-	lefthand_file = 'modular_atom/legio_invicta/icons/onmob_legion_lefthand.dmi'
-	mob_overlay_icon = 'modular_atom/legio_invicta/icons/onmob_legion.dmi'
+	icon = 'modular_BD2/legio_invicta/icons/icons_legion.dmi'
+	righthand_file = 'modular_BD2/legio_invicta/icons/onmob_legion_righthand.dmi'
+	lefthand_file = 'modular_BD2/legio_invicta/icons/onmob_legion_lefthand.dmi'
+	mob_overlay_icon = 'modular_BD2/legio_invicta/icons/onmob_legion.dmi'
 	icon_state = "belt_blacksmith"
 	item_state = "belt_blacksmith"
 
@@ -1215,13 +1215,13 @@ obj/item/storage/belt/medical/primitive
 /obj/item/hemostat/tribal
 	name = "primitive hemostat (flesh-poker)"
 	desc = "A pinching device made from bone to clamp bleedings with"
-	icon = 'modular_atom/icons/primitive_medical.dmi'
+	icon = 'modular_BD2/general/icons/primitive_medical.dmi'
 	icon_state = "hemostat_primitive"
 
 /obj/item/retractor/tribal
 	name = "primitive retractor (skin-puller)"
 	desc = "Pries the flesh and bones open."
-	icon = 'modular_atom/icons/primitive_medical.dmi'
+	icon = 'modular_BD2/general/icons/primitive_medical.dmi'
 	icon_state = "retractor_primitive"
 */
 
@@ -1239,7 +1239,7 @@ obj/item/storage/belt/medical/primitive
 
 /* Added to base code
 /obj/structure/campfire/stove
-	icon = 'modular_atom/legio_invicta/icons/icons_legion.dmi'
+	icon = 'modular_BD2/legio_invicta/icons/icons_legion.dmi'
 
 added to end of campfire/attackby
 	else if(fired && istype(P, /obj/item/stack/medical/gauze/improvised))
@@ -1258,7 +1258,7 @@ added to end of campfire/attackby
 
 /obj/effect/overlay/darkwoodfancyedge
 	name = "wood edge"
-	icon = 'modular_atom/legio_invicta/icons/icons_legion.dmi'
+	icon = 'modular_BD2/legio_invicta/icons/icons_legion.dmi'
 	icon_state = "darkwood_fancyedge"
 	layer = WALL_PLANE
 
@@ -1267,7 +1267,7 @@ added to end of campfire/attackby
 /turf/closed/indestructible/f13/matrix/slave //Less obtrusive matrix for prison
 	name = "mattress of despair"
 	desc = "<font color='#6eaa2c'>This is incredibly filthy. Sleeping here means your spirit is broken, and you submit to be taken far away to a bleak future as a prisoner. Count as dead for respawning rules.</font>"
-	icon = 'modular_atom/legio_invicta/icons/icons_legion.dmi'
+	icon = 'modular_BD2/legio_invicta/icons/icons_legion.dmi'
 	icon_state = "despair"
 
 
@@ -1279,7 +1279,7 @@ added to end of campfire/attackby
 
 // shading under the pavillon
 /obj/effect/turf_decal/shadow
-	icon = 'modular_atom/legio_invicta/icons/icons_legion.dmi'
+	icon = 'modular_BD2/legio_invicta/icons/icons_legion.dmi'
 	icon_state = "shadow"
 
 // Floorshading testing
@@ -1289,7 +1289,7 @@ added to end of campfire/attackby
 
 // Wallshading testing
 /obj/effect/shadow_wall
-	icon = 'modular_atom/legio_invicta/icons/icons_legion.dmi'
+	icon = 'modular_BD2/legio_invicta/icons/icons_legion.dmi'
 	icon_state = "shadow_wall"
 	plane = GAME_PLANE
 	pixel_y = 32
@@ -1297,7 +1297,7 @@ added to end of campfire/attackby
 // stairs platform to make it prettier
 /turf/open/floor/f13/stairs_platform
 	name = "stairs"
-	icon = 'modular_atom/legio_invicta/icons/icons_legion.dmi'
+	icon = 'modular_BD2/legio_invicta/icons/icons_legion.dmi'
 	icon_state = "stairs_platform"
 	color = "#A47449"
 
@@ -1306,18 +1306,18 @@ added to end of campfire/attackby
 // -------------- DOUBLE BARRED DOORS ----------------- 
 
 /obj/structure/simple_door/metal/barred/left
-	icon = 'modular_atom/icons/door_barred.dmi'
+	icon = 'modular_BD2/general/icons/door_barred.dmi'
 	icon_state = "barred_left"
 	door_type = "barred_left"
-	open_sound = 'modular_atom/sound/doorchainsoft_open.ogg'
-	close_sound = 'modular_atom/sound/doorchainsoft_close.ogg'
+	open_sound = 'modular_BD2/sound/doorchainsoft_open.ogg'
+	close_sound = 'modular_BD2/sound/doorchainsoft_close.ogg'
 
 /obj/structure/simple_door/metal/barred/right
-	icon = 'modular_atom/icons/door_barred.dmi'
+	icon = 'modular_BD2/general/icons/door_barred.dmi'
 	icon_state = "barred_right"
 	door_type = "barred_right"
-	open_sound = 'modular_atom/sound/doorchainsoft_open.ogg'
-	close_sound = 'modular_atom/sound/doorchainsoft_close.ogg'
+	open_sound = 'modular_BD2/sound/doorchainsoft_open.ogg'
+	close_sound = 'modular_BD2/sound/doorchainsoft_close.ogg'
 
 
 // -------------- PRE-STONE RINGED BONFIRE ----------------- 
@@ -1351,7 +1351,7 @@ added to end of campfire/attackby
 
 /turf/open/indestructible/ground/inside/dirt/stamped/outside/sand // ugly solution but whatever. To have undiggable sand for flooring in a pavillon
 	name = "packed sand"
-	icon = 'modular_atom/icons/tileset_sonora.dmi'
+	icon = 'modular_BD2/general/icons/tileset_sonora.dmi'
 	icon_state = "desertsmooth"
 
 /obj/structure/flora/tree/wasteland/dark
@@ -1375,7 +1375,7 @@ added to end of campfire/attackby
 /turf/open/indestructible/ground/outside/gravel
 	name = "gravel"
 	icon_state = "gravel"
-	icon = 'modular_atom/icons/tileset_gravel.dmi'
+	icon = 'modular_BD2/general/icons/tileset_gravel.dmi'
 
 /turf/open/indestructible/ground/outside/gravel/edge
 	icon_state = "graveledge"
@@ -1396,7 +1396,7 @@ added to end of campfire/attackby
 // -------------- SONORA TILESET STUFF ----------------- 
 
 /obj/effect/overlay/desert/sonora/edge
-	icon = 'modular_atom/icons/tileset_sonora.dmi'
+	icon = 'modular_BD2/icons/tileset_sonora.dmi'
 	icon_state = "desertedge"
 
 /obj/effect/overlay/desert/sonora/edge/corner
@@ -1406,7 +1406,7 @@ added to end of campfire/attackby
 	icon_state = "desertfade"
 
 /turf/open/indestructible/ground/outside/desert/sonora
-	icon = 'modular_atom/icons/tileset_sonora.dmi'
+	icon = 'modular_BD2/icons/tileset_sonora.dmi'
 	icon_state = "desertsmooth"
 	slowdown = 0.3
 	loots = list(
