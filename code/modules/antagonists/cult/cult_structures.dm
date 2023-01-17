@@ -178,10 +178,10 @@
 	if(!iscultist(user))
 		to_chat(user, span_warning("The heat radiating from [src] pushes you back."))
 		return
-	if(istype(I, /obj/item/ingot))
-		var/obj/item/ingot/notsword = I
-		to_chat(user, "You heat the [notsword] in the [src].")
-		notsword.workability = "shapeable"
+	if(istype(I, /obj/item/blacksmith/ingot))
+		var/obj/item/blacksmith/ingot/workpiece = I
+		to_chat(user, "You heat the [workpiece] in the [src].")
+		workpiece.workability = "shapeable"
 
 /obj/structure/destructible/cult/pylon
 	name = "pylon"

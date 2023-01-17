@@ -239,4 +239,80 @@
 				</html>
 				"}
 
+/* COPIED TO BASE CODE
+// ------------ METALWORKING BENCH ------------------ Part of the module, for metalworking that doesnt need a whole forge setup
+
+/obj/machinery/workbench/forge // should be repathed to worbench/metal
+	name = "metalworking bench"
+	desc = "A workbench with a drill press, a makeshift blowtorch setup, and various tools for making crude weapons and tools."
+	icon = 'modular_BD2/blacksmith/icons/workbench64x32.dmi'
+	icon_state = "bench_metal"
+*/
+
+
+/*
+// Stacking craftin items visual updater
+/obj/item/stack/crafting/update_icon_state()
+	var/amount = get_amount()
+	if(amount <= 5)
+		icon_state = initial(icon_state)
+	else if(amount <= 25)
+		icon_state = "[initial(icon_state)]_2"
+	else
+		icon_state = "[initial(icon_state)]_3"
+
+// Adapted for the specific bullet remnant stacking
+/obj/item/stack/crafting/powder/update_icon_state()
+	var/amount = get_amount()
+	if(amount <= 80)
+		icon_state = initial(icon_state)
+	else if(amount <= 160)
+		icon_state = "[initial(icon_state)]_2"
+	else
+		icon_state = "[initial(icon_state)]_3"
+*/
+
+// ------------ COAL & COKE ------------------ New base material and the sheet that can be used as fuel or ground for charcoal
+
+/datum/material/coal
+	name = "coal"
+	desc = "coal"
+	color = "#0a0a0a"
+	alpha = 150
+	categories = list(MAT_CATEGORY_RIGID = TRUE, MAT_CATEGORY_BASE_RECIPES = FALSE)
+	sheet_type = /obj/item/stack/ore/coal
+	value_per_unit = 0.0050
+
+/obj/item/stack/ore/coal // turns to coke when heated in a Furnace or ORM
+	name = "coal"
+	desc = "Pure coal needs heat-processing to become good fuel."
+	icon_state = "ore_coal"
+	singular_name = "lump of coal"
+	points = 2
+	custom_materials = null
+	refined_type = /obj/item/stack/sheet/coke
+	merge_type = /obj/item/stack/ore/coal
+	resistance_flags = FLAMMABLE
+
+/obj/item/stack/sheet/coke // Can be used to fuel Furnaces, Campfires, Barrel Fires, Potbelly stoves, Fireplaces, or grind for charcoal
+	name = "coke"
+	desc = "Coke is what you get when you heat-treat coal. It's a good fuel for burning."
+	singular_name = "bag of coke"
+	icon_state = "sheet_coke"
+	custom_materials = null
+	throwforce = 2
+	grind_results = list(/datum/reagent/medicine/charcoal = 5)
+	material_type = /datum/material/coal
+	merge_type = /obj/item/stack/sheet/coke
+	resistance_flags = FLAMMABLE
+
+/obj/item/stack/sheet/coke/twenty
+	amount = 20
+
+/turf/closed/mineral/coal
+	mineralType = /obj/item/stack/ore/coal
+	spreadChance = 5
+	spread = 1
+	scan_state = "rock_Coal"
+
 // woodenrod production made, in sheet_types.dm /obj/item/stack/sheet/mineral/wood/attackby(obj/item/W, mob/user, params)

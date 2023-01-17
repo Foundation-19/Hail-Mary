@@ -383,11 +383,11 @@ Suits. 0-10 in its primary value, slowdown 0, various utility
 
 /obj/item/clothing/suit/armor/light/tribal/legion
 	slowdown = 0
-	allowed = list(/obj/item/gun, /obj/item/melee/onehanded, /obj/item/twohanded, /obj/item/melee/smith, /obj/item/melee/smith/twohand)
+	allowed = list(/obj/item/gun, /obj/item/melee/onehanded, /obj/item/twohanded, /obj/item/melee/smith, /obj/item/twohanded/smithed)
 
 /obj/item/clothing/suit/armor/light/tribal
 	slowdown = 0
-	allowed = list(/obj/item/melee/onehanded, /obj/item/twohanded, /obj/item/melee/smith, /obj/item/melee/smith/twohand)
+	allowed = list(/obj/item/melee/onehanded, /obj/item/twohanded, /obj/item/melee/smith, /obj/item/twohanded/smithed)
 
 
 // Medium armor. 35-45 in its primary value, slowdown 0.1
@@ -401,11 +401,11 @@ Suits. 0-10 in its primary value, slowdown 0, various utility
 
 /obj/item/clothing/suit/armor/medium/legion
 	slowdown = 0.05
-	allowed = list(/obj/item/gun, /obj/item/melee/onehanded, /obj/item/twohanded, /obj/item/melee/smith, /obj/item/melee/smith/twohand)
+	allowed = list(/obj/item/gun, /obj/item/melee/onehanded, /obj/item/twohanded, /obj/item/melee/smith, /obj/item/twohanded/smithed)
 
 /obj/item/clothing/suit/armor/medium/tribal
 	slowdown = 0.05
-	allowed = list(/obj/item/melee/onehanded, /obj/item/twohanded, /obj/item/melee/smith, /obj/item/melee/smith/twohand)
+	allowed = list(/obj/item/melee/onehanded, /obj/item/twohanded, /obj/item/melee/smith, /obj/item/twohanded/smithed)
 
 
 // Heavy armor. 50-65 in its primary value, slowdown 0.15
@@ -414,7 +414,7 @@ Suits. 0-10 in its primary value, slowdown 0, various utility
 	icon = 'icons/fallout/clothing/armored_heavy.dmi'
 	mob_overlay_icon = 'icons/fallout/onmob/clothes/armor_heavy.dmi'
 	slowdown = 0.15
-	allowed = list(/obj/item/gun, /obj/item/melee/onehanded, /obj/item/twohanded, /obj/item/melee/smith, /obj/item/melee/smith/twohand)
+	allowed = list(/obj/item/gun, /obj/item/melee/onehanded, /obj/item/twohanded, /obj/item/melee/smith, /obj/item/twohanded/smithed)
 	strip_delay = 50
 
 /obj/item/clothing/suit/armor/heavy/legion

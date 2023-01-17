@@ -13,14 +13,14 @@
 		/obj/item/wirecutters = 1,
 		/obj/item/stack/sheet/metal = 20,
 		)
-	time = 400
+	time = 30 SECONDS
 	category = CAT_CRAFTING
 	subcategory = CAT_FORGING
 
 /datum/crafting_recipe/tableanvil
 	name = "Table Anvil"
-	result = /obj/structure/anvil/obtainable/table
-	time = 300
+	result = /obj/structure/blacksmith/anvil/obtainable/table
+	time = 20 SECONDS
 	reqs = list(
 		/obj/item/stack/sheet/metal = 8,
 		/obj/item/stack/rods = 8,
@@ -31,8 +31,8 @@
 
 /datum/crafting_recipe/anvil
 	name = "Anvil"
-	result = /obj/structure/anvil/obtainable/basic
-	time = 450
+	result = /obj/structure/blacksmith/anvil/obtainable
+	time = 30 SECONDS
 	reqs = list(
 		/obj/item/stack/sheet/metal = 50,
 		/obj/item/stack/sheet/mineral/titanium = 15,
@@ -43,8 +43,8 @@
 
 /datum/crafting_recipe/sandvil
 	name = "Sandstone Anvil"
-	result = /obj/structure/anvil/obtainable/sandstone
-	time = 300
+	result = /obj/structure/blacksmith/anvil/obtainable/sandstone
+	time = 25 SECONDS
 	reqs = list(/obj/item/stack/sheet/mineral/sandstone = 16)
 	tools = list(TOOL_CROWBAR)
 	category = CAT_CRAFTING
@@ -52,8 +52,8 @@
 
 /datum/crafting_recipe/furnace
 	name = "Furnace"
-	result = /obj/structure/furnace
-	time = 300
+	result = /obj/structure/blacksmith/furnace/sandstone
+	time = 20 SECONDS
 	reqs = list(
 		/obj/item/stack/sheet/mineral/sandstone = 20,
 		/obj/item/stack/sheet/metal = 6,

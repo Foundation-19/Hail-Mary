@@ -2421,7 +2421,7 @@
 		/obj/item/advanced_crafting_components/receiver,
 		/obj/item/advanced_crafting_components/assembly,
 		/obj/item/advanced_crafting_components/alloys,
-// no ingots rip		/obj/item/blacksmith/ingot/adamantine, // Valuable for smithing
+		/obj/item/blacksmith/ingot/adamantine, // Valuable for smithing
 	)
 
 /obj/effect/spawner/lootdrop/f13/attachments

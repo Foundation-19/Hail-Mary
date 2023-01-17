@@ -691,7 +691,18 @@
 	w_class = WEIGHT_CLASS_BULKY
 	content_overlays = TRUE
 	onmob_overlays = TRUE
-	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BACK
+	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_NECK
+	fitting_swords = list(
+	/obj/item/melee/smith/wakizashi,
+	/obj/item/twohanded/smithed/katana,
+	/obj/item/melee/onehanded/machete,
+	/obj/item/melee/onehanded/club,
+	/obj/item/melee/classic_baton,
+	/obj/item/twohanded/fireaxe,
+	/obj/item/twohanded/baseball,
+	/obj/item/twohanded/sledgehammer/simple,
+	/obj/item/melee/transforming/energy/axe/protonaxe,
+	/obj/item/melee/powered/ripper)
 	starting_sword = null
 
 /obj/item/storage/belt/sabre/heavy/ComponentInitialize()
@@ -756,6 +767,8 @@
 	STR.max_combined_w_class = 3
 	STR.can_hold = typecacheof(list(/obj/item/melee, /obj/item/twohanded))
 	STR.quickdraw = TRUE
+	var/list/fitting_swords = list(/obj/item/melee/smith/sword, /obj/item/melee/baton/stunsword)
+	var/starting_sword = null
 
 // Instead of half-assed broken weaboo stuff lets have something that works.
 /obj/item/storage/belt/sword/twin
@@ -763,7 +776,8 @@
 	desc = "A set of sheathes and straps for carrying two curved japanese style swords."
 	icon_state = "sheath_twin"
 	item_state = "sheath_twin"
-	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BACK
+	fitting_swords = list(/obj/item/melee/smith/wakizashi, /obj/item/twohanded/smithed/katana, /obj/item/melee/bokken)
+	starting_sword = null
 
 /obj/item/storage/belt/sword/twin/ComponentInitialize()
 	. = ..()
