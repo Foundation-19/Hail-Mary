@@ -207,6 +207,23 @@
 	new /obj/item/stack/medical/bone_gel(src)
 
 // Primitive medical belt, meant to be part of a ghetto surgery improvement at some point
+/obj/item/storage/belt/utility/gardener/ComponentInitialize()
+	. = ..()
+	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
+	var/static/list/can_hold = typecacheof(list(
+		/obj/item/shovel/spade,
+		/obj/item/cultivator,
+		/obj/item/hatchet,
+		/obj/item/book/manual/advice_farming,
+		/obj/item/reagent_containers/glass/bottle/nutrient,
+		/obj/item/reagent_containers/glass/bottle/killer,
+		/obj/item/reagent_containers/food/drinks/flask,
+		/obj/item/storage/bag/plants, // remove if it gets abused to breaking somehow
+		/obj/item/plant_analyzer, // out of place but mechanically useful for the foreseeable future, so included for QoL
+		))
+	STR.can_hold = can_hold
+/*
+// Primitive medical belt, meant to be part of a ghetto surgery improvement at some point Newer version in Invicta
 /obj/item/storage/belt/medical/primitive
 	name = "primitive medical toolbelt"
 	desc = "This might look a bit like a toolbelt for a carpenter, but the items inside are meant to be used in surgery. No really."
@@ -275,6 +292,14 @@
 	icon_state = "militarywebbing"
 	item_state = "militarywebbing"
 	slot_flags = ITEM_SLOT_BELT
+*/
+// ---------------------------------------------
+// BANDOLIER - since TG style bandolier was useless, now takes 3 boxes of shotgun ammo, or flasks, or grenades, or improvised bombs/molotovs
+/obj/item/storage/belt/bandolier
+	name = "bandolier"
+	desc = "A bandolier for holding shotgun boxes, flasks, las musket cells or various grenades."
+	icon_state = "bandolier"
+	item_state = "bandolier"
 	rad_flags = RAD_PROTECT_CONTENTS | RAD_NO_CONTAMINATE
 	component_type = /datum/component/storage/concrete/belt/specialized/bandolier
 

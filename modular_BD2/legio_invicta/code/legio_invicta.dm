@@ -288,7 +288,7 @@
 	righthand_file = 'modular_BD2/legio_invicta/icons/onmob_legion_righthand.dmi'
 	lefthand_file = 'modular_BD2/legio_invicta/icons/onmob_legion_lefthand.dmi'
 	icon_state = "apron_blacksmith"
-	pocket_storage_component_path = /datum/component/storage/concrete/pockets/service
+	pocket_storage_component_path = /datum/component/storage/concrete/pockets/small
 /*
 /obj/item/clothing/neck/mantle/legion/treasurer
 	name = "treasurers mantle"
@@ -384,7 +384,7 @@
 	new /obj/item/stack/medical/gauze(src)
 	new /obj/item/stack/medical/suture(src)
 	new /obj/item/stack/medical/mesh(src)
-	new /obj/item/reagent_containers/pill/bitterdrink(src)
+	new /obj/item/reagent_containers/pill/patch/bitterdrink(src)
 
 // new satchel style that doesnt clutter up the mob so much
 /obj/item/storage/backpack/marching_satchel
@@ -477,7 +477,7 @@
 		/obj/item/stack/sheet/leather = 2,
 		)
 	time = 200
-	tools = list(TOOL_WORKBENCH)
+	tools = list(TOOL_FORGE)
 	category = CAT_CRAFTING
 	subcategory = CAT_FORGING
 	always_available = FALSE
@@ -763,32 +763,6 @@
 	icon_state = "rack_trophy"
 	max_n_of_items = 12
 
-/obj/item/storage/backpack/duffelbag/med/surgery/primitive/PopulateContents()
-	new /obj/item/kitchen/knife/butcher/tribal(src)
-	new /obj/item/hemostat/tribal(src)
-	new /obj/item/retractor/tribal(src)
-	new /obj/item/circular_saw/primitive(src)
-	new /obj/item/surgicaldrill(src)
-	new /obj/item/cautery/primitive(src)
-	new /obj/item/bonesetter(src)
-	new /obj/item/bedsheet/blanket(src)
-	new /obj/item/reagent_containers/medspray/sterilizine(src)
-	new /obj/item/stack/sticky_tape/surgical(src)
-	new /obj/item/stack/medical/bone_gel(src)
-
-
-// ------------------- PRIMITIVE MEDICAL TOOLBELT -----------------------------
-
-/obj/item/storage/belt/medical/surgical/primitive
-	name = "simple surgical toolbelt"
-	desc = "A belt designed for holding surgical tools."
-	icon = 'modular_BD2/legio_invicta/icons/icons_legion.dmi'
-	righthand_file = 'modular_BD2/legio_invicta/icons/onmob_legion_righthand.dmi'
-	lefthand_file = 'modular_BD2/legio_invicta/icons/onmob_legion_lefthand.dmi'
-	mob_overlay_icon = 'modular_BD2/legio_invicta/icons/onmob_legion.dmi'
-	icon_state = "belt_blacksmith"
-	item_state = "belt_blacksmith"
-
 /obj/machinery/smartfridge/bottlerack/legion_offering/accept_check(obj/item/O)
 	if(istype(O, /obj/item/card/id/dogtag))
 		return TRUE
@@ -977,7 +951,7 @@
 	max_integrity = 1000
 	material_drop_type = /obj/item/stack/sheet/bronze
 	impressiveness = 30
-	plane = MOB_PLANE
+	plane = GAME_PLANE
 	layer = ABOVE_ALL_MOB_LAYER
 
 /obj/structure/statue/mars/examine(mob/user)
@@ -1030,7 +1004,7 @@
 	layer = BELOW_MOB_LAYER
 
 /obj/structure/railing/handrail/legion/overlayer
-	plane = MOB_PLANE
+	plane = GAME_PLANE
 
 /obj/structure/railing/handrail/legion/end
 	icon_state = "handrail_legion_end"
@@ -1053,187 +1027,6 @@
 			icon_state = "handrail_legion_entrance_close"
 			src.density = 1
 	return ..()
-
-
-//////////////////////////////////////////
-// 										//
-//										//
-//			PRIMITIVE MEDICAL			//
-//										//
-//										//
-//////////////////////////////////////////
-
-// ------------------- BUTCHERS TABLE -----------------------------
-
-/obj/structure/table/optable/primitive
-	name = "butchers table"
-	desc = "Used for painful, primitive medical procedures."
-	icon = 'modular_BD2/general/icons/primitive_medical.dmi'
-
-
-// ------------------- PRIMITIVE SURGERY STUFF -----------------------------  Could use more janky ghetto stuff feeling, messing about in the wound datums maybe or whatnot. Currently basically reskins with a bit slower speed.
-
-/obj/item/cautery/primitive
-	name = "primitive cautery"
-	desc = "A welding device tuned down to cauterize wounds. Not very precise."
-	icon = 'modular_BD2/general/icons/primitive_medical.dmi'
-	righthand_file = 'modular_BD2/legio_invicta/icons/onmob_legion_righthand.dmi'
-	lefthand_file = 'modular_BD2/legio_invicta/icons/onmob_legion_lefthand.dmi'
-	icon_state = "cautery_primitive"
-	toolspeed = 1.5
-
-/obj/item/circular_saw/primitive
-	name = "handsaw"
-	desc = "For sawing through wood or possibly bones."
-	icon = 'modular_BD2/general/icons/primitive_medical.dmi'
-	icon_state = "saw"
-	item_state = "saw"
-	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
-	hitsound = 'sound/effects/shovel_dig.ogg'
-	usesound = 'sound/effects/shovel_dig.ogg'
-	custom_materials = list(/datum/material/iron=2000)
-	toolspeed = 1.2
-	wound_bonus = 0
-	bare_wound_bonus = 10
-	attack_verb = list("sawed", "scratched")
-
-/obj/item/stack/medical/bone_gel/superglue
-	name = "superglue (bonegel)"
-	singular_name = "superglue"
-	desc = "Good for gluing together broken bones!"
-	icon = 'modular_BD2/general/icons/primitive_medical.dmi'
-	icon_state = "superglue"
-	lefthand_file = NONE
-	righthand_file = NONE
-	grind_results = NONE
-
-/obj/item/reagent_containers/medspray/sterilizine/honey
-	name = "medical honey (sterilizer)"
-	desc = "Pure honey has antiseptic properties, and probably works just as a sterilizing agent."
-	icon = 'modular_BD2/general/icons/primitive_medical.dmi'
-	icon_state = "sterilizer_honey"
-	apply_method = "smear"
-	sound_squirt = 'modular_BD2/general/sound/honey.ogg'
-
-/* Added to base code
-sound_squirt
-Added to proc/attempt_spray
-		playsound(src, sound_squirt, 50, 1, -6)
-*/
-
-
-// ------------------- PRIMITIVE MEDICAL BAG -----------------------------
-
-/obj/item/storage/backpack/duffelbag/med/surgery/primitive
-	name = "surgical duffel bag"
-	desc = "A large duffel bag for holding extra medical supplies - this one seems to be designed for holding surgical tools."
-	icon = 'modular_BD2/general/icons/primitive_medical.dmi'
-	righthand_file = 'modular_BD2/legio_invicta/icons/onmob_legion_righthand.dmi'
-	lefthand_file = 'modular_BD2/legio_invicta/icons/onmob_legion_lefthand.dmi'
-	icon_state = "toolbag_primitive"
-
-/obj/item/storage/backpack/duffelbag/med/surgery/primitive/PopulateContents()
-	new /obj/item/melee/onehanded/straight_razor(src)
-	new /obj/item/hemostat/tribal(src)
-	new /obj/item/retractor/tribal(src)
-	new /obj/item/circular_saw/primitive(src)
-	new /obj/item/cautery/primitive(src)
-	new /obj/item/bonesetter(src)
-	new /obj/item/bedsheet/blanket(src)
-	new /obj/item/reagent_containers/medspray/sterilizine/honey(src)
-	new /obj/item/stack/sticky_tape/surgical(src)
-	new /obj/item/stack/medical/bone_gel/superglue(src)
-
-/obj/item/storage/backpack/duffelbag/med/surgery/primitive/anchored
-	name = "surgical toolset"
-	desc = "Large piece of felt with various surgical tools laid out."
-	icon_state = "surgicalset_primitive"
-	anchored = TRUE
-
-
-// ------------------- PRIMITIVE IV DRIP -----------------------------
-
-/obj/machinery/iv_drip/primitive
-	name = "wooden IV drip"
-	desc = "Simple frame for infusing liquids using gravity. Can't suck out fluids."
-	icon = 'modular_BD2/general/icons/primitive_medical.dmi'
-	anchored = TRUE
-	plane = MOB_PLANE
-
-/* 
-/obj/machinery/iv_drip/verb/toggle_mode()
-	set category = "Object"
-	set name = "Toggle Mode"
-	set src in view(1)
-
-	if(src = /obj/machinery/iv_drip/primitive)
-		return
-	if(!isliving(usr))
-		to_chat(usr, span_warning("You can't do that!"))
-		return
-
-	if(usr.incapacitated())
-		return
-	mode = !mode
-	to_chat(usr, "The IV drip is now [mode ? "injecting" : "taking blood"].")
-	update_icon()
-
-added this to make the overlay actually work
-			var/mutable_appearance/filling_overlay = mutable_appearance('modular_BD2/icons/primitive_medical.dmi', "reagent")
-*/
-
-
-// ------------------- PRIMITIVE DEFIB MOUNT -----------------------------
-
-/obj/machinery/defibrillator_mount/primitive
-	desc = "Holds a primitive defibrillator."
-	icon = 'modular_BD2/general/icons/primitive_medical.dmi'
-	icon_state = "defibrillator_mount"
-	density = FALSE
-	use_power = FALSE
-	clamps_locked = TRUE
-	plane = MOB_PLANE
-
-/obj/machinery/defibrillator_mount/primitive/Initialize() //loaded subtype for mapping use
-	. = ..()
-	defib = new/obj/item/defibrillator/primitive(src)
-	update_overlays()
-
-
-// ------------------- PRIMITIVE MEDICAL TOOLBELT -----------------------------
-/*
-obj/item/storage/belt/medical/primitive
-	name = "primitive medical toolbelt"
-	desc = "This might look a bit like a toolbelt for a carpenter, but the items inside are meant to be used in surgery. No really."
-	icon = 'modular_BD2/legio_invicta/icons/icons_legion.dmi'
-	righthand_file = 'modular_BD2/legio_invicta/icons/onmob_legion_righthand.dmi'
-	lefthand_file = 'modular_BD2/legio_invicta/icons/onmob_legion_lefthand.dmi'
-	mob_overlay_icon = 'modular_BD2/legio_invicta/icons/onmob_legion.dmi'
-	icon_state = "belt_blacksmith"
-	item_state = "belt_blacksmith"
-
-/obj/item/storage/belt/medical/primitive/PopulateContents()
-	new /obj/item/surgical_drapes(src)
-	new /obj/item/melee/onehanded/straight_razor(src)
-	new /obj/item/circular_saw/primitive(src)
-	new /obj/item/retractor/tribal(src)
-	new /obj/item/hemostat/tribal(src)
-	new /obj/item/cautery/primitive(src)
-	new /obj/item/bonesetter(src)
-
-/obj/item/hemostat/tribal
-	name = "primitive hemostat (flesh-poker)"
-	desc = "A pinching device made from bone to clamp bleedings with"
-	icon = 'modular_BD2/general/icons/primitive_medical.dmi'
-	icon_state = "hemostat_primitive"
-
-/obj/item/retractor/tribal
-	name = "primitive retractor (skin-puller)"
-	desc = "Pries the flesh and bones open."
-	icon = 'modular_BD2/general/icons/primitive_medical.dmi'
-	icon_state = "retractor_primitive"
-*/
 
 
 //////////////////////////////////////////
@@ -1271,7 +1064,6 @@ added to end of campfire/attackby
 	icon = 'modular_BD2/legio_invicta/icons/icons_legion.dmi'
 	icon_state = "darkwood_fancyedge"
 	layer = WALL_PLANE
-
 
 // Matrix for slaves/prison
 /turf/closed/indestructible/f13/matrix/slave //Less obtrusive matrix for prison
@@ -1333,7 +1125,7 @@ added to end of campfire/attackby
 // -------------- PRE-STONE RINGED BONFIRE ----------------- 
 
 /obj/structure/bonfire/safe
-	stones = TRUE
+	var/stones = TRUE  // maybe this needs porting from Atom
 	density = TRUE
 
 /obj/structure/bonfire/safe/Initialize()
@@ -1366,7 +1158,7 @@ added to end of campfire/attackby
 
 /obj/structure/flora/tree/wasteland/dark
 	color = "#5c5a57"
-	plane = MOB_PLANE
+	plane = GAME_PLANE
 	layer = ABOVE_ALL_MOB_LAYER
 
 /obj/structure/flora/tree/wasteland/dark/Initialize()
@@ -1374,7 +1166,7 @@ added to end of campfire/attackby
 	AddComponent(/datum/component/largetransparency, y_offset = 1)
 
 /obj/structure/flora/tree/african_acacia_dead
-	plane = MOB_PLANE
+	plane = GAME_PLANE
 
 /obj/structure/flora/tree/african_acacia_dead/Initialize()
 	. = ..()
@@ -1394,7 +1186,7 @@ added to end of campfire/attackby
 	icon_state = "gravelcorner"
 
 /obj/effect/turf_decal/gravel_edge
-	icon = 'icons/fallout/turfs/gravel.dmi'
+	icon = 'modular_BD2/general/icons/tileset_gravel.dmi'
 	icon_state = "gravel_edge"
 
 /obj/effect/turf_decal/gravel_edge/corner // outer corner
@@ -1406,7 +1198,7 @@ added to end of campfire/attackby
 // -------------- SONORA TILESET STUFF ----------------- 
 
 /obj/effect/overlay/desert/sonora/edge
-	icon = 'modular_BD2/icons/tileset_sonora.dmi'
+	icon = 'modular_BD2/general/icons/tileset_sonora.dmi'
 	icon_state = "desertedge"
 
 /obj/effect/overlay/desert/sonora/edge/corner
@@ -1416,7 +1208,7 @@ added to end of campfire/attackby
 	icon_state = "desertfade"
 
 /turf/open/indestructible/ground/outside/desert/sonora
-	icon = 'modular_BD2/icons/tileset_sonora.dmi'
+	icon = 'modular_BD2/general/icons/tileset_sonora.dmi'
 	icon_state = "desertsmooth"
 	slowdown = 0.3
 	loots = list(
@@ -1454,6 +1246,16 @@ added to end of campfire/attackby
 /obj/item/bedsheet/blanket2
 	icon_state = "blanket2"
 
+/obj/item/storage/belt/military/legion
+	name = "legion marching belt"
+	desc = "A belt capable of holding various supplies a warrior might need. Comes with a red sash."
+	icon = 'modular_BD2/legio_invicta/icons/icons_legion.dmi'
+	mob_overlay_icon = 'modular_BD2/legio_invicta/icons/onmob_legion.dmi'
+	righthand_file = 'modular_BD2/legio_invicta/icons/onmob_legion_righthand.dmi'
+	lefthand_file = 'modular_BD2/legio_invicta/icons/onmob_legion_lefthand.dmi'
+	icon_state = "belt_legion"
+	item_state = "belt_legion"
+
 
 /obj/item/clothing/shoes/sandals_leather
 	name = "leather sandals"
@@ -1464,6 +1266,10 @@ added to end of campfire/attackby
 	lefthand_file = 'modular_BD2/legio_invicta/icons/onmob_legion_lefthand.dmi'
 	icon_state = "shoes_sandals"
 	item_state = "shoes_sandals"
+//	icon = 'icons/fallout/clothing/shoes.dmi'
+//	mob_overlay_icon = 'icons/fallout/onmob/clothes/shoe.dmi'
+//	icon_state = "legion_sandals"
+//	item_state = "legion_sandals"
 	strip_delay = 100
 	equip_delay_other = 100
 	permeability_coefficient = 0.9
