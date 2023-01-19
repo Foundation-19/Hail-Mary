@@ -180,7 +180,7 @@
 
 
 // ------------------- BELT -----------------------------
-/* Already copied to main
+
 /obj/item/storage/belt/military/legion
 	name = "legion marching belt"
 	icon = 'modular_BD2/legio_invicta/icons/icons_legion.dmi'
@@ -189,7 +189,7 @@
 	lefthand_file = 'modular_BD2/legio_invicta/icons/onmob_legion_lefthand.dmi'
 	icon_state = "belt_legion"
 	item_state = "belt_legion"
-*/
+
 
 // ------------------- WEAPONS -----------------------------
 
@@ -1446,3 +1446,25 @@ added to end of campfire/attackby
 /turf/open/floor/f13/wood/outside // outside platform with sunlight
 	sunlight_state = SUNLIGHT_SOURCE
 
+/obj/item/bedsheet/blanket
+	name = "blanket"
+	desc = "A undyed rough blanket."
+	icon_state = "blanket1"
+
+/obj/item/bedsheet/blanket2
+	icon_state = "blanket2"
+
+
+/obj/item/clothing/shoes/sandals_leather
+	name = "leather sandals"
+	desc = "Sandals with buckled leather straps on it. Good workmanship."
+	icon = 'modular_BD2/legio_invicta/icons/icons_legion.dmi'
+	mob_overlay_icon = 'modular_BD2/legio_invicta/icons/onmob_legion.dmi'
+	righthand_file = 'modular_BD2/legio_invicta/icons/onmob_legion_righthand.dmi'
+	lefthand_file = 'modular_BD2/legio_invicta/icons/onmob_legion_lefthand.dmi'
+	icon_state = "shoes_sandals"
+	item_state = "shoes_sandals"
+	strip_delay = 100
+	equip_delay_other = 100
+	permeability_coefficient = 0.9
+	can_be_tied = FALSE
