@@ -183,7 +183,7 @@
 	name = "legion centurion armor"
 	desc = "The Legion centurion armor is by far the strongest suit of armor available to Caesar's Legion. The armor is composed from other pieces of armor taken from that of the wearer's defeated opponents in combat."
 	icon_state = "legion_centurion"
-	armor = list("melee" = 70, "bullet" = 50, "laser" = 35, "energy" = 35, "bomb" = 40, "bio" = 30, "rad" = 25, "fire" = 40, "acid" = 10)
+	armor = list("melee" = 70, "bullet" = 50, "laser" = 35, "energy" = 35, "bomb" = 40, "bio" = 30, "rad" = 25, "fire" = 40, "acid" = 10, "wound" = 55)
 
 /obj/item/clothing/suit/armor/heavy/legion/palacent
 	name = "paladin-slayer centurion armor"
