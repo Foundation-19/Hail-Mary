@@ -83,6 +83,10 @@
 				to_chat(usr, "The Disk Tray is not open!")
 				return
 			var/obj/item/record_disk/I = O
+			for(var/datum/track/RT in SSjukeboxes.songs)
+				if(I.R.song_associated_id == SSjukeboxes.songs[RT].song_associated_id)
+					to_chat(user, span_warning("this track is already added to the jukebox!"))
+					return
 			record_disks += I
 			O.forceMove(src)
 			playsound(src, 'sound/effects/plastic_click.ogg', 100, 0)
@@ -298,6 +302,7 @@
 			if(!selected_disk)
 				to_chat(usr,"<span class='warning'>Error: no disk chosen.</span>" )
 			eject_record(selected_disk)
+			selected_disk = null
 			updateUsrDialog()
 //ATOM EDIT -end
 
@@ -702,7 +707,7 @@
 			to_chat(M, span_warning("[src] cuts into your hand!"))
 			M.apply_damage(force*0.5, BRUTE, hit_hand)
 
-/obj/machinery/gramophone_recorder //used to record new tracks to add to the jukeboxes
+/obj/machinery/gramophone_recorder //used to record new tracks to add to the jukeboxes adminspawn
 	name = "Gramophone Recorder"
 	desc = "old gramaphone used to record sounds and audio."
 	icon = 'icons/obj/machines/disk_recorder.dmi'

@@ -10,8 +10,7 @@
 	
 /obj/item/key/vending/jukebox //ATOM EDIT used exclusively to open a jukebox
 	name = "Jukebox's Access Key"
-	desc = "a key to open the disk tray of a jukebox."
-	icon = 'icons/WVM/new_vendors.dmi' //ATOM EDIT -end-
+	desc = "a key to open the disk tray of a jukebox."//ATOM EDIT -end-
 
 /obj/item/key/vending/proc/set_name(newname)
 	if(name != newname)
