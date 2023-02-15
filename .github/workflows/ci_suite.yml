@@ -116,7 +116,7 @@ jobs:
       - name: Build
         if: steps.auxmos-cache.outputs.cache-hit != 'true'
         run: |
-          cargo build --manifest-path auxmos/Cargo.toml --target=${{env.target}} --release --verbose
+          cargo build --manifest-path auxmos/Cargo.toml --target=${{env.target}} --package auxmos --release --verbose
           ldd auxmos/target/${{env.target}}/release/libauxmos.so
       
       - name: Upload libauxmos artifact
