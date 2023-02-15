@@ -116,8 +116,8 @@ jobs:
       - name: Build
         if: steps.auxmos-cache.outputs.cache-hit != 'true'
         run: |
-          cargo build --manifest-path auxmos/Cargo.toml --target=${{env.target}} --package auxmos --release --target=i686-unknown-linux-gnu
-mv target/i686-unknown-linux-gnu/release/librust_g.so "$1/librust_g.so"
+          cargo build --manifest-path auxmos/Cargo.toml --target=${{env.target}} --package auxmos --release --verbose
+          mv target/i686-unknown-linux-gnu/release/librust_g.so "$1/librust_g.so
       
       - name: Upload libauxmos artifact
         uses: actions/upload-artifact@v3
