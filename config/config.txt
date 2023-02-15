@@ -12,7 +12,8 @@ $include plushies/defines.txt
 $include job_threats.txt
 $include policy.txt
 
-# You can use the @ character at the beginning of a config option to lock it from being edited in-game
+# You can use the @ 
+er at the beginning of a config option to lock it from being edited in-game
 # Example usage:
 # @SERVERNAME tgstation
 # Which sets the SERVERNAME, and disallows admins from being able to change it using View Variables.
@@ -56,7 +57,7 @@ ADMIN_LEGACY_SYSTEM
 #LOAD_LEGACY_RANKS_ONLY
 
 ## Comment this out if you want to use the SQL based banning system. The legacy systems use the files in the data folder. You need to set up your database to use the SQL based system.
-#BAN_LEGACY_SYSTEM
+BAN_LEGACY_SYSTEM
 
 ## Comment this out to stop locally connected clients from being given the almost full access !localhost! admin rank
 ENABLE_LOCALHOST_RANK
