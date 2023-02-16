@@ -43,7 +43,7 @@ ROUND_END_COUNTDOWN 30
 ## Comment this out if you want to use the SQL based admin system, the legacy system uses admins.txt.
 ## You need to set up your database to use the SQL based system.
 ## This flag is automatically enabled if SQL_ENABLED isn't
-ADMIN_LEGACY_SYSTEM
+#ADMIN_LEGACY_SYSTEM
 
 ##Uncomment this to stop any admins loaded by the legacy system from having their rank edited by the permissions panel
 #PROTECT_LEGACY_ADMINS
@@ -56,7 +56,7 @@ ADMIN_LEGACY_SYSTEM
 #LOAD_LEGACY_RANKS_ONLY
 
 ## Comment this out if you want to use the SQL based banning system. The legacy systems use the files in the data folder. You need to set up your database to use the SQL based system.
-BAN_LEGACY_SYSTEM
+#BAN_LEGACY_SYSTEM
 
 ## Comment this out to stop locally connected clients from being given the almost full access !localhost! admin rank
 ENABLE_LOCALHOST_RANK
