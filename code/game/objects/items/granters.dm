@@ -968,6 +968,13 @@
 	traitname = "hitting things"
 	remarks = list("Grognak hit the Death Knight only once, but that was enough.", "Grognak is surprisingly agile, never committing too heavily on an attack, dancing between his enemies.", "Grognak isn't good at talking, but he knows it has its place. He has friends to talk for him.", "Other barbarians might change their weapons, but Grognak could never leave his beloved axe.")
 
+/obj/item/book/granter/trait/specopguide
+	name = "Special Operation Guide"
+	desc = "A book about how to never miss again!."
+	granted_trait = TRAIT_INSANE_AIM
+	traitname = "perfect shooting"
+	remarks = list("Switching to your sidearm is always faster than reloading.", "Use a bola to slow down your target.", "A smoke grenade will make the enemy drop small item that they're holding", "Never chase an enemy alone even if you think you're winning.")
+
 /obj/item/book/granter/trait/lowsurgery
 	name = "First Aid Pamphlet"
 	desc = "A flimsy collection of vital tips and tricks for the average American with a sudden injury."

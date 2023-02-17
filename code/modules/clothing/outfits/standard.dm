@@ -187,7 +187,7 @@
 	head = /obj/item/clothing/head/centhat
 	belt = /obj/item/gun/ballistic/revolver/m29/snub
 	r_pocket = /obj/item/lighter
-	l_pocket = /obj/item/ammo_box/a357
+	l_pocket = /obj/item/ammo_box/tube/m44
 	back = /obj/item/storage/backpack/satchel/leather
 	id = /obj/item/card/id
 
@@ -359,7 +359,7 @@
 	ears = /obj/item/radio/headset/headset_cent/alt
 
 	backpack_contents = list(/obj/item/storage/box=1,\
-		/obj/item/ammo_box/a357=1,\
+		/obj/item/ammo_box/tube/m44=1,\
 		/obj/item/storage/firstaid/regular=1,\
 		/obj/item/storage/box/flashbangs=1,\
 		/obj/item/flashlight=1,\
@@ -402,25 +402,59 @@
 	name = "Debug outfit"
 	uniform = /obj/item/clothing/under/misc/patriotsuit
 	suit = /obj/item/clothing/suit/space/hardsuit/syndi/elite/debug
-	glasses = /obj/item/clothing/glasses/debug
-	ears = /obj/item/radio/headset/headset_cent/commander
+	glasses = /obj/item/clothing/glasses/hud/health/sunglasses
+	ears = /obj/item/radio/headset/headset_cent/alt
 	mask = /obj/item/clothing/mask/gas/welding/up
 	gloves = /obj/item/clothing/gloves/tackler/combat/insulated
-	l_pocket = /obj/item/gun/magic/wand/resurrection/debug
-	r_pocket = /obj/item/gun/magic/wand/death/debug
 	shoes = /obj/item/clothing/shoes/magboots/advance/debug
+	belt = /obj/item/storage/belt/utility/full/engi
 	id = /obj/item/card/id/debug
-	suit_store = /obj/item/tank/internals/oxygen
+	suit_store = /obj/item/tank/internals/emergency_oxygen/double
 	back = /obj/item/storage/backpack/holding
 	box = /obj/item/storage/box/debugtools
-	internals_slot = ITEM_SLOT_SUITSTORE
+	neck = /obj/item/storage/belt/holster/ranger4570bayonet
+	l_pocket = /obj/item/ammo_box/tube/m44
+	r_pocket = /obj/item/gun/ballistic/revolver/m29/snub
 	backpack_contents = list(
 		/obj/item/melee/transforming/energy/axe=1,\
 		/obj/item/storage/part_replacer/bluespace/tier4=1,\
 		/obj/item/debug/human_spawner=1,\
+		/obj/item/gun/magic/wand/death/debug=1,\
+		/obj/item/gun/magic/wand/resurrection/debug=1,\
+		/obj/item/clothing/glasses/debug=1,\
+		/obj/item/gun/energy/pulse/pistol=1,\
+		/obj/item/holosign_creator/security=1,\
+		/obj/item/storage/firstaid/tactical/nukeop=1,\
+		/obj/item/ammo_box/magazine/m473=2,\
+		/obj/item/gun/ballistic/automatic/g11=1,\
 		)
 
-/datum/outfit/debug/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+/datum/outfit/debug/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE, client/preference_source)
+	if(visualsOnly)
+		return
+	ADD_TRAIT(H, TRAIT_XRAY_VISION, src)
+	ADD_TRAIT(H, TRAIT_PA_WEAR, src)
+	ADD_TRAIT(H, TRAIT_SURGERY_HIGH, src)
+	ADD_TRAIT(H, TRAIT_HARD_YARDS, src)
+	ADD_TRAIT(H, TRAIT_MEDICALEXPERT, src)
+	ADD_TRAIT(H, TRAIT_NIGHT_VISION, src)
+	ADD_TRAIT(H, TRAIT_NOLIMBDISABLE, src)
+	ADD_TRAIT(H, TRAIT_SILENT_STEP, src)
+	ADD_TRAIT(H, TRAIT_SHOCKIMMUNE, src)
+	ADD_TRAIT(H, TRAIT_PERFECT_ATTACKER, src)
+	if(H.mind)
+		H.mind.AddSpell(new /obj/effect/proc_holder/spell/terrifying_presence)
+		H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/ethereal_jaunt/shift/golem)
+		H.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/knock)
+		H.mind.AddSpell(new /obj/effect/proc_holder/spell/voice_of_god)
+
+	var/obj/item/implant/mindshield/L = new 
+	L.implant(H, null, 1)
+
 	var/obj/item/card/id/W = H.wear_id
+	W.icon_state = "centcom"
+	W.access = get_all_accesses()//Obviously
+	W.assignment = "Chronicler"
 	W.registered_name = H.real_name
-	W.update_label()
+	W.update_label(W.registered_name, W.assignment)
+
