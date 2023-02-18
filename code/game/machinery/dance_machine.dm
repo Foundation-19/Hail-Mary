@@ -11,15 +11,15 @@
 	var/stop = 0
 	var/volume = 70
 	var/datum/track/selection = null
-	var/obj/item/lock_part/lock = null //ATOM EDIT START 
+	var/obj/item/lock_part/lock = null //BIG IRON EDIT START 
 	var/open_tray = FALSE //usted to determine if the jukebox is open or not, needs a key
 	var/list/record_disks = list() //list of inserted disk inthe jukebox
 	var/obj/item/record_disk/selected_disk = null //the disk chosen to view or ejection
 
-/obj/machinery/jukebox/constructed //ATOM EDIT start- a sub jukebox with access for everyone
+/obj/machinery/jukebox/constructed //BIG IRON EDIT start- a sub jukebox with access for everyone
 	req_one_access = null
 	desc = "an improvised jukebox, made with scraps and hopes"
-//ATOM EDIT -end-
+//BIG IRON EDIT -end-
 /obj/machinery/jukebox/disco
 	name = "radiant dance machine mark IV"
 	desc = "The first three prototypes were discontinued after mass casualty incidents."
@@ -29,8 +29,8 @@
 	var/list/spotlights = list()
 	var/list/sparkles = list()
 
-//ATOM EDIT -start
-/obj/machinery/jukebox/Initialize() //ATOM EDIT -start
+//BIG IRON EDIT -start
+/obj/machinery/jukebox/Initialize() //BIG IRON EDIT -start
 	. = ..()
 	lock = new /obj/item/lock_part()
 	lock.forceMove(src)
@@ -41,7 +41,7 @@
 		lock.is_secured = 0
 		lock.store_key(K)
 		lock.is_secured = 1
-//ATOM EDIT -end
+//BIG IRON EDIT -end
 
 /obj/machinery/jukebox/disco/indestructible
 	name = "radiant dance machine mark V"
@@ -66,7 +66,7 @@
 				setAnchored(FALSE)
 			playsound(src, 'sound/items/deconstruct.ogg', 50, 1)
 			return
-		if(istype(O, /obj/item/key)) //ATOM EDIT -start this one checks for a key used in the jukebox
+		if(istype(O, /obj/item/key)) //BIG IRON EDIT -start this one checks for a key used in the jukebox
 			if(lock.check_key(O)) //check if the key used is assinged to this lock
 				if(open_tray == FALSE)
 					open_tray = TRUE
@@ -92,9 +92,12 @@
 			playsound(src, 'sound/effects/plastic_click.ogg', 100, 0)
 			if(I.R.song_path)
 				SSjukeboxes.add_song(I.R)
-			return//ATOM EDIT -end
+			return//BIG IRON EDIT -end
 	return ..()
-/obj/machinery/jukebox/proc/eject_record(obj/item/record_disk/M) //ATOM EDIT -start- ejects a record as defined and removes it's song from the list
+/obj/machinery/jukebox/proc/eject_record(obj/item/record_disk/M) //BIG IRON EDIT -start- ejects a record as defined and removes it's song from the list
+	if(!M)
+		visible_message("no disk to eject")
+		return
 	playsound(src, 'sound/effects/disk_tray.ogg', 100, 0)
 	src.visible_message("<span class ='notice'> ejected the [selected_disk] from the [src]!</span>")
 	M.forceMove(get_turf(src))
@@ -161,9 +164,15 @@
 	data["track_selected"] = null
 	data["track_length"] = null
 	data["track_beat"] = null
-	data["disk_selected"] = null //ATOM EDIT- start more tracks data
+	data["disks"] = list()
+	for(var/obj/item/record_disk/RD in record_disks)
+		var/list/tracks_data = list(
+			name = RD.name
+		)
+		data["disks"] += list(tracks_data)
+	data["disk_selected"] = null //BIG IRON EDIT- start more tracks data
 	data["disk_selected_lenght"] = null
-	data["disk_beat"] = null //ATOM EDIT -end
+	data["disk_beat"] = null //BIG IRON EDIT -end
 	if(selection)
 		data["track_selected"] = selection.song_name
 		data["track_length"] = DisplayTimeText(selection.song_length)
@@ -215,12 +224,21 @@
 				return
 			selection = available[selected]
 			return TRUE
-		if("loaded_tracks") //ATOM EDIT -start - this one chooeses a disk to manage
-			var/list/availabletracks = list()
-			for(var/obj/item/record_disk/RD in record_disks)
-				availabletracks[RD.name] = RD
-			var/selecteddisk = params["disk"]
-			if(QDELETED(src) || !selecteddisk || !istype(availabletracks[selecteddisk], /obj/item/record_disk))
+		if("select_record") //BIG IRON EDIT -start- how an user chooses a disk
+			if(!record_disks.len)
+				to_chat(usr, "<span class='warning'>Error: no tracks on the bin!.</span>")
+				return
+			var/list/obj/item/record_disk/availabledisks = list()
+			for(var/obj/item/record_disk/RR in record_disks)
+				availabledisks[RR.name] = RR
+			var/selecteddisk = params["record"]
+			if(QDELETED(src) || !selecteddisk)
+				return
+			selected_disk = availabledisks[selecteddisk]
+			updateUsrDialog()
+		if("eject_disk") // sanity check for the disk ejection
+			if(!record_disks.len)
+				to_chat(usr, "<span class='warning'>Error: no disks in trays.</span>")
 				return
 			selected_disk = availabletracks[selecteddisk]
 			return TRUE
@@ -228,8 +246,7 @@
 			if(!selected_disk)
 				to_chat(usr, span_warning("Error: no disk selected."))
 			return TRUE
-//ATOM EDIT -end
-
+//BIG IRON EDIT -end
 		if("set_volume")
 			var/new_volume = params["volume"]
 			if(new_volume  == "reset")
@@ -622,7 +639,7 @@
 			if(prob(5+(allowed(M)*4)) && CHECK_MOBILITY(M, MOBILITY_MOVE))
 				dance(M)
 
-/obj/item/record_disk //ATOM EDIT START- the objets used in the creation o music
+/obj/item/record_disk //BIG IRON EDIT START- the objets used in the creation o music
 	name = "record disk" //used to store tracks to add to the jukeboses
 	desc = "A disk for storing music. Dear god."
 	icon = 'icons/obj/machines/disk_recorder.dmi'
