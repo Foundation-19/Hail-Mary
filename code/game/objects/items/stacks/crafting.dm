@@ -83,7 +83,6 @@ GLOBAL_LIST_INIT(metalparts_recipes, list(\
 	amount = 5
 //ATOM EDIT start, make it so you can craft some circit boards with electronic parts
 GLOBAL_LIST_INIT(electronicparts_recipes, list ( \
-	new/datum/stack_recipe("Gramophone recorder circuit board", /obj/item/circuitboard/machine/gramophone_recorder),
 	new/datum/stack_recipe("Jukebox circuit board", /obj/item/circuitboard/machine/jukebox, 2),
 ))
 /obj/item/stack/crafting/electronicparts/get_main_recipes()
