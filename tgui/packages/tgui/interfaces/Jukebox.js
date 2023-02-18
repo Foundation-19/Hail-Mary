@@ -30,11 +30,11 @@ export const Jukebox = (props, context) => {
               content={active ? 'Stop' : 'Play'}
               selected={active}
               onClick={() => act('toggle')} />
-             <Button
-              icon={active ? 'pause' : 'play'}
-              content={active ? 'Eject' : 'Eject'}
-              selected={active}
-              onClick={() => act('eject_disk')} />
+            <Button
+               icon={active ? 'pause' : 'play'}
+               content={active ? 'Eject' : 'Eject'}
+               selected={active}
+               onClick={() => act('eject_disk')} />
             )}>
           <LabeledList>
             <LabeledList.Item label="Track Selected">
