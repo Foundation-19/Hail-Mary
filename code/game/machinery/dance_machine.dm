@@ -70,8 +70,10 @@
 			if(lock.check_key(O)) //check if the key used is assinged to this lock
 				if(open_tray == FALSE)
 					open_tray = TRUE
+					to_chat(user,span_warning("you open the [src]'s tray."))
 				else
 					open_tray = FALSE
+					to_chat(user,span_warning("you close the [src]'s tray."))
 				playsound(src, 'sound/items/Ratchet.ogg', 60, 1)
 				return
 			else
@@ -640,7 +642,7 @@
 				dance(M)
 
 /obj/item/record_disk //BIG IRON EDIT START- the objets used in the creation o music
-	name = "record disk" //used to store tracks to add to the jukeboses
+	name = "record disk" //used to store tracks to add to the jukeboxes
 	desc = "A disk for storing music. Dear god."
 	icon = 'icons/obj/machines/disk_recorder.dmi'
 	icon_state = "record_disk"
@@ -724,7 +726,7 @@
 			to_chat(M, span_warning("[src] cuts into your hand!"))
 			M.apply_damage(force*0.5, BRUTE, hit_hand)
 
-/obj/machinery/gramophone_recorder //used to record new tracks to add to the jukeboxes adminspawn
+/obj/machinery/gramophone_recorder //used to record new tracks to add to the jukeboxes, due to the nature of such Admin Discretion is advised when when given to the playerbase 
 	name = "Gramophone Recorder"
 	desc = "old gramaphone used to record sounds and audio."
 	icon = 'icons/obj/machines/disk_recorder.dmi'
@@ -756,12 +758,18 @@
 	for(var/datum/track/S in SSjukeboxes.songs)
 		available[S.song_name] = S
 	music_to_burn = available
+	src.visible_message("span class='warning'> music library has been updated.")
 
 /obj/machinery/gramophone_recorder/proc/diskProcess() //its an old piece of tech and it takes it's time
 	addtimer(CALLBACK(src, .proc/burnDisk), 40)
 	inuse = TRUE
+	src.visible_message("'span class='warning'>your disk is being burned, please stand by.")
 
 /obj/machinery/gramophone_recorder/proc/burnDisk() //basically just burns the gathered info into the loaded disk
+	if(!R)
+		visible_message("<span class ='warning'>There's no disk to burn!</span>")
+		inuse = FALSE
+		return
 	R.R.song_path = loaded_song_path
 	R.R.song_name = loaded_song_name
 	R.R.song_length = loaded_song_length
@@ -769,6 +777,7 @@
 	R.R.song_associated_id = loaded_song_associated_id
 	R.name = "[R.R.song_name] record disk"
 	playsound(src, 'sound/machines/ping.ogg', 50, 1)
+	src.visible_message("span class='warning'> [R] is ready!.")
 	inuse = FALSE
 
 /obj/machinery/gramophone_recorder/attack_hand(mob/living/user)
@@ -792,6 +801,9 @@
 		if(null)
 			return
 		if("EJECT")
+			if(inuse == TRUE)
+				to_chat(user, "<span class ='warning'>There's no disk to burn!</span>")
+				return
 			playsound(src, 'sound/effects/disk_tray.ogg', 100, 0)
 			src.visible_message("<span class ='notice'>[user] ejects the [R] from the [src]!</span>")
 			R.forceMove(get_turf(src))
