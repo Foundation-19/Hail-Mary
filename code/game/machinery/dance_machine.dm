@@ -758,12 +758,12 @@
 	for(var/datum/track/S in SSjukeboxes.songs)
 		available[S.song_name] = S
 	music_to_burn = available
-	src.visible_message("span class='warning'> music library has been updated.")
+	src.visible_message("<span class='warning'> music library has been updated.")
 
 /obj/machinery/gramophone_recorder/proc/diskProcess() //its an old piece of tech and it takes it's time
 	addtimer(CALLBACK(src, .proc/burnDisk), 40)
 	inuse = TRUE
-	src.visible_message("'span class='warning'>your disk is being burned, please stand by.")
+	src.visible_message("<span class='warning'>your disk is being burned, please stand by.")
 
 /obj/machinery/gramophone_recorder/proc/burnDisk() //basically just burns the gathered info into the loaded disk
 	if(!R)
@@ -777,7 +777,7 @@
 	R.R.song_associated_id = loaded_song_associated_id
 	R.name = "[R.R.song_name] record disk"
 	playsound(src, 'sound/machines/ping.ogg', 50, 1)
-	src.visible_message("span class='warning'> [R] is ready!.")
+	src.visible_message("<span class='warning'> [R] is ready!.")
 	inuse = FALSE
 
 /obj/machinery/gramophone_recorder/attack_hand(mob/living/user)
