@@ -213,7 +213,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	var/list/all_quirks = list()
 
 	//Quirk category currently selected
-	var/quirk_category = QUIRK_POSITIVE 
+	var/quirk_category = QUIRK_POSITIVE
 
 	//Job preferences 2.0 - indexed by job title , no key or value implies never
 	var/list/job_preferences = list()
@@ -350,7 +350,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	dat += "<a href='?_src_=prefs;preference=tab;tab=[ERP_TAB]' [current_tab == ERP_TAB ? "class='linkOn'" : ""]>Underlying Appearance</a>"
 	dat += "<a href='?_src_=prefs;preference=tab;tab=[LOADOUT_TAB]' [current_tab == LOADOUT_TAB ? "class='linkOn'" : ""]>Loadout</a>"
 	dat += "<a href='?_src_=prefs;preference=tab;tab=[GAME_PREFERENCES_TAB]' [current_tab == GAME_PREFERENCES_TAB ? "class='linkOn'" : ""]>Game Preferences</a>"
-	dat += "<a href='?_src_=prefs;preference=tab;tab=[CONTENT_PREFERENCES_TAB]' [current_tab == CONTENT_PREFERENCES_TAB ? "class='linkOn'" : ""]>Content Preferences</a>"
 	dat += "<a href='?_src_=prefs;preference=tab;tab=[KEYBINDINGS_TAB]' [current_tab == KEYBINDINGS_TAB ? "class='linkOn'" : ""]>Keybindings</a>"
 
 	if(!path)
@@ -777,7 +776,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			dat += "<b>Uplink Location:</b><a style='display:block;width:100px' href ='?_src_=prefs;preference=uplink_loc;task=input'>[uplink_spawn_loc]</a>"
 			dat += "</td>"*/
 
-			/// HA HA! I HAVE DELETED YOUR PRECIOUS NAUGHTY PARTS, YOU HORNY ANIMALS! 
+			/// HA HA! I HAVE DELETED YOUR PRECIOUS NAUGHTY PARTS, YOU HORNY ANIMALS!
 			/* dat +="<td width='220px' height='300px' valign='top'>" //
 			if(NOGENITALS in pref_species.species_traits)
 				dat += "<b>Your species ([pref_species.name]) does not support genitals!</b><br>"
@@ -875,31 +874,31 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				dat += "<div class='notice'>Please create an account to save your preferences</div>"
 			if(NOGENITALS in pref_species.species_traits)
 				dat += "<div class='gen_setting_name'>Your species ([pref_species.name]) does not support genitals! These won't apply to your species!</div><br><hr>"
-			dat += {"<a 
+			dat += {"<a
 						href='
 							?_src_=prefs;
 							preference=erp_tab;
-							newtab=[ERP_TAB_REARRANGE]' 
+							newtab=[ERP_TAB_REARRANGE]'
 							[current_tab == ERP_TAB_REARRANGE ? "class='linkOn'" : ""]>
 								Layering and Visibility
 					</a>"}
-			dat += {"<a 
+			dat += {"<a
 						href='
 							?_src_=prefs;
 							preference=erp_tab;
-							newtab=[ERP_TAB_HOME]' 
+							newtab=[ERP_TAB_HOME]'
 							[current_tab == ERP_TAB_HOME ? "class='linkOn'" : ""]>
 								Underwear and Socks
 					</a>"}
 			dat += "<br>"
 			// here be gonads
 			for(var/dic in PREFS_ALL_HAS_GENITALS)
-				dat += {"<a 
+				dat += {"<a
 							href='
 								?_src_=prefs;
 								preference=erp_tab;
 								newtab=[dic];
-								nonumber=yes' 
+								nonumber=yes'
 								[current_tab == dic ? "class='linkOn'" : ""]>
 									[GLOB.hasgenital2genital[dic]]
 						</a>"}
@@ -940,7 +939,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 							Over Clothes
 							</td>"}
 					dat += {"<td class='coverage_on'>
-							<a 
+							<a
 								class='clicky_no_border'
 								href='
 									?_src_=prefs;
@@ -959,18 +958,18 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					dat += "<tr class='undies_row'>"
 					dat += "<td class='undies_cell'>"
 					dat += "<div class='undies_label'>Topwear</div>"
-					dat += {"<a 
-								class='undies_link' 
+					dat += {"<a
+								class='undies_link'
 								href='
 									?_src_=prefs;
 									preference=undershirt;
 									task=input'>
 										[undershirt]
 							</a>"}
-					dat += {"<a 
+					dat += {"<a
 								class='undies_link'
 								style='
-									background-color:#[shirt_color]' 
+									background-color:#[shirt_color]'
 								href='
 								?_src_=prefs;
 								preference=shirt_color;
@@ -980,18 +979,18 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					dat += "</td>"
 					dat += "<td class='undies_cell'>"
 					dat += "<div class='undies_label'>Bottomwear</div>"
-					dat += {"<a 
-								class='undies_link' 
+					dat += {"<a
+								class='undies_link'
 								href='
 									?_src_=prefs;
 									preference=underwear;
 									task=input'>
 										[underwear]
 							</a>"}
-					dat += {"<a 
+					dat += {"<a
 								class='undies_link'
 								style='
-									background-color:#[undie_color]' 
+									background-color:#[undie_color]'
 								href='
 								?_src_=prefs;
 								preference=undie_color;
@@ -1001,18 +1000,18 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					dat += "</td>"
 					dat += {"<td class='undies_cell'>
 								<div class='undies_label'>Legwear</div>
-								<a 
-									class='undies_link' 
+								<a
+									class='undies_link'
 									href='
 										?_src_=prefs;
 										preference=socks;
 										task=input'>
 											[socks]
 								</a>"}
-					dat += {"<a 
+					dat += {"<a
 								class='undies_link'
 								style='
-									background-color:#[socks_color]' 
+									background-color:#[socks_color]'
 								href='
 								?_src_=prefs;
 								preference=socks_color;
@@ -1024,8 +1023,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					dat += "<tr class='undies_row'>"
 					dat += "<td class='undies_cell'>"
 					dat += "<div class='undies_label'>Backpack</div>"
-					dat += {"<a 
-								class='undies_link' 
+					dat += {"<a
+								class='undies_link'
 								href='
 								?_src_=prefs;
 								preference=bag;
@@ -1036,15 +1035,15 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					dat += "</td>"
 					dat += "<td class='undies_cell'>"
 					dat += "<div class='undies_label'>Persistent Scars</div>"
-					dat += {"<a 
-									class='undies_link' 
+					dat += {"<a
+									class='undies_link'
 									href='
 										?_src_=prefs;
 										preference=persistent_scars'>
 											Enabled
 								</a>"}
-					dat += {"<a 
-									class='undies_link' 
+					dat += {"<a
+									class='undies_link'
 									href='
 										?_src_=prefs;
 										preference=clear_scars'>
@@ -1316,39 +1315,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						dat += "</td><td><font size=2><i>[loadout_item ? (loadout_item[LOADOUT_CUSTOM_DESCRIPTION] ? loadout_item[LOADOUT_CUSTOM_DESCRIPTION] : gear.description) : gear.description]</i></font></td></tr>"
 
 					dat += "</table>"
-		if(CONTENT_PREFERENCES_TAB)
-			dat += "<table><tr><td width='340px' height='300px' valign='top'>"
-			dat += "<h2>Adult content prefs</h2>"
-			dat += "<b>Arousal:</b><a href='?_src_=prefs;preference=arousable'>[arousable == TRUE ? "Enabled" : "Disabled"]</a><BR>"
-			dat += "<b>Genital examine text</b>:<a href='?_src_=prefs;preference=genital_examine'>[(cit_toggles & GENITAL_EXAMINE) ? "Enabled" : "Disabled"]</a><BR>"
-			dat += "<b>Hypno:</b> <a href='?_src_=prefs;preference=never_hypno'>[(cit_toggles & NEVER_HYPNO) ? "Disallowed" : "Allowed"]</a><br>"
-			dat += "<b>Ass Slapping:</b> <a href='?_src_=prefs;preference=ass_slap'>[(cit_toggles & NO_ASS_SLAP) ? "Disallowed" : "Allowed"]</a><br>"
-			dat += "<b>Automatic Wagging:</b> <a href='?_src_=prefs;preference=auto_wag'>[(cit_toggles & NO_AUTO_WAG) ? "Disabled" : "Enabled"]</a><br>"
-			dat += "<b>Forced Feminization:</b> <a href='?_src_=prefs;preference=feminization'>[(cit_toggles & FORCED_FEM) ? "Allowed" : "Disallowed"]</a><br>"
-			dat += "<b>Forced Masculinization:</b> <a href='?_src_=prefs;preference=masculinization'>[(cit_toggles & FORCED_MASC) ? "Allowed" : "Disallowed"]</a><br>"
-			dat += "<b>Lewd Hypno:</b> <a href='?_src_=prefs;preference=hypno'>[(cit_toggles & HYPNO) ? "Allowed" : "Disallowed"]</a><br>"
-			dat += "<b>Bimbofication:</b> <a href='?_src_=prefs;preference=bimbo'>[(cit_toggles & BIMBOFICATION) ? "Allowed" : "Disallowed"]</a><br>"
-			dat += "</td>"
-			dat +="<td width='300px' height='300px' valign='top'>"
-			dat += "<h2>Other content prefs</h2>"
-			dat += "<b>Breast Enlargement:</b> <a href='?_src_=prefs;preference=breast_enlargement'>[(cit_toggles & BREAST_ENLARGEMENT) ? "Allowed" : "Disallowed"]</a><br>"
-			dat += "<b>Penis Enlargement:</b> <a href='?_src_=prefs;preference=penis_enlargement'>[(cit_toggles & PENIS_ENLARGEMENT) ? "Allowed" : "Disallowed"]</a><br>"
-			dat += "<b>Butt Enlargement:</b> <a href='?_src_=prefs;preference=butt_enlargement'>[(cit_toggles & BUTT_ENLARGEMENT) ? "Allowed" : "Disallowed"]</a><br>"
-			dat += "<b>Belly Enlargement:</b> <a href='?_src_=prefs;preference=belly_enlargement'>[(cit_toggles & BELLY_ENLARGEMENT) ? "Allowed" : "Disallowed"]</a><br>"
-			dat += "<h2>Vore prefs</h2>"
-			dat += "<b>Master Vore Toggle:</b> <a href='?_src_=prefs;task=input;preference=master_vore_toggle'>[(master_vore_toggle) ? "Per Preferences" : "All Disabled"]</a><br>"
-			if(master_vore_toggle)
-				dat += "<b>Being Prey:</b> <a href='?_src_=prefs;task=input;preference=allow_being_prey'>[(allow_being_prey) ? "Allowed" : "Disallowed"]</a><br>"
-				dat += "<b>Being Fed Prey:</b> <a href='?_src_=prefs;task=input;preference=allow_being_fed_prey'>[(allow_being_fed_prey) ? "Allowed" : "Disallowed"]</a><br>"
-				dat += "<b>Digestion Damage:</b> <a href='?_src_=prefs;task=input;preference=allow_digestion_damage'>[(allow_digestion_damage) ? "Allowed" : "Disallowed"]</a><br>"
-				dat += "<b>Digestion Death:</b> <a href='?_src_=prefs;task=input;preference=allow_digestion_death'>[(allow_digestion_death) ? "Allowed" : "Disallowed"]</a><br>"
-				dat += "<b>Vore Messages:</b> <a href='?_src_=prefs;task=input;preference=allow_vore_messages'>[(allow_vore_messages) ? "Visible" : "Hidden"]</a><br>"
-				dat += "<b>Vore Trash Messages:</b> <a href='?_src_=prefs;task=input;preference=allow_trash_messages'>[(allow_trash_messages) ? "Visible" : "Hidden"]</a><br>"
-				dat += "<b>Vore Death Messages:</b> <a href='?_src_=prefs;task=input;preference=allow_death_messages'>[(allow_death_messages) ? "Visible" : "Hidden"]</a><br>"
-				dat += "<b>Vore Eating Sounds:</b> <a href='?_src_=prefs;task=input;preference=allow_eating_sounds'>[(allow_eating_sounds) ? "Audible" : "Muted"]</a><br>"
-				dat += "<b>Digestion Sounds:</b> <a href='?_src_=prefs;task=input;preference=allow_digestion_sounds'>[(allow_digestion_sounds) ? "Audible" : "Muted"]</a><br>"
-			dat += "</tr></table>"
-			dat += "<br>"
 
 		if(KEYBINDINGS_TAB) // Custom keybindings
 			dat += "<b>Keybindings:</b> <a href='?_src_=prefs;preference=hotkeys'>[(hotkeys) ? "Hotkeys" : "Input"]</a><br>"
@@ -1546,8 +1512,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	deet += "<div class='gen_container'>"
 	deet += "<div class='gen_setting_name'>Has [one_or_some]:</div>" // everyone can has_cheezburger
 	/// yes I know it cursed, eat the dick this pref gave me
-	deet += {"<a 
-				class='clicky' 
+	deet += {"<a
+				class='clicky'
 				href='
 					?_src_=prefs;
 					preference=[erp_tab_page]'>
@@ -1558,10 +1524,10 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		if(pref_species.use_skintones)
 			deet += "<div class='gen_setting_name'>Locked to skintone!</div>"
 		else
-			deet += {"<a 
+			deet += {"<a
 						class='clicky'
 						style='
-							background-color:#[features["[feature_key]_color"]]' 
+							background-color:#[features["[feature_key]_color"]]'
 						href='
 							?_src_=prefs;
 							preference=[feature_key]_color;
@@ -1570,8 +1536,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					</a>"}
 	if(CHECK_BITFIELD(setup_flags, GENITAL_CAN_RESHAPE))
 		deet += "<div class='gen_setting_name'>Shape:</div>"
-		deet += {"<a 
-					class='clicky' 
+		deet += {"<a
+					class='clicky'
 					href='
 						?_src_=prefs;
 						preference=[feature_key]_shape;
@@ -1580,8 +1546,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				</a>"}
 	if(CHECK_BITFIELD(setup_flags, GENITAL_CAN_RESIZE))
 		deet += "<div class='gen_setting_name'>Size:</div>"
-		deet += {"<a 
-					class='clicky' 
+		deet += {"<a
+					class='clicky'
 					href='
 						?_src_=prefs;
 						preference=[feature_key]_size;
@@ -1646,7 +1612,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		doot += "<td class='genital_arrow_off'>&darr;</td>" // im gonna do a magic trick
 	else // make an up arrow
 		doot += {"<td class='genital_arrow_on'>
-				<a 
+				<a
 					class='clicky_no_border'
 					href='
 						?_src_=prefs;
@@ -1660,8 +1626,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		doot += "<td class='genital_arrow_off'>&darr;</td>" // imma make these disappear!
 	else // make a down arrow
 		doot += {"<td class='genital_arrow_on'>
-				<a 
-					class='clicky_no_border' 
+				<a
+					class='clicky_no_border'
 					href='
 						?_src_=prefs;
 						preference=change_genital_order;
@@ -1672,8 +1638,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				</td>"}
 	// and throw in the coverage buttons
 	doot += {"<td class='[CHECK_BITFIELD(features[flag_string], GENITAL_RESPECT_CLOTHING)? "coverage_on" : "coverage_off"]'>
-		<a 
-			class='clicky_no_border' 
+		<a
+			class='clicky_no_border'
 			href='
 				?_src_=prefs;
 				preference=[flag_string];
@@ -1683,8 +1649,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		</a>
 		</td>"}
 	doot += {"<td class='[CHECK_BITFIELD(features[flag_string], GENITAL_RESPECT_UNDERWEAR)? "coverage_on" : "coverage_off"]'>
-		<a 
-			class='clicky_no_border' 
+		<a
+			class='clicky_no_border'
 			href='
 				?_src_=prefs;
 				preference=[flag_string];
@@ -1702,8 +1668,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	else
 		peen_vis_override = "Check Coverage"
 	doot += {"<td class='[CHECK_BITFIELD(features[flag_string], GENITAL_ALWAYS_HIDDEN|GENITAL_ALWAYS_VISIBLE)? "coverage_on" : "coverage_off"]'>
-		<a 
-			class='clicky_no_border' 
+		<a
+			class='clicky_no_border'
 			href='
 				?_src_=prefs;
 				preference=[override_string];
@@ -1715,8 +1681,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	/// and the hideflag
 	var/i_dont_like_bellies = CHECK_BITFIELD(features["genital_hide"], hide_nad_flag)
 	doot += {"<td class='[i_dont_like_bellies ? "coverage_off" : "coverage_on"]'>
-		<a 
-			class='clicky_no_border' 
+		<a
+			class='clicky_no_border'
 			href='
 				?_src_=prefs;
 				preference=genital_hide;
@@ -1750,9 +1716,9 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	if(!genital_start || !genital_dest)
 		return // nothing found!
 	our_genitals.Swap(genital_start, genital_dest) // swap!
-	if(move_up) // unreverse, 
+	if(move_up) // unreverse,
 		our_genitals = reverseList(our_genitals)
-	encode_cockstring(our_genitals) // post it!	
+	encode_cockstring(our_genitals) // post it!
 
 /datum/preferences/proc/CaptureKeybinding(mob/user, datum/keybinding/kb, old_key, independent = FALSE, special = FALSE)
 	var/HTML = {"
@@ -2123,7 +2089,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		shift_genital_order(href_list["which"], (href_list["direction"]=="up"))
 	if(href_list["preference"] == "change_genital_whitelist")
 		var/new_genital_whitelist = stripped_multiline_input_or_reflect(
-			user, 
+			user,
 			"Which people are you okay with seeing their genitals when exposed? If a humanlike mob has a name containing \
 			any of the following, if their genitals are showing, you will be able to see them, regardless of your \
 			content settings. Partial names are accepted, case is not important, please no punctuation (except ','). \
@@ -2377,27 +2343,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					if(!isnull(rec))
 						medical_records = rec
 */
-				////////////////// VORE STUFF /
-				if("master_vore_toggle")
-					TOGGLE_VAR(master_vore_toggle)
-				if("allow_being_prey")
-					TOGGLE_VAR(allow_being_prey)
-				if("allow_being_fed_prey")
-					TOGGLE_VAR(allow_being_fed_prey)
-				if("allow_digestion_damage")
-					TOGGLE_VAR(allow_digestion_damage)
-				if("allow_digestion_death")
-					TOGGLE_VAR(allow_digestion_death)
-				if("allow_trash_messages")
-					TOGGLE_VAR(allow_trash_messages)
-				if("allow_vore_messages")
-					TOGGLE_VAR(allow_vore_messages)
-				if("allow_death_messages")
-					TOGGLE_VAR(allow_death_messages)
-				if("allow_eating_sounds")
-					TOGGLE_VAR(allow_eating_sounds)
-				if("allow_digestion_sounds")
-					TOGGLE_VAR(allow_digestion_sounds)
 				if("flavor_text")
 					var/msg = stripped_multiline_input(usr, "Set the flavor text in your 'examine' verb. This can also be used for OOC notes and preferences!", "Flavor Text", html_decode(features["flavor_text"]), MAX_FLAVOR_LEN, TRUE)
 					if(!isnull(msg))

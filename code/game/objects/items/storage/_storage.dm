@@ -31,18 +31,8 @@
 
 /obj/item/storage/proc/dump_everything(datum/source, obj/vore_belly/gut, mob/living/vorer)
 	SIGNAL_HANDLER
-	if(!gut || !vorer)
-		return TRUE //No belly, no problem
 	SEND_SIGNAL(src, COMSIG_TRY_STORAGE_HIDE_ALL)
 	if(contents)
-		var/something
-		for(var/obj/item/thingy in contents)
-			if(!SSvore.can_eat(thingy))
-				something = TRUE
-				SEND_SIGNAL(src, COMSIG_TRY_STORAGE_TAKE, thingy, get_turf(src))
-				thingy.throw_at(get_ranged_target_turf(get_turf(src), vorer.dir, 5, 3), 10, 1, vorer, TRUE, TRUE)
-		if(something)
-			vorer.visible_message(span_alert("Stuff flies out of [vorer]'s [gut]!"), pref_check = VOREPREF_VORE_MESSAGES)
-		SEND_SIGNAL(src, COMSIG_TRY_STORAGE_QUICK_EMPTY, gut)
+		SEND_SIGNAL(src, COMSIG_TRY_STORAGE_QUICK_EMPTY)
 		return TRUE
 	//qdel(src)

@@ -132,7 +132,7 @@
 			DISABLE_BITFIELD(genital_visflags,GENITAL_ABOVE_UNDERWEAR)
 			DISABLE_BITFIELD(genital_visflags,GENITAL_ABOVE_CLOTHING)
 			ENABLE_BITFIELD(genital_visflags,GENITAL_UNDER_UNDERWEAR)
-		
+
 		if(CHECK_BITFIELD(gunt_flags, GENITAL_RESPECT_UNDERWEAR))
 			TOGGLE_BITFIELD(genital_visflags,GENITAL_RESPECT_UNDERWEAR)
 		if(CHECK_BITFIELD(gunt_flags, GENITAL_RESPECT_CLOTHING))
@@ -144,10 +144,10 @@
 
 /// Allows you to rearrange your guts
 /mob/living/carbon/verb/toggle_genitals()
-	set category = "Private"
+/*	set category = "Private"
 	set name = "Private Panel"
 	set desc = "Allows you to modify various aspects of your jiggly bits and underwear."
-	show_genital_panel()
+	show_genital_panel()*/
 
 /mob/living/carbon/proc/show_genital_panel()
 	var/list/genital_list = list()
@@ -168,32 +168,32 @@
 	dat += "<div class='gen_container'>"
 	for(var/obj/item/organ/genital/nad in genital_list)
 		dat += "<div class='gen_setting_name'>Your [nad.name]:</div>"
-		dat += {"<a 
-					class='clicky' 
+		dat += {"<a
+					class='clicky'
 					href='
 						?src=[REF(nad)];
 						action=open_genital_window'>
 							Modify?
 				</a>"}
 	dat += "<div class='gen_setting_name'>Layering and Visibility:</div>"
-	dat += {"<a 
-				class='clicky' 
+	dat += {"<a
+				class='clicky'
 				href='
 					?src=[REF(src)];
 					action=open_genital_layering'>
 						Modify?
 			</a>"}
 	dat += "<div class='gen_setting_name'>Underwear:</div>"
-	dat += {"<a 
-				class='clicky' 
+	dat += {"<a
+				class='clicky'
 				href='
 					?src=[REF(src)];
 					action=open_sockdrawer'>
 						Modify?
 			</a>"}
 	dat += "<div class='gen_setting_name'>See/Unsee Genitals:</div>"
-	dat += {"<a 
-				class='clicky' 
+	dat += {"<a
+				class='clicky'
 				href='
 					?src=[REF(src)];
 					action=open_genital_hide'>
@@ -217,7 +217,7 @@
 		return
 	var/anythingatall = FALSE
 	var/list/dat = list()
-	dat += {"<a 
+	dat += {"<a
 				class='clicky'
 				href='
 					?src=[REF(owner)];
@@ -235,10 +235,10 @@
 	if(CHECK_BITFIELD(genital_flags, GENITAL_CAN_RECOLOR))
 		anythingatall = TRUE
 		dat += "<div class='gen_setting_name'>Color:</div>"
-		dat += {"<a 
+		dat += {"<a
 					class='clicky'
 					style='
-						background-color:[color]' 
+						background-color:[color]'
 					href='
 						?src=[REF(src)];
 						action=recolor'>
@@ -247,8 +247,8 @@
 	if(CHECK_BITFIELD(genital_flags, GENITAL_CAN_RESHAPE))
 		anythingatall = TRUE
 		dat += "<div class='gen_setting_name'>Shape:</div>"
-		dat += {"<a 
-					class='clicky' 
+		dat += {"<a
+					class='clicky'
 					href='
 						?src=[REF(src)];
 						action=reshape'>
@@ -257,8 +257,8 @@
 	if(CHECK_BITFIELD(genital_flags, GENITAL_CAN_RESIZE))
 		anythingatall = TRUE
 		dat += "<div class='gen_setting_name'>Size:</div>"
-		dat += {"<a 
-					class='clicky' 
+		dat += {"<a
+					class='clicky'
 					href='
 						?src=[REF(src)];
 						action=resize'>
@@ -267,8 +267,8 @@
 	if(CHECK_BITFIELD(genital_flags, GENITAL_CAN_AROUSE))
 		anythingatall = TRUE
 		dat += "<div class='gen_setting_name'>Arousal:</div>"
-		dat += {"<a 
-					class='clicky' 
+		dat += {"<a
+					class='clicky'
 					href='
 						?src=[REF(src)];
 						action=arouse'>
@@ -331,7 +331,7 @@
 			toggle_arousal()
 			get_genital_panel()
 	update()
-	
+
 
 /obj/item/organ/genital/proc/modify_size(modifier, min = -INFINITY, max = INFINITY)
 	fluid_max_volume += modifier*2.5
@@ -637,7 +637,7 @@ GLOBAL_LIST_INIT(genital_layers, list(
 		for(var/index in genital_sprites)
 			overlays_standing[text2num(index)] = genital_sprites[index]
 			apply_overlay(text2num(index))
-	
+
 	if(!LAZYLEN(porn_hud_images)) // the freshest!
 		return // nothing there? *shruggo*
 	hud_list[GENITAL_HUD] = porn_hud_images
