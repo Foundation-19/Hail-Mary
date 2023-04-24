@@ -1,7 +1,6 @@
 ## Big Iron: Hail Mary
-Based and maintained from Citadel Station by way of Desert Rose, Fortuna, The Wasteland, Sunset Wasteland, & Coyote Bayou.  
+Based and maintained from Citadel Station by way of Desert Rose, Fortuna, The Wasteland, & Coyote Bayou.  
 
-[![CI Suite](https://isitmaintained.com/project/sunset-wasteland/sunset-wasteland/actions/workflows/ci_suite.yml/badge.svg?branch=master&event=push)](https://isitmaintained.com/project/sunset-wasteland/sunset-wasteland/actions/workflows/ci_suite.yml)
 [![Percentage of issues still open](http://isitmaintained.com/badge/open/Foundation-19/Hail-Mary.svg)](http://isitmaintained.com/project/Foundation-19/Hail-Mary "Percentage of issues still open")
 [![Average time to resolve an issue](http://isitmaintained.com/badge/resolution/Foundation-19/Hail-Mary.svg)](http://isitmaintained.com/project/Foundation-19/Hail-Mary "Average time to resolve an issue")
 
@@ -11,7 +10,7 @@ Based and maintained from Citadel Station by way of Desert Rose, Fortuna, The Wa
 * **Website:** <https://www.coyotebayou.com/>
 * **Code:** <https://github.com/ARF-SS13/coyote-bayou/>
 * **Wiki:** <https://www.coyotebayou.com/>
-* **Discord:** <>
+* **Discord:** <https://discord.gg/coyotebayou>
 
 **The Wasteland Information**  
 * **Code:** <https://github.com/ogrigbe/thewasteland>
