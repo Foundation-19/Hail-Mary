@@ -1,5 +1,5 @@
-## Sunset Wasteland
-Based and maintained from Citadel Station by way of Desert Rose, Fortuna, The Wasteland, and Sunset Wasteland.  
+## Big Iron: Hail Mary
+Based and maintained from Citadel Station by way of Desert Rose, Fortuna, The Wasteland, Sunset Wasteland, & Coyote Bayou.  
 
 [![CI Suite](https://isitmaintained.com/project/sunset-wasteland/sunset-wasteland/actions/workflows/ci_suite.yml/badge.svg?branch=master&event=push)](https://isitmaintained.com/project/sunset-wasteland/sunset-wasteland/actions/workflows/ci_suite.yml)
 [![Percentage of issues still open](http://isitmaintained.com/badge/open/sunset-wasteland/sunset-wasteland.svg)](https://isitmaintained.com/project/LoneStarF13/LoneStar "Percentage of issues still open")
@@ -7,11 +7,15 @@ Based and maintained from Citadel Station by way of Desert Rose, Fortuna, The Wa
 
 [![forthebadge](http://forthebadge.com/images/badges/60-percent-of-the-time-works-every-time.svg)](https://forthebadge.com) [![forthebadge](http://forthebadge.com/images/badges/pretty-risque.svg)](https://forthebadge.com) [![forthebadge](http://forthebadge.com/images/badges/you-didnt-ask-for-this.svg)](http://forthebadge.com) [![forinfinityandbyond](https://user-images.githubusercontent.com/5211576/29499758-4efff304-85e6-11e7-8267-62919c3688a9.gif)](https://www.reddit.com/r/SS13/comments/5oplxp/what_is_the_main_problem_with_byond_as_an_engine/dclbu1a)
 
+**Coyote Bayou Information**
+* **Website:** <https://www.coyotebayou.com/>
+* **Code:** <https://github.com/ARF-SS13/coyote-bayou/>
+* **Wiki:** <https://www.coyotebayou.com/>
+* **Discord:** <>
+
 **The Wasteland Information**  
 * **Code:** <https://github.com/ogrigbe/thewasteland>
-* **Wiki:** <>
 * **Discord:** <https://discord.gg/xCgEwJTppx>
-All relevant forum content takes place on the Discord!
 
 **Desert Rose Information**
 * **Code** <https://github.com/DesertRose2/desertrose>
