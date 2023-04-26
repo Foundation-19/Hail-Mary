@@ -7,6 +7,11 @@
 /obj/machinery/autolathe,
 /turf/open/floor/plasteel/f13/vault_floor/blue/whitebluefull,
 /area/f13/hub)
+"ak" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/f13/wood,
+/area/space)
 "aE" = (
 /obj/machinery/mineral/wasteland_vendor/pipboy,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
@@ -24,6 +29,9 @@
 /area/f13/hub)
 "bh" = (
 /turf/open/indestructible/ground/outside/dirt)
+"bm" = (
+/turf/open/floor/wood_common/wood_common_dark,
+/area/space)
 "bv" = (
 /obj/structure/barricade/bars,
 /turf/open/floor/plasteel/f13/vault_floor/blue/whitebluefull,
@@ -45,6 +53,11 @@
 /area/f13/hub)
 "bT" = (
 /turf/open/floor/plasteel/f13/vault_floor,
+/area/f13/hub)
+"bW" = (
+/obj/structure/car/rubbish1,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/indestructible/ground/outside/sidewalkdirt,
 /area/f13/hub)
 "ci" = (
 /obj/structure/lamp_post{
@@ -125,6 +138,16 @@
 "ef" = (
 /turf/closed/wall/rust,
 /area/space)
+"ei" = (
+/obj/structure/wreck/bus/rusted,
+/obj/structure/debris/v3,
+/turf/open/indestructible/ground/outside/roaddirt,
+/area/f13/city)
+"el" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/dark,
+/area/space)
 "en" = (
 /obj/structure/window/fulltile/wood,
 /turf/open/floor/wood_common/wood_common_dark,
@@ -185,10 +208,24 @@
 /obj/structure/flora/grass/jungle,
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/hub)
+"fc" = (
+/obj/structure/lamp_post/doubles{
+	pixel_x = -115;
+	dir = 4
+	},
+/turf/open/floor/wood_wide/wood_wide_light,
+/area/space)
 "fe" = (
 /obj/structure/flora/ausbushes/grassybush,
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/hub)
+"fk" = (
+/obj/structure/lamp_post/doubles{
+	pixel_x = -115;
+	dir = 4
+	},
+/turf/closed/wall/rust,
+/area/space)
 "fr" = (
 /obj/structure/flora/grass/wasteland,
 /turf/open/floor/wood_common,
@@ -229,6 +266,10 @@
 /obj/item/folder/blue,
 /turf/open/floor/plasteel/f13/vault_floor,
 /area/f13/hub)
+"fT" = (
+/obj/structure/car/rubbish1,
+/turf/open/indestructible/ground/outside/sidewalkdirt,
+/area/f13/hub)
 "gc" = (
 /obj/structure/rack/shelf_metal{
 	pixel_x = -4
@@ -261,12 +302,23 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/blue/whitebluefull,
 /area/f13/hub)
+"gk" = (
+/obj/machinery/grill,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/hub)
 "gq" = (
 /obj/structure/flora/grass/green,
 /turf/open/indestructible/ground/outside/water/running,
 /area/f13/hub)
 "gs" = (
 /obj/structure/wreck/trash/machinepiletwo,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/hub)
+"gA" = (
+/obj/machinery/grill,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/hub)
 "gG" = (
@@ -306,9 +358,24 @@
 /obj/item/blueprint/weapon,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
 /area/f13/hub)
+"hb" = (
+/obj/structure/fluff/railing{
+	dir = 4;
+	color = "#A47449"
+	},
+/obj/structure/closet/crate/large{
+	pixel_x = -7
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/space)
 "hc" = (
 /obj/structure/chair/stool/brass,
 /turf/open/floor/wood_common/wood_common_dark,
+/area/f13/hub)
+"hd" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/indestructible/ground/outside/roaddirt,
 /area/f13/hub)
 "hs" = (
 /obj/structure/campfire/barrel,
@@ -327,6 +394,14 @@
 	},
 /turf/closed/wall/mineral/wood,
 /area/f13/hub)
+"hO" = (
+/obj/structure/debris/v3,
+/turf/closed/indestructible/f13vaultrusted,
+/area/f13/hub)
+"hP" = (
+/obj/structure/debris/v3,
+/turf/open/indestructible/ground/outside/roaddirt,
+/area/f13/city)
 "hR" = (
 /obj/structure/chair/comfy/green{
 	dir = 8
@@ -366,12 +441,26 @@
 "iC" = (
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/underground)
+"iR" = (
+/obj/structure/railing/corner{
+	color = "#A47449";
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/wood_wide/wood_wide_light,
+/area/space)
 "iT" = (
 /obj/machinery/trading_machine/medical,
 /turf/open/floor/plasteel/dark,
 /area/space)
 "jb" = (
 /obj/structure/flora/grass/coyote/twentysix,
+/turf/open/indestructible/ground/outside/gravel,
+/area/f13/hub)
+"jh" = (
+/obj/structure/flora/grass/coyote/ten,
+/obj/structure/car/rubbish1,
+/obj/effect/decal/cleanable/dirt,
 /turf/open/indestructible/ground/outside/gravel,
 /area/f13/hub)
 "ji" = (
@@ -463,6 +552,16 @@
 	},
 /turf/open/indestructible/ground/outside/gravel,
 /area/f13/hub)
+"la" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/shuttle/engine/propulsion,
+/turf/open/floor/wood_wide/wood_wide_light,
+/area/space)
+"ll" = (
+/obj/structure/closet/crate/large,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/wood_wide/wood_wide_light,
+/area/space)
 "lH" = (
 /obj/structure/flora/ausbushes/lavendergrass,
 /turf/open/indestructible/ground/outside/dirt,
@@ -512,12 +611,20 @@
 /obj/machinery/vending/cigarette,
 /turf/open/floor/wood_common/wood_common_dark,
 /area/f13/hub)
+"mB" = (
+/obj/structure/closet/crate/wooden,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/hub)
 "mM" = (
 /obj/structure/chair/sofa/right{
 	dir = 4;
 	pixel_x = -6
 	},
 /turf/open/floor/wood_fancy,
+/area/f13/hub)
+"mS" = (
+/obj/structure/car/rubbish2,
+/turf/open/indestructible/ground/outside/roaddirt,
 /area/f13/hub)
 "nb" = (
 /obj/structure/sign/poster/official/high_class_martini,
@@ -537,6 +644,10 @@
 	can_be_unanchored = 1
 	},
 /turf/open/floor/plasteel/dark,
+/area/space)
+"nI" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/wood_wide/wood_wide_light,
 /area/space)
 "nL" = (
 /obj/machinery/smartfridge/bottlerack/lootshelf/construction,
@@ -581,6 +692,13 @@
 /obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
 /area/f13/hub)
+"ox" = (
+/obj/structure/fluff/railing{
+	dir = 8;
+	color = "#A47449"
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/space)
 "oD" = (
 /obj/effect/decal/cleanable/blood,
 /turf/closed/wall/f13/wood/house,
@@ -598,6 +716,10 @@
 /obj/structure/table/wood/bar,
 /turf/open/floor/wood_common/wood_common_dark,
 /area/f13/hub)
+"pk" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/space)
 "pn" = (
 /turf/open/floor/plasteel/f13/vault_floor/blue/white,
 /area/f13/hub)
@@ -613,6 +735,15 @@
 /obj/machinery/workbench/forge,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
 /area/f13/hub)
+"pF" = (
+/obj/structure/flora/tallgrass9,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/indestructible/ground/outside/gravel,
+/area/f13/hub)
+"pG" = (
+/obj/structure/car/rubbish3,
+/turf/open/indestructible/ground/outside/sidewalkdirt,
+/area/f13/hub)
 "pP" = (
 /obj/effect/decal/cleanable/blood,
 /obj/structure/stairs/east{
@@ -621,6 +752,17 @@
 	},
 /turf/open/floor/wood_fancy,
 /area/f13/hub)
+"pQ" = (
+/obj/structure/railing/corner{
+	color = "#A47449";
+	dir = 8
+	},
+/turf/open/floor/wood_common,
+/area/space)
+"pW" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/wood_common,
+/area/space)
 "pZ" = (
 /obj/structure/simple_door/brokenglass,
 /turf/open/floor/wood_worn,
@@ -643,6 +785,10 @@
 	},
 /turf/open/indestructible/ground/outside/sidewalkdirt,
 /area/f13/hub)
+"qp" = (
+/obj/structure/window/fulltile/wood_window,
+/turf/open/floor/wood_wide/wood_wide_light,
+/area/space)
 "qC" = (
 /obj/structure/chair/pew/right{
 	dir = 8
@@ -654,6 +800,11 @@
 	pixel_x = -20
 	},
 /turf/open/indestructible/ground/outside/dirt,
+/area/f13/hub)
+"qI" = (
+/obj/structure/closet/crate/large,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/hub)
 "qM" = (
 /obj/structure/table/wood/club,
@@ -688,6 +839,13 @@
 /obj/structure/flora/grass/jungle,
 /turf/open/indestructible/ground/outside/gravel,
 /area/f13/hub)
+"rm" = (
+/obj/structure/fluff/railing{
+	dir = 9;
+	color = "#A47449"
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/space)
 "ro" = (
 /obj/structure/stairs/south,
 /turf/open/floor/wood_fancy,
@@ -735,6 +893,10 @@
 /obj/item/organ_storage,
 /turf/open/floor/plasteel/dark,
 /area/space)
+"rP" = (
+/obj/structure/wreck/trash/engine,
+/turf/open/indestructible/ground/outside/sidewalkdirt,
+/area/f13/hub)
 "sb" = (
 /obj/structure/bed/old,
 /turf/open/floor/plating/rust,
@@ -742,6 +904,13 @@
 "sc" = (
 /turf/closed/indestructible/f13vaultrusted,
 /area/f13/city)
+"sf" = (
+/obj/structure/car/rubbish3{
+	pixel_y = 2;
+	pixel_x = -13
+	},
+/turf/open/indestructible/ground/outside/gravel,
+/area/f13/hub)
 "si" = (
 /obj/structure/sink/greyscale{
 	dir = 8;
@@ -761,6 +930,11 @@
 /obj/structure/simple_door/room/dirty,
 /turf/open/floor/wood_fancy,
 /area/f13/hub)
+"sz" = (
+/obj/structure/car/rubbish3,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/indestructible/ground/outside/roaddirt,
+/area/f13/hub)
 "sC" = (
 /obj/machinery/atmospherics/pipe/simple/brown/visible{
 	dir = 1;
@@ -778,6 +952,11 @@
 "sG" = (
 /turf/open/indestructible/ground/outside/water/running,
 /area/f13/hub)
+"sM" = (
+/obj/structure/debris/v4,
+/obj/structure/debris/v3,
+/turf/open/indestructible/ground/outside/roaddirt,
+/area/f13/hub)
 "sZ" = (
 /obj/structure/falsewall/rust,
 /turf/open/floor/wood_common/wood_common_dark,
@@ -789,6 +968,10 @@
 "tE" = (
 /obj/structure/simple_door/metal/fence/wooden,
 /turf/open/floor/wood_common/wood_common_dark,
+/area/f13/hub)
+"uf" = (
+/obj/structure/car/rubbish1,
+/turf/open/indestructible/ground/outside/gravel,
 /area/f13/hub)
 "ug" = (
 /obj/structure/flora/grass/wasteland,
@@ -827,6 +1010,13 @@
 	},
 /turf/open/floor/wood_fancy,
 /area/f13/hub)
+"uE" = (
+/obj/structure/fluff/railing{
+	dir = 5;
+	color = "#A47449"
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/space)
 "uF" = (
 /turf/open/indestructible/ground/outside/roaddirt,
 /area/f13/underground)
@@ -848,6 +1038,13 @@
 /obj/structure/lamp_post,
 /turf/open/indestructible/ground/outside/sidewalkdirt,
 /area/f13/hub)
+"vj" = (
+/obj/structure/railing/corner{
+	color = "#A47449";
+	dir = 1
+	},
+/turf/open/floor/wood_common,
+/area/space)
 "vm" = (
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/underground/enclave_base)
@@ -857,6 +1054,10 @@
 "vo" = (
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/city)
+"vq" = (
+/obj/structure/window/fulltile/ruins,
+/turf/open/floor/wood_common/wood_common_dark,
+/area/space)
 "vs" = (
 /obj/machinery/hydroponics/soil,
 /turf/closed/wall/mineral/wood,
@@ -869,6 +1070,12 @@
 /obj/structure/stairs/south,
 /turf/open/floor/plasteel/dark,
 /area/space)
+"vI" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/indestructible/ground/outside/roaddirt,
+/area/f13/hub)
 "vN" = (
 /obj/machinery/atmospherics/pipe/simple/brown/visible{
 	dir = 1;
@@ -921,6 +1128,10 @@
 "wL" = (
 /obj/structure/table/glass,
 /turf/open/floor/plasteel/f13/vault_floor,
+/area/f13/hub)
+"wQ" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/indestructible/ground/outside/sidewalkdirt,
 /area/f13/hub)
 "wR" = (
 /obj/structure/flora/grass/wasteland,
@@ -976,6 +1187,15 @@
 	},
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/hub)
+"yp" = (
+/obj/structure/railing/corner{
+	color = "#A47449";
+	dir = 4
+	},
+/obj/structure/closet/crate/large,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/wood_wide/wood_wide_light,
+/area/space)
 "yq" = (
 /obj/structure/closet/crate/wooden,
 /turf/open/indestructible/ground/outside/sidewalkdirt,
@@ -1026,12 +1246,12 @@
 /turf/open/floor/plasteel/dark,
 /area/space)
 "yT" = (
-/obj/structure/window/reinforced/fulltile,
 /obj/machinery/atmospherics/pipe/simple/brown/visible{
 	dir = 4;
 	pixel_x = -14;
 	pixel_y = 14
 	},
+/obj/structure/window/fulltile/wood_window,
 /turf/open/floor/plasteel/dark,
 /area/space)
 "zb" = (
@@ -1076,6 +1296,17 @@
 	},
 /turf/open/floor/wood_fancy,
 /area/f13/hub)
+"Ar" = (
+/obj/structure/fluff/railing{
+	dir = 8;
+	color = "#A47449"
+	},
+/obj/structure/car/rubbish4{
+	pixel_y = 6;
+	pixel_x = 7
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/space)
 "Ay" = (
 /obj/structure/closet/locker/medcabinet{
 	pixel_y = 22
@@ -1090,12 +1321,28 @@
 /obj/structure/junk/micro,
 /turf/open/floor/wood_fancy,
 /area/f13/hub)
+"AM" = (
+/obj/structure/flora/grass/coyote/fourteen,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/indestructible/ground/outside/gravel,
+/area/f13/hub)
+"AP" = (
+/obj/structure/railing/corner{
+	color = "#A47449";
+	dir = 4
+	},
+/turf/open/floor/wood_common,
+/area/space)
 "AV" = (
 /obj/machinery/mineral/wasteland_vendor/crafting,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
 /area/f13/hub)
+"AX" = (
+/obj/structure/debris/v3,
+/turf/open/indestructible/ground/outside/roaddirt,
+/area/f13/hub)
 "AY" = (
-/obj/structure/window/reinforced/fulltile,
+/obj/structure/window/fulltile/wood_window,
 /turf/open/floor/plasteel/dark,
 /area/space)
 "Bg" = (
@@ -1122,6 +1369,12 @@
 /obj/effect/decal/cleanable/blood/gibs,
 /turf/open/floor/wood_fancy,
 /area/f13/hub)
+"BB" = (
+/obj/structure/car/rubbish2{
+	pixel_y = 3
+	},
+/turf/open/indestructible/ground/outside/sidewalkdirt,
+/area/f13/hub)
 "BI" = (
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/hub)
@@ -1139,6 +1392,10 @@
 /obj/item/storage/box/ingredients/carnivore,
 /turf/open/floor/wood_common/wood_common_dark,
 /area/f13/hub)
+"Cn" = (
+/obj/structure/wreck/trash/engine,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/hub)
 "Co" = (
 /obj/effect/decal/cleanable/blood/drip,
 /turf/open/indestructible/ground/outside/gravel,
@@ -1146,6 +1403,11 @@
 "Ct" = (
 /turf/closed/wall/f13/wood/house/broken,
 /area/f13/hub)
+"Cu" = (
+/obj/structure/car/rubbish4,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/space)
 "Cw" = (
 /obj/structure/window/fulltile/wood,
 /turf/open/floor/wood_fancy,
@@ -1191,6 +1453,10 @@
 	color = "#A47449"
 	},
 /turf/open/floor/wood_fancy,
+/area/f13/hub)
+"Dt" = (
+/obj/structure/debris/v4,
+/turf/closed/indestructible/f13vaultrusted,
 /area/f13/hub)
 "Dx" = (
 /obj/item/chair/wood/wings{
@@ -1248,6 +1514,12 @@
 /obj/effect/spawner/lootdrop/f13/weapon/wasteland,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
 /area/f13/hub)
+"EV" = (
+/obj/structure/gallow{
+	pixel_x = 14
+	},
+/turf/open/floor/wood_common,
+/area/space)
 "EW" = (
 /obj/structure/chair/folding{
 	dir = 4
@@ -1264,11 +1536,22 @@
 "Fj" = (
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/space)
+"Fk" = (
+/obj/structure/fluff/railing{
+	color = "#A47449";
+	dir = 1
+	},
+/turf/open/water,
+/area/space)
 "Fl" = (
 /obj/structure/chair/folding{
 	dir = 4
 	},
 /turf/open/floor/plasteel/f13/vault_floor,
+/area/f13/hub)
+"Fm" = (
+/obj/structure/closet/crate,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/hub)
 "Fq" = (
 /obj/structure/chair/booth{
@@ -1282,6 +1565,17 @@
 	},
 /turf/open/indestructible/ground/outside/sidewalkdirt,
 /area/f13/hub)
+"Fy" = (
+/obj/machinery/atmospherics/pipe/simple/brown/visible{
+	dir = 4;
+	pixel_x = -14
+	},
+/obj/structure/fluff/railing{
+	dir = 9;
+	color = "#A47449"
+	},
+/turf/open/floor/plasteel/dark,
+/area/space)
 "FA" = (
 /obj/structure/table/wood/settler,
 /obj/item/kirbyplants{
@@ -1311,11 +1605,20 @@
 	},
 /turf/open/floor/wood_common/wood_common_dark,
 /area/f13/hub)
+"FU" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/hub)
 "FV" = (
 /obj/structure/railing/corner{
 	color = "#A47449"
 	},
 /obj/structure/barricade/wooden,
+/turf/open/indestructible/ground/outside/gravel,
+/area/f13/hub)
+"FZ" = (
+/obj/structure/car/rubbish4,
 /turf/open/indestructible/ground/outside/gravel,
 /area/f13/hub)
 "Gc" = (
@@ -1324,6 +1627,9 @@
 	},
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/hub)
+"Gf" = (
+/turf/open/floor/wood_wide/wood_wide_light,
+/area/space)
 "Gi" = (
 /turf/open/indestructible/ground/outside/roaddirt,
 /area/f13/hub)
@@ -1333,12 +1639,27 @@
 	},
 /turf/open/floor/wood_common/wood_common_dark,
 /area/f13/hub)
+"GE" = (
+/obj/structure/fluff/railing{
+	dir = 8;
+	color = "#A47449"
+	},
+/obj/structure/car/rubbish4{
+	pixel_y = -20;
+	pixel_x = 7
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/space)
 "GG" = (
 /obj/structure/lamp_post{
 	dir = 4
 	},
 /turf/open/indestructible/ground/outside/sidewalkdirt,
 /area/f13/hub)
+"GH" = (
+/obj/structure/window/fulltile/wood_window,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/space)
 "GQ" = (
 /turf/open/floor/wood_worn,
 /area/f13/hub)
@@ -1352,6 +1673,20 @@
 /obj/item/restraints/legcuffs/bola,
 /turf/open/floor/plasteel/f13/vault_floor/blue/whitebluefull,
 /area/f13/hub)
+"Hc" = (
+/obj/structure/railing/corner{
+	color = "#A47449";
+	dir = 4
+	},
+/turf/open/floor/wood_wide/wood_wide_light,
+/area/space)
+"Hd" = (
+/obj/structure/fluff/railing{
+	dir = 8;
+	color = "#A47449"
+	},
+/turf/open/water,
+/area/space)
 "Hk" = (
 /obj/structure/curtain,
 /obj/machinery/atmospherics/pipe/simple/brown/visible,
@@ -1372,6 +1707,13 @@
 /obj/structure/barricade/concrete,
 /obj/structure/table,
 /turf/open/indestructible/ground/outside/gravel,
+/area/f13/hub)
+"Hu" = (
+/obj/structure/lamp_post{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/indestructible/ground/outside/sidewalkdirt,
 /area/f13/hub)
 "HA" = (
 /obj/structure/fluff/railing{
@@ -1394,6 +1736,12 @@
 	},
 /turf/open/floor/wood_common/wood_common_dark,
 /area/f13/hub)
+"HI" = (
+/obj/structure/fluff/railing{
+	color = "#A47449"
+	},
+/turf/open/water,
+/area/space)
 "Ie" = (
 /obj/structure/simple_door,
 /obj/machinery/door/poddoor/shutters/preopen,
@@ -1467,6 +1815,11 @@
 "JE" = (
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
 /area/f13/hub)
+"JG" = (
+/obj/machinery/door/poddoor/shutters/old/preopen,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/indestructible/ground/outside/roaddirt,
+/area/f13/hub)
 "JL" = (
 /obj/machinery/vending/hydroseeds,
 /turf/open/indestructible/ground/outside/dirt,
@@ -1481,6 +1834,14 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor,
 /area/f13/hub)
+"JW" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/indestructible/ground/outside/roaddirt,
+/area/f13/hub)
+"JX" = (
+/obj/structure/wreck/trash/engine,
+/turf/open/floor/plasteel/dark,
+/area/space)
 "Kn" = (
 /obj/structure/guncase,
 /obj/item/gun/ballistic/shotgun/police,
@@ -1491,6 +1852,13 @@
 /obj/item/gun/ballistic/automatic/marksman/policerifle,
 /turf/open/floor/plasteel/f13/vault_floor/blue/whitebluefull,
 /area/f13/hub)
+"Ko" = (
+/obj/structure/fluff/railing{
+	dir = 4;
+	color = "#A47449"
+	},
+/turf/open/water,
+/area/space)
 "Kr" = (
 /obj/structure/table/optable,
 /turf/open/floor/plasteel/dark,
@@ -1499,6 +1867,14 @@
 /obj/structure/guncase,
 /turf/open/floor/plasteel/f13/vault_floor/blue/whitebluefull,
 /area/f13/city)
+"Kv" = (
+/obj/structure/fluff/railing{
+	dir = 8;
+	color = "#A47449"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/space)
 "Kx" = (
 /obj/structure/cargocrate,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
@@ -1507,6 +1883,13 @@
 /obj/machinery/smartfridge/bottlerack/grownbin,
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/hub)
+"KU" = (
+/obj/structure/fluff/railing{
+	dir = 4;
+	color = "#A47449"
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/space)
 "Lc" = (
 /obj/structure/flora/grass/jungle,
 /turf/open/floor/wood_common,
@@ -1529,6 +1912,10 @@
 	},
 /turf/open/indestructible/ground/outside/gravel,
 /area/f13/hub)
+"LA" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/dark,
+/area/space)
 "LF" = (
 /obj/structure/table/wood/club,
 /obj/machinery/chem_dispenser/drinks/beer{
@@ -1545,6 +1932,10 @@
 /obj/structure/flora/grass/green,
 /turf/open/indestructible/ground/outside/water/running,
 /area/f13/hub)
+"LS" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/wood_common/wood_common_dark,
+/area/space)
 "LU" = (
 /obj/structure/sign/departments/restroom,
 /turf/closed/wall/mineral/wood,
@@ -1574,6 +1965,9 @@
 /obj/effect/spawner/lootdrop/f13/weapon/gun/ammo/tier5,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
 /area/f13/hub)
+"Mv" = (
+/turf/open/water,
+/area/f13/building)
 "MG" = (
 /obj/item/reagent_containers/glass/bucket/wood,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
@@ -1587,6 +1981,12 @@
 /obj/effect/decal/cleanable/blood/footprints,
 /obj/effect/decal/cleanable/blood/footprints,
 /turf/open/floor/wood_fancy,
+/area/f13/hub)
+"MU" = (
+/obj/structure/flora/grass/jungle,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/wreck/trash/engine,
+/turf/open/indestructible/ground/outside/gravel,
 /area/f13/hub)
 "MV" = (
 /turf/open/indestructible/ground/outside/dirt,
@@ -1624,6 +2024,10 @@
 	},
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/hub)
+"Ny" = (
+/obj/structure/shuttle/engine/propulsion,
+/turf/open/floor/wood_wide/wood_wide_light,
+/area/space)
 "NA" = (
 /obj/structure/table/wood,
 /obj/structure/curtain{
@@ -1638,6 +2042,17 @@
 "NP" = (
 /obj/machinery/smartfridge/bottlerack/lootshelf/condiment,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
+/area/f13/hub)
+"NR" = (
+/obj/structure/closet/crate/wooden,
+/obj/item/fishingrod/spearfisher,
+/obj/item/fishingrod/spearfisher,
+/obj/item/fishingrod/spearfisher,
+/obj/item/fishingrod,
+/obj/item/fishingrod,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/hub)
 "Ob" = (
 /obj/structure/sink{
@@ -1690,6 +2105,11 @@
 	},
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/hub)
+"PA" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/wreck/trash/engine,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/hub)
 "Qa" = (
 /obj/structure/table/wood/poker,
 /turf/open/floor/wood_common/wood_common_dark,
@@ -1727,6 +2147,10 @@
 	},
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/hub)
+"Qz" = (
+/obj/structure/car/rubbish4,
+/turf/open/indestructible/ground/outside/sidewalkdirt,
+/area/f13/hub)
 "QA" = (
 /obj/structure/sign/poster/contraband/bountyhunters,
 /turf/closed/wall/mineral/wood,
@@ -1750,6 +2174,17 @@
 	},
 /turf/open/floor/wood_common/wood_common_dark,
 /area/f13/hub)
+"Re" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/hub)
+"Rr" = (
+/obj/structure/flora/tree/jungle{
+	pixel_y = -15;
+	pixel_x = -38
+	},
+/turf/open/indestructible/ground/outside/gravel,
+/area/f13/hub)
 "Rz" = (
 /turf/open/floor/wood_common/wood_common_dark,
 /area/f13/hub)
@@ -1766,6 +2201,10 @@
 	pixel_x = 6
 	},
 /turf/open/indestructible/ground/outside/roaddirt,
+/area/f13/hub)
+"Si" = (
+/obj/structure/bonfire/dense,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/hub)
 "Sk" = (
 /obj/structure/simple_door/repaired,
@@ -1801,6 +2240,17 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/hub)
+"Tm" = (
+/obj/structure/flora/tree/jungle/small{
+	pixel_x = -20
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/indestructible/ground/outside/gravel,
+/area/f13/hub)
+"Tu" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/f13/wood,
+/area/space)
 "TQ" = (
 /obj/structure/closet/crate/trashcart,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
@@ -1838,6 +2288,10 @@
 /obj/structure/closet/crate/bin/trashbin,
 /turf/open/floor/wood_fancy,
 /area/f13/hub)
+"TZ" = (
+/obj/structure/cargocrate,
+/turf/open/floor/wood_wide/wood_wide_light,
+/area/space)
 "Uc" = (
 /obj/item/reagent_containers/glass/bucket/wood,
 /turf/open/floor/plating/rust,
@@ -1871,6 +2325,10 @@
 /obj/structure/closet/crate,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
 /area/f13/hub)
+"VD" = (
+/obj/structure/window/fulltile/wood/broken,
+/turf/open/floor/plasteel/dark,
+/area/space)
 "VI" = (
 /obj/machinery/atmospherics/pipe/manifold/brown/visible{
 	dir = 8;
@@ -1887,6 +2345,21 @@
 /obj/item/melee/baton/cattleprod,
 /obj/item/melee/baton/cattleprod,
 /turf/open/floor/plasteel/f13/vault_floor/blue/whitebluefull,
+/area/f13/hub)
+"VK" = (
+/obj/structure/fluff/railing{
+	dir = 5;
+	color = "#A47449"
+	},
+/obj/structure/closet/crate/large{
+	pixel_x = -7
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/space)
+"VL" = (
+/obj/structure/flora/grass/wasteland,
+/obj/structure/car/rubbish2,
+/turf/open/indestructible/ground/outside/gravel,
 /area/f13/hub)
 "VQ" = (
 /turf/open/indestructible/ground/outside/dirt,
@@ -1927,6 +2400,10 @@
 /obj/structure/fence/wooden,
 /turf/open/floor/wood_common/wood_common_dark,
 /area/f13/hub)
+"WI" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/indestructible/ground/outside/gravel,
+/area/f13/hub)
 "WV" = (
 /turf/closed/wall/f13/wood/interior,
 /area/f13/hub)
@@ -1950,6 +2427,13 @@
 /obj/structure/flora/grass/wasteland,
 /turf/open/floor/wood_common,
 /area/f13/hub)
+"Xq" = (
+/obj/structure/lamp_post{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/indestructible/ground/outside/sidewalkdirt,
+/area/f13/hub)
 "XA" = (
 /obj/structure/table/reinforced,
 /obj/structure/fence{
@@ -1968,7 +2452,13 @@
 "XH" = (
 /obj/structure/flora/grass/coyote/fourteen,
 /obj/structure/flora/tallgrass8,
+/obj/effect/decal/cleanable/dirt,
 /turf/open/indestructible/ground/outside/gravel,
+/area/f13/hub)
+"XI" = (
+/obj/structure/lamp_post,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/indestructible/ground/outside/sidewalkdirt,
 /area/f13/hub)
 "XM" = (
 /obj/item/export/bottle/vodka{
@@ -1981,10 +2471,18 @@
 	},
 /turf/open/floor/wood_common/wood_common_dark,
 /area/f13/hub)
+"XS" = (
+/obj/structure/closet/crate/trashcart,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/hub)
 "Yc" = (
 /obj/machinery/trading_machine/ammo,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
 /area/f13/hub)
+"Yv" = (
+/obj/structure/simple_door/room/dirty,
+/turf/open/floor/wood_wide/wood_wide_light,
+/area/space)
 "Yx" = (
 /turf/open/floor/plating/rust,
 /area/f13/hub)
@@ -2003,9 +2501,17 @@
 /obj/structure/closet/locker/fridge,
 /turf/open/floor/wood_fancy,
 /area/f13/hub)
+"YW" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/closed/wall/rust,
+/area/space)
 "Zb" = (
 /obj/structure/table/wood,
 /turf/open/floor/wood_common,
+/area/f13/hub)
+"Ze" = (
+/obj/structure/debris/v4,
+/turf/open/indestructible/ground/outside/roaddirt,
 /area/f13/hub)
 "Zj" = (
 /obj/machinery/trading_machine/weapon,
@@ -38849,7 +39355,7 @@ es
 es
 es
 es
-es
+FN
 es
 es
 es
@@ -39104,9 +39610,9 @@ es
 es
 es
 es
+BX
 es
-es
-es
+FN
 es
 es
 es
@@ -39363,7 +39869,7 @@ es
 es
 es
 es
-es
+FN
 es
 es
 es
@@ -39617,8 +40123,8 @@ es
 es
 es
 es
-es
-es
+FN
+BX
 es
 es
 es
@@ -39875,9 +40381,9 @@ es
 es
 es
 es
-es
-es
-es
+BX
+BX
+FN
 es
 es
 es
@@ -40127,12 +40633,12 @@ es
 es
 es
 es
+ef
 es
 es
 es
 es
-es
-es
+BX
 es
 es
 es
@@ -40384,13 +40890,13 @@ es
 es
 es
 es
+ef
 es
 es
 es
-es
-es
-es
-es
+FN
+BX
+BX
 es
 es
 es
@@ -40640,15 +41146,15 @@ es
 es
 es
 es
+ef
+bm
+ef
 es
 es
-es
-es
-es
-es
+FN
+Tu
 BX
-BX
-es
+FN
 es
 es
 es
@@ -40897,22 +41403,15 @@ es
 es
 es
 es
+ef
+bm
+ef
 es
 es
-es
-es
-es
-es
-BX
-BX
-es
-es
-es
-es
-es
-es
-es
-es
+FN
+Tu
+Tu
+FN
 es
 es
 es
@@ -40923,8 +41422,15 @@ es
 es
 es
 es
-Pk
-Pk
+es
+es
+es
+es
+es
+es
+es
+Mv
+Mv
 Pk
 Pk
 Pk
@@ -41153,35 +41659,35 @@ es
 es
 es
 es
-es
-es
-es
-es
-es
+ef
+bm
+bm
+bm
+ef
 es
 es
 BX
-BX
+Tu
+FN
 es
 es
 es
 es
 es
+ef
+VD
+ef
+ef
+VD
+ef
+ef
+VD
 es
 es
 es
 es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-Pk
-Pk
+Mv
+Mv
 Pk
 Pk
 Pk
@@ -41410,35 +41916,35 @@ es
 es
 es
 es
-es
-es
-es
-es
-es
+ef
+bm
+LS
+LS
+ef
 es
 es
 BX
-BX
+Tu
 es
 es
 es
 es
+ef
+ef
+vT
+vT
+vT
+LA
+LA
+LA
+vT
+vT
+vT
 es
 es
 es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-Pk
-Pk
+Mv
+Mv
 Pk
 Pk
 Pk
@@ -41667,35 +42173,35 @@ es
 es
 es
 es
+vq
+bm
+bm
+LS
+vq
 es
-es
-es
-es
-es
-es
-es
+FN
 BX
-BX
+Tu
 es
 es
 es
+ef
+ef
+vT
+vT
+LA
+el
+LA
+vT
+LA
+LA
+LA
+vT
+vT
+ef
 es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-Pk
-Pk
+Mv
+Mv
 Pk
 Pk
 Pk
@@ -41924,35 +42430,35 @@ es
 es
 es
 es
-es
-es
-es
-es
-es
-es
-es
+ef
+bm
+LS
+bm
+ef
+Ko
+AP
+Tu
 BX
-BX
 es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-Pk
-Pk
+ef
+ef
+ef
+vT
+vT
+el
+el
+LA
+LA
+LA
+LA
+vT
+vT
+LA
+JX
+ef
+ef
+Mv
+Mv
 Pk
 Pk
 Pk
@@ -41977,7 +42483,7 @@ kv
 kv
 kv
 BV
-BV
+JG
 BV
 BV
 kv
@@ -42181,35 +42687,35 @@ es
 es
 es
 es
-es
-es
-es
-es
-es
-es
-es
+vq
+bm
+LS
+bm
+bm
+OZ
+OZ
+Tu
 BX
-BX
 es
 es
 es
+ef
+ef
+LA
+LA
+vT
+vT
 es
+vT
 es
+vT
 es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-Pk
-Pk
+vT
+vT
+ef
+ef
+Mv
+Mv
 Pk
 Pk
 Pk
@@ -42234,7 +42740,7 @@ kv
 kv
 kv
 BV
-BV
+JG
 BV
 BV
 kv
@@ -42438,35 +42944,35 @@ es
 es
 es
 es
-es
-es
-es
-es
-es
-es
-es
+ef
+bm
+YW
+ef
+ef
+Hd
+vj
+Tu
 BX
-BX
+FN
+es
+es
+es
+ef
+ef
+vT
+vT
 es
 es
 es
 es
 es
 es
+vT
+ef
+ef
 es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-Pk
-Pk
+Mv
+Mv
 Pk
 Pk
 Pk
@@ -42491,7 +42997,7 @@ da
 Qj
 Qj
 Gi
-Gi
+JW
 Gi
 Gi
 Co
@@ -42695,35 +43201,35 @@ es
 es
 es
 es
+vq
+bm
+bm
+bm
+vq
 es
-es
-es
-es
-es
-es
-es
+FN
+ak
 BX
-BX
+FN
 es
 es
 es
 es
 es
+ef
+vT
+ef
+ef
 es
 es
 es
+VD
+ef
+ef
 es
 es
-es
-es
-es
-es
-es
-es
-es
-es
-Pk
-Pk
+Mv
+Mv
 Pk
 Pk
 Pk
@@ -42749,7 +43255,7 @@ lI
 Qj
 Gi
 Gi
-Gi
+JW
 Gi
 da
 Qj
@@ -42952,6 +43458,24 @@ es
 es
 es
 es
+ef
+bm
+bm
+bm
+ef
+es
+FN
+Tu
+Tu
+FN
+es
+es
+es
+es
+es
+HI
+OZ
+Fk
 es
 es
 es
@@ -42959,28 +43483,10 @@ es
 es
 es
 es
-BX
-BX
 es
 es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-Pk
-Pk
+Mv
+Mv
 Pk
 Pk
 Pk
@@ -43005,8 +43511,8 @@ hs
 Qj
 CN
 Gi
-Gi
-Gi
+hd
+JW
 Gi
 Tc
 Qj
@@ -43209,28 +43715,28 @@ es
 es
 es
 es
-es
-es
-es
-es
-es
-es
-es
-BX
-BX
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
+ef
+bm
+bm
+bm
+ef
 es
 FN
+BX
+Tu
+FN
+FN
+FN
+FN
+FN
+FN
+pQ
+OZ
+vj
+FN
+FN
+pW
+pW
 FN
 FN
 FN
@@ -43262,8 +43768,8 @@ Qj
 da
 Qj
 Gi
-Gi
-Gi
+JW
+JW
 Gi
 Qj
 Qj
@@ -43467,12 +43973,14 @@ es
 es
 es
 es
+ef
+bm
+ef
 es
 es
-es
-es
-es
-es
+FN
+BX
+Tu
 BX
 BX
 BX
@@ -43482,15 +43990,13 @@ BX
 BX
 BX
 BX
+Tu
+Tu
 BX
 BX
-BX
-BX
-BX
-BX
-BI
-BI
-BI
+Re
+Re
+Re
 BI
 kv
 kv
@@ -43519,10 +44025,10 @@ da
 Qj
 da
 Gi
-Gi
-Gi
-Gi
-Qj
+JW
+JW
+JW
+fT
 da
 TY
 Sr
@@ -43725,29 +44231,29 @@ es
 es
 es
 es
+ef
 es
 es
 es
-es
-es
+FN
 BX
 BX
-BX
-BX
-BX
-BX
-BX
-BX
-BX
-BX
-BX
-BX
-BX
-BX
-BX
-BI
-BI
-BI
+Tu
+Tu
+Tu
+Tu
+Tu
+Tu
+Tu
+ak
+ak
+Tu
+Tu
+Tu
+Tu
+Re
+Re
+Re
 BI
 eL
 Fq
@@ -43776,9 +44282,9 @@ yq
 Es
 da
 Gi
+hd
 Gi
-Gi
-Gi
+JW
 Qj
 da
 Zn
@@ -43986,25 +44492,25 @@ es
 es
 es
 es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
 FN
-BI
-BI
-BI
+FN
+FN
+FN
+FN
+FN
+FN
+FN
+FN
+pW
+FN
+FN
+FN
+FN
+FN
+FN
+mB
+mB
+Re
 BI
 Jr
 nT
@@ -44033,7 +44539,7 @@ yq
 Es
 Qj
 Gi
-Gi
+hd
 Gi
 Gi
 Qj
@@ -44244,24 +44750,24 @@ es
 es
 es
 es
+rm
+fc
+ox
+ox
+GH
+GH
+qp
+fk
 es
 es
 es
 es
 es
-es
-es
-es
-es
-es
-es
-es
-es
-es
+us
 FN
-BI
+gk
 da
-BI
+Re
 BI
 eL
 QH
@@ -44288,9 +44794,9 @@ dk
 OW
 IM
 Qj
-da
+WI
 Gi
-Gi
+hd
 Gi
 Gi
 Qj
@@ -44498,27 +45004,27 @@ es
 es
 es
 es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
+rm
+Ar
+GE
+iR
+nI
+Gf
+Gf
+qp
+Gf
+Gf
+ef
+ef
+ef
+ef
 es
 es
 es
 FN
 da
-da
-BI
+Rr
+PA
 BI
 Jr
 Rz
@@ -44545,9 +45051,9 @@ dk
 OW
 da
 Qj
-IM
+jh
 Gi
-Gi
+hd
 Gi
 Gi
 da
@@ -44751,31 +45257,31 @@ es
 es
 es
 es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
+rm
+ox
+Kv
+Kv
+iR
+Gf
+Gf
+Gf
+nI
+nI
+Gf
+qp
+Gf
+nI
+YW
+Gf
+Ny
+la
+ef
+ef
 es
 FN
-BI
-BI
-BI
+cM
+XS
+Re
 BI
 tE
 Rz
@@ -44804,8 +45310,8 @@ xr
 da
 Qj
 Gi
-Gi
-Gi
+hd
+hd
 Gi
 da
 Qj
@@ -45008,31 +45514,31 @@ es
 es
 es
 es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
+uE
+KU
+KU
+KU
+yp
+ll
+ll
+TZ
+Gf
+TZ
+Gf
+qp
+Gf
+Gf
+nI
+nI
+la
+Ny
+ef
+ef
 es
 FN
+cM
 BI
-BI
-BI
+Re
 qS
 Mb
 WD
@@ -45059,10 +45565,10 @@ da
 xr
 xr
 Js
-vi
-Gi
-Gi
-Gi
+XI
+hd
+JW
+JW
 Gi
 ci
 Qj
@@ -45269,31 +45775,31 @@ es
 es
 es
 es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
+VK
+hb
+hb
+Hc
+Gf
+Gf
+Gf
+Yv
+Gf
+Gf
+ef
+ef
+ef
+ef
 es
 es
 es
 FN
 BI
 BI
-BI
+Re
 Vu
 da
-Qj
-Qj
+wQ
+wQ
 Qj
 Qj
 WB
@@ -45311,17 +45817,17 @@ Qj
 Qj
 Qj
 WB
-da
+FZ
 lI
 da
 da
-Qj
+wQ
 da
+JW
+JW
+JW
 Gi
-Gi
-Gi
-Gi
-da
+sf
 Qj
 da
 WB
@@ -45350,8 +45856,8 @@ kl
 Qj
 Qj
 kv
-kv
-Lt
+Dt
+hP
 Lt
 uF
 iC
@@ -45529,14 +46035,14 @@ es
 es
 es
 es
-es
-es
-es
-es
-es
-es
-es
-es
+uE
+KU
+KU
+KU
+GH
+GH
+qp
+ef
 es
 es
 es
@@ -45544,14 +46050,14 @@ es
 es
 es
 FN
+Si
 BI
-BI
-BI
+Re
 BI
 Qj
 GG
 WB
-da
+WI
 rl
 jb
 da
@@ -45564,17 +46070,17 @@ da
 da
 da
 GG
-Qj
-da
-da
+wQ
+WI
+WI
 XH
 Qj
 Qj
+wQ
+Xq
 Qj
-GG
 Qj
-Qj
-Gi
+JW
 Gi
 Gi
 Gi
@@ -45596,7 +46102,7 @@ da
 da
 kK
 kl
-ug
+VL
 da
 da
 Qj
@@ -45606,10 +46112,10 @@ Qj
 da
 ug
 da
+hO
 kv
-kv
-Lt
-Lt
+ei
+hP
 Lt
 vo
 vo
@@ -45803,8 +46309,36 @@ FN
 FN
 BI
 BI
+Re
 BI
-BI
+Gi
+Gi
+Gi
+JW
+hd
+Gi
+Gi
+JW
+hd
+Gi
+Gi
+Gi
+Gi
+Gi
+Gi
+JW
+Gi
+Gi
+Gi
+JW
+hd
+hd
+Gi
+Gi
+Gi
+Gi
+hd
+JW
 Gi
 Gi
 Gi
@@ -45835,36 +46369,8 @@ Gi
 Gi
 Gi
 Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-kv
-kv
+sM
+Ze
 Lt
 Lt
 Lt
@@ -46031,8 +46537,8 @@ es
 es
 es
 es
+FN
 es
-es
 FN
 FN
 FN
@@ -46057,71 +46563,71 @@ FN
 FN
 Fj
 Fj
-Fj
+pk
 BI
 BI
-BI
-BI
+Re
+Re
+JW
+JW
+JW
+hd
+hd
+JW
+hd
+JW
 Gi
+hd
+JW
 Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
+JW
+hd
+hd
+hd
 Gi
 of
+JW
+JW
+Gi
+JW
+JW
+Gi
+Gi
+Gi
+hd
+Gi
+Gi
+Gi
+Gi
+JW
+hd
+JW
+Gi
+JW
+hd
+JW
+JW
+JW
 Gi
 Gi
 Gi
 Gi
 Gi
+JW
+JW
+JW
+JW
+JW
+JW
+JW
+Gi
+Gi
+JW
 Gi
 Gi
 Gi
+Ze
 Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-kv
-kv
 Lt
 Lt
 Lt
@@ -46289,15 +46795,15 @@ es
 es
 es
 es
-es
 BX
 BX
 BX
-BX
-BX
-BX
-BX
-BX
+Tu
+Tu
+Tu
+Tu
+Tu
+Tu
 BX
 BX
 BX
@@ -46313,12 +46819,58 @@ BX
 BX
 BX
 BI
+FU
+FU
+FU
+Re
+Re
 BI
-BI
-BI
-BI
-BI
-BI
+Gi
+Gi
+Gi
+Gi
+Gi
+Gi
+JW
+JW
+JW
+JW
+JW
+hd
+JW
+JW
+Gi
+Gi
+Gi
+Gi
+Gi
+Gi
+JW
+JW
+hd
+JW
+Gi
+Gi
+vI
+hd
+JW
+JW
+JW
+JW
+Gi
+Gi
+JW
+Gi
+JW
+JW
+JW
+JW
+JW
+JW
+JW
+JW
+JW
+JW
 Gi
 Gi
 Gi
@@ -46331,54 +46883,8 @@ Gi
 Gi
 Gi
 Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-kv
-kv
+AX
+Ze
 Lt
 Lt
 Lt
@@ -46544,9 +47050,9 @@ es
 es
 es
 es
+BX
+BX
 es
-es
-es
 BX
 BX
 BX
@@ -46555,27 +47061,35 @@ BX
 BX
 BX
 BX
+Tu
+Tu
+Tu
+Tu
 BX
 BX
-BX
-BX
-BX
-BX
-BX
-BX
-BX
-BX
-BX
+Tu
+Tu
+Tu
+Tu
+Tu
 BX
 BX
 BX
 BI
+Re
+Re
+Re
+Re
+Re
 BI
-BI
-BI
-BI
-BI
-BI
+JW
+JW
+JW
+JW
+JW
+JW
+JW
+JW
 Gi
 Gi
 Gi
@@ -46585,31 +47099,23 @@ Gi
 Gi
 Gi
 Gi
+mS
 Gi
 Gi
 Gi
 Gi
+JW
+JW
+JW
+Gi
+Gi
+Gi
+hd
 Gi
 Gi
 Gi
 Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
-Gi
+JW
 Gi
 Gi
 Gi
@@ -46634,8 +47140,8 @@ Xg
 Xg
 RP
 Gi
-kv
-kv
+Ze
+Gi
 Lt
 Lt
 Lt
@@ -46800,8 +47306,8 @@ es
 es
 es
 es
-es
-es
+FN
+FN
 es
 es
 FN
@@ -46815,9 +47321,9 @@ FN
 FN
 FN
 FN
-FN
-FN
-FN
+pW
+pW
+pW
 FN
 FN
 FN
@@ -46828,14 +47334,14 @@ FN
 FN
 BI
 BI
-BI
-BI
-BI
-BI
+Re
+Re
+Re
+Re
 BI
 IH
 qe
-Qj
+pG
 lI
 da
 Qj
@@ -46856,12 +47362,12 @@ da
 Qj
 Qj
 Qj
-Fr
-Qj
-Qj
-Gi
-Gi
-Gi
+Hu
+wQ
+bW
+JW
+JW
+hd
 Gi
 Qj
 da
@@ -46875,9 +47381,9 @@ dS
 Fr
 Qj
 Qj
+pG
 Qj
-Qj
-Qj
+BB
 Qj
 Fr
 Qj
@@ -46892,9 +47398,9 @@ ML
 ML
 Qj
 kv
-kv
+Dt
 Lt
-Lt
+hP
 Lt
 Lt
 vo
@@ -47084,12 +47590,12 @@ es
 us
 fH
 BI
-BI
-BI
-BI
-BI
-BI
-BI
+Fm
+Fm
+Re
+FU
+Re
+Si
 lI
 Qj
 Qj
@@ -47116,9 +47622,9 @@ da
 dS
 da
 Qj
-Gi
-Gi
-Gi
+JW
+hd
+JW
 Gi
 Qj
 da
@@ -47151,7 +47657,7 @@ Qj
 kv
 kv
 Lt
-Lt
+hP
 Lt
 Lt
 vo
@@ -47341,12 +47847,12 @@ es
 es
 FN
 BI
-BI
-BI
-BI
-BI
-BI
-BI
+Wk
+Wk
+mB
+PA
+FU
+Re
 BI
 BI
 BI
@@ -47361,7 +47867,7 @@ kv
 kv
 kv
 kv
-Zn
+kv
 Zn
 sp
 CU
@@ -47374,8 +47880,8 @@ Zn
 da
 vi
 Gi
-Gi
-Gi
+hd
+JW
 Gi
 Tc
 Qj
@@ -47601,12 +48107,12 @@ BI
 BI
 BI
 da
-da
+Tm
 BI
 JE
 BI
 JE
-BI
+Cn
 JE
 XA
 JE
@@ -47632,10 +48138,10 @@ da
 da
 Gi
 Gi
-Gi
+JW
 Gi
 da
-Qj
+wQ
 xS
 bT
 bT
@@ -47837,7 +48343,7 @@ ri
 Wz
 vT
 vT
-Qq
+Fy
 vT
 vT
 Qq
@@ -47858,8 +48364,8 @@ BI
 BI
 BI
 BI
-Bk
-BI
+pF
+Re
 BI
 BI
 BI
@@ -47889,9 +48395,9 @@ Qj
 lI
 Gi
 Gi
+JW
 Gi
-Gi
-rl
+MU
 Qj
 xS
 bT
@@ -48113,10 +48619,10 @@ es
 FN
 BI
 BI
-BI
-BI
-BI
-BI
+Re
+Re
+FU
+Re
 BI
 Zu
 BI
@@ -48145,10 +48651,10 @@ Zn
 Qj
 ug
 Gi
+JW
+JW
 Gi
-Gi
-Gi
-da
+WI
 Qj
 xS
 bT
@@ -48368,11 +48874,11 @@ ef
 es
 es
 FN
-BI
-BI
-BI
-BI
-BI
+PA
+gA
+NR
+Re
+Re
 JE
 BI
 Yc
@@ -48402,10 +48908,10 @@ Zn
 Qj
 da
 Gi
-Gi
-Gi
-Gi
-da
+JW
+hd
+JW
+WI
 Qj
 xS
 Yx
@@ -48626,9 +49132,9 @@ es
 es
 FN
 BI
-BI
-BI
-BI
+Re
+Re
+Re
 gs
 ke
 Nl
@@ -48658,11 +49164,11 @@ hV
 Zn
 Qj
 da
+JW
 Gi
-Gi
-Gi
-Gi
-lI
+JW
+JW
+AM
 Qj
 xS
 bT
@@ -48883,10 +49389,10 @@ es
 es
 FN
 BI
-da
+Rr
 cM
 cM
-BI
+Re
 Wk
 Wk
 Zj
@@ -48915,10 +49421,10 @@ Sr
 Zn
 Qj
 Qj
-Gi
-Gi
-Gi
-Gi
+JW
+JW
+JW
+hd
 Qj
 Qj
 yj
@@ -49139,10 +49645,10 @@ es
 es
 es
 FN
-BI
+Si
 Bk
 cM
-cM
+qI
 BI
 BI
 BI
@@ -49160,7 +49666,7 @@ kv
 kv
 kv
 kv
-Zn
+kv
 Zn
 Sr
 Sr
@@ -49174,10 +49680,10 @@ Qj
 vi
 Gi
 Gi
-Gi
-Gi
+JW
+hd
 Tc
-Qj
+Qz
 Xi
 De
 xL
@@ -49385,21 +49891,21 @@ es
 es
 es
 es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
 FN
+FN
+FN
+FN
+FN
+FN
+FN
+FN
+FN
+FN
+pW
+Re
 BI
-BI
-BI
-BI
+Cn
+Re
 BI
 Wk
 Wk
@@ -49429,10 +49935,10 @@ Zn
 Zn
 da
 Qj
+JW
 Gi
 Gi
-Gi
-Gi
+hd
 Qj
 Qj
 Xi
@@ -49642,7 +50148,7 @@ es
 es
 es
 es
-es
+FN
 BX
 BX
 BX
@@ -49650,13 +50156,13 @@ BX
 BX
 BX
 BX
-BX
-BX
-BX
+Tu
+Tu
+Tu
 Fj
-Fj
-Fj
-Fj
+Cu
+pk
+Cu
 Fj
 Fj
 Fj
@@ -49686,12 +50192,12 @@ KM
 rz
 IM
 Qj
+JW
 Gi
-Gi
-Gi
-Gi
+JW
+JW
 Qj
-da
+uf
 Xi
 RO
 bT
@@ -49899,20 +50405,20 @@ es
 es
 es
 es
-es
-BX
-BX
-BX
-BX
-BX
-BX
-BX
-BX
+FN
+Tu
+Tu
+Tu
+Tu
+Tu
+Tu
+Tu
+Tu
 BX
 ws
 Fj
 Fj
-Fj
+Cu
 Fj
 Fj
 Kx
@@ -49943,9 +50449,9 @@ da
 TU
 ug
 da
+JW
 Gi
-Gi
-Gi
+JW
 Gi
 da
 ug
@@ -50156,17 +50662,17 @@ es
 es
 es
 es
-es
-BX
-BX
-es
-es
-es
-es
-es
-es
-es
 FN
+BX
+Tu
+FN
+EV
+FN
+EV
+FN
+EV
+FN
+EV
 FN
 FN
 FN
@@ -50200,10 +50706,10 @@ oI
 Gc
 da
 ug
+JW
 Gi
-Gi
-Gi
-Gi
+JW
+JW
 rl
 Qj
 yj
@@ -50409,20 +50915,20 @@ es
 es
 es
 es
+ef
 es
 es
 es
-es
-es
+FN
 BX
-BX
+Tu
+FN
+us
 es
 es
 es
 es
-es
-es
-es
+us
 es
 es
 es
@@ -50457,9 +50963,9 @@ oI
 Gc
 Qj
 da
-Gi
-Gi
-Gi
+sz
+JW
+JW
 Gi
 da
 Qj
@@ -50666,14 +51172,14 @@ es
 es
 es
 es
+ef
 es
 es
 es
-es
-es
+FN
 BX
-BX
-es
+Tu
+FN
 es
 es
 es
@@ -50716,7 +51222,7 @@ Qj
 IM
 Gi
 Gi
-Gi
+JW
 Gi
 Qj
 Qj
@@ -50922,15 +51428,15 @@ es
 es
 es
 es
+ef
+bm
+ef
 es
 es
-es
-es
-es
-es
+FN
 BX
-BX
-es
+Tu
+FN
 es
 es
 es
@@ -50972,11 +51478,11 @@ Gc
 Qj
 CN
 Gi
-Gi
-Gi
+hd
+JW
 Gi
 Tc
-Qj
+rP
 yj
 bv
 gG
@@ -51179,15 +51685,15 @@ es
 es
 es
 es
+ef
+bm
+ef
 es
 es
-es
-es
-es
-es
+FN
 BX
-BX
-es
+Tu
+FN
 es
 es
 es
@@ -51230,7 +51736,7 @@ Qj
 Qj
 Gi
 Gi
-Gi
+JW
 Gi
 Qj
 Qj
@@ -51435,16 +51941,16 @@ es
 es
 es
 es
-es
-es
-es
-es
-es
+ef
+bm
+LS
+bm
+ef
 es
 es
 BX
-BX
-es
+Tu
+FN
 es
 es
 es
@@ -51484,7 +51990,7 @@ oI
 oI
 Gc
 Qj
-Qj
+rP
 Gi
 Gi
 Gi
@@ -51692,16 +52198,16 @@ es
 es
 es
 es
-es
-es
-es
-es
-es
+ef
+bm
+LS
+bm
+ef
 es
 es
 BX
-BX
-es
+Tu
+FN
 es
 es
 es
@@ -51949,15 +52455,15 @@ es
 es
 es
 es
+vq
+bm
+LS
+bm
+vq
 es
-es
-es
-es
-es
-es
-es
-BX
-BX
+FN
+Tu
+Tu
 es
 es
 es
@@ -52206,15 +52712,15 @@ es
 es
 es
 es
-es
-es
-es
-es
-es
-es
-es
+ef
+bm
+LS
+bm
+ef
+Ko
+FN
 BX
-BX
+es
 es
 es
 es
@@ -52256,12 +52762,12 @@ dx
 dx
 vo
 vo
-vo
 Lt
 Lt
 Lt
 Lt
-vo
+Lt
+Lt
 vo
 vo
 vo
@@ -52463,13 +52969,13 @@ es
 es
 es
 es
-es
-es
-es
-es
-es
-es
-es
+vq
+bm
+LS
+LS
+bm
+OZ
+FN
 BX
 BX
 es
@@ -52513,12 +53019,12 @@ dx
 dx
 vo
 vo
-vo
 Lt
 Lt
 Lt
 Lt
-vo
+Lt
+Lt
 vo
 vo
 vo
@@ -52720,14 +53226,14 @@ es
 es
 es
 es
+ef
+ef
+YW
+LS
+ef
+Hd
 es
-es
-es
-es
-es
-es
-es
-BX
+Tu
 BX
 es
 es
@@ -52977,16 +53483,16 @@ es
 es
 es
 es
+vq
+bm
+LS
+bm
+vq
 es
-es
-es
-es
-es
-es
-es
+FN
 BX
 BX
-es
+FN
 es
 es
 es
@@ -53034,7 +53540,7 @@ Lt
 Lt
 Lt
 Lt
-vo
+Lt
 vo
 vo
 vo
@@ -53234,16 +53740,16 @@ es
 es
 es
 es
+ef
+bm
+LS
+bm
+ef
 es
 es
+BX
 es
-es
-es
-es
-es
-es
-es
-es
+FN
 es
 es
 es
@@ -53286,7 +53792,7 @@ Pk
 Pk
 Pk
 vo
-vo
+Lt
 Lt
 Lt
 Lt
@@ -53491,16 +53997,16 @@ es
 es
 es
 es
+ef
+bm
+bm
+bm
+ef
 es
 es
 es
 es
-es
-es
-es
-es
-es
-es
+FN
 es
 es
 es
@@ -53550,7 +54056,7 @@ Lt
 Lt
 Lt
 Lt
-vo
+Lt
 vo
 vo
 vo
@@ -53749,12 +54255,12 @@ es
 es
 es
 es
+ef
+bm
+ef
 es
 es
-es
-es
-es
-es
+FN
 es
 es
 es
@@ -53802,7 +54308,7 @@ Pk
 Pk
 Pk
 vo
-vo
+Lt
 Lt
 Lt
 Lt
@@ -54007,14 +54513,14 @@ es
 es
 es
 es
+ef
 es
 es
 es
+FN
 es
 es
-es
-es
-es
+FN
 es
 es
 es
@@ -54269,9 +54775,9 @@ es
 es
 es
 es
-es
-es
-es
+BX
+BX
+FN
 es
 es
 es
@@ -54318,7 +54824,7 @@ Pk
 vo
 vo
 vo
-vo
+Lt
 Lt
 Lt
 Lt
@@ -54526,9 +55032,9 @@ es
 es
 es
 es
-es
-es
-es
+BX
+BX
+FN
 es
 es
 es
@@ -54783,8 +55289,8 @@ es
 es
 es
 es
-es
-es
+BX
+BX
 es
 es
 es
@@ -55040,7 +55546,7 @@ es
 es
 es
 es
-es
+BX
 es
 es
 es
