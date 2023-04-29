@@ -35,6 +35,9 @@
 /obj/machinery/mineral/wasteland_vendor/pipboy,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
 /area/f13/hub)
+"aG" = (
+/turf/open/floor/f13/wood,
+/area/f13/building)
 "aK" = (
 /obj/structure/fence/end/wooden,
 /turf/open/indestructible/ground/outside/dirt,
@@ -130,6 +133,14 @@
 "cw" = (
 /turf/open/indestructible/ground/outside/roaddirt,
 /area/space)
+"cx" = (
+/obj/structure/table/wood/bar,
+/obj/machinery/chem_dispenser/drinks/beer{
+	dir = 1;
+	pixel_y = -6
+	},
+/turf/open/floor/carpet/royalblack,
+/area/space)
 "cD" = (
 /obj/effect/overlay/junk/mirror{
 	pixel_y = 1;
@@ -208,6 +219,12 @@
 	},
 /turf/open/floor/wood_fancy,
 /area/f13/city)
+"dn" = (
+/obj/structure/chair/booth{
+	dir = 4
+	},
+/turf/open/floor/carpet/royalblack,
+/area/space)
 "dw" = (
 /obj/structure/fluff/railing{
 	color = "#A47449"
@@ -315,6 +332,12 @@
 /obj/structure/closet/crate/large,
 /turf/open/floor/plating/rust,
 /area/f13/building)
+"eG" = (
+/obj/structure/chair/sofa/corp/left{
+	dir = 8
+	},
+/turf/open/floor/carpet/royalblack,
+/area/space)
 "eL" = (
 /obj/structure/fence/wooden{
 	dir = 8
@@ -515,11 +538,8 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
 /area/f13/hub)
 "gZ" = (
-/obj/structure/fluff/railing{
-	dir = 8;
-	color = "#A47449"
-	},
-/turf/open/floor/plasteel/f13/vault_floor/floor/floorsolid,
+/obj/structure/table/booth,
+/turf/open/floor/carpet/royalblack,
 /area/space)
 "hb" = (
 /obj/structure/fluff/railing{
@@ -742,6 +762,13 @@
 /obj/structure/fence/corner,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/building)
+"jU" = (
+/obj/machinery/atmospherics/components/unary/tank{
+	pixel_y = 1;
+	pixel_x = 6
+	},
+/turf/open/floor/wood_fancy/wood_fancy_light,
+/area/space)
 "jY" = (
 /obj/structure/chair/stool/retro/backed{
 	dir = 8
@@ -971,8 +998,8 @@
 /turf/open/indestructible/ground/outside/roaddirt,
 /area/f13/hub)
 "mV" = (
-/obj/structure/window/fulltile/ruins,
-/turf/open/floor/plasteel/f13/vault_floor/floor/floorsolid,
+/obj/structure/table/greyscale,
+/turf/open/floor/wood_fancy/wood_fancy_light,
 /area/space)
 "nb" = (
 /obj/structure/sign/poster/official/high_class_martini,
@@ -984,6 +1011,10 @@
 	},
 /turf/open/floor/wood_fancy,
 /area/f13/city)
+"nl" = (
+/obj/structure/table/glass,
+/turf/open/floor/carpet/royalblack,
+/area/space)
 "np" = (
 /obj/structure/fluff/railing{
 	dir = 4;
@@ -991,6 +1022,10 @@
 	},
 /turf/open/indestructible/ground/outside/sidewalkdirt,
 /area/f13/city)
+"ny" = (
+/obj/structure/chair/stool/retro,
+/turf/open/floor/wood_mosaic/wood_mosaic_dark,
+/area/space)
 "nE" = (
 /obj/structure/flora/brushwood,
 /turf/open/indestructible/ground/outside/dirt,
@@ -1276,6 +1311,16 @@
 /obj/structure/billboard/poseidenenergy2,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/hub)
+"qZ" = (
+/obj/structure/stairs/east{
+	color = "#A47449";
+	dir = 1
+	},
+/obj/structure/curtain{
+	color = "#811313"
+	},
+/turf/open/floor/f13/wood,
+/area/space)
 "rh" = (
 /obj/structure/wreck/trash/five_tires,
 /turf/open/floor/plating/rust,
@@ -1430,6 +1475,10 @@
 	},
 /turf/open/floor/wood_fancy,
 /area/f13/hub)
+"sk" = (
+/obj/structure/chair/booth,
+/turf/open/floor/carpet/royalblack,
+/area/space)
 "sl" = (
 /obj/structure/wreck/trash/two_barrels,
 /turf/open/floor/plating/rust,
@@ -1487,11 +1536,21 @@
 /obj/structure/falsewall/rust,
 /turf/open/floor/wood_common/wood_common_dark,
 /area/f13/hub)
+"ta" = (
+/turf/open/floor/wood_fancy/wood_fancy_light,
+/area/space)
 "tk" = (
 /obj/structure/window/fulltile/wood,
 /obj/structure/curtain,
 /turf/open/floor/wood_fancy,
 /area/f13/hub)
+"tp" = (
+/obj/machinery/atmospherics/components/unary/tank{
+	pixel_y = 1;
+	pixel_x = -6
+	},
+/turf/open/floor/wood_fancy/wood_fancy_light,
+/area/space)
 "tz" = (
 /obj/machinery/microwave/stove,
 /turf/open/floor/wood_fancy,
@@ -1571,6 +1630,9 @@
 	},
 /turf/open/floor/wood_fancy,
 /area/f13/hub)
+"uC" = (
+/turf/open/floor/wood_mosaic/wood_mosaic_dark,
+/area/space)
 "uE" = (
 /obj/structure/fluff/railing{
 	dir = 5;
@@ -2483,6 +2545,12 @@
 /obj/structure/debris/v3,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/building)
+"Gz" = (
+/obj/structure/chair/booth{
+	dir = 8
+	},
+/turf/open/floor/carpet/royalblack,
+/area/space)
 "GE" = (
 /obj/structure/fluff/railing{
 	dir = 8;
@@ -2514,11 +2582,10 @@
 /turf/open/indestructible/ground/outside/sidewalkdirt,
 /area/f13/bunker)
 "Ha" = (
-/obj/structure/fluff/railing{
-	dir = 4;
-	color = "#A47449"
+/obj/structure/shelf_wood{
+	pixel_y = -5
 	},
-/turf/open/floor/plasteel/f13/vault_floor/floor/floorsolid,
+/turf/open/floor/carpet/royalblack,
 /area/space)
 "Hb" = (
 /obj/structure/rack/shelf_metal{
@@ -2607,6 +2674,12 @@
 /obj/structure/barricade/wooden,
 /turf/open/indestructible/ground/outside/gravel,
 /area/f13/hub)
+"HG" = (
+/obj/structure/chair/booth{
+	dir = 1
+	},
+/turf/open/floor/carpet/royalblack,
+/area/space)
 "HH" = (
 /obj/structure/chair/booth{
 	dir = 1
@@ -2660,6 +2733,10 @@
 /obj/item/storage/box/tools/surgery,
 /turf/open/floor/plasteel/dark,
 /area/space)
+"IF" = (
+/obj/structure/chair/sofa/corp/right,
+/turf/open/floor/carpet/royalblack,
+/area/space)
 "IH" = (
 /obj/structure/wreck/trash/machinepiletwo,
 /turf/open/indestructible/ground/outside/gravel,
@@ -2684,6 +2761,12 @@
 /obj/structure/junk/small/table,
 /turf/open/floor/wood_fancy,
 /area/f13/hub)
+"IV" = (
+/obj/structure/curtain{
+	color = "#811313"
+	},
+/turf/open/floor/f13/wood,
+/area/space)
 "Jc" = (
 /obj/structure/flora/grass/jungle,
 /turf/open/indestructible/ground/outside/water/running,
@@ -2762,8 +2845,12 @@
 /turf/open/indestructible/ground/outside/roaddirt,
 /area/f13/hub)
 "JX" = (
-/obj/structure/window/fulltile/ruins,
-/turf/open/floor/plasteel/f13/vault_floor/green/whitegreenfull,
+/obj/structure/table/wood/bar,
+/obj/machinery/chem_dispenser/drinks{
+	dir = 1;
+	pixel_y = -6
+	},
+/turf/open/floor/carpet/royalblack,
 /area/space)
 "Ka" = (
 /obj/structure/railing/corner,
@@ -2831,6 +2918,9 @@
 "Ky" = (
 /turf/closed/wall/f13/wood/house,
 /area/f13/city)
+"Kz" = (
+/turf/open/floor/carpet/royalblack,
+/area/space)
 "KG" = (
 /mob/living/simple_animal/hostile/wolf,
 /turf/open/floor/plating/rust,
@@ -2839,6 +2929,10 @@
 /obj/machinery/smartfridge/bottlerack/grownbin,
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/hub)
+"KP" = (
+/obj/structure/chair/sofa/corp,
+/turf/open/floor/carpet/royalblack,
+/area/space)
 "KU" = (
 /obj/structure/fluff/railing{
 	dir = 4;
@@ -3040,10 +3134,15 @@
 /obj/structure/shuttle/engine/propulsion,
 /turf/open/floor/wood_wide/wood_wide_light,
 /area/space)
+"Nz" = (
+/obj/structure/chair/sofa/corp/corner,
+/turf/open/floor/carpet/royalblack,
+/area/space)
 "NA" = (
 /obj/structure/table/wood,
 /obj/structure/curtain{
-	pixel_y = 31
+	pixel_y = 31;
+	color = "#811313"
 	},
 /turf/open/floor/wood_fancy,
 /area/f13/hub)
@@ -3054,7 +3153,7 @@
 /turf/open/water,
 /area/space)
 "NE" = (
-/turf/open/floor/plasteel/f13/vault_floor/green/whitegreenfull,
+/turf/closed/wall/f13/coyote/tavern_wall,
 /area/space)
 "NH" = (
 /obj/structure/simple_door/brokenglass,
@@ -3308,6 +3407,10 @@
 /obj/structure/railing/corner,
 /turf/open/water,
 /area/space)
+"RH" = (
+/obj/structure/musician/piano/unanchored,
+/turf/open/floor/wood_mosaic/wood_mosaic_dark,
+/area/space)
 "RO" = (
 /obj/structure/filingcabinet,
 /turf/open/floor/plasteel/f13/vault_floor,
@@ -3351,6 +3454,16 @@
 /obj/structure/barricade/wooden/strong,
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/hub)
+"SY" = (
+/obj/structure/shuttle/engine/large{
+	dir = 1;
+	pixel_y = 16;
+	pixel_x = 15;
+	name = "boat engine";
+	layer = 10
+	},
+/turf/closed/wall/f13/ruins,
+/area/space)
 "Tc" = (
 /obj/structure/lamp_post{
 	dir = 1
@@ -3431,11 +3544,8 @@
 /turf/open/floor/wood_wide/wood_wide_light,
 /area/space)
 "Ua" = (
-/obj/structure/fluff/railing{
-	color = "#A47449";
-	dir = 1
-	},
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/obj/structure/table/wood/bar,
+/turf/open/floor/carpet/royalblack,
 /area/space)
 "Uc" = (
 /obj/item/reagent_containers/glass/bucket/wood,
@@ -42419,16 +42529,16 @@ es
 es
 es
 es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
+ef
+zF
+ef
+ef
+zF
+ef
+ef
+zF
+ef
+ef
 es
 es
 es
@@ -42673,6 +42783,20 @@ es
 es
 es
 es
+ef
+ef
+ef
+ef
+BX
+BX
+BX
+BX
+BX
+BX
+BX
+BX
+ef
+ef
 es
 es
 es
@@ -42681,28 +42805,14 @@ es
 es
 es
 es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
+rm
+ox
+ox
+ox
+GH
+GH
+qp
+ef
 es
 es
 es
@@ -42928,41 +43038,41 @@ es
 es
 es
 es
-es
-es
-es
-es
-es
-ef
-zF
 ef
 ef
-zF
+BX
+BX
+BX
+BX
+BX
+BX
+BX
+BX
+BX
+BX
+BX
+BX
+BX
+BX
+ef
+es
+es
+es
+Fj
+rm
+Ar
+GE
+iR
+nI
+Gf
+Gf
+qp
+Gf
+Gf
 ef
 ef
-zF
 ef
 ef
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
 es
 Mv
 Mv
@@ -43183,10 +43293,6 @@ es
 es
 es
 es
-es
-es
-es
-es
 ef
 ef
 ef
@@ -43199,29 +43305,33 @@ BX
 BX
 BX
 BX
+BX
+BX
+BX
+BX
+BX
+BX
 ef
-ef
 es
 es
-es
-es
-es
-es
-es
-es
-rm
-ox
-ox
-ox
-GH
-GH
+ZE
+Kv
+iR
+Gf
+Gf
+Gf
+nI
+nI
+Gf
 qp
+Gf
+nI
+YW
+Gf
+Ny
+la
 ef
-es
-es
-es
-es
-Mv
+Uw
 Mv
 dl
 jc
@@ -43461,24 +43571,24 @@ BX
 ef
 es
 es
-es
-Fj
-rm
-Ar
-GE
-iR
-nI
+uE
+KU
+yp
+ll
+ll
+TZ
 Gf
+TZ
 Gf
 qp
 Gf
 Gf
+nI
+nI
+la
+Ny
 ef
-ef
-ef
-ef
-es
-Mv
+Uw
 Mv
 dl
 jc
@@ -43697,6 +43807,10 @@ es
 es
 es
 es
+es
+es
+es
+es
 ef
 ef
 ef
@@ -43706,36 +43820,32 @@ BX
 BX
 BX
 BX
+Tu
 BX
 BX
-BX
-BX
-BX
-BX
-BX
-BX
-BX
+ef
 ef
 es
 es
-ZE
-Kv
-iR
+es
+es
+Fj
+VK
+hb
+hb
+Hc
 Gf
 Gf
 Gf
-nI
-nI
+Yv
 Gf
-qp
 Gf
-nI
-YW
-Gf
-Ny
-la
 ef
-Uw
+ef
+ef
+ef
+es
+Mv
 Mv
 dl
 jc
@@ -43956,43 +44066,43 @@ es
 es
 es
 es
+es
+es
+es
+es
+es
+ef
+zF
+ef
+ef
+zF
 ef
 ef
 BX
-BX
-BX
-BX
-BX
-BX
-BX
-BX
-BX
-BX
-BX
-BX
-BX
-BX
 ef
+ef
+es
+es
+es
+es
+es
+es
+es
 es
 es
 uE
 KU
-yp
-ll
-ll
-TZ
+KU
 Gf
-TZ
-Gf
+GH
+GH
 qp
-Gf
-Gf
-nI
-nI
-la
-Ny
 ef
-Uw
+es
+es
+es
+es
+Mv
 Mv
 dl
 jc
@@ -44215,39 +44325,39 @@ es
 es
 es
 es
-ef
-ef
-ef
-ef
-BX
-BX
-BX
-BX
-BX
-Tu
-BX
-BX
-ef
-ef
 es
 es
 es
 es
-Fj
-VK
-hb
-hb
-Hc
-Gf
-Gf
-Gf
-Yv
-Gf
-Gf
-ef
-ef
-ef
-ef
+es
+es
+es
+es
+es
+es
+OZ
+es
+es
+es
+es
+es
+es
+es
+es
+es
+es
+es
+es
+es
+es
+OZ
+es
+es
+es
+es
+es
+es
+es
 es
 Mv
 Mv
@@ -44475,39 +44585,39 @@ es
 es
 es
 es
-ef
-zF
-ef
-ef
-zF
-ef
-ef
+es
+es
+FN
+es
+es
+FN
+FN
+FN
+FN
+FN
+FN
+FN
+pW
+FN
+FN
+FN
+FN
+FN
+FN
+FN
+FN
+FN
+FN
+FN
+pW
 BX
-ef
-ef
-es
-es
-es
-es
-es
-es
-es
-es
-es
-uE
-KU
-KU
-Gf
-GH
-GH
-qp
-ef
-es
-es
-es
-es
-Mv
-Mv
+BX
+BX
+BX
+BX
+BX
+aG
+aG
 Eo
 jc
 jc
@@ -44729,42 +44839,42 @@ es
 es
 es
 es
+AP
 es
 es
+VD
 es
+BX
 es
+BX
+BX
+BX
+BX
 es
-es
-es
-es
-es
-es
-OZ
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-OZ
-es
-es
-es
-es
-es
-es
-es
-es
-Mv
-Mv
+BX
+BX
+BX
+BH
+BX
+BX
+BX
+BX
+BX
+BX
+BX
+BX
+BX
+Tu
+Tu
+BX
+BX
+Fj
+Fj
+Fj
+Fj
+Fj
+dx
+dx
 ve
 ve
 ve
@@ -44989,39 +45099,39 @@ es
 es
 es
 es
+FN
+BX
 es
+BX
+BX
 es
-FN
-es
-es
-FN
-FN
-FN
-FN
-FN
-FN
-FN
-pW
-FN
-FN
-FN
-FN
-FN
-FN
-FN
-FN
-FN
-FN
-FN
-pW
-pW
-FN
-FN
-FN
-FN
-zM
-kv
-kv
+BX
+BX
+BX
+BX
+BX
+BX
+BX
+Tu
+Tu
+BH
+Tu
+Tu
+Tu
+Tu
+ak
+ak
+Tu
+Tu
+Tu
+Tu
+Fj
+Fj
+Fj
+Fj
+Fj
+BI
+BI
 kv
 kv
 kv
@@ -45243,42 +45353,42 @@ es
 es
 es
 es
-AP
 es
 es
-VD
 es
-BX
 es
-BX
-BX
-BX
-BX
 es
-BX
-BX
-BX
-BH
-BX
-BX
-BX
-BX
-BX
-BX
-BX
-BX
-BX
-Tu
-Tu
-BX
+es
+FN
+es
+FN
+FN
+FN
+FN
+FN
+FN
+FN
+es
+FN
+FN
+FN
+es
+FN
+EV
+pW
+EV
+FN
+EV
+FN
+EV
 BX
 Re
 Re
 Re
 BI
-kv
-kv
-kv
+BI
+BI
+BI
 kv
 kv
 kv
@@ -45503,31 +45613,31 @@ es
 es
 es
 es
-FN
-BX
 es
-BX
-BX
 es
-BX
-BX
-BX
-BX
-BX
-BX
-BX
-Tu
-Tu
-BH
-Tu
-Tu
-Tu
-Tu
-ak
-ak
-Tu
-Tu
-Tu
+es
+es
+es
+es
+es
+OZ
+OZ
+OZ
+es
+es
+es
+es
+es
+es
+es
+es
+es
+es
+es
+es
+es
+es
+rY
 Tu
 Re
 Re
@@ -45757,34 +45867,34 @@ es
 es
 es
 es
+ef
+ef
+jO
+jO
+ef
+ef
+jO
+ef
+jO
+jO
+jO
+uC
+jO
+ef
+ef
+ef
+jO
+jO
+jO
+ef
+ef
+jO
+jO
 es
 es
 es
 es
 es
-es
-FN
-es
-FN
-FN
-FN
-FN
-FN
-FN
-FN
-es
-FN
-FN
-FN
-es
-FN
-EV
-pW
-EV
-FN
-EV
-FN
-EV
 FN
 mB
 mB
@@ -46012,36 +46122,36 @@ es
 es
 es
 es
+jO
+jO
+sk
+gZ
+HG
+uC
+RH
+IV
+BX
+qZ
+uC
+dn
+dn
+uC
+uC
+uC
+uC
+uC
+ta
+ta
+ta
+mV
+jO
+ta
+ta
+jO
 es
 es
 es
 es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-OZ
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-rY
 FN
 gk
 da
@@ -46267,35 +46377,35 @@ es
 es
 es
 es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-rm
-ox
+jO
+jO
+NE
+uC
+uC
+uC
+uC
+uC
+ny
+IV
+IV
+IV
+uC
 gZ
 gZ
-ox
-gZ
-Fj
-ef
-ef
-ef
+uC
+ny
+Ua
+Kz
+Ha
+NE
 mV
-ef
-es
-es
-es
-es
-es
-es
+ta
+mV
+jO
+ta
+tp
+tp
+SY
 es
 es
 es
@@ -46522,37 +46632,37 @@ es
 es
 es
 es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-es
-rm
-ox
-Gf
-Gf
-Gf
-Gf
-Gf
-Gf
-Gf
-Gf
+jO
+jO
+ef
+ef
+NE
+uC
+IF
+Kz
+Kz
+uC
+uC
+uC
+uC
+uC
+uC
+Gz
+Gz
+uC
+ny
+Ua
+Kz
 JX
 NE
-NE
-NE
-ef
-es
-es
-es
-es
-es
+mV
+ta
+mV
+jO
+ta
+ta
+ta
+jO
 es
 es
 es
@@ -46781,35 +46891,35 @@ es
 es
 es
 es
-es
-es
-es
-es
-es
-es
-es
-es
-es
+ef
+ef
+NE
+uC
+KP
+Kz
+Kz
+uC
+sk
+gZ
+HG
+uC
+uC
+uC
+uC
+uC
+ny
 Ua
-Gf
-Gf
-Gf
-Gf
-Gf
-Gf
-Gf
-Gf
-Gf
-ef
+Kz
+cx
 NE
-NE
-NE
-Gf
-ef
-es
-es
-es
-es
+mV
+ta
+mV
+jO
+ta
+jU
+jU
+jO
 es
 es
 es
@@ -47040,32 +47150,32 @@ es
 es
 es
 es
-es
-es
-es
-es
-es
-es
-es
-uE
-KU
-Gf
-Gf
-Gf
-Gf
-Gf
-Gf
-Gf
-Gf
-Gf
-NE
-NE
-NE
+jO
 ef
-es
-es
-es
-es
+Nz
+eG
+nl
+uC
+sk
+gZ
+HG
+uC
+sk
+gZ
+HG
+uC
+ny
+Ua
+Kz
+Ha
+NE
+mV
+ta
+ta
+ta
+ta
+ta
+jO
 es
 es
 es
@@ -47299,29 +47409,29 @@ es
 es
 es
 es
-es
-es
-es
-es
-es
-es
-es
-uE
-KU
-KU
-KU
-KU
-Ha
-KU
+jO
+jO
+jO
+ef
+ef
+jO
+jO
+ef
+ef
+jO
+jO
+uC
+jO
+jO
+jO
+jO
+jO
 ef
 ef
 ef
-mV
 ef
-es
-es
-es
-es
+jO
+jO
 es
 es
 es
@@ -47566,9 +47676,9 @@ es
 es
 es
 es
-es
-es
-es
+OZ
+OZ
+OZ
 es
 es
 es
