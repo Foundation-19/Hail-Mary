@@ -182,7 +182,7 @@
 /area/f13/brotherhood)
 "bO" = (
 /obj/structure/sign/plaques{
-	desc = s;
+	desc = "The last Episode of the Simpsen, aired from 1985 to 2100";
 	pixel_y = 32
 	},
 /obj/structure/junk/small/tv{
@@ -852,7 +852,7 @@
 /area/f13/city)
 "gx" = (
 /obj/structure/sign/plaques{
-	desc = s;
+	desc = "Here, you can see a TOYOTO COROLO, the first car that could go 80 miles pro hours... IN THE WATER ?" ;
 	pixel_y = -32
 	},
 /obj/machinery/light/small/broken,
@@ -3656,7 +3656,7 @@
 	pixel_x = 12
 	},
 /obj/structure/sign/plaques{
-	desc = s;
+	desc = "The farmers can grow crops. in 2030, they even grew cows.";
 	pixel_y = 32
 	},
 /obj/item/clothing/suit/armor/outfit/overalls/farmer{
