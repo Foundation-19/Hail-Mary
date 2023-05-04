@@ -109,7 +109,7 @@ Elder
 	neck = /obj/item/clothing/neck/mantle/bos/right
 	ears = /obj/item/radio/headset/headset_bos/command
 	backpack_contents = list(
-		/obj/item/stock_parts/cell/ammo/ec = 2,
+		/obj/item/stock_parts/cell/ammo/mfc = 2,
 		/obj/item/melee/onehanded/knife/hunting = 1
 
 	)
@@ -1004,7 +1004,7 @@ Initiate
 /datum/outfit/loadout/initiatek
 	name = "Knight-Aspirant"
 	belt = /obj/item/storage/belt/utility
-	suit = /obj/item/clothing/suit/armor/light/duster/bos/outcast
+	suit = /obj/item/clothing/suit/armor/medium/combat/brotherhood
 	head = /obj/item/clothing/head/helmet/f13/combat/brotherhood/initiate
 	backpack_contents = list(
 		/obj/item/gun/energy/laser/wattz = 1,
