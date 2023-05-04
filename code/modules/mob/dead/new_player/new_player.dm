@@ -4,7 +4,7 @@
 	invisibility = INVISIBILITY_ABSTRACT
 	density = FALSE
 	stat = DEAD
-	
+
 	//is there a result we want to read from the age gate
 	var/age_gate_result
 
@@ -181,9 +181,6 @@
 			if((length_char(client.prefs.features["flavor_text"])) < MIN_FLAVOR_LEN)
 				to_chat(client.mob, span_danger("Your flavortext does not meet the minimum of [MIN_FLAVOR_LEN] characters."))
 				return
-			if((length_char(client.prefs.features["ooc_notes"])) < MIN_OOC_LEN || client.prefs.features["ooc_notes"] == OOC_NOTE_TEMPLATE)
-				to_chat(client.mob, span_danger("Your ooc notes is empty, please enter information about your roleplaying preferences."))
-				return
 			ready = tready
 		//if it's post initialisation and they're trying to observe we do the needful
 		if(SSticker.current_state >= GAME_STATE_PREGAME && tready == PLAYER_READY_TO_OBSERVE)
@@ -206,7 +203,7 @@
 		if((length_char(client.prefs.features["flavor_text"])) < MIN_FLAVOR_LEN)
 			to_chat(client.mob, span_danger("Your flavortext does not meet the minimum of [MIN_FLAVOR_LEN] characters."))
 			return
-		
+
 		if((length_char(client.prefs.features["ooc_notes"])) < MIN_OOC_LEN || client.prefs.features["ooc_notes"] == OOC_NOTE_TEMPLATE)
 			to_chat(client.mob, span_danger("Your ooc notes is empty, please enter information about your roleplaying preferences."))
 			return
@@ -467,7 +464,7 @@
 	if(SSticker.late_join_disabled)
 		alert(src, "An administrator has disabled late join spawning.")
 		return FALSE
-	
+
 	if((length_char(client.prefs.features["flavor_text"])) < MIN_FLAVOR_LEN)
 		to_chat(client.mob, span_danger("Your flavortext does not meet the minimum of [MIN_FLAVOR_LEN] characters."))
 		return FALSE
