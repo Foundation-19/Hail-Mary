@@ -816,13 +816,6 @@
 	icon_state = "dirt_8"
 	},
 /area/f13/city)
-"baA" = (
-/obj/structure/railing/wood{
-	color = D2DDDD;
-	pixel_y = -12
-	},
-/turf/open/floor/wood_worn/wood_worn_light,
-/area/f13/city)
 "bbE" = (
 /obj/effect/decal/cleanable/greenglow,
 /obj/effect/decal/cleanable/greenglow,
@@ -975,22 +968,6 @@
 	},
 /turf/open/floor/plating/rust,
 /area/f13/city)
-"bkP" = (
-/obj/effect/turf_decal/stripes/asteroid/line{
-	dir = 4
-	},
-/obj/structure/fence/wooden{
-	pixel_x = 16;
-	pixel_y = 4;
-	color = D3DDDD
-	},
-/obj/structure/fence/wooden{
-	pixel_x = 16;
-	pixel_y = 13;
-	color = D3DDDD
-	},
-/turf/open/floor/f13/wood,
-/area/f13/city)
 "bkY" = (
 /turf/open/indestructible/ground/outside/sidewalkdirt{
 	icon_state = "horizontaltopbordertop2left"
@@ -1015,13 +992,6 @@
 	dir = 8
 	},
 /turf/open/floor/plasteel/f13/vault_floor/dark,
-/area/f13/city)
-"bmo" = (
-/obj/structure/railing/wood{
-	color = D2DDDD;
-	pixel_y = -12
-	},
-/turf/open/water,
 /area/f13/city)
 "bmv" = (
 /obj/effect/decal/cleanable/glass,
@@ -6925,23 +6895,6 @@
 /obj/structure/barricade/sandbags,
 /turf/open/indestructible/ground/outside/sidewalkdirt,
 /area/f13/city)
-"jsN" = (
-/obj/structure/railing/wood{
-	color = D2DDDD;
-	pixel_y = -12
-	},
-/obj/structure/fence/wooden{
-	pixel_x = 16;
-	pixel_y = 4;
-	color = D3DDDD
-	},
-/obj/structure/fence/wooden{
-	pixel_x = 16;
-	pixel_y = 13;
-	color = D3DDDD
-	},
-/turf/open/floor/wood_worn/wood_worn_light,
-/area/f13/city)
 "jti" = (
 /obj/structure/flora/ausbushes/reedbush,
 /obj/effect/decal/cleanable/greenglow,
@@ -8181,19 +8134,6 @@
 	},
 /turf/closed/wall/f13/sunset/brick_small_dark,
 /area/f13/building)
-"ldk" = (
-/obj/structure/fence/wooden{
-	pixel_x = 16;
-	pixel_y = 4;
-	color = D3DDDD
-	},
-/obj/structure/fence/wooden{
-	pixel_x = 16;
-	pixel_y = 13;
-	color = D3DDDD
-	},
-/turf/open/water,
-/area/f13/city)
 "ldQ" = (
 /obj/structure/wreck/trash/machinepile,
 /turf/open/floor/wood_worn/wood_worn_dark,
@@ -9047,10 +8987,6 @@
 	color = "#A47449";
 	dir = 1
 	},
-/obj/structure/railing/wood{
-	color = D2DDDD;
-	pixel_y = -12
-	},
 /turf/open/floor/wood_worn/wood_worn_light,
 /area/f13/city)
 "lYp" = (
@@ -9421,19 +9357,6 @@
 	open_space = 0;
 	name = "Ruins interior"
 	})
-"myf" = (
-/obj/structure/railing/wood{
-	color = D2DDDD;
-	pixel_y = -12
-	},
-/obj/structure/fence/wooden{
-	pixel_x = 16;
-	pixel_y = 4;
-	color = D3DDDD
-	},
-/obj/structure/closet/crate/large,
-/turf/open/floor/wood_worn/wood_worn_light,
-/area/f13/city)
 "myo" = (
 /turf/closed/wall/mineral/concrete,
 /area/f13/city)
@@ -11681,19 +11604,6 @@
 	open_space = 0;
 	name = "Ruins interior"
 	})
-"pmr" = (
-/obj/structure/fence/wooden{
-	pixel_x = 16;
-	pixel_y = 4;
-	color = D3DDDD
-	},
-/obj/structure/fence/wooden{
-	pixel_x = 16;
-	pixel_y = 13;
-	color = D3DDDD
-	},
-/turf/open/floor/wood_worn/wood_worn_light,
-/area/f13/city)
 "pmw" = (
 /obj/structure/window/paperframe{
 	color = "4e4e4e";
@@ -11881,27 +11791,6 @@
 	icon_state = "housewood2-broken"
 	},
 /area/f13/hub)
-"pxV" = (
-/obj/structure/railing/corner{
-	color = "#A47449";
-	dir = 8
-	},
-/obj/structure/railing/wood{
-	color = D2DDDD;
-	pixel_y = -12
-	},
-/obj/structure/fence/wooden{
-	pixel_x = 16;
-	pixel_y = 13;
-	color = D3DDDD
-	},
-/obj/structure/fence/wooden{
-	pixel_x = 16;
-	pixel_y = 4;
-	color = D3DDDD
-	},
-/turf/open/water,
-/area/f13/city)
 "pyz" = (
 /obj/structure/playground/tireswing{
 	color = "443926"
@@ -12490,23 +12379,6 @@
 	icon_state = "fancy-broken3"
 	},
 /area/f13/building)
-"qyU" = (
-/obj/structure/fence/wooden{
-	pixel_x = 16;
-	pixel_y = 4;
-	color = D3DDDD
-	},
-/obj/structure/railing/wood{
-	color = D2DDDD;
-	pixel_y = -12
-	},
-/obj/structure/fence/wooden{
-	pixel_x = 16;
-	pixel_y = 13;
-	color = D3DDDD
-	},
-/turf/open/floor/wood_worn/wood_worn_light,
-/area/f13/city)
 "qzp" = (
 /obj/structure/cargocrate{
 	icon_state = "cargocrate5"
@@ -17176,14 +17048,6 @@
 	open_space = 0;
 	name = "Supermutan interior"
 	})
-"wJe" = (
-/obj/structure/fence/wooden{
-	pixel_x = 16;
-	pixel_y = 4;
-	color = D3DDDD
-	},
-/turf/open/floor/wood_worn/wood_worn_light,
-/area/f13/city)
 "wJn" = (
 /obj/structure/table/wood,
 /obj/machinery/computer/terminal,
@@ -18141,23 +18005,6 @@
 	pixel_x = -37
 	},
 /turf/open/indestructible/ground/outside/dirt,
-/area/f13/city)
-"xUq" = (
-/obj/structure/railing/wood{
-	color = D2DDDD;
-	pixel_y = -12
-	},
-/obj/structure/fence/wooden{
-	pixel_x = 16;
-	pixel_y = 4;
-	color = D3DDDD
-	},
-/obj/structure/fence/wooden{
-	pixel_x = 16;
-	pixel_y = 13;
-	color = D3DDDD
-	},
-/turf/open/water,
 /area/f13/city)
 "xUN" = (
 /obj/structure/flora/wasteplant/wild_xander,
@@ -47844,7 +47691,7 @@ kxr
 kxr
 kxr
 qED
-bkP
+pRR
 pRR
 pRR
 pRR
@@ -48100,9 +47947,9 @@ kxr
 kxr
 kxr
 kxr
-pxV
+tAD
 lXZ
-ldk
+kxr
 bwX
 hvu
 kxr
@@ -48356,10 +48203,10 @@ kxr
 kxr
 kxr
 kxr
-bmo
+kxr
 sgn
 mOT
-baA
+dau
 wjN
 hvu
 kxr
@@ -48613,10 +48460,10 @@ kxr
 kxr
 kxr
 kxr
-bmo
+kxr
 sgn
 mOT
-baA
+dau
 wjN
 hvu
 kxr
@@ -48870,7 +48717,7 @@ kxr
 kxr
 kxr
 kxr
-bmo
+kxr
 fPm
 mOT
 dau
@@ -49127,11 +48974,11 @@ kxr
 kxr
 kxr
 kxr
-xUq
+kxr
 dau
 mOT
-baA
-ldk
+dau
+kxr
 kxr
 kxr
 kxr
@@ -49383,12 +49230,12 @@ kxr
 kxr
 kxr
 kxr
-bmo
+kxr
 dau
 mOT
 wVc
 mOT
-baA
+dau
 kxr
 kxr
 kxr
@@ -49640,12 +49487,12 @@ kxr
 kxr
 kxr
 kxr
-bmo
+kxr
 dau
 mOT
 iJV
 mOT
-baA
+dau
 kxr
 kxr
 kxr
@@ -49897,12 +49744,12 @@ kxr
 kxr
 kxr
 kxr
-bmo
+kxr
 dau
 uGd
 mOT
 mOT
-baA
+dau
 kxr
 kxr
 kxr
@@ -50154,12 +50001,12 @@ kxr
 kxr
 kxr
 kxr
-bmo
-pmr
+kxr
+dau
 mOT
 mOT
 mOT
-jsN
+dau
 kxr
 kxr
 kxr
@@ -50412,10 +50259,10 @@ kxr
 kxr
 kxr
 kxr
-bmo
-wJe
+kxr
 dau
-myf
+dau
+sgn
 kxr
 kxr
 kxr
@@ -50670,8 +50517,8 @@ kxr
 kxr
 kxr
 kxr
-bmo
-qyU
+kxr
+dau
 kxr
 kxr
 kxr
