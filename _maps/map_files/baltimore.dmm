@@ -39,7 +39,9 @@
 	color = "#A47449"
 	},
 /turf/open/water,
-/area/space)
+/area/space{
+	name = "Ocean"
+	})
 "acr" = (
 /turf/open/floor/plating/f13/outside/road{
 	icon_state = "road_eastwest_y"
@@ -63,6 +65,14 @@
 	icon_state = "road_center"
 	},
 /area/f13/hub)
+"acZ" = (
+/obj/structure/closet/locker,
+/obj/item/storage/toolbox/electrical,
+/obj/item/storage/toolbox/mechanical/old,
+/turf/open/floor/plasteel/dark,
+/area/f13/building/hospital{
+	name = "Atlantic Cross Hospital Ship"
+	})
 "add" = (
 /obj/structure/cargocrate{
 	color = "#F2222F"
@@ -118,7 +128,25 @@
 	dir = 4
 	},
 /turf/open/water,
-/area/space)
+/area/space{
+	name = "Ocean"
+	})
+"agz" = (
+/obj/structure/rack/shelf_metal,
+/obj/item/trash/f13/electronic/toaster,
+/turf/open/floor/plating/rust,
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
+"agC" = (
+/obj/structure/rack/shelf_metal,
+/obj/structure/showcase/machinery/tv,
+/turf/open/floor/plasteel/darkbrown,
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "agU" = (
 /obj/effect/overlay/junk/oldpipes{
 	dir = 5
@@ -157,6 +185,15 @@
 /obj/machinery/autolathe,
 /turf/open/floor/plasteel/f13/vault_floor/blue/whitebluefull,
 /area/f13/vault/security/armory)
+"aiz" = (
+/obj/item/radio/intercom/unscrewed,
+/obj/structure/rack/shelf_metal,
+/obj/item/radio/intercom,
+/turf/open/floor/plasteel/darkbrown,
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "ajb" = (
 /obj/structure/fluff/railing{
 	color = "#A47449"
@@ -165,6 +202,14 @@
 	icon_state = "road_center_1"
 	},
 /area/f13/city)
+"ajs" = (
+/obj/structure/railing/handrail/blue/underlayer{
+	dir = 8
+	},
+/turf/open/floor/wood_common/wood_common_light,
+/area/space{
+	name = "Ocean"
+	})
 "ajE" = (
 /obj/structure/window/fulltile/wood/broken,
 /turf/open/floor/wood_mosaic{
@@ -188,12 +233,24 @@
 /obj/structure/bed/wooden,
 /turf/open/floor/wood_fancy,
 /area/f13/building)
+"akJ" = (
+/obj/structure/stairs/east{
+	color = "#A47449";
+	can_be_z_moved = 0;
+	name = "building stairs";
+	dir = 8
+	},
+/turf/open/floor/plasteel/bar,
+/area/f13/wasteland)
 "ano" = (
 /obj/structure/stairs/east{
 	dir = 8
 	},
 /turf/open/floor/plating/rust,
-/area/f13/city)
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "anJ" = (
 /obj/structure/fence,
 /turf/open/floor/plating/f13/outside/road{
@@ -218,7 +275,9 @@
 	color = "#A47449"
 	},
 /turf/open/water,
-/area/space)
+/area/space{
+	name = "Ocean"
+	})
 "aoi" = (
 /obj/structure/car/rubbish3{
 	layer = 2
@@ -320,6 +379,14 @@
 	icon_state = "horizontaloutermain1"
 	},
 /area/f13/city)
+"arK" = (
+/obj/structure/barricade/wooden/strong,
+/turf/closed/wall/f13/store/constructed{
+	name = "Hospital ship hull"
+	},
+/area/f13/building/hospital{
+	name = "Atlantic Cross Hospital Ship"
+	})
 "arO" = (
 /obj/structure/simple_door/metal/fence,
 /turf/open/indestructible/ground/outside/dirt,
@@ -329,6 +396,14 @@
 /obj/structure/bed,
 /turf/open/floor/f13/wood,
 /area/f13/building)
+"ask" = (
+/obj/structure/lattice,
+/obj/structure/railing/handrail/blue/end{
+	dir = 4;
+	pixel_y = 23
+	},
+/turf/open/water,
+/area/f13/hub)
 "aso" = (
 /obj/structure/cargocrate{
 	icon_state = "cargocrate4";
@@ -347,6 +422,15 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/hub)
+"atv" = (
+/obj/structure/fluff/railing{
+	color = "#A47449"
+	},
+/turf/open/floor/wood_mosaic/wood_mosaic_dark,
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "atP" = (
 /obj/structure/table/reinforced,
 /obj/machinery/computer/terminal{
@@ -529,6 +613,15 @@
 "aEM" = (
 /turf/closed/wall/mineral/concrete,
 /area/f13/brotherhood)
+"aFb" = (
+/obj/structure/chair/bench{
+	dir = 4
+	},
+/obj/effect/landmark/start/f13/wastelander,
+/turf/open/floor/wood_common{
+	icon_state = "common-broken2"
+	},
+/area/f13/city)
 "aFA" = (
 /obj/structure/stairs/east{
 	color = "#A47449";
@@ -669,6 +762,12 @@
 	icon_state = "road_center_1"
 	},
 /area/f13/city)
+"aOV" = (
+/turf/open/floor/wood_mosaic/wood_mosaic_dark,
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "aPw" = (
 /obj/structure/simple_door/brokenglass,
 /turf/open/floor/wood_worn,
@@ -686,6 +785,10 @@
 	open_space = 0;
 	name = "Ruins interior"
 	})
+"aPI" = (
+/obj/structure/table/booth,
+/turf/open/floor/plating/rust,
+/area/f13/wasteland)
 "aQh" = (
 /obj/structure/lamp_post{
 	dir = 1
@@ -754,10 +857,21 @@
 	},
 /turf/open/floor/wood_common/wood_common_dark,
 /area/f13/bar)
+"aTV" = (
+/obj/structure/chair/booth{
+	icon_state = "bar_toppled"
+	},
+/turf/open/floor/plasteel/bar,
+/area/f13/wasteland)
 "aUb" = (
 /obj/structure/flora/ausbushes/sparsegrass,
 /turf/open/floor/plating/rust,
 /area/awaymission/research/interior)
+"aUq" = (
+/turf/open/floor/wood_common/wood_common_light,
+/area/space{
+	name = "Ocean"
+	})
 "aUG" = (
 /turf/open/floor/f13/wood{
 	icon_state = "housewood2-broken"
@@ -772,6 +886,14 @@
 	icon_state = "housewood2"
 	},
 /area/f13/brotherhood)
+"aVt" = (
+/obj/structure/railing/handrail/blue/end{
+	dir = 2
+	},
+/turf/open/floor/wood_common/wood_common_light,
+/area/space{
+	name = "Ocean"
+	})
 "aVQ" = (
 /obj/structure/flora/grass/jungle,
 /turf/open/indestructible/ground/outside/dirt,
@@ -809,6 +931,12 @@
 	},
 /turf/open/indestructible/ground/outside/graveldirt,
 /area/f13/citycaves)
+"aXK" = (
+/turf/open/floor/plasteel/darkbrown,
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "aXW" = (
 /obj/effect/spawner/lootdrop/crate_spawner,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
@@ -845,7 +973,10 @@
 /turf/open/floor/plasteel/f13/vault_floor/yellow/side{
 	dir = 8
 	},
-/area/f13/city)
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "bbv" = (
 /obj/structure/barricade/wooden/planks{
 	icon_state = "riverbank"
@@ -877,12 +1008,28 @@
 /obj/structure/barricade/wooden/strong,
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/hub)
+"bct" = (
+/obj/item/tank/internals/anesthetic,
+/obj/item/tank/internals/anesthetic,
+/obj/structure/closet/locker/oldstyle,
+/obj/item/storage/briefcase/medical,
+/turf/open/floor/plasteel/f13/vault_floor/plating,
+/area/f13/building/hospital{
+	name = "Atlantic Cross Hospital Ship"
+	})
 "bcX" = (
 /obj/structure/wreck/trash/four_barrels,
 /turf/open/floor/plating/rust,
 /area/f13/ruins{
 	open_space = 0;
 	name = "Ruins interior"
+	})
+"bde" = (
+/turf/open/floor/plating/f13/outside/road{
+	icon_state = "grass_4"
+	},
+/area/space{
+	name = "Ocean"
 	})
 "bdg" = (
 /turf/open/floor/plating/f13/outside/road{
@@ -918,9 +1065,11 @@
 	name = "Ruins interior"
 	})
 "bfv" = (
-/obj/structure/railing/handrail/blue/underlayer,
-/turf/open/floor/wood_common/wood_common_light,
-/area/f13/hub)
+/obj/structure/closet/crate/grave,
+/turf/open/floor/plating/f13/outside/road{
+	icon_state = "dirt_original"
+	},
+/area/f13/city)
 "bfF" = (
 /obj/structure/flora/grass/coyote/ten,
 /obj/structure/car/rubbish1,
@@ -930,7 +1079,9 @@
 "bfJ" = (
 /obj/structure/debris/v3,
 /turf/open/floor/plating/rust,
-/area/space)
+/area/space{
+	name = "Ocean"
+	})
 "bfZ" = (
 /obj/structure/fence{
 	pixel_x = -12
@@ -947,7 +1098,16 @@
 /obj/effect/turf_decal/stripes/asteroid/line,
 /obj/structure/lattice,
 /turf/open/water,
-/area/space)
+/area/space{
+	name = "Ocean"
+	})
+"bhK" = (
+/obj/structure/rack/shelf_metal,
+/turf/open/floor/plasteel/darkbrown,
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "bhL" = (
 /obj/structure/cargocrate{
 	icon_state = "cargocrate2"
@@ -1074,6 +1234,16 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/hub)
+"bnz" = (
+/obj/machinery/atmospherics/pipe/simple/brown/visible{
+	dir = 1;
+	pixel_x = -14
+	},
+/obj/vehicle/ridden/wheelchair,
+/turf/open/floor/plasteel/f13/vault_floor/plating,
+/area/f13/building/hospital{
+	name = "Atlantic Cross Hospital Ship"
+	})
 "bpF" = (
 /obj/structure/flora/grass/wasteland,
 /turf/open/indestructible/ground/outside/sidewalkdirt,
@@ -1131,9 +1301,30 @@
 	open_space = 0;
 	name = "Ruins interior"
 	})
+"btp" = (
+/obj/structure/stone_tile/block{
+	dir = 4
+	},
+/obj/structure/railing/handrail/blue/end{
+	dir = 4
+	},
+/turf/open/floor/wood_common,
+/area/f13/hub)
 "btD" = (
 /turf/open/floor/plasteel/f13/vault_floor/blue/white,
 /area/f13/building)
+"btE" = (
+/obj/structure/stairs/east{
+	color = "#A47449";
+	dir = 1
+	},
+/turf/open/floor/plating/f13/outside/road{
+	icon_state = "dirt_original"
+	},
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "btR" = (
 /obj/structure/stone_tile/block,
 /turf/open/water,
@@ -1152,18 +1343,30 @@
 /turf/open/indestructible/ground/outside/gravel,
 /area/f13/city)
 "buF" = (
-/obj/machinery/atmospherics/pipe/simple/brown/visible{
-	dir = 1;
-	pixel_x = -14
-	},
-/obj/machinery/smartfridge/chemistry/preloaded,
+/obj/structure/chalkboard,
 /turf/open/floor/plasteel/f13/vault_floor/plating,
-/area/space)
+/area/f13/building/hospital{
+	name = "Atlantic Cross Hospital Ship"
+	})
 "bvr" = (
 /obj/structure/chair/bench{
 	dir = 1
 	},
 /turf/open/floor/wood_fancy/wood_fancy_light,
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
+"bvu" = (
+/obj/structure/window/paperframe{
+	color = "#FFFFFF";
+	name = "Brickwall support"
+	},
+/obj/structure/window/paperframe{
+	color = "#FFFFFF";
+	name = "Brickwall support"
+	},
+/turf/closed/wall/f13/sunset/brick_small,
 /area/f13/ruins{
 	open_space = 0;
 	name = "Ruins interior"
@@ -1260,6 +1463,19 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/hub)
+"bzP" = (
+/obj/effect/turf_decal/stripes/asteroid/line,
+/obj/effect/turf_decal/stripes/asteroid/line{
+	dir = 4
+	},
+/turf/open/floor/wood_common/wood_common_light,
+/area/f13/hub)
+"bzY" = (
+/obj/structure/chair/f13foldupchair,
+/turf/open/floor/plasteel/f13/vault_floor/plating,
+/area/f13/building/hospital{
+	name = "Atlantic Cross Hospital Ship"
+	})
 "bAb" = (
 /obj/structure/car/rubbish2,
 /turf/open/floor/plating/f13/outside/road{
@@ -1373,7 +1589,9 @@
 /turf/open/floor/plating/f13/outside/road{
 	icon_state = "dirt_original"
 	},
-/area/space)
+/area/space{
+	name = "Ocean"
+	})
 "bGX" = (
 /obj/structure/cargocrate{
 	layer = 3;
@@ -1436,6 +1654,16 @@
 "bMD" = (
 /turf/closed/wall/f13/ruins,
 /area/f13/city)
+"bMG" = (
+/obj/structure/window/paperframe{
+	color = "#FFFFFF";
+	name = "Brickwall support"
+	},
+/turf/open/indestructible/ground/outside/ruins,
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "bNc" = (
 /obj/item/flag/bos,
 /turf/open/floor/f13/wood{
@@ -1589,12 +1817,12 @@
 "bVN" = (
 /obj/machinery/atmospherics/pipe/simple/brown/visible{
 	dir = 4;
-	pixel_x = -14;
-	pixel_y = 14
+	pixel_x = -14
 	},
-/obj/structure/chair/sofa/left,
-/turf/open/floor/plasteel/f13/vault_floor/plating,
-/area/space)
+/turf/open/floor/plasteel/dark,
+/area/f13/building/hospital{
+	name = "Atlantic Cross Hospital Ship"
+	})
 "bWe" = (
 /obj/structure/sink/greyscale{
 	dir = 8;
@@ -1647,6 +1875,15 @@
 	icon_state = "outerborder"
 	},
 /area/f13/hub)
+"bZm" = (
+/obj/structure/debris/v3,
+/turf/open/indestructible/ground/outside/ruins,
+/area/f13/city)
+"caB" = (
+/turf/open/floor/wood_common{
+	icon_state = "common-broken3"
+	},
+/area/f13/city)
 "caI" = (
 /turf/closed/wall/mineral/concrete,
 /area/f13/office)
@@ -1716,8 +1953,12 @@
 	name = "Ruins interior"
 	})
 "cfA" = (
+/obj/structure/fluff/railing{
+	dir = 8;
+	color = "#A47449"
+	},
 /turf/open/indestructible/ground/outside/sidewalkdirt,
-/area/f13/wasteland)
+/area/f13/city)
 "cfI" = (
 /obj/machinery/atmospherics/pipe/simple/general{
 	icon_state = "high_capacity";
@@ -1770,7 +2011,10 @@
 /area/f13/city)
 "cmF" = (
 /turf/closed/wall/mineral/brick,
-/area/f13/city)
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "cmH" = (
 /turf/open/indestructible/ground/outside/ruins,
 /area/f13/city)
@@ -1781,6 +2025,23 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/city)
+"cnM" = (
+/obj/structure/debris/v3,
+/obj/structure/flora/ausbushes/brflowers,
+/turf/open/floor/plating/rust,
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
+"cnT" = (
+/obj/effect/turf_decal/stripes/asteroid/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/asteroid/line{
+	dir = 4
+	},
+/turf/open/floor/wood_common/wood_common_light,
+/area/f13/hub)
 "cor" = (
 /obj/structure/window/fulltile/ruins,
 /turf/open/floor/wood_fancy/wood_fancy_light,
@@ -1858,7 +2119,9 @@
 /turf/open/floor/plating/f13/outside/road{
 	icon_state = "road_center"
 	},
-/area/space)
+/area/space{
+	name = "Ocean"
+	})
 "cuM" = (
 /obj/structure/stairs/east{
 	color = "#A47449";
@@ -1869,6 +2132,13 @@
 	open_space = 0;
 	name = "Ruins interior"
 	})
+"cuY" = (
+/obj/structure/fluff/railing{
+	color = "#A47449";
+	dir = 1
+	},
+/turf/open/indestructible/ground/outside/sidewalkdirt,
+/area/f13/city)
 "cvb" = (
 /turf/open/floor/plating/f13/outside/road{
 	icon_state = "grass_7"
@@ -2128,12 +2398,30 @@
 	open_space = 0;
 	name = "Ruins interior"
 	})
+"cNt" = (
+/obj/effect/turf_decal/stripes/asteroid/line{
+	dir = 1
+	},
+/obj/structure/gallow{
+	pixel_x = 15
+	},
+/turf/open/floor/wood_common,
+/area/space{
+	name = "Ocean"
+	})
 "cNy" = (
 /obj/structure/barricade/tentclothcorner{
 	dir = 1
 	},
 /turf/open/indestructible/ground/outside/gravel,
 /area/f13/underground/cave)
+"cNG" = (
+/obj/structure/rack/shelf_metal,
+/turf/open/floor/plating/rust,
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "cNS" = (
 /obj/machinery/atmospherics/pipe/simple/brown/visible{
 	dir = 4;
@@ -2142,11 +2430,19 @@
 	},
 /obj/structure/window/fulltile/wood_window,
 /turf/open/floor/plasteel/dark,
-/area/space)
+/area/f13/vault/security{
+	name = "Atlantic Cross Marines ship"
+	})
 "cOb" = (
 /obj/structure/simple_door/metal/fence,
 /turf/open/indestructible/ground/outside/gravel,
 /area/f13/hub)
+"cOf" = (
+/obj/effect/turf_decal/stripes/red/line,
+/obj/structure/fluff/railing,
+/obj/effect/mob_spawn/human/corpse/charredskeleton,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/clinic)
 "cOh" = (
 /obj/machinery/atmospherics/components/unary/tank,
 /turf/open/floor/plating/rust,
@@ -2263,7 +2559,10 @@
 	dir = 1
 	},
 /turf/open/floor/plasteel/f13/vault_floor/floor,
-/area/f13/city)
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "cVa" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 1
@@ -2302,6 +2601,13 @@
 /obj/effect/overlay/junk/urinal,
 /turf/open/indestructible/ground/outside/gravel,
 /area/f13/city)
+"cWI" = (
+/obj/structure/table/wood,
+/turf/open/floor/wood_mosaic/wood_mosaic_dark,
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "cXd" = (
 /obj/structure/window/fulltile/ruins/broken,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
@@ -2337,7 +2643,17 @@
 	color = "#A47449"
 	},
 /turf/open/water,
-/area/space)
+/area/space{
+	name = "Ocean"
+	})
+"cYF" = (
+/obj/structure/rack/shelf_metal,
+/obj/machinery/microwave,
+/turf/open/floor/plasteel/darkbrown,
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "cYY" = (
 /obj/structure/lamp_post/doubles{
 	pixel_x = 0;
@@ -2383,7 +2699,9 @@
 /area/f13/city)
 "daz" = (
 /turf/open/floor/wood_worn/wood_worn_dark,
-/area/space)
+/area/space{
+	name = "Ocean"
+	})
 "daL" = (
 /obj/structure/cargocrate{
 	color = "#F58FFF";
@@ -2394,6 +2712,13 @@
 	icon_state = "road_center"
 	},
 /area/f13/city)
+"daY" = (
+/obj/structure/railing{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/blood,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/clinic)
 "dbL" = (
 /turf/closed/wall/r_wall,
 /area/f13/brotherhood)
@@ -2496,7 +2821,9 @@
 /obj/structure/lattice,
 /obj/structure/lattice,
 /turf/open/water,
-/area/space)
+/area/space{
+	name = "Ocean"
+	})
 "dfp" = (
 /obj/structure/railing/corner{
 	color = "#A47449";
@@ -2547,6 +2874,13 @@
 /obj/machinery/hydroponics,
 /turf/open/floor/plating,
 /area/awaymission/research/interior)
+"dkj" = (
+/obj/structure/flora/ausbushes/ywflowers,
+/turf/open/floor/wood_mosaic/wood_mosaic_dark,
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "dku" = (
 /obj/item/chair/wood,
 /turf/open/floor/wood_common,
@@ -2564,7 +2898,9 @@
 	color = "#A47449"
 	},
 /turf/open/water,
-/area/space)
+/area/space{
+	name = "Ocean"
+	})
 "dly" = (
 /turf/open/floor/plating/f13/outside/road{
 	icon_state = "dirt_original"
@@ -2596,7 +2932,9 @@
 /turf/open/floor/wood_common/wood_common_light{
 	icon_state = "common_light2"
 	},
-/area/space)
+/area/space{
+	name = "Ocean"
+	})
 "dnE" = (
 /obj/structure/fence,
 /obj/structure/fence/wooden{
@@ -2611,7 +2949,9 @@
 	dir = 1
 	},
 /turf/open/water,
-/area/space)
+/area/space{
+	name = "Ocean"
+	})
 "doz" = (
 /obj/structure/closet/locker/fridge,
 /turf/open/floor/wood_fancy,
@@ -2676,7 +3016,9 @@
 "drl" = (
 /obj/item/reagent_containers/glass/bucket/wood,
 /turf/open/floor/plating/rust,
-/area/f13/vault/security)
+/area/f13/vault/security{
+	name = "Atlantic Cross Marines ship"
+	})
 "drm" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/stone_tile/block{
@@ -2692,7 +3034,9 @@
 /turf/open/floor/wood_common/wood_common_light{
 	icon_state = "common_light2"
 	},
-/area/space)
+/area/space{
+	name = "Ocean"
+	})
 "drL" = (
 /obj/effect/turf_decal/arrows/white{
 	dir = 4
@@ -2702,7 +3046,9 @@
 "dsa" = (
 /obj/structure/barricade/wooden/strong,
 /turf/closed/wall/rust,
-/area/space)
+/area/space{
+	name = "Ocean"
+	})
 "dsx" = (
 /obj/structure/simple_door/brokenglass,
 /turf/open/floor/wood_fancy,
@@ -2753,6 +3099,12 @@
 	icon_state = "road_crosswalk_northsouth_2"
 	},
 /area/f13/hub)
+"dvC" = (
+/obj/structure/chair/booth{
+	icon_state = "booth_north_east"
+	},
+/turf/open/floor/plasteel/bar,
+/area/f13/wasteland)
 "dvS" = (
 /turf/closed/wall/mineral/wood,
 /area/f13/office)
@@ -2765,7 +3117,9 @@
 /obj/structure/table,
 /obj/machinery/door/poddoor/shutters,
 /turf/closed/wall/rust,
-/area/f13/vault/security)
+/area/f13/vault/security{
+	name = "Atlantic Cross Marines ship"
+	})
 "dwO" = (
 /turf/closed/wall/r_wall/syndicate,
 /area/f13/citycaves)
@@ -2797,6 +3151,13 @@
 /obj/structure/fence,
 /turf/open/indestructible/ground/outside/gravel,
 /area/f13/city)
+"dxX" = (
+/obj/structure/table/wood/fancy,
+/turf/open/floor/wood_mosaic,
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "dyp" = (
 /obj/structure/railing/corner{
 	dir = 8;
@@ -2819,6 +3180,29 @@
 /obj/structure/debris/v3,
 /turf/open/indestructible/ground/outside/sidewalkdirt,
 /area/f13/city)
+"dAR" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/structure/railing/handrail/blue/end{
+	dir = 1
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/hub)
+"dBc" = (
+/obj/effect/turf_decal/vg_decals/numbers/one,
+/turf/open/floor/plasteel/f13/vault_floor/plating,
+/area/f13/building/hospital{
+	name = "Atlantic Cross Hospital Ship"
+	})
+"dBj" = (
+/obj/structure/fluff/railing{
+	dir = 6;
+	color = "#A47449"
+	},
+/turf/open/floor/wood_wide,
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "dBu" = (
 /obj/structure/debris/v2,
 /turf/open/indestructible/ground/outside/gravel,
@@ -2911,6 +3295,12 @@
 	icon_state = "horizontaloutermain1"
 	},
 /area/f13/brotherhood)
+"dIw" = (
+/turf/open/floor/plasteel/freezer,
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "dIL" = (
 /obj/structure/wreck/trash/five_tires,
 /turf/open/indestructible/ground/outside/gravel,
@@ -2958,6 +3348,18 @@
 	open_space = 0;
 	name = "Ruins interior"
 	})
+"dLs" = (
+/obj/structure/fluff/railing{
+	dir = 9;
+	color = "#A47449"
+	},
+/turf/open/floor/plating/f13/outside/road{
+	icon_state = "dirt_original"
+	},
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "dMd" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/shuttle/engine/propulsion,
@@ -2993,7 +3395,9 @@
 	},
 /obj/structure/lattice,
 /turf/open/water,
-/area/space)
+/area/space{
+	name = "Ocean"
+	})
 "dOT" = (
 /obj/structure/car/rubbish3{
 	layer = 7
@@ -3100,6 +3504,13 @@
 	icon_state = "grass_4"
 	},
 /area/f13/city)
+"dTu" = (
+/obj/structure/table,
+/turf/open/floor/plasteel/darkbrown,
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "dVw" = (
 /obj/structure/fluff/rails,
 /turf/open/indestructible/ground/outside/sidewalkdirt{
@@ -3162,6 +3573,12 @@
 	open_space = 0;
 	name = "Ruins interior"
 	})
+"dXz" = (
+/obj/effect/turf_decal/vg_decals/numbers/two,
+/turf/open/floor/plasteel/f13/vault_floor/plating,
+/area/f13/building/hospital{
+	name = "Atlantic Cross Hospital Ship"
+	})
 "dXE" = (
 /obj/structure/debris/v4,
 /turf/closed/indestructible/f13vaultrusted,
@@ -3220,14 +3637,19 @@
 /turf/open/floor/plasteel/f13/vault_floor/yellow/side{
 	dir = 8
 	},
-/area/f13/city)
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "eas" = (
 /obj/structure/window/paperframe{
 	color = "443926";
 	name = "Brickwall support"
 	},
 /turf/closed/wall/f13/sunset/brick_small_light,
-/area/f13/city)
+/area/space{
+	name = "Ocean"
+	})
 "eaW" = (
 /obj/machinery/smartfridge/bottlerack/lootshelf/books,
 /obj/machinery/smartfridge/bottlerack/lootshelf/books,
@@ -3245,7 +3667,9 @@
 /turf/open/floor/plating/f13/outside/road{
 	icon_state = "grass_8"
 	},
-/area/space)
+/area/space{
+	name = "Ocean"
+	})
 "ecn" = (
 /obj/structure/table/wood/fancy,
 /obj/structure/wreck/car{
@@ -3303,7 +3727,10 @@
 	color = "#A47449"
 	},
 /turf/open/transparent/openspace,
-/area/f13/city)
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "edQ" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -3365,7 +3792,9 @@
 "eiZ" = (
 /obj/structure/simple_door/metal/barred,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/vault/security)
+/area/f13/vault/security{
+	name = "Atlantic Cross Marines ship"
+	})
 "ejH" = (
 /obj/structure/flora/tree/jungle{
 	pixel_y = -15;
@@ -3415,7 +3844,9 @@
 	pixel_x = 15
 	},
 /turf/open/water,
-/area/space)
+/area/space{
+	name = "Ocean"
+	})
 "ekY" = (
 /turf/closed/indestructible/f13vaultrusted,
 /area/f13/hub)
@@ -3445,7 +3876,9 @@
 "emG" = (
 /obj/structure/flora/junglebush,
 /turf/open/water,
-/area/space)
+/area/space{
+	name = "Ocean"
+	})
 "enM" = (
 /turf/open/floor/wood_common/wood_common_light{
 	icon_state = "common_light-broken3"
@@ -3503,6 +3936,16 @@
 /turf/open/floor/plating/f13/outside/road{
 	icon_state = "dirt_original"
 	},
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
+"ett" = (
+/turf/closed/wall/mineral/wood,
+/area/f13/city)
+"etM" = (
+/obj/structure/simple_door/wood,
+/turf/open/floor/plating/rust,
 /area/f13/ruins{
 	open_space = 0;
 	name = "Ruins interior"
@@ -3566,6 +4009,12 @@
 /obj/structure/flora/tallgrass8,
 /turf/open/indestructible/ground/outside/gravel,
 /area/f13/hub)
+"ewb" = (
+/obj/effect/turf_decal/stripes/red/line,
+/obj/structure/fluff/railing,
+/obj/effect/decal/cleanable/blood,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/clinic)
 "ewy" = (
 /turf/open/indestructible/ground/outside/sidewalkdirt{
 	icon_state = "verticalrightborderright2top"
@@ -3581,7 +4030,9 @@
 	dir = 5
 	},
 /turf/open/indestructible/ground/outside/graveldirt,
-/area/space)
+/area/space{
+	name = "Ocean"
+	})
 "exC" = (
 /obj/machinery/smartfridge/bottlerack/gardentool/primitive,
 /turf/open/indestructible/ground/outside/dirt,
@@ -3643,7 +4094,10 @@
 	dir = 8
 	},
 /turf/open/floor/plasteel/f13/vault_floor/yellow,
-/area/f13/city)
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "eBi" = (
 /turf/open/floor/wood_worn/wood_worn_light{
 	icon_state = "worn_light-broken6"
@@ -3673,6 +4127,11 @@
 	},
 /turf/open/indestructible/ground/outside/gravel,
 /area/f13/city)
+"eEz" = (
+/obj/structure/table/reinforced,
+/obj/item/reagent_containers/food/drinks/drinkingglass/filled/nukaxtreme,
+/turf/open/floor/plating/rust,
+/area/f13/wasteland)
 "eFe" = (
 /obj/machinery/computer/slot_machine,
 /turf/open/floor/f13/wood,
@@ -3737,7 +4196,9 @@
 	name = "wooden docks"
 	},
 /turf/open/water,
-/area/space)
+/area/space{
+	name = "Ocean"
+	})
 "eHo" = (
 /obj/structure/barricade/bars,
 /obj/structure/barricade/bars,
@@ -3783,14 +4244,11 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/city)
 "eJe" = (
-/obj/item/defibrillator/primitive,
-/obj/machinery/atmospherics/pipe/manifold/brown/visible{
-	dir = 4;
-	pixel_x = -14
+/obj/effect/turf_decal/arrows/white{
+	dir = 4
 	},
-/obj/structure/table/rolling,
-/turf/open/floor/plasteel/f13/vault_floor/plating,
-/area/space)
+/turf/open/floor/wood_common/wood_common_light,
+/area/f13/hub)
 "eJm" = (
 /obj/structure/chair{
 	dir = 1
@@ -3858,6 +4316,9 @@
 /obj/structure/closet/crate/footchest,
 /turf/open/floor/wood_worn,
 /area/f13/underground/cave)
+"eOi" = (
+/turf/open/floor/plating/rust,
+/area/f13/wasteland)
 "eOA" = (
 /obj/structure/fluff/rails,
 /obj/structure/fence/wooden,
@@ -3966,7 +4427,9 @@
 /turf/open/floor/plating/f13/outside/road{
 	icon_state = "dirt_original"
 	},
-/area/space)
+/area/space{
+	name = "Ocean"
+	})
 "eVW" = (
 /obj/effect/decal/cleanable/greenglow,
 /turf/open/floor/wood_fancy{
@@ -4016,6 +4479,11 @@
 	icon_state = "road_center"
 	},
 /area/f13/city)
+"eXA" = (
+/obj/structure/simple_door,
+/obj/structure/barricade/wooden/planks,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/clinic)
 "eYp" = (
 /turf/open/indestructible/ground/outside/sidewalkdirt{
 	icon_state = "horizontalbottomborderbottom1"
@@ -4029,7 +4497,29 @@
 /area/f13/city)
 "eYD" = (
 /turf/open/floor/plating/rust,
-/area/space)
+/area/space{
+	name = "Ocean"
+	})
+"eZf" = (
+/obj/machinery/atmospherics/components/unary/tank{
+	pixel_y = 1;
+	pixel_x = 6
+	},
+/obj/machinery/atmospherics/components/unary/outlet_injector/atmos/engine_waste{
+	dir = 8;
+	pixel_y = -1
+	},
+/turf/open/floor/plasteel/f13/vault_floor/plating,
+/area/f13/building/hospital{
+	name = "Atlantic Cross Hospital Ship"
+	})
+"eZZ" = (
+/obj/structure/flora/ausbushes/ppflowers,
+/turf/open/floor/wood_wide,
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "fat" = (
 /obj/structure/barricade/bars,
 /turf/open/indestructible/ground/outside/ruins,
@@ -4041,7 +4531,9 @@
 /turf/open/floor/plating/f13/outside/road{
 	icon_state = "grass_1"
 	},
-/area/space)
+/area/space{
+	name = "Ocean"
+	})
 "fbb" = (
 /obj/structure/fence{
 	dir = 8
@@ -4163,7 +4655,10 @@
 	dir = 8
 	},
 /turf/open/floor/plating/rust,
-/area/f13/city)
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "flO" = (
 /obj/structure/rack/shelf_metal,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
@@ -4184,6 +4679,14 @@
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/hub)
+"fng" = (
+/obj/structure/railing/corner{
+	color = "#A47449"
+	},
+/turf/open/water,
+/area/space{
+	name = "Ocean"
+	})
 "fni" = (
 /obj/effect/decal/cleanable/greenglow,
 /turf/open/floor/wood_fancy,
@@ -4366,6 +4869,17 @@
 	},
 /turf/open/floor/grass,
 /area/f13/brotherhood)
+"fzh" = (
+/obj/structure/railing/handrail/blue,
+/turf/open/water,
+/area/f13/hub)
+"fzs" = (
+/obj/structure/flora/ausbushes/ywflowers,
+/turf/open/floor/plasteel/f13/vault_floor/floor,
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "fAR" = (
 /obj/structure/window/fulltile,
 /turf/open/indestructible/ground/outside/dirt,
@@ -4396,6 +4910,11 @@
 /obj/structure/fence/corner,
 /turf/open/floor/plating/rust,
 /area/f13/city)
+"fDW" = (
+/obj/structure/simple_door/dirtyglass,
+/obj/structure/barricade/wooden/planks,
+/turf/open/floor/plasteel/bar,
+/area/f13/wasteland)
 "fEh" = (
 /obj/structure/closet/crate/wooden/toy,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
@@ -4573,7 +5092,9 @@
 /area/f13/city)
 "fNw" = (
 /turf/closed/wall/mineral/concrete,
-/area/space)
+/area/space{
+	name = "Ocean"
+	})
 "fNy" = (
 /obj/structure/wreck/bus/orange/alt{
 	pixel_x = 1;
@@ -4584,6 +5105,18 @@
 	icon_state = "road_center_1"
 	},
 /area/f13/city)
+"fNY" = (
+/obj/structure/stairs/east{
+	color = "#A47449";
+	dir = 2;
+	can_be_z_moved = 0;
+	name = "building stairs"
+	},
+/turf/open/floor/wood_wide,
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "fOj" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cargocrate{
@@ -4653,7 +5186,9 @@
 /turf/open/floor/plating/f13/outside/road{
 	icon_state = "dirt_3"
 	},
-/area/space)
+/area/space{
+	name = "Ocean"
+	})
 "fSo" = (
 /obj/structure/window/paperframe{
 	color = "4e4e4e";
@@ -4674,10 +5209,13 @@
 	},
 /area/f13/brotherhood)
 "fTP" = (
-/turf/open/floor/wood_mosaic{
-	icon_state = "common1"
+/obj/structure/sign/directions/medical,
+/obj/structure/window/paperframe{
+	color = "4e4e4e";
+	name = "Brickwall support"
 	},
-/area/f13/city)
+/turf/closed/wall/f13/sunset/brick_small_light,
+/area/f13/clinic)
 "fTZ" = (
 /obj/structure/table,
 /obj/structure/barricade/concrete,
@@ -4730,7 +5268,9 @@
 /turf/closed/wall/r_wall/rust{
 	name = "rusted Cargo Hull"
 	},
-/area/space)
+/area/space{
+	name = "Ocean"
+	})
 "fWL" = (
 /obj/structure/railing{
 	dir = 8
@@ -4746,11 +5286,18 @@
 	color = "#A47449"
 	},
 /turf/open/floor/plating/rust,
-/area/f13/city)
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "fXY" = (
-/obj/machinery/computer/operating,
-/turf/open/floor/plasteel/f13/vault_floor/plating,
-/area/space)
+/obj/structure/railing/handrail/blue/underlayer{
+	dir = 4
+	},
+/turf/open/floor/wood_common/wood_common_light,
+/area/space{
+	name = "Ocean"
+	})
 "fZe" = (
 /obj/effect/turf_decal/stripes/asteroid/line,
 /obj/structure/railing/corner{
@@ -4759,11 +5306,25 @@
 /obj/structure/railing,
 /turf/open/floor/f13/wood,
 /area/f13/city)
-"fZL" = (
-/turf/open/floor/wood_mosaic{
-	icon_state = "mosaic_dark1"
+"fZl" = (
+/obj/structure/chair/bench{
+	icon_state = "dropshipright"
 	},
-/area/f13/city)
+/turf/open/floor/wood_wide,
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
+"fZL" = (
+/obj/structure/window/paperframe{
+	color = "#FFFFFF";
+	name = "Brickwall support"
+	},
+/turf/closed/wall/f13/sunset/brick_small_light,
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "fZS" = (
 /obj/structure/fence/corner{
 	dir = 4
@@ -4790,7 +5351,10 @@
 	color = "#A47449"
 	},
 /turf/open/floor/plasteel/f13/vault_floor/yellow,
-/area/f13/city)
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "gbq" = (
 /obj/structure/table/greyscale,
 /obj/item/clipboard,
@@ -4832,7 +5396,9 @@
 	},
 /obj/structure/stone_tile/block,
 /turf/open/water,
-/area/space)
+/area/space{
+	name = "Ocean"
+	})
 "gdW" = (
 /obj/structure/fluff/rails,
 /obj/structure/debris/v1,
@@ -4873,6 +5439,13 @@
 	open_space = 0;
 	name = "Ruins interior"
 	})
+"gfS" = (
+/obj/structure/railing/corner{
+	color = "#A47449";
+	dir = 1
+	},
+/turf/open/indestructible/ground/outside/sidewalkdirt,
+/area/f13/city)
 "ggG" = (
 /obj/structure/lattice/catwalk,
 /turf/closed/wall/rust,
@@ -4906,6 +5479,12 @@
 	open_space = 0;
 	name = "Ruins interior"
 	})
+"gky" = (
+/obj/machinery/fugitive_capture,
+/turf/open/floor/plasteel/f13/vault_floor/plating,
+/area/f13/vault/security{
+	name = "Atlantic Cross Marines ship"
+	})
 "glB" = (
 /obj/structure/cargocrate{
 	pixel_y = -24;
@@ -4915,12 +5494,17 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/city)
 "gmh" = (
-/obj/machinery/atmospherics/pipe/manifold/brown/visible{
-	pixel_y = 14
+/obj/machinery/atmospherics/pipe/simple/brown/visible{
+	dir = 1;
+	pixel_x = -14
 	},
-/obj/structure/table/glass,
+/obj/structure/table/rolling,
+/obj/item/storage/box/bodybags,
+/obj/item/storage/box/bodybags,
 /turf/open/floor/plasteel/f13/vault_floor/plating,
-/area/space)
+/area/f13/building/hospital{
+	name = "Atlantic Cross Hospital Ship"
+	})
 "gmk" = (
 /obj/structure/chair/wood{
 	dir = 8
@@ -4961,7 +5545,9 @@
 /turf/open/floor/plating/f13/outside/road{
 	icon_state = "dirt_original"
 	},
-/area/space)
+/area/space{
+	name = "Ocean"
+	})
 "goa" = (
 /obj/structure/chair/bench{
 	dir = 4
@@ -5016,7 +5602,9 @@
 /turf/open/floor/f13/wood{
 	icon_state = "housewood2-broken"
 	},
-/area/space)
+/area/space{
+	name = "Ocean"
+	})
 "gqz" = (
 /obj/structure/window/fulltile/wood,
 /obj/structure/curtain{
@@ -5058,13 +5646,25 @@
 	pixel_y = 31
 	},
 /turf/open/floor/wood_common,
-/area/space)
+/area/space{
+	name = "Ocean"
+	})
 "grN" = (
 /obj/structure/falsewall/brick,
 /turf/open/floor/plating/f13/outside/road{
 	icon_state = "dirt_original"
 	},
-/area/f13/city)
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
+"grO" = (
+/obj/machinery/microwave/stove,
+/turf/open/floor/plasteel/darkbrown,
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "grP" = (
 /obj/item/chair/wood/modern,
 /turf/open/floor/wood_mosaic{
@@ -5175,6 +5775,13 @@
 	open_space = 0;
 	name = "Ruins interior"
 	})
+"gyN" = (
+/obj/machinery/door/poddoor/shutters/window,
+/obj/machinery/door/airlock/medical/glass,
+/turf/open/floor/plasteel/dark,
+/area/f13/building/hospital{
+	name = "Atlantic Cross Hospital Ship"
+	})
 "gyQ" = (
 /turf/open/floor/plating/f13/outside/road,
 /area/f13/city)
@@ -5222,7 +5829,9 @@
 /turf/closed/wall/f13/store/constructed{
 	name = "Hospital ship hull"
 	},
-/area/f13/building)
+/area/f13/vault/security{
+	name = "Atlantic Cross Marines ship"
+	})
 "gBt" = (
 /obj/structure/disposalpipe/segment{
 	dir = 1
@@ -5249,6 +5858,12 @@
 "gBA" = (
 /turf/open/floor/wood_common,
 /area/f13/hub)
+"gCf" = (
+/obj/structure/chair/booth{
+	icon_state = "booth_east_north"
+	},
+/turf/open/floor/plasteel/bar,
+/area/f13/wasteland)
 "gCB" = (
 /obj/structure/debris/v1,
 /obj/structure/debris/v1,
@@ -5257,6 +5872,14 @@
 	},
 /turf/open/indestructible/ground/outside/gravel,
 /area/f13/city)
+"gDl" = (
+/obj/structure/rack/shelf_metal,
+/obj/structure/junk/micro,
+/turf/open/floor/plasteel/darkbrown,
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "gDV" = (
 /obj/structure/chair/comfy/green{
 	dir = 4
@@ -5270,7 +5893,15 @@
 /area/f13/hub)
 "gFA" = (
 /turf/open/floor/plasteel/f13/vault_floor/blue/whitebluefull,
-/area/f13/vault/security)
+/area/f13/vault/security{
+	name = "Atlantic Cross Marines ship"
+	})
+"gGt" = (
+/obj/effect/turf_decal/vg_decals/numbers/three,
+/turf/open/floor/plasteel/f13/vault_floor/plating,
+/area/f13/building/hospital{
+	name = "Atlantic Cross Hospital Ship"
+	})
 "gGw" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -5290,20 +5921,27 @@
 /turf/open/indestructible/ground/outside/sidewalkdirt,
 /area/f13/city)
 "gHh" = (
-/obj/structure/curtain,
-/obj/machinery/atmospherics/pipe/simple/brown/visible,
+/obj/structure/chair/f13foldupchair{
+	dir = 1
+	},
 /turf/open/floor/plasteel/f13/vault_floor/plating,
-/area/space)
+/area/f13/building/hospital{
+	name = "Atlantic Cross Hospital Ship"
+	})
 "gHP" = (
 /obj/effect/turf_decal/stripes/asteroid/line,
 /turf/open/floor/f13/wood,
-/area/space)
+/area/space{
+	name = "Ocean"
+	})
 "gHS" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 1
 	},
 /turf/open/floor/wood_common,
-/area/space)
+/area/space{
+	name = "Ocean"
+	})
 "gIE" = (
 /obj/structure/cargocrate{
 	icon_state = "cargocrate5"
@@ -5322,12 +5960,24 @@
 	},
 /turf/open/water,
 /area/f13/city)
+"gKb" = (
+/obj/structure/stone_tile/block{
+	dir = 8
+	},
+/obj/structure/gallow{
+	pixel_x = 14
+	},
+/turf/open/floor/wood_common,
+/area/f13/hub)
 "gKl" = (
 /obj/structure/billboard/redrocket1{
 	layer = 3
 	},
 /turf/open/indestructible/ground/outside/gravel,
 /area/f13/city)
+"gKC" = (
+/turf/open/floor/plasteel/bar,
+/area/f13/wasteland)
 "gKM" = (
 /obj/structure/fence/end/wooden{
 	dir = 4
@@ -5395,7 +6045,9 @@
 /turf/open/floor/f13/wood{
 	icon_state = "housewood4-broken"
 	},
-/area/space)
+/area/space{
+	name = "Ocean"
+	})
 "gRW" = (
 /obj/structure/railing/corner{
 	color = "#A47449"
@@ -5421,11 +6073,22 @@
 	},
 /area/f13/city)
 "gSX" = (
-/obj/structure/table/rolling,
-/obj/item/storage/box/tools/surgery,
-/obj/machinery/iv_drip,
+/obj/machinery/atmospherics/components/unary/tank{
+	pixel_y = 1;
+	pixel_x = 6
+	},
+/obj/machinery/atmospherics/components/unary/tank{
+	pixel_y = 1;
+	pixel_x = 6
+	},
+/obj/machinery/atmospherics/components/unary/outlet_injector/atmos/engine_waste{
+	dir = 8;
+	pixel_y = -1
+	},
 /turf/open/floor/plasteel/f13/vault_floor/plating,
-/area/space)
+/area/f13/building/hospital{
+	name = "Atlantic Cross Hospital Ship"
+	})
 "gTf" = (
 /turf/closed/indestructible/f13vaultrusted,
 /area/f13/building)
@@ -5436,7 +6099,9 @@
 "gTH" = (
 /obj/structure/simple_door/wood,
 /turf/open/floor/wood_common,
-/area/space)
+/area/space{
+	name = "Ocean"
+	})
 "gTI" = (
 /obj/structure/flora/grass/jungle,
 /turf/open/indestructible/ground/outside/water/running,
@@ -5476,7 +6141,9 @@
 	})
 "gVH" = (
 /turf/closed/wall/rust,
-/area/f13/vault/security)
+/area/f13/vault/security{
+	name = "Atlantic Cross Marines ship"
+	})
 "gVJ" = (
 /obj/structure/table,
 /obj/item/export/bottle/tequila,
@@ -5497,7 +6164,9 @@
 	pixel_x = -13
 	},
 /turf/open/floor/plasteel/f13/vault_floor/plating,
-/area/space)
+/area/f13/building/hospital{
+	name = "Atlantic Cross Hospital Ship"
+	})
 "gWD" = (
 /obj/structure/junk/machinery,
 /turf/open/floor/plating/f13/outside/road{
@@ -5523,7 +6192,9 @@
 "gXY" = (
 /obj/structure/flora/ausbushes/stalkybush,
 /turf/open/water,
-/area/space)
+/area/space{
+	name = "Ocean"
+	})
 "gYE" = (
 /turf/open/floor/wood_fancy/wood_fancy_light{
 	icon_state = "fancy_light-broken4"
@@ -5577,7 +6248,10 @@
 	name = "Brickwall support"
 	},
 /turf/closed/wall/f13/sunset/brick_small_light,
-/area/f13/city)
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "hbC" = (
 /obj/structure/fence/corner,
 /turf/open/indestructible/ground/outside/graveldirt,
@@ -5601,7 +6275,9 @@
 /turf/open/floor/plating/f13/outside/road{
 	icon_state = "grass_7"
 	},
-/area/space)
+/area/space{
+	name = "Ocean"
+	})
 "hdn" = (
 /obj/structure/fence/door{
 	dir = 8;
@@ -5619,7 +6295,10 @@
 	dir = 4
 	},
 /turf/open/floor/plasteel/f13/vault_floor/yellow,
-/area/f13/city)
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "hdz" = (
 /obj/structure/simple_door/brokenglass,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
@@ -5688,17 +6367,25 @@
 /turf/open/floor/plasteel/f13/vault_floor/yellow/corner{
 	dir = 4
 	},
-/area/f13/city)
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "hlb" = (
-/turf/open/floor/plasteel/dark,
-/area/f13/building/hospital)
+/obj/structure/chair/booth{
+	icon_state = "booth_north_west"
+	},
+/turf/open/floor/plasteel/bar,
+/area/f13/wasteland)
 "hlG" = (
 /obj/structure/lattice,
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 1
 	},
 /turf/open/water,
-/area/space)
+/area/space{
+	name = "Ocean"
+	})
 "hmb" = (
 /obj/structure/chair/bench{
 	dir = 4
@@ -5716,15 +6403,39 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/city)
 "hmR" = (
-/obj/structure/window/fulltile/ruins,
+/obj/structure/window/fulltile/ruins{
+	icon_state = "ruinswindowdestroyed"
+	},
 /turf/open/floor/plating/rust,
 /area/f13/city)
+"hne" = (
+/obj/structure/chair/office/dark{
+	dir = 8
+	},
+/turf/open/floor/plasteel/f13/vault_floor/plating,
+/area/f13/building/hospital{
+	name = "Atlantic Cross Hospital Ship"
+	})
+"hnu" = (
+/obj/machinery/door/airlock/wood,
+/turf/open/floor/plasteel/dark,
+/area/f13/building/hospital{
+	name = "Atlantic Cross Hospital Ship"
+	})
 "hoA" = (
 /obj/structure/table/glass,
 /obj/item/paper_bin,
 /obj/item/pen,
 /turf/open/floor/plasteel/f13/vault_floor,
 /area/f13/office)
+"hpl" = (
+/obj/structure/simple_door/dirtyglass,
+/obj/structure/barricade/wooden/planks,
+/turf/open/floor/wood_fancy/wood_fancy_dark,
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "hpn" = (
 /obj/structure/fluff/rails,
 /obj/structure/chair/wood/wings{
@@ -5732,6 +6443,11 @@
 	},
 /turf/open/indestructible/ground/outside/dirt/harsh,
 /area/f13/city)
+"hpz" = (
+/obj/structure/simple_door/brokenglass,
+/obj/structure/barricade/wooden/planks,
+/turf/open/floor/plasteel/bar,
+/area/f13/wasteland)
 "hpD" = (
 /turf/open/floor/plasteel/white/side,
 /area/f13/ruins{
@@ -5882,7 +6598,9 @@
 /turf/open/floor/wood_mosaic{
 	icon_state = "common_light1"
 	},
-/area/f13/city)
+/area/space{
+	name = "Ocean"
+	})
 "hyG" = (
 /turf/closed/wall/mineral/concrete,
 /area/f13/outpost)
@@ -5915,6 +6633,18 @@
 /mob/living/simple_animal/chicken,
 /turf/open/indestructible/ground/outside/dirt/harsh,
 /area/f13/city)
+"hzY" = (
+/obj/structure/barricade/wooden/strong,
+/turf/closed/wall/rust,
+/area/f13/vault/security{
+	name = "Atlantic Cross Marines ship"
+	})
+"hAh" = (
+/obj/structure/closet/crate/grave/lead_researcher,
+/turf/open/floor/plating/f13/outside/road{
+	icon_state = "dirt_original"
+	},
+/area/f13/city)
 "hAE" = (
 /obj/structure/debris/v2,
 /turf/open/floor/plating/f13/outside/road{
@@ -5926,6 +6656,11 @@
 /turf/open/floor/plating/f13/outside/road{
 	icon_state = "dirt_original"
 	},
+/area/f13/city)
+"hBg" = (
+/obj/structure/debris/v4,
+/obj/structure/flora/ausbushes/ywflowers,
+/turf/open/indestructible/ground/outside/ruins,
 /area/f13/city)
 "hBX" = (
 /obj/structure/closet/crate/wooden,
@@ -5940,6 +6675,17 @@
 /obj/structure/closet/crate/wooden,
 /turf/open/indestructible/ground/outside/sidewalkdirt,
 /area/f13/city)
+"hDm" = (
+/obj/structure/window/paperframe{
+	color = "#FFFFFF";
+	name = "Brickwall support"
+	},
+/obj/structure/flora/ausbushes/ywflowers,
+/turf/open/indestructible/ground/outside/ruins,
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "hEi" = (
 /obj/machinery/pool/filter{
 	pixel_y = -18
@@ -5953,6 +6699,14 @@
 /obj/structure/lattice/catwalk,
 /turf/open/transparent/openspace,
 /area/f13/city)
+"hEr" = (
+/obj/structure/table/reinforced,
+/obj/structure/barricade/bars,
+/obj/machinery/door/poddoor/shutters/window,
+/turf/open/floor/plasteel/dark,
+/area/f13/building/hospital{
+	name = "Atlantic Cross Hospital Ship"
+	})
 "hEH" = (
 /mob/living/simple_animal/chicken,
 /turf/open/indestructible/ground/outside/water/running,
@@ -5970,7 +6724,9 @@
 "hFS" = (
 /obj/item/reagent_containers/glass/bucket/wood,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/vault/security)
+/area/f13/vault/security{
+	name = "Atlantic Cross Marines ship"
+	})
 "hGz" = (
 /turf/open/floor/plating/f13/outside/road{
 	icon_state = "road_northwest_corner"
@@ -5997,6 +6753,19 @@
 /obj/structure/debris/v3,
 /turf/closed/indestructible/f13vaultrusted,
 /area/f13/hub)
+"hHS" = (
+/obj/machinery/microwave/stove,
+/turf/open/floor/plating/rust,
+/area/f13/wasteland)
+"hHV" = (
+/obj/structure/window/fulltile/ruins{
+	icon_state = "ruinswindowbrokenvertical"
+	},
+/turf/open/floor/plating/rust,
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "hIH" = (
 /obj/structure/flora/ausbushes/ywflowers,
 /turf/open/floor/wood_fancy,
@@ -6059,7 +6828,28 @@
 	},
 /turf/open/floor/carpet/royalblack,
 /area/f13/bar)
+"hNE" = (
+/obj/machinery/atmospherics/pipe/simple/brown/visible{
+	dir = 1;
+	pixel_x = -14
+	},
+/obj/item/clothing/suit/straight_jacket,
+/obj/item/clothing/suit/straight_jacket,
+/obj/item/clothing/suit/straight_jacket,
+/obj/item/clothing/suit/straight_jacket,
+/obj/structure/closet/crate/wooden{
+	anchored = 1;
+	can_be_unanchored = 1
+	},
+/turf/open/floor/plasteel/f13/vault_floor/plating,
+/area/f13/building/hospital{
+	name = "Atlantic Cross Hospital Ship"
+	})
 "hNP" = (
+/obj/structure/window/paperframe{
+	color = "4e4e4e";
+	name = "Brickwall support"
+	},
 /turf/closed/wall/f13/sunset/brick_small_light,
 /area/f13/clinic)
 "hOG" = (
@@ -6168,7 +6958,9 @@
 	pixel_y = -1
 	},
 /turf/open/floor/plasteel/f13/vault_floor/plating,
-/area/space)
+/area/f13/vault/security{
+	name = "Atlantic Cross Marines ship"
+	})
 "hVU" = (
 /turf/open/floor/wood_fancy{
 	icon_state = "fancy-broken4"
@@ -6214,10 +7006,14 @@
 /turf/closed/wall/f13/ruins,
 /area/f13/bar)
 "hZO" = (
-/turf/open/floor/plating/f13/outside/road{
-	icon_state = "road_center_1"
+/obj/structure/chair/bench{
+	icon_state = "dropshipleft"
 	},
-/area/f13/wasteland)
+/turf/open/floor/wood_wide,
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "iab" = (
 /obj/machinery/microwave,
 /obj/structure/table,
@@ -6229,7 +7025,10 @@
 	color = "#A47449"
 	},
 /turf/open/floor/plasteel/f13/vault_floor/yellow,
-/area/f13/city)
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "iaH" = (
 /obj/structure/simple_door/metal/dirtystore,
 /obj/structure/barricade/wooden/planks/pregame,
@@ -6258,7 +7057,7 @@
 	color = "#A47449"
 	},
 /turf/open/water,
-/area/space)
+/area/f13/hub)
 "ibt" = (
 /obj/effect/overlay/junk/toilet{
 	dir = 8
@@ -6270,6 +7069,14 @@
 	open_space = 0;
 	name = "Ruins interior"
 	})
+"ibM" = (
+/obj/structure/railing/corner{
+	color = "#A47449"
+	},
+/turf/open/floor/plating/f13/outside/road{
+	icon_state = "road_west_w"
+	},
+/area/f13/city)
 "ibS" = (
 /obj/structure/debris/v3,
 /turf/open/floor/plating/f13/outside/road{
@@ -6325,7 +7132,9 @@
 	dir = 1
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/space)
+/area/space{
+	name = "Ocean"
+	})
 "ifc" = (
 /mob/living/simple_animal/hostile/raider/ranged/biker{
 	name = "Portmaster guard"
@@ -6355,6 +7164,16 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/city)
+"iij" = (
+/obj/structure/window/paperframe{
+	color = "443926";
+	name = "Brickwall support"
+	},
+/turf/closed/wall/mineral/brick,
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "iiR" = (
 /obj/structure/closet/crate/trashcart,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
@@ -6401,6 +7220,10 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/city)
+"iot" = (
+/obj/structure/stone_tile/block,
+/turf/open/floor/plasteel/f13/vault_floor/plating,
+/area/f13/clinic)
 "ioO" = (
 /obj/structure/chair/comfy/beige,
 /obj/effect/decal/cleanable/greenglow,
@@ -6409,10 +7232,19 @@
 	open_space = 0;
 	name = "Ruins interior"
 	})
+"ipn" = (
+/obj/structure/stone_tile/block,
+/obj/structure/railing/handrail/blue{
+	pixel_y = 23
+	},
+/turf/open/water,
+/area/f13/hub)
 "ipF" = (
 /obj/structure/bed/old,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/vault/security)
+/area/f13/vault/security{
+	name = "Atlantic Cross Marines ship"
+	})
 "iqE" = (
 /obj/structure/table,
 /turf/open/floor/plating/rust,
@@ -6462,6 +7294,13 @@
 /obj/structure/flora/ausbushes/grassybush,
 /obj/effect/decal/cleanable/greenglow,
 /turf/open/indestructible/ground/outside/dirt,
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
+"iuo" = (
+/obj/structure/flora/ausbushes/ppflowers,
+/turf/open/floor/wood_mosaic/wood_mosaic_dark,
 /area/f13/ruins{
 	open_space = 0;
 	name = "Ruins interior"
@@ -6645,8 +7484,11 @@
 	name = "Ruins interior"
 	})
 "iFw" = (
-/turf/closed/wall/rust,
-/area/f13/building/hospital)
+/turf/open/floor/wood_wide/wood_wide_light,
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "iFQ" = (
 /obj/effect/decal/marking{
 	icon_state = "dottedhorizontalcorroded"
@@ -6685,7 +7527,17 @@
 "iIs" = (
 /obj/structure/chalkboard,
 /turf/open/floor/plasteel/f13/vault_floor/floor,
-/area/f13/city)
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
+"iJh" = (
+/obj/structure/simple_door/wood,
+/turf/open/floor/wood_mosaic/wood_mosaic_dark,
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "iJz" = (
 /obj/structure/chair/booth,
 /turf/open/floor/carpet/royalblack,
@@ -6761,6 +7613,10 @@
 	open_space = 0;
 	name = "Ruins interior"
 	})
+"iOA" = (
+/obj/machinery/vending/medical,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/clinic)
 "iPs" = (
 /obj/structure/fluff/rails{
 	dir = 4
@@ -6815,11 +7671,12 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/city)
 "iSj" = (
-/obj/structure/table/rolling,
-/obj/machinery/iv_drip,
-/obj/item/storage/box/tools/surgery,
-/turf/open/floor/plasteel/f13/vault_floor/plating,
-/area/space)
+/obj/machinery/door/airlock/wood,
+/obj/machinery/door/poddoor/shutters/window,
+/turf/open/floor/plasteel/dark,
+/area/f13/building/hospital{
+	name = "Atlantic Cross Hospital Ship"
+	})
 "iSp" = (
 /obj/structure/sign/parking,
 /turf/open/indestructible/ground/outside/sidewalkdirt,
@@ -6865,12 +7722,18 @@
 /area/f13/city)
 "iWr" = (
 /turf/open/floor/plasteel/f13/vault_floor/yellow/side,
-/area/f13/city)
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "iXz" = (
 /turf/open/floor/plasteel/f13/vault_floor/yellow/side{
 	dir = 4
 	},
-/area/f13/city)
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "iXK" = (
 /obj/structure/cargocrate{
 	layer = 3;
@@ -6930,7 +7793,9 @@
 "jav" = (
 /obj/structure/barricade/bars,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/vault/security)
+/area/f13/vault/security{
+	name = "Atlantic Cross Marines ship"
+	})
 "jbE" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -6950,7 +7815,10 @@
 /area/f13/city)
 "jcd" = (
 /turf/open/floor/plasteel/f13/vault_floor/yellow/corner,
-/area/f13/city)
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "jcE" = (
 /obj/structure/table/wood,
 /obj/structure/curtain{
@@ -7031,6 +7899,12 @@
 	icon_state = "floorscorched2"
 	},
 /area/f13/wasteland/bighorn)
+"jhk" = (
+/obj/structure/railing/handrail/blue{
+	pixel_y = 23
+	},
+/turf/open/water,
+/area/f13/hub)
 "jhr" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 8
@@ -7072,6 +7946,10 @@
 /obj/machinery/smartfridge/chemistry/preloaded,
 /turf/open/floor/plasteel/white,
 /area/awaymission/research/interior)
+"jjm" = (
+/obj/structure/closet/crate/grave,
+/turf/open/indestructible/ground/outside/ruins,
+/area/f13/city)
 "jkI" = (
 /obj/structure/table/reinforced,
 /turf/open/indestructible/ground/outside/sidewalk{
@@ -7101,6 +7979,15 @@
 	color = "#A47449"
 	},
 /turf/open/floor/plasteel/f13/vault_floor/floor,
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
+"jlO" = (
+/obj/structure/flora/ausbushes/brflowers,
+/turf/open/floor/plating/f13/outside/road{
+	icon_state = "dirt_original"
+	},
 /area/f13/city)
 "jmj" = (
 /obj/structure/fence/post{
@@ -7212,11 +8099,11 @@
 /turf/open/indestructible/ground/outside/dirt,
 /area/awaymission/research/interior)
 "jtQ" = (
-/obj/structure/stone_tile/block{
-	dir = 8
+/obj/structure/chair/booth{
+	icon_state = "booth_east_south"
 	},
-/turf/open/floor/wood_common,
-/area/f13/building)
+/turf/open/floor/plasteel/bar,
+/area/f13/wasteland)
 "jtZ" = (
 /obj/structure/simple_door/metal/dirtystore,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
@@ -7226,6 +8113,10 @@
 	open_space = 0;
 	name = "Ruins interior"
 	})
+"jua" = (
+/obj/structure/debris/v3,
+/turf/closed/wall/f13/ruins,
+/area/f13/city)
 "juc" = (
 /obj/structure/flora/tallgrass8,
 /turf/open/indestructible/ground/outside/dirt,
@@ -7257,9 +8148,14 @@
 	},
 /area/f13/hub)
 "jwg" = (
-/obj/structure/sign/departments/medbay/alt,
-/turf/closed/wall/rust,
-/area/space)
+/obj/machinery/atmospherics/pipe/simple/brown/visible{
+	dir = 1;
+	pixel_x = -14
+	},
+/turf/open/floor/plasteel/dark,
+/area/f13/building/hospital{
+	name = "Atlantic Cross Hospital Ship"
+	})
 "jwD" = (
 /obj/structure/barricade/bars,
 /obj/structure/table/reinforced,
@@ -7273,6 +8169,12 @@
 	icon_state = "horizontaloutermain1"
 	},
 /area/f13/brotherhood)
+"jxe" = (
+/obj/structure/chair/booth{
+	icon_state = "booth_south_east"
+	},
+/turf/open/floor/plasteel/bar,
+/area/f13/wasteland)
 "jxS" = (
 /turf/open/floor/plasteel/f13/vault_floor,
 /area/f13/ruins{
@@ -7393,6 +8295,13 @@
 "jBr" = (
 /turf/closed/wall/f13/wood/house,
 /area/f13/underground/enclave_base)
+"jBu" = (
+/obj/structure/falsewall/brick,
+/turf/open/floor/plasteel/freezer,
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "jBR" = (
 /obj/structure/window/paperframe{
 	color = "4e4e4e";
@@ -7420,6 +8329,14 @@
 	icon_state = "panelscorched"
 	},
 /area/f13/clinic)
+"jDE" = (
+/obj/structure/table,
+/obj/item/trash/f13/electronic/toaster/oven,
+/turf/open/floor/plasteel/darkbrown,
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "jDU" = (
 /obj/structure/playground/slide{
 	dir = 8;
@@ -7540,6 +8457,10 @@
 	icon_state = "dirt_original"
 	},
 /area/f13/city)
+"jLt" = (
+/obj/structure/headpike,
+/turf/open/indestructible/ground/outside/sidewalkdirt,
+/area/f13/city)
 "jLx" = (
 /obj/structure/window/paperframe{
 	color = "4e4e4e";
@@ -7581,7 +8502,9 @@
 /area/f13/wasteland/bighorn)
 "jNH" = (
 /turf/open/floor/f13/wood,
-/area/space)
+/area/space{
+	name = "Ocean"
+	})
 "jOh" = (
 /obj/structure/flora/ausbushes/ppflowers,
 /turf/open/indestructible/ground/outside/dirt,
@@ -7699,7 +8622,9 @@
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/lattice,
 /turf/open/water,
-/area/space)
+/area/space{
+	name = "Ocean"
+	})
 "jVC" = (
 /obj/structure/fence{
 	dir = 8
@@ -7735,6 +8660,12 @@
 	open_space = 0;
 	name = "Ruins interior"
 	})
+"jYo" = (
+/obj/structure/closet/locker,
+/obj/item/clothing/head/soft/emt,
+/obj/item/clothing/suit/toggle/labcoat/emt,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/clinic)
 "jZa" = (
 /obj/structure/wreck/car{
 	name = "Motsubishi";
@@ -7773,6 +8704,18 @@
 	icon_state = "verticalleftborderleft1"
 	},
 /area/f13/city)
+"kby" = (
+/obj/structure/fluff/railing{
+	color = "#A47449";
+	dir = 1
+	},
+/turf/open/floor/plating/f13/outside/road{
+	icon_state = "dirt_original"
+	},
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "kbI" = (
 /obj/structure/stairs{
 	dir = 4
@@ -7798,6 +8741,11 @@
 /obj/structure/car/rubbish4,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/hub)
+"kcu" = (
+/turf/closed/wall/mineral/brick,
+/area/space{
+	name = "Ocean"
+	})
 "kcv" = (
 /obj/structure/falsewall/rust,
 /turf/open/floor/wood_common/wood_common_dark,
@@ -7816,6 +8764,10 @@
 /obj/structure/window/fulltile/wood_window,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/building)
+"kep" = (
+/obj/structure/flora/ausbushes/brflowers,
+/turf/open/indestructible/ground/outside/ruins,
+/area/f13/city)
 "keA" = (
 /obj/structure/stone_tile/block{
 	pixel_x = 15
@@ -7826,7 +8778,9 @@
 	color = "#A47449"
 	},
 /turf/open/water,
-/area/space)
+/area/space{
+	name = "Ocean"
+	})
 "keN" = (
 /obj/item/storage/fancy/candle_box,
 /obj/machinery/vending/dinnerware,
@@ -7890,6 +8844,15 @@
 /obj/effect/decal/cleanable/greenglow,
 /turf/open/indestructible/ground/outside/dirt,
 /area/awaymission/research/interior)
+"kih" = (
+/obj/structure/railing/corner{
+	color = "#A47449";
+	dir = 4
+	},
+/turf/open/floor/plating/f13/outside/road{
+	icon_state = "road_west_w"
+	},
+/area/f13/city)
 "kjw" = (
 /obj/structure/flora/wasteplant/wild_horsenettle,
 /obj/effect/decal/cleanable/greenglow,
@@ -7943,7 +8906,9 @@
 /area/f13/building)
 "kng" = (
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/space)
+/area/space{
+	name = "Ocean"
+	})
 "knB" = (
 /obj/structure/barricade/wooden/planks{
 	icon_state = "riverbank"
@@ -7977,6 +8942,15 @@
 	},
 /obj/structure/lattice,
 /turf/open/transparent/openspace,
+/area/f13/city)
+"kqf" = (
+/obj/structure/chair/bench{
+	dir = 4
+	},
+/obj/effect/landmark/start/f13/wastelander,
+/turf/open/floor/wood_common{
+	icon_state = "common-broken3"
+	},
 /area/f13/city)
 "kqV" = (
 /obj/structure/car/rubbish3{
@@ -8041,6 +9015,15 @@
 /obj/structure/flora/wasteplant/wild_tato,
 /turf/open/indestructible/ground/outside/dirt,
 /area/awaymission/research/interior)
+"kvn" = (
+/obj/structure/stairs/east{
+	color = "#A47449";
+	dir = 2;
+	can_be_z_moved = 0;
+	name = "building stairs"
+	},
+/turf/open/indestructible/ground/outside/sidewalkdirt,
+/area/f13/city)
 "kwb" = (
 /obj/structure/stairs/east,
 /turf/open/floor/plasteel/f13/vault_floor,
@@ -8116,7 +9099,9 @@
 /area/f13/city)
 "kAi" = (
 /turf/closed/indestructible/f13vaultrusted,
-/area/f13/vault/security)
+/area/f13/vault/security{
+	name = "Atlantic Cross Marines ship"
+	})
 "kAJ" = (
 /obj/structure/barricade/wooden,
 /turf/open/indestructible/ground/outside/gravel,
@@ -8218,6 +9203,10 @@
 	icon_state = "road_center"
 	},
 /area/f13/city)
+"kHJ" = (
+/obj/structure/table/booth,
+/turf/open/floor/plasteel/bar,
+/area/f13/wasteland)
 "kHK" = (
 /turf/open/floor/plating/f13/outside/road{
 	icon_state = "road_northsouth_y"
@@ -8289,7 +9278,9 @@
 "kMQ" = (
 /obj/effect/turf_decal/stripes/red/line,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/space)
+/area/space{
+	name = "Ocean"
+	})
 "kNo" = (
 /obj/structure/fence/end/wooden{
 	pixel_y = 2
@@ -8333,6 +9324,13 @@
 /obj/structure/fluff/rails,
 /turf/closed/wall/mineral/concrete,
 /area/f13/city)
+"kPl" = (
+/obj/structure/debris/v3,
+/turf/open/floor/plasteel/f13/vault_floor/floor,
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "kPv" = (
 /obj/machinery/microwave/stove,
 /turf/open/floor/wood_common/wood_common_dark,
@@ -8359,6 +9357,12 @@
 	open_space = 0;
 	name = "Ruins interior"
 	})
+"kRf" = (
+/obj/structure/fence,
+/turf/open/floor/plating/f13/outside/road{
+	icon_state = "dirt_9"
+	},
+/area/f13/city)
 "kRn" = (
 /obj/machinery/workbench/advanced,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
@@ -8450,13 +9454,10 @@
 	name = "Ruins interior"
 	})
 "kXF" = (
-/obj/machinery/atmospherics/pipe/manifold/brown/visible{
-	dir = 8;
-	pixel_x = -14
-	},
-/obj/vehicle/ridden/wheelchair,
 /turf/open/floor/plasteel/f13/vault_floor/plating,
-/area/space)
+/area/f13/building/hospital{
+	name = "Atlantic Cross Hospital Ship"
+	})
 "kXK" = (
 /obj/structure/flora/ausbushes/sparsegrass,
 /obj/effect/decal/cleanable/greenglow,
@@ -8495,12 +9496,8 @@
 /turf/open/indestructible/ground/outside/graveldirt,
 /area/f13/citycaves)
 "lap" = (
-/obj/structure/window/paperframe{
-	color = "#FFFFFF";
-	name = "Brickwall support"
-	},
-/turf/open/floor/wood_fancy/wood_fancy_dark,
-/area/f13/city)
+/turf/closed/wall/mineral/concrete,
+/area/f13/wasteland)
 "laQ" = (
 /obj/structure/chair/bench{
 	icon_state = "dropshipright"
@@ -8508,7 +9505,9 @@
 /turf/open/floor/plating/f13/outside/road{
 	icon_state = "dirt_original"
 	},
-/area/space)
+/area/space{
+	name = "Ocean"
+	})
 "lba" = (
 /turf/open/floor/wood_common/wood_common_light{
 	icon_state = "common_light-broken4"
@@ -8634,6 +9633,14 @@
 /obj/structure/flora/ausbushes/ppflowers,
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/city)
+"ljd" = (
+/obj/structure/stairs/east{
+	color = "#A47449";
+	can_be_z_moved = 0;
+	name = "building stairs"
+	},
+/turf/open/floor/plasteel/f13/vault_floor/plating,
+/area/f13/clinic)
 "ljq" = (
 /obj/structure/disposalpipe/segment{
 	dir = 2
@@ -8660,6 +9667,11 @@
 /turf/open/floor/plating/f13/outside/road{
 	icon_state = "road_north_w"
 	},
+/area/f13/city)
+"lkq" = (
+/obj/structure/debris/v3,
+/obj/structure/flora/ausbushes/ywflowers,
+/turf/open/indestructible/ground/outside/ruins,
 /area/f13/city)
 "lkB" = (
 /obj/structure/simple_door/bunker,
@@ -8810,7 +9822,9 @@
 /area/f13/hub)
 "lqQ" = (
 /turf/open/water,
-/area/space)
+/area/space{
+	name = "Ocean"
+	})
 "lqS" = (
 /obj/structure/stairs/east{
 	color = "#A47449";
@@ -8842,19 +9856,11 @@
 /turf/closed/wall/f13/sunset/brick_small_light,
 /area/f13/underground/enclave_base)
 "lsO" = (
-/obj/machinery/atmospherics/pipe/simple/brown/visible{
-	dir = 6;
-	pixel_x = -14;
-	pixel_y = 14
+/obj/structure/stairs/south{
+	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/brown/visible{
-	dir = 1;
-	pixel_x = -14;
-	pixel_y = -6
-	},
-/obj/structure/chair/sofa/right,
-/turf/open/floor/plasteel/f13/vault_floor/plating,
-/area/space)
+/turf/open/floor/wood_common,
+/area/f13/city)
 "ltj" = (
 /obj/structure/rack/shelf_metal{
 	pixel_x = -4
@@ -8953,6 +9959,13 @@
 	icon_state = "horizontaloutermain1"
 	},
 /area/f13/city)
+"lyw" = (
+/obj/effect/turf_decal/stripes/asteroid/line,
+/obj/effect/turf_decal/stripes/asteroid/line{
+	dir = 8
+	},
+/turf/open/floor/wood_common/wood_common_light,
+/area/f13/hub)
 "lyK" = (
 /obj/structure/debris/v3,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
@@ -9014,23 +10027,26 @@
 	name = "Ruins interior"
 	})
 "lCB" = (
-/obj/machinery/atmospherics/pipe/manifold/brown/visible{
-	dir = 8;
-	pixel_x = -14
+/obj/structure/table/reinforced,
+/obj/structure/filingcabinet/medical{
+	pixel_x = 11
 	},
-/obj/structure/table/rolling,
-/obj/item/organ_storage,
-/obj/item/organ_storage,
-/obj/item/organ_storage,
-/obj/item/organ_storage,
-/obj/item/organ_storage,
-/obj/item/organ_storage,
-/obj/item/organ_storage,
-/obj/item/organ_storage,
-/obj/item/organ_storage,
-/obj/item/organ_storage,
+/obj/item/paper_bin{
+	pixel_x = -12
+	},
+/obj/item/pen{
+	pixel_x = -13
+	},
 /turf/open/floor/plasteel/f13/vault_floor/plating,
-/area/space)
+/area/f13/building/hospital{
+	name = "Atlantic Cross Hospital Ship"
+	})
+"lDi" = (
+/obj/structure/sink/kitchen{
+	pixel_y = 15
+	},
+/turf/open/floor/plating/rust,
+/area/f13/wasteland)
 "lEF" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 4
@@ -9190,7 +10206,9 @@
 /turf/open/floor/plating/f13/outside/road{
 	icon_state = "road_center"
 	},
-/area/space)
+/area/space{
+	name = "Ocean"
+	})
 "lLt" = (
 /obj/effect/decal/marking{
 	icon_state = "dottedverticalcorroded";
@@ -9258,6 +10276,12 @@
 	icon_state = "dirt_original"
 	},
 /area/f13/city)
+"lQk" = (
+/mob/living/simple_animal/cow/brahmin,
+/turf/open/floor/plating/f13/outside/road{
+	icon_state = "dirt_original"
+	},
+/area/f13/city)
 "lQp" = (
 /obj/structure/chair/wood{
 	dir = 8
@@ -9297,12 +10321,11 @@
 /turf/open/water,
 /area/f13/city)
 "lSy" = (
-/obj/machinery/atmospherics/pipe/simple/brown/visible{
-	dir = 1;
-	pixel_x = -14
-	},
+/obj/structure/window/fulltile/wood_window,
 /turf/open/floor/plasteel/f13/vault_floor/plating,
-/area/space)
+/area/f13/building/hospital{
+	name = "Atlantic Cross Hospital Ship"
+	})
 "lSV" = (
 /obj/structure/window/paperframe{
 	color = "4e4e4e";
@@ -9383,11 +10406,13 @@
 "lVF" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/water,
-/area/f13/building)
+/area/f13/hub)
 "lVS" = (
-/obj/structure/sign/departments/medbay,
-/turf/closed/wall/rust,
-/area/space)
+/obj/structure/closet/crate/footlocker,
+/turf/open/floor/wood_common{
+	icon_state = "common-broken2"
+	},
+/area/f13/city)
 "lVY" = (
 /obj/structure/simple_door/room/dirty,
 /turf/open/floor/f13/wood{
@@ -9434,6 +10459,13 @@
 	icon_state = "road_west_w"
 	},
 /area/f13/hub)
+"lYO" = (
+/obj/structure/debris/v4,
+/turf/open/floor/wood_mosaic/wood_mosaic_dark,
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "lZa" = (
 /obj/effect/overlay/water,
 /obj/effect/overlay/water/top,
@@ -9452,6 +10484,25 @@
 "mam" = (
 /obj/structure/table/wood,
 /turf/open/floor/wood_fancy/wood_fancy_light,
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
+"mar" = (
+/obj/machinery/atmospherics/pipe/simple/brown/visible{
+	dir = 1;
+	pixel_x = -14
+	},
+/obj/structure/chair/f13foldupchair{
+	dir = 1
+	},
+/turf/open/floor/plasteel/f13/vault_floor/plating,
+/area/f13/building/hospital{
+	name = "Atlantic Cross Hospital Ship"
+	})
+"maH" = (
+/obj/structure/debris/v4,
+/turf/open/floor/plasteel/f13/vault_floor/floor,
 /area/f13/ruins{
 	open_space = 0;
 	name = "Ruins interior"
@@ -9503,7 +10554,9 @@
 /obj/structure/debris/v3,
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/space)
+/area/space{
+	name = "Ocean"
+	})
 "mfj" = (
 /obj/machinery/microwave/stove,
 /turf/open/floor/plasteel/f13/vault_floor/misc/rarewhite,
@@ -9532,18 +10585,22 @@
 	},
 /area/f13/brotherhood)
 "mfT" = (
-/turf/closed/wall/f13/store/constructed{
-	name = "Hospital ship hull"
-	},
-/area/f13/building/hospital)
+/obj/structure/debris/v4,
+/turf/open/floor/wood_fancy,
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "mgu" = (
 /obj/machinery/atmospherics/pipe/simple/brown/visible{
 	dir = 1;
 	pixel_x = -14
 	},
-/obj/vehicle/ridden/wheelchair,
+/obj/machinery/smartfridge/chemistry/preloaded,
 /turf/open/floor/plasteel/f13/vault_floor/plating,
-/area/space)
+/area/f13/building/hospital{
+	name = "Atlantic Cross Hospital Ship"
+	})
 "mgA" = (
 /turf/open/floor/wood_common/wood_common_dark,
 /area/f13/bar)
@@ -9561,7 +10618,9 @@
 	icon_state = "rails-b2"
 	},
 /turf/open/floor/plating/rust,
-/area/space)
+/area/space{
+	name = "Ocean"
+	})
 "mjx" = (
 /obj/structure/chair/stool/retro/black,
 /turf/open/floor/f13/wood,
@@ -9632,7 +10691,9 @@
 	color = "#A47449"
 	},
 /turf/open/water,
-/area/space)
+/area/space{
+	name = "Ocean"
+	})
 "moh" = (
 /obj/structure/fence{
 	dir = 8
@@ -9649,7 +10710,7 @@
 	dir = 8
 	},
 /turf/open/water,
-/area/space)
+/area/f13/hub)
 "mpR" = (
 /obj/structure/simple_door/room/dirty,
 /obj/structure/window/paperframe{
@@ -9658,6 +10719,12 @@
 	},
 /turf/open/floor/wood_fancy,
 /area/f13/building)
+"mqk" = (
+/obj/structure/chair/booth{
+	icon_state = "booth_west_south"
+	},
+/turf/open/floor/plating/rust,
+/area/f13/wasteland)
 "mqx" = (
 /obj/effect/overlay/junk/oldpipes{
 	pixel_x = 16;
@@ -9799,6 +10866,15 @@
 	icon_state = "housewood2"
 	},
 /area/f13/brotherhood)
+"mxA" = (
+/obj/structure/chair/booth{
+	icon_state = "booth_west_middle"
+	},
+/obj/structure/chair/booth{
+	icon_state = "booth_west_south"
+	},
+/turf/open/floor/plasteel/bar,
+/area/f13/wasteland)
 "mxX" = (
 /obj/structure/fence,
 /turf/open/floor/f13/wood{
@@ -9830,6 +10906,13 @@
 /obj/structure/rack/shelf_metal,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
 /area/f13/hub)
+"mzw" = (
+/obj/structure/window/fulltile/ruins{
+	icon_state = "ruinswindowvertical"
+	},
+/obj/structure/barricade/wooden/planks,
+/turf/open/floor/plasteel/bar,
+/area/f13/wasteland)
 "mAy" = (
 /obj/structure/rug/big/rug_yellow,
 /obj/effect/decal/cleanable/greenglow,
@@ -9872,7 +10955,9 @@
 	color = "#A47449"
 	},
 /turf/open/water,
-/area/space)
+/area/space{
+	name = "Ocean"
+	})
 "mBD" = (
 /obj/structure/fluff/rails,
 /turf/open/indestructible/ground/outside/dirt/harsh,
@@ -9894,6 +10979,16 @@
 	open_space = 0;
 	name = "Ruins interior"
 	})
+"mCU" = (
+/obj/machinery/atmospherics/pipe/simple/brown/visible{
+	dir = 4;
+	pixel_x = -14;
+	pixel_y = 14
+	},
+/turf/open/floor/plasteel/f13/vault_floor/plating,
+/area/f13/building/hospital{
+	name = "Atlantic Cross Hospital Ship"
+	})
 "mDn" = (
 /obj/structure/cargocrate{
 	icon_state = "cargocrate2";
@@ -9909,6 +11004,11 @@
 	},
 /turf/open/floor/f13/wood,
 /area/f13/hub)
+"mEr" = (
+/obj/machinery/chem_dispenser/drinks,
+/obj/structure/table/reinforced,
+/turf/open/floor/plating/rust,
+/area/f13/wasteland)
 "mFt" = (
 /turf/open/floor/plating/f13/outside/road{
 	icon_state = "grass_3"
@@ -9930,6 +11030,12 @@
 /obj/item/gun/ballistic/automatic/marksman/policerifle,
 /turf/open/floor/plasteel/f13/vault_floor/blue/whitebluefull,
 /area/f13/vault/security/armory)
+"mGS" = (
+/mob/living/simple_animal/cow/brahmin/calf,
+/turf/open/floor/plating/f13/outside/road{
+	icon_state = "dirt_original"
+	},
+/area/f13/city)
 "mGX" = (
 /obj/structure/fence{
 	dir = 8
@@ -9960,6 +11066,16 @@
 	icon_state = "road_center_1"
 	},
 /area/f13/hub)
+"mJZ" = (
+/obj/structure/fluff/railing{
+	dir = 5;
+	color = "#A47449"
+	},
+/turf/open/floor/wood_fancy/wood_fancy_dark,
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "mKa" = (
 /obj/structure/rug/carpet4,
 /turf/open/floor/f13/wood,
@@ -9985,6 +11101,15 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/city)
+"mLr" = (
+/obj/structure/rack/shelf_metal,
+/obj/item/radio/intercom/retro,
+/obj/structure/junk/small/tv,
+/turf/open/floor/plasteel/darkbrown,
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "mLv" = (
 /obj/structure/fence/corner{
 	dir = 4
@@ -10067,7 +11192,9 @@
 "mRC" = (
 /obj/structure/lattice,
 /turf/open/water,
-/area/space)
+/area/space{
+	name = "Ocean"
+	})
 "mRE" = (
 /mob/living/simple_animal/hostile/raider/ranged/sulphiteranged{
 	name = "Train dweller Guard"
@@ -10101,7 +11228,9 @@
 	dir = 1
 	},
 /turf/open/water,
-/area/space)
+/area/space{
+	name = "Ocean"
+	})
 "mUp" = (
 /obj/structure/debris/v3,
 /obj/structure/window/paperframe{
@@ -10152,6 +11281,11 @@
 /obj/structure/debris/v3,
 /turf/open/indestructible/ground/outside/sidewalkdirt,
 /area/f13/city)
+"mYV" = (
+/obj/structure/debris/v1,
+/obj/structure/debris/v1,
+/turf/open/indestructible/ground/outside/desert,
+/area/f13/city)
 "mYX" = (
 /obj/structure/table/wood,
 /obj/structure/barricade/sandbags,
@@ -10163,6 +11297,11 @@
 /obj/structure/barricade/wooden/strong,
 /turf/closed/wall/rust,
 /area/f13/building)
+"mZs" = (
+/obj/effect/turf_decal/stripes/red/line,
+/obj/structure/fluff/railing,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/clinic)
 "mZz" = (
 /obj/structure/barricade/tentclothedge,
 /turf/open/floor/plating/f13/outside/road{
@@ -10324,6 +11463,17 @@
 	open_space = 0;
 	name = "Ruins interior"
 	})
+"nlj" = (
+/obj/structure/fluff/railing{
+	dir = 10;
+	color = "#A47449"
+	},
+/obj/structure/debris/v4,
+/turf/open/floor/wood_wide,
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "nlW" = (
 /obj/structure/spider/stickyweb,
 /turf/open/indestructible/ground/outside/sidewalk{
@@ -10331,7 +11481,11 @@
 	},
 /area/f13/brotherhood)
 "nmf" = (
-/turf/closed/wall/f13/sunset/brick_small_dark,
+/obj/structure/window/paperframe{
+	color = "4e4e4e";
+	name = "Brickwall support"
+	},
+/turf/closed/wall/f13/sunset/brick_small,
 /area/f13/city)
 "nmP" = (
 /turf/open/floor/wood_common/wood_common_light,
@@ -10356,17 +11510,29 @@
 "nnG" = (
 /obj/structure/stairs/south,
 /turf/open/floor/plating/rust,
-/area/f13/vault/security)
+/area/f13/vault/security{
+	name = "Atlantic Cross Marines ship"
+	})
 "nol" = (
 /obj/effect/mob_spawn/human/corpse/vault,
 /turf/open/floor/plasteel/f13/vault_floor/yellow/side{
 	dir = 1
 	},
-/area/f13/city)
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "noR" = (
 /obj/structure/lattice,
 /turf/open/floor/plating/rust,
 /area/f13/city)
+"npm" = (
+/obj/structure/window/fulltile/wood_window,
+/obj/machinery/door/poddoor/shutters,
+/turf/open/floor/plasteel/f13/vault_floor/plating,
+/area/f13/building/hospital{
+	name = "Atlantic Cross Hospital Ship"
+	})
 "npv" = (
 /obj/item/radio/intercom/retro,
 /turf/closed/wall/rust,
@@ -10375,7 +11541,15 @@
 /turf/closed/wall/f13/store/constructed{
 	name = "cruise ship hull"
 	},
-/area/f13/building)
+/area/f13/vault/security{
+	name = "Atlantic Cross Marines ship"
+	})
+"nrg" = (
+/obj/structure/statue/sandstone/gravestone,
+/turf/open/floor/plating/f13/outside/road{
+	icon_state = "dirt_original"
+	},
+/area/f13/city)
 "nrU" = (
 /obj/machinery/door/poddoor/shutters,
 /obj/structure/obstacle/old_locked_door,
@@ -10446,7 +11620,9 @@
 /turf/open/floor/plating/f13/outside/road{
 	icon_state = "grass_5"
 	},
-/area/space)
+/area/space{
+	name = "Ocean"
+	})
 "nvO" = (
 /turf/open/indestructible/ground/outside/sidewalkdirt{
 	icon_state = "horizontalbottomborderbottom0"
@@ -10476,6 +11652,15 @@
 	icon_state = "horizontaloutermain1"
 	},
 /area/f13/brotherhood)
+"nxw" = (
+/obj/effect/turf_decal/stripes/asteroid/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/asteroid/line{
+	dir = 8
+	},
+/turf/open/floor/wood_common/wood_common_light,
+/area/f13/hub)
 "nxy" = (
 /obj/structure/curtain{
 	color = "#811313";
@@ -10527,6 +11712,16 @@
 	open_space = 0;
 	name = "Ruins interior"
 	})
+"nAv" = (
+/obj/machinery/atmospherics/components/unary/outlet_injector/atmos/engine_waste{
+	dir = 4;
+	pixel_y = -1
+	},
+/obj/machinery/atmospherics/pipe/simple/brown/visible,
+/turf/open/floor/plasteel/f13/vault_floor/plating,
+/area/f13/building/hospital{
+	name = "Atlantic Cross Hospital Ship"
+	})
 "nBa" = (
 /obj/structure/junk/arcade,
 /turf/open/indestructible/ground/outside/gravel,
@@ -10537,6 +11732,13 @@
 	},
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/hub)
+"nCa" = (
+/obj/structure/flora/ausbushes/ppflowers,
+/turf/open/indestructible/ground/outside/ruins,
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "nCt" = (
 /obj/structure/window/fulltile/wood/broken,
 /turf/open/floor/wood_mosaic{
@@ -10546,6 +11748,22 @@
 	open_space = 0;
 	name = "Ruins interior"
 	})
+"nCS" = (
+/obj/machinery/atmospherics/pipe/simple/brown/visible{
+	dir = 1;
+	pixel_x = -14
+	},
+/obj/structure/closet/crate/wooden{
+	anchored = 1;
+	can_be_unanchored = 1
+	},
+/turf/open/floor/plasteel/f13/vault_floor/plating,
+/area/f13/building/hospital{
+	name = "Atlantic Cross Hospital Ship"
+	})
+"nDH" = (
+/turf/open/floor/plasteel/airless/white,
+/area/f13/wasteland)
 "nEa" = (
 /obj/structure/chair/stool/retro/black,
 /turf/open/floor/carpet/green{
@@ -10568,7 +11786,9 @@
 /turf/closed/wall/f13/store/constructed{
 	name = "cruise ship hull"
 	},
-/area/f13/building)
+/area/f13/vault/security{
+	name = "Atlantic Cross Marines ship"
+	})
 "nEL" = (
 /obj/structure/simple_door/metal/fence,
 /turf/open/floor/f13/wood,
@@ -10600,7 +11820,9 @@
 /area/f13/city)
 "nGz" = (
 /turf/closed/wall/rust,
-/area/f13/hub)
+/area/f13/building/hospital{
+	name = "Atlantic Cross Hospital Ship"
+	})
 "nGI" = (
 /obj/structure/window/paperframe{
 	color = "4e4e4e";
@@ -10615,41 +11837,38 @@
 	open_space = 0;
 	name = "Ruins interior"
 	})
+"nGY" = (
+/obj/structure/window/paperframe{
+	color = "#FFFFFF";
+	name = "Brickwall support"
+	},
+/obj/structure/decoration/cctv,
+/turf/closed/wall/f13/sunset/brick_small,
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "nGZ" = (
 /obj/structure/lattice,
 /turf/open/water,
 /area/f13/ruins)
-"nHn" = (
-/obj/machinery/atmospherics/pipe/simple/brown/visible{
-	dir = 4;
-	pixel_x = -54;
-	pixel_y = 14
-	},
-/obj/machinery/atmospherics/pipe/simple/brown/visible{
-	dir = 4;
-	pixel_x = -54;
-	pixel_y = 14
-	},
-/obj/machinery/atmospherics/pipe/simple/brown/visible{
-	dir = 4;
-	pixel_x = -54;
-	pixel_y = 14
-	},
-/obj/machinery/atmospherics/pipe/simple/brown/visible{
-	dir = 4;
-	pixel_x = -54;
-	pixel_y = 14
-	},
+"nHl" = (
 /obj/machinery/atmospherics/pipe/simple/brown/visible{
 	dir = 4;
 	pixel_x = -14;
 	pixel_y = 14
 	},
-/obj/structure/chair/office/light{
-	dir = 8
-	},
-/turf/open/floor/plasteel/f13/vault_floor/plating,
-/area/space)
+/obj/structure/rack/shelf_metal,
+/turf/open/floor/plasteel/dark,
+/area/f13/building/hospital{
+	name = "Atlantic Cross Hospital Ship"
+	})
+"nHn" = (
+/turf/open/floor/wood_fancy/wood_fancy_dark,
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "nHt" = (
 /obj/machinery/grill,
 /obj/effect/decal/cleanable/dirt,
@@ -10661,7 +11880,9 @@
 	dir = 8
 	},
 /turf/open/water,
-/area/space)
+/area/space{
+	name = "Ocean"
+	})
 "nIY" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -10749,7 +11970,19 @@
 "nNy" = (
 /obj/structure/debris/v4,
 /turf/open/water,
-/area/space)
+/area/space{
+	name = "Ocean"
+	})
+"nNX" = (
+/obj/structure/closet/locker,
+/obj/item/clothing/head/soft/emt,
+/obj/item/clothing/suit/toggle/labcoat/emt/red,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/clinic)
+"nOa" = (
+/obj/structure/table/reinforced,
+/turf/open/floor/plating/rust,
+/area/f13/wasteland)
 "nOd" = (
 /mob/living/simple_animal/hostile/handy/playable,
 /turf/open/floor/plating/rust,
@@ -10817,10 +12050,16 @@
 	color = "#A47449"
 	},
 /turf/open/water,
-/area/space)
+/area/space{
+	name = "Ocean"
+	})
 "nTm" = (
 /turf/closed/wall/rust,
 /area/f13/office)
+"nTL" = (
+/obj/item/defibrillator,
+/turf/open/floor/plasteel/f13/vault_floor/plating,
+/area/f13/clinic)
 "nTN" = (
 /obj/structure/shuttle/engine/large{
 	dir = 1;
@@ -10895,11 +12134,13 @@
 	dir = 5
 	},
 /turf/open/floor/wood_common,
-/area/space)
+/area/f13/hub)
 "nWz" = (
 /obj/structure/fence/end/wooden,
 /turf/open/water,
-/area/space)
+/area/space{
+	name = "Ocean"
+	})
 "nWB" = (
 /obj/effect/overlay/junk/oldpipes{
 	dir = 8
@@ -11002,6 +12243,16 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/city)
+"ocT" = (
+/obj/machinery/atmospherics/pipe/simple/brown/visible{
+	dir = 1;
+	pixel_x = -14
+	},
+/obj/machinery/vending/medical/free,
+/turf/open/floor/plasteel/f13/vault_floor/plating,
+/area/f13/building/hospital{
+	name = "Atlantic Cross Hospital Ship"
+	})
 "ody" = (
 /obj/structure/car/rubbish3,
 /turf/open/indestructible/ground/outside/sidewalkdirt{
@@ -11026,6 +12277,10 @@
 	open_space = 0;
 	name = "Ruins interior"
 	})
+"ofb" = (
+/obj/structure/debris/v4,
+/turf/open/floor/wood_fancy,
+/area/f13/city)
 "ofe" = (
 /obj/structure/chair/stool,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
@@ -11038,6 +12293,13 @@
 	icon_state = "road_north_w"
 	},
 /area/f13/hub)
+"ofm" = (
+/obj/structure/railing/corner{
+	color = "#A47449";
+	dir = 8
+	},
+/turf/open/indestructible/ground/outside/sidewalkdirt,
+/area/f13/city)
 "ofK" = (
 /obj/structure/closet/crate/goldcrate,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
@@ -11279,12 +12541,24 @@
 	icon_state = "horizontaltopbordertop2right"
 	},
 /area/f13/hub)
-"osR" = (
-/obj/structure/railing/handrail/blue/end/underlayer{
-	dir = 8
+"osK" = (
+/obj/structure/chair/booth{
+	icon_state = "booth_west_north"
 	},
-/turf/open/floor/wood_common/wood_common_light,
-/area/f13/hub)
+/turf/open/floor/plating/rust,
+/area/f13/wasteland)
+"osR" = (
+/obj/structure/flora/chomp/potplant1{
+	pixel_y = 14;
+	pixel_x = 4
+	},
+/obj/machinery/photocopier{
+	layer = 1
+	},
+/turf/open/floor/plasteel/f13/vault_floor/plating,
+/area/f13/building/hospital{
+	name = "Atlantic Cross Hospital Ship"
+	})
 "ote" = (
 /obj/structure/obstacle/barbedwire{
 	dir = 4
@@ -11322,6 +12596,12 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/city)
+"ovw" = (
+/turf/open/floor/wood_wide,
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "owm" = (
 /obj/structure/fluff/railing{
 	color = "#A47449"
@@ -11441,6 +12721,10 @@
 	},
 /turf/open/water,
 /area/f13/city)
+"oDn" = (
+/obj/structure/barricade/wooden/strong,
+/turf/closed/wall/rust,
+/area/f13/city)
 "oEk" = (
 /obj/structure/flora/ausbushes/sparsegrass,
 /obj/structure/table/greyscale,
@@ -11528,10 +12812,11 @@
 /turf/open/floor/plasteel/white,
 /area/awaymission/research/interior)
 "oIt" = (
-/turf/closed/wall/f13/store/constructed{
-	name = "Hospital ship hull"
-	},
-/area/space)
+/turf/open/floor/plasteel/f13/vault_floor/yellow,
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "oJb" = (
 /obj/structure/closet/fridge/cannibal,
 /turf/open/floor/plasteel/f13/vault_floor{
@@ -11767,6 +13052,11 @@
 	},
 /turf/open/indestructible/ground/outside/graveldirt,
 /area/f13/citycaves)
+"oQF" = (
+/obj/structure/simple_door,
+/obj/structure/barricade/wooden/planks,
+/turf/open/floor/plating/rust,
+/area/f13/wasteland)
 "oQM" = (
 /obj/structure/chair/booth,
 /obj/effect/overlay/junk/oldpipes{
@@ -11813,7 +13103,9 @@
 	dir = 1
 	},
 /turf/open/water,
-/area/space)
+/area/space{
+	name = "Ocean"
+	})
 "oTC" = (
 /obj/structure/fluff/railing{
 	dir = 10;
@@ -11830,6 +13122,16 @@
 /obj/structure/flora/ausbushes/ywflowers,
 /turf/open/floor/wood_fancy,
 /area/f13/city)
+"oUH" = (
+/obj/structure/window/fulltile/ruins{
+	icon_state = "ruinswindowbrokenvertical"
+	},
+/obj/structure/barricade/wooden/planks,
+/turf/open/floor/wood_fancy/wood_fancy_dark,
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "oVn" = (
 /obj/structure/barricade/tentclothcorner{
 	dir = 1
@@ -11913,7 +13215,16 @@
 	color = "#A47449"
 	},
 /turf/open/floor/plasteel/f13/vault_floor/floor,
-/area/f13/city)
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
+"oYu" = (
+/obj/structure/closet/locker,
+/obj/item/clothing/head/soft/emt,
+/obj/item/clothing/suit/toggle/labcoat/emt/highvis,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/clinic)
 "pam" = (
 /obj/structure/window/paperframe{
 	color = "#FFFFFF";
@@ -11926,6 +13237,14 @@
 /obj/structure/chair/stool/retro/black,
 /turf/open/floor/plasteel/white,
 /area/awaymission/research/interior)
+"pba" = (
+/obj/structure/fence/corner{
+	dir = 1
+	},
+/turf/open/floor/plating/f13/outside/road{
+	icon_state = "grass_3"
+	},
+/area/f13/city)
 "pbc" = (
 /obj/item/chair/stool/retro,
 /turf/open/floor/plasteel/f13/vault_floor/plating,
@@ -11949,6 +13268,14 @@
 /obj/structure/wreck/trash/two_barrels,
 /turf/open/floor/plating/rust,
 /area/f13/city)
+"pcb" = (
+/obj/structure/simple_door/brokenglass,
+/obj/structure/barricade/wooden/planks,
+/turf/open/floor/wood_fancy/wood_fancy_dark,
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "pcZ" = (
 /obj/structure/closet/crate/freezer/blood,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
@@ -12008,8 +13335,12 @@
 /obj/structure/stone_tile/block{
 	dir = 8
 	},
+/obj/structure/railing/handrail/blue/end{
+	dir = 8;
+	pixel_y = 23
+	},
 /turf/open/floor/wood_common,
-/area/space)
+/area/f13/hub)
 "pfH" = (
 /obj/structure/lamp_post{
 	dir = 4
@@ -12025,9 +13356,12 @@
 	},
 /area/f13/hub)
 "pgx" = (
-/obj/machinery/door/poddoor/shutters,
+/obj/structure/curtain,
+/obj/machinery/atmospherics/pipe/simple/brown/visible,
 /turf/open/floor/plasteel/f13/vault_floor/plating,
-/area/space)
+/area/f13/building/hospital{
+	name = "Atlantic Cross Hospital Ship"
+	})
 "pgA" = (
 /obj/structure/car/rubbish2,
 /turf/open/floor/plating/f13/outside/road{
@@ -12103,6 +13437,10 @@
 /obj/machinery/trading_machine/weapon,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
 /area/f13/hub)
+"pjZ" = (
+/obj/structure/debris/v3,
+/turf/open/water,
+/area/f13/hub)
 "pka" = (
 /obj/structure/cargocrate,
 /turf/open/floor/plating/rust,
@@ -12162,19 +13500,9 @@
 	name = "Ruins interior"
 	})
 "pmV" = (
-/obj/machinery/atmospherics/pipe/manifold/brown/visible{
-	dir = 8;
-	pixel_x = -14
-	},
-/obj/item/mop,
-/obj/structure/mopbucket,
-/obj/item/storage/bag/trash,
-/obj/structure/sink/greyscale{
-	dir = 8;
-	pixel_x = -13
-	},
-/turf/open/floor/plasteel/f13/vault_floor/plating,
-/area/space)
+/obj/structure/closet/crate/large,
+/turf/open/floor/wood_common,
+/area/f13/city)
 "pnd" = (
 /obj/effect/turf_decal/stripes/asteroid/line,
 /obj/structure/railing,
@@ -12220,7 +13548,9 @@
 "pqo" = (
 /obj/structure/barricade/bars,
 /turf/open/floor/plasteel/f13/vault_floor/blue/whitebluefull,
-/area/f13/vault/security)
+/area/f13/vault/security{
+	name = "Atlantic Cross Marines ship"
+	})
 "pqr" = (
 /obj/structure/closet/locker/fridge,
 /turf/open/floor/wood_common/wood_common_dark,
@@ -12263,6 +13593,15 @@
 /obj/machinery/fugitive_capture,
 /turf/open/floor/plating/rust,
 /area/f13/vault/security/armory)
+"ptG" = (
+/obj/structure/table/rolling,
+/obj/item/storage/box/tools/surgery,
+/obj/machinery/iv_drip,
+/obj/item/clothing/mask/surgical,
+/turf/open/floor/plasteel/f13/vault_floor/plating,
+/area/f13/building/hospital{
+	name = "Atlantic Cross Hospital Ship"
+	})
 "ptX" = (
 /obj/structure/closet/crate/freezer/blood,
 /turf/open/floor/f13/wood{
@@ -12322,7 +13661,9 @@
 /turf/open/floor/plating/f13/outside/road{
 	icon_state = "grass_5"
 	},
-/area/space)
+/area/space{
+	name = "Ocean"
+	})
 "pxl" = (
 /obj/machinery/smartfridge/bottlerack/lootshelf/books,
 /turf/open/floor/plating/rust,
@@ -12345,7 +13686,9 @@
 /obj/structure/barricade/bars,
 /obj/structure/table,
 /turf/open/floor/plating/rust,
-/area/f13/vault/security)
+/area/f13/vault/security{
+	name = "Atlantic Cross Marines ship"
+	})
 "pxC" = (
 /obj/structure/spacevine,
 /turf/open/floor/plating/rust,
@@ -12398,14 +13741,15 @@
 /turf/open/floor/plating/f13/outside/road{
 	icon_state = "road_center_1"
 	},
-/area/space)
+/area/space{
+	name = "Ocean"
+	})
 "pAo" = (
-/obj/machinery/atmospherics/pipe/simple/brown/visible{
-	dir = 4;
-	pixel_x = -14
-	},
-/turf/open/floor/plasteel/dark,
-/area/space)
+/obj/structure/railing/handrail/blue,
+/turf/open/water,
+/area/space{
+	name = "Ocean"
+	})
 "pBN" = (
 /obj/structure/chair/bench{
 	dir = 4
@@ -12419,7 +13763,9 @@
 /turf/closed/wall/f13/store/constructed{
 	name = "Hospital ship hull"
 	},
-/area/space)
+/area/f13/vault/security{
+	name = "Atlantic Cross Marines ship"
+	})
 "pBX" = (
 /obj/structure/flora/tree/jungle/small{
 	pixel_x = -20
@@ -12453,6 +13799,21 @@
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/city)
+"pDU" = (
+/obj/machinery/atmospherics/pipe/simple/brown/visible{
+	dir = 4;
+	pixel_x = -14;
+	pixel_y = 14
+	},
+/obj/machinery/atmospherics/pipe/simple/brown/visible{
+	dir = 4;
+	pixel_x = -14;
+	pixel_y = 14
+	},
+/turf/open/floor/plasteel/dark,
+/area/f13/building/hospital{
+	name = "Atlantic Cross Hospital Ship"
+	})
 "pEn" = (
 /obj/structure/flora/tree/jungle/small,
 /turf/open/floor/plating/f13/outside/road{
@@ -12464,6 +13825,13 @@
 	icon_state = "verticalleftborderleft2top"
 	},
 /area/f13/hub)
+"pEA" = (
+/obj/structure/nest/protectron,
+/turf/open/floor/plasteel/darkbrown,
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "pEB" = (
 /obj/structure/fence/corner{
 	dir = 4
@@ -12475,12 +13843,21 @@
 	open_space = 0;
 	name = "Ruins interior"
 	})
+"pFw" = (
+/obj/structure/flora/ausbushes/brflowers,
+/turf/open/floor/wood_fancy,
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "pGn" = (
 /obj/structure/fence/corner/wooden{
 	dir = 8
 	},
 /turf/open/water,
-/area/space)
+/area/space{
+	name = "Ocean"
+	})
 "pGO" = (
 /obj/structure/stairs/east{
 	color = "#A47449";
@@ -12511,6 +13888,10 @@
 	},
 /turf/open/floor/f13/wood,
 /area/f13/hub)
+"pLl" = (
+/obj/structure/closet/crate/freezer/blood,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/clinic)
 "pLt" = (
 /turf/closed/wall/f13/wood/house/broken,
 /area/f13/ruins{
@@ -12544,20 +13925,11 @@
 	},
 /area/f13/building)
 "pOT" = (
-/obj/machinery/atmospherics/pipe/simple/brown/visible{
-	dir = 1;
-	pixel_x = -14
-	},
-/obj/machinery/atmospherics/pipe/simple/brown/visible{
-	dir = 1;
-	pixel_x = -14
-	},
-/obj/structure/table/rolling,
-/obj/item/storage/box/bodybags,
-/obj/item/storage/box/bodybags,
-/obj/item/storage/box/bodybags,
-/turf/open/floor/plasteel/f13/vault_floor/plating,
-/area/space)
+/obj/effect/turf_decal/delivery/white,
+/turf/open/floor/plasteel/dark,
+/area/f13/building/hospital{
+	name = "Atlantic Cross Hospital Ship"
+	})
 "pPb" = (
 /obj/structure/fluff/rails{
 	dir = 4
@@ -12577,7 +13949,10 @@
 /turf/open/floor/plasteel/f13/vault_floor/yellow/side{
 	dir = 4
 	},
-/area/f13/city)
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "pRk" = (
 /turf/open/floor/engine,
 /area/f13/ruins{
@@ -12598,11 +13973,14 @@
 /turf/open/indestructible/ground/outside/sidewalkdirt,
 /area/f13/city)
 "pTV" = (
-/obj/structure/closet/locker/medcabinet{
-	pixel_y = 22
+/obj/structure/chair/bench{
+	dir = 4
 	},
-/turf/open/floor/plasteel/f13/vault_floor/plating,
-/area/space)
+/obj/effect/landmark/start/f13/wastelander,
+/turf/open/floor/wood_common{
+	icon_state = "common-broken6"
+	},
+/area/f13/city)
 "pUo" = (
 /obj/structure/fluff/rails,
 /obj/structure/fluff/rails,
@@ -12693,7 +14071,14 @@
 "qby" = (
 /obj/structure/fence/corner/wooden,
 /turf/open/water,
-/area/space)
+/area/space{
+	name = "Ocean"
+	})
+"qcD" = (
+/turf/open/floor/wood_common{
+	icon_state = "common-broken6"
+	},
+/area/f13/city)
 "qcI" = (
 /turf/open/floor/plating/f13/outside/road{
 	icon_state = "road_crosswalk_northsouth"
@@ -12762,7 +14147,9 @@
 "qeG" = (
 /obj/effect/turf_decal/stripes/red/line,
 /turf/open/floor/plating/rust,
-/area/space)
+/area/space{
+	name = "Ocean"
+	})
 "qfg" = (
 /obj/structure/window/fulltile/wood/broken,
 /turf/open/floor/wood_fancy,
@@ -12787,6 +14174,12 @@
 /obj/structure/barricade/bars,
 /turf/open/floor/wood_common,
 /area/f13/citycaves)
+"qgH" = (
+/obj/structure/chair/booth{
+	icon_state = "booth_west_south"
+	},
+/turf/open/floor/plasteel/bar,
+/area/f13/wasteland)
 "qgU" = (
 /obj/structure/chair/office/light{
 	dir = 8
@@ -12802,7 +14195,9 @@
 /area/f13/outpost)
 "qik" = (
 /turf/open/floor/plasteel/f13/vault_floor/plating,
-/area/space)
+/area/f13/vault/security{
+	name = "Atlantic Cross Marines ship"
+	})
 "qiu" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/lattice,
@@ -12867,7 +14262,9 @@
 /turf/open/floor/plating/f13/outside/road{
 	icon_state = "dirt_9"
 	},
-/area/space)
+/area/space{
+	name = "Ocean"
+	})
 "qkE" = (
 /obj/structure/cargocrate{
 	icon_state = "cargocrate2";
@@ -12987,9 +14384,19 @@
 	icon_state = "road_center"
 	},
 /area/f13/city)
+"qup" = (
+/obj/structure/fence{
+	dir = 8
+	},
+/turf/open/floor/plating/f13/outside/road{
+	icon_state = "grass_1"
+	},
+/area/f13/city)
 "quw" = (
 /turf/open/indestructible/ground/outside/graveldirt,
-/area/space)
+/area/space{
+	name = "Ocean"
+	})
 "qvi" = (
 /obj/structure/headpike,
 /turf/open/floor/plating/f13/outside/road{
@@ -13165,7 +14572,9 @@
 	dir = 1
 	},
 /turf/open/floor/plating/rust,
-/area/space)
+/area/space{
+	name = "Ocean"
+	})
 "qFX" = (
 /obj/effect/decal/cleanable/blood,
 /obj/structure/stairs/east{
@@ -13178,6 +14587,12 @@
 /obj/structure/flora/tree/jungle,
 /turf/open/indestructible/ground/outside/water/running,
 /area/f13/hub)
+"qGE" = (
+/obj/machinery/atmospherics/pipe/simple/brown/visible,
+/turf/open/floor/plasteel/dark,
+/area/f13/building/hospital{
+	name = "Atlantic Cross Hospital Ship"
+	})
 "qGF" = (
 /obj/structure/fluff/railing{
 	dir = 8;
@@ -13205,7 +14620,9 @@
 /obj/structure/window/fulltile/wood_window,
 /obj/structure/barricade/wooden/strong,
 /turf/open/floor/plasteel/dark,
-/area/space)
+/area/f13/vault/security{
+	name = "Atlantic Cross Marines ship"
+	})
 "qJg" = (
 /obj/structure/simple_door/metal/fence/wooden,
 /turf/open/floor/wood_fancy,
@@ -13241,6 +14658,13 @@
 	},
 /turf/open/floor/wood_wide/wood_wide_light,
 /area/f13/hub)
+"qLN" = (
+/turf/open/floor/plating/f13/outside/road{
+	icon_state = "road_west_w"
+	},
+/area/space{
+	name = "Ocean"
+	})
 "qMv" = (
 /obj/item/chair/stool,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
@@ -13260,6 +14684,10 @@
 	icon_state = "dirt_original"
 	},
 /area/f13/city)
+"qNA" = (
+/obj/effect/mob_spawn/human/corpse/raider,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/clinic)
 "qNH" = (
 /obj/structure/fence/cut/large{
 	dir = 4
@@ -13298,6 +14726,20 @@
 	icon_state = "horizontaloutermain1"
 	},
 /area/f13/brotherhood)
+"qPj" = (
+/obj/structure/rack/shelf_metal,
+/obj/item/radio/tribal,
+/turf/open/floor/plasteel/darkbrown,
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
+"qPt" = (
+/obj/structure/flora/ausbushes/ywflowers,
+/turf/open/floor/plating/f13/outside/road{
+	icon_state = "dirt_original"
+	},
+/area/f13/city)
 "qQj" = (
 /obj/structure/wreck/trash/two_tire,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
@@ -13382,8 +14824,13 @@
 	})
 "qTd" = (
 /obj/effect/turf_decal/stripes/asteroid/line,
+/obj/structure/gallow{
+	pixel_x = 15
+	},
 /turf/open/floor/wood_common,
-/area/space)
+/area/space{
+	name = "Ocean"
+	})
 "qTk" = (
 /obj/machinery/computer/terminal{
 	dir = 8
@@ -13699,7 +15146,9 @@
 /area/f13/city)
 "rhK" = (
 /turf/open/floor/wood_common,
-/area/space)
+/area/space{
+	name = "Ocean"
+	})
 "ric" = (
 /turf/closed/wall/f13/ruins,
 /area/f13/brotherhood)
@@ -13829,11 +15278,15 @@
 /area/f13/city)
 "roU" = (
 /turf/closed/indestructible/f13/matrix,
-/area/space)
+/area/space{
+	name = "Ocean"
+	})
 "roX" = (
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plating/rust,
-/area/space)
+/area/space{
+	name = "Ocean"
+	})
 "rpj" = (
 /obj/structure/stone_tile/block,
 /obj/structure/stone_tile/block{
@@ -13861,6 +15314,12 @@
 "rsn" = (
 /turf/open/water,
 /area/f13/hub)
+"rso" = (
+/obj/structure/simple_door/metal,
+/turf/open/floor/plasteel/dark,
+/area/f13/building/hospital{
+	name = "Atlantic Cross Hospital Ship"
+	})
 "rsr" = (
 /obj/structure/stairs/north{
 	dir = 4
@@ -13905,6 +15364,9 @@
 	open_space = 0;
 	name = "Ruins interior"
 	})
+"rxy" = (
+/turf/closed/indestructible/f13/matrix,
+/area/f13/city)
 "rxG" = (
 /obj/structure/window/paperframe{
 	color = "4e4e4e";
@@ -13935,6 +15397,16 @@
 	icon_state = "dirt_original"
 	},
 /area/f13/wasteland/bighorn)
+"ryW" = (
+/obj/structure/railing/handrail/blue{
+	pixel_y = 23
+	},
+/obj/structure/stone_tile/block,
+/obj/structure/stone_tile/block{
+	pixel_x = 15
+	},
+/turf/open/water,
+/area/f13/hub)
 "rzI" = (
 /turf/open/floor/plating/f13/outside/road{
 	icon_state = "road_northwest"
@@ -13958,6 +15430,12 @@
 	icon_state = "housewood2"
 	},
 /area/f13/brotherhood)
+"rCW" = (
+/obj/structure/flora/ausbushes/ppflowers,
+/turf/open/floor/plating/f13/outside/road{
+	icon_state = "dirt_original"
+	},
+/area/f13/city)
 "rDh" = (
 /obj/structure/debris/v4,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
@@ -14053,7 +15531,9 @@
 "rHK" = (
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/space)
+/area/space{
+	name = "Ocean"
+	})
 "rHY" = (
 /obj/structure/barricade/wooden,
 /turf/open/floor/plating/f13/outside/road{
@@ -14177,6 +15657,34 @@
 	open_space = 0;
 	name = "Supermutan interior"
 	})
+"rRr" = (
+/obj/machinery/atmospherics/pipe/simple/brown/visible{
+	dir = 1;
+	pixel_x = -14
+	},
+/obj/structure/table/rolling,
+/obj/item/defibrillator/primitive,
+/turf/open/floor/plasteel/f13/vault_floor/plating,
+/area/f13/building/hospital{
+	name = "Atlantic Cross Hospital Ship"
+	})
+"rRZ" = (
+/obj/structure/chair/booth{
+	icon_state = "booth_west_north"
+	},
+/turf/open/floor/plasteel/bar,
+/area/f13/wasteland)
+"rSz" = (
+/obj/machinery/atmospherics/pipe/simple/brown/visible{
+	dir = 1;
+	pixel_x = -14
+	},
+/turf/closed/wall/f13/store/constructed{
+	name = "Hospital ship hull"
+	},
+/area/f13/building/hospital{
+	name = "Atlantic Cross Hospital Ship"
+	})
 "rSG" = (
 /obj/structure/rug/big/rug_yellow,
 /obj/effect/decal/cleanable/greenglow,
@@ -14187,12 +15695,40 @@
 	open_space = 0;
 	name = "Ruins interior"
 	})
+"rTm" = (
+/obj/machinery/door/poddoor/shutters,
+/turf/open/floor/plasteel/dark,
+/area/f13/building/hospital{
+	name = "Atlantic Cross Hospital Ship"
+	})
 "rTM" = (
 /obj/structure/curtain,
 /turf/open/indestructible/ground/outside/sidewalk{
 	icon_state = "horizontaloutermain1"
 	},
 /area/f13/brotherhood)
+"rUl" = (
+/obj/machinery/atmospherics/pipe/simple/brown/visible{
+	dir = 4;
+	pixel_x = -14;
+	pixel_y = 14
+	},
+/obj/machinery/atmospherics/pipe/simple/brown/visible{
+	dir = 4;
+	pixel_x = -14;
+	pixel_y = 14
+	},
+/obj/structure/rack/shelf_metal,
+/turf/open/floor/plasteel/dark,
+/area/f13/building/hospital{
+	name = "Atlantic Cross Hospital Ship"
+	})
+"rUB" = (
+/obj/structure/chair/booth{
+	icon_state = "booth_north_west"
+	},
+/turf/open/floor/plating/rust,
+/area/f13/wasteland)
 "rVk" = (
 /obj/structure/bonfire/dense,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
@@ -14264,13 +15800,20 @@
 	name = "Ruins interior"
 	})
 "rZz" = (
-/turf/open/floor/wood_fancy/wood_fancy_dark,
-/area/f13/city)
+/obj/structure/rack/shelf_metal,
+/obj/item/radio/headset,
+/turf/open/floor/plasteel/darkbrown,
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "rZG" = (
 /obj/structure/simple_door/metal/ventilation,
 /obj/machinery/door/poddoor/shutters/radiation,
 /turf/open/floor/plating/rust,
-/area/space)
+/area/space{
+	name = "Ocean"
+	})
 "sah" = (
 /obj/structure/lattice,
 /obj/structure/railing/corner{
@@ -14306,14 +15849,20 @@
 	name = "Ruins interior"
 	})
 "scc" = (
-/turf/open/floor/plating/f13/outside/road{
-	icon_state = "dirt_original"
+/obj/structure/stone_tile/block,
+/obj/structure/stone_tile/block{
+	pixel_x = 15
 	},
+/turf/open/floor/plasteel/f13/vault_floor/plating,
 /area/f13/clinic)
 "sce" = (
 /turf/open/floor/plating/f13/outside/road{
 	icon_state = "grass_8"
 	},
+/area/f13/city)
+"sdu" = (
+/obj/structure/debris/v2,
+/turf/open/floor/wood_fancy,
 /area/f13/city)
 "ser" = (
 /obj/structure/cargocrate{
@@ -14323,9 +15872,11 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/city)
 "set" = (
-/obj/machinery/trading_machine/medical,
-/turf/open/floor/plasteel/dark,
-/area/f13/building)
+/obj/machinery/vending/coffee,
+/turf/open/water,
+/area/space{
+	name = "Ocean"
+	})
 "sex" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 10
@@ -14383,7 +15934,17 @@
 	pixel_y = -1
 	},
 /turf/open/floor/plasteel/f13/vault_floor/plating,
-/area/space)
+/area/f13/vault/security{
+	name = "Atlantic Cross Marines ship"
+	})
+"sjz" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/structure/railing/handrail/blue/end{
+	dir = 1;
+	pixel_x = -8
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/hub)
 "ska" = (
 /obj/structure/table/wood,
 /obj/structure/curtain{
@@ -14453,7 +16014,9 @@
 "smk" = (
 /obj/structure/disposalpipe/segment,
 /turf/open/water,
-/area/space)
+/area/space{
+	name = "Ocean"
+	})
 "smr" = (
 /obj/structure/lamp_post,
 /turf/open/indestructible/ground/outside/sidewalkdirt{
@@ -14494,6 +16057,10 @@
 /obj/structure/simple_door/metal/store,
 /turf/open/floor/f13/wood,
 /area/f13/building)
+"soJ" = (
+/obj/structure/closet/crate/footchest,
+/turf/open/floor/wood_common,
+/area/f13/city)
 "soW" = (
 /obj/effect/decal/marking{
 	icon_state = "overlapcorner"
@@ -14507,7 +16074,9 @@
 /turf/open/floor/plating/f13/outside/road{
 	icon_state = "dirt_original"
 	},
-/area/space)
+/area/space{
+	name = "Ocean"
+	})
 "spt" = (
 /obj/structure/flora/ausbushes/grassybush,
 /turf/open/indestructible/ground/outside/water/running,
@@ -14570,7 +16139,9 @@
 	dir = 4
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/space)
+/area/space{
+	name = "Ocean"
+	})
 "stf" = (
 /obj/effect/overlay/junk/oldpipes{
 	dir = 10;
@@ -14608,7 +16179,9 @@
 "svy" = (
 /obj/structure/simple_door/metal,
 /turf/open/floor/plasteel/f13/vault_floor,
-/area/f13/vault/security)
+/area/f13/vault/security{
+	name = "Atlantic Cross Marines ship"
+	})
 "svH" = (
 /obj/structure/railing{
 	dir = 1
@@ -14656,6 +16229,16 @@
 	},
 /turf/open/floor/f13/wood,
 /area/f13/city)
+"swS" = (
+/obj/structure/fluff/railing{
+	dir = 4;
+	color = "#A47449"
+	},
+/turf/open/floor/wood_fancy/wood_fancy_dark,
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "sxc" = (
 /obj/structure/window/paperframe{
 	color = "4e4e4e";
@@ -14725,6 +16308,18 @@
 	icon_state = "whitedirtysolid"
 	},
 /area/f13/outpost)
+"szq" = (
+/obj/structure/sign/poster/official/medical_green_cross,
+/obj/machinery/atmospherics/pipe/simple/brown/visible{
+	dir = 1;
+	pixel_x = -14
+	},
+/turf/closed/wall/f13/store/constructed{
+	name = "Hospital ship hull"
+	},
+/area/f13/building/hospital{
+	name = "Atlantic Cross Hospital Ship"
+	})
 "szy" = (
 /obj/structure/simple_door/wood,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
@@ -14756,6 +16351,12 @@
 /obj/effect/decal/cleanable/greenglow,
 /turf/open/floor/plasteel/white,
 /area/awaymission/research/interior)
+"sAv" = (
+/obj/structure/barricade/wooden/strong,
+/turf/closed/wall/rust,
+/area/f13/building/hospital{
+	name = "Atlantic Cross Hospital Ship"
+	})
 "sAy" = (
 /obj/structure/barricade/wooden/planks{
 	icon_state = "riverbank"
@@ -14773,14 +16374,18 @@
 /turf/open/floor/plating,
 /area/awaymission/research/interior)
 "sBi" = (
+/obj/structure/barricade/wooden/strong,
 /obj/machinery/atmospherics/pipe/simple/brown/visible{
-	dir = 1;
-	pixel_x = -14
+	dir = 4;
+	pixel_x = -14;
+	pixel_y = 14
 	},
-/obj/machinery/recharger,
-/obj/structure/table/wood/settler,
-/turf/open/floor/plasteel/f13/vault_floor/plating,
-/area/space)
+/turf/closed/wall/f13/store/constructed{
+	name = "Hospital ship hull"
+	},
+/area/f13/building/hospital{
+	name = "Atlantic Cross Hospital Ship"
+	})
 "sBT" = (
 /obj/structure/disposalpipe/segment{
 	dir = 6
@@ -14817,7 +16422,9 @@
 "sDr" = (
 /obj/structure/bed/old,
 /turf/open/floor/plating/rust,
-/area/f13/vault/security)
+/area/f13/vault/security{
+	name = "Atlantic Cross Marines ship"
+	})
 "sEk" = (
 /obj/structure/fence,
 /turf/open/floor/f13/wood{
@@ -14827,6 +16434,10 @@
 	open_space = 0;
 	name = "Ruins interior"
 	})
+"sEl" = (
+/obj/effect/mob_spawn/human/corpse/charredskeleton,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/clinic)
 "sEo" = (
 /turf/open/floor/wood_common/wood_common_light{
 	icon_state = "common_light-broken4"
@@ -14877,13 +16488,23 @@
 	icon_state = "dirt_original"
 	},
 /area/f13/city)
+"sGC" = (
+/obj/structure/rack/shelf_metal,
+/obj/structure/junk/small/tv,
+/turf/open/floor/plating/rust,
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "sGH" = (
 /obj/machinery/atmospherics/pipe/simple/general{
 	icon_state = "high_capacity";
 	dir = 8
 	},
 /turf/open/indestructible/ground/outside/graveldirt,
-/area/space)
+/area/space{
+	name = "Ocean"
+	})
 "sGQ" = (
 /obj/structure/fluff/rails{
 	dir = 4
@@ -14899,16 +16520,13 @@
 	name = "Ruins interior"
 	})
 "sIt" = (
-/obj/structure/curtain,
-/obj/machinery/atmospherics/pipe/simple/brown/visible{
-	dir = 4;
-	pixel_x = -14
-	},
-/obj/machinery/atmospherics/pipe/manifold/brown/visible{
-	dir = 4
+/obj/machinery/computer/operating{
+	dir = 8
 	},
 /turf/open/floor/plasteel/f13/vault_floor/plating,
-/area/space)
+/area/f13/building/hospital{
+	name = "Atlantic Cross Hospital Ship"
+	})
 "sJb" = (
 /obj/machinery/vending/wardrobe/science_wardrobe/free,
 /turf/open/floor/plasteel/f13/vault_floor/floor,
@@ -14955,16 +16573,17 @@
 	dir = 1;
 	pixel_x = -14
 	},
-/obj/item/clothing/suit/straight_jacket,
-/obj/item/clothing/suit/straight_jacket,
-/obj/item/clothing/suit/straight_jacket,
-/obj/item/clothing/suit/straight_jacket,
-/obj/structure/closet/crate/wooden{
-	anchored = 1;
-	can_be_unanchored = 1
-	},
+/obj/structure/chair/f13foldupchair,
 /turf/open/floor/plasteel/f13/vault_floor/plating,
-/area/space)
+/area/f13/building/hospital{
+	name = "Atlantic Cross Hospital Ship"
+	})
+"sOs" = (
+/obj/structure/chair/booth{
+	icon_state = "booth_south_east"
+	},
+/turf/open/floor/plating/rust,
+/area/f13/wasteland)
 "sPl" = (
 /obj/effect/decal/fakelattice,
 /obj/structure/barricade/tentclothcorner,
@@ -14975,6 +16594,13 @@
 /obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
 /area/f13/building)
+"sQe" = (
+/obj/structure/flora/ausbushes/ppflowers,
+/turf/open/floor/plating/rust,
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "sQf" = (
 /turf/open/indestructible/ground/outside/sidewalkdirt{
 	icon_state = "verticaloutermain3"
@@ -14993,7 +16619,9 @@
 /turf/open/floor/plating/f13/outside/road{
 	icon_state = "road_center"
 	},
-/area/space)
+/area/space{
+	name = "Ocean"
+	})
 "sSl" = (
 /turf/open/floor/plating/f13/outside/road{
 	icon_state = "road_south_w"
@@ -15006,7 +16634,9 @@
 /turf/open/floor/plating/f13/outside/road{
 	icon_state = "road_center"
 	},
-/area/space)
+/area/space{
+	name = "Ocean"
+	})
 "sSs" = (
 /turf/open/floor/plating/rust,
 /area/f13/ruins{
@@ -15040,7 +16670,9 @@
 	dir = 1
 	},
 /turf/open/floor/f13/wood,
-/area/space)
+/area/space{
+	name = "Ocean"
+	})
 "sUl" = (
 /obj/structure/flora/tree/jungle{
 	pixel_y = -15;
@@ -15071,7 +16703,9 @@
 /turf/open/floor/plating/f13/outside/road{
 	icon_state = "dirt_original"
 	},
-/area/space)
+/area/space{
+	name = "Ocean"
+	})
 "sZE" = (
 /obj/effect/turf_decal/stripes/asteroid/line,
 /obj/effect/turf_decal/stripes/asteroid/line{
@@ -15109,11 +16743,18 @@
 /turf/open/floor/plasteel/f13/vault_floor/yellow/corner{
 	dir = 8
 	},
-/area/f13/city)
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "tbr" = (
 /obj/effect/decal/cleanable/blood/drip,
 /turf/open/floor/wood_fancy,
 /area/f13/building)
+"tbt" = (
+/obj/structure/flora/ausbushes/ywflowers,
+/turf/open/floor/plasteel/f13/vault_floor/yellow/corner,
+/area/f13/city)
 "tbx" = (
 /obj/structure/table,
 /turf/open/indestructible/ground/outside/ruins,
@@ -15127,6 +16768,15 @@
 	dir = 1
 	},
 /area/f13/hub)
+"tch" = (
+/obj/structure/fluff/railing{
+	dir = 4;
+	color = "#A47449"
+	},
+/turf/open/floor/plating/f13/outside/road{
+	icon_state = "road_west_w"
+	},
+/area/f13/city)
 "tck" = (
 /obj/structure/debris/v1,
 /turf/open/floor/plating/f13/outside/road{
@@ -15226,6 +16876,19 @@
 	icon_state = "dirt_original"
 	},
 /area/f13/city)
+"tiN" = (
+/obj/machinery/atmospherics/pipe/simple/brown/visible{
+	dir = 4;
+	pixel_x = -14;
+	pixel_y = 14
+	},
+/obj/machinery/atmospherics/pipe/manifold/brown/visible{
+	pixel_y = 14
+	},
+/turf/open/floor/plasteel/dark,
+/area/f13/building/hospital{
+	name = "Atlantic Cross Hospital Ship"
+	})
 "tja" = (
 /obj/structure/railing/corner{
 	color = "#A47449"
@@ -15258,7 +16921,9 @@
 "tkM" = (
 /obj/structure/stairs/south,
 /turf/open/floor/plasteel/dark,
-/area/f13/building)
+/area/f13/vault/security{
+	name = "Atlantic Cross Marines ship"
+	})
 "tlC" = (
 /obj/structure/cargocrate{
 	icon_state = "cargocrate4"
@@ -15281,6 +16946,10 @@
 	dir = 4
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/city)
+"tmI" = (
+/obj/structure/closet/crate/wooden,
+/turf/open/floor/wood_common,
 /area/f13/city)
 "tni" = (
 /turf/open/indestructible/ground/outside/sidewalkdirt{
@@ -15401,6 +17070,12 @@
 	open_space = 0;
 	name = "Ruins interior"
 	})
+"tsY" = (
+/obj/structure/stairs/south,
+/turf/open/floor/plasteel/dark,
+/area/f13/building/hospital{
+	name = "Atlantic Cross Hospital Ship"
+	})
 "ttj" = (
 /obj/structure/window/fulltile/house/broken,
 /turf/open/floor/plating/rust,
@@ -15449,6 +17124,13 @@
 	open_space = 0;
 	name = "Ruins interior"
 	})
+"tvB" = (
+/obj/structure/closet/crate/medical{
+	pixel_y = 10;
+	pixel_x = 4
+	},
+/turf/open/floor/plasteel/f13/vault_floor/plating,
+/area/f13/clinic)
 "twr" = (
 /obj/structure/stairs/north,
 /turf/open/indestructible/ground/outside/gravel,
@@ -15476,6 +17158,15 @@
 	icon_state = "road_north_2"
 	},
 /area/f13/hub)
+"tyX" = (
+/obj/structure/cross{
+	pixel_x = 16
+	},
+/turf/open/floor/wood_mosaic,
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "tzf" = (
 /obj/structure/railing/corner{
 	color = "#A47449"
@@ -15486,7 +17177,9 @@
 "tzQ" = (
 /obj/structure/window/fulltile/wood_window,
 /turf/open/floor/plasteel/dark,
-/area/space)
+/area/f13/vault/security{
+	name = "Atlantic Cross Marines ship"
+	})
 "tAe" = (
 /obj/machinery/vending/wardrobe/medi_wardrobe/free,
 /turf/open/floor/plasteel/f13/vault_floor/floor,
@@ -15526,7 +17219,9 @@
 	})
 "tDD" = (
 /turf/closed/wall/f13/wood,
-/area/space)
+/area/space{
+	name = "Ocean"
+	})
 "tDW" = (
 /obj/structure/window/paperframe{
 	color = "4e4e4e";
@@ -15589,7 +17284,9 @@
 /area/f13/building)
 "tHo" = (
 /turf/open/floor/plating/rust,
-/area/f13/vault/security)
+/area/f13/vault/security{
+	name = "Atlantic Cross Marines ship"
+	})
 "tHp" = (
 /mob/living/simple_animal/hostile/raider/thief,
 /turf/open/floor/plating/rust,
@@ -15671,6 +17368,15 @@
 	icon_state = "road_north"
 	},
 /area/f13/city)
+"tLB" = (
+/obj/structure/railing/handrail/blue/end{
+	dir = 8
+	},
+/obj/structure/stone_tile/block{
+	dir = 8
+	},
+/turf/open/floor/wood_common,
+/area/f13/hub)
 "tLR" = (
 /obj/structure/chair/folding{
 	dir = 1
@@ -15724,6 +17430,13 @@
 	open_space = 0;
 	name = "Ruins interior"
 	})
+"tOM" = (
+/obj/structure/simple_door/wood,
+/turf/open/indestructible/ground/outside/desert,
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "tOZ" = (
 /obj/structure/debris/v4,
 /turf/open/floor/plating/f13/outside/road{
@@ -15733,14 +17446,19 @@
 "tPm" = (
 /obj/structure/debris/v4,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/space)
+/area/space{
+	name = "Ocean"
+	})
 "tPB" = (
 /obj/structure/fluff/railing{
 	dir = 8;
 	color = "#A47449"
 	},
 /turf/open/floor/plating/rust,
-/area/f13/city)
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "tPC" = (
 /obj/structure/cargocrate{
 	icon_state = "cargocrate3";
@@ -15754,7 +17472,9 @@
 "tQF" = (
 /obj/structure/window/fulltile/wood_window,
 /turf/open/floor/wood_common,
-/area/space)
+/area/space{
+	name = "Ocean"
+	})
 "tQG" = (
 /obj/structure/chair/bench{
 	dir = 8
@@ -15891,7 +17611,9 @@
 /turf/open/floor/f13/wood{
 	icon_state = "housewood2-broken"
 	},
-/area/space)
+/area/space{
+	name = "Ocean"
+	})
 "tZw" = (
 /obj/structure/campfire/barrel,
 /turf/open/floor/plating/f13/outside/road{
@@ -15918,7 +17640,9 @@
 /area/f13/city)
 "uap" = (
 /turf/closed/wall/rust,
-/area/space)
+/area/space{
+	name = "Ocean"
+	})
 "uaG" = (
 /obj/structure/fence/wooden{
 	pixel_y = 13;
@@ -15973,9 +17697,21 @@
 	open_space = 0;
 	name = "Ruins interior"
 	})
+"ubU" = (
+/obj/item/wallframe/defib_mount{
+	pixel_y = -9
+	},
+/turf/closed/wall/f13/store/constructed{
+	name = "Hospital ship hull"
+	},
+/area/f13/building/hospital{
+	name = "Atlantic Cross Hospital Ship"
+	})
 "ucf" = (
 /turf/closed/wall/f13/vault,
-/area/space)
+/area/space{
+	name = "Ocean"
+	})
 "ucD" = (
 /obj/structure/chair/stool/retro/black,
 /turf/open/floor/carpet/green{
@@ -16015,10 +17751,8 @@
 /turf/open/indestructible/ground/outside/gravel,
 /area/f13/city)
 "ugp" = (
-/turf/closed/wall/f13/ruins{
-	unbreakable = 1;
-	name = "solid ruins"
-	},
+/obj/structure/debris/v1,
+/turf/open/floor/plasteel/f13/vault_floor/yellow,
 /area/f13/city)
 "ugG" = (
 /obj/structure/flora/ausbushes/sparsegrass,
@@ -16067,6 +17801,22 @@
 	icon_state = "dirt_original"
 	},
 /area/f13/wasteland/bighorn)
+"uii" = (
+/obj/machinery/atmospherics/pipe/manifold/brown/visible{
+	dir = 8;
+	pixel_x = -14
+	},
+/obj/item/mop,
+/obj/structure/mopbucket,
+/obj/item/storage/bag/trash,
+/obj/structure/sink/greyscale{
+	dir = 8;
+	pixel_x = -13
+	},
+/turf/open/floor/plasteel/f13/vault_floor/plating,
+/area/f13/building/hospital{
+	name = "Atlantic Cross Hospital Ship"
+	})
 "uiR" = (
 /obj/structure/simple_door,
 /turf/open/floor/plasteel/f13/vault_floor,
@@ -16093,7 +17843,9 @@
 	},
 /obj/structure/stone_tile/block,
 /turf/open/water,
-/area/space)
+/area/space{
+	name = "Ocean"
+	})
 "ukq" = (
 /turf/open/floor/wood_common/wood_common_light,
 /area/f13/ruins{
@@ -16195,6 +17947,11 @@
 	open_space = 0;
 	name = "Ruins interior"
 	})
+"uqo" = (
+/obj/machinery/door/poddoor/shutters,
+/obj/structure/barricade/wooden/planks,
+/turf/open/floor/plasteel/f13/vault_floor/plating,
+/area/f13/clinic)
 "uqB" = (
 /obj/structure/flora/ausbushes/sparsegrass,
 /turf/open/floor/plasteel/white,
@@ -16257,17 +18014,18 @@
 /turf/open/floor/wood_fancy,
 /area/f13/office)
 "uum" = (
-/obj/structure/curtain,
-/obj/machinery/atmospherics/pipe/simple/brown/visible{
-	dir = 4;
+/obj/machinery/atmospherics/pipe/manifold/brown/visible{
+	dir = 8;
 	pixel_x = -14
 	},
-/obj/machinery/atmospherics/pipe/manifold/brown/visible{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/brown/visible,
+/obj/structure/table/rolling,
+/obj/item/organ_storage,
+/obj/item/organ_storage,
+/obj/item/organ_storage,
 /turf/open/floor/plasteel/f13/vault_floor/plating,
-/area/space)
+/area/f13/building/hospital{
+	name = "Atlantic Cross Hospital Ship"
+	})
 "uuN" = (
 /obj/structure/fluff/rails{
 	dir = 4
@@ -16344,13 +18102,32 @@
 /turf/open/floor/plating/rust,
 /area/f13/city)
 "uBD" = (
-/obj/machinery/mineral/wasteland_vendor/followerterminal,
+/obj/machinery/atmospherics/pipe/simple/brown/visible{
+	dir = 1;
+	pixel_x = -14
+	},
+/obj/machinery/atmospherics/pipe/simple/brown/visible{
+	dir = 6;
+	pixel_x = -14;
+	pixel_y = 14
+	},
 /turf/open/floor/plasteel/f13/vault_floor/plating,
-/area/space)
+/area/f13/building/hospital{
+	name = "Atlantic Cross Hospital Ship"
+	})
 "uCs" = (
 /obj/structure/statue_fal,
 /turf/open/floor/wood_common/wood_common_light,
 /area/f13/city)
+"uCT" = (
+/obj/structure/chair/bench{
+	icon_state = "dropshipleft"
+	},
+/turf/open/indestructible/ground/outside/ruins,
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "uDo" = (
 /obj/structure/falsewall/rust,
 /turf/open/floor/bronze,
@@ -16492,17 +18269,25 @@
 /turf/closed/wall/f13/sunset/brick_small,
 /area/f13/building)
 "uJY" = (
-/obj/structure/window/paperframe{
-	color = "443926";
-	name = "Brickwall support"
+/turf/closed/wall/rust,
+/area/f13/wasteland)
+"uKb" = (
+/obj/machinery/atmospherics/pipe/manifold/brown/visible{
+	dir = 8;
+	pixel_x = -14
 	},
-/turf/closed/wall/f13/sunset/brick_small,
-/area/f13/city)
+/obj/vehicle/ridden/wheelchair,
+/turf/open/floor/plasteel/f13/vault_floor/plating,
+/area/f13/building/hospital{
+	name = "Atlantic Cross Hospital Ship"
+	})
 "uKe" = (
 /turf/closed/wall/f13/store/constructed{
 	name = "cruise ship hull"
 	},
-/area/space)
+/area/space{
+	name = "Ocean"
+	})
 "uLC" = (
 /obj/structure/chair/wood{
 	dir = 8
@@ -16515,7 +18300,9 @@
 	dir = 4
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/space)
+/area/space{
+	name = "Ocean"
+	})
 "uMh" = (
 /obj/structure/chair/office{
 	dir = 8
@@ -16535,6 +18322,10 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/city)
+"uNw" = (
+/obj/structure/debris/v2,
+/turf/open/indestructible/ground/outside/desert,
+/area/f13/city)
 "uOa" = (
 /obj/structure/flora/ausbushes/grassybush,
 /obj/effect/decal/cleanable/greenglow,
@@ -16546,7 +18337,16 @@
 "uOw" = (
 /obj/structure/stone_tile/block,
 /turf/open/water,
-/area/space)
+/area/space{
+	name = "Ocean"
+	})
+"uOA" = (
+/turf/open/floor/plasteel/f13/vault_floor/plating,
+/area/f13/clinic)
+"uOL" = (
+/obj/structure/flora/ausbushes/ppflowers,
+/turf/open/indestructible/ground/outside/ruins,
+/area/f13/city)
 "uQb" = (
 /obj/structure/window/paperframe{
 	color = "443926";
@@ -16576,7 +18376,9 @@
 /area/f13/building)
 "uQQ" = (
 /turf/open/indestructible/ground/outside/sidewalkdirt,
-/area/space)
+/area/space{
+	name = "Ocean"
+	})
 "uRc" = (
 /obj/structure/ore_box,
 /turf/open/indestructible/ground/outside/roaddirt,
@@ -16621,6 +18423,12 @@
 	open_space = 0;
 	name = "Ruins interior"
 	})
+"uTt" = (
+/obj/structure/chair/booth{
+	icon_state = "booth_south_west"
+	},
+/turf/open/floor/plating/rust,
+/area/f13/wasteland)
 "uUV" = (
 /obj/effect/turf_decal/stripes{
 	dir = 4
@@ -16652,7 +18460,9 @@
 /turf/closed/wall/f13/store/constructed{
 	name = "Hospital ship hull"
 	},
-/area/f13/hub)
+/area/f13/building/hospital{
+	name = "Atlantic Cross Hospital Ship"
+	})
 "uXK" = (
 /turf/open/floor/plating/f13/outside/road{
 	icon_state = "dirt_4"
@@ -16661,7 +18471,9 @@
 "uXU" = (
 /obj/structure/fluff/rails,
 /turf/open/floor/plating/rust,
-/area/space)
+/area/space{
+	name = "Ocean"
+	})
 "uYQ" = (
 /obj/structure/fluff/rails{
 	dir = 4;
@@ -16671,6 +18483,24 @@
 	icon_state = "dirt_original"
 	},
 /area/f13/city)
+"uZN" = (
+/obj/structure/stairs/east{
+	color = "#A47449";
+	can_be_z_moved = 0;
+	name = "building stairs";
+	dir = 8
+	},
+/turf/open/floor/wood_fancy/wood_fancy_dark,
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
+"val" = (
+/turf/closed/wall/f13/sunset/brick_small_dark,
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "vaX" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/wood_wide/wood_wide_light,
@@ -16744,6 +18574,12 @@
 "vdO" = (
 /turf/closed/wall/f13/wood,
 /area/f13/city)
+"veG" = (
+/obj/structure/railing{
+	dir = 1
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/clinic)
 "vfm" = (
 /obj/structure/lamp_post{
 	dir = 8
@@ -16759,12 +18595,15 @@
 /turf/open/floor/carpet/royalblack,
 /area/f13/bar)
 "vfT" = (
-/obj/machinery/atmospherics/pipe/manifold/brown/visible{
-	dir = 4;
-	pixel_x = -14
+/obj/structure/flora/chomp/potplant1{
+	pixel_y = 14;
+	pixel_x = 4
 	},
-/turf/closed/wall/rust,
-/area/space)
+/obj/structure/table,
+/turf/open/floor/plasteel/f13/vault_floor/plating,
+/area/f13/building/hospital{
+	name = "Atlantic Cross Hospital Ship"
+	})
 "vfY" = (
 /obj/structure/railing/corner{
 	color = "#A47449";
@@ -17086,9 +18925,20 @@
 /turf/open/floor/plasteel/f13/vault_floor/blue/whitebluefull,
 /area/f13/vault/security/armory)
 "vyK" = (
-/obj/structure/window/fulltile/ruins,
+/obj/structure/window/fulltile/ruins{
+	icon_state = "ruinswindowvertical"
+	},
 /turf/open/floor/plasteel/f13/vault_floor/yellow,
-/area/f13/city)
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
+"vyP" = (
+/obj/structure/chair/booth{
+	icon_state = "booth_east_north"
+	},
+/turf/open/floor/plating/rust,
+/area/f13/wasteland)
 "vyX" = (
 /obj/structure/debris/v4,
 /turf/open/water,
@@ -17183,6 +19033,14 @@
 	open_space = 0;
 	name = "Ruins interior"
 	})
+"vIy" = (
+/obj/structure/rack/shelf_metal,
+/obj/item/trash/f13/electronic/toaster/atomics,
+/turf/open/floor/plasteel/darkbrown,
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "vIW" = (
 /obj/structure/wreck/car{
 	name = "Toyoto";
@@ -17227,6 +19085,14 @@
 /obj/structure/car/rubbish1,
 /turf/open/indestructible/ground/outside/gravel,
 /area/f13/hub)
+"vLM" = (
+/obj/structure/stairs/east{
+	color = "#A47449";
+	can_be_z_moved = 0;
+	name = "building stairs"
+	},
+/turf/open/floor/plating/rust,
+/area/f13/wasteland)
 "vMx" = (
 /obj/machinery/conveyor/auto{
 	dir = 4
@@ -17246,10 +19112,22 @@
 "vNq" = (
 /turf/open/floor/plating/rust,
 /area/awaymission/research/interior)
+"vNF" = (
+/obj/structure/chair/booth{
+	icon_state = "booth_east_south"
+	},
+/turf/open/floor/plating/rust,
+/area/f13/wasteland)
 "vNJ" = (
-/obj/structure/railing/handrail/blue,
-/turf/open/water,
-/area/f13/hub)
+/obj/machinery/atmospherics/pipe/simple/brown/visible{
+	dir = 1;
+	pixel_x = -14
+	},
+/obj/structure/table/wood/settler,
+/turf/open/floor/plasteel/f13/vault_floor/plating,
+/area/f13/building/hospital{
+	name = "Atlantic Cross Hospital Ship"
+	})
 "vOn" = (
 /turf/open/floor/wood_common/wood_common_light,
 /area/f13/hub)
@@ -17269,9 +19147,25 @@
 "vPp" = (
 /turf/open/floor/plasteel/f13/stone/rugged,
 /area/f13/city)
+"vPO" = (
+/obj/structure/railing/handrail/blue/end{
+	dir = 2;
+	pixel_x = -24
+	},
+/turf/open/floor/wood_common/wood_common_light,
+/area/space{
+	name = "Ocean"
+	})
 "vPV" = (
 /turf/closed/indestructible/f13vaultrusted,
 /area/f13/vault/security/armory)
+"vQF" = (
+/obj/structure/nest/protectron,
+/turf/open/floor/plating/rust,
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "vQW" = (
 /obj/machinery/door/poddoor/shutters/old{
 	layer = 3.0
@@ -17315,7 +19209,9 @@
 	dir = 8
 	},
 /turf/open/water,
-/area/space)
+/area/space{
+	name = "Ocean"
+	})
 "vTe" = (
 /obj/machinery/atmospherics/components/unary/tank,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
@@ -17332,6 +19228,12 @@
 	},
 /turf/open/floor/carpet/royalblack,
 /area/f13/bar)
+"vUI" = (
+/obj/item/grown/sunflower,
+/turf/open/floor/plating/f13/outside/road{
+	icon_state = "dirt_original"
+	},
+/area/f13/city)
 "vUX" = (
 /obj/structure/wreck/bus/rusted,
 /obj/structure/debris/v3,
@@ -17394,6 +19296,14 @@
 /obj/structure/table/booth,
 /turf/open/floor/wood_fancy,
 /area/f13/building)
+"vYZ" = (
+/obj/structure/wreck/car{
+	dir = 10;
+	layer = 1;
+	name = "wrecked ambulance"
+	},
+/turf/open/floor/plasteel/f13/vault_floor/plating,
+/area/f13/clinic)
 "vZk" = (
 /obj/structure/flora/ausbushes/grassybush,
 /obj/effect/decal/cleanable/greenglow,
@@ -17434,6 +19344,10 @@
 /turf/open/floor/f13/wood{
 	icon_state = "housewood4-broken"
 	},
+/area/f13/city)
+"wco" = (
+/obj/structure/flora/ausbushes/ywflowers,
+/turf/open/indestructible/ground/outside/ruins,
 /area/f13/city)
 "wcv" = (
 /obj/machinery/atmospherics/components/unary/tank{
@@ -17532,6 +19446,15 @@
 	open_space = 0;
 	name = "Ruins interior"
 	})
+"wib" = (
+/obj/structure/window/fulltile/ruins{
+	icon_state = "ruinswindowvertical"
+	},
+/turf/open/floor/plating/rust,
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "wil" = (
 /obj/structure/barricade/tentclothedge{
 	dir = 8
@@ -17607,6 +19530,14 @@
 	icon_state = "dirt_original"
 	},
 /area/f13/city)
+"wlG" = (
+/obj/structure/rack/shelf_metal,
+/obj/item/trash/f13/electronic/toaster,
+/turf/open/floor/plasteel/darkbrown,
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "wlQ" = (
 /obj/structure/window/fulltile/wood_window,
 /turf/open/floor/f13/wood,
@@ -17661,6 +19592,13 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/blue/whitebluefull,
 /area/f13/vault/security/armory)
+"woD" = (
+/obj/structure/flora/ausbushes/brflowers,
+/turf/open/indestructible/ground/outside/ruins,
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "woR" = (
 /obj/structure/flora/ausbushes/sparsegrass,
 /obj/structure/chair/stool/retro/black,
@@ -17850,6 +19788,10 @@
 	icon_state = "common_light-broken6"
 	},
 /area/f13/city)
+"wAS" = (
+/obj/structure/closet/fridge/meat,
+/turf/open/floor/plasteel/airless/white,
+/area/f13/wasteland)
 "wBw" = (
 /obj/structure/wreck/bus/orange{
 	name = "wrecked truck"
@@ -17864,7 +19806,9 @@
 	dir = 1
 	},
 /turf/open/indestructible/ground/outside/graveldirt,
-/area/space)
+/area/space{
+	name = "Ocean"
+	})
 "wCg" = (
 /obj/machinery/jukebox,
 /obj/structure/fluff/railing{
@@ -17973,6 +19917,12 @@
 	open_space = 0;
 	name = "Supermutan interior"
 	})
+"wKm" = (
+/obj/structure/sign/directions/medical,
+/turf/closed/wall/rust,
+/area/f13/building/hospital{
+	name = "Atlantic Cross Hospital Ship"
+	})
 "wLl" = (
 /obj/structure/filingcabinet/chestdrawer,
 /obj/item/paper_bin,
@@ -18013,7 +19963,9 @@
 /area/f13/city)
 "wNP" = (
 /turf/open/water,
-/area/f13/building/hospital)
+/area/f13/building/hospital{
+	name = "Atlantic Cross Hospital Ship"
+	})
 "wOo" = (
 /turf/open/floor/plasteel/stairs,
 /area/f13/bar)
@@ -18041,6 +19993,15 @@
 	open_space = 0;
 	name = "Ruins interior"
 	})
+"wPJ" = (
+/obj/structure/table/rolling,
+/obj/machinery/iv_drip,
+/obj/item/storage/box/tools/surgery,
+/obj/item/clothing/mask/surgical,
+/turf/open/floor/plasteel/f13/vault_floor/plating,
+/area/f13/building/hospital{
+	name = "Atlantic Cross Hospital Ship"
+	})
 "wQl" = (
 /turf/open/floor/plating/f13/outside/road{
 	icon_state = "road_northsouth_y_2"
@@ -18060,7 +20021,10 @@
 /area/f13/hub)
 "wRA" = (
 /turf/open/floor/wood_worn,
-/area/f13/city)
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "wRJ" = (
 /obj/structure/bed{
 	layer = 2.7
@@ -18069,6 +20033,16 @@
 	icon_state = "housewood2"
 	},
 /area/f13/brotherhood)
+"wRN" = (
+/obj/structure/window/fulltile/ruins{
+	icon_state = "ruinswindowvertical"
+	},
+/obj/structure/barricade/wooden/planks,
+/turf/open/floor/wood_fancy/wood_fancy_dark,
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "wSa" = (
 /obj/structure/tires/five,
 /turf/open/floor/plating/f13/outside/road{
@@ -18079,6 +20053,14 @@
 /obj/machinery/door/poddoor/shutters,
 /turf/open/floor/wood_common/wood_common_dark,
 /area/f13/bar)
+"wSx" = (
+/obj/structure/rack/shelf_metal,
+/obj/item/storage/box/engineer/radio,
+/turf/open/floor/plasteel/darkbrown,
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "wSK" = (
 /obj/structure/wreck/trash/machinepiletwo,
 /turf/open/indestructible/ground/outside/gravel,
@@ -18128,6 +20110,12 @@
 	open_space = 0;
 	name = "Ruins interior"
 	})
+"wUI" = (
+/obj/structure/table/rolling,
+/obj/item/storage/toolbox/emergency,
+/obj/item/storage/backpack/duffelbag/med/surgery,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/clinic)
 "wUS" = (
 /obj/structure/chair/sofa/corp/left{
 	dir = 4
@@ -18166,7 +20154,9 @@
 /turf/open/floor/plating/f13/outside/road{
 	icon_state = "dirt_original"
 	},
-/area/space)
+/area/space{
+	name = "Ocean"
+	})
 "wXB" = (
 /obj/structure/playground/merrygoround{
 	color = "443926"
@@ -18203,7 +20193,10 @@
 	name = "building stairs"
 	},
 /turf/open/floor/plasteel/f13/vault_floor/yellow,
-/area/f13/city)
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "wZs" = (
 /obj/effect/turf_decal/delivery/red,
 /turf/open/floor/plasteel/f13/vault_floor/plating,
@@ -18240,6 +20233,22 @@
 	open_space = 0;
 	name = "Ruins interior"
 	})
+"xbt" = (
+/obj/structure/shuttle/engine/large{
+	dir = 1;
+	pixel_y = 16;
+	pixel_x = 15;
+	name = "boat engine"
+	},
+/obj/structure/shuttle/engine/heater{
+	dir = 4;
+	pixel_y = 17;
+	pixel_x = -13
+	},
+/turf/open/floor/plasteel/f13/vault_floor/plating,
+/area/f13/vault/security{
+	name = "Atlantic Cross Marines ship"
+	})
 "xcx" = (
 /turf/closed/wall/mineral/concrete,
 /area/f13/ruins{
@@ -18270,6 +20279,10 @@
 /turf/open/floor/plating/f13/outside/road{
 	icon_state = "dirt_original"
 	},
+/area/f13/city)
+"xeq" = (
+/obj/structure/closet/crate,
+/turf/open/floor/wood_common,
 /area/f13/city)
 "xeG" = (
 /obj/structure/sign/poster/official/love_ian,
@@ -18321,7 +20334,9 @@
 	})
 "xhb" = (
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/vault/security)
+/area/f13/vault/security{
+	name = "Atlantic Cross Marines ship"
+	})
 "xhu" = (
 /obj/structure/fluff/railing{
 	dir = 10;
@@ -18366,6 +20381,14 @@
 	open_space = 0;
 	name = "Ruins interior"
 	})
+"xjY" = (
+/obj/structure/table,
+/obj/item/storage/box/stockparts/deluxe,
+/turf/open/floor/plasteel/darkbrown,
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "xlj" = (
 /obj/machinery/trading_machine/armor,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
@@ -18398,7 +20421,9 @@
 	})
 "xmN" = (
 /turf/closed/wall/r_wall/syndicate,
-/area/space)
+/area/space{
+	name = "Ocean"
+	})
 "xnp" = (
 /obj/structure/fluff/railing{
 	color = "#A47449";
@@ -18491,6 +20516,13 @@
 	open_space = 0;
 	name = "Ruins interior"
 	})
+"xsQ" = (
+/obj/structure/railing{
+	dir = 1
+	},
+/obj/structure/closet/crate/freezer/blood,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/clinic)
 "xtR" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 8
@@ -18545,10 +20577,14 @@
 	pixel_x = 15
 	},
 /turf/open/water,
-/area/space)
+/area/space{
+	name = "Ocean"
+	})
 "xuJ" = (
 /turf/closed/wall/mineral/concrete,
-/area/f13/vault/security)
+/area/f13/vault/security{
+	name = "Atlantic Cross Marines ship"
+	})
 "xuW" = (
 /mob/living/simple_animal/hostile/raider/ranged/boss,
 /turf/open/floor/wood_fancy,
@@ -18662,7 +20698,10 @@
 	color = "#A47449"
 	},
 /turf/open/floor/plasteel/f13/vault_floor/floor,
-/area/f13/city)
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "xCb" = (
 /obj/structure/wreck/trash/halftire,
 /turf/open/floor/plating/f13/outside/road{
@@ -18694,11 +20733,12 @@
 /turf/open/indestructible/ground/outside/dirt,
 /area/awaymission/research/interior)
 "xEa" = (
-/obj/effect/turf_decal/arrows/white{
+/obj/structure/chair/bench{
 	dir = 4
 	},
-/turf/open/indestructible/ground/outside/desert,
-/area/f13/hub)
+/obj/effect/landmark/start/f13/wastelander,
+/turf/open/floor/wood_common,
+/area/f13/city)
 "xEj" = (
 /obj/structure/table/wood,
 /obj/structure/railing/dancing_pole,
@@ -18761,10 +20801,11 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/outpost)
 "xHT" = (
-/obj/structure/debris/v3,
-/obj/structure/lattice,
-/turf/open/water,
-/area/space)
+/turf/open/floor/plasteel/f13/vault_floor/red,
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "xHV" = (
 /obj/effect/overlay/junk/oldpipes/vent{
 	dir = 1
@@ -18784,6 +20825,10 @@
 	open_space = 0;
 	name = "Ruins interior"
 	})
+"xIA" = (
+/obj/structure/table/reinforced,
+/turf/open/floor/plasteel/airless/white,
+/area/f13/wasteland)
 "xIZ" = (
 /obj/structure/simple_door/wood,
 /turf/open/floor/wood_worn/wood_worn_dark,
@@ -18796,9 +20841,20 @@
 /turf/closed/indestructible/f13vaultrusted,
 /area/f13/city)
 "xJL" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/f13/wood,
-/area/space)
+/obj/structure/stone_tile/block{
+	dir = 8
+	},
+/obj/structure/gallow{
+	pixel_x = 15
+	},
+/turf/open/floor/wood_common,
+/area/f13/hub)
+"xJP" = (
+/obj/structure/chair/booth{
+	icon_state = "bar_toppled"
+	},
+/turf/open/floor/plating/rust,
+/area/f13/wasteland)
 "xJY" = (
 /obj/structure/closet/crate/footchest,
 /obj/item/pickaxe,
@@ -18811,10 +20867,18 @@
 /obj/item/clothing/head/hardhat,
 /turf/open/floor/wood_worn,
 /area/f13/underground/cave)
+"xKr" = (
+/obj/structure/chair/booth{
+	icon_state = "bar"
+	},
+/turf/open/floor/plasteel/bar,
+/area/f13/wasteland)
 "xKx" = (
 /obj/structure/debris/v3,
 /turf/open/water,
-/area/space)
+/area/space{
+	name = "Ocean"
+	})
 "xLE" = (
 /mob/living/simple_animal/hostile/wolf,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
@@ -18836,7 +20900,9 @@
 "xOH" = (
 /obj/structure/table/optable,
 /turf/open/floor/plasteel/f13/vault_floor/plating,
-/area/space)
+/area/f13/building/hospital{
+	name = "Atlantic Cross Hospital Ship"
+	})
 "xOO" = (
 /obj/structure/railing,
 /turf/open/floor/wood_common,
@@ -18859,6 +20925,12 @@
 /obj/machinery/smartfridge/bottlerack/lootshelf/condiment,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
 /area/f13/building)
+"xQe" = (
+/obj/structure/chair/comfy/beige,
+/turf/open/floor/plasteel/f13/vault_floor/plating,
+/area/f13/building/hospital{
+	name = "Atlantic Cross Hospital Ship"
+	})
 "xQE" = (
 /turf/open/floor/wood_worn,
 /area/f13/building)
@@ -18904,6 +20976,17 @@
 	},
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/city)
+"xUE" = (
+/obj/structure/table/reinforced,
+/obj/machinery/computer/terminal{
+	termtag = "Secret";
+	dir = 1;
+	pixel_y = 5
+	},
+/turf/open/floor/plasteel/f13/vault_floor/plating,
+/area/f13/building/hospital{
+	name = "Atlantic Cross Hospital Ship"
+	})
 "xUN" = (
 /obj/structure/flora/wasteplant/wild_xander,
 /obj/effect/decal/cleanable/greenglow,
@@ -18917,18 +21000,25 @@
 /turf/open/floor/f13/wood{
 	icon_state = "housewood4-broken"
 	},
-/area/space)
+/area/space{
+	name = "Ocean"
+	})
 "xVI" = (
 /turf/open/floor/plasteel/f13/vault_floor/yellow/side{
 	dir = 1
 	},
-/area/f13/city)
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "xXC" = (
 /obj/structure/flora/stump,
 /turf/open/floor/plating/f13/outside/road{
 	icon_state = "dirt_original"
 	},
-/area/space)
+/area/space{
+	name = "Ocean"
+	})
 "xXE" = (
 /obj/structure/shelf_wood{
 	pixel_y = -8
@@ -18949,7 +21039,9 @@
 /obj/structure/simple_door/metal,
 /obj/machinery/door/poddoor/shutters/preopen,
 /turf/open/floor/plasteel/f13/vault_floor/blue/whitebluefull,
-/area/f13/vault/security)
+/area/f13/vault/security{
+	name = "Atlantic Cross Marines ship"
+	})
 "xXT" = (
 /obj/structure/car/rubbish1,
 /turf/open/floor/plating/f13/outside/road{
@@ -18974,16 +21066,23 @@
 "xYS" = (
 /obj/structure/flora/junglebush/large,
 /turf/open/water,
-/area/space)
+/area/space{
+	name = "Ocean"
+	})
 "yae" = (
 /obj/structure/chair{
 	dir = 8
 	},
 /turf/open/floor/plasteel/f13/vault_floor/yellow,
-/area/f13/city)
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "yaj" = (
-/turf/closed/wall/f13/sunset/brick_small_light,
-/area/f13/city)
+/obj/structure/window/fulltile/house,
+/obj/structure/barricade/wooden/planks,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/clinic)
 "yap" = (
 /obj/structure/bed{
 	layer = 2.7
@@ -19081,7 +21180,9 @@
 	})
 "ycF" = (
 /turf/open/floor/plasteel/dark,
-/area/space)
+/area/f13/building/hospital{
+	name = "Atlantic Cross Hospital Ship"
+	})
 "ycH" = (
 /obj/item/cardboard_cutout{
 	pixel_y = 8;
@@ -19135,6 +21236,13 @@
 	icon_state = "road_west_w"
 	},
 /area/f13/city)
+"yex" = (
+/obj/structure/flora/ausbushes/brflowers,
+/turf/open/floor/plating/rust,
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "yez" = (
 /obj/structure/chair/bench{
 	icon_state = "dropshipleft"
@@ -19142,7 +21250,9 @@
 /turf/open/floor/plating/f13/outside/road{
 	icon_state = "dirt_original"
 	},
-/area/space)
+/area/space{
+	name = "Ocean"
+	})
 "yeP" = (
 /obj/machinery/door/airlock/grunge/abandoned,
 /turf/open/floor/plating/rust,
@@ -19202,6 +21312,11 @@
 	open_space = 0;
 	name = "Ruins interior"
 	})
+"yil" = (
+/obj/effect/decal/cleanable/blood,
+/obj/effect/mob_spawn/human/corpse/charredskeleton,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/clinic)
 "yin" = (
 /obj/structure/fluff/railing{
 	color = "#A47449"
@@ -19268,27 +21383,23 @@
 /area/f13/brotherhood)
 "ylB" = (
 /turf/open/transparent/openspace,
-/area/f13/vault/security)
+/area/f13/vault/security{
+	name = "Atlantic Cross Marines ship"
+	})
 "ylT" = (
+/obj/structure/curtain,
+/obj/machinery/atmospherics/pipe/simple/brown/visible,
+/obj/machinery/atmospherics/pipe/manifold/brown/visible{
+	dir = 4
+	},
 /obj/machinery/atmospherics/pipe/simple/brown/visible{
 	dir = 4;
-	pixel_x = -14;
-	pixel_y = 14
+	pixel_x = -14
 	},
-/obj/structure/closet/locker,
-/obj/item/clothing/head/f13/nursehat,
-/obj/item/clothing/head/f13/nursehat,
-/obj/item/clothing/head/f13/nursehat,
-/obj/item/clothing/under/rank/nursesuit,
-/obj/item/clothing/under/rank/nursesuit,
-/obj/item/clothing/under/rank/nursesuit,
-/obj/item/crafting/abraxo,
-/obj/item/crafting/abraxo,
-/obj/item/crafting/abraxo,
-/obj/item/reagent_containers/spray/cyborg_lube,
-/obj/item/reagent_containers/spray/cyborg_lube,
 /turf/open/floor/plasteel/f13/vault_floor/plating,
-/area/space)
+/area/f13/building/hospital{
+	name = "Atlantic Cross Hospital Ship"
+	})
 "ylZ" = (
 /obj/structure/chair/stool/retro,
 /turf/open/floor/wood_common/wood_common_dark,
@@ -20490,7 +22601,7 @@ lqQ
 lqQ
 lqQ
 lqQ
-ibf
+fng
 nRO
 eYD
 eYD
@@ -20746,7 +22857,7 @@ lqQ
 lqQ
 lqQ
 lqQ
-ibf
+fng
 nRO
 eYD
 eYD
@@ -21002,7 +23113,7 @@ lqQ
 lqQ
 lqQ
 lqQ
-ibf
+fng
 nRO
 eYD
 mif
@@ -21258,7 +23369,7 @@ lqQ
 lqQ
 lqQ
 lqQ
-ibf
+fng
 nRO
 eYD
 mif
@@ -25277,7 +27388,7 @@ duO
 duO
 duO
 duO
-icV
+lME
 icV
 icV
 icV
@@ -25531,10 +27642,10 @@ duO
 icV
 icV
 icV
-icV
+lME
 gSS
 gSS
-icV
+lME
 icV
 icV
 icV
@@ -25788,10 +27899,10 @@ icV
 icV
 icV
 icV
-icV
-duO
-duO
-icV
+lME
+sSl
+uzv
+lME
 icV
 icV
 icV
@@ -26045,10 +28156,10 @@ icV
 icV
 icV
 icV
-icV
-duO
-duO
-icV
+lME
+sSl
+uzv
+lME
 icV
 icV
 icV
@@ -26302,10 +28413,10 @@ icV
 icV
 icV
 icV
-icV
-duO
-duO
-icV
+lME
+sSl
+uzv
+lME
 icV
 icV
 icV
@@ -26559,10 +28670,10 @@ icV
 icV
 icV
 icV
-icV
-duO
-duO
-icV
+lME
+sSl
+uzv
+lME
 icV
 icV
 icV
@@ -26816,10 +28927,10 @@ icV
 icV
 icV
 icV
-icV
-duO
-duO
-icV
+lME
+sSl
+uzv
+lME
 icV
 icV
 icV
@@ -27073,10 +29184,10 @@ icV
 icV
 icV
 icV
-icV
-duO
-duO
-icV
+lME
+sSl
+uzv
+lME
 icV
 icV
 icV
@@ -27330,10 +29441,10 @@ icV
 icV
 icV
 icV
-icV
-duO
-duO
-icV
+lME
+sSl
+uzv
+lME
 icV
 icV
 icV
@@ -27587,10 +29698,10 @@ icV
 icV
 icV
 icV
-icV
-duO
-duO
-icV
+lME
+sSl
+uzv
+lME
 icV
 icV
 icV
@@ -27844,33 +29955,33 @@ icV
 icV
 icV
 icV
-icV
-duO
-duO
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
+lME
+gSS
+qcI
+lME
+lME
+lME
+lME
+lME
+lME
+lME
+lME
+lME
+lME
+lME
+lME
+lME
+lME
+lME
+lME
+lME
+lME
+lME
+lME
+lME
+lME
+lME
+lME
 lME
 bVM
 bVM
@@ -28101,10 +30212,10 @@ icV
 icV
 icV
 icV
-icV
-duO
-duO
-vgW
+lME
+sSl
+uzv
+wHV
 vgW
 vgW
 vgW
@@ -28358,9 +30469,10 @@ icV
 icV
 icV
 icV
-icV
-duO
-duO
+lME
+sSl
+uzv
+wHV
 snd
 snd
 snd
@@ -28372,14 +30484,13 @@ snd
 snd
 snd
 snd
+ibM
+tch
+kih
 snd
-snd
-snd
-snd
-snd
-snd
-snd
-snd
+ibM
+tch
+kih
 snd
 snd
 snd
@@ -28615,33 +30726,32 @@ icV
 icV
 icV
 icV
-icV
-duO
-duO
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
+lME
+qcI
+gSS
+lME
+lME
+lME
+lME
+lME
+lME
+lME
+lME
+uJY
+vLM
+lap
+lap
+lap
+mzw
+lap
+lap
+lap
+mzw
+lap
+lap
+lap
+uJY
+uJY
 lME
 lME
 lME
@@ -28682,8 +30792,9 @@ lME
 lME
 lME
 lME
-duO
-duO
+lME
+sSl
+uzv
 lME
 icV
 icV
@@ -28872,75 +30983,75 @@ icV
 icV
 icV
 icV
-icV
-duO
-duO
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-ugp
-txg
-hNP
-hNP
-hNP
-hNP
-hNP
-hNP
-txg
-ugp
 lME
-duO
-duO
+sSl
+uzv
+lME
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+uJY
+oQF
+lap
+lap
+gKC
+vyP
+vNF
+gKC
+gKC
+gCf
+jtQ
+eOi
+gCf
+jtQ
+uJY
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+txg
+txg
+uqo
+uqo
+hNP
+hNP
+uqo
+uqo
+txg
+txg
+lME
+sSl
+uzv
 lME
 icV
 icV
@@ -29129,75 +31240,75 @@ icV
 icV
 icV
 icV
-icV
-duO
-duO
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-ugp
-fUc
-scc
-fUc
-scc
-scc
-scc
-fUc
-fUc
-ugp
 lME
-duO
-duO
+sSl
+uzv
+lME
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+lap
+nDH
+nDH
+xIA
+eOi
+kHJ
+kHJ
+aTV
+gKC
+aPI
+kHJ
+gKC
+kHJ
+kHJ
+lap
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+txg
+mZs
+scc
+vYZ
+veG
+mZs
+scc
+uOA
+xsQ
+txg
+lME
+sSl
+uzv
 lME
 icV
 icV
@@ -29386,75 +31497,75 @@ icV
 icV
 icV
 icV
-icV
-duO
-duO
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-yaj
-scc
-scc
-fUc
-fUc
-scc
-fUc
-fUc
-fUc
-yaj
 lME
-duO
-duO
+sSl
+uzv
+lME
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+lap
+lDi
+nDH
+nOa
+eOi
+rRZ
+mxA
+eOi
+gKC
+rRZ
+mqk
+gKC
+osK
+qgH
+lap
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+hNP
+mZs
+scc
+tvB
+daY
+cOf
+scc
+vYZ
+veG
+hNP
+lME
+sSl
+uzv
 lME
 icV
 icV
@@ -29643,75 +31754,75 @@ icV
 icV
 icV
 icV
-icV
-duO
-duO
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-yaj
-fUc
-fUc
-fUc
-fUc
-fUc
-fUc
-fUc
-fUc
-yaj
 lME
-duO
-duO
+sSl
+uzv
+lME
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+lap
+wAS
+nDH
+xIA
+gKC
+gKC
+gKC
+eOi
+gKC
+gKC
+eOi
+gKC
+eOi
+gKC
+lap
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+hNP
+ewb
+iot
+nTL
+veG
+mZs
+iot
+tvB
+veG
+hNP
+lME
+sSl
+uzv
 lME
 icV
 icV
@@ -29900,75 +32011,75 @@ icV
 icV
 icV
 icV
-icV
-duO
-duO
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-yaj
-fUc
-fUc
-fUc
-fUc
-fUc
-fUc
-fUc
-fUc
-yaj
 lME
-duO
-duO
+sSl
+uzv
+lME
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+lap
+wAS
+nDH
+eEz
+eOi
+eOi
+xKr
+gKC
+gKC
+xJP
+gKC
+gKC
+gKC
+gKC
+lap
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+hNP
+mZs
+ljd
+uOA
+veG
+mZs
+ljd
+uOA
+veG
+hNP
+lME
+sSl
+uzv
 lME
 icV
 icV
@@ -30157,75 +32268,75 @@ icV
 icV
 icV
 icV
-icV
-duO
-duO
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-yaj
-fUc
-fUc
-fUc
-fUc
-scc
-scc
-scc
-fUc
-yaj
 lME
-duO
-duO
+sSl
+uzv
+lME
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+lap
+hHS
+eOi
+xIA
+gKC
+uTt
+kHJ
+hlb
+uTt
+kHJ
+rUB
+gKC
+gKC
+gKC
+lap
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+hNP
+fUc
+sEl
+fUc
+fUc
+qNA
+fUc
+yil
+fUc
+hNP
+lME
+sSl
+uzv
 lME
 icV
 icV
@@ -30414,75 +32525,75 @@ icV
 icV
 icV
 icV
-icV
-duO
-duO
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-wYq
-wYq
-wYq
-wYq
-wYq
-wYq
-wYq
-wYq
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-ugp
-icV
-ncs
-ncs
-icV
-ncs
-ncs
-ncs
-icV
-ugp
 lME
-duO
-duO
+sSl
+uzv
+lME
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+uJY
+mEr
+nDH
+xIA
+gKC
+jxe
+kHJ
+dvC
+sOs
+kHJ
+dvC
+lap
+hpz
+fDW
+uJY
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+txg
+oYu
+nNX
+jYo
+wUI
+iOA
+fUc
+fUc
+pLl
+txg
+lME
+sSl
+uzv
 lME
 icV
 icV
@@ -30671,75 +32782,75 @@ icV
 icV
 icV
 icV
-icV
-duO
-duO
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-wYq
-wYq
-wYq
-wYq
-wYq
-wYq
-wYq
-wYq
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-ugp
-ugp
-yaj
-yaj
-yaj
-yaj
-yaj
-yaj
-ugp
-ugp
 lME
-duO
-duO
+sSl
+uzv
+lME
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+uJY
+uJY
+mzw
+lap
+lap
+mzw
+lap
+lap
+lap
+mzw
+lap
+lap
+akJ
+akJ
+uJY
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+icV
+txg
+txg
+hNP
+yaj
+yaj
+hNP
+fTP
+eXA
+txg
+txg
+lME
+sSl
+uzv
 lME
 icV
 icV
@@ -30929,84 +33040,84 @@ lME
 lME
 lME
 lME
-duO
-duO
-lME
-lME
-lME
-lME
-lME
-lME
-lME
-lME
-cfA
-cfA
-cfA
-cfA
-cfA
-cfA
-cfA
-cfA
-lME
-lME
-lME
-lME
-lME
-lME
-lME
-lME
-lME
-lME
-lME
-lME
-lME
-lME
-lME
-lME
-lME
-lME
-lME
-lME
-lME
-lME
-lME
-lME
-lME
-lME
-lME
-lME
-lME
-lME
-lME
-lME
-lME
-lME
-lME
-lME
-lME
-lME
-lME
-lME
-lME
-lME
-lME
-lME
-lME
-lME
-lME
-lME
-duO
-duO
-lME
-lME
-lME
-lME
-lME
+sSl
 uzv
-duO
-acr
-duO
-duO
+lME
+lME
+lME
+lME
+lME
+lME
+lME
+lME
+lME
+ofm
+cfA
+gfS
+ofm
+cfA
+gfS
+lME
+ofm
+cfA
+gfS
+lME
+lME
+lME
+lME
+lME
+lME
+lME
+lME
+lME
+lME
+lME
+lME
+lME
+lME
+lME
+lME
+lME
+lME
+lME
+lME
+lME
+lME
+lME
+lME
+lME
+lME
+lME
+lME
+lME
+lME
+lME
+lME
+lME
+lME
+lME
+lME
+lME
+lME
+lME
+lME
+kvn
+ncs
+cuY
+lME
+lME
+sSl
+uzv
+lME
+lME
+lME
+lME
+lME
+qcI
+gSS
+gSS
+qcI
+gSS
 lME
 lME
 lME
@@ -31196,60 +33307,60 @@ lME
 lME
 lME
 lME
+lME
+lME
+lME
+lME
+lME
+lME
+lME
+lME
+lME
+lME
+lME
+lME
+lME
+lME
+lME
+lME
+lME
+lME
+lME
+lME
+lME
+lME
+lME
+lME
+lME
+lME
+lME
+lME
+lME
+lME
+lME
+lME
+lME
+lME
+lME
+lME
+lME
+lME
+lME
+lME
+lME
+lME
+lME
+lME
+lME
+lME
+lME
+lME
+lME
+lME
+lME
 cfA
 cfA
-cfA
-cfA
-cfA
-cfA
-cfA
-cfA
-lME
-lME
-lME
-lME
-lME
-lME
-lME
-lME
-lME
-lME
-lME
-lME
-lME
-lME
-lME
-lME
-lME
-lME
-lME
-lME
-lME
-lME
-lME
-lME
-lME
-lME
-lME
-lME
-lME
-lME
-lME
-lME
-lME
-lME
-lME
-lME
-lME
-lME
-lME
-lME
-lME
-lME
-lME
-lME
-lME
-lME
+gfS
 lME
 lME
 gSS
@@ -31259,11 +33370,11 @@ lME
 lME
 lME
 lME
-uzv
-duO
-acr
-duO
-duO
+gSS
+qcI
+gSS
+gSS
+qcI
 lME
 lME
 lME
@@ -31374,228 +33485,228 @@ lqQ
 roU
 "}
 (48,1,1) = {"
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-hZO
-hZO
-hZO
-hZO
-hZO
-hZO
-hZO
-hZO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
+snd
+snd
+snd
+snd
+snd
+snd
+duO
+duO
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+duO
+duO
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+duO
+duO
+snd
+snd
+snd
+snd
+snd
+duO
+duO
+duO
+duO
+duO
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
 duO
 mBD
 duO
 duO
 mBD
 duO
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
 oEs
 oEs
-oEs
-oEs
-oEs
-oEs
-oEs
-oEs
-oEs
-oEs
-oEs
-oEs
-oEs
-oEs
-oEs
-oEs
-oEs
-oEs
-oEs
-oEs
-oEs
-oEs
-oEs
-oEs
-oEs
-oEs
-oEs
-oEs
-oEs
-oEs
-oEs
-oEs
-oEs
-oEs
-oEs
-oEs
-oEs
-oEs
-oEs
-oEs
-oEs
-oEs
-oEs
-oEs
-oEs
-oEs
-oEs
-oEs
-oEs
-oEs
-oEs
-oEs
-oEs
-oEs
-oEs
-oEs
-oEs
-sQF
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+snd
+qLN
 sQF
 sQF
 sQF
@@ -31710,14 +33821,14 @@ duO
 duO
 duO
 duO
-hZO
-hZO
-hZO
-hZO
-hZO
-hZO
-hZO
-hZO
+duO
+duO
+duO
+duO
+duO
+duO
+duO
+duO
 duO
 duO
 duO
@@ -32402,163 +34513,163 @@ lqQ
 roU
 "}
 (52,1,1) = {"
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+duO
+duO
+duO
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+duO
+duO
+duO
+duO
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+duO
+duO
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
 duO
 vIf
 mBD
@@ -32573,54 +34684,54 @@ acr
 oEs
 oEs
 duO
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
 duO
 duO
 duO
 duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
-duO
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
+vgW
 duO
 nEO
 faP
@@ -33229,66 +35340,66 @@ icV
 icV
 icV
 icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
+kND
+iJh
+iJh
+kND
+kND
+kND
+kND
+kND
+kND
+kND
+kND
+kND
+kND
+kND
+kND
+kND
+kND
 cmF
 cmF
-icV
-wqk
-icV
+ecZ
+kND
+ecZ
 cmF
-icV
+ecZ
 cmF
-bVK
-bVK
-bVK
-bVK
+fZL
+fZL
+fZL
+fZL
 hbs
-bVK
-icV
-bVK
+fZL
+gmt
+fZL
 cmF
-icV
+xue
 wRA
 wRA
 wRA
 wRA
 cmF
-uJY
-uJY
-mOT
-uJY
-mOT
-uJY
-mOT
-uJY
-uJY
-mOT
-uJY
-pjA
-pjA
-fTP
-pjA
-fTP
-pjA
-fTP
-pjA
-pjA
+lUF
+lUF
+ukq
+lUF
+ukq
+lUF
+ukq
+lUF
+lUF
+ukq
+lUF
+fVM
+fVM
+gmt
+fVM
+gmt
+fVM
+gmt
+fVM
+fVM
 umn
 umn
 uzv
@@ -33486,66 +35597,66 @@ icV
 icV
 icV
 icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
+kND
+aOV
+aOV
+kND
+hZO
+eZZ
+hZO
+ovw
+hZO
+ovw
+hZO
+ovw
+fNY
+dQQ
+dQQ
+gij
+kND
 cmF
-icV
-icV
-icV
-icV
-wqk
-icV
+ecZ
+ecZ
+ecZ
+ecZ
+kND
+ecZ
 cmF
-bVK
-icV
-icV
-icV
-icV
-bVK
-icV
-bVK
-pjA
-pjA
-pjA
-pjA
-pjA
+fZL
+gmt
+gmt
+gmt
+gmt
+fZL
+gmt
+fZL
+fVM
+fVM
+fVM
+fVM
+fVM
 wRA
-pjA
-uJY
-mOT
-mOT
-mOT
-mOT
-mOT
-mOT
-mOT
-uJY
-mOT
-uJY
-pjA
-fTP
-fTP
-fTP
-fTP
-fTP
-fTP
-fTP
-pjA
+fVM
+lUF
+ukq
+ukq
+ukq
+ukq
+ukq
+ukq
+ukq
+lUF
+ukq
+lUF
+fVM
+gmt
+gmt
+gmt
+gmt
+gmt
+gmt
+gmt
+fVM
 umn
 umn
 uzv
@@ -33743,66 +35854,66 @@ icV
 icV
 icV
 icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-wqk
-icV
-icV
-icV
-icV
-icV
-icV
-wqk
-bVK
-icV
-icV
-icV
-icV
-icV
-icV
-bVK
-pjA
+kND
+aOV
+aOV
+kND
+fZl
+ovw
+fZl
+ovw
+fZl
+ovw
+fZl
+ovw
+nlj
+dQQ
+dQQ
+gij
+kND
+kND
+ecZ
+ecZ
+ecZ
+ooD
+ecZ
+ecZ
+kND
+fZL
+gmt
+ehX
+gmt
+gmt
+gmt
+gmt
+fZL
+fVM
 wRA
 wRA
 wRA
 wRA
 wRA
-pjA
-uJY
-mOT
-mOT
-mOT
-mOT
-mOT
-mOT
-mOT
-mOT
-mOT
-uJY
-pjA
-fTP
-fTP
-fTP
-fTP
-fTP
-fTP
-fTP
-pjA
+fVM
+lUF
+ukq
+ukq
+ukq
+ukq
+ukq
+ukq
+ukq
+ukq
+ukq
+lUF
+fVM
+gmt
+gmt
+gmt
+gmt
+gmt
+gmt
+gmt
+fVM
 umn
 umn
 uzv
@@ -34000,66 +36111,66 @@ icV
 icV
 icV
 icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-wqk
-icV
-icV
-icV
-icV
-icV
-icV
-wqk
-bVK
-icV
-icV
-icV
-icV
-icV
-icV
-bVK
-pjA
+kND
+aOV
+aOV
+iJh
+aOV
+aOV
+aOV
+aOV
+aOV
+dkj
+aOV
+aOV
+atv
+dxX
+dQQ
+tyX
+kND
+kND
+ecZ
+rAl
+ecZ
+ecZ
+ecZ
+ecZ
+kND
+fZL
+gmt
+gmt
+mCM
+gmt
+gmt
+gmt
+fZL
+fVM
 wRA
 wRA
 wRA
 wRA
 wRA
-pjA
-uJY
-mOT
-mOT
-mOT
-mOT
-mOT
-mOT
-mOT
-mOT
-mOT
-uJY
-pjA
-fTP
-fTP
-fTP
-fTP
-fTP
-fTP
-fTP
-pjA
+fVM
+lUF
+ukq
+ukq
+ukq
+ukq
+ukq
+ukq
+ukq
+ukq
+ukq
+lUF
+fVM
+gmt
+gmt
+gmt
+gmt
+gmt
+gmt
+gmt
+fVM
 umn
 umn
 uzv
@@ -34257,66 +36368,66 @@ wYq
 wYq
 wYq
 wYq
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-wqk
-icV
-icV
-icV
-icV
-icV
-icV
-wqk
-bVK
-icV
-icV
-icV
-icV
-icV
-icV
-bVK
-pjA
+kND
+aOV
+aOV
+iJh
+aOV
+iuo
+aOV
+lYO
+aOV
+aOV
+vRg
+aOV
+atv
+dxX
+dQQ
+dQQ
+kND
+kND
+ecZ
+ecZ
+ecZ
+ecZ
+ecZ
+ecZ
+kND
+fZL
+qdH
+gmt
+gmt
+gmt
+gmt
+gmt
+fZL
+fVM
 wRA
 wRA
 wRA
 wRA
 wRA
-pjA
-uJY
-mOT
-mOT
-mOT
-mOT
-mOT
-mOT
-mOT
-mOT
-mOT
-uJY
-pjA
-fTP
-fTP
-fTP
-fTP
-fTP
-fTP
-fTP
-pjA
+fVM
+lUF
+ukq
+ukq
+ukq
+ukq
+ukq
+ukq
+ukq
+ukq
+ukq
+lUF
+fVM
+gmt
+gmt
+gmt
+gmt
+gmt
+gmt
+gmt
+fVM
 umn
 umn
 uzv
@@ -34349,9 +36460,9 @@ uEf
 lGR
 kCe
 icV
+mGS
 icV
-icV
-icV
+lQk
 icV
 kCe
 oek
@@ -34514,66 +36625,66 @@ wYq
 wYq
 wYq
 wYq
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
+kND
+aOV
+cWI
+kND
+hZO
+ovw
+hZO
+ovw
+hZO
+woD
+uCT
+ovw
+dBj
+dQQ
+dQQ
+gij
+kND
 cmF
-icV
-icV
-icV
-icV
-icV
-icV
+ecZ
+ecZ
+ecZ
+ecZ
+ubr
+ecZ
 cmF
-bVK
-icV
-icV
-icV
-icV
-icV
-icV
-bVK
-pjA
+fZL
+gmt
+gmt
+ehX
+gmt
+gmt
+gmt
+fZL
+fVM
 wRA
 wRA
 wRA
 wRA
 wRA
-pjA
-uJY
-mOT
-mOT
-mOT
-mOT
-mOT
-mOT
-mOT
-mOT
-mOT
-uJY
-pjA
-fTP
-fTP
-fTP
-fTP
-fTP
-fTP
-pjA
-pjA
+fVM
+lUF
+ukq
+ukq
+ukq
+ukq
+ukq
+ukq
+ukq
+ukq
+ukq
+lUF
+fVM
+gmt
+gmt
+gmt
+gmt
+gmt
+gmt
+fVM
+fVM
 umn
 umn
 uzv
@@ -34606,7 +36717,7 @@ uEf
 uEf
 kCe
 icV
-icV
+jzR
 icV
 icV
 icV
@@ -34680,7 +36791,7 @@ lME
 duO
 duO
 lME
-lME
+jLt
 hLG
 pjD
 pjD
@@ -34771,66 +36882,66 @@ wYq
 wYq
 wYq
 wYq
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
+kND
+aOV
+cWI
+kND
+fZl
+ovw
+fZl
+ovw
+fZl
+ovw
+fZl
+nCa
+fNY
+dQQ
+dQQ
+gij
+kND
 cmF
 cmF
-wqk
-wqk
-wqk
-wqk
+kND
+kND
+kND
+kND
 grN
 cmF
-bVK
-icV
-icV
-icV
-icV
-icV
-icV
-bVK
-pjA
+fZL
+gmt
+gmt
+gmt
+gmt
+gmt
+gmt
+fZL
+fVM
 wRA
 wRA
 wRA
 wRA
 wRA
-pjA
-uJY
-mOT
-mOT
-mOT
-mOT
-mOT
-mOT
-mOT
-mOT
-mOT
-uJY
-pjA
-fTP
-fTP
-fTP
-fTP
-fTP
-fTP
-fTP
-fTP
+fVM
+lUF
+ukq
+ukq
+ukq
+ukq
+ukq
+ukq
+ukq
+ukq
+ukq
+lUF
+fVM
+gmt
+gmt
+gmt
+gmt
+gmt
+gmt
+gmt
+gmt
 umn
 umn
 uzv
@@ -34864,8 +36975,8 @@ uEf
 kCe
 icV
 icV
-icV
-icV
+qZd
+mGS
 icV
 kCe
 oek
@@ -35028,66 +37139,66 @@ wYq
 wYq
 wYq
 wYq
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
+kND
+iJh
+kND
+kND
+kND
+kND
+kND
+kND
+vRg
+val
+val
+bMG
+hDm
+kND
+kND
+kND
+kND
 cmF
-icV
-icV
-icV
-icV
-icV
-icV
+dIw
+dIw
+dIw
+dIw
+dIw
+sSs
 cmF
-bVK
-icV
-icV
-icV
-icV
-icV
-icV
-bVK
-pjA
+fZL
+mCM
+gmt
+gmt
+gmt
+mCM
+gmt
+fZL
+fVM
 wRA
 wRA
 wRA
 wRA
 wRA
-pjA
-uJY
-uJY
-uJY
-uJY
-uJY
-uJY
-uJY
-uJY
-uJY
-uJY
-uJY
-pjA
-pjA
-pjA
-pjA
-pjA
-pjA
-pjA
-pjA
-pjA
+fVM
+lUF
+lUF
+lUF
+lUF
+lUF
+lUF
+lUF
+lUF
+lUF
+lUF
+lUF
+fVM
+fVM
+fVM
+fVM
+fVM
+fVM
+fVM
+fVM
+fVM
 umn
 umn
 uzv
@@ -35120,7 +37231,7 @@ lGR
 lGR
 kCe
 icV
-icV
+lQk
 icV
 icV
 icV
@@ -35285,46 +37396,47 @@ wYq
 wYq
 wYq
 wYq
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-wqk
-icV
-icV
-icV
-icV
-icV
-icV
-wqk
-bVK
-icV
-icV
-icV
-icV
-bVK
-bVK
-bVK
+kND
+lBK
+lwT
+lBK
+uFZ
+uFZ
+uFZ
+uFZ
+sdu
+uOL
+uFZ
+cmH
+uFZ
+uFZ
+oTF
+bZm
+ofb
+kND
+dIw
+sSs
+dIw
+dIw
+sSs
+dIw
+kND
+fZL
+gmt
+ehX
+gmt
+ehX
+fZL
+fZL
+fZL
 cmF
-pjA
-pjA
-pjA
-pjA
-pjA
+fVM
+fVM
+fVM
+fVM
+fVM
 cmF
+fcl
 icV
 icV
 icV
@@ -35334,16 +37446,15 @@ icV
 icV
 icV
 icV
-icV
-icV
-icV
+kUI
+kUI
 gyQ
 icV
-gyQ
+sce
 icV
 icV
-icV
-icV
+wkg
+kUI
 icV
 umn
 umn
@@ -35380,7 +37491,7 @@ icV
 icV
 icV
 icV
-icV
+jzR
 kCe
 oek
 oek
@@ -35451,7 +37562,7 @@ duO
 duO
 duO
 lME
-lME
+jLt
 hLG
 pjD
 pjD
@@ -35542,66 +37653,66 @@ wYq
 wYq
 wYq
 wYq
+kND
+lBK
+pFw
+lBK
+oTF
+cmH
+uFZ
+uFZ
+uFZ
+uFZ
+cmH
+kep
+cmH
+uFZ
+uFZ
+cmH
+wco
+kND
+dIw
+sSs
+sSs
+dIw
+sSs
+dIw
+kND
+fZL
+fZL
+fZL
+fZL
+fZL
+fZL
+kUI
+icV
+icV
+icV
+mFt
 icV
 icV
 icV
 icV
 icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-wqk
-icV
-icV
-icV
-icV
-icV
-icV
-wqk
-bVK
-bVK
-bVK
-bVK
-bVK
-bVK
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-cmF
+kUI
+nYk
+uDz
+sYh
+kcu
 eas
 eas
 eas
 cmF
-icV
-eas
-eas
-eas
-eas
-eas
-eas
-eas
-eas
-eas
+uDz
+tXu
+tXu
+tXu
+tXu
+tXu
+tXu
+tXu
+tXu
+tXu
 umn
 umn
 uzv
@@ -35799,66 +37910,66 @@ icV
 icV
 icV
 icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
+kND
+mfT
+lBK
+lBK
+cmH
+uOL
+uFZ
+uFZ
+uFZ
+wco
+cmH
+mYV
+cmH
+cmH
+uFZ
+uFZ
+uFZ
+jBu
+sSs
+sSs
+dIw
+sSs
+dIw
+sSs
 cmF
 icV
+sce
 icV
 icV
+mFt
+kUI
 icV
+gtu
+gtu
+gtu
+gtu
+gtu
+gtu
+gtu
+gtu
+gtu
+gtu
+gtu
 icV
-icV
-cmF
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-oVG
-oVG
-oVG
-oVG
-oVG
-oVG
-oVG
-oVG
-oVG
-oVG
-oVG
-icV
-icV
+bde
 eas
+sYh
+sYh
+sYh
+tXu
 icV
-icV
-icV
-eas
-icV
-eas
-fZL
-fZL
-fZL
-fZL
-fZL
-fZL
-fZL
-eas
+tXu
+mMi
+mMi
+mMi
+mMi
+mMi
+mMi
+mMi
+tXu
 umn
 umn
 uzv
@@ -36056,66 +38167,66 @@ icV
 icV
 icV
 icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-cmF
-cmF
+kND
+tOM
+kND
+kND
+cmH
 wqk
 wqk
 wqk
+cmH
+cmH
+pZc
+uNw
+pZc
+cmH
+kep
+wqk
 wqk
 cmF
+kND
+kND
+kND
+kND
+kND
+cmF
 cmF
 icV
 icV
 icV
 icV
+tkl
 icV
 icV
+gtu
+nHn
+sSs
+nHn
+nHn
+btE
+xue
+xue
+xue
+xue
+gtu
 icV
-oVG
-rZz
-rZz
-rZz
-rZz
-rZz
-oVG
-icV
-icV
-icV
-oVG
-icV
-icV
+sYh
 eas
+sYh
+sYh
+sYh
+tXu
 icV
-icV
-icV
-eas
-icV
-icV
-fZL
-fZL
-fZL
-fZL
-fZL
-fZL
-fZL
-eas
+xue
+mMi
+mMi
+mMi
+mMi
+mMi
+mMi
+mMi
+tXu
 umn
 umn
 uzv
@@ -36315,64 +38426,64 @@ icV
 icV
 icV
 icV
+qPt
 icV
+cmH
+kep
 icV
-icV
-icV
-icV
 bMD
 bMD
-nmf
-nmf
-nmf
+cmH
+cmH
+pZc
+cmH
+cmH
 bMD
 bMD
-bMD
-bMD
-bMD
-bMD
-bMD
-bMD
-bMD
-nmf
-nmf
-nmf
-bMD
-bMD
+jua
+qcM
+qcM
+qcM
+qcM
+rxG
+rxG
+rxG
+qcM
+qcM
+wlC
+kRf
 wlC
 wlC
-wlC
-wlC
-fvw
+pba
 icV
-oVG
-rZz
-rZz
-rZz
-rZz
-rZz
-oVG
+gtu
+sSs
+nHn
+nHn
+gtu
+dLs
+xue
+xue
+xue
+xue
+gtu
 icV
-icV
-icV
-oVG
-icV
-icV
+sYh
 eas
+sYh
+sYh
+sYh
+tXu
 icV
-icV
-icV
-eas
-icV
-eas
-fZL
-fZL
-fZL
-fZL
-fZL
-fZL
-fZL
-eas
+tXu
+mMi
+mMi
+mMi
+mMi
+mMi
+mMi
+mMi
+tXu
 umn
 umn
 uzv
@@ -36571,65 +38682,65 @@ icV
 icV
 icV
 icV
-icV
-icV
-icV
-icV
-icV
-icV
+bfv
+vUI
+bfv
+rCW
+bfv
+jlO
 nmf
 vvQ
 pYc
-szZ
-szZ
-vvQ
+cmH
+uOL
+cmH
 bMD
 vvQ
-vvQ
+cmH
 bMD
-vvQ
-vvQ
-bMD
-pYc
+nho
+nho
+qcM
+oIt
 hds
 hds
 hds
 hds
-bMD
+qcM
 wvR
 wvR
 duO
 duO
 lou
 icV
-oVG
-rZz
-rZz
-rZz
-rZz
-rZz
-oVG
+gtu
+etM
+gtu
+etM
+bvu
+kby
+xue
+xue
+xue
+xue
+gtu
 icV
-icV
-icV
-oVG
-icV
-icV
+sYh
 eas
+sYh
+sYh
+sYh
+tXu
 icV
-icV
-icV
-eas
-icV
-eas
-fZL
-fZL
-fZL
-fZL
-fZL
-fZL
-eas
-eas
+tXu
+mMi
+mMi
+mMi
+mMi
+mMi
+mMi
+tXu
+tXu
 umn
 umn
 uzv
@@ -36827,66 +38938,66 @@ icV
 icV
 icV
 icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
+ett
+bfv
+jlO
+nrg
+hAS
+jjm
+qPt
 hmR
 vvQ
 vvQ
-pYc
-szZ
+ugp
+cmH
 szZ
 nmf
-vvQ
-vvQ
+cmH
+hBg
 bMD
-szZ
-szZ
-nmf
+sSs
+sSs
+rxG
 eAd
 gbl
 tPB
 gbl
 tPB
-nmf
+rxG
 duO
 duO
 duO
 duO
 lou
+mFt
+gtu
+pEA
+xjY
+sSs
+gtu
+gtu
+gtu
+gtu
+gtu
+gtu
+gtu
 icV
-oVG
-rZz
-rZz
-rZz
-rZz
-rZz
-oVG
-icV
-icV
-icV
-oVG
-icV
-icV
+sYh
 eas
+sYh
+sYh
+sYh
+tXu
 icV
-icV
-icV
-eas
-icV
-eas
-fZL
-fZL
-fZL
-fZL
-fZL
-fZL
-fZL
-fZL
+tXu
+mMi
+mMi
+mMi
+mMi
+mMi
+mMi
+mMi
+mMi
 umn
 umn
 uzv
@@ -37084,49 +39195,49 @@ icV
 icV
 icV
 icV
+ett
 icV
 icV
 icV
 icV
-icV
-icV
-icV
+hAh
+vUI
 hmR
 pYc
 pYc
 pYc
 pYc
 vvQ
-nmf
-szZ
-bMD
-bMD
-bMD
-szZ
-nmf
+rxG
+vRg
+qcM
+qcM
+qcM
+sSs
+rxG
 xBU
 hds
 hds
 hds
 hds
-nmf
+rxG
 wvR
 wvR
 duO
 duO
 lou
 icV
-oVG
-rZz
-rZz
-rZz
-rZz
-rZz
-oVG
-oVG
-lap
-oVG
-oVG
+gtu
+sSs
+dTu
+sSs
+sSs
+aiz
+aXK
+cYF
+sSs
+sSs
+gtu
 cmF
 eas
 eas
@@ -37135,15 +39246,15 @@ eas
 eas
 cmF
 icV
-eas
-eas
-eas
-eas
-eas
-eas
-eas
-eas
-eas
+tXu
+tXu
+tXu
+tXu
+tXu
+tXu
+tXu
+tXu
+tXu
 umn
 umn
 uzv
@@ -37341,66 +39452,66 @@ icV
 icV
 icV
 icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-nmf
+ett
+nrg
+qPt
+bfv
+rCW
+nrg
+qPt
+cmH
 vvQ
 szZ
-vvQ
-vvQ
-smJ
-nmf
-szZ
+cmH
+cmH
+lkq
+rxG
+sSs
 ano
 ano
 ano
-szZ
-nmf
-smJ
+sSs
+rxG
+xHT
 oYo
 pQw
 hje
 oYo
-nmf
+rxG
 duO
 duO
 duO
 duO
 lou
 icV
-oVG
-rZz
-rZz
-rZz
-rZz
-rZz
-rZz
-rZz
-rZz
-rZz
-oVG
-eas
+gtu
+dTu
+jDE
+sSs
+aXK
+gDl
+aXK
+bhK
+aXK
+aXK
+gtu
+tXu
 hxO
 hxO
 hxO
 hxO
 hxO
-eas
+tXu
 icV
+fcl
 icV
-icV
-oVG
-oVG
-oVG
-oVG
-oVG
-oVG
-oVG
+gtu
+gtu
+gtu
+gtu
+gtu
+gtu
+gtu
 umn
 umn
 uzv
@@ -37598,66 +39709,66 @@ icV
 icV
 icV
 icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-bMD
-vvQ
-jcd
-iXz
+iij
+iij
+tXu
+tXu
+tXu
+iij
+iij
+cmH
+cmH
+tbt
+cmH
 aMI
 smJ
-nmf
-szZ
-vvQ
-vvQ
-szZ
-szZ
-nmf
-smJ
+rxG
+sSs
+nho
+nho
+sSs
+sSs
+rxG
+xHT
 jcd
 iXz
 iWr
 cUK
-nmf
+rxG
 wvR
 wvR
 duO
 duO
 lou
 icV
-oVG
-rZz
-rZz
-rZz
-rZz
-rZz
-rZz
-rZz
-rZz
-rZz
-oVG
-eas
+gtu
+aXK
+pEA
+sSs
+aXK
+sSs
+sSs
+aXK
+vQF
+aXK
+gtu
+tXu
 hxO
 hxO
 hxO
 hxO
 hxO
-eas
+tXu
 cmF
 icV
 icV
-oVG
-fTP
-fTP
-fTP
-fTP
-fTP
-fTP
+gtu
+gmt
+gmt
+gmt
+gmt
+gmt
+gmt
 umn
 umn
 uzv
@@ -37855,66 +39966,66 @@ icV
 icV
 icV
 icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-hmR
-vvQ
+iij
+iFw
+iFw
+iFw
+iFw
+iFw
+iij
+rxG
+nho
 xVI
-vvQ
-vvQ
-vvQ
-bMD
-vvQ
-vvQ
-vvQ
-vvQ
-vvQ
-bMD
-smJ
+vRg
+nho
+nho
+qcM
+nho
+nho
+nho
+nho
+nho
+qcM
+xHT
 xVI
-uGd
-uGd
+tDx
+tDx
 iIs
-nmf
+rxG
 duO
 duO
 duO
 duO
 lou
+fcl
+gtu
+rZz
+sSs
+agz
+aXK
+mLr
+sSs
+qPj
+aXK
+aXK
+gtu
+tXu
+hxO
+hxO
+hxO
+hxO
+hxO
+ecZ
+tXu
 icV
-oVG
-rZz
-rZz
-rZz
-rZz
-rZz
-rZz
-rZz
-rZz
-rZz
-oVG
-eas
-hxO
-hxO
-hxO
-hxO
-hxO
-hxO
-eas
-icV
-icV
-oVG
-fTP
-fTP
-fTP
-fTP
-oVG
-fTP
+uDz
+gtu
+gmt
+gmt
+gmt
+gmt
+gtu
+gmt
 umn
 umn
 uzv
@@ -38112,66 +40223,66 @@ icV
 icV
 icV
 icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-hmR
-vvQ
+tXu
+iFw
+iFw
+iFw
+iFw
+iFw
+tXu
+rxG
+nho
 xVI
-vvQ
-szZ
-szZ
-vvQ
-vvQ
-vvQ
-vvQ
-vvQ
-vvQ
-vvQ
-smJ
+nho
+cnM
+sSs
+nho
+nho
+nho
+nho
+nho
+nho
+nho
+xHT
 nol
-uGd
-uGd
-vvQ
-nmf
+tDx
+tDx
+nho
+rxG
 wvR
 wvR
 duO
 duO
 lou
 icV
-oVG
+gtu
 rZz
+sSs
+sGC
+aXK
 rZz
-rZz
-rZz
-rZz
-rZz
-rZz
-rZz
-rZz
-oVG
-eas
-hxO
-hxO
-hxO
-hxO
-hxO
-hxO
-eas
+sSs
+wlG
+aXK
+aXK
+gtu
+tXu
+ecZ
+ecZ
+ecZ
+ecZ
+ecZ
+ecZ
+tXu
 icV
 icV
-oVG
-fTP
-fTP
-fTP
-fTP
-oVG
-fTP
+gtu
+gmt
+gmt
+gmt
+gmt
+gtu
+gmt
 umn
 umn
 uzv
@@ -38369,66 +40480,66 @@ icV
 icV
 icV
 icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-bMD
-vvQ
+tXu
+iFw
+iFw
+iFw
+iFw
+iFw
+tXu
+qcM
+fzs
 taH
-vvQ
-szZ
-szZ
-vvQ
-vvQ
-vvQ
-vvQ
-vvQ
-szZ
-vvQ
-smJ
+maH
+sSs
+sQe
+nho
+nho
+nho
+nho
+nho
+sSs
+nho
+xHT
 taH
 eae
 iWr
-vvQ
-nmf
+nho
+rxG
 duO
 duO
 duO
 duO
 lou
 icV
-oVG
-rZz
-rZz
-rZz
-rZz
-rZz
-rZz
-rZz
-rZz
-rZz
-oVG
-eas
-hxO
-hxO
-hxO
-hxO
-hxO
-hxO
-eas
+nGY
+grO
+vQF
+aXK
+sSs
+sSs
+aXK
+aXK
+vQF
+sSs
+gtu
+tXu
+ecZ
+ecZ
+ecZ
+ecZ
+ecZ
+ecZ
+tXu
 icV
 icV
-oVG
-fTP
-fTP
-fTP
-fTP
-oVG
-fTP
+gtu
+gmt
+gmt
+gmt
+gmt
+gtu
+gmt
 umn
 umn
 uzv
@@ -38626,66 +40737,66 @@ icV
 icV
 icV
 icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-nmf
-vvQ
-szZ
-vvQ
-vvQ
-smJ
-bMD
-vvQ
-szZ
-szZ
-vvQ
-szZ
-bMD
-smJ
+tXu
+iFw
+iFw
+iFw
+iFw
+iFw
+tXu
+rxG
+nho
+yex
+nho
+nho
+xHT
+qcM
+nho
+sSs
+sSs
+nho
+sSs
+qcM
+xHT
 jlw
 baV
 fWY
 jlw
-nmf
+rxG
 wvR
 wvR
 duO
 duO
 lou
 icV
-oVG
-rZz
-rZz
-rZz
-rZz
-rZz
-rZz
-rZz
-rZz
-rZz
-oVG
-eas
-hxO
-hxO
-hxO
-hxO
-hxO
-hxO
-eas
+gtu
+wlG
+aXK
+qPj
+aXK
+cYF
+sSs
+cNG
+aXK
+aXK
+gtu
+tXu
+ecZ
+ecZ
+ecZ
+ecZ
+ecZ
+ecZ
+tXu
 icV
-icV
-oVG
-fTP
-fTP
-fTP
-fTP
-oVG
-fTP
+mFt
+gtu
+gmt
+gmt
+gmt
+gmt
+gtu
+gmt
 umn
 umn
 uzv
@@ -38883,66 +40994,66 @@ icV
 icV
 icV
 icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-hmR
-pYc
-szZ
-szZ
-pYc
-vvQ
-nmf
-vvQ
-vvQ
-vvQ
-vvQ
-vvQ
-nmf
+tXu
+iFw
+iFw
+iFw
+iFw
+iFw
+tXu
+rxG
+oIt
+sSs
+sSs
+oIt
+nho
+rxG
+nho
+nho
+nho
+nho
+nho
+rxG
 edi
 yae
 yae
 yae
 flC
-nmf
+rxG
 duO
 duO
 duO
 duO
-lou
+qup
 icV
-oVG
-rZz
-rZz
-rZz
-rZz
-rZz
-rZz
-rZz
-rZz
-rZz
-oVG
-eas
-hxO
-hxO
-hxO
-hxO
-hxO
-hxO
-eas
+gtu
+agC
+aXK
+vIy
+aXK
+wSx
+aXK
+sGC
+sSs
+aXK
+gtu
+tXu
+ecZ
+ecZ
+ecZ
+ecZ
+ecZ
+ecZ
+tXu
+sce
 icV
-icV
-oVG
-fTP
-fTP
-fTP
-fTP
-oVG
-fTP
+gtu
+gmt
+gmt
+gmt
+gmt
+gtu
+gmt
 umn
 umn
 uzv
@@ -39140,66 +41251,66 @@ icV
 icV
 icV
 icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-hmR
-pYc
-pYc
-szZ
-vvQ
-vvQ
-nmf
-vvQ
-szZ
-vvQ
-vvQ
-vvQ
-nmf
+tXu
+iFw
+iFw
+iFw
+iFw
+iFw
+tXu
+rxG
+oIt
+oIt
+sSs
+nho
+nho
+rxG
+nho
+sSs
+nho
+nho
+nho
+rxG
 wYT
 ias
 ias
 ias
 ias
-nmf
+rxG
 wvR
 wvR
 duO
 duO
 lou
 icV
-oVG
-oVG
-rZz
-oVG
-rZz
-oVG
-rZz
-oVG
-oVG
-rZz
-oVG
-eas
-hxO
-hxO
-hxO
-hxO
-hxO
-hxO
-eas
+gtu
+gtu
+oUH
+gtu
+oUH
+gtu
+wRN
+gtu
+pcb
+hpl
+gtu
+tXu
+ecZ
+ecZ
+ecZ
+ecZ
+ecZ
+ecZ
+tXu
+kUI
 icV
-icV
-oVG
-oVG
-fTP
-oVG
-fTP
-oVG
-fTP
+gtu
+gtu
+gmt
+gtu
+gmt
+gtu
+gmt
 umn
 umn
 uzv
@@ -39397,66 +41508,66 @@ icV
 icV
 icV
 icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-nmf
-szZ
-pYc
-pYc
-vvQ
-vvQ
-nmf
-szZ
-vvQ
-vvQ
-szZ
-szZ
-nmf
-pYc
+iij
+iFw
+tXu
+iFw
+iFw
+iFw
+iij
+rxG
+sSs
+oIt
+oIt
+nho
+kPl
+rxG
+sSs
+nho
+nho
+sSs
+sSs
+rxG
+oIt
 yae
 yae
 yae
 yae
-bMD
+qcM
 duO
 duO
 duO
 duO
 lou
+mFt
+gtu
+nHn
+nHn
+nHn
+nHn
+nHn
+nHn
+nHn
+nHn
+nHn
+gtu
+tXu
+ecZ
+tXu
+ecZ
+tXu
+ecZ
+tXu
+tXu
 icV
-oVG
-rZz
-rZz
-rZz
-rZz
-rZz
-rZz
-rZz
-rZz
-rZz
-oVG
-eas
-hxO
-eas
-hxO
-eas
-hxO
-eas
-eas
-icV
-icV
-oVG
-fTP
-fTP
-fTP
-fTP
-fTP
-fTP
+fcl
+gtu
+gmt
+gmt
+gmt
+gmt
+gmt
+gmt
 umn
 umn
 uzv
@@ -39654,66 +41765,66 @@ icV
 icV
 icV
 icV
-icV
-icV
-icV
-icV
-icV
-icV
-icV
-bMD
-nmf
-hmR
-hmR
-hmR
-nmf
-bMD
-bMD
-vvQ
-vvQ
-vvQ
-bMD
-bMD
-bMD
+iij
+iFw
+tXu
+iFw
+iFw
+cmF
+iij
+qcM
+rxG
+hHV
+hHV
+wib
+rxG
+qcM
+qcM
+nho
+nho
+nho
+qcM
+qcM
+qcM
 vyK
 vyK
 vyK
-bMD
-bMD
+qcM
+qcM
 wvR
 wvR
 duO
 duO
 uts
 icV
-oVG
-rZz
-rZz
-rZz
-rZz
-rZz
-rZz
-rZz
-rZz
-rZz
-oVG
-eas
-hxO
-hxO
-hxO
-hxO
-hxO
-hxO
-eas
+gtu
+uZN
+uZN
+mJZ
+swS
+swS
+swS
+swS
+swS
+swS
+gtu
+tXu
+ecZ
+ecZ
+ecZ
+ecZ
+ecZ
+ecZ
+tXu
 icV
 icV
-oVG
-fTP
-fTP
-fTP
-fTP
-fTP
-fTP
+gtu
+gmt
+gmt
+gmt
+gmt
+gmt
+gmt
 umn
 umn
 uzv
@@ -44803,8 +46914,8 @@ iMA
 rgf
 bwX
 hvu
-kxr
-kxr
+tAD
+vfY
 kxr
 kxr
 kxr
@@ -60988,9 +63099,9 @@ lqQ
 lqQ
 lqQ
 lqQ
+cnT
 vOn
-vOn
-vOn
+bzP
 uOw
 lqQ
 lqQ
@@ -63044,9 +65155,9 @@ lqQ
 lqQ
 lqQ
 lqQ
+nxw
 vOn
-vOn
-vOn
+lyw
 uOw
 lqQ
 lqQ
@@ -63804,7 +65915,7 @@ lqQ
 lqQ
 lqQ
 lqQ
-lqQ
+set
 rsn
 iKm
 iKm
@@ -64064,12 +66175,12 @@ lqQ
 nNy
 bgK
 bgK
-wTk
-wTk
 jLD
 hgh
-xEa
-osR
+eJe
+vOn
+pfh
+bgK
 bgK
 bgK
 bgK
@@ -64322,12 +66433,12 @@ lqQ
 lqQ
 lqQ
 lqQ
-lqQ
-lqQ
-vNJ
+pAo
+aUq
 vOn
-bfv
-uOw
+ipn
+rsn
+lqQ
 lqQ
 lqQ
 lqQ
@@ -64574,27 +66685,27 @@ lqQ
 lqQ
 lqQ
 lqQ
-uap
-oIt
-oIt
-oIt
-uap
-uap
-oIt
-mfT
-hlb
-hlb
-mfT
-mfT
-mfT
-mfT
-iFw
-iFw
-iFw
-mfT
-mfT
-iFw
-iFw
+nGz
+uWd
+uWd
+arK
+nGz
+wKm
+rTm
+rTm
+uWd
+uWd
+arK
+uWd
+uWd
+uWd
+nGz
+sAv
+sAv
+arK
+uWd
+nGz
+nGz
 lqQ
 lqQ
 lqQ
@@ -64829,31 +66940,31 @@ lqQ
 lqQ
 lqQ
 lqQ
-oIt
-oIt
-uap
-ycF
-ycF
-ycF
-ycF
-hlb
-hlb
-hlb
-hlb
-hlb
-hlb
-hlb
-hlb
-hlb
-hlb
-hlb
-hlb
-hlb
-hlb
-hlb
-mfT
-mfT
-iFw
+uWd
+uWd
+buF
+uBD
+mar
+mar
+rSz
+sOl
+jwg
+jwg
+szq
+uKb
+bnz
+mgu
+uii
+hNE
+nCS
+vNJ
+ocT
+uum
+gmh
+rRr
+uWd
+arK
+nGz
 lqQ
 lqQ
 lqQ
@@ -65085,33 +67196,33 @@ lqQ
 lqQ
 lqQ
 lqQ
-uap
-uap
+nGz
+nGz
+uWd
+kXF
+mCU
+gHh
+gHh
+uWd
+bzY
+ycF
+ycF
+gyN
+bVN
 ycF
 ycF
 ycF
+bVN
 ycF
 ycF
-hlb
-hlb
-hlb
-hlb
-hlb
-hlb
-hlb
-hlb
-hlb
-hlb
-hlb
-hlb
-hlb
-hlb
-hlb
-hlb
-hlb
-hlb
-iFw
-mfT
+ycF
+bVN
+ycF
+ycF
+tsY
+uWd
+nGz
+uWd
 wNP
 lqQ
 lqQ
@@ -65342,34 +67453,34 @@ lqQ
 lqQ
 lqQ
 lqQ
-oIt
+uWd
+kXF
+gWt
+xQe
+mCU
+gHh
+gHh
+uWd
+bzY
 ycF
 ycF
+gyN
+bVN
+pOT
 ycF
 ycF
+bVN
+pOT
 ycF
 ycF
-hlb
-hlb
-hlb
-hlb
-hlb
-hlb
-hlb
-hlb
-hlb
-hlb
-hlb
-hlb
-hlb
-hlb
-hlb
-hlb
-hlb
-hlb
-hlb
-iFw
-mfT
+bVN
+pOT
+ycF
+tsY
+uWd
+nGz
+nGz
+uWd
 wNP
 lqQ
 cVa
@@ -65599,35 +67710,35 @@ lqQ
 lqQ
 lqQ
 lqQ
-oIt
+uWd
+kXF
+nAv
+qGE
+tiN
 ycF
 ycF
-ycF
-ycF
-ycF
-ycF
-hlb
-hlb
-hlb
-hlb
-hlb
-hlb
-hlb
-hlb
-hlb
-hlb
-hlb
-hlb
-hlb
-hlb
-hlb
-hlb
-hlb
-hlb
-hlb
-hlb
-iFw
-oIt
+iSj
+kXF
+kXF
+vfT
+uWd
+ylT
+pgx
+pgx
+uWd
+ylT
+pgx
+pgx
+uWd
+ylT
+pgx
+pgx
+uWd
+uWd
+uWd
+nGz
+nGz
+uWd
 lqQ
 cVa
 lTp
@@ -65856,34 +67967,34 @@ lqQ
 lqQ
 lqQ
 lqQ
-oIt
+uWd
+gSX
+eZf
+acZ
+pDU
 ycF
-ycF
-ycF
-ycF
-ycF
-ycF
-ycF
-hlb
-hlb
-hlb
-hlb
-hlb
-hlb
-hlb
-hlb
-hlb
-hlb
-hlb
-hlb
-hlb
-hlb
-hlb
-hlb
-hlb
-hlb
-uap
-oIt
+uWd
+uWd
+hEr
+hEr
+uWd
+uWd
+bct
+dBc
+kXF
+arK
+bct
+dXz
+kXF
+uWd
+bct
+gGt
+kXF
+uWd
+nGz
+nGz
+nGz
+uWd
 lqQ
 lqQ
 cVa
@@ -66113,33 +68224,33 @@ lqQ
 lqQ
 lqQ
 lqQ
-uap
-uap
+nGz
+nGz
+uWd
+uWd
+nHl
 ycF
-ycF
-ycF
-ycF
-ycF
-ycF
-ycF
-ycF
-hlb
-hlb
-hlb
-hlb
-hlb
-hlb
-hlb
-hlb
-hlb
-hlb
-hlb
-hlb
-hlb
-hlb
-ycF
-uap
-oIt
+uWd
+osR
+kXF
+hne
+xUE
+ubU
+kXF
+kXF
+kXF
+ubU
+kXF
+kXF
+kXF
+ubU
+kXF
+kXF
+kXF
+arK
+nGz
+nGz
+uWd
 lqQ
 lqQ
 lqQ
@@ -66371,31 +68482,31 @@ lqQ
 lqQ
 lqQ
 lqQ
-oIt
-oIt
-uap
+uWd
+uWd
+nGz
+rUl
 ycF
-ycF
-ycF
-ycF
-ycF
-ycF
-ycF
-ycF
-ycF
-ycF
-ycF
-ycF
-ycF
-ycF
-ycF
-ycF
-ycF
-ycF
-ycF
-oIt
-oIt
-uap
+rso
+kXF
+kXF
+kXF
+lCB
+uWd
+ptG
+xOH
+sIt
+uWd
+ptG
+xOH
+sIt
+uWd
+wPJ
+xOH
+sIt
+uWd
+uWd
+nGz
 lqQ
 lqQ
 lqQ
@@ -66631,32 +68742,32 @@ lqQ
 rsn
 rsn
 nGz
+sBi
+hnu
+arK
+sAv
+lSy
+sAv
 uWd
 uWd
 uWd
-nGz
-nGz
-nGz
-uWd
-uWd
-uWd
-uWd
-uWd
-nGz
-nGz
-uWd
-uWd
-uWd
-uWd
+npm
 uWd
 nGz
 nGz
-rsn
-rsn
-rsn
-rsn
-rsn
-rsn
+npm
+uWd
+uWd
+uWd
+npm
+nGz
+nGz
+lqQ
+lqQ
+lqQ
+lqQ
+lqQ
+lqQ
 rix
 bnq
 rMz
@@ -66885,35 +68996,35 @@ lqQ
 lqQ
 lqQ
 lqQ
-rsn
-rsn
-rsn
-rsn
-rsn
-rsn
-rsn
-rsn
-rsn
-rsn
-rsn
-rsn
-rsn
-rsn
-rsn
-rsn
-rsn
-rsn
-rsn
-rsn
-rsn
-rsn
-rsn
-rsn
-rsn
-rsn
-rsn
-rsn
-rsn
+lqQ
+lqQ
+lqQ
+pAo
+vOn
+ryW
+lqQ
+lqQ
+lqQ
+lqQ
+lqQ
+lqQ
+lqQ
+lqQ
+lqQ
+lqQ
+lqQ
+lqQ
+lqQ
+lqQ
+lqQ
+lqQ
+lqQ
+lqQ
+lqQ
+lqQ
+lqQ
+lqQ
+lqQ
 rix
 rMz
 bnq
@@ -67142,35 +69253,35 @@ lqQ
 lqQ
 lqQ
 lqQ
-rsn
-rsn
-rsn
-rsn
-rsn
-rsn
-rsn
-rsn
-rsn
-rsn
-rsn
-rsn
-rsn
-rsn
-rsn
-rsn
-rsn
-rsn
-rsn
-rsn
-rsn
-rsn
-rsn
-rsn
-rsn
-rsn
-rsn
-rsn
-rsn
+lqQ
+lqQ
+lqQ
+pAo
+vOn
+ryW
+lqQ
+lqQ
+lqQ
+lqQ
+lqQ
+lqQ
+lqQ
+lqQ
+lqQ
+lqQ
+lqQ
+lqQ
+lqQ
+lqQ
+lqQ
+lqQ
+lqQ
+lqQ
+lqQ
+lqQ
+lqQ
+lqQ
+lqQ
 mBb
 rMz
 rMz
@@ -67396,15 +69507,15 @@ lqQ
 lqQ
 lqQ
 lqQ
-lqQ
-lqQ
-lqQ
-eRR
-eRR
-eRR
-eRR
-eRR
+rsn
+rsn
 xCf
+eRR
+eRR
+eRR
+btp
+gBA
+ask
 eRR
 eRR
 eRR
@@ -67653,39 +69764,39 @@ lqQ
 lqQ
 lqQ
 lqQ
-lqQ
-lqQ
-lqQ
-jNH
-jNH
-jNH
-jNH
-jNH
-jNH
-jNH
-jNH
-jNH
-jNH
-jNH
-jNH
-jNH
-jNH
-jNH
-jNH
-jNH
-jNH
-jNH
+rsn
+xCf
+xCf
 iKm
 iKm
 iKm
 iKm
-jNH
-jNH
-jNH
-jNH
-xJL
-xJL
-gHS
+iKm
+iKm
+iKm
+iKm
+iKm
+iKm
+iKm
+iKm
+iKm
+iKm
+iKm
+iKm
+iKm
+iKm
+iKm
+iKm
+iKm
+iKm
+iKm
+iKm
+iKm
+iKm
+iKm
+xLP
+xLP
+cVa
 rMz
 rMz
 rMz
@@ -67910,39 +70021,39 @@ lqQ
 lqQ
 lqQ
 lqQ
-lqQ
-lqQ
-lqQ
-jNH
-jNH
-jNH
-jNH
-jNH
-jNH
-jNH
-jNH
-jNH
-jNH
-jNH
-jNH
-jNH
-jNH
-jNH
-brm
-jNH
-jNH
-jNH
+xCf
+gBA
+gBA
+iKm
+iKm
+iKm
+iKm
+iKm
+iKm
+iKm
+iKm
+iKm
+iKm
+iKm
+iKm
+iKm
+iKm
+iKm
+iKm
+iKm
+iKm
+iKm
 iKm
 xLP
 xLP
 xLP
-xJL
-xJL
-xJL
-xJL
-xJL
-jNH
-gHS
+xLP
+xLP
+xLP
+xLP
+xLP
+iKm
+cVa
 nwm
 rMz
 rMz
@@ -68167,38 +70278,38 @@ lqQ
 xKx
 lqQ
 lqQ
-lqQ
-lqQ
-lqQ
-lqQ
-rhK
-rhK
+xJL
+bgK
+gKb
+tLB
+gBA
+gBA
 pfh
-xHT
-pfh
-mRC
-mRC
-mRC
-pfh
-pfh
-pfh
-pfh
-pfh
-jtQ
-jtQ
-jtQ
-pfh
-pfh
+vcz
+bgK
+xCf
+xCf
+xCf
+bgK
+bgK
+bgK
+bgK
+bgK
+bgK
+bgK
+bgK
+bgK
+bgK
 gBA
 iKm
 xLP
 gBA
-pfh
-pfh
-pfh
-pfh
-pfh
-pfh
+bgK
+bgK
+bgK
+bgK
+bgK
+bgK
 nWh
 rkm
 oPE
@@ -68425,27 +70536,27 @@ lqQ
 lqQ
 lqQ
 lqQ
-lqQ
-lqQ
-lqQ
-jNH
-jNH
-lqQ
-lqQ
-lqQ
-lqQ
-lqQ
-lqQ
-lqQ
-lqQ
-lqQ
-lqQ
-lqQ
-juS
-juS
-juS
-lqQ
-lqQ
+rsn
+rsn
+fzh
+iKm
+iKm
+jhk
+rsn
+rsn
+rsn
+rsn
+rsn
+rsn
+rsn
+rsn
+rsn
+rsn
+rsn
+rsn
+rsn
+rsn
+rsn
 cVa
 iKm
 xLP
@@ -68684,25 +70795,25 @@ lqQ
 lqQ
 lqQ
 lqQ
-oIt
-pgx
-pgx
-uap
+gBo
+qik
+qik
+gVH
 tzQ
 pBQ
-oIt
+gBo
 tzQ
-oIt
-oIt
+gBo
+gBo
 qII
-oIt
-lVS
+gBo
+gVH
 nqH
-juS
-juS
-juS
-juS
-lqQ
+rsn
+rsn
+rsn
+rsn
+rsn
 cVa
 iKm
 xLP
@@ -68939,27 +71050,27 @@ lqQ
 lqQ
 lqQ
 lqQ
-oIt
-oIt
-uap
-lsO
-lSy
-vfT
-kXF
-mgu
-buF
-pmV
-sOl
-sBi
-lCB
-pOT
-eJe
-jdM
-jdM
-jdM
-juS
-juS
-lqQ
+gBo
+gBo
+gVH
+qik
+qik
+qik
+qik
+qik
+qik
+qik
+qik
+qik
+qik
+qik
+qik
+gVH
+gVH
+gVH
+rsn
+rsn
+rsn
 cVa
 iKm
 qiu
@@ -69195,28 +71306,28 @@ lqQ
 lqQ
 lqQ
 lqQ
-uap
-uap
+gVH
+gVH
 qik
-gWt
-bVN
+xbt
 qik
-ycF
-pAo
-ycF
-ycF
-pAo
-ycF
-ycF
-pAo
-ycF
-ycF
+qik
+qik
+qik
+qik
+qik
+qik
+qik
+qik
+qik
+qik
+qik
 tkM
-jdM
-jdM
+gVH
+gVH
 nEn
 nqH
-lqQ
+rsn
 cVa
 iKm
 xLP
@@ -69452,28 +71563,28 @@ lqQ
 lqQ
 lqQ
 lqQ
-uap
-uap
+gVH
+gVH
 qik
 siM
-gmh
 qik
-uap
-sIt
-gHh
-jwg
-sIt
-gHh
-jwg
-uum
-gHh
-gHh
-jdM
-jdM
-jdM
-jdM
-jdM
-uap
+qik
+qik
+qik
+qik
+qik
+qik
+qik
+qik
+qik
+qik
+qik
+gVH
+gVH
+gVH
+gVH
+gVH
+gVH
 xCf
 iKm
 xLP
@@ -69709,27 +71820,27 @@ lqQ
 lqQ
 lqQ
 lqQ
-uap
-uap
+gVH
+gVH
 qik
 hVw
-nHn
-qik
-uap
-pTV
-qik
-uap
-pTV
-qik
-uap
-pTV
 qik
 qik
-set
-jdM
+qik
+qik
+qik
+qik
+qik
+qik
+qik
+qik
+qik
+qik
+gVH
+gVH
 gBo
 gBo
-jdM
+gVH
 rsn
 xCf
 iKm
@@ -69967,27 +72078,27 @@ lqQ
 lqQ
 lqQ
 lqQ
-dsa
-uap
-uap
-ylT
-uBD
-uap
-iSj
-xOH
-uap
-iSj
-xOH
-uap
-gSX
-xOH
-fXY
-jdM
-mZq
+hzY
+gVH
+gVH
+gky
+qik
+qik
+qik
+qik
+qik
+qik
+qik
+qik
+qik
+qik
+qik
+gVH
+hzY
 gBo
-juS
-juS
-lqQ
+rsn
+rsn
+rsn
 cVa
 xLP
 xLP
@@ -70226,25 +72337,25 @@ lqQ
 lqQ
 lqQ
 lqQ
-oIt
+gBo
 cNS
-lVS
-dsa
+gVH
+hzY
 tzQ
-oIt
-dsa
+gBo
+hzY
 tzQ
-oIt
-oIt
+gBo
+gBo
 tzQ
-uap
-lVS
-jdM
-juS
-juS
-juS
-juS
-lqQ
+gVH
+gVH
+gVH
+rsn
+rsn
+rsn
+rsn
+rsn
 cVa
 iKm
 xCf
@@ -70483,25 +72594,25 @@ lqQ
 lqQ
 lqQ
 lqQ
-lqQ
-lqQ
-lqQ
-lqQ
-lqQ
-lqQ
-lqQ
-lqQ
-lqQ
-lqQ
-lqQ
-lqQ
-lqQ
-juS
-juS
+rsn
+rsn
+rsn
+rsn
+rsn
+rsn
+rsn
+rsn
+rsn
+rsn
+rsn
+rsn
+rsn
+rsn
+rsn
 lVF
 lVF
-juS
-lqQ
+rsn
+rsn
 cVa
 iKm
 iKm
@@ -70740,25 +72851,25 @@ lqQ
 lqQ
 lqQ
 lqQ
-lqQ
-lqQ
-lqQ
-lqQ
-lqQ
-lqQ
-lqQ
-lqQ
-lqQ
-lqQ
-lqQ
-lqQ
-lqQ
-juS
-juS
+rsn
+rsn
+rsn
+rsn
+rsn
+rsn
+rsn
+rsn
+rsn
+rsn
+rsn
+rsn
+rsn
+rsn
+rsn
 lVF
 lVF
-juS
-lqQ
+rsn
+rsn
 xCf
 xLP
 iKm
@@ -70997,24 +73108,24 @@ lqQ
 lqQ
 lqQ
 lqQ
-lqQ
-lqQ
-lqQ
-lqQ
-lqQ
-lqQ
-xKx
-lqQ
-lqQ
-lqQ
-lqQ
-lqQ
-lqQ
-lqQ
-juS
+rsn
+rsn
+rsn
+rsn
+rsn
+rsn
+pjZ
+rsn
+rsn
+rsn
+rsn
+rsn
+rsn
+rsn
+rsn
 lVF
-juS
-lqQ
+rsn
+rsn
 ibf
 cVa
 iKm
@@ -71254,24 +73365,24 @@ lqQ
 lqQ
 lqQ
 lqQ
-lqQ
-lqQ
-lqQ
-lqQ
-lqQ
-lqQ
-lqQ
-lqQ
-lqQ
-lqQ
-lqQ
-lqQ
-lqQ
-lqQ
-lqQ
+rsn
+rsn
+rsn
+rsn
+rsn
+rsn
+rsn
+rsn
+rsn
+rsn
+rsn
+rsn
+rsn
+rsn
+rsn
 lVF
-lqQ
-lqQ
+rsn
+rsn
 moJ
 xCf
 iKm
@@ -72044,7 +74155,7 @@ lqQ
 lqQ
 lqQ
 lqQ
-gHS
+cNt
 lqQ
 lqQ
 lqQ
@@ -72320,7 +74431,7 @@ uke
 lqQ
 kxr
 kxr
-kxr
+fKE
 kxr
 kxr
 kxr
@@ -72576,9 +74687,9 @@ fmQ
 uke
 lqQ
 kxr
-kxr
-kxr
-kxr
+fKE
+xeq
+oDn
 kxr
 kxr
 kxr
@@ -72830,13 +74941,13 @@ lqQ
 fkD
 oPE
 fmQ
-uke
+ekF
 lqQ
-kxr
-kxr
-kxr
-kxr
-kxr
+fKE
+pmV
+tmI
+tmI
+fKE
 kxr
 kxr
 kxr
@@ -73087,14 +75198,14 @@ lqQ
 fkD
 rMz
 fmQ
-uke
-lqQ
-kxr
-kxr
-kxr
-kxr
-kxr
-kxr
+ekF
+dsa
+soJ
+lVS
+tmI
+tmI
+xeq
+fKE
 kxr
 kxr
 kxr
@@ -73344,14 +75455,14 @@ lqQ
 fkD
 oPE
 fmQ
-uke
-lqQ
-kxr
-kxr
-kxr
-kxr
-kxr
-kxr
+uOw
+uap
+xEa
+xEa
+tnk
+kqf
+xEa
+oDn
 kxr
 kxr
 kxr
@@ -73600,15 +75711,15 @@ lqQ
 lqQ
 fkD
 oPE
-fmQ
-uke
-lqQ
-kxr
-kxr
-kxr
-kxr
-kxr
-kxr
+dAR
+ajs
+vPO
+tnk
+tnk
+tnk
+tnk
+tnk
+fKE
 kxr
 kxr
 kxr
@@ -73858,14 +75969,14 @@ lqQ
 xCf
 oPE
 fmQ
-uke
-lqQ
-kxr
-kxr
-kxr
-kxr
-kxr
-kxr
+fXY
+aVt
+tnk
+tnk
+tnk
+xEa
+xEa
+fKE
 kxr
 kxr
 kxr
@@ -74114,15 +76225,15 @@ lqQ
 lqQ
 xCf
 rMz
-fmQ
-uke
-lqQ
-kxr
-kxr
-kxr
-kxr
-kxr
-kxr
+sjz
+ekF
+uap
+tnk
+qcD
+tnk
+tnk
+tnk
+fKE
 kxr
 kxr
 kxr
@@ -74372,14 +76483,14 @@ lqQ
 xCf
 rMz
 fmQ
-uke
-lqQ
-kxr
-kxr
-kxr
-kxr
-kxr
-kxr
+ekF
+dsa
+xEa
+pTV
+tnk
+aFb
+xEa
+fKE
 kxr
 kxr
 kxr
@@ -74629,14 +76740,14 @@ lqQ
 vcz
 rMz
 oKf
-uke
-lqQ
-kxr
-kxr
-kxr
-kxr
-kxr
-kxr
+ekF
+uap
+caB
+tnk
+tnk
+tnk
+tnk
+oDn
 kxr
 kxr
 kxr
@@ -74884,16 +76995,16 @@ lqQ
 lqQ
 lqQ
 xCf
-rMz
+rVk
 fmQ
-uke
-lqQ
-kxr
-kxr
-kxr
-kxr
-kxr
-kxr
+ekF
+dsa
+tnk
+tnk
+tnk
+xEa
+pTV
+fKE
 kxr
 kxr
 kxr
@@ -75144,13 +77255,13 @@ lqQ
 oPE
 fmQ
 uOw
-lqQ
-kxr
-kxr
-kxr
-kxr
-kxr
-kxr
+uap
+fKE
+lsO
+tnk
+pmV
+pmV
+fKE
 kxr
 kxr
 kxr
@@ -75402,11 +77513,11 @@ rMz
 lqQ
 lqQ
 lqQ
-kxr
-kxr
-kxr
-kxr
-kxr
+fKE
+rxy
+rxy
+rxy
+fKE
 kxr
 kxr
 kxr
@@ -75660,9 +77771,9 @@ lqQ
 lqQ
 lqQ
 kxr
-kxr
-kxr
-kxr
+fKE
+fKE
+oDn
 kxr
 kxr
 kxr
