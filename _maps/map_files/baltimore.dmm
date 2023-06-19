@@ -6150,7 +6150,7 @@
 /area/f13/city)
 "dSJ" = (
 /obj/effect/overlay/fog/fog4{
-	color = ""#4b6849""
+	color = "#4b6849"
 	},
 /turf/open/floor/plating/f13,
 /area/f13/citycaves)
@@ -6317,13 +6317,13 @@
 	})
 "dXu" = (
 /obj/effect/overlay/fog/fog4{
-	color = ""#4b6849""
+	color = "#4b6849"
 	},
 /obj/effect/overlay/fog/fog4{
-	color = ""#4b6849""
+	color = "#4b6849"
 	},
 /obj/effect/overlay/fog/fog4{
-	color = ""#4b6849""
+	color = "#4b6849"
 	},
 /turf/open/floor/plating/rust,
 /area/f13/citycaves)
@@ -7575,7 +7575,7 @@
 	})
 "eNR" = (
 /obj/effect/overlay/fog/fog4{
-	color = ""#4b6849""
+	color = "#4b6849"
 	},
 /turf/open/floor/plating/rust,
 /area/f13/citycaves)
@@ -21193,13 +21193,13 @@
 /area/f13/city)
 "nrL" = (
 /obj/effect/overlay/fog/fog4{
-	color = ""#4b6849""
+	color = "#4b6849"
 	},
 /obj/effect/overlay/fog/fog4{
-	color = ""#4b6849""
+	color = "#4b6849"
 	},
 /obj/effect/overlay/fog/fog4{
-	color = ""#4b6849""
+	color = "#4b6849"
 	},
 /turf/open/floor/plating/f13,
 /area/f13/citycaves)
@@ -28808,7 +28808,7 @@
 /obj/structure/simple_door/metal/ventilation,
 /obj/machinery/door/poddoor/shutters/radiation,
 /obj/effect/overlay/fog/fog4{
-	color = ""#4b6849""
+	color = "#4b6849"
 	},
 /turf/open/floor/plating/rust,
 /area/f13/citycaves)
@@ -30969,10 +30969,10 @@
 /area/f13/building)
 "trz" = (
 /obj/effect/overlay/fog/fog4{
-	color = ""#4b6849""
+	color = "#4b6849"
 	},
 /obj/effect/overlay/fog/fog4{
-	color = ""#4b6849""
+	color = "#4b6849"
 	},
 /turf/open/floor/plating/rust,
 /area/f13/citycaves)
@@ -33872,7 +33872,7 @@
 	dir = 1
 	},
 /obj/effect/overlay/fog/fog4{
-	color = ""#4b6849""
+	color = "#4b6849"
 	},
 /turf/open/floor/plating/f13,
 /area/f13/citycaves)
@@ -35848,10 +35848,10 @@
 	})
 "wtQ" = (
 /obj/effect/overlay/fog/fog4{
-	color = ""#4b6849""
+	color = "#4b6849"
 	},
 /obj/effect/overlay/fog/fog4{
-	color = ""#4b6849""
+	color = "#4b6849"
 	},
 /turf/open/floor/plating/f13,
 /area/f13/citycaves)
