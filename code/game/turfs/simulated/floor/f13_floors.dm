@@ -43,6 +43,12 @@
 	icon = 'icons/turf/f13road.dmi'
 	icon_state = "outermiddle"
 
+/turf/open/floor/plating/f13/outside/road
+	name = "groud"
+	desc = "The groud."
+	icon = 'icons/turf/road_and_dirt.dmi'
+	icon_state = "dirt_1"
+
 /turf/open/floor/plating/f13/outside/road/harsh
 	icon = 'icons/fallout/turfs/f13roadharsh.dmi'
 	icon_state = "outerpavement"
