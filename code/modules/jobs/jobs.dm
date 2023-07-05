@@ -48,9 +48,10 @@ GLOBAL_LIST_INIT(nonhuman_positions, list(
 	))
 
 GLOBAL_LIST_INIT(command_positions, list(
-	"Head Paladin",
-	"Head Knight",
-	"Head Scribe", //Wasn't here before. Still technically command, I put it here - Kitsunemitsu
+	"Elder",
+	"Paladin Commander",
+	"Knight-Captain",
+	"Proctor", //Wasn't here before. Still technically command, I put it here - Kitsunemitsu
 
 	"NCR Captain",
 	"NCR Veteran Ranger",
@@ -140,12 +141,13 @@ GLOBAL_LIST_INIT(faction_whitelist_positions, list(
 ))
 //Brotherhood
 GLOBAL_LIST_INIT(brotherhood_positions, list(
-	"Head Paladin",
-	"Head Knight",
-	"Head Scribe",
-	"Senior Paladin",
+	"Elder",
+	"Paladin Commander",
+	"Knight-Captain",
+	"Proctor",
+	"Star Paladin",
 	"Paladin",
-	"Senior Knight",
+	"Knight-Sergeant",
 	"Knight",
 	"Senior Scribe",
 	"Scribe",
