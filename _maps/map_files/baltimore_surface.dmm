@@ -1778,6 +1778,12 @@
 	open_space = 0;
 	name = "Ruins interior"
 	})
+"aCU" = (
+/obj/effect/spawner/lootdrop/f13/medical/random_fev,
+/turf/open/floor/plating/f13/outside/road{
+	icon_state = "road_center"
+	},
+/area/f13/city)
 "aDb" = (
 /obj/structure/stone_tile/block,
 /turf/open/floor/plating/f13/outside/road{
@@ -11256,6 +11262,16 @@
 /obj/effect/decal/cleanable/greenglow,
 /turf/open/indestructible/ground/outside/dirt,
 /area/awaymission/research/interior)
+"dWN" = (
+/obj/structure/wreck/trash/four_barrels,
+/obj/structure/wreck/trash/three_barrels{
+	pixel_y = 18
+	},
+/obj/structure/wreck/trash/one_barrel{
+	pixel_y = 31
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/outpost)
 "dWP" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -16652,6 +16668,13 @@
 /area/space{
 	name = "Ocean"
 	})
+"fVS" = (
+/obj/structure/reagent_dispensers/barrel/four,
+/obj/structure/wreck/trash/two_barrels{
+	pixel_y = 14
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/outpost)
 "fWo" = (
 /obj/structure/window/paperframe{
 	color = "#FFFFFF";
@@ -24874,6 +24897,10 @@
 	open_space = 0;
 	name = "Ruins interior"
 	})
+"iJy" = (
+/obj/structure/table/rolling,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/outpost)
 "iJz" = (
 /obj/structure/chair/booth,
 /turf/open/floor/carpet/royalblack,
@@ -26894,6 +26921,24 @@
 	open_space = 0;
 	name = "Ruins interior"
 	})
+"jrI" = (
+/obj/structure/flora/roadplant{
+	icon_state = "grass_7d"
+	},
+/obj/structure/wreck/trash/four_barrels,
+/obj/structure/wreck/trash/three_barrels{
+	pixel_y = 15
+	},
+/obj/structure/wreck/trash/two_barrels{
+	pixel_y = 29
+	},
+/obj/structure/wreck/trash/one_barrel{
+	pixel_y = 45
+	},
+/turf/open/floor/plating/f13/outside/road{
+	icon_state = "dirt_original"
+	},
+/area/f13/wasteland/bighorn)
 "jrJ" = (
 /obj/structure/stairs/east{
 	color = "#A47449";
@@ -29741,6 +29786,12 @@
 	open_space = 0;
 	name = "Ruins interior"
 	})
+"kot" = (
+/obj/structure/closet/crate/large{
+	layer = 2.5
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/outpost)
 "kou" = (
 /obj/structure/car/rubbish2,
 /turf/open/indestructible/ground/outside/sidewalkdirt{
@@ -30169,6 +30220,10 @@
 	open_space = 0;
 	name = "Ruins interior"
 	})
+"kvU" = (
+/obj/structure/closet/crate/large,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/outpost)
 "kwb" = (
 /obj/structure/stairs/south{
 	can_be_z_moved = 0;
@@ -32065,6 +32120,10 @@
 	},
 /turf/closed/wall/f13/sunset/brick_small_dark,
 /area/f13/building)
+"ldm" = (
+/obj/effect/spawner/lootdrop/f13/medical/random_fev,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/wasteland/bighorn)
 "ldF" = (
 /obj/effect/turf_decal/stripes{
 	dir = 8
@@ -44703,7 +44762,7 @@
 /mob/living/simple_animal/pet/dog/eyebot{
 	desc = "All hail the Hero of this Fort. When the Enclave arrived here, this place was Empty. No Raider, No Molerat, not even a Fly. Why ? Because of this lil Guy. He got the order to defend this place, and He goddam defended him, until you guys arrived.";
 	name = "E-Lee";
-	speak = list(" [Beeps Beeps] Its a HONOR to serve the Enclave Again","[Makes some Familiar Jingles]","[Beeep Boops] My Order was to Keep the Base Safe Until the True US army returns ! Godspeed!","[Boops Boops] We are Going to SAVE the United State");
+	speak = list(" Beeps Beeps, Its a HONOR to serve the Enclave Again","My Order was to Keep the Base Safe Until the True US army returns ! Godspeed!","We are Going to SAVE the United State");
 	speak_chance = 6
 	},
 /turf/open/indestructible/ground/outside/desert,
@@ -45522,6 +45581,10 @@
 "pyz" = (
 /obj/structure/playground/tireswing{
 	color = "443926"
+	},
+/obj/structure/wreck/trash/one_barrel{
+	pixel_y = -9;
+	pixel_x = -7
 	},
 /turf/open/floor/plating/f13/outside/road{
 	icon_state = "dirt_original"
@@ -54757,6 +54820,29 @@
 /obj/effect/decal/cleanable/greenglow,
 /turf/open/floor/plating,
 /area/awaymission/research/interior)
+"sBc" = (
+/obj/structure/reagent_dispensers/barrel/dangerous{
+	pixel_y = 10;
+	pixel_x = 15;
+	layer = 2.6
+	},
+/obj/structure/reagent_dispensers/barrel/dangerous{
+	pixel_y = 10;
+	pixel_x = 29;
+	layer = 2.6
+	},
+/obj/structure/reagent_dispensers/barrel/dangerous{
+	pixel_y = 25;
+	pixel_x = 22;
+	layer = 6
+	},
+/obj/structure/wreck/trash/three_barrels,
+/obj/structure/wreck/trash/one_barrel{
+	pixel_x = -3;
+	pixel_y = 15
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/outpost)
 "sBi" = (
 /obj/structure/barricade/wooden/strong,
 /obj/machinery/atmospherics/pipe/simple/brown/visible{
@@ -55242,6 +55328,10 @@
 /area/f13/building/hospital{
 	name = "Atlantic Cross Hospital Ship"
 	})
+"sIv" = (
+/obj/structure/reagent_dispensers/barrel/four,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/outpost)
 "sIM" = (
 /obj/structure/simple_door/bunker/glass,
 /obj/machinery/door/poddoor/shutters/old{
@@ -60890,6 +60980,10 @@
 	dir = 8
 	},
 /area/f13/city)
+"uJd" = (
+/obj/effect/spawner/lootdrop/f13/medical/random_fev,
+/turf/open/floor/plating/rust,
+/area/f13/wasteland/bighorn)
 "uJh" = (
 /obj/structure/barricade/wooden,
 /obj/structure/obstacle/barbedwire{
@@ -61824,6 +61918,27 @@
 /obj/effect/turf_decal/huge,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
 /area/f13/building)
+"vbh" = (
+/obj/structure/closet/crate/large{
+	pixel_y = 15;
+	pixel_x = -16;
+	layer = 5
+	},
+/obj/structure/closet/crate/large{
+	pixel_y = 15;
+	pixel_x = -16;
+	layer = 5
+	},
+/obj/structure/closet/crate/large{
+	pixel_y = 15;
+	pixel_x = -16;
+	layer = 5
+	},
+/obj/structure/closet/crate/large{
+	layer = 2.5
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/outpost)
 "vbn" = (
 /obj/structure/stairs/east{
 	color = "#A47449";
@@ -62722,6 +62837,23 @@
 	open_space = 0;
 	name = "Ruins interior"
 	})
+"vpz" = (
+/obj/structure/reagent_dispensers/barrel/dangerous{
+	pixel_x = 8;
+	pixel_y = 11;
+	layer = 5
+	},
+/obj/structure/reagent_dispensers/barrel/explosive{
+	layer = 6;
+	pixel_y = 28;
+	pixel_x = 1
+	},
+/obj/structure/wreck/trash/one_barrel{
+	pixel_y = 9;
+	pixel_x = -5
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/outpost)
 "vpB" = (
 /obj/structure/fluff/railing{
 	dir = 4;
@@ -63648,6 +63780,33 @@
 	open_space = 0;
 	name = "Ruins interior"
 	})
+"vEO" = (
+/obj/item/reagent_containers/glass/bucket{
+	pixel_y = 16;
+	pixel_x = -9
+	},
+/obj/item/reagent_containers/glass/bucket{
+	pixel_y = 16;
+	pixel_x = 3
+	},
+/obj/item/reagent_containers/glass/bucket{
+	pixel_y = 16;
+	pixel_x = 15
+	},
+/obj/item/reagent_containers/glass/bucket{
+	pixel_y = 25;
+	pixel_x = 9
+	},
+/obj/item/reagent_containers/glass/bucket{
+	pixel_y = 26;
+	pixel_x = -4
+	},
+/obj/item/reagent_containers/glass/bucket{
+	pixel_y = 35;
+	pixel_x = 3
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/wasteland/bighorn)
 "vEP" = (
 /turf/open/floor/plasteel/white/side{
 	dir = 1
@@ -75226,8 +75385,8 @@ qxI
 tHx
 tHx
 tHx
-qxI
-qxI
+kII
+kII
 tHx
 tHx
 tHx
@@ -75481,12 +75640,12 @@ qxI
 qxI
 qxI
 tHx
+sIv
+vpz
 qxI
 qxI
-qxI
-qxI
-qxI
-qxI
+kot
+sBc
 tHx
 qxI
 qxI
@@ -75742,8 +75901,8 @@ sHJ
 qxI
 qxI
 qxI
-qxI
-qxI
+vbh
+kvU
 tHx
 qxI
 qxI
@@ -76252,7 +76411,7 @@ qxI
 qxI
 qxI
 tHx
-qxI
+iJy
 qxI
 sHJ
 qxI
@@ -76509,12 +76668,12 @@ qxI
 qxI
 qxI
 tHx
+dWN
 qxI
 qxI
 qxI
 qxI
-qxI
-qxI
+fVS
 tHx
 qxI
 qxI
@@ -91869,7 +92028,7 @@ peA
 peA
 peA
 peA
-bdS
+uJd
 qAk
 bdS
 bdS
@@ -93930,7 +94089,7 @@ gmZ
 ozB
 jgX
 obO
-bdS
+uJd
 pdY
 aFU
 icV
@@ -94696,7 +94855,7 @@ asC
 oIG
 hgm
 mBR
-rFd
+vEO
 oim
 jgX
 jgX
@@ -94952,8 +95111,8 @@ dly
 mBR
 mBR
 mBR
-pGc
-rFd
+jrI
+ldm
 rwX
 cBG
 dBU
@@ -101138,7 +101297,7 @@ uzv
 oEs
 oEs
 acr
-oEs
+aCU
 oEs
 sSl
 kGw
