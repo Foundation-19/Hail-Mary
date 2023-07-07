@@ -1,5 +1,13 @@
 /mob/living/carbon
 	blood_volume = BLOOD_VOLUME_NORMAL
+	var/special_s = 5
+	var/special_p = 5
+	var/special_e = 5
+	var/special_c = 5
+	var/special_i = 5
+	var/special_a = 5
+	var/special_l = 5
+
 
 /mob/living/carbon/Initialize()
 	. = ..()
@@ -369,7 +377,7 @@
 	var/list/all_genitals = dna?.decode_cockstring() // yum
 	var/list/genitals_we_have = list()
 	var/list/dat = list()
-	dat += {"<a 
+	dat += {"<a
 				class='clicky'
 				href='
 					?src=[REF(src)];
@@ -448,7 +456,7 @@
 		doot += "<td class='genital_arrow_off'>&darr;</td>" // im gonna do a magic trick
 	else // make an up arrow
 		doot += {"<td class='genital_arrow_on'>
-				<a 
+				<a
 					class='clicky_no_border'
 					href='
 						?src=[REF(src)];
@@ -462,8 +470,8 @@
 		doot += "<td class='genital_arrow_off'>&darr;</td>" // imma make these disappear!
 	else // make a down arrow
 		doot += {"<td class='genital_arrow_on'>
-				<a 
-					class='clicky_no_border' 
+				<a
+					class='clicky_no_border'
 					href='
 						?src=[REF(src)];
 						action=change_genital_order;
@@ -474,8 +482,8 @@
 				</td>"}
 	// and throw in the coverage buttons
 	doot += {"<td class='[CHECK_BITFIELD(the_nad.genital_visflags, GENITAL_RESPECT_CLOTHING)? "coverage_on" : "coverage_off"]'>
-		<a 
-			class='clicky_no_border' 
+		<a
+			class='clicky_no_border'
 			href='
 				?src=[REF(src)];
 				action=change_genital_clothing_respect;
@@ -484,8 +492,8 @@
 		</a>
 		</td>"}
 	doot += {"<td class='[CHECK_BITFIELD(the_nad.genital_visflags, GENITAL_RESPECT_UNDERWEAR)? "coverage_on" : "coverage_off"]'>
-		<a 
-			class='clicky_no_border' 
+		<a
+			class='clicky_no_border'
 			href='
 				?src=[REF(src)];
 				action=change_genital_underwear_respect;
@@ -502,8 +510,8 @@
 	else
 		peen_vis_override = "Check Coverage"
 	doot += {"<td class='[CHECK_BITFIELD(the_nad.genital_visflags, GENITAL_ALWAYS_HIDDEN|GENITAL_ALWAYS_VISIBLE)? "coverage_on" : "coverage_off"]'>
-		<a 
-			class='clicky_no_border' 
+		<a
+			class='clicky_no_border'
 			href='
 				?src=[REF(src)];
 				action=change_genital_override;
