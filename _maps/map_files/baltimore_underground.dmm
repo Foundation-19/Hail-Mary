@@ -3130,9 +3130,6 @@
 	name = "Ruins interior"
 	})
 "iYf" = (
-/obj/structure/guncase/shotgun{
-	active_timers = sssssssssssssssssssssssssss
-	},
 /obj/item/gun/energy/laser/aer9,
 /obj/item/gun/energy/laser/aer9,
 /obj/item/gun/energy/laser/pistol{
