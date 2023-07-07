@@ -1778,12 +1778,6 @@
 	open_space = 0;
 	name = "Ruins interior"
 	})
-"aCU" = (
-/obj/effect/spawner/lootdrop/f13/medical/random_fev,
-/turf/open/floor/plating/f13/outside/road{
-	icon_state = "road_center"
-	},
-/area/f13/city)
 "aDb" = (
 /obj/structure/stone_tile/block,
 /turf/open/floor/plating/f13/outside/road{
@@ -2171,6 +2165,23 @@
 /obj/effect/spawner/lootdrop/cig_packs,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/hub)
+"aJi" = (
+/obj/structure/reagent_dispensers/barrel/dangerous{
+	pixel_x = 8;
+	pixel_y = 11;
+	layer = 5
+	},
+/obj/structure/reagent_dispensers/barrel/explosive{
+	layer = 6;
+	pixel_y = 28;
+	pixel_x = 1
+	},
+/obj/structure/wreck/trash/one_barrel{
+	pixel_y = 9;
+	pixel_x = -5
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/outpost)
 "aJv" = (
 /obj/effect/turf_decal/stripes{
 	dir = 1
@@ -5901,6 +5912,12 @@
 /area/f13/vault/security{
 	name = "Atlantic Cross Marines ship"
 	})
+"ccL" = (
+/obj/effect/turf_decal/road_end{
+	dir = 1
+	},
+/turf/open/water,
+/area/f13/city)
 "ccR" = (
 /obj/structure/fluff/railing{
 	dir = 4;
@@ -6307,6 +6324,16 @@
 /obj/structure/destructible/tribal_torch/lit,
 /turf/open/indestructible/ground/outside/gravel,
 /area/f13/wasteland/bighorn)
+"cks" = (
+/obj/effect/turf_decal/road_end{
+	icon_state = "road_end_decal";
+	dir = 4;
+	pixel_y = -17
+	},
+/turf/open/water,
+/area/space{
+	name = "Ocean"
+	})
 "cky" = (
 /obj/structure/closet/crate/large,
 /obj/effect/spawner/lootdrop/f13/schoolgirl,
@@ -8633,6 +8660,10 @@
 	open_space = 0;
 	name = "Ruins interior"
 	})
+"dac" = (
+/obj/effect/spawner/lootdrop/f13/medical/random_fev,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/wasteland/bighorn)
 "dao" = (
 /obj/structure/sink/greyscale{
 	pixel_y = 20;
@@ -11165,6 +11196,13 @@
 	open_space = 0;
 	name = "Ruins interior"
 	})
+"dVu" = (
+/obj/structure/reagent_dispensers/barrel/four,
+/obj/structure/wreck/trash/two_barrels{
+	pixel_y = 14
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/outpost)
 "dVw" = (
 /obj/structure/fluff/rails,
 /turf/open/indestructible/ground/outside/sidewalkdirt{
@@ -11262,16 +11300,6 @@
 /obj/effect/decal/cleanable/greenglow,
 /turf/open/indestructible/ground/outside/dirt,
 /area/awaymission/research/interior)
-"dWN" = (
-/obj/structure/wreck/trash/four_barrels,
-/obj/structure/wreck/trash/three_barrels{
-	pixel_y = 18
-	},
-/obj/structure/wreck/trash/one_barrel{
-	pixel_y = 31
-	},
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/outpost)
 "dWP" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -12368,6 +12396,14 @@
 	open_space = 0;
 	name = "Ruins interior"
 	})
+"epn" = (
+/obj/structure/lattice,
+/obj/effect/turf_decal/road_end{
+	icon_state = "road_end_decal";
+	dir = 1
+	},
+/turf/open/water,
+/area/f13/city)
 "epF" = (
 /turf/open/floor/wood_wide{
 	icon_state = "wide_light1"
@@ -14401,6 +14437,17 @@
 /obj/structure/simple_door/interior,
 /turf/open/floor/wood_fancy/wood_fancy_dark,
 /area/f13/building)
+"ffU" = (
+/obj/effect/turf_decal/road_end{
+	icon_state = "road_end_decal";
+	dir = 8;
+	pixel_y = -18;
+	pixel_x = 5
+	},
+/turf/open/water,
+/area/space{
+	name = "Ocean"
+	})
 "ffW" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -15298,6 +15345,15 @@
 	open_space = 0;
 	name = "Ruins interior"
 	})
+"fwh" = (
+/obj/effect/turf_decal/road_end{
+	dir = 1
+	},
+/obj/effect/turf_decal/road_end{
+	dir = 4
+	},
+/turf/open/water,
+/area/f13/city)
 "fwm" = (
 /obj/structure/chair/office/light{
 	dir = 4
@@ -15592,6 +15648,12 @@
 	dir = 8
 	},
 /turf/open/indestructible/ground/outside/gravel,
+/area/f13/city)
+"fCH" = (
+/obj/effect/spawner/lootdrop/f13/medical/random_fev,
+/turf/open/floor/plating/f13/outside/road{
+	icon_state = "road_center"
+	},
 /area/f13/city)
 "fCT" = (
 /obj/structure/closet/crate/footlocker,
@@ -16384,6 +16446,27 @@
 /obj/machinery/recycler,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/hub)
+"fPV" = (
+/obj/structure/closet/crate/large{
+	pixel_y = 15;
+	pixel_x = -16;
+	layer = 5
+	},
+/obj/structure/closet/crate/large{
+	pixel_y = 15;
+	pixel_x = -16;
+	layer = 5
+	},
+/obj/structure/closet/crate/large{
+	pixel_y = 15;
+	pixel_x = -16;
+	layer = 5
+	},
+/obj/structure/closet/crate/large{
+	layer = 2.5
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/outpost)
 "fQa" = (
 /obj/structure/barricade/wooden,
 /obj/structure/obstacle/barbedwire/end{
@@ -16668,13 +16751,6 @@
 /area/space{
 	name = "Ocean"
 	})
-"fVS" = (
-/obj/structure/reagent_dispensers/barrel/four,
-/obj/structure/wreck/trash/two_barrels{
-	pixel_y = 14
-	},
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/outpost)
 "fWo" = (
 /obj/structure/window/paperframe{
 	color = "#FFFFFF";
@@ -17832,6 +17908,16 @@
 	icon_state = "housewood2-broken"
 	},
 /area/f13/city)
+"gqg" = (
+/obj/structure/wreck/trash/four_barrels,
+/obj/structure/wreck/trash/three_barrels{
+	pixel_y = 18
+	},
+/obj/structure/wreck/trash/one_barrel{
+	pixel_y = 31
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/outpost)
 "gqu" = (
 /obj/structure/junk/small,
 /turf/open/floor/wood_fancy,
@@ -19635,6 +19721,17 @@
 	open_space = 0;
 	name = "Ruins interior"
 	})
+"gWL" = (
+/obj/effect/turf_decal/road_end{
+	icon_state = "road_end_decal_2";
+	dir = 4;
+	pixel_x = -8;
+	pixel_y = -16
+	},
+/turf/open/floor/plating/f13/outside/road{
+	icon_state = "road_south_1"
+	},
+/area/f13/city)
 "gWX" = (
 /obj/structure/simple_door/house,
 /obj/effect/decal/cleanable/dirt,
@@ -20715,6 +20812,10 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
 /area/f13/building)
+"hni" = (
+/obj/effect/spawner/lootdrop/f13/medical/random_fev,
+/turf/open/floor/plating/rust,
+/area/f13/wasteland/bighorn)
 "hnr" = (
 /obj/effect/turf_decal/road_end{
 	icon_state = "road_end_decal"
@@ -21072,6 +21173,10 @@
 	open_space = 0;
 	name = "Ruins interior"
 	})
+"htT" = (
+/obj/structure/closet/crate/large,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/outpost)
 "htY" = (
 /obj/structure/table/wood,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -23407,6 +23512,17 @@
 /obj/effect/turf_decal/delivery/red,
 /turf/open/floor/plating/rust,
 /area/f13/city)
+"ilq" = (
+/obj/effect/turf_decal/road_end{
+	icon_state = "road_end_decal_2";
+	dir = 4;
+	pixel_x = -8;
+	pixel_y = -16
+	},
+/turf/open/floor/plating/f13/outside/road{
+	icon_state = "dirt_7"
+	},
+/area/f13/city)
 "ils" = (
 /obj/structure/table,
 /obj/machinery/computer/libraryconsole/bookmanagement,
@@ -24897,10 +25013,6 @@
 	open_space = 0;
 	name = "Ruins interior"
 	})
-"iJy" = (
-/obj/structure/table/rolling,
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/outpost)
 "iJz" = (
 /obj/structure/chair/booth,
 /turf/open/floor/carpet/royalblack,
@@ -26702,6 +26814,10 @@
 	open_space = 0;
 	name = "Ruins interior"
 	})
+"jog" = (
+/obj/structure/reagent_dispensers/barrel/four,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/outpost)
 "joi" = (
 /obj/structure/railing/corner{
 	color = "#A47449";
@@ -26921,24 +27037,6 @@
 	open_space = 0;
 	name = "Ruins interior"
 	})
-"jrI" = (
-/obj/structure/flora/roadplant{
-	icon_state = "grass_7d"
-	},
-/obj/structure/wreck/trash/four_barrels,
-/obj/structure/wreck/trash/three_barrels{
-	pixel_y = 15
-	},
-/obj/structure/wreck/trash/two_barrels{
-	pixel_y = 29
-	},
-/obj/structure/wreck/trash/one_barrel{
-	pixel_y = 45
-	},
-/turf/open/floor/plating/f13/outside/road{
-	icon_state = "dirt_original"
-	},
-/area/f13/wasteland/bighorn)
 "jrJ" = (
 /obj/structure/stairs/east{
 	color = "#A47449";
@@ -27922,6 +28020,17 @@
 	open_space = 0;
 	name = "Ruins interior"
 	})
+"jIf" = (
+/obj/effect/turf_decal/road_end{
+	icon_state = "road_end_decal_2";
+	dir = 8;
+	pixel_x = -27;
+	pixel_y = 18
+	},
+/turf/open/floor/plating/f13/outside/road{
+	icon_state = "road_center"
+	},
+/area/f13/city)
 "jIl" = (
 /obj/structure/car/rubbish3,
 /turf/open/floor/plating/f13/outside/road{
@@ -29786,12 +29895,6 @@
 	open_space = 0;
 	name = "Ruins interior"
 	})
-"kot" = (
-/obj/structure/closet/crate/large{
-	layer = 2.5
-	},
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/outpost)
 "kou" = (
 /obj/structure/car/rubbish2,
 /turf/open/indestructible/ground/outside/sidewalkdirt{
@@ -30220,10 +30323,6 @@
 	open_space = 0;
 	name = "Ruins interior"
 	})
-"kvU" = (
-/obj/structure/closet/crate/large,
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/outpost)
 "kwb" = (
 /obj/structure/stairs/south{
 	can_be_z_moved = 0;
@@ -30425,6 +30524,10 @@
 	open_space = 0;
 	name = "Ruins interior"
 	})
+"kAA" = (
+/obj/structure/table/rolling,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/outpost)
 "kAF" = (
 /obj/structure/barricade/sandbags,
 /obj/structure/table/wood,
@@ -32120,10 +32223,6 @@
 	},
 /turf/closed/wall/f13/sunset/brick_small_dark,
 /area/f13/building)
-"ldm" = (
-/obj/effect/spawner/lootdrop/f13/medical/random_fev,
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/wasteland/bighorn)
 "ldF" = (
 /obj/effect/turf_decal/stripes{
 	dir = 8
@@ -34532,6 +34631,24 @@
 	open_space = 0;
 	name = "Ruins interior"
 	})
+"lQU" = (
+/obj/structure/flora/roadplant{
+	icon_state = "grass_7d"
+	},
+/obj/structure/wreck/trash/four_barrels,
+/obj/structure/wreck/trash/three_barrels{
+	pixel_y = 15
+	},
+/obj/structure/wreck/trash/two_barrels{
+	pixel_y = 29
+	},
+/obj/structure/wreck/trash/one_barrel{
+	pixel_y = 45
+	},
+/turf/open/floor/plating/f13/outside/road{
+	icon_state = "dirt_original"
+	},
+/area/f13/wasteland/bighorn)
 "lRd" = (
 /obj/structure/flora/roadplant{
 	icon_state = "rock_decals"
@@ -36414,6 +36531,15 @@
 "myo" = (
 /turf/closed/wall/mineral/concrete,
 /area/f13/city)
+"myB" = (
+/obj/effect/turf_decal/road_end{
+	icon_state = "road_end_decal";
+	dir = 1
+	},
+/turf/open/water,
+/area/space{
+	name = "Ocean"
+	})
 "myG" = (
 /obj/structure/table,
 /turf/open/floor/plating/f13/outside/road{
@@ -37380,6 +37506,14 @@
 	open_space = 0;
 	name = "Ruins interior"
 	})
+"mMd" = (
+/obj/effect/turf_decal/road_end{
+	dir = 1
+	},
+/turf/open/water,
+/area/space{
+	name = "Ocean"
+	})
 "mMg" = (
 /obj/structure/window/fulltile/ruins{
 	icon_state = "ruinswindowvertical"
@@ -37495,6 +37629,14 @@
 	icon_state = "bluerustysolid"
 	},
 /area/f13/city/museum)
+"mNk" = (
+/obj/effect/turf_decal/road_end{
+	icon_state = "road_end_decal"
+	},
+/turf/open/water,
+/area/space{
+	name = "Ocean"
+	})
 "mNs" = (
 /obj/structure/table/wood/junk,
 /obj/structure/fluff/railing{
@@ -39826,6 +39968,15 @@
 	icon_state = "grass_7"
 	},
 /area/f13/city)
+"nGp" = (
+/obj/effect/turf_decal/road_end{
+	icon_state = "road_end_decal_2";
+	dir = 8
+	},
+/turf/open/water,
+/area/space{
+	name = "Ocean"
+	})
 "nGs" = (
 /obj/machinery/vending/games,
 /obj/effect/decal/cleanable/dirt,
@@ -44628,6 +44779,15 @@
 "pim" = (
 /obj/structure/lattice,
 /obj/structure/lattice,
+/obj/effect/turf_decal/road_end{
+	icon_state = "road_end_decal_2"
+	},
+/obj/effect/turf_decal/road_end{
+	icon_state = "road_end_decal_2";
+	dir = 8;
+	pixel_x = -27;
+	pixel_y = 18
+	},
 /turf/open/water,
 /area/f13/city)
 "pit" = (
@@ -45240,6 +45400,18 @@
 /area/f13/building/hospital{
 	name = "Atlantic Cross Hospital Ship"
 	})
+"ptT" = (
+/obj/structure/lattice,
+/obj/effect/turf_decal/road_end{
+	dir = 2;
+	pixel_y = 11;
+	pixel_x = -18
+	},
+/obj/effect/turf_decal/road_end{
+	icon_state = "road_end_decal_2"
+	},
+/turf/open/water,
+/area/f13/city)
 "ptX" = (
 /obj/structure/closet/crate/freezer/blood,
 /turf/open/floor/f13/wood{
@@ -46545,6 +46717,29 @@
 /obj/effect/spawner/lootdrop/f13/gasmask_goner,
 /turf/open/floor/plating/rust,
 /area/f13/citycaves)
+"pRE" = (
+/obj/structure/reagent_dispensers/barrel/dangerous{
+	pixel_y = 10;
+	pixel_x = 15;
+	layer = 2.6
+	},
+/obj/structure/reagent_dispensers/barrel/dangerous{
+	pixel_y = 10;
+	pixel_x = 29;
+	layer = 2.6
+	},
+/obj/structure/reagent_dispensers/barrel/dangerous{
+	pixel_y = 25;
+	pixel_x = 22;
+	layer = 6
+	},
+/obj/structure/wreck/trash/three_barrels,
+/obj/structure/wreck/trash/one_barrel{
+	pixel_x = -3;
+	pixel_y = 15
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/outpost)
 "pRQ" = (
 /obj/structure/table/wood/poker,
 /turf/open/floor/carpet/green,
@@ -54820,29 +55015,6 @@
 /obj/effect/decal/cleanable/greenglow,
 /turf/open/floor/plating,
 /area/awaymission/research/interior)
-"sBc" = (
-/obj/structure/reagent_dispensers/barrel/dangerous{
-	pixel_y = 10;
-	pixel_x = 15;
-	layer = 2.6
-	},
-/obj/structure/reagent_dispensers/barrel/dangerous{
-	pixel_y = 10;
-	pixel_x = 29;
-	layer = 2.6
-	},
-/obj/structure/reagent_dispensers/barrel/dangerous{
-	pixel_y = 25;
-	pixel_x = 22;
-	layer = 6
-	},
-/obj/structure/wreck/trash/three_barrels,
-/obj/structure/wreck/trash/one_barrel{
-	pixel_x = -3;
-	pixel_y = 15
-	},
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/outpost)
 "sBi" = (
 /obj/structure/barricade/wooden/strong,
 /obj/machinery/atmospherics/pipe/simple/brown/visible{
@@ -55328,10 +55500,6 @@
 /area/f13/building/hospital{
 	name = "Atlantic Cross Hospital Ship"
 	})
-"sIv" = (
-/obj/structure/reagent_dispensers/barrel/four,
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/outpost)
 "sIM" = (
 /obj/structure/simple_door/bunker/glass,
 /obj/machinery/door/poddoor/shutters/old{
@@ -56207,6 +56375,33 @@
 	},
 /turf/open/water,
 /area/f13/city)
+"tak" = (
+/obj/item/reagent_containers/glass/bucket{
+	pixel_y = 16;
+	pixel_x = -9
+	},
+/obj/item/reagent_containers/glass/bucket{
+	pixel_y = 16;
+	pixel_x = 3
+	},
+/obj/item/reagent_containers/glass/bucket{
+	pixel_y = 16;
+	pixel_x = 15
+	},
+/obj/item/reagent_containers/glass/bucket{
+	pixel_y = 25;
+	pixel_x = 9
+	},
+/obj/item/reagent_containers/glass/bucket{
+	pixel_y = 26;
+	pixel_x = -4
+	},
+/obj/item/reagent_containers/glass/bucket{
+	pixel_y = 35;
+	pixel_x = 3
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/wasteland/bighorn)
 "tan" = (
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
@@ -57076,6 +57271,15 @@
 	pixel_x = -20
 	},
 /turf/open/indestructible/ground/outside/dirt,
+/area/f13/city)
+"tpL" = (
+/obj/effect/turf_decal/road_end{
+	dir = 1
+	},
+/obj/effect/turf_decal/road_end{
+	dir = 8
+	},
+/turf/open/water,
 /area/f13/city)
 "tpV" = (
 /turf/open/floor/plating/f13/outside/road{
@@ -59030,6 +59234,12 @@
 /obj/item/book/granter/crafting_recipe/gunsmith_two,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/vault/security/armory)
+"ubd" = (
+/obj/structure/closet/crate/large{
+	layer = 2.5
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/outpost)
 "ubj" = (
 /obj/structure/table/greyscale,
 /turf/open/floor/plating,
@@ -60980,10 +61190,6 @@
 	dir = 8
 	},
 /area/f13/city)
-"uJd" = (
-/obj/effect/spawner/lootdrop/f13/medical/random_fev,
-/turf/open/floor/plating/rust,
-/area/f13/wasteland/bighorn)
 "uJh" = (
 /obj/structure/barricade/wooden,
 /obj/structure/obstacle/barbedwire{
@@ -61918,27 +62124,6 @@
 /obj/effect/turf_decal/huge,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
 /area/f13/building)
-"vbh" = (
-/obj/structure/closet/crate/large{
-	pixel_y = 15;
-	pixel_x = -16;
-	layer = 5
-	},
-/obj/structure/closet/crate/large{
-	pixel_y = 15;
-	pixel_x = -16;
-	layer = 5
-	},
-/obj/structure/closet/crate/large{
-	pixel_y = 15;
-	pixel_x = -16;
-	layer = 5
-	},
-/obj/structure/closet/crate/large{
-	layer = 2.5
-	},
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/outpost)
 "vbn" = (
 /obj/structure/stairs/east{
 	color = "#A47449";
@@ -62837,23 +63022,6 @@
 	open_space = 0;
 	name = "Ruins interior"
 	})
-"vpz" = (
-/obj/structure/reagent_dispensers/barrel/dangerous{
-	pixel_x = 8;
-	pixel_y = 11;
-	layer = 5
-	},
-/obj/structure/reagent_dispensers/barrel/explosive{
-	layer = 6;
-	pixel_y = 28;
-	pixel_x = 1
-	},
-/obj/structure/wreck/trash/one_barrel{
-	pixel_y = 9;
-	pixel_x = -5
-	},
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/outpost)
 "vpB" = (
 /obj/structure/fluff/railing{
 	dir = 4;
@@ -62910,7 +63078,7 @@
 	dir = 8
 	},
 /turf/open/floor/plating/f13/outside/road{
-	icon_state = "dirt_original"
+	icon_state = "grass_5"
 	},
 /area/f13/city)
 "vqu" = (
@@ -63780,33 +63948,6 @@
 	open_space = 0;
 	name = "Ruins interior"
 	})
-"vEO" = (
-/obj/item/reagent_containers/glass/bucket{
-	pixel_y = 16;
-	pixel_x = -9
-	},
-/obj/item/reagent_containers/glass/bucket{
-	pixel_y = 16;
-	pixel_x = 3
-	},
-/obj/item/reagent_containers/glass/bucket{
-	pixel_y = 16;
-	pixel_x = 15
-	},
-/obj/item/reagent_containers/glass/bucket{
-	pixel_y = 25;
-	pixel_x = 9
-	},
-/obj/item/reagent_containers/glass/bucket{
-	pixel_y = 26;
-	pixel_x = -4
-	},
-/obj/item/reagent_containers/glass/bucket{
-	pixel_y = 35;
-	pixel_x = 3
-	},
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/wasteland/bighorn)
 "vEP" = (
 /turf/open/floor/plasteel/white/side{
 	dir = 1
@@ -68692,6 +68833,15 @@
 	open_space = 0;
 	name = "Ruins interior"
 	})
+"xlb" = (
+/obj/effect/turf_decal/road_end{
+	icon_state = "road_end_decal_2";
+	dir = 4
+	},
+/turf/open/floor/plating/f13/outside/road{
+	icon_state = "road_north"
+	},
+/area/f13/city)
 "xlj" = (
 /obj/structure/table,
 /obj/machinery/computer/terminal{
@@ -70659,6 +70809,18 @@
 	open_space = 0;
 	name = "Ruins interior"
 	})
+"xTv" = (
+/obj/effect/turf_decal/road_end{
+	icon_state = "road_end_decal"
+	},
+/obj/effect/turf_decal/road_end{
+	icon_state = "road_end_decal";
+	dir = 8;
+	pixel_x = 8;
+	pixel_y = -13
+	},
+/turf/open/water,
+/area/f13/city)
 "xTH" = (
 /turf/open/floor/plating/f13/outside/road{
 	icon_state = "grass_8"
@@ -75059,8 +75221,8 @@ lqQ
 lqQ
 lqQ
 lqQ
-lqQ
-lqQ
+ffU
+ffU
 lqQ
 lqQ
 lqQ
@@ -75313,12 +75475,12 @@ lqQ
 lqQ
 lqQ
 lqQ
+ffU
+nGp
 lqQ
-lqQ
-lqQ
-lqQ
+myB
 sQF
-lqQ
+mNk
 lqQ
 lqQ
 lqQ
@@ -75570,12 +75732,12 @@ lqQ
 lqQ
 lqQ
 lqQ
-kxr
+ccL
 oEs
 pim
-oFJ
+epn
 oEs
-kxr
+gDM
 lqQ
 lqQ
 lqQ
@@ -75640,12 +75802,12 @@ qxI
 qxI
 qxI
 tHx
-sIv
-vpz
+jog
+aJi
 qxI
 qxI
-kot
-sBc
+ubd
+pRE
 tHx
 qxI
 qxI
@@ -75826,13 +75988,13 @@ lqQ
 lqQ
 lqQ
 lqQ
-lqQ
-kxr
+ffU
+tpL
 oEs
-oFJ
+ptT
 oEs
-oEs
-kxr
+jIf
+gDM
 lqQ
 lqQ
 lqQ
@@ -75901,8 +76063,8 @@ sHJ
 qxI
 qxI
 qxI
-vbh
-kvU
+fPV
+htT
 tHx
 qxI
 qxI
@@ -76083,13 +76245,13 @@ lqQ
 lqQ
 lqQ
 lqQ
-lqQ
+mMd
 oEs
 oEs
 oEs
 oEs
 oEs
-kxr
+xTv
 lqQ
 lqQ
 lqQ
@@ -76340,14 +76502,14 @@ xrG
 dwO
 quw
 quw
-lqQ
-kxr
-oEs
-oFJ
+cks
+fwh
 oEs
 oEs
 oEs
-lqQ
+oEs
+oEs
+mNk
 lqQ
 lqQ
 lqQ
@@ -76411,7 +76573,7 @@ qxI
 qxI
 qxI
 tHx
-iJy
+kAA
 qxI
 sHJ
 qxI
@@ -76598,13 +76760,13 @@ dSJ
 dwO
 uot
 kGr
-icV
-tKG
+ilq
+xlb
 oEs
 acr
 oEs
 oEs
-kxr
+gDM
 kxr
 kxr
 kxr
@@ -76668,12 +76830,12 @@ qxI
 qxI
 qxI
 tHx
-dWN
+gqg
 qxI
 qxI
 qxI
 qxI
-fVS
+dVu
 tHx
 qxI
 qxI
@@ -76860,8 +77022,8 @@ tKG
 oEs
 acr
 oEs
-out
-icV
+gWL
+nYk
 kxr
 kxr
 kxr
@@ -77112,7 +77274,7 @@ trz
 dSJ
 dwO
 kGr
-icV
+sce
 tKG
 oEs
 acr
@@ -77369,7 +77531,7 @@ wtQ
 dSJ
 dwO
 kGr
-icV
+tkl
 tKG
 oEs
 acr
@@ -77626,13 +77788,13 @@ dSJ
 dwO
 uot
 kGr
-icV
+wkg
 pPD
 oEs
 acr
 oEs
 out
-icV
+aSg
 icV
 oyW
 icV
@@ -77883,7 +78045,7 @@ xrG
 uot
 uot
 kGr
-icV
+kUI
 pPD
 oEs
 acr
@@ -78140,7 +78302,7 @@ xrG
 uot
 uot
 kGr
-icV
+uDz
 pPD
 oEs
 acr
@@ -78654,7 +78816,7 @@ dSJ
 xrG
 uot
 kGr
-icV
+aSg
 pPD
 oEs
 acr
@@ -78911,7 +79073,7 @@ wtQ
 dSJ
 xrG
 kGr
-icV
+bDk
 tKG
 oEs
 acr
@@ -79168,7 +79330,7 @@ wtQ
 dSJ
 xrG
 kGr
-icV
+ahq
 tKG
 oEs
 acr
@@ -79425,7 +79587,7 @@ wtQ
 tyn
 dwO
 kGr
-icV
+nYk
 tKG
 oEs
 acr
@@ -79682,7 +79844,7 @@ dSJ
 dwO
 uot
 kGr
-icV
+fcl
 tKG
 oEs
 acr
@@ -79939,7 +80101,7 @@ xrG
 uot
 uot
 kGr
-icV
+uDz
 tKG
 oEs
 acr
@@ -92028,7 +92190,7 @@ peA
 peA
 peA
 peA
-uJd
+hni
 qAk
 bdS
 bdS
@@ -94089,7 +94251,7 @@ gmZ
 ozB
 jgX
 obO
-uJd
+hni
 pdY
 aFU
 icV
@@ -94855,7 +95017,7 @@ asC
 oIG
 hgm
 mBR
-vEO
+tak
 oim
 jgX
 jgX
@@ -95111,8 +95273,8 @@ dly
 mBR
 mBR
 mBR
-jrI
-ldm
+lQU
+dac
 rwX
 cBG
 dBU
@@ -101297,7 +101459,7 @@ uzv
 oEs
 oEs
 acr
-aCU
+fCH
 oEs
 sSl
 kGw
