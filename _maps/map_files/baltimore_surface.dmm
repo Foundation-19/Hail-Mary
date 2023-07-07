@@ -5972,6 +5972,21 @@
 	open_space = 0;
 	name = "Ruins interior"
 	})
+"ceG" = (
+/obj/structure/flora/tree/wasteland{
+	icon_state = "deadtree_6"
+	},
+/mob/living/simple_animal/hostile/ghoul/scorched{
+	name = "Friendly Ghoul with a Afro";
+	peaceful = 1;
+	speak = list("J'aime bien se film. Tu en pense quoi pa ?");
+	speak_chance = 4;
+	desc = "Looks like a Ghoul from the Port Marie crew that actually never went Feral. He seems enjoy this movie with his father."
+	},
+/turf/open/floor/plating/f13/outside/road{
+	icon_state = "dirt_original"
+	},
+/area/f13/city)
 "ceL" = (
 /obj/item/clothing/gloves/chameleon/insulated,
 /obj/item/clothing/gloves/chameleon/insulated,
@@ -13384,6 +13399,8 @@
 	open_space = 0;
 	name = "Ruins interior"
 	})
+"eIB" = (
+)
 "eIH" = (
 /obj/structure/table/wood,
 /obj/item/toner/extreme,
@@ -20240,6 +20257,25 @@
 	open_space = 0;
 	name = "Ruins interior"
 	})
+"hex" = (
+/obj/structure/window/paperframe{
+	color = "443926";
+	name = "Brickwall support";
+	layer = 1
+	},
+/mob/living/simple_animal/hostile/securitron/sentrybot{
+	name = "Handmade sentry bot";
+	emote_taunt_sound = null;
+	idlesound = null;
+	mob_armor = list("melee"=10,"bullet"=15,"laser"=-5,"energy"=-5,"bomb"=0,"bio"=100,"rad"=100,"fire"=0,"acid"=0,"wound"=0,"damage_threshold"=7);
+	desc = "A pre-war bootleg military robot armed with a deadly gatling laser and covered in some armor plating.";
+	color = "#999966"
+	},
+/turf/closed/wall/f13/sunset/brick_small_light,
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "heG" = (
 /obj/structure/wreck/trash/four_barrels,
 /obj/effect/overlay/fog/fog5{
@@ -23207,6 +23243,16 @@
 	open_space = 0;
 	name = "Ruins interior"
 	})
+"ifI" = (
+/mob/living/simple_animal/hostile/ghoul/scorched{
+	name = "Friendly Ghoul with a Afro";
+	peaceful = 1;
+	speak = list("J'aime bien se film. Tu en pense quoi pa ?");
+	speak_chance = 4;
+	desc = "Looks like a Ghoul from the Port Marie crew that actually never went Feral. He seems enjoy this movie with his father."
+	},
+/turf/open/floor/plasteel/f13/stone/rugged,
+/area/f13/city)
 "ifM" = (
 /obj/machinery/smartfridge/bottlerack/gardentool/primitive,
 /turf/open/floor/plating/f13/outside/road{
@@ -25844,21 +25890,6 @@
 	icon_state = "dirt_original"
 	},
 /area/f13/building)
-"iYf" = (
-/obj/structure/closet/locker/medcabinet{
-	pixel_y = 24
-	},
-/obj/item/storage/box/bodybags,
-/obj/item/storage/box/bodybags,
-/obj/machinery/light/small{
-	dir = 1;
-	light_color = "blue";
-	pixel_x = -8
-	},
-/turf/open/indestructible/ground/outside/sidewalk{
-	icon_state = "horizontaloutermain1"
-	},
-/area/f13/brotherhood)
 "iYg" = (
 /obj/structure/flora/ausbushes/grassybush,
 /obj/structure/flora/wasteplant,
@@ -26404,6 +26435,14 @@
 /obj/structure/table/wood/fancy/orange,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
+/mob/living/simple_animal/hostile/securitron/sentrybot{
+	name = "Handmade sentry bot";
+	emote_taunt_sound = null;
+	idlesound = null;
+	mob_armor = list("melee"=10,"bullet"=15,"laser"=-5,"energy"=-5,"bomb"=0,"bio"=100,"rad"=100,"fire"=0,"acid"=0,"wound"=0,"damage_threshold"=7);
+	desc = "A pre-war bootleg military robot armed with a deadly gatling laser and covered in some armor plating.";
+	color = "#999966"
+	},
 /turf/open/floor/wood_mosaic{
 	icon_state = "common_light1"
 	},
@@ -28506,6 +28545,14 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt/dust,
+/mob/living/simple_animal/hostile/securitron/sentrybot{
+	name = "Handmade sentry bot";
+	emote_taunt_sound = null;
+	idlesound = null;
+	mob_armor = list("melee"=10,"bullet"=15,"laser"=-5,"energy"=-5,"bomb"=0,"bio"=100,"rad"=100,"fire"=0,"acid"=0,"wound"=0,"damage_threshold"=7);
+	desc = "A pre-war bootleg military robot armed with a deadly gatling laser and covered in some armor plating.";
+	color = "#999966"
+	},
 /turf/open/floor/wood_mosaic{
 	icon_state = "common_light1"
 	},
@@ -34006,6 +34053,14 @@
 	light_color = "#FFDDCC";
 	color = "#FFDDCC"
 	},
+/mob/living/simple_animal/hostile/securitron/sentrybot{
+	name = "Handmade sentry bot";
+	emote_taunt_sound = null;
+	idlesound = null;
+	mob_armor = list("melee"=10,"bullet"=15,"laser"=-5,"energy"=-5,"bomb"=0,"bio"=100,"rad"=100,"fire"=0,"acid"=0,"wound"=0,"damage_threshold"=7);
+	desc = "A pre-war bootleg military robot armed with a deadly gatling laser and covered in some armor plating.";
+	color = "#999966"
+	},
 /turf/open/floor/wood_mosaic{
 	icon_state = "common_light1"
 	},
@@ -34052,6 +34107,24 @@
 	},
 /turf/open/floor/f13/wood{
 	icon_state = "housebase"
+	},
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
+"lId" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/dirt/dust,
+/mob/living/simple_animal/hostile/securitron/sentrybot{
+	name = "Handmade sentry bot";
+	emote_taunt_sound = null;
+	idlesound = null;
+	mob_armor = list("melee"=10,"bullet"=15,"laser"=-5,"energy"=-5,"bomb"=0,"bio"=100,"rad"=100,"fire"=0,"acid"=0,"wound"=0,"damage_threshold"=7);
+	desc = "A pre-war bootleg military robot armed with a deadly gatling laser and covered in some armor plating.";
+	color = "#999966"
+	},
+/turf/open/floor/wood_mosaic{
+	icon_state = "common_light-broken1"
 	},
 /area/f13/ruins{
 	open_space = 0;
@@ -88964,7 +89037,7 @@ wQl
 duO
 qMg
 lME
-bVI
+ceG
 icV
 icV
 icV
@@ -89221,7 +89294,7 @@ wQl
 duO
 qMg
 iMp
-vPp
+ifI
 vPp
 tkl
 icV
@@ -90844,7 +90917,7 @@ aXK
 gtu
 tXu
 lFp
-hfb
+lId
 aiA
 awM
 kRt
@@ -92129,7 +92202,7 @@ gBp
 gtu
 tXu
 dpq
-tXu
+hex
 diF
 tXu
 diF
@@ -104467,7 +104540,7 @@ rWR
 lqQ
 ncs
 dbL
-iYf
+eIB
 eoM
 dbL
 dbL
