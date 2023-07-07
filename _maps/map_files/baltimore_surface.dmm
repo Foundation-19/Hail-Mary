@@ -5972,21 +5972,6 @@
 	open_space = 0;
 	name = "Ruins interior"
 	})
-"ceG" = (
-/obj/structure/flora/tree/wasteland{
-	icon_state = "deadtree_6"
-	},
-/mob/living/simple_animal/hostile/ghoul/scorched{
-	name = "Friendly Ghoul with a Afro";
-	peaceful = 1;
-	speak = list("J'aime bien se film. Tu en pense quoi pa ?");
-	speak_chance = 4;
-	desc = "Looks like a Ghoul from the Port Marie crew that actually never went Feral. He seems enjoy this movie with his father."
-	},
-/turf/open/floor/plating/f13/outside/road{
-	icon_state = "dirt_original"
-	},
-/area/f13/city)
 "ceL" = (
 /obj/item/clothing/gloves/chameleon/insulated,
 /obj/item/clothing/gloves/chameleon/insulated,
@@ -13399,8 +13384,6 @@
 	open_space = 0;
 	name = "Ruins interior"
 	})
-"eIB" = (
-)
 "eIH" = (
 /obj/structure/table/wood,
 /obj/item/toner/extreme,
@@ -20257,25 +20240,6 @@
 	open_space = 0;
 	name = "Ruins interior"
 	})
-"hex" = (
-/obj/structure/window/paperframe{
-	color = "443926";
-	name = "Brickwall support";
-	layer = 1
-	},
-/mob/living/simple_animal/hostile/securitron/sentrybot{
-	name = "Handmade sentry bot";
-	emote_taunt_sound = null;
-	idlesound = null;
-	mob_armor = list("melee"=10,"bullet"=15,"laser"=-5,"energy"=-5,"bomb"=0,"bio"=100,"rad"=100,"fire"=0,"acid"=0,"wound"=0,"damage_threshold"=7);
-	desc = "A pre-war bootleg military robot armed with a deadly gatling laser and covered in some armor plating.";
-	color = "#999966"
-	},
-/turf/closed/wall/f13/sunset/brick_small_light,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
 "heG" = (
 /obj/structure/wreck/trash/four_barrels,
 /obj/effect/overlay/fog/fog5{
@@ -23243,16 +23207,6 @@
 	open_space = 0;
 	name = "Ruins interior"
 	})
-"ifI" = (
-/mob/living/simple_animal/hostile/ghoul/scorched{
-	name = "Friendly Ghoul with a Afro";
-	peaceful = 1;
-	speak = list("J'aime bien se film. Tu en pense quoi pa ?");
-	speak_chance = 4;
-	desc = "Looks like a Ghoul from the Port Marie crew that actually never went Feral. He seems enjoy this movie with his father."
-	},
-/turf/open/floor/plasteel/f13/stone/rugged,
-/area/f13/city)
 "ifM" = (
 /obj/machinery/smartfridge/bottlerack/gardentool/primitive,
 /turf/open/floor/plating/f13/outside/road{
@@ -30530,6 +30484,8 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/f13/vault_floor/plating,
 /area/f13/city)
+"kzM" = (
+)
 "kzV" = (
 /obj/structure/flora/ausbushes/lavendergrass,
 /obj/structure/flora/ausbushes/pointybush,
@@ -34107,24 +34063,6 @@
 	},
 /turf/open/floor/f13/wood{
 	icon_state = "housebase"
-	},
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
-"lId" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/decal/cleanable/dirt/dust,
-/mob/living/simple_animal/hostile/securitron/sentrybot{
-	name = "Handmade sentry bot";
-	emote_taunt_sound = null;
-	idlesound = null;
-	mob_armor = list("melee"=10,"bullet"=15,"laser"=-5,"energy"=-5,"bomb"=0,"bio"=100,"rad"=100,"fire"=0,"acid"=0,"wound"=0,"damage_threshold"=7);
-	desc = "A pre-war bootleg military robot armed with a deadly gatling laser and covered in some armor plating.";
-	color = "#999966"
-	},
-/turf/open/floor/wood_mosaic{
-	icon_state = "common_light-broken1"
 	},
 /area/f13/ruins{
 	open_space = 0;
@@ -44979,15 +44917,23 @@
 /turf/open/indestructible/ground/outside/gravel,
 /area/f13/hub)
 "pkF" = (
-/mob/living/simple_animal/pet/dog/eyebot{
-	desc = "All hail the Hero of this Fort. When the Enclave arrived here, this place was Empty. No Raider, No Molerat, not even a Fly. Why ? Because of this lil Guy. He got the order to defend this place, and He goddam defended him, until you guys arrived.";
-	name = "E-Lee";
-	speak = list(" Beeps Beeps, Its a HONOR to serve the Enclave Again","My Order was to Keep the Base Safe Until the True US army returns ! Godspeed!","We are Going to SAVE the United State");
-	speak_chance = 6
+/obj/structure/window/paperframe{
+	color = "443926";
+	name = "Brickwall support";
+	layer = 1
 	},
-/turf/open/indestructible/ground/outside/desert,
-/area/f13/underground/enclave_base{
-	outdoors = 1
+/mob/living/simple_animal/hostile/securitron/sentrybot{
+	name = "Handmade sentry bot";
+	emote_taunt_sound = null;
+	idlesound = null;
+	mob_armor = list("melee"=10,"bullet"=15,"laser"=-5,"energy"=-5,"bomb"=0,"bio"=100,"rad"=100,"fire"=0,"acid"=0,"wound"=0,"damage_threshold"=7);
+	desc = "A pre-war bootleg military robot armed with a deadly gatling laser and covered in some armor plating.";
+	color = "#999966"
+	},
+/turf/closed/wall/f13/sunset/brick_small_light,
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
 	})
 "pkH" = (
 /obj/structure/debris/v4,
@@ -48547,6 +48493,21 @@
 	open_space = 0;
 	name = "Ruins interior"
 	})
+"qxW" = (
+/obj/structure/flora/tree/wasteland{
+	icon_state = "deadtree_6"
+	},
+/mob/living/simple_animal/hostile/ghoul/scorched{
+	name = "Friendly Ghoul with a Afro";
+	peaceful = 1;
+	speak = list("J'aime bien se film. Tu en pense quoi pa ?");
+	speak_chance = 4;
+	desc = "Looks like a Ghoul from the Port Marie crew that actually never went Feral. He seems enjoy this movie with his father."
+	},
+/turf/open/floor/plating/f13/outside/road{
+	icon_state = "dirt_original"
+	},
+/area/f13/city)
 "qyf" = (
 /obj/structure/table/wood/bar,
 /obj/machinery/door/poddoor/shutters{
@@ -53419,6 +53380,24 @@
 	icon_state = "road_center_1"
 	},
 /area/f13/raider_mall)
+"rYj" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/dirt/dust,
+/mob/living/simple_animal/hostile/securitron/sentrybot{
+	name = "Handmade sentry bot";
+	emote_taunt_sound = null;
+	idlesound = null;
+	mob_armor = list("melee"=10,"bullet"=15,"laser"=-5,"energy"=-5,"bomb"=0,"bio"=100,"rad"=100,"fire"=0,"acid"=0,"wound"=0,"damage_threshold"=7);
+	desc = "A pre-war bootleg military robot armed with a deadly gatling laser and covered in some armor plating.";
+	color = "#999966"
+	},
+/turf/open/floor/wood_mosaic{
+	icon_state = "common_light-broken1"
+	},
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "rYl" = (
 /obj/structure/junk/micro,
 /turf/open/floor/wood_mosaic{
@@ -62873,6 +62852,16 @@
 /obj/structure/table,
 /obj/structure/barricade/sandbags,
 /turf/open/indestructible/ground/outside/sidewalkdirt,
+/area/f13/city)
+"vmB" = (
+/mob/living/simple_animal/hostile/ghoul/scorched{
+	name = "Friendly Ghoul with a Afro";
+	peaceful = 1;
+	speak = list("J'aime bien se film. Tu en pense quoi pa ?");
+	speak_chance = 4;
+	desc = "Looks like a Ghoul from the Port Marie crew that actually never went Feral. He seems enjoy this movie with his father."
+	},
+/turf/open/floor/plasteel/f13/stone/rugged,
 /area/f13/city)
 "vmD" = (
 /obj/structure/closet/crate/large,
@@ -89037,7 +89026,7 @@ wQl
 duO
 qMg
 lME
-ceG
+qxW
 icV
 icV
 icV
@@ -89294,7 +89283,7 @@ wQl
 duO
 qMg
 iMp
-ifI
+vmB
 vPp
 tkl
 icV
@@ -90917,7 +90906,7 @@ aXK
 gtu
 tXu
 lFp
-lId
+rYj
 aiA
 awM
 kRt
@@ -92202,7 +92191,7 @@ gBp
 gtu
 tXu
 dpq
-hex
+pkF
 diF
 tXu
 diF
@@ -104540,7 +104529,7 @@ rWR
 lqQ
 ncs
 dbL
-eIB
+kzM
 eoM
 dbL
 dbL
@@ -132606,7 +132595,7 @@ thi
 sSx
 xlu
 sys
-pkF
+tob
 xlu
 xlu
 gsl
