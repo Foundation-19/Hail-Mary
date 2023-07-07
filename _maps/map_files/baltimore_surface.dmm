@@ -1034,6 +1034,15 @@
 /obj/machinery/smartfridge/drying_rack,
 /turf/open/indestructible/ground/outside/gravel,
 /area/f13/hub)
+"aqa" = (
+/obj/effect/turf_decal/stripes/asteroid/line{
+	dir = 4
+	},
+/mob/living/simple_animal/hostile/raider/ranged/biker{
+	name = "Portmaster guard"
+	},
+/turf/open/floor/f13/wood,
+/area/f13/city)
 "aqi" = (
 /obj/structure/stairs/east,
 /turf/open/floor/wood_fancy/wood_fancy_light,
@@ -3025,6 +3034,16 @@
 	icon_state = "road_crosswalk_northsouth_2"
 	},
 /area/f13/hub)
+"baw" = (
+/obj/structure/railing/corner{
+	color = "#A47449";
+	dir = 4
+	},
+/mob/living/simple_animal/hostile/raider/ranged/biker{
+	name = "Portmaster guard"
+	},
+/turf/open/floor/wood_common/wood_common_light,
+/area/f13/city)
 "baC" = (
 /obj/machinery/light/small{
 	dir = 8;
@@ -3463,6 +3482,16 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/hub)
+"biT" = (
+/obj/effect/decal/cleanable/dirt,
+/mob/living/simple_animal/hostile/raider{
+	name = "Portmaster Raider"
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "bjq" = (
 /obj/structure/fluff/railing{
 	dir = 10;
@@ -3478,7 +3507,8 @@
 "bjr" = (
 /obj/structure/stairs/east{
 	color = "#A47449";
-	dir = 1
+	can_be_z_moved = 0;
+	name = "building stairs"
 	},
 /turf/open/floor/f13/wood{
 	icon_state = "housewood2"
@@ -4725,6 +4755,11 @@
 	icon_state = "grass_7"
 	},
 /area/f13/city)
+"bFb" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/nest/securitron,
+/turf/open/transparent/glass,
+/area/f13/city/museum)
 "bFd" = (
 /obj/structure/sign/poster/official/twelve_gauge,
 /turf/closed/wall/f13/ruins{
@@ -5866,6 +5901,10 @@
 	color = "#A47449"
 	},
 /turf/open/indestructible/ground/outside/sidewalkdirt,
+/area/f13/city)
+"cde" = (
+/mob/living/simple_animal/hostile/raider/ranged/boss,
+/turf/open/floor/wood_common/wood_common_light,
 /area/f13/city)
 "cdu" = (
 /obj/structure/fluff/railing{
@@ -10036,6 +10075,7 @@
 /area/f13/city)
 "dzf" = (
 /obj/structure/flora/ausbushes/sunnybush,
+/obj/structure/nest/fireant,
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/ruins{
 	open_space = 0;
@@ -12077,6 +12117,10 @@
 	open_space = 0;
 	name = "Ruins interior"
 	})
+"ekv" = (
+/obj/structure/nest/securitron,
+/turf/open/transparent/glass,
+/area/f13/city/museum)
 "eky" = (
 /obj/structure/fence/wooden{
 	pixel_y = 15;
@@ -12758,6 +12802,7 @@
 /area/f13/raider_mall)
 "ezg" = (
 /obj/structure/junk/locker,
+/obj/structure/nest/fireant,
 /turf/open/floor/wood_fancy,
 /area/f13/ruins{
 	open_space = 0;
@@ -18350,6 +18395,18 @@
 	icon_state = "bluerustysolid"
 	},
 /area/f13/city/museum)
+"gzG" = (
+/obj/structure/chair/booth,
+/mob/living/simple_animal/hostile/ghoul/soldier{
+	name = "Friendly Older Ghoul";
+	speak = list("Es ist gut. Ich mag der Music.");
+	speak_chance = 4;
+	desc = "This on ghoul look older and more german than the other younger one, probably his son. Seems they like this movie."
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
+	icon_state = "bluerustyfull"
+	},
+/area/f13/city/museum)
 "gzU" = (
 /obj/machinery/vending/snack,
 /turf/open/floor/plating/rust,
@@ -19074,6 +19131,16 @@
 /turf/open/floor/plating/f13/outside/road{
 	icon_state = "dirt_original"
 	},
+/area/f13/city)
+"gNc" = (
+/obj/effect/turf_decal/stripes/asteroid/line,
+/obj/structure/railing{
+	layer = 50
+	},
+/mob/living/simple_animal/hostile/raider/firefighter{
+	name = "Portmaster Melee Raider"
+	},
+/turf/open/floor/f13/wood,
 /area/f13/city)
 "gNi" = (
 /obj/structure/lamp_post{
@@ -22818,6 +22885,17 @@
 	icon_state = "mosaic_dark-broken5"
 	},
 /area/f13/raider_mall)
+"ibI" = (
+/mob/living/simple_animal/hostile/raider{
+	name = "Portmaster Raider"
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	icon_state = "bluerustyfull"
+	},
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "ibM" = (
 /obj/structure/closet/crate/bin,
 /turf/open/floor/plasteel/bar,
@@ -23524,7 +23602,9 @@
 	},
 /area/f13/city)
 "ioD" = (
-/mob/living/simple_animal/hostile/raider/firefighter,
+/mob/living/simple_animal/hostile/raider/firefighter{
+	name = "Portmaster Melee Raider"
+	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/f13/vault_floor/plating,
 /area/f13/ruins{
@@ -25370,6 +25450,12 @@
 	open_space = 0;
 	name = "Ruins interior"
 	})
+"iTs" = (
+/mob/living/simple_animal/hostile/raider{
+	name = "Portmaster Raider"
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/city)
 "iTz" = (
 /obj/structure/flora/roadplant,
 /turf/open/floor/plating/f13/outside/road{
@@ -26144,6 +26230,11 @@
 	open_space = 0;
 	name = "Ruins interior"
 	})
+"jgV" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/nest/protectron,
+/turf/open/transparent/glass,
+/area/f13/city/museum)
 "jgX" = (
 /turf/open/floor/plasteel/f13/vault_floor{
 	icon_state = "floorscorched2"
@@ -26458,6 +26549,16 @@
 	open_space = 0;
 	name = "Ruins interior"
 	})
+"jmf" = (
+/obj/structure/fluff/railing{
+	color = "#A47449";
+	layer = 30
+	},
+/mob/living/simple_animal/hostile/raider/firefighter{
+	name = "Portmaster Melee Raider"
+	},
+/turf/open/floor/wood_common/wood_common_light,
+/area/f13/city)
 "jmj" = (
 /obj/structure/window/paperframe{
 	color = "443926";
@@ -27338,6 +27439,12 @@
 /turf/open/floor/plating/f13/outside/road{
 	icon_state = "road_northsouth_y"
 	},
+/area/f13/city)
+"jAk" = (
+/mob/living/simple_animal/hostile/raider/ranged/biker{
+	name = "Portmaster guard"
+	},
+/turf/open/floor/f13/wood,
 /area/f13/city)
 "jAE" = (
 /obj/structure/barricade/wooden,
@@ -28502,6 +28609,19 @@
 /obj/machinery/vending/snack,
 /turf/open/indestructible/ground/outside/gravel,
 /area/f13/hub)
+"jUe" = (
+/obj/structure/car/rubbish4,
+/mob/living/simple_animal/hostile/ghoul/scorched{
+	name = "Friendly Ghoul with a Afro";
+	peaceful = 1;
+	speak = list("J'aime bien se film. Tu en pense quoi pa ?");
+	speak_chance = 4;
+	desc = "Looks like a Ghoul from the Port Marie crew that actually never went Feral. He seems enjoy this movie with his father."
+	},
+/turf/open/floor/plating/f13/outside/road{
+	icon_state = "road_center_1"
+	},
+/area/f13/city)
 "jUo" = (
 /obj/structure/chair/booth,
 /obj/structure/stone_tile/block,
@@ -29133,15 +29253,10 @@
 	name = "Ruins interior"
 	})
 "kfJ" = (
-/obj/structure/destructible/tribal_torch/wall/lit{
-	dir = 8
-	},
-/turf/open/floor/f13/wood{
-	icon_state = "housewood4-broken"
-	},
-/area/f13/wasteland/bighornbunker{
-	open_space = 0;
-	name = "Supermutan interior"
+/obj/structure/barricade/sandbags,
+/turf/open/floor/wood_wide,
+/area/f13/enclave{
+	name = "Enclave"
 	})
 "kfP" = (
 /obj/structure/chair/stool/retro/black,
@@ -30383,6 +30498,10 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/f13/vault_floor/floor,
 /area/f13/city)
+"kDo" = (
+/obj/structure/stairs/east,
+/turf/open/floor/plating/rust,
+/area/f13/citycaves)
 "kDs" = (
 /obj/structure/closet/crate/trashcart,
 /turf/open/floor/plating/rust,
@@ -31161,12 +31280,18 @@
 	name = "Supermutan interior"
 	})
 "kPH" = (
-/obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/raider,
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
+/obj/machinery/button/door{
+	id = 757;
+	name = "Enclave shutter door button";
+	pixel_y = 8;
+	pixel_x = -24
+	},
+/obj/structure/chair/folding{
+	dir = 4
+	},
+/turf/open/floor/wood_wide,
+/area/f13/enclave{
+	name = "Enclave"
 	})
 "kPV" = (
 /obj/structure/table/wood/junk,
@@ -31184,9 +31309,20 @@
 	open_space = 0;
 	name = "Ruins interior"
 	})
+"kQi" = (
+/obj/structure/stairs/east{
+	color = "#A47449";
+	dir = 1
+	},
+/turf/open/indestructible/ground/outside/ruins,
+/area/f13/wasteland/bighornbunker{
+	open_space = 0;
+	name = "Supermutan interior"
+	})
 "kQq" = (
 /obj/structure/flora/ausbushes/fullgrass,
 /obj/structure/flora/ausbushes/ywflowers,
+/obj/structure/nest/fireant,
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/ruins{
 	open_space = 0;
@@ -32386,6 +32522,7 @@
 /obj/effect/decal/cleanable/greenglow,
 /obj/effect/decal/cleanable/greenglow,
 /obj/effect/decal/cleanable/greenglow,
+/obj/structure/nest/fireant,
 /turf/open/floor/wood_fancy,
 /area/f13/ruins{
 	open_space = 0;
@@ -33785,6 +33922,15 @@
 	icon_state = "grass_8"
 	},
 /area/f13/hub)
+"lIq" = (
+/obj/structure/destructible/tribal_torch/wall/lit{
+	dir = 8
+	},
+/turf/open/indestructible/ground/outside/ruins,
+/area/f13/wasteland/bighornbunker{
+	open_space = 0;
+	name = "Supermutan interior"
+	})
 "lIt" = (
 /obj/structure/nest/molerat,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
@@ -35409,6 +35555,15 @@
 	open_space = 0;
 	name = "Ruins interior"
 	})
+"mjP" = (
+/mob/living/simple_animal/hostile/raider/ranged/biker{
+	name = "Portmaster guard"
+	},
+/turf/open/floor/wood_wide,
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "mkg" = (
 /obj/structure/table/reinforced,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -36879,6 +37034,15 @@
 "mGM" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
+"mGR" = (
+/mob/living/simple_animal/hostile/raider/firefighter{
+	name = "Portmaster Melee Raider"
+	},
+/turf/open/floor/wood_wide,
 /area/f13/ruins{
 	open_space = 0;
 	name = "Ruins interior"
@@ -39806,7 +39970,9 @@
 "nKB" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/raider,
+/mob/living/simple_animal/hostile/raider{
+	name = "Portmaster Raider"
+	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/ruins{
 	open_space = 0;
@@ -41675,6 +41841,17 @@
 	color = "#A47449"
 	},
 /turf/open/floor/f13/wood,
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
+"oqA" = (
+/mob/living/simple_animal/hostile/raider{
+	name = "Portmaster Raider"
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	icon_state = "bluerustysolid"
+	},
 /area/f13/ruins{
 	open_space = 0;
 	name = "Ruins interior"
@@ -43757,6 +43934,19 @@
 	open_space = 0;
 	name = "Ruins interior"
 	})
+"oZv" = (
+/obj/structure/chair/booth,
+/mob/living/simple_animal/hostile/ghoul/scorched{
+	name = "Friendly Ghoul with a Afro";
+	peaceful = 1;
+	speak = list("J'aime bien se film. Tu en pense quoi pa ?");
+	speak_chance = 4;
+	desc = "Looks like a Ghoul from the Port Marie crew that actually never went Feral. He seems enjoy this movie with his father."
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
+	icon_state = "bluerustyfull"
+	},
+/area/f13/city/museum)
 "oZM" = (
 /obj/structure/table/wood,
 /obj/structure/barricade/wooden,
@@ -44509,6 +44699,17 @@
 /obj/structure/flora/tallgrass9,
 /turf/open/indestructible/ground/outside/gravel,
 /area/f13/hub)
+"pkF" = (
+/mob/living/simple_animal/pet/dog/eyebot{
+	desc = "All hail the Hero of this Fort. When the Enclave arrived here, this place was Empty. No Raider, No Molerat, not even a Fly. Why ? Because of this lil Guy. He got the order to defend this place, and He goddam defended him, until you guys arrived.";
+	name = "E-Lee";
+	speak = list(" [Beeps Beeps] Its a HONOR to serve the Enclave Again","[Makes some Familiar Jingles]","[Beeep Boops] My Order was to Keep the Base Safe Until the True US army returns ! Godspeed!","[Boops Boops] We are Going to SAVE the United State");
+	speak_chance = 6
+	},
+/turf/open/indestructible/ground/outside/desert,
+/area/f13/underground/enclave_base{
+	outdoors = 1
+	})
 "pkH" = (
 /obj/structure/debris/v4,
 /turf/open/floor/plating/f13/outside/road{
@@ -45334,6 +45535,10 @@
 	icon_state = "mosaic_dark1"
 	},
 /area/f13/raider_mall)
+"pyD" = (
+/mob/living/simple_animal/hostile/raider/sulphite,
+/turf/open/water,
+/area/f13/city)
 "pyR" = (
 /obj/machinery/light/small{
 	pixel_x = 8;
@@ -50928,6 +51133,16 @@
 	open_space = 0;
 	name = "Ruins interior"
 	})
+"rrK" = (
+/obj/structure/railing/corner{
+	color = "#A47449";
+	dir = 8
+	},
+/mob/living/simple_animal/hostile/raider/firefighter{
+	name = "Portmaster Melee Raider"
+	},
+/turf/open/floor/wood_common/wood_common_light,
+/area/f13/city)
 "rrW" = (
 /obj/structure/reagent_dispensers/barrel/dangerous{
 	pixel_y = 10;
@@ -51542,6 +51757,13 @@
 	open_space = 0;
 	name = "Ruins interior"
 	})
+"rBN" = (
+/obj/effect/turf_decal/stripes/line,
+/mob/living/simple_animal/hostile/raider{
+	name = "Portmaster Raider"
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/city)
 "rBP" = (
 /obj/effect/turf_decal/road_end{
 	icon_state = "road_end_decal"
@@ -53124,6 +53346,15 @@
 	pixel_x = -30
 	},
 /turf/open/floor/f13/wood,
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
+"sef" = (
+/mob/living/simple_animal/hostile/raider{
+	name = "Portmaster Raider"
+	},
+/turf/open/floor/plasteel/f13/vault_floor/plating,
 /area/f13/ruins{
 	open_space = 0;
 	name = "Ruins interior"
@@ -56103,6 +56334,15 @@
 /obj/effect/turf_decal/road_end,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/city)
+"tdE" = (
+/obj/structure/nest/fireant,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	icon_state = "blueyellowfull"
+	},
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "tdK" = (
 /turf/open/floor/wood_mosaic/wood_mosaic_dark{
 	icon_state = "mosaic_dark-broken2"
@@ -56362,6 +56602,12 @@
 	icon_state = "dirt_original"
 	},
 /area/f13/city)
+"tid" = (
+/obj/structure/barricade/wooden/strong,
+/turf/open/water,
+/area/space{
+	name = "Ocean"
+	})
 "tii" = (
 /mob/living/simple_animal/chicken,
 /turf/open/indestructible/ground/outside/dirt,
@@ -59058,6 +59304,10 @@
 	icon_state = "dirt_original"
 	},
 /area/f13/city)
+"uhf" = (
+/obj/structure/barricade/wooden/strong,
+/turf/open/water,
+/area/f13/city)
 "uhg" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 8
@@ -59488,6 +59738,14 @@
 "uot" = (
 /turf/open/indestructible/ground/outside/graveldirt,
 /area/f13/citycaves)
+"uoD" = (
+/mob/living/simple_animal/hostile/raider/ranged/biker{
+	name = "Portmaster guard"
+	},
+/turf/open/floor/plating/f13/outside/road{
+	icon_state = "road_center_1"
+	},
+/area/f13/city)
 "upa" = (
 /obj/structure/simple_door/metal/dirtystore,
 /obj/structure/barricade/wooden/planks,
@@ -61082,6 +61340,12 @@
 /area/f13/ruins{
 	open_space = 0;
 	name = "Ruins interior"
+	})
+"uRN" = (
+/turf/closed/indestructible/f13/matrix,
+/area/f13/wasteland/bighornbunker{
+	open_space = 0;
+	name = "Supermutan interior"
 	})
 "uRS" = (
 /obj/structure/closet/crate/wooden,
@@ -64181,11 +64445,11 @@
 	name = "Ruins interior"
 	})
 "vUg" = (
-/obj/structure/stairs/east,
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
-	icon_state = "whitedirtysolid"
+/obj/structure/shuttle/engine/large{
+	dir = 4
 	},
-/area/f13/citycaves)
+/turf/open/water,
+/area/f13/city)
 "vUr" = (
 /obj/structure/chair/stool/retro/backed,
 /turf/open/floor/wood_fancy/wood_fancy_light{
@@ -66568,6 +66832,13 @@
 /area/f13/wasteland/bighornbunker{
 	open_space = 0;
 	name = "Supermutan interior"
+	})
+"wIS" = (
+/obj/structure/barricade/bars,
+/obj/structure/table/reinforced,
+/turf/open/floor/wood_wide,
+/area/f13/enclave{
+	name = "Enclave"
 	})
 "wIU" = (
 /obj/effect/turf_decal/arrows/white{
@@ -71245,6 +71516,15 @@
 	icon_state = "horizontaloutermain1"
 	},
 /area/f13/city)
+"yjG" = (
+/mob/living/simple_animal/hostile/raider/ranged/biker{
+	name = "Portmaster guard"
+	},
+/turf/open/floor/plasteel/f13/vault_floor/yellow/whiteyellowfull,
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "yjI" = (
 /obj/structure/car/rubbish3,
 /turf/open/indestructible/ground/outside/sidewalkdirt{
@@ -76286,7 +76566,7 @@ vsg
 lup
 gtu
 cue
-cue
+tdE
 vRg
 cOb
 lUF
@@ -82294,7 +82574,7 @@ nTk
 uDR
 bTO
 gQw
-bTO
+kDo
 tHD
 dPl
 dPl
@@ -82551,7 +82831,7 @@ tHD
 lgu
 cWu
 cAt
-vUg
+nTk
 tHD
 uIP
 uIP
@@ -86302,11 +86582,11 @@ gKb
 dnC
 lMr
 nVe
-wVn
+jgV
 wAV
 wAV
 wVn
-wVn
+bFb
 eQF
 uIi
 jEX
@@ -87587,7 +87867,7 @@ gKb
 vIP
 tft
 drs
-wAV
+ekv
 wAV
 wAV
 wAV
@@ -87725,7 +88005,7 @@ kCe
 vdO
 vdO
 vdO
-vdO
+uRN
 vdO
 kMQ
 kMQ
@@ -87983,8 +88263,8 @@ vdO
 vdO
 vdO
 bjr
-kfJ
-qSv
+vdO
+kQi
 xjO
 kfc
 xjO
@@ -88240,7 +88520,7 @@ vdO
 qii
 oPU
 wzd
-qSv
+lIq
 fud
 mwG
 asg
@@ -89383,7 +89663,7 @@ roU
 "}
 (71,1,1) = {"
 gKb
-iRc
+oZv
 jpn
 iNs
 oxV
@@ -89640,7 +89920,7 @@ roU
 "}
 (72,1,1) = {"
 gKb
-iRc
+gzG
 lSL
 jUo
 jpn
@@ -90897,8 +91177,8 @@ fIO
 jus
 gtS
 fIO
-kbI
-kbI
+hcp
+hcp
 fIO
 uSy
 uSy
@@ -91443,7 +91723,7 @@ iMp
 vJx
 duO
 vJx
-dcx
+jUe
 vJx
 duO
 vJx
@@ -93030,7 +93310,7 @@ duO
 duO
 duO
 duO
-duO
+uoD
 duO
 duO
 oLP
@@ -93539,7 +93819,7 @@ umn
 umn
 eGM
 sCW
-wjN
+jAk
 mOT
 lba
 uCs
@@ -95085,7 +95365,7 @@ mOT
 gtu
 ovw
 pab
-ovw
+mjP
 vKo
 mOT
 ruT
@@ -96109,7 +96389,7 @@ kxr
 kxr
 nub
 wsD
-dDB
+jmf
 fBs
 fBs
 fBs
@@ -97658,7 +97938,7 @@ ovw
 wYn
 cIT
 mOT
-ulU
+gNc
 hyU
 kxr
 kxr
@@ -97911,7 +98191,7 @@ wsD
 hlo
 fZL
 jgy
-ovw
+mGR
 ovw
 fZL
 mOT
@@ -99454,7 +99734,7 @@ tej
 cIT
 dwf
 eZy
-eZy
+yjG
 dDQ
 cdJ
 ulU
@@ -100478,7 +100758,7 @@ eWJ
 eWJ
 wNm
 njN
-sLF
+rrK
 bSR
 bSR
 bSR
@@ -100725,7 +101005,7 @@ skc
 pRR
 pRR
 pRR
-pRR
+aqa
 xGS
 pRR
 pRR
@@ -100741,7 +101021,7 @@ mAz
 oHx
 ieN
 wZP
-bGv
+baw
 kJs
 tHZ
 pRR
@@ -100749,7 +101029,7 @@ pRR
 pRR
 pRR
 pRR
-pRR
+aqa
 pRR
 fal
 pRR
@@ -101766,7 +102046,7 @@ wsD
 mOT
 mOT
 mOT
-mOT
+cde
 mOT
 mOT
 mOT
@@ -103050,7 +103330,7 @@ kxr
 kxr
 kxr
 kxr
-kxr
+pyD
 kxr
 kxr
 kxr
@@ -107553,8 +107833,8 @@ kGw
 umn
 qcM
 beW
-kPH
 mGM
+biT
 mRp
 beW
 qcM
@@ -118876,7 +119156,7 @@ xdS
 ncs
 szZ
 tkc
-iBy
+rBN
 hyU
 feA
 qTl
@@ -124528,7 +124808,7 @@ duO
 mLw
 pMD
 ncs
-ncs
+iTs
 szZ
 oLe
 hyU
@@ -126577,7 +126857,7 @@ cNe
 tbD
 lKa
 wHT
-wHT
+sef
 qLv
 cfj
 wHT
@@ -126831,7 +127111,7 @@ icV
 sSs
 fIO
 dDN
-dfh
+ibI
 beW
 xwQ
 wHT
@@ -127351,7 +127631,7 @@ dfh
 dfh
 aVp
 beW
-vug
+oqA
 beW
 vug
 iEO
@@ -127755,13 +128035,13 @@ lqQ
 rMz
 lqQ
 lqQ
-lqQ
-kxr
+tid
+vUg
 jdM
 jdM
 mZq
 kxr
-kxr
+vUg
 kxr
 kxr
 kxr
@@ -128018,7 +128298,7 @@ kxr
 kxr
 kxr
 kxr
-eRB
+uhf
 kxr
 kxr
 kxr
@@ -128532,7 +128812,7 @@ kxr
 kxr
 kxr
 kxr
-kxr
+eRB
 kxr
 kxr
 kxr
@@ -130143,14 +130423,14 @@ qwM
 mIJ
 mIJ
 jBr
-ueo
-ueo
-ueo
+bFp
+kfJ
+wIS
 gHW
 ueo
 mmN
-ueo
-bFp
+kfJ
+kPH
 lyK
 mIJ
 mIJ
@@ -130401,12 +130681,12 @@ qwM
 qwM
 jBr
 ueo
-ueo
-ueo
+kfJ
+wIS
 hHr
 gHW
 mmN
-ueo
+kfJ
 ueo
 lyK
 qwM
@@ -130657,7 +130937,7 @@ jGj
 xlu
 qjU
 gYl
-lyK
+tUC
 lyK
 sGl
 ueo
@@ -131943,7 +132223,7 @@ thi
 sSx
 xlu
 sys
-tob
+pkF
 xlu
 xlu
 gsl
