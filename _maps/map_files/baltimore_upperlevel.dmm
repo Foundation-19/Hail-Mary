@@ -299,18 +299,9 @@
 	name = "Ruins interior"
 	})
 "bmv" = (
-/obj/structure/kitchenspike_frame{
-	anchored = 1;
-	name = "power armor frame"
-	},
 /obj/effect/decal/cleanable/oil/slippery,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/item/clothing/head/helmet/f13/heavy/salvaged_pa/t51b{
-	anchored = 1;
-	pixel_x = -1;
-	pixel_y = 11
-	},
 /turf/open/floor/f13{
 	icon_state = "floorrustysolid"
 	},
@@ -1123,13 +1114,6 @@
 /area/f13/enclave{
 	name = "Enclave"
 	})
-"ezH" = (
-/obj/structure/decoration/fire,
-/turf/closed/wall/mineral/brick,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
 "eIz" = (
 /turf/open/floor/wood_mosaic{
 	icon_state = "mosaic-broken2"
@@ -1660,18 +1644,6 @@
 	open_space = 0;
 	name = "Ruins interior"
 	})
-"gQM" = (
-/obj/structure/window/paperframe{
-	color = "443926";
-	name = "Brickwall support";
-	layer = 1
-	},
-/obj/structure/sign/poster/official/science,
-/turf/closed/wall/f13/sunset/brick_small_dark,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
 "gQP" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/f13/wood{
@@ -1899,20 +1871,6 @@
 /area/f13/clinic)
 "hPd" = (
 /turf/closed/indestructible/f13vaultrusted,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
-"hVH" = (
-/obj/structure/window/paperframe{
-	color = "#999966";
-	name = "Brickwall support";
-	layer = 1
-	},
-/obj/screen/ai/state_laws{
-	anchored = 1
-	},
-/turf/closed/wall/f13/sunset/brick_small_light,
 /area/f13/ruins{
 	open_space = 0;
 	name = "Ruins interior"
@@ -2616,13 +2574,6 @@
 /area/f13/enclave{
 	name = "Enclave"
 	})
-"kSu" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/start/f13/seniorscribe,
-/turf/open/floor/f13/wood{
-	icon_state = "housewood2"
-	},
-/area/f13/brotherhood)
 "kUr" = (
 /obj/structure/window/paperframe{
 	color = "#999966";
@@ -3352,26 +3303,8 @@
 	open_space = 0;
 	name = "Ruins interior"
 	})
-"oeJ" = (
-/obj/structure/sink/kitchen{
-	pixel_y = -9
-	},
-/turf/closed/indestructible/f13vaultrusted,
-/area/f13/enclave{
-	name = "Enclave"
-	})
 "ogU" = (
-/obj/structure/window/paperframe{
-	color = "#999966";
-	name = "Brickwall support";
-	layer = 1
-	},
-/obj/structure/sign/poster/prewar/poster94,
-/turf/closed/wall/f13/sunset/brick_small,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
+)
 "ohc" = (
 /obj/structure/window/paperframe{
 	color = "443926";
@@ -3893,12 +3826,6 @@
 /obj/structure/barricade/wooden/strong,
 /turf/closed/wall/f13/ruins,
 /area/f13/bar)
-"qPb" = (
-/obj/effect/landmark/start/f13/seniorscribe,
-/turf/open/floor/f13{
-	icon_state = "floorrustysolid"
-	},
-/area/f13/brotherhood)
 "qQC" = (
 /obj/structure/simple_door/metal,
 /turf/open/indestructible/ground/outside/sidewalk{
@@ -4253,20 +4180,6 @@
 	open_space = 0;
 	name = "Ruins interior"
 	})
-"sSx" = (
-/obj/structure/window/paperframe{
-	color = "#999966";
-	name = "Brickwall support";
-	layer = 1
-	},
-/obj/structure/sign/directions/dorms{
-	pixel_y = 10;
-	pixel_x = 2
-	},
-/turf/closed/wall/f13/sunset/brick_small,
-/area/f13/enclave{
-	name = "Enclave"
-	})
 "sYJ" = (
 /obj/structure/window/paperframe{
 	color = "443926";
@@ -4290,18 +4203,6 @@
 "tbt" = (
 /turf/open/floor/plasteel/f13/vault_floor/yellow/corner,
 /area/f13/city)
-"tcB" = (
-/obj/structure/window/paperframe{
-	color = "443926";
-	name = "Brickwall support";
-	layer = 1
-	},
-/obj/structure/sign/departments/science,
-/turf/closed/indestructible/f13vaultrusted,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
 "teb" = (
 /obj/structure/simple_door/room,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
@@ -4324,20 +4225,6 @@
 	icon_state = "whitedirtysolid"
 	},
 /area/f13/citycaves)
-"tiy" = (
-/obj/structure/window/paperframe{
-	color = "#999966";
-	name = "Brickwall support";
-	layer = 1
-	},
-/obj/item/storage/box/ration/ranger_dinner{
-	pixel_y = -9;
-	pixel_x = 16
-	},
-/turf/closed/wall/f13/sunset/brick_small,
-/area/f13/enclave{
-	name = "Enclave"
-	})
 "tmb" = (
 /turf/open/floor/plasteel/f13/vault_floor/red/white,
 /area/f13/ruins{
@@ -4631,18 +4518,6 @@
 "ulJ" = (
 /turf/open/floor/wood_wide/wood_wide_light,
 /area/f13/wasteland)
-"umH" = (
-/obj/structure/window/paperframe{
-	color = "#FFFFFF";
-	name = "Brickwall support";
-	layer = 1
-	},
-/obj/screen/alert/fire,
-/turf/closed/wall/f13/sunset/brick_small_dark,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
 "una" = (
 /obj/structure/barricade/wooden/strong,
 /turf/closed/wall/f13/ruins{
@@ -5065,17 +4940,6 @@
 "vLp" = (
 /turf/open/transparent/glass/reinforced,
 /area/f13/bar)
-"vLI" = (
-/obj/structure/window/paperframe{
-	color = "#999966";
-	name = "Brickwall support";
-	layer = 1
-	},
-/obj/structure/sign/directions/medical,
-/turf/closed/wall/f13/sunset/brick_small,
-/area/f13/enclave{
-	name = "Enclave"
-	})
 "vMz" = (
 /turf/closed/wall/f13/sunset/brick_small_dark,
 /area/f13/building)
@@ -5119,20 +4983,6 @@
 	},
 /turf/closed/wall/f13/vault,
 /area/f13/outpost)
-"vWp" = (
-/obj/structure/kitchenspike_frame{
-	anchored = 1;
-	name = "power armor frame"
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/item/clothing/head/helmet/f13/heavy/salvaged_pa/t45d{
-	anchored = 1;
-	pixel_y = 10
-	},
-/turf/open/floor/f13{
-	icon_state = "floorrustysolid"
-	},
-/area/f13/brotherhood)
 "vYc" = (
 /turf/open/floor/wood_common/wood_common_dark{
 	icon_state = "common_dark-broken5"
@@ -5260,30 +5110,6 @@
 	icon_state = "ruinswindowdestroyed"
 	},
 /turf/open/floor/wood_fancy,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
-"wnB" = (
-/obj/structure/window/paperframe{
-	color = "#999966";
-	name = "Brickwall support";
-	layer = 1
-	},
-/obj/structure/sign/poster/prewar/poster68,
-/turf/closed/wall/f13/sunset/brick_small_light,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
-"wnX" = (
-/obj/structure/window/paperframe{
-	color = "#FFFFFF";
-	name = "Brickwall support";
-	layer = 1
-	},
-/obj/structure/decoration/fire,
-/turf/closed/wall/f13/sunset/brick_small_dark,
 /area/f13/ruins{
 	open_space = 0;
 	name = "Ruins interior"
@@ -15752,10 +15578,10 @@ uGd
 uGd
 upo
 lup
-umH
+lup
 lup
 cmF
-wnX
+lup
 cmF
 cmF
 cmF
@@ -17035,7 +16861,7 @@ uGd
 uGd
 uGd
 uGd
-ezH
+cmF
 val
 lup
 lup
@@ -20246,7 +20072,7 @@ iFw
 iFw
 iFw
 iFw
-gQM
+cMz
 lUF
 oek
 oek
@@ -21258,7 +21084,7 @@ vuA
 wRM
 cYP
 tKg
-hVH
+wRM
 wRM
 wRM
 tKg
@@ -21786,7 +21612,7 @@ kCe
 kCe
 kCe
 kCe
-tcB
+kCe
 kCe
 kCe
 uGd
@@ -22797,11 +22623,11 @@ uGd
 gAq
 wRM
 wRM
-wnB
+wRM
 gAq
 tKg
 tKg
-ogU
+tKg
 tKg
 leE
 uGd
@@ -37431,7 +37257,7 @@ uFc
 kry
 kry
 gQP
-kSu
+gQP
 oEO
 gvC
 dbL
@@ -37685,7 +37511,7 @@ jhT
 vvf
 rTM
 bLu
-qPb
+iaH
 iaH
 gQP
 gQP
@@ -37943,7 +37769,7 @@ lsd
 rTM
 iaH
 bmv
-vWp
+jhT
 gQP
 ric
 xkU
@@ -38193,7 +38019,7 @@ dXY
 cLZ
 uGd
 dbL
-iYf
+ogU
 vOS
 dbL
 dbL
@@ -66251,12 +66077,12 @@ uGd
 uGd
 uGd
 lKI
-oeJ
+ujw
 piW
 hsL
 hsL
 hsL
-sSx
+lyK
 qFK
 qFK
 qFK
@@ -66765,12 +66591,12 @@ uGd
 uGd
 lKI
 lKI
-tiy
+lyK
 hsL
 hsL
 piW
 lhf
-epF
+lyK
 qFK
 qFK
 qFK
@@ -68060,7 +67886,7 @@ biA
 dti
 dti
 qFK
-vLI
+lyK
 epF
 epF
 dZE
