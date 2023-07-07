@@ -3129,24 +3129,6 @@
 	open_space = 0;
 	name = "Ruins interior"
 	})
-"iYf" = (
-/obj/item/gun/energy/laser/aer9,
-/obj/item/gun/energy/laser/aer9,
-/obj/item/gun/energy/laser/pistol{
-	pixel_y = 3
-	},
-/obj/item/gun/energy/laser/pistol{
-	pixel_y = 3
-	},
-/obj/item/gun/energy/laser/pistol{
-	pixel_y = 3
-	},
-/obj/machinery/light/small{
-	dir = 1;
-	pixel_x = -12
-	},
-/turf/open/floor/plasteel/f13/vault_floor/plating,
-/area/f13/brotherhood)
 "iYr" = (
 /obj/machinery/light/small{
 	dir = 8;
