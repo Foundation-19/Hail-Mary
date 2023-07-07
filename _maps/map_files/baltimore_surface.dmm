@@ -25899,13 +25899,6 @@
 	},
 /turf/open/indestructible/ground/outside/sidewalkdirt,
 /area/f13/city)
-"iYF" = (
-/obj/machinery/light/floor{
-	color = "#4b6849";
-	light_color = "#4b6849"
-	},
-/turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
-/area/f13/building)
 "iYL" = (
 /obj/structure/closet/cardboard,
 /obj/effect/spawner/lootdrop/breathing_masks,
@@ -26707,7 +26700,7 @@
 /obj/structure/window/fulltile/house{
 	icon_state = "housewindowbroken"
 	},
-/turf/open/indestructible/ground/outside/desert,
+/turf/open/floor/wood_mosaic,
 /area/f13/ruins{
 	open_space = 0;
 	name = "Ruins interior"
@@ -31358,7 +31351,7 @@
 	can_be_z_moved = 0;
 	name = "building stairs"
 	},
-/turf/open/indestructible/ground/outside/desert,
+/turf/open/floor/wood_fancy/wood_fancy_dark,
 /area/f13/building)
 "kOy" = (
 /obj/structure/stairs/east{
@@ -31710,7 +31703,7 @@
 /area/f13/citycaves)
 "kTW" = (
 /obj/structure/simple_door/metal,
-/turf/open/indestructible/ground/outside/desert,
+/turf/open/indestructible/ground/outside/ruins,
 /area/f13/city)
 "kUr" = (
 /obj/structure/window/paperframe{
@@ -39699,15 +39692,9 @@
 /turf/open/indestructible/ground/outside/gravel,
 /area/f13/city)
 "nBn" = (
-/obj/machinery/door/poddoor/shutters{
-	name = "Storage 1 shutters";
-	id = 7854
-	},
-/turf/open/indestructible/ground/outside/desert,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
+/obj/structure/window/fulltile/wood,
+/turf/open/floor/wood_fancy/wood_fancy_dark,
+/area/f13/building)
 "nBJ" = (
 /obj/structure/debris/v3,
 /turf/open/floor/plasteel/f13/vault_floor/plating,
@@ -46211,6 +46198,8 @@
 	open_space = 0;
 	name = "Ruins interior"
 	})
+"pJd" = (
+)
 "pJe" = (
 /obj/machinery/button/door{
 	pixel_x = -24;
@@ -54553,7 +54542,7 @@
 /obj/structure/stairs/east{
 	color = "#A47449"
 	},
-/turf/open/indestructible/ground/outside/desert,
+/turf/open/floor/wood_common/wood_common_light,
 /area/f13/building)
 "sue" = (
 /obj/effect/decal/remains/deadeyebot,
@@ -57614,7 +57603,7 @@
 	icon_state = "housewindowbroken"
 	},
 /obj/structure/barricade/wooden/planks,
-/turf/open/indestructible/ground/outside/desert,
+/turf/open/indestructible/ground/outside/sidewalkdirt,
 /area/f13/ruins{
 	open_space = 0;
 	name = "Ruins interior"
@@ -64217,7 +64206,7 @@
 /obj/structure/curtain{
 	color = "#811313"
 	},
-/turf/open/indestructible/ground/outside/desert,
+/turf/open/floor/wood_fancy/wood_fancy_dark,
 /area/f13/building)
 "vLp" = (
 /turf/open/floor/carpet/royalblack,
@@ -71681,7 +71670,7 @@
 /area/f13/building)
 "yhc" = (
 /obj/structure/simple_door/room/dirty,
-/turf/open/indestructible/ground/outside/desert,
+/turf/open/floor/wood_common/wood_common_light,
 /area/f13/building)
 "yhm" = (
 /obj/structure/rack/shelf_metal,
@@ -72837,7 +72826,7 @@ beW
 oSw
 beW
 beW
-nBn
+gNx
 lME
 duO
 gkL
@@ -90520,7 +90509,7 @@ lME
 icV
 icV
 icV
-pZc
+icV
 icV
 bEs
 icV
@@ -110358,7 +110347,7 @@ uHB
 iay
 flO
 aym
-iYF
+pJd
 cZO
 vhJ
 tFP
@@ -111903,7 +111892,7 @@ ajS
 emz
 cPz
 eDM
-iYF
+pJd
 ufW
 qUP
 pIo
@@ -117568,7 +117557,7 @@ iPx
 ekY
 iPx
 iPx
-iMc
+nBn
 iPx
 res
 afz
@@ -122994,7 +122983,7 @@ oEs
 oEs
 xOR
 rcZ
-ebh
+rcZ
 ebh
 xOR
 xOR
