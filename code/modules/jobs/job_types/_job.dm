@@ -101,8 +101,19 @@
 	var/whitelist_path
 
 
-/datum/job/proc/after_spawn(mob/living/spawner, mob/client_holder, latejoin = FALSE)
+/datum/job/proc/after_spawn(mob/living/carbon/spawner, mob/client_holder, latejoin = FALSE)
+
 	SHOULD_CALL_PARENT(TRUE)
+
+	if(ishuman(spawner))
+
+		spawner.special_s = client_holder.client.prefs.special_s
+		spawner.special_p = client_holder.client.prefs.special_p
+		spawner.special_e = client_holder.client.prefs.special_e
+		spawner.special_c = client_holder.client.prefs.special_c
+		spawner.special_i = client_holder.client.prefs.special_i
+		spawner.special_a = client_holder.client.prefs.special_a
+		spawner.special_l = client_holder.client.prefs.special_l
 
 	for(var/trait in mind_traits)
 		ADD_TRAIT(spawner.mind, trait, JOB_TRAIT)

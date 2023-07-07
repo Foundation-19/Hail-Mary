@@ -1,5 +1,13 @@
 /mob/living/carbon
 	blood_volume = BLOOD_VOLUME_NORMAL
+	var/special_s = 5
+	var/special_p = 5
+	var/special_e = 5
+	var/special_c = 5
+	var/special_i = 5
+	var/special_a = 5
+	var/special_l = 5
+
 
 /mob/living/carbon/Initialize()
 	. = ..()
@@ -312,7 +320,6 @@
 		switch(href_list["action"])
 			if("change_chat_color")
 				change_chat_color()
-
 
 /mob/living/carbon/verb/change_runechat_color()
 	set category = "IC"
