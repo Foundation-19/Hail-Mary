@@ -59,7 +59,7 @@ GLOBAL_LIST_INIT(command_positions, list(
 
 	"Chief of Police",
 
-	"Enclave Lieutenant",
+	"Enclave Captain",
 
 	"Noyan",
 	"Steward",
@@ -105,14 +105,13 @@ GLOBAL_LIST_INIT(faction_whitelist_positions, list(
 "Prospector",
 "Detective",
 
+"Enclave Captain",
 "Enclave Lieutenant",
-"Enclave Gunnery Sergeant",
 "Enclave Sergeant",
-"Enclave Armored Infantry",
+"Enclave Corporal",
 "Enclave Specialist",
 "Enclave Scientist",
 "Enclave Private",
-"Enclave Bunker Duty",
 
 "Chief",
 "Shaman",
@@ -261,14 +260,13 @@ GLOBAL_LIST_INIT(khan_positions, list(
 ))
 
 GLOBAL_LIST_INIT(enclave_positions, list(
+	"Enclave Captain",
 	"Enclave Lieutenant",
-	"Enclave Gunnery Sergeant",
 	"Enclave Sergeant",
-	"Enclave Armored Infantry",
+	"Enclave Corporal",
 	"Enclave Specialist",
 	"Enclave Scientist",
 	"Enclave Private",
-	"Enclave Bunker Duty",
 ))
 
 GLOBAL_LIST_INIT(security_positions, list(
@@ -315,7 +313,7 @@ GLOBAL_LIST_INIT(position_categories, list(
 	// EXP_TYPE_BROTHERHOOD = list("jobs" = brotherhood_positions, "color" = "#95a5a6"),
 	// EXP_TYPE_LEGION = list("jobs" = legion_positions, "color" = "#f81717"),
 	EXP_TYPE_WASTELAND = list("jobs" = wasteland_positions, "color" = "#5a5a5a"),
-	// EXP_TYPE_ENCLAVE = list("jobs" = enclave_positions, "color" = "#323232"),
+	EXP_TYPE_ENCLAVE = list("jobs" = enclave_positions, "color" = "#323232"),
 	// EXP_TYPE_KHAN = list("jobs" = khan_positions, "color" = "#006666"),
 	"Nash" = list("jobs" = oasis_positions, "color" = "#d7b088"),
 	EXP_TYPE_SILICON = list("jobs" = silicon_positions, "color" = "#4a4a4a"),
