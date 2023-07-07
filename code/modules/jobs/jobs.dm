@@ -48,9 +48,10 @@ GLOBAL_LIST_INIT(nonhuman_positions, list(
 	))
 
 GLOBAL_LIST_INIT(command_positions, list(
-	"Head Paladin",
-	"Head Knight",
-	"Head Scribe", //Wasn't here before. Still technically command, I put it here - Kitsunemitsu
+	"Elder",
+	"Paladin Commander",
+	"Knight-Captain",
+	"Proctor", //Wasn't here before. Still technically command, I put it here - Kitsunemitsu
 
 	"NCR Captain",
 	"NCR Veteran Ranger",
@@ -140,12 +141,13 @@ GLOBAL_LIST_INIT(faction_whitelist_positions, list(
 ))
 //Brotherhood
 GLOBAL_LIST_INIT(brotherhood_positions, list(
-	"Head Paladin",
-	"Head Knight",
-	"Head Scribe",
-	"Senior Paladin",
+	"Elder",
+	"Paladin Commander",
+	"Knight-Captain",
+	"Proctor",
+	"Star Paladin",
 	"Paladin",
-	"Senior Knight",
+	"Knight-Sergeant",
 	"Knight",
 	"Senior Scribe",
 	"Scribe",
@@ -312,7 +314,7 @@ GLOBAL_LIST_INIT(position_categories, list(
 	//	EXP_TYPE_NCR = list("jobs" = ncr_positions, "color" = "#ffeeaa"),
 	// EXP_TYPE_VAULT = list("jobs" = vault_positions, "color" = "##fdee00"),
 	EXP_TYPE_FOLLOWERS = list("jobs" = followers_positions, "color" = "#ffeeaa"),
-	// EXP_TYPE_BROTHERHOOD = list("jobs" = brotherhood_positions, "color" = "#95a5a6"),
+	EXP_TYPE_BROTHERHOOD = list("jobs" = brotherhood_positions, "color" = "#95a5a6"),
 	// EXP_TYPE_LEGION = list("jobs" = legion_positions, "color" = "#f81717"),
 	EXP_TYPE_WASTELAND = list("jobs" = wasteland_positions, "color" = "#5a5a5a"),
 	// EXP_TYPE_ENCLAVE = list("jobs" = enclave_positions, "color" = "#323232"),

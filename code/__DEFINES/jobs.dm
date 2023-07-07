@@ -285,6 +285,7 @@
 
 
 
+#define JOB_DISPLAY_ORDER_ELDER 67.9	//God I fucking hate. This does work tho. - Kitsunemitsu
 #define JOB_DISPLAY_ORDER_SENTINEL 68
 #define JOB_DISPLAY_ORDER_SENIORPALADIN 69
 #define JOB_DISPLAY_ORDER_PALADIN 70
