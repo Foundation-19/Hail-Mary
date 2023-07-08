@@ -30,6 +30,10 @@
 	max_ammo = 20 //it was 30 in Fallout 4
 	multiload = 0
 
+/obj/item/ammo_box/magazine/internal/f4plasma/caster
+	max_ammo = 10
+	multiload = 1
+
 /obj/item/ammo_box/magazine/internal/m2flamethrower
 	name = "m2 flamethower fuel tank"
 	ammo_type = /obj/item/ammo_casing/caseless/flamethrower
