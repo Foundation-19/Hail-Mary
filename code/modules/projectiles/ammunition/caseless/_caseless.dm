@@ -44,10 +44,10 @@
 	projectile_type = /obj/item/projectile/beam/laser/musket
 	firing_effect_type = /obj/effect/temp_visual/dir_setting/firing_effect/energy
 
-/obj/item/ammo_casing/caseless/plasmacaster
-	name = "Plasma can"
+/obj/item/ammo_casing/caseless/plasmacart
+	name = "Plasma cartidge"
 	desc = "A single use can of plasma for the plasma musket."
-	caliber = CALIBER_MUSKET_PLASMA
+	caliber = CALIBER_PLASMA_CARTRIDGE
 	icon_state = "plasmacan"
-	projectile_type = /obj/item/projectile/f13plasma/plasmacaster
+	projectile_type = /obj/item/projectile/plasmacarbine
 	firing_effect_type = /obj/effect/temp_visual/dir_setting/firing_effect/energy

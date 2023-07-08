@@ -28,7 +28,7 @@
 #define CALIBER_MAGNETIC_HYPER "hypermagnetic rounds"
 #define CALIBER_MUSKET_BALL "musket balls"
 #define CALIBER_MUSKET_LASER "laser musket packs"
-#define CALIBER_MUSKET_PLASMA "plasma musket packs"
+#define CALIBER_PLASMA_CARTRIDGE "plasma cartridges"
 #define CALIBER_NEEDLE "needles"
 #define CALIBER_MININUKE "mininukes"
 #define CALIBER_ROCKET "rockets"

@@ -1316,7 +1316,7 @@ GLOBAL_LIST_EMPTY(loadout_boxes)
 	name = "plasma pistol case"
 
 /obj/item/storage/box/gun/energy/plasma/PopulateContents()
-	new /obj/item/gun/energy/laser/plasma/pistol/worn(src)
+	new /obj/item/gun/energy/laser/plasma/pistol(src)
 	new /obj/item/stock_parts/cell/ammo/ec(src)
 
 /obj/item/storage/box/gun/energy/stun

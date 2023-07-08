@@ -223,10 +223,10 @@
 
 /datum/crafting_recipe/batteryboxplasma //plasmamusket ammo
 	name = "Plasma Can"
-	result = /obj/item/ammo_box/plasmamusket
-	reqs = list(/obj/item/stack/crafting/electronicparts = 2,
-				/obj/item/stack/sheet/glass = 3,
-				/obj/item/stack/sheet/metal = 3)
+	result = /obj/item/ammo_box/plasmacart
+	reqs = list(/obj/item/stack/crafting/electronicparts = 6,
+				/obj/item/stack/sheet/glass = 12,
+				/obj/item/stack/sheet/metal = 12)
 	tools = list(TOOL_WORKBENCH, TOOL_MULTITOOL)
 	time = 20
 	category = CAT_WEAPONRY
@@ -705,7 +705,7 @@
 
 /datum/crafting_recipe/gun/plasmamusket
 	name = "Plasma musket"
-	result = /obj/item/gun/ballistic/rifle/hobo/plasmacaster
+	result = /obj/item/gun/ballistic/rifle/hobo/plasmusket
 	reqs = list(/obj/item/gun/ballistic/rifle/hobo/lasmusket = 1,
 				/obj/item/stack/crafting/electronicparts = 2,
 				/obj/item/advanced_crafting_components/conductors = 1)

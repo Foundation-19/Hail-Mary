@@ -634,14 +634,14 @@
 	custom_materials = list(/datum/material/iron = MATS_RIFLE_SMALL_BOX)
 	w_class = WEIGHT_CLASS_SMALL
 
-/obj/item/ammo_box/plasmamusket
+/obj/item/ammo_box/plasmacart
 	name = "Canister box (Plasma musket)"
 	icon = 'icons/fallout/objects/guns/ammo.dmi'
 	icon_state = "plasmusketbox"
 	multiple_sprites = 2
-	ammo_type = /obj/item/ammo_casing/caseless/plasmacaster
-	max_ammo = 6
-	caliber = list(CALIBER_MUSKET_PLASMA)
+	ammo_type = /obj/item/ammo_casing/caseless/plasmacart
+	max_ammo = 10
+	caliber = list(CALIBER_PLASMA_CARTRIDGE)
 	custom_materials = list(/datum/material/iron = MATS_RIFLE_SMALL_BOX)
 	w_class = WEIGHT_CLASS_SMALL
 
