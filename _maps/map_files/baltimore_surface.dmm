@@ -16460,7 +16460,7 @@
 /obj/structure/closet/crate/large{
 	pixel_y = 15;
 	pixel_x = -16;
-	layer = 5
+	layer = 50
 	},
 /obj/structure/closet/crate/large{
 	layer = 2.5
@@ -46217,8 +46217,6 @@
 	open_space = 0;
 	name = "Ruins interior"
 	})
-"pJd" = (
-)
 "pJe" = (
 /obj/machinery/button/door{
 	pixel_x = -24;
@@ -59278,6 +59276,13 @@
 "ubd" = (
 /obj/structure/closet/crate/large{
 	layer = 2.5
+	},
+/obj/structure/cargocrate{
+	icon_state = "cargocrate4";
+	layer = 5;
+	pixel_y = 28;
+	pixel_x = -1;
+	color = "#4b6849"
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/outpost)
@@ -73790,24 +73795,24 @@ lqQ
 lqQ
 lqQ
 ucf
+tHx
+qxI
+qxI
+tHx
 qxI
 qxI
 qxI
+tHx
 qxI
 qxI
 qxI
+tHx
 qxI
 qxI
+tHx
 qxI
 qxI
-qxI
-qxI
-qxI
-qxI
-qxI
-qxI
-qxI
-qxI
+tHx
 qxI
 qxI
 qxI
@@ -74046,25 +74051,25 @@ lqQ
 lqQ
 lqQ
 ucf
+tHx
+tHx
+qxI
+qxI
+tHx
 qxI
 qxI
 qxI
+tHx
 qxI
 qxI
 qxI
+tHx
 qxI
 qxI
+tHx
 qxI
 qxI
-qxI
-qxI
-qxI
-qxI
-qxI
-qxI
-qxI
-qxI
-qxI
+tHx
 qxI
 qxI
 qxI
@@ -74303,25 +74308,25 @@ ucf
 ucf
 ucf
 ucf
+tHx
+tHx
+qxI
+qxI
+tHx
 qxI
 qxI
 qxI
+tHx
 qxI
 qxI
 qxI
+tHx
 qxI
 qxI
+tHx
 qxI
 qxI
-qxI
-qxI
-qxI
-qxI
-qxI
-qxI
-qxI
-qxI
-qxI
+tHx
 qxI
 qxI
 qxI
@@ -74558,27 +74563,27 @@ ucf
 ucf
 ucf
 qxI
+tHx
+qxI
+qxI
+tHx
+qxI
+qxI
+tHx
 qxI
 qxI
 qxI
+tHx
 qxI
 qxI
 qxI
-qxI
-qxI
-qxI
-qxI
-qxI
-qxI
-qxI
-qxI
-qxI
-qxI
-qxI
-qxI
-qxI
-qxI
-qxI
+tHx
+tHx
+kII
+tHx
+tHx
+kII
+tHx
 qxI
 qxI
 qxI
@@ -74815,27 +74820,27 @@ qxI
 qxI
 qxI
 qxI
+tHx
 qxI
 qxI
 qxI
 qxI
 qxI
+tHx
+tHx
+kII
+tHx
+tHx
+tHx
+kII
+tHx
+tHx
 qxI
 qxI
 qxI
 qxI
 qxI
-qxI
-qxI
-qxI
-qxI
-qxI
-qxI
-qxI
-qxI
-qxI
-qxI
-qxI
+tHx
 qxI
 qxI
 qxI
@@ -75072,6 +75077,13 @@ qxI
 qxI
 qxI
 qxI
+tHx
+qxI
+qxI
+qxI
+qxI
+qxI
+tHx
 qxI
 qxI
 qxI
@@ -75085,14 +75097,7 @@ qxI
 qxI
 qxI
 qxI
-qxI
-qxI
-qxI
-qxI
-qxI
-qxI
-qxI
-qxI
+tHx
 qxI
 qxI
 qxI
@@ -75329,6 +75334,13 @@ qxI
 qxI
 qxI
 qxI
+tHx
+qxI
+qxI
+qxI
+qxI
+qxI
+tHx
 qxI
 qxI
 qxI
@@ -75342,14 +75354,7 @@ qxI
 qxI
 qxI
 qxI
-qxI
-qxI
-qxI
-qxI
-qxI
-qxI
-qxI
-qxI
+tHx
 qxI
 qxI
 qxI
@@ -75586,27 +75591,27 @@ qxI
 qxI
 qxI
 qxI
-qxI
-qxI
-qxI
-qxI
-qxI
-qxI
-qxI
-qxI
-qxI
 tHx
 tHx
+tHx
+tHx
+qxI
+qxI
 tHx
 kII
 kII
 tHx
 tHx
 tHx
-qxI
-qxI
-qxI
-qxI
+tHx
+tHx
+tHx
+tHx
+tHx
+tHx
+kII
+tHx
+tHx
 qxI
 qxI
 qxI
@@ -75854,8 +75859,8 @@ qxI
 qxI
 tHx
 jog
-aJi
-qxI
+kAA
+sHJ
 qxI
 ubd
 pRE
@@ -75863,7 +75868,7 @@ tHx
 qxI
 qxI
 qxI
-qxI
+tHx
 qxI
 qxI
 qxI
@@ -76109,8 +76114,8 @@ qxI
 qxI
 qxI
 qxI
-tHx
-sHJ
+kII
+qxI
 qxI
 qxI
 qxI
@@ -76120,7 +76125,7 @@ tHx
 qxI
 qxI
 qxI
-qxI
+tHx
 qxI
 qxI
 qxI
@@ -76366,7 +76371,7 @@ qxI
 qxI
 qxI
 qxI
-tHx
+kII
 qxI
 qxI
 qxI
@@ -76377,7 +76382,7 @@ tHx
 qxI
 qxI
 qxI
-qxI
+tHx
 qxI
 qxI
 qxI
@@ -76624,9 +76629,9 @@ qxI
 qxI
 qxI
 tHx
-kAA
 qxI
-sHJ
+qxI
+qxI
 qxI
 qxI
 qxI
@@ -76634,7 +76639,7 @@ tHx
 qxI
 qxI
 qxI
-qxI
+tHx
 qxI
 qxI
 qxI
@@ -76882,7 +76887,7 @@ qxI
 qxI
 tHx
 gqg
-qxI
+aJi
 qxI
 qxI
 qxI
@@ -76891,7 +76896,7 @@ tHx
 qxI
 qxI
 qxI
-qxI
+tHx
 qxI
 qxI
 qxI
@@ -110409,7 +110414,7 @@ uHB
 iay
 flO
 aym
-pJd
+kzM
 cZO
 vhJ
 tFP
@@ -111954,7 +111959,7 @@ ajS
 emz
 cPz
 eDM
-pJd
+kzM
 ufW
 qUP
 pIo
