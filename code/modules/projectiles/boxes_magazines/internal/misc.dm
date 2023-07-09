@@ -22,6 +22,18 @@
 	caliber = list(CALIBER_5MM)
 	max_ammo = 480
 
+/obj/item/ammo_box/magazine/internal/f4plasma
+	name = "plasma magazine"
+	desc = "Oh god, this belongs on the inside of the gun"
+	ammo_type = /obj/item/ammo_casing/caseless/plasmacart
+	caliber = list(CALIBER_PLASMA_CARTRIDGE)
+	max_ammo = 20 //it was 30 in Fallout 4
+	multiload = 0
+
+/obj/item/ammo_box/magazine/internal/f4plasma/caster
+	max_ammo = 10
+	multiload = 1
+
 /obj/item/ammo_box/magazine/internal/m2flamethrower
 	name = "m2 flamethower fuel tank"
 	ammo_type = /obj/item/ammo_casing/caseless/flamethrower
