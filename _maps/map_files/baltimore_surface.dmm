@@ -1364,6 +1364,16 @@
 /area/f13/underground/enclave_base{
 	outdoors = 1
 	})
+"auV" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/greenglow,
+/turf/open/floor/engine,
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "avc" = (
 /obj/effect/turf_decal/stripes/red/line,
 /turf/open/floor/plating/rust,
@@ -2156,6 +2166,9 @@
 	},
 /area/f13/city)
 "aIV" = (
+/obj/structure/curtain{
+	color = "#808080"
+	},
 /turf/open/floor/wood_wide{
 	icon_state = "wide_light-broken3"
 	},
@@ -7066,7 +7079,9 @@
 	name = "Ruins interior"
 	})
 "czI" = (
-/obj/machinery/atmospherics/components/unary/tank,
+/obj/machinery/atmospherics/components/unary/tank{
+	volume = 0
+	},
 /obj/effect/overlay/fog/fog4{
 	color = "#00ff99"
 	},
@@ -7998,7 +8013,9 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/clinic)
 "cOh" = (
-/obj/machinery/atmospherics/components/unary/tank,
+/obj/machinery/atmospherics/components/unary/tank{
+	volume = 0
+	},
 /obj/effect/overlay/fog/fog4{
 	color = "#00ff99"
 	},
@@ -14191,7 +14208,8 @@
 "eZf" = (
 /obj/machinery/atmospherics/components/unary/tank{
 	pixel_y = 1;
-	pixel_x = 6
+	pixel_x = 6;
+	volume = 0
 	},
 /obj/machinery/atmospherics/components/unary/outlet_injector/atmos/engine_waste{
 	dir = 8;
@@ -19535,11 +19553,13 @@
 "gSX" = (
 /obj/machinery/atmospherics/components/unary/tank{
 	pixel_y = 1;
-	pixel_x = 6
+	pixel_x = 6;
+	volume = 0
 	},
 /obj/machinery/atmospherics/components/unary/tank{
 	pixel_y = 1;
-	pixel_x = 6
+	pixel_x = 6;
+	volume = 0
 	},
 /obj/machinery/atmospherics/components/unary/outlet_injector/atmos/engine_waste{
 	dir = 8;
@@ -21767,6 +21787,7 @@
 /obj/machinery/pool/filter{
 	pixel_y = -18
 	},
+/obj/effect/decal/cleanable/greenglow,
 /turf/open/floor/plasteel/white/side,
 /area/f13/ruins{
 	open_space = 0;
@@ -21937,6 +21958,15 @@
 /turf/open/floor/plating/f13/outside/road{
 	icon_state = "dirt_original"
 	},
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
+"hHy" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/greenglow,
+/turf/open/floor/wood_mosaic/wood_mosaic_light,
 /area/f13/ruins{
 	open_space = 0;
 	name = "Ruins interior"
@@ -22746,7 +22776,8 @@
 "hVw" = (
 /obj/machinery/atmospherics/components/unary/tank{
 	pixel_y = 1;
-	pixel_x = 6
+	pixel_x = 6;
+	volume = 0
 	},
 /obj/machinery/atmospherics/components/unary/outlet_injector/atmos/engine_waste{
 	dir = 8;
@@ -24678,6 +24709,13 @@
 	open_space = 0;
 	name = "Ruins interior"
 	})
+"iED" = (
+/obj/effect/decal/cleanable/greenglow,
+/turf/open/floor/engine,
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "iEO" = (
 /obj/structure/wreck/trash/three_barrels,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
@@ -25486,15 +25524,14 @@
 /turf/open/floor/plasteel/f13/vault_floor/floor/floorsolid,
 /area/f13/clinic)
 "iQJ" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/engine,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
+/obj/structure/shelf_wood,
+/obj/item/stack/sheet/metal/fifty,
+/obj/item/stack/sheet/glass/fifty,
+/obj/item/stack/ore/blackpowder/fifty,
+/obj/item/stack/sheet/metal/fifty,
+/obj/item/stack/sheet/glass/fifty,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
+/area/f13/building)
 "iQV" = (
 /obj/structure/fluff/rails,
 /obj/structure/fluff/rails,
@@ -26783,6 +26820,17 @@
 /obj/structure/table,
 /turf/open/indestructible/ground/outside/gravel,
 /area/f13/hub)
+"jnN" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/mob/living/simple_animal/hostile/ghoul/glowing,
+/turf/open/floor/engine,
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "job" = (
 /obj/structure/barricade/wooden/planks{
 	icon_state = "riverbank"
@@ -27348,6 +27396,16 @@
 	color = "#FFDDCC"
 	},
 /turf/open/floor/wood_worn,
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
+"jxN" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/mob/living/simple_animal/hostile/ghoul/glowing/strong,
+/turf/open/floor/engine,
 /area/f13/ruins{
 	open_space = 0;
 	name = "Ruins interior"
@@ -28998,7 +29056,9 @@
 	name = "Enclave"
 	})
 "jYf" = (
-/obj/machinery/atmospherics/components/unary/tank,
+/obj/machinery/atmospherics/components/unary/tank{
+	volume = 0
+	},
 /obj/effect/overlay/fog/fog5{
 	layer = 20
 	},
@@ -29132,6 +29192,7 @@
 "kbe" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/greenglow,
 /turf/open/floor/wood_common,
 /area/f13/ruins{
 	open_space = 0;
@@ -29837,7 +29898,8 @@
 "kmR" = (
 /obj/machinery/atmospherics/components/unary/tank{
 	pixel_y = 1;
-	pixel_x = -6
+	pixel_x = -6;
+	volume = 0
 	},
 /turf/open/floor/f13/wood,
 /area/f13/building)
@@ -31152,7 +31214,8 @@
 "kMc" = (
 /obj/machinery/atmospherics/components/unary/tank{
 	pixel_y = 1;
-	pixel_x = 6
+	pixel_x = 6;
+	volume = 0
 	},
 /turf/open/floor/f13/wood,
 /area/f13/building)
@@ -32044,6 +32107,7 @@
 "kZN" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/greenglow,
 /turf/open/floor/wood_mosaic/wood_mosaic_light{
 	icon_state = "mosaic_light-broken5"
 	},
@@ -32926,6 +32990,15 @@
 	},
 /turf/open/floor/f13/wood,
 /area/f13/building)
+"loq" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/greenglow,
+/turf/open/floor/engine,
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "lou" = (
 /obj/structure/fence{
 	dir = 8
@@ -34076,6 +34149,18 @@
 	open_space = 0;
 	name = "Ruins interior"
 	})
+"lHE" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/components/unary/tank{
+	pixel_y = 1;
+	pixel_x = 6;
+	volume = 0
+	},
+/turf/open/floor/engine,
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "lHF" = (
 /mob/living/simple_animal/hostile/handy{
 	color = "#01084d";
@@ -34105,6 +34190,15 @@
 /turf/open/floor/f13/wood{
 	icon_state = "housebase"
 	},
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
+"lHW" = (
+/obj/machinery/atmospherics/components/unary/tank{
+	volume = 0
+	},
+/turf/open/floor/engine,
 /area/f13/ruins{
 	open_space = 0;
 	name = "Ruins interior"
@@ -34533,6 +34627,13 @@
 /obj/structure/closet/crate/bin/trashbin,
 /turf/open/indestructible/ground/outside/sidewalkdirt,
 /area/f13/city)
+"lOm" = (
+/obj/structure/closet/l3closet/janitor,
+/turf/open/floor/plasteel/f13/vault_floor/plating,
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "lOD" = (
 /mob/living/simple_animal/hostile/gecko,
 /turf/open/floor/wood_common,
@@ -36402,6 +36503,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/greenglow,
 /turf/open/floor/wood_mosaic/wood_mosaic_light{
 	icon_state = "mosaic_light-broken4"
 	},
@@ -37102,6 +37204,16 @@
 /area/f13/ruins{
 	open_space = 0;
 	name = "Ruins interior"
+	})
+"mEz" = (
+/obj/structure/curtain{
+	color = "#808080"
+	},
+/turf/open/floor/wood_wide{
+	icon_state = "wide_light1"
+	},
+/area/f13/enclave{
+	name = "Enclave"
 	})
 "mEX" = (
 /obj/effect/decal/cleanable/dirt,
@@ -38448,6 +38560,16 @@
 "nbO" = (
 /obj/item/gun_upgrade/underbarrel/bipod,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
+"nbR" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/mob/living/simple_animal/hostile/ghoul/glowing,
+/turf/open/floor/engine,
 /area/f13/ruins{
 	open_space = 0;
 	name = "Ruins interior"
@@ -43267,7 +43389,8 @@
 "oJC" = (
 /obj/machinery/atmospherics/components/unary/tank{
 	pixel_y = 1;
-	pixel_x = 6
+	pixel_x = 6;
+	volume = 0
 	},
 /obj/machinery/atmospherics/components/unary/outlet_injector/atmos/engine_waste{
 	dir = 8;
@@ -43550,6 +43673,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/greenglow,
 /turf/open/floor/carpet/green,
 /area/f13/ruins{
 	open_space = 0;
@@ -46895,6 +47019,12 @@
 	open_space = 0;
 	name = "Ruins interior"
 	})
+"pSK" = (
+/obj/effect/mob_spawn/human/fev_pit,
+/turf/open/floor/plasteel/f13/vault_floor{
+	icon_state = "floorscorched2"
+	},
+/area/f13/wasteland/bighorn)
 "pSO" = (
 /obj/structure/closet/crate/large{
 	pixel_x = -2;
@@ -49234,6 +49364,19 @@
 /area/f13/vault/security{
 	name = "Atlantic Cross Marines ship"
 	})
+"qIR" = (
+/obj/structure/shuttle/engine/large{
+	dir = 1;
+	pixel_y = 16;
+	pixel_x = 15;
+	name = "boat engine";
+	layer = 10
+	},
+/turf/open/floor/engine,
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "qIS" = (
 /obj/effect/spawner/lootdrop/druggie_pill,
 /obj/effect/decal/cleanable/dirt,
@@ -49821,7 +49964,9 @@
 	name = "Ruins interior"
 	})
 "qTy" = (
-/obj/machinery/atmospherics/components/unary/tank,
+/obj/machinery/atmospherics/components/unary/tank{
+	volume = 0
+	},
 /obj/machinery/atmospherics/components/unary/tank/air{
 	pixel_y = 7;
 	pixel_x = 16;
@@ -50075,7 +50220,8 @@
 "qXx" = (
 /obj/machinery/atmospherics/components/unary/tank{
 	pixel_y = 1;
-	pixel_x = -6
+	pixel_x = -6;
+	volume = 0
 	},
 /turf/open/floor/wood_common/wood_common_dark,
 /area/f13/bar)
@@ -50623,6 +50769,14 @@
 /turf/open/floor/plasteel/f13/vault_floor/plating,
 /area/f13/vault/security{
 	name = "Atlantic Cross Marines ship"
+	})
+"rdX" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/greenglow,
+/turf/open/floor/wood_mosaic/wood_mosaic_light,
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
 	})
 "rdY" = (
 /obj/structure/table,
@@ -53752,6 +53906,11 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/components/unary/tank{
+	pixel_y = 1;
+	pixel_x = 6;
+	volume = 0
+	},
 /turf/open/floor/engine,
 /area/f13/ruins{
 	open_space = 0;
@@ -57411,6 +57570,15 @@
 /obj/structure/flora/ausbushes/ppflowers,
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/hub)
+"tqF" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/mob/living/simple_animal/hostile/ghoul/glowing,
+/turf/open/floor/engine,
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "tqM" = (
 /obj/structure/table,
 /turf/open/floor/wood_mosaic,
@@ -63812,6 +63980,12 @@
 	},
 /turf/closed/wall/f13/ruins,
 /area/f13/raider_mall)
+"vzM" = (
+/obj/effect/mob_spawn/human/fev_pit,
+/turf/open/floor/plasteel/f13/vault_floor{
+	icon_state = "floorscorched1"
+	},
+/area/f13/wasteland/bighorn)
 "vzP" = (
 /obj/effect/spawner/lootdrop/f13/armor/random,
 /turf/open/floor/plating/rust,
@@ -64778,7 +64952,9 @@
 /turf/open/water,
 /area/f13/city)
 "vTe" = (
-/obj/machinery/atmospherics/components/unary/tank,
+/obj/machinery/atmospherics/components/unary/tank{
+	volume = 0
+	},
 /obj/effect/overlay/fog/fog5{
 	layer = 20
 	},
@@ -65404,7 +65580,8 @@
 "wcv" = (
 /obj/machinery/atmospherics/components/unary/tank{
 	pixel_y = 1;
-	pixel_x = 6
+	pixel_x = 6;
+	volume = 0
 	},
 /turf/open/floor/wood_common/wood_common_dark,
 /area/f13/bar)
@@ -67327,6 +67504,9 @@
 /area/f13/enclave{
 	name = "Enclave"
 	})
+"wJI" = (
+/turf/closed/wall/f13/sunset/brick_small_light,
+/area/f13/city)
 "wKa" = (
 /obj/structure/barricade/tentclothedge{
 	dir = 1;
@@ -70284,6 +70464,14 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/citycaves)
+"xJl" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/greenglow,
+/turf/open/floor/engine,
+/area/f13/ruins{
+	open_space = 0;
+	name = "Ruins interior"
+	})
 "xJy" = (
 /obj/effect/turf_decal/road_end{
 	icon_state = "road_end_decal_2"
@@ -70820,7 +71008,9 @@
 	},
 /area/f13/city)
 "xRS" = (
-/obj/machinery/atmospherics/components/unary/tank,
+/obj/machinery/atmospherics/components/unary/tank{
+	volume = 0
+	},
 /obj/effect/overlay/fog/fog2{
 	color = "#4b6849"
 	},
@@ -71603,10 +71793,7 @@
 	name = "Ruins interior"
 	})
 "yeT" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/ghoul/legendary,
+/mob/living/simple_animal/hostile/ghoul/glowing,
 /turf/open/floor/engine,
 /area/f13/ruins{
 	open_space = 0;
@@ -92818,7 +93005,7 @@ mBR
 atN
 dLY
 jgX
-vWH
+vzM
 cPy
 rFd
 pdY
@@ -93589,7 +93776,7 @@ mBR
 dDh
 dLY
 vWH
-jgX
+pSK
 fDp
 rFd
 pdY
@@ -94360,7 +94547,7 @@ mBR
 dDh
 gmZ
 ozB
-jgX
+pSK
 obO
 hni
 pdY
@@ -95131,7 +95318,7 @@ mBR
 tak
 oim
 jgX
-jgX
+pSK
 jUW
 qbd
 pdY
@@ -97982,8 +98169,8 @@ wHT
 wHT
 gQe
 rxG
-wHT
-wHT
+lOm
+lOm
 rxG
 duO
 duO
@@ -103659,7 +103846,7 @@ izk
 izk
 pRk
 csu
-pRk
+iED
 pRk
 uDo
 hEi
@@ -103915,7 +104102,7 @@ izk
 izk
 pRk
 pRk
-csu
+loq
 pRk
 izk
 izk
@@ -104170,8 +104357,8 @@ izk
 izk
 izk
 dFd
-pRk
-sDW
+qIR
+auV
 csu
 pWm
 izk
@@ -104428,7 +104615,7 @@ fIO
 izk
 pRk
 kbn
-kbn
+xJl
 kbn
 csu
 izk
@@ -104684,10 +104871,10 @@ fIO
 izk
 izk
 kbn
+qIR
 kbn
-csu
-pRk
-kbn
+tqF
+iED
 izk
 fIO
 izk
@@ -104703,7 +104890,7 @@ vpw
 rOb
 uxQ
 uxQ
-uxQ
+hHy
 rOb
 doJ
 rOb
@@ -104941,10 +105128,10 @@ fIO
 izk
 izk
 kbn
-pRk
+iED
 yeT
-sDW
-kbn
+jxN
+nbR
 izk
 izk
 cmm
@@ -105198,17 +105385,17 @@ fIO
 izk
 izk
 pRk
+qIR
 pRk
-iQJ
+jnN
 csu
-pRk
 izk
 izk
 rOb
 rOb
 rkl
 uxQ
-uxQ
+hHy
 muX
 gyS
 ycX
@@ -105220,7 +105407,7 @@ rOb
 mcz
 rOb
 vpw
-rOb
+rdX
 pYF
 doJ
 doJ
@@ -105457,7 +105644,7 @@ izk
 kbn
 pRk
 csu
-kbn
+xJl
 pRk
 fIO
 izk
@@ -105712,9 +105899,9 @@ izk
 izk
 izk
 seX
-kbn
+lHE
 sDW
-pRk
+iED
 pWm
 izk
 fIO
@@ -105969,7 +106156,7 @@ izk
 izk
 izk
 izk
-pRk
+lHW
 pRk
 kbn
 pRk
@@ -106227,7 +106414,7 @@ izk
 fIO
 fIO
 izk
-pRk
+iED
 sDW
 kbn
 izk
@@ -111231,7 +111418,7 @@ rsn
 rsn
 rsn
 pUB
-utE
+iQJ
 pLS
 utE
 utE
@@ -134715,10 +134902,10 @@ dti
 xlu
 lyK
 wga
-epF
-epF
+lyK
+mEz
 aIV
-epF
+mEz
 lyK
 wPf
 urq
@@ -135990,7 +136177,7 @@ xlu
 mIJ
 cvb
 cvb
-icV
+wJI
 cvb
 cvb
 cvb
