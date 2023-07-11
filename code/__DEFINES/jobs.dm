@@ -164,15 +164,17 @@
 
 #define ENCLAVE			(1<<10)
 
-#define F13USLT			(1<<0)
-#define F13USGYSGT		(1<<1)
-#define F13USSGT		(1<<2)
-#define F13USSCIENTIST	(1<<3)
-#define F13USSPECIALIST	(1<<4)
-#define F13USPRIVATE	(1<<5)
-#define F13USBDUTY      (1<<6)
+#define F13USCPT		(1<<0)
+#define F13USLT			(1<<1)
+#define F13USGYSGT		(1<<2)
+#define F13USSGT		(1<<3)
+#define F13USSCIENTIST	(1<<4)
+#define F13USCPL		(1<<5)
+#define F13USSPECIALIST	(1<<6)
+#define F13USPRIVATE	(1<<7)
+#define F13USBDUTY      (1<<8)
 
-#define TRIBAL			(1<<10)
+#define TRIBAL			(1<<11)
 
 #define F13CHIEF		(1<<0)
 #define F13SHAMAN		(1<<1)
@@ -183,7 +185,7 @@
 #define F13GUARDIAN		(1<<6)
 #define F13SPIRITPLEDGED (1<<7)
 
-#define FOLLOWERS		(1<<11)
+#define FOLLOWERS		(1<<12)
 
 #define	F13LEADPRACTITIONER	(1<<0)
 #define	F13PRACTITIONER	(1<<1)
@@ -191,7 +193,7 @@
 #define F13FOLLOWERVOLUNTEER	(1<<3)
 #define F13PROFESSOR	(1<<4)
 
-#define KHAN		(1<<12)
+#define KHAN		(1<<13)
 
 #define F13NOYAN (1<<0)
 #define F13STEWARD (1<<1)
@@ -285,6 +287,7 @@
 
 
 
+#define JOB_DISPLAY_ORDER_ELDER 67.9	//God I fucking hate. This does work tho. - Kitsunemitsu
 #define JOB_DISPLAY_ORDER_SENTINEL 68
 #define JOB_DISPLAY_ORDER_SENIORPALADIN 69
 #define JOB_DISPLAY_ORDER_PALADIN 70
@@ -330,12 +333,14 @@
 #define JOB_DISPLAY_ORDER_PUNRAIDER 105
 #define JOB_DISPLAY_ORDER_DETECTIVE 106
 
-#define JOB_DISPLAY_ORDER_F13USLT 107
+#define JOB_DISPLAY_ORDER_F13USCPT 107
+#define JOB_DISPLAY_ORDER_F13USLT 107.1
 #define JOB_DISPLAY_ORDER_F13USGYSGT 108
-#define JOB_DISPLAY_ORDER_F13USSGT 109
-#define JOB_DISPLAY_ORDER_F13USSCIENTIST 110
-#define JOB_DISPLAY_ORDER_F13USSPECIALIST 111
-#define JOB_DISPLAY_ORDER_F13USPRIVATE 112
+#define JOB_DISPLAY_ORDER_F13USSCI 109
+#define JOB_DISPLAY_ORDER_F13USSGT 110
+#define JOB_DISPLAY_ORDER_F13USCPL 110.9	//Pain n suffering, but this does work without 10 more hours of changing numbers
+#define JOB_DISPLAY_ORDER_F13USSPC 111
+#define JOB_DISPLAY_ORDER_F13USPVT 112
 
 #define JOB_DISPLAY_ORDER_CHIEF 113
 #define JOB_DISPLAY_ORDER_SHAMAN 114
