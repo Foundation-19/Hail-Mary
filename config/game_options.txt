@@ -16,7 +16,7 @@ REVIVAL_BRAIN_LIFE -1
 
 ## OOC DURING ROUND ###
 ## Comment this out if you want OOC to be automatically disabled during the round, it will be enabled during the lobby and after the round end results.
-OOC_DURING_ROUND
+#OOC_DURING_ROUND
 
 ## EMOJI ###
 ## Comment this out if you want to disable emojis
@@ -448,13 +448,13 @@ ROUNDSTART_RACES human
 ROUNDSTART_RACES ghoul
 
 ## Races that are strictly worse than humans that could probably be turned on without balance concerns
-ROUNDSTART_RACES lizard
-ROUNDSTART_RACES synthliz
-ROUNDSTART_RACES fly
+#ROUNDSTART_RACES lizard
+#ROUNDSTART_RACES synthliz
+#ROUNDSTART_RACES fly
 #ROUNDSTART_RACES insect
 #ROUNDSTART_RACES plasmaman
 #ROUNDSTART_RACES shadow
-ROUNDSTART_RACES felinid
+#ROUNDSTART_RACES felinid
 ROUNDSTART_RACES dwarf
 #ROUNDSTART_RACES ethereal
 
@@ -479,19 +479,19 @@ ROUNDSTART_RACES dwarf
 #ROUNDSTART_RACES agent
 
 ## CITADEL Races
-ROUNDSTART_RACES mammal
-ROUNDSTART_RACES avian
-ROUNDSTART_RACES aquatic
-ROUNDSTART_RACES insect
+#ROUNDSTART_RACES mammal
+#ROUNDSTART_RACES avian
+#ROUNDSTART_RACES aquatic
+#ROUNDSTART_RACES insect
 #ROUNDSTART_RACES xeno
-ROUNDSTART_RACES slimeperson
+#ROUNDSTART_RACES slimeperson
 #ROUNDSTART_RACES guilmon
-ROUNDSTART_RACES ipc
-ROUNDSTART_RACES arachnid
+#ROUNDSTART_RACES ipc
+#ROUNDSTART_RACES arachnid
 
 
 ## CUSTOM Races
-ROUNDSTART_RACES shadekin
+#ROUNDSTART_RACES shadekin
 
 
 ##-------------------------------------------------------------------------------------------
@@ -591,7 +591,7 @@ MICE_ROUNDSTART 0
 #EMERGENCY_SHUTTLE_AUTOCALL_THRESHOLD 0.2
 
 ## Determines if players are allowed to print integrated circuits, uncomment to allow.
-IC_PRINTING
+#IC_PRINTING
 
 ## Uncomment to allow roundstart quirk selection in the character setup menu.
 ## This used to be named traits, hence the config name, but it handles quirks, not the other kind of trait!
@@ -661,27 +661,27 @@ BREASTS_CUPS_PREFS c
 BREASTS_CUPS_PREFS d
 BREASTS_CUPS_PREFS e
 BREASTS_CUPS_PREFS f
-BREASTS_CUPS_PREFS g
-BREASTS_CUPS_PREFS h
-BREASTS_CUPS_PREFS i
-BREASTS_CUPS_PREFS j
-BREASTS_CUPS_PREFS k
-BREASTS_CUPS_PREFS l
-BREASTS_CUPS_PREFS m
-BREASTS_CUPS_PREFS n
-BREASTS_CUPS_PREFS o
+#BREASTS_CUPS_PREFS g
+#BREASTS_CUPS_PREFS h
+#BREASTS_CUPS_PREFS i
+#BREASTS_CUPS_PREFS j
+#BREASTS_CUPS_PREFS k
+#BREASTS_CUPS_PREFS l
+#BREASTS_CUPS_PREFS m
+#BREASTS_CUPS_PREFS n
+#BREASTS_CUPS_PREFS o
 
 ## Minimum and maximum limits for penis length from the character creation menu.
 PENIS_MIN_INCHES_PREFS 1
-PENIS_MAX_INCHES_PREFS 24
+PENIS_MAX_INCHES_PREFS 10
 
 ## Minimum and maximum limits for butt size from the character creation menu.
 BUTT_MIN_SIZE_PREFS 1
-BUTT_MAX_SIZE_PREFS 8
+BUTT_MAX_SIZE_PREFS 5
 
 ## Minimum and maximum limits for butt size from the character creation menu.
 BELLY_MIN_SIZE_PREFS 1
-BELLY_MAX_SIZE_PREFS 11
+BELLY_MAX_SIZE_PREFS 3
 
 ## Body size configs, the feature will be disabled if both min and max have the same value.
 BODY_SIZE_MIN 0.8
