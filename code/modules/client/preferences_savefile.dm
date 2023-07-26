@@ -84,40 +84,12 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 				if(ref_list)
 					var/datum/sprite_accessory/accessory = ref_list[feature_value]
 					if(accessory)
-						var/mutant_string = accessory.mutant_part_string
-						if(!mutant_string)
-							if(istype(accessory, /datum/sprite_accessory/mam_body_markings))
-								mutant_string = "mam_body_markings"
-						var/primary_string = "[mutant_string]_primary"
-						var/secondary_string = "[mutant_string]_secondary"
-						var/tertiary_string = "[mutant_string]_tertiary"
 						if(accessory.color_src == MATRIXED && !accessory.matrixed_sections && feature_value != "None")
 							message_admins("Sprite Accessory Failure (migration from [current_version] to 39): Accessory [accessory.type] is a matrixed item without any matrixed sections set!")
 							continue
-						var/primary_exists = features[primary_string]
-						var/secondary_exists = features[secondary_string]
-						var/tertiary_exists = features[tertiary_string]
-						if(accessory.color_src == MATRIXED && !primary_exists && !secondary_exists && !tertiary_exists)
-							features[primary_string] = features["mcolor"]
-							features[secondary_string] = features["mcolor2"]
-							features[tertiary_string] = features["mcolor3"]
-						else if(accessory.color_src == MUTCOLORS && !primary_exists)
-							features[primary_string] = features["mcolor"]
-						else if(accessory.color_src == MUTCOLORS2 && !secondary_exists)
-							features[secondary_string] = features["mcolor2"]
-						else if(accessory.color_src == MUTCOLORS3 && !tertiary_exists)
-							features[tertiary_string] = features["mcolor3"]
 
 		features["color_scheme"] = OLD_CHARACTER_COLORING //advanced is off by default
 
-	if(current_version < 37) //introduction of chooseable eye types/sprites
-		if(S["species"] == "insect")
-			left_eye_color = "#000000"
-			right_eye_color = "#000000"
-			if(chosen_limb_id == "moth" || chosen_limb_id == "moth_not_greyscale") //these actually have slightly different eyes!
-				eye_type = "moth"
-			else
-				eye_type = "insect"
 
 	if(current_version < 38) //further eye sprite changes
 		if(S["species"] == "plasmaman")
@@ -132,46 +104,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 		if(S["species"] == "human")
 			features["legs"] = "Plantigrade"
 
-	if(current_version < 52) // rp markings means markings are now stored as a list, lizard markings now mam like the rest
-		var/marking_type
-		var/species_id = S["species"]
-		var/datum/species/actual_species = GLOB.species_list[species_id]
 
-		// convert lizard markings to lizard markings
-		if(species_id == "lizard" && S["feature_lizard_body_markings"])
-			features["mam_body_markings"] = features["body_markings"]
-
-		// convert mam body marking data to the new rp marking data
-		if(actual_species.mutant_bodyparts["mam_body_markings"] && S["feature_mam_body_markings"]) marking_type = "feature_mam_body_markings"
-
-		if(marking_type)
-			var/old_marking_value = S[marking_type]
-			var/list/color_list = list("#FFFFFF","#FFFFFF","#FFFFFF")
-
-			if(S["feature_mcolor"]) color_list[1] = "#" + S["feature_mcolor"]
-			if(S["feature_mcolor2"]) color_list[2] = "#" + S["feature_mcolor2"]
-			if(S["feature_mcolor3"]) color_list[3] = "#" + S["feature_mcolor3"]
-
-			var/list/marking_list = list()
-			for(var/part in list(ARM_LEFT, ARM_RIGHT, LEG_LEFT, LEG_RIGHT, CHEST, HEAD))
-				var/list/copied_color_list = color_list.Copy()
-				var/datum/sprite_accessory/mam_body_markings/mam_marking = GLOB.mam_body_markings_list[old_marking_value]
-				var/part_name = GLOB.bodypart_names[num2text(part)]
-				if(length(mam_marking.covered_limbs) && mam_marking.covered_limbs[part_name])
-					var/matrixed_sections = mam_marking.covered_limbs[part_name]
-					// just trust me this is fine
-					switch(matrixed_sections)
-						if(MATRIX_GREEN)
-							copied_color_list[1] = copied_color_list[2]
-						if(MATRIX_BLUE)
-							copied_color_list[1] = copied_color_list[3]
-						if(MATRIX_RED_BLUE)
-							copied_color_list[2] = copied_color_list[3]
-						if(MATRIX_GREEN_BLUE)
-							copied_color_list[1] = copied_color_list[2]
-							copied_color_list[2] = copied_color_list[3]
-				marking_list += list(list(part, old_marking_value, copied_color_list))
-			features["mam_body_markings"] = marking_list
 
 /datum/preferences/proc/load_path(ckey,filename="preferences.sav")
 	if(!ckey)
@@ -447,106 +380,14 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 		"mcolor" = "FFFFFF",
 		"mcolor2" = "FFFFFF",
 		"mcolor3" = "FFFFFF",
-		"tail_lizard" = "Smooth",
-
-		"tail_human" = "None",
-		"snout" = "Round",
-		"horns" = "None",
-		"horns_color" = "85615a",
-		"ears" = "None",
-
-		"wings" = "None",
-		"wings_color" = "FFF",
-		"frills" = "None",
-		"deco_wings" = "None",
-		"spines" = "None",
 
 		"legs" = "Plantigrade",
-		"insect_wings" = "Plain",
-		"insect_fluff" = "None",
-		"insect_markings" = "None",
-
-		"arachnid_legs" = "Plain",
-		"arachnid_spinneret" = "Plain",
-		"arachnid_mandibles" = "Plain",
-
-		"mam_body_markings" = list(),
-		"mam_ears" = "None",
-		"mam_snouts" = "None",
-		"mam_tail" = "None",
-
-		"mam_tail_animated" = "None",
-		"xenodorsal" = "Standard",
-		"xenohead" = "Standard",
-		"xenotail" = "Xenomorph Tail",
-
-		"taur" = "None",
-		"genitals_use_skintone" = FALSE,
-		"has_cock" = FALSE,
-		"cock_shape" = DEF_COCK_SHAPE,
-
-		"cock_size" = COCK_SIZE_DEF,
-		"cock_diameter_ratio" = COCK_DIAMETER_RATIO_DEF,
-		"cock_color" = "ffffff",
-
-		"cock_taur" = FALSE,
-		"has_balls" = FALSE,
-		"balls_color" = "ffffff",
-		"balls_shape" = DEF_BALLS_SHAPE,
-
-		"balls_size" = BALLS_SIZE_DEF,
-		"balls_cum_rate" = CUM_RATE,
-		"balls_cum_mult" = CUM_RATE_MULT,
-
-		"balls_efficiency" = CUM_EFFICIENCY,
-		"has_breasts" = FALSE,
-		"breasts_color" = "ffffff",
-
-		"has_butt" = FALSE,
-		"butt_color" = "ffffff",
-		"butt_size" = BUTT_SIZE_DEF,
-
-		"has_belly" = FALSE,
-		"belly_color" = "ffffff",
-		"belly_size" = BELLY_SIZE_DEF,
-		"belly_shape" = DEF_BELLY_SHAPE,
-
-		"breasts_size" = BREASTS_SIZE_DEF,
-		"breasts_shape" = DEF_BREASTS_SHAPE,
-		"breasts_producing" = FALSE,
-
-		"has_vag" = FALSE,
-		"vag_shape" = DEF_VAGINA_SHAPE,
-		"vag_color" = "ffffff",
-		"has_womb" = FALSE,
-
-		"balls_visibility" = GEN_VISIBLE_NO_UNDIES,
-		"breasts_visibility"= GEN_VISIBLE_NO_UNDIES,
-		"butt_visibility"  = GEN_VISIBLE_NO_UNDIES,
-
-		"cock_visibility" = GEN_VISIBLE_NO_UNDIES,
-		"vag_visibility" = GEN_VISIBLE_NO_UNDIES,
-
-		"balls_visibility_flags" = GEN_VIS_FLAG_DEFAULT,
-		"breasts_visibility_flags"= GEN_VIS_FLAG_DEFAULT,
-		"cock_visibility_flags" = GEN_VIS_FLAG_DEFAULT,
-		"vag_visibility_flags" = GEN_VIS_FLAG_DEFAULT,
-		"butt_visibility_flags" = GEN_VIS_FLAG_DEFAULT,
-		"belly_visibility_flags" = GEN_VIS_FLAG_DEFAULT,
-		"genital_visibility_flags" = GEN_VIS_OVERALL_FLAG_DEFAULT,
-		"genital_order" = DEF_COCKSTRING,
-		"genital_whitelist" = "Mr Bingus, fluntly, Doc Bungus",
-		"genital_hide" = NONE,
-
-
 		"ipc_screen" = "Sunburst",
 		"ipc_antenna" = "None",
 		"flavor_text" = "",
 		"silicon_flavor_text" = "",
 
 		"ooc_notes" = OOC_NOTE_TEMPLATE,
-		"meat_type" = "Mammalian",
-		"taste" = "something salty",
 		"body_model" = MALE,
 		"body_size" = RESIZE_DEFAULT_SIZE,
 		"color_scheme" = OLD_CHARACTER_COLORING,
@@ -616,21 +457,6 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	S["custom_speech_verb"]		>> custom_speech_verb
 	S["custom_tongue"]			>> custom_tongue
 	S["feature_mcolor"]					>> features["mcolor"]
-	S["feature_lizard_tail"]			>> features["tail_lizard"]
-	S["feature_lizard_snout"]			>> features["snout"]
-	S["feature_lizard_horns"]			>> features["horns"]
-	S["feature_lizard_frills"]			>> features["frills"]
-	S["feature_lizard_spines"]			>> features["spines"]
-	S["feature_lizard_legs"]			>> features["legs"]
-	S["feature_human_tail"]				>> features["tail_human"]
-	S["feature_human_ears"]				>> features["ears"]
-	S["feature_deco_wings"]				>> features["deco_wings"]
-	S["feature_insect_wings"]			>> features["insect_wings"]
-	S["feature_insect_fluff"]			>> features["insect_fluff"]
-	S["feature_insect_markings"]		>> features["insect_markings"]
-	S["feature_horns_color"]			>> features["horns_color"]
-	S["feature_wings_color"]			>> features["wings_color"]
-	S["feature_color_scheme"]			>> features["color_scheme"]
 	S["feature_chat_color"]				>> features["chat_color"]
 	S["persistent_scars"] 				>> persistent_scars
 	S["scars1"]							>> scars_list["1"]
@@ -673,68 +499,6 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	S["feature_mcolor3"]				>> features["mcolor3"]
 	// note safe json decode will runtime the first time it migrates but this is fine and it solves itself don't worry about it if you see it error
 	features["mam_body_markings"] = safe_json_decode(S["feature_mam_body_markings"])
-	S["feature_mam_tail"]				>> features["mam_tail"]
-	S["feature_mam_ears"]				>> features["mam_ears"]
-	S["feature_mam_tail_animated"]		>> features["mam_tail_animated"]
-	S["feature_taur"]					>> features["taur"]
-	S["feature_mam_snouts"]				>> features["mam_snouts"]
-	S["feature_meat"]					>> features["meat_type"]
-	//Xeno features
-	S["feature_xeno_tail"]				>> features["xenotail"]
-	S["feature_xeno_dors"]				>> features["xenodorsal"]
-	S["feature_xeno_head"]				>> features["xenohead"]
-	//cock features
-	S["feature_has_cock"]				>> features["has_cock"]
-	S["feature_cock_shape"]				>> features["cock_shape"]
-	S["feature_cock_color"]				>> features["cock_color"]
-	S["feature_cock_length"]			>> features["cock_size"] // blame citacode
-	S["feature_cock_diameter"]			>> features["cock_diameter"]
-	S["feature_cock_taur"]				>> features["cock_taur"]
-	S["feature_cock_visibility"]		>> features["cock_visibility"]
-	S["feature_cock_visibility_flags"]	>> features["cock_visibility_flags"]
-	//balls features
-	S["feature_has_balls"]				>> features["has_balls"]
-	S["feature_balls_shape"]			>> features["balls_shape"]
-	S["feature_balls_color"]			>> features["balls_color"]
-	S["feature_balls_size"]				>> features["balls_size"]
-	S["feature_balls_visibility"]		>> features["balls_visibility"]
-	S["feature_balls_visibility_flags"]	>> features["balls_visibility_flags"]
-	//breasts features
-	S["feature_has_breasts"]			>> features["has_breasts"]
-	S["feature_breasts_size"]			>> features["breasts_size"]
-	S["feature_breasts_shape"]			>> features["breasts_shape"]
-	S["feature_breasts_color"]			>> features["breasts_color"]
-	S["feature_breasts_producing"]		>> features["breasts_producing"]
-	S["feature_breasts_visibility"]		>> features["breasts_visibility"]
-	S["feature_breasts_visibility_flags"] >> features["breasts_visibility_flags"]
-	//butt features
-	S["feature_has_butt"] 				>> features["has_butt"]
-	S["feature_butt_color"] 			>> features["butt_color"]
-	S["feature_butt_size"] 				>> features["butt_size"]
-	S["feature_butt_visibility"] 		>> features["butt_visibility"]
-	S["feature_butt_visibility_flags"] 		>> features["butt_visibility_flags"]
-	//belly features
-	S["feature_has_belly"] 				>> features["has_belly"]
-	S["feature_belly_color"] 			>> features["belly_color"]
-	S["feature_belly_shape"] 			>> features["belly_shape"]
-	S["feature_belly_size"] 			>> features["belly_size"]
-	S["feature_belly_visibility"] 		>> features["belly_visibility"]
-	S["feature_belly_visibility_flags"] >> features["belly_visibility_flags"]
-	//vagina features
-	S["feature_has_vag"]				>> features["has_vag"]
-	S["feature_vag_shape"]				>> features["vag_shape"]
-	S["feature_vag_color"]				>> features["vag_color"]
-	S["feature_vag_visibility"]			>> features["vag_visibility"]
-	S["feature_vag_visibility_flags"]	>> features["vag_visibility_flags"]
-	//womb features
-	S["feature_has_womb"]				>> features["has_womb"]
-	//cockstring
-	S["feature_genital_order"]			>> features["genital_order"]
-	S["feature_genital_whitelist"]		>> features["genital_whitelist"]
-	S["feature_genital_hide"]			>> features["genital_hide"]
-	S["feature_genital_visibility_flags"] >> features["genital_visibility_flags"]
-	//taste
-	S["feature_taste"]					>> features["taste"]
 
 	//flavor text
 	//Let's make our players NOT cry desperately as we wipe their savefiles of their special snowflake texts:
@@ -774,8 +538,6 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 
 	S["gradient_color"]		>> features_override["grad_color"] // Hair gradients!
 	S["gradient_style"]		>> features_override["grad_style"] // Hair gradients electric boogaloo 2!!
-	S["typing_indicator_sound"]			>> features_speech["typing_indicator_sound"] // Typing sounds!
-	S["typing_indicator_sound_play"]	>> features_speech["typing_indicator_sound_play"] // Typing sounds electric- you know what I'm gonna stop its not funny anymore.
 
 	//try to fix any outdated data if necessary
 	//preference updating will handle saving the updated data for us.
@@ -837,18 +599,6 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	jumpsuit_style					= sanitize_inlist(jumpsuit_style, GLOB.jumpsuitlist, initial(jumpsuit_style))
 	uplink_spawn_loc				= sanitize_inlist(uplink_spawn_loc, GLOB.uplink_spawn_loc_list, initial(uplink_spawn_loc))
 	features["mcolor"]				= sanitize_hexcolor(features["mcolor"], 6, FALSE)
-	features["tail_lizard"]			= sanitize_inlist(features["tail_lizard"], GLOB.tails_list_lizard)
-	features["tail_human"]			= sanitize_inlist(features["tail_human"], GLOB.tails_list_human)
-	features["snout"]				= sanitize_inlist(features["snout"], GLOB.snouts_list)
-	features["horns"]				= sanitize_inlist(features["horns"], GLOB.horns_list)
-	features["ears"]				= sanitize_inlist(features["ears"], GLOB.ears_list)
-	features["frills"]				= sanitize_inlist(features["frills"], GLOB.frills_list)
-	features["spines"]				= sanitize_inlist(features["spines"], GLOB.spines_list)
-	features["legs"]				= sanitize_inlist(features["legs"], GLOB.legs_list, "Plantigrade")
-	features["deco_wings"] 			= sanitize_inlist(features["deco_wings"], GLOB.deco_wings_list, "None")
-	features["insect_fluff"]		= sanitize_inlist(features["insect_fluff"], GLOB.insect_fluffs_list)
-	features["insect_markings"] 	= sanitize_inlist(features["insect_markings"], GLOB.insect_markings_list, "None")
-	features["insect_wings"] 		= sanitize_inlist(features["insect_wings"], GLOB.insect_wings_list)
 
 	var/static/size_min
 	if(!size_min)
@@ -913,10 +663,6 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 
 	features_override["grad_color"]		= sanitize_hexcolor(features_override["grad_color"], 6, FALSE, default = COLOR_ALMOST_BLACK)
 	features_override["grad_style"]		= sanitize_inlist(features_override["grad_style"], GLOB.hair_gradients, "none")
-
-	features_speech["typing_indicator_sound"]				= sanitize_inlist(features_speech["typing_indicator_sound"], GLOB.typing_indicator_sounds, "Default")
-	features_speech["typing_indicator_sound_play"]			= sanitize_inlist(features_speech["typing_indicator_sound_play"], GLOB.play_methods, "No Sound")
-
 
 	joblessrole	= sanitize_integer(joblessrole, 1, 3, initial(joblessrole))
 	//Validate job prefs
@@ -988,23 +734,6 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	// records
 	WRITE_FILE(S["security_records"]		, security_records)
 	WRITE_FILE(S["medical_records"]			, medical_records)
-
-	WRITE_FILE(S["feature_mcolor"]					, features["mcolor"])
-	WRITE_FILE(S["feature_lizard_tail"]				, features["tail_lizard"])
-	WRITE_FILE(S["feature_human_tail"]				, features["tail_human"])
-	WRITE_FILE(S["feature_lizard_snout"]			, features["snout"])
-	WRITE_FILE(S["feature_lizard_horns"]			, features["horns"])
-	WRITE_FILE(S["feature_human_ears"]				, features["ears"])
-	WRITE_FILE(S["feature_lizard_frills"]			, features["frills"])
-	WRITE_FILE(S["feature_lizard_spines"]			, features["spines"])
-	WRITE_FILE(S["feature_lizard_legs"]				, features["legs"])
-	WRITE_FILE(S["feature_deco_wings"]				, features["deco_wings"])
-	WRITE_FILE(S["feature_horns_color"]				, features["horns_color"])
-	WRITE_FILE(S["feature_wings_color"]				, features["wings_color"])
-	WRITE_FILE(S["feature_insect_wings"]			, features["insect_wings"])
-	WRITE_FILE(S["feature_insect_fluff"]			, features["insect_fluff"])
-	WRITE_FILE(S["feature_insect_markings"]			, features["insect_markings"])
-	WRITE_FILE(S["feature_meat"]					, features["meat_type"])
 
 	WRITE_FILE(S["feature_ooc_notes"], features["ooc_notes"])
 
@@ -1088,9 +817,6 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 
 	WRITE_FILE(S["gradient_color"]			, features_override["grad_color"])
 	WRITE_FILE(S["gradient_style"]			, features_override["grad_style"])
-
-	WRITE_FILE(S["typing_indicator_sound"]				, features_speech["typing_indicator_sound"])
-	WRITE_FILE(S["typing_indicator_sound_play"]			, features_speech["typing_indicator_sound_play"])
 
 	cit_character_pref_save(S)
 

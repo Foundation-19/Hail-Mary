@@ -447,49 +447,6 @@ SILICON_MAX_LAW_AMOUNT 12
 ROUNDSTART_RACES human
 ROUNDSTART_RACES ghoul
 
-## Races that are strictly worse than humans that could probably be turned on without balance concerns
-ROUNDSTART_RACES lizard
-ROUNDSTART_RACES synthliz
-ROUNDSTART_RACES fly
-#ROUNDSTART_RACES insect
-#ROUNDSTART_RACES plasmaman
-#ROUNDSTART_RACES shadow
-ROUNDSTART_RACES felinid
-ROUNDSTART_RACES dwarf
-#ROUNDSTART_RACES ethereal
-
-## Races that are better than humans in some ways, but worse in others
-#ROUNDSTART_RACES jelly
-#ROUNDSTART_RACES golem
-#ROUNDSTART_RACES adamantine
-#ROUNDSTART_RACES plasma
-#ROUNDSTART_RACES diamond
-#ROUNDSTART_RACES gold
-#ROUNDSTART_RACES silver
-#ROUNDSTART_RACES uranium
-#ROUNDSTART_RACES abductor
-#ROUNDSTART_RACES synth
-
-## Races that are straight upgrades. If these are on expect powergamers to always pick them
-#ROUNDSTART_RACES skeleton
-#ROUNDSTART_RACES zombie
-#ROUNDSTART_RACES slime
-#ROUNDSTART_RACES pod
-#ROUNDSTART_RACES military_synth
-#ROUNDSTART_RACES agent
-
-## CITADEL Races
-ROUNDSTART_RACES mammal
-ROUNDSTART_RACES avian
-ROUNDSTART_RACES aquatic
-ROUNDSTART_RACES insect
-#ROUNDSTART_RACES xeno
-ROUNDSTART_RACES slimeperson
-#ROUNDSTART_RACES guilmon
-ROUNDSTART_RACES ipc
-ROUNDSTART_RACES arachnid
-
-
 ## CUSTOM Races
 ROUNDSTART_RACES shadekin
 
