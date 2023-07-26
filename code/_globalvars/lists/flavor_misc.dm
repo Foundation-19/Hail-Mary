@@ -16,40 +16,9 @@ GLOBAL_LIST_EMPTY(undershirt_m)	 //stores only undershirt name
 GLOBAL_LIST_EMPTY(undershirt_f)	 //stores only undershirt name
 	//Socks
 GLOBAL_LIST_EMPTY_TYPED(socks_list, /datum/sprite_accessory/underwear/socks)		//stores socks indexed by name
-	//Lizard Bits (all datum lists indexed by name)
-GLOBAL_LIST_EMPTY(tails_list_lizard)
-GLOBAL_LIST_EMPTY(animated_tails_list_lizard)
-GLOBAL_LIST_EMPTY(snouts_list)
-GLOBAL_LIST_EMPTY(horns_list)
-GLOBAL_LIST_EMPTY(frills_list)
-GLOBAL_LIST_EMPTY(spines_list)
-GLOBAL_LIST_EMPTY(legs_list)
-GLOBAL_LIST_EMPTY(animated_spines_list)
-
-	//Mutant Human bits
-GLOBAL_LIST_EMPTY(tails_list_human)
-GLOBAL_LIST_EMPTY(animated_tails_list_human)
-GLOBAL_LIST_EMPTY(ears_list)
-GLOBAL_LIST_EMPTY(wings_list)
-GLOBAL_LIST_EMPTY(wings_open_list)
-GLOBAL_LIST_EMPTY(deco_wings_list)
-GLOBAL_LIST_EMPTY(r_wings_list)
-GLOBAL_LIST_EMPTY(insect_wings_list)
-GLOBAL_LIST_EMPTY(insect_fluffs_list)
-GLOBAL_LIST_EMPTY(insect_markings_list)
-GLOBAL_LIST_EMPTY(caps_list)
 
 //a way to index the right bodypart list given the type of bodypart
-GLOBAL_LIST_INIT(mutant_reference_list, list(
-	"wingsopen" = GLOB.wings_open_list,
-	"deco_wings" = GLOB.deco_wings_list,
-	"legs" = GLOB.legs_list,
-	"caps" = GLOB.caps_list,
-	"ipc_screen" = GLOB.ipc_screens_list,
-	"ipc_antenna" = GLOB.ipc_antennas_list,
-	"xenodorsal" = GLOB.xeno_dorsal_list,
-	"xenohead" = GLOB.xeno_head_list,
-	"xenotail" = GLOB.xeno_tail_list))
+GLOBAL_LIST_INIT(mutant_reference_list, list())
 
 //references wag types to regular types, wings open to wings, etc
 GLOBAL_LIST_INIT(mutant_transform_list, list())
@@ -248,10 +217,7 @@ GLOBAL_LIST_INIT(speech_verbs, list("default", "says", "rasps", "states", "bello
 
 GLOBAL_LIST_INIT(roundstart_tongues, list(
 	"default",
-	"human tongue" = /obj/item/organ/tongue,
-	//"skeleton tongue" = /obj/item/organ/tongue/bone,
-	//"fly tongue" = /obj/item/organ/tongue/fly,
-	//"ipc tongue" = /obj/item/organ/tongue/robot/ipc
+	"human tongue" = /obj/item/organ/tongue
 	))
 
 //locked parts are those that your picked species requires to have
@@ -269,10 +235,10 @@ GLOBAL_LIST_INIT(greyscale_limb_types, list("human"))
 GLOBAL_LIST_INIT(prosthetic_limb_types, list("xion","bishop","cybersolutions","grayson","hephaestus","nanotrasen","talon"))
 
 //body ids that have non-gendered bodyparts
-GLOBAL_LIST_INIT(nongendered_limb_types, list("fly", "zombie" ,"synth", "shadow", "cultgolem", "agent", "plasmaman", "clockgolem", "clothgolem", "smutant"))
+GLOBAL_LIST_INIT(nongendered_limb_types, list("zombie" ,"synth", "shadow", "cultgolem", "agent", "smutant"))
 
 //list of eye types, corresponding to a respective left and right icon state for the set of eyes
-GLOBAL_LIST_INIT(eye_types, list("normal",  "wide", "derpy",  "double", "double2", "double3", "cyclops", "shadekin"))
+GLOBAL_LIST_INIT(eye_types, list("normal"))
 
 //list linking bodypart bitflags to their actual names
 GLOBAL_LIST_INIT(bodypart_names, list(num2text(HEAD) = "Head", num2text(CHEST) = "Chest", num2text(LEG_LEFT) = "Left Leg", num2text(LEG_RIGHT) = "Right Leg", num2text(ARM_LEFT) = "Left Arm", num2text(ARM_RIGHT) = "Right Arm"))
