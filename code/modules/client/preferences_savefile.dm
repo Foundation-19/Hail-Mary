@@ -84,40 +84,12 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 				if(ref_list)
 					var/datum/sprite_accessory/accessory = ref_list[feature_value]
 					if(accessory)
-						var/mutant_string = accessory.mutant_part_string
-						if(!mutant_string)
-							if(istype(accessory, /datum/sprite_accessory/mam_body_markings))
-								mutant_string = "mam_body_markings"
-						var/primary_string = "[mutant_string]_primary"
-						var/secondary_string = "[mutant_string]_secondary"
-						var/tertiary_string = "[mutant_string]_tertiary"
 						if(accessory.color_src == MATRIXED && !accessory.matrixed_sections && feature_value != "None")
 							message_admins("Sprite Accessory Failure (migration from [current_version] to 39): Accessory [accessory.type] is a matrixed item without any matrixed sections set!")
 							continue
-						var/primary_exists = features[primary_string]
-						var/secondary_exists = features[secondary_string]
-						var/tertiary_exists = features[tertiary_string]
-						if(accessory.color_src == MATRIXED && !primary_exists && !secondary_exists && !tertiary_exists)
-							features[primary_string] = features["mcolor"]
-							features[secondary_string] = features["mcolor2"]
-							features[tertiary_string] = features["mcolor3"]
-						else if(accessory.color_src == MUTCOLORS && !primary_exists)
-							features[primary_string] = features["mcolor"]
-						else if(accessory.color_src == MUTCOLORS2 && !secondary_exists)
-							features[secondary_string] = features["mcolor2"]
-						else if(accessory.color_src == MUTCOLORS3 && !tertiary_exists)
-							features[tertiary_string] = features["mcolor3"]
 
 		features["color_scheme"] = OLD_CHARACTER_COLORING //advanced is off by default
 
-	if(current_version < 37) //introduction of chooseable eye types/sprites
-		if(S["species"] == "insect")
-			left_eye_color = "#000000"
-			right_eye_color = "#000000"
-			if(chosen_limb_id == "moth" || chosen_limb_id == "moth_not_greyscale") //these actually have slightly different eyes!
-				eye_type = "moth"
-			else
-				eye_type = "insect"
 
 	if(current_version < 38) //further eye sprite changes
 		if(S["species"] == "plasmaman")
@@ -132,46 +104,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 		if(S["species"] == "human")
 			features["legs"] = "Plantigrade"
 
-	if(current_version < 52) // rp markings means markings are now stored as a list, lizard markings now mam like the rest
-		var/marking_type
-		var/species_id = S["species"]
-		var/datum/species/actual_species = GLOB.species_list[species_id]
 
-		// convert lizard markings to lizard markings
-		if(species_id == "lizard" && S["feature_lizard_body_markings"])
-			features["mam_body_markings"] = features["body_markings"]
-
-		// convert mam body marking data to the new rp marking data
-		if(actual_species.mutant_bodyparts["mam_body_markings"] && S["feature_mam_body_markings"]) marking_type = "feature_mam_body_markings"
-
-		if(marking_type)
-			var/old_marking_value = S[marking_type]
-			var/list/color_list = list("#FFFFFF","#FFFFFF","#FFFFFF")
-
-			if(S["feature_mcolor"]) color_list[1] = "#" + S["feature_mcolor"]
-			if(S["feature_mcolor2"]) color_list[2] = "#" + S["feature_mcolor2"]
-			if(S["feature_mcolor3"]) color_list[3] = "#" + S["feature_mcolor3"]
-
-			var/list/marking_list = list()
-			for(var/part in list(ARM_LEFT, ARM_RIGHT, LEG_LEFT, LEG_RIGHT, CHEST, HEAD))
-				var/list/copied_color_list = color_list.Copy()
-				var/datum/sprite_accessory/mam_body_markings/mam_marking = GLOB.mam_body_markings_list[old_marking_value]
-				var/part_name = GLOB.bodypart_names[num2text(part)]
-				if(length(mam_marking.covered_limbs) && mam_marking.covered_limbs[part_name])
-					var/matrixed_sections = mam_marking.covered_limbs[part_name]
-					// just trust me this is fine
-					switch(matrixed_sections)
-						if(MATRIX_GREEN)
-							copied_color_list[1] = copied_color_list[2]
-						if(MATRIX_BLUE)
-							copied_color_list[1] = copied_color_list[3]
-						if(MATRIX_RED_BLUE)
-							copied_color_list[2] = copied_color_list[3]
-						if(MATRIX_GREEN_BLUE)
-							copied_color_list[1] = copied_color_list[2]
-							copied_color_list[2] = copied_color_list[3]
-				marking_list += list(list(part, old_marking_value, copied_color_list))
-			features["mam_body_markings"] = marking_list
 
 /datum/preferences/proc/load_path(ckey,filename="preferences.sav")
 	if(!ckey)
