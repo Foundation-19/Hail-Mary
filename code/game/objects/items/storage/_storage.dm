@@ -29,7 +29,7 @@
 //Cyberboss says: "USE THIS TO FILL IT, NOT INITIALIZE OR NEW"
 /obj/item/storage/proc/PopulateContents()
 
-/obj/item/storage/proc/dump_everything(datum/source, obj/vore_belly/gut, mob/living/vorer)
+/obj/item/storage/proc/dump_everything(datum/source)
 	SIGNAL_HANDLER
 	SEND_SIGNAL(src, COMSIG_TRY_STORAGE_HIDE_ALL)
 	if(contents)
