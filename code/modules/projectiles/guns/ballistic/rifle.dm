@@ -453,7 +453,7 @@
 	name = "Lee-Enfield rifle"
 	desc = "A british rifle sometimes known as the SMLE. It seems to have been re-chambered in .308. Can be sawn off."
 	sawn_desc = "This accursed abomination was a common modification for trench warfare. Now some waster is likely using it for close quarters."
-	icon = 'modular_coyote/icons/objects/rifles.dmi'
+	icon = 'fallout/icons/objects/rifles.dmi'
 	icon_state = "smle"
 	item_state = "smle"
 	mag_type = /obj/item/ammo_box/magazine/internal/boltaction/enfield
@@ -488,7 +488,7 @@
 /obj/item/gun/ballistic/rifle/enfield/jungle
 	name = "Jungle Carbine"
 	desc = "The Rifle No. 5 Mk I, made by the Australian army at Lithgow Small Arms in Australia, its a shortened Enfield used for secondary service in the Australian and New zealand army for jungle warfare other then the L1A1 battle rifle,  made from an SMLE its bolt action holds 10 rounds and sadly cannot fit a scope."
-	icon = 'modular_coyote/icons/objects/rifles.dmi'
+	icon = 'fallout/icons/objects/rifles.dmi'
 	icon_state = "junglecarbine"
 	item_state = "308"
 	mag_type = /obj/item/ammo_box/magazine/internal/boltaction/enfield
@@ -554,7 +554,7 @@
 		and barrel capable of using both 5mm and 5.56mm rifle ammunition with reasonable success. \
 		The magazine is welded to the frame, and the loading port angled <i>just enough</i> to make stripper clips not work. \
 		Apparently these 'features' to the design, being on every instance of this gun."
-	icon = 'modular_coyote/icons/objects/churroguns.dmi'
+	icon = 'fallout/icons/objects/churroguns.dmi'
 	icon_state = "salvaged_eastern_rifle"
 	item_state = "marksman"
 	mag_type = /obj/item/ammo_box/magazine/internal/salvaged_eastern_rifle

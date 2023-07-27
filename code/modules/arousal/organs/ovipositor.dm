@@ -2,7 +2,7 @@
 	name = "Ovipositor"
 	desc = "An egg laying reproductive organ."
 	icon_state = "ovi_knotted_2"
-	icon = 'modular_citadel/icons/obj/genitals/ovipositor.dmi'
+	icon = 'fallout/icons/obj/genitals/ovipositor.dmi'
 	zone = "groin"
 	slot = "penis"
 	w_class = 3

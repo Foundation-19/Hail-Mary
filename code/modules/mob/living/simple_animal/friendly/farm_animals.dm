@@ -720,7 +720,7 @@
 /mob/living/simple_animal/cow/brahmin/molerat
 	name = "tamed molerat"
 	desc = "That's a big ol' molerat, seems to be able to take a saddle!"
-	icon = 'modular_coyote/icons/mob/horse.dmi'
+	icon = 'fallout/icons/mob/horse.dmi'
 	icon_state = "molerat"
 	icon_living = "molerat"
 	icon_dead = "molerat_dead"
@@ -766,7 +766,7 @@
 /mob/living/simple_animal/cow/brahmin/horse/honse //wuzzle
 	name = "honse"
 	desc = "That's a honse, it's the morst but it sure is snorst." //Someone please set a better description later ~TK
-	icon = 'modular_coyote/icons/mob/horse.dmi'
+	icon = 'fallout/icons/mob/horse.dmi'
 	icon_state = "honse"
 	icon_living = "honse"
 	icon_dead = "honse_KO"
@@ -815,7 +815,7 @@
 /mob/living/simple_animal/cow/brahmin/horse //faster than a brahmin, but much less tanky
 	name = "horse"
 	desc = "That's a horse, it's not the morst but it sure is snorst." //Someone please set a better description later ~TK
-	icon = 'modular_coyote/icons/mob/horse.dmi'
+	icon = 'fallout/icons/mob/horse.dmi'
 	icon_state = "horse"
 	icon_living = "horse"
 	icon_dead = "KO"
@@ -917,7 +917,7 @@
 	name = "tamed spider"
 	desc = "SOMEONE TAMED A FUCKING GIANT SPIDER?"
 	icon = 'icons/fallout/mobs/animals/nightstalker.dmi'
-	icon = 'modular_coyote/icons/mob/horse.dmi'
+	icon = 'fallout/icons/mob/horse.dmi'
 	icon_state = "hunter"
 	icon_living = "hunter"
 	icon_dead = "hunter_dead"
@@ -972,7 +972,7 @@
 /mob/living/simple_animal/cow/brahmin/horse/fennec //faster than a brahmin, but much less tanky
 	name = "fennec"
 	desc = "That's a fennec, screm."
-	icon = 'modular_coyote/icons/mob/horse.dmi'
+	icon = 'fallout/icons/mob/horse.dmi'
 	icon_state = "fennec"
 	icon_living = "fennec"
 	icon_dead = "fennec_dead"
