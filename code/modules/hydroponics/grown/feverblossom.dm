@@ -16,7 +16,6 @@
 	icon_dead = "feverblossom-dead"
 	mutatelist = list()
 	reagents_add = list(
-		/datum/reagent/drug/aphrodisiac = 0.2,
 		/datum/reagent/consumable/nutriment = 0.05
 	)
 
