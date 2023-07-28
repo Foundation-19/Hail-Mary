@@ -179,7 +179,7 @@
 	icon_state = "cardborg_h"
 	item_state = "cardborg_h"
 	flags_cover = HEADCOVERSEYES
-	alternate_screams = list('modular_citadel/sound/voice/scream_silicon.ogg')
+	alternate_screams = list('fallout/sound/voice/scream_silicon.ogg')
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDESNOUT
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/small/rushelmet
 
@@ -359,8 +359,8 @@
 /obj/item/clothing/head/coyote
 	name = "Coyote Tophat"
 	desc = "A tophat made of coyote fur, weird."
-	mob_overlay_icon = 'modular_coyote/icons/objects/head.dmi'
-	icon = 'modular_coyote/icons/objects/hats.dmi'
+	mob_overlay_icon = 'fallout/icons/objects/head.dmi'
+	icon = 'fallout/icons/objects/hats.dmi'
 	icon_state = "tophat"
 	item_state = "tophat"
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/small/rushelmet

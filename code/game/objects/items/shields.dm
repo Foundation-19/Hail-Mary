@@ -551,9 +551,9 @@ The telescopic shields are legacy and don't fit, but the code might be of intere
 
 /obj/item/shield/coyote
 	name = "coyote shield template"
-	icon = 'modular_coyote/icons/objects/weapons.dmi'
-	lefthand_file = 'modular_coyote/icons/objects/lefthand_weapons.dmi'
-	righthand_file = 'modular_coyote/icons/objects/righthand_weapons.dmi'
+	icon = 'fallout/icons/objects/weapons.dmi'
+	lefthand_file = 'fallout/icons/objects/lefthand_weapons.dmi'
+	righthand_file = 'fallout/icons/objects/righthand_weapons.dmi'
 	item_flags = ITEM_CAN_BLOCK | SLOWS_WHILE_IN_HAND
 	slowdown = 0
 	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BACK
@@ -566,9 +566,9 @@ The telescopic shields are legacy and don't fit, but the code might be of intere
 
 /obj/item/shield/coyote/redbuckler
 	name = "Red Buckler"
-	icon = 'modular_coyote/icons/objects/weapons.dmi'
-	lefthand_file = 'modular_coyote/icons/objects/lefthand_weapons.dmi'
-	righthand_file = 'modular_coyote/icons/objects/righthand_weapons.dmi'
+	icon = 'fallout/icons/objects/weapons.dmi'
+	lefthand_file = 'fallout/icons/objects/lefthand_weapons.dmi'
+	righthand_file = 'fallout/icons/objects/righthand_weapons.dmi'
 	item_flags = ITEM_CAN_BLOCK | SLOWS_WHILE_IN_HAND
 	slowdown = 0
 	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BACK
@@ -581,9 +581,9 @@ The telescopic shields are legacy and don't fit, but the code might be of intere
 
 /obj/item/shield/coyote/bluebuckler
 	name = "Blue Buckler"
-	icon = 'modular_coyote/icons/objects/weapons.dmi'
-	lefthand_file = 'modular_coyote/icons/objects/lefthand_weapons.dmi'
-	righthand_file = 'modular_coyote/icons/objects/righthand_weapons.dmi'
+	icon = 'fallout/icons/objects/weapons.dmi'
+	lefthand_file = 'fallout/icons/objects/lefthand_weapons.dmi'
+	righthand_file = 'fallout/icons/objects/righthand_weapons.dmi'
 	item_flags = ITEM_CAN_BLOCK | SLOWS_WHILE_IN_HAND
 	slowdown = 0
 	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BACK
@@ -595,9 +595,9 @@ The telescopic shields are legacy and don't fit, but the code might be of intere
 
 /obj/item/shield/coyote/steelshield
 	name = "Steel Shield"
-	icon = 'modular_coyote/icons/objects/weapons.dmi'
-	lefthand_file = 'modular_coyote/icons/objects/lefthand_weapons.dmi'
-	righthand_file = 'modular_coyote/icons/objects/righthand_weapons.dmi'
+	icon = 'fallout/icons/objects/weapons.dmi'
+	lefthand_file = 'fallout/icons/objects/lefthand_weapons.dmi'
+	righthand_file = 'fallout/icons/objects/righthand_weapons.dmi'
 	item_flags = ITEM_CAN_BLOCK | SLOWS_WHILE_IN_HAND
 	slowdown = 0
 	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BACK
@@ -610,9 +610,9 @@ The telescopic shields are legacy and don't fit, but the code might be of intere
 
 /obj/item/shield/coyote/ironshield
 	name = "Iron Shield"
-	icon = 'modular_coyote/icons/objects/weapons.dmi'
-	lefthand_file = 'modular_coyote/icons/objects/lefthand_weapons.dmi'
-	righthand_file = 'modular_coyote/icons/objects/righthand_weapons.dmi'
+	icon = 'fallout/icons/objects/weapons.dmi'
+	lefthand_file = 'fallout/icons/objects/lefthand_weapons.dmi'
+	righthand_file = 'fallout/icons/objects/righthand_weapons.dmi'
 	item_flags = ITEM_CAN_BLOCK | SLOWS_WHILE_IN_HAND
 	slowdown = 0
 	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BACK
@@ -625,9 +625,9 @@ The telescopic shields are legacy and don't fit, but the code might be of intere
 
 /obj/item/shield/coyote/bronzeshield
 	name = "Bronze Shield"
-	icon = 'modular_coyote/icons/objects/weapons.dmi'
-	lefthand_file = 'modular_coyote/icons/objects/lefthand_weapons.dmi'
-	righthand_file = 'modular_coyote/icons/objects/righthand_weapons.dmi'
+	icon = 'fallout/icons/objects/weapons.dmi'
+	lefthand_file = 'fallout/icons/objects/lefthand_weapons.dmi'
+	righthand_file = 'fallout/icons/objects/righthand_weapons.dmi'
 	item_flags = ITEM_CAN_BLOCK | SLOWS_WHILE_IN_HAND
 	slowdown = 0
 	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BACK
@@ -640,9 +640,9 @@ The telescopic shields are legacy and don't fit, but the code might be of intere
 
 /obj/item/shield/coyote/ironshieldtwo
 	name = "Iron Shield - Tall"
-	icon = 'modular_coyote/icons/objects/weapons.dmi'
-	lefthand_file = 'modular_coyote/icons/objects/lefthand_weapons.dmi'
-	righthand_file = 'modular_coyote/icons/objects/righthand_weapons.dmi'
+	icon = 'fallout/icons/objects/weapons.dmi'
+	lefthand_file = 'fallout/icons/objects/lefthand_weapons.dmi'
+	righthand_file = 'fallout/icons/objects/righthand_weapons.dmi'
 	item_flags = ITEM_CAN_BLOCK | SLOWS_WHILE_IN_HAND
 	slowdown = 0
 	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BACK
@@ -655,9 +655,9 @@ The telescopic shields are legacy and don't fit, but the code might be of intere
 
 /obj/item/shield/coyote/ironshieldthree
 	name = "Iron Shield - Red"
-	icon = 'modular_coyote/icons/objects/weapons.dmi'
-	lefthand_file = 'modular_coyote/icons/objects/lefthand_weapons.dmi'
-	righthand_file = 'modular_coyote/icons/objects/righthand_weapons.dmi'
+	icon = 'fallout/icons/objects/weapons.dmi'
+	lefthand_file = 'fallout/icons/objects/lefthand_weapons.dmi'
+	righthand_file = 'fallout/icons/objects/righthand_weapons.dmi'
 	item_flags = ITEM_CAN_BLOCK | SLOWS_WHILE_IN_HAND
 	slowdown = 0
 	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BACK
@@ -670,9 +670,9 @@ The telescopic shields are legacy and don't fit, but the code might be of intere
 
 /obj/item/shield/coyote/ironshieldfour
 	name = "Iron Shield - Checkered"
-	icon = 'modular_coyote/icons/objects/weapons.dmi'
-	lefthand_file = 'modular_coyote/icons/objects/lefthand_weapons.dmi'
-	righthand_file = 'modular_coyote/icons/objects/righthand_weapons.dmi'
+	icon = 'fallout/icons/objects/weapons.dmi'
+	lefthand_file = 'fallout/icons/objects/lefthand_weapons.dmi'
+	righthand_file = 'fallout/icons/objects/righthand_weapons.dmi'
 	item_flags = ITEM_CAN_BLOCK | SLOWS_WHILE_IN_HAND
 	slowdown = 0
 	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BACK
@@ -685,9 +685,9 @@ The telescopic shields are legacy and don't fit, but the code might be of intere
 
 /obj/item/shield/coyote/romanbuckler
 	name = "Skirmishers Buckler"
-	icon = 'modular_coyote/icons/objects/weapons.dmi'
-	lefthand_file = 'modular_coyote/icons/objects/lefthand_weapons.dmi'
-	righthand_file = 'modular_coyote/icons/objects/righthand_weapons.dmi'
+	icon = 'fallout/icons/objects/weapons.dmi'
+	lefthand_file = 'fallout/icons/objects/lefthand_weapons.dmi'
+	righthand_file = 'fallout/icons/objects/righthand_weapons.dmi'
 	item_flags = ITEM_CAN_BLOCK | SLOWS_WHILE_IN_HAND
 	slowdown = 0
 	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BACK
@@ -700,9 +700,9 @@ The telescopic shields are legacy and don't fit, but the code might be of intere
 
 /obj/item/shield/coyote/semioval
 	name = "Semioval Shield"
-	icon = 'modular_coyote/icons/objects/weapons.dmi'
-	lefthand_file = 'modular_coyote/icons/objects/lefthand_weapons.dmi'
-	righthand_file = 'modular_coyote/icons/objects/righthand_weapons.dmi'
+	icon = 'fallout/icons/objects/weapons.dmi'
+	lefthand_file = 'fallout/icons/objects/lefthand_weapons.dmi'
+	righthand_file = 'fallout/icons/objects/righthand_weapons.dmi'
 	item_flags = ITEM_CAN_BLOCK | SLOWS_WHILE_IN_HAND
 	slowdown = 0
 	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BACK
@@ -715,9 +715,9 @@ The telescopic shields are legacy and don't fit, but the code might be of intere
 
 /obj/item/shield/coyote/egyptianshield
 	name = "Dusty Shield"
-	icon = 'modular_coyote/icons/objects/weapons.dmi'
-	lefthand_file = 'modular_coyote/icons/objects/lefthand_weapons.dmi'
-	righthand_file = 'modular_coyote/icons/objects/righthand_weapons.dmi'
+	icon = 'fallout/icons/objects/weapons.dmi'
+	lefthand_file = 'fallout/icons/objects/lefthand_weapons.dmi'
+	righthand_file = 'fallout/icons/objects/righthand_weapons.dmi'
 	item_flags = ITEM_CAN_BLOCK | SLOWS_WHILE_IN_HAND
 	slowdown = 0
 	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BACK
@@ -730,9 +730,9 @@ The telescopic shields are legacy and don't fit, but the code might be of intere
 
 /obj/item/shield/coyote/bucklertwo
 	name = "Oak Buckler"
-	icon = 'modular_coyote/icons/objects/weapons.dmi'
-	lefthand_file = 'modular_coyote/icons/objects/lefthand_weapons.dmi'
-	righthand_file = 'modular_coyote/icons/objects/righthand_weapons.dmi'
+	icon = 'fallout/icons/objects/weapons.dmi'
+	lefthand_file = 'fallout/icons/objects/lefthand_weapons.dmi'
+	righthand_file = 'fallout/icons/objects/righthand_weapons.dmi'
 	item_flags = ITEM_CAN_BLOCK | SLOWS_WHILE_IN_HAND
 	slowdown = 0
 	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BACK
@@ -745,9 +745,9 @@ The telescopic shields are legacy and don't fit, but the code might be of intere
 
 /obj/item/shield/coyote/kiteshield
 	name = "Kite Shield"
-	icon = 'modular_coyote/icons/objects/weapons.dmi'
-	lefthand_file = 'modular_coyote/icons/objects/lefthand_weapons.dmi'
-	righthand_file = 'modular_coyote/icons/objects/righthand_weapons.dmi'
+	icon = 'fallout/icons/objects/weapons.dmi'
+	lefthand_file = 'fallout/icons/objects/lefthand_weapons.dmi'
+	righthand_file = 'fallout/icons/objects/righthand_weapons.dmi'
 	item_flags = ITEM_CAN_BLOCK | SLOWS_WHILE_IN_HAND
 	slowdown = 0
 	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BACK
@@ -759,9 +759,9 @@ The telescopic shields are legacy and don't fit, but the code might be of intere
 
 /obj/item/shield/coyote/pegasusshield
 	name = "Pegasus Shield"
-	icon = 'modular_coyote/icons/objects/weapons.dmi'
-	lefthand_file = 'modular_coyote/icons/objects/lefthand_weapons.dmi'
-	righthand_file = 'modular_coyote/icons/objects/righthand_weapons.dmi'
+	icon = 'fallout/icons/objects/weapons.dmi'
+	lefthand_file = 'fallout/icons/objects/lefthand_weapons.dmi'
+	righthand_file = 'fallout/icons/objects/righthand_weapons.dmi'
 	item_flags = ITEM_CAN_BLOCK | SLOWS_WHILE_IN_HAND
 	slowdown = 0
 	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BACK
@@ -773,9 +773,9 @@ The telescopic shields are legacy and don't fit, but the code might be of intere
 
 /obj/item/shield/coyote/owlshield
 	name = "Owl Shield"
-	icon = 'modular_coyote/icons/objects/weapons.dmi'
-	lefthand_file = 'modular_coyote/icons/objects/lefthand_weapons.dmi'
-	righthand_file = 'modular_coyote/icons/objects/righthand_weapons.dmi'
+	icon = 'fallout/icons/objects/weapons.dmi'
+	lefthand_file = 'fallout/icons/objects/lefthand_weapons.dmi'
+	righthand_file = 'fallout/icons/objects/righthand_weapons.dmi'
 	item_flags = ITEM_CAN_BLOCK | SLOWS_WHILE_IN_HAND
 	slowdown = 0
 	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BACK
@@ -787,9 +787,9 @@ The telescopic shields are legacy and don't fit, but the code might be of intere
 
 /obj/item/shield/coyote/chimalli
 	name = "Chimalli"
-	icon = 'modular_coyote/icons/objects/weapons.dmi'
-	lefthand_file = 'modular_coyote/icons/objects/lefthand_weapons.dmi'
-	righthand_file = 'modular_coyote/icons/objects/righthand_weapons.dmi'
+	icon = 'fallout/icons/objects/weapons.dmi'
+	lefthand_file = 'fallout/icons/objects/lefthand_weapons.dmi'
+	righthand_file = 'fallout/icons/objects/righthand_weapons.dmi'
 	item_flags = ITEM_CAN_BLOCK | SLOWS_WHILE_IN_HAND
 	slowdown = 0
 	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BACK
@@ -802,9 +802,9 @@ The telescopic shields are legacy and don't fit, but the code might be of intere
 /obj/item/shield/coyote/scutum
 	name = "Scutum"
 	desc = "Scutum, not scrotum. You goblin."
-	icon = 'modular_coyote/icons/objects/weapons.dmi'
-	lefthand_file = 'modular_coyote/icons/objects/lefthand_weapons.dmi'
-	righthand_file = 'modular_coyote/icons/objects/righthand_weapons.dmi'
+	icon = 'fallout/icons/objects/weapons.dmi'
+	lefthand_file = 'fallout/icons/objects/lefthand_weapons.dmi'
+	righthand_file = 'fallout/icons/objects/righthand_weapons.dmi'
 	item_flags = ITEM_CAN_BLOCK | SLOWS_WHILE_IN_HAND
 	slowdown = 0
 	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BACK
@@ -816,9 +816,9 @@ The telescopic shields are legacy and don't fit, but the code might be of intere
 
 /obj/item/shield/coyote/roughshield
 	name = "Rough Shield"
-	icon = 'modular_coyote/icons/objects/weapons.dmi'
-	lefthand_file = 'modular_coyote/icons/objects/lefthand_weapons.dmi'
-	righthand_file = 'modular_coyote/icons/objects/righthand_weapons.dmi'
+	icon = 'fallout/icons/objects/weapons.dmi'
+	lefthand_file = 'fallout/icons/objects/lefthand_weapons.dmi'
+	righthand_file = 'fallout/icons/objects/righthand_weapons.dmi'
 	item_flags = ITEM_CAN_BLOCK | SLOWS_WHILE_IN_HAND
 	slowdown = 0
 	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BACK
@@ -831,9 +831,9 @@ The telescopic shields are legacy and don't fit, but the code might be of intere
 
 /obj/item/shield/coyote/brahminleathershield
 	name = "Brahmin Shield"
-	icon = 'modular_coyote/icons/objects/weapons.dmi'
-	lefthand_file = 'modular_coyote/icons/objects/lefthand_weapons.dmi'
-	righthand_file = 'modular_coyote/icons/objects/righthand_weapons.dmi'
+	icon = 'fallout/icons/objects/weapons.dmi'
+	lefthand_file = 'fallout/icons/objects/lefthand_weapons.dmi'
+	righthand_file = 'fallout/icons/objects/righthand_weapons.dmi'
 	item_flags = ITEM_CAN_BLOCK | SLOWS_WHILE_IN_HAND
 	slowdown = 0
 	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BACK
@@ -845,9 +845,9 @@ The telescopic shields are legacy and don't fit, but the code might be of intere
 
 /obj/item/shield/coyote/chitinshield
 	name = "Fire Ant Shield"
-	icon = 'modular_coyote/icons/objects/weapons.dmi'
-	lefthand_file = 'modular_coyote/icons/objects/lefthand_weapons.dmi'
-	righthand_file = 'modular_coyote/icons/objects/righthand_weapons.dmi'
+	icon = 'fallout/icons/objects/weapons.dmi'
+	lefthand_file = 'fallout/icons/objects/lefthand_weapons.dmi'
+	righthand_file = 'fallout/icons/objects/righthand_weapons.dmi'
 	item_flags = ITEM_CAN_BLOCK | SLOWS_WHILE_IN_HAND
 	slowdown = 0
 	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BACK
@@ -860,9 +860,9 @@ The telescopic shields are legacy and don't fit, but the code might be of intere
 
 /obj/item/shield/coyote/chitinbuckler
 	name = "Fire Ant Buckler"
-	icon = 'modular_coyote/icons/objects/weapons.dmi'
-	lefthand_file = 'modular_coyote/icons/objects/lefthand_weapons.dmi'
-	righthand_file = 'modular_coyote/icons/objects/righthand_weapons.dmi'
+	icon = 'fallout/icons/objects/weapons.dmi'
+	lefthand_file = 'fallout/icons/objects/lefthand_weapons.dmi'
+	righthand_file = 'fallout/icons/objects/righthand_weapons.dmi'
 	item_flags = ITEM_CAN_BLOCK | SLOWS_WHILE_IN_HAND
 	slowdown = 0
 	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BACK

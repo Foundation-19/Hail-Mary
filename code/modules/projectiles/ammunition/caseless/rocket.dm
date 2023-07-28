@@ -2,7 +2,7 @@
 	name = "\improper Low Yield Rocket"
 	desc = "The PM-9LHE is an 84mm low-yield High Explosive rocket. Fire at people and pray."
 	caliber = CALIBER_ROCKET
-	icon = 'modular_coyote/icons/objects/c13ammo.dmi'
+	icon = 'fallout/icons/objects/c13ammo.dmi'
 	icon_state = "m6a1"
 	projectile_type = /obj/item/projectile/bullet/a84mm_he
 	is_pickable = FALSE
@@ -51,7 +51,7 @@
 	desc = "That's a mininuke. it's more of a tactical demolition weapon than antipersonal, but when has that ever stopped anyone?"
 	w_class = WEIGHT_CLASS_NORMAL
 	caliber = CALIBER_MININUKE
-	icon = 'modular_coyote/icons/objects/c13ammo.dmi'
+	icon = 'fallout/icons/objects/c13ammo.dmi'
 	icon_state = "nuclear"
 	projectile_type = /obj/item/projectile/bullet/mininuke
 
