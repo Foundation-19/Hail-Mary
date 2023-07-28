@@ -34,7 +34,7 @@ const Juke = require('./juke');
 const { yarn } = require('./cbt/yarn');
 const { dm } = require('./cbt/dm');
 
-const DME_NAME = 'fortune13';
+const DME_NAME = 'hailmary';
 
 const YarnTarget = Juke.createTarget({
   name: 'yarn',
