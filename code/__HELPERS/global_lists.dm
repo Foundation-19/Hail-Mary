@@ -18,12 +18,6 @@
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/screen, GLOB.ipc_screens_list, roundstart = TRUE)
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/antenna, GLOB.ipc_antennas_list, roundstart = TRUE)
 
-	for(var/gpath in subtypesof(/obj/item/organ/genital))
-		var/obj/item/organ/genital/G = gpath
-		if(!CHECK_BITFIELD(initial(G.genital_flags), GENITAL_BLACKLISTED))
-			GLOB.genitals_list[initial(G.name)] = gpath
-//END OF CIT CHANGES
-
 	//Species
 	for(var/spath in subtypesof(/datum/species))
 		var/datum/species/S = new spath()

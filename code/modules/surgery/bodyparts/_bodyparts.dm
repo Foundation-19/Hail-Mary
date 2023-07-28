@@ -724,32 +724,6 @@
 			else
 				digitigrade_type = null
 
-		if(S.mutant_bodyparts["mam_body_markings"]) // checks if the species can actually have body markings
-			// get all markings for this bodypart type
-			for(var/list/marking in H.dna.features["mam_body_markings"])
-				// marking is a list containing bodypart type, bodymarking name, and then the colour (colour won't be used in v1)
-				if(marking[1] == body_part)
-					var/datum/sprite_accessory/Smark
-					Smark = GLOB.mam_body_markings_list[marking[2]]
-					var/body_markings_icon = default_body_markings_icon
-					if(Smark)
-						body_markings_icon = Smark.icon
-					var/marking_value = "" // combination of body and aux markings from old system
-					if(H.dna.features["mam_body_markings"] != "None")
-						marking_value = Smark?.icon_state || lowertext(H.dna.features["mam_body_markings"])
-					else
-						marking_value = "plain"
-					var/list/color_values
-					if(length(marking) == 3)
-						color_values = marking[3]
-					else
-						color_values = list("#FFFFFF", "#FFFFFF", "#FFFFFF")
-					body_markings_list += list(list(body_markings_icon, marking_value, color_values))
-
-			markings_color = list(colorlist)
-		else
-			marking_value = null
-
 		if(species_id in GLOB.greyscale_limb_types) //should they have greyscales?
 			base_bp_icon = DEFAULT_BODYPART_ICON_ORGANIC
 
