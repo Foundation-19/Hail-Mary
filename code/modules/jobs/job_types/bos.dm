@@ -35,7 +35,7 @@ Main doors: ACCESS_BOS 120
 	id = /obj/item/card/id/dogtag
 	backpack_contents = list(
 		/obj/item/reagent_containers/food/snacks/f13/mre = 1,
-		)
+	)
 
 /datum/outfit/job/bos/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
