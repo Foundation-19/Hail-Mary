@@ -27,7 +27,7 @@
 	r_pocket = /obj/item/flashlight/seclite
 	shoes = /obj/item/clothing/shoes/f13/enclave/serviceboots
 	gloves = /obj/item/clothing/gloves/f13/military
-		backpack_contents = list(
+	backpack_contents = list(
 		/obj/item/reagent_containers/food/snacks/f13/mre = 1,
 	)
 
