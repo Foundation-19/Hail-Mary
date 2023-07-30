@@ -79,7 +79,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 	var/emped = FALSE
 	var/equipped = FALSE  //used here to determine if this is the first time its been picked up
 	var/allow_emojis = TRUE //if the pda can send emojis and actually have them parsed as such
-	var/list/pipsounds = list("modular_coyote/sound/pipsounds/pip1.ogg", "modular_coyote/sound/pipsounds/pip2.ogg", "modular_coyote/sound/pipsounds/pip3.ogg")
+	var/list/pipsounds = list("fallout/sound/pipsounds/pip1.ogg", "fallout/sound/pipsounds/pip2.ogg", "fallout/sound/pipsounds/pip3.ogg")
 
 	var/obj/item/card/id/id = null //Making it possible to slot an ID card into the PDA so it can function as both.
 	var/ownjob = null //related to above
@@ -925,7 +925,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 	// Log in the talk log
 	user.log_talk(message, LOG_PDA, tag="PDA: [initial(name)] to [target_text] (BLOCKED:[string_blocked])")
 	if (!silent)
-		playsound(src, 'modular_coyote/sound/pipsounds/pipmsgsend.ogg', 30, 1)
+		playsound(src, 'fallout/sound/pipsounds/pipmsgsend.ogg', 30, 1)
 	// Reset the photo
 	picture = null
 	last_text = world.time
@@ -935,7 +935,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 /obj/item/pda/proc/receive_message(datum/signal/subspace/pda/signal)
 	tnote += "<i><b>&larr; From <a href='byond://?src=[REF(src)];choice=Message;target=[REF(signal.source)]'>[signal.data["name"]]</a> ([signal.data["job"]]):</b></i> <a href='byond://?src=[REF(src)];choice=toggle_block;target=[signal.data["name"]]'>(BLOCK/UNBLOCK)</a><br>[signal.format_message()]<br>"
 	if (!silent)
-		playsound(src, 'modular_coyote/sound/pipsounds/pipmsgget.ogg', 80, 1)
+		playsound(src, 'fallout/sound/pipsounds/pipmsgget.ogg', 80, 1)
 		audible_message("[icon2html(src, hearers(src))] *[ttone]*", null, 3)
 	//Search for holder of the PDA.
 	var/mob/living/L = null
@@ -1031,11 +1031,11 @@ GLOBAL_LIST_EMPTY(PDAs)
 	if(fon)
 		fon = FALSE
 		set_light(0)
-		playsound(src, "modular_coyote/sound/pipsounds/piplightoff.ogg", 50, 1)
+		playsound(src, "fallout/sound/pipsounds/piplightoff.ogg", 50, 1)
 	else if(f_lum)
 		fon = TRUE
 		set_light(f_lum, f_pow, f_col)
-		playsound(src, "modular_coyote/sound/pipsounds/piplighton.ogg", 50, 1)
+		playsound(src, "fallout/sound/pipsounds/piplighton.ogg", 50, 1)
 	update_icon()
 
 /obj/item/pda/proc/remove_pen()

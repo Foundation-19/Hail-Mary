@@ -1,5 +1,5 @@
 /obj/item/gun_upgrade
-	icon = 'modular_coyote/eris/icons/mods.dmi'
+	icon = 'fallout/eris/icons/mods.dmi'
 	w_class = WEIGHT_CLASS_TINY
 
 /obj/item/gun_upgrade/barrel

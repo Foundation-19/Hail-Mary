@@ -9,8 +9,9 @@
 
 	var/list/riding_offsets = list()	//position_of_user = list(dir = list(px, py)), or RIDING_OFFSET_ALL for a generic one.
 	var/list/directional_vehicle_layers = list()	//["[DIRECTION]"] = layer. Don't set it for a direction for default, set a direction to null for no change.
-	var/list/directional_vehicle_planes = list()	//["[DIRECTION]"] = plane. Don't set it for a direction for default, set a direction to null for no change.
 	var/list/directional_vehicle_offsets = list()	//same as above but instead of layer you have a list(px, py)
+	var/list/directional_vehicle_bound_width = list()
+	var/list/directional_vehicle_bound_height = list()
 	var/list/allowed_turf_typecache
 	var/list/forbid_turf_typecache					//allow typecache for only certain turfs, forbid to allow all but those. allow only certain turfs will take precedence.
 	var/allow_one_away_from_valid_turf = TRUE		//allow moving one tile away from a valid turf but not more.
@@ -20,6 +21,11 @@
 	var/ride_check_rider_restrained = FALSE
 	var/ride_check_ridden_incapacitated = FALSE
 	var/list/offhands = list() // keyed list containing all the current riding offsets associated by mob
+	var/engine_sound = 'sound/vehicles/carrev.ogg'
+	var/last_enginesound_time
+	var/engine_sound_length = 20 //Set this to the length of the engine sound
+	var/escape_time = 5 //Time it takes to break out of the car
+	var/buckled_layer = MOB_LAYER
 
 	var/del_on_unbuckle_all = FALSE
 
@@ -54,17 +60,34 @@
 		. = AM.layer
 	AM.layer = .
 
-	var/planeValue = initial(AM.plane)
-	if(directional_vehicle_planes["[AM.dir]"])
-		planeValue = directional_vehicle_planes["[AM.dir]"]
-	if(isnull(.))	//you can set it to null to not change it.
-		planeValue = AM.plane
-	AM.plane = planeValue
-
-/datum/component/riding/proc/set_vehicle_dir_layer(dir, layer, plane = null)
+/datum/component/riding/proc/set_vehicle_dir_layer(dir, layer)
 	directional_vehicle_layers["[dir]"] = layer
-	if(plane)
-		directional_vehicle_planes["[dir]"] = plane
+
+/datum/component/riding/proc/handle_vehicle_bound_width()
+	var/atom/movable/AM = parent
+	var/static/list/defaults = list(TEXT_NORTH = 32, TEXT_SOUTH = 32, TEXT_EAST = 64, TEXT_WEST = 64)
+	. = defaults["[AM.dir]"]
+	if(directional_vehicle_bound_width["[AM.dir]"])
+		. = directional_vehicle_bound_width["[AM.dir]"]
+	if(isnull(.))	//you can set it to null to not change it.
+		. = AM.bound_width
+	AM.bound_width = .
+
+/datum/component/riding/proc/set_vehicle_bound_width(dir, bound_width)
+	directional_vehicle_bound_width["[dir]"] = bound_width
+
+/datum/component/riding/proc/handle_vehicle_bound_height()
+	var/atom/movable/AM = parent
+	var/static/list/defaults = list(TEXT_NORTH = 64, TEXT_SOUTH = 64, TEXT_EAST = 32, TEXT_WEST = 32)
+	. = defaults["[AM.dir]"]
+	if(directional_vehicle_bound_height["[AM.dir]"])
+		. = directional_vehicle_bound_height["[AM.dir]"]
+	if(isnull(.))	//you can set it to null to not change it.
+		. = AM.bound_height
+	AM.bound_height = .
+
+/datum/component/riding/proc/set_vehicle_bound_height(dir, bound_height)
+	directional_vehicle_bound_height["[dir]"] = bound_height
 
 /datum/component/riding/proc/vehicle_moved(datum/source, dir)
 	var/atom/movable/movable_parent = parent
@@ -77,12 +100,14 @@
 		buckled_mob.set_glide_size(movable_parent.glide_size)
 	handle_vehicle_offsets(dir)
 	handle_vehicle_layer(dir)
+	/*handle_vehicle_bound_width(dir)
+	handle_vehicle_bound_height(dir)*/
 
 /datum/component/riding/proc/ride_check(mob/living/M)
 	var/atom/movable/AM = parent
 	var/mob/AMM = AM
 	if((ride_check_rider_restrained && M.restrained(TRUE)) || (ride_check_rider_incapacitated && M.incapacitated(FALSE, TRUE)) || (ride_check_ridden_incapacitated && istype(AMM) && AMM.incapacitated(FALSE, TRUE)))
-		AM.visible_message(span_warning("[M] falls off of [AM]!"))
+		AM.visible_message("<span class='warning'>[M] falls off of [AM]!</span>")
 		AM.unbuckle_mob(M)
 	return TRUE
 
@@ -104,6 +129,7 @@
 			var/list/offsets = get_offsets(passindex)
 			var/rider_dir = get_rider_dir(passindex)
 			buckled_mob.setDir(rider_dir)
+			buckled_mob.layer = VEHICLE_MOB_LAYER
 			for(var/offsetdir in offsets)
 				if(offsetdir == AM_dir)
 					var/list/diroffsets = offsets[offsetdir]
@@ -159,6 +185,7 @@
 	if(buckled_mob)
 		buckled_mob.pixel_x = 0
 		buckled_mob.pixel_y = 0
+		buckled_mob.layer = MOB_LAYER
 		if(buckled_mob.client)
 			buckled_mob.client.change_view(CONFIG_GET(string/default_view))
 
@@ -175,11 +202,6 @@
 	if(user.incapacitated())
 		Unbuckle(user)
 		return
-	if(isliving(parent))
-		var/mob/living/critterthing = parent
-		if(critterthing.stat != CONSCIOUS || critterthing.health <= 0)
-			Unbuckle(user)
-			return
 	if(world.time < last_vehicle_move + ((last_move_diagonal? 2 : 1) * vehicle_move_delay))
 		return
 	last_vehicle_move = world.time
@@ -204,7 +226,7 @@
 		handle_vehicle_offsets()
 		handle_vehicle_layer()
 	else
-		to_chat(user, span_notice("You'll need the keys in one of your hands to [drive_verb] [AM]."))
+		to_chat(user, "<span class='notice'>You'll need the keys in one of your hands to [drive_verb] [AM].</span>")
 
 /datum/component/riding/proc/Unbuckle(atom/movable/M)
 	addtimer(CALLBACK(parent, /atom/movable/.proc/unbuckle_mob, M), 0, TIMER_UNIQUE)
@@ -288,7 +310,7 @@
 	AM.unbuckle_mob(user)
 	user.DefaultCombatKnockdown(60)
 	user.Daze(50)
-	user.visible_message(span_warning("[AM] pushes [user] off of [AM.p_them()]!"))
+	user.visible_message("<span class='warning'>[AM] pushes [user] off of [AM.p_them()]!</span>")
 
 /datum/component/riding/cyborg
 	del_on_unbuckle_all = TRUE
@@ -306,14 +328,14 @@
 			if(R.module && R.module.ride_allow_incapacitated)
 				kick = FALSE
 		if(kick)
-			to_chat(user, span_userdanger("You fall off of [AM]!"))
+			to_chat(user, "<span class='userdanger'>You fall off of [AM]!</span>")
 			Unbuckle(user)
 			return
 	if(iscarbon(user))
 		var/mob/living/carbon/carbonuser = user
 		if(!carbonuser.get_num_arms())
 			Unbuckle(user)
-			to_chat(user, span_userdanger("You can't grab onto [AM] with no hands!"))
+			to_chat(user, "<span class='userdanger'>You can't grab onto [AM] with no hands!</span>")
 			return
 
 /datum/component/riding/cyborg/handle_vehicle_layer()
@@ -348,7 +370,7 @@
 	var/turf/target = get_edge_target_turf(AM, AM.dir)
 	var/turf/targetm = get_step(get_turf(AM), AM.dir)
 	M.Move(targetm)
-	M.visible_message(span_warning("[M] is thrown clear of [AM]!"))
+	M.visible_message("<span class='warning'>[M] is thrown clear of [AM]!</span>")
 	M.throw_at(target, 14, 5, AM)
 	M.DefaultCombatKnockdown(60)
 

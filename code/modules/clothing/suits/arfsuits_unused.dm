@@ -758,7 +758,7 @@ Suits. 0-10 in its primary value, slowdown 0, various utility
 		if(damaged_clothes)
 			. += mutable_appearance('icons/effects/item_damage.dmi', "damaged[blood_overlay_type]")
 		if(blood_DNA)
-			var/file2use = (style_flags & STYLE_ALL_TAURIC) ? 'modular_citadel/icons/mob/64x32_effects.dmi' : 'icons/effects/blood.dmi'
+			var/file2use = (style_flags & STYLE_ALL_TAURIC) ? 'fallout/icons/mob/64x32_effects.dmi' : 'icons/effects/blood.dmi'
 			. += mutable_appearance(file2use, "[blood_overlay_type]blood", color = blood_DNA_to_color())
 		var/mob/living/carbon/human/M = loc
 		if(ishuman(M) && M.w_uniform)
@@ -785,9 +785,9 @@ Suits. 0-10 in its primary value, slowdown 0, various utility
 
 /*
 Just leaving this here for quick copy-pasting, for future contributors.
-	icon = 'modular_sunset/icons/obj/clothing/suits.dmi'
-	mob_overlay_icon = 'modular_sunset/icons/mob/clothing/suit.dmi'
-	anthro_mob_worn_overlay = 'modular_sunset/icons/mob/clothing/suit_digi.dmi'
+	icon = 'fallout/icons/obj/clothing/suits.dmi'
+	mob_overlay_icon = 'fallout/icons/mob/clothing/suit.dmi'
+	anthro_mob_worn_overlay = 'fallout/icons/mob/clothing/suit_digi.dmi'
 	mutantrace_variation = STYLE_DIGITIGRADE
 	!!If you don't have digi-adapted sprites use `mutantrace_variation = NONE` instead. Should snap legs sprites to planti when related clothing is worn.
 	(unless suit doesn't cover legs in `body_parts_covered` var)

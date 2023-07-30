@@ -53,9 +53,6 @@
 	destination.dna.real_name = real_name
 	destination.dna.custom_species = custom_species
 	destination.dna.temporary_mutations = temporary_mutations.Copy()
-	if(ishuman(destination))
-		var/mob/living/carbon/human/H = destination
-		H.give_genitals(TRUE)//This gives the body the genitals of this DNA. Used for any transformations based on DNA
 	if(transfer_SE)
 		destination.dna.mutation_index = mutation_index
 		destination.dna.default_mutation_genes = default_mutation_genes
@@ -134,18 +131,6 @@
 		L[DNA_COLOR_ONE_BLOCK] = sanitize_hexcolor(features["mcolor"], 6)
 		L[DNA_COLOR_TWO_BLOCK] = sanitize_hexcolor(features["mcolor2"], 6)
 		L[DNA_COLOR_THREE_BLOCK] = sanitize_hexcolor(features["mcolor3"], 6)
-		if(!GLOB.mam_tails_list.len)
-			init_sprite_accessory_subtypes(/datum/sprite_accessory/tails/mam_tails, GLOB.mam_tails_list)
-		L[DNA_MUTANTTAIL_BLOCK] = construct_block(GLOB.mam_tails_list.Find(features["mam_tail"]), GLOB.mam_tails_list.len)
-		if(!GLOB.mam_ears_list.len)
-			init_sprite_accessory_subtypes(/datum/sprite_accessory/ears/mam_ears, GLOB.mam_ears_list)
-		L[DNA_MUTANTEAR_BLOCK] = construct_block(GLOB.mam_ears_list.Find(features["mam_ears"]), GLOB.mam_ears_list.len)
-		if(!GLOB.mam_body_markings_list.len)
-			init_sprite_accessory_subtypes(/datum/sprite_accessory/mam_body_markings, GLOB.mam_body_markings_list)
-		L[DNA_MUTANTMARKING_BLOCK] = construct_block(GLOB.mam_body_markings_list.Find(features["mam_body_markings"]), GLOB.mam_body_markings_list.len)
-		if(!GLOB.taur_list.len)
-			init_sprite_accessory_subtypes(/datum/sprite_accessory/taur, GLOB.taur_list)
-		L[DNA_TAUR_BLOCK] = construct_block(GLOB.taur_list.Find(features["taur"]), GLOB.taur_list.len)
 
 	for(var/i=1, i<=DNA_UNI_IDENTITY_BLOCKS, i++)
 		if(L[i])
@@ -246,25 +231,6 @@
 			sanitize_hexcolor(features["mcolor2"], 6)
 		if(DNA_COLOR_THREE_BLOCK)
 			sanitize_hexcolor(features["mcolor3"], 6)
-		if(DNA_MUTANTTAIL_BLOCK)
-			construct_block(GLOB.mam_tails_list.Find(features["mam_tail"]), GLOB.mam_tails_list.len)
-		if(DNA_MUTANTEAR_BLOCK)
-			construct_block(GLOB.mam_ears_list.Find(features["mam_ears"]), GLOB.mam_ears_list.len)
-		if(DNA_MUTANTMARKING_BLOCK)
-			construct_block(GLOB.mam_body_markings_list.Find(features["mam_body_markings"]), GLOB.mam_body_markings_list.len)
-		if(DNA_TAUR_BLOCK)
-			construct_block(GLOB.taur_list.Find(features["taur"]), GLOB.taur_list.len)
-			if(species.mutant_bodyparts["taur"] && ishuman(holder))
-				var/datum/sprite_accessory/taur/T = GLOB.taur_list[features["taur"]]
-				switch(T?.taur_mode)
-					if(STYLE_HOOF_TAURIC)
-						H.physiology.footstep_type = FOOTSTEP_MOB_SHOE
-					if(STYLE_PAW_TAURIC)
-						H.physiology.footstep_type = FOOTSTEP_MOB_CLAW
-					if(STYLE_SNEK_TAURIC)
-						H.physiology.footstep_type = FOOTSTEP_MOB_CRAWL
-					else
-						H.physiology.footstep_type = null
 
 //Please use add_mutation or activate_mutation instead
 /datum/dna/proc/force_give(datum/mutation/human/HM)

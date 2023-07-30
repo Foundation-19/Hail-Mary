@@ -4,7 +4,7 @@
 /obj/item/gun/ballistic/revolver/grenadelauncher
 	desc = "A break-operated grenade rifle. Projectiles travel slowly."
 	name = "grenade rifle"
-	icon = 'modular_coyote/icons/objects/gun.dmi'
+	icon = 'fallout/icons/objects/gun.dmi'
 	icon_state = "m79" // shinier sprite! but also points left :V
 	item_state = "gun"
 	mag_type = /obj/item/ammo_box/magazine/internal/grenadelauncher
@@ -24,7 +24,7 @@
 /obj/item/gun/ballistic/shotgun/grenade
 	name = "pump grenade launcher"
 	desc = "A bulky but surprisingly lightweight grenade launcher with a stiff pump."
-	icon = 'modular_coyote/icons/objects/ncrrangersguns.dmi'
+	icon = 'fallout/icons/objects/ncrrangersguns.dmi'
 	icon_state = "china_lake"
 	item_state = "shotguntrench"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/grenade
@@ -94,7 +94,7 @@
 /obj/item/gun/ballistic/fatman
 	name = "fatman"
 	desc =  "a man-portable launcher for tactical nuclear ordnance. what's not to love?"
-	icon = 'modular_coyote/icons/objects/gun.dmi'
+	icon = 'fallout/icons/objects/gun.dmi'
 	icon_state = "fatman"
 	item_state = "rocketlauncher" //not sure where it is or if this works. hopefully.
 	mag_type = /obj/item/ammo_box/magazine/internal/mininuke
