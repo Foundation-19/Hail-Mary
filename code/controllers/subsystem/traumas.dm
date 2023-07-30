@@ -175,7 +175,6 @@ SUBSYSTEM_DEF(traumas)
 					"lizards"   = typecacheof(list(
 						/obj/item/toy/plush/lizardplushie,
 						/obj/item/reagent_containers/food/snacks/kebab/tail,
-						/obj/item/organ/tail/lizard,
 						/obj/item/reagent_containers/food/drinks/bottle/lizardwine)
 						),
 
@@ -375,7 +374,6 @@ SUBSYSTEM_DEF(traumas)
 
 					"cats" = typecacheof(list(
 						/obj/item/organ/ears/cat,
-						/obj/item/organ/tail/cat,
 						/obj/item/laser_pointer,
 						/obj/item/toy/cattoy,
 						/obj/item/clothing/head/kitty,

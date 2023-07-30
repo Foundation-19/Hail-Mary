@@ -33,22 +33,16 @@ Will print: "/mob/living/carbon/human/death" (you can optionally embed it in a s
 //Human Overlays Indexes/////////
 //"LOTS OF CIT CHANGES HERE. BE CAREFUL WHEN UPSTREAM ADDS MORE LAYERS" said the downstream, bottomly
 #define MUTATIONS_LAYER							41	//mutations. Tk headglows, cold resistance glow, etc
-#define GENITALS_BEHIND_LAYER					40	//The behind portion of genitals, mostly for north-facing sprites being behind everything. Not used by butts!
 #define BODY_BEHIND_LAYER						39	//certain mutantrace features (tail when looking south) that must appear behind the body parts
 #define BODYPARTS_LAYER							38	//Initially "AUGMENTS", this was repurposed to be a catch-all bodyparts flag
 #define MARKING_LAYER							37	//Matrixed body markings because clashing with snouts?
 #define ARMS_PART_LAYER							35	//the arms themselves
 #define MARKING_LAYER_ARMS						34	//Markings that should show up over a butt, like arms
 #define BODY_ADJ_LAYER							33	//certain mutantrace features (snout, body markings) that must appear above the body parts
-#define GENITAL_UNDER_UNDERWEAR_MID_LAYER 		32	// Genitals set to be visible over everything else
-#define GENITAL_UNDER_UNDERWEAR_FRONT_LAYER 	31	// Genitals set to be visible over everything else
 #define BODY_LAYER								30	//underwear, undershirts, socks, eyes, lips(makeup)
 #define BODY_ADJ_UPPER_LAYER					29	//Taur lowernesses
 #define FRONT_MUTATIONS_LAYER					28	//mutations that should appear above body, body_adj and bodyparts layer (e.g. laser eyes)
 #define DAMAGE_LAYER							27	//damage indicators (cuts and burns)
-#define GENITAL_OVER_UNDERWEAR_MID_LAYER 		26	// Genitals set to be visible over everything else
-#define GENITAL_OVER_UNDERWEAR_FRONT_LAYER 		25	// Genitals set to be visible over everything else
-#define GENITALS_FRONT_LAYER					24	//Genitals that go over the body, but under the hands and arms
 #define UNIFORM_LAYER							23
 #define HANDS_PART_LAYER						22	//Hands
 #define ID_LAYER								21
@@ -61,8 +55,6 @@ Will print: "/mob/living/carbon/human/death" (you can optionally embed it in a s
 #define SUIT_STORE_LAYER						14
 #define NECK_LAYER								13
 #define BACK_LAYER								12
-#define GENITAL_OVER_CLOTHES_MID_LAYER 			11	// Genitals set to be visible over everything else
-#define GENITAL_OVER_CLOTHES_FRONT_LAYER 		10	// Genitals set to be visible over everything else
 #define HAIR_LAYER								9	//TODO: make part of head layer?
 #define HORNS_LAYER								8
 #define FACEMASK_LAYER							7

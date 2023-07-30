@@ -124,10 +124,6 @@
 	switch(tat_location)
 		if(TATTOO_FUCKUP)
 			return "misapplied over [ishuman(person) ? "[person.p_their()]" : "the"] bepis. There's a bit more written there:[span_phobia("hey this tattoo didnt set the location right, tell superlagg their shit broke.")]."
-		if(TATTOO_TRAMP_STAMP)
-			return "positioned over [ishuman(person) ? "[person.p_their()]" : "the"] [person.getorganslot(ORGAN_SLOT_TAIL) ? "tail" : "buttcrack"]."
-		if(TATTOO_WOMB_TATTOO)
-			return "positioned over [ishuman(person) ? "[person.p_their()]" : "the"] lower groin."
 		if(TATTOO_LEFT_ASS)
 			return "situated on [ishuman(person) ? "[person.p_their()]" : "the"] left buttcheek."
 		if(TATTOO_RIGHT_ASS)

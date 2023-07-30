@@ -7,7 +7,6 @@
 	mutant_bodyparts = list("mam_tail" = "Cat", "mam_ears" = "Cat", "deco_wings" = "None", "mam_body_markings" = list())
 
 	mutantears = /obj/item/organ/ears/cat
-	mutanttail = /obj/item/organ/tail/cat
 
 	tail_type = "mam_tail"
 	wagging_type = "mam_waggingtail"
@@ -38,16 +37,10 @@
 			ears.Insert(H, drop_if_replaced = FALSE)
 		else
 			mutantears = /obj/item/organ/ears
-		if(H.dna.features["mam_tail"] == "Cat")
-			var/obj/item/organ/tail/cat/tail = new
-			tail.Insert(H, drop_if_replaced = FALSE)
-		else
-			mutanttail = null
 	return ..()
 
 /datum/species/human/felinid/on_species_loss(mob/living/carbon/H, datum/species/new_species, pref_load)
 	var/obj/item/organ/ears/cat/ears = H.getorgan(/obj/item/organ/ears/cat)
-	var/obj/item/organ/tail/cat/tail = H.getorgan(/obj/item/organ/tail/cat)
 
 	if(ears)
 		var/obj/item/organ/ears/NE
@@ -60,18 +53,6 @@
 			// Go with default ears
 			NE = new /obj/item/organ/ears
 		NE.Insert(H, drop_if_replaced = FALSE)
-
-	if(tail)
-		var/obj/item/organ/tail/NT
-		if(new_species && new_species.mutanttail)
-			// Roundstart cat tail overrides new_species.mutanttail, reset it here.
-			new_species.mutanttail = initial(new_species.mutanttail)
-			if(new_species.mutanttail)
-				NT = new new_species.mutanttail
-		if(NT)
-			NT.Insert(H, drop_if_replaced = FALSE)
-		else
-			tail.Remove()
 
 /proc/mass_purrbation()
 	for(var/M in GLOB.mob_list)

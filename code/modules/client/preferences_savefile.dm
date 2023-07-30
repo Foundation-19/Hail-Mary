@@ -608,44 +608,10 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 		size_max = CONFIG_GET(number/body_size_max)
 	features["body_size"]			= sanitize_num_clamp(features["body_size"], size_min, size_max, RESIZE_DEFAULT_SIZE, 0.01)
 
-	var/static/list/B_sizes
-	if(!B_sizes)
-		var/list/L = CONFIG_GET(keyed_list/breasts_cups_prefs)
-		B_sizes = L.Copy()
-	var/static/min_D
-	if(!min_D)
-		min_D = CONFIG_GET(number/penis_min_inches_prefs)
-	var/static/max_D
-	if(!max_D)
-		max_D = CONFIG_GET(number/penis_max_inches_prefs)
-	var/static/min_B
-	if(!min_B)
-		min_B = CONFIG_GET(number/butt_min_size_prefs)
-	var/static/max_B
-	if(!max_B)
-		max_B = CONFIG_GET(number/butt_max_size_prefs)
-	var/static/min_O
-	if(!min_O)
-		min_O = CONFIG_GET(number/belly_min_size_prefs)
-	var/static/max_O
-	if(!max_O)
-		max_O = CONFIG_GET(number/belly_max_size_prefs)
-	var/static/safe_visibilities
-	if(!safe_visibilities)
-		var/list/L = CONFIG_GET(keyed_list/safe_visibility_toggles)
-		safe_visibilities = L.Copy()
-
-
-	custom_speech_verb				= sanitize_inlist(custom_speech_verb, GLOB.speech_verbs, "default")
-	custom_tongue					= sanitize_inlist(custom_tongue, GLOB.roundstart_tongues, "default")
 
 	security_records				= copytext(security_records, 1, MAX_FLAVOR_LEN)
 	medical_records					= copytext(medical_records, 1, MAX_FLAVOR_LEN)
 
-	features["genital_order"]		= sanitize_text(features["genital_order"], DEF_COCKSTRING)
-	features["genital_hide"]		= sanitize_integer(features["genital_hide"], 0, 4096, 0)
-	features["genital_whitelist"]	= copytext(features["genital_whitelist"], 1, MAX_MESSAGE_LEN)
-	features["taste"]				= copytext(features["taste"], 1, MAX_TASTE_LEN)
 	features["flavor_text"]			= copytext(features["flavor_text"], 1, MAX_FLAVOR_LEN)
 	features["silicon_flavor_text"]	= copytext(features["silicon_flavor_text"], 1, MAX_FLAVOR_LEN)
 	features["ooc_notes"]			= copytext(features["ooc_notes"], 1, MAX_FLAVOR_LEN)
@@ -759,9 +725,6 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 				var/datum/sprite_accessory/accessory = ref_list[feature_value]
 				if(accessory)
 					var/mutant_string = accessory.mutant_part_string
-					if(!mutant_string)
-						if(istype(accessory, /datum/sprite_accessory/mam_body_markings))
-							mutant_string = "mam_body_markings"
 					var/primary_string = "[mutant_string]_primary"
 					var/secondary_string = "[mutant_string]_secondary"
 					var/tertiary_string = "[mutant_string]_tertiary"

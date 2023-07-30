@@ -394,8 +394,6 @@ GENETICS SCANNER
 			mutant = TRUE
 		else if (S.mutanttongue != initial(S.mutanttongue))
 			mutant = TRUE
-		else if (S.mutanttail != initial(S.mutanttail))
-			mutant = TRUE
 		else if (S.mutantliver != initial(S.mutantliver))
 			mutant = TRUE
 		else if (S.mutantstomach != initial(S.mutantstomach))

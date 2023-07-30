@@ -340,14 +340,6 @@
 		if(only_one)
 			return TRUE
 
-	if(!getorganslot(ORGAN_SLOT_TAIL))
-		var/obj/item/organ/tail/tail
-		if(dna && dna.species && dna.species.mutanttail)
-			tail = new dna.species.mutanttail
-			tail.Insert(src)
-			if(only_one)
-				return TRUE
-
 
 /obj/item/organ/random
 	name = "Illegal organ"
@@ -355,7 +347,7 @@
 
 /obj/item/organ/random/Initialize()
 	..()
-	var/list = list(/obj/item/organ/tongue, /obj/item/organ/brain, /obj/item/organ/heart, /obj/item/organ/liver, /obj/item/organ/ears, /obj/item/organ/eyes, /obj/item/organ/tail, /obj/item/organ/stomach)
+	var/list = list(/obj/item/organ/tongue, /obj/item/organ/brain, /obj/item/organ/heart, /obj/item/organ/liver, /obj/item/organ/ears, /obj/item/organ/eyes, /obj/item/organ/stomach)
 	var/newtype = pick(list)
 	new newtype(loc)
 	return INITIALIZE_HINT_QDEL

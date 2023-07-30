@@ -901,7 +901,7 @@ GLOBAL_LIST_EMPTY(playmob_cooldowns)
 /mob/living/simple_animal/proc/stamcrit()
 	to_chat(src, span_notice("You're too exhausted to keep going..."))
 	ENABLE_BITFIELD(combat_flags, COMBAT_FLAG_HARD_STAMCRIT)
-	filters += CIT_FILTER_STAMINACRIT
+	//filters += CIT_FILTER_STAMINACRIT
 	walk(src, 0)
 	set_resting(TRUE, FALSE, FALSE)
 	update_mobility()
@@ -910,7 +910,7 @@ GLOBAL_LIST_EMPTY(playmob_cooldowns)
 	COOLDOWN_RESET(src, stamcrit_timer)
 	to_chat(src, span_notice("You don't feel nearly as exhausted anymore."))
 	DISABLE_BITFIELD(combat_flags, COMBAT_FLAG_HARD_STAMCRIT)
-	filters -= CIT_FILTER_STAMINACRIT
+	//filters -= CIT_FILTER_STAMINACRIT
 	walk(src, 0)
 	set_resting(FALSE, FALSE, FALSE)
 	update_mobility()

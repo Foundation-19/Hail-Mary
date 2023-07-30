@@ -202,7 +202,6 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 	var/obj/item/organ/tongue/tongue = C.getorganslot(ORGAN_SLOT_TONGUE)
 	var/obj/item/organ/liver/liver = C.getorganslot(ORGAN_SLOT_LIVER)
 	var/obj/item/organ/stomach/stomach = C.getorganslot(ORGAN_SLOT_STOMACH)
-	var/obj/item/organ/tail/tail = C.getorganslot(ORGAN_SLOT_TAIL)
 
 	var/should_have_brain = TRUE
 	var/should_have_heart = TRUE
@@ -217,7 +216,6 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 	var/should_have_tongue = TRUE
 	var/should_have_liver = !(NOLIVER in species_traits)
 	var/should_have_stomach = !(NOSTOMACH in species_traits)
-	var/should_have_tail = mutanttail
 
 	if(brain && (replace_current || !should_have_brain))
 		if(!brain.decoy_override)//Just keep it if it's fake
@@ -270,13 +268,6 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 	if(should_have_appendix && !appendix)
 		appendix = new()
 		appendix.Insert(C)
-
-	if(tail && (!should_have_tail || replace_current))
-		tail.Remove(TRUE)
-		QDEL_NULL(tail)
-	if(should_have_tail && !tail)
-		tail = new mutanttail()
-		tail.Insert(C)
 
 	if(C.get_bodypart(BODY_ZONE_HEAD))
 		if(eyes && (replace_current || !should_have_eyes))
@@ -717,7 +708,6 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 
 	var/g = (H.dna.features["body_model"] == FEMALE) ? "f" : "m"
 	var/husk = HAS_TRAIT(H, TRAIT_HUSK)
-	var/image/tail_hack // tailhud's a bazinga, innit
 
 	for(var/layer in relevant_layers)
 		var/list/standing = list()
@@ -829,8 +819,6 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 				accessory_overlay.pixel_x += H.dna.species.offset_features[OFFSET_MUTPARTS][1]
 				accessory_overlay.pixel_y += H.dna.species.offset_features[OFFSET_MUTPARTS][2]
 
-			if(layertext == "FRONT" && mutant_string == "tail") // durty hack so asses dont eat tails
-				tail_hack = accessory_overlay
 			standing += accessory_overlay
 
 			if(S.extra) //apply the extra overlay, if there is one
@@ -927,7 +915,6 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 	H.apply_overlay(BODY_ADJ_UPPER_LAYER)
 	H.apply_overlay(BODY_FRONT_LAYER)
 	H.apply_overlay(HORNS_LAYER)
-	H.tail_hud_update(tail_hack)
 
 
 /*
@@ -1512,9 +1499,6 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 			stop_wagging_tail(target)
 		return FALSE
 	else if(aim_for_groin && (target == user || target.lying || same_dir) && (target_on_help || target_restrained || target_aiming_for_groin))
-		if(target.client?.prefs.cit_toggles & NO_ASS_SLAP)
-			to_chat(user,"A force stays your hand, preventing you from slapping \the [target]'s ass!")
-			return FALSE
 		user.do_attack_animation(target, ATTACK_EFFECT_ASS_SLAP)
 		playsound(target.loc, 'sound/weapons/slap.ogg', 50, 1, -1)
 		if(HAS_TRAIT(target, TRAIT_STEEL_ASS))

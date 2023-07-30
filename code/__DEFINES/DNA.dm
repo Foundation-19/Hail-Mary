@@ -136,18 +136,16 @@
 #define MARKINGS		17
 #define MUTCOLORS2		18
 #define MUTCOLORS3		19
-#define NOAROUSAL		20	//Stops all arousal effects
-#define NOGENITALS		21	//Cannot create, use, or otherwise have genitals
-#define MATRIXED		22	//if icon is color matrix'd
-#define SKINTONE		23	//uses skin tones
-#define CUSTOM_SKINTONE	24	//adds a "_g" suffix to bodypart overlays icon states if a custom skintone is used.
-#define HORNCOLOR		25
-#define WINGCOLOR		26
-#define ROBOTIC_LIMBS	27 //has robotic limbs that render like organic ones
-#define CAN_SCAR		28 // If this species can be scarred (fleshy)
+#define MATRIXED		21	//if icon is color matrix'd
+#define SKINTONE		22	//uses skin tones
+#define CUSTOM_SKINTONE	23	//adds a "_g" suffix to bodypart overlays icon states if a custom skintone is used.
+#define HORNCOLOR		24
+#define WINGCOLOR		25
+#define ROBOTIC_LIMBS	26 //has robotic limbs that render like organic ones
+#define CAN_SCAR		27 // If this species can be scarred (fleshy)
 /// Used for determining which wounds are applicable to this species.
-#define HAS_FLESH	29 /// if we have flesh (can suffer slash/piercing/burn wounds, requires they don't have NOBLOOD)
-#define HAS_BONE	30 /// if we have bones (can suffer bone wounds)
+#define HAS_FLESH	28 /// if we have flesh (can suffer slash/piercing/burn wounds, requires they don't have NOBLOOD)
+#define HAS_BONE	39 /// if we have bones (can suffer bone wounds)
 
 //organ slots
 #define ORGAN_SLOT_BRAIN "brain"
@@ -171,17 +169,6 @@
 #define ORGAN_SLOT_HEART_AID "heartdrive"
 #define ORGAN_SLOT_BRAIN_ANTIDROP "brain_antidrop"
 #define ORGAN_SLOT_BRAIN_ANTISTUN "brain_antistun"
-#define ORGAN_SLOT_TAIL "tail"
-#define ORGAN_SLOT_PENIS "penis"
-#define ORGAN_SLOT_WOMB "womb"
-#define ORGAN_SLOT_VAGINA "vagina"
-#define ORGAN_SLOT_TESTICLES "testicles"
-#define ORGAN_SLOT_BREASTS "breasts"
-#define ORGAN_SLOT_BUTT "butt"
-#define ORGAN_SLOT_BELLY "belly"
-#define ORGAN_CHEST_GENITALS ORGAN_SLOT_BREASTS
-#define ORGAN_GROIN_GENITALS ORGAN_SLOT_PENIS, ORGAN_SLOT_WOMB, ORGAN_SLOT_VAGINA, ORGAN_SLOT_TESTICLES, ORGAN_SLOT_BUTT
-#define ORGAN_BELLY_GENITALS ORGAN_SLOT_BELLY
 
 ////organ defines
 #define STANDARD_ORGAN_THRESHOLD 	100
