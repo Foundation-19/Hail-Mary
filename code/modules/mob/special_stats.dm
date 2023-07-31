@@ -1,15 +1,18 @@
 //////////////////////////////////////////////////////
 ////////////////////SUBTLE COMMAND////////////////////
 //////////////////////////////////////////////////////
+
+#define DEFAULT_SPECIAL_ATTR_VALUE 5
+
 /mob
 	var/flavor_text = "" //tired of fucking double checking this
-	var/special_s = 5 // +/-2 dmg in melee for each level above/below 5 ST
-	var/special_p = 5//done 10-p less accuracy with guns
-	var/special_e = 5//done e*3 more max hp
-	var/special_c = 5//done, RP and potential to stutter at less than 4
-	var/special_i = 5//done, can't learn new skills at less than 5
-	var/special_a = 5//done, (5-a)/20 multiplicative speed (9 = -0.2, 1 = 0.2)
-	var/special_l = 5//done 10+3.5*l chance to get bonus items from trash piles
+	var/special_s = DEFAULT_SPECIAL_ATTR_VALUE // +/-2 dmg in melee for each level above/below 5 ST
+	var/special_p = DEFAULT_SPECIAL_ATTR_VALUE //done 10-p less accuracy with guns
+	var/special_e = DEFAULT_SPECIAL_ATTR_VALUE // +/-5 maxHealth for each level above/below 5 END
+	var/special_c = DEFAULT_SPECIAL_ATTR_VALUE //done, RP and potential to stutter at less than 4
+	var/special_i = DEFAULT_SPECIAL_ATTR_VALUE //done, can't learn new skills at less than 5
+	var/special_a = DEFAULT_SPECIAL_ATTR_VALUE //done, (5-a)/20 multiplicative speed (9 = -0.2, 1 = 0.2)
+	var/special_l = DEFAULT_SPECIAL_ATTR_VALUE //done 10+3.5*l chance to get bonus items from trash piles
 
 /mob/proc/get_top_level_mob()
 	if(istype(src.loc,/mob)&&src.loc!=src)
@@ -53,7 +56,19 @@ proc/get_top_level_mob(mob/S)
 /mob/proc/initialize_special_luck()
 	return
 
+/mob/living/carbon/human/initialize_special_endurance()
+	maxHealth = initial(maxHealth) + ((special_e - DEFAULT_SPECIAL_ATTR_VALUE) * 5)
+	health = maxHealth
 
+/// Calculates damage modifier from user' S.P.E.C.I.A.L. attributes
+/obj/item/proc/calc_dam_mod_from_special(mob/living/user)
+	return ((user.special_s - DEFAULT_SPECIAL_ATTR_VALUE) * 2)
+/// Handles checking
+/obj/item/gun/proc/gun_firing_special_stat_check(mob/living/user)
+	if(user.special_i >= required_int_to_fire)
+		return TRUE
+	to_chat(user, "How do you use this thing?!")
+	return FALSE
 
 /mob/proc/print_special()
 	var/msg = "S:[special_s],P:[special_p],E:[special_e],C:[special_c],I:[special_i],A:[special_a],L:[special_l]<br>"

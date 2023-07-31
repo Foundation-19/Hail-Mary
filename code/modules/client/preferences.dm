@@ -2124,6 +2124,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	character.special_a = special_a
 	character.special_l = special_l
 
+	character.initialize_special_stats()
+
 	character.left_eye_color = left_eye_color
 	character.right_eye_color = right_eye_color
 	var/obj/item/organ/eyes/organ_eyes = character.getorgan(/obj/item/organ/eyes)
