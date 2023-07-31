@@ -1,5 +1,8 @@
 // Refactors plant grass to work on multiple turfs.
 
+#define GRASS_SPONTANEOUS 		2
+#define GRASS_WEIGHT 			4
+
 /turf/open/proc/plantGrass(Plantforce = FALSE)
 	var/Weight = 0
 	var/randPlant = null

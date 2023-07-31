@@ -10,6 +10,7 @@
 	var/obj/item/reagent_containers/fuel_tank/fuel_holder
 	var/idle_wasting = 0.5
 	var/move_wasting = 0.1
+	var/engine_on = null
 
 /obj/vehicle/ridden/fuel/New()
 	..()
@@ -27,6 +28,7 @@
 		fuel_holder.reagents.remove_reagent("welding_fuel",move_wasting)
 
 /obj/vehicle/ridden/fuel/process() //If process begining you can sure that engine is on
+	. = ..()
 	var/fuel_wasting
 
 	fuel_wasting += idle_wasting
@@ -43,17 +45,15 @@
 	fuel_holder.reagents.remove_reagent("welding_fuel",fuel_wasting)
 
 	if(fuel_holder.reagents.get_reagent_amount("welding_fuel") < 1)
-		StopEngine()
+		stop_engine()
 
-/obj/vehicle/ridden/fuel/start_engine()
+/obj/vehicle/ridden/fuel/proc/start_engine()
 	if(fuel_holder.reagents.get_reagent_amount("welding_fuel") < 1)
 		to_chat(usr, "<span class='warning'>[src] has run out of fuel!</span>")
 		return
-	..()
 	START_PROCESSING(SSobj, src)
 
-/obj/vehicle/ridden/fuel/stop_engine()
-	..()
+/obj/vehicle/ridden/fuel/proc/stop_engine()
 	STOP_PROCESSING(SSobj, src)
 
 /obj/vehicle/ridden/fuel/verb/ToggleFuelTank()
@@ -83,7 +83,7 @@
 
 /obj/item/reagent_containers/fuel_tank
 	name = "fuel tank"
-	//container_type = OPENCONTAINER
+
 	amount_per_transfer_from_this = 25
 	var/inside = 1
 

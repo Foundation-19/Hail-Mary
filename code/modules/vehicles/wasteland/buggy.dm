@@ -34,7 +34,6 @@
 	D.directional_vehicle_offsets = list(TEXT_NORTH = list(-32, 0), TEXT_SOUTH = list(-32, 0), TEXT_EAST = list(-32, 0), TEXT_WEST = list(-32, 0))
 	D.set_vehicle_bound_width(bound_width, list(TEXT_NORTH = 32, TEXT_SOUTH = 32, TEXT_EAST = 64, TEXT_WEST = 64))
 	D.set_vehicle_bound_height(bound_height, list(TEXT_NORTH = 64, TEXT_SOUTH = 64, TEXT_EAST = 32, TEXT_WEST = 32))
-	//D.forbid_turf_typecache = typecacheof(list(/turf/open/indestructible/ground/outside/lifelessdesert/wendoverwillsafecorner, /turf/open/indestructible/ground/outside/fakeelevation/wendoverwillsafecorner))
 	D.allow_one_away_from_valid_turf = FALSE
 	D.buckled_layer = VEHICLE_MOB_LAYER
 	carunderlay = mutable_appearance(icon, "[icon_state]_underlay", VEHICLE_LAYER)
@@ -69,6 +68,48 @@ obj/vehicle/ridden/motorcycle/buggy/user_unbuckle_mob(mob/living/buckled_mob, mo
 	. = ..()
 	var/datum/component/riding/D = LoadComponent(/datum/component/riding)
 	D.equip_buckle_inhands(M, 1, M)
+
+/*obj/vehicle/ridden/motorcycle/buggy/driver_move(mob/user, direction)
+	if(world.time < last_enginesound_time + engine_sound_length)
+		return
+	last_enginesound_time = world.time
+	playsound(src, engine_sound, 100, TRUE)
+
+/obj/vehicle/ridden/motorcycle/buggy/MouseDrop_T(atom/dropping, mob/living/M)
+	if(!istype(M) || !CHECK_MOBILITY(M, MOBILITY_USE))
+		return FALSE
+	if(isliving(dropping) && M != dropping)
+		var/mob/living/L = dropping
+		L.visible_message("<span class='warning'>[M] starts forcing [L] into [src]!</span>")
+		mob_try_forced_enter(M, L)
+	return ..()
+
+/obj/vehicle/ridden/motorcycle/buggy/mob_try_exit(mob/M, mob/user, silent = FALSE)
+	if(M == user && (occupants[M] & VEHICLE_CONTROL_KIDNAPPED))
+		to_chat(user, "<span class='notice'>You push against the back of [src] trunk to try and get out.</span>")
+		if(!do_after(user, escape_time, target = src))
+			return FALSE
+		to_chat(user,"<span class='danger'>[user] gets out of [src]</span>")
+		mob_exit(M, silent)
+		return TRUE
+	mob_exit(M, silent)
+	return TRUE
+
+/obj/vehicle/ridden/motorcycle/buggy/proc/mob_try_forced_enter(mob/forcer, mob/M, silent = FALSE)
+	if(!istype(M))
+		return FALSE
+	if(occupant_amount() >= max_occupants)
+		return FALSE
+	if(do_mob(forcer, get_enter_delay(M), target = src))
+		mob_forced_enter(M, silent)
+		return TRUE
+	return FALSE
+
+/obj/vehicle/ridden/motorcycle/buggy/proc/mob_forced_enter(mob/M, silent = FALSE)
+	if(!silent)
+		M.visible_message("<span class='warning'>[M] is forced into \the [src]!</span>")
+	M.forceMove(src)
+	add_occupant(M, VEHICLE_CONTROL_KIDNAPPED)*/
 
 /obj/item/key/buggy
 	name = "car key"

@@ -27,10 +27,6 @@
 	var/mutable_appearance/carwateroverlay
 	var/mutable_appearance/carunderlay
 	var/mutable_appearance/wheelunderlay
-	var/engine_on = 0
-	var/engine_on_sound = null
-	var/engine_loop_sound = null
-	var/obj/item/key/key = null
 
 /obj/vehicle/Initialize(mapload)
 	. = ..()
@@ -39,45 +35,6 @@
 	autogrant_actions_controller = list()
 	occupant_actions = list()
 	generate_actions()
-
-/obj/vehicle/proc/StartEngine()
-	set name = "Start Engine"
-	set category = "Object"
-	set src in view(1)
-
-	start_engine()
-
-/obj/vehicle/proc/StopEngine()
-	set name = "Stop Engine"
-	set category = "Object"
-	set src in view(1)
-
-	stop_engine()
-
-/obj/vehicle/proc/stop_engine()
-	src.verbs += /obj/vehicle/proc/StartEngine
-	src.verbs -= /obj/vehicle/proc/StopEngine
-
-	if(usr)
-		usr.visible_message("[usr] stop engine of [src].", "You stop engine.")
-
-	engine_on = FALSE
-
-
-/obj/vehicle/proc/start_engine()
-	if(!key)
-		usr.visible_message("<span class = 'notice'>There is no key.</span>")
-		return
-
-	src.verbs += /obj/vehicle/proc/StopEngine
-	src.verbs -= /obj/vehicle/proc/StartEngine
-
-	if(usr)
-		usr.visible_message("[usr] start engine of [src].", "You start engine.")
-
-	engine_on = TRUE
-	if(engine_on_sound)
-		playsound(src, engine_on_sound, 50)
 
 /obj/vehicle/examine(mob/user)
 	. = ..()
@@ -232,8 +189,14 @@
 	cut_overlays(caroverlays)
 	add_overlay(carunderlay)
 	add_overlay(wheelunderlay)
-/*
-	var/depth = vehicle_check_submerged()
-	if(!depth)
-		return
-*/	
+	
+	var/atom/A = loc // We'd better be swimming and on a turf
+	carunderlay = mutable_appearance(icon, "[icon_state]_underlay", VEHICLE_LAYER)
+	wheelunderlay = mutable_appearance(icon, "[icon_state]wheels", VEHICLE_WHEEL_LAYER)
+	//carwateroverlay = mutable_appearance(icon = 'icons/fallout/vehicles/centeredsmaller.dmi', icon_state = "bottom[depth]")
+	carwateroverlay.color = A.color
+	carwateroverlay.blend_mode = BLEND_INSET_OVERLAY
+	caroverlays += carwateroverlay
+	
+
+	add_overlay(caroverlays)
