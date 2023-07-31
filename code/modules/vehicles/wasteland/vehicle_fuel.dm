@@ -51,11 +51,9 @@
 	if(fuel_holder.reagents.get_reagent_amount("welding_fuel") < 1)
 		to_chat(usr, "<span class='warning'>[src] has run out of fuel!</span>")
 		return
-	..()
 	START_PROCESSING(SSobj, src)
 
 /obj/vehicle/ridden/fuel/proc/stop_engine()
-	..()
 	STOP_PROCESSING(SSobj, src)
 
 /obj/vehicle/ridden/fuel/verb/ToggleFuelTank()
