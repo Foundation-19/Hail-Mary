@@ -56,13 +56,25 @@ proc/get_top_level_mob(mob/S)
 /mob/proc/initialize_special_luck()
 	return
 
+
+
+/// STRENGTH
+
+/obj/item/proc/calc_melee_dam_mod_from_special(mob/living/user)
+	return ((user.special_s - DEFAULT_SPECIAL_ATTR_VALUE) * 2)
+
+/// PERCEPTION
+
+/obj/item/ammo_casing/proc/calc_bullet_spread_mod_from_special(mob/living/user)
+	return ((user.special_p - DEFAULT_SPECIAL_ATTR_VALUE) * 5) // +/- 5 degrees of innate spread per lvl
+
+/// ENDURANCE
+
 /mob/living/carbon/human/initialize_special_endurance()
 	maxHealth = initial(maxHealth) + ((special_e - DEFAULT_SPECIAL_ATTR_VALUE) * 5)
 	health = maxHealth
 
-/// Calculates damage modifier from user' S.P.E.C.I.A.L. attributes
-/obj/item/proc/calc_dam_mod_from_special(mob/living/user)
-	return ((user.special_s - DEFAULT_SPECIAL_ATTR_VALUE) * 2)
+/// INTELLIGENCE
 
 /obj/item/gun/proc/gun_firing_special_stat_check(mob/living/user)
 	if(user.special_i >= required_int_to_fire)
@@ -78,12 +90,19 @@ proc/get_top_level_mob(mob/S)
 		return FALSE
 	return TRUE
 
-/// S.P.E.C.I.A.L. checks for crafting, can be overridden
 /datum/crafting_recipe/proc/special_crafting_requirements_check(mob/user)
 	return (user.special_i >= required_int)
 
 /datum/crafting_recipe/proc/generate_special_req_text()
 	return ", [required_int] Intelligence"
+
+/// AGILITY
+
+
+
+/// LUCK
+
+
 
 /mob/proc/print_special()
 	var/msg = "S:[special_s],P:[special_p],E:[special_e],C:[special_c],I:[special_i],A:[special_a],L:[special_l]<br>"

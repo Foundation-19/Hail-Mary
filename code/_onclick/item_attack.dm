@@ -91,7 +91,7 @@
 		to_chat(user, span_warning("You don't want to harm other living beings!"))
 		return
 
-	var/force_modifier = calc_dam_mod_from_special(user) // S.P.E.C.I.A.L.
+	var/force_modifier = calc_melee_dam_mod_from_special(user) // S.P.E.C.I.A.L.
 
 	if(force >= 5)
 		if(HAS_TRAIT(user, TRAIT_BIG_LEAGUES))
