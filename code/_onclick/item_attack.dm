@@ -105,6 +105,9 @@
 	//force += regular//SPECIAL integration
 
 	var/force_modifier = 0
+
+	force_modifier += (user.special_s * 2 - 10)
+
 	if(force >= 5)
 		if(HAS_TRAIT(user, TRAIT_BIG_LEAGUES))
 			force_modifier += 10

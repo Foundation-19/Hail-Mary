@@ -3,7 +3,7 @@
 //////////////////////////////////////////////////////
 /mob
 	var/flavor_text = "" //tired of fucking double checking this
-	var/special_s = 5//done 1+(s/100) more dmg with melee weapons
+	var/special_s = 5 // +/-2 dmg in melee for each level above/below 5 ST
 	var/special_p = 5//done 10-p less accuracy with guns
 	var/special_e = 5//done e*3 more max hp
 	var/special_c = 5//done, RP and potential to stutter at less than 4
@@ -23,6 +23,35 @@ proc/get_top_level_mob(mob/S)
 		return M.get_top_level_mob()
 	return S
 
+/mob/proc/initialize_special_stats()
+	initialize_special_strength()
+	initialize_special_perception()
+	initialize_special_endurance()
+	initialize_special_charisma()
+	initialize_special_intelligence()
+	initialize_special_agility()
+	initialize_special_luck()
+
+/mob/proc/initialize_special_strength()
+	return
+
+/mob/proc/initialize_special_perception()
+	return
+
+/mob/proc/initialize_special_endurance()
+	return
+
+/mob/proc/initialize_special_charisma()
+	return
+
+/mob/proc/initialize_special_intelligence()
+	return
+
+/mob/proc/initialize_special_agility()
+	return
+
+/mob/proc/initialize_special_luck()
+	return
 
 
 
