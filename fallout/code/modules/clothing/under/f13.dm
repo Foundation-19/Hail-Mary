@@ -36,3 +36,9 @@ Just leaving this here for quick copy-pasting, for future contributors.
 	name = "yellow-collared utility uniform"
 	desc = "An utilitarian uniform with yellow collar-patch and shoulder-tabs."
 	icon_state = "goner_uniform_y"
+
+/obj/item/clothing/under/f13/minutemen
+	name = "minutemen uniform"
+	desc = "A neat, stylish pair of shirt and trousers, the signature outift of the Minutemen."
+	icon_state = "mm_uniform"
+	item_state = "mm_uniform"

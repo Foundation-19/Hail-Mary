@@ -67,3 +67,10 @@ Just leaving this here for quick copy-pasting, for future contributors.
 	name = "peaked yellow cap"
 	desc = "A militaristic cap with yellow pin on the front."
 	icon_state = "goner_offcap_y"
+
+/obj/item/clothing/head/helmet/f13/rustedcowboyhat/minutemen
+	name = "minutemen hat"
+	desc = "A stylish and slightly protective hat, made in the style of the Minutemen."
+	icon_state = "mm_hat"
+	item_state = "mm_hat"
+	mutantrace_variation = NONE
