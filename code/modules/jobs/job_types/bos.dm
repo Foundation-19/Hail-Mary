@@ -124,11 +124,12 @@ Paladin Commander
 	display_order = JOB_DISPLAY_ORDER_SENTINEL
 	outfit = /datum/outfit/job/bos/f13sentinel
 	exp_requirements = 2400
-
+/*
 	loadout_options = list(
 	/datum/outfit/loadout/sentheavy, //Gauss + Glock
 	/datum/outfit/loadout/sentmini //Minigun
 	)
+*/
 
 	access = list(ACCESS_BROTHERHOOD_COMMAND, ACCESS_ROBOTICS, ACCESS_BOS, ACCESS_ENGINE_EQUIP, ACCESS_ENGINE, ACCESS_HYDROPONICS, ACCESS_KITCHEN, ACCESS_BAR, ACCESS_SEC_DOORS, ACCESS_CHANGE_IDS)
 	minimal_access = list(ACCESS_BROTHERHOOD_COMMAND, ACCESS_ROBOTICS, ACCESS_BOS, ACCESS_ENGINE_EQUIP, ACCESS_ENGINE, ACCESS_HYDROPONICS, ACCESS_KITCHEN, ACCESS_BAR, ACCESS_SEC_DOORS, ACCESS_CHANGE_IDS)
@@ -175,10 +176,12 @@ Paladin Commander
 		/obj/item/gun/ballistic/automatic/pistol/n99/crusader = 1,
 		/obj/item/ammo_box/magazine/m10mm/adv/simple = 2,
 		/obj/item/reagent_containers/hypospray/medipen/stimpak = 6,
-		/obj/item/storage/belt/army/assault = 1
+		/obj/item/storage/belt/army/assault = 1,
+		/obj/item/gun/energy/laser/aer12 = 1,
+		/obj/item/stock_parts/cell/ammo/mfc = 5
 		)
 
-
+/*
 /datum/outfit/loadout/sentheavy
 	name = "Heavy Paladin Commander"
 	backpack_contents = list(
@@ -191,7 +194,7 @@ Paladin Commander
 	backpack_contents = list(
 		/obj/item/minigunpackbal5mm = 1,
 	)
-
+*/
 
 /*
 Proctor
@@ -313,16 +316,19 @@ Knight-Captain
 	head = /obj/item/clothing/head/helmet/f13/combat/brotherhood/captain
 	backpack_contents = list(
 		/obj/item/melee/onehanded/knife/hunting = 1,
-		/obj/item/reagent_containers/hypospray/medipen/stimpak = 2,
-		/obj/item/storage/belt/army/security/full = 1
+		/obj/item/reagent_containers/hypospray/medipen/stimpak = 5,
+		/obj/item/storage/belt/army/security/full = 1,
+		/obj/item/gun/energy/laser/aer12 = 1,
+		/obj/item/stock_parts/cell/ammo/mfc = 5
 		)
-
+/*
 /datum/outfit/loadout/capalt
 	name = "Warden-Defender"
 	backpack_contents = list(
 		/obj/item/gun/ballistic/shotgun/hunting = 1,
 		/obj/item/ammo_box/shotgun/buck = 3,
 	)
+*/
 
 /*
 Star Paladin
@@ -338,12 +344,12 @@ Star Paladin
 	display_order = JOB_DISPLAY_ORDER_SENIORPALADIN
 	outfit = /datum/outfit/job/bos/f13seniorpaladin
 	exp_requirements = 1500 //Not used right now anyways. Slot disabled.
-
+/*
 	loadout_options = list(
 		/datum/outfit/loadout/spaladina, //5mm Minigun
 		/datum/outfit/loadout/spaladind //Super Sledge and Powerfist
 		)
-
+*/
 	access = list(ACCESS_BROTHERHOOD_COMMAND, ACCESS_ROBOTICS, ACCESS_BOS, ACCESS_ENGINE_EQUIP, ACCESS_ENGINE, ACCESS_HYDROPONICS, ACCESS_KITCHEN, ACCESS_BAR, ACCESS_SEC_DOORS)
 	minimal_access = list(ACCESS_BROTHERHOOD_COMMAND, ACCESS_ROBOTICS, ACCESS_BOS, ACCESS_ENGINE_EQUIP, ACCESS_ENGINE, ACCESS_HYDROPONICS, ACCESS_KITCHEN, ACCESS_BAR, ACCESS_SEC_DOORS)
 
@@ -367,9 +373,11 @@ Star Paladin
 	backpack_contents = list(
 		/obj/item/reagent_containers/hypospray/medipen/stimpak = 4,
 		/obj/item/melee/onehanded/knife/hunting = 1,
-		/obj/item/storage/belt/army/assault = 1
+		/obj/item/storage/belt/army/assault = 1,
+		/obj/item/gun/energy/laser/aer12 = 1,
+		/obj/item/stock_parts/cell/ammo/mfc = 5
 	)
-
+/*
 /datum/outfit/loadout/spaladina
 	name = "Firesupport Star Paladin"
 	backpack_contents = list(
@@ -382,7 +390,7 @@ Star Paladin
 		/obj/item/melee/powerfist/f13 = 1,
 		/obj/item/twohanded/sledgehammer/supersledge = 1,
 		)
-
+*/
 
 /*
 Paladin
@@ -398,12 +406,12 @@ Paladin
 	display_order = JOB_DISPLAY_ORDER_PALADIN
 	outfit = /datum/outfit/job/bos/f13paladin
 	exp_requirements = 1200
-
+/*
 	loadout_options = list(
 	/datum/outfit/loadout/paladina, //Minigun
 	/datum/outfit/loadout/paladind //Sledge and fists
 	)
-
+*/
 	access = list(ACCESS_ROBOTICS, ACCESS_BOS, ACCESS_ENGINE_EQUIP, ACCESS_ENGINE, ACCESS_HYDROPONICS, ACCESS_KITCHEN, ACCESS_BAR, ACCESS_SEC_DOORS)
 	minimal_access = list(ACCESS_ROBOTICS, ACCESS_BOS, ACCESS_ENGINE_EQUIP, ACCESS_ENGINE, ACCESS_HYDROPONICS, ACCESS_KITCHEN, ACCESS_BAR, ACCESS_SEC_DOORS)
 	matchmaking_allowed = list(
@@ -439,9 +447,11 @@ Paladin
 	backpack_contents = list(
 		/obj/item/reagent_containers/hypospray/medipen/stimpak= 4,
 		/obj/item/melee/onehanded/knife/hunting = 1,
-		/obj/item/storage/belt/army/assault = 1
+		/obj/item/storage/belt/army/assault = 1,
+		/obj/item/gun/energy/laser/aer12 = 1,
+		/obj/item/stock_parts/cell/ammo/mfc = 5
 	)
-
+/*
 /datum/outfit/loadout/paladina
 	name = "Firesupport Paladin"
 	backpack_contents = list(
@@ -456,6 +466,7 @@ Paladin
 		/obj/item/twohanded/sledgehammer/supersledge = 1,
 		/obj/item/clothing/accessory/bos/paladin = 1
 		)
+*/
 
 /*
 Senior Scribe
@@ -516,7 +527,8 @@ Senior Scribe
 		/obj/item/ammo_box/magazine/m9mm = 2,
 		/obj/item/melee/onehanded/knife/survival = 1,
 		/obj/item/storage/firstaid/regular = 1,
-		/obj/item/reagent_containers/hypospray/CMO = 1
+		/obj/item/reagent_containers/hypospray/CMO = 1,
+		/obj/item/reagent_containers/hypospray/medipen/stimpak = 7
 	)
 
 /*
@@ -568,6 +580,9 @@ Scribe
 		/obj/item/storage/belt/utility/full/engi = 1,
 		/obj/item/melee/onehanded/knife/survival = 1,
 		/obj/item/storage/firstaid/regular = 1,
+		/obj/item/gun/energy/laser/pistol = 1,
+		/obj/item/stock_parts/cell/ammo/ec = 3,
+		/obj/item/reagent_containers/hypospray/medipen/stimpak = 5
 		)
 
 
@@ -597,13 +612,13 @@ Knight-Sergeant
 	display_order = JOB_DISPLAY_ORDER_SENIORKNIGHT
 	outfit = /datum/outfit/job/bos/f13seniorknight
 	exp_requirements = 900
-
+/*
 	loadout_options = list(
 	/datum/outfit/loadout/sknightb, //Police Shotgun
 	/datum/outfit/loadout/sknightc, //R93
 	/datum/outfit/loadout/sknightd, //Pre-war Ripper
 	)
-
+*/
 	access = list(ACCESS_BROTHERHOOD_COMMAND, ACCESS_ROBOTICS, ACCESS_BOS, ACCESS_ENGINE_EQUIP, ACCESS_ENGINE, ACCESS_HYDROPONICS, ACCESS_KITCHEN, ACCESS_BAR, ACCESS_SEC_DOORS)
 	minimal_access = list(ACCESS_BROTHERHOOD_COMMAND, ACCESS_ROBOTICS, ACCESS_BOS, ACCESS_ENGINE_EQUIP, ACCESS_ENGINE, ACCESS_HYDROPONICS, ACCESS_KITCHEN, ACCESS_BAR, ACCESS_SEC_DOORS)
 	matchmaking_allowed = list(
@@ -644,11 +659,13 @@ Knight-Sergeant
 	backpack_contents = list(
 		/obj/item/melee/onehanded/knife/hunting = 1,
 		/obj/item/storage/belt/army/assault = 1,
-		/obj/item/reagent_containers/hypospray/medipen/stimpak = 2,
+		/obj/item/reagent_containers/hypospray/medipen/stimpak = 5,
 		/obj/item/book/granter/crafting_recipe/gunsmith_one = 1,
-		/obj/item/book/granter/crafting_recipe/gunsmith_two = 1
+		/obj/item/book/granter/crafting_recipe/gunsmith_two = 1,
+		/obj/item/gun/energy/laser/aer12 = 1,
+		/obj/item/stock_parts/cell/ammo/mfc = 5
 		)
-
+/*
 /datum/outfit/loadout/sknightb
 	name = "Knight-Defender"
 	backpack_contents = list(
@@ -674,6 +691,8 @@ Knight-Sergeant
 		/obj/item/melee/powered/ripper/prewar = 1,
 		/obj/item/shield/riot/bullet_proof = 1
 		)
+*/
+
 /*
 Knight
 */
@@ -738,9 +757,11 @@ Knight
 		/obj/item/storage/belt/army/assault = 1,
 		/obj/item/reagent_containers/hypospray/medipen/stimpak = 1,
 		/obj/item/book/granter/crafting_recipe/gunsmith_one = 1,
-		/obj/item/book/granter/crafting_recipe/gunsmith_two = 1
+		/obj/item/book/granter/crafting_recipe/gunsmith_two = 1,
+		/obj/item/gun/energy/laser/aer9 = 1,
+		/obj/item/stock_parts/cell/ammo/mfc = 5
 		)
-
+/*
 /datum/outfit/loadout/knighte
 	name = "Knight-Defender"
 	backpack_contents = list(
@@ -758,6 +779,8 @@ Knight
 		/obj/item/melee/powered/ripper = 1,
 		/obj/item/shield/riot/bullet_proof = 1
 		)
+*/
+
 /*
 Initiate
 */
