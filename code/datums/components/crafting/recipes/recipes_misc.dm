@@ -7,6 +7,7 @@
 	tools = list(TOOL_SCREWDRIVER,TOOL_WORKBENCH)
 	subcategory = CAT_MISCELLANEOUS
 	category = CAT_MISC
+	required_int = 5
 
 /////////////////
 //Large Objects//

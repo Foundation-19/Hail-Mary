@@ -340,9 +340,12 @@
 		Deletion.Cut(Deletion.len)
 		qdel(DL)
 
-/datum/component/personal_crafting/proc/component_ui_interact(obj/screen/craft/image, location, control, params, user)
-	if(user == parent)
-		ui_interact(user)
+/datum/component/personal_crafting/proc/component_ui_interact(obj/screen/craft/image, location, control, params, mob/user)
+	if(user != parent)
+		return
+	if(!special_crafting_check(user)) // S.P.E.C.I.A.L.
+		return
+	ui_interact(user)
 
 /datum/component/personal_crafting/ui_state(mob/user)
 	return GLOB.not_incapacitated_turf_state
@@ -456,6 +459,8 @@
 		var/atom/A = a
 		req_text += " [R.reqs[A]] [initial(A.name)],"
 	req_text = replacetext(req_text,",","",-1)
+	if(R.required_int) // S.P.E.C.I.A.L.
+		req_text += R.generate_special_req_text()
 	data["req_text"] = req_text
 
 	for(var/a in R.chem_catalysts)

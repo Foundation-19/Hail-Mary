@@ -3,7 +3,7 @@
 //////////////////////////////////////////////////////
 
 #define DEFAULT_SPECIAL_ATTR_VALUE 5
-
+#define MIN_INT_CRAFTING_REQUIREMENT 3
 /mob
 	var/flavor_text = "" //tired of fucking double checking this
 	var/special_s = DEFAULT_SPECIAL_ATTR_VALUE // +/-2 dmg in melee for each level above/below 5 ST
@@ -63,12 +63,27 @@ proc/get_top_level_mob(mob/S)
 /// Calculates damage modifier from user' S.P.E.C.I.A.L. attributes
 /obj/item/proc/calc_dam_mod_from_special(mob/living/user)
 	return ((user.special_s - DEFAULT_SPECIAL_ATTR_VALUE) * 2)
-/// Handles checking
+
 /obj/item/gun/proc/gun_firing_special_stat_check(mob/living/user)
 	if(user.special_i >= required_int_to_fire)
 		return TRUE
 	to_chat(user, "How do you use this thing?!")
 	return FALSE
+
+/datum/component/personal_crafting/proc/special_crafting_check(mob/living/user)
+	if(!istype(user))
+		return FALSE
+	if(user.special_i <= MIN_INT_CRAFTING_REQUIREMENT)
+		to_chat(user,  "Your brain is too dumb to craft items.")
+		return FALSE
+	return TRUE
+
+/// S.P.E.C.I.A.L. checks for crafting, can be overridden
+/datum/crafting_recipe/proc/special_crafting_requirements_check(mob/user)
+	return (user.special_i >= required_int)
+
+/datum/crafting_recipe/proc/generate_special_req_text()
+	return ", [required_int] Intelligence"
 
 /mob/proc/print_special()
 	var/msg = "S:[special_s],P:[special_p],E:[special_e],C:[special_c],I:[special_i],A:[special_a],L:[special_l]<br>"
