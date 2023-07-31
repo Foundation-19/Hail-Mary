@@ -43,9 +43,9 @@
 		items_ref_list.Add(A)
 
 /obj/machinery/bounty_machine/faction/Destroy()
-	. = ..()
 	for(var/atom/Itm in items_ref_list)
 		qdel(Itm)
+	return ..()
 
 /* Add caps */
 /obj/machinery/bounty_machine/faction/proc/add_caps(var/obj/item/stack/f13Cash/caps/C)
