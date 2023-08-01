@@ -12,7 +12,7 @@
 	var/special_c = DEFAULT_SPECIAL_ATTR_VALUE // Desc message + moodlets
 	var/special_i = DEFAULT_SPECIAL_ATTR_VALUE // Can't craft with INT under MIN_INT_CRAFTING_REQUIREMENT, certain recipes can be INT locked, certain guns can be INT locked
 	var/special_a = DEFAULT_SPECIAL_ATTR_VALUE // +/- 10% Sprint stamina usage modifier -/+ 0.05 movespeed modifier per lvl below/above 5 AGI
-	var/special_l = DEFAULT_SPECIAL_ATTR_VALUE //done 10+3.5*l chance to get bonus items from trash piles
+	var/special_l = DEFAULT_SPECIAL_ATTR_VALUE // Currently nothing
 
 /mob/proc/get_top_level_mob()
 	if(istype(src.loc,/mob)&&src.loc!=src)
