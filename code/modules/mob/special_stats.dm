@@ -77,6 +77,55 @@ proc/get_top_level_mob(mob/S)
 	maxHealth = initial(maxHealth) + ((special_e - DEFAULT_SPECIAL_ATTR_VALUE) * 5)
 	health = maxHealth
 
+/datum/species/proc/get_special_burn_resist_multiplier(mob/living/user)
+	switch(user.special_e)
+		if(1)
+			return 2
+		if(2)
+			return 1.75
+		if(3)
+			return 1.5
+		if(4)
+			return 1.25
+		if(5)
+			return 1
+		if(6)
+			return 0.9
+		if(7)
+			return 0.8
+		if(8)
+			return 0.7
+		if(9)
+			return 0.6
+		if(10)
+			return 0.5
+	return 1
+
+/mob/living/proc/get_special_poison_resist_multiplier()
+	switch(special_e)
+		if(1)
+			return 2
+		if(2)
+			return 1.75
+		if(3)
+			return 1.5
+		if(4)
+			return 1.25
+		if(5)
+			return 1
+		if(6)
+			return 0.9
+		if(7)
+			return 0.8
+		if(8)
+			return 0.7
+		if(9)
+			return 0.6
+		if(10)
+			return 0.5
+	return 1
+
+
 /// CHARISMA
 
 /mob/living/carbon/human/initialize_special_charisma()
@@ -103,22 +152,22 @@ proc/get_top_level_mob(mob/S)
 			SEND_SIGNAL(examiner, COMSIG_ADD_MOOD_EVENT, "beautiful_char", /datum/mood_event/special_beautiful_char)
 
 /datum/mood_event/special_disgusting_char
-	description = span_boldwarning("special_disgusting_char_desc")
+	description = span_boldwarning("I have struggled to comprehend an abomination given flesh. ")
 	mood_change = -5
 	timeout = 5 MINUTES
 
 /datum/mood_event/special_bad_looking_char
-	description = span_warning("special_bad_looking_char_desc")
+	description = span_warning("I've had to endure seeing a face even a mother would struggle to love. ")
 	mood_change = -2
 	timeout = 4 MINUTES
 
 /datum/mood_event/special_good_looking_char
-	description = span_nicegreen("special_good_looking_char_desc")
+	description = span_nicegreen("I've seen someone so good-looking that it made my day! ")
 	mood_change = 2
 	timeout = 5 MINUTES
 
 /datum/mood_event/special_beautiful_char
-	description = span_nicegreen("special_beautiful_char_desc")
+	description = span_nicegreen("I have gazed upon the visage of perfection given form! ")
 	mood_change = 5
 	timeout = 6 MINUTES
 

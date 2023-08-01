@@ -204,6 +204,8 @@
 	if(HAS_TRAIT(src, TRAIT_TOXINIMMUNE))
 		if(amount > 0)
 			amount = -amount // no damage, only heal
+	else
+		amount *= get_special_poison_resist_multiplier() // S.P.E.C.I.A.L.
 	toxloss = clamp((toxloss + (amount * CONFIG_GET(number/damage_multiplier))), 0, maxHealth * 2)
 	if(updating_health)
 		updatehealth()
