@@ -3,6 +3,7 @@
 	doSprintBufferRegen(FALSE)		//first regen.
 	if(sprint_buffer)
 		var/use = min(tiles, sprint_buffer)
+		use *= calc_sprint_stamina_mod_from_special(tiles) // S.P.E.C.I.A.L.
 		if(HAS_TRAIT(src, TRAIT_ZOOMIES))
 			sprint_buffer -= use * 0.5
 		else
