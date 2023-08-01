@@ -223,21 +223,21 @@ proc/get_top_level_mob(mob/S)
 	return msg
 
 /mob/proc/gen_strength_examine_text()
-	if(special_s < 3)
+	if(special_s <= 3)
 		return "<br>This person looks puny, like a total noodle."
-	if(special_s > 7)
+	if(special_s >= 7)
 		return "<br>Simply built out of muscle, they could wrestle a deathclaw to death."
 
 /mob/proc/gen_perception_examine_text()
-	if(special_p < 3)
+	if(special_p <= 3)
 		return "<br>Even with glasses, an elephant could easily sneak by them."
-	if(special_p > 7)
+	if(special_p >= 7)
 		return "<br>A sharp and attentive gaze almost pierces through you, nothing gets past them it seems."
 
 /mob/proc/gen_endurance_examine_text()
-	if(special_e < 3)
+	if(special_e <= 3)
 		return "<br>It looks like a stiff breeze could tear them in two."
-	if(special_e > 7)
+	if(special_e >= 7)
 		return "<br>As solid as an oak, they look like they could run for miles on end."
 
 /mob/proc/gen_charisma_examine_text()
@@ -264,19 +264,19 @@ proc/get_top_level_mob(mob/S)
 			return "<br>They have a perfect beauty to them leagues above the rest."
 
 /mob/proc/gen_intelligence_examine_text()
-	if(special_i < 3)
+	if(special_i <= 3)
 		return "<br>They look like they'd struggle to get water out of a boot with instructions printed on the heel."
-	if(special_i > 7)
+	if(special_i >= 7)
 		return "<br>A bright and careful gaze in their eyes, they seem to know much more than you."
 
 /mob/proc/gen_agility_examine_text()
-	if(special_a < 3)
+	if(special_a <= 3)
 		return "<br>Maladroit and unbalanced, it is a wonder they can even stand straight."
-	if(special_a > 7)
+	if(special_a >= 7)
 		return "<br>Moving like a panther, it is a wonder you have even noticed that they are here."
 
 /mob/proc/gen_luck_examine_text()
-	if(special_l < 3)
+	if(special_l <= 3)
 		return "<br>Misfortune just seems to stick to them like a fly to shit."
-	if(special_l > 7)
+	if(special_l >= 7)
 		return "<br>Somehow you just know that they are as lucky as it gets."
