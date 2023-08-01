@@ -1922,7 +1922,7 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 				H.adjustBruteLoss(damage_amount)
 		if(BURN)
 			H.damageoverlaytemp = 20
-			var/damage_amount = forced ? damage : damage * hit_percent * burnmod * H.physiology.burn_mod * get_special_burn_resist_multiplier() // S.P.E.C.I.A.L.
+			var/damage_amount = forced ? damage : damage * hit_percent * burnmod * H.physiology.burn_mod * get_special_burn_resist_multiplier(H) // S.P.E.C.I.A.L.
 			if(BP)
 				if(BP.receive_damage(0, damage_amount, wound_bonus = wound_bonus, bare_wound_bonus = bare_wound_bonus, sharpness = sharpness))
 					H.update_damage_overlays()

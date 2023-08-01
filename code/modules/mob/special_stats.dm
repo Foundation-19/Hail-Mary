@@ -136,7 +136,7 @@ proc/get_top_level_mob(mob/S)
 	return ..()
 
 
-/mob/proc/handle_special_charisma_examine_moodlet(mob/living/examiner)
+/mob/proc/handle_special_charisma_examine_moodlet(mob/living/examinee, mob/living/examiner, text)
 	if(!istype(examiner))
 		return
 	if(src == examiner)
