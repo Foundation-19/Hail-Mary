@@ -150,10 +150,10 @@ proc/get_top_level_mob(mob/S)
 	return
 
 /mob/living/carbon/calc_sprint_stamina_mod_from_special()
-	return (1 - ((user.special_a - DEFAULT_SPECIAL_ATTR_VALUE) * 0.1))
+	return (1 - ((special_a - DEFAULT_SPECIAL_ATTR_VALUE) * 0.1))
 
 /mob/proc/calc_movespeed_mod_from_special()
-	return -((user.special_a - DEFAULT_SPECIAL_ATTR_VALUE) * 0.05)
+	return -((special_a - DEFAULT_SPECIAL_ATTR_VALUE) * 0.05)
 
 /// LUCK
 
