@@ -913,7 +913,93 @@ Raider
 		/obj/item/clothing/shoes/f13/peltboots = 1,
 		/obj/item/melee/unarmed/sappers = 1,
 		)
+	/datum/job/wasteland/f13minutemencorporal
+		title = "Minuteman Corporal"
+		flag = F13WASTELANDER
+		faction = FACTION_WASTELAND
+		total_positions = 1
+		spawn_positions = 1
+		description = "A beacon of liberty and light in the wastes. The Minutemen are freedom-fighters that aim to keep the wastes a safer and more just place. You are the leader of the current squad on the East Coast."
+		supervisors = "minutemen superiors"
 
+		outfit = /datum/outfit/job/wasteland/f13minutemencorporal
+
+		access = list()
+		minimal_access = list()
+		matchmaking_allowed = list(
+		/datum/matchmaking_pref/friend = list(
+			/datum/job/wasteland/f13wastelander,
+		),
+		/datum/matchmaking_pref/rival = list(
+			/datum/job/wasteland/f13wastelander,
+		),
+	)
+
+	/datum/outfit/job/wasteland/f13minutemencorporal
+	head = /obj/item/clothing/head/helmet/f13/rustedcowboyhat/minutemen
+	l_pocket = /obj/item/storage/belt/legholster
+	backpack = /obj/item/storage/backpack/satchel/explorer
+	satchel = /obj/item/storage/backpack/satchel/explorer
+	belt = /obj/item/storage/belt/army/assault
+	uniform = /obj/item/clothing/under/f13/minutemen
+	suit = /obj/item/clothing/suit/armor/medium/duster/trenchcoat/minutemen
+	suit_store = /obj/item/gun/energy/laser/wattz2k/extended
+	ears = /obj/item/radio/headset/headset_minutemen
+	r_pocket = /obj/item/flashlight/seclite
+	shoes = /obj/item/clothing/shoes/f13/minutemen
+	gloves = /obj/item/clothing/gloves/f13/minutemen
+	neck = /obj/item/clothing/scarf/minutemen
+	backpack_contents = list(
+		/obj/item/reagent_containers/food/snacks/f13/mre = 1,
+		/obj/item/reagent_containers/hypospray/medipen/stimpak = 4,
+		/obj/item/storage/survivalkit = 1,
+		/obj/item/storage/survivalkit/medical = 1,
+		/obj/item/stock_parts/ammo/mfc = 5
+	)
+
+	/datum/job/wasteland/f13minutemen
+		title = "Minuteman"
+		flag = F13WASTELANDER
+		faction = FACTION_WASTELAND
+		total_positions = 3
+		spawn_positions = 3
+		description = "A beacon of liberty and light in the wastes. The Minutemen are freedom-fighters that aim to keep the wastes a safer and more just place."
+		supervisors = "minutemen corporal"
+
+		outfit = /datum/outfit/job/wasteland/f13minutemen
+
+		access = list()
+		minimal_access = list()
+		matchmaking_allowed = list(
+		/datum/matchmaking_pref/friend = list(
+			/datum/job/wasteland/f13wastelander,
+		),
+		/datum/matchmaking_pref/rival = list(
+			/datum/job/wasteland/f13wastelander,
+		),
+	)
+
+	/datum/outfit/job/wasteland/f13minutemen
+	head = /obj/item/clothing/head/helmet/f13/rustedcowboyhat/minutemen
+	l_pocket = /obj/item/storage/belt/legholster
+	backpack = /obj/item/storage/backpack/satchel/explorer
+	satchel = /obj/item/storage/backpack/satchel/explorer
+	belt = /obj/item/storage/belt/army/assault
+	uniform = /obj/item/clothing/under/f13/minutemen
+	suit = /obj/item/clothing/suit/armor/medium/duster/trenchcoat/minutemen
+	suit_store = /obj/item/gun/energy/laser/wattz2k
+	ears = /obj/item/radio/headset/headset_minutemen
+	r_pocket = /obj/item/flashlight/seclite
+	shoes = /obj/item/clothing/shoes/f13/minutemen
+	gloves = /obj/item/clothing/gloves/f13/minutemen
+	neck = /obj/item/clothing/scarf/minutemen
+	backpack_contents = list(
+		/obj/item/reagent_containers/food/snacks/f13/mre = 1,
+		/obj/item/reagent_containers/hypospray/medipen/stimpak = 2,
+		/obj/item/storage/survivalkit = 1,
+		/obj/item/storage/survivalkit/medical = 1,
+		/obj/item/stock_parts/ammo/mfc = 5,
+	)
 
 
 /datum/job/wasteland/f13wastelander
