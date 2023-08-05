@@ -27,7 +27,6 @@ Main doors: ACCESS_BOS 120
 	jobtype = /datum/job/bos
 	backpack = /obj/item/storage/backpack/explorer
 	satchel = /obj/item/storage/backpack/satchel/explorer
-	belt = /obj/item/kit_spawner/bos
 	ears = /obj/item/radio/headset/headset_bos
 	uniform = /obj/item/clothing/under/syndicate/brotherhood
 	shoes = /obj/item/clothing/shoes/combat/swat
@@ -95,7 +94,6 @@ Elder
 /datum/outfit/job/bos/f13elder
 	name = "Elder"
 	jobtype = /datum/job/bos/f13elder
-	belt = /obj/item/kit_spawner/bos/boss
 	suit = /obj/item/clothing/suit/armor/light/duster/bos/scribe/elder
 	glasses = /obj/item/clothing/glasses/night
 	accessory = /obj/item/clothing/accessory/bos/elder
@@ -164,7 +162,6 @@ Paladin Commander
 	uniform = /obj/item/clothing/under/f13/recon
 	accessory = /obj/item/clothing/accessory/bos/sentinel
 	glasses = /obj/item/clothing/glasses/sunglasses
-	belt = /obj/item/kit_spawner/bos/combat
 	mask = /obj/item/clothing/mask/gas/sechailer
 	ears = /obj/item/radio/headset/headset_bos/command
 	suit = /obj/item/clothing/suit/armor/power_armor/midwest/hardened
@@ -243,7 +240,6 @@ Proctor
 	name = "Proctor"
 	jobtype = /datum/job/bos/f13headscribe
 	chemwhiz = TRUE
-	belt = /obj/item/kit_spawner/bos/scientist
 	accessory = /obj/item/clothing/accessory/bos/headscribe
 	glasses = /obj/item/clothing/glasses/sunglasses
 	suit = /obj/item/clothing/suit/armor/light/duster/bos/scribe/headscribe
@@ -310,7 +306,6 @@ Knight-Captain
 	suit = /obj/item/clothing/suit/armor/medium/combat/brotherhood/captain
 	glasses = /obj/item/clothing/glasses/night
 	accessory =	/obj/item/clothing/accessory/bos/knightcaptain
-	belt = /obj/item/kit_spawner/bos/combat
 	l_pocket = /obj/item/storage/belt/shoulderholster
 	mask = /obj/item/clothing/mask/gas/sechailer
 	head = /obj/item/clothing/head/helmet/f13/combat/brotherhood/captain
@@ -368,7 +363,6 @@ Star Paladin
 	accessory =	/obj/item/clothing/accessory/bos/seniorpaladin
 	uniform = /obj/item/clothing/under/f13/recon
 	mask = /obj/item/clothing/mask/gas/sechailer
-	belt = /obj/item/kit_spawner/bos/combat
 	neck = /obj/item/clothing/neck/mantle/bos/paladin
 	backpack_contents = list(
 		/obj/item/reagent_containers/hypospray/medipen/stimpak = 4,
@@ -442,7 +436,6 @@ Paladin
 	head =	/obj/item/clothing/head/helmet/f13/power_armor/midwest
 	uniform =	/obj/item/clothing/under/f13/recon
 	mask =	/obj/item/clothing/mask/gas/sechailer
-	belt = /obj/item/kit_spawner/bos/combat
 	neck =	/obj/item/clothing/neck/mantle/bos/paladin
 	backpack_contents = list(
 		/obj/item/reagent_containers/hypospray/medipen/stimpak= 4,
@@ -517,7 +510,6 @@ Senior Scribe
 	jobtype = /datum/job/bos/f13seniorscribe
 	chemwhiz =	TRUE
 	shoes =	/obj/item/clothing/shoes/combat
-	belt = /obj/item/kit_spawner/bos/scientist
 	accessory =	/obj/item/clothing/accessory/bos/seniorscribe
 	suit = /obj/item/clothing/suit/armor/light/duster/bos/scribe/seniorscribe
 	suit_store = /obj/item/gun/ballistic/automatic/pistol/ninemil
@@ -573,7 +565,6 @@ Scribe
 	jobtype = /datum/job/bos/f13scribe
 	chemwhiz = TRUE
 	shoes = /obj/item/clothing/shoes/combat
-	belt = /obj/item/kit_spawner/bos/scientist
 	suit = /obj/item/clothing/suit/armor/light/duster/bos/scribe
 	glasses = /obj/item/clothing/glasses/sunglasses/big
 	backpack_contents = list(
@@ -649,7 +640,6 @@ Knight-Sergeant
 	accessory = /obj/item/clothing/accessory/bos/seniorknight
 	glasses = /obj/item/clothing/glasses/night
 	mask = /obj/item/clothing/mask/gas/sechailer
-	belt = /obj/item/kit_spawner/bos/combat
 	l_pocket = /obj/item/storage/belt/shoulderholster
 	head = /obj/item/clothing/head/helmet/f13/combat/brotherhood/senior
 	gunsmith_one = TRUE
@@ -745,7 +735,6 @@ Knight
 	jobtype = /datum/job/bos/f13knight
 	suit = /obj/item/clothing/suit/armor/medium/combat/brotherhood
 	mask = /obj/item/clothing/mask/gas/sechailer
-	belt = /obj/item/kit_spawner/bos/combat
 	l_pocket = /obj/item/storage/belt/shoulderholster
 	head = /obj/item/clothing/head/helmet/f13/combat/brotherhood
 	gunsmith_one = TRUE
@@ -837,8 +826,8 @@ Initiate
 	suit = /obj/item/clothing/suit/armor/medium/combat/brotherhood
 	head = /obj/item/clothing/head/helmet/f13/combat/brotherhood/initiate
 	backpack_contents = list(
-		/obj/item/gun/energy/laser/wattz = 1,
-		/obj/item/stock_parts/cell/ammo/ec = 2,
+		/obj/item/gun/energy/laser/aer9 = 1,
+		/obj/item/stock_parts/cell/ammo/mfc = 2,
 		/obj/item/clothing/accessory/bos/initiateK = 1
 		)
 
