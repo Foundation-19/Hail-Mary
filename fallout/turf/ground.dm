@@ -66,8 +66,6 @@
 	. = ..()
 	flags_2 |= GLOBAL_LIGHT_TURF_2
 
-#define GRASS_SPONTANEOUS 		  2
-#define GRASS_WEIGHT			  4
 GLOBAL_LIST_INIT(lush_plant_spawn_list, list(
 	/obj/structure/flora/grass/wasteland = 10,
 	/obj/structure/flora/wasteplant/wild_horsenettle = 5,
