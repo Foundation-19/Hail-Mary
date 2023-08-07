@@ -151,6 +151,8 @@
 /obj/item/clothing/neck/scarf/f13/minutemen
 	name = "worn blue scarf"
 	desc = "A worn, ragged and old blue-tinted scarf, dotted with insignias of the Minutemen."
+	icon = 'fallout/icons/obj/clothing/minutemen.dmi'
+	mob_overlay_icon = 'fallout/icons/mob/clothing/minutemen.dmi'
 	item_state = "mm_scarf"
 	icon_state = "mm_scarf"
 

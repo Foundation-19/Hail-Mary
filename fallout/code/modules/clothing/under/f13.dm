@@ -40,5 +40,7 @@ Just leaving this here for quick copy-pasting, for future contributors.
 /obj/item/clothing/under/f13/minutemen
 	name = "minutemen uniform"
 	desc = "A neat, stylish pair of shirt and trousers, the signature outift of the Minutemen."
+	icon = 'fallout/icons/obj/clothing/minutemen.dmi'
+	mob_overlay_icon = 'fallout/icons/mob/clothing/minutemen.dmi'
 	icon_state = "mm_uniform"
 	item_state = "mm_uniform"
