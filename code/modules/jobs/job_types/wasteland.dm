@@ -946,7 +946,7 @@ Raider
 	belt = /obj/item/storage/belt/army/assault
 	uniform = /obj/item/clothing/under/f13/minutemen
 	suit = /obj/item/clothing/suit/armor/medium/duster/trenchcoat/minutemen
-	suit_store = /obj/item/gun/energy/laser/wattz2k
+	suit_store = /obj/item/gun/ballistic/rifle/hobo/lasmusket
 	r_pocket = /obj/item/flashlight/seclite
 	gloves = /obj/item/clothing/gloves/f13/minutemen
 	neck = /obj/item/clothing/neck/scarf/f13/minutemen
@@ -955,7 +955,7 @@ Raider
 		/obj/item/reagent_containers/hypospray/medipen/stimpak = 2,
 		/obj/item/storage/survivalkit = 1,
 		/obj/item/storage/survivalkit/medical = 1,
-		/obj/item/stock_parts/cell/ammo/mfc = 5
+		/obj/item/ammo_box/lasmusket = 3
 	)
 
 
