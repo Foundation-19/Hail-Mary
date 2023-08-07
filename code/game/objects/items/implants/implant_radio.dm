@@ -50,7 +50,7 @@
 	name = "super mutant radio"
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "adamantine_resonator"
-	radio_key = /obj/item/encryptionkey/headset_ncr
+	radio_key = /obj/item/encryptionkey
 	subspace_transmission = TRUE
 
 /obj/item/implant/radio/slime
