@@ -949,7 +949,7 @@ Raider
 	suit_store = /obj/item/gun/energy/laser/wattz2k
 	r_pocket = /obj/item/flashlight/seclite
 	gloves = /obj/item/clothing/gloves/f13/minutemen
-	neck = /obj/item/clothing/scarf/minutemen
+	neck = /obj/item/clothing/neck/scarf/f13/minutemen
 	backpack_contents = list(
 		/obj/item/reagent_containers/food/snacks/f13/mre = 1,
 		/obj/item/reagent_containers/hypospray/medipen/stimpak = 2,
