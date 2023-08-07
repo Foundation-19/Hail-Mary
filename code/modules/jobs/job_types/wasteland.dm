@@ -937,26 +937,26 @@ Raider
 	)
 
 /datum/outfit/job/wasteland/f13minutemen
-head = /obj/item/clothing/head/helmet/f13/rustedcowboyhat/minutemen
-l_pocket = /obj/item/storage/belt/legholster
-backpack = /obj/item/storage/backpack/satchel/explorer
-satchel = /obj/item/storage/backpack/satchel/explorer
-belt = /obj/item/storage/belt/army/assault
-uniform = /obj/item/clothing/under/f13/minutemen
-suit = /obj/item/clothing/suit/armor/medium/duster/trenchcoat/minutemen
-suit_store = /obj/item/gun/energy/laser/wattz2k
-ears = /obj/item/radio/headset/headset_minutemen
-r_pocket = /obj/item/flashlight/seclite
-shoes = /obj/item/clothing/shoes/f13/minutemen
-gloves = /obj/item/clothing/gloves/f13/minutemen
-neck = /obj/item/clothing/scarf/minutemen
-backpack_contents = list(
-	/obj/item/reagent_containers/food/snacks/f13/mre = 1,
-	/obj/item/reagent_containers/hypospray/medipen/stimpak = 2,
-	/obj/item/storage/survivalkit = 1,
-	/obj/item/storage/survivalkit/medical = 1,
-	/obj/item/stock_parts/ammo/mfc = 5,
-)
+	head = /obj/item/clothing/head/helmet/f13/rustedcowboyhat/minutemen
+	l_pocket = /obj/item/storage/belt/legholster
+	backpack = /obj/item/storage/backpack/satchel/explorer
+	satchel = /obj/item/storage/backpack/satchel/explorer
+	belt = /obj/item/storage/belt/army/assault
+	uniform = /obj/item/clothing/under/f13/minutemen
+	suit = /obj/item/clothing/suit/armor/medium/duster/trenchcoat/minutemen
+	suit_store = /obj/item/gun/energy/laser/wattz2k
+	ears = /obj/item/radio/headset/headset_minutemen
+	r_pocket = /obj/item/flashlight/seclite
+	shoes = /obj/item/clothing/shoes/f13/minutemen
+	gloves = /obj/item/clothing/gloves/f13/minutemen
+	neck = /obj/item/clothing/scarf/minutemen
+	backpack_contents = list(
+		/obj/item/reagent_containers/food/snacks/f13/mre = 1,
+		/obj/item/reagent_containers/hypospray/medipen/stimpak = 2,
+		/obj/item/storage/survivalkit = 1,
+		/obj/item/storage/survivalkit/medical = 1,
+		/obj/item/stock_parts/ammo/mfc = 5,
+	)
 
 
 /datum/job/wasteland/f13wastelander
