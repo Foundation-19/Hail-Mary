@@ -955,7 +955,7 @@ Raider
 		/obj/item/reagent_containers/hypospray/medipen/stimpak = 2,
 		/obj/item/storage/survivalkit = 1,
 		/obj/item/storage/survivalkit/medical = 1,
-		/obj/item/stock_parts/ammo/mfc = 5,
+		/obj/item/stock_parts/cell/ammo/mfc = 5
 	)
 
 
