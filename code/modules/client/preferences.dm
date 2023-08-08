@@ -1330,45 +1330,45 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				ask_for_custom_name(user,href_list["preference"])
 			switch(href_list["preference"])
 				if("special_s")
-					var/new_point = input(user, "Choose Amount(1-9)", "Strength") as num|null
+					var/new_point = input(user, "Choose Amount(1-10)", "Strength") as num|null
 					if(new_point)
-						special_s = max(min(round(text2num(new_point)), 9),1)
+						special_s = max(min(round(text2num(new_point)), 10),1)
 					SetSpecial(user)
 					return 1
 				if("special_p")
-					var/new_point = input(user, "Choose Amount(1-9)", "Perception") as num|null
+					var/new_point = input(user, "Choose Amount(1-10)", "Perception") as num|null
 					if(new_point)
-						special_p = max(min(round(text2num(new_point)), 9),1)
+						special_p = max(min(round(text2num(new_point)), 10),1)
 					SetSpecial(user)
 					return 1
 				if("special_e")
-					var/new_point = input(user, "Choose Amount(1-9)", "Endurance") as num|null
+					var/new_point = input(user, "Choose Amount(1-10)", "Endurance") as num|null
 					if(new_point)
-						special_e = max(min(round(text2num(new_point)), 9),1)
+						special_e = max(min(round(text2num(new_point)), 10),1)
 					SetSpecial(user)
 					return 1
 				if("special_c")
-					var/new_point = input(user, "Choose Amount(1-9)", "Charisma") as num|null
+					var/new_point = input(user, "Choose Amount(1-10)", "Charisma") as num|null
 					if(new_point)
-						special_c = max(min(round(text2num(new_point)), 9),1)
+						special_c = max(min(round(text2num(new_point)), 10),1)
 					SetSpecial(user)
 					return 1
 				if("special_i")
-					var/new_point = input(user, "Choose Amount(1-9)", "Intelligence") as num|null
+					var/new_point = input(user, "Choose Amount(1-10)", "Intelligence") as num|null
 					if(new_point)
-						special_i = max(min(round(text2num(new_point)), 9),1)
+						special_i = max(min(round(text2num(new_point)), 10),1)
 					SetSpecial(user)
 					return 1
 				if("special_a")
-					var/new_point = input(user, "Choose Amount(1-9)", "Agility") as num|null
+					var/new_point = input(user, "Choose Amount(1-10)", "Agility") as num|null
 					if(new_point)
-						special_a = max(min(round(text2num(new_point)), 9),1)
+						special_a = max(min(round(text2num(new_point)), 10),1)
 					SetSpecial(user)
 					return 1
 				if("special_l")
-					var/new_point = input(user, "Choose Amount(1-9)", "Luck") as num|null
+					var/new_point = input(user, "Choose Amount(1-10)", "Luck") as num|null
 					if(new_point)
-						special_l = max(min(round(text2num(new_point)), 9),1)
+						special_l = max(min(round(text2num(new_point)), 10),1)
 					SetSpecial(user)
 					return 1
 				if("ghostform")
@@ -2123,6 +2123,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	character.special_i = special_i
 	character.special_a = special_a
 	character.special_l = special_l
+
+	character.initialize_special_stats()
 
 	character.left_eye_color = left_eye_color
 	character.right_eye_color = right_eye_color
