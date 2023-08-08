@@ -447,52 +447,6 @@ SILICON_MAX_LAW_AMOUNT 12
 ROUNDSTART_RACES human
 ROUNDSTART_RACES ghoul
 
-## Races that are strictly worse than humans that could probably be turned on without balance concerns
-#ROUNDSTART_RACES lizard
-#ROUNDSTART_RACES synthliz
-#ROUNDSTART_RACES fly
-#ROUNDSTART_RACES insect
-#ROUNDSTART_RACES plasmaman
-#ROUNDSTART_RACES shadow
-#ROUNDSTART_RACES felinid
-ROUNDSTART_RACES dwarf
-#ROUNDSTART_RACES ethereal
-
-## Races that are better than humans in some ways, but worse in others
-#ROUNDSTART_RACES jelly
-#ROUNDSTART_RACES golem
-#ROUNDSTART_RACES adamantine
-#ROUNDSTART_RACES plasma
-#ROUNDSTART_RACES diamond
-#ROUNDSTART_RACES gold
-#ROUNDSTART_RACES silver
-#ROUNDSTART_RACES uranium
-#ROUNDSTART_RACES abductor
-#ROUNDSTART_RACES synth
-
-## Races that are straight upgrades. If these are on expect powergamers to always pick them
-#ROUNDSTART_RACES skeleton
-#ROUNDSTART_RACES zombie
-#ROUNDSTART_RACES slime
-#ROUNDSTART_RACES pod
-#ROUNDSTART_RACES military_synth
-#ROUNDSTART_RACES agent
-
-## CITADEL Races
-#ROUNDSTART_RACES mammal
-#ROUNDSTART_RACES avian
-#ROUNDSTART_RACES aquatic
-#ROUNDSTART_RACES insect
-#ROUNDSTART_RACES xeno
-#ROUNDSTART_RACES slimeperson
-#ROUNDSTART_RACES guilmon
-#ROUNDSTART_RACES ipc
-#ROUNDSTART_RACES arachnid
-
-
-## CUSTOM Races
-#ROUNDSTART_RACES shadekin
-
 
 ##-------------------------------------------------------------------------------------------
 
@@ -591,7 +545,7 @@ MICE_ROUNDSTART 0
 #EMERGENCY_SHUTTLE_AUTOCALL_THRESHOLD 0.2
 
 ## Determines if players are allowed to print integrated circuits, uncomment to allow.
-#IC_PRINTING
+IC_PRINTING
 
 ## Uncomment to allow roundstart quirk selection in the character setup menu.
 ## This used to be named traits, hence the config name, but it handles quirks, not the other kind of trait!
@@ -654,35 +608,6 @@ DROPPED_MODES 3
 ## Whether the suicide verb is allowed.
 SUICIDE_ALLOWED
 
-## Breast cups selectable from the character creation menu. Keep em lowercase.
-BREASTS_CUPS_PREFS a
-BREASTS_CUPS_PREFS b
-BREASTS_CUPS_PREFS c
-BREASTS_CUPS_PREFS d
-BREASTS_CUPS_PREFS e
-BREASTS_CUPS_PREFS f
-#BREASTS_CUPS_PREFS g
-#BREASTS_CUPS_PREFS h
-#BREASTS_CUPS_PREFS i
-#BREASTS_CUPS_PREFS j
-#BREASTS_CUPS_PREFS k
-#BREASTS_CUPS_PREFS l
-#BREASTS_CUPS_PREFS m
-#BREASTS_CUPS_PREFS n
-#BREASTS_CUPS_PREFS o
-
-## Minimum and maximum limits for penis length from the character creation menu.
-PENIS_MIN_INCHES_PREFS 1
-PENIS_MAX_INCHES_PREFS 10
-
-## Minimum and maximum limits for butt size from the character creation menu.
-BUTT_MIN_SIZE_PREFS 1
-BUTT_MAX_SIZE_PREFS 5
-
-## Minimum and maximum limits for butt size from the character creation menu.
-BELLY_MIN_SIZE_PREFS 1
-BELLY_MAX_SIZE_PREFS 3
-
 ## Body size configs, the feature will be disabled if both min and max have the same value.
 BODY_SIZE_MIN 0.8
 BODY_SIZE_MAX 1.2
@@ -696,15 +621,9 @@ THRESHOLD_BODY_SIZE_SLOWDOWN 0.85
 ## Doesn't apply to floating or crawling mobs.
 BODY_SIZE_SLOWDOWN_MULTIPLIER 0.25
 
-## Allows players to set a hexadecimal color of their choice as skin tone, on top of the standard ones.
-#ALLOW_CUSTOM_SKINTONES
-
 ## Enables the FoV component, which hides objects and mobs behind the parent from their sight, unless they turn around, duh.
 ## Camera mobs, AIs, ghosts and some other are of course exempt from this. This also doesn't influence simplemob AI, for the best.
 #USE_FIELD_OF_VISION
 
 ## Sets how many quirk points you get at the start
 QUIRK_POINTS 5
-
-## Sets how many validballs to try and spawn
-VALIDBALL_COUNT 1
