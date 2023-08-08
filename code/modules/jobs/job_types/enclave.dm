@@ -29,6 +29,8 @@
 	gloves = /obj/item/clothing/gloves/f13/military
 	backpack_contents = list(
 		/obj/item/reagent_containers/food/snacks/f13/mre = 1,
+		/obj/item/storage/survivalkit = 1,
+		/obj/item/storage/survivalkit/medical = 1
 	)
 
 /datum/outfit/job/enclave/noncombat
@@ -65,10 +67,6 @@
 	outfit = /datum/outfit/job/enclave/peacekeeper/enclavecpt
 	exp_requirements = 1500
 
-	loadout_options = list(
-		/datum/outfit/loadout/cpt_ballistics, // FN FAL and Deagle
-		)
-
 /datum/outfit/job/enclave/peacekeeper/enclavecpt
 	name = "Enclave Captain"
 	jobtype = /datum/job/enclave/enclavecpt
@@ -76,6 +74,7 @@
 	head = /obj/item/clothing/head/helmet/f13/enclave/officer
 	uniform = /obj/item/clothing/under/f13/enclave/officer
 	suit = /obj/item/clothing/suit/armor/medium/duster/enclave
+	suit_store = /obj/item/gun/ballistic/automatic/fnfal
 	accessory = /obj/item/clothing/accessory/ncr/CPT
 	id = /obj/item/card/id/dogtag/enclave/officer
 	ears = /obj/item/radio/headset/headset_enclave/command
@@ -84,17 +83,10 @@
 		/obj/item/reagent_containers/hypospray/medipen/stimpak/super = 3,
 		/obj/item/grenade/flashbang = 1,
 		/obj/item/pda = 1,
-	//	/obj/item/storage/bag/money/small/wastelander = 1,
 		/obj/item/melee/onehanded/knife/survival = 1,
-		)
-
-/datum/outfit/loadout/cpt_ballistics
-	name = "Captain's Standard"
-	suit_store = /obj/item/gun/ballistic/automatic/fnfal
-	backpack_contents = list(
 		/obj/item/ammo_box/magazine/m308 = 2,
 		/obj/item/gun/ballistic/automatic/pistol/deagle = 1,
-		/obj/item/ammo_box/magazine/m44 = 2,
+		/obj/item/ammo_box/magazine/m44 = 2
 		)
 
 /datum/outfit/job/enclave/peacekeeper/enclavelt/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -122,17 +114,13 @@
 	outfit = /datum/outfit/job/enclave/peacekeeper/enclavelt
 	exp_requirements = 1500
 
-	loadout_options = list(
-		/datum/outfit/loadout/lt_ballistics, // FN FAL and pistol
-		)
-
-
 /datum/outfit/job/enclave/peacekeeper/enclavelt
 	name = "Enclave Lieutenant"
 	jobtype = /datum/job/enclave/enclavelt
 
 	uniform = /obj/item/clothing/under/f13/enclave/officer
 	suit = /obj/item/clothing/suit/armor/medium/duster/enclave
+	suit_store = /obj/item/gun/ballistic/automatic/fnfal
 	accessory = /obj/item/clothing/accessory/ncr/LT1
 	id = /obj/item/card/id/dogtag/enclave/officer
 	ears = /obj/item/radio/headset/headset_enclave/command
@@ -141,17 +129,10 @@
 		/obj/item/reagent_containers/hypospray/medipen/stimpak/super = 3,
 		/obj/item/grenade/flashbang = 1,
 		/obj/item/pda = 1,
-	//	/obj/item/storage/bag/money/small/wastelander = 1,
 		/obj/item/melee/onehanded/knife/survival = 1,
-		)
-
-/datum/outfit/loadout/lt_ballistics
-	name = "Lieutenant's Standard"
-	suit_store = /obj/item/gun/ballistic/automatic/fnfal
-	backpack_contents = list(
-		/obj/item/ammo_box/magazine/m308 = 2,
-		/obj/item/gun/ballistic/automatic/pistol/m1911/custom = 1,	//9MM is for bitches
-		/obj/item/ammo_box/magazine/m45 = 3,
+		/obj/item/gun/energy/laser/plasma/glock = 1,
+		/obj/item/stock_parts/cell/ammo/ec = 2,
+		/obj/item/ammo_box/magazine/m308 = 2
 		)
 
 /datum/outfit/job/enclave/peacekeeper/enclavelt/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -175,14 +156,11 @@
 	outfit = /datum/outfit/job/enclave/peacekeeper/enclavesgt
 	exp_requirements = 1200
 
-	loadout_options = list(
-		/datum/outfit/loadout/sgt_ballistics,	// R91 Rifle
-		)
-
 /datum/outfit/job/enclave/peacekeeper/enclavesgt
 	name = "Enclave Sergeant"
 	jobtype = /datum/job/enclave/enclavesgt
 	suit = /obj/item/clothing/suit/armor/medium/combat/mk2/remnant
+	suit_store = /obj/item/gun/ballistic/automatic/lsw
 	head = /obj/item/clothing/head/helmet/f13/combat/mk2/remnant
 	accessory = /obj/item/clothing/accessory/enclave/sergeant
 
@@ -190,16 +168,9 @@
 		/obj/item/reagent_containers/hypospray/medipen/stimpak = 2,
 		/obj/item/grenade/frag = 1,
 		/obj/item/pda = 1,
-	//	/obj/item/storage/bag/money/small/wastelander = 1,
 		/obj/item/melee/onehanded/knife/survival = 1,
 		/obj/item/clothing/head/f13/enclave/peacekeeper = 1,
-		)
-
-/datum/outfit/loadout/sgt_ballistics
-	name = "Frontline Operator"
-	suit_store = /obj/item/gun/ballistic/automatic/assault_rifle
-	backpack_contents = list(
-		/obj/item/ammo_box/magazine/m556/rifle = 3,
+		/obj/item/ammo_box/magazine/m556/rifle = 3
 		)
 
 /datum/outfit/job/enclave/peacekeeper/enclavesgt/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -210,6 +181,7 @@
 	ADD_TRAIT(H, TRAIT_HARD_YARDS, src)
 
 //corporal
+
 /datum/job/enclave/enclavecpl
 	title = "Enclave Corporal"
 	flag = F13USCPL
@@ -222,32 +194,21 @@
 	display_order = JOB_DISPLAY_ORDER_F13USCPL
 	exp_requirements = 1200
 
-	loadout_options = list(
-		/datum/outfit/loadout/cpl_ballistics,	// R91 Rifle
-		)
-
 /datum/outfit/job/enclave/peacekeeper/enclavecpl
 	name = "Enclave Corporal"
 	jobtype = /datum/job/enclave/enclavecpl
 	head = /obj/item/clothing/head/helmet/f13/combat/swat
 	suit = /obj/item/clothing/suit/armor/medium/combat/swat
-	suit_store = /obj/item/gun/ballistic/automatic/smg/mp5
+	suit_store = /obj/item/gun/ballistic/automatic/assault_carbine
 	accessory = /obj/item/clothing/accessory/enclave/specialist
 
 	backpack_contents = list(
 		/obj/item/reagent_containers/hypospray/medipen/stimpak = 2,
 		/obj/item/grenade/frag = 1,
 		/obj/item/pda = 1,
-	//	/obj/item/storage/bag/money/small/wastelander = 1,
 		/obj/item/melee/onehanded/knife/survival = 1,
 		/obj/item/clothing/head/f13/enclave/peacekeeper = 1,
-		)
-
-/datum/outfit/loadout/cpl_ballistics
-	name = "Frontline Operator"
-	suit_store = /obj/item/gun/ballistic/automatic/assault_rifle
-	backpack_contents = list(
-		/obj/item/ammo_box/magazine/m556/rifle = 3,
+		/obj/item/ammo_box/magazine/m5mm = 3
 		)
 
 /datum/outfit/job/enclave/peacekeeper/enclavecpl/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -285,9 +246,8 @@
 	backpack_contents = list(
 		/obj/item/reagent_containers/hypospray/medipen/stimpak = 2,
 		/obj/item/pda = 1,
-	//	/obj/item/storage/bag/money/small/wastelander = 1,
 		/obj/item/ammo_box/magazine/uzim9mm = 2,
-		/obj/item/melee/onehanded/knife/survival = 1,
+		/obj/item/melee/onehanded/knife/survival = 1
 		)
 
 /datum/outfit/loadout/combatmedic
@@ -341,7 +301,6 @@
 		/obj/item/grenade/smokebomb = 1,
 		/obj/item/pda = 1,
 		/obj/item/ammo_box/magazine/m5mm = 2,
-	//	/obj/item/storage/bag/money/small/wastelander = 1,
 		/obj/item/melee/onehanded/knife/survival = 1,
 		)
 
@@ -377,7 +336,6 @@
 		/obj/item/pda = 1,
 		/obj/item/gun/ballistic/automatic/pistol/m1911 = 1,
 		/obj/item/ammo_box/magazine/m45 = 3,
-	//	/obj/item/storage/bag/money/small/wastelander = 1,
 		/obj/item/melee/onehanded/knife/survival = 1,
 		/obj/item/clothing/head/beret/enclave/science = 1,
 		)
