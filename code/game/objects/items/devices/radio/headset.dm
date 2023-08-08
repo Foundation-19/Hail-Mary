@@ -312,7 +312,7 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 
 /obj/item/radio/headset/headset_minutemen
 	name = "Minutemen radio headset"
-	desc = "This is used by the New California Republic.\nTo access the Minutemen channel, use :w."
+	desc = "This is used by the Minutemen.\nTo access the Minutemen channel, use :w."
 	icon_state = "mine_headset"
 	keyslot = new /obj/item/encryptionkey/headset_minutemen
 
