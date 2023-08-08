@@ -801,6 +801,10 @@ obj/effect/landmark/start/f13/ncrlogisticsofficer
 	name = "Vigilante"
 	icon_state = "Wastelander"
 
+/obj/effect/landmark/start/f13/minutemen
+	name = "Minutemen"
+	icon_state = "Wastelander"
+
 /obj/effect/landmark/start/f13/wastelander
 	name = "Wastelander"
 	icon_state = "Wastelander"
