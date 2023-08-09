@@ -68,7 +68,7 @@
 		"command", 
 		"den",
 		"vault", 
-		"ncr", 
+		"minutemen", 
 		"bos", 
 		"enclave", 
 		"town", 

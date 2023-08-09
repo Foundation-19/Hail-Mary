@@ -14,7 +14,7 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	RADIO_CHANNEL_AI_PRIVATE = RADIO_TOKEN_AI_PRIVATE,
 	RADIO_CHANNEL_VAULT = RADIO_TOKEN_VAULT,
 	RADIO_CHANNEL_BIKER = RADIO_TOKEN_BIKER,
-	RADIO_CHANNEL_NCR = RADIO_TOKEN_NCR,
+	RADIO_CHANNEL_MINUTEMEN = RADIO_TOKEN_MINUTEMEN,
 	RADIO_CHANNEL_BOS = RADIO_TOKEN_BOS,
 	RADIO_CHANNEL_ENCLAVE = RADIO_TOKEN_ENCLAVE,
 	RADIO_CHANNEL_TOWN = RADIO_TOKEN_TOWN,
@@ -310,17 +310,15 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	freerange = TRUE
 	freqlock = TRUE
 
-/obj/item/radio/headset/headset_ncr
-	name = "NCR radio headset"
-	desc = "This is used by the New California Republic.\nTo access the NCR channel, use :w."
+/obj/item/radio/headset/headset_minutemen
+	name = "Minutemen radio headset"
+	desc = "This is used by the Minutemen.\nTo access the Minutemen channel, use :w."
 	icon_state = "mine_headset"
-	keyslot = new /obj/item/encryptionkey/headset_ncr
-	linked_faction = FACTION_NCR
-	factionized = TRUE
+	keyslot = new /obj/item/encryptionkey/headset_minutemen
 
 /obj/item/radio/headset/headset_ranger
 	name = "Ranger radio headset"
-	desc = "This is used by the New California Republic.\nTo access the NCR channel, use :w. \nTo access the Ranger channel, use :r. Protects ears from flashbangs."
+	desc = "This is used by the New California Republic. \nTo access the Ranger channel, use :r. Protects ears from flashbangs."
 	icon_state = "mine_headset"
 	keyslot = new /obj/item/encryptionkey/headset_ranger
 	linked_faction = FACTION_NCR

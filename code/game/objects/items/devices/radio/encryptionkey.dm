@@ -153,17 +153,17 @@
 	icon_state = "hos_cypherkey"
 	channels = list(RADIO_CHANNEL_VAULT = 1, RADIO_CHANNEL_COMMAND = 1, RADIO_CHANNEL_SECURITY = 1)
 
-/obj/item/encryptionkey/headset_ncr
-	name = "NCR radio encryption key"
-	desc = "An encryption key for a radio headset.  To access the NCR channel, use :w."
+/obj/item/encryptionkey/headset_minutemen
+	name = "Minutemen radio encryption key"
+	desc = "An encryption key for a radio headset.  To access the Minutemen channel, use :w."
 	icon_state = "cypherkey"
-	channels = list(RADIO_CHANNEL_NCR = 1)
+	channels = list(RADIO_CHANNEL_MINUTEMEN = 1)
 
 /obj/item/encryptionkey/headset_ranger
 	name = "Ranger radio encryption key"
-	desc = "An encryption key for a radio headset. To access the NCR channel, use :w. To access the Ranger channel, use :r."
+	desc = "An encryption key for a radio headset. To access the Ranger channel, use :r."
 	icon_state = "cypherkey"
-	channels = list(RADIO_CHANNEL_NCR = 1, RADIO_CHANNEL_RANGER = 1)
+	channels = list(RADIO_CHANNEL_RANGER = 1)
 
 /obj/item/encryptionkey/headset_bos
 	name = "Brotherhood radio encryption key"

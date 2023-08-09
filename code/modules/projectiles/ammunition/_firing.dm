@@ -14,6 +14,7 @@
 				angle_out = 0 // nice shot
 			else
 				var/max_spread = spread + distro + (pellets == 1 ? variance : 0) // hooray vars doing double duty
+				max_spread -= calc_bullet_spread_mod_from_special(user) //S.P.E.C.I.A.L.
 				if(istype(BB))
 					max_spread += BB.spread
 				if(HAS_TRAIT(user,TRAIT_FEV)) //You really shouldn't try this at home.

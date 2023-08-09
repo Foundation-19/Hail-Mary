@@ -91,20 +91,8 @@
 		to_chat(user, span_warning("You don't want to harm other living beings!"))
 		return
 
-	//var/bigleagues = 10 //flat additive
-	//var/littleleagues = 5
-	//var/gentle = -5
-	//var/wimpy = -10
-	//var/FEVbonus = force*0.35 //used to be a flat additive of 20. changed after someone beat someone to death with a book. TODO: balance this further, possibly with a switch statement depending on force value
-	//var/buffout = force*0.25
-	//var/smutant = force*0.25 //Not using this for FEV mutated as this could let you do a lot of trolling.
-	//var/ghoulmelee = force*0.25 //negative trait, this will cut 25% of the damage done by melee
+	var/force_modifier = calc_melee_dam_mod_from_special(user) // S.P.E.C.I.A.L.
 
-	//var/regular = force*(user.special_s/100)//SPECIAL integration
-
-	//force += regular//SPECIAL integration
-
-	var/force_modifier = 0
 	if(force >= 5)
 		if(HAS_TRAIT(user, TRAIT_BIG_LEAGUES))
 			force_modifier += 10
