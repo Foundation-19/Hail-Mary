@@ -1,7 +1,7 @@
 /obj/item/stock_parts/chem_cartridge
 	name = "Chemical Cartridge"
 	desc = "A propriatary casing holding a mix of raw material for use in chem dispensors."
-	icon = 'modular_coyote/icons/objects/chem_cartridge.dmi' //these are coder sprites.
+	icon = 'fallout/icons/objects/chem_cartridge.dmi' //these are coder sprites.
 	icon_state = "simple"
 	item_state = "simple"
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'

@@ -84,7 +84,12 @@
 //#define MOB_LAYER 4 //For easy recordkeeping; this is a byond define
 #define MOB_UPPER_LAYER 4.05
 #define ABOVE_MOB_LAYER 4.1
+#define VEHICLE_WHEEL_LAYER 4.24
 #define WALL_OBJ_LAYER 4.25
+#define VEHICLE_LAYER 4.26
+#define VEHICLE_MOB_LAYER 4.27
+#define VEHICLE_FRAME_LAYER 4.28
+#define VEHICLE_OVERLAY_LAYER 4.29
 #define EDGED_TURF_LAYER 4.3
 #define ON_EDGED_TURF_LAYER 4.35
 #define LARGE_MOB_LAYER 4.4

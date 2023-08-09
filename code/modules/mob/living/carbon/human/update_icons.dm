@@ -71,12 +71,10 @@ There are several things that need to be remembered:
 	dna.species.handle_mutant_bodyparts(src)
 
 
-/mob/living/carbon/human/update_body(update_genitals = TRUE)
+/mob/living/carbon/human/update_body()
 	remove_overlay(BODY_LAYER)
 	dna.species.handle_body(src)
 	..()
-	if(update_genitals)
-		update_genitals()
 
 /mob/living/carbon/human/update_fire()
 	..((fire_stacks > 3) ? "Standing" : "Generic_mob_burning")
@@ -144,12 +142,6 @@ There are several things that need to be remembered:
 			variant_flag |= STYLE_DIGITIGRADE
 
 		var/mask
-		if(dna.species.mutant_bodyparts["taur"])
-			var/datum/sprite_accessory/taur/T = GLOB.taur_list[dna.features["taur"]]
-			var/clip_flag = U.mutantrace_variation & T?.hide_legs
-			if(clip_flag)
-				variant_flag |= clip_flag
-				mask = T.alpha_mask_state
 
 		var/mutable_appearance/uniform_overlay
 
@@ -285,11 +277,6 @@ There are several things that need to be remembered:
 		var/obj/screen/inventory/inv = hud_used.inv_slots[SLOT_SHOES]
 		inv.update_icon()
 
-	if(dna.species.mutant_bodyparts["taur"])
-		var/datum/sprite_accessory/taur/T = GLOB.taur_list[dna.features["taur"]]
-		if(T?.hide_legs) //If only they actually made shoes unwearable. Please don't making cosmetics, guys.
-			return
-
 	if(shoes)
 		var/obj/item/clothing/shoes/S = shoes
 		shoes.screen_loc = ui_shoes					//move the item to the appropriate screen loc
@@ -418,32 +405,10 @@ There are several things that need to be remembered:
 		var/dimension_x = 32
 		var/dimension_y = 32
 		var/variation_flag = NONE
-		var/datum/sprite_accessory/taur/T
-		if(dna.species.mutant_bodyparts["taur"])
-			T = GLOB.taur_list[dna.features["taur"]]
 
 		if(S.mutantrace_variation)
 
-			if(T?.taur_mode)
-				var/init_worn_icon = worn_icon
-				variation_flag |= S.mutantrace_variation & T.taur_mode || S.mutantrace_variation & T.alt_taur_mode
-				switch(variation_flag)
-					if(STYLE_HOOF_TAURIC)
-						worn_icon = 'icons/mob/clothing/taur_hooved.dmi'
-					if(STYLE_SNEK_TAURIC)
-						worn_icon = 'icons/mob/clothing/taur_naga.dmi'
-					if(STYLE_PAW_TAURIC)
-						worn_icon = 'icons/mob/clothing/taur_canine.dmi'
-				if(worn_icon != init_worn_icon) //worn icon sprite was changed, taur offsets will have to be applied.
-					if(S.taur_mob_worn_overlay) //not going to make several new variables for all taur types. Nope.
-						var/static/list/icon_to_state = list('icons/mob/clothing/taur_hooved.dmi' = "_hooved", 'icons/mob/clothing/taur_naga.dmi' = "_naga", 'icons/mob/clothing/taur_canine.dmi' = "_paws")
-						worn_state += icon_to_state[worn_icon]
-						worn_icon = S.taur_mob_worn_overlay
-					center = T.center
-					dimension_x = T.dimension_x
-					dimension_y = T.dimension_y
-
-			else if((DIGITIGRADE in dna.species.species_traits) && S.mutantrace_variation & STYLE_DIGITIGRADE && !(S.mutantrace_variation & STYLE_NO_ANTHRO_ICON)) //not a taur, but digitigrade legs.
+			if((DIGITIGRADE in dna.species.species_traits) && S.mutantrace_variation & STYLE_DIGITIGRADE && !(S.mutantrace_variation & STYLE_NO_ANTHRO_ICON)) //not a taur, but digitigrade legs.
 				worn_icon = S.anthro_mob_worn_overlay || 'icons/mob/clothing/suit_digi.dmi'
 				variation_flag |= STYLE_DIGITIGRADE
 
@@ -690,19 +655,10 @@ use_mob_overlay_icon: if FALSE, it will always use the default_icon_file even if
 
 	. += "-[dna.features["body_model"]]"
 
-	var/is_taur = FALSE
-	if(dna.species.mutant_bodyparts["taur"])
-		var/datum/sprite_accessory/taur/T = GLOB.taur_list[dna.features["taur"]]
-		if(T?.hide_legs)
-			is_taur = TRUE
 
 	var/static/list/leg_day = typecacheof(list(/obj/item/bodypart/r_leg, /obj/item/bodypart/l_leg))
 	for(var/X in bodyparts)
 		var/obj/item/bodypart/BP = X
-		if(is_taur && leg_day[BP.type])
-			continue
-
-		. += "-[BP.body_zone]"
 		if(BP.status == BODYPART_ORGANIC)
 			. += "-organic"
 		else

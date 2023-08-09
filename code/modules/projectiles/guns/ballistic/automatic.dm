@@ -355,7 +355,7 @@
 /obj/item/gun/ballistic/automatic/smg/mini_uzi/mp40
 	name = "Maschinenpistole 40"
 	desc = "An open bolt blowback submachine gun that served in the German Army. It's a long way from home."
-	icon = 'modular_coyote/icons/objects/automatic.dmi'
+	icon = 'fallout/icons/objects/automatic.dmi'
 	icon_state = "mp40"
 	item_state = "smg9mm"
 
@@ -363,7 +363,7 @@
 /obj/item/gun/ballistic/automatic/smg/mini_uzi/mp5
 	name = "HK MP-5"
 	desc = "A lightweight submachine gun that earned its place as one of the most popular SMGs in the world"
-	icon = 'modular_coyote/icons/objects/automatic.dmi'
+	icon = 'fallout/icons/objects/automatic.dmi'
 	icon_state = "mp5"
 	mag_type = /obj/item/ammo_box/magazine/uzim9mm
 	init_mag_type = /obj/item/ammo_box/magazine/uzim9mm
@@ -376,7 +376,7 @@
 /obj/item/gun/ballistic/automatic/smg/mini_uzi/smg22/tec22
 	name = ".22 machine pistol"
 	desc = "A compact, lightweight way to put a lot of bullets downrange."
-	icon = 'modular_coyote/icons/objects/automatic.dmi'
+	icon = 'fallout/icons/objects/automatic.dmi'
 	icon_state = "tec9"
 	mag_type = /obj/item/ammo_box/magazine/m22
 	init_mag_type = /obj/item/ammo_box/magazine/m22
@@ -420,7 +420,7 @@
 /obj/item/gun/ballistic/automatic/smg/mini_uzi/mac10
 	name = "Ingram Model 10" //I like naming things quirkily
 	desc = "A compact machine pistol with a blistering fire rate."
-	icon = 	'modular_coyote/icons/objects/automatic.dmi'
+	icon = 	'fallout/icons/objects/automatic.dmi'
 	icon_state = "mac10"
 	weapon_class = WEAPON_CLASS_NORMAL //kinda bulky for a compact gun
 	damage_multiplier = GUN_LESS_DAMAGE_T2 //this spits lots of bullets and is compact and can be dual wielded

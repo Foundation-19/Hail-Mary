@@ -111,10 +111,6 @@
 			if(document_copy)
 				do_copy_loop(CALLBACK(src, .proc/make_document_copy), usr)
 				return TRUE
-			// ASS COPY. By Miauw
-			if(ass)
-				do_copy_loop(CALLBACK(src, .proc/make_ass_copy), usr)
-				return TRUE
 
 		// Remove the paper/photo/document from the photocopier.
 		if("remove")
@@ -278,36 +274,6 @@
 	give_pixel_offset(copied_doc)
 	toner_cartridge.charges -= DOCUMENT_TONER_USE
 
-/**
- * Handles the copying of an ass photo.
- *
- * Calls `check_ass()` first to make sure that `ass` exists, among other conditions. Since this proc is called from a timer, it's possible that it was removed.
- * Additionally checks that the mob has their clothes off.
- */
-/obj/machinery/photocopier/proc/make_ass_copy()
-	if(!check_ass())
-		return
-	if(ishuman(ass)) //(ass.get_item_by_slot(ITEM_SLOT_ICLOTHING) || ass.get_item_by_slot(ITEM_SLOT_OCLOTHING)))
-		var/mob/living/carbon/C = ass //have to typecast to this, is_groin_exposed is carbon level
-		if(C.is_groin_exposed())
-			to_chat(usr, span_notice("You feel kind of silly, copying [ass == usr ? "your" : ass][ass == usr ? "" : "\'s"] ass with [ass == usr ? "your" : "[ass.p_their()]"] clothes on.") )
-			return
-
-	var/icon/temp_img
-	if(isalienadult(ass) || istype(ass, /mob/living/simple_animal/hostile/alien)) //Xenos have their own asses, thanks to Pybro.
-		temp_img = icon('icons/ass/assalien.png')
-	else if(ishuman(ass)) //Suit checks are after check_ass
-		temp_img = icon(ass.gender == FEMALE ? 'icons/ass/assfemale.png' : 'icons/ass/assmale.png')
-	else if(isdrone(ass)) //Drones are hot
-		temp_img = icon('icons/ass/assdrone.png')
-
-	var/obj/item/photo/copied_ass = new /obj/item/photo(loc)
-	var/datum/picture/toEmbed = new(name = "[ass]'s Ass", desc = "You see [ass]'s ass on the photo.", image = temp_img)
-	give_pixel_offset(copied_ass)
-	toEmbed.psize_x = 128
-	toEmbed.psize_y = 128
-	copied_ass.set_picture(toEmbed, TRUE, TRUE)
-	toner_cartridge.charges -= ASS_TONER_USE
 
 /**
  * Inserts the item into the copier. Called in `attackby()` after a human mob clicked on the copier with a paper, photo, or document.

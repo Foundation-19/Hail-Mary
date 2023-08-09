@@ -524,7 +524,7 @@
 /obj/item/gun/ballistic/revolver/sling
 	name = "sling"
 	desc = "A simple piece of leather, shaped to hold one rock, and hurl it at a target at high speed."
-	icon = 'modular_coyote/icons/objects/bows.dmi'
+	icon = 'fallout/icons/objects/bows.dmi'
 	lefthand_file = 'icons/mob/inhands/equipment/belt_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/belt_righthand.dmi'
 	icon_state = "sling"

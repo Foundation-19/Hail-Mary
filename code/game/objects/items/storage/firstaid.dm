@@ -431,41 +431,6 @@
 	for(var/i in 1 to 5)
 		new /obj/item/reagent_containers/pill/neurine(src)
 
-/obj/item/storage/pill_bottle/breast_enlarger
-	name = "bottle of female enhancement pills"
-	desc = "Members of the Itty Bitty Titty Committee rejoice! 'Missus' has you covered! Grow large, 100% natural breasts with just one \
-		tablet! Works on any species, and can even grow breasts on creatures who don't normally have them! \
-		Never let nature dictate your curves again! Use the coupon code on the back for a free sizing for a bra!"
-/obj/item/storage/pill_bottle/breast_enlarger/PopulateContents()
-	for(var/i in 1 to 7)
-		new /obj/item/reagent_containers/pill/breast_enlarger(src)
-	
-/obj/item/storage/pill_bottle/butt_enlarger
-	name = "bottle of callipygian capsules"
-	desc = "Ever wish you had a bit more cushion for the pushin'? Not any more with Doctor D-Zels' patented callipygian capsules! \
-		Lab tested on some of the happiest wasters around, these are guarenteed to give you a rear worth talking about. \
-		Works on any organic lifeform. D-Zel is not responsible for any loss of mobility, pregnancy, exhaustion, dehydration, or bruising caused by use of this product."
-/obj/item/storage/pill_bottle/butt_enlarger/PopulateContents()
-	for(var/i in 1 to 7)
-		new /obj/item/reagent_containers/pill/butt_enlarger(src)
-
-/obj/item/storage/pill_bottle/penis_enlarger
-	name = "bottle of male enhancement pills"
-	desc = "Ever wish your iron was a Big Iron? Get made fun of for being out-gunned in the sack? Not anymore with Doctor D-Zels' big blue pills! \
-		Lab tested on some of the most packing men (and women) in Texarkana, and guarenteed to give your friends a shock. \
-		Works on any organic lifeform, even those lacking male anatomy. D-Zel is not responsible for pregnancy, newfound fetishes, exhaustion, dehydration, or the formation of harems."
-/obj/item/storage/pill_bottle/penis_enlarger/PopulateContents()
-	for(var/i in 1 to 7)
-		new /obj/item/reagent_containers/pill/penis_enhancement(src)
-
-/obj/item/storage/pill_bottle/belly_enlarger
-	name = "bottle of weight gain pills"
-	desc = "Feeling a bit underweight? Famines got you down? Or maybe you just want that healthy wobble people adore in the wasteland? \
-		---*-/ has got your back! With targeted weight enhancement you'll be bulked up in no time!"
-/obj/item/storage/pill_bottle/belly_enlarger/PopulateContents()
-	for(var/i in 1 to 7)
-		new /obj/item/reagent_containers/pill/belly_enlarger(src)
-
 /obj/item/storage/pill_bottle/random
 	name = "bottle of randomized pills"
 	desc = "Contains a collection of old, potentially dangerous, potentially tasty pills."

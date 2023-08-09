@@ -29,49 +29,6 @@
 		to_chat(H, span_warning("You are not capable of wearing underwear."))
 		return
 
-	var/list/undergarment_choices = list("Underwear", "Underwear Color", "Undershirt", "Undershirt Color", "Socks", "Socks Color")
-	if(!(GLOB.underwear_list[H.underwear]?.has_color))
-		undergarment_choices -= "Underwear Color"
-	if(!(GLOB.undershirt_list[H.undershirt]?.has_color))
-		undergarment_choices -= "Undershirt Color"
-	if(!(GLOB.socks_list[H.socks]?.has_color))
-		undergarment_choices -= "Socks Color"
-
-	var/choice = input(H, "Underwear, Undershirt, or Socks?", "Changing") as null|anything in undergarment_choices
-	if(!H.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
-		return
-	var/dye_undie = FALSE
-	var/dye_shirt = FALSE
-	var/dye_socks = FALSE
-	switch(choice)
-		if("Underwear")
-			var/new_undies = input(H, "Select your underwear", "Changing") as null|anything in GLOB.underwear_list
-			if(new_undies)
-				H.underwear = new_undies
-				H.saved_underwear = new_undies
-				var/datum/sprite_accessory/underwear/bottom/B = GLOB.underwear_list[new_undies]
-				dye_undie = B?.has_color
-		if("Undershirt")
-			var/new_undershirt = input(H, "Select your undershirt", "Changing") as null|anything in GLOB.undershirt_list
-			if(new_undershirt)
-				H.undershirt = new_undershirt
-				H.saved_undershirt = new_undershirt
-				var/datum/sprite_accessory/underwear/top/T = GLOB.undershirt_list[new_undershirt]
-				dye_shirt = T?.has_color
-		if("Socks")
-			var/new_socks = input(H, "Select your socks", "Changing") as null|anything in GLOB.socks_list
-			if(new_socks)
-				H.socks = new_socks
-				H.saved_socks = new_socks
-				var/datum/sprite_accessory/underwear/socks/S = GLOB.socks_list[new_socks]
-				dye_socks = S?.has_color
-	if(dye_undie || choice == "Underwear Color")
-		H.undie_color = recolor_undergarment(H, "underwear", H.undie_color)
-	if(dye_shirt || choice == "Undershirt Color")
-		H.shirt_color = recolor_undergarment(H, "undershirt", H.shirt_color)
-	if(dye_socks || choice == "Socks Color")
-		H.socks_color = recolor_undergarment(H, "socks", H.socks_color)
-
 	add_fingerprint(H)
 	H.update_body(TRUE)
 

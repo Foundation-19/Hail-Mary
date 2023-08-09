@@ -48,87 +48,7 @@
 	return pick(GLOB.socks_list)
 
 /proc/random_features(intendedspecies, intended_gender)
-	if(!GLOB.tails_list_human.len)
-		init_sprite_accessory_subtypes(/datum/sprite_accessory/tails/human, GLOB.tails_list_human)
-	if(!GLOB.tails_list_lizard.len)
-		init_sprite_accessory_subtypes(/datum/sprite_accessory/tails/lizard, GLOB.tails_list_lizard)
-	if(!GLOB.snouts_list.len)
-		init_sprite_accessory_subtypes(/datum/sprite_accessory/snouts, GLOB.snouts_list)
-	if(!GLOB.horns_list.len)
-		init_sprite_accessory_subtypes(/datum/sprite_accessory/horns, GLOB.horns_list)
-	if(!GLOB.ears_list.len)
-		init_sprite_accessory_subtypes(/datum/sprite_accessory/ears, GLOB.ears_list)
-	if(!GLOB.frills_list.len)
-		init_sprite_accessory_subtypes(/datum/sprite_accessory/frills, GLOB.frills_list)
-	if(!GLOB.spines_list.len)
-		init_sprite_accessory_subtypes(/datum/sprite_accessory/spines, GLOB.spines_list)
-	if(!GLOB.legs_list.len)
-		init_sprite_accessory_subtypes(/datum/sprite_accessory/legs, GLOB.legs_list)
-	if(!GLOB.wings_list.len)
-		init_sprite_accessory_subtypes(/datum/sprite_accessory/wings, GLOB.wings_list)
-	if(!GLOB.deco_wings_list.len)
-		init_sprite_accessory_subtypes(/datum/sprite_accessory/deco_wings, GLOB.deco_wings_list)
-	if(!GLOB.insect_wings_list.len)
-		init_sprite_accessory_subtypes(/datum/sprite_accessory/insect_wings, GLOB.insect_wings_list)
-	if(!GLOB.insect_fluffs_list.len)
-		init_sprite_accessory_subtypes(/datum/sprite_accessory/insect_fluff, GLOB.insect_fluffs_list)
-	if(!GLOB.insect_markings_list.len)
-		init_sprite_accessory_subtypes(/datum/sprite_accessory/insect_markings, GLOB.insect_markings_list)
 
-	//CIT CHANGES - genitals and such
-	if(!GLOB.cock_shapes_list.len)
-		init_sprite_accessory_subtypes(/datum/sprite_accessory/penis, GLOB.cock_shapes_list)
-	if(!GLOB.balls_shapes_list.len)
-		init_sprite_accessory_subtypes(/datum/sprite_accessory/testicles, GLOB.balls_shapes_list)
-	if(!GLOB.vagina_shapes_list.len)
-		init_sprite_accessory_subtypes(/datum/sprite_accessory/vagina, GLOB.vagina_shapes_list)
-	if(!GLOB.breasts_shapes_list.len)
-		init_sprite_accessory_subtypes(/datum/sprite_accessory/breasts, GLOB.breasts_shapes_list)
-	if(!GLOB.butt_shapes_list.len)
-		init_sprite_accessory_subtypes(/datum/sprite_accessory/butt, GLOB.butt_shapes_list)
-	if(!GLOB.belly_shapes_list.len)
-		init_sprite_accessory_subtypes(/datum/sprite_accessory/belly, GLOB.belly_shapes_list)
-	if(!GLOB.ipc_screens_list.len)
-		init_sprite_accessory_subtypes(/datum/sprite_accessory/screen, GLOB.ipc_screens_list)
-	if(!GLOB.ipc_antennas_list.len)
-		init_sprite_accessory_subtypes(/datum/sprite_accessory/antenna, GLOB.ipc_antennas_list)
-	if(!GLOB.mam_body_markings_list.len)
-		init_sprite_accessory_subtypes(/datum/sprite_accessory/mam_body_markings, GLOB.mam_body_markings_list)
-	if(!GLOB.mam_tails_list.len)
-		init_sprite_accessory_subtypes(/datum/sprite_accessory/tails/mam_tails, GLOB.mam_tails_list)
-	if(!GLOB.mam_ears_list.len)
-		init_sprite_accessory_subtypes(/datum/sprite_accessory/ears/mam_ears, GLOB.mam_ears_list)
-	if(!GLOB.mam_snouts_list.len)
-		init_sprite_accessory_subtypes(/datum/sprite_accessory/snouts/mam_snouts, GLOB.mam_snouts_list)
-
-	//snowflake check so people's ckey features don't get randomly put on unmonkeys/spawns
-	var/list/snowflake_mam_tails_list = list()
-	for(var/mtpath in GLOB.mam_tails_list)
-		var/datum/sprite_accessory/tails/mam_tails/instance = GLOB.mam_tails_list[mtpath]
-		if(istype(instance, /datum/sprite_accessory))
-			var/datum/sprite_accessory/S = instance
-			if(intendedspecies && S.recommended_species && !S.recommended_species.Find(intendedspecies))
-				continue
-			if(!S.ckeys_allowed)
-				snowflake_mam_tails_list[S.name] = mtpath
-	var/list/snowflake_ears_list = list()
-	for(var/mepath in GLOB.mam_ears_list)
-		var/datum/sprite_accessory/ears/mam_ears/instance = GLOB.mam_ears_list[mepath]
-		if(istype(instance, /datum/sprite_accessory))
-			var/datum/sprite_accessory/S = instance
-			if(intendedspecies && S.recommended_species && !S.recommended_species.Find(intendedspecies))
-				continue
-			if(!S.ckeys_allowed)
-				snowflake_ears_list[S.name] = mepath
-	var/list/snowflake_mam_snouts_list = list()
-	for(var/mspath in GLOB.mam_snouts_list)
-		var/datum/sprite_accessory/snouts/mam_snouts/instance = GLOB.mam_snouts_list[mspath]
-		if(istype(instance, /datum/sprite_accessory))
-			var/datum/sprite_accessory/S = instance
-			if(intendedspecies && S.recommended_species && !S.recommended_species.Find(intendedspecies))
-				continue
-			if(!S.ckeys_allowed)
-				snowflake_mam_snouts_list[S.name] = mspath
 	var/list/snowflake_ipc_antenna_list = list()
 	for(var/mspath in GLOB.ipc_antennas_list)
 		var/datum/sprite_accessory/snouts/mam_snouts/instance = GLOB.ipc_antennas_list[mspath]
@@ -153,77 +73,10 @@
 		"mcolor"			= color1,
 		"mcolor2"			= color2,
 		"mcolor3"			= color3,
-		"tail_lizard"		= pick(GLOB.tails_list_lizard),
-		"tail_human"		= "None",
-		"wings"				= "None",
-		"wings_color"		= "FFF",
-		"deco_wings"		= "None",
-		"snout"				= pick(GLOB.snouts_list),
-		"horns"				= "None",
-		"horns_color"		= "85615a",
-		"ears"				= "None",
-		"frills"			= pick(GLOB.frills_list),
-		"spines"			= pick(GLOB.spines_list),
-		"legs"				= pick("Plantigrade","Digitigrade"),
-		"caps"				= pick(GLOB.caps_list),
-		"insect_wings"		= pick(GLOB.insect_wings_list),
-		"insect_fluff"		= "None",
-		"insect_markings"	= pick(GLOB.insect_markings_list),
-		"taur"				= "None",
-		"mam_body_markings" = list(),
-		"mam_ears" 			= snowflake_ears_list ? pick(snowflake_ears_list) : "None",
-		"mam_snouts"		= snowflake_mam_snouts_list ? pick(snowflake_mam_snouts_list) : "None",
-		"mam_tail"			= snowflake_mam_tails_list ? pick(snowflake_mam_tails_list) : "None",
-		"mam_tail_animated" = "None",
-		"xenodorsal" 		= "Standard",
-		"xenohead" 			= "Standard",
-		"xenotail" 			= "Xenomorph Tail",
-		"has_cock"			= FALSE,
-		"cock_shape"		= pick(GLOB.cock_shapes_list),
-		"cock_size" 		= COCK_SIZE_DEF,
-		"cock_diameter_ratio"	= COCK_DIAMETER_RATIO_DEF,
-		"cock_color"		= pick("FFFFFF","7F7F7F", "7FFF7F", "7F7FFF", "FF7F7F", "7FFFFF", "FF7FFF", "FFFF7F"),
-		"cock_taur"			= FALSE,
-		"has_butt"			= FALSE,
-		"butt_color"		= "ffffff",
-		"butt_size" 		= BUTT_SIZE_DEF,
-		"belly_color"		= "ffffff",
-		"belly_size" 		= BELLY_SIZE_DEF,
-		"belly_shape" 		= DEF_BELLY_SHAPE,
-		"has_balls" 		= FALSE,
-		"balls_color" 		= pick("FFFFFF","7F7F7F", "7FFF7F", "7F7FFF", "FF7F7F", "7FFFFF", "FF7FFF", "FFFF7F"),
-		"balls_size"		= BALLS_SIZE_DEF,
-		"balls_shape"		= DEF_BALLS_SHAPE,
-		"balls_cum_rate"	= CUM_RATE,
-		"balls_cum_mult"	= CUM_RATE_MULT,
-		"balls_efficiency"	= CUM_EFFICIENCY,
-		"has_breasts" 		= FALSE,
-		"breasts_color" 	= pick("FFFFFF","7F7F7F", "7FFF7F", "7F7FFF", "FF7F7F", "7FFFFF", "FF7FFF", "FFFF7F"),
-		"breasts_size" 		= pick(CONFIG_GET(keyed_list/breasts_cups_prefs)),
-		"breasts_shape"		= DEF_BREASTS_SHAPE,
-		"breasts_producing" = FALSE,
-		"has_vag"			= FALSE,
-		"vag_shape"			= pick(GLOB.vagina_shapes_list),
-		"vag_color"			= pick("FFFFFF","7F7F7F", "7FFF7F", "7F7FFF", "FF7F7F", "7FFFFF", "FF7FFF", "FFFF7F"),
-		"has_womb"			= FALSE,
-		"genital_order"		= DEF_COCKSTRING,
-		"balls_visibility"	= GEN_VISIBLE_NO_UNDIES,
-		"breasts_visibility"= GEN_VISIBLE_NO_UNDIES,
-		"cock_visibility"	= GEN_VISIBLE_NO_UNDIES,
-		"vag_visibility"	= GEN_VISIBLE_NO_UNDIES,
-		"balls_visibility_flags" = GEN_VIS_FLAG_DEFAULT,
-		"breasts_visibility_flags"= GEN_VIS_FLAG_DEFAULT,
-		"cock_visibility_flags" = GEN_VIS_FLAG_DEFAULT,
-		"vag_visibility_flags" = GEN_VIS_FLAG_DEFAULT,
-		"butt_visibility_flags" = GEN_VIS_FLAG_DEFAULT,
-		"belly_visibility_flags" = GEN_VIS_FLAG_DEFAULT,
-		"genital_visibility_flags" = GEN_VIS_OVERALL_FLAG_DEFAULT,
 		"ipc_screen"		= snowflake_ipc_antenna_list ? pick(snowflake_ipc_antenna_list) : "None",
 		"ipc_antenna"		= "None",
 		"flavor_text"		= "",
 		"silicon_flavor_text"		= "",
-		"meat_type"			= "Mammalian",
-		"taste"				= "taste",
 		"body_model"		= body_model,
 		"body_size"			= RESIZE_DEFAULT_SIZE
 		))
@@ -332,14 +185,6 @@ GLOBAL_LIST_EMPTY(species_list)
 
 /proc/age2agedescription(age)
 	switch(age)
-		if(0 to 1)
-			return "infant"
-		if(1 to 3)
-			return "toddler"
-		if(3 to 13)
-			return "child"
-		if(13 to 19)
-			return "teenager"
 		if(19 to 30)
 			return "young adult"
 		if(30 to 45)

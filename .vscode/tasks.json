@@ -26,12 +26,12 @@
 		},
 		{
 			"type": "dreammaker",
-			"dme": "fortune13.dme",
+			"dme": "hailmary.dme",
 			"problemMatcher": [
 				"$dreammaker"
 			],
 			"group": "build",
-			"label": "dm: build - fortune13.dme"
+			"label": "dm: build - hailmary.dme"
 		},
 		{
 			"command": "${command:dreammaker.reparse}",

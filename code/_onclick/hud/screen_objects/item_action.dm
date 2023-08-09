@@ -64,7 +64,7 @@
 //-----------------------------------------------GUN ACTION--------------------------------------------------------------
 
 /obj/screen/item_action/top_bar/gun
-	icon = 'modular_coyote/eris/icons/gun_actions.dmi'
+	icon = 'fallout/eris/icons/gun_actions.dmi'
 	screen_loc = "CENTER-1:14,SOUTH+1:13"
 
 /obj/screen/item_action/top_bar/gun/safety
@@ -102,7 +102,7 @@
 
 
 /obj/screen/item_action/top_bar/weapon_info
-	icon = 'modular_coyote/eris/icons/gun_actions.dmi'
+	icon = 'fallout/eris/icons/gun_actions.dmi'
 	screen_loc = "CENTER+1,SOUTH+1:13"
 	minloc = null
 	name = "Weapon Info"

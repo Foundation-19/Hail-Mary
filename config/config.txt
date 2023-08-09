@@ -21,15 +21,15 @@ $include policy.txt
 # There are various options which are hard-locked for security reasons.
 
 ## Server name: This appears at the top of the screen in-game and in the BYOND hub. Uncomment and replace 'tgstation' with the name of your choice.
-@SERVERNAME Coyote Bayou
+@SERVERNAME Fallout: Operation Hail Mary
 
 ## Server tagline: This will appear right below the server's title.
-SERVERTAGLINE [18+] CDDA/QoC/FO/Biomutant/STALKER inspired HRP Furry Roleplaying experience. Our newts go hard. Join at https://discord.gg/coyotebayou
+SERVERTAGLINE [Beta] East Coast Fallout 13: A future without ERP.
 ## Server SQL name: This is the name used to identify the server to the SQL DB, distinct from SERVERNAME as it must be at most 32 characters.
 # SERVERSQLNAME fo13sql
 
 ## Station name: The name of the station as it is referred to in-game. If commented out, the game will generate a random name instead.
-STATIONNAME Coyote Bayou
+STATIONNAME Baltimore Ruins
 
 ## Put on byond hub: Uncomment this to put your server on the byond hub.
 HUB
@@ -262,16 +262,16 @@ CHECK_RANDOMIZER
 # SERVER ss13.example.com:2506
 
 ## forum address
-# FORUMURL https://coyotebayou.freeforums.net/
+# FORUMURL N/A
 
 ## Wiki address
 # WIKIURL https://f13wiki.herma.moe/index.php/Main_Page
 
 ## Rules address
-RULESURL https://discord.gg/Xj5r7ZTWs7
+RULESURL https://discord.gg/7RWZGXQqgr
 
 ## Github address
-GITHUBURL https://github.com/ARF-SS13/coyote-bayou
+# GITHUBURL N/A
 
 ## Round specific stats address
 ## Link to round specific parsed logs; IE statbus. It is appended with the RoundID automatically by ticker/Reboot()
@@ -287,10 +287,10 @@ GITHUBURL https://github.com/ARF-SS13/coyote-bayou
 ## Github repo id
 ##This can be found by going to https://api.github.com/users/<user name here>/repos
 ##Or https://api.github.com/orgs/<org name here>/repos if the repo owner is an organization
-# GITHUBREPOID 62485194
+# GITHUBREPOID 630777387
 
 ## Ban appeals URL - usually for a forum or wherever people should go to contact your admins.
-# BANAPPEALS https://coyotebayou.freeforums.net/thread/2/appeal-format
+# BANAPPEALS N/A
 
 ## System command that invokes youtube-dl, used by Play Internet Sound.
 ## You can install youtube-dl with
@@ -384,7 +384,7 @@ NOTIFY_NEW_PLAYER_ACCOUNT_AGE 7
 #PANIC_SERVER_NAME [Put the name here]
 
 ##Automated age verification, comment this out to not ask new users if they are 18+
-AGE_VERIFICATION
+#AGE_VERIFICATION
 
 ## Uncomment to have the changelog file automatically open when a user connects and hasn't seen the latest changelog
 #AGGRESSIVE_CHANGELOG

@@ -1097,3 +1097,12 @@ GLOBAL_VAR_INIT(vendor_cash, 0)
 		stored_caps = 0
 	playsound(src, 'sound/items/coinflip.ogg', 60, 1)
 	src.ui_interact(usr)
+
+#undef STATE_IDLE
+#undef STATE_SERVICE
+#undef STATE_VEND
+#undef STATE_LOCKOPEN
+#undef CASH_CAP_VENDOR
+#undef CASH_AUR_VENDOR
+#undef CASH_DEN_VENDOR
+#undef CASH_NCR_VENDOR

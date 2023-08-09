@@ -322,34 +322,6 @@
 	list_reagents = list(/datum/reagent/medicine/antitoxin = 5)
 	self_delay = 5
 
-/obj/item/reagent_containers/pill/breast_enlarger
-	name = "female enhancement tablet"
-	desc = "A heavy, pink tablet with 'Missus' printed on the edges. It smells like ice cream and is somewhat slippery to the touch. \
-		There's a tiny drawing of a foxgirl with cartoonishly huge breasts printed on one side, and a bold '30U' on the other. \
-		It's pretty obvious that if you eat this pill, it'll make your breasts grow larger. Just, uh, something to keep in mind."
-	icon_state = "pill10"
-	list_reagents = list(/datum/reagent/breast_enlarger = 30)
-
-/obj/item/reagent_containers/pill/butt_enlarger
-	name = "callipygian capsule"
-	desc = "An incredibly heavy, coin-shaped pill. It smells slightly salty and with a minor odor of copper. \
-		There's an imprinted stencil of a woman with a heart shaped buttox, alongside a bold '30U' on the opposite face. \
-		It's pretty obvious that if you eat this, it'll make your butt larger or something to that effect."
-	icon_state = "pill10"
-	list_reagents = list(/datum/reagent/butt_enlarger = 30)
-
-/obj/item/reagent_containers/pill/penis_enhancement
-	name = "male enhancement pill"
-	desc = "A huge blue pill. Embossed on one side with a +6 inches and on the other is a winky face. \
-		If you had to hazard a guess, this might increase the size of your johnson. \
-		Though it won't make you confident enough to talk to women, still."
-	list_reagents = list(/datum/reagent/penis_enlarger = 30)
-
-/obj/item/reagent_containers/pill/belly_enlarger
-	name = "weight gain pill"
-	desc = "An oily, fishy smelling pill. With a +200lbs stamp on one side. \
-	It's probably safe to assume this would cause a lot of belly growth."
-	list_reagents = list(/datum/reagent/belly_enlarger = 30)
 
 /obj/item/reagent_containers/pill/random
 	name = "randomized pill"

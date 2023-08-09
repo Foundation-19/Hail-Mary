@@ -27,19 +27,20 @@ Main doors: ACCESS_BOS 120
 	jobtype = /datum/job/bos
 	backpack = /obj/item/storage/backpack/explorer
 	satchel = /obj/item/storage/backpack/satchel/explorer
-	belt = /obj/item/kit_spawner/bos
 	ears = /obj/item/radio/headset/headset_bos
 	uniform = /obj/item/clothing/under/syndicate/brotherhood
 	shoes = /obj/item/clothing/shoes/combat/swat
 	gloves = /obj/item/clothing/gloves/combat
 	id = /obj/item/card/id/dogtag
+	backpack_contents = list(
+		/obj/item/reagent_containers/food/snacks/f13/mre = 1,
+	)
 
 /datum/outfit/job/bos/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
 	if(visualsOnly)
 		return
 
-/*
 /datum/outfit/job/bos/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
 	if(visualsOnly)
@@ -55,7 +56,6 @@ Main doors: ACCESS_BOS 120
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bosoutcastlight)
 	ADD_TRAIT(H, TRAIT_TECHNOPHREAK, src)
 	ADD_TRAIT(H, TRAIT_GENERIC, src)
-*/
 
 /*
 Elder
@@ -64,10 +64,11 @@ Elder
 /datum/job/bos/f13elder
 	title = "Elder"
 	flag = F13ELDER
+	display_order = JOB_DISPLAY_ORDER_ELDER
 	head_announce = list("Security")
-	total_positions = 0
-	spawn_positions = 0
-	description = "You are the Elder of this local chapter of the Brotherhood of Steel. You may be a veteran of warfare, an experienced commander or even a genius Scribe, and you command all the men within this bunker. Your main goals are to lead the Brotherhood, to solve conflicts inbetween castes and to manage the Head Paladin, Head Knight and Head Scribe."
+	total_positions = 1
+	spawn_positions = 1
+	description = "You are the Elder of this local chapter of the Brotherhood of Steel. You may be a veteran of warfare, an experienced commander or even a genius Scribe, and you command all the men within this bunker. Your main goals are to lead the Brotherhood, to solve conflicts inbetween castes and to manage the Paladin Commander, Knight-Captain and Proctor."
 	supervisors = "the Council of Elders"
 	selection_color = "#7f8c8d"
 	outfit = /datum/outfit/job/bos/f13elder
@@ -77,7 +78,6 @@ Elder
 	access = list(ACCESS_BROTHERHOOD_COMMAND, ACCESS_ROBOTICS, ACCESS_BOS, ACCESS_ENGINE_EQUIP, ACCESS_ENGINE, ACCESS_HYDROPONICS, ACCESS_MINERAL_STOREROOM, ACCESS_KITCHEN, ACCESS_BAR, ACCESS_SEC_DOORS, ACCESS_CHANGE_IDS)
 	minimal_access = list(ACCESS_BROTHERHOOD_COMMAND, ACCESS_ROBOTICS, ACCESS_BOS, ACCESS_ENGINE_EQUIP, ACCESS_ENGINE, ACCESS_HYDROPONICS, ACCESS_MINERAL_STOREROOM, ACCESS_KITCHEN, ACCESS_BAR, ACCESS_SEC_DOORS, ACCESS_CHANGE_IDS)
 
-/*
 /datum/outfit/job/bos/f13elder/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
 	if(visualsOnly)
@@ -87,21 +87,13 @@ Elder
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/psycho)
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/medx)
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/medx/chemistry)
-	H.mind.teach_crafting_recipe(/datum/crafting_recipe/stimpak)
-	H.mind.teach_crafting_recipe(/datum/crafting_recipe/stimpak/chemistry)
-	H.mind.teach_crafting_recipe(/datum/crafting_recipe/stimpak5)
-	H.mind.teach_crafting_recipe(/datum/crafting_recipe/stimpak5/chemistry)
-	H.mind.teach_crafting_recipe(/datum/crafting_recipe/superstimpak)
-	H.mind.teach_crafting_recipe(/datum/crafting_recipe/superstimpak5)
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/buffout)
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/steady)
 	ADD_TRAIT(H, TRAIT_CHEMWHIZ, src)
-*/
 
 /datum/outfit/job/bos/f13elder
 	name = "Elder"
 	jobtype = /datum/job/bos/f13elder
-	belt = /obj/item/kit_spawner/bos/boss
 	suit = /obj/item/clothing/suit/armor/light/duster/bos/scribe/elder
 	glasses = /obj/item/clothing/glasses/night
 	accessory = /obj/item/clothing/accessory/bos/elder
@@ -115,28 +107,27 @@ Elder
 	)
 
 /*
-Head Paladin
+Paladin Commander
 */
 
 /datum/job/bos/f13sentinel
-	title = "Head Paladin"
+	title = "Paladin Commander"
 	flag = F13SENTINEL
 	head_announce = list("Security")
-	total_positions = 0
-	spawn_positions = 0
+	total_positions = 1
+	spawn_positions = 1
 	description = "You are the acting field commander until the Brotherhood regains its strength enough to place an Elder for the bunker. You are a veteran of many battles and sorties in pursuit of Brotherhood goals; your only weakness may just be your hubris. Your main goals are defense of the Chapter and surveillance of the surrounding region for technology."
 	supervisors = "the Elder"
 	selection_color = "#7f8c8d"
 	display_order = JOB_DISPLAY_ORDER_SENTINEL
 	outfit = /datum/outfit/job/bos/f13sentinel
 	exp_requirements = 2400
-
+/*
 	loadout_options = list(
-	/datum/outfit/loadout/sentstand, //Tribeam
 	/datum/outfit/loadout/sentheavy, //Gauss + Glock
-	/datum/outfit/loadout/sentgat, //Gatling
 	/datum/outfit/loadout/sentmini //Minigun
 	)
+*/
 
 	access = list(ACCESS_BROTHERHOOD_COMMAND, ACCESS_ROBOTICS, ACCESS_BOS, ACCESS_ENGINE_EQUIP, ACCESS_ENGINE, ACCESS_HYDROPONICS, ACCESS_KITCHEN, ACCESS_BAR, ACCESS_SEC_DOORS, ACCESS_CHANGE_IDS)
 	minimal_access = list(ACCESS_BROTHERHOOD_COMMAND, ACCESS_ROBOTICS, ACCESS_BOS, ACCESS_ENGINE_EQUIP, ACCESS_ENGINE, ACCESS_HYDROPONICS, ACCESS_KITCHEN, ACCESS_BAR, ACCESS_SEC_DOORS, ACCESS_CHANGE_IDS)
@@ -146,7 +137,6 @@ Head Paladin
 	if(visualsOnly)
 		return
 	ADD_TRAIT(H, TRAIT_PA_WEAR, src)
-/*
 
 /datum/outfit/job/bos/f13sentinel/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
@@ -157,12 +147,6 @@ Head Paladin
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/psycho)
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/medx)
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/medx/chemistry)
-	H.mind.teach_crafting_recipe(/datum/crafting_recipe/stimpak)
-	H.mind.teach_crafting_recipe(/datum/crafting_recipe/stimpak/chemistry)
-	H.mind.teach_crafting_recipe(/datum/crafting_recipe/stimpak5)
-	H.mind.teach_crafting_recipe(/datum/crafting_recipe/stimpak5/chemistry)
-	H.mind.teach_crafting_recipe(/datum/crafting_recipe/superstimpak)
-	H.mind.teach_crafting_recipe(/datum/crafting_recipe/superstimpak5)
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/buffout)
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/steady)
 	ADD_TRAIT(H, TRAIT_CHEMWHIZ, src)
@@ -171,15 +155,13 @@ Head Paladin
 	if(H.mind)
 		var/obj/effect/proc_holder/spell/terrifying_presence/S = new /obj/effect/proc_holder/spell/terrifying_presence
 		H.mind.AddSpell(S)
-*/
 
 /datum/outfit/job/bos/f13sentinel
-	name = "Head Paladin"
+	name = "Paladin Commander"
 	jobtype = /datum/job/bos/f13sentinel
 	uniform = /obj/item/clothing/under/f13/recon
 	accessory = /obj/item/clothing/accessory/bos/sentinel
 	glasses = /obj/item/clothing/glasses/sunglasses
-	belt = /obj/item/kit_spawner/bos/combat
 	mask = /obj/item/clothing/mask/gas/sechailer
 	ears = /obj/item/radio/headset/headset_bos/command
 	suit = /obj/item/clothing/suit/armor/power_armor/midwest/hardened
@@ -190,51 +172,37 @@ Head Paladin
 		/obj/item/melee/powerfist/f13 = 1,
 		/obj/item/gun/ballistic/automatic/pistol/n99/crusader = 1,
 		/obj/item/ammo_box/magazine/m10mm/adv/simple = 2,
-		/obj/item/reagent_containers/hypospray/medipen/stimpak = 3,
-		/obj/item/storage/belt/army/assault = 1
+		/obj/item/reagent_containers/hypospray/medipen/stimpak = 6,
+		/obj/item/storage/belt/army/assault = 1,
+		/obj/item/gun/energy/laser/aer12 = 1,
+		/obj/item/stock_parts/cell/ammo/mfc = 5
 		)
 
-/datum/outfit/loadout/sentstand
-	name = "Shock Head Paladin"
-	l_hand = /obj/item/gun/energy/laser/scatter
-	backpack_contents = list(
-		/obj/item/stock_parts/cell/ammo/mfc = 3
-	)
-
+/*
 /datum/outfit/loadout/sentheavy
-	name = "Heavy Head Paladin"
+	name = "Heavy Paladin Commander"
 	backpack_contents = list(
 		/obj/item/gun/ballistic/automatic/m72 = 1,
-		/obj/item/ammo_box/magazine/m2mm = 3,
-		/obj/item/gun/energy/laser/plasma/glock = 1,
-		/obj/item/stock_parts/cell/ammo/ec = 2
-	)
-
-/datum/outfit/loadout/sentgat
-	name = "Gatling Head Paladin"
-	backpack_contents = list(
-		/obj/item/minigunpack = 1
+		/obj/item/ammo_box/magazine/m2mm = 3
 	)
 
 /datum/outfit/loadout/sentmini
-	name = "Minigun Head Paladin"
+	name = "Minigun Paladin Commander"
 	backpack_contents = list(
 		/obj/item/minigunpackbal5mm = 1,
-		/obj/item/gun/energy/laser/pistol = 1,
-		/obj/item/stock_parts/cell/ammo/ec = 2
 	)
-
+*/
 
 /*
-Head Scribe
+Proctor
 */
 
 /datum/job/bos/f13headscribe
-	title = "Head Scribe"
+	title = "Proctor"
 	flag = F13HEADSCRIBE
 	head_announce = list("Security")
-	total_positions = 0
-	spawn_positions = 0
+	total_positions = 1
+	spawn_positions = 1
 	description = "You are the foremost experienced scribe remaining in this bunker. Your role is to ensure the safekeeping and proper usage of technology within the Brotherhood. You are also the lead medical expert in this Chapter. Delegate your tasks to your Scribes."
 	supervisors = "the Elder"
 	selection_color = "#7f8c8d"
@@ -250,7 +218,6 @@ Head Scribe
 	access = list(ACCESS_BROTHERHOOD_COMMAND, ACCESS_ROBOTICS, ACCESS_BOS, ACCESS_ENGINE_EQUIP, ACCESS_ENGINE, ACCESS_HYDROPONICS, ACCESS_KITCHEN, ACCESS_BAR, ACCESS_SEC_DOORS, ACCESS_CHANGE_IDS)
 	minimal_access = list(ACCESS_BROTHERHOOD_COMMAND, ACCESS_ROBOTICS, ACCESS_BOS, ACCESS_ENGINE_EQUIP, ACCESS_ENGINE, ACCESS_HYDROPONICS, ACCESS_KITCHEN, ACCESS_BAR, ACCESS_SEC_DOORS, ACCESS_CHANGE_IDS)
 
-/*
 /datum/outfit/job/bos/f13headscribe/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
 	if(visualsOnly)
@@ -260,12 +227,6 @@ Head Scribe
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/psycho)
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/medx)
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/medx/chemistry)
-	H.mind.teach_crafting_recipe(/datum/crafting_recipe/stimpak)
-	H.mind.teach_crafting_recipe(/datum/crafting_recipe/stimpak/chemistry)
-	H.mind.teach_crafting_recipe(/datum/crafting_recipe/stimpak5)
-	H.mind.teach_crafting_recipe(/datum/crafting_recipe/stimpak5/chemistry)
-	H.mind.teach_crafting_recipe(/datum/crafting_recipe/superstimpak)
-	H.mind.teach_crafting_recipe(/datum/crafting_recipe/superstimpak5)
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/buffout)
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/steady)
 	ADD_TRAIT(H, TRAIT_MEDICALEXPERT, src)
@@ -274,20 +235,20 @@ Head Scribe
 	ADD_TRAIT(H, TRAIT_GENERIC, src)
 	ADD_TRAIT(H, TRAIT_CHEMWHIZ, src)
 	ADD_TRAIT(H, TRAIT_SURGERY_HIGH, src)
-*/
 
 /datum/outfit/job/bos/f13headscribe
-	name = "Head Scribe"
+	name = "Proctor"
 	jobtype = /datum/job/bos/f13headscribe
 	chemwhiz = TRUE
-	belt = /obj/item/kit_spawner/bos/scientist
 	accessory = /obj/item/clothing/accessory/bos/headscribe
 	glasses = /obj/item/clothing/glasses/sunglasses
 	suit = /obj/item/clothing/suit/armor/light/duster/bos/scribe/headscribe
 	belt = /obj/item/storage/belt/utility/full/engi
 	backpack_contents = list(
 		/obj/item/melee/onehanded/knife/survival = 1,
-		/obj/item/reagent_containers/hypospray/medipen/stimpak = 3
+		/obj/item/reagent_containers/hypospray/medipen/stimpak = 3,
+		/obj/item/gun/ballistic/automatic/pistol/ninemil = 1,
+		/obj/item/ammo_box/magazine/m9mm = 2
 		)
 
 /datum/outfit/loadout/hsstand
@@ -305,44 +266,38 @@ Head Scribe
 		)
 
 /*
-Head Knight
+Knight-Captain
 */
 
 /datum/job/bos/f13knightcap
-	title = "Head Knight"
+	title = "Knight-Captain"
 	flag = F13KNIGHTCAPTAIN
 	head_announce = list("Security")
-	total_positions = 0
-	spawn_positions = 0
-	description = "You are the Head Knight, one of the leaders of your group of outcasts. After the attempted coup by the late Head Paladin Wossner, you have been wandering the wastes, looking for a new home, and have now found a barely-acceptable place to construct your new chapters' bunker. Your knowledge of pre-war materials and engineering is almost unparalleled, and you have basic combat training and experience. You are in charge of establishing a working foothold, and your Knights and initiates. Delegate to them as necessary. As Chief Armorer, you are also in charge of the armory."
+	total_positions = 1
+	spawn_positions = 1
+	description = "You are the Knight-Captain, one of the leaders of your group of outcasts. After the attempted coup by the late Paladin Commander Wossner, you have been wandering the wastes, looking for a new home, and have now found a barely-acceptable place to construct your new chapters' bunker. Your knowledge of pre-war materials and engineering is almost unparalleled, and you have basic combat training and experience. You are in charge of establishing a working foothold, and your Knights and initiates. Delegate to them as necessary. As Chief Armorer, you are also in charge of the armory."
 	supervisors = "the Elder"
 	selection_color = "#7f8c8d"
 	display_order = JOB_DISPLAY_ORDER_KNIGHTCAPTAIN
 	outfit = /datum/outfit/job/bos/f13knightcap
 	exp_requirements = 60
 
-/*
 	loadout_options = list(
-	/datum/outfit/loadout/capstand, //Wattz 2k
-	/datum/outfit/loadout/capsap, //Recharger
 	/datum/outfit/loadout/capalt //Hunting
 	)
-*/
 
 	access = list(ACCESS_BROTHERHOOD_COMMAND, ACCESS_ROBOTICS, ACCESS_BOS, ACCESS_ENGINE_EQUIP, ACCESS_ENGINE, ACCESS_HYDROPONICS, ACCESS_KITCHEN, ACCESS_BAR, ACCESS_SEC_DOORS, ACCESS_ARMORY, ACCESS_BRIG, ACCESS_CHANGE_IDS)
 	minimal_access = list(ACCESS_BROTHERHOOD_COMMAND, ACCESS_ROBOTICS, ACCESS_BOS, ACCESS_ENGINE_EQUIP, ACCESS_ENGINE, ACCESS_HYDROPONICS, ACCESS_KITCHEN, ACCESS_BAR, ACCESS_SEC_DOORS, ACCESS_ARMORY, ACCESS_BRIG, ACCESS_CHANGE_IDS)
 
-/*
 /datum/outfit/job/bos/f13knightcap/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
 	if(visualsOnly)
 		return
 	ADD_TRAIT(H, TRAIT_PA_WEAR, src)
-*/
 
 
 /datum/outfit/job/bos/f13knightcap
-	name = "Head Knight"
+	name = "Knight-Captain"
 	jobtype = /datum/job/bos/f13knightcap
 	gunsmith_one = TRUE
 	gunsmith_two = TRUE
@@ -351,31 +306,17 @@ Head Knight
 	suit = /obj/item/clothing/suit/armor/medium/combat/brotherhood/captain
 	glasses = /obj/item/clothing/glasses/night
 	accessory =	/obj/item/clothing/accessory/bos/knightcaptain
-	belt = /obj/item/kit_spawner/bos/combat
 	l_pocket = /obj/item/storage/belt/shoulderholster
 	mask = /obj/item/clothing/mask/gas/sechailer
 	head = /obj/item/clothing/head/helmet/f13/combat/brotherhood/captain
 	backpack_contents = list(
 		/obj/item/melee/onehanded/knife/hunting = 1,
-		/obj/item/reagent_containers/hypospray/medipen/stimpak = 2,
-		/obj/item/storage/belt/army/security/full = 1
+		/obj/item/reagent_containers/hypospray/medipen/stimpak = 5,
+		/obj/item/storage/belt/army/security/full = 1,
+		/obj/item/gun/energy/laser/aer12 = 1,
+		/obj/item/stock_parts/cell/ammo/mfc = 5
 		)
-
 /*
-/datum/outfit/loadout/capstand
-	name = "Scout Leader"
-	backpack_contents = list(
-		/obj/item/gun/energy/laser/wattz2k = 1,
-		/obj/item/stock_parts/cell/ammo/mfc = 2,
-	)
-
-/datum/outfit/loadout/capsap
-	name = "Close Support"
-	backpack_contents = list(
-		/obj/item/gun/energy/laser/wattz/recharger = 1,
-		/obj/item/stock_parts/cell/ammo/ecp = 2,
-	)
-
 /datum/outfit/loadout/capalt
 	name = "Warden-Defender"
 	backpack_contents = list(
@@ -389,36 +330,24 @@ Star Paladin
 */
 
 /datum/job/bos/f13seniorpaladin
-	title = "Senior Paladin"
+	title = "Star Paladin"
 	flag = F13SENIORPALADIN
-	total_positions = 0
-	spawn_positions = 0
+	total_positions = 1
+	spawn_positions = 1
 	description = "As the Chapter's senior offensive warrior, you have proven your service and dedication to the Brotherhood over your time as a Paladin. As your skills gained, however, you were deigned to be more useful as a commander and trainer. Your job is to coordinate the Paladins and ensure they work as a team, instilling discipline as you go."
-	supervisors = "the Head Paladin"
+	supervisors = "the Paladin Commander"
 	display_order = JOB_DISPLAY_ORDER_SENIORPALADIN
 	outfit = /datum/outfit/job/bos/f13seniorpaladin
 	exp_requirements = 1500 //Not used right now anyways. Slot disabled.
-
+/*
 	loadout_options = list(
 		/datum/outfit/loadout/spaladina, //5mm Minigun
-		/datum/outfit/loadout/spaladinb, //WT-550
-		/datum/outfit/loadout/spaladinc, //AER9
 		/datum/outfit/loadout/spaladind //Super Sledge and Powerfist
 		)
-
+*/
 	access = list(ACCESS_BROTHERHOOD_COMMAND, ACCESS_ROBOTICS, ACCESS_BOS, ACCESS_ENGINE_EQUIP, ACCESS_ENGINE, ACCESS_HYDROPONICS, ACCESS_KITCHEN, ACCESS_BAR, ACCESS_SEC_DOORS)
 	minimal_access = list(ACCESS_BROTHERHOOD_COMMAND, ACCESS_ROBOTICS, ACCESS_BOS, ACCESS_ENGINE_EQUIP, ACCESS_ENGINE, ACCESS_HYDROPONICS, ACCESS_KITCHEN, ACCESS_BAR, ACCESS_SEC_DOORS)
-	matchmaking_allowed = list(
-		/datum/matchmaking_pref/friend = list(
-			/datum/job/bos,
-		),
-		/datum/matchmaking_pref/rival = list(
-			/datum/job/bos,
-		),
-		/datum/matchmaking_pref/mentor = list(
-			/datum/job/bos/f13paladin,
-		),
-	)
+
 
 /datum/outfit/job/bos/f13seniorpaladin/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
@@ -427,56 +356,35 @@ Star Paladin
 	ADD_TRAIT(H, TRAIT_PA_WEAR, src)
 
 /datum/outfit/job/bos/f13seniorpaladin
-	name =	"Senior Paladin"
+	name =	"Star Paladin"
 	jobtype = /datum/job/bos/f13seniorpaladin
 	suit = /obj/item/clothing/suit/armor/power_armor/midwest
 	head = /obj/item/clothing/head/helmet/f13/power_armor/midwest
 	accessory =	/obj/item/clothing/accessory/bos/seniorpaladin
 	uniform = /obj/item/clothing/under/f13/recon
 	mask = /obj/item/clothing/mask/gas/sechailer
-	belt = /obj/item/kit_spawner/bos/combat
 	neck = /obj/item/clothing/neck/mantle/bos/paladin
 	backpack_contents = list(
-		/obj/item/reagent_containers/hypospray/medipen/stimpak = 2,
+		/obj/item/reagent_containers/hypospray/medipen/stimpak = 4,
 		/obj/item/melee/onehanded/knife/hunting = 1,
-		/obj/item/storage/belt/army/assault = 1
+		/obj/item/storage/belt/army/assault = 1,
+		/obj/item/gun/energy/laser/aer12 = 1,
+		/obj/item/stock_parts/cell/ammo/mfc = 5
 	)
-
+/*
 /datum/outfit/loadout/spaladina
-	name = "Senior Firesupport Paladin"
+	name = "Firesupport Star Paladin"
 	backpack_contents = list(
 		/obj/item/minigunpackbal5mm = 1,
-		/obj/item/gun/energy/laser/pistol = 1,
-		/obj/item/stock_parts/cell/ammo/ec = 2
 	)
 
-/datum/outfit/loadout/spaladinb
-	name = "Senior Tactical Paladin"
-	backpack_contents = list(
-		/obj/item/gun/ballistic/automatic/wt550 = 1,
-		/obj/item/ammo_box/magazine/m473/small = 3,
-		/obj/item/gun/energy/laser/pistol = 1,
-		/obj/item/stock_parts/cell/ammo/ec = 2
-		)
-
-/datum/outfit/loadout/spaladinc
-	name = "Senior Frontline Paladin"
-	backpack_contents = list(
-		/obj/item/gun/energy/laser/aer9 = 1,
-		/obj/item/gun/energy/laser/pistol = 1,
-		/obj/item/stock_parts/cell/ammo/mfc = 2,
-		/obj/item/stock_parts/cell/ammo/ec = 2
-		)
-
 /datum/outfit/loadout/spaladind
-	name = "Senior Melee Specialist"
+	name = "Melee Star Specialist"
 	backpack_contents = list(
 		/obj/item/melee/powerfist/f13 = 1,
 		/obj/item/twohanded/sledgehammer/supersledge = 1,
-		/obj/item/gun/energy/laser/pistol = 1,
-		/obj/item/stock_parts/cell/ammo/ec = 2
 		)
-
+*/
 
 /*
 Paladin
@@ -485,21 +393,19 @@ Paladin
 /datum/job/bos/f13paladin
 	title = "Paladin"
 	flag = F13PALADIN
-	total_positions = 0
-	spawn_positions = 0
+	total_positions = 1
+	spawn_positions = 1
 	description = "You are this Chapter's main line of defense and offense; highly trained in combat and weaponry though with little practical field experience, you are eager to prove your worth to the Brotherhood. Your primary duties are defense and surface operations. You may also be assigned a trainee Initiate."
 	supervisors = "the Head and Senior Paladin"
 	display_order = JOB_DISPLAY_ORDER_PALADIN
 	outfit = /datum/outfit/job/bos/f13paladin
 	exp_requirements = 1200
-
+/*
 	loadout_options = list(
 	/datum/outfit/loadout/paladina, //Minigun
-	/datum/outfit/loadout/paladinb, //WT-550
-	/datum/outfit/loadout/paladinc, //Aer9
 	/datum/outfit/loadout/paladind //Sledge and fists
 	)
-
+*/
 	access = list(ACCESS_ROBOTICS, ACCESS_BOS, ACCESS_ENGINE_EQUIP, ACCESS_ENGINE, ACCESS_HYDROPONICS, ACCESS_KITCHEN, ACCESS_BAR, ACCESS_SEC_DOORS)
 	minimal_access = list(ACCESS_ROBOTICS, ACCESS_BOS, ACCESS_ENGINE_EQUIP, ACCESS_ENGINE, ACCESS_HYDROPONICS, ACCESS_KITCHEN, ACCESS_BAR, ACCESS_SEC_DOORS)
 	matchmaking_allowed = list(
@@ -530,52 +436,30 @@ Paladin
 	head =	/obj/item/clothing/head/helmet/f13/power_armor/midwest
 	uniform =	/obj/item/clothing/under/f13/recon
 	mask =	/obj/item/clothing/mask/gas/sechailer
-	belt = /obj/item/kit_spawner/bos/combat
 	neck =	/obj/item/clothing/neck/mantle/bos/paladin
 	backpack_contents = list(
-		/obj/item/reagent_containers/hypospray/medipen/stimpak= 1,
+		/obj/item/reagent_containers/hypospray/medipen/stimpak= 4,
 		/obj/item/melee/onehanded/knife/hunting = 1,
-		/obj/item/storage/belt/army/assault = 1
+		/obj/item/storage/belt/army/assault = 1,
+		/obj/item/gun/energy/laser/aer12 = 1,
+		/obj/item/stock_parts/cell/ammo/mfc = 5
 	)
-
+/*
 /datum/outfit/loadout/paladina
 	name = "Firesupport Paladin"
 	backpack_contents = list(
 		/obj/item/minigunpackbal5mm = 1,
-		/obj/item/gun/energy/laser/pistol = 1,
-		/obj/item/stock_parts/cell/ammo/ec = 2,
 		/obj/item/clothing/accessory/bos/paladin = 1
 	)
-
-/datum/outfit/loadout/paladinb
-	name = "Tactical Paladin"
-	backpack_contents = list(
-		/obj/item/gun/ballistic/automatic/wt550 = 1,
-		/obj/item/ammo_box/magazine/m473/small = 3,
-		/obj/item/gun/energy/laser/pistol = 1,
-		/obj/item/stock_parts/cell/ammo/ec = 2,
-		/obj/item/clothing/accessory/bos/paladin = 1
-		)
-
-/datum/outfit/loadout/paladinc
-	name = "Frontline Paladin"
-	backpack_contents = list(
-		/obj/item/gun/energy/laser/aer9 = 1,
-		/obj/item/gun/energy/laser/pistol = 1,
-		/obj/item/stock_parts/cell/ammo/mfc = 2,
-		/obj/item/stock_parts/cell/ammo/ec = 2,
-		/obj/item/clothing/accessory/bos/paladin = 1
-		)
 
 /datum/outfit/loadout/paladind
 	name = "Melee Specialist"
 	backpack_contents = list(
 		/obj/item/melee/powerfist/f13 = 1,
 		/obj/item/twohanded/sledgehammer/supersledge = 1,
-		/obj/item/gun/energy/laser/pistol = 1,
-		/obj/item/stock_parts/cell/ammo/ec = 2,
 		/obj/item/clothing/accessory/bos/paladin = 1
 		)
+*/
 
 /*
 Senior Scribe
@@ -584,10 +468,10 @@ Senior Scribe
 /datum/job/bos/f13seniorscribe
 	title = "Senior Scribe"
 	flag = F13SENIORSCRIBE
-	total_positions = 0
-	spawn_positions = 0
-	description = "You are the bunker's seniormost medical and scientific expert in the bunker, sans the Head Scribe themselves. You are trained in both medicine and engineering, while also having extensive studies of the old world to assist in pinpointing what technology would be useful to the Brotherhood and its interests."
-	supervisors = "the Head Scribe"
+	total_positions = 2
+	spawn_positions = 2
+	description = "You are the bunker's seniormost medical and scientific expert in the bunker, sans the Proctor themselves. You are trained in both medicine and engineering, while also having extensive studies of the old world to assist in pinpointing what technology would be useful to the Brotherhood and its interests."
+	supervisors = "the Proctor"
 	display_order = JOB_DISPLAY_ORDER_SENIORSCRIBE
 	outfit = /datum/outfit/job/bos/f13seniorscribe
 	exp_requirements = 900
@@ -606,7 +490,6 @@ Senior Scribe
 		),
 	)
 
-/*
 /datum/outfit/job/bos/f13seniorscribe/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
 	if(visualsOnly)
@@ -616,35 +499,28 @@ Senior Scribe
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/psycho)
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/medx)
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/medx/chemistry)
-	H.mind.teach_crafting_recipe(/datum/crafting_recipe/stimpak)
-	H.mind.teach_crafting_recipe(/datum/crafting_recipe/stimpak/chemistry)
-	H.mind.teach_crafting_recipe(/datum/crafting_recipe/stimpak5)
-	H.mind.teach_crafting_recipe(/datum/crafting_recipe/stimpak5/chemistry)
-	H.mind.teach_crafting_recipe(/datum/crafting_recipe/superstimpak)
-	H.mind.teach_crafting_recipe(/datum/crafting_recipe/superstimpak5)
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/buffout)
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/steady)
 	ADD_TRAIT(H, TRAIT_CHEMWHIZ, src)
 	ADD_TRAIT(H, TRAIT_SURGERY_HIGH, src)
 	ADD_TRAIT(H, TRAIT_CYBERNETICIST, src)
-*/
 
 /datum/outfit/job/bos/f13seniorscribe
 	name =	"Senior Scribe"
 	jobtype = /datum/job/bos/f13seniorscribe
 	chemwhiz =	TRUE
 	shoes =	/obj/item/clothing/shoes/combat
-	belt = /obj/item/kit_spawner/bos/scientist
 	accessory =	/obj/item/clothing/accessory/bos/seniorscribe
 	suit = /obj/item/clothing/suit/armor/light/duster/bos/scribe/seniorscribe
-	suit_store = /obj/item/gun/energy/laser/pistol
+	suit_store = /obj/item/gun/ballistic/automatic/pistol/ninemil
 	glasses = /obj/item/clothing/glasses/sunglasses/big
 	backpack_contents = list(
 		/obj/item/storage/belt/utility/full/engi = 1,
-		/obj/item/stock_parts/cell/ammo/ec = 2,
+		/obj/item/ammo_box/magazine/m9mm = 2,
 		/obj/item/melee/onehanded/knife/survival = 1,
 		/obj/item/storage/firstaid/regular = 1,
-		/obj/item/reagent_containers/hypospray/CMO = 1
+		/obj/item/reagent_containers/hypospray/CMO = 1,
+		/obj/item/reagent_containers/hypospray/medipen/stimpak = 7
 	)
 
 /*
@@ -654,8 +530,8 @@ Scribe
 /datum/job/bos/f13scribe
 	title = "Scribe"
 	flag = F13SCRIBE
-	total_positions = 0
-	spawn_positions = 0
+	total_positions = 2
+	spawn_positions = 2
 	description = "You answer to senior members, tasked with researching and reverse-engineering recovered technologies from the old world, while maintaining the brotherhoods scientific archives. You may also be given a trainee to assign duties to."
 	supervisors = "the Head and Senior Scribe"
 	display_order = JOB_DISPLAY_ORDER_SCRIBE
@@ -689,24 +565,17 @@ Scribe
 	jobtype = /datum/job/bos/f13scribe
 	chemwhiz = TRUE
 	shoes = /obj/item/clothing/shoes/combat
-	belt = /obj/item/kit_spawner/bos/scientist
 	suit = /obj/item/clothing/suit/armor/light/duster/bos/scribe
-	suit_store = /obj/item/gun/energy/laser/pistol
 	glasses = /obj/item/clothing/glasses/sunglasses/big
 	backpack_contents = list(
-		/obj/item/stock_parts/cell/ammo/ec = 2,
 		/obj/item/storage/belt/utility/full/engi = 1,
 		/obj/item/melee/onehanded/knife/survival = 1,
-		/obj/item/storage/firstaid/regular = 1
+		/obj/item/storage/firstaid/regular = 1,
+		/obj/item/gun/energy/laser/pistol = 1,
+		/obj/item/stock_parts/cell/ammo/ec = 3,
+		/obj/item/reagent_containers/hypospray/medipen/stimpak = 5
 		)
 
-/*
-/datum/outfit/job/bos/f13scribe/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	..()
-	if(visualsOnly)
-		return
-	H.mind.teach_crafting_recipe(/datum/crafting_recipe/stimpak)
-*/
 
 /datum/outfit/loadout/scribea
 	name = "Junior Scribe"
@@ -721,27 +590,26 @@ Scribe
 		)
 
 /*
-Senior Knight
+Knight-Sergeant
 */
 
 /datum/job/bos/f13seniorknight
-	title = "Senior Knight"
+	title = "Knight-Sergeant"
 	flag = F13SENIORKNIGHT
-	total_positions = 0
-	spawn_positions = 0
-	description = "You report directly to the Head Knight. You are the Brotherhood Senior Knight. Having served the Knight Caste for some time now, you are versatile and experienced in both basic combat and repairs, and also a primary maintainer of the Bunker's facilities. As your seniormost Knight, you may be assigned initiates or Junior Knights to mentor."
-	supervisors = "the Head Knight"
+	total_positions = 2
+	spawn_positions = 2
+	description = "You report directly to the Knight-Captain. You are the Brotherhood Knight-Sergeant. Having served the Knight Caste for some time now, you are versatile and experienced in both basic combat and repairs, and also a primary maintainer of the Bunker's facilities. As your seniormost Knight, you may be assigned initiates or Junior Knights to mentor."
+	supervisors = "the Knight-Captain"
 	display_order = JOB_DISPLAY_ORDER_SENIORKNIGHT
 	outfit = /datum/outfit/job/bos/f13seniorknight
 	exp_requirements = 900
-
+/*
 	loadout_options = list(
-	/datum/outfit/loadout/sknighta, //AER9
 	/datum/outfit/loadout/sknightb, //Police Shotgun
 	/datum/outfit/loadout/sknightc, //R93
 	/datum/outfit/loadout/sknightd, //Pre-war Ripper
 	)
-
+*/
 	access = list(ACCESS_BROTHERHOOD_COMMAND, ACCESS_ROBOTICS, ACCESS_BOS, ACCESS_ENGINE_EQUIP, ACCESS_ENGINE, ACCESS_HYDROPONICS, ACCESS_KITCHEN, ACCESS_BAR, ACCESS_SEC_DOORS)
 	minimal_access = list(ACCESS_BROTHERHOOD_COMMAND, ACCESS_ROBOTICS, ACCESS_BOS, ACCESS_ENGINE_EQUIP, ACCESS_ENGINE, ACCESS_HYDROPONICS, ACCESS_KITCHEN, ACCESS_BAR, ACCESS_SEC_DOORS)
 	matchmaking_allowed = list(
@@ -756,7 +624,6 @@ Senior Knight
 		),
 	)
 
-/*
 /datum/outfit/job/bos/f13seniorknight/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
 	if(visualsOnly)
@@ -765,16 +632,14 @@ Senior Knight
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/AEP7)
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/dks)
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/R93)
-*/
 
 /datum/outfit/job/bos/f13seniorknight
-	name = "Senior Knight"
+	name = "Knight-Sergeant"
 	jobtype = /datum/job/bos/f13seniorknight
 	suit = /obj/item/clothing/suit/armor/medium/combat/brotherhood/senior
 	accessory = /obj/item/clothing/accessory/bos/seniorknight
 	glasses = /obj/item/clothing/glasses/night
 	mask = /obj/item/clothing/mask/gas/sechailer
-	belt = /obj/item/kit_spawner/bos/combat
 	l_pocket = /obj/item/storage/belt/shoulderholster
 	head = /obj/item/clothing/head/helmet/f13/combat/brotherhood/senior
 	gunsmith_one = TRUE
@@ -784,21 +649,13 @@ Senior Knight
 	backpack_contents = list(
 		/obj/item/melee/onehanded/knife/hunting = 1,
 		/obj/item/storage/belt/army/assault = 1,
-		/obj/item/reagent_containers/hypospray/medipen/stimpak = 2,
+		/obj/item/reagent_containers/hypospray/medipen/stimpak = 5,
 		/obj/item/book/granter/crafting_recipe/gunsmith_one = 1,
-		/obj/item/book/granter/crafting_recipe/gunsmith_two = 1
+		/obj/item/book/granter/crafting_recipe/gunsmith_two = 1,
+		/obj/item/gun/energy/laser/aer12 = 1,
+		/obj/item/stock_parts/cell/ammo/mfc = 5
 		)
-
-/datum/outfit/loadout/sknighta
-	name = "Footknight"
-	backpack_contents = list(
-		/obj/item/gun/energy/laser/aer9 = 1,
-		/obj/item/stock_parts/cell/ammo/mfc = 2,
-		/obj/item/gun_upgrade/scope/watchman = 1,
-		/obj/item/gun/ballistic/automatic/pistol/mk23 = 1,
-		/obj/item/ammo_box/magazine/m45/socom = 2
-		)
-
+/*
 /datum/outfit/loadout/sknightb
 	name = "Knight-Defender"
 	backpack_contents = list(
@@ -818,12 +675,14 @@ Senior Knight
 		)
 
 /datum/outfit/loadout/sknightd
-	name = "Senior Knight-Cavalry"
+	name = "Knight-Sergeant-Cavalry"
 	backpack_contents = list(
 		/obj/item/clothing/accessory/bos/juniorknight = 1,
 		/obj/item/melee/powered/ripper/prewar = 1,
 		/obj/item/shield/riot/bullet_proof = 1
 		)
+*/
+
 /*
 Knight
 */
@@ -831,19 +690,15 @@ Knight
 /datum/job/bos/f13knight
 	title = "Knight"
 	flag = F13KNIGHT
-	total_positions = 0
-	spawn_positions = 0
+	total_positions = 4
+	spawn_positions = 4
 	description = "You are the Brotherhood Knight, the veritable lifeblood of your organization. You are a versatile and adaptably trained person: from your primary duties of weapon & armor repair to basic combat, survival and stealth skills, the only thing you lack is proper experience. You are also in charge of Initiates."
-	supervisors = "the Head and Senior Knight"
+	supervisors = "the Head and Knight-Sergeant"
 	display_order = JOB_DISPLAY_ORDER_KNIGHT
 	outfit = /datum/outfit/job/bos/f13knight
 	exp_requirements = 300
 
 	loadout_options = list(
-	/datum/outfit/loadout/knighta, //AER9 J
-	/datum/outfit/loadout/knightb, //R93 J
-	/datum/outfit/loadout/knightc, //Ripper J
-	/datum/outfit/loadout/knightd, //AER9
 	/datum/outfit/loadout/knighte, //R93
 	/datum/outfit/loadout/knightf, //Ripper
 	)
@@ -880,7 +735,6 @@ Knight
 	jobtype = /datum/job/bos/f13knight
 	suit = /obj/item/clothing/suit/armor/medium/combat/brotherhood
 	mask = /obj/item/clothing/mask/gas/sechailer
-	belt = /obj/item/kit_spawner/bos/combat
 	l_pocket = /obj/item/storage/belt/shoulderholster
 	head = /obj/item/clothing/head/helmet/f13/combat/brotherhood
 	gunsmith_one = TRUE
@@ -892,56 +746,19 @@ Knight
 		/obj/item/storage/belt/army/assault = 1,
 		/obj/item/reagent_containers/hypospray/medipen/stimpak = 1,
 		/obj/item/book/granter/crafting_recipe/gunsmith_one = 1,
-		/obj/item/book/granter/crafting_recipe/gunsmith_two = 1
-		)
-
-/datum/outfit/loadout/knighta
-	name = "Junior Footknight"
-	backpack_contents = list(
-		/obj/item/clothing/accessory/bos/juniorknight = 1,
+		/obj/item/book/granter/crafting_recipe/gunsmith_two = 1,
 		/obj/item/gun/energy/laser/aer9 = 1,
-		/obj/item/stock_parts/cell/ammo/mfc = 2,
-		/obj/item/gun/ballistic/automatic/pistol/mk23 = 1,
-		/obj/item/ammo_box/magazine/m45/socom = 2
+		/obj/item/stock_parts/cell/ammo/mfc = 5
 		)
-
-/datum/outfit/loadout/knightb
-	name = "Junior Knight-Defender"
-	backpack_contents = list(
-		/obj/item/clothing/accessory/bos/juniorknight = 1,
-		/obj/item/gun/ballistic/automatic/r93 = 1,
-		/obj/item/ammo_box/magazine/m556/rifle = 2,
-		/obj/item/gun/energy/laser/pistol = 1,
-		/obj/item/stock_parts/cell/ammo/ec = 2
-		)
-
-/datum/outfit/loadout/knightc
-	name = "Junior Knight-Cavalry"
-	backpack_contents = list(
-		/obj/item/clothing/accessory/bos/juniorknight = 1,
-		/obj/item/melee/powered/ripper = 1,
-		/obj/item/shield/riot/bullet_proof = 1
-		)
-
-
-/datum/outfit/loadout/knightd
-	name = "Footknight"
-	backpack_contents = list(
-		/obj/item/clothing/accessory/bos/knight = 1,
-		/obj/item/gun/energy/laser/aer9 = 1,
-		/obj/item/stock_parts/cell/ammo/mfc = 2,
-		/obj/item/gun/ballistic/automatic/pistol/mk23 = 1,
-		/obj/item/ammo_box/magazine/m45/socom = 2
-		)
-
+/*
 /datum/outfit/loadout/knighte
 	name = "Knight-Defender"
 	backpack_contents = list(
 		/obj/item/clothing/accessory/bos/knight = 1,
 		/obj/item/gun/ballistic/automatic/r93 = 1,
 		/obj/item/ammo_box/magazine/m556/rifle  = 2,
-		/obj/item/gun/energy/laser/pistol = 1,
-		/obj/item/stock_parts/cell/ammo/ec = 2
+		/obj/item/gun/ballistic/automatic/pistol/ninemil = 1,
+		/obj/item/ammo_box/magazine/m9mm = 2
 		)
 
 /datum/outfit/loadout/knightf
@@ -951,6 +768,8 @@ Knight
 		/obj/item/melee/powered/ripper = 1,
 		/obj/item/shield/riot/bullet_proof = 1
 		)
+*/
+
 /*
 Initiate
 */
@@ -1007,8 +826,8 @@ Initiate
 	suit = /obj/item/clothing/suit/armor/medium/combat/brotherhood
 	head = /obj/item/clothing/head/helmet/f13/combat/brotherhood/initiate
 	backpack_contents = list(
-		/obj/item/gun/energy/laser/wattz = 1,
-		/obj/item/stock_parts/cell/ammo/ec = 2,
+		/obj/item/gun/energy/laser/aer9 = 1,
+		/obj/item/stock_parts/cell/ammo/mfc = 2,
 		/obj/item/clothing/accessory/bos/initiateK = 1
 		)
 

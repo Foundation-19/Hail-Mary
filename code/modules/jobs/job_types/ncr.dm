@@ -14,6 +14,10 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 			Don't use Greaseguns, Lever shotguns, Police shotguns, Berettas, Hunting knives
 */
 
+//If you ever want to enable NCR, remove these 3 lines - Kitsunemitsu
+/datum/job/ncr/config_check()
+	return FALSE
+
 /datum/job/ncr //do NOT use this for anything, it's just to store faction datums
 	department_flag = NCR
 	selection_color = "#ffeeaa"
@@ -31,7 +35,6 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 	jobtype = /datum/job/ncr
 	backpack = /obj/item/storage/backpack/trekker
 	satchel = /obj/item/storage/backpack/satchel/trekker
-	ears = /obj/item/radio/headset/headset_ncr
 	uniform	= /obj/item/clothing/under/f13/ncr
 	belt = /obj/item/storage/belt/army/assault/ncr
 	shoes = /obj/item/clothing/shoes/f13/military/ncr

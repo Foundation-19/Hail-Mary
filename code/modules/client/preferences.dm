@@ -108,8 +108,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		"flavor_text" = "",
 		"silicon_flavor_text" = "",
 		"ooc_notes" = "",
-		"meat_type" = "Mammalian",
-		"taste" = "something",
 		"body_model" = MALE,
 		"body_size" = RESIZE_DEFAULT_SIZE,
 		"color_scheme" = OLD_CHARACTER_COLORING,
@@ -269,7 +267,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 	dat += "<a href='?_src_=prefs;preference=tab;tab=[SETTINGS_TAB]' [current_tab == SETTINGS_TAB ? "class='linkOn'" : ""]>Character Settings</a>"
 	dat += "<a href='?_src_=prefs;preference=tab;tab=[APPEARANCE_TAB]' [current_tab == APPEARANCE_TAB ? "class='linkOn'" : ""]>Character Appearance</a>"
-	dat += "<a href='?_src_=prefs;preference=tab;tab=[ERP_TAB]' [current_tab == ERP_TAB ? "class='linkOn'" : ""]>Underlying Appearance</a>"
 	dat += "<a href='?_src_=prefs;preference=tab;tab=[LOADOUT_TAB]' [current_tab == LOADOUT_TAB ? "class='linkOn'" : ""]>Loadout</a>"
 	dat += "<a href='?_src_=prefs;preference=tab;tab=[GAME_PREFERENCES_TAB]' [current_tab == GAME_PREFERENCES_TAB ? "class='linkOn'" : ""]>Game Preferences</a>"
 	dat += "<a href='?_src_=prefs;preference=tab;tab=[KEYBINDINGS_TAB]' [current_tab == KEYBINDINGS_TAB ? "class='linkOn'" : ""]>Keybindings</a>"
@@ -444,8 +441,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					dat += "<b>[modification]: [modified_limbs[modification][1]]</b><BR>"
 			dat += "<BR>"
 			dat += "<b>Species:</b><a style='display:block;width:100px' href='?_src_=prefs;preference=species;task=input'>[pref_species.name]</a><BR>"
-			dat += "<b>Custom Species Name:</b><a style='display:block;width:100px' href='?_src_=prefs;preference=custom_species;task=input'>[custom_species ? custom_species : "None"]</a><BR>"
-			dat += "<b>Custom Taste:</b><a style='display:block;width:100px' href='?_src_=prefs;preference=taste;task=input'>[features["taste"] ? features["taste"] : "something"]</a><BR>"
 			dat += "<b>Runechat Color:</b><a style='display:block;width:100px' href='?_src_=prefs;preference=chat_color;task=input;background-color: #[features["chat_color"]]'>#[features["chat_color"]]</span></a><BR>"
 			dat += "<b>Random Body:</b><a style='display:block;width:100px' href='?_src_=prefs;preference=all;task=random'>Randomize!</A><BR>"
 			dat += "<b>Always Random Body:</b><a href='?_src_=prefs;preference=all'>[be_random_body ? "Yes" : "No"]</A><BR>"
@@ -458,26 +453,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 				dat += "<a style='display:block;width:100px' href='?_src_=prefs;preference=s_tone;task=input'>[use_custom_skin_tone ? "custom: <span style='border:1px solid #161616; background-color: [skin_tone];'>&nbsp;&nbsp;&nbsp;</span>" : skin_tone]</a><BR>"
 
-			var/mutant_colors
-			if((MUTCOLORS in pref_species.species_traits) || (MUTCOLORS_PARTSONLY in pref_species.species_traits))
-				if(!use_skintones)
-					dat += APPEARANCE_CATEGORY_COLUMN
-
-				dat += "<h3>Advanced Coloring</h3>"
-				dat += "</b><a style='display:block;width:100px' href='?_src_=prefs;preference=color_scheme;task=input'>[(features["color_scheme"] == ADVANCED_CHARACTER_COLORING) ? "Enabled" : "Disabled"]</a>"
-
-				dat += "<h2>Body Colors</h2>"
-
-				dat += "<b>Primary Color:</b><BR>"
-				dat += "<span style='border: 1px solid #161616; background-color: #[features["mcolor"]];'>&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=mutant_color;task=input'>Change</a><BR>"
-
-				dat += "<b>Secondary Color:</b><BR>"
-				dat += "<span style='border: 1px solid #161616; background-color: #[features["mcolor2"]];'>&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=mutant_color2;task=input'>Change</a><BR>"
-
-				dat += "<b>Tertiary Color:</b><BR>"
-				dat += "<span style='border: 1px solid #161616; background-color: #[features["mcolor3"]];'>&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=mutant_color3;task=input'>Change</a><BR>"
-				mutant_colors = TRUE
-
 			if (CONFIG_GET(number/body_size_min) != CONFIG_GET(number/body_size_max))
 				dat += "<b>Sprite Size:</b> <a href='?_src_=prefs;preference=body_size;task=input'>[features["body_size"]*100]%</a><br>"
 
@@ -485,7 +460,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				dat += "<h3>Eye Type</h3>"
 				dat += "</b><a style='display:block;width:100px' href='?_src_=prefs;preference=eye_type;task=input'>[eye_type]</a><BR>"
 				if((EYECOLOR in pref_species.species_traits))
-					if(!use_skintones && !mutant_colors)
+					if(!use_skintones)
 						dat += APPEARANCE_CATEGORY_COLUMN
 					if(left_eye_color != right_eye_color)
 						split_eye_colors = TRUE
@@ -501,21 +476,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						dat += "<h3>Right Eye Color</h3>"
 						dat += "<span style='border: 1px solid #161616; background-color: #[right_eye_color];'>&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=eye_right;task=input'>Change</a><BR>"
 						dat += "</td>"
-				else if(use_skintones || mutant_colors)
+				else if(use_skintones)
 					dat += "</td>"
-
-			dat += APPEARANCE_CATEGORY_COLUMN
-			dat += "<h2>Speech preferences</h2>"
-			dat += "<b>Custom Speech Verb:</b><BR>"
-			dat += "</b><a style='display:block;width:100px' href='?_src_=prefs;preference=speech_verb;task=input'>[custom_speech_verb]</a><BR>"
-			dat += "<b>Custom Tongue:</b><BR>"
-			dat += "</b><a style='display:block;width:100px' href='?_src_=prefs;preference=tongue;task=input'>[custom_tongue]</a><BR>"
-
-			// Coyote ADD: Blurbleblurhs
-			dat += "<b>Sound Indicator:</b><BR>"
-			dat += "</b><a style='display:block;width:100px' href='?_src_=prefs;preference=typing_indicator_sound_play;task=input'>[features_speech["typing_indicator_sound_play"]]</a><BR>"
-			dat += "</b><a style='display:block;width:100px' href='?_src_=prefs;preference=typing_indicator_sound;task=input'>[features_speech["typing_indicator_sound"]]</a><BR>"
-			// Coyote ADD: End
 
 			if(HAIR in pref_species.species_traits)
 
@@ -541,143 +503,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 				dat += "</td>"
 
-			//Mutant stuff
-			var/mutant_category = 0
-
-			dat += APPEARANCE_CATEGORY_COLUMN
-			dat += "<h3>Show mismatched markings</h3>"
-			dat += "<a style='display:block;width:100px' href='?_src_=prefs;preference=mismatched_markings;task=input'>[show_mismatched_markings ? "Yes" : "No"]</a>"
-			mutant_category++
-			if(mutant_category >= MAX_MUTANT_ROWS) //just in case someone sets the max rows to 1 or something dumb like that
-				dat += "</td>"
-				mutant_category = 0
-
-			// rp marking selection
-			// assume you can only have mam markings or regular markings or none, never both
-			var/marking_type
-			if(parent.can_have_part("mam_body_markings"))
-				marking_type = "mam_body_markings"
-			if(marking_type)
-				dat += APPEARANCE_CATEGORY_COLUMN
-				dat += "<h3>[GLOB.all_mutant_parts[marking_type]]</h3>" // give it the appropriate title for the type of marking
-				dat += "<a href='?_src_=prefs;preference=marking_add;marking_type=[marking_type];task=input'>Add marking</a>"
-				// list out the current markings you have
-				if(length(features[marking_type]))
-					dat += "<table>"
-					var/list/markings = features[marking_type]
-					if(!islist(markings))
-						// something went terribly wrong
-						markings = list()
-					var/list/reverse_markings = reverseList(markings)
-					for(var/list/marking_list in reverse_markings)
-						var/marking_index = markings.Find(marking_list) // consider changing loop to go through indexes over lists instead of using Find here
-						var/limb_value = marking_list[1]
-						var/actual_name = GLOB.bodypart_names[num2text(limb_value)] // get the actual name from the bitflag representing the part the marking is applied to
-						var/color_marking_dat = ""
-						var/number_colors = 1
-						var/datum/sprite_accessory/mam_body_markings/S = GLOB.mam_body_markings_list[marking_list[2]]
-						var/matrixed_sections = S.covered_limbs[actual_name]
-						if(S && matrixed_sections)
-							// if it has nothing initialize it to white
-							if(length(marking_list) == 2)
-								var/first = "#FFFFFF"
-								var/second = "#FFFFFF"
-								var/third = "#FFFFFF"
-								if(features["mcolor"])
-									first = "#[features["mcolor"]]"
-								if(features["mcolor2"])
-									second = "#[features["mcolor2"]]"
-								if(features["mcolor3"])
-									third = "#[features["mcolor3"]]"
-								marking_list += list(list(first, second, third)) // just assume its 3 colours if it isnt it doesnt matter we just wont use the other values
-							// index magic
-							var/primary_index = 1
-							var/secondary_index = 2
-							var/tertiary_index = 3
-							switch(matrixed_sections)
-								if(MATRIX_GREEN)
-									primary_index = 2
-								if(MATRIX_BLUE)
-									primary_index = 3
-								if(MATRIX_RED_BLUE)
-									secondary_index = 2
-								if(MATRIX_GREEN_BLUE)
-									primary_index = 2
-									secondary_index = 3
-
-							// we know it has one matrixed section at minimum
-							color_marking_dat += "<span style='border: 1px solid #161616; background-color: [marking_list[3][primary_index]];'>&nbsp;&nbsp;&nbsp;</span>"
-							// if it has a second section, add it
-							if(matrixed_sections == MATRIX_RED_BLUE || matrixed_sections == MATRIX_GREEN_BLUE || matrixed_sections == MATRIX_RED_GREEN || matrixed_sections == MATRIX_ALL)
-								color_marking_dat += "<span style='border: 1px solid #161616; background-color: [marking_list[3][secondary_index]];'>&nbsp;&nbsp;&nbsp;</span>"
-								number_colors = 2
-							// if it has a third section, add it
-							if(matrixed_sections == MATRIX_ALL)
-								color_marking_dat += "<span style='border: 1px solid #161616; background-color: [marking_list[3][tertiary_index]];'>&nbsp;&nbsp;&nbsp;</span>"
-								number_colors = 3
-							color_marking_dat += " <a href='?_src_=prefs;preference=marking_color;marking_index=[marking_index];marking_type=[marking_type];number_colors=[number_colors];task=input'>Change</a><BR>"
-						dat += "<tr><td>[marking_list[2]] - [actual_name]</td> <td><a href='?_src_=prefs;preference=marking_down;task=input;marking_index=[marking_index];marking_type=[marking_type];'>&#708;</a> <a href='?_src_=prefs;preference=marking_up;task=input;marking_index=[marking_index];marking_type=[marking_type]'>&#709;</a> <a href='?_src_=prefs;preference=marking_remove;task=input;marking_index=[marking_index];marking_type=[marking_type]'>X</a> [color_marking_dat]</td></tr>"
-					dat += "</table>"
-
-			for(var/mutant_part in GLOB.all_mutant_parts)
-				if(mutant_part == "mam_body_markings")
-					continue
-				if(parent.can_have_part(mutant_part))
-					if(!mutant_category)
-						dat += APPEARANCE_CATEGORY_COLUMN
-					dat += "<h3>[GLOB.all_mutant_parts[mutant_part]]</h3>"
-					dat += "<a style='display:block;width:100px' href='?_src_=prefs;preference=[mutant_part];task=input'>[features[mutant_part]]</a>"
-					var/color_type = GLOB.colored_mutant_parts[mutant_part] //if it can be coloured, show the appropriate button
-					if(color_type)
-						dat += "<span style='border:1px solid #161616; background-color: #[features[color_type]];'>&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=[color_type];task=input'>Change</a><BR>"
-					else
-						if(features["color_scheme"] == ADVANCED_CHARACTER_COLORING) //advanced individual part colouring system
-							//is it matrixed or does it have extra parts to be coloured?
-							var/find_part = features[mutant_part] || pref_species.mutant_bodyparts[mutant_part]
-							var/find_part_list = GLOB.mutant_reference_list[mutant_part]
-							if(find_part && find_part != "None" && find_part_list)
-								var/datum/sprite_accessory/accessory = find_part_list[find_part]
-								if(accessory)
-									if(accessory.color_src == MATRIXED || accessory.color_src == MUTCOLORS || accessory.color_src == MUTCOLORS2 || accessory.color_src == MUTCOLORS3) //mutcolors1-3 are deprecated now, please don't rely on these in the future
-										var/mutant_string = accessory.mutant_part_string
-										var/primary_feature = "[mutant_string]_primary"
-										var/secondary_feature = "[mutant_string]_secondary"
-										var/tertiary_feature = "[mutant_string]_tertiary"
-										if(!features[primary_feature])
-											features[primary_feature] = features["mcolor"]
-										if(!features[secondary_feature])
-											features[secondary_feature] = features["mcolor2"]
-										if(!features[tertiary_feature])
-											features[tertiary_feature] = features["mcolor3"]
-
-										var/matrixed_sections = accessory.matrixed_sections
-										if(accessory.color_src == MATRIXED && !matrixed_sections)
-											message_admins("Sprite Accessory Failure (customization): Accessory [accessory.type] is a matrixed item without any matrixed sections set!")
-											continue
-										else if(accessory.color_src == MATRIXED)
-											switch(matrixed_sections)
-												if(MATRIX_GREEN) //only composed of a green section
-													primary_feature = secondary_feature //swap primary for secondary, so it properly assigns the second colour, reserved for the green section
-												if(MATRIX_BLUE)
-													primary_feature = tertiary_feature //same as above, but the tertiary feature is for the blue section
-												if(MATRIX_RED_BLUE) //composed of a red and blue section
-													secondary_feature = tertiary_feature //swap secondary for tertiary, as blue should always be tertiary
-												if(MATRIX_GREEN_BLUE) //composed of a green and blue section
-													primary_feature = secondary_feature //swap primary for secondary, as first option is green, which is linked to the secondary
-													secondary_feature = tertiary_feature //swap secondary for tertiary, as second option is blue, which is linked to the tertiary
-										dat += "<b>Primary Color</b><BR>"
-										dat += "<span style='border:1px solid #161616; background-color: #[features[primary_feature]];'>&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=[primary_feature];task=input'>Change</a><BR>"
-										if((accessory.color_src == MATRIXED && (matrixed_sections == MATRIX_RED_BLUE || matrixed_sections == MATRIX_GREEN_BLUE || matrixed_sections == MATRIX_RED_GREEN || matrixed_sections == MATRIX_ALL)) || (accessory.extra && (accessory.extra_color_src == MUTCOLORS || accessory.extra_color_src == MUTCOLORS2 || accessory.extra_color_src == MUTCOLORS3)))
-											dat += "<b>Secondary Color</b><BR>"
-											dat += "<span style='border:1px solid #161616; background-color: #[features[secondary_feature]];'>&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=[secondary_feature];task=input'>Change</a><BR>"
-											if((accessory.color_src == MATRIXED && matrixed_sections == MATRIX_ALL) || (accessory.extra2 && (accessory.extra2_color_src == MUTCOLORS || accessory.extra2_color_src == MUTCOLORS2 || accessory.extra2_color_src == MUTCOLORS3)))
-												dat += "<b>Tertiary Color</b><BR>"
-												dat += "<span style='border:1px solid #161616; background-color: #[features[tertiary_feature]];'>&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=[tertiary_feature];task=input'>Change</a><BR>"
-
-					mutant_category++
-					if(mutant_category >= MAX_MUTANT_ROWS)
-						dat += "</td>"
-						mutant_category = 0
 
 			if(length(pref_species.allowed_limb_ids))
 				if(!chosen_limb_id || !(chosen_limb_id in pref_species.allowed_limb_ids))
@@ -685,286 +510,11 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				dat += "<h3>Body sprite</h3>"
 				dat += "<a style='display:block;width:100px' href='?_src_=prefs;preference=bodysprite;task=input'>[chosen_limb_id]</a>"
 
-			if(mutant_category)
-				dat += "</td>"
-				mutant_category = 0
-
 			dat += "</tr></table>"
 
 			dat += "</td>"
 
 			dat += "</tr></table>"
-			/*Uplink choice disabled since not implemented, pointless button
-			dat += "<b>Uplink Location:</b><a style='display:block;width:100px' href ='?_src_=prefs;preference=uplink_loc;task=input'>[uplink_spawn_loc]</a>"
-			dat += "</td>"*/
-
-			/// HA HA! I HAVE DELETED YOUR PRECIOUS NAUGHTY PARTS, YOU HORNY ANIMALS!
-			/* dat +="<td width='220px' height='300px' valign='top'>" //
-			if(NOGENITALS in pref_species.species_traits)
-				dat += "<b>Your species ([pref_species.name]) does not support genitals!</b><br>"
-			else
-				dat += "<h3>Penis</h3>"
-				dat += "<a style='display:block;width:50px' href='?_src_=prefs;preference=has_cock'>[features["has_cock"] == TRUE ? "Yes" : "No"]</a>"
-				if(features["has_cock"])
-					if(!pref_species.use_skintones)
-						dat += "<b>Penis Color:</b></a><BR>"
-						dat += "<span style='border: 1px solid #161616; background-color: #[features["cock_color"]];'>&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=cock_color;task=input'>Change</a><br>"
-					var/tauric_shape = FALSE
-					if(features["cock_taur"])
-						var/datum/sprite_accessory/penis/P = GLOB.cock_shapes_list[features["cock_shape"]]
-						if(P.taur_icon && parent.can_have_part("taur"))
-							var/datum/sprite_accessory/taur/T = GLOB.taur_list[features["taur"]]
-							if(T.taur_mode & P.accepted_taurs)
-								tauric_shape = TRUE
-					dat += "<b>Penis Shape:</b> <a style='display:block;width:120px' href='?_src_=prefs;preference=cock_shape;task=input'>[features["cock_shape"]][tauric_shape ? " (Taur)" : ""]</a>"
-					dat += "<b>Penis Length:</b> <a style='display:block;width:120px' href='?_src_=prefs;preference=cock_length;task=input'>[features["cock_length"]] inch(es)</a>"
-					dat += "<b>Penis Visibility:</b><a style='display:block;width:100px' href='?_src_=prefs;preference=cock_visibility;task=input'>[features["cock_visibility"]]</a>"
-					dat += "<b>Has Testicles:</b><a style='display:block;width:50px' href='?_src_=prefs;preference=has_balls'>[features["has_balls"] == TRUE ? "Yes" : "No"]</a>"
-					if(features["has_balls"])
-						if(!pref_species.use_skintones)
-							dat += "<b>Testicles Type:</b> <a style='display:block;width:100px' href='?_src_=prefs;preference=balls_shape;task=input'>[features["balls_shape"]]</a>"
-							dat += "<b>Testicles Color:</b></a><BR>"
-							dat += "<span style='border: 1px solid #161616; background-color: #[features["balls_color"]];'>&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=balls_color;task=input'>Change</a><br>"
-						dat += "<b>Testicles Visibility:</b><a style='display:block;width:100px' href='?_src_=prefs;preference=balls_visibility;task=input'>[features["balls_visibility"]]</a>"
-				dat += APPEARANCE_CATEGORY_COLUMN
-				dat += "<h3>Vagina</h3>"
-				dat += "<a style='display:block;width:50px' href='?_src_=prefs;preference=has_vag'>[features["has_vag"] == TRUE ? "Yes": "No" ]</a>"
-				if(features["has_vag"])
-					dat += "<b>Vagina Type:</b> <a style='display:block;width:100px' href='?_src_=prefs;preference=vag_shape;task=input'>[features["vag_shape"]]</a>"
-					if(!pref_species.use_skintones)
-						dat += "<b>Vagina Color:</b></a><BR>"
-						dat += "<span style='border: 1px solid #161616; background-color: #[features["vag_color"]];'>&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=vag_color;task=input'>Change</a><br>"
-					dat += "<b>Vagina Visibility:</b><a style='display:block;width:100px' href='?_src_=prefs;preference=vag_visibility;task=input'>[features["vag_visibility"]]</a>"
-					dat += "<b>Has Womb:</b><a style='display:block;width:50px' href='?_src_=prefs;preference=has_womb'>[features["has_womb"] == TRUE ? "Yes" : "No"]</a>"
-				dat += "</td>"
-				dat += APPEARANCE_CATEGORY_COLUMN
-				dat += "<h3>Breasts</h3>"
-				dat += "<a style='display:block;width:50px' href='?_src_=prefs;preference=has_breasts'>[features["has_breasts"] == TRUE ? "Yes" : "No" ]</a>"
-				if(features["has_breasts"])
-					if(!pref_species.use_skintones)
-						dat += "<b>Color:</b></a><BR>"
-						dat += "<span style='border: 1px solid #161616; background-color: #[features["breasts_color"]];'>&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=breasts_color;task=input'>Change</a><br>"
-					dat += "<b>Cup Size:</b><a style='display:block;width:50px' href='?_src_=prefs;preference=breasts_size;task=input'>[features["breasts_size"]]</a>"
-					dat += "<b>Breasts Shape:</b><a style='display:block;width:50px' href='?_src_=prefs;preference=breasts_shape;task=input'>[features["breasts_shape"]]</a>"
-					dat += "<b>Breasts Visibility:</b><a style='display:block;width:100px' href='?_src_=prefs;preference=breasts_visibility;task=input'>[features["breasts_visibility"]]</a>"
-					dat += "<b>Lactates:</b><a style='display:block;width:50px' href='?_src_=prefs;preference=breasts_producing'>[features["breasts_producing"] == TRUE ? "Yes" : "No"]</a>"
-				dat += "</td>"
-				dat += APPEARANCE_CATEGORY_COLUMN
-				dat += "<h3>Belly</h3>"
-				dat += "<a style='display:block;width:50px' href='?_src_=prefs;preference=has_belly'>[features["has_belly"] == TRUE ? "Yes" : "No" ]</a>"
-				if(features["has_belly"])
-					if(!pref_species.use_skintones)
-						dat += "<b>Color:</b></a><BR>"
-						dat += "<span style='border: 1px solid #161616; background-color: #[features["belly_color"]];'>&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=belly_color;task=input'>Change</a><br>"
-					dat += "<b>Belly Size:</b><a style='display:block;width:50px' href='?_src_=prefs;preference=belly_size;task=input'>[features["belly_size"]]</a>"
-					dat += "<b>Belly Shape:</b><a style='display:block;width:50px' href='?_src_=prefs;preference=belly_shape;task=input'>[features["belly_shape"]]</a>"
-					dat += "<b>Belly Visibility:</b><a style='display:block;width:100px' href='?_src_=prefs;preference=belly_visibility;task=input'>[features["belly_visibility"]]</a>"
-				dat += "</td>"
-				dat += APPEARANCE_CATEGORY_COLUMN
-				dat += "<h3>Butt</h3>"
-				dat += "<a style='display:block;width:50px' href='?_src_=prefs;preference=has_butt'>[features["has_butt"] == TRUE ? "Yes" : "No"]</a>"
-				if(features["has_butt"])
-					if(!pref_species.use_skintones)
-						dat += "<b>Color:</b></a><BR>"
-						dat += "<span style='border: 1px solid #161616; background-color: #[features["butt_color"]];'>&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=butt_color;task=input'>Change</a><br>"
-					dat += "<b>Butt Size:</b><a style='display:block;width:50px' href='?_src_=prefs;preference=butt_size;task=input'>[features["butt_size"]]</a>"
-					dat += "<b>Butt Visibility:</b><a style='display:block;width:100px' href='?_src_=prefs;preference=butt_visibility;task=input'>[features["butt_visibility"]]</a>"
-				dat += "</td>"
-			dat += "</td>"
-			dat += "</tr></table>"*/
-
-		/// just kidding I moved it down here lol
-		if(ERP_TAB) // hoo haw preferences
-			if(path)
-				var/savefile/S = new /savefile(path)
-				if(S)
-					dat += "<center>"
-					var/name
-					var/unspaced_slots = 0
-					for(var/i=1, i<=max_save_slots, i++)
-						unspaced_slots++
-						if(unspaced_slots > 4)
-							dat += "<br>"
-							unspaced_slots = 0
-						S.cd = "/character[i]"
-						S["real_name"] >> name
-						if(!name)
-							name = "Character[i]"
-						dat += "<a style='white-space:nowrap;' href='?_src_=prefs;preference=changeslot;num=[i];' [i == default_slot ? "class='linkOn'" : ""]>[name]</a> "
-					dat += "<hr><br>"
-			if(!path)
-				dat += "<div class='notice'>Please create an account to save your preferences</div>"
-			if(NOGENITALS in pref_species.species_traits)
-				dat += "<div class='gen_setting_name'>Your species ([pref_species.name]) does not support genitals! These won't apply to your species!</div><br><hr>"
-			dat += {"<a
-						href='
-							?_src_=prefs;
-							preference=erp_tab;
-							newtab=[ERP_TAB_REARRANGE]'
-							[current_tab == ERP_TAB_REARRANGE ? "class='linkOn'" : ""]>
-								Layering and Visibility
-					</a>"}
-			dat += {"<a
-						href='
-							?_src_=prefs;
-							preference=erp_tab;
-							newtab=[ERP_TAB_HOME]'
-							[current_tab == ERP_TAB_HOME ? "class='linkOn'" : ""]>
-								Underwear and Socks
-					</a>"}
-			dat += "<br>"
-			dat += "</center>"
-			dat += "<br>"
-
-			switch(erp_tab_page)
-				if(ERP_TAB_REARRANGE)
-					var/list/all_genitals = decode_cockstring() // i made it i can call it whatever I want
-					var/list/genitals_we_have = list()
-					dat += "<table class='table_genital_list'>"
-					dat += "<tr>"
-					dat += "<td class='genital_name'></td>"
-					dat += "<td colspan='2' class='genital_name'>Shift</td>"
-					dat += "<td colspan='2' class='genital_name'>Hidden by...</td>"
-					dat += "<td class='genital_name'>Override</td>"
-					dat += "<td class='genital_name'>See on others?</td>"
-					dat += "</tr>"
-
-					for(var/nad in all_genitals)
-						genitals_we_have += nad
-					if(LAZYLEN(all_genitals))
-						for(var/i in 1 to LAZYLEN(genitals_we_have))
-							dat += add_genital_layer_piece(genitals_we_have[i], i, LAZYLEN(genitals_we_have))
-					else
-						dat += "You dont seem to have any movable genitals!"
-					dat += "<tr>"
-					dat += "<td colspan='3' class='genital_name'>When visible, layer them...</td>"
-					/* var/genital_shirtlayer
-					if(CHECK_BITFIELD(features["genital_visibility_flags"], GENITAL_ABOVE_UNDERWEAR))
-						genital_shirtlayer = "Over Underwear"
-					else if(CHECK_BITFIELD(features["genital_visibility_flags"], GENITAL_ABOVE_CLOTHING))
-						genital_shirtlayer = "Over Clothes"
-					else
-						genital_shirtlayer = "Under Underwear" */
-
-					dat += {"<td colspan='3' class='coverage_on'>
-							Over Clothes
-							</td>"}
-					dat += {"<td class='coverage_on'>
-							<a
-								class='clicky_no_border'
-								href='
-									?_src_=prefs;
-									preference=change_genital_whitelist'>
-										Whitelisted Names
-							</a>
-							</td>"}
-					dat += "</table>"
-				if(ERP_TAB_HOME)/// UNDERWEAR GOES HERE
-					dat += "<table class='undies_table'>"
-					dat += "<tr class='undies_row'>"
-					dat += "<td colspan='3'>"
-					dat += "<h2 class='undies_header'>Clothing & Equipment</h2>"
-					dat += "</td>"
-					dat += "</tr>"
-					dat += "<tr class='undies_row'>"
-					dat += "<td class='undies_cell'>"
-					dat += "<div class='undies_label'>Topwear</div>"
-					dat += {"<a
-								class='undies_link'
-								href='
-									?_src_=prefs;
-									preference=undershirt;
-									task=input'>
-										[undershirt]
-							</a>"}
-					dat += {"<a
-								class='undies_link'
-								style='
-									background-color:#[shirt_color]'
-								href='
-								?_src_=prefs;
-								preference=shirt_color;
-								task=input'>
-									\t#[shirt_color]
-							</a>"}
-					dat += "</td>"
-					dat += "<td class='undies_cell'>"
-					dat += "<div class='undies_label'>Bottomwear</div>"
-					dat += {"<a
-								class='undies_link'
-								href='
-									?_src_=prefs;
-									preference=underwear;
-									task=input'>
-										[underwear]
-							</a>"}
-					dat += {"<a
-								class='undies_link'
-								style='
-									background-color:#[undie_color]'
-								href='
-								?_src_=prefs;
-								preference=undie_color;
-								task=input'>
-									\t#[undie_color]
-							</a>"}
-					dat += "</td>"
-					dat += {"<td class='undies_cell'>
-								<div class='undies_label'>Legwear</div>
-								<a
-									class='undies_link'
-									href='
-										?_src_=prefs;
-										preference=socks;
-										task=input'>
-											[socks]
-								</a>"}
-					dat += {"<a
-								class='undies_link'
-								style='
-									background-color:#[socks_color]'
-								href='
-								?_src_=prefs;
-								preference=socks_color;
-								task=input'>
-									\t#[socks_color]
-							</a>"}
-					dat += "</td>"
-					dat += "</tr>"
-					dat += "<tr class='undies_row'>"
-					dat += "<td class='undies_cell'>"
-					dat += "<div class='undies_label'>Backpack</div>"
-					dat += {"<a
-								class='undies_link'
-								href='
-								?_src_=prefs;
-								preference=bag;
-								task=input'>
-								Sackpack
-							</a>"}
-					dat += "<div class='undies_link'>-</div>"
-					dat += "</td>"
-					dat += "<td class='undies_cell'>"
-					dat += "<div class='undies_label'>Persistent Scars</div>"
-					dat += {"<a
-									class='undies_link'
-									href='
-										?_src_=prefs;
-										preference=persistent_scars'>
-											Enabled
-								</a>"}
-					dat += {"<a
-									class='undies_link'
-									href='
-										?_src_=prefs;
-										preference=clear_scars'>
-											\tClear them?
-								</a>"}
-					dat += "</td>"
-					dat += "</tr>"
-					dat += "</table>"
-				if(PREFS_ALL_HAS_GENITALS_SET) // fuck it
-					dat += build_genital_setup()
 
 
 		if(GAME_PREFERENCES_TAB) // Game Preferences
@@ -981,15 +531,12 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			dat += "<b>Action Buttons:</b> <a href='?_src_=prefs;preference=action_buttons'>[(buttons_locked) ? "Locked In Place" : "Unlocked"]</a><br>"
 			dat += "<br>"
 			dat += "<b>PDA Color:</b> <span style='border:1px solid #161616; background-color: [pda_color];'>&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=pda_color;task=input'>Change</a><BR>"
-			//dat += "<b>PDA Style:</b> <a href='?_src_=prefs;task=input;preference=pda_style'>[pda_style]</a><br>"
-			//dat += "<b>PDA Reskin:</b> <a href='?_src_=prefs;task=input;preference=pda_skin'>[pda_skin]</a><br>"
 			dat += "<br>"
 			dat += "<b>Ghost Ears:</b> <a href='?_src_=prefs;preference=ghost_ears'>[(chat_toggles & CHAT_GHOSTEARS) ?  "All Speech":"Nearest Creatures"]</a><br>"
 			dat += "<b>Ghost Radio:</b> <a href='?_src_=prefs;preference=ghost_radio'>[(chat_toggles & CHAT_GHOSTRADIO) ? "All Messages":"No Messages"]</a><br>"
 			dat += "<b>Ghost Sight:</b> <a href='?_src_=prefs;preference=ghost_sight'>[(chat_toggles & CHAT_GHOSTSIGHT) ? "All Emotes":"Nearest Creatures" ]</a><br>"
 			dat += "<b>Ghost Whispers:</b> <a href='?_src_=prefs;preference=ghost_whispers'>[(chat_toggles & CHAT_GHOSTWHISPER) ? "All Speech":"Nearest Creatures"]</a><br>"
 			dat += "<b>Ghost PDA:</b> <a href='?_src_=prefs;preference=ghost_pda'>[(chat_toggles & CHAT_GHOSTPDA) ? "All Messages" : "Nearest Creatures"]</a><br>"
-			//dat += "<b>Window Flashing:</b> <a href='?_src_=prefs;preference=winflash'>[(windowflashing) ? "Enabled":"Disabled"]</a><br>"
 			dat += "<br>"
 			dat += "<b>Play Admin MIDIs:</b> <a href='?_src_=prefs;preference=hear_midis'>[(toggles & SOUND_MIDI) ? "Enabled":"Disabled"]</a><br>"
 			dat += "<b>Play Lobby Music:</b> <a href='?_src_=prefs;preference=lobby_music'>[(toggles & SOUND_LOBBY) ? "Enabled":"Disabled"]</a><br>"
@@ -1314,347 +861,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 #undef APPEARANCE_CATEGORY_COLUMN
 #undef MAX_MUTANT_ROWS
-
-/// takes in whatever's at features["genital_order"] and spits out a list in order of what's present
-/// reverses it cus its more intuitive that way (for everyone but me)
-/datum/preferences/proc/decode_cockstring(reverse = TRUE)
-	var/list/list_out = list()
-	list_out = splittext(features["genital_order"], ":")
-	list_out = reverseList(list_out)
-	return list_out
-
-/// takes in a list of nads and outputs a cockstring, then saves it
-/// Also unreverses it, cus i crave the pain
-/datum/preferences/proc/encode_cockstring(list/cockstring)
-	var/list/default_cockstring = splittext(DEF_COCKSTRING, ":")
-	cockstring = reverseList(cockstring)
-	for(var/coc in cockstring) // just to make sure nothing wierd got in there
-		if(!(coc in default_cockstring))
-			cockstring -= coc
-			continue
-		default_cockstring -= coc
-	if(LAZYLEN(default_cockstring)) // and to make sure it has *everything* oh yeah keep DEF_COCKSTRING up to date
-		message_admins("Hey the cockstring wasn't empty, either Dan fucked up or something fucked up.")
-	. = jointext(cockstring, ":")
-	features["genital_order"] = .
-
-/// takes in whatever's at features["genital_whitelist"] and spits out a list in order of what's present
-/datum/preferences/proc/decode_cockwhitelist(reverse = TRUE)
-	var/list/list_out = list()
-	list_out = splittext(features["genital_whitelist"], ",") // would be a real dick move if the whitelist didnt accept whitespace
-	return list_out
-
-/// takes in a list of nads and outputs a cockstring, then saves it
-/datum/preferences/proc/encode_cockwhitelist(list/cockstring)
-	var/list/outlist = list()
-	for(var/ckey in cockstring)
-		outlist += ckey
-	. = jointext(outlist, ",")
-	features["genital_whitelist"] = .
-	save_preferences()
-
-/// Adds a link to a given genital
-/datum/preferences/proc/build_genital_setup()
-	if(!(erp_tab_page in PREFS_ALL_HAS_GENITALS))
-		return "Uh oh this broke and Lagg's a dork! =3"
-
-	/// the flags we're building the genital setup shit from
-	var/setup_flags
-	var/feature_key
-	var/thing_name
-	var/fuckin_taur_penis
-	var/one_or_some
-	var/size_flavor
-	switch(erp_tab_page)
-		if("has_butt")
-			setup_flags = DEF_BUTT_FLAGS
-			thing_name = "Butt"
-			one_or_some = "one"
-			size_flavor = "-XL"
-			feature_key = "butt"
-		if("has_vag")
-			setup_flags = DEF_VAG_FLAGS
-			thing_name = "Vagina"
-			one_or_some = "one"
-			feature_key = "vag"
-		if("has_balls")
-			setup_flags = DEF_BALLS_FLAGS
-			thing_name = "Testicles"
-			one_or_some = "some"
-			feature_key = "balls"
-		if("has_cock")
-			setup_flags = DEF_PENIS_FLAGS
-			thing_name = "Penis"
-			one_or_some = "one"
-			size_flavor = " inch(es)"
-			feature_key = "cock"
-			if(features["cock_taur"]) // darn taurs
-				var/datum/sprite_accessory/penis/P = GLOB.cock_shapes_list[features["cock_shape"]]
-				if(P.taur_icon && parent.can_have_part("taur"))
-					var/datum/sprite_accessory/taur/T = GLOB.taur_list[features["taur"]]
-					if(T.taur_mode & P.accepted_taurs)
-						fuckin_taur_penis = TRUE
-		if("has_belly")
-			setup_flags = DEF_BELLY_FLAGS
-			thing_name = "Belly"
-			one_or_some = "one"
-			size_flavor = "-XL"
-			feature_key = "belly"
-		if("has_womb")
-			setup_flags = DEF_WOMB_FLAGS
-			one_or_some = "one"
-			feature_key = "womb"
-		if("has_breasts")
-			setup_flags = DEF_BREASTS_FLAGS
-			thing_name = "Breasts"
-			one_or_some = "some"
-			size_flavor = "-cup"
-			feature_key = "breasts"
-
-	// okay time to build it! *cracks penis*
-	var/list/deet = list()
-	deet += "<table class='table_genital_list'>"
-	deet += "<tr class='talign'>"
-	deet += "<td class='talign'>"
-	deet += "<div class='gen_name'>[thing_name]</div>"
-	deet += "</td></tr>"
-
-	deet += "<tr class='talign'><td class='talign'>"
-	deet += "<div class='gen_container'>"
-	deet += "<div class='gen_setting_name'>Has [one_or_some]:</div>" // everyone can has_cheezburger
-	/// yes I know it cursed, eat the dick this pref gave me
-	deet += {"<a
-				class='clicky'
-				href='
-					?_src_=prefs;
-					preference=[erp_tab_page]'>
-						[features[erp_tab_page] == TRUE ? "Yes" : "No"]
-			</a>"}
-	if(CHECK_BITFIELD(setup_flags, GENITAL_CAN_RECOLOR))
-		deet += "<div class='gen_setting_name'>Color:</div>"
-		if(pref_species.use_skintones)
-			deet += "<div class='gen_setting_name'>Locked to skintone!</div>"
-		else
-			deet += {"<a
-						class='clicky'
-						style='
-							background-color:#[features["[feature_key]_color"]]'
-						href='
-							?_src_=prefs;
-							preference=[feature_key]_color;
-							task=input'>
-								#[features["[feature_key]_color"]]
-					</a>"}
-	if(CHECK_BITFIELD(setup_flags, GENITAL_CAN_RESHAPE))
-		deet += "<div class='gen_setting_name'>Shape:</div>"
-		deet += {"<a
-					class='clicky'
-					href='
-						?_src_=prefs;
-						preference=[feature_key]_shape;
-						task=input'>
-							[features["[feature_key]_shape"]][fuckin_taur_penis ? " (Taur)" : ""]
-				</a>"}
-	if(CHECK_BITFIELD(setup_flags, GENITAL_CAN_RESIZE))
-		deet += "<div class='gen_setting_name'>Size:</div>"
-		deet += {"<a
-					class='clicky'
-					href='
-						?_src_=prefs;
-						preference=[feature_key]_size;
-						task=input'>
-							[features["[feature_key]_size"]][size_flavor]
-				</a>"}
-	deet += "</div>"
-	deet += "</td>"
-	deet += "</tr>"
-	deet += "</table>" // leaving this one out makes the save/undo line show up over the table, oddly enough!
-	deet += "<br>"
-	return deet.Join()
-
-/// need: genital name, some kinda href shit
-/// returns a hunk of html designed to fit into a table
-/datum/preferences/proc/add_genital_layer_piece(has_name, index, max_index)
-	var/magic_word
-	var/flag_string
-	var/override_string
-	var/hide_nad_flag
-	switch(has_name)
-		if(CS_BUTT)
-			magic_word = "Butt"
-			flag_string = "butt_visibility_flags"
-			override_string = "butt_visibility_override"
-			hide_nad_flag = HIDE_BUTT
-		if(CS_VAG)
-			magic_word = "Vagina"
-			flag_string = "vag_visibility_flags"
-			override_string = "vag_visibility_override"
-			hide_nad_flag = HIDE_VAG
-		if(CS_BALLS)
-			magic_word = "Testicles"
-			flag_string = "balls_visibility_flags"
-			override_string = "balls_visibility_override"
-			hide_nad_flag = HIDE_BALLS
-		if(CS_PENIS)
-			magic_word = "Penis"
-			flag_string = "cock_visibility_flags"
-			override_string = "cock_visibility_override"
-			hide_nad_flag = HIDE_PENIS
-		if(CS_BELLY)
-			magic_word = "Belly"
-			flag_string = "belly_visibility_flags"
-			override_string = "belly_visibility_override"
-			hide_nad_flag = HIDE_BELLY
-		if(CS_BOOB)
-			magic_word = "Breasts"
-			flag_string = "breasts_visibility_flags"
-			override_string = "breasts_visibility_override"
-			hide_nad_flag = HIDE_BOOBS
-		if(CS_MISC) // idk some kind of broken genital
-			magic_word = "Chunk"
-			flag_string = "breasts_visibility_flags" // idk
-			override_string = "breasts_visibility_override"
-			hide_nad_flag = HIDE_MISC
-	var/list/doot = list()
-	doot += "<tr class='talign'>"
-	// the nad's name and index
-	doot += "<td class='genital_name'>[magic_word] - [index]</td>"
-	if(index <= 1) // first one doesnt get an up-arrow
-		doot += "<td class='genital_arrow_off'>&darr;</td>" // im gonna do a magic trick
-	else // make an up arrow
-		doot += {"<td class='genital_arrow_on'>
-				<a
-					class='clicky_no_border'
-					href='
-						?_src_=prefs;
-						preference=change_genital_order;
-						direction=up;
-						which=[has_name]'>
-							&uarr;
-				</a>
-				</td>"}
-	if(index >= max_index) // last one doesnt get a down-arrow
-		doot += "<td class='genital_arrow_off'>&darr;</td>" // imma make these disappear!
-	else // make a down arrow
-		doot += {"<td class='genital_arrow_on'>
-				<a
-					class='clicky_no_border'
-					href='
-						?_src_=prefs;
-						preference=change_genital_order;
-						direction=down;
-						which=[has_name]'>
-							&darr;
-				</a>
-				</td>"}
-	// and throw in the coverage buttons
-	doot += {"<td class='[CHECK_BITFIELD(features[flag_string], GENITAL_RESPECT_CLOTHING)? "coverage_on" : "coverage_off"]'>
-		<a
-			class='clicky_no_border'
-			href='
-				?_src_=prefs;
-				preference=[flag_string];
-				genital_flag=[GENITAL_RESPECT_CLOTHING];
-				task=input'>
-					Clothes
-		</a>
-		</td>"}
-	doot += {"<td class='[CHECK_BITFIELD(features[flag_string], GENITAL_RESPECT_UNDERWEAR)? "coverage_on" : "coverage_off"]'>
-		<a
-			class='clicky_no_border'
-			href='
-				?_src_=prefs;
-				preference=[flag_string];
-				genital_flag=[GENITAL_RESPECT_UNDERWEAR];
-				task=input'>
-					Underwear
-		</a>
-		</td>"}
-	/// and the override
-	var/peen_vis_override
-	if(CHECK_BITFIELD(features[flag_string], GENITAL_ALWAYS_HIDDEN))
-		peen_vis_override = "Always Hidden"
-	else if(CHECK_BITFIELD(features[flag_string], GENITAL_ALWAYS_VISIBLE))
-		peen_vis_override = "Always Visible"
-	else
-		peen_vis_override = "Check Coverage"
-	doot += {"<td class='[CHECK_BITFIELD(features[flag_string], GENITAL_ALWAYS_HIDDEN|GENITAL_ALWAYS_VISIBLE)? "coverage_on" : "coverage_off"]'>
-		<a
-			class='clicky_no_border'
-			href='
-				?_src_=prefs;
-				preference=[override_string];
-				curr_vis=[peen_vis_override];
-				task=input'>
-					[peen_vis_override]
-		</a>
-		</td>"}
-	/// and the hideflag
-	var/i_dont_like_bellies = CHECK_BITFIELD(features["genital_hide"], hide_nad_flag)
-	doot += {"<td class='[i_dont_like_bellies ? "coverage_off" : "coverage_on"]'>
-		<a
-			class='clicky_no_border'
-			href='
-				?_src_=prefs;
-				preference=genital_hide;
-				hideflag=[hide_nad_flag];
-				task=input'>
-					[i_dont_like_bellies ? "N" : "Y"]
-		</a>
-		</td>"}
-	doot += "</tr>"
-	return doot.Join()
-
-/// takes our genital order, spreads it, and moves an entry up/down past the next valid entry, then zips it back into a cockstring
-/datum/preferences/proc/shift_genital_order(which_one, move_up)
-	if(!which_one)
-		return
-	var/list/our_genitals = decode_cockstring()
-	if(!(which_one in our_genitals))
-		return
-	if(move_up) // reverse the list cus its easier to just search down the list
-		our_genitals = reverseList(our_genitals) // after all, up is down upsidedown!
-	var/genital_start
-	var/genital_dest
-	var/index = 1
-	for(var/nad in our_genitals)
-		if(genital_start && features[nad]) // found our nad up the list, keep checking for the next nad that exists
-			genital_dest = index
-			break
-		if(!genital_start && nad == which_one)
-			genital_start = index
-		index++
-	if(!genital_start || !genital_dest)
-		return // nothing found!
-	our_genitals.Swap(genital_start, genital_dest) // swap!
-	if(move_up) // unreverse,
-		our_genitals = reverseList(our_genitals)
-	encode_cockstring(our_genitals) // post it!
-
-/datum/preferences/proc/CaptureKeybinding(mob/user, datum/keybinding/kb, old_key, independent = FALSE, special = FALSE)
-	var/HTML = {"
-	<div id='focus' style="outline: 0;" tabindex=0>Keybinding: [kb.full_name]<br>[kb.description]<br><br><b>Press any key to change<br>Press ESC to clear</b></div>
-	<script>
-	var deedDone = false;
-	document.onkeyup = function(e) {
-		if(deedDone){ return; }
-		var alt = e.altKey ? 1 : 0;
-		var ctrl = e.ctrlKey ? 1 : 0;
-		var shift = e.shiftKey ? 1 : 0;
-		var numpad = (95 < e.keyCode && e.keyCode < 112) ? 1 : 0;
-		var escPressed = e.keyCode == 27 ? 1 : 0;
-		var url = 'byond://?_src_=prefs;preference=keybindings_set;keybinding=[kb.name];old_key=[old_key];[independent?"independent=1;":""][special?"special=1;":""]clear_key='+escPressed+';key='+e.key+';alt='+alt+';ctrl='+ctrl+';shift='+shift+';numpad='+numpad+';key_code='+e.keyCode;
-		window.location=url;
-		deedDone = true;
-	}
-	document.getElementById('focus').focus();
-	</script>
-	"}
-	winshow(user, "capturekeypress", TRUE)
-	var/datum/browser/popup = new(user, "capturekeypress", "<div align='center'>Keybindings</div>", 350, 300)
-	popup.set_content(HTML)
-	popup.open(FALSE)
-	onclose(user, "capturekeypress", src)
 
 /datum/preferences/proc/SetChoices(mob/user, limit = 17, list/splitJobs = list("Chief Engineer"), widthPerColumn = 295, height = 620)
 	if(!SSjob)
@@ -1996,37 +1202,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		qdel(query_get_jobban)
 		return
 
-	if(href_list["preference"] == "change_genital_order")
-		shift_genital_order(href_list["which"], (href_list["direction"]=="up"))
-	if(href_list["preference"] == "change_genital_whitelist")
-		var/new_genital_whitelist = stripped_multiline_input_or_reflect(
-			user,
-			"Which people are you okay with seeing their genitals when exposed? If a humanlike mob has a name containing \
-			any of the following, if their genitals are showing, you will be able to see them, regardless of your \
-			content settings. Partial names are accepted, case is not important, please no punctuation (except ','). \
-			Keep in mind this matches their 'real' name, so 'unknown' likely won't do much. Separate your entries with a comma!",
-			"Genital Whitelist",
-			features["genital_whitelist"])
-		if(new_genital_whitelist == "")
-			var/whoathere = alert(user, "This will clear your genital whitelist, you sure?", "Just checkin'", "Yes", "No")
-			if(whoathere == "Yes")
-				features["genital_whitelist"] = new_genital_whitelist
-		else if(!isnull(new_genital_whitelist))
-			features["genital_whitelist"] = new_genital_whitelist
-	if(href_list["preference"] == "change_genital_clothing")
-		var/list/genital_overrides = GENITAL_CLOTHING_FLAG_LIST
-		var/new_visibility = input(user, "When your genitals are visible, how should they appear in relation to your clothes/underwear?", "Character Preference", href_list["nadflag"]) as null|anything in GENITAL_CLOTHING_FLAG_LIST
-		if(new_visibility)
-			var/new_bit = genital_overrides[new_visibility]
-			for(var/nadlet in GENITAL_VIS_FLAGS_LIST)
-				DISABLE_BITFIELD(features[nadlet], GENITAL_ABOVE_UNDERWEAR | GENITAL_ABOVE_CLOTHING)
-				ENABLE_BITFIELD(features[nadlet], new_bit)
-			features["genital_visibility_flags"] = new_bit
-
-	if(href_list["preference"] == "genital_hide")
-		var/hideit = text2num(href_list["hideflag"])
-		TOGGLE_BITFIELD(features["genital_hide"], hideit)
-
 	if(href_list["preference"] == "job")
 		switch(href_list["task"])
 			if("close")
@@ -2155,45 +1330,45 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				ask_for_custom_name(user,href_list["preference"])
 			switch(href_list["preference"])
 				if("special_s")
-					var/new_point = input(user, "Choose Amount(1-9)", "Strength") as num|null
+					var/new_point = input(user, "Choose Amount(1-10)", "Strength") as num|null
 					if(new_point)
-						special_s = max(min(round(text2num(new_point)), 9),1)
+						special_s = max(min(round(text2num(new_point)), 10),1)
 					SetSpecial(user)
 					return 1
 				if("special_p")
-					var/new_point = input(user, "Choose Amount(1-9)", "Perception") as num|null
+					var/new_point = input(user, "Choose Amount(1-10)", "Perception") as num|null
 					if(new_point)
-						special_p = max(min(round(text2num(new_point)), 9),1)
+						special_p = max(min(round(text2num(new_point)), 10),1)
 					SetSpecial(user)
 					return 1
 				if("special_e")
-					var/new_point = input(user, "Choose Amount(1-9)", "Endurance") as num|null
+					var/new_point = input(user, "Choose Amount(1-10)", "Endurance") as num|null
 					if(new_point)
-						special_e = max(min(round(text2num(new_point)), 9),1)
+						special_e = max(min(round(text2num(new_point)), 10),1)
 					SetSpecial(user)
 					return 1
 				if("special_c")
-					var/new_point = input(user, "Choose Amount(1-9)", "Charisma") as num|null
+					var/new_point = input(user, "Choose Amount(1-10)", "Charisma") as num|null
 					if(new_point)
-						special_c = max(min(round(text2num(new_point)), 9),1)
+						special_c = max(min(round(text2num(new_point)), 10),1)
 					SetSpecial(user)
 					return 1
 				if("special_i")
-					var/new_point = input(user, "Choose Amount(1-9)", "Intelligence") as num|null
+					var/new_point = input(user, "Choose Amount(1-10)", "Intelligence") as num|null
 					if(new_point)
-						special_i = max(min(round(text2num(new_point)), 9),1)
+						special_i = max(min(round(text2num(new_point)), 10),1)
 					SetSpecial(user)
 					return 1
 				if("special_a")
-					var/new_point = input(user, "Choose Amount(1-9)", "Agility") as num|null
+					var/new_point = input(user, "Choose Amount(1-10)", "Agility") as num|null
 					if(new_point)
-						special_a = max(min(round(text2num(new_point)), 9),1)
+						special_a = max(min(round(text2num(new_point)), 10),1)
 					SetSpecial(user)
 					return 1
 				if("special_l")
-					var/new_point = input(user, "Choose Amount(1-9)", "Luck") as num|null
+					var/new_point = input(user, "Choose Amount(1-10)", "Luck") as num|null
 					if(new_point)
-						special_l = max(min(round(text2num(new_point)), 9),1)
+						special_l = max(min(round(text2num(new_point)), 10),1)
 					SetSpecial(user)
 					return 1
 				if("ghostform")
@@ -2578,110 +1753,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					if(selected_body_sprite)
 						chosen_limb_id = selected_body_sprite //this gets sanitized before loading
 
-				if("marking_down")
-					// move the specified marking down
-					var/index = text2num(href_list["marking_index"])
-					var/marking_type = href_list["marking_type"]
-					if(index && marking_type && features[marking_type] && index != length(features[marking_type]))
-						var/index_down = index + 1
-						var/markings = features[marking_type]
-						var/first_marking = markings[index]
-						var/second_marking = markings[index_down]
-						markings[index] = second_marking
-						markings[index_down] = first_marking
-
-				if("marking_up")
-					// move the specified marking up
-					var/index = text2num(href_list["marking_index"])
-					var/marking_type = href_list["marking_type"]
-					if(index && marking_type && features[marking_type] && index != 1)
-						var/index_up = index - 1
-						var/markings = features[marking_type]
-						var/first_marking = markings[index]
-						var/second_marking = markings[index_up]
-						markings[index] = second_marking
-						markings[index_up] = first_marking
-
-				if("marking_remove")
-					// move the specified marking up
-					var/index = text2num(href_list["marking_index"])
-					var/marking_type = href_list["marking_type"]
-					if(index && marking_type && features[marking_type])
-						// because linters are just absolutely awful:
-						var/list/L = features[marking_type]
-						L.Cut(index, index + 1)
-
-				if("marking_add")
-					// add a marking
-					var/marking_type = href_list["marking_type"]
-					if(marking_type && features[marking_type])
-						var/selected_limb = input(user, "Choose the limb to apply to.", "Character Preference") as null|anything in list("Head", "Chest", "Left Arm", "Right Arm", "Left Leg", "Right Leg", "All")
-						if(selected_limb)
-							var/list/marking_list = GLOB.mam_body_markings_list
-							var/list/snowflake_markings_list = list()
-							for(var/path in marking_list)
-								var/datum/sprite_accessory/S = marking_list[path]
-								if(istype(S))
-									if(istype(S, /datum/sprite_accessory/mam_body_markings))
-										var/datum/sprite_accessory/mam_body_markings/marking = S
-										if(!(selected_limb in marking.covered_limbs) && selected_limb != "All")
-											continue
-
-									if((!S.ckeys_allowed) || (S.ckeys_allowed.Find(user.client.ckey)))
-										snowflake_markings_list[S.name] = path
-
-							var/selected_marking = input(user, "Select the marking to apply to the limb.") as null|anything in snowflake_markings_list
-							if(selected_marking)
-								if(selected_limb != "All")
-									var/limb_value = text2num(GLOB.bodypart_values[selected_limb])
-									features[marking_type] += list(list(limb_value, selected_marking))
-								else
-									var/datum/sprite_accessory/mam_body_markings/S = marking_list[selected_marking]
-									for(var/limb in S.covered_limbs)
-										var/limb_value = text2num(GLOB.bodypart_values[limb])
-										features[marking_type] += list(list(limb_value, selected_marking))
-
-				if("marking_color")
-					var/index = text2num(href_list["marking_index"])
-					var/marking_type = href_list["marking_type"]
-					if(index && marking_type && features[marking_type])
-						// work out the input options to show the user
-						var/list/options = list("Primary")
-						var/number_colors = text2num(href_list["number_colors"])
-						var/color_number = 1 // 1-3 which color are we editing
-						if(number_colors >= 2)
-							options += "Secondary"
-						if(number_colors == 3)
-							options += "Tertiary"
-						var/color_option = input(user, "Select the colour you wish to edit") as null|anything in options
-						if(color_option)
-							if(color_option == "Secondary") color_number = 2
-							if(color_option == "Tertiary") color_number = 3
-							// perform some magic on the color number
-							var/list/marking_list = features[marking_type][index]
-							var/datum/sprite_accessory/mam_body_markings/S = GLOB.mam_body_markings_list[marking_list[2]]
-							var/matrixed_sections = S.covered_limbs[GLOB.bodypart_names[num2text(marking_list[1])]]
-							if(color_number == 1)
-								switch(matrixed_sections)
-									if(MATRIX_GREEN)
-										color_number = 2
-									if(MATRIX_BLUE)
-										color_number = 3
-							else if(color_number == 2)
-								switch(matrixed_sections)
-									if(MATRIX_RED_BLUE)
-										color_number = 3
-									if(MATRIX_GREEN_BLUE)
-										color_number = 3
-
-							var/color_list = features[marking_type][index][3]
-							var/new_marking_color = input(user, "Choose your character's marking color:", "Character Preference","#"+color_list[color_number]) as color|null
-							if(new_marking_color)
-								var/temp_hsv = RGBtoHSV(new_marking_color)
-								if((MUTCOLORS_PARTSONLY in pref_species.species_traits) || ReadHSV(temp_hsv)[3] >= ReadHSV(MINIMUM_MUTANT_COLOR)[3]) // mutantcolors must be bright, but only if they affect the skin
-									color_list[color_number] = "#[sanitize_hexcolor(new_marking_color, 6)]"
-								else
-									to_chat(user, span_danger("Invalid color. Your color is not bright enough."))
 		else
 			switch(href_list["preference"])
 				//CITADEL PREFERENCES EDIT - I can't figure out how to modularize these, so they have to go here. :c -Pooj
@@ -2740,11 +1811,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				if("hotkeys")
 					hotkeys = !hotkeys
 					user.client.ensure_keys_set(src)
-
-				if("keybindings_capture")
-					var/datum/keybinding/kb = GLOB.keybindings_by_name[href_list["keybinding"]]
-					CaptureKeybinding(user, kb, href_list["old_key"], text2num(href_list["independent"]), kb.special || kb.clientside)
-					return
 
 				if("keybindings_set")
 					var/kb_name = href_list["keybinding"]
@@ -3058,6 +2124,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	character.special_a = special_a
 	character.special_l = special_l
 
+	character.initialize_special_stats()
+
 	character.left_eye_color = left_eye_color
 	character.right_eye_color = right_eye_color
 	var/obj/item/organ/eyes/organ_eyes = character.getorgan(/obj/item/organ/eyes)
@@ -3075,11 +2143,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	character.facial_hair_style = facial_hair_style
 	character.underwear = underwear
 
-	character.saved_underwear = underwear
 	character.undershirt = undershirt
-	character.saved_undershirt = undershirt
 	character.socks = socks
-	character.saved_socks = socks
 	character.undie_color = undie_color
 	character.shirt_color = shirt_color
 	character.socks_color = socks_color
@@ -3103,9 +2168,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	character.dna.real_name = character.real_name
 	character.dna.custom_species = character.custom_species
 
-	if((parent && parent.can_have_part("meat_type")) || pref_species.mutant_bodyparts["meat_type"])
-		character.type_of_meat = GLOB.meat_types[features["meat_type"]]
-
 	if(((parent && parent.can_have_part("legs")) || pref_species.mutant_bodyparts["legs"])  && (character.dna.features["legs"] == "Digitigrade" || character.dna.features["legs"] == "Avian"))
 		pref_species.species_traits |= DIGITIGRADE
 	else
@@ -3115,8 +2177,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		character.Digitigrade_Leg_Swap(FALSE)
 	else
 		character.Digitigrade_Leg_Swap(TRUE)
-
-	character.give_genitals(TRUE) //character.update_genitals() is already called on genital.update_appearance()
 
 	character.dna.update_body_size(old_size)
 

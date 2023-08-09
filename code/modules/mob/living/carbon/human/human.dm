@@ -11,9 +11,6 @@ GLOBAL_VAR_INIT(crotch_call_cooldown, 0)
 /mob/living/carbon/human/Initialize()
 	add_verb(src, /mob/living/proc/mob_sleep)
 	add_verb(src, /mob/living/proc/lay_down)
-	add_verb(src, /mob/living/carbon/human/verb/underwear_toggle)
-	add_verb(src, /mob/living/verb/subtle)
-	add_verb(src, /mob/living/verb/subtler)
 	//initialize limbs first
 	create_bodyparts()
 
@@ -39,8 +36,6 @@ GLOBAL_VAR_INIT(crotch_call_cooldown, 0)
 	RegisterSignal(src, COMSIG_COMPONENT_CLEAN_ACT, /atom.proc/clean_blood)
 	GLOB.human_list += src
 
-	var/datum/atom_hud/data/human/genital/pornHud = GLOB.huds[GENITAL_PORNHUD]
-	pornHud.add_to_hud(src)
 	update_body(TRUE)
 
 /mob/living/carbon/human/ComponentInitialize()
@@ -50,20 +45,15 @@ GLOBAL_VAR_INIT(crotch_call_cooldown, 0)
 	AddComponent(/datum/component/combat_mode)
 	AddElement(/datum/element/flavor_text/carbon, _name = "Flavor Text", _save_key = "flavor_text")
 	AddElement(/datum/element/flavor_text, "", "Set Pose/Leave OOC Message", "This should be used only for things pertaining to the current round!")
-	AddElement(/datum/element/flavor_text, _name = "OOC Notes", _addendum = "Put information on ERP/lewd-related preferences here. THIS SHOULD NOT CONTAIN REGULAR FLAVORTEXT!!", _always_show = TRUE, _save_key = "ooc_notes", _examine_no_preview = TRUE)
-	RegisterSignal(src, COMSIG_HUMAN_UPDATE_GENITALS, .proc/signal_update_genitals)
 
 /mob/living/carbon/human/Destroy()
 	QDEL_NULL(physiology)
 	GLOB.human_list -= src
-	UnregisterSignal(src, COMSIG_HUMAN_UPDATE_GENITALS)
 	return ..()
 
 /mob/living/carbon/human/prepare_data_huds()
 	//Update med hud images...
 	..()
-	//...genitals...
-	update_genitals()
 	//...sec hud images...
 	sec_hud_set_ID()
 	sec_hud_set_implants()
@@ -558,52 +548,14 @@ GLOBAL_VAR_INIT(crotch_call_cooldown, 0)
 											return
 							to_chat(usr, "<span class='warning'>Unable to locate a data core entry for this person.</span>")
 	switch(href_list["action"])
-		if("open_sockdrawer")
-			show_underwear_panel()
-		if("update_every_fucking_crotch")
-			if(COOLDOWN_FINISHED(GLOB, crotch_call_cooldown))
-				for(var/mob/living/carbon/human/dic in GLOB.human_list)
-					dic.update_genitals(TRUE)
-				COOLDOWN_START(GLOB, crotch_call_cooldown, CROTCH_COOLDOWN)
-			show_genital_hide_panel()
-		if("open_genital_hide")
-			show_genital_hide_panel()
-		if("change_genital_whitelist")
-			if(!client?.prefs)
-				return
-			var/new_genital_whitelist = stripped_multiline_input_or_reflect(
-				usr, 
-				"Which people are you okay with seeing their genitals when exposed? If a humanlike mob has a name containing \
-				any of the following, if their genitals are showing, you will be able to see them, regardless of your \
-				content settings. Partial names are accepted, case is not important, please no punctuation (except ','). \
-				Keep in mind this matches their 'real' name, so 'unknown' likely won't do much. Separate your entries with a comma!",
-				"Genital Whitelist",
-				client?.prefs?.features["genital_whitelist"])
-			if(new_genital_whitelist == "")
-				var/whoathere = alert(usr, "This will clear your genital whitelist, you sure?", "Just checkin'", "Yes", "No")
-				if(whoathere == "Yes")
-					client?.prefs?.features["genital_whitelist"] = new_genital_whitelist
-					client?.loadCockWhitelist()
-			else if(!isnull(new_genital_whitelist))
-				client?.prefs?.features["genital_whitelist"] = new_genital_whitelist
-				client?.loadCockWhitelist()
-			update_body(TRUE)
-			show_genital_hide_panel()
-		if("toggle_hide_genitals")
-			if(client?.prefs)
-				TOGGLE_BITFIELD(client.prefs.features["genital_hide"], text2num(href_list["genital_flag"]))
-			show_genital_hide_panel()
-			update_body(TRUE)
 		if("shirt")
 			var/new_shirt = input(usr, "Select a new shirt!", "Changing") as null|anything in GLOB.undershirt_list
 			if(new_shirt)
 				undershirt = new_shirt
-				saved_undershirt = new_shirt
 				show_message(span_notice("You put on a new [new_shirt]!"))
 				update_body(TRUE)
 			else
 				show_message(span_notice("Nevermind!"))
-			show_underwear_panel()
 		if("shirt_color")
 			var/n_color = input(usr, "Recolor your shirt!", "Character Preference", "#[shirt_color]") as color|null
 			if(n_color)
@@ -612,228 +564,6 @@ GLOBAL_VAR_INIT(crotch_call_cooldown, 0)
 				update_body(TRUE)
 			else
 				show_message(span_notice("Nevermind!"))
-			show_underwear_panel()
-		if("undies")
-			var/new_undies = input(usr, "Select some new undies!", "Changing") as null|anything in GLOB.underwear_list
-			if(new_undies)
-				underwear = new_undies
-				saved_underwear = new_undies
-				show_message(span_notice("You put on a new pair of [new_undies]!"))
-				update_body(TRUE)
-			else
-				show_message(span_notice("Nevermind!"))
-			show_underwear_panel()
-		if("undies_color")
-			var/n_color = input(usr, "Recolor your undies!", "Character Preference", "#[undie_color]") as color|null
-			if(n_color)
-				undie_color = sanitize_hexcolor(n_color, 6, FALSE, undie_color)
-				show_message(span_notice("You recolor your undies!"))
-				update_body(TRUE)
-			else
-				show_message(span_notice("Nevermind!"))
-			show_underwear_panel()
-		if("socks")
-			var/new_sox = input(usr, "Select some socks!", "Changing") as null|anything in GLOB.socks_list
-			if(new_sox)
-				socks = new_sox
-				saved_socks = new_sox
-				show_message(span_notice("You put on a new pair of [new_sox]!"))
-				update_body(TRUE)
-			else
-				show_message(span_notice("Nevermind!"))
-			show_underwear_panel()
-		if("socks_color")
-			var/n_color = input(usr, "Recolor your socks!", "Character Preference", "#[socks_color]") as color|null
-			if(n_color)
-				socks_color = sanitize_hexcolor(n_color, 6, FALSE, socks_color)
-				show_message(span_notice("You recolor your socks!"))
-				update_body(TRUE)
-			else
-				show_message(span_notice("Nevermind!"))
-			show_underwear_panel()
-
-// I see athens, I see greece, I see src's /datum/sprite_accessory/underwear/bottom/briefs
-/mob/living/carbon/human/proc/show_underwear_panel()
-	var/list/dat = list()
-	dat += {"<a 
-				class='clicky'
-				href='
-					?src=[REF(src)];
-					action=genital_return'>
-						Go back
-			</a>"}
-	dat += "<table class='undies_table'>"
-	dat += "<tr class='undies_row'>"
-	dat += "<td colspan='3'>"
-	dat += "<h2 class='undies_header'>Clothing & Equipment</h2>"
-	dat += "</td>"
-	dat += "</tr>"
-	dat += "<tr class='undies_row'>"
-	dat += "<td class='undies_cell'>"
-	dat += "<div class='undies_label'>Topwear</div>"
-	dat += {"<a 
-				class='undies_link' 
-				href='
-					?src=[REF(src)];
-					action=shirt'>
-						[undershirt]
-			</a>"}
-	dat += {"<a 
-				class='undies_link'
-				style='
-					background-color:#[shirt_color]' 
-				href='
-					?src=[REF(src)];
-					action=shirt_color'>
-					[shirt_color]
-			</a>"}
-	dat += "</td>"
-	dat += "</tr><tr class='undies_row'>"
-	dat += "<td class='undies_cell'>"
-	dat += "<div class='undies_label'>Bottomwear</div>"
-	dat += {"<a 
-				class='undies_link' 
-				href='
-					?src=[REF(src)];
-					action=undies'>
-						[underwear]
-			</a>"}
-	dat += {"<a 
-				class='undies_link'
-				style='
-					background-color:#[undie_color]' 
-				href='
-					?src=[REF(src)];
-					action=undies_color'>
-						[undie_color]
-			</a>"}
-	dat += "</td>"
-	dat += "</tr><tr class='undies_row'>"
-	dat += {"<td class='undies_cell'>
-				<div class='undies_label'>Legwear</div>
-				<a 
-					class='undies_link' 
-					href='
-						?src=[REF(src)];
-						action=socks'>
-							[socks]
-				</a>"}
-	dat += {"<a 
-				class='undies_link'
-				style='
-					background-color:#[socks_color]' 
-				href='
-					?src=[REF(src)];
-					action=socks_color'>
-						[socks_color]
-			</a>"}
-	dat += "</td>"
-	dat += "</tr>"
-	dat += "</table>"
-
-	winshow(src, "erp_window", TRUE)
-	var/datum/browser/popup = new(src, "erp_window", "<div align='center'>Put on your spare pair</div>", 400, 500)
-	popup.set_content(dat.Join())
-	popup.open(FALSE)
-	onclose(src, "erp_window", src)
-
-/mob/living/carbon/human/proc/show_genital_hide_panel()
-	var/list/dat = list()
-	dat += {"<a 
-				class='clicky'
-				href='
-					?src=[REF(src)];
-					action=genital_return'>
-						Go back
-			</a>"}
-	dat += "<table class='table_genital_list'>"
-
-	dat += "<tr class='talign'><td class='talign'>"
-	dat += "<div class='gen_container'>"
-	dat += "<div class='gen_setting_name'>See Bellies:</div>" // everyone can has_cheezburger
-	dat += {"<a 
-				class='clicky' 
-				href='
-					?src=[REF(src)];
-					action=toggle_hide_genitals;
-					genital_flag=[HIDE_BELLY]'>
-						[client?.checkGonadDistaste(HIDE_BELLY) ? "No" : "Yes"]
-			</a>"}
-	dat += "<div class='gen_setting_name'>See Butts:</div>" // everyone can has_cheezburger
-	dat += {"<a 
-				class='clicky' 
-				href='
-					?src=[REF(src)];
-					action=toggle_hide_genitals;
-					genital_flag=[HIDE_BUTT]'>
-						[client?.checkGonadDistaste(HIDE_BUTT) ? "No" : "Yes"]
-			</a>"}
-	dat += "<div class='gen_setting_name'>See Breasts:</div>" // everyone can has_cheezburger
-	dat += {"<a 
-				class='clicky' 
-				href='
-					?src=[REF(src)];
-					action=toggle_hide_genitals;
-					genital_flag=[HIDE_BOOBS]'>
-						[client?.checkGonadDistaste(HIDE_BOOBS) ? "No" : "Yes"]
-			</a>"}
-	dat += "<div class='gen_setting_name'>See Vaginas:</div>" // everyone can has_cheezburger
-	dat += {"<a 
-				class='clicky' 
-				href='
-					?src=[REF(src)];
-					action=toggle_hide_genitals;
-					genital_flag=[HIDE_VAG]'>
-						[client?.checkGonadDistaste(HIDE_VAG) ? "No" : "Yes"]
-			</a>"}
-	dat += "<div class='gen_setting_name'>See Penises:</div>" // everyone can has_cheezburger
-	dat += {"<a 
-				class='clicky' 
-				href='
-					?src=[REF(src)];
-					action=toggle_hide_genitals;
-					genital_flag=[HIDE_PENIS]'>
-						[client?.checkGonadDistaste(HIDE_PENIS) ? "No" : "Yes"]
-			</a>"}
-	dat += "<div class='gen_setting_name'>See Balls:</div>" // GET UR FUCKIN BURGER
-	dat += {"<a 
-				class='clicky' 
-				href='
-					?src=[REF(src)];
-					action=toggle_hide_genitals;
-					genital_flag=[HIDE_BALLS]'>
-						[client?.checkGonadDistaste(HIDE_BALLS) ? "No" : "Yes"]
-			</a>"}
-
-	dat += "<div class='gen_setting_name'>Visibility Whitelist:</div>" // BURGER TIME
-	dat += {"<a 
-				class='clicky' 
-				href='
-					?src=[REF(src)];
-					action=change_genital_whitelist'>
-						Modify?
-			</a>"}
-
-	dat += "<div class='gen_setting_name'>Apply Changes:</div>" // BURGER TIME
-	dat += {"<a 
-				class='clicky' 
-				href='
-					?src=[REF(src)];
-					action=update_every_fucking_crotch'>
-						Apply
-			</a>"}
-
-	dat += "</div>"
-	dat += "</td>"
-	dat += "</tr>"
-	dat += "</table>" // leaving this one out makes the save/undo line show up over the table, oddly enough!
-	dat += "<br>"
-
-	winshow(src, "erp_window", TRUE)
-	var/datum/browser/popup = new(src, "erp_window", "<div align='center'>Unsee what can be unseen!</div>", 400, 500)
-	popup.set_content(dat.Join())
-	popup.open(FALSE)
-	onclose(src, "erp_window", src)
 
 
 /mob/living/carbon/human/proc/canUseHUD()

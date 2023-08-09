@@ -34,7 +34,7 @@ const Juke = require('./juke');
 const { yarn } = require('./cbt/yarn');
 const { dm } = require('./cbt/dm');
 
-const DME_NAME = 'fortune13';
+const DME_NAME = 'hailmary';
 
 const YarnTarget = Juke.createTarget({
   name: 'yarn',
@@ -96,9 +96,9 @@ const DmTarget = Juke.createTarget({
     '_maps/map_files/generic/**',
     '_maps/map_files/Pahrump-Sunset/**',
     'code/**',
-    'modular_citadel/**',
-    'modular_coyote/**',
-    'modular_sunset/**',
+    'fallout/**',
+    'fallout/**',
+    'fallout/**',
     'goon/**',
     'html/**',
     'icons/**',

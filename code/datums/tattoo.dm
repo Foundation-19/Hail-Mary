@@ -95,25 +95,6 @@
 	var/mob/living/carbon/human/grundlehaver = clump?.owner
 	if(!grundlehaver)
 		return TRUE // how the heck did you sever a chest? nice
-	var/obj/item/organ/genital/grundle
-	switch(tat_location)
-		if(TATTOO_TRAMP_STAMP, TATTOO_LEFT_ASS, TATTOO_RIGHT_ASS) // Butt tattoo?
-			grundle = grundlehaver.has_butt()
-		if(TATTOO_WOMB_TATTOO)
-			grundle = grundlehaver.has_vagina()
-			if(!grundle)
-				grundle = grundlehaver.has_penis()
-			if(!grundle)
-				grundle = grundlehaver.has_balls() // fun fact the womb is stored in the balls
-		if(TATTOO_LEFT_BOOB, TATTOO_RIGHT_BOOB)
-			grundle = grundlehaver.has_breasts()
-		else
-			return TATTOO_NOT_PRIVATE // wasnt private to begin with lol
-	if(!istype(grundle)) // pro-pain
-		return TATTOO_SUPER_HIDDEN // no ass, no tat
-	if(grundle in grundlehaver.exposed_genitals)
-		return TRUE // ur cock out
-	return grundle.is_exposed() // ur cock out?
 
 /datum/tattoo/proc/get_desc(mob/viewer, check_vis = TRUE)
 	if(!owner_limb)

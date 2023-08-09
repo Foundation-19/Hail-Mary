@@ -10,6 +10,7 @@
 	var/obj/item/reagent_containers/fuel_tank/fuel_holder
 	var/idle_wasting = 0.5
 	var/move_wasting = 0.1
+	var/engine_on = null
 
 /obj/vehicle/ridden/fuel/New()
 	..()
@@ -27,6 +28,7 @@
 		fuel_holder.reagents.remove_reagent("welding_fuel",move_wasting)
 
 /obj/vehicle/ridden/fuel/process() //If process begining you can sure that engine is on
+	. = ..()
 	var/fuel_wasting
 
 	fuel_wasting += idle_wasting
@@ -35,26 +37,23 @@
 	var/health = (obj_integrity/max_integrity)
 	if(health < 1)
 		if(health < 0.5 && fuel > 100 && prob(10)) // If vehicle is broken it will burn
-			visible_message(span_warning("[src] is badly damaged, the engine has burst into flames!"))
+			visible_message("<span class='warning'>[src] is badly damaged, the engine has burst into flames!</span>")
 			fuel_wasting += 2
-			PoolOrNew(/obj/effect/hotspot, get_turf(src))
 			if(prob(50)) //MOAR FIRE
 				dyn_explosion(epicenter = src, power = fuel_holder.reagents.get_reagent_amount("welding_fuel")/10, flash_range = 2, adminlog = 0, flame_range = 5 ,silent = 1)
 
 	fuel_holder.reagents.remove_reagent("welding_fuel",fuel_wasting)
 
 	if(fuel_holder.reagents.get_reagent_amount("welding_fuel") < 1)
-		StopEngine()
+		stop_engine()
 
-/obj/vehicle/ridden/fuel/start_engine()
+/obj/vehicle/ridden/fuel/proc/start_engine()
 	if(fuel_holder.reagents.get_reagent_amount("welding_fuel") < 1)
-		to_chat(usr, span_warning("[src] has run out of fuel!"))
+		to_chat(usr, "<span class='warning'>[src] has run out of fuel!</span>")
 		return
-	..()
 	START_PROCESSING(SSobj, src)
 
-/obj/vehicle/ridden/fuel/stop_engine()
-	..()
+/obj/vehicle/ridden/fuel/proc/stop_engine()
 	STOP_PROCESSING(SSobj, src)
 
 /obj/vehicle/ridden/fuel/verb/ToggleFuelTank()
@@ -84,7 +83,7 @@
 
 /obj/item/reagent_containers/fuel_tank
 	name = "fuel tank"
-	container_type = OPENCONTAINER
+
 	amount_per_transfer_from_this = 25
 	var/inside = 1
 
@@ -97,25 +96,25 @@
 	if(W.is_open_container() && W.reagents)
 		if(inside)
 			if(!W.reagents.total_volume)
-				to_chat(user, span_warning("[W] is empty!"))
+				to_chat(user, "<span class='warning'>[W] is empty!</span>")
 				return
 
 			if(src.reagents.total_volume >= src.reagents.maximum_volume)
-				to_chat(user, span_notice("[src] is full."))
+				to_chat(user, "<span class='notice'>[src] is full.</span>")
 				return
 
 
 			var/trans = W.reagents.trans_to(src, amount_per_transfer_from_this)
-			to_chat(user, span_notice("You transfer [trans] units of the solution to [src]."))
+			to_chat(user, "<span class='notice'>You transfer [trans] units of the solution to [src].</span>")
 		else
 			if(!src.reagents.total_volume)
-				to_chat(user, span_warning("[src] is empty!"))
+				to_chat(user, "<span class='warning'>[src] is empty!</span>")
 				return
 
 			if(W.reagents.total_volume >= W.reagents.maximum_volume)
-				to_chat(user, span_notice("[W] is full."))
+				to_chat(user, "<span class='notice'>[W] is full.</span>")
 				return
 
 
 			var/trans = src.reagents.trans_to(W, amount_per_transfer_from_this)
-			to_chat(user, span_notice("You transfer [trans] units of the solution to [W]."))
+			to_chat(user, "<span class='notice'>You transfer [trans] units of the solution to [W].</span>")

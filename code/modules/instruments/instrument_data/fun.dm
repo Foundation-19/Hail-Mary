@@ -21,7 +21,7 @@
 /datum/instrument/fun/nya
 	name = "NYA NYA NYA"
 	id = "nyanyanya"
-	real_samples = list("79" = 'modular_citadel/sound/voice/nya.ogg')
+	real_samples = list("79" = 'fallout/sound/voice/nya.ogg')
 	admin_only = TRUE
 
 /datum/instrument/fun/mothscream

@@ -69,7 +69,7 @@
 /obj/item/ammo_box/flintlock
 	name = "powderbag and musket balls"
 	desc = "A sack full of musket balls and blackpowder."
-	icon = 'modular_coyote/icons/objects/c13ammo.dmi'
+	icon = 'fallout/icons/objects/c13ammo.dmi'
 	icon_state = "gunpowder_musket"
 	max_ammo = 16
 	custom_materials = list(/datum/material/iron = MATS_PISTOL_SMALL_BOX)
@@ -81,7 +81,7 @@
 /obj/item/ammo_box/flintlock/minie
 	name = "powderbag and minie balls"
 	desc = "A sack full of musket balls and blackpowder."
-	icon = 'modular_coyote/icons/objects/c13ammo.dmi'
+	icon = 'fallout/icons/objects/c13ammo.dmi'
 	icon_state = "gunpowder_minie"
 	max_ammo = 16
 	custom_materials = list(/datum/material/iron = MATS_PISTOL_SMALL_BOX)
@@ -93,7 +93,7 @@
 /obj/item/ammo_box/flintlock/rubber
 	name = "powderbag and superballs"
 	desc = "A sack full of superballs and blackpowder."
-	icon = 'modular_coyote/icons/objects/c13ammo.dmi'
+	icon = 'fallout/icons/objects/c13ammo.dmi'
 	icon_state = "gunpowder_rubber"
 	max_ammo = 16
 	custom_materials = list(/datum/material/iron = MATS_PISTOL_SMALL_BOX)

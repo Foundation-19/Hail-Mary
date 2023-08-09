@@ -56,7 +56,7 @@ window "mainwindow"
 		anchor2 = -1,-1
 		is-default = true
 		saved-params = "pos;size;is-minimized;is-maximized"
-		title = "Coyote Bayou"
+		title = "Hail Mary"
 		icon = 'icons\\deathclawlogo.png'
 		macro = "default"
 		menu = "menu"
@@ -151,7 +151,7 @@ window "infowindow"
 		anchor2 = 50,0
 		background-color = none
 		saved-params = "is-checked"
-		text = "Coyote Wiki"
+		text = "/tg/ Wiki"
 		command = "tgwiki"
 	elem "changelog"
 		type = BUTTON

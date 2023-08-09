@@ -4,7 +4,7 @@
 	icon = 'icons/obj/vehicles.dmi'
 	icon_state = "fuckyou"
 	max_integrity = 300
-	armor = ARMOR_VALUE_MEDIUM
+	armor = list("melee" = 30, "bullet" = 30, "laser" = 30, "energy" = 0, "bomb" = 30, "bio" = 0, "rad" = 0, "fire" = 60, "acid" = 60)
 	density = TRUE
 	anchored = FALSE
 	var/list/mob/occupants				//mob = bitflags of their control level.
@@ -23,6 +23,10 @@
 	var/list/autogrant_actions_controller	//assoc list "[bitflag]" = list(typepaths)
 	var/list/mob/occupant_actions			//assoc list mob = list(type = action datum assigned to mob)
 	var/obj/vehicle/trailer
+	var/submerged = 0
+	var/mutable_appearance/carwateroverlay
+	var/mutable_appearance/carunderlay
+	var/mutable_appearance/wheelunderlay
 
 /obj/vehicle/Initialize(mapload)
 	. = ..()
@@ -35,7 +39,7 @@
 /obj/vehicle/examine(mob/user)
 	. = ..()
 	if(resistance_flags & ON_FIRE)
-		. += span_warning("It's on fire!")
+		. += "<span class='warning'>It's on fire!</span>"
 	var/healthpercent = obj_integrity/max_integrity * 100
 	switch(healthpercent)
 		if(50 to 99)
@@ -43,7 +47,7 @@
 		if(25 to 50)
 			. += "It appears heavily damaged."
 		if(0 to 25)
-			. += span_warning("It's falling apart!")
+			. += "<span class='warning'>It's falling apart!</span>"
 
 /obj/vehicle/proc/is_key(obj/item/I)
 	return I? (key_type_exact? (I.type == key_type) : istype(I, key_type)) : FALSE
@@ -114,7 +118,7 @@
 
 /obj/vehicle/proc/driver_move(mob/user, direction)
 	if(key_type && !is_key(inserted_key))
-		to_chat(user, span_warning("[src] has no key inserted!"))
+		to_chat(user, "<span class='warning'>[src] has no key inserted!</span>")
 		return FALSE
 	if(!default_driver_move)
 		return
@@ -173,3 +177,26 @@
 		occupants[1].bullet_act(Proj) // driver dinkage
 		return BULLET_ACT_HIT
 	. = ..()
+
+/obj/vehicle/proc/vehicle_update_water()
+	return
+
+/obj/vehicle/vehicle_update_water()
+	if(QDESTROYING(src))
+		return
+
+	var/list/caroverlays
+	cut_overlays(caroverlays)
+	add_overlay(carunderlay)
+	add_overlay(wheelunderlay)
+	
+	var/atom/A = loc // We'd better be swimming and on a turf
+	carunderlay = mutable_appearance(icon, "[icon_state]_underlay", VEHICLE_LAYER)
+	wheelunderlay = mutable_appearance(icon, "[icon_state]wheels", VEHICLE_WHEEL_LAYER)
+	//carwateroverlay = mutable_appearance(icon = 'icons/fallout/vehicles/centeredsmaller.dmi', icon_state = "bottom[depth]")
+	carwateroverlay.color = A.color
+	carwateroverlay.blend_mode = BLEND_INSET_OVERLAY
+	caroverlays += carwateroverlay
+	
+
+	add_overlay(caroverlays)

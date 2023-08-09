@@ -357,26 +357,6 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 
 	if(ishuman(C))
 		var/mob/living/carbon/human/H = C
-		if(NOGENITALS in H.dna.species.species_traits)
-			H.give_genitals(TRUE) //call the clean up proc to delete anything on the mob then return.
-		if(mutant_bodyparts["meat_type"]) //I can't believe it's come to the meat
-			H.type_of_meat = GLOB.meat_types[H.dna.features["meat_type"]]
-
-		if(H.physiology)
-			if(mutant_bodyparts["taur"])
-				var/datum/sprite_accessory/taur/T = GLOB.taur_list[H.dna.features["taur"]]
-				switch(T?.taur_mode)
-					if(STYLE_HOOF_TAURIC)
-						H.physiology.footstep_type = FOOTSTEP_MOB_SHOE
-					if(STYLE_PAW_TAURIC)
-						H.physiology.footstep_type = FOOTSTEP_MOB_CLAW
-					if(STYLE_SNEK_TAURIC)
-						H.physiology.footstep_type = FOOTSTEP_MOB_CRAWL
-					else
-						H.physiology.footstep_type = null
-			else
-				H.physiology.footstep_type = null
-
 		if(H.client && has_field_of_vision && CONFIG_GET(flag/use_field_of_vision))
 			H.LoadComponent(/datum/component/field_of_vision, H.field_of_vision_type)
 
@@ -407,10 +387,6 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 
 	C.remove_movespeed_modifier(/datum/movespeed_modifier/species)
 
-	if(mutant_bodyparts["meat_type"])
-		C.type_of_meat = GLOB.meat_types[C.dna.features["meat_type"]]
-	else
-		C.type_of_meat = initial(meat)
 
 	//If their inert mutation is not the same, swap it out
 	if((inert_mutation != new_species.inert_mutation) && LAZYLEN(C.dna.mutation_index) && (inert_mutation in C.dna.mutation_index))
@@ -577,7 +553,7 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 				var/icon/grad_s = null // temporary icon to apply to the MA
 				var/grad_style_ref = GLOB.hair_gradients[H.dna.features["grad_style"]]
 				if(grad_style_ref)
-					grad_s = new/icon("icon" = 'modular_coyote/icons/mob/hair_gradients.dmi', "icon_state" = grad_style_ref)
+					grad_s = new/icon("icon" = 'fallout/icons/mob/hair_gradients.dmi', "icon_state" = grad_style_ref)
 					var/icon/hair_sprite = new/icon("icon" = hair_file, "icon_state" = hair_state)
 					grad_s.Blend(hair_sprite, ICON_AND)
 					grad_s.Blend("#[H.dna.features["grad_color"]]", ICON_MULTIPLY)
@@ -637,51 +613,6 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 					right_eye.pixel_y += offset_features[OFFSET_EYES][2]
 				standing += left_eye
 				standing += right_eye
-
-	//Underwear, Undershirts & Socks
-	if(!(NO_UNDERWEAR in species_traits))
-		var/datum/sprite_accessory/taur/TA
-		if(mutant_bodyparts["taur"] && H.dna.features["taur"])
-			TA = GLOB.taur_list[H.dna.features["taur"]]
-		if(!(TA?.hide_legs) && H.socks && !H.hidden_socks && H.get_num_legs(FALSE) >= 2)
-			if(H.saved_socks)
-				H.socks = H.saved_socks
-				H.saved_socks = ""
-			var/datum/sprite_accessory/underwear/socks/S = GLOB.socks_list[H.socks]
-			if(S)
-				var/digilegs = ((DIGITIGRADE in species_traits) && S.has_digitigrade) ? "_d" : ""
-				var/mutable_appearance/MA = mutable_appearance(S.icon, "[S.icon_state][digilegs]", -BODY_LAYER)
-				if(S.has_color)
-					MA.color = "#[H.socks_color]"
-				standing += MA
-
-		if(H.underwear && !H.hidden_underwear)
-			if(H.saved_underwear)
-				H.underwear = H.saved_underwear
-				H.saved_underwear = ""
-			var/datum/sprite_accessory/underwear/bottom/B = GLOB.underwear_list[H.underwear]
-			if(B)
-				var/digilegs = ((DIGITIGRADE in species_traits) && B.has_digitigrade) ? "_d" : ""
-				var/mutable_appearance/MA = mutable_appearance(B.icon, "[B.icon_state][digilegs]", -BODY_LAYER)
-				if(B.has_color)
-					MA.color = "#[H.undie_color]"
-				standing += MA
-
-		if(H.undershirt && !H.hidden_undershirt)
-			if(H.saved_undershirt)
-				H.undershirt = H.saved_undershirt
-				H.saved_undershirt = ""
-			var/datum/sprite_accessory/underwear/top/T = GLOB.undershirt_list[H.undershirt]
-			if(T)
-				var/state = "[T.icon_state][((DIGITIGRADE in species_traits) && T.has_digitigrade) ? "_d" : ""]"
-				var/mutable_appearance/MA
-				if(H.dna.species.sexes && H.dna.features["body_model"] == FEMALE)
-					MA = wear_alpha_masked_version(state, T.icon, BODY_LAYER, FEMALE_UNIFORM_TOP)
-				else
-					MA = mutable_appearance(T.icon, state, -BODY_LAYER)
-				if(T.has_color)
-					MA.color = "#[H.shirt_color]"
-				standing += MA
 
 	//Warpaint and tattoos
 	if(H.warpaint)
@@ -1474,6 +1405,8 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 		var/punchedstam = target.getStaminaLoss()
 		var/punchedbrute = target.getBruteLoss()
 
+		damage += calc_unarmed_dam_mod_from_special(user) // S.P.E.C.I.A.L.
+
 		//CITADEL CHANGES - makes resting and disabled combat mode reduce punch damage, makes being out of combat mode result in you taking more damage
 		//if(!SEND_SIGNAL(target, COMSIG_COMBAT_MODE_CHECK, COMBAT_MODE_INACTIVE))
 		//	damage *= 1.2
@@ -1594,11 +1527,6 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 				"You hear a slap.")
 			return FALSE
 		user.adjustStaminaLossBuffered(3)
-		target.adjust_arousal(20,maso = TRUE)
-		if (ishuman(target) && HAS_TRAIT(target, TRAIT_MASO) && target.has_dna() && prob(10))
-			target.mob_climax(forced_climax=TRUE)
-		if (!HAS_TRAIT(target, TRAIT_PERMABONER))
-			stop_wagging_tail(target)
 		target.visible_message(\
 			span_danger("\The [user] slaps [user == target ? "[user.p_their()] own" : "\the [target]'s"] ass!"),\
 			span_notice("[user] slaps your ass! "),\
@@ -1989,14 +1917,12 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 			if(BP)
 				if(BP.receive_damage(damage_amount, 0, wound_bonus = wound_bonus, bare_wound_bonus = bare_wound_bonus, sharpness = sharpness))
 					H.update_damage_overlays()
-					if(damage_amount < 20)
-						H.adjust_arousal(damage_amount, maso = TRUE)
 
 			else//no bodypart, we deal damage with a more general method.
 				H.adjustBruteLoss(damage_amount)
 		if(BURN)
 			H.damageoverlaytemp = 20
-			var/damage_amount = forced ? damage : damage * hit_percent * burnmod * H.physiology.burn_mod
+			var/damage_amount = forced ? damage : damage * hit_percent * burnmod * H.physiology.burn_mod * get_special_burn_resist_multiplier(H) // S.P.E.C.I.A.L.
 			if(BP)
 				if(BP.receive_damage(0, damage_amount, wound_bonus = wound_bonus, bare_wound_bonus = bare_wound_bonus, sharpness = sharpness))
 					H.update_damage_overlays()

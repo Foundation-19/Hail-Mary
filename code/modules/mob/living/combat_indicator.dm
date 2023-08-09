@@ -36,13 +36,13 @@
 		nextcombatpopup = world.time + 10 SECONDS
 		if(state)
 			if (prob(50))
-				playsound(src, 'modular_coyote/sound/combatintent/waawaa2.ogg', 50)
+				playsound(src, 'fallout/sound/combatintent/waawaa2.ogg', 50)
 			else
-				playsound(src, 'modular_coyote/sound/combatintent/waawaa1.ogg', 50)
+				playsound(src, 'fallout/sound/combatintent/waawaa1.ogg', 50)
 			//flick_overlay(src, "combat", 20)
 			visible_message(span_warning("[src] gets ready for combat!"))
 		else if(!state)
-			playsound(src, 'modular_coyote/sound/combatintent/waawaa3.ogg', 20)
+			playsound(src, 'fallout/sound/combatintent/waawaa3.ogg', 20)
 			visible_message(span_warning("[src] relaxes their stance, seemingly at ease."))
 	set_combat_indicator(state)
 

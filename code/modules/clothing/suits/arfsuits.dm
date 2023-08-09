@@ -1177,9 +1177,9 @@
 /obj/item/clothing/suit/armor/light/duster/goner
 	name = "dev-patched dull trenchcoat"
 	desc = "A non-existent dull trenchcoat."
-	icon = 'modular_sunset/icons/obj/clothing/suits.dmi'
-	mob_overlay_icon = 'modular_sunset/icons/mob/clothing/suit.dmi'
-	anthro_mob_worn_overlay = 'modular_sunset/icons/mob/clothing/suit_digi.dmi'
+	icon = 'fallout/icons/obj/clothing/suits.dmi'
+	mob_overlay_icon = 'fallout/icons/mob/clothing/suit.dmi'
+	anthro_mob_worn_overlay = 'fallout/icons/mob/clothing/suit_digi.dmi'
 	icon_state = "goner_suit"
 	item_state = "ro_suit"
 	// body_parts_covered = CHEST|GROIN|LEGS|ARMS
@@ -1453,8 +1453,8 @@
 	desc = "A bronze chestplate caste after the fall of the old world, it's in okay shape, if a little banged up."
 	icon_state = "old_bronze_chestplate"
 	item_state = "old_bronze_chestplate"
-	icon = 'modular_coyote/icons/objects/civ13suitobj.dmi'
-	mob_overlay_icon = 'modular_coyote/icons/objects/civ13suitonmob.dmi'
+	icon = 'fallout/icons/objects/civ13suitobj.dmi'
+	mob_overlay_icon = 'fallout/icons/objects/civ13suitonmob.dmi'
 	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T1)
 
 /obj/item/clothing/suit/armor/light/kit/punk/leatherarmor
@@ -1462,16 +1462,16 @@
 	desc = "A rough leather chestpiece, hardened to help keep the owies out."
 	icon_state = "leather_armor"
 	item_state = "leather_armor"
-	icon = 'modular_coyote/icons/objects/civ13suitobj.dmi'
-	mob_overlay_icon = 'modular_coyote/icons/objects/civ13suitonmob.dmi'
+	icon = 'fallout/icons/objects/civ13suitobj.dmi'
+	mob_overlay_icon = 'fallout/icons/objects/civ13suitonmob.dmi'
 
 /obj/item/clothing/suit/armor/light/kit/punk/ironchestplate
 	name = "iron chestplate"
 	desc = "An iron breastplate made after the fall of the old world, its only a little rusted on the inside."
 	icon_state = "iron_chestplate"
 	item_state = "iron_chestplate"
-	icon = 'modular_coyote/icons/objects/civ13suitobj.dmi'
-	mob_overlay_icon = 'modular_coyote/icons/objects/civ13suitonmob.dmi'
+	icon = 'fallout/icons/objects/civ13suitobj.dmi'
+	mob_overlay_icon = 'fallout/icons/objects/civ13suitonmob.dmi'
 	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T1)
 
 /obj/item/clothing/suit/armor/light/kit/punk/scaledarmor
@@ -1479,8 +1479,8 @@
 	desc = "Overlapping scaled armor made by a smith after the fall of the old world."
 	icon_state = "scaled_armor"
 	item_state = "scaled_armor"
-	icon = 'modular_coyote/icons/objects/civ13suitobj.dmi'
-	mob_overlay_icon = 'modular_coyote/icons/objects/civ13suitonmob.dmi'
+	icon = 'fallout/icons/objects/civ13suitobj.dmi'
+	mob_overlay_icon = 'fallout/icons/objects/civ13suitonmob.dmi'
 	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T1)
 
 /obj/item/clothing/suit/armor/light/kit/punk/roughchainmail
@@ -1488,8 +1488,8 @@
 	desc = "A roughly made, but workable, set of chainmail"
 	icon_state = "early_chainmail"
 	item_state = "early_chainmail"
-	icon = 'modular_coyote/icons/objects/civ13suitobj.dmi'
-	mob_overlay_icon = 'modular_coyote/icons/objects/civ13suitonmob.dmi'
+	icon = 'fallout/icons/objects/civ13suitobj.dmi'
+	mob_overlay_icon = 'fallout/icons/objects/civ13suitonmob.dmi'
 	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T1)
 
 /obj/item/clothing/suit/armor/light/kit/punk/fullchainmail
@@ -1497,8 +1497,8 @@
 	desc = "A solidly made bit of chainmail in the shape of a shirt, protects the nips but may chafe."
 	icon_state = "chainmail"
 	item_state = "chainmail"
-	icon = 'modular_coyote/icons/objects/civ13suitobj.dmi'
-	mob_overlay_icon = 'modular_coyote/icons/objects/civ13suitonmob.dmi'
+	icon = 'fallout/icons/objects/civ13suitobj.dmi'
+	mob_overlay_icon = 'fallout/icons/objects/civ13suitonmob.dmi'
 	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T1)
 
 /obj/item/clothing/suit/armor/light/kit/punk/ironchestplatered
@@ -1506,8 +1506,8 @@
 	desc = "An iron breastplate made after the fall of the old world, includes a dashing red cape."
 	icon_state = "iron_chestplater"
 	item_state = "iron_chestplater"
-	icon = 'modular_coyote/icons/objects/civ13suitobj.dmi'
-	mob_overlay_icon = 'modular_coyote/icons/objects/civ13suitonmob.dmi'
+	icon = 'fallout/icons/objects/civ13suitobj.dmi'
+	mob_overlay_icon = 'fallout/icons/objects/civ13suitonmob.dmi'
 	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T1)
 
 /obj/item/clothing/suit/armor/light/kit/punk/ironchestplateblue
@@ -1515,8 +1515,8 @@
 	desc = "An iron breastplate made after the fall of the old world, includes a cool blue cape."
 	icon_state = "iron_chestplateb"
 	item_state = "iron_chestplateb"
-	icon = 'modular_coyote/icons/objects/civ13suitobj.dmi'
-	mob_overlay_icon = 'modular_coyote/icons/objects/civ13suitonmob.dmi'
+	icon = 'fallout/icons/objects/civ13suitobj.dmi'
+	mob_overlay_icon = 'fallout/icons/objects/civ13suitonmob.dmi'
 	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T1)
 
 /obj/item/clothing/suit/armor/light/kit/punk/oldscalemail
@@ -1524,8 +1524,8 @@
 	desc = "A set of dull scale armor, overlaps just right in all the wrong places."
 	icon_state = "old_scale_armor"
 	item_state = "old_scale_armor"
-	icon = 'modular_coyote/icons/objects/civ13suitobj.dmi'
-	mob_overlay_icon = 'modular_coyote/icons/objects/civ13suitonmob.dmi'
+	icon = 'fallout/icons/objects/civ13suitobj.dmi'
+	mob_overlay_icon = 'fallout/icons/objects/civ13suitonmob.dmi'
 	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T1)
 
 /obj/item/clothing/suit/armor/light/kit/punk/scalemail
@@ -1533,8 +1533,8 @@
 	desc = "A decent set of scale armor made in the last few years by a smith in the wastes."
 	icon_state = "scale_armor"
 	item_state = "scale_armor"
-	icon = 'modular_coyote/icons/objects/civ13suitobj.dmi'
-	mob_overlay_icon = 'modular_coyote/icons/objects/civ13suitonmob.dmi'
+	icon = 'fallout/icons/objects/civ13suitobj.dmi'
+	mob_overlay_icon = 'fallout/icons/objects/civ13suitonmob.dmi'
 	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T1)
 
 /obj/item/clothing/suit/armor/light/kit/punk/varangianarmor
@@ -1542,8 +1542,8 @@
 	desc = "A decent set of lamellar armor, no need to be byzantine about it."
 	icon_state = "varangian_lamellar"
 	item_state = "varangian_lamellar"
-	icon = 'modular_coyote/icons/objects/civ13suitobj.dmi'
-	mob_overlay_icon = 'modular_coyote/icons/objects/civ13suitonmob.dmi'
+	icon = 'fallout/icons/objects/civ13suitobj.dmi'
+	mob_overlay_icon = 'fallout/icons/objects/civ13suitonmob.dmi'
 	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T1)
 
 /obj/item/clothing/suit/armor/light/kit/punk/egyptianlam
@@ -1551,8 +1551,8 @@
 	desc = "You're in denial if you like this armor, but that's okay."
 	icon_state = "egyptian_lamellar"
 	item_state = "egyptian_lamellar"
-	icon = 'modular_coyote/icons/objects/civ13suitobj.dmi'
-	mob_overlay_icon = 'modular_coyote/icons/objects/civ13suitonmob.dmi'
+	icon = 'fallout/icons/objects/civ13suitobj.dmi'
+	mob_overlay_icon = 'fallout/icons/objects/civ13suitonmob.dmi'
 	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T1)
 
 /obj/item/clothing/suit/armor/light/kit/punk/chitinbreastplate
@@ -1560,8 +1560,8 @@
 	desc = "A tough armor made out of the hide of gigantic fireants, pretty hot to be honest."
 	icon_state = "chitin_chestplate"
 	item_state = "chitin_chestplate"
-	icon = 'modular_coyote/icons/objects/civ13suitobj.dmi'
-	mob_overlay_icon = 'modular_coyote/icons/objects/civ13suitonmob.dmi'
+	icon = 'fallout/icons/objects/civ13suitobj.dmi'
+	mob_overlay_icon = 'fallout/icons/objects/civ13suitonmob.dmi'
 	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T1)
 
 /obj/item/clothing/suit/armor/light/kit/punk/steppeleatherarmor
@@ -1569,16 +1569,16 @@
 	desc = "Creaking leather armor with shoulder pads and thigh protection. Mongol Tested, Wasteland approved."
 	icon_state = "steppe_leather_armor"
 	item_state = "steppe_leather_armor"
-	icon = 'modular_coyote/icons/objects/civ13suitobj.dmi'
-	mob_overlay_icon = 'modular_coyote/icons/objects/civ13suitonmob.dmi'
+	icon = 'fallout/icons/objects/civ13suitobj.dmi'
+	mob_overlay_icon = 'fallout/icons/objects/civ13suitonmob.dmi'
 
 /obj/item/clothing/suit/armor/light/kit/punk/chineselam
 	name = "Lamellar Armor with Red Tunic"
 	desc = "Your ancestors protect you more thant his armor likely does, but at least it looks nice."
 	icon_state = "chinese_lamellar"
 	item_state = "chinese_lamellar"
-	icon = 'modular_coyote/icons/objects/civ13suitobj.dmi'
-	mob_overlay_icon = 'modular_coyote/icons/objects/civ13suitonmob.dmi'
+	icon = 'fallout/icons/objects/civ13suitobj.dmi'
+	mob_overlay_icon = 'fallout/icons/objects/civ13suitonmob.dmi'
 	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T1)
 
 /obj/item/clothing/suit/armor/light/kit/punk/chinesebreastplate
@@ -1586,8 +1586,8 @@
 	desc = "This steel breastplate and red shirt are quite stylish, if you like being imortalized in a clay statue."
 	icon_state = "imperial_chinese"
 	item_state = "imperial_chinese"
-	icon = 'modular_coyote/icons/objects/civ13suitobj.dmi'
-	mob_overlay_icon = 'modular_coyote/icons/objects/civ13suitonmob.dmi'
+	icon = 'fallout/icons/objects/civ13suitobj.dmi'
+	mob_overlay_icon = 'fallout/icons/objects/civ13suitonmob.dmi'
 	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T1)
 
 /obj/item/clothing/suit/armor/light/kit/punk/woodenbreastplate
@@ -1595,8 +1595,8 @@
 	desc = "This is exactly what it would feel like to be a monkey wearing a coconut for armor."
 	icon_state = "wooden_chestarmor"
 	item_state = "wooden_chestarmor"
-	icon = 'modular_coyote/icons/objects/civ13suitobj.dmi'
-	mob_overlay_icon = 'modular_coyote/icons/objects/civ13suitonmob.dmi'
+	icon = 'fallout/icons/objects/civ13suitobj.dmi'
+	mob_overlay_icon = 'fallout/icons/objects/civ13suitonmob.dmi'
 
 
 /obj/item/clothing/suit/armor/light/kit/punk/steelbreastplate
@@ -1604,8 +1604,8 @@
 	desc = "A relatively recently made breastplate, put together by god knows who in this swamp."
 	icon_state = "imperial_breastplate"
 	item_state = "imperial_breastplate"
-	icon = 'modular_coyote/icons/objects/civ13suitobj.dmi'
-	mob_overlay_icon = 'modular_coyote/icons/objects/civ13suitonmob.dmi'
+	icon = 'fallout/icons/objects/civ13suitobj.dmi'
+	mob_overlay_icon = 'fallout/icons/objects/civ13suitonmob.dmi'
 	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T1)
 
 /obj/item/clothing/suit/armor/light/kit/punk/bronzebreastplate
@@ -1613,8 +1613,8 @@
 	desc = "Abs not included."
 	icon_state = "bronze_chestplate"
 	item_state = "bronze_chestplate"
-	icon = 'modular_coyote/icons/objects/civ13suitobj.dmi'
-	mob_overlay_icon = 'modular_coyote/icons/objects/civ13suitonmob.dmi'
+	icon = 'fallout/icons/objects/civ13suitobj.dmi'
+	mob_overlay_icon = 'fallout/icons/objects/civ13suitonmob.dmi'
 	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T1)
 
 ////////////////

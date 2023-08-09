@@ -118,12 +118,6 @@
 	if(!isnull(effects_exam))
 		. += effects_exam
 
-	//CIT CHANGES START HERE - adds genital details to examine text
-	if(LAZYLEN(internal_organs) && CHECK_BITFIELD(user.client?.prefs.cit_toggles, GENITAL_EXAMINE))
-		for(var/obj/item/organ/genital/dicc in internal_organs)
-			if(istype(dicc) && dicc.is_exposed())
-				. += "[dicc.desc]"
-	//END OF CIT CHANGES
 
 	//Jitters
 	switch(jitteriness)
@@ -522,7 +516,7 @@
 	else if(isobserver(user) && traitstring)
 		. += "<span class='info'><b>Traits:</b> [traitstring]</span>"
 
-	. += "\n[print_special()]\n"
+	. += "\n[generate_special_examine_text()]\n"
 
 	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE, user, .) //This also handles flavor texts now
 

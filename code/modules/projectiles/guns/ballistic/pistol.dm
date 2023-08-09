@@ -107,7 +107,7 @@
 /obj/item/gun/ballistic/automatic/pistol/ninemil/skorpion
 	name = "Skorpion 9mm"
 	desc = "A Czech machine pistol developed in the 60s"
-	icon = 'modular_coyote/icons/objects/automatic.dmi'
+	icon = 'fallout/icons/objects/automatic.dmi'
 	icon_state = "skorpion"
 	init_mag_type = /obj/item/ammo_box/magazine/m9mm/doublestack
 	mag_type = /obj/item/ammo_box/magazine/m9mm/doublestack
@@ -120,7 +120,7 @@
 /obj/item/gun/ballistic/automatic/pistol/ninemil/ruby
 	name = "Ruby"
 	desc = "A petite pocket pistol designed by Colt and used extensively by the French Army until the late '50s"
-	icon = 'modular_coyote/icons/objects/pistols.dmi'
+	icon = 'fallout/icons/objects/pistols.dmi'
 	icon_state = "ruby"
 	init_mag_type = /obj/item/ammo_box/magazine/m9mm
 	mag_type = /obj/item/ammo_box/magazine/m9mm
@@ -131,7 +131,7 @@
 /obj/item/gun/ballistic/automatic/pistol/ninemil/c93
 	name = "9mm Borchardt"
 	desc = "The first mass produced semiautomatic pistol, designed before doublestack magazines existed."
-	icon = 'modular_coyote/icons/objects/pistols.dmi'
+	icon = 'fallout/icons/objects/pistols.dmi'
 	icon_state = "borchardt"
 	init_mag_type = /obj/item/ammo_box/magazine/m9mm
 	mag_type = /obj/item/ammo_box/magazine/m9mm

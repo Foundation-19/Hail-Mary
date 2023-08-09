@@ -73,6 +73,8 @@
 		SP_DISTANT_RANGE(LASER_RANGE_DISTANT)
 	)
 	desc_short = "A flying metal meatball with lasers."
+	var/obj/machinery/camera/portable/builtInCamera
+
 
 /mob/living/simple_animal/hostile/eyebot/New()
 	..()

@@ -837,7 +837,7 @@
 /mob/living/simple_animal/hostile/gelcube
 	name = "gelatinous cube"
 	desc = "A big green radioactive cube creature, it jiggles with menacing wiggles and is making some sort of goofy face at you."
-	icon = 'modular_coyote/icons/mob/vatgrowing.dmi'
+	icon = 'fallout/icons/mob/vatgrowing.dmi'
 	icon_state = "gelatinous"
 	icon_living = "gelatinous"
 	icon_dead = "gelatinous_dead"
