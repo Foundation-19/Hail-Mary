@@ -544,7 +544,7 @@
 	name = "plasma bolt"
 	icon_state = "plasma_clot"
 	damage_type = BURN
-	damage = 60 //fucc you normies
+	damage = 30 //fucc you normies
 	armour_penetration = 0 //no AP, armor shouldnt have more than 20 resist against plasma unless its specialized
 	flag = "energy" //checks vs. energy protection
 	wound_bonus = 90 //being hit with plasma is horrific
@@ -556,7 +556,7 @@
 	name = "plasma bolt"
 	icon_state = "plasma_clot"
 	damage_type = BURN
-	damage = 40
+	damage = 25
 	flag = "energy" //checks vs. energy protection
 	wound_bonus = 50 //let's not make the carbine horrifying // nah lets make it horrifying
 	eyeblur = 0
@@ -567,7 +567,7 @@
 	name = "plasma stream"
 	icon_state = "plasma_clot"
 	damage_type = BURN
-	damage = 90
+	damage = 40
 	flag = "energy" //checks vs. energy protection
 	eyeblur = 0
 	is_reflectable = FALSE
