@@ -332,7 +332,7 @@
 
 /obj/item/projectile/beam/laser/lasgun/hitscan //hitscan aer9 test
 	name = "laser beam"
-	damage = 32
+	damage = 24
 	hitscan = TRUE
 	tracer_type = /obj/effect/projectile/tracer/laser
 	muzzle_type = /obj/effect/projectile/muzzle/laser
@@ -357,7 +357,8 @@
 
 /obj/item/projectile/beam/laser/pistol/hitscan //Actual AEP7
 	name = "laser beam"
-	damage = 24
+	damage = 20
+	armor_penetration = 0.2
 	hitscan = TRUE
 	tracer_type = /obj/effect/projectile/tracer/laser
 	muzzle_type = /obj/effect/projectile/muzzle/laser
@@ -393,7 +394,7 @@
 
 /obj/item/projectile/beam/laser/recharger/hitscan //hitscan recharger pistol
 	name = "recharger beam"
-	damage = 25
+	damage = 15
 	hitscan = TRUE
 	tracer_type = /obj/effect/projectile/tracer/pulse
 	muzzle_type = /obj/effect/projectile/muzzle/pulse
@@ -413,7 +414,7 @@
 
 /obj/item/projectile/beam/laser/gatling //Gatling Laser Projectile
 	name = "rapid-fire laser beam"
-	damage = 12
+	damage = 5
 
 /obj/item/projectile/beam/laser/pistol/retro
 	name = "laser beam"
