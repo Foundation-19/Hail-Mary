@@ -358,7 +358,7 @@
 /obj/item/projectile/beam/laser/pistol/hitscan //Actual AEP7
 	name = "laser beam"
 	damage = 20
-	armor_penetration = 0.2
+	armour_penetration = 0.2
 	hitscan = TRUE
 	tracer_type = /obj/effect/projectile/tracer/laser
 	muzzle_type = /obj/effect/projectile/muzzle/laser
