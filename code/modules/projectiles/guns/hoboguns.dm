@@ -116,12 +116,13 @@
 		GUN_MISFIRE_HURTS_USER(5, 5, 15, BRUTELOSS),
 		GUN_MISFIRE_THROWS_GUN(2),
 		GUN_MISFIRE_UNLOADS_GUN(0.5, 50)
+	)
 
 /obj/item/gun/ballistic/revolver/hobo/piperevolver
 	name = "pipe revolver (10mm)"
 	desc = "A twisted, rusted mess of steel and gunpowder, resmebling the shape of a revolver. Shoots, albeit barely."
 	icon_state = "pipe_revolver"
-	item_state = "gun
+	item_state = "gun"
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/improvised10mm
 	weapon_class = WEAPON_CLASS_NORMAL
 	weapon_weight = GUN_ONE_HAND_ONLY
@@ -135,6 +136,7 @@
 		GUN_MISFIRE_HURTS_USER(5, 10, 15, BRUTELOSS | FIRELOSS | OXYLOSS),
 		GUN_MISFIRE_THROWS_GUN(0.5),
 		GUN_MISFIRE_UNLOADS_GUN(2, 50)
+	)
 
 /* * * * * * * * * * *
  * Pipe Gun

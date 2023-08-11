@@ -356,7 +356,7 @@ GLOBAL_LIST_INIT(main_body_parts, list(
  * * * * * * * * * */
 
 /// Bullet speed defines
-#define BULLET_SPEED_BASE (TILES_TO_PIXELS(45))
+#define BULLET_SPEED_BASE (TILES_TO_PIXELS(30))
 
 /// Arrow speed defines
 #define ARROW_SPEED_BASE (BULLET_SPEED_BASE * 0.90)
