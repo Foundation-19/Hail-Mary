@@ -4,8 +4,8 @@
 /obj/item/gun/ballistic/revolver/grenadelauncher
 	desc = "A break-operated grenade rifle. Projectiles travel slowly."
 	name = "grenade rifle"
-	icon = 'fallout/icons/objects/gun.dmi'
-	icon_state = "m79" // shinier sprite! but also points left :V
+	icon = 'icons/obj/guns/projectile'
+	icon_state = "grenade_rifle" // shinier sprite! but also points left :V
 	item_state = "gun"
 	mag_type = /obj/item/ammo_box/magazine/internal/grenadelauncher
 	init_mag_type = /obj/item/ammo_box/magazine/internal/grenadelauncher
@@ -94,8 +94,8 @@
 /obj/item/gun/ballistic/fatman
 	name = "fatman"
 	desc =  "a man-portable launcher for tactical nuclear ordnance. what's not to love?"
-	icon = 'fallout/icons/objects/gun.dmi'
-	icon_state = "fatman"
+	icon = 'icons/obj/guns/projectile'
+	icon_state = "mirv"
 	item_state = "rocketlauncher" //not sure where it is or if this works. hopefully.
 	mag_type = /obj/item/ammo_box/magazine/internal/mininuke
 	fire_sound = 'sound/weapons/rocketlaunch.ogg'
@@ -116,7 +116,7 @@
 /obj/item/gun/ballistic/rocketlauncher
 	name = "\improper rocket launcher"
 	desc = "Technically, this is actually a rocket propelled grenade launcher, rather than a true rocket launcher. The person you shot is unlikely to care much, though."
-	icon_state = "rocketlauncher"
+	icon_state = "missile_launcher"
 	item_state = "rocketlauncher"
 	mag_type = /obj/item/ammo_box/magazine/internal/rocketlauncher
 	fire_sound = 'sound/weapons/rocketlaunch.ogg'
