@@ -21,7 +21,6 @@
 /obj/item/projectile/bullet/a556
 	name = "5.56 FMJ bullet"
 	damage = BULLET_DAMAGE_RIFLE_223
-	armour_penetration = 0.2
 	stamina = BULLET_STAMINA_RIFLE_223
 	spread = BULLET_SPREAD_SURPLUS
 	recoil = BULLET_RECOIL_RIFLE_223
@@ -383,7 +382,6 @@
 /obj/item/projectile/bullet/m5mm
 	name = "5mm bullet"
 	damage = BULLET_DAMAGE_RIFLE_5MM
-	armour_penetration = 0.2
 	stamina = BULLET_STAMINA_RIFLE_5MM
 	spread = BULLET_SPREAD_SURPLUS
 	recoil = BULLET_RECOIL_RIFLE_5MM
@@ -523,11 +521,10 @@
  * WOUNDS: 25
  * WNAKED: 15
  */
-
+/*
 /obj/item/projectile/bullet/a762
 	name = "7.62 FMJ bullet"
 	damage = BULLET_DAMAGE_RIFLE_308_MATCH
-	armour_penetration = 0.3
 	stamina = BULLET_STAMINA_RIFLE_308
 	spread = BULLET_SPREAD_SURPLUS
 	recoil = BULLET_RECOIL_RIFLE_308_MATCH
@@ -538,7 +535,7 @@
 
 	pixels_per_second = BULLET_SPEED_RIFLE_308_MATCH
 	damage_falloff = BULLET_FALLOFF_DEFAULT_PISTOL_LIGHT
-
+*/
 /* 7.62mm surplus
  * DAMAGE: 45
  * STAMIN: 45
@@ -549,7 +546,6 @@
 /obj/item/projectile/bullet/a308
 	name = ".308 bullet"
 	damage = BULLET_DAMAGE_RIFLE_308
-	armour_penetration = 0.2
 	stamina = BULLET_STAMINA_RIFLE_308
 	spread = BULLET_SPREAD_SURPLUS
 	recoil = BULLET_RECOIL_RIFLE_308
@@ -654,7 +650,6 @@
 /obj/item/projectile/bullet/a3006
 	name = ".30-06 bullet"
 	damage = BULLET_DAMAGE_RIFLE_3006
-	armour_penetration = 0.3
 	stamina = BULLET_STAMINA_RIFLE_3006
 	spread = BULLET_SPREAD_SURPLUS
 	recoil = BULLET_RECOIL_RIFLE_3006
@@ -723,7 +718,6 @@
 /obj/item/projectile/bullet/a50MG
 	name = ".50MG slug"
 	damage = BULLET_DAMAGE_RIFLE_50MG
-	armour_penetration = 0.8
 	stamina = BULLET_STAMINA_RIFLE_50MG
 	spread = BULLET_SPREAD_SURPLUS
 	recoil = BULLET_RECOIL_RIFLE_50MG
@@ -953,7 +947,6 @@
  */
 /obj/item/projectile/bullet/c4570
 	name = ".45-70 bullet"
-	armour_penetration = 0.1
 	damage = BULLET_DAMAGE_RIFLE_4570
 	stamina = BULLET_STAMINA_RIFLE_4570
 	spread = BULLET_SPREAD_SURPLUS
@@ -1128,7 +1121,6 @@
 
 /obj/item/projectile/bullet/c2mm
 	name = "2mm gauss projectile"
-	armour_penetration = 0.2
 	damage = BULLET_DAMAGE_RIFLE_GAUSS
 	stamina = BULLET_STAMINA_RIFLE_GAUSS
 	spread = BULLET_SPREAD_SURPLUS
