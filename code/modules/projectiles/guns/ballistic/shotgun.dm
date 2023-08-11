@@ -594,7 +594,7 @@
 
 /obj/item/gun/ballistic/automatic/shotgun/riot/combat
 	name = "Combat shotgun"
-	dsec = "A semi-automatic and magazine-fed shotgun. Sports a large stock and a short barrel, ideal for clearing small buildings and alleys."
+	desc = "A semi-automatic and magazine-fed shotgun. Sports a large stock and a short barrel, ideal for clearing small buildings and alleys."
 	icon_state = "c_shotgun"
 
 /* * * * * * * * * * *

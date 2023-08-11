@@ -4,8 +4,7 @@
 /obj/item/gun/ballistic/revolver/grenadelauncher
 	desc = "A break-operated grenade rifle. Projectiles travel slowly."
 	name = "grenade rifle"
-	icon = 'icons/obj/guns/projectile'
-	icon_state = "grenade_rifle" // shinier sprite! but also points left :V
+	icon_state = "grenade_rifle"
 	item_state = "gun"
 	mag_type = /obj/item/ammo_box/magazine/internal/grenadelauncher
 	init_mag_type = /obj/item/ammo_box/magazine/internal/grenadelauncher
@@ -94,7 +93,6 @@
 /obj/item/gun/ballistic/fatman
 	name = "fatman"
 	desc =  "a man-portable launcher for tactical nuclear ordnance. what's not to love?"
-	icon = 'icons/obj/guns/projectile'
 	icon_state = "mirv"
 	item_state = "rocketlauncher" //not sure where it is or if this works. hopefully.
 	mag_type = /obj/item/ammo_box/magazine/internal/mininuke
