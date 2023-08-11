@@ -88,6 +88,55 @@
 	icon_state = "zipgun[magazine ? "-[CEILING(get_ammo(0)/1, 1)*1]" : ""][chambered ? "" : "-e"][silenced ? "-suppressed" : ""]"
 
 /* * * * * * * * * * *
+ * Pipe Pistol
+ * KYS pistol
+ * varied calibers 
+ * varying damage
+ * Slow shooting
+ * One handed
+ * Akimbo
+ * Common
+ * * * * * * * * * * */
+
+/obj/item/gun/ballistic/automatic/hobo/zipgun/pipe
+	name = "pipe pistol (9mm)"
+	icon_state = "pipe_pistol"
+	desc = "A less-than-intimiating mass of steel, somehow rigged and welded together in a manner that makes it able to shoot. It is a travesty."
+	item_state = "gun"
+	mag_type = /obj/item/ammo_box/magazine/zipgun
+	weapon_class = WEAPON_CLASS_SMALL
+	weapon_weight = GUN_ONE_HAND_AKIMBO
+	damage_multiplier = GUN_EXTRA_DAMAGE_T5
+	init_recoil = HANDGUN_RECOIL(2.1)
+	init_firemodes = list(
+		/datum/firemode/semi_auto/slow
+	)
+	prefered_power = CASING_POWER_LIGHT_PISTOL * CASING_POWER_MOD_SURPLUS
+	misfire_possibilities = list(
+		GUN_MISFIRE_HURTS_USER(5, 5, 15, BRUTELOSS),
+		GUN_MISFIRE_THROWS_GUN(2),
+		GUN_MISFIRE_UNLOADS_GUN(0.5, 50)
+
+/obj/item/gun/ballistic/revolver/hobo/piperevolver
+	name = "pipe revolver (10mm)"
+	desc = "A twisted, rusted mess of steel and gunpowder, resmebling the shape of a revolver. Shoots, albeit barely."
+	icon_state = "pipe_revolver"
+	item_state = "gun
+	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/improvised10mm
+	weapon_class = WEAPON_CLASS_NORMAL
+	weapon_weight = GUN_ONE_HAND_ONLY
+	damage_multiplier = GUN_EXTRA_DAMAGE_0
+	init_recoil = HANDGUN_RECOIL(2.4)
+	init_firemodes = list(
+		/datum/firemode/semi_auto/slow,
+	)
+	prefered_power = CASING_POWER_LIGHT_PISTOL * CASING_POWER_MOD_HANDLOAD
+	misfire_possibilities = list(
+		GUN_MISFIRE_HURTS_USER(5, 10, 15, BRUTELOSS | FIRELOSS | OXYLOSS),
+		GUN_MISFIRE_THROWS_GUN(0.5),
+		GUN_MISFIRE_UNLOADS_GUN(2, 50)
+
+/* * * * * * * * * * *
  * Pipe Gun
  * Loud angry rifle
  * .223 / 5.56mm
