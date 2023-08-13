@@ -247,11 +247,12 @@
 /obj/item/gun/ballistic/automatic/smg/smg10mm
 	name = "10mm submachine gun"
 	desc = "One of the most common personal-defense weapons of the Great War, a sturdy and reliable open-bolt 10mm submachine gun."
-	icon_state = "smg10mm"
+	icon_state = "10mmsmg"
 	item_state = "smg10mm"
 	icon_prefix = "smg10mm"
-	mag_type = /obj/item/ammo_box/magazine/m10mm
-	init_mag_type = /obj/item/ammo_box/magazine/m10mm/adv/ext
+	wielded_icon = "smg10mm2"
+	mag_type = /obj/item/ammo_box/magazine/m10mm/smg
+	init_mag_type = /obj/item/ammo_box/magazine/m10mm/smg
 	weapon_class = WEAPON_CLASS_CARBINE
 	weapon_weight = GUN_ONE_HAND_ONLY
 	damage_multiplier = GUN_EXTRA_DAMAGE_0
@@ -381,7 +382,7 @@
 	mag_type = /obj/item/ammo_box/magazine/m22
 	init_mag_type = /obj/item/ammo_box/magazine/m22
 	disallowed_mags = list(/obj/item/ammo_box/magazine/m22/extended)
-	weapon_class = WEAPON_CLASS_SMALL	
+	weapon_class = WEAPON_CLASS_SMALL
 	damage_multiplier = GUN_LESS_DAMAGE_T1
 	can_suppress = FALSE
 
@@ -393,7 +394,7 @@
 	mag_type = /obj/item/ammo_box/magazine/uzim9mm/rockwell
 	init_mag_type = /obj/item/ammo_box/magazine/uzim9mm/rockwell
 	disallowed_mags = null
-	weapon_class = WEAPON_CLASS_CARBINE	
+	weapon_class = WEAPON_CLASS_CARBINE
 	init_firemodes = list(
 		/datum/firemode/automatic/rpm150,
 		/datum/firemode/semi_auto/fast
@@ -408,7 +409,7 @@
 	mag_type = /obj/item/ammo_box/magazine/uzim9mm/rockwell
 	init_mag_type = /obj/item/ammo_box/magazine/uzim9mm/rockwell
 	disallowed_mags = null
-	weapon_class = WEAPON_CLASS_CARBINE	
+	weapon_class = WEAPON_CLASS_CARBINE
 	init_firemodes = list(
 		/datum/firemode/automatic/rpm150,
 		/datum/firemode/semi_auto/fast
