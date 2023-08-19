@@ -1,5 +1,5 @@
 
-/obj/item/ms13/power_armor
+/obj/item/fallout/power_armor
 	name = "power armor part"
 	desc = ""
 	icon = 'fallout/icons/objects/pa_items.dmi'
@@ -27,7 +27,7 @@
 	var/zone = null
 	var/obj/item/clothing/suit/space/hardsuit/ms13/power_armor/frame = null
 
-/obj/item/ms13/power_armor/attackby(obj/item/I, mob/living/user, params)
+/obj/item/fallout/power_armor/attackby(obj/item/I, mob/living/user, params)
 	if(I.tool_behaviour == TOOL_SCREWDRIVER)
 		var/list/radial_options = list()
 		var/list/part_to_zone = list()
@@ -92,7 +92,7 @@
 		update_appearance()
 		return ..()
 
-/obj/item/ms13/power_armor/take_damage(damage_amount, damage_type, damage_flag, sound_effect, attack_dir, armour_penetration)
+/obj/item/fallout/power_armor/take_damage(damage_amount, damage_type, damage_flag, sound_effect, attack_dir, armour_penetration)
 	if(!uses_integrity)
 		CRASH("[src] had /atom/proc/take_damage() called on it without it being a type that has uses_integrity = TRUE!")
 	if(QDELETED(src))
@@ -120,13 +120,13 @@
 	if(atom_integrity <= 0)
 		atom_destruction(damage_flag)
 
-/obj/item/ms13/power_armor/atom_break(damage_flag)
+/obj/item/fallout/power_armor/atom_break(damage_flag)
 	. = ..()
 
-/obj/item/ms13/power_armor/atom_destruction(damage_flag)
+/obj/item/fallout/power_armor/atom_destruction(damage_flag)
 	return
 
-/obj/item/ms13/power_armor/get_examine_string(mob/user, thats, damage = TRUE)
+/obj/item/fallout/power_armor/get_examine_string(mob/user, thats, damage = TRUE)
 	var/damage_txt = ""
 	if(damage)
 		if(atom_integrity <= 0)
@@ -141,42 +141,42 @@
 			damage_txt = "This part is not damaged"
 	return "[icon2html(src, user)] [thats? "That's ":""][get_examine_name(user)]. [damage_txt]"
 
-/obj/item/ms13/power_armor/leg
+/obj/item/fallout/power_armor/leg
 	name = "Leg power armor"
 	w_class = WEIGHT_CLASS_BULKY
 	grid_height = 128
 	grid_width = 96
 
-/obj/item/ms13/power_armor/leg/left
+/obj/item/fallout/power_armor/leg/left
 	name = "power armor"
 	zone = BODY_ZONE_L_LEG
 
-/obj/item/ms13/power_armor/leg/right
+/obj/item/fallout/power_armor/leg/right
 	name = "power armor"
 	zone = BODY_ZONE_R_LEG
 
-/obj/item/ms13/power_armor/arm
+/obj/item/fallout/power_armor/arm
 	name = "Arm power armor"
 	w_class = WEIGHT_CLASS_BULKY
 	grid_height = 128
 	grid_width = 96
 
-/obj/item/ms13/power_armor/arm/left
+/obj/item/fallout/power_armor/arm/left
 	name = "Left arm power armor"
 	zone = BODY_ZONE_L_ARM
 
-/obj/item/ms13/power_armor/arm/right
+/obj/item/fallout/power_armor/arm/right
 	name = "Right arm power armor"
 	zone = BODY_ZONE_R_ARM
 
-/obj/item/ms13/power_armor/chest
+/obj/item/fallout/power_armor/chest
 	name = "Chest power armor"
 	zone = BODY_ZONE_CHEST
 	w_class = WEIGHT_CLASS_HUGE
 	grid_height = 256
 	grid_width = 256
 
-/obj/item/ms13/power_armor/head
+/obj/item/fallout/power_armor/head
 	name = "Helmet power armor"
 	zone = BODY_ZONE_HEAD
 	var/type_helmet = null
@@ -185,7 +185,7 @@
 	grid_width = 96
 
 //T-60
-/obj/item/ms13/power_armor/leg/left/t60
+/obj/item/fallout/power_armor/leg/left/t60
 	name = "T-60 Power Armor left leg"
 	icon_state = "t60_leftleg"
 	icon_state_pa = "t60_leftleg"
@@ -201,7 +201,7 @@
 					FIRE = CLASS5_FIRE)
 	chance = 35
 
-/obj/item/ms13/power_armor/leg/right/t60
+/obj/item/fallout/power_armor/leg/right/t60
 	name = "T-60 Power Armor right leg"
 	icon_state = "t60_rightleg"
 	icon_state_pa = "t60_rightleg"
@@ -217,7 +217,7 @@
 					FIRE = CLASS5_FIRE)
 	chance = 35
 
-/obj/item/ms13/power_armor/chest/t60
+/obj/item/fallout/power_armor/chest/t60
 	name = "T-60 Power Armor chest"
 	icon_state = "t60_chest"
 	icon_state_pa = "t60_chest"
@@ -233,7 +233,7 @@
 					FIRE = CLASS5_FIRE)
 	chance = 25
 
-/obj/item/ms13/power_armor/arm/left/t60
+/obj/item/fallout/power_armor/arm/left/t60
 	name = "T-60 Power Armor left arm"
 	icon_state = "t60_lefthand"
 	icon_state_pa = "t60_lefthand"
@@ -249,7 +249,7 @@
 					FIRE = CLASS5_FIRE)
 	chance = 35
 
-/obj/item/ms13/power_armor/arm/right/t60
+/obj/item/fallout/power_armor/arm/right/t60
 	name = "T-60 Power Armor right arm"
 	icon_state = "t60_righthand"
 	icon_state_pa = "t60_righthand"
@@ -265,14 +265,14 @@
 					FIRE = CLASS5_FIRE)
 	chance = 35
 
-/obj/item/ms13/power_armor/head/t60
+/obj/item/fallout/power_armor/head/t60
 	name = "T-60 Power Armor helmet"
 	icon_state = "t60_helmet"
 	type_helmet = /obj/item/clothing/head/helmet/space/hardsuit/ms13/power_armor/t60
 	chance = 25
 
 //T-51
-/obj/item/ms13/power_armor/leg/left/t51
+/obj/item/fallout/power_armor/leg/left/t51
 	name = "T-51B Power Armor left leg"
 	icon_state = "t51_leftleg"
 	icon_state_pa = "t51_leftleg"
@@ -288,7 +288,7 @@
 					FIRE = CLASS5_FIRE)
 	chance = 35
 
-/obj/item/ms13/power_armor/leg/right/t51
+/obj/item/fallout/power_armor/leg/right/t51
 	name = "T-51B Power Armor right leg"
 	icon_state = "t51_rightleg"
 	icon_state_pa = "t51_rightleg"
@@ -304,7 +304,7 @@
 					FIRE = CLASS5_FIRE)
 	chance = 35
 
-/obj/item/ms13/power_armor/chest/t51
+/obj/item/fallout/power_armor/chest/t51
 	name = "T-51B Power Armor chest"
 	icon_state = "t51_chest"
 	icon_state_pa = "t51_chest"
@@ -320,7 +320,7 @@
 					FIRE = CLASS5_FIRE)
 	chance = 25
 
-/obj/item/ms13/power_armor/arm/left/t51
+/obj/item/fallout/power_armor/arm/left/t51
 	name = "T-51B Power Armor left arm"
 	icon_state = "t51_lefthand"
 	icon_state_pa = "t51_lefthand"
@@ -336,7 +336,7 @@
 					FIRE = CLASS5_FIRE)
 	chance = 35
 
-/obj/item/ms13/power_armor/arm/right/t51
+/obj/item/fallout/power_armor/arm/right/t51
 	name = "T-51B Power Armor right arm"
 	icon_state = "t51_righthand"
 	icon_state_pa = "t51_righthand"
@@ -352,14 +352,14 @@
 					FIRE = CLASS5_FIRE)
 	chance = 35
 
-/obj/item/ms13/power_armor/head/t51
+/obj/item/fallout/power_armor/head/t51
 	name = "T-51B Power Armor helmet"
 	icon_state = "t51_helmet"
 	type_helmet = /obj/item/clothing/head/helmet/space/hardsuit/ms13/power_armor/t51
 	chance = 25
 
 //T-45
-/obj/item/ms13/power_armor/leg/left/t45
+/obj/item/fallout/power_armor/leg/left/t45
 	name = "T-45D Power Armor left leg"
 	icon_state = "t45_leftleg"
 	icon_state_pa = "t45_leftleg"
@@ -375,7 +375,7 @@
                 FIRE = CLASS5_FIRE)
 	chance = 65
 
-/obj/item/ms13/power_armor/leg/right/t45
+/obj/item/fallout/power_armor/leg/right/t45
 	name = "T-45D Power Armor right leg"
 	icon_state = "t45_rightleg"
 	icon_state_pa = "t45_rightleg"
@@ -391,7 +391,7 @@
                 FIRE = CLASS5_FIRE)
 	chance = 65
 
-/obj/item/ms13/power_armor/chest/t45
+/obj/item/fallout/power_armor/chest/t45
 	name = "T-45D Power Armor chest"
 	icon_state = "t45_chest"
 	icon_state_pa = "t45_chest"
@@ -407,7 +407,7 @@
                 FIRE = CLASS5_FIRE)
 	chance = 75
 
-/obj/item/ms13/power_armor/arm/left/t45
+/obj/item/fallout/power_armor/arm/left/t45
 	name = "T-45D Power Armor left arm"
 	icon_state = "t45_lefthand"
 	icon_state_pa = "t45_lefthand"
@@ -423,7 +423,7 @@
                 FIRE = CLASS5_FIRE)
 	chance = 65
 
-/obj/item/ms13/power_armor/arm/right/t45
+/obj/item/fallout/power_armor/arm/right/t45
 	name = "T-45D Power Armor right arm"
 	icon_state = "t45_righthand"
 	icon_state_pa = "t45_righthand"
@@ -439,20 +439,21 @@
                 FIRE = CLASS5_FIRE)
 	chance = 65
 
-/obj/item/ms13/power_armor/head/t45
+/obj/item/fallout/power_armor/head/t45
 	name = "T-45D Power Armor helmet"
 	icon_state = "t45_helmet"
-	type_helmet = /obj/item/clothing/head/helmet/space/hardsuit/ms13/power_armor/t45
+	type_helmet = /obj/item/clothing/head/helmet/space/hardsuit/fallout/power_armor/t45
 	chance = 75
 
 
 //X01
-/obj/item/ms13/power_armor/head/x01
+/obj/item/fallout/power_armor/head/x01
 	name = "X01 helmet"
 	icon_state = "x01_helmet"
-	type_helmet = /obj/item/clothing/head/helmet/space/hardsuit/ms13/power_armor/x01
+	type_helmet = /obj/item/clothing/head/helmet/space/hardsuit/fallout/power_armor/x01
 	chance = 0
-/obj/item/ms13/power_armor/chest/x01
+
+/obj/item/fallout/power_armor/chest/x01
 	name = "X01 chest"
 	icon_state = "x01_chest"
 	icon_state_pa = "x01_chest"
@@ -468,7 +469,7 @@
                 FIRE = CLASS5_FIRE)
 	chance = 0
 
-/obj/item/ms13/power_armor/arm/left/x01
+/obj/item/fallout/power_armor/arm/left/x01
 	name = "X01 left arm"
 	icon_state = "x01_lefthand"
 	icon_state_pa = "x01_lefthand"
@@ -484,7 +485,7 @@
                 FIRE = CLASS5_FIRE)
 	chance = 0
 
-/obj/item/ms13/power_armor/arm/right/x01
+/obj/item/fallout/power_armor/arm/right/x01
 	name = "X01 right arm"
 	icon_state = "x01_righthand"
 	icon_state_pa = "x01_righthand"
@@ -500,7 +501,7 @@
                 FIRE = CLASS5_FIRE)
 	chance = 0
 
-/obj/item/ms13/power_armor/leg/left/x01
+/obj/item/fallout/power_armor/leg/left/x01
 	name = "X01 left leg"
 	icon_state = "x01_leftleg"
 	icon_state_pa = "x01_leftleg"
@@ -516,7 +517,7 @@
                 FIRE = CLASS5_FIRE)
 	chance = 0
 
-/obj/item/ms13/power_armor/leg/right/x01
+/obj/item/fallout/power_armor/leg/right/x01
 	name = "X01 right leg"
 	icon_state = "x01_rightleg"
 	icon_state_pa = "x01_rightleg"
@@ -533,12 +534,13 @@
 	chance = 0
 
 //X02
-/obj/item/ms13/power_armor/head/x02
+/obj/item/fallout/power_armor/head/x02
 	name = "X02 helmet"
 	icon_state = "x02_helmet"
-	type_helmet = /obj/item/clothing/head/helmet/space/hardsuit/ms13/power_armor/x02
+	type_helmet = /obj/item/clothing/head/helmet/space/hardsuit/fallout/power_armor/x02
 	chance = 0
-/obj/item/ms13/power_armor/chest/x02
+
+/obj/item/fallout/power_armor/chest/x02
 	name = "X02 chest"
 	icon_state = "x02_chest"
 	icon_state_pa = "x02_chest"
@@ -554,7 +556,7 @@
                 FIRE = CLASS5_FIRE)
 	chance = 0
 
-/obj/item/ms13/power_armor/arm/left/x02
+/obj/item/fallout/power_armor/arm/left/x02
 	name = "X02 left arm"
 	icon_state = "x02_lefthand"
 	icon_state_pa = "x02_lefthand"
@@ -570,7 +572,7 @@
                 FIRE = CLASS5_FIRE)
 	chance = 0
 
-/obj/item/ms13/power_armor/arm/right/x02
+/obj/item/fallout/power_armor/arm/right/x02
 	name = "X02 right arm"
 	icon_state = "x02_righthand"
 	icon_state_pa = "x02_righthand"
@@ -586,7 +588,7 @@
                 FIRE = CLASS5_FIRE)
 	chance = 0
 
-/obj/item/ms13/power_armor/leg/left/x02
+/obj/item/fallout/power_armor/leg/left/x02
 	name = "X02 left leg"
 	icon_state = "x02_leftleg"
 	icon_state_pa = "x02_leftleg"
@@ -602,7 +604,7 @@
                 FIRE = CLASS5_FIRE)
 	chance = 0
 
-/obj/item/ms13/power_armor/leg/right/x02
+/obj/item/fallout/power_armor/leg/right/x02
 	name = "X02 right leg"
 	icon_state = "x02_rightleg"
 	icon_state_pa = "x02_rightleg"
@@ -619,12 +621,13 @@
 	chance = 0
 
 //X03 aka Hellfire
-/obj/item/ms13/power_armor/head/x03
+/obj/item/fallout/power_armor/head/x03
 	name = "X03 helmet"
 	icon_state = "x03_helmet"
-	type_helmet = /obj/item/clothing/head/helmet/space/hardsuit/ms13/power_armor/x03
+	type_helmet = /obj/item/clothing/head/helmet/space/hardsuit/fallout/power_armor/x03
 	chance = 0
-/obj/item/ms13/power_armor/chest/x03
+
+/obj/item/fallout/power_armor/chest/x03
 	name = "X03 chest"
 	icon_state = "x03_chest"
 	icon_state_pa = "x03_chest"
@@ -640,7 +643,7 @@
                 FIRE = CLASS5_FIRE)
 	chance = 0
 
-/obj/item/ms13/power_armor/arm/left/x03
+/obj/item/fallout/power_armor/arm/left/x03
 	name = "X03 left arm"
 	icon_state = "x03_lefthand"
 	icon_state_pa = "x03_lefthand"
@@ -656,7 +659,7 @@
                 FIRE = CLASS5_FIRE)
 	chance = 0
 
-/obj/item/ms13/power_armor/arm/right/x03
+/obj/item/fallout/power_armor/arm/right/x03
 	name = "X03 right arm"
 	icon_state = "x03_righthand"
 	icon_state_pa = "x03_righthand"
@@ -672,7 +675,7 @@
                 FIRE = CLASS5_FIRE)
 	chance = 0
 
-/obj/item/ms13/power_armor/leg/left/x03
+/obj/item/fallout/power_armor/leg/left/x03
 	name = "X03 left leg"
 	icon_state = "x03_leftleg"
 	icon_state_pa = "x03_leftleg"
@@ -688,7 +691,7 @@
                 FIRE = CLASS5_FIRE)
 	chance = 0
 
-/obj/item/ms13/power_armor/leg/right/x03
+/obj/item/fallout/power_armor/leg/right/x03
 	name = "X03 right leg"
 	icon_state = "x03_rightleg"
 	icon_state_pa = "x03_rightleg"
