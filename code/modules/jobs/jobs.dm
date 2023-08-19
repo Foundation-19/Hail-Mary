@@ -308,6 +308,11 @@ GLOBAL_LIST_INIT(followers_positions, list(
 	"Town Scientist",
 ))
 
+GLOBAL_LIST_INIT(mutant_positions, list(
+	"Super Mutant Leader",
+	"Super Mutant",
+))
+
 // job categories for rendering the late join menu
 GLOBAL_LIST_INIT(position_categories, list(
 	//	EXP_TYPE_NCR = list("jobs" = ncr_positions, "color" = "#ffeeaa"),
