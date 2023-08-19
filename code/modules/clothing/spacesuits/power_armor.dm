@@ -1,9 +1,9 @@
 //Generic power armor helmet
-/obj/item/clothing/head/helmet/space/hardsuit/ms13/power_armor
+/obj/item/clothing/head/helmet/space/hardsuit/fallout/power_armor
 	name = "Generic Power Armor Helmet"
 	desc = "A helmet belonging to Power Armor"
-	icon = 'mojave/icons/mob/large-worn-icons/32x48/head.dmi'
-	worn_icon = 'mojave/icons/mob/large-worn-icons/32x48/head.dmi'
+	icon = 'fallout/icons/mob/large-worn-icons/32x48/head.dmi'
+	worn_icon = 'fallout/icons/mob/large-worn-icons/32x48/head.dmi'
 	icon_state = "null"
 	basestate = "helmet"
 	strip_delay = 15 SECONDS
@@ -14,12 +14,12 @@
 	worn_y_dimension = 48
 	worn_y_offset = 2
 	clothing_flags = STOPSPRESSUREDAMAGE | THICKMATERIAL | SNUG_FIT | BLOCKS_SHOVE_KNOCKDOWN
-	var/obj/item/radio/headset/ms13/powerarmor/radio //Instantiated radio
-	var/radiotype = /obj/item/radio/headset/ms13/powerarmor //Typepath of the radio
+	var/obj/item/radio/headset/fallout/powerarmor/radio //Instantiated radio
+	var/radiotype = /obj/item/radio/headset/fallout/powerarmor //Typepath of the radio
 	actions_types = list(/datum/action/item_action/toggle_helmet_light) //New ability to modify the radio's settings
 
 //No touchy
-/obj/item/clothing/head/helmet/space/hardsuit/ms13/power_armor/Initialize()
+/obj/item/clothing/head/helmet/space/hardsuit/fallout/power_armor/Initialize()
 	. = ..()
 	interaction_flags_item &= ~INTERACT_ITEM_ATTACK_HAND_PICKUP
 	ADD_TRAIT(src, TRAIT_NODROP, STICKY_NODROP) //Somehow it's stuck to your body, no questioning.
@@ -27,13 +27,13 @@
 	AddElement(/datum/element/radiation_protected_clothing)
 	AddComponent(/datum/component/clothing_fov_visor, FOV_180_DEGREES)
 
-/obj/item/clothing/head/helmet/space/hardsuit/ms13/power_armor/Destroy()
+/obj/item/clothing/head/helmet/space/hardsuit/fallout/power_armor/Destroy()
 	if(suit.helmet)
 		suit.helmet = null
 	suit = null
 	. = ..()
 
-/obj/item/clothing/head/helmet/space/hardsuit/ms13/power_armor/take_damage(damage_amount, damage_type, damage_flag, sound_effect, attack_dir, subtractible_armour_penetration, def_zone)
+/obj/item/clothing/head/helmet/space/hardsuit/fallout/power_armor/take_damage(damage_amount, damage_type, damage_flag, sound_effect, attack_dir, subtractible_armour_penetration, def_zone)
 	if(!uses_integrity)
 		CRASH("[src] had /atom/proc/take_damage() called on it without it being a type that has uses_integrity = TRUE!")
 	if(QDELETED(src))
@@ -61,13 +61,13 @@
 	if(atom_integrity <= 0)
 		atom_destruction(damage_flag)
 
-/obj/item/clothing/head/helmet/space/hardsuit/ms13/power_armor/atom_break(damage_flag)
+/obj/item/clothing/head/helmet/space/hardsuit/fallout/power_armor/atom_break(damage_flag)
 	. = ..()
 
-/obj/item/clothing/head/helmet/space/hardsuit/ms13/power_armor/atom_destruction(damage_flag)
+/obj/item/clothing/head/helmet/space/hardsuit/fallout/power_armor/atom_destruction(damage_flag)
 	return
 
-/obj/item/clothing/head/helmet/space/hardsuit/ms13/power_armor/get_examine_string(mob/user, thats, damage = TRUE)
+/obj/item/clothing/head/helmet/space/hardsuit/fallout/power_armor/get_examine_string(mob/user, thats, damage = TRUE)
 	var/damage_txt = ""
 	if(damage)
 		if(atom_integrity <= 0)
@@ -82,39 +82,39 @@
 			damage_txt = "This part is not damaged"
 	return "[icon2html(src, user)] [thats? "That's ":""][get_examine_name(user)]. [damage_txt]"
 
-/obj/item/radio/headset/ms13/
+/obj/item/radio/headset/fallout/
 	force_superspace = TRUE // ignore tcoms and zlevels
 
-/obj/item/radio/headset/ms13/powerarmor
+/obj/item/radio/headset/fallout/powerarmor
 	name = "integrated power armor headset"
 	actions_types = list(/datum/action/item_action/toggle_radio)
-	icon = 'mojave/icons/objects/tools/tools_inventory.dmi'
+	icon = 'fallout/icons/objects/tools/tools_inventory.dmi'
 	icon_state = "handradio"
 	subspace_transmission = FALSE
 	freerange = TRUE
 
-/obj/item/radio/headset/ms13/powerarmor/Initialize()
+/obj/item/radio/headset/fallout/powerarmor/Initialize()
 	. = ..()
 	interaction_flags_item &= ~INTERACT_ITEM_ATTACK_HAND_PICKUP
 
-/obj/item/radio/headset/ms13/powerarmor/attackby(obj/item/I, mob/user, params)
+/obj/item/radio/headset/fallout/powerarmor/attackby(obj/item/I, mob/user, params)
 	return
 
-/obj/item/radio/headset/ms13/powerarmor/ui_action_click(mob/user, action)
+/obj/item/radio/headset/fallout/powerarmor/ui_action_click(mob/user, action)
     if(istype(action, /datum/action/item_action/toggle_radio))
         ui_interact(user)
 
-/obj/item/radio/headset/ms13/powerarmor/t45
+/obj/item/radio/headset/fallout/powerarmor/t45
     name = "integrated T-45D power armor radio"
     desc = "A mediocre quality radio internally attached to a T-45D power armor helmet."
     radio_broadcast = RADIOSTATIC_MEDIUM
 
-/obj/item/radio/headset/ms13/powerarmor/t51
+/obj/item/radio/headset/fallout/powerarmor/t51
     name = "integrated T-51B power armor radio"
     desc = "A high quality radio internally attached to a T-51B power armor helmet."
     radio_broadcast = RADIOSTATIC_LIGHT
 
-/obj/item/radio/headset/ms13/powerarmor/advanced
+/obj/item/radio/headset/fallout/powerarmor/advanced
 	name = "integrated advanced power armor radio"
 	desc = "A high quality radio internally attached to a advanced power armor helmet."
 	radio_broadcast = RADIOSTATIC_HEAVY
@@ -124,7 +124,7 @@
 	name = "Toggle Internal Radio Settings"
 
 //Frame power armor based off of the hardsuit
-/obj/item/clothing/suit/space/hardsuit/ms13/power_armor
+/obj/item/clothing/suit/space/hardsuit/fallout/power_armor
 	name = "Power Armor"
 	desc = "A power armour frame. It is capable of accepting any armor module with a bit of elbow grease."
 	icon = 'mojave/icons/mob/large-worn-icons/32x48/armor.dmi'
