@@ -1,18 +1,15 @@
-
 /datum/job/smutant
 	title = "Super Mutant"
-	department_flag = SMUTANT
-	selection_color = "#26bf47"
+	flag = F13SMUTANT
 	faction = FACTION_SMUTANT
+	selection_color = "#26bf47"
 	total_positions = 10 
 	spawn_positions = 10
 	outfit = /datum/outfit/job/smutant
 
 /datum/job/smutant/boss
 	title = "Super Mutant Leader"
-	department_flag = SMUTANT
 	selection_color = "#26bf47"
-	faction = FACTION_MUTANT
 	total_positions = 1
 	spawn_positions = 1
 
