@@ -624,7 +624,7 @@
 
 
 // T-45 PA set //
-///obj/item/clothing/head/helmet/space/hardsuit/ms13/power_armor/t45
+/obj/item/clothing/head/helmet/space/hardsuit/ms13/power_armor/t45
 	name = "T-41D Power Armor Helmet"
 	desc = "A more advanced helmet for a more advanced piece of power armor. Comes with a high quality headlamp and integrated radio."
 	icon_state = "helmet0-t45"
@@ -644,7 +644,7 @@
                 ENERGY = CLASS4_PLASMA, \
                 FIRE = CLASS5_FIRE)
 
-///obj/item/clothing/suit/space/hardsuit/ms13/power_armor/t45
+/obj/item/clothing/suit/space/hardsuit/ms13/power_armor/t45
 	module_armor = list(
 		BODY_ZONE_HEAD =  /obj/item/ms13/power_armor/head/t45,
 		BODY_ZONE_CHEST = /obj/item/ms13/power_armor/chest/t45,
@@ -654,12 +654,12 @@
 		BODY_ZONE_R_LEG = /obj/item/ms13/power_armor/leg/right/t45
 	)
 
-///obj/item/clothing/suit/space/hardsuit/ms13/power_armor/t45/random/Initialize()
+/obj/item/clothing/suit/space/hardsuit/ms13/power_armor/t45/random/Initialize()
 	random_type()
 	. = ..()
 
 // T-51 PA set //
-///obj/item/clothing/head/helmet/space/hardsuit/ms13/power_armor/t51
+/obj/item/clothing/head/helmet/space/hardsuit/ms13/power_armor/t51
 	name = "T-51B Power Armor Helmet"
 	desc = "A more advanced helmet for a more advanced piece of power armor. Comes with a high quality headlamp and integrated radio."
 	icon_state = "helmet0-t51"
@@ -679,7 +679,7 @@
                 ENERGY = CLASS4_PLASMA, \
                 FIRE = CLASS5_FIRE)
 
-///obj/item/clothing/suit/space/hardsuit/ms13/power_armor/t51
+/obj/item/clothing/suit/space/hardsuit/ms13/power_armor/t51
 	module_armor = list(
 		BODY_ZONE_HEAD =  /obj/item/ms13/power_armor/head/t51,
 		BODY_ZONE_CHEST = /obj/item/ms13/power_armor/chest/t51,
@@ -689,12 +689,12 @@
 		BODY_ZONE_R_LEG = /obj/item/ms13/power_armor/leg/right/t51
 	)
 
-///obj/item/clothing/suit/space/hardsuit/ms13/power_armor/t51/random/Initialize()
+/obj/item/clothing/suit/space/hardsuit/ms13/power_armor/t51/random/Initialize()
 	random_type()
 	. = ..()
 
 // T-60 PA set //
-///obj/item/clothing/head/helmet/space/hardsuit/ms13/power_armor/t60
+/obj/item/clothing/head/helmet/space/hardsuit/ms13/power_armor/t60
 	name = "T-60 Power Armor Helmet"
 	desc = "A more advanced helmet for a more advanced piece of power armor. Comes with a high quality headlamp and integrated radio."
 	icon_state = "helmet0-t60"
@@ -714,7 +714,7 @@
                 ENERGY = CLASS4_PLASMA, \
                 FIRE = CLASS5_FIRE)
 
-///obj/item/clothing/suit/space/hardsuit/ms13/power_armor/t60
+/obj/item/clothing/suit/space/hardsuit/ms13/power_armor/t60
 	module_armor = list(
 		BODY_ZONE_HEAD =  /obj/item/ms13/power_armor/head/t60,
 		BODY_ZONE_CHEST = /obj/item/ms13/power_armor/chest/t60,
@@ -724,12 +724,12 @@
 		BODY_ZONE_R_LEG = /obj/item/ms13/power_armor/leg/right/t60
 	)
 
-///obj/item/clothing/suit/space/hardsuit/ms13/power_armor/t60/random/Initialize()
+/obj/item/clothing/suit/space/hardsuit/ms13/power_armor/t60/random/Initialize()
 	random_type()
 	. = ..()
 
 // T-X01 PA set //
-///obj/item/clothing/head/helmet/space/hardsuit/ms13/power_armor/x01
+/obj/item/clothing/head/helmet/space/hardsuit/ms13/power_armor/x01
 	name = "X01 Power Armor Helmet"
 	desc = "A more advanced helmet for a more advanced piece of power armor. Comes with a high quality headlamp and integrated radio."
 	icon_state = "helmet0-x01"
@@ -749,7 +749,7 @@
                 ENERGY = CLASS4_PLASMA, \
                 FIRE = CLASS5_FIRE)
 
-///obj/item/clothing/suit/space/hardsuit/ms13/power_armor/x01
+/obj/item/clothing/suit/space/hardsuit/ms13/power_armor/x01
 	module_armor = list(
 		BODY_ZONE_HEAD =  /obj/item/ms13/power_armor/head/x01,
 		BODY_ZONE_CHEST = /obj/item/ms13/power_armor/chest/x01,
@@ -759,12 +759,12 @@
 		BODY_ZONE_R_LEG = /obj/item/ms13/power_armor/leg/right/x01
 	)
 
-///obj/item/clothing/suit/space/hardsuit/ms13/power_armor/x01/random/Initialize()
+/obj/item/clothing/suit/space/hardsuit/ms13/power_armor/x01/random/Initialize()
 	random_type()
 	. = ..()
 
 // T-X02 PA set //
-///obj/item/clothing/head/helmet/space/hardsuit/ms13/power_armor/x0
+/obj/item/clothing/head/helmet/space/hardsuit/ms13/power_armor/x0
 	name = "X02 Power Armor Helmet"
 	desc = "A more advanced helmet for a more advanced piece of power armor. Comes with a high quality headlamp and integrated radio."
 	icon_state = "helmet0-x02"
@@ -784,7 +784,7 @@
                 ENERGY = CLASS4_PLASMA, \
                 FIRE = CLASS5_FIRE)
 
-///obj/item/clothing/suit/space/hardsuit/ms13/power_armor/x02
+/obj/item/clothing/suit/space/hardsuit/ms13/power_armor/x02
 	module_armor = list(
 		BODY_ZONE_HEAD =  /obj/item/ms13/power_armor/head/x02,
 		BODY_ZONE_CHEST = /obj/item/ms13/power_armor/chest/x02,
@@ -794,12 +794,12 @@
 		BODY_ZONE_R_LEG = /obj/item/ms13/power_armor/leg/right/x02
 	)
 
-///obj/item/clothing/suit/space/hardsuit/ms13/power_armor/x02/random/Initialize()
+/obj/item/clothing/suit/space/hardsuit/ms13/power_armor/x02/random/Initialize()
 	random_type()
 	. = ..()
 
 // T-X03 aka Hellfire PA set //
-///obj/item/clothing/head/helmet/space/hardsuit/ms13/power_armor/x03
+/obj/item/clothing/head/helmet/space/hardsuit/ms13/power_armor/x03
 	name = "X03 Power Armor Helmet"
 	desc = "A more advanced helmet for a more advanced piece of power armor. Comes with a high quality headlamp and integrated radio."
 	icon_state = "helmet0-x03"
@@ -819,7 +819,7 @@
                 ENERGY = CLASS4_PLASMA, \
                 FIRE = CLASS5_FIRE)
 
-///obj/item/clothing/suit/space/hardsuit/ms13/power_armor/x03
+/obj/item/clothing/suit/space/hardsuit/ms13/power_armor/x03
 	module_armor = list(
 		BODY_ZONE_HEAD =  /obj/item/ms13/power_armor/head/x03,
 		BODY_ZONE_CHEST = /obj/item/ms13/power_armor/chest/x03,
@@ -829,6 +829,6 @@
 		BODY_ZONE_R_LEG = /obj/item/ms13/power_armor/leg/right/x03
 	)
 
-///obj/item/clothing/suit/space/hardsuit/ms13/power_armor/x03/random/Initialize()
+/obj/item/clothing/suit/space/hardsuit/ms13/power_armor/x03/random/Initialize()
 	random_type()
 	. = ..()
