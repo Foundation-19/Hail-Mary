@@ -9,9 +9,11 @@
 
 /datum/job/smutant/boss
 	title = "Super Mutant Leader"
+	flag = F13SMUTANTLEADER
 	selection_color = "#26bf47"
 	total_positions = 1
 	spawn_positions = 1
+	outfit = /datum/outfit/job/smutant/boss
 
 /datum/outfit/job/smutant
 	name = "Super Mutant"
