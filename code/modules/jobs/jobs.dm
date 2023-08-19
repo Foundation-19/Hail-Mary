@@ -242,7 +242,7 @@ GLOBAL_LIST_INIT(wasteland_positions, list(
 	"Preacher",
 	"Far-Lands Tribals",
 	"Wastelander",
-	"Minutemen",
+	"Minuteman",
 ))
 
 GLOBAL_LIST_INIT(redwater_positions, list(
