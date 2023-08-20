@@ -161,7 +161,7 @@
 /obj/item/gun/ballistic/revolver/widowmaker
 	name = "Winchester Widowmaker"
 	desc = "Old-world Winchester Widowmaker double-barreled 12 gauge shotgun, with mahogany furniture"
-	icon = icons/obj/guns/ballistic.dmi'
+	icon = 'icons/obj/guns/ballistic.dmi'
 	lefthand_file = 'icons/fallout/onmob/weapons/guns_lefthand.dmi'
 	righthand_file = 'icons/fallout/onmob/weapons/guns_righthand.dmi'
 	icon_state = "widowmaker"
@@ -248,7 +248,7 @@
 /obj/item/gun/ballistic/shotgun/hunting
 	name = "hunting shotgun"
 	desc = "A traditional hunting shotgun with wood furniture and a four-shell capacity underneath."
-	icon = icons/obj/guns/ballistic.dmi'
+	icon = 'icons/obj/guns/ballistic.dmi'
 	icon_state = "hunting_shotgun"
 	item_state = "hunting_shotgun"
 	icon_prefix = "shotgunpump"
@@ -421,7 +421,7 @@
 /obj/item/gun/ballistic/shotgun/automatic/combat/shotgunlever
 	name = "mare's leg shotgun"
 	desc = "A speedy pistol grip lever action shotgun with a five-shell capacity underneath plus one in chamber."
-	icon = icons/obj/guns/ballistic.dmi'
+	icon = 'icons/obj/guns/ballistic.dmi'
 	icon_state = "mares_leg"
 	item_state = "shotgunlever"
 	icon_prefix = "shotgunlever"
@@ -597,7 +597,7 @@
 /obj/item/gun/ballistic/automatic/shotgun/riot/combat
 	name = "Combat shotgun"
 	desc = "A semi-automatic and magazine-fed shotgun. Sports a large stock and a short barrel, ideal for clearing small buildings and alleys."
-	icon = icons/obj/guns/ballistic.dmi'
+	icon = 'icons/obj/guns/ballistic.dmi'
 	icon_state = "c_shotgun"
 
 /* * * * * * * * * * *
