@@ -242,7 +242,7 @@ GLOBAL_LIST_INIT(wasteland_positions, list(
 	"Preacher",
 	"Far-Lands Tribals",
 	"Wastelander",
-	"Minutemen",
+	"Minuteman",
 ))
 
 GLOBAL_LIST_INIT(redwater_positions, list(
@@ -306,6 +306,11 @@ GLOBAL_LIST_INIT(followers_positions, list(
 	"Town Paramedic",
 	"Nurse",
 	"Town Scientist",
+))
+
+GLOBAL_LIST_INIT(mutant_positions, list(
+	"Super Mutant Leader",
+	"Super Mutant",
 ))
 
 // job categories for rendering the late join menu
