@@ -282,7 +282,7 @@
  * WOUNDS: 5
  * WNAKED: 3.75
  */
-/* //needless extra ammo type
+
 /obj/item/projectile/bullet/c38
 	name = ".38 bullet"
 	damage = BULLET_DAMAGE_PISTOL_38
@@ -382,7 +382,7 @@
 		var/mob/living/carbon/M = target
 		M.adjust_fire_stacks(fire_stacks)
 		M.IgniteMob()
-*/
+
 /////////////
 // NEEDLER //
 /////////////
@@ -454,6 +454,7 @@
 /obj/item/projectile/bullet/c10mm
 	name = "10mm FMJ bullet"
 	damage = BULLET_DAMAGE_PISTOL_10MM
+	armour_penetration = 0.1
 	stamina = BULLET_STAMINA_PISTOL_10MM
 	spread = BULLET_SPREAD_SURPLUS
 	recoil = BULLET_RECOIL_PISTOL_10MM
@@ -586,6 +587,7 @@
 /obj/item/projectile/bullet/c45
 	name = ".45 FMJ bullet"
 	damage = BULLET_DAMAGE_PISTOL_45ACP
+	armour_penetration = 0.2
 	stamina = BULLET_STAMINA_PISTOL_45ACP
 	spread = BULLET_SPREAD_SURPLUS
 	recoil = BULLET_RECOIL_PISTOL_45ACP
@@ -716,6 +718,7 @@
 /obj/item/projectile/bullet/a357
 	name = ".357 FMJ bullet"
 	damage = BULLET_DAMAGE_PISTOL_38
+	armour_penetration = 0.1
 	stamina = BULLET_STAMINA_PISTOL_38
 	spread = BULLET_SPREAD_SURPLUS
 	recoil = BULLET_RECOIL_PISTOL_38
@@ -863,6 +866,7 @@
 /obj/item/projectile/bullet/m44
 	name = ".44 FMJ bullet"
 	damage = BULLET_DAMAGE_PISTOL_44
+	armour_penetration = 0.3
 	stamina = BULLET_STAMINA_PISTOL_44
 	spread = BULLET_SPREAD_SURPLUS
 	recoil = BULLET_RECOIL_PISTOL_44
@@ -968,6 +972,7 @@
  */
 /obj/item/projectile/bullet/mm14
 	name = "14mm FMJ bullet"
+	armour_penetration = 0.3
 	damage = BULLET_DAMAGE_PISTOL_14MM
 	stamina = BULLET_STAMINA_PISTOL_14MM
 	spread = BULLET_SPREAD_SURPLUS

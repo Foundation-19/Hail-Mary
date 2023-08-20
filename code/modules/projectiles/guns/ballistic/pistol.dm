@@ -372,7 +372,7 @@
 	name = "Mauser M712"
 	desc = "A late model of the classic Mauser C96, featuring a removable box magazine and automatic fire select. takes 20 round stick magazines."
 	icon = 'icons/obj/guns/projectile.dmi'
-	icon_state = "c96"
+	icon_state = "mauser"
 	mag_type = /obj/item/ammo_box/magazine/uzim9mm/rockwell
 	init_mag_type = /obj/item/ammo_box/magazine/uzim9mm/rockwell
 	init_firemodes = list(

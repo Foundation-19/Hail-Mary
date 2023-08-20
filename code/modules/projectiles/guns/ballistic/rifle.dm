@@ -89,7 +89,7 @@
 /obj/item/gun/ballistic/rifle/repeater/cowboy
 	name = "cowboy repeater"
 	desc = "A lever action rifle chambered in .357 Magnum. Smells vaguely of whiskey and cigarettes."
-	icon_state = "cowboyrepeater"
+	icon_state = "cowboy_repeater"
 	item_state = "cowboyrepeater"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/tube357
 	weapon_class = WEAPON_CLASS_RIFLE
@@ -133,7 +133,7 @@
 /obj/item/gun/ballistic/rifle/repeater/trail
 	name = "trail carbine"
 	desc = "A lever action rifle chambered in .44 Magnum."
-	icon_state = "trailcarbine"
+	icon_state = "lincoln_repeater"
 	item_state = "trailcarbine"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/tube44
 	weapon_class = WEAPON_CLASS_RIFLE
@@ -177,7 +177,7 @@
 /obj/item/gun/ballistic/rifle/repeater/brush
 	name = "brush gun"
 	desc = "A heavy Lever-action rifle chambered in .45-70. its sturdy design lets it handle the largest cartridges and largest game."
-	icon_state = "brushgun"
+	icon_state = "brush_gun"
 	item_state = "brushgun"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/tube4570
 	weapon_class = WEAPON_CLASS_RIFLE
@@ -294,7 +294,7 @@
 /obj/item/gun/ballistic/rifle/hunting
 	name = "hunting rifle"
 	desc = "A sturdy hunting rifle, chambered in .30-06. and in use before the war."
-	icon_state = "308"
+	icon_state = "hunting_rifle"
 	item_state = "308"
 	mag_type = /obj/item/ammo_box/magazine/internal/boltaction/hunting
 	sawn_desc = "A hunting rifle, crudely shortened with a saw. It's far from accurate, but the short barrel makes it quite portable."
