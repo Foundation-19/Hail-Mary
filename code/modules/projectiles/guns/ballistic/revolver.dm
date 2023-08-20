@@ -317,7 +317,7 @@
 	name = ".44 magnum revolver"
 	desc = "Powerful handgun for those who want to travel the wasteland safely in style. Has a bit of a kick."
 	item_state = "magnum44"
-	icon_state = "m29"
+	icon_state = "magnum44"
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rev44
 	weapon_class = WEAPON_CLASS_SMALL
 	weapon_weight = GUN_ONE_HAND_AKIMBO
@@ -341,7 +341,6 @@
 /obj/item/gun/ballistic/revolver/m29/alt
 	desc = "Powerful handgun with a bit of a kick. This one has nickled finish and pearly grip, and has been kept in good condition by its owner."
 	item_state = "widowmaker44"
-	icon_state = "mysterious_m29"
 	weapon_class = WEAPON_CLASS_SMALL
 	weapon_weight = GUN_ONE_HAND_AKIMBO
 	damage_multiplier = GUN_EXTRA_DAMAGE_0
