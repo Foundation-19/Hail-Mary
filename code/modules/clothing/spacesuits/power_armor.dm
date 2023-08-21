@@ -168,10 +168,10 @@
 	/// Literally just whether or not we allow fatties to wear this power armor
 	var/no_fatties = TRUE
 	var/mob/listeningTo
-	var/obj/structure/ms13/pa_jack/link_to
+	var/obj/structure/fallout/pa_jack/link_to
 	var/list/actions_modules = list()
 
-/obj/item/clothing/suit/space/hardsuit/ms13/power_armor/Initialize()
+/obj/item/clothing/suit/space/hardsuit/fallout/power_armor/Initialize()
 	. = ..()
 	interaction_flags_item &= ~INTERACT_ITEM_ATTACK_HAND_PICKUP
 	ADD_TRAIT(src, TRAIT_NODROP, STICKY_NODROP) //Somehow it's stuck to your body, no questioning.
@@ -183,13 +183,13 @@
 			continue
 		if(i == BODY_ZONE_HEAD)
 			var/type = module_armor[i]
-			var/obj/item/ms13/power_armor/head/H = new type(null)
+			var/obj/item/fallout/power_armor/head/H = new type(null)
 			module_armor[i] = H
 			helmettype = H.type_helmet
 			MakeHelmet()
 			continue
 		var/type = module_armor[i]
-		var/obj/item/ms13/power_armor/PA_part = new type(null)
+		var/obj/item/fallout/power_armor/PA_part = new type(null)
 		PA_part.frame = src
 		module_armor[i] = PA_part
 		var/icon/PA = new(icon, icon_state = PA_part.icon_state_pa)
@@ -198,10 +198,10 @@
 		for(var/k in PA_part.modules)
 			if(isnull(PA_part.modules[k]))
 				continue
-			var/obj/item/ms13/pa_module/PA_m = PA_part.modules[k]
+			var/obj/item/fallout/pa_module/PA_m = PA_part.modules[k]
 			PA_m.added_to_pa()
 
-/obj/item/clothing/suit/space/hardsuit/ms13/power_armor/Destroy()
+/obj/item/clothing/suit/space/hardsuit/fallout/power_armor/Destroy()
 	. = ..()
 	link_to = null
 	for(var/i in module_armor)
@@ -212,41 +212,41 @@
 	listeningTo = null
 	UnregisterSignal(src, COMSIG_ATOM_CAN_BE_PULLED)
 
-/obj/item/clothing/suit/space/hardsuit/ms13/power_armor/proc/update_actions()
+/obj/item/clothing/suit/space/hardsuit/fallout/power_armor/proc/update_actions()
 	actions_modules = null
 	for(var/i in module_armor)
 		if(isnull(module_armor[i]))
 			continue
-		var/obj/item/ms13/power_armor/PA = module_armor[i]
+		var/obj/item/fallout/power_armor/PA = module_armor[i]
 		if(PA.actions_modules)
 			LAZYINITLIST(actions_modules)
 			actions_modules |= PA.actions_modules
 
-/obj/item/clothing/suit/space/hardsuit/ms13/power_armor/proc/update_parts_icons()
+/obj/item/clothing/suit/space/hardsuit/fallout/power_armor/proc/update_parts_icons()
 	cut_overlays()
 	for(var/i in module_armor)
 		if(isnull(module_armor[i]))
 			continue
 		if(i == BODY_ZONE_HEAD)
 			continue
-		var/obj/item/ms13/power_armor/PA_part = module_armor[i]
+		var/obj/item/fallout/power_armor/PA_part = module_armor[i]
 		var/icon/PA = new(icon, icon_state = PA_part.icon_state_pa)
 		add_overlay(PA)
 
-/obj/item/clothing/suit/space/hardsuit/ms13/power_armor/build_worn_icon(default_layer, default_icon_file, isinhands, femaleuniform, override_state)
+/obj/item/clothing/suit/space/hardsuit/fallout/power_armor/build_worn_icon(default_layer, default_icon_file, isinhands, femaleuniform, override_state)
 	var/mutable_appearance/standing = ..()
 	for(var/i in module_armor)
 		if(isnull(module_armor[i]))
 			continue
 		if(i == BODY_ZONE_HEAD)
 			continue
-		var/obj/item/ms13/power_armor/PA_part = module_armor[i]
+		var/obj/item/fallout/power_armor/PA_part = module_armor[i]
 		var/icon/PA = new(icon, icon_state = PA_part.icon_state_pa)
 		standing.overlays.Add(PA)
 
 	return standing
 
-/obj/item/clothing/suit/space/hardsuit/ms13/power_armor/get_examine_string(mob/user, thats, damage = TRUE)
+/obj/item/clothing/suit/space/hardsuit/fallout/power_armor/get_examine_string(mob/user, thats, damage = TRUE)
 	var/damage_txt = ""
 	if(damage)
 		if(atom_integrity <= 0)
@@ -261,12 +261,12 @@
 			damage_txt = "The frame is not damaged"
 	return "[icon2html(src, user)] [thats? "That's ":""][get_examine_name(user)]. [damage_txt]"
 
-/obj/item/clothing/suit/space/hardsuit/ms13/power_armor/examine(mob/user)
+/obj/item/clothing/suit/space/hardsuit/fallout/power_armor/examine(mob/user)
 	. = ..()
 	for(var/i in module_armor)
 		if(isnull(module_armor[i]))
 			continue
-		var/obj/item/ms13/power_armor/PA = module_armor[i]
+		var/obj/item/fallout/power_armor/PA = module_armor[i]
 		if(PA.zone == BODY_ZONE_HEAD)
 			. +=  "[helmet.get_examine_string(user, TRUE)]"
 			continue
@@ -276,7 +276,7 @@
 	if(istype(carbon_user) && (carbon_user.fatness == FATNESS_OBESE))
 		. += span_warning("Your fat ass probably won't fit inside.")
 
-/obj/item/clothing/suit/space/hardsuit/ms13/power_armor/mob_can_equip(mob/living/M, mob/living/equipper, slot, disable_warning, bypass_equip_delay_self)
+/obj/item/clothing/suit/space/hardsuit/fallout/power_armor/mob_can_equip(mob/living/M, mob/living/equipper, slot, disable_warning, bypass_equip_delay_self)
 	if((slot == ITEM_SLOT_OCLOTHING) && no_fatties && iscarbon(M))
 		var/mob/living/carbon/carbon_fatass = M
 		if(carbon_fatass.fatness == FATNESS_OBESE)
@@ -284,21 +284,21 @@
 	return ..()
 
 //We want to be able to strip the PA as usual but also have the benefits of NO_DROP to disallow stuff like drag clicking PA into hand slot
-/obj/item/clothing/suit/space/hardsuit/ms13/power_armor/canStrip(mob/stripper, mob/owner)
+/obj/item/clothing/suit/space/hardsuit/fallout/power_armor/canStrip(mob/stripper, mob/owner)
 	return !(item_flags & ABSTRACT)
 
-/obj/item/clothing/suit/space/hardsuit/ms13/power_armor/doStrip(mob/stripper, mob/owner)
+/obj/item/clothing/suit/space/hardsuit/fallout/power_armor/doStrip(mob/stripper, mob/owner)
 	GetOutside(owner)
 	return TRUE
 
-/obj/item/clothing/suit/space/hardsuit/ms13/power_armor/attackby(obj/item/I, mob/user, params)
+/obj/item/clothing/suit/space/hardsuit/fallout/power_armor/attackby(obj/item/I, mob/user, params)
 	if(I.item_flags & LOCKING_ITEM && ms13_flags_1 & LOCKABLE_1)
 		if(lock_locked)
 			to_chat(user, span_warning("The [name] already has a lock."))
 			return
 		if(!can_be_picked)
 			return
-		var/obj/item/ms13/lock/L = I
+		var/obj/item/fallout/lock/L = I
 		if(!L.lock_open)
 			to_chat(user, span_warning("The [name] is closed."))
 			return
@@ -336,11 +336,11 @@
 			to_chat(user, span_notice("You have successfully repaired [src]'s helmet."))
 			new /obj/item/light/bulb/broken(drop_location())
 			return
-	else if(istype(I, /obj/item/ms13/power_armor))
+	else if(istype(I, /obj/item/fallout/power_armor))
 		if(!link_to)
 			to_chat(user, span_warning("You need connect power armor to a jack to modify!"))
 			return
-		var/obj/item/ms13/power_armor/PA = I
+		var/obj/item/fallout/power_armor/PA = I
 		if(module_armor[PA.zone])
 			to_chat(user, span_warning("This module power armor is already in power armor!"))
 			return
@@ -356,7 +356,7 @@
 			for(var/k in PA.modules)
 				if(isnull(PA.modules[k]))
 					continue
-				var/obj/item/ms13/pa_module/PA_m = PA.modules[k]
+				var/obj/item/fallout/pa_module/PA_m = PA.modules[k]
 				PA_m.added_to_pa()
 			playsound(src, 'mojave/sound/ms13effects/crafting/wrenchthreeturn.ogg', 25, TRUE)
 			to_chat(user, span_notice("You successfully install \the [PA] onto the [src]."))
@@ -371,7 +371,7 @@
 		for(var/i in module_armor)
 			if(isnull(module_armor[i]))
 				continue
-			var/obj/item/ms13/power_armor/PA = module_armor[i]
+			var/obj/item/fallout/power_armor/PA = module_armor[i]
 			radial_options[PA.name] = image(PA.icon, PA.icon_state)
 			part_to_zone[PA.name] = PA.zone
 
@@ -384,7 +384,7 @@
 		playsound(src, 'mojave/sound/ms13effects/crafting/wrenchthreeturn.ogg', 25, TRUE)
 		if(radial_result && do_after(user, 5 SECONDS, user))
 			playsound(src, 'mojave/sound/ms13effects/crafting/wrenchturn.ogg', 25, TRUE)
-			var/obj/item/ms13/power_armor/PA = module_armor[radial_result]
+			var/obj/item/fallout/power_armor/PA = module_armor[radial_result]
 			//if(!user.put_in_hand(PA, hand))
 			PA.forceMove(user.loc)
 			module_armor[radial_result] = null
@@ -396,7 +396,7 @@
 			for(var/k in PA.modules)
 				if(isnull(PA.modules[k]))
 					continue
-				var/obj/item/ms13/pa_module/PA_m = PA.modules[k]
+				var/obj/item/fallout/pa_module/PA_m = PA.modules[k]
 				PA_m.removed_from_pa()
 			to_chat(user, span_notice("You successfully uninstall [PA] from the [src]."))
 	else if(I.tool_behaviour == TOOL_WELDER)
@@ -424,7 +424,7 @@
 		update_overlays()
 		return ..()
 
-/obj/item/clothing/suit/space/hardsuit/ms13/power_armor/take_damage(damage_amount, damage_type, damage_flag, sound_effect, attack_dir, subtractible_armour_penetration, def_zone = BODY_ZONE_CHEST)
+/obj/item/clothing/suit/space/hardsuit/fallout/power_armor/take_damage(damage_amount, damage_type, damage_flag, sound_effect, attack_dir, subtractible_armour_penetration, def_zone = BODY_ZONE_CHEST)
 	if(!uses_integrity)
 		CRASH("[src] had /atom/proc/take_damage() called on it without it being a type that has uses_integrity = TRUE!")
 	if(QDELETED(src))
@@ -446,7 +446,7 @@
 		else
 			return damage_amount
 
-	var/obj/item/ms13/power_armor/PA_item = module_armor[def_zone]
+	var/obj/item/fallout/power_armor/PA_item = module_armor[def_zone]
 	if(istype(PA_item) && PA_item.get_integrity() > 0)
 		var/damage_to_frame = - (PA_item.get_integrity() - PA_item.take_damage(damage_amount, damage_type, damage_flag, null, attack_dir, subtractible_armour_penetration, def_zone))
 		if(damage_to_frame <= 0)
@@ -473,16 +473,16 @@
 	if(atom_integrity <= 0)
 		atom_destruction(damage_flag)
 
-/obj/item/clothing/suit/space/hardsuit/ms13/power_armor/atom_break(damage_flag)
+/obj/item/clothing/suit/space/hardsuit/fallout/power_armor/atom_break(damage_flag)
 	. = ..()
 	if(prob(35)) //SPARK
 		do_sparks(2, FALSE, src)
 
-/obj/item/clothing/suit/space/hardsuit/ms13/power_armor/atom_destruction(damage_flag)
+/obj/item/clothing/suit/space/hardsuit/fallout/power_armor/atom_destruction(damage_flag)
 	subarmor = subarmor.setRating(NONE, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 	listeningTo?.add_movespeed_modifier(/datum/movespeed_modifier/ms13/pa_broken)
 
-/obj/item/clothing/suit/space/hardsuit/ms13/power_armor/equipped(mob/living/carbon/human/user, slot)
+/obj/item/clothing/suit/space/hardsuit/fallout/power_armor/equipped(mob/living/carbon/human/user, slot)
 	if(actions_modules)
 		actions = actions_modules
 	. = ..()
@@ -496,7 +496,7 @@
 	user.base_pixel_y = user.base_pixel_y + 6
 	user.pixel_y = user.base_pixel_y
 	if(atom_integrity == 0)
-		listeningTo.add_movespeed_modifier(/datum/movespeed_modifier/ms13/pa_broken)
+		listeningTo.add_movespeed_modifier(/datum/movespeed_modifier/fallout/pa_broken)
 	ADD_TRAIT(user, TRAIT_FORCED_STANDING, "power_armor") //It's a suit of armor, it ain't going to fall over just because the pilot is dead
 	ADD_TRAIT(user, TRAIT_NOSLIPALL, "power_armor")
 	ADD_TRAIT(user, TRAIT_STUNIMMUNE, "power_armor")
@@ -508,7 +508,7 @@
 	ADD_TRAIT(user, TRAIT_IN_POWERARMOUR, "power_armor")
 	RegisterSignal(user, COMSIG_ATOM_CAN_BE_PULLED, .proc/reject_pulls)
 
-/obj/item/clothing/suit/space/hardsuit/ms13/power_armor/dropped(mob/living/carbon/human/user)
+/obj/item/clothing/suit/space/hardsuit/fallout/power_armor/dropped(mob/living/carbon/human/user)
 	. = ..()
 	// So that you can be buckled again on leaving the suit of armor.
 	user.can_buckle_to = TRUE
@@ -529,20 +529,20 @@
 	REMOVE_TRAIT(user, TRAIT_IN_POWERARMOUR, "power_armor")
 	UnregisterSignal(user, COMSIG_ATOM_CAN_BE_PULLED)
 
-/obj/item/clothing/suit/space/hardsuit/ms13/power_armor/proc/reject_pulls(datum/source, mob/living/puller)
+/obj/item/clothing/suit/space/hardsuit/fallout/power_armor/proc/reject_pulls(datum/source, mob/living/puller)
 	SIGNAL_HANDLER
 	if(puller != loc) // != the wearer
 		to_chat(puller, span_warning("The power armor resists your attempt at pulling it!"))
 		return COMSIG_ATOM_CANT_PULL
 
 //No helmet toggles for now when helmet is up
-/obj/item/clothing/suit/space/hardsuit/ms13/power_armor/ToggleHelmet()
+/obj/item/clothing/suit/space/hardsuit/fallout/power_armor/ToggleHelmet()
 	if(helmet_on || (helmettype == null))
 		return
 	return ..()
 
 //Let's get into the power armor (or not)
-/obj/item/clothing/suit/space/hardsuit/ms13/power_armor/AltClick(mob/living/carbon/human/user)
+/obj/item/clothing/suit/space/hardsuit/fallout/power_armor/AltClick(mob/living/carbon/human/user)
 	if(ms13_flags_1 & LOCKABLE_1 && lock_locked)
 		to_chat(user, span_warning("The [name] is locked."))
 		playsound(src, 'mojave/sound/ms13effects/door_locked.ogg', 50, TRUE)
@@ -569,14 +569,14 @@
 	return FALSE
 
 //A proc that checks if the user is already wearing clothing that obstructs the equipping of the power armor
-/obj/item/clothing/suit/space/hardsuit/ms13/power_armor/proc/CheckEquippedClothing(mob/living/carbon/human/user)
+/obj/item/clothing/suit/space/hardsuit/fallout/power_armor/proc/CheckEquippedClothing(mob/living/carbon/human/user)
 	if(helmet && user.head && (user.head != helmet) || user.wear_suit && (user.wear_suit != src) || user.back || user.belt || user.ears)
 		to_chat(user, span_warning("You're unable to climb into the [src] due to already having a helmet, backpack, belt, ear accessories or outer suit equipped!"))
 		return FALSE
 	return TRUE
 
 //Let's actually get into the power armor
-/obj/item/clothing/suit/space/hardsuit/ms13/power_armor/proc/GetInside(mob/living/carbon/human/user)
+/obj/item/clothing/suit/space/hardsuit/fallout/power_armor/proc/GetInside(mob/living/carbon/human/user)
 	if(!istype(user))
 		return
 
@@ -591,7 +591,7 @@
 	user.equip_to_slot_if_possible(src, ITEM_SLOT_OCLOTHING)
 	if(helmettype)
 		ToggleHelmet()
-		var/obj/item/clothing/head/helmet/space/hardsuit/ms13/power_armor/helmet2 = helmet
+		var/obj/item/clothing/head/helmet/space/hardsuit/fallout/power_armor/helmet2 = helmet
 		if(helmet2?.radio)
 			user.equip_to_slot(helmet2.radio, ITEM_SLOT_EARS)
 			for(var/X in helmet2.radio.actions)
@@ -599,7 +599,7 @@
 				A.Grant(user)
 
 //Nevermind let's get out
-/obj/item/clothing/suit/space/hardsuit/ms13/power_armor/proc/GetOutside(mob/living/carbon/human/user)
+/obj/item/clothing/suit/space/hardsuit/fallout/power_armor/proc/GetOutside(mob/living/carbon/human/user)
 	user.visible_message("<span class='warning'>[user] exits from the [src].</span>")
 	playsound(src.loc, 'sound/mecha/mechmove03.ogg', 50, TRUE)
 	user.dropItemToGround(src, force = TRUE)
@@ -608,7 +608,7 @@
 	//Nothing can possibly go wrong
 	user.dna.species.no_equip -= ITEM_SLOT_BACK
 	user.dna.species.no_equip -= ITEM_SLOT_BELT
-	var/obj/item/clothing/head/helmet/space/hardsuit/ms13/power_armor/helmet2 = helmet
+	var/obj/item/clothing/head/helmet/space/hardsuit/fallout/power_armor/helmet2 = helmet
 	if(helmet2?.radio)
 		user.transferItemToLoc(helmet2.radio, helmet)
 		for(var/X in helmet2.radio.actions)
@@ -616,7 +616,7 @@
 			A.Remove(user)
 
 //TODO for later involving integrity and ricochets
-/obj/item/clothing/suit/space/hardsuit/ms13/power_armor/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+/obj/item/clothing/suit/space/hardsuit/fallout/power_armor/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(prob(50))
 		var/datum/effect_system/spark_spread/spark_system = new /datum/effect_system/spark_spread
 		spark_system.start()
@@ -624,7 +624,7 @@
 
 
 // T-45 PA set //
-/obj/item/clothing/head/helmet/space/hardsuit/ms13/power_armor/t45
+/obj/item/clothing/head/helmet/space/hardsuit/falloutpower_armor/t45
 	name = "T-41D Power Armor Helmet"
 	desc = "A more advanced helmet for a more advanced piece of power armor. Comes with a high quality headlamp and integrated radio."
 	icon_state = "helmet0-t45"
@@ -644,22 +644,22 @@
                 ENERGY = CLASS4_PLASMA, \
                 FIRE = CLASS5_FIRE)
 
-/obj/item/clothing/suit/space/hardsuit/ms13/power_armor/t45
+/obj/item/clothing/suit/space/hardsuit/fallout/power_armor/t45
 	module_armor = list(
-		BODY_ZONE_HEAD =  /obj/item/ms13/power_armor/head/t45,
-		BODY_ZONE_CHEST = /obj/item/ms13/power_armor/chest/t45,
-		BODY_ZONE_L_ARM = /obj/item/ms13/power_armor/arm/left/t45,
-		BODY_ZONE_R_ARM = /obj/item/ms13/power_armor/arm/right/t45,
-		BODY_ZONE_L_LEG = /obj/item/ms13/power_armor/leg/left/t45,
-		BODY_ZONE_R_LEG = /obj/item/ms13/power_armor/leg/right/t45
+		BODY_ZONE_HEAD =  /obj/item/fallout/power_armor/head/t45,
+		BODY_ZONE_CHEST = /obj/item/fallout/power_armor/chest/t45,
+		BODY_ZONE_L_ARM = /obj/item/fallout/power_armor/arm/left/t45,
+		BODY_ZONE_R_ARM = /obj/item/fallout/power_armor/arm/right/t45,
+		BODY_ZONE_L_LEG = /obj/item/fallout/power_armor/leg/left/t45,
+		BODY_ZONE_R_LEG = /obj/item/fallout/power_armor/leg/right/t45
 	)
 
-/obj/item/clothing/suit/space/hardsuit/ms13/power_armor/t45/random/Initialize()
+/obj/item/clothing/suit/space/hardsuit/fallout/power_armor/t45/random/Initialize()
 	random_type()
 	. = ..()
 
 // T-51 PA set //
-/obj/item/clothing/head/helmet/space/hardsuit/ms13/power_armor/t51
+/obj/item/clothing/head/helmet/space/hardsuit/fallout/power_armor/t51
 	name = "T-51B Power Armor Helmet"
 	desc = "A more advanced helmet for a more advanced piece of power armor. Comes with a high quality headlamp and integrated radio."
 	icon_state = "helmet0-t51"
@@ -679,22 +679,22 @@
                 ENERGY = CLASS4_PLASMA, \
                 FIRE = CLASS5_FIRE)
 
-/obj/item/clothing/suit/space/hardsuit/ms13/power_armor/t51
+/obj/item/clothing/suit/space/hardsuit/fallout/power_armor/t51
 	module_armor = list(
-		BODY_ZONE_HEAD =  /obj/item/ms13/power_armor/head/t51,
-		BODY_ZONE_CHEST = /obj/item/ms13/power_armor/chest/t51,
-		BODY_ZONE_L_ARM = /obj/item/ms13/power_armor/arm/left/t51,
-		BODY_ZONE_R_ARM = /obj/item/ms13/power_armor/arm/right/t51,
-		BODY_ZONE_L_LEG = /obj/item/ms13/power_armor/leg/left/t51,
-		BODY_ZONE_R_LEG = /obj/item/ms13/power_armor/leg/right/t51
+		BODY_ZONE_HEAD =  /obj/item/fallout/power_armor/head/t51,
+		BODY_ZONE_CHEST = /obj/item/fallout/power_armor/chest/t51,
+		BODY_ZONE_L_ARM = /obj/item/fallout/power_armor/arm/left/t51,
+		BODY_ZONE_R_ARM = /obj/item/fallout/power_armor/arm/right/t51,
+		BODY_ZONE_L_LEG = /obj/item/fallout/power_armor/leg/left/t51,
+		BODY_ZONE_R_LEG = /obj/item/fallout/power_armor/leg/right/t51
 	)
 
-/obj/item/clothing/suit/space/hardsuit/ms13/power_armor/t51/random/Initialize()
+/obj/item/clothing/suit/space/hardsuit/fallout/power_armor/t51/random/Initialize()
 	random_type()
 	. = ..()
 
 // T-60 PA set //
-/obj/item/clothing/head/helmet/space/hardsuit/ms13/power_armor/t60
+/obj/item/clothing/head/helmet/space/hardsuit/falloutpower_armor/t60
 	name = "T-60 Power Armor Helmet"
 	desc = "A more advanced helmet for a more advanced piece of power armor. Comes with a high quality headlamp and integrated radio."
 	icon_state = "helmet0-t60"
@@ -714,22 +714,22 @@
                 ENERGY = CLASS4_PLASMA, \
                 FIRE = CLASS5_FIRE)
 
-/obj/item/clothing/suit/space/hardsuit/ms13/power_armor/t60
+/obj/item/clothing/suit/space/hardsuit/fallout/power_armor/t60
 	module_armor = list(
-		BODY_ZONE_HEAD =  /obj/item/ms13/power_armor/head/t60,
-		BODY_ZONE_CHEST = /obj/item/ms13/power_armor/chest/t60,
-		BODY_ZONE_L_ARM = /obj/item/ms13/power_armor/arm/left/t60,
-		BODY_ZONE_R_ARM = /obj/item/ms13/power_armor/arm/right/t60,
-		BODY_ZONE_L_LEG = /obj/item/ms13/power_armor/leg/left/t60,
-		BODY_ZONE_R_LEG = /obj/item/ms13/power_armor/leg/right/t60
+		BODY_ZONE_HEAD =  /obj/item/fallout/power_armor/head/t60,
+		BODY_ZONE_CHEST = /obj/item/fallout/power_armor/chest/t60,
+		BODY_ZONE_L_ARM = /obj/item/fallout/power_armor/arm/left/t60,
+		BODY_ZONE_R_ARM = /obj/item/fallout/power_armor/arm/right/t60,
+		BODY_ZONE_L_LEG = /obj/item/fallout/power_armor/leg/left/t60,
+		BODY_ZONE_R_LEG = /obj/item/fallout/power_armor/leg/right/t60
 	)
 
-/obj/item/clothing/suit/space/hardsuit/ms13/power_armor/t60/random/Initialize()
+/obj/item/clothing/suit/space/hardsuit/fallout/power_armor/t60/random/Initialize()
 	random_type()
 	. = ..()
 
 // T-X01 PA set //
-/obj/item/clothing/head/helmet/space/hardsuit/ms13/power_armor/x01
+/obj/item/clothing/head/helmet/space/hardsuit/falloutpower_armor/x01
 	name = "X01 Power Armor Helmet"
 	desc = "A more advanced helmet for a more advanced piece of power armor. Comes with a high quality headlamp and integrated radio."
 	icon_state = "helmet0-x01"
@@ -749,22 +749,22 @@
                 ENERGY = CLASS4_PLASMA, \
                 FIRE = CLASS5_FIRE)
 
-/obj/item/clothing/suit/space/hardsuit/ms13/power_armor/x01
+/obj/item/clothing/suit/space/hardsuit/fallout/power_armor/x01
 	module_armor = list(
-		BODY_ZONE_HEAD =  /obj/item/ms13/power_armor/head/x01,
-		BODY_ZONE_CHEST = /obj/item/ms13/power_armor/chest/x01,
-		BODY_ZONE_L_ARM = /obj/item/ms13/power_armor/arm/left/x01,
-		BODY_ZONE_R_ARM = /obj/item/ms13/power_armor/arm/right/x01,
-		BODY_ZONE_L_LEG = /obj/item/ms13/power_armor/leg/left/x01,
-		BODY_ZONE_R_LEG = /obj/item/ms13/power_armor/leg/right/x01
+		BODY_ZONE_HEAD =  /obj/item/fallout/power_armor/head/x01,
+		BODY_ZONE_CHEST = /obj/item/fallout/power_armor/chest/x01,
+		BODY_ZONE_L_ARM = /obj/item/fallout/power_armor/arm/left/x01,
+		BODY_ZONE_R_ARM = /obj/item/fallout/power_armor/arm/right/x01,
+		BODY_ZONE_L_LEG = /obj/item/fallout/power_armor/leg/left/x01,
+		BODY_ZONE_R_LEG = /obj/item/fallout/power_armor/leg/right/x01
 	)
 
-/obj/item/clothing/suit/space/hardsuit/ms13/power_armor/x01/random/Initialize()
+/obj/item/clothing/suit/space/hardsuit/fallout/power_armor/x01/random/Initialize()
 	random_type()
 	. = ..()
 
 // T-X02 PA set //
-/obj/item/clothing/head/helmet/space/hardsuit/ms13/power_armor/x0
+/obj/item/clothing/head/helmet/space/hardsuit/fallout/power_armor/x02
 	name = "X02 Power Armor Helmet"
 	desc = "A more advanced helmet for a more advanced piece of power armor. Comes with a high quality headlamp and integrated radio."
 	icon_state = "helmet0-x02"
@@ -773,7 +773,7 @@
 	light_power = 0.9
 	light_color = "#d1c58d"
 	max_integrity = 380
-	radiotype = /obj/item/radio/headset/ms13/powerarmor/x02
+	radiotype = /obj/item/radio/headset/fallout/powerarmor/x02
 	subarmor = list(SUBARMOR_FLAGS = NONE, \
                 EDGE_PROTECTION = CLASS4_EDGE, \
                 CRUSHING = CLASS5_CRUSH, \
@@ -784,22 +784,22 @@
                 ENERGY = CLASS4_PLASMA, \
                 FIRE = CLASS5_FIRE)
 
-/obj/item/clothing/suit/space/hardsuit/ms13/power_armor/x02
+/obj/item/clothing/suit/space/hardsuit/fallout/power_armor/x02
 	module_armor = list(
-		BODY_ZONE_HEAD =  /obj/item/ms13/power_armor/head/x02,
-		BODY_ZONE_CHEST = /obj/item/ms13/power_armor/chest/x02,
-		BODY_ZONE_L_ARM = /obj/item/ms13/power_armor/arm/left/x02,
-		BODY_ZONE_R_ARM = /obj/item/ms13/power_armor/arm/right/x02,
-		BODY_ZONE_L_LEG = /obj/item/ms13/power_armor/leg/left/x02,
-		BODY_ZONE_R_LEG = /obj/item/ms13/power_armor/leg/right/x02
+		BODY_ZONE_HEAD =  /obj/item/fallout/power_armor/head/x02,
+		BODY_ZONE_CHEST = /obj/item/fallout/power_armor/chest/x02,
+		BODY_ZONE_L_ARM = /obj/item/fallout/power_armor/arm/left/x02,
+		BODY_ZONE_R_ARM = /obj/item/fallout/power_armor/arm/right/x02,
+		BODY_ZONE_L_LEG = /obj/item/fallout/power_armor/leg/left/x02,
+		BODY_ZONE_R_LEG = /obj/item/fallout/power_armor/leg/right/x02
 	)
 
-/obj/item/clothing/suit/space/hardsuit/ms13/power_armor/x02/random/Initialize()
+/obj/item/clothing/suit/space/hardsuit/fallout/power_armor/x02/random/Initialize()
 	random_type()
 	. = ..()
 
 // T-X03 aka Hellfire PA set //
-/obj/item/clothing/head/helmet/space/hardsuit/ms13/power_armor/x03
+/obj/item/clothing/head/helmet/space/hardsuit/fallout/power_armor/x03
 	name = "X03 Power Armor Helmet"
 	desc = "A more advanced helmet for a more advanced piece of power armor. Comes with a high quality headlamp and integrated radio."
 	icon_state = "helmet0-x03"
@@ -821,15 +821,15 @@
 
 /obj/item/clothing/suit/space/hardsuit/ms13/power_armor/x03
 	module_armor = list(
-		BODY_ZONE_HEAD =  /obj/item/ms13/power_armor/head/x03,
-		BODY_ZONE_CHEST = /obj/item/ms13/power_armor/chest/x03,
-		BODY_ZONE_L_ARM = /obj/item/ms13/power_armor/arm/left/x03,
-		BODY_ZONE_R_ARM = /obj/item/ms13/power_armor/arm/right/x03,
-		BODY_ZONE_L_LEG = /obj/item/ms13/power_armor/leg/left/x03,
-		BODY_ZONE_R_LEG = /obj/item/ms13/power_armor/leg/right/x03
+		BODY_ZONE_HEAD =  /obj/item/fallout/power_armor/head/x03,
+		BODY_ZONE_CHEST = /obj/item/fallout/power_armor/chest/x03,
+		BODY_ZONE_L_ARM = /obj/item/fallout/power_armor/arm/left/x03,
+		BODY_ZONE_R_ARM = /obj/item/fallout/power_armor/arm/right/x03,
+		BODY_ZONE_L_LEG = /obj/item/fallout/power_armor/leg/left/x03,
+		BODY_ZONE_R_LEG = /obj/item/fallout/power_armor/leg/right/x03
 	)
 
-/obj/item/clothing/suit/space/hardsuit/ms13/power_armor/x03/random/Initialize()
+/obj/item/clothing/suit/space/hardsuit/fallout/power_armor/x03/random/Initialize()
 	random_type()
 	. = ..()
 
