@@ -326,7 +326,7 @@ GLOBAL_LIST_INIT(position_categories, list(
 	EXP_TYPE_SILICON = list("jobs" = silicon_positions, "color" = "#4a4a4a"),
 	EXP_TYPE_TRIBAL = list("jobs" = tribal_positions, "color" = "#006666"),
 	EXP_TYPE_BIKER = list("jobs" = biker_positions, "color" = "#eb872f"),
-	EXP_TYPE_MUTANT = list("jobs" = mutant_positions, "color" = "#26bf47"),
+	"Super Mutants" = list("jobs" = mutant_positions, "color" = "#26bf47"),
 	//"debug" = list("jobs" = debug_positions, "color" = "#ff00ee"),
 	// "Redwater" = list("jobs" = redwater_positions, "color" = "#f81717"),
 ))
