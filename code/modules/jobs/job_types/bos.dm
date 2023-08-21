@@ -165,9 +165,8 @@ Paladin Commander
 	glasses = /obj/item/clothing/glasses/sunglasses
 	mask = /obj/item/clothing/mask/gas/sechailer
 	ears = /obj/item/radio/headset/headset_bos/command
-	suit = /obj/item/clothing/suit/armor/power_armor/midwest/hardened
+	suit = /obj/item/clothing/suit/armor/medium/combat/brotherhood/senior
 	suit_store = /obj/item/gun/energy/laser/aer12
-	head = /obj/item/clothing/head/helmet/f13/power_armor/midwest/hardened
 	neck = /obj/item/clothing/neck/mantle/bos/paladin
 	backpack_contents = list(
 		/obj/item/melee/onehanded/knife/hunting = 1,
@@ -354,9 +353,8 @@ Star Paladin
 /datum/outfit/job/bos/f13seniorpaladin
 	name =	"Star Paladin"
 	jobtype = /datum/job/bos/f13seniorpaladin
-	suit = /obj/item/clothing/suit/armor/power_armor/midwest
+	suit = /obj/item/clothing/suit/armor/medium/combat/brotherhood/senior
 	suit_store = /obj/item/gun/energy/laser/aer12
-	head = /obj/item/clothing/head/helmet/f13/power_armor/midwest
 	accessory =	/obj/item/clothing/accessory/bos/seniorpaladin
 	uniform = /obj/item/clothing/under/f13/recon
 	belt = /obj/item/storage/belt/army/assault
@@ -428,9 +426,8 @@ Paladin
 /datum/outfit/job/bos/f13paladin
 	name =	"Paladin"
 	jobtype =	/datum/job/bos/f13paladin
-	suit =	/obj/item/clothing/suit/armor/power_armor/midwest
+	suit = /obj/item/clothing/suit/armor/medium/combat/brotherhood/senior
 	suit_store = /obj/item/gun/energy/laser/aer12
-	head =	/obj/item/clothing/head/helmet/f13/power_armor/midwest
 	uniform =	/obj/item/clothing/under/f13/recon
 	belt = /obj/item/storage/belt/army/assault
 	mask =	/obj/item/clothing/mask/gas/sechailer
