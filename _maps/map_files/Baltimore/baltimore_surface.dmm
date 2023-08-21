@@ -7486,7 +7486,7 @@
 "uLU" = (/obj/structure/displaycase{layer = 30},/obj/item/pda/neko{name = "Pip boy 2000 Rare Catto edition"},/obj/structure/window/reinforced{dir = 4},/turf/open/floor/plasteel/f13/vault_floor/misc/vault1{icon_state = "bluerustysolid"},/area/f13/city/museum)
 "uLX" = (/obj/effect/turf_decal/stripes/red/line,/obj/effect/turf_decal/stripes/red/line{dir = 4},/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,/area/f13/city)
 "uLZ" = (/obj/effect/decal/cleanable/dirt/dust,/turf/open/floor/plasteel/yellowsiding{dir = 1},/area/f13/ruins{open_space = 0; name = "Ruins interior"})
-"uMh" = (/obj/structure/chair/office{dir = 8},/turf/open/floor/f13/wood{icon_state = "housewood2"},/area/f13/brotherhood)
+"uMh" = (/obj/structure/chair/office{dir = 8},/obj/effect/landmark/start/f13/elder,/turf/open/floor/f13/wood{icon_state = "housewood2"},/area/f13/brotherhood)
 "uMo" = (/turf/open/floor/wood_common/wood_common_light{icon_state = "common_light2"},/area/f13/city)
 "uMB" = (/obj/structure/nest/scorpion,/turf/open/floor/wood_fancy{icon_state = "fancy-broken5"},/area/f13/ruins{open_space = 0; name = "Ruins interior"})
 "uMG" = (/obj/effect/decal/cleanable/cobweb,/obj/effect/overlay/junk/toilet,/obj/effect/spawner/lootdrop/low_loot_toilet,/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,/area/f13/outpost)

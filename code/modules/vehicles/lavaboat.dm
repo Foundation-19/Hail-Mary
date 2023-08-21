@@ -3,7 +3,7 @@
 
 /obj/vehicle/ridden/lavaboat
 	name = "lava boat"
-	desc = "A boat used for traversing lava."
+	desc = "A boat used for traversing water."
 	icon_state = "goliath_boat"
 	icon = 'icons/obj/lavaland/dragonboat.dmi'
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
@@ -13,7 +13,7 @@
 	. = ..()
 	var/datum/component/riding/D = LoadComponent(/datum/component/riding)
 	D.keytype = /obj/item/oar
-	D.allowed_turf_typecache = typecacheof(/turf/open/water)
+	D.allowed_turf_typecache = typecacheof(/turf/open/pool)
 
 /obj/item/oar
 	name = "oar"
