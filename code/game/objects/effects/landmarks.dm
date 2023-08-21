@@ -958,3 +958,11 @@ obj/effect/landmark/start/f13/ncrlogisticsofficer
 /obj/effect/landmark/start/f13/biker_boss
 	name = "Hells Nomad Boss"
 	icon_state = "Captain"
+
+/obj/effect/landmark/start/f13/smutant
+	name = "Super Mutant"
+	icon_state = "Assistant"
+
+/obj/effect/landmark/start/f13/smutant_boss
+	name = "Super Mutant Leader"
+	icon_state = "Captain"

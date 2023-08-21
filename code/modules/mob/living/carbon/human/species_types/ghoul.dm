@@ -122,7 +122,10 @@
 	else
 		H.remove_status_effect(/datum/status_effect/ghoulheal)
 
-
+/datum/species/ghoul/qualifies_for_rank(rank, list/features)
+	if(rank in GLOB.mutant_positions)
+		return 0
+	return ..()
 
 /*/datum/species/ghoul/glowing
 	name = "Glowing Ghoul"
