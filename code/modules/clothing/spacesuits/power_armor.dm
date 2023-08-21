@@ -832,3 +832,8 @@
 /obj/item/clothing/suit/space/hardsuit/ms13/power_armor/x03/random/Initialize()
 	random_type()
 	. = ..()
+
+// PA Slowdowns
+
+/datum/movespeed_modifier/ms13/pa_broken
+	multiplicative_slowdown = 3
