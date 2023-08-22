@@ -675,7 +675,8 @@ obj/effect/landmark/start/f13/ncrlogisticsofficer
 	name = "Senior Scribe"
 	icon_state = "Scribe"
 
-/obj/effect/landmark/start/f13/sentinel
+
+/obj/effect/landmark/start/f13/paladincommander
 	name = "Paladin Commander"
 	icon_state = "Paladin"
 
