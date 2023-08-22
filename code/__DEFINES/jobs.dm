@@ -105,8 +105,8 @@
 
 #define BOS				(1<<5)
 
-#define F13ELDER		(1<<0)
-#define F13SENTINEL		(1<<1)
+#define F13SENTINEL		(1<<0)
+#define F13COMMANDER		(1<<1)
 #define F13SENIORPALADIN	(1<<2)
 #define F13PALADIN		(1<<3)
 #define F13KNIGHTCAPTAIN	(1<<4)
@@ -117,6 +117,7 @@
 #define F13SCRIBE		(1<<9)
 #define F13INITIATE		(1<<10)
 #define F13OFFDUTYBOS	(1<<11)
+#define F13ENVOY	(1<<12)
 
 #define DEP_OASIS (1<<6)
 
