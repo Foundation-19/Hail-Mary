@@ -159,9 +159,9 @@
 /datum/outfit/job/enclave/peacekeeper/enclavesgt
 	name = "Enclave Sergeant"
 	jobtype = /datum/job/enclave/enclavesgt
-	suit = /obj/item/clothing/suit/armor/medium/combat/mk2/remnant
+	suit = /obj/item/clothing/suit/armor/power_armor/advanced
 	suit_store = /obj/item/gun/ballistic/automatic/lsw
-	head = /obj/item/clothing/head/helmet/f13/combat/mk2/remnant
+	head = /obj/item/clothing/head/helmet/f13/power_armor/advanced
 	accessory = /obj/item/clothing/accessory/enclave/sergeant
 
 	backpack_contents = list(
