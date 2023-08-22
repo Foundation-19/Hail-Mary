@@ -106,7 +106,7 @@
 #define BOS				(1<<5)
 
 #define F13SENTINEL		(1<<0)
-#define F13COMMANDER		(1<<1)
+#define F13PALADINCOMMANDER		(1<<1)
 #define F13SENIORPALADIN	(1<<2)
 #define F13PALADIN		(1<<3)
 #define F13KNIGHTCAPTAIN	(1<<4)
@@ -296,7 +296,7 @@
 
 
 #define JOB_DISPLAY_ORDER_ELDER 67.9	//God I fucking hate. This does work tho. - Kitsunemitsu
-#define JOB_DISPLAY_ORDER_SENTINEL 68
+#define JOB_DISPLAY_ORDER_COMMANDER 68
 #define JOB_DISPLAY_ORDER_SENIORPALADIN 69
 #define JOB_DISPLAY_ORDER_PALADIN 70
 #define JOB_DISPLAY_ORDER_KNIGHTCAPTAIN 71
