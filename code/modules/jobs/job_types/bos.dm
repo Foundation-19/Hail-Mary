@@ -58,27 +58,22 @@ Main doors: ACCESS_BOS 120
 	ADD_TRAIT(H, TRAIT_GENERIC, src)
 
 /*
-Elder
+Elder Envoy
 */
 
-/datum/job/bos/f13elder
-	title = "Elder"
-	flag = F13ELDER
-	display_order = JOB_DISPLAY_ORDER_ELDER
+/datum/job/bos/f13envoy
+	title = "Elder Envoy"
+	flag = F13ENVOY
 	head_announce = list("Security")
-	total_positions = 1
-	spawn_positions = 1
-	description = "You are the Elder of this local chapter of the Brotherhood of Steel. You may be a veteran of warfare, an experienced commander or even a genius Scribe, and you command all the men within this bunker. Your main goals are to lead the Brotherhood, to solve conflicts inbetween castes and to manage the Paladin Commander, Knight-Captain and Proctor."
-	supervisors = "the Council of Elders"
+	total_positions = 0
+	spawn_positions = 0
 	selection_color = "#7f8c8d"
-	outfit = /datum/outfit/job/bos/f13elder
-	exp_requirements = 3000
-	req_admin_notify = 1
+	outfit = /datum/outfit/job/bos/f13envoy
 
 	access = list(ACCESS_BROTHERHOOD_COMMAND, ACCESS_ROBOTICS, ACCESS_BOS, ACCESS_ENGINE_EQUIP, ACCESS_ENGINE, ACCESS_HYDROPONICS, ACCESS_MINERAL_STOREROOM, ACCESS_KITCHEN, ACCESS_BAR, ACCESS_SEC_DOORS, ACCESS_CHANGE_IDS)
 	minimal_access = list(ACCESS_BROTHERHOOD_COMMAND, ACCESS_ROBOTICS, ACCESS_BOS, ACCESS_ENGINE_EQUIP, ACCESS_ENGINE, ACCESS_HYDROPONICS, ACCESS_MINERAL_STOREROOM, ACCESS_KITCHEN, ACCESS_BAR, ACCESS_SEC_DOORS, ACCESS_CHANGE_IDS)
 
-/datum/outfit/job/bos/f13elder/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+/datum/outfit/job/bos/f13sentinel/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
 	if(visualsOnly)
 		return
@@ -91,9 +86,58 @@ Elder
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/steady)
 	ADD_TRAIT(H, TRAIT_CHEMWHIZ, src)
 
-/datum/outfit/job/bos/f13elder
-	name = "Elder"
-	jobtype = /datum/job/bos/f13elder
+/datum/outfit/job/bos/f13envoy
+	name = "Elder Envoy"
+	jobtype = /datum/job/bos/f13envoy
+	suit = /obj/item/clothing/suit/armor/light/duster/bos/scribe/elder
+	glasses = /obj/item/clothing/glasses/night
+	accessory = /obj/item/clothing/accessory/bos/elder
+	suit_store = /obj/item/gun/energy/laser/pistol
+	neck = /obj/item/clothing/neck/mantle/bos/right
+	ears = /obj/item/radio/headset/headset_bos/command
+	backpack_contents = list(
+		/obj/item/stock_parts/cell/ammo/mfc = 2,
+		/obj/item/melee/onehanded/knife/hunting = 1
+
+	)
+
+/*
+Sentinel
+*/
+
+/datum/job/bos/f13sentinel
+	title = "Sentinel"
+	flag = F13SENTINEL
+	display_order = JOB_DISPLAY_ORDER_SENTINEL
+	head_announce = list("Security")
+	total_positions = 1
+	spawn_positions = 1
+	description = "You are the Sentinel of this local chapter of the Brotherhood of Steel. You may be a veteran of warfare, an experienced commander or even a genius Scribe, and you command all the men within this bunker. Your main goals are to lead the Brotherhood, to solve conflicts inbetween castes and to manage the Paladin Commander, Knight-Captain and Proctor."
+	supervisors = "the Council of Sentinels"
+	selection_color = "#7f8c8d"
+	outfit = /datum/outfit/job/bos/f13sentinel
+	exp_requirements = 3000
+	req_admin_notify = 1
+
+	access = list(ACCESS_BROTHERHOOD_COMMAND, ACCESS_ROBOTICS, ACCESS_BOS, ACCESS_ENGINE_EQUIP, ACCESS_ENGINE, ACCESS_HYDROPONICS, ACCESS_MINERAL_STOREROOM, ACCESS_KITCHEN, ACCESS_BAR, ACCESS_SEC_DOORS, ACCESS_CHANGE_IDS)
+	minimal_access = list(ACCESS_BROTHERHOOD_COMMAND, ACCESS_ROBOTICS, ACCESS_BOS, ACCESS_ENGINE_EQUIP, ACCESS_ENGINE, ACCESS_HYDROPONICS, ACCESS_MINERAL_STOREROOM, ACCESS_KITCHEN, ACCESS_BAR, ACCESS_SEC_DOORS, ACCESS_CHANGE_IDS)
+
+/datum/outfit/job/bos/f13sentinel/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	..()
+	if(visualsOnly)
+		return
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/jet)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/turbo)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/psycho)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/medx)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/medx/chemistry)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/buffout)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/steady)
+	ADD_TRAIT(H, TRAIT_CHEMWHIZ, src)
+
+/datum/outfit/job/bos/f13sentinel
+	name = "Sentinel"
+	jobtype = /datum/job/bos/f13sentinel
 	suit = /obj/item/clothing/suit/armor/light/duster/bos/scribe/elder
 	glasses = /obj/item/clothing/glasses/night
 	accessory = /obj/item/clothing/accessory/bos/elder
@@ -110,14 +154,14 @@ Elder
 Paladin Commander
 */
 
-/datum/job/bos/f13sentinel
+/datum/job/bos/f13paladincommander
 	title = "Paladin Commander"
-	flag = F13SENTINEL
+	flag = F13PALADINCOMMANDER
 	head_announce = list("Security")
 	total_positions = 1
 	spawn_positions = 1
 	description = "You are the acting field commander until the Brotherhood regains its strength enough to place an Elder for the bunker. You are a veteran of many battles and sorties in pursuit of Brotherhood goals; your only weakness may just be your hubris. Your main goals are defense of the Chapter and surveillance of the surrounding region for technology."
-	supervisors = "the Elder"
+	supervisors = "the Sentinel"
 	selection_color = "#7f8c8d"
 	display_order = JOB_DISPLAY_ORDER_SENTINEL
 	outfit = /datum/outfit/job/bos/f13sentinel
@@ -204,7 +248,7 @@ Proctor
 	total_positions = 1
 	spawn_positions = 1
 	description = "You are the foremost experienced scribe remaining in this bunker. Your role is to ensure the safekeeping and proper usage of technology within the Brotherhood. You are also the lead medical expert in this Chapter. Delegate your tasks to your Scribes."
-	supervisors = "the Elder"
+	supervisors = "the Sentinel"
 	selection_color = "#7f8c8d"
 	display_order = JOB_DISPLAY_ORDER_HEADSCRIBE
 	outfit = /datum/outfit/job/bos/f13headscribe
@@ -276,7 +320,7 @@ Knight-Captain
 	total_positions = 1
 	spawn_positions = 1
 	description = "You are the Knight-Captain, one of the leaders of your group of outcasts. After the attempted coup by the late Paladin Commander Wossner, you have been wandering the wastes, looking for a new home, and have now found a barely-acceptable place to construct your new chapters' bunker. Your knowledge of pre-war materials and engineering is almost unparalleled, and you have basic combat training and experience. You are in charge of establishing a working foothold, and your Knights and initiates. Delegate to them as necessary. As Chief Armorer, you are also in charge of the armory."
-	supervisors = "the Elder"
+	supervisors = "the Sentinel"
 	selection_color = "#7f8c8d"
 	display_order = JOB_DISPLAY_ORDER_KNIGHTCAPTAIN
 	outfit = /datum/outfit/job/bos/f13knightcap
