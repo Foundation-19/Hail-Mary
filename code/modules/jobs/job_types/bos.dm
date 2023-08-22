@@ -163,8 +163,8 @@ Paladin Commander
 	description = "You are the acting field commander until the Brotherhood regains its strength enough to place an Elder for the bunker. You are a veteran of many battles and sorties in pursuit of Brotherhood goals; your only weakness may just be your hubris. Your main goals are defense of the Chapter and surveillance of the surrounding region for technology."
 	supervisors = "the Sentinel"
 	selection_color = "#7f8c8d"
-	display_order = JOB_DISPLAY_ORDER_SENTINEL
-	outfit = /datum/outfit/job/bos/f13sentinel
+	display_order = JOB_DISPLAY_ORDER_COMMANDER
+	outfit = /datum/outfit/job/bos/f13commander
 	exp_requirements = 2400
 /*
 	loadout_options = list(
@@ -200,7 +200,7 @@ Paladin Commander
 		var/obj/effect/proc_holder/spell/terrifying_presence/S = new /obj/effect/proc_holder/spell/terrifying_presence
 		H.mind.AddSpell(S)
 
-/datum/outfit/job/bos/f13sentinel
+/datum/outfit/job/bos/f13commander
 	name = "Paladin Commander"
 	jobtype = /datum/job/bos/f13sentinel
 	uniform = /obj/item/clothing/under/f13/recon
