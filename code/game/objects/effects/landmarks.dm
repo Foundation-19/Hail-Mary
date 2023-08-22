@@ -663,8 +663,8 @@ obj/effect/landmark/start/f13/ncrlogisticsofficer
 
 // Brotherhood of Steel
 
-/obj/effect/landmark/start/f13/elder
-	name = "Elder"
+/obj/effect/landmark/start/f13/sentinel
+	name = "Sentinel"
 	icon_state = "Elder"
 
 /obj/effect/landmark/start/f13/headscribe
