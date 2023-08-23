@@ -1,4 +1,3 @@
-
 GLOBAL_LIST_INIT(engineering_positions, list(
 	"Chief Engineer",
 	"Station Engineer",
@@ -242,7 +241,7 @@ GLOBAL_LIST_INIT(wasteland_positions, list(
 	"Preacher",
 	"Far-Lands Tribals",
 	"Wastelander",
-	"Minutemen",
+	"Minuteman",
 ))
 
 GLOBAL_LIST_INIT(redwater_positions, list(
@@ -308,6 +307,11 @@ GLOBAL_LIST_INIT(followers_positions, list(
 	"Town Scientist",
 ))
 
+GLOBAL_LIST_INIT(mutant_positions, list(
+	"Super Mutant Leader",
+	"Super Mutant",
+))
+
 // job categories for rendering the late join menu
 GLOBAL_LIST_INIT(position_categories, list(
 	//	EXP_TYPE_NCR = list("jobs" = ncr_positions, "color" = "#ffeeaa"),
@@ -322,6 +326,7 @@ GLOBAL_LIST_INIT(position_categories, list(
 	EXP_TYPE_SILICON = list("jobs" = silicon_positions, "color" = "#4a4a4a"),
 	EXP_TYPE_TRIBAL = list("jobs" = tribal_positions, "color" = "#006666"),
 	EXP_TYPE_BIKER = list("jobs" = biker_positions, "color" = "#eb872f"),
+	"Super Mutants" = list("jobs" = mutant_positions, "color" = "#26bf47"),
 	//"debug" = list("jobs" = debug_positions, "color" = "#ff00ee"),
 	// "Redwater" = list("jobs" = redwater_positions, "color" = "#f81717"),
 ))

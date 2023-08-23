@@ -98,7 +98,6 @@
 /obj/item/gun/energy/laser/plasma/glock/extended
 	name ="glock 86a"
 	item_state = "plasma-pistol"
-	icon_state = "glock86a"
 	desc = "This Glock 86 plasma pistol has had its magnetic housing chamber realigned to reduce the drain on its energy cell. Its efficiency has doubled, allowing it to fire more shots before the battery is expended."
 	ammo_type = list(/obj/item/ammo_casing/energy/plasma/pistol/glock/extended)
 	cell_type = /obj/item/stock_parts/cell/ammo/ec
