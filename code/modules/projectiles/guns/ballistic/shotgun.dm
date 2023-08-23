@@ -114,7 +114,7 @@
 /obj/item/gun/ballistic/revolver/caravan_shotgun
 	name = "caravan rifle"
 	desc = "An over-under hunting rifle, for large game."
-	icon = 'icons/fallout/objects/guns/ballistic.dmi'
+	icon = 'icons/obj/guns/projectile.dmi'
 	lefthand_file = 'icons/fallout/onmob/weapons/guns_lefthand.dmi'
 	righthand_file = 'icons/fallout/onmob/weapons/guns_righthand.dmi'
 	icon_state = "caravan"
@@ -161,7 +161,7 @@
 /obj/item/gun/ballistic/revolver/widowmaker
 	name = "Winchester Widowmaker"
 	desc = "Old-world Winchester Widowmaker double-barreled 12 gauge shotgun, with mahogany furniture"
-	icon = 'icons/fallout/objects/guns/ballistic.dmi'
+	icon = 'icons/obj/guns/projectile.dmi'
 	lefthand_file = 'icons/fallout/onmob/weapons/guns_lefthand.dmi'
 	righthand_file = 'icons/fallout/onmob/weapons/guns_righthand.dmi'
 	icon_state = "widowmaker"
@@ -248,8 +248,9 @@
 /obj/item/gun/ballistic/shotgun/hunting
 	name = "hunting shotgun"
 	desc = "A traditional hunting shotgun with wood furniture and a four-shell capacity underneath."
-	icon_state = "pump"
-	item_state = "shotgunpump"
+	icon = 'icons/obj/guns/projectile.dmi'
+	icon_state = "hunting_shotgun"
+	item_state = "hunting_shotgun"
 	icon_prefix = "shotgunpump"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/lethal
 	weapon_class = WEAPON_CLASS_RIFLE
@@ -420,7 +421,8 @@
 /obj/item/gun/ballistic/shotgun/automatic/combat/shotgunlever
 	name = "mare's leg shotgun"
 	desc = "A speedy pistol grip lever action shotgun with a five-shell capacity underneath plus one in chamber."
-	icon_state = "shotgunlever"
+	icon = 'icons/obj/guns/projectile.dmi'
+	icon_state = "mares_leg"
 	item_state = "shotgunlever"
 	icon_prefix = "shotgunlever"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/trench
@@ -591,6 +593,12 @@
 		/datum/firemode/semi_auto/slow
 	)
 	fire_sound = 'sound/f13weapons/riot_shotgun.ogg'
+
+/obj/item/gun/ballistic/automatic/shotgun/riot/combat
+	name = "Combat shotgun"
+	desc = "A semi-automatic and magazine-fed shotgun. Sports a large stock and a short barrel, ideal for clearing small buildings and alleys."
+	icon = 'icons/obj/guns/projectile.dmi'
+	icon_state = "c_shotgun"
 
 /* * * * * * * * * * *
  * Jackhammer shotgun

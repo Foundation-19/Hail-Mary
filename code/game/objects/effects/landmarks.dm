@@ -668,7 +668,7 @@ obj/effect/landmark/start/f13/ncrlogisticsofficer
 	icon_state = "Elder"
 
 /obj/effect/landmark/start/f13/headscribe
-	name = "Head Scribe"
+	name = "Proctor"
 	icon_state = "Scribe"
 
 /obj/effect/landmark/start/f13/seniorscribe
@@ -676,19 +676,19 @@ obj/effect/landmark/start/f13/ncrlogisticsofficer
 	icon_state = "Scribe"
 
 /obj/effect/landmark/start/f13/sentinel
-	name = "Head Paladin"
+	name = "Paladin Commander"
 	icon_state = "Paladin"
 
 /obj/effect/landmark/start/f13/knightcap
-	name = "Head Knight"
+	name = "Knight-Captain"
 	icon_state = "Knight"
 
 /obj/effect/landmark/start/f13/seniorknight
-	name = "Senior Knight"
+	name = "Knight-Sergeant"
 	icon_state = "Knight"
 
 /obj/effect/landmark/start/f13/seniorpaladin
-	name = "Senior Paladin"
+	name = "Star Paladin"
 	icon_state = "Knight"
 
 /obj/effect/landmark/start/f13/paladin
@@ -801,10 +801,6 @@ obj/effect/landmark/start/f13/ncrlogisticsofficer
 	name = "Vigilante"
 	icon_state = "Wastelander"
 
-/obj/effect/landmark/start/f13/minutemen
-	name = "Minutemen"
-	icon_state = "Wastelander"
-
 /obj/effect/landmark/start/f13/wastelander
 	name = "Wastelander"
 	icon_state = "Wastelander"
@@ -835,6 +831,10 @@ obj/effect/landmark/start/f13/ncrlogisticsofficer
 /obj/effect/landmark/start/f13/detective
 	name = "Detective"
 	icon_state = "Detective"
+
+/obj/effect/landmark/start/f13/minutemen
+	name = "Minuteman"
+	icon_state = "Wastelander"
 
 // Enclave
 /obj/effect/landmark/start/f13/usspy
@@ -957,4 +957,12 @@ obj/effect/landmark/start/f13/ncrlogisticsofficer
 
 /obj/effect/landmark/start/f13/biker_boss
 	name = "Hells Nomad Boss"
+	icon_state = "Captain"
+
+/obj/effect/landmark/start/f13/smutant
+	name = "Super Mutant"
+	icon_state = "Assistant"
+
+/obj/effect/landmark/start/f13/smutant_boss
+	name = "Super Mutant Leader"
 	icon_state = "Captain"

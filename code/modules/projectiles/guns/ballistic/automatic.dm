@@ -113,7 +113,7 @@
 /obj/item/gun/ballistic/automatic/smg/
 	name = "SMG TEMPLATE"
 	desc = "should not exist"
-	icon = 'icons/fallout/objects/guns/ballistic.dmi'
+	icon = 'icons/obj/guns/projectile.dmi'
 	icon_prefix = "uzi"
 	lefthand_file = 'icons/fallout/onmob/weapons/guns_lefthand.dmi'
 	righthand_file = 'icons/fallout/onmob/weapons/guns_righthand.dmi'
@@ -168,7 +168,7 @@
 /obj/item/gun/ballistic/automatic/smg/smg14
 	name = "14mm SMG"
 	desc = "A heavy-duty SMG designed to tear through most forms of armor."
-	icon_state = "14smg"
+	icon_state = "12smg"
 	item_state = "14toploader"
 	mag_type = /obj/item/ammo_box/magazine/smg14
 	init_mag_type = /obj/item/ammo_box/magazine/smg14
@@ -468,7 +468,7 @@
 /obj/item/gun/ballistic/automatic/smg/tommygun
 	name = "Thompson SMG"
 	desc = "A powerful submachinegun chambered in .45 ACP, this weapon fires at a blistering rate with a heavy pistol cartridge, and can accept very high capacity magazines, to boot."
-	icon_state = "tommygun"
+	icon_state = "thomson"
 	item_state = "shotgun"
 	mag_type = /obj/item/ammo_box/magazine/tommygunm45
 	init_mag_type = /obj/item/ammo_box/magazine/tommygunm45/stick
@@ -961,7 +961,8 @@
 /obj/item/gun/ballistic/automatic/combat
 	name = "American Commonwealth Carbine"
 	desc = "A .45 semi-automatic combat carbine, produced pre-war for National Guard forces."
-	icon_state = "combat_rifle"
+	icon = 'icons/obj/guns/projectile.dmi'
+	icon_state = "c_rifle"
 	item_state = "combatrifle"
 	icon_prefix = "combatrifle"
 	mag_type = /obj/item/ammo_box/magazine/tommygunm45/stick
@@ -1367,7 +1368,7 @@
 /obj/item/gun/ballistic/automatic/marksman
 	name = "marksman carbine"
 	desc = "A marksman carbine built off the AR platform chambered in 5.56x45. Seen heavy usage in pre-war conflicts. This particular model is a civilian version and is semi-auto only."
-	icon_state = "marksman_rifle"
+	icon_state = "marksman_carbine"
 	item_state = "marksman"
 	mag_type = /obj/item/ammo_box/magazine/m556/rifle
 	init_mag_type = /obj/item/ammo_box/magazine/m556/rifle
@@ -1460,7 +1461,7 @@
 /obj/item/gun/ballistic/automatic/rangemaster
 	name = "Colt Rangemaster"
 	desc = "A Colt Rangemaster semi-automatic rifle, chambered for 7.62x51. Single-shot only."
-	icon_state = "rangemaster"
+	icon_state = "colt_rangemaster"
 	item_state = "308"
 	icon_prefix = "308"
 	force = 20
@@ -1626,7 +1627,7 @@
 /obj/item/gun/ballistic/automatic/m1garand/sks
 	name = "SKS"
 	desc = "Old hunting rifle taken from disovered stockpiles and refurbished in Phoenix workshops. The standard heavy rifle of the Legion, still rare. .308, semi-auto only, internal magazine."
-	icon = 'icons/fallout/objects/guns/ballistic.dmi'
+	icon = 'icons/obj/guns/projectile.dmi'
 	lefthand_file = 'icons/fallout/onmob/weapons/guns_lefthand.dmi'
 	righthand_file = 'icons/fallout/onmob/weapons/guns_righthand.dmi'
 	icon_state = "sks"
@@ -1877,7 +1878,8 @@
 /obj/item/gun/ballistic/automatic/type93
 	name = "type 93 assault rifle"
 	desc = "The Type 93 Chinese assault rifle was designed and manufactured by a Chinese industrial conglomerate for the People's Liberation Army during the Resource Wars. Has a unique burst-fire mechanism, where it fires two bullets very quickly, staying accurate, but leading to an increased pause between follow-up shots. Chambered in 5.56x45."
-	icon_state = "type93"
+	icon = 'icons/obj/guns/projectile.dmi'
+	icon_state = "chinese_ar"
 	item_state = "handmade_rifle"
 	icon_prefix = "handmade_rifle"
 	mag_type = /obj/item/ammo_box/magazine/m556/rifle
@@ -1909,8 +1911,8 @@
 /obj/item/gun/ballistic/automatic/type93/worn //24dmg
 	name = "\improper Worn Type 93"
 	desc = "This Type 93 Chinese assault rifle looks like it has been restored in a garage. The bore is shot to hell, the threading is destroyed, and so is the burst fire mechanism- it seems to fire unevenly, spraying more bullets than before."
-	icon = 'icons/fallout/objects/guns/ballistic.dmi'
-	icon_state = "type93"
+	icon = 'icons/obj/guns/projectile.dmi'
+	icon_state = "handmade_rifle"
 	item_state = "handmade_rifle"
 	weapon_class = WEAPON_CLASS_RIFLE
 	weapon_weight = GUN_ONE_HAND_ONLY
@@ -2050,7 +2052,7 @@
 /obj/item/gun/ballistic/automatic/fnfal
 	name = "FN FAL"
 	desc = "This rifle has been more widely used by armed forces than any other rifle in history. It's a reliable assault weapon for any terrain or tactical situation."
-	icon_state = "fnfal"
+	icon_state = "fal"
 	item_state = "fnfal"
 	mag_type = /obj/item/ammo_box/magazine/m308
 	init_mag_type = /obj/item/ammo_box/magazine/m308
@@ -2122,11 +2124,11 @@
  * Uncommon
  * * * * * * * * * * */
 
-obj/item/gun/ballistic/automatic/bar
+/obj/item/gun/ballistic/automatic/bar
 	name = "automatic rifle (.308)"
 	desc = "An ancient machine gun that looks like outdated even by pre-war standards. It has Colt etched on one-side and Sierra Madre on the other. It is alarmingly heavy for a rifle."
-	icon = 'icons/fallout/objects/guns/bar.dmi'
-	icon_state = "BAR"
+	icon = 'icons/obj/guns/projectile.dmi'
+	icon_state = "auto_rifle"
 	item_state = "BAR"
 	icon_prefix = "rifle"
 	mag_type = /obj/item/ammo_box/magazine/m308
@@ -2271,7 +2273,7 @@ obj/item/gun/ballistic/automatic/bar
 	icon = 'icons/obj/guns/projectile.dmi'
 	lefthand_file = 'icons/fallout/onmob/weapons/guns_lefthand.dmi'
 	righthand_file = 'icons/fallout/onmob/weapons/guns_righthand.dmi'
-	icon_state = "lsw"
+	icon_state = "lmg"
 	item_state = "lsw"
 	mag_type = /obj/item/ammo_box/magazine/m556/rifle
 	init_mag_type = /obj/item/ammo_box/magazine/m556/rifle

@@ -31,3 +31,8 @@
 		H.set_species(/datum/species/ghoul)
 		H.Stun(40)
 		H.radiation = 0
+
+/datum/species/human/qualifies_for_rank(rank, list/features)
+	if(rank in GLOB.mutant_positions)
+		return 0
+	return ..()

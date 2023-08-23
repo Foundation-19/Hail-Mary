@@ -160,12 +160,14 @@ Paladin Commander
 	name = "Paladin Commander"
 	jobtype = /datum/job/bos/f13sentinel
 	uniform = /obj/item/clothing/under/f13/recon
+	belt = /obj/item/storage/belt/army/assault
 	accessory = /obj/item/clothing/accessory/bos/sentinel
 	glasses = /obj/item/clothing/glasses/sunglasses
 	mask = /obj/item/clothing/mask/gas/sechailer
 	ears = /obj/item/radio/headset/headset_bos/command
-	suit = /obj/item/clothing/suit/armor/power_armor/midwest/hardened
-	head = /obj/item/clothing/head/helmet/f13/power_armor/midwest/hardened
+	suit = /obj/item/clothing/suit/armor/power_armor/t51b
+	suit_store = /obj/item/gun/energy/laser/aer12
+	head = /obj/item/clothing/head/helmet/f13/power_armor/t51b
 	neck = /obj/item/clothing/neck/mantle/bos/paladin
 	backpack_contents = list(
 		/obj/item/melee/onehanded/knife/hunting = 1,
@@ -173,8 +175,6 @@ Paladin Commander
 		/obj/item/gun/ballistic/automatic/pistol/n99/crusader = 1,
 		/obj/item/ammo_box/magazine/m10mm/adv/simple = 2,
 		/obj/item/reagent_containers/hypospray/medipen/stimpak = 6,
-		/obj/item/storage/belt/army/assault = 1,
-		/obj/item/gun/energy/laser/aer12 = 1,
 		/obj/item/stock_parts/cell/ammo/mfc = 5
 		)
 
@@ -282,10 +282,6 @@ Knight-Captain
 	outfit = /datum/outfit/job/bos/f13knightcap
 	exp_requirements = 60
 
-	loadout_options = list(
-	/datum/outfit/loadout/capalt //Hunting
-	)
-
 	access = list(ACCESS_BROTHERHOOD_COMMAND, ACCESS_ROBOTICS, ACCESS_BOS, ACCESS_ENGINE_EQUIP, ACCESS_ENGINE, ACCESS_HYDROPONICS, ACCESS_KITCHEN, ACCESS_BAR, ACCESS_SEC_DOORS, ACCESS_ARMORY, ACCESS_BRIG, ACCESS_CHANGE_IDS)
 	minimal_access = list(ACCESS_BROTHERHOOD_COMMAND, ACCESS_ROBOTICS, ACCESS_BOS, ACCESS_ENGINE_EQUIP, ACCESS_ENGINE, ACCESS_HYDROPONICS, ACCESS_KITCHEN, ACCESS_BAR, ACCESS_SEC_DOORS, ACCESS_ARMORY, ACCESS_BRIG, ACCESS_CHANGE_IDS)
 
@@ -304,6 +300,7 @@ Knight-Captain
 	gunsmith_three = TRUE
 	gunsmith_four = TRUE
 	suit = /obj/item/clothing/suit/armor/medium/combat/brotherhood/captain
+	suit_store = /obj/item/gun/energy/laser/aer12
 	glasses = /obj/item/clothing/glasses/night
 	accessory =	/obj/item/clothing/accessory/bos/knightcaptain
 	l_pocket = /obj/item/storage/belt/shoulderholster
@@ -313,7 +310,6 @@ Knight-Captain
 		/obj/item/melee/onehanded/knife/hunting = 1,
 		/obj/item/reagent_containers/hypospray/medipen/stimpak = 5,
 		/obj/item/storage/belt/army/security/full = 1,
-		/obj/item/gun/energy/laser/aer12 = 1,
 		/obj/item/stock_parts/cell/ammo/mfc = 5
 		)
 /*
@@ -358,17 +354,17 @@ Star Paladin
 /datum/outfit/job/bos/f13seniorpaladin
 	name =	"Star Paladin"
 	jobtype = /datum/job/bos/f13seniorpaladin
-	suit = /obj/item/clothing/suit/armor/power_armor/midwest
-	head = /obj/item/clothing/head/helmet/f13/power_armor/midwest
+	suit = /obj/item/clothing/suit/armor/power_armor/t51b
+	suit_store = /obj/item/gun/energy/laser/aer12
+	head = /obj/item/clothing/head/helmet/f13/power_armor/t51b
 	accessory =	/obj/item/clothing/accessory/bos/seniorpaladin
 	uniform = /obj/item/clothing/under/f13/recon
+	belt = /obj/item/storage/belt/army/assault
 	mask = /obj/item/clothing/mask/gas/sechailer
 	neck = /obj/item/clothing/neck/mantle/bos/paladin
 	backpack_contents = list(
 		/obj/item/reagent_containers/hypospray/medipen/stimpak = 4,
 		/obj/item/melee/onehanded/knife/hunting = 1,
-		/obj/item/storage/belt/army/assault = 1,
-		/obj/item/gun/energy/laser/aer12 = 1,
 		/obj/item/stock_parts/cell/ammo/mfc = 5
 	)
 /*
@@ -432,16 +428,16 @@ Paladin
 /datum/outfit/job/bos/f13paladin
 	name =	"Paladin"
 	jobtype =	/datum/job/bos/f13paladin
-	suit =	/obj/item/clothing/suit/armor/power_armor/midwest
-	head =	/obj/item/clothing/head/helmet/f13/power_armor/midwest
+	suit =	/obj/item/clothing/suit/armor/power_armor/t45d
+	suit_store = /obj/item/gun/energy/laser/aer12
+	head =	/obj/item/clothing/head/helmet/f13/power_armor/t45d
 	uniform =	/obj/item/clothing/under/f13/recon
+	belt = /obj/item/storage/belt/army/assault
 	mask =	/obj/item/clothing/mask/gas/sechailer
 	neck =	/obj/item/clothing/neck/mantle/bos/paladin
 	backpack_contents = list(
 		/obj/item/reagent_containers/hypospray/medipen/stimpak= 4,
 		/obj/item/melee/onehanded/knife/hunting = 1,
-		/obj/item/storage/belt/army/assault = 1,
-		/obj/item/gun/energy/laser/aer12 = 1,
 		/obj/item/stock_parts/cell/ammo/mfc = 5
 	)
 /*
@@ -637,9 +633,11 @@ Knight-Sergeant
 	name = "Knight-Sergeant"
 	jobtype = /datum/job/bos/f13seniorknight
 	suit = /obj/item/clothing/suit/armor/medium/combat/brotherhood/senior
+	suit_store = /obj/item/gun/energy/laser/aer12
 	accessory = /obj/item/clothing/accessory/bos/seniorknight
 	glasses = /obj/item/clothing/glasses/night
 	mask = /obj/item/clothing/mask/gas/sechailer
+	belt = /obj/item/storage/belt/army/assault
 	l_pocket = /obj/item/storage/belt/shoulderholster
 	head = /obj/item/clothing/head/helmet/f13/combat/brotherhood/senior
 	gunsmith_one = TRUE
@@ -652,8 +650,6 @@ Knight-Sergeant
 		/obj/item/reagent_containers/hypospray/medipen/stimpak = 5,
 		/obj/item/book/granter/crafting_recipe/gunsmith_one = 1,
 		/obj/item/book/granter/crafting_recipe/gunsmith_two = 1,
-		/obj/item/gun/energy/laser/aer12 = 1,
-		/obj/item/stock_parts/cell/ammo/mfc = 5
 		)
 /*
 /datum/outfit/loadout/sknightb
@@ -698,11 +694,6 @@ Knight
 	outfit = /datum/outfit/job/bos/f13knight
 	exp_requirements = 300
 
-	loadout_options = list(
-	/datum/outfit/loadout/knighte, //R93
-	/datum/outfit/loadout/knightf, //Ripper
-	)
-
 	access = list(ACCESS_ROBOTICS, ACCESS_BOS, ACCESS_ENGINE_EQUIP, ACCESS_ENGINE, ACCESS_HYDROPONICS, ACCESS_KITCHEN, ACCESS_BAR, ACCESS_SEC_DOORS)
 	minimal_access = list(ACCESS_ROBOTICS, ACCESS_BOS, ACCESS_ENGINE_EQUIP, ACCESS_ENGINE, ACCESS_HYDROPONICS, ACCESS_KITCHEN, ACCESS_BAR, ACCESS_SEC_DOORS)
 	matchmaking_allowed = list(
@@ -734,8 +725,10 @@ Knight
 	name = "Knight"
 	jobtype = /datum/job/bos/f13knight
 	suit = /obj/item/clothing/suit/armor/medium/combat/brotherhood
+	suit_store = /obj/item/gun/energy/laser/aer9
 	mask = /obj/item/clothing/mask/gas/sechailer
 	l_pocket = /obj/item/storage/belt/shoulderholster
+	belt = /obj/item/storage/belt/army/assault
 	head = /obj/item/clothing/head/helmet/f13/combat/brotherhood
 	gunsmith_one = TRUE
 	gunsmith_two = TRUE
@@ -743,11 +736,9 @@ Knight
 	gunsmith_four = TRUE
 	backpack_contents = list(
 		/obj/item/melee/onehanded/knife/survival = 1,
-		/obj/item/storage/belt/army/assault = 1,
 		/obj/item/reagent_containers/hypospray/medipen/stimpak = 1,
 		/obj/item/book/granter/crafting_recipe/gunsmith_one = 1,
 		/obj/item/book/granter/crafting_recipe/gunsmith_two = 1,
-		/obj/item/gun/energy/laser/aer9 = 1,
 		/obj/item/stock_parts/cell/ammo/mfc = 5
 		)
 /*

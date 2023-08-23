@@ -3,7 +3,6 @@
 	id = "smutant"
 	say_mod = "yells"
 	limbs_id = "smutant"
-	species_traits = list(NOTRANSSTING,NOAROUSAL)
 	inherent_traits = list(TRAIT_RADIMMUNE,TRAIT_VIRUSIMMUNE,TRAIT_SMUTANT,)
 	inherent_biotypes = list(MOB_INORGANIC, MOB_HUMANOID)
 	speedmod = 0.90
@@ -24,10 +23,28 @@
 		b.max_damage = initial(b.max_damage)
 
 /datum/species/smutant/qualifies_for_rank(rank, list/features)
-	if(rank in GLOB.legion_positions) /* Legion isn't a fan of muties */
+	if(rank in GLOB.legion_positions)
 		return 0
-	if(rank in GLOB.brotherhood_positions) //Kill it with fire.
+	if(rank in GLOB.brotherhood_positions)
 		return 0
-	if(rank in GLOB.vault_positions) //How did they even get in??.
+	if(rank in GLOB.vault_positions)
+		return 0
+	if(rank in GLOB.oasis_positions)
+		return 0
+	if(rank in GLOB.ncr_positions)
+		return 0
+	if(rank in GLOB.wasteland_positions)
+		return 0
+	if(rank in GLOB.redwater_positions) 
+		return 0
+	if(rank in GLOB.khan_positions) 
+		return 0
+	if(rank in GLOB.enclave_positions) 
+		return 0
+	if(rank in GLOB.biker_positions) 
+		return 0
+	if(rank in GLOB.followers_positions) 
+		return 0
+	if(rank in GLOB.tribal_positions) 
 		return 0
 	return ..()

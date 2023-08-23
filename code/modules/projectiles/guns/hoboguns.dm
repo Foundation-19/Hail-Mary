@@ -81,7 +81,7 @@
 		GUN_MISFIRE_HURTS_USER(5, 5, 15, BRUTELOSS),
 		GUN_MISFIRE_THROWS_GUN(2),
 		GUN_MISFIRE_UNLOADS_GUN(0.5, 50)
-	)
+	) 
 	//fire_sound = 'sound/weapons/Gunshot.ogg'
 
 /obj/item/gun/ballistic/automatic/hobo/zipgun/update_icon_state()
