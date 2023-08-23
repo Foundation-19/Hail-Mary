@@ -150,12 +150,7 @@
 	direct = TRUE
 	loop_delay = 1 SECONDS
 	mid_sounds = list(
-		SOUND_LOOP_ENTRY('sound/f13ambience/ambicity1.ogg', 151 SECONDS, 1),
-		SOUND_LOOP_ENTRY('sound/f13ambience/ambicity2.ogg', 62 SECONDS, 1),
-		SOUND_LOOP_ENTRY('sound/f13ambience/ambicity3.ogg', 60 SECONDS, 1),
-		SOUND_LOOP_ENTRY('sound/f13ambience/ambicity4.ogg', 92 SECONDS, 1),
-		SOUND_LOOP_ENTRY('sound/f13ambience/ambicity5.ogg', 48 SECONDS, 1),
-		SOUND_LOOP_ENTRY('sound/f13ambience/ambicity6.ogg', 82 SECONDS, 1),
+		SOUND_LOOP_ENTRY('sound/f13ambience/baltimore-Harbor.ogg', 120 SECONDS, 1),
 	)
 
 
@@ -166,9 +161,7 @@
 	direct = TRUE
 	loop_delay = 0
 	mid_sounds = list(
-		SOUND_LOOP_ENTRY('sound/f13ambience/ambibuilding1.ogg', 130 SECONDS, 1),
-		SOUND_LOOP_ENTRY('sound/f13ambience/ambibuilding2.ogg', 130 SECONDS, 1),
-		SOUND_LOOP_ENTRY('sound/f13ambience/building.ogg', 4 SECONDS, 1),
+		SOUND_LOOP_ENTRY('sound/f13ambience/baltimore-Harbor.ogg', 120 SECONDS, 1),
 	)
 
 	//Buildings//
@@ -180,12 +173,7 @@
 	direct = TRUE
 	loop_delay = 30 SECONDS
 	mid_sounds = list(
-		SOUND_LOOP_ENTRY('sound/f13ambience/ambibuilding1.ogg', 60 SECONDS, 1),
-		SOUND_LOOP_ENTRY('sound/f13ambience/ambibuilding2.ogg', 71 SECONDS, 1),
-		SOUND_LOOP_ENTRY('sound/f13ambience/ambibuilding3.ogg', 24 SECONDS, 1),
-		SOUND_LOOP_ENTRY('sound/f13ambience/ambibuilding4.ogg', 47 SECONDS, 1),
-		SOUND_LOOP_ENTRY('sound/f13ambience/shack.ogg', 7 SECONDS, 1),
-		SOUND_LOOP_ENTRY('sound/f13ambience/warehouse.ogg', 9 SECONDS, 1),
+		SOUND_LOOP_ENTRY('sound/f13ambience/baltimore-Harbor-Interior.ogg', 120 SECONDS, 1),
 	)
 
 /datum/looping_sound/ambient/building/church
@@ -209,6 +197,18 @@
 	loop_delay = 30 SECONDS
 	mid_sounds = list(
 		SOUND_LOOP_ENTRY('sound/f13ambience/ambihospital1.ogg', 19 SECONDS, 1),
+		SOUND_LOOP_ENTRY('sound/f13ambience/baltimore-Ship-Interior.ogg', 120 SECONDS, 1),
+	)
+
+/datum/looping_sound/ambient/building/boat
+	chance = 100
+	vary = FALSE
+	vary_direction = TRUE
+	volume = SOUND_LOOP_VOL_RANGE(100, 100)
+	direct = TRUE
+	loop_delay = 30 SECONDS
+	mid_sounds = list(
+		SOUND_LOOP_ENTRY('sound/f13ambience/baltimore-Ship-Interior.ogg', 120 SECONDS, 1),
 	)
 
 /datum/looping_sound/ambient/building/sulphurtribe
@@ -237,17 +237,14 @@
 		SOUND_LOOP_ENTRY('sound/f13ambience/ambiforest1.ogg', 24 SECONDS, 1),
 	)
 
-/datum/looping_sound/ambient/swamp
+/datum/looping_sound/ambient/ocean
 	chance = 100
 	vary = FALSE
 	volume = SOUND_LOOP_VOL_RANGE(100, 100)
 	direct = TRUE
 	loop_delay = 0
 	mid_sounds = list(
-		SOUND_LOOP_ENTRY('sound/f13ambience/ambiswamp1.ogg', 130 SECONDS, 1),
-		SOUND_LOOP_ENTRY('sound/f13ambience/ambiswamp2.ogg', 130 SECONDS, 1),
-		SOUND_LOOP_ENTRY('sound/f13ambience/ambiswamp3.ogg', 130 SECONDS, 1),
-		SOUND_LOOP_ENTRY('sound/f13ambience/ambiswamp4.ogg', 130 SECONDS, 1),
+		SOUND_LOOP_ENTRY('sound/f13ambience/baltimore-Ocean.ogg', 120 SECONDS, 1),
 	)
 
 /datum/looping_sound/ambient/swamp/quiet
@@ -257,10 +254,7 @@
 	direct = TRUE
 	loop_delay = 0
 	mid_sounds = list(
-		SOUND_LOOP_ENTRY('sound/f13ambience/ambiswamp1.ogg', 130 SECONDS, 1),
-		SOUND_LOOP_ENTRY('sound/f13ambience/ambiswamp2.ogg', 130 SECONDS, 1),
-		SOUND_LOOP_ENTRY('sound/f13ambience/ambiswamp3.ogg', 130 SECONDS, 1),
-		SOUND_LOOP_ENTRY('sound/f13ambience/ambiswamp4.ogg', 130 SECONDS, 1),
+		SOUND_LOOP_ENTRY('sound/f13ambience/baltimore-Ocean.ogg', 120 SECONDS, 1),
 	)
 
 //Wildeness End
