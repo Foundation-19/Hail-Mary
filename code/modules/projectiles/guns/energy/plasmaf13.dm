@@ -96,7 +96,7 @@
 	burst_shot_delay = GUN_BURSTFIRE_DELAY_NORMAL
 	burst_size = 1
 	mag_type = /obj/item/ammo_box/magazine/internal/f4plasma
-	damage_multiplier = GUN_LESS_DAMAGE_T5 //22.5 damage
+	damage_multiplier = GUN_LESS_DAMAGE_T4 //16.25 damage
 
 	init_firemodes = list(
 		/datum/firemode/semi_auto/slow
