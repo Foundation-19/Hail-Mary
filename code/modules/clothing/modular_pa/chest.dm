@@ -6,10 +6,10 @@
 /obj/item/armor_module/armor/chest
 	slot = ATTACHMENT_SLOT_CHESTPLATE
 
-/obj/item/armor_module/armor/chest/t45b
-	name = "\improper T45b chestplates"
-	desc = "A hulking chestplate, designed for the standard T45b set of Power Armour."
-	icon_state = "t45b_chest"
+/obj/item/armor_module/armor/chest/t45d
+	name = "\improper t45d chestplates"
+	desc = "A hulking chestplate, designed for the standard t45d set of Power Armour."
+	icon_state = "t45d_chest"
 	armor = list("melee" = 50, "bullet" = 65, "laser" = 40, "energy" = 40, "bomb" = 60, "bio" = 30, "rad" = 100, "fire" = 0, "acid" = 20)
 
 /obj/item/armor_module/armor/chest/t51

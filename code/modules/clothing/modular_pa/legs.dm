@@ -1,10 +1,10 @@
 /obj/item/armor_module/armor/legs
 	slot = ATTACHMENT_SLOT_KNEE
 
-/obj/item/armor_module/armor/leg/t45b
-	name = "\improper T45b legplates"
-	desc = "A hulking legplate, designed for the standard T45b set of Power Armour."
-	icon_state = "t45b_leg"
+/obj/item/armor_module/armor/leg/t45d
+	name = "\improper t45d legplates"
+	desc = "A hulking legplate, designed for the standard t45d set of Power Armour."
+	icon_state = "t45d_leg"
 	armor = list("melee" = 50, "bullet" = 65, "laser" = 40, "energy" = 40, "bomb" = 60, "bio" = 30, "rad" = 100, "fire" = 0, "acid" = 20)
 
 /obj/item/armor_module/armor/leg/t51
@@ -18,4 +18,3 @@
 	desc = "A hulking, imposing legplate, designed for the overbearing Enclave-design X-01 Advanced Power Armour set."
 	icon_state = "apa_leg"
 	armor = list("melee" = 60, "bullet" = 90, "laser" = 50, "energy" = 50, "bomb" = 60, "bio" = 30, "rad" = 100, "fire" = 0, "acid" = 20)
-	

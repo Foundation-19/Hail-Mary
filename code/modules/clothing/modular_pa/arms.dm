@@ -1,10 +1,10 @@
 /obj/item/armor_module/armor/arms
 	slot = ATTACHMENT_SLOT_SHOULDER
 
-/obj/item/armor_module/armor/arms/t45b
-	name = "\improper T45b armplates"
-	desc = "A hulking set of metal exosuit arms, designed for the standard T45b set of Power Armour."
-	icon_state = "t45b_arms"
+/obj/item/armor_module/armor/arms/t45d
+	name = "\improper t45d armplates"
+	desc = "A hulking set of metal exosuit arms, designed for the standard t45d set of Power Armour."
+	icon_state = "t45d_arms"
 	armor = list("melee" = 50, "bullet" = 65, "laser" = 40, "energy" = 40, "bomb" = 60, "bio" = 30, "rad" = 100, "fire" = 0, "acid" = 20)
 
 /obj/item/armor_module/armor/arms/t51

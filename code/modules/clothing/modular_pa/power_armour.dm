@@ -10,7 +10,7 @@
 /obj/item/clothing/suit/modular
 	name = "Power Armour Frame"
 	desc = "The frame of a mechanised infantry support suit, better known as Power Armour. Fits Power Armour parts and modules."
-	icon = 'icons/mob/modular/modular_armor.dmi'
+	icon = 'icons/mob/modular/power_armor.dmi'
 	icon_state = "paframe"
 	item_state = "paframe"
 	flags_atom = CONDUCT
@@ -67,9 +67,9 @@
 	)
 	///Typepath list of allowed attachment types.
 	var/list/attachments_allowed = list(
-		/obj/item/armor_module/armor/chest/t45b,
-		/obj/item/armor_module/armor/legs/t45b,
-		/obj/item/armor_module/armor/arms/t45b,
+		/obj/item/armor_module/armor/chest/t45d,
+		/obj/item/armor_module/armor/legs/t45d,
+		/obj/item/armor_module/armor/arms/t45d,
 
 		/obj/item/armor_module/armor/chest/t51,
 		/obj/item/armor_module/armor/legs/t51,
@@ -241,17 +241,17 @@
 	var/mob/living/carbon/human/H = user
 	if(src == H.head) //Suit is already equipped
 		return ..()
-	if (!H.has_trait(TRAIT_PA_WEAR) && !istype(src, /obj/item/clothing/head/helmet/f13/power_armor/t45b) && slot == SLOT_HEAD && requires_training)
+	if (!H.has_trait(TRAIT_PA_WEAR) && !istype(src, /obj/item/clothing/head/helmet/f13/power_armor) && slot == SLOT_HEAD && requires_training)
 		to_chat(user, "<span class='warning'>You don't have the proper training to operate the power armor!</span>")
 		return 0
 	if(slot == SLOT_HEAD)
 		return ..()
 	return
 
-/obj/item/clothing/head/modular/t45b
-	name = "T45b Helmet"
-	desc = "A helmet of a T45b Power Armour."
-	icon_state = "t45b_helmet"
+/obj/item/clothing/head/modular/t45d
+	name = "T45d Helmet"
+	desc = "A helmet of a t45d Power Armour."
+	icon_state = "t45d_helmet"
 	armor = list("melee" = 50, "bullet" = 50, "laser" = 50, "energy" = 50, "bomb" = 50, "bio" = 50, "rad" = 50, "fire" = 50, "acid" = 50)
 
 /obj/item/clothing/head/modular/t51
