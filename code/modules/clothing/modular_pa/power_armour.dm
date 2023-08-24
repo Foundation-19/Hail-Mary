@@ -24,6 +24,7 @@
 	var/requires_training = TRUE
 	flags_inv = HIDEJUMPSUIT|HIDENECK|HIDEEYES|HIDEEARS|HIDEFACE|HIDEMASK|HIDEGLOVES|HIDESHOES
 	var/traits = list(TRAIT_IRONFIST, TRAIT_STUNIMMUNE, TRAIT_PUSHIMMUNE)
+	
 
 /obj/item/clothing/suit/modular/Initialize()
 	. = ..()
@@ -178,13 +179,6 @@ var/current_variant
 	if(slot == SLOT_HEAD)
 		return ..()
 	return
-
-/obj/item/clothing/head/modular/run_block(mob/living/owner, atom/object, damage, attack_text, attack_type, armour_penetration, mob/attacker, def_zone, final_block_chance, list/block_return)
-	if((attack_type == ATTACK_TYPE_PROJECTILE) && (def_zone in protected_zones))
-		if(prob(70) && (damage < deflect_damage))
-			block_return[BLOCK_RETURN_REDIRECT_METHOD] = REDIRECT_METHOD_DEFLECT
-			return BLOCK_SHOULD_REDIRECT | BLOCK_REDIRECTED | BLOCK_SUCCESS | BLOCK_PHYSICAL_INTERNAL
-	return ..()
 
 /obj/item/clothing/head/modular/t45d
 	name = "T45d Helmet"
