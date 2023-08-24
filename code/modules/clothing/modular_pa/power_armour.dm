@@ -24,79 +24,75 @@
 	var/requires_training = TRUE
 	flags_inv = HIDEJUMPSUIT|HIDENECK|HIDEEYES|HIDEEARS|HIDEFACE|HIDEMASK|HIDEGLOVES|HIDESHOES
 	var/traits = list(TRAIT_IRONFIST, TRAIT_STUNIMMUNE, TRAIT_PUSHIMMUNE)
-	var/deflect_damage = 10
-	var/deflection_chance = 50 //Chance for the power armor to redirect a blocked projectile
-	var/armor_block_threshold = 0.3 //projectiles below this will deflect
-	var/melee_block_threshold = 30
-	var/dmg_block_threshold = 42
-	var/armor_block_chance = 25 //Chance for the power armor to block a low penetration projectile
 
 /obj/item/clothing/suit/modular/Initialize()
 	. = ..()
 	AddComponent(/datum/component/spraycan_paintable)
 
-/obj/item/clothing/suit/armor/power_armor/mob_can_equip(mob/user, mob/equipper, slot, disable_warning = 1)
+/obj/item/clothing/suit/modular/mob_can_equip(mob/user, mob/equipper, slot, disable_warning = 1)
 	var/mob/living/carbon/human/H = user
 	if(src == H.wear_suit) //Suit is already equipped
 		return ..()
-	if (!HAS_TRAIT(H, TRAIT_PA_WEAR) && slot == SLOT_WEAR_SUIT && requires_training)
+	if (!HAS_TRAIT(H, TRAIT_PA_WEAR))
 		to_chat(user, span_warning("You don't have the proper training to operate the power armor!"))
 		return 0
 	if(slot == SLOT_WEAR_SUIT)
 		ADD_TRAIT(user, TRAIT_STUNIMMUNE,	"stun_immunity")
 		ADD_TRAIT(user, TRAIT_PUSHIMMUNE,	"push_immunity")
+		ADD_TRAIT(user, TRAIT_IRONFIST,	"iron_fist")
 		return ..()
 	return
 
-/obj/item/clothing/suit/armor/power_armor/dropped(mob/user)
+/obj/item/clothing/suit/modular/dropped(mob/user)
 	REMOVE_TRAIT(user, TRAIT_STUNIMMUNE,	"stun_immunity")
 	REMOVE_TRAIT(user, TRAIT_PUSHIMMUNE,	"push_immunity")
+	REMOVE_TRAIT(user, TRAIT_IRONFIST,	"iron_fist")
 	return ..()
 
 	actions_types = list(/datum/action/item_action/toggle)
 	///Assoc list of available slots.
-	var/list/attachments_by_slot = list(
-		ATTACHMENT_SLOT_CHESTPLATE,
-		ATTACHMENT_SLOT_SHOULDER,
-		ATTACHMENT_SLOT_KNEE,
-		ATTACHMENT_SLOT_MODULE,
-	)
+var/list/attachments_by_slot = list(
+	ATTACHMENT_SLOT_CHESTPLATE,
+	ATTACHMENT_SLOT_SHOULDER,
+	ATTACHMENT_SLOT_KNEE,
+	ATTACHMENT_SLOT_MODULE,
+)
 	///Typepath list of allowed attachment types.
-	var/list/attachments_allowed = list(
-		/obj/item/armor_module/armor/chest/t45d,
-		/obj/item/armor_module/armor/leg/t45d,
-		/obj/item/armor_module/armor/arms/t45d,
+var/list/attachments_allowed = list(
+	/obj/item/armor_module/armor/chest/t45d,
+	/obj/item/armor_module/armor/leg/t45d,
+	/obj/item/armor_module/armor/arms/t45d,
 
-		/obj/item/armor_module/armor/chest/t51,
-		/obj/item/armor_module/armor/leg/t51,
-		/obj/item/armor_module/armor/arms/t51,
+	/obj/item/armor_module/armor/chest/t51,
+	/obj/item/armor_module/armor/leg/t51,
+	/obj/item/armor_module/armor/arms/t51,
 
-		/obj/item/armor_module/armor/chest/apa,
-		/obj/item/armor_module/armor/leg/apa,
-		/obj/item/armor_module/armor/arms/apa,
+	/obj/item/armor_module/armor/chest/apa,
+	/obj/item/armor_module/armor/leg/apa,
+	/obj/item/armor_module/armor/arms/apa,
 
-	)
+)
 	///Pixel offsets for specific attachment slots. Is not used currently.
-	var/list/attachment_offsets = list()
+var/list/attachment_offsets = list()
 	///List of attachment types that is attached to the object on initialize.
-	var/list/starting_attachments = list()
+var/list/starting_attachments = list()
 	///List of the attachment overlays.
-	var/list/attachment_overlays = list()
+var/list/attachment_overlays = list()
 	///List of icon_state suffixes for armor varients.
-	var/list/icon_state_variants = list()
+var/list/icon_state_variants = list()
 	///Current varient selected.
-	var/current_variant
+var/current_variant
 
 /obj/item/clothing/suit/modular/Initialize()
 	. = ..()
-	AddComponent(/datum/component/attachment_handler, attachments_by_slot, attachments_allowed, attachment_offsets, starting_attachments, null, null, null, attachment_overlays)
+	AddComponent(/datum/component/attachment_handler, attachments_by_slot, attachments_allowed, attachment_offsets, starting_attachments, attachment_overlays)
 	update_icon()
 
 /obj/item/clothing/suit/modular/equipped(mob/user, slot)
 	. = ..()
-	var/obj/structure/table/table = locate() in get_turf(/obj/item/clothing/suit/armor/power_armor)
+	var/obj/structure/table/table = locate() in get_turf(/obj/item/clothing/suit/modular)
 	if(isnull(table))
-		to_chat(user, "You cannot modify the Power Armour without it being placed on a table or similar surface.")
+		to_chat(user, span_notice("You cannot modify the Power Armour without it being placed on a table or similar surface."))
 		return
 	for(var/key in attachments_by_slot)
 		if(!attachments_by_slot[key])
@@ -110,9 +106,9 @@
 
 /obj/item/clothing/suit/modular/unequipped(mob/unequipper, slot)
 	. = ..()
-	var/obj/structure/table/table = locate() in get_turf(/obj/item/clothing/suit/armor/power_armor)
+	var/obj/structure/table/table = locate() in get_turf(/obj/item/clothing/suit/modular)
 	if(isnull(table))
-		to_chat(user, "You cannot modify the Power Armour without it being placed on a table or similar surface.")
+		to_chat(user, span_notice("You cannot modify the Power Armour without it being placed on a table or similar surface."))
 		return
 	for(var/key in attachments_by_slot)
 		if(!attachments_by_slot[key])
@@ -130,21 +126,6 @@
 		icon_state = initial(icon_state) + "_[current_variant]"
 		item_state = initial(item_state) + "_[current_variant]"
 	update_clothing_icon()
-		
-/obj/item/clothing/suit/armor/power_armor/run_block(mob/living/owner, atom/object, damage, attack_text, attack_type, armour_penetration, mob/attacker, def_zone, final_block_chance, list/block_return)
-	. = ..()
-	if(check_armor_penetration(object) <= src.armor_block_threshold && (attack_type == ATTACK_TYPE_PROJECTILE) && (def_zone in protected_zones))
-		if(prob(armor_block_chance))
-			var/ratio = rand(0,100)
-			if(ratio <= deflection_chance)
-				block_return[BLOCK_RETURN_REDIRECT_METHOD] = REDIRECT_METHOD_DEFLECT
-				return BLOCK_SHOULD_REDIRECT | BLOCK_REDIRECTED | BLOCK_SUCCESS | BLOCK_PHYSICAL_INTERNAL
-			if(ismob(loc))
-				to_chat(loc, span_warning("Your power armor absorbs the projectile's impact!"))
-			block_return[BLOCK_RETURN_SET_DAMAGE_TO] = 0
-			return BLOCK_SUCCESS | BLOCK_PHYSICAL_INTERNAL
-	return
-
 
 /** Core helmet module */
 /obj/item/clothing/head/modular
@@ -183,11 +164,11 @@
 	var/salvage_step = 0
 	armor = ARMOR_VALUE_PA
 
-/obj/item/clothing/head/helmet/f13/power_armor/ComponentInitialize()
+/obj/item/clothing/head/modular/ComponentInitialize()
 	. = ..()
 	AddElement(/datum/element/update_icon_updates_onmob)
 
-/obj/item/clothing/head/helmet/f13/power_armor/mob_can_equip(mob/user, mob/equipper, slot, disable_warning = 1)
+/obj/item/clothing/head/modular/mob_can_equip(mob/user, mob/equipper, slot, disable_warning = 1)
 	var/mob/living/carbon/human/H = user
 	if(src == H.head) //Suit is already equipped
 		return ..()
@@ -198,7 +179,7 @@
 		return ..()
 	return
 
-/obj/item/clothing/head/helmet/f13/power_armor/run_block(mob/living/owner, atom/object, damage, attack_text, attack_type, armour_penetration, mob/attacker, def_zone, final_block_chance, list/block_return)
+/obj/item/clothing/head/modular/run_block(mob/living/owner, atom/object, damage, attack_text, attack_type, armour_penetration, mob/attacker, def_zone, final_block_chance, list/block_return)
 	if((attack_type == ATTACK_TYPE_PROJECTILE) && (def_zone in protected_zones))
 		if(prob(70) && (damage < deflect_damage))
 			block_return[BLOCK_RETURN_REDIRECT_METHOD] = REDIRECT_METHOD_DEFLECT
