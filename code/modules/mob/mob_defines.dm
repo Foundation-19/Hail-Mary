@@ -199,3 +199,5 @@
 	var/waddle_up_time
 	/// How long is a sideways bob for wobbling?
 	var/waddle_side_time
+
+	var/list/actions_by_path = list()

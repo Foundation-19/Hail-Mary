@@ -93,7 +93,7 @@ var/current_variant
 	. = ..()
 	var/obj/structure/table/table = locate() in get_turf(/obj/item/clothing/suit/modular)
 	if(isnull(table))
-		to_chat(user, span_notice("You cannot modify the Power Armour without it being placed on a table or similar surface."))
+		to_chat(usr, span_notice("You cannot modify the Power Armour without it being placed on a table or similar surface."))
 		return
 	for(var/key in attachments_by_slot)
 		if(!attachments_by_slot[key])
@@ -109,7 +109,7 @@ var/current_variant
 	. = ..()
 	var/obj/structure/table/table = locate() in get_turf(/obj/item/clothing/suit/modular)
 	if(isnull(table))
-		to_chat(user, span_notice("You cannot modify the Power Armour without it being placed on a table or similar surface."))
+		to_chat(usr, span_notice("You cannot modify the Power Armour without it being placed on a table or similar surface."))
 		return
 	for(var/key in attachments_by_slot)
 		if(!attachments_by_slot[key])
@@ -174,7 +174,7 @@ var/current_variant
 	if(src == H.head) //Suit is already equipped
 		return ..()
 	if (!HAS_TRAIT(H, TRAIT_PA_WEAR) && slot == SLOT_HEAD && requires_training)
-		to_chat(user, span_warning("You don't have the proper training to operate the power armor!"))
+		to_chat(usr, span_warning("You don't have the proper training to operate the power armor!"))
 		return 0
 	if(slot == SLOT_HEAD)
 		return ..()

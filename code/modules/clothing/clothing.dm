@@ -499,3 +499,8 @@ BLIND     // can't see anything
 	for(var/drop in salvage_loot)
 		for(var/i in 1 to max(1, salvage_loot[drop])) // So "/obj/item/stuff = 3" drops exactly 3 times
 			new drop(dropTurf)
+
+//Updates the icons of the mob wearing the clothing item, if any.
+/obj/item/clothing/proc/update_clothing_icon()
+	return
+	
