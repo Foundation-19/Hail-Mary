@@ -40,7 +40,7 @@
 
 /// Called before a module is attached.
 /obj/item/armor_module/proc/can_attach(obj/item/attaching_to, mob/user)
-	if(!istype(attaching_to, /obj/item/clothing/suit/modular) && !istype(attaching_to, /obj/item/clothing/head/modular))
+	if(!istype(attaching_to, /obj/item/clothing/suit/modular))
 		return FALSE
 	return TRUE
 

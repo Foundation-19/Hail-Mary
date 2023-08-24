@@ -34,7 +34,7 @@
 	var/mob/living/carbon/human/H = user
 	if(src == H.wear_suit) //Suit is already equipped
 		return ..()
-	if (!HAS_TRAIT(H, TRAIT_PA_WEAR))
+	if (!HAS_TRAIT(H, TRAIT_PA_WEAR) && slot == SLOT_WEAR_SUIT && requires_training)
 		to_chat(user, span_warning("You don't have the proper training to operate the power armor!"))
 		return 0
 	if(slot == SLOT_WEAR_SUIT)
@@ -91,7 +91,7 @@ var/current_variant
 
 /obj/item/clothing/suit/modular/equipped(mob/user, slot)
 	. = ..()
-	var/obj/structure/table/table = locate() in get_turf(/obj/item/clothing/suit/modular)
+	var/obj/structure/table/table = locate() in get_turf(src)
 	if(isnull(table))
 		to_chat(usr, span_notice("You cannot modify the Power Armour without it being placed on a table or similar surface."))
 		return
@@ -105,21 +105,21 @@ var/current_variant
 		var/datum/action/item_action/toggle/new_action = new(module)
 		new_action.give_action(user)
 
-/obj/item/clothing/suit/modular/unequipped(mob/unequipper, slot)
-	. = ..()
-	var/obj/structure/table/table = locate() in get_turf(/obj/item/clothing/suit/modular)
-	if(isnull(table))
-		to_chat(usr, span_notice("You cannot modify the Power Armour without it being placed on a table or similar surface."))
-		return
-	for(var/key in attachments_by_slot)
-		if(!attachments_by_slot[key])
-			continue
-		var/obj/item/armor_module/module = attachments_by_slot[key]
-		if(!CHECK_BITFIELD(module.flags_attach_features, ATTACH_ACTIVATION))
-			continue
-		LAZYREMOVE(module.actions_types, /datum/action/item_action/toggle)
-		var/datum/action/item_action/toggle/old_action = locate(/datum/action/item_action/toggle) in module.actions
-		old_action.remove_action(unequipper)
+/obj/item/clothing/suit/modular/proc/unequipped(mob/unequipper, slot)
+    . = ..()
+    var/obj/structure/table/table = locate() in get_turf(src)
+    if(isnull(table))
+        to_chat(usr, span_notice("You cannot modify the Power Armour without it being placed on a table or similar surface."))
+        return
+    for(var/key in attachments_by_slot)
+        if(!attachments_by_slot[key])
+            continue
+        var/obj/item/armor_module/module = attachments_by_slot[key]
+        if(!CHECK_BITFIELD(module.flags_attach_features, ATTACH_ACTIVATION))
+            continue
+        LAZYREMOVE(module.actions_types, /datum/action/item_action/toggle)
+        var/datum/action/item_action/toggle/old_action = locate(/datum/action/item_action/toggle) in module.actions
+        old_action.remove_action(unequipper)
 
 /obj/item/clothing/suit/modular/update_icon()
 	. = ..()
@@ -127,71 +127,3 @@ var/current_variant
 		icon_state = initial(icon_state) + "_[current_variant]"
 		item_state = initial(item_state) + "_[current_variant]"
 	update_clothing_icon()
-
-/** Core helmet module */
-/obj/item/clothing/head/modular
-	cold_protection = HEAD
-	heat_protection = HEAD
-	ispowerarmor = 1 //TRUE
-	strip_delay = 200
-	equip_delay_self = 20
-	slowdown = 0.05
-	flags_inv = HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDEMASK|HIDEJUMPSUIT
-	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
-	clothing_flags = THICKMATERIAL
-	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
-	item_flags = SLOWS_WHILE_IN_HAND
-	flash_protect = 2
-	dynamic_hair_suffix = ""
-	dynamic_fhair_suffix = ""
-	speechspan = SPAN_ROBOT //makes you sound like a robot
-	max_heat_protection_temperature = FIRE_HELM_MAX_TEMP_PROTECT
-	cold_protection = HEAD
-	min_cold_protection_temperature = FIRE_HELM_MIN_TEMP_PROTECT
-	light_system = MOVABLE_LIGHT_DIRECTIONAL
-	light_range = 5
-	light_on = FALSE
-	salvage_loot = list(/obj/item/stack/crafting/armor_plate = 10)
-	salvage_tool_behavior = TOOL_WELDER
-	/// Projectiles below this damage will get deflected
-	var/deflect_damage = 18
-	/// If TRUE - it requires PA training trait to be worn
-	var/requires_training = TRUE
-	/// If TRUE - the suit will give its user specific traits when worn
-	var/powered = TRUE
-	/// Path of item that this helmet gets salvaged into
-	var/obj/item/salvaged_type = null
-	/// Used to track next tool required to salvage the suit
-	var/salvage_step = 0
-	armor = ARMOR_VALUE_PA
-
-/obj/item/clothing/head/modular/ComponentInitialize()
-	. = ..()
-	AddElement(/datum/element/update_icon_updates_onmob)
-
-/obj/item/clothing/head/modular/mob_can_equip(mob/user, mob/equipper, slot, disable_warning = 1)
-	var/mob/living/carbon/human/H = user
-	if(src == H.head) //Suit is already equipped
-		return ..()
-	if (!HAS_TRAIT(H, TRAIT_PA_WEAR) && slot == SLOT_HEAD && requires_training)
-		to_chat(usr, span_warning("You don't have the proper training to operate the power armor!"))
-		return 0
-	if(slot == SLOT_HEAD)
-		return ..()
-	return
-
-/obj/item/clothing/head/modular/t45d
-	name = "T45d Helmet"
-	desc = "A helmet of a t45d Power Armour."
-	icon_state = "t45d_helmet"
-	armor = list("melee" = 50, "bullet" = 50, "laser" = 50, "energy" = 50, "bomb" = 50, "bio" = 50, "rad" = 50, "fire" = 50, "acid" = 50)
-
-/obj/item/clothing/head/modular/t51
-	name = "T51 Helmet"
-	desc = "A helmet of a T51 Power Armour."
-	icon_state = "t51_helmet"
-
-/obj/item/clothing/head/modular/apa
-	name = "X-01 Helmet"
-	desc = "An Advanced Power Armour helmet."
-	icon_state = "apa"
