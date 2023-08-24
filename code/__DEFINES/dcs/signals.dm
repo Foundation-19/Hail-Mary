@@ -664,6 +664,10 @@
 /// Tells the belly trash happened
 #define COMSIG_BELLY_HANDLE_TRASH "i_got_trash" // (datum/source, obj/item/thetrash)
 
+/// Jesus fuck the hsit above us is rancid, anyway PA shit
 
+#define COMSIG_ITEM_IS_ATTACHING "item_is_attaching" //from base of /datum/component/attachment_handler/handle_attachment : (/obj/item, /mob)
 
-
+// /obj/item/armor_module signals
+#define COMSIG_ARMOR_MODULE_ATTACHING "armor_module_attaching"
+#define COMSIG_ARMOR_MODULE_DETACHED "armor_module_detached"

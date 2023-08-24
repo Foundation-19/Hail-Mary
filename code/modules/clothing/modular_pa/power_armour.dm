@@ -13,12 +13,10 @@
 	icon = 'icons/mob/modular/power_armor.dmi'
 	icon_state = "paframe"
 	item_state = "paframe"
-	flags_atom = CONDUCT
 	w_class = WEIGHT_CLASS_HUGE
 	slowdown = 0.4 //+0.1 from helmet = total 0.5
 	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
 	item_flags = SLOWS_WHILE_IN_HAND
-	clothing_flags = THICKMATERIALPORT
 	equip_delay_self = 50
 	equip_delay_other = 60
 	strip_delay = 200
@@ -27,34 +25,32 @@
 	flags_inv = HIDEJUMPSUIT|HIDENECK|HIDEEYES|HIDEEARS|HIDEFACE|HIDEMASK|HIDEGLOVES|HIDESHOES
 	var/traits = list(TRAIT_IRONFIST, TRAIT_STUNIMMUNE, TRAIT_PUSHIMMUNE)
 	var/deflect_damage = 10
+	var/deflection_chance = 50 //Chance for the power armor to redirect a blocked projectile
+	var/armor_block_threshold = 0.3 //projectiles below this will deflect
+	var/melee_block_threshold = 30
+	var/dmg_block_threshold = 42
+	var/armor_block_chance = 25 //Chance for the power armor to block a low penetration projectile
 
 /obj/item/clothing/suit/modular/Initialize()
 	. = ..()
 	AddComponent(/datum/component/spraycan_paintable)
 
-/obj/item/clothing/suit/modular/mob_can_equip(mob/user, mob/equipper, slot, disable_warning = 1)
-	. = ..()
-	if(!.)
-		return
-
-	if(!ishuman(user))
-		return FALSE
-
+/obj/item/clothing/suit/armor/power_armor/mob_can_equip(mob/user, mob/equipper, slot, disable_warning = 1)
 	var/mob/living/carbon/human/H = user
-	if (!H.has_trait(TRAIT_PA_WEAR) && requires_training)
-		to_chat(user, "<span class='warning'>You don't have the proper training to operate the power armor!</span>")
-		return FALSE
+	if(src == H.wear_suit) //Suit is already equipped
+		return ..()
+	if (!HAS_TRAIT(H, TRAIT_PA_WEAR) && slot == SLOT_WEAR_SUIT && requires_training)
+		to_chat(user, span_warning("You don't have the proper training to operate the power armor!"))
+		return 0
+	if(slot == SLOT_WEAR_SUIT)
+		ADD_TRAIT(user, TRAIT_STUNIMMUNE,	"stun_immunity")
+		ADD_TRAIT(user, TRAIT_PUSHIMMUNE,	"push_immunity")
+		return ..()
+	return
 
-/obj/item/clothing/suit/modular/equipped(mob/user, slot)
-	. = ..()
-	var/mob/living/carbon/human/H = user
-	for(var/trait in traits)
-		H.add_trait(trait, src)
-
-/obj/item/clothing/suit/modular/dropped(mob/user)
-	var/mob/living/carbon/human/H = user
-	for(var/trait in traits)
-		H.remove_trait(trait, src)
+/obj/item/clothing/suit/armor/power_armor/dropped(mob/user)
+	REMOVE_TRAIT(user, TRAIT_STUNIMMUNE,	"stun_immunity")
+	REMOVE_TRAIT(user, TRAIT_PUSHIMMUNE,	"push_immunity")
 	return ..()
 
 	actions_types = list(/datum/action/item_action/toggle)
@@ -68,15 +64,15 @@
 	///Typepath list of allowed attachment types.
 	var/list/attachments_allowed = list(
 		/obj/item/armor_module/armor/chest/t45d,
-		/obj/item/armor_module/armor/legs/t45d,
+		/obj/item/armor_module/armor/leg/t45d,
 		/obj/item/armor_module/armor/arms/t45d,
 
 		/obj/item/armor_module/armor/chest/t51,
-		/obj/item/armor_module/armor/legs/t51,
+		/obj/item/armor_module/armor/leg/t51,
 		/obj/item/armor_module/armor/arms/t51,
 
 		/obj/item/armor_module/armor/chest/apa,
-		/obj/item/armor_module/armor/legs/apa,
+		/obj/item/armor_module/armor/leg/apa,
 		/obj/item/armor_module/armor/arms/apa,
 
 	)
@@ -98,10 +94,10 @@
 
 /obj/item/clothing/suit/modular/equipped(mob/user, slot)
 	. = ..()
-	var/obj/structure/table/table = locate() in get_turf(frame)
+	var/obj/structure/table/table = locate() in get_turf(/obj/item/clothing/suit/armor/power_armor)
 	if(isnull(table))
-  		to_chat(user, "You cannot modify the Power Armour without it being placed on a table or similar surface..")
-  		return
+		to_chat(user, "You cannot modify the Power Armour without it being placed on a table or similar surface.")
+		return
 	for(var/key in attachments_by_slot)
 		if(!attachments_by_slot[key])
 			continue
@@ -114,10 +110,10 @@
 
 /obj/item/clothing/suit/modular/unequipped(mob/unequipper, slot)
 	. = ..()
-	var/obj/structure/table/table = locate() in get_turf(frame)
+	var/obj/structure/table/table = locate() in get_turf(/obj/item/clothing/suit/armor/power_armor)
 	if(isnull(table))
-  		to_chat(user, "You cannot modify the Power Armour without it being placed on a table or similar surface..")
-  		return
+		to_chat(user, "You cannot modify the Power Armour without it being placed on a table or similar surface.")
+		return
 	for(var/key in attachments_by_slot)
 		if(!attachments_by_slot[key])
 			continue
@@ -134,56 +130,10 @@
 		icon_state = initial(icon_state) + "_[current_variant]"
 		item_state = initial(item_state) + "_[current_variant]"
 	update_clothing_icon()
-
-/obj/item/clothing/suit/modular/on_pocket_insertion()
-	. = ..()
-	update_icon()
-
-/obj/item/clothing/suit/modular/on_pocket_removal()
-	. = ..()
-	update_icon()
-
-/obj/item/clothing/suit/modular/apply_custom(image/standing)
-	for(var/key in attachment_overlays)
-		var/image/overlay = attachment_overlays[key]
-		if(!overlay)
-			continue
-		standing.overlays += overlay
-	if(!attachments_by_slot[ATTACHMENT_SLOT_STORAGE] || !istype(attachments_by_slot[ATTACHMENT_SLOT_STORAGE], /obj/item/armor_module/storage))
-		return standing
-	var/obj/item/armor_module/storage/storage_module = attachments_by_slot[ATTACHMENT_SLOT_STORAGE]
-	if(!storage_module.show_storage)
-		return standing
-	for(var/obj/item/stored AS in storage_module.storage.contents)
-		standing.overlays += image(storage_module.show_storage_icon, icon_state = initial(stored.icon_state))
-	return standing
-
-/obj/item/clothing/suit/modular/attack_self(mob/user)
-	. = ..()
-	if(.)
-		return
-	if(!isturf(user.loc))
-		to_chat(user, span_warning("You cannot turn the light on while in [user.loc]."))
-		return
-	if(TIMER_COOLDOWN_CHECK(src, COOLDOWN_ARMOR_LIGHT) || !ishuman(user))
-		return
-	var/mob/living/carbon/human/H = user
-	if(H.wear_suit != src)
-		return
-	turn_light(user, !light_on)
-	return TRUE
-
-/obj/item/clothing/suit/modular/MouseDrop(over_object, src_location, over_location)
-	if(!attachments_by_slot[ATTACHMENT_SLOT_STORAGE])
-		return ..()
-	if(!istype(attachments_by_slot[ATTACHMENT_SLOT_STORAGE], /obj/item/armor_module/storage))
-		return ..()
-	var/obj/item/armor_module/storage/armor_storage = attachments_by_slot[ATTACHMENT_SLOT_STORAGE]
-	if(armor_storage.storage.handle_mousedrop(usr, over_object))
-		return ..()
 		
-/obj/item/clothing/modular/run_block(mob/living/owner, atom/object, damage, attack_text, attack_type, armour_penetration, mob/attacker, def_zone, final_block_chance, list/block_return)
-	if(check_armor_penetration(object) <= 0.15 && (attack_type == ATTACK_TYPE_PROJECTILE) && (def_zone in protected_zones))
+/obj/item/clothing/suit/armor/power_armor/run_block(mob/living/owner, atom/object, damage, attack_text, attack_type, armour_penetration, mob/attacker, def_zone, final_block_chance, list/block_return)
+	. = ..()
+	if(check_armor_penetration(object) <= src.armor_block_threshold && (attack_type == ATTACK_TYPE_PROJECTILE) && (def_zone in protected_zones))
 		if(prob(armor_block_chance))
 			var/ratio = rand(0,100)
 			if(ratio <= deflection_chance)
@@ -191,62 +141,69 @@
 				return BLOCK_SHOULD_REDIRECT | BLOCK_REDIRECTED | BLOCK_SUCCESS | BLOCK_PHYSICAL_INTERNAL
 			if(ismob(loc))
 				to_chat(loc, span_warning("Your power armor absorbs the projectile's impact!"))
-			block_return[BLOCK_RETURN_SET_DAMAGE_TO] = 1
+			block_return[BLOCK_RETURN_SET_DAMAGE_TO] = 0
 			return BLOCK_SUCCESS | BLOCK_PHYSICAL_INTERNAL
-	return ..()
+	return
+
 
 /** Core helmet module */
 /obj/item/clothing/head/modular
-	name = "Power Armour Helmet"
-	desc = "Usually paired with the Jaeger Combat Exoskeleton. Can mount utility functions on the helmet hard points."
-	
+	cold_protection = HEAD
+	heat_protection = HEAD
+	ispowerarmor = 1 //TRUE
 	strip_delay = 200
 	equip_delay_self = 20
-	slowdown = 0.1
+	slowdown = 0.05
 	flags_inv = HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDEMASK|HIDEJUMPSUIT
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
-	clothing_flags = THICKMATERIALPORT
+	clothing_flags = THICKMATERIAL
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	item_flags = SLOWS_WHILE_IN_HAND
 	flash_protect = 2
+	dynamic_hair_suffix = ""
+	dynamic_fhair_suffix = ""
 	speechspan = SPAN_ROBOT //makes you sound like a robot
-	lighting_alpha = LIGHTING_PLANE_ALPHA_LOWLIGHT_VISION
-	var/requires_training = TRUE
-	light_range = 4 //luminosity when the light is on
-	light_on = FALSE
-	var/on = FALSE
-	light_color = LIGHT_COLOR_YELLOW
+	max_heat_protection_temperature = FIRE_HELM_MAX_TEMP_PROTECT
+	cold_protection = HEAD
+	min_cold_protection_temperature = FIRE_HELM_MIN_TEMP_PROTECT
 	light_system = MOVABLE_LIGHT_DIRECTIONAL
-	actions_types = list(/datum/action/item_action/toggle_light)
+	light_range = 5
+	light_on = FALSE
+	salvage_loot = list(/obj/item/stack/crafting/armor_plate = 10)
+	salvage_tool_behavior = TOOL_WELDER
+	/// Projectiles below this damage will get deflected
+	var/deflect_damage = 18
+	/// If TRUE - it requires PA training trait to be worn
+	var/requires_training = TRUE
+	/// If TRUE - the suit will give its user specific traits when worn
+	var/powered = TRUE
+	/// Path of item that this helmet gets salvaged into
+	var/obj/item/salvaged_type = null
+	/// Used to track next tool required to salvage the suit
+	var/salvage_step = 0
+	armor = ARMOR_VALUE_PA
 
-	///Current PA Health
-	var/pa_health = 1000
-
-/obj/item/clothing/head/helmet/f13/power_armor/Initialize()
+/obj/item/clothing/head/helmet/f13/power_armor/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/spraycan_paintable)
-	START_PROCESSING(SSobj, src)
-
-/obj/item/clothing/head/helmet/f13/power_armor/attack_self(mob/user)
-	on = !on
-//	icon_state = "[initial(icon_state)][on]"
-	user.update_inv_head()	//so our mob-overlays update
-
-	set_light_on(on)
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtonIcon()
+	AddElement(/datum/element/update_icon_updates_onmob)
 
 /obj/item/clothing/head/helmet/f13/power_armor/mob_can_equip(mob/user, mob/equipper, slot, disable_warning = 1)
 	var/mob/living/carbon/human/H = user
 	if(src == H.head) //Suit is already equipped
 		return ..()
-	if (!H.has_trait(TRAIT_PA_WEAR) && !istype(src, /obj/item/clothing/head/helmet/f13/power_armor) && slot == SLOT_HEAD && requires_training)
-		to_chat(user, "<span class='warning'>You don't have the proper training to operate the power armor!</span>")
+	if (!HAS_TRAIT(H, TRAIT_PA_WEAR) && slot == SLOT_HEAD && requires_training)
+		to_chat(user, span_warning("You don't have the proper training to operate the power armor!"))
 		return 0
 	if(slot == SLOT_HEAD)
 		return ..()
 	return
+
+/obj/item/clothing/head/helmet/f13/power_armor/run_block(mob/living/owner, atom/object, damage, attack_text, attack_type, armour_penetration, mob/attacker, def_zone, final_block_chance, list/block_return)
+	if((attack_type == ATTACK_TYPE_PROJECTILE) && (def_zone in protected_zones))
+		if(prob(70) && (damage < deflect_damage))
+			block_return[BLOCK_RETURN_REDIRECT_METHOD] = REDIRECT_METHOD_DEFLECT
+			return BLOCK_SHOULD_REDIRECT | BLOCK_REDIRECTED | BLOCK_SUCCESS | BLOCK_PHYSICAL_INTERNAL
+	return ..()
 
 /obj/item/clothing/head/modular/t45d
 	name = "T45d Helmet"
@@ -255,7 +212,7 @@
 	armor = list("melee" = 50, "bullet" = 50, "laser" = 50, "energy" = 50, "bomb" = 50, "bio" = 50, "rad" = 50, "fire" = 50, "acid" = 50)
 
 /obj/item/clothing/head/modular/t51
-	name = "T51 Helmet
+	name = "T51 Helmet"
 	desc = "A helmet of a T51 Power Armour."
 	icon_state = "t51_helmet"
 
