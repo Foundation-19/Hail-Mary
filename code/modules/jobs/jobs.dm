@@ -72,7 +72,7 @@ GLOBAL_LIST_INIT(silicon_whitelist_positions, list(
 
 GLOBAL_LIST_INIT(faction_whitelist_positions, list(
 "Head Scribe",
-"Elder",
+"Sentinel",
 "Head Paladin",
 "Head Knight",
 "Head Scribe",
@@ -139,7 +139,7 @@ GLOBAL_LIST_INIT(faction_whitelist_positions, list(
 ))
 //Brotherhood
 GLOBAL_LIST_INIT(brotherhood_positions, list(
-	"Elder",
+	"Sentinel",
 	"Paladin Commander",
 	"Knight-Captain",
 	"Proctor",
