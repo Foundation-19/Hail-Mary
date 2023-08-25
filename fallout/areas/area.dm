@@ -28,7 +28,6 @@
 	icon_state = "wasteland"
 	ambience_area = list(
 		/datum/looping_sound/ambient/critters,
-		/datum/looping_sound/ambient/ocean,
 		/datum/looping_sound/ambient/critters/birds,
 		/datum/looping_sound/ambient/critters/birds/crow,
 		/datum/looping_sound/ambient/critters/frogs,
@@ -45,7 +44,6 @@
 	name = "Ocean"
 	icon_state = "blue"
 	ambience_area = list(
-		/datum/looping_sound/ambient/ocean,
 	)
 	outdoors = 1
 	open_space = 1
@@ -58,7 +56,6 @@
 	name = "Ruined City Coast"
 	icon_state = "city"
 	ambience_area = list(
-		/datum/looping_sound/ambient/city,
 		/datum/looping_sound/ambient/critters,
 		/datum/looping_sound/ambient/general,
 		/datum/looping_sound/ambient/critters/birds,
@@ -85,7 +82,6 @@
 	name = "Town"
 	icon_state = "green"
 	ambience_area = list(
-		/datum/looping_sound/ambient/town,
 		/datum/looping_sound/ambient/general,
 		)
 	ambientmusic = null
@@ -208,7 +204,6 @@
 	grow_chance = 25
 	ambience_area = list(
 		/datum/looping_sound/ambient/general,
-		/datum/looping_sound/ambient/building,
 		/datum/looping_sound/ambient/cave,
 		/datum/looping_sound/ambient/tunnel,
 	)
@@ -221,7 +216,6 @@
 		///datum/looping_sound/ambient/radiomusic,
 		///datum/looping_sound/ambient/radiostatic,
 		///datum/looping_sound/ambient/djswampass,
-		/datum/looping_sound/ambient/town,
 		/datum/looping_sound/ambient/woodcreak,
 	)
 	weather_tags = null
