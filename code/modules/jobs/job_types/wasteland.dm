@@ -2157,7 +2157,6 @@ datum/job/wasteland/f13dendoctor
 		/obj/item/warpaint_bowl=1,
 		/obj/item/reagent_containers/pill/patch/healpoultice = 2
 	)
-*/
 
 /////////////////
 ////Redwater/////
