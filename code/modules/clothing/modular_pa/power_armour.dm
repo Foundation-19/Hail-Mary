@@ -11,6 +11,7 @@
 	name = "Power Armour Frame"
 	desc = "The frame of a mechanised infantry support suit, better known as Power Armour. Fits Power Armour parts and modules."
 	icon = 'icons/mob/modular/power_armor.dmi'
+	mob_overlay_icon = 'icons/mob/modular/power_armor.dmi'
 	icon_state = "paframe"
 	item_state = "paframe"
 	w_class = WEIGHT_CLASS_HUGE
@@ -86,7 +87,7 @@ var/current_variant
 
 /obj/item/clothing/suit/modular/Initialize()
 	. = ..()
-	AddComponent(/datum/component/attachment_handler, attachments_by_slot, attachments_allowed, attachment_offsets, starting_attachments, attachment_overlays)
+	AddComponent(/datum/component/attachment_handler, attachments_by_slot, attachments_allowed, attachment_offsets, starting_attachments, overlays = attachment_overlays)
 	update_icon()
 
 /obj/item/clothing/suit/modular/equipped(mob/user, slot)

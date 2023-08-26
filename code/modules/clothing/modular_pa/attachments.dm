@@ -3,6 +3,7 @@
 	name = "armor module"
 	desc = "A dis-figured armor module, in its prime this would've been a key item in your modular armor... now its just trash."
 	icon = 'icons/mob/modular/power_armor.dmi'
+	mob_overlay_icon = 'icons/mob/modular/power_armor.dmi'
 
 	slowdown = 0
 
