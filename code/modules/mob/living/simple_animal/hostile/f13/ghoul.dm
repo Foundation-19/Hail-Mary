@@ -10,7 +10,6 @@
 	icon_state = "feralghoul"
 	icon_living = "feralghoul"
 	icon_dead = "feralghoul_dead"
-	var/rare_icon = "feralghoul_h"
 	can_ghost_into = TRUE
 	mob_biotypes = MOB_ORGANIC|MOB_HUMANOID
 	mob_armor = ARMOR_VALUE_GHOUL_NAKED
@@ -24,30 +23,11 @@
 	waddle_side_time = 1
 	speak_emote = list(
 		"growls",
-		"murrs",
-		"barks",
-		"gurgles",
-		"screeches",
-		"hisses",
-		"uwu's",
-		"awoos",
-		"borks",
-		"pants",
-		"wiggles its eyebrows",
-		"churrs",
-		"purrs",
-		"trills",
-		"waggles"
 		)
 	emote_see = list(
-		"wags its tail",
-		"looks hungry",
 		"sniffs the air",
 		"growls",
 		"foams at the mouth",
-		"loses its shit",
-		"busts it down",
-		"goes full tilt"
 		)
 	a_intent = INTENT_HARM
 	speed = 1
@@ -160,7 +140,6 @@
 	icon_state = "ghoulreaver"
 	icon_living = "ghoulreaver"
 	icon_dead = "ghoulreaver_dead"
-	rare_icon = "ghoulreaver_h"
 	speed = 2
 	mob_armor = ARMOR_VALUE_GHOUL_REAVER
 	maxHealth = 50
@@ -300,7 +279,6 @@
 	icon_state = "glowinghoul"
 	icon_living = "glowinghoul"
 	icon_dead = "glowinghoul_dead"
-	rare_icon = "glowinghoul_h"
 	mob_armor = ARMOR_VALUE_GHOUL_GLOWING
 	maxHealth = 40 
 	health = 40
