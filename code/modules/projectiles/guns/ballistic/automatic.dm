@@ -444,7 +444,7 @@
 /obj/item/gun/ballistic/automatic/smg/cg45
 	name = "Carl Gustaf 10mm"
 	desc = "Post-war submachine gun made in workshops in Phoenix, a copy of a simple old foreign design."
-	icon = icon = 'icons/fallout/objects/guns/ballistic.dmi'
+	icon = 'icons/fallout/objects/guns/ballistic.dmi'
 	icon_state = "cg45"
 	item_state = "cg45"
 	mag_type = /obj/item/ammo_box/magazine/cg45
@@ -633,7 +633,7 @@
 			making it a common sight for Boxcar Vixens in the Heap, where the short sightlines more than make up for the gun's \
 			inherently poor accuracy. Doesn't accept awkwardly shaped magazines, though. That's for the PRO model, which isn't \
 			available out here."
-	icon = icon = 'icons/fallout/objects/guns/ballistic.dmi'
+	icon = 'icons/fallout/objects/guns/ballistic.dmi'
 	icon_state = "sidewinder"
 	mag_type = /obj/item/ammo_box/magazine/uzim9mm
 	extra_mag_types = /obj/item/ammo_box/magazine/m9mm
