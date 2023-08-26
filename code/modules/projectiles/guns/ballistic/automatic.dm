@@ -1464,7 +1464,7 @@
 /obj/item/gun/ballistic/automatic/rangemaster
 	name = "Colt Rangemaster"
 	desc = "A Colt Rangemaster semi-automatic rifle, chambered for 7.62x51. Single-shot only."
-	icon_state = "colt_rangemaster"
+	icon_state = "colt_rangermaster"
 	item_state = "308"
 	icon_prefix = "308"
 	force = 20
@@ -1794,6 +1794,7 @@
 /obj/item/gun/ballistic/automatic/assault_rifle
 	name = "r91 assault rifle"
 	desc = "The R91 was the standard US Army assault rifle, and so saw wide-spread use after the war. Most are worn out by now."
+	icon = 'icons/fallout/objects/guns/ballistic.dmi'
 	icon_state = "assault_rifle"
 	item_state = "fnfal"
 	mag_type = /obj/item/ammo_box/magazine/m556/rifle
@@ -2248,6 +2249,7 @@
 /obj/item/gun/ballistic/automatic/r84
 	name = "R84 LMG"
 	desc = "A light machinegun using 60 round belts fed from an ammobox, its one of the few heavy weapons designs still commonly found."
+	icon = 'icons/fallout/objects/guns/ballistic.dmi'
 	icon_state = "R84"
 	item_state = "R84"
 	mag_type = /obj/item/ammo_box/magazine/lmg
