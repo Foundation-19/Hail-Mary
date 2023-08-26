@@ -1,4 +1,4 @@
-/obj/item/armor_module/armor/legs
+/obj/item/armor_module/armor/leg
 	slot = ATTACHMENT_SLOT_KNEE
 
 /obj/item/armor_module/armor/leg/t45d

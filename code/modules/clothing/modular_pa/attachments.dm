@@ -55,6 +55,7 @@
 	if(!length(variants_by_parent_type) || !(parent.type in variants_by_parent_type))
 		return
 	icon_state = variants_by_parent_type[parent.type]
+	item_state = variants_by_parent_type[parent.type]
 	update_icon()
 
 /// Called when the module is removed from the armor.
