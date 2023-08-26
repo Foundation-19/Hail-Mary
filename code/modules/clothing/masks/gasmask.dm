@@ -11,7 +11,6 @@
 	permeability_coefficient = 0.01
 	flags_cover = MASKCOVERSEYES | MASKCOVERSMOUTH
 	resistance_flags = NONE
-	mutantrace_variation = STYLE_MUZZLE
 
 /obj/item/clothing/mask/gas/enclave
 	name = "gas mask mk 2"
