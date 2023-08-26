@@ -20,7 +20,7 @@
 
 /obj/item/gun/ballistic/revolver/grenadelauncher/update_icon_state()
 	if(!magazine || !get_ammo(TRUE, FALSE) || !chambered?.BB)
-		icon_state = "[initial(icon_state)]_e" //civ13 used a different empty designator
+		icon_state = "[initial(icon_state)]-e" //civ13 used a different empty designator
 	else
 		icon_state = "[initial(icon_state)]"
 
