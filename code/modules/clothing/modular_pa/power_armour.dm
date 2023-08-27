@@ -79,7 +79,9 @@ var/list/attachment_offsets = list()
 	///List of attachment types that is attached to the object on initialize.
 var/list/starting_attachments = list()
 	///List of the attachment overlays.
-var/list/attachment_overlays = list()
+var/list/attachment_overlays = list(
+	new mutable_appearance(OVERLAY_ICON)
+)
 	///List of icon_state suffixes for armor varients.
 var/list/icon_state_variants = list()
 	///Current varient selected.
@@ -87,7 +89,7 @@ var/current_variant
 
 /obj/item/clothing/suit/modular/Initialize()
 	. = ..()
-	AddComponent(/datum/component/attachment_handler, attachments_by_slot, attachments_allowed, attachment_offsets, starting_attachments, overlays = attachment_overlays)
+	AddComponent(/datum/component/attachment_handler, attachments_by_slot, attachments_allowed, attachment_offsets, starting_attachments, overlays = attachment_overlays, mutable_appearance)
 	update_icon()
 
 /obj/item/clothing/suit/modular/equipped(mob/user, slot)
@@ -126,5 +128,4 @@ var/current_variant
 	. = ..()
 	if(current_variant)
 		icon_state = initial(icon_state) + "_[current_variant]"
-		item_state = initial(item_state) + "_[current_variant]"
 	update_clothing_icon()
