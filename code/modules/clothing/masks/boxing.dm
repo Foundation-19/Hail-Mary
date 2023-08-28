@@ -7,7 +7,6 @@
 	visor_flags_inv = HIDEFACE|HIDEFACIALHAIR
 	w_class = WEIGHT_CLASS_SMALL
 	actions_types = list(/datum/action/item_action/adjust)
-	mutantrace_variation = STYLE_MUZZLE
 
 /obj/item/clothing/mask/balaclava/attack_self(mob/user)
 	adjustmask(user)
@@ -27,7 +26,6 @@
 	visor_flags_inv = HIDEFACE|HIDEFACIALHAIR
 	w_class = WEIGHT_CLASS_SMALL
 	resistance_flags = FIRE_PROOF | ACID_PROOF
-	mutantrace_variation = STYLE_MUZZLE
 	var/voice_unknown = TRUE ///This makes it so that your name shows up as unknown when wearing the mask.
 
 /obj/item/clothing/mask/luchador
@@ -37,7 +35,6 @@
 	item_state = "luchag"
 	flags_inv = HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
 	w_class = WEIGHT_CLASS_SMALL
-	mutantrace_variation = STYLE_MUZZLE
 	modifies_speech = TRUE
 
 /obj/item/clothing/mask/luchador/handle_speech(datum/source, list/speech_args)
