@@ -178,9 +178,6 @@
 		//This is likely not an actual issue but I don't have time to prove that this
 		//no longer is required
 		if(SSticker.current_state <= GAME_STATE_PREGAME)
-			if((length_char(client.prefs.features["flavor_text"])) < MIN_FLAVOR_LEN)
-				to_chat(client.mob, span_danger("Your flavortext does not meet the minimum of [MIN_FLAVOR_LEN] characters."))
-				return
 			ready = tready
 		//if it's post initialisation and they're trying to observe we do the needful
 		if(SSticker.current_state >= GAME_STATE_PREGAME && tready == PLAYER_READY_TO_OBSERVE)
@@ -198,14 +195,6 @@
 	if(href_list["late_join"])
 		if(!SSticker || !SSticker.IsRoundInProgress())
 			to_chat(usr, span_danger("The round is either not ready, or has already finished..."))
-			return
-
-		if((length_char(client.prefs.features["flavor_text"])) < MIN_FLAVOR_LEN)
-			to_chat(client.mob, span_danger("Your flavortext does not meet the minimum of [MIN_FLAVOR_LEN] characters."))
-			return
-
-		if((length_char(client.prefs.features["ooc_notes"])) < MIN_OOC_LEN || client.prefs.features["ooc_notes"] == OOC_NOTE_TEMPLATE)
-			to_chat(client.mob, span_danger("Your ooc notes is empty, please enter information about your roleplaying preferences."))
 			return
 
 		if(href_list["late_join"] == "override")
@@ -465,14 +454,6 @@
 		alert(src, "An administrator has disabled late join spawning.")
 		return FALSE
 
-	if((length_char(client.prefs.features["flavor_text"])) < MIN_FLAVOR_LEN)
-		to_chat(client.mob, span_danger("Your flavortext does not meet the minimum of [MIN_FLAVOR_LEN] characters."))
-		return FALSE
-
-	if((length_char(client.prefs.features["ooc_notes"])) < MIN_OOC_LEN || client.prefs.features["ooc_notes"] == OOC_NOTE_TEMPLATE)
-		to_chat(client.mob, span_danger("Your ooc notes is empty, please enter information about your roleplaying preferences."))
-		return
-
 	var/arrivals_docked = TRUE
 	if(SSshuttle.arrivals)
 		close_spawn_windows()	//In case we get held up
@@ -638,7 +619,6 @@
 		mind.transfer_to(H)					//won't transfer key since the mind is not active
 		mind.original_character = H
 
-	H.name = real_name
 	client.init_verbs()
 	. = H
 	new_character = .

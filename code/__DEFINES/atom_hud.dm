@@ -67,8 +67,6 @@
 #define ANTAG_HUD_HERETIC	26
 
 #define DATA_HUD_CLIENT			27 //data hud new
-#define GENITAL_PORNHUD			28
-#define TAIL_HUD_DATUM			29
 
 // Notification action types
 #define NOTIFY_JUMP "jump"
