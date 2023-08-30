@@ -303,6 +303,7 @@
 /obj/item/gun/ballistic/automatic/smg/mini_uzi
 	name = "9mm Uzi"
 	desc = "A lightweight, burst-fire submachine gun, for when you really want someone dead. Uses 9mm rounds."
+	icon = 'icons/fallout/objects/guns/ballistic.dmi'
 	icon_state = "uzi"
 	item_state = "uzi"
 	mag_type = /obj/item/ammo_box/magazine/uzim9mm
@@ -444,6 +445,7 @@
 /obj/item/gun/ballistic/automatic/smg/cg45
 	name = "Carl Gustaf 10mm"
 	desc = "Post-war submachine gun made in workshops in Phoenix, a copy of a simple old foreign design."
+	icon = 'icons/fallout/objects/guns/ballistic.dmi'
 	icon_state = "cg45"
 	item_state = "cg45"
 	mag_type = /obj/item/ammo_box/magazine/cg45
@@ -632,6 +634,7 @@
 			making it a common sight for Boxcar Vixens in the Heap, where the short sightlines more than make up for the gun's \
 			inherently poor accuracy. Doesn't accept awkwardly shaped magazines, though. That's for the PRO model, which isn't \
 			available out here."
+	icon = 'icons/fallout/objects/guns/ballistic.dmi'
 	icon_state = "sidewinder"
 	mag_type = /obj/item/ammo_box/magazine/uzim9mm
 	extra_mag_types = /obj/item/ammo_box/magazine/m9mm
@@ -1462,7 +1465,7 @@
 /obj/item/gun/ballistic/automatic/rangemaster
 	name = "Colt Rangemaster"
 	desc = "A Colt Rangemaster semi-automatic rifle, chambered for 7.62x51. Single-shot only."
-	icon_state = "colt_rangemaster"
+	icon_state = "colt_rangermaster"
 	item_state = "308"
 	icon_prefix = "308"
 	force = 20
@@ -1792,6 +1795,7 @@
 /obj/item/gun/ballistic/automatic/assault_rifle
 	name = "r91 assault rifle"
 	desc = "The R91 was the standard US Army assault rifle, and so saw wide-spread use after the war. Most are worn out by now."
+	icon = 'icons/fallout/objects/guns/ballistic.dmi'
 	icon_state = "assault_rifle"
 	item_state = "fnfal"
 	mag_type = /obj/item/ammo_box/magazine/m556/rifle
@@ -2246,6 +2250,7 @@
 /obj/item/gun/ballistic/automatic/r84
 	name = "R84 LMG"
 	desc = "A light machinegun using 60 round belts fed from an ammobox, its one of the few heavy weapons designs still commonly found."
+	icon = 'icons/fallout/objects/guns/ballistic.dmi'
 	icon_state = "R84"
 	item_state = "R84"
 	mag_type = /obj/item/ammo_box/magazine/lmg

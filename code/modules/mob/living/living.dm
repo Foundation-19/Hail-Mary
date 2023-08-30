@@ -13,8 +13,6 @@
 	medhud.add_to_hud(src)
 	var/datum/atom_hud/data/client/clienthud = GLOB.huds[DATA_HUD_CLIENT]
 	clienthud.add_to_hud(src)
-	var/datum/atom_hud/data/human/tail/tailhud = GLOB.huds[TAIL_HUD_DATUM]
-	tailhud.add_to_hud(src)
 	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
 		diag_hud.add_to_hud(src)
 	faction += "[REF(src)]"
@@ -1121,7 +1119,7 @@
 		return
 
 	amount -= RAD_BACKGROUND_RADIATION // This will always be at least 1 because of how skin protection is calculated
-	
+
 	if(HAS_TRAIT(src, TRAIT_75_RAD_RESIST))
 		amount *= 0.25
 	else if(HAS_TRAIT(src, TRAIT_50_RAD_RESIST))

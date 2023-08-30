@@ -1,3 +1,4 @@
+/*
 /datum/job/tribal
 	department_flag = TRIBAL
 	selection_color = "#ffeeaa"
@@ -611,3 +612,4 @@ Guardian
 		/obj/item/flashlight/flare/torch=1,
 		/obj/item/restraints/legcuffs/bola/tactical=1
 	)
+*/
