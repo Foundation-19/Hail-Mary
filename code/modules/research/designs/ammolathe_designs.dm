@@ -294,10 +294,17 @@
 	category = list("initial", "Basic Magazines", "Handmade Magazines")
 
 /datum/design/ammolathe/m10mm_adv_ext
-	name = "empty 10mm SMG magazine (10mm)"
+	name = "empty 10mm extended magazine (10mm)"
 	id = "m10mm_adv_ext"
 	materials = list(/datum/material/iron = 4000)
 	build_path = /obj/item/ammo_box/magazine/m10mm/adv/ext/empty
+	category = list("initial", "Basic Magazines")
+
+/datum/design/ammolathe/m10mm_s,g
+	name = "empty 10mm SMG magazine"
+	id = "m10mm_smg"
+	materials = list(/datum/material/iron = 4000)
+	build_path = /obj/item/ammo_box/magazine/m10mm/smg
 	category = list("initial", "Basic Magazines")
 
 /datum/design/ammolathe/greasegunmag

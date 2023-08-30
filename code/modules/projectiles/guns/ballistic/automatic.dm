@@ -247,7 +247,7 @@
 /obj/item/gun/ballistic/automatic/smg/smg10mm
 	name = "10mm submachine gun"
 	desc = "One of the most common personal-defense weapons of the Great War, a sturdy and reliable open-bolt 10mm submachine gun."
-	icon_state = "10mmsmg"
+	icon_state = "smg10mm"
 	item_state = "smg10mm"
 	icon_prefix = "smg10mm"
 	wielded_icon = "smg10mm2"
@@ -274,7 +274,7 @@
  * Less damage
  * One-handed
  * No akimbo
- * Common
+ * Starter gun
  * * * * * * * * * * */
 
 /obj/item/gun/ballistic/automatic/smg/smg10mm/worn
