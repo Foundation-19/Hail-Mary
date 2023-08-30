@@ -1061,49 +1061,49 @@
 /datum/gear/uniform/kimono/red
 	name = "Red Kimono"
 	path = /obj/item/clothing/under/kimono/red
-	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_TRADITIONA
+	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_TRADITIONAL
 	cost = 1
 
 /datum/gear/uniform/kimono/orange
 	name = "Orange Kimono"
 	path = /obj/item/clothing/under/kimono/orange
-	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_TRADITIONA
+	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_TRADITIONAL
 	cost = 1
 
 /datum/gear/uniform/kimono/yellow
 	name = "Yellow Kimono"
 	path = /obj/item/clothing/under/kimono/yellow
-	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_TRADITIONA
+	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_TRADITIONAL
 	cost = 1
 
 /datum/gear/uniform/kimono/green
 	name = "Green Kimono"
 	path = /obj/item/clothing/under/kimono/green
-	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_TRADITIONA
+	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_TRADITIONAL
 	cost = 1
 
 /datum/gear/uniform/kimono/blue
 	name = "Blue Kimono"
 	path = /obj/item/clothing/under/kimono/blue
-	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_TRADITIONA
+	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_TRADITIONAL
 	cost = 1
 
 /datum/gear/uniform/kimono/purple
 	name = "Purple Kimono"
 	path = /obj/item/clothing/under/kimono/purple
-	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_TRADITIONA
+	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_TRADITIONAL
 	cost = 1
 
 /datum/gear/uniform/kimono/violet
 	name = "Violet Kimono"
 	path = /obj/item/clothing/under/kimono/violet
-	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_TRADITIONA
+	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_TRADITIONAL
 	cost = 1
 
 /datum/gear/uniform/kimono/pink
 	name = "Pink Kimono"
 	path = /obj/item/clothing/under/kimono/pink
-	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_TRADITIONA
+	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_TRADITIONAL
 	cost = 0
 
 /datum/gear/uniform/kimono/earth
