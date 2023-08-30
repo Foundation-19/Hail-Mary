@@ -488,7 +488,6 @@
 	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_DRESSES
 	cost = 3
 
-
 /datum/gear/uniform/dress/black
 	name = "black dress"
 	path = /obj/item/clothing/under/f13/blackdress
@@ -512,23 +511,27 @@
 /datum/gear/uniform/kimono
 	name = "Kimono"
 	path = /obj/item/clothing/under/costume/kimono
+	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_TRADITIONAL
 
 /datum/gear/uniform/kimono/black
 	name = "Black kimono"
 	path = /obj/item/clothing/under/costume/kimono/black
+	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_TRADITIONAL
 
 /datum/gear/uniform/kimono/kamishimo
 	name = "Kamishimo"
 	path = /obj/item/clothing/under/costume/kimono/kamishimo
+	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_TRADITIONAL
 
 /datum/gear/uniform/kimono/fancy
 	name = "Fancy kimono"
 	path = /obj/item/clothing/under/costume/kimono/fancy
+	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_TRADITIONAL
 
 /datum/gear/uniform/kimono/sakura
 	name = "Sakura kimono"
 	path = /obj/item/clothing/under/costume/kimono/sakura
-
+	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_TRADITIONAL
 
 //POLICE
 
@@ -650,7 +653,7 @@
 	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_SKIRTS
 
 /datum/gear/uniform/skirt/vcity
-	name = "VTCC jumpskirt"
+	name = "Vault-tec jumpskirt"
 	path = /obj/item/clothing/under/f13/vault/vcity/skirt
 	cost = 1
 	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_SKIRTS
@@ -1055,96 +1058,57 @@
 	cost = 1
 	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_WASTELAND
 
-/datum/gear/uniform/wasteland/sorrows
-	name = "Sorrows garb"
-	path = /obj/item/clothing/under/f13/sorrows
-	cost = 1
-	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_WASTELAND
-
-/datum/gear/uniform/wasteland/sorrows/female
-	name = "Sorrows female garb"
-	path = /obj/item/clothing/under/f13/female/sorrows
-	cost = 1
-	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_WASTELAND
-
-/datum/gear/uniform/wasteland/deadhorses
-	name = "Dead horses garb"
-	path = /obj/item/clothing/under/f13/deadhorses
-	cost = 1
-	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_WASTELAND
-
-/datum/gear/uniform/wasteland/deadhorses/female
-	name = "Dead horses female garb"
-	path = /obj/item/clothing/under/f13/female/deadhorses
-	cost = 1
-	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_WASTELAND
-
-/datum/gear/uniform/wasteland/rustwalker
-	name = "Rust walkers outfit"
-	path = /obj/item/clothing/under/f13/rustwalkers
-	cost = 1
-	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_WASTELAND
-
-/datum/gear/uniform/wasteland/rustwalker/female
-	name = "Rust walkers female outfit"
-	path = /obj/item/clothing/under/f13/female/rustwalkers
-	cost = 1
-	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_WASTELAND
-
-/datum/gear/uniform/wasteland/whitelegs
-	name = "White legs outfit"
-	path = /obj/item/clothing/under/f13/whitelegs
-	cost = 1
-	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_WASTELAND
-
-/datum/gear/uniform/wasteland/whitelegs/female
-	name = "White legs female outfit"
-	path = /obj/item/clothing/under/f13/female/whitelegs
-	cost = 1
-	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_WASTELAND
-
 /datum/gear/uniform/kimono/red
 	name = "Red Kimono"
 	path = /obj/item/clothing/under/kimono/red
-	cost = 0
+	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_TRADITIONA
+	cost = 1
 
 /datum/gear/uniform/kimono/orange
 	name = "Orange Kimono"
 	path = /obj/item/clothing/under/kimono/orange
-	cost = 0
+	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_TRADITIONA
+	cost = 1
 
 /datum/gear/uniform/kimono/yellow
 	name = "Yellow Kimono"
 	path = /obj/item/clothing/under/kimono/yellow
-	cost = 0
+	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_TRADITIONA
+	cost = 1
 
 /datum/gear/uniform/kimono/green
 	name = "Green Kimono"
 	path = /obj/item/clothing/under/kimono/green
-	cost = 0
+	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_TRADITIONA
+	cost = 1
 
 /datum/gear/uniform/kimono/blue
 	name = "Blue Kimono"
 	path = /obj/item/clothing/under/kimono/blue
-	cost = 0
+	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_TRADITIONA
+	cost = 1
 
 /datum/gear/uniform/kimono/purple
 	name = "Purple Kimono"
 	path = /obj/item/clothing/under/kimono/purple
-	cost = 0
+	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_TRADITIONA
+	cost = 1
 
 /datum/gear/uniform/kimono/violet
 	name = "Violet Kimono"
 	path = /obj/item/clothing/under/kimono/violet
-	cost = 0
+	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_TRADITIONA
+	cost = 1
 
 /datum/gear/uniform/kimono/pink
 	name = "Pink Kimono"
 	path = /obj/item/clothing/under/kimono/pink
+	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_TRADITIONA
 	cost = 0
 
 /datum/gear/uniform/kimono/earth
 	name = "Earth Kimono"
 	path = /obj/item/clothing/under/kimono/earth
-	cost = 0
+	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_TRADITIONAL
+	cost = 1
 
