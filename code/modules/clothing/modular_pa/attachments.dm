@@ -29,6 +29,7 @@
 	///Time it takes to detach.
 	var/detach_delay = 2 SECONDS
 
+
 	///Light modifier for attachment to an armor piece
 	var/light_mod = 0
 	
@@ -37,7 +38,7 @@
 
 /obj/item/armor_module/Initialize()
 	. = ..()
-	AddElement(/datum/element/attachment, slot, icon, on_attach, on_detach, null, can_attach, pixel_shift_x, pixel_shift_y, flags_attach_features, attach_delay, detach_delay)
+	AddElement(/datum/element/attachment, slot, mob_overlay_icon, on_attach, on_detach, null, can_attach, pixel_shift_x, pixel_shift_y, flags_attach_features, attach_delay, detach_delay)
 
 /// Called before a module is attached.
 /obj/item/armor_module/proc/can_attach(obj/item/attaching_to, mob/user)

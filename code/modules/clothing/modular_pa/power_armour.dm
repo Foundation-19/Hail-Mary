@@ -26,6 +26,38 @@
 	var/requires_training = TRUE
 	flags_inv = HIDEJUMPSUIT|HIDENECK|HIDEEYES|HIDEEARS|HIDEFACE|HIDEMASK|HIDEGLOVES|HIDESHOES
 	var/traits = list(TRAIT_IRONFIST, TRAIT_STUNIMMUNE, TRAIT_PUSHIMMUNE)
+		///Assoc list of available slots.
+	var/list/attachments_by_slot = list(
+		ATTACHMENT_SLOT_CHESTPLATE,
+		ATTACHMENT_SLOT_SHOULDER,
+		ATTACHMENT_SLOT_KNEE,
+		ATTACHMENT_SLOT_MODULE,
+	)
+		///Typepath list of allowed attachment types.
+	var/list/attachments_allowed = list(
+		/obj/item/armor_module/armor/chest/t45d,
+		/obj/item/armor_module/armor/leg/t45d,
+		/obj/item/armor_module/armor/arms/t45d,
+
+		/obj/item/armor_module/armor/chest/t51,
+		/obj/item/armor_module/armor/leg/t51,
+		/obj/item/armor_module/armor/arms/t51,
+
+		/obj/item/armor_module/armor/chest/apa,
+		/obj/item/armor_module/armor/leg/apa,
+		/obj/item/armor_module/armor/arms/apa,
+
+	)
+		///Pixel offsets for specific attachment slots. Is not used currently.
+	var/list/attachment_offsets = list()
+		///List of attachment types that is attached to the object on initialize.
+	var/list/starting_attachments = list()
+		///List of the attachment overlays.
+	var/list/attachment_overlays = list()
+		///List of icon_state suffixes for armor varients.
+	var/list/icon_state_variants = list()
+		///Current varient selected.
+	var/current_variant
 	
 
 /obj/item/clothing/suit/modular/Initialize()
@@ -52,44 +84,9 @@
 	REMOVE_TRAIT(user, TRAIT_IRONFIST,	"iron_fist")
 	return ..()
 
-	///Assoc list of available slots.
-var/list/attachments_by_slot = list(
-	ATTACHMENT_SLOT_CHESTPLATE,
-	ATTACHMENT_SLOT_SHOULDER,
-	ATTACHMENT_SLOT_KNEE,
-	ATTACHMENT_SLOT_MODULE,
-)
-	///Typepath list of allowed attachment types.
-var/list/attachments_allowed = list(
-	/obj/item/armor_module/armor/chest/t45d,
-	/obj/item/armor_module/armor/leg/t45d,
-	/obj/item/armor_module/armor/arms/t45d,
-
-	/obj/item/armor_module/armor/chest/t51,
-	/obj/item/armor_module/armor/leg/t51,
-	/obj/item/armor_module/armor/arms/t51,
-
-	/obj/item/armor_module/armor/chest/apa,
-	/obj/item/armor_module/armor/leg/apa,
-	/obj/item/armor_module/armor/arms/apa,
-
-)
-	///Pixel offsets for specific attachment slots. Is not used currently.
-var/list/attachment_offsets = list()
-	///List of attachment types that is attached to the object on initialize.
-var/list/starting_attachments = list()
-	///List of the attachment overlays.
-var/list/attachment_overlays = list(
-	new mutable_appearance(OVERLAY_ICON)
-)
-	///List of icon_state suffixes for armor varients.
-var/list/icon_state_variants = list()
-	///Current varient selected.
-var/current_variant
-
 /obj/item/clothing/suit/modular/Initialize()
 	. = ..()
-	AddComponent(/datum/component/attachment_handler, attachments_by_slot, attachments_allowed, attachment_offsets, starting_attachments, overlays = attachment_overlays, mutable_appearance)
+	AddComponent(/datum/component/attachment_handler, attachments_by_slot, attachments_allowed, attachment_offsets, starting_attachments, overlays = attachment_overlays)
 	update_icon()
 
 /obj/item/clothing/suit/modular/equipped(mob/user, slot)
