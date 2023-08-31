@@ -1,4 +1,4 @@
-
+/*
 /datum/job/biker
 	title = "Hells Nomad"
 	department_flag = KHAN
@@ -51,3 +51,4 @@
 		return
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/gate_biker)
 
+*/
