@@ -142,23 +142,54 @@
 	path = /obj/item/clothing/suit/jacket/miljacket
 	subcategory = LOADOUT_SUBCATEGORY_SUIT_JACKETS
 	cost = 1
-/datum/gear/suit/armorkit
-	name = "Armor Kit"
-	path = /obj/item/clothing/suit/armor/light/kit
-	subcategory = LOADOUT_SUBCATEGORY_SUIT_JACKETS
-	cost = 2
-
-/datum/gear/suit/punkkit
-	name = "Punk Armor Kit"
-	path = /obj/item/clothing/suit/armor/light/kit/punk
-	subcategory = LOADOUT_SUBCATEGORY_SUIT_JACKETS
-	cost = 2
 
 /datum/gear/suit/autumn
 	name = "tan trenchcoat"
 	path = /obj/item/clothing/suit/armor/light/duster/autumn
 	subcategory = LOADOUT_SUBCATEGORY_SUIT_JACKETS
 	cost = 2
+
+/datum/gear/suit/armorkit
+	name = "Armor Kit"
+	path = /obj/item/clothing/suit/armor/light/kit
+	subcategory = LOADOUT_SUBCATEGORY_SUIT_ARMOR 	
+	cost = 2
+
+/datum/gear/suit/punkkit
+	name = "Punk Armor Kit"
+	path = /obj/item/clothing/suit/armor/light/kit/punk
+	subcategory = LOADOUT_SUBCATEGORY_SUIT_ARMOR 	
+	cost = 2
+
+/datum/gear/suit/flak
+	name = "Flak Jacket"
+	path = /obj/item/clothing/suit/armor/medium/vest/flak
+	restricted_desc = "Wastelander"
+	restricted_roles = list("Wastelander",
+							"Outlaw",
+							"Preacher",
+							)
+	subcategory = LOADOUT_SUBCATEGORY_SUIT_ARMOR 	
+	cost = 4
+
+/datum/gear/suit/town
+	name = "Town Security Armor"
+	path = /obj/item/clothing/suit/armor/medium/vest/blueshirt
+	subcategory = LOADOUT_SUBCATEGORY_SUIT_ARMOR 	
+	cost = 4
+	restricted_desc = "Nash"
+	restricted_roles = list("Mayor",
+							"Secretary",
+							"Sheriff",
+							"Doctor",
+							"Citizen",
+							"Deputy",
+							"Shopkeeper",
+							"Farmer",
+							"Prospector",
+							"Detective",
+							"Barkeep",
+							)
 
 /datum/gear/suit/samurai  //added by TK420634 ~ 5/29/2022 "Samurai Wasteland WeebShit Edition (tm)
 	name = "Rusted Samurai Armor"
