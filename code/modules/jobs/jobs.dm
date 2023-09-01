@@ -72,7 +72,7 @@ GLOBAL_LIST_INIT(silicon_whitelist_positions, list(
 
 GLOBAL_LIST_INIT(faction_whitelist_positions, list(
 "Head Scribe",
-"Elder",
+"Sentinel",
 "Head Paladin",
 "Head Knight",
 "Head Scribe",
@@ -139,7 +139,7 @@ GLOBAL_LIST_INIT(faction_whitelist_positions, list(
 ))
 //Brotherhood
 GLOBAL_LIST_INIT(brotherhood_positions, list(
-	"Elder",
+	"Sentinel",
 	"Paladin Commander",
 	"Knight-Captain",
 	"Proctor",
@@ -239,7 +239,6 @@ GLOBAL_LIST_INIT(wasteland_positions, list(
 	"Faithful",
 	"Vigilante",
 	"Preacher",
-	"Far-Lands Tribals",
 	"Wastelander",
 	"Minuteman",
 ))
@@ -325,7 +324,7 @@ GLOBAL_LIST_INIT(position_categories, list(
 	"Nash" = list("jobs" = oasis_positions, "color" = "#d7b088"),
 	EXP_TYPE_SILICON = list("jobs" = silicon_positions, "color" = "#4a4a4a"),
 	EXP_TYPE_TRIBAL = list("jobs" = tribal_positions, "color" = "#006666"),
-	EXP_TYPE_BIKER = list("jobs" = biker_positions, "color" = "#eb872f"),
+	//EXP_TYPE_BIKER = list("jobs" = biker_positions, "color" = "#eb872f"),
 	"Super Mutants" = list("jobs" = mutant_positions, "color" = "#26bf47"),
 	//"debug" = list("jobs" = debug_positions, "color" = "#ff00ee"),
 	// "Redwater" = list("jobs" = redwater_positions, "color" = "#f81717"),
@@ -354,8 +353,8 @@ GLOBAL_LIST_INIT(exp_jobsmap, list(
 	EXP_TYPE_KHAN = list("titles" = khan_positions),
 	EXP_TYPE_FOLLOWERS = list("titles" = followers_positions),
 	EXP_TYPE_ENCLAVE = list("titles" = enclave_positions),
-	EXP_TYPE_TRIBAL = list("titles" = tribal_positions),
-	EXP_TYPE_BIKER = list("titles" = biker_positions),
+	//EXP_TYPE_TRIBAL = list("titles" = tribal_positions),
+	//EXP_TYPE_BIKER = list("titles" = biker_positions),
 	"debug" = list("titles" = debug_positions),
 	EXP_TYPE_RANGER = list("titles" = list("NCR Veteran Ranger","NCR Ranger")),
 	EXP_TYPE_SCRIBE = list("titles" = list("Scribe")),

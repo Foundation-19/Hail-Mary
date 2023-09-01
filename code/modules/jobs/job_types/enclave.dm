@@ -186,8 +186,8 @@
 	title = "Enclave Corporal"
 	flag = F13USCPL
 	display_order = F13USCPL
-	total_positions = 2
-	spawn_positions = 2
+	total_positions = 3
+	spawn_positions = 3
 	description = "Entrusted with the command of the squads assigned to the bunker, your job is to assist the Lieutenant alongside the scientists."
 	supervisors = "The Lieutenant and the Gunnery Sergeant."
 	outfit = /datum/outfit/job/enclave/peacekeeper/enclavecpl
@@ -223,8 +223,8 @@
 /datum/job/enclave/f13specialist
 	title = "Enclave Specialist"
 	flag = F13USSPECIALIST
-	total_positions = 2
-	spawn_positions = 2
+	total_positions = 3
+	spawn_positions = 3
 	display_order = JOB_DISPLAY_ORDER_F13USSPC
 	description = "You are an operative for the remnants of the Enclave. You, unlike the normal privates, have recieved specialist training in either engineering or medicine."
 	supervisors = "The Lieutenant and the Sergeants."
@@ -280,8 +280,8 @@
 	title = "Enclave Private"
 	flag = F13USPRIVATE
 	display_order = JOB_DISPLAY_ORDER_F13USPVT
-	total_positions = 5
-	spawn_positions = 5
+	total_positions = 7
+	spawn_positions = 7
 	description = "You are an operative for the remnants of the Enclave. Obey your Lieutenant. He sets the Enclave's policies."
 	supervisors = "The Lieutenant and the Sergeants"
 	outfit = /datum/outfit/job/enclave/peacekeeper/enclavespy

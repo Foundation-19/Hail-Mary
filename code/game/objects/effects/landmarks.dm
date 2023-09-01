@@ -663,8 +663,8 @@ obj/effect/landmark/start/f13/ncrlogisticsofficer
 
 // Brotherhood of Steel
 
-/obj/effect/landmark/start/f13/elder
-	name = "Elder"
+/obj/effect/landmark/start/f13/sentinel
+	name = "Sentinel"
 	icon_state = "Elder"
 
 /obj/effect/landmark/start/f13/headscribe
@@ -675,7 +675,8 @@ obj/effect/landmark/start/f13/ncrlogisticsofficer
 	name = "Senior Scribe"
 	icon_state = "Scribe"
 
-/obj/effect/landmark/start/f13/sentinel
+
+/obj/effect/landmark/start/f13/paladincommander
 	name = "Paladin Commander"
 	icon_state = "Paladin"
 
@@ -865,6 +866,9 @@ obj/effect/landmark/start/f13/ncrlogisticsofficer
 	name = "Enclave Gunnery Sergeant"
 	icon_state = "usgunnery"
 
+/obj/effect/landmark/start/f13/uscpt
+	name = "Enclave Captain"
+	icon_state = "uscpt"
 
 /obj/effect/landmark/start/f13/uslightduty
 	name = "Enclave Bunker Duty"
