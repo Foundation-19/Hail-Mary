@@ -202,3 +202,4 @@
 	path = /obj/item/clothing/suit/armor/light/duster/rustedcowboy
 	subcategory = LOADOUT_SUBCATEGORY_SUIT_JACKETS
 	cost = 2
+
