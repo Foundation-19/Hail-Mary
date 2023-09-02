@@ -22,6 +22,7 @@
 	equip_delay_other = 60
 	strip_delay = 200
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+	pocket_storage_component_path = null
 	actions_types = list(/datum/action/item_action/toggle)
 	var/requires_training = TRUE
 	flags_inv = HIDEJUMPSUIT|HIDENECK|HIDEEYES|HIDEEARS|HIDEFACE|HIDEMASK|HIDEGLOVES|HIDESHOES
