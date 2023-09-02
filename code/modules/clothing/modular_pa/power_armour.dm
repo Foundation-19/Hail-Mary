@@ -58,6 +58,7 @@
 	var/list/icon_state_variants = list()
 		///Current varient selected.
 	var/current_variant
+		/// fuck if i know
 	
 
 /obj/item/clothing/suit/modular/Initialize()
@@ -107,7 +108,8 @@
         if(!attachments_by_slot[key])
             continue
         var/obj/item/armor_module/module = attachments_by_slot[key]
-        if(!CHECK_BITFIELD(module.flags_attach_features, ATTACH_ACTIVATION))
+        if(!CHECK_BITFIELD(module.flags_attach_features, AT
+		TACH_ACTIVATION))
             continue
         LAZYREMOVE(module.actions_types, /datum/action/item_action/toggle)
         var/datum/action/item_action/toggle/old_action = locate(/datum/action/item_action/toggle) in module.actions
