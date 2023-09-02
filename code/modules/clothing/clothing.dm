@@ -503,4 +503,8 @@ BLIND     // can't see anything
 //Updates the icons of the mob wearing the clothing item, if any.
 /obj/item/clothing/proc/update_clothing_icon()
 	return
+
+// Does the same as above, but for onmob sprites (?)
+/obj/item/clothing/proc/update_onmob_icon()
+	return
 	

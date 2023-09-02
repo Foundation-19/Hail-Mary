@@ -91,10 +91,6 @@
 
 /obj/item/clothing/suit/modular/equipped(mob/user, slot)
 	. = ..()
-	var/obj/structure/table/table = locate() in get_turf(src)
-	if(isnull(table))
-		to_chat(usr, span_notice("You cannot modify the Power Armour without it being placed on a table or similar surface."))
-		return
 	for(var/key in attachments_by_slot)
 		if(!attachments_by_slot[key])
 			continue
@@ -108,9 +104,6 @@
 /obj/item/clothing/suit/modular/proc/unequipped(mob/unequipper, slot)
     . = ..()
     var/obj/structure/table/table = locate() in get_turf(src)
-    if(isnull(table))
-        to_chat(usr, span_notice("You cannot modify the Power Armour without it being placed on a table or similar surface."))
-        return
     for(var/key in attachments_by_slot)
         if(!attachments_by_slot[key])
             continue
@@ -125,7 +118,7 @@
 	. = ..()
 	if(current_variant)
 		icon_state = initial(icon_state) + "_[current_variant]"
-		item_state = initial(item_state) + "_[current_variant]"
+		item_state = initial(mob_overlay_icon) + "_[current_variant]"
 	update_clothing_icon()
 	update_onmob_icon()
 
