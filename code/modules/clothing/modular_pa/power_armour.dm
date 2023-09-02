@@ -125,4 +125,7 @@
 	. = ..()
 	if(current_variant)
 		icon_state = initial(icon_state) + "_[current_variant]"
+		item_state = initial(item_state) + "_[current_variant]"
 	update_clothing_icon()
+	update_onmob_icon()
+
