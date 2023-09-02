@@ -123,3 +123,11 @@
 	update_clothing_icon()
 	update_onmob_icon()
 
+/obj/item/clothing/suit/modular/worn_overlays(isinhands, icon_file, used_state, style_flags)
+    . = ..()
+    if(!isinhands)
+        for(var/key in attachments_by_slot)
+            if(!attachments_by_slot[key])
+                continue
+            var/obj/item/armor_module/module = attachments_by_slot[key]
+            . += mutable_appearance(module.mob_overlay_icon, module.icon_state + "_a")
