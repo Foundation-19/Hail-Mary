@@ -103,7 +103,6 @@
 
 /obj/item/clothing/suit/modular/proc/unequipped(mob/unequipper, slot)
     . = ..()
-    var/obj/structure/table/table = locate() in get_turf(src)
     for(var/key in attachments_by_slot)
         if(!attachments_by_slot[key])
             continue
