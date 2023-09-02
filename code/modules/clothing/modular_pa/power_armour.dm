@@ -17,12 +17,12 @@
 	w_class = WEIGHT_CLASS_HUGE
 	slowdown = 0.4 //+0.1 from helmet = total 0.5
 	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
+	pocket_storage_component_path = null
 	item_flags = SLOWS_WHILE_IN_HAND
 	equip_delay_self = 50
 	equip_delay_other = 60
 	strip_delay = 200
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
-	pocket_storage_component_path = null
 	actions_types = list(/datum/action/item_action/toggle)
 	var/requires_training = TRUE
 	flags_inv = HIDEJUMPSUIT|HIDENECK|HIDEEYES|HIDEEARS|HIDEFACE|HIDEMASK|HIDEGLOVES|HIDESHOES
