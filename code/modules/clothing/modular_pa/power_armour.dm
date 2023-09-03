@@ -77,6 +77,7 @@
 		ADD_TRAIT(user, TRAIT_STUNIMMUNE,	"stun_immunity")
 		ADD_TRAIT(user, TRAIT_PUSHIMMUNE,	"push_immunity")
 		ADD_TRAIT(user, TRAIT_IRONFIST,	"iron_fist")
+		ADD_TRAIT(user, SPREAD_CONTROL, "PA_spreadcontrol")
 		return ..()
 	return
 
@@ -84,6 +85,7 @@
 	REMOVE_TRAIT(user, TRAIT_STUNIMMUNE,	"stun_immunity")
 	REMOVE_TRAIT(user, TRAIT_PUSHIMMUNE,	"push_immunity")
 	REMOVE_TRAIT(user, TRAIT_IRONFIST,	"iron_fist")
+	REMOVE_TRAIT(user, SPREAD_CONTROL, "PA_spreadcontrol")
 	return ..()
 
 /obj/item/clothing/suit/modular/Initialize()
