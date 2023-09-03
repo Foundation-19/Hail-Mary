@@ -240,7 +240,7 @@
 	name = "Enclave Specialist"
 	jobtype = /datum/job/enclave/f13specialist
 	suit = /obj/item/clothing/suit/armor/heavy/vest/bulletproof
-	suit_store = /obj/item/gun/ballistic/automatic/smg/mp5
+	suit_store = /obj/item/gun/ballistic/automatic/smg/smg10mm
 	accessory = /obj/item/clothing/accessory/enclave/specialist
 
 	backpack_contents = list(

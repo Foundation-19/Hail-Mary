@@ -1213,11 +1213,6 @@ Mayor
 	selection_color = "#dcba97"
 	exp_requirements = 0
 
-	loadout_options = list(
-	/datum/outfit/loadout/laser_master,
-	/datum/outfit/loadout/ballistic_master
-	)
-
 	outfit = /datum/outfit/job/den/f13quartermaster
 	access = list(ACCESS_BAR, ACCESS_CARGO_BOT)
 	minimal_access = list(ACCESS_BAR, ACCESS_CARGO_BOT)
@@ -1248,18 +1243,6 @@ Mayor
 		/obj/item/storage/pill_bottle/chem_tin/radx,
 		/obj/item/pda/quartermaster,
 		/obj/item/stack/f13Cash/caps/twofivezero)
-
-/datum/outfit/loadout/laser_master
-	name = "Laser Master"
-	backpack_contents = list(
-		/obj/item/book/granter/crafting_recipe/blueprint/plasmarifle = 1
-	)
-
-/datum/outfit/loadout/ballistic_master
-	name = "Ballistic Master"
-	backpack_contents = list(
-		/obj/item/book/granter/crafting_recipe/blueprint/armalite = 1
-	)
 
 /datum/outfit/job/den/f13quartermaster/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()

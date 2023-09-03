@@ -633,7 +633,7 @@
 	icon_state = "gab1"
 	oneuse = TRUE
 	remarks = list("Always keep your gun well lubricated...", "Keep your barrel free of grime...", "Perfect fitment is the key to a good firearm...", "Maintain a proper trigger pull length...", "Keep your sights zeroed to proper range...")
-	crafting_recipe_types = list(/datum/crafting_recipe/ninemil, /datum/crafting_recipe/huntingrifle, /datum/crafting_recipe/tec22)
+	crafting_recipe_types = list(/datum/crafting_recipe/ninemil, /datum/crafting_recipe/huntingrifle)
 
 /obj/item/book/granter/crafting_recipe/gunsmith_two
 	name = "Guns and Bullets, Part 2"
@@ -864,11 +864,6 @@
 	name = "commando carbine blueprint"
 	icon_state = "blueprint2"
 	crafting_recipe_types = list(/datum/crafting_recipe/commando)
-
-/obj/item/book/granter/crafting_recipe/blueprint/armalite
-	name = "armalite blueprint"
-	icon_state = "blueprint2"
-	crafting_recipe_types = list(/datum/crafting_recipe/armalite)
 
 /obj/item/book/granter/crafting_recipe/blueprint/rangerrepeater
 	name = "ranger repeater carbine"

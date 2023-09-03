@@ -323,8 +323,6 @@ Fence
 						/obj/item/gun/ballistic/automatic/pistol/n99 = 8,
 						/obj/item/gun/ballistic/automatic/pistol/pistol22 = 8,
 						/obj/item/gun/ballistic/automatic/pistol/ninemil = 8,
-						/obj/item/gun/ballistic/automatic/pistol/sig = 8,
-						/obj/item/gun/ballistic/automatic/pistol/beretta = 8,
 						/obj/item/gun/ballistic/automatic/pistol/m1911 = 8,
 						/obj/item/gun/ballistic/rifle/hunting = 10,
 						/obj/item/gun/ballistic/revolver/colt357 = 10,

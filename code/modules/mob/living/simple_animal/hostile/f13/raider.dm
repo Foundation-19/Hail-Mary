@@ -602,7 +602,7 @@
 	footstep_type = FOOTSTEP_MOB_SHOE
 	loot_drop_amount = 10
 	loot_amount_random = FALSE
-	
+
 
 // Cultist Stuff
 
@@ -739,7 +739,7 @@
 	projectilesound = 'sound/f13weapons/assaultrifle_fire.ogg'
 	sound_after_shooting = 'sound/weapons/shotguninsert.ogg'
 	extra_projectiles = 2
-	loot = list(/obj/item/gun/ballistic/automatic/smg/mini_uzi/smg22, /obj/item/stack/f13Cash/random/med)
+	loot = list(/obj/item/gun/ballistic/automatic/smg/mini_uzi, /obj/item/stack/f13Cash/random/med)
 	loot_drop_amount = 8
 	footstep_type = FOOTSTEP_MOB_SHOE
 	projectile_sound_properties = list(

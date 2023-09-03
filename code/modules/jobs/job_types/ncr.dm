@@ -778,9 +778,7 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 	head = /obj/item/clothing/head/helmet/f13/heavy/salvaged_pa/t45b/ncr
 	belt = /obj/item/storage/belt/legholster
 	suit = /obj/item/clothing/suit/armor/heavy/salvaged_pa/t45b/ncr
-	backpack_contents = list(
-		/obj/item/gun/ballistic/automatic/pistol/mk23 = 1,
-		/obj/item/ammo_box/magazine/m45/socom = 2,
+	backpack_contents = list(,
 	//	/obj/item/storage/bag/money/small/ncrenlisted = 1,
 		)
 

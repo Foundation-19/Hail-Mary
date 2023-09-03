@@ -10,7 +10,6 @@
 	/obj/item/gun/ballistic/rifle/hunting/obrez = 10,
 	/obj/item/gun/ballistic/automatic/smg/ppsh = 1,
 	/obj/item/gun/ballistic/automatic/m1garand/sks = 1,
-	/obj/item/gun/ballistic/automatic/pistol/ninemil/skorpion = 10,
 )
 
 /obj/effect/spawner/lootdrop/f13/weapon/vault
@@ -30,23 +29,19 @@
 	/obj/item/gun/ballistic/revolver/police = 20,
 	/obj/item/gun/ballistic/automatic/smg/american180 = 10,
 	/obj/item/gun/ballistic/automatic/assault_carbine = 10,
-	/obj/item/gun/ballistic/automatic/armalite = 10,
 	/obj/item/gun/ballistic/shotgun/police = 1,
 	/obj/item/gun/ballistic/shotgun/automatic/combat/neostead = 1,
 	/obj/item/gun/ballistic/automatic/shotgun/riot = 1,
 	/obj/item/shield/riot = 10,
-	/obj/item/gun/ballistic/automatic/smg/mini_uzi/mp5 = 1,
 )
 
 /obj/effect/spawner/lootdrop/f13/weapon/weapon_22
 	name = ".22 caliber themed weapons"
 	loot = list(
-	/obj/item/gun/ballistic/automatic/smg/mini_uzi/smg22 = 20,
 	/obj/item/gun/ballistic/automatic/sportcarbine = 20,
 	/obj/item/gun/ballistic/automatic/pistol/pistol22 = 10,
 	/obj/item/gun/ballistic/revolver/detective = 10,
 	/obj/item/gun/ballistic/automatic/smg/american180 = 1,
-	/obj/item/gun/ballistic/automatic/smg/mini_uzi/smg22/tec22 = 10,
 )
 
 /obj/effect/spawner/lootdrop/f13/weapon/milsurplus
@@ -54,7 +49,6 @@
 	loot = list(
 	/obj/item/gun/ballistic/automatic/m1carbine = 20,
 	/obj/item/gun/ballistic/automatic/m1carbine/compact = 5,
-	/obj/item/gun/ballistic/automatic/m1carbine/m2 = 5,
 	/obj/item/gun/ballistic/automatic/pistol/ninemil = 20,
 	/obj/item/gun/ballistic/automatic/pistol/m1911  = 20, //muh three world wars
 	/obj/item/melee/onehanded/knife/trench = 10,
@@ -105,7 +99,7 @@
 	/obj/item/gun/ballistic/automatic/hobo/destroyer = 1,
 	/obj/item/melee/unarmed/lacerator = 10,
 	/obj/item/shishkebabpack = 5,
-	/obj/item/gun/ballistic/automatic/smg/mini_uzi/rockwell = 10,
+	/obj/item/gun/ballistic/automatic/smg/mini_uzi = 10,
 )
 
 /obj/effect/spawner/lootdrop/f13/weapon/western //yeehowody

@@ -503,35 +503,6 @@
 		/datum/firemode/semi_auto/fast
 	)
 
-
-/* * * * * * * * * * *
- * Sig P220
- * Light Mediumer pistol
- * .45
- * Less recoil
- * faster shooting
- * Common
- * * * * * * * * * * */
-
-/obj/item/gun/ballistic/automatic/pistol/sig //wiggles
-	name = "Sig P220"
-	desc = "The P220 Sig Sauer. A Swiss designed pistol that is compact and has an average rate of fire for a pistol."
-	icon_state = "sig"
-	init_mag_type = /obj/item/ammo_box/magazine/m45
-	mag_type = /obj/item/ammo_box/magazine/m45
-	disallowed_mags = list(/obj/item/ammo_box/magazine/m45/socom, /obj/item/ammo_box/magazine/m45/socom/empty)
-	weapon_class = WEAPON_CLASS_SMALL
-	weapon_weight = GUN_ONE_HAND_AKIMBO
-	damage_multiplier = GUN_EXTRA_DAMAGE_0
-	init_recoil = HANDGUN_RECOIL(1.1)
-	init_firemodes = list(
-		/datum/firemode/semi_auto/fast
-	)
-	suppressor_state = "pistol_suppressor"
-	suppressor_x_offset = 30
-	suppressor_y_offset = 20
-	fire_sound = 'sound/f13weapons/45revolver.ogg'
-
 /obj/item/gun/ballistic/automatic/pistol/sig/trusty //wiggles x 2
 	name = "Trusty Sig P220"
 	desc = "The P220 Sig Sauer. A Swiss designed pistol that is compact and has an average rate of fire for a pistol. A trusty copy valued for its reliability."

@@ -1132,32 +1132,6 @@
 	fire_sound = 'sound/f13weapons/marksman_rifle.ogg'
 
 /* * * * * * * * * * *
- * Police Rifle
- * Cool semi-auto rifle
- * .223 / 5.56mm
- * Scope!
- * Common
- * * * * * * * * * * */
-
-/obj/item/gun/ballistic/automatic/marksman/policerifle
-	name = "Police Rifle"
-	desc = "A pre-war Rifle that has been constantly repaired and rebuilt by the Nash Police Department. Held together by duct tape and prayers, it somehow still shoots."
-	icon = 'icons/fallout/objects/guns/ballistic.dmi'
-	lefthand_file = 'icons/fallout/onmob/weapons/guns_lefthand.dmi'
-	righthand_file = 'icons/fallout/onmob/weapons/guns_righthand.dmi'
-	icon_prefix = "assault_carbine"
-	icon_state = "rifle-police"
-	item_state = "assault_carbine"
-	weapon_class = WEAPON_CLASS_RIFLE
-	weapon_weight = GUN_ONE_HAND_ONLY
-	damage_multiplier = GUN_EXTRA_DAMAGE_0
-	init_recoil = RIFLE_RECOIL(1)
-	gun_tags = list(GUN_FA_MODDABLE, GUN_SCOPE)
-	can_suppress = FALSE
-	can_scope = TRUE
-	zoomable = FALSE
-
-/* * * * * * * * * * *
  * Rangemaster Rifle
  * Baseline semi-auto 7.62mm rifle
  * .308 / 7.62mm
