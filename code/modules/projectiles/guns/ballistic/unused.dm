@@ -455,3 +455,203 @@
 		/datum/firemode/semi_auto/fast
 	)
 	can_suppress = FALSE
+
+
+//scorpion machine pistol. like the M93R, but full auto instead of burst, for better or worse
+/obj/item/gun/ballistic/automatic/pistol/ninemil/skorpion
+	name = "Skorpion 9mm"
+	desc = "A Czech machine pistol developed in the 60s"
+	icon = 'fallout/icons/objects/automatic.dmi'
+	icon_state = "skorpion"
+	init_mag_type = /obj/item/ammo_box/magazine/m9mm/doublestack
+	mag_type = /obj/item/ammo_box/magazine/m9mm/doublestack
+	init_firemodes = list(
+		/datum/firemode/automatic/rpm200,
+		/datum/firemode/semi_auto/fast
+	)
+
+//C93 pistol. damage bonus but single stack magazine. not the best gun, but hey, it's old
+/obj/item/gun/ballistic/automatic/pistol/ninemil/c93
+	name = "9mm Borchardt"
+	desc = "The first mass produced semiautomatic pistol, designed before doublestack magazines existed."
+	icon = 'fallout/icons/objects/pistols.dmi'
+	icon_state = "borchardt"
+	init_mag_type = /obj/item/ammo_box/magazine/m9mm
+	mag_type = /obj/item/ammo_box/magazine/m9mm
+	disallowed_mags = list(/obj/item/ammo_box/magazine/m9mm/doublestack)
+	damage_multiplier = GUN_EXTRA_DAMAGE_T3
+
+//Luger. pretty much the same as a C93, same smol magazine, same semi-auto old gun
+/obj/item/gun/ballistic/automatic/pistol/ninemil/c93/luger
+	name = "9mm Luger"
+	desc = "A classy german 9mm pistol, which takes single stack magazines."
+	icon_state = "luger"
+
+//9mm carbine: pistol capacity, but two shot burst. needs suppressor set correctly
+/obj/item/gun/ballistic/automatic/pistol/beretta/carbine
+	name = "9mm carbine"
+	desc = "A lightweight carbine manufactured by Hi-Point, takes pistol magazines."
+	icon = 'icons/obj/guns/projectile.dmi'
+	icon_state = "citykiller" //old citykiller sprite looks close enough to a hi-point carbine
+	init_mag_type = /obj/item/ammo_box/magazine/m9mm/doublestack
+	mag_type = /obj/item/ammo_box/magazine/m9mm/doublestack
+	weapon_class = WEAPON_CLASS_CARBINE
+	weapon_weight = GUN_ONE_HAND_AKIMBO
+	damage_multiplier = GUN_EXTRA_DAMAGE_T1
+	init_firemodes = list(
+		/datum/firemode/burst/two/fast,
+		/datum/firemode/semi_auto/fast
+	)
+
+
+/* * * * * * * * * * *
+ * Sig P220
+ * Light Mediumer pistol
+ * .45
+ * Less recoil
+ * faster shooting
+ * Common
+ * * * * * * * * * * */
+
+/obj/item/gun/ballistic/automatic/pistol/sig //wiggles
+	name = "Sig P220"
+	desc = "The P220 Sig Sauer. A Swiss designed pistol that is compact and has an average rate of fire for a pistol."
+	icon_state = "sig"
+	init_mag_type = /obj/item/ammo_box/magazine/m45
+	mag_type = /obj/item/ammo_box/magazine/m45
+	disallowed_mags = list(/obj/item/ammo_box/magazine/m45/socom, /obj/item/ammo_box/magazine/m45/socom/empty)
+	weapon_class = WEAPON_CLASS_SMALL
+	weapon_weight = GUN_ONE_HAND_AKIMBO
+	damage_multiplier = GUN_EXTRA_DAMAGE_0
+	init_recoil = HANDGUN_RECOIL(1.1)
+	init_firemodes = list(
+		/datum/firemode/semi_auto/fast
+	)
+	suppressor_state = "pistol_suppressor"
+	suppressor_x_offset = 30
+	suppressor_y_offset = 20
+	fire_sound = 'sound/f13weapons/45revolver.ogg'
+
+/obj/item/gun/ballistic/automatic/pistol/sig/trusty //wiggles x 2
+	name = "Trusty Sig P220"
+	desc = "The P220 Sig Sauer. A Swiss designed pistol that is compact and has an average rate of fire for a pistol. A trusty copy valued for its reliability."
+	icon_state = "sig"
+	init_mag_type = /obj/item/ammo_box/magazine/m45/rubber
+	mag_type = /obj/item/ammo_box/magazine/m45
+	disallowed_mags = list(/obj/item/ammo_box/magazine/m45/socom, /obj/item/ammo_box/magazine/m45/socom/empty)
+	weapon_class = WEAPON_CLASS_SMALL
+	weapon_weight = GUN_ONE_HAND_AKIMBO
+	damage_multiplier = GUN_EXTRA_DAMAGE_0
+	init_recoil = HANDGUN_RECOIL(1.1)
+	init_firemodes = list(
+		/datum/firemode/semi_auto/fast
+	)
+	suppressor_state = "pistol_suppressor"
+	suppressor_x_offset = 30
+	suppressor_y_offset = 20
+	fire_sound = 'sound/f13weapons/45revolver.ogg'
+
+/obj/item/gun/ballistic/automatic/pistol/sig/worn //wiggles x 3
+	name = "Sig P220"
+	desc = "The P220 Sig Sauer. A Swiss designed pistol that is compact and has an average rate of fire for a pistol."
+	icon_state = "sig"
+	init_mag_type = /obj/item/ammo_box/magazine/m45
+	mag_type = /obj/item/ammo_box/magazine/m45
+	disallowed_mags = list(/obj/item/ammo_box/magazine/m45/socom, /obj/item/ammo_box/magazine/m45/socom/empty)
+	weapon_class = WEAPON_CLASS_SMALL
+	weapon_weight = GUN_ONE_HAND_AKIMBO
+	damage_multiplier = GUN_LESS_DAMAGE_T1
+	init_recoil = HANDGUN_RECOIL(1.1)
+	init_firemodes = list(
+		/datum/firemode/semi_auto/fast
+	)
+	suppressor_state = "pistol_suppressor"
+	suppressor_x_offset = 30
+	suppressor_y_offset = 20
+	fire_sound = 'sound/f13weapons/45revolver.ogg'
+
+/obj/item/gun/ballistic/automatic/pistol/sig/blackkite
+	name = "Black Kite"
+	desc = "These large Sig Sauer pistols have seen much wear, and have been kept maintained with parts from the more common P220, necessitating the rechambering to .45ACP."
+	icon_state = "pistol14"
+	item_state = "gun"
+	init_mag_type = /obj/item/ammo_box/magazine/m45
+	mag_type = /obj/item/ammo_box/magazine/m45
+	disallowed_mags = list(/obj/item/ammo_box/magazine/m45/socom, /obj/item/ammo_box/magazine/m45/socom/empty)
+
+	auto_eject_sound = 'sound/weapons/gun_magazine_remove_full.ogg'
+	weapon_class = WEAPON_CLASS_SMALL
+	weapon_weight = GUN_ONE_HAND_AKIMBO
+	damage_multiplier = GUN_EXTRA_DAMAGE_0
+	init_firemodes = list(
+		/datum/firemode/semi_auto
+	)
+	suppressor_state = "pistol_suppressor"
+	suppressor_x_offset = 30
+	suppressor_y_offset = 20
+	fire_sound = 'sound/f13weapons/combatrifle.ogg'
+
+/* * * * * * * * * * *
+ * Schmeisser
+ * Mid-tier auto pistol
+ * 10mm
+ * No accuracy
+ * Less damage
+ * Mid rarity
+ * * * * * * * * * * */
+
+/obj/item/gun/ballistic/automatic/pistol/schmeisser
+	name = "Schmeisser Classic"
+	desc = "An obscure pistol that fits a 10mm magazine and is capable of full auto. Fires from an open bolt. Innacurate on the first shot, but it doesn't get much worse. Or better."
+	icon_state = "bornheim"
+	item_state = "pistolchrome"
+	icon_prefix = "bornheim"
+	fire_sound = 'sound/f13weapons/10mm_fire_02.ogg'
+	init_mag_type = /obj/item/ammo_box/magazine/m10mm/adv/simple
+	mag_type = /obj/item/ammo_box/magazine/m10mm // load any 10mm pistol ammos
+	init_recoil = HANDGUN_RECOIL(2.3)
+	disallowed_mags = list(
+		/obj/item/ammo_box/magazine/m10mm/adv/ext,
+		/obj/item/ammo_box/magazine/m10mm/adv/ext/empty,
+		/obj/item/ammo_box/magazine/m10mm/rifle)
+	weapon_class = WEAPON_CLASS_SMALL
+	weapon_weight = GUN_ONE_HAND_AKIMBO
+	damage_multiplier = GUN_EXTRA_DAMAGE_0
+	init_firemodes = list(
+		/datum/firemode/automatic/rpm200,
+		/datum/firemode/semi_auto/fast,
+	)
+
+/* * * * * * * * * * *
+ * Mk. 23 Semi-Auto
+ * Tacticool Medium pistol
+ * .45ACP
+ * More accurate
+ * Lighter
+ * Less recoil
+ * Faster to shoot
+ * Uncommon
+ * * * * * * * * * * */
+
+/obj/item/gun/ballistic/automatic/pistol/mk23
+	name = "Mk. 23"
+	desc = "A very tactical pistol chambered in .45 ACP with a built in laser sight and attachment point for a seclite."
+	icon_state = "mk23"
+	init_mag_type = /obj/item/ammo_box/magazine/m45/socom
+	mag_type = /obj/item/ammo_box/magazine/m45 // load any .45 pistol ammos
+	weapon_class = WEAPON_CLASS_NORMAL
+	weapon_weight = GUN_ONE_HAND_AKIMBO
+	damage_multiplier = GUN_EXTRA_DAMAGE_T1
+	init_recoil = HANDGUN_RECOIL(0.8)
+	init_firemodes = list(
+		/datum/firemode/semi_auto/fast
+	)
+	can_flashlight = TRUE
+	gunlight_state = "flight"
+	flight_x_offset = 16
+	flight_y_offset = 13
+	suppressor_state = "pistol_suppressor"
+	suppressor_x_offset = 28
+	suppressor_y_offset = 20
+	fire_sound = 'sound/f13weapons/45revolver.ogg'
+	gun_accuracy_zone_type = ZONE_WEIGHT_PRECISION // Tacticool
