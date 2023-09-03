@@ -59,7 +59,6 @@
 	var/list/icon_state_variants = list()
 		///Current varient selected.
 	var/current_variant
-		/// fuck if i know
 	
 
 /obj/item/clothing/suit/modular/Initialize()
