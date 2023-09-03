@@ -174,7 +174,7 @@
 ///Does the detach, shows the user the removable attachments and handles the do_after.
 /datum/component/attachment_handler/proc/do_detach(mob/living/user, list/attachments_to_remove)
 	//If there is only one attachment to remove, then that will be the attachment_to_remove. If there is more than one it gives the user a list to select from.
-	var/obj/item/attachment_to_remove = length(attachments_to_remove) == 1 ? attachments_to_remove[1] : tgui_input_list(user, "Choose an attachment", "Choose attachment", attachments_to_remove)
+	var/obj/item/attachment_to_remove = length(attachments_to_remove) == 1 ? attachments_to_remove[1] : list(user, "Choose an attachment", "Choose attachment", attachments_to_remove)
 	if(!attachment_to_remove)
 		return
 
