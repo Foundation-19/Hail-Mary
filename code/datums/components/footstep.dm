@@ -162,7 +162,7 @@
 /datum/component/footstep/proc/powerarmorcheck()
 	var/mob/living/carbon/human/P = parent
 	var/turf/open/T = get_turf(P)
-	var/powerArmor = (P.wear_suit && istype(P.wear_suit,/obj/item/clothing/suit/armor/power_armor))
+	var/powerArmor = (P.wear_suit && istype(P.wear_suit,/obj/item/clothing/suit/modular))
 	if(powerArmor)
 		if(P.m_intent == MOVE_INTENT_WALK)
 			if(prob(25))
