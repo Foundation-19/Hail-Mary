@@ -899,3 +899,17 @@
 	var/location = get_turf(holder.my_atom)
 	for(var/i = 1, i <= multiplier, i++)
 		new /obj/item/stack/medical/poultice/five(location)
+
+/obj/item/stack/medical/bloodleaf
+	name = "bloodleaf salve"
+	singular_name = "bloodleaf salve"
+	desc = "A cooling salve, made from the bloodleaf plant and water. Heals your wounds at a slow but steady rate."
+	icon_state = "healing_salve"
+	self_delay = 5
+	other_delay = 5
+	heal_per_tick = BLOODLEAF_HEAL_OVER_TIME
+	covering_lifespan = BLOODLEAF_MAX_DURATION
+	merge_type = /obj/item/stack/medical/bloodleaf
+
+/obj/item/stack/medical/bloodleaf/three
+	amount = 3

@@ -4,9 +4,7 @@ GLOBAL_LIST_INIT(chemwhiz_recipes, list(
 	/datum/crafting_recipe/psycho,
 	/datum/crafting_recipe/medx,
 	/datum/crafting_recipe/medx/chemistry,
-	/datum/crafting_recipe/stimpak,
 	/datum/crafting_recipe/stimpak/chemistry,
-	/datum/crafting_recipe/stimpak5,
 	/datum/crafting_recipe/stimpak5/chemistry,
 	/datum/crafting_recipe/superstimpak,
 	/datum/crafting_recipe/superstimpak5,
@@ -43,7 +41,7 @@ GLOBAL_LIST_INIT(energyweapon_cell_crafting, list(
 
 GLOBAL_LIST_INIT(weaponcrafting_gun_recipes, list(
 	/datum/crafting_recipe/ninemil,
-	/datum/crafting_recipe/huntingrifle,
+	/huntingrifle,
 	/datum/crafting_recipe/n99,
 	/datum/crafting_recipe/huntingshotgun,
 	/datum/crafting_recipe/m1911,

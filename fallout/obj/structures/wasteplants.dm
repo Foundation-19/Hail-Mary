@@ -101,6 +101,12 @@
 	desc = "A hardy, onion-like root with mild healing properties."
 	produce = /obj/item/reagent_containers/food/snacks/grown/xander
 
+/obj/structure/flora/wasteland/wild_bloodleaf
+	name = "wild bloodleaf plant"
+	icon_state = "wild_bloodleaf"
+	desc = "A bright-red flowering plant, possessing unnatural healing properties due to various mutations."
+	produce = /obj/item/reagent_containers/food/snacks/grown/bloodleaf
+
 /obj/structure/flora/wasteplant/wild_buffalogourd
 	name = "wild buffalo vines"
 	icon_state = "wild_gourd"
