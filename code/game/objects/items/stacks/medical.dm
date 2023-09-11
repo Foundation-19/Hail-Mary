@@ -167,9 +167,6 @@
 		ENABLE_BITFIELD(., DO_HURT_DAMAGE)
 		/* else if(target_bodypart.bleed_dam || target_bodypart.burn_dam || target_bodypart.burn_dam)
 			. |= DO_APPLY_SUTURE */
-	if(is_salve)
-		if(target_bodypart.isdamaged() && target_bodypart.apply_salve(src, 1, TRUE))
-			ENABLE_BITFIELD(., DO_APPLY_SALVE)
 	for(var/datum/wound/burn/burndies in target_bodypart.wounds)
 		if(sanitization || flesh_regeneration)
 			if(burndies.flesh_damage || burndies.infestation)
