@@ -949,8 +949,6 @@
 		/datum/crafting_recipe/medx/chemistry,
 		/datum/crafting_recipe/stimpak/chemistry,
 		/datum/crafting_recipe/stimpak5/chemistry,
-		/datum/crafting_recipe/superstimpak,
-		/datum/crafting_recipe/superstimpak5,
 		/datum/crafting_recipe/buffout,
 		/datum/crafting_recipe/steady)
 

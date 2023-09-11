@@ -54,6 +54,8 @@
 	var/is_bandage = FALSE
 	/// Is this a suture?
 	var/is_suture = FALSE
+	/// Is this a salve?
+	var/is_salve = FALSE
 	/// How much of an effect does the suture have on wound healing?
 	var/suture_power
 	/// How much of an effect does the bandage have on wound healing?
@@ -165,6 +167,9 @@
 		ENABLE_BITFIELD(., DO_HURT_DAMAGE)
 		/* else if(target_bodypart.bleed_dam || target_bodypart.burn_dam || target_bodypart.burn_dam)
 			. |= DO_APPLY_SUTURE */
+	if(is_salve)
+		if(target_bodypart.isdamaged() && target_bodypart.apply_salve(src, 1, TRUE))
+			ENABLE_BITFIELD(., DO_APPLY_SALVE)
 	for(var/datum/wound/burn/burndies in target_bodypart.wounds)
 		if(sanitization || flesh_regeneration)
 			if(burndies.flesh_damage || burndies.infestation)
@@ -900,7 +905,7 @@
 	for(var/i = 1, i <= multiplier, i++)
 		new /obj/item/stack/medical/poultice/five(location)
 
-/obj/item/stack/medical/bloodleaf
+/obj/item/stack/medical/gauze/bloodleaf
 	name = "bloodleaf salve"
 	singular_name = "bloodleaf salve"
 	desc = "A cooling salve, made from the bloodleaf plant and water. Heals your wounds at a slow but steady rate."
@@ -909,7 +914,7 @@
 	other_delay = 5
 	heal_per_tick = BLOODLEAF_HEAL_OVER_TIME
 	covering_lifespan = BLOODLEAF_MAX_DURATION
-	merge_type = /obj/item/stack/medical/bloodleaf
+	merge_type = /obj/item/stack/medical/gauze/bloodleaf
 
-/obj/item/stack/medical/bloodleaf/three
+/obj/item/stack/medical/gauze/bloodleaf/three
 	amount = 3
