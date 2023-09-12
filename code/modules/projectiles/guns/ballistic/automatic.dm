@@ -1469,6 +1469,7 @@
 /obj/item/gun/ballistic/automatic/assault_rifle/infiltrator
 	name = "infiltrator"
 	desc = "A customized R91 assault rifle, with an integrated suppressor, small scope, cut down stock and polymer furniture. The supressor takes away stopping-power, but a cleaner action allows it to fire faster."
+	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "infiltrator"
 	item_state = "fnfal"
 	weapon_class = WEAPON_CLASS_RIFLE

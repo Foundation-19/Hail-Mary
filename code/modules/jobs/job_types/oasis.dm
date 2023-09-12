@@ -26,6 +26,12 @@ here's a tip, go search DEFINES/access.dm
 		/obj/item/melee/onehanded/knife/hunting = 1
 		)
 
+/datum/outfit/job/den/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	..()
+	if(visualsOnly)
+		return
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bloodleaf)
+	
 /*
 Mayor
 */
