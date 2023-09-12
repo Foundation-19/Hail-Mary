@@ -54,6 +54,8 @@
 	var/is_bandage = FALSE
 	/// Is this a suture?
 	var/is_suture = FALSE
+	/// Is this a salve?
+	var/is_salve = FALSE
 	/// How much of an effect does the suture have on wound healing?
 	var/suture_power
 	/// How much of an effect does the bandage have on wound healing?
@@ -899,3 +901,17 @@
 	var/location = get_turf(holder.my_atom)
 	for(var/i = 1, i <= multiplier, i++)
 		new /obj/item/stack/medical/poultice/five(location)
+
+/obj/item/stack/medical/gauze/bloodleaf
+	name = "bloodleaf salve"
+	singular_name = "bloodleaf salve"
+	desc = "A cooling salve, made from the bloodleaf plant and water. Heals your wounds at a slow but steady rate."
+	icon_state = "healing_salve"
+	self_delay = 5
+	other_delay = 5
+	heal_per_tick = BLOODLEAF_HEAL_OVER_TIME
+	covering_lifespan = BLOODLEAF_MAX_DURATION
+	merge_type = /obj/item/stack/medical/gauze/bloodleaf
+
+/obj/item/stack/medical/gauze/bloodleaf/three
+	amount = 3
