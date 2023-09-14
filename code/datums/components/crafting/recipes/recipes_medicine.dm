@@ -87,7 +87,7 @@
 
 /datum/crafting_recipe/bloodleaf
 	name = "Bloodleaf salve"
-	result = /obj/item/stack/medical/bloodleaf/three
+	result = /obj/item/stack/medical/gauze/bloodleaf/three
 	reqs = list(/datum/reagent/water = 10,
 				/obj/item/reagent_containers/food/snacks/grown/bloodleaf = 1)
 	time = 5
