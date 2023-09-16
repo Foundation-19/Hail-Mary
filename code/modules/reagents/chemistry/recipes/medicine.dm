@@ -387,11 +387,12 @@ datum/chemical_reaction/rezadone
 /datum/chemical_reaction/stimfluid
 	name = "stimfluid"
 	id = /datum/reagent/medicine/stimpak
-	results = list(/datum/reagent/medicine/stimpak = 20)
+	results = list(/datum/reagent/medicine/stimpak = 5)
 	required_reagents = list(
 		/datum/reagent/medicine/bicaridine = 5,
 		/datum/reagent/medicine/kelotane = 5,
 		/datum/reagent/medicine/styptic_powder = 5,
 		/datum/reagent/medicine/silver_sulfadiazine = 5,
+		/datum/reagent/medicine/morphine = 5,
 		)
 	required_temp = 451

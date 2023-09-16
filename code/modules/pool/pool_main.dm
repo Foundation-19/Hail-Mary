@@ -54,7 +54,7 @@
 	if(!istype(user))
 		return ..()
 	// I could make this /open/floor and not have the !istype but ehh - kev
-	if(HAS_TRAIT(from, TRAIT_SWIMMING) && isliving(user) && ((user == from) || user.can_reach(from)) && !CHECK_MOBILITY(user, MOBILITY_USE) && !istype(src, /turf/open/pool))
+	if(HAS_TRAIT(from, TRAIT_SWIMMING) && isliving(user) && ((user == from) || user.can_reach(from)) && CHECK_MOBILITY(user, MOBILITY_USE) && !istype(src, /turf/open/pool))
 		var/mob/living/L = from
 		//The element only exists if you're on water and a living mob, so let's skip those checks.
 		var/pre_msg
@@ -73,7 +73,7 @@
 		return ..()
 
 // Exit check
-/turf/open/pool/Exit(atom/movable/AM, atom/newloc)
+/turf/open/pool/Exit(atom/movable/AM, dir)
 	if(!AM.has_gravity(src))
 		return ..()
 	if(isliving(AM) || isstructure(AM))
@@ -85,14 +85,14 @@
 			return ..()			//human weak, monkey (and anyone else) ook ook eek eek strong
 		if(isliving(AM) && (locate(/obj/structure/pool/ladder) in src))
 			return ..()			//climbing out
-		return istype(newloc, /turf/open/pool)
+		return istype(get_step(src, dir), /turf/open/pool)
 	return ..()
 
 // Exited logic
-/turf/open/pool/Exited(atom/A, atom/newLoc)
+/turf/open/pool/Exited(atom/A, dir)
 	. = ..()
 	if(isliving(A))
-		var/turf/open/pool/P = newLoc
+		var/turf/open/pool/P = get_step(src, dir)
 		if(!istype(P) || (P.controller != controller))
 			controller?.mobs_in_pool -= A
 
