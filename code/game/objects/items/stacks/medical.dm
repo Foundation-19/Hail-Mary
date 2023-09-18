@@ -903,7 +903,7 @@
 		new /obj/item/stack/medical/poultice/five(location)
 
 /obj/item/stack/medical/gauze/bloodleaf
-	name = "bloodleaf salve"
+	name = "\improper bloodleaf salve"
 	singular_name = "bloodleaf salve"
 	desc = "A cooling salve, made from the bloodleaf plant and water. Heals your wounds at a slow but steady rate."
 	icon_state = "healing_salve"
