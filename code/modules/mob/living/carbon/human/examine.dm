@@ -404,12 +404,6 @@
 			if (HAS_TRAIT(src, TRAIT_DEAF))
 				msg += "[t_He] appear[p_s()] to not be responding to noises.\n"
 
-	var/obj/item/organ/vocal_cords/Vc = user.getorganslot(ORGAN_SLOT_VOICE)
-	if(Vc)
-		if(istype(Vc, /obj/item/organ/vocal_cords/velvet))
-			if(client.prefs.cit_toggles & HYPNO)
-				msg += "<span class='velvet'><i>You feel your chords resonate looking at them.</i></span>\n"
-
 
 	if(!appears_dead)
 		if(stat == UNCONSCIOUS)
