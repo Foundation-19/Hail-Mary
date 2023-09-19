@@ -1487,9 +1487,6 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 	var/target_on_help = target.a_intent == INTENT_HELP
 	var/target_aiming_for_mouth = target.zone_selected == "mouth"
 	var/target_restrained = target.restrained()
-	var/same_dir = (target.dir & user.dir)
-	var/aim_for_groin  = user.zone_selected == "groin"
-	var/target_aiming_for_groin = target.zone_selected == "groin"
 	var/aim_for_head = user.zone_selected == "head"
 	var/target_aiming_for_head = target.zone_selected == "head"
 
