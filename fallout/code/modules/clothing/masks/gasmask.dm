@@ -15,7 +15,7 @@ Just leaving this here for quick copy-pasting, for future contributors.
 	mob_overlay_icon = 'fallout/icons/mob/clothing/mask.dmi'
 	anthro_mob_worn_overlay = 'fallout/icons/mob/clothing/mask_muzzled.dmi'
 	icon_state = "goner_mask"
-	flags_inv = HIDEEARS | HIDEEYES | HIDEFACE | HIDEHAIR | HIDEFACIALHAIR | HIDESNOUT
+	flags_inv = HIDEEARS | HIDEEYES | HIDEFACE | HIDEHAIR | HIDEFACIALHAIR
 
 /obj/item/clothing/mask/gas/goner/aesthetic
 	name = "broken full gas mask"

@@ -667,7 +667,7 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 			species_traits += DIGITIGRADE
 		var/should_be_squished = FALSE
 		if(H.wear_suit)
-			if(!(H.wear_suit.mutantrace_variation & STYLE_DIGITIGRADE) || (tauric && (H.wear_suit.mutantrace_variation & STYLE_ALL_TAURIC))) //digitigrade/taur suits
+			if(!(H.wear_suit.mutantrace_variation & STYLE_DIGITIGRADE)) //digitigrade/taur suits
 				should_be_squished = TRUE
 		if(H.w_uniform && !H.wear_suit)
 			if(!(H.w_uniform.mutantrace_variation & STYLE_DIGITIGRADE))
@@ -1513,24 +1513,6 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 		if (!HAS_TRAIT(target, TRAIT_PERMABONER))
 			stop_wagging_tail(target)
 		return FALSE
-	else if(aim_for_groin && (target == user || target.lying || same_dir) && (target_on_help || target_restrained || target_aiming_for_groin))
-		if(target.client?.prefs.cit_toggles & NO_ASS_SLAP)
-			to_chat(user,"A force stays your hand, preventing you from slapping \the [target]'s ass!")
-			return FALSE
-		user.do_attack_animation(target, ATTACK_EFFECT_ASS_SLAP)
-		playsound(target.loc, 'sound/weapons/slap.ogg', 50, 1, -1)
-		if(HAS_TRAIT(target, TRAIT_STEEL_ASS))
-			user.adjustStaminaLoss(50)
-			user.visible_message(\
-				"<span class='danger'>\The [user] slaps \the [target]'s ass, but their hand bounces off like they hit metal!</span>",\
-				"<span class='danger'>You slap [user == target ? "your" : "\the [target]'s"] ass, but feel an intense amount of pain as you realise their buns are harder than steel!</span>",\
-				"You hear a slap.")
-			return FALSE
-		user.adjustStaminaLossBuffered(3)
-		target.visible_message(\
-			span_danger("\The [user] slaps [user == target ? "[user.p_their()] own" : "\the [target]'s"] ass!"),\
-			span_notice("[user] slaps your ass! "),\
-			"You hear a slap.", target = user, target_message = span_notice("You slap [user == target ? "your own" : "\the [target]'s"] ass! "))
 
 //BONK chucklehead!
 	else if(aim_for_head && ( target_on_help || target_restrained || target_aiming_for_head))

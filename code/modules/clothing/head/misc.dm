@@ -79,8 +79,7 @@
 	icon_state = "syndicate-helm-black-red"
 	item_state = "syndicate-helm-black-red"
 	desc = "A plastic replica of a Syndicate agent's space helmet. You'll look just like a real murderous Syndicate agent in this! This is a toy, it is not made for use in space!"
-	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDESNOUT
-	mutantrace_variation = STYLE_MUZZLE
+	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/small/rushelmet
 
 /obj/item/clothing/head/cueball
@@ -89,7 +88,7 @@
 	icon_state = "cueball"
 	item_state="cueball"
 	flags_cover = HEADCOVERSEYES|HEADCOVERSMOUTH
-	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDESNOUT
+	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/small/rushelmet
 
 /obj/item/clothing/head/snowman
@@ -98,7 +97,7 @@
 	icon_state = "snowman_h"
 	item_state = "snowman_h"
 	flags_cover = HEADCOVERSEYES
-	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDESNOUT
+	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/small/rushelmet
 
 /obj/item/clothing/head/justice
@@ -106,7 +105,7 @@
 	desc = "Fight for what's righteous!"
 	icon_state = "justicered"
 	item_state = "justicered"
-	flags_inv = HIDEHAIR|HIDEEARS|HIDEEYES|HIDEFACE|HIDEFACIALHAIR|HIDESNOUT
+	flags_inv = HIDEHAIR|HIDEEARS|HIDEEYES|HIDEFACE|HIDEFACIALHAIR
 	flags_cover = HEADCOVERSEYES
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/small/rushelmet
 
@@ -184,7 +183,7 @@
 	desc = "Bkaw!"
 	icon_state = "chickenhead"
 	item_state = "chickensuit"
-	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDESNOUT
+	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/small/rushelmet
 
 /obj/item/clothing/head/griffin
@@ -192,7 +191,7 @@
 	desc = "Why not 'eagle head'? Who knows."
 	icon_state = "griffinhat"
 	item_state = "griffinhat"
-	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDESNOUT
+	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/small/rushelmet
 
 /obj/item/clothing/head/bearpelt
@@ -208,7 +207,7 @@
 	item_state = "xenos_helm"
 	desc = "A helmet made out of chitinous alien hide."
 	alternate_screams = list('sound/voice/hiss6.ogg')
-	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDESNOUT
+	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/small/rushelmet
 
 /obj/item/clothing/head/fedora
@@ -313,14 +312,14 @@
 	name = "paper sack hat"
 	desc = "A paper sack with crude holes cut out for eyes. Useful for hiding one's identity or ugliness."
 	icon_state = "papersack"
-	flags_inv = HIDEHAIR|HIDEFACE|HIDEEARS|HIDESNOUT
+	flags_inv = HIDEHAIR|HIDEFACE|HIDEEARS
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/small/rushelmet
 
 /obj/item/clothing/head/papersack/smiley
 	name = "paper sack hat"
 	desc = "A paper sack with crude holes cut out for eyes and a sketchy smile drawn on the front. Not creepy at all."
 	icon_state = "papersack_smile"
-	flags_inv = HIDEHAIR|HIDEFACE|HIDEEARS|HIDESNOUT
+	flags_inv = HIDEHAIR|HIDEFACE|HIDEEARS
 
 /obj/item/clothing/head/crown
 	name = "crown"
@@ -346,7 +345,7 @@
 	name = "foam lobster head"
 	desc = "When everything's going to crab, protecting your head is the best choice."
 	icon_state = "lobster_hat"
-	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDESNOUT
+	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/small/rushelmet
 
 /obj/item/clothing/head/drfreezehat

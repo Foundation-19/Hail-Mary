@@ -54,7 +54,7 @@
 	icon_state = "judge"
 	item_state = "judge"
 	flags_inv = HIDEJUMPSUIT
-	mutantrace_variation = STYLE_DIGITIGRADE|STYLE_NO_ANTHRO_ICON
+	mutantrace_variation = STYLE_DIGITIGRADE
 
 /obj/item/clothing/suit/tailcoat
 	name = "tailcoat"
@@ -87,7 +87,7 @@
 	desc = "A fancy purple apron for a stylish person."
 	icon_state = "purplebartenderapron"
 	item_state = "purplebartenderapron"
-	mutantrace_variation = STYLE_DIGITIGRADE|STYLE_NO_ANTHRO_ICON
+	mutantrace_variation = STYLE_DIGITIGRADE
 	body_parts_hidden = CHEST
 
 /*
@@ -102,7 +102,7 @@
 	item_state = "brownjsuit"
 	cold_protection = CHEST|GROIN|ARMS
 	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
-	mutantrace_variation = STYLE_DIGITIGRADE|STYLE_NO_ANTHRO_ICON
+	mutantrace_variation = STYLE_DIGITIGRADE
 	armor = ARMOR_VALUE_CLOTHES
 	armor_tokens = list(ARMOR_MODIFIER_UP_ENV_T1)
 	body_parts_hidden = ARMS
@@ -231,9 +231,9 @@
 	desc = "A costume that looks like a certain shikigami, is super fluffy."
 	icon_state = "ran_suit"
 	item_state = "ran_suit"
-	flags_inv = HIDEJUMPSUIT|HIDETAUR
+	flags_inv = HIDEJUMPSUIT
 	heat_protection = CHEST|GROIN|LEGS //fluffy tails!
-	mutantrace_variation = STYLE_DIGITIGRADE|STYLE_NO_ANTHRO_ICON
+	mutantrace_variation = STYLE_DIGITIGRADE
 
 /obj/item/clothing/head/ran
 	name = "shikigami hat"

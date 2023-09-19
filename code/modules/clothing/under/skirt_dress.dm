@@ -1,5 +1,5 @@
 /obj/item/clothing/under/dress
-	mutantrace_variation = STYLE_DIGITIGRADE|STYLE_NO_ANTHRO_ICON
+	mutantrace_variation = STYLE_DIGITIGRADE
 
 /obj/item/clothing/under/dress/skirt
 	name = "black skirt"

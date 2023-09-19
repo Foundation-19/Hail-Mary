@@ -170,9 +170,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 	var/action_buttons_screen_locs = list()
 
-	//bad stuff
-	var/cit_toggles = TOGGLES_CITADEL
-
 	//good stuff
 	var/cb_toggles = AIM_CURSOR_ON
 
