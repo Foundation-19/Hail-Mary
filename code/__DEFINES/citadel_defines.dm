@@ -2,6 +2,8 @@
 //Be sure to update the min/max of these if you do change them.
 //Measurements are in imperial units. Inches, feet, yards, miles. Tsp, tbsp, cups, quarts, gallons, etc
 
+#define CIT_FILTER_STAMINACRIT filter(type="drop_shadow", x=0, y=0, size=-3, color="#04080F")
+
 //Individual logging define
 #define INDIVIDUAL_LOOC_LOG "LOOC log"
 

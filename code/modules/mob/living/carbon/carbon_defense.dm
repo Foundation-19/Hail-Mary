@@ -292,10 +292,6 @@
 			playsound(src, 'sound/items/Nose_boop.ogg', 50, 0)
 
 		else if(check_zone(M.zone_selected) == BODY_ZONE_HEAD)
-			var/datum/species/S
-			if(ishuman(src))
-				S = dna.species
-
 			M.visible_message(span_notice("[M] gives [src] a pat on the head to make [p_them()] feel better!"), \
 						span_notice("You give [src] a pat on the head to make [p_them()] feel better!"), target = src,
 						target_message = span_notice("[M] gives you a pat on the head to make you feel better!"))
