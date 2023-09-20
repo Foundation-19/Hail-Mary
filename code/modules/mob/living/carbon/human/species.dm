@@ -636,7 +636,6 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 	H.remove_overlay(BODY_ADJ_LAYER)
 	H.remove_overlay(BODY_ADJ_UPPER_LAYER)
 	H.remove_overlay(BODY_FRONT_LAYER)
-	H.remove_overlay(HORNS_LAYER)
 
 	if(!mutant_bodyparts)
 		return
@@ -712,12 +711,10 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 		"[BODY_ADJ_LAYER]" = "ADJ",
 		"[BODY_ADJ_UPPER_LAYER]" = "ADJUP",
 		"[BODY_FRONT_LAYER]" = "FRONT",
-		"[HORNS_LAYER]" = "HORNS",
 		)
 
 	var/g = (H.dna.features["body_model"] == FEMALE) ? "f" : "m"
 	var/husk = HAS_TRAIT(H, TRAIT_HUSK)
-	var/image/tail_hack // tailhud's a bazinga, innit
 
 	for(var/layer in relevant_layers)
 		var/list/standing = list()
@@ -804,10 +801,6 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 							accessory_overlay.color = "#[H.facial_hair_color]"
 						if(EYECOLOR)
 							accessory_overlay.color = "#[H.left_eye_color]"
-						if(HORNCOLOR)
-							accessory_overlay.color = "#[H.dna.features["horns_color"]]"
-						if(WINGCOLOR)
-							accessory_overlay.color = "#[H.dna.features["wings_color"]]"
 				else
 					accessory_overlay.color = forced_colour
 			else
@@ -829,8 +822,6 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 				accessory_overlay.pixel_x += H.dna.species.offset_features[OFFSET_MUTPARTS][1]
 				accessory_overlay.pixel_y += H.dna.species.offset_features[OFFSET_MUTPARTS][2]
 
-			if(layertext == "FRONT" && mutant_string == "tail") // durty hack so asses dont eat tails
-				tail_hack = accessory_overlay
 			standing += accessory_overlay
 
 			if(S.extra) //apply the extra overlay, if there is one
@@ -868,11 +859,6 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 					if(EYECOLOR)
 						extra_accessory_overlay.color = "#[H.left_eye_color]"
 
-					if(HORNCOLOR)
-						extra_accessory_overlay.color = "#[H.dna.features["horns_color"]]"
-					if(WINGCOLOR)
-						extra_accessory_overlay.color = "#[H.dna.features["wings_color"]]"
-
 				if(OFFSET_MUTPARTS in H.dna.species.offset_features)
 					extra_accessory_overlay.pixel_x += H.dna.species.offset_features[OFFSET_MUTPARTS][1]
 					extra_accessory_overlay.pixel_y += H.dna.species.offset_features[OFFSET_MUTPARTS][2]
@@ -909,11 +895,6 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 							extra2_accessory_overlay.color = "#[H.dna.features["mcolor"]]"
 						else
 							extra2_accessory_overlay.color = "#[H.hair_color]"
-					if(HORNCOLOR)
-						extra2_accessory_overlay.color = "#[H.dna.features["horns_color"]]"
-					if(WINGCOLOR)
-						extra2_accessory_overlay.color = "#[H.dna.features["wings_color"]]"
-
 				if(OFFSET_MUTPARTS in H.dna.species.offset_features)
 					extra2_accessory_overlay.pixel_x += H.dna.species.offset_features[OFFSET_MUTPARTS][1]
 					extra2_accessory_overlay.pixel_y += H.dna.species.offset_features[OFFSET_MUTPARTS][2]
@@ -926,9 +907,6 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 	H.apply_overlay(BODY_ADJ_LAYER)
 	H.apply_overlay(BODY_ADJ_UPPER_LAYER)
 	H.apply_overlay(BODY_FRONT_LAYER)
-	H.apply_overlay(HORNS_LAYER)
-	H.tail_hud_update(tail_hack)
-
 
 /*
  * Equip the outfit required for life. Replaces items currently worn.

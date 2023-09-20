@@ -267,27 +267,27 @@
 	switch(damage_mod)
 		if(-INFINITY to 1)
 			user.visible_message(
-				span_warning("[user] rams into [hit] with a flying tackle!"), 
-				span_userdanger("You rams into [hit] with a flying tackle!"), 
+				span_warning("[user] rams into [hit] with a flying tackle!"),
+				span_userdanger("You rams into [hit] with a flying tackle!"),
 				ignored_mobs = list(hit))
 			to_chat(hit, span_userdanger("[user] rams into you!"))
 		if(1.1 to 3)
 			user.visible_message(
-				span_warning("[user] slams into [hit] with a deadly charge!"), 
-				span_userdanger("You slam into [hit] with a deadly charge!"), 
+				span_warning("[user] slams into [hit] with a deadly charge!"),
+				span_userdanger("You slam into [hit] with a deadly charge!"),
 				ignored_mobs = list(hit))
 			to_chat(hit, span_userdanger("[user] slams into you!"))
 		if(3.1 to INFINITY)
 			user.visible_message(
-				span_warning("[user] CRASHES into [hit] with an atomic clothesline!"), 
-				span_userdanger("You CRASH into [hit] with a atomic clothesline!"), 
+				span_warning("[user] CRASHES into [hit] with an atomic clothesline!"),
+				span_userdanger("You CRASH into [hit] with a atomic clothesline!"),
 				ignored_mobs = list(hit))
 			to_chat(hit, span_userdanger("[user] CRASHES into you!"))
 	playsound(user, 'sound/effects/flesh_impact_1.ogg', 60, TRUE)
 	if(damage_mod >= 2)
 		hit.emote("scream")
 	user.emote("scream")
-	
+
 	var/armormult = clamp(hit.getarmor(BODY_ZONE_CHEST, "melee"), 0, 1)
 
 	hit.apply_damage(tackle_damage, STAMINA, BODY_ZONE_CHEST, armormult)

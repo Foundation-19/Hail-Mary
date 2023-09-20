@@ -6,16 +6,14 @@
 		WANTED_HUD,
 		IMPLOYAL_HUD,
 		IMPCHEM_HUD,
-		IMPTRACK_HUD, 
-		NANITE_HUD, 
+		IMPTRACK_HUD,
+		NANITE_HUD,
 		DIAG_NANITE_FULL_HUD,
 		ANTAG_HUD,
 		GLAND_HUD,
 		SENTIENT_DISEASE_HUD,
 		RAD_HUD,
 		ONLINE_HUD,
-		GENITAL_HUD = HUD_LIST_LIST, // and boy what a list it is
-		TAIL_HUD,
 		)
 	hud_type = /datum/hud/human
 	possible_a_intents = list(INTENT_HELP, INTENT_DISARM, INTENT_GRAB, INTENT_HARM)
@@ -81,7 +79,6 @@
 	var/list/blood_smear = list(BLOOD_STATE_BLOOD = 0, BLOOD_STATE_OIL = 0, BLOOD_STATE_NOT_BLOODY = 0)
 
 	var/name_override //For temporary visible name changes
-	var/genital_override = FALSE //Force genitals on things incase of chems
 
 	var/custom_species = null
 
