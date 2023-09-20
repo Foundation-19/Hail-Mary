@@ -1,5 +1,5 @@
-/* 
- * Tattoos! 
+/*
+ * Tattoos!
  */
 // Mutable appearances are children of images, just so you know. just a fun fact
 
@@ -124,18 +124,6 @@
 	switch(tat_location)
 		if(TATTOO_FUCKUP)
 			return "misapplied over [ishuman(person) ? "[person.p_their()]" : "the"] bepis. There's a bit more written there:[span_phobia("hey this tattoo didnt set the location right, tell superlagg their shit broke.")]."
-		if(TATTOO_TRAMP_STAMP)
-			return "positioned over [ishuman(person) ? "[person.p_their()]" : "the"] [person.getorganslot(ORGAN_SLOT_TAIL) ? "tail" : "buttcrack"]."
-		if(TATTOO_WOMB_TATTOO)
-			return "positioned over [ishuman(person) ? "[person.p_their()]" : "the"] lower groin."
-		if(TATTOO_LEFT_ASS)
-			return "situated on [ishuman(person) ? "[person.p_their()]" : "the"] left buttcheek."
-		if(TATTOO_RIGHT_ASS)
-			return "situated on [ishuman(person) ? "[person.p_their()]" : "the"] right buttcheek."
-		if(TATTOO_LEFT_BOOB)
-			return "printed across [ishuman(person) ? "[person.p_their()]" : "the"] left [prob(1) ? "boobie" : "breast"]."
-		if(TATTOO_RIGHT_BOOB)
-			return "printed across [ishuman(person) ? "[person.p_their()]" : "the"] right [prob(1) ? "boobie" : "breast"]."
 		if(TATTOO_CHEST)
 			return "printed across [ishuman(person) ? "[person.p_their()]" : "the"] chest."
 		if(TATTOO_BELLY)

@@ -144,9 +144,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	// 0 = character settings, 1 = game preferences
 	var/current_tab = SETTINGS_TAB
 
-	// If in the ERP tab, are we rearranging genitals
-	var/erp_tab_page = ERP_TAB_HOME
-
 	var/unlock_content = 0
 
 	var/list/ignoring = list()
@@ -2018,12 +2015,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				if("tab")
 					if(href_list["tab"])
 						current_tab = text2num(href_list["tab"])
-				if("erp_tab")
-					if(href_list["newtab"])
-						if(href_list["nonumber"])
-							erp_tab_page = href_list["newtab"]
-						else
-							erp_tab_page = text2num(href_list["newtab"])
 
 	chat_toggles |= CHAT_LOOC // the LOOC stays on during sex
 	if(href_list["preference"] == "gear")
