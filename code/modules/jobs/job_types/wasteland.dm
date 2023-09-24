@@ -1,6 +1,12 @@
 /datum/job/wasteland
 	department_flag = WASTELAND
 
+/datum/outfit/job/wasteland/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	..()
+	if(visualsOnly)
+		return
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bloodleaf)	
+
 /*
 Raider
 */
@@ -1924,165 +1930,6 @@ datum/job/wasteland/f13dendoctor
 		return
 	ADD_TRAIT(H, TRAIT_HARD_YARDS, src)
 	ADD_TRAIT(H, TRAIT_LIGHT_STEP, src)
-
-//New tribal role. Replaces old tribe stuff.
-/datum/job/wasteland/f13tribal
-	title = "Far-Lands Tribals"
-	flag = F13TRIBAL
-	faction = FACTION_WASTELAND
-	social_faction = FACTION_TRIBE
-	total_positions = -1
-	spawn_positions = -1
-	description = "You are a member of the of a tribe who has wandered to this area, but does not belong to the Sulphur Bottom tribe.  From where you came is up to you, why you are here is your own, and it is up to you to survive on your own and attempt to thrive."
-	supervisors = "the Ways of your own tribe."
-
-	selection_color = "#dddddd"
-
-	outfit = /datum/outfit/job/wasteland/f13tribal
-
-	access = list()
-	minimal_access = list()
-
-	loadout_options = list(
-	/datum/outfit/loadout/brawler,
-	/datum/outfit/loadout/spearman,
-	/datum/outfit/loadout/wayfarermelee,
-	/datum/outfit/loadout/wayfarerranged,
-	/datum/outfit/loadout/wayfarershaman,
-	/datum/outfit/loadout/shaman,
-	/datum/outfit/loadout/lostvillager,
-	/datum/outfit/loadout/whitelegsranged,
-	/datum/outfit/loadout/whitelegsshaman,
-	/datum/outfit/loadout/deadhorsesmelee,
-	/datum/outfit/loadout/deadhorsesranged,
-	/datum/outfit/loadout/deadhorsesshaman,
-	/datum/outfit/loadout/sorrowshunter,
-	/datum/outfit/loadout/sorrowsshaman,
-	/datum/outfit/loadout/eightiesmelee,
-	/datum/outfit/loadout/eightiesranged,
-	/datum/outfit/loadout/eightiesshaman,
-	/datum/outfit/loadout/rustwalkersscipher,
-	/datum/outfit/loadout/rustwalkersscrapper,
-	/datum/outfit/loadout/rustwalkersshaman,
-	/datum/outfit/loadout/bonedancerexile
-	)
-
-/datum/outfit/job/wasteland/f13tribal/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	..()
-	if(visualsOnly)
-		return
-/*
-	ADD_TRAIT(H, TRAIT_TRIBAL, src)
-	ADD_TRAIT(H, TRAIT_GENERIC, src)
-	ADD_TRAIT(H, TRAIT_TRAPPER, src)
-	ADD_TRAIT(H, TRAIT_MACHINE_SPIRITS, src)
-	ADD_TRAIT(H, TRAIT_AUTO_DRAW, src)
-	ADD_TRAIT(H, TRAIT_HARD_YARDS, src)
-	H.grant_language(/datum/language/tribal)
-*/
-
-	var/list/recipes = list(
-		/datum/crafting_recipe/tribal_pa,
-		/datum/crafting_recipe/tribal_pa_helmet,
-		/datum/crafting_recipe/tribal_combat_armor,
-		/datum/crafting_recipe/tribal_combat_armor_helmet,
-		/datum/crafting_recipe/tribal_r_combat_armor,
-		/datum/crafting_recipe/tribal_r_combat_armor_helmet,
-		/datum/crafting_recipe/tribalwar/chitinarmor,
-		/datum/crafting_recipe/tribalwar/deathclawspear,
-		/datum/crafting_recipe/tribalwar/lightcloak,
-		/datum/crafting_recipe/tribalwar/legendaryclawcloak,
-		/datum/crafting_recipe/warpaint,
-		/datum/crafting_recipe/tribalradio,
-		/datum/crafting_recipe/tribalwar/goliathcloak,
-		///datum/crafting_recipe/tribalwar/bonebow,
-		///datum/crafting_recipe/tribalwar/tribe_bow,
-		///datum/crafting_recipe/tribalwar/sturdybow,
-		/datum/crafting_recipe/tribalwar/warclub,
-		///datum/crafting_recipe/tribalwar/silverbow,
-		///datum/crafting_recipe/tribalwar/arrowbone,
-		/datum/crafting_recipe/tribalwar/bonespear,
-		/datum/crafting_recipe/tribalwar/bonecodpiece,
-		/datum/crafting_recipe/tribalwar/bracers,
-		///datum/crafting_recipe/tribal/bonetalisman,
-		/datum/crafting_recipe/bitterdrink,
-		/datum/crafting_recipe/bitterdrink5,
-		/datum/crafting_recipe/healpoultice,
-		/datum/crafting_recipe/healpoultice5,
-		//datum/crafting_recipe/redpotion,
-		//datum/crafting_recipe/bluepotion,
-		//datum/crafting_recipe/greenpotion,
-		/datum/crafting_recipe/food/pemmican,
-		/datum/crafting_recipe/tribal/bonebag
-	)
-	for(var/datum/crafting_recipe/recipe as() in recipes)
-		H.mind.teach_crafting_recipe(recipe)
-	H.grant_language(/datum/language/tribal)
-	add_verb(H, /mob/living/proc/create_tribe)
-
-
-/datum/outfit/job/wasteland/f13tribal
-	name = "Far-Lands Tribal"
-	jobtype = /datum/job/wasteland/f13tribal
-
-	id = null
-	ears = null
-	belt = /obj/item/kit_spawner/tribal/farlands
-	uniform = /obj/item/clothing/under/f13/settler
-	shoes = /obj/item/clothing/shoes/sandal
-	gloves = /obj/item/clothing/gloves/f13/handwraps
-	backpack = /obj/item/storage/backpack/satchel/explorer
-	satchel = /obj/item/storage/backpack/satchel/explorer
-	box = /obj/item/storage/survivalkit/tribal
-	box_two = /obj/item/storage/survivalkit/medical/tribal
-	backpack_contents = list(
-		/obj/item/reagent_containers/pill/healingpowder = 2,
-		/obj/item/flashlight/lantern = 1,
-		/obj/item/melee/onehanded/knife/bone = 1
-		)
-
-//Generic Tribals
-/datum/outfit/loadout/brawler
-	name = "Far-Lands Mounted Warrior"
-	suit = /obj/item/clothing/suit/armor/light/tribal
-	head = /obj/item/clothing/head/helmet/f13/deathskull
-	backpack_contents = list(
-		///obj/item/twohanded/fireaxe/bmprsword = 1,
-		/obj/item/storage/box/tools/ranching =1,
-		/obj/item/restraints/legcuffs/bola = 2,
-		/obj/item/reagent_containers/pill/patch/healpoultice = 2,
-		/obj/item/stack/medical/gauze = 1,
-		/obj/item/book/granter/trait/tribaltraditions =1,
-		)
-
-/datum/outfit/loadout/spearman
-	name = "Far-Lands Spear Warrior"
-	suit = /obj/item/clothing/suit/armor/light/raider/tribalraider
-	head = /obj/item/clothing/head/helmet/f13/fiend
-	mask = /obj/item/clothing/mask/facewrap
-	neck = /obj/item/clothing/neck/mantle/gray
-	backpack_contents = list(
-		///obj/item/twohanded/spear = 1,
-		/obj/item/reagent_containers/pill/patch/healpoultice = 2,
-		/obj/item/book/granter/trait/tribaltraditions =1,
-		)
-
-/datum/outfit/loadout/shaman
-	name = "Far-Land Shaman"
-	suit = /obj/item/clothing/suit/hooded/cloak/desert
-	box = /obj/item/storage/survivalkit/tribal
-	box_two = /obj/item/storage/survivalkit/medical/tribal
-	backpack_contents = list(
-		/obj/item/storage/bag/plants=1,
-		/obj/item/cultivator=1,
-		/obj/item/reagent_containers/glass/bucket/wood=1,
-		///obj/item/twohanded/sledgehammer/warmace = 1,
-		/obj/item/melee/onehanded/knife/ritualdagger = 1,
-		/obj/item/stack/medical/gauze/improvised = 1,
-		/obj/item/reagent_containers/pill/healingpowder = 2,
-		/obj/item/book/granter/crafting_recipe/tribal = 1,
-		/obj/item/book/granter/trait/tribaltraditions =1,
-	)
 
 /datum/outfit/loadout/lostvillager
 	name = "Lost Villager"
