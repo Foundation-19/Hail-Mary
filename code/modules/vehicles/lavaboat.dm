@@ -8,6 +8,7 @@
 	icon = 'icons/obj/lavaland/dragonboat.dmi'
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
 	can_buckle = TRUE
+	layer = ABOVE_ALL_MOB_LAYER
 
 /obj/vehicle/ridden/lavaboat/Initialize()
 	. = ..()
@@ -27,21 +28,20 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
 
-/*
 /datum/crafting_recipe/oar
-	name = "Goliath Bone Oar"
+	name = "Paddle"
 	result = /obj/item/oar
-	reqs = list(/obj/item/stack/sheet/bone = 2)
+	reqs = list(/obj/item/stack/sheet/metal = 2)
 	time = 15
 	category = CAT_PRIMAL
 
 /datum/crafting_recipe/boat
-	name = "Goliath Hide Boat"
+	name = "Boat"
 	result = /obj/vehicle/ridden/lavaboat
-	reqs = list(/obj/item/stack/sheet/animalhide/goliath_hide = 3)
+	reqs = list(/obj/item/stack/sheet/metal = 20)
 	time = 50
 	category = CAT_PRIMAL
-*/
+
 
 //Dragon Boat
 

@@ -44,8 +44,8 @@
 	icon_state = "outermiddle"
 
 /turf/open/floor/plating/f13/outside/road
-	name = "groud"
-	desc = "The groud."
+	name = "Road"
+	desc = "A stretch of road."
 	icon = 'icons/turf/road_and_dirt.dmi'
 	icon_state = "dirt_1"
 

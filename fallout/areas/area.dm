@@ -93,7 +93,6 @@
 	icon_state = "building"
 	ambience_area = list(
 		/datum/looping_sound/ambient/general,
-		/datum/looping_sound/ambient/building,
 		/datum/looping_sound/ambient/woodcreak,
 		)
 	weather_tags = null
@@ -115,7 +114,6 @@
 	icon_state = "red"
 	ambience_area = list(
 		/datum/looping_sound/ambient/general,
-		/datum/looping_sound/ambient/building/boat,
 		)
 	weather_tags = null
 	outdoors = FALSE
@@ -136,7 +134,6 @@
 	ambience_area = list(
 		/datum/looping_sound/ambient/general,
 		/datum/looping_sound/ambient/woodcreak,
-		/datum/looping_sound/ambient/building/hospital,
 		)
 	weather_tags = null
 
@@ -146,7 +143,6 @@
 	ambience_area = list(
 		/datum/looping_sound/ambient/general,
 		/datum/looping_sound/ambient/woodcreak,
-		/datum/looping_sound/ambient/building/church,
 		)
 
 /area/f13/building/tribal
@@ -156,7 +152,6 @@
 		/datum/looping_sound/ambient/general,
 		/datum/looping_sound/ambient/woodcreak,
 		/datum/looping_sound/ambient/torch,
-		/datum/looping_sound/ambient/building/sulphurtribe,
 		)
 
 /area/f13/building/tribal/cave
@@ -166,7 +161,6 @@
 		/datum/looping_sound/ambient/general,
 		/datum/looping_sound/ambient/woodcreak,
 		/datum/looping_sound/ambient/torch,
-		/datum/looping_sound/ambient/building/sulphurtribe,
 		/datum/looping_sound/ambient/cave,
 		/datum/looping_sound/ambient/swamp/quiet,
 		/datum/looping_sound/ambient/critters/birds,
