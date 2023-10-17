@@ -1,3 +1,4 @@
+/*
 /datum/job/khan //do NOT use this for anything, it's just to store faction datums
 	department_flag = KHAN
 	selection_color = "#ff915e"
@@ -433,3 +434,4 @@
 		/datum/outfit/loadout/pacifier,
 		/datum/outfit/loadout/bigboss,
 		)
+*/
