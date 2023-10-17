@@ -349,6 +349,7 @@ Raider
 		/obj/item/melee/onehanded/knife/bone = 1,
 		)
 
+/*
 /datum/job/wasteland/f13raider/watcher
 	title = "Redwater Watcher"
 	flag = F13RAIDER
@@ -919,6 +920,7 @@ Raider
 		/obj/item/clothing/shoes/f13/peltboots = 1,
 		/obj/item/melee/unarmed/sappers = 1,
 		)
+*/
 
 /datum/job/wasteland/f13minutemen
 	title = "Minuteman"
