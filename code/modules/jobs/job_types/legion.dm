@@ -11,7 +11,7 @@ Melee		Officers only - Spatha
 			Rest - Lawnmower machete the most common
 Weapons		Lever shotgun, Grease gun, Repeater carbines, Revolvers, simple guns all good, very restrictive on long barrel automatics, generally limited ammo, always good melee option.
 			Avoid Police shotguns, 5,56 semis, Desert Eagle, Survival knives etc, be creative and work within the limitations to avoid powercreep and things getting bland and same.
-*/
+
 
 //If you ever want to enable Legion, remove these 3 lines - Kitsunemitsu
 /datum/job/CaesarsLegion/config_check()
@@ -1367,3 +1367,4 @@ datum/job/CaesarsLegion/Legionnaire/f13slavemaster
 	backpack_contents = list(
 		/obj/item/melee/onehanded/machete/spatha = 1,
 		)
+*/
