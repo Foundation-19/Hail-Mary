@@ -12,7 +12,7 @@ Money		Commanding Officer (LT and CAP) - "small" money bag
 Sidearm		Officers & a few specialists - 9mm pistol
 Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 			Don't use Greaseguns, Lever shotguns, Police shotguns, Berettas, Hunting knives
-*/
+
 
 //If you ever want to enable NCR, remove these 3 lines - Kitsunemitsu
 /datum/job/ncr/config_check()
@@ -1515,3 +1515,4 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 	backpack_contents = list(
 		/obj/item/ammo_box/magazine/m556/rifle=2,
 		)
+*/
