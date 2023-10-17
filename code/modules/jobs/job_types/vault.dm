@@ -6,7 +6,7 @@ General access: 31 ACCESS_CARGO
 Engineering: 10, 11 ACCESS_ENGINE_EQUIP, ACCESS_ENGINE
 Science: 47 ACCESS_RESEARCH
 // here's a tip, go search DEFINES/access.dm
-*/
+
 
 // I swear to god stop copy-pasting you damn snowflakes
 /datum/job/vault
@@ -369,3 +369,4 @@ Vault Engineer
 //	if(SSmapping.config.map_name == "Pahrump")
 //		total_positions = 0
 //		spawn_positions = 0
+*/
