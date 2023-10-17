@@ -62,7 +62,7 @@
 	return TRUE
 
 /datum/keybinding/carbon/wield 
-	hotkey_keys = list("ShiftX")
+	hotkey_keys = list("C")
 	name = "wield_item"
 	full_name = "Wield held item"
 	description = ""
