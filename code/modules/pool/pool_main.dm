@@ -49,6 +49,21 @@
 	icon_state = "top"
 	layer = BELOW_MOB_LAYER
 
+/obj/effect/overlay/water/watersidehorizontal
+	icon = 'icons/turf/pool.dmi'
+	icon_state = "riverwater_motion_side"
+	layer = BELOW_MOB_LAYER
+
+/obj/effect/overlay/water/watersidevertical
+	icon = 'icons/turf/pool.dmi'
+	icon_state = "riverwater_motion_down"
+	layer = BELOW_MOB_LAYER
+
+/obj/effect/overlay/water/watercorner
+	icon = 'icons/turf/pool.dmi'
+	icon_state = "riverwater_motion_corner"
+	layer = BELOW_MOB_LAYER
+
 // Mousedrop hook to normal turfs to get out of pools.
 /turf/open/MouseDrop_T(atom/from, mob/living/user)
 	if(!istype(user))
