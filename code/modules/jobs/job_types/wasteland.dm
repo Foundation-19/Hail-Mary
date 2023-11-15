@@ -1,6 +1,12 @@
 /datum/job/wasteland
 	department_flag = WASTELAND
 
+/datum/outfit/job/wasteland/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	..()
+	if(visualsOnly)
+		return
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bloodleaf)	
+
 /*
 Raider
 */

@@ -85,6 +85,14 @@
 	time = 10
 	category = CAT_MEDICAL
 
+/datum/crafting_recipe/bloodleaf
+	name = "Bloodleaf salve"
+	result = /obj/item/stack/medical/gauze/bloodleaf/three
+	reqs = list(/datum/reagent/water = 10,
+				/obj/item/reagent_containers/food/snacks/grown/bloodleaf = 1)
+	time = 5
+	category = CAT_MEDICAL
+
 /datum/crafting_recipe/bitterdrink
 	name = "Bottle bitterdrink"
 	result = /obj/item/reagent_containers/pill/bitterdrink
@@ -142,7 +150,8 @@
 	time = 40
 	category = CAT_MEDICAL
 
-/datum/crafting_recipe/stimpak // Heals the same amount as healing powder and bitters for its material cost, just more refined and faster.
+ /* 
+ /datum/crafting_recipe/stimpak 
 	name = "Stimpak"
 	result = /obj/item/reagent_containers/hypospray/medipen/stimpak
 	reqs = list(/obj/item/reagent_containers/food/snacks/grown/broc = 1,
@@ -152,6 +161,7 @@
 	time = 10
 	category = CAT_MEDICAL
 	always_available = FALSE
+*/
 
 /datum/crafting_recipe/fake_stimpak
 	name = "Fake stimpak"
@@ -173,7 +183,7 @@
 	time = 10
 	category = CAT_MEDICAL
 	always_available = FALSE
-
+/*
 /datum/crafting_recipe/stimpak5
 	name = "Stimpak x5"
 	result = /obj/item/storage/box/medicine/stimpaks/stimpaks5
@@ -184,7 +194,7 @@
 	time = 20
 	category = CAT_MEDICAL
 	always_available = FALSE
-
+*/
 /datum/crafting_recipe/stimpak5/chemistry // Purely chemistry recipe
 	name = "Stimpak x5 (from chems)"
 	result = /obj/item/storage/box/medicine/stimpaks/stimpaks5
@@ -194,7 +204,7 @@
 	time = 20
 	category = CAT_MEDICAL
 	always_available = FALSE
-
+/*
 /datum/crafting_recipe/superstimpak
 	name = "Super Stimpak"
 	result = /obj/item/reagent_containers/hypospray/medipen/stimpak/super // Not terribly hard to make once you secure an advanced workbench. a dangerous chem to rely on completely though.
@@ -220,7 +230,7 @@
 	time = 20
 	category = CAT_MEDICAL
 	always_available = FALSE
-
+*/
 /datum/crafting_recipe/salvage_stimpak
 	name = "Salvage injector"
 	result = /obj/item/reagent_containers/syringe

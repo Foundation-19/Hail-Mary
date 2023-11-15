@@ -156,6 +156,8 @@ GLOBAL_LIST_INIT(global_all_wound_types, list(
 /// Bandage is gonna fall off soon
 #define BANDAGE_ENDLIFE_DURATION 0.1
 
+#define BLOODLEAF_MAX_DURATION 15 SECONDS
+
 /// Max time an improvised suture will stay on someone before falling off
 #define SUTURE_POOR_MAX_DURATION 10 MINUTES
 /// Max time a normal suture will stay on someone before falling off
@@ -279,6 +281,8 @@ GLOBAL_LIST_INIT(global_all_wound_types, list(
 /// How much burn damage is multiplied for bandage damage calcs
 #define BANDAGE_BURN_MULT 3 // its very flammable
 
+/// Bloodleaf base heal per tick
+#define BLOODLEAF_HEAL_OVER_TIME 1
 /// Bandage base heal per tick
 #define BANDAGE_HEAL_OVER_TIME_BASE 0.1
 
