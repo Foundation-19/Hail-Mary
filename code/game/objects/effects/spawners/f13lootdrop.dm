@@ -484,14 +484,20 @@
 /obj/effect/spawner/bundle/f13/armor/t45d
 	name = "t45d power armor spawner"
 	items = list(
-				/obj/item/clothing/suit/armor/power_armor/t45d,
+				/obj/item/clothing/suit/modular,
+				/obj/item/armor_module/armor/chest/t45d,
+				/obj/item/armor_module/armor/leg/t45d,
+				/obj/item/armor_module/armor/arms/t45d,
 				/obj/item/clothing/head/helmet/f13/power_armor/t45d,
 				)
 
 /obj/effect/spawner/bundle/f13/armor/t51b
 	name = "t51b power armor spawner"
 	items = list(
-				/obj/item/clothing/suit/armor/power_armor/t51b,
+				/obj/item/clothing/suit/modular,
+				/obj/item/armor_module/armor/chest/t51,
+				/obj/item/armor_module/armor/leg/t51,
+				/obj/item/armor_module/armor/arms/t51,
 				/obj/item/clothing/head/helmet/f13/power_armor/t51b,
 				)
 
