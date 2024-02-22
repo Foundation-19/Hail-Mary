@@ -59,7 +59,6 @@
 		/obj/item/gun/energy/laser/wattz/magneto,
 		/obj/item/gun/energy/laser/pistol,
 		/obj/item/gun/ballistic/automatic/pistol/m1911/custom,
-		/obj/item/gun/ballistic/automatic/pistol/mk23,
 		/obj/item/gun/ballistic/automatic/pistol/sig,
 		/obj/item/gun/ballistic/revolver/revolver44,
 		)
@@ -76,7 +75,6 @@
 		/obj/item/gun/ballistic/revolver/m29,
 		/obj/item/gun/ballistic/revolver/revolver44,
 		/obj/item/gun/ballistic/revolver/hunting,
-		/obj/item/gun/ballistic/automatic/pistol/schmeisser
 		)
 
 /datum/export/item/smg
@@ -91,7 +89,6 @@
 		/obj/item/gun/ballistic/automatic/smg/mini_uzi,
 		/obj/item/gun/ballistic/automatic/smg/tommygun,
 		/obj/item/gun/ballistic/automatic/smg/p90,
-		/obj/item/gun/ballistic/automatic/smg/mp5,
 		/obj/item/gun/ballistic/automatic/smg/ppsh
 		)
 
@@ -159,12 +156,10 @@
 		/obj/item/gun/ballistic/automatic/service,
 		/obj/item/gun/ballistic/automatic/marksman,
 		/obj/item/gun/ballistic/automatic/rangemaster,
-		/obj/item/gun/ballistic/automatic/slr,
 		/obj/item/gun/ballistic/automatic/m1garand,
 		/obj/item/gun/ballistic/rifle/repeater/brush,
 		/obj/item/gun/ballistic/automatic/marksman/sniper,
 		/obj/item/gun/ballistic/rifle/mag/antimateriel,
-		/obj/item/gun/ballistic/automatic/armalite,
 	)
 
 /datum/export/item/autorifle

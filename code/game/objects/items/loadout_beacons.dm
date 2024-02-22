@@ -452,14 +452,6 @@ GLOBAL_LIST_EMPTY(loadout_boxes)
 	new /obj/item/ammo_box/magazine/m556/rifle(src)
 	new /obj/item/ammo_box/magazine/m556/rifle(src)
 
-/obj/item/storage/box/gun/law/policerifle
-	name = "police rifle case"
-
-/obj/item/storage/box/gun/law/policerifle/PopulateContents()
-	new /obj/item/gun/ballistic/automatic/marksman/policerifle(src)
-	new /obj/item/ammo_box/magazine/m556/rifle(src)
-	new /obj/item/ammo_box/magazine/m556/rifle(src)
-
 /obj/item/storage/box/gun/law/assault_carbine
 	name = "assault carbine case" //police assault rifle is stronger, not sure which they should have
 
@@ -467,15 +459,6 @@ GLOBAL_LIST_EMPTY(loadout_boxes)
 	new /obj/item/gun/ballistic/automatic/assault_carbine(src)
 	new /obj/item/ammo_box/magazine/m5mm(src)
 	new /obj/item/ammo_box/magazine/m5mm(src)
-
-/obj/item/storage/box/gun/law/mk23 //not a whole rifle, but a really good pistol if you track down your own rifle
-	name = "Tactical MK-23 case"
-	w_class = WEIGHT_CLASS_NORMAL //only normal sized law gun
-
-/obj/item/storage/box/gun/law/mk23/PopulateContents()
-	new /obj/item/gun/ballistic/automatic/pistol/mk23(src)
-	new /obj/item/ammo_box/magazine/m45/socom(src)
-	new /obj/item/ammo_box/magazine/m45/socom(src)
 
 /obj/item/storage/box/gun/law/trail
 	name = "trail carbine case"
@@ -662,20 +645,6 @@ GLOBAL_LIST_EMPTY(loadout_boxes)
 	new /obj/item/gun/ballistic/rifle/antique/gras (src)
 	new /obj/item/ammo_box/a3006box(src)
 
-/obj/item/storage/box/gun/rifle/smg22
-	name = ".22 Uzi case"
-
-/obj/item/storage/box/gun/rifle/smg22/PopulateContents()
-	new /obj/item/gun/ballistic/automatic/smg/mini_uzi/smg22(src)
-	new /obj/item/ammo_box/magazine/m22/extended(src)
-
-/obj/item/storage/box/gun/rifle/rockwell
-	name = "9mm Rockwell SMG case"
-
-/obj/item/storage/box/gun/rifle/rockwell/PopulateContents()
-	new /obj/item/gun/ballistic/automatic/smg/mini_uzi/rockwell(src)
-	new /obj/item/ammo_box/magazine/uzim9mm/rockwell(src)
-
 /obj/item/storage/box/gun/rifle/sidewinder //should this be allowed? not field tested personally
 	name = "multi-caliber carbine case"
 
@@ -706,14 +675,6 @@ GLOBAL_LIST_EMPTY(loadout_boxes)
 
 /obj/item/storage/box/gun/rifle/delisle/PopulateContents()
 	new /obj/item/gun/ballistic/automatic/delisle(src)
-	new /obj/item/ammo_box/magazine/m9mm/doublestack(src)
-	new /obj/item/ammo_box/magazine/m9mm/doublestack(src)
-
-/obj/item/storage/box/gun/rifle/carbine9mm
-	name = "9mm carbine case"
-
-/obj/item/storage/box/gun/rifle/carbine9mm/PopulateContents()
-	new /obj/item/gun/ballistic/automatic/pistol/beretta/carbine(src)
 	new /obj/item/ammo_box/magazine/m9mm/doublestack(src)
 	new /obj/item/ammo_box/magazine/m9mm/doublestack(src)
 
@@ -1101,14 +1062,6 @@ GLOBAL_LIST_EMPTY(loadout_boxes)
 	new /obj/item/ammo_box/magazine/m22(src)
 	new /obj/item/ammo_box/magazine/m22(src)
 
-/obj/item/storage/box/gun/pistol/tec22
-	name = ".22 machine pistol case"
-
-/obj/item/storage/box/gun/pistol/tec22/PopulateContents()
-	new /obj/item/gun/ballistic/automatic/smg/mini_uzi/smg22/tec22(src)
-	new /obj/item/ammo_box/magazine/m22(src)
-	new /obj/item/ammo_box/magazine/m22(src)
-
 /obj/item/storage/box/gun/pistol/ninemil
 	name = "Browning Hi-power case"
 
@@ -1122,24 +1075,6 @@ GLOBAL_LIST_EMPTY(loadout_boxes)
 
 /obj/item/storage/box/gun/pistol/auto9mm/PopulateContents()
 	new /obj/item/gun/ballistic/automatic/pistol/ninemil/auto(src)
-	new /obj/item/ammo_box/magazine/m9mm(src)
-	new /obj/item/ammo_box/magazine/m9mm(src)
-	new /obj/item/ammo_box/magazine/m9mm(src)
-
-/obj/item/storage/box/gun/pistol/borchardt
-	name = "9mm Borchardt case"
-
-/obj/item/storage/box/gun/pistol/borchardt/PopulateContents()
-	new /obj/item/gun/ballistic/automatic/pistol/ninemil/c93(src)
-	new /obj/item/ammo_box/magazine/m9mm(src)
-	new /obj/item/ammo_box/magazine/m9mm(src)
-	new /obj/item/ammo_box/magazine/m9mm(src)
-
-/obj/item/storage/box/gun/pistol/luger
-	name = "9mm Luger case"
-
-/obj/item/storage/box/gun/pistol/luger/PopulateContents()
-	new /obj/item/gun/ballistic/automatic/pistol/ninemil/c93/luger(src)
 	new /obj/item/ammo_box/magazine/m9mm(src)
 	new /obj/item/ammo_box/magazine/m9mm(src)
 	new /obj/item/ammo_box/magazine/m9mm(src)
@@ -1520,23 +1455,11 @@ GLOBAL_LIST_EMPTY(loadout_boxes)
 	entry_class = LOADOUT_CAT_LAWMAN
 	spawn_thing = /obj/item/storage/box/gun/law/service
 
-/datum/loadout_box/policerifle
-	entry_tag = "Police Rifle"
-	entry_flags = LOADOUT_FLAG_LAWMAN
-	entry_class = LOADOUT_CAT_LAWMAN
-	spawn_thing = /obj/item/storage/box/gun/law/policerifle
-
 /datum/loadout_box/assault_carbine
 	entry_tag = "Assault Carbine"
 	entry_flags = LOADOUT_FLAG_LAWMAN
 	entry_class = LOADOUT_CAT_LAWMAN
 	spawn_thing = /obj/item/storage/box/gun/law/assault_carbine
-
-/datum/loadout_box/mk23
-	entry_tag = "Tactical MK-23"
-	entry_flags = LOADOUT_FLAG_LAWMAN
-	entry_class = LOADOUT_CAT_LAWMAN
-	spawn_thing = /obj/item/storage/box/gun/law/mk23
 
 /// Long guns, mostly wasters
 
@@ -1563,18 +1486,6 @@ GLOBAL_LIST_EMPTY(loadout_boxes)
 	entry_flags = LOADOUT_FLAG_WASTER
 	entry_class = LOADOUT_CAT_LONGGUN
 	spawn_thing = /obj/item/storage/box/gun/rifle/widowmaker
-
-/datum/loadout_box/smg22
-	entry_tag = ".22 Uzi"
-	entry_flags = LOADOUT_FLAG_WASTER
-	entry_class = LOADOUT_CAT_LONGGUN
-	spawn_thing = /obj/item/storage/box/gun/rifle/smg22
-
-/datum/loadout_box/rockwell
-	entry_tag = "9mm Rockwell SMG"
-	entry_flags = LOADOUT_FLAG_WASTER
-	entry_class = LOADOUT_CAT_LONGGUN
-	spawn_thing = /obj/item/storage/box/gun/rifle/rockwell
 
 /datum/loadout_box/gras
 	entry_tag = "Gras Rifle"
@@ -1605,12 +1516,6 @@ GLOBAL_LIST_EMPTY(loadout_boxes)
 	entry_flags = LOADOUT_FLAG_WASTER
 	entry_class = LOADOUT_CAT_LONGGUN
 	spawn_thing = /obj/item/storage/box/gun/rifle/delisle
-
-/datum/loadout_box/carbine9mm
-	entry_tag = "9mm Carbine"
-	entry_flags = LOADOUT_FLAG_WASTER
-	entry_class = LOADOUT_CAT_LONGGUN
-	spawn_thing = /obj/item/storage/box/gun/rifle/carbine9mm
 
 /datum/loadout_box/sportcarbine
 	entry_tag = "Sport Carbine"
@@ -1792,12 +1697,6 @@ GLOBAL_LIST_EMPTY(loadout_boxes)
 	entry_class = LOADOUT_CAT_PISTOL
 	spawn_thing = /obj/item/storage/box/gun/pistol
 
-/datum/loadout_box/tec22
-	entry_tag = ".22 Machine Pistol"
-	entry_flags = LOADOUT_FLAG_WASTER
-	entry_class = LOADOUT_CAT_PISTOL
-	spawn_thing = /obj/item/storage/box/gun/pistol/tec22
-
 /datum/loadout_box/ninemil
 	entry_tag = "Hi-Power Pistol"
 	entry_flags = LOADOUT_FLAG_WASTER
@@ -1809,18 +1708,6 @@ GLOBAL_LIST_EMPTY(loadout_boxes)
 	entry_flags = LOADOUT_FLAG_WASTER
 	entry_class = LOADOUT_CAT_PISTOL
 	spawn_thing = /obj/item/storage/box/gun/pistol/auto9mm
-
-/datum/loadout_box/borchardt
-	entry_tag = "9mm Borchardt"
-	entry_flags = LOADOUT_FLAG_WASTER
-	entry_class = LOADOUT_CAT_PISTOL
-	spawn_thing = /obj/item/storage/box/gun/pistol/borchardt
-
-/datum/loadout_box/luger
-	entry_tag = "9mm Luger"
-	entry_flags = LOADOUT_FLAG_WASTER
-	entry_class = LOADOUT_CAT_PISTOL
-	spawn_thing = /obj/item/storage/box/gun/pistol/luger
 
 /datum/loadout_box/ruby
 	entry_tag = "9mm Bootgun"

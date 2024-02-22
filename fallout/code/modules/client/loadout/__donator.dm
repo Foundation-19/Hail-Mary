@@ -303,7 +303,6 @@
 	new /obj/item/melee/onehanded/knife/trench(src)
 	new /obj/item/melee/unarmed/brass/spiked(src)
 	new /obj/item/clothing/suit/armor/light/raider/painspike(src)
-	new /obj/item/gun/ballistic/automatic/pistol/sig/worn(src)
 
 /datum/gear/donator/kits/cavusogluzevk2
 	name = "B.O.S Loadout"
@@ -325,7 +324,6 @@
 	ckeywhitelist = list("dameonowen")
 
 /obj/item/storage/box/large/custom_kit/dameonowen/PopulateContents()
-	new /obj/item/gun/ballistic/automatic/pistol/sig/trusty(src)
 	new /obj/item/ammo_box/magazine/m45/rubber(src)
 	new /obj/item/ammo_box/magazine/m45/rubber(src)
 	new /obj/item/ammo_box/c45/rubber(src)
@@ -396,15 +394,6 @@
 	new /obj/item/ammo_box/magazine/m45(src)
 	new /obj/item/clothing/suit/armor/light/kit/plates(src)
 	new /obj/item/tool_upgrade/productivity/ergonomic_grip(src)
-
-/datum/gear/donator/kits/ferisramsay3
-	name = "Maddy's Loadout"
-	path = /obj/item/storage/box/large/custom_kit/ferisramsay3
-	ckeywhitelist = list("ferisramsay")
-
-/obj/item/storage/box/large/custom_kit/ferisramsay3/PopulateContents()
-	new /obj/item/gun/ballistic/automatic/pistol/sig/worn(src)
-	new /obj/item/gun/ballistic/automatic/pistol/sig/worn(src)
 
 /datum/gear/donator/kits/fuzlet
 	name = "fuzzy supply box"

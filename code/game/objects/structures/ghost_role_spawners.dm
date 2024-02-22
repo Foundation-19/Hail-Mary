@@ -818,7 +818,6 @@
 	suit_store = /obj/item/gun/energy/laser/aer9
 	backpack_contents = list(
 		/obj/item/stock_parts/cell/ammo/mfc=2,
-		/obj/item/gun/ballistic/automatic/pistol/mk23=1,
 		/obj/item/ammo_box/magazine/m45/socom=2,
 		/obj/item/clothing/accessory/bos/paladin=1
 		)

@@ -576,7 +576,6 @@ GLOBAL_LIST_INIT(loot_t1_range, list(
 GLOBAL_LIST_INIT(loot_t2_range, list(
 	/obj/item/gun/ballistic/shotgun/hunting,
 	/obj/item/ammo_box/shotgun/buck,
-	/obj/item/gun/ballistic/automatic/smg/mini_uzi/smg22,
 	/obj/item/ammo_box/magazine/m22/extended,
 	/obj/item/gun/ballistic/revolver/m29,
 	/obj/item/ammo_box/m44,
