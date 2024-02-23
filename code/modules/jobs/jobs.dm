@@ -240,7 +240,6 @@ GLOBAL_LIST_INIT(wasteland_positions, list(
 	"Vigilante",
 	"Preacher",
 	"Wastelander",
-	"Minuteman",
 ))
 
 GLOBAL_LIST_INIT(redwater_positions, list(
