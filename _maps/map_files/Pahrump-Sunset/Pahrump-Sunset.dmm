@@ -14530,7 +14530,7 @@
 	},
 /area/f13/building)
 "ber" = (
-/obj/machinery/vending/cola/nukacola,
+/obj/machinery/vending/cola,
 /turf/open/floor/f13{
 	icon_state = "floorrusty"
 	},
