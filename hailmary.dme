@@ -3729,7 +3729,6 @@
 #include "fallout\code\modules\client\loadout\suit.dm"
 #include "fallout\code\modules\client\loadout\uniform.dm"
 #include "fallout\code\modules\client\verbs\who.dm"
-#include "fallout\code\modules\clothing\neck.dm"
 #include "fallout\code\modules\clothing\trek.dm"
 #include "fallout\code\modules\clothing\head\f13head.dm"
 #include "fallout\code\modules\clothing\masks\gasmask.dm"
