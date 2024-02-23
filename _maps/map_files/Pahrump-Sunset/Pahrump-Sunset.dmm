@@ -26348,6 +26348,7 @@
 	pixel_x = -5;
 	pixel_y = 13
 	},
+/obj/item/gun_upgrade/scope/watchman,
 /turf/open/floor/f13/wood,
 /area/f13/building)
 "fhp" = (
@@ -42201,6 +42202,13 @@
 	},
 /turf/open/indestructible/ground/outside/water,
 /area/f13/wasteland)
+"mFn" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/furnace,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	color = "#e4e4e4"
+	},
+/area/f13/legion)
 "mFv" = (
 /obj/structure/grille,
 /obj/structure/window/reinforced/fulltile,
@@ -49315,6 +49323,7 @@
 	dir = 1;
 	pixel_y = 24
 	},
+/obj/item/clothing/gloves/botanic_leather,
 /turf/open/floor/wood_fancy/wood_fancy_dark,
 /area/f13/legion)
 "pVC" = (
@@ -58906,6 +58915,13 @@
 	icon_state = "horizontalbottombordertop0"
 	},
 /area/f13/wasteland)
+"uIx" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/anvil/obtainable/legion,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	color = "#e4e4e4"
+	},
+/area/f13/legion)
 "uIO" = (
 /obj/structure/wreck/car{
 	dir = 4;
@@ -125622,7 +125638,7 @@ aii
 huu
 uvO
 uwB
-tsh
+uIx
 tsh
 qXa
 tsh
@@ -125879,7 +125895,7 @@ aii
 huu
 uvO
 tbW
-tsh
+mFn
 tsh
 qXa
 tsh
