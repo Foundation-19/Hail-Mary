@@ -530,12 +530,12 @@
 	cost = 3000
 	num_contained = 6
 	contains = list(
-		/obj/effect/spawner/lootdrop/f13/weapon/wasteland,
-		/obj/effect/spawner/lootdrop/f13/weapon/wasteland,
-		/obj/effect/spawner/lootdrop/f13/weapon/wasteland,
-		/obj/effect/spawner/lootdrop/f13/weapon/wasteland,
-		/obj/effect/spawner/lootdrop/f13/weapon/wasteland,
-		/obj/effect/spawner/lootdrop/f13/weapon/wasteland
+		/obj/effect/spawner/lootdrop/f13/weapon/melee/random,
+		/obj/effect/spawner/lootdrop/f13/weapon/melee/random,
+		/obj/effect/spawner/lootdrop/f13/weapon/gun/energy/mid,
+		/obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/lowmid,
+		/obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/highmid,
+		/obj/effect/spawner/lootdrop/f13/weapon/gun/energy/midhigh
 )
 	crate_name = "Wasteland weapon crate"
 
@@ -545,10 +545,10 @@
 	cost = 4000
 	num_contained = 4
 	contains = list(
-		/obj/effect/spawner/lootdrop/f13/weapon/dungeon,
-		/obj/effect/spawner/lootdrop/f13/weapon/dungeon,
-		/obj/effect/spawner/lootdrop/f13/weapon/dungeon,
-		/obj/effect/spawner/lootdrop/f13/weapon/dungeon
+		/obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/highmid,
+		/obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/highmid,
+		/obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/highmid,
+		/obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/highmid
 )
 	crate_name = "quality weapon crate"
 
@@ -558,8 +558,8 @@
 	cost = 15000 //a big jump from mid tier weapons. shouldn't buy many. will see how this goes with the other changes
 	num_contained = 2
 	contains = list(
-		/obj/effect/spawner/lootdrop/f13/weapon/boss,
-		/obj/effect/spawner/lootdrop/f13/weapon/boss
+		/obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/high,
+		/obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/high
 )
 	crate_name = "Rare weapon crate"
 

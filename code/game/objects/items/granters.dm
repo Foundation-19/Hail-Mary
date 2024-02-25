@@ -785,6 +785,10 @@
 	icon_state = "blueprint2"
 	crafting_recipe_types = list(/datum/crafting_recipe/deagle)
 
+/obj/item/book/granter/crafting_recipe/blueprint/rcw
+	name = "rcw blueprint"
+	icon_state = "blueprint2"
+	crafting_recipe_types = list(/datum/crafting_recipe/rcw)
 /obj/item/book/granter/crafting_recipe/blueprint/aer9
 	name = "aer9 blueprint"
 	icon_state = "blueprint2"
@@ -901,6 +905,10 @@
 	name = "scout carbine blueprint"
 	icon_state = "blueprint2"
 	crafting_recipe_types = list(/datum/crafting_recipe/scoutcarbine)
+/obj/item/book/granter/crafting_recipe/blueprint/magnum_revolver
+	name = "Magnum Revolver blueprint"
+	icon_state = "blueprint2"
+	crafting_recipe_types = list(/datum/crafting_recipe/m2405)
 
 /obj/item/book/granter/crafting_recipe/blueprint/neostead
 	name = "neostead 2000 blueprint"
