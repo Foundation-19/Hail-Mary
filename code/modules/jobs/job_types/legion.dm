@@ -13,10 +13,6 @@ Weapons		Lever shotgun, Grease gun, Repeater carbines, Revolvers, simple guns al
 			Avoid Police shotguns, 5,56 semis, Desert Eagle, Survival knives etc, be creative and work within the limitations to avoid powercreep and things getting bland and same.
 */
 
-//If you ever want to enable Legion, remove these 3 lines - Kitsunemitsu
-/datum/job/CaesarsLegion/config_check()
-	return FALSE
-
 /datum/job/CaesarsLegion
 	department_flag = LEGION
 	selection_color = "#ffeeee"

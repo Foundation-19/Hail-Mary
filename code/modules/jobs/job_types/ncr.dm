@@ -14,10 +14,6 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 			Don't use Greaseguns, Lever shotguns, Police shotguns, Berettas, Hunting knives
 */
 
-//If you ever want to enable NCR, remove these 3 lines - Kitsunemitsu
-/datum/job/ncr/config_check()
-	return FALSE
-
 /datum/job/ncr //do NOT use this for anything, it's just to store faction datums
 	department_flag = NCR
 	selection_color = "#ffeeaa"
