@@ -499,7 +499,6 @@ Mayor
 
 	backpack = /obj/item/storage/backpack/satchel/explorer
 	satchel = /obj/item/storage/backpack/satchel/explorer
-	l_pocket = /obj/item/storage/bag/money/small/settler
 	r_pocket = /obj/item/flashlight/flare
 	belt = /obj/item/storage/bag/plants
 	backpack_contents = list(
@@ -580,7 +579,6 @@ Mayor
 	id = /obj/item/card/id/dogtag/town
 	backpack = /obj/item/storage/backpack/satchel/explorer
 	satchel = /obj/item/storage/backpack/satchel/explorer
-	l_pocket = /obj/item/storage/bag/money/small/settler
 	r_pocket = /obj/item/flashlight/lantern
 	belt = /obj/item/storage/bag/ore
 	shoes = /obj/item/clothing/shoes/jackboots
@@ -738,7 +736,7 @@ Mayor
 		/obj/item/clothing/suit/hooded/surgical = 1,
 		/obj/item/storage/medical/ancientfirstaid = 1,
 		/obj/item/ammo_box/m44 = 1,
-		/obj/item/gun/ballistic/revolver/m29/snub = 1
+			/obj/item/gun/ballistic/revolver/m29/snub = 1
 		)
 /*--------------------------------------------------------------*/
 
