@@ -17066,7 +17066,7 @@
 /area/f13/building)
 "bvd" = (
 /obj/structure/flora/grass/coyote/twentysix,
-/turf/open/indestructible/ground/outside/desert/sonora/coarse,
+/turf/open/indestructible/ground/outside/desert,
 /area/f13/wasteland)
 "bve" = (
 /obj/structure/table/reinforced,
@@ -17135,7 +17135,7 @@
 /area/f13/building/khanfort)
 "bwd" = (
 /obj/structure/flora/wasteplant/wild_xander,
-/turf/open/indestructible/ground/outside/desert/sonora/coarse,
+/turf/open/indestructible/ground/outside/desert,
 /area/f13/wasteland)
 "bwe" = (
 /obj/structure/fence,
@@ -18149,7 +18149,7 @@
 /area/f13/village)
 "bMw" = (
 /obj/structure/flora/grass/coyote/twentyfour,
-/turf/open/indestructible/ground/outside/desert/sonora/coarse,
+/turf/open/indestructible/ground/outside/desert,
 /area/f13/caves)
 "bMx" = (
 /obj/structure/chair/wood{
@@ -21341,7 +21341,7 @@
 /area/f13/caves)
 "cPO" = (
 /obj/structure/campfire/barrel,
-/turf/open/indestructible/ground/outside/desert/sonora/coarse,
+/turf/open/indestructible/ground/outside/desert,
 /area/f13/caves)
 "cPR" = (
 /obj/structure/bed/old,
@@ -23090,7 +23090,7 @@
 	pixel_x = -11;
 	pixel_y = 9
 	},
-/turf/open/indestructible/ground/outside/desert/sonora/coarse,
+/turf/open/indestructible/ground/outside/desert,
 /area/f13/wasteland)
 "dGa" = (
 /obj/structure/table/wood,
@@ -23501,7 +23501,7 @@
 /area/f13/village)
 "dQY" = (
 /obj/structure/barricade/wooden,
-/turf/open/indestructible/ground/outside/desert/sonora/coarse,
+/turf/open/indestructible/ground/outside/desert,
 /area/f13/wasteland)
 "dRh" = (
 /obj/structure/sign/poster/prewar/poster74,
@@ -24370,7 +24370,7 @@
 	dir = 1;
 	icon_state = "post_wood"
 	},
-/turf/open/indestructible/ground/outside/desert/sonora/coarse,
+/turf/open/indestructible/ground/outside/desert,
 /area/f13/wasteland)
 "eoD" = (
 /obj/effect/decal/cleanable/dirt,
@@ -24509,7 +24509,7 @@
 /obj/structure/destructible/tribal_torch/lit{
 	pixel_x = 11
 	},
-/turf/open/indestructible/ground/outside/desert/sonora/coarse,
+/turf/open/indestructible/ground/outside/desert,
 /area/f13/wasteland)
 "esE" = (
 /obj/effect/decal/cleanable/dirt,
@@ -25165,7 +25165,7 @@
 	pixel_x = -4;
 	pixel_y = -7
 	},
-/turf/open/indestructible/ground/outside/desert/sonora/coarse,
+/turf/open/indestructible/ground/outside/desert,
 /area/f13/wasteland)
 "eHx" = (
 /obj/effect/decal/remains{
@@ -25613,7 +25613,7 @@
 /area/f13/building/massfusion)
 "eRw" = (
 /mob/living/simple_animal/cow/brahmin,
-/turf/open/indestructible/ground/outside/desert/sonora/coarse,
+/turf/open/indestructible/ground/outside/desert,
 /area/f13/legion)
 "eRA" = (
 /turf/open/indestructible/ground/outside/roaddirt{
@@ -26249,7 +26249,7 @@
 /obj/structure/flora/rock/pile/largejungle{
 	icon_state = "bush3"
 	},
-/turf/open/indestructible/ground/outside/desert/sonora/coarse,
+/turf/open/indestructible/ground/outside/desert,
 /area/f13/wasteland)
 "fdE" = (
 /obj/structure/barricade/wooden,
@@ -27335,7 +27335,7 @@
 	dir = 4;
 	pixel_x = -13
 	},
-/turf/open/indestructible/ground/outside/desert/sonora/coarse,
+/turf/open/indestructible/ground/outside/desert,
 /area/f13/wasteland)
 "fEb" = (
 /obj/structure/simple_door/interior,
@@ -27390,7 +27390,7 @@
 /area/f13/building/mall)
 "fFm" = (
 /obj/structure/butter_churn,
-/turf/open/indestructible/ground/outside/desert/sonora/coarse,
+/turf/open/indestructible/ground/outside/desert,
 /area/f13/wasteland)
 "fFp" = (
 /obj/effect/decal/cleanable/dirt{
@@ -29647,7 +29647,7 @@
 "gKl" = (
 /obj/structure/flora/grass/coyote/two,
 /obj/structure/flora/brushwoodalt,
-/turf/open/indestructible/ground/outside/desert/sonora/coarse,
+/turf/open/indestructible/ground/outside/desert,
 /area/f13/wasteland)
 "gKm" = (
 /obj/effect/decal/cleanable/dirt,
@@ -30544,7 +30544,7 @@
 	pixel_x = 2;
 	pixel_y = -8
 	},
-/turf/open/indestructible/ground/outside/desert/sonora/coarse,
+/turf/open/indestructible/ground/outside/desert,
 /area/f13/wasteland)
 "heZ" = (
 /obj/structure/window/fulltile/store{
@@ -31188,7 +31188,7 @@
 	light_power = 0.4;
 	light_range = 5
 	},
-/turf/open/indestructible/ground/outside/desert/sonora/coarse,
+/turf/open/indestructible/ground/outside/desert,
 /area/f13/wasteland)
 "hzm" = (
 /obj/machinery/smartfridge/bottlerack,
@@ -31838,7 +31838,7 @@
 /area/f13/building/massfusion)
 "hRL" = (
 /obj/structure/flora/grass/coyote/twentyfour,
-/turf/open/indestructible/ground/outside/desert/sonora/coarse,
+/turf/open/indestructible/ground/outside/desert,
 /area/f13/wasteland)
 "hRT" = (
 /obj/machinery/smartfridge/bottlerack/lootshelf/diy,
@@ -32017,7 +32017,7 @@
 /turf/open/floor/f13/wood,
 /area/f13/building)
 "hWu" = (
-/turf/open/indestructible/ground/outside/desert/sonora/coarse,
+/turf/open/indestructible/ground/outside/desert,
 /area/f13/legion)
 "hWv" = (
 /obj/structure/barricade/sandbags,
@@ -32225,7 +32225,7 @@
 /obj/structure/railing/wood{
 	dir = 1
 	},
-/turf/open/indestructible/ground/outside/desert/sonora/coarse,
+/turf/open/indestructible/ground/outside/desert,
 /area/f13/legion)
 "ibV" = (
 /obj/structure/rack,
@@ -33311,7 +33311,7 @@
 /area/f13/wasteland)
 "izz" = (
 /obj/structure/flora/grass/coyote/twenty,
-/turf/open/indestructible/ground/outside/desert/sonora/coarse,
+/turf/open/indestructible/ground/outside/desert,
 /area/f13/caves)
 "izF" = (
 /obj/effect/decal/cleanable/dirt,
@@ -33554,7 +33554,7 @@
 /obj/structure/cross{
 	layer = 3.2
 	},
-/turf/open/indestructible/ground/outside/desert/sonora/coarse,
+/turf/open/indestructible/ground/outside/desert,
 /area/f13/wasteland)
 "iEI" = (
 /obj/effect/decal/remains/human,
@@ -34334,7 +34334,7 @@
 /obj/structure/railing/wood{
 	dir = 1
 	},
-/turf/open/indestructible/ground/outside/desert/sonora/coarse,
+/turf/open/indestructible/ground/outside/desert,
 /area/f13/wasteland)
 "iVX" = (
 /obj/structure/flora/ausbushes/sunnybush,
@@ -34421,7 +34421,7 @@
 /area/f13/building)
 "iXn" = (
 /obj/effect/overlay/desert/sonora/edge/corner,
-/turf/open/indestructible/ground/outside/desert/sonora/coarse,
+/turf/open/indestructible/ground/outside/desert,
 /area/f13/wasteland)
 "iXx" = (
 /turf/open/indestructible/ground/outside/dirt{
@@ -34951,7 +34951,7 @@
 	pixel_x = 13;
 	pixel_y = 9
 	},
-/turf/open/indestructible/ground/outside/desert/sonora/coarse,
+/turf/open/indestructible/ground/outside/desert,
 /area/f13/wasteland)
 "jjJ" = (
 /obj/effect/decal/cleanable/dirt{
@@ -35016,7 +35016,7 @@
 /area/f13/wasteland)
 "jkS" = (
 /obj/structure/flora/grass/coyote/one,
-/turf/open/indestructible/ground/outside/desert/sonora/coarse,
+/turf/open/indestructible/ground/outside/desert,
 /area/f13/legion)
 "jkY" = (
 /obj/machinery/light,
@@ -35318,7 +35318,7 @@
 /area/f13/building/hospital)
 "jtZ" = (
 /obj/structure/flora/grass/coyote/seventeen,
-/turf/open/indestructible/ground/outside/desert/sonora/coarse,
+/turf/open/indestructible/ground/outside/desert,
 /area/f13/wasteland)
 "juc" = (
 /obj/effect/decal/cleanable/dirt,
@@ -37742,7 +37742,7 @@
 /obj/structure/fermenting_barrel{
 	pixel_y = 7
 	},
-/turf/open/indestructible/ground/outside/desert/sonora/coarse,
+/turf/open/indestructible/ground/outside/desert,
 /area/f13/wasteland)
 "kIZ" = (
 /obj/structure/barricade/wooden,
@@ -37817,7 +37817,7 @@
 /area/f13/building/hospital)
 "kKg" = (
 /obj/structure/reagent_dispensers/barrel/four,
-/turf/open/indestructible/ground/outside/desert/sonora/coarse,
+/turf/open/indestructible/ground/outside/desert,
 /area/f13/wasteland)
 "kKh" = (
 /mob/living/simple_animal/hostile/raider/firefighter{
@@ -38251,7 +38251,7 @@
 "kSW" = (
 /obj/structure/flora/rock/pile/largejungle,
 /obj/structure/flora/grass/coyote/twentythree,
-/turf/open/indestructible/ground/outside/desert/sonora/coarse,
+/turf/open/indestructible/ground/outside/desert,
 /area/f13/wasteland)
 "kSZ" = (
 /obj/structure/spacevine,
@@ -38681,7 +38681,7 @@
 /area/f13/wasteland)
 "lcz" = (
 /obj/structure/flora/grass/coyote/twentyfive,
-/turf/open/indestructible/ground/outside/desert/sonora/coarse,
+/turf/open/indestructible/ground/outside/desert,
 /area/f13/wasteland)
 "lcQ" = (
 /obj/structure/table/wood/settler,
@@ -38811,7 +38811,7 @@
 	},
 /area/f13/building/museum)
 "lgX" = (
-/turf/open/indestructible/ground/outside/desert/sonora/coarse,
+/turf/open/indestructible/ground/outside/desert,
 /area/f13/caves)
 "lhf" = (
 /obj/structure/flora/twig2,
@@ -39489,7 +39489,7 @@
 /area/f13/building/museum)
 "lyu" = (
 /obj/structure/wreck/trash/five_tires,
-/turf/open/indestructible/ground/outside/desert/sonora/coarse,
+/turf/open/indestructible/ground/outside/desert,
 /area/f13/wasteland)
 "lyx" = (
 /obj/structure/spacevine,
@@ -40068,7 +40068,7 @@
 /area/f13/wasteland)
 "lKy" = (
 /obj/machinery/smartfridge/drying_rack,
-/turf/open/indestructible/ground/outside/desert/sonora/coarse,
+/turf/open/indestructible/ground/outside/desert,
 /area/f13/legion)
 "lKC" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -40789,7 +40789,7 @@
 /area/f13/building)
 "lYR" = (
 /obj/structure/flora/grass/coyote/twentythree,
-/turf/open/indestructible/ground/outside/desert/sonora/coarse,
+/turf/open/indestructible/ground/outside/desert,
 /area/f13/legion)
 "lZa" = (
 /obj/structure/fence{
@@ -41128,7 +41128,7 @@
 	pixel_x = 12;
 	pixel_y = 6
 	},
-/turf/open/indestructible/ground/outside/desert/sonora/coarse,
+/turf/open/indestructible/ground/outside/desert,
 /area/f13/wasteland)
 "mfT" = (
 /obj/effect/decal/cleanable/dirt,
@@ -42119,7 +42119,7 @@
 /area/f13/wasteland)
 "mEm" = (
 /obj/structure/flora/wasteplant/wild_broc,
-/turf/open/indestructible/ground/outside/desert/sonora/coarse,
+/turf/open/indestructible/ground/outside/desert,
 /area/f13/wasteland)
 "mEo" = (
 /obj/effect/turf_decal/weather/dirt,
@@ -43066,7 +43066,7 @@
 /area/f13/village)
 "mYv" = (
 /obj/structure/flora/brushwoodalt,
-/turf/open/indestructible/ground/outside/desert/sonora/coarse,
+/turf/open/indestructible/ground/outside/desert,
 /area/f13/wasteland)
 "mYw" = (
 /obj/structure/closet/crate/trashcart,
@@ -43843,7 +43843,7 @@
 /obj/structure/flora/grass/wasteland{
 	icon_state = "tall_grass_3"
 	},
-/turf/open/indestructible/ground/outside/desert/sonora/coarse,
+/turf/open/indestructible/ground/outside/desert,
 /area/f13/legion)
 "nrO" = (
 /obj/structure/flora/tree/tall{
@@ -44349,7 +44349,7 @@
 /area/f13/building/mall)
 "nFk" = (
 /obj/structure/flora/grass/coyote/sixteen,
-/turf/open/indestructible/ground/outside/desert/sonora/coarse,
+/turf/open/indestructible/ground/outside/desert,
 /area/f13/caves)
 "nFm" = (
 /obj/effect/turf_decal/weather/dirt{
@@ -44422,7 +44422,7 @@
 /area/f13/building/museum)
 "nGv" = (
 /obj/structure/flora/grass/coyote/twentythree,
-/turf/open/indestructible/ground/outside/desert/sonora/coarse,
+/turf/open/indestructible/ground/outside/desert,
 /area/f13/wasteland)
 "nGx" = (
 /obj/structure/flora/grass/coyote/one,
@@ -45924,7 +45924,7 @@
 /area/f13/wasteland)
 "ouy" = (
 /obj/structure/flora/grass/coyote/twentytwo,
-/turf/open/indestructible/ground/outside/desert/sonora/coarse,
+/turf/open/indestructible/ground/outside/desert,
 /area/f13/wasteland)
 "ouC" = (
 /obj/effect/decal/cleanable/oil{
@@ -46092,7 +46092,7 @@
 /area/f13/city)
 "oxC" = (
 /obj/structure/flora/grass/coyote/one,
-/turf/open/indestructible/ground/outside/desert/sonora/coarse,
+/turf/open/indestructible/ground/outside/desert,
 /area/f13/wasteland)
 "oym" = (
 /obj/structure/rack,
@@ -46293,7 +46293,7 @@
 /area/f13/city)
 "oDu" = (
 /obj/structure/flora/grass/coyote/twentyfive,
-/turf/open/indestructible/ground/outside/desert/sonora/coarse,
+/turf/open/indestructible/ground/outside/desert,
 /area/f13/caves)
 "oDP" = (
 /obj/effect/spawner/lootdrop/f13/junkspawners,
@@ -46425,7 +46425,7 @@
 "oGP" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/glass/bucket/wood,
-/turf/open/indestructible/ground/outside/desert/sonora/coarse,
+/turf/open/indestructible/ground/outside/desert,
 /area/f13/wasteland)
 "oGR" = (
 /obj/structure/destructible/tribal_torch/wall/lit{
@@ -46528,7 +46528,7 @@
 /area/f13/wasteland)
 "oKg" = (
 /obj/structure/flora/grass/coyote/thirteen,
-/turf/open/indestructible/ground/outside/desert/sonora/coarse,
+/turf/open/indestructible/ground/outside/desert,
 /area/f13/legion)
 "oKp" = (
 /obj/effect/decal/cleanable/dirt,
@@ -47143,7 +47143,7 @@
 /area/f13/city)
 "oXX" = (
 /obj/structure/simple_door/metal/fence/wooden,
-/turf/open/indestructible/ground/outside/desert/sonora/coarse,
+/turf/open/indestructible/ground/outside/desert,
 /area/f13/wasteland)
 "oXY" = (
 /obj/structure/barricade/sandbags,
@@ -49049,7 +49049,7 @@
 /area/f13/building)
 "pMQ" = (
 /obj/structure/flora/grass/coyote/twelve,
-/turf/open/indestructible/ground/outside/desert/sonora/coarse,
+/turf/open/indestructible/ground/outside/desert,
 /area/f13/wasteland)
 "pNn" = (
 /obj/effect/decal/cleanable/dirt,
@@ -49463,7 +49463,7 @@
 /area/f13/building/trainstation)
 "pZT" = (
 /obj/structure/flora/grass/coyote/fourteen,
-/turf/open/indestructible/ground/outside/desert/sonora/coarse,
+/turf/open/indestructible/ground/outside/desert,
 /area/f13/legion)
 "qab" = (
 /obj/effect/decal/cleanable/dirt{
@@ -49694,7 +49694,7 @@
 /area/f13/village)
 "qfG" = (
 /obj/structure/flora/grass/coyote/sixteen,
-/turf/open/indestructible/ground/outside/desert/sonora/coarse,
+/turf/open/indestructible/ground/outside/desert,
 /area/f13/wasteland)
 "qgc" = (
 /obj/structure/table/booth,
@@ -50027,7 +50027,7 @@
 	icon_state = "bush3"
 	},
 /obj/effect/decal/remains/human,
-/turf/open/indestructible/ground/outside/desert/sonora/coarse,
+/turf/open/indestructible/ground/outside/desert,
 /area/f13/wasteland)
 "qnW" = (
 /obj/structure/sink/well{
@@ -50036,7 +50036,7 @@
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/wasteland)
 "qom" = (
-/turf/open/indestructible/ground/outside/desert/sonora/coarse,
+/turf/open/indestructible/ground/outside/desert,
 /area/f13/wasteland)
 "qop" = (
 /obj/structure/barricade/tentclothedge,
@@ -50472,7 +50472,7 @@
 /area/f13/wasteland)
 "qAh" = (
 /obj/structure/simple_door/metal/fence/wooden,
-/turf/open/indestructible/ground/outside/desert/sonora/coarse,
+/turf/open/indestructible/ground/outside/desert,
 /area/f13/legion)
 "qAs" = (
 /obj/effect/decal/cleanable/dirt,
@@ -53326,11 +53326,11 @@
 /area/f13/wasteland)
 "rXI" = (
 /obj/structure/flora/ausbushes/sparsegrass,
-/turf/open/indestructible/ground/outside/desert/sonora/coarse,
+/turf/open/indestructible/ground/outside/desert,
 /area/f13/legion)
 "rXM" = (
 /obj/structure/flora/grass/coyote/twentyone,
-/turf/open/indestructible/ground/outside/desert/sonora/coarse,
+/turf/open/indestructible/ground/outside/desert,
 /area/f13/legion)
 "rXX" = (
 /obj/effect/decal/cleanable/dirt,
@@ -53837,7 +53837,7 @@
 "slZ" = (
 /obj/structure/flora/ausbushes/sparsegrass,
 /mob/living/simple_animal/cow/brahmin,
-/turf/open/indestructible/ground/outside/desert/sonora/coarse,
+/turf/open/indestructible/ground/outside/desert,
 /area/f13/legion)
 "sml" = (
 /obj/structure/flora/grass/wasteland{
@@ -54591,7 +54591,7 @@
 /area/f13/wasteland)
 "sFB" = (
 /obj/structure/flora/grass/coyote/fourteen,
-/turf/open/indestructible/ground/outside/desert/sonora/coarse,
+/turf/open/indestructible/ground/outside/desert,
 /area/f13/wasteland)
 "sFD" = (
 /obj/effect/decal/remains/human,
@@ -58457,7 +58457,7 @@
 	pixel_x = 4;
 	pixel_y = 8
 	},
-/turf/open/indestructible/ground/outside/desert/sonora/coarse,
+/turf/open/indestructible/ground/outside/desert,
 /area/f13/legion)
 "uyo" = (
 /obj/effect/decal/cleanable/dirt,
@@ -58559,7 +58559,7 @@
 	icon_state = "tall_grass_4";
 	layer = 6
 	},
-/turf/open/indestructible/ground/outside/desert/sonora/coarse,
+/turf/open/indestructible/ground/outside/desert,
 /area/f13/wasteland)
 "uBi" = (
 /obj/machinery/door/window/left/directional/east,
@@ -58693,7 +58693,7 @@
 /obj/structure/destructible/tribal_torch/lit{
 	pixel_x = -9
 	},
-/turf/open/indestructible/ground/outside/desert/sonora/coarse,
+/turf/open/indestructible/ground/outside/desert,
 /area/f13/wasteland)
 "uDV" = (
 /obj/structure/flora/grass/wasteland{
@@ -62379,7 +62379,7 @@
 /area/f13/village)
 "wwQ" = (
 /obj/structure/flora/grass/coyote/twenty,
-/turf/open/indestructible/ground/outside/desert/sonora/coarse,
+/turf/open/indestructible/ground/outside/desert,
 /area/f13/wasteland)
 "wwW" = (
 /obj/structure/junk/cabinet,
@@ -62511,7 +62511,7 @@
 /area/f13/wasteland)
 "wzR" = (
 /obj/structure/fence/wooden,
-/turf/open/indestructible/ground/outside/desert/sonora/coarse,
+/turf/open/indestructible/ground/outside/desert,
 /area/f13/wasteland)
 "wAf" = (
 /obj/machinery/microwave/stove,
@@ -62856,7 +62856,7 @@
 /area/f13/building/museum)
 "wGa" = (
 /obj/structure/flora/grass/coyote/twenty,
-/turf/open/indestructible/ground/outside/desert/sonora/coarse,
+/turf/open/indestructible/ground/outside/desert,
 /area/f13/legion)
 "wGg" = (
 /turf/open/indestructible/ground/outside/sidewalk,
@@ -63011,7 +63011,7 @@
 /area/f13/wasteland)
 "wLc" = (
 /obj/structure/flora/rock/pile/largejungle,
-/turf/open/indestructible/ground/outside/desert/sonora/coarse,
+/turf/open/indestructible/ground/outside/desert,
 /area/f13/wasteland)
 "wLd" = (
 /obj/item/chair/wood/modern,
@@ -63418,7 +63418,7 @@
 /obj/structure/flora/grass/wasteland{
 	icon_state = "tall_grass_4"
 	},
-/turf/open/indestructible/ground/outside/desert/sonora/coarse,
+/turf/open/indestructible/ground/outside/desert,
 /area/f13/wasteland)
 "wUv" = (
 /obj/effect/decal/cleanable/dirt,
@@ -65101,7 +65101,7 @@
 /area/f13/wasteland/khans)
 "xGN" = (
 /obj/structure/flora/grass/coyote/one,
-/turf/open/indestructible/ground/outside/desert/sonora/coarse,
+/turf/open/indestructible/ground/outside/desert,
 /area/f13/caves)
 "xGX" = (
 /obj/structure/window/fulltile/house/broken,
@@ -65138,7 +65138,7 @@
 	dir = 4;
 	icon_state = "post_wood"
 	},
-/turf/open/indestructible/ground/outside/desert/sonora/coarse,
+/turf/open/indestructible/ground/outside/desert,
 /area/f13/wasteland)
 "xHH" = (
 /obj/structure/barricade/wooden,
@@ -65162,7 +65162,7 @@
 /area/f13/village)
 "xJd" = (
 /obj/structure/flora/grass/coyote/nineteen,
-/turf/open/indestructible/ground/outside/desert/sonora/coarse,
+/turf/open/indestructible/ground/outside/desert,
 /area/f13/caves)
 "xJf" = (
 /obj/effect/decal/cleanable/blood/gibs/human/lizard,
@@ -65792,7 +65792,7 @@
 	icon_state = "post_wood"
 	},
 /obj/structure/barricade/wooden,
-/turf/open/indestructible/ground/outside/desert/sonora/coarse,
+/turf/open/indestructible/ground/outside/desert,
 /area/f13/wasteland)
 "xZu" = (
 /obj/item/storage/trash_stack{
@@ -65871,7 +65871,7 @@
 /area/f13/city)
 "ybI" = (
 /obj/structure/flora/grass/coyote/two,
-/turf/open/indestructible/ground/outside/desert/sonora/coarse,
+/turf/open/indestructible/ground/outside/desert,
 /area/f13/wasteland)
 "ybU" = (
 /obj/effect/decal/cleanable/robot_debris,
@@ -65971,7 +65971,7 @@
 /area/f13/wasteland)
 "yef" = (
 /obj/structure/flora/grass/coyote/twentyone,
-/turf/open/indestructible/ground/outside/desert/sonora/coarse,
+/turf/open/indestructible/ground/outside/desert,
 /area/f13/wasteland)
 "yel" = (
 /obj/effect/decal/cleanable/dirt,
