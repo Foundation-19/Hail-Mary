@@ -892,7 +892,9 @@
 				/obj/effect/spawner/bundle/f13/m1garand,
 				/obj/effect/spawner/bundle/f13/deagle,
 				/obj/effect/spawner/bundle/f13/automag,
-				/obj/item/gun/ballistic/automatic/smg/american180
+				/obj/item/gun/ballistic/automatic/smg/american180,
+				/obj/item/gun/ballistic/rifle/repeater/ranger,
+				/obj/item/gun/ballistic/automatic/smg/ppsh
 				)
 
 /obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/highmid
@@ -920,6 +922,7 @@
 				/obj/item/gun/ballistic/shotgun/automatic/combat/citykiller = 10,
 				/obj/effect/spawner/bundle/f13/guns/p90 = 5,
 				/obj/item/gun/ballistic/automatic/lsw = 5,
+				/obj/item/gun/ballistic/automatic/lewis/lanoe = 5
 				)
 
 /obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/superhigh
