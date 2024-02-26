@@ -874,7 +874,7 @@ Weapons		Lever shotgun, Grease gun, Repeater carbines, Revolvers, simple guns al
 
 /datum/outfit/loadout/primebrave
 	name = "Skirmish"
-	suit_store = /obj/item/twohanded/sledgehammer
+	suit_store = /obj/item/twohanded/sledgehammer/simple
 	backpack_contents = list(
 		/obj/item/storage/backpack/spearquiver = 1,
 		/obj/item/reagent_containers/pill/patch/healpoultice = 2,
