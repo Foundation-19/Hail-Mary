@@ -7,7 +7,7 @@
 	category = LOADOUT_CATEGORY_DONATOR
 	ckeywhitelist = list("This entry should never appear with this variable set.") //If it does, then that means somebody fucked up the whitelist system pretty hard
 	cost = 0
-
+/*
 /datum/gear/donator/donortestingbikehorn
 	name = "Donor item testing"
 	slot = SLOT_IN_BACKPACK
@@ -1156,6 +1156,8 @@
 	new /obj/item/gun/energy/laser/pistol(src)
 	new /obj/item/stock_parts/cell/ammo/ec(src)
 	new /obj/item/stock_parts/cell/ammo/ec(src)
+
+*/
 
 //Mayor Kit
 
