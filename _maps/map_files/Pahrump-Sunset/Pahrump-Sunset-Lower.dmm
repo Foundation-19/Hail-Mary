@@ -3729,6 +3729,7 @@
 /obj/effect/decal/cleanable/blood/gibs/down{
 	icon_state = "gib1-old"
 	},
+/obj/structure/rack,
 /turf/open/floor/f13/wood,
 /area/f13/building)
 "bNu" = (
@@ -11683,9 +11684,7 @@
 /area/f13/den)
 "hsH" = (
 /obj/structure/rack,
-/obj/item/clothing/gloves/Biker,
-/obj/item/clothing/under/f13/Retro_Biker_Vest,
-/obj/item/clothing/head/fluff/Bikerhelmet,
+/obj/item/melee/coyote/crudeblade,
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/caves)
 "hsM" = (
@@ -18059,6 +18058,10 @@
 	icon_state = "yellowdirtyfull"
 	},
 /area/f13/bunker)
+"nio" = (
+/obj/structure/rack,
+/turf/closed/wall/f13/wood/house,
+/area/f13/building)
 "niu" = (
 /obj/structure/table/glass,
 /obj/item/reagent_containers/glass/beaker/large,
@@ -20099,6 +20102,7 @@
 "oXp" = (
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/highmid,
+/obj/structure/rack,
 /turf/open/floor/f13/wood,
 /area/f13/building)
 "oXt" = (
@@ -23849,6 +23853,7 @@
 "stX" = (
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/f13/weapon/melee/random_high,
+/obj/structure/rack,
 /turf/open/floor/f13/wood,
 /area/f13/building)
 "sub" = (
@@ -26319,6 +26324,11 @@
 	icon_state = "darkrustysolid"
 	},
 /area/f13/bunker)
+"uDV" = (
+/obj/effect/spawner/lootdrop/f13/junkspawners,
+/obj/structure/rack,
+/turf/open/floor/f13/wood,
+/area/f13/building)
 "uDW" = (
 /obj/structure/barricade/sandbags,
 /turf/open/floor/f13{
@@ -56868,7 +56878,7 @@ aaa
 abP
 abP
 abP
-abP
+nio
 abP
 aaa
 aae
@@ -57381,7 +57391,7 @@ abP
 abP
 abP
 bNt
-aUy
+uDV
 alc
 abP
 aaa

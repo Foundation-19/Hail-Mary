@@ -54392,6 +54392,10 @@
 /obj/machinery/iv_drip,
 /turf/open/floor/plasteel/neutral,
 /area/f13/building/hospital)
+"sxN" = (
+/obj/effect/landmark/start/f13/deputy,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/city)
 "sxW" = (
 /obj/structure/fence/corner{
 	dir = 8
@@ -63649,6 +63653,12 @@
 	icon_state = "outerborder"
 	},
 /area/f13/wasteland)
+"wWQ" = (
+/obj/effect/landmark/start/f13/quartermaster,
+/turf/open/floor/f13{
+	icon_state = "yellowrustychess"
+	},
+/area/f13/city)
 "wWS" = (
 /obj/structure/destructible/tribal_torch/lit{
 	light_power = 0.8
@@ -89452,7 +89462,7 @@ clv
 hRC
 ybs
 vuk
-vuk
+sxN
 wfq
 slb
 xbG
@@ -100259,7 +100269,7 @@ sel
 oIA
 emg
 rud
-rud
+wWQ
 dRF
 xLy
 aiO
