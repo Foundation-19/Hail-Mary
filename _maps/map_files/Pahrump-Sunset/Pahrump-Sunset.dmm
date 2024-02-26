@@ -30632,7 +30632,6 @@
 /area/f13/village)
 "hhK" = (
 /obj/structure/destructible/tribal_torch/lit{
-	layer = ABOVE_MOB_LAYER;
 	light_power = 0.7;
 	light_range = 5;
 	pixel_x = -7
@@ -38173,7 +38172,6 @@
 	layer = 2
 	},
 /obj/structure/destructible/tribal_torch/lit{
-	layer = ABOVE_MOB_LAYER;
 	pixel_x = -8
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
@@ -44101,7 +44099,6 @@
 /area/f13/wasteland)
 "nvO" = (
 /obj/structure/destructible/tribal_torch/lit{
-	layer = ABOVE_MOB_LAYER;
 	pixel_x = 10
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
@@ -51584,7 +51581,6 @@
 /area/f13/wasteland)
 "qZd" = (
 /obj/structure/destructible/tribal_torch/lit{
-	layer = ABOVE_MOB_LAYER;
 	light_power = 0.7;
 	light_range = 5;
 	pixel_x = 8
