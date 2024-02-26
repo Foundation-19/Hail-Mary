@@ -1,7 +1,24 @@
 ///////////////////
 // SMG MAGAZINES //
 ///////////////////
+/obj/item/ammo_box/magazine/m10mm/smg
+	name = "submachine gun magazine (10mm)"
+	icon_state = "smg10mm"
+	ammo_type = /obj/item/ammo_casing/c10mm
+	max_ammo = 30
+	multiple_sprites = 2
+	custom_materials = list(/datum/material/iron = MATS_SMG)
+	w_class = WEIGHT_CLASS_SMALL
 
+/obj/item/ammo_box/magazine/m10mm/smg/empty
+	start_empty = 1
+
+/obj/item/ammo_box/magazine/m10mm/smg/ext
+	name = "extended submachine gun magazine (10mm)"
+	max_ammo = 40
+
+/obj/item/ammo_box/magazine/m10mm/smg/ext/empty
+	start_empty = 1
 
 /obj/item/ammo_box/magazine/cg45
 	name = "Carl Gustaf magazine (10mm)"
