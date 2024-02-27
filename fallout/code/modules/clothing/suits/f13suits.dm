@@ -45,13 +45,3 @@ Just leaving this here for quick copy-pasting, for future contributors.
 	desc = "A rather crude looking, olive trenchcoat with yellow linings and arm patches.<br>Guess war can be boring too."
 	icon_state = "goner_suit_y"
  */
-
-/obj/item/clothing/suit/armor/medium/duster/trenchcoat/minutemen
-	name = "minutemen coat"
-	desc = "An armoured trenchcoat, modified and branded with Minutemen insignias and designs."
-	icon = 'fallout/icons/obj/clothing/minutemen.dmi'
-	mob_overlay_icon = 'fallout/icons/mob/clothing/minutemen.dmi'
-	icon_state = "mm_coat"
-	item_state = "mm_coat"
-	mutantrace_variation = NONE
-	body_parts_covered = CHEST|ARMS|LEGS

@@ -107,10 +107,10 @@
 	freq_listening = list(FREQ_VAULT)
 	autolinkers = list("vault")
 
-/obj/machinery/telecomms/server/presets/minutemen
-	id = "Minutemen Server"
-	freq_listening = list(FREQ_MINUTEMEN)
-	autolinkers = list("MINUTEMEN")
+/obj/machinery/telecomms/server/presets/ncr
+	id = "NCR Server"
+	freq_listening = list(FREQ_NCR)
+	autolinkers = list("ncr")
 
 /obj/machinery/telecomms/server/presets/bos
 	id = "BOS Server"
