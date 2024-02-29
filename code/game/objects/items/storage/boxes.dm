@@ -1453,7 +1453,7 @@ list(/obj/item/stack/sheet/metal = 20,
 							/obj/item/book/granter/crafting_recipe/blueprint/scoutcarbine,
 							/obj/item/book/granter/crafting_recipe/blueprint/deagle,
 							/obj/item/book/granter/crafting_recipe/blueprint/marksman,
-							/obj/item/book/granter/crafting_recipe/blueprint/pps
+							/obj/item/book/granter/crafting_recipe/blueprint/pps,
 							)
 		new randomgun(src)
 
@@ -1469,7 +1469,7 @@ list(/obj/item/stack/sheet/metal = 20,
 							/obj/item/book/granter/crafting_recipe/blueprint/r84,
 							/obj/item/book/granter/crafting_recipe/blueprint/armalite,
 							/obj/item/book/granter/crafting_recipe/blueprint/leveraction,
-							/obj/item/book/granter/crafting_recipe/blueprint/sniper
+							/obj/item/book/granter/crafting_recipe/blueprint/sniper,
 							)
 		new randomgun(src)	
 
@@ -1482,7 +1482,7 @@ list(/obj/item/stack/sheet/metal = 20,
 		var/randomgun = pick(
 							/obj/item/book/granter/crafting_recipe/blueprint/plasmapistol,
 							/obj/item/book/granter/crafting_recipe/blueprint/lightplasmapistol,
-							/obj/item/book/granter/crafting_recipe/blueprint/aer9/focused
+							/obj/item/book/granter/crafting_recipe/blueprint/aer9/focused,
 							)
 		new randomgun(src)
 
@@ -1491,10 +1491,9 @@ list(/obj/item/stack/sheet/metal = 20,
 	desc = "A box used by the BoS to store Blueprints. This one seems robust."
 	
 /obj/item/storage/box/bos/PopulateContents()
-	for(var/i in 1 to 2)
 		var/randomgun = pick(
 							/obj/item/book/granter/crafting_recipe/blueprint/tribeam,
 							/obj/item/book/granter/crafting_recipe/blueprint/rcw,
-							/obj/item/book/granter/crafting_recipe/blueprint/plasmarifle
+							/obj/item/book/granter/crafting_recipe/blueprint/plasmarifle,
 							)
 		new randomgun(src)	
