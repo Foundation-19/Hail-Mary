@@ -1461,8 +1461,8 @@ list(/obj/item/stack/sheet/metal = 20,
 	name = "Senior Knight Blueprints"
 	desc = "A box used by the BoS to store Blueprints. This one seems robust."
 	
-/obj/item/storage/box/bos/PopulateContents()
-	for(var/i in 1 to 2)
+/obj/item/storage/box/bos/senior/PopulateContents()
+	for(var/i in 1 to 3)
 		var/randomgun = pick(
 							/obj/item/book/granter/crafting_recipe/blueprint/magnum_revolver,
 							/obj/item/book/granter/crafting_recipe/blueprint/r82,
@@ -1477,7 +1477,7 @@ list(/obj/item/stack/sheet/metal = 20,
 	name = "Scribe Blueprints"
 	desc = "A box used by the BoS to store Blueprints."
 	
-/obj/item/storage/box/bos/PopulateContents()
+/obj/item/storage/box/bos/scribe/PopulateContents()
 	for(var/i in 1 to 2)
 		var/randomgun = pick(
 							/obj/item/book/granter/crafting_recipe/blueprint/plasmapistol,
@@ -1490,7 +1490,7 @@ list(/obj/item/stack/sheet/metal = 20,
 	name = "Senior Scribe Blueprints"
 	desc = "A box used by the BoS to store Blueprints. This one seems robust."
 	
-/obj/item/storage/box/bos/PopulateContents()
+/obj/item/storage/box/bos/scribe/senior/PopulateContents()
 		var/randomgun = pick(
 							/obj/item/book/granter/crafting_recipe/blueprint/tribeam,
 							/obj/item/book/granter/crafting_recipe/blueprint/rcw,

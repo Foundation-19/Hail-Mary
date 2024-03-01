@@ -612,8 +612,7 @@ Scribe
 		/obj/item/melee/onehanded/knife/survival = 1,
 		/obj/item/storage/firstaid/regular = 1,
 		/obj/item/gun/energy/laser/pistol = 1,
-		/obj/item/stock_parts/cell/ammo/ec = 3,
-		/obj/item/reagent_containers/hypospray/medipen/stimpak = 5,
+		/obj/item/reagent_containers/hypospray/medipen/stimpak = 3,
 		/obj/item/storage/box/bos/scribe = 1
 		)
 
@@ -629,6 +628,21 @@ Scribe
 	backpack_contents = list(
 		/obj/item/clothing/accessory/bos/scribe = 1
 		)
+
+/datum/outfit/job/bos/f13scribe/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	..()
+	if(visualsOnly)
+		return
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/jet)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/turbo)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/psycho)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/medx)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/medx/chemistry)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/buffout)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/steady)
+	ADD_TRAIT(H, TRAIT_CHEMWHIZ, src)
+	ADD_TRAIT(H, TRAIT_SURGERY_HIGH, src)
+	ADD_TRAIT(H, TRAIT_CYBERNETICIST, src)
 
 /*
 Senior Knight
@@ -690,8 +704,7 @@ Senior Knight
 	gunsmith_four = TRUE
 	backpack_contents = list(
 		/obj/item/melee/onehanded/knife/hunting = 1,
-		/obj/item/storage/belt/army/assault = 1,
-		/obj/item/reagent_containers/hypospray/medipen/stimpak = 5,
+		/obj/item/reagent_containers/hypospray/medipen/stimpak = 3,
 		/obj/item/storage/box/bos/senior = 1,
 		/obj/item/book/granter/crafting_recipe/gunsmith_one = 1,
 		/obj/item/book/granter/crafting_recipe/gunsmith_two = 1,
