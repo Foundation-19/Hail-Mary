@@ -202,8 +202,8 @@ Paladin Commander
 		H.mind.AddSpell(S)
 
 /datum/outfit/job/bos/f13commander
-	name = "Paladin Commander"
-	jobtype = /datum/job/bos/f13sentinel
+	name = "Head Paladin"
+	jobtype = /datum/job/bos/f13paladincommander
 	uniform = /obj/item/clothing/under/f13/recon
 	belt = /obj/item/storage/belt/army/assault
 	accessory = /obj/item/clothing/accessory/bos/sentinel
@@ -631,7 +631,7 @@ Scribe
 		)
 
 /*
-Knight-Sergeant
+Senior Knight
 */
 
 /datum/job/bos/f13seniorknight
@@ -671,7 +671,6 @@ Knight-Sergeant
 		return
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/AER9)
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/AEP7)
-	H.mind.teach_crafting_recipe(/datum/crafting_recipe/dks)
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/R93)
 
 /datum/outfit/job/bos/f13seniorknight
@@ -693,7 +692,11 @@ Knight-Sergeant
 		/obj/item/melee/onehanded/knife/hunting = 1,
 		/obj/item/storage/belt/army/assault = 1,
 		/obj/item/reagent_containers/hypospray/medipen/stimpak = 5,
-		/obj/item/storage/box/bos/senior = 1
+		/obj/item/storage/box/bos/senior = 1,
+		/obj/item/book/granter/crafting_recipe/gunsmith_one = 1,
+		/obj/item/book/granter/crafting_recipe/gunsmith_two = 1,
+		/obj/item/book/granter/crafting_recipe/gunsmith_three = 1,
+		/obj/item/book/granter/crafting_recipe/gunsmith_four = 1,
 		)
 /*
 /datum/outfit/loadout/sknightb
@@ -783,7 +786,6 @@ Knight
 		/obj/item/reagent_containers/hypospray/medipen/stimpak = 1,
 		/obj/item/book/granter/crafting_recipe/gunsmith_one = 1,
 		/obj/item/book/granter/crafting_recipe/gunsmith_two = 1,
-		/obj/item/stock_parts/cell/ammo/mfc = 5,
 		/obj/item/storage/box/bos = 1
 		)
 /*
