@@ -841,3 +841,25 @@
 		if(istype(A, action_type))
 			return A
 	return
+
+/datum/action/proc/give_action(mob/M)
+	if(owner)
+		if(owner == M)
+			return
+		remove_action(owner)
+	owner = M
+	M.actions += src
+	if(M.client)
+		M.client.screen += button
+	M.update_action_buttons()
+	M.actions_by_path[type] = src
+	SEND_SIGNAL(M, ACTION_GIVEN)
+
+/datum/action/proc/remove_action(mob/M)
+	if(M.client)
+		M.client.screen -= button
+	M.actions_by_path[type] = null
+	M.actions -= src
+	M.update_action_buttons()
+	owner = null
+	SEND_SIGNAL(M, ACTION_REMOVED)

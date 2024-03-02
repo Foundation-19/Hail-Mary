@@ -23,3 +23,4 @@
 #define CLOTHING_SHREDDED	2 // The clothing is useless and cannot be equipped unless repaired first
 
 // If you add new ones, be sure to add them to /obj/Initialize as well for complete mapping support
+#define ITEM_UNEQUIP_UNEQUIPPED 0
