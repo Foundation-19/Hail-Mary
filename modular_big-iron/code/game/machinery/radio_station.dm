@@ -113,7 +113,7 @@
 	resistance_flags = INDESTRUCTIBLE	//Need to do this so that it can't be destroyed before the music starts playing.
 
 	can_eject_disk = 0
-	cooldowntime = world.time + 0001
+	cooldowntime = world.time + 500
 	for(var/obj/item/radio/R in GLOB.radio_list) //Calls the playmusic() proc for every radio in radio_list (everyone)
 		R.playmusic(selectedtrack, selectedtrackname, volume)
 
