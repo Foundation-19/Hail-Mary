@@ -85,7 +85,6 @@
 		if(!R)
 			R = I
 			I.forceMove(src)
-			add_overlay("radio_station_disk")
 			playsound(src, 'sound/effects/plastic_click.ogg', 100, 0)
 			selectedtrack = R.R.song_path
 			if(R.R.song_name != "CUSTOM")
