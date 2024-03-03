@@ -139,9 +139,7 @@
 
 /obj/machinery/radio_station/update_icon()
 	..()
-	cut_overlays()
 	if(!(stat & (NOPOWER|BROKEN) || . & EMP_PROTECT_SELF))
-		add_overlay("radio_station_on")
 		luminosity = 1
 		set_light(brightness_on)
 		return
