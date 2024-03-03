@@ -99,6 +99,9 @@ GLOBAL_LIST_EMPTY(PDAs)
 	var/list/blocked_pdas
 
 	var/list/saved_frequencies = list("Common" = FREQ_COMMON)
+	var/music_channel
+	var/TimerID
+	var/obj/item/record_disk/R
 
 /obj/item/pda/suicide_act(mob/living/carbon/user)
 	var/deathMessage = msg_input(user)
@@ -122,6 +125,11 @@ GLOBAL_LIST_EMPTY(PDAs)
 		set_light(f_lum, f_pow, f_col)
 
 	GLOB.PDAs += src
+	GLOB.radio_list += src //Big Iron. Adds the PDA to the global radio list
+	var/i
+	for(i = 1; i <= GLOB.radio_list.len; i++)
+		if(GLOB.radio_list[i] == src)
+			music_channel = i
 	if(default_cartridge)
 		cartridge = new default_cartridge(src)
 	if(inserted_item)
@@ -397,7 +405,10 @@ GLOBAL_LIST_EMPTY(PDAs)
 				dat += "<a href='byond://?src=[REF(src)];choice=Toggle Messenger'>[PDAIMG(mail)]Send / Receive: [toff == 1 ? "Off" : "On"]</a> | "
 				dat += "<a href='byond://?src=[REF(src)];choice=Ringtone'>[PDAIMG(bell)]Set Ringtone</a> | "
 				dat += "<a href='byond://?src=[REF(src)];choice=21'>[PDAIMG(mail)]Messages</a><br>"
-
+				if(R)
+					dat += "<li><a href='byond://?src=[REF(src)];choice=9'>Eject record disk</a></li>" //Big-iron
+					dat += "<li><a href='byond://?src=[REF(src)];choice=10'>Play record disk</a></li>"
+					dat += "<li><a href='byond://?src=[REF(src)];choice=11'>Stop record disk</a></li>"
 				if(cartridge)
 					dat += cartridge.message_header()
 
@@ -476,6 +487,23 @@ GLOBAL_LIST_EMPTY(PDAs)
 						dat += "<li><a href='?src=[REF(src)];rloadfreq=[saved_frequencies[freq]]'>[freq] ([format_frequency(saved_frequencies[freq])])</a>"
 						dat += " (<a href='?src=[REF(src)];rdelfreq=[saved_frequencies[freq]]'>Delete</a> | <a href='?src=[REF(src)];rrenfreq=[saved_frequencies[freq]]'>Rename</a>)</li>"
 					dat += "</ul>"
+			if(9)
+				if(R)
+					stopMusic(user)
+					R.forceMove(get_turf(src))
+					playsound(src, 'sound/effects/plastic_click.ogg', 100, 0)
+					R = null
+				else
+					to_chat(src.loc, "<span class='danger'>No record disk inserted!</span>")
+				mode = 0
+
+			if(10)
+				playMusic()
+				mode = 0
+
+			if(11)
+				stopMusic(user)
+				mode = 0
 
 			else//Else it links to the cart menu proc. Although, it really uses menu hub 4--menu 4 doesn't really exist as it simply redirects to hub.
 				dat += cartridge.generate_menu()
@@ -1093,6 +1121,15 @@ GLOBAL_LIST_EMPTY(PDAs)
 		to_chat(user, span_notice("You insert [cartridge] into [src]."))
 		update_icon()
 		playsound(src, 'sound/machines/button.ogg', 50, 1)
+		if(istype(C, /obj/item/record_disk))
+			if(R)
+				to_chat(user, "<span class='danger'>A record disk is already inserted!</span>")
+				return
+			else
+				R = C
+				C.forceMove(src)
+				playsound(src, 'sound/effects/plastic_click.ogg', 100, 0)
+				playMusic(user)
 
 	else if(istype(C, /obj/item/card/id))
 		var/obj/item/card/id/idcard = C
@@ -1219,6 +1256,8 @@ GLOBAL_LIST_EMPTY(PDAs)
 
 /obj/item/pda/Destroy()
 	GLOB.PDAs -= src
+	GLOB.radio_list -= src //Big iron. Removes from global radio list
+	stopMusic()
 	if(istype(id))
 		QDEL_NULL(id)
 	if(istype(cartridge))
@@ -1318,6 +1357,17 @@ GLOBAL_LIST_EMPTY(PDAs)
 			continue
 		. += P
 
+/obj/item/pda/proc/playMusic(mob/living/user)
+	if(istype(src.loc, /mob/living))
+		user = src.loc
+		if(item_flags & IN_INVENTORY)
+			playsound(user, R.R.song_path, 100, channel = music_channel) //plays the music to the user
+			to_chat(user, "<span class='notice'>You play the [R] on your PDA.</span>")
+		else
+			to_chat(user, "<span class='warning'>The [src] must be in your inventory to play music!</span>")
+/obj/item/pda/proc/stopMusic(mob/user)
+	playsound(user, 'sound/machines/button.ogg', 50, channel = music_channel)
+	playsound(user, null, channel = music_channel)
 
 #undef PDA_SCANNER_NONE
 #undef PDA_SCANNER_MEDICAL
