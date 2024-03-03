@@ -21,10 +21,10 @@
 /obj/item/mecha_ammo/attack_self(mob/user)
 	..()
 	if(rounds)
-		to_chat(user, span_warning("You cannot flatten the ammo box until it's empty!"))
+		to_chat(user, "<span class='warning'>You cannot flatten the ammo box until it's empty!</span>")
 		return
 
-	to_chat(user, span_notice("You fold [src] flat."))
+	to_chat(user, "<span class='notice'>You fold [src] flat.</span>")
 	var/I = new /obj/item/stack/sheet/metal(user.loc)
 	qdel(src)
 	user.put_in_hands(I)
@@ -50,9 +50,16 @@
 
 /obj/item/mecha_ammo/lmg
 	name = "machine gun ammo"
-	desc = "A box of linked ammunition, designed for the Ultra AC 2 exosuit weapon."
+	desc = "A box of linked ammunition, designed for multiple LMGs."
 	icon_state = "lmg"
 	rounds = 300
+	ammo_type = "lmg"
+
+/obj/item/mecha_ammo/lmg/craftable
+	name = "handmade machine gun ammo"
+	desc = "A box of linked ammunition, designed for multiple LMGs."
+	icon_state = "lmg"
+	rounds = 150
 	ammo_type = "lmg"
 
 /obj/item/mecha_ammo/missiles_br

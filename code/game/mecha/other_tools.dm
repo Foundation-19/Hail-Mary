@@ -142,7 +142,7 @@
 	icon_state = "backseat"
 	energy_drain = 5
 	range = MELEE
-	equip_cooldown = 5
+	equip_cooldown = 20
 	var/mob/living/carbon/patient = null
 	salvageable = 0
 	mech_flags = EXOSUIT_MODULE_COMBAT
@@ -183,7 +183,7 @@
 		occupant_message("<span class='warning'>[target] will not fit into the seat because of the creatures attached to it!</span>")
 		return
 	if(patient)
-		occupant_message("<span class='warning'>The seat is already occupied!</span>")
+		occupant_message("<span class='warning'>The seater is already occupied!</span>")
 		return
 	return 1
 

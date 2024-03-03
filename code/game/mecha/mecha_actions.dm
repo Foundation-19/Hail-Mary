@@ -182,7 +182,6 @@
 		chassis.mecha_log_message("Toggled thrusters.")
 		chassis.occupant_message("<font color='[chassis.thrusters_active ?"blue":"red"]'>Thrusters [chassis.thrusters_active ?"en":"dis"]abled.")
 
-
 /datum/action/innate/mecha/mech_defense_mode
 	name = "Toggle Defense Mode"
 	button_icon_state = "mech_defense_mode_off"
@@ -209,13 +208,13 @@
 		chassis.bumpsmash = 1
 		chassis.step_in = max(1, round(chassis.step_in*0.75, 0.25))
 		chassis.step_energy_drain = max(chassis.overload_step_energy_drain_min,chassis.step_energy_drain*chassis.leg_overload_coeff)
-		chassis.occupant_message(span_danger("You enable leg actuators overload."))
+		chassis.occupant_message("<span class='danger'>You enable leg actuators overload.</span>")
 	else
 		chassis.leg_overload_mode = 0
 		chassis.bumpsmash = 0
 		chassis.step_in = initial(chassis.step_in)
 		chassis.step_energy_drain = chassis.normal_step_energy_drain
-		chassis.occupant_message(span_notice("You disable leg actuators overload."))
+		chassis.occupant_message("<span class='notice'>You disable leg actuators overload.</span>")
 	UpdateButtonIcon()
 
 /datum/action/innate/mecha/mech_smoke
@@ -245,7 +244,7 @@
 		chassis.mecha_log_message("Toggled zoom mode.")
 		chassis.occupant_message("<font color='[chassis.zoom_mode?"blue":"red"]'>Zoom mode [chassis.zoom_mode?"en":"dis"]abled.</font>")
 		if(chassis.zoom_mode)
-			owner.client.change_view(12)
+			owner.client.change_view(16)
 			SEND_SOUND(owner, sound('sound/mecha/imag_enh.ogg',volume=50))
 		else
 			owner.client.change_view(CONFIG_GET(string/default_view)) //world.view - default mob view size
@@ -284,4 +283,51 @@
 	chassis.phasing = !chassis.phasing
 	button_icon_state = "mech_phasing_[chassis.phasing ? "on" : "off"]"
 	chassis.occupant_message("<font color=\"[chassis.phasing?"#00f\">En":"#f00\">Dis"]abled phasing.</font>")
+
+/datum/action/innate/mecha/klaxon
+	name = "Klaxon"
+	button_icon_state = "mech_damtype_brute"
+
+/datum/action/innate/mecha/klaxon/Activate()
+	playsound(chassis,'sound/f13machines/klaxon.ogg', 50, 1)
+
+/datum/action/innate/mecha/sirens
+	name = "Sirens"
+	button_icon_state = "mech_damtype_brute"
+
+/datum/action/innate/mecha/sirens/Activate()
+	playsound(chassis,'sound/f13machines/police.ogg', 50, 1)
+
+// LAND BIRD LAND
+
+/datum/action/innate/mecha/landing
+	name = "Landing"
+	button_icon_state = "mech_overload_off"
+
+/datum/action/innate/mecha/landing/Activate(forced_state = null)
+	if(!owner || !chassis || chassis.occupant != owner)
+		return
+	if(!isnull(forced_state))
+		chassis.landing_mode = forced_state
+	else
+		chassis.landing_mode = !chassis.landing_mode
+	button_icon_state = "mech_overload_[chassis.landing_mode ? "on" : "off"]"
+	chassis.mecha_log_message("Landing")
+	if(chassis.landing_mode)
+		chassis.landing_mode = 1
+		chassis.bumpsmash = 1
+		chassis.step_in = 7
+		chassis.step_energy_drain = 0.8
+		chassis.occupant_message("<span class='danger'>You are landing.</span>")
+		chassis.mechjumptocoord(4)
+	else
+		chassis.landing_mode = 0
+		chassis.bumpsmash = 0
+		chassis.step_in = initial(chassis.step_in)
+		chassis.step_energy_drain = chassis.normal_step_energy_drain
+		chassis.occupant_message("<span class='notice'>You are taking off.</span>")
+		chassis.mechjumptocoord(5)
+
 	UpdateButtonIcon()
+
+

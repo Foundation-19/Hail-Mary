@@ -9,7 +9,7 @@
 	icon_state = "marauder"
 	step_in = 5
 	max_integrity = 500
-	armor = ARMOR_VALUE_HEAVY
+	armor = list("melee" = 60, "bullet" = 60, "laser" = 40, "energy" = 30, "bomb" = 60, "bio" = 0, "rad" = 75, "fire" = 100, "acid" = 100)
 	max_temperature = 60000
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	infra_luminosity = 3
@@ -47,7 +47,7 @@
 	icon_state = "seraph"
 	step_in = 3
 	max_integrity = 1000
-	armor = ARMOR_VALUE_HEAVY
+	armor = list("melee" = 75, "bullet" = 70, "laser" = 50, "energy" = 60, "bomb" = 60, "bio" = 0, "rad" = 100, "fire" = 100, "acid" = 100)
 	infra_luminosity = 1
 	wreckage = /obj/structure/mecha_wreckage/seraph
 	internal_damage_threshold = 20
