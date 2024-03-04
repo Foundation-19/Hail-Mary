@@ -208,7 +208,7 @@
 	ranged_cooldown_time = 2 SECONDS
 	auto_fire_delay = GUN_AUTOFIRE_DELAY_FAST
 	projectiletype = /obj/item/projectile/bullet/c10mm/improvised
-	loot = list(/obj/item/gun/ballistic/automatic/smg/smg10mm, /obj/item/clothing/head/helmet/f13/combat/mk2/raider, /obj/effect/spawner/lootdrop/f13/armor/randomraiderchest, /obj/item/clothing/under/f13/ravenharness, /obj/item/stack/f13Cash/random/high)
+	loot = list(/obj/item/gun/ballistic/automatic/smg/smg10mm, /obj/item/clothing/head/helmet/f13/combat/mk2/raider, /obj/effect/spawner/lootdrop/f13/armor/random, /obj/item/clothing/under/f13/ravenharness, /obj/item/stack/f13Cash/random/high)
 	loot_drop_amount = MOB_LOOT_ALL
 	loot_amount_random = FALSE
 	random_trash_loot = FALSE

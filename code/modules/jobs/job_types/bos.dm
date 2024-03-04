@@ -111,8 +111,8 @@ Sentinel
 	flag = F13SENTINEL
 	display_order = JOB_DISPLAY_ORDER_SENTINEL
 	head_announce = list("Security")
-	total_positions = 1
-	spawn_positions = 1
+	total_positions = 0
+	spawn_positions = 0
 	description = "You are the Sentinel of this local chapter of the Brotherhood of Steel. You may be a veteran of warfare, an experienced commander or even a genius Scribe, and you command all the men within this bunker. Your main goals are to lead the Brotherhood, to solve conflicts inbetween castes and to manage the Paladin Commander, Knight-Captain and Proctor."
 	supervisors = "the Council of Sentinels"
 	selection_color = "#7f8c8d"
@@ -159,8 +159,8 @@ Paladin Commander
 	title = "Paladin Commander"
 	flag = F13PALADINCOMMANDER
 	head_announce = list("Security")
-	total_positions = 1
-	spawn_positions = 1
+	total_positions = 0
+	spawn_positions = 0
 	description = "You are the acting field commander until the Brotherhood regains its strength enough to place an Elder for the bunker. You are a veteran of many battles and sorties in pursuit of Brotherhood goals; your only weakness may just be your hubris. Your main goals are defense of the Chapter and surveillance of the surrounding region for technology."
 	supervisors = "the Sentinel"
 	selection_color = "#7f8c8d"
@@ -246,8 +246,8 @@ Proctor
 	title = "Proctor"
 	flag = F13HEADSCRIBE
 	head_announce = list("Security")
-	total_positions = 1
-	spawn_positions = 1
+	total_positions = 0
+	spawn_positions = 0
 	description = "You are the foremost experienced scribe remaining in this bunker. Your role is to ensure the safekeeping and proper usage of technology within the Brotherhood. You are also the lead medical expert in this Chapter. Delegate your tasks to your Scribes."
 	supervisors = "the Sentinel"
 	selection_color = "#7f8c8d"
@@ -318,8 +318,8 @@ Knight-Captain
 	title = "Knight-Captain"
 	flag = F13KNIGHTCAPTAIN
 	head_announce = list("Security")
-	total_positions = 1
-	spawn_positions = 1
+	total_positions = 0
+	spawn_positions = 0
 	description = "You are the Knight-Captain, one of the leaders of your group of outcasts. After the attempted coup by the late Paladin Commander Wossner, you have been wandering the wastes, looking for a new home, and have now found a barely-acceptable place to construct your new chapters' bunker. Your knowledge of pre-war materials and engineering is almost unparalleled, and you have basic combat training and experience. You are in charge of establishing a working foothold, and your Knights and initiates. Delegate to them as necessary. As Chief Armorer, you are also in charge of the armory."
 	supervisors = "the Sentinel"
 	selection_color = "#7f8c8d"
@@ -373,8 +373,8 @@ Star Paladin
 /datum/job/bos/f13seniorpaladin
 	title = "Star Paladin"
 	flag = F13SENIORPALADIN
-	total_positions = 1
-	spawn_positions = 1
+	total_positions = 0
+	spawn_positions = 0
 	description = "As the Chapter's senior offensive warrior, you have proven your service and dedication to the Brotherhood over your time as a Paladin. As your skills gained, however, you were deigned to be more useful as a commander and trainer. Your job is to coordinate the Paladins and ensure they work as a team, instilling discipline as you go."
 	supervisors = "the Paladin Commander"
 	display_order = JOB_DISPLAY_ORDER_SENIORPALADIN
@@ -434,8 +434,8 @@ Paladin
 /datum/job/bos/f13paladin
 	title = "Paladin"
 	flag = F13PALADIN
-	total_positions = 1
-	spawn_positions = 1
+	total_positions = 0
+	spawn_positions = 0
 	description = "You are this Chapter's main line of defense and offense; highly trained in combat and weaponry though with little practical field experience, you are eager to prove your worth to the Brotherhood. Your primary duties are defense and surface operations. You may also be assigned a trainee Initiate."
 	supervisors = "the Head and Senior Paladin"
 	display_order = JOB_DISPLAY_ORDER_PALADIN
@@ -509,8 +509,8 @@ Senior Scribe
 /datum/job/bos/f13seniorscribe
 	title = "Senior Scribe"
 	flag = F13SENIORSCRIBE
-	total_positions = 2
-	spawn_positions = 2
+	total_positions = 0
+	spawn_positions = 0
 	description = "You are the bunker's seniormost medical and scientific expert in the bunker, sans the Proctor themselves. You are trained in both medicine and engineering, while also having extensive studies of the old world to assist in pinpointing what technology would be useful to the Brotherhood and its interests."
 	supervisors = "the Proctor"
 	display_order = JOB_DISPLAY_ORDER_SENIORSCRIBE
@@ -571,8 +571,8 @@ Scribe
 /datum/job/bos/f13scribe
 	title = "Scribe"
 	flag = F13SCRIBE
-	total_positions = 2
-	spawn_positions = 2
+	total_positions = 0
+	spawn_positions = 0
 	description = "You answer to senior members, tasked with researching and reverse-engineering recovered technologies from the old world, while maintaining the brotherhoods scientific archives. You may also be given a trainee to assign duties to."
 	supervisors = "the Head and Senior Scribe"
 	display_order = JOB_DISPLAY_ORDER_SCRIBE
@@ -637,8 +637,8 @@ Knight-Sergeant
 /datum/job/bos/f13seniorknight
 	title = "Knight-Sergeant"
 	flag = F13SENIORKNIGHT
-	total_positions = 2
-	spawn_positions = 2
+	total_positions = 0
+	spawn_positions = 0
 	description = "You report directly to the Knight-Captain. You are the Brotherhood Knight-Sergeant. Having served the Knight Caste for some time now, you are versatile and experienced in both basic combat and repairs, and also a primary maintainer of the Bunker's facilities. As your seniormost Knight, you may be assigned initiates or Junior Knights to mentor."
 	supervisors = "the Knight-Captain"
 	display_order = JOB_DISPLAY_ORDER_SENIORKNIGHT
@@ -731,8 +731,8 @@ Knight
 /datum/job/bos/f13knight
 	title = "Knight"
 	flag = F13KNIGHT
-	total_positions = 4
-	spawn_positions = 4
+	total_positions = 0
+	spawn_positions = 0
 	description = "You are the Brotherhood Knight, the veritable lifeblood of your organization. You are a versatile and adaptably trained person: from your primary duties of weapon & armor repair to basic combat, survival and stealth skills, the only thing you lack is proper experience. You are also in charge of Initiates."
 	supervisors = "the Head and Knight-Sergeant"
 	display_order = JOB_DISPLAY_ORDER_KNIGHT

@@ -71,40 +71,6 @@ GLOBAL_LIST_INIT(silicon_whitelist_positions, list(
 //NCR Assistant and Legion Camp Follower re-added to whitelisting.  BoS Initiate removed from whitelist.
 
 GLOBAL_LIST_INIT(faction_whitelist_positions, list(
-"Head Scribe",
-"Sentinel",
-"Head Paladin",
-"Head Knight",
-"Head Scribe",
-"Senior Paladin",
-"Paladin",
-"Senior Knight",
-"Knight",
-"Senior Scribe",
-"Scribe",
-"BoS Off-Duty",
-
-"Legion Centurion",
-"Legion Explorer",
-"Legion Slavemaster",
-"Legion Veteran Decanus",
-"Veteran Legionnaire",
-"Legion Prime Decanus",
-"Prime Legionnaire",
-"Legion Recruit Decanus",
-"Legion Scout",
-"Legion Auxilia",
-"Legion Slave",
-
-"Mayor",
-"Sheriff",
-"Deputy",
-"Texarkana Quartermaster",
-"Texarkana Trade Worker",
-"Doctor",
-"Prospector",
-"Detective",
-
 "Enclave Captain",
 "Enclave Lieutenant",
 "Enclave Sergeant",
@@ -112,22 +78,6 @@ GLOBAL_LIST_INIT(faction_whitelist_positions, list(
 "Enclave Specialist",
 "Enclave Scientist",
 "Enclave Private",
-
-"Chief",
-"Shaman",
-"Head Hunter",
-"Druid",
-"Hunter",
-
-"Noyan",
-"Steward",
-"Kheshig",
-"Khorchin",
-"Kipchak",
-
-"Senior Doctor",
-"Town Doctor",
-"Town Paramedic",
 
 "Cyborg",
 "Overseer",
@@ -240,7 +190,6 @@ GLOBAL_LIST_INIT(wasteland_positions, list(
 	"Vigilante",
 	"Preacher",
 	"Wastelander",
-	"Minuteman",
 ))
 
 GLOBAL_LIST_INIT(redwater_positions, list(
@@ -313,14 +262,14 @@ GLOBAL_LIST_INIT(mutant_positions, list(
 
 // job categories for rendering the late join menu
 GLOBAL_LIST_INIT(position_categories, list(
-	//	EXP_TYPE_NCR = list("jobs" = ncr_positions, "color" = "#ffeeaa"),
+	EXP_TYPE_NCR = list("jobs" = ncr_positions, "color" = "#ffeeaa"),
 	// EXP_TYPE_VAULT = list("jobs" = vault_positions, "color" = "##fdee00"),
 	EXP_TYPE_FOLLOWERS = list("jobs" = followers_positions, "color" = "#ffeeaa"),
 	EXP_TYPE_BROTHERHOOD = list("jobs" = brotherhood_positions, "color" = "#95a5a6"),
-	// EXP_TYPE_LEGION = list("jobs" = legion_positions, "color" = "#f81717"),
+	EXP_TYPE_LEGION = list("jobs" = legion_positions, "color" = "#f81717"),
 	EXP_TYPE_WASTELAND = list("jobs" = wasteland_positions, "color" = "#5a5a5a"),
 	EXP_TYPE_ENCLAVE = list("jobs" = enclave_positions, "color" = "#323232"),
-	// EXP_TYPE_KHAN = list("jobs" = khan_positions, "color" = "#006666"),
+	EXP_TYPE_KHAN = list("jobs" = khan_positions, "color" = "#006666"),
 	"Nash" = list("jobs" = oasis_positions, "color" = "#d7b088"),
 	EXP_TYPE_SILICON = list("jobs" = silicon_positions, "color" = "#4a4a4a"),
 	EXP_TYPE_TRIBAL = list("jobs" = tribal_positions, "color" = "#006666"),
