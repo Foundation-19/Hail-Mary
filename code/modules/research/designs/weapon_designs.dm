@@ -403,6 +403,25 @@
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 */
 
+
+/datum/design/rechargerrifle
+	name = "Recharger Rifle"
+	desc = "A locally produced copy of the recharger rifle. It's a bulky first-generation weapon designed to replenish its energy using radioactive decay."
+	id = "rechargerrifle"
+	build_type = PROTOLATHE
+	materials = list (/datum/material/iron = 8000, /datum/material/glass = 2000, /datum/material/uranium = 1000, /datum/material/gold = 500)
+	build_path = /obj/item/gun/energy/laser/rechargerrifle
+	category = list("Weapons")
+
+/datum/design/rechargerpistol
+	name = "Recharger Pistol"
+	desc = "A recharger pistol manufactured by the Followers of the Apocalpyse. As the name implies, it charges its capacitor banks over time using radioactive decay."
+	id = "rechargerpistol"
+	build_type = PROTOLATHE
+	materials = list (/datum/material/iron = 6000, /datum/material/glass = 1000, /datum/material/uranium = 2000, /datum/material/gold = 1000)
+	build_path = /obj/item/gun/energy/laser/wattz/recharger
+	category = list("Weapons")
+
 ///////////
 //Grenades/
 ///////////
