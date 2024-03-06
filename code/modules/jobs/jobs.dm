@@ -90,12 +90,12 @@ GLOBAL_LIST_INIT(faction_whitelist_positions, list(
 //Brotherhood
 GLOBAL_LIST_INIT(brotherhood_positions, list(
 	"Sentinel",
-	"Paladin Commander",
+	"Head Paladin",
 	"Knight-Captain",
 	"Proctor",
 	"Star Paladin",
 	"Paladin",
-	"Knight-Sergeant",
+	"Senior Knight",
 	"Knight",
 	"Senior Scribe",
 	"Scribe",
