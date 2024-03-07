@@ -111,7 +111,8 @@
 
 /obj/item/radio/Initialize()
 	wires = new /datum/wires/radio(src)
-	if(!istype(src, /obj/item/radio/intercom)) //Intercoms playing music is useless
+	var/obj/item/pda/pdloc = loc
+	if(!istype(src, /obj/item/radio/intercom) && !istype(pdloc)) //Intercoms playing music is useless
 		GLOB.radio_list += src //Big iron. Adds the radio to the global radio list for usage in radio_station.dm
 	var/i
 	for(i = 1; i <= GLOB.radio_list.len; i++)

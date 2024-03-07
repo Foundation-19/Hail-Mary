@@ -48,6 +48,8 @@ GLOBAL_LIST_EMPTY(PDAs)
 	var/font_index = 0 //This int tells DM which font is currently selected and lets DM know when the last font has been selected so that it can cycle back to the first font when "toggle font" is pressed again.
 	var/font_mode = "font-family:monospace;" //The currently selected font.
 	var/background_color = "#808000" //The currently selected background color.
+	var/mob/living/radio_holder = null
+	var/allow_music = FALSE
 
 	#define FONT_MONO "font-family:monospace;"
 	#define FONT_SHARE "font-family:\"Share Tech Mono\", monospace;letter-spacing:0px;"
@@ -328,7 +330,10 @@ GLOBAL_LIST_EMPTY(PDAs)
 				dat += "<li><a href='byond://?src=[REF(src)];choice=1'>[PDAIMG(notes)]Notekeeper</a></li>"
 				dat += "<li><a href='byond://?src=[REF(src)];choice=2'>[PDAIMG(mail)]Messenger</a></li>"
 				dat += "<li><a href='byond://?src=[REF(src)];choice=99'>[PDAIMG(signaler)]Radio</a></li>"
-
+				if (R)
+					dat += "<li><a href='byond://?src=[REF(src)];choice=9'>Eject record disk</a></li>" //Big-iron
+					dat += "<li><a href='byond://?src=[REF(src)];choice=10'>Play record disk</a></li>"
+					dat += "<li><a href='byond://?src=[REF(src)];choice=11'>Stop record disk</a></li>"
 				if (cartridge)
 					if (cartridge.access & CART_MANIFEST)
 						dat += "<li><a href='byond://?src=[REF(src)];choice=41'>[PDAIMG(notes)]View Crew Manifest</a></li>"
@@ -405,10 +410,6 @@ GLOBAL_LIST_EMPTY(PDAs)
 				dat += "<a href='byond://?src=[REF(src)];choice=Toggle Messenger'>[PDAIMG(mail)]Send / Receive: [toff == 1 ? "Off" : "On"]</a> | "
 				dat += "<a href='byond://?src=[REF(src)];choice=Ringtone'>[PDAIMG(bell)]Set Ringtone</a> | "
 				dat += "<a href='byond://?src=[REF(src)];choice=21'>[PDAIMG(mail)]Messages</a><br>"
-				if(R)
-					dat += "<li><a href='byond://?src=[REF(src)];choice=9'>Eject record disk</a></li>" //Big-iron
-					dat += "<li><a href='byond://?src=[REF(src)];choice=10'>Play record disk</a></li>"
-					dat += "<li><a href='byond://?src=[REF(src)];choice=11'>Stop record disk</a></li>"
 				if(cartridge)
 					dat += cartridge.message_header()
 
@@ -479,6 +480,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 				dat += "<a href='?src=[REF(src)];rfreq=2'>+</a>"
 				dat += "<a href='?src=[REF(src)];rfreq=10'>+</a>"
 				dat += " | <a href='?src=[REF(src)];rsavefreq=[radio.frequency]'>Save Frequency</a><br><br>"
+				dat += "Allow music: <a href='byond://?src=[REF(src)];allowmmusictoggle=1'>[allow_music?"Allowed":"disallowed"]</a><br>"
 				
 				if(saved_frequencies)
 					dat += "<b>Saved Frequencies</b>"
@@ -490,6 +492,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 			if(9)
 				if(R)
 					stopMusic(user)
+					radio_holder = null
 					R.forceMove(get_turf(src))
 					playsound(src, 'sound/effects/plastic_click.ogg', 100, 0)
 					R = null
@@ -498,11 +501,12 @@ GLOBAL_LIST_EMPTY(PDAs)
 				mode = 0
 
 			if(10)
-				playMusic()
+				playMusiclocal(user)
 				mode = 0
 
 			if(11)
 				stopMusic(user)
+				radio_holder = null
 				mode = 0
 
 			else//Else it links to the cart menu proc. Although, it really uses menu hub 4--menu 4 doesn't really exist as it simply redirects to hub.
@@ -782,7 +786,10 @@ GLOBAL_LIST_EMPTY(PDAs)
 		if(href_list["rspktoggle"])
 			radio.listening = !radio.listening
 			Boop()
-
+		if(href_list["allowmmusictoggle"])
+			allow_music = !allow_music
+			stopMusic(radio_holder)
+			Boop()
 		if(href_list["rfreq"])
 			var/new_frequency = (radio.frequency + text2num(href_list["rfreq"]))
 			if (!radio.freerange || (radio.frequency < MIN_FREE_FREQ || radio.frequency > MAX_FREE_FREQ))
@@ -928,7 +935,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 	if (!signal.data["done"])
 		to_chat(user, span_notice("ERROR: Server isn't responding."))
 		if (!silent)
-			playsound(src, 'sound/machines/terminal_error.ogg', 15, 1)
+			playsound(src, 'sound/machines/terminal_error.ogg', 35, channel = music_channel)
 		return
 
 	var/target_text = signal.format_target()
@@ -1121,15 +1128,15 @@ GLOBAL_LIST_EMPTY(PDAs)
 		to_chat(user, span_notice("You insert [cartridge] into [src]."))
 		update_icon()
 		playsound(src, 'sound/machines/button.ogg', 50, 1)
-		if(istype(C, /obj/item/record_disk))
-			if(R)
-				to_chat(user, "<span class='danger'>A record disk is already inserted!</span>")
-				return
-			else
-				R = C
-				C.forceMove(src)
-				playsound(src, 'sound/effects/plastic_click.ogg', 100, 0)
-				playMusic(user)
+	if(istype(C, /obj/item/record_disk))
+		if(R)
+			to_chat(user, "<span class='danger'>A record disk is already inserted!</span>")
+			return
+		else
+			R = C
+			C.forceMove(src)
+			playsound(src, 'sound/effects/plastic_click.ogg', 100, 0)
+			playMusiclocal(user)
 
 	else if(istype(C, /obj/item/card/id))
 		var/obj/item/card/id/idcard = C
@@ -1257,7 +1264,8 @@ GLOBAL_LIST_EMPTY(PDAs)
 /obj/item/pda/Destroy()
 	GLOB.PDAs -= src
 	GLOB.radio_list -= src //Big iron. Removes from global radio list
-	stopMusic()
+	stopMusic(radio_holder)
+	radio_holder = null
 	if(istype(id))
 		QDEL_NULL(id)
 	if(istype(cartridge))
@@ -1357,14 +1365,37 @@ GLOBAL_LIST_EMPTY(PDAs)
 			continue
 		. += P
 
-/obj/item/pda/proc/playMusic(mob/living/user)
+/obj/item/pda/proc/playMusiclocal(mob/living/user)
 	if(istype(src.loc, /mob/living))
 		user = src.loc
 		if(item_flags & IN_INVENTORY)
-			playsound(user, R.R.song_path, 100, channel = music_channel) //plays the music to the user
-			to_chat(user, "<span class='notice'>You play the [R] on your PDA.</span>")
+			if(allow_music)
+				playsound(user, R.R.song_path, 100, channel = music_channel) //plays the music to the user
+				radio_holder = user
+				to_chat(user, "<span class='notice'>You play the [R] on your PDA.</span>")
+			else
+				to_chat(user, "<span class='warning'>The [src] is not allowed to play music!</span>")
 		else
 			to_chat(user, "<span class='warning'>The [src] must be in your inventory to play music!</span>")
+
+/obj/item/pda/proc/playmusic(music_filepath, name_of_music, music_volume) //Plays music at src using the filepath to the audio file. This proc is directly working with the bluespace radio station at radio_station.dm
+	var/atom/loc_layer = loc
+	while(istype(loc_layer, /atom/movable))
+		if(!istype(loc_layer, /mob/living))
+			loc_layer = loc_layer.loc
+		else
+			radio_holder = loc_layer
+			break
+	if(!loc_layer) //if loc is null then this proc doesn't need to continue
+		return
+	if(!istype(loc_layer, /mob/living)) //doesn't need to continue if not on a mob
+		return
+
+	if(allow_music) //Music player is on
+		stopMusic(radio_holder) //stop the previously playing song to make way for the new one
+		playsound(radio_holder, music_filepath, music_volume, channel = music_channel) //plays the music to the user
+		to_chat(radio_holder, "<span class='robot'><b>[src]</b> beeps into your ears, 'Now playing: <i>[name_of_music]</i>.' </span>")
+
 /obj/item/pda/proc/stopMusic(mob/user)
 	playsound(user, 'sound/machines/button.ogg', 50, channel = music_channel)
 	playsound(user, null, channel = music_channel)

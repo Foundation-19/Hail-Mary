@@ -115,6 +115,8 @@
 	cooldowntime = world.time + 500
 	for(var/obj/item/radio/R in GLOB.radio_list) //Calls the playmusic() proc for every radio in radio_list (everyone)
 		R.playmusic(selectedtrack, selectedtrackname, volume)
+	for(var/obj/item/pda/R in GLOB.radio_list) //Calls the playmusic() proc for every radio in radio_list (everyone)
+		R.playmusic(selectedtrack, selectedtrackname, volume)
 
 	src.audible_message("<span class='robot'><b>[src]</b> beeps, 'Now broadcasting: <i>[selectedtrackname]</i>' </span>")
 
