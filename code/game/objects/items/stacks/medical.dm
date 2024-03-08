@@ -906,7 +906,8 @@
 	name = "\improper bloodleaf salve"
 	singular_name = "bloodleaf salve"
 	desc = "A cooling salve, made from the bloodleaf plant and water. Heals your wounds at a slow but steady rate."
-	icon_state = "healing_salve"
+	icon = 'icons/fallout/objects/medicine/drugs.dmi'
+	icon_state = "bloodleaf_salve"
 	self_delay = 5
 	other_delay = 5
 	heal_per_tick = BLOODLEAF_HEAL_OVER_TIME
