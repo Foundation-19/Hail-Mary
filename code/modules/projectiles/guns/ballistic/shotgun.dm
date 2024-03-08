@@ -451,7 +451,7 @@
 /obj/item/gun/ballistic/shotgun/automatic/combat/shotgunlever/stock
 	name = "lever action shotgun"
 	desc = "A speedy lever action shotgun with a five-shell capacity underneath plus one in chamber."
-	icon_state = "lashotgunstocked"
+	icon_state = "mares_leg_stock"
 	item_state = "shotgunlever"
 	icon_prefix = "shotgunlever"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/trench
