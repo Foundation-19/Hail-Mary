@@ -181,7 +181,8 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 	backpack_contents = list(
 	//	/obj/item/storage/bag/money/small/ncr = 1,
 		/obj/item/megaphone = 1,
-		/obj/item/reagent_containers/hypospray/medipen/stimpak/super = 3,
+		/obj/item/reagent_containers/hypospray/medipen/stimpak/super = 1,
+		/obj/item/stack/medical/bloodleaf/three = 1,
 		/obj/item/lighter = 1,
 		/obj/item/reagent_containers/food/snacks/grown/tobacco/dried = 1,
 		/obj/item/stack/crafting/armor_plate = 5
@@ -256,7 +257,8 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 		/obj/item/ammo_box/magazine/m9mm/doublestack = 2,
 	//	/obj/item/storage/bag/money/small/ncrofficers = 1,
 		/obj/item/ammo_box/magazine/m556/rifle = 3,
-		/obj/item/reagent_containers/hypospray/medipen/stimpak/super = 2
+		/obj/item/stack/medical/bloodleaf/three = 1,
+		/obj/item/reagent_containers/hypospray/medipen/stimpak/super = 1
 		)
 
 /datum/outfit/job/ncr/f13lieutenant/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -316,6 +318,7 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 		/obj/item/grenade/f13/frag = 1,
 		/obj/item/gun/ballistic/automatic/pistol/ninemil = 1,
 		/obj/item/ammo_box/magazine/m9mm/doublestack = 2,
+		/obj/item/stack/medical/bloodleaf/three = 1,
 		/obj/item/reagent_containers/hypospray/medipen/stimpak/super = 1
 		)
 /*
@@ -471,6 +474,7 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 	backpack_contents = list(
 		/obj/item/gun/ballistic/revolver/revolver45 = 1,
 		/obj/item/ammo_box/c45rev = 2,
+		/obj/item/stack/medical/bloodleaf/three = 1,
 	//	/obj/item/storage/bag/money/small/ncr = 2,
 		)
 
@@ -560,7 +564,8 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 	backpack_contents = list(
 		/obj/item/melee/onehanded/knife/bowie = 1,
 	//	/obj/item/storage/bag/money/small/ncrofficers = 1,
-		/obj/item/reagent_containers/hypospray/medipen/stimpak/super = 2,
+		/obj/item/reagent_containers/hypospray/medipen/stimpak/super = 1,
+		/obj/item/stack/medical/bloodleaf/three = 1,
 		/obj/item/grenade/smokebomb = 1
 		)
 
@@ -646,7 +651,8 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 		/obj/item/melee/onehanded/knife/bowie = 1,
 	//	/obj/item/storage/bag/money/small/ncrofficers = 1,
 		/obj/item/clothing/mask/gas/ranger = 1,
-		/obj/item/reagent_containers/hypospray/medipen/stimpak = 2,
+		/obj/item/reagent_containers/hypospray/medipen/stimpak = 1,
+		/obj/item/stack/medical/bloodleaf/three = 1,
 		/obj/item/grenade/smokebomb = 1
 		)
 
@@ -710,7 +716,7 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 	exp_requirements = 375
 
 	loadout_options = list(
-		/datum/outfit/loadout/shockht,	// Minigun
+		/datum/outfit/loadout/shockht,	// Shotgun
 		/datum/outfit/loadout/supportht, // R84
 		)
 
@@ -732,7 +738,8 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 	backpack_contents = list(
 		/obj/item/gun/ballistic/automatic/pistol/mk23 = 1,
 		/obj/item/ammo_box/magazine/m45/socom = 2,
-		/obj/item/reagent_containers/hypospray/medipen/stimpak = 2,
+		/obj/item/reagent_containers/hypospray/medipen/stimpak = 1,
+		/obj/item/stack/medical/bloodleaf/three = 1,
 	//	/obj/item/storage/bag/money/small/ncrenlisted = 1,
 		)
 
@@ -895,7 +902,8 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 	backpack_contents = list(
 		/obj/item/gun/ballistic/automatic/pistol/ninemil = 1,
 		/obj/item/ammo_box/magazine/m9mm/doublestack = 2,
-		/obj/item/reagent_containers/hypospray/medipen/stimpak = 2,
+		/obj/item/reagent_containers/hypospray/medipen/stimpak = 1,
+		/obj/item/stack/medical/bloodleaf/three = 1,
 	//	/obj/item/storage/bag/money/small/ncrenlisted = 1,
 		/obj/item/ammo_box/shotgun/bean = 2,
 		/obj/item/melee/classic_baton/militarypolice = 1
@@ -1015,7 +1023,8 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 	backpack_contents = list(
 		/obj/item/melee/onehanded/knife/bayonet = 1,
 	//	/obj/item/storage/bag/money/small/ncrenlisted = 1,
-		/obj/item/reagent_containers/hypospray/medipen/stimpak = 2,
+		/obj/item/reagent_containers/hypospray/medipen/stimpak = 1,
+		/obj/item/stack/medical/bloodleaf/three = 1,
 		/obj/item/grenade/f13/frag = 1
 		)
 
@@ -1087,7 +1096,8 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 	glasses	= null
 	backpack_contents = list(
 	//	/obj/item/storage/bag/money/small/ncrenlisted = 1,
-		/obj/item/reagent_containers/hypospray/medipen/stimpak = 2,
+		/obj/item/reagent_containers/hypospray/medipen/stimpak = 1,
+		/obj/item/stack/medical/bloodleaf/three = 1,
 		/obj/item/grenade/f13/frag = 1
 		)
 
@@ -1137,6 +1147,7 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 	suit = /obj/item/clothing/suit/armor/ncrarmor/conscript
 	glasses	= null
 	backpack_contents = list(
+		/obj/item/stack/medical/bloodleaf/three 1,
 	//	/obj/item/storage/bag/money/small/ncrenlisted = 1,
 		)
 
@@ -1356,6 +1367,7 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 		/obj/item/gun/ballistic/automatic/pistol/ninemil = 1,
 		/obj/item/ammo_box/magazine/m9mm/doublestack = 2,
 		/obj/item/clothing/suit/armor/outfit/vest/utility = 1,
+		/obj/item/stack/medical/bloodleaf/three = 1,
 		/obj/item/melee/onehanded/knife/survival = 1,
 		/obj/item/metaldetector = 1,
 		/obj/item/weldingtool/largetank = 1,
@@ -1374,6 +1386,7 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 		/obj/item/ammo_box/magazine/m9mm/doublestack = 2,
 		/obj/item/melee/onehanded/knife/survival = 1,
 		/obj/item/storage/firstaid/regular = 1,
+		/obj/item/stack/medical/bloodleaf/three = 1,
 		/obj/item/book/granter/trait/chemistry = 1,
 		/obj/item/book/granter/trait/lowsurgery = 1,
 	//	/obj/item/storage/bag/money/small/ncrenlisted = 1,
@@ -1388,6 +1401,7 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 		/obj/item/gun/ballistic/automatic/pistol/ninemil = 1,
 		/obj/item/ammo_box/magazine/m9mm/doublestack = 2,
 		/obj/item/melee/onehanded/knife/bayonet = 1,
+		/obj/item/stack/medical/bloodleaf/three = 1,
 		/obj/item/reagent_containers/food/snacks/cheesyburrito = 1,
 		/obj/item/reagent_containers/food/drinks/bottle/f13nukacola = 1,
 	//	/obj/item/storage/bag/money/small/ncrofficers = 1
