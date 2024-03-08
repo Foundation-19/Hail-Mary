@@ -1147,7 +1147,7 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 	suit = /obj/item/clothing/suit/armor/ncrarmor/conscript
 	glasses	= null
 	backpack_contents = list(
-		/obj/item/stack/medical/bloodleaf/three 1,
+		/obj/item/stack/medical/bloodleaf/three = 1,
 	//	/obj/item/storage/bag/money/small/ncrenlisted = 1,
 		)
 
