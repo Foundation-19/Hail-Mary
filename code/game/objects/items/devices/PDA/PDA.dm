@@ -1392,6 +1392,11 @@ GLOBAL_LIST_EMPTY(PDAs)
 		return
 
 	if(allow_music) //Music player is on
+		var/mob/living/M = loc_layer
+		if(istype(M) && M.client)
+			var/client/C = M.client
+			if(!(C.prefs.toggles & MUSIC_RADIO))
+				return
 		stopMusic(radio_holder) //stop the previously playing song to make way for the new one
 		playsound(radio_holder, music_filepath, music_volume, channel = music_channel) //plays the music to the user
 		to_chat(radio_holder, "<span class='robot'><b>[src]</b> beeps into your ears, 'Now playing: <i>[name_of_music]</i>.' </span>")

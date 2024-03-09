@@ -49,7 +49,7 @@
 	//fortuna addition end. radio management.
 	var/music_channel = null //The sound channel the music is playing on.
 	var/radio_music_file = "" //The file path to the music's audio file
-	var/music_toggle = 1 //Toggles whether music will play or not.
+	var/music_toggle = TRUE //Toggles whether music will play or not.
 	var/music_name = "" //Used to display the name of currently playing music.
 	var/music_playing = FALSE
 	var/mob/living/radio_holder //stopmusic() will apply to this person
@@ -178,6 +178,7 @@
 
 	data["broadcasting"] = broadcasting
 	data["listening"] = listening
+	data["music_toggle"] = music_toggle
 	data["frequency"] = frequency
 	data["minFrequency"] = freerange ? MIN_FREE_FREQ : MIN_FREQ
 	data["maxFrequency"] = freerange ? MAX_FREE_FREQ : MAX_FREQ
@@ -249,6 +250,10 @@
 				else
 					recalculateChannels()
 				. = TRUE
+		if("streammusic")
+			music_toggle = !music_toggle
+			stopmusic(radio_holder)
+			. = TRUE
 
 /obj/item/radio/talk_into(atom/movable/M, message, channel, list/spans, datum/language/language)
 	if(!spans)
@@ -435,6 +440,11 @@
 
 /obj/item/radio/proc/avoiding_a_sleep(mob/living/user, music_filepath, name_of_music, music_volume)
 	music_name = name_of_music
+	if(user.client)
+		var/mob/M = user
+		var/client/C = M.client
+		if(!(C.prefs.toggles & MUSIC_RADIO))
+			return
 	playsound(user, music_filepath, music_volume, channel = music_channel) //plays the music to the user
 	music_playing = TRUE
 	to_chat(user, "<span class='robot'><b>[src]</b> beeps into your ears, 'Now playing: <i>[music_name]</i>.' </span>")
@@ -507,7 +517,7 @@
 	else
 		return FALSE
 
-//Hippie end
+//Big-iron end
 /*
 /obj/item/radio/emp_act(severity)
 	. = ..()
