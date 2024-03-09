@@ -18,7 +18,7 @@ export const Radio = (props, context) => {
     useCommand,
     subspace,
     subspaceSwitchable,
-    music_toggle
+    music_toggle,
   } = data;
   const tunedChannel = RADIO_CHANNELS
     .find(channel => channel.freq === frequency);
