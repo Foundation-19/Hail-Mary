@@ -50,7 +50,7 @@
 	..()
 	trigger_spooky_trap()
 
-TYPE_PROC_REF(/obj/structure/closet, set_spooky_trap)()
+/obj/structure/closet/proc/set_spooky_trap()
 	if(prob(0.1))
 		trapped = INSANE_CLOWN
 		return
@@ -72,7 +72,7 @@ TYPE_PROC_REF(/obj/structure/closet, set_spooky_trap)()
 		trapped = SPOOKY_SKELETON
 		return
 
-TYPE_PROC_REF(/obj/structure/closet, trigger_spooky_trap)()
+/obj/structure/closet/proc/trigger_spooky_trap()
 	if(!trapped)
 		return
 
@@ -145,16 +145,16 @@ TYPE_PROC_REF(/obj/structure/closet, trigger_spooky_trap)()
 		spooky_ghosty()
 		timer = rand(1,15)
 
-TYPE_PROC_REF(/mob/living/simple_animal/shade/howling_ghost, EtherealMove)(direction)
+/mob/living/simple_animal/shade/howling_ghost/proc/EtherealMove(direction)
 	forceMove(get_step(src, direction))
 	setDir(direction)
 
-TYPE_PROC_REF(/mob/living/simple_animal/shade/howling_ghost, roam)()
+/mob/living/simple_animal/shade/howling_ghost/proc/roam()
 	if(prob(80))
 		var/direction = pick(NORTH,SOUTH,EAST,WEST,NORTHEAST,NORTHWEST,SOUTHEAST,SOUTHWEST)
 		EtherealMove(direction)
 
-TYPE_PROC_REF(/mob/living/simple_animal/shade/howling_ghost, spooky_ghosty)()
+/mob/living/simple_animal/shade/howling_ghost/proc/spooky_ghosty()
 	if(prob(20)) //haunt
 		playsound(loc, pick('sound/spookoween/ghosty_wind.ogg','sound/spookoween/ghost_whisper.ogg','sound/spookoween/chain_rattling.ogg'), 300, 1)
 	if(prob(10)) //flickers

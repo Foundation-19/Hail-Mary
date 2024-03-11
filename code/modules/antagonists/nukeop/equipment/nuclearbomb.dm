@@ -83,7 +83,7 @@
 			return CINEMATIC_NUKE_FAR
 	return CINEMATIC_NUKE_FAR
 
-TYPE_PROC_REF(/obj/machinery/nuclearbomb, disk_check)(obj/item/disk/nuclear/D)
+/obj/machinery/nuclearbomb/proc/disk_check(obj/item/disk/nuclear/D)
 	if(D.fake)
 		say("Authentication failure; disk not recognised.")
 		return FALSE
@@ -167,7 +167,7 @@ TYPE_PROC_REF(/obj/machinery/nuclearbomb, disk_check)(obj/item/disk/nuclear/D)
 				START_PROCESSING(SSobj, core)
 			return TRUE
 
-TYPE_PROC_REF(/obj/machinery/nuclearbomb, get_nuke_state)()
+/obj/machinery/nuclearbomb/proc/get_nuke_state()
 	if(exploding)
 		return NUKE_ON_EXPLODING
 	if(timing)
@@ -194,7 +194,7 @@ TYPE_PROC_REF(/obj/machinery/nuclearbomb, get_nuke_state)()
 	update_icon_interior()
 	update_icon_lights()
 
-TYPE_PROC_REF(/obj/machinery/nuclearbomb, update_icon_interior)()
+/obj/machinery/nuclearbomb/proc/update_icon_interior()
 	cut_overlay(interior)
 	switch(deconstruction_state)
 		if(NUKESTATE_UNSCREWED)
@@ -211,7 +211,7 @@ TYPE_PROC_REF(/obj/machinery/nuclearbomb, update_icon_interior)()
 			return
 	add_overlay(interior)
 
-TYPE_PROC_REF(/obj/machinery/nuclearbomb, update_icon_lights)()
+/obj/machinery/nuclearbomb/proc/update_icon_lights()
 	if(lights)
 		cut_overlay(lights)
 	switch(get_nuke_state())
@@ -234,7 +234,7 @@ TYPE_PROC_REF(/obj/machinery/nuclearbomb, update_icon_lights)()
 			var/volume = (get_time_left() <= 20 ? 30 : 5)
 			playsound(loc, 'sound/items/timer.ogg', volume, FALSE)
 
-TYPE_PROC_REF(/obj/machinery/nuclearbomb, update_ui_mode)()
+/obj/machinery/nuclearbomb/proc/update_ui_mode()
 	if(exploded)
 		ui_mode = NUKEUI_EXPLODED
 		return
@@ -389,13 +389,13 @@ TYPE_PROC_REF(/obj/machinery/nuclearbomb, update_ui_mode)()
 			else
 				playsound(src, 'sound/machines/nuke/angry_beep.ogg', 50, FALSE)
 
-TYPE_PROC_REF(/obj/machinery/nuclearbomb, set_anchor)()
+/obj/machinery/nuclearbomb/proc/set_anchor()
 	if(isinspace() && !anchored)
 		to_chat(usr, span_warning("There is nothing to anchor to!"))
 	else
 		anchored = !anchored
 
-TYPE_PROC_REF(/obj/machinery/nuclearbomb, set_safety)()
+/obj/machinery/nuclearbomb/proc/set_safety()
 	safety = !safety
 	if(safety)
 		if(timing)
@@ -408,7 +408,7 @@ TYPE_PROC_REF(/obj/machinery/nuclearbomb, set_safety)()
 		countdown.stop()
 	update_icon()
 
-TYPE_PROC_REF(/obj/machinery/nuclearbomb, set_active)()
+/obj/machinery/nuclearbomb/proc/set_active()
 	if(safety)
 		to_chat(usr, span_danger("The safety is still on."))
 		return
@@ -429,7 +429,7 @@ TYPE_PROC_REF(/obj/machinery/nuclearbomb, set_active)()
 		countdown.stop()
 	update_icon()
 
-TYPE_PROC_REF(/obj/machinery/nuclearbomb, get_time_left)()
+/obj/machinery/nuclearbomb/proc/get_time_left()
 	if(timing)
 		. = round(max(0, detonation_timer - world.time) / 10, 1)
 	else
@@ -446,7 +446,7 @@ TYPE_PROC_REF(/obj/machinery/nuclearbomb, get_time_left)()
 		qdel(src)//like the singulo, tesla deletes it. stops it from exploding over and over
 
 #define NUKERANGE 127
-TYPE_PROC_REF(/obj/machinery/nuclearbomb, explode)()
+/obj/machinery/nuclearbomb/proc/explode()
 	if(safety)
 		timing = FALSE
 		return
@@ -460,7 +460,7 @@ TYPE_PROC_REF(/obj/machinery/nuclearbomb, explode)()
 		SSticker.roundend_check_paused = TRUE
 	addtimer(CALLBACK(src, PROC_REF(actually_explode)), 100)
 
-TYPE_PROC_REF(/obj/machinery/nuclearbomb, actually_explode)()
+/obj/machinery/nuclearbomb/proc/actually_explode()
 	if(!core)
 		Cinematic(CINEMATIC_NUKE_NO_CORE,world)
 		SSticker.roundend_check_paused = FALSE
@@ -491,11 +491,11 @@ TYPE_PROC_REF(/obj/machinery/nuclearbomb, actually_explode)()
 	really_actually_explode(off_station)
 	SSticker.roundend_check_paused = FALSE
 
-TYPE_PROC_REF(/obj/machinery/nuclearbomb, really_actually_explode)(off_station)
-	Cinematic(get_cinematic_type(off_station),world,CALLBACK(SSticker,TYPE_PROC_REF(/datum/controller/subsystem/ticker, station_explosion_detonation),src))
+/obj/machinery/nuclearbomb/proc/really_actually_explode(off_station)
+	Cinematic(get_cinematic_type(off_station),world,CALLBACK(SSticker,/datum/controller/subsystem/ticker/proc/station_explosion_detonation,src))
 	INVOKE_ASYNC(GLOBAL_PROC,PROC_REF(KillEveryoneOnZLevel), z)
 
-TYPE_PROC_REF(/obj/machinery/nuclearbomb, get_cinematic_type)(off_station)
+/obj/machinery/nuclearbomb/proc/get_cinematic_type(off_station)
 	if(off_station < 2)
 		return CINEMATIC_SELFDESTRUCT
 	else
@@ -544,7 +544,7 @@ TYPE_PROC_REF(/obj/machinery/nuclearbomb, get_cinematic_type)(off_station)
 		visible_message(span_notice("[src] fizzes ominously."))
 		addtimer(CALLBACK(src, PROC_REF(fizzbuzz)), 110)
 
-TYPE_PROC_REF(/obj/machinery/nuclearbomb/beer, disarm)()
+/obj/machinery/nuclearbomb/beer/proc/disarm()
 	detonation_timer = null
 	exploding = FALSE
 	exploded = TRUE
@@ -555,7 +555,7 @@ TYPE_PROC_REF(/obj/machinery/nuclearbomb/beer, disarm)()
 	countdown.stop()
 	update_icon()
 
-TYPE_PROC_REF(/obj/machinery/nuclearbomb/beer, fizzbuzz)()
+/obj/machinery/nuclearbomb/beer/proc/fizzbuzz()
 	var/datum/reagents/R = new/datum/reagents(1000)
 	R.my_atom = src
 	R.add_reagent(/datum/reagent/consumable/ethanol/beer, 100)
@@ -685,11 +685,11 @@ This is here to make the tiles around the station mininuke change when it's arme
 	user.visible_message(span_suicide("[user] is going delta! It looks like [user.p_theyre()] trying to commit suicide!"))
 	playsound(src, 'sound/machines/alarm.ogg', 50, -1, TRUE)
 	for(var/i in 1 to 100)
-		addtimer(CALLBACK(user, TYPE_PROC_REF(/atom, add_atom_colour), (i % 2)? "#00FF00" : "#FF0000", ADMIN_COLOUR_PRIORITY), i)
+		addtimer(CALLBACK(user, /atom/proc/add_atom_colour, (i % 2)? "#00FF00" : "#FF0000", ADMIN_COLOUR_PRIORITY), i)
 	addtimer(CALLBACK(src, PROC_REF(manual_suicide), user), 101)
 	return MANUAL_SUICIDE
 
-TYPE_PROC_REF(/obj/item/disk/nuclear, manual_suicide)(mob/living/user)
+/obj/item/disk/nuclear/proc/manual_suicide(mob/living/user)
 	user.remove_atom_colour(ADMIN_COLOUR_PRIORITY)
 	user.visible_message(span_suicide("[user] is destroyed by the nuclear blast!"))
 	user.adjustOxyLoss(200)

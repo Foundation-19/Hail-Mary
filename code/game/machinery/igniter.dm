@@ -112,7 +112,7 @@
 	else
 		return
 
-TYPE_PROC_REF(/obj/machinery/sparker, ignite)()
+/obj/machinery/sparker/proc/ignite()
 	if (!(powered()))
 		return
 

@@ -65,7 +65,7 @@
 	response_timer_id = addtimer(CALLBACK(src, PROC_REF(rename_station), new_name, user.name, user.real_name, key_name(user)), approval_time, TIMER_STOPPABLE)
 	to_chat(GLOB.admins, "<span class='adminnotice'><b><font color=orange>CUSTOM STATION RENAME:</font></b>[ADMIN_LOOKUPFLW(user)] proposes to rename the [name_type] to [new_name] (will autoapprove in [DisplayTimeText(approval_time)]). [ADMIN_SMITE(user)] (<A HREF='?_src_=holder;[HrefToken(TRUE)];reject_custom_name=[REF(src)]'>REJECT</A>) [ADMIN_CENTCOM_REPLY(user)]</span>")
 
-TYPE_PROC_REF(/obj/item/station_charter, reject_proposed)(user)
+/obj/item/station_charter/proc/reject_proposed(user)
 	if(!user)
 		return
 	if(!response_timer_id)
@@ -81,7 +81,7 @@ TYPE_PROC_REF(/obj/item/station_charter, reject_proposed)(user)
 	deltimer(response_timer_id)
 	response_timer_id = null
 
-TYPE_PROC_REF(/obj/item/station_charter, rename_station)(designation, uname, ureal_name, ukey)
+/obj/item/station_charter/proc/rename_station(designation, uname, ureal_name, ukey)
 	set_station_name(designation)
 	minor_announce("[ureal_name] has designated your station as [station_name()]", "Captain's Charter", 0)
 	log_game("[ukey] has renamed the station as [station_name()].")

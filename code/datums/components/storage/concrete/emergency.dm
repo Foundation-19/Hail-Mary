@@ -33,7 +33,7 @@
 	if(message && . && user)
 		to_chat(user, "The storage unit will only unlock during a Red or Delta security alert.")
 
-TYPE_PROC_REF(/datum/component/storage/concrete/emergency, unlock_me)(datum/source)
+/datum/component/storage/concrete/emergency/proc/unlock_me(datum/source)
 	if(locked)
 		set_locked(source, FALSE)
 		return TRUE

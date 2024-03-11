@@ -58,7 +58,7 @@
 	RegisterSignal(humie,COMSIG_MOB_DEATH,PROC_REF(remove_ghoul))
 	ghouls += humie
 
-TYPE_PROC_REF(/datum/eldritch_knowledge/flesh_ghoul, remove_ghoul)(datum/source)
+/datum/eldritch_knowledge/flesh_ghoul/proc/remove_ghoul(datum/source)
 	var/mob/living/carbon/human/humie = source
 	ghouls -= humie
 	humie.mind.remove_antag_datum(/datum/antagonist/heretic_monster)
@@ -122,7 +122,7 @@ TYPE_PROC_REF(/datum/eldritch_knowledge/flesh_ghoul, remove_ghoul)(datum/source)
 	return
 
 
-TYPE_PROC_REF(/datum/eldritch_knowledge/flesh_grasp, remove_ghoul)(datum/source)
+/datum/eldritch_knowledge/flesh_grasp/proc/remove_ghoul(datum/source)
 	var/mob/living/carbon/human/humie = source
 	spooky_scaries -= humie
 	humie.mind.remove_antag_datum(/datum/antagonist/heretic_monster)

@@ -125,9 +125,9 @@
 	else
 		to_chat(user, span_warning("The device is empty..."))
 
-TYPE_PROC_REF(/obj/item/capturedevice, store)(mob/living/M)
+/obj/item/capturedevice/proc/store(mob/living/M)
 	M.forceMove(src)
 
-TYPE_PROC_REF(/obj/item/capturedevice, release)()
+/obj/item/capturedevice/proc/release()
 	for(var/atom/movable/M in contents)
 		M.forceMove(get_turf(loc))

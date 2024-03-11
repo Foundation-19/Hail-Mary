@@ -60,7 +60,7 @@
 	else
 		. += "[icon_state]_rack_empty"
 
-TYPE_PROC_REF(/obj/item/gun/energy/pumpaction, pump)(mob/M)	//pumping proc. Checks if the gun is empty and plays a different sound if it is.
+/obj/item/gun/energy/pumpaction/proc/pump(mob/M)	//pumping proc. Checks if the gun is empty and plays a different sound if it is.
 	var/obj/item/ammo_casing/energy/shot = ammo_type[current_firemode_index]
 	if(cell.charge < shot.e_cost)
 		playsound(M, 'sound/weapons/laserPumpEmpty.ogg', 100, 1)	//Ends with three beeps made from highly processed knife honing noises

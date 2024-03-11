@@ -1,7 +1,7 @@
 /atom/var/CanAtmosPass = ATMOS_PASS_YES
 /atom/var/CanAtmosPassVertical = ATMOS_PASS_YES
 
-TYPE_PROC_REF(/atom, CanAtmosPass)(turf/T)
+/atom/proc/CanAtmosPass(turf/T)
 	switch (CanAtmosPass)
 		if (ATMOS_PASS_PROC)
 			return ATMOS_PASS_YES
@@ -37,11 +37,11 @@ TYPE_PROC_REF(/atom, CanAtmosPass)(turf/T)
 				return .
 
 
-TYPE_PROC_REF(/atom/movable, BlockThermalConductivity)() // Objects that don't let heat through.
+/atom/movable/proc/BlockThermalConductivity() // Objects that don't let heat through.
 
 	return FALSE
 
-TYPE_PROC_REF(/turf, ImmediateCalculateAdjacentTurfs)()
+/turf/proc/ImmediateCalculateAdjacentTurfs()
 	if(SSair.thread_running())
 		CALCULATE_ADJACENT_TURFS(src)
 		return
@@ -71,15 +71,15 @@ TYPE_PROC_REF(/turf, ImmediateCalculateAdjacentTurfs)()
 	__update_auxtools_turf_adjacency_info(isspaceturf(get_z_base_turf()))
 
 
-TYPE_PROC_REF(/turf, set_sleeping)(should_sleep)
+/turf/proc/set_sleeping(should_sleep)
 
 
-TYPE_PROC_REF(/turf, __update_auxtools_turf_adjacency_info)()
+/turf/proc/__update_auxtools_turf_adjacency_info()
 
 //returns a list of adjacent turfs that can share air with this one.
 //alldir includes adjacent diagonal tiles that can share
 //	air with both of the related adjacent cardinal tiles
-TYPE_PROC_REF(/turf, GetAtmosAdjacentTurfs)(alldir = 0)
+/turf/proc/GetAtmosAdjacentTurfs(alldir = 0)
 	var/adjacent_turfs
 	if (atmos_adjacent_turfs)
 		adjacent_turfs = atmos_adjacent_turfs.Copy()
@@ -111,7 +111,7 @@ TYPE_PROC_REF(/turf, GetAtmosAdjacentTurfs)(alldir = 0)
 
 	return adjacent_turfs
 
-TYPE_PROC_REF(/atom, air_update_turf)(command = 0)
+/atom/proc/air_update_turf(command = 0)
 	return
 	/*
 	if(!isturf(loc) && command)
@@ -126,12 +126,12 @@ TYPE_PROC_REF(/atom, air_update_turf)(command = 0)
 		ImmediateCalculateAdjacentTurfs()
 	*/
 
-TYPE_PROC_REF(/atom/movable, move_update_air)(turf/T)
+/atom/movable/proc/move_update_air(turf/T)
 	if(isturf(T))
 		T.air_update_turf(1)
 	air_update_turf(1)
 
-TYPE_PROC_REF(/atom, atmos_spawn_air)(text) //because a lot of people loves to copy paste awful code lets just make an easy proc to spawn your plasma fires
+/atom/proc/atmos_spawn_air(text) //because a lot of people loves to copy paste awful code lets just make an easy proc to spawn your plasma fires
 	var/turf/open/T = get_turf(src)
 	if(!istype(T))
 		return

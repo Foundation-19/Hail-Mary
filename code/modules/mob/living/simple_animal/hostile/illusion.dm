@@ -29,7 +29,7 @@
 	if(world.time > life_span)
 		death()
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile/illusion, Copy_Parent)(mob/living/original, life = 50, hp = 100, damage = 0, replicate = 0 )
+/mob/living/simple_animal/hostile/illusion/proc/Copy_Parent(mob/living/original, life = 50, hp = 100, damage = 0, replicate = 0 )
 	appearance = original.appearance
 	parent_mob = original
 	setDir(original.dir)

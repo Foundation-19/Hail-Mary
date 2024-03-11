@@ -48,7 +48,7 @@
  * optional inline_html string Custom HTML to inject.
  * optional fancy bool If TRUE, will hide the window titlebar.
  */
-TYPE_PROC_REF(/datum/tgui_window, initialize)(
+/datum/tgui_window/proc/initialize(
 		inline_assets = list(),
 		inline_html = "",
 		fancy = FALSE)
@@ -103,7 +103,7 @@ TYPE_PROC_REF(/datum/tgui_window, initialize)(
  *
  * return bool
  */
-TYPE_PROC_REF(/datum/tgui_window, is_ready)()
+/datum/tgui_window/proc/is_ready()
 	return status == TGUI_WINDOW_READY
 
 /**
@@ -113,7 +113,7 @@ TYPE_PROC_REF(/datum/tgui_window, is_ready)()
  *
  * return bool
  */
-TYPE_PROC_REF(/datum/tgui_window, can_be_suspended)()
+/datum/tgui_window/proc/can_be_suspended()
 	return !fatally_errored \
 		&& pooled \
 		&& pool_index > 0 \
@@ -131,7 +131,7 @@ TYPE_PROC_REF(/datum/tgui_window, can_be_suspended)()
  *
  * optional ui /datum/tgui
  */
-TYPE_PROC_REF(/datum/tgui_window, acquire_lock)(datum/tgui/ui)
+/datum/tgui_window/proc/acquire_lock(datum/tgui/ui)
 	locked = TRUE
 	locked_by = ui
 
@@ -140,7 +140,7 @@ TYPE_PROC_REF(/datum/tgui_window, acquire_lock)(datum/tgui/ui)
  *
  * Release the window lock.
  */
-TYPE_PROC_REF(/datum/tgui_window, release_lock)()
+/datum/tgui_window/proc/release_lock()
 	// Clean up assets sent by tgui datum which requested the lock
 	if(locked)
 		sent_assets = list()
@@ -156,7 +156,7 @@ TYPE_PROC_REF(/datum/tgui_window, release_lock)()
  * is simpler and therefore faster. If necessary, this can be rewritten
  * to support multiple subscribers.
  */
-TYPE_PROC_REF(/datum/tgui_window, subscribe)(datum/object, delegate)
+/datum/tgui_window/proc/subscribe(datum/object, delegate)
 	subscriber_object = object
 	subscriber_delegate = delegate
 
@@ -165,7 +165,7 @@ TYPE_PROC_REF(/datum/tgui_window, subscribe)(datum/object, delegate)
  *
  * Unsubscribes the datum. Do not forget to call this when cleaning up.
  */
-TYPE_PROC_REF(/datum/tgui_window, unsubscribe)(datum/object)
+/datum/tgui_window/proc/unsubscribe(datum/object)
 	subscriber_object = null
 	subscriber_delegate = null
 
@@ -176,7 +176,7 @@ TYPE_PROC_REF(/datum/tgui_window, unsubscribe)(datum/object)
  *
  * optional can_be_suspended bool
  */
-TYPE_PROC_REF(/datum/tgui_window, close)(can_be_suspended = TRUE)
+/datum/tgui_window/proc/close(can_be_suspended = TRUE)
 	if(!client)
 		return
 	if(can_be_suspended && can_be_suspended())
@@ -206,7 +206,7 @@ TYPE_PROC_REF(/datum/tgui_window, close)(can_be_suspended = TRUE)
  * required payload list Message payload
  * optional force bool Send regardless of the ready status.
  */
-TYPE_PROC_REF(/datum/tgui_window, send_message)(type, payload, force)
+/datum/tgui_window/proc/send_message(type, payload, force)
 	if(!client)
 		return
 	var/message = TGUI_CREATE_MESSAGE(type, payload)
@@ -228,7 +228,7 @@ TYPE_PROC_REF(/datum/tgui_window, send_message)(type, payload, force)
  * required message string JSON+urlencoded blob to send.
  * optional force bool Send regardless of the ready status.
  */
-TYPE_PROC_REF(/datum/tgui_window, send_raw_message)(message, force)
+/datum/tgui_window/proc/send_raw_message(message, force)
 	if(!client)
 		return
 	// Place into queue if window is still loading
@@ -250,7 +250,7 @@ TYPE_PROC_REF(/datum/tgui_window, send_raw_message)(message, force)
  *
  * return bool - TRUE if any assets had to be sent to the client
  */
-TYPE_PROC_REF(/datum/tgui_window, send_asset)(datum/asset/asset)
+/datum/tgui_window/proc/send_asset(datum/asset/asset)
 	if(!client || !asset)
 		return
 	sent_assets |= list(asset)
@@ -265,7 +265,7 @@ TYPE_PROC_REF(/datum/tgui_window, send_asset)(datum/asset/asset)
  *
  * Sends queued messages if the queue wasn't empty.
  */
-TYPE_PROC_REF(/datum/tgui_window, flush_message_queue)()
+/datum/tgui_window/proc/flush_message_queue()
 	if(!client || !message_queue)
 		return
 	for(var/message in message_queue)
@@ -279,7 +279,7 @@ TYPE_PROC_REF(/datum/tgui_window, flush_message_queue)()
  *
  * Callback for handling incoming tgui messages.
  */
-TYPE_PROC_REF(/datum/tgui_window, on_message)(type, payload, href_list)
+/datum/tgui_window/proc/on_message(type, payload, href_list)
 	// Status can be READY if user has refreshed the window.
 	if(type == "ready" && status == TGUI_WINDOW_READY)
 		// Resend the assets

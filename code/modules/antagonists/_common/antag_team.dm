@@ -15,17 +15,17 @@
 		else
 			add_member(starting_members)
 
-TYPE_PROC_REF(/datum/team, is_solo)()
+/datum/team/proc/is_solo()
 	return members.len == 1
 
-TYPE_PROC_REF(/datum/team, add_member)(datum/mind/new_member)
+/datum/team/proc/add_member(datum/mind/new_member)
 	members |= new_member
 
-TYPE_PROC_REF(/datum/team, remove_member)(datum/mind/member)
+/datum/team/proc/remove_member(datum/mind/member)
 	members -= member
 
 //Display members/victory/failure/objectives for the team
-TYPE_PROC_REF(/datum/team, roundend_report)()
+/datum/team/proc/roundend_report()
 	if(!show_roundend_report)
 		return
 	var/list/report = list()

@@ -38,7 +38,7 @@
 		unregister += COMSIG_ITEM_DECONSTRUCTOR_DEEPSCAN
 	UnregisterSignal(parent, unregister)
 
-TYPE_PROC_REF(/datum/component/identification, on_examine)(datum/source, mob/user, list/returnlist)
+/datum/component/identification/proc/on_examine(datum/source, mob/user, list/returnlist)
 	if(check_knowledge(user) != ID_COMPONENT_KNOWLEDGE_FULL)
 		return
 	if(!additional_examine_text)
@@ -54,20 +54,20 @@ TYPE_PROC_REF(/datum/component/identification, on_examine)(datum/source, mob/use
 	if((var_value == NAMEOF(src, identification_flags)) || (var_value == NAMEOF(src, identification_effect_flags)) || (var_value == NAMEOF(src, identification_method_flags)))
 		RegisterWithParent()
 
-TYPE_PROC_REF(/datum/component/identification, on_equip)(datum/source, mob/user)
+/datum/component/identification/proc/on_equip(datum/source, mob/user)
 	if(check_knowledge(user) == ID_COMPONENT_KNOWLEDGE_FULL)
 		return
 	if(identification_method_flags & ID_COMPONENT_EFFECT_NO_ACTIONS)
 		return COMPONENT_NO_GRANT_ACTIONS
 
-TYPE_PROC_REF(/datum/component/identification, check_knowledge)(mob/user)
+/datum/component/identification/proc/check_knowledge(mob/user)
 	return ID_COMPONENT_KNOWLEDGE_NONE
 
-TYPE_PROC_REF(/datum/component/identification, on_identify)(mob/user)
+/datum/component/identification/proc/on_identify(mob/user)
 	if(identification_flags & ID_COMPONENT_DEL_ON_IDENTIFY)
 		qdel(src)
 
-TYPE_PROC_REF(/datum/component/identification, on_deconstructor_deepscan)(datum/source, obj/machinery/rnd/destructive_analyzer/analyzer, mob/user, list/information = list())
+/datum/component/identification/proc/on_deconstructor_deepscan(datum/source, obj/machinery/rnd/destructive_analyzer/analyzer, mob/user, list/information = list())
 	if((identification_method_flags & ID_COMPONENT_IDENTIFY_WITH_DECONSTRUCTOR) && !(identification_flags & ID_COMPONENT_DECONSTRUCTOR_DEEPSCANNED))
 		identification_flags |= ID_COMPONENT_DECONSTRUCTOR_DEEPSCANNED
 		on_identify(user)

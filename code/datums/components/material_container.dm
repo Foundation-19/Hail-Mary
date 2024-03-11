@@ -45,7 +45,7 @@
 		var/datum/material/M = SSmaterials.GetMaterialRef(mat)
 		materials[M] = 0
 
-TYPE_PROC_REF(/datum/component/material_container, OnExamine)(datum/source, mob/user, list/examine_list)
+/datum/component/material_container/proc/OnExamine(datum/source, mob/user, list/examine_list)
 	if(show_on_examine)
 		for(var/I in materials)
 			var/datum/material/M = I
@@ -54,7 +54,7 @@ TYPE_PROC_REF(/datum/component/material_container, OnExamine)(datum/source, mob/
 				examine_list += span_notice("It has [amt] units of [lowertext(M.name)] stored.")
 
 /// Proc that allows players to fill the parent with mats
-TYPE_PROC_REF(/datum/component/material_container, OnAttackBy)(datum/source, obj/item/I, mob/living/user)
+/datum/component/material_container/proc/OnAttackBy(datum/source, obj/item/I, mob/living/user)
 	var/list/tc = allowed_typecache
 	if(disable_attackby)
 		return
@@ -79,7 +79,7 @@ TYPE_PROC_REF(/datum/component/material_container, OnAttackBy)(datum/source, obj
 	user_insert(I, user)
 
 /// Proc used for when player inserts materials
-TYPE_PROC_REF(/datum/component/material_container, user_insert)(obj/item/I, mob/living/user, datum/component/remote_materials/remote = null)
+/datum/component/material_container/proc/user_insert(obj/item/I, mob/living/user, datum/component/remote_materials/remote = null)
 	set waitfor = FALSE
 	var/active_held = user.get_active_held_item()  // differs from I when using TK
 	var/inserted = 0
@@ -119,7 +119,7 @@ TYPE_PROC_REF(/datum/component/material_container, user_insert)(obj/item/I, mob/
 			remote.after_insert.Invoke(I, last_inserted_id, inserted)
 
 //Inserts a number of sheets from a stack, returns the amount of sheets used.
-TYPE_PROC_REF(/datum/component/material_container, insert_stack)(obj/item/stack/S, amt, multiplier = 1)
+/datum/component/material_container/proc/insert_stack(obj/item/stack/S, amt, multiplier = 1)
 	if(isnull(amt))
 		amt = S.amount
 
@@ -159,7 +159,7 @@ TYPE_PROC_REF(/datum/component/material_container, insert_stack)(obj/item/stack/
 	return total_added
 
 /// Proc specifically for inserting items, returns the amount of materials entered.
-TYPE_PROC_REF(/datum/component/material_container, insert_item)(obj/item/I, multiplier = 1)
+/datum/component/material_container/proc/insert_item(obj/item/I, multiplier = 1)
 	if(QDELETED(I))
 		return FALSE
 
@@ -172,7 +172,7 @@ TYPE_PROC_REF(/datum/component/material_container, insert_item)(obj/item/I, mult
 	last_inserted_id = insert_item_materials(I, multiplier)
 	return material_amount
 
-TYPE_PROC_REF(/datum/component/material_container, insert_item_materials)(obj/item/I, multiplier = 1)
+/datum/component/material_container/proc/insert_item_materials(obj/item/I, multiplier = 1)
 	var/primary_mat
 	var/max_mat_value = 0
 	for(var/MAT in materials)
@@ -184,7 +184,7 @@ TYPE_PROC_REF(/datum/component/material_container, insert_item_materials)(obj/it
 	return primary_mat
 
 /// For inserting an amount of material
-TYPE_PROC_REF(/datum/component/material_container, insert_amount_mat)(amt, datum/material/mat)
+/datum/component/material_container/proc/insert_amount_mat(amt, datum/material/mat)
 	if(!istype(mat))
 		mat = SSmaterials.GetMaterialRef(mat)
 	if(amt > 0 && has_space(amt))
@@ -200,7 +200,7 @@ TYPE_PROC_REF(/datum/component/material_container, insert_amount_mat)(amt, datum
 	return FALSE
 
 /// Uses an amount of a specific material, effectively removing it.
-TYPE_PROC_REF(/datum/component/material_container, use_amount_mat)(amt, datum/material/mat)
+/datum/component/material_container/proc/use_amount_mat(amt, datum/material/mat)
 	if(!istype(mat))
 		mat = SSmaterials.GetMaterialRef(mat)
 	var/amount = materials[mat]
@@ -212,7 +212,7 @@ TYPE_PROC_REF(/datum/component/material_container, use_amount_mat)(amt, datum/ma
 	return FALSE
 
 /// Proc for transfering materials to another container.
-TYPE_PROC_REF(/datum/component/material_container, transer_amt_to)(datum/component/material_container/T, amt, datum/material/mat)
+/datum/component/material_container/proc/transer_amt_to(datum/component/material_container/T, amt, datum/material/mat)
 	if(!istype(mat))
 		mat = SSmaterials.GetMaterialRef(mat)
 	if((amt==0)||(!T)||(!mat))
@@ -227,7 +227,7 @@ TYPE_PROC_REF(/datum/component/material_container, transer_amt_to)(datum/compone
 	return FALSE
 
 /// Proc for checking if there is room in the component, returning the amount or else the amount lacking.
-TYPE_PROC_REF(/datum/component/material_container, can_insert_amount_mat)(amt, mat)
+/datum/component/material_container/proc/can_insert_amount_mat(amt, mat)
 	if(amt && mat)
 		var/datum/material/M = mat
 		if(M)
@@ -238,7 +238,7 @@ TYPE_PROC_REF(/datum/component/material_container, can_insert_amount_mat)(amt, m
 
 
 /// For consuming a dictionary of materials. mats is the map of materials to use and the corresponding amounts, example: list(M/datum/material/glass =100, datum/material/iron=200)
-TYPE_PROC_REF(/datum/component/material_container, use_materials)(list/mats, multiplier=1)
+/datum/component/material_container/proc/use_materials(list/mats, multiplier=1)
 	if(!mats || !length(mats))
 		return FALSE
 
@@ -264,7 +264,7 @@ TYPE_PROC_REF(/datum/component/material_container, use_materials)(list/mats, mul
 	return total_amount_save - total_amount
 
 /// For spawning mineral sheets at a specific location. Used by machines to output sheets.
-TYPE_PROC_REF(/datum/component/material_container, retrieve_sheets)(sheet_amt, datum/material/M, target = null)
+/datum/component/material_container/proc/retrieve_sheets(sheet_amt, datum/material/M, target = null)
 	if(!M.sheet_type)
 		return 0 //Add greyscale sheet handling here later
 	if(sheet_amt <= 0)
@@ -288,7 +288,7 @@ TYPE_PROC_REF(/datum/component/material_container, retrieve_sheets)(sheet_amt, d
 
 
 /// Proc to get all the materials and dump them as sheets
-TYPE_PROC_REF(/datum/component/material_container, retrieve_all)(target = null)
+/datum/component/material_container/proc/retrieve_all(target = null)
 	var/result = 0
 	for(var/MAT in materials)
 		var/amount = materials[MAT]
@@ -296,11 +296,11 @@ TYPE_PROC_REF(/datum/component/material_container, retrieve_all)(target = null)
 	return result
 
 /// Proc that returns TRUE if the container has space
-TYPE_PROC_REF(/datum/component/material_container, has_space)(amt = 0)
+/datum/component/material_container/proc/has_space(amt = 0)
 	return (total_amount + amt) <= max_amount
 
 /// Checks if its possible to afford a certain amount of materials. Takes a dictionary of materials.
-TYPE_PROC_REF(/datum/component/material_container, has_materials)(list/mats, multiplier=1)
+/datum/component/material_container/proc/has_materials(list/mats, multiplier=1)
 	if(!mats || !mats.len)
 		return FALSE
 
@@ -322,7 +322,7 @@ TYPE_PROC_REF(/datum/component/material_container, has_materials)(list/mats, mul
 	return TRUE
 
 /// Returns all the categories in a recipe.
-TYPE_PROC_REF(/datum/component/material_container, get_categories)(list/mats)
+/datum/component/material_container/proc/get_categories(list/mats)
 	var/list/categories = list()
 	for(var/x in mats) //Loop through all required materials
 		if(!istext(x)) //This means its not a category
@@ -332,7 +332,7 @@ TYPE_PROC_REF(/datum/component/material_container, get_categories)(list/mats)
 
 
 /// Returns TRUE if you have enough of the specified material.
-TYPE_PROC_REF(/datum/component/material_container, has_enough_of_material)(datum/material/req_mat, amount, multiplier=1)
+/datum/component/material_container/proc/has_enough_of_material(datum/material/req_mat, amount, multiplier=1)
 	if(!materials[req_mat]) //Do we have the resource?
 		return FALSE //Can't afford it
 	var/amount_required = amount * multiplier
@@ -341,7 +341,7 @@ TYPE_PROC_REF(/datum/component/material_container, has_enough_of_material)(datum
 	return FALSE //Can't afford it
 
 /// Returns TRUE if you have enough of a specified material category (Which could be multiple materials)
-TYPE_PROC_REF(/datum/component/material_container, has_enough_of_category)(category, amount, multiplier=1)
+/datum/component/material_container/proc/has_enough_of_category(category, amount, multiplier=1)
 	for(var/i in SSmaterials.materials_by_category[category])
 		var/datum/material/mat = i
 		if(materials[mat] >= amount) //we have enough
@@ -349,20 +349,20 @@ TYPE_PROC_REF(/datum/component/material_container, has_enough_of_category)(categ
 	return FALSE
 
 /// Turns a material amount into the amount of sheets it should output
-TYPE_PROC_REF(/datum/component/material_container, amount2sheet)(amt)
+/datum/component/material_container/proc/amount2sheet(amt)
 	if(amt >= MINERAL_MATERIAL_AMOUNT)
 		return round(amt / MINERAL_MATERIAL_AMOUNT)
 	return FALSE
 
 /// Turns an amount of sheets into the amount of material amount it should output
-TYPE_PROC_REF(/datum/component/material_container, sheet2amount)(sheet_amt)
+/datum/component/material_container/proc/sheet2amount(sheet_amt)
 	if(sheet_amt > 0)
 		return sheet_amt * MINERAL_MATERIAL_AMOUNT
 	return FALSE
 
 
 ///returns the amount of material relevant to this container; if this container does not support glass, any glass in 'I' will not be taken into account
-TYPE_PROC_REF(/datum/component/material_container, get_item_material_amount)(obj/item/I)
+/datum/component/material_container/proc/get_item_material_amount(obj/item/I)
 	if(!istype(I) || !I.custom_materials)
 		return FALSE
 	var/material_amount = 0
@@ -371,7 +371,7 @@ TYPE_PROC_REF(/datum/component/material_container, get_item_material_amount)(obj
 	return material_amount
 
 /// Returns the amount of a specific material in this container.
-TYPE_PROC_REF(/datum/component/material_container, get_material_amount)(datum/material/mat)
+/datum/component/material_container/proc/get_material_amount(datum/material/mat)
 	if(!istype(mat))
 		mat = SSmaterials.GetMaterialRef(mat)
 	return(materials[mat])

@@ -89,7 +89,7 @@
 	if(orbiting_balls.len)
 		. += "There are [orbiting_balls.len] mini-balls orbiting it."
 
-TYPE_PROC_REF(/obj/singularity/energy_ball, move_the_basket_ball)(move_amount)
+/obj/singularity/energy_ball/proc/move_the_basket_ball(move_amount)
 	//we face the last thing we zapped, so this lets us favor that direction a bit
 	var/move_bias = pick(GLOB.alldirs)
 	var/move_dir
@@ -111,7 +111,7 @@ TYPE_PROC_REF(/obj/singularity/energy_ball, move_the_basket_ball)(move_amount)
 			for(var/mob/living/carbon/C in loc)
 				dust_mobs(C)
 
-TYPE_PROC_REF(/obj/singularity/energy_ball, determine_containment)()
+/obj/singularity/energy_ball/proc/determine_containment()
 	contained=0
 	var/found
 	var/tiletocheck
@@ -126,7 +126,7 @@ TYPE_PROC_REF(/obj/singularity/energy_ball, determine_containment)()
 			tiletocheck=get_step(tiletocheck,direction)
 	contained=1
 
-TYPE_PROC_REF(/obj/singularity/energy_ball, handle_energy)()
+/obj/singularity/energy_ball/proc/handle_energy()
 	if(energy >= energy_to_raise)
 		energy_to_lower = energy_to_raise - 20
 		energy_to_raise = energy_to_raise * 1.25
@@ -148,7 +148,7 @@ TYPE_PROC_REF(/obj/singularity/energy_ball, handle_energy)()
 			investigate_log("fizzled.", INVESTIGATE_SINGULO)
 			qdel(src)
 
-TYPE_PROC_REF(/obj/singularity/energy_ball, new_mini_ball)()
+/obj/singularity/energy_ball/proc/new_mini_ball()
 	if(!loc)
 		return
 	var/obj/singularity/energy_ball/EB = new(loc, 0, TRUE)
@@ -192,7 +192,7 @@ TYPE_PROC_REF(/obj/singularity/energy_ball, new_mini_ball)()
 	if (!QDELETED(src))
 		qdel(src)
 
-TYPE_PROC_REF(/obj/singularity/energy_ball, dust_mobs)(atom/A)
+/obj/singularity/energy_ball/proc/dust_mobs(atom/A)
 	if(isliving(A))
 		var/mob/living/L = A
 		if(L.incorporeal_move || L.status_flags & GODMODE)
@@ -340,7 +340,7 @@ TYPE_PROC_REF(/obj/singularity/energy_ball, dust_mobs)(atom/A)
 	if(closest_type == LIVING)
 		var/mob/living/closest_mob = closest_atom
 		closest_mob.set_shocked()
-		addtimer(CALLBACK(closest_mob, TYPE_PROC_REF(/mob/living, reset_shocked)), 10)
+		addtimer(CALLBACK(closest_mob, /mob/living/proc/reset_shocked), 10)
 		var/shock_damage = (zap_flags & ZAP_MOB_DAMAGE) ? (min(round(power/600), 90) + rand(-5, 5)) : 0
 		closest_mob.electrocute_act(shock_damage, source, 1, SHOCK_TESLA | ((zap_flags & ZAP_MOB_STUN) ? NONE : SHOCK_NOSTUN))
 		if(issilicon(closest_mob))

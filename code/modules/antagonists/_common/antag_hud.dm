@@ -5,7 +5,7 @@
 /datum/atom_hud/antag/hidden
 	self_visible = FALSE
 
-TYPE_PROC_REF(/datum/atom_hud/antag, join_hud)(mob/M)
+/datum/atom_hud/antag/proc/join_hud(mob/M)
 	//sees_hud should be set to 0 if the mob does not get to see it's own hud type.
 	if(!istype(M))
 		CRASH("join_hud(): [M] ([M.type]) is not a mob!")
@@ -16,7 +16,7 @@ TYPE_PROC_REF(/datum/atom_hud/antag, join_hud)(mob/M)
 		add_hud_to(M)
 	M.mind.antag_hud = src
 
-TYPE_PROC_REF(/datum/atom_hud/antag, leave_hud)(mob/M)
+/datum/atom_hud/antag/proc/leave_hud(mob/M)
 	if(!M)
 		return
 	if(!istype(M))
@@ -41,13 +41,13 @@ TYPE_PROC_REF(/datum/atom_hud/antag, leave_hud)(mob/M)
 
 //MIND PROCS
 //these are called by mind.transfer_to()
-TYPE_PROC_REF(/datum/mind, transfer_antag_huds)(datum/atom_hud/antag/newhud)
+/datum/mind/proc/transfer_antag_huds(datum/atom_hud/antag/newhud)
 	leave_all_antag_huds()
 	set_antag_hud(current, antag_hud_icon_state)
 	if(newhud)
 		newhud.join_hud(current)
 
-TYPE_PROC_REF(/datum/mind, leave_all_antag_huds)()
+/datum/mind/proc/leave_all_antag_huds()
 	for(var/datum/atom_hud/antag/hud in GLOB.huds)
 		if(hud.hudusers[current])
 			hud.leave_hud(current)

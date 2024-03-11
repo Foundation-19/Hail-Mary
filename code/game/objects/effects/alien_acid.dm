@@ -57,7 +57,7 @@
 		qdel(src)
 		return 0
 
-TYPE_PROC_REF(/obj/effect/acid, on_entered)(AM as mob|obj)
+/obj/effect/acid/proc/on_entered(AM as mob|obj)
 	SIGNAL_HANDLER
 	if(isliving(AM))
 		var/mob/living/L = AM

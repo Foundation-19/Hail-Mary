@@ -13,7 +13,7 @@
 /obj/effect/projectile/singularity_act()
 	return
 
-TYPE_PROC_REF(/obj/effect/projectile, scale_to)(nx,ny,override=TRUE)
+/obj/effect/projectile/proc/scale_to(nx,ny,override=TRUE)
 	var/matrix/M
 	if(!override)
 		M = transform
@@ -22,7 +22,7 @@ TYPE_PROC_REF(/obj/effect/projectile, scale_to)(nx,ny,override=TRUE)
 	M.Scale(nx,ny)
 	transform = M
 
-TYPE_PROC_REF(/obj/effect/projectile, turn_to)(angle,override=TRUE)
+/obj/effect/projectile/proc/turn_to(angle,override=TRUE)
 	var/matrix/M
 	if(!override)
 		M = transform
@@ -36,7 +36,7 @@ TYPE_PROC_REF(/obj/effect/projectile, turn_to)(angle,override=TRUE)
 		apply_vars(angle_override, p_x, p_y, color_override, scaling)
 	return ..()
 
-TYPE_PROC_REF(/obj/effect/projectile, apply_vars)(angle_override, p_x = 0, p_y = 0, color_override, scaling = 1, new_loc, increment = 0)
+/obj/effect/projectile/proc/apply_vars(angle_override, p_x = 0, p_y = 0, color_override, scaling = 1, new_loc, increment = 0)
 	var/mutable_appearance/look = new(src)
 	look.pixel_x = p_x
 	look.pixel_y = p_y

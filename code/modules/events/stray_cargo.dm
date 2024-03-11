@@ -58,12 +58,12 @@
 	new /obj/effect/abstract/DPtarget(LZ, pod)
 
 ///Handles the creation of the pod, in case it needs to be modified beforehand
-TYPE_PROC_REF(/datum/round_event/stray_cargo, make_pod)()
+/datum/round_event/stray_cargo/proc/make_pod()
 	var/obj/structure/closet/supplypod/S = new
 	return S
 
 ///Picks an area that wouldn't risk critical damage if hit by a pod explosion
-TYPE_PROC_REF(/datum/round_event/stray_cargo, find_event_area)()
+/datum/round_event/stray_cargo/proc/find_event_area()
 	var/static/list/allowed_areas
 	if(!allowed_areas)
 		///Places that shouldn't explode

@@ -28,7 +28,7 @@
 		traumatize(H)
 		break
 
-TYPE_PROC_REF(/datum/round_event/brain_trauma, traumatize)(mob/living/carbon/human/H)
+/datum/round_event/brain_trauma/proc/traumatize(mob/living/carbon/human/H)
 	var/resistance = pick(
 		65;TRAUMA_RESILIENCE_BASIC,
 		35;TRAUMA_RESILIENCE_SURGERY)

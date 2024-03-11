@@ -34,20 +34,20 @@
 	. = ..()
 	AddComponent(/datum/component/stationloving, TRUE, TRUE, FALSE, COMMON_Z_LEVELS)
 
-TYPE_PROC_REF(/obj/item/validball, register_vb_datum)()
+/obj/item/validball/proc/register_vb_datum()
 	var/datum/validball_data_report/vb_datum = new
 	vb_datum.register_your_product(src)
 	our_datum_thing = WEAKREF(vb_datum)
 	SSvalidball.vb_reports |= vb_datum
 
-TYPE_PROC_REF(/obj/item/validball, activate_the_validball)()
+/obj/item/validball/proc/activate_the_validball()
 	if(activated)
 		return
 	activated = TRUE
 	START_PROCESSING(SSobj, src)
 	visible_message(span_notice("[src]'s transmitter lets out a faint beep. Anyone with a signal divination device can see where this is!"))
 
-TYPE_PROC_REF(/obj/item/validball, update_holders)(mob/holder)
+/obj/item/validball/proc/update_holders(mob/holder)
 	if(!ismob(holder))
 		return
 	if(!holder.ckey)
@@ -130,7 +130,7 @@ TYPE_PROC_REF(/obj/item/validball, update_holders)(mob/holder)
 	if(istype(W, /obj/item/paper))
 		add_paper(W, user)
 
-TYPE_PROC_REF(/obj/item/pinpointer/validball_finder, add_paper)(obj/item/paper/ppr, mob/user)
+/obj/item/pinpointer/validball_finder/proc/add_paper(obj/item/paper/ppr, mob/user)
 	if(!istype(ppr))
 		user.show_message(span_alert("That's not paper!"))
 		return FALSE
@@ -151,7 +151,7 @@ TYPE_PROC_REF(/obj/item/pinpointer/validball_finder, add_paper)(obj/item/paper/p
 	playsound(src, 'sound/machines/click.ogg', 30, 1)
 	return TRUE
 
-TYPE_PROC_REF(/obj/item/pinpointer/validball_finder, send_scan_ping)(mob/user)
+/obj/item/pinpointer/validball_finder/proc/send_scan_ping(mob/user)
 	if(!user)
 		return
 	if(currently_scanning)
@@ -179,7 +179,7 @@ TYPE_PROC_REF(/obj/item/pinpointer/validball_finder, send_scan_ping)(mob/user)
 	currently_scanning = TRUE
 	addtimer(CALLBACK(src, PROC_REF(read_scan_ping), user), scan_time)
 
-TYPE_PROC_REF(/obj/item/pinpointer/validball_finder, read_scan_ping)()
+/obj/item/pinpointer/validball_finder/proc/read_scan_ping()
 	if(!isweakref(scan_turf))
 		say(span_robot("Scan origin weakref failed! Error code 13"))
 		visible_message("[src] lets out a confused beep!")
@@ -207,7 +207,7 @@ TYPE_PROC_REF(/obj/item/pinpointer/validball_finder, read_scan_ping)()
 	visible_message("[src] prints something!")
 	currently_scanning = FALSE
 
-TYPE_PROC_REF(/obj/item/pinpointer/validball_finder, print_report)(report_msg)
+/obj/item/pinpointer/validball_finder/proc/print_report(report_msg)
 	var/obj/item/paper/our_paper = papers[LAZYLEN(papers)]
 	if(!our_paper)
 		return FALSE
@@ -223,7 +223,7 @@ TYPE_PROC_REF(/obj/item/pinpointer/validball_finder, print_report)(report_msg)
 		someonethere.put_in_hands(our_paper)
 	return TRUE
 
-TYPE_PROC_REF(/obj/item/pinpointer/validball_finder, build_report)(turf/scan_origin)
+/obj/item/pinpointer/validball_finder/proc/build_report(turf/scan_origin)
 	if(!isturf(scan_origin))
 		return
 	var/list/msg_out = list()
@@ -266,7 +266,7 @@ TYPE_PROC_REF(/obj/item/pinpointer/validball_finder, build_report)(turf/scan_ori
 	return span_robot(msg_out.Join("<br>"))
 
 
-TYPE_PROC_REF(/obj/item/pinpointer/validball_finder, z2text)(turf/hereturf)
+/obj/item/pinpointer/validball_finder/proc/z2text(turf/hereturf)
 	if(!hereturf)
 		return "!!UNKNOWN!!"
 	if(!isturf(hereturf))
@@ -289,7 +289,7 @@ TYPE_PROC_REF(/obj/item/pinpointer/validball_finder, z2text)(turf/hereturf)
 		else
 			return "~!UNKNOWN!~"
 
-TYPE_PROC_REF(/obj/item/pinpointer/validball_finder, local_coords)(turf/hereturf)
+/obj/item/pinpointer/validball_finder/proc/local_coords(turf/hereturf)
 	if(!hereturf)
 		return "!!UNKNOWN!!"
 	if(!isturf(hereturf))
@@ -300,7 +300,7 @@ TYPE_PROC_REF(/obj/item/pinpointer/validball_finder, local_coords)(turf/hereturf
 	var/coord_y = abs(hereturf.y + rand(-5, 5))
 	return "[coord_x], [coord_y]"
 
-TYPE_PROC_REF(/obj/item/pinpointer/validball_finder, which_direction)(turf/hereturf, atom/therething)
+/obj/item/pinpointer/validball_finder/proc/which_direction(turf/hereturf, atom/therething)
 	if(!hereturf)
 		return "!!UNKNOWN!!"
 	if(!therething)
@@ -318,7 +318,7 @@ TYPE_PROC_REF(/obj/item/pinpointer/validball_finder, which_direction)(turf/heret
 	var/the_direction = angle2text(the_angle)
 	return "[the_angle] ([the_direction]-ish)"
 
-TYPE_PROC_REF(/obj/item/pinpointer/validball_finder, readout_fluff)(typething = "END")
+/obj/item/pinpointer/validball_finder/proc/readout_fluff(typething = "END")
 	if(typething == "START")
 		switch(rand(1,6))
 			if(1)
@@ -349,7 +349,7 @@ TYPE_PROC_REF(/obj/item/pinpointer/validball_finder, readout_fluff)(typething = 
 			if(6)
 				return "No hostile readings detected, it's good and safe! =3"
 
-TYPE_PROC_REF(/obj/item/pinpointer/validball_finder, has_paper)()
+/obj/item/pinpointer/validball_finder/proc/has_paper()
 	if(!LAZYLEN(papers))
 		return FALSE
 	for(var/obj/item/paper/papper in papers)
@@ -400,12 +400,12 @@ TYPE_PROC_REF(/obj/item/pinpointer/validball_finder, has_paper)()
 	. = ..()
 	add_spawner_to_list()
 
-TYPE_PROC_REF(/obj/effect/validball_spawner, add_spawner_to_list)()
+/obj/effect/validball_spawner/proc/add_spawner_to_list()
 	if(src in SSvalidball.valid_ball_spawners)
 		return
 	SSvalidball.valid_ball_spawners += src
 
-TYPE_PROC_REF(/obj/effect/validball_spawner, spawn_the_thing)()
+/obj/effect/validball_spawner/proc/spawn_the_thing()
 	var/atom/spawn_here = loc
 	var/turf/right_here = get_turf(src)
 	if(isturf(right_here) && isatom(spawn_here))
@@ -436,7 +436,7 @@ TYPE_PROC_REF(/obj/effect/validball_spawner, spawn_the_thing)()
 	/// Was this thing destroyed?
 	var/was_destroyed = "help"
 
-TYPE_PROC_REF(/datum/validball_data_report, register_your_product)(obj/item/validball/ball)
+/datum/validball_data_report/proc/register_your_product(obj/item/validball/ball)
 	if(!istype(ball)) // wh
 		if(src in SSvalidball.vb_reports)
 			SSvalidball.vb_reports -= src
@@ -447,10 +447,10 @@ TYPE_PROC_REF(/datum/validball_data_report, register_your_product)(obj/item/vali
 	vb_name = ball.name
 	last_holder_ckey = VB_DUMMY_CKEY
 
-TYPE_PROC_REF(/datum/validball_data_report, set_be_destroyed)()
+/datum/validball_data_report/proc/set_be_destroyed()
 	was_destroyed = TRUE // :c
 
-TYPE_PROC_REF(/datum/validball_data_report, update_ownership)(mob/user)
+/datum/validball_data_report/proc/update_ownership(mob/user)
 	if(!ismob(user))
 		return
 	if(!user.ckey)

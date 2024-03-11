@@ -40,7 +40,7 @@
 	if(holder)
 		holder.update_icon()
 
-TYPE_PROC_REF(/obj/item/assembly/mousetrap, triggered)(mob/target, type = "feet")
+/obj/item/assembly/mousetrap/proc/triggered(mob/target, type = "feet")
 	if(!armed)
 		return
 	var/obj/item/bodypart/affecting = null
@@ -104,7 +104,7 @@ TYPE_PROC_REF(/obj/item/assembly/mousetrap, triggered)(mob/target, type = "feet"
 			return
 	return ..()
 
-TYPE_PROC_REF(/obj/item/assembly/mousetrap, handle_entered)(atom/movable/AM as mob|obj)
+/obj/item/assembly/mousetrap/proc/handle_entered(atom/movable/AM as mob|obj)
 	if(armed)
 		if(ismob(AM))
 			var/mob/MM = AM
@@ -120,7 +120,7 @@ TYPE_PROC_REF(/obj/item/assembly/mousetrap, handle_entered)(atom/movable/AM as m
 		else if(AM.density) // For mousetrap grenades, set off by anything heavy
 			triggered(AM)
 
-TYPE_PROC_REF(/obj/item/assembly/mousetrap, on_entered)(atom/movable/AM as mob|obj)
+/obj/item/assembly/mousetrap/proc/on_entered(atom/movable/AM as mob|obj)
 	SIGNAL_HANDLER
 	INVOKE_ASYNC(src, PROC_REF(handle_entered), AM)
 

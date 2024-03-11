@@ -114,30 +114,30 @@
 	else
 		return ..()
 
-TYPE_PROC_REF(/obj/item/gun/energy/beam_rifle, set_autozoom_pixel_offsets_immediate)(current_angle)
+/obj/item/gun/energy/beam_rifle/proc/set_autozoom_pixel_offsets_immediate(current_angle)
 	if(zoom_lock == ZOOM_LOCK_CENTER_VIEW || zoom_lock == ZOOM_LOCK_OFF)
 		return
 	current_zoom_x = sin(current_angle) + sin(current_angle) * AUTOZOOM_PIXEL_STEP_FACTOR * zoom_current_view_increase
 	current_zoom_y = cos(current_angle) + cos(current_angle) * AUTOZOOM_PIXEL_STEP_FACTOR * zoom_current_view_increase
 
-TYPE_PROC_REF(/obj/item/gun/energy/beam_rifle, handle_zooming)()
+/obj/item/gun/energy/beam_rifle/proc/handle_zooming()
 	if(!zooming || !check_user())
 		return
 	set_autozoom_pixel_offsets_immediate(zooming_angle)
 
-TYPE_PROC_REF(/obj/item/gun/energy/beam_rifle, start_zooming)()
+/obj/item/gun/energy/beam_rifle/proc/start_zooming()
 	if(zoom_lock == ZOOM_LOCK_OFF)
 		return
 	zooming = TRUE
 	current_user.client.change_view(world.view + zoom_target_view_increase)
 	zoom_current_view_increase = zoom_target_view_increase
 
-TYPE_PROC_REF(/obj/item/gun/energy/beam_rifle, stop_zooming)(mob/user)
+/obj/item/gun/energy/beam_rifle/proc/stop_zooming(mob/user)
 	if(zooming)
 		zooming = FALSE
 		reset_zooming(user)
 
-TYPE_PROC_REF(/obj/item/gun/energy/beam_rifle, reset_zooming)(mob/user)
+/obj/item/gun/energy/beam_rifle/proc/reset_zooming(mob/user)
 	if(!user)
 		user = current_user
 	if(!user || !user.client)
@@ -178,7 +178,7 @@ TYPE_PROC_REF(/obj/item/gun/energy/beam_rifle, reset_zooming)(mob/user)
 	QDEL_LIST(current_tracers)
 	return ..()
 
-TYPE_PROC_REF(/obj/item/gun/energy/beam_rifle, aiming_beam)(force_update = FALSE)
+/obj/item/gun/energy/beam_rifle/proc/aiming_beam(force_update = FALSE)
 	var/diff = abs(aiming_lastangle - lastangle)
 	if(!check_user())
 		return
@@ -215,7 +215,7 @@ TYPE_PROC_REF(/obj/item/gun/energy/beam_rifle, aiming_beam)(force_update = FALSE
 	aiming_beam(TRUE)
 	last_process = world.time
 
-TYPE_PROC_REF(/obj/item/gun/energy/beam_rifle, check_user)(automatic_cleanup = TRUE)
+/obj/item/gun/energy/beam_rifle/proc/check_user(automatic_cleanup = TRUE)
 	if(!istype(current_user) || !isturf(current_user.loc) || !(src in current_user.held_items) || current_user.incapacitated())	//Doesn't work if you're not holding it!
 		if(automatic_cleanup)
 			stop_aiming()
@@ -223,7 +223,7 @@ TYPE_PROC_REF(/obj/item/gun/energy/beam_rifle, check_user)(automatic_cleanup = T
 		return FALSE
 	return TRUE
 
-TYPE_PROC_REF(/obj/item/gun/energy/beam_rifle, process_aim)()
+/obj/item/gun/energy/beam_rifle/proc/process_aim()
 	if(istype(current_user) && current_user.client && current_user.client.mouseParams)
 		var/angle = mouse_angle_from_client(current_user.client)
 		current_user.setDir(angle2dir_cardinal(angle))
@@ -231,14 +231,14 @@ TYPE_PROC_REF(/obj/item/gun/energy/beam_rifle, process_aim)()
 		delay_penalty(difference * aiming_time_increase_angle_multiplier)
 		lastangle = angle
 
-TYPE_PROC_REF(/obj/item/gun/energy/beam_rifle, on_mob_move)()
+/obj/item/gun/energy/beam_rifle/proc/on_mob_move()
 	check_user()
 	if(aiming)
 		delay_penalty(aiming_time_increase_user_movement)
 		process_aim()
 		aiming_beam(TRUE)
 
-TYPE_PROC_REF(/obj/item/gun/energy/beam_rifle, start_aiming)()
+/obj/item/gun/energy/beam_rifle/proc/start_aiming()
 	aiming_time_left = aiming_time
 	aiming = TRUE
 	process_aim()
@@ -246,14 +246,14 @@ TYPE_PROC_REF(/obj/item/gun/energy/beam_rifle, start_aiming)()
 	zooming_angle = lastangle
 	start_zooming()
 
-TYPE_PROC_REF(/obj/item/gun/energy/beam_rifle, stop_aiming)(mob/user)
+/obj/item/gun/energy/beam_rifle/proc/stop_aiming(mob/user)
 	set waitfor = FALSE
 	aiming_time_left = aiming_time
 	aiming = FALSE
 	QDEL_LIST(current_tracers)
 	stop_zooming(user)
 
-TYPE_PROC_REF(/obj/item/gun/energy/beam_rifle, set_user)(mob/user)
+/obj/item/gun/energy/beam_rifle/proc/set_user(mob/user)
 	if(user == current_user)
 		return
 	stop_aiming(current_user)
@@ -302,14 +302,14 @@ TYPE_PROC_REF(/obj/item/gun/energy/beam_rifle, set_user)(mob/user)
 		lastfire = world.time
 	stop_aiming()
 
-TYPE_PROC_REF(/obj/item/gun/energy/beam_rifle, fire_check)()
+/obj/item/gun/energy/beam_rifle/proc/fire_check()
 	return (aiming_time_left <= aiming_time_fire_threshold) && check_user() && ((lastfire + delay) <= world.time)
 
-TYPE_PROC_REF(/obj/item/gun/energy/beam_rifle, sync_ammo)()
+/obj/item/gun/energy/beam_rifle/proc/sync_ammo()
 	for(var/obj/item/ammo_casing/energy/beam_rifle/AC in contents)
 		AC.sync_stats()
 
-TYPE_PROC_REF(/obj/item/gun/energy/beam_rifle, delay_penalty)(amount)
+/obj/item/gun/energy/beam_rifle/proc/delay_penalty(amount)
 	aiming_time_left = clamp(aiming_time_left + amount, 0, aiming_time)
 
 /obj/item/ammo_casing/energy/beam_rifle
@@ -331,7 +331,7 @@ TYPE_PROC_REF(/obj/item/gun/energy/beam_rifle, delay_penalty)(amount)
 	var/do_pierce = TRUE
 	var/obj/item/gun/energy/beam_rifle/host
 
-TYPE_PROC_REF(/obj/item/ammo_casing/energy/beam_rifle, sync_stats)()
+/obj/item/ammo_casing/energy/beam_rifle/proc/sync_stats()
 	var/obj/item/gun/energy/beam_rifle/BR = loc
 	if(!istype(BR))
 		stack_trace("Beam rifle syncing error")
@@ -426,7 +426,7 @@ TYPE_PROC_REF(/obj/item/ammo_casing/energy/beam_rifle, sync_stats)()
 	var/turf/cached
 	var/list/pierced = list()
 
-TYPE_PROC_REF(/obj/item/projectile/beam/beam_rifle, AOE)(turf/epicenter)
+/obj/item/projectile/beam/beam_rifle/proc/AOE(turf/epicenter)
 	set waitfor = FALSE
 	if(!epicenter)
 		return
@@ -443,7 +443,7 @@ TYPE_PROC_REF(/obj/item/projectile/beam/beam_rifle, AOE)(turf/epicenter)
 				continue
 			O.take_damage(aoe_structure_damage * get_damage_coeff(O), BURN, "laser", FALSE)
 
-TYPE_PROC_REF(/obj/item/projectile/beam/beam_rifle, check_pierce)(atom/target)
+/obj/item/projectile/beam/beam_rifle/proc/check_pierce(atom/target)
 	if(!do_pierce)
 		return FALSE
 	if(pierced[target])		//we already pierced them go away
@@ -469,7 +469,7 @@ TYPE_PROC_REF(/obj/item/projectile/beam/beam_rifle, check_pierce)(atom/target)
 				return TRUE
 	return FALSE
 
-TYPE_PROC_REF(/obj/item/projectile/beam/beam_rifle, get_damage_coeff)(atom/target)
+/obj/item/projectile/beam/beam_rifle/proc/get_damage_coeff(atom/target)
 	if(istype(target, /obj/machinery/door))
 		return 0.4
 	if(istype(target, /obj/structure/window))
@@ -478,7 +478,7 @@ TYPE_PROC_REF(/obj/item/projectile/beam/beam_rifle, get_damage_coeff)(atom/targe
 		return 0.65			//CIT CHANGE.
 	return 1
 
-TYPE_PROC_REF(/obj/item/projectile/beam/beam_rifle, handle_impact)(atom/target)
+/obj/item/projectile/beam/beam_rifle/proc/handle_impact(atom/target)
 	if(isobj(target))
 		var/obj/O = target
 		O.take_damage(impact_structure_damage * get_damage_coeff(target), BURN, "laser", FALSE)
@@ -487,7 +487,7 @@ TYPE_PROC_REF(/obj/item/projectile/beam/beam_rifle, handle_impact)(atom/target)
 		L.adjustFireLoss(impact_direct_damage)
 		L.emote("scream")
 
-TYPE_PROC_REF(/obj/item/projectile/beam/beam_rifle, handle_hit)(atom/target)
+/obj/item/projectile/beam/beam_rifle/proc/handle_hit(atom/target)
 	set waitfor = FALSE
 	if(!cached && !QDELETED(target))
 		cached = get_turf(target)

@@ -180,7 +180,7 @@
 	update_outputs()
 	activate_pin(2)
 
-TYPE_PROC_REF(/obj/item/integrated_circuit/manipulation/grabber, grab)(obj/item/AM)
+/obj/item/integrated_circuit/manipulation/grabber/proc/grab(obj/item/AM)
 	var/max_w_class = assembly.w_class
 	if(check_target(AM))
 		if(contents.len < max_items && AM.w_class <= max_w_class)
@@ -188,19 +188,19 @@ TYPE_PROC_REF(/obj/item/integrated_circuit/manipulation/grabber, grab)(obj/item/
 			A.investigate_log("picked up ([AM]) with [src].", INVESTIGATE_CIRCUIT)
 			AM.forceMove(src)
 
-TYPE_PROC_REF(/obj/item/integrated_circuit/manipulation/grabber, drop)(obj/item/AM, turf/T = drop_location())
+/obj/item/integrated_circuit/manipulation/grabber/proc/drop(obj/item/AM, turf/T = drop_location())
 	var/atom/A = get_object()
 	A.investigate_log("dropped ([AM]) from [src].", INVESTIGATE_CIRCUIT)
 	AM.forceMove(T)
 
-TYPE_PROC_REF(/obj/item/integrated_circuit/manipulation/grabber, drop_all)()
+/obj/item/integrated_circuit/manipulation/grabber/proc/drop_all()
 	if(contents.len)
 		var/turf/T = drop_location()
 		var/obj/item/U
 		for(U in src)
 			drop(U, T)
 
-TYPE_PROC_REF(/obj/item/integrated_circuit/manipulation/grabber, update_outputs)()
+/obj/item/integrated_circuit/manipulation/grabber/proc/update_outputs()
 	if(contents.len)
 		set_pin_data(IC_OUTPUT, 1, WEAKREF(contents[1]))
 		set_pin_data(IC_OUTPUT, 2, WEAKREF(contents[contents.len]))
@@ -348,7 +348,7 @@ TYPE_PROC_REF(/obj/item/integrated_circuit/manipulation/grabber, update_outputs)
 	if(istype(G))
 		G.update_outputs()
 
-TYPE_PROC_REF(/obj/item/integrated_circuit/manipulation/thrower, post_throw)(obj/item/A)
+/obj/item/integrated_circuit/manipulation/thrower/proc/post_throw(obj/item/A)
 	//return damage
 	A.throwforce = initial(A.throwforce)
 	A.embedding = initial(A.embedding)
@@ -421,7 +421,7 @@ TYPE_PROC_REF(/obj/item/integrated_circuit/manipulation/thrower, post_throw)(obj
 	materials.precise_insertion = TRUE
 	.=..()
 
-TYPE_PROC_REF(/obj/item/integrated_circuit/manipulation/matman, AfterMaterialInsert)(type_inserted, id_inserted, amount_inserted)
+/obj/item/integrated_circuit/manipulation/matman/proc/AfterMaterialInsert(type_inserted, id_inserted, amount_inserted)
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	set_pin_data(IC_OUTPUT, 2, materials.total_amount)
 	for(var/I in 1 to mtypes.len)
@@ -431,7 +431,7 @@ TYPE_PROC_REF(/obj/item/integrated_circuit/manipulation/matman, AfterMaterialIns
 			set_pin_data(IC_OUTPUT, I+2, amount)
 	push_data()
 
-TYPE_PROC_REF(/obj/item/integrated_circuit/manipulation/matman, is_insertion_ready)(mob/user)
+/obj/item/integrated_circuit/manipulation/matman/proc/is_insertion_ready(mob/user)
 	return TRUE
 
 /obj/item/integrated_circuit/manipulation/matman/do_work(ord)

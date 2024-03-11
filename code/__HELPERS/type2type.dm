@@ -70,7 +70,7 @@
 
 //Splits the text of a file at seperator and returns them in a list.
 //returns an empty list if the file doesn't exist
-TYPE_PROC_REF(/world, file2list)(filename, seperator="\n", trim = TRUE)
+/world/proc/file2list(filename, seperator="\n", trim = TRUE)
 	if (trim)
 		return splittext(trim(wrap_file2text(filename)),seperator)
 	return splittext(wrap_file2text(filename),seperator)

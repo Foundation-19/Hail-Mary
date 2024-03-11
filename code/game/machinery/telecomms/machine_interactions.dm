@@ -245,18 +245,18 @@
 				return
 
 // Check if the user can use it.
-TYPE_PROC_REF(/obj/machinery/telecomms, canInteract)(mob/user)
+/obj/machinery/telecomms/proc/canInteract(mob/user)
 	if(hasSiliconAccessInArea(user) || istype(user.get_active_held_item(), /obj/item/multitool))
 		return TRUE
 	return FALSE
 // Check if the user is nearby and has a multitool.
-TYPE_PROC_REF(/obj/machinery/telecomms, canAccess)(mob/user)
+/obj/machinery/telecomms/proc/canAccess(mob/user)
 	if((canInteract(user) && in_range(user, src)) || hasSiliconAccessInArea(user))
 		return TRUE
 	return FALSE
 
 // Returns a multitool from a user depending on their mobtype.
-TYPE_PROC_REF(/obj/machinery/telecomms, get_multitool)(mob/user)
+/obj/machinery/telecomms/proc/get_multitool(mob/user)
 	if(!canInteract(user))
 		return null
 	var/obj/item/multitool/P = user.get_active_held_item()

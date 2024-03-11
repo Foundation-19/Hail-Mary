@@ -11,7 +11,7 @@
 	var/select = FALSE
 	var/time_per_page = 5 SECONDS
 
-TYPE_PROC_REF(/obj/item/book/granter, turn_page)(mob/user)
+/obj/item/book/granter/proc/turn_page(mob/user)
 	playsound(user, pick('sound/effects/pageturn1.ogg','sound/effects/pageturn2.ogg','sound/effects/pageturn3.ogg'), 30, 1)
 	if(do_after(user,50, TRUE, user))
 		if(remarks.len)
@@ -21,21 +21,21 @@ TYPE_PROC_REF(/obj/item/book/granter, turn_page)(mob/user)
 		return TRUE
 	return FALSE
 
-TYPE_PROC_REF(/obj/item/book/granter, recoil)(mob/user) //nothing so some books can just return
+/obj/item/book/granter/proc/recoil(mob/user) //nothing so some books can just return
 
-TYPE_PROC_REF(/obj/item/book/granter, already_known)(mob/user)
+/obj/item/book/granter/proc/already_known(mob/user)
 	return FALSE
 
-TYPE_PROC_REF(/obj/item/book/granter, on_reading_start)(mob/user)
+/obj/item/book/granter/proc/on_reading_start(mob/user)
 	to_chat(user, span_notice("You start reading [name]..."))
 
-TYPE_PROC_REF(/obj/item/book/granter, on_reading_stopped)(mob/user)
+/obj/item/book/granter/proc/on_reading_stopped(mob/user)
 	to_chat(user, span_notice("You stop reading..."))
 
-TYPE_PROC_REF(/obj/item/book/granter, on_reading_finished)(mob/user)
+/obj/item/book/granter/proc/on_reading_finished(mob/user)
 	to_chat(user, span_notice("You finish reading [name]!"))
 
-TYPE_PROC_REF(/obj/item/book/granter, onlearned)(mob/user)
+/obj/item/book/granter/proc/onlearned(mob/user)
 	used = TRUE
 
 

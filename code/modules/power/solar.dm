@@ -42,19 +42,19 @@
 	return ..()
 
 //set the control of the panel to a given computer
-TYPE_PROC_REF(/obj/machinery/power/solar, set_control)(obj/machinery/power/solar_control/SC)
+/obj/machinery/power/solar/proc/set_control(obj/machinery/power/solar_control/SC)
 	unset_control()
 	control = SC
 	SC.connected_panels += src
 	queue_turn(SC.azimuth_target)
 
 //set the control of the panel to null and removes it from the control list of the previous control computer if needed
-TYPE_PROC_REF(/obj/machinery/power/solar, unset_control)()
+/obj/machinery/power/solar/proc/unset_control()
 	if(control)
 		control.connected_panels -= src
 		control = null
 
-TYPE_PROC_REF(/obj/machinery/power/solar, Make)(obj/item/solar_assembly/S)
+/obj/machinery/power/solar/proc/Make(obj/item/solar_assembly/S)
 	if(!S)
 		assembly = new /obj/item/solar_assembly
 		assembly.glass_type = new /obj/item/stack/sheet/glass(null, 2)
@@ -116,14 +116,14 @@ TYPE_PROC_REF(/obj/machinery/power/solar, Make)(obj/item/solar_assembly/S)
 	else
 		panel.icon_state = "solar_panel"
 
-TYPE_PROC_REF(/obj/machinery/power/solar, queue_turn)(azimuth)
+/obj/machinery/power/solar/proc/queue_turn(azimuth)
 	needs_to_turn = TRUE
 	azimuth_target = azimuth
 
-TYPE_PROC_REF(/obj/machinery/power/solar, queue_update_solar_exposure)()
+/obj/machinery/power/solar/proc/queue_update_solar_exposure()
 	needs_to_update_solar_exposure = TRUE //updating right away would be wasteful if we're also turning later
 
-TYPE_PROC_REF(/obj/machinery/power/solar, update_turn)()
+/obj/machinery/power/solar/proc/update_turn()
 	needs_to_turn = FALSE
 	if(azimuth_current != azimuth_target)
 		azimuth_current = azimuth_target
@@ -132,7 +132,7 @@ TYPE_PROC_REF(/obj/machinery/power/solar, update_turn)()
 		needs_to_update_solar_exposure = TRUE
 
 ///trace towards sun to see if we're in shadow
-TYPE_PROC_REF(/obj/machinery/power/solar, occlusion_setup)()
+/obj/machinery/power/solar/proc/occlusion_setup()
 	obscured = TRUE
 
 	var/distance = OCCLUSION_DISTANCE
@@ -153,7 +153,7 @@ TYPE_PROC_REF(/obj/machinery/power/solar, occlusion_setup)()
 	obscured = FALSE
 
 ///calculates the fraction of the sunlight that the panel receives
-TYPE_PROC_REF(/obj/machinery/power/solar, update_solar_exposure)()
+/obj/machinery/power/solar/proc/update_solar_exposure()
 	needs_to_update_solar_exposure = FALSE
 	sunfrac = 0
 	if(obscured)
@@ -214,7 +214,7 @@ TYPE_PROC_REF(/obj/machinery/power/solar, update_solar_exposure)()
 													/obj/item/stack/sheet/titaniumglass, /obj/item/stack/sheet/plastitaniumglass))
 
 // Give back the glass type we were supplied with
-TYPE_PROC_REF(/obj/item/solar_assembly, give_glass)(device_broken)
+/obj/item/solar_assembly/proc/give_glass(device_broken)
 	var/atom/Tsec = drop_location()
 	if(device_broken)
 		var/shard = glass_type ? glass_type.shard_type : /obj/item/shard
@@ -319,7 +319,7 @@ TYPE_PROC_REF(/obj/item/solar_assembly, give_glass)(device_broken)
 	return ..()
 
 //search for unconnected panels and trackers in the computer powernet and connect them
-TYPE_PROC_REF(/obj/machinery/power/solar_control, search_for_connected)()
+/obj/machinery/power/solar_control/proc/search_for_connected()
 	if(powernet)
 		for(var/obj/machinery/power/M in powernet.nodes)
 			if(istype(M, /obj/machinery/power/solar))
@@ -451,13 +451,13 @@ TYPE_PROC_REF(/obj/machinery/power/solar_control, search_for_connected)()
 		connected_tracker.unset_control()
 
 ///Ran every time the sun updates.
-TYPE_PROC_REF(/obj/machinery/power/solar_control, timed_track)()
+/obj/machinery/power/solar_control/proc/timed_track()
 	if(track == SOLAR_TRACK_TIMED)
 		azimuth_target += azimuth_rate
 		set_panels(azimuth_target)
 
 ///Rotates the panel to the passed angles
-TYPE_PROC_REF(/obj/machinery/power/solar_control, set_panels)(azimuth)
+/obj/machinery/power/solar_control/proc/set_panels(azimuth)
 	azimuth = clamp(round(azimuth, 0.01), -360, 719.99)
 	if(azimuth >= 360)
 		azimuth -= 360

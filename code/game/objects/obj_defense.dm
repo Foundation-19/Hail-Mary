@@ -1,6 +1,6 @@
 
 //the essential proc to call when an obj must receive damage of any kind.
-TYPE_PROC_REF(/obj, take_damage)(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, armour_penetration = 0, atom/attacked_by)
+/obj/proc/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, armour_penetration = 0, atom/attacked_by)
 	if(QDELETED(src))
 		log_qdel("[src] taking damage after deletion")
 		return
@@ -21,7 +21,7 @@ TYPE_PROC_REF(/obj, take_damage)(damage_amount, damage_type = BRUTE, damage_flag
 		obj_destruction(damage_flag)
 
 //returns the damage value of the attack after processing the obj's various armor protections
-TYPE_PROC_REF(/obj, run_obj_armor)(damage_amount, damage_type, damage_flag = 0, attack_dir, armour_penetration = 0)
+/obj/proc/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir, armour_penetration = 0)
 	switch(damage_type)
 		if(BRUTE)
 		if(BURN)
@@ -35,7 +35,7 @@ TYPE_PROC_REF(/obj, run_obj_armor)(damage_amount, damage_type, damage_flag = 0, 
 	return round(damage_amount * (100 - armor_protection)*0.01, DAMAGE_PRECISION)
 
 //the sound played when the obj is damaged.
-TYPE_PROC_REF(/obj, play_attack_sound)(damage_amount, damage_type = BRUTE, damage_flag = 0)
+/obj/proc/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)
 		if(BRUTE)
 			if(damage_amount)
@@ -79,7 +79,7 @@ TYPE_PROC_REF(/obj, play_attack_sound)(damage_amount, damage_type = BRUTE, damag
 	if(!QDELETED(src)) //Bullet on_hit effect might have already destroyed this object
 		take_damage(P.damage, P.damage_type, P.flag, 0, turn(P.dir, 180), P.armour_penetration, attacked_by = P.firer)
 
-TYPE_PROC_REF(/obj, hulk_damage)()
+/obj/proc/hulk_damage()
 	return 150 //the damage hulks do on punches to this object, is affected by melee armor
 
 /obj/attack_hulk(mob/living/carbon/human/user, does_attack_animation = 0)
@@ -102,7 +102,7 @@ TYPE_PROC_REF(/obj, hulk_damage)()
 			return
 	take_damage(400, BRUTE, "melee", 0, get_dir(src, B), attacked_by = B)
 
-TYPE_PROC_REF(/obj, attack_generic)(mob/user, damage_amount = 0, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, armor_penetration = 0) //used by attack_alien, attack_animal, and attack_slime
+/obj/proc/attack_generic(mob/user, damage_amount = 0, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, armor_penetration = 0) //used by attack_alien, attack_animal, and attack_slime
 	if(SEND_SIGNAL(src, COMSIG_OBJ_ATTACK_GENERIC, user, damage_amount, damage_type, damage_flag, sound_effect, armor_penetration) & COMPONENT_STOP_GENERIC_ATTACK)
 		return FALSE
 	if(!user.CheckActionCooldown(CLICK_CD_MELEE))
@@ -139,7 +139,7 @@ TYPE_PROC_REF(/obj, attack_generic)(mob/user, damage_amount = 0, damage_type = B
 	collision_damage(pusher, force, direction)
 	return TRUE
 
-TYPE_PROC_REF(/obj, collision_damage)(atom/movable/pusher, force = MOVE_FORCE_DEFAULT, direction)
+/obj/proc/collision_damage(atom/movable/pusher, force = MOVE_FORCE_DEFAULT, direction)
 	var/amt = max(0, ((force - (move_resist * MOVE_FORCE_CRUSH_RATIO)) / (move_resist * MOVE_FORCE_CRUSH_RATIO)) * 10)
 	take_damage(amt, BRUTE, attacked_by = pusher)
 
@@ -201,7 +201,7 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 		return 1
 
 //the proc called by the acid subsystem to process the acid that's on the obj
-TYPE_PROC_REF(/obj, acid_processing)()
+/obj/proc/acid_processing()
 	. = 1
 	if(!(resistance_flags & ACID_PROOF))
 		if(prob(33))
@@ -213,7 +213,7 @@ TYPE_PROC_REF(/obj, acid_processing)()
 		return 0
 
 //called when the obj is destroyed by acid.
-TYPE_PROC_REF(/obj, acid_melt)()
+/obj/proc/acid_melt()
 	SSacid.processing -= src
 	deconstruct(FALSE)
 
@@ -233,12 +233,12 @@ TYPE_PROC_REF(/obj, acid_melt)()
 		return 1
 
 //called when the obj is destroyed by fire
-TYPE_PROC_REF(/obj, burn)()
+/obj/proc/burn()
 	if(resistance_flags & ON_FIRE)
 		SSfire_burning.processing -= src
 	deconstruct(FALSE)
 
-TYPE_PROC_REF(/obj, extinguish)()
+/obj/proc/extinguish()
 	if(resistance_flags & ON_FIRE)
 		resistance_flags &= ~ON_FIRE
 		update_icon()
@@ -253,27 +253,27 @@ TYPE_PROC_REF(/obj, extinguish)()
 
 //The surgeon general warns that being buckled to certain objects receiving powerful shocks is greatly hazardous to your health
 //Only tesla coils, vehicles, and grounding rods currently call this because mobs are already targeted over all other objects, but this might be useful for more things later.
-TYPE_PROC_REF(/obj, zap_buckle_check)(strength)
+/obj/proc/zap_buckle_check(strength)
 	if(has_buckled_mobs())
 		for(var/m in buckled_mobs)
 			var/mob/living/buckled_mob = m
 			buckled_mob.electrocute_act((clamp(round(strength/400), 10, 90) + rand(-5, 5)), src, flags = SHOCK_TESLA)
 
-TYPE_PROC_REF(/obj, reset_shocked)()
+/obj/proc/reset_shocked()
 	obj_flags &= ~BEING_SHOCKED
 
 //the obj is deconstructed into pieces, whether through careful disassembly or when destroyed.
-TYPE_PROC_REF(/obj, deconstruct)(disassembled = TRUE)
+/obj/proc/deconstruct(disassembled = TRUE)
 	SEND_SIGNAL(src, COMSIG_OBJ_DECONSTRUCT, disassembled)
 	qdel(src)
 
 //what happens when the obj's health is below integrity_failure level.
-TYPE_PROC_REF(/obj, obj_break)(damage_flag)
+/obj/proc/obj_break(damage_flag)
 	SEND_SIGNAL(src, COMSIG_OBJ_BREAK, damage_flag)
 	return
 
 //what happens when the obj's integrity reaches zero.
-TYPE_PROC_REF(/obj, obj_destruction)(damage_flag)
+/obj/proc/obj_destruction(damage_flag)
 	if(damage_flag == "acid")
 		acid_melt()
 	else if(damage_flag == "fire")
@@ -283,7 +283,7 @@ TYPE_PROC_REF(/obj, obj_destruction)(damage_flag)
 
 //changes max_integrity while retaining current health percentage
 //returns TRUE if the obj broke, FALSE otherwise
-TYPE_PROC_REF(/obj, modify_max_integrity)(new_max, can_break = TRUE, damage_type = BRUTE)
+/obj/proc/modify_max_integrity(new_max, can_break = TRUE, damage_type = BRUTE)
 	var/current_integrity = obj_integrity
 	var/current_max = max_integrity
 
@@ -300,5 +300,5 @@ TYPE_PROC_REF(/obj, modify_max_integrity)(new_max, can_break = TRUE, damage_type
 	return FALSE
 
 //returns how much the object blocks an explosion
-TYPE_PROC_REF(/obj, GetExplosionBlock)()
+/obj/proc/GetExplosionBlock()
 	CRASH("Unimplemented GetExplosionBlock()")

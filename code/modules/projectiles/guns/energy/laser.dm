@@ -885,7 +885,7 @@
 	else
 		icon_state = "holstered"
 
-TYPE_PROC_REF(/obj/item/minigunpack, attach_gun)(mob/user)
+/obj/item/minigunpack/proc/attach_gun(mob/user)
 	if(!gun)
 		gun = new(src)
 	gun.forceMove(src)

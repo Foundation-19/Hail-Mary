@@ -29,7 +29,7 @@
 	QDEL_NULL(cached_map)
 	return ..()
 
-TYPE_PROC_REF(/datum/map_template, preload_size)(path = mappath, force_cache = FALSE)
+/datum/map_template/proc/preload_size(path = mappath, force_cache = FALSE)
 	if(cached_map)
 		return cached_map.parsed_bounds
 	var/datum/parsed_map/parsed = new(file(path))
@@ -42,21 +42,21 @@ TYPE_PROC_REF(/datum/map_template, preload_size)(path = mappath, force_cache = F
 			cached_map = parsed
 	return bounds
 
-TYPE_PROC_REF(/datum/map_template, get_parsed_bounds)()
+/datum/map_template/proc/get_parsed_bounds()
 	return preload_size(mappath)
 
-TYPE_PROC_REF(/datum/map_template, get_last_loaded_bounds)()
+/datum/map_template/proc/get_last_loaded_bounds()
 	if(cached_map)
 		return cached_map.bounds
 	return get_parsed_bounds()
 
-TYPE_PROC_REF(/datum/map_template, get_last_loaded_turf_block)()
+/datum/map_template/proc/get_last_loaded_turf_block()
 	if(!cached_map)
 		CRASH("Improper use of get_last_loaded_turf_block, no cached_map.")
 	var/list/B = cached_map.bounds
 	return block(locate(B[MAP_MINX], B[MAP_MINY], B[MAP_MINZ]), locate(B[MAP_MAXX], B[MAP_MAXY], B[MAP_MAXZ]))
 
-TYPE_PROC_REF(/datum/map_template, get_size)(orientation = SOUTH)
+/datum/map_template/proc/get_size(orientation = SOUTH)
 	if(!width || !height || !zdepth)
 		preload_size(mappath)
 	var/rotate = (orientation & (NORTH|SOUTH)) != NONE
@@ -64,7 +64,7 @@ TYPE_PROC_REF(/datum/map_template, get_size)(orientation = SOUTH)
 		return list(height, width, zdepth)
 	return list(width, height, zdepth)
 
-TYPE_PROC_REF(/datum/parsed_map, initTemplateBounds)()
+/datum/parsed_map/proc/initTemplateBounds()
 	var/list/obj/machinery/atmospherics/atmos_machines = list()
 	var/list/obj/structure/cable/cables = list()
 	var/list/atom/atoms = list()
@@ -94,7 +94,7 @@ TYPE_PROC_REF(/datum/parsed_map, initTemplateBounds)()
 	SSmachines.setup_template_powernets(cables)
 	SSair.setup_template_machinery(atmos_machines)
 
-TYPE_PROC_REF(/datum/map_template, load_new_z)(orientation = SOUTH, list/ztraits = src.ztraits || list(ZTRAIT_AWAY = TRUE), centered = TRUE)
+/datum/map_template/proc/load_new_z(orientation = SOUTH, list/ztraits = src.ztraits || list(ZTRAIT_AWAY = TRUE), centered = TRUE)
 	var/x = centered? max(round((world.maxx - width) / 2), 1) : 1
 	var/y = centered? max(round((world.maxy - height) / 2), 1) : 1
 
@@ -115,7 +115,7 @@ TYPE_PROC_REF(/datum/map_template, load_new_z)(orientation = SOUTH, list/ztraits
 	return level
 
 //Override for custom behavior
-TYPE_PROC_REF(/datum/map_template, on_map_loaded)(z, list/bounds)
+/datum/map_template/proc/on_map_loaded(z, list/bounds)
 	loaded++
 
 /**
@@ -130,7 +130,7 @@ TYPE_PROC_REF(/datum/map_template, on_map_loaded)(z, list/bounds)
  * * rotate_placement_to_orientation - Has no effect if centered. Should we rotate where we load it around the turf we're loading at? Used for stuff like engine submaps when the station is rotated.
  *
  */
-TYPE_PROC_REF(/datum/map_template, load)(turf/T, centered = FALSE, orientation = SOUTH, annihilate = default_annihilate, force_cache = FALSE, rotate_placement_to_orientation = FALSE)
+/datum/map_template/proc/load(turf/T, centered = FALSE, orientation = SOUTH, annihilate = default_annihilate, force_cache = FALSE, rotate_placement_to_orientation = FALSE)
 	var/old_T = T
 	if(centered)
 		T = locate(T.x - round(((orientation & (NORTH|SOUTH))? width : height) / 2) , T.y - round(((orientation & (NORTH|SOUTH)) ? height : width) / 2) , T.z) // %180 catches East/West (90,270) rotations on true, North/South (0,180) rotations on false
@@ -187,7 +187,7 @@ TYPE_PROC_REF(/datum/map_template, load)(turf/T, centered = FALSE, orientation =
 	return bounds
 
 //This, get_affected_turfs, and load() calculations for bounds/center can probably be optimized. Later.
-TYPE_PROC_REF(/datum/map_template, annihilate_bounds)(turf/origin, centered = FALSE, orientation = SOUTH)
+/datum/map_template/proc/annihilate_bounds(turf/origin, centered = FALSE, orientation = SOUTH)
 	var/deleted_atoms = 0
 	log_world("Annihilating objects in map loading location.")
 	var/list/turfs_to_clean = get_affected_turfs(origin, centered, orientation)
@@ -211,7 +211,7 @@ TYPE_PROC_REF(/datum/map_template, annihilate_bounds)(turf/origin, centered = FA
 	var/datum/map_template/template = new(file, name)
 	return template.load_new_z(orientation, ztraits)
 
-TYPE_PROC_REF(/datum/map_template, get_affected_turfs)(turf/T, centered = FALSE, orientation = SOUTH)
+/datum/map_template/proc/get_affected_turfs(turf/T, centered = FALSE, orientation = SOUTH)
 	var/turf/placement = T
 	if(centered)
 		var/turf/corner = locate(placement.x - round(((orientation & (NORTH|SOUTH))? width : height) / 2), placement.y - round(((orientation & (NORTH|SOUTH))? height : width) / 2), placement.z) // %180 catches East/West (90,270) rotations on true, North/South (0,180) rotations on false

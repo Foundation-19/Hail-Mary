@@ -271,7 +271,7 @@
 	scorpion_randomify()
 	update_icons()
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile/radscorpion, scorpion_randomify)()
+/mob/living/simple_animal/hostile/radscorpion/proc/scorpion_randomify()
 	scorpion_color = pick(icon_sets)
 	icon_state = "[scorpion_color]"
 	icon_living = "[scorpion_color]"

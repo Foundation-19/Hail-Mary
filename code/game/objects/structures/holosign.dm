@@ -147,7 +147,7 @@
 	. = ..()
 	. += "<span class='notice'>The biometric scanners are <b>[force_allaccess ? "off" : "on"]</b>.</span>"
 
-TYPE_PROC_REF(/obj/structure/holosign/barrier/medical, CheckHuman)(mob/living/carbon/human/sickboi)
+/obj/structure/holosign/barrier/medical/proc/CheckHuman(mob/living/carbon/human/sickboi)
 	var/threat = sickboi.check_virus()
 	if(get_disease_severity_value(threat) > get_disease_severity_value(DISEASE_SEVERITY_MINOR))
 		return FALSE
@@ -183,7 +183,7 @@ TYPE_PROC_REF(/obj/structure/holosign/barrier/medical, CheckHuman)(mob/living/ca
 	take_damage(P.damage, BRUTE, "melee", 1, attacked_by = P.firer)	//Yeah no this doesn't get projectile resistance.
 	return BULLET_ACT_HIT
 
-TYPE_PROC_REF(/obj/structure/holosign/barrier/cyborg/hacked, cooldown)()
+/obj/structure/holosign/barrier/cyborg/hacked/proc/cooldown()
 	shockcd = FALSE
 
 /obj/structure/holosign/barrier/cyborg/hacked/on_attack_hand(mob/living/user, act_intent = user.a_intent, unarmed_attack_flags)

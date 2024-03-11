@@ -32,7 +32,7 @@
 	..()
 	LoseTarget()
 
-TYPE_PROC_REF(/obj/item/gun/medbeam, LoseTarget)()
+/obj/item/gun/medbeam/proc/LoseTarget()
 	if(active)
 		qdel(current_beam)
 		current_beam = null
@@ -81,7 +81,7 @@ TYPE_PROC_REF(/obj/item/gun/medbeam, LoseTarget)()
 	if(current_target)
 		on_beam_tick(current_target)
 
-TYPE_PROC_REF(/obj/item/gun/medbeam, los_check)(atom/movable/user, mob/target)
+/obj/item/gun/medbeam/proc/los_check(atom/movable/user, mob/target)
 	var/turf/user_turf = user.loc
 	if(mounted)
 		user_turf = get_turf(user)
@@ -107,10 +107,10 @@ TYPE_PROC_REF(/obj/item/gun/medbeam, los_check)(atom/movable/user, mob/target)
 	qdel(dummy)
 	return 1
 
-TYPE_PROC_REF(/obj/item/gun/medbeam, on_beam_hit)(mob/living/target)
+/obj/item/gun/medbeam/proc/on_beam_hit(mob/living/target)
 	return
 
-TYPE_PROC_REF(/obj/item/gun/medbeam, on_beam_tick)(mob/living/target)
+/obj/item/gun/medbeam/proc/on_beam_tick(mob/living/target)
 	if(target.health != target.maxHealth)
 		new /obj/effect/temp_visual/heal(get_turf(target), "#80F5FF")
 	target.adjustBruteLoss(-4)
@@ -119,7 +119,7 @@ TYPE_PROC_REF(/obj/item/gun/medbeam, on_beam_tick)(mob/living/target)
 	target.adjustOxyLoss(-1)
 	return
 
-TYPE_PROC_REF(/obj/item/gun/medbeam, on_beam_release)(mob/living/target)
+/obj/item/gun/medbeam/proc/on_beam_release(mob/living/target)
 	return
 
 /obj/effect/ebeam/medical

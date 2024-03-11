@@ -356,7 +356,7 @@
 	GLOB.telecomms_list -= src
 	. = ..()
 
-TYPE_PROC_REF(/obj/machinery/computer/message_monitor, BruteForce)(mob/user)
+/obj/machinery/computer/message_monitor/proc/BruteForce(mob/user)
 	if(isnull(linkedServer))
 		to_chat(user, span_warning("Could not complete brute-force: Linked Server Disconnected!"))
 	else
@@ -365,11 +365,11 @@ TYPE_PROC_REF(/obj/machinery/computer/message_monitor, BruteForce)(mob/user)
 	hacking = FALSE
 	message = ""
 
-TYPE_PROC_REF(/obj/machinery/computer/message_monitor, UnmagConsole)()
+/obj/machinery/computer/message_monitor/proc/UnmagConsole()
 	DISABLE_BITFIELD(obj_flags, EMAGGED)
 	message = ""
 
-TYPE_PROC_REF(/obj/machinery/computer/message_monitor, ResetMessage)()
+/obj/machinery/computer/message_monitor/proc/ResetMessage()
 	customsender 	= "System Administrator"
 	customrecepient = null
 	custommessage 	= "This is a test, please ignore."
@@ -386,7 +386,7 @@ TYPE_PROC_REF(/obj/machinery/computer/message_monitor, ResetMessage)()
 	else
 		return INITIALIZE_HINT_LATELOAD
 
-TYPE_PROC_REF(/obj/item/paper/monitorkey, print)(obj/machinery/telecomms/message_server/server)
+/obj/item/paper/monitorkey/proc/print(obj/machinery/telecomms/message_server/server)
 	info = "<center><h2>Daily Key Reset</h2></center><br>The new message monitor key is '[server.decryptkey]'.<br>Please keep this a secret and away from the clown.<br>If necessary, change the password to a more secure one."
 	add_overlay("paper_words")
 

@@ -113,13 +113,13 @@
 		AC.Remove(src)
 	return ..()
 
-TYPE_PROC_REF(/mob/living/simple_animal/slime, initialize_mutations)()
+/mob/living/simple_animal/slime/proc/initialize_mutations()
 	var/list/cached = color_mutation_cache[colour]
 	if(!cached)
 		cached = color_mutation_cache[colour] = mutation_table(colour)
 	slime_mutation = cached
 
-TYPE_PROC_REF(/mob/living/simple_animal/slime, set_colour)(new_colour)
+/mob/living/simple_animal/slime/proc/set_colour(new_colour)
 	colour = new_colour
 	update_name()
 	initialize_mutations()
@@ -127,13 +127,13 @@ TYPE_PROC_REF(/mob/living/simple_animal/slime, set_colour)(new_colour)
 	coretype = text2path("/obj/item/slime_extract/[sanitizedcolour]")
 	regenerate_icons()
 
-TYPE_PROC_REF(/mob/living/simple_animal/slime, update_name)()
+/mob/living/simple_animal/slime/proc/update_name()
 	if(slime_name_regex.Find(name))
 		number = rand(1, 1000)
 		name = "[colour] [is_adult ? "adult" : "baby"] slime ([number])"
 		real_name = name
 
-TYPE_PROC_REF(/mob/living/simple_animal/slime, random_colour)()
+/mob/living/simple_animal/slime/proc/random_colour()
 	set_colour(pick(slime_colours))
 
 /mob/living/simple_animal/slime/regenerate_icons()
@@ -394,7 +394,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/slime, random_colour)()
 		return
 	..()
 
-TYPE_PROC_REF(/mob/living/simple_animal/slime, spawn_corecross)()
+/mob/living/simple_animal/slime/proc/spawn_corecross()
 	var/static/list/crossbreeds = subtypesof(/obj/item/slimecross)
 	visible_message(span_danger("[src] shudders, its mutated core consuming the rest of its body!"))
 	playsound(src, 'sound/magic/smoke.ogg', 50, 1)
@@ -410,7 +410,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/slime, spawn_corecross)()
 		visible_message(span_warning("The mutated core shudders, and collapses into a puddle, unable to maintain its form."))
 	qdel(src)
 
-TYPE_PROC_REF(/mob/living/simple_animal/slime, apply_water)()
+/mob/living/simple_animal/slime/proc/apply_water()
 	adjustBruteLoss(rand(15,20))
 	if(!client)
 		if(Target) // Like cats
@@ -446,7 +446,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/slime, apply_water)()
 
 	. += "*---------*</span>"
 
-TYPE_PROC_REF(/mob/living/simple_animal/slime, discipline_slime)(mob/user)
+/mob/living/simple_animal/slime/proc/discipline_slime(mob/user)
 	if(stat)
 		return
 

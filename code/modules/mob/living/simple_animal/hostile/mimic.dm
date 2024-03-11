@@ -79,7 +79,7 @@
 			C.visible_message(span_danger("\The [src] knocks down \the [C]!"), \
 					span_userdanger("\The [src] knocks you down!"))
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile/mimic/crate, trigger)()
+/mob/living/simple_animal/hostile/mimic/crate/proc/trigger()
 	if(!attempt_open)
 		visible_message("<b>[src]</b> starts to move!")
 		attempt_open = TRUE
@@ -135,18 +135,18 @@ GLOBAL_LIST_INIT(protected_objects, list(/obj/structure/table, /obj/structure/ca
 	. = ..()
 	return . - creator
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile/mimic/copy, ChangeOwner)(mob/owner)
+/mob/living/simple_animal/hostile/mimic/copy/proc/ChangeOwner(mob/owner)
 	if(owner != creator)
 		LoseTarget()
 		creator = owner
 		faction |= "[REF(owner)]"
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile/mimic/copy, CheckObject)(obj/O)
+/mob/living/simple_animal/hostile/mimic/copy/proc/CheckObject(obj/O)
 	if((isitem(O) || isstructure(O)) && !is_type_in_list(O, GLOB.protected_objects))
 		return 1
 	return 0
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile/mimic/copy, CopyObject)(obj/O, mob/living/user, destroy_original = 0)
+/mob/living/simple_animal/hostile/mimic/copy/proc/CopyObject(obj/O, mob/living/user, destroy_original = 0)
 	if(destroy_original || CheckObject(O))
 		O.forceMove(src)
 		name = O.name

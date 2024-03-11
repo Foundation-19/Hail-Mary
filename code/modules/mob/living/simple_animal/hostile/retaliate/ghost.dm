@@ -59,7 +59,7 @@
 				name = "ghost of [pick(GLOB.first_names_female)] [pick(GLOB.last_names)]"
 
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile/retaliate/ghost, give_hair)()
+/mob/living/simple_animal/hostile/retaliate/ghost/proc/give_hair()
 	if(ghost_hair_style != null)
 		ghost_hair = mutable_appearance('icons/mob/hair.dmi', "hair_[ghost_hair_style]", -HAIR_LAYER)
 		ghost_hair.alpha = 200

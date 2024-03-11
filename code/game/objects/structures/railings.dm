@@ -98,7 +98,7 @@
 		return TRUE
 	return ..()
 
-TYPE_PROC_REF(/obj/structure/railing, on_exit)(datum/source, atom/movable/leaving, direction)
+/obj/structure/railing/proc/on_exit(datum/source, atom/movable/leaving, direction)
 	SIGNAL_HANDLER
 
 	if(leaving == src)
@@ -122,7 +122,7 @@ TYPE_PROC_REF(/obj/structure/railing, on_exit)(datum/source, atom/movable/leavin
 	leaving.Bump(src)
 	return COMPONENT_ATOM_BLOCK_EXIT
 
-TYPE_PROC_REF(/obj/structure/railing, check_anchored)(checked_anchored)
+/obj/structure/railing/proc/check_anchored(checked_anchored)
 	if(anchored == checked_anchored)
 		return TRUE
 

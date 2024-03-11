@@ -220,7 +220,7 @@
 	update_icon()
 	find_control_computer(mapload)
 
-TYPE_PROC_REF(/obj/machinery/cryopod, find_control_computer)(urgent = FALSE)
+/obj/machinery/cryopod/proc/find_control_computer(urgent = FALSE)
 	for(var/obj/machinery/computer/cryopod/C in get_area(src))
 		control_computer = C
 		if(C)
@@ -292,7 +292,7 @@ TYPE_PROC_REF(/obj/machinery/cryopod, find_control_computer)(urgent = FALSE)
 #define CRYO_IGNORE 3
 #define CRYO_DESTROY_LATER 4
 
-TYPE_PROC_REF(/obj/machinery/cryopod, should_preserve_item)(obj/item/I)
+/obj/machinery/cryopod/proc/should_preserve_item(obj/item/I)
 	for(var/datum/objective_item/steal/T in control_computer.theft_cache)
 		if(istype(I, T.targetitem) && T.check_special_completion(I))
 			return CRYO_OBJECTIVE
@@ -301,7 +301,7 @@ TYPE_PROC_REF(/obj/machinery/cryopod, should_preserve_item)(obj/item/I)
 	return CRYO_DESTROY
 
 // This function can not be undone; do not call this unless you are sure
-TYPE_PROC_REF(/obj/machinery/cryopod, despawn_occupant)()
+/obj/machinery/cryopod/proc/despawn_occupant()
 	if(!control_computer)
 		find_control_computer()
 

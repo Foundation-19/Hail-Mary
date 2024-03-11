@@ -6,7 +6,7 @@
 	item_flags = NOBLUDGEON
 	var/obj/machinery/machine
 
-TYPE_PROC_REF(/obj/item/pai_cable, plugin)(obj/machinery/M, mob/living/user)
+/obj/item/pai_cable/proc/plugin(obj/machinery/M, mob/living/user)
 	if(!user.transferItemToLoc(src, M))
 		return
 	user.visible_message("[user] inserts [src] into a data port on [M].", span_notice("You insert [src] into a data port on [M]."), span_italic("You hear the satisfying click of a wire jack fastening into place."))

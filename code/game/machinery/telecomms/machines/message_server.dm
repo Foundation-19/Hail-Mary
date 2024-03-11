@@ -105,7 +105,7 @@
 			monitor.linkedServer = null
 	. = ..()
 
-TYPE_PROC_REF(/obj/machinery/telecomms/message_server, GenerateKey)()
+/obj/machinery/telecomms/message_server/proc/GenerateKey()
 	var/newKey
 	newKey += pick("the", "if", "of", "as", "in", "a", "you", "from", "to", "an", "too", "little", "snow", "dead", "drunk", "rosebud", "duck", "al", "le")
 	newKey += pick("diamond", "beer", "mushroom", "assistant", "clown", "captain", "twinkie", "security", "nuke", "small", "big", "escape", "yellow", "gloves", "monkey", "engine", "nuclear", "ai")
@@ -158,12 +158,12 @@ TYPE_PROC_REF(/obj/machinery/telecomms/message_server, GenerateKey)()
 	copy.levels = levels
 	return copy
 
-TYPE_PROC_REF(/datum/signal/subspace/pda, format_target)()
+/datum/signal/subspace/pda/proc/format_target()
 	if (length(data["targets"]) > 1)
 		return "Everyone"
 	return data["targets"][1]
 
-TYPE_PROC_REF(/datum/signal/subspace/pda, format_message)()
+/datum/signal/subspace/pda/proc/format_message()
 	if (logged && data["photo"])
 		return "\"[data["message"]]\" (<a href='byond://?src=[REF(logged)];photo=1'>Photo</a>)"
 	return "\"[data["message"]]\""

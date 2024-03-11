@@ -20,13 +20,13 @@
 		effect()
 		pop()
 
-TYPE_PROC_REF(/obj/effect/fun_balloon, check)()
+/obj/effect/fun_balloon/proc/check()
 	return FALSE
 
-TYPE_PROC_REF(/obj/effect/fun_balloon, effect)()
+/obj/effect/fun_balloon/proc/effect()
 	return
 
-TYPE_PROC_REF(/obj/effect/fun_balloon, pop)()
+/obj/effect/fun_balloon/proc/pop()
 	visible_message("[src] pops!")
 	playsound(get_turf(src), 'sound/items/party_horn.ogg', 50, 1, -1)
 	qdel(src)

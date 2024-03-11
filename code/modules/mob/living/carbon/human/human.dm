@@ -9,8 +9,8 @@ GLOBAL_VAR_INIT(crotch_call_cooldown, 0)
 	appearance_flags = KEEP_TOGETHER|TILE_BOUND|PIXEL_SCALE|LONG_GLIDE
 
 /mob/living/carbon/human/Initialize()
-	add_verb(src, TYPE_PROC_REF(/mob/living, mob_sleep))
-	add_verb(src, TYPE_PROC_REF(/mob/living, lay_down))
+	add_verb(src, /mob/living/proc/mob_sleep)
+	add_verb(src, /mob/living/proc/lay_down)
 	//initialize limbs first
 	create_bodyparts()
 
@@ -214,11 +214,11 @@ GLOBAL_VAR_INIT(crotch_call_cooldown, 0)
 	..()
 	var/mob/living/simple_animal/bot/mulebot/MB = AM
 	if(istype(MB))
-		INVOKE_ASYNC(MB, TYPE_PROC_REF(/mob/living/simple_animal/bot/mulebot, RunOver), src)
+		INVOKE_ASYNC(MB, /mob/living/simple_animal/bot/mulebot/.proc/RunOver, src)
 
 	spreadFire(AM)
 
-TYPE_PROC_REF(/mob/living/carbon/human, despawn)()
+/mob/living/carbon/human/proc/despawn()
 	var/datum/job/job_to_free = SSjob.GetJob(job)
 	job_to_free?.current_positions--
 	GLOB.data_core.remove_record_by_name(real_name)
@@ -566,7 +566,7 @@ TYPE_PROC_REF(/mob/living/carbon/human, despawn)()
 				show_message(span_notice("Nevermind!"))
 
 
-TYPE_PROC_REF(/mob/living/carbon/human, canUseHUD)()
+/mob/living/carbon/human/proc/canUseHUD()
 	return CHECK_MOBILITY(src, MOBILITY_UI)
 
 /mob/living/carbon/human/can_inject(mob/user, error_msg, target_zone, penetrate_thick = FALSE, bypass_immunity = FALSE)
@@ -671,7 +671,7 @@ TYPE_PROC_REF(/mob/living/carbon/human, canUseHUD)()
 
 
 //Used for new human mobs created by cloning/goleming/podding
-TYPE_PROC_REF(/mob/living/carbon/human, set_cloned_appearance)()
+/mob/living/carbon/human/proc/set_cloned_appearance()
 	if(dna.features["body_model"] == MALE)
 		facial_hair_style = "Full Beard"
 	else
@@ -694,7 +694,7 @@ TYPE_PROC_REF(/mob/living/carbon/human, set_cloned_appearance)()
 	if(mob_negates_gravity())
 		return
 
-TYPE_PROC_REF(/mob/living/carbon/human, do_cpr)(mob/living/carbon/C)
+/mob/living/carbon/human/proc/do_cpr(mob/living/carbon/C)
 	CHECK_DNA_AND_SPECIES(C)
 
 	if(C.stat == DEAD || (HAS_TRAIT(C, TRAIT_FAKEDEATH)))
@@ -768,7 +768,7 @@ TYPE_PROC_REF(/mob/living/carbon/human, do_cpr)(mob/living/carbon/C)
 
 //Turns a mob black, flashes a skeleton overlay
 //Just like a cartoon!
-TYPE_PROC_REF(/mob/living/carbon/human, electrocution_animation)(anim_duration)
+/mob/living/carbon/human/proc/electrocution_animation(anim_duration)
 	//Handle mutant parts if possible
 	if(dna && dna.species)
 		add_atom_colour("#000000", TEMPORARY_COLOUR_PRIORITY)
@@ -782,7 +782,7 @@ TYPE_PROC_REF(/mob/living/carbon/human, electrocution_animation)(anim_duration)
 	else //or just do a generic animation
 		flick_overlay_view(image(icon,src,"electrocuted_generic",ABOVE_MOB_LAYER), src, anim_duration)
 
-TYPE_PROC_REF(/mob/living/carbon/human, end_electrocution_animation)(mutable_appearance/MA)
+/mob/living/carbon/human/proc/end_electrocution_animation(mutable_appearance/MA)
 	remove_atom_colour(TEMPORARY_COLOUR_PRIORITY, "#000000")
 	cut_overlay(MA)
 
@@ -1009,13 +1009,13 @@ TYPE_PROC_REF(/mob/living/carbon/human, end_electrocution_animation)(mutable_app
 	. = ..()
 
 //src is the user that will be carrying, target is the mob to be carried
-TYPE_PROC_REF(/mob/living/carbon/human, can_piggyback)(mob/living/carbon/target)
+/mob/living/carbon/human/proc/can_piggyback(mob/living/carbon/target)
 	return (istype(target) && target.stat == CONSCIOUS)
 
-TYPE_PROC_REF(/mob/living/carbon/human, can_be_firemanned)(mob/living/carbon/target)
+/mob/living/carbon/human/proc/can_be_firemanned(mob/living/carbon/target)
 	return (ishuman(target) && !CHECK_MOBILITY(target, MOBILITY_STAND))
 
-TYPE_PROC_REF(/mob/living/carbon/human, fireman_carry)(mob/living/carbon/target)
+/mob/living/carbon/human/proc/fireman_carry(mob/living/carbon/target)
 	var/carrydelay = 50 //if you have latex you are faster at grabbing
 	var/skills_space = "" //cobby told me to do this
 	if(HAS_TRAIT(src, TRAIT_QUICKER_CARRY))
@@ -1042,7 +1042,7 @@ TYPE_PROC_REF(/mob/living/carbon/human, fireman_carry)(mob/living/carbon/target)
 		else
 			to_chat(src, "<span class='notice'>You can't seem to fireman carry that kind of species.</span>")
 
-TYPE_PROC_REF(/mob/living/carbon/human, piggyback)(mob/living/carbon/target)
+/mob/living/carbon/human/proc/piggyback(mob/living/carbon/target)
 	if(can_piggyback(target))
 		visible_message("<span class='notice'>[target] starts to climb onto [src]...</span>")
 		if(do_after(target, 15, target = src, required_mobility_flags = MOBILITY_STAND))
@@ -1090,7 +1090,7 @@ TYPE_PROC_REF(/mob/living/carbon/human, piggyback)(mob/living/carbon/target)
 	riding_datum.fireman_carrying = fireman
 	. = ..(target, force, check_loc)
 
-TYPE_PROC_REF(/mob/living/carbon/human, is_shove_knockdown_blocked)() //If you want to add more things that block shove knockdown, extend this
+/mob/living/carbon/human/proc/is_shove_knockdown_blocked() //If you want to add more things that block shove knockdown, extend this
 	for(var/obj/item/clothing/C in get_equipped_items()) //doesn't include pockets
 		if(C.blocks_shove_knockdown)
 			return TRUE

@@ -64,7 +64,7 @@
 	stamped = null
 	. = ..()
 
-TYPE_PROC_REF(/obj/item/paper, SaveData)()
+/obj/item/paper/proc/SaveData()
 	if(!pers_id)
 		return
 
@@ -81,7 +81,7 @@ TYPE_PROC_REF(/obj/item/paper, SaveData)()
 
 	return dat
 
-TYPE_PROC_REF(/obj/item/paper, LoadData)(list/dat)
+/obj/item/paper/proc/LoadData(list/dat)
 	if(!dat.len)
 		return FALSE
 	
@@ -101,7 +101,7 @@ TYPE_PROC_REF(/obj/item/paper, LoadData)(list/dat)
  * sheet,  Makes it nice and easy for carbon and
  * the copyer machine
  */
-TYPE_PROC_REF(/obj/item/paper, copy)()
+/obj/item/paper/proc/copy()
 	var/obj/item/paper/N = new(arglist(args))
 	N.info = info
 	N.color = color
@@ -118,7 +118,7 @@ TYPE_PROC_REF(/obj/item/paper, copy)()
  * icons.  You can modify the pen_color after if need
  * be.
  */
-TYPE_PROC_REF(/obj/item/paper, setText)(text)
+/obj/item/paper/proc/setText(text)
 	info = text
 	form_fields = null
 	field_counter = 0
@@ -166,7 +166,7 @@ TYPE_PROC_REF(/obj/item/paper, setText)(text)
 	user.visible_message(span_suicide("[user] scratches a grid on [user.p_their()] wrist with the paper! It looks like [user.p_theyre()] trying to commit sudoku..."))
 	return (BRUTELOSS)
 
-TYPE_PROC_REF(/obj/item/paper, clearpaper)()
+/obj/item/paper/proc/clearpaper()
 	info = ""
 	stamps = null
 	LAZYCLEARLIST(stamped)
@@ -207,7 +207,7 @@ TYPE_PROC_REF(/obj/item/paper, clearpaper)()
 	return ..()
 
 
-TYPE_PROC_REF(/obj/item, burn_paper_product_attackby_check)(obj/item/I, mob/living/user, bypass_clumsy)
+/obj/item/proc/burn_paper_product_attackby_check(obj/item/I, mob/living/user, bypass_clumsy)
 	var/ignition_message = I.ignition_effect(src, user)
 	if(!ignition_message)
 		return

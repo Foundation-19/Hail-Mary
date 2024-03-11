@@ -98,7 +98,7 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 
 	music_datum.ui_interact(src)
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile/guardian, updatetheme)(theme) //update the guardian's theme
+/mob/living/simple_animal/hostile/guardian/proc/updatetheme(theme) //update the guardian's theme
 	if(!theme)
 		theme = pick("magic", "tech", "carp")
 	switch(theme)//should make it easier to create new stand designs in the future if anyone likes that
@@ -146,11 +146,11 @@ TYPE_PROC_REF(/mob/living/simple_animal/hostile/guardian, updatetheme)(theme) //
 	to_chat(src, playstyle_string)
 	guardiancustomize()
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile/guardian, guardiancustomize)()
+/mob/living/simple_animal/hostile/guardian/proc/guardiancustomize()
 	guardianrecolor()
 	guardianrename()
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile/guardian, guardianrecolor)()
+/mob/living/simple_animal/hostile/guardian/proc/guardianrecolor()
 	guardiancolor = input(src,"What would you like your color to be?","Choose Your Color","#ffffff") as color|null
 	if(!guardiancolor) //redo proc until we get a color
 		to_chat(src, span_warning("Not a valid color, please try again."))
@@ -163,7 +163,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/hostile/guardian, guardianrecolor)()
 	else
 		add_atom_colour(guardiancolor, FIXED_COLOUR_PRIORITY)
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile/guardian, guardianrename)()
+/mob/living/simple_animal/hostile/guardian/proc/guardianrename()
 	var/new_name = sanitize_name(reject_bad_text(stripped_input(src, "What would you like your name to be?", "Choose Your Name", real_name, MAX_NAME_LEN)))
 	if(!new_name) //redo proc until we get a good name
 		to_chat(src, span_warning("Not a valid name, please try again."))
@@ -215,7 +215,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/hostile/guardian, guardianrename)()
 	. = ..()
 	snapback()
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile/guardian, snapback)()
+/mob/living/simple_animal/hostile/guardian/proc/snapback()
 	if(summoner)
 		if(get_dist(get_turf(summoner),get_turf(src)) <= range)
 			return
@@ -232,7 +232,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/hostile/guardian, snapback)()
 /mob/living/simple_animal/hostile/guardian/canSuicide()
 	return FALSE
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile/guardian, is_deployed)()
+/mob/living/simple_animal/hostile/guardian/proc/is_deployed()
 	return loc != summoner
 
 /mob/living/simple_animal/hostile/guardian/AttackingTarget()
@@ -312,11 +312,11 @@ TYPE_PROC_REF(/mob/living/simple_animal/hostile/guardian, is_deployed)()
 	I.layer = ABOVE_HUD_LAYER
 	I.plane = ABOVE_HUD_PLANE
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile/guardian, apply_overlay)(cache_index)
+/mob/living/simple_animal/hostile/guardian/proc/apply_overlay(cache_index)
 	if((. = guardian_overlays[cache_index]))
 		add_overlay(.)
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile/guardian, remove_overlay)(cache_index)
+/mob/living/simple_animal/hostile/guardian/proc/remove_overlay(cache_index)
 	var/I = guardian_overlays[cache_index]
 	if(I)
 		cut_overlay(I)
@@ -355,7 +355,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/hostile/guardian, remove_overlay)(cache_
 
 //MANIFEST, RECALL, TOGGLE MODE/LIGHT, SHOW TYPE
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile/guardian, Manifest)(forced)
+/mob/living/simple_animal/hostile/guardian/proc/Manifest(forced)
 	if(istype(summoner.loc, /obj/effect) || (cooldown > world.time && !forced))
 		return FALSE
 	if(loc == summoner)
@@ -366,7 +366,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/hostile/guardian, Manifest)(forced)
 		return TRUE
 	return FALSE
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile/guardian, Recall)(forced)
+/mob/living/simple_animal/hostile/guardian/proc/Recall(forced)
 	if(!summoner || loc == summoner || (cooldown > world.time && !forced))
 		return FALSE
 	new /obj/effect/temp_visual/guardian/phase/out(loc)
@@ -375,10 +375,10 @@ TYPE_PROC_REF(/mob/living/simple_animal/hostile/guardian, Recall)(forced)
 	cooldown = world.time + 10
 	return TRUE
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile/guardian, ToggleMode)()
+/mob/living/simple_animal/hostile/guardian/proc/ToggleMode()
 	to_chat(src, "<span class='danger'><B>You don't have another mode!</span></B>")
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile/guardian, ToggleLight)()
+/mob/living/simple_animal/hostile/guardian/proc/ToggleLight()
 	if(light_range<3)
 		to_chat(src, span_notice("You activate your light."))
 		set_light_on(TRUE)
@@ -394,7 +394,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/hostile/guardian, ToggleLight)()
 
 //COMMUNICATION
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile/guardian, Communicate)()
+/mob/living/simple_animal/hostile/guardian/proc/Communicate()
 	if(summoner)
 		var/input = stripped_input(src, "Please enter a message to tell your summoner.", "Guardian", "")
 		if(!input)
@@ -413,7 +413,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/hostile/guardian, Communicate)()
 
 		src.log_talk(input, LOG_SAY, tag="guardian")
 
-TYPE_PROC_REF(/mob/living, guardian_comm)()
+/mob/living/proc/guardian_comm()
 	set name = "Communicate"
 	set category = "Guardian"
 	set desc = "Communicate telepathically with your guardian."
@@ -437,7 +437,7 @@ TYPE_PROC_REF(/mob/living, guardian_comm)()
 
 //FORCE RECALL/RESET
 
-TYPE_PROC_REF(/mob/living, guardian_recall)()
+/mob/living/proc/guardian_recall()
 	set name = "Recall Guardian"
 	set category = "Guardian"
 	set desc = "Forcibly recall your guardian."
@@ -446,7 +446,7 @@ TYPE_PROC_REF(/mob/living, guardian_recall)()
 		var/mob/living/simple_animal/hostile/guardian/G = para
 		G.Recall()
 
-TYPE_PROC_REF(/mob/living, guardian_reset)()
+/mob/living/proc/guardian_reset()
 	set name = "Reset Guardian Player (One Use)"
 	set category = "Guardian"
 	set desc = "Re-rolls which ghost will control your Guardian. One use per Guardian."
@@ -479,24 +479,24 @@ TYPE_PROC_REF(/mob/living, guardian_reset)()
 						to_chat(src, "<span class='holoparasite'><font color=\"[G.guardiancolor]\"><b>[G.real_name]</b></font> has been caught!</span>")
 				guardians -= G
 				if(!guardians.len)
-					remove_verb(src, TYPE_PROC_REF(/mob/living, guardian_reset))
+					remove_verb(src, /mob/living/proc/guardian_reset)
 			else
 				to_chat(src, "<span class='holoparasite'>There were no ghosts willing to take control of <font color=\"[G.guardiancolor]\"><b>[G.real_name]</b></font>. Looks like you're stuck with it for now.</span>")
 		else
 			to_chat(src, span_holoparasite("You decide not to reset [guardians.len > 1 ? "any of your guardians":"your guardian"]."))
 	else
-		remove_verb(src, TYPE_PROC_REF(/mob/living, guardian_reset))
+		remove_verb(src, /mob/living/proc/guardian_reset)
 
 ////////parasite tracking/finding procs
 
-TYPE_PROC_REF(/mob/living, hasparasites)() //returns a list of guardians the mob is a summoner for
+/mob/living/proc/hasparasites() //returns a list of guardians the mob is a summoner for
 	. = list()
 	for(var/P in GLOB.parasites)
 		var/mob/living/simple_animal/hostile/guardian/G = P
 		if(G.summoner == src)
 			. += G
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile/guardian, hasmatchingsummoner)(mob/living/simple_animal/hostile/guardian/G) //returns 1 if the summoner matches the target's summoner
+/mob/living/simple_animal/hostile/guardian/proc/hasmatchingsummoner(mob/living/simple_animal/hostile/guardian/G) //returns 1 if the summoner matches the target's summoner
 	return (istype(G) && G.summoner == summoner)
 
 
@@ -546,7 +546,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/hostile/guardian, hasmatchingsummoner)(m
 		used = FALSE
 
 
-TYPE_PROC_REF(/obj/item/guardiancreator, spawn_guardian)(mob/living/user, key)
+/obj/item/guardiancreator/proc/spawn_guardian(mob/living/user, key)
 	var/guardiantype = "Standard"
 	if(random)
 		guardiantype = pick(possible_guardians)
@@ -610,9 +610,9 @@ TYPE_PROC_REF(/obj/item/guardiancreator, spawn_guardian)(mob/living/user, key)
 		if("carp")
 			to_chat(user, "[G.carp_fluff_string]")
 			to_chat(user, "<span class='holoparasite'><b>[G.real_name]</b> has been caught!</span>")
-	add_verb(user, list(TYPE_PROC_REF(/mob/living, guardian_comm), \
-						TYPE_PROC_REF(/mob/living, guardian_recall), \
-						TYPE_PROC_REF(/mob/living, guardian_reset)))
+	add_verb(user, list(/mob/living/proc/guardian_comm, \
+						/mob/living/proc/guardian_recall, \
+						/mob/living/proc/guardian_reset))
 
 /obj/item/guardiancreator/choose
 	random = FALSE

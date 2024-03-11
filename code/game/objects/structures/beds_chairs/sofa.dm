@@ -14,7 +14,7 @@
 	. = ..()
 	update_armrest()
 
-TYPE_PROC_REF(/obj/structure/chair/sofa, update_armrest)()
+/obj/structure/chair/sofa/proc/update_armrest()
 	if(has_buckled_mobs())
 		add_overlay(armrest)
 	else

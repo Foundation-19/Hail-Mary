@@ -236,7 +236,7 @@
 		update_icon()
 		updateUsrDialog()
 
-TYPE_PROC_REF(/obj/machinery/power/apc, make_terminal)()
+/obj/machinery/power/apc/proc/make_terminal()
 	// create a terminal object at the same position as original turf loc
 	// wires will attach to this
 	terminal = new/obj/machinery/power/terminal(src.loc)
@@ -347,7 +347,7 @@ TYPE_PROC_REF(/obj/machinery/power/apc, make_terminal)()
 
 	icon_update_needed = FALSE
 
-TYPE_PROC_REF(/obj/machinery/power/apc, check_updates)()
+/obj/machinery/power/apc/proc/check_updates()
 	var/last_update_state = update_state
 	var/last_update_overlay = update_overlay
 	update_state = 0
@@ -422,7 +422,7 @@ TYPE_PROC_REF(/obj/machinery/power/apc, check_updates)()
 	return results
 
 // Used in process so it doesn't update the icon too much
-TYPE_PROC_REF(/obj/machinery/power/apc, queue_icon_update)()
+/obj/machinery/power/apc/proc/queue_icon_update()
 	icon_update_needed = TRUE
 
 //attack with an item - open/close cover, insert cell, or (un)lock interface
@@ -767,7 +767,7 @@ TYPE_PROC_REF(/obj/machinery/power/apc, queue_icon_update)()
 	togglelock(user)
 	return TRUE
 
-TYPE_PROC_REF(/obj/machinery/power/apc, togglelock)(mob/living/user)
+/obj/machinery/power/apc/proc/togglelock(mob/living/user)
 	if(obj_flags & EMAGGED)
 		to_chat(user, span_warning("The interface is broken!"))
 	else if(opened)
@@ -785,7 +785,7 @@ TYPE_PROC_REF(/obj/machinery/power/apc, togglelock)(mob/living/user)
 		else
 			to_chat(user, span_warning("Access denied."))
 
-TYPE_PROC_REF(/obj/machinery/power/apc, toggle_nightshift_lights)(mob/living/user)
+/obj/machinery/power/apc/proc/toggle_nightshift_lights(mob/living/user)
 	if(last_nightshift_switch > world.time - 100) //~10 seconds between each toggle to prevent spamming
 		to_chat(usr, span_warning("[src]'s night lighting circuit breaker is still cycling!"))
 		return
@@ -949,7 +949,7 @@ TYPE_PROC_REF(/obj/machinery/power/apc, toggle_nightshift_lights)(mob/living/use
 	return data
 
 
-TYPE_PROC_REF(/obj/machinery/power/apc, get_malf_status)(mob/living/silicon/ai/malf)
+/obj/machinery/power/apc/proc/get_malf_status(mob/living/silicon/ai/malf)
 	if(istype(malf) && malf.malf_picker)
 		if(malfai == (malf.parent || malf))
 			if(occupier == malf)
@@ -963,10 +963,10 @@ TYPE_PROC_REF(/obj/machinery/power/apc, get_malf_status)(mob/living/silicon/ai/m
 	else
 		return 0 // 0 = User is not a Malf AI
 
-TYPE_PROC_REF(/obj/machinery/power/apc, report)()
+/obj/machinery/power/apc/proc/report()
 	return "[area.name] : [equipment]/[lighting]/[environ] ([lastused_equip+lastused_light+lastused_environ]) : [cell? cell.percent() : "N/C"] ([charging])"
 
-TYPE_PROC_REF(/obj/machinery/power/apc, update)()
+/obj/machinery/power/apc/proc/update()
 	var/old_light = area.power_light
 	var/old_equip = area.power_equip
 	var/old_environ = area.power_environ
@@ -981,7 +981,7 @@ TYPE_PROC_REF(/obj/machinery/power/apc, update)()
 	if(old_light != area.power_light || old_equip != area.power_equip || old_environ != area.power_environ)
 		area.power_change()
 
-TYPE_PROC_REF(/obj/machinery/power/apc, can_use)(mob/user, loud = 0) //used by attack_hand() and Topic()
+/obj/machinery/power/apc/proc/can_use(mob/user, loud = 0) //used by attack_hand() and Topic()
 	if(IsAdminGhost(user))
 		return TRUE
 	if (user == hijacker || (area.hasSiliconAccessInArea(user) && !aidisabled))
@@ -1072,11 +1072,11 @@ TYPE_PROC_REF(/obj/machinery/power/apc, can_use)(mob/user, loud = 0) //used by a
 			for(var/obj/machinery/light/L in area)
 				if(!initial(L.no_emergency)) //If there was an override set on creation, keep that override
 					L.no_emergency = emergency_lights
-					INVOKE_ASYNC(L, TYPE_PROC_REF(/obj/machinery/light, update), FALSE)
+					INVOKE_ASYNC(L, /obj/machinery/light/.proc/update, FALSE)
 				CHECK_TICK
 	return TRUE
 
-TYPE_PROC_REF(/obj/machinery/power/apc, toggle_breaker)(mob/user)
+/obj/machinery/power/apc/proc/toggle_breaker(mob/user)
 	if(!is_operational() || failure_timer)
 		return
 	operating = !operating
@@ -1085,7 +1085,7 @@ TYPE_PROC_REF(/obj/machinery/power/apc, toggle_breaker)(mob/user)
 	update()
 	update_icon()
 
-TYPE_PROC_REF(/obj/machinery/power/apc, hijack)(mob/living/L)
+/obj/machinery/power/apc/proc/hijack(mob/living/L)
 	if (!istype(L))
 		return
 	if(being_hijacked)
@@ -1127,7 +1127,7 @@ TYPE_PROC_REF(/obj/machinery/power/apc, hijack)(mob/living/L)
 		being_hijacked = FALSE
 		return
 
-TYPE_PROC_REF(/obj/machinery/power/apc, malfhack)(mob/living/silicon/ai/malf)
+/obj/machinery/power/apc/proc/malfhack(mob/living/silicon/ai/malf)
 	if(!istype(malf))
 		return
 	if(get_malf_status(malf) != 1)
@@ -1141,13 +1141,13 @@ TYPE_PROC_REF(/obj/machinery/power/apc, malfhack)(mob/living/silicon/ai/malf)
 		return
 	to_chat(malf, "Beginning override of APC systems. This takes some time, and you cannot perform other actions during the process.")
 	malf.malfhack = src
-	malf.malfhacking = addtimer(CALLBACK(malf, TYPE_PROC_REF(/mob/living/silicon/ai, malfhacked), src), 600, TIMER_STOPPABLE)
+	malf.malfhacking = addtimer(CALLBACK(malf, /mob/living/silicon/ai/.proc/malfhacked, src), 600, TIMER_STOPPABLE)
 
 	var/obj/screen/alert/hackingapc/A
 	A = malf.throw_alert("hackingapc", /obj/screen/alert/hackingapc)
 	A.target = src
 
-TYPE_PROC_REF(/obj/machinery/power/apc, malfoccupy)(mob/living/silicon/ai/malf)
+/obj/machinery/power/apc/proc/malfoccupy(mob/living/silicon/ai/malf)
 	if(!istype(malf))
 		return
 	if(istype(malf.loc, /obj/machinery/power/apc)) // Already in an APC
@@ -1171,11 +1171,11 @@ TYPE_PROC_REF(/obj/machinery/power/apc, malfoccupy)(mob/living/silicon/ai/malf)
 	occupier.eyeobj.name = "[occupier.name] (AI Eye)"
 	if(malf.parent)
 		qdel(malf)
-	add_verb(occupier, TYPE_PROC_REF(/mob/living/silicon/ai, corereturn))
+	add_verb(occupier, /mob/living/silicon/ai/proc/corereturn)
 	occupier.cancel_camera()
 
 
-TYPE_PROC_REF(/obj/machinery/power/apc, malfvacate)(forced)
+/obj/machinery/power/apc/proc/malfvacate(forced)
 	if(!occupier)
 		return
 	if(occupier.parent && occupier.parent.stat != DEAD)
@@ -1183,7 +1183,7 @@ TYPE_PROC_REF(/obj/machinery/power/apc, malfvacate)(forced)
 		occupier.parent.shunted = 0
 		occupier.parent.setOxyLoss(occupier.getOxyLoss())
 		occupier.parent.cancel_camera()
-		remove_verb(occupier.parent, TYPE_PROC_REF(/mob/living/silicon/ai, corereturn))
+		remove_verb(occupier.parent, /mob/living/silicon/ai/proc/corereturn)
 		qdel(occupier)
 	else
 		to_chat(occupier, span_danger("Primary core damaged, unable to return core processes."))
@@ -1419,7 +1419,7 @@ TYPE_PROC_REF(/obj/machinery/power/apc, malfvacate)(forced)
 // val 0=off, 1=off(auto) 2=on 3=on(auto)
 // on 0=off, 1=on, 2=autooff
 
-TYPE_PROC_REF(/obj/machinery/power/apc, autoset)(val, on)
+/obj/machinery/power/apc/proc/autoset(val, on)
 	if(val == 3 && (on == 2 || !on)) 	// if auto-on, return auto-off
 		return 1
 	else if(val == 2 && !on)			// if on, return off
@@ -1429,7 +1429,7 @@ TYPE_PROC_REF(/obj/machinery/power/apc, autoset)(val, on)
 	// no, i don't understand these comments either
 	return val
 
-TYPE_PROC_REF(/obj/machinery/power/apc, reset)(wire)
+/obj/machinery/power/apc/proc/reset(wire)
 	switch(wire)
 		if(WIRE_IDSCAN)
 			locked = TRUE
@@ -1471,7 +1471,7 @@ TYPE_PROC_REF(/obj/machinery/power/apc, reset)(wire)
 		terminal.master = null
 		terminal = null
 
-TYPE_PROC_REF(/obj/machinery/power/apc, set_broken)()
+/obj/machinery/power/apc/proc/set_broken()
 	if(malfai && operating)
 		malfai.malf_picker.processing_time = clamp(malfai.malf_picker.processing_time - 10,0,1000)
 	stat |= BROKEN
@@ -1483,21 +1483,21 @@ TYPE_PROC_REF(/obj/machinery/power/apc, set_broken)()
 
 // overload all the lights in this APC area
 
-TYPE_PROC_REF(/obj/machinery/power/apc, overload_lighting)()
+/obj/machinery/power/apc/proc/overload_lighting()
 	if(/* !get_connection() || */ !operating || shorted)
 		return
 	if( cell && cell.charge>=20)
 		cell.use(20)
 		INVOKE_ASYNC(src, PROC_REF(break_lights))
 
-TYPE_PROC_REF(/obj/machinery/power/apc, break_lights)()
+/obj/machinery/power/apc/proc/break_lights()
 	for(var/obj/machinery/light/L in area)
 		L.on = TRUE
 		L.break_light_tube()
 		L.on = FALSE
 		stoplag()
 
-TYPE_PROC_REF(/obj/machinery/power/apc, shock)(mob/user, prb)
+/obj/machinery/power/apc/proc/shock(mob/user, prb)
 	if(!prob(prb))
 		return 0
 	do_sparks(5, TRUE, src)
@@ -1508,7 +1508,7 @@ TYPE_PROC_REF(/obj/machinery/power/apc, shock)(mob/user, prb)
 	else
 		return 0
 
-TYPE_PROC_REF(/obj/machinery/power/apc, setsubsystem)(val)
+/obj/machinery/power/apc/proc/setsubsystem(val)
 	if(cell && cell.charge > 0)
 		return (val==1) ? 0 : val
 	else if(val == 3)
@@ -1517,7 +1517,7 @@ TYPE_PROC_REF(/obj/machinery/power/apc, setsubsystem)(val)
 		return 0
 
 
-TYPE_PROC_REF(/obj/machinery/power/apc, energy_fail)(duration)
+/obj/machinery/power/apc/proc/energy_fail(duration)
 	for(var/obj/machinery/M in area.contents)
 		if(M.critical_machine)
 			return
@@ -1528,7 +1528,7 @@ TYPE_PROC_REF(/obj/machinery/power/apc, energy_fail)(duration)
 
 	failure_timer = max(failure_timer, round(duration))
 
-TYPE_PROC_REF(/obj/machinery/power/apc, set_nightshift)(on)
+/obj/machinery/power/apc/proc/set_nightshift(on)
 	set waitfor = FALSE
 	if(nightshift_lights == on)
 		return
@@ -1539,7 +1539,7 @@ TYPE_PROC_REF(/obj/machinery/power/apc, set_nightshift)(on)
 			L.update(FALSE)
 		CHECK_TICK
 
-TYPE_PROC_REF(/obj/machinery/power/apc, set_hijacked_lighting)()
+/obj/machinery/power/apc/proc/set_hijacked_lighting()
 	set waitfor = FALSE
 	var/hijackerreturn
 	if (hijacker)
@@ -1550,10 +1550,10 @@ TYPE_PROC_REF(/obj/machinery/power/apc, set_hijacked_lighting)()
 		L.update(FALSE)
 		CHECK_TICK
 
-TYPE_PROC_REF(/obj/machinery/power/apc, update_nightshift_auth_requirement)()
+/obj/machinery/power/apc/proc/update_nightshift_auth_requirement()
 	nightshift_requires_auth = nightshift_toggle_requires_auth()
 
-TYPE_PROC_REF(/obj/machinery/power/apc, nightshift_toggle_requires_auth)()
+/obj/machinery/power/apc/proc/nightshift_toggle_requires_auth()
 	if(!area)
 		return FALSE
 	var/configured_level = CONFIG_GET(number/night_shift_public_areas_only)

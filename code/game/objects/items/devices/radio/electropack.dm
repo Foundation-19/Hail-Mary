@@ -78,7 +78,7 @@
 	if(master)
 		master.receive_signal()
 
-TYPE_PROC_REF(/obj/item/electropack, set_frequency)(new_frequency)
+/obj/item/electropack/proc/set_frequency(new_frequency)
 	SSradio.remove_object(src, frequency)
 	frequency = new_frequency
 	SSradio.add_object(src, frequency, RADIO_SIGNALER)
@@ -271,7 +271,7 @@ TYPE_PROC_REF(/obj/item/electropack, set_frequency)(new_frequency)
 		master.receive_signal()
 	return
 
-TYPE_PROC_REF(/obj/item/electropack/shockcollar/explosive, boom)(mob/living/L)
+/obj/item/electropack/shockcollar/explosive/proc/boom(mob/living/L)
 	explosion(get_turf(src),0,1,2, flame_range = 2)
 	if(!istype(L) || L != loc || L.get_item_by_slot(SLOT_NECK) != src)
 		return

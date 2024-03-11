@@ -76,7 +76,7 @@
 		REMOVE_SKILL_MODIFIER_BODY(/datum/skill_modifier/heavy_brain_damage, null, C)
 		C.update_hair()
 
-TYPE_PROC_REF(/obj/item/organ/brain, transfer_identity)(mob/living/L)
+/obj/item/organ/brain/proc/transfer_identity(mob/living/L)
 	name = "[L.name]'s brain"
 	if(brainmob)
 		return
@@ -306,20 +306,20 @@ TYPE_PROC_REF(/obj/item/organ/brain, transfer_identity)(mob/living/L)
 
 ////////////////////////////////////TRAUMAS////////////////////////////////////////
 
-TYPE_PROC_REF(/obj/item/organ/brain, has_trauma_type)(brain_trauma_type = /datum/brain_trauma, resilience = TRAUMA_RESILIENCE_ABSOLUTE)
+/obj/item/organ/brain/proc/has_trauma_type(brain_trauma_type = /datum/brain_trauma, resilience = TRAUMA_RESILIENCE_ABSOLUTE)
 	for(var/X in traumas)
 		var/datum/brain_trauma/BT = X
 		if(istype(BT, brain_trauma_type) && (BT.resilience <= resilience))
 			return BT
 
-TYPE_PROC_REF(/obj/item/organ/brain, get_traumas_type)(brain_trauma_type = /datum/brain_trauma, resilience = TRAUMA_RESILIENCE_ABSOLUTE)
+/obj/item/organ/brain/proc/get_traumas_type(brain_trauma_type = /datum/brain_trauma, resilience = TRAUMA_RESILIENCE_ABSOLUTE)
 	. = list()
 	for(var/X in traumas)
 		var/datum/brain_trauma/BT = X
 		if(istype(BT, brain_trauma_type) && (BT.resilience <= resilience))
 			. += BT
 
-TYPE_PROC_REF(/obj/item/organ/brain, can_gain_trauma)(datum/brain_trauma/trauma, resilience, natural_gain = FALSE)
+/obj/item/organ/brain/proc/can_gain_trauma(datum/brain_trauma/trauma, resilience, natural_gain = FALSE)
 	if(!ispath(trauma))
 		trauma = trauma.type
 	if(!initial(trauma.can_gain))
@@ -359,14 +359,14 @@ TYPE_PROC_REF(/obj/item/organ/brain, can_gain_trauma)(datum/brain_trauma/trauma,
 	return TRUE
 
 //Proc to use when directly adding a trauma to the brain, so extra args can be given
-TYPE_PROC_REF(/obj/item/organ/brain, gain_trauma)(datum/brain_trauma/trauma, resilience, ...)
+/obj/item/organ/brain/proc/gain_trauma(datum/brain_trauma/trauma, resilience, ...)
 	var/list/arguments = list()
 	if(args.len > 2)
 		arguments = args.Copy(3)
 	. = brain_gain_trauma(trauma, resilience, arguments)
 
 //Direct trauma gaining proc. Necessary to assign a trauma to its brain. Avoid using directly.
-TYPE_PROC_REF(/obj/item/organ/brain, brain_gain_trauma)(datum/brain_trauma/trauma, resilience, list/arguments)
+/obj/item/organ/brain/proc/brain_gain_trauma(datum/brain_trauma/trauma, resilience, list/arguments)
 	if(!can_gain_trauma(trauma, resilience))
 		return
 
@@ -394,7 +394,7 @@ TYPE_PROC_REF(/obj/item/organ/brain, brain_gain_trauma)(datum/brain_trauma/traum
 	return actual_trauma
 
 //Add a random trauma of a certain subtype
-TYPE_PROC_REF(/obj/item/organ/brain, gain_trauma_type)(brain_trauma_type = /datum/brain_trauma, resilience, natural_gain = FALSE)
+/obj/item/organ/brain/proc/gain_trauma_type(brain_trauma_type = /datum/brain_trauma, resilience, natural_gain = FALSE)
 	var/list/datum/brain_trauma/possible_traumas = list()
 	for(var/T in subtypesof(brain_trauma_type))
 		var/datum/brain_trauma/BT = T
@@ -408,12 +408,12 @@ TYPE_PROC_REF(/obj/item/organ/brain, gain_trauma_type)(brain_trauma_type = /datu
 	return gain_trauma(trauma_type, resilience)
 
 //Cure a random trauma of a certain resilience level
-TYPE_PROC_REF(/obj/item/organ/brain, cure_trauma_type)(brain_trauma_type = /datum/brain_trauma, resilience = TRAUMA_RESILIENCE_BASIC)
+/obj/item/organ/brain/proc/cure_trauma_type(brain_trauma_type = /datum/brain_trauma, resilience = TRAUMA_RESILIENCE_BASIC)
 	var/list/traumas = get_traumas_type(brain_trauma_type, resilience)
 	if(LAZYLEN(traumas))
 		qdel(pick(traumas))
 
-TYPE_PROC_REF(/obj/item/organ/brain, cure_all_traumas)(resilience = TRAUMA_RESILIENCE_BASIC)
+/obj/item/organ/brain/proc/cure_all_traumas(resilience = TRAUMA_RESILIENCE_BASIC)
 	var/list/traumas = get_traumas_type(resilience = resilience)
 	for(var/X in traumas)
 		qdel(X)

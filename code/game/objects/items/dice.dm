@@ -167,7 +167,7 @@
 	diceroll(thrownby)
 	. = ..()
 
-TYPE_PROC_REF(/obj/item/dice, diceroll)(mob/user)
+/obj/item/dice/proc/diceroll(mob/user)
 	result = roll(sides)
 	if(rigged && result != rigged)
 		if(prob(clamp(1/(sides - 1) * 100, 25, 80)))

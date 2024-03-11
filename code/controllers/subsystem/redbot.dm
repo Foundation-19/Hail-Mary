@@ -11,7 +11,7 @@ SUBSYSTEM_DEF(redbot)
 		world.Export(query)
 	return ..()
 
-TYPE_PROC_REF(/datum/controller/subsystem/redbot, send_discord_message)(channel, message, priority_type)
+/datum/controller/subsystem/redbot/proc/send_discord_message(channel, message, priority_type)
 	var/bot_ip = CONFIG_GET(string/bot_ip)
 	var/list/adm = get_admin_counts()
 	var/list/allmins = adm["present"]

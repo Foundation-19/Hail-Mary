@@ -122,7 +122,7 @@
 /datum/nanite_program/comm/register_extra_settings()
 	extra_settings[NES_COMM_CODE] = new /datum/nanite_extra_setting/number(0, 0, 9999)
 
-TYPE_PROC_REF(/datum/nanite_program/comm, receive_comm_signal)(signal_comm_code, comm_message, comm_source)
+/datum/nanite_program/comm/proc/receive_comm_signal(signal_comm_code, comm_message, comm_source)
 	if(!activated || !comm_code)
 		return
 	if(signal_comm_code == comm_code)

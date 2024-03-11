@@ -13,7 +13,7 @@
 	current_range = range
 	SetHost(_host)
 
-TYPE_PROC_REF(/datum/proximity_monitor, SetHost)(atom/H,atom/R)
+/datum/proximity_monitor/proc/SetHost(atom/H,atom/R)
 	if(H == host)
 		return
 	if(host)
@@ -34,7 +34,7 @@ TYPE_PROC_REF(/datum/proximity_monitor, SetHost)(atom/H,atom/R)
 	QDEL_LIST(checkers)
 	return ..()
 
-TYPE_PROC_REF(/datum/proximity_monitor, HandleMove)()
+/datum/proximity_monitor/proc/HandleMove()
 	var/atom/_host = host
 	var/atom/new_host_loc = _host.loc
 	if(last_host_loc != new_host_loc)
@@ -45,7 +45,7 @@ TYPE_PROC_REF(/datum/proximity_monitor, HandleMove)()
 			testing("HasProx: [host] -> [host]")
 			hasprox_receiver.HasProximity(host)	//if we are processing, we're guaranteed to be a movable
 
-TYPE_PROC_REF(/datum/proximity_monitor, SetRange)(range, force_rebuild = FALSE)
+/datum/proximity_monitor/proc/SetRange(range, force_rebuild = FALSE)
 	if(!force_rebuild && range == current_range)
 		return FALSE
 	. = TRUE
@@ -113,10 +113,10 @@ TYPE_PROC_REF(/datum/proximity_monitor, SetRange)(range, force_rebuild = FALSE)
 	monitor = null
 	return ..()
 
-TYPE_PROC_REF(/obj/effect/abstract/proximity_checker, on_entered)(atom/movable/AM)
+/obj/effect/abstract/proximity_checker/proc/on_entered(atom/movable/AM)
 	SIGNAL_HANDLER
 	set waitfor = FALSE
 	monitor?.hasprox_receiver.HasProximity(AM)
 
-TYPE_PROC_REF(/obj/effect/abstract/proximity_checker, on_exit)(atom/movable/AM)
+/obj/effect/abstract/proximity_checker/proc/on_exit(atom/movable/AM)
 	SIGNAL_HANDLER

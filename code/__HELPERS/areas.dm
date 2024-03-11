@@ -14,7 +14,7 @@ GLOBAL_LIST_INIT(typecache_powerfailure_safe_areas, typecacheof(/area/engine/eng
 
 	sortTim(GLOB.sortedAreas, GLOBAL_PROC_REF(cmp_name_asc))
 
-TYPE_PROC_REF(/area, addSorted)()
+/area/proc/addSorted()
 	GLOB.sortedAreas.Add(src)
 	sortTim(GLOB.sortedAreas, GLOBAL_PROC_REF(cmp_name_asc))
 

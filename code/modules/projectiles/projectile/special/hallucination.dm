@@ -46,7 +46,7 @@
 	qdel(src)
 	return TRUE
 
-TYPE_PROC_REF(/obj/item/projectile/hallucination, target_on_hit)(mob/M)
+/obj/item/projectile/hallucination/proc/target_on_hit(mob/M)
 	if(M == hal_target)
 		to_chat(hal_target, span_userdanger("[M] is hit by \a [src] in the chest!"))
 		hal_apply_effect()
@@ -60,7 +60,7 @@ TYPE_PROC_REF(/obj/item/projectile/hallucination, target_on_hit)(mob/M)
 	else if(hal_impact_effect)
 		spawn_hit(M, FALSE)
 
-TYPE_PROC_REF(/obj/item/projectile/hallucination, spawn_blood)(mob/M, set_dir)
+/obj/item/projectile/hallucination/proc/spawn_blood(mob/M, set_dir)
 	set waitfor = 0
 	if(!hal_target.client)
 		return
@@ -102,11 +102,11 @@ TYPE_PROC_REF(/obj/item/projectile/hallucination, spawn_blood)(mob/M, set_dir)
 	animate(blood, pixel_x = target_pixel_x, pixel_y = target_pixel_y, alpha = 0, time = 5)
 	addtimer(CALLBACK(src, PROC_REF(cleanup_blood)), 5)
 
-TYPE_PROC_REF(/obj/item/projectile/hallucination, cleanup_blood)(image/blood)
+/obj/item/projectile/hallucination/proc/cleanup_blood(image/blood)
 	hal_target.client.images -= blood
 	qdel(blood)
 
-TYPE_PROC_REF(/obj/item/projectile/hallucination, spawn_hit)(atom/A, is_wall)
+/obj/item/projectile/hallucination/proc/spawn_hit(atom/A, is_wall)
 	set waitfor = 0
 	if(!hal_target.client)
 		return
@@ -120,7 +120,7 @@ TYPE_PROC_REF(/obj/item/projectile/hallucination, spawn_hit)(atom/A, is_wall)
 	qdel(hit_effect)
 
 
-TYPE_PROC_REF(/obj/item/projectile/hallucination, hal_apply_effect)()
+/obj/item/projectile/hallucination/proc/hal_apply_effect()
 	return
 
 /obj/item/projectile/hallucination/bullet

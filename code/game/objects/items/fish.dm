@@ -17,7 +17,7 @@
 	var/spawn_sex = FEMALE
 
 //made a proc so that it can be influenced by other stuff
-TYPE_PROC_REF(/obj/item/fishy, randomize_sex)()
+/obj/item/fishy/proc/randomize_sex()
 	spawn_sex = pick(MALE, FEMALE)
 
 //butchering and other attack stuff goes here

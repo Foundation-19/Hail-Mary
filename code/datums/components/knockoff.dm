@@ -18,7 +18,7 @@
 	if(slots_knockoffable)
 		src.slots_knockoffable = slots_knockoffable
 
-TYPE_PROC_REF(/datum/component/knockoff, Knockoff)(mob/living/attacker,zone)
+/datum/component/knockoff/proc/Knockoff(mob/living/attacker,zone)
 	var/obj/item/I = parent
 	var/mob/living/carbon/human/wearer = I.loc
 	if(!istype(wearer))
@@ -32,7 +32,7 @@ TYPE_PROC_REF(/datum/component/knockoff, Knockoff)(mob/living/attacker,zone)
 
 	wearer.visible_message(span_warning("[attacker] knocks off [wearer]'s [I.name]!"),span_userdanger("[attacker] knocks off your [I.name]!"))
 
-TYPE_PROC_REF(/datum/component/knockoff, OnEquipped)(datum/source, mob/living/carbon/human/H,slot)
+/datum/component/knockoff/proc/OnEquipped(datum/source, mob/living/carbon/human/H,slot)
 	if(!istype(H))
 		return
 	if(slots_knockoffable && !(slot in slots_knockoffable))
@@ -40,5 +40,5 @@ TYPE_PROC_REF(/datum/component/knockoff, OnEquipped)(datum/source, mob/living/ca
 		return
 	RegisterSignal(H, COMSIG_HUMAN_DISARM_HIT, PROC_REF(Knockoff), TRUE)
 
-TYPE_PROC_REF(/datum/component/knockoff, OnDropped)(datum/source, mob/living/M)
+/datum/component/knockoff/proc/OnDropped(datum/source, mob/living/M)
 	UnregisterSignal(M, COMSIG_HUMAN_DISARM_HIT)

@@ -44,10 +44,10 @@
 	unmodify_hud()
 	return ..()
 
-TYPE_PROC_REF(/datum/component/mood, stop_processing)()
+/datum/component/mood/proc/stop_processing()
 	STOP_PROCESSING(SSobj, src)
 
-TYPE_PROC_REF(/datum/component/mood, print_mood)(mob/user)
+/datum/component/mood/proc/print_mood(mob/user)
 	var/msg = "<span class='info'>*---------*\n<EM>Your current mood</EM>\n"
 	msg += span_notice("My mental status: ") //Long term
 	switch(sanity)
@@ -95,7 +95,7 @@ TYPE_PROC_REF(/datum/component/mood, print_mood)(mob/user)
 	to_chat(user || parent, msg)
 
 ///Called after moodevent/s have been added/removed.
-TYPE_PROC_REF(/datum/component/mood, update_mood)()
+/datum/component/mood/proc/update_mood()
 	mood = 0
 	shown_mood = 0
 	for(var/i in mood_events)
@@ -128,7 +128,7 @@ TYPE_PROC_REF(/datum/component/mood, update_mood)()
 	update_mood_icon()
 
 
-TYPE_PROC_REF(/datum/component/mood, update_mood_icon)()
+/datum/component/mood/proc/update_mood_icon()
 	var/mob/living/owner = parent
 	if(owner.client && owner.hud_used)
 		if(sanity < 25)
@@ -166,7 +166,7 @@ TYPE_PROC_REF(/datum/component/mood, update_mood_icon)()
 
 	HandleNutrition(owner)
 
-TYPE_PROC_REF(/datum/component/mood, setSanity)(amount, minimum=SANITY_INSANE, maximum=SANITY_NEUTRAL)//I'm sure bunging this in here will have no negative repercussions.
+/datum/component/mood/proc/setSanity(amount, minimum=SANITY_INSANE, maximum=SANITY_NEUTRAL)//I'm sure bunging this in here will have no negative repercussions.
 	var/mob/living/master = parent
 
 	if(amount == sanity)
@@ -233,7 +233,7 @@ TYPE_PROC_REF(/datum/component/mood, setSanity)(amount, minimum=SANITY_INSANE, m
 
 	//update_mood_icon()
 
-TYPE_PROC_REF(/datum/component/mood, setInsanityEffect)(newval)//More code so that the previous proc works
+/datum/component/mood/proc/setInsanityEffect(newval)//More code so that the previous proc works
 	if(newval == insanity_effect)
 		return
 
@@ -246,10 +246,10 @@ TYPE_PROC_REF(/datum/component/mood, setInsanityEffect)(newval)//More code so th
 
 	insanity_effect = newval
 
-TYPE_PROC_REF(/datum/component/mood, modify_sanity)(datum/source, amount, minimum = SANITY_INSANE, maximum = SANITY_AMAZING)
+/datum/component/mood/proc/modify_sanity(datum/source, amount, minimum = SANITY_INSANE, maximum = SANITY_AMAZING)
 	setSanity(sanity + amount, minimum, maximum)
 
-TYPE_PROC_REF(/datum/component/mood, add_event)(datum/source, category, type, param) //Category will override any events in the same category, should be unique unless the event is based on the same thing like hunger.
+/datum/component/mood/proc/add_event(datum/source, category, type, param) //Category will override any events in the same category, should be unique unless the event is based on the same thing like hunger.
 	var/datum/mood_event/the_event
 	if(mood_events[category])
 		the_event = mood_events[category]
@@ -267,7 +267,7 @@ TYPE_PROC_REF(/datum/component/mood, add_event)(datum/source, category, type, pa
 	if(the_event.timeout)
 		addtimer(CALLBACK(src, PROC_REF(clear_event), null, category), the_event.timeout, TIMER_UNIQUE|TIMER_OVERRIDE)
 
-TYPE_PROC_REF(/datum/component/mood, clear_event)(datum/source, category)
+/datum/component/mood/proc/clear_event(datum/source, category)
 	var/datum/mood_event/event = mood_events[category]
 	if(!event)
 		return 0
@@ -276,7 +276,7 @@ TYPE_PROC_REF(/datum/component/mood, clear_event)(datum/source, category)
 	qdel(event)
 	update_mood()
 
-TYPE_PROC_REF(/datum/component/mood, remove_temp_moods)() //Removes all temp moodsfor(i in mood_events)
+/datum/component/mood/proc/remove_temp_moods() //Removes all temp moodsfor(i in mood_events)
 	for(var/i in mood_events)
 		var/datum/mood_event/moodlet = mood_events[i]
 		if(!moodlet || !moodlet.timeout)
@@ -285,7 +285,7 @@ TYPE_PROC_REF(/datum/component/mood, remove_temp_moods)() //Removes all temp moo
 		qdel(moodlet)
 	update_mood()
 
-TYPE_PROC_REF(/datum/component/mood, modify_hud)(datum/source)
+/datum/component/mood/proc/modify_hud(datum/source)
 	var/mob/living/owner = parent
 	var/datum/hud/hud = owner.hud_used
 	screen_obj = new
@@ -293,7 +293,7 @@ TYPE_PROC_REF(/datum/component/mood, modify_hud)(datum/source)
 	RegisterSignal(hud, COMSIG_PARENT_QDELETING, PROC_REF(unmodify_hud))
 	RegisterSignal(screen_obj, COMSIG_CLICK, PROC_REF(hud_click))
 
-TYPE_PROC_REF(/datum/component/mood, unmodify_hud)(datum/source)
+/datum/component/mood/proc/unmodify_hud(datum/source)
 	if(!screen_obj || !parent)
 		return
 	var/mob/living/owner = parent
@@ -302,11 +302,11 @@ TYPE_PROC_REF(/datum/component/mood, unmodify_hud)(datum/source)
 		hud.infodisplay -= screen_obj
 	QDEL_NULL(screen_obj)
 
-TYPE_PROC_REF(/datum/component/mood, hud_click)(datum/source, location, control, params, mob/user)
+/datum/component/mood/proc/hud_click(datum/source, location, control, params, mob/user)
 	print_mood(user)
 
 
-TYPE_PROC_REF(/datum/component/mood, HandleNutrition)(mob/living/L)
+/datum/component/mood/proc/HandleNutrition(mob/living/L)
 	if(isethereal(L))
 		HandleCharge(L)
 	if(HAS_TRAIT(L, TRAIT_NOHUNGER))
@@ -328,7 +328,7 @@ TYPE_PROC_REF(/datum/component/mood, HandleNutrition)(mob/living/L)
 		if(0 to NUTRITION_LEVEL_STARVING)
 			add_event(null, "nutrition", /datum/mood_event/starving)
 
-TYPE_PROC_REF(/datum/component/mood, HandleCharge)(mob/living/carbon/human/H)
+/datum/component/mood/proc/HandleCharge(mob/living/carbon/human/H)
 	var/datum/species/ethereal/E = H.dna.species
 	switch(E.get_charge(H))
 		if(ETHEREAL_CHARGE_NONE to ETHEREAL_CHARGE_LOWPOWER)
@@ -344,7 +344,7 @@ TYPE_PROC_REF(/datum/component/mood, HandleCharge)(mob/living/carbon/human/H)
 		if(ETHEREAL_CHARGE_OVERLOAD to ETHEREAL_CHARGE_DANGEROUS)
 			add_event(null, "charge", /datum/mood_event/supercharged)
 
-TYPE_PROC_REF(/datum/component/mood, update_beauty)(area/A)
+/datum/component/mood/proc/update_beauty(area/A)
 	if(A.outdoors) //if we're outside, we don't care.
 		clear_event(null, "area_beauty")
 		return FALSE
@@ -367,7 +367,7 @@ TYPE_PROC_REF(/datum/component/mood, update_beauty)(area/A)
 			add_event(null, "area_beauty", /datum/mood_event/greatroom)
 
 ///Called when parent is revived.
-TYPE_PROC_REF(/datum/component/mood, on_revive)(datum/source, full_heal)
+/datum/component/mood/proc/on_revive(datum/source, full_heal)
 	START_PROCESSING(SSobj, src)
 	if(!full_heal)
 		return

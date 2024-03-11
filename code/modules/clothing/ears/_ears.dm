@@ -45,7 +45,7 @@
 	icon_state = "[initial(icon_state)]_[headphones_on? "on" : "off"]"
 	item_state = "[initial(item_state)]_[headphones_on? "on" : "off"]"
 
-TYPE_PROC_REF(/obj/item/clothing/ears/headphones, toggle)(owner)
+/obj/item/clothing/ears/headphones/proc/toggle(owner)
 	headphones_on = !headphones_on
 	update_icon()
 	to_chat(owner, span_notice("You turn the music [headphones_on? "on. Untz Untz Untz!" : "off."]"))

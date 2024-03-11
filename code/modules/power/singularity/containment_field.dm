@@ -63,7 +63,7 @@
 	else
 		..()
 
-TYPE_PROC_REF(/obj/machinery/field/containment, on_entered)(mob/mover)
+/obj/machinery/field/containment/proc/on_entered(mob/mover)
 	SIGNAL_HANDLER
 	if(isliving(mover))
 		INVOKE_ASYNC(src, PROC_REF(shock), mover)
@@ -71,7 +71,7 @@ TYPE_PROC_REF(/obj/machinery/field/containment, on_entered)(mob/mover)
 	if(ismachinery(mover) || isstructure(mover) || ismecha(mover))
 		INVOKE_ASYNC(src, PROC_REF(bump_field), mover)
 
-TYPE_PROC_REF(/obj/machinery/field/containment, set_master)(master1,master2)
+/obj/machinery/field/containment/proc/set_master(master1,master2)
 	if(!master1 || !master2)
 		return FALSE
 	FG1 = master1
@@ -112,7 +112,7 @@ TYPE_PROC_REF(/obj/machinery/field/containment, set_master)(master1,master2)
 		return FALSE
 	return ..()
 
-TYPE_PROC_REF(/obj/machinery/field, shock)(mob/living/user)
+/obj/machinery/field/proc/shock(mob/living/user)
 	var/shock_damage = min(rand(30,40),rand(30,40))
 
 	if(iscarbon(user))
@@ -130,10 +130,10 @@ TYPE_PROC_REF(/obj/machinery/field, shock)(mob/living/user)
 	user.updatehealth()
 	bump_field(user)
 
-TYPE_PROC_REF(/obj/machinery/field, clear_shock)()
+/obj/machinery/field/proc/clear_shock()
 	hasShocked = FALSE
 
-TYPE_PROC_REF(/obj/machinery/field, bump_field)(atom/movable/AM as mob|obj)
+/obj/machinery/field/proc/bump_field(atom/movable/AM as mob|obj)
 	if(hasShocked)
 		return FALSE
 	hasShocked = TRUE

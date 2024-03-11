@@ -35,7 +35,7 @@ SUBSYSTEM_DEF(input)
 	return ..()
 
 /// Sets up the key list for classic mode for when badmins screw up vv's.
-TYPE_PROC_REF(/datum/controller/subsystem/input, setup_macrosets)()
+/datum/controller/subsystem/input/proc/setup_macrosets()
 	// First, let's do the snowflake keyset!
 	macroset_classic_input = list()
 	var/list/classic_mode_keys = list(
@@ -87,7 +87,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/input, setup_macrosets)()
 	)
 
 // Badmins just wanna have fun ♪
-TYPE_PROC_REF(/datum/controller/subsystem/input, refresh_client_macro_sets)()
+/datum/controller/subsystem/input/proc/refresh_client_macro_sets()
 	var/list/clients = GLOB.clients
 	for(var/i in 1 to clients.len)
 		var/client/user = clients[i]

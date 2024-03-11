@@ -95,7 +95,7 @@ Difficulty: Medium
 			charging = 1
 			addtimer(CALLBACK(src, PROC_REF(reset_charge)), 50)
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile/megafauna/legion, reset_charge)()
+/mob/living/simple_animal/hostile/megafauna/legion/proc/reset_charge()
 	ranged = 1
 	retreat_distance = 5
 	minimum_distance = 5

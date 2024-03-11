@@ -28,18 +28,18 @@
 	if((user.mind && HAS_TRAIT(user.mind, TRAIT_ABDUCTOR_SCIENTIST_TRAINING)) || isobserver(user))
 		. += span_notice("It is \a [true_name].")
 
-TYPE_PROC_REF(/obj/item/organ/heart/gland, ownerCheck)()
+/obj/item/organ/heart/gland/proc/ownerCheck()
 	if(ishuman(owner))
 		return TRUE
 	if(!human_only && iscarbon(owner))
 		return TRUE
 	return FALSE
 
-TYPE_PROC_REF(/obj/item/organ/heart/gland, Start)()
+/obj/item/organ/heart/gland/proc/Start()
 	active = 1
 	next_activation = world.time + rand(cooldown_low,cooldown_high)
 
-TYPE_PROC_REF(/obj/item/organ/heart/gland, update_gland_hud)()
+/obj/item/organ/heart/gland/proc/update_gland_hud()
 	if(!owner)
 		return
 	var/image/holder = owner.hud_list[GLAND_HUD]
@@ -52,7 +52,7 @@ TYPE_PROC_REF(/obj/item/organ/heart/gland, update_gland_hud)()
 	else
 		holder.icon_state = "hudgland_spent"
 
-TYPE_PROC_REF(/obj/item/organ/heart/gland, mind_control)(command, mob/living/user)
+/obj/item/organ/heart/gland/proc/mind_control(command, mob/living/user)
 	if(!ownerCheck() || !mind_control_uses || active_mind_control)
 		return FALSE
 	mind_control_uses--
@@ -66,7 +66,7 @@ TYPE_PROC_REF(/obj/item/organ/heart/gland, mind_control)(command, mob/living/use
 	addtimer(CALLBACK(src, PROC_REF(clear_mind_control)), mind_control_duration)
 	return TRUE
 
-TYPE_PROC_REF(/obj/item/organ/heart/gland, clear_mind_control)()
+/obj/item/organ/heart/gland/proc/clear_mind_control()
 	if(!ownerCheck() || !active_mind_control)
 		return FALSE
 	to_chat(owner, "<span class='userdanger'>You feel the compulsion fade, and you <i>completely forget</i> about your previous orders.</span>")
@@ -109,5 +109,5 @@ TYPE_PROC_REF(/obj/item/organ/heart/gland, clear_mind_control)()
 	if(!uses)
 		active = 0
 
-TYPE_PROC_REF(/obj/item/organ/heart/gland, activate)()
+/obj/item/organ/heart/gland/proc/activate()
 	return

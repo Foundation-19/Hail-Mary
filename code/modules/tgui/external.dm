@@ -14,7 +14,7 @@
  * required user mob The mob who opened/is using the UI.
  * optional ui datum/tgui The UI to be updated, if it exists.
  */
-TYPE_PROC_REF(/datum, ui_interact)(mob/user, datum/tgui/ui)
+/datum/proc/ui_interact(mob/user, datum/tgui/ui)
 	return FALSE // Not implemented.
 
 /**
@@ -27,7 +27,7 @@ TYPE_PROC_REF(/datum, ui_interact)(mob/user, datum/tgui/ui)
  *
  * return list Data to be sent to the UI.
  */
-TYPE_PROC_REF(/datum, ui_data)(mob/user)
+/datum/proc/ui_data(mob/user)
 	return list() // Not implemented.
 
 /**
@@ -44,7 +44,7 @@ TYPE_PROC_REF(/datum, ui_data)(mob/user)
  *
  * return list Statuic Data to be sent to the UI.
  */
-TYPE_PROC_REF(/datum, ui_static_data)(mob/user)
+/datum/proc/ui_static_data(mob/user)
 	return list()
 
 /**
@@ -56,7 +56,7 @@ TYPE_PROC_REF(/datum, ui_static_data)(mob/user)
  * required user the mob currently interacting with the ui
  * optional ui ui to be updated
  */
-TYPE_PROC_REF(/datum, update_static_data)(mob/user, datum/tgui/ui)
+/datum/proc/update_static_data(mob/user, datum/tgui/ui)
 	if(!ui)
 		ui = SStgui.get_open_ui(user, src)
 	if(ui)
@@ -73,7 +73,7 @@ TYPE_PROC_REF(/datum, update_static_data)(mob/user, datum/tgui/ui)
  *
  * return bool If the user's input has been handled and the UI should update.
  */
-TYPE_PROC_REF(/datum, ui_act)(action, list/params, datum/tgui/ui, datum/ui_state/state)
+/datum/proc/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	SHOULD_CALL_PARENT(TRUE)
 	// If UI is not interactive or usr calling Topic is not the UI user, bail.
 	if(!ui || ui.status != UI_INTERACTIVE)
@@ -87,7 +87,7 @@ TYPE_PROC_REF(/datum, ui_act)(action, list/params, datum/tgui/ui, datum/ui_state
  *
  * return list List of asset datums or file paths.
  */
-TYPE_PROC_REF(/datum, ui_assets)(mob/user)
+/datum/proc/ui_assets(mob/user)
 	return list()
 
 /**
@@ -97,7 +97,7 @@ TYPE_PROC_REF(/datum, ui_assets)(mob/user)
  * This allows modules/datums to have the UI attached to them,
  * and be a part of another object.
  */
-TYPE_PROC_REF(/datum, ui_host)(mob/user)
+/datum/proc/ui_host(mob/user)
 	return src // Default src.
 
 /**
@@ -106,7 +106,7 @@ TYPE_PROC_REF(/datum, ui_host)(mob/user)
  * The UI's state controller to be used for created uis
  * This is a proc over a var for memory reasons
  */
-TYPE_PROC_REF(/datum, ui_state)(mob/user)
+/datum/proc/ui_state(mob/user)
 	return GLOB.default_state
 
 /**
@@ -144,7 +144,7 @@ TYPE_PROC_REF(/datum, ui_state)(mob/user)
  * Called on a UI's object when the UI is closed, not to be confused with
  * client/verb/uiclose(), which closes the ui window
  */
-TYPE_PROC_REF(/datum, ui_close)(mob/user)
+/datum/proc/ui_close(mob/user)
 	SIGNAL_HANDLER
 
 /**

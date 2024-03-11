@@ -55,9 +55,9 @@
 		for(var/mob/living/obstacle in srcturf) //Stop people from using this as a shield
 			opening = FALSE
 			return
-	addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/structure/falsewall, toggle_open)), 5)
+	addtimer(CALLBACK(src, /obj/structure/falsewall/proc/toggle_open), 5)
 
-TYPE_PROC_REF(/obj/structure/falsewall, toggle_open)()
+/obj/structure/falsewall/proc/toggle_open()
 	if(!QDELETED(src))
 		density = !density
 		set_opacity(density)
@@ -81,7 +81,7 @@ TYPE_PROC_REF(/obj/structure/falsewall, toggle_open)()
 		else
 			icon_state = "fwall_open"
 
-TYPE_PROC_REF(/obj/structure/falsewall, ChangeToWall)(delete = 1)
+/obj/structure/falsewall/proc/ChangeToWall(delete = 1)
 	var/turf/T = get_turf(src)
 	T.PlaceOnTop(walltype)
 	if(delete)
@@ -116,7 +116,7 @@ TYPE_PROC_REF(/obj/structure/falsewall, ChangeToWall)(delete = 1)
 	else
 		return ..()
 
-TYPE_PROC_REF(/obj/structure/falsewall, dismantle)(mob/user, disassembled=TRUE, obj/item/tool = null)
+/obj/structure/falsewall/proc/dismantle(mob/user, disassembled=TRUE, obj/item/tool = null)
 	user.visible_message("[user] dismantles the false wall.", span_notice("You dismantle the false wall."))
 	if(tool)
 		tool.play_tool_sound(src, 100)
@@ -184,7 +184,7 @@ TYPE_PROC_REF(/obj/structure/falsewall, dismantle)(mob/user, disassembled=TRUE, 
 	radiate()
 	. = ..()
 
-TYPE_PROC_REF(/obj/structure/falsewall/uranium, radiate)()
+/obj/structure/falsewall/uranium/proc/radiate()
 	if(!active)
 		if(world.time > last_event+15)
 			active = 1
@@ -254,7 +254,7 @@ TYPE_PROC_REF(/obj/structure/falsewall/uranium, radiate)()
 	else
 		return ..()
 
-TYPE_PROC_REF(/obj/structure/falsewall/plasma, burnbabyburn)(user)
+/obj/structure/falsewall/plasma/proc/burnbabyburn(user)
 	playsound(src, 'sound/items/welder.ogg', 100, 1)
 	atmos_spawn_air("plasma=400;TEMP=1000")
 	new /obj/structure/girder/displaced(loc)

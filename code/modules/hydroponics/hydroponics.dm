@@ -279,7 +279,7 @@
 
 	return
 
-TYPE_PROC_REF(/obj/machinery/hydroponics, update_icon_plant)()
+/obj/machinery/hydroponics/proc/update_icon_plant()
 	var/mutable_appearance/plant_overlay = mutable_appearance(myseed.growing_icon, layer = OBJ_LAYER + 0.01)
 	if(dead)
 		plant_overlay.icon_state = myseed.icon_dead
@@ -293,7 +293,7 @@ TYPE_PROC_REF(/obj/machinery/hydroponics, update_icon_plant)()
 		plant_overlay.icon_state = "[myseed.icon_grow][t_growthstate]"
 	add_overlay(plant_overlay)
 
-TYPE_PROC_REF(/obj/machinery/hydroponics, update_icon_lights)()
+/obj/machinery/hydroponics/proc/update_icon_lights()
 	if(waterlevel <= 10)
 		add_overlay(mutable_appearance('icons/obj/hydroponics/equipment.dmi', "over_lowwater3"))
 	if(reagents.total_volume <= 2)
@@ -416,7 +416,7 @@ TYPE_PROC_REF(/obj/machinery/hydroponics, update_icon_lights)()
 		to_chat(user, span_notice("... nothing seems to be growing there."))
 	else
 		to_chat(user, span_notice("... You can't see anything in particular. Maybe you need to get closer to examine it closely?"))
-TYPE_PROC_REF(/obj/machinery/hydroponics, weedinvasion)() // If a weed growth is sufficient, this happens.
+/obj/machinery/hydroponics/proc/weedinvasion() // If a weed growth is sufficient, this happens.
 	dead = 0
 	var/oldPlantName
 	if(myseed) // In case there's nothing in the tray beforehand
@@ -456,16 +456,16 @@ TYPE_PROC_REF(/obj/machinery/hydroponics, weedinvasion)() // If a weed growth is
 	else
 		desc = initial(desc)
 
-TYPE_PROC_REF(/obj/machinery/hydroponics, mutate)(lifemut = 2, endmut = 5, productmut = 1, yieldmut = 2, potmut = 25, wrmut = 2, wcmut = 5, traitmut = 0) // Mutates the current seed
+/obj/machinery/hydroponics/proc/mutate(lifemut = 2, endmut = 5, productmut = 1, yieldmut = 2, potmut = 25, wrmut = 2, wcmut = 5, traitmut = 0) // Mutates the current seed
 	if(!myseed)
 		return
 	myseed.mutate(lifemut, endmut, productmut, yieldmut, potmut, wrmut, wcmut, traitmut)
 
-TYPE_PROC_REF(/obj/machinery/hydroponics, hardmutate)()
+/obj/machinery/hydroponics/proc/hardmutate()
 	mutate(4, 10, 2, 4, 50, 4, 10, 3)
 
 
-TYPE_PROC_REF(/obj/machinery/hydroponics, mutatespecie)() // Mutagent produced a new plant!
+/obj/machinery/hydroponics/proc/mutatespecie() // Mutagent produced a new plant!
 	if(!myseed || dead)
 		return
 
@@ -490,7 +490,7 @@ TYPE_PROC_REF(/obj/machinery/hydroponics, mutatespecie)() // Mutagent produced a
 	visible_message(span_warning("[oldPlantName] suddenly mutates into [myseed.plantname]!"))
 	TRAY_NAME_UPDATE
 
-TYPE_PROC_REF(/obj/machinery/hydroponics, mutateweed)() // If the weeds gets the mutagent instead. Mind you, this pretty much destroys the old plant
+/obj/machinery/hydroponics/proc/mutateweed() // If the weeds gets the mutagent instead. Mind you, this pretty much destroys the old plant
 	if( weedlevel > 5 )
 		if(myseed)
 			qdel(myseed)
@@ -517,7 +517,7 @@ TYPE_PROC_REF(/obj/machinery/hydroponics, mutateweed)() // If the weeds gets the
  * Plant Death Proc.
  * Cleans up various stats for the plant upon death, including pests, harvestability, and plant health.
  */
-TYPE_PROC_REF(/obj/machinery/hydroponics, plantdies)()
+/obj/machinery/hydroponics/proc/plantdies()
 	plant_health = 0
 	harvest = FALSE
 	pestlevel = 0 // Pests die
@@ -528,7 +528,7 @@ TYPE_PROC_REF(/obj/machinery/hydroponics, plantdies)()
 		dead = TRUE
 
 
-TYPE_PROC_REF(/obj/machinery/hydroponics, mutatepest)(mob/user)
+/obj/machinery/hydroponics/proc/mutatepest(mob/user)
 	if(pestlevel > 5)
 		message_admins("[ADMIN_LOOKUPFLW(user)] caused spiderling pests to spawn in a hydro tray")
 		log_game("[key_name(user)] caused spiderling pests to spawn in a hydro tray")
@@ -747,7 +747,7 @@ TYPE_PROC_REF(/obj/machinery/hydroponics, mutatepest)(mob/user)
 		reagents.clear_reagents()
 		to_chat(user, span_warning("You empty [src]'s nutrient tank."))
 
-TYPE_PROC_REF(/obj/machinery/hydroponics, update_tray)(mob/user)
+/obj/machinery/hydroponics/proc/update_tray(mob/user)
 	harvest = FALSE
 	lastproduce = age
 	if(myseed.getYield() <= 0)
@@ -765,32 +765,32 @@ TYPE_PROC_REF(/obj/machinery/hydroponics, update_tray)(mob/user)
 	update_icon()
 
 /// Tray Setters - The following procs adjust the tray or plants variables, and make sure that the stat doesn't go out of bounds.///
-TYPE_PROC_REF(/obj/machinery/hydroponics, adjustWater)(adjustamt)
+/obj/machinery/hydroponics/proc/adjustWater(adjustamt)
 	waterlevel = clamp(waterlevel + adjustamt, 0, maxwater)
 
 	if(adjustamt>0)
 		adjustToxic(-round(adjustamt/4))//Toxicity dilutation code. The more water you put in, the lesser the toxin concentration.
 
-TYPE_PROC_REF(/obj/machinery/hydroponics, adjustHealth)(adjustamt)
+/obj/machinery/hydroponics/proc/adjustHealth(adjustamt)
 	if(myseed && !dead)
 		plant_health = clamp(plant_health + adjustamt, 0, myseed.endurance)
 
-TYPE_PROC_REF(/obj/machinery/hydroponics, adjustToxic)(adjustamt)
+/obj/machinery/hydroponics/proc/adjustToxic(adjustamt)
 	toxic = clamp(toxic + adjustamt, 0, 100)
 
-TYPE_PROC_REF(/obj/machinery/hydroponics, adjustPests)(adjustamt)
+/obj/machinery/hydroponics/proc/adjustPests(adjustamt)
 	pestlevel = clamp(pestlevel + adjustamt, 0, 10)
 
-TYPE_PROC_REF(/obj/machinery/hydroponics, adjustWeeds)(adjustamt)
+/obj/machinery/hydroponics/proc/adjustWeeds(adjustamt)
 	weedlevel = clamp(weedlevel + adjustamt, 0, 10)
 
-TYPE_PROC_REF(/obj/machinery/hydroponics, adjustSelfSuff)(adjustamt)
+/obj/machinery/hydroponics/proc/adjustSelfSuff(adjustamt)
 	if(self_sustainingprog>=6)
 		become_self_sufficient()
 	else
 		self_sustainingprog += adjustamt
 
-TYPE_PROC_REF(/obj/machinery/hydroponics, spawnplant)() // why would you put strange reagent in a hydro tray you monster I bet you also feed them blood
+/obj/machinery/hydroponics/proc/spawnplant() // why would you put strange reagent in a hydro tray you monster I bet you also feed them blood
 	var/list/livingplants = list(/mob/living/simple_animal/hostile/tree, /mob/living/simple_animal/hostile/killertomato)
 	var/chosen = pick(livingplants)
 	var/mob/living/simple_animal/hostile/C = new chosen
@@ -839,7 +839,7 @@ TYPE_PROC_REF(/obj/machinery/hydroponics, spawnplant)() // why would you put str
 	if(in_range(user, src) || isobserver(user))
 		. += "<span class='notice'>You might be able to discern a plant's harvest by examining it <b>closer</b>.</span>"
 
-TYPE_PROC_REF(/obj/machinery/hydroponics, become_self_sufficient)() // Ambrosia Gaia effect
+/obj/machinery/hydroponics/proc/become_self_sufficient() // Ambrosia Gaia effect
 	visible_message(span_boldnotice("[src] begins to glow with a beautiful light!"))
 	self_sustaining = TRUE
 	update_icon()

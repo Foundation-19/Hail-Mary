@@ -2,7 +2,7 @@
 
 /*
 // Called from game mode pre_setup()
-TYPE_PROC_REF(/datum/game_mode, assign_monster_hunters)(monster_count = 4, guaranteed_hunters = FALSE, list/datum/mind/exclude_from_hunter)
+/datum/game_mode/proc/assign_monster_hunters(monster_count = 4, guaranteed_hunters = FALSE, list/datum/mind/exclude_from_hunter)
 
 	// Not all game modes GUARANTEE a hunter
 	if (rand(0,2) == 0) // 50% of the time, we get fewer or NO Hunters
@@ -40,7 +40,7 @@ TYPE_PROC_REF(/datum/game_mode, assign_monster_hunters)(monster_count = 4, guara
 		log_game("[hunter.key] (ckey) has been selected as a Hunter.")
 
 // Called from game mode post_setup()
-TYPE_PROC_REF(/datum/game_mode, finalize_monster_hunters)(monster_count = 4)
+/datum/game_mode/proc/finalize_monster_hunters(monster_count = 4)
 	var/amEvil = TRUE // First hunter is always an evil boi
 	for(var/datum/mind/hunter in vamphunters)
 		var/datum/antagonist/vamphunter/A = new (hunter)

@@ -51,7 +51,7 @@
 /mob/living/simple_animal/bot/firebot/bot_reset()
 	create_extinguisher()
 
-TYPE_PROC_REF(/mob/living/simple_animal/bot/firebot, create_extinguisher)()
+/mob/living/simple_animal/bot/firebot/proc/create_extinguisher()
 	internal_ext = new /obj/item/extinguisher(src)
 	internal_ext.safety = FALSE
 	internal_ext.precision = TRUE
@@ -90,7 +90,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/bot/firebot, create_extinguisher)()
 	anchored = FALSE
 	update_icon()
 
-TYPE_PROC_REF(/mob/living/simple_animal/bot/firebot, soft_reset)()
+/mob/living/simple_animal/bot/firebot/proc/soft_reset()
 	path = list()
 	target_fire = null
 	mode = BOT_IDLE
@@ -153,7 +153,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/bot/firebot, soft_reset)()
 	update_controls()
 	update_icon()
 
-TYPE_PROC_REF(/mob/living/simple_animal/bot/firebot, is_burning)(atom/target)
+/mob/living/simple_animal/bot/firebot/proc/is_burning(atom/target)
 	if(ismob(target))
 		var/mob/living/M = target
 		if(M.on_fire || (emagged == 1 && !M.on_fire))
@@ -231,7 +231,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/bot/firebot, is_burning)(atom/target)
 
 	if(target_fire && (get_dist(src, target_fire) > 2))
 
-		path = get_path_to(src, get_turf(target_fire), TYPE_PROC_REF(/turf, Distance_cardinal), 0, 30, 1, id=access_card)
+		path = get_path_to(src, get_turf(target_fire), /turf/proc/Distance_cardinal, 0, 30, 1, id=access_card)
 		mode = BOT_MOVING
 		if(!path.len)
 			soft_reset()
@@ -276,7 +276,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/bot/firebot, is_burning)(atom/target)
 		foam_cooldown = world.time
 	..()
 
-TYPE_PROC_REF(/mob/living/simple_animal/bot/firebot, spray_water)(atom/target, mob/user)
+/mob/living/simple_animal/bot/firebot/proc/spray_water(atom/target, mob/user)
 	if(stationary_mode)
 		flick("firebots_use", user)
 	else

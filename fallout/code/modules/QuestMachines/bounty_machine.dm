@@ -54,15 +54,15 @@
  */
 
 /* Create all quests list */
-TYPE_PROC_REF(/obj/machinery/bounty_machine, InitQuestList)()
+/obj/machinery/bounty_machine/proc/InitQuestList()
 	all_quests = get_all_quests()
 	all_quests.Remove(quest_type)
 
-TYPE_PROC_REF(/obj/machinery/bounty_machine, get_all_quests)()
+/obj/machinery/bounty_machine/proc/get_all_quests()
 	return typesof(quest_type)
 
 /* Returns random quest from database */
-TYPE_PROC_REF(/obj/machinery/bounty_machine, GetRandomQuest)()
+/obj/machinery/bounty_machine/proc/GetRandomQuest()
 	if(all_quests.len == 0) return null
 	var/random_index = rand(1, all_quests.len)
 	var/quest_type = all_quests[random_index]
@@ -71,13 +71,13 @@ TYPE_PROC_REF(/obj/machinery/bounty_machine, GetRandomQuest)()
 	return Q
 
 /* Create new quests until its count not equal to quest limit */
-TYPE_PROC_REF(/obj/machinery/bounty_machine, UpdateActiveQuests)()
+/obj/machinery/bounty_machine/proc/UpdateActiveQuests()
 	var/i
 	for(i = active_quests.len; i < quest_limit; i++)
 		active_quests += GetRandomQuest()
 
 /* Destroy all active quests. If create_new = 1, will generate new quests */
-TYPE_PROC_REF(/obj/machinery/bounty_machine, ClearActiveQuests)(var/create_new = 0)
+/obj/machinery/bounty_machine/proc/ClearActiveQuests(var/create_new = 0)
 	for(var/Qst in active_quests)
 		del Qst
 	active_quests.Cut()
@@ -85,7 +85,7 @@ TYPE_PROC_REF(/obj/machinery/bounty_machine, ClearActiveQuests)(var/create_new =
 		UpdateActiveQuests()
 
 /* Check quest objectives and complete it. */
-TYPE_PROC_REF(/obj/machinery/bounty_machine, ProcessQuestComplete)(var/quest_index, var/mob/user)
+/obj/machinery/bounty_machine/proc/ProcessQuestComplete(var/quest_index, var/mob/user)
 	quest_index = text2num(quest_index)
 	if(quest_index > active_quests.len)
 		return 0
@@ -145,7 +145,7 @@ TYPE_PROC_REF(/obj/machinery/bounty_machine, ProcessQuestComplete)(var/quest_ind
 */
 
 /* Find and assign firs pod in distance */
-TYPE_PROC_REF(/obj/machinery/bounty_machine, FindPod)(var/distance = 1)
+/obj/machinery/bounty_machine/proc/FindPod(var/distance = 1)
 	for(var/Obj in view(distance, src))
 		if(istype(Obj, /obj/machinery/bounty_pod))
 			connected_pod = Obj
@@ -154,7 +154,7 @@ TYPE_PROC_REF(/obj/machinery/bounty_machine, FindPod)(var/distance = 1)
 /*
  *	GUI
 */
-TYPE_PROC_REF(/obj/machinery/bounty_machine, ShowUI)()
+/obj/machinery/bounty_machine/proc/ShowUI()
 	var/dat = ""
 	var/datum/asset/assets = get_asset_datum(/datum/asset/simple/bounty_employers)
 	assets.send(usr)

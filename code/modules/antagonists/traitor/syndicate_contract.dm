@@ -15,7 +15,7 @@
 
 	generate(blacklist)
 
-TYPE_PROC_REF(/datum/syndicate_contract, generate)(blacklist)
+/datum/syndicate_contract/proc/generate(blacklist)
 	contract.find_target(null, blacklist)
 
 	var/datum/data/record/record
@@ -45,7 +45,7 @@ TYPE_PROC_REF(/datum/syndicate_contract, generate)(blacklist)
 	var/location = pick_list_weighted(WANTED_FILE, "location")
 	wanted_message = "[base] [verb_string] [noun] [location]."
 
-TYPE_PROC_REF(/datum/syndicate_contract, handle_extraction)(mob/living/user)
+/datum/syndicate_contract/proc/handle_extraction(mob/living/user)
 	if (contract.target && contract.dropoff_check(user, contract.target.current))
 
 		var/turf/free_location = find_obstruction_free_location(3, user, contract.dropoff)
@@ -58,7 +58,7 @@ TYPE_PROC_REF(/datum/syndicate_contract, handle_extraction)(mob/living/user)
 	return FALSE
 
 // Launch the pod to collect our victim.
-TYPE_PROC_REF(/datum/syndicate_contract, launch_extraction_pod)(turf/empty_pod_turf)
+/datum/syndicate_contract/proc/launch_extraction_pod(turf/empty_pod_turf)
 	var/obj/structure/closet/supplypod/extractionpod/empty_pod = new()
 
 	RegisterSignal(empty_pod, COMSIG_ATOM_ENTERED, PROC_REF(enter_check))
@@ -70,7 +70,7 @@ TYPE_PROC_REF(/datum/syndicate_contract, launch_extraction_pod)(turf/empty_pod_t
 
 	new /obj/effect/abstract/DPtarget(empty_pod_turf, empty_pod)
 
-TYPE_PROC_REF(/datum/syndicate_contract, enter_check)(datum/source, sent_mob)
+/datum/syndicate_contract/proc/enter_check(datum/source, sent_mob)
 	if(istype(source, /obj/structure/closet/supplypod/extractionpod))
 		if(isliving(sent_mob))
 			var/mob/living/M = sent_mob
@@ -141,7 +141,7 @@ TYPE_PROC_REF(/datum/syndicate_contract, enter_check)(datum/source, sent_mob)
 					C.registered_account.bank_card_talk("We've processed the ransom, agent. Here's your cut - your balance is now \
 					[C.registered_account.account_balance] cr.", TRUE)
 
-TYPE_PROC_REF(/datum/syndicate_contract, handleVictimExperience)(mob/living/M)	// They're off to holding - handle the return timer and give some text about what's going on.
+/datum/syndicate_contract/proc/handleVictimExperience(mob/living/M)	// They're off to holding - handle the return timer and give some text about what's going on.
 	addtimer(CALLBACK(src, PROC_REF(returnVictim), M), 4 MINUTES)	// Ship 'em back - dead or alive... 4 minutes wait.
 	if(M.stat != DEAD)	//Even if they weren't the target, we're still treating them the same.
 		M.reagents.add_reagent(/datum/reagent/medicine/regen_jelly, 20)	// Heal them up - gets them out of crit/soft crit. -- now 100% toxinlover friendly!!
@@ -170,7 +170,7 @@ TYPE_PROC_REF(/datum/syndicate_contract, handleVictimExperience)(mob/living/M)	/
 		M.confused += 20
 
 // We're returning the victim
-TYPE_PROC_REF(/datum/syndicate_contract, returnVictim)(mob/living/M)
+/datum/syndicate_contract/proc/returnVictim(mob/living/M)
 	var/list/possible_drop_loc = list()
 
 	for(var/turf/possible_drop in contract.dropoff.contents)

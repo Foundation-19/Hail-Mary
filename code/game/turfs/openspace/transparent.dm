@@ -39,7 +39,7 @@
 	update_multiz()
 
 ///Called when there is no real turf below this turf
-TYPE_PROC_REF(/turf/open/transparent, show_bottom_level)()
+/turf/open/transparent/proc/show_bottom_level()
 	var/turf/path = get_z_base_turf()
 	var/mutable_appearance/underlay_appearance = mutable_appearance(initial(path.icon), initial(path.icon_state), layer = TURF_LAYER, plane = PLANE_SPACE)
 	underlays += underlay_appearance

@@ -28,7 +28,7 @@
 	if(slot == user.getBackSlot())
 		return 1
 
-TYPE_PROC_REF(/obj/item/watertank, toggle_mister)(mob/living/user)
+/obj/item/watertank/proc/toggle_mister(mob/living/user)
 	if(!istype(user))
 		return
 	if(user.get_item_by_slot(user.getBackSlot()) != src)
@@ -53,7 +53,7 @@ TYPE_PROC_REF(/obj/item/watertank, toggle_mister)(mob/living/user)
 	set category = "Object"
 	toggle_mister(usr)
 
-TYPE_PROC_REF(/obj/item/watertank, make_noz)()
+/obj/item/watertank/proc/make_noz()
 	return new /obj/item/reagent_containers/spray/mister(src)
 
 /obj/item/watertank/equipped(mob/user, slot)
@@ -61,7 +61,7 @@ TYPE_PROC_REF(/obj/item/watertank, make_noz)()
 	if(slot != SLOT_BACK)
 		remove_noz()
 
-TYPE_PROC_REF(/obj/item/watertank, remove_noz)()
+/obj/item/watertank/proc/remove_noz()
 	if(!QDELETED(noz))
 		if(ismob(noz.loc))
 			var/mob/M = noz.loc
@@ -309,7 +309,7 @@ TYPE_PROC_REF(/obj/item/watertank, remove_noz)()
 	pass_flags = PASSTABLE
 	anchored = TRUE
 
-TYPE_PROC_REF(/obj/effect/resin_container, Smoke)()
+/obj/effect/resin_container/proc/Smoke()
 	var/obj/effect/particle_effect/foam/metal/resin/S = new /obj/effect/particle_effect/foam/metal/resin(get_turf(loc))
 	S.amount = 4
 	playsound(src,'sound/effects/bamf.ogg',100,1)
@@ -346,7 +346,7 @@ TYPE_PROC_REF(/obj/effect/resin_container, Smoke)()
 	if(slot == SLOT_BACK)
 		return 1
 
-TYPE_PROC_REF(/obj/item/reagent_containers/chemtank, toggle_injection)()
+/obj/item/reagent_containers/chemtank/proc/toggle_injection()
 	var/mob/living/carbon/human/user = usr
 	if(!istype(user))
 		return
@@ -359,7 +359,7 @@ TYPE_PROC_REF(/obj/item/reagent_containers/chemtank, toggle_injection)()
 		turn_on()
 
 //Todo : cache these.
-TYPE_PROC_REF(/obj/item/reagent_containers/chemtank, update_filling)()
+/obj/item/reagent_containers/chemtank/proc/update_filling()
 	cut_overlays()
 
 	if(reagents.total_volume)
@@ -395,13 +395,13 @@ TYPE_PROC_REF(/obj/item/reagent_containers/chemtank, update_filling)()
 		filling.color = mix_color_from_reagents(reagents.reagent_list)
 		. += filling
 
-TYPE_PROC_REF(/obj/item/reagent_containers/chemtank, turn_on)()
+/obj/item/reagent_containers/chemtank/proc/turn_on()
 	on = TRUE
 	START_PROCESSING(SSobj, src)
 	if(ismob(loc))
 		to_chat(loc, span_notice("[src] turns on."))
 
-TYPE_PROC_REF(/obj/item/reagent_containers/chemtank, turn_off)()
+/obj/item/reagent_containers/chemtank/proc/turn_off()
 	on = FALSE
 	STOP_PROCESSING(SSobj, src)
 	if(ismob(loc))

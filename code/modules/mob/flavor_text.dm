@@ -24,7 +24,7 @@ but I am not sure you even want non-humans to have it (not even Bay does that), 
 
 ///mob/var/flavor_text = ""
 
-TYPE_PROC_REF(///mob, print_flavor_text)()
+///mob/proc/print_flavor_text()
 //	if(flavor_text && flavor_text != "")
 		// We are decoding and then encoding to not only get correct amount of characters, but also to prevent partial escaping characters being shown.
 //		var/msg = html_decode(replacetext(flavor_text, "\n", " "))

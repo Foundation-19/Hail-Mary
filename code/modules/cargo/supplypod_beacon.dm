@@ -12,7 +12,7 @@
 	var/ready = FALSE
 	var/launched = FALSE
 
-TYPE_PROC_REF(/obj/item/supplypod_beacon, update_status)(consoleStatus)
+/obj/item/supplypod_beacon/proc/update_status(consoleStatus)
 	switch(consoleStatus)
 		if (SP_LINKED)
 			linked = TRUE
@@ -40,7 +40,7 @@ TYPE_PROC_REF(/obj/item/supplypod_beacon, update_status)(consoleStatus)
 	else if (linked)
 		. += "sp_orange"
 
-TYPE_PROC_REF(/obj/item/supplypod_beacon, endLaunch)()
+/obj/item/supplypod_beacon/proc/endLaunch()
 	launched = FALSE
 	update_status()
 
@@ -56,14 +56,14 @@ TYPE_PROC_REF(/obj/item/supplypod_beacon, endLaunch)()
 		express_console.beacon = null
 	return ..()
 
-TYPE_PROC_REF(/obj/item/supplypod_beacon, unlink_console)()
+/obj/item/supplypod_beacon/proc/unlink_console()
 	if(express_console)
 		express_console.beacon = null
 		express_console = null
 	update_status(SP_UNLINK)
 	update_status(SP_UNREADY)
 
-TYPE_PROC_REF(/obj/item/supplypod_beacon, link_console)(obj/machinery/computer/cargo/express/C, mob/living/user)
+/obj/item/supplypod_beacon/proc/link_console(obj/machinery/computer/cargo/express/C, mob/living/user)
 	if (C.beacon)//if new console has a beacon, then...
 		C.beacon.unlink_console()//unlink the old beacon from new console
 	if (express_console)//if this beacon has an express console

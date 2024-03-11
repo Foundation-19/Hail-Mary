@@ -40,7 +40,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 /obj/item/match/fire_act(exposed_temperature, exposed_volume)
 	matchignite()
 
-TYPE_PROC_REF(/obj/item/match, matchignite)()
+/obj/item/match/proc/matchignite()
 	if(!lit && !burnt)
 		lit = TRUE
 		icon_state = "match_lit"
@@ -54,7 +54,7 @@ TYPE_PROC_REF(/obj/item/match, matchignite)()
 		START_PROCESSING(SSobj, src)
 		update_icon()
 
-TYPE_PROC_REF(/obj/item/match, matchburnout)()
+/obj/item/match/proc/matchburnout()
 	if(lit)
 		lit = FALSE
 		burnt = TRUE
@@ -88,7 +88,7 @@ TYPE_PROC_REF(/obj/item/match, matchburnout)()
 	else
 		..()
 
-TYPE_PROC_REF(/obj/item, help_light_cig)(mob/living/M)
+/obj/item/proc/help_light_cig(mob/living/M)
 	var/mask_item = M.get_item_by_slot(SLOT_WEAR_MASK)
 	if(istype(mask_item, /obj/item/clothing/mask/cigarette))
 		return mask_item
@@ -157,7 +157,7 @@ TYPE_PROC_REF(/obj/item, help_light_cig)(mob/living/M)
 			else
 				to_chat(user, span_notice("[src] is full."))
 
-TYPE_PROC_REF(/obj/item/clothing/mask/cigarette, light)(flavor_text = null)
+/obj/item/clothing/mask/cigarette/proc/light(flavor_text = null)
 	if(lit)
 		return
 	if(!(flags_1 & INITIALIZED_1))
@@ -200,7 +200,7 @@ TYPE_PROC_REF(/obj/item/clothing/mask/cigarette, light)(flavor_text = null)
 		M.update_inv_hands()
 
 
-TYPE_PROC_REF(/obj/item/clothing/mask/cigarette, handle_reagents)()
+/obj/item/clothing/mask/cigarette/proc/handle_reagents()
 	if(reagents.total_volume)
 		if(iscarbon(loc))
 			var/mob/living/carbon/C = loc
@@ -565,7 +565,7 @@ TYPE_PROC_REF(/obj/item/clothing/mask/cigarette, handle_reagents)()
 	if(get_temperature())
 		. = span_rose("With a single flick of [user.p_their()] wrist, [user] smoothly lights [A] with [src]. Damn [user.p_theyre()] cool.")
 
-TYPE_PROC_REF(/obj/item/lighter, set_lit)(new_lit)
+/obj/item/lighter/proc/set_lit(new_lit)
 	lit = new_lit
 	if(lit)
 		force = 5
@@ -933,7 +933,7 @@ TYPE_PROC_REF(/obj/item/lighter, set_lit)(new_lit)
 		ENABLE_BITFIELD(reagents.reagents_holder_flags, NO_REACT)
 		STOP_PROCESSING(SSobj, src)
 
-TYPE_PROC_REF(/obj/item/clothing/mask/vape, hand_reagents)()//had to rename to avoid duplicate error
+/obj/item/clothing/mask/vape/proc/hand_reagents()//had to rename to avoid duplicate error
 	if(reagents.total_volume)
 		if(iscarbon(loc))
 			var/mob/living/carbon/C = loc
@@ -1185,11 +1185,11 @@ TYPE_PROC_REF(/obj/item/clothing/mask/vape, hand_reagents)()//had to rename to a
 		bongturnoff()
 
 
-TYPE_PROC_REF(/obj/item/bong, bongturnon)()
+/obj/item/bong/proc/bongturnon()
 	icon_state = icon_on
 	set_light_on(TRUE)
 
-TYPE_PROC_REF(/obj/item/bong, bongturnoff)()
+/obj/item/bong/proc/bongturnoff()
 	icon_state = icon_off
 	set_light_on(FALSE)
 

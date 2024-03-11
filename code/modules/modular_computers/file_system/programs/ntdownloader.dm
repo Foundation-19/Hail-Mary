@@ -34,7 +34,7 @@
 	return TRUE
 
 
-TYPE_PROC_REF(/datum/computer_file/program/ntnetdownload, begin_file_download)(filename)
+/datum/computer_file/program/ntnetdownload/proc/begin_file_download(filename)
 	if(downloaded_file)
 		return 0
 
@@ -66,7 +66,7 @@ TYPE_PROC_REF(/datum/computer_file/program/ntnetdownload, begin_file_download)(f
 
 	downloaded_file = PRG.clone()
 
-TYPE_PROC_REF(/datum/computer_file/program/ntnetdownload, abort_file_download)()
+/datum/computer_file/program/ntnetdownload/proc/abort_file_download()
 	if(!downloaded_file)
 		return
 	generate_network_log("Aborted download of file [hacked_download ? "**ENCRYPTED**" : "[downloaded_file.filename].[downloaded_file.filetype]"].")
@@ -74,7 +74,7 @@ TYPE_PROC_REF(/datum/computer_file/program/ntnetdownload, abort_file_download)()
 	download_completion = 0
 	ui_header = "downloader_finished.gif"
 
-TYPE_PROC_REF(/datum/computer_file/program/ntnetdownload, complete_file_download)()
+/datum/computer_file/program/ntnetdownload/proc/complete_file_download()
 	if(!downloaded_file)
 		return
 	generate_network_log("Completed download of file [hacked_download ? "**ENCRYPTED**" : "[downloaded_file.filename].[downloaded_file.filetype]"].")
@@ -177,7 +177,7 @@ TYPE_PROC_REF(/datum/computer_file/program/ntnetdownload, complete_file_download
 
 	return data
 
-TYPE_PROC_REF(/datum/computer_file/program/ntnetdownload, check_compatibility)(datum/computer_file/program/P)
+/datum/computer_file/program/ntnetdownload/proc/check_compatibility(datum/computer_file/program/P)
 	var/hardflag = computer.hardware_flag
 
 	if(P && P.is_supported_by_hardware(hardflag,0))

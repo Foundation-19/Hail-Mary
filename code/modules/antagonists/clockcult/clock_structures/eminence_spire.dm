@@ -66,7 +66,7 @@
 	for(var/mob/M in servants_and_ghosts())
 		M.playsound_local(M, 'sound/machines/clockcult/eminence_selected.ogg', 50, FALSE)
 
-TYPE_PROC_REF(/obj/structure/destructible/clockwork/eminence_spire, nomination)(mob/living/nominee) //A user is nominating themselves or ghosts to become Eminence
+/obj/structure/destructible/clockwork/eminence_spire/proc/nomination(mob/living/nominee) //A user is nominating themselves or ghosts to become Eminence
 	var/nomination_choice = alert(nominee, "Who would you like to nominate?", "Eminence Nomination", "Nominate Yourself", "Nominate Ghosts", "Cancel")
 	if(!is_servant_of_ratvar(nominee) || !nominee.canUseTopic(src) || eminence_nominee)
 		return
@@ -83,7 +83,7 @@ TYPE_PROC_REF(/obj/structure/destructible/clockwork/eminence_spire, nomination)(
 		M.playsound_local(M, 'sound/machines/clockcult/ocularwarden-target.ogg', 50, FALSE)
 	selection_timer = addtimer(CALLBACK(src, PROC_REF(kingmaker)), 300, TIMER_STOPPABLE)
 
-TYPE_PROC_REF(/obj/structure/destructible/clockwork/eminence_spire, objection)(mob/living/wright)
+/obj/structure/destructible/clockwork/eminence_spire/proc/objection(mob/living/wright)
 	if(alert(wright, "Object to the selection of [eminence_nominee] as Eminence?", "Objection!", "Object", "Cancel") == "Cancel" || !is_servant_of_ratvar(wright) || !wright.canUseTopic(src) || !eminence_nominee)
 		return
 	hierophant_message("<span class='brass'><b>[wright] objects to the nomination of [eminence_nominee]!</b> The eminence spire has been reset.</span>")
@@ -92,7 +92,7 @@ TYPE_PROC_REF(/obj/structure/destructible/clockwork/eminence_spire, objection)(m
 	eminence_nominee = null
 	deltimer(selection_timer)
 
-TYPE_PROC_REF(/obj/structure/destructible/clockwork/eminence_spire, cancelation)(mob/living/cold_feet)
+/obj/structure/destructible/clockwork/eminence_spire/proc/cancelation(mob/living/cold_feet)
 	if(alert(cold_feet, "Cancel your nomination?", "Cancel Nomination", "Withdraw Nomination", "Cancel") == "Cancel" || !is_servant_of_ratvar(cold_feet) || !cold_feet.canUseTopic(src) || !eminence_nominee)
 		return
 	hierophant_message("<span class='brass'><b>[eminence_nominee] has withdrawn their nomination!</b> The eminence spire has been reset.</span>")
@@ -101,7 +101,7 @@ TYPE_PROC_REF(/obj/structure/destructible/clockwork/eminence_spire, cancelation)
 	eminence_nominee = null
 	deltimer(selection_timer)
 
-TYPE_PROC_REF(/obj/structure/destructible/clockwork/eminence_spire, kingmaker)()
+/obj/structure/destructible/clockwork/eminence_spire/proc/kingmaker()
 	if(!eminence_nominee)
 		return
 	if(ismob(eminence_nominee))

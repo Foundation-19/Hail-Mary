@@ -59,7 +59,7 @@
 	id = MOVESPEED_ID_MOB_WALK_RUN
 	flags = IGNORE_NOSLOW
 
-TYPE_PROC_REF(/datum/movespeed_modifier/config_walk_run, sync)()
+/datum/movespeed_modifier/config_walk_run/proc/sync()
 
 /datum/movespeed_modifier/config_walk_run/walk/sync()
 	var/mod = CONFIG_GET(number/movedelay/walk_delay)

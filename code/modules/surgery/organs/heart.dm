@@ -34,7 +34,7 @@
 		addtimer(CALLBACK(src, PROC_REF(stop_if_unowned)), 12 SECONDS)
 	return ..()
 
-TYPE_PROC_REF(/obj/item/organ/heart, stop_if_unowned)()
+/obj/item/organ/heart/proc/stop_if_unowned()
 	if(!owner)
 		Stop()
 
@@ -46,17 +46,17 @@ TYPE_PROC_REF(/obj/item/organ/heart, stop_if_unowned)()
 		Restart()
 		addtimer(CALLBACK(src, PROC_REF(stop_if_unowned)), 80)
 
-TYPE_PROC_REF(/obj/item/organ/heart, Stop)()
+/obj/item/organ/heart/proc/Stop()
 	beating = 0
 	update_icon()
 	return 1
 
-TYPE_PROC_REF(/obj/item/organ/heart, Restart)()
+/obj/item/organ/heart/proc/Restart()
 	beating = 1
 	update_icon()
 	return 1
 
-TYPE_PROC_REF(/obj/item/organ/heart, HeartStrengthMessage)()
+/obj/item/organ/heart/proc/HeartStrengthMessage()
 	if(beating)
 		return "a healthy"
 	return span_danger("an unstable")
@@ -224,7 +224,7 @@ obj/item/organ/heart/cybernetic/upgraded/on_life()
 		owner.adjust_nutrition(-regen_amount)
 		ramount += regen_amount
 
-TYPE_PROC_REF(/obj/item/organ/heart/cybernetic/upgraded, used_dose)()
+/obj/item/organ/heart/cybernetic/upgraded/proc/used_dose()
 	addtimer(VARSET_CALLBACK(src, dose_available, TRUE), 5 MINUTES)
 	ramount = 0
 

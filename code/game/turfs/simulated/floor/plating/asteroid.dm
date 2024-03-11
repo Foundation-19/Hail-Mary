@@ -32,7 +32,7 @@
 		icon_state = "[environment_type][rand(0,12)]"
 
 /// Drops itemstack when dug and changes icon
-TYPE_PROC_REF(/turf/open/floor/plating/asteroid, getDug)()
+/turf/open/floor/plating/asteroid/proc/getDug()
 	new digResult(src, 5)
 	if(postdig_icon_change)
 		if(!postdig_icon)
@@ -41,7 +41,7 @@ TYPE_PROC_REF(/turf/open/floor/plating/asteroid, getDug)()
 	dug = TRUE
 
 /// If the user can dig the turf
-TYPE_PROC_REF(/turf/open/floor/plating/asteroid, can_dig)(mob/user)
+/turf/open/floor/plating/asteroid/proc/can_dig(mob/user)
 	if(!dug)
 		return TRUE
 	if(user)
@@ -239,7 +239,7 @@ TYPE_PROC_REF(/turf/open/floor/plating/asteroid, can_dig)(mob/user)
 		produce_tunnel_from_data()
 
 /// Sets the tunnel length and direction
-TYPE_PROC_REF(/turf/open/floor/plating/asteroid/airless/cave, get_cave_data)(set_length, exclude_dir = -1)
+/turf/open/floor/plating/asteroid/airless/cave/proc/get_cave_data(set_length, exclude_dir = -1)
 	// If set_length (arg1) isn't defined, get a random length; otherwise assign our length to the length arg.
 	if(!set_length)
 		length = rand(25, 50)
@@ -252,7 +252,7 @@ TYPE_PROC_REF(/turf/open/floor/plating/asteroid/airless/cave, get_cave_data)(set
 	backward_cave_dir = angle2dir(dir2angle(forward_cave_dir) + 180)
 
 /// Gets the tunnel length and direction then makes the tunnel
-TYPE_PROC_REF(/turf/open/floor/plating/asteroid/airless/cave, produce_tunnel_from_data)(tunnel_length, excluded_dir = -1)
+/turf/open/floor/plating/asteroid/airless/cave/proc/produce_tunnel_from_data(tunnel_length, excluded_dir = -1)
 	get_cave_data(tunnel_length, excluded_dir)
 	// Make our tunnels
 	make_tunnel(forward_cave_dir)
@@ -269,7 +269,7 @@ TYPE_PROC_REF(/turf/open/floor/plating/asteroid/airless/cave, produce_tunnel_fro
  * Can randomly make new tunnels out of itself
  *
  */
-TYPE_PROC_REF(/turf/open/floor/plating/asteroid/airless/cave, make_tunnel)(dir)
+/turf/open/floor/plating/asteroid/airless/cave/proc/make_tunnel(dir)
 	var/turf/closed/mineral/tunnel = src
 	var/next_angle = pick(45, -45)
 
@@ -324,7 +324,7 @@ TYPE_PROC_REF(/turf/open/floor/plating/asteroid/airless/cave, make_tunnel)(dir)
 
 
 /// Spawns the floor of the tunnel and any type of structure or mob it can have
-TYPE_PROC_REF(/turf/open/floor/plating/asteroid/airless/cave, SpawnFloor)(turf/T)
+/turf/open/floor/plating/asteroid/airless/cave/proc/SpawnFloor(turf/T)
 	var/area/A = T.loc
 	if(!A.tunnel_allowed)
 		sanity = 0
@@ -340,7 +340,7 @@ TYPE_PROC_REF(/turf/open/floor/plating/asteroid/airless/cave, SpawnFloor)(turf/T
 			SpawnTerrain(T)
 	T.ChangeTurf(turf_type, null, CHANGETURF_IGNORE_AIR)
 
-TYPE_PROC_REF(/turf/open/floor/plating/asteroid/airless/cave, SpawnTerrain)(turf/T)
+/turf/open/floor/plating/asteroid/airless/cave/proc/SpawnTerrain(turf/T)
 	if(prob(1))
 		if(istype(loc, /area/mine/explored) || istype(loc, /area/lavaland/surface/outdoors/explored))
 			return
@@ -351,7 +351,7 @@ TYPE_PROC_REF(/turf/open/floor/plating/asteroid/airless/cave, SpawnTerrain)(turf
 		new randumb(T)
 
 /// Spawns a random mob or megafauna in the tunnel
-TYPE_PROC_REF(/turf/open/floor/plating/asteroid/airless/cave, SpawnMonster)(turf/T)
+/turf/open/floor/plating/asteroid/airless/cave/proc/SpawnMonster(turf/T)
 	if(!isarea(loc))
 		return
 	var/area/A = loc
@@ -386,7 +386,7 @@ TYPE_PROC_REF(/turf/open/floor/plating/asteroid/airless/cave, SpawnMonster)(turf
 #undef SPAWN_BUBBLEGUM
 
 /// Spawns a random flora in the tunnel, can spawn clumps of them.
-TYPE_PROC_REF(/turf/open/floor/plating/asteroid/airless/cave, SpawnFlora)(turf/T)
+/turf/open/floor/plating/asteroid/airless/cave/proc/SpawnFlora(turf/T)
 	if(prob(12))
 		if(isarea(loc))
 			var/area/A = loc

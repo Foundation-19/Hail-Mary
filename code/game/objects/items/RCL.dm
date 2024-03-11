@@ -132,7 +132,7 @@
 	cable_overlay.color = GLOB.cable_colors[colors[current_color_index]]
 	. += cable_overlay
 
-TYPE_PROC_REF(/obj/item/rcl, is_empty)(mob/user, loud = 1)
+/obj/item/rcl/proc/is_empty(mob/user, loud = 1)
 	update_icon()
 	if(!loaded || !loaded.amount)
 		if(loud)
@@ -166,7 +166,7 @@ TYPE_PROC_REF(/obj/item/rcl, is_empty)(mob/user, loud = 1)
 				last = C
 				break
 
-TYPE_PROC_REF(obj/item/rcl, getMobhook)(mob/to_hook)
+obj/item/rcl/proc/getMobhook(mob/to_hook)
 	if(listeningTo == to_hook)
 		return
 	if(listeningTo)
@@ -174,7 +174,7 @@ TYPE_PROC_REF(obj/item/rcl, getMobhook)(mob/to_hook)
 	RegisterSignal(to_hook, COMSIG_MOVABLE_MOVED, PROC_REF(trigger))
 	listeningTo = to_hook
 
-TYPE_PROC_REF(/obj/item/rcl, trigger)(mob/user)
+/obj/item/rcl/proc/trigger(mob/user)
 	if(active)
 		layCable(user)
 	if(wiring_gui_menu) //update the wire options as you move
@@ -182,7 +182,7 @@ TYPE_PROC_REF(/obj/item/rcl, trigger)(mob/user)
 
 
 //previous contents of trigger(), lays cable each time the player moves
-TYPE_PROC_REF(/obj/item/rcl, layCable)(mob/user)
+/obj/item/rcl/proc/layCable(mob/user)
 	if(!isturf(user.loc))
 		return
 	if(is_empty(user, 0))
@@ -215,7 +215,7 @@ TYPE_PROC_REF(/obj/item/rcl, layCable)(mob/user)
 	update_icon()
 
 //searches the current tile for a stub cable of the same colour
-TYPE_PROC_REF(/obj/item/rcl, findLinkingCable)(mob/user)
+/obj/item/rcl/proc/findLinkingCable(mob/user)
 	var/turf/T
 	if(!isturf(user.loc))
 		return
@@ -232,7 +232,7 @@ TYPE_PROC_REF(/obj/item/rcl, findLinkingCable)(mob/user)
 		if(C.d1 == 0)
 			return C
 
-TYPE_PROC_REF(/obj/item/rcl, wiringGuiGenerateChoices)(mob/user)
+/obj/item/rcl/proc/wiringGuiGenerateChoices(mob/user)
 	var/fromdir = 0
 	var/obj/structure/cable/linkingCable = findLinkingCable(user)
 	if(linkingCable)
@@ -249,12 +249,12 @@ TYPE_PROC_REF(/obj/item/rcl, wiringGuiGenerateChoices)(mob/user)
 		wiredirs[icondir] = img
 	return wiredirs
 
-TYPE_PROC_REF(/obj/item/rcl, showWiringGui)(mob/user)
+/obj/item/rcl/proc/showWiringGui(mob/user)
 	var/list/choices = wiringGuiGenerateChoices(user)
 
 	wiring_gui_menu = show_radial_menu_persistent(user, src , choices, select_proc = CALLBACK(src, PROC_REF(wiringGuiReact), user), radius = 42)
 
-TYPE_PROC_REF(/obj/item/rcl, wiringGuiUpdate)(mob/user)
+/obj/item/rcl/proc/wiringGuiUpdate(mob/user)
 	if(!wiring_gui_menu)
 		return
 
@@ -265,7 +265,7 @@ TYPE_PROC_REF(/obj/item/rcl, wiringGuiUpdate)(mob/user)
 
 
 //Callback used to respond to interactions with the wiring menu
-TYPE_PROC_REF(/obj/item/rcl, wiringGuiReact)(mob/living/user,choice)
+/obj/item/rcl/proc/wiringGuiReact(mob/living/user,choice)
 	if(!choice) //close on a null choice (the center button)
 		QDEL_NULL(wiring_gui_menu)
 		return

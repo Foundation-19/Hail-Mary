@@ -39,13 +39,13 @@
 	internal_organs += new /obj/item/organ/ears/invincible //Prevents hearing loss from poorly aimed fireballs.
 	..()
 
-TYPE_PROC_REF(/mob/living/carbon/true_devil, convert_to_archdevil)()
+/mob/living/carbon/true_devil/proc/convert_to_archdevil()
 	maxHealth = 500 // not an IMPOSSIBLE amount, but still near impossible.
 	ascended = TRUE
 	health = maxHealth
 	icon_state = "arch_devil"
 
-TYPE_PROC_REF(/mob/living/carbon/true_devil, set_name)()
+/mob/living/carbon/true_devil/proc/set_name()
 	var/datum/antagonist/devil/devilinfo = mind.has_antag_datum(/datum/antagonist/devil)
 	name = devilinfo.truename
 	real_name = name
@@ -59,7 +59,7 @@ TYPE_PROC_REF(/mob/living/carbon/true_devil, set_name)()
 /mob/living/carbon/true_devil/death(gibbed)
 	set_stat(DEAD)
 	drop_all_held_items()
-	INVOKE_ASYNC(mind.has_antag_datum(/datum/antagonist/devil), TYPE_PROC_REF(/datum/antagonist/devil, beginResurrectionCheck), src)
+	INVOKE_ASYNC(mind.has_antag_datum(/datum/antagonist/devil), /datum/antagonist/devil/proc/beginResurrectionCheck, src)
 
 
 /mob/living/carbon/true_devil/examine(mob/user)

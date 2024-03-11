@@ -1,7 +1,7 @@
 //This file contains code for the ingame loadout selector, used by players AFTER they have already spawned into the round
 //How to use? Simply add a /datum/outfit/loadout to the loadout_options list on each job, in the job_types folder
 
-TYPE_PROC_REF(/mob, select_loadout)()
+/mob/proc/select_loadout()
 	set name = "Select Loadout"
 	set category = "IC"
 
@@ -21,13 +21,13 @@ TYPE_PROC_REF(/mob, select_loadout)()
 
 
 //Called when someone spawns in, or maybe if an admin does a thing
-TYPE_PROC_REF(/mob, enable_loadout_select)()
+/mob/proc/enable_loadout_select()
 	//Delay the notification message for a few seconds so players are less likely to miss it
 	spawn(5 SECONDS)
 		to_chat(src, ("-------------------------------------------"))
 		to_chat(src, ("Your job has additional loadout options you can choose from. Use the Loadout Selector in your hands, or the Select Loadout verb in the IC menu to choose your additional equipment."))
 		to_chat(src, ("-------------------------------------------"))
-	verbs += TYPE_PROC_REF(/mob, select_loadout)
+	verbs += /mob/proc/select_loadout
 	var/datum/component/loadout_selector/LS = AddComponent(/datum/component/loadout_selector) //Create the loadout selecting component
 	var/token = new /obj/item/loadout_token
 	LS.token = token
@@ -35,7 +35,7 @@ TYPE_PROC_REF(/mob, enable_loadout_select)()
 
 //Cleans up the verbs, objects and components
 //Called after a loadout is selected, or if the user tries to do some exploit to pick a second loadout
-TYPE_PROC_REF(/mob, disable_loadout_select)()
+/mob/proc/disable_loadout_select()
 	var/datum/component/loadout_selector/LS = GetComponent(/datum/component/loadout_selector)
 	if (LS)
 		//Lets close the open UI
@@ -45,7 +45,7 @@ TYPE_PROC_REF(/mob, disable_loadout_select)()
 
 		deleteWornItem(LS.token)
 
-	verbs -= TYPE_PROC_REF(/mob, select_loadout) //Remove the verb
+	verbs -= /mob/proc/select_loadout //Remove the verb
 	RemoveComponentByType(/datum/component/loadout_selector) //Remove component
 
 /****************
@@ -107,7 +107,7 @@ TYPE_PROC_REF(/mob, disable_loadout_select)()
 	return COMPONENT_INCOMPATIBLE
 
 //This completes loadout selection, spawns the selected outfit and cleans things up
-TYPE_PROC_REF(/datum/component/loadout_selector, finish)()
+/datum/component/loadout_selector/proc/finish()
 	//First of all, safety checks
 	if (!selected_datum)
 		return
@@ -161,7 +161,7 @@ TYPE_PROC_REF(/datum/component/loadout_selector, finish)()
 	return TRUE
 
 //Selects an outfit and loads the preview of it
-TYPE_PROC_REF(/datum/component/loadout_selector, select_outfit)(newname)
+/datum/component/loadout_selector/proc/select_outfit(newname)
 	//First of all, lets not do unnecessary work.
 	//Don't reselect the one we already have selected
 	if (newname == selected_name)
@@ -192,7 +192,7 @@ TYPE_PROC_REF(/datum/component/loadout_selector, select_outfit)(newname)
 			ui_interact(usr)
 
 //This proc creates preview images for an outfit, if needed
-TYPE_PROC_REF(/datum/component/loadout_selector, generate_previews)()
+/datum/component/loadout_selector/proc/generate_previews()
 	//Lets make sure we have a parent mob and a player is connected
 	if (!istype(parent, /mob))
 		return
@@ -212,7 +212,7 @@ TYPE_PROC_REF(/datum/component/loadout_selector, generate_previews)()
 	preview_images[selected_datum.name] = icon2base64(preview_icon)
 
 
-TYPE_PROC_REF(/datum/component/loadout_selector, CreateEquipList)(datum/outfit/O)
+/datum/component/loadout_selector/proc/CreateEquipList(datum/outfit/O)
 	var/list/equipment = list(
 		"[SLOT_W_UNIFORM]"	= O.uniform,
 		"[SLOT_WEAR_SUIT]"	= O.suit,

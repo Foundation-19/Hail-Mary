@@ -1,4 +1,4 @@
-TYPE_PROC_REF(/client, debug_variables)(datum/D in world)
+/client/proc/debug_variables(datum/D in world)
 	set category = "Debug"
 	set name = "View Variables"
 	//set src in world
@@ -264,5 +264,5 @@ datumrefresh=[refid];[HrefToken()]'>Refresh</a>
 "}
 	src << browse(html, "window=variables[refid];size=475x650")
 
-TYPE_PROC_REF(/client, vv_update_display)(datum/D, span, content)
+/client/proc/vv_update_display(datum/D, span, content)
 	src << output("[span]:[content]", "variables[REF(D)].browser:replace_span")

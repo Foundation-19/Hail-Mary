@@ -114,7 +114,7 @@
 	add_fingerprint(user)
 	doteleport(user, target_pad)
 
-TYPE_PROC_REF(/obj/machinery/quantumpad, sparks)()
+/obj/machinery/quantumpad/proc/sparks()
 	var/datum/effect_system/spark_spread/quantum/s = new
 	s.set_up(5, 1, get_turf(src))
 	s.start()
@@ -128,7 +128,7 @@ TYPE_PROC_REF(/obj/machinery/quantumpad, sparks)()
 	if(linked_pad)
 		ghost.forceMove(get_turf(linked_pad))
 
-TYPE_PROC_REF(/obj/machinery/quantumpad, doteleport)(mob/user, obj/machinery/quantumpad/target_pad = linked_pad)
+/obj/machinery/quantumpad/proc/doteleport(mob/user, obj/machinery/quantumpad/target_pad = linked_pad)
 	if(target_pad)
 		playsound(get_turf(src), 'sound/weapons/flash.ogg', 25, 1)
 		teleporting = TRUE
@@ -177,7 +177,7 @@ TYPE_PROC_REF(/obj/machinery/quantumpad, doteleport)(mob/user, obj/machinery/qua
 				do_teleport(ROI, get_turf(target_pad),null,TRUE,null,null,null,null,TRUE, channel = TELEPORT_CHANNEL_QUANTUM)
 				CHECK_TICK
 
-TYPE_PROC_REF(/obj/machinery/quantumpad, initMappedLink)()
+/obj/machinery/quantumpad/proc/initMappedLink()
 	. = FALSE
 	var/obj/machinery/quantumpad/link = mapped_quantum_pads[map_pad_link_id]
 	if(link)

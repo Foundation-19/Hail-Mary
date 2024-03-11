@@ -29,7 +29,7 @@
 		..()
 
 
-TYPE_PROC_REF(/obj/structure/closet/crate/secure, boom)(mob/user)
+/obj/structure/closet/crate/secure/proc/boom(mob/user)
 	if(user)
 		to_chat(user, span_danger("The crate's anti-tamper system activates!"))
 		var/message = "[ADMIN_LOOKUPFLW(user)] has detonated [src.name]."

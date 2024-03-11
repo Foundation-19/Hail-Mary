@@ -152,7 +152,7 @@
 			return
 		addtimer(CALLBACK(src, PROC_REF(splash_and_boom)), 5 SECONDS)
 
-TYPE_PROC_REF(/obj/item/reagent_containers/food/drinks/bottle/molotov, make_boom)()
+/obj/item/reagent_containers/food/drinks/bottle/molotov/proc/make_boom()
 	var/boomsize
 	var/extra_boom = 0
 	for(var/datum/reagent/reagent_in_bottle as anything in reagents.reagent_list)
@@ -166,7 +166,7 @@ TYPE_PROC_REF(/obj/item/reagent_containers/food/drinks/bottle/molotov, make_boom
 	if(boomsize >= 1 || extra_boom)
 		explosion(get_turf(src),-1, -1, extra_boom, flame_range = (boomsize + extra_boom))
 
-TYPE_PROC_REF(/obj/item/reagent_containers/food/drinks/bottle/molotov, splash_and_boom)()
+/obj/item/reagent_containers/food/drinks/bottle/molotov/proc/splash_and_boom()
 	if(QDELETED(src) || !active || isnull(loc))
 		return
 	var/atom/target = loc

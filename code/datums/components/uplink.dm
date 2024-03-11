@@ -86,18 +86,18 @@ GLOBAL_LIST_EMPTY(uplinks)
 	purchase_log = null
 	return ..()
 
-TYPE_PROC_REF(/datum/component/uplink, LoadTC)(mob/user, obj/item/stack/telecrystal/TC, silent = FALSE)
+/datum/component/uplink/proc/LoadTC(mob/user, obj/item/stack/telecrystal/TC, silent = FALSE)
 	if(!silent)
 		to_chat(user, span_notice("You slot [TC] into [parent] and charge its internal uplink."))
 	var/amt = TC.amount
 	telecrystals += amt
 	TC.use(amt)
 
-TYPE_PROC_REF(/datum/component/uplink, set_gamemode)(_gamemode)
+/datum/component/uplink/proc/set_gamemode(_gamemode)
 	gamemode = _gamemode
 	uplink_items = get_uplink_items(gamemode, TRUE, allow_restricted)
 
-TYPE_PROC_REF(/datum/component/uplink, OnAttackBy)(datum/source, obj/item/I, mob/user)
+/datum/component/uplink/proc/OnAttackBy(datum/source, obj/item/I, mob/user)
 	if(!active)
 		return	//no hitting everyone/everything just to try to slot tcs in!
 	if(istype(I, /obj/item/stack/telecrystal))
@@ -123,7 +123,7 @@ TYPE_PROC_REF(/datum/component/uplink, OnAttackBy)(datum/source, obj/item/I, mob
 				qdel(I)
 				return
 
-TYPE_PROC_REF(/datum/component/uplink, interact)(datum/source, mob/user)
+/datum/component/uplink/proc/interact(datum/source, mob/user)
 	if(locked)
 		return
 	active = TRUE
@@ -234,7 +234,7 @@ TYPE_PROC_REF(/datum/component/uplink, interact)(datum/source, mob/user)
 			compact_mode = !compact_mode
 			return TRUE
 
-TYPE_PROC_REF(/datum/component/uplink, MakePurchase)(mob/user, datum/uplink_item/U)
+/datum/component/uplink/proc/MakePurchase(mob/user, datum/uplink_item/U)
 	if(!istype(U))
 		return
 	if (!user || user.incapacitated())
@@ -254,26 +254,26 @@ TYPE_PROC_REF(/datum/component/uplink, MakePurchase)(mob/user, datum/uplink_item
 
 // Implant signal responses
 
-TYPE_PROC_REF(/datum/component/uplink, implant_activation)()
+/datum/component/uplink/proc/implant_activation()
 	var/obj/item/implant/implant = parent
 	locked = FALSE
 	interact(null, implant.imp_in)
 
-TYPE_PROC_REF(/datum/component/uplink, implanting)(datum/source, list/arguments)
+/datum/component/uplink/proc/implanting(datum/source, list/arguments)
 	var/mob/user = arguments[2]
 	owner = "[user.key]"
 
-TYPE_PROC_REF(/datum/component/uplink, old_implant)(datum/source, list/arguments, obj/item/implant/new_implant)
+/datum/component/uplink/proc/old_implant(datum/source, list/arguments, obj/item/implant/new_implant)
 	// It kinda has to be weird like this until implants are components
 	return SEND_SIGNAL(new_implant, COMSIG_IMPLANT_EXISTING_UPLINK, src)
 
-TYPE_PROC_REF(/datum/component/uplink, new_implant)(datum/source, datum/component/uplink/uplink)
+/datum/component/uplink/proc/new_implant(datum/source, datum/component/uplink/uplink)
 	uplink.telecrystals += telecrystals
 	return COMPONENT_DELETE_NEW_IMPLANT
 
 // PDA signal responses
 
-TYPE_PROC_REF(/datum/component/uplink, new_ringtone)(datum/source, mob/living/user, new_ring_text)
+/datum/component/uplink/proc/new_ringtone(datum/source, mob/living/user, new_ring_text)
 	var/obj/item/pda/master = parent
 	if(trim(lowertext(new_ring_text)) != trim(lowertext(unlock_code)))
 		if(trim(lowertext(new_ring_text)) == trim(lowertext(failsafe_code)))
@@ -289,7 +289,7 @@ TYPE_PROC_REF(/datum/component/uplink, new_ringtone)(datum/source, mob/living/us
 
 // Radio signal responses
 
-TYPE_PROC_REF(/datum/component/uplink, new_frequency)(datum/source, list/arguments)
+/datum/component/uplink/proc/new_frequency(datum/source, list/arguments)
 	var/obj/item/radio/master = parent
 	var/frequency = arguments[1]
 	if(frequency != unlock_code)
@@ -302,7 +302,7 @@ TYPE_PROC_REF(/datum/component/uplink, new_frequency)(datum/source, list/argumen
 
 // Pen signal responses
 
-TYPE_PROC_REF(/datum/component/uplink, pen_rotation)(datum/source, degrees, mob/living/carbon/user)
+/datum/component/uplink/proc/pen_rotation(datum/source, degrees, mob/living/carbon/user)
 	var/obj/item/pen/master = parent
 	if(degrees != unlock_code)
 		if(degrees == failsafe_code) //Getting failsafes on pens is risky business
@@ -313,7 +313,7 @@ TYPE_PROC_REF(/datum/component/uplink, pen_rotation)(datum/source, degrees, mob/
 	interact(null, user)
 	to_chat(user, span_warning("Your pen makes a clicking noise, before quickly rotating back to 0 degrees!"))
 
-TYPE_PROC_REF(/datum/component/uplink, setup_unlock_code)()
+/datum/component/uplink/proc/setup_unlock_code()
 	unlock_code = generate_code()
 	var/obj/item/P = parent
 	if(istype(parent,/obj/item/pda))
@@ -323,7 +323,7 @@ TYPE_PROC_REF(/datum/component/uplink, setup_unlock_code)()
 	else if(istype(parent,/obj/item/pen))
 		unlock_note = "<B>Uplink Degrees:</B> [unlock_code] ([P.name])."
 
-TYPE_PROC_REF(/datum/component/uplink, generate_code)()
+/datum/component/uplink/proc/generate_code()
 	if(istype(parent,/obj/item/pda))
 		return "[rand(100,999)] [pick(GLOB.phonetic_alphabet)]"
 	else if(istype(parent,/obj/item/radio))
@@ -331,7 +331,7 @@ TYPE_PROC_REF(/datum/component/uplink, generate_code)()
 	else if(istype(parent,/obj/item/pen))
 		return rand(1, 360)
 
-TYPE_PROC_REF(/datum/component/uplink, failsafe)(mob/living/carbon/user)
+/datum/component/uplink/proc/failsafe(mob/living/carbon/user)
 	if(!parent)
 		return
 	var/turf/T = get_turf(parent)

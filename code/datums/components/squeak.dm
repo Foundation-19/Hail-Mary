@@ -46,10 +46,10 @@
 	if(isnum(use_delay_override))
 		use_delay = use_delay_override
 
-TYPE_PROC_REF(/datum/component/squeak, play_squeak)()
+/datum/component/squeak/proc/play_squeak()
 	do_play_squeak()
 
-TYPE_PROC_REF(/datum/component/squeak, do_play_squeak)(bypass_cooldown = FALSE)
+/datum/component/squeak/proc/do_play_squeak(bypass_cooldown = FALSE)
 	if(!bypass_cooldown && ((last_squeak + squeak_delay) >= world.time))
 		return FALSE
 	if(prob(squeak_chance))
@@ -61,14 +61,14 @@ TYPE_PROC_REF(/datum/component/squeak, do_play_squeak)(bypass_cooldown = FALSE)
 		return TRUE
 	return FALSE
 
-TYPE_PROC_REF(/datum/component/squeak, step_squeak)()
+/datum/component/squeak/proc/step_squeak()
 	if(steps > step_delay)
 		do_play_squeak(TRUE)
 		steps = 0
 	else
 		steps++
 
-TYPE_PROC_REF(/datum/component/squeak, play_squeak_crossed)(datum/source, atom/movable/AM)
+/datum/component/squeak/proc/play_squeak_crossed(datum/source, atom/movable/AM)
 	if(isitem(AM))
 		var/obj/item/I = AM
 		if(I.item_flags & ABSTRACT)
@@ -82,27 +82,27 @@ TYPE_PROC_REF(/datum/component/squeak, play_squeak_crossed)(datum/source, atom/m
 		if(do_play_squeak())
 			SEND_SIGNAL(AM, COMSIG_CROSS_SQUEAKED)
 
-TYPE_PROC_REF(/datum/component/squeak, use_squeak)()
+/datum/component/squeak/proc/use_squeak()
 	if(last_use + use_delay < world.time)
 		last_use = world.time
 		play_squeak()
 
-TYPE_PROC_REF(/datum/component/squeak, delay_squeak)()
+/datum/component/squeak/proc/delay_squeak()
 	if(prob(cross_squeak_delay_chance))
 		last_squeak = world.time
 
-TYPE_PROC_REF(/datum/component/squeak, on_equip)(datum/source, mob/equipper, slot)
+/datum/component/squeak/proc/on_equip(datum/source, mob/equipper, slot)
 	RegisterSignal(equipper, COMSIG_MOVABLE_DISPOSING, PROC_REF(disposing_react), TRUE)
 
-TYPE_PROC_REF(/datum/component/squeak, on_drop)(datum/source, mob/user)
+/datum/component/squeak/proc/on_drop(datum/source, mob/user)
 	UnregisterSignal(user, COMSIG_MOVABLE_DISPOSING)
 
 // Disposal pipes related shit
-TYPE_PROC_REF(/datum/component/squeak, disposing_react)(datum/source, obj/structure/disposalholder/holder, obj/machinery/disposal/source)
+/datum/component/squeak/proc/disposing_react(datum/source, obj/structure/disposalholder/holder, obj/machinery/disposal/source)
 	//We don't need to worry about unregistering this signal as it will happen for us automaticaly when the holder is qdeleted
 	RegisterSignal(holder, COMSIG_ATOM_DIR_CHANGE, PROC_REF(holder_dir_change))
 
-TYPE_PROC_REF(/datum/component/squeak, holder_dir_change)(datum/source, old_dir, new_dir)
+/datum/component/squeak/proc/holder_dir_change(datum/source, old_dir, new_dir)
 	//If the dir changes it means we're going through a bend in the pipes, let's pretend we bumped the wall
 	if(old_dir != new_dir)
 		play_squeak()

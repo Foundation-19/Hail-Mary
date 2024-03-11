@@ -51,7 +51,7 @@
 	return ..()
 
 
-TYPE_PROC_REF(/datum/surgery, can_start)(mob/user, mob/living/patient, obj/item/tool) //FALSE to not show in list
+/datum/surgery/proc/can_start(mob/user, mob/living/patient, obj/item/tool) //FALSE to not show in list
 	. = TRUE
 	if(replaced_by == /datum/surgery)
 		return FALSE
@@ -159,7 +159,7 @@ TYPE_PROC_REF(/datum/surgery, can_start)(mob/user, mob/living/patient, obj/item/
 	if(type in advanced_surgeries)
 		return TRUE
 
-TYPE_PROC_REF(/datum/surgery, next_step)(mob/user, intent)
+/datum/surgery/proc/next_step(mob/user, intent)
 	if(step_in_progress)
 		return 1
 
@@ -178,22 +178,22 @@ TYPE_PROC_REF(/datum/surgery, next_step)(mob/user, intent)
 			to_chat(user, span_warning("This step requires a different tool!"))
 			return TRUE
 
-TYPE_PROC_REF(/datum/surgery, get_surgery_step)()
+/datum/surgery/proc/get_surgery_step()
 	var/step_type = steps[status]
 	return new step_type
 
-TYPE_PROC_REF(/datum/surgery, get_surgery_next_step)()
+/datum/surgery/proc/get_surgery_next_step()
 	if(status < steps.len)
 		var/step_type = steps[status + 1]
 		return new step_type
 	else
 		return null
 
-TYPE_PROC_REF(/datum/surgery, complete)()
+/datum/surgery/proc/complete()
 	SSblackbox.record_feedback("tally", "surgeries_completed", 1, type)
 	qdel(src)
 
-TYPE_PROC_REF(/datum/surgery, get_propability_multiplier)()
+/datum/surgery/proc/get_propability_multiplier()
 	var/propability = 0.5
 	var/turf/T = get_turf(target)
 

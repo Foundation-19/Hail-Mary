@@ -147,7 +147,7 @@
 	if(hacking)
 		process_hack()
 
-TYPE_PROC_REF(/mob/living/silicon/pai, process_hack)()
+/mob/living/silicon/pai/proc/process_hack()
 
 	if(cable && cable.machine && istype(cable.machine, /obj/machinery/door) && cable.machine == hackdoor && get_dist(src, hackdoor) <= 1)
 		hackprogress = clamp(hackprogress + 4, 0, 100)
@@ -197,7 +197,7 @@ TYPE_PROC_REF(/mob/living/silicon/pai, process_hack)()
 		return FALSE
 	return TRUE
 
-TYPE_PROC_REF(/mob, makePAI)(delold)
+/mob/proc/makePAI(delold)
 	var/obj/item/paicard/card = new /obj/item/paicard(get_turf(src))
 	var/mob/living/silicon/pai/pai = new /mob/living/silicon/pai(card)
 	transfer_ckey(pai)
@@ -311,18 +311,18 @@ TYPE_PROC_REF(/mob, makePAI)(delold)
 	else
 		to_chat(user, "Encryption Key ports not configured.")
 
-TYPE_PROC_REF(/mob/living/silicon/pai, short_radio)()
+/mob/living/silicon/pai/proc/short_radio()
 	if(radio_short_timerid)
 		deltimer(radio_short_timerid)
 	radio_short = TRUE
 	to_chat(src, span_danger("Your radio shorts out!"))
 	radio_short_timerid = addtimer(CALLBACK(src, PROC_REF(unshort_radio)), radio_short_cooldown, flags = TIMER_STOPPABLE)
 
-TYPE_PROC_REF(/mob/living/silicon/pai, unshort_radio)()
+/mob/living/silicon/pai/proc/unshort_radio()
 	radio_short = FALSE
 	to_chat(src, span_danger("You feel your radio is operational once more."))
 	if(radio_short_timerid)
 		deltimer(radio_short_timerid)
 
-TYPE_PROC_REF(/mob/living/silicon/pai, default_chassis_pixel_offsets_x)()
+/mob/living/silicon/pai/proc/default_chassis_pixel_offsets_x()
 	. = list()

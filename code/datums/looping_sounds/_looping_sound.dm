@@ -51,7 +51,7 @@
 	output_atoms = null
 	return ..()
 
-TYPE_PROC_REF(/datum/looping_sound, start)(atom/add_thing)
+/datum/looping_sound/proc/start(atom/add_thing)
 	if(add_thing)
 		output_atoms |= add_thing
 	if(timerid || init_timerid) // already running, will pick them up on the next go
@@ -63,7 +63,7 @@ TYPE_PROC_REF(/datum/looping_sound, start)(atom/add_thing)
 /// Areas use output_atoms differently, as a list of players to play the sound to. If we stop it as normal and kill it, itll stop playing to all mobs who were listening!
 /// To sum up: If the output_atoms are *playing* the sound, kill should = true
 /// If the output_atoms are *listening* to the sound, kill should = false
-TYPE_PROC_REF(/datum/looping_sound, stop)(atom/remove_thing, kill = TRUE)
+/datum/looping_sound/proc/stop(atom/remove_thing, kill = TRUE)
 	on_stop()
 	if(remove_thing)
 		output_atoms -= remove_thing
@@ -77,7 +77,7 @@ TYPE_PROC_REF(/datum/looping_sound, stop)(atom/remove_thing, kill = TRUE)
 	deltimer(timerid)
 	timerid = null
 
-TYPE_PROC_REF(/datum/looping_sound, sound_loop)(starttime)
+/datum/looping_sound/proc/sound_loop(starttime)
 	if(max_loops && world.time >= starttime + ((mid_length + loop_delay) * max_loops))
 		stop(kill = TRUE)
 		return
@@ -99,7 +99,7 @@ TYPE_PROC_REF(/datum/looping_sound, sound_loop)(starttime)
 		set_timer_wait(timerid, mid_length + loop_delay)
 
 /// takes in list('sound/file.ogg', mid_length) and plays the file and ques up another in mid_length deciseconds
-TYPE_PROC_REF(/datum/looping_sound, play)(list/sound_list)
+/datum/looping_sound/proc/play(list/sound_list)
 	var/list/atoms_cache = output_atoms
 	if(!LAZYLEN(atoms_cache))
 		return
@@ -124,7 +124,7 @@ TYPE_PROC_REF(/datum/looping_sound, play)(list/sound_list)
 			playsound(thing, S, S.volume, vary, extra_range, falloff)
 
 /// Converts SOUND_LOOP_ENTRY('sound/file.ogg', length, weight) to list('sound/file.ogg', length) and returns that
-TYPE_PROC_REF(/datum/looping_sound, get_sound)(starttime, _mid_sounds)
+/datum/looping_sound/proc/get_sound(starttime, _mid_sounds)
 	var/list/sound_list
 	if(_mid_sounds)
 		sound_list = _mid_sounds
@@ -136,7 +136,7 @@ TYPE_PROC_REF(/datum/looping_sound, get_sound)(starttime, _mid_sounds)
 	if(LAZYLEN(sound_list))
 		return pickweight(sound_list)
 
-TYPE_PROC_REF(/datum/looping_sound, on_start)()
+/datum/looping_sound/proc/on_start()
 	var/start_wait = 0
 	if(start_sound)
 		var/list/sound_start = pickweight(start_sound)
@@ -144,7 +144,7 @@ TYPE_PROC_REF(/datum/looping_sound, on_start)()
 		start_wait = sound_start[SL_FILE_LENGTH]
 	init_timerid = addtimer(CALLBACK(src, PROC_REF(sound_loop)), start_wait, TIMER_CLIENT_TIME | TIMER_STOPPABLE)
 
-TYPE_PROC_REF(/datum/looping_sound, on_stop)()
+/datum/looping_sound/proc/on_stop()
 	if(end_sound)
 		var/list/sound_end = pickweight(end_sound)
 		play(sound_end)

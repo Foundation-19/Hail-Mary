@@ -29,13 +29,13 @@ SUBSYSTEM_DEF(profiler)
 		DumpFile()
 	return ..()
 
-TYPE_PROC_REF(/datum/controller/subsystem/profiler, StartProfiling)()
+/datum/controller/subsystem/profiler/proc/StartProfiling()
 	world.Profile(PROFILE_START)
 
-TYPE_PROC_REF(/datum/controller/subsystem/profiler, StopProfiling)()
+/datum/controller/subsystem/profiler/proc/StopProfiling()
 	world.Profile(PROFILE_STOP)
 
-TYPE_PROC_REF(/datum/controller/subsystem/profiler, DumpFile)()
+/datum/controller/subsystem/profiler/proc/DumpFile()
 	var/timer = TICK_USAGE_REAL
 	var/current_profile_data = world.Profile(PROFILE_REFRESH,format="json")
 	fetch_cost = MC_AVERAGE(fetch_cost, TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer))

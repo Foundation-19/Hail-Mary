@@ -44,7 +44,7 @@
 		to_chat(user, span_notice("You set the duration to [DisplayTimeText(duration)]."))
 	return TRUE
 
-TYPE_PROC_REF(/obj/item/desynchronizer, desync)(mob/living/user)
+/obj/item/desynchronizer/proc/desync(mob/living/user)
 	if(sync_holder)
 		return
 	sync_holder = new(drop_location())
@@ -59,7 +59,7 @@ TYPE_PROC_REF(/obj/item/desynchronizer, desync)(mob/living/user)
 	icon_state = "desynchronizer-on"
 	resync_timer = addtimer(CALLBACK(src, PROC_REF(resync)), duration , TIMER_STOPPABLE)
 
-TYPE_PROC_REF(/obj/item/desynchronizer, resync)()
+/obj/item/desynchronizer/proc/resync()
 	new /obj/effect/temp_visual/desynchronizer(sync_holder.drop_location())
 	QDEL_NULL(sync_holder)
 	if(resync_timer)

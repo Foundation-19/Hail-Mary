@@ -1,7 +1,7 @@
 
 
 //Creates a throwing star
-TYPE_PROC_REF(/obj/item/clothing/suit/space/space_ninja, ninjastar)()
+/obj/item/clothing/suit/space/space_ninja/proc/ninjastar()
 	if(!ninjacost(10))
 		var/mob/living/carbon/human/H = affecting
 		var/obj/item/throwing_star/ninja/N = new(H)

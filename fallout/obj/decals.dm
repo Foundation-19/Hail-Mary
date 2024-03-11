@@ -32,7 +32,7 @@
 
 /// gets all the turfs in range, records its coordinates (like heck I'm making a million zillion weakrefs), 
 /// and gives them a component, or ups the component's power
-TYPE_PROC_REF(/obj/effect/decal/waste, irradiate_turfs)()
+/obj/effect/decal/waste/proc/irradiate_turfs()
 	if(QDELETED(src))
 		return
 	for(var/turf/rad_turf in view(range, get_turf(src)))
@@ -41,7 +41,7 @@ TYPE_PROC_REF(/obj/effect/decal/waste, irradiate_turfs)()
 		rad_turf.AddComponent(/datum/component/radiation_turf, intensity, list(WEAKERREF(src) = type)) // the component will handle the SSradiation stuff
 
 /// Asks all the turfs in range to reduce or remove the radiation
-TYPE_PROC_REF(/obj/effect/decal/waste, unirradiate_turfs)()
+/obj/effect/decal/waste/proc/unirradiate_turfs()
 	for(var/turf/rad_turf in range(range, get_turf(src))) // range, in case some goober changed what the puddle can see
 		SEND_SIGNAL(rad_turf, COMSIG_TURF_IRRADIATE, -intensity, WEAKERREF(src), type)
 

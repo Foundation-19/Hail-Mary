@@ -1,4 +1,4 @@
-TYPE_PROC_REF(/datum/tgs_api/v4, ListCustomCommands)()
+/datum/tgs_api/v4/proc/ListCustomCommands()
 	var/results = list()
 	custom_commands = list()
 	for(var/I in typesof(/datum/tgs_chat_command) - /datum/tgs_chat_command)
@@ -23,7 +23,7 @@ TYPE_PROC_REF(/datum/tgs_api/v4, ListCustomCommands)()
 		return
 	text2file(json_encode(results), commands_file)
 
-TYPE_PROC_REF(/datum/tgs_api/v4, HandleCustomCommand)(command_json)
+/datum/tgs_api/v4/proc/HandleCustomCommand(command_json)
 	var/list/data = json_decode(command_json)
 	var/command = data["command"]
 	var/user = data["user"]

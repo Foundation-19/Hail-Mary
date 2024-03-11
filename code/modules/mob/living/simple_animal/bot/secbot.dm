@@ -63,7 +63,7 @@
 	resize = 0.8
 	update_transform()
 
-TYPE_PROC_REF(/mob/living/simple_animal/bot/secbot, process_emote)(emote_type, atom/criminal, threat, arrest = -1, location)
+/mob/living/simple_animal/bot/secbot/proc/process_emote(emote_type, atom/criminal, threat, arrest = -1, location)
 	var/emote = "The continuity of space itself collapses around [src]. You should probably report that to someone higher up."
 	switch(emote_type)
 		if("DEATH")
@@ -98,7 +98,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/bot/secbot, process_emote)(emote_type, a
 		emote = replacetext(emote, "LOCATION", location)
 	return emote
 
-TYPE_PROC_REF(/mob/living/simple_animal/bot/secbot, apply_fashion)(datum/beepsky_fashion/fashion)
+/mob/living/simple_animal/bot/secbot/proc/apply_fashion(datum/beepsky_fashion/fashion)
 	stored_fashion = new fashion
 	if(stored_fashion.name)
 		name = stored_fashion.name
@@ -141,7 +141,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/bot/secbot, apply_fashion)(datum/beepsky
 
 	regenerate_icons()
 
-TYPE_PROC_REF(/mob/living/simple_animal/bot/secbot, reset_fashion)()
+/mob/living/simple_animal/bot/secbot/proc/reset_fashion()
 	bot_accessory.forceMove(get_turf(src))
 	//reset all emotes/sounds and name/desc
 	name = initial(name)
@@ -261,7 +261,7 @@ Auto Patrol: []"},
 			declare_arrests = !declare_arrests
 			update_controls()
 
-TYPE_PROC_REF(/mob/living/simple_animal/bot/secbot, retaliate)(mob/living/carbon/human/H)
+/mob/living/simple_animal/bot/secbot/proc/retaliate(mob/living/carbon/human/H)
 	var/judgement_criteria = judgement_criteria()
 	threatlevel = H.assess_threat(judgement_criteria, weaponcheck=CALLBACK(src, PROC_REF(check_for_weapons)))
 	threatlevel += 6
@@ -269,7 +269,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/bot/secbot, retaliate)(mob/living/carbon
 		target = H
 		mode = BOT_HUNT
 
-TYPE_PROC_REF(/mob/living/simple_animal/bot/secbot, judgement_criteria)()
+/mob/living/simple_animal/bot/secbot/proc/judgement_criteria()
 	var/final = FALSE
 	if(idcheck)
 		final = final|JUDGE_IDCHECK
@@ -281,7 +281,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/bot/secbot, judgement_criteria)()
 		final = final|JUDGE_EMAGGED
 	return final
 
-TYPE_PROC_REF(/mob/living/simple_animal/bot/secbot, special_retaliate_after_attack)(mob/user) //allows special actions to take place after being attacked.
+/mob/living/simple_animal/bot/secbot/proc/special_retaliate_after_attack(mob/user) //allows special actions to take place after being attacked.
 	return
 
 /mob/living/simple_animal/bot/secbot/on_attack_hand(mob/living/carbon/human/H)
@@ -309,7 +309,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/bot/secbot, special_retaliate_after_atta
 		if(special_retaliate_after_attack(user))
 			return
 
-TYPE_PROC_REF(/mob/living/simple_animal/bot/secbot, attempt_place_on_head)(mob/user, obj/item/clothing/head/H)
+/mob/living/simple_animal/bot/secbot/proc/attempt_place_on_head(mob/user, obj/item/clothing/head/H)
 	if(user && !user.temporarilyRemoveItemFromInventory(H))
 		to_chat(user, span_warning("\The [H] is stuck to your hand, you cannot put it on [src]'s head!"))
 		return
@@ -383,7 +383,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/bot/secbot, attempt_place_on_head)(mob/u
 	..()
 
 
-TYPE_PROC_REF(/mob/living/simple_animal/bot/secbot, cuff)(mob/living/carbon/C)
+/mob/living/simple_animal/bot/secbot/proc/cuff(mob/living/carbon/C)
 	mode = BOT_ARREST
 	playsound(src, 'sound/weapons/cablecuff.ogg', 30, TRUE, -2)
 	C.visible_message(span_danger("[process_emote("CAPTURE_ONE", C)]"),\
@@ -391,7 +391,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/bot/secbot, cuff)(mob/living/carbon/C)
 	if(do_after(src, 60, FALSE, C))
 		attempt_handcuff(C)
 
-TYPE_PROC_REF(/mob/living/simple_animal/bot/secbot, attempt_handcuff)(mob/living/carbon/C)
+/mob/living/simple_animal/bot/secbot/proc/attempt_handcuff(mob/living/carbon/C)
 	if (!on)
 		return
 	if(!C.handcuffed)
@@ -400,10 +400,10 @@ TYPE_PROC_REF(/mob/living/simple_animal/bot/secbot, attempt_handcuff)(mob/living
 		playsound(src, "law", 50, 0)
 		back_to_idle()
 
-TYPE_PROC_REF(/mob/living/simple_animal/bot/secbot, stun_attack)(mob/living/carbon/C)
+/mob/living/simple_animal/bot/secbot/proc/stun_attack(mob/living/carbon/C)
 	var/judgement_criteria = judgement_criteria()
 	icon_state = "secbot-c"
-	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_icon)), 2)
+	addtimer(CALLBACK(src, /atom/.proc/update_icon), 2)
 	var/threat = 5
 	if(ishuman(C))
 		if(stored_fashion)
@@ -516,7 +516,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/bot/secbot, stun_attack)(mob/living/carb
 
 	return
 
-TYPE_PROC_REF(/mob/living/simple_animal/bot/secbot, back_to_idle)()
+/mob/living/simple_animal/bot/secbot/proc/back_to_idle()
 	anchored = FALSE
 	mode = BOT_IDLE
 	target = null
@@ -524,14 +524,14 @@ TYPE_PROC_REF(/mob/living/simple_animal/bot/secbot, back_to_idle)()
 	frustration = 0
 	INVOKE_ASYNC(src, PROC_REF(handle_automated_action))
 
-TYPE_PROC_REF(/mob/living/simple_animal/bot/secbot, back_to_hunt)()
+/mob/living/simple_animal/bot/secbot/proc/back_to_hunt()
 	anchored = FALSE
 	frustration = 0
 	mode = BOT_HUNT
 	INVOKE_ASYNC(src, PROC_REF(handle_automated_action))
 // look for a criminal in view of the bot
 
-TYPE_PROC_REF(/mob/living/simple_animal/bot/secbot, look_for_perp)()
+/mob/living/simple_animal/bot/secbot/proc/look_for_perp()
 	anchored = FALSE
 	var/judgement_criteria = judgement_criteria()
 	for (var/mob/living/carbon/C in view(7,src)) //Let's find us a criminal
@@ -558,7 +558,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/bot/secbot, look_for_perp)()
 		else
 			continue
 
-TYPE_PROC_REF(/mob/living/simple_animal/bot/secbot, check_for_weapons)(obj/item/slot_item)
+/mob/living/simple_animal/bot/secbot/proc/check_for_weapons(obj/item/slot_item)
 	if(slot_item && (slot_item.item_flags & NEEDS_PERMIT))
 		return TRUE
 	return FALSE

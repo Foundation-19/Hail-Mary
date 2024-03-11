@@ -56,7 +56,7 @@
 	if(in_range(user, src) || isobserver(user))
 		. += "<span class='notice'>The status display reads: Smelting <b>[ore_multiplier]</b> sheet(s) per piece of ore.<br>Reward point generation at <b>[point_upgrade*100]%</b>.<br>Ore pickup speed at <b>[ore_pickup_rate]</b>.</span>"
 
-TYPE_PROC_REF(/obj/machinery/mineral/ore_redemption, smelt_ore)(obj/item/stack/ore/O)
+/obj/machinery/mineral/ore_redemption/proc/smelt_ore(obj/item/stack/ore/O)
 	if(QDELETED(O))
 		return
 	var/datum/component/material_container/mat_container = materials.mat_container
@@ -86,7 +86,7 @@ TYPE_PROC_REF(/obj/machinery/mineral/ore_redemption, smelt_ore)(obj/item/stack/o
 		materials.silo_log(src, "smelted", amount, "ores", mats)
 		qdel(O)
 
-TYPE_PROC_REF(/obj/machinery/mineral/ore_redemption, can_smelt_alloy)(datum/design/D)
+/obj/machinery/mineral/ore_redemption/proc/can_smelt_alloy(datum/design/D)
 	var/datum/component/material_container/mat_container = materials.mat_container
 	if(!mat_container || D.make_reagents.len)
 		return FALSE
@@ -112,14 +112,14 @@ TYPE_PROC_REF(/obj/machinery/mineral/ore_redemption, can_smelt_alloy)(datum/desi
 
 	return build_amount
 
-TYPE_PROC_REF(/obj/machinery/mineral/ore_redemption, process_ores)(list/ores_to_process)
+/obj/machinery/mineral/ore_redemption/proc/process_ores(list/ores_to_process)
 	var/current_amount = 0
 	for(var/ore in ores_to_process)
 		if(current_amount >= ore_pickup_rate)
 			break
 		smelt_ore(ore)
 
-TYPE_PROC_REF(/obj/machinery/mineral/ore_redemption, send_console_message)()
+/obj/machinery/mineral/ore_redemption/proc/send_console_message()
 	var/datum/component/material_container/mat_container = materials.mat_container
 	if(!mat_container || !is_station_level(z))
 		return

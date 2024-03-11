@@ -62,7 +62,7 @@ proc/get_faction_members(var/faction)
 */
 //Vote for new leader. At voting involvement near staying members
 //This proc is so big, but it's easy to understand.
-TYPE_PROC_REF(mob, begin_head_voting)()
+mob/proc/begin_head_voting()
 	set name = "Leader Voting"
 	set category = "Faction"
 
@@ -167,7 +167,7 @@ TYPE_PROC_REF(mob, begin_head_voting)()
 
 	return 1
 
-TYPE_PROC_REF(mob, set_faction)(var/faction)
+mob/proc/set_faction(var/faction)
 	/*if((faction == "bs") || (faction == "enclave"))
 		src:perks.add(/datum/perk_hidden/powerArmor)
 	*/
@@ -210,7 +210,7 @@ TYPE_PROC_REF(mob, set_faction)(var/faction)
 	full_name = "City Dwellers"
 	description = "<b>Alignment: Lawful Neutral</b><br>City dwellers - A group of ponies that have holed up in the town to wait out the worst and hope for the best.<br>As the City evolved, its citizens became different from the rest of the Wasteland dwellers - they value the safety of a city, prefer better food and clothing, and mostly trust the elected Mayor - even if the decisions made are not the best.<br><i>In Mayor We Trust!</i>"
 	area = /area/f13/city
-	verbs = list(TYPE_PROC_REF(/mob, begin_head_voting))
+	verbs = list(/mob/proc/begin_head_voting)
 	karma = 10
 
 /datum/f13_faction/raider
@@ -221,7 +221,7 @@ TYPE_PROC_REF(mob, set_faction)(var/faction)
 	preview_image = 'html/factions/raider.png'
 	full_name = "Raider Gang"
 	description = "<b>Alignment: Chaotic Evil</b><br>Raiders - Any group of ponies who pillage, plunder, murder, or otherwise ruin the day of anyone unfortunate enough to not be one of them.<br>Raiders tend to organize into loose confederations of gangs in the post-apocalyptic Equestria, and are a constant problem.<br>Raiders typically prey upon travelers and very small towns, leaving more populous or larger areas alone."
-	verbs = list(TYPE_PROC_REF(/mob, begin_head_voting))
+	verbs = list(/mob/proc/begin_head_voting)
 	area = /area/f13/raiders
 	karma = -10
 
@@ -233,7 +233,7 @@ TYPE_PROC_REF(mob, set_faction)(var/faction)
 	description = "<b>Alignment: True Neutral</b><br>The Stable-Tec Corporation, or simply the STC - A former company contracted by the Equestrian government before the Great War to design and produce the Stable system, a vast network of complex fallout and research shelters.<br>When the bombs fell, thousands of carefully-selected Stable dwellers were sealed within the safe confinement of the Stables, and their lucky descendants have (mostly) lived to the present day."
 	preview_image = 'html/factions/vault.png'
 	head_status = "overmare"
-	verbs = list(TYPE_PROC_REF(/mob, begin_head_voting))
+	verbs = list(/mob/proc/begin_head_voting)
 	area = /area/f13/vault
 	karma = 15
 //	craft_recipes = list(/datum/table_recipe/vlt_encryption_key)
@@ -247,7 +247,7 @@ TYPE_PROC_REF(mob, set_faction)(var/faction)
 	preview_image = 'html/factions/brotherhood.png'
 	head_status = "elder"
 	area = /area/f13/brotherhood
-	verbs = list(TYPE_PROC_REF(/mob, begin_head_voting))
+	verbs = list(/mob/proc/begin_head_voting)
 	karma = 10
 	welcome_text = "Your current objectives are:<br>\
 1. Fuck toasters!<br>\
@@ -266,7 +266,7 @@ TYPE_PROC_REF(mob, set_faction)(var/faction)
 	head_status = "colonel"
 	area = /area/f13/enclave
 	karma = -5
-	verbs = list(TYPE_PROC_REF(/mob, begin_head_voting))
+	verbs = list(/mob/proc/begin_head_voting)
 	welcome_text = "Your current objectives are:<br>\
 1. Protect all pegasus, only if they not Dashite!<br>\
 2. Serve your Heads!<br>\
@@ -282,7 +282,7 @@ TYPE_PROC_REF(mob, set_faction)(var/faction)
 	preview_image = 'html/factions/ahs.png'
 	head_status = "ahs8"
 	area = /area/f13/ahs
-	verbs = list(TYPE_PROC_REF(/mob, begin_head_voting))
+	verbs = list(/mob/proc/begin_head_voting)
 
 /datum/f13_faction/ncr
 	name = "NCR"
@@ -292,7 +292,7 @@ TYPE_PROC_REF(mob, set_faction)(var/faction)
 	description = "<b>Alignment: Lawful Good</b><br>The New Canterlot Republic, or simply the NCR - A large, democratic federation with a massive population based in Down Canterlot, with holdings in other States.<br>The NCR emphasizes and claims to support a myriad of old world values, such as democracy, personal liberty, and the rule of law.<br>It also strives to restore general order to the wasteland through improvements to and development of infrastructure and economic systems, as well as basic common peace between people."
 	preview_image = 'html/factions/ncr.png'
 	head_status = "ncr_general"
-	verbs = list(TYPE_PROC_REF(/mob, begin_head_voting))
+	verbs = list(/mob/proc/begin_head_voting)
 	area = /area/f13/ncr
 	karma = 5
 	welcome_text = "Your current objectives are:<br>\
@@ -336,7 +336,7 @@ TYPE_PROC_REF(mob, set_faction)(var/faction)
 	description = "<b>Alignment: True Neutral</b><br>The Stable-Tec Corporation, or simply the STC - A former company contracted by the Equestrian government before the Great War to design and produce the Stable system, a vast network of complex fallout and research shelters.<br>When the bombs fell, thousands of carefully-selected Stable dwellers were sealed within the safe confinement of the Stables, and their lucky descendants have (mostly) lived to the present day."
 	preview_image = 'html/factions/vault.png'
 	head_status = "overmare"
-	verbs = list(TYPE_PROC_REF(/mob, begin_head_voting))
+	verbs = list(/mob/proc/begin_head_voting)
 	area = /area/f13/vault
 	karma = 15
 
@@ -348,7 +348,7 @@ TYPE_PROC_REF(mob, set_faction)(var/faction)
 	description = "<b>Alignment: Chaotic Neutral</b><br>Have you ever met a bunch of crazed zealots willing to baptize you with radioactive waste?<br>These fanatics are likely to make it so if you have smooth skin, since they all lost theirs decades ago.<br>They are faithful to their glorious God - the Great Atom, who brings salvation to all living.<br>They honor their faith, and are willing to do everything they can to please the Great Atom, and live eternally with a holy green glow."
 	preview_image = 'html/factions/acolytes.png'
 	head_status = "master_atom"
-	verbs = list(TYPE_PROC_REF(/mob, begin_head_voting))
+	verbs = list(/mob/proc/begin_head_voting)
 
 //	craft_recipes = list(/datum/table_recipe/den_encryption_key)
 
@@ -360,6 +360,6 @@ TYPE_PROC_REF(mob, set_faction)(var/faction)
 	description = "<b>Alignment: Lawful Evil</b><br>The Children of the Cathedral was the religious branch of the Unity, a widespread religious cult that the Trixie established as a cover for his activities and to spread her philosophy."
 	preview_image = 'html/factions/coc.png'
 	head_status = "preacher"
-	verbs = list(TYPE_PROC_REF(/mob, begin_head_voting))
+	verbs = list(/mob/proc/begin_head_voting)
 	area = /area/f13/ahs
 	karma = -10

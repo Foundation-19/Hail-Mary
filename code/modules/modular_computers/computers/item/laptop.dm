@@ -78,7 +78,7 @@
 	if(screen_on && isturf(loc))
 		return attack_self(user)
 
-TYPE_PROC_REF(/obj/item/modular_computer/laptop, try_toggle_open)(mob/living/user)
+/obj/item/modular_computer/laptop/proc/try_toggle_open(mob/living/user)
 	if(issilicon(user))
 		return
 	if(!isturf(loc) && !ismob(loc)) // No opening it in backpack.
@@ -95,7 +95,7 @@ TYPE_PROC_REF(/obj/item/modular_computer/laptop, try_toggle_open)(mob/living/use
 	else
 		return ..()
 
-TYPE_PROC_REF(/obj/item/modular_computer/laptop, toggle_open)(mob/living/user=null)
+/obj/item/modular_computer/laptop/proc/toggle_open(mob/living/user=null)
 	if(screen_on)
 		to_chat(user, span_notice("You close \the [src]."))
 		slowdown = initial(slowdown)

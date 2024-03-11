@@ -1,7 +1,7 @@
 
 
 //Disables nearby tech equipment.
-TYPE_PROC_REF(/obj/item/clothing/suit/space/space_ninja, ninjapulse)()
+/obj/item/clothing/suit/space/space_ninja/proc/ninjapulse()
 
 	if(!ninjacost(250,N_STEALTH_CANCEL))
 		var/mob/living/carbon/human/H = affecting

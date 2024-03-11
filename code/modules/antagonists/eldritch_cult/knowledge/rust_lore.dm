@@ -227,7 +227,7 @@
  *
  * Recreates all edge_turfs as well as normal turfs.
  */
-TYPE_PROC_REF(/datum/rust_spread, compile_turfs)()
+/datum/rust_spread/proc/compile_turfs()
 	edge_turfs = list()
 	for(var/X in turfs)
 		if(!istype(X,/turf/closed/wall/rust) && !istype(X,/turf/closed/wall/r_wall/rust) && !istype(X,/turf/open/floor/plating/rust))

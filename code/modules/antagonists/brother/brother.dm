@@ -31,7 +31,7 @@
 	owner.special_role = null
 	return ..()
 
-TYPE_PROC_REF(/datum/antagonist/brother, give_meeting_area)()
+/datum/antagonist/brother/proc/give_meeting_area()
 	if(!owner.current || !team || !team.meeting_area)
 		return
 	to_chat(owner.current, "<B>Your designated meeting area:</B> [team.meeting_area]")
@@ -52,7 +52,7 @@ TYPE_PROC_REF(/datum/antagonist/brother, give_meeting_area)()
 	owner.announce_objectives()
 	give_meeting_area()
 
-TYPE_PROC_REF(/datum/antagonist/brother, finalize_brother)()
+/datum/antagonist/brother/proc/finalize_brother()
 	SSticker.mode.update_brother_icons_added(owner)
 
 /datum/antagonist/brother/admin_add(datum/mind/new_owner,mob/admin)
@@ -87,11 +87,11 @@ TYPE_PROC_REF(/datum/antagonist/brother, finalize_brother)()
 /datum/team/brother_team/is_solo()
 	return FALSE
 
-TYPE_PROC_REF(/datum/team/brother_team, pick_meeting_area)()
+/datum/team/brother_team/proc/pick_meeting_area()
 	meeting_area = pick(meeting_areas)
 	meeting_areas -= meeting_area
 
-TYPE_PROC_REF(/datum/team/brother_team, update_name)()
+/datum/team/brother_team/proc/update_name()
 	var/list/last_names = list()
 	for(var/datum/mind/M in members)
 		var/list/split_name = splittext(M.name," ")
@@ -127,14 +127,14 @@ TYPE_PROC_REF(/datum/team/brother_team, update_name)()
 
 	return "<div class='panel redborder'>[parts.Join("<br>")]</div>"
 
-TYPE_PROC_REF(/datum/team/brother_team, add_objective)(datum/objective/O, needs_target = FALSE)
+/datum/team/brother_team/proc/add_objective(datum/objective/O, needs_target = FALSE)
 	O.team = src
 	if(needs_target)
 		O.find_target()
 	O.update_explanation_text()
 	objectives += O
 
-TYPE_PROC_REF(/datum/team/brother_team, forge_brother_objectives)()
+/datum/team/brother_team/proc/forge_brother_objectives()
 	objectives = list()
 	var/is_hijacker = prob(10)
 	for(var/i = 1 to max(1, CONFIG_GET(number/brother_objectives_amount) + (members.len > 2) - is_hijacker))
@@ -145,7 +145,7 @@ TYPE_PROC_REF(/datum/team/brother_team, forge_brother_objectives)()
 	else if(!locate(/datum/objective/escape) in objectives)
 		add_objective(new/datum/objective/escape)
 
-TYPE_PROC_REF(/datum/team/brother_team, forge_single_objective)()
+/datum/team/brother_team/proc/forge_single_objective()
 	if(prob(50))
 		if(LAZYLEN(active_ais()) && prob(100/GLOB.joined_player_list.len))
 			add_objective(new/datum/objective/destroy, TRUE)

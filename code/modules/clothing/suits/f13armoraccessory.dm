@@ -10,7 +10,7 @@
 	var/minimize_when_attached = TRUE // TRUE if shown as a small icon in corner, FALSE if overlayed
 	var/datum/component/storage/detached_pockets
 
-TYPE_PROC_REF(/obj/item/clothing/armoraccessory, attach)(obj/item/clothing/suit/U, user)
+/obj/item/clothing/armoraccessory/proc/attach(obj/item/clothing/suit/U, user)
 	var/datum/component/storage/storage = GetComponent(/datum/component/storage)
 	if(storage)
 		if(SEND_SIGNAL(U, COMSIG_CONTAINS_STORAGE))
@@ -40,7 +40,7 @@ TYPE_PROC_REF(/obj/item/clothing/armoraccessory, attach)(obj/item/clothing/suit/
 
 	return TRUE
 
-TYPE_PROC_REF(/obj/item/clothing/armoraccessory, detach)(obj/item/clothing/suit/U, user)
+/obj/item/clothing/armoraccessory/proc/detach(obj/item/clothing/suit/U, user)
 	if(detached_pockets && detached_pockets.parent == U)
 		TakeComponent(detached_pockets)
 
@@ -59,10 +59,10 @@ TYPE_PROC_REF(/obj/item/clothing/armoraccessory, detach)(obj/item/clothing/suit/
 	U.attached_accessory = null
 	U.accessory_overlay = null
 
-TYPE_PROC_REF(/obj/item/clothing/armoraccessory, on_suit_equip)(obj/item/clothing/suit/U, user)
+/obj/item/clothing/armoraccessory/proc/on_suit_equip(obj/item/clothing/suit/U, user)
 	return
 
-TYPE_PROC_REF(/obj/item/clothing/armoraccessory, on_suit_dropped)(obj/item/clothing/suit/U, user)
+/obj/item/clothing/armoraccessory/proc/on_suit_dropped(obj/item/clothing/suit/U, user)
 	return
 
 /obj/item/clothing/armoraccessory/AltClick(mob/user)

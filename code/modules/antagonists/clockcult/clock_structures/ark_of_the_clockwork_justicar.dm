@@ -66,7 +66,7 @@
 			hierophant_message("<span class='big boldwarning'>The Ark is taking damage!</span>")
 	last_scream = world.time + ARK_SCREAM_COOLDOWN
 
-TYPE_PROC_REF(/obj/structure/destructible/clockwork/massive/celestial_gateway, final_countdown)(ark_time) //WE'RE LEAVING TOGETHEEEEEEEEER
+/obj/structure/destructible/clockwork/massive/celestial_gateway/proc/final_countdown(ark_time) //WE'RE LEAVING TOGETHEEEEEEEEER
 	if(!ark_time)
 		ark_time = 5 //5 minutes
 	for(var/obj/item/clockwork/construct_chassis/cogscarab/C in GLOB.all_clockwork_objects)
@@ -74,7 +74,7 @@ TYPE_PROC_REF(/obj/structure/destructible/clockwork/massive/celestial_gateway, f
 	GLOB.servants_active = TRUE
 	SSshuttle.registerHostileEnvironment(src)
 
-TYPE_PROC_REF(/obj/structure/destructible/clockwork/massive/celestial_gateway, let_slip_the_dogs)()
+/obj/structure/destructible/clockwork/massive/celestial_gateway/proc/let_slip_the_dogs()
 	first_sound_played = TRUE
 	active = TRUE
 	visible_message(span_boldwarning("[src] shudders and roars to life, its parts beginning to whirr and screech!"))
@@ -97,7 +97,7 @@ TYPE_PROC_REF(/obj/structure/destructible/clockwork/massive/celestial_gateway, l
 		for(var/mob/living/L in T)
 			L.forceMove(pick(open_turfs))
 
-TYPE_PROC_REF(/obj/structure/destructible/clockwork/massive/celestial_gateway, spawn_animation)()
+/obj/structure/destructible/clockwork/massive/celestial_gateway/proc/spawn_animation()
 	var/turf/T = get_turf(src)
 	new/obj/effect/clockwork/general_marker/inathneq(T)
 	hierophant_message(span_inathneq("\"[text2ratvar("Engine, come forth and show your servants your mercy")]!\""))
@@ -127,13 +127,13 @@ TYPE_PROC_REF(/obj/structure/destructible/clockwork/massive/celestial_gateway, s
 	var/area/gate_area = get_area(src)
 	hierophant_message("<span class='large_brass'><b>An Ark of the Clockwork Justicar has been created in [gate_area.map_name]!</b></span>", FALSE, src)
 
-TYPE_PROC_REF(/obj/structure/destructible/clockwork/massive/celestial_gateway, initiate_mass_recall)()
+/obj/structure/destructible/clockwork/massive/celestial_gateway/proc/initiate_mass_recall()
 	recalling = TRUE
 	sound_to_playing_players('sound/machines/clockcult/ark_recall.ogg', 75, FALSE)
 	hierophant_message("<span class='bold large_brass'>The Eminence has initiated a mass recall! You are being transported to the Ark!</span>")
 	addtimer(CALLBACK(src, PROC_REF(mass_recall)), 100)
 
-TYPE_PROC_REF(/obj/structure/destructible/clockwork/massive/celestial_gateway, mass_recall)()
+/obj/structure/destructible/clockwork/massive/celestial_gateway/proc/mass_recall()
 	for(var/V in SSticker.mode.servants_of_ratvar)
 		var/datum/mind/M = V
 		if(!M || !M.current)
@@ -186,7 +186,7 @@ obj/structure/destructible/clockwork/massive/celestial_gateway/Destroy()
 			sound_to_playing_players('sound/effects/explosion_distant.ogg', volume = 50)
 	qdel(src)
 
-TYPE_PROC_REF(/obj/structure/destructible/clockwork/massive/celestial_gateway, make_glow)()
+/obj/structure/destructible/clockwork/massive/celestial_gateway/proc/make_glow()
 	if(!glow)
 		glow = new /obj/effect/clockwork/overlay/gateway_glow(get_turf(src))
 		glow.linked = src
@@ -195,7 +195,7 @@ TYPE_PROC_REF(/obj/structure/destructible/clockwork/massive/celestial_gateway, m
 	var/damage = max((obj_integrity * 0.7) / severity, 100) //requires multiple bombs to take down
 	take_damage(damage, BRUTE, "bomb", 0)
 
-TYPE_PROC_REF(/obj/structure/destructible/clockwork/massive/celestial_gateway, get_arrival_time)(deciseconds = TRUE)
+/obj/structure/destructible/clockwork/massive/celestial_gateway/proc/get_arrival_time(deciseconds = TRUE)
 	if(seconds_until_activation)
 		. = seconds_until_activation
 	else if(GATEWAY_RATVAR_ARRIVAL - progress_in_seconds > 0)
@@ -203,7 +203,7 @@ TYPE_PROC_REF(/obj/structure/destructible/clockwork/massive/celestial_gateway, g
 	if(deciseconds)
 		. *= 10
 
-TYPE_PROC_REF(/obj/structure/destructible/clockwork/massive/celestial_gateway, get_arrival_text)(s_on_time)
+/obj/structure/destructible/clockwork/massive/celestial_gateway/proc/get_arrival_text(s_on_time)
 	if(seconds_until_activation)
 		return "[get_arrival_time()][s_on_time ? "S" : ""]"
 	. = "IMMINENT"
@@ -329,7 +329,7 @@ TYPE_PROC_REF(/obj/structure/destructible/clockwork/massive/celestial_gateway, g
 					CHECK_TICK
 
 //Converts nearby turfs into their clockwork equivalent, with ever-increasing range the closer the ark is to summoning Ratvar
-TYPE_PROC_REF(/obj/structure/destructible/clockwork/massive/celestial_gateway, conversion_pulse)()
+/obj/structure/destructible/clockwork/massive/celestial_gateway/proc/conversion_pulse()
 	var/convert_dist = 1 + (round(FLOOR(progress_in_seconds, 15) * 0.067))
 	for(var/t in RANGE_TURFS(convert_dist, loc))
 		var/turf/T = t

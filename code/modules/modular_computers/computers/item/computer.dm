@@ -190,7 +190,7 @@
 	else
 		turn_on(user)
 
-TYPE_PROC_REF(/obj/item/modular_computer, turn_on)(mob/user)
+/obj/item/modular_computer/proc/turn_on(mob/user)
 	var/issynth = issilicon(user) // Robots and AIs get different activation messages.
 	if(obj_integrity <= integrity_failure * max_integrity)
 		if(issynth)
@@ -255,7 +255,7 @@ TYPE_PROC_REF(/obj/item/modular_computer, turn_on)(mob/user)
 	//check_update_ui_need()
 
 // Function used by NanoUI's to obtain data for header. All relevant entries begin with "PC_"
-TYPE_PROC_REF(/obj/item/modular_computer, get_header_data)()
+/obj/item/modular_computer/proc/get_header_data()
 	var/list/data = list()
 
 	data["PC_device_theme"] = device_theme
@@ -315,7 +315,7 @@ TYPE_PROC_REF(/obj/item/modular_computer, get_header_data)()
 	return data
 
 // Relays kill program request to currently active program. Use this to quit current program.
-TYPE_PROC_REF(/obj/item/modular_computer, kill_program)(forced = FALSE)
+/obj/item/modular_computer/proc/kill_program(forced = FALSE)
 	if(active_program)
 		active_program.kill_program(forced)
 		active_program = null
@@ -325,20 +325,20 @@ TYPE_PROC_REF(/obj/item/modular_computer, kill_program)(forced = FALSE)
 	update_icon()
 
 // Returns 0 for No Signal, 1 for Low Signal and 2 for Good Signal. 3 is for wired connection (always-on)
-TYPE_PROC_REF(/obj/item/modular_computer, get_ntnet_status)(specific_action = 0)
+/obj/item/modular_computer/proc/get_ntnet_status(specific_action = 0)
 	var/obj/item/computer_hardware/network_card/network_card = all_components[MC_NET]
 	if(network_card)
 		return network_card.get_signal(specific_action)
 	else
 		return 0
 
-TYPE_PROC_REF(/obj/item/modular_computer, add_log)(text)
+/obj/item/modular_computer/proc/add_log(text)
 	if(!get_ntnet_status())
 		return FALSE
 	var/obj/item/computer_hardware/network_card/network_card = all_components[MC_NET]
 	return SSnetworks.station_network.add_log(text, network_card)
 
-TYPE_PROC_REF(/obj/item/modular_computer, shutdown_computer)(loud = 1)
+/obj/item/modular_computer/proc/shutdown_computer(loud = 1)
 	kill_program(forced = TRUE)
 	for(var/datum/computer_file/program/P in idle_threads)
 		P.kill_program(forced = TRUE)
@@ -413,7 +413,7 @@ TYPE_PROC_REF(/obj/item/modular_computer, shutdown_computer)(loud = 1)
 	..()
 
 // Used by processor to relay qdel() to machinery type.
-TYPE_PROC_REF(/obj/item/modular_computer, relay_qdel)()
+/obj/item/modular_computer/proc/relay_qdel()
 	return
 
 // Perform adjacency checks on our physical counterpart, if any.

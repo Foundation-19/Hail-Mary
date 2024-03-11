@@ -14,7 +14,7 @@
 		return
 	try_activate(user)
 
-TYPE_PROC_REF(/obj/effect/eldritch, try_activate)(mob/living/user)
+/obj/effect/eldritch/proc/try_activate(mob/living/user)
 	if(!IS_HERETIC(user))
 		return
 	if(!is_in_use)
@@ -27,7 +27,7 @@ TYPE_PROC_REF(/obj/effect/eldritch, try_activate)(mob/living/user)
 		to_chat(user, span_danger("You disrupt the magic of [src] with [I]."))
 		qdel(src)
 
-TYPE_PROC_REF(/obj/effect/eldritch, activate)(mob/living/user)
+/obj/effect/eldritch/proc/activate(mob/living/user)
 	is_in_use = TRUE
 	// Have fun trying to read this proc.
 	var/datum/antagonist/heretic/cultie = user.mind.has_antag_datum(/datum/antagonist/heretic)
@@ -126,7 +126,7 @@ TYPE_PROC_REF(/obj/effect/eldritch, activate)(mob/living/user)
  *
  * Fixes any bugs that are caused by late Generate() or exchanging clients
  */
-TYPE_PROC_REF(/datum/reality_smash_tracker, ReworkNetwork)()
+/datum/reality_smash_tracker/proc/ReworkNetwork()
 	listclearnulls(smashes)
 	for(var/mind in targets)
 		if(isnull(mind))
@@ -141,7 +141,7 @@ TYPE_PROC_REF(/datum/reality_smash_tracker, ReworkNetwork)()
  *
  * Automatically creates more reality smashes
  */
-TYPE_PROC_REF(/datum/reality_smash_tracker, _Generate)()
+/datum/reality_smash_tracker/proc/_Generate()
 	var/targ_len = length(targets)
 	var/smash_len = length(smashes)
 	var/number = targ_len * 6 - smash_len
@@ -164,7 +164,7 @@ TYPE_PROC_REF(/datum/reality_smash_tracker, _Generate)()
  *
  * Use this whenever you want to add someone to the list
  */
-TYPE_PROC_REF(/datum/reality_smash_tracker, AddMind)(datum/mind/M)
+/datum/reality_smash_tracker/proc/AddMind(datum/mind/M)
 	RegisterSignal(M.current,COMSIG_MOB_CLIENT_LOGIN,PROC_REF(ReworkNetwork))
 	targets |= M
 	_Generate()
@@ -178,7 +178,7 @@ TYPE_PROC_REF(/datum/reality_smash_tracker, AddMind)(datum/mind/M)
  *
  * Use this whenever you want to remove someone from the list
  */
-TYPE_PROC_REF(/datum/reality_smash_tracker, RemoveMind)(datum/mind/M)
+/datum/reality_smash_tracker/proc/RemoveMind(datum/mind/M)
 	UnregisterSignal(M.current,COMSIG_MOB_CLIENT_LOGIN)
 	targets -= M
 	for(var/obj/effect/reality_smash/RS in smashes)
@@ -256,7 +256,7 @@ TYPE_PROC_REF(/datum/reality_smash_tracker, RemoveMind)(datum/mind/M)
 	return ..()
 
 ///Custom effect that happens on destruction
-TYPE_PROC_REF(/obj/effect/reality_smash, on_destroy)()
+/obj/effect/reality_smash/proc/on_destroy()
 	for(var/cm in minds)
 		var/datum/mind/cultie = cm
 		if(cultie.current?.client)
@@ -268,7 +268,7 @@ TYPE_PROC_REF(/obj/effect/reality_smash, on_destroy)()
 	new /obj/effect/broken_illusion(drop_location())
 
 ///Makes the mind able to see this effect
-TYPE_PROC_REF(/obj/effect/reality_smash, AddMind)(datum/mind/cultie)
+/obj/effect/reality_smash/proc/AddMind(datum/mind/cultie)
 	minds |= cultie
 	if(cultie.current.client)
 		cultie.current.client.images |= img
@@ -276,7 +276,7 @@ TYPE_PROC_REF(/obj/effect/reality_smash, AddMind)(datum/mind/cultie)
 
 
 ///Makes the mind not able to see this effect
-TYPE_PROC_REF(/obj/effect/reality_smash, RemoveMind)(datum/mind/cultie)
+/obj/effect/reality_smash/proc/RemoveMind(datum/mind/cultie)
 	minds -= cultie
 	if(cultie.current.client)
 		cultie.current.client.images -= img
@@ -284,7 +284,7 @@ TYPE_PROC_REF(/obj/effect/reality_smash, RemoveMind)(datum/mind/cultie)
 
 
 ///Generates random name
-TYPE_PROC_REF(/obj/effect/reality_smash, generate_name)()
+/obj/effect/reality_smash/proc/generate_name()
 	var/static/list/prefix = list("Omniscient","Thundering","Enlightening","Intrusive","Rejectful","Atomized","Subtle","Rising","Lowering","Fleeting","Towering","Blissful","Arrogant","Threatening","Peaceful","Aggressive")
 	var/static/list/postfix = list("Flaw","Presence","Crack","Heat","Cold","Memory","Reminder","Breeze","Grasp","Sight","Whisper","Flow","Touch","Veil","Thought","Imperfection","Blemish","Blush")
 

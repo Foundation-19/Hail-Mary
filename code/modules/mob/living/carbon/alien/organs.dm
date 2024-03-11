@@ -122,7 +122,7 @@
 	return ..()
 
 //When the alien queen dies, all aliens suffer a penalty as punishment for failing to protect her.
-TYPE_PROC_REF(/obj/item/organ/alien/hivenode, queen_death)()
+/obj/item/organ/alien/hivenode/proc/queen_death()
 	if(!owner|| owner.stat == DEAD)
 		return
 	if(isalien(owner)) //Different effects for aliens than humans
@@ -145,7 +145,7 @@ TYPE_PROC_REF(/obj/item/organ/alien/hivenode, queen_death)()
 	addtimer(CALLBACK(src, PROC_REF(clear_queen_death)), QUEEN_DEATH_DEBUFF_DURATION)
 
 
-TYPE_PROC_REF(/obj/item/organ/alien/hivenode, clear_queen_death)()
+/obj/item/organ/alien/hivenode/proc/clear_queen_death()
 	if(QDELETED(src)) //In case the node is deleted
 		return
 	recent_queen_death = 0

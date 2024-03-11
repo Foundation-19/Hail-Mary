@@ -35,7 +35,7 @@
 	. = ..()
 
 
-TYPE_PROC_REF(/obj/item/arrow_shaft, attach_hay)(obj/item/stack/sheet/hay/haaay, mob/user)
+/obj/item/arrow_shaft/proc/attach_hay(obj/item/stack/sheet/hay/haaay, mob/user)
 	if(has_hay)
 		return FALSE
 	if(!istype(haaay))
@@ -49,7 +49,7 @@ TYPE_PROC_REF(/obj/item/arrow_shaft, attach_hay)(obj/item/stack/sheet/hay/haaay,
 	check_constructed(user)
 	return TRUE
 
-TYPE_PROC_REF(/obj/item/arrow_shaft, remove_hay)(mob/user)
+/obj/item/arrow_shaft/proc/remove_hay(mob/user)
 	if(!has_hay)
 		return FALSE
 	var/obj/item/stack/sheet/hay/newhay = new(get_turf(src))
@@ -59,7 +59,7 @@ TYPE_PROC_REF(/obj/item/arrow_shaft, remove_hay)(mob/user)
 	update_icon()
 	check_constructed(user)
 
-TYPE_PROC_REF(/obj/item/arrow_shaft, attach_arrowhead)(obj/item/stack/arrowhead/a_head, mob/user)
+/obj/item/arrow_shaft/proc/attach_arrowhead(obj/item/stack/arrowhead/a_head, mob/user)
 	if(!istype(a_head))
 		return FALSE
 	if(the_head || the_arrow)
@@ -73,7 +73,7 @@ TYPE_PROC_REF(/obj/item/arrow_shaft, attach_arrowhead)(obj/item/stack/arrowhead/
 	update_icon()
 	check_constructed(user)
 
-TYPE_PROC_REF(/obj/item/arrow_shaft, remove_arrowhead)(mob/user)
+/obj/item/arrow_shaft/proc/remove_arrowhead(mob/user)
 	if(!ispath(the_head, /obj/item/stack/arrowhead))
 		return FALSE
 	var/obj/item/stack/arrowhead/new_head = new(get_turf(src))
@@ -84,7 +84,7 @@ TYPE_PROC_REF(/obj/item/arrow_shaft, remove_arrowhead)(mob/user)
 	update_icon()
 	check_constructed(user)
 
-TYPE_PROC_REF(/obj/item/arrow_shaft, check_constructed)(mob/user)
+/obj/item/arrow_shaft/proc/check_constructed(mob/user)
 	if(!ispath(the_head, /obj/item/stack/arrowhead))
 		return FALSE
 	else if(!ispath(initial(the_head.result_arrow), /obj/item/ammo_casing/caseless/arrow))
@@ -95,7 +95,7 @@ TYPE_PROC_REF(/obj/item/arrow_shaft, check_constructed)(mob/user)
 	finish_construction(user)
 	return TRUE
 
-TYPE_PROC_REF(/obj/item/arrow_shaft, finish_construction)(mob/user)
+/obj/item/arrow_shaft/proc/finish_construction(mob/user)
 	var/obj/item/ammo_casing/caseless/arrow/make_this_arrow = new the_arrow(get_turf(user))
 	if(ismob(user))
 		user.visible_message(span_notice("[user] makes \a [make_this_arrow]!"))

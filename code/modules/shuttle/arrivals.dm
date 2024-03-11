@@ -103,7 +103,7 @@
 	else if(!found_awake)
 		Launch(FALSE)
 
-TYPE_PROC_REF(/obj/docking_port/mobile/arrivals, CheckTurfsPressure)()
+/obj/docking_port/mobile/arrivals/proc/CheckTurfsPressure()
 	for(var/I in SSjob.latejoin_trackers)
 		var/turf/open/T = get_turf(I)
 		var/pressure = T.air.return_pressure()
@@ -111,7 +111,7 @@ TYPE_PROC_REF(/obj/docking_port/mobile/arrivals, CheckTurfsPressure)()
 			return TRUE
 	return FALSE
 
-TYPE_PROC_REF(/obj/docking_port/mobile/arrivals, PersonCheck)()
+/obj/docking_port/mobile/arrivals/proc/PersonCheck()
 	for(var/V in GLOB.player_list)
 		var/mob/M = V
 		if((get_area(M) in areas) && M.stat != DEAD)
@@ -122,13 +122,13 @@ TYPE_PROC_REF(/obj/docking_port/mobile/arrivals, PersonCheck)()
 				return TRUE
 	return FALSE
 
-TYPE_PROC_REF(/obj/docking_port/mobile/arrivals, NukeDiskCheck)()
+/obj/docking_port/mobile/arrivals/proc/NukeDiskCheck()
 	for (var/obj/item/disk/nuclear/N in GLOB.poi_list)
 		if (get_area(N) in areas)
 			return TRUE
 	return FALSE
 
-TYPE_PROC_REF(/obj/docking_port/mobile/arrivals, SendToStation)()
+/obj/docking_port/mobile/arrivals/proc/SendToStation()
 	var/dockTime = CONFIG_GET(number/arrivals_shuttle_dock_window)
 	if(mode == SHUTTLE_CALL && timeLeft(1) > dockTime)
 		if(console)
@@ -172,7 +172,7 @@ TYPE_PROC_REF(/obj/docking_port/mobile/arrivals, SendToStation)()
 	if(. == SHUTTLE_ALREADY_DOCKED)
 		. = SHUTTLE_CAN_DOCK
 
-TYPE_PROC_REF(/obj/docking_port/mobile/arrivals, Launch)(pickingup)
+/obj/docking_port/mobile/arrivals/proc/Launch(pickingup)
 	if(pickingup)
 		force_depart = TRUE
 	if(mode == SHUTTLE_IDLE)
@@ -183,7 +183,7 @@ TYPE_PROC_REF(/obj/docking_port/mobile/arrivals, Launch)(pickingup)
 			target = SSshuttle.getDock("arrivals_stationary")
 		request(target)		//we will intentionally never return SHUTTLE_ALREADY_DOCKED
 
-TYPE_PROC_REF(/obj/docking_port/mobile/arrivals, RequireUndocked)(mob/user)
+/obj/docking_port/mobile/arrivals/proc/RequireUndocked(mob/user)
 	if(mode == SHUTTLE_CALL || damaged)
 		return
 
@@ -193,7 +193,7 @@ TYPE_PROC_REF(/obj/docking_port/mobile/arrivals, RequireUndocked)(mob/user)
 	while(mode != SHUTTLE_CALL && !damaged)
 		stoplag()
 
-TYPE_PROC_REF(/obj/docking_port/mobile/arrivals, QueueAnnounce)(mob, rank)
+/obj/docking_port/mobile/arrivals/proc/QueueAnnounce(mob, rank)
 	if(mode != SHUTTLE_CALL)
 		AnnounceArrival(mob, rank)
 	else

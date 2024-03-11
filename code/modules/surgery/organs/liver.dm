@@ -70,7 +70,7 @@
 		sizeMoveMod(1, owner)
 	return ..()
 
-TYPE_PROC_REF(/obj/item/organ/liver, sizeMoveMod)(value, mob/living/carbon/C)
+/obj/item/organ/liver/proc/sizeMoveMod(value, mob/living/carbon/C)
 	if(cachedmoveCalc == value)
 		return
 	C.action_cooldown_mod /= cachedmoveCalc

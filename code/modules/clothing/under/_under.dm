@@ -89,7 +89,7 @@
 
 	..()
 
-TYPE_PROC_REF(/obj/item/clothing/under, attach_accessory)(obj/item/I, mob/user, notifyAttach = 1)
+/obj/item/clothing/under/proc/attach_accessory(obj/item/I, mob/user, notifyAttach = 1)
 	. = FALSE
 	if(istype(I, /obj/item/clothing/accessory))
 		var/obj/item/clothing/accessory/A = I
@@ -127,7 +127,7 @@ TYPE_PROC_REF(/obj/item/clothing/under, attach_accessory)(obj/item/I, mob/user, 
 
 			return TRUE
 
-TYPE_PROC_REF(/obj/item/clothing/under, remove_accessory)(mob/user)
+/obj/item/clothing/under/proc/remove_accessory(mob/user)
 	if(!isliving(user))
 		return
 	if(!can_use(user))
@@ -255,7 +255,7 @@ TYPE_PROC_REF(/obj/item/clothing/under, remove_accessory)(mob/user)
 	set src in usr
 	rolldown()
 
-TYPE_PROC_REF(/obj/item/clothing/under, rolldown)()
+/obj/item/clothing/under/proc/rolldown()
 	if(!can_use(usr))
 		return
 	if(!can_adjust)
@@ -270,7 +270,7 @@ TYPE_PROC_REF(/obj/item/clothing/under, rolldown)()
 		H.update_inv_w_uniform()
 		H.update_body()
 
-TYPE_PROC_REF(/obj/item/clothing/under, toggle_jumpsuit_adjust)()
+/obj/item/clothing/under/proc/toggle_jumpsuit_adjust()
 	adjusted = !adjusted
 
 	if(adjusted)

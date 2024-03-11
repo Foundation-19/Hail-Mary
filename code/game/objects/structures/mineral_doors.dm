@@ -59,7 +59,7 @@
 		return !opacity
 	return !density
 
-TYPE_PROC_REF(/obj/structure/mineral_door, TryToSwitchState)(atom/user)
+/obj/structure/mineral_door/proc/TryToSwitchState(atom/user)
 	if(isSwitchingStates)
 		return
 	if(isliving(user))
@@ -76,13 +76,13 @@ TYPE_PROC_REF(/obj/structure/mineral_door, TryToSwitchState)(atom/user)
 	else if(ismecha(user))
 		SwitchState()
 
-TYPE_PROC_REF(/obj/structure/mineral_door, SwitchState)()
+/obj/structure/mineral_door/proc/SwitchState()
 	if(state)
 		Close()
 	else
 		Open()
 
-TYPE_PROC_REF(/obj/structure/mineral_door, Open)()
+/obj/structure/mineral_door/proc/Open()
 	isSwitchingStates = 1
 	playsound(src, openSound, 100, 1)
 	set_opacity(FALSE)
@@ -98,7 +98,7 @@ TYPE_PROC_REF(/obj/structure/mineral_door, Open)()
 	if(close_delay != -1)
 		addtimer(CALLBACK(src, PROC_REF(Close)), close_delay)
 
-TYPE_PROC_REF(/obj/structure/mineral_door, Close)()
+/obj/structure/mineral_door/proc/Close()
 	if(isSwitchingStates || state != 1)
 		return
 	var/turf/T = get_turf(src)
@@ -203,7 +203,7 @@ TYPE_PROC_REF(/obj/structure/mineral_door, Close)()
 	if(exposed_temperature > 300)
 		TemperatureAct()
 
-TYPE_PROC_REF(/obj/structure/mineral_door/transparent/plasma, TemperatureAct)()
+/obj/structure/mineral_door/transparent/plasma/proc/TemperatureAct()
 	atmos_spawn_air("plasma=500;TEMP=1000")
 	deconstruct(FALSE)
 

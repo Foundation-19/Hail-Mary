@@ -249,7 +249,7 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	if(rads_per_second)
 		AddComponent(/datum/component/radiation_area, rads_per_second)
 
-TYPE_PROC_REF(/area, reg_in_areas_in_z)()
+/area/proc/reg_in_areas_in_z()
 	if(contents.len)
 		var/list/areas_in_z = SSmapping.areas_in_z
 		var/z
@@ -288,7 +288,7 @@ TYPE_PROC_REF(/area, reg_in_areas_in_z)()
 	remove_from_weather_list()
 	return ..()
 
-TYPE_PROC_REF(/area, initialize_soundloop)()
+/area/proc/initialize_soundloop()
 	if(!islist(ambience_area))
 		ambience_area = null
 		return FALSE
@@ -301,7 +301,7 @@ TYPE_PROC_REF(/area, initialize_soundloop)()
 			GLOB.area_sound_loops[loopy] = new loopy(list(), FALSE)
 
 /// Adds the area to a list for weather to read when picking areas for weather
-TYPE_PROC_REF(/area, initialize_weather_list)()
+/area/proc/initialize_weather_list()
 	if(!weather_tags || !LAZYLEN(weather_tags) || isnull(weather_tags))
 		return FALSE
 	for(var/wethertag in weather_tags)
@@ -310,13 +310,13 @@ TYPE_PROC_REF(/area, initialize_weather_list)()
 		GLOB.area_weather_list[wethertag] |= src
 
 /// unAdds the area to a list for weather to read when picking areas for weather
-TYPE_PROC_REF(/area, remove_from_weather_list)()
+/area/proc/remove_from_weather_list()
 	if(!weather_tags || !LAZYLEN(weather_tags) || isnull(weather_tags))
 		return FALSE
 	for(var/unweather in weather_tags)
 		GLOB.area_weather_list[unweather] -= src
 
-TYPE_PROC_REF(/area, poweralert)(state, obj/source)
+/area/proc/poweralert(state, obj/source)
 	if (state != poweralm)
 		poweralm = state
 		if(istype(source))	//Only report power alarms on the z-level where the source is located.
@@ -347,7 +347,7 @@ TYPE_PROC_REF(/area, poweralert)(state, obj/source)
 				else
 					p.triggerAlarm("Power", src, cameras, source)
 
-TYPE_PROC_REF(/area, atmosalert)(danger_level, obj/source)
+/area/proc/atmosalert(danger_level, obj/source)
 	if(danger_level != atmosalm)
 		if (danger_level==2)
 
@@ -385,7 +385,7 @@ TYPE_PROC_REF(/area, atmosalert)(danger_level, obj/source)
 		return TRUE
 	return FALSE
 
-TYPE_PROC_REF(/area, ModifyFiredoors)(opening)
+/area/proc/ModifyFiredoors(opening)
 	if(firedoors)
 		firedoors_last_closed_on = world.time
 		for(var/FD in firedoors)
@@ -403,7 +403,7 @@ TYPE_PROC_REF(/area, ModifyFiredoors)(opening)
 				else if(!(D.density ^ opening))
 					INVOKE_ASYNC(D, (opening ? /obj/machinery/door/firedoor.proc/open : /obj/machinery/door/firedoor.proc/close))
 
-TYPE_PROC_REF(/area, firealert)(obj/source)
+/area/proc/firealert(obj/source)
 	if(always_unpowered == 1) //no fire alarms in space/asteroid
 		return
 
@@ -426,7 +426,7 @@ TYPE_PROC_REF(/area, firealert)(obj/source)
 
 	START_PROCESSING(SSobj, src)
 
-TYPE_PROC_REF(/area, firereset)(obj/source)
+/area/proc/firereset(obj/source)
 	if (fire)
 		set_fire_alarm_effects(FALSE)
 		ModifyFiredoors(TRUE)
@@ -450,13 +450,13 @@ TYPE_PROC_REF(/area, firereset)(obj/source)
 	if(firedoors_last_closed_on + 100 < world.time)	//every 10 seconds
 		ModifyFiredoors(FALSE)
 
-TYPE_PROC_REF(/area, close_and_lock_door)(obj/machinery/door/DOOR)
+/area/proc/close_and_lock_door(obj/machinery/door/DOOR)
 	set waitfor = FALSE
 	DOOR.close()
 	if(DOOR.density)
 		DOOR.lock()
 
-TYPE_PROC_REF(/area, burglaralert)(obj/trigger)
+/area/proc/burglaralert(obj/trigger)
 	if(always_unpowered) //no burglar alarms in space/asteroid
 		return
 
@@ -472,7 +472,7 @@ TYPE_PROC_REF(/area, burglaralert)(obj/trigger)
 			//Cancel silicon alert after 1 minute
 			addtimer(CALLBACK(SILICON, /mob/living/silicon.proc/cancelAlarm,"Burglar",src,trigger), 600)
 
-TYPE_PROC_REF(/area, set_fire_alarm_effects)(boolean)
+/area/proc/set_fire_alarm_effects(boolean)
 	fire = boolean
 	for(var/i in sub_areas)
 		var/area/A = i
@@ -485,7 +485,7 @@ TYPE_PROC_REF(/area, set_fire_alarm_effects)(boolean)
 	for(var/obj/machinery/light/L in get_sub_areas_contents(src))
 		L.update()
 
-TYPE_PROC_REF(/area, updateicon)()
+/area/proc/updateicon()
 /**
  * Update the icon state of the area
  *
@@ -514,7 +514,7 @@ TYPE_PROC_REF(/area, updateicon)()
 #define ENVIRON 3
 */
 
-TYPE_PROC_REF(/area, powered)(chan)		// return true if the area has power to given channel
+/area/proc/powered(chan)		// return true if the area has power to given channel
 
 	if(!requires_power)
 		return 1
@@ -535,7 +535,7 @@ TYPE_PROC_REF(/area, powered)(chan)		// return true if the area has power to giv
 
 // called when power status changes
 
-TYPE_PROC_REF(/area, power_change)()
+/area/proc/power_change()
 	for(var/obj/machinery/M in src)	// for each machine in the area
 		M.power_change()				// reverify power status (to update icons etc.)
 	if(sub_areas)
@@ -547,7 +547,7 @@ TYPE_PROC_REF(/area, power_change)()
 			INVOKE_ASYNC(A, PROC_REF(power_change))
 	update_icon()
 
-TYPE_PROC_REF(/area, usage)(chan)
+/area/proc/usage(chan)
 	switch(chan)
 		if(LIGHT)
 			. += used_light
@@ -568,7 +568,7 @@ TYPE_PROC_REF(/area, usage)(chan)
 			var/area/A = i
 			. += A.usage(chan)
 
-TYPE_PROC_REF(/area, addStaticPower)(value, powerchannel)
+/area/proc/addStaticPower(value, powerchannel)
 	switch(powerchannel)
 		if(STATIC_EQUIP)
 			static_equip += value
@@ -577,7 +577,7 @@ TYPE_PROC_REF(/area, addStaticPower)(value, powerchannel)
 		if(STATIC_ENVIRON)
 			static_environ += value
 
-TYPE_PROC_REF(/area, clear_usage)()
+/area/proc/clear_usage()
 	used_equip = 0
 	used_light = 0
 	used_environ = 0
@@ -586,7 +586,7 @@ TYPE_PROC_REF(/area, clear_usage)()
 			var/area/A = i
 			A.clear_usage()
 
-TYPE_PROC_REF(/area, use_power)(amount, chan)
+/area/proc/use_power(amount, chan)
 
 	switch(chan)
 		if(EQUIP)
@@ -632,10 +632,10 @@ TYPE_PROC_REF(/area, use_power)(amount, chan)
 			addtimer(CALLBACK(src, PROC_REF(play_ambient_sound_delayed), S, L), sound_delay, TIMER_STOPPABLE)
 			COOLDOWN_START(L.client, area_music_cooldown, music_to_play[SL_FILE_LENGTH] + sound_delay)
 
-TYPE_PROC_REF(/area, play_ambient_sound_delayed)(sound/to_play, mob/living/play_to)
+/area/proc/play_ambient_sound_delayed(sound/to_play, mob/living/play_to)
 	SEND_SOUND(play_to, to_play)
 
-TYPE_PROC_REF(/area, addremove_to_soundloop)(mob/living/player, add = TRUE)
+/area/proc/addremove_to_soundloop(mob/living/player, add = TRUE)
 	if(!ambience_area)
 		return
 	if(!islist(ambience_area))
@@ -657,7 +657,7 @@ TYPE_PROC_REF(/area, addremove_to_soundloop)(mob/living/player, add = TRUE)
 			our_loop.stop(player, kill = FALSE)
 
 ///Divides total beauty in the room by roomsize to allow us to get an average beauty per tile.
-TYPE_PROC_REF(/area, update_beauty)()
+/area/proc/update_beauty()
 	if(!areasize)
 		beauty = 0
 		return FALSE
@@ -671,7 +671,7 @@ TYPE_PROC_REF(/area, update_beauty)()
 	SEND_SIGNAL(M, COMSIG_EXIT_AREA, src) //The atom that exits the area
 	addremove_to_soundloop(M, FALSE)
 
-TYPE_PROC_REF(/area, setup)(a_name)
+/area/proc/setup(a_name)
 	name = a_name
 	power_equip = FALSE
 	power_light = FALSE
@@ -682,7 +682,7 @@ TYPE_PROC_REF(/area, setup)(a_name)
 	blob_allowed = FALSE
 	addSorted()
 
-TYPE_PROC_REF(/area, update_areasize)()
+/area/proc/update_areasize()
 	if(outdoors)
 		return FALSE
 	areasize = 0
@@ -696,5 +696,5 @@ TYPE_PROC_REF(/area, update_areasize)()
 	CRASH("Bad op: area/drop_location() called")
 
 // A hook so areas can modify the incoming args
-TYPE_PROC_REF(/area, PlaceOnTopReact)(list/new_baseturfs, turf/fake_turf_type, flags)
+/area/proc/PlaceOnTopReact(list/new_baseturfs, turf/fake_turf_type, flags)
 	return flags

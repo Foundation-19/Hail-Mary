@@ -113,7 +113,7 @@
 	shave(user, BODY_ZONE_HEAD)//doesnt need to be BODY_ZONE_HEAD specifically, but whatever
 	return BRUTELOSS
 
-TYPE_PROC_REF(/obj/item/razor, shave)(mob/living/carbon/human/H, location = BODY_ZONE_PRECISE_MOUTH)
+/obj/item/razor/proc/shave(mob/living/carbon/human/H, location = BODY_ZONE_PRECISE_MOUTH)
 	if(location == BODY_ZONE_PRECISE_MOUTH)
 		H.facial_hair_style = "Shaved"
 	else

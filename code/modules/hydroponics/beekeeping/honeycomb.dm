@@ -29,7 +29,7 @@
 	. += honey_overlay
 
 
-TYPE_PROC_REF(/obj/item/reagent_containers/honeycomb, set_reagent)(reagent)
+/obj/item/reagent_containers/honeycomb/proc/set_reagent(reagent)
 	var/datum/reagent/R = GLOB.chemical_reagents_list[reagent]
 	if(R)
 		name = "honeycomb ([R.name])"

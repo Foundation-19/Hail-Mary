@@ -60,7 +60,7 @@
 	if(holdingitems[A])
 		holdingitems -= A
 
-TYPE_PROC_REF(/obj/machinery/reagentgrinder, drop_all_items)()
+/obj/machinery/reagentgrinder/proc/drop_all_items()
 	for(var/i in holdingitems)
 		var/atom/movable/AM = i
 		AM.forceMove(drop_location())
@@ -72,7 +72,7 @@ TYPE_PROC_REF(/obj/machinery/reagentgrinder, drop_all_items)()
 	else
 		icon_state = "juicer0"
 
-TYPE_PROC_REF(/obj/machinery/reagentgrinder, replace_beaker)(mob/living/user, obj/item/reagent_containers/new_beaker)
+/obj/machinery/reagentgrinder/proc/replace_beaker(mob/living/user, obj/item/reagent_containers/new_beaker)
 	if(beaker)
 		beaker.forceMove(drop_location())
 		if(user && Adjacent(user) && user.can_hold_items())
@@ -218,7 +218,7 @@ TYPE_PROC_REF(/obj/machinery/reagentgrinder, replace_beaker)(mob/living/user, ob
 	if(istype(user) && user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
 		replace_beaker(user)
 
-TYPE_PROC_REF(/obj/machinery/reagentgrinder, eject)(mob/user)
+/obj/machinery/reagentgrinder/proc/eject(mob/user)
 	for(var/i in holdingitems)
 		var/obj/item/O = i
 		O.forceMove(drop_location())
@@ -226,21 +226,21 @@ TYPE_PROC_REF(/obj/machinery/reagentgrinder, eject)(mob/user)
 	if(beaker)
 		replace_beaker(user)
 
-TYPE_PROC_REF(/obj/machinery/reagentgrinder, remove_object)(obj/item/O)
+/obj/machinery/reagentgrinder/proc/remove_object(obj/item/O)
 	holdingitems -= O
 	qdel(O)
 
-TYPE_PROC_REF(/obj/machinery/reagentgrinder, shake_for)(duration)
+/obj/machinery/reagentgrinder/proc/shake_for(duration)
 	var/offset = prob(50) ? -2 : 2
 	var/old_pixel_x = pixel_x
 	animate(src, pixel_x = pixel_x + offset, time = 0.2, loop = -1) //start shaking
 	addtimer(CALLBACK(src, PROC_REF(stop_shaking), old_pixel_x), duration)
 
-TYPE_PROC_REF(/obj/machinery/reagentgrinder, stop_shaking)(old_px)
+/obj/machinery/reagentgrinder/proc/stop_shaking(old_px)
 	animate(src)
 	pixel_x = old_px
 
-TYPE_PROC_REF(/obj/machinery/reagentgrinder, operate_for)(time, silent = FALSE, juicing = FALSE)
+/obj/machinery/reagentgrinder/proc/operate_for(time, silent = FALSE, juicing = FALSE)
 	shake_for(time / speed)
 	operating = TRUE
 	if(!silent)
@@ -250,10 +250,10 @@ TYPE_PROC_REF(/obj/machinery/reagentgrinder, operate_for)(time, silent = FALSE, 
 			playsound(src, 'sound/machines/juicer.ogg', 20, 1)
 	addtimer(CALLBACK(src, PROC_REF(stop_operating)), time / speed)
 
-TYPE_PROC_REF(/obj/machinery/reagentgrinder, stop_operating)()
+/obj/machinery/reagentgrinder/proc/stop_operating()
 	operating = FALSE
 
-TYPE_PROC_REF(/obj/machinery/reagentgrinder, juice)()
+/obj/machinery/reagentgrinder/proc/juice()
 	power_change()
 	if(!beaker || stat & (NOPOWER|BROKEN) || beaker.reagents.total_volume >= beaker.reagents.maximum_volume)
 		return
@@ -265,14 +265,14 @@ TYPE_PROC_REF(/obj/machinery/reagentgrinder, juice)()
 		if(I.juice_results)
 			juice_item(I)
 
-TYPE_PROC_REF(/obj/machinery/reagentgrinder, juice_item)(obj/item/I) //Juicing results can be found in respective object definitions
+/obj/machinery/reagentgrinder/proc/juice_item(obj/item/I) //Juicing results can be found in respective object definitions
 	if(I.on_juice(src) == -1)
 		to_chat(usr, span_danger("[src] shorts out as it tries to juice up [I], and transfers it back to storage."))
 		return
 	beaker.reagents.add_reagent_list(I.juice_results)
 	remove_object(I)
 
-TYPE_PROC_REF(/obj/machinery/reagentgrinder, grind)()
+/obj/machinery/reagentgrinder/proc/grind()
 	power_change()
 	if(!beaker || stat & (NOPOWER|BROKEN) || beaker.reagents.total_volume >= beaker.reagents.maximum_volume)
 		return
@@ -284,7 +284,7 @@ TYPE_PROC_REF(/obj/machinery/reagentgrinder, grind)()
 		if(I.grind_results)
 			grind_item(i)
 
-TYPE_PROC_REF(/obj/machinery/reagentgrinder, grind_item)(obj/item/I) //Grind results can be found in respective object definitions
+/obj/machinery/reagentgrinder/proc/grind_item(obj/item/I) //Grind results can be found in respective object definitions
 	if(I.on_grind(src) == -1) //Call on_grind() to change amount as needed, and stop grinding the item if it returns -1
 		to_chat(usr, span_danger("[src] shorts out as it tries to grind up [I], and transfers it back to storage."))
 		return
@@ -293,15 +293,15 @@ TYPE_PROC_REF(/obj/machinery/reagentgrinder, grind_item)(obj/item/I) //Grind res
 		I.reagents.trans_to(beaker, I.reagents.total_volume)
 	remove_object(I)
 
-TYPE_PROC_REF(/obj/machinery/reagentgrinder, mix)(mob/user)
+/obj/machinery/reagentgrinder/proc/mix(mob/user)
 	//For butter and other things that would change upon shaking or mixing
 	power_change()
 	if(!beaker || stat & (NOPOWER|BROKEN))
 		return
 	operate_for(50, juicing = TRUE)
-	addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/machinery/reagentgrinder, mix_complete)), 50)
+	addtimer(CALLBACK(src, /obj/machinery/reagentgrinder/proc/mix_complete), 50)
 
-TYPE_PROC_REF(/obj/machinery/reagentgrinder, mix_complete)()
+/obj/machinery/reagentgrinder/proc/mix_complete()
 	if(beaker?.reagents.total_volume)
 		//Recipe to make Butter
 		var/butter_amt = FLOOR(beaker.reagents.get_reagent_amount(/datum/reagent/consumable/milk) / MILK_TO_BUTTER_COEFF, 1)

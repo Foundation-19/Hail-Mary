@@ -39,7 +39,7 @@
 		user.update_sight()
 
 //called when thermal glasses are emped.
-TYPE_PROC_REF(/obj/item/clothing/glasses, thermal_overload)()
+/obj/item/clothing/glasses/proc/thermal_overload()
 	if(!ishuman(loc))
 		return
 	var/mob/living/carbon/human/H = loc
@@ -51,7 +51,7 @@ TYPE_PROC_REF(/obj/item/clothing/glasses, thermal_overload)()
 		H.blur_eyes(5)
 		eyes.applyOrganDamage(5)
 
-TYPE_PROC_REF(/obj/item/clothing/glasses, ranged_attack)(mob/living/carbon/human/user,atom/A, params)
+/obj/item/clothing/glasses/proc/ranged_attack(mob/living/carbon/human/user,atom/A, params)
 	return FALSE
 
 /obj/item/clothing/glasses/meson
@@ -529,7 +529,7 @@ TYPE_PROC_REF(/obj/item/clothing/glasses, ranged_attack)(mob/living/carbon/human
 			H.update_glasses_color(src, 1)
 		return TRUE
 
-TYPE_PROC_REF(/obj/item/clothing/glasses, change_glass_color)(mob/living/carbon/human/H, datum/client_colour/glass_colour/new_color_type)
+/obj/item/clothing/glasses/proc/change_glass_color(mob/living/carbon/human/H, datum/client_colour/glass_colour/new_color_type)
 	var/old_colour_type = glass_colour_type
 	if(!new_color_type || ispath(new_color_type)) //the new glass colour type must be null or a path.
 		glass_colour_type = new_color_type
@@ -540,7 +540,7 @@ TYPE_PROC_REF(/obj/item/clothing/glasses, change_glass_color)(mob/living/carbon/
 				H.update_glasses_color(src, 1)
 
 
-TYPE_PROC_REF(/mob/living/carbon/human, update_glasses_color)(obj/item/clothing/glasses/G, glasses_equipped)
+/mob/living/carbon/human/proc/update_glasses_color(obj/item/clothing/glasses/G, glasses_equipped)
 	if(client && client.prefs.uses_glasses_colour && glasses_equipped)
 		add_client_colour(G.glass_colour_type)
 	else

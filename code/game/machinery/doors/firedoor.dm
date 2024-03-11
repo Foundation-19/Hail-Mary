@@ -46,7 +46,7 @@
 	else
 		. += "<span class='notice'>The bolt locks have been <i>unscrewed</i>, but the bolts themselves are still <b>wrenched</b> to the floor.</span>"
 
-TYPE_PROC_REF(/obj/machinery/door/firedoor, CalculateAffectingAreas)()
+/obj/machinery/door/firedoor/proc/CalculateAffectingAreas()
 	remove_from_areas()
 	affecting_areas = get_adjacent_open_areas(src) | get_base_area(src)
 	for(var/I in affecting_areas)
@@ -60,7 +60,7 @@ TYPE_PROC_REF(/obj/machinery/door/firedoor, CalculateAffectingAreas)()
 
 //see also turf/AfterChange for adjacency shennanigans
 
-TYPE_PROC_REF(/obj/machinery/door/firedoor, remove_from_areas)()
+/obj/machinery/door/firedoor/proc/remove_from_areas()
 	if(affecting_areas)
 		for(var/I in affecting_areas)
 			var/area/A = I
@@ -152,7 +152,7 @@ TYPE_PROC_REF(/obj/machinery/door/firedoor, remove_from_areas)()
 	else
 		close()
 
-TYPE_PROC_REF(/obj/machinery/door/firedoor, allow_hand_open)(mob/user)
+/obj/machinery/door/firedoor/proc/allow_hand_open(mob/user)
 	var/area/A = get_area(src)
 	if(A && A.fire)
 		return FALSE
@@ -204,7 +204,7 @@ TYPE_PROC_REF(/obj/machinery/door/firedoor, allow_hand_open)(mob/user)
 	. = ..()
 	latetoggle()
 
-TYPE_PROC_REF(/obj/machinery/door/firedoor, whack_a_mole)(reconsider_immediately = FALSE)
+/obj/machinery/door/firedoor/proc/whack_a_mole(reconsider_immediately = FALSE)
 	set waitfor = 0
 	for(var/cdir in GLOB.cardinals)
 		if((flags_1 & ON_BORDER_1) && cdir != dir)
@@ -213,7 +213,7 @@ TYPE_PROC_REF(/obj/machinery/door/firedoor, whack_a_mole)(reconsider_immediately
 	if(flags_1 & ON_BORDER_1)
 		whack_a_mole_part(get_turf(src), reconsider_immediately)
 
-TYPE_PROC_REF(/obj/machinery/door/firedoor, whack_a_mole_part)(turf/start_point, reconsider_immediately)
+/obj/machinery/door/firedoor/proc/whack_a_mole_part(turf/start_point, reconsider_immediately)
 	set waitfor = 0
 	var/list/doors_to_close = list()
 	var/list/turfs = list()
@@ -252,7 +252,7 @@ TYPE_PROC_REF(/obj/machinery/door/firedoor, whack_a_mole_part)(turf/start_point,
 			if(istype(T))
 				T.ImmediateCalculateAdjacentTurfs()
 
-TYPE_PROC_REF(/obj/machinery/door/firedoor, emergency_pressure_stop)(consider_timer = TRUE)
+/obj/machinery/door/firedoor/proc/emergency_pressure_stop(consider_timer = TRUE)
 	set waitfor = 0
 	if(density || operating || welded)
 		return
@@ -271,7 +271,7 @@ TYPE_PROC_REF(/obj/machinery/door/firedoor, emergency_pressure_stop)(consider_ti
 	qdel(src)
 
 
-TYPE_PROC_REF(/obj/machinery/door/firedoor, latetoggle)()
+/obj/machinery/door/firedoor/proc/latetoggle()
 	if(operating || stat & NOPOWER || !nextstate)
 		return
 	switch(nextstate)
@@ -333,7 +333,7 @@ TYPE_PROC_REF(/obj/machinery/door/firedoor, latetoggle)()
 		return FALSE
 	return TRUE
 
-TYPE_PROC_REF(/obj/machinery/door/firedoor/border_only, check_door_side)(turf/open/start_point)
+/obj/machinery/door/firedoor/border_only/proc/check_door_side(turf/open/start_point)
 	var/list/turfs = list()
 	turfs[start_point] = 1
 	for(var/i = 1; (i <= turfs.len && i <= 11); i++) // check up to 11 turfs.

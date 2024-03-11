@@ -37,7 +37,7 @@
 		return
 	spawn_mob()
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile/spawner, spawn_mob)()
+/mob/living/simple_animal/hostile/spawner/proc/spawn_mob()
 	if(spawned_mobs.len >= max_mobs)
 		return 0
 	if(spawn_delay > world.time)

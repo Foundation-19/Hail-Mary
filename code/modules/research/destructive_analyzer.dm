@@ -21,7 +21,7 @@ Note: Must be placed within 3 tiles of the R&D Console
 	decon_mod = T
 
 
-TYPE_PROC_REF(/obj/machinery/rnd/destructive_analyzer, ConvertReqString2List)(list/source_list)
+/obj/machinery/rnd/destructive_analyzer/proc/ConvertReqString2List(list/source_list)
 	var/list/temp_list = params2list(source_list)
 	for(var/O in temp_list)
 		temp_list[O] = text2num(temp_list[O])
@@ -47,7 +47,7 @@ TYPE_PROC_REF(/obj/machinery/rnd/destructive_analyzer, ConvertReqString2List)(li
 		if (linked_console)
 			linked_console.updateUsrDialog()
 
-TYPE_PROC_REF(/obj/machinery/rnd/destructive_analyzer, finish_loading)()
+/obj/machinery/rnd/destructive_analyzer/proc/finish_loading()
 	update_icon()
 	reset_busy()
 
@@ -57,7 +57,7 @@ TYPE_PROC_REF(/obj/machinery/rnd/destructive_analyzer, finish_loading)()
 	else
 		icon_state = initial(icon_state)
 
-TYPE_PROC_REF(/obj/machinery/rnd/destructive_analyzer, reclaim_materials_from)(obj/item/thing)
+/obj/machinery/rnd/destructive_analyzer/proc/reclaim_materials_from(obj/item/thing)
 	. = 0
 	var/datum/component/material_container/storage = linked_console?.linked_lathe?.materials.mat_container
 	if(storage) //Also sends salvaged materials to a linked protolathe, if any.
@@ -68,7 +68,7 @@ TYPE_PROC_REF(/obj/machinery/rnd/destructive_analyzer, reclaim_materials_from)(o
 		if (.)
 			linked_console.linked_lathe.materials.silo_log(src, "reclaimed", 1, "[thing.name]", thing.custom_materials)
 
-TYPE_PROC_REF(/obj/machinery/rnd/destructive_analyzer, destroy_item)(obj/item/thing, innermode = FALSE)
+/obj/machinery/rnd/destructive_analyzer/proc/destroy_item(obj/item/thing, innermode = FALSE)
 	if(QDELETED(thing) || QDELETED(src) || QDELETED(linked_console))
 		return FALSE
 	if(!innermode)
@@ -97,7 +97,7 @@ TYPE_PROC_REF(/obj/machinery/rnd/destructive_analyzer, destroy_item)(obj/item/th
 		update_icon()
 	return TRUE
 
-TYPE_PROC_REF(/obj/machinery/rnd/destructive_analyzer, user_try_decon_id)(id, mob/user)
+/obj/machinery/rnd/destructive_analyzer/proc/user_try_decon_id(id, mob/user)
 	if(!istype(loaded_item) || !istype(linked_console))
 		return FALSE
 
@@ -154,7 +154,7 @@ TYPE_PROC_REF(/obj/machinery/rnd/destructive_analyzer, user_try_decon_id)(id, mo
 
 	return TRUE
 
-TYPE_PROC_REF(/obj/machinery/rnd/destructive_analyzer, unload_item)()
+/obj/machinery/rnd/destructive_analyzer/proc/unload_item()
 	if(!loaded_item)
 		return FALSE
 	loaded_item.forceMove(get_turf(src))

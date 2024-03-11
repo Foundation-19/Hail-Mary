@@ -53,7 +53,7 @@
 	sound = 'sound/misc/notice2.ogg',
 	sender_override = "Nanotrasen Meteorology Division")
 
-TYPE_PROC_REF(/datum/round_event/aurora_caelus, fade_to_black)(turf/open/space/S)
+/datum/round_event/aurora_caelus/proc/fade_to_black(turf/open/space/S)
 	set waitfor = FALSE
 	var/new_light = initial(S.light_range)
 	while(S.light_range > new_light)

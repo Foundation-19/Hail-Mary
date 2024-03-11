@@ -29,7 +29,7 @@
 	. = ..()
 	UnregisterSignal(M, COMSIG_MOB_SAY)
 
-TYPE_PROC_REF(/obj/item/megaphone, handle_speech)(mob/living/carbon/user, list/speech_args)
+/obj/item/megaphone/proc/handle_speech(mob/living/carbon/user, list/speech_args)
 	if (user.get_active_held_item() == src)
 		if(spamcheck > world.time)
 			to_chat(user, span_warning("\The [src] needs to recharge!"))

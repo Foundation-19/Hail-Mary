@@ -49,7 +49,7 @@ Notes:
 	..()
 
 
-TYPE_PROC_REF(/datum/tooltip, show)(atom/movable/thing, params = null, title = null, content = null, theme = "default", special = "none")
+/datum/tooltip/proc/show(atom/movable/thing, params = null, title = null, content = null, theme = "default", special = "none")
 	if (!thing || !params || (!title && !content) || !owner || !isnum(world.icon_size))
 		return 0
 	if (!init)
@@ -86,7 +86,7 @@ TYPE_PROC_REF(/datum/tooltip, show)(atom/movable/thing, params = null, title = n
 	return 1
 
 
-TYPE_PROC_REF(/datum/tooltip, hide)()
+/datum/tooltip/proc/hide()
 	if (queueHide)
 		addtimer(CALLBACK(src, PROC_REF(do_hide)), 1)
 	else
@@ -96,7 +96,7 @@ TYPE_PROC_REF(/datum/tooltip, hide)()
 
 	return TRUE
 
-TYPE_PROC_REF(/datum/tooltip, do_hide)()
+/datum/tooltip/proc/do_hide()
 	winshow(owner, control, FALSE)
 
 /* TG SPECIFIC CODE */

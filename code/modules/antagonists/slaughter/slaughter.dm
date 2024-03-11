@@ -123,7 +123,7 @@
 	release_victims()
 	. = ..()
 
-TYPE_PROC_REF(/mob/living/simple_animal/slaughter, release_victims)()
+/mob/living/simple_animal/slaughter/proc/release_victims()
 	if(!consumed_mobs)
 		return
 
@@ -135,7 +135,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/slaughter, release_victims)()
 			T = get_turf(src)
 		M.forceMove(T)
 
-TYPE_PROC_REF(/mob/living/simple_animal/slaughter, refresh_consumed_buff)()
+/mob/living/simple_animal/slaughter/proc/refresh_consumed_buff()
 	melee_damage_lower = 22.5 + (0.5 * consumed_buff)
 	melee_damage_upper = 22.5 + (1 * consumed_buff)
 

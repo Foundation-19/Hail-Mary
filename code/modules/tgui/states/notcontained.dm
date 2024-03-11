@@ -17,7 +17,7 @@ GLOBAL_DATUM_INIT(notcontained_state, /datum/ui_state/notcontained_state, new)
 	if(. > UI_CLOSE)
 		return min(., user.notcontained_can_use_topic(src_object))
 
-TYPE_PROC_REF(/mob, notcontained_can_use_topic)(src_object)
+/mob/proc/notcontained_can_use_topic(src_object)
 	return UI_CLOSE
 
 /mob/living/notcontained_can_use_topic(atom/src_object)

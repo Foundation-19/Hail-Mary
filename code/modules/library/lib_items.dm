@@ -231,7 +231,7 @@
 	. = ..()
 	show_to(O)
 
-TYPE_PROC_REF(/obj/item/book, show_to)(mob/user)
+/obj/item/book/proc/show_to(mob/user)
 	user << browse("<TT><I>Penned by [author].</I></TT> <BR>" + "[dat]", "window=book[window_size != null ? ";size=[window_size]" : ""]")
 
 /obj/item/book/attackby(obj/item/I, mob/user, params)

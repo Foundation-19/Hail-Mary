@@ -60,7 +60,7 @@
 	return "Infernal creatures have been seen nearby offering great boons in exchange for souls.  This is considered theft against Nanotrasen, as all employment contracts contain a lien on the \
 			employee's soul.  If anyone sells their soul in error, contact an attorney to overrule the sale.  Be warned that if the devil purchases enough souls, a gateway to hell may open."
 
-TYPE_PROC_REF(/datum/game_mode/devil, post_setup_finalize)(datum/mind/devil)
+/datum/game_mode/devil/proc/post_setup_finalize(datum/mind/devil)
 	add_devil(devil.current, ascendable = TRUE) //Devil gamemode devils are ascendable.
 	add_devil_objectives(devil,2)
 

@@ -39,7 +39,7 @@
 		reattach_to_layer()
 	return ..()
 
-TYPE_PROC_REF(/obj/machinery/meter, reattach_to_layer)()
+/obj/machinery/meter/proc/reattach_to_layer()
 	var/obj/machinery/atmospherics/candidate
 	for(var/obj/machinery/atmospherics/pipe/pipe in loc)
 		if(pipe.piping_layer == target_layer)
@@ -50,7 +50,7 @@ TYPE_PROC_REF(/obj/machinery/meter, reattach_to_layer)()
 		target = candidate
 		setAttachLayer(candidate.piping_layer)
 
-TYPE_PROC_REF(/obj/machinery/meter, setAttachLayer)(new_layer)
+/obj/machinery/meter/proc/setAttachLayer(new_layer)
 	target_layer = new_layer
 	PIPING_LAYER_DOUBLE_SHIFT(src, target_layer)
 
@@ -99,7 +99,7 @@ TYPE_PROC_REF(/obj/machinery/meter, setAttachLayer)(new_layer)
 		))
 		radio_connection.post_signal(src, signal)
 
-TYPE_PROC_REF(/obj/machinery/meter, status)()
+/obj/machinery/meter/proc/status()
 	if (target)
 		var/datum/gas_mixture/environment = target.return_air()
 		if(environment)

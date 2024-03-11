@@ -59,14 +59,14 @@
 	return ..()
 
 
-TYPE_PROC_REF(/datum/antagonist/heretic, equip_cultist)()
+/datum/antagonist/heretic/proc/equip_cultist()
 	var/mob/living/carbon/H = owner.current
 	if(!istype(H))
 		return
 	. += ecult_give_item(/obj/item/forbidden_book, H)
 	. += ecult_give_item(/obj/item/living_heart, H)
 
-TYPE_PROC_REF(/datum/antagonist/heretic, ecult_give_item)(obj/item/item_path, mob/living/carbon/human/H)
+/datum/antagonist/heretic/proc/ecult_give_item(obj/item/item_path, mob/living/carbon/human/H)
 	var/list/slots = list(
 		"backpack" = SLOT_IN_BACKPACK,
 		"left pocket" = SLOT_L_STORE,
@@ -91,7 +91,7 @@ TYPE_PROC_REF(/datum/antagonist/heretic, ecult_give_item)(obj/item/item_path, mo
 		var/datum/eldritch_knowledge/EK = researched_knowledge[X]
 		EK.on_life(owner.current)
 
-TYPE_PROC_REF(/datum/antagonist/heretic, forge_primary_objectives)()
+/datum/antagonist/heretic/proc/forge_primary_objectives()
 	var/list/assasination = list()
 	var/list/protection = list()
 	for(var/i in 1 to 2)
@@ -179,7 +179,7 @@ TYPE_PROC_REF(/datum/antagonist/heretic, forge_primary_objectives)()
 // Knowledge //
 ////////////////
 
-TYPE_PROC_REF(/datum/antagonist/heretic, gain_knowledge)(datum/eldritch_knowledge/EK)
+/datum/antagonist/heretic/proc/gain_knowledge(datum/eldritch_knowledge/EK)
 	if(get_knowledge(EK))
 		return FALSE
 	var/datum/eldritch_knowledge/initialized_knowledge = new EK
@@ -187,7 +187,7 @@ TYPE_PROC_REF(/datum/antagonist/heretic, gain_knowledge)(datum/eldritch_knowledg
 	initialized_knowledge.on_gain(owner.current)
 	return TRUE
 
-TYPE_PROC_REF(/datum/antagonist/heretic, get_researchable_knowledge)()
+/datum/antagonist/heretic/proc/get_researchable_knowledge()
 	var/list/researchable_knowledge = list()
 	var/list/banned_knowledge = list()
 	for(var/X in researched_knowledge)
@@ -198,10 +198,10 @@ TYPE_PROC_REF(/datum/antagonist/heretic, get_researchable_knowledge)()
 	researchable_knowledge -= banned_knowledge
 	return researchable_knowledge
 
-TYPE_PROC_REF(/datum/antagonist/heretic, get_knowledge)(wanted)
+/datum/antagonist/heretic/proc/get_knowledge(wanted)
 	return researched_knowledge[wanted]
 
-TYPE_PROC_REF(/datum/antagonist/heretic, get_all_knowledge)()
+/datum/antagonist/heretic/proc/get_all_knowledge()
 	return researched_knowledge
 
 /datum/antagonist/heretic/threat()

@@ -16,7 +16,7 @@
 /datum/atmosphere/New()
 	generate_gas_string()
 
-TYPE_PROC_REF(/datum/atmosphere, generate_gas_string)()
+/datum/atmosphere/proc/generate_gas_string()
 	var/list/spicy_gas = restricted_gases.Copy()
 	var/target_pressure = rand(minimum_pressure, maximum_pressure)
 	var/pressure_scale = target_pressure / maximum_pressure

@@ -40,13 +40,13 @@
 	. = ..()
 	deconstruction_hints(user)
 
-TYPE_PROC_REF(/turf/closed/wall, deconstruction_hints)(mob/user)
+/turf/closed/wall/proc/deconstruction_hints(mob/user)
 	return "<span class='notice'>The outer plating is <b>welded</b> firmly in place.</span>"
 
 /turf/closed/wall/attack_tk()
 	return
 
-TYPE_PROC_REF(/turf/closed/wall, dismantle_wall)(devastated=0, explode=0)
+/turf/closed/wall/proc/dismantle_wall(devastated=0, explode=0)
 	if(devastated)
 		devastate_wall()
 	else
@@ -62,13 +62,13 @@ TYPE_PROC_REF(/turf/closed/wall, dismantle_wall)(devastated=0, explode=0)
 
 	ScrapeAway()
 
-TYPE_PROC_REF(/turf/closed/wall, break_wall)()
+/turf/closed/wall/proc/break_wall()
 	if(sheet_type)
 		new sheet_type(src, sheet_amount)
 	if(girder_type)
 		return new girder_type(src)
 
-TYPE_PROC_REF(/turf/closed/wall, devastate_wall)()
+/turf/closed/wall/proc/devastate_wall()
 	if(sheet_type)
 		new sheet_type(src, sheet_amount)
 	if(girder_type)
@@ -164,7 +164,7 @@ TYPE_PROC_REF(/turf/closed/wall, devastate_wall)()
  **arg1 is the arm to deal damage to.
  **arg2 is the hulk
  */
-TYPE_PROC_REF(/turf/closed/wall, hulk_recoil)(obj/item/bodypart/arm, mob/living/carbon/human/hulkman, damage = 20)
+/turf/closed/wall/proc/hulk_recoil(obj/item/bodypart/arm, mob/living/carbon/human/hulkman, damage = 20)
 	arm.receive_damage(brute = damage, blocked = 0, wound_bonus = CANT_WOUND)
 	var/datum/mutation/human/hulk/smasher = locate(/datum/mutation/human/hulk) in hulkman.dna.mutations
 	if(!smasher || !damage) //sanity check but also snow and wood walls deal no recoil damage, so no arm breaky
@@ -199,7 +199,7 @@ TYPE_PROC_REF(/turf/closed/wall, hulk_recoil)(obj/item/bodypart/arm, mob/living/
 
 	return ..()
 
-TYPE_PROC_REF(/turf/closed/wall, try_clean)(obj/item/W, mob/user, turf/T)
+/turf/closed/wall/proc/try_clean(obj/item/W, mob/user, turf/T)
 	if((user.a_intent != INTENT_HELP) || !LAZYLEN(dent_decals))
 		return FALSE
 
@@ -217,7 +217,7 @@ TYPE_PROC_REF(/turf/closed/wall, try_clean)(obj/item/W, mob/user, turf/T)
 
 	return FALSE
 
-TYPE_PROC_REF(/turf/closed/wall, try_wallmount)(obj/item/W, mob/user, turf/T)
+/turf/closed/wall/proc/try_wallmount(obj/item/W, mob/user, turf/T)
 	//check for wall mounted frames
 	if(istype(W, /obj/item/wallframe))
 		var/obj/item/wallframe/F = W
@@ -240,7 +240,7 @@ TYPE_PROC_REF(/turf/closed/wall, try_wallmount)(obj/item/W, mob/user, turf/T)
 
 	return FALSE
 
-TYPE_PROC_REF(/turf/closed/wall, try_decon)(obj/item/I, mob/user, turf/T)
+/turf/closed/wall/proc/try_decon(obj/item/I, mob/user, turf/T)
 	if(istype(I, /obj/item/weldingtool) || istype(I, /obj/item/gun/energy/plasmacutter))
 		if(!I.tool_start_check(user, amount=0))
 			return FALSE
@@ -255,7 +255,7 @@ TYPE_PROC_REF(/turf/closed/wall, try_decon)(obj/item/I, mob/user, turf/T)
 	return FALSE
 
 
-TYPE_PROC_REF(/turf/closed/wall, try_destroy)(obj/item/I, mob/user, turf/T)
+/turf/closed/wall/proc/try_destroy(obj/item/I, mob/user, turf/T)
 	if(istype(I, /obj/item/pickaxe/drill/jackhammer))
 		to_chat(user, span_notice("You begin to smash though [src]..."))
 		if(do_after(user, 70, target = src))
@@ -312,7 +312,7 @@ TYPE_PROC_REF(/turf/closed/wall, try_destroy)(obj/item/I, mob/user, turf/T)
 			return TRUE
 	return FALSE
 
-TYPE_PROC_REF(/turf/closed/wall, add_dent)(denttype, x=rand(-8, 8), y=rand(-8, 8))
+/turf/closed/wall/proc/add_dent(denttype, x=rand(-8, 8), y=rand(-8, 8))
 	if(LAZYLEN(dent_decals) >= MAX_DENT_DECALS)
 		return
 

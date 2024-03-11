@@ -102,7 +102,7 @@
 /**
  *Swaps the card_slot hardware between using the dedicated card slot bay on a computer, and using an expansion bay.
 */
-TYPE_PROC_REF(/obj/item/computer_hardware/card_slot, swap_slot)()
+/obj/item/computer_hardware/card_slot/proc/swap_slot()
 	expansion_hw = !expansion_hw
 	if(expansion_hw)
 		device_type = MC_CARD2

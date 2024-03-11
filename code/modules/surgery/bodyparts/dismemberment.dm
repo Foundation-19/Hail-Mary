@@ -1,10 +1,10 @@
 
-TYPE_PROC_REF(/obj/item/bodypart, can_dismember)(obj/item/I)
+/obj/item/bodypart/proc/can_dismember(obj/item/I)
 	if(dismemberable)
 		return TRUE
 
 //Dismember a limb
-TYPE_PROC_REF(/obj/item/bodypart, dismember)(dam_type = BRUTE, silent=TRUE)
+/obj/item/bodypart/proc/dismember(dam_type = BRUTE, silent=TRUE)
 	if(!owner)
 		return FALSE
 	var/mob/living/carbon/C = owner
@@ -83,7 +83,7 @@ TYPE_PROC_REF(/obj/item/bodypart, dismember)(dam_type = BRUTE, silent=TRUE)
 		C.visible_message("<span class='danger'><B>[C]'s internal organs spill out onto the floor!</B></span>")
 
 //limb removal. The "special" argument is used for swapping a limb with a new one without the effects of losing a limb kicking in.
-TYPE_PROC_REF(/obj/item/bodypart, drop_limb)(special, dismembered)
+/obj/item/bodypart/proc/drop_limb(special, dismembered)
 	if(!owner)
 		return
 	var/atom/Tsec = owner.drop_location()
@@ -161,7 +161,7 @@ TYPE_PROC_REF(/obj/item/bodypart, drop_limb)(special, dismembered)
  *
  * Returns: BODYPART_MANGLED_NONE if we're fine, BODYPART_MANGLED_FLESH if our skin is broken, BODYPART_MANGLED_BONE if our bone is broken, or BODYPART_MANGLED_BOTH if both are broken and we're up for dismembering
  */
-TYPE_PROC_REF(/obj/item/bodypart, get_mangled_state)()
+/obj/item/bodypart/proc/get_mangled_state()
 	. = BODYPART_MANGLED_NONE
 
 	for(var/i in wounds)
@@ -174,7 +174,7 @@ TYPE_PROC_REF(/obj/item/bodypart, get_mangled_state)()
 /**
  * try_dismember() is used, once we've confirmed that a flesh and bone bodypart has both the skin and bone mangled, to actually roll for it
  *
- * Mangling is described in the above proc, [TYPE_PROC_REF(/obj/item/bodypart, get_mangled_state)()]. This simply makes the roll for whether we actually dismember or not
+ * Mangling is described in the above proc, [/obj/item/bodypart/proc/get_mangled_state()]. This simply makes the roll for whether we actually dismember or not
  * using how damaged the limb already is, and how much damage this blow was for. If we have a critical bone wound instead of just a severe, we add +10% to the roll.
  * Lastly, we choose which kind of dismember we want based on the wounding type we hit with. Note we don't care about all the normal mods or armor for this
  *
@@ -184,7 +184,7 @@ TYPE_PROC_REF(/obj/item/bodypart, get_mangled_state)()
  * * wound_bonus: Not actually used right now, but maybe someday
  * * bare_wound_bonus: ditto above
  */
-TYPE_PROC_REF(/obj/item/bodypart, try_dismember)(wounding_type, wounding_dmg, wound_bonus, bare_wound_bonus)
+/obj/item/bodypart/proc/try_dismember(wounding_type, wounding_dmg, wound_bonus, bare_wound_bonus)
 	if(wounding_dmg < DISMEMBER_MINIMUM_DAMAGE)
 		return
 
@@ -201,7 +201,7 @@ TYPE_PROC_REF(/obj/item/bodypart, try_dismember)(wounding_type, wounding_dmg, wo
 	return TRUE
 
 //when a limb is dropped, the internal organs are removed from the mob and put into the limb
-TYPE_PROC_REF(/obj/item/organ, transfer_to_limb)(obj/item/bodypart/LB, mob/living/carbon/C)
+/obj/item/organ/proc/transfer_to_limb(obj/item/bodypart/LB, mob/living/carbon/C)
 	Remove()
 	forceMove(LB)
 
@@ -306,7 +306,7 @@ TYPE_PROC_REF(/obj/item/organ, transfer_to_limb)(obj/item/bodypart/LB, mob/livin
 	..()
 
 //Attach a limb to a human and drop any existing limb of that type.
-TYPE_PROC_REF(/obj/item/bodypart, replace_limb)(mob/living/carbon/C, special)
+/obj/item/bodypart/proc/replace_limb(mob/living/carbon/C, special)
 	if(!istype(C))
 		return
 	var/obj/item/bodypart/O = C.get_bodypart(body_zone)
@@ -325,7 +325,7 @@ TYPE_PROC_REF(/obj/item/bodypart, replace_limb)(mob/living/carbon/C, special)
 			O.drop_limb(1)
 	attach_limb(C, special)
 
-TYPE_PROC_REF(/obj/item/bodypart, attach_limb)(mob/living/carbon/C, special)
+/obj/item/bodypart/proc/attach_limb(mob/living/carbon/C, special)
 	moveToNullspace()
 	owner = C
 	C.bodyparts += src
@@ -406,7 +406,7 @@ TYPE_PROC_REF(/obj/item/bodypart, attach_limb)(mob/living/carbon/C, special)
 
 
 //Regenerates all limbs. Returns amount of limbs regenerated
-TYPE_PROC_REF(/mob/living, regenerate_limbs)(noheal = FALSE, list/excluded_limbs = list())
+/mob/living/proc/regenerate_limbs(noheal = FALSE, list/excluded_limbs = list())
 	SEND_SIGNAL(src, COMSIG_LIVING_REGENERATE_LIMBS, noheal, excluded_limbs)
 
 /mob/living/carbon/regenerate_limbs(noheal = FALSE, list/excluded_limbs = list())
@@ -417,7 +417,7 @@ TYPE_PROC_REF(/mob/living, regenerate_limbs)(noheal = FALSE, list/excluded_limbs
 	for(var/Z in limb_list)
 		. += regenerate_limb(Z, noheal)
 
-TYPE_PROC_REF(/mob/living, regenerate_limb)(limb_zone, noheal)
+/mob/living/proc/regenerate_limb(limb_zone, noheal)
 	return
 
 /mob/living/carbon/regenerate_limb(limb_zone, noheal)

@@ -41,7 +41,7 @@
 	. = ..()
 	. += "<span class='info'>It's integrated integrity meter reads: <b>HEALTH: [obj_integrity]</b>.</span>"
 
-TYPE_PROC_REF(/obj/structure/checkoutmachine, check_if_finished)()
+/obj/structure/checkoutmachine/proc/check_if_finished()
 	for(var/i in accounts_to_rob)
 		var/datum/bank_account/B = i
 		if (B.being_dumped)
@@ -82,7 +82,7 @@ TYPE_PROC_REF(/obj/structure/checkoutmachine, check_if_finished)()
 	QDEL_IN(src, 8 MINUTES) //Self destruct after 8 min
 
 
-TYPE_PROC_REF(/obj/structure/checkoutmachine, startUp)() //very VERY snowflake code that adds a neat animation when the pod lands.
+/obj/structure/checkoutmachine/proc/startUp() //very VERY snowflake code that adds a neat animation when the pod lands.
 	start_dumping() //The machine doesnt move during this time, giving people close by a small window to grab their funds before it starts running around
 	sleep(10)
 	if(QDELETED(src))
@@ -152,7 +152,7 @@ TYPE_PROC_REF(/obj/structure/checkoutmachine, startUp)() //very VERY snowflake c
 	explosion(src, 0,0,1, flame_range = 2)
 	return ..()
 
-TYPE_PROC_REF(/obj/structure/checkoutmachine, start_dumping)()
+/obj/structure/checkoutmachine/proc/start_dumping()
 	accounts_to_rob = SSeconomy.bank_accounts.Copy()
 	accounts_to_rob -= bogdanoff.get_bank_account()
 	for(var/i in accounts_to_rob)
@@ -160,7 +160,7 @@ TYPE_PROC_REF(/obj/structure/checkoutmachine, start_dumping)()
 		B.dumpeet()
 	dump()
 
-TYPE_PROC_REF(/obj/structure/checkoutmachine, dump)()
+/obj/structure/checkoutmachine/proc/dump()
 	var/percentage_lost = (rand(5, 15) / 100)
 	for(var/i in accounts_to_rob)
 		var/datum/bank_account/B = i
@@ -178,7 +178,7 @@ TYPE_PROC_REF(/obj/structure/checkoutmachine, dump)()
 	if(Process_Spacemove(anydir))
 		Move(get_step(src, anydir), anydir)
 
-TYPE_PROC_REF(/obj/structure/checkoutmachine, stop_dumping)()
+/obj/structure/checkoutmachine/proc/stop_dumping()
 	for(var/i in accounts_to_rob)
 		var/datum/bank_account/B = i
 		B.being_dumped = FALSE
@@ -212,7 +212,7 @@ TYPE_PROC_REF(/obj/structure/checkoutmachine, stop_dumping)()
 	sound_to_playing_players('sound/items/dump_it.ogg', 20)
 	deadchat_broadcast("<span class='game deadsay'>Protocol CRAB-17 has been activated. A space-coin market has been launched at the station!</span>", turf_target = get_turf(src))
 
-TYPE_PROC_REF(/obj/effect/dumpeetTarget, startLaunch)()
+/obj/effect/dumpeetTarget/proc/startLaunch()
 	DF = new /obj/effect/dumpeetFall(drop_location())
 	dump = new /obj/structure/checkoutmachine(null, bogdanoff)
 	priority_announce("The spacecoin bubble has popped! Get to the credit deposit machine at [get_area(src)] and cash out before you lose all of your funds!", sender_override = "CRAB-17 Protocol")
@@ -222,7 +222,7 @@ TYPE_PROC_REF(/obj/effect/dumpeetTarget, startLaunch)()
 
 
 
-TYPE_PROC_REF(/obj/effect/dumpeetTarget, endLaunch)()
+/obj/effect/dumpeetTarget/proc/endLaunch()
 	QDEL_NULL(DF) //Delete the falling machine effect, because at this point its animation is over. We dont use temp_visual because we want to manually delete it as soon as the pod appears
 	playsound(src, "explosion", 80, TRUE)
 	dump.forceMove(get_turf(src))

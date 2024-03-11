@@ -51,7 +51,7 @@
 		build_signal_listener()
 	update_surrounding()
 
-TYPE_PROC_REF(/obj/structure/stairs, update_surrounding)()
+/obj/structure/stairs/proc/update_surrounding()
 	update_icon()
 	for(var/i in GLOB.cardinals)
 		var/turf/T = get_step(get_turf(src), i)
@@ -59,7 +59,7 @@ TYPE_PROC_REF(/obj/structure/stairs, update_surrounding)()
 		if(S)
 			S.update_icon()
 
-TYPE_PROC_REF(/obj/structure/stairs, on_exit)(datum/source, atom/movable/leaving, direction)
+/obj/structure/stairs/proc/on_exit(datum/source, atom/movable/leaving, direction)
 	SIGNAL_HANDLER
 
 	if(leaving == src)
@@ -82,7 +82,7 @@ TYPE_PROC_REF(/obj/structure/stairs, on_exit)(datum/source, atom/movable/leaving
 	else
 		icon_state = "stairs"
 
-TYPE_PROC_REF(/obj/structure/stairs, stair_ascend)(atom/movable/climber)
+/obj/structure/stairs/proc/stair_ascend(atom/movable/climber)
 	var/turf/checking = get_step_multiz(get_turf(src), UP)
 	if(!istype(checking))
 		return
@@ -110,19 +110,19 @@ TYPE_PROC_REF(/obj/structure/stairs, stair_ascend)(atom/movable/climber)
 		build_signal_listener()
 		force_open_above()
 
-TYPE_PROC_REF(/obj/structure/stairs, build_signal_listener)()
+/obj/structure/stairs/proc/build_signal_listener()
 	if(listeningTo)
 		UnregisterSignal(listeningTo, COMSIG_TURF_MULTIZ_NEW)
 	var/turf/open/transparent/openspace/T = get_step_multiz(get_turf(src), UP)
 	RegisterSignal(T, COMSIG_TURF_MULTIZ_NEW, PROC_REF(on_multiz_new))
 	listeningTo = T
 
-TYPE_PROC_REF(/obj/structure/stairs, force_open_above)()
+/obj/structure/stairs/proc/force_open_above()
 	var/turf/open/transparent/openspace/T = get_step_multiz(get_turf(src), UP)
 	if(T && !istype(T))
 		T.ChangeTurf(/turf/open/transparent/openspace, flags = CHANGETURF_INHERIT_AIR)
 
-TYPE_PROC_REF(/obj/structure/stairs, on_multiz_new)(turf/source, dir)
+/obj/structure/stairs/proc/on_multiz_new(turf/source, dir)
 	//SIGNAL_HANDLER
 	SHOULD_NOT_SLEEP(TRUE) //the same thing.
 
@@ -136,7 +136,7 @@ TYPE_PROC_REF(/obj/structure/stairs, on_multiz_new)(turf/source, dir)
 	if(levels == 1 && isTerminator()) // Stairs won't save you from a steep fall.
 		. |= FALL_INTERCEPTED | FALL_NO_MESSAGE | FALL_RETAIN_PULL
 
-TYPE_PROC_REF(/obj/structure/stairs, isTerminator)()			//If this is the last stair in a chain and should move mobs up
+/obj/structure/stairs/proc/isTerminator()			//If this is the last stair in a chain and should move mobs up
 	if(terminator_mode != STAIR_TERMINATOR_AUTOMATIC)
 		return (terminator_mode == STAIR_TERMINATOR_YES)
 	var/turf/T = get_turf(src)

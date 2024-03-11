@@ -257,14 +257,14 @@
 	to_chat(user, span_warning("You scramble the sleeper's user interface!"))
 	return TRUE
 
-TYPE_PROC_REF(/obj/machinery/sleeper, inject_chem)(chem, mob/user)
+/obj/machinery/sleeper/proc/inject_chem(chem, mob/user)
 	if((chem in available_chems) && chem_allowed(chem))
 		occupant.reagents.add_reagent(chem_buttons[chem], 10) //emag effect kicks in here so that the "intended" chem is used for all checks, for extra FUUU
 		if(user)
 			log_combat(user, occupant, "injected [chem] into", addition = "via [src]")
 		return TRUE
 
-TYPE_PROC_REF(/obj/machinery/sleeper, chem_allowed)(chem)
+/obj/machinery/sleeper/proc/chem_allowed(chem)
 	var/mob/living/mob_occupant = occupant
 	if(!mob_occupant || !mob_occupant.reagents)
 		return
@@ -272,13 +272,13 @@ TYPE_PROC_REF(/obj/machinery/sleeper, chem_allowed)(chem)
 	var/occ_health = mob_occupant.health > min_health || chem == /datum/reagent/medicine/epinephrine
 	return amount && occ_health
 
-TYPE_PROC_REF(/obj/machinery/sleeper, reset_chem_buttons)()
+/obj/machinery/sleeper/proc/reset_chem_buttons()
 	scrambled_chems = FALSE
 	LAZYINITLIST(chem_buttons)
 	for(var/chem in available_chems)
 		chem_buttons[chem] = chem
 
-TYPE_PROC_REF(/obj/machinery/sleeper, scramble_chem_buttons)()
+/obj/machinery/sleeper/proc/scramble_chem_buttons()
 	scrambled_chems = TRUE
 	var/list/av_chem = available_chems.Copy()
 	for(var/chem in av_chem)

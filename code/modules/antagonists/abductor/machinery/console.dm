@@ -37,7 +37,7 @@
 /**
  * get_abductor_gear: Returns a list of a filtered abductor gear sorted by categories
  */
-TYPE_PROC_REF(/obj/machinery/abductor/console, get_abductor_gear)()
+/obj/machinery/abductor/console/proc/get_abductor_gear()
 	var/list/filtered_modules = list()
 	for(var/path in GLOB.abductor_gear)
 		var/datum/abductor_gear/AG = new path
@@ -139,19 +139,19 @@ TYPE_PROC_REF(/obj/machinery/abductor/console, get_abductor_gear)()
 			compact_mode = !compact_mode
 			return TRUE
 
-TYPE_PROC_REF(/obj/machinery/abductor/console, TeleporterRetrieve)()
+/obj/machinery/abductor/console/proc/TeleporterRetrieve()
 	if(pad && gizmo && gizmo.marked)
 		pad.Retrieve(gizmo.marked)
 
-TYPE_PROC_REF(/obj/machinery/abductor/console, TeleporterSend)()
+/obj/machinery/abductor/console/proc/TeleporterSend()
 	if(pad)
 		pad.Send()
 
-TYPE_PROC_REF(/obj/machinery/abductor/console, FlipVest)()
+/obj/machinery/abductor/console/proc/FlipVest()
 	if(vest)
 		vest.flip_mode()
 
-TYPE_PROC_REF(/obj/machinery/abductor/console, SelectDisguise)(remote = FALSE)
+/obj/machinery/abductor/console/proc/SelectDisguise(remote = FALSE)
 	var/list/disguises2 = list()
 	for(var/name in disguises)
 		var/datum/icon_snapshot/snap = disguises[name]
@@ -169,7 +169,7 @@ TYPE_PROC_REF(/obj/machinery/abductor/console, SelectDisguise)(remote = FALSE)
 	if(chosen && vest && (remote || in_range(usr,src)))
 		vest.SetDisguise(chosen)
 
-TYPE_PROC_REF(/obj/machinery/abductor/console, SetDroppoint)(turf/open/location,user)
+/obj/machinery/abductor/console/proc/SetDroppoint(turf/open/location,user)
 	if(!istype(location))
 		to_chat(user, span_warning("That place is not safe for the specimen."))
 		return
@@ -201,7 +201,7 @@ TYPE_PROC_REF(/obj/machinery/abductor/console, SetDroppoint)(turf/open/location,
 			camera = c
 			c.console = src
 
-TYPE_PROC_REF(/obj/machinery/abductor/console, AddSnapshot)(mob/living/carbon/human/target)
+/obj/machinery/abductor/console/proc/AddSnapshot(mob/living/carbon/human/target)
 	if(target.anti_magic_check(FALSE, FALSE, TRUE, 0))
 		say("Subject wearing specialized protective tinfoil gear, unable to get a proper scan!")
 		return
@@ -216,7 +216,7 @@ TYPE_PROC_REF(/obj/machinery/abductor/console, AddSnapshot)(mob/living/carbon/hu
 		return
 	disguises[entry.name] = entry
 
-TYPE_PROC_REF(/obj/machinery/abductor/console, AddGizmo)(obj/item/abductor/gizmo/G)
+/obj/machinery/abductor/console/proc/AddGizmo(obj/item/abductor/gizmo/G)
 	if(G == gizmo && G.console == src)
 		return FALSE
 
@@ -227,7 +227,7 @@ TYPE_PROC_REF(/obj/machinery/abductor/console, AddGizmo)(obj/item/abductor/gizmo
 	G.console = src
 	return TRUE
 
-TYPE_PROC_REF(/obj/machinery/abductor/console, AddVest)(obj/item/clothing/suit/armor/abductor/vest/V)
+/obj/machinery/abductor/console/proc/AddVest(obj/item/clothing/suit/armor/abductor/vest/V)
 	if(vest == V)
 		return FALSE
 
@@ -249,7 +249,7 @@ TYPE_PROC_REF(/obj/machinery/abductor/console, AddVest)(obj/item/clothing/suit/a
 
 
 
-TYPE_PROC_REF(/obj/machinery/abductor/console, Dispense)(item,cost=1)
+/obj/machinery/abductor/console/proc/Dispense(item,cost=1)
 	if(experiment && experiment.credits >= cost)
 		experiment.credits -=cost
 		say("Incoming supply!")

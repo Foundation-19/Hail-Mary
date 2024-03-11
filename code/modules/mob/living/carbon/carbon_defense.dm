@@ -188,7 +188,7 @@
 				adjustFireLoss(M.powerlevel * rand(6,10))
 				updatehealth()
 
-TYPE_PROC_REF(/mob/living/carbon, dismembering_strike)(mob/living/attacker, dam_zone)
+/mob/living/carbon/proc/dismembering_strike(mob/living/attacker, dam_zone)
 	if(!attacker.limb_destroyer)
 		return dam_zone
 	var/obj/item/bodypart/affecting
@@ -259,12 +259,12 @@ TYPE_PROC_REF(/mob/living/carbon, dismembering_strike)(mob/living/attacker, dam_
 	return shock_damage
 
 ///Called slightly after electrocute act to reduce jittering and apply a secondary stun.
-TYPE_PROC_REF(/mob/living/carbon, secondary_shock)(should_stun)
+/mob/living/carbon/proc/secondary_shock(should_stun)
 	jitteriness = max(jitteriness - 990, 10)
 	if(should_stun)
 		DefaultCombatKnockdown(60)
 
-TYPE_PROC_REF(/mob/living/carbon, help_shake_act)(mob/living/carbon/M)
+/mob/living/carbon/proc/help_shake_act(mob/living/carbon/M)
 	if(on_fire)
 		to_chat(M, span_warning("You can't put [p_them()] out with just your bare hands!"))
 		return
@@ -366,7 +366,7 @@ TYPE_PROC_REF(/mob/living/carbon, help_shake_act)(mob/living/carbon/M)
 		playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 
 /// Check ourselves to see if we've got any shrapnel, return true if we do. This is a much simpler version of what humans do, we only indicate we're checking ourselves if there's actually shrapnel
-TYPE_PROC_REF(/mob/living/carbon, check_self_for_injuries)()
+/mob/living/carbon/proc/check_self_for_injuries()
 	if(stat == DEAD || stat == UNCONSCIOUS)
 		return
 
@@ -500,7 +500,7 @@ TYPE_PROC_REF(/mob/living/carbon, check_self_for_injuries)()
 			amount += BP.burn_dam
 	return amount
 
-TYPE_PROC_REF(/mob/living/carbon, get_interaction_efficiency)(zone)
+/mob/living/carbon/proc/get_interaction_efficiency(zone)
 	var/obj/item/bodypart/limb = get_bodypart(zone)
 	if(!limb)
 		return

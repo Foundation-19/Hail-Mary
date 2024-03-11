@@ -36,7 +36,7 @@
  *Arguments:
  *arg1 is the arm to evaluate damage of and possibly break.
  */
-TYPE_PROC_REF(/datum/mutation/human/hulk, break_an_arm)(obj/item/bodypart/arm)
+/datum/mutation/human/hulk/proc/break_an_arm(obj/item/bodypart/arm)
 	switch(arm.brute_dam)
 		if(45 to 50)
 			arm.force_wound_upwards(/datum/wound/blunt/critical)
@@ -60,7 +60,7 @@ TYPE_PROC_REF(/datum/mutation/human/hulk, break_an_arm)(obj/item/bodypart/arm)
 	SEND_SIGNAL(owner, COMSIG_CLEAR_MOOD_EVENT, "hulk")
 	UnregisterSignal(owner, COMSIG_MOB_SAY)
 
-TYPE_PROC_REF(/datum/mutation/human/hulk, handle_speech)(original_message, wrapped_message)
+/datum/mutation/human/hulk/proc/handle_speech(original_message, wrapped_message)
 	var/message = wrapped_message[1]
 	if(message)
 		message = "[replacetext(message, ".", "!")]!!"

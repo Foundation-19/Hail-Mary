@@ -64,7 +64,7 @@
 	else
 		W.fire_act()
 
-TYPE_PROC_REF(/obj/structure/firepit, toggleFirepit)()
+/obj/structure/firepit/proc/toggleFirepit()
 	active = !active
 	if(active)
 		set_light(8)

@@ -112,16 +112,16 @@
 /turf/open/floor/attack_paw(mob/user)
 	return attack_hand(user)
 
-TYPE_PROC_REF(/turf/open/floor, gets_drilled)()
+/turf/open/floor/proc/gets_drilled()
 	return
 
-TYPE_PROC_REF(/turf/open/floor, break_tile_to_plating)()
+/turf/open/floor/proc/break_tile_to_plating()
 	var/turf/open/floor/plating/T = make_plating()
 	if(!istype(T))
 		return
 	T.break_tile()
 
-TYPE_PROC_REF(/turf/open/floor, break_tile)()
+/turf/open/floor/proc/break_tile()
 	if(broken)
 		return
 	icon_state = pick(broken_states)
@@ -136,7 +136,7 @@ TYPE_PROC_REF(/turf/open/floor, break_tile)()
 		icon_state = pick(broken_states)
 	burnt = 1
 
-TYPE_PROC_REF(/turf/open/floor, make_plating)()
+/turf/open/floor/proc/make_plating()
 	return ScrapeAway(flags = CHANGETURF_INHERIT_AIR)
 
 /turf/open/floor/ChangeTurf(path, new_baseturf, flags)
@@ -164,7 +164,7 @@ TYPE_PROC_REF(/turf/open/floor, make_plating)()
 /turf/open/floor/crowbar_act(mob/living/user, obj/item/I)
 	return intact ? FORCE_BOOLEAN(pry_tile(I, user)) : FALSE
 
-TYPE_PROC_REF(/turf/open/floor, try_replace_tile)(obj/item/stack/tile/T, mob/user, params)
+/turf/open/floor/proc/try_replace_tile(obj/item/stack/tile/T, mob/user, params)
 	if(T.turf_type == type)
 		return
 	var/obj/item/crowbar/CB = user.is_holding_item_of_type(/obj/item/crowbar)
@@ -175,11 +175,11 @@ TYPE_PROC_REF(/turf/open/floor, try_replace_tile)(obj/item/stack/tile/T, mob/use
 		return
 	P.attackby(T, user, params)
 
-TYPE_PROC_REF(/turf/open/floor, pry_tile)(obj/item/I, mob/user, silent = FALSE)
+/turf/open/floor/proc/pry_tile(obj/item/I, mob/user, silent = FALSE)
 	I.play_tool_sound(src, 80)
 	return remove_tile(user, silent)
 
-TYPE_PROC_REF(/turf/open/floor, remove_tile)(mob/user, silent = FALSE, make_tile = TRUE, forced = FALSE)
+/turf/open/floor/proc/remove_tile(mob/user, silent = FALSE, make_tile = TRUE, forced = FALSE)
 	if(broken || burnt)
 		broken = 0
 		burnt = 0
@@ -192,7 +192,7 @@ TYPE_PROC_REF(/turf/open/floor, remove_tile)(mob/user, silent = FALSE, make_tile
 			spawn_tile()
 	return make_plating()
 
-TYPE_PROC_REF(/turf/open/floor, spawn_tile)()
+/turf/open/floor/proc/spawn_tile()
 	new floor_tile(src)
 
 /turf/open/floor/singularity_pull(S, current_size)

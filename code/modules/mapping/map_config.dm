@@ -162,7 +162,7 @@
 	return config
 
 #define CHECK_EXISTS(X) if(!istext(json[X])) { log_world("[##X] missing from json!"); return; }
-TYPE_PROC_REF(/datum/map_config, LoadConfig)(filename, error_if_missing)
+/datum/map_config/proc/LoadConfig(filename, error_if_missing)
 	if(!fexists(filename))
 		if(error_if_missing)
 			log_world("map_config not found: [filename]")
@@ -288,18 +288,18 @@ TYPE_PROC_REF(/datum/map_config, LoadConfig)(filename, error_if_missing)
 	return TRUE
 #undef CHECK_EXISTS
 
-TYPE_PROC_REF(/datum/map_config, GetFullMapPaths)()
+/datum/map_config/proc/GetFullMapPaths()
 	if (istext(map_file))
 		return list("_maps/[map_path]/[map_file]")
 	. = list()
 	for (var/file in map_file)
 		. += "_maps/[map_path]/[file]"
 
-TYPE_PROC_REF(/datum/map_config, MakeNextMap)()
+/datum/map_config/proc/MakeNextMap()
 	return config_filename == "data/next_map.json" || fcopy(config_filename, "data/next_map.json")
 
 /// badmin moments. Keep up to date with LoadConfig()!
-TYPE_PROC_REF(/datum/map_config, WriteNextMap)()
+/datum/map_config/proc/WriteNextMap()
 	var/list/jsonlist = list()
 	jsonlist["map_name"] = map_name
 	jsonlist["map_path"] = map_path

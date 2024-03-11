@@ -32,7 +32,7 @@
 		blood_splatter_appearances[index] = pic
 	return TRUE
 
-TYPE_PROC_REF(/datum/component/decal/blood, get_examine_name)(mob/user, list/override)
+/datum/component/decal/blood/proc/get_examine_name(mob/user, list/override)
 	var/atom/A = parent
 	override[EXAMINE_POSITION_ARTICLE] = A.gender == PLURAL? "some" : "a"
 	override[EXAMINE_POSITION_BEFORE] = " blood-stained "

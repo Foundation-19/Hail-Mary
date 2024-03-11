@@ -13,7 +13,7 @@
 			lines += "[GLOB.gas_data.names[id]]: [moles] mol"
 	to_chat(usr, lines.Join("\n"))
 
-TYPE_PROC_REF(/client, air_status)(turf/target)
+/client/proc/air_status(turf/target)
 	set category = "Debug"
 	set name = "Display Air Status"
 
@@ -22,7 +22,7 @@ TYPE_PROC_REF(/client, air_status)(turf/target)
 	show_air_status_to(target, usr)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Show Air Status") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-TYPE_PROC_REF(/client, radio_report)()
+/client/proc/radio_report()
 	set category = "Debug"
 	set name = "Radio report"
 
@@ -49,7 +49,7 @@ TYPE_PROC_REF(/client, radio_report)()
 	usr << browse(output,"window=radioreport")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Show Radio Report") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-TYPE_PROC_REF(/client, reload_admins)()
+/client/proc/reload_admins()
 	set name = "Reload Admins"
 	set category = "Admin"
 

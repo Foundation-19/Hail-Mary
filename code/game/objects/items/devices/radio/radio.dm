@@ -52,12 +52,12 @@
 	user.visible_message(span_suicide("[user] starts bouncing [src] off [user.p_their()] head! It looks like [user.p_theyre()] trying to commit suicide!"))
 	return BRUTELOSS
 
-TYPE_PROC_REF(/obj/item/radio, set_frequency)(new_frequency)
+/obj/item/radio/proc/set_frequency(new_frequency)
 	SEND_SIGNAL(src, COMSIG_RADIO_NEW_FREQUENCY, args)
 	remove_radio(src, frequency)
 	frequency = add_radio(src, new_frequency)
 
-TYPE_PROC_REF(/obj/item/radio, recalculateChannels)()
+/obj/item/radio/proc/recalculateChannels()
 	channels = list()
 	translate_binary = FALSE
 	syndie = FALSE
@@ -78,7 +78,7 @@ TYPE_PROC_REF(/obj/item/radio, recalculateChannels)()
 	for(var/ch_name in channels)
 		secure_radio_connections[ch_name] = add_radio(src, GLOB.radiochannels[ch_name])
 
-TYPE_PROC_REF(/obj/item/radio, make_syndie)() // Turns normal radios into Syndicate radios!
+/obj/item/radio/proc/make_syndie() // Turns normal radios into Syndicate radios!
 	qdel(keyslot)
 	keyslot = new /obj/item/encryptionkey/syndicate
 	syndie = 1
@@ -114,7 +114,7 @@ TYPE_PROC_REF(/obj/item/radio, make_syndie)() // Turns normal radios into Syndic
 	Factionize() //add our radio to the factionized list through a proc
 
 //fortuna addition. radio management proc that allows us to re-add manageable radios after being killswitched or upon creation
-TYPE_PROC_REF(/obj/item/radio, Factionize)()
+/obj/item/radio/proc/Factionize()
 	if(factionized)
 		LAZYADD(GLOB.faction_radios, src)
 		switch(linked_faction)
@@ -139,7 +139,7 @@ TYPE_PROC_REF(/obj/item/radio, Factionize)()
 /obj/item/radio/ui_state(mob/user)
 	return GLOB.inventory_state
 
-TYPE_PROC_REF(/obj/item/radio, kill_switch)() //fortuna addition. radio management
+/obj/item/radio/proc/kill_switch() //fortuna addition. radio management
 	playsound(src, 'sound/machines/buzz-sigh.ogg', 100, 1)
 	kill_switched = TRUE
 	linked_mob = null
@@ -237,7 +237,7 @@ TYPE_PROC_REF(/obj/item/radio, kill_switch)() //fortuna addition. radio manageme
 	INVOKE_ASYNC(src, PROC_REF(talk_into_impl), M, message, channel, spans.Copy(), language)
 	return ITALICS | REDUCE_RANGE
 
-TYPE_PROC_REF(/obj/item/radio, talk_into_impl)(atom/movable/M, message, channel, list/spans, datum/language/language)
+/obj/item/radio/proc/talk_into_impl(atom/movable/M, message, channel, list/spans, datum/language/language)
 	if(!on)
 		return // the device has to be on
 	//Fortuna edit start. Radio management
@@ -311,7 +311,7 @@ TYPE_PROC_REF(/obj/item/radio, talk_into_impl)(atom/movable/M, message, channel,
 	// was never received, send a mundane broadcast (no headsets).
 	addtimer(CALLBACK(src, PROC_REF(backup_transmission), signal), 20)
 
-TYPE_PROC_REF(/obj/item/radio, backup_transmission)(datum/signal/subspace/vocal/signal)
+/obj/item/radio/proc/backup_transmission(datum/signal/subspace/vocal/signal)
 	var/turf/T = get_turf(src)
 	if (signal.data["done"] && (T.z in signal.levels))
 		return
@@ -342,7 +342,7 @@ TYPE_PROC_REF(/obj/item/radio, backup_transmission)(datum/signal/subspace/vocal/
 	talk_into(speaker, raw_message, , spans, language=message_language)
 
 // Checks if this radio can receive on the given frequency.
-TYPE_PROC_REF(/obj/item/radio, can_receive)(freq, level)
+/obj/item/radio/proc/can_receive(freq, level)
 	// deny checks
 	if (!on || !listening || wires.is_cut(WIRE_RX))
 		return FALSE
@@ -514,7 +514,7 @@ GLOBAL_LIST_INIT(banned_redwater_freqs, list(FREQ_COMMON, 1488))
 	set_frequency(GLOB.redwater_frequency)
 	color = "#5c5c5c"
 
-TYPE_PROC_REF(/obj/item/radio/redwater, setup_redwater_frequency)(mob/user)
+/obj/item/radio/redwater/proc/setup_redwater_frequency(mob/user)
 	if(GLOB.redwater_frequency > 1)
 		return // already setup!
 	var/frequency_ok = FALSE

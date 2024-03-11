@@ -66,7 +66,7 @@
 	board.obj_flags |= EMAGGED
 	packin_up()
 
-TYPE_PROC_REF(/obj/machinery/computer/cargo/express, packin_up)() // oh shit, I'm sorry
+/obj/machinery/computer/cargo/express/proc/packin_up() // oh shit, I'm sorry
 	meme_pack_data = list() // sorry for what?
 	for(var/pack in SSshuttle.supply_packs) // our quartermaster taught us not to be ashamed of our supply packs
 		var/datum/supply_pack/P = SSshuttle.supply_packs[pack]  // specially since they're such a good price and all

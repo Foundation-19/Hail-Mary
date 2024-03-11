@@ -311,7 +311,7 @@
 	effect.hand = usedHand
 	activated()
 
-TYPE_PROC_REF(/obj/item/rod_of_asclepius, activated)()
+/obj/item/rod_of_asclepius/proc/activated()
 	item_flags = DROPDEL
 	ADD_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT)
 	desc = "A short wooden rod with a mystical snake inseparably gripping itself and the rod to your forearm. It flows with a healing energy that disperses amongst yourself and those around you. "
@@ -342,7 +342,7 @@ TYPE_PROC_REF(/obj/item/rod_of_asclepius, activated)()
 		mori()
 	return ..()
 
-TYPE_PROC_REF(/obj/item/clothing/neck/necklace/memento_mori, memento)(mob/living/carbon/human/user)
+/obj/item/clothing/neck/necklace/memento_mori/proc/memento(mob/living/carbon/human/user)
 	to_chat(user, span_warning("You feel your life being drained by the pendant..."))
 	if(do_after(user, 40, target = user))
 		to_chat(user, span_notice("Your lifeforce is now linked to the pendant! You feel like removing it would kill you, and yet you instinctively know that until then, you won't die."))
@@ -352,7 +352,7 @@ TYPE_PROC_REF(/obj/item/clothing/neck/necklace/memento_mori, memento)(mob/living
 		icon_state = "memento_mori_active"
 		active_owner = user
 
-TYPE_PROC_REF(/obj/item/clothing/neck/necklace/memento_mori, mori)()
+/obj/item/clothing/neck/necklace/memento_mori/proc/mori()
 	icon_state = "memento_mori"
 	if(!active_owner)
 		return
@@ -441,7 +441,7 @@ TYPE_PROC_REF(/obj/item/clothing/neck/necklace/memento_mori, mori)()
 		UnregisterSignal(orbits.parent, COMSIG_MOB_UPDATE_SIGHT)
 		to_chat(orbits.parent, span_notice("Your vision returns to normal."))
 
-TYPE_PROC_REF(/obj/effect/wisp, update_user_sight)(mob/user)
+/obj/effect/wisp/proc/update_user_sight(mob/user)
 	user.sight |= sight_flags
 	if(!isnull(lighting_alpha))
 		user.lighting_alpha = min(user.lighting_alpha, lighting_alpha)
@@ -603,7 +603,7 @@ TYPE_PROC_REF(/obj/effect/wisp, update_user_sight)(mob/user)
 	if(new_user)
 		vanish(new_user)
 
-TYPE_PROC_REF(/obj/effect/immortality_talisman, vanish)(mob/user)
+/obj/effect/immortality_talisman/proc/vanish(mob/user)
 	user.visible_message(span_danger("[user] [vanish_description], leaving a hole in [user.p_their()] place!"))
 
 	desc = "It's shaped an awful lot like [user.name]."
@@ -617,7 +617,7 @@ TYPE_PROC_REF(/obj/effect/immortality_talisman, vanish)(mob/user)
 
 	addtimer(CALLBACK(src, PROC_REF(unvanish), user), 10 SECONDS)
 
-TYPE_PROC_REF(/obj/effect/immortality_talisman, unvanish)(mob/user)
+/obj/effect/immortality_talisman/proc/unvanish(mob/user)
 	user.status_flags &= ~GODMODE
 	user.mob_transforming = FALSE
 	user.forceMove(get_turf(src))
@@ -932,14 +932,14 @@ TYPE_PROC_REF(/obj/effect/immortality_talisman, unvanish)(mob/user)
 /obj/item/melee/ghost_sword/process()
 	ghost_check()
 
-TYPE_PROC_REF(/obj/item/melee/ghost_sword, recursive_orbit_collect)(atom/A, list/L)
+/obj/item/melee/ghost_sword/proc/recursive_orbit_collect(atom/A, list/L)
 	for(var/i in A.orbiters?.orbiters)
 		if(!isobserver(i) || (i in L))
 			continue
 		L |= i
 		recursive_orbit_collect(i, L)
 
-TYPE_PROC_REF(/obj/item/melee/ghost_sword, ghost_check)()
+/obj/item/melee/ghost_sword/proc/ghost_check()
 	var/list/mob/dead/observer/current_spirits = list()
 
 	recursive_orbit_collect(src, current_spirits)
@@ -1064,7 +1064,7 @@ TYPE_PROC_REF(/obj/item/melee/ghost_sword, ghost_check)()
 	. = ..()
 	INVOKE_ASYNC(src, PROC_REF(attempt_lava), target, user, proximity_flag, click_parameters)
 
-TYPE_PROC_REF(/obj/item/lava_staff, attempt_lava)(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/lava_staff/proc/attempt_lava(atom/target, mob/user, proximity_flag, click_parameters)
 	if(timer > world.time)
 		return
 
@@ -1136,7 +1136,7 @@ TYPE_PROC_REF(/obj/item/lava_staff, attempt_lava)(atom/target, mob/user, proximi
 /obj/item/mayhem/attack_self(mob/user)
 	for(var/mob/living/carbon/human/H in range(7,user))
 		var/obj/effect/mine/pickup/bloodbath/B = new(H)
-		INVOKE_ASYNC(B, TYPE_PROC_REF(/obj/effect/mine/pickup/bloodbath, mineEffect), H)
+		INVOKE_ASYNC(B, /obj/effect/mine/pickup/bloodbath/.proc/mineEffect, H)
 	to_chat(user, span_notice("You shatter the bottle!"))
 	playsound(user.loc, 'sound/effects/glassbr1.ogg', 100, 1)
 	message_admins(span_adminnotice("[ADMIN_LOOKUPFLW(user)] has activated a bottle of mayhem!"))
@@ -1285,7 +1285,7 @@ TYPE_PROC_REF(/obj/item/lava_staff, attempt_lava)(atom/target, mob/user, proximi
 			timer = world.time
 	INVOKE_ASYNC(src, PROC_REF(prepare_icon_update))
 
-TYPE_PROC_REF(/obj/item/hierophant_club, calculate_anger_mod)(mob/user) //we get stronger as the user loses health
+/obj/item/hierophant_club/proc/calculate_anger_mod(mob/user) //we get stronger as the user loses health
 	chaser_cooldown = initial(chaser_cooldown)
 	cooldown_time = initial(cooldown_time)
 	chaser_speed = initial(chaser_speed)
@@ -1301,7 +1301,7 @@ TYPE_PROC_REF(/obj/item/hierophant_club, calculate_anger_mod)(mob/user) //we get
 /obj/item/hierophant_club/update_icon_state()
 	icon_state = item_state = "hierophant_club[timer <= world.time ? "_ready":""][(beacon && !QDELETED(beacon)) ? "":"_beacon"]"
 
-TYPE_PROC_REF(/obj/item/hierophant_club, prepare_icon_update)()
+/obj/item/hierophant_club/proc/prepare_icon_update()
 	update_icon()
 	sleep(timer - world.time)
 	update_icon()
@@ -1411,7 +1411,7 @@ TYPE_PROC_REF(/obj/item/hierophant_club, prepare_icon_update)()
 	if(user)
 		user.update_action_buttons_icon()
 
-TYPE_PROC_REF(/obj/item/hierophant_club, teleport_mob)(turf/source, mob/M, turf/target, mob/user)
+/obj/item/hierophant_club/proc/teleport_mob(turf/source, mob/M, turf/target, mob/user)
 	var/turf/turf_to_teleport_to = get_step(target, get_dir(source, M)) //get position relative to caster
 	if(!turf_to_teleport_to || is_blocked_turf(turf_to_teleport_to, TRUE))
 		return
@@ -1435,7 +1435,7 @@ TYPE_PROC_REF(/obj/item/hierophant_club, teleport_mob)(turf/source, mob/M, turf/
 	if(user != M)
 		log_combat(user, M, "teleported", null, "from [AREACOORD(source)]")
 
-TYPE_PROC_REF(/obj/item/hierophant_club, cardinal_blasts)(turf/T, mob/living/user) //fire cardinal cross blasts with a delay
+/obj/item/hierophant_club/proc/cardinal_blasts(turf/T, mob/living/user) //fire cardinal cross blasts with a delay
 	if(!T)
 		return
 	new /obj/effect/temp_visual/hierophant/telegraph/cardinal(T, user)
@@ -1445,7 +1445,7 @@ TYPE_PROC_REF(/obj/item/hierophant_club, cardinal_blasts)(turf/T, mob/living/use
 	for(var/d in GLOB.cardinals)
 		INVOKE_ASYNC(src, PROC_REF(blast_wall), T, d, user)
 
-TYPE_PROC_REF(/obj/item/hierophant_club, blast_wall)(turf/T, dir, mob/living/user) //make a wall of blasts blast_range tiles long
+/obj/item/hierophant_club/proc/blast_wall(turf/T, dir, mob/living/user) //make a wall of blasts blast_range tiles long
 	if(!T)
 		return
 	var/range = blast_range
@@ -1460,7 +1460,7 @@ TYPE_PROC_REF(/obj/item/hierophant_club, blast_wall)(turf/T, dir, mob/living/use
 		previousturf = J
 		J = get_step(previousturf, dir)
 
-TYPE_PROC_REF(/obj/item/hierophant_club, aoe_burst)(turf/T, mob/living/user) //make a 3x3 blast around a target
+/obj/item/hierophant_club/proc/aoe_burst(turf/T, mob/living/user) //make a 3x3 blast around a target
 	if(!T)
 		return
 	new /obj/effect/temp_visual/hierophant/telegraph(T, user)

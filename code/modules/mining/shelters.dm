@@ -13,7 +13,7 @@
 	banned_areas = typecacheof(/area/shuttle)
 	banned_objects = list()
 
-TYPE_PROC_REF(/datum/map_template/shelter, check_deploy)(turf/deploy_location)
+/datum/map_template/shelter/proc/check_deploy(turf/deploy_location)
 	var/affected = get_affected_turfs(deploy_location, centered=TRUE)
 	for(var/turf/T in affected)
 		var/area/A = get_area(T)

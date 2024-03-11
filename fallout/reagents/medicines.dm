@@ -287,7 +287,7 @@
 	. = TRUE
 	..()
 
-TYPE_PROC_REF(/datum/reagent/medicine/radx, remove_the_traits)(mob/living/L)
+/datum/reagent/medicine/radx/proc/remove_the_traits(mob/living/L)
 	if(HAS_TRAIT_FROM(L, TRAIT_75_RAD_RESIST, RADX_TRAIT))
 		to_chat(L, span_alert("The insulating tingle fades."))
 	else if (HAS_TRAIT_FROM(L, TRAIT_50_RAD_RESIST, RADX_TRAIT))
@@ -296,7 +296,7 @@ TYPE_PROC_REF(/datum/reagent/medicine/radx, remove_the_traits)(mob/living/L)
 	REMOVE_TRAIT(L, TRAIT_50_RAD_RESIST, RADX_TRAIT)
 	REMOVE_TRAIT(L, TRAIT_75_RAD_RESIST, RADX_TRAIT)
 
-TYPE_PROC_REF(/datum/reagent/medicine/radx, add_the_traits)(mob/living/L)
+/datum/reagent/medicine/radx/proc/add_the_traits(mob/living/L)
 	if(L.reagents.get_reagent_amount(/datum/reagent/medicine/radx) >= RADX_FULL_IMMUNITY_THRESHOLD && !HAS_TRAIT_FROM(L, TRAIT_75_RAD_RESIST, RADX_TRAIT))
 		to_chat(L, span_notice("You feel a deep, insulating tingle."))
 		ADD_TRAIT(L, TRAIT_75_RAD_RESIST, RADX_TRAIT)

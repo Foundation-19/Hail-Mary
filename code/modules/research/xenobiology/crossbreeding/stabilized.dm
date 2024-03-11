@@ -100,7 +100,7 @@ Stabilized extracts:
 	var/datum/mind/saved_mind
 	var/mob_name = "Familiar"
 
-TYPE_PROC_REF(/obj/item/slimecross/stabilized/gold, generate_mobtype)()
+/obj/item/slimecross/stabilized/gold/proc/generate_mobtype()
 	var/static/list/mob_spawn_pets = list()
 	if(mob_spawn_pets.len <= 0)
 		for(var/T in typesof(/mob/living/simple_animal))

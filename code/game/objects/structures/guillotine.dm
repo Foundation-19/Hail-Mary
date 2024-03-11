@@ -92,11 +92,11 @@
 				icon_state = "guillotine_drop"
 				addtimer(CALLBACK(src, PROC_REF(drop_blade)), GUILLOTINE_ANIMATION_LENGTH)
 
-TYPE_PROC_REF(/obj/structure/guillotine, raise_blade)()
+/obj/structure/guillotine/proc/raise_blade()
 	blade_status = GUILLOTINE_BLADE_RAISED
 	icon_state = "guillotine_raised"
 
-TYPE_PROC_REF(/obj/structure/guillotine, drop_blade)(mob/user)
+/obj/structure/guillotine/proc/drop_blade(mob/user)
 	if (has_buckled_mobs() && blade_sharpness)
 		var/mob/living/carbon/human/H = buckled_mobs[1]
 
@@ -133,7 +133,7 @@ TYPE_PROC_REF(/obj/structure/guillotine, drop_blade)(mob/user)
 			for(var/mob/M in fov_viewers(world.view, src))
 				var/mob/living/carbon/human/C = M
 				if (ishuman(M))
-					addtimer(CALLBACK(C, TYPE_PROC_REF(/mob, emote), "clap"), delay_offset * 0.3)
+					addtimer(CALLBACK(C, /mob/.proc/emote, "clap"), delay_offset * 0.3)
 					delay_offset++
 		else
 			H.apply_damage(15 * blade_sharpness, BRUTE, head)

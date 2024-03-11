@@ -1,5 +1,5 @@
 // Populate the space level list and prepare space transitions
-TYPE_PROC_REF(/datum/controller/subsystem/mapping, InitializeDefaultZLevels)()
+/datum/controller/subsystem/mapping/proc/InitializeDefaultZLevels()
 	if (z_list)  // subsystem/Recover or badminnery, no need
 		return
 
@@ -16,7 +16,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/mapping, InitializeDefaultZLevels)()
 		var/datum/space_level/S = new(I, features[DL_NAME], features[DL_TRAITS])
 		z_list += S
 
-TYPE_PROC_REF(/datum/controller/subsystem/mapping, add_new_zlevel)(name, traits = list(), z_type = /datum/space_level)
+/datum/controller/subsystem/mapping/proc/add_new_zlevel(name, traits = list(), z_type = /datum/space_level)
 	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_NEW_Z, args)
 	var/new_z = z_list.len + 1
 	if (world.maxz < new_z)
@@ -27,7 +27,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/mapping, add_new_zlevel)(name, traits 
 	z_list += S
 	return S
 
-TYPE_PROC_REF(/datum/controller/subsystem/mapping, get_level)(z)
+/datum/controller/subsystem/mapping/proc/get_level(z)
 	if (z_list && z >= 1 && z <= z_list.len)
 		return z_list[z]
 

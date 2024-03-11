@@ -219,7 +219,7 @@ By default, all atom have a reagents var - but its empty. if you want to use an 
 		R.my_atom = src <<<<< set the holders my_atom to src so that we know where we are.
 
 		This can also be done by calling a convenience proc:
-		TYPE_PROC_REF(atom, create_reagents)(max_volume)
+		atom/proc/create_reagents(max_volume)
 ```
 
 ## Other important stuff:
@@ -229,7 +229,7 @@ By default, all atom have a reagents var - but its empty. if you want to use an 
 			It simply tells us how much to transfer when
 			'pouring' our reagents into something else.
 
-		TYPE_PROC_REF(atom, is_open_container)()
+		atom/proc/is_open_container()
 			Checks atom/var/reagents.reagents_holder_flags & OPENCONTAINER.
 			If this returns 1 , you can use syringes, beakers etc
 			to manipulate the contents of this object.
@@ -237,12 +237,12 @@ By default, all atom have a reagents var - but its empty. if you want to use an 
 			transfer code since you will not be able to use the standard
 			tools to manipulate it.
 
-		TYPE_PROC_REF(atom, is_injectable)()
+		atom/proc/is_injectable()
 			Checks if something can be injected to.
 			If this returns 1, you can use syringes and droppers
 			to draw from and add to the contents of this object.
 
-		TYPE_PROC_REF(atom, is_drawable)()
+		atom/proc/is_drawable()
 			Checks if something can be drawn from.
 			If this returns 1, you can use syringes and droppers
 			to draw from the contents of this object.

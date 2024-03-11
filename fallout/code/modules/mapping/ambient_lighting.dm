@@ -3,7 +3,7 @@
 	RegisterSignal(src, COMSIG_EXIT_AREA, PROC_REF(HandleExitLighting))
 	RegisterSignal(src, COMSIG_ENTER_AREA, PROC_REF(HandleEnterLighting))
 
-TYPE_PROC_REF(/area/f13/ambientlighting, HandleExitLighting)(datum/source, mob/user)
+/area/f13/ambientlighting/proc/HandleExitLighting(datum/source, mob/user)
 	if(!iscarbon(user))
 		if(isliving(user))
 			user.see_in_dark = max(user.see_in_dark, see_in_dark_override)
@@ -23,7 +23,7 @@ TYPE_PROC_REF(/area/f13/ambientlighting, HandleExitLighting)(datum/source, mob/u
 	
 	C.update_sight()
 
-TYPE_PROC_REF(/area/f13/ambientlighting, HandleEnterLighting)(datum/source, mob/user)
+/area/f13/ambientlighting/proc/HandleEnterLighting(datum/source, mob/user)
 	if(!iscarbon(user))
 		if(isliving(user))
 			user.see_in_dark = initial(user.see_in_dark)

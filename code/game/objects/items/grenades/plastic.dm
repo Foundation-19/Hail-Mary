@@ -86,7 +86,7 @@
 /obj/item/grenade/plastic/receive_signal()
 	prime()
 
-TYPE_PROC_REF(/obj/item/grenade/plastic, on_entered)(atom/movable/AM)
+/obj/item/grenade/plastic/proc/on_entered(atom/movable/AM)
 	SIGNAL_HANDLER
 	if(nadeassembly)
 		INVOKE_ASYNC(nadeassembly, PROC_REF(on_entered), AM)
@@ -141,10 +141,10 @@ TYPE_PROC_REF(/obj/item/grenade/plastic, on_entered)(atom/movable/AM)
 		else
 			qdel(src)	//How?
 
-TYPE_PROC_REF(/obj/item/grenade/plastic, add_plastic_overlay)(atom/source, list/overlay_list)
+/obj/item/grenade/plastic/proc/add_plastic_overlay(atom/source, list/overlay_list)
 	overlay_list += plastic_overlay
 
-TYPE_PROC_REF(/obj/item/grenade/plastic, shout_syndicate_crap)(mob/M)
+/obj/item/grenade/plastic/proc/shout_syndicate_crap(mob/M)
 	if(!M)
 		return
 	var/message_say = "FOR NO RAISIN!"

@@ -59,15 +59,15 @@
 
 // returns the direction of the next pipe object, given the entrance dir
 // by default, returns the bitmask of remaining directions
-TYPE_PROC_REF(/obj/structure/disposalpipe, nextdir)(obj/structure/disposalholder/H)
+/obj/structure/disposalpipe/proc/nextdir(obj/structure/disposalholder/H)
 	return dpdir & (~turn(H.dir, 180))
 
 // transfer the holder through this pipe segment
 // overridden for special behaviour
-TYPE_PROC_REF(/obj/structure/disposalpipe, transfer)(obj/structure/disposalholder/H)
+/obj/structure/disposalpipe/proc/transfer(obj/structure/disposalholder/H)
 	return transfer_to_dir(H, nextdir(H))
 
-TYPE_PROC_REF(/obj/structure/disposalpipe, transfer_to_dir)(obj/structure/disposalholder/H, nextdir)
+/obj/structure/disposalpipe/proc/transfer_to_dir(obj/structure/disposalholder/H, nextdir)
 	H.setDir(nextdir)
 	var/turf/T = H.nextloc()
 	var/obj/structure/disposalpipe/P = H.findpipe(T)
@@ -87,7 +87,7 @@ TYPE_PROC_REF(/obj/structure/disposalpipe, transfer_to_dir)(obj/structure/dispos
 		return null
 
 // update the icon_state to reflect hidden status
-TYPE_PROC_REF(/obj/structure/disposalpipe, update)()
+/obj/structure/disposalpipe/proc/update()
 	var/turf/T = get_turf(src)
 	hide(T.intact && !isspaceturf(T))	// space never hides pipes
 
@@ -98,7 +98,7 @@ TYPE_PROC_REF(/obj/structure/disposalpipe, update)()
 
 // expel the held objects into a turf
 // called when there is a break in the pipe
-TYPE_PROC_REF(/obj/structure/disposalpipe, expel)(obj/structure/disposalholder/H, turf/T, direction)
+/obj/structure/disposalpipe/proc/expel(obj/structure/disposalholder/H, turf/T, direction)
 	var/turf/target
 	var/eject_range = 5
 	var/turf/open/floor/floorturf
@@ -159,7 +159,7 @@ TYPE_PROC_REF(/obj/structure/disposalpipe, expel)(obj/structure/disposalholder/H
 	return TRUE
 
 //checks if something is blocking the deconstruction (e.g. trunk with a bin still linked to it)
-TYPE_PROC_REF(/obj/structure/disposalpipe, can_be_deconstructed)()
+/obj/structure/disposalpipe/proc/can_be_deconstructed()
 	return TRUE
 
 // called when pipe is cut with welder
@@ -254,7 +254,7 @@ TYPE_PROC_REF(/obj/structure/disposalpipe, can_be_deconstructed)()
 			D.trunk = null
 	return ..()
 
-TYPE_PROC_REF(/obj/structure/disposalpipe/trunk, getlinked)()
+/obj/structure/disposalpipe/trunk/proc/getlinked()
 	linked = null
 	var/turf/T = get_turf(src)
 	var/obj/machinery/disposal/D = locate() in T

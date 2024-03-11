@@ -27,11 +27,11 @@
 	AddComponent(/datum/component/two_handed, force_multiplier=4, icon_wielded="mjollnir1")
 
 /// triggered on wield of two handed item
-TYPE_PROC_REF(/obj/item/singularityhammer, on_wield)(obj/item/source, mob/user)
+/obj/item/singularityhammer/proc/on_wield(obj/item/source, mob/user)
 	wielded = TRUE
 
 /// triggered on unwield of two handed item
-TYPE_PROC_REF(/obj/item/singularityhammer, on_unwield)(obj/item/source, mob/user)
+/obj/item/singularityhammer/proc/on_unwield(obj/item/source, mob/user)
 	wielded = FALSE
 
 /obj/item/singularityhammer/update_icon_state()
@@ -46,7 +46,7 @@ TYPE_PROC_REF(/obj/item/singularityhammer, on_unwield)(obj/item/source, mob/user
 		charged++
 	return
 
-TYPE_PROC_REF(/obj/item/singularityhammer, vortex)(turf/pull, mob/wielder)
+/obj/item/singularityhammer/proc/vortex(turf/pull, mob/wielder)
 	for(var/atom/X in orange(5,pull))
 		if(ismovable(X))
 			var/atom/movable/A = X
@@ -105,17 +105,17 @@ TYPE_PROC_REF(/obj/item/singularityhammer, vortex)(turf/pull, mob/wielder)
 	AddComponent(/datum/component/two_handed, force_multiplier=5, icon_wielded="mjollnir1", attacksound="sparks")
 
 /// triggered on wield of two handed item
-TYPE_PROC_REF(/obj/item/mjollnir, on_wield)(obj/item/source, mob/user)
+/obj/item/mjollnir/proc/on_wield(obj/item/source, mob/user)
 	wielded = TRUE
 
 /// triggered on unwield of two handed item
-TYPE_PROC_REF(/obj/item/mjollnir, on_unwield)(obj/item/source, mob/user)
+/obj/item/mjollnir/proc/on_unwield(obj/item/source, mob/user)
 	wielded = FALSE
 
 /obj/item/mjollnir/update_icon_state()
 	icon_state = "mjollnir0"
 
-TYPE_PROC_REF(/obj/item/mjollnir, shock)(mob/living/target)
+/obj/item/mjollnir/proc/shock(mob/living/target)
 	target.Stun(60)
 	var/datum/effect_system/lightning_spread/s = new /datum/effect_system/lightning_spread
 	s.set_up(5, 1, target.loc)

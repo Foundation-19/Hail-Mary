@@ -53,7 +53,7 @@
 		to_chat(user, span_notice("You close the maintenance hatch of [src]."))
 	return TRUE
 
-TYPE_PROC_REF(/obj/item/taperecorder, eject)(mob/user)
+/obj/item/taperecorder/proc/eject(mob/user)
 	if(mytape)
 		to_chat(user, span_notice("You remove [mytape] from [src]."))
 		stop()
@@ -74,7 +74,7 @@ TYPE_PROC_REF(/obj/item/taperecorder, eject)(mob/user)
 	else
 		return ..()
 
-TYPE_PROC_REF(/obj/item/taperecorder, can_use)(mob/user)
+/obj/item/taperecorder/proc/can_use(mob/user)
 	if(user && ismob(user))
 		if(!user.incapacitated())
 			return TRUE
@@ -259,18 +259,18 @@ TYPE_PROC_REF(/obj/item/taperecorder, can_use)(mob/user)
 		to_chat(user, span_notice("You pull out all the tape!"))
 		ruin()
 
-TYPE_PROC_REF(/obj/item/tape, ruin)()
+/obj/item/tape/proc/ruin()
 	//Lets not add infinite amounts of overlays when our fireact is called
 	//repeatedly
 	if(!ruined)
 		add_overlay("ribbonoverlay")
 	ruined = 1
 
-TYPE_PROC_REF(/obj/item/tape, fix)()
+/obj/item/tape/proc/fix()
 	cut_overlay("ribbonoverlay")
 	ruined = 0
 
-TYPE_PROC_REF(/obj/item/tape, wipeproc)()
+/obj/item/tape/proc/wipeproc()
 	used_capacity = 0;
 	storedinfo = new;
 	timestamp = new;
@@ -294,7 +294,7 @@ TYPE_PROC_REF(/obj/item/tape, wipeproc)()
 	. = ..()
 	originalIconState = icon_state
 
-TYPE_PROC_REF(/obj/item/tape, flip)()
+/obj/item/tape/proc/flip()
 
 	//first we save a copy of our current side
 	var/list/storedinfo_currentside = storedinfo.Copy()

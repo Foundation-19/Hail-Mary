@@ -18,11 +18,11 @@
 	if(LAZYLEN(hotkey_keys) && !LAZYLEN(classic_keys))
 		classic_keys = hotkey_keys.Copy()
 
-TYPE_PROC_REF(/datum/keybinding, down)(client/user)
+/datum/keybinding/proc/down(client/user)
 	return FALSE
 
-TYPE_PROC_REF(/datum/keybinding, up)(client/user)
+/datum/keybinding/proc/up(client/user)
 	return FALSE
 
-TYPE_PROC_REF(/datum/keybinding, can_use)(client/user)
+/datum/keybinding/proc/can_use(client/user)
 	return TRUE

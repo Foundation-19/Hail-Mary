@@ -1,4 +1,4 @@
-TYPE_PROC_REF(/datum/song, instrument_status_ui)()
+/datum/song/proc/instrument_status_ui()
 	. = list()
 	. += "<div class='statusDisplay'>"
 	. += "<b><a href='?src=[REF(src)];switchinstrument=1'>Current instrument</a>:</b> "
@@ -84,7 +84,7 @@ TYPE_PROC_REF(/datum/song, instrument_status_ui)()
 	popup.set_content(dat.Join(""))
 	popup.open()
 
-TYPE_PROC_REF(/datum/song, ParseSong)(text)
+/datum/song/proc/ParseSong(text)
 	set waitfor = FALSE
 	//split into lines
 	lines = splittext(text, "\n")
@@ -108,7 +108,7 @@ TYPE_PROC_REF(/datum/song, ParseSong)(text)
 				linenum++
 		updateDialog(usr)		// make sure updates when complete
 
-TYPE_PROC_REF(/datum/song, check_can_use)(mob/user)
+/datum/song/proc/check_can_use(mob/user)
 	return user.canUseTopic(parent, TRUE, FALSE, FALSE, FALSE)
 
 /datum/song/Topic(href, href_list)

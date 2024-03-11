@@ -195,7 +195,7 @@ Credit where due:
 	..()
 	return 1
 
-TYPE_PROC_REF(/datum/game_mode/clockwork_cult, greet_servant)(mob/M) //Description of their role
+/datum/game_mode/clockwork_cult/proc/greet_servant(mob/M) //Description of their role
 	if(!M)
 		return 0
 	to_chat(M, "<span class='bold large_brass'>You are a servant of Ratvar, the Clockwork Justiciar!</span>")
@@ -204,7 +204,7 @@ TYPE_PROC_REF(/datum/game_mode/clockwork_cult, greet_servant)(mob/M) //Descripti
 	M.playsound_local(get_turf(M), 'sound/ambience/antag/clockcultalr.ogg', 100, FALSE, pressure_affected = FALSE)
 	return 1
 
-TYPE_PROC_REF(/datum/game_mode, equip_servant)(mob/living/M) //Grants a clockwork slab to the mob
+/datum/game_mode/proc/equip_servant(mob/living/M) //Grants a clockwork slab to the mob
 	if(!M || !ishuman(M))
 		return FALSE
 	var/mob/living/carbon/human/L = M
@@ -233,7 +233,7 @@ TYPE_PROC_REF(/datum/game_mode, equip_servant)(mob/living/M) //Grants a clockwor
 		return FALSE
 	return ..()
 
-TYPE_PROC_REF(/datum/game_mode/clockwork_cult, check_clockwork_victory)()
+/datum/game_mode/clockwork_cult/proc/check_clockwork_victory()
 	return main_clockcult.check_clockwork_victory()
 
 /datum/game_mode/clockwork_cult/set_round_result()
@@ -253,12 +253,12 @@ TYPE_PROC_REF(/datum/game_mode/clockwork_cult, check_clockwork_victory)()
 	working for this entity and utilizing highly-advanced technology to cross the great distance at will. If they should turn out to be a credible threat, the task falls on you and \
 	your crew to dispatch it in a timely manner."
 
-TYPE_PROC_REF(/datum/game_mode, update_servant_icons_added)(datum/mind/M)
+/datum/game_mode/proc/update_servant_icons_added(datum/mind/M)
 	var/datum/atom_hud/antag/A = GLOB.huds[ANTAG_HUD_CLOCKWORK]
 	A.join_hud(M.current)
 	set_antag_hud(M.current, "clockwork")
 
-TYPE_PROC_REF(/datum/game_mode, update_servant_icons_removed)(datum/mind/M)
+/datum/game_mode/proc/update_servant_icons_removed(datum/mind/M)
 	var/datum/atom_hud/antag/A = GLOB.huds[ANTAG_HUD_CLOCKWORK]
 	A.leave_hud(M.current)
 	set_antag_hud(M.current, null)

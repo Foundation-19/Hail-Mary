@@ -26,7 +26,7 @@
 		make_debris()
 	qdel(src)
 
-TYPE_PROC_REF(/obj/structure/barricade, make_debris)()
+/obj/structure/barricade/proc/make_debris()
 	return
 
 /obj/structure/barricade/attackby(obj/item/I, mob/user, params)
@@ -161,7 +161,7 @@ TYPE_PROC_REF(/obj/structure/barricade, make_debris)()
 	. = ..()
 	addtimer(CALLBACK(src, PROC_REF(deploy)), deploy_time)
 
-TYPE_PROC_REF(/obj/structure/barricade/security, deploy)()
+/obj/structure/barricade/security/proc/deploy()
 	icon_state = "barrier1"
 	density = TRUE
 	anchored = TRUE
@@ -189,7 +189,7 @@ TYPE_PROC_REF(/obj/structure/barricade/security, deploy)()
 	toggle_mode(user)
 	return TRUE
 
-TYPE_PROC_REF(/obj/item/grenade/barrier, toggle_mode)(mob/user)
+/obj/item/grenade/barrier/proc/toggle_mode(mob/user)
 	switch(mode)
 		if(SINGLE)
 			mode = VERTICAL
@@ -329,7 +329,7 @@ TYPE_PROC_REF(/obj/item/grenade/barrier, toggle_mode)(mob/user)
 	else
 		return ..()
 
-TYPE_PROC_REF(/obj/structure/barricade/wooden, check_menu)(mob/living/user, obj/item/I)
+/obj/structure/barricade/wooden/proc/check_menu(mob/living/user, obj/item/I)
 	if(!istype(user))
 		return FALSE
 	if(user.incapacitated() || !user.Adjacent(src) || user.get_active_held_item() != I)
@@ -457,7 +457,7 @@ TYPE_PROC_REF(/obj/structure/barricade/wooden, check_menu)(mob/living/user, obj/
 		playsound(src.loc, 'sound/items/deconstruct.ogg', 50, 1)
 	return TRUE
 
-TYPE_PROC_REF(/obj/structure/obstacle/barbedwire, shock)(mob/user, prb) 	// war crime mode, if you can find an electrical generator
+/obj/structure/obstacle/barbedwire/proc/shock(mob/user, prb) 	// war crime mode, if you can find an electrical generator
 	
 	if(!in_range(src, user))//To prevent TK and mech users from getting shocked
 		return FALSE

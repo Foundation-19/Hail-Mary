@@ -113,7 +113,7 @@
 	if(!mind.current || (mind.current && mind.current.stat == DEAD))
 		addtimer(CALLBACK(src, PROC_REF(rise)), respawn_time, TIMER_UNIQUE)
 
-TYPE_PROC_REF(/obj/item/phylactery, rise)()
+/obj/item/phylactery/proc/rise()
 	if(mind.current && mind.current.stat != DEAD)
 		return "[mind] already has a living body: [mind.current]"
 

@@ -5,7 +5,7 @@
 	complexity = 5
 	category_text = "Power - Passive"
 
-TYPE_PROC_REF(/obj/item/integrated_circuit/passive/power, make_energy)()
+/obj/item/integrated_circuit/passive/power/proc/make_energy()
 	return
 
 // For calculators.

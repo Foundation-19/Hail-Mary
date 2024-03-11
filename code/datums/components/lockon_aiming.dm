@@ -55,7 +55,7 @@
 	STOP_PROCESSING(SSfastprocess, src)
 	return ..()
 
-TYPE_PROC_REF(/datum/component/lockon_aiming, show_visuals)()
+/datum/component/lockon_aiming/proc/show_visuals()
 	LAZYINITLIST(lock_images)
 	var/mob/M = parent
 	if(!M.client)
@@ -71,7 +71,7 @@ TYPE_PROC_REF(/datum/component/lockon_aiming, show_visuals)()
 		M.client.images |= I
 		lock_images |= I
 
-TYPE_PROC_REF(/datum/component/lockon_aiming, clear_visuals)()
+/datum/component/lockon_aiming/proc/clear_visuals()
 	var/mob/M = parent
 	if(!M.client)
 		return
@@ -82,42 +82,42 @@ TYPE_PROC_REF(/datum/component/lockon_aiming, clear_visuals)()
 		qdel(i)
 	lock_images.Cut()
 
-TYPE_PROC_REF(/datum/component/lockon_aiming, refresh_visuals)()
+/datum/component/lockon_aiming/proc/refresh_visuals()
 	clear_visuals()
 	show_visuals()
 
-TYPE_PROC_REF(/datum/component/lockon_aiming, generate_lock_visuals)()
+/datum/component/lockon_aiming/proc/generate_lock_visuals()
 	lock_appearance = mutable_appearance(icon = lock_icon, icon_state = lock_icon_state, layer = FLOAT_LAYER)
 
-TYPE_PROC_REF(/datum/component/lockon_aiming, unlock_all)(refresh_vis = TRUE)
+/datum/component/lockon_aiming/proc/unlock_all(refresh_vis = TRUE)
 	LAZYCLEARLIST(locked_weakrefs)
 	if(refresh_vis)
 		refresh_visuals()
 
-TYPE_PROC_REF(/datum/component/lockon_aiming, unlock)(atom/A, refresh_vis = TRUE)
+/datum/component/lockon_aiming/proc/unlock(atom/A, refresh_vis = TRUE)
 	if(!A.weak_reference)
 		return
 	LAZYREMOVE(locked_weakrefs, A.weak_reference)
 	if(refresh_vis)
 		refresh_visuals()
 
-TYPE_PROC_REF(/datum/component/lockon_aiming, lock)(atom/A, refresh_vis = TRUE)
+/datum/component/lockon_aiming/proc/lock(atom/A, refresh_vis = TRUE)
 	LAZYOR(locked_weakrefs, WEAKREF(A))
 	if(refresh_vis)
 		refresh_visuals()
 
-TYPE_PROC_REF(/datum/component/lockon_aiming, add_immune_atom)(atom/A)
+/datum/component/lockon_aiming/proc/add_immune_atom(atom/A)
 	var/datum/weakref/R = WEAKREF(A)
 	if(immune_weakrefs && (immune_weakrefs[R]))
 		return
 	LAZYSET(immune_weakrefs, R, TRUE)
 
-TYPE_PROC_REF(/datum/component/lockon_aiming, remove_immune_atom)(atom/A)
+/datum/component/lockon_aiming/proc/remove_immune_atom(atom/A)
 	if(!A.weak_reference || !immune_weakrefs)		//if A doesn't have a weakref how did it get on the immunity list?
 		return
 	LAZYREMOVE(immune_weakrefs, A.weak_reference)
 
-TYPE_PROC_REF(/datum/component/lockon_aiming, onMouseMove)(object,location,control,params)
+/datum/component/lockon_aiming/proc/onMouseMove(object,location,control,params)
 	var/mob/M = parent
 	if(!istype(M) || !M.client)
 		return
@@ -157,7 +157,7 @@ TYPE_PROC_REF(/datum/component/lockon_aiming, onMouseMove)(object,location,contr
 	if(changed)
 		autolock()
 
-TYPE_PROC_REF(/datum/component/lockon_aiming, autolock)()
+/datum/component/lockon_aiming/proc/autolock()
 	set waitfor = FALSE
 	var/mob/M = parent
 	if(!M.client)
@@ -175,11 +175,11 @@ TYPE_PROC_REF(/datum/component/lockon_aiming, autolock)()
 	refresh_visuals()
 	on_lock.Invoke(locked_weakrefs)
 
-TYPE_PROC_REF(/datum/component/lockon_aiming, can_target)(atom/A)
+/datum/component/lockon_aiming/proc/can_target(atom/A)
 	var/mob/M = A
 	return is_type_in_typecache(A, target_typecache) && !(ismob(A) && mob_stat_check && M.stat != CONSCIOUS) && !immune_weakrefs[WEAKREF(A)]
 
-TYPE_PROC_REF(/datum/component/lockon_aiming, get_nearest)(turf/T, list/typecache, amount, range)
+/datum/component/lockon_aiming/proc/get_nearest(turf/T, list/typecache, amount, range)
 	current_ranging_id++
 	var/this_id = current_ranging_id
 	var/list/L = list()

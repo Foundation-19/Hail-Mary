@@ -43,7 +43,7 @@
 		Remove(TRUE)
 	return ..()
 
-TYPE_PROC_REF(/obj/item/organ, Insert)(mob/living/carbon/M, special = 0, drop_if_replaced = TRUE)
+/obj/item/organ/proc/Insert(mob/living/carbon/M, special = 0, drop_if_replaced = TRUE)
 	if(!iscarbon(M) || owner == M)
 		return FALSE
 
@@ -70,7 +70,7 @@ TYPE_PROC_REF(/obj/item/organ, Insert)(mob/living/carbon/M, special = 0, drop_if
 	return TRUE
 
 //Special is for instant replacement like autosurgeons
-TYPE_PROC_REF(/obj/item/organ, Remove)(special = FALSE)
+/obj/item/organ/proc/Remove(special = FALSE)
 	if(owner)
 		owner.internal_organs -= src
 		if(owner.internal_organs_slot[slot] == src)
@@ -84,18 +84,18 @@ TYPE_PROC_REF(/obj/item/organ, Remove)(special = FALSE)
 	owner = null
 	START_PROCESSING(SSobj, src)
 
-TYPE_PROC_REF(/obj/item/organ, on_find)(mob/living/finder)
+/obj/item/organ/proc/on_find(mob/living/finder)
 	return
 
 /obj/item/organ/process()	//runs decay when outside of a person AND ONLY WHEN OUTSIDE (i.e. long obj).
 	on_death() //Kinda hate doing it like this, but I really don't want to call process directly.
 
 //Sources; life.dm process_organs
-TYPE_PROC_REF(/obj/item/organ, on_death)() //Runs when outside AND inside.
+/obj/item/organ/proc/on_death() //Runs when outside AND inside.
 	decay()
 
 //Applys the slow damage over time decay
-TYPE_PROC_REF(/obj/item/organ, decay)()
+/obj/item/organ/proc/decay()
 	if(!can_decay())
 		STOP_PROCESSING(SSobj, src)
 		return
@@ -104,13 +104,13 @@ TYPE_PROC_REF(/obj/item/organ, decay)()
 		return
 	applyOrganDamage(maxHealth * decay_factor)
 
-TYPE_PROC_REF(/obj/item/organ, can_decay)()
+/obj/item/organ/proc/can_decay()
 	//if(CHECK_BITFIELD(organ_flags, ORGAN_NO_SPOIL | ORGAN_SYNTHETIC | ORGAN_FAILING))
 	//	return FALSE
 	return FALSE // no more death decay. cus. not really dead
 
 //Checks to see if the organ is frozen from temperature
-TYPE_PROC_REF(/obj/item/organ, is_cold)()
+/obj/item/organ/proc/is_cold()
 	if(istype(loc, /obj/))//Freezer of some kind, I hope.
 		if(is_type_in_typecache(loc, GLOB.freezing_objects))
 			if(!(organ_flags & ORGAN_FROZEN))//Incase someone puts them in when cold, but they warm up inside of the thing. (i.e. they have the flag, the thing turns it off, this rights it.)
@@ -150,7 +150,7 @@ TYPE_PROC_REF(/obj/item/organ, is_cold)()
 	organ_flags &= ~ORGAN_FROZEN
 	return FALSE
 
-TYPE_PROC_REF(/obj/item/organ, on_life)()	//repair organ damage if the organ is not failing or synthetic
+/obj/item/organ/proc/on_life()	//repair organ damage if the organ is not failing or synthetic
 	if(organ_flags & ORGAN_FAILING || !owner)
 		return FALSE
 	if(!is_cold() && damage)
@@ -173,14 +173,14 @@ TYPE_PROC_REF(/obj/item/organ, on_life)()	//repair organ damage if the organ is 
 	if(damage > high_threshold)
 		. += span_warning("[src] is starting to look discolored.")
 
-TYPE_PROC_REF(/obj/item/organ, OnEatFrom)(eater, feeder)
+/obj/item/organ/proc/OnEatFrom(eater, feeder)
 	useable = FALSE //You can't use it anymore after eating it you spaztic
 
 /obj/item/organ/item_action_slot_check(slot,mob/user)
 	return //so we don't grant the organ's action to mobs who pick up the organ.
 
 ///Adjusts an organ's damage by the amount "d", up to a maximum amount, which is by default max damage
-TYPE_PROC_REF(/obj/item/organ, applyOrganDamage)(d, maximum = maxHealth)	//use for damaging effects
+/obj/item/organ/proc/applyOrganDamage(d, maximum = maxHealth)	//use for damaging effects
 	if(!d || maximum < damage) //Micro-optimization.
 		return FALSE
 	damage = clamp(damage + d, 0, maximum)
@@ -191,7 +191,7 @@ TYPE_PROC_REF(/obj/item/organ, applyOrganDamage)(d, maximum = maxHealth)	//use f
 	return TRUE
 
 ///SETS an organ's damage to the amount "d", and in doing so clears or sets the failing flag, good for when you have an effect that should fix an organ if broken
-TYPE_PROC_REF(/obj/item/organ, setOrganDamage)(d)	//use mostly for admin heals
+/obj/item/organ/proc/setOrganDamage(d)	//use mostly for admin heals
 	applyOrganDamage(d - damage)
 
 /** check_damage_thresholds
@@ -200,7 +200,7 @@ TYPE_PROC_REF(/obj/item/organ, setOrganDamage)(d)	//use mostly for admin heals
  * description: By checking our current damage against our previous damage, we can decide whether we've passed an organ threshold.
  *				 If we have, send the corresponding threshold message to the owner, if such a message exists.
  */
-TYPE_PROC_REF(/obj/item/organ, check_damage_thresholds)()
+/obj/item/organ/proc/check_damage_thresholds()
 	if(damage == prev_damage)
 		return
 	var/delta = damage - prev_damage
@@ -228,17 +228,17 @@ TYPE_PROC_REF(/obj/item/organ, check_damage_thresholds)()
 			return now_fixed
 
 //Runs some code on the organ when damage is taken/healed
-TYPE_PROC_REF(/obj/item/organ, onDamage)(d, maximum = maxHealth)
+/obj/item/organ/proc/onDamage(d, maximum = maxHealth)
 	return
 
 //Runs some code on the organ when damage is taken/healed
-TYPE_PROC_REF(/obj/item/organ, onSetDamage)(d, maximum = maxHealth)
+/obj/item/organ/proc/onSetDamage(d, maximum = maxHealth)
 	return
 
 //Looking for brains?
 //Try code/modules/mob/living/carbon/brain/brain_item.dm
 
-TYPE_PROC_REF(/mob/living, regenerate_organs)()
+/mob/living/proc/regenerate_organs()
 	return 0
 
 /mob/living/carbon/regenerate_organs(only_one = FALSE)

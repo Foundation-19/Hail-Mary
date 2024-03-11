@@ -52,7 +52,7 @@ Buildable meters
 	pixel_y += rand(-5, 5)
 	return ..()
 
-TYPE_PROC_REF(/obj/item/pipe, make_from_existing)(obj/machinery/atmospherics/make_from)
+/obj/item/pipe/proc/make_from_existing(obj/machinery/atmospherics/make_from)
 	setDir(make_from.dir)
 	pipename = make_from.name
 	add_atom_colour(make_from.color, FIXED_COLOUR_PRIORITY)
@@ -68,7 +68,7 @@ TYPE_PROC_REF(/obj/item/pipe, make_from_existing)(obj/machinery/atmospherics/mak
 		setPipingLayer(piping_layer)
 	return ..()
 
-TYPE_PROC_REF(/obj/item/pipe, setPipingLayer)(new_layer = PIPING_LAYER_DEFAULT)
+/obj/item/pipe/proc/setPipingLayer(new_layer = PIPING_LAYER_DEFAULT)
 	var/obj/machinery/atmospherics/fakeA = pipe_type
 
 	if(initial(fakeA.pipe_flags) & PIPING_ALL_LAYER)
@@ -78,7 +78,7 @@ TYPE_PROC_REF(/obj/item/pipe, setPipingLayer)(new_layer = PIPING_LAYER_DEFAULT)
 	PIPING_LAYER_SHIFT(src, piping_layer)
 	layer = initial(layer) + ((piping_layer - PIPING_LAYER_DEFAULT) * PIPING_LAYER_LCHANGE)
 
-TYPE_PROC_REF(/obj/item/pipe, update)()
+/obj/item/pipe/proc/update()
 	var/obj/machinery/atmospherics/fakeA = pipe_type
 	name = "[initial(fakeA.name)] fitting"
 	icon_state = initial(fakeA.pipe_state)
@@ -96,7 +96,7 @@ TYPE_PROC_REF(/obj/item/pipe, update)()
 
 	do_a_flip()
 
-TYPE_PROC_REF(/obj/item/pipe, do_a_flip)()
+/obj/item/pipe/proc/do_a_flip()
 	setDir(turn(dir, -180))
 
 /obj/item/pipe/trinary/flippable/do_a_flip()
@@ -109,7 +109,7 @@ TYPE_PROC_REF(/obj/item/pipe, do_a_flip)()
 	setDir(old_dir) //pipes changing direction when moved is just annoying and buggy
 
 // Convert dir of fitting into dir of built component
-TYPE_PROC_REF(/obj/item/pipe, fixed_dir)()
+/obj/item/pipe/proc/fixed_dir()
 	return dir
 
 /obj/item/pipe/binary/fixed_dir()
@@ -159,7 +159,7 @@ TYPE_PROC_REF(/obj/item/pipe, fixed_dir)()
 
 	qdel(src)
 
-TYPE_PROC_REF(/obj/item/pipe, build_pipe)(obj/machinery/atmospherics/A)
+/obj/item/pipe/proc/build_pipe(obj/machinery/atmospherics/A)
 	A.setDir(fixed_dir())
 	A.SetInitDirections()
 
@@ -230,6 +230,6 @@ TYPE_PROC_REF(/obj/item/pipe, build_pipe)(obj/machinery/atmospherics/A)
 	if(loc)
 		setAttachLayer(piping_layer)
 
-TYPE_PROC_REF(/obj/item/pipe_meter, setAttachLayer)(new_layer = PIPING_LAYER_DEFAULT)
+/obj/item/pipe_meter/proc/setAttachLayer(new_layer = PIPING_LAYER_DEFAULT)
 	piping_layer = new_layer
 	PIPING_LAYER_DOUBLE_SHIFT(src, piping_layer)

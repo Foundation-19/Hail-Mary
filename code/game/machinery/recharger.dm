@@ -49,7 +49,7 @@
 				charge_percent = SEND_SIGNAL(charging, COMSIG_CELL_CHECK_CHARGE_PERCENT)
 			. += "<span class='notice'>- \The [charging]'s cell is at <b>[charge_percent]%</b>.</span>"
 
-TYPE_PROC_REF(/obj/machinery/recharger, setCharging)(new_charging)
+/obj/machinery/recharger/proc/setCharging(new_charging)
 	charging = new_charging
 	if (new_charging)
 		START_PROCESSING(SSmachines, src)

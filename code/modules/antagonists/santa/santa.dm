@@ -13,7 +13,7 @@
 	. = ..()
 	to_chat(owner, span_boldannounce("You are Santa! Your objective is to bring joy to the people on this station. You can conjure more presents using a spell, and there are several presents in your bag."))
 
-TYPE_PROC_REF(/datum/antagonist/santa, give_equipment)()
+/datum/antagonist/santa/proc/give_equipment()
 	var/mob/living/carbon/human/H = owner.current
 	if(istype(H))
 		H.equipOutfit(/datum/outfit/santa)
@@ -23,7 +23,7 @@ TYPE_PROC_REF(/datum/antagonist/santa, give_equipment)()
 	telespell.clothes_req = NONE //santa robes aren't actually magical.
 	owner.AddSpell(telespell) //does the station have chimneys? WHO KNOWS!
 
-TYPE_PROC_REF(/datum/antagonist/santa, give_objective)()
+/datum/antagonist/santa/proc/give_objective()
 	var/datum/objective/santa_objective = new()
 	santa_objective.explanation_text = "Bring joy and presents to the station!"
 	santa_objective.completed = 1 //lets cut our santas some slack.

@@ -11,7 +11,7 @@
 
 //gets assignment from ID or ID inside PDA or PDA itself
 //Useful when player do something with computers
-TYPE_PROC_REF(/mob/living/carbon/human, get_assignment)(if_no_id = "No id", if_no_job = "No job", hand_first = TRUE)
+/mob/living/carbon/human/proc/get_assignment(if_no_id = "No id", if_no_job = "No job", hand_first = TRUE)
 	var/obj/item/card/id/id = get_idcard(hand_first)
 	if(id)
 		. = id.assignment
@@ -26,7 +26,7 @@ TYPE_PROC_REF(/mob/living/carbon/human, get_assignment)(if_no_id = "No id", if_n
 
 //gets name from ID or ID inside PDA or PDA itself
 //Useful when player do something with computers
-TYPE_PROC_REF(/mob/living/carbon/human, get_authentification_name)(if_no_id = "Unknown")
+/mob/living/carbon/human/proc/get_authentification_name(if_no_id = "Unknown")
 	var/obj/item/card/id/id = get_idcard(FALSE)
 	if(id)
 		return id.registered_name
@@ -50,7 +50,7 @@ TYPE_PROC_REF(/mob/living/carbon/human, get_authentification_name)(if_no_id = "U
 	return "Unknown"
 
 //Returns "Unknown" if facially disfigured and real_name if not. Useful for setting name when Fluacided or when updating a human's name variable
-TYPE_PROC_REF(/mob/living/carbon/human, get_face_name)(if_no_face="Unknown")
+/mob/living/carbon/human/proc/get_face_name(if_no_face="Unknown")
 	if( wear_mask && (wear_mask.flags_inv&HIDEFACE) )	//Wearing a mask which hides our face, use id-name if possible
 		return if_no_face
 	if( head && (head.flags_inv&HIDEFACE) )
@@ -62,7 +62,7 @@ TYPE_PROC_REF(/mob/living/carbon/human, get_face_name)(if_no_face="Unknown")
 
 //gets name from ID or PDA itself, ID inside PDA doesn't matter
 //Useful when player is being seen by other mobs
-TYPE_PROC_REF(/mob/living/carbon/human, get_id_name)(if_no_id = "Unknown")
+/mob/living/carbon/human/proc/get_id_name(if_no_id = "Unknown")
 	var/obj/item/storage/wallet/wallet = wear_id
 	var/obj/item/pda/pda = wear_id
 	var/obj/item/card/id/id = wear_id
@@ -123,7 +123,7 @@ TYPE_PROC_REF(/mob/living/carbon/human, get_id_name)(if_no_id = "Unknown")
 			to_chat(src, span_warning("Your fingers don't fit in the trigger guard!"))
 			return FALSE
 
-TYPE_PROC_REF(/mob/living/carbon/human, get_bank_account)()
+/mob/living/carbon/human/proc/get_bank_account()
 	RETURN_TYPE(/datum/bank_account)
 	var/datum/bank_account/account
 	var/obj/item/card/id/I = get_idcard()
@@ -149,7 +149,7 @@ TYPE_PROC_REF(/mob/living/carbon/human, get_bank_account)()
 		last_blood_DNA = blood_dna[blood_dna.len]*/
 
 /// For use formatting all of the scars this human has for saving for persistent scarring
-TYPE_PROC_REF(/mob/living/carbon/human, format_scars)()
+/mob/living/carbon/human/proc/format_scars()
 	var/list/missing_bodyparts = get_missing_limbs()
 	if(!all_scars && !length(missing_bodyparts))
 		return
@@ -163,7 +163,7 @@ TYPE_PROC_REF(/mob/living/carbon/human, format_scars)()
 	return scars
 
 /// Takes a single scar from the persistent scar loader and recreates it from the saved data
-TYPE_PROC_REF(/mob/living/carbon/human, load_scar)(scar_line)
+/mob/living/carbon/human/proc/load_scar(scar_line)
 	var/list/scar_data = splittext(scar_line, "|")
 	if(LAZYLEN(scar_data) != SCAR_SAVE_LENGTH)
 		return // invalid, should delete

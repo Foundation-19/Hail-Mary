@@ -23,7 +23,7 @@
 	install_programs()
 
 // Override in child types to install preset-specific programs.
-TYPE_PROC_REF(/obj/machinery/modular_computer/console/preset, install_programs)()
+/obj/machinery/modular_computer/console/preset/proc/install_programs()
 	return
 
 

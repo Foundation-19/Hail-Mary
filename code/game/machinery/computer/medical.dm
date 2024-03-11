@@ -564,7 +564,7 @@
 				qdel(R)
 				continue
 
-TYPE_PROC_REF(/obj/machinery/computer/med_data, canUseMedicalRecordsConsole)(mob/user, message = 1, record1, record2)
+/obj/machinery/computer/med_data/proc/canUseMedicalRecordsConsole(mob/user, message = 1, record1, record2)
 	if(user)
 		if(message)
 			if(authenticated)

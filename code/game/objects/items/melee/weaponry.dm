@@ -536,13 +536,13 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	return ..()
 
 /// Stage 1: The mistake is made
-TYPE_PROC_REF(/obj/item/circlegame, ownerExamined)(mob/living/owner, mob/living/sucker)
+/obj/item/circlegame/proc/ownerExamined(mob/living/owner, mob/living/sucker)
 	if(!istype(sucker) || !in_range(owner, sucker))
 		return
 	addtimer(CALLBACK(src, PROC_REF(waitASecond), owner, sucker), 4)
 
 /// Stage 2: Fear sets in
-TYPE_PROC_REF(/obj/item/circlegame, waitASecond)(mob/living/owner, mob/living/sucker)
+/obj/item/circlegame/proc/waitASecond(mob/living/owner, mob/living/sucker)
 	if(QDELETED(sucker) || QDELETED(src) || QDELETED(owner))
 		return
 
@@ -554,7 +554,7 @@ TYPE_PROC_REF(/obj/item/circlegame, waitASecond)(mob/living/owner, mob/living/su
 		addtimer(CALLBACK(src, PROC_REF(GOTTEM), owner, sucker), 6)
 
 /// Stage 3A: We face our own failures
-TYPE_PROC_REF(/obj/item/circlegame, selfGottem)(mob/living/owner)
+/obj/item/circlegame/proc/selfGottem(mob/living/owner)
 	if(QDELETED(src) || QDELETED(owner))
 		return
 
@@ -568,7 +568,7 @@ TYPE_PROC_REF(/obj/item/circlegame, selfGottem)(mob/living/owner)
 	qdel(src)
 
 /// Stage 3B: We face our reckoning (unless we moved away or they're incapacitated)
-TYPE_PROC_REF(/obj/item/circlegame, GOTTEM)(mob/living/owner, mob/living/sucker)
+/obj/item/circlegame/proc/GOTTEM(mob/living/owner, mob/living/sucker)
 	if(QDELETED(sucker))
 		return
 
@@ -629,7 +629,7 @@ TYPE_PROC_REF(/obj/item/circlegame, GOTTEM)(mob/living/owner, mob/living/sucker)
 	else
 		..()
 
-TYPE_PROC_REF(/obj/item, can_trigger_gun)(mob/living/user)
+/obj/item/proc/can_trigger_gun(mob/living/user)
 	if(!user.can_use_guns(src))
 		return FALSE
 	return TRUE
@@ -688,11 +688,11 @@ TYPE_PROC_REF(/obj/item, can_trigger_gun)(mob/living/user)
 	AddElement(/datum/element/sword_point)
 
 /// triggered on wield of two handed item
-TYPE_PROC_REF(/obj/item/vibro_weapon, on_wield)(obj/item/source, mob/user)
+/obj/item/vibro_weapon/proc/on_wield(obj/item/source, mob/user)
 	wielded = TRUE
 
 /// triggered on unwield of two handed item
-TYPE_PROC_REF(/obj/item/vibro_weapon, on_unwield)(obj/item/source, mob/user)
+/obj/item/vibro_weapon/proc/on_unwield(obj/item/source, mob/user)
 	wielded = FALSE
 
 /obj/item/vibro_weapon/update_icon_state()
@@ -742,11 +742,11 @@ TYPE_PROC_REF(/obj/item/vibro_weapon, on_unwield)(obj/item/source, mob/user)
 	AddElement(/datum/element/sword_point)
 
 /// triggered on wield of two handed item
-TYPE_PROC_REF(/obj/item/pitchfork, on_wield)(obj/item/source, mob/user)
+/obj/item/pitchfork/proc/on_wield(obj/item/source, mob/user)
 	wielded = TRUE
 
 /// triggered on unwield of two handed item
-TYPE_PROC_REF(/obj/item/pitchfork, on_unwield)(obj/item/source, mob/user)
+/obj/item/pitchfork/proc/on_unwield(obj/item/source, mob/user)
 	wielded = FALSE
 
 /obj/item/pitchfork/update_icon_state()

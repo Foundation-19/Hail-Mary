@@ -1,42 +1,42 @@
 //pronoun procs, for getting pronouns without using the text macros that only work in certain positions
 //datums don't have gender, but most of their subtypes do!
-TYPE_PROC_REF(/datum, p_they)(capitalized, temp_gender)
+/datum/proc/p_they(capitalized, temp_gender)
 	. = "it"
 	if(capitalized)
 		. = capitalize(.)
 
-TYPE_PROC_REF(/datum, p_their)(capitalized, temp_gender)
+/datum/proc/p_their(capitalized, temp_gender)
 	. = "its"
 	if(capitalized)
 		. = capitalize(.)
 
-TYPE_PROC_REF(/datum, p_them)(capitalized, temp_gender)
+/datum/proc/p_them(capitalized, temp_gender)
 	. = "it"
 	if(capitalized)
 		. = capitalize(.)
 
-TYPE_PROC_REF(/datum, p_have)(temp_gender)
+/datum/proc/p_have(temp_gender)
 	. = "has"
 
-TYPE_PROC_REF(/datum, p_are)(temp_gender)
+/datum/proc/p_are(temp_gender)
 	. = "is"
 
-TYPE_PROC_REF(/datum, p_were)(temp_gender)
+/datum/proc/p_were(temp_gender)
 	. = "was"
 
-TYPE_PROC_REF(/datum, p_do)(temp_gender)
+/datum/proc/p_do(temp_gender)
 	. = "does"
 
-TYPE_PROC_REF(/datum, p_theyve)(capitalized, temp_gender)
+/datum/proc/p_theyve(capitalized, temp_gender)
 	. = p_they(capitalized, temp_gender) + "'" + copytext_char(p_have(temp_gender), 3)
 
-TYPE_PROC_REF(/datum, p_theyre)(capitalized, temp_gender)
+/datum/proc/p_theyre(capitalized, temp_gender)
 	. = p_they(capitalized, temp_gender) + "'" + copytext_char(p_are(temp_gender), 2)
 
-TYPE_PROC_REF(/datum, p_s)(temp_gender) //is this a descriptive proc name, or what?
+/datum/proc/p_s(temp_gender) //is this a descriptive proc name, or what?
 	. = "s"
 
-TYPE_PROC_REF(/datum, p_es)(temp_gender)
+/datum/proc/p_es(temp_gender)
 	. = "es"
 
 //like clients, which do have gender.

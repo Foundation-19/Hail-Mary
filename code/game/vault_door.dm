@@ -39,7 +39,7 @@ GLOBAL_LIST_EMPTY(vault_doors)
 	// 	return
 	return
 
-TYPE_PROC_REF(/obj/structure/vaultdoor, repair)()
+/obj/structure/vaultdoor/proc/repair()
 	icon_state = "open"
 	set_opacity(1)
 	src.density = FALSE
@@ -49,7 +49,7 @@ TYPE_PROC_REF(/obj/structure/vaultdoor, repair)()
 	destroyed = FALSE
 	isworn = FALSE
 
-TYPE_PROC_REF(/obj/structure/vaultdoor, destroy)()
+/obj/structure/vaultdoor/proc/destroy()
 	icon_state = "empty"
 	set_opacity(0)
 	src.density = FALSE
@@ -58,7 +58,7 @@ TYPE_PROC_REF(/obj/structure/vaultdoor, destroy)()
 /obj/structure/vaultdoor/obj_destruction() //No you can't just shoot it and expect it to break
 	destroy()
 
-TYPE_PROC_REF(/obj/structure/vaultdoor, open)()
+/obj/structure/vaultdoor/proc/open()
 	is_busy = TRUE
 	flick("opening", src)
 	icon_state = "open"
@@ -69,7 +69,7 @@ TYPE_PROC_REF(/obj/structure/vaultdoor, open)()
 	is_busy = FALSE
 	is_open = TRUE
 
-TYPE_PROC_REF(/obj/structure/vaultdoor, close)()
+/obj/structure/vaultdoor/proc/close()
 	is_busy = TRUE
 	flick("closing", src)
 	icon_state = "closed"
@@ -80,7 +80,7 @@ TYPE_PROC_REF(/obj/structure/vaultdoor, close)()
 	is_busy = FALSE
 	is_open = FALSE
 
-TYPE_PROC_REF(/obj/structure/vaultdoor, vaultactivate)()
+/obj/structure/vaultdoor/proc/vaultactivate()
 	if(destroyed)
 		to_chat(usr, span_warning("[src] is broken"))
 		return
@@ -125,7 +125,7 @@ TYPE_PROC_REF(/obj/structure/vaultdoor, vaultactivate)()
 	density = TRUE
 	resistance_flags = FIRE_PROOF | ACID_PROOF | UNACIDABLE | FREEZE_PROOF | INDESTRUCTIBLE
 
-TYPE_PROC_REF(/obj/machinery/doorButtons/vaultButton, activate)()
+/obj/machinery/doorButtons/vaultButton/proc/activate()
 	for(var/obj/structure/vaultdoor/vdoor in world)
 		vdoor.vaultactivate()
 
@@ -145,7 +145,7 @@ TYPE_PROC_REF(/obj/machinery/doorButtons/vaultButton, activate)()
 	density = TRUE
 	resistance_flags = FIRE_PROOF | ACID_PROOF | UNACIDABLE | FREEZE_PROOF | INDESTRUCTIBLE
 
-TYPE_PROC_REF(/obj/machinery/doorButtons/wornvaultButton, activate)()
+/obj/machinery/doorButtons/wornvaultButton/proc/activate()
 	for(var/obj/structure/vaultdoor/vdoor in world)
 		if(vdoor.isworn == TRUE)
 			vdoor.vaultactivate()

@@ -1,4 +1,4 @@
-TYPE_PROC_REF(/datum/admins, CheckAdminHref)(href, href_list)
+/datum/admins/proc/CheckAdminHref(href, href_list)
 	var/auth = href_list["admin_token"]
 	. = auth && (auth == href_token || auth == GLOB.href_token)
 	if(.)
@@ -46,8 +46,8 @@ TYPE_PROC_REF(/datum/admins, CheckAdminHref)(href, href_list)
 
 	else if(href_list["getplaytimewindow"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): getplaytimewindow without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): getplaytimewindow without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/CheckAdminHref(): getplaytimewindow without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/CheckAdminHref(): getplaytimewindow without admin perms.")
 			return
 		var/mob/M = locate(href_list["getplaytimewindow"]) in GLOB.mob_list
 		if(!M)
@@ -57,8 +57,8 @@ TYPE_PROC_REF(/datum/admins, CheckAdminHref)(href, href_list)
 
 	else if(href_list["toggleexempt"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, searchmessages)(): toggleexempt without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, searchmessages)(): toggleexempt without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/searchmessages(): toggleexempt without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/searchmessages(): toggleexempt without admin perms.")
 			return
 		var/client/C = locate(href_list["toggleexempt"]) in GLOB.clients
 		if(!C)
@@ -68,8 +68,8 @@ TYPE_PROC_REF(/datum/admins, CheckAdminHref)(href, href_list)
 
 	else if(href_list["makeAntag"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, searchmessages)(): makeAntag without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, searchmessages)(): makeAntag without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/searchmessages(): makeAntag without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/searchmessages(): makeAntag without admin perms.")
 			return
 		if (!SSticker.mode)
 			to_chat(usr, span_danger("Not until the round starts!"))
@@ -302,15 +302,15 @@ TYPE_PROC_REF(/datum/admins, CheckAdminHref)(href, href_list)
 
 	else if(href_list["gamemode_panel"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, searchmessages)(): gamemode_panel without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, searchmessages)(): gamemode_panel without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/searchmessages(): gamemode_panel without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/searchmessages(): gamemode_panel without admin perms.")
 			return
 		SSticker.mode.admin_panel()
 
 	else if(href_list["call_shuttle"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, searchmessages)(): call_shuttle without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, searchmessages)(): call_shuttle without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/searchmessages(): call_shuttle without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/searchmessages(): call_shuttle without admin perms.")
 			return
 
 
@@ -352,16 +352,16 @@ TYPE_PROC_REF(/datum/admins, CheckAdminHref)(href, href_list)
 		href_list["secrets"] = "check_antagonist"
 	else if(href_list["trigger_centcom_recall"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, searchmessages)(): trigger_centcom_recall without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, searchmessages)(): trigger_centcom_recall without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/searchmessages(): trigger_centcom_recall without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/searchmessages(): trigger_centcom_recall without admin perms.")
 			return
 
 		usr.client.trigger_centcom_recall()
 
 	else if(href_list["toggle_continuous"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, searchmessages)(): toggle_continuous without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, searchmessages)(): toggle_continuous without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/searchmessages(): toggle_continuous without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/searchmessages(): toggle_continuous without admin perms.")
 			return
 		var/list/continuous = CONFIG_GET(keyed_list/continuous)
 		if(!continuous[SSticker.mode.config_tag])
@@ -374,8 +374,8 @@ TYPE_PROC_REF(/datum/admins, CheckAdminHref)(href, href_list)
 
 	else if(href_list["toggle_midround_antag"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, searchmessages)(): toggle_midround_antag without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, searchmessages)(): toggle_midround_antag without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/searchmessages(): toggle_midround_antag without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/searchmessages(): toggle_midround_antag without admin perms.")
 			return
 
 		var/list/midround_antag = CONFIG_GET(keyed_list/midround_antag)
@@ -389,8 +389,8 @@ TYPE_PROC_REF(/datum/admins, CheckAdminHref)(href, href_list)
 
 	else if(href_list["alter_midround_time_limit"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, searchmessages)(): alter_midround_time_limit without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, searchmessages)(): alter_midround_time_limit without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/searchmessages(): alter_midround_time_limit without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/searchmessages(): alter_midround_time_limit without admin perms.")
 			return
 
 		var/timer = input("Enter new maximum time",, CONFIG_GET(number/midround_antag_time_check)) as num|null
@@ -402,8 +402,8 @@ TYPE_PROC_REF(/datum/admins, CheckAdminHref)(href, href_list)
 
 	else if(href_list["alter_midround_life_limit"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, searchmessages)(): alter_midround_life_limit without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, searchmessages)(): alter_midround_life_limit without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/searchmessages(): alter_midround_life_limit without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/searchmessages(): alter_midround_life_limit without admin perms.")
 			return
 
 		var/ratio = input("Enter new life ratio",, CONFIG_GET(number/midround_antag_life_check) * 100) as num
@@ -416,8 +416,8 @@ TYPE_PROC_REF(/datum/admins, CheckAdminHref)(href, href_list)
 
 	else if(href_list["toggle_noncontinuous_behavior"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, searchmessages)(): toggle_noncontinuous_behavior without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, searchmessages)(): toggle_noncontinuous_behavior without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/searchmessages(): toggle_noncontinuous_behavior without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/searchmessages(): toggle_noncontinuous_behavior without admin perms.")
 			return
 
 		if(!SSticker.mode.round_ends_with_antag_death)
@@ -448,8 +448,8 @@ TYPE_PROC_REF(/datum/admins, CheckAdminHref)(href, href_list)
 
 	else if(href_list["end_round"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, searchmessages)(): end_round without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, searchmessages)(): end_round without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/searchmessages(): end_round without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/searchmessages(): end_round without admin perms.")
 			return
 
 		message_admins(span_adminnotice("[key_name_admin(usr)] is considering ending the round."))
@@ -1196,8 +1196,8 @@ TYPE_PROC_REF(/datum/admins, CheckAdminHref)(href, href_list)
 
 	else if(href_list["boot2"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, searchmessages)(): boot2 without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, searchmessages)(): boot2 without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/searchmessages(): boot2 without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/searchmessages(): boot2 without admin perms.")
 			return
 		var/mob/M = locate(href_list["boot2"])
 		if(ismob(M))
@@ -1219,60 +1219,60 @@ TYPE_PROC_REF(/datum/admins, CheckAdminHref)(href, href_list)
 
 	else if(href_list["addmessage"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, searchmessages)(): addmessage without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, searchmessages)(): addmessage without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/searchmessages(): addmessage without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/searchmessages(): addmessage without admin perms.")
 			return
 		var/target_key = href_list["addmessage"]
 		create_message("message", target_key, secret = 0)
 
 	else if(href_list["addnote"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, searchmessages)(): addnote without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, searchmessages)(): addnote without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/searchmessages(): addnote without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/searchmessages(): addnote without admin perms.")
 			return
 		var/target_key = href_list["addnote"]
 		create_message("note", target_key)
 
 	else if(href_list["addwatch"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, searchmessages)(): addwatch without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, searchmessages)(): addwatch without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/searchmessages(): addwatch without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/searchmessages(): addwatch without admin perms.")
 			return
 		var/target_key = href_list["addwatch"]
 		create_message("watchlist entry", target_key, secret = 1)
 
 	else if(href_list["addmemo"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, searchmessages)(): addmemo without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, searchmessages)(): addmemo without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/searchmessages(): addmemo without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/searchmessages(): addmemo without admin perms.")
 			return
 		create_message("memo", secret = 0, browse = 1)
 
 	else if(href_list["addmessageempty"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, searchmessages)(): addmessageempty without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, searchmessages)(): addmessageempty without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/searchmessages(): addmessageempty without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/searchmessages(): addmessageempty without admin perms.")
 			return
 		create_message("message", secret = 0)
 
 	else if(href_list["addnoteempty"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, searchmessages)(): addnoteempty without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, searchmessages)(): addnoteempty without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/searchmessages(): addnoteempty without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/searchmessages(): addnoteempty without admin perms.")
 			return
 		create_message("note")
 
 	else if(href_list["addwatchempty"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, searchmessages)(): addwatchempty without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, searchmessages)(): addwatchempty without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/searchmessages(): addwatchempty without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/searchmessages(): addwatchempty without admin perms.")
 			return
 		create_message("watchlist entry", secret = 1)
 
 	else if(href_list["deletemessage"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, searchmessages)(): deletemessage without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, searchmessages)(): deletemessage without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/searchmessages(): deletemessage without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/searchmessages(): deletemessage without admin perms.")
 			return
 		var/safety = alert("Delete message/note?",,"Yes","No");
 		if (safety == "Yes")
@@ -1281,8 +1281,8 @@ TYPE_PROC_REF(/datum/admins, CheckAdminHref)(href, href_list)
 
 	else if(href_list["deletemessageempty"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, searchmessages)(): deletemessageempty without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, searchmessages)(): deletemessageempty without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/searchmessages(): deletemessageempty without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/searchmessages(): deletemessageempty without admin perms.")
 			return
 		var/safety = alert("Delete message/note?",,"Yes","No");
 		if (safety == "Yes")
@@ -1291,64 +1291,64 @@ TYPE_PROC_REF(/datum/admins, CheckAdminHref)(href, href_list)
 
 	else if(href_list["editmessage"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, searchmessages)(): editmessage without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, searchmessages)(): editmessage without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/searchmessages(): editmessage without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/searchmessages(): editmessage without admin perms.")
 			return
 		var/message_id = href_list["editmessage"]
 		edit_message(message_id)
 
 	else if(href_list["editmessageempty"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, searchmessages)(): editmessageempty without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, searchmessages)(): editmessageempty without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/searchmessages(): editmessageempty without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/searchmessages(): editmessageempty without admin perms.")
 			return
 		var/message_id = href_list["editmessageempty"]
 		edit_message(message_id, browse = 1)
 
 	else if(href_list["editmessageexpiry"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, searchmessages)(): editmessageexpiry without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, searchmessages)(): editmessageexpiry without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/searchmessages(): editmessageexpiry without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/searchmessages(): editmessageexpiry without admin perms.")
 			return
 		var/message_id = href_list["editmessageexpiry"]
 		edit_message_expiry(message_id)
 
 	else if(href_list["editmessageexpiryempty"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, searchmessages)(): editmessageexpiryempty without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, searchmessages)(): editmessageexpiryempty without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/searchmessages(): editmessageexpiryempty without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/searchmessages(): editmessageexpiryempty without admin perms.")
 			return
 		var/message_id = href_list["editmessageexpiryempty"]
 		edit_message_expiry(message_id, browse = 1)
 
 	else if(href_list["editmessageseverity"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, searchmessages)(): editmessageseverity without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, searchmessages)(): editmessageseverity without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/searchmessages(): editmessageseverity without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/searchmessages(): editmessageseverity without admin perms.")
 			return
 		var/message_id = href_list["editmessageseverity"]
 		edit_message_severity(message_id)
 
 	else if(href_list["secretmessage"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, searchmessages)(): secretmessage without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, searchmessages)(): secretmessage without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/searchmessages(): secretmessage without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/searchmessages(): secretmessage without admin perms.")
 			return
 		var/message_id = href_list["secretmessage"]
 		toggle_message_secrecy(message_id)
 
 	else if(href_list["searchmessages"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, searchmessages)(): nonalpha without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, searchmessages)(): nonalpha without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/searchmessages(): nonalpha without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/searchmessages(): nonalpha without admin perms.")
 			return
 		var/target = href_list["searchmessages"]
 		browse_messages(index = target)
 
 	else if(href_list["nonalpha"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): nonalpha without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): nonalpha without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/CheckAdminHref(): nonalpha without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/CheckAdminHref(): nonalpha without admin perms.")
 			return
 		var/target = href_list["nonalpha"]
 		target = text2num(target)
@@ -1356,37 +1356,37 @@ TYPE_PROC_REF(/datum/admins, CheckAdminHref)(href, href_list)
 
 	else if(href_list["showmessages"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): showmessages without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): showmessages without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/CheckAdminHref(): showmessages without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/CheckAdminHref(): showmessages without admin perms.")
 			return
 		var/target = href_list["showmessages"]
 		browse_messages(index = target)
 
 	else if(href_list["showmemo"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): showmemo without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): showmemo without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/CheckAdminHref(): showmemo without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/CheckAdminHref(): showmemo without admin perms.")
 			return
 		browse_messages("memo")
 
 	else if(href_list["showwatch"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): showwatch without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): showwatch without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/CheckAdminHref(): showwatch without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/CheckAdminHref(): showwatch without admin perms.")
 			return
 		browse_messages("watchlist entry")
 
 	else if(href_list["showwatchfilter"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): showwatchfilter without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): showwatchfilter without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/CheckAdminHref(): showwatchfilter without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/CheckAdminHref(): showwatchfilter without admin perms.")
 			return
 		browse_messages("watchlist entry", filter = 1)
 
 	else if(href_list["showmessageckey"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): showmessageckey without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): showmessageckey without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/CheckAdminHref(): showmessageckey without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/CheckAdminHref(): showmessageckey without admin perms.")
 			return
 		var/target = href_list["showmessageckey"]
 		var/agegate = TRUE
@@ -1400,8 +1400,8 @@ TYPE_PROC_REF(/datum/admins, CheckAdminHref)(href, href_list)
 
 	else if(href_list["messageedits"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): messageedits without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): messageedits without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/CheckAdminHref(): messageedits without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/CheckAdminHref(): messageedits without admin perms.")
 			return
 		var/datum/db_query/query_get_message_edits = SSdbcore.NewQuery(
 			"SELECT edits FROM [format_table_name("messages")] WHERE id = :id",
@@ -1491,8 +1491,8 @@ TYPE_PROC_REF(/datum/admins, CheckAdminHref)(href, href_list)
 
 	else if(href_list["mute"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): mute without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): mute without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/CheckAdminHref(): mute without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/CheckAdminHref(): mute without admin perms.")
 			return
 		cmd_admin_mute(href_list["mute"], text2num(href_list["mute_type"]))
 
@@ -1504,8 +1504,8 @@ TYPE_PROC_REF(/datum/admins, CheckAdminHref)(href, href_list)
 
 	else if(href_list["f_dynamic_roundstart"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): f_dynamic_roundstart without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): f_dynamic_roundstart without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/CheckAdminHref(): f_dynamic_roundstart without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/CheckAdminHref(): f_dynamic_roundstart without admin perms.")
 			return
 		if(SSticker && SSticker.mode)
 			return alert(usr, "The game has already started.", null, null, null, null)
@@ -1524,8 +1524,8 @@ TYPE_PROC_REF(/datum/admins, CheckAdminHref)(href, href_list)
 
 	else if(href_list["f_dynamic_roundstart_clear"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): f_dynamic_roundstart_clear without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): f_dynamic_roundstart_clear without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/CheckAdminHref(): f_dynamic_roundstart_clear without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/CheckAdminHref(): f_dynamic_roundstart_clear without admin perms.")
 			return
 		GLOB.dynamic_forced_roundstart_ruleset = list()
 		Game()
@@ -1534,8 +1534,8 @@ TYPE_PROC_REF(/datum/admins, CheckAdminHref)(href, href_list)
 
 	else if(href_list["f_dynamic_roundstart_remove"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): f_dynamic_roundstart_remove without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): f_dynamic_roundstart_remove without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/CheckAdminHref(): f_dynamic_roundstart_remove without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/CheckAdminHref(): f_dynamic_roundstart_remove without admin perms.")
 			return
 		var/datum/dynamic_ruleset/roundstart/rule = locate(href_list["f_dynamic_roundstart_remove"])
 		GLOB.dynamic_forced_roundstart_ruleset -= rule
@@ -1545,8 +1545,8 @@ TYPE_PROC_REF(/datum/admins, CheckAdminHref)(href, href_list)
 
 	else if(href_list["f_dynamic_storyteller"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): f_dynamic_storyteller without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): f_dynamic_storyteller without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/CheckAdminHref(): f_dynamic_storyteller without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/CheckAdminHref(): f_dynamic_storyteller without admin perms.")
 			return
 		if(SSticker && SSticker.mode)
 			return alert(usr, "The game has already started.", null, null, null, null)
@@ -1565,8 +1565,8 @@ TYPE_PROC_REF(/datum/admins, CheckAdminHref)(href, href_list)
 
 	else if(href_list["f_dynamic_storyteller_clear"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): f_dynamic_storyteller_clear without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): f_dynamic_storyteller_clear without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/CheckAdminHref(): f_dynamic_storyteller_clear without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/CheckAdminHref(): f_dynamic_storyteller_clear without admin perms.")
 			return
 		GLOB.dynamic_forced_storyteller = null
 		Game()
@@ -1575,8 +1575,8 @@ TYPE_PROC_REF(/datum/admins, CheckAdminHref)(href, href_list)
 
 	else if(href_list["f_dynamic_latejoin"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): f_dynamic_latejoin without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): f_dynamic_latejoin without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/CheckAdminHref(): f_dynamic_latejoin without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/CheckAdminHref(): f_dynamic_latejoin without admin perms.")
 			return
 		if(!SSticker || !SSticker.mode)
 			return alert(usr, "The game must start first.", null, null, null, null)
@@ -1596,8 +1596,8 @@ TYPE_PROC_REF(/datum/admins, CheckAdminHref)(href, href_list)
 
 	else if(href_list["f_dynamic_latejoin_clear"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): f_dynamic_latejoin_clear without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): f_dynamic_latejoin_clear without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/CheckAdminHref(): f_dynamic_latejoin_clear without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/CheckAdminHref(): f_dynamic_latejoin_clear without admin perms.")
 			return
 		if (SSticker && SSticker.mode && istype(SSticker.mode,/datum/game_mode/dynamic))
 			var/datum/game_mode/dynamic/mode = SSticker.mode
@@ -1608,8 +1608,8 @@ TYPE_PROC_REF(/datum/admins, CheckAdminHref)(href, href_list)
 
 	else if(href_list["f_dynamic_midround"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): f_dynamic_midround without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): f_dynamic_midround without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/CheckAdminHref(): f_dynamic_midround without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/CheckAdminHref(): f_dynamic_midround without admin perms.")
 			return
 		if(!SSticker || !SSticker.mode)
 			return alert(usr, "The game must start first.", null, null, null, null)
@@ -1628,8 +1628,8 @@ TYPE_PROC_REF(/datum/admins, CheckAdminHref)(href, href_list)
 
 	else if (href_list["f_dynamic_options"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): f_dynamic_options without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): f_dynamic_options without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/CheckAdminHref(): f_dynamic_options without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/CheckAdminHref(): f_dynamic_options without admin perms.")
 			return
 
 		if(SSticker && SSticker.mode)
@@ -1641,8 +1641,8 @@ TYPE_PROC_REF(/datum/admins, CheckAdminHref)(href, href_list)
 
 	else if(href_list["f_dynamic_roundstart_centre"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): f_dynamic_roundstart_centre without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): f_dynamic_roundstart_centre without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/CheckAdminHref(): f_dynamic_roundstart_centre without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/CheckAdminHref(): f_dynamic_roundstart_centre without admin perms.")
 			return
 		if(SSticker && SSticker.mode)
 			return alert(usr, "The game has already started.", null, null, null, null)
@@ -1658,8 +1658,8 @@ TYPE_PROC_REF(/datum/admins, CheckAdminHref)(href, href_list)
 
 	else if(href_list["f_dynamic_roundstart_width"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): f_dynamic_roundstart_width without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): f_dynamic_roundstart_width without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/CheckAdminHref(): f_dynamic_roundstart_width without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/CheckAdminHref(): f_dynamic_roundstart_width without admin perms.")
 			return
 		if(SSticker && SSticker.mode)
 			return alert(usr, "The game has already started.", null, null, null, null)
@@ -1677,8 +1677,8 @@ TYPE_PROC_REF(/datum/admins, CheckAdminHref)(href, href_list)
 
 	else if(href_list["f_dynamic_roundstart_latejoin_min"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): f_dynamic_roundstart_latejoin_min without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): f_dynamic_roundstart_latejoin_min without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/CheckAdminHref(): f_dynamic_roundstart_latejoin_min without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/CheckAdminHref(): f_dynamic_roundstart_latejoin_min without admin perms.")
 			return
 		if(SSticker && SSticker.mode)
 			return alert(usr, "The game has already started.", null, null, null, null)
@@ -1697,8 +1697,8 @@ TYPE_PROC_REF(/datum/admins, CheckAdminHref)(href, href_list)
 
 	else if(href_list["f_dynamic_roundstart_latejoin_max"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): f_dynamic_roundstart_latejoin_max without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): f_dynamic_roundstart_latejoin_max without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/CheckAdminHref(): f_dynamic_roundstart_latejoin_max without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/CheckAdminHref(): f_dynamic_roundstart_latejoin_max without admin perms.")
 			return
 		if(SSticker && SSticker.mode)
 			return alert(usr, "The game has already started.", null, null, null, null)
@@ -1717,8 +1717,8 @@ TYPE_PROC_REF(/datum/admins, CheckAdminHref)(href, href_list)
 
 	else if(href_list["f_dynamic_roundstart_midround_min"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): f_dynamic_roundstart_midround_min without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): f_dynamic_roundstart_midround_min without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/CheckAdminHref(): f_dynamic_roundstart_midround_min without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/CheckAdminHref(): f_dynamic_roundstart_midround_min without admin perms.")
 			return
 		if(SSticker && SSticker.mode)
 			return alert(usr, "The game has already started.", null, null, null, null)
@@ -1737,8 +1737,8 @@ TYPE_PROC_REF(/datum/admins, CheckAdminHref)(href, href_list)
 
 	else if(href_list["f_dynamic_roundstart_midround_max"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): f_dynamic_roundstart_midround_max without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): f_dynamic_roundstart_midround_max without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/CheckAdminHref(): f_dynamic_roundstart_midround_max without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/CheckAdminHref(): f_dynamic_roundstart_midround_max without admin perms.")
 			return
 		if(SSticker && SSticker.mode)
 			return alert(usr, "The game has already started.", null, null, null, null)
@@ -1757,8 +1757,8 @@ TYPE_PROC_REF(/datum/admins, CheckAdminHref)(href, href_list)
 
 	else if(href_list["f_dynamic_force_extended"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): f_dynamic_force_extended without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): f_dynamic_force_extended without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/CheckAdminHref(): f_dynamic_force_extended without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/CheckAdminHref(): f_dynamic_force_extended without admin perms.")
 			return
 
 		if(GLOB.master_mode != "dynamic")
@@ -1771,8 +1771,8 @@ TYPE_PROC_REF(/datum/admins, CheckAdminHref)(href, href_list)
 
 	else if(href_list["f_dynamic_no_stacking"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): f_dynamic_no_stacking without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): f_dynamic_no_stacking without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/CheckAdminHref(): f_dynamic_no_stacking without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/CheckAdminHref(): f_dynamic_no_stacking without admin perms.")
 			return
 
 		if(GLOB.master_mode != "dynamic")
@@ -1785,8 +1785,8 @@ TYPE_PROC_REF(/datum/admins, CheckAdminHref)(href, href_list)
 
 	else if(href_list["f_dynamic_classic_secret"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): f_dynamic_classic_secret without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): f_dynamic_classic_secret without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/CheckAdminHref(): f_dynamic_classic_secret without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/CheckAdminHref(): f_dynamic_classic_secret without admin perms.")
 			return
 
 		if(GLOB.master_mode != "dynamic")
@@ -1799,8 +1799,8 @@ TYPE_PROC_REF(/datum/admins, CheckAdminHref)(href, href_list)
 
 	else if(href_list["f_dynamic_stacking_limit"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): f_dynamic_stacking_limit without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): f_dynamic_stacking_limit without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/CheckAdminHref(): f_dynamic_stacking_limit without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/CheckAdminHref(): f_dynamic_stacking_limit without admin perms.")
 			return
 
 		if(GLOB.master_mode != "dynamic")
@@ -1813,8 +1813,8 @@ TYPE_PROC_REF(/datum/admins, CheckAdminHref)(href, href_list)
 
 	else if(href_list["f_dynamic_high_pop_limit"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): f_dynamic_high_pop_limit without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): f_dynamic_high_pop_limit without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/CheckAdminHref(): f_dynamic_high_pop_limit without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/CheckAdminHref(): f_dynamic_high_pop_limit without admin perms.")
 			return
 
 		if(SSticker && SSticker.mode)
@@ -1834,8 +1834,8 @@ TYPE_PROC_REF(/datum/admins, CheckAdminHref)(href, href_list)
 
 	else if(href_list["f_dynamic_forced_threat"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): f_dynamic_forced_threat without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): f_dynamic_forced_threat without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/CheckAdminHref(): f_dynamic_forced_threat without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/CheckAdminHref(): f_dynamic_forced_threat without admin perms.")
 			return
 
 		if(SSticker && SSticker.mode)
@@ -1939,8 +1939,8 @@ TYPE_PROC_REF(/datum/admins, CheckAdminHref)(href, href_list)
 
 	else if(href_list["makeeligible"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): makeeligible without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): makeeligible without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/CheckAdminHref(): makeeligible without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/CheckAdminHref(): makeeligible without admin perms.")
 			return
 		var/mob/M = locate(href_list["makeeligible"])
 		if(!ismob(M))
@@ -1950,8 +1950,8 @@ TYPE_PROC_REF(/datum/admins, CheckAdminHref)(href, href_list)
 
 	else if(href_list["sendtoprison"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): sendtoprison without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): sendtoprison without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/CheckAdminHref(): sendtoprison without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/CheckAdminHref(): sendtoprison without admin perms.")
 			return
 
 		var/mob/M = locate(href_list["sendtoprison"])
@@ -1973,8 +1973,8 @@ TYPE_PROC_REF(/datum/admins, CheckAdminHref)(href, href_list)
 
 	else if(href_list["sendbacktolobby"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): sendbacktolobby without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): sendbacktolobby without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/CheckAdminHref(): sendbacktolobby without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/CheckAdminHref(): sendbacktolobby without admin perms.")
 			return
 
 		var/mob/M = locate(href_list["sendbacktolobby"])
@@ -2108,8 +2108,8 @@ TYPE_PROC_REF(/datum/admins, CheckAdminHref)(href, href_list)
 
 	else if(href_list["revive"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): revive without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): revive without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/CheckAdminHref(): revive without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/CheckAdminHref(): revive without admin perms.")
 			return
 
 		var/mob/living/L = locate(href_list["revive"])
@@ -2208,8 +2208,8 @@ TYPE_PROC_REF(/datum/admins, CheckAdminHref)(href, href_list)
 
 	else if(href_list["admingetmovable"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): admingetmovable without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): admingetmovable without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/CheckAdminHref(): admingetmovable without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/CheckAdminHref(): admingetmovable without admin perms.")
 			return
 
 		var/atom/movable/AM = locate(href_list["admingetmovable"])
@@ -2233,15 +2233,15 @@ TYPE_PROC_REF(/datum/admins, CheckAdminHref)(href, href_list)
 
 	else if(href_list["adminchecklaws"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): adminchecklaws without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): adminchecklaws without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/CheckAdminHref(): adminchecklaws without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/CheckAdminHref(): adminchecklaws without admin perms.")
 			return
 		output_ai_laws()
 
 	else if(href_list["admincheckdevilinfo"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): admincheckdevilinfo without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): admincheckdevilinfo without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/CheckAdminHref(): admincheckdevilinfo without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/CheckAdminHref(): admincheckdevilinfo without admin perms.")
 			return
 		var/mob/M = locate(href_list["admincheckdevilinfo"])
 		output_devil_info(M)
@@ -2305,8 +2305,8 @@ TYPE_PROC_REF(/datum/admins, CheckAdminHref)(href, href_list)
 
 	else if(href_list["addjobslot"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): addjobslot without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): addjobslot without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/CheckAdminHref(): addjobslot without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/CheckAdminHref(): addjobslot without admin perms.")
 			return
 
 		var/Add = href_list["addjobslot"]
@@ -2321,8 +2321,8 @@ TYPE_PROC_REF(/datum/admins, CheckAdminHref)(href, href_list)
 
 	else if(href_list["customjobslot"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): customjobslot without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): customjobslot without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/CheckAdminHref(): customjobslot without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/CheckAdminHref(): customjobslot without admin perms.")
 			return
 
 		var/Add = href_list["customjobslot"]
@@ -2341,8 +2341,8 @@ TYPE_PROC_REF(/datum/admins, CheckAdminHref)(href, href_list)
 
 	else if(href_list["removejobslot"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): removejobslot without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): removejobslot without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/CheckAdminHref(): removejobslot without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/CheckAdminHref(): removejobslot without admin perms.")
 			return
 
 		var/Remove = href_list["removejobslot"]
@@ -2356,8 +2356,8 @@ TYPE_PROC_REF(/datum/admins, CheckAdminHref)(href, href_list)
 
 	else if(href_list["unlimitjobslot"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): unlimitjobslot without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): unlimitjobslot without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/CheckAdminHref(): unlimitjobslot without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/CheckAdminHref(): unlimitjobslot without admin perms.")
 			return
 
 		var/Unlimit = href_list["unlimitjobslot"]
@@ -2371,8 +2371,8 @@ TYPE_PROC_REF(/datum/admins, CheckAdminHref)(href, href_list)
 
 	else if(href_list["limitjobslot"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): limitjobslot without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): limitjobslot without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/CheckAdminHref(): limitjobslot without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/CheckAdminHref(): limitjobslot without admin perms.")
 			return
 
 		var/Limit = href_list["limitjobslot"]
@@ -2432,8 +2432,8 @@ TYPE_PROC_REF(/datum/admins, CheckAdminHref)(href, href_list)
 
 	else if(href_list["CentComReply"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): CentComReply without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): CentComReply without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/CheckAdminHref(): CentComReply without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/CheckAdminHref(): CentComReply without admin perms.")
 			return
 
 		var/mob/M = locate(href_list["CentComReply"])
@@ -2441,8 +2441,8 @@ TYPE_PROC_REF(/datum/admins, CheckAdminHref)(href, href_list)
 
 	else if(href_list["SyndicateReply"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): SyndicateReply without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): SyndicateReply without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/CheckAdminHref(): SyndicateReply without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/CheckAdminHref(): SyndicateReply without admin perms.")
 			return
 
 		var/mob/M = locate(href_list["SyndicateReply"])
@@ -2450,8 +2450,8 @@ TYPE_PROC_REF(/datum/admins, CheckAdminHref)(href, href_list)
 
 	else if(href_list["HeadsetMessage"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): HeadsetMessage without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): HeadsetMessage without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/CheckAdminHref(): HeadsetMessage without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/CheckAdminHref(): HeadsetMessage without admin perms.")
 			return
 
 		var/mob/M = locate(href_list["HeadsetMessage"])
@@ -2459,8 +2459,8 @@ TYPE_PROC_REF(/datum/admins, CheckAdminHref)(href, href_list)
 
 	else if(href_list["reject_custom_name"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): reject_custom_name without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): reject_custom_name without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/CheckAdminHref(): reject_custom_name without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/CheckAdminHref(): reject_custom_name without admin perms.")
 			return
 		var/obj/item/station_charter/charter = locate(href_list["reject_custom_name"])
 		if(istype(charter))
@@ -2474,8 +2474,8 @@ TYPE_PROC_REF(/datum/admins, CheckAdminHref)(href, href_list)
 
 	else if(href_list["getmob"])
 		if(!check_rights(R_SPAWN)) //fortuna edit. event manager change
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): getmob without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): getmob without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/CheckAdminHref(): getmob without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/CheckAdminHref(): getmob without admin perms.")
 			return
 
 		if(alert(usr, "Confirm?", "Message", "Yes", "No") != "Yes")
@@ -2485,8 +2485,8 @@ TYPE_PROC_REF(/datum/admins, CheckAdminHref)(href, href_list)
 
 	else if(href_list["sendmob"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): sendmob without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): sendmob without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/CheckAdminHref(): sendmob without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/CheckAdminHref(): sendmob without admin perms.")
 			return
 
 		var/mob/M = locate(href_list["sendmob"])
@@ -2494,8 +2494,8 @@ TYPE_PROC_REF(/datum/admins, CheckAdminHref)(href, href_list)
 
 	else if(href_list["narrateto"])
 		if(!check_rights(R_SPAWN)) //fortuna edit. event manager change
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): narrateto without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): narrateto without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/CheckAdminHref(): narrateto without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/CheckAdminHref(): narrateto without admin perms.")
 			return
 
 		var/mob/M = locate(href_list["narrateto"])
@@ -2503,8 +2503,8 @@ TYPE_PROC_REF(/datum/admins, CheckAdminHref)(href, href_list)
 
 	else if(href_list["subtlemessage"])
 		if(!check_rights(R_SPAWN)) //fortuna edit. event manager change
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): subtlemessage without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): subtlemessage without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/CheckAdminHref(): subtlemessage without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/CheckAdminHref(): subtlemessage without admin perms.")
 			return
 
 		var/mob/M = locate(href_list["subtlemessage"])
@@ -2512,8 +2512,8 @@ TYPE_PROC_REF(/datum/admins, CheckAdminHref)(href, href_list)
 
 	else if(href_list["individuallog"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): individuallog without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): individuallog without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/CheckAdminHref(): individuallog without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/CheckAdminHref(): individuallog without admin perms.")
 			return
 
 		var/mob/M = locate(href_list["individuallog"]) in GLOB.mob_list
@@ -2524,8 +2524,8 @@ TYPE_PROC_REF(/datum/admins, CheckAdminHref)(href, href_list)
 		show_individual_logging_panel(M, href_list["log_src"], href_list["log_type"])
 	else if(href_list["languagemenu"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): languagemenu without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): languagemenu without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/CheckAdminHref(): languagemenu without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/CheckAdminHref(): languagemenu without admin perms.")
 			return
 
 		var/mob/M = locate(href_list["languagemenu"]) in GLOB.mob_list
@@ -2537,8 +2537,8 @@ TYPE_PROC_REF(/datum/admins, CheckAdminHref)(href, href_list)
 
 	else if(href_list["traitor"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): traitor without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): traitor without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/CheckAdminHref(): traitor without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/CheckAdminHref(): traitor without admin perms.")
 			return
 
 		if(!SSticker.HasRoundStarted())
@@ -2558,8 +2558,8 @@ TYPE_PROC_REF(/datum/admins, CheckAdminHref)(href, href_list)
 
 	else if(href_list["borgpanel"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): borgpanel without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): borgpanel without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/CheckAdminHref(): borgpanel without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/CheckAdminHref(): borgpanel without admin perms.")
 			return
 
 		var/mob/M = locate(href_list["borgpanel"])
@@ -2570,8 +2570,8 @@ TYPE_PROC_REF(/datum/admins, CheckAdminHref)(href, href_list)
 
 	else if(href_list["initmind"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): initmind without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): initmind without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/CheckAdminHref(): initmind without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/CheckAdminHref(): initmind without admin perms.")
 			return
 		var/mob/M = locate(href_list["initmind"])
 		if(!ismob(M) || M.mind)
@@ -2742,32 +2742,32 @@ TYPE_PROC_REF(/datum/admins, CheckAdminHref)(href, href_list)
 
 	else if(href_list["ac_view_wanted"])            //Admin newscaster Topic() stuff be here
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): ac_view_wanted without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): ac_view_wanted without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/CheckAdminHref(): ac_view_wanted without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/CheckAdminHref(): ac_view_wanted without admin perms.")
 			return
 		src.admincaster_screen = 18                 //The ac_ prefix before the hrefs stands for AdminCaster.
 		src.access_news_network()
 
 	else if(href_list["ac_set_channel_name"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): ac_set_channel_name without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): ac_set_channel_name without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/CheckAdminHref(): ac_set_channel_name without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/CheckAdminHref(): ac_set_channel_name without admin perms.")
 			return
 		src.admincaster_feed_channel.channel_name = stripped_input(usr, "Provide a Feed Channel Name.", "Network Channel Handler", "")
 		src.access_news_network()
 
 	else if(href_list["ac_set_channel_lock"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): ac_set_channel_lock without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): ac_set_channel_lock without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/CheckAdminHref(): ac_set_channel_lock without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/CheckAdminHref(): ac_set_channel_lock without admin perms.")
 			return
 		src.admincaster_feed_channel.locked = !src.admincaster_feed_channel.locked
 		src.access_news_network()
 
 	else if(href_list["ac_submit_new_channel"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): ac_submit_new_channel without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): ac_submit_new_channel without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/CheckAdminHref(): ac_submit_new_channel without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/CheckAdminHref(): ac_submit_new_channel without admin perms.")
 			return
 		var/check = 0
 		for(var/datum/news/feed_channel/FC in GLOB.news_network.network_channels)
@@ -2787,8 +2787,8 @@ TYPE_PROC_REF(/datum/admins, CheckAdminHref)(href, href_list)
 
 	else if(href_list["ac_set_channel_receiving"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): ac_set_channel_receiving without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): ac_set_channel_receiving without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/CheckAdminHref(): ac_set_channel_receiving without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/CheckAdminHref(): ac_set_channel_receiving without admin perms.")
 			return
 		var/list/available_channels = list()
 		for(var/datum/news/feed_channel/F in GLOB.news_network.network_channels)
@@ -2798,16 +2798,16 @@ TYPE_PROC_REF(/datum/admins, CheckAdminHref)(href, href_list)
 
 	else if(href_list["ac_set_new_message"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): ac_set_new_message without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): ac_set_new_message without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/CheckAdminHref(): ac_set_new_message without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/CheckAdminHref(): ac_set_new_message without admin perms.")
 			return
 		src.admincaster_feed_message.body = adminscrub(stripped_input(usr, "Write your Feed story.", "Network Channel Handler", ""))
 		src.access_news_network()
 
 	else if(href_list["ac_submit_new_message"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): ac_submit_new_message without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): ac_submit_new_message without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/CheckAdminHref(): ac_submit_new_message without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/CheckAdminHref(): ac_submit_new_message without admin perms.")
 			return
 		if(src.admincaster_feed_message.returnBody(-1) =="" || src.admincaster_feed_message.returnBody(-1) =="\[REDACTED\]" || src.admincaster_feed_channel.channel_name == "" )
 			src.admincaster_screen = 6
@@ -2824,40 +2824,40 @@ TYPE_PROC_REF(/datum/admins, CheckAdminHref)(href, href_list)
 
 	else if(href_list["ac_create_channel"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): ac_create_channel without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): ac_create_channel without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/CheckAdminHref(): ac_create_channel without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/CheckAdminHref(): ac_create_channel without admin perms.")
 			return
 		src.admincaster_screen=2
 		src.access_news_network()
 
 	else if(href_list["ac_create_feed_story"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): ac_create_feed_story without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): ac_create_feed_story without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/CheckAdminHref(): ac_create_feed_story without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/CheckAdminHref(): ac_create_feed_story without admin perms.")
 			return
 		src.admincaster_screen=3
 		src.access_news_network()
 
 	else if(href_list["ac_menu_censor_story"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): ac_menu_censor_story without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): ac_menu_censor_story without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/CheckAdminHref(): ac_menu_censor_story without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/CheckAdminHref(): ac_menu_censor_story without admin perms.")
 			return
 		src.admincaster_screen=10
 		src.access_news_network()
 
 	else if(href_list["ac_menu_censor_channel"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): ac_menu_censor_channel without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): ac_menu_censor_channel without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/CheckAdminHref(): ac_menu_censor_channel without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/CheckAdminHref(): ac_menu_censor_channel without admin perms.")
 			return
 		src.admincaster_screen=11
 		src.access_news_network()
 
 	else if(href_list["ac_menu_wanted"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): ac_menu_wanted without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): ac_menu_wanted without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/CheckAdminHref(): ac_menu_wanted without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/CheckAdminHref(): ac_menu_wanted without admin perms.")
 			return
 		var/already_wanted = 0
 		if(GLOB.news_network.wanted_issue.active)
@@ -2871,24 +2871,24 @@ TYPE_PROC_REF(/datum/admins, CheckAdminHref)(href, href_list)
 
 	else if(href_list["ac_set_wanted_name"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): ac_set_wanted_name without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): ac_set_wanted_name without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/CheckAdminHref(): ac_set_wanted_name without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/CheckAdminHref(): ac_set_wanted_name without admin perms.")
 			return
 		src.admincaster_wanted_message.criminal = adminscrub(stripped_input(usr, "Provide the name of the Wanted person.", "Network Security Handler", ""))
 		src.access_news_network()
 
 	else if(href_list["ac_set_wanted_desc"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): ac_set_wanted_desc without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): ac_set_wanted_desc without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/CheckAdminHref(): ac_set_wanted_desc without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/CheckAdminHref(): ac_set_wanted_desc without admin perms.")
 			return
 		src.admincaster_wanted_message.body = adminscrub(stripped_input(usr, "Provide the a description of the Wanted person and any other details you deem important.", "Network Security Handler", ""))
 		src.access_news_network()
 
 	else if(href_list["ac_submit_wanted"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): ac_submit_wanted without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): ac_submit_wanted without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/CheckAdminHref(): ac_submit_wanted without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/CheckAdminHref(): ac_submit_wanted without admin perms.")
 			return
 		var/input_param = text2num(href_list["ac_submit_wanted"])
 		if(src.admincaster_wanted_message.criminal == "" || src.admincaster_wanted_message.body == "")
@@ -2907,8 +2907,8 @@ TYPE_PROC_REF(/datum/admins, CheckAdminHref)(href, href_list)
 
 	else if(href_list["ac_cancel_wanted"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): ac_cancel_wanted without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): ac_cancel_wanted without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/CheckAdminHref(): ac_cancel_wanted without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/CheckAdminHref(): ac_cancel_wanted without admin perms.")
 			return
 		var/choice = alert("Please confirm Wanted Issue removal.","Network Security Handler","Confirm","Cancel")
 		if(choice=="Confirm")
@@ -2918,8 +2918,8 @@ TYPE_PROC_REF(/datum/admins, CheckAdminHref)(href, href_list)
 
 	else if(href_list["ac_censor_channel_author"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): ac_censor_channel_author without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): ac_censor_channel_author without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/CheckAdminHref(): ac_censor_channel_author without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/CheckAdminHref(): ac_censor_channel_author without admin perms.")
 			return
 		var/datum/news/feed_channel/FC = locate(href_list["ac_censor_channel_author"])
 		FC.toggleCensorAuthor()
@@ -2927,8 +2927,8 @@ TYPE_PROC_REF(/datum/admins, CheckAdminHref)(href, href_list)
 
 	else if(href_list["ac_censor_channel_story_author"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): ac_censor_channel_story_author without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): ac_censor_channel_story_author without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/CheckAdminHref(): ac_censor_channel_story_author without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/CheckAdminHref(): ac_censor_channel_story_author without admin perms.")
 			return
 		var/datum/news/feed_message/MSG = locate(href_list["ac_censor_channel_story_author"])
 		MSG.toggleCensorAuthor()
@@ -2936,8 +2936,8 @@ TYPE_PROC_REF(/datum/admins, CheckAdminHref)(href, href_list)
 
 	else if(href_list["ac_censor_channel_story_body"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): ac_censor_channel_story_body without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): ac_censor_channel_story_body without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/CheckAdminHref(): ac_censor_channel_story_body without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/CheckAdminHref(): ac_censor_channel_story_body without admin perms.")
 			return
 		var/datum/news/feed_message/MSG = locate(href_list["ac_censor_channel_story_body"])
 		MSG.toggleCensorBody()
@@ -2945,8 +2945,8 @@ TYPE_PROC_REF(/datum/admins, CheckAdminHref)(href, href_list)
 
 	else if(href_list["ac_pick_d_notice"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): ac_pick_d_notice without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): ac_pick_d_notice without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/CheckAdminHref(): ac_pick_d_notice without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/CheckAdminHref(): ac_pick_d_notice without admin perms.")
 			return
 		var/datum/news/feed_channel/FC = locate(href_list["ac_pick_d_notice"])
 		src.admincaster_feed_channel = FC
@@ -2955,8 +2955,8 @@ TYPE_PROC_REF(/datum/admins, CheckAdminHref)(href, href_list)
 
 	else if(href_list["ac_toggle_d_notice"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): ac_toggle_d_notice without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): ac_toggle_d_notice without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/CheckAdminHref(): ac_toggle_d_notice without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/CheckAdminHref(): ac_toggle_d_notice without admin perms.")
 			return
 		var/datum/news/feed_channel/FC = locate(href_list["ac_toggle_d_notice"])
 		FC.toggleCensorDclass()
@@ -2964,16 +2964,16 @@ TYPE_PROC_REF(/datum/admins, CheckAdminHref)(href, href_list)
 
 	else if(href_list["ac_view"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): ac_view without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): ac_view without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/CheckAdminHref(): ac_view without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/CheckAdminHref(): ac_view without admin perms.")
 			return
 		src.admincaster_screen=1
 		src.access_news_network()
 
 	else if(href_list["ac_setScreen"]) //Brings us to the main menu and resets all fields~
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): ac_setScreen without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): ac_setScreen without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/CheckAdminHref(): ac_setScreen without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/CheckAdminHref(): ac_setScreen without admin perms.")
 			return
 		src.admincaster_screen = text2num(href_list["ac_setScreen"])
 		if (src.admincaster_screen == 0)
@@ -2987,8 +2987,8 @@ TYPE_PROC_REF(/datum/admins, CheckAdminHref)(href, href_list)
 
 	else if(href_list["ac_show_channel"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): ac_show_channel without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): ac_show_channel without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/CheckAdminHref(): ac_show_channel without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/CheckAdminHref(): ac_show_channel without admin perms.")
 			return
 		var/datum/news/feed_channel/FC = locate(href_list["ac_show_channel"])
 		src.admincaster_feed_channel = FC
@@ -2997,8 +2997,8 @@ TYPE_PROC_REF(/datum/admins, CheckAdminHref)(href, href_list)
 
 	else if(href_list["ac_pick_censor_channel"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): ac_pick_censor_channel without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): ac_pick_censor_channel without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/CheckAdminHref(): ac_pick_censor_channel without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/CheckAdminHref(): ac_pick_censor_channel without admin perms.")
 			return
 		var/datum/news/feed_channel/FC = locate(href_list["ac_pick_censor_channel"])
 		src.admincaster_feed_channel = FC
@@ -3007,23 +3007,23 @@ TYPE_PROC_REF(/datum/admins, CheckAdminHref)(href, href_list)
 
 	else if(href_list["ac_refresh"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): ac_refresh without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): ac_refresh without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/CheckAdminHref(): ac_refresh without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/CheckAdminHref(): ac_refresh without admin perms.")
 			return
 		src.access_news_network()
 
 	else if(href_list["ac_set_signature"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): ac_set_signature without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): ac_set_signature without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/CheckAdminHref(): ac_set_signature without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/CheckAdminHref(): ac_set_signature without admin perms.")
 			return
 		src.admin_signature = adminscrub(input(usr, "Provide your desired signature.", "Network Identity Handler", ""))
 		src.access_news_network()
 
 	else if(href_list["ac_del_comment"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): ac_del_comment without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): ac_del_comment without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/CheckAdminHref(): ac_del_comment without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/CheckAdminHref(): ac_del_comment without admin perms.")
 			return
 		var/datum/news/feed_comment/FC = locate(href_list["ac_del_comment"])
 		var/datum/news/feed_message/FM = locate(href_list["ac_del_comment_msg"])
@@ -3033,8 +3033,8 @@ TYPE_PROC_REF(/datum/admins, CheckAdminHref)(href, href_list)
 
 	else if(href_list["ac_lock_comment"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): ac_lock_comment without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): ac_lock_comment without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/CheckAdminHref(): ac_lock_comment without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/CheckAdminHref(): ac_lock_comment without admin perms.")
 			return
 		var/datum/news/feed_message/FM = locate(href_list["ac_lock_comment"])
 		FM.locked ^= 1
@@ -3042,15 +3042,15 @@ TYPE_PROC_REF(/datum/admins, CheckAdminHref)(href, href_list)
 
 	else if(href_list["check_antagonist"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): check_antagonist without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): check_antagonist without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/CheckAdminHref(): check_antagonist without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/CheckAdminHref(): check_antagonist without admin perms.")
 			return
 		usr.client.check_antagonists()
 
 	else if(href_list["kick_all_from_lobby"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): kick_all_from_lobby without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): kick_all_from_lobby without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/CheckAdminHref(): kick_all_from_lobby without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/CheckAdminHref(): kick_all_from_lobby without admin perms.")
 			return
 		if(SSticker.IsRoundInProgress())
 			var/afkonly = text2num(href_list["afkonly"])
@@ -3069,8 +3069,8 @@ TYPE_PROC_REF(/datum/admins, CheckAdminHref)(href, href_list)
 
 	else if(href_list["create_outfit"])
 		if(!check_rights(R_SPAWN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): create_outfit without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): create_outfit without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/CheckAdminHref(): create_outfit without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/CheckAdminHref(): create_outfit without admin perms.")
 			return
 
 		var/datum/outfit/O = new /datum/outfit
@@ -3098,8 +3098,8 @@ TYPE_PROC_REF(/datum/admins, CheckAdminHref)(href, href_list)
 
 	else if(href_list["set_selfdestruct_code"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): set_selfdestruct_code without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): set_selfdestruct_code without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/CheckAdminHref(): set_selfdestruct_code without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/CheckAdminHref(): set_selfdestruct_code without admin perms.")
 			return
 		var/code = random_nukecode()
 		for(var/obj/machinery/nuclearbomb/selfdestruct/SD in GLOB.nuke_list)
@@ -3109,8 +3109,8 @@ TYPE_PROC_REF(/datum/admins, CheckAdminHref)(href, href_list)
 
 	else if(href_list["add_station_goal"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): add_station_goal without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): add_station_goal without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/CheckAdminHref(): add_station_goal without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/CheckAdminHref(): add_station_goal without admin perms.")
 			return
 		var/list/type_choices = typesof(/datum/station_goal)
 		var/picked = input("Choose goal type") in type_choices|null
@@ -3143,8 +3143,8 @@ TYPE_PROC_REF(/datum/admins, CheckAdminHref)(href, href_list)
 
 	else if(href_list["showrelatedacc"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): showrelatedacc without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): showrelatedacc without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/CheckAdminHref(): showrelatedacc without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/CheckAdminHref(): showrelatedacc without admin perms.")
 			return
 		var/client/C = locate(href_list["client"]) in GLOB.clients
 		var/thing_to_check
@@ -3162,8 +3162,8 @@ TYPE_PROC_REF(/datum/admins, CheckAdminHref)(href, href_list)
 
 	else if(href_list["centcomlookup"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): centcomlookup without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): centcomlookup without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/CheckAdminHref(): centcomlookup without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/CheckAdminHref(): centcomlookup without admin perms.")
 			return
 
 		if(!CONFIG_GET(string/centcom_ban_db))
@@ -3218,8 +3218,8 @@ TYPE_PROC_REF(/datum/admins, CheckAdminHref)(href, href_list)
 
 	else if(href_list["modantagrep"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): modantagrep without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): modantagrep without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/CheckAdminHref(): modantagrep without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/CheckAdminHref(): modantagrep without admin perms.")
 			return
 
 		var/mob/M = locate(href_list["mob"]) in GLOB.mob_list
@@ -3229,8 +3229,8 @@ TYPE_PROC_REF(/datum/admins, CheckAdminHref)(href, href_list)
 
 	else if(href_list["slowquery"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): slowquery without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): slowquery without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/CheckAdminHref(): slowquery without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/CheckAdminHref(): slowquery without admin perms.")
 			return
 		var/answer = href_list["slowquery"]
 		if(answer == "yes")
@@ -3244,8 +3244,8 @@ TYPE_PROC_REF(/datum/admins, CheckAdminHref)(href, href_list)
 
 	else if (href_list["interview"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): interview without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): interview without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/CheckAdminHref(): interview without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/CheckAdminHref(): interview without admin perms.")
 			return
 		var/datum/interview/I = locate(href_list["interview"])
 		if (I)
@@ -3253,15 +3253,15 @@ TYPE_PROC_REF(/datum/admins, CheckAdminHref)(href, href_list)
 
 	else if (href_list["interview_man"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): interview_man without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): interview_man without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/CheckAdminHref(): interview_man without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/CheckAdminHref(): interview_man without admin perms.")
 			return
 		GLOB.interviews.ui_interact(usr)
 
 	else if(href_list["sleep"])
 		if(!check_rights(R_ADMIN))
-			message_admins("[ADMIN_TPMONTY(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): sleep without admin perms.")
-			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use TYPE_PROC_REF(/datum/admins, CheckAdminHref)(): sleep without admin perms.")
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/CheckAdminHref(): sleep without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/CheckAdminHref(): sleep without admin perms.")
 			return
 
 		var/mob/living/perp = locate(href_list["sleep"]) in GLOB.mob_living_list
@@ -3273,7 +3273,7 @@ TYPE_PROC_REF(/datum/admins, CheckAdminHref)(href, href_list)
 		usr.client.holder.toggle_sleep(perp)
 
 
-TYPE_PROC_REF(/datum/admins, HandleCMode)()
+/datum/admins/proc/HandleCMode()
 	if(!check_rights(R_ADMIN))
 		message_admins("[ADMIN_TPMONTY(usr)] tried to use HandleCMode() without admin perms.")
 		log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use HandleCMode() without admin perms.")
@@ -3289,7 +3289,7 @@ TYPE_PROC_REF(/datum/admins, HandleCMode)()
 	dat += {"Now: [GLOB.master_mode]"}
 	usr << browse(dat, "window=c_mode")
 
-TYPE_PROC_REF(/datum/admins, HandleFSecret)()
+/datum/admins/proc/HandleFSecret()
 	if(!check_rights(R_ADMIN))
 		message_admins("[ADMIN_TPMONTY(usr)] tried to use HandleFSecret() without admin perms.")
 		log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use HandleFSecret() without admin perms.")
@@ -3306,7 +3306,7 @@ TYPE_PROC_REF(/datum/admins, HandleFSecret)()
 	dat += {"Now: [GLOB.secret_force_mode]"}
 	usr << browse(dat, "window=f_secret")
 
-TYPE_PROC_REF(/datum/admins, makeMentor)(ckey)
+/datum/admins/proc/makeMentor(ckey)
 	if(!usr.client)
 		return
 	if (!check_rights(0))
@@ -3348,7 +3348,7 @@ TYPE_PROC_REF(/datum/admins, makeMentor)(ckey)
 	new /datum/mentors(ckey)
 	to_chat(usr, span_adminnotice("New mentor added."))
 
-TYPE_PROC_REF(/datum/admins, removeMentor)(ckey)
+/datum/admins/proc/removeMentor(ckey)
 	if(!usr.client)
 		return
 	if (!check_rights(0))

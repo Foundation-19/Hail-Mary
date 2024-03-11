@@ -111,13 +111,13 @@
 
 	attack_self(usr) //this is not the proper way, but neither of the old update procs work! it's too ancient and I'm tired shush.
 
-TYPE_PROC_REF(/obj/item/areaeditor/blueprints, get_images)(turf/T, viewsize)
+/obj/item/areaeditor/blueprints/proc/get_images(turf/T, viewsize)
 	. = list()
 	for(var/turf/TT in range(viewsize, T))
 		if(TT.blueprint_data)
 			. += TT.blueprint_data
 
-TYPE_PROC_REF(/obj/item/areaeditor/blueprints, set_viewer)(mob/user, message = "")
+/obj/item/areaeditor/blueprints/proc/set_viewer(mob/user, message = "")
 	if(user && user.client)
 		if(viewing)
 			clear_viewer()
@@ -127,7 +127,7 @@ TYPE_PROC_REF(/obj/item/areaeditor/blueprints, set_viewer)(mob/user, message = "
 		if(message)
 			to_chat(user, message)
 
-TYPE_PROC_REF(/obj/item/areaeditor/blueprints, clear_viewer)(mob/user, message = "")
+/obj/item/areaeditor/blueprints/proc/clear_viewer(mob/user, message = "")
 	if(viewing)
 		viewing.images -= showing
 		viewing = null
@@ -142,7 +142,7 @@ TYPE_PROC_REF(/obj/item/areaeditor/blueprints, clear_viewer)(mob/user, message =
 
 
 
-TYPE_PROC_REF(/obj/item/areaeditor, get_area_type)(area/A)
+/obj/item/areaeditor/proc/get_area_type(area/A)
 	if(!A)
 		A = get_area(usr)
 	if(A.outdoors)
@@ -161,14 +161,14 @@ TYPE_PROC_REF(/obj/item/areaeditor, get_area_type)(area/A)
 			return AREA_SPECIAL
 	return AREA_STATION
 
-TYPE_PROC_REF(/obj/item/areaeditor/blueprints, view_wire_devices)(mob/user)
+/obj/item/areaeditor/blueprints/proc/view_wire_devices(mob/user)
 	var/message = "<br>You examine the wire legend.<br>"
 	for(var/wireset in GLOB.wire_color_directory)
 		message += "<br><a href='?src=[REF(src)];view_wireset=[wireset]'>[GLOB.wire_name_directory[wireset]]</a>"
 	message += "</p>"
 	return message
 
-TYPE_PROC_REF(/obj/item/areaeditor/blueprints, view_wire_set)(mob/user, wireset)
+/obj/item/areaeditor/blueprints/proc/view_wire_set(mob/user, wireset)
 	//for some reason you can't use wireset directly as a derefencer so this is the next best :/
 	for(var/device in GLOB.wire_color_directory)
 		if("[device]" == wireset)	//I know... don't change it...
@@ -181,7 +181,7 @@ TYPE_PROC_REF(/obj/item/areaeditor/blueprints, view_wire_set)(mob/user, wireset)
 			return message
 	return ""
 
-TYPE_PROC_REF(/obj/item/areaeditor, edit_area)()
+/obj/item/areaeditor/proc/edit_area()
 	var/area/A = get_area(usr)
 	var/prevname = "[A.name]"
 	var/str = stripped_input(usr,"New area name:", "Area Creation", "", MAX_NAME_LEN)
@@ -203,7 +203,7 @@ TYPE_PROC_REF(/obj/item/areaeditor, edit_area)()
 	return 1
 
 
-TYPE_PROC_REF(/obj/item/areaeditor, set_area_machinery_title)(area/A,title,oldtitle)
+/obj/item/areaeditor/proc/set_area_machinery_title(area/A,title,oldtitle)
 	if(!oldtitle) // or replacetext goes to infinite loop
 		return
 	for(var/obj/machinery/airalarm/M in A)

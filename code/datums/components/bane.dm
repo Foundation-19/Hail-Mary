@@ -29,17 +29,17 @@
 	. = ..()
 	UnregisterSignal(parent, COMSIG_ITEM_AFTERATTACK)
 
-TYPE_PROC_REF(/datum/component/bane, speciesCheck)(obj/item/source, atom/target, mob/user, proximity_flag, click_parameters)
+/datum/component/bane/proc/speciesCheck(obj/item/source, atom/target, mob/user, proximity_flag, click_parameters)
 	if(!is_species(target, speciestype))
 		return
 	activate(source, target, user)
 
-TYPE_PROC_REF(/datum/component/bane, mobCheck)(obj/item/source, atom/target, mob/user, proximity_flag, click_parameters)
+/datum/component/bane/proc/mobCheck(obj/item/source, atom/target, mob/user, proximity_flag, click_parameters)
 	if(!istype(target, mobtype))
 		return
 	activate(source, target, user)
 
-TYPE_PROC_REF(/datum/component/bane, activate)(obj/item/source, mob/living/target, mob/attacker)
+/datum/component/bane/proc/activate(obj/item/source, mob/living/target, mob/attacker)
 	if(attacker.a_intent != INTENT_HARM)
 		return
 

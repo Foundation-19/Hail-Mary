@@ -178,7 +178,7 @@ var/global/list/GlobalPool = list()
 var/list/exclude = list("animate_movement", "contents", "loc", "locs", "parent_type", "vars", "verbs", "type", "gc_destroyed")
 var/list/pooledvariables = list()
 //thanks to clusterfack @ /vg/station for these two procs
-TYPE_PROC_REF(/datum, createVariables)()
+/datum/proc/createVariables()
 	pooledvariables[type] = new/list()
 	var/list/exclude = global.exclude + args
 
@@ -188,7 +188,7 @@ TYPE_PROC_REF(/datum, createVariables)()
 		if(!islist(vars[key]))
 			pooledvariables[type][key] = initial(vars[key])
 
-TYPE_PROC_REF(/datum, ResetVars)()
+/datum/proc/ResetVars()
 	if(!pooledvariables[type])
 		createVariables(args)
 

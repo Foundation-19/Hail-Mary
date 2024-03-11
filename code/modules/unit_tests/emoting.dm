@@ -21,5 +21,5 @@
 	human.say("*deathgasp")
 	TEST_ASSERT_EQUAL(emotes_used, 2, "Human could not deathgasp while unconscious")
 
-TYPE_PROC_REF(/datum/unit_test/emoting, on_emote_used)()
+/datum/unit_test/emoting/proc/on_emote_used()
 	emotes_used += 1

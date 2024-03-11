@@ -42,7 +42,7 @@
 	for(var/turf/target in targets)
 		launch_at(target, user)
 
-TYPE_PROC_REF(/obj/effect/proc_holder/spell/dumbfire, launch_at)(turf/target, mob/user)
+/obj/effect/proc_holder/spell/dumbfire/proc/launch_at(turf/target, mob/user)
 	set waitfor = FALSE
 	var/obj/effect/proc_holder/spell/targeted/projectile
 	if(istext(proj_type))
@@ -104,7 +104,7 @@ TYPE_PROC_REF(/obj/effect/proc_holder/spell/dumbfire, launch_at)(turf/target, mo
 	if(projectile)
 		qdel(projectile)
 
-TYPE_PROC_REF(/obj/effect/proc_holder/spell/dumbfire, proj_trail)(obj/effect/proc_holder/spell/targeted/projectile)
+/obj/effect/proc_holder/spell/dumbfire/proc/proj_trail(obj/effect/proc_holder/spell/targeted/projectile)
 	set waitfor = FALSE
 	if(projectile)
 		var/obj/effect/overlay/trail = new /obj/effect/overlay(projectile.loc)

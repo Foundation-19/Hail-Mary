@@ -29,7 +29,7 @@
 	var/mob/living/M = mob_override || owner.current
 	update_rev_icons_removed(M)
 
-TYPE_PROC_REF(/datum/antagonist/rev, equip_rev)()
+/datum/antagonist/rev/proc/equip_rev()
 	return
 
 /datum/antagonist/rev/on_gain()
@@ -66,14 +66,14 @@ TYPE_PROC_REF(/datum/antagonist/rev, equip_rev)()
 /datum/antagonist/rev/get_team()
 	return rev_team
 
-TYPE_PROC_REF(/datum/antagonist/rev, create_objectives)()
+/datum/antagonist/rev/proc/create_objectives()
 	objectives |= rev_team.objectives
 
-TYPE_PROC_REF(/datum/antagonist/rev, remove_objectives)()
+/datum/antagonist/rev/proc/remove_objectives()
 	objectives -= rev_team.objectives
 
 //Bump up to head_rev
-TYPE_PROC_REF(/datum/antagonist/rev, promote)()
+/datum/antagonist/rev/proc/promote()
 	var/old_team = rev_team
 	var/datum/mind/old_owner = owner
 	silent = TRUE
@@ -88,7 +88,7 @@ TYPE_PROC_REF(/datum/antagonist/rev, promote)()
 	. = ..()
 	.["Promote"] = CALLBACK(src,PROC_REF(admin_promote))
 
-TYPE_PROC_REF(/datum/antagonist/rev, admin_promote)(mob/admin)
+/datum/antagonist/rev/proc/admin_promote(mob/admin)
 	var/datum/mind/O = owner
 	promote()
 	message_admins("[key_name_admin(admin)] has head-rev'ed [O].")
@@ -111,7 +111,7 @@ TYPE_PROC_REF(/datum/antagonist/rev, admin_promote)(mob/admin)
 	.["Repair flash"] = CALLBACK(src,PROC_REF(admin_repair_flash))
 	.["Demote"] = CALLBACK(src,PROC_REF(admin_demote))
 
-TYPE_PROC_REF(/datum/antagonist/rev/head, admin_take_flash)(mob/admin)
+/datum/antagonist/rev/head/proc/admin_take_flash(mob/admin)
 	var/list/L = owner.current.get_contents()
 	var/obj/item/assembly/flash/flash = locate() in L
 	if (!flash)
@@ -119,7 +119,7 @@ TYPE_PROC_REF(/datum/antagonist/rev/head, admin_take_flash)(mob/admin)
 		return
 	qdel(flash)
 
-TYPE_PROC_REF(/datum/antagonist/rev/head, admin_give_flash)(mob/admin)
+/datum/antagonist/rev/head/proc/admin_give_flash(mob/admin)
 	//This is probably overkill but making these impact state annoys me
 	var/old_give_flash = give_flash
 	var/old_give_hud = give_hud
@@ -132,7 +132,7 @@ TYPE_PROC_REF(/datum/antagonist/rev/head, admin_give_flash)(mob/admin)
 	give_hud = old_give_hud
 	remove_clumsy = old_remove_clumsy
 
-TYPE_PROC_REF(/datum/antagonist/rev/head, admin_repair_flash)(mob/admin)
+/datum/antagonist/rev/head/proc/admin_repair_flash(mob/admin)
 	var/list/L = owner.current.get_contents()
 	var/obj/item/assembly/flash/flash = locate() in L
 	if (!flash)
@@ -141,7 +141,7 @@ TYPE_PROC_REF(/datum/antagonist/rev/head, admin_repair_flash)(mob/admin)
 		flash.crit_fail = 0
 		flash.update_icon()
 
-TYPE_PROC_REF(/datum/antagonist/rev/head, admin_demote)(datum/mind/target,mob/user)
+/datum/antagonist/rev/head/proc/admin_demote(datum/mind/target,mob/user)
 	message_admins("[key_name_admin(user)] has demoted [owner.current] from head revolutionary.")
 	log_admin("[key_name(user)] has demoted [owner.current] from head revolutionary.")
 	demote()
@@ -157,17 +157,17 @@ TYPE_PROC_REF(/datum/antagonist/rev/head, admin_demote)(datum/mind/target,mob/us
 /datum/antagonist/rev/head/antag_listing_name()
 	return ..() + "(Leader)"
 
-TYPE_PROC_REF(/datum/antagonist/rev, update_rev_icons_added)(mob/living/M)
+/datum/antagonist/rev/proc/update_rev_icons_added(mob/living/M)
 	var/datum/atom_hud/antag/revhud = GLOB.huds[ANTAG_HUD_REV]
 	revhud.join_hud(M)
 	set_antag_hud(M,hud_type)
 
-TYPE_PROC_REF(/datum/antagonist/rev, update_rev_icons_removed)(mob/living/M)
+/datum/antagonist/rev/proc/update_rev_icons_removed(mob/living/M)
 	var/datum/atom_hud/antag/revhud = GLOB.huds[ANTAG_HUD_REV]
 	revhud.leave_hud(M)
 	set_antag_hud(M, null)
 
-TYPE_PROC_REF(/datum/antagonist/rev, can_be_converted)(mob/living/candidate)
+/datum/antagonist/rev/proc/can_be_converted(mob/living/candidate)
 	if(!candidate.mind)
 		return FALSE
 	if(!can_be_owned(candidate.mind))
@@ -177,7 +177,7 @@ TYPE_PROC_REF(/datum/antagonist/rev, can_be_converted)(mob/living/candidate)
 		return FALSE
 	return TRUE
 
-TYPE_PROC_REF(/datum/antagonist/rev, add_revolutionary)(datum/mind/rev_mind,stun = TRUE)
+/datum/antagonist/rev/proc/add_revolutionary(datum/mind/rev_mind,stun = TRUE)
 	if(!can_be_converted(rev_mind.current))
 		return FALSE
 	if(stun)
@@ -190,7 +190,7 @@ TYPE_PROC_REF(/datum/antagonist/rev, add_revolutionary)(datum/mind/rev_mind,stun
 	rev_mind.special_role = ROLE_REV
 	return TRUE
 
-TYPE_PROC_REF(/datum/antagonist/rev/head, demote)()
+/datum/antagonist/rev/head/proc/demote()
 	var/datum/mind/old_owner = owner
 	var/old_team = rev_team
 	silent = TRUE
@@ -221,7 +221,7 @@ TYPE_PROC_REF(/datum/antagonist/rev/head, demote)()
 		to_chat(owner, span_userdanger("The frame's firmware detects and suppresses your unwanted personality traits! You feel more content with the leadership around these parts."))
 
 //blunt trauma deconversions call this through species.dm spec_attacked_by()
-TYPE_PROC_REF(/datum/antagonist/rev, remove_revolutionary)(borged, deconverter)
+/datum/antagonist/rev/proc/remove_revolutionary(borged, deconverter)
 	log_attack("[key_name(owner.current)] has been deconverted from the revolution by [ismob(deconverter) ? key_name(deconverter) : deconverter]!")
 	if(borged)
 		message_admins("[ADMIN_LOOKUPFLW(owner.current)] has been borged while being a [name]")
@@ -268,7 +268,7 @@ TYPE_PROC_REF(/datum/antagonist/rev, remove_revolutionary)(borged, deconverter)
 	var/list/ex_headrevs = list() // Dynamic removes revs on loss, used to keep a list for the roundend report.
 	var/list/ex_revs = list()
 
-TYPE_PROC_REF(/datum/team/revolution, update_objectives)(initial = FALSE)
+/datum/team/revolution/proc/update_objectives(initial = FALSE)
 	var/untracked_heads = SSjob.get_all_heads()
 	for(var/datum/objective/mutiny/O in objectives)
 		untracked_heads -= O.target
@@ -284,13 +284,13 @@ TYPE_PROC_REF(/datum/team/revolution, update_objectives)(initial = FALSE)
 
 	addtimer(CALLBACK(src,PROC_REF(update_objectives)),HEAD_UPDATE_PERIOD,TIMER_UNIQUE)
 
-TYPE_PROC_REF(/datum/team/revolution, head_revolutionaries)()
+/datum/team/revolution/proc/head_revolutionaries()
 	. = list()
 	for(var/datum/mind/M in members)
 		if(M.has_antag_datum(/datum/antagonist/rev/head))
 			. += M
 
-TYPE_PROC_REF(/datum/team/revolution, update_heads)()
+/datum/team/revolution/proc/update_heads()
 	if(SSticker.HasRoundStarted())
 		var/list/datum/mind/head_revolutionaries = head_revolutionaries()
 		var/list/datum/mind/heads = SSjob.get_all_heads()
@@ -310,7 +310,7 @@ TYPE_PROC_REF(/datum/team/revolution, update_heads)()
 
 	addtimer(CALLBACK(src,PROC_REF(update_heads)),HEAD_UPDATE_PERIOD,TIMER_UNIQUE)
 
-TYPE_PROC_REF(/datum/team/revolution, save_members)()
+/datum/team/revolution/proc/save_members()
 	ex_headrevs = get_antag_minds(/datum/antagonist/rev/head, TRUE)
 	ex_revs = get_antag_minds(/datum/antagonist/rev, TRUE)
 

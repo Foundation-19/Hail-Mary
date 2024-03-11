@@ -10,7 +10,7 @@
 
 	world.send_cross_server_bunker_overrides(key, src)
 
-TYPE_PROC_REF(/world, send_cross_server_bunker_overrides)(key, client/C)
+/world/proc/send_cross_server_bunker_overrides(key, client/C)
 	var/comms_key = CONFIG_GET(string/comms_key)
 	if(!comms_key)
 		return

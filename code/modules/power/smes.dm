@@ -185,7 +185,7 @@
 
 // create a terminal object pointing towards the SMES
 // wires will attach to this
-TYPE_PROC_REF(/obj/machinery/power/smes, make_terminal)(turf/T)
+/obj/machinery/power/smes/proc/make_terminal(turf/T)
 	terminal = new/obj/machinery/power/terminal(T)
 	terminal.setDir(get_dir(T,src))
 	terminal.master = src
@@ -221,7 +221,7 @@ TYPE_PROC_REF(/obj/machinery/power/smes, make_terminal)(turf/T)
 		. += "smes-og[clevel]"
 
 
-TYPE_PROC_REF(/obj/machinery/power/smes, chargedisplay)()
+/obj/machinery/power/smes/proc/chargedisplay()
 	return clamp(round(5.5*charge/capacity),0,5)
 
 /obj/machinery/power/smes/process()
@@ -288,7 +288,7 @@ TYPE_PROC_REF(/obj/machinery/power/smes, chargedisplay)()
 
 // called after all power processes are finished
 // restores charge level to smes if there was excess this ptick
-TYPE_PROC_REF(/obj/machinery/power/smes, restore)()
+/obj/machinery/power/smes/proc/restore()
 	if(stat & BROKEN)
 		return
 
@@ -393,7 +393,7 @@ TYPE_PROC_REF(/obj/machinery/power/smes, restore)()
 				output_level = clamp(target, 0, output_level_max)
 				log_smes(usr)
 
-TYPE_PROC_REF(/obj/machinery/power/smes, log_smes)(mob/user)
+/obj/machinery/power/smes/proc/log_smes(mob/user)
 	investigate_log("input/output; [input_level>output_level?"<font color='green'>":"<font color='red'>"][input_level]/[output_level]</font> | Charge: [charge] | Output-mode: [output_attempt?"<font color='green'>on</font>":"<font color='red'>off</font>"] | Input-mode: [input_attempt?"<font color='green'>auto</font>":"<font color='red'>off</font>"] by [user ? key_name(user) : "outside forces"]", INVESTIGATE_SINGULO)
 
 

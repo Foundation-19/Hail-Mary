@@ -1,4 +1,4 @@
-TYPE_PROC_REF(/client, Debug2)()
+/client/proc/Debug2()
 	set category = "Debug"
 	set name = "Debug-Game"
 	if(!check_rights(R_DEBUG))
@@ -15,7 +15,7 @@ TYPE_PROC_REF(/client, Debug2)()
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Debug Two") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-TYPE_PROC_REF(/client, Cell)()
+/client/proc/Cell()
 	set category = "Debug"
 	set name = "Air Status in Location"
 	if(!mob)
@@ -26,7 +26,7 @@ TYPE_PROC_REF(/client, Cell)()
 	show_air_status_to(T, usr)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Air Status In Location") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-TYPE_PROC_REF(/client, cmd_admin_robotize)(mob/M in GLOB.mob_list)
+/client/proc/cmd_admin_robotize(mob/M in GLOB.mob_list)
 	set category = "Admin.Fun"
 	set name = "Make Robot"
 
@@ -42,7 +42,7 @@ TYPE_PROC_REF(/client, cmd_admin_robotize)(mob/M in GLOB.mob_list)
 	else
 		alert("Invalid mob")
 
-TYPE_PROC_REF(/client, cmd_admin_blobize)(mob/M in GLOB.mob_list)
+/client/proc/cmd_admin_blobize(mob/M in GLOB.mob_list)
 	set category = "Admin.Fun"
 	set name = "Make Blob"
 
@@ -57,7 +57,7 @@ TYPE_PROC_REF(/client, cmd_admin_blobize)(mob/M in GLOB.mob_list)
 		alert("Invalid mob")
 
 
-TYPE_PROC_REF(/client, cmd_admin_animalize)(mob/M in GLOB.mob_list)
+/client/proc/cmd_admin_animalize(mob/M in GLOB.mob_list)
 	set category = "Admin.Fun"
 	set name = "Make Simple Animal"
 
@@ -78,7 +78,7 @@ TYPE_PROC_REF(/client, cmd_admin_animalize)(mob/M in GLOB.mob_list)
 		M.Animalize()
 
 
-TYPE_PROC_REF(/client, makepAI)(turf/T in GLOB.mob_list)
+/client/proc/makepAI(turf/T in GLOB.mob_list)
 	set category = "Admin.Fun"
 	set name = "Make pAI"
 	set desc = "Specify a location to spawn a pAI device, then specify a key to play that pAI"
@@ -105,7 +105,7 @@ TYPE_PROC_REF(/client, makepAI)(turf/T in GLOB.mob_list)
 			SSpai.candidates.Remove(candidate)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Make pAI") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-TYPE_PROC_REF(/client, cmd_admin_alienize)(mob/M in GLOB.mob_list)
+/client/proc/cmd_admin_alienize(mob/M in GLOB.mob_list)
 	set category = "Admin.Fun"
 	set name = "Make Alien"
 
@@ -113,14 +113,14 @@ TYPE_PROC_REF(/client, cmd_admin_alienize)(mob/M in GLOB.mob_list)
 		alert("Wait until the game starts")
 		return
 	if(ishuman(M))
-		INVOKE_ASYNC(M, TYPE_PROC_REF(/mob/living/carbon/human, Alienize))
+		INVOKE_ASYNC(M, /mob/living/carbon/human/proc/Alienize)
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Make Alien") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 		log_admin("[key_name(usr)] made [key_name(M)] into an alien at [AREACOORD(M)].")
 		message_admins(span_adminnotice("[key_name_admin(usr)] made [ADMIN_LOOKUPFLW(M)] into an alien."))
 	else
 		alert("Invalid mob")
 
-TYPE_PROC_REF(/client, cmd_admin_slimeize)(mob/M in GLOB.mob_list)
+/client/proc/cmd_admin_slimeize(mob/M in GLOB.mob_list)
 	set category = "Admin.Fun"
 	set name = "Make slime"
 
@@ -128,7 +128,7 @@ TYPE_PROC_REF(/client, cmd_admin_slimeize)(mob/M in GLOB.mob_list)
 		alert("Wait until the game starts")
 		return
 	if(ishuman(M))
-		INVOKE_ASYNC(M, TYPE_PROC_REF(/mob/living/carbon/human, slimeize))
+		INVOKE_ASYNC(M, /mob/living/carbon/human/proc/slimeize)
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Make Slime") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 		log_admin("[key_name(usr)] made [key_name(M)] into a slime at [AREACOORD(M)].")
 		message_admins(span_adminnotice("[key_name_admin(usr)] made [ADMIN_LOOKUPFLW(M)] into a slime."))
@@ -136,7 +136,7 @@ TYPE_PROC_REF(/client, cmd_admin_slimeize)(mob/M in GLOB.mob_list)
 		alert("Invalid mob")
 
 //TODO: merge the vievars version into this or something maybe mayhaps
-TYPE_PROC_REF(/client, cmd_debug_del_all)(object as text)
+/client/proc/cmd_debug_del_all(object as text)
 	set category = "Debug"
 	set name = "Del-All"
 
@@ -160,7 +160,7 @@ TYPE_PROC_REF(/client, cmd_debug_del_all)(object as text)
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Delete All") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 
-TYPE_PROC_REF(/client, cmd_debug_make_powernets)()
+/client/proc/cmd_debug_make_powernets()
 	set category = "Debug"
 	set name = "Make Powernets"
 	SSmachines.makepowernets()
@@ -168,7 +168,7 @@ TYPE_PROC_REF(/client, cmd_debug_make_powernets)()
 	message_admins("[key_name_admin(src)] has remade the powernets. makepowernets() called.")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Make Powernets") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-TYPE_PROC_REF(/client, cmd_admin_grantfullaccess)(mob/M in GLOB.mob_list)
+/client/proc/cmd_admin_grantfullaccess(mob/M in GLOB.mob_list)
 	set category = "Admin"
 	set name = "Grant Full Access"
 
@@ -210,7 +210,7 @@ TYPE_PROC_REF(/client, cmd_admin_grantfullaccess)(mob/M in GLOB.mob_list)
 	log_admin("[key_name(src)] has granted [M.key] full access.")
 	message_admins(span_adminnotice("[key_name_admin(usr)] has granted [M.key] full access."))
 
-TYPE_PROC_REF(/client, cmd_assume_direct_control)(mob/M in GLOB.mob_list)
+/client/proc/cmd_assume_direct_control(mob/M in GLOB.mob_list)
 	set category = "Admin.Game"
 	set name = "Assume direct control"
 	set desc = "Direct intervention"
@@ -229,7 +229,7 @@ TYPE_PROC_REF(/client, cmd_assume_direct_control)(mob/M in GLOB.mob_list)
 		qdel(adminmob)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Assume Direct Control") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-TYPE_PROC_REF(/client, cmd_give_direct_control)(mob/M in GLOB.mob_list)
+/client/proc/cmd_give_direct_control(mob/M in GLOB.mob_list)
 	set category = "Admin.Game"
 	set name = "Give direct control"
 
@@ -256,7 +256,7 @@ TYPE_PROC_REF(/client, cmd_give_direct_control)(mob/M in GLOB.mob_list)
 	log_admin("[key_name(usr)] gave away direct control of [M] to [newkey].")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Give Direct Control") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-TYPE_PROC_REF(/client, cmd_admin_test_atmos_controllers)()
+/client/proc/cmd_admin_test_atmos_controllers()
 	set category = "Mapping"
 	set name = "Test Atmos Monitoring Consoles"
 
@@ -292,7 +292,7 @@ TYPE_PROC_REF(/client, cmd_admin_test_atmos_controllers)()
 	popup.set_content(dat.Join())
 	popup.open()
 
-TYPE_PROC_REF(/client, cmd_admin_areatest)(on_station)
+/client/proc/cmd_admin_areatest(on_station)
 	set category = "Mapping"
 	set name = "Test Areas"
 
@@ -481,17 +481,17 @@ TYPE_PROC_REF(/client, cmd_admin_areatest)(on_station)
 	popup.open()
 
 
-TYPE_PROC_REF(/client, cmd_admin_areatest_station)()
+/client/proc/cmd_admin_areatest_station()
 	set category = "Mapping"
 	set name = "Test Areas (STATION Z)"
 	cmd_admin_areatest(TRUE)
 
-TYPE_PROC_REF(/client, cmd_admin_areatest_all)()
+/client/proc/cmd_admin_areatest_all()
 	set category = "Mapping"
 	set name = "Test Areas (ALL)"
 	cmd_admin_areatest(FALSE)
 
-TYPE_PROC_REF(/client, cmd_admin_dress)(mob/M in GLOB.mob_list)
+/client/proc/cmd_admin_dress(mob/M in GLOB.mob_list)
 	set category = "Admin.Events"
 	set name = "Select equipment"
 	if(!(ishuman(M) || isobserver(M)))
@@ -523,7 +523,7 @@ TYPE_PROC_REF(/client, cmd_admin_dress)(mob/M in GLOB.mob_list)
 	log_admin("[key_name(usr)] changed the equipment of [key_name(H)] to [dresscode].")
 	message_admins(span_adminnotice("[key_name_admin(usr)] changed the equipment of [ADMIN_LOOKUPFLW(H)] to [dresscode]."))
 
-TYPE_PROC_REF(/client, robust_dress_shop)()
+/client/proc/robust_dress_shop()
 	var/list/outfits = list("Cancel","Naked","Custom","As Job...")
 	var/list/paths = subtypesof(/datum/outfit) - typesof(/datum/outfit/job)
 	for(var/path in paths)
@@ -565,7 +565,7 @@ TYPE_PROC_REF(/client, robust_dress_shop)()
 
 	return dresscode
 
-TYPE_PROC_REF(/client, startSinglo)()
+/client/proc/startSinglo()
 
 	set category = "Debug"
 	set name = "Start Singularity"
@@ -622,7 +622,7 @@ TYPE_PROC_REF(/client, startSinglo)()
 		if(SMES.anchored)
 			SMES.input_attempt = 1
 
-TYPE_PROC_REF(/client, cmd_debug_mob_lists)()
+/client/proc/cmd_debug_mob_lists()
 	set category = "Debug"
 	set name = "Debug Mob Lists"
 	set desc = "For when you just gotta know"
@@ -643,7 +643,7 @@ TYPE_PROC_REF(/client, cmd_debug_mob_lists)()
 		if("Joined Clients")
 			to_chat(usr, jointext(GLOB.joined_player_list,","))
 
-TYPE_PROC_REF(/client, cmd_display_del_log)()
+/client/proc/cmd_display_del_log()
 	set category = "Debug"
 	set name = "Display del() Log"
 	set desc = "Display del's log of everything that's passed through it."
@@ -672,21 +672,21 @@ TYPE_PROC_REF(/client, cmd_display_del_log)()
 
 	usr << browse(dellog.Join(), "window=dellog")
 
-TYPE_PROC_REF(/client, cmd_display_overlay_log)()
+/client/proc/cmd_display_overlay_log()
 	set category = "Debug"
 	set name = "Display overlay Log"
 	set desc = "Display SSoverlays log of everything that's passed through it."
 
 	render_stats(SSoverlays.stats, src)
 
-TYPE_PROC_REF(/client, cmd_display_init_log)()
+/client/proc/cmd_display_init_log()
 	set category = "Debug"
 	set name = "Display Initialize() Log"
 	set desc = "Displays a list of things that didn't handle Initialize() properly"
 
 	usr << browse(replacetext(SSatoms.InitLog(), "\n", "<br>"), "window=initlog")
 
-TYPE_PROC_REF(/client, debug_huds)(i as num)
+/client/proc/debug_huds(i as num)
 	set category = "Debug"
 	set name = "Debug HUDs"
 	set desc = "Debug the data or antag HUDs"
@@ -695,7 +695,7 @@ TYPE_PROC_REF(/client, debug_huds)(i as num)
 		return
 	debug_variables(GLOB.huds[i])
 
-TYPE_PROC_REF(/client, jump_to_ruin)()
+/client/proc/jump_to_ruin()
 	set category = "Debug"
 	set name = "Jump to Ruin"
 	set desc = "Displays a list of all placed ruins to teleport to."
@@ -727,7 +727,7 @@ TYPE_PROC_REF(/client, jump_to_ruin)()
 		to_chat(usr, span_name("[template.name]"))
 		to_chat(usr, span_italic("[template.description]"))
 
-TYPE_PROC_REF(/client, place_ruin)()
+/client/proc/place_ruin()
 	set category = "Debug"
 	set name = "Spawn Ruin"
 	set desc = "Attempt to randomly place a specific ruin."
@@ -778,7 +778,7 @@ TYPE_PROC_REF(/client, place_ruin)()
 	else
 		to_chat(src, span_warning("Failed to place [template.name]."))
 
-TYPE_PROC_REF(/client, clear_dynamic_transit)()
+/client/proc/clear_dynamic_transit()
 	set category = "Debug"
 	set name = "Clear Dynamic Turf Reservations"
 	set desc = "Deallocates all reserved space, restoring it to round start conditions."
@@ -792,7 +792,7 @@ TYPE_PROC_REF(/client, clear_dynamic_transit)()
 	log_admin("[key_name(src)] cleared dynamic transit space.")
 	SSmapping.wipe_reservations()				//this goes after it's logged, incase something horrible happens.
 
-TYPE_PROC_REF(/client, toggle_medal_disable)()
+/client/proc/toggle_medal_disable()
 	set category = "Debug"
 	set name = "Toggle Medal Disable"
 	set desc = "Toggles the safety lock on trying to contact the medal hub."
@@ -806,7 +806,7 @@ TYPE_PROC_REF(/client, toggle_medal_disable)()
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Medal Disable") // If...
 	log_admin("[key_name(src)] [SSmedals.hub_enabled ? "disabled" : "enabled"] the medal hub lockout.")
 
-TYPE_PROC_REF(/client, view_runtimes)()
+/client/proc/view_runtimes()
 	set category = "Debug"
 	set name = "View Runtimes"
 	set desc = "Open the runtime Viewer"
@@ -816,7 +816,7 @@ TYPE_PROC_REF(/client, view_runtimes)()
 
 	GLOB.error_cache.show_to(src)
 
-TYPE_PROC_REF(/client, pump_random_event)()
+/client/proc/pump_random_event()
 	set category = "Debug"
 	set name = "Pump Random Event"
 	set desc = "Schedules the event subsystem to fire a new random event immediately. Some events may fire without notification."
@@ -829,7 +829,7 @@ TYPE_PROC_REF(/client, pump_random_event)()
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Pump Random Event")
 	log_admin("[key_name(src)] pumped a random event.")
 
-TYPE_PROC_REF(/client, start_line_profiling)()
+/client/proc/start_line_profiling()
 	set category = "Profile"
 	set name = "Start Line Profiling"
 	set desc = "Starts tracking line by line profiling for code lines that support it"
@@ -840,7 +840,7 @@ TYPE_PROC_REF(/client, start_line_profiling)()
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Start Line Profiling")
 	log_admin("[key_name(src)] started line by line profiling.")
 
-TYPE_PROC_REF(/client, stop_line_profiling)()
+/client/proc/stop_line_profiling()
 	set category = "Profile"
 	set name = "Stops Line Profiling"
 	set desc = "Stops tracking line by line profiling for code lines that support it"
@@ -851,7 +851,7 @@ TYPE_PROC_REF(/client, stop_line_profiling)()
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Stop Line Profiling")
 	log_admin("[key_name(src)] stopped line by line profiling.")
 
-TYPE_PROC_REF(/client, show_line_profiling)()
+/client/proc/show_line_profiling()
 	set category = "Profile"
 	set name = "Show Line Profiling"
 	set desc = "Shows tracked profiling info from code lines that support it"
@@ -867,7 +867,7 @@ TYPE_PROC_REF(/client, show_line_profiling)()
 	sort = sortlist[sort]
 	profile_show(src, sort)
 
-TYPE_PROC_REF(/client, reload_configuration)()
+/client/proc/reload_configuration()
 	set category = "Debug"
 	set name = "Reload Configuration"
 	set desc = "Force config reload to world default"

@@ -111,7 +111,7 @@
  * Waits for a user's response to the tgui_list_input's prompt before returning. Returns early if
  * the window was closed by the user.
  */
-TYPE_PROC_REF(/datum/tgui_list_input, wait)()
+/datum/tgui_list_input/proc/wait()
 	while (!choice && !closed)
 		stoplag(1)
 
@@ -156,7 +156,7 @@ TYPE_PROC_REF(/datum/tgui_list_input, wait)()
 			closed = TRUE
 			return TRUE
 
-TYPE_PROC_REF(/datum/tgui_list_input, set_choice)(choice)
+/datum/tgui_list_input/proc/set_choice(choice)
 	src.choice = choice
 
 /**

@@ -83,7 +83,7 @@
 	AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/revenant/malfunction(null))
 	random_revenant_name()
 
-TYPE_PROC_REF(/mob/living/simple_animal/revenant, random_revenant_name)()
+/mob/living/simple_animal/revenant/proc/random_revenant_name()
 	var/built_name = ""
 	built_name += pick(strings(REVENANT_NAME_FILE, "spirit_type"))
 	built_name += " of "
@@ -193,7 +193,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/revenant, random_revenant_name)()
 		update_action_buttons_icon()
 		addtimer(CALLBACK(src, PROC_REF(reset_inhibit)), 30)
 
-TYPE_PROC_REF(/mob/living/simple_animal/revenant, reset_inhibit)()
+/mob/living/simple_animal/revenant/proc/reset_inhibit()
 	inhibited = FALSE
 	update_action_buttons_icon()
 
@@ -239,7 +239,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/revenant, reset_inhibit)()
 
 
 //reveal, stun, icon updates, cast checks, and essence changing
-TYPE_PROC_REF(/mob/living/simple_animal/revenant, reveal)(time)
+/mob/living/simple_animal/revenant/proc/reveal(time)
 	if(!src)
 		return
 	if(time <= 0)
@@ -255,7 +255,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/revenant, reveal)(time)
 		unreveal_time = unreveal_time + time
 	update_spooky_icon()
 
-TYPE_PROC_REF(/mob/living/simple_animal/revenant, stun)(time)
+/mob/living/simple_animal/revenant/proc/stun(time)
 	if(!src)
 		return
 	if(time <= 0)
@@ -269,7 +269,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/revenant, stun)(time)
 		unstun_time = unstun_time + time
 	update_spooky_icon()
 
-TYPE_PROC_REF(/mob/living/simple_animal/revenant, update_spooky_icon)()
+/mob/living/simple_animal/revenant/proc/update_spooky_icon()
 	if(revealed)
 		if(mob_transforming)
 			if(draining)
@@ -281,7 +281,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/revenant, update_spooky_icon)()
 	else
 		icon_state = icon_idle
 
-TYPE_PROC_REF(/mob/living/simple_animal/revenant, castcheck)(essence_cost)
+/mob/living/simple_animal/revenant/proc/castcheck(essence_cost)
 	if(!src)
 		return
 	var/turf/T = get_turf(src)
@@ -300,7 +300,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/revenant, castcheck)(essence_cost)
 		return FALSE
 	return TRUE
 
-TYPE_PROC_REF(/mob/living/simple_animal/revenant, change_essence_amount)(essence_amt, silent = FALSE, source = null)
+/mob/living/simple_animal/revenant/proc/change_essence_amount(essence_amt, silent = FALSE, source = null)
 	if(!src)
 		return
 	if(essence + essence_amt <= 0)
@@ -317,7 +317,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/revenant, change_essence_amount)(essence
 			to_chat(src, span_revenminor("Lost [essence_amt]E[source ? " from [source]":""]."))
 	return 1
 
-TYPE_PROC_REF(/mob/living/simple_animal/revenant, death_reset)()
+/mob/living/simple_animal/revenant/proc/death_reset()
 	revealed = FALSE
 	unreveal_time = 0
 	mob_transforming = 0
@@ -347,10 +347,10 @@ TYPE_PROC_REF(/mob/living/simple_animal/revenant, death_reset)()
 	..()
 	addtimer(CALLBACK(src, PROC_REF(try_reform)), 600)
 
-TYPE_PROC_REF(/obj/item/ectoplasm/revenant, scatter)()
+/obj/item/ectoplasm/revenant/proc/scatter()
 	qdel(src)
 
-TYPE_PROC_REF(/obj/item/ectoplasm/revenant, try_reform)()
+/obj/item/ectoplasm/revenant/proc/try_reform()
 	if(reforming)
 		reforming = FALSE
 		reform()
@@ -380,7 +380,7 @@ TYPE_PROC_REF(/obj/item/ectoplasm/revenant, try_reform)()
 	else if(reforming)
 		. += span_revenwarning("It is shifting and distorted. It would be wise to destroy this.")
 
-TYPE_PROC_REF(/obj/item/ectoplasm/revenant, reform)()
+/obj/item/ectoplasm/revenant/proc/reform()
 	if(QDELETED(src) || QDELETED(revenant) || inert)
 		return
 	var/key_of_revenant = FALSE

@@ -134,11 +134,11 @@ Setup map
 			else
 				icon_state="[reference]c"
 
-TYPE_PROC_REF(/obj/structure/particle_accelerator, update_state)()
+/obj/structure/particle_accelerator/proc/update_state()
 	if(master)
 		master.update_state()
 
-TYPE_PROC_REF(/obj/structure/particle_accelerator, connect_master)(obj/O)
+/obj/structure/particle_accelerator/proc/connect_master(obj/O)
 	if(O.dir == dir)
 		master = O
 		return 1

@@ -134,12 +134,12 @@
 
 
 
-TYPE_PROC_REF(/obj/machinery/smartfridge, accept_check)(obj/item/O)
+/obj/machinery/smartfridge/proc/accept_check(obj/item/O)
 	if(istype(O, /obj/item/reagent_containers/food/snacks/grown/) || istype(O, /obj/item/seeds/) || istype(O, /obj/item/grown/))
 		return TRUE
 	return FALSE
 
-TYPE_PROC_REF(/obj/machinery/smartfridge, load)(obj/item/O)
+/obj/machinery/smartfridge/proc/load(obj/item/O)
 	if(ismob(O.loc))
 		var/mob/M = O.loc
 		if(!M.transferItemToLoc(O, src))
@@ -155,7 +155,7 @@ TYPE_PROC_REF(/obj/machinery/smartfridge, load)(obj/item/O)
 			return TRUE
 
 ///Really simple proc, just moves the object "O" into the hands of mob "M" if able, done so I could modify the proc a little for the organ fridge
-TYPE_PROC_REF(/obj/machinery/smartfridge, dispense)(obj/item/O, mob/M)
+/obj/machinery/smartfridge/proc/dispense(obj/item/O, mob/M)
 	if(!M.put_in_hands(O))
 		O.forceMove(drop_location())
 		adjust_item_drop_location(O)
@@ -328,7 +328,7 @@ TYPE_PROC_REF(/obj/machinery/smartfridge, dispense)(obj/item/O, mob/M)
 		return TRUE
 	return FALSE
 
-TYPE_PROC_REF(/obj/machinery/smartfridge/drying_rack, toggle_drying)(forceoff)
+/obj/machinery/smartfridge/drying_rack/proc/toggle_drying(forceoff)
 	if(drying || forceoff)
 		drying = FALSE
 		use_power = IDLE_POWER_USE
@@ -337,7 +337,7 @@ TYPE_PROC_REF(/obj/machinery/smartfridge/drying_rack, toggle_drying)(forceoff)
 		use_power = ACTIVE_POWER_USE
 	update_icon()
 
-TYPE_PROC_REF(/obj/machinery/smartfridge/drying_rack, rack_dry)()
+/obj/machinery/smartfridge/drying_rack/proc/rack_dry()
 	for(var/obj/item/reagent_containers/food/snacks/S in src)
 		if(S.dried_type == S.type)//if the dried type is the same as the object's type, don't bother creating a whole new item...
 			S.add_atom_colour("#ad7257", FIXED_COLOUR_PRIORITY)
@@ -609,7 +609,7 @@ TYPE_PROC_REF(/obj/machinery/smartfridge/drying_rack, rack_dry)()
 		return TRUE
 	return FALSE
 
-TYPE_PROC_REF(/obj/machinery/smartfridge/bottlerack/gardentool, can_be_rotated)(mob/user,rotation_type)
+/obj/machinery/smartfridge/bottlerack/gardentool/proc/can_be_rotated(mob/user,rotation_type)
 	if(anchored)
 		to_chat(user, span_warning("[src] cannot be rotated while it is fastened to the wall!"))
 	else

@@ -136,7 +136,7 @@
 	else
 		return ..()
 
-TYPE_PROC_REF(/obj/item/grenade/chem_grenade, stage_change)(N)
+/obj/item/grenade/chem_grenade/proc/stage_change(N)
 	if(N)
 		stage = N
 	if(stage == EMPTY)
@@ -158,7 +158,7 @@ TYPE_PROC_REF(/obj/item/grenade/chem_grenade, stage_change)(N)
 	prime()
 
 
-TYPE_PROC_REF(/obj/item/grenade/chem_grenade, on_entered)(atom/movable/AM)
+/obj/item/grenade/chem_grenade/proc/on_entered(atom/movable/AM)
 	SIGNAL_HANDLER
 	if(nadeassembly)
 		INVOKE_ASYNC(nadeassembly, PROC_REF(on_entered), AM)

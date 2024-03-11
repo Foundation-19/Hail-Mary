@@ -39,7 +39,7 @@
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
-TYPE_PROC_REF(/obj/item/clothing/glasses/meson/engine, toggle_mode)(mob/user, voluntary)
+/obj/item/clothing/glasses/meson/engine/proc/toggle_mode(mob/user, voluntary)
 	mode = modes[mode]
 	to_chat(user, "<span class='[voluntary ? "notice":"warning"]'>[voluntary ? "You turn the goggles":"The goggles turn"] [mode ? "to [mode] mode":"off"][voluntary ? ".":"!"]</span>")
 
@@ -81,7 +81,7 @@ TYPE_PROC_REF(/obj/item/clothing/glasses/meson/engine, toggle_mode)(mob/user, vo
 		if(MODE_SHUTTLE)
 			show_shuttle()
 
-TYPE_PROC_REF(/obj/item/clothing/glasses/meson/engine, show_rads)()
+/obj/item/clothing/glasses/meson/engine/proc/show_rads()
 	var/mob/living/carbon/human/user = loc
 	var/list/rad_places = list()
 	for(var/datum/component/radioactive/thing in SSradiation.processing)
@@ -106,7 +106,7 @@ TYPE_PROC_REF(/obj/item/clothing/glasses/meson/engine, show_rads)()
 		pic.appearance = MA
 		flick_overlay(pic, list(user.client), 10)
 
-TYPE_PROC_REF(/obj/item/clothing/glasses/meson/engine, show_shuttle)()
+/obj/item/clothing/glasses/meson/engine/proc/show_shuttle()
 	var/mob/living/carbon/human/user = loc
 	var/obj/docking_port/mobile/port = SSshuttle.get_containing_shuttle(user)
 	if(!port)

@@ -25,7 +25,7 @@
 	var/egg_lain = 0
 	gold_core_spawnable = NO_SPAWN //are you sure about this?? // CITADEL CHANGE, Yes.
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile/headcrab, Infect)(mob/living/carbon/victim)
+/mob/living/simple_animal/hostile/headcrab/proc/Infect(mob/living/carbon/victim)
 	var/obj/item/organ/body_egg/changeling_egg/egg = new(victim)
 	egg.Insert(victim)
 	if(origin)
@@ -65,7 +65,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/hostile/headcrab, Infect)(mob/living/car
 		Remove()
 		qdel(src)
 
-TYPE_PROC_REF(/obj/item/organ/body_egg/changeling_egg, Pop)()
+/obj/item/organ/body_egg/changeling_egg/proc/Pop()
 	var/mob/living/carbon/monkey/M = new(owner)
 	owner.stomach_contents += M
 

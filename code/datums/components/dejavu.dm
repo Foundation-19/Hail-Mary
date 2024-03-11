@@ -66,7 +66,7 @@
 	saved_bodyparts = null
 	return ..()
 
-TYPE_PROC_REF(/datum/component/dejavu, rewind)()
+/datum/component/dejavu/proc/rewind()
 	to_chat(parent, "<span class=notice>You remember a time not so long ago...</span>")
 
 	//comes after healing so new limbs comically drop to the floor
@@ -81,7 +81,7 @@ TYPE_PROC_REF(/datum/component/dejavu, rewind)()
 		to_chat(parent, "<span class=notice>But the memory falls out of your reach.</span>")
 		qdel(src)
 
-TYPE_PROC_REF(/datum/component/dejavu, rewind_living)()
+/datum/component/dejavu/proc/rewind_living()
 	var/mob/living/master = parent
 	master.setCloneLoss(clone_loss)
 	master.setToxLoss(tox_loss)
@@ -89,19 +89,19 @@ TYPE_PROC_REF(/datum/component/dejavu, rewind_living)()
 	master.setOrganLoss(ORGAN_SLOT_BRAIN, brain_loss)
 	rewind()
 
-TYPE_PROC_REF(/datum/component/dejavu, rewind_carbon)()
+/datum/component/dejavu/proc/rewind_carbon()
 	if(saved_bodyparts)
 		var/mob/living/carbon/master = parent
 		master.apply_saved_bodyparts(saved_bodyparts)
 	rewind_living()
 
-TYPE_PROC_REF(/datum/component/dejavu, rewind_animal)()
+/datum/component/dejavu/proc/rewind_animal()
 	var/mob/living/simple_animal/master = parent
 	master.bruteloss = brute_loss
 	master.updatehealth()
 	rewind_living()
 
-TYPE_PROC_REF(/datum/component/dejavu, rewind_obj)()
+/datum/component/dejavu/proc/rewind_obj()
 	var/obj/master = parent
 	master.obj_integrity = integrity
 	rewind()

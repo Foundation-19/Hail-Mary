@@ -90,7 +90,7 @@ GLOBAL_LIST_INIT(tendrils, list())
 	QDEL_NULL(emitted_light)
 	return ..()
 
-TYPE_PROC_REF(/obj/effect/collapse, collapse)()
+/obj/effect/collapse/proc/collapse()
 	for(var/mob/M in range(7,src))
 		shake_camera(M, 15, 1)
 	playsound(get_turf(src),'sound/effects/explosionfar.ogg', 200, 1)

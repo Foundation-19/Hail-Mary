@@ -191,7 +191,7 @@ Difficulty: Normal
 	if(!blinking)
 		..()
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile/megafauna/hierophant, calculate_rage)() //how angry we are overall
+/mob/living/simple_animal/hostile/megafauna/hierophant/proc/calculate_rage() //how angry we are overall
 	did_reset = FALSE //oh hey we're doing SOMETHING, clearly we might need to heal if we recall
 	anger_modifier = clamp(((maxHealth - health) / 42),0,50)
 	burst_range = initial(burst_range) + round(anger_modifier * 0.08)
@@ -246,7 +246,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/hostile/megafauna/hierophant, calculate_
 							blinking = TRUE
 							sleep(4 + target_slowness)
 						animate(src, color = oldcolor, time = 8)
-						addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_atom_colour)), 8)
+						addtimer(CALLBACK(src, /atom/proc/update_atom_colour), 8)
 						sleep(8)
 						blinking = FALSE
 					else
@@ -265,7 +265,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/hostile/megafauna/hierophant, calculate_
 							INVOKE_ASYNC(src, PROC_REF(diagonal_blasts), target)
 						sleep(6 + target_slowness)
 					animate(src, color = oldcolor, time = 8)
-					addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_atom_colour)), 8)
+					addtimer(CALLBACK(src, /atom/proc/update_atom_colour), 8)
 					sleep(8)
 					blinking = FALSE
 				if("chaser_swarm") //fire four fucking chasers at a target and their friends.
@@ -290,7 +290,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/hostile/megafauna/hierophant, calculate_
 						sleep(8 + target_slowness)
 					chaser_cooldown = world.time + initial(chaser_cooldown)
 					animate(src, color = oldcolor, time = 8)
-					addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_atom_colour)), 8)
+					addtimer(CALLBACK(src, /atom/proc/update_atom_colour), 8)
 					sleep(8)
 					blinking = FALSE
 			return
@@ -316,7 +316,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/hostile/megafauna/hierophant, calculate_
 	else //just release a burst of power
 		INVOKE_ASYNC(src, PROC_REF(burst), get_turf(src))
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile/megafauna/hierophant, diagonal_blasts)(mob/victim) //fire diagonal cross blasts with a delay
+/mob/living/simple_animal/hostile/megafauna/hierophant/proc/diagonal_blasts(mob/victim) //fire diagonal cross blasts with a delay
 	var/turf/T = get_turf(victim)
 	if(!T)
 		return
@@ -327,7 +327,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/hostile/megafauna/hierophant, diagonal_b
 	for(var/d in GLOB.diagonals)
 		INVOKE_ASYNC(src, PROC_REF(blast_wall), T, d)
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile/megafauna/hierophant, cardinal_blasts)(mob/victim) //fire cardinal cross blasts with a delay
+/mob/living/simple_animal/hostile/megafauna/hierophant/proc/cardinal_blasts(mob/victim) //fire cardinal cross blasts with a delay
 	var/turf/T = get_turf(victim)
 	if(!T)
 		return
@@ -338,7 +338,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/hostile/megafauna/hierophant, cardinal_b
 	for(var/d in GLOB.cardinals)
 		INVOKE_ASYNC(src, PROC_REF(blast_wall), T, d)
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile/megafauna/hierophant, alldir_blasts)(mob/victim) //fire alldir cross blasts with a delay
+/mob/living/simple_animal/hostile/megafauna/hierophant/proc/alldir_blasts(mob/victim) //fire alldir cross blasts with a delay
 	var/turf/T = get_turf(victim)
 	if(!T)
 		return
@@ -349,7 +349,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/hostile/megafauna/hierophant, alldir_bla
 	for(var/d in GLOB.alldirs)
 		INVOKE_ASYNC(src, PROC_REF(blast_wall), T, d)
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile/megafauna/hierophant, blast_wall)(turf/T, set_dir) //make a wall of blasts beam_range tiles long
+/mob/living/simple_animal/hostile/megafauna/hierophant/proc/blast_wall(turf/T, set_dir) //make a wall of blasts beam_range tiles long
 	var/range = beam_range
 	var/turf/previousturf = T
 	var/turf/J = get_step(previousturf, set_dir)
@@ -358,7 +358,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/hostile/megafauna/hierophant, blast_wall
 		previousturf = J
 		J = get_step(previousturf, set_dir)
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile/megafauna/hierophant, arena_trap)(mob/victim) //trap a target in an arena
+/mob/living/simple_animal/hostile/megafauna/hierophant/proc/arena_trap(mob/victim) //trap a target in an arena
 	var/turf/T = get_turf(victim)
 	if(!istype(victim) || victim.stat == DEAD || !T || arena_cooldown > world.time)
 		return
@@ -374,7 +374,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/hostile/megafauna/hierophant, arena_trap
 	if(get_dist(src, T) >= 11) //hey you're out of range I need to get closer to you!
 		INVOKE_ASYNC(src, PROC_REF(blink), T)
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile/megafauna/hierophant, arena_squares)(turf/T, set_dir) //make a fancy effect extending from the arena target
+/mob/living/simple_animal/hostile/megafauna/hierophant/proc/arena_squares(turf/T, set_dir) //make a fancy effect extending from the arena target
 	var/turf/previousturf = T
 	var/turf/J = get_step(previousturf, set_dir)
 	for(var/i in 1 to 10)
@@ -384,7 +384,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/hostile/megafauna/hierophant, arena_squa
 		J = get_step(previousturf, set_dir)
 		sleep(0.5)
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile/megafauna/hierophant, blink)(mob/victim) //blink to a target
+/mob/living/simple_animal/hostile/megafauna/hierophant/proc/blink(mob/victim) //blink to a target
 	if(blinking || !victim)
 		return
 	var/turf/T = get_turf(victim)
@@ -417,7 +417,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/hostile/megafauna/hierophant, blink)(mob
 	sleep(1) //at this point the blasts we made detonate
 	blinking = FALSE
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile/megafauna/hierophant, melee_blast)(mob/victim) //make a 3x3 blast around a target
+/mob/living/simple_animal/hostile/megafauna/hierophant/proc/melee_blast(mob/victim) //make a 3x3 blast around a target
 	if(!victim)
 		return
 	var/turf/T = get_turf(victim)
@@ -429,7 +429,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/hostile/megafauna/hierophant, melee_blas
 	for(var/t in RANGE_TURFS(1, T))
 		new /obj/effect/temp_visual/hierophant/blast(t, src, FALSE)
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile/megafauna/hierophant, burst)(turf/original, spread_speed = 0.5) //release a wave of blasts
+/mob/living/simple_animal/hostile/megafauna/hierophant/proc/burst(turf/original, spread_speed = 0.5) //release a wave of blasts
 	playsound(original,'sound/machines/airlockopen.ogg', 200, 1)
 	var/last_dist = 0
 	var/list/hit_mobs = list()		//don't hit people multiple times.
@@ -526,14 +526,14 @@ TYPE_PROC_REF(/mob/living/simple_animal/hostile/megafauna/hierophant, burst)(tur
 		speed = new_speed
 	addtimer(CALLBACK(src, PROC_REF(seek_target)), 1)
 
-TYPE_PROC_REF(/obj/effect/temp_visual/hierophant/chaser, get_target_dir)()
+/obj/effect/temp_visual/hierophant/chaser/proc/get_target_dir()
 	. = get_cardinal_dir(src, targetturf)
 	if((. != previous_moving_dir && . == more_previouser_moving_dir) || . == 0) //we're alternating, recalculate
 		var/list/cardinal_copy = GLOB.cardinals.Copy()
 		cardinal_copy -= more_previouser_moving_dir
 		. = pick(cardinal_copy)
 
-TYPE_PROC_REF(/obj/effect/temp_visual/hierophant/chaser, seek_target)()
+/obj/effect/temp_visual/hierophant/chaser/proc/seek_target()
 	if(!currently_seeking)
 		currently_seeking = TRUE
 		targetturf = get_turf(target)
@@ -560,7 +560,7 @@ TYPE_PROC_REF(/obj/effect/temp_visual/hierophant/chaser, seek_target)()
 				moving--
 				sleep(speed)
 			targetturf = get_turf(target)
-TYPE_PROC_REF(/obj/effect/temp_visual/hierophant/chaser, make_blast)()
+/obj/effect/temp_visual/hierophant/chaser/proc/make_blast()
 	var/obj/effect/temp_visual/hierophant/blast/B = new(loc, caster, friendly_fire_check)
 	B.damage = damage
 	B.monster_damage_boost = monster_damage_boost
@@ -621,7 +621,7 @@ TYPE_PROC_REF(/obj/effect/temp_visual/hierophant/chaser, make_blast)()
 
 
 
-TYPE_PROC_REF(/obj/effect/temp_visual/hierophant/blast, blast)()
+/obj/effect/temp_visual/hierophant/blast/proc/blast()
 	var/turf/T = get_turf(src)
 	if(!T)
 		return
@@ -632,12 +632,12 @@ TYPE_PROC_REF(/obj/effect/temp_visual/hierophant/blast, blast)()
 	sleep(1.3) //slightly forgiving; the burst animation is 1.5 deciseconds
 	bursting = FALSE //we no longer damage crossers
 
-TYPE_PROC_REF(/obj/effect/temp_visual/hierophant/blast, on_entered)(atom/movable/AM)
+/obj/effect/temp_visual/hierophant/blast/proc/on_entered(atom/movable/AM)
 	SIGNAL_HANDLER
 	if(bursting)
 		INVOKE_ASYNC(src, PROC_REF(do_damage), get_turf(src))
 
-TYPE_PROC_REF(/obj/effect/temp_visual/hierophant/blast, do_damage)(turf/T)
+/obj/effect/temp_visual/hierophant/blast/proc/do_damage(turf/T)
 	if(!damage)
 		return
 	for(var/mob/living/L in T.contents - hit_things) //find and damage mobs...

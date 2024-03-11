@@ -20,20 +20,20 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	GLOB.asset_datums[type] = src
 	register()
 
-TYPE_PROC_REF(/datum/asset, get_url_mappings)()
+/datum/asset/proc/get_url_mappings()
 	return list()
 
 /// Returns a cached tgui message of URL mappings
-TYPE_PROC_REF(/datum/asset, get_serialized_url_mappings)()
+/datum/asset/proc/get_serialized_url_mappings()
 	if (isnull(cached_url_mappings))
 		cached_url_mappings = TGUI_CREATE_MESSAGE("asset/mappings", get_url_mappings())
 
 	return cached_url_mappings
 
-TYPE_PROC_REF(/datum/asset, register)()
+/datum/asset/proc/register()
 	return
 
-TYPE_PROC_REF(/datum/asset, send)(client)
+/datum/asset/proc/send(client)
 	return
 
 
@@ -137,7 +137,7 @@ TYPE_PROC_REF(/datum/asset, send)(client)
 
 
 
-TYPE_PROC_REF(/datum/asset/spritesheet, ensure_stripped)(sizes_to_strip = sizes)
+/datum/asset/spritesheet/proc/ensure_stripped(sizes_to_strip = sizes)
 	for(var/size_id in sizes_to_strip)
 		var/size = sizes[size_id]
 		if (size[SPRSZ_STRIPPED])
@@ -152,7 +152,7 @@ TYPE_PROC_REF(/datum/asset/spritesheet, ensure_stripped)(sizes_to_strip = sizes)
 		size[SPRSZ_STRIPPED] = icon(fname)
 		fdel(fname)
 
-TYPE_PROC_REF(/datum/asset/spritesheet, generate_css)()
+/datum/asset/spritesheet/proc/generate_css()
 	var/list/out = list()
 
 	for (var/size_id in sizes)
@@ -176,7 +176,7 @@ TYPE_PROC_REF(/datum/asset/spritesheet, generate_css)()
 
 	return out.Join("\n")
 
-TYPE_PROC_REF(/datum/asset/spritesheet, Insert)(sprite_name, icon/I, icon_state="", dir=SOUTH, frame=1, moving=FALSE)
+/datum/asset/spritesheet/proc/Insert(sprite_name, icon/I, icon_state="", dir=SOUTH, frame=1, moving=FALSE)
 	I = icon(I, icon_state=icon_state, dir=dir, frame=frame, moving=moving)
 	if (!I || !length(icon_states(I)))  // that direction or state doesn't exist
 		return
@@ -204,10 +204,10 @@ TYPE_PROC_REF(/datum/asset/spritesheet, Insert)(sprite_name, icon/I, icon_state=
  * Arguments:
  * * I: icon being turned into an asset
  */
-TYPE_PROC_REF(/datum/asset/spritesheet, ModifyInserted)(icon/pre_asset)
+/datum/asset/spritesheet/proc/ModifyInserted(icon/pre_asset)
 	return pre_asset
 
-TYPE_PROC_REF(/datum/asset/spritesheet, InsertAll)(prefix, icon/I, list/directions)
+/datum/asset/spritesheet/proc/InsertAll(prefix, icon/I, list/directions)
 	if (length(prefix))
 		prefix = "[prefix]-"
 
@@ -219,20 +219,20 @@ TYPE_PROC_REF(/datum/asset/spritesheet, InsertAll)(prefix, icon/I, list/directio
 			var/prefix2 = (directions.len > 1) ? "[dir2text(direction)]-" : ""
 			Insert("[prefix][prefix2][icon_state_name]", I, icon_state=icon_state_name, dir=direction)
 
-TYPE_PROC_REF(/datum/asset/spritesheet, css_tag)()
+/datum/asset/spritesheet/proc/css_tag()
 	return {"<link rel="stylesheet" href="[css_filename()]" />"}
 
-TYPE_PROC_REF(/datum/asset/spritesheet, css_filename)()
+/datum/asset/spritesheet/proc/css_filename()
 	return SSassets.transport.get_asset_url("spritesheet_[name].css")
 
-TYPE_PROC_REF(/datum/asset/spritesheet, icon_tag)(sprite_name)
+/datum/asset/spritesheet/proc/icon_tag(sprite_name)
 	var/sprite = sprites[sprite_name]
 	if (!sprite)
 		return null
 	var/size_id = sprite[SPR_SIZE]
 	return {"<span class="[name][size_id] [sprite_name]"></span>"}
 
-TYPE_PROC_REF(/datum/asset/spritesheet, icon_class_name)(sprite_name)
+/datum/asset/spritesheet/proc/icon_class_name(sprite_name)
 	var/sprite = sprites[sprite_name]
 	if (!sprite)
 		return null
@@ -245,7 +245,7 @@ TYPE_PROC_REF(/datum/asset/spritesheet, icon_class_name)(sprite_name)
  * Arguments:
  * * sprite_name - The sprite to get the size of
  */
-TYPE_PROC_REF(/datum/asset/spritesheet, icon_size_id)(sprite_name)
+/datum/asset/spritesheet/proc/icon_size_id(sprite_name)
 	var/sprite = sprites[sprite_name]
 	if (!sprite)
 		return null
@@ -364,7 +364,7 @@ TYPE_PROC_REF(/datum/asset/spritesheet, icon_size_id)(sprite_name)
 
 /// Get a html string that will load a html asset.
 /// Needed because byond doesn't allow you to browse() to a url.
-TYPE_PROC_REF(/datum/asset/simple/namespaced, get_htmlloader)(filename)
+/datum/asset/simple/namespaced/proc/get_htmlloader(filename)
 	return url2htmlloader(SSassets.transport.get_asset_url(filename, assets[filename]))
 
 /// A subtype to generate a JSON file from a list
@@ -389,7 +389,7 @@ TYPE_PROC_REF(/datum/asset/simple/namespaced, get_htmlloader)(filename)
 	fdel(filename)
 
 /// Returns the data that will be JSON encoded
-TYPE_PROC_REF(/datum/asset/json, generate)()
+/datum/asset/json/proc/generate()
 	SHOULD_CALL_PARENT(FALSE)
 	CRASH("generate() not implemented for [type]!")
 

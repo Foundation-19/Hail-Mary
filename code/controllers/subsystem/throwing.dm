@@ -120,13 +120,13 @@ SUBSYSTEM_DEF(throwing)
 
 
 ///Defines the datum behavior on the thrownthing's qdeletion event.
-TYPE_PROC_REF(/datum/thrownthing, on_thrownthing_qdel)(atom/movable/source, force)
+/datum/thrownthing/proc/on_thrownthing_qdel(atom/movable/source, force)
 	SIGNAL_HANDLER
 
 	qdel(src)
 
 
-TYPE_PROC_REF(/datum/thrownthing, tick)()
+/datum/thrownthing/proc/tick()
 	var/atom/movable/AM = thrownthing
 	if (!isturf(AM.loc) || !AM.throwing)
 		finalize()
@@ -188,7 +188,7 @@ TYPE_PROC_REF(/datum/thrownthing, tick)()
 			finalize()
 			return
 
-TYPE_PROC_REF(/datum/thrownthing, finalize)(hit = FALSE, target=null)
+/datum/thrownthing/proc/finalize(hit = FALSE, target=null)
 	set waitfor = FALSE
 	//done throwing, either because it hit something or it finished moving
 	if(!thrownthing)
@@ -227,10 +227,10 @@ TYPE_PROC_REF(/datum/thrownthing, finalize)(hit = FALSE, target=null)
 
 	qdel(src)
 
-TYPE_PROC_REF(/datum/thrownthing, hit_atom)(atom/A)
+/datum/thrownthing/proc/hit_atom(atom/A)
 	finalize(hit=TRUE, target=A)
 
-TYPE_PROC_REF(/datum/thrownthing, hitcheck)()
+/datum/thrownthing/proc/hitcheck()
 	for (var/thing in get_turf(thrownthing))
 		var/atom/movable/AM = thing
 		if (AM == thrownthing || (AM == thrower && !ismob(thrownthing)))

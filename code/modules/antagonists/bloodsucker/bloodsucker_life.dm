@@ -10,7 +10,7 @@
 //
 // Show as dead when...
 
-TYPE_PROC_REF(/datum/antagonist/bloodsucker, LifeTick)()  //Runs from BiologicalLife, handles all the bloodsucker constant proccesses
+/datum/antagonist/bloodsucker/proc/LifeTick()  //Runs from BiologicalLife, handles all the bloodsucker constant proccesses
 	if(!owner || AmFinalDeath())
 		return
 	if(owner.current.stat == CONSCIOUS && !poweron_feed && !HAS_TRAIT(owner.current, TRAIT_FAKEDEATH)) // Deduct Blood
@@ -35,11 +35,11 @@ TYPE_PROC_REF(/datum/antagonist/bloodsucker, LifeTick)()  //Runs from Biological
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-TYPE_PROC_REF(/datum/antagonist/bloodsucker, AddBloodVolume)(value)
+/datum/antagonist/bloodsucker/proc/AddBloodVolume(value)
 	owner.current.blood_volume = clamp(owner.current.get_blood(TRUE) + value, 0, max_blood_volume)
 	update_hud()
 
-TYPE_PROC_REF(/datum/antagonist/bloodsucker, HandleFeeding)(mob/living/carbon/target, mult=1)
+/datum/antagonist/bloodsucker/proc/HandleFeeding(mob/living/carbon/target, mult=1)
 	// mult: SILENT feed is 1/3 the amount
 	var/blood_taken = min(feed_amount, target.get_blood(TRUE)) * mult	// Starts at 15 (now 8 since we doubled the Feed time)
 	target.blood_volume -= blood_taken
@@ -76,7 +76,7 @@ TYPE_PROC_REF(/datum/antagonist/bloodsucker, HandleFeeding)(mob/living/carbon/ta
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-TYPE_PROC_REF(/datum/antagonist/bloodsucker, HandleHealing)(mult = 1)
+/datum/antagonist/bloodsucker/proc/HandleHealing(mult = 1)
 	// NOTE: Mult of 0 is just a TEST to see if we are injured and need to go into Torpor!
 	//It is called from your coffin on close (by you only)
 	var/actual_regen = regen_rate + additional_regen
@@ -130,7 +130,7 @@ TYPE_PROC_REF(/datum/antagonist/bloodsucker, HandleHealing)(mult = 1)
 
 
 
-TYPE_PROC_REF(/datum/antagonist/bloodsucker, check_limbs)(costMult)
+/datum/antagonist/bloodsucker/proc/check_limbs(costMult)
 	var/limb_regen_cost = 50 * costMult
 	var/mob/living/carbon/C = owner.current
 	var/list/missing = C.get_missing_limbs()
@@ -145,7 +145,7 @@ TYPE_PROC_REF(/datum/antagonist/bloodsucker, check_limbs)(costMult)
 		playsound(C, 'sound/magic/demon_consume.ogg', 50, TRUE)
 		return TRUE
 
-TYPE_PROC_REF(/datum/antagonist/bloodsucker, CureDisabilities)()
+/datum/antagonist/bloodsucker/proc/CureDisabilities()
 	var/mob/living/carbon/C = owner.current
 	C.cure_blind(list(EYE_DAMAGE))//()
 	C.cure_nearsighted(EYE_DAMAGE)
@@ -159,7 +159,7 @@ TYPE_PROC_REF(/datum/antagonist/bloodsucker, CureDisabilities)()
 	owner.current.cure_husk()
 
 // I am thirsty for blud!
-TYPE_PROC_REF(/datum/antagonist/bloodsucker, HandleStarving)()
+/datum/antagonist/bloodsucker/proc/HandleStarving()
 
 	// High: 	Faster Healing
 	// Med: 	Pale
@@ -190,7 +190,7 @@ TYPE_PROC_REF(/datum/antagonist/bloodsucker, HandleStarving)()
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-TYPE_PROC_REF(/datum/antagonist/bloodsucker, HandleDeath)()
+/datum/antagonist/bloodsucker/proc/HandleDeath()
 	// 	FINAL DEATH
 	// Fire Damage? (above double health)
 	if(owner.current.getFireLoss() >= owner.current.maxHealth * 3)
@@ -234,7 +234,7 @@ TYPE_PROC_REF(/datum/antagonist/bloodsucker, HandleDeath)()
 		if(poweron_masquerade && total_damage >= owner.current.getMaxHealth() - HEALTH_THRESHOLD_FULLCRIT)
 			owner.current.Unconscious(20, 1)
 
-TYPE_PROC_REF(/datum/antagonist/bloodsucker, Torpor_Begin)(amInCoffin = FALSE)
+/datum/antagonist/bloodsucker/proc/Torpor_Begin(amInCoffin = FALSE)
 	owner.current.apply_status_effect(STATUS_EFFECT_UNCONSCIOUS)
 	ADD_TRAIT(owner.current, TRAIT_FAKEDEATH, "bloodsucker") // Come after UNCONSCIOUS or else it fails
 	ADD_TRAIT(owner.current, TRAIT_NODEATH, "bloodsucker")	// Without this, you'll just keep dying while you recover.
@@ -252,7 +252,7 @@ TYPE_PROC_REF(/datum/antagonist/bloodsucker, Torpor_Begin)(amInCoffin = FALSE)
 		owner.current.suiciding = FALSE //Youll die but not for long.
 		to_chat(owner.current, span_warning("Your body keeps you going, even as you try to end yourself."))
 
-TYPE_PROC_REF(/datum/antagonist/bloodsucker, Torpor_End)()
+/datum/antagonist/bloodsucker/proc/Torpor_End()
 	owner.current.stat = SOFT_CRIT
 	owner.current.remove_status_effect(STATUS_EFFECT_UNCONSCIOUS)
 	REMOVE_TRAIT(owner.current, TRAIT_FAKEDEATH, "bloodsucker")
@@ -262,17 +262,17 @@ TYPE_PROC_REF(/datum/antagonist/bloodsucker, Torpor_End)()
 	to_chat(owner, span_warning("You have recovered from Torpor."))
 
 
-TYPE_PROC_REF(/datum/antagonist, AmFinalDeath)()
+/datum/antagonist/proc/AmFinalDeath()
 	// Standard Antags can be dead OR final death
 	return owner && (owner.current && owner.current.stat >= DEAD || owner.AmFinalDeath())
 
 /datum/antagonist/bloodsucker/AmFinalDeath()
 	return owner && owner.AmFinalDeath()
 
-TYPE_PROC_REF(/datum/mind, AmFinalDeath)()
+/datum/mind/proc/AmFinalDeath()
 	return !current || QDELETED(current) || !isliving(current) || isbrain(current) || !get_turf(current) // NOTE: "isliving()" is not the same as STAT == CONSCIOUS. This is to make sure you're not a BORG (aka silicon)
 
-TYPE_PROC_REF(/datum/antagonist/bloodsucker, FinalDeath)()
+/datum/antagonist/bloodsucker/proc/FinalDeath()
 		//Dont bother if we are already supposed to be dead
 	if(FinalDeath)
 		return 
@@ -313,7 +313,7 @@ TYPE_PROC_REF(/datum/antagonist/bloodsucker, FinalDeath)()
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-TYPE_PROC_REF(/mob, CheckBloodsuckerEatFood)(food_nutrition)
+/mob/proc/CheckBloodsuckerEatFood(food_nutrition)
 	if(!isliving(src))
 		return
 	var/mob/living/L = src
@@ -324,7 +324,7 @@ TYPE_PROC_REF(/mob, CheckBloodsuckerEatFood)(food_nutrition)
 	B.handle_eat_human_food(food_nutrition)
 
 
-TYPE_PROC_REF(/datum/antagonist/bloodsucker, handle_eat_human_food)(food_nutrition, puke_blood = TRUE, masquerade_override) // Called from snacks.dm and drinks.dm
+/datum/antagonist/bloodsucker/proc/handle_eat_human_food(food_nutrition, puke_blood = TRUE, masquerade_override) // Called from snacks.dm and drinks.dm
 	set waitfor = FALSE
 	if(!owner.current || !iscarbon(owner.current))
 		return

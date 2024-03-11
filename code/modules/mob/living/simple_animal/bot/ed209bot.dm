@@ -155,7 +155,7 @@ Auto Patrol[]"},
 			declare_arrests = !declare_arrests
 			update_controls()
 
-TYPE_PROC_REF(/mob/living/simple_animal/bot/ed209, judgement_criteria)()
+/mob/living/simple_animal/bot/ed209/proc/judgement_criteria()
 	var/final = FALSE
 	if(idcheck)
 		final = final|JUDGE_IDCHECK
@@ -169,7 +169,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/bot/ed209, judgement_criteria)()
 	final = final|JUDGE_IGNOREMONKEYS
 	return final
 
-TYPE_PROC_REF(/mob/living/simple_animal/bot/ed209, retaliate)(mob/living/carbon/human/H)
+/mob/living/simple_animal/bot/ed209/proc/retaliate(mob/living/carbon/human/H)
 	var/judgement_criteria = judgement_criteria()
 	threatlevel = H.assess_threat(judgement_criteria, weaponcheck=CALLBACK(src, PROC_REF(check_for_weapons)))
 	threatlevel += 6
@@ -319,7 +319,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/bot/ed209, retaliate)(mob/living/carbon/
 
 	return
 
-TYPE_PROC_REF(/mob/living/simple_animal/bot/ed209, back_to_idle)()
+/mob/living/simple_animal/bot/ed209/proc/back_to_idle()
 	anchored = FALSE
 	mode = BOT_IDLE
 	target = null
@@ -327,7 +327,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/bot/ed209, back_to_idle)()
 	frustration = 0
 	INVOKE_ASYNC(src, PROC_REF(handle_automated_action)) //ensure bot quickly responds
 
-TYPE_PROC_REF(/mob/living/simple_animal/bot/ed209, back_to_hunt)()
+/mob/living/simple_animal/bot/ed209/proc/back_to_hunt()
 	anchored = FALSE
 	frustration = 0
 	mode = BOT_HUNT
@@ -335,7 +335,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/bot/ed209, back_to_hunt)()
 
 // look for a criminal in view of the bot
 
-TYPE_PROC_REF(/mob/living/simple_animal/bot/ed209, look_for_perp)()
+/mob/living/simple_animal/bot/ed209/proc/look_for_perp()
 	if(disabled)
 		return
 	anchored = FALSE
@@ -366,7 +366,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/bot/ed209, look_for_perp)()
 		else
 			continue
 
-TYPE_PROC_REF(/mob/living/simple_animal/bot/ed209, check_for_weapons)(obj/item/slot_item)
+/mob/living/simple_animal/bot/ed209/proc/check_for_weapons(obj/item/slot_item)
 	if(slot_item && (slot_item.item_flags & NEEDS_PERMIT))
 		return 1
 	return 0
@@ -416,7 +416,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/bot/ed209, check_for_weapons)(obj/item/s
 	new /obj/effect/decal/cleanable/oil(loc)
 	..()
 
-TYPE_PROC_REF(/mob/living/simple_animal/bot/ed209, set_weapon)()  //used to update the projectile type and firing sound
+/mob/living/simple_animal/bot/ed209/proc/set_weapon()  //used to update the projectile type and firing sound
 	shoot_sound = 'sound/weapons/laser.ogg'
 	if(emagged == 2)
 		if(lasercolor)
@@ -432,7 +432,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/bot/ed209, set_weapon)()  //used to upda
 		else if(lasercolor == "r")
 			projectile = /obj/item/projectile/beam/lasertag/redtag
 
-TYPE_PROC_REF(/mob/living/simple_animal/bot/ed209, shootAt)(mob/target)
+/mob/living/simple_animal/bot/ed209/proc/shootAt(mob/target)
 	if(lastfired && world.time - lastfired < shot_delay)
 		return
 	lastfired = world.time
@@ -535,7 +535,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/bot/ed209, shootAt)(mob/target)
 	DelayNextAction()
 	return TRUE
 
-TYPE_PROC_REF(/mob/living/simple_animal/bot/ed209, stun_attack)(mob/living/carbon/C)
+/mob/living/simple_animal/bot/ed209/proc/stun_attack(mob/living/carbon/C)
 	playsound(src, 'sound/weapons/egloves.ogg', 50, TRUE, -1)
 	icon_state = "[lasercolor]ed209-c"
 	spawn(2)
@@ -554,7 +554,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/bot/ed209, stun_attack)(mob/living/carbo
 	C.visible_message(span_danger("[src] has stunned [C]!"),\
 							span_userdanger("[src] has stunned you!"))
 
-TYPE_PROC_REF(/mob/living/simple_animal/bot/ed209, cuff)(mob/living/carbon/C)
+/mob/living/simple_animal/bot/ed209/proc/cuff(mob/living/carbon/C)
 	mode = BOT_ARREST
 	playsound(src, 'sound/weapons/cablecuff.ogg', 30, TRUE, -2)
 	C.visible_message(span_danger("[src] is trying to put zipties on [C]!"),\

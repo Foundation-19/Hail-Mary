@@ -58,7 +58,7 @@
 		to_chat(user, span_notice("Sound emitter activated."))
 		return TRUE
 
-TYPE_PROC_REF(/obj/effect/sound_emitter, edit_emitter)(mob/user)
+/obj/effect/sound_emitter/proc/edit_emitter(mob/user)
 	var/dat = ""
 	dat += "<b>Label:</b> <a href='?src=\ref[src];edit_label=1'>[maptext ? maptext : "No label set!"]</a><br>"
 	dat += "<br>"
@@ -125,7 +125,7 @@ TYPE_PROC_REF(/obj/effect/sound_emitter, edit_emitter)(mob/user)
 		activate(user)
 	edit_emitter(user) //Refresh the UI to see our changes
 
-TYPE_PROC_REF(/obj/effect/sound_emitter, activate)(mob/user)
+/obj/effect/sound_emitter/proc/activate(mob/user)
 	var/list/hearing_mobs = list()
 	if(motus_operandi == SOUND_EMITTER_LOCAL)
 		playsound(src, sound_file, sound_volume, FALSE)

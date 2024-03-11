@@ -152,7 +152,7 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		bloody_mess = FALSE
 		update_icon()
 
-TYPE_PROC_REF(/obj/machinery/washing_machine, wash_cycle)()
+/obj/machinery/washing_machine/proc/wash_cycle()
 	for(var/X in contents)
 		var/atom/movable/AM = X
 		SEND_SIGNAL(AM, COMSIG_COMPONENT_CLEAN_ACT, CLEAN_WEAK)
@@ -165,7 +165,7 @@ TYPE_PROC_REF(/obj/machinery/washing_machine, wash_cycle)()
 		color_source = null
 	update_icon()
 
-TYPE_PROC_REF(/obj/item, dye_item)(dye_color)
+/obj/item/proc/dye_item(dye_color)
 	if(undyeable)
 		return FALSE
 	if(dying_key)
@@ -189,7 +189,7 @@ TYPE_PROC_REF(/obj/item, dye_item)(dye_color)
 	return FALSE
 
 //what happens to this object when washed inside a washing machine
-TYPE_PROC_REF(/atom/movable, machine_wash)(obj/machinery/washing_machine/WM)
+/atom/movable/proc/machine_wash(obj/machinery/washing_machine/WM)
 	return
 
 /obj/item/stack/sheet/hairlesshide/machine_wash(obj/machinery/washing_machine/WM)

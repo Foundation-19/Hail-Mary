@@ -33,7 +33,7 @@
 		return 1
 	. = ..()
 
-TYPE_PROC_REF(/obj/item/door_key, attach_id)(id)
+/obj/item/door_key/proc/attach_id(id)
 	src.id = id
 	src.name = "key"
 	src.icon_state = "key"
@@ -47,7 +47,7 @@ TYPE_PROC_REF(/obj/item/door_key, attach_id)(id)
 			O.ColorTone(used_ids[num2text(id)])
 		add_cached_overlay("usable_key", O)
 
-TYPE_PROC_REF(/obj/item/door_key, random_id)()
+/obj/item/door_key/proc/random_id()
 	var/try_id = 1
 	if(used_ids.len)
 		try_id = text2num(used_ids[used_ids.len]) + 1
@@ -75,7 +75,7 @@ TYPE_PROC_REF(/obj/item/door_key, random_id)()
 	else
 		icon_state = "keychain_4"
 
-TYPE_PROC_REF(/obj/item/storage/keys_set, get_key_with_id)(id)
+/obj/item/storage/keys_set/proc/get_key_with_id(id)
 	for(var/obj/item/door_key/K in contents)
 		if(K.id == id)
 			return K
@@ -129,11 +129,11 @@ TYPE_PROC_REF(/obj/item/storage/keys_set, get_key_with_id)(id)
 		return 1
 	. = ..()
 
-TYPE_PROC_REF(/obj/item/lock, attach_id)(id)
+/obj/item/lock/proc/attach_id(id)
 	src.id = id
 	src.name = "padlock"
 
-TYPE_PROC_REF(/obj/item/lock, toggle)()
+/obj/item/lock/proc/toggle()
 	open = !open
 	update_icon()
 

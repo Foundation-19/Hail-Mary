@@ -71,7 +71,7 @@
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.can_hold = typecacheof(list(/obj/item/reagent_containers/food/snacks/egg, /obj/item/reagent_containers/food/snacks/chocolateegg, /obj/item/reagent_containers/food/snacks/boiledegg))
 
-TYPE_PROC_REF(/obj/item/storage/bag/easterbasket, countEggs)()
+/obj/item/storage/bag/easterbasket/proc/countEggs()
 	cut_overlays()
 	add_overlay("basket-grass")
 	add_overlay("basket-egg[min(contents.len, 5)]")
@@ -113,7 +113,7 @@ TYPE_PROC_REF(/obj/item/storage/bag/easterbasket, countEggs)()
 	. = ..()
 	var/eggcolor = pick("blue","green","orange","purple","rainbow","red","yellow")
 	icon_state = "egg-[eggcolor]"
-TYPE_PROC_REF(/obj/item/reagent_containers/food/snacks/egg, dispensePrize)(turf/where)
+/obj/item/reagent_containers/food/snacks/egg/proc/dispensePrize(turf/where)
 	var/won = pick(/obj/item/clothing/head/bunnyhead,
 	/obj/item/clothing/suit/bunnysuit,
 	/obj/item/reagent_containers/food/snacks/grown/carrot,

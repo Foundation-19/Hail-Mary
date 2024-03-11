@@ -31,7 +31,7 @@
 		release(FALSE)
 	return ..()
 
-TYPE_PROC_REF(/obj/item/clothing/head/mob_holder, deposit)(mob/living/L)
+/obj/item/clothing/head/mob_holder/proc/deposit(mob/living/L)
 	if(!istype(L))
 		return FALSE
 	L.setDir(SOUTH)
@@ -42,10 +42,10 @@ TYPE_PROC_REF(/obj/item/clothing/head/mob_holder, deposit)(mob/living/L)
 	desc = L.desc
 	return TRUE
 
-TYPE_PROC_REF(/obj/item/clothing/head/mob_holder, update_visuals)(mob/living/L)
+/obj/item/clothing/head/mob_holder/proc/update_visuals(mob/living/L)
 	appearance = L.appearance
 
-TYPE_PROC_REF(/obj/item/clothing/head/mob_holder, release)(del_on_release = TRUE)
+/obj/item/clothing/head/mob_holder/proc/release(del_on_release = TRUE)
 	if(!held_mob)
 		if(del_on_release && !destroying)
 			qdel(src)

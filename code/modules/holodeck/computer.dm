@@ -201,7 +201,7 @@
 	emergency_shutdown()
 	return ..()
 
-TYPE_PROC_REF(/obj/machinery/computer/holodeck, generate_program_list)()
+/obj/machinery/computer/holodeck/proc/generate_program_list()
 	for(var/typekey in subtypesof(program_type))
 		var/area/holodeck/A = GLOB.areas_by_type[typekey]
 		if(!A || !A.contents.len)
@@ -214,7 +214,7 @@ TYPE_PROC_REF(/obj/machinery/computer/holodeck, generate_program_list)()
 		else
 			LAZYADD(program_cache, list(info_this))
 
-TYPE_PROC_REF(/obj/machinery/computer/holodeck, toggle_power)(toggleOn = FALSE)
+/obj/machinery/computer/holodeck/proc/toggle_power(toggleOn = FALSE)
 	if(active == toggleOn)
 		return
 
@@ -227,25 +227,25 @@ TYPE_PROC_REF(/obj/machinery/computer/holodeck, toggle_power)(toggleOn = FALSE)
 		load_program(offline_program, TRUE)
 		active = FALSE
 
-TYPE_PROC_REF(/obj/machinery/computer/holodeck, emergency_shutdown)()
+/obj/machinery/computer/holodeck/proc/emergency_shutdown()
 	last_program = program
 	load_program(offline_program, TRUE)
 	active = FALSE
 
-TYPE_PROC_REF(/obj/machinery/computer/holodeck, floorcheck)()
+/obj/machinery/computer/holodeck/proc/floorcheck()
 	for(var/turf/T in linked)
 		if(!T.intact || isspaceturf(T))
 			return FALSE
 	return TRUE
 
-TYPE_PROC_REF(/obj/machinery/computer/holodeck, nerf)(active)
+/obj/machinery/computer/holodeck/proc/nerf(active)
 	for(var/obj/item/I in spawned)
 		I.damtype = active ? STAMINA : initial(I.damtype)
 	for(var/e in effects)
 		var/obj/effect/holodeck_effect/HE = e
 		HE.safety(active)
 
-TYPE_PROC_REF(/obj/machinery/computer/holodeck, load_program)(area/A, force = FALSE, add_delay = TRUE)
+/obj/machinery/computer/holodeck/proc/load_program(area/A, force = FALSE, add_delay = TRUE)
 	if(!is_operational())
 		A = offline_program
 		force = TRUE
@@ -282,7 +282,7 @@ TYPE_PROC_REF(/obj/machinery/computer/holodeck, load_program)(area/A, force = FA
 
 	addtimer(CALLBACK(src, PROC_REF(finish_spawn)), 30)
 
-TYPE_PROC_REF(/obj/machinery/computer/holodeck, finish_spawn)()
+/obj/machinery/computer/holodeck/proc/finish_spawn()
 	var/list/added = list()
 	for(var/obj/effect/holodeck_effect/HE in spawned)
 		effects += HE
@@ -296,7 +296,7 @@ TYPE_PROC_REF(/obj/machinery/computer/holodeck, finish_spawn)()
 	for(var/obj/structure/S in added)
 		S.flags_1 |= NODECONSTRUCT_1
 
-TYPE_PROC_REF(/obj/machinery/computer/holodeck, derez)(obj/O, silent = TRUE, forced = FALSE)
+/obj/machinery/computer/holodeck/proc/derez(obj/O, silent = TRUE, forced = FALSE)
 	// Emagging a machine creates an anomaly in the derez systems.
 	if(O && (obj_flags & EMAGGED) && !stat && !forced)
 		if((ismob(O) || ismob(O.loc)) && prob(50))

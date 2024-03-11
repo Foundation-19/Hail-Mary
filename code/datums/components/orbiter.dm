@@ -53,7 +53,7 @@
 		return COMPONENT_INCOMPATIBLE
 	move_react()
 
-TYPE_PROC_REF(/datum/component/orbiter, begin_orbit)(atom/movable/orbiter, radius, clockwise, rotation_speed, rotation_segments, pre_rotation)
+/datum/component/orbiter/proc/begin_orbit(atom/movable/orbiter, radius, clockwise, rotation_speed, rotation_segments, pre_rotation)
 	if(orbiter.orbiting)
 		if(orbiter.orbiting == src)
 			orbiter.orbiting.end_orbit(orbiter, TRUE)
@@ -93,7 +93,7 @@ TYPE_PROC_REF(/datum/component/orbiter, begin_orbit)(atom/movable/orbiter, radiu
 	orbiter.forceMove(get_turf(parent))
 	to_chat(orbiter, span_notice("Now orbiting [parent]."))
 
-TYPE_PROC_REF(/datum/component/orbiter, end_orbit)(atom/movable/orbiter, refreshing=FALSE)
+/datum/component/orbiter/proc/end_orbit(atom/movable/orbiter, refreshing=FALSE)
 	if(!orbiters[orbiter])
 		return
 	UnregisterSignal(orbiter, COMSIG_MOVABLE_MOVED)
@@ -114,7 +114,7 @@ TYPE_PROC_REF(/datum/component/orbiter, end_orbit)(atom/movable/orbiter, refresh
 		qdel(src)
 
 // This proc can receive signals by either the thing being directly orbited or anything holding it
-TYPE_PROC_REF(/datum/component/orbiter, move_react)(atom/orbited, atom/oldloc, direction)
+/datum/component/orbiter/proc/move_react(atom/orbited, atom/oldloc, direction)
 	set waitfor = FALSE // Transfer calls this directly and it doesnt care if the ghosts arent done moving
 
 	var/atom/movable/master = parent
@@ -149,28 +149,28 @@ TYPE_PROC_REF(/datum/component/orbiter, move_react)(atom/orbited, atom/oldloc, d
 			break
 
 
-TYPE_PROC_REF(/datum/component/orbiter, orbiter_move_react)(atom/movable/orbiter, atom/oldloc, direction)
+/datum/component/orbiter/proc/orbiter_move_react(atom/movable/orbiter, atom/oldloc, direction)
 	if(orbiter.loc == get_turf(parent))
 		return
 	end_orbit(orbiter)
 
-TYPE_PROC_REF(/datum/component/orbiter, orbiter_glide_size_update)(datum/source, target)
+/datum/component/orbiter/proc/orbiter_glide_size_update(datum/source, target)
 	for(var/orbiter in orbiters)
 		var/atom/movable/movable_orbiter = orbiter
 		movable_orbiter.glide_size = target
 
 /////////////////////
 
-TYPE_PROC_REF(/atom/movable, orbit)(atom/A, radius = 10, clockwise = FALSE, rotation_speed = 20, rotation_segments = 36, pre_rotation = TRUE)
+/atom/movable/proc/orbit(atom/A, radius = 10, clockwise = FALSE, rotation_speed = 20, rotation_segments = 36, pre_rotation = TRUE)
 	if(!istype(A) || !get_turf(A) || A == src)
 		return
 
 	return A.AddComponent(/datum/component/orbiter, src, radius, clockwise, rotation_speed, rotation_segments, pre_rotation)
 
-TYPE_PROC_REF(/atom/movable, stop_orbit)(datum/component/orbiter/orbits)
+/atom/movable/proc/stop_orbit(datum/component/orbiter/orbits)
 	return // We're just a simple hook
 
-TYPE_PROC_REF(/atom, transfer_observers_to)(atom/target)
+/atom/proc/transfer_observers_to(atom/target)
 	if(!orbiters || !istype(target) || !get_turf(target) || target == src)
 		return
 	target.TakeComponent(orbiters)

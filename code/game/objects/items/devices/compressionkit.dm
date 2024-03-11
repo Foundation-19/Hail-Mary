@@ -32,7 +32,7 @@
 		icon_state = "compression_c"
 		to_chat(user, span_notice("Some coder cocked up or an admin broke your compressor. It's been set back to compress mode.."))
 
-TYPE_PROC_REF(/obj/item/compressionkit, sparks)()
+/obj/item/compressionkit/proc/sparks()
 	var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 	s.set_up(5, 1, get_turf(src))
 	s.start()

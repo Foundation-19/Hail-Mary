@@ -13,7 +13,7 @@ SUBSYSTEM_DEF(validball)
 	spawn_validballs()
 	return ..()
 
-TYPE_PROC_REF(/datum/controller/subsystem/validball, spawn_validballs)()
+/datum/controller/subsystem/validball/proc/spawn_validballs()
 	var/num_to_spawn = CONFIG_GET(number/validball_count)
 	if(num_validballs_override)
 		num_to_spawn = num_validballs_override

@@ -84,7 +84,7 @@
 	SStgui.close_uis(src)
 	. = ..()
 
-TYPE_PROC_REF(/obj, setAnchored)(anchorvalue)
+/obj/proc/setAnchored(anchorvalue)
 	SEND_SIGNAL(src, COMSIG_OBJ_SETANCHORED, anchorvalue)
 	anchored = anchorvalue
 
@@ -143,7 +143,7 @@ TYPE_PROC_REF(/obj, setAnchored)(anchorvalue)
 	else
 		return null
 
-TYPE_PROC_REF(/obj, handle_internal_lifeform)(mob/lifeform_inside_me, breath_request)
+/obj/proc/handle_internal_lifeform(mob/lifeform_inside_me, breath_request)
 	//Return: (NONSTANDARD)
 	//		null if object handles breathing logic for lifeform
 	//		datum/air_group to tell lifeform to process using that breath return
@@ -155,7 +155,7 @@ TYPE_PROC_REF(/obj, handle_internal_lifeform)(mob/lifeform_inside_me, breath_req
 	else
 		return null
 
-TYPE_PROC_REF(/obj, updateUsrDialog)()
+/obj/proc/updateUsrDialog()
 	if((obj_flags & IN_USE) && !(obj_flags & USES_TGUI))
 		var/is_in_use = FALSE
 		var/list/nearby = fov_viewers(1, src)
@@ -182,7 +182,7 @@ TYPE_PROC_REF(/obj, updateUsrDialog)()
 		else
 			obj_flags &= ~IN_USE
 
-TYPE_PROC_REF(/obj, updateDialog)(update_viewers = TRUE,update_ais = TRUE)
+/obj/proc/updateDialog(update_viewers = TRUE,update_ais = TRUE)
 	// Check that people are actually using the machine. If not, don't update anymore.
 	if(obj_flags & IN_USE)
 		var/is_in_use = FALSE
@@ -206,31 +206,31 @@ TYPE_PROC_REF(/obj, updateDialog)(update_viewers = TRUE,update_ais = TRUE)
 		return
 	ui_interact(user)
 
-TYPE_PROC_REF(/obj, container_resist)(mob/living/user)
+/obj/proc/container_resist(mob/living/user)
 	return
 
-TYPE_PROC_REF(/mob, unset_machine)()
+/mob/proc/unset_machine()
 	if(machine)
 		machine.on_unset_machine(src)
 		machine = null
 
 //called when the user unsets the machine.
-TYPE_PROC_REF(/atom, on_unset_machine)(mob/user)
+/atom/proc/on_unset_machine(mob/user)
 	return
 
-TYPE_PROC_REF(/mob, set_machine)(obj/O)
+/mob/proc/set_machine(obj/O)
 	if(src.machine)
 		unset_machine()
 	src.machine = O
 	if(istype(O))
 		O.obj_flags |= IN_USE
 
-TYPE_PROC_REF(/obj/item, updateSelfDialog)()
+/obj/item/proc/updateSelfDialog()
 	var/mob/M = src.loc
 	if(istype(M) && M.client && M.machine == src)
 		src.attack_self(M)
 
-TYPE_PROC_REF(/obj, hide)(h)
+/obj/proc/hide(h)
 	return
 
 /obj/singularity_pull(S, current_size)
@@ -241,10 +241,10 @@ TYPE_PROC_REF(/obj, hide)(h)
 /obj/get_dumping_location(datum/component/storage/source,mob/user)
 	return get_turf(src)
 
-TYPE_PROC_REF(/obj, CanAStarPass)()
+/obj/proc/CanAStarPass()
 	. = !density
 
-TYPE_PROC_REF(/obj, check_uplink_validity)()
+/obj/proc/check_uplink_validity()
 	return 1
 
 /obj/vv_get_dropdown()
@@ -339,7 +339,7 @@ TYPE_PROC_REF(/obj, check_uplink_validity)()
 		reskin_obj(user)
 		return TRUE
 
-TYPE_PROC_REF(/obj, reskin_obj)(mob/M)
+/obj/proc/reskin_obj(mob/M)
 	if(!LAZYLEN(unique_reskin))
 		return
 	var/list/skins = list()
@@ -352,7 +352,7 @@ TYPE_PROC_REF(/obj, reskin_obj)(mob/M)
 	current_skin = choice
 	return
 
-TYPE_PROC_REF(/obj, check_skinnable)(/mob/M)
+/obj/proc/check_skinnable(/mob/M)
 	if(current_skin && !always_reskinnable)
 		return FALSE
 	return TRUE
@@ -366,10 +366,10 @@ TYPE_PROC_REF(/obj, check_skinnable)(/mob/M)
 
 //Called when the object is constructed by an autolathe
 //Has a reference to the autolathe so you can do !!FUN!! things with hacked lathes
-TYPE_PROC_REF(/obj, autolathe_crafted)(obj/machinery/autolathe/A)
+/obj/proc/autolathe_crafted(obj/machinery/autolathe/A)
 	return
 
-TYPE_PROC_REF(/obj, rnd_crafted)(obj/machinery/rnd/production/P)
+/obj/proc/rnd_crafted(obj/machinery/rnd/production/P)
 	return
 
 /obj/handle_ricochet(obj/item/projectile/P)
@@ -377,10 +377,10 @@ TYPE_PROC_REF(/obj, rnd_crafted)(obj/machinery/rnd/production/P)
 	if(. && ricochet_damage_mod)
 		take_damage(P.damage * ricochet_damage_mod, P.damage_type, P.flag, 0, turn(P.dir, 180), P.armour_penetration, attacked_by = P.firer) // pass along ricochet_damage_mod damage to the structure for the ricochet
 
-TYPE_PROC_REF(/obj, plunger_act)(obj/item/plunger/P, mob/living/user, reinforced)
+/obj/proc/plunger_act(obj/item/plunger/P, mob/living/user, reinforced)
 	return
 
-TYPE_PROC_REF(/obj, setup_armor_values)()
+/obj/proc/setup_armor_values()
 	if(!armor)
 		return
 	if(!islist(armor))

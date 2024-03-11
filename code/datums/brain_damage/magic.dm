@@ -73,7 +73,7 @@
 	create_stalker()
 	..()
 
-TYPE_PROC_REF(/datum/brain_trauma/magic/stalker, create_stalker)()
+/datum/brain_trauma/magic/stalker/proc/create_stalker()
 	var/turf/stalker_source = locate(owner.x + pick(-12, 12), owner.y + pick(-12, 12), owner.z) //random corner
 	stalker = new(stalker_source, owner)
 

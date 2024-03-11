@@ -94,7 +94,7 @@
  * Waits for a user's response to the tgui_modal's prompt before returning. Returns early if
  * the window was closed by the user.
  */
-TYPE_PROC_REF(/datum/tgui_modal, wait)()
+/datum/tgui_modal/proc/wait()
 	while (!choice && !closed && !QDELETED(src))
 		stoplag(1)
 
@@ -134,7 +134,7 @@ TYPE_PROC_REF(/datum/tgui_modal, wait)()
 			SStgui.close_uis(src)
 			return TRUE
 
-TYPE_PROC_REF(/datum/tgui_modal, set_choice)(choice)
+/datum/tgui_modal/proc/set_choice(choice)
 	src.choice = choice
 
 /**

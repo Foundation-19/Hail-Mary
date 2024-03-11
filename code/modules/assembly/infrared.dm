@@ -22,7 +22,7 @@
 	var/static/rotation_flags = ROTATION_ALTCLICK | ROTATION_CLOCKWISE | ROTATION_COUNTERCLOCKWISE | ROTATION_FLIP | ROTATION_VERBS
 	AddComponent(/datum/component/simple_rotation, rotation_flags, after_rotation=CALLBACK(src,PROC_REF(after_rotation)))
 
-TYPE_PROC_REF(/obj/item/assembly/infra, after_rotation)()
+/obj/item/assembly/infra/proc/after_rotation()
 	refreshBeam()
 
 /obj/item/assembly/infra/Destroy()
@@ -80,7 +80,7 @@ TYPE_PROC_REF(/obj/item/assembly/infra, after_rotation)()
 		refreshBeam()
 		return
 
-TYPE_PROC_REF(/obj/item/assembly/infra, refreshBeam)()
+/obj/item/assembly/infra/proc/refreshBeam()
 	QDEL_LIST(beams)
 	if(throwing || !on || !secured)
 		return
@@ -143,7 +143,7 @@ TYPE_PROC_REF(/obj/item/assembly/infra, refreshBeam)()
 	setDir(olddir)
 	olddir = null
 
-TYPE_PROC_REF(/obj/item/assembly/infra, trigger_beam)(atom/movable/AM, turf/location)
+/obj/item/assembly/infra/proc/trigger_beam(atom/movable/AM, turf/location)
 	refreshBeam()
 	switchListener(location)
 	if(!secured || !on || next_activate > world.time)
@@ -156,7 +156,7 @@ TYPE_PROC_REF(/obj/item/assembly/infra, trigger_beam)(atom/movable/AM, turf/loca
 			LM.playsound_local(get_turf(src), 'sound/machines/triple_beep.ogg', ASSEMBLY_BEEP_VOLUME, TRUE)
 	next_activate =  world.time + 30
 
-TYPE_PROC_REF(/obj/item/assembly/infra, switchListener)(turf/newloc)
+/obj/item/assembly/infra/proc/switchListener(turf/newloc)
 	if(listeningTo == newloc)
 		return
 	if(listeningTo)
@@ -164,7 +164,7 @@ TYPE_PROC_REF(/obj/item/assembly/infra, switchListener)(turf/newloc)
 	RegisterSignal(newloc, COMSIG_ATOM_EXITED, PROC_REF(check_exit))
 	listeningTo = newloc
 
-TYPE_PROC_REF(/obj/item/assembly/infra, check_exit)(datum/source, atom/movable/offender)
+/obj/item/assembly/infra/proc/check_exit(datum/source, atom/movable/offender)
 	if(QDELETED(src))
 		return
 	if(offender == src || istype(offender,/obj/effect/beam/i_beam))
@@ -230,7 +230,7 @@ TYPE_PROC_REF(/obj/item/assembly/infra, check_exit)(datum/source, atom/movable/o
 	AddElement(/datum/element/connect_loc, loc_connections)
 
 
-TYPE_PROC_REF(/obj/effect/beam/i_beam, on_entered)(atom/movable/AM as mob|obj)
+/obj/effect/beam/i_beam/proc/on_entered(atom/movable/AM as mob|obj)
 	SIGNAL_HANDLER
 	if(istype(AM, /obj/effect/beam))
 		return
@@ -238,4 +238,4 @@ TYPE_PROC_REF(/obj/effect/beam/i_beam, on_entered)(atom/movable/AM as mob|obj)
 		var/obj/item/I = AM
 		if (I.item_flags & ABSTRACT)
 			return
-	INVOKE_ASYNC(master, TYPE_PROC_REF(/obj/item/assembly/infra, trigger_beam), AM, get_turf(src))
+	INVOKE_ASYNC(master, /obj/item/assembly/infra/.proc/trigger_beam, AM, get_turf(src))

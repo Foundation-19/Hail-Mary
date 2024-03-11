@@ -89,7 +89,7 @@
 	if(regenerate_limbs)
 		regenerate_limbs.UpdateButtonIcon()
 
-TYPE_PROC_REF(/datum/species/jelly, Cannibalize_Body)(mob/living/carbon/human/H)
+/datum/species/jelly/proc/Cannibalize_Body(mob/living/carbon/human/H)
 	var/list/limbs_to_consume = list(BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG) - H.get_missing_limbs()
 	var/obj/item/bodypart/consumed_limb
 	if(!limbs_to_consume.len)
@@ -252,7 +252,7 @@ TYPE_PROC_REF(/datum/species/jelly, Cannibalize_Body)(mob/living/carbon/human/H)
 
 	H.mob_transforming = FALSE
 
-TYPE_PROC_REF(/datum/action/innate/split_body, make_dupe)()
+/datum/action/innate/split_body/proc/make_dupe()
 	var/mob/living/carbon/human/H = owner
 	CHECK_DNA_AND_SPECIES(H)
 
@@ -397,7 +397,7 @@ TYPE_PROC_REF(/datum/action/innate/split_body, make_dupe)()
 				return
 			swap_to_dupe(H.mind, selected)
 
-TYPE_PROC_REF(/datum/action/innate/swap_body, can_swap)(mob/living/carbon/human/dupe)
+/datum/action/innate/swap_body/proc/can_swap(mob/living/carbon/human/dupe)
 	var/mob/living/carbon/human/H = owner
 	if(!isslimeperson(H))
 		return FALSE
@@ -425,7 +425,7 @@ TYPE_PROC_REF(/datum/action/innate/swap_body, can_swap)(mob/living/carbon/human/
 
 	return TRUE
 
-TYPE_PROC_REF(/datum/action/innate/swap_body, swap_to_dupe)(datum/mind/M, mob/living/carbon/human/dupe)
+/datum/action/innate/swap_body/proc/swap_to_dupe(datum/mind/M, mob/living/carbon/human/dupe)
 	if(!can_swap(dupe)) //sanity check
 		return
 	var/mob/living/carbon/human/old = M.current
@@ -493,7 +493,7 @@ TYPE_PROC_REF(/datum/action/innate/swap_body, swap_to_dupe)(datum/mind/M, mob/li
 		standing perfectly still...</span>")
 		change_form()
 
-TYPE_PROC_REF(/datum/action/innate/slime_change, change_form)()
+/datum/action/innate/slime_change/proc/change_form()
 	var/mob/living/carbon/human/H = owner
 	var/select_alteration = input(owner, "Select what part of your form to alter", "Form Alteration", "cancel") in list("Body Color","Hair Style", "Genitals", "Tail", "Snout", "Markings", "Ears", "Taur body", "Penis", "Vagina", "Penis Length", "Breast Size", "Breast Shape", "Butt Size", "Cancel")
 
@@ -563,13 +563,13 @@ TYPE_PROC_REF(/datum/action/innate/slime_change, change_form)()
 	extract_major = new(src)
 	extract_major.Grant(C)
 
-TYPE_PROC_REF(/datum/species/jelly/luminescent, update_slime_actions)()
+/datum/species/jelly/luminescent/proc/update_slime_actions()
 	integrate_extract.update_name()
 	integrate_extract.UpdateButtonIcon()
 	extract_minor.UpdateButtonIcon()
 	extract_major.UpdateButtonIcon()
 
-TYPE_PROC_REF(/datum/species/jelly/luminescent, update_glow)(mob/living/carbon/C, intensity)
+/datum/species/jelly/luminescent/proc/update_glow(mob/living/carbon/C, intensity)
 	if(intensity)
 		glow_intensity = intensity
 	glow.set_light_range_power_color(glow_intensity, glow_intensity, C.dna.features["mcolor"])
@@ -599,7 +599,7 @@ TYPE_PROC_REF(/datum/species/jelly/luminescent, update_glow)(mob/living/carbon/C
 	..()
 	species = _species
 
-TYPE_PROC_REF(/datum/action/innate/integrate_extract, update_name)()
+/datum/action/innate/integrate_extract/proc/update_name()
 	if(!species || !species.current_extract)
 		name = "Integrate Extract"
 		desc = "Eat a slime extract to use its properties."
@@ -727,7 +727,7 @@ TYPE_PROC_REF(/datum/action/innate/integrate_extract, update_name)()
 	slimelink_owner = C
 	link_mob(C, TRUE)
 
-TYPE_PROC_REF(/datum/species/jelly/stargazer, link_mob)(mob/living/M, selflink = FALSE)
+/datum/species/jelly/stargazer/proc/link_mob(mob/living/M, selflink = FALSE)
 	if(QDELETED(M) || (M in linked_mobs))
 		return FALSE
 	if(!selflink && (M.stat == DEAD || HAS_TRAIT(M, TRAIT_MINDSHIELD) || M.anti_magic_check(FALSE, FALSE, TRUE, 0)))
@@ -742,7 +742,7 @@ TYPE_PROC_REF(/datum/species/jelly/stargazer, link_mob)(mob/living/M, selflink =
 	action.Grant(M)
 	return TRUE
 
-TYPE_PROC_REF(/datum/species/jelly/stargazer, unlink_mob)(mob/living/M)
+/datum/species/jelly/stargazer/proc/unlink_mob(mob/living/M)
 	var/link_id = linked_mobs.Find(M)
 	if(!(link_id))
 		return

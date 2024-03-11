@@ -46,9 +46,9 @@ GLOBAL_LIST_EMPTY(silo_access_logs)
 
 	return ..()
 
-TYPE_PROC_REF(/obj/machinery/ore_silo, remote_attackby)(obj/machinery/M, mob/user, obj/item/stack/I, remote = null)
+/obj/machinery/ore_silo/proc/remote_attackby(obj/machinery/M, mob/user, obj/item/stack/I, remote = null)
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
-	// stolen from TYPE_PROC_REF(/datum/component/material_container, OnAttackBy)
+	// stolen from /datum/component/material_container/proc/OnAttackBy
 	if(user.a_intent != INTENT_HELP)
 		return
 	if(I.item_flags & ABSTRACT)
@@ -77,7 +77,7 @@ TYPE_PROC_REF(/obj/machinery/ore_silo, remote_attackby)(obj/machinery/M, mob/use
 	popup.set_content(generate_ui())
 	popup.open()
 
-TYPE_PROC_REF(/obj/machinery/ore_silo, generate_ui)()
+/obj/machinery/ore_silo/proc/generate_ui()
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	var/list/ui = list("<head><title>Ore Silo</title></head><body><div class='statusDisplay'><h2>Stored Material:</h2>")
 	var/any = FALSE
@@ -175,7 +175,7 @@ TYPE_PROC_REF(/obj/machinery/ore_silo, generate_ui)()
 		I.buffer = src
 		return TRUE
 
-TYPE_PROC_REF(/obj/machinery/ore_silo, silo_log)(obj/machinery/M, action, amount, noun, list/mats)
+/obj/machinery/ore_silo/proc/silo_log(obj/machinery/M, action, amount, noun, list/mats)
 	if (!length(mats))
 		return
 	var/datum/ore_silo_log/entry = new(M, action, amount, noun, mats)
@@ -217,7 +217,7 @@ TYPE_PROC_REF(/obj/machinery/ore_silo, silo_log)(obj/machinery/M, action, amount
 		materials[each] *= abs(_amount)
 	format()
 
-TYPE_PROC_REF(/datum/ore_silo_log, merge)(datum/ore_silo_log/other)
+/datum/ore_silo_log/proc/merge(datum/ore_silo_log/other)
 	if (other == src || action != other.action || noun != other.noun)
 		return FALSE
 	if (machine_name != other.machine_name || area_name != other.area_name)
@@ -230,7 +230,7 @@ TYPE_PROC_REF(/datum/ore_silo_log, merge)(datum/ore_silo_log/other)
 	format()
 	return TRUE
 
-TYPE_PROC_REF(/datum/ore_silo_log, format)()
+/datum/ore_silo_log/proc/format()
 	name = "[machine_name]: [action] [amount]x [noun]"
 
 	var/list/msg = list("([timestamp]) <b>[machine_name]</b> in [area_name]<br>[action] [abs(amount)]x [noun]<br>")

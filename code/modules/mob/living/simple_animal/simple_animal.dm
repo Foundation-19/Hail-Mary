@@ -262,7 +262,7 @@ GLOBAL_LIST_EMPTY(playmob_cooldowns)
 	become_the_mob(user)
 	return TRUE
 
-TYPE_PROC_REF(/mob/living/simple_animal, become_the_mob)(mob/user)
+/mob/living/simple_animal/proc/become_the_mob(mob/user)
 	if(!user.ckey)
 		return
 	user.transfer_ckey(src, TRUE)
@@ -298,7 +298,7 @@ TYPE_PROC_REF(/mob/living/simple_animal, become_the_mob)(mob/user)
 				mind.store_memory("You have been lazarus injected or tamed, and are bound to serve the town of Nash and protect its people.")
 			log_game("[key_name(src)] has been informed that they ([name]) are lazarus injected/tamed, and will serve Nash.")
 
-TYPE_PROC_REF(/mob/living/simple_animal, cleared_to_enter)(mob/user)
+/mob/living/simple_animal/proc/cleared_to_enter(mob/user)
 	if(!can_ghost_into)
 		return FALSE
 	if(health <= 0 || stat == DEAD)
@@ -370,7 +370,7 @@ TYPE_PROC_REF(/mob/living/simple_animal, cleared_to_enter)(mob/user)
 	. += mob_armor_description
 	
 /// If user is set, the mob will be told to be loyal to that mob
-TYPE_PROC_REF(/mob/living/simple_animal, make_ghostable)(mob/user)
+/mob/living/simple_animal/proc/make_ghostable(mob/user)
 	can_ghost_into = TRUE
 	AddElement(/datum/element/ghost_role_eligibility, free_ghosting = TRUE, penalize_on_ghost = FALSE)
 	LAZYADD(GLOB.mob_spawners[initial(name)], src)
@@ -387,7 +387,7 @@ TYPE_PROC_REF(/mob/living/simple_animal, make_ghostable)(mob/user)
 		LAZYADD(GLOB.mob_spawners["Tame [initial(name)]"], src)
 
 /// Player left the mob's body
-TYPE_PROC_REF(/mob/living/simple_animal, set_ghost_timeout)()
+/mob/living/simple_animal/proc/set_ghost_timeout()
 	SIGNAL_HANDLER
 	if(!key)
 		return // cant do much without a key!
@@ -415,11 +415,11 @@ TYPE_PROC_REF(/mob/living/simple_animal, set_ghost_timeout)()
 	if(stuttering)
 		stuttering = 0
 
-TYPE_PROC_REF(/mob/living/simple_animal, handle_automated_action)()
+/mob/living/simple_animal/proc/handle_automated_action()
 	set waitfor = FALSE
 	return
 
-TYPE_PROC_REF(/mob/living/simple_animal, handle_automated_movement)()
+/mob/living/simple_animal/proc/handle_automated_movement()
 	set waitfor = FALSE
 	if(stop_automated_movement || !wander)
 		return
@@ -443,7 +443,7 @@ TYPE_PROC_REF(/mob/living/simple_animal, handle_automated_movement)()
 		turns_since_move = 0
 	return TRUE
 
-TYPE_PROC_REF(/mob/living/simple_animal, handle_automated_speech)(override)
+/mob/living/simple_animal/proc/handle_automated_speech(override)
 	set waitfor = FALSE
 	if(!speak_chance)
 		return
@@ -481,7 +481,7 @@ TYPE_PROC_REF(/mob/living/simple_animal, handle_automated_speech)(override)
 				emote("me", EMOTE_AUDIBLE, pick(emote_hear))
 
 
-TYPE_PROC_REF(/mob/living/simple_animal, environment_is_safe)(datum/gas_mixture/environment, check_temp = FALSE)
+/mob/living/simple_animal/proc/environment_is_safe(datum/gas_mixture/environment, check_temp = FALSE)
 	. = TRUE
 
 	if(pulledby && pulledby.grab_state >= GRAB_KILL && atmos_requirements["min_oxy"])
@@ -536,7 +536,7 @@ TYPE_PROC_REF(/mob/living/simple_animal, environment_is_safe)(datum/gas_mixture/
 
 	handle_temperature_damage()
 
-TYPE_PROC_REF(/mob/living/simple_animal, handle_temperature_damage)()
+/mob/living/simple_animal/proc/handle_temperature_damage()
 	if((bodytemperature < minbodytemp) || (bodytemperature > maxbodytemp))
 		adjustHealth(unsuitable_atmos_damage)
 
@@ -565,11 +565,11 @@ TYPE_PROC_REF(/mob/living/simple_animal, handle_temperature_damage)()
 		act = "me"
 	..(act, m_type, message)
 
-TYPE_PROC_REF(/mob/living/simple_animal, set_varspeed)(var_value)
+/mob/living/simple_animal/proc/set_varspeed(var_value)
 	speed = var_value
 	update_simplemob_varspeed()
 
-TYPE_PROC_REF(/mob/living/simple_animal, update_simplemob_varspeed)()
+/mob/living/simple_animal/proc/update_simplemob_varspeed()
 	if(speed == 0)
 		remove_movespeed_modifier(/datum/movespeed_modifier/simplemob_varspeed)
 	add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/simplemob_varspeed, multiplicative_slowdown = speed)
@@ -580,7 +580,7 @@ TYPE_PROC_REF(/mob/living/simple_animal, update_simplemob_varspeed)()
 	. += "Health: [round((health / maxHealth) * 100)]%"
 
 
-TYPE_PROC_REF(/mob/living/simple_animal, drop_loot)()
+/mob/living/simple_animal/proc/drop_loot()
 	if(loot_drop_amount == MOB_LOOT_ALL || !isnum(loot_drop_amount))
 		for(var/drop in loot)
 			for(var/i in 1 to max(1, loot[drop]))
@@ -624,7 +624,7 @@ TYPE_PROC_REF(/mob/living/simple_animal, drop_loot)()
 		lying = 1
 		..()
 
-TYPE_PROC_REF(/mob/living/simple_animal, CanAttack)(atom/the_target)
+/mob/living/simple_animal/proc/CanAttack(atom/the_target)
 	if(see_invisible < the_target.invisibility)
 		return FALSE
 	if(ismob(the_target))
@@ -659,7 +659,7 @@ TYPE_PROC_REF(/mob/living/simple_animal, CanAttack)(atom/the_target)
 		. = 1
 		setMovetype(initial(movement_type))
 
-TYPE_PROC_REF(/mob/living/simple_animal, make_babies)() // <3 <3 <3
+/mob/living/simple_animal/proc/make_babies() // <3 <3 <3
 	if(gender != FEMALE || stat || next_scan_time > world.time || !childtype || !animal_species || !SSticker.IsRoundInProgress())
 		return
 	next_scan_time = world.time + 400
@@ -735,7 +735,7 @@ TYPE_PROC_REF(/mob/living/simple_animal, make_babies)() // <3 <3 <3
 	if(changed)
 		animate(src, transform = ntransform, time = 2, easing = EASE_IN|EASE_OUT) */
 
-TYPE_PROC_REF(/mob/living/simple_animal, sentience_act)() //Called when a simple animal gains sentience via gold slime potion
+/mob/living/simple_animal/proc/sentience_act() //Called when a simple animal gains sentience via gold slime potion
 	toggle_ai(AI_OFF) // To prevent any weirdness.
 	can_have_ai = FALSE
 
@@ -843,7 +843,7 @@ TYPE_PROC_REF(/mob/living/simple_animal, sentience_act)() //Called when a simple
 	. = ..()
 	LoadComponent(/datum/component/riding)
 
-TYPE_PROC_REF(/mob/living/simple_animal, toggle_ai)(togglestatus)
+/mob/living/simple_animal/proc/toggle_ai(togglestatus)
 	if(!can_have_ai && (togglestatus != AI_OFF))
 		return
 	if (AIStatus != togglestatus)
@@ -860,7 +860,7 @@ TYPE_PROC_REF(/mob/living/simple_animal, toggle_ai)(togglestatus)
 		else
 			stack_trace("Something attempted to set simple animals AI to an invalid state: [togglestatus]")
 
-TYPE_PROC_REF(/mob/living/simple_animal, consider_wakeup)()
+/mob/living/simple_animal/proc/consider_wakeup()
 	if (pulledby || shouldwakeup)
 		toggle_ai(AI_ON)
 
@@ -898,7 +898,7 @@ TYPE_PROC_REF(/mob/living/simple_animal, consider_wakeup)()
 	if(CHECK_BITFIELD(combat_flags, COMBAT_FLAG_HARD_STAMCRIT) && COOLDOWN_FINISHED(src, stamcrit_timer))
 		unstamcrit()
 
-TYPE_PROC_REF(/mob/living/simple_animal, stamcrit)()
+/mob/living/simple_animal/proc/stamcrit()
 	to_chat(src, span_notice("You're too exhausted to keep going..."))
 	ENABLE_BITFIELD(combat_flags, COMBAT_FLAG_HARD_STAMCRIT)
 	filters += CIT_FILTER_STAMINACRIT
@@ -906,7 +906,7 @@ TYPE_PROC_REF(/mob/living/simple_animal, stamcrit)()
 	set_resting(TRUE, FALSE, FALSE)
 	update_mobility()
 
-TYPE_PROC_REF(/mob/living/simple_animal, unstamcrit)()
+/mob/living/simple_animal/proc/unstamcrit()
 	COOLDOWN_RESET(src, stamcrit_timer)
 	to_chat(src, span_notice("You don't feel nearly as exhausted anymore."))
 	DISABLE_BITFIELD(combat_flags, COMBAT_FLAG_HARD_STAMCRIT)
@@ -915,7 +915,7 @@ TYPE_PROC_REF(/mob/living/simple_animal, unstamcrit)()
 	set_resting(FALSE, FALSE, FALSE)
 	update_mobility()
 
-TYPE_PROC_REF(/mob/living/simple_animal, sever_link_to_nest)()
+/mob/living/simple_animal/proc/sever_link_to_nest()
 	if(nest)
 		var/datum/component/spawner/our_nest = nest.resolve()
 		if(istype(our_nest))
@@ -924,7 +924,7 @@ TYPE_PROC_REF(/mob/living/simple_animal, sever_link_to_nest)()
 					our_nest.spawned_mobs -= maybe_us
 	nest = null
 
-TYPE_PROC_REF(/mob/living/simple_animal, setup_variations)()
+/mob/living/simple_animal/proc/setup_variations()
 	if(!LAZYLEN(variation_list))
 		return FALSE // we're good here
 	if(LAZYLEN(variation_list[MOB_VARIED_NAME_GLOBAL_LIST]))
@@ -939,7 +939,7 @@ TYPE_PROC_REF(/mob/living/simple_animal, setup_variations)()
 		health = our_health
 	return TRUE
 
-TYPE_PROC_REF(/mob/living/simple_animal, vary_from_list)(which_list, weighted_list = FALSE)
+/mob/living/simple_animal/proc/vary_from_list(which_list, weighted_list = FALSE)
 	if(isnum(which_list))
 		return which_list
 	if(islist(which_list))
@@ -947,7 +947,7 @@ TYPE_PROC_REF(/mob/living/simple_animal, vary_from_list)(which_list, weighted_li
 			return(pickweight(which_list))
 		return(pick(which_list))
 
-TYPE_PROC_REF(/mob/living/simple_animal, vary_mob_name_from_global_lists)()
+/mob/living/simple_animal/proc/vary_mob_name_from_global_lists()
 	var/list/our_mob_random_name_list = variation_list[MOB_VARIED_NAME_GLOBAL_LIST]
 	var/our_new_name = ""
 	var/number_of_name_tokens_left = LAZYLEN(variation_list[MOB_VARIED_NAME_GLOBAL_LIST])
@@ -977,10 +977,10 @@ TYPE_PROC_REF(/mob/living/simple_animal, vary_mob_name_from_global_lists)()
 	if(our_new_name != "")
 		name = our_new_name
 
-TYPE_PROC_REF(/mob/living/simple_animal, vary_mob_name_from_local_list)()
+/mob/living/simple_animal/proc/vary_mob_name_from_local_list()
 	name = pick(variation_list[MOB_VARIED_NAME_LIST])
 
-TYPE_PROC_REF(/mob/living/simple_animal, vary_mob_color)()
+/mob/living/simple_animal/proc/vary_mob_color()
 	if(LAZYLEN(variation_list[MOB_VARIED_COLOR][MOB_VARIED_COLOR_MIN]) != 3)
 		return
 	if(LAZYLEN(variation_list[MOB_VARIED_COLOR][MOB_VARIED_COLOR_MAX]) != 3)
@@ -1008,12 +1008,12 @@ TYPE_PROC_REF(/mob/living/simple_animal, vary_mob_color)()
 		colors["blue"] = rand(blue_numbers[1], blue_numbers[2])
 	color = rgb(clamp(colors["red"], 0, 255), clamp(colors["green"], 0, 255), clamp(colors["blue"], 0, 255))
 
-TYPE_PROC_REF(/mob/living/simple_animal, put_numbers_in_order)(num_1, num_2)
+/mob/living/simple_animal/proc/put_numbers_in_order(num_1, num_2)
 	if(num_1 < num_2)
 		return list(num_1, num_2)
 	return list(num_2, num_1)
 
-TYPE_PROC_REF(/mob/living/simple_animal, get_random_random_name)()
+/mob/living/simple_animal/proc/get_random_random_name()
 	switch(rand(1,26))
 		if(1)
 			return pick(GLOB.ai_names)
@@ -1069,7 +1069,7 @@ TYPE_PROC_REF(/mob/living/simple_animal, get_random_random_name)()
 			return pick(GLOB.adjectives)
 
 /// AAA DUPLICATED CODE FROM OBJ.DM
-TYPE_PROC_REF(/mob/living/simple_animal, setup_mob_armor_values)()
+/mob/living/simple_animal/proc/setup_mob_armor_values()
 	if(!mob_armor)
 		return
 	if(!islist(mob_armor))
@@ -1088,7 +1088,7 @@ TYPE_PROC_REF(/mob/living/simple_animal, setup_mob_armor_values)()
 					continue
 
 /// compiles the mob's armor description
-TYPE_PROC_REF(/mob/living/simple_animal, setup_mob_armor_description)()
+/mob/living/simple_animal/proc/setup_mob_armor_description()
 	if(!mob_armor)
 		mob_armor_description = null
 

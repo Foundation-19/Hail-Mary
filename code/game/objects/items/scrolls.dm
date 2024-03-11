@@ -44,7 +44,7 @@
 		attack_self(H)
 	return
 
-TYPE_PROC_REF(/obj/item/teleportation_scroll, teleportscroll)(mob/user)
+/obj/item/teleportation_scroll/proc/teleportscroll(mob/user)
 
 	var/A
 

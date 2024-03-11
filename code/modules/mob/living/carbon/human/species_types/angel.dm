@@ -42,7 +42,7 @@
 /datum/species/angel/spec_life(mob/living/carbon/human/H)
 	HandleFlight(H)
 
-TYPE_PROC_REF(/datum/species/angel, HandleFlight)(mob/living/carbon/human/H)
+/datum/species/angel/proc/HandleFlight(mob/living/carbon/human/H)
 	if(H.movement_type & FLYING)
 		if(!CanFly(H))
 			ToggleFlight(H,0)
@@ -51,7 +51,7 @@ TYPE_PROC_REF(/datum/species/angel, HandleFlight)(mob/living/carbon/human/H)
 	else
 		return 0
 
-TYPE_PROC_REF(/datum/species/angel, CanFly)(mob/living/carbon/human/H)
+/datum/species/angel/proc/CanFly(mob/living/carbon/human/H)
 	if(!CHECK_MOBILITY(H, MOBILITY_MOVE))
 		return FALSE
 	if(H.wear_suit && ((H.wear_suit.flags_inv & HIDEJUMPSUIT) && (!H.wear_suit.species_exception || !is_type_in_list(src, H.wear_suit.species_exception))))	//Jumpsuits have tail holes, so it makes sense they have wing holes too
@@ -87,7 +87,7 @@ TYPE_PROC_REF(/datum/species/angel, CanFly)(mob/living/carbon/human/H)
 			A.ToggleFlight(H,1)
 			H.update_mobility()
 
-TYPE_PROC_REF(/datum/species/angel, flyslip)(mob/living/carbon/human/H)
+/datum/species/angel/proc/flyslip(mob/living/carbon/human/H)
 	var/obj/buckled_obj
 	if(H.buckled)
 		buckled_obj = H.buckled
@@ -127,7 +127,7 @@ TYPE_PROC_REF(/datum/species/angel, flyslip)(mob/living/carbon/human/H)
 	if(H.movement_type & FLYING)
 		return 1
 
-TYPE_PROC_REF(/datum/species/angel, ToggleFlight)(mob/living/carbon/human/H,flight)
+/datum/species/angel/proc/ToggleFlight(mob/living/carbon/human/H,flight)
 	if(flight && CanFly(H))
 		stunmod = 2
 		speedmod = -0.35

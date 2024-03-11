@@ -1,7 +1,7 @@
 //I wish we had interfaces sigh, and i'm not sure giving team and antag common root is a better solution here
 
 //Name shown on antag list
-TYPE_PROC_REF(/datum/antagonist, antag_listing_name)()
+/datum/antagonist/proc/antag_listing_name()
 	if(!owner)
 		return "Unassigned"
 	if(owner.current)
@@ -11,7 +11,7 @@ TYPE_PROC_REF(/datum/antagonist, antag_listing_name)()
 
 //Whatever interesting things happened to the antag admins should know about
 //Include additional information about antag in this part
-TYPE_PROC_REF(/datum/antagonist, antag_listing_status)()
+/datum/antagonist/proc/antag_listing_status()
 	if(!owner)
 		return "(Unassigned)"
 	if(!owner.current)
@@ -24,7 +24,7 @@ TYPE_PROC_REF(/datum/antagonist, antag_listing_status)()
 
 //Builds the common FLW PM TP commands part
 //Probably not going to be overwritten by anything but you never know
-TYPE_PROC_REF(/datum/antagonist, antag_listing_commands)()
+/datum/antagonist/proc/antag_listing_commands()
 	if(!owner)
 		return
 	var/list/parts = list()
@@ -38,7 +38,7 @@ TYPE_PROC_REF(/datum/antagonist, antag_listing_commands)()
 
 //Builds table row for the antag
 // Jim (Status) FLW PM TP
-TYPE_PROC_REF(/datum/antagonist, antag_listing_entry)()
+/datum/antagonist/proc/antag_listing_entry()
 	var/list/parts = list()
 	if(show_name_in_check_antagonists)
 		parts += "[antag_listing_name()]([name])"
@@ -49,14 +49,14 @@ TYPE_PROC_REF(/datum/antagonist, antag_listing_entry)()
 	return "<tr><td>[parts.Join("</td><td>")]</td></tr>"
 
 
-TYPE_PROC_REF(/datum/team, get_team_antags)(antag_type,specific = FALSE)
+/datum/team/proc/get_team_antags(antag_type,specific = FALSE)
 	. = list()
 	for(var/datum/antagonist/A in GLOB.antagonists)
 		if(A.get_team() == src && (!antag_type || !specific && istype(A,antag_type) || specific && A.type == antag_type))
 			. += A
 
 //Builds section for the team
-TYPE_PROC_REF(/datum/team, antag_listing_entry)()
+/datum/team/proc/antag_listing_entry()
 	//NukeOps:
 	// Jim (Status) FLW PM TP
 	// Joe (Status) FLW PM TP
@@ -71,20 +71,20 @@ TYPE_PROC_REF(/datum/team, antag_listing_entry)()
 	parts += antag_listing_footer()
 	return parts.Join()
 
-TYPE_PROC_REF(/datum/team, antag_listing_name)()
+/datum/team/proc/antag_listing_name()
 	return name
 
-TYPE_PROC_REF(/datum/team, antag_listing_footer)()
+/datum/team/proc/antag_listing_footer()
 	return
 
 //Moves them to the top of the list if TRUE
-TYPE_PROC_REF(/datum/antagonist, is_gamemode_hero)()
+/datum/antagonist/proc/is_gamemode_hero()
 	return FALSE
 
-TYPE_PROC_REF(/datum/team, is_gamemode_hero)()
+/datum/team/proc/is_gamemode_hero()
 	return FALSE
 
-TYPE_PROC_REF(/datum/admins, build_antag_listing)()
+/datum/admins/proc/build_antag_listing()
 	var/list/sections = list()
 	var/list/priority_sections = list()
 
@@ -132,7 +132,7 @@ TYPE_PROC_REF(/datum/admins, build_antag_listing)()
 	var/list/all_sections = priority_sections + sections
 	return all_sections.Join("<br>")
 
-TYPE_PROC_REF(/datum/admins, check_antagonists)()
+/datum/admins/proc/check_antagonists()
 	if(!SSticker.HasRoundStarted())
 		alert("The game hasn't started yet!")
 		return

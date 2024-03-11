@@ -33,7 +33,7 @@
 	create_objectives()
 	. = ..()
 
-TYPE_PROC_REF(/datum/antagonist/blob, create_objectives)()
+/datum/antagonist/blob/proc/create_objectives()
 	var/datum/objective/blob_takeover/main = new
 	main.owner = owner
 	objectives += main

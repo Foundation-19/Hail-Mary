@@ -13,11 +13,11 @@
 		pinnedLoc.nullPinnedTarget()
 	return ..()
 
-TYPE_PROC_REF(/obj/item/target, nullPinnedLoc)()
+/obj/item/target/proc/nullPinnedLoc()
 	pinnedLoc = null
 	density = FALSE
 
-TYPE_PROC_REF(/obj/item/target, removeOverlays)()
+/obj/item/target/proc/removeOverlays()
 	cut_overlays()
 
 /obj/item/target/Move()

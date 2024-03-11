@@ -32,11 +32,11 @@
 	if(time < INFINITY) 
 		addtimer(CALLBACK(src,PROC_REF(End)), time)
 
-TYPE_PROC_REF(/datum/beam, Start)()
+/datum/beam/proc/Start()
 	Draw()
 	recalculate_in(sleep_time)
 
-TYPE_PROC_REF(/datum/beam, recalculate)()
+/datum/beam/proc/recalculate()
 	if(recalculating)
 		recalculate_in(sleep_time)
 		return
@@ -59,29 +59,29 @@ TYPE_PROC_REF(/datum/beam, recalculate)()
 	else
 		End()
 
-TYPE_PROC_REF(/datum/beam, afterDraw)()
+/datum/beam/proc/afterDraw()
 	return
 
-TYPE_PROC_REF(/datum/beam, recalculate_in)(time)
+/datum/beam/proc/recalculate_in(time)
 	if(timing_id)
 		deltimer(timing_id)
 	if(!finished)
 		timing_id = addtimer(CALLBACK(src, PROC_REF(recalculate)), time, TIMER_STOPPABLE)
 
-TYPE_PROC_REF(/datum/beam, after_calculate)()
+/datum/beam/proc/after_calculate()
 	if((sleep_time == null) || finished)	//Does not automatically recalculate.
 		return
 	if(isnull(timing_id))
 		timing_id = addtimer(CALLBACK(src, PROC_REF(recalculate)), sleep_time, TIMER_STOPPABLE)
 
-TYPE_PROC_REF(/datum/beam, End)(destroy_self = TRUE)
+/datum/beam/proc/End(destroy_self = TRUE)
 	finished = TRUE
 	if(!isnull(timing_id))
 		deltimer(timing_id)
 	if(!QDELETED(src) && destroy_self)
 		qdel(src)
 
-TYPE_PROC_REF(/datum/beam, Reset)()
+/datum/beam/proc/Reset()
 	for(var/obj/effect/ebeam/B in elements)
 		qdel(B)
 	elements.Cut()
@@ -93,7 +93,7 @@ TYPE_PROC_REF(/datum/beam, Reset)()
 	origin = null
 	return ..()
 
-TYPE_PROC_REF(/datum/beam, Draw)()
+/datum/beam/proc/Draw()
 	if(!origin_oldloc || !target_oldloc)
 		return
 	var/Angle = round(Get_Angle(origin_oldloc,target_oldloc))
@@ -165,7 +165,7 @@ TYPE_PROC_REF(/datum/beam, Draw)()
 /obj/effect/ebeam/singularity_act()
 	return
 
-TYPE_PROC_REF(/atom, Beam)(atom/BeamTarget,icon_state="b_beam",icon='icons/effects/beam.dmi',time=50, maxdistance=10,beam_type=/obj/effect/ebeam,beam_sleep_time = 3)
+/atom/proc/Beam(atom/BeamTarget,icon_state="b_beam",icon='icons/effects/beam.dmi',time=50, maxdistance=10,beam_type=/obj/effect/ebeam,beam_sleep_time = 3)
 	var/datum/beam/newbeam = new(src,BeamTarget,icon,icon_state,time,maxdistance,beam_type,beam_sleep_time)
-	INVOKE_ASYNC(newbeam, TYPE_PROC_REF(/datum/beam, Start))
+	INVOKE_ASYNC(newbeam, /datum/beam/.proc/Start)
 	return newbeam

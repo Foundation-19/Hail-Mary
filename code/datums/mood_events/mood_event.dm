@@ -13,8 +13,8 @@
 	remove_effects()
 	return ..()
 
-TYPE_PROC_REF(/datum/mood_event, add_effects)(param)
+/datum/mood_event/proc/add_effects(param)
 	return
 
-TYPE_PROC_REF(/datum/mood_event, remove_effects)()
+/datum/mood_event/proc/remove_effects()
 	return

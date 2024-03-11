@@ -43,7 +43,7 @@
 /obj/machinery/atmospherics/components/unary/portables_connector/portableConnectorReturnAir()
 	return connected_device.portableConnectorReturnAir()
 
-TYPE_PROC_REF(/obj, portableConnectorReturnAir)()
+/obj/proc/portableConnectorReturnAir()
 	return
 
 

@@ -1,4 +1,4 @@
-TYPE_PROC_REF(/mob/living, resist_embedded)()
+/mob/living/proc/resist_embedded()
 	return
 
 /mob/living/carbon/human/resist_embedded()
@@ -12,7 +12,7 @@ TYPE_PROC_REF(/mob/living, resist_embedded)()
 						remove_embedded_unsafe(L, I, src, 1)	//forcefully call the remove embedded unsafe proc but with extra pain multiplier. if you want to remove it less painfully, examine and remove it carefully.
 						return TRUE //Hands are occupied
 
-TYPE_PROC_REF(/mob/living/carbon/human, remove_embedded_unsafe)(obj/item/bodypart/L, obj/item/I, mob/user, painmul = 1)
+/mob/living/carbon/human/proc/remove_embedded_unsafe(obj/item/bodypart/L, obj/item/I, mob/user, painmul = 1)
 	if(!I || !L || I.loc != src || !(I in L.embedded_objects))
 		return
 	L.embedded_objects -= I

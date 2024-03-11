@@ -33,7 +33,7 @@
 	// DONE!
 	return TRUE
 
-TYPE_PROC_REF(/datum/action/bloodsucker/feed, ValidateTarget)(mob/living/target, display_error) // Called twice: validating a subtle victim, or validating your grapple victim.
+/datum/action/bloodsucker/feed/proc/ValidateTarget(mob/living/target, display_error) // Called twice: validating a subtle victim, or validating your grapple victim.
 	// Bloodsuckers + Animals MUST be grabbed aggressively!
 	if(!owner.pulling || target == owner.pulling && owner.grab_state < GRAB_AGGRESSIVE)
 		// NOTE: It's OKAY that we are checking if(!target) below, AFTER animals here. We want passive check vs animal to warn you first, THEN the standard warning.
@@ -76,7 +76,7 @@ TYPE_PROC_REF(/datum/action/bloodsucker/feed, ValidateTarget)(mob/living/target,
 	return TRUE
 
 // If I'm not grabbing someone, find me someone nearby.
-TYPE_PROC_REF(/datum/action/bloodsucker/feed, FindMyTarget)(display_error)
+/datum/action/bloodsucker/feed/proc/FindMyTarget(display_error)
 	// Default
 	feed_target = null
 	target_grappled = FALSE
@@ -184,7 +184,7 @@ TYPE_PROC_REF(/datum/action/bloodsucker/feed, FindMyTarget)(display_error)
 		else
 			to_chat(user, span_warning("Someone may have noticed..."))
 
-	else						 // TYPE_PROC_REF(/atom, visible_message)(message, self_message, blind_message, vision_distance, ignored_mobs)
+	else						 // /atom/proc/visible_message(message, self_message, blind_message, vision_distance, ignored_mobs)
 		user.visible_message(span_warning("[user] closes [user.p_their()] mouth around [target]'s neck!"), \
 						span_warning("You sink your fangs into [target]'s neck."))
 	// My mouth is full!
@@ -302,7 +302,7 @@ TYPE_PROC_REF(/datum/action/bloodsucker/feed, FindMyTarget)(display_error)
 		CheckKilledTarget(user,target)
 
 
-TYPE_PROC_REF(/datum/action/bloodsucker/feed, CheckKilledTarget)(mob/living/user, mob/living/target)
+/datum/action/bloodsucker/feed/proc/CheckKilledTarget(mob/living/user, mob/living/target)
 	// Bad Bloodsucker. You shouldn't do that.
 	if(target && target.stat >= DEAD && ishuman(target))
 		SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "drankkilled", /datum/mood_event/drankkilled) // BAD // in bloodsucker_life.dm
@@ -311,7 +311,7 @@ TYPE_PROC_REF(/datum/action/bloodsucker/feed, CheckKilledTarget)(mob/living/user
 	return ..()  && target && (!target_grappled || user.pulling == target) && blood_sucking_checks(target, TRUE, TRUE) // Active, and still antag,
 	// NOTE: We only care about pulling if target started off that way. Mostly only important for Aggressive feed.
 
-TYPE_PROC_REF(/datum/action/bloodsucker/feed, ApplyVictimEffects)(mob/living/target)
+/datum/action/bloodsucker/feed/proc/ApplyVictimEffects(mob/living/target)
 	// Bloodsuckers not affected by "the Kiss" of another vampire
 	if(!target.mind || !target.mind.has_antag_datum(ANTAG_DATUM_BLOODSUCKER))
 		target.Unconscious(50,0)

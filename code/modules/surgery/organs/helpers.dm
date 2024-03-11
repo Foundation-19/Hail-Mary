@@ -1,10 +1,10 @@
-TYPE_PROC_REF(/mob, getorgan)(typepath)
+/mob/proc/getorgan(typepath)
 	return
 
-TYPE_PROC_REF(/mob, getorganszone)(zone)
+/mob/proc/getorganszone(zone)
 	return
 
-TYPE_PROC_REF(/mob, getorganslot)(slot)
+/mob/proc/getorganslot(slot)
 	return
 
 /mob/living/carbon/getorgan(typepath)

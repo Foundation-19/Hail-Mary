@@ -158,7 +158,7 @@
 //////////////////////////
 //Checks for rev victory//
 //////////////////////////
-TYPE_PROC_REF(/datum/game_mode/revolution, check_rev_victory)()
+/datum/game_mode/revolution/proc/check_rev_victory()
 	for(var/datum/objective/mutiny/objective in revolution.objectives)
 		if(!(objective.check_completion()))
 			return FALSE
@@ -167,7 +167,7 @@ TYPE_PROC_REF(/datum/game_mode/revolution, check_rev_victory)()
 /////////////////////////////
 //Checks for a head victory//
 /////////////////////////////
-TYPE_PROC_REF(/datum/game_mode/revolution, check_heads_victory)()
+/datum/game_mode/revolution/proc/check_heads_victory()
 	for(var/datum/mind/rev_mind in revolution.head_revolutionaries())
 		var/turf/T = get_turf(rev_mind.current)
 		if(!considered_afk(rev_mind) && considered_alive(rev_mind) && is_station_level(T.z))

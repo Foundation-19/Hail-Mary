@@ -198,7 +198,7 @@
 
 		death(0)
 
-TYPE_PROC_REF(/mob/living, suicide_log)(ghosting)
+/mob/living/proc/suicide_log(ghosting)
 	log_game("[key_name(src)] [ghosting ? "ghosted" : "committed suicide"] at [AREACOORD(src)] as [src.type].")
 	message_admins("[key_name(src)] [ghosting ? "ghosted" : "committed suicide"] at [AREACOORD(src)].")
 
@@ -206,7 +206,7 @@ TYPE_PROC_REF(/mob/living, suicide_log)(ghosting)
 	log_game("[key_name(src)] (job: [src.job ? "[src.job]" : "None"]) [is_special_character(src) ? "(ANTAG!) " : ""][ghosting ? "ghosted" : "committed suicide"] at [AREACOORD(src)].")
 	message_admins("[key_name(src)] (job: [src.job ? "[src.job]" : "None"]) [is_special_character(src) ? "(ANTAG!) " : ""][ghosting ? "ghosted" : "committed suicide"] at [AREACOORD(src)].")
 
-TYPE_PROC_REF(/mob/living, canSuicide)()
+/mob/living/proc/canSuicide()
 	if(!CONFIG_GET(flag/suicide_allowed))
 		to_chat(src, "Suicide is not enabled in the config.")
 		return FALSE

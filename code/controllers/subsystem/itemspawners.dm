@@ -12,7 +12,7 @@ SUBSYSTEM_DEF(itemspawners)
 /obj/item
 	var/from_trash = FALSE
 
-TYPE_PROC_REF(/datum/controller/subsystem/itemspawners, restock_trash_piles)()
+/datum/controller/subsystem/itemspawners/proc/restock_trash_piles()
 	for(var/obj/item/storage/trash_stack/TS in GLOB.trash_piles)
 		TS.loot_players.Cut() //This culls a list safely
 		CHECK_TICK
@@ -21,9 +21,9 @@ TYPE_PROC_REF(/datum/controller/subsystem/itemspawners, restock_trash_piles)()
 				qdel(A)
 
 //Called when a human swaps hands to a hand which is holding this item
-TYPE_PROC_REF(/obj/item, swapped_to)(mob/user)
+/obj/item/proc/swapped_to(mob/user)
 	add_hud_actions(user)
 
 //Called when a human swaps hands away from a hand which is holding this item
-TYPE_PROC_REF(/obj/item, swapped_from)(mob/user)
+/obj/item/proc/swapped_from(mob/user)
 	remove_hud_actions(user)

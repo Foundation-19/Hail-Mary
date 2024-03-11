@@ -42,7 +42,7 @@
 	if(!HAS_TRAIT(user, TRAIT_CHEMWHIZ))
 		. += "You don't know how this works, you're not enough of a [span_notice("whiz")]."
 
-TYPE_PROC_REF(/obj/machinery/computer/cloning, GetAvailablePod)(mind = null)
+/obj/machinery/computer/cloning/proc/GetAvailablePod(mind = null)
 	if(!pods)
 		return
 	for(var/P in pods)
@@ -52,7 +52,7 @@ TYPE_PROC_REF(/obj/machinery/computer/cloning, GetAvailablePod)(mind = null)
 		if(pod.is_operational() && !(pod.occupant || pod.mess))
 			return pod
 
-TYPE_PROC_REF(/obj/machinery/computer/cloning, HasEfficientPod)()
+/obj/machinery/computer/cloning/proc/HasEfficientPod()
 	if(!pods)
 		return
 	for(var/P in pods)
@@ -60,7 +60,7 @@ TYPE_PROC_REF(/obj/machinery/computer/cloning, HasEfficientPod)()
 		if(pod.is_operational() && pod.efficiency > 5)
 			return TRUE
 
-TYPE_PROC_REF(/obj/machinery/computer/cloning, GetAvailableEfficientPod)(mind = null)
+/obj/machinery/computer/cloning/proc/GetAvailableEfficientPod(mind = null)
 	if(!pods)
 		return
 	for(var/P in pods)
@@ -87,7 +87,7 @@ TYPE_PROC_REF(/obj/machinery/computer/cloning, GetAvailableEfficientPod)(mind = 
 			temp = "[R.fields["name"]] => <font class='good'>Cloning cycle in progress...</font>"
 			records -= R
 
-TYPE_PROC_REF(/obj/machinery/computer/cloning, updatemodules)(findfirstcloner)
+/obj/machinery/computer/cloning/proc/updatemodules(findfirstcloner)
 	src.scanner = findscanner()
 	if(findfirstcloner && !LAZYLEN(pods))
 		findcloner()
@@ -96,7 +96,7 @@ TYPE_PROC_REF(/obj/machinery/computer/cloning, updatemodules)(findfirstcloner)
 	else
 		START_PROCESSING(SSmachines, src)
 
-TYPE_PROC_REF(/obj/machinery/computer/cloning, findscanner)()
+/obj/machinery/computer/cloning/proc/findscanner()
 	var/obj/machinery/dna_scannernew/scannerf = null
 
 	// Loop through every direction
@@ -112,19 +112,19 @@ TYPE_PROC_REF(/obj/machinery/computer/cloning, findscanner)()
 	// If no scanner was found, it will return null
 	return null
 
-TYPE_PROC_REF(/obj/machinery/computer/cloning, findcloner)()
+/obj/machinery/computer/cloning/proc/findcloner()
 	var/obj/machinery/clonepod/podf
 	for(var/direction in GLOB.cardinals)
 		podf = locate(clonepod_type, get_step(src, direction))
 		if(podf?.is_operational())
 			AttachCloner(podf)
 
-TYPE_PROC_REF(/obj/machinery/computer/cloning, AttachCloner)(obj/machinery/clonepod/pod)
+/obj/machinery/computer/cloning/proc/AttachCloner(obj/machinery/clonepod/pod)
 	if(!pod.connected)
 		pod.connected = src
 		LAZYADD(pods, pod)
 
-TYPE_PROC_REF(/obj/machinery/computer/cloning, DetachCloner)(obj/machinery/clonepod/pod)
+/obj/machinery/computer/cloning/proc/DetachCloner(obj/machinery/clonepod/pod)
 	pod.connected = null
 	LAZYREMOVE(pods, pod)
 
@@ -453,7 +453,7 @@ TYPE_PROC_REF(/obj/machinery/computer/cloning, DetachCloner)(obj/machinery/clone
 		playsound(src, "terminal_type", 25, 0)
 		. = TRUE
 
-TYPE_PROC_REF(/obj/machinery/computer/cloning, finish_scan)(mob/living/L, prev_locked)
+/obj/machinery/computer/cloning/proc/finish_scan(mob/living/L, prev_locked)
 	if(!scanner || !L)
 		return
 	src.add_fingerprint(usr)
@@ -469,7 +469,7 @@ TYPE_PROC_REF(/obj/machinery/computer/cloning, finish_scan)(mob/living/L, prev_l
 	playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, 0)
 	scanner.locked = prev_locked
 
-TYPE_PROC_REF(/obj/machinery/computer/cloning, scan_occupant)(occupant)
+/obj/machinery/computer/cloning/proc/scan_occupant(occupant)
 	var/mob/living/mob_occupant = get_mob_or_brainmob(occupant)
 	var/datum/dna/dna
 	var/datum/bank_account/has_bank_account
@@ -541,7 +541,7 @@ TYPE_PROC_REF(/obj/machinery/computer/cloning, scan_occupant)(occupant)
 	playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, 0)
 
 //Used by the experimental cloning computer.
-TYPE_PROC_REF(/obj/machinery/computer/cloning, clone_occupant)(occupant)
+/obj/machinery/computer/cloning/proc/clone_occupant(occupant)
 	var/mob/living/mob_occupant = get_mob_or_brainmob(occupant)
 	var/datum/dna/dna
 	if(ishuman(mob_occupant))
@@ -577,7 +577,7 @@ TYPE_PROC_REF(/obj/machinery/computer/cloning, clone_occupant)(occupant)
 		temp = "[mob_occupant.real_name] => <font class='good'>Cloning data sent to pod.</font>"
 		playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, 0)
 
-TYPE_PROC_REF(/obj/machinery/computer/cloning, can_scan)(datum/dna/dna, mob/living/mob_occupant, experimental = FALSE, datum/bank_account/account)
+/obj/machinery/computer/cloning/proc/can_scan(datum/dna/dna, mob/living/mob_occupant, experimental = FALSE, datum/bank_account/account)
 	if(!istype(dna))
 		scantemp = "<font class='bad'>Unable to locate valid genetic data.</font>"
 		playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)

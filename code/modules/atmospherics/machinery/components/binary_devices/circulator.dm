@@ -38,7 +38,7 @@
 		disconnectFromGenerator()
 	return ..()
 
-TYPE_PROC_REF(/obj/machinery/atmospherics/components/binary/circulator, return_transfer_air)()
+/obj/machinery/atmospherics/components/binary/circulator/proc/return_transfer_air()
 
 	var/datum/gas_mixture/air1 = airs[1]
 	var/datum/gas_mixture/air2 = airs[2]
@@ -161,7 +161,7 @@ TYPE_PROC_REF(/obj/machinery/atmospherics/components/binary/circulator, return_t
 	if(generator)
 		disconnectFromGenerator()
 
-TYPE_PROC_REF(/obj/machinery/atmospherics/components/binary/circulator, disconnectFromGenerator)()
+/obj/machinery/atmospherics/components/binary/circulator/proc/disconnectFromGenerator()
 	if(mode)
 		generator.cold_circ = null
 	else

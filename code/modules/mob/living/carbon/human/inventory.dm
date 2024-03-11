@@ -53,10 +53,10 @@
 			return s_store
 	return null
 
-TYPE_PROC_REF(/mob/living/carbon/human, get_all_slots)()
+/mob/living/carbon/human/proc/get_all_slots()
 	. = get_head_slots() | get_body_slots()
 
-TYPE_PROC_REF(/mob/living/carbon/human, get_body_slots)()
+/mob/living/carbon/human/proc/get_body_slots()
 	return list(
 		back,
 		s_store,
@@ -72,7 +72,7 @@ TYPE_PROC_REF(/mob/living/carbon/human, get_body_slots)()
 		w_uniform
 		)
 
-TYPE_PROC_REF(/mob/living/carbon/human, get_head_slots)()
+/mob/living/carbon/human/proc/get_head_slots()
 	return list(
 		head,
 		wear_mask,
@@ -81,7 +81,7 @@ TYPE_PROC_REF(/mob/living/carbon/human, get_head_slots)()
 		ears,
 		)
 
-TYPE_PROC_REF(/mob/living/carbon/human, get_storage_slots)()
+/mob/living/carbon/human/proc/get_storage_slots()
 	return list(
 		back,
 		belt,
@@ -270,7 +270,7 @@ TYPE_PROC_REF(/mob/living/carbon/human, get_storage_slots)()
 	sec_hud_set_security_status()
 	..()
 
-TYPE_PROC_REF(/mob/living/carbon/human, equipOutfit)(outfit, visualsOnly = FALSE, client/preference_source)
+/mob/living/carbon/human/proc/equipOutfit(outfit, visualsOnly = FALSE, client/preference_source)
 	var/datum/outfit/O = null
 
 	if(ispath(outfit))
@@ -286,13 +286,13 @@ TYPE_PROC_REF(/mob/living/carbon/human, equipOutfit)(outfit, visualsOnly = FALSE
 
 
 //delete all equipment without dropping anything
-TYPE_PROC_REF(/mob/living/carbon/human, delete_equipment)()
+/mob/living/carbon/human/proc/delete_equipment()
 	for(var/slot in get_all_slots())//order matters, dependant slots go first
 		qdel(slot)
 	for(var/obj/item/I in held_items)
 		qdel(I)
 
-TYPE_PROC_REF(/mob/living/carbon/human, smart_equipbag)() // take most recent item out of bag or place held item in bag
+/mob/living/carbon/human/proc/smart_equipbag() // take most recent item out of bag or place held item in bag
 	if(incapacitated())
 		return
 	var/obj/item/thing = get_active_held_item()
@@ -323,7 +323,7 @@ TYPE_PROC_REF(/mob/living/carbon/human, smart_equipbag)() // take most recent it
 	stored.attack_hand(src) // take out thing from backpack
 	return
 
-TYPE_PROC_REF(/mob/living/carbon/human, smart_equipbelt)() // put held thing in belt or take most recent item out of belt
+/mob/living/carbon/human/proc/smart_equipbelt() // put held thing in belt or take most recent item out of belt
 	if(incapacitated())
 		return
 	var/obj/item/thing = get_active_held_item()

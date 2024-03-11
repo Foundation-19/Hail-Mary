@@ -78,7 +78,7 @@
 	if (!SSassets.cache["minimap-[id]-meta.png"])
 		SSassets.transport.register_asset("minimap-[id]-meta.png", meta_icon)
 
-TYPE_PROC_REF(/datum/minimap, send)(mob/user)
+/datum/minimap/proc/send(mob/user)
 	if(!id)
 		CRASH("ERROR: send called, but the minimap id is null/missing. ID: [id]")
 	SSassets.transport.send_assets(user, list("minimap-[id].png" = map_icon, "minimap-[id]-meta.png" = meta_icon))
@@ -95,7 +95,7 @@ TYPE_PROC_REF(/datum/minimap, send)(mob/user)
 	if(maps)
 		minimaps = maps
 
-TYPE_PROC_REF(/datum/minimap_group, show)(mob/user)
+/datum/minimap_group/proc/show(mob/user)
 	if(!length(minimaps))
 		to_chat(user, span_boldwarning("ERROR: Attempted to access an empty datum/minimap_group. This should probably not happen."))
 		return

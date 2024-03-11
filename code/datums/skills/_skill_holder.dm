@@ -36,7 +36,7 @@
 /**
  * Grabs the value of a skill.
  */
-TYPE_PROC_REF(/datum/mind, get_skill_value)(skill, apply_modifiers = TRUE)
+/datum/mind/proc/get_skill_value(skill, apply_modifiers = TRUE)
 	if(!ispath(skill))
 		CRASH("Invalid get_skill_value call. Use typepaths.")		//until a time when we somehow need text ids for dynamic skills, I'm enforcing this.
 	if(!skill_holder.skills)
@@ -52,7 +52,7 @@ TYPE_PROC_REF(/datum/mind, get_skill_value)(skill, apply_modifiers = TRUE)
 /**
  * Grabs the level of a skill. Only supported by skills with tiers or levels.
  */
-TYPE_PROC_REF(/datum/mind, get_skill_level)(skill, apply_modifiers = TRUE, round = FALSE)
+/datum/mind/proc/get_skill_level(skill, apply_modifiers = TRUE, round = FALSE)
 	if(!ispath(skill, /datum/skill))
 		CRASH("Invalid get_skill_value call. Use skill typepaths.")	//until a time when we somehow need text ids for dynamic skills, I'm enforcing this.
 	if(!skill_holder.skill_levels)
@@ -69,7 +69,7 @@ TYPE_PROC_REF(/datum/mind, get_skill_level)(skill, apply_modifiers = TRUE, round
 /**
  * Grabs our affinity for a skill. !!This is a multiplier!!
  */
-TYPE_PROC_REF(/datum/mind, get_skill_affinity)(skill, apply_modifiers = TRUE)
+/datum/mind/proc/get_skill_affinity(skill, apply_modifiers = TRUE)
 	. = 1
 	if(!ispath(skill, /datum/skill))
 		CRASH("Invalid get_skill_affinity call. Use skill typepaths.")	//until a time when we somehow need text ids for dynamic skills, I'm enforcing this.
@@ -86,7 +86,7 @@ TYPE_PROC_REF(/datum/mind, get_skill_affinity)(skill, apply_modifiers = TRUE)
 /**
  * Sets the value of a skill.
  */
-TYPE_PROC_REF(/datum/mind, set_skill_value)(skill, value, silent = FALSE)
+/datum/mind/proc/set_skill_value(skill, value, silent = FALSE)
 	if(!ispath(skill, /datum/skill))
 		CRASH("Invalid set_skill_value call. Use skill typepaths.")	//until a time when we somehow need text ids for dynamic skills, I'm enforcing this.
 	var/datum/skill/S = GLOB.skill_datums[skill]
@@ -101,7 +101,7 @@ TYPE_PROC_REF(/datum/mind, set_skill_value)(skill, value, silent = FALSE)
 /**
  * Boosts a skill to a value if not aobve
  */
-TYPE_PROC_REF(/datum/mind, boost_skill_value_to)(skill, value, silent = FALSE, current)
+/datum/mind/proc/boost_skill_value_to(skill, value, silent = FALSE, current)
 	current = current || get_skill_value(skill, FALSE)
 	if(!IS_SKILL_VALUE_GREATER(skill, current, value))
 		return FALSE
@@ -112,7 +112,7 @@ TYPE_PROC_REF(/datum/mind, boost_skill_value_to)(skill, value, silent = FALSE, c
  * Automatic skill increase, multiplied by skill affinity if existing.
  * Only works if skill is numerical or levelled..
  */
-TYPE_PROC_REF(/datum/mind, auto_gain_experience)(skill, value, maximum, silent = FALSE)
+/datum/mind/proc/auto_gain_experience(skill, value, maximum, silent = FALSE)
 	if(!ispath(skill, /datum/skill))
 		CRASH("Invalid set_skill_value call. Use skill typepaths.")
 	var/datum/skill/S = GLOB.skill_datums[skill]
@@ -132,7 +132,7 @@ TYPE_PROC_REF(/datum/mind, auto_gain_experience)(skill, value, maximum, silent =
  * * threshold : The difficulty of the action, in short. Refer to __DEFINES/skills/defines.dm for the defines.
  * * modifier_is_multiplier : wheter the modifier is a multiplier or a divisor.
  */
-TYPE_PROC_REF(/datum/mind, action_skill_mod)(skill, value, threshold, modifier_is_multiplier = TRUE)
+/datum/mind/proc/action_skill_mod(skill, value, threshold, modifier_is_multiplier = TRUE)
 	var/datum/skill/S = GLOB.skill_datums[skill]
 	if(!S)
 		return value
@@ -161,7 +161,7 @@ TYPE_PROC_REF(/datum/mind, action_skill_mod)(skill, value, threshold, modifier_i
  * * bad_traits : the opposite of the above.
  * * modifier_is_multiplier : wheter the modifier is a multiplier or a divisor.
  */
-TYPE_PROC_REF(/datum/mind, item_action_skills_mod)(obj/item/I, value, traits, bad_traits, modifier_is_multiplier = TRUE)
+/datum/mind/proc/item_action_skills_mod(obj/item/I, value, traits, bad_traits, modifier_is_multiplier = TRUE)
 	. = value
 	var/sum = 0
 	var/divisor = 0

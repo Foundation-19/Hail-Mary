@@ -30,19 +30,19 @@
 		return FALSE
 	. = ..()
 
-TYPE_PROC_REF(/obj/machinery/power/port_gen, HasFuel)() //Placeholder for fuel check.
+/obj/machinery/power/port_gen/proc/HasFuel() //Placeholder for fuel check.
 	return TRUE
 
-TYPE_PROC_REF(/obj/machinery/power/port_gen, UseFuel)() //Placeholder for fuel use.
+/obj/machinery/power/port_gen/proc/UseFuel() //Placeholder for fuel use.
 	return
 
-TYPE_PROC_REF(/obj/machinery/power/port_gen, DropFuel)()
+/obj/machinery/power/port_gen/proc/DropFuel()
 	return
 
-TYPE_PROC_REF(/obj/machinery/power/port_gen, handleInactive)()
+/obj/machinery/power/port_gen/proc/handleInactive()
 	return
 
-TYPE_PROC_REF(/obj/machinery/power/port_gen, TogglePower)()
+/obj/machinery/power/port_gen/proc/TogglePower()
 	if(active)
 		active = FALSE
 		update_icon()
@@ -166,7 +166,7 @@ TYPE_PROC_REF(/obj/machinery/power/port_gen, TogglePower)()
 	if(current_heat == 0)
 		STOP_PROCESSING(SSmachines, src)
 
-TYPE_PROC_REF(/obj/machinery/power/port_gen/pacman, overheat)()
+/obj/machinery/power/port_gen/pacman/proc/overheat()
 	explosion(src.loc, 2, 5, 2, -1)
 
 /obj/machinery/power/port_gen/pacman/attackby(obj/item/O, mob/user, params)

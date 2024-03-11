@@ -14,7 +14,7 @@
 	if(B && B.loc == loc)
 		qdel(src)
 
-TYPE_PROC_REF(/obj/effect/decal, NeverShouldHaveComeHere)(turf/T)
+/obj/effect/decal/proc/NeverShouldHaveComeHere(turf/T)
 	return isclosedturf(T) || isgroundlessturf(T)
 
 /obj/effect/decal/ex_act(severity, target)

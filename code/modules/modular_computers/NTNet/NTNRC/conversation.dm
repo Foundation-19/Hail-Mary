@@ -24,21 +24,21 @@
 		SSnetworks.station_network.chat_channels.Remove(src)
 	return ..()
 
-TYPE_PROC_REF(/datum/ntnet_conversation, add_message)(message, username)
+/datum/ntnet_conversation/proc/add_message(message, username)
 	message = "[STATION_TIME_TIMESTAMP("hh:mm:ss", world.time)] [username]: [message]"
 	messages.Add(message)
 	trim_message_list()
 
-TYPE_PROC_REF(/datum/ntnet_conversation, add_status_message)(message)
+/datum/ntnet_conversation/proc/add_status_message(message)
 	messages.Add("[STATION_TIME_TIMESTAMP("hh:mm:ss", world.time)] -!- [message]")
 	trim_message_list()
 
-TYPE_PROC_REF(/datum/ntnet_conversation, trim_message_list)()
+/datum/ntnet_conversation/proc/trim_message_list()
 	if(messages.len <= 50)
 		return
 	messages = messages.Copy(messages.len-50 ,0)
 
-TYPE_PROC_REF(/datum/ntnet_conversation, add_client)(datum/computer_file/program/chatclient/C)
+/datum/ntnet_conversation/proc/add_client(datum/computer_file/program/chatclient/C)
 	if(!istype(C))
 		return
 	clients.Add(C)
@@ -47,7 +47,7 @@ TYPE_PROC_REF(/datum/ntnet_conversation, add_client)(datum/computer_file/program
 	if(!operator)
 		changeop(C)
 
-TYPE_PROC_REF(/datum/ntnet_conversation, remove_client)(datum/computer_file/program/chatclient/C)
+/datum/ntnet_conversation/proc/remove_client(datum/computer_file/program/chatclient/C)
 	if(!istype(C) || !(C in clients))
 		return
 	clients.Remove(C)
@@ -61,12 +61,12 @@ TYPE_PROC_REF(/datum/ntnet_conversation, remove_client)(datum/computer_file/prog
 			changeop(newop)
 
 
-TYPE_PROC_REF(/datum/ntnet_conversation, changeop)(datum/computer_file/program/chatclient/newop)
+/datum/ntnet_conversation/proc/changeop(datum/computer_file/program/chatclient/newop)
 	if(istype(newop))
 		operator = newop
 		add_status_message("Channel operator status transferred to [newop.username].")
 
-TYPE_PROC_REF(/datum/ntnet_conversation, change_title)(newtitle, datum/computer_file/program/chatclient/client)
+/datum/ntnet_conversation/proc/change_title(newtitle, datum/computer_file/program/chatclient/client)
 	if(operator != client)
 		return FALSE // Not Authorised
 

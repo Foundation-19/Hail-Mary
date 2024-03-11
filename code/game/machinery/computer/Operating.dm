@@ -36,14 +36,14 @@
 		return TRUE
 	return ..()
 
-TYPE_PROC_REF(/obj/machinery/computer/operating, sync_surgeries)()
+/obj/machinery/computer/operating/proc/sync_surgeries()
 	for(var/i in linked_techweb.researched_designs)
 		var/datum/design/surgery/D = SSresearch.techweb_design_by_id(i)
 		if(!istype(D))
 			continue
 		advanced_surgeries |= D.surgery
 
-TYPE_PROC_REF(/obj/machinery/computer/operating, find_table)()
+/obj/machinery/computer/operating/proc/find_table()
 	for(var/direction in GLOB.cardinals)
 		table = locate(/obj/structure/table/optable, get_step(src, direction))
 		if(table)

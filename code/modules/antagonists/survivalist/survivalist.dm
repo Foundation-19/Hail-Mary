@@ -6,7 +6,7 @@
 	threat = 1
 	var/greet_message = ""
 
-TYPE_PROC_REF(/datum/antagonist/survivalist, forge_objectives)()
+/datum/antagonist/survivalist/proc/forge_objectives()
 	var/datum/objective/survive/survive = new
 	survive.owner = owner
 	objectives += survive

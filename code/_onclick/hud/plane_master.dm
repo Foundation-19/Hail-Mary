@@ -6,15 +6,15 @@
 	var/show_alpha = 255
 	var/hide_alpha = 0
 
-TYPE_PROC_REF(/obj/screen/plane_master, Show)(override)
+/obj/screen/plane_master/proc/Show(override)
 	alpha = override || show_alpha
 
-TYPE_PROC_REF(/obj/screen/plane_master, Hide)(override)
+/obj/screen/plane_master/proc/Hide(override)
 	alpha = override || hide_alpha
 
 //Why do plane masters need a backdrop sometimes? Read https://secure.byond.com/forum/?post=2141928
 //Trust me, you need one. Period. If you don't think you do, you're doing something extremely wrong.
-TYPE_PROC_REF(/obj/screen/plane_master, backdrop)(mob/mymob)
+/obj/screen/plane_master/proc/backdrop(mob/mymob)
 
 ///Things rendered on "openspace"; holes in multi-z
 /obj/screen/plane_master/openspace
@@ -34,13 +34,13 @@ TYPE_PROC_REF(/obj/screen/plane_master, backdrop)(mob/mymob)
 	filters += filter(type = "drop_shadow", color = "#04080FAA", size = -15)
 	filters += filter(type = "drop_shadow", color = "#04080FAA", size = -20)
 
-TYPE_PROC_REF(/obj/screen/plane_master, outline)(_size, _color)
+/obj/screen/plane_master/proc/outline(_size, _color)
 	filters += filter(type = "outline", size = _size, color = _color)
 
-TYPE_PROC_REF(/obj/screen/plane_master, shadow)(_size, _offset = 0, _x = 0, _y = 0, _color = "#04080FAA")
+/obj/screen/plane_master/proc/shadow(_size, _offset = 0, _x = 0, _y = 0, _color = "#04080FAA")
 	filters += filter(type = "drop_shadow", x = _x, y = _y, color = _color, size = _size, offset = _offset)
 
-TYPE_PROC_REF(/obj/screen/plane_master, clear_filters)()
+/obj/screen/plane_master/proc/clear_filters()
 	filters = list()
 
 ///Contains just the floor

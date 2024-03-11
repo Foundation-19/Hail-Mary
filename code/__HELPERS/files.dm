@@ -20,11 +20,11 @@
 	return file2text(filepath)
 
 //Sends resource files to client cache
-TYPE_PROC_REF(/client, getFiles)()
+/client/proc/getFiles()
 	for(var/file in args)
 		src << browse_rsc(file)
 
-TYPE_PROC_REF(/client, browse_files)(root="data/logs/", max_iterations=10, list/valid_extensions=list("txt","log","htm", "html", "md", "json"))
+/client/proc/browse_files(root="data/logs/", max_iterations=10, list/valid_extensions=list("txt","log","htm", "html", "md", "json"))
 	var/path = root
 
 	for(var/i=0, i<max_iterations, i++)
@@ -63,7 +63,7 @@ TYPE_PROC_REF(/client, browse_files)(root="data/logs/", max_iterations=10, list/
 	This can be changed by modifying FTPDELAY's value above.
 
 	PLEASE USE RESPONSIBLY, Some log files can reach sizes of 4MB!	*/
-TYPE_PROC_REF(/client, file_spam_check)()
+/client/proc/file_spam_check()
 	var/time_to_wait = GLOB.fileaccess_timer - world.time
 	if(time_to_wait > 0)
 		to_chat(src, "<font color='red'>Error: file_spam_check(): Spam. Please wait [DisplayTimeText(time_to_wait)].</font>")

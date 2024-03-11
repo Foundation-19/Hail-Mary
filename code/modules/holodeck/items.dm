@@ -197,7 +197,7 @@
 	else
 		icon_state = "auth_off"
 
-TYPE_PROC_REF(/obj/machinery/readybutton, begin_event)()
+/obj/machinery/readybutton/proc/begin_event()
 
 	eventstarted = TRUE
 

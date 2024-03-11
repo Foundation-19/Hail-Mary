@@ -72,10 +72,10 @@
 			to_chat(user, span_notice("You activate [src], signaling all connected relay nanites."))
 			signal_relay(code, relay_code, key_name(user))
 
-TYPE_PROC_REF(/obj/item/nanite_remote, signal_mob)(mob/living/M, code, source)
+/obj/item/nanite_remote/proc/signal_mob(mob/living/M, code, source)
 	SEND_SIGNAL(M, COMSIG_NANITE_SIGNAL, code, source)
 
-TYPE_PROC_REF(/obj/item/nanite_remote, signal_relay)(code, relay_code, source)
+/obj/item/nanite_remote/proc/signal_relay(code, relay_code, source)
 	for(var/X in SSnanites.nanite_relays)
 		var/datum/nanite_program/relay/N = X
 		N.relay_signal(code, relay_code, source)

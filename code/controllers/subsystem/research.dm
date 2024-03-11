@@ -387,7 +387,7 @@ SUBSYSTEM_DEF(research)
 
 	last_income = world.time
 
-TYPE_PROC_REF(/datum/controller/subsystem/research, calculate_server_coefficient)()	//Diminishing returns.
+/datum/controller/subsystem/research/proc/calculate_server_coefficient()	//Diminishing returns.
 	var/amt = servers.len
 	if(!amt)
 		return 0
@@ -395,7 +395,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/research, calculate_server_coefficient
 	coeff = sqrt(coeff / amt)
 	return coeff
 
-TYPE_PROC_REF(/datum/controller/subsystem/research, autosort_categories)()
+/datum/controller/subsystem/research/proc/autosort_categories()
 	for(var/i in techweb_nodes)
 		var/datum/techweb_node/I = techweb_nodes[i]
 		if(techweb_categories[I.category])
@@ -403,13 +403,13 @@ TYPE_PROC_REF(/datum/controller/subsystem/research, autosort_categories)()
 		else
 			techweb_categories[I.category] = list(I.id = TRUE)
 
-TYPE_PROC_REF(/datum/controller/subsystem/research, techweb_node_by_id)(id)
+/datum/controller/subsystem/research/proc/techweb_node_by_id(id)
 	return techweb_nodes[id] || error_node
 
-TYPE_PROC_REF(/datum/controller/subsystem/research, techweb_design_by_id)(id)
+/datum/controller/subsystem/research/proc/techweb_design_by_id(id)
 	return techweb_designs[id] || error_design
 
-TYPE_PROC_REF(/datum/controller/subsystem/research, on_design_deletion)(datum/design/D)
+/datum/controller/subsystem/research/proc/on_design_deletion(datum/design/D)
 	for(var/i in techweb_nodes)
 		var/datum/techweb_node/TN = techwebs[i]
 		TN.on_design_deletion(TN)
@@ -417,7 +417,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/research, on_design_deletion)(datum/de
 		var/datum/techweb/T = i
 		T.recalculate_nodes(TRUE)
 
-TYPE_PROC_REF(/datum/controller/subsystem/research, on_node_deletion)(datum/techweb_node/TN)
+/datum/controller/subsystem/research/proc/on_node_deletion(datum/techweb_node/TN)
 	for(var/i in techweb_nodes)
 		var/datum/techweb_node/TN2 = techwebs[i]
 		TN2.on_node_deletion(TN)
@@ -425,7 +425,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/research, on_node_deletion)(datum/tech
 		var/datum/techweb/T = i
 		T.recalculate_nodes(TRUE)
 
-TYPE_PROC_REF(/datum/controller/subsystem/research, initialize_all_techweb_nodes)(clearall = FALSE)
+/datum/controller/subsystem/research/proc/initialize_all_techweb_nodes(clearall = FALSE)
 	if(islist(techweb_nodes) && clearall)
 		QDEL_LIST(techweb_nodes)
 	if(islist(techweb_nodes_starting && clearall))
@@ -454,7 +454,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/research, initialize_all_techweb_nodes
 	if (!verify_techweb_nodes())		//Verify nodes and designs have been crosslinked properly.
 		CRASH("Invalid techweb nodes detected: Nodes and Designs have not been crosslinked.")
 
-TYPE_PROC_REF(/datum/controller/subsystem/research, initialize_all_techweb_designs)(clearall = FALSE)
+/datum/controller/subsystem/research/proc/initialize_all_techweb_designs(clearall = FALSE)
 	if(islist(techweb_designs) && clearall)
 		QDEL_LIST(techweb_designs)
 	var/list/returned = list()
@@ -475,7 +475,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/research, initialize_all_techweb_desig
 	techweb_designs = returned
 	verify_techweb_designs()
 
-TYPE_PROC_REF(/datum/controller/subsystem/research, verify_techweb_nodes)()
+/datum/controller/subsystem/research/proc/verify_techweb_nodes()
 	. = TRUE
 	for(var/n in techweb_nodes)
 		var/datum/techweb_node/N = techweb_nodes[n]
@@ -529,7 +529,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/research, verify_techweb_nodes)()
 				. = FALSE
 		CHECK_TICK
 
-TYPE_PROC_REF(/datum/controller/subsystem/research, verify_techweb_designs)()
+/datum/controller/subsystem/research/proc/verify_techweb_designs()
 	for(var/d in techweb_designs)
 		var/datum/design/D = techweb_designs[d]
 		if(!istype(D))
@@ -537,19 +537,19 @@ TYPE_PROC_REF(/datum/controller/subsystem/research, verify_techweb_designs)()
 			techweb_designs -= d
 		CHECK_TICK
 
-TYPE_PROC_REF(/datum/controller/subsystem/research, research_node_id_error)(id)
+/datum/controller/subsystem/research/proc/research_node_id_error(id)
 	if(invalid_node_ids[id])
 		invalid_node_ids[id]++
 	else
 		invalid_node_ids[id] = 1
 
-TYPE_PROC_REF(/datum/controller/subsystem/research, design_id_error)(id)
+/datum/controller/subsystem/research/proc/design_id_error(id)
 	if(invalid_design_ids[id])
 		invalid_design_ids[id]++
 	else
 		invalid_design_ids[id] = 1
 
-TYPE_PROC_REF(/datum/controller/subsystem/research, calculate_techweb_nodes)()
+/datum/controller/subsystem/research/proc/calculate_techweb_nodes()
 	for(var/design_id in techweb_designs)
 		var/datum/design/D = techweb_designs[design_id]
 		D.unlocked_by.Cut()
@@ -567,7 +567,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/research, calculate_techweb_nodes)()
 		CHECK_TICK
 	generate_techweb_unlock_linking()
 
-TYPE_PROC_REF(/datum/controller/subsystem/research, generate_techweb_unlock_linking)()
+/datum/controller/subsystem/research/proc/generate_techweb_unlock_linking()
 	for(var/node_id in techweb_nodes)						//Clear all unlock links to avoid duplication.
 		var/datum/techweb_node/node = techweb_nodes[node_id]
 		node.unlock_ids = list()
@@ -577,7 +577,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/research, generate_techweb_unlock_link
 			var/datum/techweb_node/prereq_node = techweb_node_by_id(prereq_id)
 			prereq_node.unlock_ids[node.id] = node
 
-TYPE_PROC_REF(/datum/controller/subsystem/research, calculate_techweb_boost_list)(clearall = FALSE)
+/datum/controller/subsystem/research/proc/calculate_techweb_boost_list(clearall = FALSE)
 	if(clearall)
 		techweb_boost_items = list()
 	for(var/node_id in techweb_nodes)

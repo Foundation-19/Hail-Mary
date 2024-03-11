@@ -34,7 +34,7 @@
 		tot_rating += SP.rating
 	heat_gen = initial(src.heat_gen) / max(1, tot_rating)
 
-TYPE_PROC_REF(/obj/machinery/rnd/server, refresh_working)()
+/obj/machinery/rnd/server/proc/refresh_working()
 	if(stat & EMPED)
 		working = FALSE
 	else
@@ -48,21 +48,21 @@ TYPE_PROC_REF(/obj/machinery/rnd/server, refresh_working)()
 	addtimer(CALLBACK(src, PROC_REF(unemp)), severity*9)
 	refresh_working()
 
-TYPE_PROC_REF(/obj/machinery/rnd/server, unemp)()
+/obj/machinery/rnd/server/proc/unemp()
 	stat &= ~EMPED
 	refresh_working()
 
-TYPE_PROC_REF(/obj/machinery/rnd/server, mine)()
+/obj/machinery/rnd/server/proc/mine()
 	. = base_mining_income
 	var/penalty = max((get_env_temp() - temp_tolerance_high), 0) * temp_penalty_coefficient
 	. = max(. - penalty, 0)
 	produce_heat(. / base_mining_income)
 
-TYPE_PROC_REF(/obj/machinery/rnd/server, get_env_temp)()
+/obj/machinery/rnd/server/proc/get_env_temp()
 	var/datum/gas_mixture/environment = loc.return_air()
 	return environment.return_temperature()
 
-TYPE_PROC_REF(/obj/machinery/rnd/server, produce_heat)(perc)
+/obj/machinery/rnd/server/proc/produce_heat(perc)
 	if(!(stat & (NOPOWER|BROKEN))) //Blatently stolen from space heater.
 		var/turf/L = loc
 		if(istype(L))

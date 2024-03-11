@@ -4,7 +4,7 @@ GLOBAL_LIST_EMPTY(active_alternate_appearances)
 /atom
 	var/list/alternate_appearances
 
-TYPE_PROC_REF(/atom, remove_alt_appearance)(key)
+/atom/proc/remove_alt_appearance(key)
 	if(alternate_appearances)
 		for(var/K in alternate_appearances)
 			var/datum/atom_hud/alternate_appearance/AA = alternate_appearances[K]
@@ -12,7 +12,7 @@ TYPE_PROC_REF(/atom, remove_alt_appearance)(key)
 				AA.remove_from_hud(src)
 				break
 
-TYPE_PROC_REF(/atom, add_alt_appearance)(type, key, ...)
+/atom/proc/add_alt_appearance(type, key, ...)
 	if(!type || !key)
 		return
 	if(alternate_appearances && alternate_appearances[key])
@@ -32,11 +32,11 @@ TYPE_PROC_REF(/atom, add_alt_appearance)(type, key, ...)
 	GLOB.active_alternate_appearances -= src
 	return ..()
 
-TYPE_PROC_REF(/datum/atom_hud/alternate_appearance, onNewMob)(mob/M)
+/datum/atom_hud/alternate_appearance/proc/onNewMob(mob/M)
 	if(mobShouldSee(M))
 		add_hud_to(M)
 
-TYPE_PROC_REF(/datum/atom_hud/alternate_appearance, mobShouldSee)(mob/M)
+/datum/atom_hud/alternate_appearance/proc/mobShouldSee(mob/M)
 	return FALSE
 
 /datum/atom_hud/alternate_appearance/add_to_hud(atom/A, image/I)

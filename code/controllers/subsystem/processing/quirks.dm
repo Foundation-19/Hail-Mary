@@ -53,7 +53,7 @@ PROCESSING_SUBSYSTEM_DEF(quirks)
 			)
 	return ..()
 
-TYPE_PROC_REF(/datum/controller/subsystem/processing/quirks, SetupQuirks)()
+/datum/controller/subsystem/processing/quirks/proc/SetupQuirks()
 // Sort by Positive, Negative, Neutral; and then by name
 	var/list/quirk_list = sortList(subtypesof(/datum/quirk), GLOBAL_PROC_REF(cmp_quirk_asc))
 
@@ -63,7 +63,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/processing/quirks, SetupQuirks)()
 		quirk_points[initial(T.name)] = initial(T.value)
 		quirk_names_by_path[T] = initial(T.name)
 
-TYPE_PROC_REF(/datum/controller/subsystem/processing/quirks, AssignQuirks)(mob/living/user, client/cli, spawn_effects, roundstart = FALSE, datum/job/job, silent = FALSE, mob/to_chat_target)
+/datum/controller/subsystem/processing/quirks/proc/AssignQuirks(mob/living/user, client/cli, spawn_effects, roundstart = FALSE, datum/job/job, silent = FALSE, mob/to_chat_target)
 	var/badquirk = FALSE
 	var/list/my_quirks = cli.prefs.all_quirks.Copy()
 	var/list/cut
@@ -82,21 +82,21 @@ TYPE_PROC_REF(/datum/controller/subsystem/processing/quirks, AssignQuirks)(mob/l
 	if (!silent && LAZYLEN(cut))
 		to_chat(to_chat_target || user, span_boldwarning("Some quirks have been cut from your character because of these quirks conflicting with your job assignment: [english_list(cut)]."))
 
-TYPE_PROC_REF(/datum/controller/subsystem/processing/quirks, quirk_path_by_name)(name)
+/datum/controller/subsystem/processing/quirks/proc/quirk_path_by_name(name)
 	return quirks[name]
 
-TYPE_PROC_REF(/datum/controller/subsystem/processing/quirks, quirk_points_by_name)(name)
+/datum/controller/subsystem/processing/quirks/proc/quirk_points_by_name(name)
 	return quirk_points[name]
 
-TYPE_PROC_REF(/datum/controller/subsystem/processing/quirks, quirk_name_by_path)(path)
+/datum/controller/subsystem/processing/quirks/proc/quirk_name_by_path(path)
 	return quirk_names_by_path[path]
 
-TYPE_PROC_REF(/datum/controller/subsystem/processing/quirks, total_points)(list/quirk_names)
+/datum/controller/subsystem/processing/quirks/proc/total_points(list/quirk_names)
 	. = 0
 	for(var/i in quirk_names)
 		. += quirk_points_by_name(i)
 
-TYPE_PROC_REF(/datum/controller/subsystem/processing/quirks, filter_quirks)(list/our_quirks, list/blacklisted_quirks)
+/datum/controller/subsystem/processing/quirks/proc/filter_quirks(list/our_quirks, list/blacklisted_quirks)
 	var/list/cut = list()
 	var/list/banned_names = list()
 	var/pointscut = 0

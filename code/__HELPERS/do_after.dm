@@ -240,7 +240,7 @@
 		LAZYREMOVE(target.targeted_by, user)
 
 //some additional checks as a callback for for do_afters that want to break on losing health or on the mob taking action
-TYPE_PROC_REF(/mob, break_do_after_checks)(list/checked_health, check_clicks)
+/mob/proc/break_do_after_checks(list/checked_health, check_clicks)
 	if(check_clicks && !CheckActionCooldown())
 		return FALSE
 	return TRUE
@@ -347,7 +347,7 @@ TYPE_PROC_REF(/mob, break_do_after_checks)(list/checked_health, check_clicks)
 		LAZYREMOVE(user.do_afters, target)
 		LAZYREMOVE(target.targeted_by, user)
 
-TYPE_PROC_REF(/mob, do_after_coefficent)() // This gets added to the delay on a do_after, default 1
+/mob/proc/do_after_coefficent() // This gets added to the delay on a do_after, default 1
 	. = 1
 	return
 

@@ -155,7 +155,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 	update_icon()
 	to_chat(M, "[src] is now skinned as '[choice]'.")
 
-TYPE_PROC_REF(/obj/item/pda, set_new_overlays)()
+/obj/item/pda/proc/set_new_overlays()
 	if(!overlays_offsets || !(icon in overlays_offsets))
 		overlays_x_offset = 0
 		overlays_y_offset = 0
@@ -175,7 +175,7 @@ TYPE_PROC_REF(/obj/item/pda, set_new_overlays)()
 		return
 	update_style(user.client)
 
-TYPE_PROC_REF(/obj/item/pda, update_style)(client/C)
+/obj/item/pda/proc/update_style(client/C)
 	background_color = C.prefs.pda_color
 	switch(C.prefs.pda_style)
 		if(MONO)
@@ -200,7 +200,7 @@ TYPE_PROC_REF(/obj/item/pda, update_style)(client/C)
 		update_icon()
 	equipped = TRUE
 
-TYPE_PROC_REF(/obj/item/pda, update_label)()
+/obj/item/pda/proc/update_label()
 	name = "Pip-Boy 3000-[owner] ([ownjob])" //Name generalisation
 
 /obj/item/pda/GetAccess()
@@ -493,7 +493,7 @@ TYPE_PROC_REF(/obj/item/pda, update_label)()
 	popup.open(FALSE)
 	//onclose(user, "pda", src)
 
-TYPE_PROC_REF(/obj/item/pda, Boop)()
+/obj/item/pda/proc/Boop()
 	playsound(src, pick(pipsounds), 40, 1)
 
 /obj/item/pda/Topic(href, href_list)
@@ -823,12 +823,12 @@ TYPE_PROC_REF(/obj/item/pda, Boop)()
 		U << browse(null, "window=pda")
 	return
 
-TYPE_PROC_REF(/obj/item/pda, remove_id)(mob/user)
+/obj/item/pda/proc/remove_id(mob/user)
 	if(hasSiliconAccessInArea(user) || !user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
 		return
 	do_remove_id(user)
 
-TYPE_PROC_REF(/obj/item/pda, do_remove_id)(mob/user)
+/obj/item/pda/proc/do_remove_id(mob/user)
 	if(!id)
 		return
 	if(user)
@@ -846,7 +846,7 @@ TYPE_PROC_REF(/obj/item/pda, do_remove_id)(mob/user)
 		if(H.wear_id == src)
 			H.sec_hud_set_ID()
 
-TYPE_PROC_REF(/obj/item/pda, msg_input)(mob/living/U = usr)
+/obj/item/pda/proc/msg_input(mob/living/U = usr)
 	var/t = stripped_input(U, "Please enter message", name)
 	if (!t || toff)
 		return
@@ -856,7 +856,7 @@ TYPE_PROC_REF(/obj/item/pda, msg_input)(mob/living/U = usr)
 		t = Gibberish(t, 100)
 	return t
 
-TYPE_PROC_REF(/obj/item/pda, send_message)(mob/living/user, list/obj/item/pda/targets, everyone)
+/obj/item/pda/proc/send_message(mob/living/user, list/obj/item/pda/targets, everyone)
 	var/message = msg_input(user)
 	if(!message || !targets.len)
 		return
@@ -932,7 +932,7 @@ TYPE_PROC_REF(/obj/item/pda, send_message)(mob/living/user, list/obj/item/pda/ta
 	if (everyone)
 		last_everyone = world.time
 
-TYPE_PROC_REF(/obj/item/pda, receive_message)(datum/signal/subspace/pda/signal)
+/obj/item/pda/proc/receive_message(datum/signal/subspace/pda/signal)
 	tnote += "<i><b>&larr; From <a href='byond://?src=[REF(src)];choice=Message;target=[REF(signal.source)]'>[signal.data["name"]]</a> ([signal.data["job"]]):</b></i> <a href='byond://?src=[REF(src)];choice=toggle_block;target=[signal.data["name"]]'>(BLOCK/UNBLOCK)</a><br>[signal.format_message()]<br>"
 	if (!silent)
 		playsound(src, 'fallout/sound/pipsounds/pipmsgget.ogg', 80, 1)
@@ -961,26 +961,26 @@ TYPE_PROC_REF(/obj/item/pda, receive_message)(datum/signal/subspace/pda/signal)
 	new_alert = TRUE
 	update_icon(TRUE)
 
-TYPE_PROC_REF(/obj/item/pda, send_to_all)(mob/living/U)
+/obj/item/pda/proc/send_to_all(mob/living/U)
 	if (last_everyone && world.time < last_everyone + PDA_SPAM_DELAY)
 		to_chat(U,span_warning("Send To All function is still on cooldown."))
 		return
 	send_message(U,get_viewable_pdas(), TRUE)
 
-TYPE_PROC_REF(/obj/item/pda, create_message)(mob/living/U, obj/item/pda/P)
+/obj/item/pda/proc/create_message(mob/living/U, obj/item/pda/P)
 	send_message(U,list(P))
 
-TYPE_PROC_REF(/obj/item/pda, toggle_blocking)(mob/user, target)
+/obj/item/pda/proc/toggle_blocking(mob/user, target)
 	if(target in blocked_pdas)
 		unblock_pda(user, target)
 	else
 		block_pda(user, target)
 
-TYPE_PROC_REF(/obj/item/pda, block_pda)(mob/user, target)
+/obj/item/pda/proc/block_pda(mob/user, target)
 	to_chat(user, span_notice("[icon2html(src, user)] [target] blocked from messages. Use the messenger PDA list to unblock."))
 	LAZYOR(blocked_pdas, target)
 
-TYPE_PROC_REF(/obj/item/pda, unblock_pda)(mob/user, target)
+/obj/item/pda/proc/unblock_pda(mob/user, target)
 	to_chat(user, span_notice("[icon2html(src, user)] [target] unblocked from messages."))
 	LAZYREMOVE(blocked_pdas, target)
 
@@ -1025,7 +1025,7 @@ TYPE_PROC_REF(/obj/item/pda, unblock_pda)(mob/user, target)
 
 	remove_pen()
 
-TYPE_PROC_REF(/obj/item/pda, toggle_light)()
+/obj/item/pda/proc/toggle_light()
 	if(hasSiliconAccessInArea(usr) || !usr.canUseTopic(src, BE_CLOSE))
 		return
 	if(fon)
@@ -1038,7 +1038,7 @@ TYPE_PROC_REF(/obj/item/pda, toggle_light)()
 		playsound(src, "fallout/sound/pipsounds/piplighton.ogg", 50, 1)
 	update_icon()
 
-TYPE_PROC_REF(/obj/item/pda, remove_pen)()
+/obj/item/pda/proc/remove_pen()
 
 	if(hasSiliconAccessInArea(usr) || !usr.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
 		return
@@ -1052,7 +1052,7 @@ TYPE_PROC_REF(/obj/item/pda, remove_pen)()
 		to_chat(usr, span_warning("This PDA does not have a pen in it!"))
 
 //trying to insert or remove an id
-TYPE_PROC_REF(/obj/item/pda, id_check)(mob/user, obj/item/card/id/I)
+/obj/item/pda/proc/id_check(mob/user, obj/item/card/id/I)
 	if(!I)
 		if(id && (src in user.contents))
 			remove_id(user)
@@ -1070,7 +1070,7 @@ TYPE_PROC_REF(/obj/item/pda, id_check)(mob/user, obj/item/card/id/I)
 		playsound(src, 'sound/machines/button.ogg', 50, 1)
 	return TRUE
 
-TYPE_PROC_REF(/obj/item/pda, insert_id)(obj/item/card/id/inserting_id, mob/user)
+/obj/item/pda/proc/insert_id(obj/item/card/id/inserting_id, mob/user)
 	var/obj/old_id = id
 	id = inserting_id
 	if(ishuman(loc))
@@ -1197,7 +1197,7 @@ TYPE_PROC_REF(/obj/item/pda, insert_id)(obj/item/card/id/inserting_id, mob/user)
 		to_chat(user, span_notice("Paper scanned. Saved to PDA's notekeeper.") )
 
 
-TYPE_PROC_REF(/obj/item/pda, explode)() //This needs tuning.
+/obj/item/pda/proc/explode() //This needs tuning.
 	if(!detonatable)
 		return
 	var/turf/T = get_turf(src)
@@ -1231,7 +1231,7 @@ TYPE_PROC_REF(/obj/item/pda, explode)() //This needs tuning.
 
 //AI verb and proc for sending PDA messages.
 
-TYPE_PROC_REF(/mob/living/silicon/ai, cmd_send_pdamesg)(mob/user)
+/mob/living/silicon/ai/proc/cmd_send_pdamesg(mob/user)
 	var/list/plist = list()
 	var/list/namecounts = list()
 
@@ -1289,7 +1289,7 @@ TYPE_PROC_REF(/mob/living/silicon/ai, cmd_send_pdamesg)(mob/user)
 	else
 		to_chat(usr, "You do not have a PDA. You should make an issue report about this.")
 
-TYPE_PROC_REF(/mob/living/silicon/ai, cmd_show_message_log)(mob/user)
+/mob/living/silicon/ai/proc/cmd_show_message_log(mob/user)
 	if(incapacitated())
 		return
 	if(!isnull(aiPDA))

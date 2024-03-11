@@ -29,7 +29,7 @@
 				if("Nothing")
 					return
 
-TYPE_PROC_REF(/mob/living/simple_animal/drone, try_reactivate)(mob/living/user)
+/mob/living/simple_animal/drone/proc/try_reactivate(mob/living/user)
 	var/mob/dead/observer/G = get_ghost()
 	if(!client && (!G || !G.client))
 		var/list/faux_gadgets = list("hypertext inflator","failsafe directory","DRM switch","stack initializer",\
@@ -84,10 +84,10 @@ TYPE_PROC_REF(/mob/living/simple_animal/drone, try_reactivate)(mob/living/user)
 		armorval = head.armor.getRating(type)
 	return (armorval * get_armor_effectiveness()) //armor is reduced for tiny fragile drones
 
-TYPE_PROC_REF(/mob/living/simple_animal/drone, get_armor_effectiveness)()
+/mob/living/simple_animal/drone/proc/get_armor_effectiveness()
 	return 0 //multiplier for whatever head armor you wear as a drone
 
-TYPE_PROC_REF(/mob/living/simple_animal/drone, update_drone_hack)(hack, clockwork)
+/mob/living/simple_animal/drone/proc/update_drone_hack(hack, clockwork)
 	if(!istype(src) || !mind)
 		return
 	if(hack)
@@ -132,12 +132,12 @@ TYPE_PROC_REF(/mob/living/simple_animal/drone, update_drone_hack)(hack, clockwor
 		message_admins("[src] ([src.key]), a hacked drone, was restored to factory defaults!")
 	update_drone_icon()
 
-TYPE_PROC_REF(/mob/living/simple_animal/drone, liberate)()
+/mob/living/simple_animal/drone/proc/liberate()
 	// F R E E D R O N E
 	laws = "1. You are a Free Drone."
 	to_chat(src, laws)
 
-TYPE_PROC_REF(/mob/living/simple_animal/drone, update_drone_icon)()
+/mob/living/simple_animal/drone/proc/update_drone_icon()
 	//Different icons for different hack states
 	if(!hacked)
 		if(visualAppearence == SCOUTDRONE_HACKED)

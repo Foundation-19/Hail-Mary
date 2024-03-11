@@ -102,7 +102,7 @@
 		GM = new
 	return GM
 
-TYPE_PROC_REF(/obj/machinery/clonepod, get_completion)()
+/obj/machinery/clonepod/proc/get_completion()
 	. = FALSE
 	var/mob/living/mob_occupant = occupant
 	if(mob_occupant)
@@ -112,7 +112,7 @@ TYPE_PROC_REF(/obj/machinery/clonepod, get_completion)()
 	return examine(user)
 
 //Start growing a human clone in the pod!
-TYPE_PROC_REF(/obj/machinery/clonepod, growclone)(ckey, clonename, ui, mutation_index, mindref, blood_type, datum/species/mrace, list/features, factions, list/quirks, datum/bank_account/insurance, list/traumas)
+/obj/machinery/clonepod/proc/growclone(ckey, clonename, ui, mutation_index, mindref, blood_type, datum/species/mrace, list/features, factions, list/quirks, datum/bank_account/insurance, list/traumas)
 	if(panel_open)
 		return FALSE
 	if(mess || attempting)
@@ -338,7 +338,7 @@ TYPE_PROC_REF(/obj/machinery/clonepod, growclone)(ckey, clonename, ui, mutation_
 	return TRUE
 
 //Put messages in the connected computer's temp var for display.
-TYPE_PROC_REF(/obj/machinery/clonepod, connected_message)(message)
+/obj/machinery/clonepod/proc/connected_message(message)
 	if ((isnull(connected)) || (!istype(connected, /obj/machinery/computer/cloning)))
 		return FALSE
 	if (!message)
@@ -348,7 +348,7 @@ TYPE_PROC_REF(/obj/machinery/clonepod, connected_message)(message)
 	connected.updateUsrDialog()
 	return TRUE
 
-TYPE_PROC_REF(/obj/machinery/clonepod, go_out)()
+/obj/machinery/clonepod/proc/go_out()
 	countdown.stop()
 	var/mob/living/mob_occupant = occupant
 	var/turf/T = get_turf(src)
@@ -399,7 +399,7 @@ TYPE_PROC_REF(/obj/machinery/clonepod, go_out)()
 
 	occupant = null
 
-TYPE_PROC_REF(/obj/machinery/clonepod, malfunction)()
+/obj/machinery/clonepod/proc/malfunction()
 	var/mob/living/mob_occupant = occupant
 	if(mob_occupant)
 		connected_message("Critical Error!")
@@ -443,7 +443,7 @@ TYPE_PROC_REF(/obj/machinery/clonepod, malfunction)()
 		occupant = null
 		countdown.stop()
 
-TYPE_PROC_REF(/obj/machinery/clonepod, horrifyingsound)()
+/obj/machinery/clonepod/proc/horrifyingsound()
 	for(var/i in 1 to 5)
 		playsound(loc,pick('sound/hallucinations/growl1.ogg','sound/hallucinations/growl2.ogg','sound/hallucinations/growl3.ogg'), 100, rand(0.95,1.05))
 		sleep(1)
@@ -455,7 +455,7 @@ TYPE_PROC_REF(/obj/machinery/clonepod, horrifyingsound)()
 		go_out()
 	..()
 
-TYPE_PROC_REF(/obj/machinery/clonepod, maim_clone)(mob/living/carbon/human/H)
+/obj/machinery/clonepod/proc/maim_clone(mob/living/carbon/human/H)
 	if(!unattached_flesh)
 		unattached_flesh = list()
 	else

@@ -93,7 +93,7 @@
  * Waits for a user's response to the tgui_input_number's prompt before returning. Returns early if
  * the window was closed by the user.
  */
-TYPE_PROC_REF(/datum/tgui_input_number, wait)()
+/datum/tgui_input_number/proc/wait()
 	while (!entry && !closed && !QDELETED(src))
 		stoplag(1)
 
@@ -150,7 +150,7 @@ TYPE_PROC_REF(/datum/tgui_input_number, wait)()
 			SStgui.close_uis(src)
 			return TRUE
 
-TYPE_PROC_REF(/datum/tgui_input_number, set_entry)(entry)
+/datum/tgui_input_number/proc/set_entry(entry)
 	src.entry = entry
 
 /**

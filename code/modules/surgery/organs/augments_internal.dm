@@ -81,7 +81,7 @@
 		to_chat(owner, span_warning("Your [owner.get_held_index_name(owner.get_held_index_of_item(I))] spasms and throws the [I.name]!"))
 	stored_items = list()
 
-TYPE_PROC_REF(/obj/item/organ/cyberimp/brain/anti_drop, release_items)()
+/obj/item/organ/cyberimp/brain/anti_drop/proc/release_items()
 	for(var/obj/item/I in stored_items)
 		REMOVE_TRAIT(I, TRAIT_NODROP, ANTI_DROP_IMPLANT_TRAIT)
 	stored_items = list()
@@ -114,7 +114,7 @@ TYPE_PROC_REF(/obj/item/organ/cyberimp/brain/anti_drop, release_items)()
 	organ_flags |= ORGAN_FAILING
 	addtimer(CALLBACK(src, PROC_REF(reboot)), 0.9 * severity)
 
-TYPE_PROC_REF(/obj/item/organ/cyberimp/brain/anti_stun, reboot)()
+/obj/item/organ/cyberimp/brain/anti_stun/proc/reboot()
 	crit_fail = FALSE
 	organ_flags &= ~ORGAN_FAILING
 

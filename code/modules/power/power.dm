@@ -29,51 +29,51 @@
 // Machines should use add_load(), surplus(), avail()
 // Non-machines should use add_delayedload(), delayed_surplus(), newavail()
 
-TYPE_PROC_REF(/obj/machinery/power, add_avail)(amount)
+/obj/machinery/power/proc/add_avail(amount)
 	if(powernet)
 		powernet.newavail += amount
 		return TRUE
 	else
 		return FALSE
 
-TYPE_PROC_REF(/obj/machinery/power, add_load)(amount)
+/obj/machinery/power/proc/add_load(amount)
 	if(powernet)
 		powernet.load += amount
 
-TYPE_PROC_REF(/obj/machinery/power, surplus)()
+/obj/machinery/power/proc/surplus()
 	if(powernet)
 		return clamp(powernet.avail-powernet.load, 0, powernet.avail)
 	else
 		return 0
 
-TYPE_PROC_REF(/obj/machinery/power, avail)(amount)
+/obj/machinery/power/proc/avail(amount)
 	if(powernet)
 		return amount ? powernet.avail >= amount : powernet.avail
 	else
 		return 0
 
-TYPE_PROC_REF(/obj/machinery/power, add_delayedload)(amount)
+/obj/machinery/power/proc/add_delayedload(amount)
 	if(powernet)
 		powernet.delayedload += amount
 
-TYPE_PROC_REF(/obj/machinery/power, delayed_surplus)()
+/obj/machinery/power/proc/delayed_surplus()
 	if(powernet)
 		return clamp(powernet.newavail - powernet.delayedload, 0, powernet.newavail)
 	else
 		return 0
 
-TYPE_PROC_REF(/obj/machinery/power, newavail)()
+/obj/machinery/power/proc/newavail()
 	if(powernet)
 		return powernet.newavail
 	else
 		return 0
 
-TYPE_PROC_REF(/obj/machinery/power, disconnect_terminal)() // machines without a terminal will just return, no harm no fowl.
+/obj/machinery/power/proc/disconnect_terminal() // machines without a terminal will just return, no harm no fowl.
 	return
 
 // returns true if the area has power on given channel (or doesn't require power).
 // defaults to power_channel
-TYPE_PROC_REF(/obj/machinery, powered)(chan = -1) // defaults to power_channel
+/obj/machinery/proc/powered(chan = -1) // defaults to power_channel
 	if(!loc)
 		return FALSE
 	if(!use_power)
@@ -87,7 +87,7 @@ TYPE_PROC_REF(/obj/machinery, powered)(chan = -1) // defaults to power_channel
 	return A.powered(chan)	// return power status of the area
 
 // increment the power usage stats for an area
-TYPE_PROC_REF(/obj/machinery, use_power)(amount, chan = -1) // defaults to power_channel
+/obj/machinery/proc/use_power(amount, chan = -1) // defaults to power_channel
 	var/area/A = get_area(src)		// make sure it's in an area
 	if(!A)
 		return
@@ -95,16 +95,16 @@ TYPE_PROC_REF(/obj/machinery, use_power)(amount, chan = -1) // defaults to power
 		chan = power_channel
 	A.use_power(amount, chan)
 
-TYPE_PROC_REF(/obj/machinery, addStaticPower)(value, powerchannel)
+/obj/machinery/proc/addStaticPower(value, powerchannel)
 	var/area/A = get_area(src)
 	if(!A)
 		return
 	A.addStaticPower(value, powerchannel)
 
-TYPE_PROC_REF(/obj/machinery, removeStaticPower)(value, powerchannel)
+/obj/machinery/proc/removeStaticPower(value, powerchannel)
 	addStaticPower(-value, powerchannel)
 
-TYPE_PROC_REF(/obj/machinery, power_change)()		// called whenever the power settings of the containing area change
+/obj/machinery/proc/power_change()		// called whenever the power settings of the containing area change
 										// by default, check equipment channel & set flag
 										// can override if needed
 	if(powered(power_channel))
@@ -115,7 +115,7 @@ TYPE_PROC_REF(/obj/machinery, power_change)()		// called whenever the power sett
 	return
 
 // connect the machine to a powernet if a node cable is present on the turf
-TYPE_PROC_REF(/obj/machinery/power, connect_to_network)()
+/obj/machinery/power/proc/connect_to_network()
 	var/turf/T = src.loc
 	if(!T || !istype(T))
 		return FALSE
@@ -128,7 +128,7 @@ TYPE_PROC_REF(/obj/machinery/power, connect_to_network)()
 	return TRUE
 
 // remove and disconnect the machine from its current powernet
-TYPE_PROC_REF(/obj/machinery/power, disconnect_from_network)()
+/obj/machinery/power/proc/disconnect_from_network()
 	if(!powernet)
 		return FALSE
 	powernet.remove_machine(src)
@@ -155,7 +155,7 @@ TYPE_PROC_REF(/obj/machinery/power, disconnect_from_network)()
 
 //returns all the cables WITHOUT a powernet in neighbors turfs,
 //pointing towards the turf the machine is located at
-TYPE_PROC_REF(/obj/machinery/power, get_connections)()
+/obj/machinery/power/proc/get_connections()
 
 	. = list()
 
@@ -175,7 +175,7 @@ TYPE_PROC_REF(/obj/machinery/power, get_connections)()
 
 //returns all the cables in neighbors turfs,
 //pointing towards the turf the machine is located at
-TYPE_PROC_REF(/obj/machinery/power, get_marked_connections)()
+/obj/machinery/power/proc/get_marked_connections()
 
 	. = list()
 
@@ -192,7 +192,7 @@ TYPE_PROC_REF(/obj/machinery/power, get_marked_connections)()
 	return .
 
 //returns all the NODES (O-X) cables WITHOUT a powernet in the turf the machine is located at
-TYPE_PROC_REF(/obj/machinery/power, get_indirect_connections)()
+/obj/machinery/power/proc/get_indirect_connections()
 	. = list()
 	for(var/obj/structure/cable/C in loc)
 		if(C.powernet)
@@ -374,7 +374,7 @@ TYPE_PROC_REF(/obj/machinery/power, get_indirect_connections)()
 
 // return a knot cable (O-X) if one is present in the turf
 // null if there's none
-TYPE_PROC_REF(/turf, get_cable_node)()
+/turf/proc/get_cable_node()
 	if(!can_have_cabling())
 		return null
 	for(var/obj/structure/cable/C in src)
@@ -382,7 +382,7 @@ TYPE_PROC_REF(/turf, get_cable_node)()
 			return C
 	return null
 
-TYPE_PROC_REF(/area, get_apc)()
+/area/proc/get_apc()
 	var/target = base_area ? base_area : src
 	for(var/obj/machinery/power/apc/APC in GLOB.apcs_list)
 		if(APC.area == target)

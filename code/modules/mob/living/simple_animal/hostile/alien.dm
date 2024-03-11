@@ -114,7 +114,7 @@
 			egg_cooldown = initial(egg_cooldown)
 			LayEggs()
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile/alien, SpreadPlants)()
+/mob/living/simple_animal/hostile/alien/proc/SpreadPlants()
 	if(!isturf(loc) || isspaceturf(loc))
 		return
 	if(locate(/obj/structure/alien/weeds/node) in get_turf(src))
@@ -122,7 +122,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/hostile/alien, SpreadPlants)()
 	visible_message(span_alertalien("[src] has planted some alien weeds!"))
 	new /obj/structure/alien/weeds/node(loc)
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile/alien, LayEggs)()
+/mob/living/simple_animal/hostile/alien/proc/LayEggs()
 	if(!isturf(loc) || isspaceturf(loc))
 		return
 	if(locate(/obj/structure/alien/egg) in get_turf(src))

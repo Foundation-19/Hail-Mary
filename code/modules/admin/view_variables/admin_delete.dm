@@ -1,4 +1,4 @@
-TYPE_PROC_REF(/client, admin_delete)(datum/D)
+/client/proc/admin_delete(datum/D)
 	var/atom/A = D
 	var/coords = ""
 	var/jmp_coords = ""

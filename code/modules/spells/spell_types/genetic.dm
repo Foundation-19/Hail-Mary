@@ -35,7 +35,7 @@
 	for(var/V in active_on)
 		remove(V)
 
-TYPE_PROC_REF(/obj/effect/proc_holder/spell/targeted/genetic, remove)(mob/living/carbon/target)
+/obj/effect/proc_holder/spell/targeted/genetic/proc/remove(mob/living/carbon/target)
 	active_on -= target
 	if(!QDELETED(target))
 		for(var/A in mutations)

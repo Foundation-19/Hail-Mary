@@ -363,185 +363,185 @@ the i_clothing (/obj/screen): attack hand(Dave Oneal (/mob/living/carbon/human),
 the i_clothing (/obj/screen): DblClick(null, null, null)
 the i_clothing (/obj/screen): Click(null, "mapwindow.map", "icon-x=19;icon-y=13;left=1;scr...")
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
   usr: null
   src: Space Retrovirus (/datum/disease/dnaspread)
   call stack:
 Space Retrovirus (/datum/disease/dnaspread): cure(0)
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
   usr: null
   src: Space Retrovirus (/datum/disease/dnaspread)
   call stack:
 Space Retrovirus (/datum/disease/dnaspread): cure(0)
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
   usr: null
   src: Space Retrovirus (/datum/disease/dnaspread)
   call stack:
 Space Retrovirus (/datum/disease/dnaspread): cure(0)
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
   usr: null
   src: Space Retrovirus (/datum/disease/dnaspread)
   call stack:
 Space Retrovirus (/datum/disease/dnaspread): cure(0)
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: undefined proc or verb /obj/machinery/space_heater/attack().
 
@@ -552,85 +552,85 @@ runtime error: undefined proc or verb /obj/machinery/space_heater/attack().
 proc name: attackby (/mob/attackby)
   source file: items.dm,334
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
   source file: inventory.dm,1071
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 Warning: further proc crash messages are being suppressed to prevent overload...
 Rebooted server.
@@ -1049,70 +1049,70 @@ the id (/obj/screen): attack hand(Penny Merriweather (/mob/living/carbon/human),
 the id (/obj/screen): DblClick(null, null, null)
 the id (/obj/screen): Click(null, "mapwindow.map", "icon-x=20;icon-y=16;left=1;scr...")
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
   usr: null
   src: Magnitis (/datum/disease/magnitis)
   call stack:
 Magnitis (/datum/disease/magnitis): cure(0)
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
   usr: null
   src: Magnitis (/datum/disease/magnitis)
   call stack:
 Magnitis (/datum/disease/magnitis): cure(0)
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
   usr: null
   src: Magnitis (/datum/disease/magnitis)
   call stack:
 Magnitis (/datum/disease/magnitis): cure(0)
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
   usr: null
   src: Magnitis (/datum/disease/magnitis)
   call stack:
 Magnitis (/datum/disease/magnitis): cure(0)
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
   usr: null
   src: Magnitis (/datum/disease/magnitis)
   call stack:
 Magnitis (/datum/disease/magnitis): cure(0)
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
   usr: null
   src: Magnitis (/datum/disease/magnitis)
   call stack:
 Magnitis (/datum/disease/magnitis): cure(0)
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
   usr: null
   src: Magnitis (/datum/disease/magnitis)
   call stack:
 Magnitis (/datum/disease/magnitis): cure(0)
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
   usr: null
   src: Magnitis (/datum/disease/magnitis)
   call stack:
 Magnitis (/datum/disease/magnitis): cure(0)
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
   usr: null
   src: Magnitis (/datum/disease/magnitis)
   call stack:
 Magnitis (/datum/disease/magnitis): cure(0)
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
   usr: null
   src: Magnitis (/datum/disease/magnitis)
@@ -1122,241 +1122,241 @@ runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
   source file: inventory.dm,1048
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 Warning: further proc crash messages are being suppressed to prevent overload...
 Rebooted server.
@@ -1405,7 +1405,7 @@ the id (/obj/screen): attack hand(Jack Napier (/mob/living/carbon/human), 0)
 the id (/obj/screen): DblClick(null, null, null)
 the id (/obj/screen): Click(null, "mapwindow.map", "icon-x=11;icon-y=9;left=1;scre...")
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
   usr: Reese Marcotte (/mob/living/carbon/human)
   src: Reese Marcotte (/mob/living/carbon/human)
@@ -1436,363 +1436,363 @@ the belt (/obj/screen): attack hand(Flint Steel (/mob/living/carbon/human), 1)
 the belt (/obj/screen): DblClick(null, null, null)
 the belt (/obj/screen): Click(null, "mapwindow.map", "icon-x=9;icon-y=12;left=1;scre...")
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
   usr: null
   src: The Flu (/datum/disease/flu)
   call stack:
 The Flu (/datum/disease/flu): cure(0)
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
   usr: null
   src: The Flu (/datum/disease/flu)
   call stack:
 The Flu (/datum/disease/flu): cure(0)
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
   usr: null
   src: The Flu (/datum/disease/flu)
   call stack:
 The Flu (/datum/disease/flu): cure(0)
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
   usr: null
   src: The Flu (/datum/disease/flu)
   call stack:
 The Flu (/datum/disease/flu): cure(0)
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
   usr: null
   src: The Flu (/datum/disease/flu)
   call stack:
 The Flu (/datum/disease/flu): cure(0)
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
   usr: null
   src: The Flu (/datum/disease/flu)
   call stack:
 The Flu (/datum/disease/flu): cure(0)
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
   usr: null
   src: The Flu (/datum/disease/flu)
   call stack:
 The Flu (/datum/disease/flu): cure(0)
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
   usr: null
   src: The Flu (/datum/disease/flu)
   call stack:
 The Flu (/datum/disease/flu): cure(0)
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
   usr: null
   src: The Flu (/datum/disease/flu)
   call stack:
 The Flu (/datum/disease/flu): cure(0)
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
   usr: null
   src: The Flu (/datum/disease/flu)
   call stack:
 The Flu (/datum/disease/flu): cure(0)
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
   usr: null
   src: The Flu (/datum/disease/flu)
   call stack:
 The Flu (/datum/disease/flu): cure(0)
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
   usr: null
   src: The Flu (/datum/disease/flu)
   call stack:
 The Flu (/datum/disease/flu): cure(0)
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
   usr: null
   src: The Flu (/datum/disease/flu)
   call stack:
 The Flu (/datum/disease/flu): cure(0)
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
   usr: null
   src: The Flu (/datum/disease/flu)
   call stack:
 The Flu (/datum/disease/flu): cure(0)
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
   usr: null
   src: The Flu (/datum/disease/flu)
   call stack:
 The Flu (/datum/disease/flu): cure(0)
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
   usr: null
   src: The Flu (/datum/disease/flu)
   call stack:
 The Flu (/datum/disease/flu): cure(0)
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
   usr: null
   src: The Flu (/datum/disease/flu)
   call stack:
 The Flu (/datum/disease/flu): cure(0)
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
 Warning: further proc crash messages are being suppressed to prevent overload...
 Rebooted server.
@@ -2023,7 +2023,7 @@ the id (/obj/screen): attack hand(Unknown (/mob/living/carbon/human), null)
 the id (/obj/screen): DblClick(null, null, null)
 the id (/obj/screen): Click(null, "mapwindow.map", "icon-x=20;icon-y=18;left=1;scr...")
 runtime error: Cannot execute null.dropped().
-proc name: drop l hand (TYPE_PROC_REF(/mob, drop_l_hand))
+proc name: drop l hand (/mob/proc/drop_l_hand)
   source file: inventory.dm,104
   usr: Jeb Stone (/mob/living/carbon/human)
   src: Jeb Stone (/mob/living/carbon/human)
@@ -2046,7 +2046,7 @@ the eyes (/obj/screen): Click(null, "mapwindow.map", "icon-x=25;icon-y=27;left=1
 Rebooted server.
 Running TG Revision Number: 4060.
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
   usr: Hugh Jazz (/mob/living/carbon/human)
   src: Hugh Jazz (/mob/living/carbon/human)
@@ -2054,7 +2054,7 @@ proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
 Hugh Jazz (/mob/living/carbon/human): throw at(the floor (112,99,1) (/turf/simulated/floor), 100, 1)
 the disposal pipe (/obj/structure/disposalpipe/trunk): expel(null, the floor (122,99,1) (/turf/simulated/floor), 8)
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
   usr: Hugh Jazz (/mob/living/carbon/human)
   src: Hugh Jazz (/mob/living/carbon/human)
@@ -2062,7 +2062,7 @@ proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
 Hugh Jazz (/mob/living/carbon/human): throw at(the floor (112,99,1) (/turf/simulated/floor), 100, 1)
 the disposal pipe (/obj/structure/disposalpipe/trunk): expel(null, the floor (122,99,1) (/turf/simulated/floor), 8)
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
   usr: Hugh Jazz (/mob/living/carbon/human)
   src: Hugh Jazz (/mob/living/carbon/human)
@@ -2070,7 +2070,7 @@ proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
 Hugh Jazz (/mob/living/carbon/human): throw at(the floor (112,99,1) (/turf/simulated/floor), 100, 1)
 the disposal pipe (/obj/structure/disposalpipe/trunk): expel(null, the floor (122,99,1) (/turf/simulated/floor), 8)
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
   usr: Hugh Jazz (/mob/living/carbon/human)
   src: Hugh Jazz (/mob/living/carbon/human)
@@ -2078,7 +2078,7 @@ proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
 Hugh Jazz (/mob/living/carbon/human): throw at(the floor (112,99,1) (/turf/simulated/floor), 100, 1)
 the disposal pipe (/obj/structure/disposalpipe/trunk): expel(null, the floor (122,99,1) (/turf/simulated/floor), 8)
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
   usr: Hugh Jazz (/mob/living/carbon/human)
   src: Hugh Jazz (/mob/living/carbon/human)
@@ -2086,7 +2086,7 @@ proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
 Hugh Jazz (/mob/living/carbon/human): throw at(the floor (112,99,1) (/turf/simulated/floor), 100, 1)
 the disposal pipe (/obj/structure/disposalpipe/trunk): expel(null, the floor (122,99,1) (/turf/simulated/floor), 8)
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
   usr: Hugh Jazz (/mob/living/carbon/human)
   src: Hugh Jazz (/mob/living/carbon/human)
@@ -2094,7 +2094,7 @@ proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
 Hugh Jazz (/mob/living/carbon/human): throw at(the floor (112,99,1) (/turf/simulated/floor), 100, 1)
 the disposal pipe (/obj/structure/disposalpipe/trunk): expel(null, the floor (122,99,1) (/turf/simulated/floor), 8)
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
   usr: 0
   src: Canister \[Air] (/obj/machinery/portable_atmospherics/canister/air)
@@ -2102,7 +2102,7 @@ proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
 Canister \[Air] (/obj/machinery/portable_atmospherics/canister/air): throw at(the floor (112,99,1) (/turf/simulated/floor), 100, 1)
 the disposal pipe (/obj/structure/disposalpipe/trunk): expel(null, the floor (122,99,1) (/turf/simulated/floor), 8)
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
   usr: Paul Wolfe (/mob/living/carbon/human)
   src: Paul Wolfe (/mob/living/carbon/human)
@@ -2110,7 +2110,7 @@ proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
 Paul Wolfe (/mob/living/carbon/human): throw at(the floor (112,99,1) (/turf/simulated/floor), 100, 1)
 the disposal pipe (/obj/structure/disposalpipe/trunk): expel(null, the floor (122,99,1) (/turf/simulated/floor), 8)
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
   usr: 0
   src: Canister \[Air] (/obj/machinery/portable_atmospherics/canister/air)
@@ -2118,7 +2118,7 @@ proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
 Canister \[Air] (/obj/machinery/portable_atmospherics/canister/air): throw at(the floor (112,99,1) (/turf/simulated/floor), 100, 1)
 the disposal pipe (/obj/structure/disposalpipe/trunk): expel(null, the floor (122,99,1) (/turf/simulated/floor), 8)
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
   usr: 0
   src: Canister \[Air] (/obj/machinery/portable_atmospherics/canister/air)
@@ -2126,7 +2126,7 @@ proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
 Canister \[Air] (/obj/machinery/portable_atmospherics/canister/air): throw at(the floor (112,99,1) (/turf/simulated/floor), 100, 1)
 the disposal pipe (/obj/structure/disposalpipe/trunk): expel(null, the floor (122,99,1) (/turf/simulated/floor), 8)
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
   usr: 0
   src: Canister \[Air] (/obj/machinery/portable_atmospherics/canister/air)
@@ -2134,7 +2134,7 @@ proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
 Canister \[Air] (/obj/machinery/portable_atmospherics/canister/air): throw at(the floor (112,99,1) (/turf/simulated/floor), 100, 1)
 the disposal pipe (/obj/structure/disposalpipe/trunk): expel(null, the floor (122,99,1) (/turf/simulated/floor), 8)
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
   usr: 0
   src: Canister \[Air] (/obj/machinery/portable_atmospherics/canister/air)
@@ -2142,7 +2142,7 @@ proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
 Canister \[Air] (/obj/machinery/portable_atmospherics/canister/air): throw at(the floor (112,99,1) (/turf/simulated/floor), 100, 1)
 the disposal pipe (/obj/structure/disposalpipe/trunk): expel(null, the floor (122,99,1) (/turf/simulated/floor), 8)
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
   usr: 0
   src: Canister \[Air] (/obj/machinery/portable_atmospherics/canister/air)
@@ -2150,7 +2150,7 @@ proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
 Canister \[Air] (/obj/machinery/portable_atmospherics/canister/air): throw at(the floor (112,99,1) (/turf/simulated/floor), 100, 1)
 the disposal pipe (/obj/structure/disposalpipe/trunk): expel(null, the floor (122,99,1) (/turf/simulated/floor), 8)
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
   usr: 0
   src: Canister: \[O2] (/obj/machinery/portable_atmospherics/canister/oxygen)
@@ -2158,7 +2158,7 @@ proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
 Canister: \[O2] (/obj/machinery/portable_atmospherics/canister/oxygen): throw at(the floor (112,99,1) (/turf/simulated/floor), 100, 1)
 the disposal pipe (/obj/structure/disposalpipe/trunk): expel(null, the floor (122,99,1) (/turf/simulated/floor), 8)
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
   usr: 0
   src: Canister \[Air] (/obj/machinery/portable_atmospherics/canister/air)
@@ -2166,7 +2166,7 @@ proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
 Canister \[Air] (/obj/machinery/portable_atmospherics/canister/air): throw at(the floor (112,99,1) (/turf/simulated/floor), 100, 1)
 the disposal pipe (/obj/structure/disposalpipe/trunk): expel(null, the floor (122,99,1) (/turf/simulated/floor), 8)
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
   usr: 0
   src: Canister: \[O2] (/obj/machinery/portable_atmospherics/canister/oxygen)
@@ -2174,7 +2174,7 @@ proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
 Canister: \[O2] (/obj/machinery/portable_atmospherics/canister/oxygen): throw at(the floor (112,99,1) (/turf/simulated/floor), 100, 1)
 the disposal pipe (/obj/structure/disposalpipe/trunk): expel(null, the floor (122,99,1) (/turf/simulated/floor), 8)
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
   usr: 0
   src: Canister \[Air] (/obj/machinery/portable_atmospherics/canister/air)
@@ -2182,7 +2182,7 @@ proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
 Canister \[Air] (/obj/machinery/portable_atmospherics/canister/air): throw at(the floor (112,99,1) (/turf/simulated/floor), 100, 1)
 the disposal pipe (/obj/structure/disposalpipe/trunk): expel(null, the floor (122,99,1) (/turf/simulated/floor), 8)
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
   usr: 0
   src: Canister: \[O2] (/obj/machinery/portable_atmospherics/canister/oxygen)
@@ -2190,7 +2190,7 @@ proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
 Canister: \[O2] (/obj/machinery/portable_atmospherics/canister/oxygen): throw at(the floor (112,99,1) (/turf/simulated/floor), 100, 1)
 the disposal pipe (/obj/structure/disposalpipe/trunk): expel(null, the floor (122,99,1) (/turf/simulated/floor), 8)
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
   usr: 0
   src: Canister \[Air] (/obj/machinery/portable_atmospherics/canister/air)
@@ -2198,244 +2198,244 @@ proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
 Canister \[Air] (/obj/machinery/portable_atmospherics/canister/air): throw at(the floor (112,99,1) (/turf/simulated/floor), 100, 1)
 the disposal pipe (/obj/structure/disposalpipe/trunk): expel(null, the floor (122,99,1) (/turf/simulated/floor), 8)
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 Warning: further proc crash messages are being suppressed to prevent overload...
 Rebooted server.
@@ -2452,7 +2452,7 @@ the shoes (/obj/screen): DblClick(null, null, null)
 the shoes (/obj/screen): Click(null, "mapwindow.map", "icon-x=19;icon-y=17;left=1;scr...")
 Sat Jul 14 13:19:34 2012
 runtime error: list index out of bounds
-proc name: mergeConnectedNetworksOnTurf (TYPE_PROC_REF(/obj/structure/cable, mergeConnectedNetworksOnTurf))
+proc name: mergeConnectedNetworksOnTurf (/obj/structure/cable/proc/mergeConnectedNetworksOnTurf)
   source file: cable.dm,520
   usr: Josue Sandford (/mob/living/carbon/human)
   src: the power cable (/obj/structure/cable)
@@ -2464,7 +2464,7 @@ the plating (87,80,1) (/turf/simulated/floor/plating): DblClick(the plating (87,
 the plating (87,80,1) (/turf/simulated/floor/plating): DblClick(the plating (87,80,1) (/turf/simulated/floor/plating), "mapwindow.map", "icon-x=17;icon-y=28;left=1;scr...")
 the plating (87,80,1) (/turf/simulated/floor/plating): Click(the plating (87,80,1) (/turf/simulated/floor/plating), "mapwindow.map", "icon-x=17;icon-y=28;left=1;scr...")
 runtime error: Cannot read null.nodes
-proc name: merge powernets (TYPE_PROC_REF(/datum/powernet, merge_powernets))
+proc name: merge powernets (/datum/powernet/proc/merge_powernets)
   source file: power.dm,401
   usr: Darin Keppel (/mob/living/carbon/human)
   src: /datum/powernet (/datum/powernet)
@@ -2532,14 +2532,14 @@ All-In-One Grinder (/obj/machinery/reagentgrinder): DblClick(the floor (154,134,
 All-In-One Grinder (/obj/machinery/reagentgrinder): Click(the floor (154,134,1) (/turf/simulated/floor), "mapwindow.map", "icon-x=18;icon-y=18;left=1;scr...")
 Sat Jul 14 14:26:55 2012
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
   usr: null
   src: Appendicitis (/datum/disease/appendicitis)
   call stack:
 Appendicitis (/datum/disease/appendicitis): cure(0)
 runtime error: Cannot read null.viruses
-proc name: cure (TYPE_PROC_REF(/datum/disease, cure))
+proc name: cure (/datum/disease/proc/cure)
   source file: disease.dm,156
   usr: null
   src: Appendicitis (/datum/disease/appendicitis)
@@ -2813,7 +2813,7 @@ the id (/obj/screen): attack hand(River Pavlov (/mob/living/carbon/human), 0)
 the id (/obj/screen): DblClick(null, null, null)
 the id (/obj/screen): Click(null, "mapwindow.map", "icon-x=10;icon-y=15;left=1;scr...")
 runtime error: list index out of bounds
-proc name: mergeConnectedNetworksOnTurf (TYPE_PROC_REF(/obj/structure/cable, mergeConnectedNetworksOnTurf))
+proc name: mergeConnectedNetworksOnTurf (/obj/structure/cable/proc/mergeConnectedNetworksOnTurf)
   source file: cable.dm,501
   usr: Tyrion Lannister (/mob/living/carbon/human)
   src: the power cable (/obj/structure/cable)
@@ -3243,7 +3243,7 @@ runtime error: Cannot read null.len
 proc name: mergeRecordLists (GLOBAL_PROC_REF(mergeRecordLists))
   source file: helpers.dm,260
 runtime error: Cannot read null.reagents
-proc name: fire syringe (TYPE_PROC_REF(/obj/item/weapon/gun/syringe, fire_syringe))
+proc name: fire syringe (/obj/item/weapon/gun/syringe/proc/fire_syringe)
   source file: Chemistry-Tools.dm,462
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
@@ -3478,7 +3478,7 @@ Rebooted server.
 Running TG Revision Number: 4060.
 Sun Jul 15 01:27:07 2012
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
   usr: 0
   src: the emergency closet (/obj/structure/closet/emcloset)
@@ -3486,7 +3486,7 @@ proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
 the emergency closet (/obj/structure/closet/emcloset): throw at(the floor (172,138,1) (/turf/simulated/floor), 100, 1)
 the disposal pipe (/obj/structure/disposalpipe/trunk): expel(null, the floor (182,138,1) (/turf/simulated/floor), 8)
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
   usr: 0
   src: the emergency closet (/obj/structure/closet/emcloset)
@@ -3494,7 +3494,7 @@ proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
 the emergency closet (/obj/structure/closet/emcloset): throw at(the floor (172,138,1) (/turf/simulated/floor), 100, 1)
 the disposal pipe (/obj/structure/disposalpipe/trunk): expel(null, the floor (182,138,1) (/turf/simulated/floor), 8)
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
   usr: 0
   src: the emergency closet (/obj/structure/closet/emcloset)
@@ -3502,7 +3502,7 @@ proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
 the emergency closet (/obj/structure/closet/emcloset): throw at(the floor (172,138,1) (/turf/simulated/floor), 100, 1)
 the disposal pipe (/obj/structure/disposalpipe/trunk): expel(null, the floor (182,138,1) (/turf/simulated/floor), 8)
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
   usr: 0
   src: the emergency closet (/obj/structure/closet/emcloset)
@@ -3510,7 +3510,7 @@ proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
 the emergency closet (/obj/structure/closet/emcloset): throw at(the floor (172,138,1) (/turf/simulated/floor), 100, 1)
 the disposal pipe (/obj/structure/disposalpipe/trunk): expel(null, the floor (182,138,1) (/turf/simulated/floor), 8)
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
   usr: 0
   src: the emergency closet (/obj/structure/closet/emcloset)
@@ -3518,7 +3518,7 @@ proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
 the emergency closet (/obj/structure/closet/emcloset): throw at(the floor (172,138,1) (/turf/simulated/floor), 100, 1)
 the disposal pipe (/obj/structure/disposalpipe/trunk): expel(null, the floor (182,138,1) (/turf/simulated/floor), 8)
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
   usr: 0
   src: the emergency closet (/obj/structure/closet/emcloset)
@@ -3526,7 +3526,7 @@ proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
 the emergency closet (/obj/structure/closet/emcloset): throw at(the floor (172,138,1) (/turf/simulated/floor), 100, 1)
 the disposal pipe (/obj/structure/disposalpipe/trunk): expel(null, the floor (182,138,1) (/turf/simulated/floor), 8)
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
   usr: 0
   src: the emergency closet (/obj/structure/closet/emcloset)
@@ -3534,7 +3534,7 @@ proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
 the emergency closet (/obj/structure/closet/emcloset): throw at(the floor (172,138,1) (/turf/simulated/floor), 100, 1)
 the disposal pipe (/obj/structure/disposalpipe/trunk): expel(null, the floor (182,138,1) (/turf/simulated/floor), 8)
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
   usr: 0
   src: the emergency closet (/obj/structure/closet/emcloset)
@@ -3542,7 +3542,7 @@ proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
 the emergency closet (/obj/structure/closet/emcloset): throw at(the floor (172,138,1) (/turf/simulated/floor), 100, 1)
 the disposal pipe (/obj/structure/disposalpipe/trunk): expel(null, the floor (182,138,1) (/turf/simulated/floor), 8)
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
   usr: 0
   src: the emergency closet (/obj/structure/closet/emcloset)
@@ -3550,7 +3550,7 @@ proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
 the emergency closet (/obj/structure/closet/emcloset): throw at(the floor (172,138,1) (/turf/simulated/floor), 100, 1)
 the disposal pipe (/obj/structure/disposalpipe/trunk): expel(null, the floor (182,138,1) (/turf/simulated/floor), 8)
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
   usr: 0
   src: the emergency closet (/obj/structure/closet/emcloset)
@@ -3558,7 +3558,7 @@ proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
 the emergency closet (/obj/structure/closet/emcloset): throw at(the floor (172,138,1) (/turf/simulated/floor), 100, 1)
 the disposal pipe (/obj/structure/disposalpipe/trunk): expel(null, the floor (182,138,1) (/turf/simulated/floor), 8)
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
   usr: 0
   src: the emergency closet (/obj/structure/closet/emcloset)
@@ -3566,7 +3566,7 @@ proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
 the emergency closet (/obj/structure/closet/emcloset): throw at(the floor (172,138,1) (/turf/simulated/floor), 100, 1)
 the disposal pipe (/obj/structure/disposalpipe/trunk): expel(null, the floor (182,138,1) (/turf/simulated/floor), 8)
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
   usr: 0
   src: the emergency closet (/obj/structure/closet/emcloset)
@@ -3574,7 +3574,7 @@ proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
 the emergency closet (/obj/structure/closet/emcloset): throw at(the floor (172,138,1) (/turf/simulated/floor), 100, 1)
 the disposal pipe (/obj/structure/disposalpipe/trunk): expel(null, the floor (182,138,1) (/turf/simulated/floor), 8)
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
   usr: 0
   src: Crate (/obj/structure/closet/crate)
@@ -3582,7 +3582,7 @@ proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
 Crate (/obj/structure/closet/crate): throw at(the floor (172,138,1) (/turf/simulated/floor), 100, 1)
 the disposal pipe (/obj/structure/disposalpipe/trunk): expel(null, the floor (182,138,1) (/turf/simulated/floor), 8)
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
   usr: 0
   src: the emergency closet (/obj/structure/closet/emcloset)
@@ -3590,7 +3590,7 @@ proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
 the emergency closet (/obj/structure/closet/emcloset): throw at(the floor (172,138,1) (/turf/simulated/floor), 100, 1)
 the disposal pipe (/obj/structure/disposalpipe/trunk): expel(null, the floor (182,138,1) (/turf/simulated/floor), 8)
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
   usr: 0
   src: the emergency closet (/obj/structure/closet/emcloset)
@@ -3598,7 +3598,7 @@ proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
 the emergency closet (/obj/structure/closet/emcloset): throw at(the floor (172,138,1) (/turf/simulated/floor), 100, 1)
 the disposal pipe (/obj/structure/disposalpipe/trunk): expel(null, the floor (182,138,1) (/turf/simulated/floor), 8)
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
   usr: 0
   src: Crate (/obj/structure/closet/crate)
@@ -3606,7 +3606,7 @@ proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
 Crate (/obj/structure/closet/crate): throw at(the floor (172,138,1) (/turf/simulated/floor), 100, 1)
 the disposal pipe (/obj/structure/disposalpipe/trunk): expel(null, the floor (182,138,1) (/turf/simulated/floor), 8)
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
   usr: 0
   src: the emergency closet (/obj/structure/closet/emcloset)
@@ -3614,7 +3614,7 @@ proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
 the emergency closet (/obj/structure/closet/emcloset): throw at(the floor (172,138,1) (/turf/simulated/floor), 100, 1)
 the disposal pipe (/obj/structure/disposalpipe/trunk): expel(null, the floor (182,138,1) (/turf/simulated/floor), 8)
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
   usr: 0
   src: the emergency closet (/obj/structure/closet/emcloset)
@@ -3622,7 +3622,7 @@ proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
 the emergency closet (/obj/structure/closet/emcloset): throw at(the floor (172,138,1) (/turf/simulated/floor), 100, 1)
 the disposal pipe (/obj/structure/disposalpipe/trunk): expel(null, the floor (182,138,1) (/turf/simulated/floor), 8)
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
   usr: 0
   src: Crate (/obj/structure/closet/crate)
@@ -3630,244 +3630,244 @@ proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
 Crate (/obj/structure/closet/crate): throw at(the floor (172,138,1) (/turf/simulated/floor), 100, 1)
 the disposal pipe (/obj/structure/disposalpipe/trunk): expel(null, the floor (182,138,1) (/turf/simulated/floor), 8)
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 runtime error: Cannot read null.has_gravity
-proc name: throw at (TYPE_PROC_REF(/atom/movable, throw_at))
+proc name: throw at (/atom/movable/proc/throw_at)
   source file: throwing.dm,194
 Warning: further proc crash messages are being suppressed to prevent overload...
 Rebooted server.
@@ -4089,7 +4089,7 @@ the storage1 (/obj/screen): DblClick(null, null, null)
 the storage1 (/obj/screen): Click(null, "mapwindow.map", "icon-x=18;icon-y=16;left=1;scr...")
 Sun Jul 15 08:26:36 2012
 runtime error: Cannot read null.nodes
-proc name: merge powernets (TYPE_PROC_REF(/datum/powernet, merge_powernets))
+proc name: merge powernets (/datum/powernet/proc/merge_powernets)
   source file: power.dm,401
   usr: Stephen Cox (/mob/living/carbon/human)
   src: /datum/powernet (/datum/powernet)
@@ -4102,7 +4102,7 @@ the floor (87,115,1) (/turf/simulated/floor): DblClick(the floor (87,115,1) (/tu
 the floor (87,115,1) (/turf/simulated/floor): DblClick(the floor (87,115,1) (/turf/simulated/floor), "mapwindow.map", "icon-x=26;icon-y=18;left=1;scr...")
 the floor (87,115,1) (/turf/simulated/floor): Click(the floor (87,115,1) (/turf/simulated/floor), "mapwindow.map", "icon-x=26;icon-y=18;left=1;scr...")
 runtime error: Cannot read null.nodes
-proc name: merge powernets (TYPE_PROC_REF(/datum/powernet, merge_powernets))
+proc name: merge powernets (/datum/powernet/proc/merge_powernets)
   source file: power.dm,401
   usr: Stephen Cox (/mob/living/carbon/human)
   src: /datum/powernet (/datum/powernet)
@@ -4213,7 +4213,7 @@ the storage1 (/obj/screen): attack hand(Dat Bass (/mob/living/carbon/human), 0)
 the storage1 (/obj/screen): DblClick(null, null, null)
 the storage1 (/obj/screen): Click(null, "mapwindow.map", "icon-x=14;icon-y=15;left=1;scr...")
 runtime error: Cannot read null.broadcasting
-proc name: radio menu (TYPE_PROC_REF(/mob/living/silicon/robot, radio_menu))
+proc name: radio menu (/mob/living/silicon/robot/proc/radio_menu)
   source file: robot.dm,857
   usr: Engineering Cyborg -432 (/mob/living/silicon/robot)
   src: Engineering Cyborg -432 (/mob/living/silicon/robot)
@@ -4221,7 +4221,7 @@ proc name: radio menu (TYPE_PROC_REF(/mob/living/silicon/robot, radio_menu))
 Engineering Cyborg -432 (/mob/living/silicon/robot): radio menu()
 the radio (/obj/screen): Click(null, "mapwindow.map", "icon-x=18;icon-y=13;left=1;scr...")
 runtime error: Cannot read null.broadcasting
-proc name: radio menu (TYPE_PROC_REF(/mob/living/silicon/robot, radio_menu))
+proc name: radio menu (/mob/living/silicon/robot/proc/radio_menu)
   source file: robot.dm,857
   usr: Engineering Cyborg -432 (/mob/living/silicon/robot)
   src: Engineering Cyborg -432 (/mob/living/silicon/robot)
@@ -4229,7 +4229,7 @@ proc name: radio menu (TYPE_PROC_REF(/mob/living/silicon/robot, radio_menu))
 Engineering Cyborg -432 (/mob/living/silicon/robot): radio menu()
 the radio (/obj/screen): Click(null, "mapwindow.map", "icon-x=21;icon-y=9;left=1;scre...")
 runtime error: Cannot read null.broadcasting
-proc name: radio menu (TYPE_PROC_REF(/mob/living/silicon/robot, radio_menu))
+proc name: radio menu (/mob/living/silicon/robot/proc/radio_menu)
   source file: robot.dm,857
   usr: Engineering Cyborg -432 (/mob/living/silicon/robot)
   src: Engineering Cyborg -432 (/mob/living/silicon/robot)
@@ -4237,7 +4237,7 @@ proc name: radio menu (TYPE_PROC_REF(/mob/living/silicon/robot, radio_menu))
 Engineering Cyborg -432 (/mob/living/silicon/robot): radio menu()
 the radio (/obj/screen): Click(null, "mapwindow.map", "icon-x=21;icon-y=9;left=1;scre...")
 runtime error: Cannot read null.broadcasting
-proc name: radio menu (TYPE_PROC_REF(/mob/living/silicon/robot, radio_menu))
+proc name: radio menu (/mob/living/silicon/robot/proc/radio_menu)
   source file: robot.dm,857
   usr: Engineering Cyborg -432 (/mob/living/silicon/robot)
   src: Engineering Cyborg -432 (/mob/living/silicon/robot)
@@ -4245,7 +4245,7 @@ proc name: radio menu (TYPE_PROC_REF(/mob/living/silicon/robot, radio_menu))
 Engineering Cyborg -432 (/mob/living/silicon/robot): radio menu()
 the radio (/obj/screen): Click(null, "mapwindow.map", "icon-x=21;icon-y=11;left=1;scr...")
 runtime error: Cannot read null.broadcasting
-proc name: radio menu (TYPE_PROC_REF(/mob/living/silicon/robot, radio_menu))
+proc name: radio menu (/mob/living/silicon/robot/proc/radio_menu)
   source file: robot.dm,857
   usr: Engineering Cyborg -432 (/mob/living/silicon/robot)
   src: Engineering Cyborg -432 (/mob/living/silicon/robot)
@@ -4253,7 +4253,7 @@ proc name: radio menu (TYPE_PROC_REF(/mob/living/silicon/robot, radio_menu))
 Engineering Cyborg -432 (/mob/living/silicon/robot): radio menu()
 the radio (/obj/screen): Click(null, "mapwindow.map", "icon-x=21;icon-y=11;left=1;scr...")
 runtime error: Cannot read null.broadcasting
-proc name: radio menu (TYPE_PROC_REF(/mob/living/silicon/robot, radio_menu))
+proc name: radio menu (/mob/living/silicon/robot/proc/radio_menu)
   source file: robot.dm,857
   usr: Engineering Cyborg -432 (/mob/living/silicon/robot)
   src: Engineering Cyborg -432 (/mob/living/silicon/robot)
@@ -4261,7 +4261,7 @@ proc name: radio menu (TYPE_PROC_REF(/mob/living/silicon/robot, radio_menu))
 Engineering Cyborg -432 (/mob/living/silicon/robot): radio menu()
 the radio (/obj/screen): Click(null, "mapwindow.map", "icon-x=21;icon-y=11;left=1;scr...")
 runtime error: Cannot read null.broadcasting
-proc name: radio menu (TYPE_PROC_REF(/mob/living/silicon/robot, radio_menu))
+proc name: radio menu (/mob/living/silicon/robot/proc/radio_menu)
   source file: robot.dm,857
   usr: Engineering Cyborg -432 (/mob/living/silicon/robot)
   src: Engineering Cyborg -432 (/mob/living/silicon/robot)
@@ -4269,7 +4269,7 @@ proc name: radio menu (TYPE_PROC_REF(/mob/living/silicon/robot, radio_menu))
 Engineering Cyborg -432 (/mob/living/silicon/robot): radio menu()
 the radio (/obj/screen): Click(null, "mapwindow.map", "icon-x=21;icon-y=11;left=1;scr...")
 runtime error: Cannot read null.broadcasting
-proc name: radio menu (TYPE_PROC_REF(/mob/living/silicon/robot, radio_menu))
+proc name: radio menu (/mob/living/silicon/robot/proc/radio_menu)
   source file: robot.dm,857
   usr: Engineering Cyborg -432 (/mob/living/silicon/robot)
   src: Engineering Cyborg -432 (/mob/living/silicon/robot)
@@ -4277,7 +4277,7 @@ proc name: radio menu (TYPE_PROC_REF(/mob/living/silicon/robot, radio_menu))
 Engineering Cyborg -432 (/mob/living/silicon/robot): radio menu()
 the radio (/obj/screen): Click(null, "mapwindow.map", "icon-x=21;icon-y=11;left=1;scr...")
 runtime error: Cannot read null.broadcasting
-proc name: radio menu (TYPE_PROC_REF(/mob/living/silicon/robot, radio_menu))
+proc name: radio menu (/mob/living/silicon/robot/proc/radio_menu)
   source file: robot.dm,857
   usr: Engineering Cyborg -432 (/mob/living/silicon/robot)
   src: Engineering Cyborg -432 (/mob/living/silicon/robot)
@@ -4285,7 +4285,7 @@ proc name: radio menu (TYPE_PROC_REF(/mob/living/silicon/robot, radio_menu))
 Engineering Cyborg -432 (/mob/living/silicon/robot): radio menu()
 the radio (/obj/screen): Click(null, "mapwindow.map", "icon-x=15;icon-y=19;left=1;scr...")
 runtime error: Cannot read null.broadcasting
-proc name: radio menu (TYPE_PROC_REF(/mob/living/silicon/robot, radio_menu))
+proc name: radio menu (/mob/living/silicon/robot/proc/radio_menu)
   source file: robot.dm,857
   usr: Engineering Cyborg -432 (/mob/living/silicon/robot)
   src: Engineering Cyborg -432 (/mob/living/silicon/robot)
@@ -4293,7 +4293,7 @@ proc name: radio menu (TYPE_PROC_REF(/mob/living/silicon/robot, radio_menu))
 Engineering Cyborg -432 (/mob/living/silicon/robot): radio menu()
 the radio (/obj/screen): Click(null, "mapwindow.map", "icon-x=15;icon-y=19;left=1;scr...")
 runtime error: Cannot read null.broadcasting
-proc name: radio menu (TYPE_PROC_REF(/mob/living/silicon/robot, radio_menu))
+proc name: radio menu (/mob/living/silicon/robot/proc/radio_menu)
   source file: robot.dm,857
   usr: Engineering Cyborg -432 (/mob/living/silicon/robot)
   src: Engineering Cyborg -432 (/mob/living/silicon/robot)
@@ -4301,7 +4301,7 @@ proc name: radio menu (TYPE_PROC_REF(/mob/living/silicon/robot, radio_menu))
 Engineering Cyborg -432 (/mob/living/silicon/robot): radio menu()
 the radio (/obj/screen): Click(null, "mapwindow.map", "icon-x=15;icon-y=20;left=1;scr...")
 runtime error: Cannot read null.broadcasting
-proc name: radio menu (TYPE_PROC_REF(/mob/living/silicon/robot, radio_menu))
+proc name: radio menu (/mob/living/silicon/robot/proc/radio_menu)
   source file: robot.dm,857
   usr: Engineering Cyborg -432 (/mob/living/silicon/robot)
   src: Engineering Cyborg -432 (/mob/living/silicon/robot)
@@ -4309,7 +4309,7 @@ proc name: radio menu (TYPE_PROC_REF(/mob/living/silicon/robot, radio_menu))
 Engineering Cyborg -432 (/mob/living/silicon/robot): radio menu()
 the radio (/obj/screen): Click(null, "mapwindow.map", "icon-x=15;icon-y=20;left=1;scr...")
 runtime error: Cannot read null.broadcasting
-proc name: radio menu (TYPE_PROC_REF(/mob/living/silicon/robot, radio_menu))
+proc name: radio menu (/mob/living/silicon/robot/proc/radio_menu)
   source file: robot.dm,857
   usr: Engineering Cyborg -432 (/mob/living/silicon/robot)
   src: Engineering Cyborg -432 (/mob/living/silicon/robot)
@@ -4317,7 +4317,7 @@ proc name: radio menu (TYPE_PROC_REF(/mob/living/silicon/robot, radio_menu))
 Engineering Cyborg -432 (/mob/living/silicon/robot): radio menu()
 the radio (/obj/screen): Click(null, "mapwindow.map", "icon-x=19;icon-y=15;left=1;scr...")
 runtime error: Cannot read null.broadcasting
-proc name: radio menu (TYPE_PROC_REF(/mob/living/silicon/robot, radio_menu))
+proc name: radio menu (/mob/living/silicon/robot/proc/radio_menu)
   source file: robot.dm,857
   usr: Engineering Cyborg -432 (/mob/living/silicon/robot)
   src: Engineering Cyborg -432 (/mob/living/silicon/robot)
@@ -4325,7 +4325,7 @@ proc name: radio menu (TYPE_PROC_REF(/mob/living/silicon/robot, radio_menu))
 Engineering Cyborg -432 (/mob/living/silicon/robot): radio menu()
 the radio (/obj/screen): Click(null, "mapwindow.map", "icon-x=19;icon-y=15;left=1;scr...")
 runtime error: Cannot read null.broadcasting
-proc name: radio menu (TYPE_PROC_REF(/mob/living/silicon/robot, radio_menu))
+proc name: radio menu (/mob/living/silicon/robot/proc/radio_menu)
   source file: robot.dm,857
   usr: Engineering Cyborg -432 (/mob/living/silicon/robot)
   src: Engineering Cyborg -432 (/mob/living/silicon/robot)
@@ -4333,7 +4333,7 @@ proc name: radio menu (TYPE_PROC_REF(/mob/living/silicon/robot, radio_menu))
 Engineering Cyborg -432 (/mob/living/silicon/robot): radio menu()
 the radio (/obj/screen): Click(null, "mapwindow.map", "icon-x=19;icon-y=12;left=1;scr...")
 runtime error: Cannot read null.broadcasting
-proc name: radio menu (TYPE_PROC_REF(/mob/living/silicon/robot, radio_menu))
+proc name: radio menu (/mob/living/silicon/robot/proc/radio_menu)
   source file: robot.dm,857
   usr: Engineering Cyborg -432 (/mob/living/silicon/robot)
   src: Engineering Cyborg -432 (/mob/living/silicon/robot)
@@ -4473,7 +4473,7 @@ the monkey (525) (/mob/living/carbon/monkey): handle hallucinations()
 the monkey (525) (/mob/living/carbon/monkey): handle status effects()
 Tue Oct 06 06:07:02 2015
 runtime error: Cannot execute null.Enter().
-proc name: spread (TYPE_PROC_REF(/obj/effect/spacevine, spread))
+proc name: spread (/obj/effect/spacevine/proc/spread)
   source file: spacevine.dm,521
   usr: null
   src: the space vines (/obj/effect/spacevine)
@@ -4483,7 +4483,7 @@ the spacevine controller (/obj/effect/spacevine_controller): process(20)
 Objects (/datum/subsystem/objects): fire()
 /datum/controller/game_control... (/datum/controller/game_controller): process()
 runtime error: Cannot execute null.Enter().
-proc name: spread (TYPE_PROC_REF(/obj/effect/spacevine, spread))
+proc name: spread (/obj/effect/spacevine/proc/spread)
   source file: spacevine.dm,521
   usr: null
   src: the space vines (/obj/effect/spacevine)
@@ -4493,7 +4493,7 @@ the spacevine controller (/obj/effect/spacevine_controller): process(20)
 Objects (/datum/subsystem/objects): fire()
 /datum/controller/game_control... (/datum/controller/game_controller): process()
 runtime error: Cannot execute null.Enter().
-proc name: spread (TYPE_PROC_REF(/obj/effect/spacevine, spread))
+proc name: spread (/obj/effect/spacevine/proc/spread)
   source file: spacevine.dm,521
   usr: null
   src: the space vines (/obj/effect/spacevine)
@@ -4503,7 +4503,7 @@ the spacevine controller (/obj/effect/spacevine_controller): process(20)
 Objects (/datum/subsystem/objects): fire()
 /datum/controller/game_control... (/datum/controller/game_controller): process()
 runtime error: Cannot execute null.Enter().
-proc name: spread (TYPE_PROC_REF(/obj/effect/spacevine, spread))
+proc name: spread (/obj/effect/spacevine/proc/spread)
   source file: spacevine.dm,521
   usr: null
   src: the space vines (/obj/effect/spacevine)
@@ -4513,7 +4513,7 @@ the spacevine controller (/obj/effect/spacevine_controller): process(20)
 Objects (/datum/subsystem/objects): fire()
 /datum/controller/game_control... (/datum/controller/game_controller): process()
 runtime error: Cannot execute null.Enter().
-proc name: spread (TYPE_PROC_REF(/obj/effect/spacevine, spread))
+proc name: spread (/obj/effect/spacevine/proc/spread)
   source file: spacevine.dm,521
   usr: null
   src: the space vines (/obj/effect/spacevine)
@@ -4523,7 +4523,7 @@ the spacevine controller (/obj/effect/spacevine_controller): process(20)
 Objects (/datum/subsystem/objects): fire()
 /datum/controller/game_control... (/datum/controller/game_controller): process()
 runtime error: Cannot execute null.Enter().
-proc name: spread (TYPE_PROC_REF(/obj/effect/spacevine, spread))
+proc name: spread (/obj/effect/spacevine/proc/spread)
   source file: spacevine.dm,521
   usr: null
   src: the space vines (/obj/effect/spacevine)
@@ -4533,7 +4533,7 @@ the spacevine controller (/obj/effect/spacevine_controller): process(20)
 Objects (/datum/subsystem/objects): fire()
 /datum/controller/game_control... (/datum/controller/game_controller): process()
 runtime error: Cannot execute null.Enter().
-proc name: spread (TYPE_PROC_REF(/obj/effect/spacevine, spread))
+proc name: spread (/obj/effect/spacevine/proc/spread)
   source file: spacevine.dm,521
   usr: null
   src: the space vines (/obj/effect/spacevine)
@@ -4543,7 +4543,7 @@ the spacevine controller (/obj/effect/spacevine_controller): process(20)
 Objects (/datum/subsystem/objects): fire()
 /datum/controller/game_control... (/datum/controller/game_controller): process()
 runtime error: Cannot execute null.Enter().
-proc name: spread (TYPE_PROC_REF(/obj/effect/spacevine, spread))
+proc name: spread (/obj/effect/spacevine/proc/spread)
   source file: spacevine.dm,521
   usr: null
   src: the space vines (/obj/effect/spacevine)
@@ -4553,7 +4553,7 @@ the spacevine controller (/obj/effect/spacevine_controller): process(20)
 Objects (/datum/subsystem/objects): fire()
 /datum/controller/game_control... (/datum/controller/game_controller): process()
 runtime error: Cannot execute null.Enter().
-proc name: spread (TYPE_PROC_REF(/obj/effect/spacevine, spread))
+proc name: spread (/obj/effect/spacevine/proc/spread)
   source file: spacevine.dm,521
   usr: null
   src: the space vines (/obj/effect/spacevine)
@@ -4563,7 +4563,7 @@ the spacevine controller (/obj/effect/spacevine_controller): process(20)
 Objects (/datum/subsystem/objects): fire()
 /datum/controller/game_control... (/datum/controller/game_controller): process()
 runtime error: Cannot execute null.Enter().
-proc name: spread (TYPE_PROC_REF(/obj/effect/spacevine, spread))
+proc name: spread (/obj/effect/spacevine/proc/spread)
   source file: spacevine.dm,521
   usr: null
   src: the space vines (/obj/effect/spacevine)
@@ -4573,7 +4573,7 @@ the spacevine controller (/obj/effect/spacevine_controller): process(20)
 Objects (/datum/subsystem/objects): fire()
 /datum/controller/game_control... (/datum/controller/game_controller): process()
 runtime error: Cannot execute null.Enter().
-proc name: spread (TYPE_PROC_REF(/obj/effect/spacevine, spread))
+proc name: spread (/obj/effect/spacevine/proc/spread)
   source file: spacevine.dm,521
   usr: null
   src: the space vines (/obj/effect/spacevine)
@@ -4583,7 +4583,7 @@ the spacevine controller (/obj/effect/spacevine_controller): process(20)
 Objects (/datum/subsystem/objects): fire()
 /datum/controller/game_control... (/datum/controller/game_controller): process()
 runtime error: Cannot execute null.Enter().
-proc name: spread (TYPE_PROC_REF(/obj/effect/spacevine, spread))
+proc name: spread (/obj/effect/spacevine/proc/spread)
   source file: spacevine.dm,521
   usr: null
   src: the space vines (/obj/effect/spacevine)
@@ -4593,7 +4593,7 @@ the spacevine controller (/obj/effect/spacevine_controller): process(20)
 Objects (/datum/subsystem/objects): fire()
 /datum/controller/game_control... (/datum/controller/game_controller): process()
 runtime error: Cannot execute null.Enter().
-proc name: spread (TYPE_PROC_REF(/obj/effect/spacevine, spread))
+proc name: spread (/obj/effect/spacevine/proc/spread)
   source file: spacevine.dm,521
   usr: null
   src: the space vines (/obj/effect/spacevine)
@@ -4603,7 +4603,7 @@ the spacevine controller (/obj/effect/spacevine_controller): process(20)
 Objects (/datum/subsystem/objects): fire()
 /datum/controller/game_control... (/datum/controller/game_controller): process()
 runtime error: Cannot execute null.Enter().
-proc name: spread (TYPE_PROC_REF(/obj/effect/spacevine, spread))
+proc name: spread (/obj/effect/spacevine/proc/spread)
   source file: spacevine.dm,521
   usr: null
   src: the space vines (/obj/effect/spacevine)
@@ -4613,7 +4613,7 @@ the spacevine controller (/obj/effect/spacevine_controller): process(20)
 Objects (/datum/subsystem/objects): fire()
 /datum/controller/game_control... (/datum/controller/game_controller): process()
 runtime error: Cannot execute null.Enter().
-proc name: spread (TYPE_PROC_REF(/obj/effect/spacevine, spread))
+proc name: spread (/obj/effect/spacevine/proc/spread)
   source file: spacevine.dm,521
   usr: null
   src: the space vines (/obj/effect/spacevine)
@@ -4623,7 +4623,7 @@ the spacevine controller (/obj/effect/spacevine_controller): process(20)
 Objects (/datum/subsystem/objects): fire()
 /datum/controller/game_control... (/datum/controller/game_controller): process()
 runtime error: Cannot execute null.Enter().
-proc name: spread (TYPE_PROC_REF(/obj/effect/spacevine, spread))
+proc name: spread (/obj/effect/spacevine/proc/spread)
   source file: spacevine.dm,521
   usr: null
   src: the space vines (/obj/effect/spacevine)
@@ -4633,7 +4633,7 @@ the spacevine controller (/obj/effect/spacevine_controller): process(20)
 Objects (/datum/subsystem/objects): fire()
 /datum/controller/game_control... (/datum/controller/game_controller): process()
 runtime error: Cannot execute null.Enter().
-proc name: spread (TYPE_PROC_REF(/obj/effect/spacevine, spread))
+proc name: spread (/obj/effect/spacevine/proc/spread)
   source file: spacevine.dm,521
   usr: null
   src: the space vines (/obj/effect/spacevine)
@@ -4643,7 +4643,7 @@ the spacevine controller (/obj/effect/spacevine_controller): process(20)
 Objects (/datum/subsystem/objects): fire()
 /datum/controller/game_control... (/datum/controller/game_controller): process()
 runtime error: Cannot execute null.Enter().
-proc name: spread (TYPE_PROC_REF(/obj/effect/spacevine, spread))
+proc name: spread (/obj/effect/spacevine/proc/spread)
   source file: spacevine.dm,521
   usr: null
   src: the space vines (/obj/effect/spacevine)
@@ -4653,244 +4653,244 @@ the spacevine controller (/obj/effect/spacevine_controller): process(20)
 Objects (/datum/subsystem/objects): fire()
 /datum/controller/game_control... (/datum/controller/game_controller): process()
 runtime error: Cannot execute null.Enter().
-proc name: spread (TYPE_PROC_REF(/obj/effect/spacevine, spread))
+proc name: spread (/obj/effect/spacevine/proc/spread)
   source file: spacevine.dm,521
 runtime error: Cannot execute null.Enter().
-proc name: spread (TYPE_PROC_REF(/obj/effect/spacevine, spread))
+proc name: spread (/obj/effect/spacevine/proc/spread)
   source file: spacevine.dm,521
 runtime error: Cannot execute null.Enter().
-proc name: spread (TYPE_PROC_REF(/obj/effect/spacevine, spread))
+proc name: spread (/obj/effect/spacevine/proc/spread)
   source file: spacevine.dm,521
 runtime error: Cannot execute null.Enter().
-proc name: spread (TYPE_PROC_REF(/obj/effect/spacevine, spread))
+proc name: spread (/obj/effect/spacevine/proc/spread)
   source file: spacevine.dm,521
 runtime error: Cannot execute null.Enter().
-proc name: spread (TYPE_PROC_REF(/obj/effect/spacevine, spread))
+proc name: spread (/obj/effect/spacevine/proc/spread)
   source file: spacevine.dm,521
 runtime error: Cannot execute null.Enter().
-proc name: spread (TYPE_PROC_REF(/obj/effect/spacevine, spread))
+proc name: spread (/obj/effect/spacevine/proc/spread)
   source file: spacevine.dm,521
 runtime error: Cannot execute null.Enter().
-proc name: spread (TYPE_PROC_REF(/obj/effect/spacevine, spread))
+proc name: spread (/obj/effect/spacevine/proc/spread)
   source file: spacevine.dm,521
 runtime error: Cannot execute null.Enter().
-proc name: spread (TYPE_PROC_REF(/obj/effect/spacevine, spread))
+proc name: spread (/obj/effect/spacevine/proc/spread)
   source file: spacevine.dm,521
 runtime error: Cannot execute null.Enter().
-proc name: spread (TYPE_PROC_REF(/obj/effect/spacevine, spread))
+proc name: spread (/obj/effect/spacevine/proc/spread)
   source file: spacevine.dm,521
 runtime error: Cannot execute null.Enter().
-proc name: spread (TYPE_PROC_REF(/obj/effect/spacevine, spread))
+proc name: spread (/obj/effect/spacevine/proc/spread)
   source file: spacevine.dm,521
 runtime error: Cannot execute null.Enter().
-proc name: spread (TYPE_PROC_REF(/obj/effect/spacevine, spread))
+proc name: spread (/obj/effect/spacevine/proc/spread)
   source file: spacevine.dm,521
 runtime error: Cannot execute null.Enter().
-proc name: spread (TYPE_PROC_REF(/obj/effect/spacevine, spread))
+proc name: spread (/obj/effect/spacevine/proc/spread)
   source file: spacevine.dm,521
 runtime error: Cannot execute null.Enter().
-proc name: spread (TYPE_PROC_REF(/obj/effect/spacevine, spread))
+proc name: spread (/obj/effect/spacevine/proc/spread)
   source file: spacevine.dm,521
 runtime error: Cannot execute null.Enter().
-proc name: spread (TYPE_PROC_REF(/obj/effect/spacevine, spread))
+proc name: spread (/obj/effect/spacevine/proc/spread)
   source file: spacevine.dm,521
 runtime error: Cannot execute null.Enter().
-proc name: spread (TYPE_PROC_REF(/obj/effect/spacevine, spread))
+proc name: spread (/obj/effect/spacevine/proc/spread)
   source file: spacevine.dm,521
 runtime error: Cannot execute null.Enter().
-proc name: spread (TYPE_PROC_REF(/obj/effect/spacevine, spread))
+proc name: spread (/obj/effect/spacevine/proc/spread)
   source file: spacevine.dm,521
 runtime error: Cannot execute null.Enter().
-proc name: spread (TYPE_PROC_REF(/obj/effect/spacevine, spread))
+proc name: spread (/obj/effect/spacevine/proc/spread)
   source file: spacevine.dm,521
 runtime error: Cannot execute null.Enter().
-proc name: spread (TYPE_PROC_REF(/obj/effect/spacevine, spread))
+proc name: spread (/obj/effect/spacevine/proc/spread)
   source file: spacevine.dm,521
 runtime error: Cannot execute null.Enter().
-proc name: spread (TYPE_PROC_REF(/obj/effect/spacevine, spread))
+proc name: spread (/obj/effect/spacevine/proc/spread)
   source file: spacevine.dm,521
 runtime error: Cannot execute null.Enter().
-proc name: spread (TYPE_PROC_REF(/obj/effect/spacevine, spread))
+proc name: spread (/obj/effect/spacevine/proc/spread)
   source file: spacevine.dm,521
 runtime error: Cannot execute null.Enter().
-proc name: spread (TYPE_PROC_REF(/obj/effect/spacevine, spread))
+proc name: spread (/obj/effect/spacevine/proc/spread)
   source file: spacevine.dm,521
 runtime error: Cannot execute null.Enter().
-proc name: spread (TYPE_PROC_REF(/obj/effect/spacevine, spread))
+proc name: spread (/obj/effect/spacevine/proc/spread)
   source file: spacevine.dm,521
 runtime error: Cannot execute null.Enter().
-proc name: spread (TYPE_PROC_REF(/obj/effect/spacevine, spread))
+proc name: spread (/obj/effect/spacevine/proc/spread)
   source file: spacevine.dm,521
 runtime error: Cannot execute null.Enter().
-proc name: spread (TYPE_PROC_REF(/obj/effect/spacevine, spread))
+proc name: spread (/obj/effect/spacevine/proc/spread)
   source file: spacevine.dm,521
 runtime error: Cannot execute null.Enter().
-proc name: spread (TYPE_PROC_REF(/obj/effect/spacevine, spread))
+proc name: spread (/obj/effect/spacevine/proc/spread)
   source file: spacevine.dm,521
 runtime error: Cannot execute null.Enter().
-proc name: spread (TYPE_PROC_REF(/obj/effect/spacevine, spread))
+proc name: spread (/obj/effect/spacevine/proc/spread)
   source file: spacevine.dm,521
 runtime error: Cannot execute null.Enter().
-proc name: spread (TYPE_PROC_REF(/obj/effect/spacevine, spread))
+proc name: spread (/obj/effect/spacevine/proc/spread)
   source file: spacevine.dm,521
 runtime error: Cannot execute null.Enter().
-proc name: spread (TYPE_PROC_REF(/obj/effect/spacevine, spread))
+proc name: spread (/obj/effect/spacevine/proc/spread)
   source file: spacevine.dm,521
 runtime error: Cannot execute null.Enter().
-proc name: spread (TYPE_PROC_REF(/obj/effect/spacevine, spread))
+proc name: spread (/obj/effect/spacevine/proc/spread)
   source file: spacevine.dm,521
 runtime error: Cannot execute null.Enter().
-proc name: spread (TYPE_PROC_REF(/obj/effect/spacevine, spread))
+proc name: spread (/obj/effect/spacevine/proc/spread)
   source file: spacevine.dm,521
 runtime error: Cannot execute null.Enter().
-proc name: spread (TYPE_PROC_REF(/obj/effect/spacevine, spread))
+proc name: spread (/obj/effect/spacevine/proc/spread)
   source file: spacevine.dm,521
 runtime error: Cannot execute null.Enter().
-proc name: spread (TYPE_PROC_REF(/obj/effect/spacevine, spread))
+proc name: spread (/obj/effect/spacevine/proc/spread)
   source file: spacevine.dm,521
 runtime error: Cannot execute null.Enter().
-proc name: spread (TYPE_PROC_REF(/obj/effect/spacevine, spread))
+proc name: spread (/obj/effect/spacevine/proc/spread)
   source file: spacevine.dm,521
 runtime error: Cannot execute null.Enter().
-proc name: spread (TYPE_PROC_REF(/obj/effect/spacevine, spread))
+proc name: spread (/obj/effect/spacevine/proc/spread)
   source file: spacevine.dm,521
 runtime error: Cannot execute null.Enter().
-proc name: spread (TYPE_PROC_REF(/obj/effect/spacevine, spread))
+proc name: spread (/obj/effect/spacevine/proc/spread)
   source file: spacevine.dm,521
 runtime error: Cannot execute null.Enter().
-proc name: spread (TYPE_PROC_REF(/obj/effect/spacevine, spread))
+proc name: spread (/obj/effect/spacevine/proc/spread)
   source file: spacevine.dm,521
 runtime error: Cannot execute null.Enter().
-proc name: spread (TYPE_PROC_REF(/obj/effect/spacevine, spread))
+proc name: spread (/obj/effect/spacevine/proc/spread)
   source file: spacevine.dm,521
 runtime error: Cannot execute null.Enter().
-proc name: spread (TYPE_PROC_REF(/obj/effect/spacevine, spread))
+proc name: spread (/obj/effect/spacevine/proc/spread)
   source file: spacevine.dm,521
 runtime error: Cannot execute null.Enter().
-proc name: spread (TYPE_PROC_REF(/obj/effect/spacevine, spread))
+proc name: spread (/obj/effect/spacevine/proc/spread)
   source file: spacevine.dm,521
 runtime error: Cannot execute null.Enter().
-proc name: spread (TYPE_PROC_REF(/obj/effect/spacevine, spread))
+proc name: spread (/obj/effect/spacevine/proc/spread)
   source file: spacevine.dm,521
 runtime error: Cannot execute null.Enter().
-proc name: spread (TYPE_PROC_REF(/obj/effect/spacevine, spread))
+proc name: spread (/obj/effect/spacevine/proc/spread)
   source file: spacevine.dm,521
 runtime error: Cannot execute null.Enter().
-proc name: spread (TYPE_PROC_REF(/obj/effect/spacevine, spread))
+proc name: spread (/obj/effect/spacevine/proc/spread)
   source file: spacevine.dm,521
 runtime error: Cannot execute null.Enter().
-proc name: spread (TYPE_PROC_REF(/obj/effect/spacevine, spread))
+proc name: spread (/obj/effect/spacevine/proc/spread)
   source file: spacevine.dm,521
 runtime error: Cannot execute null.Enter().
-proc name: spread (TYPE_PROC_REF(/obj/effect/spacevine, spread))
+proc name: spread (/obj/effect/spacevine/proc/spread)
   source file: spacevine.dm,521
 runtime error: Cannot execute null.Enter().
-proc name: spread (TYPE_PROC_REF(/obj/effect/spacevine, spread))
+proc name: spread (/obj/effect/spacevine/proc/spread)
   source file: spacevine.dm,521
 runtime error: Cannot execute null.Enter().
-proc name: spread (TYPE_PROC_REF(/obj/effect/spacevine, spread))
+proc name: spread (/obj/effect/spacevine/proc/spread)
   source file: spacevine.dm,521
 runtime error: Cannot execute null.Enter().
-proc name: spread (TYPE_PROC_REF(/obj/effect/spacevine, spread))
+proc name: spread (/obj/effect/spacevine/proc/spread)
   source file: spacevine.dm,521
 runtime error: Cannot execute null.Enter().
-proc name: spread (TYPE_PROC_REF(/obj/effect/spacevine, spread))
+proc name: spread (/obj/effect/spacevine/proc/spread)
   source file: spacevine.dm,521
 runtime error: Cannot execute null.Enter().
-proc name: spread (TYPE_PROC_REF(/obj/effect/spacevine, spread))
+proc name: spread (/obj/effect/spacevine/proc/spread)
   source file: spacevine.dm,521
 runtime error: Cannot execute null.Enter().
-proc name: spread (TYPE_PROC_REF(/obj/effect/spacevine, spread))
+proc name: spread (/obj/effect/spacevine/proc/spread)
   source file: spacevine.dm,521
 Tue Oct 06 07:07:36 2015
 runtime error: Cannot execute null.Enter().
-proc name: spread (TYPE_PROC_REF(/obj/effect/spacevine, spread))
+proc name: spread (/obj/effect/spacevine/proc/spread)
   source file: spacevine.dm,521
 runtime error: Cannot execute null.Enter().
-proc name: spread (TYPE_PROC_REF(/obj/effect/spacevine, spread))
+proc name: spread (/obj/effect/spacevine/proc/spread)
   source file: spacevine.dm,521
 runtime error: Cannot execute null.Enter().
-proc name: spread (TYPE_PROC_REF(/obj/effect/spacevine, spread))
+proc name: spread (/obj/effect/spacevine/proc/spread)
   source file: spacevine.dm,521
 runtime error: Cannot execute null.Enter().
-proc name: spread (TYPE_PROC_REF(/obj/effect/spacevine, spread))
+proc name: spread (/obj/effect/spacevine/proc/spread)
   source file: spacevine.dm,521
 runtime error: Cannot execute null.Enter().
-proc name: spread (TYPE_PROC_REF(/obj/effect/spacevine, spread))
+proc name: spread (/obj/effect/spacevine/proc/spread)
   source file: spacevine.dm,521
 runtime error: Cannot execute null.Enter().
-proc name: spread (TYPE_PROC_REF(/obj/effect/spacevine, spread))
+proc name: spread (/obj/effect/spacevine/proc/spread)
   source file: spacevine.dm,521
 runtime error: Cannot execute null.Enter().
-proc name: spread (TYPE_PROC_REF(/obj/effect/spacevine, spread))
+proc name: spread (/obj/effect/spacevine/proc/spread)
   source file: spacevine.dm,521
 runtime error: Cannot execute null.Enter().
-proc name: spread (TYPE_PROC_REF(/obj/effect/spacevine, spread))
+proc name: spread (/obj/effect/spacevine/proc/spread)
   source file: spacevine.dm,521
 runtime error: Cannot execute null.Enter().
-proc name: spread (TYPE_PROC_REF(/obj/effect/spacevine, spread))
+proc name: spread (/obj/effect/spacevine/proc/spread)
   source file: spacevine.dm,521
 runtime error: Cannot execute null.Enter().
-proc name: spread (TYPE_PROC_REF(/obj/effect/spacevine, spread))
+proc name: spread (/obj/effect/spacevine/proc/spread)
   source file: spacevine.dm,521
 runtime error: Cannot execute null.Enter().
-proc name: spread (TYPE_PROC_REF(/obj/effect/spacevine, spread))
+proc name: spread (/obj/effect/spacevine/proc/spread)
   source file: spacevine.dm,521
 runtime error: Cannot execute null.Enter().
-proc name: spread (TYPE_PROC_REF(/obj/effect/spacevine, spread))
+proc name: spread (/obj/effect/spacevine/proc/spread)
   source file: spacevine.dm,521
 runtime error: Cannot execute null.Enter().
-proc name: spread (TYPE_PROC_REF(/obj/effect/spacevine, spread))
+proc name: spread (/obj/effect/spacevine/proc/spread)
   source file: spacevine.dm,521
 runtime error: Cannot execute null.Enter().
-proc name: spread (TYPE_PROC_REF(/obj/effect/spacevine, spread))
+proc name: spread (/obj/effect/spacevine/proc/spread)
   source file: spacevine.dm,521
 runtime error: Cannot execute null.Enter().
-proc name: spread (TYPE_PROC_REF(/obj/effect/spacevine, spread))
+proc name: spread (/obj/effect/spacevine/proc/spread)
   source file: spacevine.dm,521
 runtime error: Cannot execute null.Enter().
-proc name: spread (TYPE_PROC_REF(/obj/effect/spacevine, spread))
+proc name: spread (/obj/effect/spacevine/proc/spread)
   source file: spacevine.dm,521
 runtime error: Cannot execute null.Enter().
-proc name: spread (TYPE_PROC_REF(/obj/effect/spacevine, spread))
+proc name: spread (/obj/effect/spacevine/proc/spread)
   source file: spacevine.dm,521
 runtime error: Cannot execute null.Enter().
-proc name: spread (TYPE_PROC_REF(/obj/effect/spacevine, spread))
+proc name: spread (/obj/effect/spacevine/proc/spread)
   source file: spacevine.dm,521
 runtime error: Cannot execute null.Enter().
-proc name: spread (TYPE_PROC_REF(/obj/effect/spacevine, spread))
+proc name: spread (/obj/effect/spacevine/proc/spread)
   source file: spacevine.dm,521
 runtime error: Cannot execute null.Enter().
-proc name: spread (TYPE_PROC_REF(/obj/effect/spacevine, spread))
+proc name: spread (/obj/effect/spacevine/proc/spread)
   source file: spacevine.dm,521
 runtime error: Cannot execute null.Enter().
-proc name: spread (TYPE_PROC_REF(/obj/effect/spacevine, spread))
+proc name: spread (/obj/effect/spacevine/proc/spread)
   source file: spacevine.dm,521
 runtime error: Cannot execute null.Enter().
-proc name: spread (TYPE_PROC_REF(/obj/effect/spacevine, spread))
+proc name: spread (/obj/effect/spacevine/proc/spread)
   source file: spacevine.dm,521
 runtime error: Cannot execute null.Enter().
-proc name: spread (TYPE_PROC_REF(/obj/effect/spacevine, spread))
+proc name: spread (/obj/effect/spacevine/proc/spread)
   source file: spacevine.dm,521
 runtime error: Cannot execute null.Enter().
-proc name: spread (TYPE_PROC_REF(/obj/effect/spacevine, spread))
+proc name: spread (/obj/effect/spacevine/proc/spread)
   source file: spacevine.dm,521
 runtime error: Cannot execute null.Enter().
-proc name: spread (TYPE_PROC_REF(/obj/effect/spacevine, spread))
+proc name: spread (/obj/effect/spacevine/proc/spread)
   source file: spacevine.dm,521
 runtime error: Cannot execute null.Enter().
-proc name: spread (TYPE_PROC_REF(/obj/effect/spacevine, spread))
+proc name: spread (/obj/effect/spacevine/proc/spread)
   source file: spacevine.dm,521
 runtime error: Cannot execute null.Enter().
-proc name: spread (TYPE_PROC_REF(/obj/effect/spacevine, spread))
+proc name: spread (/obj/effect/spacevine/proc/spread)
   source file: spacevine.dm,521
 runtime error: Cannot execute null.Enter().
-proc name: spread (TYPE_PROC_REF(/obj/effect/spacevine, spread))
+proc name: spread (/obj/effect/spacevine/proc/spread)
   source file: spacevine.dm,521
 runtime error: Cannot execute null.Enter().
-proc name: spread (TYPE_PROC_REF(/obj/effect/spacevine, spread))
+proc name: spread (/obj/effect/spacevine/proc/spread)
   source file: spacevine.dm,521
 runtime error: Cannot execute null.Enter().
-proc name: spread (TYPE_PROC_REF(/obj/effect/spacevine, spread))
+proc name: spread (/obj/effect/spacevine/proc/spread)
   source file: spacevine.dm,521
 Warning: further proc crash messages are being suppressed to prevent overload...

@@ -33,7 +33,7 @@
 		var/previouscolor = color
 		color = "#FAE48C"
 		animate(src, color = previouscolor, time = 8)
-		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_atom_colour)), 8)
+		addtimer(CALLBACK(src, /atom/proc/update_atom_colour), 8)
 
 /turf/closed/wall/mineral/cult/artificer
 	name = "runed stone wall"
@@ -110,7 +110,7 @@
 		var/previouscolor = color
 		color = "#960000"
 		animate(src, color = previouscolor, time = 8)
-		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_atom_colour)), 8)
+		addtimer(CALLBACK(src, /atom/proc/update_atom_colour), 8)
 
 /turf/closed/wall/clockwork/dismantle_wall(devastated=0, explode=0)
 	if(devastated)
@@ -151,7 +151,7 @@
 		to_chat(M.occupant, span_userdanger("The wall's intense heat completely reflects your [M.name]'s attack!"))
 		M.take_damage(20, BURN)
 
-TYPE_PROC_REF(/turf/closed/wall/clockwork, turn_up_the_heat)()
+/turf/closed/wall/clockwork/proc/turn_up_the_heat()
 	if(!heated)
 		name = "superheated [name]"
 		visible_message(span_warning("[src] sizzles with heat!"))

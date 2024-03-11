@@ -77,7 +77,7 @@
 
 
 ///Called right before the user's Destroy()
-TYPE_PROC_REF(/datum/progressbar, on_user_delete)(datum/source)
+/datum/progressbar/proc/on_user_delete(datum/source)
 	SIGNAL_HANDLER
 
 	user.progressbars = null //We can simply nuke the list and stop worrying about updating other prog bars if the user itself is gone.
@@ -86,7 +86,7 @@ TYPE_PROC_REF(/datum/progressbar, on_user_delete)(datum/source)
 
 
 ///Removes the progress bar image from the user_client and nulls the variable, if it exists.
-TYPE_PROC_REF(/datum/progressbar, clean_user_client)(datum/source)
+/datum/progressbar/proc/clean_user_client(datum/source)
 	SIGNAL_HANDLER
 
 	if(!user_client) //Disconnected, already gone.
@@ -96,7 +96,7 @@ TYPE_PROC_REF(/datum/progressbar, clean_user_client)(datum/source)
 
 
 ///Called by user's Login(), it transfers the progress bar image to the new client.
-TYPE_PROC_REF(/datum/progressbar, on_user_login)(datum/source)
+/datum/progressbar/proc/on_user_login(datum/source)
 	SIGNAL_HANDLER
 
 	if(user_client)
@@ -110,7 +110,7 @@ TYPE_PROC_REF(/datum/progressbar, on_user_login)(datum/source)
 
 
 ///Adds a smoothly-appearing progress bar image to the player's screen.
-TYPE_PROC_REF(/datum/progressbar, add_prog_bar_image_to_client)()
+/datum/progressbar/proc/add_prog_bar_image_to_client()
 	bar.pixel_y = 0
 	bar.alpha = 0
 	user_client.images += bar
@@ -118,7 +118,7 @@ TYPE_PROC_REF(/datum/progressbar, add_prog_bar_image_to_client)()
 
 
 ///Updates the progress bar image visually.
-TYPE_PROC_REF(/datum/progressbar, update)(progress)
+/datum/progressbar/proc/update(progress)
 	progress = clamp(progress, 0, goal)
 	if(progress == last_progress)
 		return
@@ -127,7 +127,7 @@ TYPE_PROC_REF(/datum/progressbar, update)(progress)
 
 
 ///Called on progress end, be it successful or a failure. Wraps up things to delete the datum and bar.
-TYPE_PROC_REF(/datum/progressbar, end_progress)()
+/datum/progressbar/proc/end_progress()
 	if(last_progress != goal)
 		bar.icon_state = "[bar.icon_state]_fail"
 

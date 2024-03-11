@@ -237,7 +237,7 @@
 	if(!has_cover)
 		INVOKE_ASYNC(src, PROC_REF(popUp))
 
-TYPE_PROC_REF(/obj/machinery/porta_turret, toggle_on)(set_to)
+/obj/machinery/porta_turret/proc/toggle_on(set_to)
 	var/current = on
 	if (!isnull(set_to))
 		on = set_to
@@ -248,7 +248,7 @@ TYPE_PROC_REF(/obj/machinery/porta_turret, toggle_on)(set_to)
 		if (!on)
 			popDown()
 
-TYPE_PROC_REF(/obj/machinery/porta_turret, check_should_process)()
+/obj/machinery/porta_turret/proc/check_should_process()
 	if (!on || !anchored || (stat & BROKEN) || !powered())
 		//end_processing()
 		STOP_PROCESSING(SSfastprocess, src)
@@ -287,7 +287,7 @@ TYPE_PROC_REF(/obj/machinery/porta_turret, check_should_process)()
 		else
 			icon_state = "[base_icon_state]_unpowered"
 
-TYPE_PROC_REF(/obj/machinery/porta_turret, setup)(obj/item/gun/turret_gun)
+/obj/machinery/porta_turret/proc/setup(obj/item/gun/turret_gun)
 	if(!stored_gun)
 		return
 	if(stored_gun)
@@ -501,7 +501,7 @@ TYPE_PROC_REF(/obj/machinery/porta_turret, setup)(obj/item/gun/turret_gun)
 				interrupt_and_set_to_alert(attacked_by)
 
 /// dumps loot all over the place
-TYPE_PROC_REF(/obj/machinery/porta_turret, drop_loot)(obj/item/I, mob/user)
+/obj/machinery/porta_turret/proc/drop_loot(obj/item/I, mob/user)
 	if(dropped_loot)
 		return
 	var/turf/right_here = get_turf(src)
@@ -534,7 +534,7 @@ TYPE_PROC_REF(/obj/machinery/porta_turret, drop_loot)(obj/item/I, mob/user)
 				new /obj/item/salvage/high(right_here)
 	dropped_loot = TRUE
 
-TYPE_PROC_REF(/obj/machinery/porta_turret, reset_attacked)()
+/obj/machinery/porta_turret/proc/reset_attacked()
 	turret_flags &= ~TF_SHOOT_REACTION
 
 /obj/machinery/porta_turret/deconstruct(disassembled = TRUE)
@@ -592,7 +592,7 @@ TYPE_PROC_REF(/obj/machinery/porta_turret, reset_attacked)()
 
 /// Interrupts our current mode, and sets it to alert
 /// For when something hits it and it needs to retaliate
-TYPE_PROC_REF(/obj/machinery/porta_turret, interrupt_and_set_to_alert)(atom/assailant)
+/obj/machinery/porta_turret/proc/interrupt_and_set_to_alert(atom/assailant)
 	clear_targets()
 	record_target_weakref(assailant)
 	if(!last_target && !last_target_turf)
@@ -604,12 +604,12 @@ TYPE_PROC_REF(/obj/machinery/porta_turret, interrupt_and_set_to_alert)(atom/assa
 	
 /// Interrupts our current mode, and sets it to evasion
 /// For when our target is downed
-TYPE_PROC_REF(/obj/machinery/porta_turret, interrupt_and_set_to_evasion)()
+/obj/machinery/porta_turret/proc/interrupt_and_set_to_evasion()
 	clear_targets()
 	change_activity_state(TURRET_EVASION_MODE, TRUE)
 	
 /// Changes our mode to another, and does a thing
-TYPE_PROC_REF(/obj/machinery/porta_turret, change_activity_state)(new_state, force_it)
+/obj/machinery/porta_turret/proc/change_activity_state(new_state, force_it)
 	if(new_state == activity_state && !force_it)
 		return
 	switch(new_state)
@@ -625,14 +625,14 @@ TYPE_PROC_REF(/obj/machinery/porta_turret, change_activity_state)(new_state, for
 	check_should_process()
 
 /// Clears the cooldowns =3
-TYPE_PROC_REF(/obj/machinery/porta_turret, clear_cooldowns)()
+/obj/machinery/porta_turret/proc/clear_cooldowns()
 	COOLDOWN_RESET(src, turret_laser_pointer_antispam)
 	COOLDOWN_RESET(src, turret_refire_delay)
 	COOLDOWN_RESET(src, turret_prefire_delay)
 	COOLDOWN_RESET(src, turret_scan_cooldown)
 
 /// Scans for targets. If we're in evasion mode, also beep
-TYPE_PROC_REF(/obj/machinery/porta_turret, scan_for_targets)()
+/obj/machinery/porta_turret/proc/scan_for_targets()
 	if(COOLDOWN_TIMELEFT(src, turret_scan_cooldown))
 		return
 	COOLDOWN_START(src, turret_scan_cooldown, scan_rate)
@@ -689,7 +689,7 @@ TYPE_PROC_REF(/obj/machinery/porta_turret, scan_for_targets)()
 				return TRUE
 
 /// Can we see the target?
-TYPE_PROC_REF(/obj/machinery/porta_turret, can_see_target)()
+/obj/machinery/porta_turret/proc/can_see_target()
 	if(!last_target)
 		return FALSE
 	var/atom/seeable_target = GET_WEAKREF(last_target)
@@ -701,7 +701,7 @@ TYPE_PROC_REF(/obj/machinery/porta_turret, can_see_target)()
 	return TRUE
 
 /// Enter alert mode!
-TYPE_PROC_REF(/obj/machinery/porta_turret, enter_alert_mode)()
+/obj/machinery/porta_turret/proc/enter_alert_mode()
 	clear_cooldowns()
 	COOLDOWN_START(src, turret_prefire_delay, prefire_delay)
 	awake = TRUE
@@ -718,12 +718,12 @@ TYPE_PROC_REF(/obj/machinery/porta_turret, enter_alert_mode)()
 		)
 
 /// caution mode is mostly handled elsewhere
-TYPE_PROC_REF(/obj/machinery/porta_turret, enter_caution_mode)()
+/obj/machinery/porta_turret/proc/enter_caution_mode()
 	caution_bursts_left = caution_burst_max
 	return
 
 /// Set up the beeps
-TYPE_PROC_REF(/obj/machinery/porta_turret, enter_evasion_mode)()
+/obj/machinery/porta_turret/proc/enter_evasion_mode()
 	clear_cooldowns()
 	scan_pings_left = scan_ping_max
 	caution_bursts_left = 0
@@ -732,7 +732,7 @@ TYPE_PROC_REF(/obj/machinery/porta_turret, enter_evasion_mode)()
 		playsound(get_turf(src), wakeup_sound, 100, FALSE, SOUND_DISTANCE(scan_range + 5), ignore_walls = TRUE)
 
 /// telll everyone we're going to sleep
-TYPE_PROC_REF(/obj/machinery/porta_turret, enter_sleep_mode)()
+/obj/machinery/porta_turret/proc/enter_sleep_mode()
 	clear_cooldowns()
 	clear_targets()
 	scan_pings_left = 0
@@ -743,13 +743,13 @@ TYPE_PROC_REF(/obj/machinery/porta_turret, enter_sleep_mode)()
 	visible_message(span_alert("[src] retracts its active sensors and goes into passive scanning mode!"))
 
 /// clears our targets
-TYPE_PROC_REF(/obj/machinery/porta_turret, clear_targets)()
+/obj/machinery/porta_turret/proc/clear_targets()
 	last_target = null
 	last_target_turf = null
 
 /// Points a laser at something
 /// Kinda ignores line of sight
-TYPE_PROC_REF(/obj/machinery/porta_turret, shine_laser_pointer)()
+/obj/machinery/porta_turret/proc/shine_laser_pointer()
 	if(!(turret_flags & TF_USE_LASER_POINTER))
 		return
 	if(COOLDOWN_TIMELEFT(src, turret_laser_pointer_antispam))
@@ -763,7 +763,7 @@ TYPE_PROC_REF(/obj/machinery/porta_turret, shine_laser_pointer)()
 	flick_overlay_view(I, where_to_shine, TURRET_LASER_COOLDOWN_TIME*2)
 	COOLDOWN_START(src, turret_laser_pointer_antispam, TURRET_LASER_COOLDOWN_TIME)
 
-TYPE_PROC_REF(/obj/machinery/porta_turret, popUp)()	//pops the turret up
+/obj/machinery/porta_turret/proc/popUp()	//pops the turret up
 	if(!anchored)
 		return
 	if(raising || raised)
@@ -781,7 +781,7 @@ TYPE_PROC_REF(/obj/machinery/porta_turret, popUp)()	//pops the turret up
 	raised = 1
 	layer = MOB_LAYER
 
-TYPE_PROC_REF(/obj/machinery/porta_turret, popDown)()	//pops the turret down
+/obj/machinery/porta_turret/proc/popDown()	//pops the turret down
 	if(raising || !raised)
 		return
 	if(stat & BROKEN)
@@ -799,7 +799,7 @@ TYPE_PROC_REF(/obj/machinery/porta_turret, popDown)()	//pops the turret down
 	update_icon()
 
 /// Unused (would pretty much always return true, cus everyone's armed)
-TYPE_PROC_REF(/obj/machinery/porta_turret, assess_perp)(mob/living/carbon/human/perp)
+/obj/machinery/porta_turret/proc/assess_perp(mob/living/carbon/human/perp)
 	var/threatcount = 0	//the integer returned
 
 	if(obj_flags & EMAGGED)
@@ -820,7 +820,7 @@ TYPE_PROC_REF(/obj/machinery/porta_turret, assess_perp)(mob/living/carbon/human/
 	return threatcount
 
 /// Checks if the target is in the turret's faction
-TYPE_PROC_REF(/obj/machinery/porta_turret, in_faction)(mob/target)
+/obj/machinery/porta_turret/proc/in_faction(mob/target)
 	for(var/faction1 in faction)
 		if(faction1 in target.faction)
 			return TRUE
@@ -828,7 +828,7 @@ TYPE_PROC_REF(/obj/machinery/porta_turret, in_faction)(mob/target)
 
 /// Records our target's weakref, and their turf's weakref
 /// Defaults to whatever's being targetttttttttttttttttted
-TYPE_PROC_REF(/obj/machinery/porta_turret, record_target_weakref)(atom/new_target, just_turf)
+/obj/machinery/porta_turret/proc/record_target_weakref(atom/new_target, just_turf)
 	if(!new_target)
 		new_target = GET_WEAKREF(last_target)
 	var/turf/target_turf = get_turf(new_target)
@@ -841,7 +841,7 @@ TYPE_PROC_REF(/obj/machinery/porta_turret, record_target_weakref)(atom/new_targe
 /// Read our stored weakref targets, pick if we're aiming at the mob or their last turf
 /// then pass that to start_shooting to start shooting at it
 /// If passed a target, it'll try to shoot at that target. Mainly used for direct control
-TYPE_PROC_REF(/obj/machinery/porta_turret, open_fire_on_target)(atom/forced_target)
+/obj/machinery/porta_turret/proc/open_fire_on_target(atom/forced_target)
 	if(istype(forced_target))
 		record_target_weakref(forced_target)
 	if((!last_target && !last_target_turf))
@@ -897,7 +897,7 @@ TYPE_PROC_REF(/obj/machinery/porta_turret, open_fire_on_target)(atom/forced_targ
 
 /// Fires one shot at the target -- but only if they're okay
 /// typically only fed a turf, so if nyou're gonna ncheck for nmobs, locate them on the turf
-TYPE_PROC_REF(/obj/machinery/porta_turret, shoot_at_target)(atom/movable/target, turf/our_turf)
+/obj/machinery/porta_turret/proc/shoot_at_target(atom/movable/target, turf/our_turf)
 	if(!target || !our_turf)
 		return FALSE
 	target = turf_has_valid_target(get_turf(target))
@@ -970,7 +970,7 @@ TYPE_PROC_REF(/obj/machinery/porta_turret, shoot_at_target)(atom/movable/target,
 /// oh yeah it returns the mob on the turf if it finds a shootable one
 /// and the turf if nobody's on the turf
 /// basically throw a corpse at the dot to make it think ur dead
-TYPE_PROC_REF(/obj/machinery/porta_turret, turf_has_valid_target)(turf/the_turf)
+/obj/machinery/porta_turret/proc/turf_has_valid_target(turf/the_turf)
 	var/turf_has_nobody_on_it = TRUE
 	for(var/mob/living/person in the_turf.contents)
 		turf_has_nobody_on_it = FALSE
@@ -983,7 +983,7 @@ TYPE_PROC_REF(/obj/machinery/porta_turret, turf_has_valid_target)(turf/the_turf)
 		return person
 	return turf_has_nobody_on_it ? the_turf : null
 
-TYPE_PROC_REF(/obj/machinery/porta_turret, setState)(on, mode)
+/obj/machinery/porta_turret/proc/setState(on, mode)
 	if(controllock)
 		return
 
@@ -1014,7 +1014,7 @@ TYPE_PROC_REF(/obj/machinery/porta_turret, setState)(on, mode)
 		return
 	P.remove_control(FALSE)
 
-TYPE_PROC_REF(/obj/machinery/porta_turret, give_control)(mob/A)
+/obj/machinery/porta_turret/proc/give_control(mob/A)
 	if(manual_control || !can_interact(A))
 		return FALSE
 	remote_controller = A
@@ -1031,7 +1031,7 @@ TYPE_PROC_REF(/obj/machinery/porta_turret, give_control)(mob/A)
 	popUp()
 	return TRUE
 
-TYPE_PROC_REF(/obj/machinery/porta_turret, remove_control)(warning_message = TRUE)
+/obj/machinery/porta_turret/proc/remove_control(warning_message = TRUE)
 	if(!manual_control)
 		return FALSE
 	if(remote_controller)
@@ -1046,7 +1046,7 @@ TYPE_PROC_REF(/obj/machinery/porta_turret, remove_control)(warning_message = TRU
 	remote_controller = null
 	return TRUE
 
-TYPE_PROC_REF(/obj/machinery/porta_turret, InterceptClickOn)(mob/living/caller, params, atom/A)
+/obj/machinery/porta_turret/proc/InterceptClickOn(mob/living/caller, params, atom/A)
 	if(!manual_control)
 		return FALSE
 	if(!can_interact(caller))
@@ -1365,25 +1365,25 @@ TYPE_PROC_REF(/obj/machinery/porta_turret, InterceptClickOn)(mob/living/caller, 
 			shoot_silicons(usr)
 			return TRUE */
 
-TYPE_PROC_REF(/obj/machinery/turretid, toggle_lethal)(mob/user)
+/obj/machinery/turretid/proc/toggle_lethal(mob/user)
 	lethal = !lethal
 	add_hiddenprint(user)
 	log_combat(user, src, "[lethal ? "enabled" : "disabled"] lethals on")
 	updateTurrets()
 
-TYPE_PROC_REF(/obj/machinery/turretid, toggle_on)(mob/user)
+/obj/machinery/turretid/proc/toggle_on(mob/user)
 	enabled = !enabled
 	add_hiddenprint(user)
 	log_combat(user, src, "[enabled ? "enabled" : "disabled"]")
 	updateTurrets()
 
-/* TYPE_PROC_REF(/obj/machinery/turretid, shoot_silicons)(mob/user)
+/* /obj/machinery/turretid/proc/shoot_silicons(mob/user)
 	shoot_cyborgs = !shoot_cyborgs
 	add_hiddenprint(user)
 	log_combat(user, src, "[shoot_cyborgs ? "Shooting Borgs" : "Not Shooting Borgs"]")
 	updateTurrets() */
 
-TYPE_PROC_REF(/obj/machinery/turretid, updateTurrets)()
+/obj/machinery/turretid/proc/updateTurrets()
 	for (var/obj/machinery/porta_turret/aTurret in turrets)
 		aTurret.setState(enabled, lethal)
 	update_icon()
@@ -1406,7 +1406,7 @@ TYPE_PROC_REF(/obj/machinery/turretid, updateTurrets)()
 	result_path = /obj/machinery/turretid
 	custom_materials = list(/datum/material/iron=MINERAL_MATERIAL_AMOUNT)
 
-TYPE_PROC_REF(/obj/item/gun, get_turret_properties)()
+/obj/item/gun/proc/get_turret_properties()
 	. = list()
 	.["lethal_projectile"] = null
 	.["lethal_projectile_sound"] = null
@@ -1896,11 +1896,11 @@ TYPE_PROC_REF(/obj/item/gun, get_turret_properties)()
 		. += "It accepts [span_notice(english_list(our_mag.caliber))]"
 	. += "It has [span_notice("[our_mag.ammo_count() + (!!chambered)]")] / [span_notice("[our_mag.max_ammo]")] round\s remaining."
 
-TYPE_PROC_REF(/obj/machinery/porta_turret/f13/nash, out_of_ammo_alert)()
+/obj/machinery/porta_turret/f13/nash/proc/out_of_ammo_alert()
 	playsound(get_turf(src), 'sound/machines/triple_beep.ogg', 100, FALSE, 0, ignore_walls = TRUE)
 	say("OUT OF: AMMO! NEED: [span_notice(english_list(our_mag.caliber))]!")
 
-TYPE_PROC_REF(/obj/machinery/porta_turret/f13/nash, eject_chambered_round)(keep_it)
+/obj/machinery/porta_turret/f13/nash/proc/eject_chambered_round(keep_it)
 	if(!istype(chambered))
 		return FALSE
 	if(keep_it && our_mag.give_round(chambered))
@@ -1910,7 +1910,7 @@ TYPE_PROC_REF(/obj/machinery/porta_turret/f13/nash, eject_chambered_round)(keep_
 	chambered = null
 	return TRUE
 
-TYPE_PROC_REF(/obj/machinery/porta_turret/f13/nash, chamber_new_round)(eject_current)
+/obj/machinery/porta_turret/f13/nash/proc/chamber_new_round(eject_current)
 	if(istype(chambered))
 		if(eject_current || !chambered.BB)
 			eject_chambered_round()
@@ -1941,7 +1941,7 @@ TYPE_PROC_REF(/obj/machinery/porta_turret/f13/nash, chamber_new_round)(eject_cur
 		return
 	. = ..()
 
-TYPE_PROC_REF(/obj/machinery/porta_turret/f13/nash, dump_bag_in_turret)(obj/item/storage/bag/casings/saq, mob/user)
+/obj/machinery/porta_turret/f13/nash/proc/dump_bag_in_turret(obj/item/storage/bag/casings/saq, mob/user)
 	if(!istype(saq))
 		return
 	if(!istype(user))
@@ -1971,7 +1971,7 @@ TYPE_PROC_REF(/obj/machinery/porta_turret/f13/nash, dump_bag_in_turret)(obj/item
 	else
 		to_chat(user, span_warning("You couldn't fit anything into [src]!"))
 
-TYPE_PROC_REF(/obj/machinery/porta_turret/f13/nash, undeploy_turret)(obj/item/m_tool, mob/user)
+/obj/machinery/porta_turret/f13/nash/proc/undeploy_turret(obj/item/m_tool, mob/user)
 	visible_message(span_notice("[user] starts packing up [src]!"),
 		span_notice("You starts packing up [src]!"))
 	if(!m_tool.use_tool(src, user, 3 SECONDS, 0, 100))
@@ -1986,7 +1986,7 @@ TYPE_PROC_REF(/obj/machinery/porta_turret/f13/nash, undeploy_turret)(obj/item/m_
 	our_mag = null
 	qdel(src)
 
-TYPE_PROC_REF(/obj/machinery/porta_turret/f13/nash, heal_turret)(obj/item/weldertool, mob/user)
+/obj/machinery/porta_turret/f13/nash/proc/heal_turret(obj/item/weldertool, mob/user)
 	if(stat & BROKEN)
 		user.show_message(span_alert("It's beyond repair!"))
 		return

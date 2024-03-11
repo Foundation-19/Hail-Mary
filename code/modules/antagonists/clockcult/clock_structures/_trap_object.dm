@@ -70,7 +70,7 @@
 		wired_to -= T
 	return TRUE
 
-TYPE_PROC_REF(/obj/structure/destructible/clockwork/trap, activate)()
+/obj/structure/destructible/clockwork/trap/proc/activate()
 	return
 
 //These objects send signals to normal traps to activate

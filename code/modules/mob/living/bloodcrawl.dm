@@ -21,7 +21,7 @@
 
 
 
-TYPE_PROC_REF(/mob/living, phaseout)(obj/effect/decal/cleanable/B)
+/mob/living/proc/phaseout(obj/effect/decal/cleanable/B)
 	if(iscarbon(src))
 		var/mob/living/carbon/C = src
 		for(var/obj/item/I in C.held_items)
@@ -43,7 +43,7 @@ TYPE_PROC_REF(/mob/living, phaseout)(obj/effect/decal/cleanable/B)
 		src.mob_transforming = FALSE
 	return 1
 
-TYPE_PROC_REF(/mob/living, bloodpool_sink)(obj/effect/decal/cleanable/B)
+/mob/living/proc/bloodpool_sink(obj/effect/decal/cleanable/B)
 	var/turf/mobloc = get_turf(src.loc)
 
 	src.visible_message(span_warning("[src] sinks into the pool of blood!"))
@@ -87,7 +87,7 @@ TYPE_PROC_REF(/mob/living, bloodpool_sink)(obj/effect/decal/cleanable/B)
 			to_chat(src, span_danger("You happily devour... nothing? Your meal vanished at some point!"))
 	return 1
 
-TYPE_PROC_REF(/mob/living, bloodcrawl_consume)(mob/living/victim)
+/mob/living/proc/bloodcrawl_consume(mob/living/victim)
 	to_chat(src, span_danger("You begin to feast on [victim]. You can not move while you are doing this."))
 
 	var/sound
@@ -131,7 +131,7 @@ TYPE_PROC_REF(/mob/living, bloodcrawl_consume)(mob/living/victim)
 	bloodcrawl_swallow(victim)
 	return TRUE
 
-TYPE_PROC_REF(/mob/living, bloodcrawl_swallow)(mob/living/victim)
+/mob/living/proc/bloodcrawl_swallow(mob/living/victim)
 	qdel(victim)
 
 /obj/item/bloodcrawl
@@ -144,7 +144,7 @@ TYPE_PROC_REF(/mob/living, bloodcrawl_swallow)(mob/living/victim)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
 
-TYPE_PROC_REF(/mob/living, exit_blood_effect)(obj/effect/decal/cleanable/B)
+/mob/living/proc/exit_blood_effect(obj/effect/decal/cleanable/B)
 	playsound(get_turf(src), 'sound/magic/exit_blood.ogg', 100, 1, -1)
 	//Makes the mob have the color of the blood pool it came out of
 	var/newcolor = BLOOD_COLOR_HUMAN
@@ -152,9 +152,9 @@ TYPE_PROC_REF(/mob/living, exit_blood_effect)(obj/effect/decal/cleanable/B)
 		newcolor = BLOOD_COLOR_XENO
 	add_atom_colour(newcolor, TEMPORARY_COLOUR_PRIORITY)
 	// but only for a few seconds
-	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, remove_atom_colour), TEMPORARY_COLOUR_PRIORITY, newcolor), 6 SECONDS)
+	addtimer(CALLBACK(src, /atom/.proc/remove_atom_colour, TEMPORARY_COLOUR_PRIORITY, newcolor), 6 SECONDS)
 
-TYPE_PROC_REF(/mob/living, phasein)(obj/effect/decal/cleanable/B)
+/mob/living/proc/phasein(obj/effect/decal/cleanable/B)
 	if(src.mob_transforming)
 		to_chat(src, span_warning("Finish eating first!"))
 		return 0

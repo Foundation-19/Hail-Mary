@@ -29,7 +29,7 @@
 	if(in_range(user, src) || isobserver(user))
 		. += "<span class='notice'>The status display reads: Outputting <b>[rating_amount]</b> item(s) at <b>[rating_speed*100]%</b> speed.</span>"
 
-TYPE_PROC_REF(/obj/machinery/processor, process_food)(datum/food_processor_process/recipe, atom/movable/what)
+/obj/machinery/processor/proc/process_food(datum/food_processor_process/recipe, atom/movable/what)
 	if (recipe.output && loc && !QDELETED(src))
 		var/obj/item/reagent_containers/food/food_input = what
 		for(var/i = 0, i < rating_amount, i++)
@@ -41,7 +41,7 @@ TYPE_PROC_REF(/obj/machinery/processor, process_food)(datum/food_processor_proce
 	else
 		qdel(what)
 
-TYPE_PROC_REF(/obj/machinery/processor, select_recipe)(X)
+/obj/machinery/processor/proc/select_recipe(X)
 	for (var/type in subtypesof(/datum/food_processor_process) - /datum/food_processor_process/mob)
 		var/datum/food_processor_process/recipe = new type()
 		if (!istype(X, recipe.input) || !istype(src, recipe.required_machine))
@@ -143,7 +143,7 @@ TYPE_PROC_REF(/obj/machinery/processor, select_recipe)(X)
 	empty()
 	add_fingerprint(usr)
 
-TYPE_PROC_REF(/obj/machinery/processor, empty)()
+/obj/machinery/processor/proc/empty()
 	for (var/obj/O in src)
 		O.forceMove(drop_location())
 	for (var/mob/M in src)

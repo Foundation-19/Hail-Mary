@@ -45,12 +45,12 @@
 	SSdisease.active_diseases.Remove(src)
 
 //add this disease if the host does not already have too many
-TYPE_PROC_REF(/datum/disease, try_infect)(mob/living/infectee, make_copy = TRUE)
+/datum/disease/proc/try_infect(mob/living/infectee, make_copy = TRUE)
 	infect(infectee, make_copy)
 	return TRUE
 
 //add the disease with no checks
-TYPE_PROC_REF(/datum/disease, infect)(mob/living/infectee, make_copy = TRUE)
+/datum/disease/proc/infect(mob/living/infectee, make_copy = TRUE)
 	var/datum/disease/D = make_copy ? Copy() : src
 	infectee.diseases += D
 	D.affected_mob = infectee
@@ -63,10 +63,10 @@ TYPE_PROC_REF(/datum/disease, infect)(mob/living/infectee, make_copy = TRUE)
 	log_virus("[key_name(infectee)] was infected by virus: [src.admin_details()] at [loc_name(source_turf)]")
 
 //Return a string for admin logging uses, should describe the disease in detail
-TYPE_PROC_REF(/datum/disease, admin_details)()
+/datum/disease/proc/admin_details()
 	return "[src.name] : [src.type]"
 
-TYPE_PROC_REF(/datum/disease, stage_act)()
+/datum/disease/proc/stage_act()
 	var/cure = has_cure()
 
 	if(carrier && !cure)
@@ -85,10 +85,10 @@ TYPE_PROC_REF(/datum/disease, stage_act)()
 		if(cure && prob(cure_chance))
 			cure()
 
-TYPE_PROC_REF(/datum/disease, update_stage)(new_stage)
+/datum/disease/proc/update_stage(new_stage)
 	stage = new_stage
 
-TYPE_PROC_REF(/datum/disease, has_cure)()
+/datum/disease/proc/has_cure()
 	if(!(disease_flags & CURABLE))
 		return FALSE
 
@@ -100,7 +100,7 @@ TYPE_PROC_REF(/datum/disease, has_cure)()
 		return FALSE
 
 //Airborne spreading
-TYPE_PROC_REF(/datum/disease, spread)(force_spread = 0)
+/datum/disease/proc/spread(force_spread = 0)
 	if(!affected_mob)
 		return
 
@@ -134,19 +134,19 @@ TYPE_PROC_REF(/datum/disease, spread)(force_spread = 0)
 		end = Temp
 
 
-TYPE_PROC_REF(/datum/disease, cure)(add_resistance = TRUE)
+/datum/disease/proc/cure(add_resistance = TRUE)
 	if(affected_mob)
 		if(add_resistance && (disease_flags & CAN_RESIST))
 			affected_mob.disease_resistances |= GetDiseaseID()
 	qdel(src)
 
-TYPE_PROC_REF(/datum/disease, IsSame)(datum/disease/D)
+/datum/disease/proc/IsSame(datum/disease/D)
 	if(istype(src, D.type))
 		return TRUE
 	return FALSE
 
 
-TYPE_PROC_REF(/datum/disease, Copy)()
+/datum/disease/proc/Copy()
 	//note that stage is not copied over - the copy starts over at stage 1
 	var/static/list/copy_vars = list("name", "visibility_flags", "disease_flags", "spread_flags", "form", "desc", "agent", "spread_text",
 									"cure_text", "max_stages", "stage_prob", "viable_mobtypes", "cures", "infectivity", "cure_chance",
@@ -162,14 +162,14 @@ TYPE_PROC_REF(/datum/disease, Copy)()
 		D.vars[V] = val
 	return D
 
-TYPE_PROC_REF(/datum/disease, after_add)()
+/datum/disease/proc/after_add()
 	return
 
 
-TYPE_PROC_REF(/datum/disease, GetDiseaseID)()
+/datum/disease/proc/GetDiseaseID()
 	return "[type]"
 
-TYPE_PROC_REF(/datum/disease, remove_disease)()
+/datum/disease/proc/remove_disease()
 	affected_mob.diseases -= src		//remove the datum from the list
 	affected_mob.med_hud_set_status()
 	affected_mob = null

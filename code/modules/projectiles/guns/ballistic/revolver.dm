@@ -46,7 +46,7 @@
 		to_chat(user, span_alert("[src] is empty!"))
 	update_icon()
 
-TYPE_PROC_REF(/obj/item/gun/ballistic/revolver, eject_shells)(mob/living/user, just_empties = TRUE)
+/obj/item/gun/ballistic/revolver/proc/eject_shells(mob/living/user, just_empties = TRUE)
 	if(!magazine)
 		return FALSE
 	var/num_unloaded = 0
@@ -90,7 +90,7 @@ TYPE_PROC_REF(/obj/item/gun/ballistic/revolver, eject_shells)(mob/living/user, j
 	else
 		verbs -= /obj/item/gun/ballistic/revolver/verb/spin
 
-TYPE_PROC_REF(/obj/item/gun/ballistic/revolver, do_spin)()
+/obj/item/gun/ballistic/revolver/proc/do_spin()
 	var/obj/item/ammo_box/magazine/internal/cylinder/C = magazine
 	. = istype(C)
 	if(.)
@@ -739,7 +739,7 @@ TYPE_PROC_REF(/obj/item/gun/ballistic/revolver, do_spin)()
 	playsound(src, "gun_dry_fire", 30, TRUE)
 	user.visible_message(span_danger("[user.name] tries to fire \the [src] at the same time, but only succeeds at looking like an idiot."), span_danger("\The [src]'s anti-combat mechanism prevents you from firing it at the same time!"))
 
-TYPE_PROC_REF(/obj/item/gun/ballistic/revolver/russian, shoot_self)(mob/living/carbon/human/user, affecting = BODY_ZONE_HEAD)
+/obj/item/gun/ballistic/revolver/russian/proc/shoot_self(mob/living/carbon/human/user, affecting = BODY_ZONE_HEAD)
 	user.apply_damage(300, BRUTE, affecting)
 	user.visible_message(span_danger("[user.name] fires [src] at [user.p_their()] head!"), span_userdanger("You fire [src] at your head!"), span_italic("You hear a gunshot!"))
 
@@ -851,7 +851,7 @@ TYPE_PROC_REF(/obj/item/gun/ballistic/revolver/russian, shoot_self)(mob/living/c
 					break
 	update_icon()
 
-TYPE_PROC_REF(/obj/item/gun/ballistic/revolver/mws, switch_to)(obj/item/ammo_casing/mws_batt/new_batt, mob/living/user)
+/obj/item/gun/ballistic/revolver/mws/proc/switch_to(obj/item/ammo_casing/mws_batt/new_batt, mob/living/user)
 	if(ishuman(user))
 		if(chambered && new_batt.type == chambered.type)
 			to_chat(user,span_warning("[src] is now using the next [new_batt.type_name] power cell."))

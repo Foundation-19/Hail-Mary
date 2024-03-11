@@ -131,11 +131,11 @@
 	add_fingerprint(usr)
 	return
 
-TYPE_PROC_REF(/obj/machinery/gibber, go_out)()
+/obj/machinery/gibber/proc/go_out()
 	dropContents()
 	update_icon()
 
-TYPE_PROC_REF(/obj/machinery/gibber, startgibbing)(mob/user)
+/obj/machinery/gibber/proc/startgibbing(mob/user)
 	if(src.operating)
 		return
 	if(!src.occupant)
@@ -199,7 +199,7 @@ TYPE_PROC_REF(/obj/machinery/gibber, startgibbing)(mob/user)
 	qdel(src.occupant)
 	addtimer(CALLBACK(src, PROC_REF(make_meat), skin, allmeat, meat_produced, gibtype, diseases), gibtime)
 
-TYPE_PROC_REF(/obj/machinery/gibber, make_meat)(obj/item/stack/sheet/animalhide/skin, list/obj/item/reagent_containers/food/snacks/meat/slab/allmeat, meat_produced, gibtype, list/datum/disease/diseases)
+/obj/machinery/gibber/proc/make_meat(obj/item/stack/sheet/animalhide/skin, list/obj/item/reagent_containers/food/snacks/meat/slab/allmeat, meat_produced, gibtype, list/datum/disease/diseases)
 	playsound(src.loc, 'sound/effects/splat.ogg', 50, 1)
 	operating = FALSE
 	var/turf/T = get_turf(src)

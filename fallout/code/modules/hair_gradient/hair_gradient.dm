@@ -43,7 +43,7 @@ randomize_human(mob/living/carbon/human/H)
 	..(H)
 */
 
-TYPE_PROC_REF(/mob/living/carbon/human, change_hair_gradient)(var/hair_gradient)
+/mob/living/carbon/human/proc/change_hair_gradient(var/hair_gradient)
 	if(dna.features["grad_style"] == hair_gradient)
 		return
 

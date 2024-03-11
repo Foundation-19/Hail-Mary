@@ -73,7 +73,7 @@
 	var/precision_x = 0
 	var/precision_y = 0
 
-TYPE_PROC_REF(/obj/item/toy/crayon, isValidSurface)(surface)
+/obj/item/toy/crayon/proc/isValidSurface(surface)
 	return istype(surface, /turf/open/floor)
 
 /obj/item/toy/crayon/suicide_act(mob/user)
@@ -97,7 +97,7 @@ TYPE_PROC_REF(/obj/item/toy/crayon, isValidSurface)(surface)
 	if(can_change_colour)
 		. += span_notice("Ctrl-click [src] while it's on your person to quickly recolour it.")
 
-TYPE_PROC_REF(/obj/item/toy/crayon, refill)()
+/obj/item/toy/crayon/proc/refill()
 	if(charges == -1)
 		charges_left = 100
 	else
@@ -117,7 +117,7 @@ TYPE_PROC_REF(/obj/item/toy/crayon, refill)()
 		var/amount = weight * units_per_weight
 		reagents.add_reagent(reagent, amount)
 
-TYPE_PROC_REF(/obj/item/toy/crayon, use_charges)(mob/user, amount = 1, requires_full = TRUE)
+/obj/item/toy/crayon/proc/use_charges(mob/user, amount = 1, requires_full = TRUE)
 	// Returns number of charges actually used
 	if(charges == -1)
 		. = amount
@@ -129,7 +129,7 @@ TYPE_PROC_REF(/obj/item/toy/crayon, use_charges)(mob/user, amount = 1, requires_
 			. = min(charges_left, amount)
 			charges_left -= .
 
-TYPE_PROC_REF(/obj/item/toy/crayon, check_empty)(mob/user, amount = 1, requires_full = TRUE)
+/obj/item/toy/crayon/proc/check_empty(mob/user, amount = 1, requires_full = TRUE)
 	// When eating a crayon, check_empty() can be called twice producing
 	// two messages unless we check for being deleted first
 	if(QDELETED(src))
@@ -172,7 +172,7 @@ TYPE_PROC_REF(/obj/item/toy/crayon, check_empty)(mob/user, amount = 1, requires_
 	else
 		return ..()
 
-TYPE_PROC_REF(/obj/item/toy/crayon, staticDrawables)()
+/obj/item/toy/crayon/proc/staticDrawables()
 
 	. = list()
 
@@ -277,14 +277,14 @@ TYPE_PROC_REF(/obj/item/toy/crayon, staticDrawables)()
 			. = TRUE
 	update_icon()
 
-TYPE_PROC_REF(/obj/item/toy/crayon, select_colour)(mob/user)
+/obj/item/toy/crayon/proc/select_colour(mob/user)
 	var/chosen_colour = input(user, "", "Choose Color", paint_color) as color|null
 	if (!isnull(chosen_colour) && user.canUseTopic(src, BE_CLOSE, ismonkey(user)))
 		paint_color = chosen_colour
 		return TRUE
 	return FALSE
 
-TYPE_PROC_REF(/obj/item/toy/crayon, crayon_text_strip)(text)
+/obj/item/toy/crayon/proc/crayon_text_strip(text)
 	var/static/regex/crayon_r = new /regex(@"[^\w!?,.=%#&+\/\-]")
 	return replacetext(lowertext(text), crayon_r, "")
 
@@ -294,7 +294,7 @@ TYPE_PROC_REF(/obj/item/toy/crayon, crayon_text_strip)(text)
 		return
 	draw_on(target, user, proximity, params)
 
-TYPE_PROC_REF(/obj/item/toy/crayon, draw_on)(atom/target, mob/user, proximity, params)
+/obj/item/toy/crayon/proc/draw_on(atom/target, mob/user, proximity, params)
 	var/static/list/punctuation = list("!","?",".",",","/","+","-","=","%","#","&")
 
 	var/cost = 1

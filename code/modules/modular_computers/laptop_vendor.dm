@@ -28,7 +28,7 @@
 	var/dev_card = 0						// 0: None, 1: Standard
 
 // Removes all traces of old order and allows you to begin configuration from scratch.
-TYPE_PROC_REF(/obj/machinery/lapvend, reset_order)()
+/obj/machinery/lapvend/proc/reset_order()
 	state = 0
 	devtype = 0
 	if(fabricated_laptop)
@@ -46,7 +46,7 @@ TYPE_PROC_REF(/obj/machinery/lapvend, reset_order)()
 	dev_card = 0
 
 // Recalculates the price and optionally even fabricates the device.
-TYPE_PROC_REF(/obj/machinery/lapvend, fabricate_and_recalc_price)(fabricate = FALSE)
+/obj/machinery/lapvend/proc/fabricate_and_recalc_price(fabricate = FALSE)
 	total_price = 0
 	if(devtype == 1) 		// Laptop, generally cheaper to make it accessible for most station roles
 		var/obj/item/computer_hardware/battery/battery_module = null
@@ -264,7 +264,7 @@ TYPE_PROC_REF(/obj/machinery/lapvend, fabricate_and_recalc_price)(fabricate = FA
 	return ..()
 
 // Simplified payment processing, returns 1 on success.
-TYPE_PROC_REF(/obj/machinery/lapvend, process_payment)()
+/obj/machinery/lapvend/proc/process_payment()
 	if(total_price > credits)
 		say("Insufficient credits.")
 		return FALSE
@@ -291,7 +291,7 @@ TYPE_PROC_REF(/obj/machinery/lapvend, process_payment)()
 	return data
 
 
-TYPE_PROC_REF(/obj/machinery/lapvend, try_purchase)()
+/obj/machinery/lapvend/proc/try_purchase()
 	// Awaiting payment state
 	if(state == 2)
 		if(process_payment())

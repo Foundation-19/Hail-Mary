@@ -9,7 +9,7 @@
 	var/datum/antagonist/cult/D = M?.mind?.has_antag_datum(/datum/antagonist/cult)
 	return D && (!require_full_power || !D.neutered) && (!holy_water_check || !D.ignore_holy_water)
 
-TYPE_PROC_REF(/datum/team/cult, is_sacrifice_target)(datum/mind/mind)
+/datum/team/cult/proc/is_sacrifice_target(datum/mind/mind)
 	for(var/datum/objective/sacrifice/sac_objective in objectives)
 		if(mind == sac_objective.target)
 			return TRUE
@@ -100,7 +100,7 @@ TYPE_PROC_REF(/datum/team/cult, is_sacrifice_target)(datum/mind/mind)
 				main_cult = C.cult_team
 	..()
 
-TYPE_PROC_REF(/datum/game_mode, add_cultist)(datum/mind/cult_mind, stun , equip = FALSE) //BASE
+/datum/game_mode/proc/add_cultist(datum/mind/cult_mind, stun , equip = FALSE) //BASE
 	if (!istype(cult_mind))
 		return FALSE
 
@@ -112,7 +112,7 @@ TYPE_PROC_REF(/datum/game_mode, add_cultist)(datum/mind/cult_mind, stun , equip 
 			cult_mind.current.Unconscious(100)
 		return TRUE
 
-TYPE_PROC_REF(/datum/game_mode, remove_cultist)(datum/mind/cult_mind, silent, stun)
+/datum/game_mode/proc/remove_cultist(datum/mind/cult_mind, silent, stun)
 	if(cult_mind.current)
 		var/datum/antagonist/cult/cult_datum = cult_mind.has_antag_datum(/datum/antagonist/cult)
 		if(!cult_datum)
@@ -123,17 +123,17 @@ TYPE_PROC_REF(/datum/game_mode, remove_cultist)(datum/mind/cult_mind, silent, st
 			cult_mind.current.Unconscious(100)
 		return TRUE
 
-TYPE_PROC_REF(/datum/game_mode, update_cult_icons_added)(datum/mind/cult_mind)
+/datum/game_mode/proc/update_cult_icons_added(datum/mind/cult_mind)
 	var/datum/atom_hud/antag/culthud = GLOB.huds[ANTAG_HUD_CULT]
 	culthud.join_hud(cult_mind.current)
 	set_antag_hud(cult_mind.current, "cult")
 
-TYPE_PROC_REF(/datum/game_mode, update_cult_icons_removed)(datum/mind/cult_mind)
+/datum/game_mode/proc/update_cult_icons_removed(datum/mind/cult_mind)
 	var/datum/atom_hud/antag/culthud = GLOB.huds[ANTAG_HUD_CULT]
 	culthud.leave_hud(cult_mind.current)
 	set_antag_hud(cult_mind.current, null)
 
-TYPE_PROC_REF(/datum/game_mode/cult, check_cult_victory)()
+/datum/game_mode/cult/proc/check_cult_victory()
 	return main_cult.check_cult_victory()
 
 
@@ -146,7 +146,7 @@ TYPE_PROC_REF(/datum/game_mode/cult, check_cult_victory)()
 		SSticker.mode_result = "loss - staff stopped the cult"
 		SSticker.news_report = CULT_FAILURE
 
-TYPE_PROC_REF(/datum/game_mode/cult, check_survive)()
+/datum/game_mode/cult/proc/check_survive()
 	var/acolytes_survived = 0
 	for(var/datum/mind/cult_mind in cult)
 		if (cult_mind.current && cult_mind.current.stat != DEAD)

@@ -1,4 +1,4 @@
-TYPE_PROC_REF(/mob/living/carbon, dream)()
+/mob/living/carbon/proc/dream()
 	set waitfor = FALSE
 	var/list/dream_fragments = list()
 	var/list/custom_dream_nouns = list()
@@ -52,7 +52,7 @@ TYPE_PROC_REF(/mob/living/carbon, dream)()
 	dreaming = TRUE
 	dream_sequence(dream_fragments)
 
-TYPE_PROC_REF(/mob/living/carbon, dream_sequence)(list/dream_fragments)
+/mob/living/carbon/proc/dream_sequence(list/dream_fragments)
 	if(stat != UNCONSCIOUS || InCritical())
 		dreaming = FALSE
 		return

@@ -3,7 +3,7 @@
 /atom
 	var/pseudo_z_axis
 
-TYPE_PROC_REF(/atom, get_fake_z)()
+/atom/proc/get_fake_z()
 	return pseudo_z_axis
 
 /obj/structure/table

@@ -34,7 +34,7 @@
 		deactivate()
 	return ..()
 
-TYPE_PROC_REF(/obj/item/hot_potato, colorize)(mob/target)
+/obj/item/hot_potato/proc/colorize(mob/target)
 	//Clear color from old target
 	if(current)
 		var/mob/M = current.resolve()
@@ -48,7 +48,7 @@ TYPE_PROC_REF(/obj/item/hot_potato, colorize)(mob/target)
 		current = WEAKREF(target)
 		target.add_atom_colour(color_val? "#ffff00" : "#00ffff", FIXED_COLOUR_PRIORITY)
 
-TYPE_PROC_REF(/obj/item/hot_potato, detonate)()
+/obj/item/hot_potato/proc/detonate()
 	var/atom/location = loc
 	location.visible_message(span_userdanger("[src] [detonate_explosion? "explodes" : "activates"]!"), span_userdanger("[src] activates! You've ran out of time!"))
 	if(detonate_explosion)
@@ -95,7 +95,7 @@ TYPE_PROC_REF(/obj/item/hot_potato, detonate)()
 		return
 	force_onto(target, user)
 
-TYPE_PROC_REF(/obj/item/hot_potato, force_onto)(mob/living/victim, mob/user)
+/obj/item/hot_potato/proc/force_onto(mob/living/victim, mob/user)
 	if(!istype(victim) || user != loc || victim == user)
 		return FALSE
 	if(!victim.client)
@@ -128,7 +128,7 @@ TYPE_PROC_REF(/obj/item/hot_potato, force_onto)(mob/living/victim, mob/user)
 	. = ..()
 	colorize(null)
 
-TYPE_PROC_REF(/obj/item/hot_potato, activate)(delay, mob/user)
+/obj/item/hot_potato/proc/activate(delay, mob/user)
 	if(active)
 		return
 	update_icon()
@@ -143,7 +143,7 @@ TYPE_PROC_REF(/obj/item/hot_potato, activate)(delay, mob/user)
 	log_game("[user ? "[key_name(user)] has primed [src]" : "A [src] has been primed"] ([detonate_dev_range]/[detonate_heavy_range]/[detonate_light_range]/[detonate_fire_range]) for detonation at [AREACOORD(T)]")
 	active = TRUE
 
-TYPE_PROC_REF(/obj/item/hot_potato, deactivate)()
+/obj/item/hot_potato/proc/deactivate()
 	update_icon()
 	name = initial(name)
 	REMOVE_TRAIT(src, TRAIT_NODROP, HOT_POTATO_TRAIT)

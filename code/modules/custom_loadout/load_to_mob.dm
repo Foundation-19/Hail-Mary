@@ -7,7 +7,7 @@
 #define DROP_TO_FLOOR 0
 #define LOADING_TO_HUMAN 1
 
-TYPE_PROC_REF(//, handle_roundstart_items)(mob/living/M, ckey_override, job_override, special_override)
+///proc/handle_roundstart_items(mob/living/M, ckey_override, job_override, special_override)
 //	if(!istype(M) || (!M.ckey && !ckey_override) || (!M.mind && (!job_override || !special_override)))
 //		to_chat(M, span_notice("DEBUG: handle_roundstart_items returned false. ckey: [M.ckey]"))
 //		return FALSE

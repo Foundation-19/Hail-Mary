@@ -164,13 +164,13 @@
 	if(id_tag)
 		id_tag = "[idnum][id_tag]"
 
-TYPE_PROC_REF(/obj/machinery/door/airlock, update_other_id)()
+/obj/machinery/door/airlock/proc/update_other_id()
 	for(var/obj/machinery/door/airlock/A in GLOB.airlocks)
 		if(A.closeOtherId == closeOtherId && A != src)
 			closeOther = A
 			break
 
-TYPE_PROC_REF(/obj/machinery/door/airlock, cyclelinkairlock)()
+/obj/machinery/door/airlock/proc/cyclelinkairlock()
 	if (cyclelinkedairlock)
 		cyclelinkedairlock.cyclelinkedairlock = null
 		cyclelinkedairlock = null
@@ -251,7 +251,7 @@ TYPE_PROC_REF(/obj/machinery/door/airlock, cyclelinkairlock)()
 /obj/machinery/door/airlock/lock()
 	bolt()
 
-TYPE_PROC_REF(/obj/machinery/door/airlock, bolt)()
+/obj/machinery/door/airlock/proc/bolt()
 	if(locked)
 		return
 	locked = TRUE
@@ -262,7 +262,7 @@ TYPE_PROC_REF(/obj/machinery/door/airlock, bolt)()
 /obj/machinery/door/airlock/unlock()
 	unbolt()
 
-TYPE_PROC_REF(/obj/machinery/door/airlock, unbolt)()
+/obj/machinery/door/airlock/proc/unbolt()
 	if(!locked)
 		return
 	locked = FALSE
@@ -347,15 +347,15 @@ TYPE_PROC_REF(/obj/machinery/door/airlock, unbolt)()
 				addtimer(CALLBACK(cyclelinkedairlock, PROC_REF(close)), 2)
 	..()
 
-TYPE_PROC_REF(/obj/machinery/door/airlock, isElectrified)()
+/obj/machinery/door/airlock/proc/isElectrified()
 	if(src.secondsElectrified != NOT_ELECTRIFIED)
 		return TRUE
 	return FALSE
 
-TYPE_PROC_REF(/obj/machinery/door/airlock, canAIControl)(mob/user)
+/obj/machinery/door/airlock/proc/canAIControl(mob/user)
 	return ((aiControlDisabled != 1) && !isAllPowerCut())
 
-TYPE_PROC_REF(/obj/machinery/door/airlock, canAIHack)()
+/obj/machinery/door/airlock/proc/canAIHack()
 	return ((aiControlDisabled==1) && (!hackProof) && (!isAllPowerCut()));
 
 /obj/machinery/door/airlock/hasPower()
@@ -364,16 +364,16 @@ TYPE_PROC_REF(/obj/machinery/door/airlock, canAIHack)()
 /obj/machinery/door/airlock/requiresID()
 	return !(wires.is_cut(WIRE_IDSCAN) || aiDisabledIdScanner)
 
-TYPE_PROC_REF(/obj/machinery/door/airlock, isAllPowerCut)()
+/obj/machinery/door/airlock/proc/isAllPowerCut()
 	if((wires.is_cut(WIRE_POWER1) || wires.is_cut(WIRE_POWER2)) && (wires.is_cut(WIRE_BACKUP1) || wires.is_cut(WIRE_BACKUP2)))
 		return TRUE
 
-TYPE_PROC_REF(/obj/machinery/door/airlock, regainMainPower)()
+/obj/machinery/door/airlock/proc/regainMainPower()
 	if(src.secondsMainPowerLost > 0)
 		src.secondsMainPowerLost = 0
 	update_icon()
 
-TYPE_PROC_REF(/obj/machinery/door/airlock, handlePowerRestore)()
+/obj/machinery/door/airlock/proc/handlePowerRestore()
 	var/cont = TRUE
 	while (cont)
 		sleep(10)
@@ -394,7 +394,7 @@ TYPE_PROC_REF(/obj/machinery/door/airlock, handlePowerRestore)()
 	updateDialog()
 	update_icon()
 
-TYPE_PROC_REF(/obj/machinery/door/airlock, loseMainPower)()
+/obj/machinery/door/airlock/proc/loseMainPower()
 	if(secondsMainPowerLost <= 0)
 		secondsMainPowerLost = 60
 		if(secondsBackupPowerLost < 10)
@@ -404,7 +404,7 @@ TYPE_PROC_REF(/obj/machinery/door/airlock, loseMainPower)()
 	INVOKE_ASYNC(src, PROC_REF(handlePowerRestore))
 	update_icon()
 
-TYPE_PROC_REF(/obj/machinery/door/airlock, loseBackupPower)()
+/obj/machinery/door/airlock/proc/loseBackupPower()
 	if(src.secondsBackupPowerLost < 60)
 		src.secondsBackupPowerLost = 60
 	if(!spawnPowerRestoreRunning)
@@ -412,7 +412,7 @@ TYPE_PROC_REF(/obj/machinery/door/airlock, loseBackupPower)()
 	INVOKE_ASYNC(src, PROC_REF(handlePowerRestore))
 	update_icon()
 
-TYPE_PROC_REF(/obj/machinery/door/airlock, regainBackupPower)()
+/obj/machinery/door/airlock/proc/regainBackupPower()
 	if(src.secondsBackupPowerLost > 0)
 		src.secondsBackupPowerLost = 0
 	update_icon()
@@ -420,7 +420,7 @@ TYPE_PROC_REF(/obj/machinery/door/airlock, regainBackupPower)()
 // shock user with probability prb (if all connections & power are working)
 // returns TRUE if shocked, FALSE otherwise
 // The preceding comment was borrowed from the grille's shock script
-TYPE_PROC_REF(/obj/machinery/door/airlock, shock)(mob/living/user, prb)
+/obj/machinery/door/airlock/proc/shock(mob/living/user, prb)
 	if(!istype(user) || !hasPower())		// unpowered, no shock
 		return FALSE
 	if(shockCooldown > world.time)
@@ -451,7 +451,7 @@ TYPE_PROC_REF(/obj/machinery/door/airlock, shock)(mob/living/user, prb)
 			icon_state = "nonexistenticonstate" //MADNESS
 	set_airlock_overlays(state)
 
-TYPE_PROC_REF(/obj/machinery/door/airlock, set_airlock_overlays)(state)
+/obj/machinery/door/airlock/proc/set_airlock_overlays(state)
 	var/mutable_appearance/frame_overlay
 	var/mutable_appearance/filling_overlay
 	var/mutable_appearance/lights_overlay
@@ -606,7 +606,7 @@ TYPE_PROC_REF(/obj/machinery/door/airlock, set_airlock_overlays)(state)
 	if((!(. = airlock_overlays[iconkey])))
 		. = airlock_overlays[iconkey] = mutable_appearance(icon_file, icon_state, targetlayer, targetplane)
 
-TYPE_PROC_REF(/obj/machinery/door/airlock, check_unres)() //unrestricted sides. This overlay indicates which directions the player can access even without an ID
+/obj/machinery/door/airlock/proc/check_unres() //unrestricted sides. This overlay indicates which directions the player can access even without an ID
 	if(hasPower() && unres_sides)
 		if(unres_sides & NORTH)
 			var/image/I = image(icon='icons/obj/doors/airlocks/station/overlays.dmi', icon_state="unres_n") //layer=src.layer+1
@@ -711,7 +711,7 @@ TYPE_PROC_REF(/obj/machinery/door/airlock, check_unres)() //unrestricted sides. 
 
 	ui_interact(user)
 
-TYPE_PROC_REF(/obj/machinery/door/airlock, hack)(mob/user)
+/obj/machinery/door/airlock/proc/hack(mob/user)
 	set waitfor = 0
 	if(!aiHacking)
 		aiHacking = TRUE
@@ -792,7 +792,7 @@ TYPE_PROC_REF(/obj/machinery/door/airlock, hack)(mob/user)
 		return WIRE_INTERACTION_FAIL
 	return ..()
 
-TYPE_PROC_REF(/obj/machinery/door/airlock, electrified_loop)()
+/obj/machinery/door/airlock/proc/electrified_loop()
 	while (secondsElectrified > NOT_ELECTRIFIED)
 		sleep(10)
 		if(QDELETED(src))
@@ -1034,7 +1034,7 @@ TYPE_PROC_REF(/obj/machinery/door/airlock, electrified_loop)()
 			else
 				to_chat(user, span_notice("The airlock doesn't need repairing."))
 
-TYPE_PROC_REF(/obj/machinery/door/airlock, weld_checks)(obj/item/weldingtool/W, mob/user)
+/obj/machinery/door/airlock/proc/weld_checks(obj/item/weldingtool/W, mob/user)
 	return !operating && density
 
 /obj/machinery/door/airlock/try_to_crowbar(obj/item/I, mob/living/user)
@@ -1204,7 +1204,7 @@ TYPE_PROC_REF(/obj/machinery/door/airlock, weld_checks)(obj/item/weldingtool/W, 
 		CheckForMobs()
 	return TRUE
 
-TYPE_PROC_REF(/obj/machinery/door/airlock, prison_open)()
+/obj/machinery/door/airlock/proc/prison_open()
 	if(obj_flags & EMAGGED)
 		return
 	locked = FALSE
@@ -1213,7 +1213,7 @@ TYPE_PROC_REF(/obj/machinery/door/airlock, prison_open)()
 	return
 
 
-TYPE_PROC_REF(/obj/machinery/door/airlock, change_paintjob)(obj/item/airlock_painter/W, mob/user)
+/obj/machinery/door/airlock/proc/change_paintjob(obj/item/airlock_painter/W, mob/user)
 	if(!W.can_use(user))
 		return
 
@@ -1302,7 +1302,7 @@ TYPE_PROC_REF(/obj/machinery/door/airlock, change_paintjob)(obj/item/airlock_pai
 	addtimer(CALLBACK(src, PROC_REF(open_sesame)), 6)
 	return TRUE
 
-TYPE_PROC_REF(/obj/machinery/door/airlock, open_sesame)()
+/obj/machinery/door/airlock/proc/open_sesame()
 	operating = FALSE
 	if(!open())
 		update_icon(AIRLOCK_CLOSED, 1)
@@ -1364,7 +1364,7 @@ TYPE_PROC_REF(/obj/machinery/door/airlock, open_sesame)()
 		wires.cut_all()
 		update_icon()
 
-TYPE_PROC_REF(/obj/machinery/door/airlock, set_electrified)(seconds, mob/user)
+/obj/machinery/door/airlock/proc/set_electrified(seconds, mob/user)
 	secondsElectrified = seconds
 	diag_hud_set_electrified()
 	if(secondsElectrified > NOT_ELECTRIFIED)
@@ -1448,7 +1448,7 @@ TYPE_PROC_REF(/obj/machinery/door/airlock, set_electrified)(seconds, mob/user)
 			return TRUE
 	return FALSE
 
-TYPE_PROC_REF(/obj/machinery/door/airlock, note_type)() //Returns a string representing the type of note pinned to this airlock
+/obj/machinery/door/airlock/proc/note_type() //Returns a string representing the type of note pinned to this airlock
 	if(!note)
 		return
 	else if(istype(note, /obj/item/paper))
@@ -1561,10 +1561,10 @@ TYPE_PROC_REF(/obj/machinery/door/airlock, note_type)() //Returns a string repre
 			user_toggle_open(usr)
 			. = TRUE
 
-TYPE_PROC_REF(/obj/machinery/door/airlock, user_allowed)(mob/user)
+/obj/machinery/door/airlock/proc/user_allowed(mob/user)
 	return (hasSiliconAccessInArea(user) && canAIControl(user)) || IsAdminGhost(user)
 
-TYPE_PROC_REF(/obj/machinery/door/airlock, shock_restore)(mob/user)
+/obj/machinery/door/airlock/proc/shock_restore(mob/user)
 	if(!user_allowed(user))
 		return
 	if(wires.is_cut(WIRE_SHOCK))
@@ -1572,7 +1572,7 @@ TYPE_PROC_REF(/obj/machinery/door/airlock, shock_restore)(mob/user)
 	else if(isElectrified())
 		set_electrified(0)
 
-TYPE_PROC_REF(/obj/machinery/door/airlock, shock_temp)(mob/user)
+/obj/machinery/door/airlock/proc/shock_temp(mob/user)
 	if(!user_allowed(user))
 		return
 	if(wires.is_cut(WIRE_SHOCK))
@@ -1582,7 +1582,7 @@ TYPE_PROC_REF(/obj/machinery/door/airlock, shock_temp)(mob/user)
 		log_combat(user, src, "electrified")
 		set_electrified(AI_ELECTRIFY_DOOR_TIME)
 
-TYPE_PROC_REF(/obj/machinery/door/airlock, shock_perm)(mob/user)
+/obj/machinery/door/airlock/proc/shock_perm(mob/user)
 	if(!user_allowed(user))
 		return
 	if(wires.is_cut(WIRE_SHOCK))
@@ -1592,7 +1592,7 @@ TYPE_PROC_REF(/obj/machinery/door/airlock, shock_perm)(mob/user)
 		log_combat(user, src, "electrified")
 		set_electrified(ELECTRIFIED_PERMANENT)
 
-TYPE_PROC_REF(/obj/machinery/door/airlock, toggle_bolt)(mob/user)
+/obj/machinery/door/airlock/proc/toggle_bolt(mob/user)
 	if(!user_allowed(user))
 		return
 	if(wires.is_cut(WIRE_BOLTS))
@@ -1606,13 +1606,13 @@ TYPE_PROC_REF(/obj/machinery/door/airlock, toggle_bolt)(mob/user)
 	else
 		bolt()
 
-TYPE_PROC_REF(/obj/machinery/door/airlock, toggle_emergency)(mob/user)
+/obj/machinery/door/airlock/proc/toggle_emergency(mob/user)
 	if(!user_allowed(user))
 		return
 	emergency = !emergency
 	update_icon()
 
-TYPE_PROC_REF(/obj/machinery/door/airlock, user_toggle_open)(mob/user)
+/obj/machinery/door/airlock/proc/user_toggle_open(mob/user)
 	if(!user_allowed(user))
 		return
 	if(welded)

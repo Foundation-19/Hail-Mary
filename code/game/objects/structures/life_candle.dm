@@ -66,7 +66,7 @@
 		if(!mind.current || (mind.current && mind.current.stat == DEAD))
 			addtimer(CALLBACK(src, PROC_REF(respawn), mind), respawn_time, TIMER_UNIQUE)
 
-TYPE_PROC_REF(/obj/structure/life_candle, respawn)(datum/mind/mind)
+/obj/structure/life_candle/proc/respawn(datum/mind/mind)
 	var/turf/T = get_turf(src)
 	var/mob/living/body
 	if(mind.current)

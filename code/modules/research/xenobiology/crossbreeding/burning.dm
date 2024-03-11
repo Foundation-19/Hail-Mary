@@ -23,7 +23,7 @@ Burning extracts:
 	playsound(src, 'sound/magic/fireball.ogg', 50, 1)
 	do_effect(user)
 
-TYPE_PROC_REF(/obj/item/slimecross/burning, do_effect)(mob/user) //If, for whatever reason, you don't want to delete the extract, don't do ..()
+/obj/item/slimecross/burning/proc/do_effect(mob/user) //If, for whatever reason, you don't want to delete the extract, don't do ..()
 	qdel(src)
 	return
 
@@ -244,7 +244,7 @@ TYPE_PROC_REF(/obj/item/slimecross/burning, do_effect)(mob/user) //If, for whate
 	user.visible_message(span_danger("[src] begins to shake with rapidly increasing force!"))
 	addtimer(CALLBACK(src, PROC_REF(boom)), 50)
 
-TYPE_PROC_REF(/obj/item/slimecross/burning/oil, boom)()
+/obj/item/slimecross/burning/oil/proc/boom()
 	explosion(get_turf(src), 2, 4, 4) //Same area as normal oils, but increased high-impact values by one each, then decreased light by 2.
 	qdel(src)
 
@@ -313,7 +313,7 @@ TYPE_PROC_REF(/obj/item/slimecross/burning/oil, boom)()
 	burn_dam = part.burn_dam
 	stamina_dam = part.stamina_dam
 
-TYPE_PROC_REF(/mob/living/carbon, apply_saved_bodyparts)(list/datum/saved_bodypart/parts)
+/mob/living/carbon/proc/apply_saved_bodyparts(list/datum/saved_bodypart/parts)
 	var/list/dont_chop = list()
 	for(var/zone in parts)
 		var/datum/saved_bodypart/saved_part = parts[zone]
@@ -331,7 +331,7 @@ TYPE_PROC_REF(/mob/living/carbon, apply_saved_bodyparts)(list/datum/saved_bodypa
 			continue
 		part.drop_limb(TRUE)
 
-TYPE_PROC_REF(/mob/living/carbon, save_bodyparts)()
+/mob/living/carbon/proc/save_bodyparts()
 	var/list/datum/saved_bodypart/ret = list()
 	for(var/_part in bodyparts)
 		var/obj/item/bodypart/part = _part

@@ -1,4 +1,4 @@
-TYPE_PROC_REF(/obj/item/clothing/shoes, step_action)() //this was made to rewrite clown shoes squeaking
+/obj/item/clothing/shoes/proc/step_action() //this was made to rewrite clown shoes squeaking
 	SEND_SIGNAL(src, COMSIG_SHOES_STEP_ACTION)
 
 /obj/item/clothing/shoes/sneakers/mime
@@ -319,7 +319,7 @@ TYPE_PROC_REF(/obj/item/clothing/shoes, step_action)() //this was made to rewrit
 	set_light_on(TRUE)
 	addtimer(CALLBACK(src, PROC_REF(lightUp)), 5)
 
-TYPE_PROC_REF(/obj/item/clothing/shoes/kindleKicks, lightUp)(mob/user)
+/obj/item/clothing/shoes/kindleKicks/proc/lightUp(mob/user)
 	if(lightCycle < 15)
 		set_light_color(rgb(rand(0,255),rand(0,255),rand(0,255)))
 		set_light_on(TRUE)
@@ -432,7 +432,7 @@ TYPE_PROC_REF(/obj/item/clothing/shoes/kindleKicks, lightUp)(mob/user)
 	. = ..()
 	. += span_warning("It has [wallcharges] charges left.")
 
-TYPE_PROC_REF(/obj/item/clothing/shoes/wallwalkers, intercept_user_move)(mob/living/m, client/client, dir, newloc, oldloc)
+/obj/item/clothing/shoes/wallwalkers/proc/intercept_user_move(mob/living/m, client/client, dir, newloc, oldloc)
 	if (walkcool >= world.time || m.m_intent != MOVE_INTENT_WALK || wallcharges <= 0)
 		return
 	walkcool = world.time + m.movement_delay()

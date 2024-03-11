@@ -106,7 +106,7 @@
 	toggle_cabinet(user)
 	return TRUE
 
-TYPE_PROC_REF(/obj/structure/extinguisher_cabinet, toggle_cabinet)(mob/user)
+/obj/structure/extinguisher_cabinet/proc/toggle_cabinet(mob/user)
 	if(opened && broken)
 		to_chat(user, span_warning("[src] is broken open."))
 	else

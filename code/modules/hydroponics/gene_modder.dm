@@ -361,7 +361,7 @@
 
 	interact(usr)
 
-TYPE_PROC_REF(/obj/machinery/plantgenes, insert_seed)(obj/item/seeds/S)
+/obj/machinery/plantgenes/proc/insert_seed(obj/item/seeds/S)
 	if(!istype(S) || seed)
 		return
 	S.forceMove(src)
@@ -369,7 +369,7 @@ TYPE_PROC_REF(/obj/machinery/plantgenes, insert_seed)(obj/item/seeds/S)
 	update_genes()
 	update_icon()
 
-TYPE_PROC_REF(/obj/machinery/plantgenes, eject_disk)()
+/obj/machinery/plantgenes/proc/eject_disk()
 	if (disk && !operation)
 		if(Adjacent(usr) && !issilicon(usr))
 			if (!usr.put_in_hands(disk))
@@ -379,7 +379,7 @@ TYPE_PROC_REF(/obj/machinery/plantgenes, eject_disk)()
 		disk = null
 		update_genes()
 
-TYPE_PROC_REF(/obj/machinery/plantgenes, update_genes)()
+/obj/machinery/plantgenes/proc/update_genes()
 	core_genes = list()
 	reagent_genes = list()
 	trait_genes = list()
@@ -403,7 +403,7 @@ TYPE_PROC_REF(/obj/machinery/plantgenes, update_genes)()
 		for(var/datum/plant_gene/trait/G in seed.genes)
 			trait_genes += G
 
-TYPE_PROC_REF(/obj/machinery/plantgenes, repaint_seed)()
+/obj/machinery/plantgenes/proc/repaint_seed()
 	if(!seed)
 		return
 	if(copytext(seed.name, 1, 13) == "experimental")//13 == length("experimental") + 1
@@ -433,7 +433,7 @@ TYPE_PROC_REF(/obj/machinery/plantgenes, repaint_seed)()
 	src.pixel_x = rand(-5, 5)
 	src.pixel_y = rand(-5, 5)
 
-TYPE_PROC_REF(/obj/item/disk/plantgene, update_name)()
+/obj/item/disk/plantgene/proc/update_name()
 	if(gene)
 		name = "[gene.get_name()] (plant data disk)"
 	else

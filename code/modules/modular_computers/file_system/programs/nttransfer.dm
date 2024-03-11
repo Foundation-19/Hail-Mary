@@ -53,7 +53,7 @@
 		downloaded_file = null
 	..(forced)
 
-TYPE_PROC_REF(/datum/computer_file/program/nttransfer, update_netspeed)()
+/datum/computer_file/program/nttransfer/proc/update_netspeed()
 	download_netspeed = 0
 	switch(ntnet_status)
 		if(1)
@@ -64,19 +64,19 @@ TYPE_PROC_REF(/datum/computer_file/program/nttransfer, update_netspeed)()
 			download_netspeed = NTNETSPEED_ETHERNET
 
 // Finishes download and attempts to store the file on HDD
-TYPE_PROC_REF(/datum/computer_file/program/nttransfer, finish_download)()
+/datum/computer_file/program/nttransfer/proc/finish_download()
 	var/obj/item/computer_hardware/hard_drive/hard_drive = computer.all_components[MC_HDD]
 	if(!computer || !hard_drive || !hard_drive.store_file(downloaded_file))
 		error = "I/O Error:  Unable to save file. Check your hard drive and try again."
 	finalize_download()
 
 //  Crashes the download and displays specific error message
-TYPE_PROC_REF(/datum/computer_file/program/nttransfer, crash_download)(message)
+/datum/computer_file/program/nttransfer/proc/crash_download(message)
 	error = message ? message : "An unknown error has occurred during download"
 	finalize_download()
 
 // Cleans up variables for next use
-TYPE_PROC_REF(/datum/computer_file/program/nttransfer, finalize_download)()
+/datum/computer_file/program/nttransfer/proc/finalize_download()
 	if(remote)
 		remote.connected_clients.Remove(src)
 	downloaded_file = null

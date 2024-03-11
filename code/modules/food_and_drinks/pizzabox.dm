@@ -234,7 +234,7 @@
 	if(boxes.len >= 2 && prob(20 * boxes.len))
 		disperse_pizzas()
 
-TYPE_PROC_REF(/obj/item/pizzabox, disperse_pizzas)()
+/obj/item/pizzabox/proc/disperse_pizzas()
 	visible_message(span_warning("The pizzas fall everywhere!"))
 	for(var/V in boxes)
 		var/obj/item/pizzabox/P = V
@@ -253,7 +253,7 @@ TYPE_PROC_REF(/obj/item/pizzabox, disperse_pizzas)()
 		var/mob/living/L = loc
 		L.regenerate_icons()
 
-TYPE_PROC_REF(/obj/item/pizzabox, unprocess)()
+/obj/item/pizzabox/proc/unprocess()
 	STOP_PROCESSING(SSobj, src)
 	qdel(wires)
 	wires = null
@@ -271,7 +271,7 @@ TYPE_PROC_REF(/obj/item/pizzabox, unprocess)()
 	AddPizza()
 	boxtag = "Margherita Deluxe"
 
-TYPE_PROC_REF(/obj/item/pizzabox/margherita, AddPizza)()
+/obj/item/pizzabox/margherita/proc/AddPizza()
 	pizza = new /obj/item/reagent_containers/food/snacks/pizza/margherita(src)
 
 /obj/item/pizzabox/margherita/robo/AddPizza()
@@ -328,7 +328,7 @@ TYPE_PROC_REF(/obj/item/pizzabox/margherita, AddPizza)()
 		attune_pizza(user)
 	. = ..()
 
-TYPE_PROC_REF(/obj/item/pizzabox/infinite, attune_pizza)(mob/living/carbon/human/noms) //tonight on "proc names I never thought I'd type"
+/obj/item/pizzabox/infinite/proc/attune_pizza(mob/living/carbon/human/noms) //tonight on "proc names I never thought I'd type"
 	if(!pizza_preferences[noms.ckey])
 		pizza_preferences[noms.ckey] = pickweight(pizza_types)
 		if(noms.has_quirk(/datum/quirk/pineapple_liker))

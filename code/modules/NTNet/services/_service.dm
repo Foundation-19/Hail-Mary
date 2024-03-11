@@ -14,7 +14,7 @@
 	networks_by_id = null
 	return ..()
 
-TYPE_PROC_REF(/datum/ntnet_service, connect)(datum/ntnet/net)
+/datum/ntnet_service/proc/connect(datum/ntnet/net)
 	if(!istype(net))
 		return FALSE
 	var/datum/component/ntnet_interface/interface = GetComponent(/datum/component/ntnet_interface)
@@ -26,7 +26,7 @@ TYPE_PROC_REF(/datum/ntnet_service, connect)(datum/ntnet/net)
 	networks_by_id[net.network_id] = net
 	return TRUE
 
-TYPE_PROC_REF(/datum/ntnet_service, disconnect)(datum/ntnet/net, force = FALSE)
+/datum/ntnet_service/proc/disconnect(datum/ntnet/net, force = FALSE)
 	if(!istype(net) || (!net.unregister_service(src) && !force))
 		return FALSE
 	var/datum/component/ntnet_interface/interface = GetComponent(/datum/component/ntnet_interface)
@@ -34,5 +34,5 @@ TYPE_PROC_REF(/datum/ntnet_service, disconnect)(datum/ntnet/net, force = FALSE)
 	networks_by_id -= net.network_id
 	return TRUE
 
-TYPE_PROC_REF(/datum/ntnet_service, ntnet_intercept)(datum/netdata/data, datum/ntnet/net, datum/component/ntnet_interface/sender)
+/datum/ntnet_service/proc/ntnet_intercept(datum/netdata/data, datum/ntnet/net, datum/component/ntnet_interface/sender)
 	return

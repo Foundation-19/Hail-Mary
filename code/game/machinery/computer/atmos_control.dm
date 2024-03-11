@@ -65,7 +65,7 @@
 		radio_connection.post_signal(src, signal, filter = RADIO_ATMOSIA)
 
 
-TYPE_PROC_REF(/obj/machinery/air_sensor, set_frequency)(new_frequency)
+/obj/machinery/air_sensor/proc/set_frequency(new_frequency)
 	SSradio.remove_object(src, frequency)
 	frequency = new_frequency
 	radio_connection = SSradio.add_object(src, frequency, RADIO_ATMOSIA)
@@ -155,7 +155,7 @@ GLOBAL_LIST_EMPTY(atmos_air_controllers)
 
 	sensor_information[id_tag] = signal.data
 
-TYPE_PROC_REF(/obj/machinery/computer/atmos_control, set_frequency)(new_frequency)
+/obj/machinery/computer/atmos_control/proc/set_frequency(new_frequency)
 	SSradio.remove_object(src, frequency)
 	frequency = new_frequency
 	radio_connection = SSradio.add_object(src, frequency, RADIO_ATMOSIA)
@@ -233,7 +233,7 @@ TYPE_PROC_REF(/obj/machinery/computer/atmos_control, set_frequency)(new_frequenc
 	sensors = list(ATMOS_GAS_MONITOR_SENSOR_CO2 = "Carbon Dioxide Tank")
 
 // This hacky madness is the evidence of the fact that a lot of machines were never meant to be constructable, im so sorry you had to see this
-TYPE_PROC_REF(/obj/machinery/computer/atmos_control/tank, reconnect)(mob/user)
+/obj/machinery/computer/atmos_control/tank/proc/reconnect(mob/user)
 	var/list/IO = list()
 	var/datum/radio_frequency/freq = SSradio.return_frequency(FREQ_ATMOS_STORAGE)
 	var/list/devices = freq.devices["_default"]

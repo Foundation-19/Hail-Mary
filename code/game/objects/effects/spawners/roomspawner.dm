@@ -7,7 +7,7 @@
 	var/room_width = 0
 	var/room_height = 0
 
-TYPE_PROC_REF(/obj/effect/spawner/room, LateSpawn)()
+/obj/effect/spawner/room/proc/LateSpawn()
 	template.load(get_turf(src), centered = template.centerspawner)
 	qdel(src)
 

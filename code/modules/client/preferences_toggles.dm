@@ -285,7 +285,7 @@ GLOBAL_LIST_INIT(ghost_forms, list("ghost","ghostking","ghostian2","skeleghost",
 							"ghost_cyan","ghost_dblue","ghost_dred","ghost_dgreen", \
 							"ghost_dcyan","ghost_grey","ghost_dyellow","ghost_dpink", "ghost_purpleswirl","ghost_funkypurp","ghost_pinksherbert","ghost_blazeit",\
 							"ghost_mellow","ghost_rainbow","ghost_camo","ghost_fire", "catghost"))
-TYPE_PROC_REF(/client, pick_form)()
+/client/proc/pick_form()
 	if(!is_content_unlocked())
 		alert("This setting is for accounts with BYOND premium only.")
 		return
@@ -299,7 +299,7 @@ TYPE_PROC_REF(/client, pick_form)()
 
 GLOBAL_LIST_INIT(ghost_orbits, list(GHOST_ORBIT_CIRCLE,GHOST_ORBIT_TRIANGLE,GHOST_ORBIT_SQUARE,GHOST_ORBIT_HEXAGON,GHOST_ORBIT_PENTAGON))
 
-TYPE_PROC_REF(/client, pick_ghost_orbit)()
+/client/proc/pick_ghost_orbit()
 	if(!is_content_unlocked())
 		alert("This setting is for accounts with BYOND premium only.")
 		return
@@ -311,7 +311,7 @@ TYPE_PROC_REF(/client, pick_ghost_orbit)()
 			var/mob/dead/observer/O = mob
 			O.ghost_orbit = new_orbit
 
-TYPE_PROC_REF(/client, pick_ghost_accs)()
+/client/proc/pick_ghost_accs()
 	var/new_ghost_accs = alert("Do you want your ghost to show full accessories where possible, hide accessories but still use the directional sprites where possible, or also ignore the directions and stick to the default sprites?",,"full accessories", "only directional sprites", "default sprites")
 	if(new_ghost_accs)
 		switch(new_ghost_accs)
@@ -394,7 +394,7 @@ TYPE_PROC_REF(/client, pick_ghost_accs)()
 	SSblackbox.record_feedback("nested tally", "preferences_verb", 1, list("Toggle Ghost Inquisitiveness", "[prefs.inquisitive_ghost ? "Enabled" : "Disabled"]"))
 
 //Admin Preferences
-TYPE_PROC_REF(/client, toggleadminhelpsound)()
+/client/proc/toggleadminhelpsound()
 	set name = "Hear/Silence Adminhelps"
 	set category = "Preferences.Admin"
 	set desc = "Toggle hearing a notification when admin PMs are received"
@@ -405,7 +405,7 @@ TYPE_PROC_REF(/client, toggleadminhelpsound)()
 	to_chat(usr, "You will [(prefs.toggles & SOUND_ADMINHELP) ? "now" : "no longer"] hear a sound when adminhelps arrive.")
 	SSblackbox.record_feedback("nested tally", "admin_toggle", 1, list("Toggle Adminhelp Sound", "[prefs.toggles & SOUND_ADMINHELP ? "Enabled" : "Disabled"]")) //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-TYPE_PROC_REF(/client, toggleannouncelogin)()
+/client/proc/toggleannouncelogin()
 	set name = "Do/Don't Announce Login"
 	set category = "Preferences.Admin"
 	set desc = "Toggle if you want an announcement to admins when you login during a round"
@@ -416,7 +416,7 @@ TYPE_PROC_REF(/client, toggleannouncelogin)()
 	to_chat(usr, "You will [(prefs.toggles & ANNOUNCE_LOGIN) ? "now" : "no longer"] have an announcement to other admins when you login.")
 	SSblackbox.record_feedback("nested tally", "admin_toggle", 1, list("Toggle Login Announcement", "[prefs.toggles & ANNOUNCE_LOGIN ? "Enabled" : "Disabled"]")) //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-TYPE_PROC_REF(/client, toggle_hear_radio)()
+/client/proc/toggle_hear_radio()
 	set name = "Show/Hide Radio Chatter"
 	set category = "Preferences.Admin"
 	set desc = "Toggle seeing radiochatter from nearby radios and speakers"
@@ -427,7 +427,7 @@ TYPE_PROC_REF(/client, toggle_hear_radio)()
 	to_chat(usr, "You will [(prefs.chat_toggles & CHAT_RADIO) ? "now" : "no longer"] see radio chatter from nearby radios or speakers")
 	SSblackbox.record_feedback("nested tally", "admin_toggle", 1, list("Toggle Radio Chatter", "[prefs.chat_toggles & CHAT_RADIO ? "Enabled" : "Disabled"]")) //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-TYPE_PROC_REF(/client, toggle_split_admin_tabs)()
+/client/proc/toggle_split_admin_tabs()
 	set name = "Toggle Split Admin Tabs"
 	set category = "Preferences.Admin"
 	set desc = "Toggle the admin tab being split into separate tabs instead of being merged into one"
@@ -438,7 +438,7 @@ TYPE_PROC_REF(/client, toggle_split_admin_tabs)()
 	to_chat(src, span_infoplain("Admin tabs will now [(prefs.toggles & SPLIT_ADMIN_TABS) ? "be" : "not be"] split."))
 	SSblackbox.record_feedback("nested tally", "admin_toggle", 1, list("Toggle Split Admin Tabs", "[prefs.toggles & SPLIT_ADMIN_TABS ? "Enabled" : "Disabled"]"))
 
-TYPE_PROC_REF(/client, deadchat)()
+/client/proc/deadchat()
 	set name = "Show/Hide Deadchat"
 	set category = "Preferences.Admin"
 	set desc ="Toggles seeing deadchat"
@@ -447,7 +447,7 @@ TYPE_PROC_REF(/client, deadchat)()
 	to_chat(src, "You will [(prefs.chat_toggles & CHAT_DEAD) ? "now" : "no longer"] see deadchat.")
 	SSblackbox.record_feedback("nested tally", "admin_toggle", 1, list("Toggle Deadchat Visibility", "[prefs.chat_toggles & CHAT_DEAD ? "Enabled" : "Disabled"]")) //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-TYPE_PROC_REF(/client, toggleprayers)()
+/client/proc/toggleprayers()
 	set name = "Show/Hide Prayers"
 	set category = "Preferences.Admin"
 	set desc = "Toggles seeing prayers"
@@ -456,7 +456,7 @@ TYPE_PROC_REF(/client, toggleprayers)()
 	to_chat(src, "You will [(prefs.chat_toggles & CHAT_PRAYER) ? "now" : "no longer"] see prayerchat.")
 	SSblackbox.record_feedback("nested tally", "admin_toggle", 1, list("Toggle Prayer Visibility", "[prefs.chat_toggles & CHAT_PRAYER ? "Enabled" : "Disabled"]")) //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-TYPE_PROC_REF(/client, RemoteLOOC)()
+/client/proc/RemoteLOOC()
 	set name = "Show/Hide Remote LOOC"
 	set category = "Preferences.Admin"
 	set desc ="Toggles seeing (R)LOOC messages."

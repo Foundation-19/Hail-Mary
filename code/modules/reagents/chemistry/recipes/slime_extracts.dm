@@ -5,12 +5,12 @@
 /datum/chemical_reaction/slime/on_reaction(datum/reagents/holder)
 	use_slime_core(holder)
 
-TYPE_PROC_REF(/datum/chemical_reaction/slime, use_slime_core)(datum/reagents/holder)
+/datum/chemical_reaction/slime/proc/use_slime_core(datum/reagents/holder)
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, "type")
 	if(deletes_extract)
 		delete_extract(holder)
 
-TYPE_PROC_REF(/datum/chemical_reaction/slime, delete_extract)(datum/reagents/holder)
+/datum/chemical_reaction/slime/proc/delete_extract(datum/reagents/holder)
 	var/obj/item/slime_extract/M = holder.my_atom
 	if(M.Uses <= 0 && !results.len) //if the slime doesn't output chemicals
 		qdel(M)
@@ -127,7 +127,7 @@ TYPE_PROC_REF(/datum/chemical_reaction/slime, delete_extract)(datum/reagents/hol
 	..()
 	M.qdel_timer = addtimer(CALLBACK(src, PROC_REF(delete_extract), holder), 55, TIMER_STOPPABLE)
 
-TYPE_PROC_REF(/datum/chemical_reaction/slime/slimemobspawn, summon_mobs)(datum/reagents/holder, turf/T)
+/datum/chemical_reaction/slime/slimemobspawn/proc/summon_mobs(datum/reagents/holder, turf/T)
 	T.visible_message(span_danger("The slime extract begins to vibrate violently!"))
 	//addtimer(CALLBACK(src, PROC_REF(chemical_mob_spawn), holder, 5, "Gold Slime", HOSTILE_SPAWN), 50)
 
@@ -176,7 +176,7 @@ TYPE_PROC_REF(/datum/chemical_reaction/slime/slimemobspawn, summon_mobs)(datum/r
 				step(B, pick(NORTH,SOUTH,EAST,WEST))
 	..()
 
-TYPE_PROC_REF(/datum/chemical_reaction/slime/slimebork, getbork)()
+/datum/chemical_reaction/slime/slimebork/proc/getbork()
 	return get_random_food()
 
 /datum/chemical_reaction/slime/slimebork/drinks
@@ -233,7 +233,7 @@ TYPE_PROC_REF(/datum/chemical_reaction/slime/slimebork, getbork)()
 	..()
 	M.qdel_timer = addtimer(CALLBACK(src, PROC_REF(delete_extract), holder), 55, TIMER_STOPPABLE)
 
-TYPE_PROC_REF(/datum/chemical_reaction/slime/slimefreeze, freeze)(datum/reagents/holder)
+/datum/chemical_reaction/slime/slimefreeze/proc/freeze(datum/reagents/holder)
 	if(holder && holder.my_atom)
 		var/turf/open/T = get_turf(holder.my_atom)
 		if(istype(T))
@@ -276,7 +276,7 @@ TYPE_PROC_REF(/datum/chemical_reaction/slime/slimefreeze, freeze)(datum/reagents
 	..()
 	M.qdel_timer = addtimer(CALLBACK(src, PROC_REF(delete_extract), holder), 55, TIMER_STOPPABLE)
 
-TYPE_PROC_REF(/datum/chemical_reaction/slime/slimefire, slime_burn)(datum/reagents/holder)
+/datum/chemical_reaction/slime/slimefire/proc/slime_burn(datum/reagents/holder)
 	if(holder && holder.my_atom)
 		var/turf/open/T = get_turf(holder.my_atom)
 		if(istype(T))
@@ -459,7 +459,7 @@ TYPE_PROC_REF(/datum/chemical_reaction/slime/slimefire, slime_burn)(datum/reagen
 	..()
 	M.qdel_timer = addtimer(CALLBACK(src, PROC_REF(delete_extract), holder), 55, TIMER_STOPPABLE)
 
-TYPE_PROC_REF(/datum/chemical_reaction/slime/slimeexplosion, boom)(datum/reagents/holder)
+/datum/chemical_reaction/slime/slimeexplosion/proc/boom(datum/reagents/holder)
 	if(holder && holder.my_atom)
 		explosion(get_turf(holder.my_atom), 1 ,3, 6)
 
@@ -578,7 +578,7 @@ TYPE_PROC_REF(/datum/chemical_reaction/slime/slimeexplosion, boom)(datum/reagent
 /datum/chemical_reaction/slime/slimestop/on_reaction(datum/reagents/holder, created_volume)
 	addtimer(CALLBACK(src, PROC_REF(slime_stop), holder), 5 SECONDS)
 
-TYPE_PROC_REF(/datum/chemical_reaction/slime/slimestop, slime_stop)(datum/reagents/holder)
+/datum/chemical_reaction/slime/slimestop/proc/slime_stop(datum/reagents/holder)
 	var/obj/item/slime_extract/sepia/extract = holder.my_atom
 	var/turf/T = get_turf(holder.my_atom)
 	new /obj/effect/timestop(T, null, null, null)

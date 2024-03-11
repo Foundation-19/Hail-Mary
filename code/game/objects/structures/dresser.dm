@@ -32,7 +32,7 @@
 	add_fingerprint(H)
 	H.update_body(TRUE)
 
-TYPE_PROC_REF(/obj/structure/dresser, recolor_undergarment)(mob/living/carbon/human/H, garment_type = "underwear", default_color)
+/obj/structure/dresser/proc/recolor_undergarment(mob/living/carbon/human/H, garment_type = "underwear", default_color)
 	var/n_color = input(H, "Choose your [garment_type]'\s color.", "Character Preference", default_color) as color|null
 	if(!n_color || !H.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
 		return default_color

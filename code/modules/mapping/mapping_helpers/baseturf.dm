@@ -29,7 +29,7 @@
 
 	qdel(src)
 
-TYPE_PROC_REF(/obj/effect/baseturf_helper, replace_baseturf)(turf/thing)
+/obj/effect/baseturf_helper/proc/replace_baseturf(turf/thing)
 	var/list/baseturf_cache = thing.baseturfs
 	if(length(baseturf_cache))
 		for(var/i in baseturf_cache)

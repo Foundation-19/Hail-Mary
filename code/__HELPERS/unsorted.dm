@@ -162,7 +162,7 @@ Turf and target are separate in case you want to teleport some distance from a t
 	return TRUE
 
 //Generalised helper proc for letting mobs rename themselves. Used to be clname() and ainame()
-TYPE_PROC_REF(/mob, apply_pref_name)(role, client/C)
+/mob/proc/apply_pref_name(role, client/C)
 	if(!C)
 		C = client
 	var/oldname = real_name
@@ -459,7 +459,7 @@ TYPE_PROC_REF(/mob, apply_pref_name)(role, client/C)
 	Gets all contents of contents and returns them all in a list.
 */
 
-TYPE_PROC_REF(/atom, GetAllContents)(T)
+/atom/proc/GetAllContents(T)
 	var/list/processing_list = list(src)
 	if(T)
 		. = list()
@@ -478,7 +478,7 @@ TYPE_PROC_REF(/atom, GetAllContents)(T)
 			processing_list += A.contents
 		return processing_list
 
-TYPE_PROC_REF(/atom, GetAllContentsIgnoring)(list/ignore_typecache)
+/atom/proc/GetAllContentsIgnoring(list/ignore_typecache)
 	if(!length(ignore_typecache))
 		return GetAllContents()
 	var/list/processing = list(src)
@@ -1014,7 +1014,7 @@ rough example of the "cone" made by the 3 dirs checked
 
 	return L
 
-TYPE_PROC_REF(/atom, contains)(atom/A)
+/atom/proc/contains(atom/A)
 	if(!A)
 		return 0
 	for(var/atom/location = A.loc, location, location = location.loc)
@@ -1096,7 +1096,7 @@ proc/pick_closest_path(value, list/matches = get_fancy_list_of_atom_types())
 /proc/stack_trace(msg)
 	CRASH(msg)
 
-TYPE_PROC_REF(/datum, stack_trace)(msg)
+/datum/proc/stack_trace(msg)
 	CRASH(msg)
 
 GLOBAL_REAL_VAR(list/stack_trace_storage)
@@ -1157,7 +1157,7 @@ GLOBAL_REAL_VAR(list/stack_trace_storage)
 		str = "0" + str
 	. = str
 
-TYPE_PROC_REF(/atom, Shake)(pixelshiftx = 15, pixelshifty = 15, duration = 250)
+/atom/proc/Shake(pixelshiftx = 15, pixelshifty = 15, duration = 250)
 	var/initialpixelx = pixel_x
 	var/initialpixely = pixel_y
 	var/shiftx = rand(-pixelshiftx,pixelshiftx)
@@ -1166,7 +1166,7 @@ TYPE_PROC_REF(/atom, Shake)(pixelshiftx = 15, pixelshifty = 15, duration = 250)
 	pixel_x = initialpixelx
 	pixel_y = initialpixely
 
-TYPE_PROC_REF(/atom, do_jiggle)(targetangle = 45, timer = 20)
+/atom/proc/do_jiggle(targetangle = 45, timer = 20)
 	var/matrix/OM = matrix(transform)
 	var/matrix/M = matrix(transform)
 	var/halftime = timer * 0.5
@@ -1174,7 +1174,7 @@ TYPE_PROC_REF(/atom, do_jiggle)(targetangle = 45, timer = 20)
 	animate(src, transform = M, time = halftime, easing = ELASTIC_EASING)
 	animate(src, transform = OM, time = halftime, easing = ELASTIC_EASING)
 
-TYPE_PROC_REF(/atom, do_squish)(squishx = 1.2, squishy = 0.6, timer = 20)
+/atom/proc/do_squish(squishx = 1.2, squishy = 0.6, timer = 20)
 	var/matrix/OM = matrix(transform)
 	var/matrix/M = matrix(transform)
 	var/halftime = timer * 0.5
@@ -1380,7 +1380,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 
 // Makes a call in the context of a different usr
 // Use sparingly
-TYPE_PROC_REF(/world, PushUsr)(mob/M, datum/callback/CB, ...)
+/world/proc/PushUsr(mob/M, datum/callback/CB, ...)
 	var/temp = usr
 	usr = M
 	if (length(args) > 2)

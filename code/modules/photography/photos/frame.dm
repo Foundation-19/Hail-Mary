@@ -87,17 +87,17 @@
 	LAZYREMOVE(SSpersistence.photo_frames, src)
 	return ..()
 
-TYPE_PROC_REF(/obj/structure/sign/picture_frame, get_photo_id)()
+/obj/structure/sign/picture_frame/proc/get_photo_id()
 	if(istype(framed) && istype(framed.picture))
 		return framed.picture.id
 
 //Manual loading, DO NOT USE FOR HARDCODED/MAPPED IN ALBUMS. This is for if an album needs to be loaded mid-round from an ID.
-TYPE_PROC_REF(/obj/structure/sign/picture_frame, persistence_load)()
+/obj/structure/sign/picture_frame/proc/persistence_load()
 	var/list/data = SSpersistence.GetPhotoFrames()
 	if(data[persistence_id])
 		load_from_id(data[persistence_id])
 
-TYPE_PROC_REF(/obj/structure/sign/picture_frame, load_from_id)(id)
+/obj/structure/sign/picture_frame/proc/load_from_id(id)
 	var/obj/item/photo/P = load_photo_from_disk(id)
 	if(istype(P))
 		if(istype(framed))

@@ -25,7 +25,7 @@
 		power_station = null
 	return ..()
 
-TYPE_PROC_REF(/obj/machinery/computer/teleporter, link_power_station)()
+/obj/machinery/computer/teleporter/proc/link_power_station()
 	if(power_station)
 		return
 	for(var/direction in GLOB.cardinals)
@@ -93,7 +93,7 @@ TYPE_PROC_REF(/obj/machinery/computer/teleporter, link_power_station)()
 			addtimer(CALLBACK(src, PROC_REF(finish_calibration)), 50 * (3 - power_station.teleporter_hub.accuracy)) //Better parts mean faster calibration
 			. = TRUE
 
-TYPE_PROC_REF(/obj/machinery/computer/teleporter, finish_calibration)()
+/obj/machinery/computer/teleporter/proc/finish_calibration()
 	calibrating = FALSE
 	if(check_hub_connection())
 		power_station.teleporter_hub.calibrated = TRUE
@@ -102,14 +102,14 @@ TYPE_PROC_REF(/obj/machinery/computer/teleporter, finish_calibration)()
 		say("Error: Unable to detect hub.")
 	power_station.update_icon()
 
-TYPE_PROC_REF(/obj/machinery/computer/teleporter, check_hub_connection)()
+/obj/machinery/computer/teleporter/proc/check_hub_connection()
 	if(!power_station)
 		return FALSE
 	if(!power_station.teleporter_hub)
 		return FALSE
 	return TRUE
 
-TYPE_PROC_REF(/obj/machinery/computer/teleporter, reset_regime)()
+/obj/machinery/computer/teleporter/proc/reset_regime()
 	target = null
 	if(imp_t)
 		UnregisterSignal(imp_t, COMSIG_IMPLANT_REMOVING)
@@ -119,7 +119,7 @@ TYPE_PROC_REF(/obj/machinery/computer/teleporter, reset_regime)()
 	else
 		regime_set = "Teleporter"
 
-TYPE_PROC_REF(/obj/machinery/computer/teleporter, set_target)(mob/user)
+/obj/machinery/computer/teleporter/proc/set_target(mob/user)
 	var/list/L = list()
 	var/list/areaindex = list()
 	if(regime_set == "Teleporter")
@@ -185,7 +185,7 @@ TYPE_PROC_REF(/obj/machinery/computer/teleporter, set_target)(mob/user)
 			target_station.teleporter_console.stat &= ~NOPOWER
 			target_station.teleporter_console.update_icon()
 
-TYPE_PROC_REF(/obj/machinery/computer/teleporter, untarget_implant)() //untargets from mob the racker was once implanted in to prevent issues.
+/obj/machinery/computer/teleporter/proc/untarget_implant() //untargets from mob the racker was once implanted in to prevent issues.
 	target = null
 	if(power_station)
 		power_station.engaged = FALSE
@@ -193,7 +193,7 @@ TYPE_PROC_REF(/obj/machinery/computer/teleporter, untarget_implant)() //untarget
 	UnregisterSignal(imp_t, COMSIG_IMPLANT_REMOVING)
 	imp_t = null
 
-TYPE_PROC_REF(/obj/machinery/computer/teleporter, is_eligible)(atom/movable/AM)
+/obj/machinery/computer/teleporter/proc/is_eligible(atom/movable/AM)
 	var/turf/T = get_turf(AM)
 	if(!T)
 		return FALSE

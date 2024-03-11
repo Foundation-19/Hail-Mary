@@ -64,12 +64,12 @@
 	temp.plane = initial(target.plane)
 	saved_appearance = temp.appearance
 
-TYPE_PROC_REF(/obj/item/chameleon, check_sprite)(atom/target)
+/obj/item/chameleon/proc/check_sprite(atom/target)
 	if(target.icon_state in icon_states(target.icon))
 		return TRUE
 	return FALSE
 
-TYPE_PROC_REF(/obj/item/chameleon, toggle)(mob/user)
+/obj/item/chameleon/proc/toggle(mob/user)
 	if(!can_use || !saved_appearance)
 		return
 	if(active_dummy)
@@ -87,7 +87,7 @@ TYPE_PROC_REF(/obj/item/chameleon, toggle)(mob/user)
 		new /obj/effect/temp_visual/emp/pulse(get_turf(src))
 	user.cancel_camera()
 
-TYPE_PROC_REF(/obj/item/chameleon, disrupt)(delete_dummy = 1)
+/obj/item/chameleon/proc/disrupt(delete_dummy = 1)
 	if(active_dummy)
 		for(var/mob/M in active_dummy)
 			to_chat(M, span_danger("Your chameleon-projector deactivates."))
@@ -102,7 +102,7 @@ TYPE_PROC_REF(/obj/item/chameleon, disrupt)(delete_dummy = 1)
 		can_use = 0
 		spawn(50) can_use = 1
 
-TYPE_PROC_REF(/obj/item/chameleon, eject_all)()
+/obj/item/chameleon/proc/eject_all()
 	for(var/atom/movable/A in active_dummy)
 		A.forceMove(active_dummy.loc)
 		if(ismob(A))
@@ -116,7 +116,7 @@ TYPE_PROC_REF(/obj/item/chameleon, eject_all)()
 	var/can_move = 0
 	var/obj/item/chameleon/master = null
 
-TYPE_PROC_REF(/obj/effect/dummy/chameleon, activate)(mob/M, saved_appearance, obj/item/chameleon/C)
+/obj/effect/dummy/chameleon/proc/activate(mob/M, saved_appearance, obj/item/chameleon/C)
 	appearance = saved_appearance
 	if(istype(M.buckled, /obj/vehicle))
 		var/obj/vehicle/V = M.buckled

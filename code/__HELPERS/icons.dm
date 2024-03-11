@@ -217,14 +217,14 @@ world
 
 
 	// Multiply all alpha values by this float
-TYPE_PROC_REF(/icon, ChangeOpacity)(opacity = 1)
+/icon/proc/ChangeOpacity(opacity = 1)
 	MapColors(1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,opacity, 0,0,0,0)
 
 // Convert to grayscale
-TYPE_PROC_REF(/icon, GrayScale)()
+/icon/proc/GrayScale()
 	MapColors(0.3,0.3,0.3, 0.59,0.59,0.59, 0.11,0.11,0.11, 0,0,0)
 
-TYPE_PROC_REF(/icon, ColorTone)(tone)
+/icon/proc/ColorTone(tone)
 	GrayScale()
 
 	var/list/TONE = ReadRGB(tone)
@@ -242,14 +242,14 @@ TYPE_PROC_REF(/icon, ColorTone)(tone)
 		Blend(upper, ICON_ADD)
 
 // Take the minimum color of two icons; combine transparency as if blending with ICON_ADD
-TYPE_PROC_REF(/icon, MinColors)(icon)
+/icon/proc/MinColors(icon)
 	var/icon/I = new(src)
 	I.Opaque()
 	I.Blend(icon, ICON_SUBTRACT)
 	Blend(I, ICON_SUBTRACT)
 
 // Take the maximum color of two icons; combine opacity as if blending with ICON_OR
-TYPE_PROC_REF(/icon, MaxColors)(icon)
+/icon/proc/MaxColors(icon)
 	var/icon/I
 	if(isicon(icon))
 		I = new(icon)
@@ -265,21 +265,21 @@ TYPE_PROC_REF(/icon, MaxColors)(icon)
 	Blend(I, ICON_OR)
 
 // make this icon fully opaque--transparent pixels become black
-TYPE_PROC_REF(/icon, Opaque)(background = "#000000")
+/icon/proc/Opaque(background = "#000000")
 	SwapColor(null, background)
 	MapColors(1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,0, 0,0,0,1)
 
 // Change a grayscale icon into a white icon where the original color becomes the alpha
 // I.e., black -> transparent, gray -> translucent white, white -> solid white
-TYPE_PROC_REF(/icon, BecomeAlphaMask)()
+/icon/proc/BecomeAlphaMask()
 	SwapColor(null, "#000000ff")	// don't let transparent become gray
 	MapColors(0,0,0,0.3, 0,0,0,0.59, 0,0,0,0.11, 0,0,0,0, 1,1,1,0)
 
-TYPE_PROC_REF(/icon, UseAlphaMask)(mask)
+/icon/proc/UseAlphaMask(mask)
 	Opaque()
 	AddAlphaMask(mask)
 
-TYPE_PROC_REF(/icon, AddAlphaMask)(mask)
+/icon/proc/AddAlphaMask(mask)
 	var/icon/M = new(mask)
 	M.Blend("#ffffff", ICON_SUBTRACT)
 	// apply mask
@@ -920,7 +920,7 @@ TYPE_PROC_REF(/icon, AddAlphaMask)(mask)
 		alpha_mask.Blend(image_overlay,ICON_OR)//OR so they are lumped together in a nice overlay.
 	return alpha_mask//And now return the mask.
 
-TYPE_PROC_REF(/mob, AddCamoOverlay)(atom/A)//A is the atom which we are using as the overlay.
+/mob/proc/AddCamoOverlay(atom/A)//A is the atom which we are using as the overlay.
 	var/icon/opacity_icon = new(A.icon, A.icon_state)//Don't really care for overlays/underlays.
 	//Now we need to culculate overlays+underlays and add them together to form an image for a mask.
 	var/icon/alpha_mask = getIconMask(src)//getFlatIcon(src) is accurate but SLOW. Not designed for running each tick. This is also a little slow since it's blending a bunch of icons together but good enough.
@@ -1042,7 +1042,7 @@ GLOBAL_LIST_EMPTY(friendly_animal_types)
 
 
 //Interface for easy drawing of one pixel on an atom.
-TYPE_PROC_REF(/atom, DrawPixelOn)(colour, drawX, drawY)
+/atom/proc/DrawPixelOn(colour, drawX, drawY)
 	var/icon/I = new(icon)
 	var/icon/J = DrawPixel(I, colour, drawX, drawY)
 	if(J) //Only set the icon if it succeeded, the icon without the pixel is 1000x better than a black square.
@@ -1080,12 +1080,12 @@ TYPE_PROC_REF(/atom, DrawPixelOn)(colour, drawX, drawY)
 //Hook, override to run code on- wait this is images
 //Images have dir without being an atom, so they get their own definition.
 //Lame.
-TYPE_PROC_REF(/image, setDir)(newdir)
+/image/proc/setDir(newdir)
 	dir = newdir
 
 GLOBAL_LIST_INIT(freon_color_matrix, list("#2E5E69", "#60A2A8", "#A1AFB1", rgb(0,0,0)))
 
-TYPE_PROC_REF(/obj, make_frozen_visual)()
+/obj/proc/make_frozen_visual()
 	// Used to make the frozen item visuals for Freon.
 	if(resistance_flags & FREEZE_PROOF)
 		return
@@ -1096,7 +1096,7 @@ TYPE_PROC_REF(/obj, make_frozen_visual)()
 		obj_flags |= FROZEN
 
 //Assumes already frozed
-TYPE_PROC_REF(/obj, make_unfrozen)()
+/obj/proc/make_unfrozen()
 	if(obj_flags & FROZEN)
 		name = replacetext(name, "frozen ", "")
 		remove_atom_colour(TEMPORARY_COLOUR_PRIORITY, GLOB.freon_color_matrix)

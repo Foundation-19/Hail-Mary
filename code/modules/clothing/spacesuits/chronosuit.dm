@@ -37,7 +37,7 @@
 	teleport_now.chronosuit = src
 	teleport_now.target = src
 
-TYPE_PROC_REF(/obj/item/clothing/suit/space/chronos, new_camera)(mob/user)
+/obj/item/clothing/suit/space/chronos/proc/new_camera(mob/user)
 	if(camera)
 		qdel(camera)
 	camera = new /obj/effect/chronos_cam(user)
@@ -69,7 +69,7 @@ TYPE_PROC_REF(/obj/item/clothing/suit/space/chronos, new_camera)(mob/user)
 			user.emote("scream")
 		deactivate(1, 1)
 
-TYPE_PROC_REF(/obj/item/clothing/suit/space/chronos, finish_chronowalk)(mob/living/carbon/human/user, turf/to_turf)
+/obj/item/clothing/suit/space/chronos/proc/finish_chronowalk(mob/living/carbon/human/user, turf/to_turf)
 	if(!user)
 		user = src.loc
 	if(phase_timer_id)
@@ -93,7 +93,7 @@ TYPE_PROC_REF(/obj/item/clothing/suit/space/chronos, finish_chronowalk)(mob/livi
 			camera.forceMove(user)
 		teleport_now.UpdateButtonIcon()
 
-TYPE_PROC_REF(/obj/item/clothing/suit/space/chronos, chronowalk)(atom/location)
+/obj/item/clothing/suit/space/chronos/proc/chronowalk(atom/location)
 	var/mob/living/carbon/human/user = src.loc
 	if(activated && !teleporting && user && istype(user) && location && user.loc && location.loc && user.wear_suit == src && user.stat == CONSCIOUS)
 		teleporting = 1
@@ -131,14 +131,14 @@ TYPE_PROC_REF(/obj/item/clothing/suit/space/chronos, chronowalk)(atom/location)
 		animate(user, color = "#00ccee", time = 3)
 		phase_timer_id = addtimer(CALLBACK(src, PROC_REF(phase_2), user, to_turf, phase_in_ds), 3, TIMER_STOPPABLE)
 
-TYPE_PROC_REF(/obj/item/clothing/suit/space/chronos, phase_2)(mob/living/carbon/human/user, turf/to_turf, phase_in_ds)
+/obj/item/clothing/suit/space/chronos/proc/phase_2(mob/living/carbon/human/user, turf/to_turf, phase_in_ds)
 	if(teleporting && activated && user)
 		animate(user, alpha = 0, time = 2)
 		phase_timer_id = addtimer(CALLBACK(src, PROC_REF(phase_3), user, to_turf, phase_in_ds), 2, TIMER_STOPPABLE)
 	else
 		finish_chronowalk(user, to_turf)
 
-TYPE_PROC_REF(/obj/item/clothing/suit/space/chronos, phase_3)(mob/living/carbon/human/user, turf/to_turf, phase_in_ds)
+/obj/item/clothing/suit/space/chronos/proc/phase_3(mob/living/carbon/human/user, turf/to_turf, phase_in_ds)
 	if(teleporting && activated && user)
 		user.forceMove(to_turf)
 		animate(user, alpha = 255, time = phase_in_ds)
@@ -146,7 +146,7 @@ TYPE_PROC_REF(/obj/item/clothing/suit/space/chronos, phase_3)(mob/living/carbon/
 	else
 		finish_chronowalk(user, to_turf)
 
-TYPE_PROC_REF(/obj/item/clothing/suit/space/chronos, phase_4)(mob/living/carbon/human/user, turf/to_turf)
+/obj/item/clothing/suit/space/chronos/proc/phase_4(mob/living/carbon/human/user, turf/to_turf)
 	if(teleporting && activated && user)
 		animate(user, color = "#ffffff", time = 3)
 		phase_timer_id = addtimer(CALLBACK(src, PROC_REF(finish_chronowalk), user, to_turf), 3, TIMER_STOPPABLE)
@@ -169,7 +169,7 @@ TYPE_PROC_REF(/obj/item/clothing/suit/space/chronos, phase_4)(mob/living/carbon/
 	else
 		STOP_PROCESSING(SSobj, src)
 
-TYPE_PROC_REF(/obj/item/clothing/suit/space/chronos, activate)()
+/obj/item/clothing/suit/space/chronos/proc/activate()
 	if(!activating && !activated && !teleporting)
 		activating = 1
 		var/mob/living/carbon/human/user = src.loc
@@ -196,7 +196,7 @@ TYPE_PROC_REF(/obj/item/clothing/suit/space/chronos, activate)()
 		cooldown = world.time + cooldowntime
 		activating = 0
 
-TYPE_PROC_REF(/obj/item/clothing/suit/space/chronos, deactivate)(force = 0, silent = FALSE)
+/obj/item/clothing/suit/space/chronos/proc/deactivate(force = 0, silent = FALSE)
 	if(activated && (!teleporting || force))
 		activating = 1
 		var/mob/living/carbon/human/user = src.loc
@@ -247,14 +247,14 @@ TYPE_PROC_REF(/obj/item/clothing/suit/space/chronos, deactivate)(force = 0, sile
 /obj/effect/chronos_cam/singularity_pull()
 	return
 
-TYPE_PROC_REF(/obj/effect/chronos_cam, create_target_ui)()
+/obj/effect/chronos_cam/proc/create_target_ui()
 	if(holder && holder.client && chronosuit)
 		if(target_ui)
 			remove_target_ui()
 		target_ui = new(null, holder)
 		holder.client.screen += target_ui
 
-TYPE_PROC_REF(/obj/effect/chronos_cam, remove_target_ui)()
+/obj/effect/chronos_cam/proc/remove_target_ui()
 	if(target_ui)
 		qdel(target_ui)
 		target_ui = null

@@ -30,7 +30,7 @@
 	. = ..()
 	addtimer(CALLBACK(src, PROC_REF(respawn)), 3 MINUTES)
 
-TYPE_PROC_REF(/obj/effect/murderdome/dead_barricade, respawn)()
+/obj/effect/murderdome/dead_barricade/proc/respawn()
 	if(!QDELETED(src))
 		new /obj/structure/barricade/security/murderdome(get_turf(src))
 		qdel(src)

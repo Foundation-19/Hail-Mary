@@ -28,14 +28,14 @@
 	#define COMPONENT_MOVABLE_IMPACT_NEVERMIND (1<<1) //return true if you destroyed whatever it was you're impacting and there won't be anything for hitby() to run on
 ///from base of mob/living/hitby(): (mob/living/target, hit_zone)
 #define COMSIG_MOVABLE_IMPACT_ZONE "item_impact_zone"
-///from TYPE_PROC_REF(/atom/movable, buckle_mob)(): (mob/living/M, force, check_loc, buckle_mob_flags)
+///from /atom/movable/proc/buckle_mob(): (mob/living/M, force, check_loc, buckle_mob_flags)
 #define COMSIG_MOVABLE_PREBUCKLE "prebuckle" // this is the last chance to interrupt and block a buckle before it finishes
 	#define COMPONENT_BLOCK_BUCKLE (1<<0)
 ///from base of atom/movable/buckle_mob(): (mob, force)
 #define COMSIG_MOVABLE_BUCKLE "buckle"
 ///from base of atom/movable/unbuckle_mob(): (mob, force)
 #define COMSIG_MOVABLE_UNBUCKLE "unbuckle"
-///from TYPE_PROC_REF(/obj/vehicle, driver_move), caught by the riding component to check and execute the driver trying to drive the vehicle
+///from /obj/vehicle/proc/driver_move, caught by the riding component to check and execute the driver trying to drive the vehicle
 #define COMSIG_RIDDEN_DRIVER_MOVE "driver_move"
 	#define COMPONENT_DRIVER_BLOCK_MOVE (1<<0)
 ///from base of atom/movable/throw_at(): (list/args)

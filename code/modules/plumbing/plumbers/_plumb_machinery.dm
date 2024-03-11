@@ -28,7 +28,7 @@
 	create_reagents(buffer, reagent_flags)
 	AddComponent(/datum/component/simple_rotation, ROTATION_ALTCLICK | ROTATION_CLOCKWISE | ROTATION_COUNTERCLOCKWISE | ROTATION_VERBS, null, CALLBACK(src, PROC_REF(can_be_rotated)))
 
-TYPE_PROC_REF(/obj/machinery/plumbing, can_be_rotated)(mob/user,rotation_type)
+/obj/machinery/plumbing/proc/can_be_rotated(mob/user,rotation_type)
 	return TRUE
 
 

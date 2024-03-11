@@ -67,11 +67,11 @@ GLOBAL_LIST_EMPTY(doppler_arrays)
 	else
 		return ..()
 
-TYPE_PROC_REF(/obj/machinery/doppler_array, rot_message)(mob/user)
+/obj/machinery/doppler_array/proc/rot_message(mob/user)
 	to_chat(user, span_notice("You adjust [src]'s dish to face to the [dir2text(dir)]."))
 	playsound(src, 'sound/items/screwdriver2.ogg', 50, 1)
 
-TYPE_PROC_REF(/obj/machinery/doppler_array, sense_explosion)(turf/epicenter, devastation_range, heavy_impact_range, light_impact_range,
+/obj/machinery/doppler_array/proc/sense_explosion(turf/epicenter, devastation_range, heavy_impact_range, light_impact_range,
 												  took, orig_dev_range, orig_heavy_range, orig_light_range)
 	if(stat & NOPOWER)
 		return FALSE

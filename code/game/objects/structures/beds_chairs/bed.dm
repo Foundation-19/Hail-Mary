@@ -49,7 +49,7 @@
 	else
 		return ..()
 
-TYPE_PROC_REF(/obj/structure/bed, UpdateDir)()
+/obj/structure/bed/proc/UpdateDir()
 	if(use_directionals)
 		switch(dir)
 			if(NORTH,SOUTH)
@@ -193,7 +193,7 @@ TYPE_PROC_REF(/obj/structure/bed, UpdateDir)()
 	if(isopenturf(target))
 		deploy_roller(user, target)
 
-TYPE_PROC_REF(/obj/item/roller, deploy_roller)(mob/user, atom/location)
+/obj/item/roller/proc/deploy_roller(mob/user, atom/location)
 	var/obj/structure/bed/roller/R = new /obj/structure/bed/roller(location)
 	R.add_fingerprint(user)
 	qdel(src)
@@ -250,7 +250,7 @@ TYPE_PROC_REF(/obj/item/roller, deploy_roller)(mob/user, atom/location)
 	name = "Runtime's bed"
 	anchored = TRUE
 
-TYPE_PROC_REF(/obj/structure/bed/dogbed, update_owner)(mob/living/M)
+/obj/structure/bed/dogbed/proc/update_owner(mob/living/M)
 	name = "[M]'s bed"
 	desc = "[M]'s bed! Looks comfy."
 

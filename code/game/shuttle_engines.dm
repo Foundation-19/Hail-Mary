@@ -75,7 +75,7 @@
 	. = ..()
 
 //Propagates the change to the shuttle.
-TYPE_PROC_REF(/obj/structure/shuttle/engine, alter_engine_power)(mod)
+/obj/structure/shuttle/engine/proc/alter_engine_power(mod)
 	if(mod == 0)
 		return
 	if(SSshuttle.is_in_shuttle_bounds(src))

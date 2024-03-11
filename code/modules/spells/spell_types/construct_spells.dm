@@ -216,7 +216,7 @@
 	addtimer(CALLBACK(src, PROC_REF(cure_blindness), target), 40)
 	target.adjust_bodytemperature(-200)
 
-TYPE_PROC_REF(/obj/effect/proc_holder/spell/targeted/abyssal_gaze, cure_blindness)(mob/target)
+/obj/effect/proc_holder/spell/targeted/abyssal_gaze/proc/cure_blindness(mob/target)
 	if(isliving(target))
 		var/mob/living/L = target
 		L.cure_blind(ABYSSAL_GAZE_BLIND)

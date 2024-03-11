@@ -183,7 +183,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 					activator = null
 
 
-TYPE_PROC_REF(/obj/structure/elite_tumor, spawn_elite)(mob/dead/observer/elitemind)
+/obj/structure/elite_tumor/proc/spawn_elite(mob/dead/observer/elitemind)
 	var/selectedspawn = pick(potentialspawns)
 	mychild = new selectedspawn(loc)
 	visible_message(span_boldwarning("[mychild] emerges from [src]!"))
@@ -194,7 +194,7 @@ TYPE_PROC_REF(/obj/structure/elite_tumor, spawn_elite)(mob/dead/observer/elitemi
 	icon_state = "tumor_popped"
 	INVOKE_ASYNC(src, PROC_REF(arena_checks))
 
-TYPE_PROC_REF(/obj/structure/elite_tumor, return_elite)()
+/obj/structure/elite_tumor/proc/return_elite()
 	mychild.forceMove(loc)
 	visible_message(span_boldwarning("[mychild] emerges from [src]!"))
 	playsound(loc,'sound/effects/phasein.ogg', 200, 0, 50, TRUE, TRUE)
@@ -236,7 +236,7 @@ TYPE_PROC_REF(/obj/structure/elite_tumor, return_elite)()
 		qdel(core)
 		return TRUE
 
-TYPE_PROC_REF(/obj/structure/elite_tumor, arena_checks)()
+/obj/structure/elite_tumor/proc/arena_checks()
 	if(activity != TUMOR_ACTIVE || QDELETED(src))
 		return
 	INVOKE_ASYNC(src, PROC_REF(fighters_check))  //Checks to see if our fighters died.
@@ -245,13 +245,13 @@ TYPE_PROC_REF(/obj/structure/elite_tumor, arena_checks)()
 	if(!QDELETED(src))
 		addtimer(CALLBACK(src, PROC_REF(arena_checks)), 50)
 
-TYPE_PROC_REF(/obj/structure/elite_tumor, fighters_check)()
+/obj/structure/elite_tumor/proc/fighters_check()
 	if(activator != null && activator.stat == DEAD || activity == TUMOR_ACTIVE && QDELETED(activator))
 		onEliteWon()
 	if(mychild != null && mychild.stat == DEAD || activity == TUMOR_ACTIVE && QDELETED(mychild))
 		onEliteLoss()
 
-TYPE_PROC_REF(/obj/structure/elite_tumor, arena_trap)()
+/obj/structure/elite_tumor/proc/arena_trap()
 	var/turf/T = get_turf(src)
 	if(loc == null)
 		return
@@ -262,7 +262,7 @@ TYPE_PROC_REF(/obj/structure/elite_tumor, arena_trap)()
 			newwall.activator = src.activator
 			newwall.ourelite = src.mychild
 
-TYPE_PROC_REF(/obj/structure/elite_tumor, border_check)()
+/obj/structure/elite_tumor/proc/border_check()
 	if(activator != null && get_dist(src, activator) >= 12)
 		activator.forceMove(loc)
 		visible_message(span_boldwarning("[activator] suddenly reappears above [src]!"))
@@ -272,7 +272,7 @@ TYPE_PROC_REF(/obj/structure/elite_tumor, border_check)()
 		visible_message(span_boldwarning("[mychild] suddenly reappears above [src]!"))
 		playsound(loc,'sound/effects/phasein.ogg', 200, 0, 50, TRUE, TRUE)
 
-TYPE_PROC_REF(/obj/structure/elite_tumor, onEliteLoss)()
+/obj/structure/elite_tumor/proc/onEliteLoss()
 	playsound(loc,'sound/effects/tendril_destroyed.ogg', 200, 0, 50, TRUE, TRUE)
 	visible_message(span_boldwarning("[src] begins to convulse violently before beginning to dissipate."))
 	visible_message(span_boldwarning("As [src] closes, something is forced up from down below."))
@@ -291,7 +291,7 @@ TYPE_PROC_REF(/obj/structure/elite_tumor, onEliteLoss)()
 	activator = null
 	qdel(src)
 
-TYPE_PROC_REF(/obj/structure/elite_tumor, onEliteWon)()
+/obj/structure/elite_tumor/proc/onEliteWon()
 	activity = TUMOR_PASSIVE
 	activator = null
 	mychild.revive(full_heal = TRUE, admin_revive = TRUE)

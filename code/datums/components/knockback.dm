@@ -28,17 +28,17 @@
 	UnregisterSignal(parent, list(COMSIG_ITEM_AFTERATTACK, COMSIG_HOSTILE_ATTACKINGTARGET, COMSIG_PROJECTILE_ON_HIT))
 
 /// triggered after an item attacks something
-TYPE_PROC_REF(/datum/component/knockback, item_afterattack)(obj/item/source, atom/target, mob/user, proximity_flag, click_parameters)
+/datum/component/knockback/proc/item_afterattack(obj/item/source, atom/target, mob/user, proximity_flag, click_parameters)
 	if(!proximity_flag)
 		return
 	do_knockback(target, user, get_dir(source, target))
 
 /// triggered after a hostile simplemob attacks something
-TYPE_PROC_REF(/datum/component/knockback, hostile_attackingtarget)(mob/living/simple_animal/hostile/attacker, atom/target)
+/datum/component/knockback/proc/hostile_attackingtarget(mob/living/simple_animal/hostile/attacker, atom/target)
 	do_knockback(target, attacker, get_dir(attacker, target))
 
 /// triggered after a projectile hits something
-TYPE_PROC_REF(/datum/component/knockback, projectile_hit)(atom/fired_from, atom/movable/firer, atom/target, Angle)
+/datum/component/knockback/proc/projectile_hit(atom/fired_from, atom/movable/firer, atom/target, Angle)
 	do_knockback(target, null, angle2dir(Angle))
 
 
@@ -50,7 +50,7 @@ TYPE_PROC_REF(/datum/component/knockback, projectile_hit)(atom/fired_from, atom/
  * * thrower - Thing that caused this atom to be thrown
  * * throw_dir - Direction to throw the atom
  */
-TYPE_PROC_REF(/datum/component/knockback, do_knockback)(atom/target, mob/thrower, throw_dir)
+/datum/component/knockback/proc/do_knockback(atom/target, mob/thrower, throw_dir)
 	if(!ismovable(target) || throw_dir == null)
 		return
 	var/atom/movable/throwee = target

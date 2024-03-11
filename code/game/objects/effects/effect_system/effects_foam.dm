@@ -82,7 +82,7 @@
 	START_PROCESSING(SSfastprocess, src)
 	playsound(src, 'sound/effects/bubbles2.ogg', 80, 1, -3)
 
-TYPE_PROC_REF(/obj/effect/particle_effect/foam, MakeSlippery)()
+/obj/effect/particle_effect/foam/proc/MakeSlippery()
 	AddComponent(/datum/component/slippery, 100)
 
 /obj/effect/particle_effect/foam/Destroy()
@@ -90,7 +90,7 @@ TYPE_PROC_REF(/obj/effect/particle_effect/foam, MakeSlippery)()
 	return ..()
 
 
-TYPE_PROC_REF(/obj/effect/particle_effect/foam, kill_foam)()
+/obj/effect/particle_effect/foam/proc/kill_foam()
 	STOP_PROCESSING(SSfastprocess, src)
 	switch(metal)
 		if(ALUMINUM_FOAM)
@@ -145,7 +145,7 @@ TYPE_PROC_REF(/obj/effect/particle_effect/foam, kill_foam)()
 		return
 	spread_foam()
 
-TYPE_PROC_REF(/obj/effect/particle_effect/foam, foam_mob)(mob/living/L)
+/obj/effect/particle_effect/foam/proc/foam_mob(mob/living/L)
 	if(lifetime<1)
 		return 0
 	if(!istype(L))
@@ -156,7 +156,7 @@ TYPE_PROC_REF(/obj/effect/particle_effect/foam, foam_mob)(mob/living/L)
 	lifetime--
 	return 1
 
-TYPE_PROC_REF(/obj/effect/particle_effect/foam, spread_foam)()
+/obj/effect/particle_effect/foam/proc/spread_foam()
 	var/turf/t_loc = get_turf(src)
 	for(var/turf/T in t_loc.reachableAdjacentTurfs())
 		var/obj/effect/particle_effect/foam/foundfoam = locate() in T //Don't spread foam where there's already foam!

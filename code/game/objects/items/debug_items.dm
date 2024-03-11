@@ -38,7 +38,7 @@
 	. = ..()
 	. += " The mode is: [tool_behaviour]"
 
-TYPE_PROC_REF(/obj/item/debug/omnitool, check_menu)(mob/user)
+/obj/item/debug/omnitool/proc/check_menu(mob/user)
 	if(!istype(user))
 		return FALSE
 	if(user.incapacitated() || !user.Adjacent(src))

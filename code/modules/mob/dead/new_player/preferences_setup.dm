@@ -1,6 +1,6 @@
 
 	//The mob should have a gender you want before running this proc. Will run fine without H
-TYPE_PROC_REF(/datum/preferences, random_character)(gender_override)
+/datum/preferences/proc/random_character(gender_override)
 	if(gender_override)
 		gender = gender_override
 	else
@@ -22,7 +22,7 @@ TYPE_PROC_REF(/datum/preferences, random_character)(gender_override)
 	age = (rand(20, 25))
 
 
-TYPE_PROC_REF(/datum/preferences, update_preview_icon)(current_tab)
+/datum/preferences/proc/update_preview_icon(current_tab)
 	var/equip_job = TRUE
 	switch(current_tab)
 		if(APPEARANCE_TAB)
@@ -61,7 +61,7 @@ TYPE_PROC_REF(/datum/preferences, update_preview_icon)(current_tab)
 	parent.show_character_previews(new /mutable_appearance(mannequin))
 	unset_busy_human_dummy(DUMMY_HUMAN_SLOT_PREFERENCES)
 
-TYPE_PROC_REF(/datum/preferences, get_highest_job)()
+/datum/preferences/proc/get_highest_job()
 	var/highest_pref = 0
 	var/datum/job/highest_job
 	for(var/job in job_preferences)

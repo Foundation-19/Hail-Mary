@@ -9,10 +9,10 @@
 	if(sabotage_type!="nothing")
 		GLOB.possible_sabotages += src
 
-TYPE_PROC_REF(/datum/sabotage_objective, check_conditions)()
+/datum/sabotage_objective/proc/check_conditions()
 	return TRUE
 
-TYPE_PROC_REF(/datum/sabotage_objective, can_run)()
+/datum/sabotage_objective/proc/can_run()
 	return TRUE
 
 /datum/sabotage_objective/processing
@@ -22,7 +22,7 @@ TYPE_PROC_REF(/datum/sabotage_objective, can_run)()
 	..()
 	START_PROCESSING(SSprocessing, src)
 
-TYPE_PROC_REF(/datum/sabotage_objective/processing, check_condition_processing)()
+/datum/sabotage_objective/processing/proc/check_condition_processing()
 	return 1
 
 /datum/sabotage_objective/processing/process()

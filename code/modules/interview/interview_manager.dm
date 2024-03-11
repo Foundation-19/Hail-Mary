@@ -33,7 +33,7 @@ GLOBAL_DATUM_INIT(interviews, /datum/interview_manager, new)
  * Arguments:
  * * C - The client who is logging in
  */
-TYPE_PROC_REF(/datum/interview_manager, client_login)(client/C)
+/datum/interview_manager/proc/client_login(client/C)
 	for(var/ckey in open_interviews)
 		var/datum/interview/I = open_interviews[ckey]
 		if (I && !I.owner && C.ckey == I.owner_ckey)
@@ -46,7 +46,7 @@ TYPE_PROC_REF(/datum/interview_manager, client_login)(client/C)
  * Arguments:
  * * C - The client who is logging out
  */
-TYPE_PROC_REF(/datum/interview_manager, client_logout)(client/C)
+/datum/interview_manager/proc/client_logout(client/C)
 	for(var/ckey in open_interviews)
 		var/datum/interview/I = open_interviews[ckey]
 		if (I?.owner && C.ckey == I.owner_ckey)
@@ -59,7 +59,7 @@ TYPE_PROC_REF(/datum/interview_manager, client_logout)(client/C)
  * Arguments:
  * * C - The client to get the interview for
  */
-TYPE_PROC_REF(/datum/interview_manager, interview_for_client)(client/C)
+/datum/interview_manager/proc/interview_for_client(client/C)
 	if (!C)
 		return
 	if (open_interviews[C.ckey])
@@ -75,7 +75,7 @@ TYPE_PROC_REF(/datum/interview_manager, interview_for_client)(client/C)
  * Arguments:
  * * id - The ID of the interview to find
  */
-TYPE_PROC_REF(/datum/interview_manager, interview_by_id)(id)
+/datum/interview_manager/proc/interview_by_id(id)
 	if (!id)
 		return
 	for (var/ckey in open_interviews)
@@ -93,7 +93,7 @@ TYPE_PROC_REF(/datum/interview_manager, interview_by_id)(id)
  * Arguments:
  * * to_queue - The interview to enqueue
  */
-TYPE_PROC_REF(/datum/interview_manager, enqueue)(datum/interview/to_queue)
+/datum/interview_manager/proc/enqueue(datum/interview/to_queue)
 	if (!to_queue || (to_queue in interview_queue))
 		return
 	to_queue.pos_in_queue = interview_queue.len + 1
@@ -117,14 +117,14 @@ TYPE_PROC_REF(/datum/interview_manager, enqueue)(datum/interview/to_queue)
  * Arguments:
  * * ckey - The ckey to remove from the cooldown list
  */
-TYPE_PROC_REF(/datum/interview_manager, release_from_cooldown)(ckey)
+/datum/interview_manager/proc/release_from_cooldown(ckey)
 	cooldown_ckeys -= ckey
 
 /**
  * Dequeues the first interview from the interview queue, and updates the queue positions of any relevant
  * interviews that follow it.
  */
-TYPE_PROC_REF(/datum/interview_manager, dequeue)()
+/datum/interview_manager/proc/dequeue()
 	if (interview_queue.len == 0)
 		return
 
@@ -145,7 +145,7 @@ TYPE_PROC_REF(/datum/interview_manager, dequeue)()
  * Arguments:
  * * to_dequeue - The interview to dequeue
  */
-TYPE_PROC_REF(/datum/interview_manager, dequeue_specific)(datum/interview/to_dequeue)
+/datum/interview_manager/proc/dequeue_specific(datum/interview/to_dequeue)
 	if (!to_dequeue)
 		return
 
@@ -166,7 +166,7 @@ TYPE_PROC_REF(/datum/interview_manager, dequeue_specific)(datum/interview/to_deq
  * Arguments:
  * * to_close - The interview to dequeue
  */
-TYPE_PROC_REF(/datum/interview_manager, close_interview)(datum/interview/to_close)
+/datum/interview_manager/proc/close_interview(datum/interview/to_close)
 	if (!to_close)
 		return
 	dequeue_specific(to_close)

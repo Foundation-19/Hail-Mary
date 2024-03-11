@@ -6,7 +6,7 @@
 /datum/integrated_io/lists/ask_for_pin_data(mob/user)
 	interact(user)
 
-TYPE_PROC_REF(/datum/integrated_io/lists, interact)(mob/user)
+/datum/integrated_io/lists/proc/interact(mob/user)
 	var/list/my_list = data
 	var/t = "<h2>[src]</h2><br>"
 	t += "List length: [my_list.len]<br>"
@@ -25,19 +25,19 @@ TYPE_PROC_REF(/datum/integrated_io/lists, interact)(mob/user)
 		t += "<a href='?src=[REF(src)];remove=1;pos=[i]'>\[Remove\]</a><br>"
 	user << browse(t, "window=list_pin_[REF(src)];size=500x400")
 
-TYPE_PROC_REF(/datum/integrated_io/lists, add_to_list)(mob/user, new_entry)
+/datum/integrated_io/lists/proc/add_to_list(mob/user, new_entry)
 	if(!new_entry && user)
 		new_entry = ask_for_data_type(user)
 	if(is_valid(new_entry))
 		Add(new_entry)
 
-TYPE_PROC_REF(/datum/integrated_io/lists, Add)(new_entry)
+/datum/integrated_io/lists/proc/Add(new_entry)
 	var/list/my_list = data
 	if(my_list.len > IC_MAX_LIST_LENGTH)
 		my_list.Cut(Start=1,End=2)
 	my_list.Add(new_entry)
 
-TYPE_PROC_REF(/datum/integrated_io/lists, remove_from_list_by_position)(mob/user, position)
+/datum/integrated_io/lists/proc/remove_from_list_by_position(mob/user, position)
 	var/list/my_list = data
 	if(!my_list.len)
 		to_chat(user, span_warning("The list is empty, there's nothing to remove."))
@@ -48,7 +48,7 @@ TYPE_PROC_REF(/datum/integrated_io/lists, remove_from_list_by_position)(mob/user
 	if(target_entry)
 		my_list.Remove(target_entry)
 
-TYPE_PROC_REF(/datum/integrated_io/lists, remove_from_list)(mob/user, target_entry)
+/datum/integrated_io/lists/proc/remove_from_list(mob/user, target_entry)
 	var/list/my_list = data
 	if(!my_list.len)
 		to_chat(user, span_warning("The list is empty, there's nothing to remove."))
@@ -58,7 +58,7 @@ TYPE_PROC_REF(/datum/integrated_io/lists, remove_from_list)(mob/user, target_ent
 	if(holder.check_interactivity(user) && target_entry)
 		my_list.Remove(target_entry)
 
-TYPE_PROC_REF(/datum/integrated_io/lists, edit_in_list)(mob/user, target_entry)
+/datum/integrated_io/lists/proc/edit_in_list(mob/user, target_entry)
 	var/list/my_list = data
 	if(!my_list.len)
 		to_chat(user, span_warning("The list is empty, there's nothing to modify."))
@@ -70,7 +70,7 @@ TYPE_PROC_REF(/datum/integrated_io/lists, edit_in_list)(mob/user, target_entry)
 		if(edited_entry)
 			my_list[my_list.Find(target_entry)] = edited_entry
 
-TYPE_PROC_REF(/datum/integrated_io/lists, edit_in_list_by_position)(mob/user, position)
+/datum/integrated_io/lists/proc/edit_in_list_by_position(mob/user, position)
 	var/list/my_list = data
 	if(!my_list.len)
 		to_chat(user, span_warning("The list is empty, there's nothing to modify."))
@@ -83,7 +83,7 @@ TYPE_PROC_REF(/datum/integrated_io/lists, edit_in_list_by_position)(mob/user, po
 		if(edited_entry)
 			my_list[position] = edited_entry
 
-TYPE_PROC_REF(/datum/integrated_io/lists, swap_inside_list)(mob/user, first_target, second_target)
+/datum/integrated_io/lists/proc/swap_inside_list(mob/user, first_target, second_target)
 	var/list/my_list = data
 	if(my_list.len <= 1)
 		to_chat(user, span_warning("The list is empty, or too small to do any meaningful swapping."))
@@ -100,7 +100,7 @@ TYPE_PROC_REF(/datum/integrated_io/lists, swap_inside_list)(mob/user, first_targ
 			var/second_pos = my_list.Find(second_target)
 			my_list.Swap(first_pos, second_pos)
 
-TYPE_PROC_REF(/datum/integrated_io/lists, clear_list)(mob/user)
+/datum/integrated_io/lists/proc/clear_list(mob/user)
 	var/list/my_list = data
 	my_list.Cut()
 

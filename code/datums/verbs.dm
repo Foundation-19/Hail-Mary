@@ -6,12 +6,12 @@
 	var/abstract = FALSE
 
 //returns the master list for verbs of a type
-TYPE_PROC_REF(/datum/verbs, GetList)()
+/datum/verbs/proc/GetList()
 	CRASH("Abstract verblist for [type]")
 
 //do things for each entry in Generate_list
 //return value sets Generate_list[verbpath]
-TYPE_PROC_REF(/datum/verbs, HandleVerb)(list/entry, procpath/verbpath, ...)
+/datum/verbs/proc/HandleVerb(list/entry, procpath/verbpath, ...)
 	return entry
 
 /datum/verbs/New()
@@ -37,7 +37,7 @@ TYPE_PROC_REF(/datum/verbs, HandleVerb)(list/entry, procpath/verbpath, ...)
 	else
 		parent.Add_children(list(src))
 
-TYPE_PROC_REF(/datum/verbs, Set_parent)(datum/verbs/_parent)
+/datum/verbs/proc/Set_parent(datum/verbs/_parent)
 	parent = _parent
 	if (abstract)
 		parent.Add_children(children)
@@ -48,7 +48,7 @@ TYPE_PROC_REF(/datum/verbs, Set_parent)(datum/verbs/_parent)
 		for(var/verbparenttype in verblistoftypes)
 			parent.Load_verbs(verbparenttype, verblistoftypes[verbparenttype])
 
-TYPE_PROC_REF(/datum/verbs, Add_children)(list/kids)
+/datum/verbs/proc/Add_children(list/kids)
 	if (abstract && parent)
 		parent.Add_children(kids)
 		return
@@ -59,7 +59,7 @@ TYPE_PROC_REF(/datum/verbs, Add_children)(list/kids)
 		if (!item.abstract)
 			children += item
 
-TYPE_PROC_REF(/datum/verbs, Load_verbs)(verb_parent_type, list/verbs)
+/datum/verbs/proc/Load_verbs(verb_parent_type, list/verbs)
 	if (abstract && parent)
 		parent.Load_verbs(verb_parent_type, verbs)
 		return
@@ -67,7 +67,7 @@ TYPE_PROC_REF(/datum/verbs, Load_verbs)(verb_parent_type, list/verbs)
 	for (var/verbpath in verbs)
 		verblist[verbpath] = verb_parent_type
 
-TYPE_PROC_REF(/datum/verbs, Generate_list)(...)
+/datum/verbs/proc/Generate_list(...)
 	. = list()
 	if (length(children))
 		for (var/thing in children)
@@ -95,7 +95,7 @@ TYPE_PROC_REF(/datum/verbs, Generate_list)(...)
 
 		.[verbpath] = HandleVerb(arglist(list(entry, verbpath) + args))
 
-TYPE_PROC_REF(/world, LoadVerbs)(verb_type)
+/world/proc/LoadVerbs(verb_type)
 	if(!ispath(verb_type, /datum/verbs) || verb_type == /datum/verbs)
 		CRASH("Invalid verb_type: [verb_type]")
 	for (var/typepath in subtypesof(verb_type))

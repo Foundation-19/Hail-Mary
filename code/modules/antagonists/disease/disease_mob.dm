@@ -142,7 +142,7 @@ the new instance inside the host to be updated to the template's stats.
 	var/datum/atom_hud/medsensor = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
 	medsensor.add_hud_to(src)
 
-TYPE_PROC_REF(/mob/camera/disease, pick_name)()
+/mob/camera/disease/proc/pick_name()
 	var/static/list/taken_names
 	if(!taken_names)
 		taken_names = list("Unknown" = TRUE)
@@ -166,7 +166,7 @@ TYPE_PROC_REF(/mob/camera/disease, pick_name)()
 	if(A)
 		A.disease_name = set_name
 
-TYPE_PROC_REF(/mob/camera/disease, infect_random_patient_zero)(del_on_fail = TRUE)
+/mob/camera/disease/proc/infect_random_patient_zero(del_on_fail = TRUE)
 	if(!freemove)
 		return FALSE
 	var/list/possible_hosts = list()
@@ -194,14 +194,14 @@ TYPE_PROC_REF(/mob/camera/disease, infect_random_patient_zero)(del_on_fail = TRU
 		qdel(src)
 	return FALSE
 
-TYPE_PROC_REF(/mob/camera/disease, force_infect)(mob/living/L)
+/mob/camera/disease/proc/force_infect(mob/living/L)
 	var/datum/disease/advance/sentient_disease/V = disease_template.Copy()
 	var/result = L.ForceContractDisease(V, FALSE, TRUE)
 	if(result && freemove)
 		end_freemove()
 	return result
 
-TYPE_PROC_REF(/mob/camera/disease, end_freemove)()
+/mob/camera/disease/proc/end_freemove()
 	if(!freemove)
 		return
 	freemove = FALSE
@@ -217,7 +217,7 @@ TYPE_PROC_REF(/mob/camera/disease, end_freemove)()
 		deltimer(freemove_end_timerid)
 	sight = SEE_SELF
 
-TYPE_PROC_REF(/mob/camera/disease, add_infection)(datum/disease/advance/sentient_disease/V)
+/mob/camera/disease/proc/add_infection(datum/disease/advance/sentient_disease/V)
 	disease_instances += V
 	hosts[V.affected_mob] = V
 	total_points = max(total_points, disease_instances.len)
@@ -239,7 +239,7 @@ TYPE_PROC_REF(/mob/camera/disease, add_infection)(datum/disease/advance/sentient
 		set_following(V.affected_mob)
 	refresh_adaptation_menu()
 
-TYPE_PROC_REF(/mob/camera/disease, remove_infection)(datum/disease/advance/sentient_disease/V)
+/mob/camera/disease/proc/remove_infection(datum/disease/advance/sentient_disease/V)
 	if(QDELETED(src))
 		disease_instances -= V
 		hosts -= V.affected_mob
@@ -261,14 +261,14 @@ TYPE_PROC_REF(/mob/camera/disease, remove_infection)(datum/disease/advance/senti
 			qdel(src)
 		refresh_adaptation_menu()
 
-TYPE_PROC_REF(/mob/camera/disease, set_following)(mob/living/L)
+/mob/camera/disease/proc/set_following(mob/living/L)
 	if(following_host)
 		UnregisterSignal(following_host, COMSIG_MOVABLE_MOVED)
 	RegisterSignal(L, COMSIG_MOVABLE_MOVED, PROC_REF(follow_mob))
 	following_host = L
 	follow_mob()
 
-TYPE_PROC_REF(/mob/camera/disease, follow_next)(reverse = FALSE)
+/mob/camera/disease/proc/follow_next(reverse = FALSE)
 	var/index = hosts.Find(following_host)
 	if(index)
 		if(reverse)
@@ -277,7 +277,7 @@ TYPE_PROC_REF(/mob/camera/disease, follow_next)(reverse = FALSE)
 			index = index == hosts.len ? 1 : index + 1
 		set_following(hosts[index])
 
-TYPE_PROC_REF(/mob/camera/disease, follow_mob)(datum/source, newloc, dir)
+/mob/camera/disease/proc/follow_mob(datum/source, newloc, dir)
 	var/turf/T = get_turf(following_host)
 	if(T)
 		forceMove(T)
@@ -294,7 +294,7 @@ TYPE_PROC_REF(/mob/camera/disease, follow_mob)(datum/source, newloc, dir)
 	else
 		..()
 
-TYPE_PROC_REF(/mob/camera/disease, confirm_initial_infection)(mob/living/carbon/human/H)
+/mob/camera/disease/proc/confirm_initial_infection(mob/living/carbon/human/H)
 	set waitfor = FALSE
 	if(alert(src, "Select [H.name] as your initial host?", "Select Host", "Yes", "No") != "Yes")
 		return
@@ -303,20 +303,20 @@ TYPE_PROC_REF(/mob/camera/disease, confirm_initial_infection)(mob/living/carbon/
 	if(QDELETED(H) || !force_infect(H))
 		to_chat(src, span_warning("[H ? H.name : "Host"] cannot be infected."))
 
-TYPE_PROC_REF(/mob/camera/disease, adapt_cooldown)()
+/mob/camera/disease/proc/adapt_cooldown()
 	to_chat(src, span_notice("You have altered your genetic structure. You will be unable to adapt again for [DisplayTimeText(adaptation_cooldown)]."))
 	next_adaptation_time = world.time + adaptation_cooldown
 	addtimer(CALLBACK(src, PROC_REF(notify_adapt_ready)), adaptation_cooldown)
 
-TYPE_PROC_REF(/mob/camera/disease, notify_adapt_ready)()
+/mob/camera/disease/proc/notify_adapt_ready()
 	to_chat(src, span_notice("You are now ready to adapt again."))
 	refresh_adaptation_menu()
 
-TYPE_PROC_REF(/mob/camera/disease, refresh_adaptation_menu)()
+/mob/camera/disease/proc/refresh_adaptation_menu()
 	if(browser_open)
 		adaptation_menu()
 
-TYPE_PROC_REF(/mob/camera/disease, adaptation_menu)()
+/mob/camera/disease/proc/adaptation_menu()
 	var/datum/disease/advance/sentient_disease/DT = disease_template
 	if(!DT)
 		return

@@ -36,7 +36,7 @@
 	if(in_range(user, src) || isobserver(user))
 		. += "<span class='notice'>The status display reads: Probability of malfunction decreased by <b>[(accuracy*25)-25]%</b>.</span>"
 
-TYPE_PROC_REF(/obj/machinery/teleport/hub, link_power_station)()
+/obj/machinery/teleport/hub/proc/link_power_station()
 	if(power_station)
 		return
 	for(var/direction in GLOB.cardinals)
@@ -62,7 +62,7 @@ TYPE_PROC_REF(/obj/machinery/teleport/hub, link_power_station)()
 		return
 	return ..()
 
-TYPE_PROC_REF(/obj/machinery/teleport/hub, teleport)(atom/movable/M as mob|obj, turf/T)
+/obj/machinery/teleport/hub/proc/teleport(atom/movable/M as mob|obj, turf/T)
 	var/obj/machinery/computer/teleporter/com = power_station.teleporter_console
 	if (QDELETED(com))
 		return
@@ -97,7 +97,7 @@ TYPE_PROC_REF(/obj/machinery/teleport/hub, teleport)(atom/movable/M as mob|obj, 
 	..()
 	update_icon()
 
-TYPE_PROC_REF(/obj/machinery/teleport/hub, is_ready)()
+/obj/machinery/teleport/hub/proc/is_ready()
 	. = !panel_open && !(stat & (BROKEN|NOPOWER)) && power_station && power_station.engaged && !(power_station.stat & (BROKEN|NOPOWER))
 
 /obj/machinery/teleport/hub/syndicate/Initialize()
@@ -139,7 +139,7 @@ TYPE_PROC_REF(/obj/machinery/teleport/hub, is_ready)()
 	if(in_range(user, src) || isobserver(user))
 		. += "<span class='notice'>The status display reads: This station can be linked to <b>[efficiency]</b> other station(s).</span>"
 
-TYPE_PROC_REF(/obj/machinery/teleport/station, link_console_and_hub)()
+/obj/machinery/teleport/station/proc/link_console_and_hub()
 	for(var/direction in GLOB.cardinals)
 		teleporter_hub = locate(/obj/machinery/teleport/hub, get_step(src, direction))
 		if(teleporter_hub)
@@ -196,7 +196,7 @@ TYPE_PROC_REF(/obj/machinery/teleport/station, link_console_and_hub)()
 /obj/machinery/teleport/station/interact(mob/user)
 	toggle(user)
 
-TYPE_PROC_REF(/obj/machinery/teleport/station, toggle)(mob/user)
+/obj/machinery/teleport/station/proc/toggle(mob/user)
 	if(stat & (BROKEN|NOPOWER) || !teleporter_hub || !teleporter_console )
 		return
 	if (teleporter_console.target)

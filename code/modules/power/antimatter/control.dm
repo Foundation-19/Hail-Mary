@@ -72,7 +72,7 @@
 
 	return
 
-TYPE_PROC_REF(/obj/machinery/power/am_control_unit, produce_power)()
+/obj/machinery/power/am_control_unit/proc/produce_power()
 	soundloop.mid_sounds = list('sound/machines/sm/loops/calm.ogg' = 1) //fortuna edit
 	//playsound(src.loc, 'sound/effects/bang.ogg', 25, 1) //fortuna edit
 	var/core_power = reported_core_efficiency//Effectively how much fuel we can safely deal with
@@ -200,7 +200,7 @@ TYPE_PROC_REF(/obj/machinery/power/am_control_unit, produce_power)()
 		stability -= damage/2
 		check_stability()
 
-TYPE_PROC_REF(/obj/machinery/power/am_control_unit, add_shielding)(obj/machinery/am_shielding/AMS, AMS_linking = 0)
+/obj/machinery/power/am_control_unit/proc/add_shielding(obj/machinery/am_shielding/AMS, AMS_linking = 0)
 	if(!istype(AMS))
 		return 0
 	if(!anchored)
@@ -211,7 +211,7 @@ TYPE_PROC_REF(/obj/machinery/power/am_control_unit, add_shielding)(obj/machinery
 	update_shield_icons = 1
 	return 1
 
-TYPE_PROC_REF(/obj/machinery/power/am_control_unit, remove_shielding)(obj/machinery/am_shielding/AMS)
+/obj/machinery/power/am_control_unit/proc/remove_shielding(obj/machinery/am_shielding/AMS)
 	if(!istype(AMS))
 		return 0
 	linked_shielding.Remove(AMS)
@@ -220,12 +220,12 @@ TYPE_PROC_REF(/obj/machinery/power/am_control_unit, remove_shielding)(obj/machin
 		toggle_power()
 	return 1
 
-TYPE_PROC_REF(/obj/machinery/power/am_control_unit, check_stability)()//TODO: make it break when low also might want to add a way to fix it like a part or such that can be replaced
+/obj/machinery/power/am_control_unit/proc/check_stability()//TODO: make it break when low also might want to add a way to fix it like a part or such that can be replaced
 	if(stability <= 0)
 		qdel(src)
 	return
 
-TYPE_PROC_REF(/obj/machinery/power/am_control_unit, toggle_power)(powerfail = 0)
+/obj/machinery/power/am_control_unit/proc/toggle_power(powerfail = 0)
 	active = !active
 	if(active)
 		use_power = ACTIVE_POWER_USE
@@ -236,7 +236,7 @@ TYPE_PROC_REF(/obj/machinery/power/am_control_unit, toggle_power)(powerfail = 0)
 	update_icon()
 	return
 
-TYPE_PROC_REF(/obj/machinery/power/am_control_unit, check_shield_icons)()//Forces icon_update for all shields
+/obj/machinery/power/am_control_unit/proc/check_shield_icons()//Forces icon_update for all shields
 	if(shield_icon_delay)
 		return
 	shield_icon_delay = 1
@@ -252,10 +252,10 @@ TYPE_PROC_REF(/obj/machinery/power/am_control_unit, check_shield_icons)()//Force
 			AMS.update_icon()
 	addtimer(CALLBACK(src, PROC_REF(reset_shield_icon_delay)), 20)
 
-TYPE_PROC_REF(/obj/machinery/power/am_control_unit, reset_shield_icon_delay)()
+/obj/machinery/power/am_control_unit/proc/reset_shield_icon_delay()
 	shield_icon_delay = 0
 
-TYPE_PROC_REF(/obj/machinery/power/am_control_unit, check_core_stability)()
+/obj/machinery/power/am_control_unit/proc/check_core_stability()
 	if(stored_core_stability_delay || linked_cores.len <= 0)
 		return
 	stored_core_stability_delay = 1
@@ -265,7 +265,7 @@ TYPE_PROC_REF(/obj/machinery/power/am_control_unit, check_core_stability)()
 	stored_core_stability/=linked_cores.len
 	addtimer(CALLBACK(src, PROC_REF(reset_stored_core_stability_delay)), 40)
 
-TYPE_PROC_REF(/obj/machinery/power/am_control_unit, reset_stored_core_stability_delay)()
+/obj/machinery/power/am_control_unit/proc/reset_stored_core_stability_delay()
 	stored_core_stability_delay = 0
 
 /obj/machinery/power/am_control_unit/ui_interact(mob/user)

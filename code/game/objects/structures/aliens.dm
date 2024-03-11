@@ -148,7 +148,7 @@
 			if(3)
 				icon = 'icons/obj/smooth_structures/alien/weeds3.dmi'
 
-TYPE_PROC_REF(/obj/structure/alien/weeds, expand)()
+/obj/structure/alien/weeds/proc/expand()
 	var/turf/U = get_turf(src)
 	if(is_type_in_typecache(U, blacklisted_turfs))
 		qdel(src)
@@ -272,13 +272,13 @@ TYPE_PROC_REF(/obj/structure/alien/weeds, expand)()
 		to_chat(user, span_notice("It feels slimy."))
 		user.DelayNextAction(CLICK_CD_MELEE)
 
-TYPE_PROC_REF(/obj/structure/alien/egg, Grow)()
+/obj/structure/alien/egg/proc/Grow()
 	status = GROWN
 	update_icon()
 	proximity_monitor.SetRange(1)
 
 //drops and kills the hugger if any is remaining
-TYPE_PROC_REF(/obj/structure/alien/egg, Burst)(kill = TRUE)
+/obj/structure/alien/egg/proc/Burst(kill = TRUE)
 	if(status == GROWN || status == GROWING)
 		proximity_monitor.SetRange(0)
 		status = BURST
@@ -286,7 +286,7 @@ TYPE_PROC_REF(/obj/structure/alien/egg, Burst)(kill = TRUE)
 		flick("egg_opening", src)
 		addtimer(CALLBACK(src, PROC_REF(finish_bursting), kill), 15)
 
-TYPE_PROC_REF(/obj/structure/alien/egg, finish_bursting)(kill = TRUE)
+/obj/structure/alien/egg/proc/finish_bursting(kill = TRUE)
 	if(child)
 		child.forceMove(get_turf(src))
 		// TECHNICALLY you could put non-facehuggers in the child var

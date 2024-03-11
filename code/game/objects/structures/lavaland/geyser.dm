@@ -14,7 +14,7 @@
 	var/max_volume = 500
 	var/start_volume = 50
 
-TYPE_PROC_REF(/obj/structure/geyser, start_chemming)()
+/obj/structure/geyser/proc/start_chemming()
 	activated = TRUE
 	create_reagents(max_volume, DRAINABLE)
 	reagents.add_reagent(reagent_id, start_volume)

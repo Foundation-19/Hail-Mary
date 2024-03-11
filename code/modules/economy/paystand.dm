@@ -116,7 +116,7 @@
 	else
 		return ..()
 
-TYPE_PROC_REF(/obj/machinery/paystand, purchase)(buyer, price)
+/obj/machinery/paystand/proc/purchase(buyer, price)
 	my_card.registered_account.adjust_money(price)
 	my_card.registered_account.bank_card_talk("Purchase made at your vendor by [buyer] for [price] credits.")
 	amount_deposited = amount_deposited + price

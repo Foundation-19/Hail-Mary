@@ -24,7 +24,7 @@
 	create_reagents(mopcap, NONE, NO_REAGENTS_VALUE)
 
 
-TYPE_PROC_REF(/obj/item/mop, clean)(turf/A)
+/obj/item/mop/proc/clean(turf/A)
 	if(reagents.has_reagent(/datum/reagent/water, 1) || reagents.has_reagent(/datum/reagent/water/holywater, 1) || reagents.has_reagent(/datum/reagent/consumable/ethanol/vodka, 1) || reagents.has_reagent(/datum/reagent/abraxo_cleaner, 1))
 		SEND_SIGNAL(A, COMSIG_COMPONENT_CLEAN_ACT, CLEAN_MEDIUM)
 		A.clean_blood()
@@ -72,7 +72,7 @@ TYPE_PROC_REF(/obj/item/mop, clean)(turf/A)
 		return ..()
 
 
-TYPE_PROC_REF(/obj/item/mop, janicart_insert)(mob/user, obj/structure/janitorialcart/J)
+/obj/item/mop/proc/janicart_insert(mob/user, obj/structure/janitorialcart/J)
 	if(insertable)
 		J.put_in_cart(src, user)
 		J.mymop=src

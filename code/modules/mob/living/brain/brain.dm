@@ -21,7 +21,7 @@
 		OB.brainmob = src
 		forceMove(OB)
 
-TYPE_PROC_REF(/mob/living/brain, create_dna)()
+/mob/living/brain/proc/create_dna()
 	stored_dna = new /datum/dna/stored(src)
 	if(!stored_dna.species)
 		var/rando_race = pick(GLOB.roundstart_races)
@@ -101,7 +101,7 @@ TYPE_PROC_REF(/mob/living/brain, create_dna)()
 	if (client && ranged_ability && ranged_ability.ranged_mousepointer)
 		client.mouse_pointer_icon = ranged_ability.ranged_mousepointer
 
-TYPE_PROC_REF(/mob/living/brain, get_traumas)()
+/mob/living/brain/proc/get_traumas()
 	. = list()
 	if(istype(loc, /obj/item/organ/brain))
 		var/obj/item/organ/brain/B = loc

@@ -379,7 +379,7 @@ Contains:
 	. = ..()
 	AddComponent(/datum/component/anti_magic, FALSE, FALSE, TRUE, ITEM_SLOT_HEAD, charges, TRUE, null, CALLBACK(src, PROC_REF(anti_magic_gone)))
 
-TYPE_PROC_REF(/obj/item/clothing/head/helmet/space/hardsuit/ert/paranormal, anti_magic_gone)()
+/obj/item/clothing/head/helmet/space/hardsuit/ert/paranormal/proc/anti_magic_gone()
 	var/mob/M = loc
 	if(!istype(M))
 		return
@@ -400,7 +400,7 @@ TYPE_PROC_REF(/obj/item/clothing/head/helmet/space/hardsuit/ert/paranormal, anti
 	. = ..()
 	AddComponent(/datum/component/anti_magic, TRUE, TRUE, FALSE, ITEM_SLOT_OCLOTHING, charges, TRUE, null, CALLBACK(src, PROC_REF(anti_magic_gone)))
 
-TYPE_PROC_REF(/obj/item/clothing/suit/space/hardsuit/ert/paranormal, anti_magic_gone)()
+/obj/item/clothing/suit/space/hardsuit/ert/paranormal/proc/anti_magic_gone()
 	var/mob/M = loc
 	if(!istype(M))
 		return

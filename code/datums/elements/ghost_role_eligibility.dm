@@ -33,7 +33,7 @@ GLOBAL_LIST_EMPTY(client_ghost_timeouts)
 			candidates += M
 	return candidates
 
-TYPE_PROC_REF(/mob, can_reenter_round)(silent = FALSE)
+/mob/proc/can_reenter_round(silent = FALSE)
 	if(!(src in GLOB.ghost_eligible_mobs))
 		return FALSE
 	if(!(ckey in GLOB.client_ghost_timeouts))
@@ -45,7 +45,7 @@ TYPE_PROC_REF(/mob, can_reenter_round)(silent = FALSE)
 		to_chat(src, span_warning("You are unable to play another mob[timeout != CANT_REENTER_ROUND ? " yet. You'll be able to in: [DisplayTimeText(timeout - world.realtime)]" : ""]."))
 	return FALSE
 
-TYPE_PROC_REF(/datum/element/ghost_role_eligibility, get_ghost_flags)()
+/datum/element/ghost_role_eligibility/proc/get_ghost_flags()
 	. = 0
 	if(!penalizing)
 		. |= COMPONENT_DO_NOT_PENALIZE_GHOSTING

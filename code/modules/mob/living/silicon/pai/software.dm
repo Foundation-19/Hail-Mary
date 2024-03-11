@@ -24,7 +24,7 @@
 															"encryption keys" = 20
 															)
 
-TYPE_PROC_REF(/mob/living/silicon/pai, paiInterface)()
+/mob/living/silicon/pai/proc/paiInterface()
 	var/dat = ""
 	var/left_part = ""
 	var/right_part = softwareMenu()
@@ -290,7 +290,7 @@ TYPE_PROC_REF(/mob/living/silicon/pai, paiInterface)()
 
 // MENUS
 
-TYPE_PROC_REF(/mob/living/silicon/pai, softwareMenu)()			// Populate the right menu
+/mob/living/silicon/pai/proc/softwareMenu()			// Populate the right menu
 	var/dat = ""
 
 	dat += "<A href='byond://?src=[REF(src)];software=refresh'>Refresh</A><br>"
@@ -352,7 +352,7 @@ TYPE_PROC_REF(/mob/living/silicon/pai, softwareMenu)()			// Populate the right m
 
 
 
-TYPE_PROC_REF(/mob/living/silicon/pai, downloadSoftware)()
+/mob/living/silicon/pai/proc/downloadSoftware()
 	var/dat = ""
 
 	dat += "<h2>CentCom pAI Module Subversion Network</h2><br>"
@@ -371,7 +371,7 @@ TYPE_PROC_REF(/mob/living/silicon/pai, downloadSoftware)()
 	return dat
 
 
-TYPE_PROC_REF(/mob/living/silicon/pai, directives)()
+/mob/living/silicon/pai/proc/directives()
 	var/dat = ""
 
 	dat += "[(master) ? "Your master: [master] ([master_dna])" : "You are bound to no one."]"
@@ -394,7 +394,7 @@ TYPE_PROC_REF(/mob/living/silicon/pai, directives)()
 			"}
 	return dat
 
-TYPE_PROC_REF(/mob/living/silicon/pai, CheckDNA)(mob/living/carbon/M, mob/living/silicon/pai/P)
+/mob/living/silicon/pai/proc/CheckDNA(mob/living/carbon/M, mob/living/silicon/pai/P)
 	var/answer = input(M, "[P] is requesting a DNA sample from you. Will you allow it to confirm your identity?", "[P] Check DNA", "No") in list("Yes", "No")
 	if(answer == "Yes")
 		M.visible_message(span_notice("[M] presses [M.p_their()] thumb against [P]."),\
@@ -414,7 +414,7 @@ TYPE_PROC_REF(/mob/living/silicon/pai, CheckDNA)(mob/living/carbon/M, mob/living
 // -=-=-=-= Software =-=-=-=-=- //
 
 //Remote Signaller
-TYPE_PROC_REF(/mob/living/silicon/pai, softwareSignal)()
+/mob/living/silicon/pai/proc/softwareSignal()
 	var/dat = ""
 	dat += "<h3>Remote Signaller</h3><br><br>"
 	dat += {"<B>Frequency/Code</B> for signaler:<BR>
@@ -436,7 +436,7 @@ TYPE_PROC_REF(/mob/living/silicon/pai, softwareSignal)()
 	return dat
 
 // Crew Manifest
-TYPE_PROC_REF(/mob/living/silicon/pai, softwareManifest)()
+/mob/living/silicon/pai/proc/softwareManifest()
 	. += "<h2>Crew Manifest</h2><br><br>"
 	if(GLOB.data_core.general)
 		for(var/datum/data/record/t in sortRecord(GLOB.data_core.general))
@@ -445,7 +445,7 @@ TYPE_PROC_REF(/mob/living/silicon/pai, softwareManifest)()
 	return .
 
 // Medical Records
-TYPE_PROC_REF(/mob/living/silicon/pai, softwareMedicalRecord)()
+/mob/living/silicon/pai/proc/softwareMedicalRecord()
 	switch(subscreen)
 		if(0)
 			. += "<h3>Medical Records</h3><HR>"
@@ -466,7 +466,7 @@ TYPE_PROC_REF(/mob/living/silicon/pai, softwareMedicalRecord)()
 	return .
 
 // Security Records
-TYPE_PROC_REF(/mob/living/silicon/pai, softwareSecurityRecord)()
+/mob/living/silicon/pai/proc/softwareSecurityRecord()
 	. = ""
 	switch(subscreen)
 		if(0)
@@ -488,7 +488,7 @@ TYPE_PROC_REF(/mob/living/silicon/pai, softwareSecurityRecord)()
 	return .
 // Encryption Keys
 // Encryption kets
-TYPE_PROC_REF(/mob/living/silicon/pai, softwareEncryptionKeys)()
+/mob/living/silicon/pai/proc/softwareEncryptionKeys()
 	var/dat = {"<h3>Encryption Key Firmware</h3><br>
 				When enabled, this device will be able to use up to two (2) encryption keys for departmental channel access.<br><br>
 				The device is currently [encryptmod ? "<font color=#55FF55>en" : "<font color=#FF5555>dis" ]abled.</font><br>[encryptmod ? "" : "<a href='byond://?src=[REF(src)];software=encryptionkeys;sub=0;toggle=1'>Activate Encryption Key Ports</a><br>"]"}
@@ -496,7 +496,7 @@ TYPE_PROC_REF(/mob/living/silicon/pai, softwareEncryptionKeys)()
 
 
 // Universal Translator
-TYPE_PROC_REF(/mob/living/silicon/pai, softwareTranslator)()
+/mob/living/silicon/pai/proc/softwareTranslator()
 	var/datum/language_holder/H = get_language_holder()
 	. = {"<h3>Universal Translator</h3><br>
 				When enabled, this device will permamently be able to speak and understand all known forms of communication.<br><br>
@@ -504,7 +504,7 @@ TYPE_PROC_REF(/mob/living/silicon/pai, softwareTranslator)()
 	return .
 
 // Security HUD
-TYPE_PROC_REF(/mob/living/silicon/pai, facialRecognition)()
+/mob/living/silicon/pai/proc/facialRecognition()
 	var/dat = {"<h3>Facial Recognition Suite</h3><br>
 				When enabled, this package will scan all viewable faces and compare them against the known criminal database, providing real-time graphical data about any detected persons of interest.<br><br>
 				The package is currently [ (secHUD) ? "<font color=#55FF55>en" : "<font color=#FF5555>dis" ]abled.</font><br>
@@ -513,7 +513,7 @@ TYPE_PROC_REF(/mob/living/silicon/pai, facialRecognition)()
 	return dat
 
 // Medical HUD
-TYPE_PROC_REF(/mob/living/silicon/pai, medicalAnalysis)()
+/mob/living/silicon/pai/proc/medicalAnalysis()
 	var/dat = ""
 	if(subscreen == 0)
 		dat += {"<h3>Medical Analysis Suite</h3><br>
@@ -557,7 +557,7 @@ TYPE_PROC_REF(/mob/living/silicon/pai, medicalAnalysis)()
 	return dat
 
 // Atmospheric Scanner
-TYPE_PROC_REF(/mob/living/silicon/pai, softwareAtmo)()
+/mob/living/silicon/pai/proc/softwareAtmo()
 	var/dat = "<h3>Atmospheric Sensor</h4>"
 
 	var/turf/T = get_turf(loc)
@@ -582,7 +582,7 @@ TYPE_PROC_REF(/mob/living/silicon/pai, softwareAtmo)()
 	return dat
 
 // Camera Jack - Clearly not finished
-TYPE_PROC_REF(/mob/living/silicon/pai, softwareCamera)()
+/mob/living/silicon/pai/proc/softwareCamera()
 	var/dat = "<h3>Camera Jack</h3>"
 	dat += "Cable status : "
 
@@ -601,7 +601,7 @@ TYPE_PROC_REF(/mob/living/silicon/pai, softwareCamera)()
 	return dat
 
 // Door Jack
-TYPE_PROC_REF(/mob/living/silicon/pai, softwareDoor)()
+/mob/living/silicon/pai/proc/softwareDoor()
 	var/dat = "<h3>Airlock Jack</h3>"
 	dat += "Cable status : "
 	if(!cable)
@@ -626,7 +626,7 @@ TYPE_PROC_REF(/mob/living/silicon/pai, softwareDoor)()
 	return dat
 
 // Door Jack - supporting proc
-TYPE_PROC_REF(/mob/living/silicon/pai, hackloop)()
+/mob/living/silicon/pai/proc/hackloop()
 	var/turf/T = get_turf(src)
 	for(var/mob/living/silicon/ai/AI in GLOB.player_list)
 		if(T.loc)
@@ -636,7 +636,7 @@ TYPE_PROC_REF(/mob/living/silicon/pai, hackloop)()
 	hacking = TRUE
 
 // Digital Messenger
-TYPE_PROC_REF(/mob/living/silicon/pai, pdamessage)()
+/mob/living/silicon/pai/proc/pdamessage()
 
 	var/dat = "<h3>Digital Messenger</h3>"
 	dat += {"<b>Signal/Receiver Status:</b> <A href='byond://?src=[REF(src)];software=pdamessage;toggler=1'>
@@ -656,7 +656,7 @@ TYPE_PROC_REF(/mob/living/silicon/pai, pdamessage)()
 	return dat
 
 // Loudness Booster
-TYPE_PROC_REF(/mob/living/silicon/pai, softwareLoudness)()
+/mob/living/silicon/pai/proc/softwareLoudness()
 	if(!internal_instrument)
 		internal_instrument = new(src)
 	var/dat = "<h3>Sound Synthetizer</h3>"

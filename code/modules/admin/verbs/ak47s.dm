@@ -1,5 +1,5 @@
 GLOBAL_VAR_INIT(terrorism, FALSE)
-TYPE_PROC_REF(/client, ak47s)() // For when you just can't summon guns worthy of a firefight
+/client/proc/ak47s() // For when you just can't summon guns worthy of a firefight
 	if(!SSticker.HasRoundStarted())
 		alert("The game hasn't started yet!")
 		return
@@ -12,7 +12,7 @@ TYPE_PROC_REF(/client, ak47s)() // For when you just can't summon guns worthy of
 
 	send_to_playing_players("<span class='boldannounce'><font size=6>MOTHER RUSSIA ARMS THE MOB!</font></span>")
 
-TYPE_PROC_REF(/mob/living/carbon/human, make_terrorism)()
+/mob/living/carbon/human/proc/make_terrorism()
 	for(var/obj/item/I in held_items)
 		qdel(I)
 	var/obj/item/gun/energy/laser/LaserAK/AK = new(src)

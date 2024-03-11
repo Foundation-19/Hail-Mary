@@ -143,7 +143,7 @@
 		reagents.trans_to(outbag, amount)
 		update_icon()
 
-TYPE_PROC_REF(/obj/machinery/bloodbankgen, beep_stop_pumping)(msg = "[src] beeps loudly.", out_instead_of_in = FALSE)
+/obj/machinery/bloodbankgen/proc/beep_stop_pumping(msg = "[src] beeps loudly.", out_instead_of_in = FALSE)
 	if(out_instead_of_in)
 		filling = FALSE
 	else
@@ -246,7 +246,7 @@ TYPE_PROC_REF(/obj/machinery/bloodbankgen, beep_stop_pumping)(msg = "[src] beeps
 	popup.set_content(dat)
 	popup.open()
 
-TYPE_PROC_REF(/obj/machinery/bloodbankgen, activateinput)()
+/obj/machinery/bloodbankgen/proc/activateinput()
 	if(bag)
 		draining = TRUE
 		update_icon()
@@ -254,7 +254,7 @@ TYPE_PROC_REF(/obj/machinery/bloodbankgen, activateinput)()
 		to_chat(usr, span_warning("There is no blood bag in the input slot."))
 		return
 
-TYPE_PROC_REF(/obj/machinery/bloodbankgen, activateoutput)()
+/obj/machinery/bloodbankgen/proc/activateoutput()
 	if(outbag)
 		filling = TRUE
 		update_icon()
@@ -262,7 +262,7 @@ TYPE_PROC_REF(/obj/machinery/bloodbankgen, activateoutput)()
 		to_chat(usr, span_warning("There is no blood bag in the output slot."))
 		return
 
-TYPE_PROC_REF(/obj/machinery/bloodbankgen, check_container_volume)(list/reagents, multiplier = 1)
+/obj/machinery/bloodbankgen/proc/check_container_volume(list/reagents, multiplier = 1)
 	var/sum_reagents = 0
 	for(var/R in reagents)
 		sum_reagents += reagents[R]
@@ -274,7 +274,7 @@ TYPE_PROC_REF(/obj/machinery/bloodbankgen, check_container_volume)(list/reagents
 
 	return TRUE
 
-TYPE_PROC_REF(/obj/machinery/bloodbankgen, detachinput)(mob/user)
+/obj/machinery/bloodbankgen/proc/detachinput(mob/user)
 	if(bag)
 		bag.forceMove(drop_location())
 		if(user && Adjacent(usr) && user.can_hold_items())
@@ -283,7 +283,7 @@ TYPE_PROC_REF(/obj/machinery/bloodbankgen, detachinput)(mob/user)
 		draining = null
 		update_icon()
 
-TYPE_PROC_REF(/obj/machinery/bloodbankgen, detachoutput)(mob/user)
+/obj/machinery/bloodbankgen/proc/detachoutput(mob/user)
 	if(outbag)
 		outbag.forceMove(drop_location())
 		if(user && Adjacent(user) && user.can_hold_items())
@@ -292,7 +292,7 @@ TYPE_PROC_REF(/obj/machinery/bloodbankgen, detachoutput)(mob/user)
 		filling = null
 		update_icon()
 
-TYPE_PROC_REF(/obj/machinery/bloodbankgen, attachinput)(obj/item/O, mob/user)
+/obj/machinery/bloodbankgen/proc/attachinput(obj/item/O, mob/user)
 	if(!bag)
 		if(!user.transferItemToLoc(O, src))
 			return
@@ -303,7 +303,7 @@ TYPE_PROC_REF(/obj/machinery/bloodbankgen, attachinput)(obj/item/O, mob/user)
 	else
 		to_chat(user, span_notice("There is already something in this slot!"))
 
-TYPE_PROC_REF(/obj/machinery/bloodbankgen, attachoutput)(obj/item/O, mob/user)
+/obj/machinery/bloodbankgen/proc/attachoutput(obj/item/O, mob/user)
 	if(!outbag)
 		if(!user.transferItemToLoc(O, src))
 			return

@@ -51,7 +51,7 @@
 		else
 			return TRUE
 
-TYPE_PROC_REF(/obj/structure/plasticflaps, check_anchored_state)(check_anchored)
+/obj/structure/plasticflaps/proc/check_anchored_state(check_anchored)
 	if(anchored != check_anchored)
 		return FALSE
 	return TRUE

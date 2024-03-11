@@ -16,7 +16,7 @@
  *
  * return UI_state The state of the UI.
  */
-TYPE_PROC_REF(/datum, ui_status)(mob/user, datum/ui_state/state)
+/datum/proc/ui_status(mob/user, datum/ui_state/state)
 	var/src_object = ui_host(user)
 	. = UI_CLOSE
 	if(!state)
@@ -48,7 +48,7 @@ TYPE_PROC_REF(/datum, ui_status)(mob/user, datum/ui_state/state)
  *
  * return UI_state The state of the UI.
  */
-TYPE_PROC_REF(/datum/ui_state, can_use_topic)(src_object, mob/user)
+/datum/ui_state/proc/can_use_topic(src_object, mob/user)
 	// Don't allow interaction by default.
 	return UI_CLOSE
 
@@ -59,7 +59,7 @@ TYPE_PROC_REF(/datum/ui_state, can_use_topic)(src_object, mob/user)
  *
  * return UI_state The state of the UI.
  */
-TYPE_PROC_REF(/mob, shared_ui_interaction)(src_object)
+/mob/proc/shared_ui_interaction(src_object)
 	// Close UIs if mindless.
 	if(!client)
 		return UI_CLOSE
@@ -100,7 +100,7 @@ TYPE_PROC_REF(/mob, shared_ui_interaction)(src_object)
  *
  * return UI_state The state of the UI.
  */
-TYPE_PROC_REF(/mob/living, shared_living_ui_distance)(atom/movable/src_object, viewcheck = TRUE)
+/mob/living/proc/shared_living_ui_distance(atom/movable/src_object, viewcheck = TRUE)
 	// If the object is obscured, close it.
 	if(viewcheck && !(src_object in view(src)))
 		return UI_CLOSE

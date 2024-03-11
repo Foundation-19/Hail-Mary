@@ -7,7 +7,7 @@
  *and lastly
  *afterattack. The return value does not matter.
  */
-TYPE_PROC_REF(/obj/item, melee_attack_chain)(mob/user, atom/target, params, attackchain_flags, damage_multiplier = 1)
+/obj/item/proc/melee_attack_chain(mob/user, atom/target, params, attackchain_flags, damage_multiplier = 1)
 	if(isliving(user))
 		var/mob/living/L = user
 		if(!CHECK_MOBILITY(L, MOBILITY_USE) && !(attackchain_flags & ATTACK_IS_PARRY_COUNTERATTACK))
@@ -27,7 +27,7 @@ TYPE_PROC_REF(/obj/item, melee_attack_chain)(mob/user, atom/target, params, atta
 	. |= afterattack(target, user, TRUE, params)
 
 /// Like melee_attack_chain but for ranged.
-TYPE_PROC_REF(/obj/item, ranged_attack_chain)(mob/user, atom/target, params)
+/obj/item/proc/ranged_attack_chain(mob/user, atom/target, params)
 	if(isliving(user))
 		var/mob/living/L = user
 		if(!CHECK_MOBILITY(L, MOBILITY_USE))
@@ -38,18 +38,18 @@ TYPE_PROC_REF(/obj/item, ranged_attack_chain)(mob/user, atom/target, params)
 	return afterattack(target, user, FALSE, params)
 
 // Called when the item is in the active hand, and clicked; alternately, there is an 'activate held object' verb or you can hit pagedown.
-TYPE_PROC_REF(/obj/item, attack_self)(mob/user)
+/obj/item/proc/attack_self(mob/user)
 	if(SEND_SIGNAL(src, COMSIG_ITEM_ATTACK_SELF, user) & COMPONENT_NO_INTERACT)
 		return
 	interact(user)
 
-TYPE_PROC_REF(/obj/item, pre_attack)(atom/A, mob/living/user, params, attackchain_flags, damage_multiplier) //do stuff before attackby!
+/obj/item/proc/pre_attack(atom/A, mob/living/user, params, attackchain_flags, damage_multiplier) //do stuff before attackby!
 	if(SEND_SIGNAL(src, COMSIG_ITEM_PRE_ATTACK, A, user, params) & COMPONENT_NO_ATTACK)
 		return STOP_ATTACK_PROC_CHAIN
 	if(!(attackchain_flags & ATTACK_IGNORE_CLICKDELAY) && !CheckAttackCooldown(user, A))
 		return STOP_ATTACK_PROC_CHAIN
 
-TYPE_PROC_REF(/atom, attackby)(obj/item/W, mob/user, params)
+/atom/proc/attackby(obj/item/W, mob/user, params)
 	if(SEND_SIGNAL(src, COMSIG_PARENT_ATTACKBY, W, user, params) & COMPONENT_NO_AFTERATTACK)
 		return STOP_ATTACK_PROC_CHAIN
 
@@ -81,7 +81,7 @@ TYPE_PROC_REF(/atom, attackby)(obj/item/W, mob/user, params)
  * * attackchain_Flags - see [code/__DEFINES/_flags/return_values.dm]
  * * damage_multiplier - what to multiply the damage by
  */
-TYPE_PROC_REF(/obj/item, attack)(mob/living/M, mob/living/user, attackchain_flags = NONE, damage_multiplier = 1)
+/obj/item/proc/attack(mob/living/M, mob/living/user, attackchain_flags = NONE, damage_multiplier = 1)
 	if(SEND_SIGNAL(src, COMSIG_ITEM_ATTACK, M, user) & COMPONENT_ITEM_NO_ATTACK)
 		return
 	SEND_SIGNAL(user, COMSIG_MOB_ITEM_ATTACK, M, user)
@@ -134,7 +134,7 @@ TYPE_PROC_REF(/obj/item, attack)(mob/living/M, mob/living/user, attackchain_flag
 	add_fingerprint(user)
 
 //the equivalent of the standard version of attack() but for object targets.
-TYPE_PROC_REF(/obj/item, attack_obj)(obj/O, mob/living/user)
+/obj/item/proc/attack_obj(obj/O, mob/living/user)
 	if(SEND_SIGNAL(src, COMSIG_ITEM_ATTACK_OBJ, O, user) & COMPONENT_NO_ATTACK_OBJ)
 		return
 	if(item_flags & NOBLUDGEON)
@@ -142,11 +142,11 @@ TYPE_PROC_REF(/obj/item, attack_obj)(obj/O, mob/living/user)
 	user.do_attack_animation(O)
 	O.attacked_by(src, user)
 
-TYPE_PROC_REF(/obj/item, attack_obj_nohit)(obj/O, mob/living/user)
+/obj/item/proc/attack_obj_nohit(obj/O, mob/living/user)
 	if(SEND_SIGNAL(src, COMSIG_ITEM_ATTACK_OBJ_NOHIT, O, user) & COMPONENT_NO_ATTACK_OBJ)
 		return
 
-TYPE_PROC_REF(/atom/movable, attacked_by)()
+/atom/movable/proc/attacked_by()
 	return
 
 /obj/attacked_by(obj/item/I, mob/living/user, attackchain_flags = NONE, damage_multiplier = 1, damage_addition = 0)
@@ -201,7 +201,7 @@ TYPE_PROC_REF(/atom/movable, attacked_by)()
 	else
 		return ..()
 
-TYPE_PROC_REF(/mob/living, pre_attacked_by)(obj/item/I, mob/living/user)
+/mob/living/proc/pre_attacked_by(obj/item/I, mob/living/user)
 	. = I.force
 	if(!.)
 		return
@@ -246,12 +246,12 @@ TYPE_PROC_REF(/mob/living, pre_attacked_by)(obj/item/I, mob/living/user)
  * * proximity_flag - are we in melee range/doing it in a melee attack
  * * click_parameters - mouse control parameters, check BYOND ref.
  */
-TYPE_PROC_REF(/obj/item, afterattack)(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/proc/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	SEND_SIGNAL(src, COMSIG_ITEM_AFTERATTACK, target, user, proximity_flag, click_parameters)
 	SEND_SIGNAL(user, COMSIG_MOB_ITEM_AFTERATTACK, target, user, proximity_flag, click_parameters)
 
 
-TYPE_PROC_REF(/obj/item, has_range_for_melee_attack)(atom/target, mob/living/user)
+/obj/item/proc/has_range_for_melee_attack(atom/target, mob/living/user)
 	if(user.z != target.z)
 		return FALSE
 	var/euclidean_distance = GET_DIST_EUCLIDEAN(user, target)
@@ -260,18 +260,18 @@ TYPE_PROC_REF(/obj/item, has_range_for_melee_attack)(atom/target, mob/living/use
 	return user.euclidian_reach(target, max_reach, REACH_ATTACK) == get_turf(target)
 
 
-TYPE_PROC_REF(/obj/item, ranged_melee_attack)(atom/target, mob/living/user, params)
+/obj/item/proc/ranged_melee_attack(atom/target, mob/living/user, params)
 	melee_attack_chain(user, target, params)
 
 
-TYPE_PROC_REF(/obj/item, get_clamped_volume)()
+/obj/item/proc/get_clamped_volume()
 	if(w_class)
 		if(force)
 			return clamp((force + w_class) * 4, 30, 100)// Add the item's force to its weight class and multiply by 4, then clamp the value between 30 and 100
 		else
 			return clamp(w_class * 6, 10, 100) // Multiply the item's weight class by 6, then clamp the value between 10 and 100
 
-TYPE_PROC_REF(/mob/living, send_item_attack_message)(obj/item/I, mob/living/user, hit_area, obj/item/bodypart/hit_bodypart)
+/mob/living/proc/send_item_attack_message(obj/item/I, mob/living/user, hit_area, obj/item/bodypart/hit_bodypart)
 	var/message_verb = "attacked"
 	if(length(I.attack_verb))
 		message_verb = "[pick(I.attack_verb)]"
@@ -292,7 +292,7 @@ TYPE_PROC_REF(/mob/living, send_item_attack_message)(obj/item/I, mob/living/user
 	return 1
 
 /// How much stamina this takes to swing this is not for realism purposes hecc off.
-TYPE_PROC_REF(/obj/item, getweight)(mob/living/user, multiplier = 1, trait = SKILL_STAMINA_COST)
+/obj/item/proc/getweight(mob/living/user, multiplier = 1, trait = SKILL_STAMINA_COST)
 	. = (total_mass || w_class * STAM_COST_W_CLASS_MULT) * multiplier
 	if(!user)
 		return
@@ -306,13 +306,13 @@ TYPE_PROC_REF(/obj/item, getweight)(mob/living/user, multiplier = 1, trait = SKI
 	. = clamp(., 0, STAMINA_NEAR_CRIT - total_health)
 
 /// How long this staggers for. 0 and negatives supported.
-TYPE_PROC_REF(/obj/item, melee_stagger_duration)(force_override)
+/obj/item/proc/melee_stagger_duration(force_override)
 	if(!isnull(stagger_force))
 		return stagger_force
 	/// totally not an untested, arbitrary equation.
 	return clamp((1.5 + (w_class/7.5)) * ((force_override || force) / 2), 0, 10 SECONDS)
 
-TYPE_PROC_REF(/obj/item, do_stagger_action)(mob/living/target, mob/living/user, force_override)
+/obj/item/proc/do_stagger_action(mob/living/target, mob/living/user, force_override)
 	if(!CHECK_BITFIELD(target.status_flags, CANSTAGGER))
 		return FALSE
 	if(target.combat_flags & COMBAT_FLAG_SPRINT_ACTIVE)
@@ -326,7 +326,7 @@ TYPE_PROC_REF(/obj/item, do_stagger_action)(mob/living/target, mob/living/user, 
 		target.AdjustStaggered(duration)
 	return TRUE
 
-TYPE_PROC_REF(/mob, do_staggered_animation)()
+/mob/proc/do_staggered_animation()
 	set waitfor = FALSE
 	animate(src, pixel_x = -2, pixel_y = -2, time = 1, flags = ANIMATION_RELATIVE | ANIMATION_PARALLEL)
 	animate(pixel_x = 4, pixel_y = 4, time = 1, flags = ANIMATION_RELATIVE)

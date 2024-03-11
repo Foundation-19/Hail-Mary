@@ -246,7 +246,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 	// Loop.
 	Master.StartProcessing(0)
 
-TYPE_PROC_REF(/datum/controller/master, SetRunLevel)(new_runlevel)
+/datum/controller/master/proc/SetRunLevel(new_runlevel)
 	var/old_runlevel = current_runlevel
 	if(isnull(old_runlevel))
 		old_runlevel = "NULL"
@@ -257,7 +257,7 @@ TYPE_PROC_REF(/datum/controller/master, SetRunLevel)(new_runlevel)
 		CRASH("Attempted to set invalid runlevel: [new_runlevel]")
 
 // Starts the mc, and sticks around to restart it if the loop ever ends.
-TYPE_PROC_REF(/datum/controller/master, StartProcessing)(delay)
+/datum/controller/master/proc/StartProcessing(delay)
 	set waitfor = 0
 	if(delay)
 		sleep(delay)
@@ -275,7 +275,7 @@ TYPE_PROC_REF(/datum/controller/master, StartProcessing)(delay)
 		Failsafe.defcon = 2
 
 // Main loop.
-TYPE_PROC_REF(/datum/controller/master, Loop)()
+/datum/controller/master/proc/Loop()
 	. = -1
 	//Prep the loop (most of this is because we want MC restarts to reset as much state as we can, and because
 	// local vars rock
@@ -427,7 +427,7 @@ TYPE_PROC_REF(/datum/controller/master, Loop)()
 
 
 // This is what decides if something should run.
-TYPE_PROC_REF(/datum/controller/master, CheckQueue)(list/subsystemstocheck)
+/datum/controller/master/proc/CheckQueue(list/subsystemstocheck)
 	. = 0 //so the mc knows if we runtimed
 
 	//we create our variables outside of the loops to save on overhead
@@ -459,7 +459,7 @@ TYPE_PROC_REF(/datum/controller/master, CheckQueue)(list/subsystemstocheck)
 
 
 // Run thru the queue of subsystems to run, running them while balancing out their allocated tick precentage
-TYPE_PROC_REF(/datum/controller/master, RunQueue)()
+/datum/controller/master/proc/RunQueue()
 	. = 0
 	var/datum/controller/subsystem/queue_node
 	var/queue_node_flags
@@ -563,7 +563,7 @@ TYPE_PROC_REF(/datum/controller/master, RunQueue)()
 
 //resets the queue, and all subsystems, while filtering out the subsystem lists
 // called if any mc's queue procs runtime or exit improperly.
-TYPE_PROC_REF(/datum/controller/master, SoftReset)(list/ticker_SS, list/runlevel_SS)
+/datum/controller/master/proc/SoftReset(list/ticker_SS, list/runlevel_SS)
 	. = 0
 	log_world("MC: SoftReset called, resetting MC queue state.")
 	if (!istype(subsystems) || !istype(ticker_SS) || !istype(runlevel_SS))
@@ -604,7 +604,7 @@ TYPE_PROC_REF(/datum/controller/master, SoftReset)(list/ticker_SS, list/runlevel
 	. = 1
 
 /// Warns us that the end of tick byond map_update will be laggier then normal, so that we can just skip running subsystems this tick.
-TYPE_PROC_REF(/datum/controller/master, laggy_byond_map_update_incoming)()
+/datum/controller/master/proc/laggy_byond_map_update_incoming()
 	if (!skip_ticks)
 		skip_ticks = 1
 
@@ -630,7 +630,7 @@ TYPE_PROC_REF(/datum/controller/master, laggy_byond_map_update_incoming)()
 		SS.StopLoadingMap()
 
 
-TYPE_PROC_REF(/datum/controller/master, UpdateTickRate)()
+/datum/controller/master/proc/UpdateTickRate()
 	if (!processing)
 		return
 	var/client_count = length(GLOB.clients)
@@ -639,7 +639,7 @@ TYPE_PROC_REF(/datum/controller/master, UpdateTickRate)()
 	else if (client_count > CONFIG_GET(number/mc_tick_rate/high_pop_mc_mode_amount))
 		processing = CONFIG_GET(number/mc_tick_rate/high_pop_mc_tick_rate)
 
-TYPE_PROC_REF(/datum/controller/master, OnConfigLoad)()
+/datum/controller/master/proc/OnConfigLoad()
 	for (var/thing in subsystems)
 		var/datum/controller/subsystem/SS = thing
 		SS.OnConfigLoad()

@@ -62,7 +62,7 @@
 	text: Up to 7 characters of text to be printed on the top of the poster.
 	color: This set the text color: #ff00ff
 */
-TYPE_PROC_REF(/obj/structure/sign/poster/wanted, print_across_top)(icon/poster_icon, text, color)
+/obj/structure/sign/poster/wanted/proc/print_across_top(icon/poster_icon, text, color)
 	var/textLen = min(length(text), 7)
 	var/startX = 16 - (2*textLen)
 	var/i

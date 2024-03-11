@@ -25,7 +25,7 @@
 	if(can_melt && owner.bodytemperature >= BODYTEMP_NORMAL)
 		qdel(src)
 
-TYPE_PROC_REF(/datum/status_effect/freon, owner_resist)()
+/datum/status_effect/freon/proc/owner_resist()
 	to_chat(owner, "You start breaking out of the ice cube!")
 	if(do_mob(owner, owner, 40))
 		if(!QDELETED(src))

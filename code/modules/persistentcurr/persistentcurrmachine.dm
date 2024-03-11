@@ -35,7 +35,7 @@
 	if(href_list["choice"] == "redeem")
 		redeem_caps()
 
-TYPE_PROC_REF(/obj/machinery/mineral/wasteland_vendor/bank, redeem_caps)()
+/obj/machinery/mineral/wasteland_vendor/bank/proc/redeem_caps()
 	adjustMoney(usr.ckey, stored_caps)
 	to_chat(usr, "You have added [stored_caps] caps to your account!")
 	stored_caps = 0

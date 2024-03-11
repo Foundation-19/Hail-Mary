@@ -180,7 +180,7 @@ GLOBAL_LIST(cachedbooks) // List of our cached book datums
 	var/page = 1	//current page of the external archives
 	var/cooldown = 0
 
-TYPE_PROC_REF(/obj/machinery/computer/libraryconsole/bookmanagement, build_library_menu)()
+/obj/machinery/computer/libraryconsole/bookmanagement/proc/build_library_menu()
 	if(libcomp_menu)
 		return
 	load_library_db_to_cache()
@@ -313,12 +313,12 @@ TYPE_PROC_REF(/obj/machinery/computer/libraryconsole/bookmanagement, build_libra
 	popup.set_content(dat)
 	popup.open()
 
-TYPE_PROC_REF(/obj/machinery/computer/libraryconsole/bookmanagement, findscanner)(viewrange)
+/obj/machinery/computer/libraryconsole/bookmanagement/proc/findscanner(viewrange)
 	for(var/obj/machinery/libraryscanner/S in range(viewrange, get_turf(src)))
 		return S
 	return null
 
-TYPE_PROC_REF(/obj/machinery/computer/libraryconsole/bookmanagement, print_forbidden_lore)(mob/user)
+/obj/machinery/computer/libraryconsole/bookmanagement/proc/print_forbidden_lore(mob/user)
 	var/spook = pick("blood", "brass")
 	var/turf/T = get_turf(src)
 	if(spook == "blood")
@@ -568,7 +568,7 @@ TYPE_PROC_REF(/obj/machinery/computer/libraryconsole/bookmanagement, print_forbi
 	else
 		return ..()
 
-TYPE_PROC_REF(/obj/machinery/bookbinder, bind_book)(mob/user, obj/item/paper/P)
+/obj/machinery/bookbinder/proc/bind_book(mob/user, obj/item/paper/P)
 	if(stat)
 		return
 	if(busy)

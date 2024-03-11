@@ -13,7 +13,7 @@
 	to_chat(owner, "<big><span class='warning'><b>You can't remember how you got here...</b></span></big>")
 	owner.announce_objectives()
 
-TYPE_PROC_REF(/datum/antagonist/abductee, give_objective)()
+/datum/antagonist/abductee/proc/give_objective()
 	var/mob/living/carbon/human/H = owner.current
 	if(istype(H))
 		H.gain_trauma_type(BRAIN_TRAUMA_MILD, TRAUMA_RESILIENCE_LOBOTOMY)

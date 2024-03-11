@@ -82,7 +82,7 @@ GLOBAL_LIST_EMPTY(radial_menus)
 	var/entry_animation = TRUE
 
 //If we swap to vis_contens inventory these will need a redo
-TYPE_PROC_REF(/datum/radial_menu, check_screen_border)(mob/user)
+/datum/radial_menu/proc/check_screen_border(mob/user)
 	var/atom/movable/AM = anchor
 	if(!istype(AM) || !AM.screen_loc)
 		return
@@ -95,7 +95,7 @@ TYPE_PROC_REF(/datum/radial_menu, check_screen_border)(mob/user)
 
 //Sets defaults
 //These assume 45 deg min_angle
-TYPE_PROC_REF(/datum/radial_menu, restrict_to_dir)(dir)
+/datum/radial_menu/proc/restrict_to_dir(dir)
 	switch(dir)
 		if(NORTH)
 			starting_angle = 270
@@ -110,7 +110,7 @@ TYPE_PROC_REF(/datum/radial_menu, restrict_to_dir)(dir)
 			starting_angle = 180
 			ending_angle = 45
 
-TYPE_PROC_REF(/datum/radial_menu, setup_menu)(use_tooltips)
+/datum/radial_menu/proc/setup_menu(use_tooltips)
 	if(ending_angle > starting_angle)
 		zone = ending_angle - starting_angle
 	else
@@ -149,7 +149,7 @@ TYPE_PROC_REF(/datum/radial_menu, setup_menu)(use_tooltips)
 	current_page = 1
 	update_screen_objects(anim = entry_animation)
 
-TYPE_PROC_REF(/datum/radial_menu, update_screen_objects)(anim = FALSE)
+/datum/radial_menu/proc/update_screen_objects(anim = FALSE)
 	var/list/page_choices = page_data[current_page]
 	var/angle_per_element = round(zone / page_choices.len)
 	for(var/i in 1 to elements.len)
@@ -160,7 +160,7 @@ TYPE_PROC_REF(/datum/radial_menu, update_screen_objects)(anim = FALSE)
 		else
 			SetElement(E,page_choices[i],angle,anim = anim,anim_order = i)
 
-TYPE_PROC_REF(/datum/radial_menu, HideElement)(obj/screen/radial/slice/E)
+/datum/radial_menu/proc/HideElement(obj/screen/radial/slice/E)
 	E.cut_overlays()
 	E.alpha = 0
 	E.name = "None"
@@ -169,7 +169,7 @@ TYPE_PROC_REF(/datum/radial_menu, HideElement)(obj/screen/radial/slice/E)
 	E.choice = null
 	E.next_page = FALSE
 
-TYPE_PROC_REF(/datum/radial_menu, SetElement)(obj/screen/radial/slice/E,choice_id,angle,anim,anim_order)
+/datum/radial_menu/proc/SetElement(obj/screen/radial/slice/E,choice_id,angle,anim,anim_order)
 	//Position
 	var/py = round(cos(angle) * radius) + py_shift
 	var/px = round(sin(angle) * radius)
@@ -208,19 +208,19 @@ TYPE_PROC_REF(/datum/radial_menu, SetElement)(obj/screen/radial/slice/E,choice_i
 	close_button = new
 	close_button.parent = src
 
-TYPE_PROC_REF(/datum/radial_menu, Reset)()
+/datum/radial_menu/proc/Reset()
 	choices.Cut()
 	choices_icons.Cut()
 	choices_values.Cut()
 	current_page = 1
 
-TYPE_PROC_REF(/datum/radial_menu, element_chosen)(choice_id,mob/user)
+/datum/radial_menu/proc/element_chosen(choice_id,mob/user)
 	selected_choice = choices_values[choice_id]
 
-TYPE_PROC_REF(/datum/radial_menu, get_next_id)()
+/datum/radial_menu/proc/get_next_id()
 	return "c_[choices.len]"
 
-TYPE_PROC_REF(/datum/radial_menu, set_choices)(list/new_choices, use_tooltips)
+/datum/radial_menu/proc/set_choices(list/new_choices, use_tooltips)
 	if(choices.len)
 		Reset()
 	for(var/E in new_choices)
@@ -234,7 +234,7 @@ TYPE_PROC_REF(/datum/radial_menu, set_choices)(list/new_choices, use_tooltips)
 	setup_menu(use_tooltips)
 
 
-TYPE_PROC_REF(/datum/radial_menu, extract_image)(E)
+/datum/radial_menu/proc/extract_image(E)
 	var/mutable_appearance/MA = new /mutable_appearance(E)
 	if(MA)
 		MA.layer = ABOVE_HUD_LAYER
@@ -243,12 +243,12 @@ TYPE_PROC_REF(/datum/radial_menu, extract_image)(E)
 	return MA
 
 
-TYPE_PROC_REF(/datum/radial_menu, next_page)()
+/datum/radial_menu/proc/next_page()
 	if(pages > 1)
 		current_page = WRAP(current_page + 1,1,pages+1)
 		update_screen_objects()
 
-TYPE_PROC_REF(/datum/radial_menu, show_to)(mob/M)
+/datum/radial_menu/proc/show_to(mob/M)
 	if(current_user)
 		hide()
 	if(!M.client || !anchor)
@@ -261,11 +261,11 @@ TYPE_PROC_REF(/datum/radial_menu, show_to)(mob/M)
 	menu_holder.vis_contents += elements + close_button
 	current_user.images += menu_holder
 
-TYPE_PROC_REF(/datum/radial_menu, hide)()
+/datum/radial_menu/proc/hide()
 	if(current_user)
 		current_user.images -= menu_holder
 
-TYPE_PROC_REF(/datum/radial_menu, wait)(atom/user, atom/anchor, require_near = FALSE)
+/datum/radial_menu/proc/wait(atom/user, atom/anchor, require_near = FALSE)
 	while (current_user && !finished && !selected_choice)
 		if(require_near && !in_range(anchor, user))
 			return

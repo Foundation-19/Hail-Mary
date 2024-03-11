@@ -51,7 +51,7 @@
 	else
 		amount += _amount
 
-TYPE_PROC_REF(/datum/component/thermite, thermite_melt)(mob/user)
+/datum/component/thermite/proc/thermite_melt(mob/user)
 	var/turf/master = parent
 	master.cut_overlay(overlay)
 	var/obj/effect/overlay/thermite/fakefire = new(master)
@@ -68,14 +68,14 @@ TYPE_PROC_REF(/datum/component/thermite, thermite_melt)(mob/user)
 	else
 		QDEL_IN(fakefire, 50)
 
-TYPE_PROC_REF(/datum/component/thermite, clean_react)(datum/source, strength)
+/datum/component/thermite/proc/clean_react(datum/source, strength)
 	//Thermite is just some loose powder, you could probably clean it with your hands. << todo?
 	qdel(src)
 
-TYPE_PROC_REF(/datum/component/thermite, flame_react)(datum/source, exposed_temperature, exposed_volume)
+/datum/component/thermite/proc/flame_react(datum/source, exposed_temperature, exposed_volume)
 	if(exposed_temperature > 1922) // This is roughly the real life requirement to ignite thermite
 		thermite_melt()
 
-TYPE_PROC_REF(/datum/component/thermite, attackby_react)(datum/source, obj/item/thing, mob/user, params)
+/datum/component/thermite/proc/attackby_react(datum/source, obj/item/thing, mob/user, params)
 	if(thing.get_temperature())
 		thermite_melt(user)

@@ -43,7 +43,7 @@
  *
  * Goes through spells_to_add and adds each spell to the mind.
  */
-TYPE_PROC_REF(/mob/living/simple_animal/hostile/eldritch, add_spells)()
+/mob/living/simple_animal/hostile/eldritch/proc/add_spells()
 	for(var/spell in spells_to_add)
 		AddSpell(new spell())
 
@@ -71,7 +71,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/hostile/eldritch, add_spells)()
 	. = ..()
 	client.change_view(10)
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile/eldritch/raw_prophet, link_mob)(mob/living/mob_linked)
+/mob/living/simple_animal/hostile/eldritch/raw_prophet/proc/link_mob(mob/living/mob_linked)
 	if(QDELETED(mob_linked) || mob_linked.stat == DEAD)
 		return FALSE
 	if(HAS_TRAIT(mob_linked, TRAIT_MINDSHIELD)) //mindshield implant, no dice
@@ -88,7 +88,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/hostile/eldritch/raw_prophet, link_mob)(
 	RegisterSignal(mob_linked, list(COMSIG_MOB_DEATH, COMSIG_PARENT_QDELETING) , PROC_REF(unlink_mob))
 	return TRUE
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile/eldritch/raw_prophet, unlink_mob)(mob/living/mob_linked)
+/mob/living/simple_animal/hostile/eldritch/raw_prophet/proc/unlink_mob(mob/living/mob_linked)
 	if(!linked_mobs[mob_linked])
 		return
 	UnregisterSignal(mob_linked, list(COMSIG_MOB_DEATH, COMSIG_PARENT_QDELETING))
@@ -186,14 +186,14 @@ TYPE_PROC_REF(/mob/living/simple_animal/hostile/eldritch/raw_prophet, unlink_mob
 	return FALSE
 
 ///Updates chain links to force move onto a single tile
-TYPE_PROC_REF(/mob/living/simple_animal/hostile/eldritch/armsy, contract_next_chain_into_single_tile)()
+/mob/living/simple_animal/hostile/eldritch/armsy/proc/contract_next_chain_into_single_tile()
 	if(back)
 		back.forceMove(loc)
 		back.contract_next_chain_into_single_tile()
 	return
 
 ///Updates the next mob in the chain to move to our last location, fixed the worm if somehow broken.
-TYPE_PROC_REF(/mob/living/simple_animal/hostile/eldritch/armsy, update_chain_links)()
+/mob/living/simple_animal/hostile/eldritch/armsy/proc/update_chain_links()
 	gib_trail()
 	if(back && back.loc != oldloc)
 		back.Move(oldloc)
@@ -202,7 +202,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/hostile/eldritch/armsy, update_chain_lin
 		forceMove(front.oldloc)
 	oldloc = loc
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile/eldritch/armsy, gib_trail)()
+/mob/living/simple_animal/hostile/eldritch/armsy/proc/gib_trail()
 	if(front) // head makes gibs
 		return
 	var/chosen_decal = pick(typesof(/obj/effect/decal/cleanable/blood/tracks))
@@ -221,7 +221,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/hostile/eldritch/armsy, gib_trail)()
 /mob/living/simple_animal/hostile/eldritch/armsy/BiologicalLife(seconds, times_fired)
 	adjustBruteLoss(-2)
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile/eldritch/armsy, heal)()
+/mob/living/simple_animal/hostile/eldritch/armsy/proc/heal()
 	if(health == maxHealth)
 		if(back)
 			back.heal()

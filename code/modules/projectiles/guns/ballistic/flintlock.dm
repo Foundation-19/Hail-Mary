@@ -45,7 +45,7 @@
 	return
 
 /// Scans the box, takes a casing if possible
-TYPE_PROC_REF(/obj/item/gun/flintlock, load_from_box)(mob/living/user, obj/item/ammo_box/bawx)
+/obj/item/gun/flintlock/proc/load_from_box(mob/living/user, obj/item/ammo_box/bawx)
 	if(!user)
 		return
 	if(chambered)
@@ -68,7 +68,7 @@ TYPE_PROC_REF(/obj/item/gun/flintlock, load_from_box)(mob/living/user, obj/item/
 	bawx.stored_ammo -= to_load //remove the ammo casing from the box
 
 /// Forcemoves bluuet into the gun, and sets its chambered to the bluuet
-TYPE_PROC_REF(/obj/item/gun/flintlock, load_casing)(mob/living/user, obj/item/ammo_casing/bluuet)
+/obj/item/gun/flintlock/proc/load_casing(mob/living/user, obj/item/ammo_casing/bluuet)
 	if(!user) //if there is no user
 		return //return
 	if(chambered) //if the gun is already loaded
@@ -96,7 +96,7 @@ TYPE_PROC_REF(/obj/item/gun/flintlock, load_casing)(mob/living/user, obj/item/am
 	return TRUE
 
 /// Ejects chambered into the user's hands, and sets chambered to null, and sets cocked to FALSE, and plays a ka-ta-click noise, and updates the icon, and returns TRUE
-TYPE_PROC_REF(/obj/item/gun/flintlock, unload)(mob/living/user)
+/obj/item/gun/flintlock/proc/unload(mob/living/user)
 	if(!user)
 		return
 	if(!chambered)
@@ -114,7 +114,7 @@ TYPE_PROC_REF(/obj/item/gun/flintlock, unload)(mob/living/user)
 	return TRUE
 
 /// Sets cocked to TRUE, and plays a ka-ta-click noise
-TYPE_PROC_REF(/obj/item/gun/flintlock, cock)(mob/living/user)
+/obj/item/gun/flintlock/proc/cock(mob/living/user)
 	if(!user)
 		return FALSE
 	if(cocked)
@@ -126,7 +126,7 @@ TYPE_PROC_REF(/obj/item/gun/flintlock, cock)(mob/living/user)
 	update_icon()
 
 /// Sets cocked to FALSE, and plays a ka-ta-click noise
-TYPE_PROC_REF(/obj/item/gun/flintlock, uncock)(mob/living/user)
+/obj/item/gun/flintlock/proc/uncock(mob/living/user)
 	if(!user)
 		return FALSE
 	if(!cocked)
@@ -157,7 +157,7 @@ TYPE_PROC_REF(/obj/item/gun/flintlock, uncock)(mob/living/user)
 	return TRUE
 
 /// shoots whatever's under the user's cursor. or the user's direction if the cursor's params are null
-TYPE_PROC_REF(/obj/item/gun/flintlock, fire_at_cursor)(mob/user)
+/obj/item/gun/flintlock/proc/fire_at_cursor(mob/user)
 	firing = FALSE // the gun's firing btw
 	cocked = FALSE
 	fuse_loop.stop()

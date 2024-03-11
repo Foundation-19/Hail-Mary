@@ -11,7 +11,7 @@ GLOBAL_DATUM_INIT(news_network, /datum/news_network, new)
 	CreateFeedChannel("Top Headlines", "The Courier Mail", 1)
 	wanted_issue = new /datum/news/wanted_message
 
-TYPE_PROC_REF(/datum/news_network, CreateFeedChannel)(channel_name, author, locked, adminChannel = 0)
+/datum/news_network/proc/CreateFeedChannel(channel_name, author, locked, adminChannel = 0)
 	var/datum/news/feed_channel/newChannel = new /datum/news/feed_channel
 	newChannel.channel_name = channel_name
 	newChannel.author = author
@@ -19,7 +19,7 @@ TYPE_PROC_REF(/datum/news_network, CreateFeedChannel)(channel_name, author, lock
 	newChannel.is_admin_channel = adminChannel
 	network_channels += newChannel
 
-TYPE_PROC_REF(/datum/news_network, SubmitArticle)(msg, author, channel_name, datum/picture/picture, adminMessage = 0, allow_comments = 1)
+/datum/news_network/proc/SubmitArticle(msg, author, channel_name, datum/picture/picture, adminMessage = 0, allow_comments = 1)
 	var/datum/news/feed_message/newMsg = new /datum/news/feed_message
 	newMsg.author = author
 	newMsg.body = msg
@@ -39,7 +39,7 @@ TYPE_PROC_REF(/datum/news_network, SubmitArticle)(msg, author, channel_name, dat
 	lastAction ++
 	newMsg.creationTime = lastAction
 
-TYPE_PROC_REF(/datum/news_network, submitWanted)(criminal, body, scanned_user, datum/picture/picture, adminMsg = 0, newMessage = 0)
+/datum/news_network/proc/submitWanted(criminal, body, scanned_user, datum/picture/picture, adminMsg = 0, newMessage = 0)
 	wanted_issue.active = 1
 	wanted_issue.criminal = criminal
 	wanted_issue.body = body
@@ -53,7 +53,7 @@ TYPE_PROC_REF(/datum/news_network, submitWanted)(criminal, body, scanned_user, d
 			N.newsAlert()
 			N.update_icon()
 
-TYPE_PROC_REF(/datum/news_network, deleteWanted)()
+/datum/news_network/proc/deleteWanted()
 	wanted_issue.active = 0
 	wanted_issue.criminal = null
 	wanted_issue.body = null
@@ -62,7 +62,7 @@ TYPE_PROC_REF(/datum/news_network, deleteWanted)()
 	for(var/obj/machinery/newscaster/NEWSCASTER in GLOB.allCasters)
 		NEWSCASTER.update_icon()
 
-TYPE_PROC_REF(/datum/news_network, save_photo)(icon/photo)
+/datum/news_network/proc/save_photo(icon/photo)
 	var/photo_file = copytext_char(md5("\icon[photo]"), 1, 6)
 	if(!fexists("[GLOB.log_directory]/photos/[photo_file].png"))
 		//Clean up repeated frames

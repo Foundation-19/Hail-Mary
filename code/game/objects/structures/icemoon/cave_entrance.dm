@@ -27,7 +27,7 @@ GLOBAL_LIST_INIT(ore_probability, list(/obj/item/stack/ore/uranium = 50,
  * Clears rocks around the spawner when it is created
  *
  */
-TYPE_PROC_REF(/obj/structure/spawner/ice_moon, clear_rock)()
+/obj/structure/spawner/ice_moon/proc/clear_rock()
 	for(var/turf/F in RANGE_TURFS(2, src))
 		if(abs(src.x - F.x) + abs(src.y - F.y) > 3)
 			continue
@@ -44,7 +44,7 @@ TYPE_PROC_REF(/obj/structure/spawner/ice_moon, clear_rock)()
  * Effects and messages created when the spawner is destroyed
  *
  */
-TYPE_PROC_REF(/obj/structure/spawner/ice_moon, destroy_effect)()
+/obj/structure/spawner/ice_moon/proc/destroy_effect()
 	playsound(loc,'sound/effects/explosionfar.ogg', 200, TRUE)
 	visible_message("<span class='boldannounce'>[src] collapses, sealing everything inside!</span>\n<span class='warning'>Ores fall out of the cave as it is destroyed!</span>")
 
@@ -52,7 +52,7 @@ TYPE_PROC_REF(/obj/structure/spawner/ice_moon, destroy_effect)()
  * Drops items after the spawner is destroyed
  *
  */
-TYPE_PROC_REF(/obj/structure/spawner/ice_moon, drop_loot)()
+/obj/structure/spawner/ice_moon/proc/drop_loot()
 	for(var/type in GLOB.ore_probability)
 		var/chance = GLOB.ore_probability[type]
 		if(!prob(chance))
@@ -114,7 +114,7 @@ TYPE_PROC_REF(/obj/structure/spawner/ice_moon, drop_loot)()
 	animate(src, transform = matrix().Scale(0, 1), alpha = 50, time = 5 SECONDS)
 	addtimer(CALLBACK(src, PROC_REF(collapse)), 5 SECONDS)
 
-TYPE_PROC_REF(/obj/effect/collapsing_demonic_portal, collapse)()
+/obj/effect/collapsing_demonic_portal/proc/collapse()
 	visible_message(span_warning("Something slips out of [src]!"))
 	var/loot = rand(1, 28)
 	switch(loot)

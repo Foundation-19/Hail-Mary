@@ -14,5 +14,5 @@
 	UnregisterSignal(target, COMSIG_ATOM_EMP_ACT)
 	return ..()
 
-TYPE_PROC_REF(/datum/element/empprotection, getEmpFlags)(datum/source, severity)
+/datum/element/empprotection/proc/getEmpFlags(datum/source, severity)
 	return flags

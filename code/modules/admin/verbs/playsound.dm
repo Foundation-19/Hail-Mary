@@ -1,4 +1,4 @@
-TYPE_PROC_REF(/client, play_sound)(S as sound)
+/client/proc/play_sound(S as sound)
 	set category = "Admin.Fun"
 	set name = "Play Global Sound"
 	if(!check_rights(R_SOUNDS))
@@ -41,7 +41,7 @@ TYPE_PROC_REF(/client, play_sound)(S as sound)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Play Global Sound") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 
-TYPE_PROC_REF(/client, play_local_sound)(S as sound)
+/client/proc/play_local_sound(S as sound)
 	set category = "Admin.Fun"
 	set name = "Play Local Sound"
 	if(!check_rights(R_SOUNDS))
@@ -52,7 +52,7 @@ TYPE_PROC_REF(/client, play_local_sound)(S as sound)
 	playsound(get_turf(src.mob), S, 50, 0, 0)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Play Local Sound") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-TYPE_PROC_REF(/client, play_web_sound)()
+/client/proc/play_web_sound()
 	set category = "Admin.Fun"
 	set name = "Play Internet Sound"
 	if(!check_rights(R_SOUNDS))
@@ -135,7 +135,7 @@ TYPE_PROC_REF(/client, play_web_sound)()
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Play Internet Sound")
 
-TYPE_PROC_REF(/client, manual_play_web_sound)()
+/client/proc/manual_play_web_sound()
 	set category = "Admin.Fun"
 	set name = "Manual Play Internet Sound"
 	if(!check_rights(R_SOUNDS))
@@ -181,7 +181,7 @@ TYPE_PROC_REF(/client, manual_play_web_sound)()
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Manual Play Internet Sound")
 
-TYPE_PROC_REF(/client, set_round_end_sound)(S as sound)
+/client/proc/set_round_end_sound(S as sound)
 	set category = "Admin.Fun"
 	set name = "Set Round End Sound"
 	if(!check_rights(R_SOUNDS))
@@ -193,7 +193,7 @@ TYPE_PROC_REF(/client, set_round_end_sound)(S as sound)
 	message_admins("[key_name_admin(src)] set the round end sound to [S]")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Set Round End Sound") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-TYPE_PROC_REF(/client, stop_sounds)()
+/client/proc/stop_sounds()
 	set category = "Debug"
 	set name = "Stop All Playing Sounds"
 	if(!src.holder)

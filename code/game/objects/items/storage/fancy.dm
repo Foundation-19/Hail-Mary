@@ -166,7 +166,7 @@
 	if(!draw_lighter(user)) // always try to take out the lighter first
 		. = ..()
 
-TYPE_PROC_REF(/obj/item/storage/fancy/cigarettes, draw_lighter)(mob/living/carbon/user)
+/obj/item/storage/fancy/cigarettes/proc/draw_lighter(mob/living/carbon/user)
 	if(!istype(user) || !user.canUseTopic(src, BE_CLOSE, ismonkey(user)))
 		return FALSE
 	if(!length(user.get_empty_held_indexes()))

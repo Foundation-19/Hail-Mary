@@ -27,10 +27,10 @@
 		activate_pin(3)
 	..()
 
-TYPE_PROC_REF(/obj/item/integrated_circuit/logic/binary, do_compare)(datum/integrated_io/A, datum/integrated_io/B)
+/obj/item/integrated_circuit/logic/binary/proc/do_compare(datum/integrated_io/A, datum/integrated_io/B)
 	return FALSE
 
-TYPE_PROC_REF(/obj/item/integrated_circuit/logic/binary, comparable)(datum/integrated_io/A, datum/integrated_io/B)
+/obj/item/integrated_circuit/logic/binary/proc/comparable(datum/integrated_io/A, datum/integrated_io/B)
 	return (isnum(A.data) && isnum(B.data)) || (istext(A.data) && istext(B.data))
 
 /obj/item/integrated_circuit/logic/unary
@@ -44,7 +44,7 @@ TYPE_PROC_REF(/obj/item/integrated_circuit/logic/binary, comparable)(datum/integ
 	..()
 	activate_pin(2)
 
-TYPE_PROC_REF(/obj/item/integrated_circuit/logic/unary, do_check)(datum/integrated_io/A)
+/obj/item/integrated_circuit/logic/unary/proc/do_check(datum/integrated_io/A)
 	return FALSE
 
 /obj/item/integrated_circuit/logic/binary/equals

@@ -25,7 +25,7 @@
 	return air_contents
 
 //Check if the gas container is adjacent and of the right type
-TYPE_PROC_REF(/obj/item/integrated_circuit/atmospherics, check_gassource)(atom/gasholder)
+/obj/item/integrated_circuit/atmospherics/proc/check_gassource(atom/gasholder)
 	if(!gasholder)
 		return FALSE
 	if(!gasholder.Adjacent(get_object()))
@@ -35,7 +35,7 @@ TYPE_PROC_REF(/obj/item/integrated_circuit/atmospherics, check_gassource)(atom/g
 	return TRUE
 
 //Needed in circuits where source and target types differ
-TYPE_PROC_REF(/obj/item/integrated_circuit/atmospherics, check_gastarget)(atom/gasholder)
+/obj/item/integrated_circuit/atmospherics/proc/check_gastarget(atom/gasholder)
 	return check_gassource(gasholder)
 
 
@@ -70,7 +70,7 @@ TYPE_PROC_REF(/obj/item/integrated_circuit/atmospherics, check_gastarget)(atom/g
 	var/amt = get_pin_data(IC_INPUT, 3)
 	update_target(amt)
 
-TYPE_PROC_REF(/obj/item/integrated_circuit/atmospherics/pump, update_target)(new_amount)
+/obj/item/integrated_circuit/atmospherics/pump/proc/update_target(new_amount)
 	if(!isnum(new_amount))
 		new_amount = 0
 	// See in which direction the gas moves
@@ -86,7 +86,7 @@ TYPE_PROC_REF(/obj/item/integrated_circuit/atmospherics/pump, update_target)(new
 	perform_magic(source, target)
 	activate_pin(2)
 
-TYPE_PROC_REF(/obj/item/integrated_circuit/atmospherics/pump, perform_magic)(atom/source, atom/target)
+/obj/item/integrated_circuit/atmospherics/pump/proc/perform_magic(atom/source, atom/target)
 	//Check if both atoms are of the right type: atmos circuits/gas tanks/canisters. If one is the same, use the circuit var
 	if(!check_gassource(source))
 		source = src
@@ -118,7 +118,7 @@ TYPE_PROC_REF(/obj/item/integrated_circuit/atmospherics/pump, perform_magic)(ato
 	move_gas(source_air, target_air, (istype(target, /obj/item/tank) ? target : null))
 	air_update_turf()
 
-TYPE_PROC_REF(/obj/item/integrated_circuit/atmospherics/pump, move_gas)(datum/gas_mixture/source_air, datum/gas_mixture/target_air, obj/item/tank/snowflake)
+/obj/item/integrated_circuit/atmospherics/pump/proc/move_gas(datum/gas_mixture/source_air, datum/gas_mixture/target_air, obj/item/tank/snowflake)
 
 	// No moles = nothing to pump
 	if(source_air.total_moles() <= 0  || target_air.return_pressure() >= PUMP_MAX_PRESSURE)
@@ -509,7 +509,7 @@ TYPE_PROC_REF(/obj/item/integrated_circuit/atmospherics/pump, move_gas)(datum/ga
 	if(broken)
 		release()
 
-TYPE_PROC_REF(/obj/item/integrated_circuit/atmospherics/tank, release)()
+/obj/item/integrated_circuit/atmospherics/tank/proc/release()
 	if(air_contents.total_moles() > 0)
 		playsound(loc, 'sound/effects/spray.ogg', 10, 1, -3)
 		var/datum/gas_mixture/expelled_gas = air_contents.remove(air_contents.total_moles())
@@ -753,7 +753,7 @@ TYPE_PROC_REF(/obj/item/integrated_circuit/atmospherics/tank, release)()
 	set_pin_data(IC_OUTPUT, 2, WEAKREF(current_tank))
 	push_data()
 
-TYPE_PROC_REF(/obj/item/integrated_circuit/input/tank_slot, push_pressure)()
+/obj/item/integrated_circuit/input/tank_slot/proc/push_pressure()
 	if(!current_tank)
 		set_pin_data(IC_OUTPUT, 1, 0)
 		return

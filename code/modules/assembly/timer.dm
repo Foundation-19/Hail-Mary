@@ -17,7 +17,7 @@
 	addtimer(CALLBACK(src, PROC_REF(manual_suicide), user), time*10)//kill yourself once the time runs out
 	return MANUAL_SUICIDE
 
-TYPE_PROC_REF(/obj/item/assembly/timer, manual_suicide)(mob/living/user)
+/obj/item/assembly/timer/proc/manual_suicide(mob/living/user)
 	user.visible_message(span_suicide("[user]'s time is up!"))
 	user.adjustOxyLoss(200)
 	user.death(0)
@@ -51,7 +51,7 @@ TYPE_PROC_REF(/obj/item/assembly/timer, manual_suicide)(mob/living/user)
 	update_icon()
 	return secured
 
-TYPE_PROC_REF(/obj/item/assembly/timer, timer_end)()
+/obj/item/assembly/timer/proc/timer_end()
 	if(!secured || next_activate > world.time)
 		return FALSE
 	pulse(FALSE)

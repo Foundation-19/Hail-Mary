@@ -6,7 +6,7 @@
 	var/global/damage_overlays[16]
 	var/unbreakable = 1
 
-TYPE_PROC_REF(/turf/closed/wall, take_damage)(dam)
+/turf/closed/wall/proc/take_damage(dam)
 	if(dam)
 		damage = max(0, damage + dam)
 		update_icon()
@@ -16,7 +16,7 @@ TYPE_PROC_REF(/turf/closed/wall, take_damage)(dam)
 		return 1
 	return 0
 
-TYPE_PROC_REF(/turf/closed/wall, update_damage_overlay)()
+/turf/closed/wall/proc/update_damage_overlay()
 	if(damage != 0)
 
 		var/overlay = round(damage / hardness * damage_overlays.len) + 1
@@ -25,7 +25,7 @@ TYPE_PROC_REF(/turf/closed/wall, update_damage_overlay)()
 
 		overlays += damage_overlays[overlay]
 
-TYPE_PROC_REF(/turf/closed/wall, generate_overlays)()
+/turf/closed/wall/proc/generate_overlays()
 	var/alpha_inc = 256 / damage_overlays.len
 
 	for(var/i = 1; i <= damage_overlays.len; i++)

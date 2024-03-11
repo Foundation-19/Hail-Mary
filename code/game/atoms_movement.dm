@@ -193,7 +193,7 @@
 		else
 			set_currently_z_moving(FALSE, TRUE)
 
-TYPE_PROC_REF(/atom/movable, handle_buckled_mob_movement)(newloc, direct, glide_size_override)
+/atom/movable/proc/handle_buckled_mob_movement(newloc, direct, glide_size_override)
 	for(var/m in buckled_mobs)
 		var/mob/living/buckled_mob = m
 		if(!buckled_mob.Move(newloc, direct, glide_size_override))
@@ -204,13 +204,13 @@ TYPE_PROC_REF(/atom/movable, handle_buckled_mob_movement)(newloc, direct, glide_
 			return FALSE
 	return TRUE
 
-TYPE_PROC_REF(/atom/movable, move_from_pull)(atom/movable/puller, turf/target_turf, glide_size_override)
+/atom/movable/proc/move_from_pull(atom/movable/puller, turf/target_turf, glide_size_override)
 	moving_from_pull = puller
 	Move(target_turf, get_dir(src, target_turf), glide_size_override)
 	moving_from_pull = null
 
 //Called after a successful Move(). By this point, we've already moved
-TYPE_PROC_REF(/atom/movable, Moved)(atom/old_loc, movement_dir, forced = FALSE, list/old_locs)
+/atom/movable/proc/Moved(atom/old_loc, movement_dir, forced = FALSE, list/old_locs)
 	SHOULD_CALL_PARENT(TRUE)
 
 	if (!inertia_moving)
@@ -335,7 +335,7 @@ TYPE_PROC_REF(/atom/movable, Moved)(atom/old_loc, movement_dir, forced = FALSE, 
 			recursive_contents[channel] |= arrived.important_recursive_contents[channel]
 
 ///allows this movable to hear and adds itself to the important_recursive_contents list of itself and every movable loc its in
-TYPE_PROC_REF(/atom/movable, become_hearing_sensitive)(trait_source = TRAIT_GENERIC)
+/atom/movable/proc/become_hearing_sensitive(trait_source = TRAIT_GENERIC)
 	ADD_TRAIT(src, TRAIT_HEARING_SENSITIVE, trait_source)
 	if(!HAS_TRAIT(src, TRAIT_HEARING_SENSITIVE))
 		return
@@ -356,7 +356,7 @@ TYPE_PROC_REF(/atom/movable, become_hearing_sensitive)(trait_source = TRAIT_GENE
  *
  * * trait_source - trait source define or ALL, if ALL, force removes hearing sensitivity. if a trait source define, removes hearing sensitivity only if the trait is removed
  */
-TYPE_PROC_REF(/atom/movable, lose_hearing_sensitivity)(trait_source = TRAIT_GENERIC)
+/atom/movable/proc/lose_hearing_sensitivity(trait_source = TRAIT_GENERIC)
 	if(!HAS_TRAIT(src, TRAIT_HEARING_SENSITIVE))
 		return
 	REMOVE_TRAIT(src, TRAIT_HEARING_SENSITIVE, trait_source)
@@ -376,7 +376,7 @@ TYPE_PROC_REF(/atom/movable, lose_hearing_sensitivity)(trait_source = TRAIT_GENE
 		UNSETEMPTY(location.important_recursive_contents)
 
 ///allows this movable to know when it has "entered" another area no matter how many movable atoms its stuffed into, uses important_recursive_contents
-TYPE_PROC_REF(/atom/movable, become_area_sensitive)(trait_source = TRAIT_GENERIC)
+/atom/movable/proc/become_area_sensitive(trait_source = TRAIT_GENERIC)
 	if(!HAS_TRAIT(src, TRAIT_AREA_SENSITIVE))
 		//RegisterSignal(src, SIGNAL_REMOVETRAIT(TRAIT_AREA_SENSITIVE), PROC_REF(on_area_sensitive_trait_loss))
 		for(var/atom/movable/location as anything in get_nested_locs(src) + src)
@@ -384,7 +384,7 @@ TYPE_PROC_REF(/atom/movable, become_area_sensitive)(trait_source = TRAIT_GENERIC
 	ADD_TRAIT(src, TRAIT_AREA_SENSITIVE, trait_source)
 
 ///removes the area sensitive channel from the important_recursive_contents list of this and all nested locs containing us if there are no more source of the trait left
-TYPE_PROC_REF(/atom/movable, lose_area_sensitivity)(trait_source = TRAIT_GENERIC)
+/atom/movable/proc/lose_area_sensitivity(trait_source = TRAIT_GENERIC)
 	if(!HAS_TRAIT(src, TRAIT_AREA_SENSITIVE))
 		return
 	REMOVE_TRAIT(src, TRAIT_AREA_SENSITIVE, trait_source)
@@ -396,7 +396,7 @@ TYPE_PROC_REF(/atom/movable, lose_area_sensitivity)(trait_source = TRAIT_GENERIC
 
 ///propogates ourselves through our nested contents, similar to other important_recursive_contents procs
 ///main difference is that client contents need to possibly duplicate recursive contents for the clients mob AND its eye
-TYPE_PROC_REF(/mob, enable_client_mobs_in_contents)()
+/mob/proc/enable_client_mobs_in_contents()
 	for(var/atom/movable/movable_loc as anything in get_nested_locs(src) + src)
 		LAZYINITLIST(movable_loc.important_recursive_contents)
 		var/list/recursive_contents = movable_loc.important_recursive_contents // blue hedgehog velocity
@@ -410,7 +410,7 @@ TYPE_PROC_REF(/mob, enable_client_mobs_in_contents)()
 //	SSspatial_grid.add_grid_membership(src, our_turf, SPATIAL_GRID_CONTENTS_TYPE_CLIENTS)
 
 ///Clears the clients channel of this mob
-TYPE_PROC_REF(/mob, clear_important_client_contents)()
+/mob/proc/clear_important_client_contents()
 	// var/turf/our_turf = get_turf(src)
 	// SSspatial_grid.remove_grid_membership(src, our_turf, SPATIAL_GRID_CONTENTS_TYPE_CLIENTS)
 
@@ -422,13 +422,13 @@ TYPE_PROC_REF(/mob, clear_important_client_contents)()
 		ASSOC_UNSETEMPTY(recursive_contents, RECURSIVE_CONTENTS_CLIENT_MOBS)
 		UNSETEMPTY(movable_loc.important_recursive_contents)
 
-TYPE_PROC_REF(/atom/movable, onTransitZ)(old_z,new_z)
+/atom/movable/proc/onTransitZ(old_z,new_z)
 	SEND_SIGNAL(src, COMSIG_MOVABLE_Z_CHANGED, old_z, new_z)
 	for (var/item in src) // Notify contents of Z-transition. This can be overridden IF we know the items contents do not care.
 		var/atom/movable/AM = item
 		AM.onTransitZ(old_z,new_z)
 
-TYPE_PROC_REF(/atom/movable, setMovetype)(newval)
+/atom/movable/proc/setMovetype(newval)
 	movement_type = newval
 
 /**
@@ -438,7 +438,7 @@ TYPE_PROC_REF(/atom/movable, setMovetype)(newval)
  * * old_z - The previous z-level they were on before.
  * * notify_contents - Whether or not to notify the movable's contents that their z-level has changed.
  */
-TYPE_PROC_REF(/atom/movable, on_changed_z_level)(turf/old_turf, turf/new_turf, notify_contents = TRUE)
+/atom/movable/proc/on_changed_z_level(turf/old_turf, turf/new_turf, notify_contents = TRUE)
 	SEND_SIGNAL(src, COMSIG_MOVABLE_Z_CHANGED, old_turf, new_turf)
 
 	if(!notify_contents)
@@ -449,17 +449,17 @@ TYPE_PROC_REF(/atom/movable, on_changed_z_level)(turf/old_turf, turf/new_turf, n
 
 ///////////// FORCED MOVEMENT /////////////
 
-TYPE_PROC_REF(/atom/movable, forceMove)(atom/destination)
+/atom/movable/proc/forceMove(atom/destination)
 	. = FALSE
 	if(destination)
 		. = doMove(destination)
 	else
 		CRASH("No valid destination passed into forceMove")
 
-TYPE_PROC_REF(/atom/movable, moveToNullspace)()
+/atom/movable/proc/moveToNullspace()
 	return doMove(null)
 
-TYPE_PROC_REF(/atom/movable, doMove)(atom/destination)
+/atom/movable/proc/doMove(atom/destination)
 	. = FALSE
 	move_stacks++
 	var/atom/oldloc = loc
@@ -503,17 +503,17 @@ TYPE_PROC_REF(/atom/movable, doMove)(atom/destination)
 
 /**
  * Called whenever an object moves and by mobs when they attempt to move themselves through space
- * And when an object or action applies a force on src, see [newtonian_move][TYPE_PROC_REF(/atom/movable, newtonian_move)]
+ * And when an object or action applies a force on src, see [newtonian_move][/atom/movable/proc/newtonian_move]
  *
  * Return 0 to have src start/keep drifting in a no-grav area and 1 to stop/not start drifting
  *
- * Mobs should return 1 if they should be able to move of their own volition, see [TYPE_PROC_REF(/client, Move)]
+ * Mobs should return 1 if they should be able to move of their own volition, see [/client/proc/Move]
  *
  * Arguments:
  * * movement_dir - 0 when stopping or any dir when trying to move
  * * continuous_move - If this check is coming from something in the context of already drifting
  */
-TYPE_PROC_REF(/atom/movable, Process_Spacemove)(movement_dir = 0, continuous_move = FALSE)
+/atom/movable/proc/Process_Spacemove(movement_dir = 0, continuous_move = FALSE)
 	if(SEND_SIGNAL(src, COMSIG_MOVABLE_SPACEMOVE, movement_dir, continuous_move) & COMSIG_MOVABLE_STOP_SPACEMOVE)
 		return TRUE
 
@@ -536,7 +536,7 @@ TYPE_PROC_REF(/atom/movable, Process_Spacemove)(movement_dir = 0, continuous_mov
 
 /// Only moves the object if it's under no gravity
 /// Accepts the direction to move, if the push should be instant, and an optional parameter to fine tune the start delay
-TYPE_PROC_REF(/atom/movable, newtonian_move)(direction, instant = FALSE, start_delay = 0)
+/atom/movable/proc/newtonian_move(direction, instant = FALSE, start_delay = 0)
 	if(!isturf(loc) || Process_Spacemove(direction, continuous_move = TRUE))
 		return FALSE
 

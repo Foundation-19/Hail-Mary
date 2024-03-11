@@ -74,7 +74,7 @@
 		else
 			add_overlay("cell-o1")
 
-TYPE_PROC_REF(/obj/item/stock_parts/cell, percent)()		// return % charge of cell
+/obj/item/stock_parts/cell/proc/percent()		// return % charge of cell
 	return 100*charge/maxcharge
 
 // use power from a cell
@@ -92,12 +92,12 @@ TYPE_PROC_REF(/obj/item/stock_parts/cell, percent)()		// return % charge of cell
 	return used
 
 // check power in a cell
-TYPE_PROC_REF(/obj/item/stock_parts/cell, check_charge)(amount)
+/obj/item/stock_parts/cell/proc/check_charge(amount)
 	SEND_SIGNAL(src, COMSIG_CELL_USED, charge, maxcharge)
 	return (charge >= amount)
 
 // recharge the cell
-TYPE_PROC_REF(/obj/item/stock_parts/cell, give)(amount)
+/obj/item/stock_parts/cell/proc/give(amount)
 	SEND_SIGNAL(src, COMSIG_CELL_USED, charge, maxcharge)
 	if(rigged && amount > 0)
 		explode()
@@ -123,7 +123,7 @@ TYPE_PROC_REF(/obj/item/stock_parts/cell, give)(amount)
 	..()
 	rigged = reagents?.has_reagent(/datum/reagent/toxin/plasma, 5) ? TRUE : FALSE //has_reagent returns the reagent datum
 
-TYPE_PROC_REF(/obj/item/stock_parts/cell, explode)()
+/obj/item/stock_parts/cell/proc/explode()
 	var/turf/T = get_turf(src.loc)
 	if (charge==0)
 		return
@@ -139,7 +139,7 @@ TYPE_PROC_REF(/obj/item/stock_parts/cell, explode)()
 	explosion(T, devastation_range, heavy_impact_range, light_impact_range, flash_range)
 	qdel(src)
 
-TYPE_PROC_REF(/obj/item/stock_parts/cell, corrupt)()
+/obj/item/stock_parts/cell/proc/corrupt()
 	charge /= 2
 	maxcharge = max(maxcharge/2, chargerate)
 	if (prob(10))
@@ -190,13 +190,13 @@ TYPE_PROC_REF(/obj/item/stock_parts/cell, corrupt)()
 /obj/item/stock_parts/cell/blob_act(obj/structure/blob/B)
 	ex_act(EXPLODE_DEVASTATE)
 
-TYPE_PROC_REF(/obj/item/stock_parts/cell, get_electrocute_damage)()
+/obj/item/stock_parts/cell/proc/get_electrocute_damage()
 	if(charge >= 1000)
 		return clamp(round(charge/10000), 10, 90) + rand(-5,5)
 	else
 		return 0
 
-TYPE_PROC_REF(/obj/item/stock_parts/cell, lick_battery)(atom/A, mob/living/carbon/licker, obj/item/hand_item/tongue)
+/obj/item/stock_parts/cell/proc/lick_battery(atom/A, mob/living/carbon/licker, obj/item/hand_item/tongue)
 	if(!iscarbon(licker) || !istype(tongue))
 		return FALSE
 	var/mob/living/carbon/battery_licker = licker

@@ -27,7 +27,7 @@ SUBSYSTEM_DEF(job)
 	set_overflow_role(CONFIG_GET(string/overflow_job))
 	return ..()
 
-TYPE_PROC_REF(/datum/controller/subsystem/job, set_overflow_role)(new_overflow_role)
+/datum/controller/subsystem/job/proc/set_overflow_role(new_overflow_role)
 	var/datum/job/new_overflow = GetJob(new_overflow_role)
 	var/cap = CONFIG_GET(number/overflow_cap)
 
@@ -41,7 +41,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/job, set_overflow_role)(new_overflow_r
 		overflow_role = new_overflow_role
 		JobDebug("Overflow role set to : [new_overflow_role]")
 
-TYPE_PROC_REF(/datum/controller/subsystem/job, SetupOccupations)(faction = "Station")
+/datum/controller/subsystem/job/proc/SetupOccupations(faction = "Station")
 	occupations = list()
 	var/list/all_jobs = subtypesof(/datum/job)
 
@@ -75,7 +75,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/job, SetupOccupations)(faction = "Stat
 	return 1
 
 //We'll call this way late, probably in SSpersistence since it seems like the boot order is fucky
-TYPE_PROC_REF(/datum/controller/subsystem/job, AddMapJobs)()
+/datum/controller/subsystem/job/proc/AddMapJobs()
 	if(LAZYLEN(SSmapping.config.added_jobs) && LAZYLEN(factionless_jobs))
 		for(var/Q in SSmapping.config.added_jobs)  //It's fastest to browse through the ones we need to add rather than all jobs
 			var/datum/job/job = factionless_jobs[Q]
@@ -85,18 +85,18 @@ TYPE_PROC_REF(/datum/controller/subsystem/job, AddMapJobs)()
 				type_occupations[job.type] = job
 
 
-TYPE_PROC_REF(/datum/controller/subsystem/job, GetJob)(rank)
+/datum/controller/subsystem/job/proc/GetJob(rank)
 	RETURN_TYPE(/datum/job)
 	if(!occupations.len)
 		SetupOccupations()
 	return name_occupations[rank]
 
-TYPE_PROC_REF(/datum/controller/subsystem/job, GetJobType)(jobtype)
+/datum/controller/subsystem/job/proc/GetJobType(jobtype)
 	if(!occupations.len)
 		SetupOccupations()
 	return type_occupations[jobtype]
 
-TYPE_PROC_REF(/datum/controller/subsystem/job, AssignRole)(mob/dead/new_player/player, rank, latejoin = FALSE)
+/datum/controller/subsystem/job/proc/AssignRole(mob/dead/new_player/player, rank, latejoin = FALSE)
 	JobDebug("Running AR, Player: [player], Rank: [rank], LJ: [latejoin]")
 	if(player && player.mind && rank)
 		var/datum/job/job = GetJob(rank)
@@ -120,7 +120,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/job, AssignRole)(mob/dead/new_player/p
 	return FALSE
 
 
-TYPE_PROC_REF(/datum/controller/subsystem/job, FindOccupationCandidates)(datum/job/job, level, flag)
+/datum/controller/subsystem/job/proc/FindOccupationCandidates(datum/job/job, level, flag)
 	JobDebug("Running FOC, Job: [job], Level: [level], Flag: [flag]")
 	var/list/candidates = list()
 	for(var/mob/dead/new_player/player in unassigned)
@@ -147,7 +147,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/job, FindOccupationCandidates)(datum/j
 			candidates += player
 	return candidates
 
-TYPE_PROC_REF(/datum/controller/subsystem/job, GiveRandomJob)(mob/dead/new_player/player)
+/datum/controller/subsystem/job/proc/GiveRandomJob(mob/dead/new_player/player)
 	JobDebug("GRJ Giving random job, Player: [player]")
 	. = FALSE
 	for(var/datum/job/job in shuffle(occupations))
@@ -191,7 +191,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/job, GiveRandomJob)(mob/dead/new_playe
 			if(AssignRole(player, job.title))
 				return TRUE
 
-TYPE_PROC_REF(/datum/controller/subsystem/job, ResetOccupations)()
+/datum/controller/subsystem/job/proc/ResetOccupations()
 	JobDebug("Occupations reset.")
 	for(var/mob/dead/new_player/player in GLOB.player_list)
 		if((player) && (player.mind))
@@ -206,7 +206,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/job, ResetOccupations)()
 //This proc is called before the level loop of DivideOccupations() and will try to select a head, ignoring ALL non-head preferences for every level until
 //it locates a head or runs out of levels to check
 //This is basically to ensure that there's atleast a few heads in the round
-TYPE_PROC_REF(/datum/controller/subsystem/job, FillHeadPosition)()
+/datum/controller/subsystem/job/proc/FillHeadPosition()
 	for(var/level in level_order)
 		for(var/command_position in GLOB.command_positions)
 			var/datum/job/job = GetJob(command_position)
@@ -225,7 +225,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/job, FillHeadPosition)()
 
 //This proc is called at the start of the level loop of DivideOccupations() and will cause head jobs to be checked before any other jobs of the same level
 //This is also to ensure we get as many heads as possible
-TYPE_PROC_REF(/datum/controller/subsystem/job, CheckHeadPositions)(level)
+/datum/controller/subsystem/job/proc/CheckHeadPositions(level)
 	for(var/command_position in GLOB.command_positions)
 		var/datum/job/job = GetJob(command_position)
 		if(!job)
@@ -238,7 +238,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/job, CheckHeadPositions)(level)
 		var/mob/dead/new_player/candidate = pick(candidates)
 		AssignRole(candidate, command_position)
 
-TYPE_PROC_REF(/datum/controller/subsystem/job, FillAIPosition)()
+/datum/controller/subsystem/job/proc/FillAIPosition()
 	var/ai_selected = 0
 	var/datum/job/job = GetJob("AI")
 	if(!job)
@@ -261,7 +261,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/job, FillAIPosition)()
  *  fills var "assigned_role" for all ready players.
  *  This proc must not have any side effect besides of modifying "assigned_role".
  */
-TYPE_PROC_REF(/datum/controller/subsystem/job, DivideOccupations)(list/required_jobs)
+/datum/controller/subsystem/job/proc/DivideOccupations(list/required_jobs)
 	//Setup new player list and get the jobs list
 	JobDebug("Running DO")
 
@@ -393,7 +393,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/job, DivideOccupations)(list/required_
 
 	return validate_required_jobs(required_jobs)
 
-TYPE_PROC_REF(/datum/controller/subsystem/job, validate_required_jobs)(list/required_jobs)
+/datum/controller/subsystem/job/proc/validate_required_jobs(list/required_jobs)
 	if(!required_jobs.len)
 		return TRUE
 	for(var/required_group in required_jobs)
@@ -412,7 +412,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/job, validate_required_jobs)(list/requ
 	return FALSE
 
 //We couldn't find a job from prefs for this guy.
-TYPE_PROC_REF(/datum/controller/subsystem/job, HandleUnassigned)(mob/dead/new_player/player)
+/datum/controller/subsystem/job/proc/HandleUnassigned(mob/dead/new_player/player)
 	if(PopcapReached())
 		RejectPlayer(player)
 	else if(player.client.prefs.joblessrole == BEOVERFLOW)
@@ -434,7 +434,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/job, HandleUnassigned)(mob/dead/new_pl
 		message_admins(message)
 		RejectPlayer(player)
 //Gives the player the stuff he should have with his rank
-TYPE_PROC_REF(/datum/controller/subsystem/job, EquipRank)(mob/M, rank, joined_late = FALSE)
+/datum/controller/subsystem/job/proc/EquipRank(mob/M, rank, joined_late = FALSE)
 	var/mob/dead/new_player/N
 	var/mob/living/H
 	if(!joined_late)
@@ -517,7 +517,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/job, EquipRank)(mob/M, rank, joined_la
 
 	return H
 /*
-TYPE_PROC_REF(/datum/controller/subsystem/job, handle_auto_deadmin_roles)(client/C, rank)
+/datum/controller/subsystem/job/proc/handle_auto_deadmin_roles(client/C, rank)
 	if(!C?.holder)
 		return TRUE
 	var/datum/job/job = GetJob(rank)
@@ -530,7 +530,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/job, handle_auto_deadmin_roles)(client
 	else if((job.auto_deadmin_role_flags & DEADMIN_POSITION_SILICON) && (CONFIG_GET(flag/auto_deadmin_silicons) || (C.prefs?.toggles & DEADMIN_POSITION_SILICON))) //in the event there's ever psuedo-silicon roles added, ie synths.
 		return C.holder.auto_deadmin()*/
 
-TYPE_PROC_REF(/datum/controller/subsystem/job, setup_officer_positions)()
+/datum/controller/subsystem/job/proc/setup_officer_positions()
 	var/datum/job/J = SSjob.GetJob("Vault-tec Security")
 	if(!J)
 		CRASH("setup_officer_positions(): Security officer job is missing")
@@ -556,7 +556,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/job, setup_officer_positions)()
 			break
 
 
-TYPE_PROC_REF(/datum/controller/subsystem/job, LoadJobs)()
+/datum/controller/subsystem/job/proc/LoadJobs()
 	var/jobstext = file2text("[global.config.directory]/jobs.txt")
 	for(var/datum/job/J in occupations)
 		var/regex/jobs = new("[J.title]=(-1|\\d+),(-1|\\d+)")
@@ -564,7 +564,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/job, LoadJobs)()
 		J.total_positions = text2num(jobs.group[1])
 		J.spawn_positions = text2num(jobs.group[2])
 
-TYPE_PROC_REF(/datum/controller/subsystem/job, HandleFeedbackGathering)()
+/datum/controller/subsystem/job/proc/HandleFeedbackGathering()
 	for(var/datum/job/job in occupations)
 		var/high = 0 //high
 		var/medium = 0 //medium
@@ -600,7 +600,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/job, HandleFeedbackGathering)()
 		SSblackbox.record_feedback("nested tally", "job_preferences", banned, list("[job.title]", "banned"))
 		SSblackbox.record_feedback("nested tally", "job_preferences", young, list("[job.title]", "young"))
 
-TYPE_PROC_REF(/datum/controller/subsystem/job, PopcapReached)()
+/datum/controller/subsystem/job/proc/PopcapReached()
 	var/hpc = CONFIG_GET(number/hard_popcap)
 	var/epc = CONFIG_GET(number/extreme_popcap)
 	if(hpc || epc)
@@ -609,7 +609,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/job, PopcapReached)()
 			return 1
 	return 0
 
-TYPE_PROC_REF(/datum/controller/subsystem/job, RejectPlayer)(mob/dead/new_player/player)
+/datum/controller/subsystem/job/proc/RejectPlayer(mob/dead/new_player/player)
 	if(player.mind && player.mind.special_role)
 		return
 	if(PopcapReached())
@@ -627,7 +627,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/job, RejectPlayer)(mob/dead/new_player
 	for (var/datum/job/J in oldjobs)
 		INVOKE_ASYNC(src, PROC_REF(RecoverJob), J)
 
-TYPE_PROC_REF(/datum/controller/subsystem/job, RecoverJob)(datum/job/J)
+/datum/controller/subsystem/job/proc/RecoverJob(datum/job/J)
 	var/datum/job/newjob = GetJob(J.title)
 	if (!istype(newjob))
 		return
@@ -635,7 +635,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/job, RecoverJob)(datum/job/J)
 	newjob.spawn_positions = J.spawn_positions
 	newjob.current_positions = J.current_positions
 
-TYPE_PROC_REF(/atom, JoinPlayerHere)(mob/M, buckle)
+/atom/proc/JoinPlayerHere(mob/M, buckle)
 	// By default, just place the mob on the same turf as the marker or whatever.
 	M.forceMove(get_turf(src))
 
@@ -645,7 +645,7 @@ TYPE_PROC_REF(/atom, JoinPlayerHere)(mob/M, buckle)
 		return
 	..()
 
-TYPE_PROC_REF(/datum/controller/subsystem/job, SendToLateJoin)(mob/M, buckle = TRUE)
+/datum/controller/subsystem/job/proc/SendToLateJoin(mob/M, buckle = TRUE)
 	var/atom/destination
 	if(M.mind && M.mind.assigned_role && length(GLOB.jobspawn_overrides[M.mind.assigned_role])) //We're doing something special today.
 		destination = pick(GLOB.jobspawn_overrides[M.mind.assigned_role])
@@ -702,7 +702,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/job, SendToLateJoin)(mob/M, buckle = T
 	SLOT_W_UNIFORM,\
 	)
 
-TYPE_PROC_REF(/datum/controller/subsystem/job, equip_loadout)(mob/dead/new_player/N, mob/living/M, equipbackpackstuff, bypass_prereqs = FALSE, can_drop = TRUE)
+/datum/controller/subsystem/job/proc/equip_loadout(mob/dead/new_player/N, mob/living/M, equipbackpackstuff, bypass_prereqs = FALSE, can_drop = TRUE)
 	var/mob/the_mob = N
 	if(!the_mob)
 		the_mob = M // cause this doesn't get assigned if player is a latejoiner
@@ -752,7 +752,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/job, equip_loadout)(mob/dead/new_playe
 
 #undef DISPLACEABLE_SLOTS
 
-TYPE_PROC_REF(/datum/controller/subsystem/job, FreeRole)(rank)
+/datum/controller/subsystem/job/proc/FreeRole(rank)
 	if(!rank)
 		return
 	var/datum/job/job = GetJob(rank)
@@ -763,7 +763,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/job, FreeRole)(rank)
 ///////////////////////////////////
 //Keeps track of all living heads//
 ///////////////////////////////////
-TYPE_PROC_REF(/datum/controller/subsystem/job, get_living_heads)()
+/datum/controller/subsystem/job/proc/get_living_heads()
 	. = list()
 	for(var/mob/living/carbon/human/player in GLOB.alive_mob_list)
 		if(player.stat != DEAD && player.mind && (player.mind.assigned_role in GLOB.command_positions))
@@ -773,7 +773,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/job, get_living_heads)()
 ////////////////////////////
 //Keeps track of all heads//
 ////////////////////////////
-TYPE_PROC_REF(/datum/controller/subsystem/job, get_all_heads)()
+/datum/controller/subsystem/job/proc/get_all_heads()
 	. = list()
 	for(var/i in GLOB.mob_list)
 		var/mob/player = i
@@ -783,7 +783,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/job, get_all_heads)()
 //////////////////////////////////////////////
 //Keeps track of all living security members//
 //////////////////////////////////////////////
-TYPE_PROC_REF(/datum/controller/subsystem/job, get_living_sec)()
+/datum/controller/subsystem/job/proc/get_living_sec()
 	. = list()
 	for(var/mob/living/carbon/human/player in GLOB.carbon_list)
 		if(player.stat != DEAD && player.mind && (player.mind.assigned_role in GLOB.security_positions))
@@ -792,11 +792,11 @@ TYPE_PROC_REF(/datum/controller/subsystem/job, get_living_sec)()
 ////////////////////////////////////////
 //Keeps track of all  security members//
 ////////////////////////////////////////
-TYPE_PROC_REF(/datum/controller/subsystem/job, get_all_sec)()
+/datum/controller/subsystem/job/proc/get_all_sec()
 	. = list()
 	for(var/mob/living/carbon/human/player in GLOB.carbon_list)
 		if(player.mind && (player.mind.assigned_role in GLOB.security_positions))
 			. |= player.mind
 
-TYPE_PROC_REF(/datum/controller/subsystem/job, JobDebug)(message)
+/datum/controller/subsystem/job/proc/JobDebug(message)
 	log_job_debug(message)

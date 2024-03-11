@@ -119,7 +119,7 @@
 	else
 		our_statue.active_tables -= src
 
-TYPE_PROC_REF(/obj/structure/table/abductor/wabbajack, sleeper_dreams)(mob/living/sleeper)
+/obj/structure/table/abductor/wabbajack/proc/sleeper_dreams(mob/living/sleeper)
 	if(sleeper in sleepers)
 		to_chat(sleeper, span_revennotice("While you slumber, you have the strangest dream, like you can see yourself from the outside."))
 		sleeper.ghostize(TRUE, voluntary = TRUE)
@@ -186,7 +186,7 @@ TYPE_PROC_REF(/obj/structure/table/abductor/wabbajack, sleeper_dreams)(mob/livin
 	AddElement(/datum/element/connect_loc, loc_connections)
 
 
-TYPE_PROC_REF(/obj/structure/table/wood/bar, on_entered)(atom/movable/AM)
+/obj/structure/table/wood/bar/proc/on_entered(atom/movable/AM)
 	SIGNAL_HANDLER
 	if(isliving(AM) && !is_barstaff(AM))
 		// No climbing on the bar please
@@ -196,7 +196,7 @@ TYPE_PROC_REF(/obj/structure/table/wood/bar, on_entered)(atom/movable/AM)
 		M.throw_at(throwtarget, 5, 1)
 		to_chat(M, span_notice("No climbing on the bar please."))
 
-TYPE_PROC_REF(/obj/structure/table/wood/bar, is_barstaff)(mob/living/user)
+/obj/structure/table/wood/bar/proc/is_barstaff(mob/living/user)
 	. = FALSE
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user

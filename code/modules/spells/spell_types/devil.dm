@@ -131,7 +131,7 @@
 		return
 	revert_cast()
 
-TYPE_PROC_REF(/obj/effect/proc_holder/spell/targeted/infernal_jaunt, valid_location)(mob/living/user = usr)
+/obj/effect/proc_holder/spell/targeted/infernal_jaunt/proc/valid_location(mob/living/user = usr)
 	if(istype(get_area(user), /area/shuttle/)) // Can always phase in in a shuttle.
 		return TRUE
 	else
@@ -140,7 +140,7 @@ TYPE_PROC_REF(/obj/effect/proc_holder/spell/targeted/infernal_jaunt, valid_locat
 				return TRUE
 	return FALSE
 
-TYPE_PROC_REF(/mob/living, infernalphaseout)()
+/mob/living/proc/infernalphaseout()
 	dust_animation()
 	spawn_dust()
 	visible_message(span_warning("[src] disappears in a flashfire!"))
@@ -152,7 +152,7 @@ TYPE_PROC_REF(/mob/living, infernalphaseout)()
 	mob_transforming = 0
 	fakefireextinguish()
 
-TYPE_PROC_REF(/mob/living, infernalphasein)()
+/mob/living/proc/infernalphasein()
 	if(mob_transforming)
 		to_chat(src, span_warning("You're too busy to jaunt in."))
 		return FALSE

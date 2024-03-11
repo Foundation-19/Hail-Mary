@@ -5,7 +5,7 @@
 	for (var/datum/species/species_type as anything in subtypesof(/datum/species))
 		test_screenshot("[species_type]", get_flat_icon_for_all_directions(make_dummy(species_type, /datum/outfit/job)))
 
-TYPE_PROC_REF(/datum/unit_test/screenshot_humanoids, get_flat_icon_for_all_directions)(atom/thing)
+/datum/unit_test/screenshot_humanoids/proc/get_flat_icon_for_all_directions(atom/thing)
 	var/icon/output = icon('icons/effects/effects.dmi', "nothing")
 	COMPILE_OVERLAYS(thing)
 
@@ -15,7 +15,7 @@ TYPE_PROC_REF(/datum/unit_test/screenshot_humanoids, get_flat_icon_for_all_direc
 
 	return output
 
-TYPE_PROC_REF(/datum/unit_test/screenshot_humanoids, make_dummy)(species, job_outfit)
+/datum/unit_test/screenshot_humanoids/proc/make_dummy(species, job_outfit)
 	var/mob/living/carbon/human/dummy/consistent/dummy = allocate(/mob/living/carbon/human/dummy/consistent)
 	dummy.set_species(species)
 	dummy.equipOutfit(job_outfit, visualsOnly = TRUE)
@@ -30,7 +30,7 @@ TYPE_PROC_REF(/datum/unit_test/screenshot_humanoids, make_dummy)(species, job_ou
 	setup_human_dna()
 
 
-TYPE_PROC_REF(/mob/living/carbon/human/dummy/consistent, setup_human_dna)()
+/mob/living/carbon/human/dummy/consistent/proc/setup_human_dna()
 	create_dna(src)
 	dna.initialize_dna(null, FALSE)
 	// dna.features["body_markings"] = "None"

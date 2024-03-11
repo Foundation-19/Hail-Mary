@@ -51,7 +51,7 @@
 		to_chat(user, span_warning("You need more paper!"))
 		return SHAME
 
-TYPE_PROC_REF(/obj/item, can_be_package_wrapped)() //can the item be wrapped with package wrapper into a delivery package
+/obj/item/proc/can_be_package_wrapped() //can the item be wrapped with package wrapper into a delivery package
 	return 1
 
 /obj/item/storage/can_be_package_wrapped()

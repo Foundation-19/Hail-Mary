@@ -11,7 +11,7 @@ SUBSYSTEM_DEF(minimaps)
 	build_minimaps()
 	return ..()
 
-TYPE_PROC_REF(/datum/controller/subsystem/minimaps, build_minimaps)()
+/datum/controller/subsystem/minimaps/proc/build_minimaps()
 	for(var/z in SSmapping.levels_by_trait(ZTRAIT_STATION))
 		var/datum/space_level/SL = SSmapping.get_level(z)
 		var/name = (SL.name == initial(SL.name))? "[z] - Station" : "[z] - [SL.name]"

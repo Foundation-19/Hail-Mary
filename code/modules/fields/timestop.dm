@@ -40,7 +40,7 @@
 	playsound(src, 'sound/magic/timeparadox2.ogg', 75, TRUE, frequency = -1) //reverse!
 	return ..()
 
-TYPE_PROC_REF(/obj/effect/timestop, timestop)()
+/obj/effect/timestop/proc/timestop()
 	target = get_turf(src)
 	playsound(src, 'sound/magic/timeparadox2.ogg', 75, 1, -1)
 	chronofield = make_field(/datum/proximity_monitor/advanced/timestop, list("current_range" = freezerange, "host" = src, "immune" = immune, "check_anti_magic" = check_anti_magic, "check_holy" = check_holy))
@@ -71,7 +71,7 @@ TYPE_PROC_REF(/obj/effect/timestop, timestop)()
 /datum/proximity_monitor/advanced/timestop/field_turf_crossed(atom/movable/AM)
 	freeze_atom(AM)
 
-TYPE_PROC_REF(/datum/proximity_monitor/advanced/timestop, freeze_atom)(atom/movable/A)
+/datum/proximity_monitor/advanced/timestop/proc/freeze_atom(atom/movable/A)
 	if(immune[A] || global_frozen_atoms[A] || !istype(A))
 		return FALSE
 	if(ismob(A))
@@ -105,13 +105,13 @@ TYPE_PROC_REF(/datum/proximity_monitor/advanced/timestop, freeze_atom)(atom/mova
 
 	return TRUE
 
-TYPE_PROC_REF(/datum/proximity_monitor/advanced/timestop, unfreeze_all)()
+/datum/proximity_monitor/advanced/timestop/proc/unfreeze_all()
 	for(var/i in frozen_things)
 		unfreeze_atom(i)
 	for(var/T in frozen_turfs)
 		unfreeze_turf(T)
 
-TYPE_PROC_REF(/datum/proximity_monitor/advanced/timestop, unfreeze_atom)(atom/movable/A)
+/datum/proximity_monitor/advanced/timestop/proc/unfreeze_atom(atom/movable/A)
 	if(A.throwing)
 		unfreeze_throwing(A)
 	if(isliving(A))
@@ -128,33 +128,33 @@ TYPE_PROC_REF(/datum/proximity_monitor/advanced/timestop, unfreeze_atom)(atom/mo
 	frozen_things -= A
 	global_frozen_atoms -= A
 
-TYPE_PROC_REF(/datum/proximity_monitor/advanced/timestop, freeze_mecha)(obj/mecha/M)
+/datum/proximity_monitor/advanced/timestop/proc/freeze_mecha(obj/mecha/M)
 	M.completely_disabled = TRUE
 
-TYPE_PROC_REF(/datum/proximity_monitor/advanced/timestop, unfreeze_mecha)(obj/mecha/M)
+/datum/proximity_monitor/advanced/timestop/proc/unfreeze_mecha(obj/mecha/M)
 	M.completely_disabled = FALSE
 
-TYPE_PROC_REF(/datum/proximity_monitor/advanced/timestop, freeze_throwing)(atom/movable/AM)
+/datum/proximity_monitor/advanced/timestop/proc/freeze_throwing(atom/movable/AM)
 	var/datum/thrownthing/T = AM.throwing
 	T.paused = TRUE
 
-TYPE_PROC_REF(/datum/proximity_monitor/advanced/timestop, unfreeze_throwing)(atom/movable/AM)
+/datum/proximity_monitor/advanced/timestop/proc/unfreeze_throwing(atom/movable/AM)
 	var/datum/thrownthing/T = AM.throwing
 	if(T)
 		T.paused = FALSE
 
-TYPE_PROC_REF(/datum/proximity_monitor/advanced/timestop, freeze_turf)(turf/T)
+/datum/proximity_monitor/advanced/timestop/proc/freeze_turf(turf/T)
 	into_the_negative_zone(T)
 	frozen_turfs += T
 
-TYPE_PROC_REF(/datum/proximity_monitor/advanced/timestop, unfreeze_turf)(turf/T)
+/datum/proximity_monitor/advanced/timestop/proc/unfreeze_turf(turf/T)
 	escape_the_negative_zone(T)
 
-TYPE_PROC_REF(/datum/proximity_monitor/advanced/timestop, freeze_structure)(obj/O)
+/datum/proximity_monitor/advanced/timestop/proc/freeze_structure(obj/O)
 	into_the_negative_zone(O)
 	frozen_structures += O
 
-TYPE_PROC_REF(/datum/proximity_monitor/advanced/timestop, unfreeze_structure)(obj/O)
+/datum/proximity_monitor/advanced/timestop/proc/unfreeze_structure(obj/O)
 	escape_the_negative_zone(O)
 
 /datum/proximity_monitor/advanced/timestop/process()
@@ -168,13 +168,13 @@ TYPE_PROC_REF(/datum/proximity_monitor/advanced/timestop, unfreeze_structure)(ob
 	freeze_turf(T)
 	return ..()
 
-TYPE_PROC_REF(/datum/proximity_monitor/advanced/timestop, freeze_projectile)(obj/item/projectile/P)
+/datum/proximity_monitor/advanced/timestop/proc/freeze_projectile(obj/item/projectile/P)
 	P.paused = TRUE
 
-TYPE_PROC_REF(/datum/proximity_monitor/advanced/timestop, unfreeze_projectile)(obj/item/projectile/P)
+/datum/proximity_monitor/advanced/timestop/proc/unfreeze_projectile(obj/item/projectile/P)
 	P.paused = FALSE
 
-TYPE_PROC_REF(/datum/proximity_monitor/advanced/timestop, freeze_mob)(mob/living/L)
+/datum/proximity_monitor/advanced/timestop/proc/freeze_mob(mob/living/L)
 	frozen_mobs += L
 	L.Stun(20, 1, 1)
 	ADD_TRAIT(L, TRAIT_MUTE, TIMESTOP_TRAIT)
@@ -186,7 +186,7 @@ TYPE_PROC_REF(/datum/proximity_monitor/advanced/timestop, freeze_mob)(mob/living
 			var/mob/living/simple_animal/hostile/H = L
 			H.LoseTarget()
 
-TYPE_PROC_REF(/datum/proximity_monitor/advanced/timestop, unfreeze_mob)(mob/living/L)
+/datum/proximity_monitor/advanced/timestop/proc/unfreeze_mob(mob/living/L)
 	L.AdjustStun(-20, 1, 1)
 	REMOVE_TRAIT(L, TRAIT_MUTE, TIMESTOP_TRAIT)
 	frozen_mobs -= L
@@ -195,9 +195,9 @@ TYPE_PROC_REF(/datum/proximity_monitor/advanced/timestop, unfreeze_mob)(mob/livi
 		S.toggle_ai(initial(S.AIStatus))
 
 //you don't look quite right, is something the matter?
-TYPE_PROC_REF(/datum/proximity_monitor/advanced/timestop, into_the_negative_zone)(atom/A)
+/datum/proximity_monitor/advanced/timestop/proc/into_the_negative_zone(atom/A)
 	A.add_atom_colour(list(-1,0,0,0, 0,-1,0,0, 0,0,-1,0, 0,0,0,1, 1,1,1,0), TEMPORARY_COLOUR_PRIORITY)
 
 //let's put some colour back into your cheeks
-TYPE_PROC_REF(/datum/proximity_monitor/advanced/timestop, escape_the_negative_zone)(atom/A)
+/datum/proximity_monitor/advanced/timestop/proc/escape_the_negative_zone(atom/A)
 	A.remove_atom_colour(TEMPORARY_COLOUR_PRIORITY)

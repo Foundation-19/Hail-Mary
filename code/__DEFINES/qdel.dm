@@ -1,10 +1,10 @@
 //! Defines that give qdel hints.
 //!
-//! These can be given as a return in [TYPE_PROC_REF(/atom, Destroy)] or by calling [/proc/qdel].
+//! These can be given as a return in [/atom/proc/Destroy] or by calling [/proc/qdel].
 
 /// `qdel` should queue the object for deletion.
 #define QDEL_HINT_QUEUE 0
-/// `qdel` should let the object live after calling [TYPE_PROC_REF(/atom, Destroy)].
+/// `qdel` should let the object live after calling [/atom/proc/Destroy].
 #define QDEL_HINT_LETMELIVE 1
 /// Functionally the same as the above. `qdel` should assume the object will gc on its own, and not check it.
 #define QDEL_HINT_IWILLGC 2

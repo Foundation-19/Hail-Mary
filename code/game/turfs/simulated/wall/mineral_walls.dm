@@ -60,7 +60,7 @@
 	sheet_type = /obj/item/stack/sheet/mineral/uranium
 	canSmoothWith = list(/turf/closed/wall/mineral/uranium, /obj/structure/falsewall/uranium)
 
-TYPE_PROC_REF(/turf/closed/wall/mineral/uranium, radiate)()
+/turf/closed/wall/mineral/uranium/proc/radiate()
 	if(!active)
 		if(world.time > last_event+15)
 			active = 1
@@ -101,7 +101,7 @@ TYPE_PROC_REF(/turf/closed/wall/mineral/uranium, radiate)()
 		return
 	..()
 
-TYPE_PROC_REF(/turf/closed/wall/mineral/plasma, PlasmaBurn)(temperature)
+/turf/closed/wall/mineral/plasma/proc/PlasmaBurn(temperature)
 	new girder_type(src)
 	ScrapeAway()
 	var/turf/open/T = src
@@ -111,7 +111,7 @@ TYPE_PROC_REF(/turf/closed/wall/mineral/plasma, PlasmaBurn)(temperature)
 	if(exposed_temperature > 300)
 		PlasmaBurn(exposed_temperature)
 
-TYPE_PROC_REF(/turf/closed/wall/mineral/plasma, ignite)(exposed_temperature)
+/turf/closed/wall/mineral/plasma/proc/ignite(exposed_temperature)
 	if(exposed_temperature > 300)
 		PlasmaBurn(exposed_temperature)
 

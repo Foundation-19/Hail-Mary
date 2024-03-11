@@ -70,7 +70,7 @@
 	. = ..()
 	laser_act(target, user, params)
 
-TYPE_PROC_REF(/obj/item/laser_pointer, laser_act)(atom/target, mob/living/user, params)
+/obj/item/laser_pointer/proc/laser_act(atom/target, mob/living/user, params)
 	if( !(user in (viewers(7,target))) )
 		return
 	if (!diode)

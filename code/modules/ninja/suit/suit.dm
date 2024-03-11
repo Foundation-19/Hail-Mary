@@ -77,7 +77,7 @@ Contents:
 	cell.icon_state = "bscell"
 
 //Simply deletes all the attachments and self, killing all related procs.
-TYPE_PROC_REF(/obj/item/clothing/suit/space/space_ninja, terminate)()
+/obj/item/clothing/suit/space/space_ninja/proc/terminate()
 	qdel(n_hood)
 	qdel(n_gloves)
 	qdel(n_shoes)
@@ -85,7 +85,7 @@ TYPE_PROC_REF(/obj/item/clothing/suit/space/space_ninja, terminate)()
 
 
 //Randomizes suit parameters.
-TYPE_PROC_REF(/obj/item/clothing/suit/space/space_ninja, randomize_param)()
+/obj/item/clothing/suit/space/space_ninja/proc/randomize_param()
 	s_cost = rand(1,20)
 	s_acost = rand(20,100)
 	s_delay = rand(10,100)
@@ -94,7 +94,7 @@ TYPE_PROC_REF(/obj/item/clothing/suit/space/space_ninja, randomize_param)()
 
 
 //This proc prevents the suit from being taken off.
-TYPE_PROC_REF(/obj/item/clothing/suit/space/space_ninja, lock_suit)(mob/living/carbon/human/H)
+/obj/item/clothing/suit/space/space_ninja/proc/lock_suit(mob/living/carbon/human/H)
 	if(!istype(H))
 		return FALSE
 	if(!is_ninja(H))
@@ -122,14 +122,14 @@ TYPE_PROC_REF(/obj/item/clothing/suit/space/space_ninja, lock_suit)(mob/living/c
 	ADD_TRAIT(n_gloves, TRAIT_NODROP, NINJA_SUIT_TRAIT)
 	return TRUE
 
-TYPE_PROC_REF(/obj/item/clothing/suit/space/space_ninja, lockIcons)(mob/living/carbon/human/H)
+/obj/item/clothing/suit/space/space_ninja/proc/lockIcons(mob/living/carbon/human/H)
 	icon_state = H.dna.features["body_model"] == FEMALE ? "s-ninjanf" : "s-ninjan"
 	H.gloves.icon_state = "s-ninjan"
 	H.gloves.item_state = "s-ninjan"
 
 
 //This proc allows the suit to be taken off.
-TYPE_PROC_REF(/obj/item/clothing/suit/space/space_ninja, unlock_suit)()
+/obj/item/clothing/suit/space/space_ninja/proc/unlock_suit()
 	affecting = null
 	REMOVE_TRAIT(src, TRAIT_NODROP, NINJA_SUIT_TRAIT)
 	slowdown = 1

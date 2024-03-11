@@ -7,7 +7,7 @@
 //			Malf_Modules.dm 	proc/use()
 
 /*
-TYPE_PROC_REF(/datum/antagonist/bloodsucker, LevelUpMenu)()
+/datum/antagonist/bloodsucker/proc/LevelUpMenu()
 	var/list/dat = list()
 
 	dat += "<h3>You have become more ancient.<BR>Direct the path of your blood</h3>"

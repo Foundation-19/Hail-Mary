@@ -48,7 +48,7 @@
 	log_game("Door '[src]' destroyed at [AREACOORD(src)]. Last fingerprints: [src.fingerprintslast]")
 	return ..()
 
-TYPE_PROC_REF(/obj/structure/simple_door, attach_padlock)(obj/item/lock_construct/P, force = FALSE, mob/user)
+/obj/structure/simple_door/proc/attach_padlock(obj/item/lock_construct/P, force = FALSE, mob/user)
 	if(!force && (!can_hold_padlock || !P ))
 		return FALSE
 	if(padlock)
@@ -58,7 +58,7 @@ TYPE_PROC_REF(/obj/structure/simple_door, attach_padlock)(obj/item/lock_construc
 	padlock.forceMove(src)
 	add_cached_overlay("padlock", "[initial(icon_state)]_padlock")
 
-TYPE_PROC_REF(/obj/structure/simple_door, remove_padlock)(force = FALSE)
+/obj/structure/simple_door/proc/remove_padlock(force = FALSE)
 	if(!force && (!padlock))
 		return FALSE
 	padlock.forceMove(get_turf(src))
@@ -78,7 +78,7 @@ TYPE_PROC_REF(/obj/structure/simple_door, remove_padlock)(force = FALSE)
 			return TryToSwitchState(user, 1)
 	return
 
-TYPE_PROC_REF(/obj/structure/simple_door, Open)(animate)
+/obj/structure/simple_door/proc/Open(animate)
 	playsound(src.loc, open_sound, 30, 0, 0)
 	if(animate)
 		moving = 1
@@ -90,7 +90,7 @@ TYPE_PROC_REF(/obj/structure/simple_door, Open)(animate)
 	icon_state = "[door_type]open"
 	layer = OPEN_DOOR_LAYER
 
-TYPE_PROC_REF(/obj/structure/simple_door, Close)(animate)
+/obj/structure/simple_door/proc/Close(animate)
 	playsound(src.loc, close_sound, 30, 0, 0)
 	manual_opened = 0
 	if(animate)
@@ -104,7 +104,7 @@ TYPE_PROC_REF(/obj/structure/simple_door, Close)(animate)
 	layer = CLOSED_DOOR_LAYER
 
 /* can crowbar off a lock, to force a door open. This is overriden in airlock so shouldnt be an issue */
-TYPE_PROC_REF(/obj/structure/simple_door, try_to_crowbar)(obj/item/I, mob/user)
+/obj/structure/simple_door/proc/try_to_crowbar(obj/item/I, mob/user)
 	if(padlock) /* attempt to pry the lock off */
 		if(padlock.pry_off(user,src))
 			qdel(padlock)
@@ -112,7 +112,7 @@ TYPE_PROC_REF(/obj/structure/simple_door, try_to_crowbar)(obj/item/I, mob/user)
 			src.desc = "[initial(desc)]"
 	return
 
-TYPE_PROC_REF(/obj/structure/simple_door, SwitchState)(animate)
+/obj/structure/simple_door/proc/SwitchState(animate)
 	if(density)
 		if(padlock)
 			if(!padlock.locked)
@@ -188,7 +188,7 @@ TYPE_PROC_REF(/obj/structure/simple_door, SwitchState)(animate)
 
 
 
-TYPE_PROC_REF(/obj/structure/simple_door, TryToSwitchState)(atom/user, animate)
+/obj/structure/simple_door/proc/TryToSwitchState(atom/user, animate)
 	if(moving)
 		return 0
 	if(isliving(user))

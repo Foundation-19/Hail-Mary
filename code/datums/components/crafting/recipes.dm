@@ -22,7 +22,7 @@
  * user: The /mob that initiated the crafting
  * collected_requirements: A list of lists of /obj/item instances that satisfy reqs. Top level list is keyed by requirement path.
  */
-TYPE_PROC_REF(/datum/crafting_recipe, check_requirements)(mob/user, list/collected_requirements)
+/datum/crafting_recipe/proc/check_requirements(mob/user, list/collected_requirements)
 	if(required_int) //S.P.E.C.I.A.L.
 		return special_crafting_requirements_check(user)
 	return TRUE

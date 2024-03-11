@@ -23,7 +23,7 @@
 	if(slot == user.getBackSlot())
 		return 1
 
-TYPE_PROC_REF(/obj/item/shishkebabpack, toggle_shishkebab)(mob/living/user)
+/obj/item/shishkebabpack/proc/toggle_shishkebab(mob/living/user)
 	if(!istype(user))
 		return
 	if(user.get_item_by_slot(user.getBackSlot()) != src)
@@ -48,7 +48,7 @@ TYPE_PROC_REF(/obj/item/shishkebabpack, toggle_shishkebab)(mob/living/user)
 	set category = "Object"
 	toggle_shishkebab(usr)
 
-TYPE_PROC_REF(/obj/item/shishkebabpack, make_sword)()
+/obj/item/shishkebabpack/proc/make_sword()
 	return new /obj/item/weapon/melee/shishkebab(src)
 
 /obj/item/shishkebabpack/equipped(mob/user, slot)
@@ -56,7 +56,7 @@ TYPE_PROC_REF(/obj/item/shishkebabpack, make_sword)()
 	if(slot != SLOT_BACK)
 		remove_sword()
 
-TYPE_PROC_REF(/obj/item/shishkebabpack, remove_sword)()
+/obj/item/shishkebabpack/proc/remove_sword()
 	if(ismob(sword.loc))
 		var/mob/M = sword.loc
 		M.temporarilyRemoveItemFromInventory(sword, TRUE)

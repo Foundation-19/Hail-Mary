@@ -39,7 +39,7 @@
 		playsound(loc, 'sound/effects/gib_step.ogg', !HAS_TRAIT(L,TRAIT_LIGHT_STEP) ? 20 : 50, 1)
 	. = ..()
 
-TYPE_PROC_REF(/obj/effect/decal/cleanable/blood/gibs, streak)(list/directions)
+/obj/effect/decal/cleanable/blood/gibs/proc/streak(list/directions)
 	set waitfor = FALSE
 	var/list/diseases = list()
 	SEND_SIGNAL(src, COMSIG_GIBS_STREAK, directions, diseases)

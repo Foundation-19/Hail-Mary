@@ -110,7 +110,7 @@
 /obj/structure/speaking_tile/attack_animal(mob/user)
 	return interact(user)
 
-TYPE_PROC_REF(/obj/structure/speaking_tile, SpeakPeace)(list/statements)
+/obj/structure/speaking_tile/proc/SpeakPeace(list/statements)
 	for(var/i in 1 to statements.len)
 		say(span_deadsay("[statements[i]]"))
 		if(i != statements.len)
@@ -137,11 +137,11 @@ TYPE_PROC_REF(/obj/structure/speaking_tile, SpeakPeace)(list/statements)
 	add_atom_colour(newcolor, FIXED_COLOUR_PRIORITY)
 	..()
 
-TYPE_PROC_REF(/obj/item/rupee, on_entered)(mob/M)
+/obj/item/rupee/proc/on_entered(mob/M)
 	SIGNAL_HANDLER
 	if(!istype(M))
 		return
-	INVOKE_ASYNC(M, TYPE_PROC_REF(/mob, put_in_hands), src)
+	INVOKE_ASYNC(M, /mob/.proc/put_in_hands, src)
 
 /obj/item/rupee/equipped(mob/user, slot)
 	playsound(get_turf(loc), 'sound/misc/server-ready.ogg', 50, 1, -1)

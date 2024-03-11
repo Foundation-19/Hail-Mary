@@ -110,7 +110,7 @@ GLOBAL_VAR_INIT(vendor_cash, 0)
 		P.forceMove(src.loc)
 
 /* Adding item to machine and spawn Set Price dialog */
-TYPE_PROC_REF(/obj/machinery/trading_machine, add_item)(obj/item/Itm, mob/living/carbon/human/user)
+/obj/machinery/trading_machine/proc/add_item(obj/item/Itm, mob/living/carbon/human/user)
 	if(machine_state != STATE_SERVICE)
 		return
 
@@ -148,25 +148,25 @@ TYPE_PROC_REF(/obj/machinery/trading_machine, add_item)(obj/item/Itm, mob/living
 			to_chat(usr, item_not_acceptable_message)
 
 /* Check item type and compare it with stored_item_type */
-TYPE_PROC_REF(/obj/machinery/trading_machine, is_available_category)(obj/item/Itm)
+/obj/machinery/trading_machine/proc/is_available_category(obj/item/Itm)
 	for(var/item_type in stored_item_type)
 		if(istype(Itm, item_type))
 			return 1
 	return 0
 
 /* Hook for check item parameters */
-TYPE_PROC_REF(/obj/machinery/trading_machine, is_acceptable_item_state)(obj/item/Itm)
+/obj/machinery/trading_machine/proc/is_acceptable_item_state(obj/item/Itm)
 	return 1
 
 /* Remove item from machine. */
-TYPE_PROC_REF(/obj/machinery/trading_machine, remove_item)(obj/item/ItemToRemove)
+/obj/machinery/trading_machine/proc/remove_item(obj/item/ItemToRemove)
 	if(content.Remove(ItemToRemove))
 		ItemToRemove.forceMove(src.loc)
 		playsound(src, 'sound/items/change_jaws.ogg', 60, 1)
 		src.ui_interact(usr)
 
 /* Adding a caps to caps storage and release vending item. */
-TYPE_PROC_REF(/obj/machinery/trading_machine, add_caps)(obj/item/I)
+/obj/machinery/trading_machine/proc/add_caps(obj/item/I)
 	if(machine_state != STATE_VEND)
 		return
 
@@ -183,7 +183,7 @@ TYPE_PROC_REF(/obj/machinery/trading_machine, add_caps)(obj/item/I)
 			to_chat(usr, "Not enough caps.")
 
 /* Spawn all caps on world and clear caps storage */
-TYPE_PROC_REF(/obj/machinery/trading_machine, remove_all_caps)()
+/obj/machinery/trading_machine/proc/remove_all_caps()
 	if(stored_caps <= 0)
 		return
 	var/obj/item/stack/f13Cash/caps/C = new /obj/item/stack/f13Cash/caps
@@ -199,7 +199,7 @@ TYPE_PROC_REF(/obj/machinery/trading_machine, remove_all_caps)()
 	src.ui_interact(usr)
 
 /* Storing item and price and switch machine to vending mode*/
-TYPE_PROC_REF(/obj/machinery/trading_machine, vend)(obj/item/Itm)
+/obj/machinery/trading_machine/proc/vend(obj/item/Itm)
 	if(content.Find(Itm))
 		vending_item = Itm
 		expected_price = content[Itm]
@@ -207,7 +207,7 @@ TYPE_PROC_REF(/obj/machinery/trading_machine, vend)(obj/item/Itm)
 		src.attack_hand(usr)
 
 /* Remove lock from machine */
-TYPE_PROC_REF(/obj/machinery/trading_machine, drop_lock)()
+/obj/machinery/trading_machine/proc/drop_lock()
 	if(!lock)
 		to_chat(usr, "No lock here.")
 		return
@@ -218,7 +218,7 @@ TYPE_PROC_REF(/obj/machinery/trading_machine, drop_lock)()
 	src.ui_interact(usr)
 
 /* Assign lock to this machine */
-TYPE_PROC_REF(/obj/machinery/trading_machine, set_lock)(obj/item/lock_part/newLock)
+/obj/machinery/trading_machine/proc/set_lock(obj/item/lock_part/newLock)
 	if(lock)
 		playsound(src, 'sound/machines/DeniedBeep.ogg', 60, 1)
 		to_chat(usr, "This machine is already have a lock")
@@ -232,7 +232,7 @@ TYPE_PROC_REF(/obj/machinery/trading_machine, set_lock)(obj/item/lock_part/newLo
 	src.ui_interact(usr)
 
 /* Switch machine to service mode */
-TYPE_PROC_REF(/obj/machinery/trading_machine, set_service)(newMode)
+/obj/machinery/trading_machine/proc/set_service(newMode)
 	switch(machine_state)
 		if(0)
 			if(newMode)
@@ -248,7 +248,7 @@ TYPE_PROC_REF(/obj/machinery/trading_machine, set_service)(newMode)
 	src.ui_interact(usr)
 
 /* Update icon depends on machine_state */
-TYPE_PROC_REF(/obj/machinery/trading_machine, updateIcon)()
+/obj/machinery/trading_machine/proc/updateIcon()
 	switch(machine_state)
 		if(STATE_IDLE)
 			cut_overlays()
@@ -265,7 +265,7 @@ TYPE_PROC_REF(/obj/machinery/trading_machine, updateIcon)()
 			add_overlay(image(icon, "[initial(icon_state)]-panel"))
 
 /* Seting machine state and update icon */
-TYPE_PROC_REF(/obj/machinery/trading_machine, set_state)(new_state)
+/obj/machinery/trading_machine/proc/set_state(new_state)
 	if(machine_state == new_state)
 		return
 
@@ -383,7 +383,7 @@ TYPE_PROC_REF(/obj/machinery/trading_machine, set_state)(new_state)
 	src.ui_interact(user)
 
 /* Spawn input dialog and set item price */
-TYPE_PROC_REF(/obj/machinery/trading_machine, set_price_by_input)(obj/item/Itm, mob/user)
+/obj/machinery/trading_machine/proc/set_price_by_input(obj/item/Itm, mob/user)
 	if(machine_state != STATE_SERVICE)
 		return
 
@@ -395,7 +395,7 @@ TYPE_PROC_REF(/obj/machinery/trading_machine, set_price_by_input)(obj/item/Itm, 
 		src.ui_interact(user)
 
 /* Find item by name and price in content and return type */
-TYPE_PROC_REF(/obj/machinery/trading_machine, find_item)(item_name, item_price)
+/obj/machinery/trading_machine/proc/find_item(item_name, item_price)
 	for(var/obj/item/Itm in content)
 		item_price = text2num(item_price)
 		if(content[Itm] == item_price && sanitize(Itm.name) == sanitize(item_name))
@@ -412,7 +412,7 @@ TYPE_PROC_REF(/obj/machinery/trading_machine, find_item)(item_name, item_price)
 	popup.set_content(get_ui_content(machine_state))
 	popup.open()
 
-TYPE_PROC_REF(/obj/machinery/trading_machine, get_ui_content)(state)
+/obj/machinery/trading_machine/proc/get_ui_content(state)
 	var/dat = ""
 	switch(state)
 		// --- Work
@@ -459,7 +459,7 @@ TYPE_PROC_REF(/obj/machinery/trading_machine, get_ui_content)(state)
 
 	return dat
 
-TYPE_PROC_REF(/obj/machinery/trading_machine, get_paper_description_data)()
+/obj/machinery/trading_machine/proc/get_paper_description_data()
 	var/data
 	data += "<h1> Wasteland Wending Machines </h1>"
 	data += "Wasteland Trading Company guide."
@@ -1044,7 +1044,7 @@ TYPE_PROC_REF(/obj/machinery/trading_machine, get_paper_description_data)()
 		attack_hand(user)
 
 /* Adding a caps to caps storage and release vending item. */
-TYPE_PROC_REF(/obj/machinery/mineral/wasteland_vendor, add_caps)(obj/item/I)
+/obj/machinery/mineral/wasteland_vendor/proc/add_caps(obj/item/I)
 	if(istype(I, /obj/item/stack/f13Cash/caps))
 		var/obj/item/stack/f13Cash/currency = I
 		var/inserted_value = FLOOR(currency.amount * 1, 1)
@@ -1082,7 +1082,7 @@ TYPE_PROC_REF(/obj/machinery/mineral/wasteland_vendor, add_caps)(obj/item/I)
 		return
 
 /* Spawn all caps on world and clear caps storage */
-TYPE_PROC_REF(/obj/machinery/mineral/wasteland_vendor, remove_all_caps)()
+/obj/machinery/mineral/wasteland_vendor/proc/remove_all_caps()
 	if(stored_caps <= 0)
 		return
 	var/obj/item/stack/f13Cash/C = new /obj/item/stack/f13Cash/caps

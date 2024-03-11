@@ -87,7 +87,7 @@
 	else
 		return ..()
 
-TYPE_PROC_REF(/obj/item/grown/log, CheckAccepted)(obj/item/I)
+/obj/item/grown/log/proc/CheckAccepted(obj/item/I)
 	return is_type_in_typecache(I, accepted)
 
 /obj/item/grown/log/tree
@@ -270,7 +270,7 @@ TYPE_PROC_REF(/obj/item/grown/log, CheckAccepted)(obj/item/I)
 		qdel(src)
 		return
 
-TYPE_PROC_REF(/obj/structure/bonfire, CheckOxygen)()
+/obj/structure/bonfire/proc/CheckOxygen()
 	/*
 	if(isopenturf(loc))
 		var/turf/open/O = loc
@@ -282,7 +282,7 @@ TYPE_PROC_REF(/obj/structure/bonfire, CheckOxygen)()
 	*/
 	return TRUE
 
-TYPE_PROC_REF(/obj/structure/bonfire, StartBurning)()
+/obj/structure/bonfire/proc/StartBurning()
 	if(!burning && CheckOxygen())
 		icon_state = burn_icon
 		burning = TRUE
@@ -293,12 +293,12 @@ TYPE_PROC_REF(/obj/structure/bonfire, StartBurning)()
 /obj/structure/bonfire/fire_act(exposed_temperature, exposed_volume)
 	StartBurning()
 
-TYPE_PROC_REF(/obj/structure/bonfire, on_entered)(atom/movable/AM)
+/obj/structure/bonfire/proc/on_entered(atom/movable/AM)
 	SIGNAL_HANDLER
 	if(burning & !grill)
 		INVOKE_ASYNC(src, PROC_REF(Burn))
 
-TYPE_PROC_REF(/obj/structure/bonfire, Burn)()
+/obj/structure/bonfire/proc/Burn()
 	var/turf/current_location = get_turf(src)
 	current_location.hotspot_expose(1000,100,1)
 	for(var/A in current_location)
@@ -312,7 +312,7 @@ TYPE_PROC_REF(/obj/structure/bonfire, Burn)()
 			L.adjust_fire_stacks(fire_stack_strength)
 			L.IgniteMob()
 
-TYPE_PROC_REF(/obj/structure/bonfire, Cook)()
+/obj/structure/bonfire/proc/Cook()
 	var/turf/current_location = get_turf(src)
 	for(var/A in current_location)
 		if(A == src)
@@ -344,7 +344,7 @@ TYPE_PROC_REF(/obj/structure/bonfire, Cook)()
 		set_light(0)
 		STOP_PROCESSING(SSobj, src)
 
-TYPE_PROC_REF(/obj/structure/bonfire, attempt_smoke_signal)(obj/item/stack/sheet/cloth/sheet, mob/living/user, )
+/obj/structure/bonfire/proc/attempt_smoke_signal(obj/item/stack/sheet/cloth/sheet, mob/living/user, )
 	if(!is_type_in_list(get_area(src), GLOB.outdoor_areas))
 		to_chat(user, span_warning("You must be outside to send a smoke signal."))
 		return
@@ -369,7 +369,7 @@ TYPE_PROC_REF(/obj/structure/bonfire, attempt_smoke_signal)(obj/item/stack/sheet
 		return
 	
 
-TYPE_PROC_REF(/obj/structure/bonfire, smoke_signal)(mob/living/M, message, obj/structure/bonfire/B)
+/obj/structure/bonfire/proc/smoke_signal(mob/living/M, message, obj/structure/bonfire/B)
 	var/log_message = "[message]"
 	M.log_talk(log_message, LOG_CHAT)
 

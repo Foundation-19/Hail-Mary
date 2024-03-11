@@ -90,7 +90,7 @@
 		attack_hand(user)
 
 /* Converting currency to the gang influence */
-TYPE_PROC_REF(/obj/item/device/gangtool, add_caps)(obj/item/I)
+/obj/item/device/gangtool/proc/add_caps(obj/item/I)
 	var/inserted_value
 	if(istype(I, /obj/item/stack/f13Cash/ncr))
 		var/obj/item/stack/f13Cash/ncr/currency = I

@@ -11,10 +11,10 @@
 
 	gravity = forced_value
 
-TYPE_PROC_REF(/datum/component/forced_gravity, gravity_check)(turf/location, list/gravs)
+/datum/component/forced_gravity/proc/gravity_check(turf/location, list/gravs)
 	if(!ignore_space && isspaceturf(location))
 		return
 	gravs += gravity
 
-TYPE_PROC_REF(/datum/component/forced_gravity, turf_gravity_check)(atom/checker, list/gravs)
+/datum/component/forced_gravity/proc/turf_gravity_check(atom/checker, list/gravs)
 	return gravity_check(parent, gravs)

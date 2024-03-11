@@ -64,12 +64,12 @@
 		cease_whispering()
 	..()
 
-TYPE_PROC_REF(/datum/brain_trauma/special/death_whispers, whispering)()
+/datum/brain_trauma/special/death_whispers/proc/whispering()
 	ADD_TRAIT(owner, TRAIT_SIXTHSENSE, TRAUMA_TRAIT)
 	active = TRUE
 	addtimer(CALLBACK(src, PROC_REF(cease_whispering)), rand(50, 300))
 
-TYPE_PROC_REF(/datum/brain_trauma/special/death_whispers, cease_whispering)()
+/datum/brain_trauma/special/death_whispers/proc/cease_whispering()
 	REMOVE_TRAIT(owner, TRAIT_SIXTHSENSE, TRAUMA_TRAIT)
 	active = FALSE
 
@@ -93,7 +93,7 @@ TYPE_PROC_REF(/datum/brain_trauma/special/death_whispers, cease_whispering)()
 		fade_in()
 	..()
 
-TYPE_PROC_REF(/datum/brain_trauma/special/existential_crisis, fade_out)()
+/datum/brain_trauma/special/existential_crisis/proc/fade_out()
 	if(veil)
 		return
 	var/duration = rand(50, 450)
@@ -113,7 +113,7 @@ TYPE_PROC_REF(/datum/brain_trauma/special/existential_crisis, fade_out)()
 	next_crisis = world.time + 600
 	addtimer(CALLBACK(src, PROC_REF(fade_in)), duration)
 
-TYPE_PROC_REF(/datum/brain_trauma/special/existential_crisis, fade_in)()
+/datum/brain_trauma/special/existential_crisis/proc/fade_in()
 	QDEL_NULL(veil)
 	to_chat(owner, span_notice("You fade back into reality."))
 	next_crisis = world.time + 600
@@ -137,7 +137,7 @@ TYPE_PROC_REF(/datum/brain_trauma/special/existential_crisis, fade_in)()
 	create_securitron()
 	..()
 
-TYPE_PROC_REF(/datum/brain_trauma/special/beepsky, create_securitron)()
+/datum/brain_trauma/special/beepsky/proc/create_securitron()
 	var/turf/where = locate(owner.x + pick(-12, 12), owner.y + pick(-12, 12), owner.z)
 	beepsky = new(where, owner)
 	beepsky.victim = owner

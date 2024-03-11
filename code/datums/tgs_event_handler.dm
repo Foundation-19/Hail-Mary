@@ -35,5 +35,5 @@
 				deltimer(reattach_timer)
 				reattach_timer = null
 
-TYPE_PROC_REF(/datum/tgs_event_handler/impl, LateOnReattach)()
+/datum/tgs_event_handler/impl/proc/LateOnReattach()
 	message_admins("Warning: TGS hasn't notified us of it coming back for a full minute! Is there a problem?")

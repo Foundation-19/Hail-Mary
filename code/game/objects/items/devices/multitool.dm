@@ -71,7 +71,7 @@
 	if(selected_io)
 		icon_state += "_red"
 
-TYPE_PROC_REF(/obj/item/multitool, wire)(datum/integrated_io/io, mob/user)
+/obj/item/multitool/proc/wire(datum/integrated_io/io, mob/user)
 	if(!io.holder.assembly)
 		to_chat(user, span_warning("\The [io.holder] needs to be secured inside an assembly first."))
 		return
@@ -100,7 +100,7 @@ TYPE_PROC_REF(/obj/item/multitool, wire)(datum/integrated_io/io, mob/user)
 	update_icon()
 
 
-TYPE_PROC_REF(/obj/item/multitool, unwire)(datum/integrated_io/io1, datum/integrated_io/io2, mob/user)
+/obj/item/multitool/proc/unwire(datum/integrated_io/io1, datum/integrated_io/io2, mob/user)
 	if(!io1.linked.len || !io2.linked.len)
 		to_chat(user, span_warning("There is nothing connected to the data channel."))
 		return
@@ -173,7 +173,7 @@ TYPE_PROC_REF(/obj/item/multitool, unwire)(datum/integrated_io/io1, datum/integr
 	update_icon()
 	track_cooldown = world.time + track_delay
 
-TYPE_PROC_REF(/obj/item/multitool/ai_detect, toggle_hud)(mob/user)
+/obj/item/multitool/ai_detect/proc/toggle_hud(mob/user)
 	hud_on = !hud_on
 	if(user)
 		to_chat(user, span_notice("You toggle the ai detection HUD on [src] [hud_on ? "on" : "off"]."))
@@ -182,7 +182,7 @@ TYPE_PROC_REF(/obj/item/multitool/ai_detect, toggle_hud)(mob/user)
 	else
 		remove_hud(user)
 
-TYPE_PROC_REF(/obj/item/multitool/ai_detect, show_hud)(mob/user)
+/obj/item/multitool/ai_detect/proc/show_hud(mob/user)
 	if(user && hud_type)
 		var/obj/screen/plane_master/camera_static/PM = user.hud_used.plane_masters["[CAMERA_STATIC_PLANE]"]
 		PM.alpha = 150
@@ -192,7 +192,7 @@ TYPE_PROC_REF(/obj/item/multitool/ai_detect, show_hud)(mob/user)
 		eye.eye_user = user
 		eye.setLoc(get_turf(src))
 
-TYPE_PROC_REF(/obj/item/multitool/ai_detect, remove_hud)(mob/user)
+/obj/item/multitool/ai_detect/proc/remove_hud(mob/user)
 	if(user && hud_type)
 		var/obj/screen/plane_master/camera_static/PM = user.hud_used.plane_masters["[CAMERA_STATIC_PLANE]"]
 		PM.alpha = 255
@@ -202,7 +202,7 @@ TYPE_PROC_REF(/obj/item/multitool/ai_detect, remove_hud)(mob/user)
 			eye.setLoc(null)
 			eye.eye_user = null
 
-TYPE_PROC_REF(/obj/item/multitool/ai_detect, multitool_detect)()
+/obj/item/multitool/ai_detect/proc/multitool_detect()
 	var/turf/our_turf = get_turf(src)
 	for(var/mob/living/silicon/ai/AI in GLOB.ai_list)
 		if(AI.cameraFollow == src)

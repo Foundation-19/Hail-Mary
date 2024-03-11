@@ -133,7 +133,7 @@
 	qdel(src)
 	return TRUE
 
-TYPE_PROC_REF(/obj/structure/camera_assembly, weld)(obj/item/weldingtool/W, mob/living/user)
+/obj/structure/camera_assembly/proc/weld(obj/item/weldingtool/W, mob/living/user)
 	if(!W.tool_start_check(user, amount=0))
 		return FALSE
 	to_chat(user, span_notice("You start to weld \the [src]..."))

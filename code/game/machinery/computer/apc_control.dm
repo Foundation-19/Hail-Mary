@@ -36,7 +36,7 @@
 		return
 	..()
 
-TYPE_PROC_REF(/obj/machinery/computer/apc_control, check_apc)(obj/machinery/power/apc/APC)
+/obj/machinery/computer/apc_control/proc/check_apc(obj/machinery/power/apc/APC)
 	return APC.z == z && !APC.malfhack && !APC.aidisabled && !(APC.obj_flags & EMAGGED) && !APC.stat && !istype(APC.area, /area/ai_monitored) && !APC.area.outdoors
 
 /obj/machinery/computer/apc_control/ui_interact(mob/user, datum/tgui/ui)
@@ -180,19 +180,19 @@ TYPE_PROC_REF(/obj/machinery/computer/apc_control, check_apc)(obj/machinery/powe
 	log_game("[key_name(user)] emagged [src] at [AREACOORD(src)]")
 	playsound(src, "sparks", 50, TRUE)
 
-TYPE_PROC_REF(/obj/machinery/computer/apc_control, log_activity)(log_text)
+/obj/machinery/computer/apc_control/proc/log_activity(log_text)
 	if(!should_log)
 		return
 	LAZYADD(logs, "([STATION_TIME_TIMESTAMP("hh:mm:ss", world.time)]): [auth_id] [log_text]")
 
-TYPE_PROC_REF(/obj/machinery/computer/apc_control, restore_comp)()
+/obj/machinery/computer/apc_control/proc/restore_comp()
 	obj_flags &= ~EMAGGED
 	should_log = TRUE
 	log_game("[key_name(operator)] restored the logs of [src] in [AREACOORD(src)]")
 	log_activity("-=- Logging restored to full functionality at this point -=-")
 	restoring = FALSE
 
-TYPE_PROC_REF(/mob, using_power_flow_console)()
+/mob/proc/using_power_flow_console()
 	for(var/obj/machinery/computer/apc_control/A in range(1, src))
 		if(A.operator && A.operator == src && !A.stat)
 			return TRUE

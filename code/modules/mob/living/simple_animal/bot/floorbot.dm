@@ -195,7 +195,7 @@
 					targetdirection = null
 	update_controls()
 
-TYPE_PROC_REF(/mob/living/simple_animal/bot/floorbot, empty_tiles)()
+/mob/living/simple_animal/bot/floorbot/proc/empty_tiles()
 	new tiletype(drop_location(), specialtiles)
 	specialtiles = 0
 	tiletype = null
@@ -275,9 +275,9 @@ TYPE_PROC_REF(/mob/living/simple_animal/bot/floorbot, empty_tiles)()
 		if(path.len == 0)
 			if(!isturf(target))
 				var/turf/TL = get_turf(target)
-				path = get_path_to(src, TL, TYPE_PROC_REF(/turf, Distance_cardinal), 0, 30, id=access_card,simulated_only = 0)
+				path = get_path_to(src, TL, /turf/proc/Distance_cardinal, 0, 30, id=access_card,simulated_only = 0)
 			else
-				path = get_path_to(src, target, TYPE_PROC_REF(/turf, Distance_cardinal), 0, 30, id=access_card,simulated_only = 0)
+				path = get_path_to(src, target, /turf/proc/Distance_cardinal, 0, 30, id=access_card,simulated_only = 0)
 
 			if(!bot_move(target))
 				add_to_ignore(target)
@@ -293,7 +293,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/bot/floorbot, empty_tiles)()
 
 	oldloc = loc
 
-TYPE_PROC_REF(/mob/living/simple_animal/bot/floorbot, is_hull_breach)(turf/t) //Ignore space tiles not considered part of a structure, also ignores shuttle docking areas.
+/mob/living/simple_animal/bot/floorbot/proc/is_hull_breach(turf/t) //Ignore space tiles not considered part of a structure, also ignores shuttle docking areas.
 	var/area/t_area = get_area(t)
 	if(t_area && (t_area.name == "Space" || findtext(t_area.name, "huttle")))
 		return 0
@@ -333,7 +333,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/bot/floorbot, is_hull_breach)(turf/t) //
 			result = scan_target
 	return result
 
-TYPE_PROC_REF(/mob/living/simple_animal/bot/floorbot, repair)(turf/target_turf)
+/mob/living/simple_animal/bot/floorbot/proc/repair(turf/target_turf)
 
 	if(isspaceturf(target_turf))
 		//Must be a hull breach or in line mode to continue.

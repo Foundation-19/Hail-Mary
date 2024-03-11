@@ -25,7 +25,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 	light_color = LIGHT_COLOR_BLUE
 
-TYPE_PROC_REF(/obj/machinery/computer/card, get_jobs)()
+/obj/machinery/computer/card/proc/get_jobs()
 	return get_all_jobs()
 
 /obj/machinery/computer/card/centcom/get_jobs()
@@ -80,7 +80,7 @@ TYPE_PROC_REF(/obj/machinery/computer/card, get_jobs)()
 		inserted_modify_id = null
 
 
-TYPE_PROC_REF(/obj/machinery/computer/card, id_insert)(mob/user, obj/item/inserting_item, obj/item/target)
+/obj/machinery/computer/card/proc/id_insert(mob/user, obj/item/inserting_item, obj/item/target)
 	var/obj/item/card/id/card_to_insert = inserting_item
 	var/holder_item = FALSE
 
@@ -103,7 +103,7 @@ TYPE_PROC_REF(/obj/machinery/computer/card, id_insert)(mob/user, obj/item/insert
 	updateUsrDialog()
 	return TRUE
 
-TYPE_PROC_REF(/obj/machinery/computer/card, id_eject)(mob/user, obj/target)
+/obj/machinery/computer/card/proc/id_eject(mob/user, obj/target)
 	if(!target)
 		to_chat(user, span_warning("That slot is empty!"))
 		return FALSE
@@ -427,7 +427,7 @@ TYPE_PROC_REF(/obj/machinery/computer/card, id_eject)(mob/user, obj/target)
 		inserted_modify_id.update_label()
 	updateUsrDialog()
 
-TYPE_PROC_REF(/obj/machinery/computer/card, get_subordinates)(rank)
+/obj/machinery/computer/card/proc/get_subordinates(rank)
 	for(var/datum/job/job in SSjob.occupations)
 		if(rank in job.department_head)
 			head_subordinates += job.title

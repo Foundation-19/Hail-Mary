@@ -48,7 +48,7 @@
  * Called during component creation with the same arguments as in new excluding parent.
  * Do not call `qdel(src)` from this function, `return COMPONENT_INCOMPATIBLE` instead
  */
-TYPE_PROC_REF(/datum/component, Initialize)(...)
+/datum/component/proc/Initialize(...)
 	return
 
 /**
@@ -67,7 +67,7 @@ TYPE_PROC_REF(/datum/component, Initialize)(...)
 /**
  * Internal proc to handle behaviour of components when joining a parent
  */
-TYPE_PROC_REF(/datum/component, _JoinParent)()
+/datum/component/proc/_JoinParent()
 	var/datum/P = parent
 	//lazy init the parent's dc list
 	var/list/dc = P.datum_components
@@ -105,7 +105,7 @@ TYPE_PROC_REF(/datum/component, _JoinParent)()
 /**
  * Internal proc to handle behaviour when being removed from a parent
  */
-TYPE_PROC_REF(/datum/component, _RemoveFromParent)()
+/datum/component/proc/_RemoveFromParent()
 	var/datum/P = parent
 	var/list/dc = P.datum_components
 	for(var/I in _GetInverseTypeList())
@@ -129,7 +129,7 @@ TYPE_PROC_REF(/datum/component, _RemoveFromParent)()
  * Use this proc to register with your parent object
  * Overridable proc that's called when added to a new parent
  */
-TYPE_PROC_REF(/datum/component, RegisterWithParent)()
+/datum/component/proc/RegisterWithParent()
 	return
 
 /**
@@ -139,7 +139,7 @@ TYPE_PROC_REF(/datum/component, RegisterWithParent)()
  * Overridable proc that's called when removed from a parent
  * *
  */
-TYPE_PROC_REF(/datum/component, UnregisterFromParent)()
+/datum/component/proc/UnregisterFromParent()
 	return
 
 /**
@@ -155,7 +155,7 @@ TYPE_PROC_REF(/datum/component, UnregisterFromParent)()
  * * proctype The proc to call back when the signal is emitted
  * * override If a previous registration exists you must explicitly set this
  */
-TYPE_PROC_REF(/datum, RegisterSignal)(datum/target, sig_type_or_types, proctype, override = FALSE)
+/datum/proc/RegisterSignal(datum/target, sig_type_or_types, proctype, override = FALSE)
 	if(QDELETED(src) || QDELETED(target))
 		return
 
@@ -197,7 +197,7 @@ TYPE_PROC_REF(/datum, RegisterSignal)(datum/target, sig_type_or_types, proctype,
  * * datum/target Datum to stop listening to signals from
  * * sig_typeor_types Signal string key or list of signal keys to stop listening to specifically
  */
-TYPE_PROC_REF(/datum, UnregisterSignal)(datum/target, sig_type_or_types)
+/datum/proc/UnregisterSignal(datum/target, sig_type_or_types)
 	var/list/lookup = target.comp_lookup
 	if(!signal_procs || !signal_procs[target] || !lookup)
 		return
@@ -229,7 +229,7 @@ TYPE_PROC_REF(/datum, UnregisterSignal)(datum/target, sig_type_or_types)
 		signal_procs -= target
 
 
-TYPE_PROC_REF(/datum, RemoveComponentByType)(path)
+/datum/proc/RemoveComponentByType(path)
 	for (var/datum/component/dc in datum_components)
 		if (istype(dc, path))
 			var/datum/old_parent = dc.parent
@@ -244,7 +244,7 @@ TYPE_PROC_REF(/datum, RemoveComponentByType)(path)
  * See `/datum/component/var/dupe_mode`
  * `C`'s type will always be the same of the called component
  */
-TYPE_PROC_REF(/datum/component, InheritComponent)(datum/component/C, i_am_original)
+/datum/component/proc/InheritComponent(datum/component/C, i_am_original)
 	return
 
 
@@ -254,7 +254,7 @@ TYPE_PROC_REF(/datum/component, InheritComponent)(datum/component/C, i_am_origin
  * `C`'s type will always be the same of the called component
  * return TRUE if you are absorbing the component, otherwise FALSE if you are fine having it exist as a duplicate component
  */
-TYPE_PROC_REF(/datum/component, CheckDupeComponent)(datum/component/C, ...)
+/datum/component/proc/CheckDupeComponent(datum/component/C, ...)
 	return
 
 
@@ -264,7 +264,7 @@ TYPE_PROC_REF(/datum/component, CheckDupeComponent)(datum/component/C, ...)
  * Use this to do any special cleanup you might need to do before being deregged from an object
  *
  */
-TYPE_PROC_REF(/datum/component, PreTransfer)()
+/datum/component/proc/PreTransfer()
 	return
 
 /**
@@ -274,13 +274,13 @@ TYPE_PROC_REF(/datum/component, PreTransfer)()
  * Do not call `qdel(src)` from this function, `return COMPONENT_INCOMPATIBLE` instead
  *
  */
-TYPE_PROC_REF(/datum/component, PostTransfer)()
+/datum/component/proc/PostTransfer()
 	return COMPONENT_INCOMPATIBLE //Do not support transfer by default as you must properly support it
 
 /**
  * Internal proc to create a list of our type and all parent types
  */
-TYPE_PROC_REF(/datum/component, _GetInverseTypeList)(our_type = type)
+/datum/component/proc/_GetInverseTypeList(our_type = type)
 	//we can do this one simple trick
 	var/current_type = parent_type
 	. = list(our_type, current_type)
@@ -294,7 +294,7 @@ TYPE_PROC_REF(/datum/component, _GetInverseTypeList)(our_type = type)
  * Will runtime if used on datums with an empty component list
  * Use the `SEND_SIGNAL` define instead
  */
-TYPE_PROC_REF(/datum, _SendSignal)(sigtype, list/arguments)
+/datum/proc/_SendSignal(sigtype, list/arguments)
 	var/target = comp_lookup[sigtype]
 	if(!length(target))
 		var/datum/C = target
@@ -318,7 +318,7 @@ TYPE_PROC_REF(/datum, _SendSignal)(sigtype, list/arguments)
  * Arguments:
  * * datum/component/c_type The typepath of the component you want to get a reference to
  */
-TYPE_PROC_REF(/datum, GetComponent)(datum/component/c_type)
+/datum/proc/GetComponent(datum/component/c_type)
 	RETURN_TYPE(c_type)
 	if(initial(c_type.dupe_mode) == COMPONENT_DUPE_ALLOWED || initial(c_type.dupe_mode) == COMPONENT_DUPE_SELECTIVE)
 		stack_trace("GetComponent was called to get a component of which multiple copies could be on an object. This can easily break and should be changed. Type: \[[c_type]\]")
@@ -337,7 +337,7 @@ TYPE_PROC_REF(/datum, GetComponent)(datum/component/c_type)
  * Arguments:
  * * datum/component/c_type The typepath of the component you want to get a reference to
  */
-TYPE_PROC_REF(/datum, GetExactComponent)(datum/component/c_type)
+/datum/proc/GetExactComponent(datum/component/c_type)
 	RETURN_TYPE(c_type)
 	if(initial(c_type.dupe_mode) == COMPONENT_DUPE_ALLOWED || initial(c_type.dupe_mode) == COMPONENT_DUPE_SELECTIVE)
 		stack_trace("GetComponent was called to get a component of which multiple copies could be on an object. This can easily break and should be changed. Type: \[[c_type]\]")
@@ -358,7 +358,7 @@ TYPE_PROC_REF(/datum, GetExactComponent)(datum/component/c_type)
  * Arguments:
  * * c_type The component type path
  */
-TYPE_PROC_REF(/datum, GetComponents)(c_type)
+/datum/proc/GetComponents(c_type)
 	var/list/dc = datum_components
 	if(!dc)
 		return null
@@ -373,7 +373,7 @@ TYPE_PROC_REF(/datum, GetComponents)(c_type)
  * If this tries to add an component to an incompatible type, the component will be deleted and the result will be `null`. This is very unperformant, try not to do it
  * Properly handles duplicate situations based on the `dupe_mode` var
  */
-TYPE_PROC_REF(/datum, _AddComponent)(list/raw_args)
+/datum/proc/_AddComponent(list/raw_args)
 	var/new_type = raw_args[1]
 	var/datum/component/nt = new_type
 	var/dm = initial(nt.dupe_mode)
@@ -448,7 +448,7 @@ TYPE_PROC_REF(/datum, _AddComponent)(list/raw_args)
  * * component_type The typepath of the component to create or return
  * * ... additional arguments to be passed when creating the component if it does not exist
  */
-TYPE_PROC_REF(/datum, LoadComponent)(component_type, ...)
+/datum/proc/LoadComponent(component_type, ...)
 	. = GetComponent(component_type)
 	if(!.)
 		return _AddComponent(args)
@@ -456,7 +456,7 @@ TYPE_PROC_REF(/datum, LoadComponent)(component_type, ...)
 /**
  * Removes the component from parent, ends up with a null parent
  */
-TYPE_PROC_REF(/datum/component, RemoveComponent)()
+/datum/component/proc/RemoveComponent()
 	if(!parent)
 		return
 	var/datum/old_parent = parent
@@ -473,7 +473,7 @@ TYPE_PROC_REF(/datum/component, RemoveComponent)()
  * Arguments:
  * * datum/component/target Target datum to transfer to
  */
-TYPE_PROC_REF(/datum, TakeComponent)(datum/component/target)
+/datum/proc/TakeComponent(datum/component/target)
 	if(!target || target.parent == src)
 		return
 	if(target.parent)
@@ -497,7 +497,7 @@ TYPE_PROC_REF(/datum, TakeComponent)(datum/component/target)
  * Arguments:
  * * /datum/target the target to move the components to
  */
-TYPE_PROC_REF(/datum, TransferComponents)(datum/target)
+/datum/proc/TransferComponents(datum/target)
 	var/list/dc = datum_components
 	if(!dc)
 		return

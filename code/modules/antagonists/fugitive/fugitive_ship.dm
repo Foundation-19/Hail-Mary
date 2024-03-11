@@ -26,7 +26,7 @@
 	if(do_after(fugitive_hunter, 50, target = fugitive))
 		add_prisoner(fugitive, fug_antag)
 
-TYPE_PROC_REF(/obj/machinery/fugitive_capture, add_prisoner)(mob/living/carbon/human/fugitive, datum/antagonist/fugitive/antag)
+/obj/machinery/fugitive_capture/proc/add_prisoner(mob/living/carbon/human/fugitive, datum/antagonist/fugitive/antag)
 	fugitive.forceMove(src)
 	antag.is_captured = TRUE
 	to_chat(fugitive, span_userdanger("You are thrown into a vast void of bluespace, and as you fall further into oblivion the comparatively small entrance to reality gets smaller and smaller until you cannot see it anymore. You have failed to avoid capture."))

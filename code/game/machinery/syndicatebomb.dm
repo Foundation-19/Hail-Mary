@@ -33,7 +33,7 @@
 	var/detonation_timer
 	var/explode_now = FALSE
 
-TYPE_PROC_REF(/obj/machinery/syndicatebomb, try_detonate)(ignore_active = FALSE)
+/obj/machinery/syndicatebomb/proc/try_detonate(ignore_active = FALSE)
 	. = (payload in src) && (active || ignore_active) && !defused
 	if(.)
 		payload.detonate()
@@ -105,7 +105,7 @@ TYPE_PROC_REF(/obj/machinery/syndicatebomb, try_detonate)(ignore_active = FALSE)
 /obj/machinery/syndicatebomb/update_icon_state()
 	icon_state = "[initial(icon_state)][active ? "-active" : "-inactive"][open_panel ? "-wires" : ""]"
 
-TYPE_PROC_REF(/obj/machinery/syndicatebomb, seconds_remaining)()
+/obj/machinery/syndicatebomb/proc/seconds_remaining()
 	if(active)
 		. = max(0, round((detonation_timer - world.time) / 10))
 	else
@@ -184,7 +184,7 @@ TYPE_PROC_REF(/obj/machinery/syndicatebomb, seconds_remaining)()
 		else if(anchored)
 			to_chat(user, span_warning("The bomb is bolted to the floor!"))
 
-TYPE_PROC_REF(/obj/machinery/syndicatebomb, activate)()
+/obj/machinery/syndicatebomb/proc/activate()
 	active = TRUE
 	START_PROCESSING(SSfastprocess, src)
 	countdown.start()
@@ -192,7 +192,7 @@ TYPE_PROC_REF(/obj/machinery/syndicatebomb, activate)()
 	detonation_timer = world.time + (timer_set * 10)
 	playsound(loc, 'sound/machines/click.ogg', 30, 1)
 
-TYPE_PROC_REF(/obj/machinery/syndicatebomb, settings)(mob/user)
+/obj/machinery/syndicatebomb/proc/settings(mob/user)
 	var/new_timer = input(user, "Please set the timer.", "Timer", "[timer_set]") as num
 	if(in_range(src, user) && isliving(user)) //No running off and setting bombs from across the station
 		timer_set = clamp(new_timer, minimum_timer, maximum_timer)
@@ -271,7 +271,7 @@ TYPE_PROC_REF(/obj/machinery/syndicatebomb, settings)(mob/user)
 	detonate()
 	..()
 
-TYPE_PROC_REF(/obj/item/bombcore, detonate)()
+/obj/item/bombcore/proc/detonate()
 	if(adminlog)
 		message_admins(adminlog)
 		log_game(adminlog)
@@ -280,7 +280,7 @@ TYPE_PROC_REF(/obj/item/bombcore, detonate)()
 		qdel(loc)
 	qdel(src)
 
-TYPE_PROC_REF(/obj/item/bombcore, defuse)()
+/obj/item/bombcore/proc/defuse()
 //Note: 	Because of how var/defused is used you shouldn't override this UNLESS you intend to set the var to 0 or
 //			otherwise remove the core/reset the wires before the end of defuse(). It will repeatedly be called otherwise.
 
@@ -292,7 +292,7 @@ TYPE_PROC_REF(/obj/item/bombcore, defuse)()
 	var/defusals = 0
 	var/attempts = 0
 
-TYPE_PROC_REF(/obj/item/bombcore/training, reset)()
+/obj/item/bombcore/training/proc/reset()
 	var/obj/machinery/syndicatebomb/holder = loc
 	if(istype(holder))
 		if(holder.wires)

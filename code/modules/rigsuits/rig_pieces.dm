@@ -34,7 +34,7 @@
 		return
 	toggle_light(user)
 
-TYPE_PROC_REF(/obj/item/clothing/head/helmet/space/new_rig, toggle_light)(mob/user)
+/obj/item/clothing/head/helmet/space/new_rig/proc/toggle_light(mob/user)
 	if(airtight)
 		on = !on
 		icon_state = "[item_color][on]"
@@ -96,7 +96,7 @@ TYPE_PROC_REF(/obj/item/clothing/head/helmet/space/new_rig, toggle_light)(mob/us
 	//	)
 
 //TODO: move this to modules
-TYPE_PROC_REF(/obj/item/clothing/head/helmet/space/new_rig, prevent_track)()
+/obj/item/clothing/head/helmet/space/new_rig/proc/prevent_track()
 	return 0
 
 /obj/item/clothing/gloves/rig/Touch(atom/A, proximity)

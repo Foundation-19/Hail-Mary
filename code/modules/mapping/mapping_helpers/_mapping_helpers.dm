@@ -101,7 +101,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 		qdel(src)
 		return
 
-TYPE_PROC_REF(/obj/effect/mapping_helpers/component_injector, build_args)()
+/obj/effect/mapping_helpers/component_injector/proc/build_args()
 	return list(component_type)
 
 /obj/effect/mapping_helpers/component_injector/infective

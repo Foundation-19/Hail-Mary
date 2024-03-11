@@ -192,7 +192,7 @@
 	// NOTE: DON'T DEACTIVATE!
 	//DeactivatePower()
 
-TYPE_PROC_REF(/datum/action/bloodsucker/trackvamp, display_proximity)()
+/datum/action/bloodsucker/trackvamp/proc/display_proximity()
 	// Pick target
 	var/turf/my_loc = get_turf(owner)
 	//var/list/mob/living/carbon/vamps = list()

@@ -1,4 +1,4 @@
-TYPE_PROC_REF(/mob/living, Ellipsis)(original_msg, chance = 50, keep_words)
+/mob/living/proc/Ellipsis(original_msg, chance = 50, keep_words)
 	if(chance <= 0)
 		return "..."
 	if(chance >= 100)
@@ -265,14 +265,14 @@ TYPE_PROC_REF(/mob/living, Ellipsis)(original_msg, chance = 50, keep_words)
 	I.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
 	INVOKE_ASYNC(GLOBAL_PROC, /.proc/flick_overlay, I, speech_bubble_recipients, 30)
 
-TYPE_PROC_REF(/mob, binarycheck)()
+/mob/proc/binarycheck()
 	return FALSE
 
 /mob/living/can_speak(message) //For use outside of Say()
 	if(can_speak_basic(message) && can_speak_vocal(message))
 		return 1
 
-TYPE_PROC_REF(/mob/living, can_speak_basic)(message, ignore_spam = FALSE) //Check BEFORE handling of xeno and ling channels
+/mob/living/proc/can_speak_basic(message, ignore_spam = FALSE) //Check BEFORE handling of xeno and ling channels
 	if(client)
 		if(client.prefs.muted & MUTE_IC)
 			to_chat(src, span_danger("You cannot speak in IC (muted)."))
@@ -282,7 +282,7 @@ TYPE_PROC_REF(/mob/living, can_speak_basic)(message, ignore_spam = FALSE) //Chec
 
 	return 1
 
-TYPE_PROC_REF(/mob/living, can_speak_vocal)(message) //Check AFTER handling of xeno and ling channels
+/mob/living/proc/can_speak_vocal(message) //Check AFTER handling of xeno and ling channels
 	if(HAS_TRAIT(src, TRAIT_MUTE))
 		return 0
 
@@ -294,12 +294,12 @@ TYPE_PROC_REF(/mob/living, can_speak_vocal)(message) //Check AFTER handling of x
 
 	return 1
 
-TYPE_PROC_REF(/mob/living, get_key)(message)
+/mob/living/proc/get_key(message)
 	var/key = message[1]
 	if(key in GLOB.department_radio_prefixes)
 		return lowertext(message[1 + length(key)])
 
-TYPE_PROC_REF(/mob/living, get_message_language)(message)
+/mob/living/proc/get_message_language(message)
 	if(message[1] == ",")
 		var/key = message[1 + length(message[1])]
 		for(var/ld in GLOB.all_languages)
@@ -308,7 +308,7 @@ TYPE_PROC_REF(/mob/living, get_message_language)(message)
 				return LD
 	return null
 
-TYPE_PROC_REF(/mob/living, treat_message)(message)
+/mob/living/proc/treat_message(message)
 
 	if(HAS_TRAIT(src, TRAIT_UNINTELLIGIBLE_SPEECH))
 		message = unintelligize(message)
@@ -336,7 +336,7 @@ TYPE_PROC_REF(/mob/living, treat_message)(message)
 
 	return message
 
-TYPE_PROC_REF(/mob/living, radio)(message, message_mode, list/spans, language)
+/mob/living/proc/radio(message, message_mode, list/spans, language)
 	var/obj/item/implant/radio/imp = locate() in implants
 	if(imp?.radio.on)
 		if(message_mode == MODE_HEADSET)

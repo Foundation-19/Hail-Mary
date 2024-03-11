@@ -136,12 +136,12 @@
 	stat_modules +=	new/stat_rig_module/charge(src)
 
 // Called when the module is installed into a suit.
-TYPE_PROC_REF(/obj/item/rig_module, installed)(obj/item/rig/new_holder)
+/obj/item/rig_module/proc/installed(obj/item/rig/new_holder)
 	holder = new_holder
 	return
 
 //Proc for one-use abilities like teleport.
-TYPE_PROC_REF(/obj/item/rig_module, engage)()
+/obj/item/rig_module/proc/engage()
 	if(damage >= 2)
 		to_chat(usr, span_warning("The [interface_name] is damaged beyond use!"))
 		return 0
@@ -174,7 +174,7 @@ TYPE_PROC_REF(/obj/item/rig_module, engage)()
 	return 1
 
 // Proc for toggling on active abilities.
-TYPE_PROC_REF(/obj/item/rig_module, activate)()
+/obj/item/rig_module/proc/activate()
 	if(active || !engage())
 		return 0
 
@@ -190,7 +190,7 @@ TYPE_PROC_REF(/obj/item/rig_module, activate)()
 	return 1
 
 // Proc for toggling off active abilities.
-TYPE_PROC_REF(/obj/item/rig_module, deactivate)()
+/obj/item/rig_module/proc/deactivate()
 	if(!active)
 		return 0
 
@@ -207,7 +207,7 @@ TYPE_PROC_REF(/obj/item/rig_module, deactivate)()
 	return 1
 
 // Called when the module is uninstalled from a suit.
-TYPE_PROC_REF(/obj/item/rig_module, removed)()
+/obj/item/rig_module/proc/removed()
 	deactivate()
 	holder = null
 	return
@@ -221,10 +221,10 @@ TYPE_PROC_REF(/obj/item/rig_module, removed)()
 
 // Called by holder rigsuit attackby()
 // Checks if an item is usable with this module and handles it if it is
-TYPE_PROC_REF(/obj/item/rig_module, accepts_item)(obj/item/input_device)
+/obj/item/rig_module/proc/accepts_item(obj/item/input_device)
 	return 0
 
-TYPE_PROC_REF(/mob, SetupStat)(obj/item/rig/R)
+/mob/proc/SetupStat(obj/item/rig/R)
 	if(R && (R.item_flags & NODROP) && R.installed_modules.len && statpanel("Hardsuit Modules"))
 		var/cell_status = R.cell ? "[R.cell.charge]/[R.cell.maxcharge]" : "ERROR"
 		stat("Suit charge", cell_status)
@@ -243,10 +243,10 @@ TYPE_PROC_REF(/mob, SetupStat)(obj/item/rig/R)
 	..()
 	src.module = module
 
-TYPE_PROC_REF(/stat_rig_module, AddHref)(list/href_list)
+/stat_rig_module/proc/AddHref(list/href_list)
 	return
 
-TYPE_PROC_REF(/stat_rig_module, CanUse)()
+/stat_rig_module/proc/CanUse()
 	return 0
 
 /stat_rig_module/Click()

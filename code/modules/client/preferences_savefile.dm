@@ -23,7 +23,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	Failing all that, the standard sanity checks are performed. They simply check the data is suitable, reverting to
 	initial() values if necessary.
 */
-TYPE_PROC_REF(/datum/preferences, savefile_needs_update)(savefile/S)
+/datum/preferences/proc/savefile_needs_update(savefile/S)
 	var/savefile_version
 	S["version"] >> savefile_version
 
@@ -42,13 +42,13 @@ TYPE_PROC_REF(/datum/preferences, savefile_needs_update)(savefile/S)
 //if your savefile is 3 months out of date, then 'tough shit'.
 
 
-TYPE_PROC_REF(/datum/preferences, update_preferences)(current_version, savefile/S)
+/datum/preferences/proc/update_preferences(current_version, savefile/S)
 	if(current_version < 37)	//If you remove this, remove force_reset_keybindings() too.
 		force_reset_keybindings_direct(TRUE)
 		addtimer(CALLBACK(src, PROC_REF(force_reset_keybindings)), 30)	//No mob available when this is run, timer allows user choice.
 
 
-TYPE_PROC_REF(/datum/preferences, update_character)(current_version, savefile/S)
+/datum/preferences/proc/update_character(current_version, savefile/S)
 	if(current_version < 38)
 		UI_style = GLOB.available_ui_styles[1] // Force the Fallout UI once.
 
@@ -106,7 +106,7 @@ TYPE_PROC_REF(/datum/preferences, update_character)(current_version, savefile/S)
 
 
 
-TYPE_PROC_REF(/datum/preferences, load_path)(ckey,filename="preferences.sav")
+/datum/preferences/proc/load_path(ckey,filename="preferences.sav")
 	if(!ckey)
 		return
 	path = "data/player_saves/[ckey[1]]/[ckey]/[filename]"
@@ -115,7 +115,7 @@ TYPE_PROC_REF(/datum/preferences, load_path)(ckey,filename="preferences.sav")
 	// Shouldnt be too hard to convert the current savefile format to json or txt or something
 	// Hopefully everyone's bellies dont get fucked when I do that!
 
-TYPE_PROC_REF(/datum/preferences, load_preferences)()
+/datum/preferences/proc/load_preferences()
 	if(!path)
 		return FALSE
 	if(world.time < loadprefcooldown)
@@ -275,7 +275,7 @@ TYPE_PROC_REF(/datum/preferences, load_preferences)()
 
 	return TRUE
 
-TYPE_PROC_REF(/datum/preferences, verify_keybindings_valid)()
+/datum/preferences/proc/verify_keybindings_valid()
 	// Sanitize the actual keybinds to make sure they exist.
 	for(var/key in key_bindings)
 		if(!islist(key_bindings[key]))
@@ -293,7 +293,7 @@ TYPE_PROC_REF(/datum/preferences, verify_keybindings_valid)()
 		if(!GLOB.keybindings_by_name[bindname])
 			modless_key_bindings -= key
 
-TYPE_PROC_REF(/datum/preferences, save_preferences)()
+/datum/preferences/proc/save_preferences()
 	if(!path)
 		return 0
 	if(world.time < saveprefcooldown)
@@ -363,7 +363,7 @@ TYPE_PROC_REF(/datum/preferences, save_preferences)()
 	WRITE_FILE(S["no_tetris_storage"], no_tetris_storage)
 	return 1
 
-TYPE_PROC_REF(/datum/preferences, load_character)(slot)
+/datum/preferences/proc/load_character(slot)
 	if(!path)
 		return FALSE
 	if(world.time < loadcharcooldown) //This is before the check to see if the filepath exists to ensure that BYOND can't get hung up on read attempts when the hard drive is a little slow
@@ -681,7 +681,7 @@ TYPE_PROC_REF(/datum/preferences, load_character)(slot)
 
 	return 1
 
-TYPE_PROC_REF(/datum/preferences, save_character)()
+/datum/preferences/proc/save_character()
 	if(!path)
 		return 0
 	if(world.time < savecharcooldown)

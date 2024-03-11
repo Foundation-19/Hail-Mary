@@ -6,7 +6,7 @@
 		return COMPONENT_INCOMPATIBLE
 	RegisterSignal(parent, list(COMSIG_MOVABLE_MOVED), PROC_REF(Clean))
 
-TYPE_PROC_REF(/datum/component/cleaning, Clean)()
+/datum/component/cleaning/proc/Clean()
 	var/atom/movable/AM = parent
 	var/turf/tile = AM.loc
 	if(!isturf(tile))

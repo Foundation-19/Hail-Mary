@@ -4,7 +4,7 @@
 	show_name_in_check_antagonists = TRUE
 	threat = 20
 
-TYPE_PROC_REF(/datum/antagonist/wishgranter, forge_objectives)()
+/datum/antagonist/wishgranter/proc/forge_objectives()
 	var/datum/objective/hijack/hijack = new
 	hijack.owner = owner
 	objectives += hijack
@@ -19,7 +19,7 @@ TYPE_PROC_REF(/datum/antagonist/wishgranter, forge_objectives)()
 	to_chat(owner, "<B>Your inhibitions are swept away, the bonds of loyalty broken, you are free to murder as you please!</B>")
 	owner.announce_objectives()
 
-TYPE_PROC_REF(/datum/antagonist/wishgranter, give_powers)()
+/datum/antagonist/wishgranter/proc/give_powers()
 	var/mob/living/carbon/human/H = owner.current
 	if(!istype(H))
 		return

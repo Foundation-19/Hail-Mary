@@ -1,4 +1,4 @@
-TYPE_PROC_REF(/client, jumptoarea)(area/A in GLOB.sortedAreas)
+/client/proc/jumptoarea(area/A in GLOB.sortedAreas)
 	set name = "Jump to Area"
 	set desc = "Area to jump to"
 	set category = "Admin.Game"
@@ -26,7 +26,7 @@ TYPE_PROC_REF(/client, jumptoarea)(area/A in GLOB.sortedAreas)
 		return
 
 
-TYPE_PROC_REF(/client, jumptoturf)(turf/T in world)
+/client/proc/jumptoturf(turf/T in world)
 	set name = "Jump to Turf"
 	set category = "Admin.Game"
 	if(!src.holder)
@@ -39,7 +39,7 @@ TYPE_PROC_REF(/client, jumptoturf)(turf/T in world)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Jump To Turf") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	return
 
-TYPE_PROC_REF(/client, jumptomob)(mob/M in GLOB.mob_list)
+/client/proc/jumptomob(mob/M in GLOB.mob_list)
 	set category = "Admin.Game"
 	set name = "Jump to Mob"
 
@@ -58,7 +58,7 @@ TYPE_PROC_REF(/client, jumptomob)(mob/M in GLOB.mob_list)
 		else
 			to_chat(A, "This mob is not located in the game world.", confidential = TRUE)
 
-TYPE_PROC_REF(/client, jumptocoord)(tx as num, ty as num, tz as num)
+/client/proc/jumptocoord(tx as num, ty as num, tz as num)
 	set category = "Admin.Game"
 	set name = "Jump to Coordinate"
 
@@ -73,7 +73,7 @@ TYPE_PROC_REF(/client, jumptocoord)(tx as num, ty as num, tz as num)
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Jump To Coordiate") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	message_admins("[key_name_admin(usr)] jumped to coordinates [tx], [ty], [tz]")
 
-TYPE_PROC_REF(/client, jumptokey)()
+/client/proc/jumptokey()
 	set category = "Admin.Game"
 	set name = "Jump to Key"
 
@@ -96,7 +96,7 @@ TYPE_PROC_REF(/client, jumptokey)()
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Jump To Key") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-TYPE_PROC_REF(/client, Getmob)(mob/M in GLOB.mob_list - GLOB.dummy_mob_list)
+/client/proc/Getmob(mob/M in GLOB.mob_list - GLOB.dummy_mob_list)
 	set category = "Admin.Game"
 	set name = "Get Mob"
 	set desc = "Mob to teleport"
@@ -112,7 +112,7 @@ TYPE_PROC_REF(/client, Getmob)(mob/M in GLOB.mob_list - GLOB.dummy_mob_list)
 	M.forceMove(loc)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Get Mob") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-TYPE_PROC_REF(/client, Getkey)()
+/client/proc/Getkey()
 	set category = "Admin.Game"
 	set name = "Get Key"
 	set desc = "Key to teleport"
@@ -140,7 +140,7 @@ TYPE_PROC_REF(/client, Getkey)()
 		usr.forceMove(M.loc)
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Get Key") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-TYPE_PROC_REF(/client, sendmob)(mob/M in sortmobs())
+/client/proc/sendmob(mob/M in sortmobs())
 	set category = "Admin.Game"
 	set name = "Send Mob"
 	if(!src.holder)

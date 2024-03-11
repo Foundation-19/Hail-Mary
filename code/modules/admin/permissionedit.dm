@@ -1,4 +1,4 @@
-TYPE_PROC_REF(/client, edit_admin_permissions)()
+/client/proc/edit_admin_permissions()
 	set category = "Admin"
 	set name = "Permissions Panel"
 	set desc = "Edit admin permissions"
@@ -6,7 +6,7 @@ TYPE_PROC_REF(/client, edit_admin_permissions)()
 		return
 	usr.client.holder.edit_admin_permissions()
 
-TYPE_PROC_REF(/datum/admins, edit_admin_permissions)(action, target, operation, page)
+/datum/admins/proc/edit_admin_permissions(action, target, operation, page)
 	if(!check_rights(R_PERMISSIONS))
 		return
 	var/list/output = list("<link rel='stylesheet' type='text/css' href='panels.css'><a href='?_src_=holder;[HrefToken()];editrightsbrowser=1'>\[Permissions\]</a>")
@@ -131,7 +131,7 @@ TYPE_PROC_REF(/datum/admins, edit_admin_permissions)(action, target, operation, 
 		return
 	usr << browse("<!DOCTYPE html><html>[jointext(output, "")]</html>","window=editrights;size=1000x650")
 
-TYPE_PROC_REF(/datum/admins, edit_rights_topic)(list/href_list)
+/datum/admins/proc/edit_rights_topic(list/href_list)
 	if(!check_rights(R_PERMISSIONS))
 		message_admins("[key_name_admin(usr)] attempted to edit admin permissions without sufficient rights.")
 		log_admin("[key_name(usr)] attempted to edit admin permissions without sufficient rights.")
@@ -206,7 +206,7 @@ TYPE_PROC_REF(/datum/admins, edit_rights_topic)(list/href_list)
 			sync_lastadminrank(admin_ckey, admin_key, D)
 	edit_admin_permissions()
 
-TYPE_PROC_REF(/datum/admins, add_admin)(admin_ckey, admin_key, use_db)
+/datum/admins/proc/add_admin(admin_ckey, admin_key, use_db)
 	if(admin_ckey)
 		. = admin_ckey
 	else
@@ -248,7 +248,7 @@ TYPE_PROC_REF(/datum/admins, add_admin)(admin_ckey, admin_key, use_db)
 			return FALSE
 		qdel(query_add_admin_log)
 
-TYPE_PROC_REF(/datum/admins, remove_admin)(admin_ckey, admin_key, use_db, datum/admins/D)
+/datum/admins/proc/remove_admin(admin_ckey, admin_key, use_db, datum/admins/D)
 	if(alert("Are you sure you want to remove [admin_ckey]?","Confirm Removal","Do it","Cancel") == "Do it")
 		GLOB.admin_datums -= admin_ckey
 		GLOB.deadmins -= admin_ckey
@@ -277,21 +277,21 @@ TYPE_PROC_REF(/datum/admins, remove_admin)(admin_ckey, admin_key, use_db, datum/
 		message_admins(m1)
 		log_admin(m2)
 
-TYPE_PROC_REF(/datum/admins, force_readmin)(admin_key, datum/admins/D)
+/datum/admins/proc/force_readmin(admin_key, datum/admins/D)
 	if(!D || !D.deadmined)
 		return
 	D.activate()
 	message_admins("[key_name_admin(usr)] forcefully readmined [admin_key]")
 	log_admin("[key_name(usr)] forcefully readmined [admin_key]")
 
-TYPE_PROC_REF(/datum/admins, force_deadmin)(admin_key, datum/admins/D)
+/datum/admins/proc/force_deadmin(admin_key, datum/admins/D)
 	if(!D || D.deadmined)
 		return
 	message_admins("[key_name_admin(usr)] forcefully deadmined [admin_key]")
 	log_admin("[key_name(usr)] forcefully deadmined [admin_key]")
 	D.deactivate() //after logs so the deadmined admin can see the message.
 
-TYPE_PROC_REF(/datum/admins, change_admin_rank)(admin_ckey, admin_key, use_db, datum/admins/D, legacy_only)
+/datum/admins/proc/change_admin_rank(admin_ckey, admin_key, use_db, datum/admins/D, legacy_only)
 	var/datum/admin_rank/R
 	var/list/rank_names = list()
 	if(!use_db || (use_db && !legacy_only))
@@ -383,7 +383,7 @@ TYPE_PROC_REF(/datum/admins, change_admin_rank)(admin_ckey, admin_key, use_db, d
 	message_admins(m1)
 	log_admin(m2)
 
-TYPE_PROC_REF(/datum/admins, change_admin_flags)(admin_ckey, admin_key, use_db, datum/admins/D, legacy_only)
+/datum/admins/proc/change_admin_flags(admin_ckey, admin_key, use_db, datum/admins/D, legacy_only)
 	var/new_flags = input_bitfield(usr, "Include permission flags<br>[use_db ? "This will affect ALL admins with this rank." : "This will affect only the current admin [admin_key]"]", "admin_flags", D.rank.include_rights, 350, 590, allowed_edit_list = usr.client.holder.rank.can_edit_rights)
 	if(isnull(new_flags))
 		return
@@ -461,7 +461,7 @@ TYPE_PROC_REF(/datum/admins, change_admin_flags)(admin_ckey, admin_key, use_db, 
 	message_admins(m1)
 	log_admin(m2)
 
-TYPE_PROC_REF(/datum/admins, remove_rank)(admin_rank)
+/datum/admins/proc/remove_rank(admin_rank)
 	if(!admin_rank)
 		return
 	for(var/datum/admin_rank/R in GLOB.admin_ranks)
@@ -508,7 +508,7 @@ TYPE_PROC_REF(/datum/admins, remove_rank)(admin_rank)
 		message_admins(m1)
 		log_admin(m2)
 
-TYPE_PROC_REF(/datum/admins, sync_lastadminrank)(admin_ckey, admin_key, datum/admins/D)
+/datum/admins/proc/sync_lastadminrank(admin_ckey, admin_key, datum/admins/D)
 	var/datum/db_query/query_sync_lastadminrank = SSdbcore.NewQuery(
 		"UPDATE [format_table_name("player")] SET lastadminrank = :lastadminrank WHERE ckey = :ckey",
 		list("lastadminrank" = D?.rank?.name || "Player", "ckey" = admin_ckey)

@@ -112,10 +112,10 @@
 	spawn_mob()
 
 /// Something told us to restart spawning
-TYPE_PROC_REF(/datum/component/spawner, start_spawning)()
+/datum/component/spawner/proc/start_spawning()
 	START_PROCESSING(SSspawners, src)
 
-TYPE_PROC_REF(/datum/component/spawner, stop_spawning)(datum/source, force, hint)
+/datum/component/spawner/proc/stop_spawning(datum/source, force, hint)
 	STOP_PROCESSING(SSspawners, src)
 	for(var/datum/weakref/mob_ref as anything in spawned_mobs)
 		var/mob/living/simple_animal/removed_animal = mob_ref.resolve()
@@ -126,12 +126,12 @@ TYPE_PROC_REF(/datum/component/spawner, stop_spawning)(datum/source, force, hint
 	spawned_mobs = null
 
 // Stopping clientless simple mobs' from indiscriminately bashing their own spawners due DestroySurroundings() et similars.
-TYPE_PROC_REF(/datum/component/spawner, on_attack_generic)(datum/source, mob/user, damage_amount, damage_type, damage_flag, sound_effect, armor_penetration)
+/datum/component/spawner/proc/on_attack_generic(datum/source, mob/user, damage_amount, damage_type, damage_flag, sound_effect, armor_penetration)
 	if(!user.client && ((user.faction & faction) || (WEAKREF(user) in spawned_mobs)))
 		return COMPONENT_STOP_GENERIC_ATTACK
 
 /// If we're dense, or spawned on something dense, ignore density forever
-TYPE_PROC_REF(/datum/component/spawner, density_check)()
+/datum/component/spawner/proc/density_check()
 	var/atom/P = parent
 	if(P.density == TRUE)
 		return TRUE
@@ -142,11 +142,11 @@ TYPE_PROC_REF(/datum/component/spawner, density_check)()
 				return TRUE
 
 /// Do we have any mobs left?
-TYPE_PROC_REF(/datum/component/spawner, has_mobs_left)()
+/datum/component/spawner/proc/has_mobs_left()
 	return counterlist_sum(mob_types) + LAZYLEN(special_mobs)
 
 /// Should the spawner be destroyed?
-TYPE_PROC_REF(/datum/component/spawner, should_destroy_spawner)()
+/datum/component/spawner/proc/should_destroy_spawner()
 	if(infinite)
 		return FALSE
 	if(has_mobs_left())
@@ -156,7 +156,7 @@ TYPE_PROC_REF(/datum/component/spawner, should_destroy_spawner)()
 	return TRUE
 
 /// Check the spawned mob list, prune dead mobs, return TRUE if it isnt full
-TYPE_PROC_REF(/datum/component/spawner, check_spawned_mobs)()
+/datum/component/spawner/proc/check_spawned_mobs()
 	if(LAZYLEN(spawned_mobs) < max_mobs)
 		return TRUE
 	for(var/datum/weakref/mob_ref in spawned_mobs)
@@ -170,7 +170,7 @@ TYPE_PROC_REF(/datum/component/spawner, check_spawned_mobs)()
 		return TRUE
 
 /// Basic checks to see if we can spawn something
-TYPE_PROC_REF(/datum/component/spawner, can_spawn_mob)()
+/datum/component/spawner/proc/can_spawn_mob()
 	if(COOLDOWN_TIMELEFT(src, spawner_cooldown))
 		return FALSE
 	if(!check_spawned_mobs())
@@ -205,13 +205,13 @@ TYPE_PROC_REF(/datum/component/spawner, can_spawn_mob)()
 	return TRUE
 
 /// spawns a mob, then immediately tries to self-destruct
-TYPE_PROC_REF(/datum/component/spawner, spawn_mob_special)()
+/datum/component/spawner/proc/spawn_mob_special()
 	spawn_mob()
 	if(should_destroy_spawner())
 		qdel(parent)
 
 /// spawn the mob(s)
-TYPE_PROC_REF(/datum/component/spawner, spawn_mob)()
+/datum/component/spawner/proc/spawn_mob()
 	if(!islist(spawned_mobs))
 		spawned_mobs = list()
 	if(LAZYLEN(special_mobs))
@@ -243,7 +243,7 @@ TYPE_PROC_REF(/datum/component/spawner, spawn_mob)()
 		playsound(P, spawn_sound, 30, 1)
 	COOLDOWN_START(src, spawner_cooldown, spawn_time)
 
-TYPE_PROC_REF(/datum/component/spawner, setup_random_nest)()
+/datum/component/spawner/proc/setup_random_nest()
 	if(!randomizer_tag)
 		return FALSE
 	if(!randomizer_kind)
@@ -257,7 +257,7 @@ TYPE_PROC_REF(/datum/component/spawner, setup_random_nest)()
 	return
 
 /// Takes an entry from our global list and uses it to make our fancy nest!
-TYPE_PROC_REF(/datum/component/spawner, add_nest_to_global_list)()
+/datum/component/spawner/proc/add_nest_to_global_list()
 	if(!randomizer_tag)
 		return FALSE
 	if(!randomizer_kind)
@@ -274,7 +274,7 @@ TYPE_PROC_REF(/datum/component/spawner, add_nest_to_global_list)()
 	GLOB.mob_spawner_random_index[randomizer_tag] = new_nest_thing
 
 /// Takes an entry from our global list and uses it to make our fancy nest!
-TYPE_PROC_REF(/datum/component/spawner, apply_nest_from_global_list)()
+/datum/component/spawner/proc/apply_nest_from_global_list()
 	mob_types = list()
 	var/list/our_randomizer_index = GLOB.mob_spawner_random_index[randomizer_tag]
 	var/datum/random_mob_spawner/our_spawner = GLOB.random_mob_nest_spawner_datums[our_randomizer_index[MOB_SPAWNER_GLOBAL_LIST_KIND]]
@@ -302,7 +302,7 @@ TYPE_PROC_REF(/datum/component/spawner, apply_nest_from_global_list)()
 		swarm_size = our_spawner.max_mob_swarm_hard
 		spawn_time = our_spawner.mob_respawn_time_hard
 
-TYPE_PROC_REF(/datum/component/spawner, initialize_random_mob_spawners)()
+/datum/component/spawner/proc/initialize_random_mob_spawners()
 	if(!LAZYLEN(GLOB.random_mob_nest_spawner_datums))
 		for(var/r_spawn in subtypesof(/datum/random_mob_spawner))
 			var/datum/random_mob_spawner/r_spawn_datum = new r_spawn()
@@ -313,7 +313,7 @@ TYPE_PROC_REF(/datum/component/spawner, initialize_random_mob_spawners)()
 			GLOB.random_mob_nest_spawner_groups[r_group_datum.group_tag] = r_group_datum
 
 /// Is passed a mob via the signal, and will attempt to despawn the mob and store it in the spawner.
-TYPE_PROC_REF(/datum/component/spawner, unbirth_mob)(datum/source, mob/living/simple_animal/despawn_me)
+/datum/component/spawner/proc/unbirth_mob(datum/source, mob/living/simple_animal/despawn_me)
 	if(QDELETED(parent))
 		return
 	if(!istype(despawn_me))
@@ -337,7 +337,7 @@ TYPE_PROC_REF(/datum/component/spawner, unbirth_mob)(datum/source, mob/living/si
 	start_spawning()
 
 /// If anything asks if we have a spawner, we say yes.
-TYPE_PROC_REF(/datum/component/spawner, has_spawner)()
+/datum/component/spawner/proc/has_spawner()
 	return TRUE
 
 /// a datum that holds on to a bunch of vars for special mobs
@@ -353,7 +353,7 @@ TYPE_PROC_REF(/datum/component/spawner, has_spawner)()
 	var/mobtag
 
 /// A proc that takes a mob datum and records all the vars that are different from the initial vars, for later use.
-TYPE_PROC_REF(/datum/special_mob_datum, record_special_vars)(mob/living/simple_animal/hostile/cool_mob)
+/datum/special_mob_datum/proc/record_special_vars(mob/living/simple_animal/hostile/cool_mob)
 	if(!istype(cool_mob))
 		return FALSE
 	mob_type = cool_mob.type
@@ -367,7 +367,7 @@ TYPE_PROC_REF(/datum/special_mob_datum, record_special_vars)(mob/living/simple_a
 	return src
 
 /// A proc that spawns a mob from a special mob datum
-TYPE_PROC_REF(/datum/special_mob_datum, make_special_mob)(datum/component/spawner/myspawner)
+/datum/special_mob_datum/proc/make_special_mob(datum/component/spawner/myspawner)
 	if(!istype(myspawner))
 		return
 	if(!istype(myspawner.parent))

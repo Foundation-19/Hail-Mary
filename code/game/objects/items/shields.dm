@@ -47,7 +47,7 @@
 		if(shield_flags & SHIELD_BASH_GROUND_SLAM)
 			. += span_notice("Directly rightclicking on a downed target with [src] will slam them instead of bashing.")
 
-TYPE_PROC_REF(/obj/item/shield, on_shield_block)(mob/living/owner, atom/object, damage, attack_text, attack_type, armour_penetration, mob/attacker, def_zone, final_block_chance)
+/obj/item/shield/proc/on_shield_block(mob/living/owner, atom/object, damage, attack_text, attack_type, armour_penetration, mob/attacker, def_zone, final_block_chance)
 	return TRUE
 
 /obj/item/shield/altafterattack(atom/target, mob/user, proximity_flag, click_parameters)
@@ -56,7 +56,7 @@ TYPE_PROC_REF(/obj/item/shield, on_shield_block)(mob/living/owner, atom/object, 
 	user_shieldbash(user, target, user.a_intent == INTENT_HARM)
 	return TRUE
 
-TYPE_PROC_REF(/obj/item/shield, do_shieldbash_effect)(mob/living/user, dir, harmful)
+/obj/item/shield/proc/do_shieldbash_effect(mob/living/user, dir, harmful)
 	var/px = 0
 	var/py = 0
 	switch(dir)
@@ -76,7 +76,7 @@ TYPE_PROC_REF(/obj/item/shield, do_shieldbash_effect)(mob/living/user, dir, harm
 	animate(user, pixel_x = -px, pixel_y = -py, time = 3, flags = ANIMATION_RELATIVE)
 	animate(effect, alpha = 0, pixel_x = px * 1.5, pixel_y = py * 1.5, time = 3, flags = ANIMATION_PARALLEL | ANIMATION_RELATIVE)
 
-TYPE_PROC_REF(/obj/item/shield, bash_target)(mob/living/user, mob/living/target, bashdir, harmful)
+/obj/item/shield/proc/bash_target(mob/living/user, mob/living/target, bashdir, harmful)
 	if(!(target.status_flags & CANKNOCKDOWN) || HAS_TRAIT(src, TRAIT_STUNIMMUNE))	// should probably add stun absorption check at some point I guess..
 		// unified stun absorption system when lol
 		target.visible_message(span_warning("[user] slams [target] with [src], but [target] doesn't falter!"), span_userdanger("[user] slams you with [src], but it barely fazes you!"))
@@ -122,7 +122,7 @@ TYPE_PROC_REF(/obj/item/shield, bash_target)(mob/living/user, mob/living/target,
 	target.Stagger(shieldbash_stagger_duration)
 	return TRUE
 
-TYPE_PROC_REF(/obj/item/shield, user_shieldbash)(mob/living/user, atom/target, harmful)
+/obj/item/shield/proc/user_shieldbash(mob/living/user, atom/target, harmful)
 	if(!SEND_SIGNAL(user, COMSIG_COMBAT_MODE_CHECK, COMBAT_MODE_ACTIVE)) //Combat mode has to be enabled for shield bashing
 		return FALSE
 	if(!(shield_flags & SHIELD_CAN_BASH))
@@ -243,7 +243,7 @@ TYPE_PROC_REF(/obj/item/shield, user_shieldbash)(mob/living/user, atom/target, h
 		if(0 to 25)
 			. += span_warning("It's falling apart!")
 
-TYPE_PROC_REF(/obj/item/shield/riot, shatter)(mob/living/carbon/human/owner)
+/obj/item/shield/riot/proc/shatter(mob/living/carbon/human/owner)
 	playsound(owner, 'sound/effects/glassbr3.ogg', 100)
 	new /obj/item/shard((get_turf(src)))
 
@@ -537,7 +537,7 @@ The telescopic shields are legacy and don't fit, but the code might be of intere
 		if(recharge_timerid)
 			deltimer(recharge_timerid)
 			recharge_timerid = null
-TYPE_PROC_REF(/obj/item/shield/riot/implant, recharge)()
+/obj/item/shield/riot/implant/proc/recharge()
 	if(obj_integrity == max_integrity)
 		return
 	obj_integrity = max_integrity

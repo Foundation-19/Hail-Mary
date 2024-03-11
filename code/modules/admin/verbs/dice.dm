@@ -1,4 +1,4 @@
-TYPE_PROC_REF(/client, roll_dices)()
+/client/proc/roll_dices()
 	set category = "Admin.Fun"
 	set name = "Roll Dice"
 	if(!check_rights(R_FUN))

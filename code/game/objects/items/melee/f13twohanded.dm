@@ -21,10 +21,10 @@
 	RegisterSignal(src, COMSIG_TWOHANDED_UNWIELD, PROC_REF(on_unwield))
 	force_unwielded = force
 
-TYPE_PROC_REF(/obj/item/twohanded, on_wield)(obj/item/source, mob/user)
+/obj/item/twohanded/proc/on_wield(obj/item/source, mob/user)
 	wielded = TRUE
 
-TYPE_PROC_REF(/obj/item/twohanded, on_unwield)(obj/item/source, mob/user)
+/obj/item/twohanded/proc/on_unwield(obj/item/source, mob/user)
 	wielded = FALSE
 
 /obj/item/twohanded/update_icon_state()

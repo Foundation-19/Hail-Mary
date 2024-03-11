@@ -60,7 +60,7 @@
 				amount = input
 	update_icon()
 
-TYPE_PROC_REF(/obj/machinery/chem_dispenser/chem_synthesizer, find_reagent)(input)
+/obj/machinery/chem_dispenser/chem_synthesizer/proc/find_reagent(input)
 	. = FALSE
 	if(GLOB.chemical_reagents_list[input]) //prefer IDs!
 		return input

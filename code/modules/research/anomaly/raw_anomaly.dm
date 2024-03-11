@@ -64,7 +64,7 @@
  * * del_self - should we qdel(src)
  * * count_towards_limit - should we increment the amount of created cores on SSresearch
  */
-TYPE_PROC_REF(/obj/item/raw_anomaly_core, create_core)(newloc, del_self = FALSE, count_towards_limit = FALSE)
+/obj/item/raw_anomaly_core/proc/create_core(newloc, del_self = FALSE, count_towards_limit = FALSE)
 	. = new anomaly_type(newloc)
 	if(count_towards_limit)
 		var/existing = SSresearch.created_anomaly_types[anomaly_type] || 0

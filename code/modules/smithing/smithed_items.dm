@@ -94,10 +94,10 @@
 	else
 		return ..()
 
-TYPE_PROC_REF(/obj/item/smithing, startfinish)()
+/obj/item/smithing/proc/startfinish()
 	dofinish()
 
-TYPE_PROC_REF(/obj/item/smithing, dofinish)()
+/obj/item/smithing/proc/dofinish()
 	var/qualname
 	switch(quality)
 		if(-INFINITY to -5)
@@ -130,7 +130,7 @@ TYPE_PROC_REF(/obj/item/smithing, dofinish)()
 	qdel(src)
 
 
-TYPE_PROC_REF(/obj/item/smithing, dwarfyartifact)(obj/item/finalitem, mat)
+/obj/item/smithing/proc/dwarfyartifact(obj/item/finalitem, mat)
 	var/finaldesc = "A [initial(finalitem.name)] made of [mat], all craftsmanship is of the highest quality. It "
 	switch(pick(1,2,3,4,5))
 		if(1)

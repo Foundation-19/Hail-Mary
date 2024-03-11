@@ -52,7 +52,7 @@
 
 
 //Debug procs
-TYPE_PROC_REF(/client, test_movable_UI)()
+/client/proc/test_movable_UI()
 	set category = "Debug"
 	set name = "Spawn Movable UI Object"
 
@@ -71,7 +71,7 @@ TYPE_PROC_REF(/client, test_movable_UI)()
 	screen += M
 
 
-TYPE_PROC_REF(/client, test_snap_UI)()
+/client/proc/test_snap_UI()
 	set category = "Debug"
 	set name = "Spawn Snap UI Object"
 

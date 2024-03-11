@@ -97,7 +97,7 @@
 		return 0
 	. = ..()
 
-TYPE_PROC_REF(/obj/machinery/flasher, flash)()
+/obj/machinery/flasher/proc/flash()
 	if (!powered() || !bulb)
 		return
 

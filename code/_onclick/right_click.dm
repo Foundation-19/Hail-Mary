@@ -1,4 +1,4 @@
-TYPE_PROC_REF(/mob, RightClickOn)(atom/A, params) //mostly a copy-paste from ClickOn()
+/mob/proc/RightClickOn(atom/A, params) //mostly a copy-paste from ClickOn()
 	var/list/modifiers = params2list(params)
 	if(incapacitated(ignore_restraints = 1))
 		return
@@ -67,10 +67,10 @@ TYPE_PROC_REF(/mob, RightClickOn)(atom/A, params) //mostly a copy-paste from Cli
 			if(!AltRangedAttack(A, params))
 				return RangedAttack(A, params)
 
-TYPE_PROC_REF(/mob, AltUnarmedAttack)(atom/A, proximity_flag)
+/mob/proc/AltUnarmedAttack(atom/A, proximity_flag)
 	if(ismob(A))
 		DelayNextAction(CLICK_CD_MELEE)
 	return FALSE
 
-TYPE_PROC_REF(/mob, AltRangedAttack)(atom/A, params)
+/mob/proc/AltRangedAttack(atom/A, params)
 	return FALSE

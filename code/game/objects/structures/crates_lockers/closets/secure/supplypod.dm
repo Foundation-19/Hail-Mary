@@ -65,7 +65,7 @@
 	if(istype(src,/obj/structure/closet/supplypod/bluespacepod))
 		addtimer(CALLBACK(src, PROC_REF(sparks)), 30)//if bluespace, then 3 seconds after opening, make some sparks and delete
 
-TYPE_PROC_REF(/obj/structure/closet/supplypod, sparks)()//sparks cant be called from addtimer
+/obj/structure/closet/supplypod/proc/sparks()//sparks cant be called from addtimer
 	do_sparks(5, TRUE, src)
 	qdel(src)//no need for QDEL_IN if we already have a timer
 
@@ -117,12 +117,12 @@ TYPE_PROC_REF(/obj/structure/closet/supplypod, sparks)()//sparks cant be called 
 
 	addtimer(CALLBACK(src, PROC_REF(beginLaunch), SO, podID), delayTime)//standard pods take 3 seconds to come in, bluespace pods take 1.5
 
-TYPE_PROC_REF(/obj/effect/DPtarget, beginLaunch)(SO, podID)
+/obj/effect/DPtarget/proc/beginLaunch(SO, podID)
 	fallingPod = new /obj/effect/temp_visual/DPfall(drop_location(), podID)
 	animate(fallingPod, pixel_z = 0, time = 3, easing = LINEAR_EASING)//make and animate a falling pod
 	addtimer(CALLBACK(src, PROC_REF(endLaunch), SO, podID), 3, TIMER_CLIENT_TIME)//fall 0.3seconds
 
-TYPE_PROC_REF(/obj/effect/DPtarget, endLaunch)(SO, podID)
+/obj/effect/DPtarget/proc/endLaunch(SO, podID)
 	if(podID == POD_STANDARD)
 		new /obj/structure/closet/supplypod(drop_location(), SO)//pod is created
 		explosion(src,0,0,2, flame_range = 3) //less advanced equipment than bluespace pod, so larger explosion when landing

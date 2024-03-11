@@ -18,12 +18,12 @@
 	addtimer(CALLBACK(src, /datum.proc/_AddElement, list(/datum/element/beauty, impressiveness *  75)), 0)
 	AddComponent(/datum/component/simple_rotation, ROTATION_ALTCLICK | ROTATION_CLOCKWISE, CALLBACK(src, PROC_REF(can_user_rotate)), CALLBACK(src, PROC_REF(can_be_rotated)), null)
 
-TYPE_PROC_REF(/obj/structure/statue, can_be_rotated)(mob/user)
+/obj/structure/statue/proc/can_be_rotated(mob/user)
 	if(!anchored)
 		return TRUE
 	to_chat(user, span_warning("It's bolted to the floor, you'll need to unwrench it first."))
 
-TYPE_PROC_REF(/obj/structure/statue, can_user_rotate)(mob/user)
+/obj/structure/statue/proc/can_user_rotate(mob/user)
 	return user.canUseTopic(src, BE_CLOSE, FALSE, !iscyborg(user))
 
 /obj/structure/statue/attackby(obj/item/W, mob/living/user, params)
@@ -91,7 +91,7 @@ TYPE_PROC_REF(/obj/structure/statue, can_user_rotate)(mob/user)
 	radiate()
 	. = ..()
 
-TYPE_PROC_REF(/obj/structure/statue/uranium, radiate)()
+/obj/structure/statue/uranium/proc/radiate()
 	if(!active)
 		if(world.time > last_event+15)
 			active = 1
@@ -142,13 +142,13 @@ TYPE_PROC_REF(/obj/structure/statue/uranium, radiate)()
 	else
 		return ..()
 
-TYPE_PROC_REF(/obj/structure/statue/plasma, PlasmaBurn)(exposed_temperature)
+/obj/structure/statue/plasma/proc/PlasmaBurn(exposed_temperature)
 	if(QDELETED(src))
 		return
 	atmos_spawn_air("plasma=[oreAmount*10];TEMP=[exposed_temperature]")
 	deconstruct(FALSE)
 
-TYPE_PROC_REF(/obj/structure/statue/plasma, ignite)(exposed_temperature)
+/obj/structure/statue/plasma/proc/ignite(exposed_temperature)
 	if(exposed_temperature > 300)
 		PlasmaBurn(exposed_temperature)
 

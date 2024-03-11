@@ -21,15 +21,15 @@
 	var/mob/living/M = mob_override || owner.current
 	update_ninja_icons_removed(M)
 
-TYPE_PROC_REF(/datum/antagonist/ninja, equip_space_ninja)(mob/living/carbon/human/H = owner.current)
+/datum/antagonist/ninja/proc/equip_space_ninja(mob/living/carbon/human/H = owner.current)
 	return H.equipOutfit(/datum/outfit/ninja)
 
-TYPE_PROC_REF(/datum/antagonist/ninja, addMemories)()
+/datum/antagonist/ninja/proc/addMemories()
 	antag_memory += "I am an elite mercenary assassin of the mighty Spider Clan. A <font color='red'><B>SPACE NINJA</B></font>!<br>"
 	antag_memory += "Surprise is my weapon. Shadows are my armor. Without them, I am nothing. (//initialize your suit by clicking the initialize UI button, to use abilities like stealth)!<br>"
 	antag_memory += "Officially, [helping_station?"Nanotrasen":"The Syndicate"] are my employer.<br>"
 
-TYPE_PROC_REF(/datum/antagonist/ninja, addObjectives)(quantity = 6)
+/datum/antagonist/ninja/proc/addObjectives(quantity = 6)
 	var/list/possible_targets = list()
 	for(var/datum/mind/M in SSticker.minds)
 		if(M.current && M.current.stat != DEAD)
@@ -135,12 +135,12 @@ TYPE_PROC_REF(/datum/antagonist/ninja, addObjectives)(quantity = 6)
 	message_admins("[key_name_admin(admin)] has [adj] ninja'ed [new_owner.current].")
 	log_admin("[key_name(admin)] has [adj] ninja'ed [new_owner.current].")
 
-TYPE_PROC_REF(/datum/antagonist/ninja, update_ninja_icons_added)(mob/living/carbon/human/ninja)
+/datum/antagonist/ninja/proc/update_ninja_icons_added(mob/living/carbon/human/ninja)
 	var/datum/atom_hud/antag/ninjahud = GLOB.huds[ANTAG_HUD_NINJA]
 	ninjahud.join_hud(ninja)
 	set_antag_hud(ninja, "ninja")
 
-TYPE_PROC_REF(/datum/antagonist/ninja, update_ninja_icons_removed)(mob/living/carbon/human/ninja)
+/datum/antagonist/ninja/proc/update_ninja_icons_removed(mob/living/carbon/human/ninja)
 	var/datum/atom_hud/antag/ninjahud = GLOB.huds[ANTAG_HUD_NINJA]
 	ninjahud.leave_hud(ninja)
 	set_antag_hud(ninja, null)

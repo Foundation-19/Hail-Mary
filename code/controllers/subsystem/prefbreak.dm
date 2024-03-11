@@ -14,5 +14,5 @@ SUBSYSTEM_DEF(prefbreak) // ALL ABOARD THE S.S. PREFBREAK OFF TO **** YOUR *****
 
 //Update, Always returns false because the only things here are ERP, which should not happen on our server - Kirie
 //I really am gonna have to obliterate this code aren't I?
-TYPE_PROC_REF(/datum/controller/subsystem/prefbreak, allowed_by_prefs)(broken, index)
+/datum/controller/subsystem/prefbreak/proc/allowed_by_prefs(broken, index)
 	return FALSE

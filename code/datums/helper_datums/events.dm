@@ -17,7 +17,7 @@
 	events = null
 	return ..()
 
-TYPE_PROC_REF(/datum/events, addEventType)(event_type as text)
+/datum/events/proc/addEventType(event_type as text)
 	if(!(event_type in events) || !islist(events[event_type]))
 		events[event_type] = list()
 		return TRUE
@@ -25,7 +25,7 @@ TYPE_PROC_REF(/datum/events, addEventType)(event_type as text)
 
 //	Arguments: event_type as text, proc_holder as datum, proc_name as text
 //	Returns: New event, null on error.
-TYPE_PROC_REF(/datum/events, addEvent)(event_type as text, datum/callback/cb)
+/datum/events/proc/addEvent(event_type as text, datum/callback/cb)
 	if(!event_type || !cb)
 		return
 	addEventType(event_type)
@@ -35,7 +35,7 @@ TYPE_PROC_REF(/datum/events, addEvent)(event_type as text, datum/callback/cb)
 
 //  Arguments: event_type as text, any number of additional arguments to pass to event handler
 //  Returns: null
-TYPE_PROC_REF(/datum/events, fireEvent)(eventName, ...)
+/datum/events/proc/fireEvent(eventName, ...)
 	var/list/event = listgetindex(events,eventName)
 	if(istype(event))
 		for(var/E in event)
@@ -45,7 +45,7 @@ TYPE_PROC_REF(/datum/events, fireEvent)(eventName, ...)
 // Arguments: event_type as text, E as /datum/event
 // Returns: TRUE if event cleared, FALSE on error
 
-TYPE_PROC_REF(/datum/events, clearEvent)(event_type as text, datum/callback/cb)
+/datum/events/proc/clearEvent(event_type as text, datum/callback/cb)
 	if(!event_type || !cb)
 		return FALSE
 	var/list/event = listgetindex(events,event_type)

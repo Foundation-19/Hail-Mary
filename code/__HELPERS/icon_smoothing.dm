@@ -141,7 +141,7 @@
 		else
 			cardinal_smooth(A, adjacencies)
 
-TYPE_PROC_REF(/atom, diagonal_smooth)(adjacencies)
+/atom/proc/diagonal_smooth(adjacencies)
 	switch(adjacencies)
 		if(N_NORTH|N_WEST)
 			replace_smooth_overlays("d-se","d-se-0")
@@ -332,7 +332,7 @@ TYPE_PROC_REF(/atom, diagonal_smooth)(adjacencies)
 				else
 					queue_smooth(A)
 
-TYPE_PROC_REF(/atom, clear_smooth_overlays)()
+/atom/proc/clear_smooth_overlays()
 	cut_overlay(top_left_corner)
 	top_left_corner = null
 	cut_overlay(top_right_corner)
@@ -342,7 +342,7 @@ TYPE_PROC_REF(/atom, clear_smooth_overlays)()
 	cut_overlay(bottom_left_corner)
 	bottom_left_corner = null
 
-TYPE_PROC_REF(/atom, replace_smooth_overlays)(nw, ne, sw, se)
+/atom/proc/replace_smooth_overlays(nw, ne, sw, se)
 	clear_smooth_overlays()
 	var/list/O = list()
 	top_left_corner = nw
@@ -423,7 +423,7 @@ TYPE_PROC_REF(/atom, replace_smooth_overlays)(nw, ne, sw, se)
 	var/icon_type_smooth
 	var/junction
 
-TYPE_PROC_REF(/atom, recalculate_junction)()
+/atom/proc/recalculate_junction()
 	junction = 0
 
 	for(var/cdir in GLOB.cardinals)
@@ -436,5 +436,5 @@ TYPE_PROC_REF(/atom, recalculate_junction)()
 				junction |= cdir
 				break
 
-TYPE_PROC_REF(atom, relative)(custom_junction = junction)
+atom/proc/relative(custom_junction = junction)
 	icon_state = "[src.icon_type_smooth][custom_junction]"

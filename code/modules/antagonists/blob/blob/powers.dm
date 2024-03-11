@@ -1,4 +1,4 @@
-TYPE_PROC_REF(/mob/camera/blob, can_buy)(cost = 15)
+/mob/camera/blob/proc/can_buy(cost = 15)
 	if(blob_points < cost)
 		to_chat(src, span_warning("You cannot afford this, you need at least [cost] resources!"))
 		return 0
@@ -7,7 +7,7 @@ TYPE_PROC_REF(/mob/camera/blob, can_buy)(cost = 15)
 
 // Power verbs
 
-TYPE_PROC_REF(/mob/camera/blob, place_blob_core)(placement_override, pop_override = FALSE)
+/mob/camera/blob/proc/place_blob_core(placement_override, pop_override = FALSE)
 	if(placed && placement_override != -1)
 		return 1
 	if(!placement_override)
@@ -77,7 +77,7 @@ TYPE_PROC_REF(/mob/camera/blob, place_blob_core)(placement_override, pop_overrid
 		if(chosen_node)
 			forceMove(chosen_node.loc)
 
-TYPE_PROC_REF(/mob/camera/blob, createSpecial)(price, blobstrain, nearEquals, needsNode, turf/T)
+/mob/camera/blob/proc/createSpecial(price, blobstrain, nearEquals, needsNode, turf/T)
 	if(!T)
 		T = get_turf(src)
 	var/obj/structure/blob/B = (locate(/obj/structure/blob) in T)
@@ -117,7 +117,7 @@ TYPE_PROC_REF(/mob/camera/blob, createSpecial)(price, blobstrain, nearEquals, ne
 	set desc = "Create a shield blob, which will block fire and is hard to kill. Using this on an existing shield blob turns it into a reflective blob, capable of reflecting most projectiles but making it much weaker than usual to brute attacks."
 	create_shield()
 
-TYPE_PROC_REF(/mob/camera/blob, create_shield)(turf/T)
+/mob/camera/blob/proc/create_shield(turf/T)
 	var/obj/structure/blob/shield/S = locate(/obj/structure/blob/shield) in T
 	if(S)
 		if(!can_buy(BLOB_REFLECTOR_COST))
@@ -229,7 +229,7 @@ TYPE_PROC_REF(/mob/camera/blob, create_shield)(turf/T)
 	var/turf/T = get_turf(src)
 	remove_blob(T)
 
-TYPE_PROC_REF(/mob/camera/blob, remove_blob)(turf/T)
+/mob/camera/blob/proc/remove_blob(turf/T)
 	var/obj/structure/blob/B = locate() in T
 	if(!B)
 		to_chat(src, span_warning("There is no blob there!"))
@@ -252,7 +252,7 @@ TYPE_PROC_REF(/mob/camera/blob, remove_blob)(turf/T)
 	var/turf/T = get_turf(src)
 	expand_blob(T)
 
-TYPE_PROC_REF(/mob/camera/blob, expand_blob)(turf/T)
+/mob/camera/blob/proc/expand_blob(turf/T)
 	if(world.time < last_attack)
 		return
 	var/list/possibleblobs = list()
@@ -309,7 +309,7 @@ TYPE_PROC_REF(/mob/camera/blob, expand_blob)(turf/T)
 	var/turf/T = get_turf(src)
 	rally_spores(T)
 
-TYPE_PROC_REF(/mob/camera/blob, rally_spores)(turf/T)
+/mob/camera/blob/proc/rally_spores(turf/T)
 	to_chat(src, "You rally your spores.")
 	var/list/surrounding_turfs = block(locate(T.x - 1, T.y - 1, T.z), locate(T.x + 1, T.y + 1, T.z))
 	if(!surrounding_turfs.len)
@@ -345,7 +345,7 @@ TYPE_PROC_REF(/mob/camera/blob, rally_spores)(turf/T)
 			free_strain_rerolls--
 		last_reroll_time = world.time
 
-TYPE_PROC_REF(/mob/camera/blob, reroll_strain)()
+/mob/camera/blob/proc/reroll_strain()
 	var/list/choices = list()
 	while (length(choices) < 4)
 		var/datum/blobstrain/bs = pick((GLOB.valid_blobstrains))

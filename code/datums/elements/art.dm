@@ -26,7 +26,7 @@
 	UnregisterSignal(target, list(COMSIG_PARENT_EXAMINE, COMSIG_ATOM_ATTACK_HAND, COMSIG_ITEM_ATTACK_SELF))
 	return ..()
 
-TYPE_PROC_REF(/datum/element/art, apply_moodlet)(atom/source, mob/M, impress)
+/datum/element/art/proc/apply_moodlet(atom/source, mob/M, impress)
 	M.visible_message(span_notice("[M] stops and looks intently at [source]."), \
 						span_notice("You stop to take in [source]."))
 	switch(impress)
@@ -39,14 +39,14 @@ TYPE_PROC_REF(/datum/element/art, apply_moodlet)(atom/source, mob/M, impress)
 		if(GREAT_ART to INFINITY)
 			SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "artgreat", /datum/mood_event/artgreat)
 
-TYPE_PROC_REF(/datum/element/art, on_other_examine)(atom/source, mob/M)
+/datum/element/art/proc/on_other_examine(atom/source, mob/M)
 	apply_moodlet(source, M, impressiveness)
 
-TYPE_PROC_REF(/datum/element/art, on_obj_examine)(atom/source, mob/M)
+/datum/element/art/proc/on_obj_examine(atom/source, mob/M)
 	var/obj/O = source
 	apply_moodlet(source, M, impressiveness *(O.obj_integrity/O.max_integrity))
 
-TYPE_PROC_REF(/datum/element/art, on_attack_hand)(atom/source, mob/M)
+/datum/element/art/proc/on_attack_hand(atom/source, mob/M)
 	to_chat(M, span_notice("You start examining [source]..."))
 	if(!do_after(M, 20, target = source))
 		return

@@ -58,7 +58,7 @@
 	return TRUE
 
 
-TYPE_PROC_REF(/obj/machinery/clonepod/experimental, join_as_defective_clone)(mob/dead/observer/C)
+/obj/machinery/clonepod/experimental/proc/join_as_defective_clone(mob/dead/observer/C)
 	if(!C.client)
 		return FALSE
 
@@ -84,7 +84,7 @@ TYPE_PROC_REF(/obj/machinery/clonepod/experimental, join_as_defective_clone)(mob
 	H.key = C.key
 
 
-TYPE_PROC_REF(/obj/machinery/clonepod/experimental, finish_cloning)()
+/obj/machinery/clonepod/experimental/proc/finish_cloning()
 	var/mob/living/carbon/human/H = locate() in contents
 
 	if(!H)
@@ -133,19 +133,19 @@ TYPE_PROC_REF(/obj/machinery/clonepod/experimental, finish_cloning)()
 		pods = null
 	return ..()
 
-TYPE_PROC_REF(/obj/machinery/computer/prototype_cloning, GetAvailablePod)(mind = null)
+/obj/machinery/computer/prototype_cloning/proc/GetAvailablePod(mind = null)
 	if(pods)
 		for(var/P in pods)
 			var/obj/machinery/clonepod/experimental/pod = P
 			if(pod.is_operational() && !(pod.occupant || pod.mess))
 				return pod
 
-TYPE_PROC_REF(/obj/machinery/computer/prototype_cloning, updatemodules)(findfirstcloner)
+/obj/machinery/computer/prototype_cloning/proc/updatemodules(findfirstcloner)
 	scanner = findscanner()
 	if(findfirstcloner && !LAZYLEN(pods))
 		findcloner()
 
-TYPE_PROC_REF(/obj/machinery/computer/prototype_cloning, findscanner)()
+/obj/machinery/computer/prototype_cloning/proc/findscanner()
 	var/obj/machinery/dna_scannernew/scannerf = null
 
 	// Loop through every direction
@@ -159,19 +159,19 @@ TYPE_PROC_REF(/obj/machinery/computer/prototype_cloning, findscanner)()
 	// If no scanner was found, it will return null
 	return null
 
-TYPE_PROC_REF(/obj/machinery/computer/prototype_cloning, findcloner)()
+/obj/machinery/computer/prototype_cloning/proc/findcloner()
 	var/obj/machinery/clonepod/experimental/podf = null
 	for(var/direction in GLOB.cardinals)
 		podf = locate(/obj/machinery/clonepod/experimental, get_step(src, direction))
 		if (!isnull(podf) && podf.is_operational())
 			AttachCloner(podf)
 
-TYPE_PROC_REF(/obj/machinery/computer/prototype_cloning, AttachCloner)(obj/machinery/clonepod/experimental/pod)
+/obj/machinery/computer/prototype_cloning/proc/AttachCloner(obj/machinery/clonepod/experimental/pod)
 	if(!pod.connected)
 		pod.connected = src
 		LAZYADD(pods, pod)
 
-TYPE_PROC_REF(/obj/machinery/computer/prototype_cloning, DetachCloner)(obj/machinery/clonepod/experimental/pod)
+/obj/machinery/computer/prototype_cloning/proc/DetachCloner(obj/machinery/clonepod/experimental/pod)
 	pod.connected = null
 	LAZYREMOVE(pods, pod)
 
@@ -289,7 +289,7 @@ TYPE_PROC_REF(/obj/machinery/computer/prototype_cloning, DetachCloner)(obj/machi
 	updateUsrDialog()
 	return
 
-TYPE_PROC_REF(/obj/machinery/computer/prototype_cloning, clone_occupant)(occupant)
+/obj/machinery/computer/prototype_cloning/proc/clone_occupant(occupant)
 	var/mob/living/mob_occupant = get_mob_or_brainmob(occupant)
 	var/datum/dna/dna
 	if(ishuman(mob_occupant))

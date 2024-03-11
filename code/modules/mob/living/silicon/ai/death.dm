@@ -42,7 +42,7 @@
 	else if(istype(loc, /obj/item/aicard))
 		loc.icon_state = "aicard-404"
 
-TYPE_PROC_REF(/mob/living/silicon/ai, ShutOffDoomsdayDevice)()
+/mob/living/silicon/ai/proc/ShutOffDoomsdayDevice()
 	if(nuking)
 		set_security_level("red")
 		nuking = FALSE

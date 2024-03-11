@@ -116,7 +116,7 @@
 	updateUsrDialog()
 	return
 
-TYPE_PROC_REF(/obj/machinery/limbgrower, build_item)()
+/obj/machinery/limbgrower/proc/build_item()
 	if(reagents.has_reagent(/datum/reagent/medicine/synthflesh, being_built.reagents_list[/datum/reagent/medicine/synthflesh]*prod_coeff))	//sanity check, if this happens we are in big trouble
 		reagents.remove_reagent(/datum/reagent/medicine/synthflesh, being_built.reagents_list[/datum/reagent/medicine/synthflesh]*prod_coeff)
 		var/buildpath = being_built.build_path
@@ -132,7 +132,7 @@ TYPE_PROC_REF(/obj/machinery/limbgrower, build_item)()
 	icon_state = "limbgrower_idleoff"
 	updateUsrDialog()
 
-TYPE_PROC_REF(/obj/machinery/limbgrower, build_limb)(buildpath)
+/obj/machinery/limbgrower/proc/build_limb(buildpath)
 	//i need to create a body part manually using a set icon (otherwise it doesnt appear)
 	var/obj/item/bodypart/limb
 	limb = new buildpath(loc)
@@ -164,7 +164,7 @@ TYPE_PROC_REF(/obj/machinery/limbgrower, build_limb)(buildpath)
 	if(in_range(user, src) || isobserver(user))
 		. += "<span class='notice'>The status display reads: Storing up to <b>[reagents.maximum_volume]u</b> of synthflesh.<br>Synthflesh consumption at <b>[prod_coeff*100]%</b>.<span>"
 
-TYPE_PROC_REF(/obj/machinery/limbgrower, main_win)(mob/user)
+/obj/machinery/limbgrower/proc/main_win(mob/user)
 	var/dat = "<div class='statusDisplay'><h3>Limb Grower Menu:</h3><br>"
 	dat += "<A href='?src=[REF(src)];menu=[LIMBGROWER_CHEMICAL_MENU]'>Chemical Storage</A>"
 	dat += materials_printout()
@@ -178,7 +178,7 @@ TYPE_PROC_REF(/obj/machinery/limbgrower, main_win)(mob/user)
 	dat += "</tr></table></div>"
 	return dat
 
-TYPE_PROC_REF(/obj/machinery/limbgrower, category_win)(mob/user,selected_category)
+/obj/machinery/limbgrower/proc/category_win(mob/user,selected_category)
 	var/dat = "<A href='?src=[REF(src)];menu=[LIMBGROWER_MAIN_MENU]'>Return to main menu</A>"
 	dat += "<div class='statusDisplay'><h3>Browsing [selected_category]:</h3><br>"
 	dat += materials_printout()
@@ -197,7 +197,7 @@ TYPE_PROC_REF(/obj/machinery/limbgrower, category_win)(mob/user,selected_categor
 	return dat
 
 
-TYPE_PROC_REF(/obj/machinery/limbgrower, chemical_win)(mob/user)
+/obj/machinery/limbgrower/proc/chemical_win(mob/user)
 	var/dat = "<A href='?src=[REF(src)];menu=[LIMBGROWER_MAIN_MENU]'>Return to main menu</A>"
 	dat += "<div class='statusDisplay'><h3>Browsing Chemical Storage:</h3><br>"
 	dat += materials_printout()
@@ -209,14 +209,14 @@ TYPE_PROC_REF(/obj/machinery/limbgrower, chemical_win)(mob/user)
 	dat += "</div>"
 	return dat
 
-TYPE_PROC_REF(/obj/machinery/limbgrower, materials_printout)()
+/obj/machinery/limbgrower/proc/materials_printout()
 	var/dat = "<b>Total amount:></b> [reagents.total_volume] / [reagents.maximum_volume] cm<sup>3</sup><br>"
 	return dat
 
-TYPE_PROC_REF(/obj/machinery/limbgrower, can_build)(datum/design/D)
+/obj/machinery/limbgrower/proc/can_build(datum/design/D)
 	return (reagents.has_reagent(/datum/reagent/medicine/synthflesh, D.reagents_list[/datum/reagent/medicine/synthflesh]*prod_coeff)) //Return whether the machine has enough synthflesh to produce the design
 
-TYPE_PROC_REF(/obj/machinery/limbgrower, get_design_cost)(datum/design/D)
+/obj/machinery/limbgrower/proc/get_design_cost(datum/design/D)
 	var/dat
 	if(D.reagents_list["synthflesh"])
 		dat += "[D.reagents_list[/datum/reagent/medicine/synthflesh] * prod_coeff] Synthetic flesh "

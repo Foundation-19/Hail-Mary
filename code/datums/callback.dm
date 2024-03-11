@@ -44,9 +44,9 @@
  *
  * proc defined on a parent of a some type
  *
- * `TYPE_PROC_REF(/some/type, some_proc_here)`
+ * `/some/type/.proc/some_proc_here`
  *
- * Otherwise you must always provide the full typepath of the proc (TYPE_PROC_REF(/type/of/thing, procname))
+ * Otherwise you must always provide the full typepath of the proc (/type/of/thing/proc/procname)
  */
 /datum/callback
 
@@ -83,7 +83,7 @@
  * * proctocall Proc to call on that object
  * * ... optional list of arguments to pass as arguments to the proc being called
  */
-TYPE_PROC_REF(/world, ImmediateInvokeAsync)(thingtocall, proctocall, ...)
+/world/proc/ImmediateInvokeAsync(thingtocall, proctocall, ...)
 	set waitfor = FALSE
 
 	if (!thingtocall)
@@ -104,7 +104,7 @@ TYPE_PROC_REF(/world, ImmediateInvokeAsync)(thingtocall, proctocall, ...)
  *
  * If the datum being called on is varedited, the call is wrapped via WrapAdminProcCall
  */
-TYPE_PROC_REF(/datum/callback, Invoke)(...)
+/datum/callback/proc/Invoke(...)
 	if(!usr)
 		var/datum/weakref/W = user
 		if(W)
@@ -137,7 +137,7 @@ TYPE_PROC_REF(/datum/callback, Invoke)(...)
  *
  * If the datum being called on is varedited, the call is wrapped via WrapAdminProcCall
  */
-TYPE_PROC_REF(/datum/callback, InvokeAsync)(...)
+/datum/callback/proc/InvokeAsync(...)
 	set waitfor = FALSE
 
 	if(!usr)
@@ -178,7 +178,7 @@ TYPE_PROC_REF(/datum/callback, InvokeAsync)(...)
 		finished = new(count)
 
 
-TYPE_PROC_REF(/datum/callback_select, invoke_callback)(index, datum/callback/callback, list/callback_args, savereturn = TRUE)
+/datum/callback_select/proc/invoke_callback(index, datum/callback/callback, list/callback_args, savereturn = TRUE)
 	set waitfor = FALSE
 	if (!callback || !istype(callback))
 		//This check only exists because the alternative is callback_select would block forever if given invalid data

@@ -39,7 +39,7 @@
  *
  * This proc is called whenever a new eldritch knowledge is added to an antag datum
  */
-TYPE_PROC_REF(/datum/eldritch_knowledge, on_gain)(mob/user)
+/datum/eldritch_knowledge/proc/on_gain(mob/user)
 	to_chat(user, span_warning("[gain_text]"))
 	return
 /**
@@ -47,14 +47,14 @@ TYPE_PROC_REF(/datum/eldritch_knowledge, on_gain)(mob/user)
  *
  * This proc is called whenever antagonist looses his antag datum, put cleanup code in here
  */
-TYPE_PROC_REF(/datum/eldritch_knowledge, on_lose)(mob/user)
+/datum/eldritch_knowledge/proc/on_lose(mob/user)
 	return
 /**
  * What happens every tick
  *
  * This proc is called on SSprocess in eldritch cultist antag datum. SSprocess happens roughly every second
  */
-TYPE_PROC_REF(/datum/eldritch_knowledge, on_life)(mob/user)
+/datum/eldritch_knowledge/proc/on_life(mob/user)
 	return
 
 /**
@@ -62,7 +62,7 @@ TYPE_PROC_REF(/datum/eldritch_knowledge, on_life)(mob/user)
  *
  * If you are adding a more complex summoning or something that requires a special check that parses through all the atoms in an area override this.
  */
-TYPE_PROC_REF(/datum/eldritch_knowledge, recipe_snowflake_check)(list/atoms,loc)
+/datum/eldritch_knowledge/proc/recipe_snowflake_check(list/atoms,loc)
 	return TRUE
 
 /**
@@ -70,7 +70,7 @@ TYPE_PROC_REF(/datum/eldritch_knowledge, recipe_snowflake_check)(list/atoms,loc)
  *
  * By default this proc creates atoms from result_atoms list. Override this is you want something else to happen.
  */
-TYPE_PROC_REF(/datum/eldritch_knowledge, on_finished_recipe)(mob/living/user,list/atoms,loc)
+/datum/eldritch_knowledge/proc/on_finished_recipe(mob/living/user,list/atoms,loc)
 	if(result_atoms.len == 0)
 		return FALSE
 
@@ -84,7 +84,7 @@ TYPE_PROC_REF(/datum/eldritch_knowledge, on_finished_recipe)(mob/living/user,lis
  *
  * Overide this proc if you dont want ALL ATOMS to be destroyed. useful in many situations.
  */
-TYPE_PROC_REF(/datum/eldritch_knowledge, cleanup_atoms)(list/atoms)
+/datum/eldritch_knowledge/proc/cleanup_atoms(list/atoms)
 	for(var/X in atoms)
 		var/atom/A = X
 		if(!isliving(A))
@@ -97,7 +97,7 @@ TYPE_PROC_REF(/datum/eldritch_knowledge, cleanup_atoms)(list/atoms)
  *
  * Gives addtional effects to mansus grasp spell
  */
-TYPE_PROC_REF(/datum/eldritch_knowledge, on_mansus_grasp)(atom/target, mob/user, proximity_flag, click_parameters)
+/datum/eldritch_knowledge/proc/on_mansus_grasp(atom/target, mob/user, proximity_flag, click_parameters)
 	return FALSE
 
 
@@ -106,7 +106,7 @@ TYPE_PROC_REF(/datum/eldritch_knowledge, on_mansus_grasp)(atom/target, mob/user,
  *
  * Gives addtional effects to sickly blade weapon
  */
-TYPE_PROC_REF(/datum/eldritch_knowledge, on_eldritch_blade)(target,user,proximity_flag,click_parameters)
+/datum/eldritch_knowledge/proc/on_eldritch_blade(target,user,proximity_flag,click_parameters)
 	return
 
 //////////////
@@ -160,10 +160,10 @@ TYPE_PROC_REF(/datum/eldritch_knowledge, on_eldritch_blade)(target,user,proximit
 	addtimer(CALLBACK(src, PROC_REF(uncurse), compiled_list[chosen_mob]),timer)
 	return TRUE
 
-TYPE_PROC_REF(/datum/eldritch_knowledge/curse, curse)(mob/living/chosen_mob)
+/datum/eldritch_knowledge/curse/proc/curse(mob/living/chosen_mob)
 	return
 
-TYPE_PROC_REF(/datum/eldritch_knowledge/curse, uncurse)(mob/living/chosen_mob)
+/datum/eldritch_knowledge/curse/proc/uncurse(mob/living/chosen_mob)
 	return
 
 /datum/eldritch_knowledge/summon

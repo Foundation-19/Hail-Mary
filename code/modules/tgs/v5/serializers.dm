@@ -1,7 +1,7 @@
-TYPE_PROC_REF(/datum/tgs_message_content, _interop_serialize)()
+/datum/tgs_message_content/proc/_interop_serialize()
 	return list("text" = text, "embed" = embed?._interop_serialize())
 
-TYPE_PROC_REF(/datum/tgs_chat_embed, _interop_serialize)()
+/datum/tgs_chat_embed/proc/_interop_serialize()
 	CRASH("Base GLOBAL_PROC_REF(interop_serialize) called on [type]!")
 
 /datum/tgs_chat_embed/structure/_interop_serialize()

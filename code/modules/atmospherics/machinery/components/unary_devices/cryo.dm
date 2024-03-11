@@ -139,7 +139,7 @@
 		icon_state = "pod-off"
 		add_overlay("cover-off")
 
-TYPE_PROC_REF(/obj/machinery/atmospherics/components/unary/cryo_cell, run_anim)(anim_up, image/occupant_overlay)
+/obj/machinery/atmospherics/components/unary/cryo_cell/proc/run_anim(anim_up, image/occupant_overlay)
 	if(!on || !occupant || !is_operational())
 		running_anim = FALSE
 		return

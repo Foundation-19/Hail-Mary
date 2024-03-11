@@ -1,4 +1,4 @@
-TYPE_PROC_REF(/client, cmd_admin_drop_everything)(mob/M in GLOB.mob_list)
+/client/proc/cmd_admin_drop_everything(mob/M in GLOB.mob_list)
 	set category = null
 	set name = "Drop Everything"
 	if(!check_rights(R_ADMIN))
@@ -19,7 +19,7 @@ TYPE_PROC_REF(/client, cmd_admin_drop_everything)(mob/M in GLOB.mob_list)
 	admin_ticket_log(M, msg)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Drop Everything") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-TYPE_PROC_REF(/client, cmd_admin_subtle_message)(mob/M in GLOB.mob_list)
+/client/proc/cmd_admin_subtle_message(mob/M in GLOB.mob_list)
 	set category = "Admin.Events"
 	set name = "Subtle Message"
 
@@ -47,13 +47,13 @@ TYPE_PROC_REF(/client, cmd_admin_subtle_message)(mob/M in GLOB.mob_list)
 	admin_ticket_log(M, msg)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Subtle Message") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-TYPE_PROC_REF(/client, cmd_admin_headset_message)(mob/M in GLOB.mob_list)
+/client/proc/cmd_admin_headset_message(mob/M in GLOB.mob_list)
 	set category = "Admin.Events"
 	set name = "Headset Message"
 
 	admin_headset_message(M)
 
-TYPE_PROC_REF(/client, admin_headset_message)(mob/M in GLOB.mob_list, sender = null)
+/client/proc/admin_headset_message(mob/M in GLOB.mob_list, sender = null)
 	var/mob/living/carbon/human/H = M
 
 	if(!check_rights(R_ADMIN))
@@ -85,7 +85,7 @@ TYPE_PROC_REF(/client, admin_headset_message)(mob/M in GLOB.mob_list, sender = n
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Headset Message") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-TYPE_PROC_REF(/client, cmd_admin_mod_antag_rep)(client/C in GLOB.clients, operation)
+/client/proc/cmd_admin_mod_antag_rep(client/C in GLOB.clients, operation)
 	set category = "Special Verbs"
 	set name = "Modify Antagonist Reputation"
 
@@ -133,7 +133,7 @@ TYPE_PROC_REF(/client, cmd_admin_mod_antag_rep)(client/C in GLOB.clients, operat
 	message_admins(span_adminnotice("[key_name_admin(usr)]: Modified [key_name(C)]'s antagonist reputation ([log_text])"))
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Modify Antagonist Reputation") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-TYPE_PROC_REF(/client, cmd_admin_world_narrate)()
+/client/proc/cmd_admin_world_narrate()
 	set category = "Admin.Events"
 	set name = "Global Narrate"
 
@@ -151,7 +151,7 @@ TYPE_PROC_REF(/client, cmd_admin_world_narrate)()
 	message_admins(span_adminnotice("[key_name_admin(usr)] Sent a global narrate"))
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Global Narrate") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-TYPE_PROC_REF(/client, cmd_admin_direct_narrate)(mob/M)
+/client/proc/cmd_admin_direct_narrate(mob/M)
 	set category = "Admin.Events"
 	set name = "Direct Narrate"
 
@@ -178,7 +178,7 @@ TYPE_PROC_REF(/client, cmd_admin_direct_narrate)(mob/M)
 	admin_ticket_log(M, msg)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Direct Narrate") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-TYPE_PROC_REF(/client, cmd_admin_local_narrate)(atom/A)
+/client/proc/cmd_admin_local_narrate(atom/A)
 	set category = "Admin.Events"
 	set name = "Local Narrate"
 
@@ -201,7 +201,7 @@ TYPE_PROC_REF(/client, cmd_admin_local_narrate)(atom/A)
 	message_admins("<span class='adminnotice'><b> LocalNarrate: [key_name_admin(usr)] at [ADMIN_VERBOSEJMP(A)]:</b> [msg]<BR></span>")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Local Narrate") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-TYPE_PROC_REF(/client, cmd_admin_godmode)(mob/M in GLOB.mob_list)
+/client/proc/cmd_admin_godmode(mob/M in GLOB.mob_list)
 	set category = "Admin.Game"
 	set name = "Godmode"
 	if(!check_rights(R_SPAWN)) //fortuna edit. event manager change
@@ -348,7 +348,7 @@ If a guy was gibbed and you want to revive him, this is a good way to do so.
 Works kind of like entering the game with a new character. Character receives a new mind if they didn't have one.
 Traitors and the like can also be revived with the previous role mostly intact.
 /N */
-TYPE_PROC_REF(/client, respawn_character)()
+/client/proc/respawn_character()
 	set category = "Admin.Game"
 	set name = "Respawn Character"
 	set desc = "Respawn a person that has been gibbed/dusted/killed. They must be a ghost for this to work and preferably should not have a body to go back into."
@@ -518,7 +518,7 @@ TYPE_PROC_REF(/client, respawn_character)()
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Respawn Character") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	return new_character
 
-TYPE_PROC_REF(/client, cmd_admin_add_freeform_ai_law)()
+/client/proc/cmd_admin_add_freeform_ai_law()
 	set category = "Admin.Events"
 	set name = "Add Custom AI law"
 
@@ -543,7 +543,7 @@ TYPE_PROC_REF(/client, cmd_admin_add_freeform_ai_law)()
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Add Custom AI Law") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-TYPE_PROC_REF(/client, cmd_admin_rejuvenate)(mob/living/M in GLOB.mob_list)
+/client/proc/cmd_admin_rejuvenate(mob/living/M in GLOB.mob_list)
 	set category = "Special Verbs"
 	set name = "Rejuvenate"
 
@@ -565,7 +565,7 @@ TYPE_PROC_REF(/client, cmd_admin_rejuvenate)(mob/living/M in GLOB.mob_list)
 	admin_ticket_log(M, msg)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Rejuvinate") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-TYPE_PROC_REF(/client, cmd_admin_create_centcom_report)()
+/client/proc/cmd_admin_create_centcom_report()
 	set category = "Admin.Events"
 	set name = "Create Command Report"
 
@@ -593,7 +593,7 @@ TYPE_PROC_REF(/client, cmd_admin_create_centcom_report)()
 	message_admins("[key_name_admin(src)] has created a command report")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Create Command Report") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-TYPE_PROC_REF(/client, cmd_admin_make_priority_announcement)()
+/client/proc/cmd_admin_make_priority_announcement()
 	set category = "Admin.Events"
 	set name = "Make Priority Announcement"
 
@@ -615,7 +615,7 @@ TYPE_PROC_REF(/client, cmd_admin_make_priority_announcement)()
 	message_admins("[key_name_admin(src)] has made a priority announcement")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Make Priority Announcement") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-TYPE_PROC_REF(/client, cmd_change_command_name)()
+/client/proc/cmd_change_command_name()
 	set category = "Admin.Events"
 	set name = "Change Command Name"
 
@@ -631,7 +631,7 @@ TYPE_PROC_REF(/client, cmd_change_command_name)()
 	message_admins("[key_name_admin(src)] has changed Central Command's name to [input]")
 	log_admin("[key_name(src)] has changed the Central Command name to: [input]")
 
-TYPE_PROC_REF(/client, cmd_admin_delete)(atom/A as obj|mob|turf in world)
+/client/proc/cmd_admin_delete(atom/A as obj|mob|turf in world)
 	set category = "Admin"
 	set name = "Delete"
 
@@ -640,7 +640,7 @@ TYPE_PROC_REF(/client, cmd_admin_delete)(atom/A as obj|mob|turf in world)
 
 	admin_delete(A)
 
-TYPE_PROC_REF(/client, cmd_admin_list_open_jobs)()
+/client/proc/cmd_admin_list_open_jobs()
 	set category = "Admin.Game"
 	set name = "Manage Job Slots"
 
@@ -651,7 +651,7 @@ TYPE_PROC_REF(/client, cmd_admin_list_open_jobs)()
 	holder.manage_free_slots()
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Manage Job Slots") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-TYPE_PROC_REF(/client, cmd_admin_explosion)(atom/O as obj|mob|turf in world)
+/client/proc/cmd_admin_explosion(atom/O as obj|mob|turf in world)
 	set category =  "Admin.Fun"
 	set name = "Explosion"
 
@@ -689,7 +689,7 @@ TYPE_PROC_REF(/client, cmd_admin_explosion)(atom/O as obj|mob|turf in world)
 	else
 		return
 
-TYPE_PROC_REF(/client, cmd_admin_emp)(atom/O as obj|mob|turf in world)
+/client/proc/cmd_admin_emp(atom/O as obj|mob|turf in world)
 	set category = "Admin.Fun"
 	set name = "EM Pulse"
 
@@ -707,7 +707,7 @@ TYPE_PROC_REF(/client, cmd_admin_emp)(atom/O as obj|mob|turf in world)
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "EM Pulse") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-TYPE_PROC_REF(/client, cmd_admin_gib)(mob/M in GLOB.mob_list)
+/client/proc/cmd_admin_gib(mob/M in GLOB.mob_list)
 	set category = "Admin.Fun"
 	set name = "Gib"
 
@@ -735,7 +735,7 @@ TYPE_PROC_REF(/client, cmd_admin_gib)(mob/M in GLOB.mob_list)
 		M.gib(1)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Gib") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-TYPE_PROC_REF(/client, cmd_admin_gib_self)()
+/client/proc/cmd_admin_gib_self()
 	set name = "Gibself"
 	set category = "Admin.Fun"
 
@@ -746,7 +746,7 @@ TYPE_PROC_REF(/client, cmd_admin_gib_self)()
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Gib Self") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 		mob.gib(1, 1, 1)
 
-TYPE_PROC_REF(/client, cmd_admin_check_contents)(mob/living/M in GLOB.mob_list)
+/client/proc/cmd_admin_check_contents(mob/living/M in GLOB.mob_list)
 	set category = "Special Verbs"
 	set name = "Check Contents"
 
@@ -755,7 +755,7 @@ TYPE_PROC_REF(/client, cmd_admin_check_contents)(mob/living/M in GLOB.mob_list)
 		to_chat(usr, "[t]")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Check Contents") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-TYPE_PROC_REF(/client, toggle_view_range)()
+/client/proc/toggle_view_range()
 	set category = "Admin.Game"
 	set name = "Change View Range"
 	set desc = "switches between 1x and custom views"
@@ -769,7 +769,7 @@ TYPE_PROC_REF(/client, toggle_view_range)()
 
 	SSblackbox.record_feedback("nested tally", "admin_toggle", 1, list("Change View Range", "[view]")) //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-TYPE_PROC_REF(/client, admin_call_shuttle)()
+/client/proc/admin_call_shuttle()
 	set category = "Admin.Events"
 	set name = "Call Train"
 
@@ -791,7 +791,7 @@ TYPE_PROC_REF(/client, admin_call_shuttle)()
 	message_admins(span_adminnotice("[key_name_admin(usr)] admin-called the train."))
 	return
 
-TYPE_PROC_REF(/client, admin_cancel_shuttle)()
+/client/proc/admin_cancel_shuttle()
 	set category = "Admin.Events"
 	set name = "Cancel Train"
 	if(!check_rights(0))
@@ -809,7 +809,7 @@ TYPE_PROC_REF(/client, admin_cancel_shuttle)()
 
 	return
 /*
-TYPE_PROC_REF(/client, admin_disable_shuttle)()
+/client/proc/admin_disable_shuttle()
 	set category = "Admin.Events"
 	set name = "Disable Shuttle"
 
@@ -830,7 +830,7 @@ TYPE_PROC_REF(/client, admin_disable_shuttle)()
 	SSshuttle.emergency.mode = SHUTTLE_DISABLED
 	priority_announce("Warning: Emergency Shuttle uplink failure, shuttle disabled until further notice.", "Emergency Shuttle Uplink Alert", 'sound/misc/announce_dig.ogg')
 
-TYPE_PROC_REF(/client, admin_enable_shuttle)()
+/client/proc/admin_enable_shuttle()
 	set category = "Admin - Events"
 	set category = "Admin.Events"
 	set name = "Enable Shuttle"
@@ -855,7 +855,7 @@ TYPE_PROC_REF(/client, admin_enable_shuttle)()
 	SSshuttle.emergency.setTimer(SSshuttle.lastCallTime)
 	priority_announce("Warning: Emergency Shuttle uplink reestablished, shuttle enabled.", "Emergency Shuttle Uplink Alert", 'sound/misc/announce_dig.ogg')
 */
-TYPE_PROC_REF(/client, everyone_random)()
+/client/proc/everyone_random()
 	set category = "Admin.Fun"
 	set name = "Make Everyone Random"
 	set desc = "Make everyone have a random appearance. You can only use this before rounds!"
@@ -888,7 +888,7 @@ TYPE_PROC_REF(/client, everyone_random)()
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Make Everyone Random") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 
-TYPE_PROC_REF(/client, toggle_random_events)()
+/client/proc/toggle_random_events()
 	set category = "Server"
 	set name = "Toggle random events on/off"
 	set desc = "Toggles random events such as meteors, black holes, blob (but not space dust) on/off"
@@ -903,7 +903,7 @@ TYPE_PROC_REF(/client, toggle_random_events)()
 	SSblackbox.record_feedback("nested tally", "admin_toggle", 1, list("Toggle Random Events", "[new_are ? "Enabled" : "Disabled"]")) //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 
-TYPE_PROC_REF(/client, admin_change_sec_level)()
+/client/proc/admin_change_sec_level()
 	set category = "Admin.Events"
 	set name = "Set Security Level"
 	set desc = "Changes the security level. Announcement only, i.e. setting to Delta won't activate nuke"
@@ -921,7 +921,7 @@ TYPE_PROC_REF(/client, admin_change_sec_level)()
 		message_admins("[key_name_admin(usr)] changed the security level to [level]")
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Set Security Level [capitalize(level)]") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-TYPE_PROC_REF(/client, toggle_nuke)(obj/machinery/nuclearbomb/N in GLOB.nuke_list)
+/client/proc/toggle_nuke(obj/machinery/nuclearbomb/N in GLOB.nuke_list)
 	set name = "Toggle Nuke"
 	set category = "Admin.Events"
 	set popup_menu = 0
@@ -942,7 +942,7 @@ TYPE_PROC_REF(/client, toggle_nuke)(obj/machinery/nuclearbomb/N in GLOB.nuke_lis
 
 GLOBAL_LIST_EMPTY(custom_outfits) //Admin created outfits
 
-TYPE_PROC_REF(/client, create_outfits)()
+/client/proc/create_outfits()
 	set category = "Debug"
 	set name = "Create Custom Outfit"
 
@@ -951,7 +951,7 @@ TYPE_PROC_REF(/client, create_outfits)()
 
 	holder.create_outfit()
 
-TYPE_PROC_REF(/datum/admins, create_outfit)()
+/datum/admins/proc/create_outfit()
 	var/list/uniforms = typesof(/obj/item/clothing/under)
 	var/list/suits = typesof(/obj/item/clothing/suit)
 	var/list/gloves = typesof(/obj/item/clothing/gloves)
@@ -1117,7 +1117,7 @@ TYPE_PROC_REF(/datum/admins, create_outfit)()
 	"}
 	usr << browse(dat, "window=dressup;size=550x600")
 
-TYPE_PROC_REF(/client, toggle_combo_hud)()
+/client/proc/toggle_combo_hud()
 	set category = "Admin.Game"
 	set name = "Toggle Combo HUD"
 	set desc = "Toggles the Admin Combo HUD (antag, sci, med, eng)"
@@ -1149,12 +1149,12 @@ TYPE_PROC_REF(/client, toggle_combo_hud)()
 	SSblackbox.record_feedback("nested tally", "admin_toggle", 1, list("Toggle Combo HUD", "[adding_hud ? "Enabled" : "Disabled"]")) //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 
-TYPE_PROC_REF(/client, has_antag_hud)()
+/client/proc/has_antag_hud()
 	var/datum/atom_hud/A = GLOB.huds[ANTAG_HUD_TRAITOR]
 	return A.hudusers[mob]
 
 
-TYPE_PROC_REF(/client, run_weather)()
+/client/proc/run_weather()
 	set category = "Admin.Events"
 	set name = "Run Weather"
 	set desc = "Triggers a weather on the z-level you choose."
@@ -1172,7 +1172,7 @@ TYPE_PROC_REF(/client, run_weather)()
 	log_admin("[key_name(usr)] started weather of type [weather_type].")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Run Weather")
 
-TYPE_PROC_REF(/client, mass_zombie_infection)()
+/client/proc/mass_zombie_infection()
 	set category = "Admin.Fun"
 	set name = "Mass Zombie Infection"
 	set desc = "Infects all humans with a latent organ that will zombify \
@@ -1194,7 +1194,7 @@ TYPE_PROC_REF(/client, mass_zombie_infection)()
 	log_admin("[key_name(usr)] added a latent zombie infection to all humans.")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Mass Zombie Infection")
 
-TYPE_PROC_REF(/client, mass_zombie_cure)()
+/client/proc/mass_zombie_cure()
 	set category = "Admin.Fun"
 	set name = "Mass Zombie Cure"
 	set desc = "Removes the zombie infection from all humans, returning them to normal."
@@ -1214,7 +1214,7 @@ TYPE_PROC_REF(/client, mass_zombie_cure)()
 	log_admin("[key_name(usr)] cured all zombies.")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Mass Zombie Cure")
 
-TYPE_PROC_REF(/client, polymorph_all)()
+/client/proc/polymorph_all()
 	set category = "Admin.Fun"
 	set name = "Polymorph All"
 	set desc = "Applies the effects of the bolt of change to every single mob."
@@ -1249,7 +1249,7 @@ TYPE_PROC_REF(/client, polymorph_all)()
 	message_admins("Mass polymorph started by [who_did_it] is complete.")
 
 
-TYPE_PROC_REF(/client, show_tip)()
+/client/proc/show_tip()
 	set category = "Admin"
 	set name = "Show Tip"
 	set desc = "Sends a tip (that you specify) to all players. After all \
@@ -1278,7 +1278,7 @@ TYPE_PROC_REF(/client, show_tip)()
 	log_admin("[key_name(usr)] sent \"[input]\" as the Tip of the Round.")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Show Tip")
 
-TYPE_PROC_REF(/client, modify_goals)()
+/client/proc/modify_goals()
 	set category = "Debug"
 	set name = "Modify goals"
 
@@ -1289,7 +1289,7 @@ TYPE_PROC_REF(/client, modify_goals)()
 
 	holder.modify_goals()
 
-TYPE_PROC_REF(/datum/admins, modify_goals)()
+/datum/admins/proc/modify_goals()
 	var/dat = ""
 	for(var/datum/station_goal/S in SSticker.mode.station_goals)
 		dat += "[S.name] - <a href='?src=[REF(S)];[HrefToken()];announce=1'>Announce</a> | <a href='?src=[REF(S)];[HrefToken()];remove=1'>Remove</a><br>"
@@ -1297,7 +1297,7 @@ TYPE_PROC_REF(/datum/admins, modify_goals)()
 	usr << browse(dat, "window=goals;size=400x400")
 
 
-TYPE_PROC_REF(/client, toggle_hub)()
+/client/proc/toggle_hub()
 	set category = "Server"
 	set name = "Toggle Hub"
 
@@ -1310,7 +1310,7 @@ TYPE_PROC_REF(/client, toggle_hub)()
 
 	SSblackbox.record_feedback("nested tally", "admin_toggle", 1, list("Toggled Hub Visibility", "[GLOB.hub_visibility ? "Enabled" : "Disabled"]")) //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-TYPE_PROC_REF(/client, cmd_admin_toggle_fov)()
+/client/proc/cmd_admin_toggle_fov()
 	set category = "Admin.Fun"
 	set name = "Enable/Disable Field of Vision"
 
@@ -1364,7 +1364,7 @@ TYPE_PROC_REF(/client, cmd_admin_toggle_fov)()
 
 	busy_toggling_fov = FALSE
 
-TYPE_PROC_REF(/client, smite)(mob/living/carbon/human/target as mob)
+/client/proc/smite(mob/living/carbon/human/target as mob)
 	set name = "Smite"
 	set category = "Admin.Fun"
 	if(!check_rights(R_ADMIN) || !check_rights(R_FUN))
@@ -1579,13 +1579,13 @@ TYPE_PROC_REF(/client, smite)(mob/living/carbon/human/target as mob)
 	divine_wrath.preparePixelProjectile(target, source_turf)
 	divine_wrath.fire()
 
-TYPE_PROC_REF(/client, punish_log)(whom, punishment)
+/client/proc/punish_log(whom, punishment)
 	var/msg = "[key_name_admin(usr)] punished [key_name_admin(whom)] with [punishment]."
 	message_admins(msg)
 	admin_ticket_log(whom, msg)
 	log_admin("[key_name(usr)] punished [key_name(whom)] with [punishment].")
 
-TYPE_PROC_REF(/client, trigger_centcom_recall)()
+/client/proc/trigger_centcom_recall()
 	if(!check_rights(R_ADMIN))
 		message_admins("[ADMIN_TPMONTY(usr)] tried to use trigger_centcom_recall() without admin perms.")
 		log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use trigger_centcom_recall() without admin perms.")
@@ -1600,7 +1600,7 @@ TYPE_PROC_REF(/client, trigger_centcom_recall)()
 	log_game("[key_name(usr)] triggered a CentCom recall, with the message of: [message]")
 	SSshuttle.centcom_recall(SSshuttle.emergency.timer, message)
 
-TYPE_PROC_REF(/client, cmd_admin_check_player_exp)()	//Allows admins to determine who the newer players are.
+/client/proc/cmd_admin_check_player_exp()	//Allows admins to determine who the newer players are.
 	set category = "Admin"
 	set name = "Player Playtime"
 	if(!check_rights(R_ADMIN))
@@ -1619,7 +1619,7 @@ TYPE_PROC_REF(/client, cmd_admin_check_player_exp)()	//Allows admins to determin
 	msg += "</UL></BODY></HTML>"
 	src << browse(msg.Join(), "window=Player_playtime_check")
 
-TYPE_PROC_REF(/datum/admins, cmd_show_exp_panel)(client/C)
+/datum/admins/proc/cmd_show_exp_panel(client/C)
 	if(!check_rights(R_ADMIN))
 		message_admins("[ADMIN_TPMONTY(usr)] tried to use cmd_show_exp_panel() without admin perms.")
 		log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use cmd_show_exp_panel() without admin perms.")
@@ -1638,7 +1638,7 @@ TYPE_PROC_REF(/datum/admins, cmd_show_exp_panel)(client/C)
 	body += "</BODY></HTML>"
 	usr << browse(body.Join(), "window=playerplaytime[C.ckey];size=550x615")
 
-TYPE_PROC_REF(/datum/admins, toggle_exempt_status)(client/C)
+/datum/admins/proc/toggle_exempt_status(client/C)
 	if(!check_rights(R_ADMIN))
 		message_admins("[ADMIN_TPMONTY(usr)] tried to use toggle_exempt_status() without admin perms.")
 		log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use toggle_exempt_status() without admin perms.")
@@ -1663,7 +1663,7 @@ TYPE_PROC_REF(/datum/admins, toggle_exempt_status)(client/C)
 		log_admin("[key_name(usr)] has [newstate ? "activated" : "deactivated"] job exp exempt status on [key_name(C)]")
 
 /// Allow admin to add or remove traits of datum
-TYPE_PROC_REF(/datum/admins, modify_traits)(datum/D)
+/datum/admins/proc/modify_traits(datum/D)
 	if(!D)
 		return
 

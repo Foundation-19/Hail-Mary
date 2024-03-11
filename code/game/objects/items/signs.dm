@@ -17,7 +17,7 @@
 	resistance_flags = NONE
 	actions_types = list(/datum/action/item_action/nano_picket_sign)
 
-TYPE_PROC_REF(/obj/item/picket_sign, retext)(mob/user)
+/obj/item/picket_sign/proc/retext(mob/user)
 	if(!user.is_literate())
 		to_chat(user, span_notice("You scribble illegibly on [src]!"))
 		return

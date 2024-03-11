@@ -6,14 +6,14 @@
 /datum/gang/tribe/add_leader(mob/living/carbon/new_leader)
 	leader = new_leader
 
-	remove_verb(new_leader,TYPE_PROC_REF(/mob/living, assume_tribe_leader))
+	remove_verb(new_leader,/mob/living/proc/assume_tribe_leader)
 
-	add_verb(new_leader,TYPE_PROC_REF(/mob/living, invite_tribe))
-	add_verb(new_leader,TYPE_PROC_REF(/mob/living, remove_tribe))
-	add_verb(new_leader,TYPE_PROC_REF(/mob/living, transfer_tribe_leader))
-	add_verb(new_leader,TYPE_PROC_REF(/mob/living, set_tribe_welcome))
+	add_verb(new_leader,/mob/living/proc/invite_tribe)
+	add_verb(new_leader,/mob/living/proc/remove_tribe)
+	add_verb(new_leader,/mob/living/proc/transfer_tribe_leader)
+	add_verb(new_leader,/mob/living/proc/set_tribe_welcome)
 	if(!round_start)
-		add_verb(new_leader,TYPE_PROC_REF(/mob/living, set_tribe_color))
+		add_verb(new_leader,/mob/living/proc/set_tribe_color)
 	to_chat(new_leader, span_notice("You have become a new leader of the [name]! You can now invite and remove members at will."))
 
 	var/obj/item/device/gangtool/gangtool = new(new_leader)
@@ -36,23 +36,23 @@
 
 /datum/gang/tribe/remove_leader(mob/living/carbon/old_leader)
 	leader = null
-	remove_verb(old_leader,TYPE_PROC_REF(/mob/living, invite_tribe))
-	remove_verb(old_leader,TYPE_PROC_REF(/mob/living, remove_tribe))
-	remove_verb(old_leader,TYPE_PROC_REF(/mob/living, transfer_tribe_leader))
-	remove_verb(old_leader,TYPE_PROC_REF(/mob/living, set_tribe_welcome))
+	remove_verb(old_leader,/mob/living/proc/invite_tribe)
+	remove_verb(old_leader,/mob/living/proc/remove_tribe)
+	remove_verb(old_leader,/mob/living/proc/transfer_tribe_leader)
+	remove_verb(old_leader,/mob/living/proc/set_tribe_welcome)
 	if(!round_start)
-		remove_verb(old_leader,TYPE_PROC_REF(/mob/living, set_tribe_color))
-	add_verb(old_leader,TYPE_PROC_REF(/mob/living, assume_tribe_leader))
+		remove_verb(old_leader,/mob/living/proc/set_tribe_color)
+	add_verb(old_leader,/mob/living/proc/assume_tribe_leader)
 	to_chat(old_leader, span_warning("You are no longer the leader of the [name]!"))
 
 /datum/gang/tribe/add_member(mob/living/carbon/new_member)
 	members |= new_member
 	new_member.faction |= "[name]-gang"
-	remove_verb(new_member,TYPE_PROC_REF(/mob/living, create_tribe))
+	remove_verb(new_member,/mob/living/proc/create_tribe)
 
-	add_verb(new_member,TYPE_PROC_REF(/mob/living, leave_tribe))
+	add_verb(new_member,/mob/living/proc/leave_tribe)
 
-	add_verb(new_member,TYPE_PROC_REF(/mob/living, assume_tribe_leader))
+	add_verb(new_member,/mob/living/proc/assume_tribe_leader)
 	to_chat(new_member, span_notice("You are now a member of the [name]! Everyone can recognize your tribe."))
 	if(welcome_text)
 		to_chat(new_member, "<span class='notice'>Welcome text: </span><span class='purple'>[welcome_text]</span>")
@@ -61,9 +61,9 @@
 	members -= member
 	member.gang = null
 	member.faction -= "[name]-gang"
-	add_verb(member,TYPE_PROC_REF(/mob/living, create_tribe))
-	remove_verb(member,TYPE_PROC_REF(/mob/living, leave_tribe))
-	remove_verb(member,TYPE_PROC_REF(/mob/living, assume_tribe_leader))
+	add_verb(member,/mob/living/proc/create_tribe)
+	remove_verb(member,/mob/living/proc/leave_tribe)
+	remove_verb(member,/mob/living/proc/assume_tribe_leader)
 	to_chat(member, span_warning("You are no longer a member of the [name]!"))
 
 	if(!members.len && !round_start)
@@ -71,7 +71,7 @@
 		GLOB.all_gangs -= src
 		qdel(src)
 
-TYPE_PROC_REF(/mob/living, invite_tribe)()
+/mob/living/proc/invite_tribe()
 	set name = "Invite To Tribe"
 	set desc = "Invite others to your tribe. Only independent wasters and tribals in view can be offered to join!"
 	set category = "Tribe"
@@ -106,7 +106,7 @@ TYPE_PROC_REF(/mob/living, invite_tribe)()
 	G.add_member(C)
 	C.gang = G
 
-TYPE_PROC_REF(/mob/living, create_tribe)()
+/mob/living/proc/create_tribe()
 	set name = "Create Tribe"
 	set category = "Tribe"
 
@@ -128,7 +128,7 @@ TYPE_PROC_REF(/mob/living, create_tribe)()
 	G.add_member(src)
 	G.add_leader(src)
 
-TYPE_PROC_REF(/mob/living, leave_tribe)()
+/mob/living/proc/leave_tribe()
 	set name = "Leave Tribe"
 	set category = "Tribe"
 
@@ -143,7 +143,7 @@ TYPE_PROC_REF(/mob/living, leave_tribe)()
 		G.remove_leader(src)
 	G.remove_member(src)
 
-TYPE_PROC_REF(/mob/living, assume_tribe_leader)()
+/mob/living/proc/assume_tribe_leader()
 	set name = "Assume Leadership"
 	set desc = "Become a new tribe leader if the old one is missing or dead."
 	set category = "Tribe"
@@ -160,7 +160,7 @@ TYPE_PROC_REF(/mob/living, assume_tribe_leader)()
 	else if(G)
 		G.add_leader(src)
 
-TYPE_PROC_REF(/mob/living, transfer_tribe_leader)()
+/mob/living/proc/transfer_tribe_leader()
 	set name = "Transfer Leadership"
 	set desc = "Transfer your leader position to a different tribe member in view."
 	set category = "Tribe"
@@ -188,7 +188,7 @@ TYPE_PROC_REF(/mob/living, transfer_tribe_leader)()
 		G.remove_leader(src)
 		G.add_leader(H)
 
-TYPE_PROC_REF(/mob/living, remove_tribe)()
+/mob/living/proc/remove_tribe()
 	set name = "Remove Member"
 	set desc = "Remove an alive tribe member from the tribe in view."
 	set category = "Tribe"
@@ -216,7 +216,7 @@ TYPE_PROC_REF(/mob/living, remove_tribe)()
 		to_chat(H, span_warning("You have been kicked from the [G.name] by [src.real_name]!"))
 		G.remove_member(H)
 
-TYPE_PROC_REF(/mob/living, set_tribe_welcome)()
+/mob/living/proc/set_tribe_welcome()
 	set name = "Set Welcome Text"
 	set desc = "Set a welcome text that will show to all new members of the tribe upon joining."
 	set category = "Tribe"
@@ -230,7 +230,7 @@ TYPE_PROC_REF(/mob/living, set_tribe_welcome)()
 
 	to_chat(src, span_notice("You have set a welcome text for a new tribe members!"))
 
-TYPE_PROC_REF(/mob/living, set_tribe_color)()
+/mob/living/proc/set_tribe_color()
 	set name = "Choose Tribe Color"
 	set desc = "Set a color of your tribe that will be visible on the tribe members upon examine."
 	set category = "Tribe"

@@ -36,18 +36,18 @@
 	. = ..()
 	UnregisterSignal(parent, list(COMSIG_ITEM_AFTERATTACK, COMSIG_HOSTILE_ATTACKINGTARGET, COMSIG_PROJECTILE_ON_HIT))
 
-TYPE_PROC_REF(/datum/component/summoning, item_afterattack)(obj/item/source, atom/target, mob/user, proximity_flag, click_parameters)
+/datum/component/summoning/proc/item_afterattack(obj/item/source, atom/target, mob/user, proximity_flag, click_parameters)
 	if(!proximity_flag)
 		return
 	do_spawn_mob(get_turf(target), user)
 
-TYPE_PROC_REF(/datum/component/summoning, hostile_attackingtarget)(mob/living/simple_animal/hostile/attacker, atom/target)
+/datum/component/summoning/proc/hostile_attackingtarget(mob/living/simple_animal/hostile/attacker, atom/target)
 	do_spawn_mob(get_turf(target), attacker)
 
-TYPE_PROC_REF(/datum/component/summoning, projectile_hit)(atom/fired_from, atom/movable/firer, atom/target, Angle)
+/datum/component/summoning/proc/projectile_hit(atom/fired_from, atom/movable/firer, atom/target, Angle)
 	do_spawn_mob(get_turf(target), firer)
 
-TYPE_PROC_REF(/datum/component/summoning, do_spawn_mob)(atom/spawn_location, summoner)
+/datum/component/summoning/proc/do_spawn_mob(atom/spawn_location, summoner)
 	if(spawned_mobs.len >= max_mobs)
 		return 0
 	if(last_spawned_time > world.time)
@@ -67,5 +67,5 @@ TYPE_PROC_REF(/datum/component/summoning, do_spawn_mob)(atom/spawn_location, sum
 	playsound(spawn_location,spawn_sound, 50, 1)
 	spawn_location.visible_message(span_danger("[L] [spawn_text]."))
 
-TYPE_PROC_REF(/datum/component/summoning, on_spawned_death)(mob/killed, gibbed)
+/datum/component/summoning/proc/on_spawned_death(mob/killed, gibbed)
 	spawned_mobs -= killed

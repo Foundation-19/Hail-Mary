@@ -174,7 +174,7 @@
 
 	return "Unknown command: [command]"
 
-TYPE_PROC_REF(/datum/tgs_api/v4, Export)(command, list/data, override_requesting_new_port = FALSE)
+/datum/tgs_api/v4/proc/Export(command, list/data, override_requesting_new_port = FALSE)
 	if(!data)
 		data = list()
 	data[TGS4_PARAMETER_COMMAND] = command
@@ -298,7 +298,7 @@ TYPE_PROC_REF(/datum/tgs_api/v4, Export)(command, list/data, override_requesting
 	for(var/I in json)
 		. += DecodeChannel(I)
 
-TYPE_PROC_REF(/datum/tgs_api/v4, DecodeChannel)(channel_json)
+/datum/tgs_api/v4/proc/DecodeChannel(channel_json)
 	var/datum/tgs_chat_channel/channel = new
 	channel.id = channel_json["id"]
 	channel.friendly_name = channel_json["friendlyName"]

@@ -18,7 +18,7 @@
 	flashbang_mobs(flashbang_turf, flashbang_range)
 	qdel(src)
 
-TYPE_PROC_REF(/obj/item/grenade/flashbang, flashbang_mobs)(turf/source, range)
+/obj/item/grenade/flashbang/proc/flashbang_mobs(turf/source, range)
 	var/list/banged = get_hearers_in_view(range, source)
 	var/list/flashed = viewers(range, source)
 	for(var/mob/living/l in banged)
@@ -26,7 +26,7 @@ TYPE_PROC_REF(/obj/item/grenade/flashbang, flashbang_mobs)(turf/source, range)
 	for(var/mob/living/l in flashed)
 		flash(l, source)
 
-TYPE_PROC_REF(/obj/item/grenade/flashbang, bang)(mob/living/M, turf/source)
+/obj/item/grenade/flashbang/proc/bang(mob/living/M, turf/source)
 	if(M.stat == DEAD)	//They're dead!
 		return
 	M.show_message(span_warning("BANG"), MSG_AUDIBLE)
@@ -37,7 +37,7 @@ TYPE_PROC_REF(/obj/item/grenade/flashbang, bang)(mob/living/M, turf/source)
 	else
 		M.soundbang_act(1, max(200/max(1,distance), 60), rand(0, 5))
 
-TYPE_PROC_REF(/obj/item/grenade/flashbang, flash)(mob/living/M, turf/source)
+/obj/item/grenade/flashbang/proc/flash(mob/living/M, turf/source)
 	if(M.stat == DEAD)	//They're dead!
 		return
 	var/distance = get_dist(get_turf(M), source)
@@ -88,7 +88,7 @@ TYPE_PROC_REF(/obj/item/grenade/flashbang, flash)(mob/living/M, turf/source)
 		pop(get_turf(M), M)
 	qdel(src)
 
-TYPE_PROC_REF(/obj/item/grenade/stingbang, pop)(turf/T , mob/living/M)
+/obj/item/grenade/stingbang/proc/pop(turf/T , mob/living/M)
 	if(M.stat == DEAD)	//They're dead!
 		return
 	M.show_message(span_warning("POP"), MSG_AUDIBLE)

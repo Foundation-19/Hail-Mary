@@ -5,7 +5,7 @@
 	desc = "REQUESTING MED-EVAC!"
 	w_class = 1
 
-TYPE_PROC_REF(/obj/item/vertibird_flare, callDeathSquad)()
+/obj/item/vertibird_flare/proc/callDeathSquad()
 	spawn(300)
 		qdel(src)
 

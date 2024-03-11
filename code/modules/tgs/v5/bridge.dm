@@ -1,4 +1,4 @@
-TYPE_PROC_REF(/datum/tgs_api/v5, Bridge)(command, list/data)
+/datum/tgs_api/v5/proc/Bridge(command, list/data)
 	if(!data)
 		data = list()
 
@@ -44,14 +44,14 @@ TYPE_PROC_REF(/datum/tgs_api/v5, Bridge)(command, list/data)
 
 	return response
 
-TYPE_PROC_REF(/datum/tgs_api/v5, CreateBridgeRequest)(command, list/data)
+/datum/tgs_api/v5/proc/CreateBridgeRequest(command, list/data)
 	var/json = CreateBridgeData(command, data, TRUE)
 	var/encoded_json = url_encode(json)
 
 	var/url = "http://127.0.0.1:[server_port]/Bridge?[DMAPI5_BRIDGE_DATA]=[encoded_json]"
 	return url
 
-TYPE_PROC_REF(/datum/tgs_api/v5, CreateBridgeData)(command, list/data, needs_auth)
+/datum/tgs_api/v5/proc/CreateBridgeData(command, list/data, needs_auth)
 	data[DMAPI5_BRIDGE_PARAMETER_COMMAND_TYPE] = command
 	if(needs_auth)
 		data[DMAPI5_PARAMETER_ACCESS_IDENTIFIER] = access_identifier
@@ -59,7 +59,7 @@ TYPE_PROC_REF(/datum/tgs_api/v5, CreateBridgeData)(command, list/data, needs_aut
 	var/json = json_encode(data)
 	return json
 
-TYPE_PROC_REF(/datum/tgs_api/v5, PerformBridgeRequest)(bridge_request)
+/datum/tgs_api/v5/proc/PerformBridgeRequest(bridge_request)
 	if(detached)
 		// Wait up to one minute
 		for(var/i in 1 to 600)

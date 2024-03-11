@@ -315,7 +315,7 @@ Creating a chem with a low purity will make you permanently fall in love with so
 	log_reagent("FERMICHEM: [M] ckey: [M.key] is no longer in temp bond")
 	..()
 
-TYPE_PROC_REF(/datum/reagent/fermi, FallInLove)(mob/living/carbon/Lover, mob/living/carbon/Love)
+/datum/reagent/fermi/proc/FallInLove(mob/living/carbon/Lover, mob/living/carbon/Love)
 	if(Lover.client?.prefs.cit_toggles & NEVER_HYPNO)
 		return // doesn't even give a message, it's just ignored
 	if(Lover.has_status_effect(STATUS_EFFECT_INLOVE))

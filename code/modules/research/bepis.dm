@@ -87,7 +87,7 @@
 		S += ((Scan.rating - 1) * 0.25)
 	inaccuracy_percentage = (1.5 - S)
 
-TYPE_PROC_REF(/obj/machinery/rnd/bepis, depositcash)()
+/obj/machinery/rnd/bepis/proc/depositcash()
 	var/deposit_value = 0
 	deposit_value = banking_amount
 	if(deposit_value == 0)
@@ -110,7 +110,7 @@ TYPE_PROC_REF(/obj/machinery/rnd/bepis, depositcash)()
 	update_icon_state()
 	return
 
-TYPE_PROC_REF(/obj/machinery/rnd/bepis, withdrawcash)()
+/obj/machinery/rnd/bepis/proc/withdrawcash()
 	var/withdraw_value = 0
 	withdraw_value = banking_amount
 	if(withdraw_value > banked_cash)
@@ -122,7 +122,7 @@ TYPE_PROC_REF(/obj/machinery/rnd/bepis, withdrawcash)()
 	update_icon_state()
 	return
 
-TYPE_PROC_REF(/obj/machinery/rnd/bepis, calcsuccess)()
+/obj/machinery/rnd/bepis/proc/calcsuccess()
 	var/turf/dropturf = null
 	var/gauss_major = 0
 	var/gauss_minor = 0

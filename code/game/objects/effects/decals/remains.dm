@@ -28,7 +28,7 @@
 		return
 	. = ..()
 
-TYPE_PROC_REF(/obj/effect/decal/remains, make_debris)()
+/obj/effect/decal/remains/proc/make_debris()
 	drop_amount--
 	var/type_to_spawn = pick(debris_result)
 	return new type_to_spawn (get_turf(src))

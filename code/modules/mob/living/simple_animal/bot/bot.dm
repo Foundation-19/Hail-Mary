@@ -108,7 +108,7 @@
 	var/patrol_emote = "Engaging patrol mode."
 	var/patrol_fail_emote = "Unable to start patrol."
 
-TYPE_PROC_REF(/mob/living/simple_animal/bot, get_mode)()
+/mob/living/simple_animal/bot/proc/get_mode()
 	if(client) //Player bots do not have modes, thus the override. Also an easy way for PDA users/AI to know when a bot is a player.
 		if(paicard)
 			return "<b>pAI Controlled</b>"
@@ -124,7 +124,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/bot, get_mode)()
 /**
  * Returns a status string about the bot's current status, if it's moving, manually controlled, or idle.
  */
-TYPE_PROC_REF(/mob/living/simple_animal/bot, get_mode_ui)()
+/mob/living/simple_animal/bot/proc/get_mode_ui()
 	if(client) //Player bots do not have modes, thus the override. Also an easy way for PDA users/AI to know when a bot is a player.
 		return paicard ? "pAI Controlled" : "Autonomous"
 	else if(!on)
@@ -134,7 +134,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/bot, get_mode_ui)()
 	else
 		return "[mode_name[mode]]"
 
-TYPE_PROC_REF(/mob/living/simple_animal/bot, turn_on)()
+/mob/living/simple_animal/bot/proc/turn_on()
 	if(stat)
 		return FALSE
 	on = TRUE
@@ -144,7 +144,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/bot, turn_on)()
 	diag_hud_set_botstat()
 	return TRUE
 
-TYPE_PROC_REF(/mob/living/simple_animal/bot, turn_off)()
+/mob/living/simple_animal/bot/proc/turn_off()
 	on = FALSE
 	update_mobility()
 	set_light_on(FALSE)
@@ -208,7 +208,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/bot, turn_off)()
 	if(!gibbed)
 		explode()
 
-TYPE_PROC_REF(/mob/living/simple_animal/bot, explode)()
+/mob/living/simple_animal/bot/proc/explode()
 	qdel(src)
 
 /mob/living/simple_animal/bot/emag_act(mob/user)
@@ -376,12 +376,12 @@ TYPE_PROC_REF(/mob/living/simple_animal/bot, explode)()
 		if(was_on)
 			turn_on()
 
-TYPE_PROC_REF(/mob/living/simple_animal/bot, set_custom_texts)() //Superclass for setting hack texts. Appears only if a set is not given to a bot locally.
+/mob/living/simple_animal/bot/proc/set_custom_texts() //Superclass for setting hack texts. Appears only if a set is not given to a bot locally.
 	text_hack = "You hack [name]."
 	text_dehack = "You reset [name]."
 	text_dehack_fail = "You fail to reset [name]."
 
-TYPE_PROC_REF(/mob/living/simple_animal/bot, speak)(message,channel) //Pass a message to have the bot say() it. Pass a frequency to say it on the radio.
+/mob/living/simple_animal/bot/proc/speak(message,channel) //Pass a message to have the bot say() it. Pass a frequency to say it on the radio.
 	if((!on) || (!message))
 		return
 	if(channel && Radio.channels[channel])// Use radio if we have channel key
@@ -407,7 +407,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/bot, speak)(message,channel) //Pass a me
 		Radio.talk_into(src, message, message_mode, spans, language)
 		return REDUCE_RANGE
 
-TYPE_PROC_REF(/mob/living/simple_animal/bot, drop_part)(obj/item/drop_item, dropzone)
+/mob/living/simple_animal/bot/proc/drop_part(obj/item/drop_item, dropzone)
 	var/dropped_item = new drop_item(dropzone)
 	drop_item = null
 
@@ -437,7 +437,7 @@ Example usage: patient = scan(/mob/living/carbon/human, oldpatient, 1)
 The proc would return a human next to the bot to be set to the patient var.
 Pass the desired type path itself, declaring a temporary var beforehand is not required.
 */
-TYPE_PROC_REF(/mob/living/simple_animal/bot, scan)(scan_type, old_target, scan_range = DEFAULT_SCAN_RANGE)
+/mob/living/simple_animal/bot/proc/scan(scan_type, old_target, scan_range = DEFAULT_SCAN_RANGE)
 	var/turf/T = get_turf(src)
 	if(!T)
 		return
@@ -463,7 +463,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/bot, scan)(scan_type, old_target, scan_r
 		if(final_result)
 			return final_result
 
-TYPE_PROC_REF(/mob/living/simple_animal/bot, checkscan)(scan, scan_type, old_target)
+/mob/living/simple_animal/bot/proc/checkscan(scan, scan_type, old_target)
 	if(!istype(scan, scan_type)) //Check that the thing we found is the type we want!
 		return FALSE //If not, keep searching!
 	if( (REF(scan) in ignore_list) || (scan == old_target) ) //Filter for blacklisted elements, usually unreachable or previously processed oness
@@ -475,7 +475,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/bot, checkscan)(scan, scan_type, old_tar
 	else
 		return FALSE //The current element failed assessment, move on to the next.
 
-TYPE_PROC_REF(/mob/living/simple_animal/bot, check_bot)(targ)
+/mob/living/simple_animal/bot/proc/check_bot(targ)
 	var/turf/T = get_turf(targ)
 	if(T)
 		for(var/C in T.contents)
@@ -483,11 +483,11 @@ TYPE_PROC_REF(/mob/living/simple_animal/bot, check_bot)(targ)
 				return TRUE	//Let's abort if we find a bot so we dont have to keep rechecking
 
 //When the scan finds a target, run bot specific processing to select it for the next step. Empty by default.
-TYPE_PROC_REF(/mob/living/simple_animal/bot, process_scan)(scan_target)
+/mob/living/simple_animal/bot/proc/process_scan(scan_target)
 	return scan_target
 
 
-TYPE_PROC_REF(/mob/living/simple_animal/bot, add_to_ignore)(subject)
+/mob/living/simple_animal/bot/proc/add_to_ignore(subject)
 	if(ignore_list.len < 50) //This will help keep track of them, so the bot is always trying to reach a blocked spot.
 		ignore_list += REF(subject)
 	else  //If the list is full, insert newest, delete oldest.
@@ -498,7 +498,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/bot, add_to_ignore)(subject)
 Movement proc for stepping a bot through a path generated through A-star.
 Pass a positive integer as an argument to override a bot's default speed.
 */
-TYPE_PROC_REF(/mob/living/simple_animal/bot, bot_move)(dest, move_speed)
+/mob/living/simple_animal/bot/proc/bot_move(dest, move_speed)
 	if(!dest || !path || path.len == 0) //A-star failed or a path/destination was not set.
 		set_path(null)
 		return FALSE
@@ -520,7 +520,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/bot, bot_move)(dest, move_speed)
 	return TRUE
 
 
-TYPE_PROC_REF(/mob/living/simple_animal/bot, bot_step)(dest) //Step,increase tries if failed
+/mob/living/simple_animal/bot/proc/bot_step(dest) //Step,increase tries if failed
 	if(!path)
 		return FALSE
 	if(path.len > 1)
@@ -537,11 +537,11 @@ TYPE_PROC_REF(/mob/living/simple_animal/bot, bot_step)(dest) //Step,increase tri
 	return TRUE
 
 
-TYPE_PROC_REF(/mob/living/simple_animal/bot, check_bot_access)()
+/mob/living/simple_animal/bot/proc/check_bot_access()
 	if(mode != BOT_SUMMON && mode != BOT_RESPONDING)
 		access_card.access = prev_access
 
-TYPE_PROC_REF(/mob/living/simple_animal/bot, call_bot)(caller, turf/waypoint, message=TRUE)
+/mob/living/simple_animal/bot/proc/call_bot(caller, turf/waypoint, message=TRUE)
 	bot_reset() //Reset a bot before setting it to call mode.
 
 	//For giving the bot temporary all-access.
@@ -549,7 +549,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/bot, call_bot)(caller, turf/waypoint, me
 	var/datum/job/captain/All = new/datum/job/captain
 	all_access.access = All.get_access()
 
-	set_path(get_path_to(src, waypoint, TYPE_PROC_REF(/turf, Distance_cardinal), 0, 200, id=all_access))
+	set_path(get_path_to(src, waypoint, /turf/proc/Distance_cardinal, 0, 200, id=all_access))
 	calling_ai = caller //Link the AI to the bot!
 	ai_waypoint = waypoint
 
@@ -572,7 +572,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/bot, call_bot)(caller, turf/waypoint, me
 		calling_ai = null
 		set_path(null)
 
-TYPE_PROC_REF(/mob/living/simple_animal/bot, call_mode)() //Handles preparing a bot for a call, as well as calling the move proc.
+/mob/living/simple_animal/bot/proc/call_mode() //Handles preparing a bot for a call, as well as calling the move proc.
 //Handles the bot's movement during a call.
 	var/success = bot_move(ai_waypoint, 3)
 	if(!success)
@@ -581,7 +581,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/bot, call_mode)() //Handles preparing a 
 			calling_ai = null
 		bot_reset()
 
-TYPE_PROC_REF(/mob/living/simple_animal/bot, bot_reset)()
+/mob/living/simple_animal/bot/proc/bot_reset()
 	if(calling_ai) //Simple notification to the AI if it called a bot. It will not know the cause or identity of the bot.
 		to_chat(calling_ai, span_danger("Call command to a bot has been reset."))
 		calling_ai = null
@@ -604,14 +604,14 @@ TYPE_PROC_REF(/mob/living/simple_animal/bot, bot_reset)()
 //Patrol and summon code!
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-TYPE_PROC_REF(/mob/living/simple_animal/bot, bot_patrol)()
+/mob/living/simple_animal/bot/proc/bot_patrol()
 	patrol_step()
 	spawn(5)
 		if(mode == BOT_PATROL)
 			patrol_step()
 	return
 
-TYPE_PROC_REF(/mob/living/simple_animal/bot, start_patrol)()
+/mob/living/simple_animal/bot/proc/start_patrol()
 
 	if(tries >= BOT_STEP_MAX_RETRIES) //Bot is trapped, so stop trying to patrol.
 		auto_patrol = 0
@@ -639,7 +639,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/bot, start_patrol)()
 
 // perform a single patrol step
 
-TYPE_PROC_REF(/mob/living/simple_animal/bot, patrol_step)()
+/mob/living/simple_animal/bot/proc/patrol_step()
 
 	if(client)		// In use by player, don't actually move.
 		return
@@ -668,7 +668,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/bot, patrol_step)()
 		mode = BOT_START_PATROL
 
 // finds the nearest beacon to self
-TYPE_PROC_REF(/mob/living/simple_animal/bot, find_patrol_target)()
+/mob/living/simple_animal/bot/proc/find_patrol_target()
 	nearest_beacon = null
 	new_destination = null
 	find_nearest_beacon()
@@ -680,7 +680,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/bot, find_patrol_target)()
 		mode = BOT_IDLE
 		speak("Disengaging patrol mode.")
 
-TYPE_PROC_REF(/mob/living/simple_animal/bot, get_next_patrol_target)()
+/mob/living/simple_animal/bot/proc/get_next_patrol_target()
 	// search the beacon list for the next target in the list.
 	for(var/obj/machinery/navbeacon/NB in GLOB.navbeacons["[z]"])
 		if(NB.location == next_destination) //Does the Beacon location text match the destination?
@@ -689,7 +689,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/bot, get_next_patrol_target)()
 			next_destination = NB.codes["next_patrol"] //Also get the name of the next beacon in line.
 			return TRUE
 
-TYPE_PROC_REF(/mob/living/simple_animal/bot, find_nearest_beacon)()
+/mob/living/simple_animal/bot/proc/find_nearest_beacon()
 	for(var/obj/machinery/navbeacon/NB in GLOB.navbeacons["[z]"])
 		var/dist = get_dist(src, NB)
 		if(nearest_beacon) //Loop though the beacon net to find the true closest beacon.
@@ -707,7 +707,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/bot, find_nearest_beacon)()
 	destination = nearest_beacon
 
 //PDA control. Some bots, especially MULEs, may have more parameters.
-TYPE_PROC_REF(/mob/living/simple_animal/bot, bot_control)(command, mob/user, list/user_access = list())
+/mob/living/simple_animal/bot/proc/bot_control(command, mob/user, list/user_access = list())
 	if(!on || emagged == 2 || remote_disabled) //Emagged bots do not respect anyone's authority! Bots with their remote controls off cannot get commands.
 		return TRUE //ACCESS DENIED
 	if(client)
@@ -735,7 +735,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/bot, bot_control)(command, mob/user, lis
 	return
 
 //
-TYPE_PROC_REF(/mob/living/simple_animal/bot, bot_control_message)(command, user)
+/mob/living/simple_animal/bot/proc/bot_control_message(command, user)
 	switch(command)
 		if("patroloff")
 			to_chat(src, "<span class='warning big'>STOP PATROL</span>")
@@ -756,24 +756,24 @@ TYPE_PROC_REF(/mob/living/simple_animal/bot, bot_control_message)(command, user)
 		else
 			to_chat(src, span_warning("Unidentified control sequence received:[command]"))
 
-TYPE_PROC_REF(/mob/living/simple_animal/bot, bot_summon)() // summoned to PDA
+/mob/living/simple_animal/bot/proc/bot_summon() // summoned to PDA
 	summon_step()
 
 // calculates a path to the current destination
 // given an optional turf to avoid
-TYPE_PROC_REF(/mob/living/simple_animal/bot, calc_path)(turf/avoid)
+/mob/living/simple_animal/bot/proc/calc_path(turf/avoid)
 	check_bot_access()
-	set_path(get_path_to(src, patrol_target, TYPE_PROC_REF(/turf, Distance_cardinal), 0, 120, id=access_card, exclude=avoid))
+	set_path(get_path_to(src, patrol_target, /turf/proc/Distance_cardinal, 0, 120, id=access_card, exclude=avoid))
 
-TYPE_PROC_REF(/mob/living/simple_animal/bot, calc_summon_path)(turf/avoid)
+/mob/living/simple_animal/bot/proc/calc_summon_path(turf/avoid)
 	check_bot_access()
 	spawn()
-		set_path(get_path_to(src, summon_target, TYPE_PROC_REF(/turf, Distance_cardinal), 0, 150, id=access_card, exclude=avoid))
+		set_path(get_path_to(src, summon_target, /turf/proc/Distance_cardinal, 0, 150, id=access_card, exclude=avoid))
 		if(!path.len) //Cannot reach target. Give up and announce the issue.
 			speak("Summon command failed, destination unreachable.",radio_channel)
 			bot_reset()
 
-TYPE_PROC_REF(/mob/living/simple_animal/bot, summon_step)()
+/mob/living/simple_animal/bot/proc/summon_step()
 
 	if(client)		// In use by player, don't actually move.
 		return
@@ -804,7 +804,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/bot, summon_step)()
 			D.open()
 			frustration = 0
 
-TYPE_PROC_REF(/mob/living/simple_animal/bot, show_controls)(mob/M)
+/mob/living/simple_animal/bot/proc/show_controls(mob/M)
 	users |= M
 	var/dat = ""
 	dat = get_controls(M)
@@ -814,11 +814,11 @@ TYPE_PROC_REF(/mob/living/simple_animal/bot, show_controls)(mob/M)
 	onclose(M,window_id,ref=src)
 	return
 
-TYPE_PROC_REF(/mob/living/simple_animal/bot, update_controls)()
+/mob/living/simple_animal/bot/proc/update_controls()
 	for(var/mob/M in users)
 		show_controls(M)
 
-TYPE_PROC_REF(/mob/living/simple_animal/bot, get_controls)(mob/M)
+/mob/living/simple_animal/bot/proc/get_controls(mob/M)
 	return "PROTOBOT - NOT FOR USE"
 
 /mob/living/simple_animal/bot/Topic(href, href_list)
@@ -887,7 +887,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/bot, get_controls)(mob/M)
 	if(!istype(owner))
 		return INITIALIZE_HINT_QDEL
 
-TYPE_PROC_REF(/mob/living/simple_animal/bot, topic_denied)(mob/user) //Access check proc for bot topics! Remember to place in a bot's individual Topic if desired.
+/mob/living/simple_animal/bot/proc/topic_denied(mob/user) //Access check proc for bot topics! Remember to place in a bot's individual Topic if desired.
 	if(!user.canUseTopic(src))
 		return TRUE
 	// 0 for access, 1 for denied.
@@ -898,7 +898,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/bot, topic_denied)(mob/user) //Access ch
 			return TRUE
 	return FALSE
 
-TYPE_PROC_REF(/mob/living/simple_animal/bot, hack)(mob/user)
+/mob/living/simple_animal/bot/proc/hack(mob/user)
 	var/hack
 	if(hasSiliconAccessInArea(user) || IsAdminGhost(user)) //Allows silicons or admins to toggle the emag status of a bot.
 		hack += "[emagged == 2 ? "Software compromised! Unit may exhibit dangerous or erratic behavior." : "Unit operating normally. Release safety lock?"]<BR>"
@@ -907,7 +907,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/bot, hack)(mob/user)
 		hack += "Remote network control radio: <A href='?src=[REF(src)];operation=remote'>[remote_disabled ? "Disconnected" : "Connected"]</A><BR>"
 	return hack
 
-TYPE_PROC_REF(/mob/living/simple_animal/bot, showpai)(mob/user)
+/mob/living/simple_animal/bot/proc/showpai(mob/user)
 	var/eject = ""
 	if((!locked || hasSiliconAccessInArea(usr) || IsAdminGhost(usr)))
 		if(paicard || allow_pai)
@@ -925,7 +925,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/bot, showpai)(mob/user)
 		eject += "<BR>"
 	return eject
 
-TYPE_PROC_REF(/mob/living/simple_animal/bot, insertpai)(mob/user, obj/item/paicard/card)
+/mob/living/simple_animal/bot/proc/insertpai(mob/user, obj/item/paicard/card)
 	if(paicard)
 		to_chat(user, span_warning("A [paicard] is already inserted!"))
 	else if(allow_pai && !key)
@@ -949,7 +949,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/bot, insertpai)(mob/user, obj/item/paica
 	else
 		to_chat(user, span_warning("[src] is not compatible with [card]"))
 
-TYPE_PROC_REF(/mob/living/simple_animal/bot, ejectpai)(mob/user = null, announce = 1)
+/mob/living/simple_animal/bot/proc/ejectpai(mob/user = null, announce = 1)
 	if(paicard)
 		if(mind && paicard.pai)
 			mind.transfer_to(paicard.pai)
@@ -969,7 +969,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/bot, ejectpai)(mob/user = null, announce
 		name = bot_name
 		faction = initial(faction)
 
-TYPE_PROC_REF(/mob/living/simple_animal/bot, ejectpairemote)(mob/user)
+/mob/living/simple_animal/bot/proc/ejectpairemote(mob/user)
 	if(bot_core.allowed(user) && paicard)
 		speak("Ejecting personality chip.", radio_channel)
 		ejectpai(user)
@@ -997,7 +997,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/bot, ejectpairemote)(mob/user)
 /mob/living/simple_animal/bot/sentience_act()
 	faction -= "silicon"
 
-TYPE_PROC_REF(/mob/living/simple_animal/bot, set_path)(list/newpath)
+/mob/living/simple_animal/bot/proc/set_path(list/newpath)
 	path = newpath ? newpath : list()
 	if(!path_hud)
 		return
@@ -1052,7 +1052,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/bot, set_path)(list/newpath)
 		H.add_to_hud(src)
 
 
-TYPE_PROC_REF(/mob/living/simple_animal/bot, increment_path)()
+/mob/living/simple_animal/bot/proc/increment_path()
 	if(!path || !path.len)
 		return
 	var/image/I = path[path[1]]

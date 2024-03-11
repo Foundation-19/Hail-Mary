@@ -7,7 +7,7 @@
 /datum/martial_art/cqc
 	name = "CQC"
 	id = MARTIALART_CQC
-	help_verb = TYPE_PROC_REF(/mob/living/carbon/human, CQC_help)
+	help_verb = /mob/living/carbon/human/proc/CQC_help
 	block_chance = 75
 	pugilist = TRUE
 	var/old_grab_state = null
@@ -16,7 +16,7 @@
 	. = ..()
 	restraining = FALSE
 
-TYPE_PROC_REF(/datum/martial_art/cqc, check_streak)(mob/living/carbon/human/A, mob/living/carbon/human/D)
+/datum/martial_art/cqc/proc/check_streak(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	if(!can_use(A))
 		return FALSE
 	if(findtext(streak,SLAM_COMBO))
@@ -40,7 +40,7 @@ TYPE_PROC_REF(/datum/martial_art/cqc, check_streak)(mob/living/carbon/human/A, m
 		Consecutive(A,D)
 	return FALSE
 
-TYPE_PROC_REF(/datum/martial_art/cqc, Slam)(mob/living/carbon/human/A, mob/living/carbon/human/D)
+/datum/martial_art/cqc/proc/Slam(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	if(!can_use(A))
 		return FALSE
 	var/damage = (damage_roll(A,D) + 5)
@@ -53,7 +53,7 @@ TYPE_PROC_REF(/datum/martial_art/cqc, Slam)(mob/living/carbon/human/A, mob/livin
 		log_combat(A, D, "slammed (CQC)")
 	return TRUE
 
-TYPE_PROC_REF(/datum/martial_art/cqc, Kick)(mob/living/carbon/human/A, mob/living/carbon/human/D)
+/datum/martial_art/cqc/proc/Kick(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	if(!can_use(A))
 		return FALSE
 	var/damage = damage_roll(A,D)
@@ -78,7 +78,7 @@ TYPE_PROC_REF(/datum/martial_art/cqc, Kick)(mob/living/carbon/human/A, mob/livin
 		log_combat(A, D, "kicked (CQC)")
 	return TRUE
 
-TYPE_PROC_REF(/datum/martial_art/cqc, Pressure)(mob/living/carbon/human/A, mob/living/carbon/human/D)
+/datum/martial_art/cqc/proc/Pressure(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	if(!can_use(A))
 		return FALSE
 	var/damage = (damage_roll(A,D) + 55)
@@ -88,7 +88,7 @@ TYPE_PROC_REF(/datum/martial_art/cqc, Pressure)(mob/living/carbon/human/A, mob/l
 	playsound(get_turf(A), 'sound/weapons/cqchit1.ogg', 50, 1, -1)
 	return TRUE
 
-TYPE_PROC_REF(/datum/martial_art/cqc, Restrain)(mob/living/carbon/human/A, mob/living/carbon/human/D)
+/datum/martial_art/cqc/proc/Restrain(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	if(restraining)
 		return
 	if(!can_use(A))
@@ -104,7 +104,7 @@ TYPE_PROC_REF(/datum/martial_art/cqc, Restrain)(mob/living/carbon/human/A, mob/l
 		addtimer(VARSET_CALLBACK(src, restraining, FALSE), 50, TIMER_UNIQUE)
 	return TRUE
 
-TYPE_PROC_REF(/datum/martial_art/cqc, Consecutive)(mob/living/carbon/human/A, mob/living/carbon/human/D)
+/datum/martial_art/cqc/proc/Consecutive(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	if(!can_use(A))
 		return FALSE
 	var/damage = damage_roll(A,D)
@@ -200,7 +200,7 @@ TYPE_PROC_REF(/datum/martial_art/cqc, Consecutive)(mob/living/carbon/human/A, mo
 		return FALSE
 	return TRUE
 
-TYPE_PROC_REF(/mob/living/carbon/human, CQC_help)()
+/mob/living/carbon/human/proc/CQC_help()
 	set name = "Remember The Basics"
 	set desc = "You try to remember some of the basics of CQC."
 	set category = "CQC"

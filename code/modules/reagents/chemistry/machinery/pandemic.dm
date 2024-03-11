@@ -47,19 +47,19 @@
 		update_icon()
 	return ..()
 
-TYPE_PROC_REF(/obj/machinery/computer/pandemic, get_by_index)(thing, index)
+/obj/machinery/computer/pandemic/proc/get_by_index(thing, index)
 	if(!beaker || !beaker.reagents)
 		return
 	var/datum/reagent/blood/B = locate() in beaker.reagents.reagent_list
 	if(B && B.data[thing])
 		return B.data[thing][index]
 
-TYPE_PROC_REF(/obj/machinery/computer/pandemic, get_virus_id_by_index)(index)
+/obj/machinery/computer/pandemic/proc/get_virus_id_by_index(index)
 	var/datum/disease/D = get_by_index("viruses", index)
 	if(D)
 		return D.GetDiseaseID()
 
-TYPE_PROC_REF(/obj/machinery/computer/pandemic, get_viruses_data)(datum/reagent/blood/B)
+/obj/machinery/computer/pandemic/proc/get_viruses_data(datum/reagent/blood/B)
 	. = list()
 	var/list/V = B.get_diseases()
 	var/index = 1
@@ -94,7 +94,7 @@ TYPE_PROC_REF(/obj/machinery/computer/pandemic, get_viruses_data)(datum/reagent/
 
 		. += list(this)
 
-TYPE_PROC_REF(/obj/machinery/computer/pandemic, get_symptom_data)(datum/symptom/S)
+/obj/machinery/computer/pandemic/proc/get_symptom_data(datum/symptom/S)
 	. = list()
 	var/list/this = list()
 	this["name"] = S.name
@@ -108,7 +108,7 @@ TYPE_PROC_REF(/obj/machinery/computer/pandemic, get_symptom_data)(datum/symptom/
 	this["threshold_desc"] = S.threshold_desc
 	. += this
 
-TYPE_PROC_REF(/obj/machinery/computer/pandemic, get_resistance_data)(datum/reagent/blood/B)
+/obj/machinery/computer/pandemic/proc/get_resistance_data(datum/reagent/blood/B)
 	. = list()
 	if(!islist(B.data["resistances"]))
 		return
@@ -122,7 +122,7 @@ TYPE_PROC_REF(/obj/machinery/computer/pandemic, get_resistance_data)(datum/reage
 
 		. += list(this)
 
-TYPE_PROC_REF(/obj/machinery/computer/pandemic, reset_replicator_cooldown)()
+/obj/machinery/computer/pandemic/proc/reset_replicator_cooldown()
 	wait = FALSE
 	update_icon()
 	playsound(src, 'sound/machines/ping.ogg', 30, TRUE)
@@ -138,7 +138,7 @@ TYPE_PROC_REF(/obj/machinery/computer/pandemic, reset_replicator_cooldown)()
 	if(wait)
 		. += "waitlight"
 
-TYPE_PROC_REF(/obj/machinery/computer/pandemic, eject_beaker)()
+/obj/machinery/computer/pandemic/proc/eject_beaker()
 	if(beaker)
 		beaker.forceMove(drop_location())
 		beaker = null

@@ -85,7 +85,7 @@
 	if(opened)
 		interact(user)
 
-TYPE_PROC_REF(/obj/item/electronic_assembly, check_interactivity)(mob/user)
+/obj/item/electronic_assembly/proc/check_interactivity(mob/user)
 	return user.canUseTopic(src, BE_CLOSE)
 
 /obj/item/electronic_assembly/Bump(atom/AM)
@@ -129,7 +129,7 @@ TYPE_PROC_REF(/obj/item/electronic_assembly, check_interactivity)(mob/user)
 	diag_hud_set_circuithealth()
 	diag_hud_set_circuitcell()
 
-TYPE_PROC_REF(/obj/item/electronic_assembly, handle_idle_power)()
+/obj/item/electronic_assembly/proc/handle_idle_power()
 	// First we generate power.
 	for(var/obj/item/integrated_circuit/passive/power/P in assembly_components)
 		P.make_energy()
@@ -291,7 +291,7 @@ TYPE_PROC_REF(/obj/item/electronic_assembly, handle_idle_power)()
 	diag_hud_set_circuitstat()
 	diag_hud_set_circuittracking()
 
-TYPE_PROC_REF(/obj/item/electronic_assembly, rename)()
+/obj/item/electronic_assembly/proc/rename()
 	var/mob/M = usr
 	if(!check_interactivity(M))
 		return
@@ -303,10 +303,10 @@ TYPE_PROC_REF(/obj/item/electronic_assembly, rename)()
 		to_chat(M, span_notice("The machine now has a label reading '[input]'."))
 		name = input
 
-TYPE_PROC_REF(/obj/item/electronic_assembly, add_allowed_scanner)(ckey)
+/obj/item/electronic_assembly/proc/add_allowed_scanner(ckey)
 	ckeys_allowed_to_scan[ckey] = TRUE
 
-TYPE_PROC_REF(/obj/item/electronic_assembly, can_move)()
+/obj/item/electronic_assembly/proc/can_move()
 	return FALSE
 
 /obj/item/electronic_assembly/update_icon_state()
@@ -321,14 +321,14 @@ TYPE_PROC_REF(/obj/item/electronic_assembly, can_move)()
 		return
 	. += mutable_appearance('icons/obj/assemblies/electronic_setups.dmi', "[icon_state]-color", color = detail_color)
 
-TYPE_PROC_REF(/obj/item/electronic_assembly, return_total_complexity)()
+/obj/item/electronic_assembly/proc/return_total_complexity()
 	. = 0
 	var/obj/item/integrated_circuit/part
 	for(var/p in assembly_components)
 		part = p
 		. += part.complexity
 
-TYPE_PROC_REF(/obj/item/electronic_assembly, return_total_size)()
+/obj/item/electronic_assembly/proc/return_total_size()
 	. = 0
 	var/obj/item/integrated_circuit/part
 	for(var/p in assembly_components)
@@ -336,7 +336,7 @@ TYPE_PROC_REF(/obj/item/electronic_assembly, return_total_size)()
 		. += part.size
 
 // Returns true if the circuit made it inside.
-TYPE_PROC_REF(/obj/item/electronic_assembly, try_add_component)(obj/item/integrated_circuit/IC, mob/user)
+/obj/item/electronic_assembly/proc/try_add_component(obj/item/integrated_circuit/IC, mob/user)
 	if(!opened)
 		to_chat(user, span_warning("\The [src]'s hatch is closed, you can't put anything inside."))
 		return FALSE
@@ -371,7 +371,7 @@ TYPE_PROC_REF(/obj/item/electronic_assembly, try_add_component)(obj/item/integra
 
 
 // Actually puts the circuit inside, doesn't perform any checks.
-TYPE_PROC_REF(/obj/item/electronic_assembly, add_component)(obj/item/integrated_circuit/component)
+/obj/item/electronic_assembly/proc/add_component(obj/item/integrated_circuit/component)
 	component.forceMove(get_object())
 	component.assembly = src
 	assembly_components |= component
@@ -387,7 +387,7 @@ TYPE_PROC_REF(/obj/item/electronic_assembly, add_component)(obj/item/integrated_
 	diag_hud_set_circuittracking()
 
 
-TYPE_PROC_REF(/obj/item/electronic_assembly, try_remove_component)(obj/item/integrated_circuit/IC, mob/user, silent)
+/obj/item/electronic_assembly/proc/try_remove_component(obj/item/integrated_circuit/IC, mob/user, silent)
 	if(!opened)
 		if(!silent)
 			to_chat(user, span_warning("[src]'s hatch is closed, so you can't fiddle with the internal components."))
@@ -409,7 +409,7 @@ TYPE_PROC_REF(/obj/item/electronic_assembly, try_remove_component)(obj/item/inte
 	return TRUE
 
 // Actually removes the component, doesn't perform any checks.
-TYPE_PROC_REF(/obj/item/electronic_assembly, remove_component)(obj/item/integrated_circuit/component)
+/obj/item/electronic_assembly/proc/remove_component(obj/item/integrated_circuit/component)
 	component.disconnect_all()
 	component.forceMove(drop_location())
 	component.assembly = null
@@ -568,13 +568,13 @@ TYPE_PROC_REF(/obj/item/electronic_assembly, remove_component)(obj/item/integrat
 		AM.emp_act(severity)
 
 // Returns true if power was successfully drawn.
-TYPE_PROC_REF(/obj/item/electronic_assembly, draw_power)(amount)
+/obj/item/electronic_assembly/proc/draw_power(amount)
 	if(battery && battery.use(amount * GLOB.CELLRATE))
 		return TRUE
 	return FALSE
 
 // Ditto for giving.
-TYPE_PROC_REF(/obj/item/electronic_assembly, give_power)(amount)
+/obj/item/electronic_assembly/proc/give_power(amount)
 	if(battery && battery.give(amount * GLOB.CELLRATE))
 		return TRUE
 	return FALSE
@@ -596,7 +596,7 @@ TYPE_PROC_REF(/obj/item/electronic_assembly, give_power)(amount)
 
 // Returns the object that is supposed to be used in attack messages, location checks, etc.
 // Override in children for special behavior.
-TYPE_PROC_REF(/obj/item/electronic_assembly, get_object)()
+/obj/item/electronic_assembly/proc/get_object()
 	return src
 
 // Returns the location to be used for dropping items.
@@ -834,7 +834,7 @@ TYPE_PROC_REF(/obj/item/electronic_assembly, get_object)()
 	max_components = IC_MAX_SIZE_BASE / 2
 	max_complexity = IC_COMPLEXITY_BASE / 2
 
-TYPE_PROC_REF(/obj/item/electronic_assembly/wallmount, mount_assembly)(turf/on_wall, mob/user) //Yeah, this is admittedly just an abridged and kitbashed version of the wallframe attach procs.
+/obj/item/electronic_assembly/wallmount/proc/mount_assembly(turf/on_wall, mob/user) //Yeah, this is admittedly just an abridged and kitbashed version of the wallframe attach procs.
 	if(get_dist(on_wall,user)>1)
 		return
 	var/ndir = get_dir(on_wall, user)

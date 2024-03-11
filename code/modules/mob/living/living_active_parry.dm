@@ -2,19 +2,19 @@
 /**
  * Determines if we can actively parry.
  */
-TYPE_PROC_REF(/obj/item, can_active_parry)()
+/obj/item/proc/can_active_parry()
 	return block_parry_data && (item_flags & ITEM_CAN_PARRY)
 
 /**
  * Called from keybindings.
  */
-TYPE_PROC_REF(/mob/living, keybind_parry)()
+/mob/living/proc/keybind_parry()
 	initiate_parry_sequence()
 
 /**
  * Initiates a parrying sequence.
  */
-TYPE_PROC_REF(/mob/living, initiate_parry_sequence)()
+/mob/living/proc/initiate_parry_sequence()
 	if(parrying)
 		return		// already parrying
 	if(!(mobility_flags & MOBILITY_USE))
@@ -91,7 +91,7 @@ TYPE_PROC_REF(/mob/living, initiate_parry_sequence)()
  * Tries to find a backup parry item.
  * Does not look at active held item.
  */
-TYPE_PROC_REF(/mob/living, find_backup_parry_item)()
+/mob/living/proc/find_backup_parry_item()
 	for(var/obj/item/I in held_items - get_active_held_item())
 		if(I.can_active_parry())
 			return I
@@ -99,13 +99,13 @@ TYPE_PROC_REF(/mob/living, find_backup_parry_item)()
 /**
  * Check if we can unarmed parry
  */
-TYPE_PROC_REF(/mob/living, check_unarmed_parry_activation_special)()
+/mob/living/proc/check_unarmed_parry_activation_special()
 	return TRUE
 
 /**
  * Called via timer when the parry sequence ends.
  */
-TYPE_PROC_REF(/mob/living, end_parry_sequence)()
+/mob/living/proc/end_parry_sequence()
 	if(!parrying)
 		return
 	REMOVE_TRAIT(src, TRAIT_MOBILITY_NOUSE, ACTIVE_PARRY_TRAIT)
@@ -135,7 +135,7 @@ TYPE_PROC_REF(/mob/living, end_parry_sequence)()
 /**
  * Handles starting effects for parrying.
  */
-TYPE_PROC_REF(/mob/living, handle_parry_starting_effects)(datum/block_parry_data/data)
+/mob/living/proc/handle_parry_starting_effects(datum/block_parry_data/data)
 	playsound(src, data.parry_start_sound, 75, 1)
 	parry_visual_effect = new /obj/effect/abstract/parry/main(null, TRUE, src, data.parry_effect_icon_state, data.parry_time_windup_visual_override || data.parry_time_windup, data.parry_time_active_visual_override || data.parry_time_active, data.parry_time_spindown_visual_override || data.parry_time_spindown)
 	switch(parrying)
@@ -147,7 +147,7 @@ TYPE_PROC_REF(/mob/living, handle_parry_starting_effects)(datum/block_parry_data
 /**
  * Handles ending effects for parrying.
  */
-TYPE_PROC_REF(/mob/living, handle_parry_ending_effects)(datum/block_parry_data/data, list/failed_effect_text)
+/mob/living/proc/handle_parry_ending_effects(datum/block_parry_data/data, list/failed_effect_text)
 	if(length(successful_parries))
 		return
 	visible_message("<span class='warning'>[src] fails to connect their parry[failed_effect_text? ", [english_list(failed_effect_text)]" : ""]!")
@@ -155,7 +155,7 @@ TYPE_PROC_REF(/mob/living, handle_parry_ending_effects)(datum/block_parry_data/d
 /**
  * Gets this item's datum/block_parry_data
  */
-TYPE_PROC_REF(/obj/item, get_block_parry_data)()
+/obj/item/proc/get_block_parry_data()
 	return return_block_parry_datum(block_parry_data)
 
 //Stubs.
@@ -163,37 +163,37 @@ TYPE_PROC_REF(/obj/item, get_block_parry_data)()
 /**
  * Called when an attack is parried using this, whether or not the parry was successful.
  */
-TYPE_PROC_REF(/obj/item, on_active_parry)(mob/living/owner, atom/object, damage, attack_text, attack_type, armour_penetration, mob/attacker, def_zone, list/block_return, parry_efficiency, parry_time)
+/obj/item/proc/on_active_parry(mob/living/owner, atom/object, damage, attack_text, attack_type, armour_penetration, mob/attacker, def_zone, list/block_return, parry_efficiency, parry_time)
 
 /**
  * Called when an attack is parried innately, whether or not the parry was successful.
  */
-TYPE_PROC_REF(/mob/living, on_active_parry)(mob/living/owner, atom/object, damage, attack_text, attack_type, armour_penetration, mob/attacker, def_zone, list/block_return, parry_efficiency, parry_time)
+/mob/living/proc/on_active_parry(mob/living/owner, atom/object, damage, attack_text, attack_type, armour_penetration, mob/attacker, def_zone, list/block_return, parry_efficiency, parry_time)
 
 /**
  * Called when an attack is parried using this, whether or not the parry was successful.
  */
-TYPE_PROC_REF(/datum/martial_art, on_active_parry)(mob/living/owner, atom/object, damage, attack_text, attack_type, armour_penetration, mob/attacker, def_zone, list/block_return, parry_efficiency, parry_time)
+/datum/martial_art/proc/on_active_parry(mob/living/owner, atom/object, damage, attack_text, attack_type, armour_penetration, mob/attacker, def_zone, list/block_return, parry_efficiency, parry_time)
 
 /**
  * Called when an attack is parried and block_parra_data indicates to use a proc to handle counterattack.
  */
-TYPE_PROC_REF(/obj/item, active_parry_reflex_counter)(mob/living/owner, atom/object, damage, attack_text, attack_type, armour_penetration, mob/attacker, def_zone, list/return_list, parry_efficiency, list/effect_text)
+/obj/item/proc/active_parry_reflex_counter(mob/living/owner, atom/object, damage, attack_text, attack_type, armour_penetration, mob/attacker, def_zone, list/return_list, parry_efficiency, list/effect_text)
 
 /**
  * Called when an attack is parried and block_parra_data indicates to use a proc to handle counterattack.
  */
-TYPE_PROC_REF(/mob/living, active_parry_reflex_counter)(mob/living/owner, atom/object, damage, attack_text, attack_type, armour_penetration, mob/attacker, def_zone, list/return_list, parry_efficiency, list/effect_text)
+/mob/living/proc/active_parry_reflex_counter(mob/living/owner, atom/object, damage, attack_text, attack_type, armour_penetration, mob/attacker, def_zone, list/return_list, parry_efficiency, list/effect_text)
 
 /**
  * Called when an attack is parried and block_parra_data indicates to use a proc to handle counterattack.
  */
-TYPE_PROC_REF(/datum/martial_art, active_parry_reflex_counter)(mob/living/owner, atom/object, damage, attack_text, attack_type, armour_penetration, mob/attacker, def_zone, list/return_list, parry_efficiency, list/effect_text)
+/datum/martial_art/proc/active_parry_reflex_counter(mob/living/owner, atom/object, damage, attack_text, attack_type, armour_penetration, mob/attacker, def_zone, list/return_list, parry_efficiency, list/effect_text)
 
 /**
  * Gets the stage of our parry sequence we're currently in.
  */
-TYPE_PROC_REF(/mob/living, get_parry_stage)()
+/mob/living/proc/get_parry_stage()
 	if(!parrying)
 		return NOT_PARRYING
 	var/datum/block_parry_data/data = get_parry_data()
@@ -216,11 +216,11 @@ TYPE_PROC_REF(/mob/living, get_parry_stage)()
 /**
  * Gets the current decisecond "frame" of an active parry.
  */
-TYPE_PROC_REF(/mob/living, get_parry_time)()
+/mob/living/proc/get_parry_time()
 	return world.time - parry_start_time
 
 /// same return values as normal blocking, called with absolute highest priority in the block "chain".
-TYPE_PROC_REF(/mob/living, run_parry)(atom/object, damage, attack_text, attack_type, armour_penetration, mob/attacker, def_zone, list/return_list = list())
+/mob/living/proc/run_parry(atom/object, damage, attack_text, attack_type, armour_penetration, mob/attacker, def_zone, list/return_list = list())
 	var/stage = get_parry_stage()
 	if(stage != PARRY_ACTIVE)
 		return BLOCK_NONE
@@ -262,7 +262,7 @@ TYPE_PROC_REF(/mob/living, run_parry)(atom/object, damage, attack_text, attack_t
 	if(length(successful_parries) >= data.parry_max_attacks)
 		end_parry_sequence()
 
-TYPE_PROC_REF(/mob/living, handle_parry_feedback)(atom/object, damage, attack_text, attack_type, armour_penetration, mob/attacker, def_zone, list/return_list = list(), parry_efficiency, list/effect_text)
+/mob/living/proc/handle_parry_feedback(atom/object, damage, attack_text, attack_type, armour_penetration, mob/attacker, def_zone, list/return_list = list(), parry_efficiency, list/effect_text)
 	var/datum/block_parry_data/data = get_parry_data()
 	var/knockdown_check = FALSE
 	if(data.parry_data[PARRY_KNOCKDOWN_ATTACKER] && parry_efficiency >= data.parry_efficiency_to_counterattack)
@@ -272,7 +272,7 @@ TYPE_PROC_REF(/mob/living, handle_parry_feedback)(atom/object, damage, attack_te
 	visible_message(span_danger("[src] parries [attack_text][length(effect_text)? ", [english_list(effect_text)] [attacker]" : ""][length(effect_text) && knockdown_check? " and" : ""][knockdown_check? " knocking them to the ground" : ""]!"))
 
 /// Run counterattack if any
-TYPE_PROC_REF(/mob/living, run_parry_countereffects)(atom/object, damage, attack_text, attack_type, armour_penetration, mob/attacker, def_zone, list/return_list = list(), parry_efficiency)
+/mob/living/proc/run_parry_countereffects(atom/object, damage, attack_text, attack_type, armour_penetration, mob/attacker, def_zone, list/return_list = list(), parry_efficiency)
 	if(!isliving(attacker))
 		return
 	var/mob/living/L = attacker
@@ -313,7 +313,7 @@ TYPE_PROC_REF(/mob/living, run_parry_countereffects)(atom/object, damage, attack
 	return effect_text
 
 /// Gets the datum/block_parry_data we're going to use to parry.
-TYPE_PROC_REF(/mob/living, get_parry_data)()
+/mob/living/proc/get_parry_data()
 	if(parrying == ITEM_PARRY)
 		return active_parry_item.get_block_parry_data()
 	else if(parrying == UNARMED_PARRY)
@@ -346,18 +346,18 @@ TYPE_PROC_REF(/mob/living, get_parry_data)()
 	detach_from(owner)
 	return ..()
 
-TYPE_PROC_REF(/obj/effect/abstract/parry/main, attach_to)(mob/living/attaching)
+/obj/effect/abstract/parry/main/proc/attach_to(mob/living/attaching)
 	if(owner)
 		detach_from(owner)
 	owner = attaching
 	owner.vis_contents += src
 
-TYPE_PROC_REF(/obj/effect/abstract/parry/main, detach_from)(mob/living/detaching)
+/obj/effect/abstract/parry/main/proc/detach_from(mob/living/detaching)
 	if(detaching == owner)
 		owner = null
 	detaching.vis_contents -= src
 
-TYPE_PROC_REF(/obj/effect/abstract/parry/main, run_animation)(windup_time = 2, active_time = 5, spindown_time = 3)
+/obj/effect/abstract/parry/main/proc/run_animation(windup_time = 2, active_time = 5, spindown_time = 3)
 	var/matrix/current = transform
 	transform = matrix(0.1, 0, 0, 0, 0.1, 0)
 	animate(src, transform = current, time = windup_time)

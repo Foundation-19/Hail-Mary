@@ -6,12 +6,12 @@
 	name = "The Sleeping Carp"
 	id = MARTIALART_SLEEPINGCARP
 	allow_temp_override = FALSE
-	help_verb = TYPE_PROC_REF(/mob/living/carbon/human, sleeping_carp_help)
+	help_verb = /mob/living/carbon/human/proc/sleeping_carp_help
 	pugilist = TRUE
 	var/physdammod = 0.5
 	var/stamdammod = 0.2
 /*
-TYPE_PROC_REF(/datum/martial_art/the_sleeping_carp, check_streak)(mob/living/carbon/human/A, mob/living/carbon/human/D)
+/datum/martial_art/the_sleeping_carp/proc/check_streak(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	if(findtext(streak,STRONG_PUNCH_COMBO))
 		streak = ""
 		strongPunch(A,D)
@@ -27,7 +27,7 @@ TYPE_PROC_REF(/datum/martial_art/the_sleeping_carp, check_streak)(mob/living/car
 	return FALSE
 
 ///Gnashing Teeth: Harm Harm, high force punch on every second harm punch, has a chance to crit for near triple damage
-TYPE_PROC_REF(/datum/martial_art/the_sleeping_carp, strongPunch)(mob/living/carbon/human/A, mob/living/carbon/human/D)
+/datum/martial_art/the_sleeping_carp/proc/strongPunch(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	///this var is so that the strong punch is always aiming for the body part the user is targeting and not trying to apply to the chest before deviating
 	var/obj/item/bodypart/affecting = D.get_bodypart(ran_zone(A.zone_selected))
 	A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
@@ -50,7 +50,7 @@ TYPE_PROC_REF(/datum/martial_art/the_sleeping_carp, strongPunch)(mob/living/carb
 	return TRUE
 
 ///Crashing Wave Kick: Harm Disarm combo, throws people seven tiles backwards
-TYPE_PROC_REF(/datum/martial_art/the_sleeping_carp, launchKick)(mob/living/carbon/human/A, mob/living/carbon/human/D)
+/datum/martial_art/the_sleeping_carp/proc/launchKick(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	var/damage = (damage_roll(A,D) + 15)
 	A.do_attack_animation(D, ATTACK_EFFECT_KICK)
 	D.visible_message(span_warning("[A] kicks [D] square in the chest, sending them flying!"), \
@@ -63,7 +63,7 @@ TYPE_PROC_REF(/datum/martial_art/the_sleeping_carp, launchKick)(mob/living/carbo
 	return TRUE
 
 ///Keelhaul: Harm Grab combo, knocks people down, deals stamina damage while they're on the floor
-TYPE_PROC_REF(/datum/martial_art/the_sleeping_carp, dropKick)(mob/living/carbon/human/A, mob/living/carbon/human/D)
+/datum/martial_art/the_sleeping_carp/proc/dropKick(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	var/damage = damage_roll(A,D)
 	A.do_attack_animation(D, ATTACK_EFFECT_KICK)
 	playsound(get_turf(A), 'sound/effects/hit_kick.ogg', 50, TRUE, -1)
@@ -165,7 +165,7 @@ TYPE_PROC_REF(/datum/martial_art/the_sleeping_carp, dropKick)(mob/living/carbon/
 
 	H.faction -= "carp" //:(
 
-TYPE_PROC_REF(/mob/living/carbon/human, sleeping_carp_help)()
+/mob/living/carbon/human/proc/sleeping_carp_help()
 	set name = "Recall Teachings"
 	set desc = "Remember the martial techniques of the Sleeping Carp clan."
 	set category = "Sleeping Carp"

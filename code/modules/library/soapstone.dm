@@ -64,22 +64,22 @@
 			M.register(user, message)
 			remove_use()
 
-TYPE_PROC_REF(/obj/item/soapstone, can_use)()
+/obj/item/soapstone/proc/can_use()
 	return remaining_uses == -1 || remaining_uses >= 0
 
-TYPE_PROC_REF(/obj/item/soapstone, remove_use)()
+/obj/item/soapstone/proc/remove_use()
 	if(remaining_uses <= 0)
 		return
 	remaining_uses--
 	check_name()
 
-TYPE_PROC_REF(/obj/item/soapstone, refund_use)()
+/obj/item/soapstone/proc/refund_use()
 	if(remaining_uses == -1)
 		return
 	remaining_uses++
 	check_name()
 
-TYPE_PROC_REF(/obj/item/soapstone, check_name)()
+/obj/item/soapstone/proc/check_name()
 	if(remaining_uses)
 		// This will mess up RPG loot names, but w/e
 		name = initial(name)
@@ -138,7 +138,7 @@ TYPE_PROC_REF(/obj/item/soapstone, check_name)()
 		persists = FALSE
 		return INITIALIZE_HINT_QDEL
 
-TYPE_PROC_REF(/obj/structure/chisel_message, register)(mob/user, newmessage)
+/obj/structure/chisel_message/proc/register(mob/user, newmessage)
 	hidden_message = newmessage
 	creator_name = user.real_name
 	creator_key = user.ckey
@@ -154,7 +154,7 @@ TYPE_PROC_REF(/obj/structure/chisel_message, register)(mob/user, newmessage)
 	light_color = "#[newcolor]"
 	set_light(1)
 
-TYPE_PROC_REF(/obj/structure/chisel_message, pack)()
+/obj/structure/chisel_message/proc/pack()
 	var/list/data = list()
 	data["hidden_message"] = hidden_message
 	data["creator_name"] = creator_name
@@ -168,7 +168,7 @@ TYPE_PROC_REF(/obj/structure/chisel_message, pack)()
 	data["dislike_keys"] = dislike_keys
 	return data
 
-TYPE_PROC_REF(/obj/structure/chisel_message, unpack)(list/data)
+/obj/structure/chisel_message/proc/unpack(list/data)
 	if(!islist(data))
 		return
 

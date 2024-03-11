@@ -61,7 +61,7 @@ Key procs
 	return ..()
 
 /// Grants the supplied language.
-TYPE_PROC_REF(/datum/language_holder, grant_language)(language, understood = TRUE, spoken = TRUE, source = LANGUAGE_MIND)
+/datum/language_holder/proc/grant_language(language, understood = TRUE, spoken = TRUE, source = LANGUAGE_MIND)
 	if(understood)
 		if(!understood_languages[language])
 			understood_languages[language] = list()
@@ -74,7 +74,7 @@ TYPE_PROC_REF(/datum/language_holder, grant_language)(language, understood = TRU
 		. = TRUE
 
 /// Grants every language to understood and spoken, and gives omnitongue.
-TYPE_PROC_REF(/datum/language_holder, grant_all_languages)(understood = TRUE, spoken = TRUE, grant_omnitongue = TRUE, source = LANGUAGE_MIND)
+/datum/language_holder/proc/grant_all_languages(understood = TRUE, spoken = TRUE, grant_omnitongue = TRUE, source = LANGUAGE_MIND)
 	for(var/language in GLOB.all_languages)
 		grant_language(language, understood, spoken, source)
 	if(grant_omnitongue)	// Overrides tongue limitations.
@@ -82,7 +82,7 @@ TYPE_PROC_REF(/datum/language_holder, grant_all_languages)(understood = TRUE, sp
 	return TRUE
 
 /// Removes a single language or source, removing all sources returns the pre-removal state of the language.
-TYPE_PROC_REF(/datum/language_holder, remove_language)(language, understood = TRUE, spoken = TRUE, source = LANGUAGE_ALL)
+/datum/language_holder/proc/remove_language(language, understood = TRUE, spoken = TRUE, source = LANGUAGE_ALL)
 	if(understood && understood_languages[language])
 		if(source == LANGUAGE_ALL)
 			understood_languages -= language
@@ -102,7 +102,7 @@ TYPE_PROC_REF(/datum/language_holder, remove_language)(language, understood = TR
 		. = TRUE
 
 /// Removes every language and optionally sets omnitongue false. If a non default source is supplied, only removes that source.
-TYPE_PROC_REF(/datum/language_holder, remove_all_languages)(source = LANGUAGE_ALL, remove_omnitongue = FALSE)
+/datum/language_holder/proc/remove_all_languages(source = LANGUAGE_ALL, remove_omnitongue = FALSE)
 	for(var/language in GLOB.all_languages)
 		remove_language(language, TRUE, TRUE, source)
 	if(remove_omnitongue)
@@ -110,7 +110,7 @@ TYPE_PROC_REF(/datum/language_holder, remove_all_languages)(source = LANGUAGE_AL
 	return TRUE
 
 /// Adds a single language or list of languages to the blocked language list.
-TYPE_PROC_REF(/datum/language_holder, add_blocked_language)(languages, source = LANGUAGE_MIND)
+/datum/language_holder/proc/add_blocked_language(languages, source = LANGUAGE_MIND)
 	if(!islist(languages))
 		languages = list(languages)
 	for(var/language in languages)
@@ -120,7 +120,7 @@ TYPE_PROC_REF(/datum/language_holder, add_blocked_language)(languages, source = 
 	return TRUE
 
 /// Removes a single language or list of languages from the blocked language list.
-TYPE_PROC_REF(/datum/language_holder, remove_blocked_language)(languages, source = LANGUAGE_MIND)
+/datum/language_holder/proc/remove_blocked_language(languages, source = LANGUAGE_MIND)
 	if(!islist(languages))
 		languages = list(languages)
 	for(var/language in languages)
@@ -134,7 +134,7 @@ TYPE_PROC_REF(/datum/language_holder, remove_blocked_language)(languages, source
 	return TRUE
 
 /// Checks if you have the language. If spoken is true, only checks if you can speak the language.
-TYPE_PROC_REF(/datum/language_holder, has_language)(language, spoken = FALSE)
+/datum/language_holder/proc/has_language(language, spoken = FALSE)
 	if(language in blocked_languages)
 		return FALSE
 	if(spoken)
@@ -142,7 +142,7 @@ TYPE_PROC_REF(/datum/language_holder, has_language)(language, spoken = FALSE)
 	return language in understood_languages
 
 /// Checks if you can speak the language. Tongue limitations should be supplied as an argument.
-TYPE_PROC_REF(/datum/language_holder, can_speak_language)(language)
+/datum/language_holder/proc/can_speak_language(language)
 	var/atom/movable/ouratom = get_atom()
 	var/tongue = ouratom.could_speak_language(language)
 	if((omnitongue || tongue) && has_language(language, TRUE))
@@ -150,7 +150,7 @@ TYPE_PROC_REF(/datum/language_holder, can_speak_language)(language)
 	return FALSE
 
 /// Returns selected language if it can be spoken, or decides, sets and returns a new selected language if possible.
-TYPE_PROC_REF(/datum/language_holder, get_selected_language)()
+/datum/language_holder/proc/get_selected_language()
 	if(selected_language && can_speak_language(selected_language))
 		return selected_language
 	selected_language = null
@@ -165,21 +165,21 @@ TYPE_PROC_REF(/datum/language_holder, get_selected_language)()
 	return selected_language
 
 /// Gets a random understood language, useful for hallucinations and such.
-TYPE_PROC_REF(/datum/language_holder, get_random_understood_language)()
+/datum/language_holder/proc/get_random_understood_language()
 	return pick(understood_languages)
 
 /// Gets a random spoken language, useful for forced speech and such.
-TYPE_PROC_REF(/datum/language_holder, get_random_spoken_language)()
+/datum/language_holder/proc/get_random_spoken_language()
 	return pick(spoken_languages)
 
 /// Opens a language menu reading from the language holder.
-TYPE_PROC_REF(/datum/language_holder, open_language_menu)(mob/user)
+/datum/language_holder/proc/open_language_menu(mob/user)
 	if(!language_menu)
 		language_menu = new (src)
 	language_menu.ui_interact(user)
 
 /// Gets the atom, since we some times need to check if the tongue has limitations.
-TYPE_PROC_REF(/datum/language_holder, get_atom)()
+/datum/language_holder/proc/get_atom()
 	if(owner)
 		if(istype(owner, /datum/mind))
 			var/datum/mind/M = owner
@@ -188,7 +188,7 @@ TYPE_PROC_REF(/datum/language_holder, get_atom)()
 	return FALSE
 
 /// Empties out the atom specific languages and updates them according to the supplied atoms language holder.
-TYPE_PROC_REF(/datum/language_holder, update_atom_languages)(atom/movable/thing)
+/datum/language_holder/proc/update_atom_languages(atom/movable/thing)
 	var/datum/language_holder/from_atom = thing.get_language_holder(FALSE)	//Gets the atoms language holder
 	if(from_atom == src)	//This could happen if called on an atom without a mind.
 		return FALSE
@@ -205,7 +205,7 @@ TYPE_PROC_REF(/datum/language_holder, update_atom_languages)(atom/movable/thing)
 
 /// Copies all languages from the supplied atom/language holder. Source should be overridden when you
 /// do not want the language overwritten by later atom updates or want to avoid blocked languages.
-TYPE_PROC_REF(/datum/language_holder, copy_languages)(datum/language_holder/from_holder, source_override)
+/datum/language_holder/proc/copy_languages(datum/language_holder/from_holder, source_override)
 	if(source_override)	//No blocked languages here, for now only used by ling absorb.
 		for(var/language in from_holder.understood_languages)
 			grant_language(language, TRUE, FALSE, source_override)

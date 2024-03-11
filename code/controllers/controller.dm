@@ -3,17 +3,17 @@
 	// The object used for the clickable stat() button.
 	var/obj/effect/statclick/statclick
 
-TYPE_PROC_REF(/datum/controller, Initialize)()
+/datum/controller/proc/Initialize()
 
 //cleanup actions
-TYPE_PROC_REF(/datum/controller, Shutdown)()
+/datum/controller/proc/Shutdown()
 
 //when we enter dmm_suite.load_map
-TYPE_PROC_REF(/datum/controller, StartLoadingMap)()
+/datum/controller/proc/StartLoadingMap()
 
 //when we exit dmm_suite.load_map
-TYPE_PROC_REF(/datum/controller, StopLoadingMap)()
+/datum/controller/proc/StopLoadingMap()
 
-TYPE_PROC_REF(/datum/controller, Recover)()
+/datum/controller/proc/Recover()
 
-TYPE_PROC_REF(/datum/controller, stat_entry)(msg)
+/datum/controller/proc/stat_entry(msg)

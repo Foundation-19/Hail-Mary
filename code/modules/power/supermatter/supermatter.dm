@@ -317,7 +317,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 		if (!istype(C.glasses, /obj/item/clothing/glasses/meson) && (get_dist(user, src) < HALLUCINATION_RANGE(power)))
 			. += span_danger("You get headaches just from looking at it.")
 
-TYPE_PROC_REF(/obj/machinery/power/supermatter_crystal, get_status)()
+/obj/machinery/power/supermatter_crystal/proc/get_status()
 	var/turf/T = get_turf(src)
 	if(!T)
 		return SUPERMATTER_ERROR
@@ -345,7 +345,7 @@ TYPE_PROC_REF(/obj/machinery/power/supermatter_crystal, get_status)()
 		return SUPERMATTER_NORMAL
 	return SUPERMATTER_INACTIVE
 
-TYPE_PROC_REF(/obj/machinery/power/supermatter_crystal, alarm)()
+/obj/machinery/power/supermatter_crystal/proc/alarm()
 	switch(get_status())
 		if(SUPERMATTER_DELAMINATING)
 			playsound(src, 'sound/misc/bloblarm.ogg', 100)
@@ -356,7 +356,7 @@ TYPE_PROC_REF(/obj/machinery/power/supermatter_crystal, alarm)()
 		if(SUPERMATTER_WARNING)
 			playsound(src, 'sound/machines/terminal_alert.ogg', 75)
 
-TYPE_PROC_REF(/obj/machinery/power/supermatter_crystal, get_integrity)()
+/obj/machinery/power/supermatter_crystal/proc/get_integrity()
 	var/integrity = damage / explosion_point
 	integrity = round(100 - integrity * 100, 0.01)
 	integrity = integrity < 0 ? 0 : integrity
@@ -367,7 +367,7 @@ TYPE_PROC_REF(/obj/machinery/power/supermatter_crystal, get_integrity)()
 	if(final_countdown)
 		. += "casuality_field"
 
-TYPE_PROC_REF(/obj/machinery/power/supermatter_crystal, countdown)()
+/obj/machinery/power/supermatter_crystal/proc/countdown()
 	set waitfor = FALSE
 
 	if(final_countdown) // We're already doing it go away
@@ -395,7 +395,7 @@ TYPE_PROC_REF(/obj/machinery/power/supermatter_crystal, countdown)()
 
 	explode()
 
-TYPE_PROC_REF(/obj/machinery/power/supermatter_crystal, explode)()
+/obj/machinery/power/supermatter_crystal/proc/explode()
 	for(var/mob in GLOB.alive_mob_list)
 		var/mob/living/L = mob
 		if(istype(L) && L.z == z)
@@ -431,7 +431,7 @@ TYPE_PROC_REF(/obj/machinery/power/supermatter_crystal, explode)()
 
 
 //this is here to eat arguments
-TYPE_PROC_REF(/obj/machinery/power/supermatter_crystal, call_explode)()
+/obj/machinery/power/supermatter_crystal/proc/call_explode()
 	explode()
 
 /obj/machinery/power/supermatter_crystal/process_atmos()
@@ -823,7 +823,7 @@ TYPE_PROC_REF(/obj/machinery/power/supermatter_crystal, call_explode)()
 	. = ..()
 	dust_mob(user, cause = "hand")
 
-TYPE_PROC_REF(/obj/machinery/power/supermatter_crystal, dust_mob)(mob/living/nom, vis_msg, mob_msg, cause)
+/obj/machinery/power/supermatter_crystal/proc/dust_mob(mob/living/nom, vis_msg, mob_msg, cause)
 	if(nom.incorporeal_move || nom.status_flags & GODMODE) //try to keep supermatter sliver's + hemostat's dust conditions in sync with this too
 		return
 	if(!vis_msg)
@@ -923,7 +923,7 @@ TYPE_PROC_REF(/obj/machinery/power/supermatter_crystal, dust_mob)(mob/living/nom
 	Bumped(AM)
 	. |= FALL_STOP_INTERCEPTING | FALL_INTERCEPTED
 
-TYPE_PROC_REF(/obj/machinery/power/supermatter_crystal, Consume)(atom/movable/AM)
+/obj/machinery/power/supermatter_crystal/proc/Consume(atom/movable/AM)
 	if(isliving(AM))
 		var/mob/living/user = AM
 		if(user.status_flags & GODMODE)
@@ -957,7 +957,7 @@ TYPE_PROC_REF(/obj/machinery/power/supermatter_crystal, Consume)(atom/movable/AM
 		else
 			L.show_message(span_hear("You hear an unearthly ringing and notice your skin is covered in fresh radiation burns."), MSG_AUDIBLE)
 
-TYPE_PROC_REF(/obj/machinery/power/supermatter_crystal, consume_turf)(turf/T)
+/obj/machinery/power/supermatter_crystal/proc/consume_turf(turf/T)
 	var/oldtype = T.type
 	var/turf/newT = T.ScrapeAway()
 	if(newT.type == oldtype)
@@ -1014,7 +1014,7 @@ TYPE_PROC_REF(/obj/machinery/power/supermatter_crystal, consume_turf)(turf/T)
 	base_icon_state = "darkmatter"
 	icon_state = "darkmatter"
 
-TYPE_PROC_REF(/obj/machinery/power/supermatter_crystal, supermatter_pull)(turf/center, pull_range = 3)
+/obj/machinery/power/supermatter_crystal/proc/supermatter_pull(turf/center, pull_range = 3)
 	playsound(center, 'sound/weapons/marauder.ogg', 100, TRUE, extrarange = pull_range - world.view)
 	for(var/atom/movable/P in orange(pull_range,center))
 		if((P.anchored || P.move_resist >= MOVE_FORCE_EXTREMELY_STRONG)) //move resist memes.
@@ -1028,7 +1028,7 @@ TYPE_PROC_REF(/obj/machinery/power/supermatter_crystal, supermatter_pull)(turf/c
 				continue //You can't pull someone nailed to the deck
 		step_towards(P,center)
 
-TYPE_PROC_REF(/obj/machinery/power/supermatter_crystal, supermatter_anomaly_gen)(turf/anomalycenter, type = FLUX_ANOMALY, anomalyrange = 5)
+/obj/machinery/power/supermatter_crystal/proc/supermatter_anomaly_gen(turf/anomalycenter, type = FLUX_ANOMALY, anomalyrange = 5)
 	var/turf/L = pick(orange(anomalyrange, anomalycenter))
 	if(L)
 		switch(type)
@@ -1040,7 +1040,7 @@ TYPE_PROC_REF(/obj/machinery/power/supermatter_crystal, supermatter_anomaly_gen)
 			if(PYRO_ANOMALY)
 				new /obj/effect/anomaly/pyro(L, 200, SUPERMATTER_ANOMALY_DROP_CHANCE)
 
-TYPE_PROC_REF(/obj/machinery/power/supermatter_crystal, supermatter_zap)(atom/zapstart = src, range = 5, zap_str = 4000, zap_flags = ZAP_SUPERMATTER_FLAGS, list/targets_hit = list())
+/obj/machinery/power/supermatter_crystal/proc/supermatter_zap(atom/zapstart = src, range = 5, zap_str = 4000, zap_flags = ZAP_SUPERMATTER_FLAGS, list/targets_hit = list())
 	if(QDELETED(zapstart))
 		return
 	. = zapstart.dir
@@ -1156,7 +1156,7 @@ TYPE_PROC_REF(/obj/machinery/power/supermatter_crystal, supermatter_zap)(atom/za
 		else if(isliving(target))//If we got a fleshbag on our hands
 			var/mob/living/creature = target
 			creature.set_shocked()
-			addtimer(CALLBACK(creature, TYPE_PROC_REF(/mob/living, reset_shocked)), 10)
+			addtimer(CALLBACK(creature, /mob/living/proc/reset_shocked), 10)
 			//3 shots a human with no resistance. 2 to crit, one to death. This is at at least 10000 power.
 			//There's no increase after that because the input power is effectivly capped at 10k
 			//Does 1.5 damage at the least

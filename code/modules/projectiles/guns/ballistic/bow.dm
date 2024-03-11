@@ -71,7 +71,7 @@
 	draw(user, TRUE)
 //	recentdraw = world.time + 2
 
-TYPE_PROC_REF(/obj/item/gun/ballistic/bow, draw)(mob/M, visible = TRUE)
+/obj/item/gun/ballistic/bow/proc/draw(mob/M, visible = TRUE)
 	if(!draw_load(M))
 		return TRUE
 	if(visible)
@@ -81,7 +81,7 @@ TYPE_PROC_REF(/obj/item/gun/ballistic/bow, draw)(mob/M, visible = TRUE)
 	update_icon()
 	return 1
 
-TYPE_PROC_REF(/obj/item/gun/ballistic/bow, draw_load)(mob/M)
+/obj/item/gun/ballistic/bow/proc/draw_load(mob/M)
 	if(chambered)
 		return FALSE
 	if(!magazine.ammo_count() && !load_from_quiver(M)) // if its empty, try sticking a new ammo in there
@@ -99,7 +99,7 @@ TYPE_PROC_REF(/obj/item/gun/ballistic/bow, draw_load)(mob/M)
 		if(did_a_load)
 			M.show_message(span_notice("You ready some arrows from your quiver."))
 
-TYPE_PROC_REF(/obj/item/gun/ballistic/bow, load_from_quiver)(mob/user)
+/obj/item/gun/ballistic/bow/proc/load_from_quiver(mob/user)
 	if(!drawing_from_quiver)
 		return FALSE
 	if(!can_link_to_quiver)
@@ -119,7 +119,7 @@ TYPE_PROC_REF(/obj/item/gun/ballistic/bow, load_from_quiver)(mob/user)
 		if(magazine.give_round(isit_pointy))
 			return TRUE
 
-TYPE_PROC_REF(/obj/item/gun/ballistic/bow, get_quiver)(mob/user, just_get_it)
+/obj/item/gun/ballistic/bow/proc/get_quiver(mob/user, just_get_it)
 	if(!istype(user))
 		return
 	var/obj/item/storage/bag/tribe_quiver/getted_quiver
@@ -134,7 +134,7 @@ TYPE_PROC_REF(/obj/item/gun/ballistic/bow, get_quiver)(mob/user, just_get_it)
 		if(link_quiver_to_bow(user, getted_quiver))
 			return getted_quiver
 
-TYPE_PROC_REF(/obj/item/gun/ballistic/bow, link_quiver_to_bow)(mob/user, obj/item/storage/bag/tribe_quiver/the_quiver)
+/obj/item/gun/ballistic/bow/proc/link_quiver_to_bow(mob/user, obj/item/storage/bag/tribe_quiver/the_quiver)
 	if(!istype(the_quiver))
 		return
 	if(!ismob(user))

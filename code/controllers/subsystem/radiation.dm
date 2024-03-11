@@ -4,7 +4,7 @@ PROCESSING_SUBSYSTEM_DEF(radiation)
 
 	var/list/warned_atoms = list()
 
-TYPE_PROC_REF(/datum/controller/subsystem/processing/radiation, warn)(datum/component/radioactive/contamination)
+/datum/controller/subsystem/processing/radiation/proc/warn(datum/component/radioactive/contamination)
 	if(!contamination || QDELETED(contamination))
 		return
 	var/ref = REF(contamination.parent)

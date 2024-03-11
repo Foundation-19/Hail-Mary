@@ -20,13 +20,13 @@
 		register_input_turf()
 
 /// Gets the turf in the `input_dir` direction adjacent to the machine, and registers signals for ATOM_ENTERED and ATOM_CREATED. Calls the `pickup_item()` proc when it receives these signals.
-TYPE_PROC_REF(/obj/machinery/mineral, register_input_turf)()
+/obj/machinery/mineral/proc/register_input_turf()
 	input_turf = get_step(src, input_dir)
 	if(input_turf) // make sure there is actually a turf
 		RegisterSignal(input_turf, list(COMSIG_ATOM_CREATED, COMSIG_ATOM_ENTERED), PROC_REF(pickup_item))
 
 /// Unregisters signals that are registered the machine's input turf, if it has one.
-TYPE_PROC_REF(/obj/machinery/mineral, unregister_input_turf)()
+/obj/machinery/mineral/proc/unregister_input_turf()
 	if(input_turf)
 		UnregisterSignal(input_turf, list(COMSIG_ATOM_ENTERED, COMSIG_ATOM_CREATED))
 
@@ -47,11 +47,11 @@ TYPE_PROC_REF(/obj/machinery/mineral, unregister_input_turf)()
 	* target - the atom that just moved onto the `source` turf.
 	* oldLoc - the old location that `target` was at before moving onto `source`.
 */
-TYPE_PROC_REF(/obj/machinery/mineral, pickup_item)(datum/source, atom/movable/target, atom/oldLoc)
+/obj/machinery/mineral/proc/pickup_item(datum/source, atom/movable/target, atom/oldLoc)
 	return
 
 /// Generic unloading proc. Takes an atom as an argument and forceMove's it to the turf adjacent to this machine in the `output_dir` direction.
-TYPE_PROC_REF(/obj/machinery/mineral, unload_mineral)(atom/movable/S)
+/obj/machinery/mineral/proc/unload_mineral(atom/movable/S)
 	S.forceMove(drop_location())
 	var/turf/T = get_step(src,output_dir)
 	if(T)
@@ -140,7 +140,7 @@ TYPE_PROC_REF(/obj/machinery/mineral, unload_mineral)(atom/movable/S)
 	return ..()
 
 
-TYPE_PROC_REF(/obj/machinery/mineral/processing_unit, process_ore)(obj/item/stack/ore/O)
+/obj/machinery/mineral/processing_unit/proc/process_ore(obj/item/stack/ore/O)
 	if(QDELETED(O))
 		return
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
@@ -153,7 +153,7 @@ TYPE_PROC_REF(/obj/machinery/mineral/processing_unit, process_ore)(obj/item/stac
 		if(CONSOLE)
 			CONSOLE.updateUsrDialog()
 
-TYPE_PROC_REF(/obj/machinery/mineral/processing_unit, get_machine_data)()
+/obj/machinery/mineral/processing_unit/proc/get_machine_data()
 	var/dat = "<b>Smelter control console</b><br><br>"
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	for(var/datum/material/M in materials.materials)
@@ -207,7 +207,7 @@ TYPE_PROC_REF(/obj/machinery/mineral/processing_unit, get_machine_data)()
 	else
 		STOP_PROCESSING(SSmachines, src)
 
-TYPE_PROC_REF(/obj/machinery/mineral/processing_unit, smelt_ore)()
+/obj/machinery/mineral/processing_unit/proc/smelt_ore()
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	var/datum/material/mat = selected_material
 	if(mat)
@@ -219,7 +219,7 @@ TYPE_PROC_REF(/obj/machinery/mineral/processing_unit, smelt_ore)()
 			materials.retrieve_sheets(sheets_to_remove, mat, out)
 
 
-TYPE_PROC_REF(/obj/machinery/mineral/processing_unit, smelt_alloy)()
+/obj/machinery/mineral/processing_unit/proc/smelt_alloy()
 	var/datum/design/alloy = stored_research.isDesignResearchedID(selected_alloy) //check if it's a valid design
 	if(!alloy)
 		on = FALSE
@@ -236,7 +236,7 @@ TYPE_PROC_REF(/obj/machinery/mineral/processing_unit, smelt_alloy)()
 
 	generate_mineral(alloy.build_path)
 
-TYPE_PROC_REF(/obj/machinery/mineral/processing_unit, can_smelt)(datum/design/D)
+/obj/machinery/mineral/processing_unit/proc/can_smelt(datum/design/D)
 	if(D.make_reagents.len)
 		return FALSE
 
@@ -252,7 +252,7 @@ TYPE_PROC_REF(/obj/machinery/mineral/processing_unit, can_smelt)(datum/design/D)
 
 	return build_amount
 
-TYPE_PROC_REF(/obj/machinery/mineral/processing_unit, generate_mineral)(P)
+/obj/machinery/mineral/processing_unit/proc/generate_mineral(P)
 	var/O = new P(src)
 	unload_mineral(O)
 

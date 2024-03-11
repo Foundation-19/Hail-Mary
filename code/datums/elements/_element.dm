@@ -15,7 +15,7 @@
 	var/id_arg_index = INFINITY
 
 /// Activates the functionality defined by the element on the given target datum
-TYPE_PROC_REF(/datum/element, Attach)(datum/target)
+/datum/element/proc/Attach(datum/target)
 	SHOULD_CALL_PARENT(1)
 	if(type == /datum/element)
 		return ELEMENT_INCOMPATIBLE
@@ -24,7 +24,7 @@ TYPE_PROC_REF(/datum/element, Attach)(datum/target)
 		RegisterSignal(target, COMSIG_PARENT_QDELETING, PROC_REF(Detach), override = TRUE)
 
 /// Deactivates the functionality defines by the element on the given datum
-TYPE_PROC_REF(/datum/element, Detach)(datum/source, force)
+/datum/element/proc/Detach(datum/source, force)
 	SEND_SIGNAL(source, COMSIG_ELEMENT_DETACH, src)
 	SHOULD_CALL_PARENT(1)
 	UnregisterSignal(source, COMSIG_PARENT_QDELETING)
@@ -38,7 +38,7 @@ TYPE_PROC_REF(/datum/element, Detach)(datum/source, force)
 //DATUM PROCS
 
 /// Finds the singleton for the element type given and attaches it to src
-TYPE_PROC_REF(/datum, _AddElement)(list/arguments)
+/datum/proc/_AddElement(list/arguments)
 	var/datum/element/ele = SSdcs.GetElement(arguments)
 	arguments[1] = src
 	if(ele.Attach(arglist(arguments)) == ELEMENT_INCOMPATIBLE)
@@ -48,6 +48,6 @@ TYPE_PROC_REF(/datum, _AddElement)(list/arguments)
  * Finds the singleton for the element type given and detaches it from src
  * You only need additional arguments beyond the type if you're using ELEMENT_BESPOKE
  */
-TYPE_PROC_REF(/datum, _RemoveElement)(list/arguments)
+/datum/proc/_RemoveElement(list/arguments)
 	var/datum/element/ele = SSdcs.GetElement(arguments)
 	ele.Detach(src)

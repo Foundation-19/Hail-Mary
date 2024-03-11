@@ -16,19 +16,19 @@
 	var/datum/block_parry_data/block_parry_data
 	var/pugilist = FALSE
 
-TYPE_PROC_REF(/datum/martial_art, disarm_act)(mob/living/carbon/human/A, mob/living/carbon/human/D)
+/datum/martial_art/proc/disarm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	return FALSE
 
-TYPE_PROC_REF(/datum/martial_art, harm_act)(mob/living/carbon/human/A, mob/living/carbon/human/D)
+/datum/martial_art/proc/harm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	return FALSE
 
-TYPE_PROC_REF(/datum/martial_art, grab_act)(mob/living/carbon/human/A, mob/living/carbon/human/D)
+/datum/martial_art/proc/grab_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	return FALSE
 
-TYPE_PROC_REF(/datum/martial_art, can_use)(mob/living/carbon/human/H)
+/datum/martial_art/proc/can_use(mob/living/carbon/human/H)
 	return TRUE
 
-TYPE_PROC_REF(/datum/martial_art, add_to_streak)(element,mob/living/carbon/human/D, allow_anyone)
+/datum/martial_art/proc/add_to_streak(element,mob/living/carbon/human/D, allow_anyone)
 	if(allow_anyone)
 		current_target = D
 	if(D != current_target)
@@ -38,11 +38,11 @@ TYPE_PROC_REF(/datum/martial_art, add_to_streak)(element,mob/living/carbon/human
 		streak = copytext(streak, 1 + length(streak[1]))
 	return
 
-TYPE_PROC_REF(/datum/martial_art, reset_streak)(mob/living/carbon/human/new_target)
+/datum/martial_art/proc/reset_streak(mob/living/carbon/human/new_target)
 	current_target = new_target
 	streak = ""
 
-TYPE_PROC_REF(/datum/martial_art, damage_roll)(mob/living/carbon/human/A, mob/living/carbon/human/D)
+/datum/martial_art/proc/damage_roll(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	//Here we roll for our damage to be added into the damage var in the various attack procs. This is changed depending on whether we are in combat mode, lying down, or if our target is in combat mode.
 	var/damage = rand(A.dna.species.punchdamagelow, A.dna.species.punchdamagehigh)
 	//if(SEND_SIGNAL(D, COMSIG_COMBAT_MODE_CHECK, COMBAT_MODE_INACTIVE))
@@ -54,14 +54,14 @@ TYPE_PROC_REF(/datum/martial_art, damage_roll)(mob/living/carbon/human/A, mob/li
 	return damage
 
 /// lets actually check armor, aight?
-TYPE_PROC_REF(/datum/martial_art, deal_damage)(mob/living/carbon/human/attacker, mob/living/defender, damage, damage_type = BRUTE, zone = BODY_ZONE_CHEST, armor_type = "melee", woundbonus = 0)
+/datum/martial_art/proc/deal_damage(mob/living/carbon/human/attacker, mob/living/defender, damage, damage_type = BRUTE, zone = BODY_ZONE_CHEST, armor_type = "melee", woundbonus = 0)
 	if(!isliving(defender))
 		return
 	var/armormult = clamp(defender.getarmor(zone, armor_type), 0, 1)
 	defender.apply_damage(damage, damage_type, BODY_ZONE_CHEST, blocked = armormult, wound_bonus = woundbonus)
 	log_combat(attacker, defender, "martial art ([src])")
 
-TYPE_PROC_REF(/datum/martial_art, teach)(mob/living/carbon/human/H, make_temporary = FALSE)
+/datum/martial_art/proc/teach(mob/living/carbon/human/H, make_temporary = FALSE)
 	if(!istype(H) || !H.mind)
 		return FALSE
 	if(H.mind.martial_art)
@@ -80,14 +80,14 @@ TYPE_PROC_REF(/datum/martial_art, teach)(mob/living/carbon/human/H, make_tempora
 		ADD_TRAIT(H, TRAIT_PUGILIST, MARTIAL_ARTIST_TRAIT)
 	return TRUE
 
-TYPE_PROC_REF(/datum/martial_art, store)(datum/martial_art/M,mob/living/carbon/human/H)
+/datum/martial_art/proc/store(datum/martial_art/M,mob/living/carbon/human/H)
 	M.on_remove(H)
 	if(M.base) //Checks if M is temporary, if so it will not be stored.
 		base = M.base
 	else //Otherwise, M is stored.
 		base = M
 
-TYPE_PROC_REF(/datum/martial_art, remove)(mob/living/carbon/human/H)
+/datum/martial_art/proc/remove(mob/living/carbon/human/H)
 	if(!istype(H) || !H.mind || H.mind.martial_art != src)
 		return
 	on_remove(H)
@@ -98,11 +98,11 @@ TYPE_PROC_REF(/datum/martial_art, remove)(mob/living/carbon/human/H)
 		X.teach(H)
 	REMOVE_TRAIT(H, TRAIT_PUGILIST, MARTIAL_ARTIST_TRAIT)
 
-TYPE_PROC_REF(/datum/martial_art, on_remove)(mob/living/carbon/human/H)
+/datum/martial_art/proc/on_remove(mob/living/carbon/human/H)
 	if(help_verb)
 		remove_verb(H, help_verb)
 	return
 
 ///Gets called when a projectile hits the owner. Returning anything other than BULLET_ACT_HIT will stop the projectile from hitting the mob.
-TYPE_PROC_REF(/datum/martial_art, on_projectile_hit)(mob/living/carbon/human/A, obj/item/projectile/P, def_zone)
+/datum/martial_art/proc/on_projectile_hit(mob/living/carbon/human/A, obj/item/projectile/P, def_zone)
 	return BULLET_ACT_HIT

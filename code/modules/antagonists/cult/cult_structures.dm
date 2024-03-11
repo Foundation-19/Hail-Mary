@@ -7,7 +7,7 @@
 	break_sound = 'sound/hallucinations/veryfar_noise.ogg'
 	debris = list(/obj/item/stack/sheet/runed_metal = 1)
 
-TYPE_PROC_REF(/obj/structure/destructible/cult, conceal)() //for spells that hide cult presence
+/obj/structure/destructible/cult/proc/conceal() //for spells that hide cult presence
 	density = FALSE
 	visible_message(span_danger("[src] fades away."))
 	invisibility = INVISIBILITY_OBSERVER
@@ -17,7 +17,7 @@ TYPE_PROC_REF(/obj/structure/destructible/cult, conceal)() //for spells that hid
 	update_light()
 	STOP_PROCESSING(SSfastprocess, src)
 
-TYPE_PROC_REF(/obj/structure/destructible/cult, reveal)() //for spells that reveal cult presence
+/obj/structure/destructible/cult/proc/reveal() //for spells that reveal cult presence
 	density = initial(density)
 	invisibility = 0
 	visible_message(span_danger("[src] suddenly appears!"))
@@ -72,9 +72,9 @@ TYPE_PROC_REF(/obj/structure/destructible/cult, reveal)() //for spells that reve
 		var/previouscolor = color
 		color = "#FAE48C"
 		animate(src, color = previouscolor, time = 8)
-		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_atom_colour)), 8)
+		addtimer(CALLBACK(src, /atom/proc/update_atom_colour), 8)
 
-TYPE_PROC_REF(/obj/structure/destructible/cult, check_menu)(mob/living/user)
+/obj/structure/destructible/cult/proc/check_menu(mob/living/user)
 	if(!user || user.incapacitated() || !iscultist(user) || !anchored || cooldowntime > world.time)
 		return FALSE
 	return TRUE

@@ -1,4 +1,4 @@
-TYPE_PROC_REF(/datum/admins, open_shuttlepanel)()
+/datum/admins/proc/open_shuttlepanel()
 	set category = "Admin.Events"
 	set name = "Train Manipulator"
 	set desc = "Opens the train manipulator UI."
@@ -11,7 +11,7 @@ TYPE_PROC_REF(/datum/admins, open_shuttlepanel)()
 	SSshuttle.ui_interact(usr)
 
 
-TYPE_PROC_REF(/obj/docking_port/mobile, admin_fly_shuttle)(mob/user)
+/obj/docking_port/mobile/proc/admin_fly_shuttle(mob/user)
 	var/list/options = list()
 
 	for(var/port in SSshuttle.stationary)

@@ -44,7 +44,7 @@
 
 			post_summon(summoned_object, user)
 
-TYPE_PROC_REF(/obj/effect/proc_holder/spell/aoe_turf/conjure, post_summon)(atom/summoned_object, mob/user)
+/obj/effect/proc_holder/spell/aoe_turf/conjure/proc/post_summon(atom/summoned_object, mob/user)
 	return
 
 /obj/effect/proc_holder/spell/aoe_turf/conjure/summonEdSwarm //test purposes - Also a lot of fun
@@ -95,6 +95,6 @@ TYPE_PROC_REF(/obj/effect/proc_holder/spell/aoe_turf/conjure, post_summon)(atom/
 		qdel(item)
 	return ..()
 
-TYPE_PROC_REF(/obj/effect/proc_holder/spell/targeted/conjure_item, make_item)()
+/obj/effect/proc_holder/spell/targeted/conjure_item/proc/make_item()
 	item = new item_type
 	return item

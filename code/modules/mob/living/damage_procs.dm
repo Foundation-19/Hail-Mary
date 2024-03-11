@@ -15,7 +15,7 @@
  *
  * Returns TRUE if damage applied
  */
-TYPE_PROC_REF(/mob/living, apply_damage)(damage = 0,damagetype = BRUTE, def_zone = null, blocked = FALSE, forced = FALSE, spread_damage = FALSE, wound_bonus = 0, bare_wound_bonus = 0, sharpness = SHARP_NONE, damage_threshold = 0, sendsignal = TRUE)
+/mob/living/proc/apply_damage(damage = 0,damagetype = BRUTE, def_zone = null, blocked = FALSE, forced = FALSE, spread_damage = FALSE, wound_bonus = 0, bare_wound_bonus = 0, sharpness = SHARP_NONE, damage_threshold = 0, sendsignal = TRUE)
 	if(sendsignal)
 		SEND_SIGNAL(src, COMSIG_MOB_APPLY_DAMAGE, damage, damagetype, def_zone, blocked, forced, spread_damage, wound_bonus, bare_wound_bonus, sharpness, damage_threshold)
 	var/hit_percent = (100-min(blocked, ARMOR_CAP_DR))/100
@@ -42,7 +42,7 @@ TYPE_PROC_REF(/mob/living, apply_damage)(damage = 0,damagetype = BRUTE, def_zone
 			adjustStaminaLoss(damage_amount, forced = forced)
 	return 1
 
-TYPE_PROC_REF(/mob/living, apply_damage_type)(damage = 0, damagetype = BRUTE) //like apply damage except it always uses the damage procs
+/mob/living/proc/apply_damage_type(damage = 0, damagetype = BRUTE) //like apply damage except it always uses the damage procs
 	switch(damagetype)
 		if(BRUTE)
 			return adjustBruteLoss(damage)
@@ -57,7 +57,7 @@ TYPE_PROC_REF(/mob/living, apply_damage_type)(damage = 0, damagetype = BRUTE) //
 		if(STAMINA)
 			return adjustStaminaLoss(damage)
 
-TYPE_PROC_REF(/mob/living, get_damage_amount)(damagetype = BRUTE)
+/mob/living/proc/get_damage_amount(damagetype = BRUTE)
 	switch(damagetype)
 		if(BRUTE)
 			return getBruteLoss()
@@ -73,7 +73,7 @@ TYPE_PROC_REF(/mob/living, get_damage_amount)(damagetype = BRUTE)
 			return getStaminaLoss()
 
 
-TYPE_PROC_REF(/mob/living, apply_damages)(brute = 0, burn = 0, tox = 0, oxy = 0, clone = 0, def_zone = null, blocked = FALSE, stamina = 0, brain = 0, damagethreshold = 0)
+/mob/living/proc/apply_damages(brute = 0, burn = 0, tox = 0, oxy = 0, clone = 0, def_zone = null, blocked = FALSE, stamina = 0, brain = 0, damagethreshold = 0)
 	if(blocked >= 100)
 		return 0
 	if(brute)
@@ -92,7 +92,7 @@ TYPE_PROC_REF(/mob/living, apply_damages)(brute = 0, burn = 0, tox = 0, oxy = 0,
 		apply_damage(brain, BRAIN, def_zone, blocked, damage_threshold = damagethreshold)
 	return 1
 
-TYPE_PROC_REF(/mob/living, apply_effect)(effect = 0,effecttype = EFFECT_STUN, blocked = FALSE, knockdown_stamoverride, knockdown_stammax)
+/mob/living/proc/apply_effect(effect = 0,effecttype = EFFECT_STUN, blocked = FALSE, knockdown_stamoverride, knockdown_stammax)
 	var/hit_percent = (100-blocked)/100
 	if(!effect || (hit_percent <= 0))
 		return 0
@@ -120,7 +120,7 @@ TYPE_PROC_REF(/mob/living, apply_effect)(effect = 0,effecttype = EFFECT_STUN, bl
 	return 1
 
 
-TYPE_PROC_REF(/mob/living, apply_effects)(stun = 0, knockdown = 0, unconscious = 0, irradiate = 0, slur = 0, stutter = 0, eyeblur = 0, drowsy = 0, blocked = 0, stamina = 0, jitter = 0, kd_stamoverride, kd_stammax)
+/mob/living/proc/apply_effects(stun = 0, knockdown = 0, unconscious = 0, irradiate = 0, slur = 0, stutter = 0, eyeblur = 0, drowsy = 0, blocked = 0, stamina = 0, jitter = 0, kd_stamoverride, kd_stammax)
 	if(blocked >= 100)
 		return BULLET_ACT_BLOCK
 	if(stun)
@@ -146,13 +146,13 @@ TYPE_PROC_REF(/mob/living, apply_effects)(stun = 0, knockdown = 0, unconscious =
 	return BULLET_ACT_HIT
 
 
-TYPE_PROC_REF(/mob/living, getBruteLoss)()
+/mob/living/proc/getBruteLoss()
 	return bruteloss
 
-TYPE_PROC_REF(/mob/living, getBleedLoss)()
+/mob/living/proc/getBleedLoss()
 	return 0
 
-TYPE_PROC_REF(/mob/living, adjustBruteLoss)(amount, updating_health = TRUE, forced = FALSE, include_roboparts = FALSE)
+/mob/living/proc/adjustBruteLoss(amount, updating_health = TRUE, forced = FALSE, include_roboparts = FALSE)
 	if(!forced && (status_flags & GODMODE))
 		return FALSE
 	bruteloss = clamp((bruteloss + (amount * CONFIG_GET(number/damage_multiplier))), 0, maxHealth * 2)
@@ -160,10 +160,10 @@ TYPE_PROC_REF(/mob/living, adjustBruteLoss)(amount, updating_health = TRUE, forc
 		updatehealth()
 	return amount
 
-TYPE_PROC_REF(/mob/living, getFireLoss)()
+/mob/living/proc/getFireLoss()
 	return fireloss
 
-TYPE_PROC_REF(/mob/living, adjustFireLoss)(amount, updating_health = TRUE, forced = FALSE, include_roboparts = FALSE)
+/mob/living/proc/adjustFireLoss(amount, updating_health = TRUE, forced = FALSE, include_roboparts = FALSE)
 	if(!forced && (status_flags & GODMODE))
 		return FALSE
 	fireloss = clamp((fireloss + (amount * CONFIG_GET(number/damage_multiplier))), 0, maxHealth * 2)
@@ -171,10 +171,10 @@ TYPE_PROC_REF(/mob/living, adjustFireLoss)(amount, updating_health = TRUE, force
 		updatehealth()
 	return amount
 
-TYPE_PROC_REF(/mob/living, getOxyLoss)()
+/mob/living/proc/getOxyLoss()
 	return oxyloss
 
-TYPE_PROC_REF(/mob/living, adjustOxyLoss)(amount, updating_health = TRUE, forced = FALSE)
+/mob/living/proc/adjustOxyLoss(amount, updating_health = TRUE, forced = FALSE)
 	if(!forced && (status_flags & GODMODE))
 		return FALSE
 	if(HAS_TRAIT(src, TRAIT_NOBREATH))
@@ -185,7 +185,7 @@ TYPE_PROC_REF(/mob/living, adjustOxyLoss)(amount, updating_health = TRUE, forced
 		updatehealth()
 	return amount
 
-TYPE_PROC_REF(/mob/living, setOxyLoss)(amount, updating_health = TRUE, forced = FALSE)
+/mob/living/proc/setOxyLoss(amount, updating_health = TRUE, forced = FALSE)
 	if(status_flags & GODMODE)
 		return 0
 	if(HAS_TRAIT(src, TRAIT_NOBREATH))
@@ -195,10 +195,10 @@ TYPE_PROC_REF(/mob/living, setOxyLoss)(amount, updating_health = TRUE, forced = 
 		updatehealth()
 	return amount
 
-TYPE_PROC_REF(/mob/living, getToxLoss)()
+/mob/living/proc/getToxLoss()
 	return toxloss
 
-TYPE_PROC_REF(/mob/living, adjustToxLoss)(amount, updating_health = TRUE, forced = FALSE)
+/mob/living/proc/adjustToxLoss(amount, updating_health = TRUE, forced = FALSE)
 	if(!forced && (status_flags & GODMODE))
 		return FALSE
 	if(HAS_TRAIT(src, TRAIT_TOXINIMMUNE))
@@ -211,7 +211,7 @@ TYPE_PROC_REF(/mob/living, adjustToxLoss)(amount, updating_health = TRUE, forced
 		updatehealth()
 	return amount
 
-TYPE_PROC_REF(/mob/living, setToxLoss)(amount, updating_health = TRUE, forced = FALSE)
+/mob/living/proc/setToxLoss(amount, updating_health = TRUE, forced = FALSE)
 	if(!forced && (status_flags & GODMODE))
 		return FALSE
 	if(HAS_TRAIT(src, TRAIT_TOXINIMMUNE))
@@ -221,10 +221,10 @@ TYPE_PROC_REF(/mob/living, setToxLoss)(amount, updating_health = TRUE, forced = 
 		updatehealth()
 	return amount
 
-TYPE_PROC_REF(/mob/living, getCloneLoss)()
+/mob/living/proc/getCloneLoss()
 	return cloneloss
 
-TYPE_PROC_REF(/mob/living, adjustCloneLoss)(amount, updating_health = TRUE, forced = FALSE)
+/mob/living/proc/adjustCloneLoss(amount, updating_health = TRUE, forced = FALSE)
 	if(!forced && (status_flags & GODMODE))
 		return FALSE
 	if(HAS_TRAIT(src, TRAIT_CLONEIMMUNE))
@@ -235,7 +235,7 @@ TYPE_PROC_REF(/mob/living, adjustCloneLoss)(amount, updating_health = TRUE, forc
 		updatehealth()
 	return amount
 
-TYPE_PROC_REF(/mob/living, setCloneLoss)(amount, updating_health = TRUE, forced = FALSE)
+/mob/living/proc/setCloneLoss(amount, updating_health = TRUE, forced = FALSE)
 	if(!forced && (status_flags & GODMODE))
 		return FALSE
 	if(HAS_TRAIT(src, TRAIT_CLONEIMMUNE))
@@ -245,26 +245,26 @@ TYPE_PROC_REF(/mob/living, setCloneLoss)(amount, updating_health = TRUE, forced 
 		updatehealth()
 	return amount
 
-TYPE_PROC_REF(/mob/living, adjustOrganLoss)(slot, amount, maximum)
+/mob/living/proc/adjustOrganLoss(slot, amount, maximum)
 	return
 
-TYPE_PROC_REF(/mob/living, setOrganLoss)(slot, amount, maximum)
+/mob/living/proc/setOrganLoss(slot, amount, maximum)
 	return
 
-TYPE_PROC_REF(/mob/living, getOrganLoss)(slot)
+/mob/living/proc/getOrganLoss(slot)
 	return
 
-TYPE_PROC_REF(/mob/living, getStaminaLoss)()
+/mob/living/proc/getStaminaLoss()
 	return staminaloss
 
-TYPE_PROC_REF(/mob/living, adjustStaminaLoss)(amount, updating_health = TRUE, forced = FALSE)
+/mob/living/proc/adjustStaminaLoss(amount, updating_health = TRUE, forced = FALSE)
 	return
 
-TYPE_PROC_REF(/mob/living, setStaminaLoss)(amount, updating_health = TRUE, forced = FALSE)
+/mob/living/proc/setStaminaLoss(amount, updating_health = TRUE, forced = FALSE)
 	return
 
 // heal ONE external organ, organ gets randomly selected from damaged ones.
-TYPE_PROC_REF(/mob/living, heal_bodypart_damage)(brute = 0, burn = 0, stamina = 0, updating_health = TRUE, include_roboparts = FALSE)
+/mob/living/proc/heal_bodypart_damage(brute = 0, burn = 0, stamina = 0, updating_health = TRUE, include_roboparts = FALSE)
 	adjustBruteLoss(-brute, FALSE) //zero as argument for no instant health update
 	adjustFireLoss(-burn, FALSE)
 	adjustStaminaLoss(-stamina, FALSE)
@@ -273,7 +273,7 @@ TYPE_PROC_REF(/mob/living, heal_bodypart_damage)(brute = 0, burn = 0, stamina = 
 	update_stamina()
 
 // damage ONE external organ, organ gets randomly selected from damaged ones.
-TYPE_PROC_REF(/mob/living, take_bodypart_damage)(brute = 0, burn = 0, stamina = 0, updating_health = TRUE, required_status, check_armor = FALSE, wound_bonus = 0, bare_wound_bonus = 0, sharpness = SHARP_NONE)
+/mob/living/proc/take_bodypart_damage(brute = 0, burn = 0, stamina = 0, updating_health = TRUE, required_status, check_armor = FALSE, wound_bonus = 0, bare_wound_bonus = 0, sharpness = SHARP_NONE)
 	adjustBruteLoss(brute, FALSE) //zero as argument for no instant health update
 	adjustFireLoss(burn, FALSE)
 	adjustStaminaLoss(stamina, FALSE)
@@ -282,7 +282,7 @@ TYPE_PROC_REF(/mob/living, take_bodypart_damage)(brute = 0, burn = 0, stamina = 
 	update_stamina()
 
 // heal MANY bodyparts, in random order
-TYPE_PROC_REF(/mob/living, heal_overall_damage)(brute = 0, burn = 0, stamina = 0, only_robotic = FALSE, only_organic = TRUE, updating_health = TRUE)
+/mob/living/proc/heal_overall_damage(brute = 0, burn = 0, stamina = 0, only_robotic = FALSE, only_organic = TRUE, updating_health = TRUE)
 	adjustBruteLoss(-brute, FALSE) //zero as argument for no instant health update
 	adjustFireLoss(-burn, FALSE)
 	adjustStaminaLoss(-stamina, FALSE)
@@ -291,7 +291,7 @@ TYPE_PROC_REF(/mob/living, heal_overall_damage)(brute = 0, burn = 0, stamina = 0
 	update_stamina()
 
 // damage MANY bodyparts, in random order
-TYPE_PROC_REF(/mob/living, take_overall_damage)(brute = 0, burn = 0, stamina = 0, updating_health = TRUE)
+/mob/living/proc/take_overall_damage(brute = 0, burn = 0, stamina = 0, updating_health = TRUE)
 	adjustBruteLoss(brute, FALSE) //zero as argument for no instant health update
 	adjustFireLoss(burn, FALSE)
 	adjustStaminaLoss(stamina, FALSE)
@@ -300,7 +300,7 @@ TYPE_PROC_REF(/mob/living, take_overall_damage)(brute = 0, burn = 0, stamina = 0
 	update_stamina()
 
 //heal up to amount damage, in a given order
-TYPE_PROC_REF(/mob/living, heal_ordered_damage)(amount, list/damage_types)
+/mob/living/proc/heal_ordered_damage(amount, list/damage_types)
 	. = amount //we'll return the amount of damage healed
 	for(var/i in damage_types)
 		var/amount_to_heal = min(amount, get_damage_amount(i)) //heal only up to the amount of damage we have

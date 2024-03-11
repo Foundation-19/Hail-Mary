@@ -54,7 +54,7 @@ STI KALY - blind
 
 
 
-TYPE_PROC_REF(/datum/disease/wizarditis, spawn_wizard_clothes)(chance = 0)
+/datum/disease/wizarditis/proc/spawn_wizard_clothes(chance = 0)
 	if(ishuman(affected_mob))
 		var/mob/living/carbon/human/H = affected_mob
 		if(prob(chance))
@@ -83,7 +83,7 @@ TYPE_PROC_REF(/datum/disease/wizarditis, spawn_wizard_clothes)(chance = 0)
 				qdel(S)
 
 
-TYPE_PROC_REF(/datum/disease/wizarditis, teleport)()
+/datum/disease/wizarditis/proc/teleport()
 	var/list/theareas = get_areas_in_range(80, affected_mob)
 	for(var/area/space/S in theareas)
 		theareas -= S

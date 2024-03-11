@@ -101,7 +101,7 @@
 	SSresearch.techwebs -= src
 	return ..()
 
-TYPE_PROC_REF(/datum/techweb, recalculate_nodes)(recalculate_designs = FALSE, wipe_custom_designs = FALSE)
+/datum/techweb/proc/recalculate_nodes(recalculate_designs = FALSE, wipe_custom_designs = FALSE)
 	var/list/datum/techweb_node/processing = list()
 	for(var/id in researched_nodes)
 		processing[id] = TRUE
@@ -121,40 +121,40 @@ TYPE_PROC_REF(/datum/techweb, recalculate_nodes)(recalculate_designs = FALSE, wi
 		V.rescan_views()
 		V.updateUsrDialog()
 
-TYPE_PROC_REF(/datum/techweb, add_point_list)(list/pointlist)
+/datum/techweb/proc/add_point_list(list/pointlist)
 	for(var/i in pointlist)
 		if(SSresearch.point_types[i] && pointlist[i] > 0)
 			research_points[i] += pointlist[i]
 
-TYPE_PROC_REF(/datum/techweb, add_points_all)(amount)
+/datum/techweb/proc/add_points_all(amount)
 	var/list/l = SSresearch.point_types.Copy()
 	for(var/i in l)
 		l[i] = amount
 	add_point_list(l)
 
-TYPE_PROC_REF(/datum/techweb, remove_point_list)(list/pointlist)
+/datum/techweb/proc/remove_point_list(list/pointlist)
 	for(var/i in pointlist)
 		if(SSresearch.point_types[i] && pointlist[i] > 0)
 			research_points[i] = max(0, research_points[i] - pointlist[i])
 
-TYPE_PROC_REF(/datum/techweb, remove_points_all)(amount)
+/datum/techweb/proc/remove_points_all(amount)
 	var/list/l = SSresearch.point_types.Copy()
 	for(var/i in l)
 		l[i] = amount
 	remove_point_list(l)
 
-TYPE_PROC_REF(/datum/techweb, modify_point_list)(list/pointlist)
+/datum/techweb/proc/modify_point_list(list/pointlist)
 	for(var/i in pointlist)
 		if(SSresearch.point_types[i] && pointlist[i] != 0)
 			research_points[i] = max(0, research_points[i] + pointlist[i])
 
-TYPE_PROC_REF(/datum/techweb, modify_points_all)(amount)
+/datum/techweb/proc/modify_points_all(amount)
 	var/list/l = SSresearch.point_types.Copy()
 	for(var/i in l)
 		l[i] = amount
 	modify_point_list(l)
 
-TYPE_PROC_REF(/datum/techweb, copy_research_to)(datum/techweb/receiver, unlock_hidden = TRUE)				//Adds any missing research to theirs.
+/datum/techweb/proc/copy_research_to(datum/techweb/receiver, unlock_hidden = TRUE)				//Adds any missing research to theirs.
 	if(unlock_hidden)
 		for(var/i in receiver.hidden_nodes)
 			CHECK_TICK
@@ -168,7 +168,7 @@ TYPE_PROC_REF(/datum/techweb, copy_research_to)(datum/techweb/receiver, unlock_h
 		receiver.add_design_by_id(i)
 	receiver.recalculate_nodes()
 
-TYPE_PROC_REF(/datum/techweb, copy)()
+/datum/techweb/proc/copy()
 	var/datum/techweb/returned = new()
 	returned.researched_nodes = researched_nodes.Copy()
 	returned.visible_nodes = visible_nodes.Copy()
@@ -177,37 +177,37 @@ TYPE_PROC_REF(/datum/techweb, copy)()
 	returned.hidden_nodes = hidden_nodes.Copy()
 	return returned
 
-TYPE_PROC_REF(/datum/techweb, get_visible_nodes)()			//The way this is set up is shit but whatever.
+/datum/techweb/proc/get_visible_nodes()			//The way this is set up is shit but whatever.
 	return visible_nodes - hidden_nodes
 
-TYPE_PROC_REF(/datum/techweb, get_available_nodes)()
+/datum/techweb/proc/get_available_nodes()
 	return available_nodes - hidden_nodes
 
-TYPE_PROC_REF(/datum/techweb, get_researched_nodes)()
+/datum/techweb/proc/get_researched_nodes()
 	return researched_nodes - hidden_nodes
 
-TYPE_PROC_REF(/datum/techweb, add_point_type)(type, amount)
+/datum/techweb/proc/add_point_type(type, amount)
 	if(!SSresearch.point_types[type] || (amount <= 0))
 		return FALSE
 	research_points[type] += amount
 	return TRUE
 
-TYPE_PROC_REF(/datum/techweb, modify_point_type)(type, amount)
+/datum/techweb/proc/modify_point_type(type, amount)
 	if(!SSresearch.point_types[type])
 		return FALSE
 	research_points[type] = max(0, research_points[type] + amount)
 	return TRUE
 
-TYPE_PROC_REF(/datum/techweb, remove_point_type)(type, amount)
+/datum/techweb/proc/remove_point_type(type, amount)
 	if(!SSresearch.point_types[type] || (amount <= 0))
 		return FALSE
 	research_points[type] = max(0, research_points[type] - amount)
 	return TRUE
 
-TYPE_PROC_REF(/datum/techweb, add_design_by_id)(id, custom = FALSE)
+/datum/techweb/proc/add_design_by_id(id, custom = FALSE)
 	return add_design(SSresearch.techweb_design_by_id(id), custom)
 
-TYPE_PROC_REF(/datum/techweb, add_design)(datum/design/design, custom = FALSE)
+/datum/techweb/proc/add_design(datum/design/design, custom = FALSE)
 	if(!istype(design))
 		return FALSE
 	researched_designs[design.id] = design
@@ -216,10 +216,10 @@ TYPE_PROC_REF(/datum/techweb, add_design)(datum/design/design, custom = FALSE)
 		custom_designs[design.id] = TRUE
 	return TRUE
 
-TYPE_PROC_REF(/datum/techweb, remove_design_by_id)(id, custom = FALSE)
+/datum/techweb/proc/remove_design_by_id(id, custom = FALSE)
 	return remove_design(SSresearch.techweb_design_by_id(id), custom)
 
-TYPE_PROC_REF(/datum/techweb, remove_design)(datum/design/design, custom = FALSE)
+/datum/techweb/proc/remove_design(datum/design/design, custom = FALSE)
 	if(!istype(design))
 		return FALSE
 	if(custom_designs[design.id] && !custom)
@@ -228,23 +228,23 @@ TYPE_PROC_REF(/datum/techweb, remove_design)(datum/design/design, custom = FALSE
 	researched_designs -= design.id
 	return TRUE
 
-TYPE_PROC_REF(/datum/techweb, get_point_total)(list/pointlist)
+/datum/techweb/proc/get_point_total(list/pointlist)
 	for(var/i in pointlist)
 		. += pointlist[i]
 
-TYPE_PROC_REF(/datum/techweb, can_afford)(list/pointlist)
+/datum/techweb/proc/can_afford(list/pointlist)
 	for(var/i in pointlist)
 		if(research_points[i] < pointlist[i])
 			return FALSE
 	return TRUE
 
-TYPE_PROC_REF(/datum/techweb, printout_points)()
+/datum/techweb/proc/printout_points()
 	return techweb_point_display_generic(research_points)
 
-TYPE_PROC_REF(/datum/techweb, research_node_id)(id, force, auto_update_points)
+/datum/techweb/proc/research_node_id(id, force, auto_update_points)
 	return research_node(SSresearch.techweb_node_by_id(id), force, auto_update_points)
 
-TYPE_PROC_REF(/datum/techweb, research_node)(datum/techweb_node/node, force = FALSE, auto_adjust_cost = TRUE)
+/datum/techweb/proc/research_node(datum/techweb_node/node, force = FALSE, auto_adjust_cost = TRUE)
 	if(!istype(node))
 		return FALSE
 	update_node_status(node)
@@ -266,16 +266,16 @@ TYPE_PROC_REF(/datum/techweb, research_node)(datum/techweb_node/node, force = FA
 			D.adjust_money(SSeconomy.techweb_bounty)
 	return TRUE
 
-TYPE_PROC_REF(/datum/techweb, unresearch_node_id)(id)
+/datum/techweb/proc/unresearch_node_id(id)
 	return unresearch_node(SSresearch.techweb_node_by_id(id))
 
-TYPE_PROC_REF(/datum/techweb, unresearch_node)(datum/techweb_node/node)
+/datum/techweb/proc/unresearch_node(datum/techweb_node/node)
 	if(!istype(node))
 		return FALSE
 	researched_nodes -= node.id
 	recalculate_nodes(TRUE)				//Fully rebuild the tree.
 
-TYPE_PROC_REF(/datum/techweb, boost_with_path)(datum/techweb_node/N, itempath)
+/datum/techweb/proc/boost_with_path(datum/techweb_node/N, itempath)
 	if(!istype(N) || !ispath(itempath))
 		return FALSE
 	LAZYINITLIST(boosted_nodes[N.id])
@@ -286,7 +286,7 @@ TYPE_PROC_REF(/datum/techweb, boost_with_path)(datum/techweb_node/N, itempath)
 	update_node_status(N)
 	return TRUE
 
-TYPE_PROC_REF(/datum/techweb, update_tiers)(datum/techweb_node/base)
+/datum/techweb/proc/update_tiers(datum/techweb_node/base)
 	var/list/current = list(base)
 	while (current.len)
 		var/list/next = list()
@@ -304,7 +304,7 @@ TYPE_PROC_REF(/datum/techweb, update_tiers)(datum/techweb_node/base)
 					next += SSresearch.techweb_node_by_id(id)
 		current = next
 
-TYPE_PROC_REF(/datum/techweb, update_node_status)(datum/techweb_node/node, autoupdate_consoles = TRUE)
+/datum/techweb/proc/update_node_status(datum/techweb_node/node, autoupdate_consoles = TRUE)
 	var/researched = FALSE
 	var/available = FALSE
 	var/visible = FALSE
@@ -340,35 +340,35 @@ TYPE_PROC_REF(/datum/techweb, update_node_status)(datum/techweb_node/node, autou
 			V.updateUsrDialog()
 
 //Laggy procs to do specific checks, just in case. Don't use them if you can just use the vars that already store all this!
-TYPE_PROC_REF(/datum/techweb, designHasReqs)(datum/design/D)
+/datum/techweb/proc/designHasReqs(datum/design/D)
 	for(var/i in researched_nodes)
 		var/datum/techweb_node/N = SSresearch.techweb_node_by_id(i)
 		if(N.design_ids[D.id])
 			return TRUE
 	return FALSE
 
-TYPE_PROC_REF(/datum/techweb, isDesignResearched)(datum/design/D)
+/datum/techweb/proc/isDesignResearched(datum/design/D)
 	return isDesignResearchedID(D.id)
 
-TYPE_PROC_REF(/datum/techweb, isDesignResearchedID)(id)
+/datum/techweb/proc/isDesignResearchedID(id)
 	return researched_designs[id]? SSresearch.techweb_design_by_id(id) : FALSE
 
-TYPE_PROC_REF(/datum/techweb, isNodeResearched)(datum/techweb_node/N)
+/datum/techweb/proc/isNodeResearched(datum/techweb_node/N)
 	return isNodeResearchedID(N.id)
 
-TYPE_PROC_REF(/datum/techweb, isNodeResearchedID)(id)
+/datum/techweb/proc/isNodeResearchedID(id)
 	return researched_nodes[id]? SSresearch.techweb_node_by_id(id) : FALSE
 
-TYPE_PROC_REF(/datum/techweb, isNodeVisible)(datum/techweb_node/N)
+/datum/techweb/proc/isNodeVisible(datum/techweb_node/N)
 	return isNodeResearchedID(N.id)
 
-TYPE_PROC_REF(/datum/techweb, isNodeVisibleID)(id)
+/datum/techweb/proc/isNodeVisibleID(id)
 	return visible_nodes[id]? SSresearch.techweb_node_by_id(id) : FALSE
 
-TYPE_PROC_REF(/datum/techweb, isNodeAvailable)(datum/techweb_node/N)
+/datum/techweb/proc/isNodeAvailable(datum/techweb_node/N)
 	return isNodeAvailableID(N.id)
 
-TYPE_PROC_REF(/datum/techweb, isNodeAvailableID)(id)
+/datum/techweb/proc/isNodeAvailableID(id)
 	return available_nodes[id]? SSresearch.techweb_node_by_id(id) : FALSE
 
 /datum/techweb/specialized
@@ -389,7 +389,7 @@ TYPE_PROC_REF(/datum/techweb, isNodeAvailableID)(id)
 	..()
 	autounlock()
 
-TYPE_PROC_REF(/datum/techweb/specialized/autounlocking, autounlock)()
+/datum/techweb/specialized/autounlocking/proc/autounlock()
 	for(var/id in node_autounlock_ids)
 		research_node_id(id, TRUE, FALSE)
 	for(var/id in SSresearch.techweb_designs)

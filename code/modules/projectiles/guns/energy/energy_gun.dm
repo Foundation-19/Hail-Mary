@@ -105,7 +105,7 @@
 	update_icon()
 	..()
 
-TYPE_PROC_REF(/obj/item/gun/energy/e_gun/nuclear, failcheck)()
+/obj/item/gun/energy/e_gun/nuclear/proc/failcheck()
 	if(prob(fail_chance))
 		switch(fail_tick)
 			if(0 to 200)

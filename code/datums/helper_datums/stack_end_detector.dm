@@ -14,18 +14,18 @@
 	Store the return value of this proc call in a proc level var.
 	Can only be called once.
 **/
-TYPE_PROC_REF(/datum/stack_end_detector, prime_canary)()
+/datum/stack_end_detector/proc/prime_canary()
 	if (!_canary)
 		CRASH("Prime_canary called twice")
 	. = _canary
 	_canary = null
 
 /// Returns true if the stack is still going. Calling before the canary has been primed also returns true
-TYPE_PROC_REF(/datum/stack_end_detector, check)()
+/datum/stack_end_detector/proc/check()
 	return !!_WF.resolve()
 
 /// Stack canary. Will go away if the stack it was primed by is ended by byond for return or stack overflow reasons.
 /datum/stack_canary
 
 /// empty proc to avoid warnings about unused variables. Call this proc on your canary in the stack it's watching.
-TYPE_PROC_REF(/datum/stack_canary, use_variable)()
+/datum/stack_canary/proc/use_variable()

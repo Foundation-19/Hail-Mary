@@ -84,7 +84,7 @@ GLOBAL_PROTECT(protected_ranks)
 	return flag
 
 // Adds/removes rights to this admin_rank
-TYPE_PROC_REF(/datum/admin_rank, process_keyword)(word, previous_rights=0)
+/datum/admin_rank/proc/process_keyword(word, previous_rights=0)
 	if(IsAdminAdvancedProcCall())
 		var/msg = " has tried to elevate permissions!"
 		message_admins("[key_name_admin(usr)][msg]")
@@ -103,7 +103,7 @@ TYPE_PROC_REF(/datum/admin_rank, process_keyword)(word, previous_rights=0)
 				can_edit_rights |= flag	//*
 
 // Checks for (keyword-formatted) rights on this admin
-TYPE_PROC_REF(/datum/admins, check_keyword)(word)
+/datum/admins/proc/check_keyword(word)
 	var/flag = admin_keyword_to_flag(word)
 	if(flag)
 		return ((rank.rights & flag) == flag) //true only if right has everything in flag

@@ -61,5 +61,5 @@ Bonus
 		else
 			vomit(M)
 
-TYPE_PROC_REF(/datum/symptom/vomit, vomit)(mob/living/carbon/M)
+/datum/symptom/vomit/proc/vomit(mob/living/carbon/M)
 	M.vomit(20, vomit_blood, distance = proj_vomit)

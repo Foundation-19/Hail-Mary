@@ -14,7 +14,7 @@ PROCESSING_SUBSYSTEM_DEF(spawners)
 // 	var/list/spawners = list()
 
 // / When a spawner is made, add it to the list, by its Z level
-// TYPE_PROC_REF(/datum/controller/subsystem/spawners, register_spawner)(atom/spwner)
+// /datum/controller/subsystem/spawners/proc/register_spawner(atom/spwner)
 // 	if(!spwner)
 // 		return
 // 	if(!islist(spawners["[spwner.z]"]))
@@ -22,13 +22,13 @@ PROCESSING_SUBSYSTEM_DEF(spawners)
 // 	spawners["[spwner.z]"] |= spwner
 
 // /// When a spawner is deleted, find it and remove it
-// TYPE_PROC_REF(/datum/controller/subsystem/spawners, unregister_spawner)(atom/spwner)
+// /datum/controller/subsystem/spawners/proc/unregister_spawner(atom/spwner)
 // 	if(!spwner)
 // 		return
 // 	spawners["[spwner.z]"] -= spwner
 
 // /// Finds the spawner closest to the mob
-// TYPE_PROC_REF(/datum/controller/subsystem/spawners, nearest_spawner)(mob/living/simple_animal/hostile/unbirthme)
+// /datum/controller/subsystem/spawners/proc/nearest_spawner(mob/living/simple_animal/hostile/unbirthme)
 // 	if(!unbirthme)
 // 		return
 // 	var/list/nearest_spawners = list()

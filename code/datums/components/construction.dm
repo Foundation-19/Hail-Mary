@@ -19,31 +19,31 @@
 	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY,PROC_REF(action))
 	update_parent(index)
 
-TYPE_PROC_REF(/datum/component/construction, examine)(datum/source, mob/user, list/examine_list)
+/datum/component/construction/proc/examine(datum/source, mob/user, list/examine_list)
 	if(desc)
 		examine_list += desc
 
-TYPE_PROC_REF(/datum/component/construction, on_step)()
+/datum/component/construction/proc/on_step()
 	if(index > steps.len)
 		spawn_result()
 	else
 		update_parent(index)
 
-TYPE_PROC_REF(/datum/component/construction, action)(datum/source, obj/item/I, mob/living/user)
+/datum/component/construction/proc/action(datum/source, obj/item/I, mob/living/user)
 	return check_step(I, user)
 
-TYPE_PROC_REF(/datum/component/construction, update_index)(diff)
+/datum/component/construction/proc/update_index(diff)
 	index += diff
 	on_step()
 
-TYPE_PROC_REF(/datum/component/construction, check_step)(obj/item/I, mob/living/user)
+/datum/component/construction/proc/check_step(obj/item/I, mob/living/user)
 	var/diff = is_right_key(I)
 	if(diff && custom_action(I, user, diff))
 		update_index(diff)
 		return TRUE
 	return FALSE
 
-TYPE_PROC_REF(/datum/component/construction, is_right_key)(obj/item/I) // returns index step
+/datum/component/construction/proc/is_right_key(obj/item/I) // returns index step
 	var/list/L = steps[index]
 	if(check_used_item(I, L["key"]))
 		return FORWARD //to the first step -> forward
@@ -51,7 +51,7 @@ TYPE_PROC_REF(/datum/component/construction, is_right_key)(obj/item/I) // return
 		return BACKWARD //to the last step -> backwards
 	return FALSE
 
-TYPE_PROC_REF(/datum/component/construction, check_used_item)(obj/item/I, key)
+/datum/component/construction/proc/check_used_item(obj/item/I, key)
 	if(!key)
 		return FALSE
 
@@ -63,7 +63,7 @@ TYPE_PROC_REF(/datum/component/construction, check_used_item)(obj/item/I, key)
 
 	return FALSE
 
-TYPE_PROC_REF(/datum/component/construction, custom_action)(obj/item/I, mob/living/user, diff)
+/datum/component/construction/proc/custom_action(obj/item/I, mob/living/user, diff)
 	var/target_index = index + diff
 	var/list/current_step = steps[index]
 	var/list/target_step
@@ -107,7 +107,7 @@ TYPE_PROC_REF(/datum/component/construction, custom_action)(obj/item/I, mob/livi
 			else if(ispath(target_step_key, /obj/item/stack))
 				new target_step_key(drop_location(), target_step["amount"])
 
-TYPE_PROC_REF(/datum/component/construction, spawn_result)()
+/datum/component/construction/proc/spawn_result()
 	// Some constructions result in new components being added.
 	if(ispath(result, /datum/component))
 		parent.AddComponent(result)
@@ -117,7 +117,7 @@ TYPE_PROC_REF(/datum/component/construction, spawn_result)()
 		new result(drop_location())
 		qdel(parent)
 
-TYPE_PROC_REF(/datum/component/construction, update_parent)(step_index)
+/datum/component/construction/proc/update_parent(step_index)
 	var/list/step = steps[step_index]
 	var/atom/parent_atom = parent
 
@@ -127,7 +127,7 @@ TYPE_PROC_REF(/datum/component/construction, update_parent)(step_index)
 	if(step["icon_state"])
 		parent_atom.icon_state = step["icon_state"]
 
-TYPE_PROC_REF(/datum/component/construction, drop_location)()
+/datum/component/construction/proc/drop_location()
 	var/atom/parent_atom = parent
 	return parent_atom.drop_location()
 

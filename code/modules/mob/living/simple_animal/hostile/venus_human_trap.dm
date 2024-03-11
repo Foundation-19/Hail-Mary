@@ -28,7 +28,7 @@
  *
  * Displays a message, spawns a human venus trap, then qdels itself.
  */
-TYPE_PROC_REF(/obj/structure/alien/resin/flower_bud_enemy, bear_fruit)()
+/obj/structure/alien/resin/flower_bud_enemy/proc/bear_fruit()
 	visible_message(span_danger("The plant has borne fruit!"))
 	new /mob/living/simple_animal/hostile/venus_human_trap(get_turf(src))
 	qdel(src)
@@ -46,7 +46,7 @@ TYPE_PROC_REF(/obj/structure/alien/resin/flower_bud_enemy, bear_fruit)()
 	AddElement(/datum/element/connect_loc, loc_connections)
 
 
-TYPE_PROC_REF(/obj/effect/ebeam/vine, on_entered)(atom/movable/AM)
+/obj/effect/ebeam/vine/proc/on_entered(atom/movable/AM)
 	SIGNAL_HANDLER
 	if(isliving(AM))
 		var/mob/living/L = AM
@@ -156,7 +156,7 @@ TYPE_PROC_REF(/obj/effect/ebeam/vine, on_entered)(atom/movable/AM)
  * * mob/user - The ghost to possibly control the plant
  */
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile/venus_human_trap, humanize_plant)(mob/user)
+/mob/living/simple_animal/hostile/venus_human_trap/proc/humanize_plant(mob/user)
 	if(key || !playable_plant || stat)
 		return
 	var/plant_ask = alert("Become a venus human trap?", "Are you reverse vegan?", "Yes", "No")
@@ -175,7 +175,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/hostile/venus_human_trap, humanize_plant
  * If the target is on the same tile as the plant, destroy the vine
  * Removes any QDELETED vines from the vines list.
  */
-TYPE_PROC_REF(/mob/living/simple_animal/hostile/venus_human_trap, pull_vines)()
+/mob/living/simple_animal/hostile/venus_human_trap/proc/pull_vines()
 	for(var/datum/beam/B in vines)
 		if(istype(B.target, /atom/movable))
 			var/atom/movable/AM = B.target
@@ -192,5 +192,5 @@ TYPE_PROC_REF(/mob/living/simple_animal/hostile/venus_human_trap, pull_vines)()
  * Arguments:
  * * datum/beam/vine - The vine to be removed from the list.
  */
-TYPE_PROC_REF(mob/living/simple_animal/hostile/venus_human_trap, remove_vine)(datum/beam/vine, force)
+mob/living/simple_animal/hostile/venus_human_trap/proc/remove_vine(datum/beam/vine, force)
 	vines -= vine

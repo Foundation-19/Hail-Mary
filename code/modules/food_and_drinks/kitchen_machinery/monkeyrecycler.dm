@@ -53,7 +53,7 @@
 	if(ismonkey(target))
 		stuff_monkey_in(target, user)
 
-TYPE_PROC_REF(/obj/machinery/monkey_recycler, stuff_monkey_in)(mob/living/carbon/monkey/target, mob/living/user)
+/obj/machinery/monkey_recycler/proc/stuff_monkey_in(mob/living/carbon/monkey/target, mob/living/user)
 	if(!istype(target))
 		return
 	if(target.stat == CONSCIOUS)

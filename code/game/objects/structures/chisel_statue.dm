@@ -55,7 +55,7 @@ Moving interrupts
 	if(!proximity_flag && !sculpting && prepared_block && ismovable(target) && prepared_block.completion == 0)
 		prepared_block.set_target(target,user)
 
-TYPE_PROC_REF(/obj/item/chisel, start_sculpting)(mob/living/user)
+/obj/item/chisel/proc/start_sculpting(mob/living/user)
 	to_chat(user,span_notice("You start sculpting [prepared_block]."))
 	sculpting = TRUE
 	//How long whole process takes
@@ -78,7 +78,7 @@ TYPE_PROC_REF(/obj/item/chisel, start_sculpting)(mob/living/user)
 		to_chat(user,span_notice("The statue is finished!"))
 	break_sculpting()
 
-TYPE_PROC_REF(/obj/item/chisel, set_block)(obj/structure/carving_block/B,mob/living/user)
+/obj/item/chisel/proc/set_block(obj/structure/carving_block/B,mob/living/user)
 	prepared_block = B
 	tracked_user = user
 	RegisterSignal(tracked_user,COMSIG_MOVABLE_MOVED,PROC_REF(break_sculpting))
@@ -88,7 +88,7 @@ TYPE_PROC_REF(/obj/item/chisel, set_block)(obj/structure/carving_block/B,mob/liv
 	. = ..()
 	break_sculpting()
 
-TYPE_PROC_REF(/obj/item/chisel, break_sculpting)()
+/obj/item/chisel/proc/break_sculpting()
 	SIGNAL_HANDLER
 	sculpting = FALSE
 	if(prepared_block && prepared_block.completion == 0)
@@ -125,7 +125,7 @@ TYPE_PROC_REF(/obj/item/chisel, break_sculpting)()
 	target_appearance_with_filters = null
 	return ..()
 
-TYPE_PROC_REF(/obj/structure/carving_block, set_target)(atom/movable/target,mob/living/user)
+/obj/structure/carving_block/proc/set_target(atom/movable/target,mob/living/user)
 	if(!is_viable_target(target))
 		to_chat(user,"You won't be able to carve that.")
 		return
@@ -137,7 +137,7 @@ TYPE_PROC_REF(/obj/structure/carving_block, set_target)(atom/movable/target,mob/
 	var/mutable_appearance/ma = current_target
 	to_chat(user,span_notice("You decide to sculpt [src] into [ma.name]."))
 
-TYPE_PROC_REF(/obj/structure/carving_block, reset_target)()
+/obj/structure/carving_block/proc/reset_target()
 	current_target = null
 	current_preset_type = null
 	target_appearance_with_filters = null
@@ -150,7 +150,7 @@ TYPE_PROC_REF(/obj/structure/carving_block, reset_target)()
 	var/mutable_appearance/clone = new(target_appearance_with_filters)
 	. += clone
 
-TYPE_PROC_REF(/obj/structure/carving_block, is_viable_target)(atom/movable/target)
+/obj/structure/carving_block/proc/is_viable_target(atom/movable/target)
 	//Only things on turfs
 	if(!isturf(target.loc))
 		return FALSE
@@ -160,7 +160,7 @@ TYPE_PROC_REF(/obj/structure/carving_block, is_viable_target)(atom/movable/targe
 		return FALSE
 	return TRUE
 
-TYPE_PROC_REF(/obj/structure/carving_block, create_statue)()
+/obj/structure/carving_block/proc/create_statue()
 	if(current_target)
 		var/obj/structure/statue/custom/new_statue = new(get_turf(src))
 		new_statue.set_visuals(current_target)
@@ -170,7 +170,7 @@ TYPE_PROC_REF(/obj/structure/carving_block, create_statue)()
 		new_statue.desc = "statue depicting [ma.name]"
 		qdel(src)
 
-TYPE_PROC_REF(/obj/structure/carving_block, set_completion)(value)
+/obj/structure/carving_block/proc/set_completion(value)
 	if(!current_target)
 		return
 	if(!target_appearance_with_filters)
@@ -208,7 +208,7 @@ TYPE_PROC_REF(/obj/structure/carving_block, set_completion)(value)
 	content_ma = null
 	return ..()
 
-TYPE_PROC_REF(/obj/structure/statue/custom, set_visuals)(model_appearance)
+/obj/structure/statue/custom/proc/set_visuals(model_appearance)
 	if(content_ma)
 		QDEL_NULL(content_ma)
 	content_ma = new

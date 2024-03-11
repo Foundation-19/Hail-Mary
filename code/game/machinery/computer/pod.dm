@@ -16,7 +16,7 @@
 			connected = M
 
 
-TYPE_PROC_REF(/obj/machinery/computer/pod, alarm)()
+/obj/machinery/computer/pod/proc/alarm()
 	if(stat & (NOPOWER|BROKEN))
 		return
 

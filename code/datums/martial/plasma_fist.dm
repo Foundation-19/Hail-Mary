@@ -5,11 +5,11 @@
 /datum/martial_art/plasma_fist
 	name = "Plasma Fist"
 	id = MARTIALART_PLASMAFIST
-	help_verb = TYPE_PROC_REF(/mob/living/carbon/human, plasma_fist_help)
+	help_verb = /mob/living/carbon/human/proc/plasma_fist_help
 	pugilist = TRUE
 
 
-TYPE_PROC_REF(/datum/martial_art/plasma_fist, check_streak)(mob/living/carbon/human/A, mob/living/carbon/human/D)
+/datum/martial_art/plasma_fist/proc/check_streak(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	if(findtext(streak,TORNADO_COMBO))
 		streak = ""
 		Tornado(A,D)
@@ -24,7 +24,7 @@ TYPE_PROC_REF(/datum/martial_art/plasma_fist, check_streak)(mob/living/carbon/hu
 		return TRUE
 	return FALSE
 
-TYPE_PROC_REF(/datum/martial_art/plasma_fist, TornadoAnimate)(mob/living/carbon/human/A)
+/datum/martial_art/plasma_fist/proc/TornadoAnimate(mob/living/carbon/human/A)
 	set waitfor = FALSE
 	for(var/i in list(NORTH,SOUTH,EAST,WEST,EAST,SOUTH,NORTH,SOUTH,EAST,WEST,EAST,SOUTH))
 		if(!A)
@@ -33,7 +33,7 @@ TYPE_PROC_REF(/datum/martial_art/plasma_fist, TornadoAnimate)(mob/living/carbon/
 		playsound(A.loc, 'sound/weapons/punch1.ogg', 15, 1, -1)
 		sleep(1)
 
-TYPE_PROC_REF(/datum/martial_art/plasma_fist, Tornado)(mob/living/carbon/human/A, mob/living/carbon/human/D)
+/datum/martial_art/plasma_fist/proc/Tornado(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	A.say("TORNADO SWEEP!", forced="plasma fist")
 	TornadoAnimate(A)
 	var/obj/effect/proc_holder/spell/aoe_turf/repulse/R = new(null)
@@ -44,7 +44,7 @@ TYPE_PROC_REF(/datum/martial_art/plasma_fist, Tornado)(mob/living/carbon/human/A
 	log_combat(A, D, "tornado sweeped(Plasma Fist)")
 	return
 
-TYPE_PROC_REF(/datum/martial_art/plasma_fist, Throwback)(mob/living/carbon/human/A, mob/living/carbon/human/D)
+/datum/martial_art/plasma_fist/proc/Throwback(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	var/damage = (damage_roll(A,D)*3)
 	D.visible_message(span_danger("[A] has hit [D] with Plasma Punch!"), \
 								span_userdanger("[A] has hit [D] with Plasma Punch!"))
@@ -56,7 +56,7 @@ TYPE_PROC_REF(/datum/martial_art/plasma_fist, Throwback)(mob/living/carbon/human
 	log_combat(A, D, "threw back (Plasma Fist)")
 	return
 
-TYPE_PROC_REF(/datum/martial_art/plasma_fist, Plasma)(mob/living/carbon/human/A, mob/living/carbon/human/D)
+/datum/martial_art/plasma_fist/proc/Plasma(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
 	playsound(D.loc, 'sound/weapons/punch1.ogg', 50, 1, -1)
 	A.say("PLASMA FIST!", forced="plasma fist")
@@ -84,7 +84,7 @@ TYPE_PROC_REF(/datum/martial_art/plasma_fist, Plasma)(mob/living/carbon/human/A,
 		return TRUE
 	return FALSE
 
-TYPE_PROC_REF(/mob/living/carbon/human, plasma_fist_help)()
+/mob/living/carbon/human/proc/plasma_fist_help()
 	set name = "Recall Teachings"
 	set desc = "Remember the martial techniques of the Plasma Fist."
 	set category = "Plasma Fist"

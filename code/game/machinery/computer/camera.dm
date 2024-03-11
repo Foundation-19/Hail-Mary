@@ -148,13 +148,13 @@
 		playsound(src, 'sound/machines/terminal_off.ogg', 25, FALSE)
 		use_power(0)
 
-TYPE_PROC_REF(/obj/machinery/computer/security, show_camera_static)()
+/obj/machinery/computer/security/proc/show_camera_static()
 	cam_screen.vis_contents.Cut()
 	cam_background.icon_state = "scanline2"
 	cam_background.fill_rect(1, 1, default_map_size, default_map_size)
 
 // Returns the list of cameras accessible from this computer
-TYPE_PROC_REF(/obj/machinery/computer/security, get_available_cameras)()
+/obj/machinery/computer/security/proc/get_available_cameras()
 	var/list/L = list()
 	for (var/obj/machinery/camera/C in GLOB.cameranet.cameras)
 		if((is_away_level(z) || is_away_level(C.z)) && (C.z != z))//if on away mission, can only receive feed from same z_level cameras
@@ -255,10 +255,10 @@ TYPE_PROC_REF(/obj/machinery/computer/security, get_available_cameras)()
 	RegisterSignal(src, COMSIG_CLICK, PROC_REF(BigClick))
 
 // Bypass clickchain to allow humans to use the telescreen from a distance
-TYPE_PROC_REF(/obj/machinery/computer/security/telescreen/entertainment, BigClick)()
+/obj/machinery/computer/security/telescreen/entertainment/proc/BigClick()
 	interact(usr)
 
-TYPE_PROC_REF(/obj/machinery/computer/security/telescreen/entertainment, notify)(on)
+/obj/machinery/computer/security/telescreen/entertainment/proc/notify(on)
 	if(on && icon_state == icon_state_off)
 		say(pick(
 			"Feats of bravery live now at the thunderdome!",

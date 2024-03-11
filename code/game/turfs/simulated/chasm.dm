@@ -14,11 +14,11 @@
 	. = ..()
 	AddComponent(/datum/component/chasm, SSmapping.get_turf_below(src))
 
-TYPE_PROC_REF(/turf/open/chasm, set_target)(turf/target)
+/turf/open/chasm/proc/set_target(turf/target)
 	var/datum/component/chasm/chasm_component = GetComponent(/datum/component/chasm)
 	chasm_component.target_turf = target
 
-TYPE_PROC_REF(/turf/open/chasm, drop)(atom/movable/AM)
+/turf/open/chasm/proc/drop(atom/movable/AM)
 	var/datum/component/chasm/chasm_component = GetComponent(/datum/component/chasm)
 	chasm_component.drop(AM)
 

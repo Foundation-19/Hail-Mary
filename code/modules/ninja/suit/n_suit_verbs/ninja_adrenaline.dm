@@ -1,6 +1,6 @@
 //Wakes the user so they are able to do their thing. Also injects a decent dose of radium.
 //Movement impairing would indicate drugs and the like.
-TYPE_PROC_REF(/obj/item/clothing/suit/space/space_ninja, ninjaboost)()
+/obj/item/clothing/suit/space/space_ninja/proc/ninjaboost()
 
 	if(!ninjacost(0,N_ADRENALINE))
 		var/mob/living/carbon/human/H = affecting
@@ -13,7 +13,7 @@ TYPE_PROC_REF(/obj/item/clothing/suit/space/space_ninja, ninjaboost)()
 		s_coold = 3
 		addtimer(CALLBACK(src, PROC_REF(ninjaboost_after)), 70)
 
-TYPE_PROC_REF(/obj/item/clothing/suit/space/space_ninja, ninjaboost_after)()
+/obj/item/clothing/suit/space/space_ninja/proc/ninjaboost_after()
 	var/mob/living/carbon/human/H = affecting
 	H.reagents.add_reagent(/datum/reagent/radium, a_transfer)
 	to_chat(H, span_danger("You are beginning to feel the after-effect of the injection."))

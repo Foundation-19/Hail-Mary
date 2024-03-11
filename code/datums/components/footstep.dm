@@ -51,7 +51,7 @@
 	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, PROC_REF(play_simplestep)) //Note that this doesn't get called for humans.
 
 ///Prepares a footstep. Determines if it should get played. Returns the turf it should get played on. Note that it is always a /turf/open
-TYPE_PROC_REF(/datum/component/footstep, prepare_step)()
+/datum/component/footstep/proc/prepare_step()
 	var/turf/open/T = get_turf(parent)
 	if(!istype(T))
 		return
@@ -84,7 +84,7 @@ TYPE_PROC_REF(/datum/component/footstep, prepare_step)()
 		return
 	return T
 
-TYPE_PROC_REF(/datum/component/footstep, play_simplestep)()
+/datum/component/footstep/proc/play_simplestep()
 	var/turf/open/T = prepare_step()
 	if(!T)
 		return
@@ -110,7 +110,7 @@ TYPE_PROC_REF(/datum/component/footstep, play_simplestep)()
 		footstep_sounds[turf_footstep][3] + e_range, 
 		ignore_walls = TRUE)
 
-TYPE_PROC_REF(/datum/component/footstep, play_humanstep)()
+/datum/component/footstep/proc/play_humanstep()
 	var/turf/open/T = prepare_step()
 	if(!T)
 		return
@@ -159,7 +159,7 @@ TYPE_PROC_REF(/datum/component/footstep, play_humanstep)()
 			L[turf_footstep][3] + e_range,
 			ignore_walls = TRUE)
 //fortuna edit. power armor sound check proc
-TYPE_PROC_REF(/datum/component/footstep, powerarmorcheck)()
+/datum/component/footstep/proc/powerarmorcheck()
 	var/mob/living/carbon/human/P = parent
 	var/turf/open/T = get_turf(P)
 	var/powerArmor = (P.wear_suit && istype(P.wear_suit,/obj/item/clothing/suit/armor/power_armor))

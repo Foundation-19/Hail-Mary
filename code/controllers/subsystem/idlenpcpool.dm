@@ -16,7 +16,7 @@ SUBSYSTEM_DEF(idlenpcpool)
 	msg = "IdleNPCS:[length(idlelist)]|Z:[length(zlist)]|C:[length(mobs_to_cull)]]"
 	return ..()
 
-TYPE_PROC_REF(/datum/controller/subsystem/idlenpcpool, MaxZChanged)()
+/datum/controller/subsystem/idlenpcpool/proc/MaxZChanged()
 	if (!islist(idle_mobs_by_zlevel))
 		idle_mobs_by_zlevel = new /list(world.maxz,0)
 	while (SSidlenpcpool.idle_mobs_by_zlevel.len < world.maxz)
@@ -59,12 +59,12 @@ TYPE_PROC_REF(/datum/controller/subsystem/idlenpcpool, MaxZChanged)()
 		if(MC_TICK_CHECK)
 			return
 
-TYPE_PROC_REF(/datum/controller/subsystem/idlenpcpool, add_to_culling)(mob/living/simple_animal/hostile/simp)
+/datum/controller/subsystem/idlenpcpool/proc/add_to_culling(mob/living/simple_animal/hostile/simp)
 	if(!simp)
 		return
 	mobs_to_cull |= WEAKREF(simp)
 
-TYPE_PROC_REF(/datum/controller/subsystem/idlenpcpool, remove_from_culling)(mob/living/simple_animal/hostile/simp)
+/datum/controller/subsystem/idlenpcpool/proc/remove_from_culling(mob/living/simple_animal/hostile/simp)
 	if(!simp)
 		return
 	mobs_to_cull -= WEAKREF(simp)

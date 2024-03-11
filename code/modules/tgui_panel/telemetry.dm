@@ -26,7 +26,7 @@
  *
  * Requests some telemetry from the client.
  */
-TYPE_PROC_REF(/datum/tgui_panel, request_telemetry)()
+/datum/tgui_panel/proc/request_telemetry()
 	telemetry_requested_at = world.time
 	telemetry_analyzed_at = null
 	window.send_message("telemetry/request", list(
@@ -42,7 +42,7 @@ TYPE_PROC_REF(/datum/tgui_panel, request_telemetry)()
  *
  * Is currently only useful for detecting ban evasion attempts.
  */
-TYPE_PROC_REF(/datum/tgui_panel, analyze_telemetry)(payload)
+/datum/tgui_panel/proc/analyze_telemetry(payload)
 	if(world.time > telemetry_requested_at + TGUI_TELEMETRY_RESPONSE_WINDOW)
 		message_admins("[key_name(client)] sent telemetry outside of the allocated time window.")
 		return

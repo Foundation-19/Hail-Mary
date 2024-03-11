@@ -24,8 +24,8 @@
 		on_lose()
 	return ..()
 
-TYPE_PROC_REF(/datum/bioware, on_gain)()
+/datum/bioware/proc/on_gain()
 	active = TRUE
 
-TYPE_PROC_REF(/datum/bioware, on_lose)()
+/datum/bioware/proc/on_lose()
 	return

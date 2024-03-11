@@ -22,7 +22,7 @@
 		B.visible_message(span_boldwarning("The blob ruptures, spraying the area with liquid!"))
 		extinguisharea(B, 50)
 
-TYPE_PROC_REF(/datum/blobstrain/reagent/pressurized_slime, extinguisharea)(obj/structure/blob/B, probchance)
+/datum/blobstrain/reagent/pressurized_slime/proc/extinguisharea(obj/structure/blob/B, probchance)
 	for(var/turf/open/T in range(1, B))
 		if(prob(probchance))
 			T.MakeSlippery(TURF_WET_LUBE, min_wet_time = 10 SECONDS, wet_time_to_add = 5 SECONDS)

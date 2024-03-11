@@ -24,7 +24,7 @@
 	for(var/obj/item/I in contents)
 		add_item(I)
 
-TYPE_PROC_REF(/obj/item/organ/cyberimp/arm, add_item)(obj/item/I)
+/obj/item/organ/cyberimp/arm/proc/add_item(obj/item/I)
 	if(I in items_list)
 		return
 	I.forceMove(src)
@@ -33,7 +33,7 @@ TYPE_PROC_REF(/obj/item/organ/cyberimp/arm, add_item)(obj/item/I)
 	// .. right??!
 	RegisterSignal(I, COMSIG_ITEM_DROPPED, PROC_REF(magnetic_catch))
 
-TYPE_PROC_REF(/obj/item/organ/cyberimp/arm, magnetic_catch)(datum/source, mob/user)
+/obj/item/organ/cyberimp/arm/proc/magnetic_catch(datum/source, mob/user)
 	. = COMPONENT_DROPPED_RELOCATION
 	var/obj/item/I = source			//if someone is misusing the signal, just runtime
 	if(I in items_list)
@@ -44,7 +44,7 @@ TYPE_PROC_REF(/obj/item/organ/cyberimp/arm, magnetic_catch)(datum/source, mob/us
 		if(I == holder)
 			holder = null
 
-TYPE_PROC_REF(/obj/item/organ/cyberimp/arm, SetSlotFromZone)()
+/obj/item/organ/cyberimp/arm/proc/SetSlotFromZone()
 	switch(zone)
 		if(BODY_ZONE_L_ARM)
 			slot = ORGAN_SLOT_LEFT_ARM_AUG
@@ -89,7 +89,7 @@ TYPE_PROC_REF(/obj/item/organ/cyberimp/arm, SetSlotFromZone)()
 		// give the owner an idea about why his implant is glitching
 		Retract()
 
-TYPE_PROC_REF(/obj/item/organ/cyberimp/arm, Retract)()
+/obj/item/organ/cyberimp/arm/proc/Retract()
 	if(!holder || (holder in src))
 		return
 
@@ -101,7 +101,7 @@ TYPE_PROC_REF(/obj/item/organ/cyberimp/arm, Retract)()
 	holder = null
 	playsound(get_turf(owner), 'sound/mecha/mechmove03.ogg', 50, 1)
 
-TYPE_PROC_REF(/obj/item/organ/cyberimp/arm, Extend)(obj/item/item)
+/obj/item/organ/cyberimp/arm/proc/Extend(obj/item/item)
 	if(!(item in src))
 		return
 
@@ -291,7 +291,7 @@ TYPE_PROC_REF(/obj/item/organ/cyberimp/arm, Extend)(obj/item/item)
 	UnregisterSignal(owner, COMSIG_LIVING_ACTIVE_BLOCK_START)
 	return ..()
 
-TYPE_PROC_REF(/obj/item/organ/cyberimp/arm/shield, on_signal)(datum/source, obj/item/blocking_item, list/other_items)
+/obj/item/organ/cyberimp/arm/shield/proc/on_signal(datum/source, obj/item/blocking_item, list/other_items)
 	if(!blocking_item)		//if they don't have something
 		var/obj/item/shield/S = locate() in contents
 		if(!Extend(S, TRUE))
@@ -349,7 +349,7 @@ TYPE_PROC_REF(/obj/item/organ/cyberimp/arm/shield, on_signal)(datum/source, obj/
 
 	to_chat(user, span_warning("There is no charge to draw from that APC."))
 
-TYPE_PROC_REF(/obj/item/apc_powercord, powerdraw_loop)(obj/machinery/power/apc/A, mob/living/carbon/human/H)
+/obj/item/apc_powercord/proc/powerdraw_loop(obj/machinery/power/apc/A, mob/living/carbon/human/H)
 	H.visible_message(span_notice("[H] inserts a power connector into the [A]."), span_notice("You begin to draw power from the [A]."))
 	while(do_after(H, 10, target = A))
 		if(loc != H)

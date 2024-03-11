@@ -38,7 +38,7 @@
 	ask_name(user)
 
 
-TYPE_PROC_REF(/obj/item/book/codex_gigas, perform_research)(mob/user, devilName)
+/obj/item/book/codex_gigas/proc/perform_research(mob/user, devilName)
 	if(!devilName)
 		user.visible_message(span_notice("[user] closes [title] without looking anything up."))
 		return
@@ -62,10 +62,10 @@ TYPE_PROC_REF(/obj/item/book/codex_gigas, perform_research)(mob/user, devilName)
 	onclose(user, "book")
 	inUse = FALSE
 
-TYPE_PROC_REF(/obj/item/book/codex_gigas, display_devil)(datum/antagonist/devil/devil, mob/reader, devilName)
+/obj/item/book/codex_gigas/proc/display_devil(datum/antagonist/devil/devil, mob/reader, devilName)
 	reader << browse("Information on [devilName]<br><br><br>[GLOB.lawlorify[LORE][devil.ban]]<br>[GLOB.lawlorify[LORE][devil.bane]]<br>[GLOB.lawlorify[LORE][devil.obligation]]<br>[GLOB.lawlorify[LORE][devil.banish]]<br>[devil.ascendable?"This devil may ascend given enough souls.":""]", "window=book[window_size != null ? ";size=[window_size]" : ""]")
 
-TYPE_PROC_REF(/obj/item/book/codex_gigas, ask_name)(mob/reader)
+/obj/item/book/codex_gigas/proc/ask_name(mob/reader)
 	ui_interact(reader)
 
 /obj/item/book/codex_gigas/ui_act(action, params)

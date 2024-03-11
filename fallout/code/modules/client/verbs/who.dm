@@ -65,7 +65,7 @@
 	msg += "<b>Total Players: [length(GLOB.clients)]</b>"
 	to_chat(src, msg)
 
-TYPE_PROC_REF(/client, show_admin_info)(client/C)
+/client/proc/show_admin_info(client/C)
 	if(!C)
 		return ""
 

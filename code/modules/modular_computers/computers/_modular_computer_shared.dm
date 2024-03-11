@@ -1,8 +1,8 @@
 
-TYPE_PROC_REF(/obj, is_modular_computer)()
+/obj/proc/is_modular_computer()
 	return
 
-TYPE_PROC_REF(/obj, get_modular_computer_part)(part_type)
+/obj/proc/get_modular_computer_part(part_type)
 	return null
 
 /obj/item/modular_computer/is_modular_computer()
@@ -25,7 +25,7 @@ TYPE_PROC_REF(/obj, get_modular_computer_part)(part_type)
 	return cpu?.all_components[part_type]
 
 
-TYPE_PROC_REF(/obj, get_modular_computer_parts_examine)(mob/user)
+/obj/proc/get_modular_computer_parts_examine(mob/user)
 	. = list()
 	if(!is_modular_computer())
 		return

@@ -90,7 +90,7 @@
 	my_atom = null
 
 // Used in attack logs for reagents in pills and such
-TYPE_PROC_REF(/datum/reagents, log_list)()
+/datum/reagents/proc/log_list()
 	if(!length(reagent_list))
 		return "no reagents"
 
@@ -101,7 +101,7 @@ TYPE_PROC_REF(/datum/reagents, log_list)()
 		//Using IDs because SOME chemicals (I'm looking at you, chlorhydrate-beer) have the same names as other chemicals.
 	return english_list(data)
 
-TYPE_PROC_REF(/datum/reagents, remove_any)(amount = 1)
+/datum/reagents/proc/remove_any(amount = 1)
 	var/list/cached_reagents = reagent_list
 	var/total_transfered = 0
 	var/current_list_element = 1
@@ -127,7 +127,7 @@ TYPE_PROC_REF(/datum/reagents, remove_any)(amount = 1)
 	handle_reactions()
 	return total_transfered
 
-TYPE_PROC_REF(/datum/reagents, remove_all)(amount = 1)
+/datum/reagents/proc/remove_all(amount = 1)
 	var/list/cached_reagents = reagent_list
 	if(total_volume > 0)
 		var/part = amount / total_volume
@@ -139,7 +139,7 @@ TYPE_PROC_REF(/datum/reagents, remove_all)(amount = 1)
 		handle_reactions()
 		return amount
 
-TYPE_PROC_REF(/datum/reagents, get_master_reagent_name)()
+/datum/reagents/proc/get_master_reagent_name()
 	var/list/cached_reagents = reagent_list
 	var/name
 	var/max_volume = 0
@@ -151,7 +151,7 @@ TYPE_PROC_REF(/datum/reagents, get_master_reagent_name)()
 
 	return name
 
-TYPE_PROC_REF(/datum/reagents, get_master_reagent_id)()
+/datum/reagents/proc/get_master_reagent_id()
 	var/list/cached_reagents = reagent_list
 	var/max_type
 	var/max_volume = 0
@@ -163,7 +163,7 @@ TYPE_PROC_REF(/datum/reagents, get_master_reagent_id)()
 
 	return max_type
 
-TYPE_PROC_REF(/datum/reagents, get_master_reagent)()
+/datum/reagents/proc/get_master_reagent()
 	var/list/cached_reagents = reagent_list
 	var/datum/reagent/master
 	var/max_volume = 0
@@ -175,7 +175,7 @@ TYPE_PROC_REF(/datum/reagents, get_master_reagent)()
 
 	return master
 
-TYPE_PROC_REF(/datum/reagents, trans_to)(obj/target, amount = 1, multiplier = 1, preserve_data = 1, no_react = 0, log = FALSE)//if preserve_data=0, the reagents data will be lost. Usefull if you use data for some strange stuff and don't want it to be transferred.
+/datum/reagents/proc/trans_to(obj/target, amount = 1, multiplier = 1, preserve_data = 1, no_react = 0, log = FALSE)//if preserve_data=0, the reagents data will be lost. Usefull if you use data for some strange stuff and don't want it to be transferred.
 	var/list/cached_reagents = reagent_list
 	if(!target || !total_volume)
 		return
@@ -217,7 +217,7 @@ TYPE_PROC_REF(/datum/reagents, trans_to)(obj/target, amount = 1, multiplier = 1,
 		src.handle_reactions()
 	return amount
 
-TYPE_PROC_REF(/datum/reagents, copy_to)(obj/target, amount=1, multiplier=1, preserve_data=1)
+/datum/reagents/proc/copy_to(obj/target, amount=1, multiplier=1, preserve_data=1)
 	var/list/cached_reagents = reagent_list
 	if(!target || !total_volume)
 		return
@@ -248,7 +248,7 @@ TYPE_PROC_REF(/datum/reagents, copy_to)(obj/target, amount=1, multiplier=1, pres
 	src.handle_reactions()
 	return amount
 
-TYPE_PROC_REF(/datum/reagents, trans_id_to)(obj/target, reagent, amount = 1, preserve_data = TRUE, log = FALSE)//Not sure why this proc didn't exist before. It does now! /N
+/datum/reagents/proc/trans_id_to(obj/target, reagent, amount = 1, preserve_data = TRUE, log = FALSE)//Not sure why this proc didn't exist before. It does now! /N
 	var/list/cached_reagents = reagent_list
 	if (!target)
 		return
@@ -281,7 +281,7 @@ TYPE_PROC_REF(/datum/reagents, trans_id_to)(obj/target, reagent, amount = 1, pre
 	R.handle_reactions()
 	return amount
 
-TYPE_PROC_REF(/datum/reagents, metabolize)(mob/living/carbon/C, can_overdose = FALSE, liverless = FALSE)
+/datum/reagents/proc/metabolize(mob/living/carbon/C, can_overdose = FALSE, liverless = FALSE)
 	var/list/cached_reagents = reagent_list
 	var/list/cached_addictions = addiction_list
 	if(C)
@@ -354,7 +354,7 @@ TYPE_PROC_REF(/datum/reagents, metabolize)(mob/living/carbon/C, can_overdose = F
 		C.update_stamina()
 	update_total()
 
-TYPE_PROC_REF(/datum/reagents, remove_addiction)(datum/reagent/R)
+/datum/reagents/proc/remove_addiction(datum/reagent/R)
 	to_chat(my_atom, span_notice("You feel like you've gotten over your need for [R.name]."))
 	SEND_SIGNAL(my_atom, COMSIG_CLEAR_MOOD_EVENT, "[R.type]_overdose")
 	if(ismob(my_atom))
@@ -364,7 +364,7 @@ TYPE_PROC_REF(/datum/reagents, remove_addiction)(datum/reagent/R)
 	qdel(R)
 
 //Signals that metabolization has stopped, triggering the end of trait-based effects
-TYPE_PROC_REF(/datum/reagents, end_metabolization)(mob/living/carbon/C, keep_liverless = TRUE)
+/datum/reagents/proc/end_metabolization(mob/living/carbon/C, keep_liverless = TRUE)
 	var/list/cached_reagents = reagent_list
 	for(var/reagent in cached_reagents)
 		var/datum/reagent/R = reagent
@@ -381,14 +381,14 @@ TYPE_PROC_REF(/datum/reagents, end_metabolization)(mob/living/carbon/C, keep_liv
 			else
 				R.on_mob_end_metabolize(C)
 
-TYPE_PROC_REF(/datum/reagents, conditional_update_move)(atom/A, Running = 0)
+/datum/reagents/proc/conditional_update_move(atom/A, Running = 0)
 	var/list/cached_reagents = reagent_list
 	for(var/reagent in cached_reagents)
 		var/datum/reagent/R = reagent
 		R.on_move (A, Running)
 	update_total()
 
-TYPE_PROC_REF(/datum/reagents, conditional_update)(atom/A)
+/datum/reagents/proc/conditional_update(atom/A)
 	var/list/cached_reagents = reagent_list
 	for(var/reagent in cached_reagents)
 		var/datum/reagent/R = reagent
@@ -396,7 +396,7 @@ TYPE_PROC_REF(/datum/reagents, conditional_update)(atom/A)
 	update_total()
 
 
-TYPE_PROC_REF(/datum/reagents, handle_reactions)()//HERE EDIT HERE THE MAIN REACTION
+/datum/reagents/proc/handle_reactions()//HERE EDIT HERE THE MAIN REACTION
 	if(fermiIsReacting) //This ARRESTS other reactions. If you don't want this, then remove it.
 		return
 
@@ -602,7 +602,7 @@ TYPE_PROC_REF(/datum/reagents, handle_reactions)()//HERE EDIT HERE THE MAIN REAC
 		fermiEnd()
 	return
 
-TYPE_PROC_REF(/datum/reagents, fermiEnd)()
+/datum/reagents/proc/fermiEnd()
 	var/datum/chemical_reaction/C = fermiReactID
 	STOP_PROCESSING(SSprocessing, src)
 	fermiIsReacting = FALSE
@@ -623,7 +623,7 @@ TYPE_PROC_REF(/datum/reagents, fermiEnd)()
 	//Reaction sounds and words
 	my_atom.visible_message(span_notice("[icon2html(my_atom, viewers(DEFAULT_MESSAGE_RANGE, src))] [C.mix_message]"))
 
-TYPE_PROC_REF(/datum/reagents, fermiReact)(selected_reaction, cached_temp, cached_pH, reactedVol, targetVol, cached_required_reagents, cached_results, multiplier)
+/datum/reagents/proc/fermiReact(selected_reaction, cached_temp, cached_pH, reactedVol, targetVol, cached_required_reagents, cached_results, multiplier)
 	var/datum/chemical_reaction/C = selected_reaction
 	var/deltaT = 0
 	var/deltapH = 0
@@ -735,7 +735,7 @@ TYPE_PROC_REF(/datum/reagents, fermiReact)(selected_reaction, cached_temp, cache
 	return (reactedVol)
 
 //Currently calculates it irrespective of required reagents at the start
-TYPE_PROC_REF(/datum/reagents, reactant_purity)(datum/chemical_reaction/C, holder)
+/datum/reagents/proc/reactant_purity(datum/chemical_reaction/C, holder)
 	var/list/cached_reagents = reagent_list
 	var/i = 0
 	var/cachedPurity
@@ -747,7 +747,7 @@ TYPE_PROC_REF(/datum/reagents, reactant_purity)(datum/chemical_reaction/C, holde
 		CRASH("No reactants found mid reaction for [fermiReactID]/[C], how it got here is beyond me. Beaker: [holder]")
 	return cachedPurity/i
 
-TYPE_PROC_REF(/datum/reagents, uncache_purity)(id)
+/datum/reagents/proc/uncache_purity(id)
 	var/datum/reagent/R = has_reagent(id)
 	if(!R)
 		return
@@ -755,7 +755,7 @@ TYPE_PROC_REF(/datum/reagents, uncache_purity)(id)
 		return
 	R.purity = R.cached_purity
 
-TYPE_PROC_REF(/datum/reagents, isolate_reagent)(reagent)
+/datum/reagents/proc/isolate_reagent(reagent)
 	var/list/cached_reagents = reagent_list
 	for(var/_reagent in cached_reagents)
 		var/datum/reagent/R = _reagent
@@ -763,7 +763,7 @@ TYPE_PROC_REF(/datum/reagents, isolate_reagent)(reagent)
 			del_reagent(R.type)
 			update_total()
 
-TYPE_PROC_REF(/datum/reagents, del_reagent)(reagent)
+/datum/reagents/proc/del_reagent(reagent)
 	var/list/cached_reagents = reagent_list
 	for(var/_reagent in cached_reagents)
 		var/datum/reagent/R = _reagent
@@ -785,7 +785,7 @@ TYPE_PROC_REF(/datum/reagents, del_reagent)(reagent)
 				my_atom.on_reagent_change(DEL_REAGENT)
 	return 1
 
-TYPE_PROC_REF(/datum/reagents, update_total)()
+/datum/reagents/proc/update_total()
 	var/list/cached_reagents = reagent_list
 	total_volume = 0
 	for(var/reagent in cached_reagents)
@@ -800,7 +800,7 @@ TYPE_PROC_REF(/datum/reagents, update_total)()
 		pH = REAGENT_NORMAL_PH
 	return 0
 
-TYPE_PROC_REF(/datum/reagents, clear_reagents)()
+/datum/reagents/proc/clear_reagents()
 	var/list/cached_reagents = reagent_list
 	for(var/reagent in cached_reagents)
 		var/datum/reagent/R = reagent
@@ -808,7 +808,7 @@ TYPE_PROC_REF(/datum/reagents, clear_reagents)()
 	pH = REAGENT_NORMAL_PH
 	return 0
 
-TYPE_PROC_REF(/datum/reagents, reaction)(atom/A, method = TOUCH, volume_modifier = 1, show_message = 1)
+/datum/reagents/proc/reaction(atom/A, method = TOUCH, volume_modifier = 1, show_message = 1)
 	var/react_type
 	if(isliving(A))
 		react_type = "LIVING"
@@ -839,13 +839,13 @@ TYPE_PROC_REF(/datum/reagents, reaction)(atom/A, method = TOUCH, volume_modifier
 			if("OBJ")
 				R.reaction_obj(A, R.volume * volume_modifier, show_message)
 
-TYPE_PROC_REF(/datum/reagents, holder_full)()
+/datum/reagents/proc/holder_full()
 	if(total_volume >= maximum_volume)
 		return TRUE
 	return FALSE
 
 //Returns the average specific heat for all reagents currently in this holder.
-TYPE_PROC_REF(/datum/reagents, specific_heat)()
+/datum/reagents/proc/specific_heat()
 	. = 0
 	var/cached_amount = total_volume		//cache amount
 	var/list/cached_reagents = reagent_list		//cache reagents
@@ -853,14 +853,14 @@ TYPE_PROC_REF(/datum/reagents, specific_heat)()
 		var/datum/reagent/R = I
 		. += R.specific_heat * (R.volume / cached_amount)
 
-TYPE_PROC_REF(/datum/reagents, adjust_thermal_energy)(J, min_temp = 2.7, max_temp = 1000)
+/datum/reagents/proc/adjust_thermal_energy(J, min_temp = 2.7, max_temp = 1000)
 	var/S = specific_heat()
 	chem_temp = clamp(chem_temp + (J / (S * total_volume)), min_temp, max_temp)
 	if(istype(my_atom, /obj/item/reagent_containers))
 		var/obj/item/reagent_containers/RC = my_atom
 		RC.temp_check()
 
-TYPE_PROC_REF(/datum/reagents, add_reagent)(reagent, amount, list/data=null, reagtemp = 300, other_purity = 1, other_pH, no_react = 0, ignore_pH = FALSE)
+/datum/reagents/proc/add_reagent(reagent, amount, list/data=null, reagtemp = 300, other_purity = 1, other_pH, no_react = 0, ignore_pH = FALSE)
 
 	if(!isnum(amount) || !amount)
 		return FALSE
@@ -972,12 +972,12 @@ TYPE_PROC_REF(/datum/reagents, add_reagent)(reagent, amount, list/data=null, rea
 	return TRUE
 
 
-TYPE_PROC_REF(/datum/reagents, add_reagent_list)(list/list_reagents, list/data=null) // Like add_reagent but you can enter a list. Format it like this: list(/datum/reagent/toxin = 10, /datum/reagent/consumable/ethanol/beer = 15)
+/datum/reagents/proc/add_reagent_list(list/list_reagents, list/data=null) // Like add_reagent but you can enter a list. Format it like this: list(/datum/reagent/toxin = 10, /datum/reagent/consumable/ethanol/beer = 15)
 	for(var/r_id in list_reagents)
 		var/amt = list_reagents[r_id]
 		add_reagent(r_id, amt, data)
 
-TYPE_PROC_REF(/datum/reagents, remove_reagent)(reagent, amount, safety, ignore_pH = FALSE)//Added a safety check for the trans_id_to
+/datum/reagents/proc/remove_reagent(reagent, amount, safety, ignore_pH = FALSE)//Added a safety check for the trans_id_to
 
 	if(isnull(amount))
 		stack_trace("null amount passed to reagent code")
@@ -1017,7 +1017,7 @@ TYPE_PROC_REF(/datum/reagents, remove_reagent)(reagent, amount, safety, ignore_p
 
 	return FALSE
 
-TYPE_PROC_REF(/datum/reagents, has_reagent)(reagent, amount = -1)
+/datum/reagents/proc/has_reagent(reagent, amount = -1)
 	var/list/cached_reagents = reagent_list
 	for(var/_reagent in cached_reagents)
 		var/datum/reagent/R = _reagent
@@ -1032,7 +1032,7 @@ TYPE_PROC_REF(/datum/reagents, has_reagent)(reagent, amount = -1)
 
 	return 0
 
-TYPE_PROC_REF(/datum/reagents, get_reagent_amount)(reagent)
+/datum/reagents/proc/get_reagent_amount(reagent)
 	var/list/cached_reagents = reagent_list
 	for(var/_reagent in cached_reagents)
 		var/datum/reagent/R = _reagent
@@ -1041,7 +1041,7 @@ TYPE_PROC_REF(/datum/reagents, get_reagent_amount)(reagent)
 
 	return 0
 
-TYPE_PROC_REF(/datum/reagents, get_reagents)()
+/datum/reagents/proc/get_reagents()
 	var/list/names = list()
 	var/list/cached_reagents = reagent_list
 	for(var/reagent in cached_reagents)
@@ -1050,7 +1050,7 @@ TYPE_PROC_REF(/datum/reagents, get_reagents)()
 
 	return jointext(names, ",")
 
-TYPE_PROC_REF(/datum/reagents, remove_all_type)(reagent_type, amount, strict = 0, safety = 1) // Removes all reagent of X type. @strict set to 1 determines whether the childs of the type are included.
+/datum/reagents/proc/remove_all_type(reagent_type, amount, strict = 0, safety = 1) // Removes all reagent of X type. @strict set to 1 determines whether the childs of the type are included.
 	if(!isnum(amount))
 		return 1
 	var/list/cached_reagents = reagent_list
@@ -1074,21 +1074,21 @@ TYPE_PROC_REF(/datum/reagents, remove_all_type)(reagent_type, amount, strict = 0
 	return has_removed_reagent
 
 //two helper functions to preserve data across reactions (needed for xenoarch)
-TYPE_PROC_REF(/datum/reagents, get_data)(reagent_id)
+/datum/reagents/proc/get_data(reagent_id)
 	var/list/cached_reagents = reagent_list
 	for(var/reagent in cached_reagents)
 		var/datum/reagent/R = reagent
 		if(R.type == reagent_id)
 			return R.data
 
-TYPE_PROC_REF(/datum/reagents, set_data)(reagent_id, new_data)
+/datum/reagents/proc/set_data(reagent_id, new_data)
 	var/list/cached_reagents = reagent_list
 	for(var/reagent in cached_reagents)
 		var/datum/reagent/R = reagent
 		if(R.type == reagent_id)
 			R.data = new_data
 
-TYPE_PROC_REF(/datum/reagents, copy_data)(datum/reagent/current_reagent)
+/datum/reagents/proc/copy_data(datum/reagent/current_reagent)
 	if(!current_reagent || !current_reagent.data)
 		return null
 	if(!istype(current_reagent.data, /list))
@@ -1109,14 +1109,14 @@ TYPE_PROC_REF(/datum/reagents, copy_data)(datum/reagent/current_reagent)
 
 	return trans_data
 
-TYPE_PROC_REF(/datum/reagents, post_copy_data)(datum/reagent/current_reagent)
+/datum/reagents/proc/post_copy_data(datum/reagent/current_reagent)
 	return current_reagent.post_copy_data()
 
-TYPE_PROC_REF(/datum/reagents, get_reagent)(type)
+/datum/reagents/proc/get_reagent(type)
 	var/list/cached_reagents = reagent_list
 	. = locate(type) in cached_reagents
 
-TYPE_PROC_REF(/datum/reagents, expose_temperature)(temperature, coeff=0.02)
+/datum/reagents/proc/expose_temperature(temperature, coeff=0.02)
 	var/temp_delta = (temperature - chem_temp) * coeff
 	if(temp_delta > 0)
 		chem_temp = min(chem_temp + max(temp_delta, 1), temperature)
@@ -1130,7 +1130,7 @@ TYPE_PROC_REF(/datum/reagents, expose_temperature)(temperature, coeff=0.02)
 
 // Convenience proc to create a reagents holder for an atom
 // Max vol is maximum volume of holder
-TYPE_PROC_REF(/atom, create_reagents)(max_vol, flags, new_value)
+/atom/proc/create_reagents(max_vol, flags, new_value)
 	if(reagents)
 		qdel(reagents)
 	reagents = new/datum/reagents(max_vol, flags, new_value)

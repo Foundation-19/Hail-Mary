@@ -51,21 +51,21 @@
 	..()
 	aiEye.setLoc(get_turf(center))
 
-TYPE_PROC_REF(/obj/screen/movable/pic_in_pic/ai, highlight)()
+/obj/screen/movable/pic_in_pic/ai/proc/highlight()
 	if(highlighted)
 		return
 	highlighted = TRUE
 	cut_overlay(standard_background)
 	add_overlay(highlighted_background)
 
-TYPE_PROC_REF(/obj/screen/movable/pic_in_pic/ai, unhighlight)()
+/obj/screen/movable/pic_in_pic/ai/proc/unhighlight()
 	if(!highlighted)
 		return
 	highlighted = FALSE
 	cut_overlay(highlighted_background)
 	add_overlay(standard_background)
 
-TYPE_PROC_REF(/obj/screen/movable/pic_in_pic/ai, set_ai)(mob/living/silicon/ai/new_ai)
+/obj/screen/movable/pic_in_pic/ai/proc/set_ai(mob/living/silicon/ai/new_ai)
 	if(ai)
 		ai.multicam_screens -= src
 		ai.all_eyes -= aiEye
@@ -148,7 +148,7 @@ GLOBAL_DATUM(ai_camera_room_landmark, /obj/effect/landmark/ai_multicam_room)
 /mob/camera/aiEye/pic_in_pic/get_visible_turfs()
 	return screen ? screen.get_visible_turfs() : list()
 
-TYPE_PROC_REF(/mob/camera/aiEye/pic_in_pic, update_camera_telegraphing)()
+/mob/camera/aiEye/pic_in_pic/proc/update_camera_telegraphing()
 	if(!telegraph_cameras)
 		return
 	var/list/obj/machinery/camera/add = list()
@@ -180,7 +180,7 @@ TYPE_PROC_REF(/mob/camera/aiEye/pic_in_pic, update_camera_telegraphing)()
 		C.in_use_lights++
 		C.update_icon()
 
-TYPE_PROC_REF(/mob/camera/aiEye/pic_in_pic, disable_camera_telegraphing)()
+/mob/camera/aiEye/pic_in_pic/proc/disable_camera_telegraphing()
 	telegraph_cameras = FALSE
 	for (var/V in cameras_telegraphed)
 		var/obj/machinery/camera/C = V
@@ -196,7 +196,7 @@ TYPE_PROC_REF(/mob/camera/aiEye/pic_in_pic, disable_camera_telegraphing)()
 
 //AI procs
 
-TYPE_PROC_REF(/mob/living/silicon/ai, drop_new_multicam)(silent = FALSE)
+/mob/living/silicon/ai/proc/drop_new_multicam(silent = FALSE)
 	if(!CONFIG_GET(flag/allow_ai_multicam))
 		if(!silent)
 			to_chat(src, span_warning("This action is currently disabled. Contact an administrator to enable this feature."))
@@ -215,7 +215,7 @@ TYPE_PROC_REF(/mob/living/silicon/ai, drop_new_multicam)(silent = FALSE)
 		to_chat(src, span_notice("Added new multicamera window."))
 	return C
 
-TYPE_PROC_REF(/mob/living/silicon/ai, toggle_multicam)()
+/mob/living/silicon/ai/proc/toggle_multicam()
 	if(!CONFIG_GET(flag/allow_ai_multicam))
 		to_chat(src, span_warning("This action is currently disabled. Contact an administrator to enable this feature."))
 		return
@@ -224,7 +224,7 @@ TYPE_PROC_REF(/mob/living/silicon/ai, toggle_multicam)()
 	else
 		start_multicam()
 
-TYPE_PROC_REF(/mob/living/silicon/ai, start_multicam)()
+/mob/living/silicon/ai/proc/start_multicam()
 	if(multicam_on || aiRestorePowerRoutine || !isturf(loc))
 		return
 	if(!GLOB.ai_camera_room_landmark)
@@ -234,14 +234,14 @@ TYPE_PROC_REF(/mob/living/silicon/ai, start_multicam)()
 	refresh_multicam()
 	to_chat(src, span_notice("Multiple-camera viewing mode activated."))
 
-TYPE_PROC_REF(/mob/living/silicon/ai, refresh_multicam)()
+/mob/living/silicon/ai/proc/refresh_multicam()
 	reset_perspective(GLOB.ai_camera_room_landmark)
 	if(client)
 		for(var/V in multicam_screens)
 			var/obj/screen/movable/pic_in_pic/P = V
 			P.show_to(client)
 
-TYPE_PROC_REF(/mob/living/silicon/ai, end_multicam)()
+/mob/living/silicon/ai/proc/end_multicam()
 	if(!multicam_on)
 		return
 	multicam_on = FALSE
@@ -254,7 +254,7 @@ TYPE_PROC_REF(/mob/living/silicon/ai, end_multicam)()
 	to_chat(src, span_notice("Multiple-camera viewing mode deactivated."))
 
 
-TYPE_PROC_REF(/mob/living/silicon/ai, select_main_multicam_window)(obj/screen/movable/pic_in_pic/ai/P)
+/mob/living/silicon/ai/proc/select_main_multicam_window(obj/screen/movable/pic_in_pic/ai/P)
 	if(master_multicam == P)
 		return
 

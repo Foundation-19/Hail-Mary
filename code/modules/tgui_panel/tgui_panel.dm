@@ -28,7 +28,7 @@
  *
  * TRUE if panel is initialized and ready to receive messages.
  */
-TYPE_PROC_REF(/datum/tgui_panel, is_ready)()
+/datum/tgui_panel/proc/is_ready()
 	return !broken && window.is_ready()
 
 /**
@@ -36,7 +36,7 @@ TYPE_PROC_REF(/datum/tgui_panel, is_ready)()
  *
  * Initializes tgui panel.
  */
-TYPE_PROC_REF(/datum/tgui_panel, initialize)(force = FALSE)
+/datum/tgui_panel/proc/initialize(force = FALSE)
 	set waitfor = FALSE
 	// Minimal sleep to defer initialization to after client constructor
 	sleep(1)
@@ -58,7 +58,7 @@ TYPE_PROC_REF(/datum/tgui_panel, initialize)(force = FALSE)
  *
  * Called when initialization has timed out.
  */
-TYPE_PROC_REF(/datum/tgui_panel, on_initialize_timed_out)()
+/datum/tgui_panel/proc/on_initialize_timed_out()
 	// Currently does nothing but sending a message to old chat.
 	SEND_TEXT(client, "<span class=\"userdanger\">Failed to load fancy chat, click <a href='?src=[REF(src)];reload_tguipanel=1'>HERE</a> to attempt to reload it. OR press the (Fix chat window) button in the lobby window.</span>")
 
@@ -67,7 +67,7 @@ TYPE_PROC_REF(/datum/tgui_panel, on_initialize_timed_out)()
  *
  * Callback for handling incoming tgui messages.
  */
-TYPE_PROC_REF(/datum/tgui_panel, on_message)(type, payload)
+/datum/tgui_panel/proc/on_message(type, payload)
 	if(type == "ready")
 		broken = FALSE
 		window.send_message("update", list(
@@ -96,5 +96,5 @@ TYPE_PROC_REF(/datum/tgui_panel, on_message)(type, payload)
  *
  * Sends a round restart notification.
  */
-TYPE_PROC_REF(/datum/tgui_panel, send_roundrestart)()
+/datum/tgui_panel/proc/send_roundrestart()
 	window.send_message("roundrestart")

@@ -52,7 +52,7 @@ Bonus
 	if(M.bodytemperature > BODYTEMP_COLD_DAMAGE_LIMIT || unsafe)
 		Chill(M, A)
 
-TYPE_PROC_REF(/datum/symptom/shivering, Chill)(mob/living/M, datum/disease/advance/A)
+/datum/symptom/shivering/proc/Chill(mob/living/M, datum/disease/advance/A)
 	var/get_cold = 6 * power
 	var/limit = BODYTEMP_COLD_DAMAGE_LIMIT + 1
 	if(unsafe)

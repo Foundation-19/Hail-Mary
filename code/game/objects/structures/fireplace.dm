@@ -24,7 +24,7 @@
 	STOP_PROCESSING(SSobj, src)
 	. = ..()
 
-TYPE_PROC_REF(/obj/structure/fireplace, try_light)(obj/item/O, mob/user)
+/obj/structure/fireplace/proc/try_light(obj/item/O, mob/user)
 	if(lit)
 		to_chat(user, span_warning("It's already lit!"))
 		return FALSE
@@ -86,7 +86,7 @@ TYPE_PROC_REF(/obj/structure/fireplace, try_light)(obj/item/O, mob/user)
 			. += "fireplace_fire4"
 	. += "fireplace_glow"
 
-TYPE_PROC_REF(/obj/structure/fireplace, adjust_light)()
+/obj/structure/fireplace/proc/adjust_light()
 	if(!lit)
 		set_light(0)
 		return
@@ -124,7 +124,7 @@ TYPE_PROC_REF(/obj/structure/fireplace, adjust_light)()
 		adjust_fuel_timer(fuel)
 	. = ..()
 
-TYPE_PROC_REF(/obj/structure/fireplace, adjust_fuel_timer)(amount)
+/obj/structure/fireplace/proc/adjust_fuel_timer(amount)
 	if(lit)
 		flame_expiry_timer += amount
 		if(burn_time_remaining() < MAXIMUM_BURN_TIMER)
@@ -132,13 +132,13 @@ TYPE_PROC_REF(/obj/structure/fireplace, adjust_fuel_timer)(amount)
 	else
 		fuel_added = clamp(fuel_added + amount, 0, MAXIMUM_BURN_TIMER)
 
-TYPE_PROC_REF(/obj/structure/fireplace, burn_time_remaining)()
+/obj/structure/fireplace/proc/burn_time_remaining()
 	if(lit)
 		return max(0, flame_expiry_timer - world.time)
 	else
 		return max(0, fuel_added)
 
-TYPE_PROC_REF(/obj/structure/fireplace, ignite)()
+/obj/structure/fireplace/proc/ignite()
 	lit = TRUE
 	desc = "A large stone brick fireplace, warm and cozy."
 	flame_expiry_timer = world.time + fuel_added
@@ -146,7 +146,7 @@ TYPE_PROC_REF(/obj/structure/fireplace, ignite)()
 	update_icon()
 	adjust_light()
 
-TYPE_PROC_REF(/obj/structure/fireplace, put_out)()
+/obj/structure/fireplace/proc/put_out()
 	lit = FALSE
 	update_icon()
 	adjust_light()

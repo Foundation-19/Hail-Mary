@@ -9,7 +9,7 @@
 		return COMPONENT_INCOMPATIBLE
 	RegisterSignal(parent, list(COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_DROPPED), PROC_REF(equippedChanged))
 
-TYPE_PROC_REF(/datum/component/earhealing, equippedChanged)(mob/living/carbon/user, slot)
+/datum/component/earhealing/proc/equippedChanged(mob/living/carbon/user, slot)
 	if (slot == SLOT_EARS && istype(user))
 		if (!wearer)
 			START_PROCESSING(SSobj, src)

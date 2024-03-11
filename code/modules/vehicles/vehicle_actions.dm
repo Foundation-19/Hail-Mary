@@ -1,26 +1,26 @@
 //VEHICLE DEFAULT HANDLING
-TYPE_PROC_REF(/obj/vehicle, generate_actions)()
+/obj/vehicle/proc/generate_actions()
 	return
 
-TYPE_PROC_REF(/obj/vehicle, generate_action_type)(actiontype)
+/obj/vehicle/proc/generate_action_type(actiontype)
 	var/datum/action/vehicle/A = new actiontype
 	if(!istype(A))
 		return
 	A.vehicle_target = src
 	return A
 
-TYPE_PROC_REF(/obj/vehicle, initialize_passenger_action_type)(actiontype)
+/obj/vehicle/proc/initialize_passenger_action_type(actiontype)
 	autogrant_actions_passenger += actiontype
 	for(var/i in occupants)
 		grant_passenger_actions(i)	//refresh
 
-TYPE_PROC_REF(/obj/vehicle, initialize_controller_action_type)(actiontype, control_flag)
+/obj/vehicle/proc/initialize_controller_action_type(actiontype, control_flag)
 	LAZYINITLIST(autogrant_actions_controller["[control_flag]"])
 	autogrant_actions_controller["[control_flag]"] += actiontype
 	for(var/i in occupants)
 		grant_controller_actions(i)	//refresh
 
-TYPE_PROC_REF(/obj/vehicle, grant_action_type_to_mob)(actiontype, mob/m)
+/obj/vehicle/proc/grant_action_type_to_mob(actiontype, mob/m)
 	if(isnull(occupants[m]) || !actiontype)
 		return FALSE
 	LAZYINITLIST(occupant_actions[m])
@@ -31,7 +31,7 @@ TYPE_PROC_REF(/obj/vehicle, grant_action_type_to_mob)(actiontype, mob/m)
 	occupant_actions[m][action.type] = action
 	return TRUE
 
-TYPE_PROC_REF(/obj/vehicle, remove_action_type_from_mob)(actiontype, mob/m)
+/obj/vehicle/proc/remove_action_type_from_mob(actiontype, mob/m)
 	if(isnull(occupants[m]) || !actiontype)
 		return FALSE
 	LAZYINITLIST(occupant_actions[m])
@@ -41,15 +41,15 @@ TYPE_PROC_REF(/obj/vehicle, remove_action_type_from_mob)(actiontype, mob/m)
 		occupant_actions[m] -= actiontype
 	return TRUE
 
-TYPE_PROC_REF(/obj/vehicle, grant_passenger_actions)(mob/M)
+/obj/vehicle/proc/grant_passenger_actions(mob/M)
 	for(var/v in autogrant_actions_passenger)
 		grant_action_type_to_mob(v, M)
 
-TYPE_PROC_REF(/obj/vehicle, remove_passenger_actions)(mob/M)
+/obj/vehicle/proc/remove_passenger_actions(mob/M)
 	for(var/v in autogrant_actions_passenger)
 		remove_action_type_from_mob(v, M)
 
-TYPE_PROC_REF(/obj/vehicle, grant_controller_actions)(mob/M)
+/obj/vehicle/proc/grant_controller_actions(mob/M)
 	if(!istype(M) || isnull(occupants[M]))
 		return FALSE
 	for(var/i in GLOB.bitflags)
@@ -57,28 +57,28 @@ TYPE_PROC_REF(/obj/vehicle, grant_controller_actions)(mob/M)
 			grant_controller_actions_by_flag(M, i)
 	return TRUE
 
-TYPE_PROC_REF(/obj/vehicle, remove_controller_actions)(mob/M)
+/obj/vehicle/proc/remove_controller_actions(mob/M)
 	if(!istype(M) || isnull(occupants[M]))
 		return FALSE
 	for(var/i in GLOB.bitflags)
 		remove_controller_actions_by_flag(M, i)
 	return TRUE
 
-TYPE_PROC_REF(/obj/vehicle, grant_controller_actions_by_flag)(mob/M, flag)
+/obj/vehicle/proc/grant_controller_actions_by_flag(mob/M, flag)
 	if(!istype(M))
 		return FALSE
 	for(var/v in autogrant_actions_controller["[flag]"])
 		grant_action_type_to_mob(v, M)
 	return TRUE
 
-TYPE_PROC_REF(/obj/vehicle, remove_controller_actions_by_flag)(mob/M, flag)
+/obj/vehicle/proc/remove_controller_actions_by_flag(mob/M, flag)
 	if(!istype(M))
 		return FALSE
 	for(var/v in autogrant_actions_controller["[flag]"])
 		remove_action_type_from_mob(v, M)
 	return TRUE
 
-TYPE_PROC_REF(/obj/vehicle, cleanup_actions_for_mob)(mob/M)
+/obj/vehicle/proc/cleanup_actions_for_mob(mob/M)
 	if(!istype(M))
 		return FALSE
 	for(var/path in occupant_actions[M])

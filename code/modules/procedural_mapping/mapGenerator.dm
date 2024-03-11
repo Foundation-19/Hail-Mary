@@ -35,7 +35,7 @@
 
 //Defines the region the map represents, sets map
 //Returns the map
-TYPE_PROC_REF(/datum/mapGenerator, defineRegion)(turf/Start, turf/End, replace = 0)
+/datum/mapGenerator/proc/defineRegion(turf/Start, turf/End, replace = 0)
 	if(!checkRegion(Start, End))
 		return 0
 
@@ -47,7 +47,7 @@ TYPE_PROC_REF(/datum/mapGenerator, defineRegion)(turf/Start, turf/End, replace =
 
 //Defines the region the map represents, as a CIRCLE!, sets map
 //Returns the map
-TYPE_PROC_REF(/datum/mapGenerator, defineCircularRegion)(turf/Start, turf/End, replace = 0)
+/datum/mapGenerator/proc/defineCircularRegion(turf/Start, turf/End, replace = 0)
 	if(!checkRegion(Start, End))
 		return 0
 
@@ -82,13 +82,13 @@ TYPE_PROC_REF(/datum/mapGenerator, defineCircularRegion)(turf/Start, turf/End, r
 
 
 //Empties the map list, he's dead jim.
-TYPE_PROC_REF(/datum/mapGenerator, undefineRegion)()
+/datum/mapGenerator/proc/undefineRegion()
 	map = list() //bai bai
 
 
 //Checks for and Rejects bad region coordinates
 //Returns 1/0
-TYPE_PROC_REF(/datum/mapGenerator, checkRegion)(turf/Start, turf/End)
+/datum/mapGenerator/proc/checkRegion(turf/Start, turf/End)
 	. = 1
 
 	if(!Start || !End)
@@ -103,7 +103,7 @@ TYPE_PROC_REF(/datum/mapGenerator, checkRegion)(turf/Start, turf/End)
 
 
 //Requests the mapGeneratorModule(s) to (re)generate
-TYPE_PROC_REF(/datum/mapGenerator, generate)()
+/datum/mapGenerator/proc/generate()
 	syncModules()
 	if(!modules || !modules.len)
 		return
@@ -112,7 +112,7 @@ TYPE_PROC_REF(/datum/mapGenerator, generate)()
 
 
 //Requests the mapGeneratorModule(s) to (re)generate this one turf
-TYPE_PROC_REF(/datum/mapGenerator, generateOneTurf)(turf/T)
+/datum/mapGenerator/proc/generateOneTurf(turf/T)
 	if(!T)
 		return
 	syncModules()
@@ -123,7 +123,7 @@ TYPE_PROC_REF(/datum/mapGenerator, generateOneTurf)(turf/T)
 
 
 //Replaces all paths in the module list with actual module datums
-TYPE_PROC_REF(/datum/mapGenerator, initialiseModules)()
+/datum/mapGenerator/proc/initialiseModules()
 	for(var/path in modules)
 		if(ispath(path))
 			modules.Remove(path)
@@ -132,7 +132,7 @@ TYPE_PROC_REF(/datum/mapGenerator, initialiseModules)()
 
 
 //Sync mapGeneratorModule(s) to mapGenerator
-TYPE_PROC_REF(/datum/mapGenerator, syncModules)()
+/datum/mapGenerator/proc/syncModules()
 	for(var/datum/mapGeneratorModule/mod in modules)
 		mod.sync(src)
 
@@ -142,7 +142,7 @@ TYPE_PROC_REF(/datum/mapGenerator, syncModules)()
 // HERE BE DEBUG DRAGONS //
 ///////////////////////////
 
-TYPE_PROC_REF(/client, debugNatureMapGenerator)()
+/client/proc/debugNatureMapGenerator()
 	set name = "Test Nature Map Generator"
 	set category = "Debug"
 

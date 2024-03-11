@@ -44,7 +44,7 @@
  * Arguments:
  * * user The mob interacting owning the spell.
  */
-TYPE_PROC_REF(/obj/effect/proc_holder/spell/pointed, on_activation)(mob/user)
+/obj/effect/proc_holder/spell/pointed/proc/on_activation(mob/user)
 	return
 
 /**
@@ -53,7 +53,7 @@ TYPE_PROC_REF(/obj/effect/proc_holder/spell/pointed, on_activation)(mob/user)
  * Arguments:
  * * user The mob interacting owning the spell.
  */
-TYPE_PROC_REF(/obj/effect/proc_holder/spell/pointed, on_deactivation)(mob/user)
+/obj/effect/proc_holder/spell/pointed/proc/on_deactivation(mob/user)
 	return
 
 /obj/effect/proc_holder/spell/pointed/update_icon()
@@ -91,7 +91,7 @@ TYPE_PROC_REF(/obj/effect/proc_holder/spell/pointed, on_deactivation)(mob/user)
  * * target The atom that is being targeted by the spell via intercept.
  * * silent If the checks should produce not any feedback messages for the user.
  */
-TYPE_PROC_REF(/obj/effect/proc_holder/spell/pointed, intercept_check)(mob/user, atom/target, silent = FALSE)
+/obj/effect/proc_holder/spell/pointed/proc/intercept_check(mob/user, atom/target, silent = FALSE)
 	if(!self_castable && target == user)
 		if(!silent)
 			to_chat(user, span_warning("You cannot cast the spell on yourself!"))

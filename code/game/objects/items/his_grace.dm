@@ -122,7 +122,7 @@
 		else
 			consume(L)
 
-TYPE_PROC_REF(/obj/item/his_grace, awaken)(mob/user) //Good morning, Mr. Grace.
+/obj/item/his_grace/proc/awaken(mob/user) //Good morning, Mr. Grace.
 	if(awakened)
 		return
 	awakened = TRUE
@@ -136,7 +136,7 @@ TYPE_PROC_REF(/obj/item/his_grace, awaken)(mob/user) //Good morning, Mr. Grace.
 	icon_state = "his_grace_awakened"
 	move_gracefully()
 
-TYPE_PROC_REF(/obj/item/his_grace, move_gracefully)()
+/obj/item/his_grace/proc/move_gracefully()
 	if(!awakened)
 		return
 	var/static/list/transforms
@@ -156,7 +156,7 @@ TYPE_PROC_REF(/obj/item/his_grace, move_gracefully)()
 	animate(transform=transforms[3], time=0.2)
 	animate(transform=transforms[4], time=0.3)
 
-TYPE_PROC_REF(/obj/item/his_grace, drowse)() //Good night, Mr. Grace.
+/obj/item/his_grace/proc/drowse() //Good night, Mr. Grace.
 	if(!awakened || ascended)
 		return
 	var/turf/T = get_turf(src)
@@ -172,7 +172,7 @@ TYPE_PROC_REF(/obj/item/his_grace, drowse)() //Good night, Mr. Grace.
 	awakened = FALSE
 	bloodthirst = 0
 
-TYPE_PROC_REF(/obj/item/his_grace, consume)(mob/living/meal) //Here's your dinner, Mr. Grace.
+/obj/item/his_grace/proc/consume(mob/living/meal) //Here's your dinner, Mr. Grace.
 	if(!meal)
 		return
 	var/victims = 0
@@ -194,7 +194,7 @@ TYPE_PROC_REF(/obj/item/his_grace, consume)(mob/living/meal) //Here's your dinne
 		ascend()
 	update_stats()
 
-TYPE_PROC_REF(/obj/item/his_grace, adjust_bloodthirst)(amt)
+/obj/item/his_grace/proc/adjust_bloodthirst(amt)
 	prev_bloodthirst = bloodthirst
 	if(prev_bloodthirst < HIS_GRACE_CONSUME_OWNER && !ascended)
 		bloodthirst = clamp(bloodthirst + amt, HIS_GRACE_SATIATED, HIS_GRACE_CONSUME_OWNER)
@@ -202,7 +202,7 @@ TYPE_PROC_REF(/obj/item/his_grace, adjust_bloodthirst)(amt)
 		bloodthirst = clamp(bloodthirst + amt, HIS_GRACE_CONSUME_OWNER, HIS_GRACE_FALL_ASLEEP)
 	update_stats()
 
-TYPE_PROC_REF(/obj/item/his_grace, update_stats)()
+/obj/item/his_grace/proc/update_stats()
 	REMOVE_TRAIT(src, TRAIT_NODROP, HIS_GRACE_TRAIT)
 	var/mob/living/master = get_atom_on_turf(src, /mob/living)
 	switch(bloodthirst)
@@ -240,7 +240,7 @@ TYPE_PROC_REF(/obj/item/his_grace, update_stats)()
 				master.visible_message(span_warning("[src] is satiated."), "<span class='his_grace big'>[src]'s hunger recedes...</span>")
 	force = initial(force) + force_bonus
 
-TYPE_PROC_REF(/obj/item/his_grace, ascend)()
+/obj/item/his_grace/proc/ascend()
 	if(ascended)
 		return
 	var/mob/living/carbon/human/master = loc

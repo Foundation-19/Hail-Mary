@@ -36,7 +36,7 @@
 		/datum/reagent/consumable/peachjuice = 6,
 		/datum/reagent/consumable/grapejuice = 6)
 
-TYPE_PROC_REF(/obj/machinery/icecream_vat, get_ingredient_list)(type)
+/obj/machinery/icecream_vat/proc/get_ingredient_list(type)
 	switch(type)
 		if(ICECREAM_CHOCOLATE)
 			return list(/datum/reagent/consumable/milk, /datum/reagent/consumable/ice, /datum/reagent/consumable/coco)
@@ -58,7 +58,7 @@ TYPE_PROC_REF(/obj/machinery/icecream_vat, get_ingredient_list)(type)
 			return list(/datum/reagent/consumable/milk, /datum/reagent/consumable/ice, /datum/reagent/consumable/vanilla)
 
 
-TYPE_PROC_REF(/obj/machinery/icecream_vat, get_flavour_name)(flavour_type)
+/obj/machinery/icecream_vat/proc/get_flavour_name(flavour_type)
 	switch(flavour_type)
 		if(ICECREAM_CHOCOLATE)
 			return "chocolate"
@@ -154,7 +154,7 @@ TYPE_PROC_REF(/obj/machinery/icecream_vat, get_flavour_name)(flavour_type)
 	else
 		return ..()
 
-TYPE_PROC_REF(/obj/machinery/icecream_vat, RefillFromBeaker)()
+/obj/machinery/icecream_vat/proc/RefillFromBeaker()
 	if(!beaker || !beaker.reagents)
 		return
 	for(var/datum/reagent/R in beaker.reagents.reagent_list)
@@ -164,7 +164,7 @@ TYPE_PROC_REF(/obj/machinery/icecream_vat, RefillFromBeaker)()
 			playsound(src, 'sound/items/drink.ogg', 25, 1)
 	return
 
-TYPE_PROC_REF(/obj/machinery/icecream_vat, make)(mob/user, make_type, amount)
+/obj/machinery/icecream_vat/proc/make(mob/user, make_type, amount)
 	var/recipe_amount = amount * 3 //prevents reagent duping by requring roughly the amount of reagenst you gain back by grinding.
 	for(var/R in get_ingredient_list(make_type))
 		if(reagents.has_reagent(R, recipe_amount))
@@ -239,7 +239,7 @@ TYPE_PROC_REF(/obj/machinery/icecream_vat, make)(mob/user, make_type, amount)
 	. = ..()
 	reagents.maximum_volume = 20
 
-TYPE_PROC_REF(/obj/item/reagent_containers/food/snacks/icecream, set_cone_type)(cone_name)
+/obj/item/reagent_containers/food/snacks/icecream/proc/set_cone_type(cone_name)
 	cone_type = cone_name
 	icon_state = "icecream_cone_[cone_name]"
 	switch (cone_type)
@@ -251,7 +251,7 @@ TYPE_PROC_REF(/obj/item/reagent_containers/food/snacks/icecream, set_cone_type)(
 	desc = "Delicious [cone_name] cone, but no ice cream."
 
 
-TYPE_PROC_REF(/obj/item/reagent_containers/food/snacks/icecream, add_ice_cream)(flavour_name, datum/reagents/R)
+/obj/item/reagent_containers/food/snacks/icecream/proc/add_ice_cream(flavour_name, datum/reagents/R)
 	name = "[flavour_name] icecream"
 	switch (flavour_name) // adding the actual reagents advertised in the ingredient list
 		if ("vanilla")
@@ -300,7 +300,7 @@ TYPE_PROC_REF(/obj/item/reagent_containers/food/snacks/icecream, add_ice_cream)(
 		src.add_overlay("icecream_[flavour_name]")
 	ice_creamed = 1
 
-TYPE_PROC_REF(/obj/item/reagent_containers/food/snacks/icecream, add_mob_flavor)(mob/M)
+/obj/item/reagent_containers/food/snacks/icecream/proc/add_mob_flavor(mob/M)
 	add_ice_cream("mob")
 	name = "[M.name] icecream"
 
@@ -316,7 +316,7 @@ TYPE_PROC_REF(/obj/item/reagent_containers/food/snacks/icecream, add_mob_flavor)
 	replace_beaker(user)
 	return TRUE
 
-TYPE_PROC_REF(/obj/machinery/icecream_vat, replace_beaker)(mob/living/user, obj/item/reagent_containers/new_beaker)
+/obj/machinery/icecream_vat/proc/replace_beaker(mob/living/user, obj/item/reagent_containers/new_beaker)
 	if(beaker)
 		beaker.forceMove(drop_location())
 		if(user && Adjacent(user) && user.can_hold_items())

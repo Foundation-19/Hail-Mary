@@ -50,7 +50,7 @@
 	..()
 
 // set the transponder codes assoc list from codes_txt
-TYPE_PROC_REF(/obj/machinery/navbeacon, set_codes)()
+/obj/machinery/navbeacon/proc/set_codes()
 	if(!codes_txt)
 		return
 

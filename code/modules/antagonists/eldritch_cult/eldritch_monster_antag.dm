@@ -24,7 +24,7 @@
 		owner = null
 	return ..()
 
-TYPE_PROC_REF(/datum/antagonist/heretic_monster, set_owner)(datum/antagonist/_master)
+/datum/antagonist/heretic_monster/proc/set_owner(datum/antagonist/_master)
 	master = _master
 	var/datum/objective/master_obj = new
 	master_obj.owner = src

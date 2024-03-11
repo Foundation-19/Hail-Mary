@@ -1,5 +1,5 @@
 
-TYPE_PROC_REF(/mob/living/silicon/ai, show_laws_verb)()
+/mob/living/silicon/ai/proc/show_laws_verb()
 	set category = "AI Commands"
 	set name = "Show Laws"
 	if(usr.stat == DEAD)

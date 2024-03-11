@@ -31,13 +31,13 @@
 /// Called from /mob/living/PushAM -- Called when this mob is about to push a movable, but before it moves
 /// (aotm/movable/being_pushed)
 #define COMSIG_LIVING_PUSHING_MOVABLE "living_pushing_movable"
-///from base of [TYPE_PROC_REF(/atom, interact)]: (mob/user)
+///from base of [/atom/proc/interact]: (mob/user)
 #define COMSIG_ATOM_UI_INTERACT "atom_ui_interact"
 ///from base of atom/relaymove(): (mob/living/user, direction)
 #define COMSIG_ATOM_RELAYMOVE "atom_relaymove"
 	///prevents the "you cannot move while buckled! message"
 	#define COMSIG_BLOCK_RELAYMOVE (1<<0)
-/// from TYPE_PROC_REF(/datum/component/singularity, can_move)(), as well as TYPE_PROC_REF(/obj/energy_ball, can_move)()
+/// from /datum/component/singularity/proc/can_move(), as well as /obj/energy_ball/proc/can_move()
 /// if a callback returns `SINGULARITY_TRY_MOVE_BLOCK`, then the singularity will not move to that turf
 #define COMSIG_ATOM_SINGULARITY_TRY_MOVE "atom_singularity_try_move"
 	/// When returned from `COMSIG_ATOM_SINGULARITY_TRY_MOVE`, the singularity will move to that turf

@@ -77,7 +77,7 @@
 /obj/item/clothing/shoes/magboots/crushing
 	desc = "Normal looking magboots that are altered to increase magnetic pull to crush anything underfoot."
 
-TYPE_PROC_REF(/obj/item/clothing/shoes/magboots/crushing, crush)(mob/living/user)
+/obj/item/clothing/shoes/magboots/crushing/proc/crush(mob/living/user)
 	if (!isturf(user.loc) || !magpulse)
 		return
 	var/turf/T = user.loc

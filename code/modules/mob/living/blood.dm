@@ -23,7 +23,7 @@
 		if(blood_volume < BLOOD_VOLUME_OKAY)
 			adjustOxyLoss(round((BLOOD_VOLUME_NORMAL - blood_volume) * 0.02, 1))
 
-TYPE_PROC_REF(/mob/living/carbon/human, resume_bleeding)()
+/mob/living/carbon/human/proc/resume_bleeding()
 	bleedsuppress = 0
 	if(stat != DEAD && is_bleeding())
 		to_chat(src, span_warning("The blood soaks through your bandage."))
@@ -199,7 +199,7 @@ GLOBAL_LIST_INIT(blood_loss_messages, list(
  * knockdown_chance = chance for a knockdown to occur
  * knockdown_time = time they're knocked down for
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-TYPE_PROC_REF(/mob/living/carbon, apply_bloodloss_effects)(oxy_loss_cap, stam_cap, dizzy, confusion, blurry, sprint_max, sprint_regen, sprint_cost, knockdown_chance, knockdown_time, slowdown)
+/mob/living/carbon/proc/apply_bloodloss_effects(oxy_loss_cap, stam_cap, dizzy, confusion, blurry, sprint_max, sprint_regen, sprint_cost, knockdown_chance, knockdown_time, slowdown)
 	if(oxy_loss_cap && getOxyLoss() < oxy_loss_cap)
 		adjustOxyLoss(round((BLOOD_VOLUME_NORMAL - blood_volume) * 0.02, 1))
 	if(stam_cap && getStaminaLoss() < stam_cap)
@@ -217,7 +217,7 @@ TYPE_PROC_REF(/mob/living/carbon, apply_bloodloss_effects)(oxy_loss_cap, stam_ca
 	add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/bloodloss_slowdown, TRUE, slowdown)
 
 /// Applies sprint modifiers. Here so it can be easily reset.
-TYPE_PROC_REF(/mob/living/carbon, apply_bloodloss_sprint_effects)(sprint_max, sprint_regen, sprint_cost, reset = FALSE)
+/mob/living/carbon/proc/apply_bloodloss_sprint_effects(sprint_max, sprint_regen, sprint_cost, reset = FALSE)
 	if(reset)
 		update_config_movespeed()
 		return
@@ -227,7 +227,7 @@ TYPE_PROC_REF(/mob/living/carbon, apply_bloodloss_sprint_effects)(sprint_max, sp
 
 /// Returns how much blood you have, effective or otherwise
 /// just_blood just makes it return your real blood amount
-TYPE_PROC_REF(/mob/living, get_blood)(just_blood = FALSE)
+/mob/living/proc/get_blood(just_blood = FALSE)
 	. = blood_volume * blood_ratio
 	if(just_blood)
 		return
@@ -243,7 +243,7 @@ TYPE_PROC_REF(/mob/living, get_blood)(just_blood = FALSE)
 			. = max(., BLOOD_VOLUME_SYMPTOMS_WORST + 10) // Vasopressors~
 
 // Passive blood regeneration
-TYPE_PROC_REF(/mob/living/carbon, regenerate_blood)()
+/mob/living/carbon/proc/regenerate_blood()
 	if(get_blood(FALSE) > BLOOD_REFILL_NUTRITION_MAX)
 		return
 	var/blood_refill = BLOOD_REFILL_PER_TICK // guaranteed refill
@@ -272,7 +272,7 @@ TYPE_PROC_REF(/mob/living/carbon, regenerate_blood)()
 	blood_volume += blood_refill
 
 //Makes a blood drop, leaking amt units of blood from the mob
-TYPE_PROC_REF(/mob/living/carbon, bleed)(amt)
+/mob/living/carbon/proc/bleed(amt)
 	if(blood_volume)
 		if(get_blood(FALSE) < BLOOD_VOLUME_LOSS_FLOOR)
 			amt *= 0.05
@@ -292,7 +292,7 @@ TYPE_PROC_REF(/mob/living/carbon, bleed)(amt)
 			if(istype(R) && isturf(loc))
 				R.reaction_turf(get_turf(src), amt * EXOTIC_BLEED_MULTIPLIER)
 
-TYPE_PROC_REF(/mob/living, restore_blood)()
+/mob/living/proc/restore_blood()
 	blood_volume = initial(blood_volume)
 
 /mob/living/carbon/restore_blood()
@@ -306,7 +306,7 @@ TYPE_PROC_REF(/mob/living, restore_blood)()
 ****************************************************/
 
 //Gets blood from mob to a container or other mob, preserving all data in it.
-TYPE_PROC_REF(/mob/living, transfer_blood_to)(atom/movable/AM, amount, forced)
+/mob/living/proc/transfer_blood_to(atom/movable/AM, amount, forced)
 	var/our_blood = get_blood(FALSE)
 	if(!our_blood || !AM.reagents)
 		return FALSE
@@ -343,7 +343,7 @@ TYPE_PROC_REF(/mob/living, transfer_blood_to)(atom/movable/AM, amount, forced)
 	return TRUE
 
 
-TYPE_PROC_REF(/mob/living, get_blood_data)(blood_id)
+/mob/living/proc/get_blood_data(blood_id)
 	return
 
 /mob/living/carbon/get_blood_data(blood_id)
@@ -393,7 +393,7 @@ TYPE_PROC_REF(/mob/living, get_blood_data)(blood_id)
 		return blood_data
 
 //get the id of the substance this mob use as blood.
-TYPE_PROC_REF(/mob, get_blood_id)()
+/mob/proc/get_blood_id()
 	return
 
 /mob/living/simple_animal/get_blood_id()
@@ -443,7 +443,7 @@ TYPE_PROC_REF(/mob, get_blood_id)()
 		. = safe
 
 //to add a splatter of blood or other mob liquid.
-TYPE_PROC_REF(/mob/living, add_splatter_floor)(turf/T, small_drip)
+/mob/living/proc/add_splatter_floor(turf/T, small_drip)
 	if(get_blood_id() == null)
 		return
 	if(!T)
@@ -498,7 +498,7 @@ TYPE_PROC_REF(/mob/living, add_splatter_floor)(turf/T, small_drip)
 	if(!B)
 		B = new(T)
 
-TYPE_PROC_REF(/mob/living, add_splash_floor)(turf/T)
+/mob/living/proc/add_splash_floor(turf/T)
 	if(get_blood_id() == null)
 		return
 	if(!T)
@@ -537,7 +537,7 @@ TYPE_PROC_REF(/mob/living, add_splash_floor)(turf/T)
 		B = new(T)
 
 //This is a terrible way of handling it.
-TYPE_PROC_REF(/mob/living, ResetBloodVol)()
+/mob/living/proc/ResetBloodVol()
 	if(ishuman(src))
 		var/mob/living/carbon/human/H = src
 		if (HAS_TRAIT(src, TRAIT_HIGH_BLOOD))
@@ -549,7 +549,7 @@ TYPE_PROC_REF(/mob/living, ResetBloodVol)()
 		return
 	blood_ratio = 1
 
-TYPE_PROC_REF(/mob/living, AdjustBloodVol)(value)
+/mob/living/proc/AdjustBloodVol(value)
 	if(blood_ratio == value)
 		return
 	blood_ratio = value

@@ -112,7 +112,7 @@
 
 	return ..()
 
-TYPE_PROC_REF(/obj/item/toy/plush, set_snowflake_from_config)(id)
+/obj/item/toy/plush/proc/set_snowflake_from_config(id)
 	var/list/configlist = CONFIG_GET(keyed_list/snowflake_plushies)
 	var/list/jsonlist = configlist[id]
 	ASSERT(jsonlist)
@@ -219,7 +219,7 @@ TYPE_PROC_REF(/obj/item/toy/plush, set_snowflake_from_config)(id)
 		return
 	return ..()
 
-TYPE_PROC_REF(/obj/item/toy/plush, love)(obj/item/toy/plush/Kisser, mob/living/user)	//~<3
+/obj/item/toy/plush/proc/love(obj/item/toy/plush/Kisser, mob/living/user)	//~<3
 	var/chance = 100	//to steal a kiss, surely there's a 100% chance no-one would reject a plush such as I?
 	var/concern = 20	//perhaps something might cloud true love with doubt
 	var/loyalty = 30	//why should another get between us?
@@ -286,7 +286,7 @@ TYPE_PROC_REF(/obj/item/toy/plush, love)(obj/item/toy/plush/Kisser, mob/living/u
 	else
 		user.show_message(span_warning("[Kisser] and [src] don't know what to do with one another."), 0)
 
-TYPE_PROC_REF(/obj/item/toy/plush, heartbreak)(obj/item/toy/plush/Brutus)
+/obj/item/toy/plush/proc/heartbreak(obj/item/toy/plush/Brutus)
 	if(lover != Brutus)
 		to_chat(world, "lover != Brutus")
 		return	//why are we considering someone we don't love?
@@ -308,10 +308,10 @@ TYPE_PROC_REF(/obj/item/toy/plush, heartbreak)(obj/item/toy/plush/Brutus)
 
 	update_desc()
 
-TYPE_PROC_REF(/obj/item/toy/plush, scorned_by)(obj/item/toy/plush/Outmoded)
+/obj/item/toy/plush/proc/scorned_by(obj/item/toy/plush/Outmoded)
 	scorned_by.Add(Outmoded)
 
-TYPE_PROC_REF(/obj/item/toy/plush, new_lover)(obj/item/toy/plush/Juliet)
+/obj/item/toy/plush/proc/new_lover(obj/item/toy/plush/Juliet)
 	if(lover == Juliet)
 		return	//nice try
 	lover = Juliet
@@ -325,7 +325,7 @@ TYPE_PROC_REF(/obj/item/toy/plush, new_lover)(obj/item/toy/plush/Juliet)
 	if(partner)	//who?
 		partner = null	//more like who cares
 
-TYPE_PROC_REF(/obj/item/toy/plush, new_partner)(obj/item/toy/plush/Apple_of_my_eye)
+/obj/item/toy/plush/proc/new_partner(obj/item/toy/plush/Apple_of_my_eye)
 	if(partner == Apple_of_my_eye)
 		return	//double marriage is just insecurity
 	if(lover != Apple_of_my_eye)
@@ -339,7 +339,7 @@ TYPE_PROC_REF(/obj/item/toy/plush, new_partner)(obj/item/toy/plush/Apple_of_my_e
 	mood_message = pick(partner_message)
 	update_desc()
 
-TYPE_PROC_REF(/obj/item/toy/plush, plop)(obj/item/toy/plush/Daddy)
+/obj/item/toy/plush/proc/plop(obj/item/toy/plush/Daddy)
 	if(partner != Daddy)
 		return	FALSE //we do not have bastards in our toyshop
 
@@ -353,7 +353,7 @@ TYPE_PROC_REF(/obj/item/toy/plush, plop)(obj/item/toy/plush/Daddy)
 
 	plush_child.make_young(src, Daddy)
 
-TYPE_PROC_REF(/obj/item/toy/plush, make_young)(obj/item/toy/plush/Mama, obj/item/toy/plush/Dada)
+/obj/item/toy/plush/proc/make_young(obj/item/toy/plush/Mama, obj/item/toy/plush/Dada)
 	if(Mama == Dada)
 		return	//cloning is reserved for plants and spacemen
 
@@ -369,7 +369,7 @@ TYPE_PROC_REF(/obj/item/toy/plush, make_young)(obj/item/toy/plush/Mama, obj/item
 	Dada.mood_message = pick(Dada.parent_message)
 	Dada.update_desc()
 
-TYPE_PROC_REF(/obj/item/toy/plush, bad_news)(obj/item/toy/plush/Deceased)	//cotton to cotton, sawdust to sawdust
+/obj/item/toy/plush/proc/bad_news(obj/item/toy/plush/Deceased)	//cotton to cotton, sawdust to sawdust
 	var/is_that_letter_for_me = FALSE
 	if(partner == Deceased)	//covers marriage
 		is_that_letter_for_me = TRUE
@@ -408,7 +408,7 @@ TYPE_PROC_REF(/obj/item/toy/plush, bad_news)(obj/item/toy/plush/Deceased)	//cott
 		mood_message = pick(heartbroken_message)
 		update_desc()
 
-TYPE_PROC_REF(/obj/item/toy/plush, cheer_up)()	//it'll be all right
+/obj/item/toy/plush/proc/cheer_up()	//it'll be all right
 	if(!heartbroken)
 		return	//you cannot make smile what is already
 	if(vowbroken)
@@ -420,14 +420,14 @@ TYPE_PROC_REF(/obj/item/toy/plush, cheer_up)()	//it'll be all right
 		mood_message = null
 	update_desc()
 
-TYPE_PROC_REF(/obj/item/toy/plush, heal_memories)()	//time fixes all wounds
+/obj/item/toy/plush/proc/heal_memories()	//time fixes all wounds
 	if(!vowbroken)
 		vowbroken = !vowbroken
 		if(mood_message in vowbroken_message)
 			mood_message = null
 	cheer_up()
 
-TYPE_PROC_REF(/obj/item/toy/plush, update_desc)()
+/obj/item/toy/plush/proc/update_desc()
 	desc = normal_desc
 	if(mood_message)
 		desc += mood_message
@@ -480,7 +480,7 @@ GLOBAL_LIST_INIT(valid_plushie_paths, valid_plushie_paths())
 	if(P && istype(P.loc, /turf/open) && !P.clashing)
 		clash_of_the_plushies(P)
 
-TYPE_PROC_REF(/obj/item/toy/plush/plushvar, clash_of_the_plushies)(obj/item/toy/plush/narplush/P)
+/obj/item/toy/plush/plushvar/proc/clash_of_the_plushies(obj/item/toy/plush/narplush/P)
 	clash_target = P
 	P.clashing = TRUE
 	say("YOU.")
@@ -861,7 +861,7 @@ TYPE_PROC_REF(/obj/item/toy/plush/plushvar, clash_of_the_plushies)(obj/item/toy/
 	next_absorb = world.time + absorb_cooldown
 	plushie_absorb(target)
 
-TYPE_PROC_REF(/obj/item/toy/plush/plushling, plushie_absorb)(obj/item/toy/plush/victim)
+/obj/item/toy/plush/plushling/proc/plushie_absorb(obj/item/toy/plush/victim)
 	if(!victim)
 		return
 	visible_message(span_warning("[src] gruesomely mutilliates [victim], leaving nothing more than dust!"))

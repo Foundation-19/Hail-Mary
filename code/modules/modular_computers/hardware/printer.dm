@@ -18,7 +18,7 @@
 	. += span_notice("Paper level: [stored_paper]/[max_paper].")
 
 
-TYPE_PROC_REF(/obj/item/computer_hardware/printer, print_text)(text_to_print, paper_title = "")
+/obj/item/computer_hardware/printer/proc/print_text(text_to_print, paper_title = "")
 	if(!stored_paper)
 		return FALSE
 	if(!check_functionality())

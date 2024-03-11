@@ -46,7 +46,7 @@
 			else
 				to_chat(H, span_heavy_brass("You push the spectacles down, but you can't see through the glass."))
 
-TYPE_PROC_REF(/obj/item/clothing/glasses/wraith_spectacles, blind_cultist)(mob/living/victim)
+/obj/item/clothing/glasses/wraith_spectacles/proc/blind_cultist(mob/living/victim)
 	if(iscultist(victim))
 		var/obj/item/organ/eyes/eyes = victim.getorganslot(ORGAN_SLOT_EYES)
 		to_chat(victim, span_heavy_brass("\"It looks like Nar'Sie's dogs really don't value their eyes.\""))
@@ -57,7 +57,7 @@ TYPE_PROC_REF(/obj/item/clothing/glasses/wraith_spectacles, blind_cultist)(mob/l
 		victim.adjust_blindness(30)
 		return TRUE
 
-TYPE_PROC_REF(/obj/item/clothing/glasses/wraith_spectacles, set_vision_vars)(update_vision)
+/obj/item/clothing/glasses/wraith_spectacles/proc/set_vision_vars(update_vision)
 	lighting_alpha = null
 	tint = 0
 	vision_flags = NONE
@@ -154,7 +154,7 @@ TYPE_PROC_REF(/obj/item/clothing/glasses/wraith_spectacles, set_vision_vars)(upd
 		if(!eye_damage_done)
 			qdel(src)
 
-TYPE_PROC_REF(/datum/status_effect/wraith_spectacles, apply_eye_damage)(mob/living/carbon/human/H)
+/datum/status_effect/wraith_spectacles/proc/apply_eye_damage(mob/living/carbon/human/H)
 	var/obj/item/organ/eyes/eyes = H.getorganslot(ORGAN_SLOT_EYES)
 	if(HAS_TRAIT(H, TRAIT_BLIND) || !eyes)
 		return

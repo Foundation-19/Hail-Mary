@@ -32,8 +32,8 @@
 	var/static/regex/alien_name_regex = new("alien (larva|sentinel|drone|hunter|praetorian|queen)( \\(\\d+\\))?")
 
 /mob/living/carbon/alien/Initialize()
-	add_verb(src, TYPE_PROC_REF(/mob/living, mob_sleep))
-	add_verb(src, TYPE_PROC_REF(/mob/living, lay_down))
+	add_verb(src, /mob/living/proc/mob_sleep)
+	add_verb(src, /mob/living/proc/lay_down)
 
 	create_bodyparts() //initialize bodyparts
 
@@ -105,7 +105,7 @@
 Proc: AddInfectionImages()
 Des: Gives the client of the alien an image on each infected mob.
 ----------------------------------------*/
-TYPE_PROC_REF(/mob/living/carbon/alien, AddInfectionImages)()
+/mob/living/carbon/alien/proc/AddInfectionImages()
 	if (client)
 		for (var/i in GLOB.mob_living_list)
 			var/mob/living/L = i
@@ -121,7 +121,7 @@ TYPE_PROC_REF(/mob/living/carbon/alien, AddInfectionImages)()
 Proc: RemoveInfectionImages()
 Des: Removes all infected images from the alien.
 ----------------------------------------*/
-TYPE_PROC_REF(/mob/living/carbon/alien, RemoveInfectionImages)()
+/mob/living/carbon/alien/proc/RemoveInfectionImages()
 	if (client)
 		for(var/image/I in client.images)
 			var/searchfor = "infected"
@@ -135,7 +135,7 @@ TYPE_PROC_REF(/mob/living/carbon/alien, RemoveInfectionImages)()
 /mob/living/carbon/alien/get_standard_pixel_y_offset(lying = 0)
 	return initial(pixel_y)
 
-TYPE_PROC_REF(/mob/living/carbon/alien, alien_evolve)(mob/living/carbon/alien/new_xeno)
+/mob/living/carbon/alien/proc/alien_evolve(mob/living/carbon/alien/new_xeno)
 	to_chat(src, span_noticealien("You begin to evolve!"))
 	visible_message(span_alertalien("[src] begins to twist and contort!"),
 		span_alertalien("You begin to twist and contort!"))

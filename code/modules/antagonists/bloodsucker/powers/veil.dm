@@ -47,14 +47,14 @@
 	Disguise_FaceName()
 
 
-TYPE_PROC_REF(/datum/action/bloodsucker/veil, Disguise_Outfit)()
+/datum/action/bloodsucker/veil/proc/Disguise_Outfit()
 
 	// Step One: Back up original items
 
 
 
 
-TYPE_PROC_REF(/datum/action/bloodsucker/veil, Disguise_FaceName)()
+/datum/action/bloodsucker/veil/proc/Disguise_FaceName()
 
 	// Change Name/Voice
 	var/mob/living/carbon/human/H = owner
@@ -149,7 +149,7 @@ TYPE_PROC_REF(/datum/action/bloodsucker/veil, Disguise_FaceName)()
 		cast_effect() // POOF
 
 	// CAST EFFECT //	// General effect (poof, splat, etc) when you cast. Doesn't happen automatically!
-TYPE_PROC_REF(/datum/action/bloodsucker/veil, cast_effect)()
+/datum/action/bloodsucker/veil/proc/cast_effect()
 	// Effect
 	playsound(get_turf(owner), 'sound/magic/smoke.ogg', 20, 1)
 	var/datum/effect_system/steam_spread/puff = new /datum/effect_system/steam_spread/()

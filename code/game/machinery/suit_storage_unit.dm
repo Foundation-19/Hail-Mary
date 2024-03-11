@@ -175,7 +175,7 @@
 		dump_contents()
 	update_icon()
 
-TYPE_PROC_REF(/obj/machinery/suit_storage_unit, dump_contents)()
+/obj/machinery/suit_storage_unit/proc/dump_contents()
 	dropContents()
 	helmet = null
 	suit = null
@@ -219,7 +219,7 @@ TYPE_PROC_REF(/obj/machinery/suit_storage_unit, dump_contents)()
 		close_machine(target)
 		add_fingerprint(user)
 
-TYPE_PROC_REF(/obj/machinery/suit_storage_unit, cook)()
+/obj/machinery/suit_storage_unit/proc/cook()
 	var/mob/living/mob_occupant = occupant
 	if(uv_cycles)
 		uv_cycles--
@@ -284,7 +284,7 @@ TYPE_PROC_REF(/obj/machinery/suit_storage_unit, cook)()
 		if(occupant)
 			dump_contents()
 
-TYPE_PROC_REF(/obj/machinery/suit_storage_unit, shock)(mob/user, prb)
+/obj/machinery/suit_storage_unit/proc/shock(mob/user, prb)
 	if(!prob(prb))
 		var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 		s.set_up(5, 1, src)
@@ -326,7 +326,7 @@ TYPE_PROC_REF(/obj/machinery/suit_storage_unit, shock)(mob/user, prb)
 		open_machine()
 		dump_contents()
 
-TYPE_PROC_REF(/obj/machinery/suit_storage_unit, resist_open)(mob/user)
+/obj/machinery/suit_storage_unit/proc/resist_open(mob/user)
 	if(!state_open && occupant && (user in src) && user.stat == 0) // Check they're still here.
 		visible_message(span_notice("You see [user] burst out of [src]!"), \
 			span_notice("You escape the cramped confines of [src]!"))

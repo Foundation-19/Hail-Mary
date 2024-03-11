@@ -21,7 +21,7 @@ GLOBAL_VAR_INIT(singularity_counter, 0)
 	var/meteor_buff = FALSE
 	var/icontype = "beacon"
 
-TYPE_PROC_REF(/obj/machinery/power/singularity_beacon, Activate)(mob/user = null)
+/obj/machinery/power/singularity_beacon/proc/Activate(mob/user = null)
 	if(active)
 		return FALSE
 	if(surplus() < 1500)
@@ -39,7 +39,7 @@ TYPE_PROC_REF(/obj/machinery/power/singularity_beacon, Activate)(mob/user = null
 		to_chat(user, span_notice("You activate the beacon."))
 	return TRUE
 
-TYPE_PROC_REF(/obj/machinery/power/singularity_beacon, Deactivate)(mob/user)
+/obj/machinery/power/singularity_beacon/proc/Deactivate(mob/user)
 	if(!active)
 		return FALSE
 	for(var/obj/singularity/singulo in GLOB.singularities)
@@ -53,13 +53,13 @@ TYPE_PROC_REF(/obj/machinery/power/singularity_beacon, Deactivate)(mob/user)
 		decrement_meteor_waves()
 	return TRUE
 
-TYPE_PROC_REF(/obj/machinery/power/singularity_beacon, increment_meteor_waves)()
+/obj/machinery/power/singularity_beacon/proc/increment_meteor_waves()
 	meteor_buff = TRUE
 	GLOB.singularity_counter++
 	for(var/datum/round_event_control/meteor_wave/W in SSevents.control)
 		W.weight += round(initial(W.weight) * METEOR_DISASTER_MODIFIER)
 
-TYPE_PROC_REF(/obj/machinery/power/singularity_beacon, decrement_meteor_waves)()
+/obj/machinery/power/singularity_beacon/proc/decrement_meteor_waves()
 	meteor_buff = FALSE
 	GLOB.singularity_counter--
 	for(var/datum/round_event_control/meteor_wave/W in SSevents.control)

@@ -96,11 +96,11 @@
 // Used to initialize the subsystem BEFORE the map has loaded
 // Called AFTER Recover if that is called
 // Prefer to use Initialize if possible
-TYPE_PROC_REF(/datum/controller/subsystem, PreInit)()
+/datum/controller/subsystem/proc/PreInit()
 	return
 
 //This is used so the mc knows when the subsystem sleeps. do not override.
-TYPE_PROC_REF(/datum/controller/subsystem, ignite)(resumed = FALSE)
+/datum/controller/subsystem/proc/ignite(resumed = FALSE)
 	SHOULD_NOT_OVERRIDE(TRUE)
 	set waitfor = FALSE
 	. = SS_SLEEPING
@@ -117,7 +117,7 @@ TYPE_PROC_REF(/datum/controller/subsystem, ignite)(resumed = FALSE)
 //previously, this would have been named 'process()' but that name is used everywhere for different things!
 //fire() seems more suitable. This is the procedure that gets called every 'wait' deciseconds.
 //Sleeping in here prevents future fires until returned.
-TYPE_PROC_REF(/datum/controller/subsystem, fire)(resumed = FALSE)
+/datum/controller/subsystem/proc/fire(resumed = FALSE)
 	flags |= SS_NO_FIRE
 	CRASH("Subsystem [src]([type]) does not fire() but did not set the SS_NO_FIRE flag. Please add the SS_NO_FIRE flag to any subsystem that doesn't fire so it doesn't get added to the processing list and waste cpu.")
 
@@ -133,7 +133,7 @@ TYPE_PROC_REF(/datum/controller/subsystem, fire)(resumed = FALSE)
 /** Update next_fire for the next run.
  *  reset_time (bool) - Ignore things that would normally alter the next fire, like tick_overrun, and last_fire. (also resets postpone)
  */
-TYPE_PROC_REF(/datum/controller/subsystem, update_nextfire)(reset_time = FALSE)
+/datum/controller/subsystem/proc/update_nextfire(reset_time = FALSE)
 	var/queue_node_flags = flags
 
 	if (reset_time)
@@ -157,7 +157,7 @@ TYPE_PROC_REF(/datum/controller/subsystem, update_nextfire)(reset_time = FALSE)
 //Queue it to run.
 // (we loop thru a linked list until we get to the end or find the right point)
 // (this lets us sort our run order correctly without having to re-sort the entire already sorted list)
-TYPE_PROC_REF(/datum/controller/subsystem, enqueue)()
+/datum/controller/subsystem/proc/enqueue()
 	var/SS_priority = priority
 	var/SS_flags = flags
 	var/datum/controller/subsystem/queue_node
@@ -215,7 +215,7 @@ TYPE_PROC_REF(/datum/controller/subsystem, enqueue)()
 		queue_node.queue_prev = src
 
 
-TYPE_PROC_REF(/datum/controller/subsystem, dequeue)()
+/datum/controller/subsystem/proc/dequeue()
 	if (queue_next)
 		queue_next.queue_prev = queue_prev
 	if (queue_prev)
@@ -229,7 +229,7 @@ TYPE_PROC_REF(/datum/controller/subsystem, dequeue)()
 		state = SS_IDLE
 
 
-TYPE_PROC_REF(/datum/controller/subsystem, pause)()
+/datum/controller/subsystem/proc/pause()
 	. = 1
 	switch(state)
 		if(SS_RUNNING)
@@ -238,9 +238,9 @@ TYPE_PROC_REF(/datum/controller/subsystem, pause)()
 			state = SS_PAUSING
 
 /// Called after the config has been loaded or reloaded.
-TYPE_PROC_REF(/datum/controller/subsystem, OnConfigLoad)()
+/datum/controller/subsystem/proc/OnConfigLoad()
 
-TYPE_PROC_REF(/datum/controller/subsystem, subsystem_log)(msg)
+/datum/controller/subsystem/proc/subsystem_log(msg)
 	return log_subsystem(name, msg)
 
 //used to initialize the subsystem AFTER the map has loaded
@@ -260,7 +260,7 @@ TYPE_PROC_REF(/datum/controller/subsystem, subsystem_log)(msg)
 		msg = "OFFLINE\t[msg]"
 	return msg
 
-TYPE_PROC_REF(/datum/controller/subsystem, state_letter)()
+/datum/controller/subsystem/proc/state_letter()
 	switch (state)
 		if (SS_RUNNING)
 			. = "R"
@@ -274,7 +274,7 @@ TYPE_PROC_REF(/datum/controller/subsystem, state_letter)()
 			. = "  "
 
 /// Causes the next "cycle" fires to be missed. Effect is accumulative but can reset by calling update_nextfire(reset_time = TRUE)
-TYPE_PROC_REF(/datum/controller/subsystem, postpone)(cycles = 1)
+/datum/controller/subsystem/proc/postpone(cycles = 1)
 	if (can_fire && cycles >= 1)
 		postponed_fires += cycles
 

@@ -110,7 +110,7 @@
 	return data
 
 
-TYPE_PROC_REF(/obj/machinery/computer/mech_bay_power_console, reconnect)()
+/obj/machinery/computer/mech_bay_power_console/proc/reconnect()
 	if(recharge_port)
 		return
 	recharge_port = locate(/obj/machinery/mech_bay_recharge_port) in range(1)

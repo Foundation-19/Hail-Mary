@@ -90,7 +90,7 @@
 	return ..()
 
 
-TYPE_PROC_REF(/obj/machinery/shieldgen, shields_up)()
+/obj/machinery/shieldgen/proc/shields_up()
 	active = TRUE
 	update_icon()
 	move_resist = INFINITY
@@ -100,7 +100,7 @@ TYPE_PROC_REF(/obj/machinery/shieldgen, shields_up)()
 			if(!(stat & BROKEN) || prob(33))
 				deployed_shields += new /obj/structure/emergency_shield(target_tile)
 
-TYPE_PROC_REF(/obj/machinery/shieldgen, shields_down)()
+/obj/machinery/shieldgen/proc/shields_down()
 	active = FALSE
 	move_resist = initial(move_resist)
 	update_icon()
@@ -241,7 +241,7 @@ TYPE_PROC_REF(/obj/machinery/shieldgen, shields_down)()
 		cleanup_field(d)
 	return ..()
 
-TYPE_PROC_REF(/obj/machinery/shieldwallgen, power)()
+/obj/machinery/shieldwallgen/proc/power()
 	if(!anchored)
 		power = 0
 		return
@@ -265,11 +265,11 @@ TYPE_PROC_REF(/obj/machinery/shieldwallgen, power)()
 	power()
 	use_stored_power(50)
 
-TYPE_PROC_REF(/obj/machinery/shieldwallgen, use_stored_power)(amount)
+/obj/machinery/shieldwallgen/proc/use_stored_power(amount)
 	power = clamp(power - amount, 0, maximum_stored_power)
 	update_activity()
 
-TYPE_PROC_REF(/obj/machinery/shieldwallgen, update_activity)()
+/obj/machinery/shieldwallgen/proc/update_activity()
 	if(active)
 		icon_state = "Shield_Gen +a"
 		if(active == ACTIVE_SETUPFIELDS)
@@ -291,7 +291,7 @@ TYPE_PROC_REF(/obj/machinery/shieldwallgen, update_activity)()
 		for(var/d in GLOB.cardinals)
 			cleanup_field(d)
 
-TYPE_PROC_REF(/obj/machinery/shieldwallgen, setup_field)(direction)
+/obj/machinery/shieldwallgen/proc/setup_field(direction)
 	if(!direction)
 		return
 
@@ -319,7 +319,7 @@ TYPE_PROC_REF(/obj/machinery/shieldwallgen, setup_field)(direction)
 		new/obj/machinery/shieldwall(T, src, G)
 	return TRUE
 
-TYPE_PROC_REF(/obj/machinery/shieldwallgen, cleanup_field)(direction)
+/obj/machinery/shieldwallgen/proc/cleanup_field(direction)
 	var/obj/machinery/shieldwall/F
 	var/obj/machinery/shieldwallgen/G
 	var/turf/T = loc
@@ -448,7 +448,7 @@ TYPE_PROC_REF(/obj/machinery/shieldwallgen, cleanup_field)(direction)
 	if(damage_type == BRUTE || damage_type == BURN)
 		drain_power(damage_amount)
 
-TYPE_PROC_REF(/obj/machinery/shieldwall, drain_power)(drain_amount)
+/obj/machinery/shieldwall/proc/drain_power(drain_amount)
 	if(needs_power && gen_primary)
 		gen_primary.use_stored_power(drain_amount*0.5)
 		if(gen_secondary) //using power may cause us to be destroyed

@@ -81,7 +81,7 @@
 	else
 		icon_state = "rockitlauncher_back"
 
-TYPE_PROC_REF(/obj/item/rockitlauncher_pack, attach_gun)(mob/user)
+/obj/item/rockitlauncher_pack/proc/attach_gun(mob/user)
 	if(!gun)
 		gun = new(src)
 	gun.forceMove(src)
@@ -132,7 +132,7 @@ TYPE_PROC_REF(/obj/item/rockitlauncher_pack, attach_gun)(mob/user)
 	else
 		..()
 
-TYPE_PROC_REF(/obj/item/rockitlauncher_pack, can_load_item)(obj/item/I, mob/user)
+/obj/item/rockitlauncher_pack/proc/can_load_item(obj/item/I, mob/user)
 	if(!istype(I))			//Players can't load non items, this allows for admin varedit inserts.
 		return TRUE
 	if(is_type_in_typecache(I, blacklist_typecache))
@@ -149,7 +149,7 @@ TYPE_PROC_REF(/obj/item/rockitlauncher_pack, can_load_item)(obj/item/I, mob/user
 		return FALSE
 	return TRUE
 
-TYPE_PROC_REF(/obj/item/rockitlauncher_pack, load_item)(obj/item/I, mob/user)
+/obj/item/rockitlauncher_pack/proc/load_item(obj/item/I, mob/user)
 	if(!can_load_item(I, user))
 		return FALSE
 	if(user)		//Only use transfer proc if there's a user, otherwise just set loc.
@@ -202,7 +202,7 @@ Possible solution: Only add the minimum weight class of a stack (which is basica
 	eject_contents()
 	to_chat(user, span_warning("You open the storage compartment of \the [src], dumping the contents all over the floor."))
 
-TYPE_PROC_REF(/obj/item/rockitlauncher_pack, eject_contents)()
+/obj/item/rockitlauncher_pack/proc/eject_contents()
 	for(var/obj/item/I in loadedItems) //Item To Discharge
 		loadedItems -= I
 		I.forceMove(get_turf(src))
@@ -240,10 +240,10 @@ TYPE_PROC_REF(/obj/item/rockitlauncher_pack, eject_contents)()
 	. = ..()
 	AddComponent(/datum/component/two_handed, force_unwielded=5, force_wielded=5) //Force values may need to be changed, but this is OK for now
 
-TYPE_PROC_REF(/obj/item/pneumatic_cannon/rockitlauncher, on_wield)(obj/item/source, mob/user)
+/obj/item/pneumatic_cannon/rockitlauncher/proc/on_wield(obj/item/source, mob/user)
 	wielded = TRUE
 
-TYPE_PROC_REF(/obj/item/pneumatic_cannon/rockitlauncher, on_unwield)(obj/item/source, mob/user)
+/obj/item/pneumatic_cannon/rockitlauncher/proc/on_unwield(obj/item/source, mob/user)
 	wielded = FALSE
 
 /obj/item/pneumatic_cannon/rockitlauncher/dropped(mob/user)

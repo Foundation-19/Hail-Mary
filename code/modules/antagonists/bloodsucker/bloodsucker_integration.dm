@@ -1,6 +1,6 @@
 //				INTEGRATION: Adding Procs and Datums to existing "classes"
 
-TYPE_PROC_REF(/mob/living, HaveBloodsuckerBodyparts)(displaymessage = "") // displaymessage can be something such as "rising from death" for Torpid Sleep. givewarningto is the person receiving messages.
+/mob/living/proc/HaveBloodsuckerBodyparts(displaymessage = "") // displaymessage can be something such as "rising from death" for Torpid Sleep. givewarningto is the person receiving messages.
 	if(!getorganslot(ORGAN_SLOT_HEART))
 		if(displaymessage != "")
 			to_chat(src, span_warning("Without a heart, you are incapable of [displaymessage]."))
@@ -16,7 +16,7 @@ TYPE_PROC_REF(/mob/living, HaveBloodsuckerBodyparts)(displaymessage = "") // dis
 	return TRUE
 
 // 			EXAMINING
-TYPE_PROC_REF(/mob/living/carbon/human, ReturnVampExamine)(mob/viewer)
+/mob/living/carbon/human/proc/ReturnVampExamine(mob/viewer)
 	if(!mind || !viewer.mind)
 		return ""
 	// Target must be a Vamp
@@ -44,7 +44,7 @@ TYPE_PROC_REF(/mob/living/carbon/human, ReturnVampExamine)(mob/viewer)
 	return returnIcon + returnString
 
 
-TYPE_PROC_REF(/mob/living/carbon/human, ReturnVassalExamine)(mob/viewer)
+/mob/living/carbon/human/proc/ReturnVassalExamine(mob/viewer)
 	if(!mind || !viewer.mind)
 		return ""
 	// Am I not even a Vassal? Then I am not marked.
@@ -80,7 +80,7 @@ TYPE_PROC_REF(/mob/living/carbon/human, ReturnVassalExamine)(mob/viewer)
 
 
 // Am I "pale" when examined? Bloodsuckers can trick this.
-TYPE_PROC_REF(/mob/living/carbon, ShowAsPaleExamine)()
+/mob/living/carbon/proc/ShowAsPaleExamine()
 
 	// Normal Creatures:
 	if(!mind || !mind.has_antag_datum(ANTAG_DATUM_BLOODSUCKER))
@@ -100,7 +100,7 @@ TYPE_PROC_REF(/mob/living/carbon, ShowAsPaleExamine)()
 
 	return ..() // Return vamp check
 
-TYPE_PROC_REF(/mob/living/carbon, scan_blood_volume)()
+/mob/living/carbon/proc/scan_blood_volume()
 	// Vamps don't show up normally to scanners unless Masquerade power is on ----> scanner.dm
 	if(mind)
 		var/datum/antagonist/bloodsucker/bloodsuckerdatum = mind.has_antag_datum(ANTAG_DATUM_BLOODSUCKER)
@@ -108,10 +108,10 @@ TYPE_PROC_REF(/mob/living/carbon, scan_blood_volume)()
 			return BLOOD_VOLUME_NORMAL
 	return blood_volume
 
-TYPE_PROC_REF(/mob/living, IsFrenzied)()
+/mob/living/proc/IsFrenzied()
 	return FALSE
 
-TYPE_PROC_REF(/mob/living, StartFrenzy)(inTime = 120)
+/mob/living/proc/StartFrenzy(inTime = 120)
 	set waitfor = FALSE
 
 

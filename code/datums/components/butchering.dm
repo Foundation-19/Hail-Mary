@@ -22,7 +22,7 @@
 	if(isitem(parent))
 		RegisterSignal(parent, COMSIG_ITEM_ATTACK, PROC_REF(onItemAttack))
 
-TYPE_PROC_REF(/datum/component/butchering, onItemAttack)(obj/item/source, mob/living/M, mob/living/user)
+/datum/component/butchering/proc/onItemAttack(obj/item/source, mob/living/M, mob/living/user)
 	if(user.a_intent != INTENT_HARM)
 		return
 	if(M.stat == DEAD && (M.butcher_results || M.guaranteed_butcher_results)) //can we butcher it?
@@ -40,13 +40,13 @@ TYPE_PROC_REF(/datum/component/butchering, onItemAttack)(obj/item/source, mob/li
 			INVOKE_ASYNC(src, PROC_REF(startNeckSlice), source, H, user)
 			return COMPONENT_ITEM_NO_ATTACK
 
-TYPE_PROC_REF(/datum/component/butchering, startButcher)(obj/item/source, mob/living/M, mob/living/user)
+/datum/component/butchering/proc/startButcher(obj/item/source, mob/living/M, mob/living/user)
 	to_chat(user, span_notice("You begin to butcher [M]..."))
 	playsound(M.loc, butcher_sound, 50, TRUE, -1)
 	if(do_mob(user, M, speed) && M.Adjacent(source))
 		Butcher(user, M)
 
-TYPE_PROC_REF(/datum/component/butchering, startNeckSlice)(obj/item/source, mob/living/carbon/human/H, mob/living/user)
+/datum/component/butchering/proc/startNeckSlice(obj/item/source, mob/living/carbon/human/H, mob/living/user)
 	user.visible_message(span_danger("[user] is slitting [H]'s throat!"), \
 					span_danger("You start slicing [H]'s throat!"), \
 					span_notice("You hear a cutting noise!"), ignored_mobs = H)
@@ -71,7 +71,7 @@ TYPE_PROC_REF(/datum/component/butchering, startNeckSlice)(obj/item/source, mob/
 			screaming_through_a_slit_throat.apply_wound(slit_throat)
 		H.apply_status_effect(/datum/status_effect/neck_slice)
 
-TYPE_PROC_REF(/datum/component/butchering, Butcher)(mob/living/butcher, mob/living/meat)
+/datum/component/butchering/proc/Butcher(mob/living/butcher, mob/living/meat)
 	var/meat_quality = 50 + (bonus_modifier/10) //increases through quality of butchering tool, and through if it was butchered in the kitchen or not
 	if(istype(get_area(butcher), /area/crew_quarters/kitchen))
 		meat_quality = meat_quality + 10
@@ -115,7 +115,7 @@ TYPE_PROC_REF(/datum/component/butchering, Butcher)(mob/living/butcher, mob/livi
 	meat.harvest(butcher)
 	meat.gib(FALSE, FALSE, TRUE)
 
-TYPE_PROC_REF(/datum/component/butchering, ButcherEffects)(mob/living/meat) //extra effects called on butchering, override this via subtypes
+/datum/component/butchering/proc/ButcherEffects(mob/living/meat) //extra effects called on butchering, override this via subtypes
 	return
 
 ///Special snowflake component only used for the recycler.
@@ -129,7 +129,7 @@ TYPE_PROC_REF(/datum/component/butchering, ButcherEffects)(mob/living/meat) //ex
 		return
 	RegisterSignal(parent, COMSIG_MOVABLE_CROSSED, PROC_REF(onCrossed))
 
-TYPE_PROC_REF(/datum/component/butchering/recycler, onCrossed)(datum/source, mob/living/L)
+/datum/component/butchering/recycler/proc/onCrossed(datum/source, mob/living/L)
 	if(!istype(L))
 		return
 	var/obj/machinery/recycler/eater = parent

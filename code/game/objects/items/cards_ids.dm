@@ -53,7 +53,7 @@
 		update_icon()
 	return ..()
 
-TYPE_PROC_REF(/obj/item, GetCard)()
+/obj/item/proc/GetCard()
 
 /obj/item/card/data/GetCard()
 	return src
@@ -252,7 +252,7 @@ TYPE_PROC_REF(/obj/item, GetCard)()
 	else
 		return ..()
 
-TYPE_PROC_REF(/obj/item/card/id, insert_money)(obj/item/I, mob/user, physical_currency)
+/obj/item/card/id/proc/insert_money(obj/item/I, mob/user, physical_currency)
 	if(!registered_account)
 		to_chat(user, span_warning("[src] doesn't have a linked account to deposit [I] into!"))
 		return
@@ -269,7 +269,7 @@ TYPE_PROC_REF(/obj/item/card/id, insert_money)(obj/item/I, mob/user, physical_cu
 	to_chat(user, span_notice("The linked account now reports a balance of [registered_account.account_balance] cr."))
 	qdel(I)
 
-TYPE_PROC_REF(/obj/item/card/id, mass_insert_money)(list/money, mob/user)
+/obj/item/card/id/proc/mass_insert_money(list/money, mob/user)
 	if(!registered_account)
 		to_chat(user, span_warning("[src] doesn't have a linked account to deposit into!"))
 		return FALSE
@@ -289,7 +289,7 @@ TYPE_PROC_REF(/obj/item/card/id, mass_insert_money)(list/money, mob/user)
 
 	return total
 
-TYPE_PROC_REF(/obj/item/card/id, alt_click_can_use_id)(mob/living/user)
+/obj/item/card/id/proc/alt_click_can_use_id(mob/living/user)
 	if(!isliving(user))
 		return
 	if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
@@ -298,7 +298,7 @@ TYPE_PROC_REF(/obj/item/card/id, alt_click_can_use_id)(mob/living/user)
 	return TRUE
 
 // Returns true if new account was set.
-TYPE_PROC_REF(/obj/item/card/id, set_new_account)(mob/living/user)
+/obj/item/card/id/proc/set_new_account(mob/living/user)
 	if(bank_support != ID_FREE_BANK_ACCOUNT)
 		to_chat(user, span_warning("This ID has no modular banking support whatsover, must be an older model..."))
 		return
@@ -389,7 +389,7 @@ TYPE_PROC_REF(/obj/item/card/id, set_new_account)(mob/living/user)
 	if(job)
 		. += mutable_appearance(icon, "id[job]")
 
-TYPE_PROC_REF(/obj/item/card/id, get_cached_flat_icon)()
+/obj/item/card/id/proc/get_cached_flat_icon()
 	if(!cached_flat_icon)
 		cached_flat_icon = getFlatIcon(src)
 	return cached_flat_icon
@@ -400,7 +400,7 @@ TYPE_PROC_REF(/obj/item/card/id, get_cached_flat_icon)()
 		return "[icon2html(get_cached_flat_icon(), user)] [thats? "That's ":""][get_examine_name(user)]" //displays all overlays in chat
 	return ..()
 
-TYPE_PROC_REF(/obj/item/card/id, update_label)(newname, newjob)
+/obj/item/card/id/proc/update_label(newname, newjob)
 	if(newname || newjob)
 		name = "[(!newname)	? "identification card"	: "[newname]'s ID Card"][(!newjob) ? "" : " ([newjob])"]"
 		update_icon()

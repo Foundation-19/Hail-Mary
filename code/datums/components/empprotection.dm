@@ -7,5 +7,5 @@
 	flags = _flags
 	RegisterSignal(parent, list(COMSIG_ATOM_EMP_ACT), PROC_REF(getEmpFlags))
 
-TYPE_PROC_REF(/datum/component/empprotection, getEmpFlags)(severity)
+/datum/component/empprotection/proc/getEmpFlags(severity)
 	return flags

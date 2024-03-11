@@ -1,4 +1,4 @@
-TYPE_PROC_REF(/client, bluespace_artillery)(mob/M in GLOB.mob_list)
+/client/proc/bluespace_artillery(mob/M in GLOB.mob_list)
 	if(!holder || !check_rights(R_FUN))
 		return
 

@@ -94,7 +94,7 @@
 	toggle_open()
 	return TRUE
 
-TYPE_PROC_REF(/obj/machinery/recharge_station, toggle_open)()
+/obj/machinery/recharge_station/proc/toggle_open()
 	if(state_open)
 		close_machine()
 	else
@@ -125,7 +125,7 @@ TYPE_PROC_REF(/obj/machinery/recharge_station, toggle_open)()
 	..()
 	update_icon()
 
-TYPE_PROC_REF(/obj/machinery/recharge_station, process_occupant)()
+/obj/machinery/recharge_station/proc/process_occupant()
 	if(!occupant)
 		return
 	SEND_SIGNAL(occupant, COMSIG_PROCESS_BORGCHARGER_OCCUPANT, recharge_speed, repairs)

@@ -54,7 +54,7 @@
 	. = ..()
 	addtimer(CALLBACK(src, PROC_REF(check_on_mob), user), 1) //dropped is called before the item is out of the slot, so we need to check slightly later
 
-TYPE_PROC_REF(/obj/item/clothing/glasses/judicial_visor, check_on_mob)(mob/user)
+/obj/item/clothing/glasses/judicial_visor/proc/check_on_mob(mob/user)
 	if(user && src != user.get_item_by_slot(SLOT_GLASSES)) //if we happen to check and we AREN'T in the slot, we need to remove our shit from whoever we got dropped from
 		update_status(FALSE)
 		if(blaster.ranged_ability_user)
@@ -64,7 +64,7 @@ TYPE_PROC_REF(/obj/item/clothing/glasses/judicial_visor, check_on_mob)(mob/user)
 	if(is_servant_of_ratvar(user) && src == user.get_item_by_slot(SLOT_GLASSES))
 		blaster.toggle(user)
 
-TYPE_PROC_REF(/obj/item/clothing/glasses/judicial_visor, update_status)(change_to)
+/obj/item/clothing/glasses/judicial_visor/proc/update_status(change_to)
 	if(recharging || !isliving(loc))
 		icon_state = "judicial_visor_0"
 		return 0
@@ -85,7 +85,7 @@ TYPE_PROC_REF(/obj/item/clothing/glasses/judicial_visor, update_status)(change_t
 			to_chat(L, span_notice("As you take off [src], its lens darkens once more."))
 	return 1
 
-TYPE_PROC_REF(/obj/item/clothing/glasses/judicial_visor, recharge_visor)(mob/living/user)
+/obj/item/clothing/glasses/judicial_visor/proc/recharge_visor(mob/living/user)
 	if(!src)
 		return 0
 	recharging = FALSE
@@ -103,7 +103,7 @@ TYPE_PROC_REF(/obj/item/clothing/glasses/judicial_visor, recharge_visor)(mob/liv
 	ranged_mousepointer = 'icons/effects/visor_reticule.dmi'
 	var/obj/item/clothing/glasses/judicial_visor/visor
 
-TYPE_PROC_REF(/obj/effect/proc_holder/judicial_visor, toggle)(mob/user)
+/obj/effect/proc_holder/judicial_visor/proc/toggle(mob/user)
 	var/message
 	if(active)
 		message = span_brass("You dispel the power of [visor].")
@@ -169,7 +169,7 @@ TYPE_PROC_REF(/obj/effect/proc_holder/judicial_visor, toggle)(mob/user)
 /obj/effect/clockwork/judicial_marker/singularity_pull()
 	return
 
-TYPE_PROC_REF(/obj/effect/clockwork/judicial_marker, judicialblast)()
+/obj/effect/clockwork/judicial_marker/proc/judicialblast()
 	playsound(src, 'sound/magic/magic_missile.ogg', 50, 1, 1, 1)
 	flick("judicial_marker", src)
 	for(var/mob/living/carbon/C in range(1, src))

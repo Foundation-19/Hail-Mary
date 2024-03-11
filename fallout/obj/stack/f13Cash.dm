@@ -122,7 +122,7 @@
 	update_desc()
 	update_icon()
 
-TYPE_PROC_REF(/obj/item/stack/f13Cash, update_desc)()
+/obj/item/stack/f13Cash/proc/update_desc()
 	var/total_worth = get_item_credit_value()
 	desc = "It's worth [total_worth] [singular_name][ (latin) ? (( amount > 1 ) ? "i" : "us") : (( amount > 1 ) ? "s each" : "")].\n[flavor_desc]"
 
@@ -151,7 +151,7 @@ TYPE_PROC_REF(/obj/item/stack/f13Cash, update_desc)()
 		spawn_money()
 	return INITIALIZE_HINT_QDEL
 
-TYPE_PROC_REF(/obj/item/stack/f13Cash/random, spawn_money)()
+/obj/item/stack/f13Cash/random/proc/spawn_money()
 	var/obj/item/stack/f13Cash/stack = new money_type
 	stack.loc = loc
 	stack.amount = round(rand(min_qty, max_qty))

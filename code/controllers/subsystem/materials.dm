@@ -20,7 +20,7 @@ SUBSYSTEM_DEF(materials)
 	)
 
 ///Ran on initialize, populated the materials and materials_by_category dictionaries with their appropiate vars (See these variables for more info)
-TYPE_PROC_REF(/datum/controller/subsystem/materials, InitializeMaterials)()
+/datum/controller/subsystem/materials/proc/InitializeMaterials()
 	materials = list()
 	materials_by_category = list()
 	materialtypes_by_category = list()
@@ -32,14 +32,14 @@ TYPE_PROC_REF(/datum/controller/subsystem/materials, InitializeMaterials)()
 			materials_by_category[c] += list(ref)
 			materialtypes_by_category[c] += list(type)
 
-TYPE_PROC_REF(/datum/controller/subsystem/materials, GetMaterialRef)(datum/material/fakemat)
+/datum/controller/subsystem/materials/proc/GetMaterialRef(datum/material/fakemat)
 	if(!materials)
 		InitializeMaterials()
 	return materials[fakemat] || fakemat
 
 
 ///Returns a list to be used as an object's custom_materials. Lists will be cached and re-used based on the parameters.
-TYPE_PROC_REF(/datum/controller/subsystem/materials, FindOrCreateMaterialCombo)(list/materials_declaration, multiplier)
+/datum/controller/subsystem/materials/proc/FindOrCreateMaterialCombo(list/materials_declaration, multiplier)
 	if(!material_combos)
 		InitializeMaterials()
 	var/list/combo_params = list()

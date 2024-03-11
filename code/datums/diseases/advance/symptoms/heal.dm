@@ -35,13 +35,13 @@
 				Heal(M, A, effectiveness)
 	return
 
-TYPE_PROC_REF(/datum/symptom/heal, CanHeal)(datum/disease/advance/A)
+/datum/symptom/heal/proc/CanHeal(datum/disease/advance/A)
 	return power
 
-TYPE_PROC_REF(/datum/symptom/heal, Heal)(mob/living/M, datum/disease/advance/A, actual_power)
+/datum/symptom/heal/proc/Heal(mob/living/M, datum/disease/advance/A, actual_power)
 	return TRUE
 
-TYPE_PROC_REF(/datum/symptom/heal, passive_message_condition)(mob/living/M)
+/datum/symptom/heal/proc/passive_message_condition(mob/living/M)
 	return TRUE
 
 
@@ -276,7 +276,7 @@ TYPE_PROC_REF(/datum/symptom/heal, passive_message_condition)(mob/living/M)
 		active_coma = TRUE
 		addtimer(CALLBACK(src, PROC_REF(coma), M), 60)
 
-TYPE_PROC_REF(/datum/symptom/heal/coma, coma)(mob/living/M)
+/datum/symptom/heal/coma/proc/coma(mob/living/M)
 	if(deathgasp)
 		INVOKE_ASYNC(M, /mob/living.proc/emote, "deathgasp")
 	M.fakedeath("regenerative_coma", TRUE)
@@ -284,7 +284,7 @@ TYPE_PROC_REF(/datum/symptom/heal/coma, coma)(mob/living/M)
 	M.update_mobility()
 	addtimer(CALLBACK(src, PROC_REF(uncoma), M), 300)
 
-TYPE_PROC_REF(/datum/symptom/heal/coma, uncoma)(mob/living/M)
+/datum/symptom/heal/coma/proc/uncoma(mob/living/M)
 	if(!active_coma)
 		return
 	active_coma = FALSE

@@ -77,7 +77,7 @@
 	H.SpinAnimation(7, 1)
 	H.adjustOrganLoss(ORGAN_SLOT_HEART, 10)
 
-TYPE_PROC_REF(/datum/surgery_step/ventricular_electrotherapy, ghetto_defib)(mob/user, mob/living/carbon/human/H, obj/item/tool)
+/datum/surgery_step/ventricular_electrotherapy/proc/ghetto_defib(mob/user, mob/living/carbon/human/H, obj/item/tool)
 	H.visible_message(span_warning("[H]'s body convulses a bit."))
 	var/total_brute	= H.getBruteLoss()
 	var/total_burn	= H.getFireLoss()

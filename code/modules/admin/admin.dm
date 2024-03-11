@@ -17,7 +17,7 @@
 
 ///////////////////////////////////////////////////////////////////////////////////////////////Panels
 
-TYPE_PROC_REF(/datum/admins, show_player_panel)(mob/M in GLOB.mob_list)
+/datum/admins/proc/show_player_panel(mob/M in GLOB.mob_list)
 	set category = "Admin.Game"
 	set name = "Show Player Panel"
 	set desc="Edit player (respawn, ban, heal, etc)"
@@ -231,7 +231,7 @@ TYPE_PROC_REF(/datum/admins, show_player_panel)(mob/M in GLOB.mob_list)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Player Panel") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 
-TYPE_PROC_REF(/datum/admins, access_news_network)() //MARKER
+/datum/admins/proc/access_news_network() //MARKER
 	set category = "Admin.Events"
 	set name = "Access Newscaster Network"
 	set desc = "Allows you to view, add and edit news feeds."
@@ -439,7 +439,7 @@ TYPE_PROC_REF(/datum/admins, access_news_network)() //MARKER
 	onclose(usr, "admincaster_main")
 
 
-TYPE_PROC_REF(/datum/admins, Game)()
+/datum/admins/proc/Game()
 	if(!check_rights(0))
 		return
 
@@ -489,7 +489,7 @@ TYPE_PROC_REF(/datum/admins, Game)()
 //i.e. buttons/verbs
 
 
-TYPE_PROC_REF(/datum/admins, restart)()
+/datum/admins/proc/restart()
 	set category = "Server"
 	set name = "Reboot World"
 	set desc="Restarts the world immediately"
@@ -533,7 +533,7 @@ TYPE_PROC_REF(/datum/admins, restart)()
 				to_chat(world, "Server restart - [init_by]")
 				world.TgsEndProcess()
 
-TYPE_PROC_REF(/datum/admins, end_round)()
+/datum/admins/proc/end_round()
 	set category = "Server"
 	set name = "End Round"
 	set desc = "Attempts to produce a round end report and then restart the server organically."
@@ -548,7 +548,7 @@ TYPE_PROC_REF(/datum/admins, end_round)()
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "End Round") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 
-TYPE_PROC_REF(/datum/admins, announce)()
+/datum/admins/proc/announce()
 	set category = "Special Verbs"
 	set name = "Announce"
 	set desc="Announce your desires to the world"
@@ -563,7 +563,7 @@ TYPE_PROC_REF(/datum/admins, announce)()
 		log_admin("Announce: [key_name(usr)] : [message]")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Announce") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-TYPE_PROC_REF(/datum/admins, set_admin_notice)()
+/datum/admins/proc/set_admin_notice()
 	set category = "Special Verbs"
 	set name = "Set Admin Notice"
 	set desc ="Set an announcement that appears to everyone who joins the server. Only lasts this round"
@@ -586,7 +586,7 @@ TYPE_PROC_REF(/datum/admins, set_admin_notice)()
 	GLOB.admin_notice = new_admin_notice
 	return
 
-TYPE_PROC_REF(/datum/admins, toggleooc)()
+/datum/admins/proc/toggleooc()
 	set category = "Server"
 	set desc="Toggle dis bitch"
 	set name="Toggle OOC"
@@ -595,7 +595,7 @@ TYPE_PROC_REF(/datum/admins, toggleooc)()
 	message_admins("[key_name_admin(usr)] toggled OOC.")
 	SSblackbox.record_feedback("nested tally", "admin_toggle", 1, list("Toggle OOC", "[GLOB.ooc_allowed ? "Enabled" : "Disabled"]")) //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-TYPE_PROC_REF(/datum/admins, toggleooclocal)()
+/datum/admins/proc/toggleooclocal()
 	set category = "Server"
 	set desc="Toggle dat bitch"
 	set name="Toggle Local OOC"
@@ -604,7 +604,7 @@ TYPE_PROC_REF(/datum/admins, toggleooclocal)()
 	message_admins("[key_name_admin(usr)] toggled LOOC.")
 	SSblackbox.record_feedback("nested tally", "admin_toggle", 1, list("Toggle Local OOC", "[GLOB.looc_allowed ? "Enabled" : "Disabled"]")) //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-TYPE_PROC_REF(/datum/admins, toggleoocdead)()
+/datum/admins/proc/toggleoocdead()
 	set category = "Server"
 	set desc="Toggle dis bitch"
 	set name="Toggle Dead OOC"
@@ -614,7 +614,7 @@ TYPE_PROC_REF(/datum/admins, toggleoocdead)()
 	message_admins("[key_name_admin(usr)] toggled Dead OOC.")
 	SSblackbox.record_feedback("nested tally", "admin_toggle", 1, list("Toggle Dead OOC", "[GLOB.dooc_allowed ? "Enabled" : "Disabled"]")) //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-TYPE_PROC_REF(/datum/admins, toggleaooc)()
+/datum/admins/proc/toggleaooc()
 	set category = "Server"
 	set desc="Toggle to bitch"
 	set name="Toggle Antag OOC"
@@ -623,7 +623,7 @@ TYPE_PROC_REF(/datum/admins, toggleaooc)()
 	message_admins("[key_name_admin(usr)] toggled Antagonist OOC.")
 	SSblackbox.record_feedback("nested tally", "admin_toggle", 1, list("Toggle Antag OOC", "[GLOB.aooc_allowed ? "Enabled" : "Disabled"]")) //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-TYPE_PROC_REF(/datum/admins, startnow)()
+/datum/admins/proc/startnow()
 	set category = "Server"
 	set desc="Start the round RIGHT NOW"
 	set name="Start Now"
@@ -652,7 +652,7 @@ TYPE_PROC_REF(/datum/admins, startnow)()
 		to_chat(usr, "<font color='red'>Error: Start Now: Game has already started.</font>")
 	return FALSE
 
-TYPE_PROC_REF(/datum/admins, toggleenter)()
+/datum/admins/proc/toggleenter()
 	set category = "Server"
 	set desc="People can't enter"
 	set name="Toggle Entering"
@@ -666,7 +666,7 @@ TYPE_PROC_REF(/datum/admins, toggleenter)()
 	world.update_status()
 	SSblackbox.record_feedback("nested tally", "admin_toggle", 1, list("Toggle Entering", "[GLOB.enter_allowed ? "Enabled" : "Disabled"]")) //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-TYPE_PROC_REF(/datum/admins, toggleAI)()
+/datum/admins/proc/toggleAI()
 	set category = "Server"
 	set desc="People can't be AI"
 	set name="Toggle AI"
@@ -680,7 +680,7 @@ TYPE_PROC_REF(/datum/admins, toggleAI)()
 	world.update_status()
 	SSblackbox.record_feedback("nested tally", "admin_toggle", 1, list("Toggle AI", "[!alai ? "Disabled" : "Enabled"]")) //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-TYPE_PROC_REF(/datum/admins, toggleMulticam)()
+/datum/admins/proc/toggleMulticam()
 	set category = "Server"
 	set desc="Turns mutlicam on and off."
 	set name="Toggle Multicam"
@@ -696,7 +696,7 @@ TYPE_PROC_REF(/datum/admins, toggleMulticam)()
 	to_chat(GLOB.ai_list | GLOB.admins, "<B>The AI [almcam ? "no longer" : "now"] has multicam.</B>", confidential = TRUE)
 	SSblackbox.record_feedback("nested tally", "admin_toggle", 1, list("Toggle Multicam", "[!almcam ? "Disabled" : "Enabled"]")) //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-TYPE_PROC_REF(/datum/admins, toggleaban)()
+/datum/admins/proc/toggleaban()
 	set category = "Server"
 	set desc="Respawn basically"
 	set name="Toggle Respawn"
@@ -711,7 +711,7 @@ TYPE_PROC_REF(/datum/admins, toggleaban)()
 	world.update_status()
 	SSblackbox.record_feedback("nested tally", "admin_toggle", 1, list("Toggle Respawn", "[!new_nores ? "Enabled" : "Disabled"]")) //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-TYPE_PROC_REF(/datum/admins, delay)()
+/datum/admins/proc/delay()
 	set category = "Server"
 	set desc="Delay the game start"
 	set name="Delay Pre-Game"
@@ -732,7 +732,7 @@ TYPE_PROC_REF(/datum/admins, delay)()
 			log_admin("[key_name(usr)] set the pre-game delay to [DisplayTimeText(newtime)].")
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Delay Game Start") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-TYPE_PROC_REF(/datum/admins, toggledynamicvote)()
+/datum/admins/proc/toggledynamicvote()
 	set category = "Server"
 	set desc="Switches between secret/extended and dynamic voting"
 	set name="Toggle Dynamic Vote"
@@ -746,7 +746,7 @@ TYPE_PROC_REF(/datum/admins, toggledynamicvote)()
 	message_admins(span_adminnotice("[key_name_admin(usr)] toggled dynamic voting."))
 	SSblackbox.record_feedback("nested tally", "admin_toggle", 1, list("Toggle Dynamic Voting", "[prev_dynamic_voting ? "Disabled" : "Enabled"]")) //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-TYPE_PROC_REF(/datum/admins, unprison)(mob/M in GLOB.mob_list)
+/datum/admins/proc/unprison(mob/M in GLOB.mob_list)
 	set category = "Admin"
 	set name = "Unprison"
 	if (is_centcom_level(M.z))
@@ -759,7 +759,7 @@ TYPE_PROC_REF(/datum/admins, unprison)(mob/M in GLOB.mob_list)
 
 ////////////////////////////////////////////////////////////////////////////////////////////////ADMIN HELPER PROCS
 
-TYPE_PROC_REF(/datum/admins, spawn_atom)(object as text)
+/datum/admins/proc/spawn_atom(object as text)
 	set category = "Debug"
 	set desc = "(atom path) Spawn an atom"
 	set name = "Spawn"
@@ -790,7 +790,7 @@ TYPE_PROC_REF(/datum/admins, spawn_atom)(object as text)
 	message_admins("[key_name(usr)] spawned [amount] x [chosen] at [AREACOORD(usr)]")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Spawn Atom") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-TYPE_PROC_REF(/datum/admins, podspawn_atom)(object as text)
+/datum/admins/proc/podspawn_atom(object as text)
 	set category = "Debug"
 	set desc = "(atom path) Spawn an atom via supply drop"
 	set name = "Podspawn"
@@ -814,7 +814,7 @@ TYPE_PROC_REF(/datum/admins, podspawn_atom)(object as text)
 	log_admin("[key_name(usr)] pod-spawned [chosen] at [AREACOORD(usr)]")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Podspawn Atom") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-TYPE_PROC_REF(/datum/admins, spawn_cargo)(object as text)
+/datum/admins/proc/spawn_cargo(object as text)
 	set category = "Debug"
 	set desc = "(atom path) Spawn a cargo crate"
 	set name = "Spawn Cargo"
@@ -832,7 +832,7 @@ TYPE_PROC_REF(/datum/admins, spawn_cargo)(object as text)
 	log_admin("[key_name(usr)] spawned cargo pack [chosen] at [AREACOORD(usr)]")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Spawn Cargo") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-TYPE_PROC_REF(/datum/admins, show_traitor_panel)(mob/target_mob in GLOB.mob_list)
+/datum/admins/proc/show_traitor_panel(mob/target_mob in GLOB.mob_list)
 	set category = "Admin"
 	set desc = "Edit mobs's memory and role"
 	set name = "Show Traitor Panel"
@@ -847,7 +847,7 @@ TYPE_PROC_REF(/datum/admins, show_traitor_panel)(mob/target_mob in GLOB.mob_list
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Traitor Panel") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 
-TYPE_PROC_REF(/datum/admins, toggletintedweldhelmets)()
+/datum/admins/proc/toggletintedweldhelmets()
 	set category = "Debug"
 	set desc="Reduces view range when wearing welding helmets"
 	set name="Toggle tinted welding helmes"
@@ -860,7 +860,7 @@ TYPE_PROC_REF(/datum/admins, toggletintedweldhelmets)()
 	message_admins("[key_name_admin(usr)] toggled tinted_weldhelh.")
 	SSblackbox.record_feedback("nested tally", "admin_toggle", 1, list("Toggle Tinted Welding Helmets", "[GLOB.tinted_weldhelh ? "Enabled" : "Disabled"]")) //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-TYPE_PROC_REF(/datum/admins, toggleguests)()
+/datum/admins/proc/toggleguests()
 	set category = "Server"
 	set desc="Guests can't enter"
 	set name="Toggle guests"
@@ -874,7 +874,7 @@ TYPE_PROC_REF(/datum/admins, toggleguests)()
 	message_admins(span_adminnotice("[key_name_admin(usr)] toggled guests game entering [!new_guest_ban ? "" : "dis"]allowed."))
 	SSblackbox.record_feedback("nested tally", "admin_toggle", 1, list("Toggle Guests", "[!new_guest_ban ? "Enabled" : "Disabled"]")) //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-TYPE_PROC_REF(/datum/admins, output_ai_laws)()
+/datum/admins/proc/output_ai_laws()
 	var/ai_number = 0
 	for(var/i in GLOB.silicon_mobs)
 		var/mob/living/silicon/S = i
@@ -896,7 +896,7 @@ TYPE_PROC_REF(/datum/admins, output_ai_laws)()
 	if(!ai_number)
 		to_chat(usr, "<b>No AIs located</b>" , confidential = TRUE)
 
-TYPE_PROC_REF(/datum/admins, output_all_devil_info)()
+/datum/admins/proc/output_all_devil_info()
 	var/devil_number = 0
 	for(var/datum/mind/D in SSticker.mode.devils)
 		devil_number++
@@ -905,14 +905,14 @@ TYPE_PROC_REF(/datum/admins, output_all_devil_info)()
 	if(!devil_number)
 		to_chat(usr, "<b>No Devils located</b>" , confidential = TRUE)
 
-TYPE_PROC_REF(/datum/admins, output_devil_info)(mob/living/M)
+/datum/admins/proc/output_devil_info(mob/living/M)
 	if(is_devil(M))
 		var/datum/antagonist/devil/devil = M.mind.has_antag_datum(/datum/antagonist/devil)
 		to_chat(usr, devil.printdevilinfo(), confidential = TRUE)
 	else
 		to_chat(usr, "<b>[M] is not a devil.", confidential = TRUE)
 
-TYPE_PROC_REF(/datum/admins, manage_free_slots)()
+/datum/admins/proc/manage_free_slots()
 	if(!check_rights())
 		return
 	var/datum/browser/browser = new(usr, "jobmanagement", "Manage Free Slots", 520)
@@ -950,7 +950,7 @@ TYPE_PROC_REF(/datum/admins, manage_free_slots)()
 	browser.set_content(dat.Join())
 	browser.open()
 
-TYPE_PROC_REF(/datum/admins, dynamic_mode_options)(mob/user)
+/datum/admins/proc/dynamic_mode_options(mob/user)
 	var/dat = {"
 		<center><B><h2>Dynamic Mode Options</h2></B></center><hr>
 		<br/>
@@ -988,7 +988,7 @@ TYPE_PROC_REF(/datum/admins, dynamic_mode_options)(mob/user)
 
 	user << browse(dat, "window=dyn_mode_options;size=900x650")
 
-TYPE_PROC_REF(/datum/admins, create_or_modify_area)()
+/datum/admins/proc/create_or_modify_area()
 	set category = "Debug"
 	set name = "Create or modify area"
 	create_area(usr)
@@ -1020,7 +1020,7 @@ TYPE_PROC_REF(/datum/admins, create_or_modify_area)()
 
 //returns TRUE to let the dragdrop code know we are trapping this event
 //returns FALSE if we don't plan to trap the event
-TYPE_PROC_REF(/datum/admins, cmd_ghost_drag)(mob/dead/observer/frommob, mob/tomob)
+/datum/admins/proc/cmd_ghost_drag(mob/dead/observer/frommob, mob/tomob)
 
 	//this is the exact two check rights checks required to edit a ckey with vv.
 	if (!check_rights(R_VAREDIT,0) || !check_rights(R_SPAWN|R_DEBUG,0))
@@ -1058,7 +1058,7 @@ TYPE_PROC_REF(/datum/admins, cmd_ghost_drag)(mob/dead/observer/frommob, mob/tomo
 
 	return TRUE
 
-TYPE_PROC_REF(/client, adminGreet)(logout)
+/client/proc/adminGreet(logout)
 	if(SSticker.HasRoundStarted())
 		var/string
 		if(logout && CONFIG_GET(flag/announce_admin_logout))
@@ -1070,7 +1070,7 @@ TYPE_PROC_REF(/client, adminGreet)(logout)
 		if(string)
 			message_admins("[string]")
 
-TYPE_PROC_REF(/client, cmd_admin_man_up)(mob/M in GLOB.mob_list)
+/client/proc/cmd_admin_man_up(mob/M in GLOB.mob_list)
 	set category = "Special Verbs"
 	set name = "Man Up"
 
@@ -1090,7 +1090,7 @@ TYPE_PROC_REF(/client, cmd_admin_man_up)(mob/M in GLOB.mob_list)
 	admin_ticket_log(M, message)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Man Up")
 
-TYPE_PROC_REF(/client, cmd_admin_man_up_global)()
+/client/proc/cmd_admin_man_up_global()
 	set category = "Special Verbs"
 	set name = "Man Up Global"
 

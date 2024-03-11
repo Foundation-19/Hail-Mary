@@ -29,7 +29,7 @@
 
 	return TRUE
 
-TYPE_PROC_REF(/obj/effect/proc_holder/changeling/strained_muscles, muscle_loop)(mob/living/carbon/user)
+/obj/effect/proc_holder/changeling/strained_muscles/proc/muscle_loop(mob/living/carbon/user)
 	while(active)
 		user.add_movespeed_modifier(/datum/movespeed_modifier/strained_muscles)
 		if(user.stat != CONSCIOUS || user.staminaloss >= 90)

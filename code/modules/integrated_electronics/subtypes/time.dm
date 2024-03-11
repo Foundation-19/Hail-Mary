@@ -96,7 +96,7 @@
 		is_running = FALSE
 
 
-TYPE_PROC_REF(/obj/item/integrated_circuit/time/ticker, tick)()
+/obj/item/integrated_circuit/time/ticker/proc/tick()
 	if(is_running)
 		addtimer(CALLBACK(src, PROC_REF(tick)), delay)
 		if(world.time > next_fire)
@@ -157,7 +157,7 @@ TYPE_PROC_REF(/obj/item/integrated_circuit/time/ticker, tick)()
 	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
 	power_draw_per_use = 2
 
-TYPE_PROC_REF(/obj/item/integrated_circuit/time/clock, get_time)()
+/obj/item/integrated_circuit/time/clock/proc/get_time()
 	return world.time
 
 /obj/item/integrated_circuit/time/clock/do_work()

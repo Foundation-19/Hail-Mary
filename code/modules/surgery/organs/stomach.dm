@@ -36,7 +36,7 @@
 		owner.vomit(damage)
 		to_chat(owner, span_warning("Your stomach reels in pain as you're incapable of holding down all that food!"))
 
-TYPE_PROC_REF(/obj/item/organ/stomach, handle_disgust)(mob/living/carbon/human/H)
+/obj/item/organ/stomach/proc/handle_disgust(mob/living/carbon/human/H)
 	if(H.disgust)
 		var/pukeprob = 5 + 0.05 * H.disgust
 		if(H.disgust >= DISGUST_LEVEL_GROSS)
@@ -140,14 +140,14 @@ TYPE_PROC_REF(/obj/item/organ/stomach, handle_disgust)(mob/living/carbon/human/H
 	UnregisterSignal(owner, COMSIG_LIVING_ELECTROCUTE_ACT)
 	..()
 
-TYPE_PROC_REF(/obj/item/organ/stomach/ethereal, charge)(datum/source, amount, repairs)
+/obj/item/organ/stomach/ethereal/proc/charge(datum/source, amount, repairs)
 	adjust_charge(amount / 70)
 
-TYPE_PROC_REF(/obj/item/organ/stomach/ethereal, on_electrocute)(datum/source, shock_damage, siemens_coeff = 1, flags = NONE)
+/obj/item/organ/stomach/ethereal/proc/on_electrocute(datum/source, shock_damage, siemens_coeff = 1, flags = NONE)
 	if(flags & SHOCK_ILLUSION)
 		return
 	adjust_charge(shock_damage * siemens_coeff * 2)
 	to_chat(owner, span_notice("You absorb some of the shock into your body!"))
 
-TYPE_PROC_REF(/obj/item/organ/stomach/ethereal, adjust_charge)(amount)
+/obj/item/organ/stomach/ethereal/proc/adjust_charge(amount)
 	crystal_charge = clamp(crystal_charge + amount, ETHEREAL_CHARGE_NONE, ETHEREAL_CHARGE_DANGEROUS)

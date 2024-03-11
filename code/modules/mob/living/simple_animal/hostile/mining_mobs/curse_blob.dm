@@ -41,7 +41,7 @@
 /mob/living/simple_animal/hostile/asteroid/curseblob/Goto(move_target, delay, minimum_distance)
 	move_loop(target, delay)
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile/asteroid/curseblob, move_loop)(move_target, delay)
+/mob/living/simple_animal/hostile/asteroid/curseblob/proc/move_loop(move_target, delay)
 	set waitfor = FALSE
 	if(doing_move_loop)
 		return
@@ -55,7 +55,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/hostile/asteroid/curseblob, move_loop)(m
 		sleep(delay)
 	doing_move_loop = FALSE
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile/asteroid/curseblob, check_for_target)()
+/mob/living/simple_animal/hostile/asteroid/curseblob/proc/check_for_target()
 	if(QDELETED(set_target) || set_target.stat != CONSCIOUS || z != set_target.z)
 		qdel(src)
 		return TRUE

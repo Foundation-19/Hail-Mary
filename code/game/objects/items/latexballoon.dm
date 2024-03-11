@@ -11,7 +11,7 @@
 	var/state
 	var/datum/gas_mixture/air_contents = null
 
-TYPE_PROC_REF(/obj/item/latexballon, blow)(obj/item/tank/tank, mob/user)
+/obj/item/latexballon/proc/blow(obj/item/tank/tank, mob/user)
 	if (icon_state == "latexballon_bursted")
 		return
 	icon_state = "latexballon_blow"
@@ -20,7 +20,7 @@ TYPE_PROC_REF(/obj/item/latexballon, blow)(obj/item/tank/tank, mob/user)
 	to_chat(user, span_notice("You blow up [src] with [tank]."))
 	air_contents = tank.remove_air_volume(3)
 
-TYPE_PROC_REF(/obj/item/latexballon, burst)()
+/obj/item/latexballon/proc/burst()
 	if (!air_contents || icon_state != "latexballon_blow")
 		return
 	playsound(src, 'sound/weapons/gunshot.ogg', 100, 1)

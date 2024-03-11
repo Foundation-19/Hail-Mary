@@ -40,11 +40,11 @@
 /obj/machinery/computer/camera_advanced/syndie/connect_to_shuttle(obj/docking_port/mobile/port, obj/docking_port/stationary/dock, idnum, override=FALSE)
 	return //For syndie nuke shuttle, to spy for station.
 
-TYPE_PROC_REF(/obj/machinery/computer/camera_advanced, CreateEye)()
+/obj/machinery/computer/camera_advanced/proc/CreateEye()
 	eyeobj = new()
 	eyeobj.origin = src
 
-TYPE_PROC_REF(/obj/machinery/computer/camera_advanced, GrantActions)(mob/living/user)
+/obj/machinery/computer/camera_advanced/proc/GrantActions(mob/living/user)
 	if(off_action)
 		off_action.target = user
 		off_action.Grant(user)
@@ -55,7 +55,7 @@ TYPE_PROC_REF(/obj/machinery/computer/camera_advanced, GrantActions)(mob/living/
 		jump_action.Grant(user)
 		actions += jump_action
 
-TYPE_PROC_REF(/obj/machinery, remove_eye_control)(mob/living/user)
+/obj/machinery/proc/remove_eye_control(mob/living/user)
 	CRASH("[type] does not implement ai eye handling")
 
 /obj/machinery/computer/camera_advanced/remove_eye_control(mob/living/user)
@@ -95,7 +95,7 @@ TYPE_PROC_REF(/obj/machinery, remove_eye_control)(mob/living/user)
 	if(M == current_user)
 		remove_eye_control(M)
 
-TYPE_PROC_REF(/obj/machinery/computer/camera_advanced, can_use)(mob/living/user)
+/obj/machinery/computer/camera_advanced/proc/can_use(mob/living/user)
 	return TRUE
 
 /obj/machinery/computer/camera_advanced/abductor/can_use(mob/user)
@@ -149,7 +149,7 @@ TYPE_PROC_REF(/obj/machinery/computer/camera_advanced, can_use)(mob/living/user)
 /obj/machinery/computer/camera_advanced/attack_ai(mob/user)
 	return //AIs would need to disable their own camera procs to use the console safely. Bugs happen otherwise.
 
-TYPE_PROC_REF(/obj/machinery/computer/camera_advanced, give_eye_control)(mob/user)
+/obj/machinery/computer/camera_advanced/proc/give_eye_control(mob/user)
 	GrantActions(user)
 	current_user = user
 	eyeobj.eye_user = user

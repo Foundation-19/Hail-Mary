@@ -21,7 +21,7 @@ SUBSYSTEM_DEF(atoms)
 	InitializeAtoms()
 	return ..()
 
-TYPE_PROC_REF(/datum/controller/subsystem/atoms, InitializeAtoms)(list/atoms)
+/datum/controller/subsystem/atoms/proc/InitializeAtoms(list/atoms)
 	if(initialized == INITIALIZATION_INSSATOMS)
 		return
 
@@ -58,7 +58,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/atoms, InitializeAtoms)(list/atoms)
 		testing("Late initialized [late_loaders.len] atoms")
 		late_loaders.Cut()
 
-TYPE_PROC_REF(/datum/controller/subsystem/atoms, InitAtom)(atom/A, list/arguments)
+/datum/controller/subsystem/atoms/proc/InitAtom(atom/A, list/arguments)
 	var/the_type = A.type
 	if(QDELING(A))
 		BadInitializeCalls[the_type] |= BAD_INIT_QDEL_BEFORE
@@ -95,11 +95,11 @@ TYPE_PROC_REF(/datum/controller/subsystem/atoms, InitAtom)(atom/A, list/argument
 
 	return qdeleted || QDELING(A)
 
-TYPE_PROC_REF(/datum/controller/subsystem/atoms, map_loader_begin)()
+/datum/controller/subsystem/atoms/proc/map_loader_begin()
 	old_initialized = initialized
 	initialized = INITIALIZATION_INSSATOMS
 
-TYPE_PROC_REF(/datum/controller/subsystem/atoms, map_loader_stop)()
+/datum/controller/subsystem/atoms/proc/map_loader_stop()
 	initialized = old_initialized
 
 /datum/controller/subsystem/atoms/Recover()
@@ -109,7 +109,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/atoms, map_loader_stop)()
 	old_initialized = SSatoms.old_initialized
 	BadInitializeCalls = SSatoms.BadInitializeCalls
 
-TYPE_PROC_REF(/datum/controller/subsystem/atoms, setupGenetics)()
+/datum/controller/subsystem/atoms/proc/setupGenetics()
 	var/list/mutations = subtypesof(/datum/mutation/human)
 	shuffle_inplace(mutations)
 	for(var/A in subtypesof(/datum/generecipe))
@@ -132,7 +132,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/atoms, setupGenetics)()
 			GLOB.not_good_mutations |= B
 		CHECK_TICK
 
-TYPE_PROC_REF(/datum/controller/subsystem/atoms, InitLog)()
+/datum/controller/subsystem/atoms/proc/InitLog()
 	. = ""
 	for(var/path in BadInitializeCalls)
 		. += "Path : [path] \n"

@@ -52,7 +52,7 @@
 		var/mob/living/L = usr
 		to_chat(L, "<span class='boldnotice'>Your sprint buffer's maximum capacity is [L.sprint_buffer_max]. It is currently at [L.sprint_buffer], regenerating at [L.sprint_buffer_regen_ds * 10] per second.</span>")
 
-TYPE_PROC_REF(/obj/screen/sprint_buffer, update_to_mob)(mob/living/L)
+/obj/screen/sprint_buffer/proc/update_to_mob(mob/living/L)
 	var/amount = 0
 	if(L.sprint_buffer_max > 0)
 		amount = round(clamp((L.sprint_buffer / L.sprint_buffer_max) * 100, 0, 100), 5)

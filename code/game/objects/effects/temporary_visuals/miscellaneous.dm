@@ -481,7 +481,7 @@
 	status = rcd_status
 	delay = rcd_delay
 	if (status == RCD_DECONSTRUCT)
-		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_icon)), 11)
+		addtimer(CALLBACK(src, /atom/.proc/update_icon), 11)
 		delay -= 11
 		icon_state = "rcd_end_reverse"
 	else
@@ -498,14 +498,14 @@
 	if (status == RCD_DECONSTRUCT)
 		icon_state += "_reverse"
 
-TYPE_PROC_REF(/obj/effect/constructing_effect, end_animation)()
+/obj/effect/constructing_effect/proc/end_animation()
 	if (status == RCD_DECONSTRUCT)
 		qdel(src)
 	else
 		icon_state = "rcd_end"
 		addtimer(CALLBACK(src, PROC_REF(end)), 15)
 
-TYPE_PROC_REF(/obj/effect/constructing_effect, end)()
+/obj/effect/constructing_effect/proc/end()
 	qdel(src)
 
 /obj/effect/temp_visual/dir_setting/space_wind

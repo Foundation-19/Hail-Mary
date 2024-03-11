@@ -42,7 +42,7 @@
 	gun = null
 	return ..()
 
-TYPE_PROC_REF(/datum/firemode, apply_firemode)()
+/datum/firemode/proc/apply_firemode()
 
 	for(var/propname in settings)
 		if(propname in gun.vars)
@@ -67,7 +67,7 @@ TYPE_PROC_REF(/datum/firemode, apply_firemode)()
 			gun.vars["burst_shot_delay"] *= IU.weapon_upgrades[GUN_UPGRADE_FIRE_DELAY_MULT]
 
 //Called whenever the firemode is switched to, or the gun is picked up while its active
-TYPE_PROC_REF(/datum/firemode, update)()
+/datum/firemode/proc/update()
 	return
 
 /datum/firemode/semi_auto

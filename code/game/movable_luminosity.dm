@@ -1,5 +1,5 @@
 ///Keeps track of the sources of dynamic luminosity and updates our visibility with the highest.
-TYPE_PROC_REF(/atom/movable, update_dynamic_luminosity)()
+/atom/movable/proc/update_dynamic_luminosity()
 	var/highest = 0
 	for(var/i in affected_dynamic_lights)
 		if(affected_dynamic_lights[i] <= highest)
@@ -13,7 +13,7 @@ TYPE_PROC_REF(/atom/movable, update_dynamic_luminosity)()
 
 
 ///Helper to change several lighting overlay settings.
-TYPE_PROC_REF(/atom/movable, set_light_range_power_color)(range, power, color)
+/atom/movable/proc/set_light_range_power_color(range, power, color)
 	set_light_range(range)
 	set_light_power(power)
 	set_light_color(color)

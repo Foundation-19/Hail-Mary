@@ -163,7 +163,7 @@
 /**
  * Determines if the photocopier has enough toner to create `num_copies` amount of copies of the currently inserted item.
  */
-TYPE_PROC_REF(/obj/machinery/photocopier, has_enough_toner)()
+/obj/machinery/photocopier/proc/has_enough_toner()
 	if(paper_copy)
 		return toner_cartridge.charges >= (PAPER_TONER_USE * num_copies)
 	else if(document_copy)
@@ -181,7 +181,7 @@ TYPE_PROC_REF(/obj/machinery/photocopier, has_enough_toner)()
  * * copy_cb - a callback for which proc to call. Should only be one of the `make_x_copy()` procs, such as `make_paper_copy()`.
  * * user - the mob who clicked copy.
  */
-TYPE_PROC_REF(/obj/machinery/photocopier, do_copy_loop)(datum/callback/copy_cb, mob/user)
+/obj/machinery/photocopier/proc/do_copy_loop(datum/callback/copy_cb, mob/user)
 	busy = TRUE
 	var/num_loops
 	for(var/i in 1 to num_copies)
@@ -194,7 +194,7 @@ TYPE_PROC_REF(/obj/machinery/photocopier, do_copy_loop)(datum/callback/copy_cb, 
 /**
  * Sets busy to `FALSE`. Created as a proc so it can be used in callbacks.
  */
-TYPE_PROC_REF(/obj/machinery/photocopier, reset_busy)()
+/obj/machinery/photocopier/proc/reset_busy()
 	busy = FALSE
 
 /**
@@ -205,7 +205,7 @@ TYPE_PROC_REF(/obj/machinery/photocopier, reset_busy)()
  * Arguments:
  * * copied_item - The paper, document, or photo that was just spawned on top of the printer.
  */
-TYPE_PROC_REF(/obj/machinery/photocopier, give_pixel_offset)(obj/item/copied_item)
+/obj/machinery/photocopier/proc/give_pixel_offset(obj/item/copied_item)
 	copied_item.pixel_x = rand(-10, 10)
 	copied_item.pixel_y = rand(-10, 10)
 
@@ -215,7 +215,7 @@ TYPE_PROC_REF(/obj/machinery/photocopier, give_pixel_offset)(obj/item/copied_ite
  * Checks first if `paper_copy` exists. Since this proc is called from a timer, it's possible that it was removed.
  * Does not check if it has enough toner because devil contracts cost no toner to print.
  */
-TYPE_PROC_REF(/obj/machinery/photocopier, make_devil_paper_copy)()
+/obj/machinery/photocopier/proc/make_devil_paper_copy()
 	if(!paper_copy)
 		return
 	var/obj/item/paper/contract/employment/E = paper_copy
@@ -227,7 +227,7 @@ TYPE_PROC_REF(/obj/machinery/photocopier, make_devil_paper_copy)()
  *
  * Checks first if `paper_copy` exists. Since this proc is called from a timer, it's possible that it was removed.
  */
-TYPE_PROC_REF(/obj/machinery/photocopier, make_paper_copy)()
+/obj/machinery/photocopier/proc/make_paper_copy()
 	if(!paper_copy)
 		return
 	var/obj/item/paper/copied_paper = new(loc)
@@ -255,7 +255,7 @@ TYPE_PROC_REF(/obj/machinery/photocopier, make_paper_copy)()
  *
  * Checks first if `photo_copy` exists. Since this proc is called from a timer, it's possible that it was removed.
  */
-TYPE_PROC_REF(/obj/machinery/photocopier, make_photo_copy)()
+/obj/machinery/photocopier/proc/make_photo_copy()
 	if(!photo_copy)
 		return
 	var/obj/item/photo/copied_pic = new(loc, photo_copy.picture.Copy(color_mode == PHOTO_GREYSCALE ? TRUE : FALSE))
@@ -267,7 +267,7 @@ TYPE_PROC_REF(/obj/machinery/photocopier, make_photo_copy)()
  *
  * Checks first if `document_copy` exists. Since this proc is called from a timer, it's possible that it was removed.
  */
-TYPE_PROC_REF(/obj/machinery/photocopier, make_document_copy)()
+/obj/machinery/photocopier/proc/make_document_copy()
 	if(!document_copy)
 		return
 	var/obj/item/documents/photocopy/copied_doc = new(loc, document_copy)
@@ -282,7 +282,7 @@ TYPE_PROC_REF(/obj/machinery/photocopier, make_document_copy)()
  * * object - the object that got inserted.
  * * user - the mob that inserted the object.
  */
-TYPE_PROC_REF(/obj/machinery/photocopier, do_insertion)(obj/item/object, mob/user)
+/obj/machinery/photocopier/proc/do_insertion(obj/item/object, mob/user)
 	object.forceMove(src)
 	to_chat(user, span_notice("You insert [object] into [src]."))
 	flick("photocopier1", src)
@@ -297,7 +297,7 @@ TYPE_PROC_REF(/obj/machinery/photocopier, do_insertion)(obj/item/object, mob/use
  * * object - the item we're trying to remove.
  * * user - the user removing the item.
  */
-TYPE_PROC_REF(/obj/machinery/photocopier, remove_photocopy)(obj/item/object, mob/user)
+/obj/machinery/photocopier/proc/remove_photocopy(obj/item/object, mob/user)
 	if(!issilicon(user)) //surprised this check didn't exist before, putting stuff in AI's hand is bad
 		object.forceMove(user.loc)
 		user.put_in_hands(object)
@@ -406,7 +406,7 @@ TYPE_PROC_REF(/obj/machinery/photocopier, remove_photocopy)(obj/item/object, mob
  *
  * Returns FALSE if `ass` doesn't exist or is not at the copier's location. Returns TRUE otherwise.
  */
-TYPE_PROC_REF(/obj/machinery/photocopier, check_ass)() //I'm not sure wether I made this proc because it's good form or because of the name.
+/obj/machinery/photocopier/proc/check_ass() //I'm not sure wether I made this proc because it's good form or because of the name.
 	if(!ass)
 		return FALSE
 	if(ass.loc != loc)
@@ -417,7 +417,7 @@ TYPE_PROC_REF(/obj/machinery/photocopier, check_ass)() //I'm not sure wether I m
 /**
  * Checks if the copier is deleted, or has something dense at its location. Called in `MouseDrop_T()`
  */
-TYPE_PROC_REF(/obj/machinery/photocopier, copier_blocked)()
+/obj/machinery/photocopier/proc/copier_blocked()
 	if(QDELETED(src))
 		return
 	if(loc.density)
@@ -434,7 +434,7 @@ TYPE_PROC_REF(/obj/machinery/photocopier, copier_blocked)()
  *
  * Return `FALSE` is the copier has something inside of it. Returns `TRUE` if it doesn't.
  */
-TYPE_PROC_REF(/obj/machinery/photocopier, copier_empty)()
+/obj/machinery/photocopier/proc/copier_empty()
 	if(paper_copy || photo_copy || document_copy || check_ass())
 		return FALSE
 	else

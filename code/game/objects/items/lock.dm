@@ -36,7 +36,7 @@ GLOBAL_LIST_EMPTY(global_locks)
 		return
 	..()
 
-TYPE_PROC_REF(/obj/item/lock_construct, check_key)(obj/item/key/K, mob/user = null)
+/obj/item/lock_construct/proc/check_key(obj/item/key/K, mob/user = null)
 	if(K.lock_data == src.lock_data) //if the key matches us
 		if(locked)
 			user.visible_message(span_warning("[user] unlocks \the [src]."))
@@ -47,10 +47,10 @@ TYPE_PROC_REF(/obj/item/lock_construct, check_key)(obj/item/key/K, mob/user = nu
 	else
 		to_chat(user, span_warning("This is the wrong key!"))
 
-TYPE_PROC_REF(/obj/item/lock_construct, check_locked)()
+/obj/item/lock_construct/proc/check_locked()
 	return locked
 
-TYPE_PROC_REF(/obj/item/lock_construct, pry_off)(mob/living/user, atom/A)
+/obj/item/lock_construct/proc/pry_off(mob/living/user, atom/A)
 	if(!prying)
 		user.visible_message(span_notice("[user] starts prying [src] off [A]."), \
 							span_notice("You start prying [src] off [A]."))

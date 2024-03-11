@@ -90,13 +90,13 @@
 		if(isclosedturf(T) && !isindestructiblewall(T))
 			CreateDoor(T)
 
-TYPE_PROC_REF(/obj/item/projectile/magic/door, CreateDoor)(turf/T)
+/obj/item/projectile/magic/door/proc/CreateDoor(turf/T)
 	var/door_type = pick(door_types)
 	var/obj/structure/mineral_door/D = new door_type(T)
 	T.ChangeTurf(/turf/open/floor/plating, flags = CHANGETURF_INHERIT_AIR)
 	D.Open()
 
-TYPE_PROC_REF(/obj/item/projectile/magic/door, OpenDoor)(obj/machinery/door/D)
+/obj/item/projectile/magic/door/proc/OpenDoor(obj/machinery/door/D)
 	if(istype(D, /obj/machinery/door/airlock))
 		var/obj/machinery/door/airlock/A = D
 		A.locked = FALSE
@@ -262,7 +262,7 @@ TYPE_PROC_REF(/obj/item/projectile/magic/door, OpenDoor)(obj/machinery/door/D)
 	target.animate_atom_living(firer)
 	. = ..()
 
-TYPE_PROC_REF(/atom, animate_atom_living)(mob/living/owner = null)
+/atom/proc/animate_atom_living(mob/living/owner = null)
 	if((isitem(src) || isstructure(src)) && !is_type_in_list(src, GLOB.protected_objects))
 		if(istype(src, /obj/structure/statue/petrified))
 			var/obj/structure/statue/petrified/P = src
@@ -387,7 +387,7 @@ TYPE_PROC_REF(/atom, animate_atom_living)(mob/living/owner = null)
 		addtimer(CALLBACK(src, PROC_REF(bust_open)), 5 MINUTES)
 	addtimer(CALLBACK(src, PROC_REF(magicly_lock)), 5)
 
-TYPE_PROC_REF(/obj/structure/closet/decay, magicly_lock)()
+/obj/structure/closet/decay/proc/magicly_lock()
 	if(!welded)
 		return
 	icon_state = magic_icon
@@ -397,7 +397,7 @@ TYPE_PROC_REF(/obj/structure/closet/decay, magicly_lock)()
 	if(weld_state)
 		unmagify()
 
-TYPE_PROC_REF(/obj/structure/closet/decay, decay)()
+/obj/structure/closet/decay/proc/decay()
 	animate(src, alpha = 0, time = 30)
 	addtimer(CALLBACK(GLOBAL_PROC, PROC_REF(qdel), src), 30)
 
@@ -409,7 +409,7 @@ TYPE_PROC_REF(/obj/structure/closet/decay, decay)()
 		else
 			addtimer(CALLBACK(src, PROC_REF(decay)), 15 SECONDS)
 
-TYPE_PROC_REF(/obj/structure/closet/decay, unmagify)()
+/obj/structure/closet/decay/proc/unmagify()
 	icon_state = weakened_icon
 	update_icon()
 	addtimer(CALLBACK(src, PROC_REF(decay)), 15 SECONDS)

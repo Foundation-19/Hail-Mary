@@ -22,7 +22,7 @@
 	var/range
 	///How fast you sail through the air. Standard tackles are 1 speed, but gloves that throw you faster come at a cost: higher speeds make it more likely you'll be badly injured if you fly into a non-mob obstacle.
 	var/speed
-	///A flat modifier to your roll against your target, as described in [rollTackle()][TYPE_PROC_REF(/datum/component/tackler, rollTackle)]. Slightly misleading, skills aren't relevant here, this is a matter of what type of gloves (or whatever) is granting you the ability to tackle.
+	///A flat modifier to your roll against your target, as described in [rollTackle()][/datum/component/tackler/proc/rollTackle]. Slightly misleading, skills aren't relevant here, this is a matter of what type of gloves (or whatever) is granting you the ability to tackle.
 	var/skill_mod
 	///Some gloves, generally ones that increase mobility, may have a minimum distance to fly. Rocket gloves are especially dangerous with this, be sure you'll hit your target or have a clear background if you miss, or else!
 	var/min_distance
@@ -64,12 +64,12 @@
 	UnregisterSignal(parent, list(COMSIG_MOB_CLICKON, COMSIG_MOVABLE_IMPACT, COMSIG_MOVABLE_MOVED, COMSIG_MOVABLE_POST_THROW))
 
 ///Store the thrownthing datum for later use
-TYPE_PROC_REF(/datum/component/tackler, registerTackle)(mob/living/carbon/user, datum/thrownthing/TT)
+/datum/component/tackler/proc/registerTackle(mob/living/carbon/user, datum/thrownthing/TT)
 	tackle = TT
 	tackle.thrower = user
 
 ///See if we can tackle or not. If we can, leap!
-TYPE_PROC_REF(/datum/component/tackler, checkTackle)(mob/living/carbon/user, atom/A, params)
+/datum/component/tackler/proc/checkTackle(mob/living/carbon/user, atom/A, params)
 	if(!user.in_throw_mode || user.get_active_held_item() || user.pulling || user.buckling)
 		return
 
@@ -128,7 +128,7 @@ TYPE_PROC_REF(/datum/component/tackler, checkTackle)(mob/living/carbon/user, ato
  * * Else, if it's something dense (walls, machinery, structures, most things other than the floor), go to splat() and get ready for some high grade shit
  *
  * If it's a carbon we hit, we'll call rollTackle() which rolls a die and calculates modifiers for both the tackler and target, then gives us a number. Negatives favor the target, while positives favor the tackler.
- * Check [rollTackle()][TYPE_PROC_REF(/datum/component/tackler, rollTackle)] for a more thorough explanation on the modifiers at play.
+ * Check [rollTackle()][/datum/component/tackler/proc/rollTackle] for a more thorough explanation on the modifiers at play.
  *
  * Then, we figure out what effect we want, and we get to work! Note that with standard gripper gloves and no modifiers, the range of rolls is (-3, 3). The results are as follows, based on what we rolled:
  * * -inf to -5: Seriously botched tackle, tackler suffers a concussion, brute damage, and a 3 second paralyze, target suffers nothing
@@ -140,7 +140,7 @@ TYPE_PROC_REF(/datum/component/tackler, checkTackle)(mob/living/carbon/user, ato
  *
  * Finally, we return a bitflag to [COMSIG_MOVABLE_IMPACT] that forces the hitpush to false so that we don't knock them away.
 */
-TYPE_PROC_REF(/datum/component/tackler, sack)(mob/living/carbon/user, atom/hit)
+/datum/component/tackler/proc/sack(mob/living/carbon/user, atom/hit)
 	if(!user.tackling || !tackle)
 		return
 
@@ -237,7 +237,7 @@ TYPE_PROC_REF(/datum/component/tackler, sack)(mob/living/carbon/user, atom/hit)
  * In addition, after subtracting the defender's mod and adding the attacker's mod to the roll, the component's base (skill) mod is added as well. Some sources of tackles
  *	are better at taking people down, like the bruiser and rocket gloves, while the dolphin gloves have a malus in exchange for better mobility.
 */
-TYPE_PROC_REF(/datum/component/tackler, simple_sack)(mob/living/carbon/user, mob/living/hit)
+/datum/component/tackler/proc/simple_sack(mob/living/carbon/user, mob/living/hit)
 	if(!iscarbon(user) || !isliving(hit))
 		return
 
@@ -312,7 +312,7 @@ TYPE_PROC_REF(/datum/component/tackler, simple_sack)(mob/living/carbon/user, mob
  * In addition, after subtracting the defender's mod and adding the attacker's mod to the roll, the component's base (skill) mod is added as well. Some sources of tackles
  *	are better at taking people down, like the bruiser and rocket gloves, while the dolphin gloves have a malus in exchange for better mobility.
 */
-TYPE_PROC_REF(/datum/component/tackler, rollTackle)(mob/living/carbon/target)
+/datum/component/tackler/proc/rollTackle(mob/living/carbon/target)
 	var/defense_mod = 0
 	var/attack_mod = 0
 
@@ -401,7 +401,7 @@ TYPE_PROC_REF(/datum/component/tackler, rollTackle)(mob/living/carbon/target)
  *	* 94-98: Knocked unconscious, significant chance to get a random mild brain trauma, as well as a fair amount of damage
  *	* 99-100: Break your spinal cord, get paralyzed, take a bunch of damage too. Very unlucky!
 */
-TYPE_PROC_REF(/datum/component/tackler, splat)(mob/living/carbon/user, atom/hit)
+/datum/component/tackler/proc/splat(mob/living/carbon/user, atom/hit)
 	if(istype(hit, /obj/structure/window))
 		var/obj/structure/window/W = hit
 		splatWindow(user, W)
@@ -486,7 +486,7 @@ TYPE_PROC_REF(/datum/component/tackler, splat)(mob/living/carbon/user, atom/hit)
 	playsound(user, 'sound/weapons/smash.ogg', 70, TRUE)
 
 
-TYPE_PROC_REF(/datum/component/tackler, resetTackle)()
+/datum/component/tackler/proc/resetTackle()
 	var/mob/living/carbon/P = parent
 	P.tackling = FALSE
 	to_chat(P, span_green("You can tackle again!"))
@@ -494,7 +494,7 @@ TYPE_PROC_REF(/datum/component/tackler, resetTackle)()
 	UnregisterSignal(parent, COMSIG_MOVABLE_MOVED)
 
 ///A special case for splatting for handling windows
-TYPE_PROC_REF(/datum/component/tackler, splatWindow)(mob/living/carbon/user, obj/structure/window/W)
+/datum/component/tackler/proc/splatWindow(mob/living/carbon/user, obj/structure/window/W)
 	playsound(user, "sound/effects/Glasshit.ogg", 140, TRUE)
 
 	if(W.type in list(/obj/structure/window, /obj/structure/window/fulltile, /obj/structure/window/unanchored, /obj/structure/window/fulltile/unanchored)) // boring unreinforced windows
@@ -519,13 +519,13 @@ TYPE_PROC_REF(/datum/component/tackler, splatWindow)(mob/living/carbon/user, obj
 		user.adjustStaminaLoss(10 * speed)
 		user.adjustBruteLoss(5 * speed)
 
-TYPE_PROC_REF(/datum/component/tackler, delayedSmash)(obj/structure/window/W)
+/datum/component/tackler/proc/delayedSmash(obj/structure/window/W)
 	if(W)
 		W.obj_destruction()
 		playsound(W, "shatter", 70, TRUE)
 
 ///Check to see if we hit a table, and if so, make a big mess!
-TYPE_PROC_REF(/datum/component/tackler, checkObstacle)(mob/living/carbon/owner)
+/datum/component/tackler/proc/checkObstacle(mob/living/carbon/owner)
 	if(!owner.tackling)
 		return
 

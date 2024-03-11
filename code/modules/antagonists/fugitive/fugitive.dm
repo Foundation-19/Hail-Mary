@@ -20,7 +20,7 @@
 	forge_objectives()
 	. = ..()
 
-TYPE_PROC_REF(/datum/antagonist/fugitive, forge_objectives)() //this isn't the actual survive objective because it's about who in the team survives
+/datum/antagonist/fugitive/proc/forge_objectives() //this isn't the actual survive objective because it's about who in the team survives
 	var/datum/objective/survive = new /datum/objective
 	survive.owner = owner
 	survive.explanation_text = "Avoid capture from the fugitive hunters."

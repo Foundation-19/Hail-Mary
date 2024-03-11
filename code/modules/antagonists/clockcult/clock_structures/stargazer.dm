@@ -40,7 +40,7 @@
 	. = ..()
 	star_light_star_bright = check_starlight()
 
-TYPE_PROC_REF(/obj/structure/destructible/clockwork/stargazer, check_starlight)()
+/obj/structure/destructible/clockwork/stargazer/proc/check_starlight()
 	var/old_status = star_light_star_bright
 	var/has_starlight
 	if(!anchored)

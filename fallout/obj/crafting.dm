@@ -169,7 +169,7 @@
 	else
 		to_chat(user, span_alert("You can't seem to drill any holes in \the [src]'s base! Might need to stand still, or the drill might need some juice..."))
 
-TYPE_PROC_REF(/obj/item/circuitboard/machine/autolathe/ammo/improvised, make_it_a_board)(mob/living/user)
+/obj/item/circuitboard/machine/autolathe/ammo/improvised/proc/make_it_a_board(mob/living/user)
 	if(!user)
 		return
 	var/turf/this_turf = get_turf(src)

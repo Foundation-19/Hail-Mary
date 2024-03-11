@@ -18,7 +18,7 @@
 		mob_try_enter(M)
 	return ..()
 
-TYPE_PROC_REF(/obj/vehicle/sealed, mob_try_enter)(mob/M)
+/obj/vehicle/sealed/proc/mob_try_enter(mob/M)
 	if(!istype(M))
 		return FALSE
 	if(occupant_amount() >= max_occupants)
@@ -28,10 +28,10 @@ TYPE_PROC_REF(/obj/vehicle/sealed, mob_try_enter)(mob/M)
 		return TRUE
 	return FALSE
 
-TYPE_PROC_REF(/obj/vehicle/sealed, get_enter_delay)(mob/M)
+/obj/vehicle/sealed/proc/get_enter_delay(mob/M)
 	return enter_delay
 
-TYPE_PROC_REF(/obj/vehicle/sealed, mob_enter)(mob/M, silent = FALSE)
+/obj/vehicle/sealed/proc/mob_enter(mob/M, silent = FALSE)
 	if(!istype(M))
 		return FALSE
 	if(!silent)
@@ -40,10 +40,10 @@ TYPE_PROC_REF(/obj/vehicle/sealed, mob_enter)(mob/M, silent = FALSE)
 	add_occupant(M)
 	return TRUE
 
-TYPE_PROC_REF(/obj/vehicle/sealed, mob_try_exit)(mob/M, mob/user, silent = FALSE)
+/obj/vehicle/sealed/proc/mob_try_exit(mob/M, mob/user, silent = FALSE)
 	mob_exit(M, silent)
 
-TYPE_PROC_REF(/obj/vehicle/sealed, mob_exit)(mob/M, silent = FALSE)
+/obj/vehicle/sealed/proc/mob_exit(mob/M, silent = FALSE)
 	if(!istype(M))
 		return FALSE
 	remove_occupant(M)
@@ -52,5 +52,5 @@ TYPE_PROC_REF(/obj/vehicle/sealed, mob_exit)(mob/M, silent = FALSE)
 		M.visible_message(span_boldnotice("[M] drops out of \the [src]!"))
 	return TRUE
 
-TYPE_PROC_REF(/obj/vehicle/sealed, exit_location)(M)
+/obj/vehicle/sealed/proc/exit_location(M)
 	return drop_location()

@@ -142,7 +142,7 @@
 		return
 	check_health()
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile, check_health)()
+/mob/living/simple_animal/hostile/proc/check_health()
 	if(low_health_threshold <= 0)
 		return FALSE
 	if(stat == DEAD)
@@ -158,11 +158,11 @@ TYPE_PROC_REF(/mob/living/simple_animal/hostile, check_health)()
 		return TRUE
 
 /// Override this with what should happen when going from low health to high health
-TYPE_PROC_REF(/mob/living/simple_animal/hostile, make_high_health)()
+/mob/living/simple_animal/hostile/proc/make_high_health()
 	return
 
 /// Override this with what should happen when going from high health to low health
-TYPE_PROC_REF(/mob/living/simple_animal/hostile, make_low_health)()
+/mob/living/simple_animal/hostile/proc/make_low_health()
 	return
 
 /mob/living/simple_animal/hostile/handle_automated_action()
@@ -207,7 +207,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/hostile, make_low_health)()
 			lonely_timer_id = null	
 		unqueue_unbirth()
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile, consider_despawning)()
+/mob/living/simple_animal/hostile/proc/consider_despawning()
 	if(!despawns_when_lonely)
 		return FALSE
 	if(ckey)
@@ -234,7 +234,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/hostile, consider_despawning)()
 	. = ..()
 
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile, sidestep)()
+/mob/living/simple_animal/hostile/proc/sidestep()
 	if(!target || !isturf(target.loc) || !isturf(loc) || stat == DEAD)
 		return
 	var/target_dir = get_dir(src,target)
@@ -283,7 +283,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/hostile, sidestep)()
 
 //////////////HOSTILE MOB TARGETTING AND AGGRESSION////////////
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile, ListTargets)()//Step 1, find out what we can see
+/mob/living/simple_animal/hostile/proc/ListTargets()//Step 1, find out what we can see
 	if(!search_objects)
 		. = hearers(vision_range, targets_from) - src //Remove self, so we don't suicide
 
@@ -302,7 +302,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/hostile, ListTargets)()//Step 1, find ou
 			CHECK_TICK
 			. += A
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile, FindTarget)(list/possible_targets, HasTargetsList = 0)//Step 2, filter down possible targets to things we actually care about
+/mob/living/simple_animal/hostile/proc/FindTarget(list/possible_targets, HasTargetsList = 0)//Step 2, filter down possible targets to things we actually care about
 	. = list()
 	if (peaceful == FALSE)
 		if(!HasTargetsList)
@@ -322,7 +322,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/hostile, FindTarget)(list/possible_targe
 
 
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile, PossibleThreats)()
+/mob/living/simple_animal/hostile/proc/PossibleThreats()
 	. = list()
 	for(var/pos_targ in ListTargets())
 		var/atom/A = pos_targ
@@ -335,10 +335,10 @@ TYPE_PROC_REF(/mob/living/simple_animal/hostile, PossibleThreats)()
 
 
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile, Found)(atom/A)//This is here as a potential override to pick a specific target if available
+/mob/living/simple_animal/hostile/proc/Found(atom/A)//This is here as a potential override to pick a specific target if available
 	return
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile, PickTarget)(list/Targets)//Step 3, pick amongst the possible, attackable targets
+/mob/living/simple_animal/hostile/proc/PickTarget(list/Targets)//Step 3, pick amongst the possible, attackable targets
 	if(target != null)//If we already have a target, but are told to pick again, calculate the lowest distance between all possible, and pick from the lowest distance targets
 		for(var/pos_targ in Targets)
 			var/atom/A = pos_targ
@@ -415,7 +415,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/hostile, PickTarget)(list/Targets)//Step
 
 	return FALSE
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile, GiveTarget)(new_target)//Step 4, give us our selected target
+/mob/living/simple_animal/hostile/proc/GiveTarget(new_target)//Step 4, give us our selected target
 	add_target(new_target)
 	LosePatience()
 	if(target != null)
@@ -424,7 +424,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/hostile, GiveTarget)(new_target)//Step 4
 		return 1
 
 //What we do after closing in
-TYPE_PROC_REF(/mob/living/simple_animal/hostile, MeleeAction)(patience = TRUE)
+/mob/living/simple_animal/hostile/proc/MeleeAction(patience = TRUE)
 	if(rapid_melee > 1)
 		var/datum/callback/cb = CALLBACK(src, PROC_REF(CheckAndAttack))
 		var/delay = SSnpcpool.wait / rapid_melee
@@ -435,11 +435,11 @@ TYPE_PROC_REF(/mob/living/simple_animal/hostile, MeleeAction)(patience = TRUE)
 	if(patience)
 		GainPatience()
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile, CheckAndAttack)()
+/mob/living/simple_animal/hostile/proc/CheckAndAttack()
 	if(target && targets_from && isturf(targets_from.loc) && target.Adjacent(targets_from) && !incapacitated())
 		AttackingTarget()
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile, MoveToTarget)(list/possible_targets)//Step 5, handle movement between us and our target
+/mob/living/simple_animal/hostile/proc/MoveToTarget(list/possible_targets)//Step 5, handle movement between us and our target
 	stop_automated_movement = 1
 	if (peaceful == TRUE)
 		LoseTarget()
@@ -496,7 +496,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/hostile, MoveToTarget)(list/possible_tar
 	LoseTarget()
 	return 0
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile, Goto)(target, delay, minimum_distance)
+/mob/living/simple_animal/hostile/proc/Goto(target, delay, minimum_distance)
 	if(target == src.target)
 		approaching_target = TRUE
 	else
@@ -522,7 +522,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/hostile, Goto)(target, delay, minimum_di
 			FindTarget()
 
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile, AttackingTarget)()
+/mob/living/simple_animal/hostile/proc/AttackingTarget()
 	SEND_SIGNAL(src, COMSIG_HOSTILE_ATTACKINGTARGET, target)
 	in_melee = TRUE
 	if(prob(alternate_attack_prob) && AlternateAttackingTarget(target))
@@ -530,10 +530,10 @@ TYPE_PROC_REF(/mob/living/simple_animal/hostile, AttackingTarget)()
 	return target.attack_animal(src)
 
 /// Does an extra *thing* when attacking. Return TRUE to not do the standard attack
-TYPE_PROC_REF(/mob/living/simple_animal/hostile, AlternateAttackingTarget)(atom/the_target)
+/mob/living/simple_animal/hostile/proc/AlternateAttackingTarget(atom/the_target)
 	return
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile, Aggro)()
+/mob/living/simple_animal/hostile/proc/Aggro()
 	if(ckey)
 		return TRUE
 	vision_range = aggro_vision_range
@@ -545,12 +545,12 @@ TYPE_PROC_REF(/mob/living/simple_animal/hostile, Aggro)()
 		playsound(loc, taunt_choice, 50, 0, vary = FALSE, frequency = SOUND_FREQ_NORMALIZED(sound_pitch, vary_pitches[1], vary_pitches[2]))
 
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile, LoseAggro)()
+/mob/living/simple_animal/hostile/proc/LoseAggro()
 	stop_automated_movement = 0
 	vision_range = initial(vision_range)
 	taunt_chance = initial(taunt_chance)
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile, LoseTarget)()
+/mob/living/simple_animal/hostile/proc/LoseTarget()
 	GiveTarget(null)
 	approaching_target = FALSE
 	in_melee = FALSE
@@ -563,7 +563,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/hostile, LoseTarget)()
 	LoseTarget()
 	..(gibbed)
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile, summon_backup)(distance, exact_faction_match)
+/mob/living/simple_animal/hostile/proc/summon_backup(distance, exact_faction_match)
 	if(COOLDOWN_FINISHED(src, ding_spam_cooldown))
 		return TRUE
 	COOLDOWN_START(src, ding_spam_cooldown, SIMPLE_MOB_DING_COOLDOWN)
@@ -575,7 +575,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/hostile, summon_backup)(distance, exact_
 				return
 			M.Goto(src,M.move_to_delay,M.minimum_distance)
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile, CheckFriendlyFire)(atom/A)
+/mob/living/simple_animal/hostile/proc/CheckFriendlyFire(atom/A)
 	if(check_friendly_fire && !ckey)
 		for(var/turf/T in getline(src,A)) // Not 100% reliable but this is faster than simulating actual trajectory
 			for(var/mob/living/L in T)
@@ -584,7 +584,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/hostile, CheckFriendlyFire)(atom/A)
 				if(faction_check_mob(L) && !attack_same)
 					return TRUE
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile, OpenFire)(atom/A)
+/mob/living/simple_animal/hostile/proc/OpenFire(atom/A)
 	if(COOLDOWN_TIMELEFT(src, sight_shoot_delay))
 		return FALSE
 	if(CheckFriendlyFire(A))
@@ -608,7 +608,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/hostile, OpenFire)(atom/A)
 		if(LAZYLEN(variation_list[MOB_CASING]) >= 2) // Gotta have multiple different casings to cycle through
 			casingtype = vary_from_list(variation_list[MOB_CASING], TRUE)
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile, Shoot)(atom/targeted_atom)
+/mob/living/simple_animal/hostile/proc/Shoot(atom/targeted_atom)
 	if( QDELETED(targeted_atom) || targeted_atom == targets_from.loc || targeted_atom == targets_from )
 		return
 	var/turf/startloc = get_turf(targets_from)
@@ -654,7 +654,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/hostile, Shoot)(atom/targeted_atom)
 		P.fire()
 		return P
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile, CanSmashTurfs)(turf/T)
+/mob/living/simple_animal/hostile/proc/CanSmashTurfs(turf/T)
 	return iswallturf(T) || ismineralturf(T)
 
 
@@ -664,7 +664,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/hostile, CanSmashTurfs)(turf/T)
 	else
 		return ..()
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile, dodge)(moving_to,move_direction)
+/mob/living/simple_animal/hostile/proc/dodge(moving_to,move_direction)
 	//Assuming we move towards the target we want to swerve toward them to get closer
 	var/cdir = turn(move_direction,45)
 	var/ccdir = turn(move_direction,-45)
@@ -674,7 +674,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/hostile, dodge)(moving_to,move_direction
 		. =  Move(moving_to,move_direction)
 	dodging = TRUE
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile, DestroyObjectsInDirection)(direction)
+/mob/living/simple_animal/hostile/proc/DestroyObjectsInDirection(direction)
 	var/turf/T = get_step(targets_from, direction)
 	if(T && T.Adjacent(targets_from))
 		if(CanSmashTurfs(T))
@@ -685,7 +685,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/hostile, DestroyObjectsInDirection)(dire
 				return
 
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile, DestroyPathToTarget)()
+/mob/living/simple_animal/hostile/proc/DestroyPathToTarget()
 	if(environment_smash)
 		EscapeConfinement()
 		var/dir_to_target = get_dir(targets_from, target)
@@ -700,14 +700,14 @@ TYPE_PROC_REF(/mob/living/simple_animal/hostile, DestroyPathToTarget)()
 			DestroyObjectsInDirection(direction)
 
 
-TYPE_PROC_REF(mob/living/simple_animal/hostile, DestroySurroundings)() // for use with megafauna destroying everything around them
+mob/living/simple_animal/hostile/proc/DestroySurroundings() // for use with megafauna destroying everything around them
 	if(environment_smash)
 		EscapeConfinement()
 		for(var/dir in GLOB.cardinals)
 			DestroyObjectsInDirection(dir)
 
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile, EscapeConfinement)()
+/mob/living/simple_animal/hostile/proc/EscapeConfinement()
 	if(buckled)
 		buckled.attack_animal(src)
 	if(!isturf(targets_from.loc) && targets_from.loc != null)//Did someone put us in something?
@@ -715,7 +715,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/hostile, EscapeConfinement)()
 		A.attack_animal(src)//Bang on it till we get out
 
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile, FindHidden)()
+/mob/living/simple_animal/hostile/proc/FindHidden()
 	if(istype(target.loc, /obj/structure/closet) || istype(target.loc, /obj/machinery/disposal) || istype(target.loc, /obj/machinery/sleeper))
 		var/atom/A = target.loc
 		Goto(A,move_to_delay,minimum_distance)
@@ -732,7 +732,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/hostile, FindHidden)()
 	return TRUE
 
 ////// AI Status ///////
-TYPE_PROC_REF(/mob/living/simple_animal/hostile, AICanContinue)(list/possible_targets)
+/mob/living/simple_animal/hostile/proc/AICanContinue(list/possible_targets)
 	switch(AIStatus)
 		if(AI_ON)
 			. = 1
@@ -743,13 +743,13 @@ TYPE_PROC_REF(/mob/living/simple_animal/hostile, AICanContinue)(list/possible_ta
 			else
 				. = 0
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile, AIShouldSleep)(list/possible_targets)
+/mob/living/simple_animal/hostile/proc/AIShouldSleep(list/possible_targets)
 	return !FindTarget(possible_targets, 1)
 
 
 //These two procs handle losing our target if we've failed to attack them for
 //more than lose_patience_timeout deciseconds, which probably means we're stuck
-TYPE_PROC_REF(/mob/living/simple_animal/hostile, GainPatience)()
+/mob/living/simple_animal/hostile/proc/GainPatience()
 	if(QDELETED(src))
 		return
 	
@@ -758,12 +758,12 @@ TYPE_PROC_REF(/mob/living/simple_animal/hostile, GainPatience)()
 		lose_patience_timer_id = addtimer(CALLBACK(src, PROC_REF(LoseTarget)), lose_patience_timeout, TIMER_STOPPABLE)
 
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile, LosePatience)()
+/mob/living/simple_animal/hostile/proc/LosePatience()
 	deltimer(lose_patience_timer_id)
 
 
 //These two procs handle losing and regaining search_objects when attacked by a mob
-TYPE_PROC_REF(/mob/living/simple_animal/hostile, LoseSearchObjects)()
+/mob/living/simple_animal/hostile/proc/LoseSearchObjects()
 	if(QDELETED(src))
 		return
 	
@@ -772,7 +772,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/hostile, LoseSearchObjects)()
 	search_objects_timer_id = addtimer(CALLBACK(src, PROC_REF(RegainSearchObjects)), search_objects_regain_time, TIMER_STOPPABLE)
 
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile, RegainSearchObjects)(value)
+/mob/living/simple_animal/hostile/proc/RegainSearchObjects(value)
 	if(!value)
 		value = initial(search_objects)
 	search_objects = value
@@ -794,7 +794,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/hostile, RegainSearchObjects)(value)
 	if(AIStatus == AI_IDLE && tlist.len)
 		toggle_ai(AI_ON)
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile, ListTargetsLazy)(_Z)//Step 1, find out what we can see
+/mob/living/simple_animal/hostile/proc/ListTargetsLazy(_Z)//Step 1, find out what we can see
 	var/static/hostile_machines = typecacheof(list(/obj/machinery/porta_turret, /obj/mecha, /obj/structure/destructible/clockwork/ocular_warden))
 	. = list()
 	for (var/I in SSmobs.clients_by_zlevel[_Z])
@@ -805,27 +805,27 @@ TYPE_PROC_REF(/mob/living/simple_animal/hostile, ListTargetsLazy)(_Z)//Step 1, f
 			else if (M.loc.type in hostile_machines)
 				. += M.loc
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile, handle_target_del)(datum/source)
+/mob/living/simple_animal/hostile/proc/handle_target_del(datum/source)
 	SIGNAL_HANDLER
 	UnregisterSignal(target, COMSIG_PARENT_QDELETING)
 	target = null
 	LoseTarget()
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile, add_target)(new_target)
+/mob/living/simple_animal/hostile/proc/add_target(new_target)
 	if(target)
 		UnregisterSignal(target, COMSIG_PARENT_QDELETING)
 	target = new_target
 	if(target)
 		RegisterSignal(target, COMSIG_PARENT_QDELETING, PROC_REF(handle_target_del))
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile, queue_unbirth)()
+/mob/living/simple_animal/hostile/proc/queue_unbirth()
 	SSidlenpcpool.add_to_culling(src)
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile, unqueue_unbirth)()
+/mob/living/simple_animal/hostile/proc/unqueue_unbirth()
 	SSidlenpcpool.remove_from_culling(src)
 
 /// return to monke-- stuffs a mob into their own special nest
-TYPE_PROC_REF(/mob/living/simple_animal/hostile, unbirth_self)(forced)
+/mob/living/simple_animal/hostile/proc/unbirth_self(forced)
 	if(!forced && !consider_despawning()) // check again plz
 		return
 	var/obj/structure/nest/my_home
@@ -856,7 +856,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/hostile, unbirth_self)(forced)
 	emp_effect(severity)
 
 /// EMP intensity tends to be 20-40
-TYPE_PROC_REF(/mob/living/simple_animal/hostile, emp_effect)(intensity)
+/mob/living/simple_animal/hostile/proc/emp_effect(intensity)
 	if(!LAZYLEN(emp_flags))
 		return FALSE
 	if(!islist(emp_flags))
@@ -874,7 +874,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/hostile, emp_effect)(intensity)
 	do_sparks(3, FALSE, src)
 	return TRUE
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile, do_emp_stun)(intensity)
+/mob/living/simple_animal/hostile/proc/do_emp_stun(intensity)
 	if(!intensity)
 		return FALSE
 	if(MOB_EMP_STUN in active_emp_flags)
@@ -885,12 +885,12 @@ TYPE_PROC_REF(/mob/living/simple_animal/hostile, do_emp_stun)(intensity)
 	toggle_ai(AI_OFF)
 	addtimer(CALLBACK(src, PROC_REF(un_emp_stun)), min(intensity, 3 SECONDS))
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile, un_emp_stun)()
+/mob/living/simple_animal/hostile/proc/un_emp_stun()
 	active_emp_flags -= MOB_EMP_STUN
 	LoseTarget()
 	toggle_ai(AI_ON)
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile, do_emp_berserk)(intensity)
+/mob/living/simple_animal/hostile/proc/do_emp_berserk(intensity)
 	if(!intensity)
 		return FALSE
 	if(MOB_EMP_BERSERK in active_emp_flags)
@@ -902,12 +902,12 @@ TYPE_PROC_REF(/mob/living/simple_animal/hostile, do_emp_berserk)(intensity)
 	faction = null
 	addtimer(CALLBACK(src, PROC_REF(un_emp_berserk), old_faction), intensity SECONDS * 0.5)
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile, un_emp_berserk)(list/unberserk)
+/mob/living/simple_animal/hostile/proc/un_emp_berserk(list/unberserk)
 	active_emp_flags -= MOB_EMP_BERSERK
 	faction = unberserk
 	LoseTarget()
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile, do_emp_damage)(intensity)
+/mob/living/simple_animal/hostile/proc/do_emp_damage(intensity)
 	if(!intensity)
 		return FALSE
 	smoke.set_up(round(clamp(intensity*0.5, 1, 3), 1), src)
@@ -916,7 +916,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/hostile, do_emp_damage)(intensity)
 	adjustBruteLoss(maxHealth * 0.01 * intensity)
 	playsound(src.loc, 'sound/effects/smoke.ogg', 50, 1, -3)
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile, do_emp_scramble)(intensity)
+/mob/living/simple_animal/hostile/proc/do_emp_scramble(intensity)
 	if(!intensity)
 		return FALSE
 	move_to_delay = rand(move_to_delay * 0.5, move_to_delay * 2)

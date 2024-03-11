@@ -50,7 +50,7 @@
 	send_status()
 
 
-TYPE_PROC_REF(/obj/machinery/door/airlock, send_status)()
+/obj/machinery/door/airlock/proc/send_status()
 	if(radio_connection)
 		var/datum/signal/signal = new(list(
 			"tag" = id_tag,
@@ -73,7 +73,7 @@ TYPE_PROC_REF(/obj/machinery/door/airlock, send_status)()
 		send_status()
 
 
-TYPE_PROC_REF(/obj/machinery/door/airlock, set_frequency)(new_frequency)
+/obj/machinery/door/airlock/proc/set_frequency(new_frequency)
 	SSradio.remove_object(src, frequency)
 	if(new_frequency)
 		frequency = new_frequency
@@ -147,7 +147,7 @@ TYPE_PROC_REF(/obj/machinery/door/airlock, set_frequency)(new_frequency)
 
 	update_icon()
 
-TYPE_PROC_REF(/obj/machinery/airlock_sensor, set_frequency)(new_frequency)
+/obj/machinery/airlock_sensor/proc/set_frequency(new_frequency)
 	SSradio.remove_object(src, frequency)
 	frequency = new_frequency
 	radio_connection = SSradio.add_object(src, frequency, RADIO_AIRLOCK)

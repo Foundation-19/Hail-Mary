@@ -19,7 +19,7 @@
 	perform(null, user=user)
 
 ///This proc creates a list of turfs that are hit by the cone
-TYPE_PROC_REF(/obj/effect/proc_holder/spell/cone, cone_helper)(turf/starter_turf, dir_to_use, cone_levels = 3)
+/obj/effect/proc_holder/spell/cone/proc/cone_helper(turf/starter_turf, dir_to_use, cone_levels = 3)
 	var/list/turfs_to_return = list()
 	var/turf/turf_to_use = starter_turf
 	var/turf/left_turf
@@ -73,7 +73,7 @@ TYPE_PROC_REF(/obj/effect/proc_holder/spell/cone, cone_helper)(turf/starter_turf
 		do_cone_effects(turf_list)
 
 ///This proc does obj, mob and turf cone effects on all targets in a list
-TYPE_PROC_REF(/obj/effect/proc_holder/spell/cone, do_cone_effects)(list/target_turf_list, level)
+/obj/effect/proc_holder/spell/cone/proc/do_cone_effects(list/target_turf_list, level)
 	for(var/target_turf in target_turf_list)
 		if(!target_turf) //if turf is no longer there
 			continue
@@ -87,19 +87,19 @@ TYPE_PROC_REF(/obj/effect/proc_holder/spell/cone, do_cone_effects)(list/target_t
 					do_mob_cone_effect(movable_content, level)
 
 ///This proc deterimines how the spell will affect turfs.
-TYPE_PROC_REF(/obj/effect/proc_holder/spell/cone, do_turf_cone_effect)(turf/target_turf, level)
+/obj/effect/proc_holder/spell/cone/proc/do_turf_cone_effect(turf/target_turf, level)
 	return
 
 ///This proc deterimines how the spell will affect objects.
-TYPE_PROC_REF(/obj/effect/proc_holder/spell/cone, do_obj_cone_effect)(obj/target_obj, level)
+/obj/effect/proc_holder/spell/cone/proc/do_obj_cone_effect(obj/target_obj, level)
 	return
 
 ///This proc deterimines how the spell will affect mobs.
-TYPE_PROC_REF(/obj/effect/proc_holder/spell/cone, do_mob_cone_effect)(mob/living/target_mob, level)
+/obj/effect/proc_holder/spell/cone/proc/do_mob_cone_effect(mob/living/target_mob, level)
 	return
 
 ///This proc adjusts the cones width depending on the level.
-TYPE_PROC_REF(/obj/effect/proc_holder/spell/cone, calculate_cone_shape)(current_level)
+/obj/effect/proc_holder/spell/cone/proc/calculate_cone_shape(current_level)
 	var/end_taper_start = round(cone_levels * 0.8)
 	if(current_level > end_taper_start)
 		return (current_level % end_taper_start) * 2 //someone more talented and probably come up with a better formula.

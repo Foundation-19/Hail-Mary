@@ -22,7 +22,7 @@
 	///Determines which boss image to use on the UI.
 	var/boss_id = 1
 
-TYPE_PROC_REF(/datum/computer_file/program/arcade, game_check)(mob/user)
+/datum/computer_file/program/arcade/proc/game_check(mob/user)
 	sleep(5)
 	// user?.mind?.adjust_experience(/datum/skill/gaming, 1)
 	if(boss_hp <= 0)
@@ -45,7 +45,7 @@ TYPE_PROC_REF(/datum/computer_file/program/arcade, game_check)(mob/user)
 		// user?.mind?.adjust_experience(/datum/skill/gaming, 10)
 		sleep(10)
 
-TYPE_PROC_REF(/datum/computer_file/program/arcade, enemy_check)(mob/user)
+/datum/computer_file/program/arcade/proc/enemy_check(mob/user)
 	var/boss_attackamt = 0 //Spam protection from boss attacks as well.
 	var/boss_mpamt = 0
 	var/bossheal = 0

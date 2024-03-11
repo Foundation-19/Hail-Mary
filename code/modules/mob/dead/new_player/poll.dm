@@ -2,7 +2,7 @@
 	var/optionid
 	var/optiontext
 
-TYPE_PROC_REF(/mob/dead/new_player, handle_player_polling)()
+/mob/dead/new_player/proc/handle_player_polling()
 	if(!SSdbcore.IsConnected())
 		to_chat(usr, span_danger("Failed to establish database connection."))
 		return
@@ -23,7 +23,7 @@ TYPE_PROC_REF(/mob/dead/new_player, handle_player_polling)()
 	if(!QDELETED(src))
 		src << browse(output,"window=playerpolllist;size=500x300")
 
-TYPE_PROC_REF(/mob/dead/new_player, poll_player)(pollid)
+/mob/dead/new_player/proc/poll_player(pollid)
 	if(!pollid)
 		return
 	if (!SSdbcore.Connect())
@@ -362,7 +362,7 @@ TYPE_PROC_REF(/mob/dead/new_player, poll_player)(pollid)
 	return
 
 //Returns null on failure, TRUE if already voted, FALSE if not voted yet.
-TYPE_PROC_REF(/mob/dead/new_player, poll_check_voted)(pollid, text = FALSE, silent = FALSE)
+/mob/dead/new_player/proc/poll_check_voted(pollid, text = FALSE, silent = FALSE)
 	var/table = "poll_vote"
 	if (text)
 		table = "poll_textreply"
@@ -385,13 +385,13 @@ TYPE_PROC_REF(/mob/dead/new_player, poll_check_voted)(pollid, text = FALSE, sile
 	return FALSE
 
 //Returns adminrank for use in polls.
-TYPE_PROC_REF(/mob/dead/new_player, poll_rank)()
+/mob/dead/new_player/proc/poll_rank()
 	. = "Player"
 	if(client.holder)
 		. = client.holder.rank.name
 
 
-TYPE_PROC_REF(/mob/dead/new_player, vote_rig_check)()
+/mob/dead/new_player/proc/vote_rig_check()
 	if (usr != src)
 		if (!usr || !src)
 			return 0
@@ -403,7 +403,7 @@ TYPE_PROC_REF(/mob/dead/new_player, vote_rig_check)()
 		return 0
 	return 1
 
-TYPE_PROC_REF(/mob/dead/new_player, vote_valid_check)(pollid, holder, type)
+/mob/dead/new_player/proc/vote_valid_check(pollid, holder, type)
 	if (!SSdbcore.Connect())
 		to_chat(src, span_danger("Failed to establish database connection."))
 		return 0
@@ -424,7 +424,7 @@ TYPE_PROC_REF(/mob/dead/new_player, vote_valid_check)(pollid, holder, type)
 	qdel(query_validate_poll)
 	return 1
 
-TYPE_PROC_REF(/mob/dead/new_player, vote_on_irv_poll)(pollid, list/votelist)
+/mob/dead/new_player/proc/vote_on_irv_poll(pollid, list/votelist)
 	if (!SSdbcore.Connect())
 		to_chat(src, span_danger("Failed to establish database connection."))
 		return 0
@@ -501,7 +501,7 @@ TYPE_PROC_REF(/mob/dead/new_player, vote_on_irv_poll)(pollid, list/votelist)
 	return TRUE
 
 
-TYPE_PROC_REF(/mob/dead/new_player, vote_on_poll)(pollid, optionid)
+/mob/dead/new_player/proc/vote_on_poll(pollid, optionid)
 	if (!SSdbcore.Connect())
 		to_chat(src, span_danger("Failed to establish database connection."))
 		return 0
@@ -533,7 +533,7 @@ TYPE_PROC_REF(/mob/dead/new_player, vote_on_poll)(pollid, optionid)
 		usr << browse(null,"window=playerpoll")
 	return 1
 
-TYPE_PROC_REF(/mob/dead/new_player, log_text_poll_reply)(pollid, replytext)
+/mob/dead/new_player/proc/log_text_poll_reply(pollid, replytext)
 	if (!SSdbcore.Connect())
 		to_chat(src, span_danger("Failed to establish database connection."))
 		return 0
@@ -580,7 +580,7 @@ TYPE_PROC_REF(/mob/dead/new_player, log_text_poll_reply)(pollid, replytext)
 		usr << browse(null,"window=playerpoll")
 	return 1
 
-TYPE_PROC_REF(/mob/dead/new_player, vote_on_numval_poll)(pollid, optionid, rating)
+/mob/dead/new_player/proc/vote_on_numval_poll(pollid, optionid, rating)
 	if (!SSdbcore.Connect())
 		to_chat(src, span_danger("Failed to establish database connection."))
 		return 0
@@ -620,7 +620,7 @@ TYPE_PROC_REF(/mob/dead/new_player, vote_on_numval_poll)(pollid, optionid, ratin
 		usr << browse(null,"window=playerpoll")
 	return 1
 
-TYPE_PROC_REF(/mob/dead/new_player, vote_on_multi_poll)(pollid, optionid)
+/mob/dead/new_player/proc/vote_on_multi_poll(pollid, optionid)
 	if (!SSdbcore.Connect())
 		to_chat(src, span_danger("Failed to establish database connection."))
 		return 0

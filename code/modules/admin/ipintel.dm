@@ -10,7 +10,7 @@
 	cachedate = SQLtime()
 	cacherealtime = world.realtime
 
-TYPE_PROC_REF(/datum/ipintel, is_valid)()
+/datum/ipintel/proc/is_valid()
 	. = FALSE
 	if (intel < 0)
 		return

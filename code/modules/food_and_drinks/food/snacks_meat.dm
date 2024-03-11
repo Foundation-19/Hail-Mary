@@ -523,7 +523,7 @@
 		return TRUE
 	return ..()
 
-TYPE_PROC_REF(/obj/item/reagent_containers/food/snacks/cube, Expand)()
+/obj/item/reagent_containers/food/snacks/cube/proc/Expand()
 	var/mob/spammer = get_mob_by_key(fingerprintslast)
 	var/mob/living/water = new dried_being(drop_location(), TRUE, spammer)
 	if (!QDELETED(water))

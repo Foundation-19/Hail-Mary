@@ -2,14 +2,14 @@
 	. = ..()
 	RegisterSignal(src, list(SIGNAL_ADDTRAIT(TRAIT_SPRINT_LOCKED), SIGNAL_REMOVETRAIT(TRAIT_SPRINT_LOCKED)), PROC_REF(update_sprint_lock))
 
-TYPE_PROC_REF(/mob/living, update_sprint_icon)()
+/mob/living/proc/update_sprint_icon()
 	var/obj/screen/sprintbutton/S = locate() in hud_used?.static_inventory
 	S?.update_icon()
 
-TYPE_PROC_REF(/mob/living, update_hud_sprint_bar)()
+/mob/living/proc/update_hud_sprint_bar()
 	hud_used?.sprint_buffer?.update_to_mob(src)
 
-TYPE_PROC_REF(/mob/living, update_sprint_lock)()
+/mob/living/proc/update_sprint_lock()
 	var/locked = HAS_TRAIT(src, TRAIT_SPRINT_LOCKED)
 	var/current = (combat_flags & COMBAT_FLAG_SPRINT_ACTIVE)
 	var/desired = (combat_flags & COMBAT_FLAG_SPRINT_TOGGLED)
@@ -25,21 +25,21 @@ TYPE_PROC_REF(/mob/living, update_sprint_lock)()
 				enable_sprint_mode(FALSE)
 	update_sprint_icon()
 
-TYPE_PROC_REF(/mob/living, enable_sprint_mode)(update_icon = TRUE)
+/mob/living/proc/enable_sprint_mode(update_icon = TRUE)
 	if(combat_flags & COMBAT_FLAG_SPRINT_ACTIVE)
 		return
 	ENABLE_BITFIELD(combat_flags, COMBAT_FLAG_SPRINT_ACTIVE)
 	if(update_icon)
 		update_sprint_icon()
 
-TYPE_PROC_REF(/mob/living, disable_sprint_mode)(update_icon = TRUE)
+/mob/living/proc/disable_sprint_mode(update_icon = TRUE)
 	if(!(combat_flags & COMBAT_FLAG_SPRINT_ACTIVE) || (combat_flags & COMBAT_FLAG_SPRINT_FORCED))
 		return
 	DISABLE_BITFIELD(combat_flags, COMBAT_FLAG_SPRINT_ACTIVE)
 	if(update_icon)
 		update_sprint_icon()
 
-TYPE_PROC_REF(/mob/living, enable_intentional_sprint_mode)()
+/mob/living/proc/enable_intentional_sprint_mode()
 	if((combat_flags & COMBAT_FLAG_SPRINT_TOGGLED) && (combat_flags & COMBAT_FLAG_SPRINT_ACTIVE))
 		return
 	ENABLE_BITFIELD(combat_flags, COMBAT_FLAG_SPRINT_TOGGLED)
@@ -48,7 +48,7 @@ TYPE_PROC_REF(/mob/living, enable_intentional_sprint_mode)()
 	update_sprint_icon()
 	return TRUE
 
-TYPE_PROC_REF(/mob/living, disable_intentional_sprint_mode)()
+/mob/living/proc/disable_intentional_sprint_mode()
 	if(!(combat_flags & COMBAT_FLAG_SPRINT_TOGGLED) && !(combat_flags & COMBAT_FLAG_SPRINT_ACTIVE))
 		return
 	if(combat_flags & COMBAT_FLAG_SPRINT_FORCED)
@@ -58,7 +58,7 @@ TYPE_PROC_REF(/mob/living, disable_intentional_sprint_mode)()
 		disable_sprint_mode(FALSE)
 	update_sprint_icon()
 
-TYPE_PROC_REF(/mob/living, user_toggle_intentional_sprint_mode)()
+/mob/living/proc/user_toggle_intentional_sprint_mode()
 	var/old = (combat_flags & COMBAT_FLAG_SPRINT_TOGGLED)
 	if(old)
 		if(combat_flags & COMBAT_FLAG_SPRINT_FORCED)
@@ -77,13 +77,13 @@ TYPE_PROC_REF(/mob/living, user_toggle_intentional_sprint_mode)()
 			C.doSprintLossTiles(1) // Makes it drain 1 movement of stamina loss when you spam the sprint key.
 
 
-TYPE_PROC_REF(/mob/living, sprint_hotkey)(targetstatus)
+/mob/living/proc/sprint_hotkey(targetstatus)
 	if(targetstatus != FORCE_BOOLEAN(combat_flags & COMBAT_FLAG_SPRINT_ACTIVE))
 		default_toggle_sprint()
 
-TYPE_PROC_REF(/mob/living, doSprintLossTiles)(amount)
+/mob/living/proc/doSprintLossTiles(amount)
 	return
 
 // Silicons have snowflake behavior.
-TYPE_PROC_REF(/mob/living, default_toggle_sprint)()
+/mob/living/proc/default_toggle_sprint()
 	return user_toggle_intentional_sprint_mode()

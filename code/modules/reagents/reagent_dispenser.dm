@@ -28,7 +28,7 @@
 		reagents.add_reagent(reagent_id, tank_volume)
 	. = ..()
 
-TYPE_PROC_REF(/obj/structure/reagent_dispensers, boom)()
+/obj/structure/reagent_dispensers/proc/boom()
 	visible_message(span_danger("\The [src] ruptures!"))
 	chem_splash(loc, 5, list(reagents))
 	qdel(src)

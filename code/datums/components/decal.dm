@@ -38,7 +38,7 @@
 	remove()
 	apply()
 
-TYPE_PROC_REF(/datum/component/decal, generate_appearance)(_icon, _icon_state, _dir, _layer, _color)
+/datum/component/decal/proc/generate_appearance(_icon, _icon_state, _dir, _layer, _color)
 	if(!_icon || !_icon_state)
 		return FALSE
 	// It has to be made from an image or dir breaks because of a byond bug
@@ -47,28 +47,28 @@ TYPE_PROC_REF(/datum/component/decal, generate_appearance)(_icon, _icon_state, _
 	pic.color = _color
 	return TRUE
 
-TYPE_PROC_REF(/datum/component/decal, apply)(atom/thing)
+/datum/component/decal/proc/apply(atom/thing)
 	var/atom/master = thing || parent
 	master.add_overlay(pic, TRUE)
 	if(isitem(master))
-		addtimer(CALLBACK(master, TYPE_PROC_REF(/obj/item, update_slot_icon)), 0, TIMER_UNIQUE)
+		addtimer(CALLBACK(master, /obj/item/.proc/update_slot_icon), 0, TIMER_UNIQUE)
 
-TYPE_PROC_REF(/datum/component/decal, remove)(atom/thing)
+/datum/component/decal/proc/remove(atom/thing)
 	var/atom/master = thing || parent
 	master.cut_overlay(pic, TRUE)
 	if(isitem(master))
-		addtimer(CALLBACK(master, TYPE_PROC_REF(/obj/item, update_slot_icon)), 0, TIMER_UNIQUE)
+		addtimer(CALLBACK(master, /obj/item/.proc/update_slot_icon), 0, TIMER_UNIQUE)
 
-TYPE_PROC_REF(/datum/component/decal, rotate_react)(old_dir, new_dir)
+/datum/component/decal/proc/rotate_react(old_dir, new_dir)
 	if(old_dir == new_dir)
 		return
 	remove()
 	pic.dir = turn(pic.dir, dir2angle(old_dir) - dir2angle(new_dir))
 	apply()
 
-TYPE_PROC_REF(/datum/component/decal, clean_react)(strength)
+/datum/component/decal/proc/clean_react(strength)
 	if(strength >= cleanable)
 		qdel(src)
 
-TYPE_PROC_REF(/datum/component/decal, examine)(mob/user)
+/datum/component/decal/proc/examine(mob/user)
 	to_chat(user, description)

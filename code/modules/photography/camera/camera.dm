@@ -89,7 +89,7 @@
 	. += "It has [pictures_left] photos left."
 
 //user can be atom or mob
-TYPE_PROC_REF(/obj/item/camera, can_target)(atom/target, mob/user, prox_flag)
+/obj/item/camera/proc/can_target(atom/target, mob/user, prox_flag)
 	if(!on || blending || !pictures_left)
 		return FALSE
 	var/turf/T = get_turf(target)
@@ -137,18 +137,18 @@ TYPE_PROC_REF(/obj/item/camera, can_target)(atom/target, mob/user, prox_flag)
 	INVOKE_ASYNC(src, PROC_REF(captureimage), target, user, flag, picture_size_x - 1, picture_size_y - 1)
 
 
-TYPE_PROC_REF(/obj/item/camera, cooldown)()
+/obj/item/camera/proc/cooldown()
 	UNTIL(!blending)
 	icon_state = state_on
 	on = TRUE
 
-TYPE_PROC_REF(/obj/item/camera, show_picture)(mob/user, datum/picture/selection)
+/obj/item/camera/proc/show_picture(mob/user, datum/picture/selection)
 	var/obj/item/photo/P = new(src, selection)
 	P.show(user)
 	to_chat(user, P.desc)
 	qdel(P)
 
-TYPE_PROC_REF(/obj/item/camera, captureimage)(atom/target, mob/user, flag, size_x = 1, size_y = 1)
+/obj/item/camera/proc/captureimage(atom/target, mob/user, flag, size_x = 1, size_y = 1)
 	if(flash_enabled)
 		flash_lighting_fx(8, light_power, light_color)
 	blending = TRUE
@@ -193,10 +193,10 @@ TYPE_PROC_REF(/obj/item/camera, captureimage)(atom/target, mob/user, flag, size_
 	after_picture(user, P, flag)
 	blending = FALSE
 
-TYPE_PROC_REF(/obj/item/camera, after_picture)(mob/user, datum/picture/picture, proximity_flag)
+/obj/item/camera/proc/after_picture(mob/user, datum/picture/picture, proximity_flag)
 	printpicture(user, picture)
 
-TYPE_PROC_REF(/obj/item/camera, printpicture)(mob/user, datum/picture/picture) //Normal camera proc for creating photos
+/obj/item/camera/proc/printpicture(mob/user, datum/picture/picture) //Normal camera proc for creating photos
 	var/obj/item/photo/p = new(get_turf(src), picture)
 	if(in_range(src, user)) //needed because of TK
 		user.put_in_hands(p)

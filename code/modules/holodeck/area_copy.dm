@@ -48,7 +48,7 @@ GLOBAL_LIST_INIT(duplicate_forbidden_vars_by_type, typecacheof_assoc_list(list(
 	return O
 
 
-TYPE_PROC_REF(/area, copy_contents_to)(area/A , platingRequired = 0, nerf_weapons = 0 )
+/area/proc/copy_contents_to(area/A , platingRequired = 0, nerf_weapons = 0 )
 	//Takes: Area. Optional: If it should copy to areas that don't have plating
 	//Returns: Nothing.
 	//Notes: Attempts to move the contents of one area to another area.

@@ -1,6 +1,6 @@
 
 //returns TRUE if this mob has sufficient access to use this object
-TYPE_PROC_REF(/obj, allowed)(mob/M)
+/obj/proc/allowed(mob/M)
 	//check if it doesn't require any access at all
 	if(check_access(null))
 		return TRUE
@@ -45,19 +45,19 @@ TYPE_PROC_REF(/obj, allowed)(mob/M)
 			return TRUE
 	return FALSE
 
-TYPE_PROC_REF(/obj/item, GetAccess)()
+/obj/item/proc/GetAccess()
 	return list()
 
-TYPE_PROC_REF(/obj/item, GetID)()
+/obj/item/proc/GetID()
 	return null
 
-TYPE_PROC_REF(/obj/item, RemoveID)()
+/obj/item/proc/RemoveID()
 	return null
 
-TYPE_PROC_REF(/obj/item, InsertID)()
+/obj/item/proc/InsertID()
 	return FALSE
 
-TYPE_PROC_REF(/obj, text2access)(access_text)
+/obj/proc/text2access(access_text)
 	. = list()
 	if(!access_text)
 		return
@@ -68,7 +68,7 @@ TYPE_PROC_REF(/obj, text2access)(access_text)
 			. += n
 
 //Call this before using req_access or req_one_access directly
-TYPE_PROC_REF(/obj, gen_access)()
+/obj/proc/gen_access()
 	//These generations have been moved out of /obj/New() because they were slowing down the creation of objects that never even used the access system.
 	if(!req_access)
 		req_access = list()
@@ -80,7 +80,7 @@ TYPE_PROC_REF(/obj, gen_access)()
 			req_one_access += b
 
 // Check if an item has access to this object
-TYPE_PROC_REF(/obj, check_access)(obj/item/I)
+/obj/proc/check_access(obj/item/I)
 	if(check_access_list(I ? I.GetAccess() : null))
 		return TRUE
 	if(I && LAZYLEN(I.contents))
@@ -88,7 +88,7 @@ TYPE_PROC_REF(/obj, check_access)(obj/item/I)
 			if(check_access_list(thing_key.GetAccess()))
 				return TRUE
 
-TYPE_PROC_REF(/obj, check_access_list)(list/access_list)
+/obj/proc/check_access_list(list/access_list)
 	gen_access()
 
 	if(!islist(req_access)) //something's very wrong
@@ -111,7 +111,7 @@ TYPE_PROC_REF(/obj, check_access_list)(list/access_list)
 		return FALSE
 	return TRUE
 
-TYPE_PROC_REF(/obj, check_access_ntnet)(datum/netdata/data)
+/obj/proc/check_access_ntnet(datum/netdata/data)
 	return check_access_list(data.passkey)
 
 /proc/get_centcom_access(job)
@@ -468,7 +468,7 @@ TYPE_PROC_REF(/obj, check_access_ntnet)(datum/netdata/data)
 /proc/get_all_centcom_jobs()
 	return list("VIP Guest","Custodian","Thunderdome Overseer","CentCom Official","Medical Officer","Death Commando","Research Officer","Special Ops Officer","Admiral","CentCom Commander","Emergency Response Team Commander","Security Response Officer","Engineer Response Officer", "Medical Response Officer","CentCom Bartender")
 
-TYPE_PROC_REF(/obj/item, GetJobName)() //Used in secHUD icon generation
+/obj/item/proc/GetJobName() //Used in secHUD icon generation
 	var/obj/item/card/id/I = GetID()
 	if(!I)
 		return

@@ -68,7 +68,7 @@
 		M.grant_language(/datum/language/codespeak, TRUE, TRUE, LANGUAGE_MIND)
 		use_charge(user)
 
-TYPE_PROC_REF(/obj/item/codespeak_manual, use_charge)(mob/user)
+/obj/item/codespeak_manual/proc/use_charge(mob/user)
 	charges--
 	if(!charges)
 		var/turf/T = get_turf(src)

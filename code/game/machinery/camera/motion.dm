@@ -23,12 +23,12 @@
 				//If not part of a monitored area and the camera is not in range or the target is dead
 				lostTargetRef(targetref)
 
-TYPE_PROC_REF(/obj/machinery/camera, getTargetList)()
+/obj/machinery/camera/proc/getTargetList()
 	if(area_motion)
 		return area_motion.motionTargets
 	return localMotionTargets
 
-TYPE_PROC_REF(/obj/machinery/camera, newTarget)(mob/target)
+/obj/machinery/camera/proc/newTarget(mob/target)
 	if(isAI(target))
 		return FALSE
 	if (detectTime == 0)
@@ -45,13 +45,13 @@ TYPE_PROC_REF(/obj/machinery/camera, newTarget)(mob/target)
 	cancelAlarm()
 	return ..()
 
-TYPE_PROC_REF(/obj/machinery/camera, lostTargetRef)(datum/weakref/R)
+/obj/machinery/camera/proc/lostTargetRef(datum/weakref/R)
 	var/list/targets = getTargetList()
 	targets -= R
 	if (targets.len == 0)
 		cancelAlarm()
 
-TYPE_PROC_REF(/obj/machinery/camera, cancelAlarm)()
+/obj/machinery/camera/proc/cancelAlarm()
 	if (detectTime == -1)
 		for (var/i in GLOB.silicon_mobs)
 			var/mob/living/silicon/aiPlayer = i
@@ -60,7 +60,7 @@ TYPE_PROC_REF(/obj/machinery/camera, cancelAlarm)()
 	detectTime = 0
 	return TRUE
 
-TYPE_PROC_REF(/obj/machinery/camera, triggerAlarm)()
+/obj/machinery/camera/proc/triggerAlarm()
 	if (!detectTime)
 		return FALSE
 	for (var/mob/living/silicon/aiPlayer in GLOB.player_list)

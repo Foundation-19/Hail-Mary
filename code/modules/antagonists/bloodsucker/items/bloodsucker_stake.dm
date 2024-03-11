@@ -10,10 +10,10 @@
 			return TRUE
 	return FALSE
 
-TYPE_PROC_REF(/mob, AmStaked)()
+/mob/proc/AmStaked()
 	return FALSE
 
-TYPE_PROC_REF(/mob/living, StakeCanKillMe)()
+/mob/living/proc/StakeCanKillMe()
 	return IsSleeping() || stat >= UNCONSCIOUS || blood_volume <= 0 || HAS_TRAIT(src, TRAIT_DEATHCOMA) // NOTE: You can't go to sleep in a coffin with a stake in you.
 
 /obj/item/stake
@@ -81,7 +81,7 @@ TYPE_PROC_REF(/mob/living, StakeCanKillMe)()
 	// Make Attempt...
 	to_chat(user, span_notice("You put all your weight into embedding the stake into [target]'s chest..."))
 	playsound(user, 'sound/magic/Demon_consume.ogg', 50, 1)
-	if(!do_mob(user, C, staketime, 0, 1, extra_checks=CALLBACK(C, TYPE_PROC_REF(/mob/living/carbon, can_be_staked)))) // user / target / time / uninterruptable / show progress bar / extra checks
+	if(!do_mob(user, C, staketime, 0, 1, extra_checks=CALLBACK(C, /mob/living/carbon/proc/can_be_staked))) // user / target / time / uninterruptable / show progress bar / extra checks
 		return
 	// Drop & Embed Stake
 	user.visible_message(span_danger("[user.name] drives the [src] into [target]'s chest!"), \
@@ -106,7 +106,7 @@ TYPE_PROC_REF(/mob/living, StakeCanKillMe)()
 				to_chat(user, span_warning("You missed [C.p_their(TRUE)]'s heart! It would be easier if [C.p_they(TRUE)] weren't struggling so much."))
 
 // Can this target be staked? If someone stands up before this is complete, it fails. Best used on someone stationary.
-TYPE_PROC_REF(/mob/living/carbon, can_be_staked)()
+/mob/living/carbon/proc/can_be_staked()
 	return !CHECK_MOBILITY(src, MOBILITY_STAND)
 	// ABOVE:  Taken from update_mobility() in living.dm
 

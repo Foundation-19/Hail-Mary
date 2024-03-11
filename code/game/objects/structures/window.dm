@@ -162,7 +162,7 @@ GLOBAL_LIST_EMPTY(electrochromatic_window_lookup)
 
 	return TRUE
 
-TYPE_PROC_REF(/obj/structure/window, on_exit)(datum/source, atom/movable/leaving, direction)
+/obj/structure/window/proc/on_exit(datum/source, atom/movable/leaving, direction)
 	SIGNAL_HANDLER
 
 	if(leaving == src)
@@ -291,7 +291,7 @@ TYPE_PROC_REF(/obj/structure/window, on_exit)(datum/source, atom/movable/leaving
 	air_update_turf(TRUE)
 	update_nearby_icons()
 
-TYPE_PROC_REF(/obj/structure/window, electrochromatic_dim)()
+/obj/structure/window/proc/electrochromatic_dim()
 	if(electrochromatic_status == ELECTROCHROMATIC_DIMMED)
 		return
 	electrochromatic_status = ELECTROCHROMATIC_DIMMED
@@ -303,7 +303,7 @@ TYPE_PROC_REF(/obj/structure/window, electrochromatic_dim)()
 		animate(src, color = newcolor, time = 2)
 	set_opacity(TRUE)
 
-TYPE_PROC_REF(/obj/structure/window, electrochromatic_off)()
+/obj/structure/window/proc/electrochromatic_off()
 	if(electrochromatic_status == ELECTROCHROMATIC_OFF)
 		return
 	electrochromatic_status = ELECTROCHROMATIC_OFF
@@ -315,7 +315,7 @@ TYPE_PROC_REF(/obj/structure/window, electrochromatic_off)()
 		animate(src, color = newcolor, time = 2)
 	set_opacity(FALSE)
 
-TYPE_PROC_REF(/obj/structure/window, remove_electrochromatic)()
+/obj/structure/window/proc/remove_electrochromatic()
 	electrochromatic_off()
 	electrochromatic_status = NOT_ELECTROCHROMATIC
 	if(!electrochromatic_id)
@@ -358,7 +358,7 @@ TYPE_PROC_REF(/obj/structure/window, remove_electrochromatic)()
 		else
 			remove_electrochromatic()
 
-TYPE_PROC_REF(/obj/structure/window, make_electrochromatic)(new_id = electrochromatic_id)
+/obj/structure/window/proc/make_electrochromatic(new_id = electrochromatic_id)
 	remove_electrochromatic()
 	if(!new_id)
 		CRASH("Attempted to make electrochromatic with null ID.")
@@ -367,15 +367,15 @@ TYPE_PROC_REF(/obj/structure/window, make_electrochromatic)(new_id = electrochro
 	LAZYINITLIST(GLOB.electrochromatic_window_lookup["[electrochromatic_id]"])
 	GLOB.electrochromatic_window_lookup[electrochromatic_id] |= src
 
-TYPE_PROC_REF(/obj/structure/window, check_state)(checked_state)
+/obj/structure/window/proc/check_state(checked_state)
 	if(state == checked_state)
 		return TRUE
 
-TYPE_PROC_REF(/obj/structure/window, check_anchored)(checked_anchored)
+/obj/structure/window/proc/check_anchored(checked_anchored)
 	if(anchored == checked_anchored)
 		return TRUE
 
-TYPE_PROC_REF(/obj/structure/window, check_state_and_anchored)(checked_state, checked_anchored)
+/obj/structure/window/proc/check_state_and_anchored(checked_state, checked_anchored)
 	return check_state(checked_state) && check_anchored(checked_anchored)
 
 /obj/structure/window/mech_melee_attack(obj/mecha/M)
@@ -384,7 +384,7 @@ TYPE_PROC_REF(/obj/structure/window, check_state_and_anchored)(checked_state, ch
 	..()
 
 
-TYPE_PROC_REF(/obj/structure/window, can_be_reached)(mob/user)
+/obj/structure/window/proc/can_be_reached(mob/user)
 	if(fulltile)
 		return TRUE
 	var/incoming_dir = get_dir(user, src)
@@ -425,7 +425,7 @@ TYPE_PROC_REF(/obj/structure/window, can_be_reached)(mob/user)
 	qdel(src)
 	update_nearby_icons()
 
-TYPE_PROC_REF(/obj/structure/window, spawnDebris)(location)
+/obj/structure/window/proc/spawnDebris(location)
 	. = list()
 	var/shard = initial(glass_type.shard_type)
 	if(shard)
@@ -437,7 +437,7 @@ TYPE_PROC_REF(/obj/structure/window, spawnDebris)(location)
 	if (reinf)
 		. += new /obj/item/stack/rods(location, (fulltile ? 2 : 1))
 
-TYPE_PROC_REF(/obj/structure/window, can_be_rotated)(mob/user,rotation_type)
+/obj/structure/window/proc/can_be_rotated(mob/user,rotation_type)
 	if (get_dist(src,user) > 1)
 		if (iscarbon(user))
 			var/mob/living/carbon/H = user
@@ -456,7 +456,7 @@ TYPE_PROC_REF(/obj/structure/window, can_be_rotated)(mob/user,rotation_type)
 		return FALSE
 	return TRUE
 
-TYPE_PROC_REF(/obj/structure/window, after_rotation)(mob/user,rotation_type)
+/obj/structure/window/proc/after_rotation(mob/user,rotation_type)
 	air_update_turf(1)
 	ini_dir = dir
 	add_fingerprint(user)
@@ -480,7 +480,7 @@ TYPE_PROC_REF(/obj/structure/window, after_rotation)(mob/user,rotation_type)
 	return !(FULLTILE_WINDOW_DIR == dir || dir == get_dir(loc, T))
 
 //This proc is used to update the icons of nearby windows.
-TYPE_PROC_REF(/obj/structure/window, update_nearby_icons)()
+/obj/structure/window/proc/update_nearby_icons()
 	update_icon()
 	if(smooth)
 		queue_smooth_neighbors(src)
@@ -803,7 +803,7 @@ TYPE_PROC_REF(/obj/structure/window, update_nearby_icons)()
 		var/previouscolor = color
 		color = "#960000"
 		animate(src, color = previouscolor, time = 8)
-		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_atom_colour)), 8)
+		addtimer(CALLBACK(src, /atom/proc/update_atom_colour), 8)
 
 /obj/structure/window/reinforced/clockwork/unanchored
 	anchored = FALSE

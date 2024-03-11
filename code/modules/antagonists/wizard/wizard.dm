@@ -26,10 +26,10 @@
 	if(allow_rename)
 		rename_wizard()
 
-TYPE_PROC_REF(/datum/antagonist/wizard, register)()
+/datum/antagonist/wizard/proc/register()
 	SSticker.mode.wizards |= owner
 
-TYPE_PROC_REF(/datum/antagonist/wizard, unregister)()
+/datum/antagonist/wizard/proc/unregister()
 	SSticker.mode.wizards -= src
 
 /datum/antagonist/wizard/create_team(datum/team/wizard/new_team)
@@ -46,13 +46,13 @@ TYPE_PROC_REF(/datum/antagonist/wizard, unregister)()
 	name = "wizard team"
 	var/datum/antagonist/wizard/master_wizard
 
-TYPE_PROC_REF(/datum/antagonist/wizard, create_wiz_team)()
+/datum/antagonist/wizard/proc/create_wiz_team()
 	wiz_team = new(owner)
 	wiz_team.name = "[owner.current.real_name] team"
 	wiz_team.master_wizard = src
 	update_wiz_icons_added(owner.current)
 
-TYPE_PROC_REF(/datum/antagonist/wizard, send_to_lair)()
+/datum/antagonist/wizard/proc/send_to_lair()
 	if(!owner || !owner.current)
 		return
 	if(!GLOB.wizardstart.len)
@@ -61,7 +61,7 @@ TYPE_PROC_REF(/datum/antagonist/wizard, send_to_lair)()
 	else
 		owner.current.forceMove(pick(GLOB.wizardstart))
 
-TYPE_PROC_REF(/datum/antagonist/wizard, create_objectives)()
+/datum/antagonist/wizard/proc/create_objectives()
 	var/datum/objective/flavor/wizard/new_objective = new
 	new_objective.owner = owner
 	new_objective.forge_objective()
@@ -77,7 +77,7 @@ TYPE_PROC_REF(/datum/antagonist/wizard, create_objectives)()
 	owner.RemoveAllSpells() // TODO keep track which spells are wizard spells which innate stuff
 	return ..()
 
-TYPE_PROC_REF(/datum/antagonist/wizard, equip_wizard)()
+/datum/antagonist/wizard/proc/equip_wizard()
 	if(!owner)
 		return
 	var/mob/living/carbon/human/H = owner.current
@@ -104,7 +104,7 @@ TYPE_PROC_REF(/datum/antagonist/wizard, equip_wizard)()
 /datum/antagonist/wizard/farewell()
 	to_chat(owner, span_userdanger("You have been brainwashed! You are no longer a wizard!"))
 
-TYPE_PROC_REF(/datum/antagonist/wizard, rename_wizard)()
+/datum/antagonist/wizard/proc/rename_wizard()
 	set waitfor = FALSE
 
 	var/wizard_name_first = pick(GLOB.wizard_first)
@@ -133,7 +133,7 @@ TYPE_PROC_REF(/datum/antagonist/wizard, rename_wizard)()
 	. = ..()
 	.["Send to Lair"] = CALLBACK(src,PROC_REF(admin_send_to_lair))
 
-TYPE_PROC_REF(/datum/antagonist/wizard, admin_send_to_lair)(mob/admin)
+/datum/antagonist/wizard/proc/admin_send_to_lair(mob/admin)
 	owner.current.forceMove(pick(GLOB.wizardstart))
 
 /datum/antagonist/wizard/apprentice
@@ -224,12 +224,12 @@ TYPE_PROC_REF(/datum/antagonist/wizard, admin_send_to_lair)(mob/admin)
 	owner.AddSpell(new /obj/effect/proc_holder/spell/targeted/turf_teleport/blink(null))
 	owner.AddSpell(new /obj/effect/proc_holder/spell/targeted/ethereal_jaunt(null))
 
-TYPE_PROC_REF(/datum/antagonist/wizard, update_wiz_icons_added)(mob/living/wiz,join = TRUE)
+/datum/antagonist/wizard/proc/update_wiz_icons_added(mob/living/wiz,join = TRUE)
 	var/datum/atom_hud/antag/wizhud = GLOB.huds[ANTAG_HUD_WIZ]
 	wizhud.join_hud(wiz)
 	set_antag_hud(wiz, hud_version)
 
-TYPE_PROC_REF(/datum/antagonist/wizard, update_wiz_icons_removed)(mob/living/wiz)
+/datum/antagonist/wizard/proc/update_wiz_icons_removed(mob/living/wiz)
 	var/datum/atom_hud/antag/wizhud = GLOB.huds[ANTAG_HUD_WIZ]
 	wizhud.leave_hud(wiz)
 	set_antag_hud(wiz, null)

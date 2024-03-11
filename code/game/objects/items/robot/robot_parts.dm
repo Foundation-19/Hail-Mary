@@ -54,7 +54,7 @@
 	if(head)
 		. += "[head.icon_state]+o"
 
-TYPE_PROC_REF(/obj/item/robot_suit, check_completion)()
+/obj/item/robot_suit/proc/check_completion()
 	if(src.l_arm && src.r_arm)
 		if(src.l_leg && src.r_leg)
 			if(src.chest && src.head)
@@ -98,7 +98,7 @@ TYPE_PROC_REF(/obj/item/robot_suit, check_completion)()
 		to_chat(user, span_notice("There is nothing to remove from the endoskeleton."))
 	update_icon()
 
-TYPE_PROC_REF(/obj/item/robot_suit, put_in_hand_or_drop)(mob/living/user, obj/item/I) //normal put_in_hands() drops the item ontop of the player, this drops it at the suit's loc
+/obj/item/robot_suit/proc/put_in_hand_or_drop(mob/living/user, obj/item/I) //normal put_in_hands() drops the item ontop of the player, this drops it at the suit's loc
 	if(!user.put_in_hands(I))
 		I.forceMove(drop_location())
 		return FALSE
@@ -362,7 +362,7 @@ TYPE_PROC_REF(/obj/item/robot_suit, put_in_hand_or_drop)(mob/living/user, obj/it
 	else
 		return ..()
 
-TYPE_PROC_REF(/obj/item/robot_suit, Interact)(mob/user)
+/obj/item/robot_suit/proc/Interact(mob/user)
 			var/t1 = "Designation: <A href='?src=[REF(src)];Name=1'>[(created_name ? "[created_name]" : "Default Cyborg")]</a><br>\n"
 			t1 += "Master AI: <A href='?src=[REF(src)];Master=1'>[(forced_ai ? "[forced_ai.name]" : "Automatic")]</a><br><br>\n"
 

@@ -88,12 +88,12 @@ Runes can either be invoked by one's self or with many different cultists. Each 
 		else
 			to_chat(M, span_warning("You are unable to invoke the rune!"))
 
-TYPE_PROC_REF(/obj/effect/rune, conceal)() //for talisman of revealing/hiding
+/obj/effect/rune/proc/conceal() //for talisman of revealing/hiding
 	visible_message(span_danger("[src] fades away."))
 	invisibility = INVISIBILITY_OBSERVER
 	alpha = 100 //To help ghosts distinguish hidden runes
 
-TYPE_PROC_REF(/obj/effect/rune, reveal)() //for talisman of revealing/hiding
+/obj/effect/rune/proc/reveal() //for talisman of revealing/hiding
 	invisibility = 0
 	visible_message(span_danger("[src] suddenly appears!"))
 	alpha = initial(alpha)
@@ -108,7 +108,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 
 */
 
-TYPE_PROC_REF(/obj/effect/rune, can_invoke)(mob/living/user=null)
+/obj/effect/rune/proc/can_invoke(mob/living/user=null)
 	//This proc determines if the rune can be invoked at the time. If there are multiple required cultists, it will find all nearby cultists.
 	var/list/invokers = list() //people eligible to invoke the rune
 	if(user)
@@ -129,7 +129,7 @@ TYPE_PROC_REF(/obj/effect/rune, can_invoke)(mob/living/user=null)
 				invokers += L
 	return invokers
 
-TYPE_PROC_REF(/obj/effect/rune, invoke)(list/invokers)
+/obj/effect/rune/proc/invoke(list/invokers)
 	//This proc contains the effects of the rune as well as things that happen afterwards. If you want it to spawn an object and then delete itself, have both here.
 	for(var/M in invokers)
 		if(isliving(M))
@@ -144,19 +144,19 @@ TYPE_PROC_REF(/obj/effect/rune, invoke)(list/invokers)
 			P.visible_message("<span class='cult italic'>[P] squeaks loudly!</span>")
 	do_invoke_glow()
 
-TYPE_PROC_REF(/obj/effect/rune, do_invoke_glow)()
+/obj/effect/rune/proc/do_invoke_glow()
 	set waitfor = FALSE
 	animate(src, transform = matrix()*2, alpha = 0, time = 5, flags = ANIMATION_END_NOW) //fade out
 	sleep(5)
 	animate(src, transform = matrix(), alpha = 255, time = 0, flags = ANIMATION_END_NOW)
 
-TYPE_PROC_REF(/obj/effect/rune, fail_invoke)()
+/obj/effect/rune/proc/fail_invoke()
 	//This proc contains the effects of a rune if it is not invoked correctly, through either invalid wording or not enough cultists. By default, it's just a basic fizzle.
 	visible_message(span_warning("The markings pulse with a small flash of red light, then fall dark."))
 	var/oldcolor = color
 	color = rgb(255, 0, 0)
 	animate(src, color = oldcolor, time = 5)
-	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_atom_colour)), 5)
+	addtimer(CALLBACK(src, /atom/proc/update_atom_colour), 5)
 
 //Malformed Rune: This forms if a rune is not drawn correctly. Invoking it does nothing but hurt the user.
 /obj/effect/rune/malformed
@@ -227,11 +227,11 @@ TYPE_PROC_REF(/obj/effect/rune, fail_invoke)()
 		..()
 		do_sacrifice(L, invokers)
 	animate(src, color = oldcolor, time = 5)
-	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_atom_colour)), 5)
+	addtimer(CALLBACK(src, /atom/proc/update_atom_colour), 5)
 	Cult_team.check_size() // Triggers the eye glow or aura effects if the cult has grown large enough relative to the crew
 	rune_in_use = FALSE
 
-TYPE_PROC_REF(/obj/effect/rune/convert, do_convert)(mob/living/convertee, list/invokers)
+/obj/effect/rune/convert/proc/do_convert(mob/living/convertee, list/invokers)
 	if(invokers.len < 2)
 		for(var/M in invokers)
 			to_chat(M, span_warning("You need at least two invokers to convert [convertee]!"))
@@ -264,7 +264,7 @@ TYPE_PROC_REF(/obj/effect/rune/convert, do_convert)(mob/living/convertee, list/i
 		H.cultslurring = 0
 	return 1
 
-TYPE_PROC_REF(/obj/effect/rune/convert, do_sacrifice)(mob/living/sacrificial, list/invokers)
+/obj/effect/rune/convert/proc/do_sacrifice(mob/living/sacrificial, list/invokers)
 	var/mob/living/first_invoker = invokers[1]
 	if(!first_invoker)
 		return FALSE
@@ -421,7 +421,7 @@ TYPE_PROC_REF(/obj/effect/rune/convert, do_sacrifice)(mob/living/sacrificial, li
 	else
 		fail_invoke()
 
-TYPE_PROC_REF(/obj/effect/rune/teleport, handle_portal)(portal_type, turf/origin)
+/obj/effect/rune/teleport/proc/handle_portal(portal_type, turf/origin)
 	var/turf/T = get_turf(src)
 	close_portal() // To avoid stacking descriptions/animations
 	playsound(T, pick('sound/effects/sparks1.ogg', 'sound/effects/sparks2.ogg', 'sound/effects/sparks3.ogg', 'sound/effects/sparks4.ogg'), 100, TRUE, 14)
@@ -438,7 +438,7 @@ TYPE_PROC_REF(/obj/effect/rune/teleport, handle_portal)(portal_type, turf/origin
 	update_light()
 	addtimer(CALLBACK(src, PROC_REF(close_portal)), 600, TIMER_UNIQUE)
 
-TYPE_PROC_REF(/obj/effect/rune/teleport, close_portal)()
+/obj/effect/rune/teleport/proc/close_portal()
 	qdel(inner_portal)
 	qdel(outer_portal)
 	desc = initial(desc)
@@ -589,7 +589,7 @@ TYPE_PROC_REF(/obj/effect/rune/teleport, close_portal)()
 								  span_cultlarge("You awaken suddenly from the void. You're alive!"))
 	rune_in_use = FALSE
 
-TYPE_PROC_REF(/obj/effect/rune/raise_dead, validness_checks)(mob/living/target_mob, mob/living/user)
+/obj/effect/rune/raise_dead/proc/validness_checks(mob/living/target_mob, mob/living/user)
 	var/turf/T = get_turf(src)
 	if(QDELETED(user))
 		return FALSE
@@ -655,7 +655,7 @@ TYPE_PROC_REF(/obj/effect/rune/raise_dead, validness_checks)(mob/living/target_m
 		var/mob/living/carbon/C = user
 		C.apply_damage(2, BRUTE, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM))
 
-TYPE_PROC_REF(/obj/effect/rune/wall, spread_density)()
+/obj/effect/rune/wall/proc/spread_density()
 	for(var/R in GLOB.wall_runes)
 		var/obj/effect/rune/wall/W = R
 		if(W.z == z && get_dist(src, W) <= 2 && !W.density && !W.recharging)
@@ -664,7 +664,7 @@ TYPE_PROC_REF(/obj/effect/rune/wall, spread_density)()
 			W.spread_density()
 	density_timer = addtimer(CALLBACK(src, PROC_REF(lose_density)), 3000, TIMER_STOPPABLE)
 
-TYPE_PROC_REF(/obj/effect/rune/wall, lose_density)()
+/obj/effect/rune/wall/proc/lose_density()
 	if(density)
 		recharging = TRUE
 		density = FALSE
@@ -674,11 +674,11 @@ TYPE_PROC_REF(/obj/effect/rune/wall, lose_density)()
 		animate(src, color = oldcolor, time = 50, easing = EASE_IN)
 		addtimer(CALLBACK(src, PROC_REF(recharge)), 50)
 
-TYPE_PROC_REF(/obj/effect/rune/wall, recharge)()
+/obj/effect/rune/wall/proc/recharge()
 	recharging = FALSE
 	add_atom_colour(RUNE_COLOR_MEDIUMRED, FIXED_COLOUR_PRIORITY)
 
-TYPE_PROC_REF(/obj/effect/rune/wall, update_state)()
+/obj/effect/rune/wall/proc/update_state()
 	deltimer(density_timer)
 	air_update_turf(1)
 	if(density)
@@ -797,7 +797,7 @@ TYPE_PROC_REF(/obj/effect/rune/wall, update_state)()
 	new /obj/effect/hotspot(T)
 	qdel(src)
 
-TYPE_PROC_REF(/obj/effect/rune/blood_boil, do_area_burn)(turf/T, multiplier)
+/obj/effect/rune/blood_boil/proc/do_area_burn(turf/T, multiplier)
 	set_light(6, 1, color)
 	for(var/mob/living/L in viewers(T))
 		if(!iscultist(L) && L.blood_volume)
@@ -994,7 +994,7 @@ TYPE_PROC_REF(/obj/effect/rune/blood_boil, do_area_burn)(turf/T, multiplier)
 			var/image/A = image('icons/mob/mob.dmi',M,"cultist", ABOVE_MOB_LAYER)
 			A.override = 1
 			add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/noncult, "human_apoc", A, FALSE)
-			addtimer(CALLBACK(M,TYPE_PROC_REF(/atom, remove_alt_appearance),"human_apoc",TRUE), duration)
+			addtimer(CALLBACK(M,/atom/.proc/remove_alt_appearance,"human_apoc",TRUE), duration)
 			images += A
 			SEND_SOUND(M, pick(sound('sound/ambience/antag/bloodcult.ogg'),sound('sound/spookoween/ghost_whisper.ogg'),sound('sound/spookoween/ghosty_wind.ogg')))
 		else
@@ -1002,13 +1002,13 @@ TYPE_PROC_REF(/obj/effect/rune/blood_boil, do_area_burn)(turf/T, multiplier)
 			var/image/B = image('icons/mob/mob.dmi',M,construct, ABOVE_MOB_LAYER)
 			B.override = 1
 			add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/noncult, "mob_apoc", B, FALSE)
-			addtimer(CALLBACK(M,TYPE_PROC_REF(/atom, remove_alt_appearance),"mob_apoc",TRUE), duration)
+			addtimer(CALLBACK(M,/atom/.proc/remove_alt_appearance,"mob_apoc",TRUE), duration)
 			images += B
 		if(!iscultist(M))
 			if(M.client)
 				var/image/C = image('icons/effects/cult_effects.dmi',M,"bloodsparkles", ABOVE_MOB_LAYER)
 				add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/cult, "cult_apoc", C, FALSE)
-				addtimer(CALLBACK(M,TYPE_PROC_REF(/atom, remove_alt_appearance),"cult_apoc",TRUE), duration)
+				addtimer(CALLBACK(M,/atom/.proc/remove_alt_appearance,"cult_apoc",TRUE), duration)
 				images += C
 		else
 			to_chat(M, span_cultlarge("An Apocalypse Rune was invoked in the [place.name], it is no longer available as a summoning site!"))
@@ -1058,7 +1058,7 @@ TYPE_PROC_REF(/obj/effect/rune/blood_boil, do_area_burn)(turf/T, multiplier)
 				N.runEvent()
 	qdel(src)
 
-TYPE_PROC_REF(/obj/effect/rune/apocalypse, image_handler)(list/images, duration)
+/obj/effect/rune/apocalypse/proc/image_handler(list/images, duration)
 	var/end = world.time + duration
 	set waitfor = 0
 	while(end>world.time)

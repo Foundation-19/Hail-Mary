@@ -21,7 +21,7 @@
 	to_chat(imp_in,span_notice("You turn [toggled ? "on" : "off"] [src]'s silicon interactions."))
 	toggle_eyes()
 
-TYPE_PROC_REF(/obj/item/implant/hijack, toggle_eyes)()
+/obj/item/implant/hijack/proc/toggle_eyes()
 	if (!ishuman(imp_in))
 		return
 	var/on = toggled && !stealthmode
@@ -57,7 +57,7 @@ TYPE_PROC_REF(/obj/item/implant/hijack, toggle_eyes)()
 			H.right_eye_color = left_eye_color
 		return TRUE
 
-TYPE_PROC_REF(/obj/item/implant/hijack, InterceptClickOn)(mob/living/user,params,atom/object)
+/obj/item/implant/hijack/proc/InterceptClickOn(mob/living/user,params,atom/object)
 	if (isitem(object) || !toggled || user.incapacitated())
 		return
 	if (stealthmode == FALSE && istype(object,/obj/machinery/power/apc) && !user.can_reach(object))
@@ -89,7 +89,7 @@ TYPE_PROC_REF(/obj/item/implant/hijack, InterceptClickOn)(mob/living/user,params
 		object.attack_ai(imp_in)
 	return TRUE
 
-TYPE_PROC_REF(/obj/item/implant/hijack, hijack_remotely)(obj/machinery/power/apc/apc)
+/obj/item/implant/hijack/proc/hijack_remotely(obj/machinery/power/apc/apc)
 	if (apc.hijacker || hijacking)
 		return FALSE //can't remotely hijack an already hijacked APC
 

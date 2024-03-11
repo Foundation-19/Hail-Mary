@@ -67,7 +67,7 @@
 	to_chat(owner.current, span_notice("[greet_text]"))
 	owner.announce_objectives()
 
-TYPE_PROC_REF(/datum/antagonist/abductor, finalize_abductor)()
+/datum/antagonist/abductor/proc/finalize_abductor()
 	//Equip
 	var/mob/living/carbon/human/H = owner.current
 	H.set_species(/datum/species/abductor)
@@ -114,7 +114,7 @@ TYPE_PROC_REF(/datum/antagonist/abductor, finalize_abductor)()
 	. = ..()
 	.["Equip"] = CALLBACK(src,PROC_REF(admin_equip))
 
-TYPE_PROC_REF(/datum/antagonist/abductor, admin_equip)(mob/admin)
+/datum/antagonist/abductor/proc/admin_equip(mob/admin)
 	if(!ishuman(owner.current))
 		to_chat(admin, span_warning("This only works on humans!"))
 		return
@@ -141,7 +141,7 @@ TYPE_PROC_REF(/datum/antagonist/abductor, admin_equip)(mob/admin)
 /datum/team/abductor_team/is_solo()
 	return FALSE
 
-TYPE_PROC_REF(/datum/team/abductor_team, add_objective)(datum/objective/O)
+/datum/team/abductor_team/proc/add_objective(datum/objective/O)
 	O.team = src
 	O.update_explanation_text()
 	objectives += O
@@ -190,12 +190,12 @@ TYPE_PROC_REF(/datum/team/abductor_team, add_objective)(datum/objective/O)
 			return E.points >= target_amount
 	return FALSE
 
-TYPE_PROC_REF(/datum/antagonist, update_abductor_icons_added)(datum/mind/alien_mind,hud_type)
+/datum/antagonist/proc/update_abductor_icons_added(datum/mind/alien_mind,hud_type)
 	var/datum/atom_hud/antag/hud = GLOB.huds[ANTAG_HUD_ABDUCTOR]
 	hud.join_hud(alien_mind.current)
 	set_antag_hud(alien_mind.current, hud_type)
 
-TYPE_PROC_REF(/datum/antagonist, update_abductor_icons_removed)(datum/mind/alien_mind)
+/datum/antagonist/proc/update_abductor_icons_removed(datum/mind/alien_mind)
 	var/datum/atom_hud/antag/hud = GLOB.huds[ANTAG_HUD_ABDUCTOR]
 	hud.leave_hud(alien_mind.current)
 	set_antag_hud(alien_mind.current, null)

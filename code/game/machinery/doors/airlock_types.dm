@@ -220,7 +220,7 @@
 		last_event = world.time
 	..()
 
-TYPE_PROC_REF(/obj/machinery/door/airlock/uranium, radiate)()
+/obj/machinery/door/airlock/uranium/proc/radiate()
 	radiation_pulse(get_turf(src), 150)
 	return
 
@@ -238,11 +238,11 @@ TYPE_PROC_REF(/obj/machinery/door/airlock/uranium, radiate)()
 	if(exposed_temperature > 300)
 		PlasmaBurn(exposed_temperature)
 
-TYPE_PROC_REF(/obj/machinery/door/airlock/plasma, ignite)(exposed_temperature)
+/obj/machinery/door/airlock/plasma/proc/ignite(exposed_temperature)
 	if(exposed_temperature > 300)
 		PlasmaBurn(exposed_temperature)
 
-TYPE_PROC_REF(/obj/machinery/door/airlock/plasma, PlasmaBurn)(temperature)
+/obj/machinery/door/airlock/plasma/proc/PlasmaBurn(temperature)
 	atmos_spawn_air("plasma=500;TEMP=1000")
 	var/obj/structure/door_assembly/DA
 	DA = new /obj/structure/door_assembly(loc)
@@ -513,7 +513,7 @@ TYPE_PROC_REF(/obj/machinery/door/airlock/plasma, PlasmaBurn)(temperature)
 			L.throw_at(throwtarget, 5, 1)
 		return 0
 
-TYPE_PROC_REF(/obj/machinery/door/airlock/cult, conceal)()
+/obj/machinery/door/airlock/cult/proc/conceal()
 	icon = 'icons/obj/doors/airlocks/station/maintenance.dmi'
 	overlays_file = 'icons/obj/doors/airlocks/station/overlays.dmi'
 	name = "airlock"
@@ -521,7 +521,7 @@ TYPE_PROC_REF(/obj/machinery/door/airlock/cult, conceal)()
 	stealthy = TRUE
 	update_icon()
 
-TYPE_PROC_REF(/obj/machinery/door/airlock/cult, reveal)()
+/obj/machinery/door/airlock/cult/proc/reveal()
 	icon = initial(icon)
 	overlays_file = initial(overlays_file)
 	name = initial(name)
@@ -617,7 +617,7 @@ TYPE_PROC_REF(/obj/machinery/door/airlock/cult, reveal)()
 		var/previouscolor = color
 		color = "#960000"
 		animate(src, color = previouscolor, time = 8)
-		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_atom_colour)), 8)
+		addtimer(CALLBACK(src, /atom/proc/update_atom_colour), 8)
 
 /obj/machinery/door/airlock/clockwork/attackby(obj/item/I, mob/living/user, params)
 	if(!attempt_construction(I, user))
@@ -645,7 +645,7 @@ TYPE_PROC_REF(/obj/machinery/door/airlock/cult, reveal)()
 		new/obj/item/clockwork/alloy_shards/pinion_lock(T)
 	qdel(src)
 
-TYPE_PROC_REF(/obj/machinery/door/airlock/clockwork, attempt_construction)(obj/item/I, mob/living/user)
+/obj/machinery/door/airlock/clockwork/proc/attempt_construction(obj/item/I, mob/living/user)
 	if(!I || !user || !user.canUseTopic(src))
 		return 0
 	else if(istype(I, /obj/item/wrench))

@@ -158,15 +158,15 @@
 	data["isoccupant"] = (user == occupant)
 	return data
 
-TYPE_PROC_REF(/obj/machinery/vr_sleeper, get_vr_spawnpoint)() //proc so it can be overridden for team games or something
+/obj/machinery/vr_sleeper/proc/get_vr_spawnpoint() //proc so it can be overridden for team games or something
 	return safepick(GLOB.vr_spawnpoints[vr_category])
 
-TYPE_PROC_REF(/obj/machinery/vr_sleeper, build_spawnpoints)() // used to rebuild the list for admins if need be
+/obj/machinery/vr_sleeper/proc/build_spawnpoints() // used to rebuild the list for admins if need be
 	GLOB.vr_spawnpoints = list()
 	for(var/obj/effect/landmark/vr_spawn/V in GLOB.landmarks_list)
 		GLOB.vr_spawnpoints[V.vr_category] = V
 
-TYPE_PROC_REF(/obj/machinery/vr_sleeper, new_player)(mob/M, location, datum/outfit/outfit, transfer = TRUE)
+/obj/machinery/vr_sleeper/proc/new_player(mob/M, location, datum/outfit/outfit, transfer = TRUE)
 	if(!M)
 		return
 	cleanup_vr_mob()
@@ -186,17 +186,17 @@ TYPE_PROC_REF(/obj/machinery/vr_sleeper, new_player)(mob/M, location, datum/outf
 	else
 		to_chat(M, span_notice("Transfer failed! virtual reality data likely corrupted!"))
 
-TYPE_PROC_REF(/obj/machinery/vr_sleeper, unset_vr_mob)(datum/component/virtual_reality/VR)
+/obj/machinery/vr_sleeper/proc/unset_vr_mob(datum/component/virtual_reality/VR)
 	vr_mob = null
 
-TYPE_PROC_REF(/obj/machinery/vr_sleeper, set_vr_mob)(datum/component/virtual_reality/VR)
+/obj/machinery/vr_sleeper/proc/set_vr_mob(datum/component/virtual_reality/VR)
 	vr_mob = VR.parent
 
-TYPE_PROC_REF(/obj/machinery/vr_sleeper, cleanup_vr_mob)()
+/obj/machinery/vr_sleeper/proc/cleanup_vr_mob()
 	if(vr_mob)
 		QDEL_NULL(vr_mob)
 
-TYPE_PROC_REF(/obj/machinery/vr_sleeper, emagNotify)()
+/obj/machinery/vr_sleeper/proc/emagNotify()
 	if(vr_mob)
 		vr_mob.Dizzy(10)
 
@@ -271,7 +271,7 @@ TYPE_PROC_REF(/obj/machinery/vr_sleeper, emagNotify)()
 		return INITIALIZE_HINT_QDEL
 	addtimer(CALLBACK(src, PROC_REF(clean_up)), 3 MINUTES, TIMER_LOOP)
 
-TYPE_PROC_REF(/obj/effect/vr_clean_master, clean_up)()
+/obj/effect/vr_clean_master/proc/clean_up()
 	if (!vr_area)
 		qdel(src)
 		return

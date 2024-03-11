@@ -63,7 +63,7 @@
 	/// How much we're contributing to this limb's bleed_rate
 	var/blood_flow
 
-	/// The minimum we need to roll on [TYPE_PROC_REF(/obj/item/bodypart, check_wounding)()] to begin suffering this wound, see check_wounding_mods() for more
+	/// The minimum we need to roll on [/obj/item/bodypart/proc/check_wounding()] to begin suffering this wound, see check_wounding_mods() for more
 	var/threshold_minimum
 	/// How much having this wound will add to all future check_wounding() rolls on this limb, to allow progression to worse injuries with repeated damage
 	var/threshold_penalty
@@ -111,7 +111,7 @@
  * * old_wound: If our new wound is a replacement for one of the same time (promotion or demotion), we can reference the old one just before it's removed to copy over necessary vars
  * * smited- If this is a smite, we don't care about this wound for stat tracking purposes (not yet implemented)
  */
-TYPE_PROC_REF(/datum/wound, apply_wound)(obj/item/bodypart/L, silent = FALSE, datum/wound/old_wound = null, smited = FALSE)
+/datum/wound/proc/apply_wound(obj/item/bodypart/L, silent = FALSE, datum/wound/old_wound = null, smited = FALSE)
 	if(!istype(L) || !L.owner || !(L.body_zone in viable_zones) || isalien(L.owner) || !(L.is_organic_limb() || L.render_like_organic))
 		qdel(src)
 		return
@@ -165,7 +165,7 @@ TYPE_PROC_REF(/datum/wound, apply_wound)(obj/item/bodypart/L, silent = FALSE, da
 		second_wind()
 
 /// Remove the wound from whatever it's afflicting, and cleans up whateverstatus effects it had or modifiers it had on interaction times. ignore_limb is used for detachments where we only want to forget the victim
-TYPE_PROC_REF(/datum/wound, remove_wound)(ignore_limb, replaced = FALSE)
+/datum/wound/proc/remove_wound(ignore_limb, replaced = FALSE)
 	//TODO: have better way to tell if we're getting removed without replacement (full heal) scar stuff
 	if(limb && !already_scarred && !replaced)
 		already_scarred = TRUE
@@ -189,7 +189,7 @@ TYPE_PROC_REF(/datum/wound, remove_wound)(ignore_limb, replaced = FALSE)
  * * new_type- The TYPE PATH of the wound you want to replace this, like /datum/wound/bleed/slash/severe
  * * smited- If this is a smite, we don't care about this wound for stat tracking purposes (not yet implemented)
  */
-TYPE_PROC_REF(/datum/wound, replace_wound)(new_type, smited = FALSE)
+/datum/wound/proc/replace_wound(new_type, smited = FALSE)
 	var/datum/wound/new_wound = new new_type
 	already_scarred = TRUE
 	remove_wound(replaced=TRUE)
@@ -198,11 +198,11 @@ TYPE_PROC_REF(/datum/wound, replace_wound)(new_type, smited = FALSE)
 	return new_wound
 
 /// The immediate negative effects faced as a result of the wound
-TYPE_PROC_REF(/datum/wound, wound_injury)(datum/wound/old_wound = null)
+/datum/wound/proc/wound_injury(datum/wound/old_wound = null)
 	return
 
 /// Additional beneficial effects when the wound is gained, in case you want to give a temporary boost to allow the victim to try an escape or last stand
-TYPE_PROC_REF(/datum/wound, second_wind)()
+/datum/wound/proc/second_wind()
 	var/add_determ
 	switch(severity)
 		if(WOUND_SEVERITY_TRIVIAL)
@@ -220,16 +220,16 @@ TYPE_PROC_REF(/datum/wound, second_wind)()
 	victim.reagents.add_reagent(/datum/reagent/determination, add_determ)
 
 /**
- * try_treating() is an intercept run from [TYPE_PROC_REF(/mob/living/carbon, attackby)] right after surgeries but before anything else. Return TRUE here if the item is something that is relevant to treatment to take over the interaction.
+ * try_treating() is an intercept run from [/mob/living/carbon/proc/attackby] right after surgeries but before anything else. Return TRUE here if the item is something that is relevant to treatment to take over the interaction.
  *
- * This proc leads into [TYPE_PROC_REF(/datum/wound, treat)] and probably shouldn't be added onto in children types. You can specify what items or tools you want to be intercepted
+ * This proc leads into [/datum/wound/proc/treat] and probably shouldn't be added onto in children types. You can specify what items or tools you want to be intercepted
  * with var/list/treatable_by and var/treatable_tool, then if an item fulfills one of those requirements and our wound claims it first, it goes over to treat() and treat_self().
  *
  * Arguments:
  * * I: The item we're trying to use
  * * user: The mob trying to use it on us
  */
-TYPE_PROC_REF(/datum/wound, try_treating)(obj/item/I, mob/user)
+/datum/wound/proc/try_treating(obj/item/I, mob/user)
 	// first we weed out if we're not dealing with our wound's bodypart, or if it might be an attack
 	if(!I || limb.body_zone != user.zone_selected || (I.force && user.a_intent != INTENT_HELP))
 		return FALSE
@@ -265,7 +265,7 @@ TYPE_PROC_REF(/datum/wound, try_treating)(obj/item/I, mob/user)
 /// Generic bleed wound treatment from whatever'll allow it
 /// No messages, damage healing, or thing usage, they'll be handled on the item doing the healing
 /// Currently unused
-TYPE_PROC_REF(/datum/wound, treat_bleed)(obj/item/stack/medical/I, mob/user, self_applied = 0, effectiveness)
+/datum/wound/proc/treat_bleed(obj/item/stack/medical/I, mob/user, self_applied = 0, effectiveness)
 	if(!I.is_suture)
 		return
 	var/blood_sutured = I.is_suture * (I.self_penalty_effectiveness * self_applied * effectiveness)
@@ -277,58 +277,58 @@ TYPE_PROC_REF(/datum/wound, treat_bleed)(obj/item/stack/medical/I, mob/user, sel
 	else
 		to_chat(user, span_notice("You reduce the bleeding in [self_applied ? "your" : "[victim]'s"] [limb.name]."))
 
-/// Return TRUE if we have an item that can only be used while aggro grabbed (unhanded aggro grab treatments go in [TYPE_PROC_REF(/datum/wound, try_handling)]). Treatment is still is handled in [TYPE_PROC_REF(/datum/wound, treat)]
-TYPE_PROC_REF(/datum/wound, check_grab_treatments)(obj/item/I, mob/user)
+/// Return TRUE if we have an item that can only be used while aggro grabbed (unhanded aggro grab treatments go in [/datum/wound/proc/try_handling]). Treatment is still is handled in [/datum/wound/proc/treat]
+/datum/wound/proc/check_grab_treatments(obj/item/I, mob/user)
 	return FALSE
 
 /// Like try_treating() but for unhanded interactions from humans, used by joint dislocations for manual bodypart chiropractice for example.
-TYPE_PROC_REF(/datum/wound, try_handling)(mob/living/carbon/human/user)
+/datum/wound/proc/try_handling(mob/living/carbon/human/user)
 	return FALSE
 
 /// Someone is using something that might be used for treating the wound on this limb
-TYPE_PROC_REF(/datum/wound, treat)(obj/item/I, mob/user)
+/datum/wound/proc/treat(obj/item/I, mob/user)
 	return
 
 /// If var/processing is TRUE, this is run on each life tick
-TYPE_PROC_REF(/datum/wound, handle_process)()
+/datum/wound/proc/handle_process()
 	return
 
 /// For use in do_after callback checks
-TYPE_PROC_REF(/datum/wound, still_exists)()
+/datum/wound/proc/still_exists()
 	return (!QDELETED(src) && limb)
 
 /// When our parent bodypart is hurt
-TYPE_PROC_REF(/datum/wound, receive_damage)(wounding_type, wounding_dmg, wound_bonus)
+/datum/wound/proc/receive_damage(wounding_type, wounding_dmg, wound_bonus)
 	return
 
 /// Called from cryoxadone and pyroxadone when they're proc'ing. Wounds will slowly be fixed separately from other methods when these are in effect. crappy name but eh
-TYPE_PROC_REF(/datum/wound, on_xadone)(power)
+/datum/wound/proc/on_xadone(power)
 	cryo_progress += power
 	if(cryo_progress > 33 * severity)
 		qdel(src)
 
 /// When synthflesh is applied to the victim, we call this. No sense in setting up an entire chem reaction system for wounds when we only care for a few chems. Probably will change in the future
-TYPE_PROC_REF(/datum/wound, on_synthflesh)(power)
+/datum/wound/proc/on_synthflesh(power)
 	return
 
 /// Called when the patient is undergoing stasis, so that having fully treated a wound doesn't make you sit there helplessly until you think to unbuckle them
-TYPE_PROC_REF(/datum/wound, on_stasis)()
+/datum/wound/proc/on_stasis()
 	return
 
 /// Called when we're crushed in an airlock or firedoor, for one of the improvised joint dislocation fixes
-TYPE_PROC_REF(/datum/wound, crush)()
+/datum/wound/proc/crush()
 	return
 
 /// Called when we want to update our wounds, only matters on bleeds right now
-TYPE_PROC_REF(/datum/wound, update_wound)()
+/datum/wound/proc/update_wound()
 	return
 
 /// Used when we're being dragged while bleeding, the value we return is how much bloodloss this wound causes from being dragged. Since it's a proc, you can let bandages soak some of the blood
-TYPE_PROC_REF(/datum/wound, drag_bleed_amount)()
+/datum/wound/proc/drag_bleed_amount()
 	return
 
 /// Returns how much the wound should be bleeding given an amount of blood, so we can scale bleeding for minor wounds
-TYPE_PROC_REF(/datum/wound, get_blood_flow)(include_reductions = FALSE)
+/datum/wound/proc/get_blood_flow(include_reductions = FALSE)
 	return blood_flow
 
 /**
@@ -339,14 +339,14 @@ TYPE_PROC_REF(/datum/wound, get_blood_flow)(include_reductions = FALSE)
  * Arguments:
  * * mob/user: The user examining the wound's owner, if that matters
  */
-TYPE_PROC_REF(/datum/wound, get_examine_description)(mob/user)
+/datum/wound/proc/get_examine_description(mob/user)
 	. = "[victim.p_their(TRUE)] [limb.name] [examine_desc]"
 	. = severity <= WOUND_SEVERITY_MODERATE ? "[.]." : "<B>[.]!</B>"
 
-TYPE_PROC_REF(/datum/wound, get_scanner_description)(mob/user)
+/datum/wound/proc/get_scanner_description(mob/user)
 	return "Type: [name]\nSeverity: [severity_text()]\nDescription: [desc]\nRecommended Treatment: [treat_text]"
 
-TYPE_PROC_REF(/datum/wound, severity_text)()
+/datum/wound/proc/severity_text()
 	switch(severity)
 		if(WOUND_SEVERITY_TRIVIAL)
 			return "Trivial"

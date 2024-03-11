@@ -112,7 +112,7 @@
 	cell = null
 	return ..()
 
-TYPE_PROC_REF(/mob/living/silicon/robot, pick_module)()
+/mob/living/silicon/robot/proc/pick_module()
 	if(module.type != /obj/item/robot_module)
 		return
 
@@ -143,7 +143,7 @@ TYPE_PROC_REF(/mob/living/silicon/robot, pick_module)()
 	module.transform_to(modulelist[input_module])
 
 
-TYPE_PROC_REF(/mob/living/silicon/robot, updatename)(client/C)
+/mob/living/silicon/robot/proc/updatename(client/C)
 	if(shell)
 		return
 	if(!C)
@@ -162,7 +162,7 @@ TYPE_PROC_REF(/mob/living/silicon/robot, updatename)(client/C)
 	if(!QDELETED(builtInCamera))
 		builtInCamera.c_tag = real_name	//update the camera name too
 
-TYPE_PROC_REF(/mob/living/silicon/robot, get_standard_name)()
+/mob/living/silicon/robot/proc/get_standard_name()
 	return "[(designation ? "[designation] " : "")][mmi.braintype]-[ident]"
 
 /mob/living/silicon/robot/verb/cmd_robot_alerts()
@@ -173,7 +173,7 @@ TYPE_PROC_REF(/mob/living/silicon/robot, get_standard_name)()
 		return //won't work if dead
 	robot_alerts()
 
-TYPE_PROC_REF(/mob/living/silicon/robot, robot_alerts)()
+/mob/living/silicon/robot/proc/robot_alerts()
 	var/dat = ""
 	for (var/cat in alarms)
 		dat += text("<B>[cat]</B><BR>\n")
@@ -193,7 +193,7 @@ TYPE_PROC_REF(/mob/living/silicon/robot, robot_alerts)()
 	alerts.set_content(dat)
 	alerts.open()
 
-TYPE_PROC_REF(/mob/living/silicon/robot, ionpulse)()
+/mob/living/silicon/robot/proc/ionpulse()
 	if(!ionpulse_on)
 		return
 
@@ -204,7 +204,7 @@ TYPE_PROC_REF(/mob/living/silicon/robot, ionpulse)()
 	cell.charge -= 10
 	return TRUE
 
-TYPE_PROC_REF(/mob/living/silicon/robot, toggle_ionpulse)()
+/mob/living/silicon/robot/proc/toggle_ionpulse()
 	if(!ionpulse)
 		to_chat(src, span_notice("No thrusters are installed!"))
 		return
@@ -289,7 +289,7 @@ TYPE_PROC_REF(/mob/living/silicon/robot, toggle_ionpulse)()
 		return FALSE
 	return ISINRANGE(T1.x, T0.x - interaction_range, T0.x + interaction_range) && ISINRANGE(T1.y, T0.y - interaction_range, T0.y + interaction_range)
 
-TYPE_PROC_REF(/mob/living/silicon/robot, attempt_welder_repair)(obj/item/weldingtool/W, mob/user)
+/mob/living/silicon/robot/proc/attempt_welder_repair(obj/item/weldingtool/W, mob/user)
 	if (!getBruteLoss())
 		to_chat(user, span_warning("[src] is already in good condition!"))
 		return
@@ -310,7 +310,7 @@ TYPE_PROC_REF(/mob/living/silicon/robot, attempt_welder_repair)(obj/item/welding
 	add_fingerprint(user)
 	visible_message(span_notice("[user] has fixed some of the dents on [src]."))
 
-TYPE_PROC_REF(/mob/living/silicon/robot, attempt_cable_repair)(obj/item/stack/cable_coil/W, mob/user)
+/mob/living/silicon/robot/proc/attempt_cable_repair(obj/item/stack/cable_coil/W, mob/user)
 	if (getFireLoss() > 0 || getToxLoss() > 0)
 		user.DelayNextAction(CLICK_CD_MELEE)
 		if(src == user)
@@ -502,7 +502,7 @@ TYPE_PROC_REF(/mob/living/silicon/robot, attempt_cable_repair)(obj/item/stack/ca
 				update_icons()
 				to_chat(usr, span_notice("You unlock your cover."))
 
-TYPE_PROC_REF(/mob/living/silicon/robot, allowed)(mob/M)
+/mob/living/silicon/robot/proc/allowed(mob/M)
 	//check if it doesn't require any access at all
 	if(check_access(null))
 		return 1
@@ -518,7 +518,7 @@ TYPE_PROC_REF(/mob/living/silicon/robot, allowed)(mob/M)
 			return check_access(george.get_active_held_item())
 	return 0
 
-TYPE_PROC_REF(/mob/living/silicon/robot, check_access)(obj/item/card/id/I)
+/mob/living/silicon/robot/proc/check_access(obj/item/card/id/I)
 	if(!istype(req_access, /list)) //something's very wrong
 		return 1
 
@@ -539,7 +539,7 @@ TYPE_PROC_REF(/mob/living/silicon/robot, check_access)(obj/item/card/id/I)
 /mob/living/silicon/robot/regenerate_icons()
 	return update_icons()
 
-TYPE_PROC_REF(/mob/living/silicon/robot, self_destruct)()
+/mob/living/silicon/robot/proc/self_destruct()
 	if(emagged)
 		if(mmi)
 			qdel(mmi)
@@ -548,7 +548,7 @@ TYPE_PROC_REF(/mob/living/silicon/robot, self_destruct)()
 		explosion(src.loc,-1,0,2)
 	gib()
 
-TYPE_PROC_REF(/mob/living/silicon/robot, UnlinkSelf)()
+/mob/living/silicon/robot/proc/UnlinkSelf()
 	set_connected_ai(null)
 	lawupdate = FALSE
 	locked_down = FALSE
@@ -574,7 +574,7 @@ TYPE_PROC_REF(/mob/living/silicon/robot, UnlinkSelf)()
 		W.attack_self(src)
 
 
-TYPE_PROC_REF(/mob/living/silicon/robot, SetLockdown)(state = TRUE)
+/mob/living/silicon/robot/proc/SetLockdown(state = TRUE)
 	// They stay locked down if their wire is cut.
 	if(wires.is_cut(WIRE_LOCKDOWN))
 		state = TRUE
@@ -585,7 +585,7 @@ TYPE_PROC_REF(/mob/living/silicon/robot, SetLockdown)(state = TRUE)
 	locked_down = state
 	update_mobility()
 
-TYPE_PROC_REF(/mob/living/silicon/robot, SetEmagged)(new_state)
+/mob/living/silicon/robot/proc/SetEmagged(new_state)
 	emagged = new_state
 	module.rebuild_modules()
 	update_icons()
@@ -611,7 +611,7 @@ TYPE_PROC_REF(/mob/living/silicon/robot, SetEmagged)(new_state)
 		return //won't work if dead
 	set_autosay()
 
-TYPE_PROC_REF(/mob/living/silicon/robot, control_headlamp)()
+/mob/living/silicon/robot/proc/control_headlamp()
 	if(stat || lamp_cooldown > world.time || low_power_mode)
 		to_chat(src, span_danger("This function is currently offline."))
 		return
@@ -621,7 +621,7 @@ TYPE_PROC_REF(/mob/living/silicon/robot, control_headlamp)()
 	to_chat(src, "[lamp_intensity ? "Headlamp power set to Level [lamp_intensity/2]" : "Headlamp disabled."]")
 	update_headlamp()
 
-TYPE_PROC_REF(/mob/living/silicon/robot, update_headlamp)(turn_off = 0, cooldown = 100)
+/mob/living/silicon/robot/proc/update_headlamp(turn_off = 0, cooldown = 100)
 	if(lamp_intensity && (turn_off || stat || low_power_mode))
 		to_chat(src, span_danger("Your headlamp has been deactivated."))
 		lamp_intensity = 0
@@ -636,7 +636,7 @@ TYPE_PROC_REF(/mob/living/silicon/robot, update_headlamp)(turn_off = 0, cooldown
 
 	update_icons()
 
-TYPE_PROC_REF(/mob/living/silicon/robot, deconstruct)()
+/mob/living/silicon/robot/proc/deconstruct()
 	var/turf/T = get_turf(src)
 	if (robot_suit)
 		robot_suit.forceMove(T)
@@ -749,7 +749,7 @@ TYPE_PROC_REF(/mob/living/silicon/robot, deconstruct)()
 	laws = new /datum/ai_laws/syndicate_override()
 	addtimer(CALLBACK(src, PROC_REF(show_playstyle)), 5)
 
-TYPE_PROC_REF(/mob/living/silicon/robot/modules/syndicate, show_playstyle)()
+/mob/living/silicon/robot/modules/syndicate/proc/show_playstyle()
 	if(playstyle_string)
 		to_chat(src, playstyle_string)
 
@@ -777,7 +777,7 @@ TYPE_PROC_REF(/mob/living/silicon/robot/modules/syndicate, show_playstyle)()
 						<i>Help the operatives secure the disk at all costs!</i></b>"
 	set_module = /obj/item/robot_module/saboteur
 
-TYPE_PROC_REF(/mob/living/silicon/robot, notify_ai)(notifytype, oldname, newname)
+/mob/living/silicon/robot/proc/notify_ai(notifytype, oldname, newname)
 	if(!connected_ai)
 		return
 	switch(notifytype)
@@ -899,7 +899,7 @@ TYPE_PROC_REF(/mob/living/silicon/robot, notify_ai)(notifytype, oldname, newname
 	custom_name = newname
 
 
-TYPE_PROC_REF(/mob/living/silicon/robot, ResetModule)()
+/mob/living/silicon/robot/proc/ResetModule()
 	uneq_all()
 	shown_robot_modules = FALSE
 	if(hud_used)
@@ -924,13 +924,13 @@ TYPE_PROC_REF(/mob/living/silicon/robot, ResetModule)()
 
 	return 1
 
-TYPE_PROC_REF(/mob/living/silicon/robot, has_module)()
+/mob/living/silicon/robot/proc/has_module()
 	if(!module || module.type == /obj/item/robot_module)
 		. = FALSE
 	else
 		. = TRUE
 
-TYPE_PROC_REF(/mob/living/silicon/robot, update_module_innate)()
+/mob/living/silicon/robot/proc/update_module_innate()
 	designation = module.name
 	if(hands)
 		hands.icon_state = module.moduleselect_icon
@@ -951,14 +951,14 @@ TYPE_PROC_REF(/mob/living/silicon/robot, update_module_innate)()
 	INVOKE_ASYNC(src, PROC_REF(updatename))
 
 
-TYPE_PROC_REF(/mob/living/silicon/robot, place_on_head)(obj/item/new_hat)
+/mob/living/silicon/robot/proc/place_on_head(obj/item/new_hat)
 	if(hat)
 		hat.forceMove(get_turf(src))
 	hat = new_hat
 	new_hat.forceMove(src)
 	update_icons()
 
-TYPE_PROC_REF(/mob/living/silicon/robot, make_shell)(obj/item/borg/upgrade/ai/board)
+/mob/living/silicon/robot/proc/make_shell(obj/item/borg/upgrade/ai/board)
 	if(!board)
 		upgrades |= new /obj/item/borg/upgrade/ai(src)
 	shell = TRUE
@@ -971,7 +971,7 @@ TYPE_PROC_REF(/mob/living/silicon/robot, make_shell)(obj/item/borg/upgrade/ai/bo
 	diag_hud_set_aishell()
 	notify_ai(AI_SHELL)
 
-TYPE_PROC_REF(/mob/living/silicon/robot, revert_shell)()
+/mob/living/silicon/robot/proc/revert_shell()
 	if(!shell)
 		return
 	undeploy()
@@ -986,7 +986,7 @@ TYPE_PROC_REF(/mob/living/silicon/robot, revert_shell)()
 		builtInCamera.c_tag = real_name
 	diag_hud_set_aishell()
 
-TYPE_PROC_REF(/mob/living/silicon/robot, deploy_init)(mob/living/silicon/ai/AI)
+/mob/living/silicon/robot/proc/deploy_init(mob/living/silicon/ai/AI)
 	real_name = "[AI.real_name] shell [rand(100, 999)] - [designation]"	//Randomizing the name so it shows up separately in the shells list
 	name = real_name
 	if(!QDELETED(builtInCamera))
@@ -1024,7 +1024,7 @@ TYPE_PROC_REF(/mob/living/silicon/robot, deploy_init)(mob/living/silicon/ai/AI)
 	return TRUE
 
 
-TYPE_PROC_REF(/mob/living/silicon/robot, undeploy)()
+/mob/living/silicon/robot/proc/undeploy()
 
 	if(!deployed || !mind || !mainframe)
 		return
@@ -1091,7 +1091,7 @@ TYPE_PROC_REF(/mob/living/silicon/robot, undeploy)()
 			riding_datum.restore_position(user)
 	. = ..(user)
 
-TYPE_PROC_REF(/mob/living/silicon/robot, TryConnectToAI)()
+/mob/living/silicon/robot/proc/TryConnectToAI()
 	set_connected_ai(select_active_ai_with_fewest_borgs(z))
 	if(connected_ai)
 		lawsync()
@@ -1100,14 +1100,14 @@ TYPE_PROC_REF(/mob/living/silicon/robot, TryConnectToAI)()
 	picturesync()
 	return FALSE
 
-TYPE_PROC_REF(/mob/living/silicon/robot, picturesync)()
+/mob/living/silicon/robot/proc/picturesync()
 	if(connected_ai && connected_ai.aicamera && aicamera)
 		for(var/i in aicamera.stored)
 			connected_ai.aicamera.stored[i] = TRUE
 		for(var/i in connected_ai.aicamera.stored)
 			aicamera.stored[i] = TRUE
 
-TYPE_PROC_REF(/mob/living/silicon/robot, charge)(datum/source, amount, repairs)
+/mob/living/silicon/robot/proc/charge(datum/source, amount, repairs)
 	if(module)
 		var/coeff = amount * 0.005
 		module.respawn_consumable(src, coeff)
@@ -1128,7 +1128,7 @@ TYPE_PROC_REF(/mob/living/silicon/robot, charge)(datum/source, amount, repairs)
 		return //won't work if dead
 	ai_roster()
 
-TYPE_PROC_REF(/mob/living/silicon/robot, set_connected_ai)(new_ai)
+/mob/living/silicon/robot/proc/set_connected_ai(new_ai)
 	if(connected_ai == new_ai)
 		return
 	. = connected_ai

@@ -128,13 +128,13 @@
 
 //Radio remote control
 
-TYPE_PROC_REF(/obj/machinery/atmospherics/components/unary/vent_pump, set_frequency)(new_frequency)
+/obj/machinery/atmospherics/components/unary/vent_pump/proc/set_frequency(new_frequency)
 	SSradio.remove_object(src, frequency)
 	frequency = new_frequency
 	if(frequency)
 		radio_connection = SSradio.add_object(src, frequency,radio_filter_in)
 
-TYPE_PROC_REF(/obj/machinery/atmospherics/components/unary/vent_pump, broadcast_status)()
+/obj/machinery/atmospherics/components/unary/vent_pump/proc/broadcast_status()
 	if(!radio_connection)
 		return
 

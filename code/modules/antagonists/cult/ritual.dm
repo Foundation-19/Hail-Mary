@@ -39,7 +39,7 @@ This file contains the cult dagger and rune list code
 		return
 	scribe_rune(user)
 
-TYPE_PROC_REF(/obj/item/melee/cultblade/dagger, scribe_rune)(mob/living/user)
+/obj/item/melee/cultblade/dagger/proc/scribe_rune(mob/living/user)
 	var/turf/Turf = get_turf(user)
 	var/chosen_keyword
 	var/obj/effect/rune/rune_to_scribe
@@ -140,7 +140,7 @@ TYPE_PROC_REF(/obj/item/melee/cultblade/dagger, scribe_rune)(mob/living/user)
 	to_chat(user, span_cult("The [lowertext(R.cultist_name)] rune [R.cultist_desc]"))
 	SSblackbox.record_feedback("tally", "cult_runes_scribed", 1, R.cultist_name)
 
-TYPE_PROC_REF(/obj/item/melee/cultblade/dagger, check_rune_turf)(turf/T, mob/user)
+/obj/item/melee/cultblade/dagger/proc/check_rune_turf(turf/T, mob/user)
 	if(isspaceturf(T))
 		to_chat(user, span_warning("You cannot scribe runes in space!"))
 		return FALSE

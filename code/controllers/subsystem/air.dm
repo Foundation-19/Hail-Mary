@@ -114,9 +114,9 @@ SUBSYSTEM_DEF(air)
 	// auxtools_update_reactions()
 	return ..()
 
-TYPE_PROC_REF(/datum/controller/subsystem/air, extools_update_ssair)()
+/datum/controller/subsystem/air/proc/extools_update_ssair()
 
-TYPE_PROC_REF(/datum/controller/subsystem/air, auxtools_update_reactions)()
+/datum/controller/subsystem/air/proc/auxtools_update_reactions()
 
 /proc/reset_all_air()
 	SSair.can_fire = 0
@@ -127,12 +127,12 @@ TYPE_PROC_REF(/datum/controller/subsystem/air, auxtools_update_reactions)()
 	message_admins("Air reset done.")
 	SSair.can_fire = 1
 
-TYPE_PROC_REF(/datum/controller/subsystem/air, thread_running)()
+/datum/controller/subsystem/air/proc/thread_running()
 	return FALSE
 
 /proc/fix_corrupted_atmos()
 
-TYPE_PROC_REF(/datum/admins, fixcorruption)()
+/datum/admins/proc/fixcorruption()
 	set category = "Debug"
 	set desc="Fixes air that has weird NaNs (-1.#IND and such). Hopefully."
 	set name="Fix Infinite Air"
@@ -271,7 +271,7 @@ TYPE_PROC_REF(/datum/admins, fixcorruption)()
 	*/
 	currentpart = SSAIR_REBUILD_PIPENETS
 
-TYPE_PROC_REF(/datum/controller/subsystem/air, process_pipenets)(resumed = 0)
+/datum/controller/subsystem/air/proc/process_pipenets(resumed = 0)
 	if (!resumed)
 		src.currentrun = networks.Copy()
 	//cache for sanic speed (lists are references anyways)
@@ -286,11 +286,11 @@ TYPE_PROC_REF(/datum/controller/subsystem/air, process_pipenets)(resumed = 0)
 		if(MC_TICK_CHECK)
 			return
 
-TYPE_PROC_REF(/datum/controller/subsystem/air, add_to_rebuild_queue)(atmos_machine)
+/datum/controller/subsystem/air/proc/add_to_rebuild_queue(atmos_machine)
 	if(istype(atmos_machine, /obj/machinery/atmospherics))
 		pipenets_needing_rebuilt += atmos_machine
 
-TYPE_PROC_REF(/datum/controller/subsystem/air, process_deferred_airs)(resumed = 0)
+/datum/controller/subsystem/air/proc/process_deferred_airs(resumed = 0)
 	cur_deferred_airs = deferred_airs.len
 	max_deferred_airs = max(cur_deferred_airs,max_deferred_airs)
 	while(deferred_airs.len)
@@ -316,7 +316,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/air, process_deferred_airs)(resumed = 
 		if(MC_TICK_CHECK)
 			return
 
-TYPE_PROC_REF(/datum/controller/subsystem/air, process_atmos_machinery)(resumed = 0)
+/datum/controller/subsystem/air/proc/process_atmos_machinery(resumed = 0)
 	var/seconds = wait * 0.1
 	if (!resumed)
 		src.currentrun = atmos_machinery.Copy()
@@ -330,7 +330,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/air, process_atmos_machinery)(resumed 
 		if(MC_TICK_CHECK)
 			return
 
-TYPE_PROC_REF(/datum/controller/subsystem/air, process_atmos_air_machinery)(resumed = 0)
+/datum/controller/subsystem/air/proc/process_atmos_air_machinery(resumed = 0)
 	var/seconds = wait * 0.1
 	if (!resumed)
 		src.currentrun = atmos_air_machinery.Copy()
@@ -344,9 +344,9 @@ TYPE_PROC_REF(/datum/controller/subsystem/air, process_atmos_air_machinery)(resu
 		if(MC_TICK_CHECK)
 			return
 
-TYPE_PROC_REF(/datum/controller/subsystem/air, process_turf_heat)()
+/datum/controller/subsystem/air/proc/process_turf_heat()
 
-TYPE_PROC_REF(/datum/controller/subsystem/air, process_hotspots)(resumed = 0)
+/datum/controller/subsystem/air/proc/process_hotspots(resumed = 0)
 	if (!resumed)
 		src.currentrun = hotspots.Copy()
 	//cache for sanic speed (lists are references anyways)
@@ -362,7 +362,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/air, process_hotspots)(resumed = 0)
 			return
 
 
-TYPE_PROC_REF(/datum/controller/subsystem/air, process_high_pressure_delta)(resumed = 0)
+/datum/controller/subsystem/air/proc/process_high_pressure_delta(resumed = 0)
 	while (high_pressure_delta.len)
 		var/turf/open/T = high_pressure_delta[high_pressure_delta.len]
 		high_pressure_delta.len--
@@ -372,7 +372,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/air, process_high_pressure_delta)(resu
 		if(MC_TICK_CHECK)
 			return
 
-TYPE_PROC_REF(/datum/controller/subsystem/air, process_turf_equalize)(resumed = 0)
+/datum/controller/subsystem/air/proc/process_turf_equalize(resumed = 0)
 	if(process_turf_equalize_auxtools(resumed,TICK_REMAINING_MS))
 		pause()
 	/*
@@ -392,7 +392,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/air, process_turf_equalize)(resumed = 
 			return
 	*/
 
-TYPE_PROC_REF(/datum/controller/subsystem/air, run_delay_heuristics)()
+/datum/controller/subsystem/air/proc/run_delay_heuristics()
 	if(!equalize_enabled)
 		cost_equalize = 0
 		if(should_do_equalization)
@@ -410,7 +410,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/air, run_delay_heuristics)()
 		excited_group_pressure_goal = max(0,excited_group_pressure_goal_target * (1 - delay_threshold))
 
 
-TYPE_PROC_REF(/datum/controller/subsystem/air, process_turfs)(resumed = 0)
+/datum/controller/subsystem/air/proc/process_turfs(resumed = 0)
 	if(process_turfs_auxtools(resumed,TICK_REMAINING_MS))
 		pause()
 	/*
@@ -429,27 +429,27 @@ TYPE_PROC_REF(/datum/controller/subsystem/air, process_turfs)(resumed = 0)
 			return
 	*/
 
-TYPE_PROC_REF(/datum/controller/subsystem/air, process_excited_groups)(resumed = 0)
+/datum/controller/subsystem/air/proc/process_excited_groups(resumed = 0)
 	if(process_excited_groups_auxtools(resumed,TICK_REMAINING_MS))
 		pause()
 
-TYPE_PROC_REF(/datum/controller/subsystem/air, finish_turf_processing)(resumed = 0)
+/datum/controller/subsystem/air/proc/finish_turf_processing(resumed = 0)
 	if(finish_turf_processing_auxtools(TICK_REMAINING_MS) || thread_running())
 		pause()
 
-TYPE_PROC_REF(/datum/controller/subsystem/air, post_process_turfs)(resumed = 0)
+/datum/controller/subsystem/air/proc/post_process_turfs(resumed = 0)
 	if(post_process_turfs_auxtools(resumed,TICK_REMAINING_MS))
 		pause()
 
-TYPE_PROC_REF(/datum/controller/subsystem/air, finish_turf_processing_auxtools)()
-TYPE_PROC_REF(/datum/controller/subsystem/air, process_turfs_auxtools)()
-TYPE_PROC_REF(/datum/controller/subsystem/air, post_process_turfs_auxtools)()
-TYPE_PROC_REF(/datum/controller/subsystem/air, process_turf_equalize_auxtools)()
-TYPE_PROC_REF(/datum/controller/subsystem/air, process_excited_groups_auxtools)()
-TYPE_PROC_REF(/datum/controller/subsystem/air, get_amt_gas_mixes)()
-TYPE_PROC_REF(/datum/controller/subsystem/air, get_max_gas_mixes)()
-TYPE_PROC_REF(/datum/controller/subsystem/air, turf_process_time)()
-TYPE_PROC_REF(/datum/controller/subsystem/air, heat_process_time)()
+/datum/controller/subsystem/air/proc/finish_turf_processing_auxtools()
+/datum/controller/subsystem/air/proc/process_turfs_auxtools()
+/datum/controller/subsystem/air/proc/post_process_turfs_auxtools()
+/datum/controller/subsystem/air/proc/process_turf_equalize_auxtools()
+/datum/controller/subsystem/air/proc/process_excited_groups_auxtools()
+/datum/controller/subsystem/air/proc/get_amt_gas_mixes()
+/datum/controller/subsystem/air/proc/get_max_gas_mixes()
+/datum/controller/subsystem/air/proc/turf_process_time()
+/datum/controller/subsystem/air/proc/heat_process_time()
 
 /datum/controller/subsystem/air/StartLoadingMap()
 	map_loading = TRUE
@@ -457,7 +457,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/air, heat_process_time)()
 /datum/controller/subsystem/air/StopLoadingMap()
 	map_loading = FALSE
 
-TYPE_PROC_REF(/datum/controller/subsystem/air, setup_allturfs)()
+/datum/controller/subsystem/air/proc/setup_allturfs()
 	var/list/turfs_to_init = block(locate(1, 1, 1), locate(world.maxx, world.maxy, world.maxz))
 	var/times_fired = ++src.times_fired
 
@@ -471,7 +471,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/air, setup_allturfs)()
 		T.Initialize_Atmos(times_fired)
 		CHECK_TICK
 
-TYPE_PROC_REF(/datum/controller/subsystem/air, setup_atmos_machinery)()
+/datum/controller/subsystem/air/proc/setup_atmos_machinery()
 	for (var/obj/machinery/atmospherics/AM in atmos_machinery + atmos_air_machinery)
 		AM.atmosinit()
 		CHECK_TICK
@@ -479,12 +479,12 @@ TYPE_PROC_REF(/datum/controller/subsystem/air, setup_atmos_machinery)()
 //this can't be done with setup_atmos_machinery() because
 //	all atmos machinery has to initalize before the first
 //	pipenet can be built.
-TYPE_PROC_REF(/datum/controller/subsystem/air, setup_pipenets)()
+/datum/controller/subsystem/air/proc/setup_pipenets()
 	for (var/obj/machinery/atmospherics/AM in atmos_machinery + atmos_air_machinery)
 		AM.build_network()
 		CHECK_TICK
 
-TYPE_PROC_REF(/datum/controller/subsystem/air, setup_template_machinery)(list/atmos_machines)
+/datum/controller/subsystem/air/proc/setup_template_machinery(list/atmos_machines)
 	if(!initialized) // yogs - fixes randomized bars
 		return // yogs
 	for(var/A in atmos_machines)
@@ -497,7 +497,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/air, setup_template_machinery)(list/at
 		AM.build_network()
 		CHECK_TICK
 
-TYPE_PROC_REF(/datum/controller/subsystem/air, get_init_dirs)(type, dir)
+/datum/controller/subsystem/air/proc/get_init_dirs(type, dir)
 	if(!pipe_init_dirs_cache[type])
 		pipe_init_dirs_cache[type] = list()
 
@@ -508,13 +508,13 @@ TYPE_PROC_REF(/datum/controller/subsystem/air, get_init_dirs)(type, dir)
 
 	return pipe_init_dirs_cache[type]["[dir]"]
 
-TYPE_PROC_REF(/datum/controller/subsystem/air, generate_atmos)()
+/datum/controller/subsystem/air/proc/generate_atmos()
 	atmos_gen = list()
 	for(var/T in subtypesof(/datum/atmosphere))
 		var/datum/atmosphere/atmostype = T
 		atmos_gen[initial(atmostype.id)] = new atmostype
 
-TYPE_PROC_REF(/datum/controller/subsystem/air, preprocess_gas_string)(gas_string)
+/datum/controller/subsystem/air/proc/preprocess_gas_string(gas_string)
 	if(!atmos_gen)
 		generate_atmos()
 	if(!atmos_gen[gas_string])

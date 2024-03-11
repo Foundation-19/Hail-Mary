@@ -117,7 +117,7 @@
 	else
 		to_chat(user, span_notice("\The [src] is empty."))
 
-TYPE_PROC_REF(/obj/machinery/aug_manipulator, eject_part)(mob/living/user)
+/obj/machinery/aug_manipulator/proc/eject_part(mob/living/user)
 	if(storedpart)
 		storedpart.forceMove(get_turf(src))
 		storedpart = null

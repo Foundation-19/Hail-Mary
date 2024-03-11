@@ -10,18 +10,18 @@
 	else
 		qdel(src)
 
-TYPE_PROC_REF(/datum/nanite_rule, remove)()
+/datum/nanite_rule/proc/remove()
 	program.rules -= src
 	program = null
 	qdel(src)
 
-TYPE_PROC_REF(/datum/nanite_rule, check_rule)()
+/datum/nanite_rule/proc/check_rule()
 	return TRUE
 
-TYPE_PROC_REF(/datum/nanite_rule, display)()
+/datum/nanite_rule/proc/display()
 	return name
 
-TYPE_PROC_REF(/datum/nanite_rule, copy_to)(datum/nanite_program/new_program)
+/datum/nanite_rule/proc/copy_to(datum/nanite_program/new_program)
 	new type(new_program)
 
 /datum/nanite_rule/health

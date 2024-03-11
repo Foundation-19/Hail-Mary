@@ -2,13 +2,13 @@ GLOBAL_LIST_EMPTY(typelists)
 
 #ifndef TESTING
 
-TYPE_PROC_REF(/datum, typelist)(key, list/values = list())
+/datum/proc/typelist(key, list/values = list())
 	var/list/mytypelist = GLOB.typelists[type] || (GLOB.typelists[type] = list())
 	return mytypelist[key] || (mytypelist[key] = values.Copy())
 
 #else
 // mostly the same code as above, just more verbose, slower and has tallying for saved lists
-TYPE_PROC_REF(/datum, typelist)(key, list/values)
+/datum/proc/typelist(key, list/values)
 	if (!values)
 		values = list()
 	GLOB.typelistkeys |= key

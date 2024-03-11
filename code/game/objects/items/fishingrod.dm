@@ -77,15 +77,15 @@ GLOBAL_LIST_INIT(fish_rates, list(
 	to_chat(current_user, span_notice("You cast your fishing line, get ready to reel it back in!"))
 	current_turf = get_turf(current_user)
 
-TYPE_PROC_REF(/obj/item/fishingrod, falsify_inuse)()
+/obj/item/fishingrod/proc/falsify_inuse()
 	inuse = FALSE
 
-TYPE_PROC_REF(/obj/item/fishingrod, play_readysound)()
+/obj/item/fishingrod/proc/play_readysound()
 	if(inuse)
 		playsound(src.loc, 'sound/f13items/fishready.ogg', 100, TRUE, -1)
 		to_chat(current_user,"You've got something...")
 
-TYPE_PROC_REF(/obj/item/fishingrod, complete_fishing)()
+/obj/item/fishingrod/proc/complete_fishing()
 	var/fish_got = prob(trash_chance)
 	switch(fish_got)
 		if(FALSE)

@@ -33,7 +33,7 @@
 // from this point onwards, we cannot rely on our parent to be our turf. 
 // So, we'll have to sit here and treat whatever's at our coordinates *as* our parent 
 
-TYPE_PROC_REF(/datum/component/radiation_turf, AddMob)(turf/the_turf, mob/living/carbon/human/glowy)
+/datum/component/radiation_turf/proc/AddMob(turf/the_turf, mob/living/carbon/human/glowy)
 	if(!istype(glowy))
 		return
 	if(!check_puddles())
@@ -41,7 +41,7 @@ TYPE_PROC_REF(/datum/component/radiation_turf, AddMob)(turf/the_turf, mob/living
 	var/weakie = WEAKERREF(glowy)
 	SSradturf.irradiated_mobs[weakie] = SSradturf.irradiated_mobs[weakie] < rads ? rads : SSradturf.irradiated_mobs[weakie]
 
-TYPE_PROC_REF(/datum/component/radiation_turf, RemoveMob)(turf/the_turf, mob/living/carbon/human/glowy)
+/datum/component/radiation_turf/proc/RemoveMob(turf/the_turf, mob/living/carbon/human/glowy)
 	if(!istype(glowy))
 		return
 	var/weakie = WEAKERREF(glowy)
@@ -52,7 +52,7 @@ TYPE_PROC_REF(/datum/component/radiation_turf, RemoveMob)(turf/the_turf, mob/liv
 /// Alter the tile's radiation up or down.
 /// Also assume that if something added rads, its either new or changed a bit
 /// And if it goes down, assume the thing was destroyed. either way, check if everything's okay
-TYPE_PROC_REF(/datum/component/radiation_turf, update_rads)(turf/the_turf, rad_change = 0, reff, typee)
+/datum/component/radiation_turf/proc/update_rads(turf/the_turf, rad_change = 0, reff, typee)
 	if((rads += rad_change) <= 0) // check if our tile is radioactive
 		qdel(src)
 		return
@@ -67,7 +67,7 @@ TYPE_PROC_REF(/datum/component/radiation_turf, update_rads)(turf/the_turf, rad_c
 	return clamp(abs(rads), 0, (1<<23))
 
 /// Checks if our puddles still exist
-TYPE_PROC_REF(/datum/component/radiation_turf, check_puddles)()
+/datum/component/radiation_turf/proc/check_puddles()
 	for(var/reffie in radioactive_things)
 		var/atom/plip = RESOLVEREF(reffie)
 		if(!plip)
@@ -85,7 +85,7 @@ TYPE_PROC_REF(/datum/component/radiation_turf, check_puddles)()
 	return clamp(abs(rads), 0, (1<<23)) // just in case someone makes a turf give 16777217 rads
 	
 /// so the SSradturf can periodically check if the shitload of coordinates its remembering are still radioactive
-TYPE_PROC_REF(/datum/component/radiation_turf, im_still_here)()
+/datum/component/radiation_turf/proc/im_still_here()
 	return check_puddles() // technically, signals can only return bitfields. byond treats bitfields as numbers (probably), so, *shruggo*
 
 /// tells the radiation subsys (that really does all the work) to remove this tile from its radlist
@@ -95,13 +95,13 @@ TYPE_PROC_REF(/datum/component/radiation_turf, im_still_here)()
 	thingtoggle = -1
 
 /// Tell the radiation system that we're gonna die, put another component at whatever's gonna be here
-TYPE_PROC_REF(/datum/component/radiation_turf, on_turf_change)()
+/datum/component/radiation_turf/proc/on_turf_change()
 	SIGNAL_HANDLER
 	SSradturf.tile_got_changed(our_coordinates, radioactive_things, rads)
 	qdel(src)
 
 /// debug shit
-TYPE_PROC_REF(/datum/component/radiation_turf, ping_rads)()
+/datum/component/radiation_turf/proc/ping_rads()
 	if(thingtoggle)
 		return
 	var/turf/blinker = coords2turf(our_coordinates)
@@ -112,7 +112,7 @@ TYPE_PROC_REF(/datum/component/radiation_turf, ping_rads)()
 	blinker.maptext = thingtoggle ? "[rads]" : initial(blinker.maptext)
 	addtimer(CALLBACK(src, PROC_REF(unping_rads)), 2 SECONDS, TIMER_UNIQUE|TIMER_OVERRIDE) //*pain //*doublepain
 
-TYPE_PROC_REF(/datum/component/radiation_turf, unping_rads)()
+/datum/component/radiation_turf/proc/unping_rads()
 	var/turf/blinker = coords2turf(our_coordinates)
 	if(!isturf(blinker) || QDELETED(blinker))
 		qdel(src)

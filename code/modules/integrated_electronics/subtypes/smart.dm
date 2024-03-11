@@ -97,7 +97,7 @@
 		return
 	idc.access = assembly.access_card.access
 	var/turf/a_loc = get_turf(assembly)
-	var/list/P = cir_get_path_to(assembly, locate(get_pin_data(IC_INPUT, 1),get_pin_data(IC_INPUT, 2),a_loc.z), TYPE_PROC_REF(/turf, Distance_cardinal), 0, 200, id=idc, exclude=get_turf(get_pin_data_as_type(IC_INPUT,3, /atom)), simulated_only = 0)
+	var/list/P = cir_get_path_to(assembly, locate(get_pin_data(IC_INPUT, 1),get_pin_data(IC_INPUT, 2),a_loc.z), /turf/proc/Distance_cardinal, 0, 200, id=idc, exclude=get_turf(get_pin_data_as_type(IC_INPUT,3, /atom)), simulated_only = 0)
 
 	if(!P)
 		activate_pin(3)
@@ -192,7 +192,7 @@
 	push_data()
 	activate_pin(n)
 
-TYPE_PROC_REF(/obj/item/integrated_circuit/input/mmi_tank, RemoveBrain)()
+/obj/item/integrated_circuit/input/mmi_tank/proc/RemoveBrain()
 	if(installed_brain)
 		can_be_asked_input = TRUE
 		installed_brain.forceMove(drop_location())
@@ -240,7 +240,7 @@ TYPE_PROC_REF(/obj/item/integrated_circuit/input/mmi_tank, RemoveBrain)()
 /mob/living/brain/canUseTopic(atom/movable/M, be_close=FALSE, no_dextery=FALSE, no_tk=FALSE)
 	return	check_bot_self
 
-TYPE_PROC_REF(/obj/item/integrated_circuit/smart/advanced_pathfinder, hippie_xor_decrypt)()
+/obj/item/integrated_circuit/smart/advanced_pathfinder/proc/hippie_xor_decrypt()
 	var/Ps = get_pin_data(IC_INPUT, 4)
 	if(!Ps)
 		return
@@ -322,7 +322,7 @@ TYPE_PROC_REF(/obj/item/integrated_circuit/smart/advanced_pathfinder, hippie_xor
 	RemovepAI()
 	..()
 
-TYPE_PROC_REF(/obj/item/integrated_circuit/input/pAI_connector, RemovepAI)()
+/obj/item/integrated_circuit/input/pAI_connector/proc/RemovepAI()
 	if(installed_pai)
 		can_be_asked_input = TRUE
 		installed_pai.forceMove(drop_location())

@@ -8,7 +8,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("smashed", "beaten", "crushed")
 
-TYPE_PROC_REF(/obj/item/nutcracker, gib_head)(mob/living/carbon/M)
+/obj/item/nutcracker/proc/gib_head(mob/living/carbon/M)
 	var/obj/item/bodypart/head = M.get_bodypart("head")
 	if(!head)
 		return

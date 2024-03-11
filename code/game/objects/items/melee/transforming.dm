@@ -45,7 +45,7 @@
 	if(nemesis_faction)
 		force -= faction_bonus_force
 
-TYPE_PROC_REF(/obj/item/melee/transforming, transform_weapon)(mob/living/user, supress_message_text)
+/obj/item/melee/transforming/proc/transform_weapon(mob/living/user, supress_message_text)
 	active = !active
 	if(active)
 		force = force_on
@@ -79,15 +79,15 @@ TYPE_PROC_REF(/obj/item/melee/transforming, transform_weapon)(mob/living/user, s
 	add_fingerprint(user)
 	return TRUE
 
-TYPE_PROC_REF(/obj/item/melee/transforming, nemesis_effects)(mob/living/user, mob/living/target)
+/obj/item/melee/transforming/proc/nemesis_effects(mob/living/user, mob/living/target)
 	return
 
-TYPE_PROC_REF(/obj/item/melee/transforming, transform_messages)(mob/living/user, supress_message_text)
+/obj/item/melee/transforming/proc/transform_messages(mob/living/user, supress_message_text)
 	playsound(user, active ? 'sound/weapons/saberon.ogg' : 'sound/weapons/saberoff.ogg', 35, 1)  //changed it from 50% volume to 35% because deafness
 	if(!supress_message_text)
 		to_chat(user, span_notice("[src] [active ? "is now active":"can now be concealed"]."))
 
-TYPE_PROC_REF(/obj/item/melee/transforming, clumsy_transform_effect)(mob/living/user)
+/obj/item/melee/transforming/proc/clumsy_transform_effect(mob/living/user)
 	if(clumsy_check && HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 		to_chat(user, span_warning("You accidentally cut yourself with [src], like a doofus!"))
 		user.take_bodypart_damage(5,5)

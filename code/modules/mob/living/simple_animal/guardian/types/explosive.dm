@@ -43,7 +43,7 @@
 		else
 			to_chat(src, "<span class='danger'><B>Your powers are on cooldown! You must wait 20 seconds between bombs.</span></B>")
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile/guardian/bomb, on_explode)(atom/bomb, atom/victim)
+/mob/living/simple_animal/hostile/guardian/bomb/proc/on_explode(atom/bomb, atom/victim)
 	if((victim == src) || (victim == summoner) || (hasmatchingsummoner(victim)))
 		to_chat(victim, "<span class='holoparasite'>[src] glows with a strange <font color=\"[guardiancolor]\">light</font>, and you don't touch it.</span>")
 		return FALSE
@@ -51,5 +51,5 @@ TYPE_PROC_REF(/mob/living/simple_animal/hostile/guardian/bomb, on_explode)(atom/
 	to_chat(victim, span_danger("[bomb] was boobytrapped!"))
 	return TRUE
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile/guardian/bomb, on_failure)(atom/bomb)
+/mob/living/simple_animal/hostile/guardian/bomb/proc/on_failure(atom/bomb)
 	to_chat(src, "<span class='danger'><b>Failure! Your trap didn't catch anyone this time.</span></B>")

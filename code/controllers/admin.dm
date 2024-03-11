@@ -17,11 +17,11 @@ INITIALIZE_IMMEDIATE(/obj/effect/statclick)
 	target = null
 	return ..()
 
-TYPE_PROC_REF(/obj/effect/statclick, cleanup)()
+/obj/effect/statclick/proc/cleanup()
 	SIGNAL_HANDLER
 	qdel(src)
 
-TYPE_PROC_REF(/obj/effect/statclick, update)(text)
+/obj/effect/statclick/proc/update(text)
 	name = text
 	return src
 
@@ -46,7 +46,7 @@ TYPE_PROC_REF(/obj/effect/statclick, update)(text)
 
 
 // Debug verbs.
-TYPE_PROC_REF(/client, restart_controller)(controller in list("Master", "Failsafe"))
+/client/proc/restart_controller(controller in list("Master", "Failsafe"))
 	set category = "Debug"
 	set name = "Restart Controller"
 	set desc = "Restart one of the various periodic loop controllers for the game (be careful!)"
@@ -63,7 +63,7 @@ TYPE_PROC_REF(/client, restart_controller)(controller in list("Master", "Failsaf
 
 	message_admins("Admin [key_name_admin(usr)] has restarted the [controller] controller.")
 
-TYPE_PROC_REF(/client, debug_controller)()
+/client/proc/debug_controller()
 	set category = "Debug"
 	set name = "Debug Controller"
 	set desc = "Debug the various periodic loop controllers for the game (be careful!)"

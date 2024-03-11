@@ -58,7 +58,7 @@
 	QDEL_NULL(core)
 	return ..()
 
-TYPE_PROC_REF(/obj/item/nuke_core_container, load)(obj/item/nuke_core/ncore, mob/user)
+/obj/item/nuke_core_container/proc/load(obj/item/nuke_core/ncore, mob/user)
 	if(core || !istype(ncore))
 		return FALSE
 	ncore.forceMove(src)
@@ -68,7 +68,7 @@ TYPE_PROC_REF(/obj/item/nuke_core_container, load)(obj/item/nuke_core/ncore, mob
 	addtimer(CALLBACK(src, PROC_REF(seal)), 50)
 	return TRUE
 
-TYPE_PROC_REF(/obj/item/nuke_core_container, seal)()
+/obj/item/nuke_core_container/proc/seal()
 	if(istype(core))
 		STOP_PROCESSING(SSobj, core)
 		playsound(src, 'sound/items/deconstruct.ogg', 60, 1)
@@ -279,7 +279,7 @@ TYPE_PROC_REF(/obj/item/nuke_core_container, seal)()
 		update_icon()
 	..()
 
-TYPE_PROC_REF(/obj/item/hemostat/supermatter, Consume)(atom/movable/AM, mob/user)
+/obj/item/hemostat/supermatter/proc/Consume(atom/movable/AM, mob/user)
 	if(ismob(AM))
 		var/mob/victim = AM
 		victim.dust()

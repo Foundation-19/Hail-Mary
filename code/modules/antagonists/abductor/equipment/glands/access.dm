@@ -11,7 +11,7 @@
 	to_chat(owner, span_notice("You feel like a VIP for some reason."))
 	RegisterSignal(owner, COMSIG_MOB_ALLOWED, PROC_REF(free_access))
 
-TYPE_PROC_REF(/obj/item/organ/heart/gland/access, free_access)(datum/source, obj/O)
+/obj/item/organ/heart/gland/access/proc/free_access(datum/source, obj/O)
 	return TRUE
 
 /obj/item/organ/heart/gland/access/Remove(special = FALSE)

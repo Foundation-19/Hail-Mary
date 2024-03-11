@@ -14,12 +14,12 @@
 
 	amount = _amount
 
-TYPE_PROC_REF(/datum/component/rad_insulation, rad_probe_react)(datum/source)
+/datum/component/rad_insulation/proc/rad_probe_react(datum/source)
 	return COMPONENT_BLOCK_RADIATION
 
-TYPE_PROC_REF(/datum/component/rad_insulation, rad_contaminating)(datum/source, strength)
+/datum/component/rad_insulation/proc/rad_contaminating(datum/source, strength)
 	return COMPONENT_BLOCK_CONTAMINATION
 
-TYPE_PROC_REF(/datum/component/rad_insulation, rad_pass)(datum/source, datum/radiation_wave/wave, width)
+/datum/component/rad_insulation/proc/rad_pass(datum/source, datum/radiation_wave/wave, width)
 	wave.intensity = wave.intensity*(1-((1-amount)/width)) // The further out the rad wave goes the less it's affected by insulation (larger width)
 	return COMPONENT_RAD_WAVE_HANDLED

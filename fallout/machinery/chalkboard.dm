@@ -116,7 +116,7 @@
 	add_fingerprint(usr)
 	update()
 
-TYPE_PROC_REF(/obj/structure/chalkboard, update)()
+/obj/structure/chalkboard/proc/update()
 
 	switch (status)
 		if(CB_CLEAN)
@@ -141,7 +141,7 @@ TYPE_PROC_REF(/obj/structure/chalkboard, update)()
 			icon_state = "board_mess[rand(1, 9)]"
 			content = "Draw"
 
-TYPE_PROC_REF(/obj/structure/chalkboard, parsepencode)(t)
+/obj/structure/chalkboard/proc/parsepencode(t)
 
 	t = replacetext(t, "\[center\]", "<center>")
 	t = replacetext(t, "\[/center\]", "</center>")

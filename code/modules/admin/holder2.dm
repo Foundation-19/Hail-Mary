@@ -66,7 +66,7 @@ GLOBAL_PROTECT(href_token)
 		return QDEL_HINT_LETMELIVE
 	. = ..()
 
-TYPE_PROC_REF(/datum/admins, activate)()
+/datum/admins/proc/activate()
 	if(IsAdminAdvancedProcCall())
 		var/msg = " has tried to elevate permissions!"
 		message_admins("[key_name_admin(usr)][msg]")
@@ -79,7 +79,7 @@ TYPE_PROC_REF(/datum/admins, activate)()
 		associate(GLOB.directory[target])	//find the client for a ckey if they are connected and associate them with us
 
 
-TYPE_PROC_REF(/datum/admins, deactivate)()
+/datum/admins/proc/deactivate()
 	if(IsAdminAdvancedProcCall())
 		var/msg = " has tried to elevate permissions!"
 		message_admins("[key_name_admin(usr)][msg]")
@@ -91,9 +91,9 @@ TYPE_PROC_REF(/datum/admins, deactivate)()
 	var/client/C
 	if ((C = owner) || (C = GLOB.directory[target]))
 		disassociate()
-		add_verb(C, TYPE_PROC_REF(/client, readmin))
+		add_verb(C, /client/proc/readmin)
 
-TYPE_PROC_REF(/datum/admins, associate)(client/C)
+/datum/admins/proc/associate(client/C)
 	if(IsAdminAdvancedProcCall())
 		var/msg = " has tried to elevate permissions!"
 		message_admins("[key_name_admin(usr)][msg]")
@@ -111,12 +111,12 @@ TYPE_PROC_REF(/datum/admins, associate)(client/C)
 		owner = C
 		owner.holder = src
 		owner.add_admin_verbs()	//TODO <--- todo what? the proc clearly exists and works since its the backbone to our entire admin system
-		remove_verb(owner, TYPE_PROC_REF(/client, readmin))
+		remove_verb(owner, /client/proc/readmin)
 		owner.init_verbs() //re-initialize the verb list
 		GLOB.admins |= C
 		GLOB.adminchat |= C //fortuna add
 
-TYPE_PROC_REF(/datum/admins, disassociate)()
+/datum/admins/proc/disassociate()
 	if(IsAdminAdvancedProcCall())
 		var/msg = " has tried to elevate permissions!"
 		message_admins("[key_name_admin(usr)][msg]")
@@ -130,13 +130,13 @@ TYPE_PROC_REF(/datum/admins, disassociate)()
 		owner.holder = null
 		owner = null
 
-TYPE_PROC_REF(/datum/admins, check_for_rights)(rights_required)
+/datum/admins/proc/check_for_rights(rights_required)
 	if(rights_required && !(rights_required & rank.rights))
 		return 0
 	return 1
 
 
-TYPE_PROC_REF(/datum/admins, check_if_greater_rights_than_holder)(datum/admins/other)
+/datum/admins/proc/check_if_greater_rights_than_holder(datum/admins/other)
 	if(!other)
 		return 1 //they have no rights
 	if(rank.rights == R_EVERYTHING)

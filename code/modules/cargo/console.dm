@@ -40,7 +40,7 @@
 	QDEL_NULL(radio)
 	..()
 
-TYPE_PROC_REF(/obj/machinery/computer/cargo, get_export_categories)()
+/obj/machinery/computer/cargo/proc/get_export_categories()
 	. = EXPORT_CARGO
 	if(contraband)
 		. |= EXPORT_CONTRABAND
@@ -275,7 +275,7 @@ TYPE_PROC_REF(/obj/machinery/computer/cargo, get_export_categories)()
 	if(.)
 		post_signal("supply")
 
-TYPE_PROC_REF(/obj/machinery/computer/cargo, post_signal)(command)
+/obj/machinery/computer/cargo/proc/post_signal(command)
 
 	var/datum/radio_frequency/frequency = SSradio.return_frequency(FREQ_STATUS_DISPLAYS)
 

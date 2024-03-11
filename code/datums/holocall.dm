@@ -101,7 +101,7 @@
 	return ..()
 
 //Gracefully disconnects a holopad `H` from a call. Pads not in the call are ignored. Notifies participants of the disconnection
-TYPE_PROC_REF(/datum/holocall, Disconnect)(obj/machinery/holopad/H)
+/datum/holocall/proc/Disconnect(obj/machinery/holopad/H)
 	testing("Holocall disconnect")
 	if(H == connected_holopad)
 		var/area/A = get_area(connected_holopad)
@@ -112,7 +112,7 @@ TYPE_PROC_REF(/datum/holocall, Disconnect)(obj/machinery/holopad/H)
 	ConnectionFailure(H, TRUE)
 
 //Forcefully disconnects a holopad `H` from a call. Pads not in the call are ignored.
-TYPE_PROC_REF(/datum/holocall, ConnectionFailure)(obj/machinery/holopad/H, graceful = FALSE)
+/datum/holocall/proc/ConnectionFailure(obj/machinery/holopad/H, graceful = FALSE)
 	testing("Holocall connection failure: graceful [graceful]")
 	if(H == connected_holopad || H == calling_holopad)
 		if(!graceful && H != calling_holopad)
@@ -129,7 +129,7 @@ TYPE_PROC_REF(/datum/holocall, ConnectionFailure)(obj/machinery/holopad/H, grace
 		qdel(src)
 
 //Answers a call made to a holopad `H` which cannot be the calling holopad. Pads not in the call are ignored
-TYPE_PROC_REF(/datum/holocall, Answer)(obj/machinery/holopad/H)
+/datum/holocall/proc/Answer(obj/machinery/holopad/H)
 	testing("Holocall answer")
 	if(H == calling_holopad)
 		CRASH("How cute, a holopad tried to answer itself.")
@@ -175,7 +175,7 @@ TYPE_PROC_REF(/datum/holocall, Answer)(obj/machinery/holopad/H)
 	H.say("Connection established.")
 
 //Checks the validity of a holocall and qdels itself if it's not. Returns TRUE if valid, FALSE otherwise
-TYPE_PROC_REF(/datum/holocall, Check)()
+/datum/holocall/proc/Check()
 	for(var/I in dialed_holopads)
 		var/obj/machinery/holopad/H = I
 		if(!H.is_operational())
@@ -217,7 +217,7 @@ TYPE_PROC_REF(/datum/holocall, Check)()
 	var/list/entries = list()
 	var/language = /datum/language/common //Initial language, can be changed by HOLORECORD_LANGUAGE entries
 
-TYPE_PROC_REF(/datum/holorecord, set_caller_image)(mob/user)
+/datum/holorecord/proc/set_caller_image(mob/user)
 	var/olddir = user.dir
 	user.setDir(SOUTH)
 	caller_image = image(user)
@@ -259,7 +259,7 @@ TYPE_PROC_REF(/datum/holorecord, set_caller_image)(mob/user)
 			to_chat(user, span_warning("[holodiskOriginal] has no record on it!"))
 	..()
 
-TYPE_PROC_REF(/obj/item/disk/holodisk, build_record)()
+/obj/item/disk/holodisk/proc/build_record()
 	record = new
 	var/list/lines = splittext(preset_record_text,"\n")
 	for(var/line in lines)
@@ -306,7 +306,7 @@ TYPE_PROC_REF(/obj/item/disk/holodisk, build_record)()
 	var/outfit_type
 	var/species_type = /datum/species/human
 
-TYPE_PROC_REF(/datum/preset_holoimage, build_image)()
+/datum/preset_holoimage/proc/build_image()
 	if(nonhuman_mobtype)
 		var/mob/living/L = nonhuman_mobtype
 		. = image(initial(L.icon),initial(L.icon_state))

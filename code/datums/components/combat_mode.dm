@@ -38,7 +38,7 @@
 	return ..()
 
 /// Creates the hud screen object.
-TYPE_PROC_REF(/datum/component/combat_mode, on_mob_hud_created)(mob/source)
+/datum/component/combat_mode/proc/on_mob_hud_created(mob/source)
 	hud_icon = new
 	hud_icon.hud = source.hud_used
 	hud_icon.icon = tg_ui_icon_to_cit_ui(source.hud_used.ui_style)
@@ -47,7 +47,7 @@ TYPE_PROC_REF(/datum/component/combat_mode, on_mob_hud_created)(mob/source)
 	hud_icon.update_icon()
 
 /// Combat mode can be locked out, forcibly disabled by a status trait.
-TYPE_PROC_REF(/datum/component/combat_mode, update_combat_lock)()
+/datum/component/combat_mode/proc/update_combat_lock()
 	var/locked = HAS_TRAIT(parent, TRAIT_COMBAT_MODE_LOCKED)
 	var/desired = (mode_flags & COMBAT_MODE_TOGGLED)
 	var/actual = (mode_flags & COMBAT_MODE_ACTIVE)
@@ -61,7 +61,7 @@ TYPE_PROC_REF(/datum/component/combat_mode, update_combat_lock)()
 			enable_combat_mode(parent, FALSE, TRUE)
 
 /// Enables combat mode. Please use 'safe_enable_combat_mode' instead, if you wish to also enable the toggle flag.
-TYPE_PROC_REF(/datum/component/combat_mode, enable_combat_mode)(mob/living/source, silent = TRUE, forced = TRUE, visible = FALSE, locked = FALSE, playsound = FALSE)
+/datum/component/combat_mode/proc/enable_combat_mode(mob/living/source, silent = TRUE, forced = TRUE, visible = FALSE, locked = FALSE, playsound = FALSE)
 	if(locked)
 		if(hud_icon)
 			hud_icon.combat_on = TRUE
@@ -96,7 +96,7 @@ TYPE_PROC_REF(/datum/component/combat_mode, enable_combat_mode)(mob/living/sourc
 	L.toggle_combat_mode()
 
 /// Disables combat mode. Please use 'safe_disable_combat_mode' instead, if you wish to also disable the toggle flag.
-TYPE_PROC_REF(/datum/component/combat_mode, disable_combat_mode)(mob/living/source, silent = TRUE, forced = TRUE, visible = FALSE, locked = FALSE, playsound = FALSE)
+/datum/component/combat_mode/proc/disable_combat_mode(mob/living/source, silent = TRUE, forced = TRUE, visible = FALSE, locked = FALSE, playsound = FALSE)
 	if(locked)
 		if(hud_icon)
 			hud_icon.combat_on = FALSE
@@ -125,27 +125,27 @@ TYPE_PROC_REF(/datum/component/combat_mode, disable_combat_mode)(mob/living/sour
 	L.toggle_combat_mode()
 
 ///Changes the user direction to (try) keep match the pointer.
-TYPE_PROC_REF(/datum/component/combat_mode, on_move)(atom/movable/source, dir, atom/oldloc, forced)
+/datum/component/combat_mode/proc/on_move(atom/movable/source, dir, atom/oldloc, forced)
 	var/mob/living/L = source
 	if((mode_flags & COMBAT_MODE_ACTIVE) && L.client)
 		L.setDir(lastmousedir, ismousemovement = TRUE)
 
 ///Changes the user direction to (try) match the pointer.
-TYPE_PROC_REF(/datum/component/combat_mode, onMouseMove)(mob/source, object, location, control, params)
+/datum/component/combat_mode/proc/onMouseMove(mob/source, object, location, control, params)
 	if(source.client.show_popup_menus)
 		return
 	source.face_atom(object, TRUE)
 	lastmousedir = source.dir
 
 /// Toggles whether the user is intentionally in combat mode. THIS should be the proc you generally use! Has built in visual/to other player feedback, as well as an audible cue to ourselves.
-TYPE_PROC_REF(/datum/component/combat_mode, user_toggle_intentional_combat_mode)(mob/living/source)
+/datum/component/combat_mode/proc/user_toggle_intentional_combat_mode(mob/living/source)
 	if(mode_flags & COMBAT_MODE_TOGGLED)
 		safe_disable_combat_mode(source)
 	else if(source.stat == CONSCIOUS && !(source.combat_flags & COMBAT_FLAG_HARD_STAMCRIT))
 		safe_enable_combat_mode(source)
 
 /// Enables intentionally being in combat mode. Please try to use the COMSIG_COMBAT_MODE_CHECK signal for feedback when possible.
-TYPE_PROC_REF(/datum/component/combat_mode, safe_enable_combat_mode)(mob/living/source, silent = FALSE, visible = TRUE)
+/datum/component/combat_mode/proc/safe_enable_combat_mode(mob/living/source, silent = FALSE, visible = TRUE)
 	if((mode_flags & COMBAT_MODE_TOGGLED) && (mode_flags & COMBAT_MODE_ACTIVE))
 		return TRUE
 	mode_flags |= COMBAT_MODE_TOGGLED
@@ -155,7 +155,7 @@ TYPE_PROC_REF(/datum/component/combat_mode, safe_enable_combat_mode)(mob/living/
 	return TRUE
 
 /// Disables intentionally being in combat mode. Please try to use the COMSIG_COMBAT_MODE_CHECK signal for feedback when possible.
-TYPE_PROC_REF(/datum/component/combat_mode, safe_disable_combat_mode)(mob/living/source, silent = FALSE, visible = FALSE)
+/datum/component/combat_mode/proc/safe_disable_combat_mode(mob/living/source, silent = FALSE, visible = FALSE)
 	if(!(mode_flags & COMBAT_MODE_TOGGLED) && !(mode_flags & COMBAT_MODE_ACTIVE))
 		return TRUE
 	mode_flags &= ~COMBAT_MODE_TOGGLED
@@ -165,15 +165,15 @@ TYPE_PROC_REF(/datum/component/combat_mode, safe_disable_combat_mode)(mob/living
 	return TRUE
 
 /// Returns a field of flags that are contained in both the second arg and our bitfield variable.
-TYPE_PROC_REF(/datum/component/combat_mode, check_flags)(mob/living/source, flags)
+/datum/component/combat_mode/proc/check_flags(mob/living/source, flags)
 	return mode_flags & (flags)
 
 /// Disables combat mode upon death.
-TYPE_PROC_REF(/datum/component/combat_mode, on_death)(mob/living/source)
+/datum/component/combat_mode/proc/on_death(mob/living/source)
 	safe_disable_combat_mode(source)
 
 /// Disables combat mode upon logout
-TYPE_PROC_REF(/datum/component/combat_mode, on_logout)(mob/living/source)
+/datum/component/combat_mode/proc/on_logout(mob/living/source)
 	safe_disable_combat_mode(source)
 
 /// The screen button.

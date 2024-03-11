@@ -89,7 +89,7 @@ GLOBAL_LIST_INIT(fluid_duct_recipes, list(
 	var/id = -1
 	var/dirtype = PIPE_BENDABLE
 
-TYPE_PROC_REF(/datum/pipe_info, Render)(dispenser)
+/datum/pipe_info/proc/Render(dispenser)
 	var/dat = "<li><a href='?src=[REF(dispenser)]&[Params()]'>[name]</a></li>"
 
 	// Stationary pipe dispensers don't allow you to pre-select pipe directions.
@@ -100,10 +100,10 @@ TYPE_PROC_REF(/datum/pipe_info, Render)(dispenser)
 
 	return dat
 
-TYPE_PROC_REF(/datum/pipe_info, Params)()
+/datum/pipe_info/proc/Params()
 	return ""
 
-TYPE_PROC_REF(/datum/pipe_info, get_preview)(selected_dir)
+/datum/pipe_info/proc/get_preview(selected_dir)
 	var/list/dirs
 	switch(dirtype)
 		if(PIPE_STRAIGHT, PIPE_BENDABLE)
@@ -520,7 +520,7 @@ TYPE_PROC_REF(/datum/pipe_info, get_preview)(selected_dir)
 			else
 				return ..()
 
-TYPE_PROC_REF(/obj/item/pipe_dispenser, activate)()
+/obj/item/pipe_dispenser/proc/activate()
 	playsound(get_turf(src), 'sound/items/deconstruct.ogg', 50, 1)
 /* unneeded, you can craft ducts from plastic
 /obj/item/pipe_dispenser/plumbing

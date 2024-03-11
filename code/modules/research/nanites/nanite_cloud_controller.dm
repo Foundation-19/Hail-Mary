@@ -34,7 +34,7 @@
 		eject(user)
 	return
 
-TYPE_PROC_REF(/obj/machinery/computer/nanite_cloud_controller, eject)(mob/living/user)
+/obj/machinery/computer/nanite_cloud_controller/proc/eject(mob/living/user)
 	if(!disk)
 		return
 	disk.forceMove(drop_location())
@@ -42,13 +42,13 @@ TYPE_PROC_REF(/obj/machinery/computer/nanite_cloud_controller, eject)(mob/living
 		user.put_in_active_hand(disk)
 	disk = null
 
-TYPE_PROC_REF(/obj/machinery/computer/nanite_cloud_controller, get_backup)(cloud_id)
+/obj/machinery/computer/nanite_cloud_controller/proc/get_backup(cloud_id)
 	for(var/I in cloud_backups)
 		var/datum/nanite_cloud_backup/backup = I
 		if(backup.cloud_id == cloud_id)
 			return backup
 
-TYPE_PROC_REF(/obj/machinery/computer/nanite_cloud_controller, generate_backup)(cloud_id, mob/user)
+/obj/machinery/computer/nanite_cloud_controller/proc/generate_backup(cloud_id, mob/user)
 	if(SSnanites.get_cloud_backup(cloud_id, TRUE))
 		to_chat(user, span_warning("Cloud ID already registered."))
 		return

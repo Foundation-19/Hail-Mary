@@ -193,7 +193,7 @@
 			mode = DRONE_READY
 			update_icon()
 
-TYPE_PROC_REF(/obj/machinery/droneDispenser, count_shells)()
+/obj/machinery/droneDispenser/proc/count_shells()
 	. = 0
 	for(var/a in loc)
 		if(istype(a, dispense_type))

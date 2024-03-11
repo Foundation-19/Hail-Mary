@@ -274,7 +274,7 @@
 	if(!do_movement_toggle())
 		qdel(src)
 
-TYPE_PROC_REF(/datum/status_effect/belligerent, do_movement_toggle)(force_damage)
+/datum/status_effect/belligerent/proc/do_movement_toggle(force_damage)
 	var/number_legs = owner.get_num_legs(FALSE)
 	if(iscarbon(owner) && !is_servant_of_ratvar(owner) && !owner.anti_magic_check(chargecost = 0) && number_legs)
 		if(force_damage || owner.m_intent != MOVE_INTENT_WALK)
@@ -467,7 +467,7 @@ TYPE_PROC_REF(/datum/status_effect/belligerent, do_movement_toggle)(force_damage
 	owner.update_icon()
 	return ..()
 
-TYPE_PROC_REF(/datum/status_effect/eldritch, update_owner_underlay)(atom/source, list/overlays)
+/datum/status_effect/eldritch/proc/update_owner_underlay(atom/source, list/overlays)
 	overlays += marked_underlay
 
 /datum/status_effect/eldritch/Destroy()
@@ -479,7 +479,7 @@ TYPE_PROC_REF(/datum/status_effect/eldritch, update_owner_underlay)(atom/source,
  *
  * Adds actual functionality to each mark
  */
-TYPE_PROC_REF(/datum/status_effect/eldritch, on_effect)()
+/datum/status_effect/eldritch/proc/on_effect()
 	playsound(owner, 'sound/magic/repulse.ogg', 75, TRUE)
 	qdel(src) //what happens when this is procced.
 
@@ -720,7 +720,7 @@ TYPE_PROC_REF(/datum/status_effect/eldritch, on_effect)()
 	if(!still_bleeding)
 		H.remove_status_effect(/datum/status_effect/neck_slice)
 
-TYPE_PROC_REF(/mob/living, apply_necropolis_curse)(set_curse, duration = 10 MINUTES)
+/mob/living/proc/apply_necropolis_curse(set_curse, duration = 10 MINUTES)
 	var/datum/status_effect/necropolis_curse/C = has_status_effect(STATUS_EFFECT_NECROPOLIS_CURSE)
 	if(!set_curse)
 		set_curse = pick(CURSE_BLINDING, CURSE_SPAWNING, CURSE_WASTING, CURSE_GRASPING)
@@ -758,12 +758,12 @@ TYPE_PROC_REF(/mob/living, apply_necropolis_curse)(set_curse, duration = 10 MINU
 	. = ..()
 	remove_curse(curse_flags)
 
-TYPE_PROC_REF(/datum/status_effect/necropolis_curse, apply_curse)(set_curse)
+/datum/status_effect/necropolis_curse/proc/apply_curse(set_curse)
 	curse_flags |= set_curse
 	if(curse_flags & CURSE_BLINDING)
 		owner.overlay_fullscreen("curse", /obj/screen/fullscreen/curse, 1)
 
-TYPE_PROC_REF(/datum/status_effect/necropolis_curse, remove_curse)(remove_curse)
+/datum/status_effect/necropolis_curse/proc/remove_curse(remove_curse)
 	if(remove_curse & CURSE_BLINDING)
 		owner.clear_fullscreen("curse", 50)
 	curse_flags &= ~remove_curse
@@ -797,7 +797,7 @@ TYPE_PROC_REF(/datum/status_effect/necropolis_curse, remove_curse)(remove_curse)
 			if(spawn_turf)
 				grasp(spawn_turf)
 
-TYPE_PROC_REF(/datum/status_effect/necropolis_curse, grasp)(turf/spawn_turf)
+/datum/status_effect/necropolis_curse/proc/grasp(turf/spawn_turf)
 	set waitfor = FALSE
 	new/obj/effect/temp_visual/dir_setting/curse/grasp_portal(spawn_turf, owner.dir)
 	playsound(spawn_turf, 'sound/effects/curse2.ogg', 80, 1, -1)
@@ -990,7 +990,7 @@ datum/status_effect/pacify
 	to_chat(owner, span_warning("You snap out of your trance!"))
 	return ..()
 
-TYPE_PROC_REF(/datum/status_effect/trance, hypnotize)(datum/source, list/hearing_args)
+/datum/status_effect/trance/proc/hypnotize(datum/source, list/hearing_args)
 	if(!owner.can_hear())
 		return
 	if(hearing_args[HEARING_SPEAKER] == owner)

@@ -178,7 +178,7 @@
 	if(!healservants())
 		STOP_PROCESSING(SSobj, src)
 
-TYPE_PROC_REF(/turf/open/floor/clockwork, healservants)()
+/turf/open/floor/clockwork/proc/healservants()
 	for(var/mob/living/L in src)
 		if(L.stat == DEAD)
 			continue
@@ -230,7 +230,7 @@ TYPE_PROC_REF(/turf/open/floor/clockwork, healservants)()
 		var/previouscolor = color
 		color = "#960000"
 		animate(src, color = previouscolor, time = 8)
-		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_atom_colour)), 8)
+		addtimer(CALLBACK(src, /atom/proc/update_atom_colour), 8)
 
 /turf/open/floor/clockwork/reebe
 	name = "cogplate"

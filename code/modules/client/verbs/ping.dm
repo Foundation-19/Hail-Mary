@@ -8,7 +8,7 @@
 	else
 		avgping = MC_AVERAGE_SLOW(avgping, ping)
 
-TYPE_PROC_REF(/client, pingfromtime)(time)
+/client/proc/pingfromtime(time)
 	return ((world.time+world.tick_lag*TICK_USAGE_REAL/100)-time)*100
 
 /client/verb/display_ping(time as num)

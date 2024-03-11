@@ -58,11 +58,11 @@
 	return TRUE
 
 // Called on multitool click, prints diagnostic information to the user.
-TYPE_PROC_REF(/obj/item/computer_hardware, diagnostics)(mob/user)
+/obj/item/computer_hardware/proc/diagnostics(mob/user)
 	to_chat(user, "Hardware Integrity Test... (Corruption: [damage]/[max_damage]) [damage > damage_failure ? "FAIL" : damage > damage_malfunction ? "WARN" : "PASS"]")
 
 // Handles damage checks
-TYPE_PROC_REF(/obj/item/computer_hardware, check_functionality)()
+/obj/item/computer_hardware/proc/check_functionality()
 	if(!enabled) // Disabled.
 		return FALSE
 
@@ -85,21 +85,21 @@ TYPE_PROC_REF(/obj/item/computer_hardware, check_functionality)()
 		. += span_notice("It seems to be slightly damaged.")
 
 // Component-side compatibility check.
-TYPE_PROC_REF(/obj/item/computer_hardware, can_install)(obj/item/modular_computer/M, mob/living/user = null)
+/obj/item/computer_hardware/proc/can_install(obj/item/modular_computer/M, mob/living/user = null)
 	return can_install
 
 // Called when component is installed into PC.
-TYPE_PROC_REF(/obj/item/computer_hardware, on_install)(obj/item/modular_computer/M, mob/living/user = null)
+/obj/item/computer_hardware/proc/on_install(obj/item/modular_computer/M, mob/living/user = null)
 	return
 
 // Called when component is removed from PC.
-TYPE_PROC_REF(/obj/item/computer_hardware, on_remove)(obj/item/modular_computer/M, mob/living/user = null)
+/obj/item/computer_hardware/proc/on_remove(obj/item/modular_computer/M, mob/living/user = null)
 	try_eject(forced = 1)
 
 // Called when someone tries to insert something in it - paper in printer, card in card reader, etc.
-TYPE_PROC_REF(/obj/item/computer_hardware, try_insert)(obj/item/I, mob/living/user = null)
+/obj/item/computer_hardware/proc/try_insert(obj/item/I, mob/living/user = null)
 	return FALSE
 
 // Called when someone tries to eject something from it - card from card reader, etc.
-TYPE_PROC_REF(/obj/item/computer_hardware, try_eject)(slot=0, mob/living/user = null, forced = 0)
+/obj/item/computer_hardware/proc/try_eject(slot=0, mob/living/user = null, forced = 0)
 	return FALSE

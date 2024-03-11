@@ -19,7 +19,7 @@
 	forge_objectives()
 	. = ..()
 
-TYPE_PROC_REF(/datum/antagonist/fugitive_hunter, forge_objectives)() //this isn't an actual objective because it's about round end rosters
+/datum/antagonist/fugitive_hunter/proc/forge_objectives() //this isn't an actual objective because it's about round end rosters
 	var/datum/objective/capture = new /datum/objective
 	capture.owner = owner
 	capture.explanation_text = "Capture the fugitives in the station and put them into the bluespace capture machine on your ship."
@@ -62,13 +62,13 @@ TYPE_PROC_REF(/datum/antagonist/fugitive_hunter, forge_objectives)() //this isn'
 /datum/team/fugitive_hunters
 	var/backstory = "error"
 
-TYPE_PROC_REF(/datum/team/fugitive_hunters, update_objectives)(initial = FALSE)
+/datum/team/fugitive_hunters/proc/update_objectives(initial = FALSE)
 	objectives = list()
 	var/datum/objective/O = new()
 	O.team = src
 	objectives += O
 
-TYPE_PROC_REF(/datum/team/fugitive_hunters, assemble_fugitive_results)()
+/datum/team/fugitive_hunters/proc/assemble_fugitive_results()
 	var/list/fugitives_counted = list()
 	var/list/fugitives_dead = list()
 	var/list/fugitives_captured = list()
@@ -82,7 +82,7 @@ TYPE_PROC_REF(/datum/team/fugitive_hunters, assemble_fugitive_results)()
 			fugitives_captured += A
 	. = list(fugitives_counted, fugitives_dead, fugitives_captured) //okay, check out how cool this is.
 
-TYPE_PROC_REF(/datum/team/fugitive_hunters, all_hunters_dead)()
+/datum/team/fugitive_hunters/proc/all_hunters_dead()
 	var/dead_boys = 0
 	for(var/I in members)
 		var/datum/mind/hunter_mind = I
@@ -90,7 +90,7 @@ TYPE_PROC_REF(/datum/team/fugitive_hunters, all_hunters_dead)()
 			dead_boys++
 	return dead_boys >= members.len
 
-TYPE_PROC_REF(/datum/team/fugitive_hunters, get_result)()
+/datum/team/fugitive_hunters/proc/get_result()
 	var/list/fugitive_results = assemble_fugitive_results()
 	var/list/fugitives_counted = fugitive_results[1]
 	var/list/fugitives_dead = fugitive_results[2]

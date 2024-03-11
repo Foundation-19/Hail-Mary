@@ -53,7 +53,7 @@
 	var/list/prefixes
 	var/list/suffixes
 
-TYPE_PROC_REF(/mob/living/simple_animal/bot/cleanbot, deputize)(obj/item/W, mob/user)
+/mob/living/simple_animal/bot/cleanbot/proc/deputize(obj/item/W, mob/user)
 	if(in_range(src, user))
 		to_chat(user, span_notice("You attach \the [W] to \the [src]."))
 		user.transferItemToLoc(W, src)
@@ -63,7 +63,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/bot/cleanbot, deputize)(obj/item/W, mob/
 			weapon.force = weapon.force / 2
 		add_overlay(image(icon=weapon.lefthand_file,icon_state=weapon.item_state))
 
-TYPE_PROC_REF(/mob/living/simple_animal/bot/cleanbot, update_titles)()
+/mob/living/simple_animal/bot/cleanbot/proc/update_titles()
 	var/working_title = ""
 
 	for(var/pref in prefixes)
@@ -147,7 +147,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/bot/cleanbot, update_titles)()
 			stolen_valor += C.job
 		update_titles()
 
-		INVOKE_ASYNC(weapon, TYPE_PROC_REF(/obj/item/weapon, attack), C, src)
+		INVOKE_ASYNC(weapon, /obj/item/weapon/.proc/attack, C, src)
 		C.Knockdown(20)
 
 /mob/living/simple_animal/bot/cleanbot/attackby(obj/item/W, mob/user, params)
@@ -285,7 +285,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/bot/cleanbot, update_titles)()
 
 		if(!path || path.len == 0) //No path, need a new one
 			//Try to produce a path to the target, and ignore airlocks to which it has access.
-			path = get_path_to(src, target.loc, TYPE_PROC_REF(/turf, Distance_cardinal), 0, 30, id=access_card)
+			path = get_path_to(src, target.loc, /turf/proc/Distance_cardinal, 0, 30, id=access_card)
 			if(!bot_move(target))
 				add_to_ignore(target)
 				target = null
@@ -299,7 +299,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/bot/cleanbot, update_titles)()
 
 	oldloc = loc
 
-TYPE_PROC_REF(/mob/living/simple_animal/bot/cleanbot, get_targets)()
+/mob/living/simple_animal/bot/cleanbot/proc/get_targets()
 	target_types = list(
 		/obj/effect/decal/cleanable/vomit,
 		/obj/effect/decal/cleanable/crayon,

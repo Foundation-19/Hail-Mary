@@ -222,7 +222,7 @@
 		eject()
 		stat |= BROKEN
 
-TYPE_PROC_REF(/obj/machinery/power/rad_collector, eject)()
+/obj/machinery/power/rad_collector/proc/eject()
 	locked = FALSE
 	var/obj/item/tank/internals/plasma/Z = src.loaded_tank
 	if (!Z)
@@ -251,7 +251,7 @@ TYPE_PROC_REF(/obj/machinery/power/rad_collector, eject)()
 		. += "on"
 
 
-TYPE_PROC_REF(/obj/machinery/power/rad_collector, toggle_power)()
+/obj/machinery/power/rad_collector/proc/toggle_power()
 	active = !active
 	if(active)
 		icon_state = "ca_on"

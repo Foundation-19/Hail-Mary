@@ -7,7 +7,7 @@
 
 //Making the station dirty, one tile at a time. Called by master controller's setup_objects
 
-TYPE_PROC_REF(/turf/open/floor, MakeDirty)()
+/turf/open/floor/proc/MakeDirty()
 	if(prob(66))	//fastest possible exit 2/3 of the time
 		return
 

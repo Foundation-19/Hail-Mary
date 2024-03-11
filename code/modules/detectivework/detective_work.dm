@@ -1,6 +1,6 @@
 //CONTAINS: Suit fibers and Detective's Scanning Computer
 
-TYPE_PROC_REF(/atom, add_fibers)(mob/living/carbon/human/M)
+/atom/proc/add_fibers(mob/living/carbon/human/M)
 	if(M.gloves && istype(M.gloves, /obj/item/clothing/))
 		var/obj/item/clothing/gloves/G = M.gloves
 		if(G.transfer_blood > 1) //bloodied gloves transfer blood to touched objects
@@ -41,7 +41,7 @@ TYPE_PROC_REF(/atom, add_fibers)(mob/living/carbon/human/M)
 			suit_fibers += "Material from a pair of [M.gloves.name]."
 
 
-TYPE_PROC_REF(/atom, add_hiddenprint)(mob/living/M)
+/atom/proc/add_hiddenprint(mob/living/M)
 	if(!M || !M.key)
 		return
 
@@ -66,7 +66,7 @@ TYPE_PROC_REF(/atom, add_hiddenprint)(mob/living/M)
 	fingerprintslast = M.ckey
 
 //Set ignoregloves to add prints irrespective of the mob having gloves on.
-TYPE_PROC_REF(/atom, add_fingerprint)(mob/living/M, ignoregloves = FALSE)
+/atom/proc/add_fingerprint(mob/living/M, ignoregloves = FALSE)
 	if(!M)
 		return
 	if(!ismob(M))
@@ -94,7 +94,7 @@ TYPE_PROC_REF(/atom, add_fingerprint)(mob/living/M, ignoregloves = FALSE)
 		var/full_print = md5(H.dna.uni_identity)
 		fingerprints[full_print] = full_print
 
-TYPE_PROC_REF(/atom, transfer_fingerprints_to)(atom/A)
+/atom/proc/transfer_fingerprints_to(atom/A)
 	if(fingerprints)
 		LAZYINITLIST(A.fingerprints)
 		A.fingerprints |= fingerprints            //detective

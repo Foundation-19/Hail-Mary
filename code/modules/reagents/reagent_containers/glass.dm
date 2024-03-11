@@ -14,7 +14,7 @@
 	INVOKE_ASYNC(src, PROC_REF(attempt_feed), M, user, target)		// for example, the arguments in this proc are wrong
 	// but i don't have time to properly fix it right now.
 
-TYPE_PROC_REF(/obj/item/reagent_containers/glass, attempt_feed)(mob/M, mob/user, obj/target)
+/obj/item/reagent_containers/glass/proc/attempt_feed(mob/M, mob/user, obj/target)
 	if(!canconsume(M, user))
 		return
 
@@ -431,17 +431,17 @@ TYPE_PROC_REF(/obj/item/reagent_containers/glass, attempt_feed)(mob/M, mob/user,
 	to_chat(user, span_warning("You can't put this in the mortar!"))
 	..()
 
-TYPE_PROC_REF(/obj/item/reagent_containers/glass/mortar, eject)(mob/user)
+/obj/item/reagent_containers/glass/mortar/proc/eject(mob/user)
 	for(var/i in holdingitems)
 		var/obj/item/O = i
 		O.forceMove(drop_location())
 		holdingitems -= O
 
-TYPE_PROC_REF(/obj/item/reagent_containers/glass/mortar, remove_object)(obj/item/O)
+/obj/item/reagent_containers/glass/mortar/proc/remove_object(obj/item/O)
 	holdingitems -= O
 	qdel(O)
 
-TYPE_PROC_REF(/obj/item/reagent_containers/glass/mortar, juice)(mob/user)
+/obj/item/reagent_containers/glass/mortar/proc/juice(mob/user)
 	playsound(get_turf(user),'sound/f13effects/mortarandpestle.ogg')
 	if(user)
 		user.visible_message(
@@ -470,14 +470,14 @@ TYPE_PROC_REF(/obj/item/reagent_containers/glass/mortar, juice)(mob/user)
 			span_notice("Something stops grinding rocks together.")
 			)
 
-TYPE_PROC_REF(/obj/item/reagent_containers/glass/mortar, juice_item)(obj/item/I) //Juicing results can be found in respective object definitions
+/obj/item/reagent_containers/glass/mortar/proc/juice_item(obj/item/I) //Juicing results can be found in respective object definitions
 	if(I.on_juice(src) == -1)
 		to_chat(usr, span_danger("[src] cannot juice [I]."))
 		return
 	reagents.add_reagent_list(I.juice_results)
 	remove_object(I)
 
-TYPE_PROC_REF(/obj/item/reagent_containers/glass/mortar, grind)(mob/user)
+/obj/item/reagent_containers/glass/mortar/proc/grind(mob/user)
 	if(user)
 		user.visible_message(
 			span_notice("[user] starts grinding the mortars contents..."),
@@ -505,7 +505,7 @@ TYPE_PROC_REF(/obj/item/reagent_containers/glass/mortar, grind)(mob/user)
 			span_notice("Something stops grinding rocks together.")
 			)
 
-TYPE_PROC_REF(/obj/item/reagent_containers/glass/mortar, grind_item)(obj/item/I) //Grind results can be found in respective object definitions
+/obj/item/reagent_containers/glass/mortar/proc/grind_item(obj/item/I) //Grind results can be found in respective object definitions
 	if(I.on_grind(src) == -1) //Call on_grind() to change amount as needed, and stop grinding the item if it returns -1
 		to_chat(usr, span_danger("[src] cannot grind [I]."))
 		return

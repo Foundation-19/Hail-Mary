@@ -7,22 +7,22 @@
 	var/list/images = list()
 	var/list/turfs = list()
 
-TYPE_PROC_REF(/datum/shuttle_creator_overlay_holder, add_client)(client/C)
+/datum/shuttle_creator_overlay_holder/proc/add_client(client/C)
 	holder = C
 	holder.images += images
 
-TYPE_PROC_REF(/datum/shuttle_creator_overlay_holder, remove_client)()
+/datum/shuttle_creator_overlay_holder/proc/remove_client()
 	if(holder)
 		holder.images -= images
 		holder = null
 
-TYPE_PROC_REF(/datum/shuttle_creator_overlay_holder, clear_highlights)()
+/datum/shuttle_creator_overlay_holder/proc/clear_highlights()
 	if(holder)
 		holder.images -= images
 	images.Cut()
 	turfs.Cut()
 
-TYPE_PROC_REF(/datum/shuttle_creator_overlay_holder, create_hightlight)(turf/T)
+/datum/shuttle_creator_overlay_holder/proc/create_hightlight(turf/T)
 	if(T in turfs)
 		return
 	var/image/I = image('icons/turf/overlays.dmi', T, "greenOverlay")
@@ -31,7 +31,7 @@ TYPE_PROC_REF(/datum/shuttle_creator_overlay_holder, create_hightlight)(turf/T)
 	holder.images += I
 	turfs += T
 
-TYPE_PROC_REF(/datum/shuttle_creator_overlay_holder, remove_hightlight)(turf/T)
+/datum/shuttle_creator_overlay_holder/proc/remove_hightlight(turf/T)
 	if(!(T in turfs))
 		return
 	turfs -= T
@@ -42,12 +42,12 @@ TYPE_PROC_REF(/datum/shuttle_creator_overlay_holder, remove_hightlight)(turf/T)
 		images -= I
 	holder.images += images
 
-TYPE_PROC_REF(/datum/shuttle_creator_overlay_holder, highlight_area)(list/turfs)
+/datum/shuttle_creator_overlay_holder/proc/highlight_area(list/turfs)
 	for(var/turf/T in turfs)
 		highlight_turf(T)
 
-TYPE_PROC_REF(/datum/shuttle_creator_overlay_holder, highlight_turf)(turf/T)
+/datum/shuttle_creator_overlay_holder/proc/highlight_turf(turf/T)
 	create_hightlight(T)
 
-TYPE_PROC_REF(/datum/shuttle_creator_overlay_holder, unhighlight_turf)(turf/T)
+/datum/shuttle_creator_overlay_holder/proc/unhighlight_turf(turf/T)
 	remove_hightlight(T)

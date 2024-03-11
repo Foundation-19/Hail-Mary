@@ -8,7 +8,7 @@
 	icon_state = "key-door"
 	var/id = 0
 
-TYPE_PROC_REF(/obj/item/key/vending, set_name)(newname)
+/obj/item/key/vending/proc/set_name(newname)
 	if(name != newname)
 		name = newname + " key"
 		playsound(src, 'sound/misc/splort.ogg', 60, 1)
@@ -30,17 +30,17 @@ TYPE_PROC_REF(/obj/item/key/vending, set_name)(newname)
 	var/is_secured = 1
 	var/keys[0]
 
-TYPE_PROC_REF(/obj/item/lock_part, check_key)(obj/item/key/vending/K)
+/obj/item/lock_part/proc/check_key(obj/item/key/vending/K)
 	if(K in keys)
 		return 1
 	else
 		return 0
 
-TYPE_PROC_REF(/obj/item/lock_part, set_open)(newopen)
+/obj/item/lock_part/proc/set_open(newopen)
 	if(is_open != newopen)
 		is_open = newopen
 
-TYPE_PROC_REF(/obj/item/lock_part, store_key)(obj/item/key/vending/K)
+/obj/item/lock_part/proc/store_key(obj/item/key/vending/K)
 	if(is_secured)
 		to_chat(usr, "Nothing happens. I need to use screwdriver first")
 		return

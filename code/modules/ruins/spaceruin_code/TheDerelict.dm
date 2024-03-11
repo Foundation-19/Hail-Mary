@@ -47,12 +47,12 @@
 		attempt_siphon()
 
 ///Looks for a cable connection beneath the machine.
-TYPE_PROC_REF(/obj/machinery/computer/vaultcontroller, update_cable)()
+/obj/machinery/computer/vaultcontroller/proc/update_cable()
 	var/turf/T = get_turf(src)
 	attached_cable = locate(/obj/structure/cable) in T
 
 ///Initializes airlock links.
-TYPE_PROC_REF(/obj/machinery/computer/vaultcontroller, find_airlocks)()
+/obj/machinery/computer/vaultcontroller/proc/find_airlocks()
 	for(var/obj/machinery/door/airlock/A in GLOB.airlocks)
 		if(A.id_tag == "derelictvault")
 			if(!door1)
@@ -63,27 +63,27 @@ TYPE_PROC_REF(/obj/machinery/computer/vaultcontroller, find_airlocks)()
 				break
 
 ///Tries to charge from powernet excess, no upper limit except max charge.
-TYPE_PROC_REF(/obj/machinery/computer/vaultcontroller, attempt_siphon)()
+/obj/machinery/computer/vaultcontroller/proc/attempt_siphon()
 	var/surpluspower = clamp(attached_cable.surplus(), 0, (siphon_max - siphoned_power))
 	if(surpluspower)
 		attached_cable.add_load(surpluspower)
 		siphoned_power += surpluspower
 
 ///Handles the doors closing
-TYPE_PROC_REF(/obj/machinery/computer/vaultcontroller, cycle_close)(obj/machinery/door/airlock/A)
+/obj/machinery/computer/vaultcontroller/proc/cycle_close(obj/machinery/door/airlock/A)
 	A.safe = FALSE //Make sure its forced closed, always
 	A.unbolt()
 	A.close()
 	A.bolt()
 
 ///Handles the doors opening
-TYPE_PROC_REF(/obj/machinery/computer/vaultcontroller, cycle_open)(obj/machinery/door/airlock/A)
+/obj/machinery/computer/vaultcontroller/proc/cycle_open(obj/machinery/door/airlock/A)
 	A.unbolt()
 	A.open()
 	A.bolt()
 
 ///Attempts to lock the vault doors
-TYPE_PROC_REF(/obj/machinery/computer/vaultcontroller, lock_vault)()
+/obj/machinery/computer/vaultcontroller/proc/lock_vault()
 	if(door1 && !door1.density)
 		cycle_close(door1)
 	if(door2 && !door2.density)
@@ -92,7 +92,7 @@ TYPE_PROC_REF(/obj/machinery/computer/vaultcontroller, lock_vault)()
 		locked = TRUE
 
 ///Attempts to unlock the vault doors
-TYPE_PROC_REF(/obj/machinery/computer/vaultcontroller, unlock_vault)()
+/obj/machinery/computer/vaultcontroller/proc/unlock_vault()
 	if(door1 && door1.density)
 		cycle_open(door1)
 	if(door2 && door2.density)
@@ -101,7 +101,7 @@ TYPE_PROC_REF(/obj/machinery/computer/vaultcontroller, unlock_vault)()
 		locked = FALSE
 
 ///Attempts to lock/unlock vault doors, if machine is charged.
-TYPE_PROC_REF(/obj/machinery/computer/vaultcontroller, activate_lock)()
+/obj/machinery/computer/vaultcontroller/proc/activate_lock()
 	if(siphoned_power < siphon_max)
 		return
 	if(!door1 || !door2)

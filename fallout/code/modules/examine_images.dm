@@ -67,7 +67,7 @@
 				RemoveProfilePic()
 
 
-TYPE_PROC_REF(/mob/living/carbon/human, RemoveProfilePic)()
+/mob/living/carbon/human/proc/RemoveProfilePic()
 	profilePicture = ""
 	if(client)
 		client.prefs.profilePicture = ""

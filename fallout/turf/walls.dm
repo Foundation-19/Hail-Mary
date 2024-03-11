@@ -363,7 +363,7 @@ turf/closed/indestructible/f13/splashscreen/New()
 	spawn() src.ticker()
 	return
 
-TYPE_PROC_REF(turf/closed/indestructible/f13/splashscreen, ticker)()
+turf/closed/indestructible/f13/splashscreen/proc/ticker()
 	while(src && istype(src,/turf/closed/indestructible/f13/splashscreen))
 		src.swapImage()
 		sleep(src.tickerPeriod)
@@ -373,7 +373,7 @@ TYPE_PROC_REF(turf/closed/indestructible/f13/splashscreen, ticker)()
 //Change the time to determine how short/long the fading animation is.
 //Change the easing to determine what interpolation it uses to change the value on a curve: good ones to try are CUBIC, BOUNCE, and ELASTIC as well as CIRCULAR. BOUNCE and ELASTIC both "bounce" or "flicker" a little bit at the end instead of just finishing straight at black.
 
-TYPE_PROC_REF(/turf/closed/indestructible/f13/splashscreen, swapImage)()
+/turf/closed/indestructible/f13/splashscreen/proc/swapImage()
 	animate(src.fullDark,alpha=255,time=10,easing=CUBIC_EASING)
 	sleep(12) //buffer of about 1/5 of the time of the animation, since they are not synchronized: the sleep happens on the server, but the animation is played for each client using directX. It's good to leave a buffer, but most of the time the directX will be much faster than the server anyway so you probably wont have any problems.
 	src.icon_state = "title[rand(1,13)]"

@@ -1779,7 +1779,7 @@
  * * coefficient_per_wound - For each wound, multiply the effective bleed rate by this (usually lessening it if theres more than one wound)
  * * single_wound_full_effect - If there's only one wound, should it have its full effect?
  */
-TYPE_PROC_REF(/datum/reagent/medicine, clot_bleed_wounds)(mob/living/carbon/user, bleed_reduction_rate = 0.25, coefficient_per_wound = 0.9, single_wound_full_effect = FALSE)
+/datum/reagent/medicine/proc/clot_bleed_wounds(mob/living/carbon/user, bleed_reduction_rate = 0.25, coefficient_per_wound = 0.9, single_wound_full_effect = FALSE)
 	if(!user || !iscarbon(user))
 		return
 

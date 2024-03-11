@@ -167,7 +167,7 @@
 	else
 		stress = max(stress - 4, 0)
 
-TYPE_PROC_REF(/datum/brain_trauma/severe/monophobia, check_alone)()
+/datum/brain_trauma/severe/monophobia/proc/check_alone()
 	if(HAS_TRAIT(owner, TRAIT_BLIND))
 		return TRUE
 	for(var/mob/M in oview(owner, 7))
@@ -177,7 +177,7 @@ TYPE_PROC_REF(/datum/brain_trauma/severe/monophobia, check_alone)()
 			return FALSE
 	return TRUE
 
-TYPE_PROC_REF(/datum/brain_trauma/severe/monophobia, stress_reaction)()
+/datum/brain_trauma/severe/monophobia/proc/stress_reaction()
 	if(owner.stat != CONSCIOUS)
 		return
 
@@ -292,6 +292,6 @@ TYPE_PROC_REF(/datum/brain_trauma/severe/monophobia, stress_reaction)()
 		addtimer(CALLBACK(src, PROC_REF(hypnotrigger)), 10) //to react AFTER the chat message
 		hearing_args[HEARING_RAW_MESSAGE] = reg.Replace(hearing_args[HEARING_RAW_MESSAGE], span_hypnophrase("*********"))
 
-TYPE_PROC_REF(/datum/brain_trauma/severe/hypnotic_trigger, hypnotrigger)()
+/datum/brain_trauma/severe/hypnotic_trigger/proc/hypnotrigger()
 	to_chat(owner, span_warning("The words trigger something deep within you, and you feel your consciousness slipping away..."))
 	owner.apply_status_effect(/datum/status_effect/trance, rand(100,300), FALSE)

@@ -18,7 +18,7 @@
 	var/goody = PACK_GOODY_NONE //Small items can be grouped into a single crate.They also come in a closet/lockbox instead of a full crate, so the 700 min doesn't apply
 	var/can_private_buy = TRUE //Can it be purchased privately by each crewmember?
 
-TYPE_PROC_REF(/datum/supply_pack, generate)(atom/A, datum/bank_account/paying_account)
+/datum/supply_pack/proc/generate(atom/A, datum/bank_account/paying_account)
 	var/obj/structure/closet/crate/C
 	if(paying_account)
 		C = new /obj/structure/closet/crate/secure/owned(A, paying_account)
@@ -34,7 +34,7 @@ TYPE_PROC_REF(/datum/supply_pack, generate)(atom/A, datum/bank_account/paying_ac
 	fill(C)
 	return C
 
-TYPE_PROC_REF(/datum/supply_pack, fill)(obj/structure/closet/crate/C)
+/datum/supply_pack/proc/fill(obj/structure/closet/crate/C)
 	if (admin_spawned)
 		for(var/item in contains)
 			var/atom/A = new item(C)

@@ -68,7 +68,7 @@
 	pixel_y = 7
 	var/going_kaboom = FALSE // Is it about to explode?
 
-TYPE_PROC_REF(/obj/machinery/power/rtg/abductor, overload)()
+/obj/machinery/power/rtg/abductor/proc/overload()
 	if(going_kaboom)
 		return
 	going_kaboom = TRUE

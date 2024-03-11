@@ -101,7 +101,7 @@
  *
  * Returns [QDEL_HINT_QUEUE]
  */
-TYPE_PROC_REF(/datum, Destroy)(force=FALSE, ...)
+/datum/proc/Destroy(force=FALSE, ...)
 	SHOULD_CALL_PARENT(TRUE)
 	tag = null
 	datum_flags &= ~DF_USE_TAG //In case something tries to REF us
@@ -152,14 +152,14 @@ TYPE_PROC_REF(/datum, Destroy)(force=FALSE, ...)
 	return QDEL_HINT_QUEUE
 
 #ifdef DATUMVAR_DEBUGGING_MODE
-TYPE_PROC_REF(/datum, save_vars)()
+/datum/proc/save_vars()
 	cached_vars = list()
 	for(var/i in vars)
 		if(i == "cached_vars")
 			continue
 		cached_vars[i] = vars[i]
 
-TYPE_PROC_REF(/datum, check_changed_vars)()
+/datum/proc/check_changed_vars()
 	. = list()
 	for(var/i in vars)
 		if(i == "cached_vars")
@@ -167,27 +167,27 @@ TYPE_PROC_REF(/datum, check_changed_vars)()
 		if(cached_vars[i] != vars[i])
 			.[i] = list(cached_vars[i], vars[i])
 
-TYPE_PROC_REF(/datum, txt_changed_vars)()
+/datum/proc/txt_changed_vars()
 	var/list/l = check_changed_vars()
 	var/t = "[src]([REF(src)]) changed vars:"
 	for(var/i in l)
 		t += "\"[i]\" \[[l[i][1]]\] --> \[[l[i][2]]\] "
 	t += "."
 
-TYPE_PROC_REF(/datum, to_chat_check_changed_vars)(target = world)
+/datum/proc/to_chat_check_changed_vars(target = world)
 	to_chat(target, txt_changed_vars())
 #endif
 
 ///Return a LIST for serialize_datum to encode! Not the actual json!
-TYPE_PROC_REF(/datum, serialize_list)(list/options)
+/datum/proc/serialize_list(list/options)
 	CRASH("Attempted to serialize datum [src] of type [type] without serialize_list being implemented!")
 
 ///Accepts a LIST from deserialize_datum. Should return src or another datum.
-TYPE_PROC_REF(/datum, deserialize_list)(json, list/options)
+/datum/proc/deserialize_list(json, list/options)
 	CRASH("Attempted to deserialize datum [src] of type [type] without deserialize_list being implemented!")
 
 ///Serializes into JSON. Does not encode type.
-TYPE_PROC_REF(/datum, serialize_json)(list/options)
+/datum/proc/serialize_json(list/options)
 	. = serialize_list(options)
 	if(!islist(.))
 		. = null
@@ -195,7 +195,7 @@ TYPE_PROC_REF(/datum, serialize_json)(list/options)
 		. = json_encode(.)
 
 ///Deserializes from JSON. Does not parse type.
-TYPE_PROC_REF(/datum, deserialize_json)(list/input, list/options)
+/datum/proc/deserialize_json(list/input, list/options)
 	var/list/jsonlist = json_decode(input)
 	. = deserialize_list(jsonlist)
 	if(!istype(., /datum))

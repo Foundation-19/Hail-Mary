@@ -34,23 +34,23 @@
 	if(in_range(user, src) || isobserver(user))
 		. += "<span class='notice'>The status display reads: Scanning module has been upgraded to level <b>[scan_level]</b>.</span>"
 
-TYPE_PROC_REF(/obj/machinery/nanite_chamber, set_busy)(status, message, working_icon)
+/obj/machinery/nanite_chamber/proc/set_busy(status, message, working_icon)
 	busy = status
 	busy_message = message
 	busy_icon_state = working_icon
 	update_icon()
 
-TYPE_PROC_REF(/obj/machinery/nanite_chamber, set_safety)(threshold)
+/obj/machinery/nanite_chamber/proc/set_safety(threshold)
 	if(!occupant)
 		return
 	SEND_SIGNAL(occupant, COMSIG_NANITE_SET_SAFETY, threshold)
 
-TYPE_PROC_REF(/obj/machinery/nanite_chamber, set_cloud)(cloud_id)
+/obj/machinery/nanite_chamber/proc/set_cloud(cloud_id)
 	if(!occupant)
 		return
 	SEND_SIGNAL(occupant, COMSIG_NANITE_SET_CLOUD, cloud_id)
 
-TYPE_PROC_REF(/obj/machinery/nanite_chamber, inject_nanites)()
+/obj/machinery/nanite_chamber/proc/inject_nanites()
 	if(stat & (NOPOWER|BROKEN))
 		return
 	if((stat & MAINT) || panel_open)
@@ -69,7 +69,7 @@ TYPE_PROC_REF(/obj/machinery/nanite_chamber, inject_nanites)()
 	addtimer(CALLBACK(src, PROC_REF(set_busy), TRUE, "Activating nanites...", "[initial(icon_state)]_falling"),110)
 	addtimer(CALLBACK(src, PROC_REF(complete_injection), locked_state),130)
 
-TYPE_PROC_REF(/obj/machinery/nanite_chamber, complete_injection)(locked_state)
+/obj/machinery/nanite_chamber/proc/complete_injection(locked_state)
 	//TODO MACHINE DING
 	locked = locked_state
 	set_busy(FALSE)
@@ -77,7 +77,7 @@ TYPE_PROC_REF(/obj/machinery/nanite_chamber, complete_injection)(locked_state)
 		return
 	occupant.AddComponent(/datum/component/nanites, 100)
 
-TYPE_PROC_REF(/obj/machinery/nanite_chamber, remove_nanites)(datum/nanite_program/NP)
+/obj/machinery/nanite_chamber/proc/remove_nanites(datum/nanite_program/NP)
 	if(stat & (NOPOWER|BROKEN))
 		return
 	if((stat & MAINT) || panel_open)
@@ -96,7 +96,7 @@ TYPE_PROC_REF(/obj/machinery/nanite_chamber, remove_nanites)(datum/nanite_progra
 	addtimer(CALLBACK(src, PROC_REF(set_busy), TRUE, "Removing debris...", "[initial(icon_state)]_falling"),110)
 	addtimer(CALLBACK(src, PROC_REF(complete_removal), locked_state),130)
 
-TYPE_PROC_REF(/obj/machinery/nanite_chamber, complete_removal)(locked_state)
+/obj/machinery/nanite_chamber/proc/complete_removal(locked_state)
 	//TODO MACHINE DING
 	locked = locked_state
 	set_busy(FALSE)
@@ -129,7 +129,7 @@ TYPE_PROC_REF(/obj/machinery/nanite_chamber, complete_removal)(locked_state)
 		else
 			. += "green"
 
-TYPE_PROC_REF(/obj/machinery/nanite_chamber, toggle_open)(mob/user)
+/obj/machinery/nanite_chamber/proc/toggle_open(mob/user)
 	if(panel_open)
 		to_chat(user, span_notice("Close the maintenance panel first."))
 		return

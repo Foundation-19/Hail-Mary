@@ -40,7 +40,7 @@
 		wires.interact(user)
 		return TRUE
 
-TYPE_PROC_REF(/obj/machinery/particle_accelerator/control_box, update_state)()
+/obj/machinery/particle_accelerator/control_box/proc/update_state()
 	if(construction_state < PA_CONSTRUCTION_COMPLETE)
 		use_power = NO_POWER_USE
 		assembled = FALSE
@@ -75,13 +75,13 @@ TYPE_PROC_REF(/obj/machinery/particle_accelerator/control_box, update_state)()
 				else
 					icon_state = "control_boxc"
 
-TYPE_PROC_REF(/obj/machinery/particle_accelerator/control_box, strength_change)()
+/obj/machinery/particle_accelerator/control_box/proc/strength_change()
 	for(var/CP in connected_parts)
 		var/obj/structure/particle_accelerator/part = CP
 		part.strength = strength
 		part.update_icon()
 
-TYPE_PROC_REF(/obj/machinery/particle_accelerator/control_box, add_strength)(s)
+/obj/machinery/particle_accelerator/control_box/proc/add_strength(s)
 	if(assembled && (strength < strength_upper_limit))
 		strength++
 		strength_change()
@@ -90,7 +90,7 @@ TYPE_PROC_REF(/obj/machinery/particle_accelerator/control_box, add_strength)(s)
 		log_game("PA Control Computer increased to [strength] by [key_name(usr)] in [AREACOORD(src)]")
 		investigate_log("increased to <font color='red'>[strength]</font> by [key_name(usr)] at [AREACOORD(src)]", INVESTIGATE_SINGULO)
 
-TYPE_PROC_REF(/obj/machinery/particle_accelerator/control_box, remove_strength)(s)
+/obj/machinery/particle_accelerator/control_box/proc/remove_strength(s)
 	if(assembled && (strength > 0))
 		strength--
 		strength_change()
@@ -119,7 +119,7 @@ TYPE_PROC_REF(/obj/machinery/particle_accelerator/control_box, remove_strength)(
 		for(var/obj/structure/particle_accelerator/particle_emitter/PE in connected_parts)
 			PE.emit_particle(strength)
 
-TYPE_PROC_REF(/obj/machinery/particle_accelerator/control_box, part_scan)()
+/obj/machinery/particle_accelerator/control_box/proc/part_scan()
 	var/ldir = turn(dir,-90)
 	var/rdir = turn(dir,90)
 	var/odir = turn(dir,180)
@@ -160,7 +160,7 @@ TYPE_PROC_REF(/obj/machinery/particle_accelerator/control_box, part_scan)()
 	critical_machine = TRUE	//Only counts if the PA is actually assembled.
 	return TRUE
 
-TYPE_PROC_REF(/obj/machinery/particle_accelerator/control_box, check_part)(turf/T, type)
+/obj/machinery/particle_accelerator/control_box/proc/check_part(turf/T, type)
 	var/obj/structure/particle_accelerator/PA = locate(/obj/structure/particle_accelerator) in T
 	if(istype(PA, type) && (PA.construction_state == PA_CONSTRUCTION_COMPLETE))
 		if(PA.connect_master(src))
@@ -168,7 +168,7 @@ TYPE_PROC_REF(/obj/machinery/particle_accelerator/control_box, check_part)(turf/
 			return TRUE
 	return FALSE
 
-TYPE_PROC_REF(/obj/machinery/particle_accelerator/control_box, toggle_power)()
+/obj/machinery/particle_accelerator/control_box/proc/toggle_power()
 	active = !active
 	investigate_log("turned [active?"<font color='green'>ON</font>":"<font color='red'>OFF</font>"] by [usr ? key_name(usr) : "outside forces"] at [AREACOORD(src)]", INVESTIGATE_SINGULO)
 	message_admins("PA Control Computer turned [active ?"ON":"OFF"] by [usr ? ADMIN_LOOKUPFLW(usr) : "outside forces"] in [ADMIN_VERBOSEJMP(src)]")
@@ -260,7 +260,7 @@ TYPE_PROC_REF(/obj/machinery/particle_accelerator/control_box, toggle_power)()
 	else
 		..()
 
-TYPE_PROC_REF(/obj/machinery/particle_accelerator/control_box, is_interactive)(mob/user)
+/obj/machinery/particle_accelerator/control_box/proc/is_interactive(mob/user)
 	if(!interface_control)
 		to_chat(user, span_alert("ERROR: Request timed out. Check wire contacts."))
 		return FALSE

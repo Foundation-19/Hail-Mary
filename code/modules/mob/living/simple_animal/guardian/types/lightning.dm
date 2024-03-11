@@ -54,7 +54,7 @@
 	if(.)
 		removechains()
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile/guardian/beam, cleardeletedchains)()
+/mob/living/simple_animal/hostile/guardian/beam/proc/cleardeletedchains()
 	if(summonerchain && QDELETED(summonerchain))
 		summonerchain = null
 	if(enemychains.len)
@@ -63,7 +63,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/hostile/guardian/beam, cleardeletedchain
 			if(!chain || QDELETED(cd))
 				enemychains -= chain
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile/guardian/beam, shockallchains)()
+/mob/living/simple_animal/hostile/guardian/beam/proc/shockallchains()
 	. = 0
 	cleardeletedchains()
 	if(summoner)
@@ -74,7 +74,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/hostile/guardian/beam, shockallchains)()
 		for(var/chain in enemychains)
 			. += chainshock(chain)
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile/guardian/beam, removechains)()
+/mob/living/simple_animal/hostile/guardian/beam/proc/removechains()
 	if(summonerchain)
 		qdel(summonerchain)
 		summonerchain = null
@@ -83,7 +83,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/hostile/guardian/beam, removechains)()
 			qdel(chain)
 		enemychains = list()
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile/guardian/beam, chainshock)(datum/beam/B)
+/mob/living/simple_animal/hostile/guardian/beam/proc/chainshock(datum/beam/B)
 	. = 0
 	var/list/turfs = list()
 	for(var/E in B.elements)

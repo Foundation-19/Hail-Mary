@@ -111,7 +111,7 @@
 				entered_dirs |= H.dir
 				update_icon()
 
-TYPE_PROC_REF(/obj/effect/decal/cleanable/blood/footprints, on_exit)(atom/movable/O)
+/obj/effect/decal/cleanable/blood/footprints/proc/on_exit(atom/movable/O)
 	SIGNAL_HANDLER
 	if(ishuman(O))
 		var/mob/living/carbon/human/H = O

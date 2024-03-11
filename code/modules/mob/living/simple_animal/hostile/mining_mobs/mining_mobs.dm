@@ -61,7 +61,7 @@
 		spawn_crusher_loot()
 	..(gibbed)
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile/asteroid, spawn_crusher_loot)()
+/mob/living/simple_animal/hostile/asteroid/proc/spawn_crusher_loot()
 	LAZYSET(butcher_results, crusher_loot, 1)
 
 /mob/living/simple_animal/hostile/asteroid/handle_temperature_damage()

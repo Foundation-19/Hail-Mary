@@ -80,7 +80,7 @@
 	else if(!forced)
 		to_chat(src, "<span class='danger'><B>You cannot yet enter stealth, wait another [DisplayTimeText(stealthcooldown - world.time)]!</span></B>")
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile/guardian/assassin, updatestealthalert)()
+/mob/living/simple_animal/hostile/guardian/assassin/proc/updatestealthalert()
 	if(stealthcooldown <= world.time)
 		if(toggle)
 			if(!instealthalert)

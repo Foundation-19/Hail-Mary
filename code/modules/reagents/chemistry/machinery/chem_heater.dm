@@ -35,7 +35,7 @@
 		return
 	replace_beaker(user)
 
-TYPE_PROC_REF(/obj/machinery/chem_heater, replace_beaker)(mob/living/user, obj/item/reagent_containers/new_beaker)
+/obj/machinery/chem_heater/proc/replace_beaker(mob/living/user, obj/item/reagent_containers/new_beaker)
 	if(!user)
 		return FALSE
 	if(beaker)

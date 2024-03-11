@@ -57,14 +57,14 @@
 	var/turf/target = locate(target_x, target_y, z)
 	ghost.forceMove(target)
 
-TYPE_PROC_REF(/obj/machinery/launchpad, isAvailable)(silent = FALSE)
+/obj/machinery/launchpad/proc/isAvailable(silent = FALSE)
 	if(stat & NOPOWER)
 		return FALSE
 	if(panel_open)
 		return FALSE
 	return TRUE
 
-TYPE_PROC_REF(/obj/machinery/launchpad, set_offset)(x, y)
+/obj/machinery/launchpad/proc/set_offset(x, y)
 	if(teleporting)
 		return
 	if(!isnull(x))
@@ -72,7 +72,7 @@ TYPE_PROC_REF(/obj/machinery/launchpad, set_offset)(x, y)
 	if(!isnull(y))
 		y_offset = clamp(y, -range, range)
 
-TYPE_PROC_REF(/obj/machinery/launchpad, doteleport)(mob/user, sending)
+/obj/machinery/launchpad/proc/doteleport(mob/user, sending)
 	if(teleporting)
 		to_chat(user, span_warning("ERROR: Launchpad busy."))
 		return
@@ -306,7 +306,7 @@ TYPE_PROC_REF(/obj/machinery/launchpad, doteleport)(mob/user, sending)
 	data["y"] = pad.y_offset
 	return data
 
-TYPE_PROC_REF(/obj/item/launchpad_remote, teleport)(mob/user, obj/machinery/launchpad/pad)
+/obj/item/launchpad_remote/proc/teleport(mob/user, obj/machinery/launchpad/pad)
 	if(QDELETED(pad))
 		to_chat(user, span_warning("ERROR: Launchpad not responding. Check launchpad integrity."))
 		return

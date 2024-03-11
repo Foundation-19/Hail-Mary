@@ -145,7 +145,7 @@
 		return TRUE
 	return ..()
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile/mining_drone, SetCollectBehavior)()
+/mob/living/simple_animal/hostile/mining_drone/proc/SetCollectBehavior()
 	mode = MINEDRONE_COLLECT
 	vision_range = 9
 	search_objects = 2
@@ -156,7 +156,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/hostile/mining_drone, SetCollectBehavior
 	icon_state = "mining_drone"
 	to_chat(src, span_info("You are set to collect mode. You can now collect loose ore."))
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile/mining_drone, SetOffenseBehavior)()
+/mob/living/simple_animal/hostile/mining_drone/proc/SetOffenseBehavior()
 	mode = MINEDRONE_ATTACK
 	vision_range = 7
 	search_objects = 0
@@ -180,11 +180,11 @@ TYPE_PROC_REF(/mob/living/simple_animal/hostile/mining_drone, SetOffenseBehavior
 		return
 	stored_gun.afterattack(A, src) //of the possible options to allow minebots to have KA mods, would you believe this is the best?
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile/mining_drone, CollectOre)()
+/mob/living/simple_animal/hostile/mining_drone/proc/CollectOre()
 	for(var/obj/item/stack/ore/O in range(1, src))
 		O.forceMove(src)
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile/mining_drone, DropOre)(message = 1)
+/mob/living/simple_animal/hostile/mining_drone/proc/DropOre(message = 1)
 	if(!contents.len)
 		if(message)
 			to_chat(src, span_notice("You attempt to dump your stored ore, but you have none."))
@@ -217,7 +217,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/hostile/mining_drone, DropOre)(message =
 	to_chat(user, span_notice("You toggle your meson vision [(user.sight & SEE_TURFS) ? "on" : "off"]."))
 
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile/mining_drone, toggle_mode)()
+/mob/living/simple_animal/hostile/mining_drone/proc/toggle_mode()
 	switch(mode)
 		if(MINEDRONE_ATTACK)
 			SetCollectBehavior()
@@ -274,7 +274,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/hostile/mining_drone, toggle_mode)()
 		return
 	upgrade_bot(M, user)
 
-TYPE_PROC_REF(/obj/item/mine_bot_upgrade, upgrade_bot)(mob/living/simple_animal/hostile/mining_drone/M, mob/user)
+/obj/item/mine_bot_upgrade/proc/upgrade_bot(mob/living/simple_animal/hostile/mining_drone/M, mob/user)
 	if(M.melee_damage_upper != initial(M.melee_damage_upper))
 		to_chat(user, "[src] already has a combat upgrade installed!")
 		return

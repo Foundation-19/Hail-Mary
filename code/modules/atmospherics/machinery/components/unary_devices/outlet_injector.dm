@@ -71,7 +71,7 @@
 
 		update_parents()
 
-TYPE_PROC_REF(/obj/machinery/atmospherics/components/unary/outlet_injector, inject)()
+/obj/machinery/atmospherics/components/unary/outlet_injector/proc/inject()
 
 	if(on || injecting || !is_operational())
 		return
@@ -86,13 +86,13 @@ TYPE_PROC_REF(/obj/machinery/atmospherics/components/unary/outlet_injector, inje
 
 	flick("inje_inject", src)
 
-TYPE_PROC_REF(/obj/machinery/atmospherics/components/unary/outlet_injector, set_frequency)(new_frequency)
+/obj/machinery/atmospherics/components/unary/outlet_injector/proc/set_frequency(new_frequency)
 	SSradio.remove_object(src, frequency)
 	frequency = new_frequency
 	if(frequency)
 		radio_connection = SSradio.add_object(src, frequency)
 
-TYPE_PROC_REF(/obj/machinery/atmospherics/components/unary/outlet_injector, broadcast_status)()
+/obj/machinery/atmospherics/components/unary/outlet_injector/proc/broadcast_status()
 
 	if(!radio_connection)
 		return

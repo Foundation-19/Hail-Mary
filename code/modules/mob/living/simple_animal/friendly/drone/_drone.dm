@@ -224,7 +224,7 @@
 		adjustBruteLoss(heavy_emp_damage)
 		to_chat(src, span_userdanger("HeAV% DA%^MMA+G TO I/O CIR!%UUT!"))
 
-TYPE_PROC_REF(/mob/living/simple_animal/drone, triggerAlarm)(class, area/A, O, obj/alarmsource)
+/mob/living/simple_animal/drone/proc/triggerAlarm(class, area/A, O, obj/alarmsource)
 	if(alarmsource.z != z)
 		return
 	if(stat != DEAD)
@@ -239,7 +239,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/drone, triggerAlarm)(class, area/A, O, o
 		L[A.name] = list(A, list(alarmsource))
 		to_chat(src, "--- [class] alarm detected in [A.name]!")
 
-TYPE_PROC_REF(/mob/living/simple_animal/drone, cancelAlarm)(class, area/A, obj/origin)
+/mob/living/simple_animal/drone/proc/cancelAlarm(class, area/A, obj/origin)
 	if(stat != DEAD)
 		var/list/L = alarms[class]
 		var/cleared = 0

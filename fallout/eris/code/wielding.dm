@@ -9,13 +9,13 @@
 	var/force_wielded = 0 //If you have a specific force for it being wielded.
 	var/wielded_mult = 1
 
-TYPE_PROC_REF(/mob/living, do_wield)()//The proc we actually care about.
+/mob/living/proc/do_wield()//The proc we actually care about.
 	var/obj/item/I = get_active_held_item()
 	if(!I)
 		return
 	I.attempt_wield(src)
 
-TYPE_PROC_REF(/obj/item, unwield)(mob/living/user)
+/obj/item/proc/unwield(mob/living/user)
 	if(!wielded || !user)
 		return
 	wielded = FALSE
@@ -44,7 +44,7 @@ TYPE_PROC_REF(/obj/item, unwield)(mob/living/user)
 		qdel(O)
 	return
 
-TYPE_PROC_REF(/obj/item, wield)(mob/living/user)
+/obj/item/proc/wield(mob/living/user)
 	if(wielded)
 		return
 	if(user.get_num_arms() < 2)
@@ -77,32 +77,32 @@ TYPE_PROC_REF(/obj/item, wield)(mob/living/user)
 	user.put_in_inactive_hand(O)
 	return
 
-TYPE_PROC_REF(/obj/item, update_wield_icon)()
+/obj/item/proc/update_wield_icon()
 	if(wielded && wielded_icon)
 		item_state = wielded_icon
 
-TYPE_PROC_REF(/obj/item, update_unwield_icon)()//That way it doesn't interupt any other special icon_states.
+/obj/item/proc/update_unwield_icon()//That way it doesn't interupt any other special icon_states.
 	if(!wielded && wielded_icon)
 		item_state = "[initial(item_state)]"
 
 //For general weapons.
-TYPE_PROC_REF(/obj/item, attempt_wield)(mob/user)
+/obj/item/proc/attempt_wield(mob/user)
 	if(wielded) //Trying to unwield it
 		unwield(user)
 	else //Trying to wield it
 		wield(user)
 
 //Checks if the item is being held by a mob, and if so, updates the held icons
-TYPE_PROC_REF(/obj/item, update_twohanding)()
+/obj/item/proc/update_twohanding()
 	update_held_icon()
 
-TYPE_PROC_REF(/obj/item, update_held_icon)()
+/obj/item/proc/update_held_icon()
 	if(ismob(src.loc))
 		var/mob/M = src.loc
 		M.update_inv_hands()
 
 /*
-TYPE_PROC_REF(/obj/item, is_held_twohanded)(mob/living/M)
+/obj/item/proc/is_held_twohanded(mob/living/M)
 	var/check_hand
 	if(M.get_activ == src && !M.r_hand)//Eris removed hands long ago. This would normally check hands but it has to check if you have arms instead. Otherwise the below comments would be accurate.
 		check_hand = BP_R_ARM //item in left hand, check right hand

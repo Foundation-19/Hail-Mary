@@ -1,4 +1,4 @@
-TYPE_PROC_REF(/datum/admins, CitadelMentorLogSecret)()
+/datum/admins/proc/CitadelMentorLogSecret()
 	var/dat = "<B>Mentor Log<HR></B>"
 	for(var/l in GLOB.mentorlog)
 		dat += "<li>[l]</li>"

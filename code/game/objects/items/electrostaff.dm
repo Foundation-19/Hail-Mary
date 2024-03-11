@@ -92,10 +92,10 @@
 		var/mob/living/silicon/robot/R = loc
 		. = R.get_cell()
 
-TYPE_PROC_REF(/obj/item/electrostaff, min_hitcost)()
+/obj/item/electrostaff/proc/min_hitcost()
 	return min(stun_cost, lethal_cost)
 
-TYPE_PROC_REF(/obj/item/electrostaff, turn_on)(obj/item/source, mob/user)
+/obj/item/electrostaff/proc/turn_on(obj/item/source, mob/user)
 	wielded = TRUE
 	item_flags |= (ITEM_CAN_BLOCK|ITEM_CAN_PARRY)
 	if(!cell)
@@ -112,7 +112,7 @@ TYPE_PROC_REF(/obj/item/electrostaff, turn_on)(obj/item/source, mob/user)
 	if(user)
 		to_chat(user, span_warning("You turn [src] on."))
 
-TYPE_PROC_REF(/obj/item/electrostaff, turn_off)(obj/item/source, mob/user)
+/obj/item/electrostaff/proc/turn_off(obj/item/source, mob/user)
 	wielded = FALSE
 	item_flags &= ~(ITEM_CAN_BLOCK|ITEM_CAN_PARRY)
 	if(user)
@@ -161,10 +161,10 @@ TYPE_PROC_REF(/obj/item/electrostaff, turn_off)(obj/item/source, mob/user)
 /obj/item/electrostaff/process()
 	deductcharge(50)			//Wasteful!
 
-TYPE_PROC_REF(/obj/item/electrostaff, min_hit_cost)()
+/obj/item/electrostaff/proc/min_hit_cost()
 	return min(lethal_cost, stun_cost)
 
-TYPE_PROC_REF(/obj/item/electrostaff, deductcharge)(amount)
+/obj/item/electrostaff/proc/deductcharge(amount)
 	var/obj/item/stock_parts/cell/C = get_cell()
 	if(!C)
 		turn_off()
@@ -199,7 +199,7 @@ TYPE_PROC_REF(/obj/item/electrostaff, deductcharge)(amount)
 		user.do_attack_animation(target)
 		user.adjustStaminaLossBuffered(lethal_stam_cost)
 
-TYPE_PROC_REF(/obj/item/electrostaff, stun_act)(mob/living/target, mob/living/user, no_charge_and_force = FALSE, list/block_return = list())
+/obj/item/electrostaff/proc/stun_act(mob/living/target, mob/living/user, no_charge_and_force = FALSE, list/block_return = list())
 	var/stunforce = block_calculate_resultant_damage(stun_stamdmg, block_return)
 	if(!no_charge_and_force)
 		if(!on)
@@ -230,7 +230,7 @@ TYPE_PROC_REF(/obj/item/electrostaff, stun_act)(mob/living/target, mob/living/us
 		H.forcesay(GLOB.hit_appends)
 	return TRUE
 
-TYPE_PROC_REF(/obj/item/electrostaff, harm_act)(mob/living/target, mob/living/user, no_charge_and_force = FALSE, list/block_return = list())
+/obj/item/electrostaff/proc/harm_act(mob/living/target, mob/living/user, no_charge_and_force = FALSE, list/block_return = list())
 	var/lethal_force = block_calculate_resultant_damage(lethal_damage, block_return)
 	if(!no_charge_and_force)
 		if(!on)
@@ -253,7 +253,7 @@ TYPE_PROC_REF(/obj/item/electrostaff, harm_act)(mob/living/target, mob/living/us
 	playsound(src, 'sound/weapons/sear.ogg', 50, 1, -1)
 	return TRUE
 
-TYPE_PROC_REF(/obj/item/electrostaff, clowning_around)(mob/living/user)
+/obj/item/electrostaff/proc/clowning_around(mob/living/user)
 	user.visible_message(span_danger("[user] accidentally hits [user.p_them()]self with [src]!"), \
 						span_userdanger("You accidentally hit yourself with [src]!"))
 	SEND_SIGNAL(user, COMSIG_LIVING_MINOR_SHOCK)

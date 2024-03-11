@@ -102,11 +102,11 @@
 		S.preprime(user = null)
 	..()
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile/securitron, do_death_beep)()
+/mob/living/simple_animal/hostile/securitron/proc/do_death_beep()
 	playsound(src, 'sound/machines/triple_beep.ogg', 75, TRUE)
 	visible_message(span_warning("You hear an ominous beep coming from [src]!"), span_warning("You hear an ominous beep!"))
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile/securitron, self_destruct)()
+/mob/living/simple_animal/hostile/securitron/proc/self_destruct()
 	explosion(src,1,2,4,4)
 
 /mob/living/simple_animal/hostile/securitron/death()

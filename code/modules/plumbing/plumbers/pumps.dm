@@ -50,7 +50,7 @@
 	pump()
 
 ///pump up that sweet geyser nectar
-TYPE_PROC_REF(/obj/machinery/plumbing/liquid_pump, pump)()
+/obj/machinery/plumbing/liquid_pump/proc/pump()
 	if(!geyser || !geyser.reagents)
 		return
 	geyser.reagents.trans_to(src, pump_power)

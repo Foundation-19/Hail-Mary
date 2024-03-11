@@ -84,7 +84,7 @@
 		T.maptext = "[T.x],[T.y],[T.z]"
 		tagged |= T
 
-TYPE_PROC_REF(/obj/item/gps/visible_debug, clear)()
+/obj/item/gps/visible_debug/proc/clear()
 	while(tagged.len)
 		var/turf/T = pop(tagged)
 		T.color = initial(T.color)

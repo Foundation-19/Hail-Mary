@@ -151,7 +151,7 @@
 	var/list/spell_tabs = list()
 	/// list of tabs containing verbs
 	var/list/verb_tabs = list()
-	///A lazy list of atoms we've examined in the last EXAMINE_MORE_TIME (default 1.5) seconds, so that we will call [TYPE_PROC_REF(atom, examine_more)()] instead of [TYPE_PROC_REF(atom, examine)()] on them when examining
+	///A lazy list of atoms we've examined in the last EXAMINE_MORE_TIME (default 1.5) seconds, so that we will call [atom/proc/examine_more()] instead of [atom/proc/examine()] on them when examining
 	var/list/recent_examines
 	///When was the last time we warned them about not cryoing without an ahelp, set to -5 minutes so that rounstart cryo still warns
 	var/cryo_warned = -5 MINUTES

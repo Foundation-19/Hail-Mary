@@ -3,7 +3,7 @@ GLOBAL_PROTECT(exp_to_update)
 
 
 // Procs
-TYPE_PROC_REF(/datum/job, required_playtime_remaining)(client/C)
+/datum/job/proc/required_playtime_remaining(client/C)
 	if(!C)
 		return 0
 	if(!CONFIG_GET(flag/use_exp_tracking))
@@ -26,14 +26,14 @@ TYPE_PROC_REF(/datum/job, required_playtime_remaining)(client/C)
 	else
 		return (job_requirement - my_exp)
 
-TYPE_PROC_REF(/datum/job, get_exp_req_amount)()
+/datum/job/proc/get_exp_req_amount()
 	if(title in (GLOB.command_positions | list("AI")))
 		var/uerhh = CONFIG_GET(number/use_exp_restrictions_heads_hours)
 		if(uerhh)
 			return uerhh * 60
 	return exp_requirements
 
-TYPE_PROC_REF(/datum/job, get_exp_req_type)()
+/datum/job/proc/get_exp_req_type()
 	if(title in (GLOB.command_positions | list("AI")))
 		if(CONFIG_GET(flag/use_exp_restrictions_heads_department) && exp_type_department)
 			return exp_type_department
@@ -46,7 +46,7 @@ TYPE_PROC_REF(/datum/job, get_exp_req_type)()
 		return FALSE
 	return TRUE
 
-TYPE_PROC_REF(/client, calc_exp_type)(exptype)
+/client/proc/calc_exp_type(exptype)
 	var/list/explist = prefs.exp.Copy()
 	var/amount = 0
 	var/list/typelist = GLOB.exp_jobsmap[exptype]
@@ -57,7 +57,7 @@ TYPE_PROC_REF(/client, calc_exp_type)(exptype)
 			amount += explist[job]
 	return amount
 
-TYPE_PROC_REF(/client, get_exp_report)()
+/client/proc/get_exp_report()
 	if(!CONFIG_GET(flag/use_exp_tracking))
 		return "Tracking is disabled in the server configuration file."
 	var/list/play_records = prefs.exp
@@ -122,7 +122,7 @@ TYPE_PROC_REF(/client, get_exp_report)()
 	return return_text
 
 
-TYPE_PROC_REF(/client, get_exp_living)(pure_numeric = FALSE)
+/client/proc/get_exp_living(pure_numeric = FALSE)
 	if(!prefs.exp || !prefs.exp[EXP_TYPE_LIVING])
 		return pure_numeric ? 0 : "No data"
 	var/exp_living = text2num(prefs.exp[EXP_TYPE_LIVING])
@@ -136,7 +136,7 @@ TYPE_PROC_REF(/client, get_exp_living)(pure_numeric = FALSE)
 	else
 		return "0h"
 
-TYPE_PROC_REF(/datum/controller/subsystem/blackbox, update_exp)(mins, ann = FALSE)
+/datum/controller/subsystem/blackbox/proc/update_exp(mins, ann = FALSE)
 	if(!SSdbcore.Connect())
 		return -1
 	for(var/client/L in GLOB.clients)
@@ -144,14 +144,14 @@ TYPE_PROC_REF(/datum/controller/subsystem/blackbox, update_exp)(mins, ann = FALS
 			continue
 		L.update_exp_list(mins,ann)
 
-TYPE_PROC_REF(/datum/controller/subsystem/blackbox, update_exp_db)()
+/datum/controller/subsystem/blackbox/proc/update_exp_db()
 	set waitfor = FALSE
 	var/list/old_minutes = GLOB.exp_to_update
 	GLOB.exp_to_update = null
 	SSdbcore.MassInsert(format_table_name("role_time"), old_minutes, duplicate_key = "ON DUPLICATE KEY UPDATE minutes = minutes + VALUES(minutes)")
 
 //resets a client's exp to what was in the db.
-TYPE_PROC_REF(/client, set_exp_from_db)()
+/client/proc/set_exp_from_db()
 	if(!CONFIG_GET(flag/use_exp_tracking))
 		return -1
 	if(!SSdbcore.Connect())
@@ -178,7 +178,7 @@ TYPE_PROC_REF(/client, set_exp_from_db)()
 	prefs.exp = play_records
 
 //updates player db flags
-TYPE_PROC_REF(/client, update_flag_db)(newflag, state = FALSE)
+/client/proc/update_flag_db(newflag, state = FALSE)
 
 	if(!SSdbcore.Connect())
 		return -1
@@ -202,7 +202,7 @@ TYPE_PROC_REF(/client, update_flag_db)(newflag, state = FALSE)
 	qdel(flag_update)
 
 
-TYPE_PROC_REF(/client, update_exp_list)(minutes, announce_changes = FALSE)
+/client/proc/update_exp_list(minutes, announce_changes = FALSE)
 	if(!CONFIG_GET(flag/use_exp_tracking))
 		return -1
 	if(!SSdbcore.Connect())
@@ -266,11 +266,11 @@ TYPE_PROC_REF(/client, update_exp_list)(minutes, announce_changes = FALSE)
 			"ckey" = ckey,
 			"minutes" = jvalue)))
 		prefs.exp[jtype] += jvalue
-	addtimer(CALLBACK(SSblackbox,TYPE_PROC_REF(/datum/controller/subsystem/blackbox, update_exp_db)),20,TIMER_OVERRIDE|TIMER_UNIQUE)
+	addtimer(CALLBACK(SSblackbox,/datum/controller/subsystem/blackbox/proc/update_exp_db),20,TIMER_OVERRIDE|TIMER_UNIQUE)
 
 
 //ALWAYS call this at beginning to any proc touching player flags, or your database admin will probably be mad
-TYPE_PROC_REF(/client, set_db_player_flags)()
+/client/proc/set_db_player_flags()
 	if(!SSdbcore.Connect())
 		return FALSE
 

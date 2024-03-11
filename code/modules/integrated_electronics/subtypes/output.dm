@@ -93,7 +93,7 @@
 	light_toggled = !light_toggled
 	update_lighting()
 
-TYPE_PROC_REF(/obj/item/integrated_circuit/output/light, update_lighting)()
+/obj/item/integrated_circuit/output/light/proc/update_lighting()
 	if(light_toggled)
 		if(assembly)
 			assembly.set_light(l_range = light_brightness, l_power = 1, l_color = light_rgb)
@@ -290,7 +290,7 @@ TYPE_PROC_REF(/obj/item/integrated_circuit/output/light, update_lighting)()
 	QDEL_NULL(camera)
 	return ..()
 
-TYPE_PROC_REF(/obj/item/integrated_circuit/output/video_camera, set_camera_status)(status)
+/obj/item/integrated_circuit/output/video_camera/proc/set_camera_status(status)
 	if(camera)
 		camera.status = status
 		GLOB.cameranet.updatePortableCamera(camera)
@@ -320,14 +320,14 @@ TYPE_PROC_REF(/obj/item/integrated_circuit/output/video_camera, set_camera_statu
 	update_camera_location(oldLoc)
 
 #define VIDEO_CAMERA_BUFFER 10
-TYPE_PROC_REF(/obj/item/integrated_circuit/output/video_camera, update_camera_location)(oldLoc)
+/obj/item/integrated_circuit/output/video_camera/proc/update_camera_location(oldLoc)
 	oldLoc = get_turf(oldLoc)
 	if(!QDELETED(camera) && !updating && oldLoc != get_turf(src))
 		updating = TRUE
 		addtimer(CALLBACK(src, PROC_REF(do_camera_update), oldLoc), VIDEO_CAMERA_BUFFER)
 #undef VIDEO_CAMERA_BUFFER
 
-TYPE_PROC_REF(/obj/item/integrated_circuit/output/video_camera, do_camera_update)(oldLoc)
+/obj/item/integrated_circuit/output/video_camera/proc/do_camera_update(oldLoc)
 	if(!QDELETED(camera) && oldLoc != get_turf(src))
 		GLOB.cameranet.updatePortableCamera(camera)
 	updating = FALSE

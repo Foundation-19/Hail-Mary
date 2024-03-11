@@ -29,20 +29,20 @@
 	if (nref)
 		ref = WEAKREF(nref)
 
-TYPE_PROC_REF(/datum/browser, user_deleted)(datum/source)
+/datum/browser/proc/user_deleted(datum/source)
 	SIGNAL_HANDLER
 	user = null
 
-TYPE_PROC_REF(/datum/browser, add_head_content)(nhead_content)
+/datum/browser/proc/add_head_content(nhead_content)
 	head_content = nhead_content
 
-TYPE_PROC_REF(/datum/browser, set_window_options)(nwindow_options)
+/datum/browser/proc/set_window_options(nwindow_options)
 	window_options = nwindow_options
 
-TYPE_PROC_REF(/datum/browser, set_title_image)(ntitle_image)
+/datum/browser/proc/set_title_image(ntitle_image)
 	//title_image = ntitle_image
 
-TYPE_PROC_REF(/datum/browser, add_stylesheet)(name, file)
+/datum/browser/proc/add_stylesheet(name, file)
 	if(istype(name, /datum/asset/spritesheet))
 		var/datum/asset/spritesheet/sheet = name
 		stylesheets["spritesheet_[sheet.name].css"] = "data/spritesheets/[sheet.name]"
@@ -54,17 +54,17 @@ TYPE_PROC_REF(/datum/browser, add_stylesheet)(name, file)
 		if (!SSassets.cache[asset_name])
 			SSassets.transport.register_asset(asset_name, file)
 
-TYPE_PROC_REF(/datum/browser, add_script)(name, file)
+/datum/browser/proc/add_script(name, file)
 	scripts["[ckey(name)].js"] = file
 	SSassets.transport.register_asset("[ckey(name)].js", file)
 
-TYPE_PROC_REF(/datum/browser, set_content)(ncontent)
+/datum/browser/proc/set_content(ncontent)
 	content = ncontent
 
-TYPE_PROC_REF(/datum/browser, add_content)(ncontent)
+/datum/browser/proc/add_content(ncontent)
 	content += ncontent
 
-TYPE_PROC_REF(/datum/browser, get_header)()
+/datum/browser/proc/get_header()
 	var/file
 	head_content += "<link rel='stylesheet' type='text/css' href='[common_asset.get_url_mappings()["common.css"]]'>"
 	for (file in stylesheets)
@@ -87,7 +87,7 @@ TYPE_PROC_REF(/datum/browser, get_header)()
 			<div class='uiContent'>
 	"}
 //" This is here because else the rest of the file looks like a string in notepad++.
-TYPE_PROC_REF(/datum/browser, get_footer)()
+/datum/browser/proc/get_footer()
 	return {"
 			<div class="wrapper"></div>
 			<div class="scanline"></div>
@@ -97,14 +97,14 @@ TYPE_PROC_REF(/datum/browser, get_footer)()
 	</body>
 </html>"}
 
-TYPE_PROC_REF(/datum/browser, get_content)()
+/datum/browser/proc/get_content()
 	return {"
 	[get_header()]
 	[content]
 	[get_footer()]
 	"}
 
-TYPE_PROC_REF(/datum/browser, open)(use_onclose = TRUE)
+/datum/browser/proc/open(use_onclose = TRUE)
 	if(isnull(window_id))	//null check because this can potentially nuke goonchat
 		WARNING("Browser [title] tried to open with a null ID")
 		to_chat(user, span_userdanger("The [title] browser you tried to open failed a sanity check! Please report this on github!"))
@@ -121,7 +121,7 @@ TYPE_PROC_REF(/datum/browser, open)(use_onclose = TRUE)
 	if(use_onclose)
 		setup_onclose()
 
-TYPE_PROC_REF(/datum/browser, setup_onclose)()
+/datum/browser/proc/setup_onclose()
 	set waitfor = 0 //winexists sleeps, so we don't need to.
 	for (var/i in 1 to 10)
 		if (user?.client && winexists(user, window_id))
@@ -133,7 +133,7 @@ TYPE_PROC_REF(/datum/browser, setup_onclose)()
 			onclose(user, window_id, send_ref)
 			break
 
-TYPE_PROC_REF(/datum/browser, close)()
+/datum/browser/proc/close()
 	if(!isnull(window_id))//null check because this can potentially nuke goonchat
 		user << browse(null, "window=[window_id]")
 	else
@@ -235,7 +235,7 @@ TYPE_PROC_REF(/datum/browser, close)()
 	if (timeout)
 		addtimer(CALLBACK(src, PROC_REF(close)), timeout)
 
-TYPE_PROC_REF(/datum/browser/modal, wait)()
+/datum/browser/modal/proc/wait()
 	while (opentime && selectedbutton <= 0 && (!timeout || opentime+timeout > world.time))
 		stoplag(1)
 
@@ -341,7 +341,7 @@ TYPE_PROC_REF(/datum/browser/modal, wait)()
 	..(User, ckey("[User]-[Message]-[Title]-[world.time]-[rand(1,10000)]"), Title, width, height, src, StealFocus, Timeout)
 	set_content(ShowChoices(User))
 
-TYPE_PROC_REF(/datum/browser/modal/preflikepicker, ShowChoices)(mob/user)
+/datum/browser/modal/preflikepicker/proc/ShowChoices(mob/user)
 	if (settings["preview_callback"])
 		var/datum/callback/callback = settings["preview_callback"]
 		preview_icon = callback.Invoke(settings)
@@ -433,7 +433,7 @@ TYPE_PROC_REF(/datum/browser/modal/preflikepicker, ShowChoices)(mob/user)
 // This will allow you to show an icon in the browse window
 // This is added to mob so that it can be used without a reference to the browser object
 // There is probably a better place for this...
-TYPE_PROC_REF(/mob, browse_rsc_icon)(icon, icon_state, dir = -1)
+/mob/proc/browse_rsc_icon(icon, icon_state, dir = -1)
 
 
 // Registers the on-close verb for a browse window (client/verb/.windowclose)

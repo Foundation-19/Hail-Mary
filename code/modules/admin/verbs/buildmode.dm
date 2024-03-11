@@ -96,7 +96,7 @@
 	holder.show_popup_menus = 0
 	holder.screen += buttons
 
-TYPE_PROC_REF(/datum/buildmode, quit)()
+/datum/buildmode/proc/quit()
 	holder.screen -= buttons
 	holder.click_intercept = null
 	holder.show_popup_menus = 1
@@ -115,18 +115,18 @@ TYPE_PROC_REF(/datum/buildmode, quit)()
 	cornerB = null
 	return ..()
 
-TYPE_PROC_REF(/datum/buildmode, create_buttons)()
+/datum/buildmode/proc/create_buttons()
 	buttons += new /obj/screen/buildmode/mode(src)
 	buttons += new /obj/screen/buildmode/help(src)
 	buttons += new /obj/screen/buildmode/bdir(src)
 	buttons += new /obj/screen/buildmode/quit(src)
 
-TYPE_PROC_REF(/datum/buildmode, toggle_modes)()
+/datum/buildmode/proc/toggle_modes()
 	mode = (mode % NUM_BUILDMODES) +1
 	Reset()
 	return
 
-TYPE_PROC_REF(/datum/buildmode, show_help)(mob/user)
+/datum/buildmode/proc/show_help(mob/user)
 	var/list/dat = list()
 	switch(mode)
 		if(BASIC_BUILDMODE)
@@ -173,7 +173,7 @@ TYPE_PROC_REF(/datum/buildmode, show_help)(mob/user)
 			dat += "***********************************************************"
 	to_chat(user, "<font color='blue'>[dat.Join("\n")]</font>")
 
-TYPE_PROC_REF(/datum/buildmode, change_settings)(mob/user)
+/datum/buildmode/proc/change_settings(mob/user)
 	switch(mode)
 		if(BASIC_BUILDMODE)
 			return 1
@@ -222,7 +222,7 @@ TYPE_PROC_REF(/datum/buildmode, change_settings)(mob/user)
 			cornerA = null
 			cornerB = null
 
-TYPE_PROC_REF(/datum/buildmode, change_dir)()
+/datum/buildmode/proc/change_dir()
 	switch(build_dir)
 		if(NORTH)
 			build_dir = EAST
@@ -236,7 +236,7 @@ TYPE_PROC_REF(/datum/buildmode, change_dir)()
 			build_dir = NORTH
 	return 1
 
-TYPE_PROC_REF(/datum/buildmode, Reset)()//Reset temporary variables
+/datum/buildmode/proc/Reset()//Reset temporary variables
 	cornerA = null
 	cornerB = null
 
@@ -254,7 +254,7 @@ TYPE_PROC_REF(/datum/buildmode, Reset)()//Reset temporary variables
 			log_admin("[key_name(usr)] has entered build mode.")
 
 
-TYPE_PROC_REF(/datum/buildmode, InterceptClickOn)(user,params,atom/object) //Click Intercept
+/datum/buildmode/proc/InterceptClickOn(user,params,atom/object) //Click Intercept
 	var/list/pa = params2list(params)
 	var/right_click = pa.Find("right")
 	var/left_click = pa.Find("left")

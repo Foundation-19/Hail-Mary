@@ -128,13 +128,13 @@ interface with the mining shuttle at the landing site if a mobile beacon is also
 
 	updateUsrDialog()
 
-TYPE_PROC_REF(/obj/machinery/computer/auxillary_base, set_mining_mode)()
+/obj/machinery/computer/auxillary_base/proc/set_mining_mode()
 	if(is_mining_level(z)) //The console switches to controlling the mining shuttle once landed.
 		req_one_access = list()
 		shuttleId = "mining" //The base can only be dropped once, so this gives the console a new purpose.
 		possible_destinations = "mining_home;mining_away;landing_zone_dock;mining_public"
 
-TYPE_PROC_REF(/obj/machinery/computer/auxillary_base, set_landing_zone)(turf/T, mob/user, no_restrictions)
+/obj/machinery/computer/auxillary_base/proc/set_landing_zone(turf/T, mob/user, no_restrictions)
 	var/obj/docking_port/mobile/auxillary_base/base_dock = locate(/obj/docking_port/mobile/auxillary_base) in SSshuttle.mobile
 	if(!base_dock) //Not all maps have an Aux base. This object is useless in that case.
 		to_chat(user, span_warning("This station is not equipped with an auxillary base. Please contact your Nanotrasen contractor."))
@@ -362,7 +362,7 @@ TYPE_PROC_REF(/obj/machinery/computer/auxillary_base, set_landing_zone)(turf/T, 
 	anchored = TRUE //Locks in place to mark the landing zone.
 	playsound(loc, 'sound/machines/ping.ogg', 50, 0)
 
-TYPE_PROC_REF(/obj/structure/mining_shuttle_beacon, clear_cooldown)()
+/obj/structure/mining_shuttle_beacon/proc/clear_cooldown()
 	anti_spam_cd = 0
 
 /obj/structure/mining_shuttle_beacon/attack_robot(mob/user)

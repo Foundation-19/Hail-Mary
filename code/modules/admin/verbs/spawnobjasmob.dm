@@ -1,4 +1,4 @@
-TYPE_PROC_REF(/datum/admins, spawn_objasmob)(object as text)
+/datum/admins/proc/spawn_objasmob(object as text)
 	set category = "Debug"
 	set desc = "(obj path) Spawn object-mob"
 	set name = "Spawn object-mob"

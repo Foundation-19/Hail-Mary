@@ -98,9 +98,9 @@
 	. = ..()
 	Attach(M)
 
-TYPE_PROC_REF(/obj/item/clothing/mask/facehugger, on_entered)(atom/target)
+/obj/item/clothing/mask/facehugger/proc/on_entered(atom/target)
 	SIGNAL_HANDLER
-	INVOKE_ASYNC(src, TYPE_PROC_REF(/atom, HasProximity), target)
+	INVOKE_ASYNC(src, /atom/.proc/HasProximity, target)
 	return
 
 /obj/item/clothing/mask/facehugger/on_found(mob/finder)
@@ -120,7 +120,7 @@ TYPE_PROC_REF(/obj/item/clothing/mask/facehugger, on_entered)(atom/target)
 		icon_state = "[initial(icon_state)]_thrown"
 		addtimer(CALLBACK(src, PROC_REF(clear_throw_icon_state)), 15)
 
-TYPE_PROC_REF(/obj/item/clothing/mask/facehugger, clear_throw_icon_state)()
+/obj/item/clothing/mask/facehugger/proc/clear_throw_icon_state()
 	if(icon_state == "[initial(icon_state)]_thrown")
 		icon_state = "[initial(icon_state)]"
 
@@ -130,7 +130,7 @@ TYPE_PROC_REF(/obj/item/clothing/mask/facehugger, clear_throw_icon_state)()
 		icon_state = "[initial(icon_state)]"
 		Leap(hit_atom)
 
-TYPE_PROC_REF(/obj/item/clothing/mask/facehugger, valid_to_attach)(mob/living/M)
+/obj/item/clothing/mask/facehugger/proc/valid_to_attach(mob/living/M)
 	// valid targets: carbons except aliens and devils
 	// facehugger state early exit checks
 	if(stat != CONSCIOUS)
@@ -153,7 +153,7 @@ TYPE_PROC_REF(/obj/item/clothing/mask/facehugger, valid_to_attach)(mob/living/M)
 
 	return FALSE
 
-TYPE_PROC_REF(/obj/item/clothing/mask/facehugger, Leap)(mob/living/M)
+/obj/item/clothing/mask/facehugger/proc/Leap(mob/living/M)
 	if(!valid_to_attach(M))
 		return FALSE
 	if(iscarbon(M))
@@ -184,7 +184,7 @@ TYPE_PROC_REF(/obj/item/clothing/mask/facehugger, Leap)(mob/living/M)
 		target.equip_to_slot_if_possible(src, SLOT_WEAR_MASK, 0, 1, 1)
 	return TRUE // time for a smoke
 
-TYPE_PROC_REF(/obj/item/clothing/mask/facehugger, Attach)(mob/living/M)
+/obj/item/clothing/mask/facehugger/proc/Attach(mob/living/M)
 	if(!valid_to_attach(M))
 		return
 	// early returns and validity checks done: attach.
@@ -201,10 +201,10 @@ TYPE_PROC_REF(/obj/item/clothing/mask/facehugger, Attach)(mob/living/M)
 
 	addtimer(CALLBACK(src, PROC_REF(Impregnate), M), rand(MIN_IMPREGNATION_TIME, MAX_IMPREGNATION_TIME))
 
-TYPE_PROC_REF(/obj/item/clothing/mask/facehugger, detach)()
+/obj/item/clothing/mask/facehugger/proc/detach()
 	attached = 0
 
-TYPE_PROC_REF(/obj/item/clothing/mask/facehugger, Impregnate)(mob/living/target)
+/obj/item/clothing/mask/facehugger/proc/Impregnate(mob/living/target)
 	if(!target || target.stat == DEAD) //was taken off or something
 		return
 
@@ -228,14 +228,14 @@ TYPE_PROC_REF(/obj/item/clothing/mask/facehugger, Impregnate)(mob/living/target)
 		target.visible_message(span_danger("[src] violates [target]'s face!"), \
 								span_userdanger("[src] violates [target]'s face!"))
 
-TYPE_PROC_REF(/obj/item/clothing/mask/facehugger, GoActive)()
+/obj/item/clothing/mask/facehugger/proc/GoActive()
 	if(stat == DEAD || stat == CONSCIOUS)
 		return
 
 	stat = CONSCIOUS
 	icon_state = "[initial(icon_state)]"
 
-TYPE_PROC_REF(/obj/item/clothing/mask/facehugger, GoIdle)()
+/obj/item/clothing/mask/facehugger/proc/GoIdle()
 	if(stat == DEAD || stat == UNCONSCIOUS)
 		return
 
@@ -244,7 +244,7 @@ TYPE_PROC_REF(/obj/item/clothing/mask/facehugger, GoIdle)()
 
 	addtimer(CALLBACK(src, PROC_REF(GoActive)), rand(MIN_ACTIVE_TIME, MAX_ACTIVE_TIME))
 
-TYPE_PROC_REF(/obj/item/clothing/mask/facehugger, Die)()
+/obj/item/clothing/mask/facehugger/proc/Die()
 	if(stat == DEAD)
 		return
 

@@ -57,7 +57,7 @@
 		)
 	)
 
-TYPE_PROC_REF(/datum/computer_file/program/card_mod, authenticate)(mob/user, obj/item/card/id/id_card)
+/datum/computer_file/program/card_mod/proc/authenticate(mob/user, obj/item/card/id/id_card)
 	if(!id_card)
 		return
 

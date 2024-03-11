@@ -1,5 +1,5 @@
 
-TYPE_PROC_REF(/datum/hud, create_parallax)(mob/viewmob)
+/datum/hud/proc/create_parallax(mob/viewmob)
 	var/mob/screenmob = viewmob || mymob
 	var/client/C = screenmob.client
 	if (!apply_parallax_pref(viewmob)) //don't want shit computers to crash when specing someone with insane parallax, so use the viewer's pref
@@ -31,7 +31,7 @@ TYPE_PROC_REF(/datum/hud, create_parallax)(mob/viewmob)
 		)
 
 
-TYPE_PROC_REF(/datum/hud, remove_parallax)(mob/viewmob)
+/datum/hud/proc/remove_parallax(mob/viewmob)
 	var/mob/screenmob = viewmob || mymob
 	var/client/C = screenmob.client
 	C.screen -= (C.parallax_layers_cached)
@@ -42,7 +42,7 @@ TYPE_PROC_REF(/datum/hud, remove_parallax)(mob/viewmob)
 	PM.color = initial(PM.color)
 	C.parallax_layers = null
 
-TYPE_PROC_REF(/datum/hud, apply_parallax_pref)(mob/viewmob)
+/datum/hud/proc/apply_parallax_pref(mob/viewmob)
 	var/mob/screenmob = viewmob || mymob
 	var/client/C = screenmob.client
 
@@ -76,13 +76,13 @@ TYPE_PROC_REF(/datum/hud, apply_parallax_pref)(mob/viewmob)
 	C.parallax_layers_max = 3
 	return TRUE
 
-TYPE_PROC_REF(/datum/hud, update_parallax_pref)(mob/viewmob)
+/datum/hud/proc/update_parallax_pref(mob/viewmob)
 	remove_parallax(viewmob)
 	create_parallax(viewmob)
 	update_parallax()
 
 // This sets which way the current shuttle is moving (returns true if the shuttle has stopped moving so the caller can append their animation)
-TYPE_PROC_REF(/datum/hud, set_parallax_movedir)(new_parallax_movedir, skip_windups)
+/datum/hud/proc/set_parallax_movedir(new_parallax_movedir, skip_windups)
 	. = FALSE
 	var/client/C = mymob.client
 	if(new_parallax_movedir == C.parallax_movedir)
@@ -137,7 +137,7 @@ TYPE_PROC_REF(/datum/hud, set_parallax_movedir)(new_parallax_movedir, skip_windu
 		C.parallax_animate_timer = addtimer(CB, min(shortesttimer, PARALLAX_LOOP_TIME), TIMER_CLIENT_TIME|TIMER_STOPPABLE)
 
 
-TYPE_PROC_REF(/datum/hud, update_parallax_motionblur)(client/C, animatedir, new_parallax_movedir, matrix/newtransform)
+/datum/hud/proc/update_parallax_motionblur(client/C, animatedir, new_parallax_movedir, matrix/newtransform)
 	if(!C)
 		return
 	C.parallax_animate_timer = FALSE
@@ -158,7 +158,7 @@ TYPE_PROC_REF(/datum/hud, update_parallax_motionblur)(client/C, animatedir, new_
 
 		animate(L, transform = matrix(), time = T, loop = -1, flags = ANIMATION_END_NOW)
 
-TYPE_PROC_REF(/datum/hud, update_parallax)()
+/datum/hud/proc/update_parallax()
 	var/client/C = mymob.client
 	var/turf/posobj = get_turf(C.eye)
 	if(!posobj)
@@ -222,7 +222,7 @@ TYPE_PROC_REF(/datum/hud, update_parallax)()
 
 		L.screen_loc = "CENTER-7:[round(L.offset_x,1)],CENTER-7:[round(L.offset_y,1)]"
 
-TYPE_PROC_REF(/atom/movable, update_parallax_contents)()
+/atom/movable/proc/update_parallax_contents()
 	set waitfor = FALSE
 	if(length(client_mobs_in_contents))
 		for(var/thing in client_mobs_in_contents)
@@ -230,7 +230,7 @@ TYPE_PROC_REF(/atom/movable, update_parallax_contents)()
 			if(M && M.client && M.hud_used && length(M.client.parallax_layers))
 				M.hud_used.update_parallax()
 
-TYPE_PROC_REF(/mob, update_parallax_teleport)()	//used for arrivals shuttle
+/mob/proc/update_parallax_teleport()	//used for arrivals shuttle
 	if(client && client.eye && hud_used && length(client.parallax_layers))
 		var/area/areaobj = get_area(client.eye)
 		hud_used.set_parallax_movedir(areaobj.parallax_movedir, TRUE)
@@ -254,7 +254,7 @@ TYPE_PROC_REF(/mob, update_parallax_teleport)()	//used for arrivals shuttle
 		view = world.view
 	update_o(view)
 
-TYPE_PROC_REF(/obj/screen/parallax_layer, update_o)(view)
+/obj/screen/parallax_layer/proc/update_o(view)
 	if (!view)
 		view = world.view
 
@@ -273,7 +273,7 @@ TYPE_PROC_REF(/obj/screen/parallax_layer, update_o)(view)
 	add_overlay(new_overlays)
 	view_sized = view
 
-TYPE_PROC_REF(/obj/screen/parallax_layer, update_status)(mob/M)
+/obj/screen/parallax_layer/proc/update_status(mob/M)
 	return
 
 /obj/screen/parallax_layer/layer_1

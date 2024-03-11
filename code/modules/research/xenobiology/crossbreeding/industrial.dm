@@ -16,7 +16,7 @@ Industrial extracts:
 	. = ..()
 	. += "It currently has [plasmaabsorbed] units of plasma floating inside the outer shell, out of [plasmarequired] units."
 
-TYPE_PROC_REF(/obj/item/slimecross/industrial, do_after_spawn)(obj/item/spawned)
+/obj/item/slimecross/industrial/proc/do_after_spawn(obj/item/spawned)
 	return
 
 /obj/item/slimecross/industrial/Initialize()

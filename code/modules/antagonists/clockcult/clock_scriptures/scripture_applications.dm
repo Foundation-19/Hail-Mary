@@ -124,7 +124,7 @@
 /datum/clockwork_scripture/memory_allocation/scripture_effects()
 	return create_guardian()
 
-TYPE_PROC_REF(/datum/clockwork_scripture/memory_allocation, create_guardian)()
+/datum/clockwork_scripture/memory_allocation/proc/create_guardian()
 	invoker.visible_message(span_warning("A purple tendril appears from [invoker]'s [slab.name] and impales itself in [invoker.p_their()] forehead!"), \
 	span_sevtug("A tendril flies from [slab] into your forehead. You begin waiting while it painfully rearranges your thought pattern..."))
 	//invoker.notransform = TRUE //Vulnerable during the process

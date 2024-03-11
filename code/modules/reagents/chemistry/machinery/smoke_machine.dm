@@ -40,7 +40,7 @@
 	. = ..()
 	AddComponent(/datum/component/simple_rotation, ROTATION_ALTCLICK | ROTATION_CLOCKWISE | ROTATION_COUNTERCLOCKWISE | ROTATION_VERBS, null, CALLBACK(src, PROC_REF(can_be_rotated)))
 
-TYPE_PROC_REF(/obj/machinery/smoke_machine, can_be_rotated)(mob/user, rotation_type)
+/obj/machinery/smoke_machine/proc/can_be_rotated(mob/user, rotation_type)
 	return !anchored
 
 /obj/machinery/smoke_machine/update_icon_state()

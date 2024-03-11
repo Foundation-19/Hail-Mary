@@ -57,7 +57,7 @@
 				return
 		set_ready_state(TRUE)
 
-TYPE_PROC_REF(/turf, drill_act)(obj/item/mecha_parts/mecha_equipment/drill/drill)
+/turf/proc/drill_act(obj/item/mecha_parts/mecha_equipment/drill/drill)
 	return
 
 /turf/closed/wall/drill_act(obj/item/mecha_parts/mecha_equipment/drill/drill)
@@ -88,7 +88,7 @@ TYPE_PROC_REF(/turf, drill_act)(obj/item/mecha_parts/mecha_equipment/drill/drill
 	drill.move_ores()
 
 
-TYPE_PROC_REF(/obj/item/mecha_parts/mecha_equipment/drill, move_ores)()
+/obj/item/mecha_parts/mecha_equipment/drill/proc/move_ores()
 	if(locate(/obj/item/mecha_parts/mecha_equipment/hydraulic_clamp) in chassis.equipment && istype(chassis, /obj/mecha/working/ripley))
 		var/obj/mecha/working/ripley/R = chassis //we could assume that it's a ripley because it has a clamp, but that's ~unsafe~ and ~bad practice~
 		R.collect_ore()
@@ -109,7 +109,7 @@ TYPE_PROC_REF(/obj/item/mecha_parts/mecha_equipment/drill, move_ores)()
 	var/datum/component/butchering/butchering = src.GetComponent(/datum/component/butchering)
 	butchering.butchering_enabled = FALSE
 
-TYPE_PROC_REF(/obj/item/mecha_parts/mecha_equipment/drill, drill_mob)(mob/living/target, mob/user)
+/obj/item/mecha_parts/mecha_equipment/drill/proc/drill_mob(mob/living/target, mob/user)
 	target.visible_message(span_danger("[chassis] is drilling [target] with [src]!"), \
 						span_userdanger("[chassis] is drilling you with [src]!"))
 	log_combat(user, target, "drilled", "[name]", "(INTENT: [uppertext(user.a_intent)]) (DAMTYPE: [uppertext(damtype)])")

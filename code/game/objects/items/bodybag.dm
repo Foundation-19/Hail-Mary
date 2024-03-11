@@ -16,7 +16,7 @@
 		if(isopenturf(target))
 			deploy_bodybag(user, target)
 
-TYPE_PROC_REF(/obj/item/bodybag, deploy_bodybag)(mob/user, atom/location)
+/obj/item/bodybag/proc/deploy_bodybag(mob/user, atom/location)
 	var/obj/structure/closet/body_bag/R = new unfoldedbag_path(location)
 	R.open(user)
 	R.add_fingerprint(user)

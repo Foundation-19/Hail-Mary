@@ -291,7 +291,7 @@
 		START_PROCESSING(SSmachines, src)
 	RegisterSignal(src, COMSIG_ATOM_LICKED, PROC_REF(lick_light))
 
-TYPE_PROC_REF(/obj/machinery/light, lick_light)(atom/A, mob/living/carbon/licker, obj/item/hand_item/tongue)
+/obj/machinery/light/proc/lick_light(atom/A, mob/living/carbon/licker, obj/item/hand_item/tongue)
 	if(!iscarbon(licker) || !tongue)
 		return FALSE
 	if(status == LIGHT_BROKEN) //  broken light, might be powered, might not be
@@ -303,7 +303,7 @@ TYPE_PROC_REF(/obj/machinery/light, lick_light)(atom/A, mob/living/carbon/licker
 		if(on && has_power())
 			return burn_their_mouth(licker, tongue)
 
-TYPE_PROC_REF(/obj/machinery/light, burn_their_mouth)(mob/living/carbon/licker, obj/item/hand_item/tongue)
+/obj/machinery/light/proc/burn_their_mouth(mob/living/carbon/licker, obj/item/hand_item/tongue)
 	if(!licker || !tongue)
 		return FALSE
 	if(HAS_TRAIT(licker, TRAIT_RESISTHEAT))
@@ -320,7 +320,7 @@ TYPE_PROC_REF(/obj/machinery/light, burn_their_mouth)(mob/living/carbon/licker, 
 		span_warning("You hear a sizzle!")
 	)
 
-TYPE_PROC_REF(/obj/machinery/light, slice_their_mouth)(mob/living/carbon/licker, obj/item/hand_item/tongue)
+/obj/machinery/light/proc/slice_their_mouth(mob/living/carbon/licker, obj/item/hand_item/tongue)
 	if(!licker || !tongue)
 		return FALSE
 
@@ -335,7 +335,7 @@ TYPE_PROC_REF(/obj/machinery/light, slice_their_mouth)(mob/living/carbon/licker,
 		span_warning("You hear a slice!")
 	)
 
-TYPE_PROC_REF(/obj/machinery/light, zap_their_mouth)(mob/living/carbon/licker, obj/item/hand_item/tongue)
+/obj/machinery/light/proc/zap_their_mouth(mob/living/carbon/licker, obj/item/hand_item/tongue)
 	if(!licker || !tongue)
 		return FALSE
 
@@ -389,7 +389,7 @@ TYPE_PROC_REF(/obj/machinery/light, zap_their_mouth)(mob/living/carbon/licker, o
 		. += M
 
 // update the icon_state and luminosity of the light depending on its state
-TYPE_PROC_REF(/obj/machinery/light, update)(trigger = TRUE)
+/obj/machinery/light/proc/update(trigger = TRUE)
 	switch(status)
 		if(LIGHT_BROKEN,LIGHT_BURNED,LIGHT_EMPTY)
 			on = FALSE
@@ -457,7 +457,7 @@ TYPE_PROC_REF(/obj/machinery/light, update)(trigger = TRUE)
 	if(emergency_mode && !use_emergency_power(LIGHT_EMERGENCY_POWER_USE))
 		update(FALSE) //Disables emergency mode and sets the color to normal
 
-TYPE_PROC_REF(/obj/machinery/light, burn_out)()
+/obj/machinery/light/proc/burn_out()
 	if(status == LIGHT_OK)
 		status = LIGHT_BURNED
 		icon_state = "[base_state]-burned"
@@ -466,7 +466,7 @@ TYPE_PROC_REF(/obj/machinery/light, burn_out)()
 
 // attempt to set the light's on/off status
 // will not switch on if broken/burned/empty
-TYPE_PROC_REF(/obj/machinery/light, seton)(s)
+/obj/machinery/light/proc/seton(s)
 	on = (s && status == LIGHT_OK)
 	update()
 
@@ -607,26 +607,26 @@ TYPE_PROC_REF(/obj/machinery/light, seton)(s)
 
 // returns if the light has power /but/ is manually turned off
 // if a light is turned off, it won't activate emergency power
-TYPE_PROC_REF(/obj/machinery/light, turned_off)()
+/obj/machinery/light/proc/turned_off()
 	var/area/A = get_area(src)
 	return !A.lightswitch && A.power_light || flickering
 
 // returns whether this light has power
 // true if area has power and lightswitch is on
-TYPE_PROC_REF(/obj/machinery/light, has_power)()
+/obj/machinery/light/proc/has_power()
 	var/area/A = get_area(src)
 	return A.lightswitch && A.power_light
 
 // returns whether this light has emergency power
 // can also return if it has access to a certain amount of that power
-TYPE_PROC_REF(/obj/machinery/light, has_emergency_power)(pwr)
+/obj/machinery/light/proc/has_emergency_power(pwr)
 	if(no_emergency || !cell)
 		return FALSE
 	if(pwr ? cell.charge >= pwr : cell.charge)
 		return status == LIGHT_OK
 
 // attempts to use power from the installed emergency cell, returns true if it does and false if it doesn't
-TYPE_PROC_REF(/obj/machinery/light, use_emergency_power)(pwr = LIGHT_EMERGENCY_POWER_USE)
+/obj/machinery/light/proc/use_emergency_power(pwr = LIGHT_EMERGENCY_POWER_USE)
 	if(!has_emergency_power(pwr))
 		return FALSE
 	if(cell.charge > 300) //it's meant to handle 120 W, ya doofus
@@ -698,7 +698,7 @@ TYPE_PROC_REF(/obj/machinery/light, use_emergency_power)(pwr = LIGHT_EMERGENCY_P
 	// create a light tube/bulb item and put it in the user's hand
 	drop_light_tube(user)
 
-TYPE_PROC_REF(/obj/machinery/light, drop_light_tube)(mob/user)
+/obj/machinery/light/proc/drop_light_tube(mob/user)
 	var/obj/item/light/L = new light_type()
 	L.status = status
 	L.rigged = rigged
@@ -732,7 +732,7 @@ TYPE_PROC_REF(/obj/machinery/light, drop_light_tube)(mob/user)
 
 // break the light and make sparks if was on
 
-TYPE_PROC_REF(/obj/machinery/light, break_light_tube)(skip_sound_and_sparks = 0)
+/obj/machinery/light/proc/break_light_tube(skip_sound_and_sparks = 0)
 	if(status == LIGHT_EMPTY || status == LIGHT_BROKEN)
 		return
 
@@ -744,7 +744,7 @@ TYPE_PROC_REF(/obj/machinery/light, break_light_tube)(skip_sound_and_sparks = 0)
 	status = LIGHT_BROKEN
 	update()
 
-TYPE_PROC_REF(/obj/machinery/light, fix)()
+/obj/machinery/light/proc/fix()
 	if(status == LIGHT_OK)
 		return
 	status = LIGHT_OK
@@ -772,7 +772,7 @@ TYPE_PROC_REF(/obj/machinery/light, fix)()
 
 // explode the light
 
-TYPE_PROC_REF(/obj/machinery/light, explode)()
+/obj/machinery/light/proc/explode()
 	set waitfor = 0
 	var/turf/T = get_turf(src.loc)
 	break_light_tube()	// break it first to give a warning
@@ -837,7 +837,7 @@ TYPE_PROC_REF(/obj/machinery/light, explode)()
 
 // update the icon state and description of the light
 
-TYPE_PROC_REF(/obj/item/light, update)()
+/obj/item/light/proc/update()
 	switch(status)
 		if(LIGHT_OK)
 			icon_state = base_state
@@ -881,7 +881,7 @@ TYPE_PROC_REF(/obj/item/light, update)()
 	. = ..()
 	shatter()
 
-TYPE_PROC_REF(/obj/item/light, shatter)()
+/obj/item/light/proc/shatter()
 	if(status == LIGHT_OK || status == LIGHT_BURNED)
 		visible_message(span_danger("[src] shatters."),span_italic("You hear a small glass object shatter."))
 		status = LIGHT_BROKEN
@@ -967,7 +967,7 @@ TYPE_PROC_REF(/obj/item/light, shatter)()
 		if(prob(damage_amount * 10))
 			flicker(damage_amount*rand(1,3))
 
-TYPE_PROC_REF(/obj/machinery/light, flicker)(amount = rand(10, 20), spark = TRUE, sounds = TRUE, loud = TRUE)
+/obj/machinery/light/proc/flicker(amount = rand(10, 20), spark = TRUE, sounds = TRUE, loud = TRUE)
 	set waitfor = 0
 	if(flickering)
 		return

@@ -8,7 +8,7 @@ SUBSYSTEM_DEF(medals)
 		hub_enabled = TRUE
 	return ..()
 
-TYPE_PROC_REF(/datum/controller/subsystem/medals, UnlockMedal)(medal, client/player)
+/datum/controller/subsystem/medals/proc/UnlockMedal(medal, client/player)
 	set waitfor = FALSE
 	if(!medal || !hub_enabled)
 		return
@@ -20,7 +20,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/medals, UnlockMedal)(medal, client/pla
 	to_chat(player, "<span class='greenannounce'><B>Achievement unlocked: [medal]!</B></span>")
 
 
-TYPE_PROC_REF(/datum/controller/subsystem/medals, SetScore)(score, client/player, increment, force)
+/datum/controller/subsystem/medals/proc/SetScore(score, client/player, increment, force)
 	set waitfor = FALSE
 	if(!score || !hub_enabled)
 		return
@@ -41,7 +41,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/medals, SetScore)(score, client/player
 		log_game("SCORE ERROR: Could not contact hub to set score. Score:[score] player:[player.key]")
 		message_admins("Error! Failed to contact hub to set [score] score for [player.key]!")
 
-TYPE_PROC_REF(/datum/controller/subsystem/medals, GetScore)(score, client/player, returnlist)
+/datum/controller/subsystem/medals/proc/GetScore(score, client/player, returnlist)
 	if(!score || !hub_enabled)
 		return
 
@@ -55,7 +55,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/medals, GetScore)(score, client/player
 	if(!returnlist)
 		return .[score]
 
-TYPE_PROC_REF(/datum/controller/subsystem/medals, CheckMedal)(medal, client/player)
+/datum/controller/subsystem/medals/proc/CheckMedal(medal, client/player)
 	if(!medal || !hub_enabled)
 		return
 
@@ -66,7 +66,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/medals, CheckMedal)(medal, client/play
 		return
 	to_chat(player, "[medal] is unlocked")
 
-TYPE_PROC_REF(/datum/controller/subsystem/medals, LockMedal)(medal, client/player)
+/datum/controller/subsystem/medals/proc/LockMedal(medal, client/player)
 	if(!player || !medal || !hub_enabled)
 		return
 	var/result = world.ClearMedal(medal, player, CONFIG_GET(string/medal_hub_address), CONFIG_GET(string/medal_hub_password))
@@ -81,7 +81,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/medals, LockMedal)(medal, client/playe
 			message_admins("Medal: [medal] was not found for [player.key]. Unable to clear.")
 
 
-TYPE_PROC_REF(/datum/controller/subsystem/medals, ClearScore)(client/player)
+/datum/controller/subsystem/medals/proc/ClearScore(client/player)
 	if(isnull(world.SetScores(player.ckey, "", CONFIG_GET(string/medal_hub_address), CONFIG_GET(string/medal_hub_password))))
 		log_game("MEDAL ERROR: Could not contact hub to clear scores for [player.key]!")
 		message_admins("Error! Failed to contact hub to clear scores for [player.key]!")

@@ -144,7 +144,7 @@
 	if(H.dna && H.dna.species && (H.dna.features["wings"] != "None"))
 		return TRUE
 
-TYPE_PROC_REF(/mob/living/carbon/human, OpenWings)()
+/mob/living/carbon/human/proc/OpenWings()
 	if(!dna || !dna.species)
 		return
 	if(dna.species.mutant_bodyparts["wings"])
@@ -152,7 +152,7 @@ TYPE_PROC_REF(/mob/living/carbon/human, OpenWings)()
 		dna.species.mutant_bodyparts -= "wings"
 	update_body()
 
-TYPE_PROC_REF(/mob/living/carbon/human, CloseWings)()
+/mob/living/carbon/human/proc/CloseWings()
 	if(!dna || !dna.species)
 		return
 	if(dna.species.mutant_bodyparts["wingsopen"])
@@ -206,7 +206,7 @@ TYPE_PROC_REF(/mob/living/carbon/human, CloseWings)()
 	sound = 'sound/machines/dash.ogg'
 
 //rock paper scissors emote handling
-TYPE_PROC_REF(/mob/living/carbon/human, beginRockPaperScissors)(chosen_move)
+/mob/living/carbon/human/proc/beginRockPaperScissors(chosen_move)
 	GLOB.rockpaperscissors_players[src] = list(chosen_move, ROCKPAPERSCISSORS_NOT_DECIDED)
 	do_after_advanced(src, ROCKPAPERSCISSORS_TIME_LIMIT, src, DO_AFTER_REQUIRES_USER_ON_TURF|DO_AFTER_NO_COEFFICIENT|DO_AFTER_NO_PROGRESSBAR|DO_AFTER_DISALLOW_MOVING_ABSOLUTE_USER, CALLBACK(src, PROC_REF(rockpaperscissors_tick)))
 	var/new_entry = GLOB.rockpaperscissors_players[src]
@@ -214,7 +214,7 @@ TYPE_PROC_REF(/mob/living/carbon/human, beginRockPaperScissors)(chosen_move)
 		to_chat(src, "You put your hand back down.")
 	GLOB.rockpaperscissors_players -= src
 
-TYPE_PROC_REF(/mob/living/carbon/human, rockpaperscissors_tick)() //called every cycle of the progress bar for rock paper scissors while waiting for an opponent
+/mob/living/carbon/human/proc/rockpaperscissors_tick() //called every cycle of the progress bar for rock paper scissors while waiting for an opponent
 	var/mob/living/carbon/human/opponent
 	for(var/mob/living/carbon/human/potential_opponent in (GLOB.rockpaperscissors_players - src)) //dont play against yourself
 		if(get_dist(src, potential_opponent) <= ROCKPAPERSCISSORS_RANGE)

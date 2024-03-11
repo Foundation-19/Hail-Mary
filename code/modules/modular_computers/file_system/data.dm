@@ -12,7 +12,7 @@
 	return temp
 
 // Calculates file size from amount of characters in saved string
-TYPE_PROC_REF(/datum/computer_file/data, calculate_size)()
+/datum/computer_file/data/proc/calculate_size()
 	size = max(1, round(length(stored_data) / block_size))
 
 /datum/computer_file/data/logfile

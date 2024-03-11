@@ -18,7 +18,7 @@
 
 	return ..()
 
-TYPE_PROC_REF(/obj/structure/closet/secure_closet/genpop, handle_prisoner_id)(mob/user)
+/obj/structure/closet/secure_closet/genpop/proc/handle_prisoner_id(mob/user)
 	var/obj/item/card/id/prisoner/prisoner_id = null
 	for(prisoner_id in user.held_items)
 		if(prisoner_id != registered_id)
@@ -39,7 +39,7 @@ TYPE_PROC_REF(/obj/structure/closet/secure_closet/genpop, handle_prisoner_id)(mo
 
 	return TRUE
 
-TYPE_PROC_REF(/obj/structure/closet/secure_closet/genpop, handle_edit_sentence)(mob/user)
+/obj/structure/closet/secure_closet/genpop/proc/handle_edit_sentence(mob/user)
 	var/prisoner_name = input(user, "Please input the name of the prisoner.", "Prisoner Name", registered_id.registered_name) as text|null
 	if(prisoner_name == null | !user.Adjacent(src))
 		return FALSE

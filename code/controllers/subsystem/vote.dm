@@ -50,7 +50,7 @@ SUBSYSTEM_DEF(vote)
 				client_popup.open(0)
 			next_pop = world.time+VOTE_COOLDOWN
 
-TYPE_PROC_REF(/datum/controller/subsystem/vote, reset)()
+/datum/controller/subsystem/vote/proc/reset()
 	initiator = null
 	end_time = 0
 	mode = null
@@ -64,7 +64,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/vote, reset)()
 	display_votes = initial(display_votes) //CIT CHANGE - obfuscated votes
 	remove_action_buttons()
 
-TYPE_PROC_REF(/datum/controller/subsystem/vote, get_result)()
+/datum/controller/subsystem/vote/proc/get_result()
 	//get the highest number of votes
 	var/greatest_votes = 0
 	var/total_votes = 0
@@ -100,7 +100,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/vote, get_result)()
 				. += option
 	return .
 
-TYPE_PROC_REF(/datum/controller/subsystem/vote, calculate_condorcet_votes)(blackbox_text)
+/datum/controller/subsystem/vote/proc/calculate_condorcet_votes(blackbox_text)
 	// https://en.wikipedia.org/wiki/Schulze_method#Implementation
 	var/list/d[][] = new/list(choices.len,choices.len) // the basic vote matrix, how many times a beats b
 	for(var/ckey in voted)
@@ -142,7 +142,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/vote, calculate_condorcet_votes)(black
 					choices[choices[i]]++ // higher shortest path = better candidate, so we add to choices here
 					// choices[choices[i]] is the schulze ranking, here, rather than raw vote numbers
 
-TYPE_PROC_REF(/datum/controller/subsystem/vote, calculate_majority_judgement_vote)(blackbox_text)
+/datum/controller/subsystem/vote/proc/calculate_majority_judgement_vote(blackbox_text)
 	// https://en.wikipedia.org/wiki/Majority_judgment
 	var/list/scores_by_choice = list()
 	for(var/choice in choices)
@@ -190,7 +190,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/vote, calculate_majority_judgement_vot
 			score.Cut(median_pos,median_pos+1)
 			choices[score_name]++
 
-TYPE_PROC_REF(/datum/controller/subsystem/vote, calculate_scores)(blackbox_text)
+/datum/controller/subsystem/vote/proc/calculate_scores(blackbox_text)
 	for(var/choice in choices)
 		scores += "[choice]"
 		scores["[choice]"] = 0
@@ -210,7 +210,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/vote, calculate_scores)(blackbox_text)
 			scores[score_name] = (scores[score_name]-min_score)/(max_score-min_score)
 		SSblackbox.record_feedback("nested tally","voting",scores[score_name],list(blackbox_text,"Total scores",score_name))
 
-TYPE_PROC_REF(/datum/controller/subsystem/vote, get_runoff_results)(blackbox_text)
+/datum/controller/subsystem/vote/proc/get_runoff_results(blackbox_text)
 	var/already_lost_runoff = list()
 	var/list/cur_choices = choices.Copy()
 	for(var/ckey in voted)
@@ -233,7 +233,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/vote, get_runoff_results)(blackbox_tex
 		for(var/i in 1 to cur_choices.len)
 			cur_choices["[cur_choices[i]]"] = 0
 
-TYPE_PROC_REF(/datum/controller/subsystem/vote, announce_result)()
+/datum/controller/subsystem/vote/proc/announce_result()
 	var/vote_title_text
 	var/text
 	if(question)
@@ -315,7 +315,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/vote, announce_result)()
 		message_admins(admintext)
 	return .
 
-TYPE_PROC_REF(/datum/controller/subsystem/vote, result)()
+/datum/controller/subsystem/vote/proc/result()
 	. = announce_result()
 	if(!.)
 		return
@@ -396,7 +396,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/vote, result)()
 				communications_console?.post_status("shuttle")
 
 
-TYPE_PROC_REF(/datum/controller/subsystem/vote, submit_vote)(vote, score = 0)
+/datum/controller/subsystem/vote/proc/submit_vote(vote, score = 0)
 	if(mode)
 		if(CONFIG_GET(flag/no_dead_vote) && usr.stat == DEAD && !usr.client.holder)
 			return 0
@@ -443,7 +443,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/vote, submit_vote)(vote, score = 0)
 					saved -= usr.ckey
 	return 0
 
-TYPE_PROC_REF(/datum/controller/subsystem/vote, initiate_vote)(vote_type, initiator_key, display = display_votes, votesystem = PLURALITY_VOTING, forced = FALSE,vote_time = -1)//CIT CHANGE - adds display argument to votes to allow for obfuscated votes
+/datum/controller/subsystem/vote/proc/initiate_vote(vote_type, initiator_key, display = display_votes, votesystem = PLURALITY_VOTING, forced = FALSE,vote_time = -1)//CIT CHANGE - adds display argument to votes to allow for obfuscated votes
 	vote_system = votesystem
 	if(!mode)
 		if(started_time)
@@ -569,7 +569,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/vote, initiate_vote)(vote_type, initia
 		return 1
 	return 0
 
-TYPE_PROC_REF(/datum/controller/subsystem/vote, interface)(client/C)
+/datum/controller/subsystem/vote/proc/interface(client/C)
 	if(!C)
 		return
 	var/admin = 0
@@ -776,7 +776,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/vote, interface)(client/C)
 	if(!href_list["statpannel"])
 		usr.vote()
 
-TYPE_PROC_REF(/datum/controller/subsystem/vote, remove_action_buttons)()
+/datum/controller/subsystem/vote/proc/remove_action_buttons()
 	for(var/v in generated_actions)
 		var/datum/action/vote/V = v
 		if(!QDELETED(V))
@@ -806,7 +806,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/vote, remove_action_buttons)()
 /datum/action/vote/IsAvailable(silent = FALSE)
 	return 1
 
-TYPE_PROC_REF(/datum/action/vote, remove_from_client)()
+/datum/action/vote/proc/remove_from_client()
 	if(!owner)
 		return
 	if(owner.client)

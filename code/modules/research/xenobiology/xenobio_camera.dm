@@ -123,7 +123,7 @@
 	UnregisterSignal(user, COMSIG_XENO_MONKEY_CLICK_CTRL)
 	..()
 
-TYPE_PROC_REF(/obj/machinery/computer/camera_advanced/xenobio, on_contents_del)(atom/deleted)
+/obj/machinery/computer/camera_advanced/xenobio/proc/on_contents_del(atom/deleted)
 	if(current_potion == deleted)
 		current_potion = null
 	if(deleted in stored_slimes)
@@ -387,7 +387,7 @@ TYPE_PROC_REF(/obj/machinery/computer/camera_advanced/xenobio, on_contents_del)(
 	..()
 
 // Scans slime
-TYPE_PROC_REF(/obj/machinery/computer/camera_advanced/xenobio, XenoSlimeClickCtrl)(mob/living/user, mob/living/simple_animal/slime/S)
+/obj/machinery/computer/camera_advanced/xenobio/proc/XenoSlimeClickCtrl(mob/living/user, mob/living/simple_animal/slime/S)
 	if(!GLOB.cameranet.checkTurfVis(S.loc))
 		to_chat(user, span_warning("Target is not near a camera. Cannot proceed."))
 		return
@@ -398,7 +398,7 @@ TYPE_PROC_REF(/obj/machinery/computer/camera_advanced/xenobio, XenoSlimeClickCtr
 		slime_scan(S, C)
 
 //Feeds a potion to slime
-TYPE_PROC_REF(/obj/machinery/computer/camera_advanced/xenobio, XenoSlimeClickAlt)(mob/living/user, mob/living/simple_animal/slime/S)
+/obj/machinery/computer/camera_advanced/xenobio/proc/XenoSlimeClickAlt(mob/living/user, mob/living/simple_animal/slime/S)
 	if(!(upgradetier & XENOBIO_UPGRADE_SLIMEADV)) //CIT CHANGE - makes slime-related actions require XENOBIO_UPGRADE_SLIMEADV
 		to_chat(user, span_warning("This console does not have the advanced slime upgrade."))
 		return
@@ -416,7 +416,7 @@ TYPE_PROC_REF(/obj/machinery/computer/camera_advanced/xenobio, XenoSlimeClickAlt
 		X.current_potion.attack(S, C)
 
 //Picks up slime
-TYPE_PROC_REF(/obj/machinery/computer/camera_advanced/xenobio, XenoSlimeClickShift)(mob/living/user, mob/living/simple_animal/slime/S)
+/obj/machinery/computer/camera_advanced/xenobio/proc/XenoSlimeClickShift(mob/living/user, mob/living/simple_animal/slime/S)
 	if(!(upgradetier & XENOBIO_UPGRADE_SLIMEBASIC)) //CIT CHANGE - makes slime-related actions require XENOBIO_UPGRADE_SLIMEBASIC
 		to_chat(user, span_warning("This console does not have the basic slime upgrade."))
 		return
@@ -441,7 +441,7 @@ TYPE_PROC_REF(/obj/machinery/computer/camera_advanced/xenobio, XenoSlimeClickShi
 		X.stored_slimes += S
 
 //Place slimes
-TYPE_PROC_REF(/obj/machinery/computer/camera_advanced/xenobio, XenoTurfClickShift)(mob/living/user, turf/open/T)
+/obj/machinery/computer/camera_advanced/xenobio/proc/XenoTurfClickShift(mob/living/user, turf/open/T)
 	if(!(upgradetier & XENOBIO_UPGRADE_SLIMEBASIC)) //CIT CHANGE - makes slime-related actions require XENOBIO_UPGRADE_SLIMEBASIC
 		to_chat(user, span_warning("This console does not have the basic slime upgrade."))
 		return
@@ -459,7 +459,7 @@ TYPE_PROC_REF(/obj/machinery/computer/camera_advanced/xenobio, XenoTurfClickShif
 			X.stored_slimes -= S
 
 //Place monkey
-TYPE_PROC_REF(/obj/machinery/computer/camera_advanced/xenobio, XenoTurfClickCtrl)(mob/living/user, turf/open/T)
+/obj/machinery/computer/camera_advanced/xenobio/proc/XenoTurfClickCtrl(mob/living/user, turf/open/T)
 	if(!(upgradetier & XENOBIO_UPGRADE_MONKEYS)) // CIT CHANGE - makes monkey-related actions require XENOBIO_UPGRADE_MONKEYS
 		to_chat(user, span_warning("This console does not have the monkey upgrade."))
 		return
@@ -482,7 +482,7 @@ TYPE_PROC_REF(/obj/machinery/computer/camera_advanced/xenobio, XenoTurfClickCtrl
 			to_chat(C, span_warning("[X] needs to have at least 1 monkey stored. Currently has [X.monkeys] monkeys stored."))
 
 //Pick up monkey
-TYPE_PROC_REF(/obj/machinery/computer/camera_advanced/xenobio, XenoMonkeyClickCtrl)(mob/living/user, mob/living/carbon/monkey/M)
+/obj/machinery/computer/camera_advanced/xenobio/proc/XenoMonkeyClickCtrl(mob/living/user, mob/living/carbon/monkey/M)
 	if(!(upgradetier & XENOBIO_UPGRADE_MONKEYS)) // CIT CHANGE - makes monkey-related actions require XENOBIO_UPGRADE_MONKEYS
 		to_chat(user, span_warning("This console does not have the monkey upgrade."))
 		return

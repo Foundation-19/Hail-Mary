@@ -3,7 +3,7 @@
 ///// Rendering stats window ///////
 ////////////////////////////////////
 
-TYPE_PROC_REF(/obj/mecha, get_stats_html)()
+/obj/mecha/proc/get_stats_html()
 	. = {"<html>
 						<head>
 						<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>
@@ -51,7 +51,7 @@ TYPE_PROC_REF(/obj/mecha, get_stats_html)()
 
 
 
-TYPE_PROC_REF(/obj/mecha, report_internal_damage)()
+/obj/mecha/proc/report_internal_damage()
 	. = ""
 	var/list/dam_reports = list(
 		"[MECHA_INT_FIRE]" = span_userdanger("INTERNAL FIRE"),
@@ -70,7 +70,7 @@ TYPE_PROC_REF(/obj/mecha, report_internal_damage)()
 
 
 
-TYPE_PROC_REF(/obj/mecha, get_stats_part)()
+/obj/mecha/proc/get_stats_part()
 	var/integrity = obj_integrity/max_integrity*100
 	var/cell_charge = get_charge()
 	var/datum/gas_mixture/int_tank_air = internal_tank.return_air()
@@ -97,7 +97,7 @@ TYPE_PROC_REF(/obj/mecha, get_stats_part)()
 					"}
 
 
-TYPE_PROC_REF(/obj/mecha, get_commands)()
+/obj/mecha/proc/get_commands()
 	. = {"<div class='wr'>
 						<div class='header'>Electronics</div>
 						<div class='links'>
@@ -127,7 +127,7 @@ TYPE_PROC_REF(/obj/mecha, get_commands)()
 						"}
 
 
-TYPE_PROC_REF(/obj/mecha, get_equipment_menu)() //outputs mecha html equipment menu
+/obj/mecha/proc/get_equipment_menu() //outputs mecha html equipment menu
 	. = ""
 	if(equipment.len)
 		. += {"<div class='wr'>
@@ -140,7 +140,7 @@ TYPE_PROC_REF(/obj/mecha, get_equipment_menu)() //outputs mecha html equipment m
 		. += "</div></div>"
 
 
-TYPE_PROC_REF(/obj/mecha, get_equipment_list)() //outputs mecha equipment list in html
+/obj/mecha/proc/get_equipment_list() //outputs mecha equipment list in html
 	if(!equipment.len)
 		return
 	. = "<b>Equipment:</b><div style=\"margin-left: 15px;\">"
@@ -150,7 +150,7 @@ TYPE_PROC_REF(/obj/mecha, get_equipment_list)() //outputs mecha equipment list i
 
 
 
-TYPE_PROC_REF(/obj/mecha, get_log_html)()
+/obj/mecha/proc/get_log_html()
 	. = "<html><head><meta http-equiv='Content-Type' content='text/html; charset=UTF-8'><title>[src.name] Log</title></head><body style='font: 13px 'Courier', monospace;'>"
 	for(var/list/entry in log)
 		. += {"<div style='font-weight: bold;'>[entry["time"]] [time2text(entry["date"],"MMM DD")] [entry["year"]]</div>
@@ -160,7 +160,7 @@ TYPE_PROC_REF(/obj/mecha, get_log_html)()
 
 
 
-TYPE_PROC_REF(/obj/mecha, output_access_dialog)(obj/item/card/id/id_card, mob/user)
+/obj/mecha/proc/output_access_dialog(obj/item/card/id/id_card, mob/user)
 	if(!id_card || !user)
 		return
 	. = {"<html>
@@ -191,7 +191,7 @@ TYPE_PROC_REF(/obj/mecha, output_access_dialog)(obj/item/card/id/id_card, mob/us
 	onclose(user, "exosuit_add_access")
 
 
-TYPE_PROC_REF(/obj/mecha, output_maintenance_dialog)(obj/item/card/id/id_card,mob/user)
+/obj/mecha/proc/output_maintenance_dialog(obj/item/card/id/id_card,mob/user)
 	if(!id_card || !user)
 		return
 	. = {"<html>

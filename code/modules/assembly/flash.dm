@@ -39,17 +39,17 @@
 	if(flash)
 		add_overlay(flashing_overlay)
 		attached_overlays += flashing_overlay
-		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_icon)), 5)
+		addtimer(CALLBACK(src, /atom/.proc/update_icon), 5)
 	if(holder)
 		holder.update_icon()
 
-TYPE_PROC_REF(/obj/item/assembly/flash, clown_check)(mob/living/carbon/human/user)
+/obj/item/assembly/flash/proc/clown_check(mob/living/carbon/human/user)
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 		flash_carbon(user, user, 15, 0)
 		return FALSE
 	return TRUE
 
-TYPE_PROC_REF(/obj/item/assembly/flash, burn_out)() //Made so you can override it if you want to have an invincible flash from R&D or something.
+/obj/item/assembly/flash/proc/burn_out() //Made so you can override it if you want to have an invincible flash from R&D or something.
 	if(!crit_fail)
 		crit_fail = TRUE
 		update_icon()
@@ -60,7 +60,7 @@ TYPE_PROC_REF(/obj/item/assembly/flash, burn_out)() //Made so you can override i
 		var/turf/T = get_turf(src)
 		T.visible_message(span_danger("[src] burns out!"))
 
-TYPE_PROC_REF(/obj/item/assembly/flash, flash_recharge)(interval = 10)
+/obj/item/assembly/flash/proc/flash_recharge(interval = 10)
 	var/deciseconds_passed = world.time - last_used
 	for(var/seconds = deciseconds_passed / 10, seconds >= interval, seconds -= interval) //get 1 charge every interval
 		times_used--
@@ -72,7 +72,7 @@ TYPE_PROC_REF(/obj/item/assembly/flash, flash_recharge)(interval = 10)
 	return TRUE
 
 //BYPASS CHECKS ALSO PREVENTS BURNOUT!
-TYPE_PROC_REF(/obj/item/assembly/flash, AOE_flash)(bypass_checks = FALSE, range = 3, power = 5, targeted = FALSE, mob/user)
+/obj/item/assembly/flash/proc/AOE_flash(bypass_checks = FALSE, range = 3, power = 5, targeted = FALSE, mob/user)
 	if(!bypass_checks && !try_use_flash())
 		return FALSE
 	var/list/mob/targets = get_flash_targets(get_turf(src), range, FALSE)
@@ -82,7 +82,7 @@ TYPE_PROC_REF(/obj/item/assembly/flash, AOE_flash)(bypass_checks = FALSE, range 
 		flash_carbon(C, user, power, targeted, TRUE)
 	return TRUE
 
-TYPE_PROC_REF(/obj/item/assembly/flash, get_flash_targets)(atom/target_loc, range = 3, override_vision_checks = FALSE)
+/obj/item/assembly/flash/proc/get_flash_targets(atom/target_loc, range = 3, override_vision_checks = FALSE)
 	if(!target_loc)
 		target_loc = loc
 	if(override_vision_checks)
@@ -92,7 +92,7 @@ TYPE_PROC_REF(/obj/item/assembly/flash, get_flash_targets)(atom/target_loc, rang
 	else
 		return typecache_filter_list(target_loc.GetAllContents(), GLOB.typecache_living)
 
-TYPE_PROC_REF(/obj/item/assembly/flash, try_use_flash)(mob/user = null)
+/obj/item/assembly/flash/proc/try_use_flash(mob/user = null)
 	if(crit_fail || (world.time < last_trigger + cooldown))
 		return FALSE
 	last_trigger = world.time
@@ -105,7 +105,7 @@ TYPE_PROC_REF(/obj/item/assembly/flash, try_use_flash)(mob/user = null)
 		return FALSE
 	return TRUE
 
-TYPE_PROC_REF(/obj/item/assembly/flash, flash_carbon)(mob/living/carbon/M, mob/user, power = 15, targeted = TRUE, generic_message = FALSE)
+/obj/item/assembly/flash/proc/flash_carbon(mob/living/carbon/M, mob/user, power = 15, targeted = TRUE, generic_message = FALSE)
 	if(!istype(M))
 		return
 	if(user)
@@ -180,7 +180,7 @@ TYPE_PROC_REF(/obj/item/assembly/flash, flash_carbon)(mob/living/carbon/M, mob/u
 		return
 	AOE_flash()
 
-TYPE_PROC_REF(/obj/item/assembly/flash, terrible_conversion_proc)(mob/living/carbon/human/H, mob/user)
+/obj/item/assembly/flash/proc/terrible_conversion_proc(mob/living/carbon/human/H, mob/user)
 	if(istype(H) && ishuman(user) && H.stat != DEAD)
 		if(user.mind)
 			var/datum/antagonist/rev/head/converter = user.mind.has_antag_datum(/datum/antagonist/rev/head)
@@ -256,7 +256,7 @@ TYPE_PROC_REF(/obj/item/assembly/flash, terrible_conversion_proc)(mob/living/car
 	else
 		set_light(7)
 
-TYPE_PROC_REF(/obj/item/assembly/flash/armimplant, cooldown)()
+/obj/item/assembly/flash/armimplant/proc/cooldown()
 	overheat = FALSE
 
 /obj/item/assembly/flash/shield
@@ -314,7 +314,7 @@ TYPE_PROC_REF(/obj/item/assembly/flash/armimplant, cooldown)()
 	else if(flash)
 		icon_state = "flashshield_flash"
 		item_state = "flashshield_flash"
-		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_icon)), 5)
+		addtimer(CALLBACK(src, /atom/.proc/update_icon), 5)
 
 	if(holder)
 		holder.update_icon()

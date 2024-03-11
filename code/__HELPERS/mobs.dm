@@ -323,7 +323,7 @@ GLOBAL_LIST_EMPTY(species_list)
 	if(!HAS_TRAIT(L, TRAIT_PASSTABLE))
 		L.pass_flags &= ~PASSTABLE
 
-TYPE_PROC_REF(/mob, get_preferences)()
+/mob/proc/get_preferences()
 	if (client && client.prefs)
 		return client.prefs
 	return null

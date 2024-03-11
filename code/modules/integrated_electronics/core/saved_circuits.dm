@@ -4,7 +4,7 @@
 // Saves type, modified name and modified inputs (if any) to a list
 // The list is converted to JSON down the line.
 //"Special" is not verified at any point except for by the circuit itself.
-TYPE_PROC_REF(/obj/item/integrated_circuit, save)()
+/obj/item/integrated_circuit/proc/save()
 	var/list/component_params = list()
 	var/init_name = initial(name)
 
@@ -45,12 +45,12 @@ TYPE_PROC_REF(/obj/item/integrated_circuit, save)()
 
 	return component_params
 
-TYPE_PROC_REF(/obj/item/integrated_circuit, save_special)()
+/obj/item/integrated_circuit/proc/save_special()
 	return
 
 // Verifies a list of component parameters
 // Returns null on success, error name on failure
-TYPE_PROC_REF(/obj/item/integrated_circuit, verify_save)(list/component_params)
+/obj/item/integrated_circuit/proc/verify_save(list/component_params)
 	var/init_name = initial(name)
 	// Validate name
 	if(component_params["name"] && !reject_bad_name(component_params["name"], TRUE))
@@ -88,7 +88,7 @@ TYPE_PROC_REF(/obj/item/integrated_circuit, verify_save)(list/component_params)
 
 // Loads component parameters from a list
 // Doesn't verify any of the parameters it loads, this is the job of verify_save()
-TYPE_PROC_REF(/obj/item/integrated_circuit, load)(list/component_params)
+/obj/item/integrated_circuit/proc/load(list/component_params)
 	// Load name
 	if(component_params["name"])
 		displayed_name = component_params["name"]
@@ -110,12 +110,12 @@ TYPE_PROC_REF(/obj/item/integrated_circuit, load)(list/component_params)
 	if(!isnull(component_params["special"]))
 		load_special(component_params["special"])
 
-TYPE_PROC_REF(/obj/item/integrated_circuit, load_special)(special_data)
+/obj/item/integrated_circuit/proc/load_special(special_data)
 	return
 
 // Saves type and modified name (if any) to a list
 // The list is converted to JSON down the line.
-TYPE_PROC_REF(/obj/item/electronic_assembly, save)()
+/obj/item/electronic_assembly/proc/save()
 	var/list/assembly_params = list()
 
 	// Save initial name used for differentiating assemblies
@@ -138,7 +138,7 @@ TYPE_PROC_REF(/obj/item/electronic_assembly, save)()
 
 // Verifies a list of assembly parameters
 // Returns null on success, error name on failure
-TYPE_PROC_REF(/obj/item/electronic_assembly, verify_save)(list/assembly_params)
+/obj/item/electronic_assembly/proc/verify_save(list/assembly_params)
 	// Validate name and color
 	if(assembly_params["name"] && !reject_bad_name(assembly_params["name"], TRUE))
 		return "Bad assembly name."
@@ -149,7 +149,7 @@ TYPE_PROC_REF(/obj/item/electronic_assembly, verify_save)(list/assembly_params)
 
 // Loads assembly parameters from a list
 // Doesn't verify any of the parameters it loads, this is the job of verify_save()
-TYPE_PROC_REF(/obj/item/electronic_assembly, load)(list/assembly_params)
+/obj/item/electronic_assembly/proc/load(list/assembly_params)
 	// Load modified name, if any.
 	if(assembly_params["name"])
 		name = assembly_params["name"]
@@ -167,7 +167,7 @@ TYPE_PROC_REF(/obj/item/electronic_assembly, load)(list/assembly_params)
 
 // Attempts to save an assembly into a save file format.
 // Returns null if assembly is not complete enough to be saved.
-TYPE_PROC_REF(/datum/controller/subsystem/processing/circuit, save_electronic_assembly)(obj/item/electronic_assembly/assembly)
+/datum/controller/subsystem/processing/circuit/proc/save_electronic_assembly(obj/item/electronic_assembly/assembly)
 	// No components? Don't even try to save it.
 	if(!length(assembly.assembly_components))
 		return
@@ -227,7 +227,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/processing/circuit, save_electronic_as
 // Returns error code (type: text) if loading has failed.
 // The following parameters area calculated during validation and added to the returned save list:
 // "requires_upgrades", "unsupported_circuit", "metal_cost", "complexity", "max_complexity", "used_space", "max_space"
-TYPE_PROC_REF(/datum/controller/subsystem/processing/circuit, validate_electronic_assembly)(program)
+/datum/controller/subsystem/processing/circuit/proc/validate_electronic_assembly(program)
 	var/list/blocks = json_decode(program)
 	if(!blocks)
 		return
@@ -333,7 +333,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/processing/circuit, validate_electroni
 
 // Loads assembly (in form of list) into an object and returns it.
 // No sanity checks are performed, save file is expected to be validated by validate_electronic_assembly
-TYPE_PROC_REF(/datum/controller/subsystem/processing/circuit, load_electronic_assembly)(loc, list/blocks)
+/datum/controller/subsystem/processing/circuit/proc/load_electronic_assembly(loc, list/blocks)
 
 	// Block 1. Assembly.
 	var/list/assembly_params = blocks["assembly"]

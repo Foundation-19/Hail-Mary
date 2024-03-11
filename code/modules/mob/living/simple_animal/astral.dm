@@ -45,7 +45,7 @@
 	. = ..()
 	attempt_possess(A)
 
-TYPE_PROC_REF(/mob/living/simple_animal/astral, attempt_possess)(atom/A)
+/mob/living/simple_animal/astral/proc/attempt_possess(atom/A)
 	set waitfor = FALSE
 	if(pseudo_death == FALSE)
 		if(isliving(A))

@@ -13,7 +13,7 @@
 	var/mob/living/L = owner.current || mob_override
 	REMOVE_TRAIT(L, TRAIT_NOGUNS, "highlander")
 
-TYPE_PROC_REF(/datum/antagonist/highlander, forge_objectives)()
+/datum/antagonist/highlander/proc/forge_objectives()
 	var/datum/objective/steal/steal_objective = new
 	steal_objective.owner = owner
 	steal_objective.set_target(new /datum/objective_item/steal/nukedisc)
@@ -36,7 +36,7 @@ TYPE_PROC_REF(/datum/antagonist/highlander, forge_objectives)()
 
 	owner.announce_objectives()
 
-TYPE_PROC_REF(/datum/antagonist/highlander, give_equipment)()
+/datum/antagonist/highlander/proc/give_equipment()
 	var/mob/living/carbon/human/H = owner.current
 	if(!istype(H))
 		return

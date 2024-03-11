@@ -30,7 +30,7 @@
 /obj/screen/orbit()
 	return
 
-TYPE_PROC_REF(/obj/screen, component_click)(obj/screen/component_button/component, params)
+/obj/screen/proc/component_click(obj/screen/component_button/component, params)
 	return
 
 /obj/screen/text
@@ -123,7 +123,7 @@ TYPE_PROC_REF(/obj/screen, component_click)(obj/screen/component_button/componen
 		else
 			icon_state = icon_empty
 
-TYPE_PROC_REF(/obj/screen/inventory, add_overlays)()
+/obj/screen/inventory/proc/add_overlays()
 	var/mob/user = hud?.mymob
 
 	if(!user || !slot_id)
@@ -321,7 +321,7 @@ TYPE_PROC_REF(/obj/screen/inventory, add_overlays)()
 		if(MOVE_INTENT_RUN)
 			icon_state = "running"
 
-TYPE_PROC_REF(/obj/screen/mov_intent, toggle)(mob/user)
+/obj/screen/mov_intent/proc/toggle(mob/user)
 	if(isobserver(user))
 		return
 	user.toggle_move_intent(user)
@@ -440,7 +440,7 @@ TYPE_PROC_REF(/obj/screen/mov_intent, toggle)(mob/user)
 		vis_contents -= hover_overlays_cache[hovering]
 		hovering = null
 
-TYPE_PROC_REF(/obj/screen/zone_sel, get_zone_at)(icon_x, icon_y)
+/obj/screen/zone_sel/proc/get_zone_at(icon_x, icon_y)
 	switch(icon_y)
 		if(1 to 9) //Legs
 			switch(icon_x)
@@ -478,7 +478,7 @@ TYPE_PROC_REF(/obj/screen/zone_sel, get_zone_at)(icon_x, icon_y)
 							return BODY_ZONE_PRECISE_EYES
 				return BODY_ZONE_HEAD
 
-TYPE_PROC_REF(/obj/screen/zone_sel, set_selected_zone)(choice, mob/user)
+/obj/screen/zone_sel/proc/set_selected_zone(choice, mob/user)
 	if(user != hud?.mymob)
 		return
 
@@ -624,7 +624,7 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/splash)
 
 	holder.screen += src
 
-TYPE_PROC_REF(/obj/screen/splash, Fade)(out, qdel_after = TRUE)
+/obj/screen/splash/proc/Fade(out, qdel_after = TRUE)
 	if(QDELETED(src))
 		return
 	if(out)

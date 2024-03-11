@@ -12,7 +12,7 @@
 /datum/round_event/ghost_role/start()
 	try_spawning()
 
-TYPE_PROC_REF(/datum/round_event/ghost_role, try_spawning)(sanity = 0, retry = 0)
+/datum/round_event/ghost_role/proc/try_spawning(sanity = 0, retry = 0)
 	// The event does not run until the spawning has been attempted
 	// to prevent us from getting gc'd halfway through
 	processing = FALSE
@@ -49,12 +49,12 @@ TYPE_PROC_REF(/datum/round_event/ghost_role, try_spawning)(sanity = 0, retry = 0
 
 	processing = TRUE
 
-TYPE_PROC_REF(/datum/round_event/ghost_role, spawn_role)()
+/datum/round_event/ghost_role/proc/spawn_role()
 	// Return true if role was successfully spawned, false if insufficent
 	// players could be found, and just runtime if anything else happens
 	return TRUE
 
-TYPE_PROC_REF(/datum/round_event/ghost_role, get_candidates)(jobban, gametypecheck, be_special)
+/datum/round_event/ghost_role/proc/get_candidates(jobban, gametypecheck, be_special)
 	// Returns a list of candidates in priority order, with candidates from
 	// `priority_candidates` first, and ghost roles randomly shuffled and
 	// appended after

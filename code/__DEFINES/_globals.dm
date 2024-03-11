@@ -2,12 +2,12 @@
 
 //Creates a global initializer with a given InitValue expression, do not use
 #define GLOBAL_MANAGED(X, InitValue)\
-TYPE_PROC_REF(/datum/controller/global_vars, InitGlobal)##X(){\
+/datum/controller/global_vars/proc/InitGlobal##X(){\
 	##X = ##InitValue;\
 	gvars_datum_init_order += #X;\
 }
 //Creates an empty global initializer, do not use
-#define GLOBAL_UNMANAGED(X) TYPE_PROC_REF(/datum/controller/global_vars, InitGlobal)##X() { return; }
+#define GLOBAL_UNMANAGED(X) /datum/controller/global_vars/proc/InitGlobal##X() { return; }
 
 //Prevents a given global from being VV'd
 #ifndef TESTING

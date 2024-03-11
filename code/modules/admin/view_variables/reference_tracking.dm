@@ -1,6 +1,6 @@
 #ifdef REFERENCE_TRACKING
 
-TYPE_PROC_REF(/datum, find_references)(skip_alert)
+/datum/proc/find_references(skip_alert)
 	running_find_references = type
 	if(usr?.client)
 		if(usr.client.running_find_references)
@@ -64,7 +64,7 @@ TYPE_PROC_REF(/datum, find_references)(skip_alert)
 	SSgarbage.can_fire = TRUE
 	SSgarbage.update_nextfire(reset_time = TRUE)
 
-TYPE_PROC_REF(/datum, DoSearchVar)(potential_container, container_name, recursive_limit = 64, search_time = world.time)
+/datum/proc/DoSearchVar(potential_container, container_name, recursive_limit = 64, search_time = world.time)
 	#ifdef REFERENCE_TRACKING_DEBUG
 	if(SSgarbage.should_save_refs && !found_refs)
 		found_refs = list()
@@ -150,7 +150,7 @@ TYPE_PROC_REF(/datum, DoSearchVar)(potential_container, container_name, recursiv
 /proc/qdel_and_find_ref_if_fail(datum/thing_to_del, force = FALSE)
 	thing_to_del.qdel_and_find_ref_if_fail(force)
 
-TYPE_PROC_REF(/datum, qdel_and_find_ref_if_fail)(force = FALSE)
+/datum/proc/qdel_and_find_ref_if_fail(force = FALSE)
 	SSgarbage.reference_find_on_fail["\ref[src]"] = TRUE
 	qdel(src, force)
 

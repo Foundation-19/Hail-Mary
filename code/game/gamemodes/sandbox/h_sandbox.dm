@@ -3,14 +3,14 @@
 GLOBAL_VAR_INIT(hsboxspawn, TRUE)
 
 
-TYPE_PROC_REF(/mob, CanBuild)()
+/mob/proc/CanBuild()
 	sandbox = new/datum/hSB
 	sandbox.owner = src.ckey
 	if(src.client.holder)
 		sandbox.admin = 1
-	add_verb(src, TYPE_PROC_REF(/mob, sandbox_panel))
+	add_verb(src, /mob/proc/sandbox_panel)
 
-TYPE_PROC_REF(/mob, sandbox_panel)()
+/mob/proc/sandbox_panel()
 	set name = "Sandbox Panel"
 	if(sandbox)
 		sandbox.update()
@@ -31,7 +31,7 @@ TYPE_PROC_REF(/mob, sandbox_panel)()
 		/obj/item/smallDelivery, /obj/item/projectile,
 		/obj/item/borg/sight, /obj/item/borg/stun, /obj/item/robot_module)
 
-TYPE_PROC_REF(/datum/hSB, update)()
+/datum/hSB/proc/update()
 	var/static/list/hrefs = list(
 			"Space Gear",
 			"Suit Up (Space Travel Gear)"		= "hsbsuit",

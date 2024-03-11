@@ -9,7 +9,7 @@
 	qdel(overthrowhud)
 	. = ..()
 
-TYPE_PROC_REF(/datum/team/overthrow, create_objectives)()
+/datum/team/overthrow/proc/create_objectives()
 	// Heads objective
 	var/datum/objective/overthrow/heads/heads = new()
 	heads.team = src
@@ -27,7 +27,7 @@ TYPE_PROC_REF(/datum/team/overthrow, create_objectives)()
 	objectives += target
 	addtimer(CALLBACK(src,PROC_REF(update_objectives)),OBJECTIVE_UPDATING_TIME,TIMER_UNIQUE)
 
-TYPE_PROC_REF(/datum/team/overthrow, update_objectives)()
+/datum/team/overthrow/proc/update_objectives()
 	var/datum/objective/overthrow/heads/heads_obj = locate() in objectives
 	if(!heads_obj)
 		heads_obj = new()

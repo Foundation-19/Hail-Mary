@@ -23,7 +23,7 @@
 
 	cultist_commune(usr, input)
 
-TYPE_PROC_REF(/datum/action/innate/cult/comm, cultist_commune)(mob/living/user, message)
+/datum/action/innate/cult/comm/proc/cultist_commune(mob/living/user, message)
 	var/my_message
 	if(!message)
 		return
@@ -189,17 +189,17 @@ TYPE_PROC_REF(/datum/action/innate/cult/comm, cultist_commune)(mob/living/user, 
 									S.release_shades(owner)
 								B.current.setDir(SOUTH)
 								new /obj/effect/temp_visual/cult/blood(final)
-								addtimer(CALLBACK(B.current, TYPE_PROC_REF(/mob, reckon), final), 10)
+								addtimer(CALLBACK(B.current, /mob/.proc/reckon, final), 10)
 		else
 			return
 	antag.cult_team.reckoning_complete = TRUE
 	Remove(owner)
 
-TYPE_PROC_REF(/mob, reckon)(turf/final)
+/mob/proc/reckon(turf/final)
 	new /obj/effect/temp_visual/cult/blood/out(get_turf(src))
 	forceMove(final)
 
-TYPE_PROC_REF(/datum/action/innate/cult/master/finalreck, chant)(chant_number)
+/datum/action/innate/cult/master/finalreck/proc/chant(chant_number)
 	switch(chant_number)
 		if(1)
 			owner.say("C'arta forbici!", language = /datum/language/common, forced = "cult invocation")
@@ -250,7 +250,7 @@ TYPE_PROC_REF(/datum/action/innate/cult/master/finalreck, chant)(chant_number)
 	attached_action = null
 	return ..()
 
-TYPE_PROC_REF(/obj/effect/proc_holder/cultmark, toggle)(mob/user)
+/obj/effect/proc_holder/cultmark/proc/toggle(mob/user)
 	if(active)
 		remove_ranged_ability(span_cult("You cease the marking ritual."))
 	else
@@ -328,7 +328,7 @@ TYPE_PROC_REF(/obj/effect/proc_holder/cultmark, toggle)(mob/user)
 	else
 		qdel(src)
 
-TYPE_PROC_REF(/datum/action/innate/cult/ghostmark, reset_button)()
+/datum/action/innate/cult/ghostmark/proc/reset_button()
 	if(owner)
 		name = "Blood Mark your Target"
 		desc = "Marks whatever you are orbitting - for the entire cult to track."
@@ -430,7 +430,7 @@ TYPE_PROC_REF(/datum/action/innate/cult/ghostmark, reset_button)()
 	return ..()
 
 
-TYPE_PROC_REF(/obj/effect/proc_holder/pulse, toggle)(mob/user)
+/obj/effect/proc_holder/pulse/proc/toggle(mob/user)
 	if(active)
 		remove_ranged_ability(span_cult("You cease your preparations..."))
 		attached_action.throwing = FALSE

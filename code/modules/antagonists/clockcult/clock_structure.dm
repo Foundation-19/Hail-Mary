@@ -37,7 +37,7 @@
 		var/previouscolor = color
 		color = "#960000"
 		animate(src, color = previouscolor, time = 8)
-		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_atom_colour)), 8)
+		addtimer(CALLBACK(src, /atom/proc/update_atom_colour), 8)
 
 /obj/structure/destructible/clockwork/examine(mob/user)
 	var/can_see_clockwork = is_servant_of_ratvar(user) || isobserver(user)
@@ -77,7 +77,7 @@
 		return FALSE
 	return ..()
 
-TYPE_PROC_REF(/obj/structure/destructible/clockwork, get_efficiency_mod)()
+/obj/structure/destructible/clockwork/proc/get_efficiency_mod()
 	if(GLOB.ratvar_awakens)
 		return 2
 	. = max(sqrt(obj_integrity/max(max_integrity, 1)), 0.5)
@@ -106,7 +106,7 @@ TYPE_PROC_REF(/obj/structure/destructible/clockwork, get_efficiency_mod)()
 		return FALSE
 	return ..()
 
-TYPE_PROC_REF(/obj/structure/destructible/clockwork, update_anchored)(mob/user, do_damage)
+/obj/structure/destructible/clockwork/proc/update_anchored(mob/user, do_damage)
 	if(anchored)
 		icon_state = initial(icon_state)
 	else
@@ -178,7 +178,7 @@ TYPE_PROC_REF(/obj/structure/destructible/clockwork, update_anchored)(mob/user, 
 		return FAILED_UNFASTEN
 	return ..()
 
-TYPE_PROC_REF(/obj/structure/destructible/clockwork/powered, toggle)(fast_process, mob/living/user)
+/obj/structure/destructible/clockwork/powered/proc/toggle(fast_process, mob/living/user)
 	if(user)
 		if(!is_servant_of_ratvar(user))
 			return FALSE
@@ -201,7 +201,7 @@ TYPE_PROC_REF(/obj/structure/destructible/clockwork/powered, toggle)(fast_proces
 			STOP_PROCESSING(SSobj, src)
 	return TRUE
 
-TYPE_PROC_REF(/obj/structure/destructible/clockwork/powered, forced_disable)(bad_effects)
+/obj/structure/destructible/clockwork/powered/proc/forced_disable(bad_effects)
 	if(active)
 		toggle()
 
@@ -212,12 +212,12 @@ TYPE_PROC_REF(/obj/structure/destructible/clockwork/powered, forced_disable)(bad
 	if(forced_disable(TRUE))
 		new /obj/effect/temp_visual/emp(loc)
 
-TYPE_PROC_REF(/obj/structure/destructible/clockwork/powered, try_use_power)(amount) //try to use an amount of power
+/obj/structure/destructible/clockwork/powered/proc/try_use_power(amount) //try to use an amount of power
 	if(!needs_power || GLOB.ratvar_awakens || !amount)
 		return TRUE
 	if(!can_access_clockwork_power(src, amount))
 		return
 	return use_power(amount)
 
-TYPE_PROC_REF(/obj/structure/destructible/clockwork/powered, use_power)(amount) //we've made sure we had power, so now we use it
+/obj/structure/destructible/clockwork/powered/proc/use_power(amount) //we've made sure we had power, so now we use it
 	return adjust_clockwork_power(-amount)

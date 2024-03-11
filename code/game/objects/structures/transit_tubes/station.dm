@@ -100,7 +100,7 @@
 	else
 		return ..()
 
-TYPE_PROC_REF(/obj/structure/transit_tube/station, open_animation)()
+/obj/structure/transit_tube/station/proc/open_animation()
 	if(open_status == STATION_TUBE_CLOSED)
 		icon_state = "opening_[base_icon]"
 		open_status = STATION_TUBE_OPENING
@@ -110,7 +110,7 @@ TYPE_PROC_REF(/obj/structure/transit_tube/station, open_animation)()
 				open_status = STATION_TUBE_OPEN
 
 
-TYPE_PROC_REF(/obj/structure/transit_tube/station, close_animation)()
+/obj/structure/transit_tube/station/proc/close_animation()
 	if(open_status == STATION_TUBE_OPEN)
 		icon_state = "closing_[base_icon]"
 		open_status = STATION_TUBE_CLOSING
@@ -120,7 +120,7 @@ TYPE_PROC_REF(/obj/structure/transit_tube/station, close_animation)()
 				open_status = STATION_TUBE_CLOSED
 
 
-TYPE_PROC_REF(/obj/structure/transit_tube/station, launch_pod)()
+/obj/structure/transit_tube/station/proc/launch_pod()
 	if(launch_cooldown >= world.time)
 		return
 	for(var/obj/structure/transit_tube_pod/pod in loc)

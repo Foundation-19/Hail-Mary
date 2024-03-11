@@ -18,7 +18,7 @@
 	var/list/devillaws = list()
 	var/id = DEFAULT_AI_LAWID
 
-TYPE_PROC_REF(/datum/ai_laws, lawid_to_type)(lawid)
+/datum/ai_laws/proc/lawid_to_type(lawid)
 	var/all_ai_laws = subtypesof(/datum/ai_laws)
 	for(var/al in all_ai_laws)
 		var/datum/ai_laws/ai_law = al
@@ -221,7 +221,7 @@ TYPE_PROC_REF(/datum/ai_laws, lawid_to_type)(lawid)
 
 /* General ai_law functions */
 
-TYPE_PROC_REF(/datum/ai_laws, set_laws_config)()
+/datum/ai_laws/proc/set_laws_config()
 	var/list/law_ids = CONFIG_GET(keyed_list/random_laws)
 	switch(CONFIG_GET(number/default_laws))
 		if(0)
@@ -249,7 +249,7 @@ TYPE_PROC_REF(/datum/ai_laws, set_laws_config)()
 		if(3)
 			pick_weighted_lawset()
 
-TYPE_PROC_REF(/datum/ai_laws, pick_weighted_lawset)()
+/datum/ai_laws/proc/pick_weighted_lawset()
 	var/datum/ai_laws/lawtype
 	var/list/law_weights = CONFIG_GET(keyed_list/law_weight)
 	while(!lawtype && law_weights.len)
@@ -266,7 +266,7 @@ TYPE_PROC_REF(/datum/ai_laws, pick_weighted_lawset)()
 	var/datum/ai_laws/templaws = new lawtype()
 	inherent = templaws.inherent
 
-TYPE_PROC_REF(/datum/ai_laws, get_law_amount)(groups)
+/datum/ai_laws/proc/get_law_amount(groups)
 	var/law_amount = 0
 	if(devillaws && (LAW_DEVIL in groups))
 		law_amount++
@@ -285,35 +285,35 @@ TYPE_PROC_REF(/datum/ai_laws, get_law_amount)(groups)
 				law_amount++
 	return law_amount
 
-TYPE_PROC_REF(/datum/ai_laws, set_law_sixsixsix)(laws)
+/datum/ai_laws/proc/set_law_sixsixsix(laws)
 	devillaws = laws
 
-TYPE_PROC_REF(/datum/ai_laws, set_zeroth_law)(law, law_borg = null)
+/datum/ai_laws/proc/set_zeroth_law(law, law_borg = null)
 	zeroth = law
 	if(law_borg) //Making it possible for slaved borgs to see a different law 0 than their AI. --NEO
 		zeroth_borg = law_borg
 
-TYPE_PROC_REF(/datum/ai_laws, add_inherent_law)(law)
+/datum/ai_laws/proc/add_inherent_law(law)
 	if (!(law in inherent))
 		inherent += law
 
-TYPE_PROC_REF(/datum/ai_laws, add_ion_law)(law)
+/datum/ai_laws/proc/add_ion_law(law)
 	ion += law
 
-TYPE_PROC_REF(/datum/ai_laws, add_hacked_law)(law)
+/datum/ai_laws/proc/add_hacked_law(law)
 	hacked += law
 
-TYPE_PROC_REF(/datum/ai_laws, clear_inherent_laws)()
+/datum/ai_laws/proc/clear_inherent_laws()
 	qdel(inherent)
 	inherent = list()
 
-TYPE_PROC_REF(/datum/ai_laws, add_supplied_law)(number, law)
+/datum/ai_laws/proc/add_supplied_law(number, law)
 	while (supplied.len < number + 1)
 		supplied += ""
 
 	supplied[number + 1] = law
 
-TYPE_PROC_REF(/datum/ai_laws, replace_random_law)(law,groups)
+/datum/ai_laws/proc/replace_random_law(law,groups)
 	var/replaceable_groups = list()
 	if(zeroth && (LAW_ZEROTH in groups))
 		replaceable_groups[LAW_ZEROTH] = 1
@@ -347,7 +347,7 @@ TYPE_PROC_REF(/datum/ai_laws, replace_random_law)(law,groups)
 			. = supplied[i]
 			supplied[i] = law
 
-TYPE_PROC_REF(/datum/ai_laws, shuffle_laws)(list/groups)
+/datum/ai_laws/proc/shuffle_laws(list/groups)
 	var/list/laws = list()
 	if(ion.len && (LAW_ION in groups))
 		laws += ion
@@ -378,7 +378,7 @@ TYPE_PROC_REF(/datum/ai_laws, shuffle_laws)(list/groups)
 				break
 			i++
 
-TYPE_PROC_REF(/datum/ai_laws, remove_law)(number)
+/datum/ai_laws/proc/remove_law(number)
 	if(number <= 0)
 		return
 	if(inherent.len && number <= inherent.len)
@@ -396,21 +396,21 @@ TYPE_PROC_REF(/datum/ai_laws, remove_law)(number)
 		supplied -= .
 		return
 
-TYPE_PROC_REF(/datum/ai_laws, clear_supplied_laws)()
+/datum/ai_laws/proc/clear_supplied_laws()
 	supplied = list()
 
-TYPE_PROC_REF(/datum/ai_laws, clear_ion_laws)()
+/datum/ai_laws/proc/clear_ion_laws()
 	ion = list()
 
-TYPE_PROC_REF(/datum/ai_laws, clear_hacked_laws)()
+/datum/ai_laws/proc/clear_hacked_laws()
 	hacked = list()
 
-TYPE_PROC_REF(/datum/ai_laws, show_laws)(who)
+/datum/ai_laws/proc/show_laws(who)
 	var/list/printable_laws = get_law_list(include_zeroth = TRUE)
 	for(var/law in printable_laws)
 		to_chat(who,law)
 
-TYPE_PROC_REF(/datum/ai_laws, clear_zeroth_law)(force) //only removes zeroth from antag ai if force is 1
+/datum/ai_laws/proc/clear_zeroth_law(force) //only removes zeroth from antag ai if force is 1
 	if(force)
 		zeroth = null
 		zeroth_borg = null
@@ -423,11 +423,11 @@ TYPE_PROC_REF(/datum/ai_laws, clear_zeroth_law)(force) //only removes zeroth fro
 			zeroth_borg = null
 			return
 
-TYPE_PROC_REF(/datum/ai_laws, clear_law_sixsixsix)(force)
+/datum/ai_laws/proc/clear_law_sixsixsix(force)
 	if(force || !is_devil(owner))
 		devillaws = null
 
-TYPE_PROC_REF(/datum/ai_laws, associate)(mob/living/silicon/M)
+/datum/ai_laws/proc/associate(mob/living/silicon/M)
 	if(!owner)
 		owner = M
 
@@ -439,7 +439,7 @@ TYPE_PROC_REF(/datum/ai_laws, associate)(mob/living/silicon/M)
  * * show_numbers - Operator that controls if law numbers are prepended to the returned laws
  * * render_html - Operator controlling if HTML tags are rendered on the returned laws
  */
-TYPE_PROC_REF(/datum/ai_laws, get_law_list)(include_zeroth = FALSE, show_numbers = TRUE, render_html = TRUE)
+/datum/ai_laws/proc/get_law_list(include_zeroth = FALSE, show_numbers = TRUE, render_html = TRUE)
 	var/list/data = list()
 
 	if (include_zeroth && devillaws)

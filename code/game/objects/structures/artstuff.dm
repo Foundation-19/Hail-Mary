@@ -63,7 +63,7 @@
 	. = ..()
 	reset_grid()
 
-TYPE_PROC_REF(/obj/item/canvas, reset_grid)()
+/obj/item/canvas/proc/reset_grid()
 	grid = new/list(width,height)
 	for(var/x in 1 to width)
 		for(var/y in 1 to height)
@@ -124,7 +124,7 @@ TYPE_PROC_REF(/obj/item/canvas, reset_grid)()
 			if(!finalized)
 				finalize(user)
 
-TYPE_PROC_REF(/obj/item/canvas, finalize)(mob/user)
+/obj/item/canvas/proc/finalize(mob/user)
 	finalized = TRUE
 	author_ckey = user.ckey
 	generate_proper_overlay()
@@ -144,7 +144,7 @@ TYPE_PROC_REF(/obj/item/canvas, finalize)(mob/user)
 		detail.pixel_y = 1
 		. += detail
 
-TYPE_PROC_REF(/obj/item/canvas, generate_proper_overlay)()
+/obj/item/canvas/proc/generate_proper_overlay()
 	if(icon_generated)
 		return
 	var/png_filename = "data/paintings/temp_painting.png"
@@ -155,7 +155,7 @@ TYPE_PROC_REF(/obj/item/canvas, generate_proper_overlay)()
 	icon_generated = TRUE
 	update_icon()
 
-TYPE_PROC_REF(/obj/item/canvas, get_data_string)()
+/obj/item/canvas/proc/get_data_string()
 	var/list/data = list()
 	for(var/y in 1 to height)
 		for(var/x in 1 to width)
@@ -163,7 +163,7 @@ TYPE_PROC_REF(/obj/item/canvas, get_data_string)()
 	return data.Join("")
 
 //Todo make this element ?
-TYPE_PROC_REF(/obj/item/canvas, get_paint_tool_color)(obj/item/I)
+/obj/item/canvas/proc/get_paint_tool_color(obj/item/I)
 	if(!I)
 		return
 	if(istype(I, /obj/item/toy/crayon))
@@ -182,7 +182,7 @@ TYPE_PROC_REF(/obj/item/canvas, get_paint_tool_color)(obj/item/I)
 	else if(istype(I, /obj/item/soap) || istype(I, /obj/item/reagent_containers/rag))
 		return canvas_color
 
-TYPE_PROC_REF(/obj/item/canvas, try_rename)(mob/user)
+/obj/item/canvas/proc/try_rename(mob/user)
 	var/new_name = stripped_input(user,"What do you want to name the painting?")
 	if(!painting_name && new_name && user.canUseTopic(src,BE_CLOSE))
 		painting_name = new_name
@@ -269,7 +269,7 @@ TYPE_PROC_REF(/obj/item/canvas, try_rename)(mob/user)
 		update_icon()
 		return TRUE
 
-TYPE_PROC_REF(/obj/structure/sign/painting, frame_canvas)(mob/user,obj/item/canvas/new_canvas)
+/obj/structure/sign/painting/proc/frame_canvas(mob/user,obj/item/canvas/new_canvas)
 	if(user.transferItemToLoc(new_canvas,src))
 		C = new_canvas
 		if(!C.finalized)
@@ -277,7 +277,7 @@ TYPE_PROC_REF(/obj/structure/sign/painting, frame_canvas)(mob/user,obj/item/canv
 		to_chat(user,span_notice("You frame [C]."))
 	update_icon()
 
-TYPE_PROC_REF(/obj/structure/sign/painting, try_rename)(mob/user)
+/obj/structure/sign/painting/proc/try_rename(mob/user)
 	if(!C.painting_name)
 		C.try_rename(user)
 
@@ -301,7 +301,7 @@ TYPE_PROC_REF(/obj/structure/sign/painting, try_rename)(mob/user)
 		frame.pixel_y = C.framed_offset_y - 1
 		. += frame
 
-TYPE_PROC_REF(/obj/structure/sign/painting, load_persistent)()
+/obj/structure/sign/painting/proc/load_persistent()
 	if(!persistence_id)
 		return
 	if(!SSpersistence.paintings || !SSpersistence.paintings[persistence_id] || !length(SSpersistence.paintings[persistence_id]))
@@ -331,7 +331,7 @@ TYPE_PROC_REF(/obj/structure/sign/painting, load_persistent)()
 	C = new_canvas
 	update_icon()
 
-TYPE_PROC_REF(/obj/structure/sign/painting, save_persistent)()
+/obj/structure/sign/painting/proc/save_persistent()
 	if(!persistence_id || !C)
 		return
 	if(sanitize_filename(persistence_id) != persistence_id)
@@ -353,7 +353,7 @@ TYPE_PROC_REF(/obj/structure/sign/painting, save_persistent)()
 	current += list(list("title" = C.painting_name , "md5" = md5, "ckey" = C.author_ckey))
 	SSpersistence.paintings[persistence_id] = current
 
-TYPE_PROC_REF(/obj/item/canvas, fill_grid_from_icon)(icon/I)
+/obj/item/canvas/proc/fill_grid_from_icon(icon/I)
 	var/h = I.Height() + 1
 	for(var/x in 1 to width)
 		for(var/y in 1 to height)

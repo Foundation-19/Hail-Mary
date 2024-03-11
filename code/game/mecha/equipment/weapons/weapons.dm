@@ -17,7 +17,7 @@
 			return 1
 	return 0
 
-TYPE_PROC_REF(/obj/item/mecha_parts/mecha_equipment/weapon, get_shot_amount)()
+/obj/item/mecha_parts/mecha_equipment/weapon/proc/get_shot_amount()
 	return projectiles_per_shot
 
 /obj/item/mecha_parts/mecha_equipment/weapon/action(atom/target, params)
@@ -318,7 +318,7 @@ TYPE_PROC_REF(/obj/item/mecha_parts/mecha_equipment/weapon, get_shot_amount)()
 	return 1
 
 //used for projectile initilisation (priming flashbang) and additional logging
-TYPE_PROC_REF(/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/launcher, proj_init)(obj/O)
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/launcher/proc/proj_init(obj/O)
 	return
 
 

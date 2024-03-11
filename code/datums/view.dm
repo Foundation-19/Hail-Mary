@@ -12,75 +12,75 @@
 	chief = owner
 	apply()
 
-TYPE_PROC_REF(/datum/viewData, setDefault)(string)
+/datum/viewData/proc/setDefault(string)
 	default = string
 	apply()
 
-TYPE_PROC_REF(/datum/viewData, safeApplyFormat)()
+/datum/viewData/proc/safeApplyFormat()
 	if(isZooming())
 		assertFormat()
 		return
 	resetFormat()
 
-TYPE_PROC_REF(/datum/viewData, assertFormat)()//T-Pose
+/datum/viewData/proc/assertFormat()//T-Pose
 	// winset(chief, "mapwindow.map", "zoom=0")
 	// Citadel Edit - We're using icon dropdown instead
 
-TYPE_PROC_REF(/datum/viewData, resetFormat)()//Cuck
+/datum/viewData/proc/resetFormat()//Cuck
 	// winset(chief, "mapwindow.map", "zoom=[chief.prefs.pixel_size]")
 	// Citadel Edit - We're using icon dropdown instead
 
-TYPE_PROC_REF(/datum/viewData, setZoomMode)()
+/datum/viewData/proc/setZoomMode()
 	// winset(chief, "mapwindow.map", "zoom-mode=[chief.prefs.scaling_method]")
 	// Citadel Edit - We're using icon dropdown instead
 
-TYPE_PROC_REF(/datum/viewData, isZooming)()
+/datum/viewData/proc/isZooming()
 	return (width || height)
 
-TYPE_PROC_REF(/datum/viewData, resetToDefault)()
+/datum/viewData/proc/resetToDefault()
 	width = 0
 	height = 0
 	apply()
 
-TYPE_PROC_REF(/datum/viewData, add)(toAdd)
+/datum/viewData/proc/add(toAdd)
 	width += toAdd
 	height += toAdd
 	apply()
 
-TYPE_PROC_REF(/datum/viewData, addTo)(toAdd)
+/datum/viewData/proc/addTo(toAdd)
 	var/list/shitcode = getviewsize(toAdd)
 	width += shitcode[1]
 	height += shitcode[2]
 	apply()
 
-TYPE_PROC_REF(/datum/viewData, setTo)(toAdd)
+/datum/viewData/proc/setTo(toAdd)
 	var/list/shitcode = getviewsize(toAdd)  //Backward compatability to account
 	width = shitcode[1]						//for a change in how sizes get calculated. we used to include world.view in
 	height = shitcode[2]					//this, but it was jank, so I had to move it
 	apply()
 
-TYPE_PROC_REF(/datum/viewData, setBoth)(wid, hei)
+/datum/viewData/proc/setBoth(wid, hei)
 	width = wid
 	height = hei
 	apply()
 
-TYPE_PROC_REF(/datum/viewData, setWidth)(wid)
+/datum/viewData/proc/setWidth(wid)
 	width = wid
 	apply()
 
-TYPE_PROC_REF(/datum/viewData, setHeight)(hei)
+/datum/viewData/proc/setHeight(hei)
 	width = hei
 	apply()
 
-TYPE_PROC_REF(/datum/viewData, addToWidth)(toAdd)
+/datum/viewData/proc/addToWidth(toAdd)
 	width += toAdd
 	apply()
 
-TYPE_PROC_REF(/datum/viewData, addToHeight)(screen, toAdd)
+/datum/viewData/proc/addToHeight(screen, toAdd)
 	height += toAdd
 	apply()
 
-TYPE_PROC_REF(/datum/viewData, apply)()
+/datum/viewData/proc/apply()
 	if(!chief)
 		return
 	chief.change_view(getView())
@@ -89,25 +89,25 @@ TYPE_PROC_REF(/datum/viewData, apply)()
 		if(chief.prefs.auto_fit_viewport)
 			chief.fit_viewport()
 
-TYPE_PROC_REF(/datum/viewData, supress)()
+/datum/viewData/proc/supress()
 	is_suppressed = TRUE
 	apply()
 
-TYPE_PROC_REF(/datum/viewData, unsupress)()
+/datum/viewData/proc/unsupress()
 	is_suppressed = FALSE
 	apply()
 
-TYPE_PROC_REF(/datum/viewData, getView)()
+/datum/viewData/proc/getView()
 	var/list/temp = getviewsize(default)
 	if(is_suppressed)
 		return "[temp[1]]x[temp[2]]"
 	return "[width + temp[1]]x[height + temp[2]]"
 
-TYPE_PROC_REF(/datum/viewData, zoomIn)()
+/datum/viewData/proc/zoomIn()
 	resetToDefault()
 	animate(chief, pixel_x = 0, pixel_y = 0, 0, FALSE, LINEAR_EASING, ANIMATION_END_NOW)
 
-TYPE_PROC_REF(/datum/viewData, zoomOut)(radius = 0, offset = 0, direction = FALSE)
+/datum/viewData/proc/zoomOut(radius = 0, offset = 0, direction = FALSE)
 	if(direction)
 		var/_x = 0
 		var/_y = 0

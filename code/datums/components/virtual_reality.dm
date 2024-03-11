@@ -76,7 +76,7 @@
  * Called when attempting to connect a mob to a virtual reality mob.
  * This will return FALSE if the mob is without player or dead. TRUE otherwise
  */
-TYPE_PROC_REF(/datum/component/virtual_reality, connect)(mob/M)
+/datum/component/virtual_reality/proc/connect(mob/M)
 	var/mob/vr_M = parent
 	if(!M.mind || M.stat == DEAD || !vr_M.mind || vr_M.stat == DEAD)
 		return FALSE
@@ -97,7 +97,7 @@ TYPE_PROC_REF(/datum/component/virtual_reality, connect)(mob/M)
 /**
  * emag_act() hook. Makes the game deadlier, killing the mastermind mob too should the parent die.
  */
-TYPE_PROC_REF(/datum/component/virtual_reality, you_only_live_once)()
+/datum/component/virtual_reality/proc/you_only_live_once()
 	if(you_die_in_the_game_you_die_for_real)
 		return FALSE
 	you_die_in_the_game_you_die_for_real = TRUE
@@ -107,7 +107,7 @@ TYPE_PROC_REF(/datum/component/virtual_reality, you_only_live_once)()
  * Called when the mastermind mind is transferred to another mob.
  * This is pretty much just going to simply quit the session until machineries support polymorphed occupants etcetera.
  */
-TYPE_PROC_REF(/datum/component/virtual_reality, switch_player)(datum/source, mob/new_mob, mob/old_mob)
+/datum/component/virtual_reality/proc/switch_player(datum/source, mob/new_mob, mob/old_mob)
 	if(session_paused)
 		return
 	if(!allow_mastermind_transfer)
@@ -124,7 +124,7 @@ TYPE_PROC_REF(/datum/component/virtual_reality, switch_player)(datum/source, mob
  * Since the target's mind.current is going to be null'd in the mind transfer process,
  * This has to be done in a different signal proc than on_player_transfer(), by then the mastermind.current will be null.
  */
-TYPE_PROC_REF(/datum/component/virtual_reality, pre_player_transfer)(datum/source, mob/new_mob, mob/old_mob)
+/datum/component/virtual_reality/proc/pre_player_transfer(datum/source, mob/new_mob, mob/old_mob)
 	if(!mastermind || session_paused)
 		return
 	if(new_mob == mastermind.current)
@@ -143,7 +143,7 @@ TYPE_PROC_REF(/datum/component/virtual_reality, pre_player_transfer)(datum/sourc
  * Called when someone or something else is somewhat about to replace the mastermind's mob key somehow.
  * And potentially lock the player in a broken virtual reality plot. Not really something to be proud of.
  */
-TYPE_PROC_REF(/datum/component/virtual_reality, player_hijacked)(datum/source, mob/our_character, mob/their_character)
+/datum/component/virtual_reality/proc/player_hijacked(datum/source, mob/our_character, mob/their_character)
 	if(session_paused)
 		return
 	if(!their_character)
@@ -163,7 +163,7 @@ TYPE_PROC_REF(/datum/component/virtual_reality, player_hijacked)(datum/source, m
  * Takes care of moving the component from a mob to another when their mind or ckey is transferred.
  * The very reason this component even exists (else one would be stuck playing as a monky if monkyified)
  */
-TYPE_PROC_REF(/datum/component/virtual_reality, on_player_transfer)(datum/source, mob/new_mob, mob/old_mob)
+/datum/component/virtual_reality/proc/on_player_transfer(datum/source, mob/new_mob, mob/old_mob)
 	new_mob.TakeComponent(src)
 
 /**
@@ -176,23 +176,23 @@ TYPE_PROC_REF(/datum/component/virtual_reality, on_player_transfer)(datum/source
 /**
  *The following procs simply acts as hooks for quit(), since components do not use callbacks anymore
  */
-TYPE_PROC_REF(/datum/component/virtual_reality, action_trigger)(datum/action/source, obj/target)
+/datum/component/virtual_reality/proc/action_trigger(datum/action/source, obj/target)
 	quit()
 	return COMPONENT_ACTION_BLOCK_TRIGGER
 
-TYPE_PROC_REF(/datum/component/virtual_reality, revert_to_reality)(datum/source)
+/datum/component/virtual_reality/proc/revert_to_reality(datum/source)
 	quit()
 
-TYPE_PROC_REF(/datum/component/virtual_reality, game_over)(datum/source)
+/datum/component/virtual_reality/proc/game_over(datum/source)
 	quit(you_die_in_the_game_you_die_for_real, TRUE)
 	return COMPONENT_BLOCK_DEATH_BROADCAST
 
-TYPE_PROC_REF(/datum/component/virtual_reality, be_a_quitter)(datum/source, can_reenter_corpse, special = FALSE, penalize = FALSE)
+/datum/component/virtual_reality/proc/be_a_quitter(datum/source, can_reenter_corpse, special = FALSE, penalize = FALSE)
 	if(!special)
 		quit()
 		return COMPONENT_BLOCK_GHOSTING
 
-TYPE_PROC_REF(/datum/component/virtual_reality, machine_destroyed)(datum/source)
+/datum/component/virtual_reality/proc/machine_destroyed(datum/source)
 	quit(cleanup = TRUE)
 
 /**
@@ -205,7 +205,7 @@ TYPE_PROC_REF(/datum/component/virtual_reality, machine_destroyed)(datum/source)
  * * cleanup is used to queue the parent for the next vr_clean_master's run, where they'll be deleted should they be dead.
  * * mob/override is used for the recursive virtual reality explained above and shouldn't be used outside of vr_in_a_vr().
  */
-TYPE_PROC_REF(/datum/component/virtual_reality, quit)(deathcheck = FALSE, cleanup = FALSE, mob/override)
+/datum/component/virtual_reality/proc/quit(deathcheck = FALSE, cleanup = FALSE, mob/override)
 	var/mob/M = parent
 	if(!session_paused)
 		session_paused = TRUE
@@ -239,7 +239,7 @@ TYPE_PROC_REF(/datum/component/virtual_reality, quit)(deathcheck = FALSE, cleanu
 /**
  * Used for recursive virtual realities shenanigeans and should be called by the above proc.
  */
-TYPE_PROC_REF(/datum/component/virtual_reality, vr_in_a_vr)(mob/player, deathcheck = FALSE, lethal_cleanup = FALSE)
+/datum/component/virtual_reality/proc/vr_in_a_vr(mob/player, deathcheck = FALSE, lethal_cleanup = FALSE)
 	var/mob/M = parent
 	quit(deathcheck, lethal_cleanup, player)
 	M.audiovisual_redirect = null

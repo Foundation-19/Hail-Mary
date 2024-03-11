@@ -18,7 +18,7 @@
 /obj/item/integrated_electronics/wirer/update_icon_state()
 	icon_state = "wirer-[mode]"
 
-TYPE_PROC_REF(/obj/item/integrated_electronics/wirer, wire)(datum/integrated_io/io, mob/user)
+/obj/item/integrated_electronics/wirer/proc/wire(datum/integrated_io/io, mob/user)
 	if(!io.holder.assembly)
 		to_chat(user, span_warning("\The [io.holder] needs to be secured inside an assembly first."))
 		return

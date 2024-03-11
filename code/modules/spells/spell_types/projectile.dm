@@ -30,7 +30,7 @@
 	for(var/mob/living/target in targets)
 		launch(target, user)
 
-TYPE_PROC_REF(/obj/effect/proc_holder/spell/targeted/projectile, launch)(mob/living/target, mob/user)
+/obj/effect/proc_holder/spell/targeted/projectile/proc/launch(mob/living/target, mob/user)
 	set waitfor = FALSE
 	var/obj/effect/proc_holder/spell/targeted/projectile
 	if(istext(proj_type))
@@ -86,7 +86,7 @@ TYPE_PROC_REF(/obj/effect/proc_holder/spell/targeted/projectile, launch)(mob/liv
 	if(projectile)
 		qdel(projectile)
 
-TYPE_PROC_REF(/obj/effect/proc_holder/spell/targeted/projectile, spawntrail)(obj/effect/proc_holder/spell/targeted/projectile)
+/obj/effect/proc_holder/spell/targeted/projectile/proc/spawntrail(obj/effect/proc_holder/spell/targeted/projectile)
 	set waitfor = FALSE
 	if(projectile)
 		var/obj/effect/overlay/trail = new /obj/effect/overlay(projectile.loc)

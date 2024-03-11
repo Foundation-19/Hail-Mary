@@ -34,7 +34,7 @@
 	///Delete this port after ship fly off.
 	var/delete_after = FALSE
 
-TYPE_PROC_REF(/obj/docking_port, get_save_vars)()
+/obj/docking_port/proc/get_save_vars()
 	return list("pixel_x", "pixel_y", "dir", "name", "req_access", "req_access_txt", "piping_layer", "color", "icon_state", "pipe_color", "amount", "width", "height", "dwidth", "dheight")
 
 	//these objects are indestructible
@@ -61,7 +61,7 @@ TYPE_PROC_REF(/obj/docking_port, get_save_vars)()
 	return //we don't rotate with shuttles via this code.
 
 //returns a list(x0,y0, x1,y1) where points 0 and 1 are bounding corners of the projected rectangle
-TYPE_PROC_REF(/obj/docking_port, return_coords)(_x, _y, _dir)
+/obj/docking_port/proc/return_coords(_x, _y, _dir)
 	if(_dir == null)
 		_dir = dir
 	if(_x == null)
@@ -91,7 +91,7 @@ TYPE_PROC_REF(/obj/docking_port, return_coords)(_x, _y, _dir)
 		)
 
 //returns turfs within our projected rectangle in no particular order
-TYPE_PROC_REF(/obj/docking_port, return_turfs)()
+/obj/docking_port/proc/return_turfs()
 	var/list/L = return_coords()
 	var/turf/T0 = locate(L[1],L[2],z)
 	var/turf/T1 = locate(L[3],L[4],z)
@@ -99,7 +99,7 @@ TYPE_PROC_REF(/obj/docking_port, return_turfs)()
 
 //returns turfs within our projected rectangle in a specific order.
 //this ensures that turfs are copied over in the same order, regardless of any rotation
-TYPE_PROC_REF(/obj/docking_port, return_ordered_turfs)(_x, _y, _z, _dir)
+/obj/docking_port/proc/return_ordered_turfs(_x, _y, _z, _dir)
 	var/cos = 1
 	var/sin = 0
 	switch(_dir)
@@ -127,7 +127,7 @@ TYPE_PROC_REF(/obj/docking_port, return_ordered_turfs)(_x, _y, _z, _dir)
 
 #ifdef DOCKING_PORT_HIGHLIGHT
 //Debug proc used to highlight bounding area
-TYPE_PROC_REF(/obj/docking_port, highlight)(_color)
+/obj/docking_port/proc/highlight(_color)
 	var/list/L = return_coords()
 	var/turf/T0 = locate(L[1],L[2],z)
 	var/turf/T1 = locate(L[3],L[4],z)
@@ -143,15 +143,15 @@ TYPE_PROC_REF(/obj/docking_port, highlight)(_color)
 #endif
 
 //return first-found touching dockingport
-TYPE_PROC_REF(/obj/docking_port, get_docked)()
+/obj/docking_port/proc/get_docked()
 	return locate(/obj/docking_port/stationary) in loc
 
-TYPE_PROC_REF(/obj/docking_port, getDockedId)()
+/obj/docking_port/proc/getDockedId()
 	var/obj/docking_port/P = get_docked()
 	if(P)
 		return P.id
 
-TYPE_PROC_REF(/obj/docking_port, is_in_shuttle_bounds)(atom/A)
+/obj/docking_port/proc/is_in_shuttle_bounds(atom/A)
 	var/turf/T = get_turf(A)
 	if(T.z != z)
 		return FALSE
@@ -205,7 +205,7 @@ TYPE_PROC_REF(/obj/docking_port, is_in_shuttle_bounds)(atom/A)
 	var/area/newarea = get_area(src)
 	area_type = newarea?.type
 
-TYPE_PROC_REF(/obj/docking_port/stationary, load_roundstart)()
+/obj/docking_port/stationary/proc/load_roundstart()
 	if(json_key)
 		var/sid = SSmapping.config.shuttles[json_key]
 		roundstart_template = SSmapping.shuttle_templates[sid]
@@ -297,7 +297,7 @@ TYPE_PROC_REF(/obj/docking_port/stationary, load_roundstart)()
 	var/can_move_docking_ports = FALSE
 	var/list/hidden_turfs = list()
 
-TYPE_PROC_REF(/obj/docking_port/mobile, register)()
+/obj/docking_port/mobile/proc/register()
 	SSshuttle.mobile += src
 
 /obj/docking_port/mobile/Destroy(force)
@@ -334,7 +334,7 @@ TYPE_PROC_REF(/obj/docking_port/mobile, register)()
 	#endif
 
 // Called after the shuttle is loaded from template
-TYPE_PROC_REF(/obj/docking_port/mobile, linkup)(datum/map_template/shuttle/template, obj/docking_port/stationary/dock)
+/obj/docking_port/mobile/proc/linkup(datum/map_template/shuttle/template, obj/docking_port/stationary/dock)
 	var/list/static/shuttle_id = list()
 	var/idnum = ++shuttle_id[template]
 	if(idnum > 1)
@@ -351,11 +351,11 @@ TYPE_PROC_REF(/obj/docking_port/mobile, linkup)(datum/map_template/shuttle/templ
 
 
 //this is a hook for custom behaviour. Maybe at some point we could add checks to see if engines are intact
-TYPE_PROC_REF(/obj/docking_port/mobile, canMove)()
+/obj/docking_port/mobile/proc/canMove()
 	return TRUE
 
 //this is to check if this shuttle can physically dock at dock S
-TYPE_PROC_REF(/obj/docking_port/mobile, canDock)(obj/docking_port/stationary/S)
+/obj/docking_port/mobile/proc/canDock(obj/docking_port/stationary/S)
 	if(!istype(S))
 		return SHUTTLE_NOT_A_DOCKING_PORT
 
@@ -387,7 +387,7 @@ TYPE_PROC_REF(/obj/docking_port/mobile, canDock)(obj/docking_port/stationary/S)
 
 	return SHUTTLE_CAN_DOCK
 
-TYPE_PROC_REF(/obj/docking_port/mobile, check_dock)(obj/docking_port/stationary/S, silent=FALSE)
+/obj/docking_port/mobile/proc/check_dock(obj/docking_port/stationary/S, silent=FALSE)
 	var/status = canDock(S)
 	if(status == SHUTTLE_CAN_DOCK)
 		return TRUE
@@ -399,11 +399,11 @@ TYPE_PROC_REF(/obj/docking_port/mobile, check_dock)(obj/docking_port/stationary/
 		// Triggering shuttle movement code in place is weird
 		return FALSE
 
-TYPE_PROC_REF(/obj/docking_port/mobile, transit_failure)()
+/obj/docking_port/mobile/proc/transit_failure()
 	message_admins("Shuttle [src] repeatedly failed to create transit zone.")
 
 //call the shuttle to destination S
-TYPE_PROC_REF(/obj/docking_port/mobile, request)(obj/docking_port/stationary/S)
+/obj/docking_port/mobile/proc/request(obj/docking_port/stationary/S)
 	if(!check_dock(S))
 		testing("check_dock failed on request for [src]")
 		return
@@ -432,7 +432,7 @@ TYPE_PROC_REF(/obj/docking_port/mobile, request)(obj/docking_port/stationary/S)
 			setTimer(ignitionTime)
 
 //recall the shuttle to where it was previously
-TYPE_PROC_REF(/obj/docking_port/mobile, cancel)()
+/obj/docking_port/mobile/proc/cancel()
 	if(mode != SHUTTLE_CALL)
 		return
 
@@ -441,7 +441,7 @@ TYPE_PROC_REF(/obj/docking_port/mobile, cancel)()
 	invertTimer()
 	mode = SHUTTLE_RECALL
 
-TYPE_PROC_REF(/obj/docking_port/mobile, enterTransit)()
+/obj/docking_port/mobile/proc/enterTransit()
 	if((SSshuttle.lockdown && is_station_level(z)) || !canMove())	//emp went off, no escape
 		mode = SHUTTLE_IDLE
 		return
@@ -463,7 +463,7 @@ TYPE_PROC_REF(/obj/docking_port/mobile, enterTransit)()
 		WARNING("shuttle \"[id]\" could not enter transit space. S0=[S0 ? S0.id : "null"] S1=[S1 ? S1.id : "null"]")
 
 
-TYPE_PROC_REF(/obj/docking_port/mobile, jumpToNullSpace)()
+/obj/docking_port/mobile/proc/jumpToNullSpace()
 	// Destroys the docking port and the shuttle contents.
 	// Not in a fancy way, it just ceases.
 	var/obj/docking_port/stationary/current_dock = get_docked()
@@ -498,7 +498,7 @@ TYPE_PROC_REF(/obj/docking_port/mobile, jumpToNullSpace)()
 
 	qdel(src, force=TRUE)
 
-TYPE_PROC_REF(/obj/docking_port/mobile, intoTheSunset)()
+/obj/docking_port/mobile/proc/intoTheSunset()
 	// Loop over mobs
 	for(var/t in return_turfs())
 		var/turf/T = t
@@ -514,15 +514,15 @@ TYPE_PROC_REF(/obj/docking_port/mobile, intoTheSunset)()
 	// Now that mobs are stowed, delete the shuttle
 	jumpToNullSpace()
 
-TYPE_PROC_REF(/obj/docking_port/mobile, create_ripples)(obj/docking_port/stationary/S1, animate_time)
+/obj/docking_port/mobile/proc/create_ripples(obj/docking_port/stationary/S1, animate_time)
 	var/list/turfs = ripple_area(S1)
 	for(var/t in turfs)
 		ripples += new /obj/effect/abstract/ripple(t, animate_time)
 
-TYPE_PROC_REF(/obj/docking_port/mobile, remove_ripples)()
+/obj/docking_port/mobile/proc/remove_ripples()
 	QDEL_LIST(ripples)
 
-TYPE_PROC_REF(/obj/docking_port/mobile, ripple_area)(obj/docking_port/stationary/S1)
+/obj/docking_port/mobile/proc/ripple_area(obj/docking_port/stationary/S1)
 	var/list/L0 = return_ordered_turfs(x, y, z, dir)
 	var/list/L1 = return_ordered_turfs(S1.x, S1.y, S1.z, S1.dir)
 
@@ -541,11 +541,11 @@ TYPE_PROC_REF(/obj/docking_port/mobile, ripple_area)(obj/docking_port/stationary
 
 	return ripple_turfs
 
-TYPE_PROC_REF(/obj/docking_port/mobile, check_poddoors)()
+/obj/docking_port/mobile/proc/check_poddoors()
 	for(var/obj/machinery/door/poddoor/shuttledock/pod in GLOB.airlocks)
 		pod.check()
 
-TYPE_PROC_REF(/obj/docking_port/mobile, dock_id)(id)
+/obj/docking_port/mobile/proc/dock_id(id)
 	var/port = SSshuttle.getDock(id)
 	if(port)
 		. = initiate_docking(port)
@@ -560,7 +560,7 @@ TYPE_PROC_REF(/obj/docking_port/mobile, dock_id)(id)
 	return FALSE
 
 //used by shuttle subsystem to check timers
-TYPE_PROC_REF(/obj/docking_port/mobile, check)()
+/obj/docking_port/mobile/proc/check()
 	check_effects()
 
 	if(mode == SHUTTLE_IGNITING)
@@ -608,7 +608,7 @@ TYPE_PROC_REF(/obj/docking_port/mobile, check)()
 	timer = 0
 	destination = null
 
-TYPE_PROC_REF(/obj/docking_port/mobile, check_effects)()
+/obj/docking_port/mobile/proc/check_effects()
 	if(!ripples.len)
 		if((mode == SHUTTLE_CALL) || (mode == SHUTTLE_RECALL))
 			var/tl = timeLeft(1)
@@ -622,7 +622,7 @@ TYPE_PROC_REF(/obj/docking_port/mobile, check_effects)()
 			if(shuttle_area.parallax_movedir)
 				parallax_slowdown()
 
-TYPE_PROC_REF(/obj/docking_port/mobile, parallax_slowdown)()
+/obj/docking_port/mobile/proc/parallax_slowdown()
 	for(var/place in shuttle_areas)
 		var/area/shuttle/shuttle_area = place
 		shuttle_area.parallax_movedir = FALSE
@@ -638,17 +638,17 @@ TYPE_PROC_REF(/obj/docking_port/mobile, parallax_slowdown)()
 			if (length(AM.client_mobs_in_contents))
 				AM.update_parallax_contents()
 
-TYPE_PROC_REF(/obj/docking_port/mobile, check_transit_zone)()
+/obj/docking_port/mobile/proc/check_transit_zone()
 	if(assigned_transit)
 		return TRANSIT_READY
 	else
 		SSshuttle.request_transit_dock(src)
 
-TYPE_PROC_REF(/obj/docking_port/mobile, setTimer)(wait)
+/obj/docking_port/mobile/proc/setTimer(wait)
 	timer = world.time + wait
 	last_timer_length = wait
 
-TYPE_PROC_REF(/obj/docking_port/mobile, modTimer)(multiple)
+/obj/docking_port/mobile/proc/modTimer(multiple)
 	var/time_remaining = timer - world.time
 	if(time_remaining < 0 || !last_timer_length)
 		return
@@ -656,7 +656,7 @@ TYPE_PROC_REF(/obj/docking_port/mobile, modTimer)(multiple)
 	last_timer_length *= multiple
 	setTimer(time_remaining)
 
-TYPE_PROC_REF(/obj/docking_port/mobile, invertTimer)()
+/obj/docking_port/mobile/proc/invertTimer()
 	if(!last_timer_length)
 		return
 	var/time_remaining = timer - world.time
@@ -665,7 +665,7 @@ TYPE_PROC_REF(/obj/docking_port/mobile, invertTimer)()
 		setTimer(time_passed)
 
 //returns timeLeft
-TYPE_PROC_REF(/obj/docking_port/mobile, timeLeft)(divisor)
+/obj/docking_port/mobile/proc/timeLeft(divisor)
 	if(divisor <= 0)
 		divisor = 10
 
@@ -678,7 +678,7 @@ TYPE_PROC_REF(/obj/docking_port/mobile, timeLeft)(divisor)
 	. = round(ds_remaining / divisor, 1)
 
 // returns 3-letter mode string, used by status screens and mob status panel
-TYPE_PROC_REF(/obj/docking_port/mobile, getModeStr)()
+/obj/docking_port/mobile/proc/getModeStr()
 	switch(mode)
 		if(SHUTTLE_IGNITING)
 			return "IGN"
@@ -699,7 +699,7 @@ TYPE_PROC_REF(/obj/docking_port/mobile, getModeStr)()
 	return ""
 
 // returns 5-letter timer string, used by status screens and mob status panel
-TYPE_PROC_REF(/obj/docking_port/mobile, getTimerStr)()
+/obj/docking_port/mobile/proc/getTimerStr()
 	if(mode == SHUTTLE_STRANDED)
 		return "--:--"
 
@@ -714,7 +714,7 @@ TYPE_PROC_REF(/obj/docking_port/mobile, getTimerStr)()
 /**
  * Gets shuttle location status in a form of string for tgui interfaces
  */
-TYPE_PROC_REF(/obj/docking_port/mobile, get_status_text_tgui)()
+/obj/docking_port/mobile/proc/get_status_text_tgui()
 	var/obj/docking_port/stationary/dockedAt = get_docked()
 	var/docked_at = dockedAt?.name || "Unknown"
 	if(istype(dockedAt, /obj/docking_port/stationary/transit))
@@ -732,7 +732,7 @@ TYPE_PROC_REF(/obj/docking_port/mobile, get_status_text_tgui)()
 	else
 		return docked_at
 
-TYPE_PROC_REF(/obj/docking_port/mobile, getStatusText)()
+/obj/docking_port/mobile/proc/getStatusText()
 	var/obj/docking_port/stationary/dockedAt = get_docked()
 	var/docked_at = dockedAt?.name || "unknown"
 	if(istype(dockedAt, /obj/docking_port/stationary/transit))
@@ -750,7 +750,7 @@ TYPE_PROC_REF(/obj/docking_port/mobile, getStatusText)()
 	else
 		return docked_at
 
-TYPE_PROC_REF(/obj/docking_port/mobile, getDbgStatusText)()
+/obj/docking_port/mobile/proc/getDbgStatusText()
 	var/obj/docking_port/stationary/dockedAt = get_docked()
 	. = (dockedAt && dockedAt.name) ? dockedAt.name : "unknown"
 	if(istype(dockedAt, /obj/docking_port/stationary/transit))
@@ -770,7 +770,7 @@ TYPE_PROC_REF(/obj/docking_port/mobile, getDbgStatusText)()
 
 
 // attempts to locate /obj/machinery/computer/shuttle with matching ID inside the shuttle
-TYPE_PROC_REF(/obj/docking_port/mobile, getControlConsole)()
+/obj/docking_port/mobile/proc/getControlConsole()
 	for(var/place in shuttle_areas)
 		var/area/shuttle/shuttle_area = place
 		for(var/obj/machinery/computer/shuttle/S in shuttle_area)
@@ -778,7 +778,7 @@ TYPE_PROC_REF(/obj/docking_port/mobile, getControlConsole)()
 				return S
 	return null
 
-TYPE_PROC_REF(/obj/docking_port/mobile, hyperspace_sound)(phase, list/areas)
+/obj/docking_port/mobile/proc/hyperspace_sound(phase, list/areas)
 	var/selected_sound
 	switch(phase)
 		if(HYPERSPACE_WARMUP)
@@ -823,7 +823,7 @@ TYPE_PROC_REF(/obj/docking_port/mobile, hyperspace_sound)(phase, list/areas)
 
 // Losing all initial engines should get you 2
 // Adding another set of engines at 0.5 time
-TYPE_PROC_REF(/obj/docking_port/mobile, alter_engines)(mod)
+/obj/docking_port/mobile/proc/alter_engines(mod)
 	if(mod == 0)
 		return
 	var/old_coeff = engine_coeff
@@ -833,7 +833,7 @@ TYPE_PROC_REF(/obj/docking_port/mobile, alter_engines)(mod)
 		var/delta_coeff = engine_coeff / old_coeff
 		modTimer(delta_coeff)
 
-TYPE_PROC_REF(/obj/docking_port/mobile, count_engines)()
+/obj/docking_port/mobile/proc/count_engines()
 	. = 0
 	for(var/thing in shuttle_areas)
 		var/area/shuttle/areaInstance = thing
@@ -849,7 +849,7 @@ TYPE_PROC_REF(/obj/docking_port/mobile, count_engines)()
 // Double initial engines to get to 0.5 minimum
 // Lose all initial engines to get to 2
 //For 0 engine shuttles like BYOS 5 engines to get to doublespeed
-TYPE_PROC_REF(/obj/docking_port/mobile, get_engine_coeff)(current,engine_mod)
+/obj/docking_port/mobile/proc/get_engine_coeff(current,engine_mod)
 	var/new_value = max(0,current + engine_mod)
 	if(new_value == initial_engines)
 		return 1
@@ -867,7 +867,7 @@ TYPE_PROC_REF(/obj/docking_port/mobile, get_engine_coeff)(current,engine_mod)
 		return clamp(1 + delta * change_per_engine,ENGINE_COEFF_MIN,ENGINE_COEFF_MAX)
 
 
-TYPE_PROC_REF(/obj/docking_port/mobile, in_flight)()
+/obj/docking_port/mobile/proc/in_flight()
 	switch(mode)
 		if(SHUTTLE_CALL,SHUTTLE_RECALL,SHUTTLE_PREARRIVAL)
 			return TRUE
@@ -887,7 +887,7 @@ TYPE_PROC_REF(/obj/docking_port/mobile, in_flight)()
 
 
 //Called when emergency shuttle leaves the station
-TYPE_PROC_REF(/obj/docking_port/mobile, on_emergency_launch)()
+/obj/docking_port/mobile/proc/on_emergency_launch()
 	if(launch_status == UNLAUNCHED) //Pods will not launch from the mine/planet, and other ships won't launch unless we tell them to.
 		launch_status = ENDGAME_LAUNCHED
 		enterTransit()
@@ -896,7 +896,7 @@ TYPE_PROC_REF(/obj/docking_port/mobile, on_emergency_launch)()
 	return
 
 //Called when emergency shuttle docks at centcom
-TYPE_PROC_REF(/obj/docking_port/mobile, on_emergency_dock)()
+/obj/docking_port/mobile/proc/on_emergency_dock()
 	//Mapping a new docking point for each ship mappers could potentially want docking with centcom would take up lots of space, just let them keep flying off into the sunset for their greentext
 	if(launch_status == ENDGAME_LAUNCHED)
 		launch_status = ENDGAME_TRANSIT

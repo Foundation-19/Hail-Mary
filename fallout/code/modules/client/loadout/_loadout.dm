@@ -79,7 +79,7 @@ GLOBAL_LIST_EMPTY(loadout_whitelist_ids)
 //a comprehensive donator check proc is intentionally not implemented due to the fact that we (((might))) have job-whitelists for donator items in the future and I like to stay on the safe side.
 
 //ckey only check
-TYPE_PROC_REF(/datum/gear, donator_ckey_check)(key)
+/datum/gear/proc/donator_ckey_check(key)
 	if(LAZYLEN(ckeywhitelist))
 		for(var/needed_key in ckeywhitelist)
 			if(ckey(needed_key) == ckey(key))

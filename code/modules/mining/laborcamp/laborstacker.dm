@@ -101,7 +101,7 @@ GLOBAL_LIST(labor_sheet_values)
 						to_chat(usr, span_notice("Shuttle received message and will be sent shortly."))
 						. = TRUE
 
-TYPE_PROC_REF(/obj/machinery/mineral/labor_claim_console, locate_stacking_machine)()
+/obj/machinery/mineral/labor_claim_console/proc/locate_stacking_machine()
 	stacking_machine = locate(/obj/machinery/mineral/stacking_machine, get_step(src, machinedir))
 	if(stacking_machine)
 		stacking_machine.CONSOLE = src

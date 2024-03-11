@@ -1,5 +1,5 @@
 GLOBAL_VAR_INIT(highlander, FALSE)
-TYPE_PROC_REF(/client, only_one)() //Gives everyone kilts, berets, claymores, and pinpointers, with the objective to hijack the emergency shuttle.
+/client/proc/only_one() //Gives everyone kilts, berets, claymores, and pinpointers, with the objective to hijack the emergency shuttle.
 	if(!SSticker.HasRoundStarted())
 		alert("The game hasn't started yet!")
 		return
@@ -21,11 +21,11 @@ TYPE_PROC_REF(/client, only_one)() //Gives everyone kilts, berets, claymores, an
 	log_admin("[key_name(usr)] used THERE CAN BE ONLY ONE.")
 	addtimer(CALLBACK(SSshuttle.emergency, /obj/docking_port/mobile/emergency.proc/request, null, 1), 50)
 
-TYPE_PROC_REF(/client, only_one_delayed)()
+/client/proc/only_one_delayed()
 	send_to_playing_players(span_userdanger("Bagpipes begin to blare. You feel Scottish pride coming over you."))
 	message_admins(span_adminnotice("[key_name_admin(usr)] used (delayed) THERE CAN BE ONLY ONE!"))
 	log_admin("[key_name(usr)] used delayed THERE CAN BE ONLY ONE.")
 	addtimer(CALLBACK(src, PROC_REF(only_one)), 420)
 
-TYPE_PROC_REF(/mob/living/carbon/human, make_scottish)()
+/mob/living/carbon/human/proc/make_scottish()
 	mind.add_antag_datum(/datum/antagonist/highlander)

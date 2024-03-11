@@ -31,11 +31,11 @@
 	if(!custom_spawned)
 		qdel(src)
 
-TYPE_PROC_REF(/obj/effect/mapping_helpers/network_builder, check_duplicates)()
+/obj/effect/mapping_helpers/network_builder/proc/check_duplicates()
 	CRASH("Base abstract network builder tried to check duplicates.")
 
-TYPE_PROC_REF(/obj/effect/mapping_helpers/network_builder, scan_directions)()
+/obj/effect/mapping_helpers/network_builder/proc/scan_directions()
 	CRASH("Base abstract network builder tried to scan directions.")
 
-TYPE_PROC_REF(/obj/effect/mapping_helpers/network_builder, build_network)()
+/obj/effect/mapping_helpers/network_builder/proc/build_network()
 	CRASH("Base abstract network builder tried to build network.")

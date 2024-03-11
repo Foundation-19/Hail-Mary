@@ -15,7 +15,7 @@
 	var/obj/machinery/computer/rdconsole/linked_console
 	var/obj/item/loaded_item = null //the item loaded inside the machine (currently only used by experimentor and destructive analyzer)
 
-TYPE_PROC_REF(/obj/machinery/rnd, reset_busy)()
+/obj/machinery/rnd/proc/reset_busy()
 	busy = FALSE
 
 /obj/machinery/rnd/Initialize()
@@ -26,7 +26,7 @@ TYPE_PROC_REF(/obj/machinery/rnd, reset_busy)()
 	QDEL_NULL(wires)
 	return ..()
 
-TYPE_PROC_REF(/obj/machinery/rnd, shock)(mob/user, prb)
+/obj/machinery/rnd/proc/shock(mob/user, prb)
 	if(stat & (BROKEN|NOPOWER))		// unpowered, no shock
 		return FALSE
 	if(!prob(prb))
@@ -55,15 +55,15 @@ TYPE_PROC_REF(/obj/machinery/rnd, shock)(mob/user, prb)
 		return ..()
 
 //to disconnect the machine from the r&d console it's linked to
-TYPE_PROC_REF(/obj/machinery/rnd, disconnect_console)()
+/obj/machinery/rnd/proc/disconnect_console()
 	linked_console = null
 
 //proc used to handle inserting items or reagents into rnd machines
-TYPE_PROC_REF(/obj/machinery/rnd, Insert_Item)(obj/item/I, mob/user)
+/obj/machinery/rnd/proc/Insert_Item(obj/item/I, mob/user)
 	return
 
 //whether the machine can have an item inserted in its current state.
-TYPE_PROC_REF(/obj/machinery/rnd, is_insertion_ready)(mob/user)
+/obj/machinery/rnd/proc/is_insertion_ready(mob/user)
 	if(panel_open)
 		to_chat(user, span_warning("You can't load [src] while it's opened!"))
 		return FALSE
@@ -93,7 +93,7 @@ TYPE_PROC_REF(/obj/machinery/rnd, is_insertion_ready)(mob/user)
 		loaded_item.forceMove(loc)
 	..()
 
-TYPE_PROC_REF(/obj/machinery/rnd, AfterMaterialInsert)(item_inserted, id_inserted, amount_inserted)
+/obj/machinery/rnd/proc/AfterMaterialInsert(item_inserted, id_inserted, amount_inserted)
 	var/mat_name
 	if(istype(item_inserted, /obj/item/stack/ore/bluespace_crystal))
 		mat_name = "bluespace"
@@ -103,4 +103,4 @@ TYPE_PROC_REF(/obj/machinery/rnd, AfterMaterialInsert)(item_inserted, id_inserte
 		mat_name = M.name
 		use_power(min(1000, (amount_inserted / 100)))
 	add_overlay("protolathe_[mat_name]")
-	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, cut_overlay), "protolathe_[mat_name]"), 10)
+	addtimer(CALLBACK(src, /atom/proc/cut_overlay, "protolathe_[mat_name]"), 10)

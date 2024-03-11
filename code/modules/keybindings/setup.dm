@@ -1,10 +1,10 @@
-TYPE_PROC_REF(/datum, key_down)(key, client/user) // Called when a key is pressed down initially
+/datum/proc/key_down(key, client/user) // Called when a key is pressed down initially
 	return
 
-TYPE_PROC_REF(/datum, key_up)(key, client/user) // Called when a key is released
+/datum/proc/key_up(key, client/user) // Called when a key is released
 	return
 
-TYPE_PROC_REF(/datum, keyLoop)(client/user) // Called once every frame
+/datum/proc/keyLoop(client/user) // Called once every frame
 	set waitfor = FALSE
 	return
 
@@ -23,7 +23,7 @@ TYPE_PROC_REF(/datum, keyLoop)(client/user) // Called once every frame
 	full_macro_assert()
 
 // removes all the existing macros
-TYPE_PROC_REF(/client, erase_all_macros)(datum/preferences/prefs_override = prefs)
+/client/proc/erase_all_macros(datum/preferences/prefs_override = prefs)
 	var/erase_output = ""
 	var/list/set_text = list()
 	if(!prefs_override)
@@ -39,7 +39,7 @@ TYPE_PROC_REF(/client, erase_all_macros)(datum/preferences/prefs_override = pref
 		erase_output = "[erase_output];[macro_name].parent=null"
 	winset(src, null, erase_output)
 
-TYPE_PROC_REF(/client, apply_macro_set)(name, list/macroset)
+/client/proc/apply_macro_set(name, list/macroset)
 	ASSERT(name)
 	ASSERT(islist(macroset))
 	winclone(src, "default", name)
@@ -48,21 +48,21 @@ TYPE_PROC_REF(/client, apply_macro_set)(name, list/macroset)
 		var/command = macroset[key]
 		winset(src, "[name]-[REF(key)]", "parent=[name];name=[key];command=[command]")
 
-TYPE_PROC_REF(/client, set_hotkeys_preference)(datum/preferences/prefs_override = prefs)
+/client/proc/set_hotkeys_preference(datum/preferences/prefs_override = prefs)
 	if(prefs_override.hotkeys)
 		winset(src, null, "map.focus=true input.background-color=[COLOR_INPUT_DISABLED] mainwindow.macro=[SKIN_MACROSET_HOTKEYS]")
 	else
 		winset(src, null, "input.focus=true input.background-color=[COLOR_INPUT_ENABLED] mainwindow.macro=[SKIN_MACROSET_CLASSIC_INPUT]")
 
-TYPE_PROC_REF(/client, ensure_keys_set)(datum/preferences/prefs_override = prefs)
+/client/proc/ensure_keys_set(datum/preferences/prefs_override = prefs)
 	if(SSinput.initialized)
 		full_macro_assert(prefs_override)
 
-TYPE_PROC_REF(/client, full_macro_assert)(datum/preferences/prefs_override = prefs)
+/client/proc/full_macro_assert(datum/preferences/prefs_override = prefs)
 	INVOKE_ASYNC(src, PROC_REF(do_full_macro_assert), prefs_override)		// winget sleeps.
 
 // TODO: OVERHAUL ALL OF THIS AGAIN. While this works this is flatout horrid with the "use list but also don't use lists" crap. I hate my life.
-TYPE_PROC_REF(/client, do_full_macro_assert)(datum/preferences/prefs_override = prefs)
+/client/proc/do_full_macro_assert(datum/preferences/prefs_override = prefs)
 	// First, wipe
 	erase_all_macros(prefs_override)
 	keys_held.Cut()
@@ -163,7 +163,7 @@ TYPE_PROC_REF(/client, do_full_macro_assert)(datum/preferences/prefs_override = 
  *
  **Returns list of special keybind in key = Mod1Mod2Mod3Key format, NOT Mod1+Mod2+Mod3+Key format.
 */
-TYPE_PROC_REF(/client, update_special_keybinds)(datum/preferences/direct_prefs)
+/client/proc/update_special_keybinds(datum/preferences/direct_prefs)
 	var/datum/preferences/D = direct_prefs || prefs
 	if(!D?.key_bindings)
 		return

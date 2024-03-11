@@ -84,7 +84,7 @@
 	if(!stat)
 		eat_plants()
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile/retaliate/goat, eat_plants)()
+/mob/living/simple_animal/hostile/retaliate/goat/proc/eat_plants()
 	var/eaten = FALSE
 	var/obj/structure/spacevine/SV = locate(/obj/structure/spacevine) in loc
 	if(SV)
@@ -342,15 +342,15 @@ TYPE_PROC_REF(/mob/living/simple_animal/hostile/retaliate/goat, eat_plants)()
 			else
 				update_speed()
 
-TYPE_PROC_REF(/mob/living/simple_animal/cow, become_hungry)()
+/mob/living/simple_animal/cow/proc/become_hungry()
 	hunger++
 	update_speed()
 
-TYPE_PROC_REF(/mob/living/simple_animal/cow, refuel_horse)()
+/mob/living/simple_animal/cow/proc/refuel_horse()
 	hunger = 1
 	update_speed()
 
-TYPE_PROC_REF(/mob/living/simple_animal/cow, update_speed)()
+/mob/living/simple_animal/cow/proc/update_speed()
 	ride_move_delay = initial(ride_move_delay) + round(log(1.6,hunger), 0.2) // vOv
 	if(saddle)
 		var/datum/component/riding/D = LoadComponent(/datum/component/riding)
@@ -388,7 +388,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/cow, update_speed)()
 	AddComponent(/datum/component/storage/concrete/brahminbag)
 	return */
 
-TYPE_PROC_REF(/mob/living/simple_animal/cow, feed_em)(obj/item/I, mob/user)
+/mob/living/simple_animal/cow/proc/feed_em(obj/item/I, mob/user)
 	if(!I || !user)
 		return
 	var/obj/item/stack/stax
@@ -413,7 +413,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/cow, feed_em)(obj/item/I, mob/user)
 	else
 		qdel(I)
 
-TYPE_PROC_REF(/mob/living/simple_animal/cow, handle_following)()
+/mob/living/simple_animal/cow/proc/handle_following()
 	if(stat == DEAD)
 		return
 	if(health <= 0)
@@ -652,11 +652,11 @@ TYPE_PROC_REF(/mob/living/simple_animal/cow, handle_following)()
 	reagents.add_reagent(milk_reagent, 20)
 	. = ..()
 
-TYPE_PROC_REF(/obj/item/udder, generateMilk)(datum/reagent/milk_reagent)
+/obj/item/udder/proc/generateMilk(datum/reagent/milk_reagent)
 	if(prob(5))
 		reagents.add_reagent(milk_reagent, rand(5, 10))
 
-TYPE_PROC_REF(/obj/item/udder, milkAnimal)(obj/O, mob/user)
+/obj/item/udder/proc/milkAnimal(obj/O, mob/user)
 	var/obj/item/reagent_containers/glass/G = O
 	if(G.reagents.total_volume >= G.volume)
 		to_chat(user, span_danger("[O] is full."))
@@ -1159,7 +1159,7 @@ TYPE_PROC_REF(/obj/item/udder, milkAnimal)(obj/O, mob/user)
 
 
 
-TYPE_PROC_REF(/mob/living/simple_animal/cow/brahmin, update_brahmin_fluff)() //none of this should do anything for now, but it may be used for updating sprites later
+/mob/living/simple_animal/cow/brahmin/proc/update_brahmin_fluff() //none of this should do anything for now, but it may be used for updating sprites later
 	// First, change back to defaults
 	name = real_name
 	desc = initial(desc)

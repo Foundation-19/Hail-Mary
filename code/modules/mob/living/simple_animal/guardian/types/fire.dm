@@ -37,7 +37,7 @@
 	..()
 	collision_ignite(AM)
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile/guardian/fire, collision_ignite)(AM as mob|obj)
+/mob/living/simple_animal/hostile/guardian/fire/proc/collision_ignite(AM as mob|obj)
 	if(isliving(AM))
 		var/mob/living/M = AM
 		if(!hasmatchingsummoner(M) && M != summoner && M.fire_stacks < 10)

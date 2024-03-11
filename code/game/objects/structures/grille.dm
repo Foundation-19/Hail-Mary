@@ -240,7 +240,7 @@
 // shock user with probability prb (if all connections & power are working)
 // returns 1 if shocked, 0 otherwise
 
-TYPE_PROC_REF(/obj/structure/grille, shock)(mob/user, prb)
+/obj/structure/grille/proc/shock(mob/user, prb)
 	if(!anchored || broken)		// anchored/broken grilles are never connected
 		return FALSE
 	if(!prob(prb))
@@ -312,7 +312,7 @@ TYPE_PROC_REF(/obj/structure/grille, shock)(mob/user, prb)
 		var/previouscolor = color
 		color = "#960000"
 		animate(src, color = previouscolor, time = 8)
-		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_atom_colour)), 8)
+		addtimer(CALLBACK(src, /atom/proc/update_atom_colour), 8)
 
 /obj/structure/grille/ratvar/ratvar_act()
 	return

@@ -39,13 +39,13 @@
 	var/post_attack_hit
 	var/pre_attack_hit
 
-TYPE_PROC_REF(/datum/unit_test/attack_chain, attack_hit)()
+/datum/unit_test/attack_chain/proc/attack_hit()
 	attack_hit = TRUE
 
-TYPE_PROC_REF(/datum/unit_test/attack_chain, post_attack_hit)()
+/datum/unit_test/attack_chain/proc/post_attack_hit()
 	post_attack_hit = TRUE
 
-TYPE_PROC_REF(/datum/unit_test/attack_chain, pre_attack_hit)()
+/datum/unit_test/attack_chain/proc/pre_attack_hit()
 	pre_attack_hit = TRUE
 
 /datum/unit_test/attack_chain/Run()

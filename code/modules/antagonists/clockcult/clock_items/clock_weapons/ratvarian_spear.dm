@@ -73,7 +73,7 @@
 	else
 		..()
 
-TYPE_PROC_REF(/obj/item/clockwork/weapon/ratvarian_spear, break_spear)(turf/T)
+/obj/item/clockwork/weapon/ratvarian_spear/proc/break_spear(turf/T)
 	if(src)
 		if(!T)
 			T = get_turf(src)

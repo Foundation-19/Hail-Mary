@@ -141,7 +141,7 @@
 	spark_system.set_up(5, 0, src)
 	spark_system.attach(src)
 
-	add_verb(src, TYPE_PROC_REF(/mob/living/silicon/ai, show_laws_verb))
+	add_verb(src, /mob/living/silicon/ai/proc/show_laws_verb)
 
 	aiPDA = new/obj/item/pda/ai(src)
 	aiPDA.owner = name
@@ -155,10 +155,10 @@
 	deploy_action.Grant(src)
 
 	if(isturf(loc))
-		add_verb(src, list(TYPE_PROC_REF(/mob/living/silicon/ai, ai_network_change), \
-		TYPE_PROC_REF(/mob/living/silicon/ai, ai_statuschange), TYPE_PROC_REF(/mob/living/silicon/ai, ai_hologram_change), \
-		TYPE_PROC_REF(/mob/living/silicon/ai, botcall), TYPE_PROC_REF(/mob/living/silicon/ai, control_integrated_radio), \
-		TYPE_PROC_REF(/mob/living/silicon/ai, set_automatic_say_channel)))
+		add_verb(src, list(/mob/living/silicon/ai/proc/ai_network_change, \
+		/mob/living/silicon/ai/proc/ai_statuschange, /mob/living/silicon/ai/proc/ai_hologram_change, \
+		/mob/living/silicon/ai/proc/botcall, /mob/living/silicon/ai/proc/control_integrated_radio, \
+		/mob/living/silicon/ai/proc/set_automatic_say_channel))
 
 	GLOB.ai_list += src
 	GLOB.shuttle_caller_list += src
@@ -180,7 +180,7 @@
 	fire_stacks = 0
 	. = ..()
 
-TYPE_PROC_REF(/mob/living/silicon/ai, set_core_display_icon)(input, client/C)
+/mob/living/silicon/ai/proc/set_core_display_icon(input, client/C)
 	if(client && !C)
 		C = client
 	if(!input && !C?.prefs?.preferred_ai_core_display)
@@ -231,7 +231,7 @@ TYPE_PROC_REF(/mob/living/silicon/ai, set_core_display_icon)(input, client/C)
 		Module: [connected_robot.designation] | Loc: [get_area_name(connected_robot, TRUE)] | Status: [robot_status]")
 	. += text("AI shell beacons detected: [LAZYLEN(GLOB.available_ai_shells)]") //Count of total AI shells
 
-TYPE_PROC_REF(/mob/living/silicon/ai, ai_alerts)()
+/mob/living/silicon/ai/proc/ai_alerts()
 	var/dat = "<HEAD><TITLE>Current Station Alerts</TITLE><META HTTP-EQUIV='Refresh' CONTENT='10'></HEAD><BODY>\n"
 	dat += "<A HREF='?src=[REF(src)];mach_close=aialerts'>Close</A><BR><BR>"
 	for (var/cat in alarms)
@@ -264,7 +264,7 @@ TYPE_PROC_REF(/mob/living/silicon/ai, ai_alerts)()
 	viewalerts = 1
 	src << browse(dat, "window=aialerts&can_close=0")
 
-TYPE_PROC_REF(/mob/living/silicon/ai, ai_call_shuttle)()
+/mob/living/silicon/ai/proc/ai_call_shuttle()
 	if(control_disabled)
 		to_chat(usr, span_warning("Wireless control is disabled!"))
 		return
@@ -330,7 +330,7 @@ TYPE_PROC_REF(/mob/living/silicon/ai, ai_call_shuttle)()
 	mobility_flags = ALL
 	return ALL
 
-TYPE_PROC_REF(/mob/living/silicon/ai, ai_cancel_call)()
+/mob/living/silicon/ai/proc/ai_cancel_call()
 	set category = "Malfunction"
 	if(control_disabled)
 		to_chat(src, span_warning("Wireless control is disabled!"))
@@ -420,7 +420,7 @@ TYPE_PROC_REF(/mob/living/silicon/ai, ai_cancel_call)()
 			M.transfer_ai(AI_MECH_HACK,src, usr) //Called om the mech itself.
 
 
-TYPE_PROC_REF(/mob/living/silicon/ai, switchCamera)(obj/machinery/camera/C)
+/mob/living/silicon/ai/proc/switchCamera(obj/machinery/camera/C)
 	if(QDELETED(C))
 		return FALSE
 
@@ -434,7 +434,7 @@ TYPE_PROC_REF(/mob/living/silicon/ai, switchCamera)(obj/machinery/camera/C)
 	eyeobj.setLoc(get_turf(C))
 	return TRUE
 
-TYPE_PROC_REF(/mob/living/silicon/ai, botcall)()
+/mob/living/silicon/ai/proc/botcall()
 	set category = "AI Commands"
 	set name = "Access Robot Control"
 	set desc = "Wirelessly control various automatic robots."
@@ -466,7 +466,7 @@ TYPE_PROC_REF(/mob/living/silicon/ai, botcall)()
 	popup.set_content(d)
 	popup.open()
 
-TYPE_PROC_REF(/mob/living/silicon/ai, set_waypoint)(atom/A)
+/mob/living/silicon/ai/proc/set_waypoint(atom/A)
 	var/turf/turf_check = get_turf(A)
 		//The target must be in view of a camera or near the core.
 	if(turf_check in range(get_turf(src)))
@@ -476,7 +476,7 @@ TYPE_PROC_REF(/mob/living/silicon/ai, set_waypoint)(atom/A)
 	else
 		to_chat(src, span_danger("Selected location is not visible."))
 
-TYPE_PROC_REF(/mob/living/silicon/ai, call_bot)(turf/waypoint)
+/mob/living/silicon/ai/proc/call_bot(turf/waypoint)
 
 	if(!Bot)
 		return
@@ -545,9 +545,9 @@ TYPE_PROC_REF(/mob/living/silicon/ai, call_bot)(turf/waypoint)
 	return !cleared
 
 //Replaces /mob/living/silicon/ai/verb/change_network() in ai.dm & camera.dm
-//Adds in TYPE_PROC_REF(/mob/living/silicon/ai, ai_network_change)() instead
+//Adds in /mob/living/silicon/ai/proc/ai_network_change() instead
 //Addition by Mord_Sith to define AI's network change ability
-TYPE_PROC_REF(/mob/living/silicon/ai, ai_network_change)()
+/mob/living/silicon/ai/proc/ai_network_change()
 	set category = "AI Commands"
 	set name = "Jump To Network"
 	unset_machine()
@@ -590,13 +590,13 @@ TYPE_PROC_REF(/mob/living/silicon/ai, ai_network_change)()
 //End of code by Mord_Sith
 
 
-TYPE_PROC_REF(/mob/living/silicon/ai, choose_modules)()
+/mob/living/silicon/ai/proc/choose_modules()
 	set category = "Malfunction"
 	set name = "Choose Module"
 
 	malf_picker.use(src)
 
-TYPE_PROC_REF(/mob/living/silicon/ai, ai_statuschange)()
+/mob/living/silicon/ai/proc/ai_statuschange()
 	set category = "AI Commands"
 	set name = "AI Status"
 
@@ -622,7 +622,7 @@ TYPE_PROC_REF(/mob/living/silicon/ai, ai_statuschange)()
 	return
 
 //I am the icon meister. Bow fefore me.	//>fefore
-TYPE_PROC_REF(/mob/living/silicon/ai, ai_hologram_change)()
+/mob/living/silicon/ai/proc/ai_hologram_change()
 	set name = "Change Hologram"
 	set desc = "Change the default hologram available to AI to something else."
 	set category = "AI Commands"
@@ -701,7 +701,7 @@ TYPE_PROC_REF(/mob/living/silicon/ai, ai_hologram_change)()
 					else
 						holo_icon = getHologramIcon(icon(icon_list[input], input))
 
-TYPE_PROC_REF(/mob/living/silicon/ai, corereturn)()
+/mob/living/silicon/ai/proc/corereturn()
 	set category = "Malfunction"
 	set name = "Return to Main Core"
 
@@ -711,7 +711,7 @@ TYPE_PROC_REF(/mob/living/silicon/ai, corereturn)()
 		return
 	apc.malfvacate()
 
-TYPE_PROC_REF(/mob/living/silicon/ai, toggle_camera_light)()
+/mob/living/silicon/ai/proc/toggle_camera_light()
 	camera_light_on = !camera_light_on
 
 	if (!camera_light_on)
@@ -729,7 +729,7 @@ TYPE_PROC_REF(/mob/living/silicon/ai, toggle_camera_light)()
 
 //AI_CAMERA_LUMINOSITY
 
-TYPE_PROC_REF(/mob/living/silicon/ai, light_cameras)()
+/mob/living/silicon/ai/proc/light_cameras()
 	var/list/obj/machinery/camera/add = list()
 	var/list/obj/machinery/camera/remove = list()
 	var/list/obj/machinery/camera/visible = list()
@@ -749,7 +749,7 @@ TYPE_PROC_REF(/mob/living/silicon/ai, light_cameras)()
 		C.Togglelight(1)
 		lit_cameras |= C
 
-TYPE_PROC_REF(/mob/living/silicon/ai, control_integrated_radio)()
+/mob/living/silicon/ai/proc/control_integrated_radio()
 	set name = "Transceiver Settings"
 	set desc = "Allows you to change settings of your radio."
 	set category = "AI Commands"
@@ -761,11 +761,11 @@ TYPE_PROC_REF(/mob/living/silicon/ai, control_integrated_radio)()
 	if (radio)
 		radio.interact(src)
 
-TYPE_PROC_REF(/mob/living/silicon/ai, set_syndie_radio)()
+/mob/living/silicon/ai/proc/set_syndie_radio()
 	if(radio)
 		radio.make_syndie()
 
-TYPE_PROC_REF(/mob/living/silicon/ai, set_automatic_say_channel)()
+/mob/living/silicon/ai/proc/set_automatic_say_channel()
 	set name = "Set Auto Announce Mode"
 	set desc = "Modify the default radio setting for your automatic announcements."
 	set category = "AI Commands"
@@ -812,7 +812,7 @@ TYPE_PROC_REF(/mob/living/silicon/ai, set_automatic_say_channel)()
 		return FALSE
 	return can_see(M) //stop AIs from leaving windows open and using then after they lose vision
 
-TYPE_PROC_REF(/mob/living/silicon/ai, can_see)(atom/A)
+/mob/living/silicon/ai/proc/can_see(atom/A)
 	if(isturf(loc)) //AI in core, check if on cameras
 		//get_turf_pixel() is because APCs in maint aren't actually in view of the inner camera
 		//apc_override is needed here because AIs use their own APC when depowered
@@ -822,7 +822,7 @@ TYPE_PROC_REF(/mob/living/silicon/ai, can_see)(atom/A)
 	var/list/viewscale = getviewsize(client.view)
 	return get_dist(src, A) <= max(viewscale[1]*0.5,viewscale[2]*0.5)
 
-TYPE_PROC_REF(/mob/living/silicon/ai, relay_speech)(message, atom/movable/speaker, datum/language/message_language, raw_message, radio_freq, list/spans, message_mode)
+/mob/living/silicon/ai/proc/relay_speech(message, atom/movable/speaker, datum/language/message_language, raw_message, radio_freq, list/spans, message_mode)
 	var/treated_message = lang_treat(speaker, message_language, raw_message, spans, message_mode)
 	var/start = "Relayed Speech: "
 	var/namepart = "[speaker.GetVoice()][speaker.get_alt_name()]"
@@ -856,11 +856,11 @@ TYPE_PROC_REF(/mob/living/silicon/ai, relay_speech)(message, atom/movable/speake
 		aiPDA.name = newname + " (" + aiPDA.ownjob + ")"
 
 
-TYPE_PROC_REF(/mob/living/silicon/ai, add_malf_picker)()
+/mob/living/silicon/ai/proc/add_malf_picker()
 	to_chat(src, "In the top right corner of the screen you will find the Malfunctions tab, where you can purchase various abilities, from upgraded surveillance to station ending doomsday devices.")
 	to_chat(src, "You are also capable of hacking APCs, which grants you more points to spend on your Malfunction powers. The drawback is that a hacked APC will give you away if spotted by the crew. Hacking an APC takes 60 seconds.")
 	view_core() //A BYOND bug requires you to be viewing your core before your verbs update
-	add_verb(src, TYPE_PROC_REF(/mob/living/silicon/ai, choose_modules))
+	add_verb(src, /mob/living/silicon/ai/proc/choose_modules)
 	malf_picker = new /datum/module_picker
 
 
@@ -903,7 +903,7 @@ TYPE_PROC_REF(/mob/living/silicon/ai, add_malf_picker)()
 		set_eyeobj_visible(TRUE)
 		set_core_display_icon(display_icon_override)
 
-TYPE_PROC_REF(/mob/living/silicon/ai, malfhacked)(obj/machinery/power/apc/apc)
+/mob/living/silicon/ai/proc/malfhacked(obj/machinery/power/apc/apc)
 	malfhack = null
 	malfhacking = 0
 	clear_alert("hackingapc")
@@ -987,7 +987,7 @@ TYPE_PROC_REF(/mob/living/silicon/ai, malfhacked)(obj/machinery/power/apc/apc)
 	else
 		Remove(owner) //If the last shell is blown, destroy it.
 
-TYPE_PROC_REF(/mob/living/silicon/ai, disconnect_shell)()
+/mob/living/silicon/ai/proc/disconnect_shell()
 	if(deployed_shell) //Forcibly call back AI in event of things such as damage, EMP or power loss.
 		to_chat(src, span_danger("Your remote connection has been reset!"))
 		deployed_shell.undeploy()
@@ -1001,7 +1001,7 @@ TYPE_PROC_REF(/mob/living/silicon/ai, disconnect_shell)()
 	if(!target_ai)
 		target_ai = src //cheat! just give... ourselves as the spawned AI, because that's technically correct
 
-TYPE_PROC_REF(/mob/living/silicon/ai, camera_visibility)(mob/camera/aiEye/moved_eye)
+/mob/living/silicon/ai/proc/camera_visibility(mob/camera/aiEye/moved_eye)
 	GLOB.cameranet.visibility(moved_eye, client, all_eyes, USE_STATIC_OPAQUE)
 
 /mob/living/silicon/ai/forceMove(atom/destination)

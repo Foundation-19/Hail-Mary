@@ -29,7 +29,7 @@ It's like a regular ol' straight pipe, but you can turn it on and off.
 		flick("[valve_type]valve_[on][!on]", src)
 	icon_state = "[valve_type]valve_[on ? "on" : "off"]"
 
-TYPE_PROC_REF(/obj/machinery/atmospherics/components/binary/valve, toggle)()
+/obj/machinery/atmospherics/components/binary/valve/proc/toggle()
 	if(on)
 		on = FALSE
 		update_icon_nopipes()
@@ -50,7 +50,7 @@ TYPE_PROC_REF(/obj/machinery/atmospherics/components/binary/valve, toggle)()
 	switching = TRUE
 	addtimer(CALLBACK(src, PROC_REF(finish_interact)), 10)
 
-TYPE_PROC_REF(/obj/machinery/atmospherics/components/binary/valve, finish_interact)()
+/obj/machinery/atmospherics/components/binary/valve/proc/finish_interact()
 	toggle()
 	switching = FALSE
 

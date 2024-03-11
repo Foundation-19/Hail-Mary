@@ -13,7 +13,7 @@
 	A.carrier = TRUE
 	owner.ForceContractDisease(A, FALSE, TRUE)
 
-TYPE_PROC_REF(/obj/item/organ/heart/gland/viral, random_virus)(max_symptoms, max_level)
+/obj/item/organ/heart/gland/viral/proc/random_virus(max_symptoms, max_level)
 	if(max_symptoms > VIRUS_SYMPTOM_LIMIT)
 		max_symptoms = VIRUS_SYMPTOM_LIMIT
 	var/datum/disease/advance/A = new /datum/disease/advance()

@@ -487,7 +487,7 @@
 		return RULESET_STOP_PROCESSING
 
 /// Checks for revhead loss conditions and other antag datums.
-TYPE_PROC_REF(/datum/dynamic_ruleset/roundstart/revs, check_eligible)(datum/mind/M)
+/datum/dynamic_ruleset/roundstart/revs/proc/check_eligible(datum/mind/M)
 	var/turf/T = get_turf(M.current)
 	if(!considered_afk(M) && considered_alive(M) && is_station_level(T.z) && !M.antag_datums?.len && !HAS_TRAIT(M, TRAIT_MINDSHIELD))
 		return TRUE
@@ -499,13 +499,13 @@ TYPE_PROC_REF(/datum/dynamic_ruleset/roundstart/revs, check_eligible)(datum/mind
 	else
 		return ..()
 
-TYPE_PROC_REF(/datum/dynamic_ruleset/roundstart/revs, check_rev_victory)()
+/datum/dynamic_ruleset/roundstart/revs/proc/check_rev_victory()
 	for(var/datum/objective/mutiny/objective in revolution.objectives)
 		if(!(objective.check_completion()))
 			return FALSE
 	return TRUE
 
-TYPE_PROC_REF(/datum/dynamic_ruleset/roundstart/revs, check_heads_victory)()
+/datum/dynamic_ruleset/roundstart/revs/proc/check_heads_victory()
 	for(var/datum/mind/rev_mind in revolution.head_revolutionaries())
 		var/turf/T = get_turf(rev_mind.current)
 		if(!considered_afk(rev_mind) && considered_alive(rev_mind) && is_station_level(T.z))
@@ -612,7 +612,7 @@ TYPE_PROC_REF(/datum/dynamic_ruleset/roundstart/revs, check_heads_victory)()
 	G.final_countdown(ark_time)
 	return TRUE
 
-TYPE_PROC_REF(/datum/dynamic_ruleset/roundstart/clockcult, greet_servant)(mob/M) //Description of their role
+/datum/dynamic_ruleset/roundstart/clockcult/proc/greet_servant(mob/M) //Description of their role
 	if(!M)
 		return 0
 	to_chat(M, "<span class='bold large_brass'>You are a servant of Ratvar, the Clockwork Justiciar!</span>")
@@ -622,7 +622,7 @@ TYPE_PROC_REF(/datum/dynamic_ruleset/roundstart/clockcult, greet_servant)(mob/M)
 	M.playsound_local(get_turf(M), 'sound/ambience/antag/clockcultalr.ogg', 100, FALSE, pressure_affected = FALSE)
 	return 1
 
-TYPE_PROC_REF(/datum/dynamic_ruleset/roundstart/clockcult, equip_servant)(mob/living/M) //Grants a clockwork slab to the mob, with one of each component
+/datum/dynamic_ruleset/roundstart/clockcult/proc/equip_servant(mob/living/M) //Grants a clockwork slab to the mob, with one of each component
 	if(!M || !ishuman(M))
 		return FALSE
 	var/mob/living/carbon/human/L = M
@@ -694,7 +694,7 @@ TYPE_PROC_REF(/datum/dynamic_ruleset/roundstart/clockcult, equip_servant)(mob/li
 		add_devil_objectives(devil,2)
 	return TRUE
 
-TYPE_PROC_REF(/datum/dynamic_ruleset/roundstart/devil, add_devil_objectives)(datum/mind/devil_mind, quantity)
+/datum/dynamic_ruleset/roundstart/devil/proc/add_devil_objectives(datum/mind/devil_mind, quantity)
 	var/list/validtypes = list(/datum/objective/devil/soulquantity, /datum/objective/devil/soulquality, /datum/objective/devil/sintouch, /datum/objective/devil/buy_target)
 	var/datum/antagonist/devil/D = devil_mind.has_antag_datum(/datum/antagonist/devil)
 	for(var/i = 1 to quantity)
@@ -751,7 +751,7 @@ TYPE_PROC_REF(/datum/dynamic_ruleset/roundstart/devil, add_devil_objectives)(dat
 			monkey_team = M.monkey_team
 	return TRUE
 
-TYPE_PROC_REF(/datum/dynamic_ruleset/roundstart/monkey, check_monkey_victory)()
+/datum/dynamic_ruleset/roundstart/monkey/proc/check_monkey_victory()
 	if(SSshuttle.emergency.mode != SHUTTLE_ENDGAME)
 		return FALSE
 	var/datum/disease/D = new /datum/disease/transformation/jungle_fever()

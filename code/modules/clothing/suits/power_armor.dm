@@ -61,7 +61,7 @@
 			return
 		to_chat(user, "The fuel cell is empty.")
 
-TYPE_PROC_REF(/obj/item/clothing/suit/armor/power_armor, processPower)()
+/obj/item/clothing/suit/armor/power_armor/proc/processPower()
 	if(powerLevel>0)//drain charge
 		powerLevel -= 1
 	if(powerLevel > 20000)//switch to 3 power mode
@@ -84,7 +84,7 @@ TYPE_PROC_REF(/obj/item/clothing/suit/armor/power_armor, processPower)()
 		if(powerMode >= 1)
 			powerDown()
 
-TYPE_PROC_REF(/obj/item/clothing/suit/armor/power_armor, powerUp)(mob/user)
+/obj/item/clothing/suit/armor/power_armor/proc/powerUp(mob/user)
 	powerMode += 1
 	slowdown -= 0.2
 	var/mob/living/L = loc
@@ -92,7 +92,7 @@ TYPE_PROC_REF(/obj/item/clothing/suit/armor/power_armor, powerUp)(mob/user)
 		L.update_equipment_speed_mods()
 	armor = armor.modifyRating(linemelee = 75, linebullet = 75, linelaser = 75)
 
-TYPE_PROC_REF(/obj/item/clothing/suit/armor/power_armor, powerDown)(mob/user)
+/obj/item/clothing/suit/armor/power_armor/proc/powerDown(mob/user)
 	powerMode -= 1
 	slowdown += 0.2
 	var/mob/living/L = loc

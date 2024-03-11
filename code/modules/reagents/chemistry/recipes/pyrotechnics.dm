@@ -424,7 +424,7 @@
 		addtimer(CALLBACK(src, PROC_REF(zappy_zappy), holder, T3), added_delay)
 	..()
 
-TYPE_PROC_REF(/datum/chemical_reaction/reagent_explosion/teslium_lightning, zappy_zappy)(datum/reagents/holder, power)
+/datum/chemical_reaction/reagent_explosion/teslium_lightning/proc/zappy_zappy(datum/reagents/holder, power)
 	if(QDELETED(holder.my_atom))
 		return
 	tesla_zap(holder.my_atom, 7, power, zap_flags)

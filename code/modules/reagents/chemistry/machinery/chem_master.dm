@@ -130,7 +130,7 @@
 		replace_pillbottle(user)
 	return TRUE
 
-TYPE_PROC_REF(/obj/machinery/chem_master, replace_beaker)(mob/living/user, obj/item/reagent_containers/new_beaker)
+/obj/machinery/chem_master/proc/replace_beaker(mob/living/user, obj/item/reagent_containers/new_beaker)
 	if(beaker)
 		var/obj/item/reagent_containers/B = beaker
 		B.forceMove(drop_location())
@@ -140,7 +140,7 @@ TYPE_PROC_REF(/obj/machinery/chem_master, replace_beaker)(mob/living/user, obj/i
 		beaker = new_beaker
 	update_icon()
 
-TYPE_PROC_REF(/obj/machinery/chem_master, replace_pillbottle)(mob/living/user, obj/item/storage/pill_bottle/new_bottle)
+/obj/machinery/chem_master/proc/replace_pillbottle(mob/living/user, obj/item/storage/pill_bottle/new_bottle)
 	if(bottle)
 		var/obj/item/storage/pill_bottle/B = bottle
 		B.forceMove(drop_location())
@@ -480,11 +480,11 @@ TYPE_PROC_REF(/obj/machinery/chem_master, replace_pillbottle)(mob/living/user, o
 
 
 
-TYPE_PROC_REF(/obj/machinery/chem_master, end_fermi_reaction)()//Ends any reactions upon moving.
+/obj/machinery/chem_master/proc/end_fermi_reaction()//Ends any reactions upon moving.
 	if(beaker && beaker.reagents.fermiIsReacting)
 		beaker.reagents.fermiEnd()
 
-TYPE_PROC_REF(/obj/machinery/chem_master, isgoodnumber)(num)
+/obj/machinery/chem_master/proc/isgoodnumber(num)
 	if(isnum(num))
 		if(num > 200)
 			num = 200

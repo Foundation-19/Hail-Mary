@@ -15,7 +15,7 @@
 	var/recycling = FALSE		// If an assembly is being emptied into this printer
 	var/list/program			// Currently loaded save, in form of list
 
-TYPE_PROC_REF(/obj/item/integrated_circuit_printer, check_interactivity)(mob/user)
+/obj/item/integrated_circuit_printer/proc/check_interactivity(mob/user)
 	return user.canUseTopic(src, BE_CLOSE)
 
 /obj/item/integrated_circuit_printer/upgraded
@@ -36,7 +36,7 @@ TYPE_PROC_REF(/obj/item/integrated_circuit_printer, check_interactivity)(mob/use
 	var/datum/component/material_container/materials = AddComponent(/datum/component/material_container, list(/datum/material/iron), MINERAL_MATERIAL_AMOUNT * 25, TRUE, list(/obj/item/stack, /obj/item/integrated_circuit, /obj/item/electronic_assembly))
 	materials.precise_insertion = TRUE
 
-TYPE_PROC_REF(/obj/item/integrated_circuit_printer, print_program)(mob/user)
+/obj/item/integrated_circuit_printer/proc/print_program(mob/user)
 	if(!cloning)
 		return
 

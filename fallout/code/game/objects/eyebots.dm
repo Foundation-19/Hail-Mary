@@ -6,13 +6,13 @@ var/list/eyebots = list()
 /mob/living/simple_animal/hostile/eyebot/virtual/New()
 	. = ..()
 	eyebots += src
-	src.verbs += TYPE_PROC_REF(/mob/living/simple_animal/hostile/eyebot/virtual, leave)
+	src.verbs += /mob/living/simple_animal/hostile/eyebot/virtual/proc/leave
 
 /mob/living/simple_animal/hostile/eyebot/virtual/Del()
 	. = ..()
 	eyebots -= src
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile/eyebot/virtual, enter)(var/mob/user)
+/mob/living/simple_animal/hostile/eyebot/virtual/proc/enter(var/mob/user)
 	if(ckey)
 		to_chat(user, "Eyebot already under control!")
 		return
@@ -20,7 +20,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/hostile/eyebot/virtual, enter)(var/mob/u
 	pilot = user
 	ckey = user.ckey
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile/eyebot/virtual, leave)()
+/mob/living/simple_animal/hostile/eyebot/virtual/proc/leave()
 	set name = "Stop Control"
 	set category = "EYEBOT"
 
@@ -50,13 +50,13 @@ TYPE_PROC_REF(/mob/living/simple_animal/hostile/eyebot/virtual, leave)()
 	popup.set_content(getBotsHTML())
 	popup.open()
 
-TYPE_PROC_REF(/obj/machinery/computer/eyebots, control)(var/Index)
+/obj/machinery/computer/eyebots/proc/control(var/Index)
 	var/mob/living/simple_animal/hostile/eyebot/virtual/bot = eyebots[Index]
 
 	bot.enter(usr)
 	popup.close()
 
-TYPE_PROC_REF(/obj/machinery/computer/eyebots, getBotsHTML)()
+/obj/machinery/computer/eyebots/proc/getBotsHTML()
 	var/html
 	for(var/I = 1 to eyebots.len)
 		var/mob/living/simple_animal/hostile/eyebot/virtual/bot = eyebots[I]

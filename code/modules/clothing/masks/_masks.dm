@@ -28,7 +28,7 @@
 	. = ..()
 	UnregisterSignal(M, COMSIG_MOB_SAY)
 
-TYPE_PROC_REF(/obj/item/clothing/mask, handle_speech)()
+/obj/item/clothing/mask/proc/handle_speech()
 
 /obj/item/clothing/mask/worn_overlays(isinhands = FALSE, icon_file, used_state, style_flags = NONE)
 	. = ..()
@@ -46,7 +46,7 @@ TYPE_PROC_REF(/obj/item/clothing/mask, handle_speech)()
 		M.update_inv_wear_mask()
 
 //Proc that moves gas/breath masks out of the way, disabling them and allowing pill/food consumption
-TYPE_PROC_REF(/obj/item/clothing/mask, adjustmask)(mob/living/user)
+/obj/item/clothing/mask/proc/adjustmask(mob/living/user)
 	if(user && user.incapacitated())
 		return
 	mask_adjusted = !mask_adjusted

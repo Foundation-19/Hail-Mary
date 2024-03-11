@@ -42,7 +42,7 @@
 	eject_cell(user)
 	return
 
-TYPE_PROC_REF(/obj/item/stealthboy, eject_cell)(mob/living/user)
+/obj/item/stealthboy/proc/eject_cell(mob/living/user)
 	if(!cell)
 		to_chat(user, span_warning("[src] has no cell installed."))
 		return
@@ -53,7 +53,7 @@ TYPE_PROC_REF(/obj/item/stealthboy, eject_cell)(mob/living/user)
 	user.show_message(span_notice("You remove [cell]."))
 	cell = null
 
-TYPE_PROC_REF(/obj/item/stealthboy, insert_cell)(mob/living/user, obj/item/stock_parts/cell/new_cell)
+/obj/item/stealthboy/proc/insert_cell(mob/living/user, obj/item/stock_parts/cell/new_cell)
 	if(cell)
 		eject_cell(user)
 	if(user.transferItemToLoc(new_cell, src))
@@ -75,7 +75,7 @@ TYPE_PROC_REF(/obj/item/stealthboy, insert_cell)(mob/living/user, obj/item/stock
 	if(istype(cell))
 		. += "The charge meter reads [round(cell.percent() )]%."
 
-TYPE_PROC_REF(/obj/item/stealthboy, Activate)(mob/living/carbon/human/user)
+/obj/item/stealthboy/proc/Activate(mob/living/carbon/human/user)
 	if(!user)
 		Deactivate(FALSE)
 		return
@@ -92,7 +92,7 @@ TYPE_PROC_REF(/obj/item/stealthboy, Activate)(mob/living/carbon/human/user)
 	START_PROCESSING(SSobj, src)
 	on = TRUE
 
-TYPE_PROC_REF(/obj/item/stealthboy, Deactivate)(mob/living/carbon/human/user)
+/obj/item/stealthboy/proc/Deactivate(mob/living/carbon/human/user)
 	if(!ishuman(user))
 		user = loc
 		if(!ishuman(user))

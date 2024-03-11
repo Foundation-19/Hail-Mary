@@ -909,7 +909,7 @@ obj/item/clothing/head/helmet/f13/enclave/usmcriot
 /obj/item/clothing/head/helmet/f13/khan/bandana/ui_action_click()
 	helmet_toggle()
 
-TYPE_PROC_REF(/obj/item/clothing/head/helmet/f13/khan/bandana, helmet_toggle)()
+/obj/item/clothing/head/helmet/f13/khan/bandana/proc/helmet_toggle()
 	set src in usr
 
 	if(!can_use(usr))

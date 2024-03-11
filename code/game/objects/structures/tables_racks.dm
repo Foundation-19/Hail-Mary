@@ -41,7 +41,7 @@
 	. = ..()
 	. += deconstruction_hints(user)
 
-TYPE_PROC_REF(/obj/structure/table, deconstruction_hints)(mob/user)
+/obj/structure/table/proc/deconstruction_hints(mob/user)
 	return "<span class='notice'>The top is <b>screwed</b> on, but the main <b>bolts</b> are also visible.</span>"
 
 /obj/structure/table/update_icon()
@@ -113,14 +113,14 @@ TYPE_PROC_REF(/obj/structure/table, deconstruction_hints)(mob/user)
 		var/atom/movable/mover = caller
 		. = . || (mover.pass_flags & pass_flags_self)
 
-TYPE_PROC_REF(/obj/structure/table, tableplace)(mob/living/user, mob/living/pushed_mob)
+/obj/structure/table/proc/tableplace(mob/living/user, mob/living/pushed_mob)
 	pushed_mob.forceMove(src.loc)
 	pushed_mob.set_resting(TRUE, FALSE)
 	pushed_mob.visible_message(span_notice("[user] places [pushed_mob] onto [src]."), \
 								span_notice("[user] places [pushed_mob] onto [src]."))
 	log_combat(user, pushed_mob, "placed")
 
-TYPE_PROC_REF(/obj/structure/table, tablepush)(mob/living/user, mob/living/pushed_mob)
+/obj/structure/table/proc/tablepush(mob/living/user, mob/living/pushed_mob)
 	if(HAS_TRAIT(user, TRAIT_PACIFISM))
 		to_chat(user, span_danger("Throwing [pushed_mob] onto the table might hurt them!"))
 		return
@@ -142,7 +142,7 @@ TYPE_PROC_REF(/obj/structure/table, tablepush)(mob/living/user, mob/living/pushe
 	var/mob/living/carbon/human/H = pushed_mob
 	SEND_SIGNAL(H, COMSIG_ADD_MOOD_EVENT, "table", /datum/mood_event/table)
 
-TYPE_PROC_REF(/obj/structure/table, tablelimbsmash)(mob/living/user, mob/living/pushed_mob)
+/obj/structure/table/proc/tablelimbsmash(mob/living/user, mob/living/pushed_mob)
 	pushed_mob.Knockdown(30)
 	var/obj/item/bodypart/banged_limb = pushed_mob.get_bodypart(user.zone_selected) || pushed_mob.get_bodypart(BODY_ZONE_HEAD)
 	var/extra_wound = 0
@@ -218,7 +218,7 @@ TYPE_PROC_REF(/obj/structure/table, tablelimbsmash)(mob/living/user, mob/living/
 	else
 		return ..()
 
-TYPE_PROC_REF(/obj/structure/table, AfterPutItemOnTable)(obj/item/I, mob/living/user)
+/obj/structure/table/proc/AfterPutItemOnTable(obj/item/I, mob/living/user)
 	return
 
 /obj/structure/table/alt_attack_hand(mob/user)
@@ -279,17 +279,17 @@ TYPE_PROC_REF(/obj/structure/table, AfterPutItemOnTable)(obj/item/I, mob/living/
 	attached_items += I
 	RegisterSignal(I, COMSIG_MOVABLE_MOVED, PROC_REF(RemoveItemFromTable)) //Listen for the pickup event, unregister on pick-up so we aren't moved
 
-TYPE_PROC_REF(/obj/structure/table/rolling, RemoveItemFromTable)(datum/source, newloc, dir)
+/obj/structure/table/rolling/proc/RemoveItemFromTable(datum/source, newloc, dir)
 	if(newloc != loc) //Did we not move with the table? because that shit's ok
 		return FALSE
 	attached_items -= source
 	UnregisterSignal(source, COMSIG_MOVABLE_MOVED)
 
-TYPE_PROC_REF(/obj/structure/table/rolling, on_entered)(atom/OldLoc, Dir)
+/obj/structure/table/rolling/proc/on_entered(atom/OldLoc, Dir)
 	SIGNAL_HANDLER
 	INVOKE_ASYNC(src, PROC_REF(on_move), OldLoc, Dir)
 
-TYPE_PROC_REF(/obj/structure/table/rolling, on_move)(atom/OldLoc, Dir)
+/obj/structure/table/rolling/proc/on_move(atom/OldLoc, Dir)
 	for(var/mob/M in OldLoc.contents)//Kidnap everyone on top
 		M.forceMove(loc)
 	for(var/x in attached_items)
@@ -329,7 +329,7 @@ TYPE_PROC_REF(/obj/structure/table/rolling, on_move)(atom/OldLoc, Dir)
 	QDEL_LIST(debris)
 	. = ..()
 
-TYPE_PROC_REF(/obj/structure/table/glass, on_entered)(atom/movable/AM)
+/obj/structure/table/glass/proc/on_entered(atom/movable/AM)
 	SIGNAL_HANDLER
 	if(flags_1 & NODECONSTRUCT_1)
 		return
@@ -341,15 +341,15 @@ TYPE_PROC_REF(/obj/structure/table/glass, on_entered)(atom/movable/AM)
 	else
 		check_break(AM)
 
-TYPE_PROC_REF(/obj/structure/table/glass, throw_check)(mob/living/M)
+/obj/structure/table/glass/proc/throw_check(mob/living/M)
 	if(M.loc == get_turf(src))
 		check_break(M)
 
-TYPE_PROC_REF(/obj/structure/table/glass, check_break)(mob/living/M)
+/obj/structure/table/glass/proc/check_break(mob/living/M)
 	if(M.has_gravity() && M.mob_size > MOB_SIZE_SMALL && !(M.movement_type & FLYING))
 		table_shatter(M)
 
-TYPE_PROC_REF(/obj/structure/table/glass, table_shatter)(mob/living/L)
+/obj/structure/table/glass/proc/table_shatter(mob/living/L)
 	visible_message(span_warning("[src] breaks!"),
 		span_danger("You hear breaking glass."))
 	var/turf/T = get_turf(src)
@@ -407,7 +407,7 @@ TYPE_PROC_REF(/obj/structure/table/glass, table_shatter)(mob/living/L)
 	QDEL_LIST(debris)
 	. = ..()
 
-TYPE_PROC_REF(/obj/structure/table/plasmaglass, check_break)(mob/living/M)
+/obj/structure/table/plasmaglass/proc/check_break(mob/living/M)
 	return
 
 /obj/structure/table/plasmaglass/deconstruct(disassembled = TRUE, wrench_disassembly = 0)
@@ -632,7 +632,7 @@ TYPE_PROC_REF(/obj/structure/table/plasmaglass, check_break)(mob/living/M)
 		var/previouscolor = color
 		color = "#960000"
 		animate(src, color = previouscolor, time = 8)
-		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_atom_colour)), 8)
+		addtimer(CALLBACK(src, /atom/proc/update_atom_colour), 8)
 
 /obj/structure/table/reinforced/brass/ratvar_act()
 	obj_integrity = max_integrity
@@ -681,7 +681,7 @@ TYPE_PROC_REF(/obj/structure/table/plasmaglass, check_break)(mob/living/M)
 	visible_message(span_notice("[user] has laid [pushed_mob] on [src]."))
 	check_patient()
 
-TYPE_PROC_REF(/obj/structure/table/optable, check_patient)()
+/obj/structure/table/optable/proc/check_patient()
 	var/mob/living/carbon/human/H = locate() in loc
 	if(H)
 		if(!CHECK_MOBILITY(H, MOBILITY_STAND))

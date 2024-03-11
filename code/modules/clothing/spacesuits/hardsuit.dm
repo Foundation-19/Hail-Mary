@@ -62,7 +62,7 @@
 	else
 		soundloop.start(user)
 
-TYPE_PROC_REF(/obj/item/clothing/head/helmet/space/hardsuit, display_visor_message)(msg)
+/obj/item/clothing/head/helmet/space/hardsuit/proc/display_visor_message(msg)
 	var/mob/wearer = loc
 	if(msg && ishuman(wearer))
 		wearer.show_message("[icon2html(src, wearer)]<b><span class='robot'>[msg]</span></b>", MSG_VISUAL)
@@ -301,7 +301,7 @@ TYPE_PROC_REF(/obj/item/clothing/head/helmet/space/hardsuit, display_visor_messa
 		var/datum/action/A = X
 		A.UpdateButtonIcon()
 
-TYPE_PROC_REF(/obj/item/clothing/head/helmet/space/hardsuit/syndi, toggle_hardsuit_mode)(mob/user) //Helmet Toggles Suit Mode
+/obj/item/clothing/head/helmet/space/hardsuit/syndi/proc/toggle_hardsuit_mode(mob/user) //Helmet Toggles Suit Mode
 	if(linkedsuit)
 		if(on)
 			linkedsuit.name = initial(linkedsuit.name)
@@ -617,7 +617,7 @@ TYPE_PROC_REF(/obj/item/clothing/head/helmet/space/hardsuit/syndi, toggle_hardsu
 		DHUD.remove_hud_from(user)
 		REMOVE_TRAIT(user, TRAIT_TESLA_SHOCKIMMUNE, "mason_hardsuit")
 
-TYPE_PROC_REF(/obj/item/clothing/suit/space/hardsuit/ancient, on_mob_move)()
+/obj/item/clothing/suit/space/hardsuit/ancient/proc/on_mob_move()
 	var/mob/living/carbon/human/H = loc
 	if(!istype(H) || H.wear_suit != src)
 		return

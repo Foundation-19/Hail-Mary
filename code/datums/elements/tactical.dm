@@ -17,7 +17,7 @@
 	unmodify(target)
 	return ..()
 
-TYPE_PROC_REF(/datum/element/tactical, modify)(obj/item/source, mob/user, slot)
+/datum/element/tactical/proc/modify(obj/item/source, mob/user, slot)
 	if(allowed_slot && slot != allowed_slot)
 		unmodify(source, user)
 		return
@@ -28,7 +28,7 @@ TYPE_PROC_REF(/datum/element/tactical, modify)(obj/item/source, mob/user, slot)
 	source.add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/everyone, "sneaking_mission", I)
 	I.layer = ABOVE_MOB_LAYER
 
-TYPE_PROC_REF(/datum/element/tactical, unmodify)(obj/item/source, mob/user)
+/datum/element/tactical/proc/unmodify(obj/item/source, mob/user)
 	if(!user)
 		if(!ismob(source.loc))
 			return

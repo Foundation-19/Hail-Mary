@@ -6,7 +6,7 @@
 	hud_icons = list(TAIL_HUD)
 
 //Takes in the tail FRONT sprite and updates our sprite to look like it
-TYPE_PROC_REF(/mob/living, tail_hud_update)(image/the_tail)
+/mob/living/proc/tail_hud_update(image/the_tail)
 	if(!islist(hud_list))
 		prepare_huds()
 	if(!the_tail) // dunno why not having a tail gives you a random tail, but hey

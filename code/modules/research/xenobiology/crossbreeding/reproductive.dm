@@ -37,7 +37,7 @@ Reproductive extracts:
 			new extract_type(get_turf(loc))
 		cubes_eaten = 0
 
-TYPE_PROC_REF(/obj/item/slimecross/reproductive, eat_cube)(obj/item/reagent_containers/food/snacks/monkeycube, mob/user)
+/obj/item/slimecross/reproductive/proc/eat_cube(obj/item/reagent_containers/food/snacks/monkeycube, mob/user)
 		qdel(monkeycube)
 		cubes_eaten++
 		to_chat(user, span_notice("You feed [monkeycube] to [src], and it pulses gently."))

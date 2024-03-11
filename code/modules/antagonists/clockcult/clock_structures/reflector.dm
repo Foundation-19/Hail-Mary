@@ -33,7 +33,7 @@
 
 	return BULLET_ACT_FORCE_PIERCE
 
-TYPE_PROC_REF(/obj/structure/destructible/clockwork/reflector, auto_reflect)(obj/item/projectile/P, pdir, turf/ploc, pangle)
+/obj/structure/destructible/clockwork/reflector/proc/auto_reflect(obj/item/projectile/P, pdir, turf/ploc, pangle)
 
 	//Yell at me if this exists already.
 
@@ -59,7 +59,7 @@ TYPE_PROC_REF(/obj/structure/destructible/clockwork/reflector, auto_reflect)(obj
 	P.decayedRange = max(P.decayedRange--, 0)
 	return -1
 
-TYPE_PROC_REF(/obj/structure/destructible/clockwork/reflector, can_be_rotated)(mob/user,rotation_type)
+/obj/structure/destructible/clockwork/reflector/proc/can_be_rotated(mob/user,rotation_type)
 	if(anchored)
 		to_chat(user, span_warning("[src] cannot be rotated while it is fastened to the floor!"))
 		return FALSE
@@ -70,7 +70,7 @@ TYPE_PROC_REF(/obj/structure/destructible/clockwork/reflector, can_be_rotated)(m
 	. = ..()
 	setDir(ini_dir)
 
-TYPE_PROC_REF(/obj/structure/destructible/clockwork/reflector, after_rotation)(mob/user,rotation_type)
+/obj/structure/destructible/clockwork/reflector/proc/after_rotation(mob/user,rotation_type)
 	ini_dir = dir
 	add_fingerprint(user)
 

@@ -260,7 +260,7 @@
 
 	on_the_trail(user)
 
-TYPE_PROC_REF(/obj/effect/proc_holder/spell/targeted/olfaction, on_the_trail)(mob/living/user)
+/obj/effect/proc_holder/spell/targeted/olfaction/proc/on_the_trail(mob/living/user)
 	if(!tracking_target)
 		to_chat(user,span_warning("You're not tracking a scent, but the game thought you were. Something's gone wrong! Report this as a bug."))
 		return
@@ -420,7 +420,7 @@ TYPE_PROC_REF(/obj/effect/proc_holder/spell/targeted/olfaction, on_the_trail)(mo
 	fired_by = firedby
 	addtimer(CALLBACK(src, PROC_REF(checkembedded)), 5 SECONDS)
 
-TYPE_PROC_REF(/obj/item/hardened_spike, checkembedded)()
+/obj/item/hardened_spike/proc/checkembedded()
 	if(missed)
 		unembedded()
 

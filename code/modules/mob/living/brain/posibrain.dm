@@ -49,7 +49,7 @@ GLOBAL_VAR(posibrain_notify_cooldown)
 	latejoin_remove()
 	return ..()
 
-TYPE_PROC_REF(/obj/item/mmi/posibrain, latejoin_remove)()
+/obj/item/mmi/posibrain/proc/latejoin_remove()
 	GLOB.poi_list -= src
 	var/init_name = initial(name)
 	LAZYREMOVE(GLOB.mob_spawners[init_name], src)
@@ -62,7 +62,7 @@ TYPE_PROC_REF(/obj/item/mmi/posibrain, latejoin_remove)()
 		if(istype(ghost))
 			activate(ghost)
 
-TYPE_PROC_REF(/obj/item/mmi/posibrain, ping_ghosts)(msg, newlymade)
+/obj/item/mmi/posibrain/proc/ping_ghosts(msg, newlymade)
 	if(newlymade || GLOB.posibrain_notify_cooldown <= world.time)
 		notify_ghosts("[name] [msg] in [get_area(src)]!", ghost_sound = !newlymade ? 'sound/misc/server-ready.ogg':null, enter_link = "<a href=?src=[REF(src)];activate=1>(Click to enter)</a>", source = src, action = NOTIFY_ATTACK, flashwindow = FALSE, ignore_key = POLL_IGNORE_POSIBRAIN, ignore_dnr_observers = TRUE)
 		if(!newlymade)
@@ -85,7 +85,7 @@ TYPE_PROC_REF(/obj/item/mmi/posibrain, ping_ghosts)(msg, newlymade)
 	update_icon()
 	addtimer(CALLBACK(src, PROC_REF(check_success)), askDelay)
 
-TYPE_PROC_REF(/obj/item/mmi/posibrain, check_success)()
+/obj/item/mmi/posibrain/proc/check_success()
 	searching = FALSE
 	update_icon()
 	if(QDELETED(brainmob))
@@ -100,7 +100,7 @@ TYPE_PROC_REF(/obj/item/mmi/posibrain, check_success)()
 /obj/item/mmi/posibrain/attack_ghost(mob/user)
 	activate(user)
 
-TYPE_PROC_REF(/obj/item/mmi/posibrain, is_occupied)()
+/obj/item/mmi/posibrain/proc/is_occupied()
 	if(brainmob.key)
 		return TRUE
 	if(iscyborg(loc))
@@ -110,7 +110,7 @@ TYPE_PROC_REF(/obj/item/mmi/posibrain, is_occupied)()
 	return FALSE
 
 //Two ways to activate a positronic brain. A clickable link in the ghost notif, or simply clicking the object itself.
-TYPE_PROC_REF(/obj/item/mmi/posibrain, activate)(mob/user)
+/obj/item/mmi/posibrain/proc/activate(mob/user)
 	if(QDELETED(brainmob) || is_occupied() || jobban_isbanned(user,"posibrain") || QDELETED(src) || QDELETED(user))
 		return
 
@@ -145,7 +145,7 @@ TYPE_PROC_REF(/obj/item/mmi/posibrain, activate)(mob/user)
 	brainmob.mind.wipe_memory()
 	update_icon()
 
-TYPE_PROC_REF(/obj/item/mmi/posibrain, transfer_personality)(mob/candidate)
+/obj/item/mmi/posibrain/proc/transfer_personality(mob/candidate)
 	if(QDELETED(brainmob))
 		return
 	if(is_occupied()) //Prevents hostile takeover if two ghosts get the prompt or link for the same brain.

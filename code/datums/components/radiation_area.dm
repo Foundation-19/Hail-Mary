@@ -11,13 +11,13 @@
 	RegisterSignal(parent, list(COMSIG_AREA_ENTERED), PROC_REF(AddMob))
 	RegisterSignal(parent, list(COMSIG_AREA_EXITED), PROC_REF(RemoveMob))
 
-TYPE_PROC_REF(/datum/component/radiation_area, AddMob)(area/the_area, mob/living/carbon/glowy)
+/datum/component/radiation_area/proc/AddMob(area/the_area, mob/living/carbon/glowy)
 	if(!istype(glowy))
 		return
 	mobs_to_irradiate |= glowy
 	START_PROCESSING(SSprocessing, src)
 
-TYPE_PROC_REF(/datum/component/radiation_area, RemoveMob)(area/the_area, mob/living/carbon/glowy)
+/datum/component/radiation_area/proc/RemoveMob(area/the_area, mob/living/carbon/glowy)
 	if(!istype(glowy))
 		return
 	mobs_to_irradiate -= glowy

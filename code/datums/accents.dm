@@ -1,6 +1,6 @@
 /datum/accent
 
-TYPE_PROC_REF(/datum/accent, modify_speech)(list/speech_args, datum/source, mob/living/carbon/owner) //transforms the message in some way
+/datum/accent/proc/modify_speech(list/speech_args, datum/source, mob/living/carbon/owner) //transforms the message in some way
 	return speech_args
 
 /datum/accent/lizard/modify_speech(list/speech_args)

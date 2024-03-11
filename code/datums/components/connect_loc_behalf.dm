@@ -33,11 +33,11 @@
 
 	tracked = null
 
-TYPE_PROC_REF(/datum/component/connect_loc_behalf, handle_tracked_qdel)()
+/datum/component/connect_loc_behalf/proc/handle_tracked_qdel()
 	SIGNAL_HANDLER
 	qdel(src)
 
-TYPE_PROC_REF(/datum/component/connect_loc_behalf, update_signals)()
+/datum/component/connect_loc_behalf/proc/update_signals()
 	unregister_signals()
 	//You may ask yourself, isn't this just silencing an error?
 	//The answer is yes, but there's no good cheap way to fix it
@@ -55,7 +55,7 @@ TYPE_PROC_REF(/datum/component/connect_loc_behalf, update_signals)()
 	for (var/signal in connections)
 		parent.RegisterSignal(tracked_loc, signal, connections[signal])
 
-TYPE_PROC_REF(/datum/component/connect_loc_behalf, unregister_signals)()
+/datum/component/connect_loc_behalf/proc/unregister_signals()
 	if(isnull(tracked_loc))
 		return
 
@@ -63,7 +63,7 @@ TYPE_PROC_REF(/datum/component/connect_loc_behalf, unregister_signals)()
 
 	tracked_loc = null
 
-TYPE_PROC_REF(/datum/component/connect_loc_behalf, on_moved)(sigtype, atom/movable/tracked, atom/old_loc)
+/datum/component/connect_loc_behalf/proc/on_moved(sigtype, atom/movable/tracked, atom/old_loc)
 	SIGNAL_HANDLER
 	update_signals()
 

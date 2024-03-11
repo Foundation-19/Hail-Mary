@@ -201,7 +201,7 @@
 	. = ..()
 	.["Give slab"] = CALLBACK(src,PROC_REF(admin_give_slab))
 
-TYPE_PROC_REF(/datum/antagonist/clockcult, admin_give_slab)(mob/admin)
+/datum/antagonist/clockcult/proc/admin_give_slab(mob/admin)
 	if(!SSticker.mode.equip_servant(owner.current))
 		to_chat(admin, span_warning("Failed to outfit [owner.current]!"))
 	else
@@ -212,7 +212,7 @@ TYPE_PROC_REF(/datum/antagonist/clockcult, admin_give_slab)(mob/admin)
 	var/list/objective
 	var/datum/mind/eminence
 
-TYPE_PROC_REF(/datum/team/clockcult, check_clockwork_victory)()
+/datum/team/clockcult/proc/check_clockwork_victory()
 	if(GLOB.clockwork_gateway_activated)
 		return TRUE
 	return FALSE

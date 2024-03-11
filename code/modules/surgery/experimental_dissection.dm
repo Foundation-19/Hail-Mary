@@ -35,7 +35,7 @@
 	"[user] starts dissecting [target].",
 	"[user] starts dissecting [target].")
 
-TYPE_PROC_REF(/datum/surgery_step/dissection, check_value)(mob/living/target, datum/surgery/advanced/experimental_dissection/ED)
+/datum/surgery_step/dissection/proc/check_value(mob/living/target, datum/surgery/advanced/experimental_dissection/ED)
 	var/cost = BASE_HUMAN_REWARD
 	var/multi_surgery_adjust = 0
 

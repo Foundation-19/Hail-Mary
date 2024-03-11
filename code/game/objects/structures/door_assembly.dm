@@ -269,7 +269,7 @@
 		. += get_airlock_overlay("glass_construction", overlays_file)
 	. += get_airlock_overlay("panel_c[state+1]", overlays_file)
 
-TYPE_PROC_REF(/obj/structure/door_assembly, update_name)()
+/obj/structure/door_assembly/proc/update_name()
 	name = ""
 	switch(state)
 		if(AIRLOCK_ASSEMBLY_NEEDS_WIRES)
@@ -281,7 +281,7 @@ TYPE_PROC_REF(/obj/structure/door_assembly, update_name)()
 			name = "near finished "
 	name += "[heat_proof_finished ? "heat-proofed " : ""][glass ? "window " : ""][base_name] assembly"
 
-TYPE_PROC_REF(/obj/structure/door_assembly, transfer_assembly_vars)(obj/structure/door_assembly/source, obj/structure/door_assembly/target, previous = FALSE)
+/obj/structure/door_assembly/proc/transfer_assembly_vars(obj/structure/door_assembly/source, obj/structure/door_assembly/target, previous = FALSE)
 	target.glass = source.glass
 	target.heat_proof_finished = source.heat_proof_finished
 	target.created_name = source.created_name

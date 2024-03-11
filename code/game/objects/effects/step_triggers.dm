@@ -15,10 +15,10 @@
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
-TYPE_PROC_REF(/obj/effect/step_trigger, Trigger)(atom/movable/A)
+/obj/effect/step_trigger/proc/Trigger(atom/movable/A)
 	return 0
 
-TYPE_PROC_REF(/obj/effect/step_trigger, on_entered)(atom/loc, atom/movable/H)
+/obj/effect/step_trigger/proc/on_entered(atom/loc, atom/movable/H)
 	SIGNAL_HANDLER
 	if(!H)
 		return

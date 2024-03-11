@@ -130,7 +130,7 @@
 		drop_caps(balance)
 		updateDialog()
 
-TYPE_PROC_REF(/obj/machinery/computer/slot_machine, drop_caps)(amt)
+/obj/machinery/computer/slot_machine/proc/drop_caps(amt)
 	// Come back when you're a little bit richer...
 	if(!balance)
 		return FALSE
@@ -153,7 +153,7 @@ TYPE_PROC_REF(/obj/machinery/computer/slot_machine, drop_caps)(amt)
 
 	return FALSE
 
-TYPE_PROC_REF(/obj/machinery/computer/slot_machine, spin)(mob/user)
+/obj/machinery/computer/slot_machine/proc/spin(mob/user)
 	if(!can_spin(user))
 		return
 
@@ -181,7 +181,7 @@ TYPE_PROC_REF(/obj/machinery/computer/slot_machine, spin)(mob/user)
 		update_icon()
 		updateDialog()
 
-TYPE_PROC_REF(/obj/machinery/computer/slot_machine, can_spin)(mob/user)
+/obj/machinery/computer/slot_machine/proc/can_spin(mob/user)
 	if(!user)
 		return 0
 	if(stat & NOPOWER)
@@ -196,12 +196,12 @@ TYPE_PROC_REF(/obj/machinery/computer/slot_machine, can_spin)(mob/user)
 		return 0
 	return 1
 
-TYPE_PROC_REF(/obj/machinery/computer/slot_machine, toggle_reel_spin)(value, delay = 0) //value is 1 or 0 aka on or off
+/obj/machinery/computer/slot_machine/proc/toggle_reel_spin(value, delay = 0) //value is 1 or 0 aka on or off
 	for(var/list/reel in reels)
 		reels[reel] = value
 		sleep(delay)
 
-TYPE_PROC_REF(/obj/machinery/computer/slot_machine, randomize_reels)()
+/obj/machinery/computer/slot_machine/proc/randomize_reels()
 
 	for(var/reel in reels)
 		if(reels[reel])
@@ -209,7 +209,7 @@ TYPE_PROC_REF(/obj/machinery/computer/slot_machine, randomize_reels)()
 			reel[2] = reel[1]
 			reel[1] = pick(symbols)
 
-TYPE_PROC_REF(/obj/machinery/computer/slot_machine, give_prizes)(mob/user)
+/obj/machinery/computer/slot_machine/proc/give_prizes(mob/user)
 	var/linelength = get_lines()
 
 	if(reels[1][2] + reels[2][2] + reels[3][2] + reels[4][2] + reels[5][2] == "[SEVEN][SEVEN][SEVEN][SEVEN][SEVEN]")
@@ -233,7 +233,7 @@ TYPE_PROC_REF(/obj/machinery/computer/slot_machine, give_prizes)(mob/user)
 
 	else
 		to_chat(user, span_warning("No luck!"))
-TYPE_PROC_REF(/obj/machinery/computer/slot_machine, get_lines)()
+/obj/machinery/computer/slot_machine/proc/get_lines()
 	var/amountthesame
 	for(var/i = 1, i <= 3, i++)
 		var/inputtext = reels[1][i] + reels[2][i] + reels[3][i] + reels[4][i] + reels[5][i]
@@ -250,7 +250,7 @@ TYPE_PROC_REF(/obj/machinery/computer/slot_machine, get_lines)()
 
 	return amountthesame
 
-TYPE_PROC_REF(/obj/machinery/computer/slot_machine, give_money)(amt)
+/obj/machinery/computer/slot_machine/proc/give_money(amt)
 	balance += amt
 
 #undef SEVEN

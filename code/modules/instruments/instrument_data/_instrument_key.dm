@@ -12,7 +12,7 @@
 	if(!frequency && deviation)
 		calculate()
 
-TYPE_PROC_REF(/datum/instrument_key, calculate)()
+/datum/instrument_key/proc/calculate()
 	if(!deviation)
 		CRASH("Invalid calculate call: No deviation or sample in instrument_key")
 	#define KEY_TWELTH (1/12)

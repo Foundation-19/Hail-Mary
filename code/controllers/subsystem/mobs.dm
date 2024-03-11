@@ -14,7 +14,7 @@ SUBSYSTEM_DEF(mobs)
 	msg = "P:[length(GLOB.mob_living_list)]"
 	return ..()
 
-TYPE_PROC_REF(/datum/controller/subsystem/mobs, MaxZChanged)()
+/datum/controller/subsystem/mobs/proc/MaxZChanged()
 	if (!islist(clients_by_zlevel))
 		clients_by_zlevel = new /list(world.maxz,0)
 		dead_players_by_zlevel = new /list(world.maxz,0)

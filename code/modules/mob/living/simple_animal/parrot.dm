@@ -115,12 +115,12 @@
 
 	parrot_sleep_dur = parrot_sleep_max //In case someone decides to change the max without changing the duration var
 
-	add_verb(src, list(TYPE_PROC_REF(/mob/living/simple_animal/parrot, steal_from_ground), \
-			  TYPE_PROC_REF(/mob/living/simple_animal/parrot, steal_from_mob), \
+	add_verb(src, list(/mob/living/simple_animal/parrot/proc/steal_from_ground, \
+			  /mob/living/simple_animal/parrot/proc/steal_from_mob, \
 			  /mob/living/simple_animal/parrot/verb/drop_held_item_player, \
-			  TYPE_PROC_REF(/mob/living/simple_animal/parrot, perch_player), \
-			  TYPE_PROC_REF(/mob/living/simple_animal/parrot, toggle_mode),
-			  TYPE_PROC_REF(/mob/living/simple_animal/parrot, perch_mob_player)))
+			  /mob/living/simple_animal/parrot/proc/perch_player, \
+			  /mob/living/simple_animal/parrot/proc/toggle_mode,
+			  /mob/living/simple_animal/parrot/proc/perch_mob_player))
 
 
 /mob/living/simple_animal/parrot/examine(mob/user)
@@ -605,7 +605,7 @@
  * Procs
  */
 
-TYPE_PROC_REF(/mob/living/simple_animal/parrot, isStuck)()
+/mob/living/simple_animal/parrot/proc/isStuck()
 	//Check to see if the parrot is stuck due to things like windows or doors or windowdoors
 	if(parrot_lastmove)
 		if(parrot_lastmove == src.loc)
@@ -620,7 +620,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/parrot, isStuck)()
 		parrot_lastmove = src.loc
 	return 0
 
-TYPE_PROC_REF(/mob/living/simple_animal/parrot, search_for_item)()
+/mob/living/simple_animal/parrot/proc/search_for_item()
 	var/item
 	for(var/atom/movable/AM in view(src))
 		//Skip items we already stole or are wearing or are too big
@@ -637,14 +637,14 @@ TYPE_PROC_REF(/mob/living/simple_animal/parrot, search_for_item)()
 					item = I
 					break
 		if(item)
-			if(!AStar(src, get_turf(item), TYPE_PROC_REF(/turf, Distance_cardinal)))
+			if(!AStar(src, get_turf(item), /turf/proc/Distance_cardinal))
 				item = null
 				continue
 			return item
 
 	return null
 
-TYPE_PROC_REF(/mob/living/simple_animal/parrot, search_for_perch)()
+/mob/living/simple_animal/parrot/proc/search_for_perch()
 	for(var/obj/O in view(src))
 		for(var/path in desired_perches)
 			if(istype(O, path))
@@ -652,7 +652,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/parrot, search_for_perch)()
 	return null
 
 //This proc was made to save on doing two 'in view' loops seperatly
-TYPE_PROC_REF(/mob/living/simple_animal/parrot, search_for_perch_and_item)()
+/mob/living/simple_animal/parrot/proc/search_for_perch_and_item()
 	for(var/atom/movable/AM in view(src))
 		for(var/perch_path in desired_perches)
 			if(istype(AM, perch_path))
@@ -678,7 +678,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/parrot, search_for_perch_and_item)()
 /*
  * Verbs - These are actually procs, but can be used as verbs by player-controlled parrots.
  */
-TYPE_PROC_REF(/mob/living/simple_animal/parrot, steal_from_ground)()
+/mob/living/simple_animal/parrot/proc/steal_from_ground()
 	set name = "Steal from ground"
 	set category = "Parrot"
 	set desc = "Grabs a nearby item."
@@ -706,7 +706,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/parrot, steal_from_ground)()
 	to_chat(src, span_warning("There is nothing of interest to take!"))
 	return 0
 
-TYPE_PROC_REF(/mob/living/simple_animal/parrot, steal_from_mob)()
+/mob/living/simple_animal/parrot/proc/steal_from_mob()
 	set name = "Steal from mob"
 	set category = "Parrot"
 	set desc = "Steals an item right out of a person's hand!"
@@ -747,7 +747,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/parrot, steal_from_mob)()
 
 	return
 
-TYPE_PROC_REF(/mob/living/simple_animal/parrot, drop_held_item)(drop_gently = 1)
+/mob/living/simple_animal/parrot/proc/drop_held_item(drop_gently = 1)
 	set name = "Drop held item"
 	set category = "Parrot"
 	set desc = "Drop the item you're holding."
@@ -786,7 +786,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/parrot, drop_held_item)(drop_gently = 1)
 	held_item = null
 	return 1
 
-TYPE_PROC_REF(/mob/living/simple_animal/parrot, perch_player)()
+/mob/living/simple_animal/parrot/proc/perch_player()
 	set name = "Sit"
 	set category = "Parrot"
 	set desc = "Sit on a nice comfy perch."
@@ -813,7 +813,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/parrot, perch_player)()
 		pixel_x = initial(pixel_x)
 		pixel_y = initial(pixel_y)
 
-TYPE_PROC_REF(/mob/living/simple_animal/parrot, perch_mob_player)()
+/mob/living/simple_animal/parrot/proc/perch_mob_player()
 	set name = "Sit on Human's Shoulder"
 	set category = "Parrot"
 	set desc = "Sit on a nice comfy human being!"
@@ -840,7 +840,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/parrot, perch_mob_player)()
 
 
 
-TYPE_PROC_REF(/mob/living/simple_animal/parrot, perch_on_human)(mob/living/carbon/human/H)
+/mob/living/simple_animal/parrot/proc/perch_on_human(mob/living/carbon/human/H)
 	if(!H)
 		return
 	forceMove(get_turf(H))
@@ -852,7 +852,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/parrot, perch_on_human)(mob/living/carbo
 		to_chat(src, span_notice("You sit on [H]'s shoulder."))
 
 
-TYPE_PROC_REF(/mob/living/simple_animal/parrot, toggle_mode)()
+/mob/living/simple_animal/parrot/proc/toggle_mode()
 	set name = "Toggle mode"
 	set category = "Parrot"
 	set desc = "Time to bear those claws!"
@@ -927,7 +927,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/parrot, toggle_mode)()
 			transfer_ckey(G)
 	..(gibbed)
 
-TYPE_PROC_REF(/mob/living/simple_animal/parrot/Poly, Read_Memory)()
+/mob/living/simple_animal/parrot/Poly/proc/Read_Memory()
 	if(fexists("data/npc_saves/Poly.sav")) //legacy compatability to convert old format to new
 		var/savefile/S = new /savefile("data/npc_saves/Poly.sav")
 		S["phrases"] 			>> speech_buffer
@@ -947,7 +947,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/parrot/Poly, Read_Memory)()
 	if(!islist(speech_buffer))
 		speech_buffer = list()
 
-TYPE_PROC_REF(/mob/living/simple_animal/parrot/Poly, Write_Memory)(dead)
+/mob/living/simple_animal/parrot/Poly/proc/Write_Memory(dead)
 	var/json_file = file("data/npc_saves/Poly.json")
 	var/list/file_data = list()
 	if(islist(speech_buffer))
@@ -1003,7 +1003,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/parrot/Poly, Write_Memory)(dead)
 			Possess(parrot_interest)
 	..()
 
-TYPE_PROC_REF(/mob/living/simple_animal/parrot/Poly/ghost, Possess)(mob/living/carbon/human/H)
+/mob/living/simple_animal/parrot/Poly/ghost/proc/Possess(mob/living/carbon/human/H)
 	if(!ishuman(H))
 		return
 	var/datum/disease/parrot_possession/P = new

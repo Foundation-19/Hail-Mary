@@ -20,7 +20,7 @@
 		addtimer(CALLBACK(src, PROC_REF(Reset)), using_time)
 		return
 
-TYPE_PROC_REF(/obj/structure/sink/well, Reset)()
+/obj/structure/sink/well/proc/Reset()
 	moving = FALSE
 	set_opacity(0)
 	density = 0

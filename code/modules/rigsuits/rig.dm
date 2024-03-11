@@ -125,14 +125,14 @@
 		air_supply = new air_type(src)
 	if(glove_type)
 		gloves = new glove_type(src)
-		verbs |= TYPE_PROC_REF(/obj/item/rig, toggle_gauntlets)
+		verbs |= /obj/item/rig/proc/toggle_gauntlets
 	if(helm_type)
 		helmet = new helm_type(src)
-		verbs |= TYPE_PROC_REF(/obj/item/rig, toggle_helmet)
+		verbs |= /obj/item/rig/proc/toggle_helmet
 		helmet.item_color="[initial(icon_state)]_sealed" //For the lightswitching to know the correct string to manipulate
 	if(boot_type)
 		boots = new boot_type(src)
-		verbs |= TYPE_PROC_REF(/obj/item/rig, toggle_boots)
+		verbs |= /obj/item/rig/proc/toggle_boots
 		boots.magboot_state="[initial(icon_state)]_sealed" //For the magboot (de)activation to know the correct string to manipulate
 	if(chest_type)
 		chest = new chest_type(src)
@@ -140,7 +140,7 @@
 			chest.allowed = allowed
 		chest.slowdown = offline_slowdown
 		chest.holder = src
-		verbs |= TYPE_PROC_REF(/obj/item/rig, toggle_chest)
+		verbs |= /obj/item/rig/proc/toggle_chest
 
 	for(var/obj/item/piece in list(gloves,helmet,boots,chest))
 		if(!istype(piece))
@@ -171,7 +171,7 @@
 	QDEL_NULL(spark_system)
 	return ..()
 
-TYPE_PROC_REF(/obj/item/rig, suit_is_deployed)()
+/obj/item/rig/proc/suit_is_deployed()
 	if(!istype(wearer) || src.loc != wearer || wearer.back != src)
 		return 0
 	if(helm_type && !(helmet && wearer.head == helmet))
@@ -184,7 +184,7 @@ TYPE_PROC_REF(/obj/item/rig, suit_is_deployed)()
 		return 0
 	return 1
 
-TYPE_PROC_REF(/obj/item/rig, reset)()
+/obj/item/rig/proc/reset()
 	offline = 2
 	item_flags &= ~NODROP
 	if(helmet && helmet.on)
@@ -199,7 +199,7 @@ TYPE_PROC_REF(/obj/item/rig, reset)()
 			//piece.flags &= ~(STOPSPRESSUREDMAGE | AIRTIGHT)
 	update_icon(1)
 
-TYPE_PROC_REF(/obj/item/rig, seal)(mob/living/user)
+/obj/item/rig/proc/seal(mob/living/user)
 	if(sealing)
 		return 0
 
@@ -308,7 +308,7 @@ TYPE_PROC_REF(/obj/item/rig, seal)(mob/living/user)
 		update_component_sealed()
 	update_icon(1)
 
-TYPE_PROC_REF(/obj/item/rig, unseal)(mob/living/user)
+/obj/item/rig/proc/unseal(mob/living/user)
 	if(sealing)
 		return 0
 
@@ -420,7 +420,7 @@ TYPE_PROC_REF(/obj/item/rig, unseal)(mob/living/user)
 		update_component_sealed()
 	update_icon(1)
 
-TYPE_PROC_REF(/obj/item/rig, update_component_sealed)()
+/obj/item/rig/proc/update_component_sealed()
 	if(istype(boots) && !(item_flags & NODROP) && boots.magpulse) //If we have (active) boots and unsealed the suit, we deactivate the magboots.
 		boots.attack_self(wearer)
 	if(istype(helmet) && !(item_flags & NODROP) && helmet.on) //If we have an (active) headlamp and unsealed the suit, we deactivate the headlamp.
@@ -488,7 +488,7 @@ TYPE_PROC_REF(/obj/item/rig, update_component_sealed)()
 	for(var/obj/item/rig_module/module in installed_modules)
 		cell.use(module.process()*10)
 
-TYPE_PROC_REF(/obj/item/rig, check_power_cost)(mob/living/user, cost, use_unconcious, obj/item/rig_module/mod, user_is_ai)
+/obj/item/rig/proc/check_power_cost(mob/living/user, cost, use_unconcious, obj/item/rig_module/mod, user_is_ai)
 	if(!istype(user))
 		return 0
 
@@ -626,7 +626,7 @@ TYPE_PROC_REF(/obj/item/rig, check_power_cost)(mob/living/user, cost, use_unconc
 		wearer.update_inv_back()
 	return
 
-TYPE_PROC_REF(/obj/item/rig, check_suit_access)(mob/living/carbon/human/user)
+/obj/item/rig/proc/check_suit_access(mob/living/carbon/human/user)
 	if(!security_check_enabled)
 		return 1
 
@@ -684,7 +684,7 @@ TYPE_PROC_REF(/obj/item/rig, check_suit_access)(mob/living/carbon/human/user)
 	add_fingerprint(usr)
 	return 0
 
-TYPE_PROC_REF(/obj/item/rig, notify_ai)(message)
+/obj/item/rig/proc/notify_ai(message)
 	if(!message || !installed_modules || !installed_modules.len)
 		return
 	for(var/obj/item/rig_module/module in installed_modules)
@@ -712,10 +712,10 @@ TYPE_PROC_REF(/obj/item/rig, notify_ai)(message)
 			wearer = M
 			wearer.wearing_rig = src
 			if(has_emergency_release)
-				M.verbs |= TYPE_PROC_REF(/obj/item/rig, emergency_release)
+				M.verbs |= /obj/item/rig/proc/emergency_release
 			update_icon()
 
-TYPE_PROC_REF(/obj/item/rig, toggle_piece)(piece, mob/living/user, deploy_mode, force)
+/obj/item/rig/proc/toggle_piece(piece, mob/living/user, deploy_mode, force)
 	if(!istype(wearer) || wearer.back != src)
 		if(force) //can only force retracting sorry
 			for(var/obj/item/uneq_piece in list(helmet, gloves, boots, chest))
@@ -805,7 +805,7 @@ TYPE_PROC_REF(/obj/item/rig, toggle_piece)(piece, mob/living/user, deploy_mode, 
 	if(piece == "helmet" && helmet)
 		helmet.update_light(wearer)
 
-TYPE_PROC_REF(/obj/item/rig, deploy)(mob/user)
+/obj/item/rig/proc/deploy(mob/user)
 	if(!wearer || !user)
 		return 0
 
@@ -829,7 +829,7 @@ TYPE_PROC_REF(/obj/item/rig, deploy)(mob/user)
 
 /obj/item/rig/dropped(mob/user)
 	..()
-	user.verbs -= TYPE_PROC_REF(/obj/item/rig, emergency_release)
+	user.verbs -= /obj/item/rig/proc/emergency_release
 	for(var/piece in list("helmet","gauntlets","chest","boots"))
 		toggle_piece(piece, user, ONLY_RETRACT, 1)
 	if(wearer)
@@ -837,7 +837,7 @@ TYPE_PROC_REF(/obj/item/rig, deploy)(mob/user)
 		wearer = null
 
 //Todo
-TYPE_PROC_REF(/obj/item/rig, malfunction)()
+/obj/item/rig/proc/malfunction()
 	return 0
 
 /obj/item/rig/emp_act(severity_class)
@@ -854,7 +854,7 @@ TYPE_PROC_REF(/obj/item/rig, malfunction)()
 	//possibly damage some modules
 	//take_hit((100/severity_class), "electrical pulse", 1)
 
-TYPE_PROC_REF(/obj/item/rig, shock)(mob/user)
+/obj/item/rig/proc/shock(mob/user)
 	if(get_dist(src, user) <= 1) //Needs to be adjecant to the rig to get shocked.
 		if(electrocute_mob(user, cell, src)) //electrocute_mob() handles removing charge from the cell, no need to do that here.
 			spark_system.start()
@@ -862,7 +862,7 @@ TYPE_PROC_REF(/obj/item/rig, shock)(mob/user)
 				return 1
 	return 0
 /*
-TYPE_PROC_REF(/obj/item/rig, take_hit)(damage, source, is_emp=0)
+/obj/item/rig/proc/take_hit(damage, source, is_emp=0)
 
 	if(!installed_modules.len)
 		return
@@ -908,7 +908,7 @@ TYPE_PROC_REF(/obj/item/rig, take_hit)(damage, source, is_emp=0)
 			to_chat(wearer, span_warning("The [source] has damaged your [dam_module.interface_name]!"))
 	dam_module.deactivate()
 
-TYPE_PROC_REF(/obj/item/rig, malfunction_check)(mob/living/carbon/human/user)
+/obj/item/rig/proc/malfunction_check(mob/living/carbon/human/user)
 	if(malfunction_delay)
 		if(offline)
 			to_chat(user, span_danger("The suit is completely unresponsive."))
@@ -917,7 +917,7 @@ TYPE_PROC_REF(/obj/item/rig, malfunction_check)(mob/living/carbon/human/user)
 		return 1
 	return 0
 
-TYPE_PROC_REF(/obj/item/rig, ai_can_move_suit)(mob/user, check_user_module = 0, check_for_ai = 0)
+/obj/item/rig/proc/ai_can_move_suit(mob/user, check_user_module = 0, check_for_ai = 0)
 
 	if(check_for_ai)
 		if(!(locate(/obj/item/rig_module/ai_container) in contents))
@@ -954,12 +954,12 @@ TYPE_PROC_REF(/obj/item/rig, ai_can_move_suit)(mob/user, check_user_module = 0, 
 		return 0
 	return 1
 */
-TYPE_PROC_REF(/obj/item/rig, force_rest)(mob/user)
+/obj/item/rig/proc/force_rest(mob/user)
 //	if(!ai_can_move_suit(user, check_user_module = 1))
 	wearer.lay_down()
 	to_chat(user, span_notice("\The [wearer] is now [wearer.resting ? "resting" : "getting up"]."))
 
-TYPE_PROC_REF(/obj/item/rig, forced_move)(direction, mob/user)
+/obj/item/rig/proc/forced_move(direction, mob/user)
 
 	// Why is all this shit in client/Move()? Who knows?
 	if(world.time < wearer_move_delay)
@@ -1007,7 +1007,7 @@ TYPE_PROC_REF(/obj/item/rig, forced_move)(direction, mob/user)
 		wearer.Move(get_step(get_turf(wearer),direction),direction)
 
 // This returns the rig if you are contained inside one, but not if you are wearing it
-TYPE_PROC_REF(/atom, get_rig)()
+/atom/proc/get_rig()
 	if(loc)
 		return loc.get_rig()
 	return null
@@ -1021,7 +1021,7 @@ TYPE_PROC_REF(/atom, get_rig)()
 	else
 		return null
 
-TYPE_PROC_REF(/obj/item/rig, emergency_release)()
+/obj/item/rig/proc/emergency_release()
 	set name = "Suit Emergency Release"
 	set desc = "Activate the suits emergency release system."
 	set category = "Object"
@@ -1029,7 +1029,7 @@ TYPE_PROC_REF(/obj/item/rig, emergency_release)()
 	var/obj/item/rig/T = get_rig()
 	return T.do_emergency_release(usr)
 
-TYPE_PROC_REF(/obj/item/rig, do_emergency_release)(mob/living/user)
+/obj/item/rig/proc/do_emergency_release(mob/living/user)
 	if(!can_touch(user, wearer) || !has_emergency_release)
 		return can_touch(user,wearer)
 	usr.visible_message(span_warning("[user] starts activating \the [src] emergency seals release!"))
@@ -1042,7 +1042,7 @@ TYPE_PROC_REF(/obj/item/rig, do_emergency_release)(mob/living/user)
 	unseal(user)
 	return 1
 
-TYPE_PROC_REF(/obj/item/rig, can_touch)(mob/user, mob/wearer)
+/obj/item/rig/proc/can_touch(mob/user, mob/wearer)
 	if(!user)
 		return 0
 	if(!wearer.Adjacent(user))

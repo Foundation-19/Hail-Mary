@@ -7,7 +7,7 @@
 		load_existing_assets()
 
 /// Processes thru any assets that were registered before we were loaded as a transport.
-TYPE_PROC_REF(/datum/asset_transport/webroot, load_existing_assets)()
+/datum/asset_transport/webroot/proc/load_existing_assets()
 	for (var/asset_name in SSassets.cache)
 		var/datum/asset_cache_item/ACI = SSassets.cache[asset_name]
 		save_asset_to_webroot(ACI)
@@ -24,7 +24,7 @@ TYPE_PROC_REF(/datum/asset_transport/webroot, load_existing_assets)()
 		save_asset_to_webroot(ACI)
 
 /// Saves the asset to the webroot taking into account namespaces and hashes.
-TYPE_PROC_REF(/datum/asset_transport/webroot, save_asset_to_webroot)(datum/asset_cache_item/ACI)
+/datum/asset_transport/webroot/proc/save_asset_to_webroot(datum/asset_cache_item/ACI)
 	var/webroot = CONFIG_GET(string/asset_cdn_webroot)
 	var/newpath = "[webroot][get_asset_suffex(ACI)]"
 	if (fexists(newpath))
@@ -42,7 +42,7 @@ TYPE_PROC_REF(/datum/asset_transport/webroot, save_asset_to_webroot)(datum/asset
 	var/url = CONFIG_GET(string/asset_cdn_url) //config loading will handle making sure this ends in a /
 	return "[url][get_asset_suffex(asset_cache_item)]"
 
-TYPE_PROC_REF(/datum/asset_transport/webroot, get_asset_suffex)(datum/asset_cache_item/asset_cache_item)
+/datum/asset_transport/webroot/proc/get_asset_suffex(datum/asset_cache_item/asset_cache_item)
 	var/base = "[copytext(asset_cache_item.hash, 1, 3)]/"
 	var/filename = "asset.[asset_cache_item.hash][asset_cache_item.ext]"
 	if (length(asset_cache_item.namespace))

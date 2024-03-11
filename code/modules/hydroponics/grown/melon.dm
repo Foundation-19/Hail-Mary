@@ -76,11 +76,11 @@
 		uses = round(seed.potency / 20)
 	AddComponent(/datum/component/anti_magic, TRUE, TRUE, FALSE, ITEM_SLOT_HANDS, uses, TRUE, CALLBACK(src, PROC_REF(block_magic)), CALLBACK(src, PROC_REF(expire))) //deliver us from evil o melon god
 
-TYPE_PROC_REF(/obj/item/reagent_containers/food/snacks/grown/holymelon, block_magic)(mob/user, major)
+/obj/item/reagent_containers/food/snacks/grown/holymelon/proc/block_magic(mob/user, major)
 	if(major)
 		to_chat(user, span_warning("[src] hums slightly, and seems to decay a bit."))
 
-TYPE_PROC_REF(/obj/item/reagent_containers/food/snacks/grown/holymelon, expire)(mob/user)
+/obj/item/reagent_containers/food/snacks/grown/holymelon/proc/expire(mob/user)
 	to_chat(user, span_warning("[src] rapidly turns into ash!"))
 	qdel(src)
 	new /obj/effect/decal/cleanable/ash(drop_location())

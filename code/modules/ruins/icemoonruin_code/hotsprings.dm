@@ -33,5 +33,5 @@ GLOBAL_LIST_EMPTY(cursed_minds)
  * Deletes minds from the cursed minds list after their deletion
  *
  */
-TYPE_PROC_REF(/turf/open/water/cursed_spring, remove_from_cursed)(datum/mind/M)
+/turf/open/water/cursed_spring/proc/remove_from_cursed(datum/mind/M)
 	GLOB.cursed_minds -= M

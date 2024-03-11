@@ -139,7 +139,7 @@
 	declare_cooldown = 0
 	update_icon()
 
-TYPE_PROC_REF(/mob/living/simple_animal/bot/medbot, soft_reset)() //Allows the medibot to still actively perform its medical duties without being completely halted as a hard reset does.
+/mob/living/simple_animal/bot/medbot/proc/soft_reset() //Allows the medibot to still actively perform its medical duties without being completely halted as a hard reset does.
 	path = list()
 	patient = null
 	mode = BOT_IDLE
@@ -383,7 +383,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/bot/medbot, soft_reset)() //Allows the m
 	else
 		return
 
-TYPE_PROC_REF(/mob/living/simple_animal/bot/medbot, tip_over)(mob/user)
+/mob/living/simple_animal/bot/medbot/proc/tip_over(mob/user)
 	mobility_flags &= ~MOBILITY_MOVE
 	playsound(src, 'sound/machines/warning-buzzer.ogg', 50)
 	user.visible_message(span_danger("[user] tips over [src]!"), span_danger("You tip [src] over!"))
@@ -391,7 +391,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/bot/medbot, tip_over)(mob/user)
 	var/matrix/mat = transform
 	transform = mat.Turn(180)
 
-TYPE_PROC_REF(/mob/living/simple_animal/bot/medbot, set_right)(mob/user)
+/mob/living/simple_animal/bot/medbot/proc/set_right(mob/user)
 	mobility_flags &= MOBILITY_MOVE
 	var/list/messagevoice
 	if(user)
@@ -415,7 +415,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/bot/medbot, set_right)(mob/user)
 	transform = matrix()
 
 // if someone tipped us over, check whether we should ask for help or just right ourselves eventually
-TYPE_PROC_REF(/mob/living/simple_animal/bot/medbot, handle_panic)()
+/mob/living/simple_animal/bot/medbot/proc/handle_panic()
 	tipped_status++
 	var/list/messagevoice
 	switch(tipped_status)
@@ -514,10 +514,10 @@ TYPE_PROC_REF(/mob/living/simple_animal/bot/medbot, handle_panic)()
 		return
 
 	if(patient && path.len == 0 && (get_dist(src,patient) > 1))
-		path = get_path_to(src, get_turf(patient), TYPE_PROC_REF(/turf, Distance_cardinal), 0, 30,id=access_card)
+		path = get_path_to(src, get_turf(patient), /turf/proc/Distance_cardinal, 0, 30,id=access_card)
 		mode = BOT_MOVING
 		if(!path.len) //try to get closer if you can't reach the patient directly
-			path = get_path_to(src, get_turf(patient), TYPE_PROC_REF(/turf, Distance_cardinal), 0, 30,1,id=access_card)
+			path = get_path_to(src, get_turf(patient), /turf/proc/Distance_cardinal, 0, 30,1,id=access_card)
 			if(!path.len) //Do not chase a patient we cannot reach.
 				soft_reset()
 
@@ -539,7 +539,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/bot/medbot, handle_panic)()
 
 	return
 
-TYPE_PROC_REF(/mob/living/simple_animal/bot/medbot, assess_patient)(mob/living/carbon/C)
+/mob/living/simple_animal/bot/medbot/proc/assess_patient(mob/living/carbon/C)
 	//Time to see if they need medical help!
 	if(C.stat == DEAD || (HAS_TRAIT(C, TRAIT_FAKEDEATH)))
 		return FALSE	//welp too late for them!
@@ -595,10 +595,10 @@ TYPE_PROC_REF(/mob/living/simple_animal/bot/medbot, assess_patient)(mob/living/c
 
 	return FALSE
 
-TYPE_PROC_REF(/mob/living/simple_animal/bot/medbot, get_avoidchem_toxin)(mob/M)
+/mob/living/simple_animal/bot/medbot/proc/get_avoidchem_toxin(mob/M)
 	return HAS_TRAIT(M, TRAIT_TOXINLOVER)? null : treatment_tox_avoid
 
-TYPE_PROC_REF(/mob/living/simple_animal/bot/medbot, get_healchem_toxin)(mob/M)
+/mob/living/simple_animal/bot/medbot/proc/get_healchem_toxin(mob/M)
 	return HAS_TRAIT(M, TRAIT_TOXINLOVER)? treatment_tox_toxlover : treatment_tox
 
 /mob/living/simple_animal/bot/medbot/on_attack_hand(mob/living/carbon/human/H)
@@ -638,7 +638,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/bot/medbot, get_healchem_toxin)(mob/M)
 	if(!is_blind(src))
 		chemscan(src, A)
 
-TYPE_PROC_REF(/mob/living/simple_animal/bot/medbot, medicate_patient)(mob/living/carbon/C)
+/mob/living/simple_animal/bot/medbot/proc/medicate_patient(mob/living/carbon/C)
 	if(!on)
 		return
 
@@ -741,7 +741,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/bot/medbot, medicate_patient)(mob/living
 		soft_reset()
 		return
 
-TYPE_PROC_REF(/mob/living/simple_animal/bot/medbot, check_overdose)(mob/living/carbon/patient,reagent_id,injection_amount)
+/mob/living/simple_animal/bot/medbot/proc/check_overdose(mob/living/carbon/patient,reagent_id,injection_amount)
 	var/datum/reagent/R  = GLOB.chemical_reagents_list[reagent_id]
 	if(!R.overdose_threshold) //Some chems do not have an OD threshold
 		return FALSE
@@ -771,7 +771,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/bot/medbot, check_overdose)(mob/living/c
 	do_sparks(3, TRUE, src)
 	..()
 
-TYPE_PROC_REF(/mob/living/simple_animal/bot/medbot, declare)(crit_patient)
+/mob/living/simple_animal/bot/medbot/proc/declare(crit_patient)
 	if(declare_cooldown > world.time)
 		return
 	var/area/location = get_area(src)

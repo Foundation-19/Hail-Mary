@@ -126,14 +126,14 @@
 
 	return INITIALIZE_HINT_NORMAL
 
-TYPE_PROC_REF(/turf, __auxtools_update_turf_temp_info)()
+/turf/proc/__auxtools_update_turf_temp_info()
 
 /turf/return_temperature()
 
-TYPE_PROC_REF(/turf, set_temperature)()
+/turf/proc/set_temperature()
 
 
-TYPE_PROC_REF(/turf, Initialize_Atmos)(times_fired)
+/turf/proc/Initialize_Atmos(times_fired)
 	CALCULATE_ADJACENT_TURFS(src)
 
 /turf/Destroy(force)
@@ -165,28 +165,28 @@ TYPE_PROC_REF(/turf, Initialize_Atmos)(times_fired)
 /turf/on_attack_hand(mob/user, act_intent = user.a_intent, unarmed_attack_flags)
 	user.Move_Pulled(src)
 
-TYPE_PROC_REF(/turf, multiz_turf_del)(turf/T, dir)
+/turf/proc/multiz_turf_del(turf/T, dir)
 
-TYPE_PROC_REF(/turf, multiz_turf_new)(turf/T, dir)
+/turf/proc/multiz_turf_new(turf/T, dir)
 
 //zPassIn doesn't necessarily pass an atom!
 //direction is direction of travel of air
-TYPE_PROC_REF(/turf, zPassIn)(atom/movable/A, direction, turf/source)
+/turf/proc/zPassIn(atom/movable/A, direction, turf/source)
 	return FALSE
 
 //direction is direction of travel of air
-TYPE_PROC_REF(/turf, zPassOut)(atom/movable/A, direction, turf/destination)
+/turf/proc/zPassOut(atom/movable/A, direction, turf/destination)
 	return FALSE
 
 //direction is direction of travel of air
-TYPE_PROC_REF(/turf, zAirIn)(direction, turf/source)
+/turf/proc/zAirIn(direction, turf/source)
 	return FALSE
 
 //direction is direction of travel of air
-TYPE_PROC_REF(/turf, zAirOut)(direction, turf/source)
+/turf/proc/zAirOut(direction, turf/source)
 	return FALSE
 
-TYPE_PROC_REF(/turf, zImpact)(atom/movable/falling, levels = 1, turf/prev_turf)
+/turf/proc/zImpact(atom/movable/falling, levels = 1, turf/prev_turf)
 	var/flags = NONE
 	var/list/falling_movables = falling.get_z_move_affected()
 	var/list/falling_mov_names
@@ -211,10 +211,10 @@ TYPE_PROC_REF(/turf, zImpact)(atom/movable/falling, levels = 1, turf/prev_turf)
 			falling_mov.pulledby.stop_pulling()
 	return TRUE
 
-TYPE_PROC_REF(/turf, can_zFall)(atom/movable/A, levels = 1, turf/target)
+/turf/proc/can_zFall(atom/movable/A, levels = 1, turf/target)
 	return zPassOut(A, DOWN, target) && target.zPassIn(A, DOWN, src)
 
-TYPE_PROC_REF(/turf, zFall)(atom/movable/A, levels = 1, force = FALSE, falling_from_move = FALSE)
+/turf/proc/zFall(atom/movable/A, levels = 1, force = FALSE, falling_from_move = FALSE)
 	var/turf/target = get_step_multiz(src, DOWN)
 	if(!target || (!isobj(A) && !ismob(A)))
 		return FALSE
@@ -226,7 +226,7 @@ TYPE_PROC_REF(/turf, zFall)(atom/movable/A, levels = 1, force = FALSE, falling_f
 	target.zImpact(A, levels, src)
 	return TRUE
 
-TYPE_PROC_REF(/turf, handleRCL)(obj/item/rcl/C, mob/user)
+/turf/proc/handleRCL(obj/item/rcl/C, mob/user)
 	if(C.loaded)
 		for(var/obj/structure/cable/LC in src)
 			if(!LC.d1 || !LC.d2)
@@ -307,11 +307,11 @@ TYPE_PROC_REF(/turf, handleRCL)(obj/item/rcl/C, mob/user)
 	// if(!AM.zfalling)
 	// 	zFall(AM)
 
-TYPE_PROC_REF(/turf, is_plasteel_floor)()
+/turf/proc/is_plasteel_floor()
 	return FALSE
 
 // A proc in case it needs to be recreated or badmins want to change the baseturfs
-TYPE_PROC_REF(/turf, assemble_baseturfs)(turf/fake_baseturf_type)
+/turf/proc/assemble_baseturfs(turf/fake_baseturf_type)
 	var/static/list/created_baseturf_lists = list()
 	var/turf/current_target
 	if(fake_baseturf_type)
@@ -359,7 +359,7 @@ TYPE_PROC_REF(/turf, assemble_baseturfs)(turf/fake_baseturf_type)
 	created_baseturf_lists[new_baseturfs[new_baseturfs.len]] = new_baseturfs.Copy()
 	return new_baseturfs
 
-TYPE_PROC_REF(/turf, levelupdate)()
+/turf/proc/levelupdate()
 	for(var/obj/O in src)
 		if(O.level == 1 && (O.flags_1 & INITIALIZED_1))
 			O.hide(src.intact)
@@ -371,12 +371,12 @@ TYPE_PROC_REF(/turf, levelupdate)()
 			O.hide(0)
 
 // Removes all signs of lattice on the pos of the turf -Donkieyo
-TYPE_PROC_REF(/turf, RemoveLattice)()
+/turf/proc/RemoveLattice()
 	var/obj/structure/lattice/L = locate(/obj/structure/lattice, src)
 	if(L && (L.flags_1 & INITIALIZED_1))
 		qdel(L)
 
-TYPE_PROC_REF(/turf, phase_damage_creatures)(damage,mob/U = null)//>Ninja Code. Hurts and knocks out creatures on this turf //NINJACODE
+/turf/proc/phase_damage_creatures(damage,mob/U = null)//>Ninja Code. Hurts and knocks out creatures on this turf //NINJACODE
 	for(var/mob/living/M in src)
 		if(M==U)
 			continue//Will not harm U. Since null != M, can be excluded to kill everyone.
@@ -385,7 +385,7 @@ TYPE_PROC_REF(/turf, phase_damage_creatures)(damage,mob/U = null)//>Ninja Code. 
 	for(var/obj/mecha/M in src)
 		M.take_damage(damage*2, BRUTE, "melee", 1)
 
-TYPE_PROC_REF(/turf, Bless)()
+/turf/proc/Bless()
 	new /obj/effect/blessing(src)
 
 /turf/storage_contents_dump_act(datum/component/storage/src_object, mob/user)
@@ -410,13 +410,13 @@ TYPE_PROC_REF(/turf, Bless)()
 //////////////////////////////
 
 //Distance associates with all directions movement
-TYPE_PROC_REF(/turf, Distance)(turf/T)
+/turf/proc/Distance(turf/T)
 	return get_dist(src,T)
 
 //  This Distance proc assumes that only cardinal movement is
 //  possible. It results in more efficient (CPU-wise) pathing
 //  for bots and anything else that only moves in cardinal dirs.
-TYPE_PROC_REF(/turf, Distance_cardinal)(turf/T)
+/turf/proc/Distance_cardinal(turf/T)
 	if(!src || !T)
 		return FALSE
 	return abs(x - T.x) + abs(y - T.y)
@@ -433,13 +433,13 @@ TYPE_PROC_REF(/turf, Distance_cardinal)(turf/T)
 	ScrapeAway(flags = CHANGETURF_INHERIT_AIR)
 	return(2)
 
-TYPE_PROC_REF(/turf, can_have_cabling)()
+/turf/proc/can_have_cabling()
 	return TRUE
 
-TYPE_PROC_REF(/turf, can_lay_cable)()
+/turf/proc/can_lay_cable()
 	return can_have_cabling() & !intact
 
-TYPE_PROC_REF(/turf, visibilityChanged)()
+/turf/proc/visibilityChanged()
 	GLOB.cameranet.updateVisibility(src)
 	// The cameranet usually handles this for us, but if we've just been
 	// recreated we should make sure we have the cameranet vis_contents.
@@ -450,9 +450,9 @@ TYPE_PROC_REF(/turf, visibilityChanged)()
 		else
 			vis_contents -= GLOB.cameranet.vis_contents_objects
 
-TYPE_PROC_REF(/turf, burn_tile)()
+/turf/proc/burn_tile()
 
-TYPE_PROC_REF(/turf, is_shielded)()
+/turf/proc/is_shielded()
 
 /turf/contents_explosion(severity, target)
 	var/affecting_level
@@ -493,7 +493,7 @@ TYPE_PROC_REF(/turf, is_shielded)()
 		if(ismob(A) || .)
 			A.ratvar_act()
 
-//called on TYPE_PROC_REF(/datum/species, altdisarm)()
+//called on /datum/species/proc/altdisarm()
 /turf/shove_act(mob/living/target, mob/living/user, pre_act = FALSE)
 	var/list/possibilities
 	for(var/obj/O in contents)
@@ -506,13 +506,13 @@ TYPE_PROC_REF(/turf, is_shielded)()
 		return O.shove_act(target, user)
 	return FALSE
 
-TYPE_PROC_REF(/turf, get_smooth_underlay_icon)(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
+/turf/proc/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
 	underlay_appearance.icon = icon
 	underlay_appearance.icon_state = icon_state
 	underlay_appearance.dir = adjacency_dir
 	return TRUE
 
-TYPE_PROC_REF(/turf, add_blueprints)(atom/movable/AM)
+/turf/proc/add_blueprints(atom/movable/AM)
 	var/image/I = new
 	I.appearance = AM.appearance
 	I.appearance_flags = RESET_COLOR|RESET_ALPHA|RESET_TRANSFORM
@@ -523,11 +523,11 @@ TYPE_PROC_REF(/turf, add_blueprints)(atom/movable/AM)
 	LAZYADD(blueprint_data, I)
 
 
-TYPE_PROC_REF(/turf, add_blueprints_preround)(atom/movable/AM)
+/turf/proc/add_blueprints_preround(atom/movable/AM)
 	if(!SSticker.HasRoundStarted())
 		add_blueprints(AM)
 
-TYPE_PROC_REF(/turf, is_transition_turf)()
+/turf/proc/is_transition_turf()
 	return
 
 /turf/acid_act(acidpwr, acid_volume)
@@ -548,7 +548,7 @@ TYPE_PROC_REF(/turf, is_transition_turf)()
 	if(!has_acid_effect)
 		new acid_type(src, acidpwr, acid_volume)
 
-TYPE_PROC_REF(/turf, acid_melt)()
+/turf/proc/acid_melt()
 	return
 
 /turf/handle_fall(mob/faller, forced)
@@ -559,7 +559,7 @@ TYPE_PROC_REF(/turf, acid_melt)()
 		playsound(src, "bodyfall", 50, 1)
 	faller.drop_all_held_items()
 
-TYPE_PROC_REF(/turf, photograph)(limit=20)
+/turf/proc/photograph(limit=20)
 	var/image/I = new()
 	I.add_overlay(src)
 	for(var/V in contents)
@@ -576,7 +576,7 @@ TYPE_PROC_REF(/turf, photograph)(limit=20)
 /turf/AllowDrop()
 	return TRUE
 
-TYPE_PROC_REF(/turf, add_vomit_floor)(mob/living/M, toxvomit = NONE)
+/turf/proc/add_vomit_floor(mob/living/M, toxvomit = NONE)
 
 	var/obj/effect/decal/cleanable/vomit/V = new /obj/effect/decal/cleanable/vomit(src, M.get_static_viruses())
 	//if the vomit combined, apply toxicity and reagents to the old vomit
@@ -602,7 +602,7 @@ TYPE_PROC_REF(/turf, add_vomit_floor)(mob/living/M, toxvomit = NONE)
 
 //Whatever happens after high temperature fire dies out or thermite reaction works.
 //Should return new turf
-TYPE_PROC_REF(/turf, Melt)()
+/turf/proc/Melt()
 	return ScrapeAway(flags = CHANGETURF_INHERIT_AIR)
 
 /turf/bullet_act(obj/item/projectile/P)

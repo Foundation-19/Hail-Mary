@@ -379,7 +379,7 @@ GLOBAL_LIST_INIT(plastitaniumglass_recipes, list(
 		qdel(src)
 	return TRUE
 
-TYPE_PROC_REF(/obj/item/shard, on_entered)(mob/living/L)
+/obj/item/shard/proc/on_entered(mob/living/L)
 	SIGNAL_HANDLER
 	if(istype(L) && has_gravity(loc))
 		if(HAS_TRAIT(L, TRAIT_LIGHT_STEP))

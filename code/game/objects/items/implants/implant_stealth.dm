@@ -12,7 +12,7 @@
 	max_integrity = 1
 	use_mob_movespeed = TRUE
 
-TYPE_PROC_REF(/obj/structure/closet/cardboard/agent, go_invisible)()
+/obj/structure/closet/cardboard/agent/proc/go_invisible()
 	animate(src, , alpha = 0, time = 5)
 	START_PROCESSING(SSobj, src)
 
@@ -34,7 +34,7 @@ TYPE_PROC_REF(/obj/structure/closet/cardboard/agent, go_invisible)()
 	if(.)
 		alpha = min(alpha + 5, 255)
 
-TYPE_PROC_REF(/obj/structure/closet/cardboard/agent, reveal)()
+/obj/structure/closet/cardboard/agent/proc/reveal()
 	alpha = 255
 	addtimer(CALLBACK(src, PROC_REF(go_invisible)), 10, TIMER_OVERRIDE|TIMER_UNIQUE)
 

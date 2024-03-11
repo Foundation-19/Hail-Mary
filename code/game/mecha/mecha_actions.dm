@@ -1,6 +1,6 @@
 //////////////////////////////////////// Action Buttons ///////////////////////////////////////////////
 
-TYPE_PROC_REF(/obj/mecha, GrantActions)(mob/living/user, human_occupant = 0)
+/obj/mecha/proc/GrantActions(mob/living/user, human_occupant = 0)
 	if(human_occupant)
 		eject_action.Grant(user, src)
 	internals_action.Grant(user, src)
@@ -12,7 +12,7 @@ TYPE_PROC_REF(/obj/mecha, GrantActions)(mob/living/user, human_occupant = 0)
 		strafing_action.Grant(user, src)
 
 
-TYPE_PROC_REF(/obj/mecha, RemoveActions)(mob/living/user, human_occupant = 0)
+/obj/mecha/proc/RemoveActions(mob/living/user, human_occupant = 0)
 	if(human_occupant)
 		eject_action.Remove(user)
 	internals_action.Remove(user)
@@ -159,7 +159,7 @@ TYPE_PROC_REF(/obj/mecha, RemoveActions)(mob/living/user, human_occupant = 0)
 		toggle_strafe()
 		return TRUE
 
-TYPE_PROC_REF(/obj/mecha, toggle_strafe)()
+/obj/mecha/proc/toggle_strafe()
 	strafe = !strafe
 
 	occupant_message("Toggled strafing mode [strafe?"on":"off"].")

@@ -24,7 +24,7 @@
 	icon_state = initial(icon_state)
 	desc = initial(desc)
 
-TYPE_PROC_REF(/obj/item/evidencebag, evidencebagEquip)(obj/item/I, mob/user)
+/obj/item/evidencebag/proc/evidencebagEquip(obj/item/I, mob/user)
 	if(!istype(I) || I.anchored == TRUE)
 		return
 

@@ -15,7 +15,7 @@
 /obj/machinery/doorButtons/attackby(obj/O, mob/user)
 	return attack_hand(user)
 
-TYPE_PROC_REF(/obj/machinery/doorButtons, findObjsByTag)()
+/obj/machinery/doorButtons/proc/findObjsByTag()
 	return
 
 /obj/machinery/doorButtons/Initialize()
@@ -36,7 +36,7 @@ TYPE_PROC_REF(/obj/machinery/doorButtons, findObjsByTag)()
 	to_chat(user, span_warning("You short out the access controller."))
 	return TRUE
 
-TYPE_PROC_REF(/obj/machinery/doorButtons, removeMe)()
+/obj/machinery/doorButtons/proc/removeMe()
 
 
 /obj/machinery/doorButtons/access_button
@@ -149,18 +149,18 @@ TYPE_PROC_REF(/obj/machinery/doorButtons, removeMe)()
 		if("open_interior")
 			onlyOpen(interiorAirlock)
 
-TYPE_PROC_REF(/obj/machinery/doorButtons/airlock_controller, onlyOpen)(obj/machinery/door/airlock/A)
+/obj/machinery/doorButtons/airlock_controller/proc/onlyOpen(obj/machinery/door/airlock/A)
 	if(A)
 		busy = CLOSING
 		update_icon()
 		openDoor(A)
 
-TYPE_PROC_REF(/obj/machinery/doorButtons/airlock_controller, onlyClose)(obj/machinery/door/airlock/A)
+/obj/machinery/doorButtons/airlock_controller/proc/onlyClose(obj/machinery/door/airlock/A)
 	if(A)
 		busy = CLOSING
 		closeDoor(A)
 
-TYPE_PROC_REF(/obj/machinery/doorButtons/airlock_controller, closeDoor)(obj/machinery/door/airlock/A)
+/obj/machinery/doorButtons/airlock_controller/proc/closeDoor(obj/machinery/door/airlock/A)
 	set waitfor = FALSE
 	if(A.density)
 		goIdle()
@@ -178,7 +178,7 @@ TYPE_PROC_REF(/obj/machinery/doorButtons/airlock_controller, closeDoor)(obj/mach
 	else
 		goIdle(1)
 
-TYPE_PROC_REF(/obj/machinery/doorButtons/airlock_controller, cycleClose)(obj/machinery/door/airlock/A)
+/obj/machinery/doorButtons/airlock_controller/proc/cycleClose(obj/machinery/door/airlock/A)
 	if(!A || !exteriorAirlock || !interiorAirlock)
 		return
 	if(exteriorAirlock.density == interiorAirlock.density || !A.density)
@@ -192,7 +192,7 @@ TYPE_PROC_REF(/obj/machinery/doorButtons/airlock_controller, cycleClose)(obj/mac
 		if(closeDoor(interiorAirlock))
 			busy = CYCLE_EXTERIOR
 
-TYPE_PROC_REF(/obj/machinery/doorButtons/airlock_controller, cycleOpen)(obj/machinery/door/airlock/A)
+/obj/machinery/doorButtons/airlock_controller/proc/cycleOpen(obj/machinery/door/airlock/A)
 	if(!A)
 		goIdle(1)
 	if(A == exteriorAirlock)
@@ -207,7 +207,7 @@ TYPE_PROC_REF(/obj/machinery/doorButtons/airlock_controller, cycleOpen)(obj/mach
 		busy = OPENING
 		openDoor(A)
 
-TYPE_PROC_REF(/obj/machinery/doorButtons/airlock_controller, openDoor)(obj/machinery/door/airlock/A)
+/obj/machinery/doorButtons/airlock_controller/proc/openDoor(obj/machinery/door/airlock/A)
 	if(exteriorAirlock && interiorAirlock && (!exteriorAirlock.density || !interiorAirlock.density))
 		goIdle(1)
 		return
@@ -218,7 +218,7 @@ TYPE_PROC_REF(/obj/machinery/doorButtons/airlock_controller, openDoor)(obj/machi
 				A.bolt()
 		goIdle(1)
 
-TYPE_PROC_REF(/obj/machinery/doorButtons/airlock_controller, goIdle)(update)
+/obj/machinery/doorButtons/airlock_controller/proc/goIdle(update)
 	lostPower = 0
 	busy = FALSE
 	if(update)
@@ -263,7 +263,7 @@ TYPE_PROC_REF(/obj/machinery/doorButtons/airlock_controller, goIdle)(update)
 	popup.set_content(returnText())
 	popup.open()
 
-TYPE_PROC_REF(/obj/machinery/doorButtons/airlock_controller, returnText)()
+/obj/machinery/doorButtons/airlock_controller/proc/returnText()
 	var/output
 	if(!exteriorAirlock && !interiorAirlock)
 		return "ERROR ERROR ERROR ERROR"

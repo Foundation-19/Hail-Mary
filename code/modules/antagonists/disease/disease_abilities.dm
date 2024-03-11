@@ -85,14 +85,14 @@ new /datum/disease_ability/symptom/powerful/youth
 				if(long_desc == "")
 					long_desc = initial(S.desc)
 
-TYPE_PROC_REF(/datum/disease_ability, CanBuy)(mob/camera/disease/D)
+/datum/disease_ability/proc/CanBuy(mob/camera/disease/D)
 	if(world.time < D.next_adaptation_time)
 		return FALSE
 	if(!D.unpurchased_abilities[src])
 		return FALSE
 	return (D.points >= cost) && (D.total_points >= required_total_points)
 
-TYPE_PROC_REF(/datum/disease_ability, Buy)(mob/camera/disease/D, silent = FALSE, trigger_cooldown = TRUE)
+/datum/disease_ability/proc/Buy(mob/camera/disease/D, silent = FALSE, trigger_cooldown = TRUE)
 	if(!silent)
 		to_chat(D, span_notice("Purchased [name]."))
 	D.points -= cost
@@ -114,12 +114,12 @@ TYPE_PROC_REF(/datum/disease_ability, Buy)(mob/camera/disease/D, silent = FALSE,
 		A.Grant(D)
 
 
-TYPE_PROC_REF(/datum/disease_ability, CanRefund)(mob/camera/disease/D)
+/datum/disease_ability/proc/CanRefund(mob/camera/disease/D)
 	if(world.time < D.next_adaptation_time)
 		return FALSE
 	return D.purchased_abilities[src]
 
-TYPE_PROC_REF(/datum/disease_ability, Refund)(mob/camera/disease/D, silent = FALSE, trigger_cooldown = TRUE)
+/datum/disease_ability/proc/Refund(mob/camera/disease/D, silent = FALSE, trigger_cooldown = TRUE)
 	if(!silent)
 		to_chat(D, span_notice("Refunded [name]."))
 	D.points += cost

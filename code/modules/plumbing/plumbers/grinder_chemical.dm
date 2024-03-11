@@ -44,11 +44,11 @@
 	if(move_dir == eat_dir)
 		return TRUE
 
-TYPE_PROC_REF(/obj/machinery/plumbing/grinder_chemical, on_entered)(atom/movable/AM)
+/obj/machinery/plumbing/grinder_chemical/proc/on_entered(atom/movable/AM)
 	SIGNAL_HANDLER
 	INVOKE_ASYNC(src, PROC_REF(grind), AM)
 
-TYPE_PROC_REF(/obj/machinery/plumbing/grinder_chemical, grind)(atom/AM)
+/obj/machinery/plumbing/grinder_chemical/proc/grind(atom/AM)
 	if(stat & NOPOWER)
 		return
 	if(reagents.holder_full())

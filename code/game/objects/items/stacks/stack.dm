@@ -89,10 +89,10 @@
 	update_weight()
 	update_icon()
 
-TYPE_PROC_REF(/obj/item/stack, get_main_recipes)()
+/obj/item/stack/proc/get_main_recipes()
 	return list()//empty list
 
-TYPE_PROC_REF(/obj/item/stack, update_weight)()
+/obj/item/stack/proc/update_weight()
 	if(amount <= (max_amount * (1/3)))
 		w_class = clamp(full_w_class-2, WEIGHT_CLASS_TINY, full_w_class)
 	else if (amount <= (max_amount * (2/3)))
@@ -145,7 +145,7 @@ TYPE_PROC_REF(/obj/item/stack, update_weight)()
 		. += "There is [get_amount()] in the stack."
 	. += span_notice("Alt-click to take a custom amount.")
 
-TYPE_PROC_REF(/obj/item/stack, get_amount)()
+/obj/item/stack/proc/get_amount()
 	if(is_cyborg)
 		. = round(source.energy / cost)
 	else
@@ -298,7 +298,7 @@ TYPE_PROC_REF(/obj/item/stack, get_amount)()
 				qdel(I)
 		//BubbleWrap END
 
-TYPE_PROC_REF(/obj/item/stack, building_checks)(datum/stack_recipe/R, multiplier)
+/obj/item/stack/proc/building_checks(datum/stack_recipe/R, multiplier)
 	if (get_amount() < R.req_amount*multiplier)
 		if (R.req_amount*multiplier>1)
 			to_chat(usr, span_warning("You haven't got enough [src] to build \the [R.req_amount*multiplier] [R.title]\s!"))
@@ -378,7 +378,7 @@ TYPE_PROC_REF(/obj/item/stack, building_checks)(datum/stack_recipe/R, multiplier
 
 	return TRUE
 
-TYPE_PROC_REF(/obj/item/stack, zero_amount)()
+/obj/item/stack/proc/zero_amount()
 	if(is_cyborg)
 		return source.energy < cost
 	if(amount < 1)
@@ -386,7 +386,7 @@ TYPE_PROC_REF(/obj/item/stack, zero_amount)()
 		return 1
 	return 0
 
-TYPE_PROC_REF(/obj/item/stack, add)(amount)
+/obj/item/stack/proc/add(amount)
 	if (is_cyborg)
 		source.add_charge(amount * cost)
 	else
@@ -405,7 +405,7 @@ TYPE_PROC_REF(/obj/item/stack, add)(amount)
  * - [check][/obj/item/stack]: The stack to check for mergeability.
  * - [inhand][boolean]: Whether or not the stack to check should act like it's in a mob's hand.
  */
-TYPE_PROC_REF(/obj/item/stack, can_merge)(obj/item/stack/check, inhand = FALSE)
+/obj/item/stack/proc/can_merge(obj/item/stack/check, inhand = FALSE)
 	if(!istype(check))
 		return FALSE
 	if(check.merge_type != merge_type)
@@ -425,7 +425,7 @@ TYPE_PROC_REF(/obj/item/stack, can_merge)(obj/item/stack/check, inhand = FALSE)
  *
  * As a result, this proc can leave behind a 0 amount stack.
  */
-TYPE_PROC_REF(/obj/item/stack, merge_without_del)(obj/item/stack/target_stack, limit)
+/obj/item/stack/proc/merge_without_del(obj/item/stack/target_stack, limit)
 	// Cover edge cases where multiple stacks are being merged together and haven't been deleted properly.
 	// Also cover edge case where a stack is being merged into itself, which is supposedly possible.
 	if(QDELETED(target_stack))
@@ -441,7 +441,7 @@ TYPE_PROC_REF(/obj/item/stack, merge_without_del)(obj/item/stack/target_stack, l
 	else
 		transfer = min(transfer, (limit ? limit : target_stack.max_amount) - target_stack.amount)
 	if(pulledby)
-		INVOKE_ASYNC(pulledby, TYPE_PROC_REF(/atom/movable, start_pulling), target_stack)
+		INVOKE_ASYNC(pulledby, /atom/movable/.proc/start_pulling, target_stack)
 	target_stack.copy_evidences(src)
 	use(transfer, transfer = TRUE, check = FALSE)
 	target_stack.add(transfer)
@@ -452,12 +452,12 @@ TYPE_PROC_REF(/obj/item/stack, merge_without_del)(obj/item/stack/target_stack, l
 		target_stack.mats_per_unit = temp_mats_list
 	return transfer
 
-TYPE_PROC_REF(/obj/item/stack, merge)(obj/item/stack/target_stack, limit)
+/obj/item/stack/proc/merge(obj/item/stack/target_stack, limit)
 	. = merge_without_del(target_stack, limit)
 	zero_amount()
 
 /// Signal handler for connect_loc element. Called when a movable enters the turf we're currently occupying. Merges if possible.
-TYPE_PROC_REF(/obj/item/stack, on_movable_entered_occupied_turf)(datum/source, atom/movable/arrived)
+/obj/item/stack/proc/on_movable_entered_occupied_turf(datum/source, atom/movable/arrived)
 	SIGNAL_HANDLER
 
 	// Edge case. This signal will also be sent when src has entered the turf. Don't want to merge with ourselves.
@@ -501,7 +501,7 @@ TYPE_PROC_REF(/obj/item/stack, on_movable_entered_occupied_turf)(datum/source, a
 			to_chat(user, span_notice("You take [stackmaterial] sheets out of the stack"))
 		return TRUE
 
-TYPE_PROC_REF(/obj/item/stack, change_stack)(mob/user, amount)
+/obj/item/stack/proc/change_stack(mob/user, amount)
 	if(!use(amount, TRUE, FALSE))
 		return FALSE
 	var/obj/item/stack/F = new type(user? user : drop_location(), amount, FALSE)
@@ -522,7 +522,7 @@ TYPE_PROC_REF(/obj/item/stack, change_stack)(mob/user, amount)
 	else
 		. = ..()
 
-TYPE_PROC_REF(/obj/item/stack, copy_evidences)(obj/item/stack/from)
+/obj/item/stack/proc/copy_evidences(obj/item/stack/from)
 	if(from.blood_DNA)
 		blood_DNA = from.blood_DNA.Copy()
 	if(from.fingerprints)

@@ -60,7 +60,7 @@
 	msg += "<b>Total Players: [length(GLOB.clients)]</b>"
 	to_chat(src, msg)
 
-TYPE_PROC_REF(/client, show_sum_info)(client/C, _adminStatus) // A parody to show_admin_info, except it shows some, but not all. <3 
+/client/proc/show_sum_info(client/C, _adminStatus) // A parody to show_admin_info, except it shows some, but not all. <3 
 	if(!C)
 		return ""
 

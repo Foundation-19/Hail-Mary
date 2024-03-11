@@ -23,7 +23,7 @@
 /obj/item/toy/plush/carpplushie/dehy_carp/plop(obj/item/toy/plush/Daddy)
 	return FALSE
 
-TYPE_PROC_REF(/obj/item/toy/plush/carpplushie/dehy_carp, Swell)()
+/obj/item/toy/plush/carpplushie/dehy_carp/proc/Swell()
 	desc = "It's growing!"
 	visible_message(span_notice("[src] swells up!"))
 

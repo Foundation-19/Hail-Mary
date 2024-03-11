@@ -266,7 +266,7 @@
 	addtimer(CALLBACK(src, PROC_REF(stop_spinning)), 50)
 	holder.update_action_buttons_icon()
 
-TYPE_PROC_REF(/datum/action/innate/cult/spin2win, stop_spinning)()
+/datum/action/innate/cult/spin2win/proc/stop_spinning()
 	sword.spinning = FALSE
 	sword.block_chance = 50
 	sword.slowdown -= 1.5
@@ -595,7 +595,7 @@ TYPE_PROC_REF(/datum/action/innate/cult/spin2win, stop_spinning)()
 	else
 		. += span_cult("It seems drained.")
 
-TYPE_PROC_REF(/obj/item/cult_shift, handle_teleport_grab)(turf/T, mob/user)
+/obj/item/cult_shift/proc/handle_teleport_grab(turf/T, mob/user)
 	var/mob/living/carbon/C = user
 	if(C.pulling)
 		var/atom/movable/pulled = C.pulling
@@ -719,11 +719,11 @@ TYPE_PROC_REF(/obj/item/cult_shift, handle_teleport_grab)(turf/T, mob/user)
 	AddComponent(/datum/component/two_handed, force_unwielded=17, force_wielded=24, icon_wielded="bloodspear1")
 
 /// triggered on wield of two handed item
-TYPE_PROC_REF(/obj/item/cult_spear, on_wield)(obj/item/source, mob/user)
+/obj/item/cult_spear/proc/on_wield(obj/item/source, mob/user)
 	wielded = TRUE
 
 /// triggered on unwield of two handed item
-TYPE_PROC_REF(/obj/item/cult_spear, on_unwield)(obj/item/source, mob/user)
+/obj/item/cult_spear/proc/on_unwield(obj/item/source, mob/user)
 	wielded = FALSE
 
 /obj/item/cult_spear/update_icon_state()
@@ -757,7 +757,7 @@ TYPE_PROC_REF(/obj/item/cult_spear, on_unwield)(obj/item/source, mob/user)
 	else
 		..()
 
-TYPE_PROC_REF(/obj/item/cult_spear, break_spear)(turf/T)
+/obj/item/cult_spear/proc/break_spear(turf/T)
 	if(src)
 		if(!T)
 			T = get_turf(src)
@@ -894,7 +894,7 @@ TYPE_PROC_REF(/obj/item/cult_spear, break_spear)(turf/T)
 		qdel(src)
 	charging = FALSE
 
-TYPE_PROC_REF(/obj/item/blood_beam, charge)(mob/user)
+/obj/item/blood_beam/proc/charge(mob/user)
 	var/obj/O
 	playsound(src, 'sound/magic/lightning_chargeup.ogg', 100, 1)
 	for(var/i in 1 to 12)
@@ -910,7 +910,7 @@ TYPE_PROC_REF(/obj/item/blood_beam, charge)(mob/user)
 	if(O)
 		qdel(O)
 
-TYPE_PROC_REF(/obj/item/blood_beam, pewpew)(mob/user, params)
+/obj/item/blood_beam/proc/pewpew(mob/user, params)
 	var/turf/targets_from = get_turf(src)
 	var/spread = 40
 	var/second = FALSE
@@ -1025,7 +1025,7 @@ TYPE_PROC_REF(/obj/item/blood_beam, pewpew)(mob/user, params)
 			to_chat(owner, "<span class='danger'><b>[src] betrays you!</b></span>")
 		return BLOCK_NONE
 
-TYPE_PROC_REF(/obj/item/shield/mirror, readd)()
+/obj/item/shield/mirror/proc/readd()
 	illusions++
 	if(illusions == initial(illusions) && isliving(loc))
 		var/mob/living/holder = loc

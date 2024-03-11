@@ -3,7 +3,7 @@
 //PUBLIC -  call these wherever you want
 
 
-TYPE_PROC_REF(/mob, throw_alert)(category, type, severity, obj/new_master, override = FALSE)
+/mob/proc/throw_alert(category, type, severity, obj/new_master, override = FALSE)
 
 /** Proc to create or update an alert. Returns the alert if the alert is new or updated, 0 if it was thrown already
  * category is a text string. Each mob may only have one alert per category; the previous one will be replaced
@@ -69,12 +69,12 @@ TYPE_PROC_REF(/mob, throw_alert)(category, type, severity, obj/new_master, overr
 		thealert.timeout = world.time + thealert.timeout - world.tick_lag
 	return thealert
 
-TYPE_PROC_REF(/mob, alert_timeout)(obj/screen/alert/alert, category)
+/mob/proc/alert_timeout(obj/screen/alert/alert, category)
 	if(alert.timeout && alerts[category] == alert && world.time >= alert.timeout)
 		clear_alert(category)
 
 // Proc to clear an existing alert.
-TYPE_PROC_REF(/mob, clear_alert)(category, clear_override = FALSE)
+/mob/proc/clear_alert(category, clear_override = FALSE)
 	var/obj/screen/alert/alert = alerts[category]
 	if(!alert)
 		return 0
@@ -668,7 +668,7 @@ so as to remain in compliance with the most up-to-date laws."
 // PRIVATE = only edit, use, or override these if you're editing the system as a whole
 
 // Re-render all alerts - also called in /datum/hud/show_hud() because it's needed there
-TYPE_PROC_REF(/datum/hud, reorganize_alerts)()
+/datum/hud/proc/reorganize_alerts()
 	var/list/alerts = mymob.alerts
 	if(!hud_shown)
 		for(var/i = 1, i <= alerts.len, i++)

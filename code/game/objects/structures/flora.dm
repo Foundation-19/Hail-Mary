@@ -162,7 +162,7 @@
 	icon_state = "[icon_state][rand(1, 6)]"
 	setup_transparency()
 
-TYPE_PROC_REF(/obj/structure/flora/tree/jungle, setup_transparency)()
+/obj/structure/flora/tree/jungle/proc/setup_transparency()
 	AddComponent(/datum/component/largetransparency, 1, 2, 1, 1)
 
 
@@ -364,7 +364,7 @@ TYPE_PROC_REF(/obj/structure/flora/tree/jungle, setup_transparency)()
 		generate_states()
 	icon_state = pick(states)
 
-TYPE_PROC_REF(/obj/item/kirbyplants/random, generate_states)()
+/obj/item/kirbyplants/random/proc/generate_states()
 	states = list()
 	for(var/i in 1 to 25)
 		var/number
@@ -520,7 +520,7 @@ TYPE_PROC_REF(/obj/item/kirbyplants/random, generate_states)()
 		generate_states()
 	icon_state = pick(states)
 
-TYPE_PROC_REF(/obj/item/twohanded/required/kirbyplants/random, generate_states)()
+/obj/item/twohanded/required/kirbyplants/random/proc/generate_states()
 	states = list()
 	for(var/i in 1 to 25)
 		var/number

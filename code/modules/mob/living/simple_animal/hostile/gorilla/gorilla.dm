@@ -45,7 +45,7 @@
 
 // Gorillas like to dismember limbs from unconcious mobs.
 // Returns null when the target is not an unconcious carbon mob; a list of limbs (possibly empty) otherwise.
-TYPE_PROC_REF(/mob/living/simple_animal/hostile/gorilla, target_bodyparts)(atom/the_target)
+/mob/living/simple_animal/hostile/gorilla/proc/target_bodyparts(atom/the_target)
 	var/list/parts = list()
 	if(iscarbon(the_target))
 		var/mob/living/carbon/C = the_target
@@ -105,7 +105,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/hostile/gorilla, target_bodyparts)(atom/
 	return FALSE
 
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile/gorilla, oogaooga)()
+/mob/living/simple_animal/hostile/gorilla/proc/oogaooga()
 	oogas++
 	if(oogas >= rand(2,6))
 		playsound(src, 'sound/creatures/gorilla.ogg', 200)

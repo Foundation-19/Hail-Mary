@@ -1,5 +1,5 @@
 
-TYPE_PROC_REF(/mob/living/simple_animal, adjustHealth)(amount, updating_health = TRUE, forced = FALSE)
+/mob/living/simple_animal/proc/adjustHealth(amount, updating_health = TRUE, forced = FALSE)
 	if(!forced && (status_flags & GODMODE))
 		return FALSE
 	bruteloss = round(clamp(bruteloss + amount, 0, maxHealth),DAMAGE_PRECISION)

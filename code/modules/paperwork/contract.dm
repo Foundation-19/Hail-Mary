@@ -11,7 +11,7 @@
 	. = ..()
 	AddElement(/datum/element/update_icon_blocker)
 
-TYPE_PROC_REF(/obj/item/paper/contract, update_text)()
+/obj/item/paper/contract/proc/update_text()
 	return
 
 /obj/item/paper/contract/employment
@@ -186,7 +186,7 @@ TYPE_PROC_REF(/obj/item/paper/contract, update_text)()
 	else
 		return ..()
 
-TYPE_PROC_REF(/obj/item/paper/contract/infernal, attempt_signature)(mob/living/carbon/human/user, blood = 0)
+/obj/item/paper/contract/infernal/proc/attempt_signature(mob/living/carbon/human/user, blood = 0)
 	if(!user.IsAdvancedToolUser() || !user.is_literate())
 		to_chat(user, span_notice("You don't know how to read or write."))
 		return 0
@@ -244,11 +244,11 @@ TYPE_PROC_REF(/obj/item/paper/contract/infernal, attempt_signature)(mob/living/c
 	else
 		..()
 
-TYPE_PROC_REF(/obj/item/paper/contract/infernal/revive, resetcooldown)()
+/obj/item/paper/contract/infernal/revive/proc/resetcooldown()
 	cooldown = FALSE
 
 
-TYPE_PROC_REF(/obj/item/paper/contract/infernal, fulfillContract)(mob/living/carbon/human/user = target.current, blood = FALSE)
+/obj/item/paper/contract/infernal/proc/fulfillContract(mob/living/carbon/human/user = target.current, blood = FALSE)
 	signed = TRUE
 	if(user.mind.soulOwner != user.mind) //They already sold their soul to someone else?
 		var/datum/antagonist/devil/ownerDevilInfo = user.mind.soulOwner.has_antag_datum(/datum/antagonist/devil)
@@ -263,7 +263,7 @@ TYPE_PROC_REF(/obj/item/paper/contract/infernal, fulfillContract)(mob/living/car
 	to_chat(user, span_boldnotice("This does NOT make you an antagonist if you were not already."))
 	return TRUE
 
-TYPE_PROC_REF(/obj/item/paper/contract/infernal, signIncorrectly)(mob/living/carbon/human/user = target.current, blood = FALSE)
+/obj/item/paper/contract/infernal/proc/signIncorrectly(mob/living/carbon/human/user = target.current, blood = FALSE)
 	signed = 1
 	update_text("your name", blood)
 

@@ -23,7 +23,7 @@
 	attached_targets[target] = comsig_target
 	RegisterSignal(target, comsig, PROC_REF(check_loss)) //Second arg of the signal will be checked against the comsig_target.
 
-TYPE_PROC_REF(/datum/element/dwarfism, check_loss)(mob/living/L, comsig_target)
+/datum/element/dwarfism/proc/check_loss(mob/living/L, comsig_target)
 	if(attached_targets[L] == comsig_target)
 		Detach(L)
 

@@ -41,7 +41,7 @@
 	else
 		visor.deactivate()
 
-TYPE_PROC_REF(/obj/item/rig, toggle_helmet)()
+/obj/item/rig/proc/toggle_helmet()
 	set name = "Toggle Helmet"
 	set desc = "Deploys or retracts your helmet."
 	set category = "Hardsuit"
@@ -60,7 +60,7 @@ TYPE_PROC_REF(/obj/item/rig, toggle_helmet)()
 
 	toggle_piece("helmet", usr)
 
-TYPE_PROC_REF(/obj/item/rig, toggle_chest)()
+/obj/item/rig/proc/toggle_chest()
 	set name = "Toggle Chestpiece"
 	set desc = "Deploys or retracts your chestpiece."
 	set category = "Hardsuit"
@@ -75,7 +75,7 @@ TYPE_PROC_REF(/obj/item/rig, toggle_chest)()
 
 	toggle_piece("chest", usr)
 
-TYPE_PROC_REF(/obj/item/rig, toggle_gauntlets)()
+/obj/item/rig/proc/toggle_gauntlets()
 	set name = "Toggle Gauntlets"
 	set desc = "Deploys or retracts your gauntlets."
 	set category = "Hardsuit"
@@ -94,7 +94,7 @@ TYPE_PROC_REF(/obj/item/rig, toggle_gauntlets)()
 
 	toggle_piece("gauntlets", usr)
 
-TYPE_PROC_REF(/obj/item/rig, toggle_boots)()
+/obj/item/rig/proc/toggle_boots()
 	set name = "Toggle Boots"
 	set desc = "Deploys or retracts your boots."
 	set category = "Hardsuit"

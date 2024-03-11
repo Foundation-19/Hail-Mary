@@ -3,7 +3,7 @@
 	mentor_datum_set()
 	staff_setup() //fortuna addition
 
-TYPE_PROC_REF(/client, citadel_client_procs)(href_list)
+/client/proc/citadel_client_procs(href_list)
 	if(href_list["mentor_msg"])
 		if(CONFIG_GET(flag/mentors_mobname_only))
 			var/mob/M = locate(href_list["mentor_msg"])
@@ -26,7 +26,7 @@ TYPE_PROC_REF(/client, citadel_client_procs)(href_list)
 			mentor_unfollow()
 		return TRUE
 
-TYPE_PROC_REF(/client, mentor_datum_set)(admin)
+/client/proc/mentor_datum_set(admin)
 	mentor_datum = GLOB.mentor_datums[ckey]
 	if(!mentor_datum && check_rights_for(src, R_ADMIN,0)) // admin with no mentor datum?let's fix that
 		new /datum/mentors(ckey)
@@ -37,15 +37,15 @@ TYPE_PROC_REF(/client, mentor_datum_set)(admin)
 		add_mentor_verbs()
 		mentor_memo_output("Show")
 
-TYPE_PROC_REF(/client, is_mentor)() // admins are mentors too.
+/client/proc/is_mentor() // admins are mentors too.
 	if(mentor_datum || check_rights_for(src, R_ADMIN,0))
 		return TRUE
 
-TYPE_PROC_REF(/client, is_staff)() // fortuna add
+/client/proc/is_staff() // fortuna add
 	if(check_rights_for(src, R_SPAWN,0) || check_rights_for(src, R_ADMIN,0))
 		return TRUE
 
-TYPE_PROC_REF(/client, staff_setup)()
+/client/proc/staff_setup()
 	if(is_staff())
 		GLOB.staff |= src
 		add_staff_verbs()

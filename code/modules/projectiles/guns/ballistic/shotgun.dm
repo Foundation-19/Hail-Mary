@@ -63,7 +63,7 @@
 		process_fire(user, user, FALSE)
 		. = 1
 
-/* TYPE_PROC_REF(/obj/item/gun/ballistic/shotgun, pump)(mob/M, visible = TRUE)
+/* /obj/item/gun/ballistic/shotgun/proc/pump(mob/M, visible = TRUE)
 	if(visible)
 		M.visible_message(span_warning("[M] racks [src]."), span_warning("You rack [src]."))
 	playsound(M, cock_sound, 60, 1)
@@ -73,13 +73,13 @@
 	update_firemode()
 	return 1
 
-TYPE_PROC_REF(/obj/item/gun/ballistic/shotgun, pump_unload)(mob/M)
+/obj/item/gun/ballistic/shotgun/proc/pump_unload(mob/M)
 	if(chambered)//We have a shell in the chamber
 		chambered.forceMove(drop_location())//Eject casing
 		chambered.bounce_away()
 		chambered = null
 
-TYPE_PROC_REF(/obj/item/gun/ballistic/shotgun, pump_reload)(mob/M)
+/obj/item/gun/ballistic/shotgun/proc/pump_reload(mob/M)
 	if(!magazine.ammo_count())
 		return 0
 	var/obj/item/ammo_casing/AC = magazine.get_round() //load next casing.
@@ -311,7 +311,7 @@ TYPE_PROC_REF(/obj/item/gun/ballistic/shotgun, pump_reload)(mob/M)
 	. = ..()
 	. += span_notice("Alt-click to toggle the stock.")
 
-TYPE_PROC_REF(/obj/item/gun/ballistic/shotgun/police, toggle_stock)(mob/living/user)
+/obj/item/gun/ballistic/shotgun/police/proc/toggle_stock(mob/living/user)
 	stock = !stock
 	if(stock)
 		slot_flags = ITEM_SLOT_BACK
@@ -529,7 +529,7 @@ TYPE_PROC_REF(/obj/item/gun/ballistic/shotgun/police, toggle_stock)(mob/living/u
 	if(!magazine.contents.len)
 		toggle_tube(user)
 
-TYPE_PROC_REF(/obj/item/gun/ballistic/shotgun/automatic/combat/neostead, toggle_tube)(mob/living/user)
+/obj/item/gun/ballistic/shotgun/automatic/combat/neostead/proc/toggle_tube(mob/living/user)
 	var/current_mag = magazine
 	var/alt_mag = alternate_magazine
 	magazine = alt_mag

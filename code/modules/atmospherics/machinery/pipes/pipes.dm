@@ -42,7 +42,7 @@
 		invisibility = i ? INVISIBILITY_MAXIMUM : 0
 	update_icon()
 
-TYPE_PROC_REF(/obj/machinery/atmospherics/pipe, releaseAirToTurf)()
+/obj/machinery/atmospherics/pipe/proc/releaseAirToTurf()
 	if(air_temporary)
 		var/turf/T = loc
 		T.assume_air(air_temporary)
@@ -93,10 +93,10 @@ TYPE_PROC_REF(/obj/machinery/atmospherics/pipe, releaseAirToTurf)()
 	. = ..()
 	update_alpha()
 
-TYPE_PROC_REF(/obj/machinery/atmospherics/pipe, update_alpha)()
+/obj/machinery/atmospherics/pipe/proc/update_alpha()
 	alpha = invisibility ? 64 : 255
 
-TYPE_PROC_REF(/obj/machinery/atmospherics/pipe, update_node_icon)()
+/obj/machinery/atmospherics/pipe/proc/update_node_icon()
 	for(var/i in 1 to device_type)
 		if(nodes[i])
 			var/obj/machinery/atmospherics/N = nodes[i]
@@ -110,7 +110,7 @@ TYPE_PROC_REF(/obj/machinery/atmospherics/pipe, update_node_icon)()
 		return 0
 	. = ..()
 
-TYPE_PROC_REF(/obj/machinery/atmospherics/pipe, paint)(paint_color)
+/obj/machinery/atmospherics/pipe/proc/paint(paint_color)
 	add_atom_colour(paint_color, FIXED_COLOUR_PRIORITY)
 	pipe_color = paint_color
 	update_node_icon()

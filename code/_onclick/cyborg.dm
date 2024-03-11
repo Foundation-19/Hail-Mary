@@ -100,7 +100,7 @@
 /mob/living/silicon/robot/AltClickOn(atom/A)
 	A.BorgAltClick(src)
 
-TYPE_PROC_REF(/atom, BorgCtrlShiftClick)(mob/living/silicon/robot/user) //forward to human click if not overridden
+/atom/proc/BorgCtrlShiftClick(mob/living/silicon/robot/user) //forward to human click if not overridden
 	CtrlShiftClick(user)
 
 /obj/machinery/door/airlock/BorgCtrlShiftClick(mob/living/silicon/robot/user) // Sets/Unsets Emergency Access Override Forwards to AI code.
@@ -110,7 +110,7 @@ TYPE_PROC_REF(/atom, BorgCtrlShiftClick)(mob/living/silicon/robot/user) //forwar
 		..()
 
 
-TYPE_PROC_REF(/atom, BorgShiftClick)(mob/living/silicon/robot/user) //forward to human click if not overridden
+/atom/proc/BorgShiftClick(mob/living/silicon/robot/user) //forward to human click if not overridden
 	ShiftClick(user)
 
 /obj/machinery/door/airlock/BorgShiftClick(mob/living/silicon/robot/user)  // Opens and closes doors! Forwards to AI code.
@@ -120,7 +120,7 @@ TYPE_PROC_REF(/atom, BorgShiftClick)(mob/living/silicon/robot/user) //forward to
 		..()
 
 
-TYPE_PROC_REF(/atom, BorgCtrlClick)(mob/living/silicon/robot/user) //forward to human click if not overridden
+/atom/proc/BorgCtrlClick(mob/living/silicon/robot/user) //forward to human click if not overridden
 	CtrlClick(user)
 
 /obj/machinery/door/airlock/BorgCtrlClick(mob/living/silicon/robot/user) // Bolts doors. Forwards to AI code.
@@ -141,7 +141,7 @@ TYPE_PROC_REF(/atom, BorgCtrlClick)(mob/living/silicon/robot/user) //forward to 
 	else
 		..()
 
-TYPE_PROC_REF(/atom, BorgAltClick)(mob/living/silicon/robot/user)
+/atom/proc/BorgAltClick(mob/living/silicon/robot/user)
 	return AltClick(user)
 
 /obj/machinery/door/airlock/BorgAltClick(mob/living/silicon/robot/user) // Eletrifies doors. Forwards to AI code.
@@ -168,6 +168,6 @@ TYPE_PROC_REF(/atom, BorgAltClick)(mob/living/silicon/robot/user)
 /mob/living/silicon/robot/RangedAttack(atom/A)
 	A.attack_robot(src)
 
-TYPE_PROC_REF(/atom, attack_robot)(mob/user)
+/atom/proc/attack_robot(mob/user)
 	attack_ai(user)
 	return

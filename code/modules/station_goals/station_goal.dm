@@ -11,22 +11,22 @@
 	var/completed = FALSE
 	var/report_message = "Complete this goal."
 
-TYPE_PROC_REF(/datum/station_goal, send_report)()
+/datum/station_goal/proc/send_report()
 	priority_announce("Priority Nanotrasen directive received. Project \"[name]\" details inbound.", "Incoming Priority Message", "commandreport")
 	print_command_report(get_report(),"Nanotrasen Directive [pick(GLOB.phonetic_alphabet)] \Roman[rand(1,50)]", announce=FALSE)
 	on_report()
 
-TYPE_PROC_REF(/datum/station_goal, on_report)()
+/datum/station_goal/proc/on_report()
 	//Additional unlocks/changes go here
 	return
 
-TYPE_PROC_REF(/datum/station_goal, get_report)()
+/datum/station_goal/proc/get_report()
 	return report_message
 
-TYPE_PROC_REF(/datum/station_goal, check_completion)()
+/datum/station_goal/proc/check_completion()
 	return completed
 
-TYPE_PROC_REF(/datum/station_goal, get_result)()
+/datum/station_goal/proc/get_result()
 	if(check_completion())
 		return "<li>[name] :  <span class='greentext'>Completed!</span></li>"
 	else

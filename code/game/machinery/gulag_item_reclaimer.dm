@@ -74,7 +74,7 @@
 			drop_items(H)
 			. = TRUE
 
-TYPE_PROC_REF(/obj/machinery/gulag_item_reclaimer, drop_items)(mob/user)
+/obj/machinery/gulag_item_reclaimer/proc/drop_items(mob/user)
 	if(!stored_items[user])
 		return
 	var/drop_location = drop_location()

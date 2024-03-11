@@ -6,7 +6,7 @@ All ShuttleMove procs go here
 
 // Called on every turf in the shuttle region, returns a bitflag for allowed movements of that turf
 // returns the new move_mode (based on the old)
-TYPE_PROC_REF(/turf, fromShuttleMove)(turf/newT, move_mode)
+/turf/proc/fromShuttleMove(turf/newT, move_mode)
 	if(!(move_mode & MOVE_AREA) || !isshuttleturf(src))
 		return move_mode
 
@@ -15,7 +15,7 @@ TYPE_PROC_REF(/turf, fromShuttleMove)(turf/newT, move_mode)
 // Called from the new turf before anything has been moved
 // Only gets called if fromShuttleMove returns true first
 // returns the new move_mode (based on the old)
-TYPE_PROC_REF(/turf, toShuttleMove)(turf/oldT, move_mode, obj/docking_port/mobile/shuttle)
+/turf/proc/toShuttleMove(turf/oldT, move_mode, obj/docking_port/mobile/shuttle)
 	. = move_mode
 	if(!(. & MOVE_TURF))
 		return
@@ -44,7 +44,7 @@ TYPE_PROC_REF(/turf, toShuttleMove)(turf/oldT, move_mode, obj/docking_port/mobil
 				qdel(thing)
 
 // Called on the old turf to move the turf data
-TYPE_PROC_REF(/turf, onShuttleMove)(turf/newT, list/movement_force, move_dir)
+/turf/proc/onShuttleMove(turf/newT, list/movement_force, move_dir)
 	if(newT == src) // In case of in place shuttle rotation shenanigans.
 		return
 	//Destination turf changes
@@ -66,7 +66,7 @@ TYPE_PROC_REF(/turf, onShuttleMove)(turf/newT, list/movement_force, move_dir)
 	return TRUE
 
 // Called on the new turf after everything has been moved
-TYPE_PROC_REF(/turf, afterShuttleMove)(turf/oldT, rotation)
+/turf/proc/afterShuttleMove(turf/oldT, rotation)
 	//Dealing with the turf we left behind
 	oldT.TransferComponents(src)
 	var/shuttle_boundary = baseturfs.Find(/turf/baseturf_skipover/shuttle)
@@ -80,7 +80,7 @@ TYPE_PROC_REF(/turf, afterShuttleMove)(turf/oldT, rotation)
 	
 	return TRUE
 
-TYPE_PROC_REF(/turf, lateShuttleMove)(turf/oldT)
+/turf/proc/lateShuttleMove(turf/oldT)
 	blocks_air = initial(blocks_air)
 	air_update_turf(TRUE)
 	oldT.blocks_air = initial(oldT.blocks_air)
@@ -92,11 +92,11 @@ TYPE_PROC_REF(/turf, lateShuttleMove)(turf/oldT)
 // Called on every atom in shuttle turf contents before anything has been moved
 // returns the new move_mode (based on the old)
 // WARNING: Do not leave turf contents in beforeShuttleMove or dock() will runtime
-TYPE_PROC_REF(/atom/movable, beforeShuttleMove)(turf/newT, rotation, move_mode, obj/docking_port/mobile/moving_dock)
+/atom/movable/proc/beforeShuttleMove(turf/newT, rotation, move_mode, obj/docking_port/mobile/moving_dock)
 	return move_mode
 
 // Called on atoms to move the atom to the new location
-TYPE_PROC_REF(/atom/movable, onShuttleMove)(turf/newT, turf/oldT, list/movement_force, move_dir, obj/docking_port/stationary/old_dock, obj/docking_port/mobile/moving_dock)
+/atom/movable/proc/onShuttleMove(turf/newT, turf/oldT, list/movement_force, move_dir, obj/docking_port/stationary/old_dock, obj/docking_port/mobile/moving_dock)
 	if(newT == oldT) // In case of in place shuttle rotation shenanigans.
 		return
 
@@ -108,7 +108,7 @@ TYPE_PROC_REF(/atom/movable, onShuttleMove)(turf/newT, turf/oldT, list/movement_
 	return TRUE
 
 // Called on atoms after everything has been moved
-TYPE_PROC_REF(/atom/movable, afterShuttleMove)(turf/oldT, list/movement_force, shuttle_dir, shuttle_preferred_direction, move_dir, rotation)
+/atom/movable/proc/afterShuttleMove(turf/oldT, list/movement_force, shuttle_dir, shuttle_preferred_direction, move_dir, rotation)
 
 	var/turf/newT = get_turf(src)
 	if (newT.z != oldT.z)
@@ -123,7 +123,7 @@ TYPE_PROC_REF(/atom/movable, afterShuttleMove)(turf/oldT, list/movement_force, s
 
 	return TRUE
 
-TYPE_PROC_REF(/atom/movable, lateShuttleMove)(turf/oldT, list/movement_force, move_dir)
+/atom/movable/proc/lateShuttleMove(turf/oldT, list/movement_force, move_dir)
 	if(!movement_force || anchored)
 		return
 	var/throw_force = movement_force["THROW"]
@@ -139,13 +139,13 @@ TYPE_PROC_REF(/atom/movable, lateShuttleMove)(turf/oldT, list/movement_force, mo
 
 // Called on areas before anything has been moved
 // returns the new move_mode (based on the old)
-TYPE_PROC_REF(/area, beforeShuttleMove)(list/shuttle_areas)
+/area/proc/beforeShuttleMove(list/shuttle_areas)
 	if(!shuttle_areas[src])
 		return NONE
 	return MOVE_AREA
 
 // Called on areas to move their turf between areas
-TYPE_PROC_REF(/area, onShuttleMove)(turf/oldT, turf/newT, area/underlying_old_area)
+/area/proc/onShuttleMove(turf/oldT, turf/newT, area/underlying_old_area)
 	if(newT == oldT) // In case of in place shuttle rotation shenanigans.
 		return TRUE
 
@@ -163,11 +163,11 @@ TYPE_PROC_REF(/area, onShuttleMove)(turf/oldT, turf/newT, area/underlying_old_ar
 	return TRUE
 
 // Called on areas after everything has been moved
-TYPE_PROC_REF(/area, afterShuttleMove)(new_parallax_dir)
+/area/proc/afterShuttleMove(new_parallax_dir)
 	parallax_movedir = new_parallax_dir
 	return TRUE
 
-TYPE_PROC_REF(/area, lateShuttleMove)()
+/area/proc/lateShuttleMove()
 	return
 
 /************************************Turf move procs************************************/
@@ -181,7 +181,7 @@ TYPE_PROC_REF(/area, lateShuttleMove)()
 	for(var/obj/machinery/door/airlock/A in range(1, src))  // includes src
 		A.shuttledocked = FALSE
 		A.air_tight = TRUE
-		addtimer(CALLBACK(A, TYPE_PROC_REF(/obj/machinery/door, close)), 0)
+		addtimer(CALLBACK(A, /obj/machinery/door/.proc/close), 0)
 
 /obj/machinery/door/airlock/afterShuttleMove(turf/oldT, list/movement_force, shuttle_dir, shuttle_preferred_direction, move_dir, rotation)
 	. = ..()
@@ -390,4 +390,4 @@ TYPE_PROC_REF(/area, lateShuttleMove)()
 
 /obj/effect/abstract/proximity_checker/onShuttleMove(turf/newT, turf/oldT, list/movement_force, move_dir, obj/docking_port/stationary/old_dock, obj/docking_port/mobile/moving_dock)
 	//timer so it only happens once
-	addtimer(CALLBACK(monitor, TYPE_PROC_REF(/datum/proximity_monitor, SetRange), monitor.current_range, TRUE), 0, TIMER_UNIQUE)
+	addtimer(CALLBACK(monitor, /datum/proximity_monitor/proc/SetRange, monitor.current_range, TRUE), 0, TIMER_UNIQUE)

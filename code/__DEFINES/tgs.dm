@@ -124,12 +124,12 @@
 //REQUIRED HOOKS
 
 /**
- * Call this somewhere in [TYPE_PROC_REF(/world, New)] that is always run. This function may sleep!
+ * Call this somewhere in [/world/proc/New] that is always run. This function may sleep!
  *
  * * event_handler - Optional user defined [/datum/tgs_event_handler].
  * * minimum_required_security_level: The minimum required security level to run the game in which the DMAPI is integrated. Can be one of [TGS_SECURITY_ULTRASAFE], [TGS_SECURITY_SAFE], or [TGS_SECURITY_TRUSTED].
  */
-TYPE_PROC_REF(/world, TgsNew)(datum/tgs_event_handler/event_handler, minimum_required_security_level = TGS_SECURITY_ULTRASAFE)
+/world/proc/TgsNew(datum/tgs_event_handler/event_handler, minimum_required_security_level = TGS_SECURITY_ULTRASAFE)
 	return
 
 /**
@@ -137,18 +137,18 @@ TYPE_PROC_REF(/world, TgsNew)(datum/tgs_event_handler/event_handler, minimum_req
  *
  * This may use [/world/var/sleep_offline] to make this happen so ensure no changes are made to it while this call is running.
  * Afterwards, consider explicitly setting it to what you want to avoid this BYOND bug: http://www.byond.com/forum/post/2575184
- * This function should not be called before ..() in [TYPE_PROC_REF(/world, New)].
+ * This function should not be called before ..() in [/world/proc/New].
  */
-TYPE_PROC_REF(/world, TgsInitializationComplete)()
+/world/proc/TgsInitializationComplete()
 	return
 
-/// Put this at the start of [TYPE_PROC_REF(/world, Topic)].
+/// Put this at the start of [/world/proc/Topic].
 #define TGS_TOPIC var/tgs_topic_return = TgsTopic(args[1]); if(tgs_topic_return) return tgs_topic_return
 
 /**
- * Call this as late as possible in [TYPE_PROC_REF(world, Reboot)].
+ * Call this as late as possible in [world/proc/Reboot].
  */
-TYPE_PROC_REF(/world, TgsReboot)()
+/world/proc/TgsReboot()
 	return
 
 // DATUM DEFINITIONS
@@ -185,7 +185,7 @@ TYPE_PROC_REF(/world, TgsReboot)()
 /**
  * Returns [TRUE]/[FALSE] based on if the [/datum/tgs_version] contains wildcards.
  */
-TYPE_PROC_REF(/datum/tgs_version, Wildcard)()
+/datum/tgs_version/proc/Wildcard()
 	return
 
 /**
@@ -193,7 +193,7 @@ TYPE_PROC_REF(/datum/tgs_version, Wildcard)()
  *
  * other_version - The [/datum/tgs_version] to compare against.
  */
-TYPE_PROC_REF(/datum/tgs_version, Equals)(datum/tgs_version/other_version)
+/datum/tgs_version/proc/Equals(datum/tgs_version/other_version)
 	return
 
 /// Represents a merge of a GitHub pull request.
@@ -246,7 +246,7 @@ TYPE_PROC_REF(/datum/tgs_version, Equals)(datum/tgs_version/other_version)
  *
  * event_code - One of the TGS_EVENT_ defines. Extra parameters will be documented in each
  */
-TYPE_PROC_REF(/datum/tgs_event_handler, HandleEvent)(event_code, ...)
+/datum/tgs_event_handler/proc/HandleEvent(event_code, ...)
 	set waitfor = FALSE
 	return
 
@@ -267,7 +267,7 @@ TYPE_PROC_REF(/datum/tgs_event_handler, HandleEvent)(event_code, ...)
  * sender - The [/datum/tgs_chat_user] who issued the command.
  * params - The trimmed string following the command `/datum/tgs_chat_command/var/name].
  */
-TYPE_PROC_REF(/datum/tgs_chat_command, Run)(datum/tgs_chat_user/sender, params)
+/datum/tgs_chat_command/proc/Run(datum/tgs_chat_user/sender, params)
 	CRASH("[type] has no implementation for Run()")
 
 /// User definable chat message
@@ -374,17 +374,17 @@ TYPE_PROC_REF(/datum/tgs_chat_command, Run)(datum/tgs_chat_user/sender, params)
 // API FUNCTIONS
 
 /// Returns the maximum supported [/datum/tgs_version] of the DMAPI.
-TYPE_PROC_REF(/world, TgsMaximumApiVersion)()
+/world/proc/TgsMaximumApiVersion()
 	return
 
 /// Returns the minimum supported [/datum/tgs_version] of the DMAPI.
-TYPE_PROC_REF(/world, TgsMinimumApiVersion)()
+/world/proc/TgsMinimumApiVersion()
 	return
 
 /**
  * Returns [TRUE] if DreamDaemon was launched under TGS, the API matches, and was properly initialized. [FALSE] will be returned otherwise.
  */
-TYPE_PROC_REF(/world, TgsAvailable)()
+/world/proc/TgsAvailable()
 	return
 
 // No function below this succeeds if it TgsAvailable() returns FALSE or if TgsNew() has yet to be called.
@@ -395,7 +395,7 @@ TYPE_PROC_REF(/world, TgsAvailable)()
  * Unlike del(world) clients will try to reconnect.
  * If TGS has not requested a [TGS_REBOOT_MODE_SHUTDOWN] DreamDaemon will be launched again
  */
-TYPE_PROC_REF(/world, TgsEndProcess)()
+/world/proc/TgsEndProcess()
 	return
 
 /**
@@ -404,7 +404,7 @@ TYPE_PROC_REF(/world, TgsEndProcess)()
  * message - The [/datum/tgs_message_content] to send.
  * admin_only: If [TRUE], message will be sent to admin connected chats. Vice-versa applies.
  */
-TYPE_PROC_REF(/world, TgsTargetedChatBroadcast)(datum/tgs_message_content/message, admin_only = FALSE)
+/world/proc/TgsTargetedChatBroadcast(datum/tgs_message_content/message, admin_only = FALSE)
 	return
 
 /**
@@ -413,7 +413,7 @@ TYPE_PROC_REF(/world, TgsTargetedChatBroadcast)(datum/tgs_message_content/messag
  * message - The [/datum/tgs_message_content] to send.
  * user: The [/datum/tgs_chat_user] to PM.
  */
-TYPE_PROC_REF(/world, TgsChatPrivateMessage)(datum/tgs_message_content/message, datum/tgs_chat_user/user)
+/world/proc/TgsChatPrivateMessage(datum/tgs_message_content/message, datum/tgs_chat_user/user)
 	return
 
 // The following functions will sleep if a call to TgsNew() is sleeping
@@ -424,35 +424,35 @@ TYPE_PROC_REF(/world, TgsChatPrivateMessage)(datum/tgs_message_content/message, 
  * message - The [/datum/tgs_message_content] to send.
  * channels - Optional list of [/datum/tgs_chat_channel]s to restrict the message to.
  */
-TYPE_PROC_REF(/world, TgsChatBroadcast)(datum/tgs_message_content/message, list/channels = null)
+/world/proc/TgsChatBroadcast(datum/tgs_message_content/message, list/channels = null)
 	return
 
 /// Returns the current [/datum/tgs_version] of TGS if it is running the server, null otherwise.
-TYPE_PROC_REF(/world, TgsVersion)()
+/world/proc/TgsVersion()
 	return
 
 /// Returns the current [/datum/tgs_version] of the DMAPI being used if it was activated, null otherwise.
-TYPE_PROC_REF(/world, TgsApiVersion)()
+/world/proc/TgsApiVersion()
 	return
 
 /// Returns the name of the TGS instance running the game if TGS is present, null otherwise.
-TYPE_PROC_REF(/world, TgsInstanceName)()
+/world/proc/TgsInstanceName()
 	return
 
 /// Return the current [/datum/tgs_revision_information] of the running server if TGS is present, null otherwise.
-TYPE_PROC_REF(/world, TgsRevision)()
+/world/proc/TgsRevision()
 	return
 
 /// Returns the current BYOND security level as a TGS_SECURITY_ define if TGS is present, null otherwise.
-TYPE_PROC_REF(/world, TgsSecurityLevel)()
+/world/proc/TgsSecurityLevel()
 	return
 
 /// Returns a list of active [/datum/tgs_revision_information/test_merge]s if TGS is present, null otherwise.
-TYPE_PROC_REF(/world, TgsTestMerges)()
+/world/proc/TgsTestMerges()
 	return
 
 /// Returns a list of connected [/datum/tgs_chat_channel]s if TGS is present, null otherwise.
-TYPE_PROC_REF(/world, TgsChatChannelInfo)()
+/world/proc/TgsChatChannelInfo()
 	return
 
 /*

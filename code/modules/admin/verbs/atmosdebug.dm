@@ -1,4 +1,4 @@
-TYPE_PROC_REF(/client, atmosscan)()
+/client/proc/atmosscan()
 	set category = "Mapping"
 	set name = "Check Plumbing"
 	if(!src.holder)
@@ -21,7 +21,7 @@ TYPE_PROC_REF(/client, atmosscan)()
 		if (!pipe.nodes[1] || !pipe.nodes[2])
 			to_chat(usr, "Unconnected [pipe.name] located at [ADMIN_VERBOSEJMP(pipe)]")
 
-TYPE_PROC_REF(/client, powerdebug)()
+/client/proc/powerdebug()
 	set category = "Mapping"
 	set name = "Check Power"
 	if(!src.holder)

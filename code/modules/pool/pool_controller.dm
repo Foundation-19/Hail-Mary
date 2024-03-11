@@ -82,7 +82,7 @@
 	mist_off()
 	return ..()
 
-TYPE_PROC_REF(/obj/machinery/pool/controller, scan_things)()
+/obj/machinery/pool/controller/proc/scan_things()
 	var/list/cached = range(scan_range, src)
 	for(var/turf/open/pool/W in cached)
 		linked_turfs += W
@@ -187,7 +187,7 @@ TYPE_PROC_REF(/obj/machinery/pool/controller, scan_things)()
 	return TRUE
 
 //procs
-TYPE_PROC_REF(/obj/machinery/pool/controller, shock)(mob/user, prb)
+/obj/machinery/pool/controller/proc/shock(mob/user, prb)
 	if(stat & (BROKEN|NOPOWER))		// unpowered, no shock
 		return FALSE
 	if(!prob(prb))
@@ -200,7 +200,7 @@ TYPE_PROC_REF(/obj/machinery/pool/controller, shock)(mob/user, prb)
 	else
 		return FALSE
 
-TYPE_PROC_REF(/obj/machinery/pool/controller, process_reagents)()
+/obj/machinery/pool/controller/proc/process_reagents()
 	if(last_reagent_process > world.time + reagent_tick_interval)
 		return
 	if(!length(reagents.reagent_list))
@@ -227,7 +227,7 @@ TYPE_PROC_REF(/obj/machinery/pool/controller, process_reagents)()
 	process_pool()
 	process_reagents()
 
-TYPE_PROC_REF(/obj/machinery/pool/controller, process_pool)()
+/obj/machinery/pool/controller/proc/process_pool()
 	if(drained)
 		return
 	for(var/mob/living/M in mobs_in_pool)
@@ -255,13 +255,13 @@ TYPE_PROC_REF(/obj/machinery/pool/controller, process_pool)()
 					if(prob(35))
 						to_chat(drownee, span_danger("You're drowning!"))
 
-TYPE_PROC_REF(/obj/machinery/pool/controller, set_bloody)(state)
+/obj/machinery/pool/controller/proc/set_bloody(state)
 	if(bloody == state)
 		return
 	bloody = state
 	update_color()
 
-TYPE_PROC_REF(/obj/machinery/pool/controller, update_color)()
+/obj/machinery/pool/controller/proc/update_color()
 	if(drained)
 		return
 	var/rcolor
@@ -288,7 +288,7 @@ TYPE_PROC_REF(/obj/machinery/pool/controller, update_color)()
 			color1.watereffect.remove_atom_colour(FIXED_COLOUR_PRIORITY)
 			color1.watertop.remove_atom_colour(FIXED_COLOUR_PRIORITY)
 
-TYPE_PROC_REF(/obj/machinery/pool/controller, update_temp)()
+/obj/machinery/pool/controller/proc/update_temp()
 	if(mist_state)
 		if(temperature < POOL_SCALDING)
 			mist_off()
@@ -300,12 +300,12 @@ TYPE_PROC_REF(/obj/machinery/pool/controller, update_temp)()
 /obj/machinery/pool/controller/update_icon_state()
 	icon_state = "poolc_[temperature]"
 
-TYPE_PROC_REF(/obj/machinery/pool/controller, CanUpTemp)(mob/user)
+/obj/machinery/pool/controller/proc/CanUpTemp(mob/user)
 	if(temperature == POOL_WARM && (temperature_unlocked || issilicon(user) || IsAdminGhost(user)) || temperature < POOL_WARM)
 		return TRUE
 	return FALSE
 
-TYPE_PROC_REF(/obj/machinery/pool/controller, CanDownTemp)(mob/user)
+/obj/machinery/pool/controller/proc/CanDownTemp(mob/user)
 	if(temperature == POOL_COOL && (temperature_unlocked || issilicon(user) || IsAdminGhost(user)) || temperature > POOL_COOL)
 		return TRUE
 	return FALSE
@@ -353,7 +353,7 @@ TYPE_PROC_REF(/obj/machinery/pool/controller, CanDownTemp)(mob/user)
 			bloody = FALSE
 	updateUsrDialog()
 
-TYPE_PROC_REF(/obj/machinery/pool/controller, temp2text)()
+/obj/machinery/pool/controller/proc/temp2text()
 	switch(temperature)
 		if(POOL_FRIGID)
 			return span_boldwarning("Frigid")
@@ -402,13 +402,13 @@ TYPE_PROC_REF(/obj/machinery/pool/controller, temp2text)()
 	popup.set_content(dat)
 	popup.open()
 
-TYPE_PROC_REF(/obj/machinery/pool/controller, reset)(wire)
+/obj/machinery/pool/controller/proc/reset(wire)
 	switch(wire)
 		if(WIRE_SHOCK)
 			if(!wires.is_cut(wire))
 				shocked = FALSE
 
-TYPE_PROC_REF(/obj/machinery/pool/controller, mist_on)() //Spawn /obj/effect/mist (from the shower) on all linked pool tiles
+/obj/machinery/pool/controller/proc/mist_on() //Spawn /obj/effect/mist (from the shower) on all linked pool tiles
 	if(mist_state)
 		return
 	mist_off()			//make sure it cycles and deletes everything
@@ -419,6 +419,6 @@ TYPE_PROC_REF(/obj/machinery/pool/controller, mist_on)() //Spawn /obj/effect/mis
 			var/M = new /obj/effect/mist(W)
 			linked_mist += M
 
-TYPE_PROC_REF(/obj/machinery/pool/controller, mist_off)() //Delete all /obj/effect/mist from all linked pool tiles.
+/obj/machinery/pool/controller/proc/mist_off() //Delete all /obj/effect/mist from all linked pool tiles.
 	QDEL_LIST(linked_mist)
 	mist_state = FALSE

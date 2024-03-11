@@ -43,7 +43,7 @@
 		return
 	handle_preattack()
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile/asteroid/goliath, handle_preattack)()
+/mob/living/simple_animal/hostile/asteroid/goliath/proc/handle_preattack()
 	if(ranged_cooldown <= world.time + ranged_cooldown_time*0.25 && !pre_attack)
 		pre_attack++
 	if(!pre_attack || stat || AIStatus == AI_IDLE)
@@ -179,12 +179,12 @@ TYPE_PROC_REF(/mob/living/simple_animal/hostile/asteroid/goliath, handle_preatta
 		if(T)
 			new /obj/effect/temp_visual/goliath_tentacle(T, spawner)
 
-TYPE_PROC_REF(/obj/effect/temp_visual/goliath_tentacle, tripanim)()
+/obj/effect/temp_visual/goliath_tentacle/proc/tripanim()
 	icon_state = "Goliath_tentacle_wiggle"
 	deltimer(timerid)
 	timerid = addtimer(CALLBACK(src, PROC_REF(trip)), 3, TIMER_STOPPABLE)
 
-TYPE_PROC_REF(/obj/effect/temp_visual/goliath_tentacle, trip)()
+/obj/effect/temp_visual/goliath_tentacle/proc/trip()
 	var/latched = FALSE
 	for(var/mob/living/L in loc)
 		if((!QDELETED(spawner) && spawner.faction_check_mob(L)) || L.stat == DEAD)
@@ -208,7 +208,7 @@ TYPE_PROC_REF(/obj/effect/temp_visual/goliath_tentacle, trip)()
 		deltimer(timerid)
 		timerid = addtimer(CALLBACK(src, PROC_REF(retract)), 10, TIMER_STOPPABLE)
 
-TYPE_PROC_REF(/obj/effect/temp_visual/goliath_tentacle, retract)()
+/obj/effect/temp_visual/goliath_tentacle/proc/retract()
 	icon_state = "Goliath_tentacle_retract"
 	deltimer(timerid)
 	timerid = QDEL_IN(src, 7)

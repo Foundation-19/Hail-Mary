@@ -50,7 +50,7 @@
 				return
 		last_processed = world.time
 
-TYPE_PROC_REF(/datum/forced_movement, TryMove)(recursive = FALSE)
+/datum/forced_movement/proc/TryMove(recursive = FALSE)
 	var/atom/movable/vic = victim	//sanic
 	var/atom/tar = target
 

@@ -17,7 +17,7 @@
 	if(info)
 		icon_state = "[icon_state]_words"
 
-TYPE_PROC_REF(/obj/item/paper/carbon, removecopy)(mob/living/user)
+/obj/item/paper/carbon/proc/removecopy(mob/living/user)
 	if(!copied)
 		var/obj/item/paper/carbon/C = src
 		var/copycontents = C.info

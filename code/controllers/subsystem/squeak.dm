@@ -13,7 +13,7 @@ SUBSYSTEM_DEF(squeak)
 	trigger_migration(CONFIG_GET(number/mice_roundstart))
 	return ..()
 
-TYPE_PROC_REF(/datum/controller/subsystem/squeak, trigger_migration)(num_mice=10)
+/datum/controller/subsystem/squeak/proc/trigger_migration(num_mice=10)
 	if(!num_mice)
 		return
 	find_exposed_wires()
@@ -31,7 +31,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/squeak, trigger_migration)(num_mice=10
 			num_mice -= 1
 			M = null
 
-TYPE_PROC_REF(/datum/controller/subsystem/squeak, find_exposed_wires)()
+/datum/controller/subsystem/squeak/proc/find_exposed_wires()
 	exposed_wires.Cut()
 	var/list/all_turfs
 	for (var/z in SSmapping.levels_by_trait(ZTRAIT_STATION))

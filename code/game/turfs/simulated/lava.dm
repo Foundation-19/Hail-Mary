@@ -97,7 +97,7 @@
 			to_chat(user, span_warning("You need one rod to build a heatproof lattice."))
 		return
 
-TYPE_PROC_REF(/turf/open/lava, is_safe)()
+/turf/open/lava/proc/is_safe()
 	//if anything matching this typecache is found in the lava, we don't burn things
 	var/static/list/lava_safeties_typecache = typecacheof(list(/obj/structure/lattice/catwalk, /obj/structure/stone_tile, /obj/structure/lattice/lava))
 	var/list/found_safeties = typecache_filter_list(contents, lava_safeties_typecache)
@@ -107,7 +107,7 @@ TYPE_PROC_REF(/turf/open/lava, is_safe)()
 	return LAZYLEN(found_safeties)
 
 
-TYPE_PROC_REF(/turf/open/lava, burn_stuff)(AM)
+/turf/open/lava/proc/burn_stuff(AM)
 	. = 0
 
 	if(is_safe())

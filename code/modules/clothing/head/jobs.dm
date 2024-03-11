@@ -233,7 +233,7 @@
 	. = ..()
 	UnregisterSignal(M, COMSIG_MOB_SAY)
 
-TYPE_PROC_REF(/obj/item/clothing/head/warden/drill, handle_speech)(datum/source, mob/speech_args)
+/obj/item/clothing/head/warden/drill/proc/handle_speech(datum/source, mob/speech_args)
 	var/message = speech_args[SPEECH_MESSAGE]
 	if(message[1] != "*")
 		switch (mode)

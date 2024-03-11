@@ -86,7 +86,7 @@
 		return BLOCK_SUCCESS | BLOCK_SHOULD_REDIRECT | BLOCK_PHYSICAL_EXTERNAL | BLOCK_REDIRECTED
 	return ..()
 
-TYPE_PROC_REF(/obj/item/claymore/highlander, add_notch)(mob/living/user) //DYNAMIC CLAYMORE PROGRESSION SYSTEM - THIS IS THE FUTURE
+/obj/item/claymore/highlander/proc/add_notch(mob/living/user) //DYNAMIC CLAYMORE PROGRESSION SYSTEM - THIS IS THE FUTURE
 	notches++
 	force++
 	var/new_name = name
@@ -227,14 +227,14 @@ TYPE_PROC_REF(/obj/item/claymore/highlander, add_notch)(mob/living/user) //DYNAM
 	return ..()
 
 // Init Sunlight (called from datum_bloodsucker.on_gain(), in case game mode isn't even Bloodsucker
-TYPE_PROC_REF(/datum/game_mode, check_start_sunlight)()
+/datum/game_mode/proc/check_start_sunlight()
 	// Already Sunlight (and not about to cancel)
 	if(istype(bloodsucker_sunlight) && !bloodsucker_sunlight.cancel_me)
 		return
 	bloodsucker_sunlight = new ()
 
 // End Sun (last bloodsucker removed)
-TYPE_PROC_REF(/datum/game_mode, check_cancel_sunlight)()
+/datum/game_mode/proc/check_cancel_sunlight()
 	// No Sunlight
 	if(!istype(bloodsucker_sunlight))
 		return
@@ -243,13 +243,13 @@ TYPE_PROC_REF(/datum/game_mode, check_cancel_sunlight)()
 		qdel(bloodsucker_sunlight)
 		bloodsucker_sunlight = null
 
-TYPE_PROC_REF(/datum/game_mode, is_daylight)()
+/datum/game_mode/proc/is_daylight()
 	return istype(bloodsucker_sunlight) && bloodsucker_sunlight.amDay
 
 //////////////////////////////////////////////////////////////////////////////
 
 
-TYPE_PROC_REF(/datum/game_mode, can_make_bloodsucker)(datum/mind/bloodsucker, datum/mind/creator, display_warning=TRUE) // Creator is just here so we can display fail messages to whoever is turning us.
+/datum/game_mode/proc/can_make_bloodsucker(datum/mind/bloodsucker, datum/mind/creator, display_warning=TRUE) // Creator is just here so we can display fail messages to whoever is turning us.
 	// No Mind
 	if(!bloodsucker || !bloodsucker.key) // KEY is client login?
 		//if(creator) // REMOVED. You wouldn't see their name if there is no mind, so why say anything?
@@ -283,7 +283,7 @@ TYPE_PROC_REF(/datum/game_mode, can_make_bloodsucker)(datum/mind/bloodsucker, da
 	return TRUE
 
 
-TYPE_PROC_REF(/datum/game_mode, make_bloodsucker)(datum/mind/bloodsucker, datum/mind/creator = null) // NOTE: This is a game_mode/proc, NOT a game_mode/bloodsucker/proc! We need to access this function despite the game mode.
+/datum/game_mode/proc/make_bloodsucker(datum/mind/bloodsucker, datum/mind/creator = null) // NOTE: This is a game_mode/proc, NOT a game_mode/bloodsucker/proc! We need to access this function despite the game mode.
 	if(!can_make_bloodsucker(bloodsucker))
 		return FALSE
 	// Create Datum: Fledgling
@@ -302,10 +302,10 @@ TYPE_PROC_REF(/datum/game_mode, make_bloodsucker)(datum/mind/bloodsucker, datum/
 		A = bloodsucker.add_antag_datum(ANTAG_DATUM_BLOODSUCKER)
 	return TRUE
 
-TYPE_PROC_REF(/datum/game_mode, remove_bloodsucker)(datum/mind/bloodsucker)
+/datum/game_mode/proc/remove_bloodsucker(datum/mind/bloodsucker)
 	bloodsucker.remove_antag_datum(ANTAG_DATUM_BLOODSUCKER)
 
-TYPE_PROC_REF(/datum/game_mode, clean_invalid_species)(datum/mind/bloodsucker)
+/datum/game_mode/proc/clean_invalid_species(datum/mind/bloodsucker)
 	// Only checking for Humans here
 	if(!ishuman(bloodsucker.current) || !bloodsucker.current.client)
 		return
@@ -331,7 +331,7 @@ TYPE_PROC_REF(/datum/game_mode, clean_invalid_species)(datum/mind/bloodsucker)
 			ID.update_label()
 
 
-TYPE_PROC_REF(/datum/game_mode, can_make_vassal)(mob/living/target, datum/mind/creator, display_warning = TRUE)//, check_antag_or_loyal=FALSE)
+/datum/game_mode/proc/can_make_vassal(mob/living/target, datum/mind/creator, display_warning = TRUE)//, check_antag_or_loyal=FALSE)
 	// Not Correct Type: Abort
 	if(!iscarbon(target) || !creator)
 		return FALSE
@@ -376,14 +376,14 @@ TYPE_PROC_REF(/datum/game_mode, can_make_vassal)(mob/living/target, datum/mind/c
 	return TRUE
 
 
-TYPE_PROC_REF(/datum/game_mode, AmValidAntag)(datum/mind/M)
+/datum/game_mode/proc/AmValidAntag(datum/mind/M)
 	// No List?
 	if(!islist(M.antag_datums) || M.antag_datums.len == 0)
 		return FALSE
 	// Am I NOT an invalid Antag?    NOTE: We already excluded non-antags above. Don't worry about the "No List?" check in AmInvalidIntag()
 	return !AmInvalidAntag(M)
 
-TYPE_PROC_REF(/datum/game_mode, AmInvalidAntag)(datum/mind/M)
+/datum/game_mode/proc/AmInvalidAntag(datum/mind/M)
 	// No List?
 	if(!islist(M.antag_datums) || M.antag_datums.len == 0)
 		return FALSE
@@ -396,7 +396,7 @@ TYPE_PROC_REF(/datum/game_mode, AmInvalidAntag)(datum/mind/M)
 	// WHEN YOU DELETE THE ABOVE: Remove the 3 second timer on converting the vassal too.
 	return FALSE
 
-TYPE_PROC_REF(/datum/game_mode, make_vassal)(mob/living/target, datum/mind/creator)
+/datum/game_mode/proc/make_vassal(mob/living/target, datum/mind/creator)
 	if(!can_make_vassal(target, creator))
 		return FALSE
 	// Make Vassal
@@ -411,5 +411,5 @@ TYPE_PROC_REF(/datum/game_mode, make_vassal)(mob/living/target, datum/mind/creat
 	log_admin("[target] has become a Vassal, and is enslaved to [creator].")
 	return TRUE
 
-TYPE_PROC_REF(/datum/game_mode, remove_vassal)(datum/mind/vassal)
+/datum/game_mode/proc/remove_vassal(datum/mind/vassal)
 	vassal.remove_antag_datum(ANTAG_DATUM_VASSAL)

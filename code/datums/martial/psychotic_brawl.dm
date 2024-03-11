@@ -12,7 +12,7 @@
 /datum/martial_art/psychotic_brawling/harm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	return psycho_attack(A,D)
 
-TYPE_PROC_REF(/datum/martial_art/psychotic_brawling, psycho_attack)(mob/living/carbon/human/A, mob/living/carbon/human/D)
+/datum/martial_art/psychotic_brawling/proc/psycho_attack(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	var/atk_verb
 	var/damage = damage_roll(A,D)
 	switch(rand(1,8))

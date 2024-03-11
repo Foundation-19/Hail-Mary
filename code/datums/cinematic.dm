@@ -58,7 +58,7 @@
 	locked = null
 	return ..()
 
-TYPE_PROC_REF(/datum/cinematic, play)(watchers)
+/datum/cinematic/proc/play(watchers)
 	//Check if cinematic can actually play (stop mob cinematics for global ones)
 	if(SEND_GLOBAL_SIGNAL(COMSIG_GLOB_PLAY_CINEMATIC, src) & COMPONENT_GLOB_BLOCK_CINEMATIC)
 		return
@@ -92,7 +92,7 @@ TYPE_PROC_REF(/datum/cinematic, play)(watchers)
 	if(ooc_toggled)
 		toggle_ooc(TRUE)
 
-TYPE_PROC_REF(/datum/cinematic, show_to)(mob/M, client/C)
+/datum/cinematic/proc/show_to(mob/M, client/C)
 	//SIGNAL_HANDLER //must not wait.
 
 	if(!M.mob_transforming)
@@ -105,7 +105,7 @@ TYPE_PROC_REF(/datum/cinematic, show_to)(mob/M, client/C)
 	C.screen += screen
 
 //Sound helper
-TYPE_PROC_REF(/datum/cinematic, cinematic_sound)(s)
+/datum/cinematic/proc/cinematic_sound(s)
 	if(is_global)
 		SEND_SOUND(world,s)
 	else
@@ -113,15 +113,15 @@ TYPE_PROC_REF(/datum/cinematic, cinematic_sound)(s)
 			SEND_SOUND(C,s)
 
 //Fire up special callback for actual effects synchronized with animation (eg real nuke explosion happens midway)
-TYPE_PROC_REF(/datum/cinematic, special)()
+/datum/cinematic/proc/special()
 	if(special_callback)
 		special_callback.Invoke()
 
 //Actual cinematic goes in here
-TYPE_PROC_REF(/datum/cinematic, content)()
+/datum/cinematic/proc/content()
 	sleep(50)
 
-TYPE_PROC_REF(/datum/cinematic, replacement_cinematic)(datum/source, datum/cinematic/other)
+/datum/cinematic/proc/replacement_cinematic(datum/source, datum/cinematic/other)
 	//SIGNAL_HANDLER
 
 	if(!is_global && other.is_global) //Allow it to play if we're local and it's global

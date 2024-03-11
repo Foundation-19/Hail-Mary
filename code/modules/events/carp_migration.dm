@@ -31,7 +31,7 @@
 			fishannounce(fish) //Prefer to announce the megacarps over the regular fishies
 	fishannounce(fish)
 
-TYPE_PROC_REF(/datum/round_event/carp_migration, fishannounce)(atom/fish)
+/datum/round_event/carp_migration/proc/fishannounce(atom/fish)
 	if (!hasAnnounced)
 		announce_to_ghosts(fish) //Only anounce the first fish
 		hasAnnounced = TRUE

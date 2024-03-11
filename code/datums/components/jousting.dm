@@ -22,17 +22,17 @@
 	RegisterSignal(parent, COMSIG_ITEM_DROPPED, PROC_REF(on_drop))
 	RegisterSignal(parent, COMSIG_ITEM_ATTACK, PROC_REF(on_attack))
 
-TYPE_PROC_REF(/datum/component/jousting, on_equip)(datum/source, mob/user, slot)
+/datum/component/jousting/proc/on_equip(datum/source, mob/user, slot)
 	RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(mob_move), TRUE)
 	current_holder = user
 
-TYPE_PROC_REF(/datum/component/jousting, on_drop)(datum/source, mob/user)
+/datum/component/jousting/proc/on_drop(datum/source, mob/user)
 	UnregisterSignal(user, COMSIG_MOVABLE_MOVED)
 	current_holder = null
 	current_direction = NONE
 	current_tile_charge = 0
 
-TYPE_PROC_REF(/datum/component/jousting, on_attack)(datum/source, mob/living/target, mob/user)
+/datum/component/jousting/proc/on_attack(datum/source, mob/living/target, mob/user)
 	if(user != current_holder)
 		return
 	var/current = current_tile_charge
@@ -58,7 +58,7 @@ TYPE_PROC_REF(/datum/component/jousting, on_attack)(datum/source, mob/living/tar
 		if(length(msg))
 			user.visible_message(span_danger("[msg]!"))
 
-TYPE_PROC_REF(/datum/component/jousting, mob_move)(datum/source, newloc, dir)
+/datum/component/jousting/proc/mob_move(datum/source, newloc, dir)
 	if(!current_holder || (requires_mount && ((requires_mob_riding && !ismob(current_holder.buckled)) || (!current_holder.buckled))))
 		return
 	if(dir != current_direction)
@@ -70,7 +70,7 @@ TYPE_PROC_REF(/datum/component/jousting, mob_move)(datum/source, newloc, dir)
 		deltimer(current_timerid)
 	current_timerid = addtimer(CALLBACK(src, PROC_REF(reset_charge)), movement_reset_tolerance, TIMER_STOPPABLE)
 
-TYPE_PROC_REF(/datum/component/jousting, reset_charge)()
+/datum/component/jousting/proc/reset_charge()
 	current_tile_charge = 0
 
 //Designed specifically for sledge slamming

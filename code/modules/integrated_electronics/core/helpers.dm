@@ -1,4 +1,4 @@
-TYPE_PROC_REF(/obj/item/integrated_circuit, setup_io)(list/io_list, io_type, list/io_default_list, pin_type)
+/obj/item/integrated_circuit/proc/setup_io(list/io_list, io_type, list/io_default_list, pin_type)
 	var/list/io_list_copy = io_list.Copy()
 	io_list.Cut()
 	for(var/i in 1 to io_list_copy.len)
@@ -20,7 +20,7 @@ TYPE_PROC_REF(/obj/item/integrated_circuit, setup_io)(list/io_list, io_type, lis
 			io_list.Add(new io_type(src, io_entry, default_data, pin_type,i))
 
 
-TYPE_PROC_REF(/obj/item/integrated_circuit, set_pin_data)(pin_type, pin_number, datum/new_data)
+/obj/item/integrated_circuit/proc/set_pin_data(pin_type, pin_number, datum/new_data)
 	if(islist(new_data))
 		for(var/i in 1 to length(new_data))
 			if (istype(new_data) && !isweakref(new_data))
@@ -30,19 +30,19 @@ TYPE_PROC_REF(/obj/item/integrated_circuit, set_pin_data)(pin_type, pin_number, 
 	var/datum/integrated_io/pin = get_pin_ref(pin_type, pin_number)
 	return pin.write_data_to_pin(new_data)
 
-TYPE_PROC_REF(/obj/item/integrated_circuit, get_pin_data)(pin_type, pin_number)
+/obj/item/integrated_circuit/proc/get_pin_data(pin_type, pin_number)
 	var/datum/integrated_io/pin = get_pin_ref(pin_type, pin_number)
 	return pin.get_data()
 
-TYPE_PROC_REF(/obj/item/integrated_circuit, get_pin_data_as_type)(pin_type, pin_number, as_type)
+/obj/item/integrated_circuit/proc/get_pin_data_as_type(pin_type, pin_number, as_type)
 	var/datum/integrated_io/pin = get_pin_ref(pin_type, pin_number)
 	return pin.data_as_type(as_type)
 
-TYPE_PROC_REF(/obj/item/integrated_circuit, activate_pin)(pin_number)
+/obj/item/integrated_circuit/proc/activate_pin(pin_number)
 	var/datum/integrated_io/activate/A = activators[pin_number]
 	A.push_data()
 
-TYPE_PROC_REF(/obj/item/integrated_circuit, get_pin_ref)(pin_type, pin_number)
+/obj/item/integrated_circuit/proc/get_pin_ref(pin_type, pin_number)
 	switch(pin_type)
 		if(IC_INPUT)
 			if(pin_number > inputs.len)
@@ -58,7 +58,7 @@ TYPE_PROC_REF(/obj/item/integrated_circuit, get_pin_ref)(pin_type, pin_number)
 			return activators[pin_number]
 	return
 
-TYPE_PROC_REF(/datum/integrated_io, get_data)()
+/datum/integrated_io/proc/get_data()
 	if(islist(data))
 		for(var/i in 1 to length(data))
 			if(isweakref(data[i]))
@@ -70,7 +70,7 @@ TYPE_PROC_REF(/datum/integrated_io, get_data)()
 
 // Returns a list of parameters necessary to locate a pin in the assembly: component number, pin type and pin number
 // Components list can be supplied from the outside, for use in savefiles
-TYPE_PROC_REF(/datum/integrated_io, get_pin_parameters)(list/components)
+/datum/integrated_io/proc/get_pin_parameters(list/components)
 	if(!holder)
 		return
 
@@ -99,7 +99,7 @@ TYPE_PROC_REF(/datum/integrated_io, get_pin_parameters)(list/components)
 
 // Locates a pin in the assembly when given component number, pin type and pin number
 // Components list can be supplied from the outside, for use in savefiles
-TYPE_PROC_REF(/obj/item/electronic_assembly, get_pin_ref)(component_number, pin_type, pin_number, list/components)
+/obj/item/electronic_assembly/proc/get_pin_ref(component_number, pin_type, pin_number, list/components)
 	if(!components)
 		components = assembly_components
 
@@ -112,7 +112,7 @@ TYPE_PROC_REF(/obj/item/electronic_assembly, get_pin_ref)(component_number, pin_
 
 // Same as get_pin_ref, but takes in a list of 3 parameters (same format as get_pin_parameters)
 // and performs extra sanity checks on parameters list and index numbers
-TYPE_PROC_REF(/obj/item/electronic_assembly, get_pin_ref_list)(list/parameters, list/components)
+/obj/item/electronic_assembly/proc/get_pin_ref_list(list/parameters, list/components)
 	if(!components)
 		components = assembly_components
 

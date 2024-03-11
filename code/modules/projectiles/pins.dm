@@ -51,21 +51,21 @@
 	to_chat(user, span_notice("You override the authentication mechanism."))
 	return TRUE
 
-TYPE_PROC_REF(/obj/item/firing_pin, gun_insert)(mob/living/user, obj/item/gun/G)
+/obj/item/firing_pin/proc/gun_insert(mob/living/user, obj/item/gun/G)
 	gun = G
 	forceMove(gun)
 	gun.pin = src
 	return
 
-TYPE_PROC_REF(/obj/item/firing_pin, gun_remove)(mob/living/user)
+/obj/item/firing_pin/proc/gun_remove(mob/living/user)
 	gun.pin = null
 	gun = null
 	return
 
-TYPE_PROC_REF(/obj/item/firing_pin, pin_auth)(mob/living/user)
+/obj/item/firing_pin/proc/pin_auth(mob/living/user)
 	return TRUE
 
-TYPE_PROC_REF(/obj/item/firing_pin, auth_fail)(mob/living/user)
+/obj/item/firing_pin/proc/auth_fail(mob/living/user)
 	if(user)
 		user.show_message(fail_message, MSG_VISUAL)
 	if(selfdestruct)

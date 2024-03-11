@@ -13,7 +13,7 @@
 	var/empty_tile_id
 
 //Gets the turf where the tile with given id should be
-TYPE_PROC_REF(/obj/effect/sliding_puzzle, get_turf_for_id)(id)
+/obj/effect/sliding_puzzle/proc/get_turf_for_id(id)
 	var/turf/center = get_turf(src)
 	switch(id)
 		if(1)
@@ -43,7 +43,7 @@ TYPE_PROC_REF(/obj/effect/sliding_puzzle, get_turf_for_id)(id)
 	if(auto_setup)
 		setup()
 
-TYPE_PROC_REF(/obj/effect/sliding_puzzle, check_setup_location)()
+/obj/effect/sliding_puzzle/proc/check_setup_location()
 	for(var/id in 1 to 9)
 		var/turf/T = get_turf_for_id(id)
 		if(!T)
@@ -53,7 +53,7 @@ TYPE_PROC_REF(/obj/effect/sliding_puzzle, check_setup_location)()
 	return TRUE
 
 
-TYPE_PROC_REF(/obj/effect/sliding_puzzle, validate)()
+/obj/effect/sliding_puzzle/proc/validate()
 	if(finished)
 		return
 	
@@ -80,7 +80,7 @@ TYPE_PROC_REF(/obj/effect/sliding_puzzle, validate)()
 
 #define COLLAPSE_DURATION 7
 
-TYPE_PROC_REF(/obj/effect/sliding_puzzle, finish)()
+/obj/effect/sliding_puzzle/proc/finish()
 	finished = TRUE
 	for(var/mob/M in range(7,src))
 		shake_camera(M, COLLAPSE_DURATION , 1)
@@ -89,10 +89,10 @@ TYPE_PROC_REF(/obj/effect/sliding_puzzle, finish)()
 	
 	dispense_reward()
 
-TYPE_PROC_REF(/obj/effect/sliding_puzzle, dispense_reward)()
+/obj/effect/sliding_puzzle/proc/dispense_reward()
 	new reward_type(get_turf(src))
 
-TYPE_PROC_REF(/obj/effect/sliding_puzzle, is_solvable)()
+/obj/effect/sliding_puzzle/proc/is_solvable()
 	var/list/current_ordering = list()
 	for(var/obj/structure/puzzle_element/E in elements_in_order())
 		current_ordering += E.id
@@ -107,7 +107,7 @@ TYPE_PROC_REF(/obj/effect/sliding_puzzle, is_solvable)()
 	return swap_tally % 2 == 0
 
 //swap two tiles in same row
-TYPE_PROC_REF(/obj/effect/sliding_puzzle, make_solvable)()
+/obj/effect/sliding_puzzle/proc/make_solvable()
 	var/first_tile_id = 1
 	var/other_tile_id = 2
 	if(empty_tile_id == 1 || empty_tile_id == 2) //Can't swap with empty one so just grab some in second row
@@ -134,17 +134,17 @@ TYPE_PROC_REF(/obj/effect/sliding_puzzle, make_solvable)()
 		return -1
 	return 0
 
-TYPE_PROC_REF(/obj/effect/sliding_puzzle, elements_in_order)()
+/obj/effect/sliding_puzzle/proc/elements_in_order()
 	return sortTim(elements,cmp=/proc/cmp_xy_desc)
 
-TYPE_PROC_REF(/obj/effect/sliding_puzzle, get_base_icon)()
+/obj/effect/sliding_puzzle/proc/get_base_icon()
 	var/icon/I = new('icons/obj/puzzle.dmi')
 	var/list/puzzles = icon_states(I)
 	var/puzzle_state = pick(puzzles)
 	var/icon/P = new('icons/obj/puzzle.dmi',puzzle_state)
 	return P
 
-TYPE_PROC_REF(/obj/effect/sliding_puzzle, setup)()
+/obj/effect/sliding_puzzle/proc/setup()
 	//First we slice the 96x96 icon into 32x32 pieces
 	var/list/puzzle_pieces = list() //id -> icon list
 
@@ -211,7 +211,7 @@ TYPE_PROC_REF(/obj/effect/sliding_puzzle, setup)()
 	else
 		return ..()
 
-TYPE_PROC_REF(/obj/structure/puzzle_element, set_puzzle_icon)()
+/obj/structure/puzzle_element/proc/set_puzzle_icon()
 	cut_overlays()
 	if(puzzle_icon)
 		//Need to scale it down a bit to fit the static border
@@ -230,7 +230,7 @@ TYPE_PROC_REF(/obj/structure/puzzle_element, set_puzzle_icon)()
 	return ..()
 
 //Set the full image on the turf and delete yourself
-TYPE_PROC_REF(/obj/structure/puzzle_element, collapse)()
+/obj/structure/puzzle_element/proc/collapse()
 	var/turf/T = get_turf(src)
 	var/mutable_appearance/MA = new(puzzle_icon)
 	MA.layer = T.layer + 0.1

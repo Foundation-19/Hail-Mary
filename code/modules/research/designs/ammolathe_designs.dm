@@ -9,7 +9,7 @@
 	. = ..()
 
 /// spawns some ammo boxes, rips the material data, and then trashes them
-TYPE_PROC_REF(/datum/design/ammolathe, calculate_ammobox_materials)()
+/datum/design/ammolathe/proc/calculate_ammobox_materials()
 	if(!ispath(build_path, /obj/item/ammo_box))
 		return
 	var/list/design_materials = list()
@@ -28,7 +28,7 @@ TYPE_PROC_REF(/datum/design/ammolathe, calculate_ammobox_materials)()
 	set_build_cost(design_materials)
 
 /// Sets the material cost to whatever we came up with
-TYPE_PROC_REF(/datum/design/ammolathe, set_build_cost)(list/material_list)
+/datum/design/ammolathe/proc/set_build_cost(list/material_list)
 	if(!LAZYLEN(material_list))
 		return
 	for(var/mat in GLOB.ammo_material_multipliers)

@@ -119,11 +119,11 @@
 	set_nanite_bar()
 
 
-TYPE_PROC_REF(/datum/component/nanites, delete_nanites)()
+/datum/component/nanites/proc/delete_nanites()
 	qdel(src)
 
 //Syncs the nanite component to another, making it so programs are the same with the same programming (except activation status)
-TYPE_PROC_REF(/datum/component/nanites, sync)(datum/signal_source, datum/component/nanites/source, full_overwrite = TRUE, copy_activation = FALSE)
+/datum/component/nanites/proc/sync(datum/signal_source, datum/component/nanites/source, full_overwrite = TRUE, copy_activation = FALSE)
 	var/list/programs_to_remove = programs.Copy()
 	var/list/programs_to_add = source.programs.Copy()
 	for(var/X in programs)
@@ -142,7 +142,7 @@ TYPE_PROC_REF(/datum/component/nanites, sync)(datum/signal_source, datum/compone
 		var/datum/nanite_program/SNP = X
 		add_program(null, SNP.copy())
 
-TYPE_PROC_REF(/datum/component/nanites, cloud_sync)()
+/datum/component/nanites/proc/cloud_sync()
 	if(cloud_id)
 		var/datum/nanite_cloud_backup/backup = SSnanites.get_cloud_backup(cloud_id)
 		if(backup)
@@ -155,7 +155,7 @@ TYPE_PROC_REF(/datum/component/nanites, cloud_sync)()
 		var/datum/nanite_program/NP = pick(programs)
 		NP.software_error()
 
-TYPE_PROC_REF(/datum/component/nanites, add_program)(datum/source, datum/nanite_program/new_program, datum/nanite_program/source_program)
+/datum/component/nanites/proc/add_program(datum/source, datum/nanite_program/new_program, datum/nanite_program/source_program)
 	for(var/X in programs)
 		var/datum/nanite_program/NP = X
 		if(NP.unique && NP.type == new_program.type)
@@ -168,18 +168,18 @@ TYPE_PROC_REF(/datum/component/nanites, add_program)(datum/source, datum/nanite_
 	new_program.on_add(src)
 	return COMPONENT_PROGRAM_INSTALLED
 
-TYPE_PROC_REF(/datum/component/nanites, consume_nanites)(amount, force = FALSE)
+/datum/component/nanites/proc/consume_nanites(amount, force = FALSE)
 	if(!force && safety_threshold && (nanite_volume - amount < safety_threshold))
 		return FALSE
 	adjust_nanites(null, -amount)
 	return (nanite_volume > 0)
 
-TYPE_PROC_REF(/datum/component/nanites, adjust_nanites)(datum/source, amount)
+/datum/component/nanites/proc/adjust_nanites(datum/source, amount)
 	nanite_volume = clamp(nanite_volume + amount, 0, max_nanites)
 	if(nanite_volume <= 0) //oops we ran out
 		qdel(src)
 
-TYPE_PROC_REF(/datum/component/nanites, set_nanite_bar)(remove = FALSE)
+/datum/component/nanites/proc/set_nanite_bar(remove = FALSE)
 	var/image/holder = host_mob.hud_list[DIAG_NANITE_FULL_HUD]
 	var/icon/I = icon(host_mob.icon, host_mob.icon_state, host_mob.dir)
 	holder.pixel_y = I.Height() - world.icon_size
@@ -190,7 +190,7 @@ TYPE_PROC_REF(/datum/component/nanites, set_nanite_bar)(remove = FALSE)
 	nanite_percent = clamp(CEILING(nanite_percent, 10), 10, 100)
 	holder.icon_state = "nanites[nanite_percent]"
 
-TYPE_PROC_REF(/datum/component/nanites, on_emp)(datum/source, severity)
+/datum/component/nanites/proc/on_emp(datum/source, severity)
 	nanite_volume *= (rand(60, 90) * 0.01)		//Lose 10-40% of nanites
 	adjust_nanites(null, -(rand(5, 50)))		//Lose 5-50 flat nanite volume
 	if(prob(40/severity))
@@ -200,7 +200,7 @@ TYPE_PROC_REF(/datum/component/nanites, on_emp)(datum/source, severity)
 		NP.on_emp(severity)
 
 
-TYPE_PROC_REF(/datum/component/nanites, on_shock)(datum/source, shock_damage, siemens_coeff = 1, flags = NONE)
+/datum/component/nanites/proc/on_shock(datum/source, shock_damage, siemens_coeff = 1, flags = NONE)
 	if(shock_damage < 1)
 		return
 
@@ -211,36 +211,36 @@ TYPE_PROC_REF(/datum/component/nanites, on_shock)(datum/source, shock_damage, si
 			var/datum/nanite_program/NP = X
 			NP.on_shock(shock_damage)
 
-TYPE_PROC_REF(/datum/component/nanites, on_minor_shock)(datum/source)
+/datum/component/nanites/proc/on_minor_shock(datum/source)
 	adjust_nanites(null, -(rand(5, 15)))			//Lose 5-15 flat nanite volume
 	for(var/X in programs)
 		var/datum/nanite_program/NP = X
 		NP.on_minor_shock()
 
-TYPE_PROC_REF(/datum/component/nanites, check_stealth)(datum/source)
+/datum/component/nanites/proc/check_stealth(datum/source)
 	return stealth
 
-TYPE_PROC_REF(/datum/component/nanites, on_death)(datum/source, gibbed)
+/datum/component/nanites/proc/on_death(datum/source, gibbed)
 	for(var/X in programs)
 		var/datum/nanite_program/NP = X
 		NP.on_death(gibbed)
 
-TYPE_PROC_REF(/datum/component/nanites, receive_signal)(datum/source, code, source = "an unidentified source")
+/datum/component/nanites/proc/receive_signal(datum/source, code, source = "an unidentified source")
 	for(var/X in programs)
 		var/datum/nanite_program/NP = X
 		NP.receive_signal(code, source)
 
-TYPE_PROC_REF(/datum/component/nanites, receive_comm_signal)(datum/source, comm_code, comm_message, comm_source = "an unidentified source")
+/datum/component/nanites/proc/receive_comm_signal(datum/source, comm_code, comm_message, comm_source = "an unidentified source")
 	for(var/X in programs)
 		if(istype(X, /datum/nanite_program/comm))
 			var/datum/nanite_program/comm/NP = X
 			NP.receive_comm_signal(comm_code, comm_message, comm_source)
 
-TYPE_PROC_REF(/datum/component/nanites, check_viable_biotype)()
+/datum/component/nanites/proc/check_viable_biotype()
 	if(!(host_mob.mob_biotypes & (MOB_ORGANIC|MOB_UNDEAD)))
 		qdel(src) //bodytype no longer sustains nanites
 
-TYPE_PROC_REF(/datum/component/nanites, check_access)(datum/source, obj/O)
+/datum/component/nanites/proc/check_access(datum/source, obj/O)
 	for(var/datum/nanite_program/access/access_program in programs)
 		if(access_program.activated)
 			return O.check_access_list(access_program.access)
@@ -248,16 +248,16 @@ TYPE_PROC_REF(/datum/component/nanites, check_access)(datum/source, obj/O)
 			return FALSE
 	return FALSE
 
-TYPE_PROC_REF(/datum/component/nanites, set_volume)(datum/source, amount)
+/datum/component/nanites/proc/set_volume(datum/source, amount)
 	nanite_volume = clamp(amount, 0, max_nanites)
 
-TYPE_PROC_REF(/datum/component/nanites, set_max_volume)(datum/source, amount)
+/datum/component/nanites/proc/set_max_volume(datum/source, amount)
 	max_nanites = max(1, max_nanites)
 
-TYPE_PROC_REF(/datum/component/nanites, set_cloud)(datum/source, amount)
+/datum/component/nanites/proc/set_cloud(datum/source, amount)
 	cloud_id = clamp(amount, 0, 100)
 
-TYPE_PROC_REF(/datum/component/nanites, set_cloud_sync)(datum/source, method)
+/datum/component/nanites/proc/set_cloud_sync(datum/source, method)
 	switch(method)
 		if(NANITE_CLOUD_TOGGLE)
 			cloud_active = !cloud_active
@@ -266,16 +266,16 @@ TYPE_PROC_REF(/datum/component/nanites, set_cloud_sync)(datum/source, method)
 		if(NANITE_CLOUD_ENABLE)
 			cloud_active = TRUE
 
-TYPE_PROC_REF(/datum/component/nanites, set_safety)(datum/source, amount)
+/datum/component/nanites/proc/set_safety(datum/source, amount)
 	safety_threshold = clamp(amount, 0, max_nanites)
 
-TYPE_PROC_REF(/datum/component/nanites, set_regen)(datum/source, amount)
+/datum/component/nanites/proc/set_regen(datum/source, amount)
 	regen_rate = amount
 
-TYPE_PROC_REF(/datum/component/nanites, confirm_nanites)()
+/datum/component/nanites/proc/confirm_nanites()
 	return TRUE //yup i exist
 
-TYPE_PROC_REF(/datum/component/nanites, get_data)(list/nanite_data)
+/datum/component/nanites/proc/get_data(list/nanite_data)
 	nanite_data["nanite_volume"] = nanite_volume
 	nanite_data["max_nanites"] = max_nanites
 	nanite_data["cloud_id"] = cloud_id
@@ -283,10 +283,10 @@ TYPE_PROC_REF(/datum/component/nanites, get_data)(list/nanite_data)
 	nanite_data["safety_threshold"] = safety_threshold
 	nanite_data["stealth"] = stealth
 
-TYPE_PROC_REF(/datum/component/nanites, get_programs)(datum/source, list/nanite_programs)
+/datum/component/nanites/proc/get_programs(datum/source, list/nanite_programs)
 	nanite_programs |= programs
 
-TYPE_PROC_REF(/datum/component/nanites, add_research)()
+/datum/component/nanites/proc/add_research()
 	var/research_value = NANITE_BASE_RESEARCH
 	if(!ishuman(host_mob))
 		if(!iscarbon(host_mob))
@@ -299,7 +299,7 @@ TYPE_PROC_REF(/datum/component/nanites, add_research)()
 		research_value *= 0.75
 	SSresearch.science_tech.add_point_list(list(TECHWEB_POINT_TYPE_NANITES = research_value))
 
-TYPE_PROC_REF(/datum/component/nanites, nanite_scan)(datum/source, mob/user, full_scan)
+/datum/component/nanites/proc/nanite_scan(datum/source, mob/user, full_scan)
 	if(!full_scan)
 		if(!stealth)
 			to_chat(user, "<span class='notice'><b>Nanites Detected</b></span>")
@@ -322,7 +322,7 @@ TYPE_PROC_REF(/datum/component/nanites, nanite_scan)(datum/source, mob/user, ful
 				to_chat(user, "<span class='info'><b>[NP.name]</b> | [NP.activated ? "Active" : "Inactive"]</span>")
 		return TRUE
 
-TYPE_PROC_REF(/datum/component/nanites, nanite_ui_data)(datum/source, list/data, scan_level)
+/datum/component/nanites/proc/nanite_ui_data(datum/source, list/data, scan_level)
 	data["has_nanites"] = TRUE
 	data["nanite_volume"] = nanite_volume
 	data["regen_rate"] = regen_rate

@@ -66,14 +66,14 @@ Bonus
 			to_chat(M, span_userdanger("Your skin erupts into an inferno!"))
 			M.emote("scream")
 
-TYPE_PROC_REF(/datum/symptom/fire, Firestacks_stage_4)(mob/living/M, datum/disease/advance/A)
+/datum/symptom/fire/proc/Firestacks_stage_4(mob/living/M, datum/disease/advance/A)
 	M.adjust_fire_stacks(1 * power)
 	M.adjustFireLoss(3 * power)
 	if(infective)
 		A.spread(2)
 	return 1
 
-TYPE_PROC_REF(/datum/symptom/fire, Firestacks_stage_5)(mob/living/M, datum/disease/advance/A)
+/datum/symptom/fire/proc/Firestacks_stage_5(mob/living/M, datum/disease/advance/A)
 	M.adjust_fire_stacks(3 * power)
 	M.adjustFireLoss(5 * power)
 	if(infective)
@@ -151,7 +151,7 @@ Bonus
 				explosion(get_turf(M),0,0,2 * explosion_power)
 				Alkali_fire_stage_5(M, A)
 
-TYPE_PROC_REF(/datum/symptom/alkali, Alkali_fire_stage_4)(mob/living/M, datum/disease/advance/A)
+/datum/symptom/alkali/proc/Alkali_fire_stage_4(mob/living/M, datum/disease/advance/A)
 	var/get_stacks = 6 * power
 	M.adjust_fire_stacks(get_stacks)
 	M.adjustFireLoss(get_stacks/2)
@@ -159,7 +159,7 @@ TYPE_PROC_REF(/datum/symptom/alkali, Alkali_fire_stage_4)(mob/living/M, datum/di
 		M.reagents.add_reagent(/datum/reagent/clf3, 2 * power)
 	return 1
 
-TYPE_PROC_REF(/datum/symptom/alkali, Alkali_fire_stage_5)(mob/living/M, datum/disease/advance/A)
+/datum/symptom/alkali/proc/Alkali_fire_stage_5(mob/living/M, datum/disease/advance/A)
 	var/get_stacks = 8 * power
 	M.adjust_fire_stacks(get_stacks)
 	M.adjustFireLoss(get_stacks)

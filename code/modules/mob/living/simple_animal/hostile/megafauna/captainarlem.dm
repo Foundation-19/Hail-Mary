@@ -96,14 +96,14 @@ mob/living/simple_animal/hostile/megafauna/captainarlem/do_attack_animation(atom
 	if(charging)
 		DestroySurroundings()
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile/megafauna/captainarlem, triple_charge)()
+/mob/living/simple_animal/hostile/megafauna/captainarlem/proc/triple_charge()
 	charge()
 	sleep(10)
 	charge()
 	sleep(10)
 	charge()
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile/megafauna/captainarlem, charge)()
+/mob/living/simple_animal/hostile/megafauna/captainarlem/proc/charge()
 	var/turf/T = get_turf(target)
 	if(!T || T == loc)
 		return
@@ -143,7 +143,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/hostile/megafauna/captainarlem, charge)(
 
 	charging = 0
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile/megafauna/captainarlem, fire_plasmacaster)(turf/marker, set_angle)
+/mob/living/simple_animal/hostile/megafauna/captainarlem/proc/fire_plasmacaster(turf/marker, set_angle)
 	if(!isnum(set_angle) && (!marker || marker == loc))
 		return
 	var/turf/startloc = get_turf(src)
@@ -154,7 +154,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/hostile/megafauna/captainarlem, fire_pla
 		P.original = target
 	P.fire(set_angle)
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile/megafauna/captainarlem, blast)(set_angle)
+/mob/living/simple_animal/hostile/megafauna/captainarlem/proc/blast(set_angle)
 	var/turf/target_turf = get_turf(target)
 	playsound(src, 'sound/weapons/lasercannonfire.ogg', 200, 1, 2)
 	newtonian_move(get_dir(target_turf, src))
@@ -165,13 +165,13 @@ TYPE_PROC_REF(/mob/living/simple_animal/hostile/megafauna/captainarlem, blast)(s
 	for(var/i in plasmacaster_angles)
 		fire_plasmacaster(target_turf, angle_to_target + i)
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile/megafauna/captainarlem, eyebots)()
+/mob/living/simple_animal/hostile/megafauna/captainarlem/proc/eyebots()
 	visible_message(span_danger("[src] presses a button on their wrist, activating some of the eyebots!"))
 	for(var/obj/effect/decal/remains/deadeyebot/H in range(src, 10))
 		if(prob(40))
 			new /mob/living/simple_animal/hostile/eyebot(H.loc)
 	
-TYPE_PROC_REF(/mob/living/simple_animal/hostile/megafauna/captainarlem, self_destruct)()
+/mob/living/simple_animal/hostile/megafauna/captainarlem/proc/self_destruct()
 	explosion(src,3,5,7,7)
 	qdel(src)
 

@@ -24,7 +24,7 @@
 
 	var/static/regex/ic_filter_regex
 
-TYPE_PROC_REF(/datum/controller/configuration, admin_reload)()
+/datum/controller/configuration/proc/admin_reload()
 	if(IsAdminAdvancedProcCall())
 		return
 	log_admin("[key_name_admin(usr)] has forcefully reloaded the configuration from disk.")
@@ -32,7 +32,7 @@ TYPE_PROC_REF(/datum/controller/configuration, admin_reload)()
 	full_wipe()
 	Load(world.params[OVERRIDE_CONFIG_DIRECTORY_PARAMETER])
 
-TYPE_PROC_REF(/datum/controller/configuration, Load)(_directory)
+/datum/controller/configuration/proc/Load(_directory)
 	if(IsAdminAdvancedProcCall())		//If admin proccall is detected down the line it will horribly break everything.
 		return
 	if(_directory)
@@ -58,7 +58,7 @@ TYPE_PROC_REF(/datum/controller/configuration, Load)(_directory)
 	if (Master)
 		Master.OnConfigLoad()
 
-TYPE_PROC_REF(/datum/controller/configuration, full_wipe)()
+/datum/controller/configuration/proc/full_wipe()
 	if(IsAdminAdvancedProcCall())
 		return
 	entries_by_type.Cut()
@@ -74,7 +74,7 @@ TYPE_PROC_REF(/datum/controller/configuration, full_wipe)()
 
 	return ..()
 
-TYPE_PROC_REF(/datum/controller/configuration, InitEntries)()
+/datum/controller/configuration/proc/InitEntries()
 	var/list/_entries = list()
 	entries = _entries
 	var/list/_entries_by_type = list()
@@ -94,11 +94,11 @@ TYPE_PROC_REF(/datum/controller/configuration, InitEntries)()
 		_entries[esname] = E
 		_entries_by_type[I] = E
 
-TYPE_PROC_REF(/datum/controller/configuration, RemoveEntry)(datum/config_entry/CE)
+/datum/controller/configuration/proc/RemoveEntry(datum/config_entry/CE)
 	entries -= CE.name
 	entries_by_type -= CE.type
 
-TYPE_PROC_REF(/datum/controller/configuration, LoadEntries)(filename, list/stack = list())
+/datum/controller/configuration/proc/LoadEntries(filename, list/stack = list())
 	if(IsAdminAdvancedProcCall())
 		return
 
@@ -202,7 +202,7 @@ TYPE_PROC_REF(/datum/controller/configuration, LoadEntries)(filename, list/stack
 	return msg
 
 /// Your typical GET but returns a config.
-TYPE_PROC_REF(/datum/controller/configuration, GetEntryDatum)(entry_type)
+/datum/controller/configuration/proc/GetEntryDatum(entry_type)
 	var/datum/config_entry/E = entry_type
 	var/entry_is_abstract = initial(E.abstract_type) == entry_type
 	if(entry_is_abstract)
@@ -215,7 +215,7 @@ TYPE_PROC_REF(/datum/controller/configuration, GetEntryDatum)(entry_type)
 		return
 	return E
 
-TYPE_PROC_REF(/datum/controller/configuration, Get)(entry_type)
+/datum/controller/configuration/proc/Get(entry_type)
 	var/datum/config_entry/E = entry_type
 	var/entry_is_abstract = initial(E.abstract_type) == entry_type
 	if(entry_is_abstract)
@@ -228,7 +228,7 @@ TYPE_PROC_REF(/datum/controller/configuration, Get)(entry_type)
 		return
 	return E.config_entry_value
 
-TYPE_PROC_REF(/datum/controller/configuration, Set)(entry_type, new_val)
+/datum/controller/configuration/proc/Set(entry_type, new_val)
 	var/datum/config_entry/E = entry_type
 	var/entry_is_abstract = initial(E.abstract_type) == entry_type
 	if(entry_is_abstract)
@@ -241,7 +241,7 @@ TYPE_PROC_REF(/datum/controller/configuration, Set)(entry_type, new_val)
 		return
 	return E.ValidateAndSet("[new_val]")
 
-TYPE_PROC_REF(/datum/controller/configuration, LoadModes)()
+/datum/controller/configuration/proc/LoadModes()
 	gamemode_cache = typecacheof(/datum/game_mode, TRUE)
 	modes = list()
 	mode_names = list()
@@ -268,7 +268,7 @@ TYPE_PROC_REF(/datum/controller/configuration, LoadModes)()
 		qdel(M)
 	votable_modes += "secret"
 
-TYPE_PROC_REF(/datum/controller/configuration, LoadMOTD)()
+/datum/controller/configuration/proc/LoadMOTD()
 	motd = file2text("[directory]/motd.txt")
 	var/tm_info = GLOB.revdata.GetTestMergeInfo()
 	if(motd || tm_info)
@@ -293,7 +293,7 @@ Example config:
 
 */
 /*
-TYPE_PROC_REF(/datum/controller/configuration, LoadPolicy)()
+/datum/controller/configuration/proc/LoadPolicy()
 	policy = list()
 	var/rawpolicy = file2text("[directory]/policy.json")
 	if(rawpolicy)
@@ -304,7 +304,7 @@ TYPE_PROC_REF(/datum/controller/configuration, LoadPolicy)()
 		else
 			policy = parsed
 */
-TYPE_PROC_REF(/datum/controller/configuration, loadmaplist)(filename)
+/datum/controller/configuration/proc/loadmaplist(filename)
 	log_config("Loading config file [filename]...")
 	filename = "[directory]/[filename]"
 	var/list/Lines = world.file2list(filename)
@@ -364,7 +364,7 @@ TYPE_PROC_REF(/datum/controller/configuration, loadmaplist)(filename)
 				log_config("Unknown command in map vote config: '[command]'")
 
 
-TYPE_PROC_REF(/datum/controller/configuration, pick_mode)(mode_name)
+/datum/controller/configuration/proc/pick_mode(mode_name)
 	// I wish I didn't have to instance the game modes in order to look up
 	// their information, but it is the only way (at least that I know of).
 	// ^ This guy didn't try hard enough
@@ -376,7 +376,7 @@ TYPE_PROC_REF(/datum/controller/configuration, pick_mode)(mode_name)
 	return new /datum/game_mode/extended()
 
 /// For dynamic.
-TYPE_PROC_REF(/datum/controller/configuration, pick_storyteller)(storyteller_name)
+/datum/controller/configuration/proc/pick_storyteller(storyteller_name)
 	for(var/T in storyteller_cache)
 		var/datum/dynamic_storyteller/S = T
 		var/name = initial(S.name)
@@ -385,7 +385,7 @@ TYPE_PROC_REF(/datum/controller/configuration, pick_storyteller)(storyteller_nam
 	return /datum/dynamic_storyteller/classic
 
 /// Same with this
-TYPE_PROC_REF(/datum/controller/configuration, get_runnable_storytellers)()
+/datum/controller/configuration/proc/get_runnable_storytellers()
 	var/list/datum/dynamic_storyteller/runnable_storytellers = new
 	var/list/probabilities = Get(/datum/config_entry/keyed_list/storyteller_weight)
 	var/list/repeated_mode_adjust = Get(/datum/config_entry/number_list/repeated_mode_adjust)
@@ -410,7 +410,7 @@ TYPE_PROC_REF(/datum/controller/configuration, get_runnable_storytellers)()
 		runnable_storytellers[S] = probability
 	return runnable_storytellers
 
-TYPE_PROC_REF(/datum/controller/configuration, get_runnable_modes)()
+/datum/controller/configuration/proc/get_runnable_modes()
 	var/list/datum/game_mode/runnable_modes = new
 	var/list/probabilities = Get(/datum/config_entry/keyed_list/probability)
 	var/list/min_pop = Get(/datum/config_entry/keyed_list/min_pop)
@@ -443,7 +443,7 @@ TYPE_PROC_REF(/datum/controller/configuration, get_runnable_modes)()
 			runnable_modes[M] = final_weight
 	return runnable_modes
 
-TYPE_PROC_REF(/datum/controller/configuration, get_runnable_midround_modes)(crew)
+/datum/controller/configuration/proc/get_runnable_midround_modes(crew)
 	var/list/datum/game_mode/runnable_modes = new
 	var/list/probabilities = Get(/datum/config_entry/keyed_list/probability)
 	var/list/min_pop = Get(/datum/config_entry/keyed_list/min_pop)
@@ -466,7 +466,7 @@ TYPE_PROC_REF(/datum/controller/configuration, get_runnable_midround_modes)(crew
 			runnable_modes[M] = probabilities[M.config_tag]
 	return runnable_modes
 
-TYPE_PROC_REF(/datum/controller/configuration, LoadChatFilter)()
+/datum/controller/configuration/proc/LoadChatFilter()
 	var/list/in_character_filter = list()
 	if(!fexists("[directory]/in_character_filter.txt"))
 		return
@@ -480,5 +480,5 @@ TYPE_PROC_REF(/datum/controller/configuration, LoadChatFilter)()
 	ic_filter_regex = in_character_filter.len ? regex("\\b([jointext(in_character_filter, "|")])\\b", "i") : null
 
 //Message admins when you can.
-TYPE_PROC_REF(/datum/controller/configuration, DelayedMessageAdmins)(text)
+/datum/controller/configuration/proc/DelayedMessageAdmins(text)
 	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(message_admins), text), 0)

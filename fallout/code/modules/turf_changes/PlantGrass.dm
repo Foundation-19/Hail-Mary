@@ -3,7 +3,7 @@
 #define GRASS_SPONTANEOUS 		2
 #define GRASS_WEIGHT 			4
 
-TYPE_PROC_REF(/turf/open, plantGrass)(Plantforce = FALSE)
+/turf/open/proc/plantGrass(Plantforce = FALSE)
 	var/Weight = 0
 	var/randPlant = null
 

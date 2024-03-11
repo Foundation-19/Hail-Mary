@@ -68,7 +68,7 @@ Featuring:
 			enter_mecha(M)
 
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile/syndicate/mecha_pilot, enter_mecha)(obj/mecha/M)
+/mob/living/simple_animal/hostile/syndicate/mecha_pilot/proc/enter_mecha(obj/mecha/M)
 	if(!M)
 		return 0
 	LoseTarget() //Target was our mecha, so null it out
@@ -93,7 +93,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/hostile/syndicate/mecha_pilot, enter_mec
 		mecha.lights_action.Activate()
 
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile/syndicate/mecha_pilot, exit_mecha)(obj/mecha/M)
+/mob/living/simple_animal/hostile/syndicate/mecha_pilot/proc/exit_mecha(obj/mecha/M)
 	if(!M)
 		return 0
 
@@ -116,7 +116,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/hostile/syndicate/mecha_pilot, exit_mech
 	walk(M,0)//end any lingering movement loops, to prevent the haunted mecha bug
 
 //Checks if a mecha is valid for theft
-TYPE_PROC_REF(/mob/living/simple_animal/hostile/syndicate/mecha_pilot, is_valid_mecha)(obj/mecha/M)
+/mob/living/simple_animal/hostile/syndicate/mecha_pilot/proc/is_valid_mecha(obj/mecha/M)
 	if(!M)
 		return 0
 	if(M.occupant)
@@ -128,7 +128,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/hostile/syndicate/mecha_pilot, is_valid_
 	return 1
 
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile/syndicate/mecha_pilot, mecha_face_target)(atom/A)
+/mob/living/simple_animal/hostile/syndicate/mecha_pilot/proc/mecha_face_target(atom/A)
 	if(mecha)
 		var/dirto = get_dir(mecha,A)
 		if(mecha.dir != dirto) //checking, because otherwise the mecha makes too many turn noises
@@ -136,7 +136,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/hostile/syndicate/mecha_pilot, mecha_fac
 
 
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile/syndicate/mecha_pilot, mecha_reload)()
+/mob/living/simple_animal/hostile/syndicate/mecha_pilot/proc/mecha_reload()
 	if(mecha)
 		for(var/equip in mecha.equipment)
 			var/obj/item/mecha_parts/mecha_equipment/ME = equip
@@ -144,7 +144,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/hostile/syndicate/mecha_pilot, mecha_rel
 				ME.rearm()
 
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile/syndicate/mecha_pilot, get_mecha_equip_by_flag)(flag = RANGED)
+/mob/living/simple_animal/hostile/syndicate/mecha_pilot/proc/get_mecha_equip_by_flag(flag = RANGED)
 	. = list()
 	if(mecha)
 		for(var/equip in mecha.equipment)

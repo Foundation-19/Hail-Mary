@@ -1,5 +1,5 @@
 // Active directional block system. Shared code is in [living_blocking_parrying.dm]
-TYPE_PROC_REF(/mob/living, stop_active_blocking)(was_forced = FALSE)
+/mob/living/proc/stop_active_blocking(was_forced = FALSE)
 	if(!(combat_flags & (COMBAT_FLAG_ACTIVE_BLOCK_STARTING | COMBAT_FLAG_ACTIVE_BLOCKING)))
 		return FALSE
 	var/obj/item/I = active_block_item
@@ -13,7 +13,7 @@ TYPE_PROC_REF(/mob/living, stop_active_blocking)(was_forced = FALSE)
 	DelayNextAction(data.block_end_click_cd_add)
 	return TRUE
 
-TYPE_PROC_REF(/mob/living, active_block_start)(obj/item/I)
+/mob/living/proc/active_block_start(obj/item/I)
 	if(combat_flags & (COMBAT_FLAG_ACTIVE_BLOCK_STARTING | COMBAT_FLAG_ACTIVE_BLOCKING))
 		return FALSE
 	if(!(I in held_items))
@@ -32,16 +32,16 @@ TYPE_PROC_REF(/mob/living, active_block_start)(obj/item/I)
 	return TRUE
 
 /// Visual effect setup for starting a directional block
-TYPE_PROC_REF(/mob/living, active_block_effect_start)()
+/mob/living/proc/active_block_effect_start()
 	visible_message(span_warning("[src] raises their [active_block_item], dropping into a defensive stance!"))
 	animate(src, pixel_x = get_standard_pixel_x_offset(), pixel_y = get_standard_pixel_y_offset(), time = 2.5, FALSE, SINE_EASING | EASE_OUT)
 
 /// Visual effect cleanup for starting a directional block
-TYPE_PROC_REF(/mob/living, active_block_effect_end)()
+/mob/living/proc/active_block_effect_end()
 	visible_message(span_warning("[src] lowers their [active_block_item]."))
 	animate(src, pixel_x = get_standard_pixel_x_offset(), pixel_y = get_standard_pixel_y_offset(), time = 2.5, FALSE, SINE_EASING | EASE_IN)
 
-TYPE_PROC_REF(/mob/living, continue_starting_active_block)()
+/mob/living/proc/continue_starting_active_block()
 	if(SEND_SIGNAL(src, COMSIG_COMBAT_MODE_CHECK, COMBAT_MODE_INACTIVE))
 		return DO_AFTER_STOP
 	return (combat_flags & COMBAT_FLAG_ACTIVE_BLOCK_STARTING)? DO_AFTER_CONTINUE : DO_AFTER_STOP
@@ -65,7 +65,7 @@ TYPE_PROC_REF(/mob/living, continue_starting_active_block)()
 /**
  * Proc called by keybindings to toggle active blocking.
  */
-TYPE_PROC_REF(/mob/living, keybind_toggle_active_blocking)()
+/mob/living/proc/keybind_toggle_active_blocking()
 	if(combat_flags & (COMBAT_FLAG_ACTIVE_BLOCK_STARTING | COMBAT_FLAG_ACTIVE_BLOCKING))
 		return keybind_stop_active_blocking()
 	else
@@ -74,7 +74,7 @@ TYPE_PROC_REF(/mob/living, keybind_toggle_active_blocking)()
 /**
  * Proc called by keybindings to start active blocking.
  */
-TYPE_PROC_REF(/mob/living, keybind_start_active_blocking)()
+/mob/living/proc/keybind_start_active_blocking()
 	if(combat_flags & (COMBAT_FLAG_ACTIVE_BLOCK_STARTING | COMBAT_FLAG_ACTIVE_BLOCKING))
 		return FALSE
 	if(!(combat_flags & COMBAT_FLAG_BLOCK_CAPABLE))
@@ -114,7 +114,7 @@ TYPE_PROC_REF(/mob/living, keybind_start_active_blocking)()
 /**
  * Gets the first item we can that can block, but if that fails, default to active held item.COMSIG_ENABLE_COMBAT_MODE
  */
-TYPE_PROC_REF(/mob/living, find_active_block_item)()
+/mob/living/proc/find_active_block_item()
 	var/obj/item/held = get_active_held_item()
 	if(!held?.can_active_block())
 		for(var/obj/item/I in held_items - held)
@@ -126,7 +126,7 @@ TYPE_PROC_REF(/mob/living, find_active_block_item)()
 /**
  * Proc called by keybindings to stop active blocking.
  */
-TYPE_PROC_REF(/mob/living, keybind_stop_active_blocking)()
+/mob/living/proc/keybind_stop_active_blocking()
 	combat_flags &= ~(COMBAT_FLAG_ACTIVE_BLOCK_STARTING)
 	if(combat_flags & COMBAT_FLAG_ACTIVE_BLOCKING)
 		stop_active_blocking(FALSE)
@@ -135,13 +135,13 @@ TYPE_PROC_REF(/mob/living, keybind_stop_active_blocking)()
 /**
  * Returns if we can actively block.
  */
-TYPE_PROC_REF(/obj/item, can_active_block)()
+/obj/item/proc/can_active_block()
 	return block_parry_data && (item_flags & ITEM_CAN_BLOCK)
 
 /**
  * Calculates FINAL ATTACK DAMAGE after mitigation
  */
-TYPE_PROC_REF(/obj/item, active_block_calculate_final_damage)(mob/living/owner, atom/object, damage, attack_text, attack_type, armour_penetration, mob/attacker, def_zone, final_block_chance, list/block_return)
+/obj/item/proc/active_block_calculate_final_damage(mob/living/owner, atom/object, damage, attack_text, attack_type, armour_penetration, mob/attacker, def_zone, final_block_chance, list/block_return)
 	var/datum/block_parry_data/data = get_block_parry_data()
 	var/absorption = data.attack_type_list_scan(data.block_damage_absorption_override, attack_type)
 	var/efficiency = data.attack_type_list_scan(data.block_damage_multiplier_override, attack_type)
@@ -166,7 +166,7 @@ TYPE_PROC_REF(/obj/item, active_block_calculate_final_damage)(mob/living/owner, 
 	return final_damage
 
 /// Amount of stamina from damage blocked. Note that the damage argument is damage_blocked.
-TYPE_PROC_REF(/obj/item, active_block_stamina_cost)(mob/living/owner, atom/object, damage_blocked, attack_text, attack_type, armour_penetration, mob/attacker, def_zone, final_block_chance, list/block_return)
+/obj/item/proc/active_block_stamina_cost(mob/living/owner, atom/object, damage_blocked, attack_text, attack_type, armour_penetration, mob/attacker, def_zone, final_block_chance, list/block_return)
 	var/datum/block_parry_data/data = get_block_parry_data()
 	var/efficiency = data.attack_type_list_scan(data.block_stamina_efficiency_override, attack_type)
 	if(isnull(efficiency))
@@ -179,7 +179,7 @@ TYPE_PROC_REF(/obj/item, active_block_stamina_cost)(mob/living/owner, atom/objec
 	return (damage_blocked / efficiency) * multiplier
 
 /// Apply the stamina damage to our user, notice how damage argument is stamina_amount.
-TYPE_PROC_REF(/obj/item, active_block_do_stamina_damage)(mob/living/owner, atom/object, stamina_amount, attack_text, attack_type, armour_penetration, mob/attacker, def_zone, final_block_chance, list/block_return)
+/obj/item/proc/active_block_do_stamina_damage(mob/living/owner, atom/object, stamina_amount, attack_text, attack_type, armour_penetration, mob/attacker, def_zone, final_block_chance, list/block_return)
 	if(istype(object, /obj/item/projectile))
 		var/obj/item/projectile/P = object
 		if(P.stamina)
@@ -204,10 +204,10 @@ TYPE_PROC_REF(/obj/item, active_block_do_stamina_damage)(mob/living/owner, atom/
 	else
 		owner.adjustStaminaLossBuffered(stamina_amount)
 
-TYPE_PROC_REF(/obj/item, on_active_block)(mob/living/owner, atom/object, damage, damage_blocked, attack_text, attack_type, armour_penetration, mob/attacker, def_zone, final_block_chance, list/block_return, override_direction)
+/obj/item/proc/on_active_block(mob/living/owner, atom/object, damage, damage_blocked, attack_text, attack_type, armour_penetration, mob/attacker, def_zone, final_block_chance, list/block_return, override_direction)
 	return
 
-TYPE_PROC_REF(/obj/item, active_block)(mob/living/owner, atom/object, damage, attack_text, attack_type, armour_penetration, mob/attacker, def_zone, final_block_chance, list/block_return, override_direction)
+/obj/item/proc/active_block(mob/living/owner, atom/object, damage, attack_text, attack_type, armour_penetration, mob/attacker, def_zone, final_block_chance, list/block_return, override_direction)
 	if(!can_active_block())
 		return BLOCK_NONE
 	var/datum/block_parry_data/data = get_block_parry_data()
@@ -242,7 +242,7 @@ TYPE_PROC_REF(/obj/item, active_block)(mob/living/owner, atom/object, damage, at
 		playsound(loc, pickweight(data.block_sounds), 75, TRUE)
 	on_active_block(owner, object, damage, damage_blocked, attack_text, attack_type, armour_penetration, attacker, def_zone, final_block_chance, block_return, override_direction)
 
-TYPE_PROC_REF(/obj/item, check_active_block)(mob/living/owner, atom/object, damage, attack_text, attack_type, armour_penetration, mob/attacker, def_zone, final_block_chance, list/block_return)
+/obj/item/proc/check_active_block(mob/living/owner, atom/object, damage, attack_text, attack_type, armour_penetration, mob/attacker, def_zone, final_block_chance, list/block_return)
 	if(!can_active_block())
 		return
 	var/incoming_direction = get_dir(get_turf(attacker) || get_turf(object), src)
@@ -254,7 +254,7 @@ TYPE_PROC_REF(/obj/item, check_active_block)(mob/living/owner, atom/object, dama
 /**
  * Gets the block direction bitflags of what we can block.
  */
-TYPE_PROC_REF(/obj/item, blockable_directions)()
+/obj/item/proc/blockable_directions()
 	var/datum/block_parry_data/data = get_block_parry_data()
 	return data.can_block_directions
 
@@ -265,7 +265,7 @@ TYPE_PROC_REF(/obj/item, blockable_directions)()
  * * our_dir - our direction.
  * * their_dir - their direction. Must be a single direction, or NONE for an attack from the same tile. This is incoming direction.
  */
-TYPE_PROC_REF(/obj/item, can_block_direction)(our_dir, their_dir)
+/obj/item/proc/can_block_direction(our_dir, their_dir)
 	their_dir = turn(their_dir, 180)
 	if(our_dir != NORTH)
 		var/turn_angle = dir2angle(our_dir)
@@ -281,7 +281,7 @@ TYPE_PROC_REF(/obj/item, can_block_direction)(our_dir, their_dir)
  * * our_dir - our direction.
  * * their_dirs - list of their directions as we cannot use bitfields here.
  */
-TYPE_PROC_REF(/obj/item, can_block_directions_multiple)(our_dir, list/their_dirs)
+/obj/item/proc/can_block_directions_multiple(our_dir, list/their_dirs)
 	. = FALSE
 	for(var/i in their_dirs)
 		. |= can_block_direction(our_dir, i)

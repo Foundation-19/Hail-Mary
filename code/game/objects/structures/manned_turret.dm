@@ -72,7 +72,7 @@
 	if (!update_positioning())
 		return PROCESS_KILL
 
-TYPE_PROC_REF(/obj/machinery/manned_turret, update_positioning)()
+/obj/machinery/manned_turret/proc/update_positioning()
 	if (!LAZYLEN(buckled_mobs))
 		return FALSE
 	var/mob/living/controller = buckled_mobs[1]
@@ -86,7 +86,7 @@ TYPE_PROC_REF(/obj/machinery/manned_turret, update_positioning)()
 			direction_track(controller, T)
 			calculated_projectile_vars = calculate_projectile_angle_and_pixel_offsets(controller, C.mouseParams)
 
-TYPE_PROC_REF(/obj/machinery/manned_turret, direction_track)(mob/user, atom/targeted)
+/obj/machinery/manned_turret/proc/direction_track(mob/user, atom/targeted)
 	if(user.incapacitated())
 		return
 	setDir(get_dir(src,targeted))
@@ -125,7 +125,7 @@ TYPE_PROC_REF(/obj/machinery/manned_turret, direction_track)(mob/user, atom/targ
 			user.pixel_x = 8
 			user.pixel_y = -4
 
-TYPE_PROC_REF(/obj/machinery/manned_turret, checkfire)(atom/targeted_atom, mob/user)
+/obj/machinery/manned_turret/proc/checkfire(atom/targeted_atom, mob/user)
 	target = targeted_atom
 	if(target == user || user.incapacitated() || target == get_turf(src))
 		return
@@ -139,12 +139,12 @@ TYPE_PROC_REF(/obj/machinery/manned_turret, checkfire)(atom/targeted_atom, mob/u
 		warned = FALSE
 		volley(user)
 
-TYPE_PROC_REF(/obj/machinery/manned_turret, volley)(mob/user)
+/obj/machinery/manned_turret/proc/volley(mob/user)
 	target_turf = get_turf(target)
 	for(var/i in 1 to number_of_shots)
-		addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/machinery/manned_turret, fire_helper), user), i*rate_of_fire)
+		addtimer(CALLBACK(src, /obj/machinery/manned_turret/.proc/fire_helper, user), i*rate_of_fire)
 
-TYPE_PROC_REF(/obj/machinery/manned_turret, fire_helper)(mob/user)
+/obj/machinery/manned_turret/proc/fire_helper(mob/user)
 	if(user.incapacitated() || !(user in buckled_mobs))
 		return
 	update_positioning()						//REFRESH MOUSE TRACKING!!

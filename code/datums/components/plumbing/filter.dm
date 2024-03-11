@@ -45,7 +45,7 @@
 			if(amount <= 0)
 				break
 ///We check if the direction and reagent are valid to give. Needed for filters since different outputs have different behaviours
-TYPE_PROC_REF(/datum/component/plumbing/filter, can_give_in_direction)(dir, reagent)
+/datum/component/plumbing/filter/proc/can_give_in_direction(dir, reagent)
 	var/obj/machinery/plumbing/filter/F = parent
 	switch(dir)
 		if(SOUTH) //straight

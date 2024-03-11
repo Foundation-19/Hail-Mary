@@ -15,7 +15,7 @@
 	if(armed)
 		activate()
 
-TYPE_PROC_REF(/datum/computer_file/program/revelation, activate)()
+/datum/computer_file/program/revelation/proc/activate()
 	if(computer)
 		computer.visible_message(span_notice("\The [computer]'s screen brightly flashes and loud electrical buzzing is heard."))
 		computer.enabled = FALSE

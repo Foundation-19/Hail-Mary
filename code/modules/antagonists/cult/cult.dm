@@ -46,7 +46,7 @@
 		stack_trace("Wrong team type passed to [type] initialization.")
 	cult_team = new_team
 
-TYPE_PROC_REF(/datum/antagonist/cult, add_objectives)()
+/datum/antagonist/cult/proc/add_objectives()
 	objectives |= cult_team?.objectives
 
 /datum/antagonist/cult/Destroy()
@@ -78,7 +78,7 @@ TYPE_PROC_REF(/datum/antagonist/cult, add_objectives)()
 		current.client.images += cult_team.blood_target_image
 
 
-TYPE_PROC_REF(/datum/antagonist/cult, equip_cultist)(metal=TRUE)
+/datum/antagonist/cult/proc/equip_cultist(metal=TRUE)
 	var/mob/living/carbon/H = owner.current
 	if(!istype(H))
 		return
@@ -91,7 +91,7 @@ TYPE_PROC_REF(/datum/antagonist/cult, equip_cultist)(metal=TRUE)
 	to_chat(owner, "These will help you start the cult on this station. Use them well, and remember - you are not the only one.</span>")
 
 
-TYPE_PROC_REF(/datum/antagonist/cult, cult_give_item)(obj/item/item_path, mob/living/carbon/human/mob)
+/datum/antagonist/cult/proc/cult_give_item(obj/item/item_path, mob/living/carbon/human/mob)
 	var/list/slots = list(
 		"backpack" = SLOT_IN_BACKPACK,
 		"left pocket" = SLOT_L_STORE,
@@ -178,11 +178,11 @@ TYPE_PROC_REF(/datum/antagonist/cult, cult_give_item)(obj/item/item_path, mob/li
 	.["Dagger"] = CALLBACK(src,PROC_REF(admin_give_dagger))
 	.["Dagger and Metal"] = CALLBACK(src,PROC_REF(admin_give_metal))
 
-TYPE_PROC_REF(/datum/antagonist/cult, admin_give_dagger)(mob/admin)
+/datum/antagonist/cult/proc/admin_give_dagger(mob/admin)
 	if(!equip_cultist(FALSE))
 		to_chat(admin, span_danger("Spawning dagger failed!"))
 
-TYPE_PROC_REF(/datum/antagonist/cult, admin_give_metal)(mob/admin)
+/datum/antagonist/cult/proc/admin_give_metal(mob/admin)
 	if (!equip_cultist(TRUE))
 		to_chat(admin, span_danger("Spawning runed metal failed!"))
 
@@ -283,7 +283,7 @@ TYPE_PROC_REF(/datum/antagonist/cult, admin_give_metal)(mob/admin)
 		sac_objective.target_current = sac_current
 		sac_objective.update_explanation_text()
 
-TYPE_PROC_REF(/datum/team/cult, check_size)()
+/datum/team/cult/proc/check_size()
 	if(cult_ascendent)
 		return
 	var/alive = 0
@@ -313,7 +313,7 @@ TYPE_PROC_REF(/datum/team/cult, check_size)()
 		cult_ascendent = TRUE
 
 
-TYPE_PROC_REF(/datum/team/cult, rise)(cultist)
+/datum/team/cult/proc/rise(cultist)
 	if(ishuman(cultist))
 		var/mob/living/carbon/human/H = cultist
 		H.left_eye_color = "f00"
@@ -323,14 +323,14 @@ TYPE_PROC_REF(/datum/team/cult, rise)(cultist)
 		ADD_TRAIT(H, TRAIT_CULT_EYES, "valid_cultist")
 		H.update_body()
 
-TYPE_PROC_REF(/datum/team/cult, ascend)(cultist)
+/datum/team/cult/proc/ascend(cultist)
 	if(ishuman(cultist))
 		var/mob/living/carbon/human/H = cultist
 		new /obj/effect/temp_visual/cult/sparks(get_turf(H), H.dir)
 		var/istate = pick("halo1","halo2","halo3","halo4","halo5","halo6")
 		H.add_overlay(mutable_appearance('icons/effects/32x64.dmi', istate, -BODY_FRONT_LAYER))
 
-TYPE_PROC_REF(/datum/team/cult, setup_objectives)()
+/datum/team/cult/proc/setup_objectives()
 	//SAC OBJECTIVE , todo: move this to objective internals
 	sort_sacrifice()
 	//SUMMON OBJECTIVE
@@ -338,7 +338,7 @@ TYPE_PROC_REF(/datum/team/cult, setup_objectives)()
 	summon_objective.team = src
 	objectives += summon_objective
 
-TYPE_PROC_REF(/datum/team/cult, sort_sacrifice)(replacement = FALSE)
+/datum/team/cult/proc/sort_sacrifice(replacement = FALSE)
 
 	var/list/target_candidates = list()
 
@@ -374,7 +374,7 @@ TYPE_PROC_REF(/datum/team/cult, sort_sacrifice)(replacement = FALSE)
 	sac_objective.sac_image = sac_objective.target_current.get_sac_image()
 	objectives += sac_objective
 
-TYPE_PROC_REF(/mob, get_sac_image)()
+/mob/proc/get_sac_image()
 	var/icon/reshape = icon(icon, icon_state, SOUTH)
 	reshape.Shift(SOUTH, 4)
 	reshape.Shift(EAST, 1)
@@ -426,7 +426,7 @@ TYPE_PROC_REF(/mob, get_sac_image)()
 /datum/objective/eldergod/check_completion()
 	return summoned || completed
 
-TYPE_PROC_REF(/datum/team/cult, check_cult_victory)()
+/datum/team/cult/proc/check_cult_victory()
 	for(var/datum/objective/O in objectives)
 		if(!O.check_completion())
 			return FALSE

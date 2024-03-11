@@ -33,7 +33,7 @@
 		return ..()
 
 //For holopads only. Usable by AI.
-TYPE_PROC_REF(/mob/living/silicon/ai, holopad_talk)(message, language)
+/mob/living/silicon/ai/proc/holopad_talk(message, language)
 
 
 	message = trim(message)
@@ -91,7 +91,7 @@ TYPE_PROC_REF(/mob/living/silicon/ai, holopad_talk)(message, language)
 	popup.open()
 
 
-TYPE_PROC_REF(/mob/living/silicon/ai, announcement)()
+/mob/living/silicon/ai/proc/announcement()
 	var/static/announcing_vox = 0 // Stores the time of the last announcement
 	if(announcing_vox > world.time)
 		to_chat(src, span_notice("Please wait [DisplayTimeText(announcing_vox - world.time)]."))

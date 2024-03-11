@@ -68,7 +68,7 @@
 	var/flags = TIMER_STOPPABLE
 	timer_id = addtimer(CALLBACK(src, PROC_REF(zombify)), revive_time, flags)
 
-TYPE_PROC_REF(/obj/item/organ/zombie_infection, zombify)()
+/obj/item/organ/zombie_infection/proc/zombify()
 	timer_id = null
 
 	if(!converts_living && owner.stat != DEAD)

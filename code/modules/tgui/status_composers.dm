@@ -69,7 +69,7 @@
 
 /// Returns a UI status representing this silicon's capability to access
 /// the given source. Called by `ui_status_silicon_has_access`.
-TYPE_PROC_REF(/mob/living/silicon, get_ui_access)(atom/source)
+/mob/living/silicon/proc/get_ui_access(atom/source)
 	return UI_CLOSE
 
 /mob/living/silicon/robot/get_ui_access(atom/source)

@@ -559,7 +559,7 @@
 	message = null
 	emote_type = EMOTE_VISIBLE
 
-TYPE_PROC_REF(/datum/emote/living/custom, check_invalid)(mob/user, input)
+/datum/emote/living/custom/proc/check_invalid(mob/user, input)
 	if(stop_bad_mime.Find(input, 1, 1))
 		to_chat(user, span_danger("Invalid emote."))
 		return TRUE

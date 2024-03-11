@@ -73,12 +73,12 @@ GLOBAL_LIST(topic_status_cache)
 	HandleTestRun()
 	#endif
 
-TYPE_PROC_REF(/world, InitTgs)()
+/world/proc/InitTgs()
 	TgsNew(new /datum/tgs_event_handler/impl, TGS_SECURITY_TRUSTED)
 	GLOB.revdata.load_tgs_info()
 	GLOB.tgs_initialized = TRUE
 
-TYPE_PROC_REF(/world, HandleTestRun)()
+/world/proc/HandleTestRun()
 	//trigger things to run the whole process
 	Master.sleep_offline_after_initializations = FALSE
 	SSticker.start_immediately = TRUE
@@ -91,7 +91,7 @@ TYPE_PROC_REF(/world, HandleTestRun)()
 #endif
 	SSticker.OnRoundstart(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(_addtimer), cb, 10 SECONDS))
 
-TYPE_PROC_REF(/world, SetupLogs)()
+/world/proc/SetupLogs()
 	var/override_dir = params[OVERRIDE_LOG_DIRECTORY_PARAMETER]
 	if(!override_dir)
 		var/realtime = world.realtime
@@ -201,7 +201,7 @@ TYPE_PROC_REF(/world, SetupLogs)()
 	handler = new handler()
 	return handler.TryRun(input, addr)
 
-TYPE_PROC_REF(/world, AnnouncePR)(announcement, list/payload)
+/world/proc/AnnouncePR(announcement, list/payload)
 	var/static/list/PRcounts = list()	//PR id -> number of times announced this round
 	var/id = "[payload["pull_request"]["id"]]"
 	if(!PRcounts[id])
@@ -215,7 +215,7 @@ TYPE_PROC_REF(/world, AnnouncePR)(announcement, list/payload)
 	for(var/client/C in GLOB.clients)
 		C.AnnouncePR(final_composed)
 
-TYPE_PROC_REF(/world, FinishTestRun)()
+/world/proc/FinishTestRun()
 	set waitfor = FALSE
 	var/list/fail_reasons
 	if(GLOB)
@@ -287,7 +287,7 @@ TYPE_PROC_REF(/world, FinishTestRun)()
 		call(debug_server, "auxtools_shutdown")()
 	..()
 
-TYPE_PROC_REF(/world, update_status)()
+/world/proc/update_status()
 
 	var/list/features = list()
 
@@ -346,7 +346,7 @@ TYPE_PROC_REF(/world, update_status)()
 
 	status = s
 
-TYPE_PROC_REF(/world, update_hub_visibility)(new_visibility)
+/world/proc/update_hub_visibility(new_visibility)
 	if(new_visibility == GLOB.hub_visibility)
 		return
 	GLOB.hub_visibility = new_visibility
@@ -355,16 +355,16 @@ TYPE_PROC_REF(/world, update_hub_visibility)(new_visibility)
 	else
 		hub_password = "SORRYNOPASSWORD"
 
-TYPE_PROC_REF(/world, incrementMaxZ)()
+/world/proc/incrementMaxZ()
 	maxz++
 	SSmobs.MaxZChanged()
 	SSidlenpcpool.MaxZChanged()
 	world.refresh_atmos_grid()
 
 /// Auxtools atmos
-TYPE_PROC_REF(/world, refresh_atmos_grid)()
+/world/proc/refresh_atmos_grid()
 
-TYPE_PROC_REF(/world, change_fps)(new_value = 20)
+/world/proc/change_fps(new_value = 20)
 	if(new_value <= 0)
 		CRASH("change_fps() called with [new_value] new_value.")
 	if(fps == new_value)
@@ -374,7 +374,7 @@ TYPE_PROC_REF(/world, change_fps)(new_value = 20)
 	on_tickrate_change()
 
 
-TYPE_PROC_REF(/world, change_tick_lag)(new_value = 0.5)
+/world/proc/change_tick_lag(new_value = 0.5)
 	if(new_value <= 0)
 		CRASH("change_tick_lag() called with [new_value] new_value.")
 	if(tick_lag == new_value)
@@ -384,5 +384,5 @@ TYPE_PROC_REF(/world, change_tick_lag)(new_value = 0.5)
 	on_tickrate_change()
 
 
-TYPE_PROC_REF(/world, on_tickrate_change)()
+/world/proc/on_tickrate_change()
 	SStimer?.reset_buckets()

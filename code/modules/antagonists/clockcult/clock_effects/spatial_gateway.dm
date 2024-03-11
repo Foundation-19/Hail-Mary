@@ -25,7 +25,7 @@
 	deltimer(timerid)
 	return ..()
 
-TYPE_PROC_REF(/obj/effect/clockwork/spatial_gateway, check_setup)()
+/obj/effect/clockwork/spatial_gateway/proc/check_setup()
 	if(!linked_gateway)
 		qdel(src)
 		return
@@ -38,7 +38,7 @@ TYPE_PROC_REF(/obj/effect/clockwork/spatial_gateway, check_setup)()
 	timerid = QDEL_IN(src, lifetime) //We only need this if the gateway is not stable
 
 //set up a gateway with another gateway
-TYPE_PROC_REF(/obj/effect/clockwork/spatial_gateway, setup_gateway)(obj/effect/clockwork/spatial_gateway/gatewayB, set_duration, set_uses, two_way)
+/obj/effect/clockwork/spatial_gateway/proc/setup_gateway(obj/effect/clockwork/spatial_gateway/gatewayB, set_duration, set_uses, two_way)
 	if(!gatewayB)
 		return FALSE
 
@@ -130,7 +130,7 @@ TYPE_PROC_REF(/obj/effect/clockwork/spatial_gateway, setup_gateway)(obj/effect/c
 	if(!QDELETED(AM))
 		pass_through_gateway(AM)
 
-TYPE_PROC_REF(/obj/effect/clockwork/spatial_gateway, pass_through_gateway)(atom/movable/A, no_cost = FALSE)
+/obj/effect/clockwork/spatial_gateway/proc/pass_through_gateway(atom/movable/A, no_cost = FALSE)
 	if(!linked_gateway)
 		qdel(src)
 		return FALSE
@@ -164,13 +164,13 @@ TYPE_PROC_REF(/obj/effect/clockwork/spatial_gateway, pass_through_gateway)(atom/
 	addtimer(CALLBACK(src, PROC_REF(check_uses)), 10)
 	return TRUE
 
-TYPE_PROC_REF(/obj/effect/clockwork/spatial_gateway, check_uses)()
+/obj/effect/clockwork/spatial_gateway/proc/check_uses()
 	if(!uses)
 		qdel(src)
 		qdel(linked_gateway)
 
 //This proc creates and sets up a gateway from invoker input.
-TYPE_PROC_REF(/atom/movable, procure_gateway)(mob/living/invoker, time_duration, gateway_uses, two_way)
+/atom/movable/proc/procure_gateway(mob/living/invoker, time_duration, gateway_uses, two_way)
 	var/list/possible_targets = list()
 	var/list/teleportnames = list()
 
@@ -276,7 +276,7 @@ TYPE_PROC_REF(/atom/movable, procure_gateway)(mob/living/invoker, time_duration,
 	linked_gateway.busy = FALSE
 	return TRUE
 
-TYPE_PROC_REF(/obj/effect/clockwork/spatial_gateway/stable, start_shutdown)()
+/obj/effect/clockwork/spatial_gateway/stable/proc/start_shutdown()
 		deltimer(timerid)
 		deltimer(linked_gateway.timerid)
 		timerid = QDEL_IN(src, 20)

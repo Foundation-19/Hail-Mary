@@ -38,7 +38,7 @@
 /datum/mafia_role/New(datum/mafia_controller/game)
 	. = ..()
 
-TYPE_PROC_REF(/datum/mafia_role, kill)(datum/mafia_controller/game,lynch=FALSE)
+/datum/mafia_role/proc/kill(datum/mafia_controller/game,lynch=FALSE)
 	if(SEND_SIGNAL(src,COMSIG_MAFIA_ON_KILL,game,lynch) & MAFIA_PREVENT_KILL)
 		return FALSE
 	game_status = MAFIA_DEAD
@@ -53,7 +53,7 @@ TYPE_PROC_REF(/datum/mafia_role, kill)(datum/mafia_controller/game,lynch=FALSE)
 	QDEL_NULL(body)
 	. = ..()
 
-TYPE_PROC_REF(/datum/mafia_role, greet)()
+/datum/mafia_role/proc/greet()
 	SEND_SOUND(body, 'sound/ambience/ambifailure.ogg')
 	to_chat(body,span_danger("You are the [name]."))
 	to_chat(body,span_danger("[desc]"))
@@ -66,7 +66,7 @@ TYPE_PROC_REF(/datum/mafia_role, greet)()
 			to_chat(body,span_danger("You are not aligned to town or mafia. Accomplish your own objectives!"))
 	to_chat(body, "<b>Be sure to read <a href=\"https://tgstation13.org/wiki/Mafia\">the wiki page</a> to learn more, if you have no idea what's going on.</b>")
 
-TYPE_PROC_REF(/datum/mafia_role, reveal_role)(datum/mafia_controller/game, verbose = FALSE)
+/datum/mafia_role/proc/reveal_role(datum/mafia_controller/game, verbose = FALSE)
 	if(revealed)
 		return
 	if(verbose)
@@ -78,27 +78,27 @@ TYPE_PROC_REF(/datum/mafia_role, reveal_role)(datum/mafia_controller/game, verbo
 	body.equipOutfit(revealed_outfit)
 	revealed = TRUE
 
-TYPE_PROC_REF(/datum/mafia_role, special_reveal_equip)(datum/mafia_controller/game)
+/datum/mafia_role/proc/special_reveal_equip(datum/mafia_controller/game)
 	return
 
-TYPE_PROC_REF(/datum/mafia_role, handle_action)(datum/mafia_controller/game,action,datum/mafia_role/target)
+/datum/mafia_role/proc/handle_action(datum/mafia_controller/game,action,datum/mafia_role/target)
 	return
 
-TYPE_PROC_REF(/datum/mafia_role, validate_action_target)(datum/mafia_controller/game,action,datum/mafia_role/target)
+/datum/mafia_role/proc/validate_action_target(datum/mafia_controller/game,action,datum/mafia_role/target)
 	if(SEND_SIGNAL(src,COMSIG_MAFIA_CAN_PERFORM_ACTION,game,action,target) & MAFIA_PREVENT_ACTION)
 		return FALSE
 	return TRUE
 
-TYPE_PROC_REF(/datum/mafia_role, add_note)(note)
+/datum/mafia_role/proc/add_note(note)
 	role_notes += note
 
-TYPE_PROC_REF(/datum/mafia_role, check_total_victory)(alive_town, alive_mafia) //solo antags can win... solo.
+/datum/mafia_role/proc/check_total_victory(alive_town, alive_mafia) //solo antags can win... solo.
 	return FALSE
 
-TYPE_PROC_REF(/datum/mafia_role, block_team_victory)(alive_town, alive_mafia) //solo antags can also block team wins.
+/datum/mafia_role/proc/block_team_victory(alive_town, alive_mafia) //solo antags can also block team wins.
 	return FALSE
 
-TYPE_PROC_REF(/datum/mafia_role, show_help)(clueless)
+/datum/mafia_role/proc/show_help(clueless)
 	var/list/result = list()
 	var/team_desc = ""
 	var/team_span = ""
@@ -150,7 +150,7 @@ TYPE_PROC_REF(/datum/mafia_role, show_help)(clueless)
 	to_chat(body,span_warning("You will investigate [target.body.real_name] tonight."))
 	current_investigation = target
 
-TYPE_PROC_REF(/datum/mafia_role/detective, investigate)(datum/mafia_controller/game)
+/datum/mafia_role/detective/proc/investigate(datum/mafia_controller/game)
 	var/datum/mafia_role/target = current_investigation
 	if(target)
 		if(target.detect_immune)
@@ -201,7 +201,7 @@ TYPE_PROC_REF(/datum/mafia_role/detective, investigate)(datum/mafia_controller/g
 	to_chat(body,span_warning("You will reveal [target.body.real_name] tonight."))
 	current_target = target
 
-TYPE_PROC_REF(/datum/mafia_role/psychologist, therapy_reveal)(datum/mafia_controller/game)
+/datum/mafia_role/psychologist/proc/therapy_reveal(datum/mafia_controller/game)
 	if(SEND_SIGNAL(src,COMSIG_MAFIA_CAN_PERFORM_ACTION,game,"reveal",current_target) & MAFIA_PREVENT_ACTION || game_status != MAFIA_ALIVE) //Got lynched or roleblocked by a lawyer.
 		current_target = null
 	if(current_target)
@@ -237,7 +237,7 @@ TYPE_PROC_REF(/datum/mafia_role/psychologist, therapy_reveal)(datum/mafia_contro
 	to_chat(body,span_warning("You will commune with the spirit of [target.body.real_name] tonight."))
 	current_target = target
 
-TYPE_PROC_REF(/datum/mafia_role/chaplain, commune)(datum/mafia_controller/game)
+/datum/mafia_role/chaplain/proc/commune(datum/mafia_controller/game)
 	var/datum/mafia_role/target = current_target
 	if(target)
 		to_chat(body,"<span class='warning'>You invoke spirit of [target.body.real_name] and learn their role was <b>[target.name]<b>.</span>")
@@ -276,17 +276,17 @@ TYPE_PROC_REF(/datum/mafia_role/chaplain, commune)(datum/mafia_controller/game)
 	to_chat(body,span_warning("You will protect [target.body.real_name] tonight."))
 	current_protected = target
 
-TYPE_PROC_REF(/datum/mafia_role/md, protect)(datum/mafia_controller/game)
+/datum/mafia_role/md/proc/protect(datum/mafia_controller/game)
 	if(current_protected)
 		RegisterSignal(current_protected,COMSIG_MAFIA_ON_KILL,PROC_REF(prevent_kill))
 		add_note("N[game.turn] - Protected [current_protected.body.real_name]")
 
-TYPE_PROC_REF(/datum/mafia_role/md, prevent_kill)(datum/source)
+/datum/mafia_role/md/proc/prevent_kill(datum/source)
 	to_chat(body,span_warning("The person you protected tonight was attacked!"))
 	to_chat(current_protected.body,span_userdanger("You were attacked last night, but someone nursed you back to life!"))
 	return MAFIA_PREVENT_KILL
 
-TYPE_PROC_REF(/datum/mafia_role/md, end_protection)(datum/mafia_controller/game)
+/datum/mafia_role/md/proc/end_protection(datum/mafia_controller/game)
 	if(current_protected)
 		UnregisterSignal(current_protected,COMSIG_MAFIA_ON_KILL)
 		current_protected = null
@@ -309,7 +309,7 @@ TYPE_PROC_REF(/datum/mafia_role/md, end_protection)(datum/mafia_controller/game)
 	RegisterSignal(game,COMSIG_MAFIA_NIGHT_START,PROC_REF(try_to_roleblock))
 	RegisterSignal(game,COMSIG_MAFIA_NIGHT_END,PROC_REF(release))
 
-TYPE_PROC_REF(/datum/mafia_role/lawyer, roleblock_text)(datum/mafia_controller/game)
+/datum/mafia_role/lawyer/proc/roleblock_text(datum/mafia_controller/game)
 	if(SEND_SIGNAL(src,COMSIG_MAFIA_CAN_PERFORM_ACTION,game,"roleblock",current_target) & MAFIA_PREVENT_ACTION || game_status != MAFIA_ALIVE) //Got lynched or roleblocked by another lawyer.
 		current_target = null
 	if(current_target)
@@ -334,17 +334,17 @@ TYPE_PROC_REF(/datum/mafia_role/lawyer, roleblock_text)(datum/mafia_controller/g
 		current_target = target
 		to_chat(body,span_warning("You will block [target.body.real_name] tonight."))
 
-TYPE_PROC_REF(/datum/mafia_role/lawyer, try_to_roleblock)(datum/mafia_controller/game)
+/datum/mafia_role/lawyer/proc/try_to_roleblock(datum/mafia_controller/game)
 	if(current_target)
 		RegisterSignal(current_target,COMSIG_MAFIA_CAN_PERFORM_ACTION, PROC_REF(prevent_action))
 
-TYPE_PROC_REF(/datum/mafia_role/lawyer, release)(datum/mafia_controller/game)
+/datum/mafia_role/lawyer/proc/release(datum/mafia_controller/game)
 	. = ..()
 	if(current_target)
 		UnregisterSignal(current_target, COMSIG_MAFIA_CAN_PERFORM_ACTION)
 		current_target = null
 
-TYPE_PROC_REF(/datum/mafia_role/lawyer, prevent_action)(datum/source)
+/datum/mafia_role/lawyer/proc/prevent_action(datum/source)
 	if(game_status == MAFIA_ALIVE) //in case we got killed while imprisoning sk - bad luck edge
 		return MAFIA_PREVENT_ACTION
 
@@ -388,7 +388,7 @@ TYPE_PROC_REF(/datum/mafia_role/lawyer, prevent_action)(datum/source)
 	. = ..()
 	RegisterSignal(game,COMSIG_MAFIA_SUNDOWN,PROC_REF(mafia_text))
 
-TYPE_PROC_REF(/datum/mafia_role/mafia, mafia_text)(datum/mafia_controller/source)
+/datum/mafia_role/mafia/proc/mafia_text(datum/mafia_controller/source)
 	to_chat(body,"<b>Vote for who to kill tonight. The killer will be chosen randomly from voters.</b>")
 
 //better detective for mafia
@@ -417,7 +417,7 @@ TYPE_PROC_REF(/datum/mafia_role/mafia, mafia_text)(datum/mafia_controller/source
 	to_chat(body,span_warning("You will feast on the memories of [target.body.real_name] tonight."))
 	current_investigation = target
 
-TYPE_PROC_REF(/datum/mafia_role/mafia/thoughtfeeder, investigate)(datum/mafia_controller/game)
+/datum/mafia_role/mafia/thoughtfeeder/proc/investigate(datum/mafia_controller/game)
 	var/datum/mafia_role/target = current_investigation
 	current_investigation = null
 	if(SEND_SIGNAL(src,COMSIG_MAFIA_CAN_PERFORM_ACTION,game,"thoughtfeed",target) & MAFIA_PREVENT_ACTION)
@@ -463,7 +463,7 @@ TYPE_PROC_REF(/datum/mafia_role/mafia/thoughtfeeder, investigate)(datum/mafia_co
 /datum/mafia_role/traitor/block_team_victory(alive_town, alive_mafia) //no team can win until they're dead
 	return TRUE //while alive, town AND mafia cannot win (though since mafia know who is who it's pretty easy to win from that point)
 
-TYPE_PROC_REF(/datum/mafia_role/traitor, nightkill_immunity)(datum/source,datum/mafia_controller/game,lynch)
+/datum/mafia_role/traitor/proc/nightkill_immunity(datum/source,datum/mafia_controller/game,lynch)
 	if(game.phase == MAFIA_PHASE_NIGHT && !lynch)
 		to_chat(body,span_userdanger("You were attacked, but they'll have to try harder than that to put you down."))
 		return MAFIA_PREVENT_KILL
@@ -480,7 +480,7 @@ TYPE_PROC_REF(/datum/mafia_role/traitor, nightkill_immunity)(datum/source,datum/
 	current_victim = target
 	to_chat(body,span_warning("You will attempt to kill [target.body.real_name] tonight."))
 
-TYPE_PROC_REF(/datum/mafia_role/traitor, try_to_kill)(datum/mafia_controller/source)
+/datum/mafia_role/traitor/proc/try_to_kill(datum/mafia_controller/source)
 	var/datum/mafia_role/target = current_victim
 	current_victim = null
 	if(SEND_SIGNAL(src,COMSIG_MAFIA_CAN_PERFORM_ACTION,source,"traitor kill",target) & MAFIA_PREVENT_ACTION)
@@ -542,7 +542,7 @@ TYPE_PROC_REF(/datum/mafia_role/traitor, try_to_kill)(datum/mafia_controller/sou
 	else
 		to_chat(body,span_danger("You will hunt everyone in a flickering room down tonight."))
 
-TYPE_PROC_REF(/datum/mafia_role/nightmare, flicker_or_hunt)(datum/mafia_controller/source)
+/datum/mafia_role/nightmare/proc/flicker_or_hunt(datum/mafia_controller/source)
 	if(game_status != MAFIA_ALIVE || !flicker_target)
 		return
 	if(SEND_SIGNAL(src,COMSIG_MAFIA_CAN_PERFORM_ACTION,source,"nightmare actions",flicker_target) & MAFIA_PREVENT_ACTION)
@@ -603,23 +603,23 @@ TYPE_PROC_REF(/datum/mafia_role/nightmare, flicker_or_hunt)(datum/mafia_controll
 		to_chat(body,span_danger("You decide to prepare for a horrible night."))
 	protection_status = !protection_status
 
-TYPE_PROC_REF(/datum/mafia_role/fugitive, night_start)(datum/mafia_controller/game)
+/datum/mafia_role/fugitive/proc/night_start(datum/mafia_controller/game)
 	if(protection_status == FUGITIVE_WILL_PRESERVE)
 		to_chat(body,span_danger("Your preparations are complete. Nothing could kill you tonight!"))
 		RegisterSignal(src,COMSIG_MAFIA_ON_KILL,PROC_REF(prevent_death))
 
-TYPE_PROC_REF(/datum/mafia_role/fugitive, night_end)(datum/mafia_controller/game)
+/datum/mafia_role/fugitive/proc/night_end(datum/mafia_controller/game)
 	if(protection_status == FUGITIVE_WILL_PRESERVE)
 		charges--
 		UnregisterSignal(src,COMSIG_MAFIA_ON_KILL)
 		to_chat(body,span_danger("You are no longer protected. You have [charges] use[charges == 1 ? "" : "s"] left of your power."))
 		protection_status = FUGITIVE_NOT_PRESERVING
 
-TYPE_PROC_REF(/datum/mafia_role/fugitive, prevent_death)(datum/mafia_controller/game)
+/datum/mafia_role/fugitive/proc/prevent_death(datum/mafia_controller/game)
 	to_chat(body,span_userdanger("You were attacked! Luckily, you were ready for this!"))
 	return MAFIA_PREVENT_KILL
 
-TYPE_PROC_REF(/datum/mafia_role/fugitive, survived)(datum/mafia_controller/game)
+/datum/mafia_role/fugitive/proc/survived(datum/mafia_controller/game)
 	if(game_status == MAFIA_ALIVE)
 		// var/client/winner_client = GLOB.directory[player_key]
 		// winner_client?.give_award(winner_award, body)
@@ -649,7 +649,7 @@ TYPE_PROC_REF(/datum/mafia_role/fugitive, survived)(datum/mafia_controller/game)
 	. = ..()
 	RegisterSignal(game,COMSIG_MAFIA_SUNDOWN,PROC_REF(find_obsession))
 
-TYPE_PROC_REF(/datum/mafia_role/obsessed, find_obsession)(datum/mafia_controller/game)
+/datum/mafia_role/obsessed/proc/find_obsession(datum/mafia_controller/game)
 	var/list/all_roles_shuffle = shuffle(game.all_roles)
 	for(var/role in all_roles_shuffle)
 		var/datum/mafia_role/possible = role
@@ -664,7 +664,7 @@ TYPE_PROC_REF(/datum/mafia_role/obsessed, find_obsession)(datum/mafia_controller
 	RegisterSignal(obsession,COMSIG_MAFIA_ON_KILL,PROC_REF(check_victory))
 	UnregisterSignal(game,COMSIG_MAFIA_SUNDOWN)
 
-TYPE_PROC_REF(/datum/mafia_role/obsessed, check_victory)(datum/source,datum/mafia_controller/game,lynch)
+/datum/mafia_role/obsessed/proc/check_victory(datum/source,datum/mafia_controller/game,lynch)
 	UnregisterSignal(source,COMSIG_MAFIA_ON_KILL)
 	if(game_status == MAFIA_DEAD)
 		return

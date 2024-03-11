@@ -76,7 +76,7 @@
 
 	return ..()
 
-TYPE_PROC_REF(/datum/game_mode/monkey, check_monkey_victory)()
+/datum/game_mode/monkey/proc/check_monkey_victory()
 	if(SSshuttle.emergency.mode != SHUTTLE_ENDGAME)
 		return FALSE
 	var/datum/disease/D = new /datum/disease/transformation/jungle_fever()

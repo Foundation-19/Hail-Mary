@@ -47,7 +47,7 @@ GLOBAL_LIST_EMPTY(ipc_antennas_list)
 //Crew objective and miscreants stuff
 GLOBAL_VAR_INIT(miscreants_allowed, FALSE)
 
-TYPE_PROC_REF(/client, reload_mentors)()
+/client/proc/reload_mentors()
 		set name = "Reload Mentors"
 		set category = "Admin"
 		if(!src.holder)	return

@@ -7,7 +7,7 @@
 
 
 
-TYPE_PROC_REF(/mob, bee_friendly)()
+/mob/proc/bee_friendly()
 	return 0
 
 
@@ -111,14 +111,14 @@ TYPE_PROC_REF(/mob, bee_friendly)()
 				bees += B
 
 
-TYPE_PROC_REF(/obj/structure/beebox, get_max_honeycomb)()
+/obj/structure/beebox/proc/get_max_honeycomb()
 	. = 0
 	for(var/hf in honey_frames)
 		var/obj/item/honey_frame/HF = hf
 		. += HF.honeycomb_capacity
 
 
-TYPE_PROC_REF(/obj/structure/beebox, get_max_bees)()
+/obj/structure/beebox/proc/get_max_bees()
 	. = get_max_honeycomb() * BEES_RATIO
 
 

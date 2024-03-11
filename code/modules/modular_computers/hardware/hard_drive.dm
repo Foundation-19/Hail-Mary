@@ -13,7 +13,7 @@
 /obj/item/computer_hardware/hard_drive/on_remove(obj/item/modular_computer/MC, mob/user)
 	MC.shutdown_computer()
 
-TYPE_PROC_REF(/obj/item/computer_hardware/hard_drive, install_default_programs)()
+/obj/item/computer_hardware/hard_drive/proc/install_default_programs()
 	store_file(new/datum/computer_file/program/computerconfig(src)) 	// Computer configuration utility, allows hardware control and displays more info than status bar
 	store_file(new/datum/computer_file/program/ntnetdownload(src))		// NTNet Downloader Utility, allows users to download more software from NTNet repository
 	store_file(new/datum/computer_file/program/filemanager(src))		// File manager, allows text editor functions and basic file manipulation.
@@ -29,7 +29,7 @@ TYPE_PROC_REF(/obj/item/computer_hardware/hard_drive, install_default_programs)(
 	to_chat(user, "Storage capacity: [used_capacity]/[max_capacity]GQ")
 
 // Use this proc to add file to the drive. Returns 1 on success and 0 on failure. Contains necessary sanity checks.
-TYPE_PROC_REF(/obj/item/computer_hardware/hard_drive, store_file)(datum/computer_file/F)
+/obj/item/computer_hardware/hard_drive/proc/store_file(datum/computer_file/F)
 	if(!F || !istype(F))
 		return 0
 
@@ -52,7 +52,7 @@ TYPE_PROC_REF(/obj/item/computer_hardware/hard_drive, store_file)(datum/computer
 	return 1
 
 // Use this proc to remove file from the drive. Returns 1 on success and 0 on failure. Contains necessary sanity checks.
-TYPE_PROC_REF(/obj/item/computer_hardware/hard_drive, remove_file)(datum/computer_file/F)
+/obj/item/computer_hardware/hard_drive/proc/remove_file(datum/computer_file/F)
 	if(!F || !istype(F))
 		return 0
 
@@ -70,7 +70,7 @@ TYPE_PROC_REF(/obj/item/computer_hardware/hard_drive, remove_file)(datum/compute
 		return 0
 
 // Loops through all stored files and recalculates used_capacity of this drive
-TYPE_PROC_REF(/obj/item/computer_hardware/hard_drive, recalculate_size)()
+/obj/item/computer_hardware/hard_drive/proc/recalculate_size()
 	var/total_size = 0
 	for(var/datum/computer_file/F in stored_files)
 		total_size += F.size
@@ -78,7 +78,7 @@ TYPE_PROC_REF(/obj/item/computer_hardware/hard_drive, recalculate_size)()
 	used_capacity = total_size
 
 // Checks whether file can be stored on the hard drive. We can only store unique files, so this checks whether we wouldn't get a duplicity by adding a file.
-TYPE_PROC_REF(/obj/item/computer_hardware/hard_drive, can_store_file)(datum/computer_file/F)
+/obj/item/computer_hardware/hard_drive/proc/can_store_file(datum/computer_file/F)
 	if(!F || !istype(F))
 		return 0
 
@@ -101,7 +101,7 @@ TYPE_PROC_REF(/obj/item/computer_hardware/hard_drive, can_store_file)(datum/comp
 
 
 // Tries to find the file by filename. Returns null on failure
-TYPE_PROC_REF(/obj/item/computer_hardware/hard_drive, find_file_by_name)(filename)
+/obj/item/computer_hardware/hard_drive/proc/find_file_by_name(filename)
 	if(!check_functionality())
 		return null
 

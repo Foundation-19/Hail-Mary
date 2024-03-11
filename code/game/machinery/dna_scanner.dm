@@ -55,7 +55,7 @@
 	//running
 	icon_state = initial(icon_state)+ (state_open ? "_open" : "")
 
-TYPE_PROC_REF(/obj/machinery/dna_scannernew, toggle_open)(mob/user)
+/obj/machinery/dna_scannernew/proc/toggle_open(mob/user)
 	if(panel_open)
 		to_chat(user, span_notice("Close the maintenance panel first."))
 		return
@@ -85,7 +85,7 @@ TYPE_PROC_REF(/obj/machinery/dna_scannernew, toggle_open)(mob/user)
 			span_notice("You successfully break out of [src]!"))
 		open_machine()
 
-TYPE_PROC_REF(/obj/machinery/dna_scannernew, locate_computer)(type_)
+/obj/machinery/dna_scannernew/proc/locate_computer(type_)
 	for(var/direction in GLOB.cardinals)
 		var/C = locate(type_, get_step(src, direction))
 		if(C)

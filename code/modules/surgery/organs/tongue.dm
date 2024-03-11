@@ -63,20 +63,20 @@
 		QDEL_NULL(lick_healer)
 
 /// Makes a tongue have a bandage in it, so it can lick wounds and apply some kind of bandage
-TYPE_PROC_REF(/obj/item/organ/tongue, initialize_bandage)(obj/item/stack/medical/gauze/lick_gauze)
+/obj/item/organ/tongue/proc/initialize_bandage(obj/item/stack/medical/gauze/lick_gauze)
 	if(!lick_gauze)
 		return FALSE
 	lick_bandage = new lick_gauze(src)
 	return TRUE
 
 /// Makes a tongue have a bandage in it, so it can lick wounds and apply some kind of bandage
-TYPE_PROC_REF(/obj/item/organ/tongue, initialize_lickpack)(obj/item/stack/medical/bruise_pack/lick_pack)
+/obj/item/organ/tongue/proc/initialize_lickpack(obj/item/stack/medical/bruise_pack/lick_pack)
 	if(!lick_pack)
 		return FALSE
 	lick_healer = new lick_pack(src)
 	return TRUE
 
-TYPE_PROC_REF(/obj/item/organ/tongue, handle_speech)(datum/source, list/speech_args) //this wont proc unless there's initial_accents on the tongue
+/obj/item/organ/tongue/proc/handle_speech(datum/source, list/speech_args) //this wont proc unless there's initial_accents on the tongue
 	for(var/datum/accent/speech_modifier in accents)
 		speech_args = speech_modifier.modify_speech(speech_args, source, owner)
 
@@ -100,7 +100,7 @@ TYPE_PROC_REF(/obj/item/organ/tongue, handle_speech)(datum/source, list/speech_a
 		if(say_mod && owner.dna?.species)
 			owner.dna.species.say_mod = initial(owner.dna.species.say_mod)
 		UnregisterSignal(owner, COMSIG_MOB_SAY, PROC_REF(handle_speech))
-		owner.RegisterSignal(owner, COMSIG_MOB_SAY, TYPE_PROC_REF(/mob/living/carbon, handle_tongueless_speech))
+		owner.RegisterSignal(owner, COMSIG_MOB_SAY, /mob/living/carbon/.proc/handle_tongueless_speech)
 	return ..()
 
 /obj/item/organ/tongue/could_speak_language(language)

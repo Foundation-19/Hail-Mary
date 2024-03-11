@@ -18,7 +18,7 @@
 		if(BR)
 			BR.brain_death = TRUE
 
-TYPE_PROC_REF(/mob/living/brain, handle_emp_damage)()
+/mob/living/brain/proc/handle_emp_damage()
 	if(emp_damage)
 		if(stat == DEAD)
 			emp_damage = 0

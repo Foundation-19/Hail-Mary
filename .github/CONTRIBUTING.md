@@ -102,13 +102,13 @@ The previous code made compliant:
 	var/static/varname3
 	var/static/varname4
 
-TYPE_PROC_REF(/datum/datum1, proc1)()
+/datum/datum1/proc/proc1()
 	code
-TYPE_PROC_REF(/datum/datum1, proc2)()
+/datum/datum1/proc/proc2()
 	code
 /datum/datum1/datum2
 	varname1 = 0
-TYPE_PROC_REF(/datum/datum1/datum2, proc3)()
+/datum/datum1/datum2/proc/proc3()
 	code
 /datum/datum1/datum2/proc2()
 	..()
@@ -174,7 +174,7 @@ While we normally encourage (and in some cases, even require) bringing out of da
 ### No magic numbers or strings
 This means stuff like having a "mode" variable for an object set to "1" or "2" with no clear indicator of what that means. Make these #defines with a name that more clearly states what it's for. For instance:
 ````DM
-TYPE_PROC_REF(/datum, do_the_thing)(thing_to_do)
+/datum/proc/do_the_thing(thing_to_do)
 	switch(thing_to_do)
 		if(1)
 			(...)
@@ -185,7 +185,7 @@ There's no indication of what "1" and "2" mean! Instead, you'd do something like
 ````DM
 #define DO_THE_THING_REALLY_HARD 1
 #define DO_THE_THING_EFFICIENTLY 2
-TYPE_PROC_REF(/datum, do_the_thing)(thing_to_do)
+/datum/proc/do_the_thing(thing_to_do)
 	switch(thing_to_do)
 		if(DO_THE_THING_REALLY_HARD)
 			(...)
@@ -204,7 +204,7 @@ This is clearer and enhances readability of your code! Get used to doing it!
 Do not enclose a proc in an if-block when returning on a condition is more feasible
 This is bad:
 ````DM
-TYPE_PROC_REF(/datum/datum1, proc1)()
+/datum/datum1/proc/proc1()
 	if (thing1)
 		if (!thing2)
 			if (thing3 == 30)
@@ -212,7 +212,7 @@ TYPE_PROC_REF(/datum/datum1, proc1)()
 ````
 This is good:
 ````DM
-TYPE_PROC_REF(/datum/datum1, proc1)()
+/datum/datum1/proc/proc1()
 	if (!thing1)
 		return
 	if (thing2)

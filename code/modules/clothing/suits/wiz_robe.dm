@@ -196,7 +196,7 @@
 		QDEL_IN(S, 5 SECONDS)
 	return ..()
 
-TYPE_PROC_REF(/datum/action/item_action/stickmen, give_infos)(atom/source, mob/user, list/examine_list)
+/datum/action/item_action/stickmen/proc/give_infos(atom/source, mob/user, list/examine_list)
 	examine_list += "<span class='notice'>Making sure you are properly wearing or holding it, \
 					point at whatever you want to rally your minions to its position."
 	examine_list += "While on <b>harm</b> intent, pointed mobs (minus you and the minions) \
@@ -246,10 +246,10 @@ TYPE_PROC_REF(/datum/action/item_action/stickmen, give_infos)(atom/source, mob/u
 	ready = FALSE
 	addtimer(CALLBACK(src, PROC_REF(ready_again)), cooldown)
 
-TYPE_PROC_REF(/datum/action/item_action/stickmen, remove_from_list)(datum/source, forced)
+/datum/action/item_action/stickmen/proc/remove_from_list(datum/source, forced)
 	summoned_stickmen -= source
 
-TYPE_PROC_REF(/datum/action/item_action/stickmen, ready_again)()
+/datum/action/item_action/stickmen/proc/ready_again()
 	ready = TRUE
 	if(owner)
 		to_chat(owner, span_notice("[src] hums, its internal magic supply restored."))
@@ -260,7 +260,7 @@ TYPE_PROC_REF(/datum/action/item_action/stickmen, ready_again)()
  * said target will be added to a list of foes which the stickmen will gladly dispose regardless of faction.
  * This is designed so stickmen will move toward whatever you point at even when you don't want to, that's the downside.
  */
-TYPE_PROC_REF(/datum/action/item_action/stickmen, rally)(mob/source, atom/A)
+/datum/action/item_action/stickmen/proc/rally(mob/source, atom/A)
 	var/turf/T = get_turf(A)
 	var/list/surrounding_turfs = block(locate(T.x - 1, T.y - 1, T.z), locate(T.x + 1, T.y + 1, T.z))
 	if(!surrounding_turfs.len)
@@ -283,11 +283,11 @@ TYPE_PROC_REF(/datum/action/item_action/stickmen, rally)(mob/source, atom/A)
 			S.LoseTarget()
 			S.Goto(pick(surrounding_turfs), S.move_to_delay)
 
-TYPE_PROC_REF(/datum/action/item_action/stickmen, clear_grudge)(mob/living/L)
+/datum/action/item_action/stickmen/proc/clear_grudge(mob/living/L)
 	if(!QDELETED(L))
 		book_of_grudges -= L
 
-TYPE_PROC_REF(/datum/action/item_action/stickmen, grudge_settled)(mob/living/L)
+/datum/action/item_action/stickmen/proc/grudge_settled(mob/living/L)
 	UnregisterSignal(L, list(COMSIG_PARENT_QDELETING, COMSIG_MOB_DEATH))
 	book_of_grudges -= L
 

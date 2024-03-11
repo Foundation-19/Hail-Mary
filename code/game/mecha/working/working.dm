@@ -10,7 +10,7 @@
 	if(.)
 		collect_ore()
 
-TYPE_PROC_REF(/obj/mecha/working, collect_ore)()
+/obj/mecha/working/proc/collect_ore()
 	if((locate(/obj/item/mecha_parts/mecha_equipment/hydraulic_clamp) in equipment))
 		var/obj/structure/ore_box/ore_box = locate(/obj/structure/ore_box) in contents
 		if(ore_box)

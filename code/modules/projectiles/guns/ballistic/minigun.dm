@@ -71,7 +71,7 @@
 	else
 		icon_state = "balholstered"
 
-TYPE_PROC_REF(/obj/item/minigunpackbal5mm, attach_gun)(mob/user)
+/obj/item/minigunpackbal5mm/proc/attach_gun(mob/user)
 	if(!gun)
 		gun = new(src)
 	gun.forceMove(src)

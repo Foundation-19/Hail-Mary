@@ -251,7 +251,7 @@
 //Many  hats added, Some will probably be removed, just want to see which ones are popular.
 // > some will probably be removed
 
-TYPE_PROC_REF(/mob/living/simple_animal/pet/dog/corgi, place_on_head)(obj/item/item_to_add, mob/user)
+/mob/living/simple_animal/pet/dog/corgi/proc/place_on_head(obj/item/item_to_add, mob/user)
 
 	if(istype(item_to_add, /obj/item/grenade/plastic)) // last thing he ever wears, I guess
 		INVOKE_ASYNC(item_to_add, /obj/item.proc/afterattack, src,user,1)
@@ -298,7 +298,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/pet/dog/corgi, place_on_head)(obj/item/i
 
 	return valid
 
-TYPE_PROC_REF(/mob/living/simple_animal/pet/dog/corgi, update_corgi_fluff)()
+/mob/living/simple_animal/pet/dog/corgi/proc/update_corgi_fluff()
 	// First, change back to defaults
 	name = real_name
 	desc = initial(desc)
@@ -368,7 +368,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/pet/dog/corgi, update_corgi_fluff)()
 		Write_Memory(TRUE)
 	..()
 
-TYPE_PROC_REF(/mob/living/simple_animal/pet/dog/corgi/Ian, Read_Memory)()
+/mob/living/simple_animal/pet/dog/corgi/Ian/proc/Read_Memory()
 	if(fexists("data/npc_saves/Ian.sav")) //legacy compatability to convert old format to new
 		var/savefile/S = new /savefile("data/npc_saves/Ian.sav")
 		S["age"] 		>> age
@@ -390,7 +390,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/pet/dog/corgi/Ian, Read_Memory)()
 	if(saved_head)
 		place_on_head(new saved_head)
 
-TYPE_PROC_REF(/mob/living/simple_animal/pet/dog/corgi/Ian, Write_Memory)(dead)
+/mob/living/simple_animal/pet/dog/corgi/Ian/proc/Write_Memory(dead)
 	var/json_file = file("data/npc_saves/Ian.json")
 	var/list/file_data = list()
 	if(!dead)

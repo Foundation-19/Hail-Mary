@@ -40,7 +40,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 	owner = null
 	return ..()
 
-TYPE_PROC_REF(/datum/antagonist, can_be_owned)(datum/mind/new_owner)
+/datum/antagonist/proc/can_be_owned(datum/mind/new_owner)
 	. = TRUE
 	var/datum/mind/tested = new_owner || owner
 	if(tested.has_antag_datum(type))
@@ -52,35 +52,35 @@ TYPE_PROC_REF(/datum/antagonist, can_be_owned)(datum/mind/new_owner)
 
 //This will be called in add_antag_datum before owner assignment.
 //Should return antag datum without owner.
-TYPE_PROC_REF(/datum/antagonist, specialization)(datum/mind/new_owner)
+/datum/antagonist/proc/specialization(datum/mind/new_owner)
 	return src
 
-TYPE_PROC_REF(/datum/antagonist, on_body_transfer)(mob/living/old_body, mob/living/new_body)
+/datum/antagonist/proc/on_body_transfer(mob/living/old_body, mob/living/new_body)
 	remove_innate_effects(old_body)
 	apply_innate_effects(new_body)
 
 //This handles the application of antag huds/special abilities
-TYPE_PROC_REF(/datum/antagonist, apply_innate_effects)(mob/living/mob_override)
+/datum/antagonist/proc/apply_innate_effects(mob/living/mob_override)
 	return
 
 //This handles the removal of antag huds/special abilities
-TYPE_PROC_REF(/datum/antagonist, remove_innate_effects)(mob/living/mob_override)
+/datum/antagonist/proc/remove_innate_effects(mob/living/mob_override)
 	return
 
 // Adds the specified antag hud to the player. Usually called in an antag datum file
-TYPE_PROC_REF(/datum/antagonist, add_antag_hud)(antag_hud_type, antag_hud_name, mob/living/mob_override)
+/datum/antagonist/proc/add_antag_hud(antag_hud_type, antag_hud_name, mob/living/mob_override)
 	var/datum/atom_hud/antag/hud = GLOB.huds[antag_hud_type]
 	hud.join_hud(mob_override)
 	set_antag_hud(mob_override, antag_hud_name)
 
 // Removes the specified antag hud from the player. Usually called in an antag datum file
-TYPE_PROC_REF(/datum/antagonist, remove_antag_hud)(antag_hud_type, mob/living/mob_override)
+/datum/antagonist/proc/remove_antag_hud(antag_hud_type, mob/living/mob_override)
 	var/datum/atom_hud/antag/hud = GLOB.huds[antag_hud_type]
 	hud.leave_hud(mob_override)
 	set_antag_hud(mob_override, null)
 
 // Handles adding and removing the clumsy mutation from clown antags. Gets called in apply/remove_innate_effects
-TYPE_PROC_REF(/datum/antagonist, handle_clown_mutation)(mob/living/mob_override, message, removing = TRUE)
+/datum/antagonist/proc/handle_clown_mutation(mob/living/mob_override, message, removing = TRUE)
 	var/mob/living/carbon/human/H = mob_override
 	if(H && istype(H) && owner.assigned_role == "Clown")
 		if(removing) // They're a clown becoming an antag, remove clumsy
@@ -91,11 +91,11 @@ TYPE_PROC_REF(/datum/antagonist, handle_clown_mutation)(mob/living/mob_override,
 			H.dna.add_mutation(CLOWNMUT) // We're removing their antag status, add back clumsy
 
 //Assign default team and creates one for one of a kind team antagonists
-TYPE_PROC_REF(/datum/antagonist, create_team)(datum/team/team)
+/datum/antagonist/proc/create_team(datum/team/team)
 	return
 
 //Proc called when the datum is given to a mind.
-TYPE_PROC_REF(/datum/antagonist, on_gain)()
+/datum/antagonist/proc/on_gain()
 	if(!(owner?.current))
 		return
 	if(!silent)
@@ -113,12 +113,12 @@ TYPE_PROC_REF(/datum/antagonist, on_gain)()
 				M.name = "[name] Training"
 	SEND_SIGNAL(owner.current, COMSIG_MOB_ANTAG_ON_GAIN, src)
 
-TYPE_PROC_REF(/datum/antagonist, is_banned)(mob/M)
+/datum/antagonist/proc/is_banned(mob/M)
 	if(!M)
 		return FALSE
 	. = (jobban_isbanned(M, ROLE_SYNDICATE) || QDELETED(M) || (job_rank && (jobban_isbanned(M,job_rank) || QDELETED(M))))
 
-TYPE_PROC_REF(/datum/antagonist, replace_banned_player)()
+/datum/antagonist/proc/replace_banned_player()
 	set waitfor = FALSE
 
 	var/list/mob/candidates = pollCandidatesForMob("Do you want to play as a [name]?", "[name]", null, job_rank, 50, owner.current)
@@ -129,7 +129,7 @@ TYPE_PROC_REF(/datum/antagonist, replace_banned_player)()
 		owner.current.ghostize(0)
 		C.transfer_ckey(owner.current, FALSE)
 
-TYPE_PROC_REF(/datum/antagonist, on_removal)()
+/datum/antagonist/proc/on_removal()
 	remove_innate_effects()
 	clear_antag_moodies()
 	if(owner)
@@ -143,23 +143,23 @@ TYPE_PROC_REF(/datum/antagonist, on_removal)()
 		team.remove_member(owner)
 	qdel(src)
 
-TYPE_PROC_REF(/datum/antagonist, greet)()
+/datum/antagonist/proc/greet()
 	return
 
-TYPE_PROC_REF(/datum/antagonist, farewell)()
+/datum/antagonist/proc/farewell()
 	return
 
-TYPE_PROC_REF(/datum/antagonist, give_antag_moodies)()
+/datum/antagonist/proc/give_antag_moodies()
 	if(!antag_moodlet)
 		return
 	SEND_SIGNAL(owner.current, COMSIG_ADD_MOOD_EVENT, "antag_moodlet", antag_moodlet)
 
-TYPE_PROC_REF(/datum/antagonist, clear_antag_moodies)()
+/datum/antagonist/proc/clear_antag_moodies()
 	if(!antag_moodlet)
 		return
 	SEND_SIGNAL(owner.current, COMSIG_CLEAR_MOOD_EVENT, "antag_moodlet")
 
-TYPE_PROC_REF(/datum/antagonist, remove_blacklisted_quirks)()
+/datum/antagonist/proc/remove_blacklisted_quirks()
 	var/mob/living/L = owner.current
 	if(istype(L))
 		var/list/my_quirks = L.client?.prefs.all_quirks.Copy()
@@ -172,11 +172,11 @@ TYPE_PROC_REF(/datum/antagonist, remove_blacklisted_quirks)()
 				L.remove_quirk(Q.type)
 
 //Returns the team antagonist belongs to if any.
-TYPE_PROC_REF(/datum/antagonist, get_team)()
+/datum/antagonist/proc/get_team()
 	return
 
 //Individual roundend report
-TYPE_PROC_REF(/datum/antagonist, roundend_report)()
+/datum/antagonist/proc/roundend_report()
 	var/list/report = list()
 
 	if(!owner)
@@ -200,38 +200,38 @@ TYPE_PROC_REF(/datum/antagonist, roundend_report)()
 	return report.Join("<br>")
 
 //Displayed at the start of roundend_category section, default to roundend_category header
-TYPE_PROC_REF(/datum/antagonist, roundend_report_header)()
+/datum/antagonist/proc/roundend_report_header()
 	return 	"<span class='header'>The [roundend_category] were:</span><br>"
 
 //Displayed at the end of roundend_category section
-TYPE_PROC_REF(/datum/antagonist, roundend_report_footer)()
+/datum/antagonist/proc/roundend_report_footer()
 	return
 
 
 //ADMIN TOOLS
 
 //Called when using admin tools to give antag status
-TYPE_PROC_REF(/datum/antagonist, admin_add)(datum/mind/new_owner,mob/admin)
+/datum/antagonist/proc/admin_add(datum/mind/new_owner,mob/admin)
 	message_admins("[key_name_admin(admin)] made [new_owner.current] into [name].")
 	log_admin("[key_name(admin)] made [new_owner.current] into [name].")
 	new_owner.add_antag_datum(src)
 
 //Called when removing antagonist using admin tools
-TYPE_PROC_REF(/datum/antagonist, admin_remove)(mob/user)
+/datum/antagonist/proc/admin_remove(mob/user)
 	if(!user)
 		return
 	message_admins("[key_name_admin(user)] has removed [name] antagonist status from [owner.current].")
 	log_admin("[key_name(user)] has removed [name] antagonist status from [owner.current].")
 	on_removal()
 
-TYPE_PROC_REF(//gamemode, is_mode_antag)(antagonist/A) => TRUE/FALSE
+//gamemode/proc/is_mode_antag(antagonist/A) => TRUE/FALSE
 
 //Additional data to display in antagonist panel section
 //nuke disk code, genome count, etc
-TYPE_PROC_REF(/datum/antagonist, antag_panel_data)()
+/datum/antagonist/proc/antag_panel_data()
 	return ""
 
-TYPE_PROC_REF(/datum/antagonist, enabled_in_preferences)(datum/mind/M)
+/datum/antagonist/proc/enabled_in_preferences(datum/mind/M)
 	if(job_rank)
 		if(M.current && M.current.client && (job_rank in M.current.client.prefs.be_special))
 			return TRUE
@@ -240,7 +240,7 @@ TYPE_PROC_REF(/datum/antagonist, enabled_in_preferences)(datum/mind/M)
 	return TRUE
 
 // List if ["Command"] = CALLBACK(), user will be appeneded to callback arguments on execution
-TYPE_PROC_REF(/datum/antagonist, get_admin_commands)()
+/datum/antagonist/proc/get_admin_commands()
 	. = list()
 
 /datum/antagonist/Topic(href,href_list)
@@ -265,21 +265,21 @@ TYPE_PROC_REF(/datum/antagonist, get_admin_commands)()
 			persistent_owner.traitor_panel()
 			return
 
-TYPE_PROC_REF(/datum/antagonist, edit_memory)(mob/user)
+/datum/antagonist/proc/edit_memory(mob/user)
 	var/new_memo = stripped_multiline_input(user, "Write new memory", "Memory", antag_memory, MAX_MESSAGE_LEN)
 	if (isnull(new_memo))
 		return
 	antag_memory = new_memo
 
 /// Gets how fast we can hijack the shuttle, return 0 for can not hijack. Defaults to hijack_speed var, override for custom stuff like buffing hijack speed for hijack objectives or something.
-TYPE_PROC_REF(/datum/antagonist, hijack_speed)()
+/datum/antagonist/proc/hijack_speed()
 	var/datum/objective/hijack/H = locate() in objectives
 	if(!isnull(H?.hijack_speed_override))
 		return H.hijack_speed_override
 	return hijack_speed
 
 /// Gets our threat level. Defaults to threat var, override for custom stuff like different traitor goals having different threats.
-TYPE_PROC_REF(/datum/antagonist, threat)()
+/datum/antagonist/proc/threat()
 	. = CONFIG_GET(keyed_list/antag_threat)[lowertext(name)]
 	if(. == null)
 		return threat

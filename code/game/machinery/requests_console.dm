@@ -460,7 +460,7 @@ GLOBAL_LIST_EMPTY(allConsoles)
 	else
 		. = ..()
 
-TYPE_PROC_REF(/obj/machinery/requests_console, clear_emergency)()
+/obj/machinery/requests_console/proc/clear_emergency()
 	emergency = null
 	update_icon()
 

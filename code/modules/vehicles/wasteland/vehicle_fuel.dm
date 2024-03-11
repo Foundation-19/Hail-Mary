@@ -47,13 +47,13 @@
 	if(fuel_holder.reagents.get_reagent_amount("welding_fuel") < 1)
 		stop_engine()
 
-TYPE_PROC_REF(/obj/vehicle/ridden/fuel, start_engine)()
+/obj/vehicle/ridden/fuel/proc/start_engine()
 	if(fuel_holder.reagents.get_reagent_amount("welding_fuel") < 1)
 		to_chat(usr, "<span class='warning'>[src] has run out of fuel!</span>")
 		return
 	START_PROCESSING(SSobj, src)
 
-TYPE_PROC_REF(/obj/vehicle/ridden/fuel, stop_engine)()
+/obj/vehicle/ridden/fuel/proc/stop_engine()
 	STOP_PROCESSING(SSobj, src)
 
 /obj/vehicle/ridden/fuel/verb/ToggleFuelTank()

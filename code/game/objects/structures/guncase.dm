@@ -62,7 +62,7 @@
 		open = !open
 		update_icon()
 
-TYPE_PROC_REF(/obj/structure/guncase, ShowWindow)(mob/user)
+/obj/structure/guncase/proc/ShowWindow(mob/user)
 	var/dat = {"<div class='block'>
 				<h3>Stored Guns</h3>
 				<table align='center'>"}

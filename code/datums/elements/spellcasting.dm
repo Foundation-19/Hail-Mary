@@ -33,7 +33,7 @@
 		if(!stacked_spellcasting_by_user[target])
 			stacked_spellcasting_by_user -= target
 
-TYPE_PROC_REF(/datum/element/spellcasting, on_equip)(datum/source, mob/equipper, slot)
+/datum/element/spellcasting/proc/on_equip(datum/source, mob/equipper, slot)
 	if(!(cast_slots & slotdefine2slotbit(slot)))
 		return
 	users_by_item[source] = equipper
@@ -41,7 +41,7 @@ TYPE_PROC_REF(/datum/element/spellcasting, on_equip)(datum/source, mob/equipper,
 		RegisterSignal(equipper, COMSIG_MOB_SPELL_CAN_CAST, PROC_REF(on_cast))
 	stacked_spellcasting_by_user[equipper]++
 
-TYPE_PROC_REF(/datum/element/spellcasting, on_drop)(datum/source, mob/user)
+/datum/element/spellcasting/proc/on_drop(datum/source, mob/user)
 	if(!users_by_item[source])
 		return
 	users_by_item -= source
@@ -50,5 +50,5 @@ TYPE_PROC_REF(/datum/element/spellcasting, on_drop)(datum/source, mob/user)
 		stacked_spellcasting_by_user -= user
 		UnregisterSignal(user, COMSIG_MOB_SPELL_CAN_CAST)
 
-TYPE_PROC_REF(/datum/element/spellcasting, on_cast)(mob/caster, obj/effect/proc_holder/spell)
+/datum/element/spellcasting/proc/on_cast(mob/caster, obj/effect/proc_holder/spell)
 	return cast_flags

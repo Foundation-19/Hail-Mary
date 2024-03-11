@@ -1,4 +1,4 @@
-TYPE_PROC_REF(/obj/machinery/mineral/wasteland_vendor/bank, adjustMoney)(ckey, amount)
+/obj/machinery/mineral/wasteland_vendor/bank/proc/adjustMoney(ckey, amount)
 	if(!usr.client)
 		return
 	if(!ckey)
@@ -15,7 +15,7 @@ TYPE_PROC_REF(/obj/machinery/mineral/wasteland_vendor/bank, adjustMoney)(ckey, a
 		return
 	qdel(query_set_money)
 
-TYPE_PROC_REF(/obj/machinery/mineral/wasteland_vendor/bank, getMoney)(ckey)
+/obj/machinery/mineral/wasteland_vendor/bank/proc/getMoney(ckey)
 	if(!usr.client)
 		return 0
 	if(!ckey)
@@ -42,7 +42,7 @@ TYPE_PROC_REF(/obj/machinery/mineral/wasteland_vendor/bank, getMoney)(ckey)
 	qdel(query_add_new_account)
 	return 0
 
-TYPE_PROC_REF(/client, adminCheckMoney)()
+/client/proc/adminCheckMoney()
 	set category = "Admin"
 	set name = "Check MetaMoney(tm)"
 	if(!GLOB.admin_datums[src.ckey])
@@ -64,7 +64,7 @@ TYPE_PROC_REF(/client, adminCheckMoney)()
 	var/amount = getMoney(notlist.ckey)
 	to_chat(src, "[targets[target]] has [amount] MetaMoneys(tm)")
 
-TYPE_PROC_REF(/client, adminChangeMoney)()
+/client/proc/adminChangeMoney()
 	set category = "Admin"
 	set name = "Add/Remove MetaMoney(tm)"
 	if(!GLOB.admin_datums[src.ckey])
@@ -87,7 +87,7 @@ TYPE_PROC_REF(/client, adminChangeMoney)()
 	message_admins("MetaMoney(tm) adjusted for targets[target] by [amount]")
 	adjustMoney(targets[target], text2num(amount))
 
-TYPE_PROC_REF(/client, adjustMoney)(ckey, amount)
+/client/proc/adjustMoney(ckey, amount)
 	if(!usr.client)
 		return
 	if(!ckey)
@@ -104,7 +104,7 @@ TYPE_PROC_REF(/client, adjustMoney)(ckey, amount)
 		return
 	qdel(query_set_money)
 
-TYPE_PROC_REF(/client, getMoney)(ckey)
+/client/proc/getMoney(ckey)
 	if(!usr.client)
 		return 0
 	if(!ckey)

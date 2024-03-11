@@ -116,7 +116,7 @@
 /obj/structure/filingcabinet/security
 	var/virgin = 1
 
-TYPE_PROC_REF(/obj/structure/filingcabinet/security, populate)()
+/obj/structure/filingcabinet/security/proc/populate()
 	if(virgin)
 		for(var/datum/data/record/G in GLOB.data_core.general)
 			var/datum/data/record/S = find_record("name", G.fields["name"], GLOB.data_core.security)
@@ -149,7 +149,7 @@ TYPE_PROC_REF(/obj/structure/filingcabinet/security, populate)()
 /obj/structure/filingcabinet/medical
 	var/virgin = 1
 
-TYPE_PROC_REF(/obj/structure/filingcabinet/medical, populate)()
+/obj/structure/filingcabinet/medical/proc/populate()
 	if(virgin)
 		for(var/datum/data/record/G in GLOB.data_core.general)
 			var/datum/data/record/M = find_record("name", G.fields["name"], GLOB.data_core.medical)
@@ -195,7 +195,7 @@ GLOBAL_LIST_EMPTY(employmentCabinets)
 	GLOB.employmentCabinets -= src
 	return ..()
 
-TYPE_PROC_REF(/obj/structure/filingcabinet/employment, fillCurrent)()
+/obj/structure/filingcabinet/employment/proc/fillCurrent()
 	//This proc fills the cabinet with the current crew.
 	for(var/record in GLOB.data_core.locked)
 		var/datum/data/record/G = record
@@ -206,7 +206,7 @@ TYPE_PROC_REF(/obj/structure/filingcabinet/employment, fillCurrent)()
 			addFile(M.current)
 
 
-TYPE_PROC_REF(/obj/structure/filingcabinet/employment, addFile)(mob/living/carbon/human/employee)
+/obj/structure/filingcabinet/employment/proc/addFile(mob/living/carbon/human/employee)
 	new /obj/item/paper/contract/employment(src, employee)
 
 /obj/structure/filingcabinet/employment/interact(mob/user)

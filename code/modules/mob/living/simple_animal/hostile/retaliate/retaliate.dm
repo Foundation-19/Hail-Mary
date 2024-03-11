@@ -29,7 +29,7 @@
 	see &= actual_enemies // Remove all entries that aren't in enemies
 	return see
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile/retaliate, Retaliate)()
+/mob/living/simple_animal/hostile/retaliate/proc/Retaliate()
 	var/list/around = view(src, vision_range)
 
 	for(var/atom/movable/A in around)

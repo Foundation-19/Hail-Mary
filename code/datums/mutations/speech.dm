@@ -31,7 +31,7 @@
 		return
 	UnregisterSignal(owner, COMSIG_MOB_SAY)
 
-TYPE_PROC_REF(/datum/mutation/human/wacky, handle_speech)(datum/source, list/speech_args)
+/datum/mutation/human/wacky/proc/handle_speech(datum/source, list/speech_args)
 	speech_args[SPEECH_SPANS] |= SPAN_SANS
 
 /datum/mutation/human/mute
@@ -73,7 +73,7 @@ TYPE_PROC_REF(/datum/mutation/human/wacky, handle_speech)(datum/source, list/spe
 		return
 	UnregisterSignal(owner, COMSIG_MOB_SAY)
 
-TYPE_PROC_REF(/datum/mutation/human/smile, handle_speech)(datum/source, list/speech_args)
+/datum/mutation/human/smile/proc/handle_speech(datum/source, list/speech_args)
 	var/message = speech_args[SPEECH_MESSAGE]
 	if(message)
 		message = " [message] "
@@ -122,7 +122,7 @@ TYPE_PROC_REF(/datum/mutation/human/smile, handle_speech)(datum/source, list/spe
 		return
 	UnregisterSignal(owner, COMSIG_MOB_SAY)
 
-TYPE_PROC_REF(/datum/mutation/human/swedish, handle_speech)(datum/source, list/speech_args)
+/datum/mutation/human/swedish/proc/handle_speech(datum/source, list/speech_args)
 	var/message = speech_args[SPEECH_MESSAGE]
 	if(message)
 		message = replacetext(message,"w","v")
@@ -154,7 +154,7 @@ TYPE_PROC_REF(/datum/mutation/human/swedish, handle_speech)(datum/source, list/s
 		return
 	UnregisterSignal(owner, COMSIG_MOB_SAY)
 
-TYPE_PROC_REF(/datum/mutation/human/chav, handle_speech)(datum/source, list/speech_args)
+/datum/mutation/human/chav/proc/handle_speech(datum/source, list/speech_args)
 	var/message = speech_args[SPEECH_MESSAGE]
 	if(message)
 		message = " [message] "
@@ -213,7 +213,7 @@ TYPE_PROC_REF(/datum/mutation/human/chav, handle_speech)(datum/source, list/spee
 		return
 	UnregisterSignal(owner, COMSIG_MOB_SAY)
 
-TYPE_PROC_REF(/datum/mutation/human/elvis, handle_speech)(datum/source, list/speech_args)
+/datum/mutation/human/elvis/proc/handle_speech(datum/source, list/speech_args)
 	var/message = speech_args[SPEECH_MESSAGE]
 	if(message)
 		message = " [message] "

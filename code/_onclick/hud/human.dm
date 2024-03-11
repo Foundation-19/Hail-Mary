@@ -42,7 +42,7 @@
 	icon_state = "Devil-6"
 	screen_loc = ui_devilsouldisplay
 
-TYPE_PROC_REF(/obj/screen/devil/soul_counter, update_counter)(souls = 0)
+/obj/screen/devil/soul_counter/proc/update_counter(souls = 0)
 	invisibility = 0
 	maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#FF0000'>[souls]</font></div>"
 	switch(souls)
@@ -59,7 +59,7 @@ TYPE_PROC_REF(/obj/screen/devil/soul_counter, update_counter)(souls = 0)
 		else
 			icon_state = "Devil-6"
 
-TYPE_PROC_REF(/obj/screen/devil/soul_counter, clear)()
+/obj/screen/devil/soul_counter/proc/clear()
 	invisibility = INVISIBILITY_ABSTRACT
 
 /obj/screen/ling

@@ -134,7 +134,7 @@
 
 
 //Throwing stuff
-TYPE_PROC_REF(/mob/living/carbon, toggle_throw_mode)()
+/mob/living/carbon/proc/toggle_throw_mode()
 	if(stat)
 		return
 	if(in_throw_mode)
@@ -143,18 +143,18 @@ TYPE_PROC_REF(/mob/living/carbon, toggle_throw_mode)()
 		throw_mode_on()
 
 
-TYPE_PROC_REF(/mob/living/carbon, throw_mode_off)()
+/mob/living/carbon/proc/throw_mode_off()
 	in_throw_mode = 0
 	if(client && hud_used)
 		hud_used.throw_icon.icon_state = "act_throw_off"
 
 
-TYPE_PROC_REF(/mob/living/carbon, throw_mode_on)()
+/mob/living/carbon/proc/throw_mode_on()
 	in_throw_mode = 1
 	if(client && hud_used)
 		hud_used.throw_icon.icon_state = "act_throw_on"
 
-TYPE_PROC_REF(/mob, throw_item)(atom/target)
+/mob/proc/throw_item(atom/target)
 	SEND_SIGNAL(src, COMSIG_MOB_THROW, target)
 	return
 
@@ -229,7 +229,7 @@ TYPE_PROC_REF(/mob, throw_item)(atom/target)
 /mob/living/carbon/restrained(ignore_grab)
 	. = (handcuffed || (!ignore_grab && pulledby && pulledby.grab_state >= GRAB_AGGRESSIVE))
 
-TYPE_PROC_REF(/mob/living/carbon, canBeHandcuffed)()
+/mob/living/carbon/proc/canBeHandcuffed()
 	return 0
 
 
@@ -320,7 +320,7 @@ TYPE_PROC_REF(/mob/living/carbon, canBeHandcuffed)()
 	set desc = "Lets you change your runechat color!"
 	change_chat_color()
 
-TYPE_PROC_REF(/mob/living/carbon, change_chat_color)()
+/mob/living/carbon/proc/change_chat_color()
 	var/my_chat_color = dna.features["chat_color"]
 	var/new_runecolor = input(src, "Choose your character's runechat color:", "Character Preference","#[my_chat_color]") as color|null
 	if(new_runecolor)
@@ -390,7 +390,7 @@ TYPE_PROC_REF(/mob/living/carbon, change_chat_color)()
 		MarkResistTime()
 		cuff_resist(I)
 
-TYPE_PROC_REF(/mob/living/carbon, cuff_resist)(obj/item/I, breakouttime = 600, cuff_break = 0)
+/mob/living/carbon/proc/cuff_resist(obj/item/I, breakouttime = 600, cuff_break = 0)
 	if(I.item_flags & BEING_REMOVED)
 		to_chat(src, span_warning("You're already attempting to remove [I]!"))
 		return
@@ -417,7 +417,7 @@ TYPE_PROC_REF(/mob/living/carbon, cuff_resist)(obj/item/I, breakouttime = 600, c
 		clear_cuffs(I, cuff_break)
 	I.item_flags &= ~BEING_REMOVED
 
-TYPE_PROC_REF(/mob/living/carbon, uncuff)()
+/mob/living/carbon/proc/uncuff()
 	if (handcuffed)
 		var/obj/item/W = handcuffed
 		handcuffed = null
@@ -448,7 +448,7 @@ TYPE_PROC_REF(/mob/living/carbon, uncuff)()
 		SetNextAction(0)
 	update_equipment_speed_mods() // In case cuffs ever change speed
 
-TYPE_PROC_REF(/mob/living/carbon, clear_cuffs)(obj/item/I, cuff_break)
+/mob/living/carbon/proc/clear_cuffs(obj/item/I, cuff_break)
 	if(!I.loc || buckled)
 		return
 	visible_message(span_danger("[src] manages to [cuff_break ? "break" : "remove"] [I]!"))
@@ -483,7 +483,7 @@ TYPE_PROC_REF(/mob/living/carbon, clear_cuffs)(obj/item/I, cuff_break)
 	if(lying)
 		. -= 6
 
-TYPE_PROC_REF(/mob/living/carbon, accident)(obj/item/I)
+/mob/living/carbon/proc/accident(obj/item/I)
 	if(!I || (I.item_flags & ABSTRACT) || HAS_TRAIT(I, TRAIT_NODROP))
 		return
 
@@ -537,7 +537,7 @@ TYPE_PROC_REF(/mob/living/carbon, accident)(obj/item/I)
 		return 0
 	return ..()
 
-TYPE_PROC_REF(/mob/living/carbon, vomit)(lost_nutrition = 10, blood = FALSE, stun = TRUE, distance = 1, message = TRUE, toxic = FALSE)
+/mob/living/carbon/proc/vomit(lost_nutrition = 10, blood = FALSE, stun = TRUE, distance = 1, message = TRUE, toxic = FALSE)
 	if(HAS_TRAIT(src, TRAIT_NOHUNGER))
 		return 1
 
@@ -585,7 +585,7 @@ TYPE_PROC_REF(/mob/living/carbon, vomit)(lost_nutrition = 10, blood = FALSE, stu
 			break
 	return 1
 
-TYPE_PROC_REF(/mob/living/carbon, spew_organ)(power = 5, amt = 1)
+/mob/living/carbon/proc/spew_organ(power = 5, amt = 1)
 	var/list/spillable_organs = list()
 	for(var/A in internal_organs)
 		var/obj/item/organ/O = A
@@ -707,7 +707,7 @@ TYPE_PROC_REF(/mob/living/carbon, spew_organ)(power = 5, amt = 1)
 
 
 //to recalculate and update the mob's total tint from tinted equipment it's wearing.
-TYPE_PROC_REF(/mob/living/carbon, update_tint)()
+/mob/living/carbon/proc/update_tint()
 	if(!GLOB.tinted_weldhelh)
 		return
 	tinttotal = get_total_tint()
@@ -720,7 +720,7 @@ TYPE_PROC_REF(/mob/living/carbon, update_tint)()
 		cure_blind(EYES_COVERED)
 		clear_fullscreen("tint", 0)
 
-TYPE_PROC_REF(/mob/living/carbon, get_total_tint)()
+/mob/living/carbon/proc/get_total_tint()
 	. = 0
 	if(istype(head, /obj/item/clothing/head))
 		var/obj/item/clothing/head/HT = head
@@ -868,7 +868,7 @@ TYPE_PROC_REF(/mob/living/carbon, get_total_tint)()
 		else
 			hud_used.healths.icon_state = "health7"
 
-TYPE_PROC_REF(/mob/living/carbon, update_internals_hud_icon)(internal_state = 0)
+/mob/living/carbon/proc/update_internals_hud_icon(internal_state = 0)
 	if(hud_used && hud_used.internals)
 		hud_used.internals.icon_state = "internal[internal_state]"
 
@@ -899,7 +899,7 @@ TYPE_PROC_REF(/mob/living/carbon, update_internals_hud_icon)(internal_state = 0)
 	med_hud_set_status()
 
 //called when we get cuffed/uncuffed
-TYPE_PROC_REF(/mob/living/carbon, update_handcuffed)()
+/mob/living/carbon/proc/update_handcuffed()
 	if(handcuffed)
 		drop_all_held_items()
 		stop_pulling()
@@ -913,7 +913,7 @@ TYPE_PROC_REF(/mob/living/carbon, update_handcuffed)()
 	update_inv_handcuffed()
 	update_hud_handcuffed()
 
-TYPE_PROC_REF(/mob/living/carbon, can_revive)(ignore_timelimit = FALSE, maximum_brute_dam = MAX_REVIVE_BRUTE_DAMAGE, maximum_fire_dam = MAX_REVIVE_FIRE_DAMAGE, ignore_heart = FALSE)
+/mob/living/carbon/proc/can_revive(ignore_timelimit = FALSE, maximum_brute_dam = MAX_REVIVE_BRUTE_DAMAGE, maximum_fire_dam = MAX_REVIVE_FIRE_DAMAGE, ignore_heart = FALSE)
 	//var/tlimit = DEFIB_TIME_LIMIT * 10
 	var/obj/item/organ/heart = getorgan(/obj/item/organ/heart)
 	if(suiciding || hellbound || HAS_TRAIT(src, TRAIT_HUSK) || AmBloodsucker(src))
@@ -996,7 +996,7 @@ TYPE_PROC_REF(/mob/living/carbon, can_revive)(ignore_timelimit = FALSE, maximum_
 	remove_overlay(FIRE_LAYER)
 
 
-TYPE_PROC_REF(/mob/living/carbon, devour_mob)(mob/living/carbon/C, devour_time = 130)
+/mob/living/carbon/proc/devour_mob(mob/living/carbon/C, devour_time = 130)
 	C.visible_message(span_danger("[src] is attempting to devour [C]!"), \
 					span_userdanger("[src] is attempting to devour you!"))
 	if(!do_mob(src, C, devour_time))
@@ -1008,7 +1008,7 @@ TYPE_PROC_REF(/mob/living/carbon, devour_mob)(mob/living/carbon/C, devour_time =
 		stomach_contents.Add(C)
 		log_combat(src, C, "devoured")
 
-TYPE_PROC_REF(/mob/living/carbon, create_bodyparts)()
+/mob/living/carbon/proc/create_bodyparts()
 	var/l_arm_index_next = -1
 	var/r_arm_index_next = 0
 	for(var/X in bodyparts)
@@ -1040,12 +1040,12 @@ TYPE_PROC_REF(/mob/living/carbon, create_bodyparts)()
 		. *= S.interact_speed_modifier()
 
 
-TYPE_PROC_REF(/mob/living/carbon, create_internal_organs)()
+/mob/living/carbon/proc/create_internal_organs()
 	for(var/X in internal_organs)
 		var/obj/item/organ/I = X
 		I.Insert(src)
 
-TYPE_PROC_REF(/mob/living/carbon, update_disabled_bodyparts)()
+/mob/living/carbon/proc/update_disabled_bodyparts()
 	for(var/B in bodyparts)
 		var/obj/item/bodypart/BP = B
 		BP.update_disabled()
@@ -1171,7 +1171,7 @@ TYPE_PROC_REF(/mob/living/carbon, update_disabled_bodyparts)()
 /mob/living/carbon/can_resist()
 	return bodyparts.len > 2 && ..()
 
-TYPE_PROC_REF(/mob/living/carbon, hypnosis_vulnerable)()//unused atm, but added in case
+/mob/living/carbon/proc/hypnosis_vulnerable()//unused atm, but added in case
 	if(HAS_TRAIT(src, TRAIT_MINDSHIELD))
 		return FALSE
 	if(hallucinating())
@@ -1229,7 +1229,7 @@ TYPE_PROC_REF(/mob/living/carbon, hypnosis_vulnerable)()//unused atm, but added 
 			LAZYOR(., SLOT_GLASSES)
 
 // if any of our bodyparts are bleeding
-TYPE_PROC_REF(/mob/living/carbon, is_bleeding)()
+/mob/living/carbon/proc/is_bleeding()
 	for(var/i in bodyparts)
 		var/obj/item/bodypart/BP = i
 		if(BP.get_bleed_rate())
@@ -1238,7 +1238,7 @@ TYPE_PROC_REF(/mob/living/carbon, is_bleeding)()
 			return TRUE
 
 // get our total bleedrate
-TYPE_PROC_REF(/mob/living/carbon, get_total_bleed_rate)()
+/mob/living/carbon/proc/get_total_bleed_rate()
 	var/total_bleed_rate = 0
 	for(var/i in bodyparts)
 		var/obj/item/bodypart/BP = i
@@ -1255,7 +1255,7 @@ TYPE_PROC_REF(/mob/living/carbon, get_total_bleed_rate)()
  * * num_scars- A number for how many scars you want to add
  * * forced_type- Which wound or category of wounds you want to choose from, WOUND_LIST_BLUNT, WOUND_LIST_SLASH, or WOUND_LIST_BURN (or some combination). If passed a list, picks randomly from the listed wounds. Defaults to all 3 types
  */
-TYPE_PROC_REF(/mob/living/carbon, generate_fake_scars)(num_scars, forced_type)
+/mob/living/carbon/proc/generate_fake_scars(num_scars, forced_type)
 	for(var/i in 1 to num_scars)
 		var/datum/scar/scaries = new
 		var/obj/item/bodypart/scar_part = pick(bodyparts)
@@ -1277,7 +1277,7 @@ TYPE_PROC_REF(/mob/living/carbon, generate_fake_scars)(num_scars, forced_type)
 /**
  * get_biological_state is a helper used to see what kind of wounds we roll for. By default we just assume carbons (read:monkeys) are flesh and bone, but humans rely on their species datums
  *
- * go look at the species def for more info [TYPE_PROC_REF(/datum/species, get_biological_state)]
+ * go look at the species def for more info [/datum/species/proc/get_biological_state]
  */
-TYPE_PROC_REF(/mob/living/carbon, get_biological_state)()
+/mob/living/carbon/proc/get_biological_state()
 	return BIO_FLESH_BONE

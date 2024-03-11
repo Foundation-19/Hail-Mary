@@ -114,10 +114,10 @@
 				new /obj/effect/temp_visual/ratvar/prolonging_prism(T)
 		CHECK_TICK //we may be going over a hell of a lot of turfs
 
-TYPE_PROC_REF(/obj/structure/destructible/clockwork/powered/prolonging_prism, get_delay_cost)()
+/obj/structure/destructible/clockwork/powered/prolonging_prism/proc/get_delay_cost()
 	return FLOOR(delay_cost, MIN_CLOCKCULT_POWER)
 
-TYPE_PROC_REF(/obj/structure/destructible/clockwork/powered/prolonging_prism, seven_random_hexes)(turf/T, efficiency)
+/obj/structure/destructible/clockwork/powered/prolonging_prism/proc/seven_random_hexes(turf/T, efficiency)
 	var/static/list/hex_states = list("prismhex1", "prismhex2", "prismhex3", "prismhex4", "prismhex5", "prismhex6", "prismhex7")
 	var/mutable_appearance/hex_combo
 	for(var/n in hex_states) //BUILD ME A HEXAGON

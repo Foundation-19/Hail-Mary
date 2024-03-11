@@ -40,7 +40,7 @@ SUBSYSTEM_DEF(minimap)
 			register_asset("minimap_[z].png", fcopy_rsc(map_path(z,fileloc)))
 	..()
 
-TYPE_PROC_REF(/datum/controller/subsystem/minimap, check_files)(backup)	// If the backup argument is true, looks in the icons folder. If false looks in the data folder.
+/datum/controller/subsystem/minimap/proc/check_files(backup)	// If the backup argument is true, looks in the icons folder. If false looks in the data folder.
 	for(var/z in z_levels)
 		if(!fexists(file(map_path(z,backup))))	//Let's make sure we have a file for this map
 			if(backup)
@@ -49,23 +49,23 @@ TYPE_PROC_REF(/datum/controller/subsystem/minimap, check_files)(backup)	// If th
 	return TRUE
 
 
-TYPE_PROC_REF(/datum/controller/subsystem/minimap, hash_path)(backup)
+/datum/controller/subsystem/minimap/proc/hash_path(backup)
 	if(backup)
 		return "icons/minimaps/[SSmapping.config.map_name].md5"
 	else
 		return "data/minimaps/[SSmapping.config.map_name].md5"
 
-TYPE_PROC_REF(/datum/controller/subsystem/minimap, map_path)(z,backup)
+/datum/controller/subsystem/minimap/proc/map_path(z,backup)
 	if(backup)
 		return "icons/minimaps/[SSmapping.config.map_name]_[z].png"
 	else
 		return "data/minimaps/[SSmapping.config.map_name]_[z].png"
 
-TYPE_PROC_REF(/datum/controller/subsystem/minimap, send)(client/client)
+/datum/controller/subsystem/minimap/proc/send(client/client)
 	for(var/z in z_levels)
 		send_asset(client, "minimap_[z].png")
 
-TYPE_PROC_REF(/datum/controller/subsystem/minimap, generate)(z, x1 = 1, y1 = 1, x2 = world.maxx, y2 = world.maxy)
+/datum/controller/subsystem/minimap/proc/generate(z, x1 = 1, y1 = 1, x2 = world.maxx, y2 = world.maxy)
 	// Load the background.
 	var/icon/minimap = new /icon('icons/minimap.dmi')
 	// Scale it up to our target size.
@@ -80,7 +80,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/minimap, generate)(z, x1 = 1, y1 = 1, 
 	final.Insert(minimap, "", SOUTH, 1, 0)
 	fcopy(final, map_path(z))
 
-TYPE_PROC_REF(/datum/controller/subsystem/minimap, generate_tile)(turf/tile, icon/minimap)
+/datum/controller/subsystem/minimap/proc/generate_tile(turf/tile, icon/minimap)
 	var/icon/tile_icon
 	var/obj/obj
 	var/list/obj_icons

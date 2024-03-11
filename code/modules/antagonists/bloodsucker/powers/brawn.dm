@@ -97,7 +97,7 @@
 				D.open(2) // open(2) is like a crowbar or jaws of life.
 	// Target Type: Closet
 
-TYPE_PROC_REF(/datum/action/bloodsucker/targeted/brawn, CheckBreakRestraints)()
+/datum/action/bloodsucker/targeted/brawn/proc/CheckBreakRestraints()
 	if(!iscarbon(owner)) // || !owner.restrained()
 		return FALSE
 	// (NOTE: Just like biodegrade.dm, we only remove one thing per use //
@@ -131,7 +131,7 @@ TYPE_PROC_REF(/datum/action/bloodsucker/targeted/brawn, CheckBreakRestraints)()
 			return TRUE
 	return FALSE
 
-TYPE_PROC_REF(/datum/action/bloodsucker/targeted/brawn, CheckEscapePuller)()
+/datum/action/bloodsucker/targeted/brawn/proc/CheckEscapePuller()
 	if(!owner.pulledby)// || owner.pulledby.grab_state <= GRAB_PASSIVE)
 		return FALSE
 	var/mob/M = owner.pulledby
@@ -153,7 +153,7 @@ TYPE_PROC_REF(/datum/action/bloodsucker/targeted/brawn, CheckEscapePuller)()
 	owner.pulledby = null // It's already done, but JUST IN CASE.
 	return TRUE
 /* Doesnt work
-TYPE_PROC_REF(/datum/action/bloodsucker/targeted/brawn, CheckBreakLocker)()
+/datum/action/bloodsucker/targeted/brawn/proc/CheckBreakLocker()
 	if(!istype(owner.loc, /obj/structure/closet))
 		return FALSE
 		playsound(get_turf(owner), 'sound/machines/airlock_alien_prying.ogg', 40, 1, -1)

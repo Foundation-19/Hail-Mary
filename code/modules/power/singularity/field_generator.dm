@@ -169,13 +169,13 @@ field_generator power level display
 	return ..()
 
 
-TYPE_PROC_REF(/obj/machinery/field/generator, check_power_level)()
+/obj/machinery/field/generator/proc/check_power_level()
 	var/new_level = round(num_power_levels * power / field_generator_max_power)
 	if(new_level != power_level)
 		power_level = new_level
 		update_icon()
 
-TYPE_PROC_REF(/obj/machinery/field/generator, turn_off)()
+/obj/machinery/field/generator/proc/turn_off()
 	active = FG_OFFLINE
 	spawn(1)
 		cleanup()
@@ -184,7 +184,7 @@ TYPE_PROC_REF(/obj/machinery/field/generator, turn_off)()
 			warming_up--
 			update_icon()
 
-TYPE_PROC_REF(/obj/machinery/field/generator, turn_on)()
+/obj/machinery/field/generator/proc/turn_on()
 	active = FG_CHARGING
 	spawn(1)
 		while (warming_up<3 && active)
@@ -195,7 +195,7 @@ TYPE_PROC_REF(/obj/machinery/field/generator, turn_on)()
 				start_fields()
 
 
-TYPE_PROC_REF(/obj/machinery/field/generator, calc_power)(set_power_draw)
+/obj/machinery/field/generator/proc/calc_power(set_power_draw)
 	var/power_draw = 2 + fields.len
 	if(set_power_draw)
 		power_draw = set_power_draw
@@ -212,7 +212,7 @@ TYPE_PROC_REF(/obj/machinery/field/generator, calc_power)(set_power_draw)
 		return 0
 
 //This could likely be better, it tends to start loopin if you have a complex generator loop setup.  Still works well enough to run the engine fields will likely recode the field gens and fields sometime -Mport
-TYPE_PROC_REF(/obj/machinery/field/generator, draw_power)(draw = 0, failsafe = FALSE, obj/machinery/field/generator/G = null, obj/machinery/field/generator/last = null)
+/obj/machinery/field/generator/proc/draw_power(draw = 0, failsafe = FALSE, obj/machinery/field/generator/G = null, obj/machinery/field/generator/last = null)
 	if((G && (G == src)) || (failsafe >= 8))//Loopin, set fail
 		return 0
 	else
@@ -241,7 +241,7 @@ TYPE_PROC_REF(/obj/machinery/field/generator, draw_power)(draw = 0, failsafe = F
 					return 0
 
 
-TYPE_PROC_REF(/obj/machinery/field/generator, start_fields)()
+/obj/machinery/field/generator/proc/start_fields()
 	if(state != FG_WELDED || !anchored)
 		turn_off()
 		return
@@ -258,7 +258,7 @@ TYPE_PROC_REF(/obj/machinery/field/generator, start_fields)()
 		active = FG_ONLINE
 
 
-TYPE_PROC_REF(/obj/machinery/field/generator, setup_field)(NSEW)
+/obj/machinery/field/generator/proc/setup_field(NSEW)
 	var/turf/T = loc
 	if(!istype(T))
 		return 0
@@ -307,7 +307,7 @@ TYPE_PROC_REF(/obj/machinery/field/generator, setup_field)(NSEW)
 	update_icon()
 
 
-TYPE_PROC_REF(/obj/machinery/field/generator, cleanup)()
+/obj/machinery/field/generator/proc/cleanup()
 	clean_up = 1
 	for (var/F in fields)
 		qdel(F)

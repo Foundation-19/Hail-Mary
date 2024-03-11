@@ -2,7 +2,7 @@
 #define POPCOUNT_ESCAPEES "escapees"					//Not dead and on centcom/shuttles marked as escaped
 #define POPCOUNT_SHUTTLE_ESCAPEES "shuttle_escapees" 	//Emergency shuttle only.
 
-TYPE_PROC_REF(/datum/controller/subsystem/ticker, gather_roundend_feedback)()
+/datum/controller/subsystem/ticker/proc/gather_roundend_feedback()
 	var/datum/station_state/end_state = new /datum/station_state()
 	end_state.count()
 	station_integrity = min(PERCENT(GLOB.start_state.score(end_state)), 100)
@@ -86,7 +86,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/ticker, gather_roundend_feedback)()
 	.[POPCOUNT_SHUTTLE_ESCAPEES] = num_shuttle_escapees
 	.["station_integrity"] = station_integrity
 
-TYPE_PROC_REF(/datum/controller/subsystem/ticker, gather_antag_data)()
+/datum/controller/subsystem/ticker/proc/gather_antag_data()
 	var/team_gid = 1
 	var/list/team_ids = list()
 
@@ -122,7 +122,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/ticker, gather_antag_data)()
 				antag_info["objectives"] += list(list("objective_type"=O.type,"text"=O.explanation_text,"result"=result))
 		SSblackbox.record_feedback("associative", "antagonists", 1, antag_info)
 
-TYPE_PROC_REF(/datum/controller/subsystem/ticker, record_nuke_disk_location)()
+/datum/controller/subsystem/ticker/proc/record_nuke_disk_location()
 	var/obj/item/disk/nuclear/N = locate() in GLOB.poi_list
 	if(N)
 		var/list/data = list()
@@ -141,7 +141,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/ticker, record_nuke_disk_location)()
 
 		SSblackbox.record_feedback("associative", "roundend_nukedisk", 1 , data)
 
-TYPE_PROC_REF(/datum/controller/subsystem/ticker, gather_newscaster)()
+/datum/controller/subsystem/ticker/proc/gather_newscaster()
 	var/json_file = file("[GLOB.log_directory]/newscaster.json")
 	var/list/file_data = list()
 	var/pos = 1
@@ -169,7 +169,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/ticker, gather_newscaster)()
 		file_data["wanted"] = list("author" = "[GLOB.news_network.wanted_issue.scannedUser]", "criminal" = "[GLOB.news_network.wanted_issue.criminal]", "description" = "[GLOB.news_network.wanted_issue.body]", "photo file" = "[GLOB.news_network.wanted_issue.photo_file]")
 	WRITE_FILE(json_file, json_encode(file_data))
 
-TYPE_PROC_REF(/datum/controller/subsystem/ticker, declare_completion)()
+/datum/controller/subsystem/ticker/proc/declare_completion()
 	set waitfor = FALSE
 
 	to_chat(world, "<BR><BR><BR><span class='big bold'>The round has ended.</span>")
@@ -257,7 +257,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/ticker, declare_completion)()
 	addtimer(CALLBACK(src, PROC_REF(standard_reboot)), time_to_end)
 
 
-TYPE_PROC_REF(/datum/controller/subsystem/ticker, standard_reboot)()
+/datum/controller/subsystem/ticker/proc/standard_reboot()
 	ready_for_reboot = TRUE
 	if(ready_for_reboot)
 		if(mode.station_was_nuked)
@@ -268,7 +268,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/ticker, standard_reboot)()
 		CRASH("Attempted standard reboot without ticker roundend completion")
 
 //Common part of the report
-TYPE_PROC_REF(/datum/controller/subsystem/ticker, build_roundend_report)()
+/datum/controller/subsystem/ticker/proc/build_roundend_report()
 	var/list/parts = list()
 
 	//Gamemode specific things. Should be empty most of the time.
@@ -296,7 +296,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/ticker, build_roundend_report)()
 
 	return parts.Join()
 
-TYPE_PROC_REF(/datum/controller/subsystem/ticker, survivor_report)(popcount)
+/datum/controller/subsystem/ticker/proc/survivor_report(popcount)
 	var/list/parts = list()
 	var/station_evacuated = EMERGENCY_ESCAPED_OR_ENDGAMED
 
@@ -349,10 +349,10 @@ TYPE_PROC_REF(/datum/controller/subsystem/ticker, survivor_report)(popcount)
 		SSblackbox.record_feedback("tally","dynamic_threat",mode.threat,"Final Threat")
 	return parts.Join("<br>")
 
-TYPE_PROC_REF(/client, roundend_report_file)()
+/client/proc/roundend_report_file()
 	return "data/roundend_reports/[ckey].html"
 
-TYPE_PROC_REF(/datum/controller/subsystem/ticker, show_roundend_report)(client/C, previous = FALSE)
+/datum/controller/subsystem/ticker/proc/show_roundend_report(client/C, previous = FALSE)
 	var/datum/browser/roundend_report = new(C, "roundend")
 	roundend_report.width = 800
 	roundend_report.height = 600
@@ -361,7 +361,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/ticker, show_roundend_report)(client/C
 	if(!previous)
 		var/list/report_parts = list(personal_report(C), GLOB.common_report)
 		content = report_parts.Join()
-		remove_verb(C, TYPE_PROC_REF(/client, show_previous_roundend_report))
+		remove_verb(C, /client/proc/show_previous_roundend_report)
 		fdel(filename)
 		text2file(content, filename)
 	else
@@ -372,7 +372,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/ticker, show_roundend_report)(client/C
 	roundend_report.add_stylesheet("font-awesome", 'html/font-awesome/css/all.min.css')
 	roundend_report.open(FALSE)
 
-TYPE_PROC_REF(/datum/controller/subsystem/ticker, personal_report)(client/C, popcount)
+/datum/controller/subsystem/ticker/proc/personal_report(client/C, popcount)
 	var/list/parts = list()
 	var/mob/M = C.mob
 	if(M.mind && !isnewplayer(M))
@@ -399,7 +399,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/ticker, personal_report)(client/C, pop
 
 	return parts.Join()
 
-TYPE_PROC_REF(/datum/controller/subsystem/ticker, display_report)(popcount)
+/datum/controller/subsystem/ticker/proc/display_report(popcount)
 	GLOB.common_report = build_roundend_report()
 	GLOB.survivor_report = survivor_report(popcount)
 	for(var/client/C in GLOB.clients)
@@ -407,7 +407,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/ticker, display_report)(popcount)
 		give_show_report_button(C)
 		CHECK_TICK
 
-TYPE_PROC_REF(/datum/controller/subsystem/ticker, law_report)()
+/datum/controller/subsystem/ticker/proc/law_report()
 	var/list/parts = list()
 	var/borg_spacer = FALSE //inserts an extra linebreak to seperate AIs from independent borgs, and then multiple independent borgs.
 	//Silicon laws report
@@ -445,7 +445,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/ticker, law_report)()
 	else
 		return ""
 /*
-TYPE_PROC_REF(/datum/controller/subsystem/ticker, goal_report)()
+/datum/controller/subsystem/ticker/proc/goal_report()
 	var/list/parts = list()
 	if(mode.station_goals.len)
 		for(var/V in mode.station_goals)
@@ -453,7 +453,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/ticker, goal_report)()
 			parts += G.get_result()
 		return "<div class='panel stationborder'><ul>[parts.Join()]</ul></div>"
 */
-TYPE_PROC_REF(/datum/controller/subsystem/ticker, medal_report)()
+/datum/controller/subsystem/ticker/proc/medal_report()
 	if(GLOB.commendations.len)
 		var/list/parts = list()
 		parts += span_header("Medal Commendations:")
@@ -463,7 +463,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/ticker, medal_report)()
 	return ""
 
 
-TYPE_PROC_REF(/datum/controller/subsystem/ticker, matchmaking_report)()
+/datum/controller/subsystem/ticker/proc/matchmaking_report()
 	var/list/matches_log = SSmatchmaking.matches_log
 	if(!length(matches_log))
 		return ""
@@ -471,7 +471,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/ticker, matchmaking_report)()
 	parts += matches_log
 	return "<div class='panel stationborder'>[parts.Join("<br>")]</div>"
 
-TYPE_PROC_REF(/datum/controller/subsystem/ticker, antag_report)()
+/datum/controller/subsystem/ticker/proc/antag_report()
 	var/list/result = list()
 	var/list/all_teams = list()
 	var/list/all_antagonists = list()
@@ -521,7 +521,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/ticker, antag_report)()
 	return sorttext(B.roundend_category,A.roundend_category)
 
 
-TYPE_PROC_REF(/datum/controller/subsystem/ticker, give_show_report_button)(client/C)
+/datum/controller/subsystem/ticker/proc/give_show_report_button(client/C)
 	var/datum/action/report/R = new
 	C.player_details.player_actions += R
 	R.Grant(C.mob)
@@ -595,7 +595,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/ticker, give_show_report_button)(clien
 		count++
 	return objective_parts.Join("<br>")
 
-TYPE_PROC_REF(/datum/controller/subsystem/ticker, save_admin_data)()
+/datum/controller/subsystem/ticker/proc/save_admin_data()
 	if(IsAdminAdvancedProcCall())
 		to_chat(usr, "<span class='admin prefix'>Admin rank DB Sync blocked: Advanced ProcCall detected.</span>")
 		return
@@ -633,7 +633,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/ticker, save_admin_data)()
 	fdel(json_file)
 	WRITE_FILE(json_file, json_encode(file_data))
 
-TYPE_PROC_REF(/datum/controller/subsystem/ticker, update_everything_flag_in_db)()
+/datum/controller/subsystem/ticker/proc/update_everything_flag_in_db()
 	for(var/datum/admin_rank/R in GLOB.admin_ranks)
 		var/list/flags = list()
 		if(R.include_rights == R_EVERYTHING)
@@ -664,6 +664,6 @@ TYPE_PROC_REF(/datum/controller/subsystem/ticker, update_everything_flag_in_db)(
 			qdel(query_update_everything_ranks)
 		qdel(query_check_everything_ranks)
 
-TYPE_PROC_REF(/datum/controller/subsystem/ticker, send_roundinfo)()
+/datum/controller/subsystem/ticker/proc/send_roundinfo()
 	world.TgsTargetedChatBroadcast(send_news_report(),FALSE)
 

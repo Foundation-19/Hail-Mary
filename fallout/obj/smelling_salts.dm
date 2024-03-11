@@ -51,7 +51,7 @@
 		to_chat(user, span_notice("[src] is now empty and useless; you throw it away."))
 		qdel(src)
 
-TYPE_PROC_REF(/obj/item/smelling_salts, can_revive)(mob/living/carbon/T)
+/obj/item/smelling_salts/proc/can_revive(mob/living/carbon/T)
 	var/obj/item/organ/brain/BR = T.getorgan(/obj/item/organ/brain)
 	var/obj/item/organ/heart = T.getorgan(/obj/item/organ/heart)
 	if(T.suiciding || T.hellbound || HAS_TRAIT(src, TRAIT_HUSK) || AmBloodsucker(T))
@@ -64,7 +64,7 @@ TYPE_PROC_REF(/obj/item/smelling_salts, can_revive)(mob/living/carbon/T)
 		return
 	return TRUE
 
-TYPE_PROC_REF(/obj/item/smelling_salts, do_revive)(mob/living/carbon/revived_mob, mob/living/user)
+/obj/item/smelling_salts/proc/do_revive(mob/living/carbon/revived_mob, mob/living/user)
 	in_use = TRUE
 	if(!do_after(user, time_to_use, target = revived_mob))
 		in_use = FALSE

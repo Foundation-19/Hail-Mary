@@ -1,4 +1,4 @@
-TYPE_PROC_REF(/datum/admins, open_borgopanel)(borgo in GLOB.silicon_mobs)
+/datum/admins/proc/open_borgopanel(borgo in GLOB.silicon_mobs)
 	set category = "Admin.Game"
 	set name = "Show Borg Panel"
 	set desc = "Show borg panel"

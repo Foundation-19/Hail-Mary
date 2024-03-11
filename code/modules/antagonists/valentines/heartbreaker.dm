@@ -5,7 +5,7 @@
 	show_name_in_check_antagonists = TRUE
 
 
-TYPE_PROC_REF(/datum/antagonist/heartbreaker, forge_objectives)()
+/datum/antagonist/heartbreaker/proc/forge_objectives()
 	var/datum/objective/martyr/normiesgetout = new
 	normiesgetout.owner = owner
 	objectives += normiesgetout

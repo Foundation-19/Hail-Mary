@@ -304,13 +304,13 @@ GLOBAL_VAR_INIT(dynamic_forced_storyteller, null)
 		if(rule.flags & HIGHLANDER_RULESET)
 			return rule.check_finished()
 
-TYPE_PROC_REF(/datum/game_mode/dynamic, log_threat)(log_str,verbose = FALSE)
+/datum/game_mode/dynamic/proc/log_threat(log_str,verbose = FALSE)
 	threat_log_verbose += ("[worldtime2text()]: "+log_str)
 	SSblackbox.record_feedback("tally","dynamic_threat_log",1,log_str)
 	if(!verbose)
 		threat_log += log_str
 
-TYPE_PROC_REF(/datum/game_mode/dynamic, show_threatlog)(mob/admin)
+/datum/game_mode/dynamic/proc/show_threatlog(mob/admin)
 	if(!SSticker.HasRoundStarted())
 		alert("The round hasn't started yet!")
 		return
@@ -331,7 +331,7 @@ TYPE_PROC_REF(/datum/game_mode/dynamic, show_threatlog)(mob/admin)
 	usr << browse(out.Join(), "window=threatlog;size=700x500")
 
 /// Generates the threat level using lorentz distribution and assigns peaceful_percentage.
-TYPE_PROC_REF(/datum/game_mode/dynamic, generate_threat)()
+/datum/game_mode/dynamic/proc/generate_threat()
 	var/relative_threat = LORENTZ_DISTRIBUTION(GLOB.dynamic_curve_centre, GLOB.dynamic_curve_width)
 	threat_level = round(lorentz_to_threat(relative_threat), 0.1)
 
@@ -410,11 +410,11 @@ TYPE_PROC_REF(/datum/game_mode/dynamic, generate_threat)()
 	update_playercounts()
 
 	for(var/datum/dynamic_ruleset/roundstart/rule in executed_rules)
-		addtimer(CALLBACK(src, TYPE_PROC_REF(/datum/game_mode/dynamic, execute_roundstart_rule), rule), rule.delay)
+		addtimer(CALLBACK(src, /datum/game_mode/dynamic/.proc/execute_roundstart_rule, rule), rule.delay)
 	..()
 
 /// A simple roundstart proc used when dynamic_forced_roundstart_ruleset has rules in it.
-TYPE_PROC_REF(/datum/game_mode/dynamic, rigged_roundstart)()
+/datum/game_mode/dynamic/proc/rigged_roundstart()
 	message_admins("[GLOB.dynamic_forced_roundstart_ruleset.len] rulesets being forced. Will now attempt to draft players for them.")
 	log_game("DYNAMIC: [GLOB.dynamic_forced_roundstart_ruleset.len] rulesets being forced. Will now attempt to draft players for them.")
 	for (var/datum/dynamic_ruleset/roundstart/rule in GLOB.dynamic_forced_roundstart_ruleset)
@@ -427,7 +427,7 @@ TYPE_PROC_REF(/datum/game_mode/dynamic, rigged_roundstart)()
 		if (rule.ready(TRUE))
 			picking_roundstart_rule(list(rule), forced = TRUE)
 
-TYPE_PROC_REF(/datum/game_mode/dynamic, roundstart)()
+/datum/game_mode/dynamic/proc/roundstart()
 	if (GLOB.dynamic_forced_extended)
 		log_game("DYNAMIC: Starting a round of forced extended.")
 		return TRUE
@@ -476,7 +476,7 @@ TYPE_PROC_REF(/datum/game_mode/dynamic, roundstart)()
 	return TRUE
 
 /// Picks a random roundstart rule from the list given as an argument and executes it.
-TYPE_PROC_REF(/datum/game_mode/dynamic, picking_roundstart_rule)(list/drafted_rules = list(), forced = FALSE)
+/datum/game_mode/dynamic/proc/picking_roundstart_rule(list/drafted_rules = list(), forced = FALSE)
 	var/datum/dynamic_ruleset/roundstart/starting_rule = pickweight(drafted_rules)
 	if(!starting_rule)
 		log_game("DYNAMIC: Couldn't pick a starting ruleset. No rulesets available")
@@ -536,7 +536,7 @@ TYPE_PROC_REF(/datum/game_mode/dynamic, picking_roundstart_rule)(list/drafted_ru
 	return FALSE
 
 /// Mainly here to facilitate delayed rulesets. All roundstart rulesets are executed with a timered callback to this proc.
-TYPE_PROC_REF(/datum/game_mode/dynamic, execute_roundstart_rule)(sent_rule)
+/datum/game_mode/dynamic/proc/execute_roundstart_rule(sent_rule)
 	var/datum/dynamic_ruleset/rule = sent_rule
 	if(rule.execute())
 		current_rules += rule
@@ -549,7 +549,7 @@ TYPE_PROC_REF(/datum/game_mode/dynamic, execute_roundstart_rule)(sent_rule)
 
 /// Picks a random midround OR latejoin rule from the list given as an argument and executes it.
 /// Also this could be named better.
-TYPE_PROC_REF(/datum/game_mode/dynamic, picking_midround_latejoin_rule)(list/drafted_rules = list(), forced = FALSE)
+/datum/game_mode/dynamic/proc/picking_midround_latejoin_rule(list/drafted_rules = list(), forced = FALSE)
 	var/datum/dynamic_ruleset/rule = pickweight(drafted_rules)
 	if(!rule)
 		return FALSE
@@ -577,11 +577,11 @@ TYPE_PROC_REF(/datum/game_mode/dynamic, picking_midround_latejoin_rule)(list/dra
 			latejoin_rules = remove_from_list(latejoin_rules, rule.type)
 		else if(rule.ruletype == "Midround")
 			midround_rules = remove_from_list(midround_rules, rule.type)
-	addtimer(CALLBACK(src, TYPE_PROC_REF(/datum/game_mode/dynamic, execute_midround_latejoin_rule), rule), rule.delay)
+	addtimer(CALLBACK(src, /datum/game_mode/dynamic/.proc/execute_midround_latejoin_rule, rule), rule.delay)
 	return TRUE
 
 /// An experimental proc to allow admins to call rules on the fly or have rules call other rules.
-TYPE_PROC_REF(/datum/game_mode/dynamic, picking_specific_rule)(ruletype, forced = FALSE)
+/datum/game_mode/dynamic/proc/picking_specific_rule(ruletype, forced = FALSE)
 	var/datum/dynamic_ruleset/midround/new_rule
 	if(ispath(ruletype))
 		new_rule = new ruletype() // You should only use it to call midround rules though.
@@ -625,7 +625,7 @@ TYPE_PROC_REF(/datum/game_mode/dynamic, picking_specific_rule)(ruletype, forced 
 	return FALSE
 
 /// Mainly here to facilitate delayed rulesets. All midround/latejoin rulesets are executed with a timered callback to this proc.
-TYPE_PROC_REF(/datum/game_mode/dynamic, execute_midround_latejoin_rule)(sent_rule)
+/datum/game_mode/dynamic/proc/execute_midround_latejoin_rule(sent_rule)
 	var/datum/dynamic_ruleset/rule = sent_rule
 	if (rule.execute())
 		log_game("DYNAMIC: Injected a [rule.ruletype == "latejoin" ? "latejoin" : "midround"] ruleset [rule.name].")
@@ -685,7 +685,7 @@ TYPE_PROC_REF(/datum/game_mode/dynamic, execute_midround_latejoin_rule)(sent_rul
 				picking_midround_latejoin_rule(drafted_rules)
 
 /// Updates current_players.
-TYPE_PROC_REF(/datum/game_mode/dynamic, update_playercounts)()
+/datum/game_mode/dynamic/proc/update_playercounts()
 	current_players[CURRENT_LIVING_PLAYERS] = list()
 	current_players[CURRENT_LIVING_ANTAGS] = list()
 	current_players[CURRENT_DEAD_PLAYERS] = list()
@@ -717,14 +717,14 @@ TYPE_PROC_REF(/datum/game_mode/dynamic, update_playercounts)()
 		last_threat_sample_time = world.time
 
 /// Removes type from the list
-TYPE_PROC_REF(/datum/game_mode/dynamic, remove_from_list)(list/type_list, type)
+/datum/game_mode/dynamic/proc/remove_from_list(list/type_list, type)
 	for(var/I in type_list)
 		if(istype(I, type))
 			type_list -= I
 	return type_list
 
 /// Checks if a type in blocking_list is in rule_list.
-TYPE_PROC_REF(/datum/game_mode/dynamic, check_blocking)(list/blocking_list, list/rule_list)
+/datum/game_mode/dynamic/proc/check_blocking(list/blocking_list, list/rule_list)
 	if(blocking_list.len > 0)
 		for(var/blocking in blocking_list)
 			for(var/datum/executed in rule_list)
@@ -733,7 +733,7 @@ TYPE_PROC_REF(/datum/game_mode/dynamic, check_blocking)(list/blocking_list, list
 	return FALSE
 
 /// Checks if client age is age or older.
-TYPE_PROC_REF(/datum/game_mode/dynamic, check_age)(client/C, age)
+/datum/game_mode/dynamic/proc/check_age(client/C, age)
 	enemy_minimum_age = age
 	if(get_remaining_days(C) == 0)
 		enemy_minimum_age = initial(enemy_minimum_age)
@@ -765,25 +765,25 @@ TYPE_PROC_REF(/datum/game_mode/dynamic, check_age)(client/C, age)
 			SSblackbox.record_feedback("tally","dynamic",1,"Successful latejoin injections")
 
 /// Increase the threat level.
-TYPE_PROC_REF(/datum/game_mode/dynamic, create_threat)(gain)
+/datum/game_mode/dynamic/proc/create_threat(gain)
 	threat_level += gain
 	SSblackbox.record_feedback("tally","dynamic_threat",gain,"Created threat level")
 	log_threat("[gain] created. Threat level is now [threat_level].", verbose = TRUE)
 
 /// Decrease the threat level.
-TYPE_PROC_REF(/datum/game_mode/dynamic, remove_threat)(loss)
+/datum/game_mode/dynamic/proc/remove_threat(loss)
 	threat_level -= loss
 	SSblackbox.record_feedback("tally","dynamic_threat",loss,"Removed threat level")
 	log_threat("[loss] removed. Threat level is now [threat_level].", verbose = TRUE)
 
 /// Fill up more of the threat level.
-TYPE_PROC_REF(/datum/game_mode/dynamic, spend_threat)(cost)
+/datum/game_mode/dynamic/proc/spend_threat(cost)
 	added_threat += cost
 	SSblackbox.record_feedback("tally","dynamic_threat",cost,"Threat added")
 	log_threat("[cost] added. Threat is now [threat].", verbose = TRUE)
 
 /// Turns the value generated by lorentz distribution to threat value between 0 and 100.
-TYPE_PROC_REF(/datum/game_mode/dynamic, lorentz_to_threat)(x)
+/datum/game_mode/dynamic/proc/lorentz_to_threat(x)
 	switch (x)
 		if (-INFINITY to -20)
 			return rand(0, 10)

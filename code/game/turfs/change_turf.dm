@@ -4,7 +4,7 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 	/turf/baseturf_bottom
 	)))
 
-TYPE_PROC_REF(/turf, empty)(turf_type=/turf/open/space, baseturf_type, list/ignore_typecache, flags)
+/turf/proc/empty(turf_type=/turf/open/space, baseturf_type, list/ignore_typecache, flags)
 	// Remove all atoms except observers, landmarks, docking ports
 	var/static/list/ignored_atoms = typecacheof(list(/mob/dead, /obj/effect/landmark, /obj/docking_port, /atom/movable/lighting_object))
 	var/list/allowed_contents = typecache_filter_list_reverse(GetAllContentsIgnoring(ignore_typecache), ignored_atoms)
@@ -17,7 +17,7 @@ TYPE_PROC_REF(/turf, empty)(turf_type=/turf/open/space, baseturf_type, list/igno
 		var/turf/newT = ChangeTurf(turf_type, baseturf_type, flags)
 		CALCULATE_ADJACENT_TURFS(newT)
 
-TYPE_PROC_REF(/turf, copyTurf)(turf/T)
+/turf/proc/copyTurf(turf/T)
 	if(T.type != type)
 		var/obj/O
 		if(underlays.len)	//we have underlays, which implies some sort of transparency, so we want to a snapshot of the previous turf as an underlay
@@ -49,10 +49,10 @@ TYPE_PROC_REF(/turf, copyTurf)(turf/T)
 			openTurf.air.copy_from(air)
 
 //wrapper for ChangeTurf()s that you want to prevent/affect without overriding ChangeTurf() itself
-TYPE_PROC_REF(/turf, TerraformTurf)(path, new_baseturf, flags)
+/turf/proc/TerraformTurf(path, new_baseturf, flags)
 	return ChangeTurf(path, new_baseturf, flags)
 
-TYPE_PROC_REF(/turf, get_z_base_turf)()
+/turf/proc/get_z_base_turf()
 	. = SSmapping.level_trait(z, ZTRAIT_BASETURF) || /turf/open/space
 	if (!ispath(.))
 		. = text2path(.)
@@ -62,7 +62,7 @@ TYPE_PROC_REF(/turf, get_z_base_turf)()
 
 // Creates a new turf
 // new_baseturfs can be either a single type or list of types, formated the same as baseturfs. see turf.dm
-TYPE_PROC_REF(/turf, ChangeTurf)(path, list/new_baseturfs, flags)
+/turf/proc/ChangeTurf(path, list/new_baseturfs, flags)
 	switch(path)
 		if(null)
 			return
@@ -156,7 +156,7 @@ TYPE_PROC_REF(/turf, ChangeTurf)(path, list/new_baseturfs, flags)
 	return W
 
 // Take off the top layer turf and replace it with the next baseturf down
-TYPE_PROC_REF(/turf, ScrapeAway)(amount=1, flags)
+/turf/proc/ScrapeAway(amount=1, flags)
 	if(!amount)
 		return
 	if(length(baseturfs))
@@ -180,7 +180,7 @@ TYPE_PROC_REF(/turf, ScrapeAway)(amount=1, flags)
 // Take the input as baseturfs and put it underneath the current baseturfs
 // If fake_turf_type is provided and new_baseturfs is not the baseturfs list will be created identical to the turf type's
 // If both or just new_baseturfs is provided they will be inserted below the existing baseturfs
-TYPE_PROC_REF(/turf, PlaceOnBottom)(list/new_baseturfs, turf/fake_turf_type)
+/turf/proc/PlaceOnBottom(list/new_baseturfs, turf/fake_turf_type)
 	if(fake_turf_type)
 		if(!new_baseturfs)
 			if(!length(baseturfs))
@@ -204,7 +204,7 @@ TYPE_PROC_REF(/turf, PlaceOnBottom)(list/new_baseturfs, turf/fake_turf_type)
 // The args behave identical to PlaceOnBottom except they go on top
 // Things placed on top of closed turfs will ignore the topmost closed turf
 // Returns the new turf
-TYPE_PROC_REF(/turf, PlaceOnTop)(list/new_baseturfs, turf/fake_turf_type, flags)
+/turf/proc/PlaceOnTop(list/new_baseturfs, turf/fake_turf_type, flags)
 	var/area/turf_area = loc
 	if(new_baseturfs && !length(new_baseturfs))
 		new_baseturfs = list(new_baseturfs)
@@ -251,7 +251,7 @@ TYPE_PROC_REF(/turf, PlaceOnTop)(list/new_baseturfs, turf/fake_turf_type, flags)
 
 // Copy an existing turf and put it on top
 // Returns the new turf
-TYPE_PROC_REF(/turf, CopyOnTop)(turf/copytarget, ignore_bottom=1, depth=INFINITY, copy_air = FALSE)
+/turf/proc/CopyOnTop(turf/copytarget, ignore_bottom=1, depth=INFINITY, copy_air = FALSE)
 	var/list/new_baseturfs = list()
 	new_baseturfs += baseturfs
 	new_baseturfs += type
@@ -274,7 +274,7 @@ TYPE_PROC_REF(/turf, CopyOnTop)(turf/copytarget, ignore_bottom=1, depth=INFINITY
 
 
 //If you modify this function, ensure it works correctly with lateloaded map templates.
-TYPE_PROC_REF(/turf, AfterChange)(flags) //called after a turf has been replaced in ChangeTurf()
+/turf/proc/AfterChange(flags) //called after a turf has been replaced in ChangeTurf()
 	levelupdate()
 	if(flags & CHANGETURF_RECALC_ADJACENT)
 		ImmediateCalculateAdjacentTurfs()
@@ -299,7 +299,7 @@ TYPE_PROC_REF(/turf, AfterChange)(flags) //called after a turf has been replaced
 		Assimilate_Air()
 
 //////Assimilate Air//////
-TYPE_PROC_REF(/turf/open, Assimilate_Air)()
+/turf/open/proc/Assimilate_Air()
 	var/turf_count = LAZYLEN(atmos_adjacent_turfs)
 	if(blocks_air || !turf_count) //if there weren't any open turfs, no need to update.
 		return
@@ -314,6 +314,6 @@ TYPE_PROC_REF(/turf/open, Assimilate_Air)()
 
 	air.copy_from(total.remove_ratio(1/turf_count))
 
-TYPE_PROC_REF(/turf, ReplaceWithLattice)()
+/turf/proc/ReplaceWithLattice()
 	ScrapeAway(flags = CHANGETURF_INHERIT_AIR)
 	new /obj/structure/lattice(locate(x, y, z))

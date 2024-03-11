@@ -51,7 +51,7 @@
 	* attacker: The object that is hitting the parent.
 	* user: The mob who is wielding the attacking object.
 */
-TYPE_PROC_REF(/datum/component/label, OnAttackby)(datum/source, obj/item/attacker, mob/user)
+/datum/component/label/proc/OnAttackby(datum/source, obj/item/attacker, mob/user)
 	// If the attacking object is not a hand labeler or its mode is 1 (has a label ready to apply), return.
 	// The hand labeler should be off (mode is 0), in order to remove a label.
 	var/obj/item/hand_labeler/labeler = attacker
@@ -72,16 +72,16 @@ TYPE_PROC_REF(/datum/component/label, OnAttackby)(datum/source, obj/item/attacke
 	* user: The mob exmaining the parent.
 	* examine_list: The current list of text getting passed from the parent's normal examine() proc.
 */
-TYPE_PROC_REF(/datum/component/label, Examine)(datum/source, mob/user, list/examine_list)
+/datum/component/label/proc/Examine(datum/source, mob/user, list/examine_list)
 	examine_list += span_notice("It has a label with some words written on it. Use a hand labeler to remove it.")
 
 /// Applies a label to the name of the parent in the format of: "parent_name (label)"
-TYPE_PROC_REF(/datum/component/label, apply_label)()
+/datum/component/label/proc/apply_label()
 	var/atom/owner = parent
 	owner.name += " ([label_name])"
 
 /// Removes the label from the parent's name
-TYPE_PROC_REF(/datum/component/label, remove_label)()
+/datum/component/label/proc/remove_label()
 	var/atom/owner = parent
 	owner.name = replacetext(owner.name, "([label_name])", "") // Remove the label text from the parent's name, wherever it's located.
 	owner.name = trim(owner.name) // Shave off any white space from the beginning or end of the parent's name.

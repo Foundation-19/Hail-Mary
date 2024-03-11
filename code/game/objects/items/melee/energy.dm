@@ -204,7 +204,7 @@
 	. = ..()
 	set_sword_color()
 
-TYPE_PROC_REF(/obj/item/melee/transforming/plasmacutter/sword, set_sword_color)()
+/obj/item/melee/transforming/plasmacutter/sword/proc/set_sword_color()
 	if(LAZYLEN(possible_colors))
 		set_light_color(possible_colors[pick(possible_colors)])
 

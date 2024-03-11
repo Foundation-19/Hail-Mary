@@ -14,7 +14,7 @@
 	var/old_shard = FALSE
 	var/spent = FALSE
 
-TYPE_PROC_REF(/obj/item/soulstone, was_used)()
+/obj/item/soulstone/proc/was_used()
 	if(old_shard)
 		spent = TRUE
 		name = "dull [name]"
@@ -80,7 +80,7 @@ TYPE_PROC_REF(/obj/item/soulstone, was_used)()
 		return
 	release_shades(user)
 
-TYPE_PROC_REF(/obj/item/soulstone, release_shades)(mob/user)
+/obj/item/soulstone/proc/release_shades(mob/user)
 	for(var/mob/living/simple_animal/shade/A in src)
 		A.status_flags &= ~GODMODE
 		A.forceMove(get_turf(user))
@@ -125,7 +125,7 @@ TYPE_PROC_REF(/obj/item/soulstone, release_shades)(mob/user)
 ////////////////////////////Proc for moving soul in and out off stone//////////////////////////////////////
 
 
-TYPE_PROC_REF(/obj/item/soulstone, transfer_soul)(choice as text, target, mob/user)
+/obj/item/soulstone/proc/transfer_soul(choice as text, target, mob/user)
 	switch(choice)
 		if("FORCE")
 			if(!iscarbon(target))		//TODO: Add sacrifice stoning for non-organics, just because you have no body doesnt mean you dont have a soul
@@ -233,7 +233,7 @@ TYPE_PROC_REF(/obj/item/soulstone, transfer_soul)(choice as text, target, mob/us
 	newstruct.cancel_camera()
 
 
-TYPE_PROC_REF(/obj/item/soulstone, init_shade)(mob/living/carbon/human/T, mob/user, vic = 0)
+/obj/item/soulstone/proc/init_shade(mob/living/carbon/human/T, mob/user, vic = 0)
 	new /obj/effect/decal/remains/human(T.loc) //Spawns a skeleton
 	T.stop_sound_channel(CHANNEL_HEARTBEAT)
 	T.invisibility = INVISIBILITY_ABSTRACT
@@ -264,7 +264,7 @@ TYPE_PROC_REF(/obj/item/soulstone, init_shade)(mob/living/carbon/human/T, mob/us
 		to_chat(user, "<span class='info'><b>Capture successful!</b>:</span> [T.real_name]'s soul has been ripped from [T.p_their()] body and stored within the soul stone.")
 
 
-TYPE_PROC_REF(/obj/item/soulstone, getCultGhost)(mob/living/carbon/human/T, mob/U)
+/obj/item/soulstone/proc/getCultGhost(mob/living/carbon/human/T, mob/U)
 	var/mob/dead/observer/chosen_ghost
 
 	for(var/mob/dead/observer/ghost in GLOB.player_list) //We put them back in their body

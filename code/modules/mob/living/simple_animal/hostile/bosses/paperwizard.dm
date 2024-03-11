@@ -72,7 +72,7 @@
 		RegisterSignal(S, COMSIG_PARENT_QDELETING, PROC_REF(remove_from_list))
 		summoned_minions += S
 
-TYPE_PROC_REF(/datum/action/boss/wizard_summon_minions, remove_from_list)(datum/source, forced)
+/datum/action/boss/wizard_summon_minions/proc/remove_from_list(datum/source, forced)
 	summoned_minions -= source
 
 //Mimic Ability

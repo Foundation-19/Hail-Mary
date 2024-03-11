@@ -94,7 +94,7 @@
 				grant_achievement(medal_type, score_type, crusher_kill)
 		..()
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile/megafauna, spawn_crusher_loot)()
+/mob/living/simple_animal/hostile/megafauna/proc/spawn_crusher_loot()
 	loot = crusher_loot
 
 /mob/living/simple_animal/hostile/megafauna/gib()
@@ -121,7 +121,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/hostile/megafauna, spawn_crusher_loot)()
 		else
 			devour(L)
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile/megafauna, devour)(mob/living/L)
+/mob/living/simple_animal/hostile/megafauna/proc/devour(mob/living/L)
 	if(!L)
 		return
 	visible_message(
@@ -142,11 +142,11 @@ TYPE_PROC_REF(/mob/living/simple_animal/hostile/megafauna, devour)(mob/living/L)
 		if(EXPLODE_LIGHT)
 			adjustBruteLoss(50)
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile/megafauna, SetRecoveryTime)(buffer_time)
+/mob/living/simple_animal/hostile/megafauna/proc/SetRecoveryTime(buffer_time)
 	recovery_time = world.time + buffer_time
 	ranged_cooldown = max(ranged_cooldown, world.time + buffer_time)		// CITADEL BANDAID FIX FOR MEGAFAUNA NOT RESPECTING RECOVERY TIME.
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile/megafauna, grant_achievement)(medaltype, scoretype, crusher_kill)
+/mob/living/simple_animal/hostile/megafauna/proc/grant_achievement(medaltype, scoretype, crusher_kill)
 	if(!medal_type || (flags_1 & ADMIN_SPAWNED_1)) //Don't award medals if the medal type isn't set
 		return FALSE
 	if(!SSmedals.hub_enabled) // This allows subtypes to carry on other special rewards not tied with medals. (such as bubblegum's arena shuttle)

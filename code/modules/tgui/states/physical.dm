@@ -16,7 +16,7 @@ GLOBAL_DATUM_INIT(physical_state, /datum/ui_state/physical, new)
 	if(. > UI_CLOSE)
 		return min(., user.physical_can_use_topic(src_object))
 
-TYPE_PROC_REF(/mob, physical_can_use_topic)(src_object)
+/mob/proc/physical_can_use_topic(src_object)
 	return UI_CLOSE
 
 /mob/living/physical_can_use_topic(src_object)
@@ -42,7 +42,7 @@ GLOBAL_DATUM_INIT(physical_obscured_state, /datum/ui_state/physical_obscured_sta
 	if(. > UI_CLOSE)
 		return min(., user.physical_obscured_can_use_topic(src_object))
 
-TYPE_PROC_REF(/mob, physical_obscured_can_use_topic)(src_object)
+/mob/proc/physical_obscured_can_use_topic(src_object)
 	return UI_CLOSE
 
 /mob/living/physical_obscured_can_use_topic(src_object)

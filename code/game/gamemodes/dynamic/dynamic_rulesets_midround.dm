@@ -36,7 +36,7 @@
 	list_observers = trim_list(mode.current_players[CURRENT_OBSERVERS])
 	ghost_eligible = trim_list(get_all_ghost_role_eligible())
 
-TYPE_PROC_REF(/datum/dynamic_ruleset/midround, trim_list)(list/L = list())
+/datum/dynamic_ruleset/midround/proc/trim_list(list/L = list())
 	var/list/trimmed_list = L.Copy()
 	for(var/mob/M in trimmed_list)
 		if (!istype(M, required_type))
@@ -123,7 +123,7 @@ TYPE_PROC_REF(/datum/dynamic_ruleset/midround, trim_list)(list/L = list())
 	return assigned.len > 0 && application_successful
 
 /// This sends a poll to ghosts if they want to be a ghost spawn from a ruleset.
-TYPE_PROC_REF(/datum/dynamic_ruleset/midround/from_ghosts, send_applications)(list/possible_volunteers = list())
+/datum/dynamic_ruleset/midround/from_ghosts/proc/send_applications(list/possible_volunteers = list())
 	if (possible_volunteers.len <= 0) // This shouldn't happen, as ready() should return FALSE if there is not a single valid candidate
 		message_admins("Possible volunteers was 0. This shouldn't appear, because of ready(), unless you forced it!")
 		return
@@ -148,7 +148,7 @@ TYPE_PROC_REF(/datum/dynamic_ruleset/midround/from_ghosts, send_applications)(li
 
 /// Here is where you can check if your ghost applicants are valid for the ruleset.
 /// Called by send_applications().
-TYPE_PROC_REF(/datum/dynamic_ruleset/midround/from_ghosts, review_applications)()
+/datum/dynamic_ruleset/midround/from_ghosts/proc/review_applications()
 	for (var/i = 1, i <= required_candidates, i++)
 		if(candidates.len <= 0)
 			break
@@ -174,18 +174,18 @@ TYPE_PROC_REF(/datum/dynamic_ruleset/midround/from_ghosts, review_applications)(
 		assigned += applicant
 		notify_ghosts("[new_character] has been picked for the ruleset [name]!", source = new_character, action = NOTIFY_ORBIT)
 
-TYPE_PROC_REF(/datum/dynamic_ruleset/midround/from_ghosts, generate_ruleset_body)(mob/applicant)
+/datum/dynamic_ruleset/midround/from_ghosts/proc/generate_ruleset_body(mob/applicant)
 	var/mob/living/carbon/human/new_character = makeBody(applicant)
 	new_character.dna.remove_all_mutations()
 	return new_character
 
-TYPE_PROC_REF(/datum/dynamic_ruleset/midround/from_ghosts, finish_setup)(mob/new_character, index)
+/datum/dynamic_ruleset/midround/from_ghosts/proc/finish_setup(mob/new_character, index)
 	var/datum/antagonist/new_role = new antag_datum()
 	setup_role(new_role)
 	new_character.mind.add_antag_datum(new_role)
 	new_character.mind.special_role = antag_flag
 
-TYPE_PROC_REF(/datum/dynamic_ruleset/midround/from_ghosts, setup_role)(datum/antagonist/new_role)
+/datum/dynamic_ruleset/midround/from_ghosts/proc/setup_role(datum/antagonist/new_role)
 	return
 
 //////////////////////////////////////////////

@@ -99,7 +99,7 @@ then the player gets the profit from selling his own wasted time.
 		cost = init_cost
 
 // Checks the cost. 0 cost items are skipped in export.
-TYPE_PROC_REF(/datum/export, get_cost)(obj/O, allowed_categories = NONE, apply_elastic = TRUE)
+/datum/export/proc/get_cost(obj/O, allowed_categories = NONE, apply_elastic = TRUE)
 	var/amount = get_amount(O)
 	if(apply_elastic)
 		if(k_elasticity!=0)
@@ -111,11 +111,11 @@ TYPE_PROC_REF(/datum/export, get_cost)(obj/O, allowed_categories = NONE, apply_e
 
 // Checks the amount of exportable in object. Credits in the bill, sheets in the stack, etc.
 // Usually acts as a multiplier for a cost, so item that has 0 amount will be skipped in export.
-TYPE_PROC_REF(/datum/export, get_amount)(obj/O)
+/datum/export/proc/get_amount(obj/O)
 	return 1
 
 // Checks if the item is fit for export datum.
-TYPE_PROC_REF(/datum/export, applies_to)(obj/O, allowed_categories = NONE, apply_elastic = TRUE)
+/datum/export/proc/applies_to(obj/O, allowed_categories = NONE, apply_elastic = TRUE)
 	if((allowed_categories & export_category) != export_category)
 		return FALSE
 	if(!include_subtypes && !(O.type in export_types))
@@ -131,7 +131,7 @@ TYPE_PROC_REF(/datum/export, applies_to)(obj/O, allowed_categories = NONE, apply
 // Called only once, when the object is actually sold by the datum.
 // Adds item's cost and amount to the current export cycle.
 // get_cost, get_amount and applies_to do not neccesary mean a successful sale.
-TYPE_PROC_REF(/datum/export, sell_object)(obj/O, datum/export_report/report, dry_run = TRUE, allowed_categories = EXPORT_CARGO , apply_elastic = TRUE)
+/datum/export/proc/sell_object(obj/O, datum/export_report/report, dry_run = TRUE, allowed_categories = EXPORT_CARGO , apply_elastic = TRUE)
 	var/the_cost = get_cost(O, allowed_categories , apply_elastic)
 	var/amount = get_amount(O)
 
@@ -154,7 +154,7 @@ TYPE_PROC_REF(/datum/export, sell_object)(obj/O, datum/export_report/report, dry
 // Total printout for the cargo console.
 // Called before the end of current export cycle.
 // It must always return something if the datum adds or removes any credts.
-TYPE_PROC_REF(/datum/export, total_printout)(datum/export_report/ex, notes = TRUE)
+/datum/export/proc/total_printout(datum/export_report/ex, notes = TRUE)
 	if(!ex.total_amount[src] || !ex.total_value[src])
 		return ""
 

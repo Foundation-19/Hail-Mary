@@ -75,7 +75,7 @@
 	if(api)
 		api.OnInitializationComplete()
 
-TYPE_PROC_REF(/world, TgsTopic)(T)
+/world/proc/TgsTopic(T)
 	var/datum/tgs_api/api = TGS_READ_GLOBAL(tgs)
 	if(api)
 		var/result = api.OnTopic(T)

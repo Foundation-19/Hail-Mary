@@ -90,7 +90,7 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 	return
 
 //=========== shuttle designation actions ============
-TYPE_PROC_REF(/obj/item/shuttle_creator, calculate_bounds)(obj/docking_port/mobile/port)
+/obj/item/shuttle_creator/proc/calculate_bounds(obj/docking_port/mobile/port)
 	if(!port || !istype(port, /obj/docking_port/mobile))
 		return FALSE
 	//Heights is the distance away from the port
@@ -137,7 +137,7 @@ TYPE_PROC_REF(/obj/item/shuttle_creator, calculate_bounds)(obj/docking_port/mobi
 	return TRUE
 
 //Go through all the all_turfs and check which direction doesn't have the shuttle
-TYPE_PROC_REF(/obj/item/shuttle_creator, getNonShuttleDirection)(turf/targetTurf)
+/obj/item/shuttle_creator/proc/getNonShuttleDirection(turf/targetTurf)
 	var/position = null
 	if(!(get_offset_target_turf(targetTurf, 0, 1) in loggedTurfs))
 		if(position != null)
@@ -157,7 +157,7 @@ TYPE_PROC_REF(/obj/item/shuttle_creator, getNonShuttleDirection)(turf/targetTurf
 		position = WEST
 	return position
 
-TYPE_PROC_REF(/obj/item/shuttle_creator, invertDir)(input_dir)
+/obj/item/shuttle_creator/proc/invertDir(input_dir)
 	if(input_dir == NORTH)
 		return SOUTH
 	else if(input_dir == SOUTH)
@@ -168,7 +168,7 @@ TYPE_PROC_REF(/obj/item/shuttle_creator, invertDir)(input_dir)
 		return EAST
 	return null
 
-TYPE_PROC_REF(/obj/item/shuttle_creator, shuttle_create_docking_port)(atom/target, mob/user)
+/obj/item/shuttle_creator/proc/shuttle_create_docking_port(atom/target, mob/user)
 
 	if(loggedTurfs.len == 0 || !recorded_shuttle_area)
 		to_chat(user, span_warning("Invalid shuttle, restarting bluespace systems..."))
@@ -243,7 +243,7 @@ TYPE_PROC_REF(/obj/item/shuttle_creator, shuttle_create_docking_port)(atom/targe
 	log_game("[key_name(user)] created a new shuttle with a [src] at [AREACOORD(user)] ([GLOB.custom_shuttle_count] custom shuttles)")
 	return TRUE
 
-TYPE_PROC_REF(/obj/item/shuttle_creator, create_shuttle_area)(mob/user)
+/obj/item/shuttle_creator/proc/create_shuttle_area(mob/user)
 	//Check to see if the user can make a new area to prevent spamming
 	if(user)
 		if(user.create_area_cooldown >= world.time)
@@ -287,7 +287,7 @@ TYPE_PROC_REF(/obj/item/shuttle_creator, create_shuttle_area)(mob/user)
 	return TRUE
 
 //Checks an area to ensure that the turfs provided are valid to be made into a shuttle
-TYPE_PROC_REF(/obj/item/shuttle_creator, check_area)(list/turfs, addingTurfs = TRUE)
+/obj/item/shuttle_creator/proc/check_area(list/turfs, addingTurfs = TRUE)
 	if(!turfs)
 		to_chat(usr, span_warning("Shuttles must be created in an airtight space, ensure that the shuttle is airtight, including corners."))
 		return FALSE
@@ -318,24 +318,24 @@ TYPE_PROC_REF(/obj/item/shuttle_creator, check_area)(list/turfs, addingTurfs = T
 	to_chat(usr, span_warning("Caution, new areas of the shuttle must be connected to the other areas of the shuttle."))
 	return FALSE
 
-TYPE_PROC_REF(/obj/item/shuttle_creator, turf_connected_to_saved_turfs)(turf/T)
+/obj/item/shuttle_creator/proc/turf_connected_to_saved_turfs(turf/T)
 	for(var/i in 1 to 4)
 		var/turf/adjacentT = get_offset_target_turf(T, CARDINAL_DIRECTIONS_X[i], CARDINAL_DIRECTIONS_Y[i])
 		if(adjacentT in loggedTurfs)
 			return TRUE
 	return FALSE
 
-TYPE_PROC_REF(/obj/item/shuttle_creator, turf_in_list)(turf/T)
+/obj/item/shuttle_creator/proc/turf_in_list(turf/T)
 	return loggedTurfs.Find(T)
 
-TYPE_PROC_REF(/obj/item/shuttle_creator, add_single_turf)(turf/T)
+/obj/item/shuttle_creator/proc/add_single_turf(turf/T)
 	if(!check_area(list(T)))
 		return FALSE
 	loggedTurfs |= T
 	loggedOldArea = get_area(T)
 	overlay_holder.highlight_turf(T)
 
-TYPE_PROC_REF(/obj/item/shuttle_creator, add_saved_area)(mob/user)
+/obj/item/shuttle_creator/proc/add_saved_area(mob/user)
 	var/static/area_or_turf_fail_types = typecacheof(list(
 		/turf/open/space,
 		/area/shuttle
@@ -351,14 +351,14 @@ TYPE_PROC_REF(/obj/item/shuttle_creator, add_saved_area)(mob/user)
 	to_chat(user, span_notice("You add the area into the buffer of the [src], you made add more areas or select an airlock to act as a docking port to complete the shuttle."))
 	return turfs
 
-TYPE_PROC_REF(/obj/item/shuttle_creator, remove_single_turf)(turf/T)
+/obj/item/shuttle_creator/proc/remove_single_turf(turf/T)
 	if(!turf_in_list(T))
 		return
 	loggedTurfs -= T
 	loggedOldArea = get_area(T)
 	overlay_holder.unhighlight_turf(T)
 
-TYPE_PROC_REF(/obj/item/shuttle_creator, reset_saved_area)()
+/obj/item/shuttle_creator/proc/reset_saved_area()
 	overlay_holder.clear_highlights()
 	loggedTurfs.Cut()
 	to_chat(usr, span_notice("You reset the area buffer on the [src]."))

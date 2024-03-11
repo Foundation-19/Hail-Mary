@@ -59,7 +59,7 @@
 		return
 	return
 
-TYPE_PROC_REF(/obj/item/assembly/health, toggle_scan)()
+/obj/item/assembly/health/proc/toggle_scan()
 	if(!secured)
 		return 0
 	scanning = !scanning

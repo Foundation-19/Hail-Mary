@@ -43,7 +43,7 @@
 			else
 				. += span_notice("Use screwdriver to unlock the rotation.")
 
-TYPE_PROC_REF(/obj/structure/reflector, setAngle)(new_angle)
+/obj/structure/reflector/proc/setAngle(new_angle)
 	if(can_rotate)
 		rotation_angle = new_angle
 		if(deflector_overlay)
@@ -55,7 +55,7 @@ TYPE_PROC_REF(/obj/structure/reflector, setAngle)(new_angle)
 /obj/structure/reflector/setDir(new_dir)
 	return ..(NORTH)
 
-TYPE_PROC_REF(/obj/structure/reflector, dir_map_to_angle)(dir)
+/obj/structure/reflector/proc/dir_map_to_angle(dir)
 	return 0
 
 /obj/structure/reflector/bullet_act(obj/item/projectile/P)
@@ -68,7 +68,7 @@ TYPE_PROC_REF(/obj/structure/reflector, dir_map_to_angle)(dir)
 		return ..()
 	return BULLET_ACT_FORCE_PIERCE
 
-TYPE_PROC_REF(/obj/structure/reflector, auto_reflect)(obj/item/projectile/P, pdir, turf/ploc, pangle)
+/obj/structure/reflector/proc/auto_reflect(obj/item/projectile/P, pdir, turf/ploc, pangle)
 	P.ignore_source_check = TRUE
 	P.range = P.decayedRange
 	P.decayedRange = max(P.decayedRange--, 0)
@@ -155,7 +155,7 @@ TYPE_PROC_REF(/obj/structure/reflector, auto_reflect)(obj/item/projectile/P, pdi
 	else
 		return ..()
 
-TYPE_PROC_REF(/obj/structure/reflector, rotate)(mob/user)
+/obj/structure/reflector/proc/rotate(mob/user)
 	if (!can_rotate || admin)
 		to_chat(user, span_warning("The rotation is locked!"))
 		return FALSE

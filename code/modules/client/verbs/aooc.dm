@@ -104,13 +104,13 @@ GLOBAL_VAR_INIT(normal_aooc_colour, "#ce254f")
 			else
 				to_chat(C, "<span class='antagooc'><span class='prefix'>Antag OOC:</span> <EM>[keyname]:</EM> <span class='message linkify'>[msg]</span></span>")
 
-TYPE_PROC_REF(/client, set_aooc)(newColor as color)
+/client/proc/set_aooc(newColor as color)
 	set name = "Set Antag OOC Color"
 	set desc = "Modifies antag OOC Color"
 	set category = "Fun"
 	GLOB.AOOC_COLOR = sanitize_ooccolor(newColor)
 
-TYPE_PROC_REF(/client, reset_aooc)()
+/client/proc/reset_aooc()
 	set name = "Reset Antag OOC Color"
 	set desc = "Returns antag OOC Color to default"
 	set category = "Fun"

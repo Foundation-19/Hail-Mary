@@ -47,13 +47,13 @@
 	addtimer(CALLBACK(src, PROC_REF(refresh)), 50) //Wait a bit so we can find the one below, then get powering
 
 ///Handles re-acquiring + merging powernets found by find_relays()
-TYPE_PROC_REF(/obj/machinery/power/deck_relay, refresh)()
+/obj/machinery/power/deck_relay/proc/refresh()
 	if(above)
 		above.merge(src)
 	if(below)
 		below.merge(src)
 
-TYPE_PROC_REF(/obj/machinery/power/deck_relay, merge)(obj/machinery/power/deck_relay/DR)
+/obj/machinery/power/deck_relay/proc/merge(obj/machinery/power/deck_relay/DR)
 	if(!DR)
 		return
 	var/turf/merge_from = get_turf(DR)
@@ -64,7 +64,7 @@ TYPE_PROC_REF(/obj/machinery/power/deck_relay, merge)(obj/machinery/power/deck_r
 		merge_powernets(XR.powernet,C.powernet)//Bridge the powernets.
 
 ///Locates relays that are above and below this object
-TYPE_PROC_REF(/obj/machinery/power/deck_relay, find_relays)()
+/obj/machinery/power/deck_relay/proc/find_relays()
 	var/turf/T = get_turf(src)
 	if(!T || !istype(T))
 		return FALSE

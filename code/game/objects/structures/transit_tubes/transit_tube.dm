@@ -58,15 +58,15 @@
 		return ..()
 
 // Called to check if a pod should stop upon entering this tube.
-TYPE_PROC_REF(/obj/structure/transit_tube, should_stop_pod)(pod, from_dir)
+/obj/structure/transit_tube/proc/should_stop_pod(pod, from_dir)
 	return 0
 
 // Called when a pod stops in this tube section.
-TYPE_PROC_REF(/obj/structure/transit_tube, pod_stopped)(pod, from_dir)
+/obj/structure/transit_tube/proc/pod_stopped(pod, from_dir)
 	return
 
 
-TYPE_PROC_REF(/obj/structure/transit_tube, has_entrance)(from_dir)
+/obj/structure/transit_tube/proc/has_entrance(from_dir)
 	from_dir = turn(from_dir, 180)
 
 	for(var/direction in tube_dirs)
@@ -77,7 +77,7 @@ TYPE_PROC_REF(/obj/structure/transit_tube, has_entrance)(from_dir)
 
 
 
-TYPE_PROC_REF(/obj/structure/transit_tube, has_exit)(in_dir)
+/obj/structure/transit_tube/proc/has_exit(in_dir)
 	for(var/direction in tube_dirs)
 		if(direction == in_dir)
 			return 1
@@ -88,7 +88,7 @@ TYPE_PROC_REF(/obj/structure/transit_tube, has_exit)(in_dir)
 
 // Searches for an exit direction within 45 degrees of the
 //  specified dir. Returns that direction, or 0 if none match.
-TYPE_PROC_REF(/obj/structure/transit_tube, get_exit)(in_dir)
+/obj/structure/transit_tube/proc/get_exit(in_dir)
 	var/near_dir = 0
 	var/in_dir_cw = turn(in_dir, -45)
 	var/in_dir_ccw = turn(in_dir, 45)
@@ -111,14 +111,14 @@ TYPE_PROC_REF(/obj/structure/transit_tube, get_exit)(in_dir)
 //  a var, which wouldn't need a proc, but it makes it possible
 //  for later tube types to interact in more interesting ways
 //  such as being very fast in one direction, but slow in others
-TYPE_PROC_REF(/obj/structure/transit_tube, exit_delay)(pod, to_dir)
+/obj/structure/transit_tube/proc/exit_delay(pod, to_dir)
 	return exit_delay
 
-TYPE_PROC_REF(/obj/structure/transit_tube, enter_delay)(pod, to_dir)
+/obj/structure/transit_tube/proc/enter_delay(pod, to_dir)
 	return enter_delay
 
 
-TYPE_PROC_REF(/obj/structure/transit_tube, init_tube_dirs)()
+/obj/structure/transit_tube/proc/init_tube_dirs()
 	switch(dir)
 		if(NORTH)
 			tube_dirs = list(NORTH, SOUTH)
@@ -130,7 +130,7 @@ TYPE_PROC_REF(/obj/structure/transit_tube, init_tube_dirs)()
 			tube_dirs = list(EAST, WEST)
 
 
-TYPE_PROC_REF(/obj/structure/transit_tube, generate_tube_overlays)()
+/obj/structure/transit_tube/proc/generate_tube_overlays()
 	for(var/direction in tube_dirs)
 		if(direction in GLOB.diagonals)
 			if(direction & NORTH)
@@ -145,7 +145,7 @@ TYPE_PROC_REF(/obj/structure/transit_tube, generate_tube_overlays)()
 			create_tube_overlay(direction)
 
 
-TYPE_PROC_REF(/obj/structure/transit_tube, create_tube_overlay)(direction, shift_dir)
+/obj/structure/transit_tube/proc/create_tube_overlay(direction, shift_dir)
 	var/image/tube_overlay = new(dir = direction)
 	if(shift_dir)
 		tube_overlay.icon_state = "decorative_diag"

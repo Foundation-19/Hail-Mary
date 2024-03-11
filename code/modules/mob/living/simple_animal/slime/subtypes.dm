@@ -1,4 +1,4 @@
-TYPE_PROC_REF(/mob/living/simple_animal/slime, mutation_table)(colour)
+/mob/living/simple_animal/slime/proc/mutation_table(colour)
 	var/list/slime_mutation[4]
 	switch(colour)
 		//Tier 1

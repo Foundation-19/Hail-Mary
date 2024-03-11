@@ -36,7 +36,7 @@
 	whirling_mobs = null
 	return ..()
 
-TYPE_PROC_REF(/obj/machinery/pool/drain, is_in_our_pool)(atom/A)
+/obj/machinery/pool/drain/proc/is_in_our_pool(atom/A)
 	. = FALSE
 	if(istype(A.loc, /turf/open/pool))
 		var/turf/open/pool/P = A.loc
@@ -110,7 +110,7 @@ TYPE_PROC_REF(/obj/machinery/pool/drain, is_in_our_pool)(atom/A)
 */
 
 /// dangerous proc don't fuck with, admins
-TYPE_PROC_REF(/obj/machinery/pool/drain, whirl_mob)(mob/living/L, duration = 8, delay = 1)
+/obj/machinery/pool/drain/proc/whirl_mob(mob/living/L, duration = 8, delay = 1)
 	set waitfor = FALSE
 	if(whirling_mobs[L])
 		return
@@ -142,12 +142,12 @@ TYPE_PROC_REF(/obj/machinery/pool/drain, whirl_mob)(mob/living/L, duration = 8, 
 		obj_flags |= EMAGGED
 		do_sparks(5, TRUE, src)
 		icon_state = "filter_b"
-		addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/machinery/pool/filter, spawn_shark)), 50)
+		addtimer(CALLBACK(src, /obj/machinery/pool/filter/proc/spawn_shark), 50)
 		var/msg = "[key_name(user)] emagged the pool filter and spawned a shark"
 		log_game(msg)
 		message_admins(msg)
 
-TYPE_PROC_REF(/obj/machinery/pool/filter, spawn_shark)()
+/obj/machinery/pool/filter/proc/spawn_shark()
 	if(prob(50))
 		new /mob/living/simple_animal/hostile/shark(loc)
 	else

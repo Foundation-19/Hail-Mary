@@ -255,7 +255,7 @@
 /obj/item/clothing/head/helmet/f13/power_armor/attack_self(mob/living/user)
 	toggle_helmet_light(user)
 
-TYPE_PROC_REF(/obj/item/clothing/head/helmet/f13/power_armor, toggle_helmet_light)(mob/living/user)
+/obj/item/clothing/head/helmet/f13/power_armor/proc/toggle_helmet_light(mob/living/user)
 	set_light_on(!light_on)
 	update_icon()
 
@@ -343,7 +343,7 @@ TYPE_PROC_REF(/obj/item/clothing/head/helmet/f13/power_armor, toggle_helmet_ligh
 	if(ispath(salvaged_type))
 		. += salvage_hint()
 
-TYPE_PROC_REF(/obj/item/clothing/head/helmet/f13/power_armor, salvage_hint)()
+/obj/item/clothing/head/helmet/f13/power_armor/proc/salvage_hint()
 	switch(salvage_step)
 		if(0)
 			return "<span class='notice'>The metal cover can be <i>screwed</i> open.</span>"

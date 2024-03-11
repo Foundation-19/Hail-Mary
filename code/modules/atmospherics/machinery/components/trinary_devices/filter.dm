@@ -41,7 +41,7 @@
 		message_admins("Filter, [src.name], was maximized by [ADMIN_LOOKUPFLW(usr)] at [ADMIN_COORDJMP(T)], [A]")
 		return TRUE
 
-TYPE_PROC_REF(/obj/machinery/atmospherics/components/trinary/filter, set_frequency)(new_frequency)
+/obj/machinery/atmospherics/components/trinary/filter/proc/set_frequency(new_frequency)
 	SSradio.remove_object(src, frequency)
 	frequency = new_frequency
 	if(frequency)

@@ -64,7 +64,7 @@
 	if(amSingleUse)
 		RemoveAfterUse()
 
-TYPE_PROC_REF(/datum/action/bloodsucker, CheckCanPayCost)(display_error)
+/datum/action/bloodsucker/proc/CheckCanPayCost(display_error)
 	if(!owner || !owner.mind)
 		return FALSE
 	// Cooldown?
@@ -80,7 +80,7 @@ TYPE_PROC_REF(/datum/action/bloodsucker, CheckCanPayCost)(display_error)
 		return FALSE
 	return TRUE
 
-TYPE_PROC_REF(/datum/action/bloodsucker, CheckCanUse)(display_error)	// These checks can be scanned every frame while a ranged power is on.
+/datum/action/bloodsucker/proc/CheckCanUse(display_error)	// These checks can be scanned every frame while a ranged power is on.
 	if(!owner || !owner.mind)
 		return FALSE
 	// Torpor?
@@ -117,7 +117,7 @@ TYPE_PROC_REF(/datum/action/bloodsucker, CheckCanUse)(display_error)	// These ch
 			return FALSE
 	return TRUE
 
-TYPE_PROC_REF(/datum/action/bloodsucker, StartCooldown)()
+/datum/action/bloodsucker/proc/StartCooldown()
 	set waitfor = FALSE
 	// Alpha Out
 	button.color = rgb(128,0,0,128)
@@ -133,7 +133,7 @@ TYPE_PROC_REF(/datum/action/bloodsucker, StartCooldown)()
 		button.color = rgb(255,255,255,255)
 		button.alpha = 255
 
-TYPE_PROC_REF(/datum/action/bloodsucker, CheckCanDeactivate)(display_error)
+/datum/action/bloodsucker/proc/CheckCanDeactivate(display_error)
 	return TRUE
 
 /datum/action/bloodsucker/UpdateButtonIcon(force = FALSE)
@@ -141,31 +141,31 @@ TYPE_PROC_REF(/datum/action/bloodsucker, CheckCanDeactivate)(display_error)
 	..()//UpdateButtonIcon()
 
 
-TYPE_PROC_REF(/datum/action/bloodsucker, PayCost)()
+/datum/action/bloodsucker/proc/PayCost()
 	// owner for actions is the mob, not mind.
 	var/mob/living/L = owner
 	L.blood_volume -= bloodcost
 
 
-TYPE_PROC_REF(/datum/action/bloodsucker, ActivatePower)()
+/datum/action/bloodsucker/proc/ActivatePower()
 
 
-TYPE_PROC_REF(/datum/action/bloodsucker, DeactivatePower)(mob/living/user = owner, mob/living/target)
+/datum/action/bloodsucker/proc/DeactivatePower(mob/living/user = owner, mob/living/target)
 	active = FALSE
 	UpdateButtonIcon()
 	StartCooldown()
 
-TYPE_PROC_REF(/datum/action/bloodsucker, ContinueActive)(mob/living/user, mob/living/target) // Used by loops to make sure this power can stay active.
+/datum/action/bloodsucker/proc/ContinueActive(mob/living/user, mob/living/target) // Used by loops to make sure this power can stay active.
 	return active && user && (!warn_constant_cost || user.blood_volume > 0)
 
-TYPE_PROC_REF(/datum/action/bloodsucker, RemoveAfterUse)()
+/datum/action/bloodsucker/proc/RemoveAfterUse()
 	// Un-Learn Me! (GO HOME
 	var/datum/antagonist/bloodsucker/bloodsuckerdatum = owner.mind.has_antag_datum(ANTAG_DATUM_BLOODSUCKER)
 	if (istype(bloodsuckerdatum))
 		bloodsuckerdatum.powers -= src
 	Remove(owner)
 
-TYPE_PROC_REF(/datum/action/bloodsucker, Upgrade)()
+/datum/action/bloodsucker/proc/Upgrade()
 	level_current ++
 
 ///////////////////////////////////  PASSIVE POWERS	///////////////////////////////////
@@ -237,16 +237,16 @@ TYPE_PROC_REF(/datum/action/bloodsucker, Upgrade)()
 	active = FALSE
 	UpdateButtonIcon()
 
-TYPE_PROC_REF(/datum/action/bloodsucker/targeted, DeactivateRangedAbility)()
+/datum/action/bloodsucker/targeted/proc/DeactivateRangedAbility()
 	// Only Turned off when CLICK is disabled...aka, when you successfully clicked (or
 	bs_proc_holder.remove_ranged_ability()
 
 // Check if target is VALID (wall, turf, or character?)
-TYPE_PROC_REF(/datum/action/bloodsucker/targeted, CheckValidTarget)(atom/A)
+/datum/action/bloodsucker/targeted/proc/CheckValidTarget(atom/A)
 	return FALSE // FALSE targets nothing.
 
 // Check if valid target meets conditions
-TYPE_PROC_REF(/datum/action/bloodsucker/targeted, CheckCanTarget)(atom/A, display_error)
+/datum/action/bloodsucker/targeted/proc/CheckCanTarget(atom/A, display_error)
 	// Out of Range
 	if(!(A in view(target_range, owner)))
 		if(display_error && target_range > 1) // Only warn for range if it's greater than 1. Brawn doesn't need to announce itself.
@@ -255,7 +255,7 @@ TYPE_PROC_REF(/datum/action/bloodsucker/targeted, CheckCanTarget)(atom/A, displa
 	return istype(A)
 
 // Click Target
-TYPE_PROC_REF(/datum/action/bloodsucker/targeted, ClickWithPower)(atom/A)
+/datum/action/bloodsucker/targeted/proc/ClickWithPower(atom/A)
 	// CANCEL RANGED TARGET check
 	if(power_in_use || !CheckValidTarget(A))
 		return FALSE
@@ -270,10 +270,10 @@ TYPE_PROC_REF(/datum/action/bloodsucker/targeted, ClickWithPower)(atom/A)
 	power_in_use = FALSE
 	return TRUE
 
-TYPE_PROC_REF(/datum/action/bloodsucker/targeted, FireTargetedPower)(atom/A)
+/datum/action/bloodsucker/targeted/proc/FireTargetedPower(atom/A)
 	// Like ActivatePower, but specific to Targeted (and takes an atom input). We don't use ActivatePower for targeted.
 
-TYPE_PROC_REF(/datum/action/bloodsucker/targeted, PowerActivatedSuccessfully)()
+/datum/action/bloodsucker/targeted/proc/PowerActivatedSuccessfully()
 	// The power went off! We now pay the cost of the power.
 	PayCost()
 	DeactivateRangedAbility()

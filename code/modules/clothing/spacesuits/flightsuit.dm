@@ -100,7 +100,7 @@
 	var/afterForceMove = FALSE
 	var/datum/component/mobhook
 
-TYPE_PROC_REF(/obj/item/flightpack, changeWearer)(mob/changeto)
+/obj/item/flightpack/proc/changeWearer(mob/changeto)
 	if(wearer)
 		LAZYREMOVE(wearer.user_movement_hooks, src)
 	wearer = null
@@ -129,7 +129,7 @@ TYPE_PROC_REF(/obj/item/flightpack, changeWearer)(mob/changeto)
 	part_bin = new /obj/item/stock_parts/matter_bin/super(src)
 	..()
 
-TYPE_PROC_REF(/obj/item/flightpack, usermessage)(message, span = "boldnotice", mob/mob_override = null)
+/obj/item/flightpack/proc/usermessage(message, span = "boldnotice", mob/mob_override = null)
 	var/mob/targ = wearer
 	if(ismob(loc))
 		targ = loc
@@ -139,7 +139,7 @@ TYPE_PROC_REF(/obj/item/flightpack, usermessage)(message, span = "boldnotice", m
 		return
 	to_chat(targ, "[icon2html(src, targ)]<span class='[span]'>|[message]</span>")
 
-TYPE_PROC_REF(/obj/item/flightpack, sync_processing)(datum/controller/subsystem/processing/flightpacks/FPS)
+/obj/item/flightpack/proc/sync_processing(datum/controller/subsystem/processing/flightpacks/FPS)
 	processing_mode = FPS.flightsuit_processing
 	if(processing_mode == FLIGHTSUIT_PROCESSING_NONE)
 		momentum_x = 0
@@ -151,7 +151,7 @@ TYPE_PROC_REF(/obj/item/flightpack, sync_processing)(datum/controller/subsystem/
 		boost = FALSE
 		update_slowdown()
 
-TYPE_PROC_REF(/obj/item/flightpack, update_parts)()
+/obj/item/flightpack/proc/update_parts()
 	boost_chargerate = initial(boost_chargerate)
 	boost_drain = initial(boost_drain)
 	powersetting_high = initial(powersetting_high)
@@ -198,7 +198,7 @@ TYPE_PROC_REF(/obj/item/flightpack, update_parts)()
 		usermessage("WARNING: Class [severity] EMP detected! Circuit damage at [(emp_damage/emp_disable_threshold)*100]%!", "boldwarning")
 
 //Proc to change amount of momentum the wearer has, or dampen all momentum by a certain amount.
-TYPE_PROC_REF(/obj/item/flightpack, adjust_momentum)(amountx, amounty, reduce_amount_total = 0)
+/obj/item/flightpack/proc/adjust_momentum(amountx, amounty, reduce_amount_total = 0)
 	if(reduce_amount_total != 0)
 		if(momentum_x > 0)
 			momentum_x = CLAMP(momentum_x - reduce_amount_total, 0, momentum_max)
@@ -213,7 +213,7 @@ TYPE_PROC_REF(/obj/item/flightpack, adjust_momentum)(amountx, amounty, reduce_am
 	calculate_momentum_speed()
 
 //The wearer has momentum left. Move them and take some away, while negating the momentum that moving the wearer would gain. Or force the wearer to lose control if they are incapacitated.
-TYPE_PROC_REF(/obj/item/flightpack, momentum_drift)()
+/obj/item/flightpack/proc/momentum_drift()
 	if(!flight || !wearer || (momentum_speed == 0))
 		return FALSE
 	else if(!wearer.canmove)
@@ -238,7 +238,7 @@ TYPE_PROC_REF(/obj/item/flightpack, momentum_drift)()
 	if(prob(emp_damage * 15))
 		step(wearer, pick(GLOB.alldirs))
 
-TYPE_PROC_REF(/obj/item/flightpack, on_mob_move)(mob/mob, turf/oldLoc, dir, forced)
+/obj/item/flightpack/proc/on_mob_move(mob/mob, turf/oldLoc, dir, forced)
 	if(forced)
 		if(cached_pull && istype(oldLoc) && (get_dist(oldLoc, loc) <= 1) && !oldLoc.density)
 			cached_pull.forceMove(oldLoc)
@@ -278,7 +278,7 @@ TYPE_PROC_REF(/obj/item/flightpack, on_mob_move)(mob/mob, turf/oldLoc, dir, forc
 			adjust_momentum(-momentum_increment, 0)
 
 //Make the wearer lose some momentum.
-TYPE_PROC_REF(/obj/item/flightpack, momentum_decay)()
+/obj/item/flightpack/proc/momentum_decay()
 	var/amt = momentum_passive_loss
 	brake? (amt += airbrake_decay_amount) : 0
 	gravity? (amt += gravity_decay_amount) : 0
@@ -287,7 +287,7 @@ TYPE_PROC_REF(/obj/item/flightpack, momentum_decay)()
 	adjust_momentum(0, 0, amt)
 
 //Check for gravity, air pressure, and whether this is still linked to a suit. Also, resync the flightpack/flight suit every minute.
-TYPE_PROC_REF(/obj/item/flightpack, check_conditions)()
+/obj/item/flightpack/proc/check_conditions()
 	if(flight && (!assembled || !wearer || (!suit && requires_suit)))
 		disable_flight(TRUE)
 	var/turf/T = get_turf(src)
@@ -314,10 +314,10 @@ TYPE_PROC_REF(/obj/item/flightpack, check_conditions)()
 	handle_boost()
 	handle_damage()
 
-TYPE_PROC_REF(/obj/item/flightpack, update_slowdown)()
+/obj/item/flightpack/proc/update_slowdown()
 	flight? (slowdown = slowdown_air) : (slowdown = slowdown_ground)
 
-TYPE_PROC_REF(/obj/item/flightpack, handle_damage)()
+/obj/item/flightpack/proc/handle_damage()
 	if(emp_damage)
 		emp_damage = CLAMP(emp_damage-emp_heal_amount, 0, emp_disable_threshold * 10)
 		if(emp_damage >= emp_disable_threshold)
@@ -350,7 +350,7 @@ TYPE_PROC_REF(/obj/item/flightpack, handle_damage)()
 		wearer.update_inv_wear_suit()
 		wearer.update_inv_back()
 
-TYPE_PROC_REF(/obj/item/flightpack, handle_boost)()
+/obj/item/flightpack/proc/handle_boost()
 	if(boost)
 		boost_charge = CLAMP(boost_charge-boost_drain, 0, boost_maxcharge)
 		if(boost_charge < 1)
@@ -358,13 +358,13 @@ TYPE_PROC_REF(/obj/item/flightpack, handle_boost)()
 	if(boost_charge < boost_maxcharge)
 		boost_charge = CLAMP(boost_charge+boost_chargerate, 0, boost_maxcharge)
 
-TYPE_PROC_REF(/obj/item/flightpack, cycle_power)()
+/obj/item/flightpack/proc/cycle_power()
 	powersetting < powersetting_high? (powersetting++) : (powersetting = 1)
 	momentum_gain = powersetting * 10
 	usermessage("Engine output set to [momentum_gain].")
 	momentum_drift_coeff = ((momentum_gain)*(drift_tolerance*1.1))/momentum_max
 
-TYPE_PROC_REF(/obj/item/flightpack, crash_damage)(density, anchored, speed, victim_name)
+/obj/item/flightpack/proc/crash_damage(density, anchored, speed, victim_name)
 	var/crashmessagesrc = "<span class='userdanger'>[wearer] violently crashes into [victim_name], "
 	var/userdamage = 10 - stabilizer * 3 - part_bin.rating - part_scan.rating * part_manip.rating + anchored * 2 + boost * 2 + speed * 2
 	if(userdamage > 0)
@@ -374,13 +374,13 @@ TYPE_PROC_REF(/obj/item/flightpack, crash_damage)(density, anchored, speed, vict
 		crashmessagesrc += "but luckily [wearer]'s impact was absorbed by [wearer.p_their()] suit's stabilizers!</span>"
 	wearer.visible_message(crashmessagesrc)
 
-TYPE_PROC_REF(/obj/item/flightpack, userknockback)(density, anchored, speed, dir)
+/obj/item/flightpack/proc/userknockback(density, anchored, speed, dir)
 	dir = turn(dir, 180)
 	var/turf/target = get_edge_target_turf(get_turf(wearer), dir)
 	wearer.visible_message("[wearer] is knocked flying by the impact!")
 	wearer.throw_at(target, speed * 2 + density * 2 + anchored * 2, 2, wearer)
 
-TYPE_PROC_REF(/obj/item/flightpack, flight_impact)(atom/impacted_atom, crashdir)	//Yes, victim.
+/obj/item/flightpack/proc/flight_impact(atom/impacted_atom, crashdir)	//Yes, victim.
 	if(!flight || (impacted_atom == wearer) || crashing || (processing_mode == FLIGHTSUIT_PROCESSING_NONE))
 		return FALSE
 	crashing = TRUE
@@ -424,19 +424,19 @@ TYPE_PROC_REF(/obj/item/flightpack, flight_impact)(atom/impacted_atom, crashdir)
 		losecontrol(knockdown = FALSE, move = FALSE)
 	crashing = FALSE
 
-TYPE_PROC_REF(/obj/item/flightpack, door_pass)(obj/structure/mineral_door/door)
+/obj/item/flightpack/proc/door_pass(obj/structure/mineral_door/door)
 	INVOKE_ASYNC(door, /obj/structure/mineral_door.proc/Open)
 	var/turf/T = get_turf(door)
 	wearer.forceMove(T)
 	wearer.visible_message(span_boldnotice("[wearer] rolls to [wearer.p_their()] sides and slips past [door]!"))
 
-TYPE_PROC_REF(/obj/item/flightpack, crash_grille)(obj/structure/grille/target)
+/obj/item/flightpack/proc/crash_grille(obj/structure/grille/target)
 	target.hitby(wearer)
 	target.take_damage(60, BRUTE, "melee", 1)
 	if(wearer.Move(target.loc))
 		wearer.visible_message(span_warning("[wearer] smashes straight past [target]!"))
 
-TYPE_PROC_REF(/obj/item/flightpack, airlock_pass)(obj/machinery/door/A)
+/obj/item/flightpack/proc/airlock_pass(obj/machinery/door/A)
 	var/nopass = FALSE
 	if(!A.density)
 		return TRUE
@@ -453,7 +453,7 @@ TYPE_PROC_REF(/obj/item/flightpack, airlock_pass)(obj/machinery/door/A)
 		wearer.forceMove(target)
 	return !nopass
 
-TYPE_PROC_REF(/obj/item/flightpack, atom_impact)(atom/movable/victim, power, direction)
+/obj/item/flightpack/proc/atom_impact(atom/movable/victim, power, direction)
 	if(!victim)
 		return FALSE
 	if(!victim.anchored)
@@ -469,7 +469,7 @@ TYPE_PROC_REF(/obj/item/flightpack, atom_impact)(atom/movable/victim, power, dir
 		var/obj/O = victim
 		O.take_damage(power * 14)
 
-TYPE_PROC_REF(/obj/item/flightpack, losecontrol)(knockdown = FALSE, move = TRUE)
+/obj/item/flightpack/proc/losecontrol(knockdown = FALSE, move = TRUE)
 	usermessage("Warning: Control system not responding. Deactivating!", "boldwarning")
 	if(wearer)
 		wearer.visible_message(span_warning("[wearer]'s flight suit abruptly shuts off and [wearer.p_they()] lose[wearer.p_s()] control!"))
@@ -488,7 +488,7 @@ TYPE_PROC_REF(/obj/item/flightpack, losecontrol)(knockdown = FALSE, move = TRUE)
 	if(flight)
 		disable_flight(FALSE)
 
-TYPE_PROC_REF(/obj/item/flightpack, enable_flight)(forced = FALSE)
+/obj/item/flightpack/proc/enable_flight(forced = FALSE)
 	if(!forced)
 		if(disabled)
 			usermessage("Internal systems recalibrating. Unable to safely proceed.", "boldwarning")
@@ -508,7 +508,7 @@ TYPE_PROC_REF(/obj/item/flightpack, enable_flight)(forced = FALSE)
 	update_icon()
 	ion_trail.start()
 
-TYPE_PROC_REF(/obj/item/flightpack, disable_flight)(forced = FALSE)
+/obj/item/flightpack/proc/disable_flight(forced = FALSE)
 	if(forced)
 		losecontrol(knockdown = TRUE)
 		return TRUE
@@ -539,7 +539,7 @@ TYPE_PROC_REF(/obj/item/flightpack, disable_flight)(forced = FALSE)
 		addtimer(CALLBACK(src, PROC_REF(enable_safe)), 50)
 		return FALSE
 
-TYPE_PROC_REF(/obj/item/flightpack, enable_safe)()
+/obj/item/flightpack/proc/enable_safe()
 	if(override_safe)
 		override_safe = FALSE
 
@@ -555,7 +555,7 @@ TYPE_PROC_REF(/obj/item/flightpack, enable_safe)()
 	changeWearer(user)
 	..()
 
-TYPE_PROC_REF(/obj/item/flightpack, calculate_momentum_speed)()
+/obj/item/flightpack/proc/calculate_momentum_speed()
 	if(abs(momentum_x) >= (momentum_crash_coeff*momentum_max))	//Calculate X
 		momentum_speed_x = 3
 	else if(abs(momentum_x) >= (momentum_impact_coeff*momentum_max))
@@ -577,7 +577,7 @@ TYPE_PROC_REF(/obj/item/flightpack, calculate_momentum_speed)()
 /obj/item/flightpack/item_action_slot_check(slot)
 	return slot == SLOT_BACK
 
-TYPE_PROC_REF(/obj/item/flightpack, enable_stabilizers)()
+/obj/item/flightpack/proc/enable_stabilizers()
 	if(requires_suit && suit && !suit.deployedshoes)
 		usermessage("Stabilizers requires flight shoes to be attached and deployed!", "boldwarning")
 		return FALSE
@@ -585,14 +585,14 @@ TYPE_PROC_REF(/obj/item/flightpack, enable_stabilizers)()
 	stabilizer = TRUE
 	return TRUE
 
-TYPE_PROC_REF(/obj/item/flightpack, disable_stabilizers)()
+/obj/item/flightpack/proc/disable_stabilizers()
 	if(wearer)
 		if(brake)
 			disable_airbrake()
 		usermessage("Deactivating stabilization controllers!", "boldwarning")
 	stabilizer = FALSE
 
-TYPE_PROC_REF(/obj/item/flightpack, activate_booster)()
+/obj/item/flightpack/proc/activate_booster()
 	if(!flight)
 		usermessage("Error: Engines offline!", "boldwarning")
 		return FALSE
@@ -604,13 +604,13 @@ TYPE_PROC_REF(/obj/item/flightpack, activate_booster)()
 	update_slowdown()
 	update_icon()
 
-TYPE_PROC_REF(/obj/item/flightpack, deactivate_booster)()
+/obj/item/flightpack/proc/deactivate_booster()
 	usermessage("Boosters disengaged!")
 	boost = FALSE
 	update_slowdown()
 	update_icon()
 
-TYPE_PROC_REF(/obj/item/flightpack, enable_airbrake)()
+/obj/item/flightpack/proc/enable_airbrake()
 	if(wearer)
 		if(!stabilizer && !enable_stabilizers())
 			usermessage("Airbrake deployment: Stabilizer Errored.", "boldwarning")
@@ -619,13 +619,13 @@ TYPE_PROC_REF(/obj/item/flightpack, enable_airbrake)()
 	brake = TRUE
 	update_slowdown()
 
-TYPE_PROC_REF(/obj/item/flightpack, disable_airbrake)()
+/obj/item/flightpack/proc/disable_airbrake()
 	if(wearer)
 		usermessage("Airbrakes retracted!", "boldwarning")
 	brake = FALSE
 	update_slowdown()
 
-TYPE_PROC_REF(/obj/item/flightpack, relink_suit)(obj/item/clothing/suit/space/hardsuit/flightsuit/F)
+/obj/item/flightpack/proc/relink_suit(obj/item/clothing/suit/space/hardsuit/flightsuit/F)
 	if(suit && suit == F)
 		return FALSE
 	else
@@ -636,7 +636,7 @@ TYPE_PROC_REF(/obj/item/flightpack, relink_suit)(obj/item/clothing/suit/space/ha
 	else
 		suit = null
 
-TYPE_PROC_REF(/obj/item/flightpack, delink_suit)()
+/obj/item/flightpack/proc/delink_suit()
 	if(suit)
 		if(suit.pack && suit.pack == src)
 			suit.pack = null
@@ -688,7 +688,7 @@ TYPE_PROC_REF(/obj/item/flightpack, delink_suit)()
 
 //MOB MOVEMENT STUFF----------------------------------------------------------------------------------------------------------------------------------------------
 
-TYPE_PROC_REF(/mob, get_flightpack)()
+/mob/proc/get_flightpack()
 	return
 
 /mob/living/carbon/get_flightpack()
@@ -698,7 +698,7 @@ TYPE_PROC_REF(/mob, get_flightpack)()
 	else
 		return FALSE
 
-TYPE_PROC_REF(/obj/item/flightpack, allow_thrust)(amount)
+/obj/item/flightpack/proc/allow_thrust(amount)
 	if(flight)
 		return TRUE
 
@@ -722,7 +722,7 @@ TYPE_PROC_REF(/obj/item/flightpack, allow_thrust)(amount)
 	suit = null
 	. = ..()
 
-TYPE_PROC_REF(/obj/item/clothing/shoes/flightshoes, toggle)(toggle)
+/obj/item/clothing/shoes/flightshoes/proc/toggle(toggle)
 	if(suit)
 		active = toggle
 		if(active)
@@ -733,13 +733,13 @@ TYPE_PROC_REF(/obj/item/clothing/shoes/flightshoes, toggle)(toggle)
 /obj/item/clothing/shoes/flightshoes/item_action_slot_check(slot)
 	return slot == SLOT_SHOES
 
-TYPE_PROC_REF(/obj/item/clothing/shoes/flightshoes, delink_suit)()
+/obj/item/clothing/shoes/flightshoes/proc/delink_suit()
 	if(suit)
 		if(suit.shoes && suit.shoes == src)
 			suit.shoes = null
 	suit = null
 
-TYPE_PROC_REF(/obj/item/clothing/shoes/flightshoes, relink_suit)(obj/item/clothing/suit/space/hardsuit/flightsuit/F)
+/obj/item/clothing/shoes/flightshoes/proc/relink_suit(obj/item/clothing/suit/space/hardsuit/flightsuit/F)
 	if(suit && suit == F)
 		return FALSE
 	else
@@ -790,7 +790,7 @@ TYPE_PROC_REF(/obj/item/clothing/shoes/flightshoes, relink_suit)(obj/item/clothi
 /obj/item/clothing/suit/space/hardsuit/flightsuit/ui_action_click()
 	return	//Handled in action datums.
 
-TYPE_PROC_REF(/obj/item/clothing/suit/space/hardsuit/flightsuit, usermessage)(message, span = "boldnotice")
+/obj/item/clothing/suit/space/hardsuit/flightsuit/proc/usermessage(message, span = "boldnotice")
 	var/mob/targ = user
 	if(ismob(loc))
 		targ = loc
@@ -810,7 +810,7 @@ TYPE_PROC_REF(/obj/item/clothing/suit/space/hardsuit/flightsuit, usermessage)(me
 	QDEL_NULL(shoes)
 	return ..()
 
-TYPE_PROC_REF(/obj/item/clothing/suit/space/hardsuit/flightsuit, resync)()
+/obj/item/clothing/suit/space/hardsuit/flightsuit/proc/resync()
 	if(pack)
 		pack.relink_suit(src)
 	if(user)
@@ -852,7 +852,7 @@ TYPE_PROC_REF(/obj/item/clothing/suit/space/hardsuit/flightsuit, resync)()
 			return FALSE
 	..()
 
-TYPE_PROC_REF(/obj/item/clothing/suit/space/hardsuit/flightsuit, lock_suit)(mob/wearer)
+/obj/item/clothing/suit/space/hardsuit/flightsuit/proc/lock_suit(mob/wearer)
 	user = wearer
 	user.visible_message(span_notice("[wearer]'s flight suit locks around [wearer.p_them()], powered buckles and straps automatically adjusting to [wearer.p_their()] body!"))
 	playsound(src.loc, 'sound/items/rped.ogg', 65, 1)
@@ -861,7 +861,7 @@ TYPE_PROC_REF(/obj/item/clothing/suit/space/hardsuit/flightsuit, lock_suit)(mob/
 	locked = TRUE
 	return TRUE
 
-TYPE_PROC_REF(/obj/item/clothing/suit/space/hardsuit/flightsuit, unlock_suit)(mob/wearer)
+/obj/item/clothing/suit/space/hardsuit/flightsuit/proc/unlock_suit(mob/wearer)
 	if(user)
 		if(suittoggled)
 			usermessage("You must retract the helmet before unlocking your suit!", "boldwarning")
@@ -883,7 +883,7 @@ TYPE_PROC_REF(/obj/item/clothing/suit/space/hardsuit/flightsuit, unlock_suit)(mo
 	locked = FALSE
 	return TRUE
 
-TYPE_PROC_REF(/obj/item/clothing/suit/space/hardsuit/flightsuit, extend_flightpack)(forced = FALSE)
+/obj/item/clothing/suit/space/hardsuit/flightsuit/proc/extend_flightpack(forced = FALSE)
 	if(!pack)
 		usermessage("There is no attached flightpack!", "boldwarning")
 		return FALSE
@@ -904,7 +904,7 @@ TYPE_PROC_REF(/obj/item/clothing/suit/space/hardsuit/flightsuit, extend_flightpa
 	playsound(src.loc, 'sound/mecha/mechmove03.ogg', 50, 1)
 	deployedpack = TRUE
 
-TYPE_PROC_REF(/obj/item/clothing/suit/space/hardsuit/flightsuit, retract_flightpack)(forced = FALSE)
+/obj/item/clothing/suit/space/hardsuit/flightsuit/proc/retract_flightpack(forced = FALSE)
 	if(ishuman(user))
 		if(pack.flight && !forced)
 			usermessage("You must disable the engines before retracting the flightpack!", "boldwarning")
@@ -921,7 +921,7 @@ TYPE_PROC_REF(/obj/item/clothing/suit/space/hardsuit/flightsuit, retract_flightp
 	playsound(src, 'sound/mecha/mechmove03.ogg', 50, 1)
 	deployedpack = FALSE
 
-TYPE_PROC_REF(/obj/item/clothing/suit/space/hardsuit/flightsuit, extend_flightshoes)(forced = FALSE)
+/obj/item/clothing/suit/space/hardsuit/flightsuit/proc/extend_flightshoes(forced = FALSE)
 	if(!shoes)
 		usermessage("Flight shoes are not installed", "boldwarning")
 		return FALSE
@@ -941,7 +941,7 @@ TYPE_PROC_REF(/obj/item/clothing/suit/space/hardsuit/flightsuit, extend_flightsh
 	playsound(src.loc, 'sound/mecha/mechmove03.ogg', 50, 1)
 	deployedshoes = TRUE
 
-TYPE_PROC_REF(/obj/item/clothing/suit/space/hardsuit/flightsuit, retract_flightshoes)(forced = FALSE)
+/obj/item/clothing/suit/space/hardsuit/flightsuit/proc/retract_flightshoes(forced = FALSE)
 	shoes.item_flags &= ~NODROP
 	playsound(src, 'sound/mecha/mechmove03.ogg', 50, 1)
 	if(user)
@@ -951,12 +951,12 @@ TYPE_PROC_REF(/obj/item/clothing/suit/space/hardsuit/flightsuit, retract_flights
 	shoes.forceMove(src)
 	deployedshoes = FALSE
 
-TYPE_PROC_REF(/obj/item/clothing/suit/space/hardsuit/flightsuit, makepack)()
+/obj/item/clothing/suit/space/hardsuit/flightsuit/proc/makepack()
 	if(!pack)
 		pack = new /obj/item/flightpack/full(src)
 		pack.relink_suit(src)
 
-TYPE_PROC_REF(/obj/item/clothing/suit/space/hardsuit/flightsuit, makeshoes)()
+/obj/item/clothing/suit/space/hardsuit/flightsuit/proc/makeshoes()
 	if(!shoes)
 		shoes = new /obj/item/clothing/shoes/flightshoes(src)
 		shoes.pack = pack
@@ -974,25 +974,25 @@ TYPE_PROC_REF(/obj/item/clothing/suit/space/hardsuit/flightsuit, makeshoes)()
 			unlock_suit(user)
 	..()
 
-TYPE_PROC_REF(/obj/item/clothing/suit/space/hardsuit/flightsuit, detach_pack)()
+/obj/item/clothing/suit/space/hardsuit/flightsuit/proc/detach_pack()
 	pack.delink_suit()
 	pack.forceMove(get_turf(src))
 	pack = null
 	usermessage("You detach the flightpack.")
 
-TYPE_PROC_REF(/obj/item/clothing/suit/space/hardsuit/flightsuit, attach_pack)(obj/item/flightpack/F)
+/obj/item/clothing/suit/space/hardsuit/flightsuit/proc/attach_pack(obj/item/flightpack/F)
 	F.forceMove(src)
 	pack = F
 	pack.relink_suit(src)
 	usermessage("You attach and fasten the flightpack.")
 
-TYPE_PROC_REF(/obj/item/clothing/suit/space/hardsuit/flightsuit, detach_shoes)()
+/obj/item/clothing/suit/space/hardsuit/flightsuit/proc/detach_shoes()
 	shoes.delink_suit()
 	shoes.forceMove(get_turf(src))
 	shoes = null
 	usermessage("You detach the flight shoes.")
 
-TYPE_PROC_REF(/obj/item/clothing/suit/space/hardsuit/flightsuit, attach_shoes)(obj/item/clothing/shoes/flightshoes/S)
+/obj/item/clothing/suit/space/hardsuit/flightsuit/proc/attach_shoes(obj/item/clothing/shoes/flightshoes/S)
 	S.forceMove(src)
 	shoes = S
 	shoes.relink_suit(src)
@@ -1106,7 +1106,7 @@ TYPE_PROC_REF(/obj/item/clothing/suit/space/hardsuit/flightsuit, attach_shoes)(o
 		if(zoom)
 			toggle_zoom(wearer, TRUE)
 
-TYPE_PROC_REF(/obj/item/clothing/head/helmet/space/hardsuit/flightsuit, toggle_zoom)(mob/living/user, force_off = FALSE)
+/obj/item/clothing/head/helmet/space/hardsuit/flightsuit/proc/toggle_zoom(mob/living/user, force_off = FALSE)
 	if(zoom || force_off)
 		user.client.change_view(CONFIG_GET(string/default_view))
 		to_chat(user, span_boldnotice("Disabling smart zooming image enhancement..."))

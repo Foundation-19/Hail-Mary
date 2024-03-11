@@ -16,11 +16,11 @@
 
 
 //Wrapper for drones to handle factions
-TYPE_PROC_REF(/mob/living/simple_animal/drone, alert_drones)(msg, dead_can_hear = FALSE)
+/mob/living/simple_animal/drone/proc/alert_drones(msg, dead_can_hear = FALSE)
 	_alert_drones(msg, dead_can_hear, src, src, TRUE)
 
 
-TYPE_PROC_REF(/mob/living/simple_animal/drone, drone_chat)(msg)
+/mob/living/simple_animal/drone/proc/drone_chat(msg)
 	alert_drones("<i>Drone Chat: <span class='name'>[name]</span> <span class='message'>[say_quote(msg)]</span></i>", TRUE)
 
 /mob/living/simple_animal/drone/binarycheck()

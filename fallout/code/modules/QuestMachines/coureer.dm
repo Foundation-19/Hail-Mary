@@ -52,7 +52,7 @@
 	..()
 
 /* Add caps */
-TYPE_PROC_REF(/obj/machinery/bounty_machine/courier, add_caps)(var/obj/item/stack/f13Cash/bottle_cap/C)
+/obj/machinery/bounty_machine/courier/proc/add_caps(var/obj/item/stack/f13Cash/bottle_cap/C)
 	if(!C) return
 
 	var/mob/character = usr
@@ -64,7 +64,7 @@ TYPE_PROC_REF(/obj/machinery/bounty_machine/courier, add_caps)(var/obj/item/stac
 		qdel(C)
 
 /* Spawn all caps on world and clear caps storage */
-TYPE_PROC_REF(/obj/machinery/bounty_machine/courier, remove_all_caps)()
+/obj/machinery/bounty_machine/courier/proc/remove_all_caps()
 	if(stored_caps <= 0)
 		return
 	var/obj/item/stack/f13Cash/bottle_cap/C = new/obj/item/stack/f13Cash/bottle_cap
@@ -80,7 +80,7 @@ TYPE_PROC_REF(/obj/machinery/bounty_machine/courier, remove_all_caps)()
 	src.ShowUI(usr)
 
 /* Buy item */
-TYPE_PROC_REF(/obj/machinery/bounty_machine/courier, buy)(var/item_index, var/mob/user)
+/obj/machinery/bounty_machine/courier/proc/buy(var/item_index, var/mob/user)
 	if(item_index > price_list.len)
 		to_chat(usr, "<span class='warning'>Wrong item! *beep*</span>")
 		return
@@ -123,7 +123,7 @@ TYPE_PROC_REF(/obj/machinery/bounty_machine/courier, buy)(var/item_index, var/mo
 
 /* GUI */
 /* Shop UI*/
-TYPE_PROC_REF(/obj/machinery/bounty_machine/courier, GetShopUI)()
+/obj/machinery/bounty_machine/courier/proc/GetShopUI()
 	var/dat = {"<meta charset="UTF-8">"}
 	dat += "<h1>Parcels and goodies</h1>"
 	dat += "<a href='?src=\ref[src];exit=1'>Exit</a><br><br>"
@@ -148,7 +148,7 @@ TYPE_PROC_REF(/obj/machinery/bounty_machine/courier, GetShopUI)()
 	return dat
 
 /* Quest UI */
-TYPE_PROC_REF(/obj/machinery/bounty_machine/courier, GetQuestUI)()
+/obj/machinery/bounty_machine/courier/proc/GetQuestUI()
 	var/dat = {"<meta charset="UTF-8">"}
 	var/datum/asset/assets = get_asset_datum(/datum/asset/simple/bounty_employers)
 	assets.send(usr)

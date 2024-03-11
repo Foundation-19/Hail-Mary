@@ -34,7 +34,7 @@
 	else
 		record()
 
-TYPE_PROC_REF(/datum/computer_file/program/power_monitor, search)() //keep in sync with /obj/machinery/computer/monitor's version
+/datum/computer_file/program/power_monitor/proc/search() //keep in sync with /obj/machinery/computer/monitor's version
 	var/turf/T = get_turf(computer)
 	attached_wire = locate(/obj/structure/cable) in T
 	if(attached_wire)
@@ -48,12 +48,12 @@ TYPE_PROC_REF(/datum/computer_file/program/power_monitor, search)() //keep in sy
 	if(!local_apc.terminal) //this really shouldn't happen without badminnery.
 		local_apc = null
 
-TYPE_PROC_REF(/datum/computer_file/program/power_monitor, get_powernet)() //keep in sync with /obj/machinery/computer/monitor's version
+/datum/computer_file/program/power_monitor/proc/get_powernet() //keep in sync with /obj/machinery/computer/monitor's version
 	if(attached_wire || (local_apc && local_apc.terminal))
 		return attached_wire ? attached_wire.powernet : local_apc.terminal.powernet
 	return FALSE
 
-TYPE_PROC_REF(/datum/computer_file/program/power_monitor, record)() //keep in sync with /obj/machinery/computer/monitor's version
+/datum/computer_file/program/power_monitor/proc/record() //keep in sync with /obj/machinery/computer/monitor's version
 	if(world.time >= next_record)
 		next_record = world.time + record_interval
 

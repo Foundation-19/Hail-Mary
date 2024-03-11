@@ -22,7 +22,7 @@
 		return FALSE
 	return ..()
 
-TYPE_PROC_REF(/datum/action/innate/cult/blood_magic, Positioning)()
+/datum/action/innate/cult/blood_magic/proc/Positioning()
 	var/list/screen_loc_split = splittext(button.screen_loc,",")
 	var/list/screen_loc_X = splittext(screen_loc_split[1],":")
 	var/list/screen_loc_Y = splittext(screen_loc_split[2],":")
@@ -245,7 +245,7 @@ TYPE_PROC_REF(/datum/action/innate/cult/blood_magic, Positioning)()
 	if(AA && !QDELETED(AA))
 		QDEL_NULL(AA)
 
-TYPE_PROC_REF(/obj/effect/proc_holder/horror, toggle)(mob/user)
+/obj/effect/proc_holder/horror/proc/toggle(mob/user)
 	if(active)
 		remove_ranged_ability(span_cult("You dispel the magic..."))
 	else
@@ -268,7 +268,7 @@ TYPE_PROC_REF(/obj/effect/proc_holder/horror, toggle)(mob/user)
 		SEND_SOUND(ranged_ability_user, sound('sound/effects/ghost.ogg',0,1,50))
 		var/image/C = image('icons/effects/cult_effects.dmi',H,"bloodsparkles", ABOVE_MOB_LAYER)
 		add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/cult, "cult_apoc", C, FALSE)
-		addtimer(CALLBACK(H,TYPE_PROC_REF(/atom, remove_alt_appearance),"cult_apoc",TRUE), 2400, TIMER_OVERRIDE|TIMER_UNIQUE)
+		addtimer(CALLBACK(H,/atom/.proc/remove_alt_appearance,"cult_apoc",TRUE), 2400, TIMER_OVERRIDE|TIMER_UNIQUE)
 		to_chat(ranged_ability_user,"<span class='cult'><b>[H] has been cursed with living nightmares!</b></span>")
 		attached_action.charges--
 		attached_action.desc = attached_action.base_desc
@@ -428,7 +428,7 @@ TYPE_PROC_REF(/obj/effect/proc_holder/horror, toggle)(mob/user)
 			L.mob_light(_color = LIGHT_COLOR_HOLY_MAGIC, _range = 2, _duration = 100)
 			var/mutable_appearance/forbearance = mutable_appearance('icons/effects/genetics.dmi', "servitude", -MUTATIONS_LAYER)
 			L.add_overlay(forbearance)
-			addtimer(CALLBACK(L, TYPE_PROC_REF(/atom, cut_overlay), forbearance), 100)
+			addtimer(CALLBACK(L, /atom/proc/cut_overlay, forbearance), 100)
 
 			if(istype(anti_magic_source, /obj/item))
 				var/obj/item/ams_object = anti_magic_source
@@ -532,7 +532,7 @@ TYPE_PROC_REF(/obj/effect/proc_holder/horror, toggle)(mob/user)
 			return
 		..()
 
-TYPE_PROC_REF(/obj/item/melee/blood_magic/shackles, CuffAttack)(mob/living/carbon/C, mob/living/user)
+/obj/item/melee/blood_magic/shackles/proc/CuffAttack(mob/living/carbon/C, mob/living/user)
 	if(!C.handcuffed)
 		playsound(loc, 'sound/weapons/cablecuff.ogg', 30, 1, -2)
 		C.visible_message(span_danger("[user] begins restraining [C] with dark magic!"), \
@@ -760,7 +760,7 @@ TYPE_PROC_REF(/obj/item/melee/blood_magic/shackles, CuffAttack)(mob/living/carbo
 			blood_draw(target, user)
 		..()
 
-TYPE_PROC_REF(/obj/item/melee/blood_magic/manipulator, blood_draw)(atom/target, mob/living/carbon/human/user)
+/obj/item/melee/blood_magic/manipulator/proc/blood_draw(atom/target, mob/living/carbon/human/user)
 	var/temp = 0
 	var/turf/T = get_turf(target)
 	if(T)

@@ -52,7 +52,7 @@ Bonus
 	if(M.bodytemperature < BODYTEMP_HEAT_DAMAGE_LIMIT || unsafe)
 		Heat(M, A)
 
-TYPE_PROC_REF(/datum/symptom/fever, Heat)(mob/living/M, datum/disease/advance/A)
+/datum/symptom/fever/proc/Heat(mob/living/M, datum/disease/advance/A)
 	var/get_heat = 6 * power
 	if(!unsafe)
 		M.adjust_bodytemperature(get_heat * A.stage, 0, BODYTEMP_HEAT_DAMAGE_LIMIT - 1)

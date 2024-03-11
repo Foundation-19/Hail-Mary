@@ -24,7 +24,7 @@ GLOBAL_DATUM(error_cache, /datum/error_viewer/error_cache)
 /datum/error_viewer
 	var/name = ""
 
-TYPE_PROC_REF(/datum/error_viewer, browse_to)(client/user, html)
+/datum/error_viewer/proc/browse_to(client/user, html)
 	var/datum/browser/browser = new(user.mob, "error_viewer", null, 600, 400)
 	browser.set_content(html)
 	browser.add_head_content({"
@@ -46,7 +46,7 @@ TYPE_PROC_REF(/datum/error_viewer, browse_to)(client/user, html)
 	"})
 	browser.open()
 
-TYPE_PROC_REF(/datum/error_viewer, build_header)(datum/error_viewer/back_to, linear)
+/datum/error_viewer/proc/build_header(datum/error_viewer/back_to, linear)
 	// Common starter HTML for show_to
 
 	. = ""
@@ -56,11 +56,11 @@ TYPE_PROC_REF(/datum/error_viewer, build_header)(datum/error_viewer/back_to, lin
 
 	. += "[make_link("Refresh")]<br><br>"
 
-TYPE_PROC_REF(/datum/error_viewer, show_to)(user, datum/error_viewer/back_to, linear)
+/datum/error_viewer/proc/show_to(user, datum/error_viewer/back_to, linear)
 	// Specific to each child type
 	return
 
-TYPE_PROC_REF(/datum/error_viewer, make_link)(linktext, datum/error_viewer/back_to, linear)
+/datum/error_viewer/proc/make_link(linktext, datum/error_viewer/back_to, linear)
 	var/back_to_param = ""
 	if (!linktext)
 		linktext = name
@@ -95,7 +95,7 @@ TYPE_PROC_REF(/datum/error_viewer, make_link)(linktext, datum/error_viewer/back_
 
 	browse_to(user, html)
 
-TYPE_PROC_REF(/datum/error_viewer/error_cache, log_error)(exception/e, list/desclines, skip_count)
+/datum/error_viewer/error_cache/proc/log_error(exception/e, list/desclines, skip_count)
 	if (!istype(e))
 		return // Abnormal exception, don't even bother
 

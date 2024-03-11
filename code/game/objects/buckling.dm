@@ -28,14 +28,14 @@
 		if(user_buckle_mob(M, user))
 			return 1
 
-TYPE_PROC_REF(/atom/movable, has_buckled_mobs)()
+/atom/movable/proc/has_buckled_mobs()
 	if(!buckled_mobs)
 		return FALSE
 	if(buckled_mobs.len)
 		return TRUE
 
 //procs that handle the actual buckling and unbuckling
-TYPE_PROC_REF(/atom/movable, buckle_mob)(mob/living/M, force = FALSE, check_loc = TRUE)
+/atom/movable/proc/buckle_mob(mob/living/M, force = FALSE, check_loc = TRUE)
 	LAZYINITLIST(buckled_mobs)
 
 	if(!istype(M))
@@ -84,7 +84,7 @@ TYPE_PROC_REF(/atom/movable, buckle_mob)(mob/living/M, force = FALSE, check_loc 
 			M.adjust_fire_stacks(1)
 			M.IgniteMob()
 
-TYPE_PROC_REF(/atom/movable, unbuckle_mob)(mob/living/buckled_mob, force=FALSE)
+/atom/movable/proc/unbuckle_mob(mob/living/buckled_mob, force=FALSE)
 	if(istype(buckled_mob) && buckled_mob.buckled == src && (buckled_mob.can_unbuckle() || force))
 		. = buckled_mob
 		buckled_mob.buckled = null
@@ -97,7 +97,7 @@ TYPE_PROC_REF(/atom/movable, unbuckle_mob)(mob/living/buckled_mob, force=FALSE)
 
 		post_unbuckle_mob(.)
 
-TYPE_PROC_REF(/atom/movable, unbuckle_all_mobs)(force=FALSE)
+/atom/movable/proc/unbuckle_all_mobs(force=FALSE)
 	if(!has_buckled_mobs())
 		return
 	for(var/m in buckled_mobs)
@@ -105,13 +105,13 @@ TYPE_PROC_REF(/atom/movable, unbuckle_all_mobs)(force=FALSE)
 
 //Handle any extras after buckling
 //Called on buckle_mob()
-TYPE_PROC_REF(/atom/movable, post_buckle_mob)(mob/living/M)
+/atom/movable/proc/post_buckle_mob(mob/living/M)
 
 //same but for unbuckle
-TYPE_PROC_REF(/atom/movable, post_unbuckle_mob)(mob/living/M)
+/atom/movable/proc/post_unbuckle_mob(mob/living/M)
 
 //Wrapper procs that handle sanity and user feedback
-TYPE_PROC_REF(/atom/movable, user_buckle_mob)(mob/living/M, mob/user, check_loc = TRUE)
+/atom/movable/proc/user_buckle_mob(mob/living/M, mob/user, check_loc = TRUE)
 	if(!in_range(user, src) || !isturf(user.loc) || user.incapacitated() || M.anchored || !user.can_buckle_others(M, src))
 		return FALSE
 
@@ -129,7 +129,7 @@ TYPE_PROC_REF(/atom/movable, user_buckle_mob)(mob/living/M, mob/user, check_loc 
 				span_warning("[user] buckles you to [src]!"),\
 				span_italic("You hear metal clanking."))
 
-TYPE_PROC_REF(/atom/movable, user_unbuckle_mob)(mob/living/buckled_mob, mob/user)
+/atom/movable/proc/user_unbuckle_mob(mob/living/buckled_mob, mob/user)
 	var/mob/living/M = unbuckle_mob(buckled_mob)
 	if(M)
 		if(M != user)
@@ -148,7 +148,7 @@ TYPE_PROC_REF(/atom/movable, user_unbuckle_mob)(mob/living/buckled_mob, mob/user
 			L.set_pull_offsets(M, L.grab_state)
 	return M
 
-TYPE_PROC_REF(/atom/movable, precise_user_unbuckle_mob)(mob/user)
+/atom/movable/proc/precise_user_unbuckle_mob(mob/user)
 	if(!buckled_mobs)
 		return
 	else if(length(buckled_mobs) == 1)

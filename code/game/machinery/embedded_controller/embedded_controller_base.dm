@@ -3,15 +3,15 @@
 	var/state
 	var/obj/machinery/embedded_controller/master
 
-TYPE_PROC_REF(/datum/computer/file/embedded_program, post_signal)(datum/signal/signal, comm_line)
+/datum/computer/file/embedded_program/proc/post_signal(datum/signal/signal, comm_line)
 	if(master)
 		master.post_signal(signal, comm_line)
 	else
 		qdel(signal)
 
-TYPE_PROC_REF(/datum/computer/file/embedded_program, receive_user_command)(command)
+/datum/computer/file/embedded_program/proc/receive_user_command(command)
 
-TYPE_PROC_REF(/datum/computer/file/embedded_program, receive_signal)(datum/signal/signal)
+/datum/computer/file/embedded_program/proc/receive_signal(datum/signal/signal)
 	return null
 
 /datum/computer/file/embedded_program/process()
@@ -32,9 +32,9 @@ TYPE_PROC_REF(/datum/computer/file/embedded_program, receive_signal)(datum/signa
 	popup.set_content(return_text())
 	popup.open()
 
-TYPE_PROC_REF(/obj/machinery/embedded_controller, return_text)()
+/obj/machinery/embedded_controller/proc/return_text()
 
-TYPE_PROC_REF(/obj/machinery/embedded_controller, post_signal)(datum/signal/signal, comm_line)
+/obj/machinery/embedded_controller/proc/post_signal(datum/signal/signal, comm_line)
 	return 0
 
 /obj/machinery/embedded_controller/receive_signal(datum/signal/signal)
@@ -78,7 +78,7 @@ TYPE_PROC_REF(/obj/machinery/embedded_controller, post_signal)(datum/signal/sign
 	else
 		signal = null
 
-TYPE_PROC_REF(/obj/machinery/embedded_controller/radio, set_frequency)(new_frequency)
+/obj/machinery/embedded_controller/radio/proc/set_frequency(new_frequency)
 	SSradio.remove_object(src, frequency)
 	frequency = new_frequency
 	radio_connection = SSradio.add_object(src, frequency)

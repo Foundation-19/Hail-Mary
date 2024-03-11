@@ -4,17 +4,17 @@
 	name = "Raging Boar"
 	id = MARTIALART_RAGINGBOAR
 	allow_temp_override = FALSE
-	help_verb = TYPE_PROC_REF(/mob/living/carbon/human, raging_boar_help)
+	help_verb = /mob/living/carbon/human/proc/raging_boar_help
 	pugilist = TRUE
 
-TYPE_PROC_REF(/datum/martial_art/raging_boar, check_streak)(mob/living/carbon/human/A, mob/living/carbon/human/D)
+/datum/martial_art/raging_boar/proc/check_streak(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	if(findtext(streak,WHIRLWIND_COMBO))
 		streak = ""
 		whirlwind(A,D)
 		return TRUE
 	return FALSE
 
-TYPE_PROC_REF(/datum/martial_art/raging_boar, whirlwind)(mob/living/carbon/human/A, mob/living/carbon/human/D)
+/datum/martial_art/raging_boar/proc/whirlwind(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	if(!ishuman(A))
 		return
 	A.emote("scream")
@@ -90,7 +90,7 @@ TYPE_PROC_REF(/datum/martial_art/raging_boar, whirlwind)(mob/living/carbon/human
 		return BULLET_ACT_HIT
  */
 
-TYPE_PROC_REF(/mob/living/carbon/human, raging_boar_help)()
+/mob/living/carbon/human/proc/raging_boar_help()
 	set name = "Recall Teachings"
 	set desc = "Remember the rage of the boar."
 	set category = "Raging Boar"

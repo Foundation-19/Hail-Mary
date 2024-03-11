@@ -161,7 +161,7 @@
 		else
 			user_unbuckle_mob(C,user)
 
-TYPE_PROC_REF(/obj/structure/bloodsucker/vassalrack, attach_victim)(mob/living/M, mob/living/user)
+/obj/structure/bloodsucker/vassalrack/proc/attach_victim(mob/living/M, mob/living/user)
 	// Standard Buckle Check
 	if(!buckle_mob(M)) // force=TRUE))
 		return
@@ -259,7 +259,7 @@ TYPE_PROC_REF(/obj/structure/bloodsucker/vassalrack, attach_victim)(mob/living/M
 
 #define CONVERT_COST 150
 
-TYPE_PROC_REF(/obj/structure/bloodsucker/vassalrack, torture_victim)(mob/living/user, mob/living/target)
+/obj/structure/bloodsucker/vassalrack/proc/torture_victim(mob/living/user, mob/living/target)
 	var/datum/antagonist/bloodsucker/B = user.mind.has_antag_datum(ANTAG_DATUM_BLOODSUCKER)
 	// Check Bloodmob/living/M, force = FALSE, check_loc = TRUE
 	if(user.blood_volume < CONVERT_COST + 5)
@@ -337,7 +337,7 @@ TYPE_PROC_REF(/obj/structure/bloodsucker/vassalrack, torture_victim)(mob/living/
 	useLock = FALSE
 
 #undef CONVERT_COST
-TYPE_PROC_REF(/obj/structure/bloodsucker/vassalrack, do_torture)(mob/living/user, mob/living/target, mult = 1)
+/obj/structure/bloodsucker/vassalrack/proc/do_torture(mob/living/user, mob/living/target, mult = 1)
 	var/torture_time = 15 // Fifteen seconds if you aren't using anything. Shorter with weapons and such.
 	var/torture_dmg_brute = 2
 	var/torture_dmg_burn = 0
@@ -387,7 +387,7 @@ TYPE_PROC_REF(/obj/structure/bloodsucker/vassalrack, do_torture)(mob/living/user
 	target.apply_damages(brute = torture_dmg_brute, burn = torture_dmg_burn, def_zone = (BP ? BP.body_zone : null)) // take_overall_damage(6,0)
 	return TRUE
 
-TYPE_PROC_REF(/obj/structure/bloodsucker/vassalrack, do_disloyalty)(mob/living/user, mob/living/target)
+/obj/structure/bloodsucker/vassalrack/proc/do_disloyalty(mob/living/user, mob/living/target)
 
 	// OFFER YES/NO NOW!
 	spawn(10)
@@ -409,10 +409,10 @@ TYPE_PROC_REF(/obj/structure/bloodsucker/vassalrack, do_disloyalty)(mob/living/u
 	// NOTE: We only remove loyalties when we're CONVERTED!
 	return TRUE
 
-TYPE_PROC_REF(/obj/structure/bloodsucker/vassalrack, RequireDisloyalty)(mob/living/target)
+/obj/structure/bloodsucker/vassalrack/proc/RequireDisloyalty(mob/living/target)
 	return SSticker.mode.AmValidAntag(target.mind) //|| HAS_TRAIT(target, TRAIT_MINDSHIELD)
 
-TYPE_PROC_REF(/obj/structure/bloodsucker/vassalrack, disloyalty_accept)(mob/living/target)
+/obj/structure/bloodsucker/vassalrack/proc/disloyalty_accept(mob/living/target)
 	// FAILSAFE: Still on the rack?
 	if(!(locate(target) in buckled_mobs))
 		return
@@ -421,7 +421,7 @@ TYPE_PROC_REF(/obj/structure/bloodsucker/vassalrack, disloyalty_accept)(mob/livi
 	/*if(HAS_TRAIT(target, TRAIT_MINDSHIELD))
 		to_chat(target, span_boldnotice("You give in to the will of your torturer. If they are successful, you will no longer be loyal to the station!"))
 */
-TYPE_PROC_REF(/obj/structure/bloodsucker/vassalrack, disloyalty_refuse)(mob/living/target)
+/obj/structure/bloodsucker/vassalrack/proc/disloyalty_refuse(mob/living/target)
 	// FAILSAFE: Still on the rack?
 	if(!(locate(target) in buckled_mobs))
 		return
@@ -431,7 +431,7 @@ TYPE_PROC_REF(/obj/structure/bloodsucker/vassalrack, disloyalty_refuse)(mob/livi
 	to_chat(target, "<span class='notice'>You refuse to give in! You <i>will not</i> break!</span>")
 
 
-TYPE_PROC_REF(/obj/structure/bloodsucker/vassalrack, remove_loyalties)(mob/living/target)
+/obj/structure/bloodsucker/vassalrack/proc/remove_loyalties(mob/living/target)
 	// Find Mind Implant & Destroy
 	if(HAS_TRAIT(target, TRAIT_MINDSHIELD))
 		for(var/obj/item/implant/I in target.implants)
@@ -480,7 +480,7 @@ TYPE_PROC_REF(/obj/structure/bloodsucker/vassalrack, remove_loyalties)(mob/livin
 	if(AmBloodsucker(user))
 		toggle()
 
-TYPE_PROC_REF(/obj/structure/bloodsucker/candelabrum, toggle)(mob/user)
+/obj/structure/bloodsucker/candelabrum/proc/toggle(mob/user)
 	lit = !lit
 	if(lit)
 		set_light(2, 3, "#66FFFF")

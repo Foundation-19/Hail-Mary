@@ -2,7 +2,7 @@
 #define MAX_ADMIN_BANS_PER_HEADMIN 3
 
 //Either pass the mob you wish to ban in the 'banned_mob' attribute, or the banckey, banip and bancid variables. If both are passed, the mob takes priority! If a mob is not passed, banckey is the minimum that needs to be passed! banip and bancid are optional.
-TYPE_PROC_REF(/datum/admins, DB_ban_record)(bantype, mob/banned_mob, duration = -1, reason, job = "", bankey = null, banip = null, bancid = null)
+/datum/admins/proc/DB_ban_record(bantype, mob/banned_mob, duration = -1, reason, job = "", bankey = null, banip = null, bancid = null)
 
 	if(!check_rights(R_BAN))
 		return
@@ -169,7 +169,7 @@ TYPE_PROC_REF(/datum/admins, DB_ban_record)(bantype, mob/banned_mob, duration = 
 			qdel(banned_client)
 	return 1
 
-TYPE_PROC_REF(/datum/admins, DB_ban_unban)(ckey, bantype, job = "")
+/datum/admins/proc/DB_ban_unban(ckey, bantype, job = "")
 
 	if(!check_rights(R_BAN))
 		return
@@ -247,7 +247,7 @@ TYPE_PROC_REF(/datum/admins, DB_ban_unban)(ckey, bantype, job = "")
 
 	DB_ban_unban_by_id(ban_id)
 
-TYPE_PROC_REF(/datum/admins, DB_ban_edit)(banid = null, param = null)
+/datum/admins/proc/DB_ban_edit(banid = null, param = null)
 
 	if(!check_rights(R_BAN))
 		return
@@ -319,7 +319,7 @@ TYPE_PROC_REF(/datum/admins, DB_ban_edit)(banid = null, param = null)
 			to_chat(usr, "Cancelled")
 			return
 
-TYPE_PROC_REF(/datum/admins, DB_ban_unban_by_id)(id)
+/datum/admins/proc/DB_ban_unban_by_id(id)
 
 	if(!check_rights(R_BAN))
 		return
@@ -364,7 +364,7 @@ TYPE_PROC_REF(/datum/admins, DB_ban_unban_by_id)(id)
 	qdel(query_unban)
 	message_admins("[key_name_admin(usr)] has lifted [p_key]'s ban.")
 
-TYPE_PROC_REF(/client, DB_ban_panel)()
+/client/proc/DB_ban_panel()
 	set category = "Admin"
 	set name = "Banning Panel"
 	set desc = "Edit admin permissions"
@@ -375,7 +375,7 @@ TYPE_PROC_REF(/client, DB_ban_panel)()
 	holder.DB_ban_panel()
 
 
-TYPE_PROC_REF(/datum/admins, DB_ban_panel)(playerckey, adminckey, ip, cid, page = 0)
+/datum/admins/proc/DB_ban_panel(playerckey, adminckey, ip, cid, page = 0)
 	if(!usr.client)
 		return
 

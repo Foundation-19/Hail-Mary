@@ -1435,7 +1435,7 @@
  * * type - "ui"/"ue"/"mixed" - Which part of the enzyme buffer to apply
  * * buffer_slot - Index of the enzyme buffer to apply
  */
-TYPE_PROC_REF(/obj/machinery/computer/scan_consolenew, apply_genetic_makeup)(type, buffer_slot)
+/obj/machinery/computer/scan_consolenew/proc/apply_genetic_makeup(type, buffer_slot)
 	// Note - This proc is only called from code that has already performed the
 	//  necessary occupant guard checks. If you call this code yourself, please
 	//  apply can_modify_occupant() or equivalent checks first.
@@ -1492,7 +1492,7 @@ TYPE_PROC_REF(/obj/machinery/computer/scan_consolenew, apply_genetic_makeup)(typ
 /**
  * Checks if there is a connected DNA Scanner that is operational
  */
-TYPE_PROC_REF(/obj/machinery/computer/scan_consolenew, scanner_operational)()
+/obj/machinery/computer/scan_consolenew/proc/scanner_operational()
 	if(!connected_scanner)
 		return FALSE
 
@@ -1505,7 +1505,7 @@ TYPE_PROC_REF(/obj/machinery/computer/scan_consolenew, scanner_operational)()
 	* modified. Will set the scanner occupant var as part of this check.
 	* Requires that the scanner can be operated and will return early if it can't
  */
-TYPE_PROC_REF(/obj/machinery/computer/scan_consolenew, can_modify_occupant)()
+/obj/machinery/computer/scan_consolenew/proc/can_modify_occupant()
 	// GUARD CHECK - We always want to perform the scanner operational check as
 	//  part of checking if we can modify the occupant.
 	// We can never modify the occupant of a broken scanner.
@@ -1535,7 +1535,7 @@ TYPE_PROC_REF(/obj/machinery/computer/scan_consolenew, can_modify_occupant)()
 	* Will connect to a broken scanner if no functional scanner is available.
 	* Links itself to the DNA Scanner to receive door open and close events.
  */
-TYPE_PROC_REF(/obj/machinery/computer/scan_consolenew, connect_to_scanner)()
+/obj/machinery/computer/scan_consolenew/proc/connect_to_scanner()
 	var/obj/machinery/dna_scannernew/test_scanner = null
 	var/obj/machinery/dna_scannernew/broken_scanner = null
 
@@ -1565,7 +1565,7 @@ TYPE_PROC_REF(/obj/machinery/computer/scan_consolenew, connect_to_scanner)()
 	* Sets the new scanner occupant and completes delayed enzyme transfer if one
 	* is queued.
  */
-TYPE_PROC_REF(/obj/machinery/computer/scan_consolenew, on_scanner_close)()
+/obj/machinery/computer/scan_consolenew/proc/on_scanner_close()
 	// Set the appropriate occupant now the scanner is closed
 	if(connected_scanner.occupant)
 		scanner_occupant = connected_scanner.occupant
@@ -1590,7 +1590,7 @@ TYPE_PROC_REF(/obj/machinery/computer/scan_consolenew, on_scanner_close)()
 	* Clears enzyme pulse operations, stops processing and nulls the current
 	* scanner occupant var.
  */
-TYPE_PROC_REF(/obj/machinery/computer/scan_consolenew, on_scanner_open)()
+/obj/machinery/computer/scan_consolenew/proc/on_scanner_open()
 	// If we had a radiation pulse action ongoing, we want to stop this.
 	// Imagine it being like a microwave stopping when you open the door.
 	rad_pulse_index = 0
@@ -1601,7 +1601,7 @@ TYPE_PROC_REF(/obj/machinery/computer/scan_consolenew, on_scanner_open)()
 /**
  * Builds the genetic makeup list which will be sent to tgui interface.
  */
-TYPE_PROC_REF(/obj/machinery/computer/scan_consolenew, build_genetic_makeup_list)()
+/obj/machinery/computer/scan_consolenew/proc/build_genetic_makeup_list()
 	// No code will ever null this list, we can safely Cut it.
 	tgui_genetic_makeup.Cut()
 
@@ -1618,7 +1618,7 @@ TYPE_PROC_REF(/obj/machinery/computer/scan_consolenew, build_genetic_makeup_list
 	* diskette and chromosomes and any advanced injectors, building the main data
 	* structures which get passed to the tgui interface.
  */
-TYPE_PROC_REF(/obj/machinery/computer/scan_consolenew, build_mutation_list)(can_modify_occ)
+/obj/machinery/computer/scan_consolenew/proc/build_mutation_list(can_modify_occ)
 	// No code will ever null these lists. We can safely Cut them.
 	tgui_occupant_mutations.Cut()
 	tgui_diskette_mutations.Cut()
@@ -1842,7 +1842,7 @@ TYPE_PROC_REF(/obj/machinery/computer/scan_consolenew, build_mutation_list)(can_
 	* Arguments:
  * * mutation - The mutation to check chromosome compatibility with
  */
-TYPE_PROC_REF(/obj/machinery/computer/scan_consolenew, build_chrom_list)(mutation)
+/obj/machinery/computer/scan_consolenew/proc/build_chrom_list(mutation)
 	var/list/chromosomes = list()
 
 	for(var/obj/item/chromosome/CM in stored_chromosomes)
@@ -1860,7 +1860,7 @@ TYPE_PROC_REF(/obj/machinery/computer/scan_consolenew, build_chrom_list)(mutatio
 	* Arguments:
  * * alias - Alias of the mutation to check (ie "Mutation 51" or "Mutation 12")
  */
-TYPE_PROC_REF(/obj/machinery/computer/scan_consolenew, check_discovery)(alias)
+/obj/machinery/computer/scan_consolenew/proc/check_discovery(alias)
 	// Note - All code paths that call this have already done checks on the
 	//  current occupant to prevent cheese and other abuses. If you call this
 	//  proc please also do the following checks first:
@@ -1899,7 +1899,7 @@ TYPE_PROC_REF(/obj/machinery/computer/scan_consolenew, check_discovery)(alias)
  * * ref - ATOM ref of the mutation to locate
 	* * target_flags - Flags for storage mediums to search, see #defines
  */
-TYPE_PROC_REF(/obj/machinery/computer/scan_consolenew, get_mut_by_ref)(ref, target_flags)
+/obj/machinery/computer/scan_consolenew/proc/get_mut_by_ref(ref, target_flags)
 	var/mutation
 
 	// Assume the occupant is valid and the check has been carried out before
@@ -1937,7 +1937,7 @@ TYPE_PROC_REF(/obj/machinery/computer/scan_consolenew, get_mut_by_ref)(ref, targ
 	* * radduration - Duration of intended radiation pulse
 	* * number_of_blocks - Number of individual data blocks in the pulsed enzyme
  */
-TYPE_PROC_REF(/obj/machinery/computer/scan_consolenew, randomize_radiation_accuracy)(position, radduration, number_of_blocks)
+/obj/machinery/computer/scan_consolenew/proc/randomize_radiation_accuracy(position, radduration, number_of_blocks)
 	var/val = round(gaussian(0, RADIATION_ACCURACY_MULTIPLIER/radduration) + position, 1)
 	return WRAP(val, 1, number_of_blocks+1)
 
@@ -1950,7 +1950,7 @@ TYPE_PROC_REF(/obj/machinery/computer/scan_consolenew, randomize_radiation_accur
  * * input - Enzyme identity element to scramble, expected hex value
 	* * rs - Strength of radiation pulse, increases the range of possible outcomes
  */
-TYPE_PROC_REF(/obj/machinery/computer/scan_consolenew, scramble)(input,rs)
+/obj/machinery/computer/scan_consolenew/proc/scramble(input,rs)
 	var/length = length(input)
 	var/ran = gaussian(0, rs*RADIATION_STRENGTH_MULTIPLIER)
 	if(ran == 0)
@@ -1967,7 +1967,7 @@ TYPE_PROC_REF(/obj/machinery/computer/scan_consolenew, scramble)(input,rs)
 		* Donor code from previous DNA Console iteration. Called from process() when
 		* there is a radiation pulse in progress. Ends processing.
 	  */
-TYPE_PROC_REF(/obj/machinery/computer/scan_consolenew, rad_pulse)()
+/obj/machinery/computer/scan_consolenew/proc/rad_pulse()
 	// GUARD CHECK - Can we genetically modify the occupant? Includes scanner
 	//  operational guard checks.
 	// If we can't, abort the procedure.
@@ -1991,7 +1991,7 @@ TYPE_PROC_REF(/obj/machinery/computer/scan_consolenew, rad_pulse)()
 /**
  * Sets the default state for the tgui interface.
  */
-TYPE_PROC_REF(/obj/machinery/computer/scan_consolenew, set_default_state)()
+/obj/machinery/computer/scan_consolenew/proc/set_default_state()
 	tgui_view_state["consoleMode"] = "storage"
 	tgui_view_state["storageMode"] = "console"
 	tgui_view_state["storageConsSubMode"] = "mutations"
@@ -2006,7 +2006,7 @@ TYPE_PROC_REF(/obj/machinery/computer/scan_consolenew, set_default_state)()
 	* Arguments:
  * * user - The mob that is attempting to eject the diskette.
  */
-TYPE_PROC_REF(/obj/machinery/computer/scan_consolenew, eject_disk)(mob/user)
+/obj/machinery/computer/scan_consolenew/proc/eject_disk(mob/user)
 	// Check for diskette.
 	if(!diskette)
 		return

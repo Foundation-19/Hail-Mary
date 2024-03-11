@@ -105,7 +105,7 @@
 			to_chat(user, span_notice("You link [src] to the console in [M]'s buffer."))
 			return TRUE
 
-TYPE_PROC_REF(/obj/machinery/mineral/stacking_machine, process_sheet)(obj/item/stack/sheet/inp)
+/obj/machinery/mineral/stacking_machine/proc/process_sheet(obj/item/stack/sheet/inp)
 	if(QDELETED(inp))
 		return
 	var/key = inp.merge_type

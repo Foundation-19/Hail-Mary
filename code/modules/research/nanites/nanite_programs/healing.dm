@@ -224,7 +224,7 @@
 	host_mob.notify_ghost_cloning("Your heart is being defibrillated by nanites. Re-enter your corpse if you want to be revived!")
 	addtimer(CALLBACK(src, PROC_REF(zap)), 50)
 
-TYPE_PROC_REF(/datum/nanite_program/defib, check_revivable)()
+/datum/nanite_program/defib/proc/check_revivable()
 	if(!iscarbon(host_mob)) //nonstandard biology
 		return FALSE
 	var/mob/living/carbon/C = host_mob
@@ -232,7 +232,7 @@ TYPE_PROC_REF(/datum/nanite_program/defib, check_revivable)()
 		return FALSE
 	return C.can_revive()
 
-TYPE_PROC_REF(/datum/nanite_program/defib, zap)()
+/datum/nanite_program/defib/proc/zap()
 	var/mob/living/carbon/C = host_mob
 	playsound(C, 'sound/machines/defib_charge.ogg', 50, FALSE)
 	sleep(30)

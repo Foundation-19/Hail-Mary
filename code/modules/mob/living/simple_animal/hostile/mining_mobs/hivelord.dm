@@ -203,7 +203,7 @@
 			if(H.stat == UNCONSCIOUS || (can_infest_dead && H.stat == DEAD))
 				infest(H)
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion, infest)(mob/living/carbon/human/H)
+/mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/proc/infest(mob/living/carbon/human/H)
 	visible_message(span_warning("[name] burrows into the flesh of [H]!"))
 	var/mob/living/simple_animal/hostile/asteroid/hivelord/legion/L
 	if(HAS_TRAIT(H, TRAIT_DWARF)) //dwarf legions aren't just fluff!

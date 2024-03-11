@@ -14,7 +14,7 @@ GLOBAL_VAR(antag_prototypes)
 		return sorttext(initial(A.name),initial(B.name))
 	return sorttext(b_cat,a_cat)
 
-TYPE_PROC_REF(/datum/mind, add_antag_wrapper)(antag_type,mob/user)
+/datum/mind/proc/add_antag_wrapper(antag_type,mob/user)
 	var/datum/antagonist/new_antag = new antag_type()
 	new_antag.admin_add(src,user)
 	//If something gone wrong/admin-add assign another antagonist due to whatever clean it up
@@ -27,7 +27,7 @@ TYPE_PROC_REF(/datum/mind, add_antag_wrapper)(antag_type,mob/user)
 			L -= x
 	return L
 
-TYPE_PROC_REF(/datum/antagonist, antag_panel)()
+/datum/antagonist/proc/antag_panel()
 	var/list/commands = list()
 	for(var/command in get_admin_commands())
 		commands += "<a href='?src=[REF(src)];command=[command]'>[command]</a>"
@@ -40,7 +40,7 @@ TYPE_PROC_REF(/datum/antagonist, antag_panel)()
 
 	return parts.Join("<br>")
 
-TYPE_PROC_REF(/datum/antagonist, antag_panel_objectives)()
+/datum/antagonist/proc/antag_panel_objectives()
 	var/result = "<i><b>Objectives</b></i>:<br>"
 	if (objectives.len == 0)
 		result += "EMPTY<br>"
@@ -53,13 +53,13 @@ TYPE_PROC_REF(/datum/antagonist, antag_panel_objectives)()
 	result += "<a href='?src=[REF(owner)];obj_announce=1'>Announce objectives</a><br>"
 	return result
 
-TYPE_PROC_REF(/datum/antagonist, antag_panel_memory)()
+/datum/antagonist/proc/antag_panel_memory()
 	var/out = "<b>Memory:</b><br>"
 	out += antag_memory
 	out += "<br><a href='?src=[REF(src)];memory_edit=1'>Edit memory</a><br>"
 	return out
 
-TYPE_PROC_REF(/datum/mind, get_common_admin_commands)()
+/datum/mind/proc/get_common_admin_commands()
 	var/common_commands = "<span>Common Commands:</span>"
 	if(ishuman(current))
 		common_commands += "<a href='?src=[REF(src)];common=undress'>undress</a>"
@@ -76,7 +76,7 @@ TYPE_PROC_REF(/datum/mind, get_common_admin_commands)()
 					break
 	return common_commands
 
-TYPE_PROC_REF(/datum/mind, get_special_statuses)()
+/datum/mind/proc/get_special_statuses()
 	var/list/result = list()
 	if(!current)
 		result += span_bad("No body!")
@@ -89,7 +89,7 @@ TYPE_PROC_REF(/datum/mind, get_special_statuses)()
 			result += span_bad("Emagged")
 	return result.Join(" | ")
 
-TYPE_PROC_REF(/datum/mind, traitor_panel)()
+/datum/mind/proc/traitor_panel()
 	if(!SSticker.HasRoundStarted())
 		alert("Not before round-start!", "Alert")
 		return

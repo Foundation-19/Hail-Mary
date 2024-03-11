@@ -45,7 +45,7 @@ PROCESSING_SUBSYSTEM_DEF(weather)
 			weather_rolls[W] = probability
 	return ..()
 
-TYPE_PROC_REF(/datum/controller/subsystem/processing/weather, run_weather)(datum/weather/weather_datum_type, duration)
+/datum/controller/subsystem/processing/weather/proc/run_weather(datum/weather/weather_datum_type, duration)
 	if (istext(weather_datum_type))
 		for (var/V in subtypesof(/datum/weather))
 			var/datum/weather/W = V
@@ -65,7 +65,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/processing/weather, run_weather)(datum
 	end_weather(FALSE, FALSE, TRUE)
 	current_weather = new weather_datum_type(eligible_zlevels, duration)
 
-TYPE_PROC_REF(/datum/controller/subsystem/processing/weather, end_weather)(clear_fluff = TRUE, reset_queue = TRUE, delete_weather = TRUE)
+/datum/controller/subsystem/processing/weather/proc/end_weather(clear_fluff = TRUE, reset_queue = TRUE, delete_weather = TRUE)
 	if(clear_fluff)
 		next_hit_by_zlevel = null
 	if(reset_queue)
@@ -77,7 +77,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/processing/weather, end_weather)(clear
 		if(timerid)
 			deltimer(timerid)
 
-TYPE_PROC_REF(/datum/controller/subsystem/processing/weather, get_weather)(area/active_area)
+/datum/controller/subsystem/processing/weather/proc/get_weather(area/active_area)
 	if(!current_weather) // No weather, no problems
 		return
 	if(!isarea(active_area))
@@ -89,7 +89,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/processing/weather, get_weather)(area/
 	if(current_weather.tag_weather in active_area.weather_tags) // weather affects all affectable areas at once, so if we have a weather, and that area can support it, it'll have that weather
 		return current_weather
 
-TYPE_PROC_REF(/datum/controller/subsystem/processing/weather, set_wind_direction)()
+/datum/controller/subsystem/processing/weather/proc/set_wind_direction()
 	var/list/possible_directions = list(NORTH, SOUTH, EAST, WEST)
 	wind_direction = pick(possible_directions)
 

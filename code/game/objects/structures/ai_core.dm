@@ -41,7 +41,7 @@
 	. = ..()
 	. += "Its transmitter seems to be [active? "on" : "off"]."
 
-TYPE_PROC_REF(/obj/structure/AIcore/latejoin_inactive, is_available)()			//If people still manage to use this feature to spawn-kill AI latejoins ahelp them.
+/obj/structure/AIcore/latejoin_inactive/proc/is_available()			//If people still manage to use this feature to spawn-kill AI latejoins ahelp them.
 	if(!available)
 		return FALSE
 	if(!safety_checks)
@@ -303,7 +303,7 @@ That prevents a few funky behaviors.
 //The type of interaction, the player performing the operation, the AI itself, and the card object, if any.
 
 
-TYPE_PROC_REF(/atom, transfer_ai)(interaction, mob/user, mob/living/silicon/ai/AI, obj/item/aicard/card)
+/atom/proc/transfer_ai(interaction, mob/user, mob/living/silicon/ai/AI, obj/item/aicard/card)
 	if(istype(card))
 		if(card.flush)
 			to_chat(user, "<span class='boldannounce'>ERROR</span>: AI flush is in progress, cannot execute transfer protocol.")

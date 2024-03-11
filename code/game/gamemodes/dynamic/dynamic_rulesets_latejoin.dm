@@ -157,7 +157,7 @@
 		return RULESET_STOP_PROCESSING
 
 /// Checks for revhead loss conditions and other antag datums.
-TYPE_PROC_REF(/datum/dynamic_ruleset/latejoin/provocateur, check_eligible)(datum/mind/M)
+/datum/dynamic_ruleset/latejoin/provocateur/proc/check_eligible(datum/mind/M)
 	var/turf/T = get_turf(M.current)
 	if(!considered_afk(M) && considered_alive(M) && is_station_level(T.z) && !M.antag_datums?.len && !HAS_TRAIT(M, TRAIT_MINDSHIELD))
 		return TRUE
@@ -169,13 +169,13 @@ TYPE_PROC_REF(/datum/dynamic_ruleset/latejoin/provocateur, check_eligible)(datum
 	else
 		return ..()
 
-TYPE_PROC_REF(/datum/dynamic_ruleset/latejoin/provocateur, check_rev_victory)()
+/datum/dynamic_ruleset/latejoin/provocateur/proc/check_rev_victory()
 	for(var/datum/objective/mutiny/objective in revolution.objectives)
 		if(!(objective.check_completion()))
 			return FALSE
 	return TRUE
 
-TYPE_PROC_REF(/datum/dynamic_ruleset/latejoin/provocateur, check_heads_victory)()
+/datum/dynamic_ruleset/latejoin/provocateur/proc/check_heads_victory()
 	for(var/datum/mind/rev_mind in revolution.head_revolutionaries())
 		var/turf/T = get_turf(rev_mind.current)
 		if(!considered_afk(rev_mind) && considered_alive(rev_mind) && is_station_level(T.z))

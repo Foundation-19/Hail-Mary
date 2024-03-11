@@ -1,4 +1,4 @@
-TYPE_PROC_REF(/datum/tgs_api/v5, ListCustomCommands)()
+/datum/tgs_api/v5/proc/ListCustomCommands()
 	var/results = list()
 	custom_commands = list()
 	for(var/I in typesof(/datum/tgs_chat_command) - /datum/tgs_chat_command)
@@ -20,7 +20,7 @@ TYPE_PROC_REF(/datum/tgs_api/v5, ListCustomCommands)()
 
 	return results
 
-TYPE_PROC_REF(/datum/tgs_api/v5, HandleCustomCommand)(list/command_json)
+/datum/tgs_api/v5/proc/HandleCustomCommand(list/command_json)
 	var/command = command_json[DMAPI5_CHAT_COMMAND_NAME]
 	var/user = command_json[DMAPI5_CHAT_COMMAND_USER]
 	var/params = command_json[DMAPI5_CHAT_COMMAND_PARAMS]
@@ -43,7 +43,7 @@ TYPE_PROC_REF(/datum/tgs_api/v5, HandleCustomCommand)(list/command_json)
 	return TopicResponse("Unknown custom chat command: [command]!")
 
 // Common proc b/c it's used by the V3/V4 APIs
-TYPE_PROC_REF(/datum/tgs_api, UpgradeDeprecatedCommandResponse)(datum/tgs_message_content/response, command)
+/datum/tgs_api/proc/UpgradeDeprecatedCommandResponse(datum/tgs_message_content/response, command)
 	// Backwards compatibility, used to return a string
 	if(istext(response))
 		warned_deprecated_command_runs = warned_deprecated_command_runs || list()

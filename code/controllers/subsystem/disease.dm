@@ -23,7 +23,7 @@ SUBSYSTEM_DEF(disease)
 	msg = "P:[length(active_diseases)]"
 	return ..()
 
-TYPE_PROC_REF(/datum/controller/subsystem/disease, get_disease_name)(id)
+/datum/controller/subsystem/disease/proc/get_disease_name(id)
 	var/datum/disease/advance/A = archive_diseases[id]
 	if(A.name)
 		return A.name

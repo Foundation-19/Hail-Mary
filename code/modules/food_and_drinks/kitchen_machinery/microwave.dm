@@ -234,13 +234,13 @@
 		if("examine")
 			examine(user)
 
-TYPE_PROC_REF(/obj/machinery/microwave, eject)()
+/obj/machinery/microwave/proc/eject()
 	for(var/i in ingredients)
 		var/atom/movable/AM = i
 		AM.forceMove(drop_location())
 	ingredients.Cut()
 
-TYPE_PROC_REF(/obj/machinery/microwave, cook)()
+/obj/machinery/microwave/proc/cook()
 	if(stat & (NOPOWER|BROKEN))
 		return
 	if(operating || broken > 0 || panel_open || !anchored || dirty == 100)
@@ -263,7 +263,7 @@ TYPE_PROC_REF(/obj/machinery/microwave, cook)()
 		break
 	start()
 
-TYPE_PROC_REF(/obj/machinery/microwave, turn_on)()
+/obj/machinery/microwave/proc/turn_on()
 	visible_message("\The [src] turns on.", span_italic("You hear a microwave humming."))
 	operating = TRUE
 
@@ -271,7 +271,7 @@ TYPE_PROC_REF(/obj/machinery/microwave, turn_on)()
 	soundloop.start()
 	update_icon()
 
-TYPE_PROC_REF(/obj/machinery/microwave, spark)()
+/obj/machinery/microwave/proc/spark()
 	visible_message(span_warning("Sparks fly around [src]!"))
 	var/datum/effect_system/spark_spread/s = new
 	s.set_up(2, 1, src)
@@ -281,22 +281,22 @@ TYPE_PROC_REF(/obj/machinery/microwave, spark)()
 #define MICROWAVE_MUCK 1
 #define MICROWAVE_PRE 2
 
-TYPE_PROC_REF(/obj/machinery/microwave, start)()
+/obj/machinery/microwave/proc/start()
 	turn_on()
 	loop(MICROWAVE_NORMAL, 10)
 
-TYPE_PROC_REF(/obj/machinery/microwave, start_can_fail)()
+/obj/machinery/microwave/proc/start_can_fail()
 	turn_on()
 	loop(MICROWAVE_PRE, 4)
 
-TYPE_PROC_REF(/obj/machinery/microwave, muck)()
+/obj/machinery/microwave/proc/muck()
 	turn_on()
 	playsound(src.loc, 'sound/effects/splat.ogg', 50, 1)
 	dirty_anim_playing = TRUE
 	update_icon()
 	loop(MICROWAVE_MUCK, 4)
 
-TYPE_PROC_REF(/obj/machinery/microwave, loop)(type, time, wait = max(12 - 2 * productivity, 2)) // standard wait is 10
+/obj/machinery/microwave/proc/loop(type, time, wait = max(12 - 2 * productivity, 2)) // standard wait is 10
 	if(stat & (NOPOWER|BROKEN))
 		if(type == MICROWAVE_PRE)
 			pre_fail()
@@ -314,7 +314,7 @@ TYPE_PROC_REF(/obj/machinery/microwave, loop)(type, time, wait = max(12 - 2 * pr
 	use_power(500)
 	addtimer(CALLBACK(src, PROC_REF(loop), type, time, wait), wait)
 
-TYPE_PROC_REF(/obj/machinery/microwave, loop_finish)()
+/obj/machinery/microwave/proc/loop_finish()
 	operating = FALSE
 
 	var/metal = 0
@@ -334,16 +334,16 @@ TYPE_PROC_REF(/obj/machinery/microwave, loop_finish)()
 
 	after_finish_loop()
 
-TYPE_PROC_REF(/obj/machinery/microwave, pre_fail)()
+/obj/machinery/microwave/proc/pre_fail()
 	broken = 2
 	operating = FALSE
 	spark()
 	after_finish_loop()
 
-TYPE_PROC_REF(/obj/machinery/microwave, pre_success)()
+/obj/machinery/microwave/proc/pre_success()
 	loop(MICROWAVE_NORMAL, 10)
 
-TYPE_PROC_REF(/obj/machinery/microwave, muck_finish)()
+/obj/machinery/microwave/proc/muck_finish()
 	visible_message(span_warning("\The [src] gets covered in muck!"))
 
 	dirty = 100
@@ -357,7 +357,7 @@ TYPE_PROC_REF(/obj/machinery/microwave, muck_finish)()
 
 	after_finish_loop()
 
-TYPE_PROC_REF(/obj/machinery/microwave, after_finish_loop)()
+/obj/machinery/microwave/proc/after_finish_loop()
 	set_light(0)
 	soundloop.stop()
 	update_icon()

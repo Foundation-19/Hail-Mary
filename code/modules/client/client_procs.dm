@@ -144,7 +144,7 @@ GLOBAL_LIST_INIT(warning_ckeys, list())
 
 	..() //redirect to hsrc.Topic()
 
-TYPE_PROC_REF(/client, is_content_unlocked)()
+/client/proc/is_content_unlocked()
 	if(!prefs.unlock_content)
 		return 0
 	return 1
@@ -161,7 +161,7 @@ TYPE_PROC_REF(/client, is_content_unlocked)()
  * The second checks for the same duplicate message too many times and mutes
  * you for it
  */
-TYPE_PROC_REF(/client, handle_spam_prevention)(message, mute_type)
+/client/proc/handle_spam_prevention(message, mute_type)
 
 	//Increment message count
 	total_message_count += 1
@@ -247,7 +247,7 @@ TYPE_PROC_REF(/client, handle_spam_prevention)(message, mute_type)
 		if(check_rights_for(src, R_SPAWN)) //Fortuna edit. Are they lower ranked staff?
 			GLOB.staff |= src
 	else if(GLOB.deadmins[ckey])
-		add_verb(src, TYPE_PROC_REF(/client, readmin))
+		add_verb(src, /client/proc/readmin)
 		connecting_admin = TRUE
 	if(CONFIG_GET(flag/autoadmin))
 		if(!GLOB.admin_datums[ckey])
@@ -286,7 +286,7 @@ TYPE_PROC_REF(/client, handle_spam_prevention)(message, mute_type)
 	fps = prefs.clientfps //(prefs.clientfps < 0) ? RECOMMENDED_FPS : prefs.clientfps
 
 	if(fexists(roundend_report_file()))
-		add_verb(src, TYPE_PROC_REF(/client, show_previous_roundend_report))
+		add_verb(src, /client/proc/show_previous_roundend_report)
 
 	var/full_version = "[byond_version].[byond_build ? byond_build : "xxx"]"
 	log_access("Login: [key_name(src)] from [address ? address : "localhost"]-[computer_id] || BYOND v[full_version]")
@@ -545,7 +545,7 @@ TYPE_PROC_REF(/client, handle_spam_prevention)(message, mute_type)
 	. = ..() //Even though we're going to be hard deleted there are still some things that want to know the destroy is happening
 	return QDEL_HINT_HARDDEL_NOW
 
-TYPE_PROC_REF(/client, set_client_age_from_db)(connectiontopic)
+/client/proc/set_client_age_from_db(connectiontopic)
 	if (IsGuestKey(src.key))
 		return
 	if(!SSdbcore.Connect())
@@ -694,7 +694,7 @@ TYPE_PROC_REF(/client, set_client_age_from_db)(connectiontopic)
 		player_age = -1
 	. = player_age
 
-TYPE_PROC_REF(/client, findJoinDate)()
+/client/proc/findJoinDate()
 	var/list/http = world.Export("http://byond.com/members/[ckey]?format=text")
 	if(!http)
 		log_world("Failed to connect to byond member page to age check [ckey]")
@@ -707,7 +707,7 @@ TYPE_PROC_REF(/client, findJoinDate)()
 		else
 			CRASH("Age check regex failed for [src.ckey]")
 
-TYPE_PROC_REF(/client, validate_key_in_db)()
+/client/proc/validate_key_in_db()
 	var/key
 	var/datum/db_query/query_check_byond_key = SSdbcore.NewQuery(
 		"SELECT byond_key FROM [format_table_name("player")] WHERE ckey = :ckey",
@@ -737,7 +737,7 @@ TYPE_PROC_REF(/client, validate_key_in_db)()
 			else
 				CRASH("Key check regex failed for [ckey]")
 
-TYPE_PROC_REF(/client, check_randomizer)(topic)
+/client/proc/check_randomizer(topic)
 	. = FALSE
 	if (connection != "seeker")
 		return
@@ -813,7 +813,7 @@ TYPE_PROC_REF(/client, check_randomizer)(topic)
 		qdel(src)
 		return TRUE
 
-TYPE_PROC_REF(/client, cid_check_reconnect)()
+/client/proc/cid_check_reconnect()
 	var/token = md5("[rand(0,9999)][world.time][rand(0,9999)][ckey][rand(0,9999)][address][rand(0,9999)][computer_id][rand(0,9999)]")
 	. = token
 	log_access("Failed Login: [key] [computer_id] [address] - CID randomizer check")
@@ -822,10 +822,10 @@ TYPE_PROC_REF(/client, cid_check_reconnect)()
 	src << browse({"<a id='link' href="byond://[url]?token=[token]">byond://[url]?token=[token]</a><script type="text/javascript">document.getElementById("link").click();window.location="byond://winset?command=.quit"</script>"}, "border=0;titlebar=0;size=1x1;window=redirect")
 	to_chat(src, {"<a href="byond://[url]?token=[token]">You will be automatically taken to the game, if not, click here to be taken manually</a>"})
 
-TYPE_PROC_REF(/client, note_randomizer_user)()
+/client/proc/note_randomizer_user()
 	add_system_note("CID-Error", "Detected as using a cid randomizer.")
 
-TYPE_PROC_REF(/client, add_system_note)(system_ckey, message)
+/client/proc/add_system_note(system_ckey, message)
 	//check to see if we noted them in the last day.
 	var/datum/db_query/query_get_notes = SSdbcore.NewQuery(
 		"SELECT id FROM [format_table_name("messages")] WHERE type = 'note' AND targetckey = :targetckey AND adminckey = :adminckey AND timestamp + INTERVAL 1 DAY < NOW() AND deleted = 0 AND expire_timestamp > NOW()",
@@ -854,7 +854,7 @@ TYPE_PROC_REF(/client, add_system_note)(system_ckey, message)
 	create_message("note", key, system_ckey, message, null, null, 0, 0, null, 0, 0)
 
 
-TYPE_PROC_REF(/client, check_ip_intel)()
+/client/proc/check_ip_intel()
 	set waitfor = 0 //we sleep when getting the intel, no need to hold up the client connection while we sleep
 	if (CONFIG_GET(string/ipintel_email))
 		var/datum/ipintel/res = get_ip_intel(address)
@@ -925,27 +925,27 @@ TYPE_PROC_REF(/client, check_ip_intel)()
 
 	..()
 
-TYPE_PROC_REF(/client, add_verbs_from_config)()
+/client/proc/add_verbs_from_config()
 	if (interviewee)
 		return
 	if(CONFIG_GET(flag/see_own_notes))
-		add_verb(src, TYPE_PROC_REF(/client, self_notes))
+		add_verb(src, /client/proc/self_notes)
 	if(CONFIG_GET(flag/use_exp_tracking))
-		add_verb(src, TYPE_PROC_REF(/client, self_playtime))
+		add_verb(src, /client/proc/self_playtime)
 
 
 #undef UPLOAD_LIMIT
 
 //checks if a client is afk
 //3000 frames = 5 minutes
-TYPE_PROC_REF(/client, is_afk)(duration = CONFIG_GET(number/inactivity_period))
+/client/proc/is_afk(duration = CONFIG_GET(number/inactivity_period))
 	if(inactivity > duration)
 		return inactivity
 	return FALSE
 
 /// Send resources to the client.
 /// Sends both game resources and browser assets.
-TYPE_PROC_REF(/client, send_resources)()
+/client/proc/send_resources()
 #if (PRELOAD_RSC == 0)
 	var/static/next_external_rsc = 0
 	var/list/external_rsc_urls = CONFIG_GET(keyed_list/external_rsc_urls)
@@ -973,7 +973,7 @@ TYPE_PROC_REF(/client, send_resources)()
 
 //Hook, override it to run code when dir changes
 //Like for /atoms, but clients are their own snowflake FUCK
-TYPE_PROC_REF(/client, setDir)(newdir)
+/client/proc/setDir(newdir)
 	dir = newdir
 
 /client/vv_edit_var(var_name, var_value)
@@ -989,7 +989,7 @@ TYPE_PROC_REF(/client, setDir)(newdir)
 			return TRUE
 	. = ..()
 
-TYPE_PROC_REF(/client, rescale_view)(change, min, max)
+/client/proc/rescale_view(change, min, max)
 	var/viewscale = getviewsize(view)
 	var/x = viewscale[1]
 	var/y = viewscale[2]
@@ -997,7 +997,7 @@ TYPE_PROC_REF(/client, rescale_view)(change, min, max)
 	y = clamp(y+change, min,max)
 	change_view("[x]x[y]")
 
-TYPE_PROC_REF(/client, change_view)(new_size)
+/client/proc/change_view(new_size)
 	if (isnull(new_size))
 		CRASH("change_view called without argument.")
 
@@ -1019,22 +1019,22 @@ TYPE_PROC_REF(/client, change_view)(new_size)
 		fit_viewport()
 	SEND_SIGNAL(mob, COMSIG_MOB_CLIENT_CHANGE_VIEW, src, old_view, actualview)
 
-TYPE_PROC_REF(/client, generate_clickcatcher)()
+/client/proc/generate_clickcatcher()
 	if(!void)
 		void = new()
 		screen += void
 
-TYPE_PROC_REF(/client, apply_clickcatcher)(list/actualview)
+/client/proc/apply_clickcatcher(list/actualview)
 	generate_clickcatcher()
 	if(!actualview)
 		actualview = getviewsize(view)
 	void.UpdateGreed(actualview[1],actualview[2])
 
-TYPE_PROC_REF(/client, AnnouncePR)(announcement)
+/client/proc/AnnouncePR(announcement)
 	if(prefs && prefs.chat_toggles & CHAT_PULLR)
 		to_chat(src, announcement)
 
-TYPE_PROC_REF(/client, show_character_previews)(mutable_appearance/MA)
+/client/proc/show_character_previews(mutable_appearance/MA)
 	var/pos = 0
 	for(var/D in GLOB.cardinals)
 		pos++
@@ -1047,18 +1047,18 @@ TYPE_PROC_REF(/client, show_character_previews)(mutable_appearance/MA)
 		O.dir = D
 		O.screen_loc = "character_preview_map:0,[pos]"
 
-TYPE_PROC_REF(/client, clear_character_previews)()
+/client/proc/clear_character_previews()
 	for(var/index in char_render_holders)
 		var/obj/screen/S = char_render_holders[index]
 		screen -= S
 		qdel(S)
 	char_render_holders = null
 
-TYPE_PROC_REF(/client, can_have_part)(part_name)
+/client/proc/can_have_part(part_name)
 	return prefs.pref_species.mutant_bodyparts[part_name] || (part_name in GLOB.unlocked_mutant_parts)
 
 /// compiles a full list of verbs and sends it to the browser
-TYPE_PROC_REF(/client, init_verbs)()
+/client/proc/init_verbs()
 	if(IsAdminAdvancedProcCall())
 		return
 	var/list/verblist = list()
@@ -1075,7 +1075,7 @@ TYPE_PROC_REF(/client, init_verbs)()
 		verblist[++verblist.len] = list(verb_to_init.category, verb_to_init.name)
 	src << output("[url_encode(json_encode(verb_tabs))];[url_encode(json_encode(verblist))]", "statbrowser:init_verbs")
 
-TYPE_PROC_REF(/client, check_panel_loaded)()
+/client/proc/check_panel_loaded()
 	if(statbrowser_ready)
 		return
 	to_chat(src, span_userdanger("<span class='message linkify'>Statpanel failed to load, click <a href='?src=[REF(src)];reload_statbrowser=1'>here</a> to reload the panel </span>"))
@@ -1083,7 +1083,7 @@ TYPE_PROC_REF(/client, check_panel_loaded)()
 /**
  * Initializes dropdown menus on client
  */
-TYPE_PROC_REF(/client, initialize_menus)()
+/client/proc/initialize_menus()
 	var/list/topmenus = GLOB.menulist[/datum/verbs/menu]
 	for (var/thing in topmenus)
 		var/datum/verbs/menu/topmenu = thing

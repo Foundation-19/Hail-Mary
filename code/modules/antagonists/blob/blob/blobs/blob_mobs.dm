@@ -57,7 +57,7 @@
 		return 1
 	return ..()
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile/blob, blob_chat)(msg)
+/mob/living/simple_animal/hostile/blob/proc/blob_chat(msg)
 	var/spanned_message = say_quote(msg)
 	var/rendered = "<font color=\"#EE4000\"><b>\[Blob Telepathy\] [real_name]</b> [spanned_message]</font>"
 	for(var/M in GLOB.mob_list)
@@ -114,7 +114,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/hostile/blob, blob_chat)(msg)
 	if(factory && z != factory.z)
 		death()
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile/blob/blobspore, Zombify)(mob/living/carbon/human/H)
+/mob/living/simple_animal/hostile/blob/blobspore/proc/Zombify(mob/living/carbon/human/H)
 	is_zombie = 1
 	if(H.wear_suit)
 		var/obj/item/clothing/suit/armor/A = H.wear_suit

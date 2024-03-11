@@ -43,7 +43,7 @@
 				if(check_activation(speaker, raw_message)) // Is it the message?
 					addtimer(CALLBACK(src, PROC_REF(pulse), 0), 10)
 
-TYPE_PROC_REF(/obj/item/assembly/voice, record_speech)(atom/movable/speaker, raw_message, datum/language/message_language)
+/obj/item/assembly/voice/proc/record_speech(atom/movable/speaker, raw_message, datum/language/message_language)
 	languages = message_language // Assign the message's language to a variable to use it elsewhere
 	switch(mode)
 		if(INCLUSIVE_MODE)
@@ -62,7 +62,7 @@ TYPE_PROC_REF(/obj/item/assembly/voice, record_speech)(atom/movable/speaker, raw
 			if(length(raw_message))
 				addtimer(CALLBACK(src, PROC_REF(pulse), 0), 10)
 
-TYPE_PROC_REF(/obj/item/assembly/voice, check_activation)(atom/movable/speaker, raw_message)
+/obj/item/assembly/voice/proc/check_activation(atom/movable/speaker, raw_message)
 	. = FALSE
 	switch(mode)
 		if(INCLUSIVE_MODE)

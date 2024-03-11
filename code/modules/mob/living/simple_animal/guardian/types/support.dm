@@ -99,7 +99,7 @@
 	if(G.guardiancolor)
 		add_atom_colour(G.guardiancolor, FIXED_COLOUR_PRIORITY)
 
-TYPE_PROC_REF(/obj/structure/receiving_pad, disappear)()
+/obj/structure/receiving_pad/proc/disappear()
 	visible_message("[src] vanishes!")
 	qdel(src)
 

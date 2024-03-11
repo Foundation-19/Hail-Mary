@@ -11,7 +11,7 @@
 		if(A.attachable)
 			return TRUE
 
-TYPE_PROC_REF(/atom, attempt_wire_interaction)(mob/user)
+/atom/proc/attempt_wire_interaction(mob/user)
 	if(!wires)
 		return WIRE_INTERACTION_FAIL
 	if(!user.can_reach(src))
@@ -56,14 +56,14 @@ TYPE_PROC_REF(/atom, attempt_wire_interaction)(mob/user)
 	assemblies = list()
 	return ..()
 
-TYPE_PROC_REF(/datum/wires, add_duds)(duds)
+/datum/wires/proc/add_duds(duds)
 	while(duds)
 		var/dud = WIRE_DUD_PREFIX + "[--duds]"
 		if(dud in wires)
 			continue
 		wires += dud
 
-TYPE_PROC_REF(/datum/wires, randomize)()
+/datum/wires/proc/randomize()
 	var/static/list/possible_colors = list(
 	"blue",
 	"brown",
@@ -88,48 +88,48 @@ TYPE_PROC_REF(/datum/wires, randomize)()
 	for(var/wire in shuffle(wires))
 		colors[pick_n_take(my_possible_colors)] = wire
 
-TYPE_PROC_REF(/datum/wires, shuffle_wires)()
+/datum/wires/proc/shuffle_wires()
 	colors.Cut()
 	randomize()
 
-TYPE_PROC_REF(/datum/wires, repair)()
+/datum/wires/proc/repair()
 	cut_wires.Cut()
 
-TYPE_PROC_REF(/datum/wires, get_wire)(color)
+/datum/wires/proc/get_wire(color)
 	return colors[color]
 
-TYPE_PROC_REF(/datum/wires, get_color_of_wire)(wire_type)
+/datum/wires/proc/get_color_of_wire(wire_type)
 	for(var/color in colors)
 		var/other_type = colors[color]
 		if(wire_type == other_type)
 			return color
 
-TYPE_PROC_REF(/datum/wires, get_attached)(color)
+/datum/wires/proc/get_attached(color)
 	if(assemblies[color])
 		return assemblies[color]
 	return null
 
-TYPE_PROC_REF(/datum/wires, is_attached)(color)
+/datum/wires/proc/is_attached(color)
 	if(assemblies[color])
 		return TRUE
 
-TYPE_PROC_REF(/datum/wires, is_cut)(wire)
+/datum/wires/proc/is_cut(wire)
 	return (wire in cut_wires)
 
-TYPE_PROC_REF(/datum/wires, is_color_cut)(color)
+/datum/wires/proc/is_color_cut(color)
 	return is_cut(get_wire(color))
 
-TYPE_PROC_REF(/datum/wires, is_all_cut)()
+/datum/wires/proc/is_all_cut()
 	if(cut_wires.len == wires.len)
 		return TRUE
 
-TYPE_PROC_REF(/datum/wires, is_dud)(wire)
+/datum/wires/proc/is_dud(wire)
 	return findtext(wire, WIRE_DUD_PREFIX, 1, length(WIRE_DUD_PREFIX) + 1)
 
-TYPE_PROC_REF(/datum/wires, is_dud_color)(color)
+/datum/wires/proc/is_dud_color(color)
 	return is_dud(get_wire(color))
 
-TYPE_PROC_REF(/datum/wires, cut)(wire)
+/datum/wires/proc/cut(wire)
 	if(is_cut(wire))
 		cut_wires -= wire
 		on_cut(wire, mend = TRUE)
@@ -137,7 +137,7 @@ TYPE_PROC_REF(/datum/wires, cut)(wire)
 		cut_wires += wire
 		on_cut(wire, mend = FALSE)
 
-TYPE_PROC_REF(/datum/wires, cut_color)(color, mob/living/user)
+/datum/wires/proc/cut_color(color, mob/living/user)
 	LAZYINITLIST(current_users)
 	if(current_users[user])
 		return FALSE
@@ -154,19 +154,19 @@ TYPE_PROC_REF(/datum/wires, cut_color)(color, mob/living/user)
 	cut(get_wire(color))
 	return TRUE
 
-TYPE_PROC_REF(/datum/wires, cut_random)()
+/datum/wires/proc/cut_random()
 	cut(wires[rand(1, wires.len)])
 
-TYPE_PROC_REF(/datum/wires, cut_all)()
+/datum/wires/proc/cut_all()
 	for(var/wire in wires)
 		cut(wire)
 
-TYPE_PROC_REF(/datum/wires, pulse)(wire, user)
+/datum/wires/proc/pulse(wire, user)
 	if(is_cut(wire))
 		return
 	on_pulse(wire, user)
 
-TYPE_PROC_REF(/datum/wires, pulse_color)(color, mob/living/user)
+/datum/wires/proc/pulse_color(color, mob/living/user)
 	LAZYINITLIST(current_users)
 	if(current_users[user])
 		return FALSE
@@ -183,20 +183,20 @@ TYPE_PROC_REF(/datum/wires, pulse_color)(color, mob/living/user)
 	pulse(get_wire(color), user)
 	return TRUE
 
-TYPE_PROC_REF(/datum/wires, pulse_assembly)(obj/item/assembly/S)
+/datum/wires/proc/pulse_assembly(obj/item/assembly/S)
 	for(var/color in assemblies)
 		if(S == assemblies[color])
 			pulse_color(color)
 			return TRUE
 
-TYPE_PROC_REF(/datum/wires, attach_assembly)(color, obj/item/assembly/S)
+/datum/wires/proc/attach_assembly(color, obj/item/assembly/S)
 	if(S && istype(S) && S.attachable && !is_attached(color))
 		assemblies[color] = S
 		S.forceMove(holder)
 		S.connected = src
 		return S
 
-TYPE_PROC_REF(/datum/wires, detach_assembly)(color)
+/datum/wires/proc/detach_assembly(color)
 	var/obj/item/assembly/S = get_attached(color)
 	if(S && istype(S))
 		assemblies -= color
@@ -204,8 +204,8 @@ TYPE_PROC_REF(/datum/wires, detach_assembly)(color)
 		S.forceMove(holder.drop_location())
 		return S
 
-/// Called from [TYPE_PROC_REF(/atom, emp_act)]
-TYPE_PROC_REF(/datum/wires, emp_pulse)(severity)
+/// Called from [/atom/proc/emp_act]
+/datum/wires/proc/emp_pulse(severity)
 	var/list/possible_wires = shuffle(wires)
 	var/remaining_pulses = MAXIMUM_EMP_WIRES
 
@@ -217,20 +217,20 @@ TYPE_PROC_REF(/datum/wires, emp_pulse)(severity)
 				break
 
 // Overridable Procs
-TYPE_PROC_REF(/datum/wires, interactable)(mob/user)
+/datum/wires/proc/interactable(mob/user)
 	return TRUE
 
-TYPE_PROC_REF(/datum/wires, get_status)()
+/datum/wires/proc/get_status()
 	return list()
 
-TYPE_PROC_REF(/datum/wires, on_cut)(wire, mend = FALSE)
+/datum/wires/proc/on_cut(wire, mend = FALSE)
 	return
 
-TYPE_PROC_REF(/datum/wires, on_pulse)(wire, user)
+/datum/wires/proc/on_pulse(wire, user)
 	return
 // End Overridable Procs
 
-TYPE_PROC_REF(/datum/wires, interact)(mob/user)
+/datum/wires/proc/interact(mob/user)
 	if(!interactable(user))
 		return
 	ui_interact(user)

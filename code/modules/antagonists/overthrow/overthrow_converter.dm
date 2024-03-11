@@ -12,7 +12,7 @@
 	custom_materials = list(/datum/material/iron=600, /datum/material/glass=200)
 	var/uses = 2
 
-TYPE_PROC_REF(/obj/item/overthrow_converter, convert)(mob/living/carbon/human/target, mob/living/carbon/human/user) // Should probably also delete any mindshield implant. Not sure.
+/obj/item/overthrow_converter/proc/convert(mob/living/carbon/human/target, mob/living/carbon/human/user) // Should probably also delete any mindshield implant. Not sure.
 	if(istype(target) && target.mind && user && user.mind)
 		var/datum/mind/target_mind = target.mind
 		var/datum/mind/user_mind = user.mind

@@ -49,7 +49,7 @@
 
 
 
-TYPE_PROC_REF(/obj/item/reagent_containers/food/snacks/grown, add_juice)()
+/obj/item/reagent_containers/food/snacks/grown/proc/add_juice()
 	if(reagents)
 		if(bitesize_mod)
 			bitesize = 1 + round(reagents.total_volume / bitesize_mod)
@@ -100,7 +100,7 @@ TYPE_PROC_REF(/obj/item/reagent_containers/food/snacks/grown, add_juice)()
 			if(seed.get_gene(/datum/plant_gene/trait/squash))
 				squash(hit_atom)
 
-TYPE_PROC_REF(/obj/item/reagent_containers/food/snacks/grown, squash)(atom/target)
+/obj/item/reagent_containers/food/snacks/grown/proc/squash(atom/target)
 	var/turf/T = get_turf(target)
 	if(ispath(splat_type, /obj/effect/decal/cleanable/plant_smudge))
 		if(filling_color)

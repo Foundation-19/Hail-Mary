@@ -28,7 +28,7 @@ SUBSYSTEM_DEF(chat)
 		if(MC_TICK_CHECK)
 			return
 
-TYPE_PROC_REF(/datum/controller/subsystem/chat, queue)(target, message)
+/datum/controller/subsystem/chat/proc/queue(target, message)
 	if(islist(target))
 		for(var/_target in target)
 			var/client/client = CLIENT_FROM_VAR(_target)

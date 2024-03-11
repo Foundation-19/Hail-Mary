@@ -51,7 +51,7 @@
 		if(!istype(AM, /obj/effect/))
 			beckon(AM)
 
-TYPE_PROC_REF(/obj/effect/clockwork/city_of_cogs_rift, beckon)(atom/movable/AM)
+/obj/effect/clockwork/city_of_cogs_rift/proc/beckon(atom/movable/AM)
 	var/turf/T = get_turf(pick(GLOB.city_of_cogs_spawns))
 	if(ismob(AM) && is_servant_of_ratvar(AM))
 		T = GLOB.ark_of_the_clockwork_justiciar ? get_step(GLOB.ark_of_the_clockwork_justiciar, SOUTH) : get_turf(pick(GLOB.servant_spawns))

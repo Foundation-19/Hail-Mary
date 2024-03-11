@@ -95,7 +95,7 @@
 	initialized = TRUE
 	return TRUE
 
-TYPE_PROC_REF(/datum/tgs_api/v5, RequireInitialBridgeResponse)()
+/datum/tgs_api/v5/proc/RequireInitialBridgeResponse()
 	while(!version)
 		sleep(1)
 
@@ -149,7 +149,7 @@ TYPE_PROC_REF(/datum/tgs_api/v5, RequireInitialBridgeResponse)()
 	return revision
 
 // Common proc b/c it's used by the V3/V4 APIs
-TYPE_PROC_REF(/datum/tgs_api, UpgradeDeprecatedChatMessage)(datum/tgs_message_content/message)
+/datum/tgs_api/proc/UpgradeDeprecatedChatMessage(datum/tgs_message_content/message)
 	if(!istext(message))
 		return message
 
@@ -201,7 +201,7 @@ TYPE_PROC_REF(/datum/tgs_api, UpgradeDeprecatedChatMessage)(datum/tgs_message_co
 	RequireInitialBridgeResponse()
 	return chat_channels.Copy()
 
-TYPE_PROC_REF(/datum/tgs_api/v5, DecodeChannels)(chat_update_json)
+/datum/tgs_api/v5/proc/DecodeChannels(chat_update_json)
 	var/list/chat_channels_json = chat_update_json[DMAPI5_CHAT_UPDATE_CHANNELS]
 	if(istype(chat_channels_json))
 		chat_channels.Cut()
@@ -212,7 +212,7 @@ TYPE_PROC_REF(/datum/tgs_api/v5, DecodeChannels)(chat_update_json)
 	else
 		TGS_WARNING_LOG("Failed to decode [DMAPI5_CHAT_UPDATE_CHANNELS] from channel update!")
 
-TYPE_PROC_REF(/datum/tgs_api/v5, DecodeChannel)(channel_json)
+/datum/tgs_api/v5/proc/DecodeChannel(channel_json)
 	var/datum/tgs_chat_channel/channel = new
 	channel.id = channel_json[DMAPI5_CHAT_CHANNEL_ID]
 	channel.friendly_name = channel_json[DMAPI5_CHAT_CHANNEL_FRIENDLY_NAME]

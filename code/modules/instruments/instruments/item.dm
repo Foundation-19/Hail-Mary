@@ -22,7 +22,7 @@
 		STOP_PROCESSING(SSprocessing, src)
 	return ..()
 
-TYPE_PROC_REF(/obj/item/instrument, should_stop_playing)(mob/user)
+/obj/item/instrument/proc/should_stop_playing(mob/user)
 	return !user.can_reach(src) || !user.canUseTopic(src, FALSE, TRUE, FALSE, FALSE)
 
 /obj/item/instrument/process(wait)
@@ -63,7 +63,7 @@ TYPE_PROC_REF(/obj/item/instrument, should_stop_playing)(mob/user)
 		else
 			to_chat(H, span_warning("You have no idea how to use this."))
 
-TYPE_PROC_REF(/obj/item/instrument, is_tuned)()
+/obj/item/instrument/proc/is_tuned()
 	return tune_time_left > 0
 
 /obj/item/instrument/dropped(mob/user)
@@ -228,7 +228,7 @@ TYPE_PROC_REF(/obj/item/instrument, is_tuned)()
 	w_class = WEIGHT_CLASS_SMALL
 	actions_types = list(/datum/action/item_action/instrument)
 
-TYPE_PROC_REF(/obj/item/instrument/harmonica, handle_speech)(datum/source, list/speech_args)
+/obj/item/instrument/harmonica/proc/handle_speech(datum/source, list/speech_args)
 	if(song.playing && ismob(loc))
 		to_chat(loc, span_warning("You stop playing the harmonica to talk..."))
 		song.playing = FALSE

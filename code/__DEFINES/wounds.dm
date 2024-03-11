@@ -30,7 +30,7 @@
 /// Wounds considered for paper skin
 #define PAPER_SKIN_WOUNDS list(WOUND_SLASH, WOUND_PIERCE, WOUND_BURN)
 
-// How much determination reagent to add each time someone gains a new wound in [TYPE_PROC_REF(/datum/wound, second_wind)()]
+// How much determination reagent to add each time someone gains a new wound in [/datum/wound/proc/second_wind()]
 #define WOUND_DETERMINATION_MODERATE 5
 #define WOUND_DETERMINATION_SEVERE 8
 #define WOUND_DETERMINATION_CRITICAL 10
@@ -209,7 +209,7 @@ GLOBAL_LIST_INIT(global_all_wound_types, list(
 // With the wounds pt. 2 update, general dismemberment now requires 2 things for a limb to be dismemberable (bone only creatures just need the second):
 // 	1. Skin is mangled: A critical slash or pierce wound on that limb
 // 	2. Bone is mangled: At least a severe bone wound on that limb
-// see [TYPE_PROC_REF(/obj/item/bodypart, get_mangled_state)] for more information
+// see [/obj/item/bodypart/proc/get_mangled_state] for more information
 #define BODYPART_MANGLED_NONE	0
 #define BODYPART_MANGLED_BONE	1
 #define BODYPART_MANGLED_FLESH	2

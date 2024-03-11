@@ -109,7 +109,7 @@ Difficulty: Very Hard
 /obj/effect/temp_visual/at_shield/Initialize(mapload, new_target)
 	. = ..()
 	target = new_target
-	INVOKE_ASYNC(src, TYPE_PROC_REF(/atom/movable, orbit), target, 0, FALSE, 0, 0, FALSE, TRUE)
+	INVOKE_ASYNC(src, /atom/movable/proc/orbit, target, 0, FALSE, 0, 0, FALSE, TRUE)
 
 /mob/living/simple_animal/hostile/megafauna/colossus/bullet_act(obj/item/projectile/P)
 	if(!stat)
@@ -121,14 +121,14 @@ Difficulty: Very Hard
 		AT.pixel_y += random_y
 	return ..()
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile/megafauna/colossus, enrage)(mob/living/L)
+/mob/living/simple_animal/hostile/megafauna/colossus/proc/enrage(mob/living/L)
 	if(ishuman(L))
 		var/mob/living/carbon/human/H = L
 		if(H.mind)
 			if(istype(H.mind.martial_art, /datum/martial_art/the_sleeping_carp) & istype(H.mind.martial_art, /datum/martial_art/the_rising_bass))
 				. = TRUE
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile/megafauna/colossus, alternating_dir_shots)()
+/mob/living/simple_animal/hostile/megafauna/colossus/proc/alternating_dir_shots()
 	dir_shots(GLOB.diagonals)
 	sleep(10)
 	dir_shots(GLOB.cardinals)
@@ -137,14 +137,14 @@ TYPE_PROC_REF(/mob/living/simple_animal/hostile/megafauna/colossus, alternating_
 	sleep(10)
 	dir_shots(GLOB.cardinals)
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile/megafauna/colossus, double_spiral)()
+/mob/living/simple_animal/hostile/megafauna/colossus/proc/double_spiral()
 	visible_message("<span class='colossus'>\"<b>Die.</b>\"</span>")
 
 	sleep(10)
 	INVOKE_ASYNC(src, PROC_REF(spiral_shoot))
 	INVOKE_ASYNC(src, PROC_REF(spiral_shoot), TRUE)
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile/megafauna/colossus, spiral_shoot)(negative = FALSE, counter_start = 8)
+/mob/living/simple_animal/hostile/megafauna/colossus/proc/spiral_shoot(negative = FALSE, counter_start = 8)
 	var/turf/start_turf = get_step(src, pick(GLOB.alldirs))
 	var/counter = counter_start
 	for(var/i in 1 to 80)
@@ -160,7 +160,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/hostile/megafauna/colossus, spiral_shoot
 		playsound(get_turf(src), 'sound/magic/clockwork/invoke_general.ogg', 20, 1)
 		sleep(1)
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile/megafauna/colossus, shoot_projectile)(turf/marker, set_angle)
+/mob/living/simple_animal/hostile/megafauna/colossus/proc/shoot_projectile(turf/marker, set_angle)
 	if(!isnum(set_angle) && (!marker || marker == loc))
 		return
 	var/turf/startloc = get_turf(src)
@@ -171,14 +171,14 @@ TYPE_PROC_REF(/mob/living/simple_animal/hostile/megafauna/colossus, shoot_projec
 		P.original = target
 	P.fire(set_angle)
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile/megafauna/colossus, random_shots)()
+/mob/living/simple_animal/hostile/megafauna/colossus/proc/random_shots()
 	var/turf/U = get_turf(src)
 	playsound(U, 'sound/magic/clockwork/invoke_general.ogg', 300, 1, 5)
 	for(var/T in RANGE_TURFS(12, U) - U)
 		if(prob(5))
 			shoot_projectile(T)
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile/megafauna/colossus, blast)(set_angle)
+/mob/living/simple_animal/hostile/megafauna/colossus/proc/blast(set_angle)
 	var/turf/target_turf = get_turf(target)
 	playsound(src, 'sound/magic/clockwork/invoke_general.ogg', 200, 1, 2)
 	newtonian_move(get_dir(target_turf, src))
@@ -189,7 +189,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/hostile/megafauna/colossus, blast)(set_a
 	for(var/i in colossus_shotgun_shot_angles)
 		shoot_projectile(target_turf, angle_to_target + i)
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile/megafauna/colossus, dir_shots)(list/dirs)
+/mob/living/simple_animal/hostile/megafauna/colossus/proc/dir_shots(list/dirs)
 	if(!islist(dirs))
 		dirs = GLOB.alldirs.Copy()
 	playsound(src, 'sound/magic/clockwork/invoke_general.ogg', 200, 1, 2)
@@ -197,7 +197,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/hostile/megafauna/colossus, dir_shots)(l
 		var/turf/E = get_step(src, d)
 		shoot_projectile(E)
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile/megafauna/colossus, telegraph)()
+/mob/living/simple_animal/hostile/megafauna/colossus/proc/telegraph()
 	for(var/mob/M in range(10,src))
 		if(M.client)
 			flash_color(M.client, "#C80000", 1)
@@ -273,7 +273,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/hostile/megafauna/colossus, telegraph)()
 		WriteMemory()
 		memory_saved = TRUE
 
-TYPE_PROC_REF(/obj/machinery/smartfridge/black_box, WriteMemory)()
+/obj/machinery/smartfridge/black_box/proc/WriteMemory()
 	var/json_file = file("data/npc_saves/Blackbox.json")
 	stored_items = list()
 
@@ -284,7 +284,7 @@ TYPE_PROC_REF(/obj/machinery/smartfridge/black_box, WriteMemory)()
 	fdel(json_file)
 	WRITE_FILE(json_file, json_encode(file_data))
 
-TYPE_PROC_REF(/obj/machinery/smartfridge/black_box, ReadMemory)()
+/obj/machinery/smartfridge/black_box/proc/ReadMemory()
 	if(fexists("data/npc_saves/Blackbox.sav")) //legacy compatability to convert old format to new
 		var/savefile/S = new /savefile("data/npc_saves/Blackbox.sav")
 		S["stored_items"] >> stored_items
@@ -303,7 +303,7 @@ TYPE_PROC_REF(/obj/machinery/smartfridge/black_box, ReadMemory)()
 
 //in it's own proc to avoid issues with items that nolonger exist in the code base.
 //try catch doesn't always prevent byond runtimes from halting a proc,
-TYPE_PROC_REF(/obj/machinery/smartfridge/black_box, create_item)(item_type)
+/obj/machinery/smartfridge/black_box/proc/create_item(item_type)
 	var/obj/O = new item_type(src)
 	blacklist[O] = TRUE
 
@@ -401,7 +401,7 @@ TYPE_PROC_REF(/obj/machinery/smartfridge/black_box, create_item)(item_type)
 		return
 	ActivationReaction(P.firer, P.flag, P.damage_type)
 
-TYPE_PROC_REF(/obj/machinery/anomalous_crystal, ActivationReaction)(mob/user, method, damtype)
+/obj/machinery/anomalous_crystal/proc/ActivationReaction(mob/user, method, damtype)
 	if(world.time < last_use_timer)
 		return FALSE
 	if(activation_damage_type && activation_damage_type != damtype)

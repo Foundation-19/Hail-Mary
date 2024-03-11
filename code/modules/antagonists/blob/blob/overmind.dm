@@ -59,7 +59,7 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 	. = ..()
 	START_PROCESSING(SSobj, src)
 
-TYPE_PROC_REF(/mob/camera/blob, validate_location)()
+/mob/camera/blob/proc/validate_location()
 	var/turf/T = get_turf(src)
 	if(!is_valid_turf(T) && LAZYLEN(GLOB.blobstart))
 		var/list/blobstarts = shuffle(GLOB.blobstart)
@@ -71,7 +71,7 @@ TYPE_PROC_REF(/mob/camera/blob, validate_location)()
 		CRASH("No blobspawnpoints and blob spawned in nullspace.")
 	forceMove(T)
 
-TYPE_PROC_REF(/mob/camera/blob, set_strain)(datum/blobstrain/new_strain)
+/mob/camera/blob/proc/set_strain(datum/blobstrain/new_strain)
 	if (ispath(new_strain))
 		var/hadstrain = FALSE
 		if (istype(blobstrain))
@@ -86,7 +86,7 @@ TYPE_PROC_REF(/mob/camera/blob, set_strain)(datum/blobstrain/new_strain)
 			if(blobstrain.effectdesc)
 				to_chat(src, "The <b><font color=\"[blobstrain.color]\">[blobstrain.name]</b></font> strain [blobstrain.effectdesc]")
 
-TYPE_PROC_REF(/mob/camera/blob, is_valid_turf)(turf/T)
+/mob/camera/blob/proc/is_valid_turf(turf/T)
 	var/area/A = get_area(T)
 	if((A && !A.blob_allowed) || !T || !is_station_level(T.z) || isspaceturf(T))
 		return FALSE
@@ -117,7 +117,7 @@ TYPE_PROC_REF(/mob/camera/blob, is_valid_turf)(turf/T)
 	if(!victory_in_progress && max_count < blobs_legit.len)
 		max_count = blobs_legit.len
 
-TYPE_PROC_REF(/mob/camera/blob, victory)()
+/mob/camera/blob/proc/victory()
 	sound_to_playing_players('sound/machines/alarm.ogg')
 	sleep(100)
 	for(var/i in GLOB.mob_living_list)
@@ -202,7 +202,7 @@ TYPE_PROC_REF(/mob/camera/blob, victory)()
 			if(B.hud_used && B.hud_used.blobpwrdisplay)
 				B.hud_used.blobpwrdisplay.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#82ed00'>[round(blob_core.obj_integrity)]</font></div>"
 
-TYPE_PROC_REF(/mob/camera/blob, add_points)(points)
+/mob/camera/blob/proc/add_points(points)
 	blob_points = clamp(blob_points + points, 0, max_blob_points)
 	hud_used.blobpwrdisplay.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#82ed00'>[round(blob_points)]</font></div>"
 
@@ -222,7 +222,7 @@ TYPE_PROC_REF(/mob/camera/blob, add_points)(points)
 
 	blob_talk(message)
 
-TYPE_PROC_REF(/mob/camera/blob, blob_talk)(message)
+/mob/camera/blob/proc/blob_talk(message)
 
 	message = trim(copytext_char(sanitize(message), 1, MAX_MESSAGE_LEN))
 

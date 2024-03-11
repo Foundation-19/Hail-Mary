@@ -88,7 +88,7 @@
 		to_chat(user, span_warning("[I] has no data buffer!"))
 	return TRUE
 
-TYPE_PROC_REF(/obj/machinery/bsa/middle, check_completion)()
+/obj/machinery/bsa/middle/proc/check_completion()
 	if(!front || !back)
 		return "No linked parts detected!"
 	if(!front.anchored || !back.anchored || !anchored)
@@ -98,7 +98,7 @@ TYPE_PROC_REF(/obj/machinery/bsa/middle, check_completion)()
 	if(!has_space())
 		return "Not enough free space!"
 
-TYPE_PROC_REF(/obj/machinery/bsa/middle, has_space)()
+/obj/machinery/bsa/middle/proc/has_space()
 	var/cannon_dir = get_cannon_direction()
 	var/x_min
 	var/x_max
@@ -115,7 +115,7 @@ TYPE_PROC_REF(/obj/machinery/bsa/middle, has_space)()
 			return FALSE
 	return TRUE
 
-TYPE_PROC_REF(/obj/machinery/bsa/middle, get_cannon_direction)()
+/obj/machinery/bsa/middle/proc/get_cannon_direction()
 	if(front.x > x && back.x < x)
 		return EAST
 	else if(front.x < x && back.x > x)
@@ -140,7 +140,7 @@ TYPE_PROC_REF(/obj/machinery/bsa/middle, get_cannon_direction)()
 /obj/machinery/bsa/full/wrench_act(mob/living/user, obj/item/I)
 	return FALSE
 
-TYPE_PROC_REF(/obj/machinery/bsa/full, get_front_turf)()
+/obj/machinery/bsa/full/proc/get_front_turf()
 	switch(dir)
 		if(WEST)
 			return locate(x - 7,y,z)
@@ -148,7 +148,7 @@ TYPE_PROC_REF(/obj/machinery/bsa/full, get_front_turf)()
 			return locate(x + 7,y,z)
 	return get_turf(src)
 
-TYPE_PROC_REF(/obj/machinery/bsa/full, get_back_turf)()
+/obj/machinery/bsa/full/proc/get_back_turf()
 	switch(dir)
 		if(WEST)
 			return locate(x + 5,y,z)
@@ -156,7 +156,7 @@ TYPE_PROC_REF(/obj/machinery/bsa/full, get_back_turf)()
 			return locate(x - 5,y,z)
 	return get_turf(src)
 
-TYPE_PROC_REF(/obj/machinery/bsa/full, get_target_turf)()
+/obj/machinery/bsa/full/proc/get_target_turf()
 	switch(dir)
 		if(WEST)
 			return locate(1,y,z)
@@ -181,7 +181,7 @@ TYPE_PROC_REF(/obj/machinery/bsa/full, get_target_turf)()
 	add_overlay(top_layer)
 	reload()
 
-TYPE_PROC_REF(/obj/machinery/bsa/full, fire)(mob/user, turf/bullseye)
+/obj/machinery/bsa/full/proc/fire(mob/user, turf/bullseye)
 	reload()
 
 	var/turf/point = get_front_turf()
@@ -214,12 +214,12 @@ TYPE_PROC_REF(/obj/machinery/bsa/full, fire)(mob/user, turf/bullseye)
 		log_game("[key_name(user)] has launched an artillery strike targeting [AREACOORD(bullseye)] but it was blocked by [blocker] at [AREACOORD(target)].")
 
 
-TYPE_PROC_REF(/obj/machinery/bsa/full, reload)()
+/obj/machinery/bsa/full/proc/reload()
 	ready = FALSE
 	use_power(power_used_per_shot)
 	addtimer(CALLBACK(src,"ready_cannon"),600)
 
-TYPE_PROC_REF(/obj/machinery/bsa/full, ready_cannon)()
+/obj/machinery/bsa/full/proc/ready_cannon()
 	ready = TRUE
 
 /obj/structure/filler
@@ -279,7 +279,7 @@ TYPE_PROC_REF(/obj/machinery/bsa/full, ready_cannon)()
 			. = TRUE
 	update_icon()
 
-TYPE_PROC_REF(/obj/machinery/computer/bsa_control, calibrate)(mob/user)
+/obj/machinery/computer/bsa_control/proc/calibrate(mob/user)
 	if(!GLOB.bsa_unlock)
 		return
 	var/list/gps_locators = list()
@@ -294,28 +294,28 @@ TYPE_PROC_REF(/obj/machinery/computer/bsa_control, calibrate)(mob/user)
 	target = options[V]
 
 
-TYPE_PROC_REF(/obj/machinery/computer/bsa_control, get_target_name)()
+/obj/machinery/computer/bsa_control/proc/get_target_name()
 	if(istype(target, /area))
 		return get_area_name(target, TRUE)
 	else if(istype(target, /datum/component/gps))
 		var/datum/component/gps/G = target
 		return G.gpstag
 
-TYPE_PROC_REF(/obj/machinery/computer/bsa_control, get_impact_turf)()
+/obj/machinery/computer/bsa_control/proc/get_impact_turf()
 	if(istype(target, /area))
 		return pick(get_area_turfs(target))
 	else if(istype(target, /datum/component/gps))
 		var/datum/component/gps/G = target
 		return get_turf(G.parent)
 
-TYPE_PROC_REF(/obj/machinery/computer/bsa_control, fire)(mob/user)
+/obj/machinery/computer/bsa_control/proc/fire(mob/user)
 	if(cannon.stat)
 		notice = "Cannon unpowered!"
 		return
 	notice = null
 	cannon.fire(user, get_impact_turf())
 
-TYPE_PROC_REF(/obj/machinery/computer/bsa_control, deploy)(force=FALSE)
+/obj/machinery/computer/bsa_control/proc/deploy(force=FALSE)
 	var/obj/machinery/bsa/full/prebuilt = locate() in range(7) //In case of adminspawn
 	if(prebuilt)
 		return prebuilt

@@ -1,4 +1,4 @@
-TYPE_PROC_REF(/client, map_template_load)()
+/client/proc/map_template_load()
 	set category = "Debug"
 	set name = "Map template - Place"
 
@@ -29,7 +29,7 @@ TYPE_PROC_REF(/client, map_template_load)()
 			to_chat(src, "Failed to place map")
 	images -= preview
 
-TYPE_PROC_REF(/client, map_template_loadtest)()
+/client/proc/map_template_loadtest()
 	set category = "Debug"
 	set name = "Map template thing test"
 
@@ -61,7 +61,7 @@ TYPE_PROC_REF(/client, map_template_loadtest)()
 			to_chat(src, "Failed to place map")
 	//images -= preview
 
-TYPE_PROC_REF(/client, map_template_upload)()
+/client/proc/map_template_upload()
 	set category = "Debug"
 	set name = "Map Template - Upload"
 

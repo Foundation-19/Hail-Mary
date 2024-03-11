@@ -61,10 +61,10 @@
 	qdel(user)
 	qdel(src)
 
-TYPE_PROC_REF(/obj/item/clockwork/construct_chassis, pre_spawn)() //Some things might change before the construct spawns; override those on a subtype basis in this proc
+/obj/item/clockwork/construct_chassis/proc/pre_spawn() //Some things might change before the construct spawns; override those on a subtype basis in this proc
 	return
 
-TYPE_PROC_REF(/obj/item/clockwork/construct_chassis, post_spawn)(mob/living/construct) //And some things might change after it
+/obj/item/clockwork/construct_chassis/proc/post_spawn(mob/living/construct) //And some things might change after it
 	return
 
 

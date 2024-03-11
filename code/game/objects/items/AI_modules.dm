@@ -33,14 +33,14 @@ AI MODULES
 	..()
 	show_laws(user)
 
-TYPE_PROC_REF(/obj/item/aiModule, show_laws)(mob/user as mob)
+/obj/item/aiModule/proc/show_laws(mob/user as mob)
 	if(laws.len)
 		to_chat(user, "<B>Programmed Law[(laws.len > 1) ? "s" : ""]:</B>")
 		for(var/law in laws)
 			to_chat(user, "\"[law]\"")
 
 //The proc other things should be calling
-TYPE_PROC_REF(/obj/item/aiModule, install)(datum/ai_laws/law_datum, mob/user)
+/obj/item/aiModule/proc/install(datum/ai_laws/law_datum, mob/user)
 	if(!bypass_law_amt_check && (!laws.len || laws[1] == "")) //So we don't loop trough an empty list and end up with runtimes.
 		to_chat(user, span_warning("ERROR: No laws found on board."))
 		return
@@ -73,7 +73,7 @@ TYPE_PROC_REF(/obj/item/aiModule, install)(datum/ai_laws/law_datum, mob/user)
 	message_admins("[ADMIN_LOOKUPFLW(user)] used [src.name] on [ADMIN_LOOKUPFLW(law_datum.owner)] from [AREACOORD(user)].[law2log ? " The law specified [law2log]" : ""]")
 
 //The proc that actually changes the silicon's laws.
-TYPE_PROC_REF(/obj/item/aiModule, transmitInstructions)(datum/ai_laws/law_datum, mob/sender, overflow = FALSE)
+/obj/item/aiModule/proc/transmitInstructions(datum/ai_laws/law_datum, mob/sender, overflow = FALSE)
 	if(law_datum.owner)
 		to_chat(law_datum.owner, span_userdanger("[sender] has uploaded a change to the laws you must follow using a [name]."))
 
@@ -324,7 +324,7 @@ TYPE_PROC_REF(/obj/item/aiModule, transmitInstructions)(datum/ai_laws/law_datum,
 		law_datum.clear_inherent_laws()
 		law_datum.clear_zeroth_law(0)
 
-TYPE_PROC_REF(/obj/item/aiModule/reset/purge, remove_antag_datums)(datum/ai_laws/law_datum)
+/obj/item/aiModule/reset/purge/proc/remove_antag_datums(datum/ai_laws/law_datum)
 	if(istype(law_datum.owner, /mob/living/silicon/ai))
 		var/mob/living/silicon/ai/AI = law_datum.owner
 		AI.mind.remove_antag_datum(/datum/antagonist/overthrow)

@@ -1,4 +1,4 @@
-TYPE_PROC_REF(/client, forcerandomrotate)()
+/client/proc/forcerandomrotate()
 	set category = "Server"
 	set name = "Trigger Random Map Rotation"
 	var/rotate = alert("Force a random map rotation to trigger?", "Rotate map?", "Yes", "Cancel")
@@ -9,7 +9,7 @@ TYPE_PROC_REF(/client, forcerandomrotate)()
 	SSticker.maprotatechecked = 1
 	SSmapping.maprotate()
 
-TYPE_PROC_REF(/client, adminchangemap)()
+/client/proc/adminchangemap()
 	set category = "Server"
 	set name = "Change Map"
 	var/list/maprotatechoices = list()

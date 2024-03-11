@@ -31,7 +31,7 @@
 	. = ..()
 	. += span_notice("It is currently [open?"open, letting you pour liquids in.":"closed, letting you draw liquids from the tap."]")
 
-TYPE_PROC_REF(/obj/structure/fermenting_barrel, makeWine)(list/obj/item/reagent_containers/food/snacks/grown/fruits)
+/obj/structure/fermenting_barrel/proc/makeWine(list/obj/item/reagent_containers/food/snacks/grown/fruits)
 	for(var/obj/item/reagent_containers/food/snacks/grown/fruit in fruits)
 		var/amount = fruit.seed.potency / 4
 		if(fruit.distill_reagent)
@@ -127,7 +127,7 @@ TYPE_PROC_REF(/obj/structure/fermenting_barrel, makeWine)(list/obj/item/reagent_
 	return TRUE
 
 ///Handles the weaving.
-TYPE_PROC_REF(/obj/structure/loom, weave)(obj/item/stack/sheet/cotton/W, mob/user)
+/obj/structure/loom/proc/weave(obj/item/stack/sheet/cotton/W, mob/user)
 	if(!istype(W))
 		return FALSE
 	if(!anchored)
@@ -206,7 +206,7 @@ TYPE_PROC_REF(/obj/structure/loom, weave)(obj/item/stack/sheet/cotton/W, mob/use
 		else
 			to_chat(user, span_warning("That's not compostable! Try organic foods instead."))
 
-TYPE_PROC_REF(/obj/structure/reagent_dispensers/compostbin, process_compost)()
+/obj/structure/reagent_dispensers/compostbin/proc/process_compost()
 	for(var/obj/item/C in contents)
 		if(istype(C, /obj/item/seeds))
 			var/obj/item/seeds/S = C
@@ -251,7 +251,7 @@ TYPE_PROC_REF(/obj/structure/reagent_dispensers/compostbin, process_compost)()
 	pass_flags = LETPASSTHROW
 	pass_flags_self = PASSTABLE | LETPASSTHROW
 
-TYPE_PROC_REF(/obj/structure/legion_extractor, seedify)(obj/item/O, t_max, mob/living/user)
+/obj/structure/legion_extractor/proc/seedify(obj/item/O, t_max, mob/living/user)
 	var/t_amount = 0
 	if(t_max == -1)
 		t_max = rand(1,2) //Slightly worse than the actual thing

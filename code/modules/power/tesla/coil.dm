@@ -93,7 +93,7 @@
 	else
 		. = ..()
 
-TYPE_PROC_REF(/obj/machinery/power/tesla_coil, zap)()
+/obj/machinery/power/tesla_coil/proc/zap()
 	if((last_zap + zap_cooldown) > world.time || !powernet)
 		return FALSE
 	last_zap = world.time

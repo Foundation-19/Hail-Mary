@@ -12,7 +12,7 @@
 	///The cargo account for grabbing the cargo account's credits.
 	var/static/datum/bank_account/cargocash
 
-TYPE_PROC_REF(/datum/computer_file/program/bounty, print_paper)()
+/datum/computer_file/program/bounty/proc/print_paper()
 	new /obj/item/paper/bounty_printout(get_turf(computer))
 
 /datum/computer_file/program/bounty/ui_interact(mob/user, datum/tgui/ui)

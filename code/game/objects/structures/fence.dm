@@ -138,7 +138,7 @@
 		new /obj/item/stack/rods(get_turf(src), 4)
 	qdel(src)
 
-TYPE_PROC_REF(/obj/structure/fence, update_cut_status)()
+/obj/structure/fence/proc/update_cut_status()
 	if(!cuttable)
 		return
 	density = TRUE
@@ -182,7 +182,7 @@ TYPE_PROC_REF(/obj/structure/fence, update_cut_status)()
 
 	return TRUE
 
-TYPE_PROC_REF(/obj/structure/fence/door, toggle)(mob/user)
+/obj/structure/fence/door/proc/toggle(mob/user)
 	switch(open)
 		if(FALSE)
 			visible_message(span_notice("\The [user] opens \the [src]."))
@@ -194,7 +194,7 @@ TYPE_PROC_REF(/obj/structure/fence/door, toggle)(mob/user)
 	update_door_status()
 	playsound(src, 'sound/machines/click.ogg', 100, 1)
 
-TYPE_PROC_REF(/obj/structure/fence/door, update_door_status)()
+/obj/structure/fence/door/proc/update_door_status()
 	switch(open)
 		if(FALSE)
 			density = TRUE
@@ -203,7 +203,7 @@ TYPE_PROC_REF(/obj/structure/fence/door, update_door_status)()
 			density = FALSE
 			icon_state = "door_opened"
 
-TYPE_PROC_REF(/obj/structure/fence/door, can_open)(mob/user)
+/obj/structure/fence/door/proc/can_open(mob/user)
 	return TRUE
 
 /obj/structure/simple_door/metal/fence

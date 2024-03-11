@@ -54,10 +54,10 @@ GLOBAL_VAR(test_log)
 	QDEL_LIST(allocated)
 	return ..()
 
-TYPE_PROC_REF(/datum/unit_test, Run)()
+/datum/unit_test/proc/Run()
 	Fail("Run() called parent or not implemented")
 
-TYPE_PROC_REF(/datum/unit_test, Fail)(reason = "No reason")
+/datum/unit_test/proc/Fail(reason = "No reason")
 	succeeded = FALSE
 
 	if(!istext(reason))
@@ -67,7 +67,7 @@ TYPE_PROC_REF(/datum/unit_test, Fail)(reason = "No reason")
 
 /// Allocates an instance of the provided type, and places it somewhere in an available loc
 /// Instances allocated through this proc will be destroyed when the test is over
-TYPE_PROC_REF(/datum/unit_test, allocate)(type, ...)
+/datum/unit_test/proc/allocate(type, ...)
 	var/list/arguments = args.Copy(2)
 	if (!arguments.len)
 		arguments = list(run_loc_bottom_left)
@@ -77,7 +77,7 @@ TYPE_PROC_REF(/datum/unit_test, allocate)(type, ...)
 	allocated += instance
 	return instance
 
-TYPE_PROC_REF(/datum/unit_test, test_screenshot)(name, icon/icon)
+/datum/unit_test/proc/test_screenshot(name, icon/icon)
 	if (!istype(icon))
 		TEST_FAIL("[icon] is not an icon.")
 		return

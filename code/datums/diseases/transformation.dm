@@ -46,7 +46,7 @@
 		if(5)
 			do_disease_transformation(affected_mob)
 
-TYPE_PROC_REF(/datum/disease/transformation, do_disease_transformation)(mob/living/affected_mob)
+/datum/disease/transformation/proc/do_disease_transformation(mob/living/affected_mob)
 	if(istype(affected_mob, /mob/living/carbon) && affected_mob.stat != DEAD)
 		if(stage5)
 			to_chat(affected_mob, pick(stage5))
@@ -73,7 +73,7 @@ TYPE_PROC_REF(/datum/disease/transformation, do_disease_transformation)(mob/livi
 		new_mob.real_name = new_mob.name
 		qdel(affected_mob)
 
-TYPE_PROC_REF(/datum/disease/transformation, replace_banned_player)(mob/living/new_mob) // This can run well after the mob has been transferred, so need a handle on the new mob to kill it if needed.
+/datum/disease/transformation/proc/replace_banned_player(mob/living/new_mob) // This can run well after the mob has been transferred, so need a handle on the new mob to kill it if needed.
 	set waitfor = FALSE
 
 	var/list/mob/candidates = pollCandidatesForMob("Do you want to play as [affected_mob.name]?", bantype, null, bantype, 50, affected_mob)

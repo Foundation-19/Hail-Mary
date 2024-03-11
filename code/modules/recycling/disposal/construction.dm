@@ -65,7 +65,7 @@
 	invisibility = (intact && level==1) ? INVISIBILITY_MAXIMUM: 0	// hide if floor is intact
 	update_icon()
 
-TYPE_PROC_REF(/obj/structure/disposalconstruct, get_disposal_dir)()
+/obj/structure/disposalconstruct/proc/get_disposal_dir()
 	if(!is_pipe())
 		return NONE
 
@@ -91,7 +91,7 @@ TYPE_PROC_REF(/obj/structure/disposalconstruct, get_disposal_dir)()
 	. = ..()
 	AddComponent(/datum/component/simple_rotation,ROTATION_ALTCLICK | ROTATION_CLOCKWISE | ROTATION_FLIP | ROTATION_VERBS ,null,CALLBACK(src, PROC_REF(can_be_rotated)), CALLBACK(src, PROC_REF(after_rot)))
 
-TYPE_PROC_REF(/obj/structure/disposalconstruct, after_rot)(mob/user,rotation_type)
+/obj/structure/disposalconstruct/proc/after_rot(mob/user,rotation_type)
 	if(rotation_type == ROTATION_FLIP)
 		var/obj/structure/disposalpipe/temp = pipe_type
 		if(initial(temp.flip_type))
@@ -100,7 +100,7 @@ TYPE_PROC_REF(/obj/structure/disposalconstruct, after_rot)(mob/user,rotation_typ
 			pipe_type = initial(temp.flip_type)
 	update_icon()
 
-TYPE_PROC_REF(/obj/structure/disposalconstruct, can_be_rotated)(mob/user,rotation_type)
+/obj/structure/disposalconstruct/proc/can_be_rotated(mob/user,rotation_type)
 	if(anchored)
 		to_chat(user, span_warning("You must unfasten the pipe before rotating it!"))
 		return FALSE
@@ -169,11 +169,11 @@ TYPE_PROC_REF(/obj/structure/disposalconstruct, can_be_rotated)(mob/user,rotatio
 		to_chat(user, span_warning("You need to attach it to the plating first!"))
 	return TRUE
 
-TYPE_PROC_REF(/obj/structure/disposalconstruct, is_pipe)()
+/obj/structure/disposalconstruct/proc/is_pipe()
 	return ispath(pipe_type, /obj/structure/disposalpipe)
 
 //helper proc that makes sure you can place the construct (i.e no dense objects stacking)
-TYPE_PROC_REF(/obj/structure/disposalconstruct, can_place)()
+/obj/structure/disposalconstruct/proc/can_place()
 	if(is_pipe())
 		return TRUE
 

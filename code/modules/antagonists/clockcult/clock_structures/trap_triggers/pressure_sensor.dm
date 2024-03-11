@@ -14,7 +14,7 @@
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
-TYPE_PROC_REF(/obj/structure/destructible/clockwork/trap/trigger/pressure_sensor, on_entered)(atom/movable/AM)
+/obj/structure/destructible/clockwork/trap/trigger/pressure_sensor/proc/on_entered(atom/movable/AM)
 	SIGNAL_HANDLER
 	if(isliving(AM) && !is_servant_of_ratvar(AM))
 		var/mob/living/L = AM

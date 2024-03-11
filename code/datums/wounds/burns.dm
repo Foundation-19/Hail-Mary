@@ -181,7 +181,7 @@
 */
 
 /// if someone is using ointment on our burns
-TYPE_PROC_REF(/datum/wound/burn, ointment)(obj/item/stack/medical/ointment/I, mob/user)
+/datum/wound/burn/proc/ointment(obj/item/stack/medical/ointment/I, mob/user)
 	user.visible_message(span_notice("[user] begins applying [I] to [victim]'s [limb.name]..."), span_notice("You begin applying [I] to [user == victim ? "your" : "[victim]'s"] [limb.name]..."))
 	if(!do_after(user, (user == victim ? I.self_delay : I.other_delay), extra_checks = CALLBACK(src, PROC_REF(still_exists))))
 		return
@@ -199,7 +199,7 @@ TYPE_PROC_REF(/datum/wound/burn, ointment)(obj/item/stack/medical/ointment/I, mo
 		try_treating(I, user)
 
 /// if someone is using mesh on our burns
-TYPE_PROC_REF(/datum/wound/burn, mesh)(obj/item/stack/medical/mesh/I, mob/user, just_treat)
+/datum/wound/burn/proc/mesh(obj/item/stack/medical/mesh/I, mob/user, just_treat)
 	user.visible_message(span_notice("[user] begins wrapping [victim]'s [limb.name] with [I]..."), span_notice("You begin wrapping [user == victim ? "your" : "[victim]'s"] [limb.name] with [I]..."))
 	if(!do_after(user, (user == victim ? I.self_delay : I.other_delay), target=victim, extra_checks = CALLBACK(src, PROC_REF(still_exists))))
 		return
@@ -217,7 +217,7 @@ TYPE_PROC_REF(/datum/wound/burn, mesh)(obj/item/stack/medical/mesh/I, mob/user, 
 		try_treating(I, user)
 
 /// Paramedic UV penlights
-TYPE_PROC_REF(/datum/wound/burn, uv)(obj/item/flashlight/pen/paramedic/I, mob/user)
+/datum/wound/burn/proc/uv(obj/item/flashlight/pen/paramedic/I, mob/user)
 	if(!COOLDOWN_FINISHED(I, uv_cooldown))
 		to_chat(user, span_notice("[I] is still recharging!"))
 		return
@@ -231,7 +231,7 @@ TYPE_PROC_REF(/datum/wound/burn, uv)(obj/item/flashlight/pen/paramedic/I, mob/us
 
 /// Generic burn wound treatment from whatever'll allow it
 /// No messages, damage healing, or thing usage, they'll be handled on the item doing the healing
-TYPE_PROC_REF(/datum/wound/burn, treat_burn)(obj/item/stack/medical/I, mob/user)
+/datum/wound/burn/proc/treat_burn(obj/item/stack/medical/I, mob/user)
 	sanitization += I.sanitization
 	flesh_healing += I.flesh_regeneration
 	infestation -= I.sanitization * 0.05

@@ -47,14 +47,14 @@
 	UnregisterSignal(M, COMSIG_MOB_SAY)
 	addtimer(CALLBACK(src, PROC_REF(root_and_toot)), 200)
 
-TYPE_PROC_REF(/obj/item/clothing/head/hattip, root_and_toot)()
+/obj/item/clothing/head/hattip/proc/root_and_toot()
 	if(QDELETED(src) || isnull(loc))
 		return
 	src.animate_atom_living()
 	var/mob/living/simple_animal/hostile/mimic/M = loc
 	M.say(pick("Whooee! Time for a hootenanny!", "Rough 'em up boys!", "Yeehaw! Freedom at last!", "Y'all about to get a good old fashioned spanking!"))
 
-TYPE_PROC_REF(/obj/item/clothing/head/hattip, handle_speech)(datum/source, mob/speech_args)
+/obj/item/clothing/head/hattip/proc/handle_speech(datum/source, mob/speech_args)
 	var/message = speech_args[SPEECH_MESSAGE]
 	var/mob/living/carbon/C = get_wearer()//user
 	var/obj/item/organ/tongue/T = C.getorganslot(ORGAN_SLOT_TONGUE)
@@ -72,5 +72,5 @@ TYPE_PROC_REF(/obj/item/clothing/head/hattip, handle_speech)(datum/source, mob/s
 		message += "\" and tips their hat. \"[pick("Yeehaw!", "Boy howdy.", "Darn tootin'.", "Well don't that beat all.", "Whoooowee, would ya look at that!", "Whoooowee! Makin' bacon!", "Cream Gravy!", "Yippekeeyah-heeyapeeah-kayoh!", "Move 'em out!", "Giddy up!")]"
 	speech_args[SPEECH_MESSAGE] = trim(message)
 
-TYPE_PROC_REF(/obj/item/clothing/head/hattip, get_wearer)()
+/obj/item/clothing/head/hattip/proc/get_wearer()
 	return loc

@@ -39,15 +39,15 @@
 	var/PurityMin 				= 0.15 		//If purity is below 0.15, it explodes too. Set to 0 to disable this.
 
 
-TYPE_PROC_REF(/datum/chemical_reaction, on_reaction)(datum/reagents/holder, multiplier, specialreact)
+/datum/chemical_reaction/proc/on_reaction(datum/reagents/holder, multiplier, specialreact)
 	return
 	//I recommend you set the result amount to the total volume of all components.
 
-TYPE_PROC_REF(/datum/chemical_reaction, check_special_react)(datum/reagents/holder)
+/datum/chemical_reaction/proc/check_special_react(datum/reagents/holder)
 	return
 
 /*
-TYPE_PROC_REF(/datum/chemical_reaction, chemical_mob_spawn)(datum/reagents/holder, amount_to_spawn, reaction_name, mob_class = HOSTILE_SPAWN, mob_faction = "chemicalsummon")
+/datum/chemical_reaction/proc/chemical_mob_spawn(datum/reagents/holder, amount_to_spawn, reaction_name, mob_class = HOSTILE_SPAWN, mob_faction = "chemicalsummon")
 	if(holder && holder.my_atom)
 		var/atom/A = holder.my_atom
 		var/turf/T = get_turf(A)
@@ -65,7 +65,7 @@ TYPE_PROC_REF(/datum/chemical_reaction, chemical_mob_spawn)(datum/reagents/holde
 				for(var/j = 1, j <= rand(1, 3), j++)
 					step(S, pick(NORTH,SOUTH,EAST,WEST))
 */
-TYPE_PROC_REF(/datum/chemical_reaction, goonchem_vortex)(turf/T, setting_type, range)
+/datum/chemical_reaction/proc/goonchem_vortex(turf/T, setting_type, range)
 	for(var/atom/movable/X in orange(range, T))
 		if(iseffect(X))
 			continue

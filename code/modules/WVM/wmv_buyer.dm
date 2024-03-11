@@ -129,7 +129,7 @@
 	//not sure why anything else was here anyways?
 
 /* Adding a caps to caps storage and release vending item. */
-TYPE_PROC_REF(/obj/machinery/mineral/wasteland_trader, add_caps)(obj/item/I)
+/obj/machinery/mineral/wasteland_trader/proc/add_caps(obj/item/I)
 	var/final_value = 0
 	var/value_per = 0
 
@@ -154,7 +154,7 @@ TYPE_PROC_REF(/obj/machinery/mineral/wasteland_trader, add_caps)(obj/item/I)
 	src.ui_interact(usr)
 
 /* Spawn all caps on world and clear caps storage */
-TYPE_PROC_REF(/obj/machinery/mineral/wasteland_trader, remove_all_caps)()
+/obj/machinery/mineral/wasteland_trader/proc/remove_all_caps()
 	if(stored_caps <= 0)
 		return
 	var/obj/item/stack/f13Cash/C = new /obj/item/stack/f13Cash/caps
@@ -219,7 +219,7 @@ ORGAN SELLER
 	add_caps_squish(I)
 
 /* Adding a caps to caps storage and release vending item. */
-TYPE_PROC_REF(/obj/machinery/mineral/wasteland_trader/organ, add_caps_squish)(obj/item/I)
+/obj/machinery/mineral/wasteland_trader/organ/proc/add_caps_squish(obj/item/I)
 	var/final_value = 0
 	var/value_per = 0
 

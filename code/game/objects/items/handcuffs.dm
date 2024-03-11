@@ -77,7 +77,7 @@
 		else
 			to_chat(user, span_warning("[C] doesn't have two hands..."))
 
-TYPE_PROC_REF(/obj/item/restraints/handcuffs, apply_cuffs)(mob/living/carbon/target, mob/user, dispense = 0)
+/obj/item/restraints/handcuffs/proc/apply_cuffs(mob/living/carbon/target, mob/user, dispense = 0)
 	if(target.handcuffed)
 		return
 
@@ -273,7 +273,7 @@ TYPE_PROC_REF(/obj/item/restraints/handcuffs, apply_cuffs)(mob/living/carbon/tar
 		icon_state = "[initial(icon_state)][armed]"
 		to_chat(user, span_notice("[src] is now [armed ? "armed" : "disarmed"]"))
 
-TYPE_PROC_REF(/obj/item/restraints/legcuffs/beartrap, spring_trap)(datum/source, atom/movable/AM, thrown_at = FALSE)
+/obj/item/restraints/legcuffs/beartrap/proc/spring_trap(datum/source, atom/movable/AM, thrown_at = FALSE)
 	SIGNAL_HANDLER
 	if(!armed || !isturf(loc) || !isliving(AM))
 		return
@@ -316,7 +316,7 @@ TYPE_PROC_REF(/obj/item/restraints/legcuffs/beartrap, spring_trap)(datum/source,
  * Closes a bear trap.
  * Arguments:
  */
-TYPE_PROC_REF(/obj/item/restraints/legcuffs/beartrap, close_trap)()
+/obj/item/restraints/legcuffs/beartrap/proc/close_trap()
 	armed = FALSE
 	update_icon()
 	playsound(src, 'sound/effects/snap.ogg', 50, TRUE)
@@ -334,7 +334,7 @@ TYPE_PROC_REF(/obj/item/restraints/legcuffs/beartrap, close_trap)()
 	..()
 	addtimer(CALLBACK(src, PROC_REF(dissipate)), 100)
 
-TYPE_PROC_REF(/obj/item/restraints/legcuffs/beartrap/energy, dissipate)()
+/obj/item/restraints/legcuffs/beartrap/energy/proc/dissipate()
 	if(!ismob(loc))
 		do_sparks(1, TRUE, src)
 		qdel(src)
@@ -367,7 +367,7 @@ TYPE_PROC_REF(/obj/item/restraints/legcuffs/beartrap/energy, dissipate)()
  * Arguments:
  * * C - the carbon that we will try to ensnare
  */
-TYPE_PROC_REF(/obj/item/restraints/legcuffs/bola, ensnare)(mob/living/carbon/C)
+/obj/item/restraints/legcuffs/bola/proc/ensnare(mob/living/carbon/C)
 	if(!C.legcuffed && C.get_num_legs(FALSE) >= 2)
 		visible_message(span_danger("\The [src] ensnares [C]!"))
 		C.legcuffed = src

@@ -5,12 +5,12 @@ Name:	IsSpecialAssembly
 Desc:	If true is an object that can be attached to an assembly holder but is a special thing like a plasma can or door
 */
 
-TYPE_PROC_REF(/obj, IsSpecialAssembly)()
+/obj/proc/IsSpecialAssembly()
 	return FALSE
 
 /*
 Name:	IsAssemblyHolder
 Desc:	If true is an object that can hold an assemblyholder object
 */
-TYPE_PROC_REF(/obj, IsAssemblyHolder)()
+/obj/proc/IsAssemblyHolder()
 	return FALSE

@@ -59,7 +59,7 @@
 
 	return list(msg)
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile/clockwork, examine_info)() //Override this on a by-mob basis to have unique examine info
+/mob/living/simple_animal/hostile/clockwork/proc/examine_info() //Override this on a by-mob basis to have unique examine info
 	return
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile/clockwork, update_values)() //This is called by certain things to check GLOB.ratvar_awakens and GLOB.ratvar_approaches
+/mob/living/simple_animal/hostile/clockwork/proc/update_values() //This is called by certain things to check GLOB.ratvar_awakens and GLOB.ratvar_approaches

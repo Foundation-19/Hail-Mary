@@ -13,5 +13,5 @@
 		RegisterSignal(parent, COMSIG_TURF_CHANGE, PROC_REF(turf_change))
 	RegisterSignal(parent, signals, _callback)
 
-TYPE_PROC_REF(/datum/component/redirect, turf_change)(path, new_baseturfs, flags, list/transfers)
+/datum/component/redirect/proc/turf_change(path, new_baseturfs, flags, list/transfers)
 	transfers += src

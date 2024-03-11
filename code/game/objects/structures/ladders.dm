@@ -118,14 +118,14 @@
 	RegisterSignal(peeker, COMSIG_DISABLE_COMBAT_MODE, PROC_REF(stop_peeking))
 
 
-TYPE_PROC_REF(/obj/structure/ladder, on_peeker_move)(mob/source)
+/obj/structure/ladder/proc/on_peeker_move(mob/source)
 	SIGNAL_HANDLER
 	if(Adjacent(source))
 		return // Moved, but still nearby.
 	stop_peeking(source)
 
 
-TYPE_PROC_REF(/obj/structure/ladder, stop_peeking)(mob/source)
+/obj/structure/ladder/proc/stop_peeking(mob/source)
 	SIGNAL_HANDLER
 	UnregisterSignal(source, list(COMSIG_MOVABLE_MOVED, COMSIG_DISABLE_COMBAT_MODE))
 	if(source in (LAZYACCESS(ladder_watchers, "[UP]")))
@@ -139,12 +139,12 @@ TYPE_PROC_REF(/obj/structure/ladder, stop_peeking)(mob/source)
 	source.reset_perspective(null)
 
 
-TYPE_PROC_REF(/obj/structure/ladder, on_connected_ladder_clicked)(atom/source, location, control, params, mob/user)
+/obj/structure/ladder/proc/on_connected_ladder_clicked(atom/source, location, control, params, mob/user)
 	if((user in (LAZYACCESS(ladder_watchers, "[UP]"))) || (user in (LAZYACCESS(ladder_watchers, "[DOWN]"))))
 		stop_peeking(user)
 
 
-TYPE_PROC_REF(/obj/structure/ladder, disconnect)()
+/obj/structure/ladder/proc/disconnect()
 	if(up && up.down == src)
 		up.down = null
 		up.update_icon()
@@ -171,7 +171,7 @@ TYPE_PROC_REF(/obj/structure/ladder, disconnect)()
 		visible_message(span_danger("[src] is torn to pieces by the gravitational pull!"))
 		qdel(src)
 
-TYPE_PROC_REF(/obj/structure/ladder, travel)(mob/user, going_up = TRUE, is_ghost = FALSE)
+/obj/structure/ladder/proc/travel(mob/user, going_up = TRUE, is_ghost = FALSE)
 	var/obj/structure/ladder/ladder = going_up ? up : down
 	if(!ladder)
 		to_chat(user, span_warning("there's nothing that way!"))
@@ -191,7 +191,7 @@ TYPE_PROC_REF(/obj/structure/ladder, travel)(mob/user, going_up = TRUE, is_ghost
 	var/turf/target = get_turf(ladder)
 	user.zMove(target = target, z_move_flags = ZMOVE_CHECK_PULLEDBY|ZMOVE_ALLOW_BUCKLED|ZMOVE_INCLUDE_PULLED)
 
-TYPE_PROC_REF(/obj/structure/ladder, use)(mob/user, is_ghost=FALSE)
+/obj/structure/ladder/proc/use(mob/user, is_ghost=FALSE)
 	if (!is_ghost && !in_range(src, user))
 		return
 
@@ -235,7 +235,7 @@ TYPE_PROC_REF(/obj/structure/ladder, use)(mob/user, is_ghost=FALSE)
 		if("Cancel")
 			return
 
-TYPE_PROC_REF(/obj/structure/ladder, is_other_side_dangerous)()
+/obj/structure/ladder/proc/is_other_side_dangerous()
 	if(up)
 		var/datum/weather/up_weather = SSweather.get_weather(get_area(up))
 		if(up_weather?.is_dangerous)
@@ -245,7 +245,7 @@ TYPE_PROC_REF(/obj/structure/ladder, is_other_side_dangerous)()
 		if(down_weather?.is_dangerous)
 			. |= DOWN_LADDER_WEATHER_IS_DANGEROUS
 
-TYPE_PROC_REF(/obj/structure/ladder, check_menu)(mob/user)
+/obj/structure/ladder/proc/check_menu(mob/user)
 	if(user.incapacitated() || !user.Adjacent(src))
 		return FALSE
 	return TRUE
@@ -268,7 +268,7 @@ TYPE_PROC_REF(/obj/structure/ladder, check_menu)(mob/user)
 	use(user, TRUE)
 	return ..()
 
-TYPE_PROC_REF(/obj/structure/ladder, show_fluff_message)(going_up, mob/user)
+/obj/structure/ladder/proc/show_fluff_message(going_up, mob/user)
 	if(going_up)
 		user.visible_message("[user] climbs up [src].",span_notice("You climb up [src]."))
 	else
@@ -326,7 +326,7 @@ TYPE_PROC_REF(/obj/structure/ladder, show_fluff_message)(going_up, mob/user)
 	var/area_to_place = /area/lavaland/surface/outdoors
 	var/active = FALSE
 
-TYPE_PROC_REF(/obj/structure/ladder/unbreakable/binary, ActivateAlmonds)()
+/obj/structure/ladder/unbreakable/binary/proc/ActivateAlmonds()
 	if(area_to_place && !active)
 		var/turf/T = getTargetTurf()
 		if(T)
@@ -339,7 +339,7 @@ TYPE_PROC_REF(/obj/structure/ladder/unbreakable/binary, ActivateAlmonds)()
 				TT.TerraformTurf(/turf/open/indestructible/binary, /turf/open/indestructible/binary, CHANGETURF_INHERIT_AIR)
 		active = TRUE
 
-TYPE_PROC_REF(/obj/structure/ladder/unbreakable/binary, getTargetTurf)()
+/obj/structure/ladder/unbreakable/binary/proc/getTargetTurf()
 	var/list/turfList = get_area_turfs(area_to_place)
 	while (turfList.len && !.)
 		var/i = rand(1, turfList.len)

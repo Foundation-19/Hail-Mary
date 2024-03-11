@@ -121,13 +121,13 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 	else
 		GLOB.dooc_allowed = !GLOB.dooc_allowed
 
-TYPE_PROC_REF(/client, set_ooc)(newColor as color)
+/client/proc/set_ooc(newColor as color)
 	set name = "Set Player OOC Color"
 	set desc = "Modifies player OOC Color"
 	set category = "Admin.Fun"
 	GLOB.OOC_COLOR = sanitize_ooccolor(newColor)
 
-TYPE_PROC_REF(/client, reset_ooc)()
+/client/proc/reset_ooc()
 	set name = "Reset Player OOC Color"
 	set desc = "Returns player OOC Color to default"
 	set category = "Admin.Fun"
@@ -183,7 +183,7 @@ TYPE_PROC_REF(/client, reset_ooc)()
 	else
 		to_chat(src, span_notice("The Message of the Day has not been set."))
 
-TYPE_PROC_REF(/client, self_notes)()
+/client/proc/self_notes()
 	set name = "View Admin Remarks"
 	set category = "OOC"
 	set desc = "View the notes that admins have written about you"
@@ -194,7 +194,7 @@ TYPE_PROC_REF(/client, self_notes)()
 
 	browse_messages(null, usr.ckey, null, TRUE)
 
-TYPE_PROC_REF(/client, self_playtime)()
+/client/proc/self_playtime()
 	set name = "View tracked playtime"
 	set category = "OOC"
 	set desc = "View the amount of playtime for roles the server has tracked."
@@ -209,7 +209,7 @@ TYPE_PROC_REF(/client, self_playtime)()
 	body += "</BODY></HTML>"
 	usr << browse(body.Join(), "window=playerplaytime[ckey];size=550x615")
 
-TYPE_PROC_REF(/client, ignore_key)(client)
+/client/proc/ignore_key(client)
 	var/client/C = client
 	if(C.key in prefs.ignoring)
 		prefs.ignoring -= C.key
@@ -242,7 +242,7 @@ TYPE_PROC_REF(/client, ignore_key)(client)
 		return
 	ignore_key(selection)
 
-TYPE_PROC_REF(/client, show_previous_roundend_report)()
+/client/proc/show_previous_roundend_report()
 	set name = "Your Last Round"
 	set category = "OOC"
 	set desc = "View the last round end report you've seen"
@@ -301,7 +301,7 @@ TYPE_PROC_REF(/client, show_previous_roundend_report)()
 
 	init_verbs()
 
-TYPE_PROC_REF(/client, GetOOCName)()
+/client/proc/GetOOCName()
 	if(iscarbon(mob)) // If mob is null I'll be very surprised, worse case, add a sanity check if this becomes an issue in the future.
 		return mob.real_name
 	else

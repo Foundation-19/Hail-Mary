@@ -8,7 +8,7 @@
 /datum/antagonist/revenant/greet()
 	owner.announce_objectives()
 
-TYPE_PROC_REF(/datum/antagonist/revenant, forge_objectives)()
+/datum/antagonist/revenant/proc/forge_objectives()
 	var/datum/objective/revenant/objective = new
 	objective.owner = owner
 	objectives += objective

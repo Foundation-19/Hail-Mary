@@ -92,7 +92,7 @@
 		addtimer(CALLBACK(src, PROC_REF(stop_retreat)), 30)
 	. = ..()
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile/mushroom, stop_retreat)()
+/mob/living/simple_animal/hostile/mushroom/proc/stop_retreat()
 	retreat_distance = null
 
 /mob/living/simple_animal/hostile/mushroom/attack_animal(mob/living/L)
@@ -123,7 +123,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/hostile/mushroom, stop_retreat)()
 	..(gibbed)
 	UpdateMushroomCap()
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile/mushroom, UpdateMushroomCap)()
+/mob/living/simple_animal/hostile/mushroom/proc/UpdateMushroomCap()
 	cut_overlays()
 	cap_living.color = cap_color
 	cap_dead.color = cap_color
@@ -132,7 +132,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/hostile/mushroom, UpdateMushroomCap)()
 	else
 		add_overlay(cap_living)
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile/mushroom, Recover)()
+/mob/living/simple_animal/hostile/mushroom/proc/Recover()
 	visible_message("[src] slowly begins to recover.")
 	faint_ticker = 0
 	revive(full_heal = 1)
@@ -140,10 +140,10 @@ TYPE_PROC_REF(/mob/living/simple_animal/hostile/mushroom, Recover)()
 	recovery_cooldown = 1
 	addtimer(CALLBACK(src, PROC_REF(recovery_recharge)), 300)
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile/mushroom, recovery_recharge)()
+/mob/living/simple_animal/hostile/mushroom/proc/recovery_recharge()
 	recovery_cooldown = 0
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile/mushroom, LevelUp)(level_gain)
+/mob/living/simple_animal/hostile/mushroom/proc/LevelUp(level_gain)
 	if(powerlevel <= 9)
 		powerlevel += level_gain
 		if(prob(25))
@@ -153,7 +153,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/hostile/mushroom, LevelUp)(level_gain)
 		maxHealth += (level_gain * rand(1,5))
 	adjustBruteLoss(-maxHealth) //They'll always heal, even if they don't gain a level, in case you want to keep this shroom around instead of harvesting it
 
-TYPE_PROC_REF(/mob/living/simple_animal/hostile/mushroom, Bruise)()
+/mob/living/simple_animal/hostile/mushroom/proc/Bruise()
 	if(!bruised && !stat)
 		src.visible_message("The [src.name] was bruised!")
 		bruised = 1

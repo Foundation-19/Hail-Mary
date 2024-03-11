@@ -204,7 +204,7 @@
 		if(I.light_range && I.light_power)
 			disintegrate(I)
 
-TYPE_PROC_REF(/obj/item/light_eater, disintegrate)(obj/item/O)
+/obj/item/light_eater/proc/disintegrate(obj/item/O)
 	if(istype(O, /obj/item/pda))
 		var/obj/item/pda/PDA = O
 		PDA.set_light(0)

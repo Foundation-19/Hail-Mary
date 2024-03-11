@@ -72,7 +72,7 @@
 	wires = null
 	return ..()
 
-TYPE_PROC_REF(/mob/living/simple_animal/bot/mulebot, set_id)(new_id)
+/mob/living/simple_animal/bot/mulebot/proc/set_id(new_id)
 	id = new_id
 	if(paicard)
 		bot_name = "[initial(name)] ([new_id])"
@@ -327,10 +327,10 @@ TYPE_PROC_REF(/mob/living/simple_animal/bot/mulebot, set_id)(new_id)
 
 
 // returns true if the bot has power
-TYPE_PROC_REF(/mob/living/simple_animal/bot/mulebot, has_power)()
+/mob/living/simple_animal/bot/mulebot/proc/has_power()
 	return !open && cell && cell.charge > 0 && (!wires.is_cut(WIRE_POWER1) && !wires.is_cut(WIRE_POWER2))
 
-TYPE_PROC_REF(/mob/living/simple_animal/bot/mulebot, buzz)(type)
+/mob/living/simple_animal/bot/mulebot/proc/buzz(type)
 	switch(type)
 		if(SIGH)
 			audible_message(span_hear("[src] makes a sighing buzz."))
@@ -358,7 +358,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/bot/mulebot, buzz)(type)
 	load(AM)
 
 // called to load a crate
-TYPE_PROC_REF(/mob/living/simple_animal/bot/mulebot, load)(atom/movable/AM)
+/mob/living/simple_animal/bot/mulebot/proc/load(atom/movable/AM)
 	if(load ||  AM.anchored)
 		return
 
@@ -392,7 +392,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/bot/mulebot, load)(atom/movable/AM)
 	mode = BOT_IDLE
 	update_icon()
 
-TYPE_PROC_REF(/mob/living/simple_animal/bot/mulebot, load_mob)(mob/living/M)
+/mob/living/simple_animal/bot/mulebot/proc/load_mob(mob/living/M)
 	can_buckle = TRUE
 	if(buckle_mob(M))
 		passenger = M
@@ -414,7 +414,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/bot/mulebot, load_mob)(mob/living/M)
 // called to unload the bot
 // argument is optional direction to unload
 // if zero, unload at bot's location
-TYPE_PROC_REF(/mob/living/simple_animal/bot/mulebot, unload)(dirn)
+/mob/living/simple_animal/bot/mulebot/proc/unload(dirn)
 	if(!load)
 		return
 
@@ -478,7 +478,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/bot/mulebot, unload)(dirn)
 				var/process_timer = addtimer(CALLBACK(src, PROC_REF(process_bot)), 2, TIMER_LOOP|TIMER_STOPPABLE)
 				addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(deltimer), process_timer), (num_steps*2) + 1)
 
-TYPE_PROC_REF(/mob/living/simple_animal/bot/mulebot, process_bot)()
+/mob/living/simple_animal/bot/mulebot/proc/process_bot()
 	if(!on || client)
 		return
 	update_icon()
@@ -556,13 +556,13 @@ TYPE_PROC_REF(/mob/living/simple_animal/bot/mulebot, process_bot)()
 			mode = BOT_WAIT_FOR_NAV
 			INVOKE_ASYNC(src, PROC_REF(process_nav))
 
-TYPE_PROC_REF(/mob/living/simple_animal/bot/mulebot, process_blocked)(turf/next)
+/mob/living/simple_animal/bot/mulebot/proc/process_blocked(turf/next)
 	calc_path(avoid=next)
 	if(path.len > 0)
 		buzz(DELIGHT)
 	mode = BOT_BLOCKED
 
-TYPE_PROC_REF(/mob/living/simple_animal/bot/mulebot, process_nav)()
+/mob/living/simple_animal/bot/mulebot/proc/process_nav()
 	calc_path()
 
 	if(path.len > 0)
@@ -578,17 +578,17 @@ TYPE_PROC_REF(/mob/living/simple_animal/bot/mulebot, process_nav)()
 // calculates a path to the current destination
 // given an optional turf to avoid
 /mob/living/simple_animal/bot/mulebot/calc_path(turf/avoid = null)
-	path = get_path_to(src, target, TYPE_PROC_REF(/turf, Distance_cardinal), 0, 250, id=access_card, exclude=avoid)
+	path = get_path_to(src, target, /turf/proc/Distance_cardinal, 0, 250, id=access_card, exclude=avoid)
 
 // sets the current destination
 // signals all beacons matching the delivery code
 // beacons will return a signal giving their locations
-TYPE_PROC_REF(/mob/living/simple_animal/bot/mulebot, set_destination)(new_dest)
+/mob/living/simple_animal/bot/mulebot/proc/set_destination(new_dest)
 	new_destination = new_dest
 	get_nav()
 
 // starts bot moving to current destination
-TYPE_PROC_REF(/mob/living/simple_animal/bot/mulebot, start)()
+/mob/living/simple_animal/bot/mulebot/proc/start()
 	if(!on)
 		return
 	if(destination == home_destination)
@@ -600,18 +600,18 @@ TYPE_PROC_REF(/mob/living/simple_animal/bot/mulebot, start)()
 
 // starts bot moving to home
 // sends a beacon query to find
-TYPE_PROC_REF(/mob/living/simple_animal/bot/mulebot, start_home)()
+/mob/living/simple_animal/bot/mulebot/proc/start_home()
 	if(!on)
 		return
 	INVOKE_ASYNC(src, PROC_REF(do_start_home))
 	update_icon()
 
-TYPE_PROC_REF(/mob/living/simple_animal/bot/mulebot, do_start_home)()
+/mob/living/simple_animal/bot/mulebot/proc/do_start_home()
 	set_destination(home_destination)
 	mode = BOT_BLOCKED
 
 // called when bot reaches current target
-TYPE_PROC_REF(/mob/living/simple_animal/bot/mulebot, at_target)()
+/mob/living/simple_animal/bot/mulebot/proc/at_target()
 	if(!reached_target)
 		radio_channel = RADIO_CHANNEL_SUPPLY //Supply channel
 		audible_message(span_hear("[src] makes a chiming sound!"))
@@ -670,9 +670,9 @@ TYPE_PROC_REF(/mob/living/simple_animal/bot/mulebot, at_target)()
 					L.DefaultCombatKnockdown(160)
 	return ..()
 
-// called from TYPE_PROC_REF(mob/living/carbon/human, on_entered)()
+// called from mob/living/carbon/human/proc/on_entered()
 // when mulebot is in the same loc
-TYPE_PROC_REF(/mob/living/simple_animal/bot/mulebot, RunOver)(mob/living/carbon/human/H)
+/mob/living/simple_animal/bot/mulebot/proc/RunOver(mob/living/carbon/human/H)
 	log_combat(src, H, "run over", null, "(DAMTYPE: [uppertext(BRUTE)])")
 	H.visible_message(span_danger("[src] drives over [H]!"), \
 					span_userdanger("[src] drives over you!"))
@@ -702,7 +702,7 @@ TYPE_PROC_REF(/mob/living/simple_animal/bot/mulebot, RunOver)(mob/living/carbon/
 
 
 //Update navigation data. Called when commanded to deliver, return home, or a route update is needed...
-TYPE_PROC_REF(/mob/living/simple_animal/bot/mulebot, get_nav)()
+/mob/living/simple_animal/bot/mulebot/proc/get_nav()
 	if(!on || wires.is_cut(WIRE_BEACON))
 		return
 

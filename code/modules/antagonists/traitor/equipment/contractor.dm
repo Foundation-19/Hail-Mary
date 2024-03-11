@@ -33,12 +33,12 @@
 	var/contract_TC_payed_out = 0 // Keeping track for roundend reporting
 	var/contract_TC_to_redeem = 0 // Used internally and roundend reporting - what TC we have available to cashout.
 
-TYPE_PROC_REF(/datum/contractor_hub, create_hub_items)()
+/datum/contractor_hub/proc/create_hub_items()
 	for(var/path in contractor_items)
 		var/datum/contractor_item/contractor_item = new path
 		hub_items.Add(contractor_item)
 
-TYPE_PROC_REF(/datum/contractor_hub, create_contracts)(datum/mind/owner)
+/datum/contractor_hub/proc/create_contracts(datum/mind/owner)
 	// 6 initial contracts
 	var/list/to_generate = list(
 		CONTRACT_PAYOUT_LARGE,
@@ -181,7 +181,7 @@ TYPE_PROC_REF(/datum/contractor_hub, create_contracts)(datum/mind/owner)
 	// pre-light their cig
 	cig.light()
 
-TYPE_PROC_REF(/datum/contractor_item/contractor_partner, spawn_contractor_partner)(mob/living/user, key)
+/datum/contractor_item/contractor_partner/proc/spawn_contractor_partner(mob/living/user, key)
 	var/mob/living/carbon/human/partner = new()
 	var/datum/outfit/contractor_partner/partner_outfit = new()
 
@@ -219,7 +219,7 @@ TYPE_PROC_REF(/datum/contractor_item/contractor_partner, spawn_contractor_partne
 		priority_announce("Abnormal activity detected in [station_name()]'s powernet. As a precautionary measure, the station's power will be shut off for an indeterminate duration.", "Critical Power Failure", "poweroff.ogg")
 
 // Subtract cost, and spawn if it's an item.
-TYPE_PROC_REF(/datum/contractor_item, handle_purchase)(datum/contractor_hub/hub, mob/living/user)
+/datum/contractor_item/proc/handle_purchase(datum/contractor_hub/hub, mob/living/user)
 	if (hub.contract_rep >= cost)
 		hub.contract_rep -= cost
 	else

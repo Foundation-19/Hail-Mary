@@ -24,7 +24,7 @@
 	nullifyAllNodes()
 	return ..()
 
-TYPE_PROC_REF(/obj/machinery/atmospherics/pipe/layer_manifold, nullifyAllNodes)()
+/obj/machinery/atmospherics/pipe/layer_manifold/proc/nullifyAllNodes()
 	var/list/obj/machinery/atmospherics/needs_nullifying = get_all_connected_nodes()
 	front_nodes = null
 	back_nodes = null
@@ -33,7 +33,7 @@ TYPE_PROC_REF(/obj/machinery/atmospherics/pipe/layer_manifold, nullifyAllNodes)(
 		A.disconnect(src)
 		SSair.add_to_rebuild_queue(A)
 
-TYPE_PROC_REF(/obj/machinery/atmospherics/pipe/layer_manifold, get_all_connected_nodes)()
+/obj/machinery/atmospherics/pipe/layer_manifold/proc/get_all_connected_nodes()
 	return front_nodes + back_nodes + nodes
 
 /obj/machinery/atmospherics/pipe/layer_manifold/update_icon()	//HEAVILY WIP FOR UPDATE ICONS!!
@@ -47,7 +47,7 @@ TYPE_PROC_REF(/obj/machinery/atmospherics/pipe/layer_manifold, get_all_connected
 
 	update_alpha()
 
-TYPE_PROC_REF(/obj/machinery/atmospherics/pipe/layer_manifold, add_attached_images)(obj/machinery/atmospherics/A)
+/obj/machinery/atmospherics/pipe/layer_manifold/proc/add_attached_images(obj/machinery/atmospherics/A)
 	if(!A)
 		return
 	if(istype(A, /obj/machinery/atmospherics/pipe/layer_manifold))
@@ -56,7 +56,7 @@ TYPE_PROC_REF(/obj/machinery/atmospherics/pipe/layer_manifold, add_attached_imag
 			return
 	add_attached_image(get_dir(src, A), A.piping_layer, A.pipe_color)
 
-TYPE_PROC_REF(/obj/machinery/atmospherics/pipe/layer_manifold, add_attached_image)(p_dir, p_layer, p_color = null)
+/obj/machinery/atmospherics/pipe/layer_manifold/proc/add_attached_image(p_dir, p_layer, p_color = null)
 	var/image/I
 
 	if(p_color)
@@ -80,7 +80,7 @@ TYPE_PROC_REF(/obj/machinery/atmospherics/pipe/layer_manifold, add_attached_imag
 		return TRUE
 	. = ..()
 
-TYPE_PROC_REF(/obj/machinery/atmospherics/pipe/layer_manifold, findAllConnections)()
+/obj/machinery/atmospherics/pipe/layer_manifold/proc/findAllConnections()
 	front_nodes = list()
 	back_nodes = list()
 	var/list/new_nodes = list()

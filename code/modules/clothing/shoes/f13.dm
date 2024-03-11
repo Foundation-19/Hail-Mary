@@ -206,7 +206,7 @@
 /obj/item/clothing/shoes/f13/military/khan/ui_action_click()
 	boot_toggle()
 
-TYPE_PROC_REF(/obj/item/clothing/shoes/f13/military/khan, boot_toggle)()
+/obj/item/clothing/shoes/f13/military/khan/proc/boot_toggle()
 	set src in usr
 
 	if(!can_use(usr))

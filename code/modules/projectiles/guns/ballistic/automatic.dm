@@ -71,7 +71,7 @@
 	return get_ammo()
 
 /*
-TYPE_PROC_REF(/obj/item/gun/ballistic/automatic, empty_alarm)()
+/obj/item/gun/ballistic/automatic/proc/empty_alarm()
 	if(!chambered && !get_ammo() && !alarmed)
 		playsound(src.loc, 'sound/weapons/smg_empty_alarm.ogg', 40, 1)
 		update_icon()
@@ -671,7 +671,7 @@ TYPE_PROC_REF(/obj/item/gun/ballistic/automatic, empty_alarm)()
 /obj/item/gun/ballistic/automatic/smg/sidewinder/update_icon_state()
 	icon_state = "[initial(icon_state)][magazine ? "-[current_caliber]" : ""][chambered ? "" : "-e"]"
 
-TYPE_PROC_REF(/obj/item/gun/ballistic/automatic/smg/sidewinder, change_ammo)(mob/user)
+/obj/item/gun/ballistic/automatic/smg/sidewinder/proc/change_ammo(mob/user)
 	if(user)
 		if(magazine)
 			user.show_message(span_alert("[src] needs to be completely unloaded before working the TwistForm mechanism!"))
@@ -683,7 +683,7 @@ TYPE_PROC_REF(/obj/item/gun/ballistic/automatic/smg/sidewinder, change_ammo)(mob
 	allowed_mags = list()
 	change_the_ammo(user)
 
-TYPE_PROC_REF(/obj/item/gun/ballistic/automatic/smg/sidewinder, change_the_ammo)(mob/user)
+/obj/item/gun/ballistic/automatic/smg/sidewinder/proc/change_the_ammo(mob/user)
 	var/message2self = "You wrench the upper receiver of [src] out of its socket and give it one full turn."
 	var/message2everyone = "[user] spins [user.p_their()] their gun around. It makes a wierd click."
 	switch(current_caliber)
@@ -886,7 +886,7 @@ TYPE_PROC_REF(/obj/item/gun/ballistic/automatic/smg/sidewinder, change_the_ammo)
 	. += "<br><span class='notice'>The stock is [stock ? "open" : "folded"].</span>"
 	. += "<br><span class='notice'>Alt-click to toggle the stock.</span>"
 
-TYPE_PROC_REF(/obj/item/gun/ballistic/automatic/m1carbine/compact, toggle_stock)(mob/living/user)
+/obj/item/gun/ballistic/automatic/m1carbine/compact/proc/toggle_stock(mob/living/user)
 	stock = !stock
 	if(stock)
 		w_class = WEIGHT_CLASS_BULKY
@@ -1271,7 +1271,7 @@ TYPE_PROC_REF(/obj/item/gun/ballistic/automatic/m1carbine/compact, toggle_stock)
 	fire_sound = 'sound/f13weapons/ServiceRifle.ogg'
 
 /// Silly proc that makes a click
-TYPE_PROC_REF(/obj/item/gun/ballistic/automatic/varmint/bushmaster_arm_gun, rotate_the_stupid_gun)(mob/user)
+/obj/item/gun/ballistic/automatic/varmint/bushmaster_arm_gun/proc/rotate_the_stupid_gun(mob/user)
 	if(user)
 		if(turnt)
 			user.visible_message(

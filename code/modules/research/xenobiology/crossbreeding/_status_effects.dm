@@ -75,7 +75,7 @@
 	owner.add_overlay(bluespace)
 	return ..()
 
-TYPE_PROC_REF(/datum/status_effect/slimerecall, resistField)()
+/datum/status_effect/slimerecall/proc/resistField()
 	interrupted = TRUE
 	owner.remove_status_effect(src)
 
@@ -112,7 +112,7 @@ TYPE_PROC_REF(/datum/status_effect/slimerecall, resistField)()
 	if(!cube || owner.loc != cube)
 		owner.remove_status_effect(src)
 
-TYPE_PROC_REF(/datum/status_effect/frozenstasis, breakCube)()
+/datum/status_effect/frozenstasis/proc/breakCube()
 	owner.remove_status_effect(src)
 
 /datum/status_effect/frozenstasis/on_remove()

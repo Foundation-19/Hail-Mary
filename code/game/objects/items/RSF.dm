@@ -100,7 +100,7 @@ RSF
 			new /obj/item/clothing/mask/cigarette(T)
 			use_matter(10, user)
 
-TYPE_PROC_REF(/obj/item/rsf, use_matter)(charge, mob/user)
+/obj/item/rsf/proc/use_matter(charge, mob/user)
 	if (iscyborg(user))
 		var/mob/living/silicon/robot/R = user
 		R.cell.charge -= charge

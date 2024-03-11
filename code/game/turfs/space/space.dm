@@ -87,7 +87,7 @@
 	return null
 
 
-TYPE_PROC_REF(/turf/open/space, update_starlight)()
+/turf/open/space/proc/update_starlight()
 	if(CONFIG_GET(flag/starlight))
 		for(var/t in RANGE_TURFS(1,src)) //RANGE_TURFS is in code\__HELPERS\game.dm
 			if(isspaceturf(t))
@@ -100,7 +100,7 @@ TYPE_PROC_REF(/turf/open/space, update_starlight)()
 /turf/open/space/attack_paw(mob/user)
 	return attack_hand(user)
 */
-TYPE_PROC_REF(/turf/open/space, CanBuildHere)()
+/turf/open/space/proc/CanBuildHere()
 	return TRUE
 /*
 /turf/open/space/handle_slip(mob/living/carbon/C, knockdown_amount, obj/O, lube)
@@ -294,7 +294,7 @@ TYPE_PROC_REF(/turf/open/space, CanBuildHere)()
 	update_multiz()
 
 ///Called when there is no real turf below this turf
-TYPE_PROC_REF(/turf/open/space/transparent, show_bottom_level)()
+/turf/open/space/transparent/proc/show_bottom_level()
 	var/turf/path = get_z_base_turf()
 	var/mutable_appearance/underlay_appearance = mutable_appearance(initial(path.icon), initial(path.icon_state), layer = TURF_LAYER, plane = PLANE_SPACE)
 	underlays += underlay_appearance

@@ -101,7 +101,7 @@
 	var/whitelist_path
 
 
-TYPE_PROC_REF(/datum/job, after_spawn)(mob/living/spawner, mob/client_holder, latejoin = FALSE)
+/datum/job/proc/after_spawn(mob/living/spawner, mob/client_holder, latejoin = FALSE)
 	SHOULD_CALL_PARENT(TRUE)
 
 	for(var/trait in mind_traits)
@@ -125,29 +125,29 @@ TYPE_PROC_REF(/datum/job, after_spawn)(mob/living/spawner, mob/client_holder, la
 
 
 
-TYPE_PROC_REF(/datum/job, announce)(mob/living/carbon/human/H)
+/datum/job/proc/announce(mob/living/carbon/human/H)
 	if(head_announce)
 		announce_head(H, head_announce)
 
-TYPE_PROC_REF(/datum/job, override_latejoin_spawn)(mob/living/carbon/human/H)		//Return TRUE to force latejoining to not automatically place the person in latejoin shuttle/whatever.
+/datum/job/proc/override_latejoin_spawn(mob/living/carbon/human/H)		//Return TRUE to force latejoining to not automatically place the person in latejoin shuttle/whatever.
 	return FALSE
 
 //Used for a special check of whether to allow a client to latejoin as this job.
-TYPE_PROC_REF(/datum/job, special_check_latejoin)(client/C)
+/datum/job/proc/special_check_latejoin(client/C)
 	return TRUE
 
-TYPE_PROC_REF(/datum/job, GetAntagRep)()
+/datum/job/proc/GetAntagRep()
 	. = CONFIG_GET(keyed_list/antag_rep)[lowertext(title)]
 	if(. == null)
 		return antag_rep
 
-TYPE_PROC_REF(/datum/job, GetThreat)()
+/datum/job/proc/GetThreat()
 	. = CONFIG_GET(keyed_list/job_threat)[lowertext(title)]
 	if(. == null)
 		return threat
 
 //Don't override this unless the job transforms into a non-human (Silicons do this for example)
-TYPE_PROC_REF(/datum/job, equip)(mob/living/carbon/human/H, visualsOnly = FALSE, announce = TRUE, latejoin = FALSE, datum/outfit/outfit_override = null, client/preference_source)
+/datum/job/proc/equip(mob/living/carbon/human/H, visualsOnly = FALSE, announce = TRUE, latejoin = FALSE, datum/outfit/outfit_override = null, client/preference_source)
 	if(!H)
 		return FALSE
 	if(!visualsOnly)
@@ -193,7 +193,7 @@ TYPE_PROC_REF(/datum/job, equip)(mob/living/carbon/human/H, visualsOnly = FALSE,
 	if(social_faction)
 		H.social_faction = social_faction
 
-TYPE_PROC_REF(/datum/job, get_access)()
+/datum/job/proc/get_access()
 	if(!config)	//Needed for robots.
 		return src.minimal_access.Copy()
 
@@ -207,18 +207,18 @@ TYPE_PROC_REF(/datum/job, get_access)()
 	if(CONFIG_GET(flag/everyone_has_maint_access)) //Config has global maint access set
 		. |= list(ACCESS_MAINT_TUNNELS)
 
-TYPE_PROC_REF(/datum/job, announce_head)(mob/living/carbon/human/H, channels) //tells the given channel that the given mob is the new department head. See communications.dm for valid channels.
+/datum/job/proc/announce_head(mob/living/carbon/human/H, channels) //tells the given channel that the given mob is the new department head. See communications.dm for valid channels.
 	if(H && GLOB.announcement_systems.len)
 		//timer because these should come after the captain announcement
-		SSticker.OnRoundstart(CALLBACK(GLOBAL_PROC, PROC_REF(_addtimer), CALLBACK(pick(GLOB.announcement_systems), TYPE_PROC_REF(/obj/machinery/announcement_system, announce), "NEWHEAD", H.real_name, H.job, channels), 1))
+		SSticker.OnRoundstart(CALLBACK(GLOBAL_PROC, PROC_REF(_addtimer), CALLBACK(pick(GLOB.announcement_systems), /obj/machinery/announcement_system/proc/announce, "NEWHEAD", H.real_name, H.job, channels), 1))
 
 //If the configuration option is set to require players to be logged as old enough to play certain jobs, then this proc checks that they are, otherwise it just returns 1
-TYPE_PROC_REF(/datum/job, player_old_enough)(client/C)
+/datum/job/proc/player_old_enough(client/C)
 	if(available_in_days(C) == 0)
 		return TRUE	//Available in 0 days = available right now = player is old enough to play.
 	return FALSE
 
-TYPE_PROC_REF(/datum/job, available_in_days)(client/C)
+/datum/job/proc/available_in_days(client/C)
 	if(!C)
 		return 0
 	if(!CONFIG_GET(flag/use_age_restriction_for_jobs))
@@ -232,16 +232,16 @@ TYPE_PROC_REF(/datum/job, available_in_days)(client/C)
 
 	return max(0, minimal_player_age - C.player_age)
 
-TYPE_PROC_REF(/datum/job, config_check)()
+/datum/job/proc/config_check()
 	return TRUE
 
-TYPE_PROC_REF(/datum/job, map_check)()
+/datum/job/proc/map_check()
 	return TRUE
 
-TYPE_PROC_REF(/datum/job, radio_help_message)(mob/M)
+/datum/job/proc/radio_help_message(mob/M)
 	to_chat(M, "<b>Prefix your message with :h to speak on your department's radio. To see other prefixes, look closely at your headset.</b>")
 
-TYPE_PROC_REF(/datum/job, standard_assign_skills)(datum/mind/M)
+/datum/job/proc/standard_assign_skills(datum/mind/M)
 	if(!starting_modifiers)
 		return
 	for(var/mod in starting_modifiers)
@@ -379,7 +379,7 @@ TYPE_PROC_REF(/datum/job, standard_assign_skills)(datum/mind/M)
 	return types
 
 //Warden and regular officers add this result to their get_access()
-TYPE_PROC_REF(/datum/job, check_config_for_sec_maint)()
+/datum/job/proc/check_config_for_sec_maint()
 	if(CONFIG_GET(flag/security_has_maint_access))
 		return list(ACCESS_MAINT_TUNNELS)
 	return list()

@@ -83,7 +83,7 @@
 		remove_wound()
 
 /// If we're a human who's punching something with a broken arm, we might hurt ourselves doing so
-TYPE_PROC_REF(/datum/wound/blunt, attack_with_hurt_hand)(mob/M, atom/target, proximity)
+/datum/wound/blunt/proc/attack_with_hurt_hand(mob/M, atom/target, proximity)
 	if(victim.get_active_hand() != limb || victim.a_intent == INTENT_HELP || !ismob(target) || severity <= WOUND_SEVERITY_MODERATE)
 		return
 
@@ -162,7 +162,7 @@ TYPE_PROC_REF(/datum/wound/blunt, attack_with_hurt_hand)(mob/M, atom/target, pro
 	New common procs for /datum/wound/blunt/
 */
 
-TYPE_PROC_REF(/datum/wound/blunt, update_inefficiencies)()
+/datum/wound/blunt/proc/update_inefficiencies()
 	if(limb.body_zone in list(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG))
 		if(limb.current_gauze)
 			limp_slowdown = initial(limp_slowdown) * limb.current_gauze.splint_factor
@@ -224,7 +224,7 @@ TYPE_PROC_REF(/datum/wound/blunt, update_inefficiencies)()
 		return TRUE
 
 /// If someone is snapping our dislocated joint back into place by hand with an aggro grab and help intent
-TYPE_PROC_REF(/datum/wound/blunt/moderate, chiropractice)(mob/living/carbon/human/user)
+/datum/wound/blunt/moderate/proc/chiropractice(mob/living/carbon/human/user)
 	var/time = base_treat_time
 
 	if(!do_after(user, time, target=victim, extra_checks = CALLBACK(src, PROC_REF(still_exists))))
@@ -243,7 +243,7 @@ TYPE_PROC_REF(/datum/wound/blunt/moderate, chiropractice)(mob/living/carbon/huma
 		chiropractice(user)
 
 /// If someone is snapping our dislocated joint into a fracture by hand with an aggro grab and harm or disarm intent
-TYPE_PROC_REF(/datum/wound/blunt/moderate, malpractice)(mob/living/carbon/human/user)
+/datum/wound/blunt/moderate/proc/malpractice(mob/living/carbon/human/user)
 	var/time = base_treat_time
 
 	if(!do_after(user, time, target=victim, extra_checks = CALLBACK(src, PROC_REF(still_exists))))
@@ -335,7 +335,7 @@ TYPE_PROC_REF(/datum/wound/blunt/moderate, malpractice)(mob/living/carbon/human/
 	. = ..()
 
 /// if someone is using bone gel on our wound
-TYPE_PROC_REF(/datum/wound/blunt, gel)(obj/item/stack/medical/bone_gel/I, mob/user)
+/datum/wound/blunt/proc/gel(obj/item/stack/medical/bone_gel/I, mob/user)
 	if(gelled)
 		to_chat(user, span_warning("[user == victim ? "Your" : "[victim]'s"] [limb.name] is already coated with bone gel!"))
 		return
@@ -370,7 +370,7 @@ TYPE_PROC_REF(/datum/wound/blunt, gel)(obj/item/stack/medical/bone_gel/I, mob/us
 		gelled = TRUE
 
 /// if someone is using surgical tape on our wound
-TYPE_PROC_REF(/datum/wound/blunt, tape)(obj/item/stack/sticky_tape/surgical/I, mob/user)
+/datum/wound/blunt/proc/tape(obj/item/stack/sticky_tape/surgical/I, mob/user)
 	if(!gelled)
 		to_chat(user, span_warning("[user == victim ? "Your" : "[victim]'s"] [limb.name] must be coated with bone gel to perform this emergency operation!"))
 		return

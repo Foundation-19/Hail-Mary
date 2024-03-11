@@ -73,7 +73,7 @@
 		addtimer(CALLBACK(src, PROC_REF(regrow)),timer) //Set up the timer properly
 	update_icon()
 
-TYPE_PROC_REF(/obj/structure/flora/wasteplant, regrow)()
+/obj/structure/flora/wasteplant/proc/regrow()
 	if(!QDELETED(src))
 		has_plod = TRUE
 		update_icon()

@@ -117,7 +117,7 @@ GLOBAL_LIST_INIT(available_ui_styles, list(
 	return ..()
 
 
-TYPE_PROC_REF(/mob, create_mob_hud)()
+/mob/proc/create_mob_hud()
 	if(!client || hud_used)
 		return
 	hud_used = new hud_type(src)
@@ -125,7 +125,7 @@ TYPE_PROC_REF(/mob, create_mob_hud)()
 	SEND_SIGNAL(src, COMSIG_MOB_HUD_CREATED)
 
 //Version denotes which style should be displayed. blank or 0 means "next version"
-TYPE_PROC_REF(/datum/hud, show_hud)(version = 0, mob/viewmob)
+/datum/hud/proc/show_hud(version = 0, mob/viewmob)
 	if(!ismob(mymob))
 		return FALSE
 	var/mob/screenmob = viewmob || mymob
@@ -206,7 +206,7 @@ TYPE_PROC_REF(/datum/hud, show_hud)(version = 0, mob/viewmob)
 
 	return TRUE
 
-TYPE_PROC_REF(/datum/hud, plane_masters_update)()
+/datum/hud/proc/plane_masters_update()
 	// Plane masters are always shown to OUR mob, never to observers
 	for(var/thing in plane_masters)
 		var/obj/screen/plane_master/PM = plane_masters[thing]
@@ -226,14 +226,14 @@ TYPE_PROC_REF(/datum/hud, plane_masters_update)()
 		return
 	update_robot_modules_display()
 
-TYPE_PROC_REF(/datum/hud, hidden_inventory_update)()
+/datum/hud/proc/hidden_inventory_update()
 	return
 
-TYPE_PROC_REF(/datum/hud, persistent_inventory_update)(mob/viewer)
+/datum/hud/proc/persistent_inventory_update(mob/viewer)
 	if(!mymob)
 		return
 
-TYPE_PROC_REF(/datum/hud, update_ui_style)(new_ui_style)
+/datum/hud/proc/update_ui_style(new_ui_style)
 	// do nothing if overridden by a subtype or already on that style
 	if (initial(ui_style) || ui_style == new_ui_style)
 		return
@@ -261,7 +261,7 @@ TYPE_PROC_REF(/datum/hud, update_ui_style)(new_ui_style)
 //(re)builds the hand ui slots, throwing away old ones
 //not really worth jugglying existing ones so we just scrap+rebuild
 //9/10 this is only called once per mob and only for 2 hands
-TYPE_PROC_REF(/datum/hud, build_hand_slots)()
+/datum/hud/proc/build_hand_slots()
 	for(var/h in hand_slots)
 		var/obj/screen/inventory/hand/H = hand_slots[h]
 		if(H)
@@ -290,5 +290,5 @@ TYPE_PROC_REF(/datum/hud, build_hand_slots)()
 	if(ismob(mymob) && mymob.hud_used == src)
 		show_hud(hud_version)
 
-TYPE_PROC_REF(/datum/hud, update_locked_slots)()
+/datum/hud/proc/update_locked_slots()
 	return

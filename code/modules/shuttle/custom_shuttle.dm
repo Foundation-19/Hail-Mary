@@ -85,14 +85,14 @@
 	if(M.launch_status == ENDGAME_LAUNCHED)
 		return
 
-TYPE_PROC_REF(/obj/machinery/computer/custom_shuttle, calculateDistance)(obj/docking_port/stationary/port)
+/obj/machinery/computer/custom_shuttle/proc/calculateDistance(obj/docking_port/stationary/port)
 	var/deltaX = port.x - x
 	var/deltaY = port.y - y
 	var/deltaZ = (port.z - z) * Z_DIST
 	return sqrt(deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ) * distance_multiplier
 
 
-TYPE_PROC_REF(/obj/machinery/computer/custom_shuttle, calculateStats)(useFuel = FALSE, dist = 0, ignore_cooldown = FALSE)
+/obj/machinery/computer/custom_shuttle/proc/calculateStats(useFuel = FALSE, dist = 0, ignore_cooldown = FALSE)
 	if(!ignore_cooldown && stat_calc_cooldown >= world.time)
 		to_chat(usr, "<span>You are using this too fast, please slow down</span>")
 		return
@@ -133,7 +133,7 @@ TYPE_PROC_REF(/obj/machinery/computer/custom_shuttle, calculateStats)(useFuel = 
 	calculated_speed = (calculated_dforce*1000) / (calculated_mass*100)
 	return TRUE
 
-TYPE_PROC_REF(/obj/machinery/computer/custom_shuttle, consumeFuel)(dist)
+/obj/machinery/computer/custom_shuttle/proc/consumeFuel(dist)
 	var/obj/docking_port/mobile/M = SSshuttle.getShuttle(shuttleId)
 	if(!M)
 		return FALSE
@@ -151,7 +151,7 @@ TYPE_PROC_REF(/obj/machinery/computer/custom_shuttle, consumeFuel)(dist)
 			resolvedHeater?.consumeFuel(dist * shuttle_machine.fuel_use)
 		shuttle_machine.fireEngine()
 
-TYPE_PROC_REF(/obj/machinery/computer/custom_shuttle, Fly)()
+/obj/machinery/computer/custom_shuttle/proc/Fly()
 	if(!targetLocation)
 		return
 	var/obj/docking_port/mobile/linkedShuttle = SSshuttle.getShuttle(shuttleId)
@@ -220,6 +220,6 @@ TYPE_PROC_REF(/obj/machinery/computer/custom_shuttle, Fly)()
 		return
 	return ..()
 
-TYPE_PROC_REF(/obj/machinery/computer/camera_advanced/shuttle_docker/custom, linkShuttle)(new_id)
+/obj/machinery/computer/camera_advanced/shuttle_docker/custom/proc/linkShuttle(new_id)
 	shuttleId = new_id
 	shuttlePortId = "shuttle[new_id]_custom"

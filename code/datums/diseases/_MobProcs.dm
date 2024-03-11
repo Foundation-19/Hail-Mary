@@ -1,5 +1,5 @@
 
-TYPE_PROC_REF(/mob/living, HasDisease)(datum/disease/D)
+/mob/living/proc/HasDisease(datum/disease/D)
 	for(var/thing in diseases)
 		var/datum/disease/DD = thing
 		if(D.IsSame(DD))
@@ -7,7 +7,7 @@ TYPE_PROC_REF(/mob/living, HasDisease)(datum/disease/D)
 	return FALSE
 
 
-TYPE_PROC_REF(/mob/living, CanContractDisease)(datum/disease/D)
+/mob/living/proc/CanContractDisease(datum/disease/D)
 	if(stat == DEAD)
 		return FALSE
 
@@ -27,7 +27,7 @@ TYPE_PROC_REF(/mob/living, CanContractDisease)(datum/disease/D)
 	return TRUE
 
 
-TYPE_PROC_REF(/mob/living, ContactContractDisease)(datum/disease/D)
+/mob/living/proc/ContactContractDisease(datum/disease/D)
 	if(!CanContractDisease(D))
 		return FALSE
 	D.try_infect(src)
@@ -106,7 +106,7 @@ TYPE_PROC_REF(/mob/living, ContactContractDisease)(datum/disease/D)
 	if(passed)
 		D.try_infect(src)
 
-TYPE_PROC_REF(/mob/living, AirborneContractDisease)(datum/disease/D, force_spread)
+/mob/living/proc/AirborneContractDisease(datum/disease/D, force_spread)
 	if( ((D.spread_flags & DISEASE_SPREAD_AIRBORNE) || force_spread) && prob((50*D.permeability_mod) - 1))
 		ForceContractDisease(D)
 
@@ -119,7 +119,7 @@ TYPE_PROC_REF(/mob/living, AirborneContractDisease)(datum/disease/D, force_sprea
 
 
 //Proc to use when you 100% want to try to infect someone (ignoreing protective clothing and such), as long as they aren't immune
-TYPE_PROC_REF(/mob/living, ForceContractDisease)(datum/disease/D, make_copy = TRUE, del_on_fail = FALSE)
+/mob/living/proc/ForceContractDisease(datum/disease/D, make_copy = TRUE, del_on_fail = FALSE)
 	if(!CanContractDisease(D))
 		if(del_on_fail)
 			qdel(D)
@@ -141,14 +141,14 @@ TYPE_PROC_REF(/mob/living, ForceContractDisease)(datum/disease/D, make_copy = TR
 			return FALSE
 	return ..()
 
-TYPE_PROC_REF(/mob/living, CanSpreadAirborneDisease)()
+/mob/living/proc/CanSpreadAirborneDisease()
 	return !is_mouth_covered()
 
 /mob/living/carbon/CanSpreadAirborneDisease()
 	return !((head && (head.flags_cover & HEADCOVERSMOUTH) && (head.armor.getRating("bio") >= 25)) || (wear_mask && (wear_mask.flags_cover & MASKCOVERSMOUTH) && (wear_mask.armor.getRating("bio") >= 25)))
 
-TYPE_PROC_REF(/mob/living, set_shocked)()
+/mob/living/proc/set_shocked()
 	flags_1 |= SHOCKED_1
 
-TYPE_PROC_REF(/mob/living, reset_shocked)()
+/mob/living/proc/reset_shocked()
 	flags_1 &= ~ SHOCKED_1

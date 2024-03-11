@@ -34,12 +34,12 @@
 	var/kit_icon
 	var/additional_data
 
-TYPE_PROC_REF(/datum/custom_item, spawn_item)(newloc)
+/datum/custom_item/proc/spawn_item(newloc)
 	var/obj/item/citem = new item_path(newloc)
 	apply_to_item(citem)
 	return citem
 
-TYPE_PROC_REF(/datum/custom_item, apply_to_item)(obj/item/item)
+/datum/custom_item/proc/apply_to_item(obj/item/item)
 	if(!item)
 		return
 	if(name)
@@ -92,7 +92,7 @@ TYPE_PROC_REF(/datum/custom_item, apply_to_item)(obj/item/item)
 
 
 
-TYPE_PROC_REF(/datum/custom_item, apply_inherit_inhands)(obj/item/item)
+/datum/custom_item/proc/apply_inherit_inhands(obj/item/item)
 	var/list/new_item_icons = list()
 	var/list/new_item_state_slots = list()
 */
@@ -112,7 +112,7 @@ TYPE_PROC_REF(/datum/custom_item, apply_inherit_inhands)(obj/item/item)
 	item.item_icons = new_item_icons
 
 //this has to mirror the way update_inv_*_hand() selects the state
-TYPE_PROC_REF(/datum/custom_item, get_state)(obj/item/item, slot_str, hand_str)
+/datum/custom_item/proc/get_state(obj/item/item, slot_str, hand_str)
 	var/t_state
 	if(item.item_state_slots && item.item_state_slots[slot_str])
 		t_state = item.item_state_slots[slot_str]
@@ -125,7 +125,7 @@ TYPE_PROC_REF(/datum/custom_item, get_state)(obj/item/item, slot_str, hand_str)
 	return t_state
 
 //this has to mirror the way update_inv_*_hand() selects the icon
-TYPE_PROC_REF(/datum/custom_item, get_icon)(obj/item/item, slot_str, icon/hand_icon)
+/datum/custom_item/proc/get_icon(obj/item/item, slot_str, icon/hand_icon)
 	var/icon/t_icon
 	if(item.icon_override)
 		t_icon = item.icon_override
@@ -136,7 +136,7 @@ TYPE_PROC_REF(/datum/custom_item, get_icon)(obj/item/item, slot_str, icon/hand_i
 	return t_icon
 */
 // Parses the config file into the custom_items list.
-TYPE_PROC_REF(/hook/startup, load_custom_items)()
+/hook/startup/proc/load_custom_items()
 
 	var/datum/custom_item/current_data
 	for(var/line in text2list(file2text("config/custom_items.txt"), "\n"))

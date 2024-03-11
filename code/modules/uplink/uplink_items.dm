@@ -75,15 +75,15 @@
 	var/restricted = FALSE // Adds restrictions for VR/Events
 	var/illegal_tech = TRUE // Can this item be deconstructed to unlock certain techweb research nodes?
 
-TYPE_PROC_REF(/datum/uplink_item, get_discount)()
+/datum/uplink_item/proc/get_discount()
 	return pick(4;0.75,2;0.5,1;0.25)
 
-TYPE_PROC_REF(/datum/uplink_item, purchase)(mob/user, datum/component/uplink/U)
+/datum/uplink_item/proc/purchase(mob/user, datum/component/uplink/U)
 	var/atom/A = spawn_item(item, user, U)
 	if(purchase_log_vis && U.purchase_log)
 		U.purchase_log.LogPurchase(A, src, cost)
 
-TYPE_PROC_REF(/datum/uplink_item, spawn_item)(spawn_path, mob/user, datum/component/uplink/U)
+/datum/uplink_item/proc/spawn_item(spawn_path, mob/user, datum/component/uplink/U)
 	if(!spawn_path)
 		return
 	var/atom/A

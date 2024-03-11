@@ -92,7 +92,7 @@
 		var/customsayverb = findtext(input, "*")
 		return lowertext(copytext_char(input, 1, customsayverb))
 
-TYPE_PROC_REF(/mob, whisper_keybind)()
+/mob/proc/whisper_keybind()
 	var/message = input(src, "", "whisper") as text|null
 	if(!length(message))
 		return
@@ -108,10 +108,10 @@ TYPE_PROC_REF(/mob, whisper_keybind)()
 		return
 	whisper(message)
 
-TYPE_PROC_REF(/mob, whisper)(message, datum/language/language=null)
+/mob/proc/whisper(message, datum/language/language=null)
 	say(message, language) //only living mobs actually whisper, everything else just talks
 
-TYPE_PROC_REF(/mob, say_dead)(message)
+/mob/proc/say_dead(message)
 	var/name = real_name
 	var/alt_name = ""
 
@@ -154,18 +154,18 @@ TYPE_PROC_REF(/mob, say_dead)(message)
 	log_talk(message, LOG_SAY, tag="DEAD")
 	deadchat_broadcast(rendered, follow_target = src, speaker_key = key)
 
-TYPE_PROC_REF(/mob, check_emote)(message, just_runechat = FALSE)
+/mob/proc/check_emote(message, just_runechat = FALSE)
 	if(message[1] == "*")
 		emote(copytext(message, length(message[1]) + 1), intentional = TRUE, only_overhead = just_runechat)
 		return TRUE
 
-TYPE_PROC_REF(/mob, hivecheck)()
+/mob/proc/hivecheck()
 	return 0
 
-TYPE_PROC_REF(/mob, lingcheck)()
+/mob/proc/lingcheck()
 	return LINGHIVE_NONE
 
-TYPE_PROC_REF(/mob, get_message_mode)(message)
+/mob/proc/get_message_mode(message)
 	var/key = message[1]
 	if(key == "#")
 		return MODE_WHISPER

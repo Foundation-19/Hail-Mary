@@ -1,4 +1,4 @@
-/// This test is used to make sure a flesh-and-bone base human can suffer all the types of wounds, and that suffering more severe wounds removes and replaces the lesser wound. Also tests that [TYPE_PROC_REF(/mob/living/carbon, fully_heal)] removes all wounds
+/// This test is used to make sure a flesh-and-bone base human can suffer all the types of wounds, and that suffering more severe wounds removes and replaces the lesser wound. Also tests that [/mob/living/carbon/proc/fully_heal] removes all wounds
 /datum/unit_test/test_human_base/Run()
 	var/mob/living/carbon/human/victim = allocate(/mob/living/carbon/human)
 

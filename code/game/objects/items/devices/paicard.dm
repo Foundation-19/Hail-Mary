@@ -118,14 +118,14 @@
 //		WIRE_RECEIVE = 2
 //		WIRE_TRANSMIT = 4
 
-TYPE_PROC_REF(/obj/item/paicard, setPersonality)(mob/living/silicon/pai/personality)
+/obj/item/paicard/proc/setPersonality(mob/living/silicon/pai/personality)
 	src.pai = personality
 	src.add_overlay("pai-null")
 
 	playsound(loc, 'sound/effects/pai_boot.ogg', 50, 1, -1)
 	audible_message("\The [src] plays a cheerful startup noise!")
 
-TYPE_PROC_REF(/obj/item/paicard, setEmotion)(emotion)
+/obj/item/paicard/proc/setEmotion(emotion)
 	if(pai)
 		src.cut_overlays()
 		switch(emotion)
@@ -156,7 +156,7 @@ TYPE_PROC_REF(/obj/item/paicard, setEmotion)(emotion)
 			if(13)
 				src.add_overlay("pai-sunglasses")
 
-TYPE_PROC_REF(/obj/item/paicard, alertUpdate)()
+/obj/item/paicard/proc/alertUpdate()
 	visible_message("<span class ='info'>[src] flashes a message across its screen, \"Additional personalities available for download.\"", span_notice("[src] bleeps electronically."))
 
 /obj/item/paicard/emp_act(severity)

@@ -4,10 +4,10 @@
 	w_class = WEIGHT_CLASS_TINY
 	var/used = FALSE
 
-TYPE_PROC_REF(/obj/item/antag_spawner, spawn_antag)(client/C, turf/T, kind = "", datum/mind/user)
+/obj/item/antag_spawner/proc/spawn_antag(client/C, turf/T, kind = "", datum/mind/user)
 	return
 
-TYPE_PROC_REF(/obj/item/antag_spawner, equip_antag)(mob/target)
+/obj/item/antag_spawner/proc/equip_antag(mob/target)
 	return
 
 
@@ -105,7 +105,7 @@ TYPE_PROC_REF(/obj/item/antag_spawner, equip_antag)(mob/target)
 	icon_state = "locator"
 	var/borg_to_spawn
 
-TYPE_PROC_REF(/obj/item/antag_spawner/nuke_ops, check_usability)(mob/user)
+/obj/item/antag_spawner/nuke_ops/proc/check_usability(mob/user)
 	if(used)
 		to_chat(user, span_warning("[src] is out of power!"))
 		return FALSE

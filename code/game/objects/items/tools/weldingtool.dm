@@ -104,7 +104,7 @@
 	. = ..()
 	update_icon()
 
-TYPE_PROC_REF(/obj/item/weldingtool, explode)()
+/obj/item/weldingtool/proc/explode()
 	var/turf/T = get_turf(loc)
 	var/plasmaAmount = reagents.get_reagent_amount(/datum/reagent/toxin/plasma)
 	dyn_explosion(T, plasmaAmount/5)//20 plasma in a standard welder has a 4 power explosion. no breaches, but enough to kill/dismember holder
@@ -166,7 +166,7 @@ TYPE_PROC_REF(/obj/item/weldingtool, explode)()
 
 	update_icon()
 
-/* TYPE_PROC_REF(/obj/item/weldingtool, empty_the_tool)(atom/O, mob/user)
+/* /obj/item/weldingtool/proc/empty_the_tool(atom/O, mob/user)
 	if(isOn())
 		return FALSE
 	if(!istype(O))
@@ -180,7 +180,7 @@ TYPE_PROC_REF(/obj/item/weldingtool, explode)()
 	to_chat(user, span_notice("You empty [src]'s fuel tank into [O]."))
 	update_icon()
 	return */
-/* TYPE_PROC_REF(/obj/item/weldingtool, try_healing)(mob/living/healtarget, mob/user, actually_heal)
+/* /obj/item/weldingtool/proc/try_healing(mob/living/healtarget, mob/user, actually_heal)
 	if(!isliving(healtarget))
 		return FALSE
 	if(!user)
@@ -220,7 +220,7 @@ TYPE_PROC_REF(/obj/item/weldingtool, explode)()
 	item_heal_robotic(healtarget, user, 15, 0)
 	return TRUE
  */
-TYPE_PROC_REF(/obj/item/weldingtool, refil_the_tool)(obj/O, mob/user)
+/obj/item/weldingtool/proc/refil_the_tool(obj/O, mob/user)
 	if(!istype(O))
 		return FALSE
 	if(isOn())
@@ -244,7 +244,7 @@ TYPE_PROC_REF(/obj/item/weldingtool, refil_the_tool)(obj/O, mob/user)
 	return TRUE
 
 // Returns the amount of fuel in the welder
-TYPE_PROC_REF(/obj/item/weldingtool, get_fuel)()
+/obj/item/weldingtool/proc/get_fuel()
 	return reagents.get_reagent_amount(/datum/reagent/fuel)
 
 
@@ -264,7 +264,7 @@ TYPE_PROC_REF(/obj/item/weldingtool, get_fuel)()
 
 
 //Turns off the welder if there is no more fuel (does this really need to be its own proc?)
-TYPE_PROC_REF(/obj/item/weldingtool, check_fuel)(mob/user)
+/obj/item/weldingtool/proc/check_fuel(mob/user)
 	if(get_fuel() <= 0 && welding)
 		switched_on(user)
 		update_icon()
@@ -272,7 +272,7 @@ TYPE_PROC_REF(/obj/item/weldingtool, check_fuel)(mob/user)
 	return 1
 
 //Switches the welder on
-TYPE_PROC_REF(/obj/item/weldingtool, switched_on)(mob/user)
+/obj/item/weldingtool/proc/switched_on(mob/user)
 	if(!status)
 		to_chat(user, span_warning("[src] can't be turned on while unsecured!"))
 		return
@@ -295,7 +295,7 @@ TYPE_PROC_REF(/obj/item/weldingtool, switched_on)(mob/user)
 		switched_off(user)
 
 //Switches the welder off
-TYPE_PROC_REF(/obj/item/weldingtool, switched_off)(mob/user)
+/obj/item/weldingtool/proc/switched_off(mob/user)
 	welding = 0
 	set_light_on(FALSE)
 
@@ -313,7 +313,7 @@ TYPE_PROC_REF(/obj/item/weldingtool, switched_off)(mob/user)
 	return welding * heat
 
 //Returns whether or not the welding tool is currently on.
-TYPE_PROC_REF(/obj/item/weldingtool, isOn)()
+/obj/item/weldingtool/proc/isOn()
 	return welding
 
 // When welding is about to start, run a normal tool_use_check, then flash a mob if it succeeds.
@@ -345,7 +345,7 @@ TYPE_PROC_REF(/obj/item/weldingtool, isOn)()
 		return FALSE
 
 
-TYPE_PROC_REF(/obj/item/weldingtool, flamethrower_screwdriver)(obj/item/I, mob/user)
+/obj/item/weldingtool/proc/flamethrower_screwdriver(obj/item/I, mob/user)
 	if(welding)
 		to_chat(user, span_warning("Turn it off first!"))
 		return
@@ -358,7 +358,7 @@ TYPE_PROC_REF(/obj/item/weldingtool, flamethrower_screwdriver)(obj/item/I, mob/u
 		ENABLE_BITFIELD(reagents.reagents_holder_flags, OPENCONTAINER)
 	add_fingerprint(user)
 /*
-TYPE_PROC_REF(/obj/item/weldingtool, flamethrower_rods)(obj/item/I, mob/user)
+/obj/item/weldingtool/proc/flamethrower_rods(obj/item/I, mob/user)
 	if(!status)
 		var/obj/item/stack/rods/R = I
 		if (R.use(1))

@@ -1,4 +1,4 @@
-TYPE_PROC_REF(/client, one_click_antag)()
+/client/proc/one_click_antag()
 	set name = "Create Antagonist"
 	set desc = "Auto-create an antagonist of your choice"
 	set category = "Admin.Events"
@@ -8,7 +8,7 @@ TYPE_PROC_REF(/client, one_click_antag)()
 	return
 
 
-TYPE_PROC_REF(/datum/admins, one_click_antag)()
+/datum/admins/proc/one_click_antag()
 
 	var/dat = {"
 		<a href='?src=[REF(src)];[HrefToken()];makeAntag=traitors'>Make Traitors</a><br>
@@ -28,7 +28,7 @@ TYPE_PROC_REF(/datum/admins, one_click_antag)()
 	popup.set_content(dat)
 	popup.open()
 
-TYPE_PROC_REF(/datum/admins, isReadytoRumble)(mob/living/carbon/human/applicant, targetrole, onstation = TRUE, conscious = TRUE)
+/datum/admins/proc/isReadytoRumble(mob/living/carbon/human/applicant, targetrole, onstation = TRUE, conscious = TRUE)
 	if(applicant.mind.special_role)
 		return FALSE
 	if(!(targetrole in applicant.client.prefs.be_special))
@@ -44,7 +44,7 @@ TYPE_PROC_REF(/datum/admins, isReadytoRumble)(mob/living/carbon/human/applicant,
 	return (!jobban_isbanned(applicant, targetrole) && !jobban_isbanned(applicant, ROLE_SYNDICATE))
 
 
-TYPE_PROC_REF(/datum/admins, makeTraitors)()
+/datum/admins/proc/makeTraitors()
 	var/datum/game_mode/traitor/temp = new
 
 	if(CONFIG_GET(flag/protect_roles_from_antagonist))
@@ -76,7 +76,7 @@ TYPE_PROC_REF(/datum/admins, makeTraitors)()
 	return 0
 
 
-TYPE_PROC_REF(/datum/admins, makeChangelings)()
+/datum/admins/proc/makeChangelings()
 
 	var/datum/game_mode/changeling/temp = new
 	if(CONFIG_GET(flag/protect_roles_from_antagonist))
@@ -106,7 +106,7 @@ TYPE_PROC_REF(/datum/admins, makeChangelings)()
 
 	return 0
 
-TYPE_PROC_REF(/datum/admins, makeRevs)()
+/datum/admins/proc/makeRevs()
 
 	var/datum/game_mode/revolution/temp = new
 	if(CONFIG_GET(flag/protect_roles_from_antagonist))
@@ -135,7 +135,7 @@ TYPE_PROC_REF(/datum/admins, makeRevs)()
 
 	return 0
 
-TYPE_PROC_REF(/datum/admins, makeWizard)()
+/datum/admins/proc/makeWizard()
 
 	var/list/mob/candidates = pollGhostCandidates("Do you wish to be considered for the position of a Wizard Foundation 'diplomat'?", ROLE_WIZARD, null)
 
@@ -146,7 +146,7 @@ TYPE_PROC_REF(/datum/admins, makeWizard)()
 	return TRUE
 
 
-TYPE_PROC_REF(/datum/admins, makeCult)()
+/datum/admins/proc/makeCult()
 	var/datum/game_mode/cult/temp = new
 	if(CONFIG_GET(flag/protect_roles_from_antagonist))
 		temp.restricted_jobs += temp.protected_jobs
@@ -176,7 +176,7 @@ TYPE_PROC_REF(/datum/admins, makeCult)()
 	return 0
 
 
-TYPE_PROC_REF(/datum/admins, makeClockCult)()
+/datum/admins/proc/makeClockCult()
 	var/datum/game_mode/clockwork_cult/temp = new
 	if(CONFIG_GET(flag/protect_roles_from_antagonist))
 		temp.restricted_jobs += temp.protected_jobs
@@ -212,7 +212,7 @@ TYPE_PROC_REF(/datum/admins, makeClockCult)()
 
 
 
-TYPE_PROC_REF(/datum/admins, makeNukeTeam)()
+/datum/admins/proc/makeNukeTeam()
 	var/datum/game_mode/nuclear/temp = new
 	var/list/mob/candidates = pollGhostCandidates("Do you wish to be considered for a nuke team being sent in?", ROLE_OPERATIVE, temp)
 	var/list/mob/chosen = list()
@@ -257,7 +257,7 @@ TYPE_PROC_REF(/datum/admins, makeNukeTeam)()
 
 
 
-TYPE_PROC_REF(/datum/admins, makeAliens)()
+/datum/admins/proc/makeAliens()
 	var/datum/round_event/ghost_role/alien_infestation/E = new(FALSE)
 	E.spawncount = 3
 	// TODO The fact we have to do this rather than just have events start
@@ -265,17 +265,17 @@ TYPE_PROC_REF(/datum/admins, makeAliens)()
 	E.processing = TRUE
 	return TRUE
 
-TYPE_PROC_REF(/datum/admins, makeSpaceNinja)()
+/datum/admins/proc/makeSpaceNinja()
 	new /datum/round_event/ghost_role/ninja()
 	return 1
 
 // DEATH SQUADS
-TYPE_PROC_REF(/datum/admins, makeDeathsquad)()
+/datum/admins/proc/makeDeathsquad()
 	return makeEmergencyresponseteam(/datum/ert/deathsquad)
 
 // CENTCOM RESPONSE TEAM
 
-TYPE_PROC_REF(/datum/admins, makeERTTemplateModified)(list/settings)
+/datum/admins/proc/makeERTTemplateModified(list/settings)
 	. = settings
 	var/datum/ert/newtemplate = settings["mainsettings"]["template"]["value"]
 	if (isnull(newtemplate))
@@ -289,7 +289,7 @@ TYPE_PROC_REF(/datum/admins, makeERTTemplateModified)(list/settings)
 	.["mainsettings"]["open_armory"]["value"] = newtemplate.opendoors ? "Yes" : "No"
 
 
-TYPE_PROC_REF(/datum/admins, equipAntagOnDummy)(mob/living/carbon/human/dummy/mannequin, datum/antagonist/antag)
+/datum/admins/proc/equipAntagOnDummy(mob/living/carbon/human/dummy/mannequin, datum/antagonist/antag)
 	for(var/I in mannequin.get_equipped_items(TRUE))
 		qdel(I)
 	if (ispath(antag, /datum/antagonist/ert))
@@ -298,7 +298,7 @@ TYPE_PROC_REF(/datum/admins, equipAntagOnDummy)(mob/living/carbon/human/dummy/ma
 	else if (ispath(antag, /datum/antagonist/official))
 		mannequin.equipOutfit(/datum/outfit/centcom_official, TRUE)
 
-TYPE_PROC_REF(/datum/admins, makeERTPreviewIcon)(list/settings)
+/datum/admins/proc/makeERTPreviewIcon(list/settings)
 	// Set up the dummy for its photoshoot
 	var/mob/living/carbon/human/dummy/mannequin = generate_or_wait_for_human_dummy(DUMMY_HUMAN_SLOT_ADMIN)
 
@@ -339,7 +339,7 @@ TYPE_PROC_REF(/datum/admins, makeERTPreviewIcon)(list/settings)
 	unset_busy_human_dummy(DUMMY_HUMAN_SLOT_ADMIN)
 	return preview_icon
 
-TYPE_PROC_REF(/datum/admins, makeEmergencyresponseteam)(datum/ert/ertemplate = null)
+/datum/admins/proc/makeEmergencyresponseteam(datum/ert/ertemplate = null)
 	if (ertemplate)
 		ertemplate = new ertemplate
 	else
@@ -449,10 +449,10 @@ TYPE_PROC_REF(/datum/admins, makeEmergencyresponseteam)(datum/ert/ertemplate = n
 	return
 
 //Abductors
-TYPE_PROC_REF(/datum/admins, makeAbductorTeam)()
+/datum/admins/proc/makeAbductorTeam()
 	new /datum/round_event/ghost_role/abductor
 	return 1
 
-TYPE_PROC_REF(/datum/admins, makeRevenant)()
+/datum/admins/proc/makeRevenant()
 	new /datum/round_event/ghost_role/revenant(TRUE, TRUE)
 	return 1

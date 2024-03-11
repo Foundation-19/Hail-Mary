@@ -33,10 +33,10 @@
 /datum/objective/overthrow/check_completion()
 	return get_points() ? TRUE : FALSE
 
-TYPE_PROC_REF(/datum/objective/overthrow, get_points)()
+/datum/objective/overthrow/proc/get_points()
 	return 0 // int, not bool
 
-TYPE_PROC_REF(/datum/objective/overthrow, result_points)(datum/mind/the_dude, base_points) // App
+/datum/objective/overthrow/proc/result_points(datum/mind/the_dude, base_points) // App
 	var/initial_points = base_points
 	if(the_dude)
 		var/datum/antagonist/overthrow/O = the_dude.has_antag_datum(/datum/antagonist/overthrow)
@@ -59,7 +59,7 @@ TYPE_PROC_REF(/datum/objective/overthrow, result_points)(datum/mind/the_dude, ba
 	var/list/targets = list()	// We want one objective for all the heads, instead of 1 objective per head like how it's done for revs, because you don't lose if you get atleast one head.
 								// Also, this is an associative list, target = role. Modifiers (defines) are applied on points calculation at round end.
 
-TYPE_PROC_REF(/datum/objective/overthrow/heads, find_targets)()
+/datum/objective/overthrow/heads/proc/find_targets()
 	var/list/datum/mind/owners = get_owners()
 	for(var/datum/mind/possible_target in get_crewmember_minds()) // i would use SSjob.get_all_heads() but jesus christ that proc's shit, i ain't using it
 		if(!(possible_target in owners) && ishuman(possible_target.current))

@@ -48,7 +48,7 @@
 	visible_message(span_warning("[src] scatters into thousands of particles."))
 	qdel(src)
 
-TYPE_PROC_REF(/obj/effect/clockwork/sigil, on_entered)(atom/movable/AM)
+/obj/effect/clockwork/sigil/proc/on_entered(atom/movable/AM)
 	SIGNAL_HANDLER
 	if(isliving(AM))
 		var/mob/living/L = AM
@@ -62,7 +62,7 @@ TYPE_PROC_REF(/obj/effect/clockwork/sigil, on_entered)(atom/movable/AM)
 					return
 				INVOKE_ASYNC(src, PROC_REF(sigil_effects), L)
 
-TYPE_PROC_REF(/obj/effect/clockwork/sigil, sigil_effects)(mob/living/L)
+/obj/effect/clockwork/sigil/proc/sigil_effects(mob/living/L)
 
 
 //Sigil of Transgression: Stuns the first non-servant to walk on it and flashes all nearby non_servants. Nar'Sian cultists are damaged and knocked down for a longer time
@@ -145,7 +145,7 @@ TYPE_PROC_REF(/obj/effect/clockwork/sigil, sigil_effects)(mob/living/L)
 		if(glow)
 			qdel(glow)
 		animate(src, color = oldcolor, time = 20, flags = ANIMATION_END_NOW)
-		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_atom_colour)), 20)
+		addtimer(CALLBACK(src, /atom/proc/update_atom_colour), 20)
 		visible_message(span_warning("[src] slowly stops glowing!"))
 		return
 	if(is_eligible_servant(L))
@@ -178,7 +178,7 @@ TYPE_PROC_REF(/obj/effect/clockwork/sigil, sigil_effects)(mob/living/L)
 			else
 				to_chat(M, span_heavy_brass("[message] [L.real_name]!"))
 	animate(src, color = oldcolor, time = 20, flags = ANIMATION_END_NOW)
-	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_atom_colour)), 20)
+	addtimer(CALLBACK(src, /atom/proc/update_atom_colour), 20)
 	visible_message(span_warning("[src] slowly stops glowing!"))
 
 
@@ -238,7 +238,7 @@ TYPE_PROC_REF(/obj/effect/clockwork/sigil, sigil_effects)(mob/living/L)
 	adjust_clockwork_power(power_drained * power_mod * 15)
 	new /obj/effect/temp_visual/ratvar/sigil/transmission(loc, 1 + (power_drained * 0.0035))
 
-TYPE_PROC_REF(/obj/effect/clockwork/sigil/transmission, charge_cyborg)(mob/living/silicon/robot/cyborg)
+/obj/effect/clockwork/sigil/transmission/proc/charge_cyborg(mob/living/silicon/robot/cyborg)
 	if(!cyborg_checks(cyborg))
 		return
 	to_chat(cyborg, span_brass("You start to charge from the [sigil_name]..."))
@@ -251,9 +251,9 @@ TYPE_PROC_REF(/obj/effect/clockwork/sigil/transmission, charge_cyborg)(mob/livin
 		cyborg.color = list("#EC8A2D", "#EC8A2D", "#EC8A2D", rgb(0,0,0))
 		cyborg.apply_status_effect(STATUS_EFFECT_POWERREGEN, giving_power * 0.1) //ten ticks, restoring 10% each
 		animate(cyborg, color = previous_color, time = 100)
-		addtimer(CALLBACK(cyborg, TYPE_PROC_REF(/atom, update_atom_colour)), 100)
+		addtimer(CALLBACK(cyborg, /atom/proc/update_atom_colour), 100)
 
-TYPE_PROC_REF(/obj/effect/clockwork/sigil/transmission, cyborg_checks)(mob/living/silicon/robot/cyborg, silent)
+/obj/effect/clockwork/sigil/transmission/proc/cyborg_checks(mob/living/silicon/robot/cyborg, silent)
 	if(!cyborg.cell)
 		if(!silent)
 			to_chat(cyborg, span_warning("You have no cell!"))
@@ -455,7 +455,7 @@ TYPE_PROC_REF(/obj/effect/clockwork/sigil/transmission, cyborg_checks)(mob/livin
 			var/infotext = CR.build_info()
 			to_chat(user, infotext)
 
-TYPE_PROC_REF(/obj/effect/clockwork/sigil/rite, generate_all_rites)() //The first time someone uses a sigil of rites, all the rites are actually generated. No need to have a bunch of random datums laying around all the time.
+/obj/effect/clockwork/sigil/rite/proc/generate_all_rites() //The first time someone uses a sigil of rites, all the rites are actually generated. No need to have a bunch of random datums laying around all the time.
 	for(var/V in subtypesof(/datum/clockwork_rite))
 		var/datum/clockwork_rite/R = new V
 		GLOB.all_clockwork_rites += R

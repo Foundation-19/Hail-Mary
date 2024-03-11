@@ -1,23 +1,23 @@
-TYPE_PROC_REF(/mob/living, handle_recoil)(var/obj/item/gun/G, var/recoil_buildup)
+/mob/living/proc/handle_recoil(var/obj/item/gun/G, var/recoil_buildup)
 	deltimer(recoil_reduction_timer)
 
 	add_recoil(recoil_buildup)
 
-TYPE_PROC_REF(/mob/living, external_recoil)(var/recoil_buildup) // Used in human_attackhand.dm
+/mob/living/proc/external_recoil(var/recoil_buildup) // Used in human_attackhand.dm
 	deltimer(recoil_reduction_timer)
 	add_recoil(recoil_buildup)
 
-TYPE_PROC_REF(mob, handle_movement_recoil)() // Used in movement/mob.dm
+mob/proc/handle_movement_recoil() // Used in movement/mob.dm
 	return // Ghosts and roaches have no movement recoil
 
-TYPE_PROC_REF(/mob/living, add_recoil)(var/recoil_buildup)
+/mob/living/proc/add_recoil(var/recoil_buildup)
 	if(recoil_buildup)
 		if(HAS_TRAIT(src, SPREAD_CONTROL))
 			recoil_buildup *= 0.5
 		recoil += recoil_buildup
 		update_recoil()
 
-TYPE_PROC_REF(/mob/living, calc_recoil)()
+/mob/living/proc/calc_recoil()
 
 	var/base = 0.8
 	var/scale = 0.8
@@ -32,7 +32,7 @@ TYPE_PROC_REF(/mob/living, calc_recoil)()
 		recoil *= scale
 	update_recoil()
 
-TYPE_PROC_REF(/mob/living, calculate_offset)(var/offset = 0)
+/mob/living/proc/calculate_offset(var/offset = 0)
 	if(recoil)
 		offset += recoil
 	if(ishuman(src))
@@ -45,7 +45,7 @@ TYPE_PROC_REF(/mob/living, calculate_offset)(var/offset = 0)
 	return offset
 
 //Called after setting recoil
-TYPE_PROC_REF(/mob/living, update_recoil)()
+/mob/living/proc/update_recoil()
 	var/obj/item/gun/G = get_active_held_item()
 	if(istype(G) && G)
 		G.check_safety_cursor(src)
@@ -57,7 +57,7 @@ TYPE_PROC_REF(/mob/living, update_recoil)()
 			remove_cursor()
 		deltimer(recoil_reduction_timer)
 
-TYPE_PROC_REF(/mob/living, update_cursor)(var/obj/item/gun/G)
+/mob/living/proc/update_cursor(var/obj/item/gun/G)
 	if(!(istype(get_active_held_item(), /obj/item/gun) || recoil > 0))
 		remove_cursor()
 		return
@@ -71,7 +71,7 @@ TYPE_PROC_REF(/mob/living, update_cursor)(var/obj/item/gun/G)
 		ASSERT(isicon(base))
 		client.mouse_pointer_icon = base
 
-TYPE_PROC_REF(/mob/living, remove_cursor)()
+/mob/living/proc/remove_cursor()
 	if(client)
 		client.mouse_pointer_icon = initial(client.mouse_pointer_icon)
 

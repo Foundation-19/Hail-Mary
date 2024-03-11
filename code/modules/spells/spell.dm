@@ -20,16 +20,16 @@
 	if(has_action)
 		action = new base_action(src)
 
-TYPE_PROC_REF(/obj/effect/proc_holder, on_gain)(mob/living/user)
+/obj/effect/proc_holder/proc/on_gain(mob/living/user)
 	return
 
-TYPE_PROC_REF(/obj/effect/proc_holder, on_lose)(mob/living/user)
+/obj/effect/proc_holder/proc/on_lose(mob/living/user)
 	return
 
-TYPE_PROC_REF(/obj/effect/proc_holder, fire)(mob/living/user)
+/obj/effect/proc_holder/proc/fire(mob/living/user)
 	return TRUE
 
-TYPE_PROC_REF(/obj/effect/proc_holder, get_panel_text)()
+/obj/effect/proc_holder/proc/get_panel_text()
 	return ""
 
 GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for the badmin verb for now
@@ -48,17 +48,17 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 /obj/effect/proc_holder/Click()
 	return Trigger(usr, FALSE)
 
-TYPE_PROC_REF(/obj/effect/proc_holder, Trigger)(mob/user)
+/obj/effect/proc_holder/proc/Trigger(mob/user)
 	return TRUE
 
-TYPE_PROC_REF(/obj/effect/proc_holder, InterceptClickOn)(mob/living/caller, params, atom/A)
+/obj/effect/proc_holder/proc/InterceptClickOn(mob/living/caller, params, atom/A)
 	if(caller.ranged_ability != src || ranged_ability_user != caller) //I'm not actually sure how these would trigger, but, uh, safety, I guess?
 		to_chat(caller, "<span class='warning'><b>[caller.ranged_ability.name]</b> has been disabled.</span>")
 		caller.ranged_ability.remove_ranged_ability()
 		return TRUE //TRUE for failed, FALSE for passed.
 	return FALSE
 
-TYPE_PROC_REF(/obj/effect/proc_holder, add_ranged_ability)(mob/living/user, msg, forced)
+/obj/effect/proc_holder/proc/add_ranged_ability(mob/living/user, msg, forced)
 	if(!user || !user.client)
 		return
 	if(user.ranged_ability && user.ranged_ability != src)
@@ -76,7 +76,7 @@ TYPE_PROC_REF(/obj/effect/proc_holder, add_ranged_ability)(mob/living/user, msg,
 	active = TRUE
 	update_icon()
 
-TYPE_PROC_REF(/obj/effect/proc_holder, remove_ranged_ability)(msg)
+/obj/effect/proc_holder/proc/remove_ranged_ability(msg)
 	if(!ranged_ability_user || !ranged_ability_user.client || (ranged_ability_user.ranged_ability && ranged_ability_user.ranged_ability != src)) //To avoid removing the wrong ability
 		return
 	ranged_ability_user.ranged_ability = null
@@ -151,7 +151,7 @@ TYPE_PROC_REF(/obj/effect/proc_holder, remove_ranged_ability)(msg)
 	if(mobs_blacklist)
 		mobs_blacklist = typecacheof(mobs_blacklist)
 
-TYPE_PROC_REF(/obj/effect/proc_holder/spell, cast_check)(skipcharge = FALSE, mob/user = usr, skip_can_cast = FALSE) //checks if the spell can be cast based on its settings; skipcharge is used when an additional cast_check is called inside the spell
+/obj/effect/proc_holder/spell/proc/cast_check(skipcharge = FALSE, mob/user = usr, skip_can_cast = FALSE) //checks if the spell can be cast based on its settings; skipcharge is used when an additional cast_check is called inside the spell
 	if(!skip_can_cast && !can_cast(user, skipcharge))
 		return FALSE
 
@@ -167,7 +167,7 @@ TYPE_PROC_REF(/obj/effect/proc_holder/spell, cast_check)(skipcharge = FALSE, mob
 		action.UpdateButtonIcon()
 	return TRUE
 
-TYPE_PROC_REF(/obj/effect/proc_holder/spell, charge_check)(mob/user, silent = FALSE)
+/obj/effect/proc_holder/spell/proc/charge_check(mob/user, silent = FALSE)
 	switch(charge_type)
 		if("recharge")
 			if(charge_counter < charge_max)
@@ -181,7 +181,7 @@ TYPE_PROC_REF(/obj/effect/proc_holder/spell, charge_check)(mob/user, silent = FA
 				return FALSE
 	return TRUE
 
-TYPE_PROC_REF(/obj/effect/proc_holder/spell, invocation)(mob/user = usr) //spelling the spell out and setting it on recharge/reducing charges amount
+/obj/effect/proc_holder/spell/proc/invocation(mob/user = usr) //spelling the spell out and setting it on recharge/reducing charges amount
 	var/mob/living/L
 	if(isliving(user))
 		L = user
@@ -201,7 +201,7 @@ TYPE_PROC_REF(/obj/effect/proc_holder/spell, invocation)(mob/user = usr) //spell
 		if("emote")
 			user.visible_message(invocation, invocation_emote_self) //same style as in mob/living/emote.dm
 
-TYPE_PROC_REF(/obj/effect/proc_holder/spell, playMagSound)()
+/obj/effect/proc_holder/spell/proc/playMagSound()
 	playsound(get_turf(usr), sound,50,1)
 
 /obj/effect/proc_holder/spell/Initialize()
@@ -221,7 +221,7 @@ TYPE_PROC_REF(/obj/effect/proc_holder/spell, playMagSound)()
 		choose_targets()
 	return 1
 
-TYPE_PROC_REF(/obj/effect/proc_holder/spell, choose_targets)(mob/user = usr) //depends on subtype - /targeted or /aoe_turf
+/obj/effect/proc_holder/spell/proc/choose_targets(mob/user = usr) //depends on subtype - /targeted or /aoe_turf
 	return
 
 /**
@@ -232,10 +232,10 @@ TYPE_PROC_REF(/obj/effect/proc_holder/spell, choose_targets)(mob/user = usr) //d
  * * user The mob using the spell.
  * * silent If the checks should not give any feedback messages.
  */
-TYPE_PROC_REF(/obj/effect/proc_holder/spell, can_target)(atom/target, mob/user, silent = FALSE)
+/obj/effect/proc_holder/spell/proc/can_target(atom/target, mob/user, silent = FALSE)
 	return TRUE
 
-TYPE_PROC_REF(/obj/effect/proc_holder/spell, start_recharge)()
+/obj/effect/proc_holder/spell/proc/start_recharge()
 	recharging = TRUE
 
 /obj/effect/proc_holder/spell/process()
@@ -246,7 +246,7 @@ TYPE_PROC_REF(/obj/effect/proc_holder/spell, start_recharge)()
 			charge_counter = charge_max
 			recharging = FALSE
 
-TYPE_PROC_REF(/obj/effect/proc_holder/spell, perform)(list/targets, recharge = TRUE, mob/user = usr) //if recharge is started is important for the trigger spells
+/obj/effect/proc_holder/spell/proc/perform(list/targets, recharge = TRUE, mob/user = usr) //if recharge is started is important for the trigger spells
 	before_cast(targets)
 	invocation(user)
 	if(user && user.ckey)
@@ -260,7 +260,7 @@ TYPE_PROC_REF(/obj/effect/proc_holder/spell, perform)(list/targets, recharge = T
 	if(action)
 		action.UpdateButtonIcon()
 
-TYPE_PROC_REF(/obj/effect/proc_holder/spell, before_cast)(list/targets)
+/obj/effect/proc_holder/spell/proc/before_cast(list/targets)
 	if(overlay)
 		for(var/atom/target in targets)
 			var/location
@@ -275,7 +275,7 @@ TYPE_PROC_REF(/obj/effect/proc_holder/spell, before_cast)(list/targets)
 			spell.density = FALSE
 			QDEL_IN(spell, overlay_lifespan)
 
-TYPE_PROC_REF(/obj/effect/proc_holder/spell, after_cast)(list/targets)
+/obj/effect/proc_holder/spell/proc/after_cast(list/targets)
 	for(var/atom/target in targets)
 		var/location
 		if(isliving(target))
@@ -301,17 +301,17 @@ TYPE_PROC_REF(/obj/effect/proc_holder/spell, after_cast)(list/targets)
 				smoke.start()
 
 
-TYPE_PROC_REF(/obj/effect/proc_holder/spell, cast)(list/targets,mob/user = usr)
+/obj/effect/proc_holder/spell/proc/cast(list/targets,mob/user = usr)
 	return
 
-TYPE_PROC_REF(/obj/effect/proc_holder/spell, view_or_range)(distance = world.view, center=usr, type="view")
+/obj/effect/proc_holder/spell/proc/view_or_range(distance = world.view, center=usr, type="view")
 	switch(type)
 		if("view")
 			. = view(distance,center)
 		if("range")
 			. = range(distance,center)
 
-TYPE_PROC_REF(/obj/effect/proc_holder/spell, revert_cast)(mob/user = usr) //resets recharge or readds a charge
+/obj/effect/proc_holder/spell/proc/revert_cast(mob/user = usr) //resets recharge or readds a charge
 	switch(charge_type)
 		if("recharge")
 			charge_counter = charge_max
@@ -322,7 +322,7 @@ TYPE_PROC_REF(/obj/effect/proc_holder/spell, revert_cast)(mob/user = usr) //rese
 	if(action)
 		action.UpdateButtonIcon()
 
-TYPE_PROC_REF(/obj/effect/proc_holder/spell, adjust_var)(mob/living/target = usr, type, amount) //handles the adjustment of the var when the spell is used. has some hardcoded types
+/obj/effect/proc_holder/spell/proc/adjust_var(mob/living/target = usr, type, amount) //handles the adjustment of the var when the spell is used. has some hardcoded types
 	if (!istype(target))
 		return
 	switch(type)
@@ -437,10 +437,10 @@ TYPE_PROC_REF(/obj/effect/proc_holder/spell, adjust_var)(mob/living/target = usr
 
 	perform(targets,user=user)
 
-TYPE_PROC_REF(/obj/effect/proc_holder/spell, updateButtonIcon)(status_only, force)
+/obj/effect/proc_holder/spell/proc/updateButtonIcon(status_only, force)
 	action.UpdateButtonIcon(status_only, force)
 
-TYPE_PROC_REF(/obj/effect/proc_holder/spell/targeted, los_check)(mob/A,mob/B)
+/obj/effect/proc_holder/spell/targeted/proc/los_check(mob/A,mob/B)
 	//Checks for obstacles from A to B
 	var/obj/dummy = new(A.loc)
 	dummy.pass_flags |= PASSTABLE
@@ -452,7 +452,7 @@ TYPE_PROC_REF(/obj/effect/proc_holder/spell/targeted, los_check)(mob/A,mob/B)
 	qdel(dummy)
 	return 1
 
-TYPE_PROC_REF(/obj/effect/proc_holder/spell, can_cast)(mob/user = usr, skipcharge = FALSE, silent = FALSE)
+/obj/effect/proc_holder/spell/proc/can_cast(mob/user = usr, skipcharge = FALSE, silent = FALSE)
 	var/magic_flags = SEND_SIGNAL(user, COMSIG_MOB_SPELL_CAN_CAST, src)
 	if(magic_flags & SPELL_SKIP_ALL_REQS)
 		return TRUE

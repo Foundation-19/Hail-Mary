@@ -12,7 +12,7 @@
 
 
 
-TYPE_PROC_REF(/mob/living, set_combat_indicator)(state)
+/mob/living/proc/set_combat_indicator(state)
 	if(enabled_combat_indicator == state)
 		return
 
@@ -30,7 +30,7 @@ TYPE_PROC_REF(/mob/living, set_combat_indicator)(state)
 		cut_overlay(combat_indicator)
 		enabled_combat_indicator = FALSE
 
-TYPE_PROC_REF(/mob/living, change_combat_indicator)(state)
+/mob/living/proc/change_combat_indicator(state)
 	if(world.time >= combatmessagecooldown) //If combat mode didn't make a message
 		combatmessagecooldown = world.time + 10 SECONDS
 		nextcombatpopup = world.time + 10 SECONDS
@@ -46,15 +46,15 @@ TYPE_PROC_REF(/mob/living, change_combat_indicator)(state)
 			visible_message(span_warning("[src] relaxes their stance, seemingly at ease."))
 	set_combat_indicator(state)
 
-TYPE_PROC_REF(/mob/living, disable_combat_mode)(silent = TRUE, was_forced = FALSE, visible = FALSE, update_icon = TRUE)
+/mob/living/proc/disable_combat_mode(silent = TRUE, was_forced = FALSE, visible = FALSE, update_icon = TRUE)
 	set_combat_indicator(FALSE)
 	change_combat_indicator(FALSE)
 
-TYPE_PROC_REF(/mob/living, enable_combat_mode)(silent = TRUE, was_forced = FALSE, visible = FALSE, update_icon = TRUE)
+/mob/living/proc/enable_combat_mode(silent = TRUE, was_forced = FALSE, visible = FALSE, update_icon = TRUE)
 	set_combat_indicator(TRUE)
 	change_combat_indicator(TRUE)
 
-TYPE_PROC_REF(/mob/living, toggle_combat_mode)(silent = TRUE, was_forced = FALSE, visible = FALSE, update_icon = TRUE)
+/mob/living/proc/toggle_combat_mode(silent = TRUE, was_forced = FALSE, visible = FALSE, update_icon = TRUE)
 	if (!enabled_combat_indicator)
 		//set_combat_indicator(TRUE)
 		log_attack("[src] has toggled on the combat indicator")

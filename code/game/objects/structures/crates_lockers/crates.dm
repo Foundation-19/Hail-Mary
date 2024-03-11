@@ -80,7 +80,7 @@
 /obj/structure/closet/crate/handle_lock_removal()
 	return
 
-TYPE_PROC_REF(/obj/structure/closet/crate, tear_manifest)(mob/user)
+/obj/structure/closet/crate/proc/tear_manifest(mob/user)
 	to_chat(user, span_notice("You tear the manifest off of [src]."))
 	playsound(src, 'sound/items/poster_ripped.ogg', 75, 1)
 

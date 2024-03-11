@@ -9,7 +9,7 @@
 
 	var/_raw_response
 
-TYPE_PROC_REF(/datum/http_request, prepare)(method, url, body = "", list/headers)
+/datum/http_request/proc/prepare(method, url, body = "", list/headers)
 	if (!length(headers))
 		headers = ""
 	else
@@ -20,10 +20,10 @@ TYPE_PROC_REF(/datum/http_request, prepare)(method, url, body = "", list/headers
 	src.body = body
 	src.headers = headers
 
-TYPE_PROC_REF(/datum/http_request, execute_blocking)()
+/datum/http_request/proc/execute_blocking()
 	_raw_response = rustg_http_request_blocking(method, url, body, headers, null)
 
-TYPE_PROC_REF(/datum/http_request, begin_async)()
+/datum/http_request/proc/begin_async()
 	if (in_progress)
 		CRASH("Attempted to re-use a request object.")
 
@@ -35,7 +35,7 @@ TYPE_PROC_REF(/datum/http_request, begin_async)()
 	else
 		in_progress = TRUE
 
-TYPE_PROC_REF(/datum/http_request, is_complete)()
+/datum/http_request/proc/is_complete()
 	if (isnull(id))
 		return TRUE
 
@@ -51,7 +51,7 @@ TYPE_PROC_REF(/datum/http_request, is_complete)()
 		in_progress = FALSE
 		return TRUE
 
-TYPE_PROC_REF(/datum/http_request, into_response)()
+/datum/http_request/proc/into_response()
 	var/datum/http_response/R = new()
 
 	try

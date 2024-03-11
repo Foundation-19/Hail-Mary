@@ -19,7 +19,7 @@
 	leftpewarmrest.layer = ABOVE_MOB_LAYER
 	return ..()
 
-TYPE_PROC_REF(/obj/structure/chair/pew/left, GetLeftPewArmrest)()
+/obj/structure/chair/pew/left/proc/GetLeftPewArmrest()
 	return mutable_appearance('icons/obj/sofa.dmi', "pewend_left_armrest")
 
 /obj/structure/chair/pew/left/Destroy()
@@ -30,7 +30,7 @@ TYPE_PROC_REF(/obj/structure/chair/pew/left, GetLeftPewArmrest)()
 	. = ..()
 	update_leftpewarmrest()
 
-TYPE_PROC_REF(/obj/structure/chair/pew/left, update_leftpewarmrest)()
+/obj/structure/chair/pew/left/proc/update_leftpewarmrest()
 	if(has_buckled_mobs())
 		add_overlay(leftpewarmrest)
 	else
@@ -50,7 +50,7 @@ TYPE_PROC_REF(/obj/structure/chair/pew/left, update_leftpewarmrest)()
 	rightpewarmrest.layer = ABOVE_MOB_LAYER
 	return ..()
 
-TYPE_PROC_REF(/obj/structure/chair/pew/right, GetRightPewArmrest)()
+/obj/structure/chair/pew/right/proc/GetRightPewArmrest()
 	return mutable_appearance('icons/obj/sofa.dmi', "pewend_right_armrest")
 
 /obj/structure/chair/pew/right/Destroy()
@@ -61,7 +61,7 @@ TYPE_PROC_REF(/obj/structure/chair/pew/right, GetRightPewArmrest)()
 	. = ..()
 	update_rightpewarmrest()
 
-TYPE_PROC_REF(/obj/structure/chair/pew/right, update_rightpewarmrest)()
+/obj/structure/chair/pew/right/proc/update_rightpewarmrest()
 	if(has_buckled_mobs())
 		add_overlay(rightpewarmrest)
 	else

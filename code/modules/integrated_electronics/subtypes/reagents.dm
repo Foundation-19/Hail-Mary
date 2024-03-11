@@ -12,7 +12,7 @@
 		create_reagents(volume)
 		push_vol()
 
-TYPE_PROC_REF(/obj/item/integrated_circuit/reagent, push_vol)()
+/obj/item/integrated_circuit/reagent/proc/push_vol()
 	set_pin_data(IC_OUTPUT, 1, reagents.total_volume)
 	push_data()
 
@@ -20,7 +20,7 @@ TYPE_PROC_REF(/obj/item/integrated_circuit/reagent, push_vol)()
 // This is a dirty hack to make injecting reagents into them work.
 // TODO: refactor that.
 //Time for someone to refactor this. Trays can now hold reagents.
-TYPE_PROC_REF(//obj/item/integrated_circuit/reagent, inject_tray)(obj/machinery/hydroponics/tray, atom/movable/source, amount)
+//obj/item/integrated_circuit/reagent/proc/inject_tray(obj/machinery/hydroponics/tray, atom/movable/source, amount)
 	//var/atom/movable/acting_object = get_object()
 	//var/list/trays = list(tray)
 	//var/visi_msg = "[acting_object] transfers fluid into [tray]"
@@ -102,7 +102,7 @@ TYPE_PROC_REF(//obj/item/integrated_circuit/reagent, inject_tray)(obj/machinery/
 			set_pin_data(IC_OUTPUT, 2, WEAKREF(src))
 			push_data()
 
-TYPE_PROC_REF(/obj/item/integrated_circuit/reagent/injector, inject)()
+/obj/item/integrated_circuit/reagent/injector/proc/inject()
 	set waitfor = FALSE // Don't sleep in a proc that is called by a processor without this set, otherwise it'll delay the entire thing
 	var/atom/movable/AM = get_pin_data_as_type(IC_INPUT, 1, /atom/movable)
 	var/atom/movable/acting_object = get_object()
@@ -136,7 +136,7 @@ TYPE_PROC_REF(/obj/item/integrated_circuit/reagent/injector, inject)()
 			L.visible_message(span_danger("[acting_object] is trying to inject [L]!"), \
 								span_userdanger("[acting_object] is trying to inject you!"))
 			busy = TRUE
-			if(do_atom(src, L, extra_checks=CALLBACK(L, TYPE_PROC_REF(/mob/living, can_inject),null,0)))
+			if(do_atom(src, L, extra_checks=CALLBACK(L, /mob/living/proc/can_inject,null,0)))
 				var/fraction = min(transfer_amount/reagents.total_volume, 1)
 				reagents.reaction(L, INJECT, fraction)
 				reagents.trans_to(L, transfer_amount)
@@ -165,7 +165,7 @@ TYPE_PROC_REF(/obj/item/integrated_circuit/reagent/injector, inject)()
 			L.visible_message(span_danger("[acting_object] is trying to take a blood sample from [L]!"), \
 								span_userdanger("[acting_object] is trying to take a blood sample from you!"))
 			busy = TRUE
-			if(do_atom(src, L, extra_checks=CALLBACK(L, TYPE_PROC_REF(/mob/living, can_inject),null,0)))
+			if(do_atom(src, L, extra_checks=CALLBACK(L, /mob/living/proc/can_inject,null,0)))
 				if(L.transfer_blood_to(src, tramount))
 					L.visible_message(span_danger("[acting_object] takes a blood sample from [L]!"), \
 					span_userdanger("[acting_object] takes a blood sample from you!"))
@@ -337,7 +337,7 @@ TYPE_PROC_REF(/obj/item/integrated_circuit/reagent/injector, inject)()
 			set_pin_data(IC_OUTPUT, 2, WEAKREF(src))
 			push_data()
 
-TYPE_PROC_REF(/obj/item/integrated_circuit/reagent/storage/grinder, grind)()
+/obj/item/integrated_circuit/reagent/storage/grinder/proc/grind()
 	if(reagents.total_volume >= reagents.maximum_volume)
 		activate_pin(3)
 		return FALSE
@@ -383,7 +383,7 @@ TYPE_PROC_REF(/obj/item/integrated_circuit/reagent/storage/grinder, grind)()
 			set_pin_data(IC_OUTPUT, 2, WEAKREF(src))
 			push_data()
 
-TYPE_PROC_REF(/obj/item/integrated_circuit/reagent/storage/juicer, juice)()
+/obj/item/integrated_circuit/reagent/storage/juicer/proc/juice()
 	if(reagents.total_volume >= reagents.maximum_volume)
 		activate_pin(3)
 		return FALSE
@@ -677,10 +677,10 @@ TYPE_PROC_REF(/obj/item/integrated_circuit/reagent/storage/juicer, juice)()
 		reagents.trans_to(W,1)
 
 	//Make em move dat ass, hun
-	addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/item/integrated_circuit/reagent/extinguisher, move_particles), water_particles), 2)
+	addtimer(CALLBACK(src, /obj/item/integrated_circuit/reagent/extinguisher/proc/move_particles, water_particles), 2)
 
 //This whole proc is a loop
-TYPE_PROC_REF(/obj/item/integrated_circuit/reagent/extinguisher, move_particles)(list/particles, repetitions=0)
+/obj/item/integrated_circuit/reagent/extinguisher/proc/move_particles(list/particles, repetitions=0)
 	//Check if there's anything in here first
 	if(!particles || particles.len == 0)
 		return
@@ -699,7 +699,7 @@ TYPE_PROC_REF(/obj/item/integrated_circuit/reagent/extinguisher, move_particles)
 			break
 	if(repetitions < 4)
 		repetitions++	//Can't have math operations in addtimer(CALLBACK())
-		addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/item/integrated_circuit/reagent/extinguisher, move_particles), particles, repetitions), 2)
+		addtimer(CALLBACK(src, /obj/item/integrated_circuit/reagent/extinguisher/proc/move_particles, particles, repetitions), 2)
 	else
 		push_data()
 		activate_pin(2)
@@ -781,7 +781,7 @@ TYPE_PROC_REF(/obj/item/integrated_circuit/reagent/extinguisher, move_particles)
 	activate_pin(3)
 
 
-TYPE_PROC_REF(/obj/item/integrated_circuit/input/beaker_connector, push_vol)()
+/obj/item/integrated_circuit/input/beaker_connector/proc/push_vol()
 	var/beakerVolume = 0
 	if(current_beaker)
 		beakerVolume = current_beaker.reagents.total_volume

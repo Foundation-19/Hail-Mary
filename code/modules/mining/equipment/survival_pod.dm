@@ -18,7 +18,7 @@
 	var/datum/map_template/shelter/template
 	var/used = FALSE
 
-TYPE_PROC_REF(/obj/item/survivalcapsule, get_template)()
+/obj/item/survivalcapsule/proc/get_template()
 	if(template)
 		return
 	template = SSmapping.shelter_templates[template_id]

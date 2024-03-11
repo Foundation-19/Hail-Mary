@@ -1,7 +1,7 @@
 // called when movable is expelled from a disposal pipe or outlet
 // by default does nothing, override for special behaviour
 
-TYPE_PROC_REF(/atom/movable, pipe_eject)(direction)
+/atom/movable/proc/pipe_eject(direction)
 	return
 
 /obj/effect/decal/cleanable/blood/gibs/pipe_eject(direction)

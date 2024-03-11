@@ -1,4 +1,4 @@
-TYPE_PROC_REF(/datum/tgs_api/v5, GenerateChunks)(payload, bridge)
+/datum/tgs_api/v5/proc/GenerateChunks(payload, bridge)
 	var/limit = bridge ? DMAPI5_BRIDGE_REQUEST_LIMIT : DMAPI5_TOPIC_RESPONSE_LIMIT
 
 	var/payload_id = ++chunked_requests

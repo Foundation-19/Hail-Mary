@@ -23,7 +23,7 @@
 	spirit_board_pick_letter(user)
 	return ..()
 
-TYPE_PROC_REF(/obj/structure/spirit_board, spirit_board_pick_letter)(mob/M)
+/obj/structure/spirit_board/proc/spirit_board_pick_letter(mob/M)
 	if(!spirit_board_checks(M))
 		return 0
 
@@ -41,7 +41,7 @@ TYPE_PROC_REF(/obj/structure/spirit_board, spirit_board_pick_letter)(mob/M)
 	var/msg = span_notice("The planchette slowly moves... and stops at the letter \"[planchette]\".")
 	visible_message(msg,"",msg)
 
-TYPE_PROC_REF(/obj/structure/spirit_board, spirit_board_checks)(mob/M)
+/obj/structure/spirit_board/proc/spirit_board_checks(mob/M)
 	//cooldown
 	var/bonus = 0
 	if(M.ckey == lastuser)

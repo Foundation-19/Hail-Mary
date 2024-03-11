@@ -1,7 +1,7 @@
 
 // see _DEFINES/is_helpers.dm for mob type checks
 
-TYPE_PROC_REF(/mob, lowest_buckled_mob)()
+/mob/proc/lowest_buckled_mob()
 	. = src
 	if(buckled && ismob(buckled))
 		var/mob/Buckled = buckled
@@ -258,7 +258,7 @@ It's fairly easy to fix if dealing with single letters but not so much with comp
 			return M
 	return 0
 
-TYPE_PROC_REF(/mob, first_name)()
+/mob/proc/first_name()
 	var/static/regex/firstname = new("^\[^\\s-\]+") //First word before whitespace or "-"
 	firstname.Find(real_name)
 	return firstname.match
@@ -304,7 +304,7 @@ TYPE_PROC_REF(/mob, first_name)()
 		return B.eye_blind
 	return FALSE
 
-TYPE_PROC_REF(/mob, hallucinating)()
+/mob/proc/hallucinating()
 	return FALSE
 
 /proc/is_special_character(mob/M) // returns 1 for special characters and 2 for heroes of gamemode //moved out of admins.dm because things other than admin procs were calling this.
@@ -350,7 +350,7 @@ TYPE_PROC_REF(/mob, hallucinating)()
 		return TRUE
 	return FALSE
 
-TYPE_PROC_REF(/mob, reagent_check)(datum/reagent/R) // utilized in the species code
+/mob/proc/reagent_check(datum/reagent/R) // utilized in the species code
 	return 1
 
 /proc/notify_ghosts(message, ghost_sound, enter_link, atom/source, mutable_appearance/alert_overlay, action = NOTIFY_JUMP, flashwindow = TRUE, ignore_mapload = TRUE, ignore_key, ignore_dnr_observers = FALSE, header) //Easy notification of ghosts.
@@ -412,12 +412,12 @@ TYPE_PROC_REF(/mob, reagent_check)(datum/reagent/R) // utilized in the species c
 		return
 	return TRUE
 
-TYPE_PROC_REF(/atom, hasSiliconAccessInArea)(mob/user, flags = PRIVILEDGES_SILICON)
+/atom/proc/hasSiliconAccessInArea(mob/user, flags = PRIVILEDGES_SILICON)
 	if(!istype(user, /mob))
 		return
 	return user.silicon_privileges & (flags) || (user.siliconaccesstoggle && (get_area(src) in user.siliconaccessareas))
 
-TYPE_PROC_REF(/mob, toggleSiliconAccessArea)(area/area)
+/mob/proc/toggleSiliconAccessArea(area/area)
 	if (area in siliconaccessareas)
 		siliconaccessareas -= area
 		to_chat(src,span_warning("You lost control of [area]!"))
@@ -431,7 +431,7 @@ TYPE_PROC_REF(/mob, toggleSiliconAccessArea)(area/area)
 			return FALSE
 		return TRUE
 
-TYPE_PROC_REF(/mob, getImplant)(type)
+/mob/proc/getImplant(type)
 	return
 
 /mob/living/getImplant(type)
@@ -465,13 +465,13 @@ TYPE_PROC_REF(/mob, getImplant)(type)
 		message_admins("No ghosts were willing to take control of [ADMIN_LOOKUPFLW(M)])")
 		return FALSE
 
-TYPE_PROC_REF(/mob, is_flying)(mob/M = src)
+/mob/proc/is_flying(mob/M = src)
 	if(M.movement_type & FLYING)
 		return 1
 	else
 		return 0
 
-TYPE_PROC_REF(/mob, click_random_mob)()
+/mob/proc/click_random_mob()
 	var/list/nearby_mobs = list()
 	for(var/mob/living/L in range(1, src))
 		if(L!=src)
@@ -522,7 +522,7 @@ TYPE_PROC_REF(/mob, click_random_mob)()
 
 	..()
 
-TYPE_PROC_REF(/mob, can_hear)()
+/mob/proc/can_hear()
 	. = TRUE
 
 /proc/bloodtype_to_color(type)
@@ -546,7 +546,7 @@ TYPE_PROC_REF(/mob, can_hear)()
 		// the defines are in _DEFINES/misc.dm
 
 //Examine text for traits shared by multiple types. I wish examine was less copypasted.
-TYPE_PROC_REF(/mob, common_trait_examine)()
+/mob/proc/common_trait_examine()
 	if(HAS_TRAIT(src, TRAIT_DISSECTED))
 		var/dissectionmsg = ""
 		if(HAS_TRAIT_FROM(src, TRAIT_DISSECTED,"Extraterrestrial Dissection"))
@@ -558,28 +558,28 @@ TYPE_PROC_REF(/mob, common_trait_examine)()
 		. += "<span class='notice'>This body has been dissected and analyzed[dissectionmsg].</span><br>"
 
 //gets ID card object from special clothes slot or null.
-TYPE_PROC_REF(/mob, get_idcard)(hand_first = TRUE)
+/mob/proc/get_idcard(hand_first = TRUE)
 	var/obj/item/held_item = get_active_held_item()
 	. = held_item ? held_item.GetID() : null
 	if(!.) //If so, then check the inactive hand
 		held_item = get_inactive_held_item()
 		. = held_item ? held_item.GetID() : null
 
-TYPE_PROC_REF(/mob, get_id_in_hand)()
+/mob/proc/get_id_in_hand()
 	var/obj/item/held_item = get_active_held_item()
 	if(!held_item)
 		return
 	return held_item.GetID()
 
 //Can the mob see reagents inside of containers?
-TYPE_PROC_REF(/mob, can_see_reagents)()
+/mob/proc/can_see_reagents()
 	return stat == DEAD || silicon_privileges //Dead guys and silicons can always see reagents
 
-TYPE_PROC_REF(/mob, is_blind)()
+/mob/proc/is_blind()
 	SHOULD_BE_PURE(TRUE)
 	return eye_blind ? TRUE : HAS_TRAIT(src, TRAIT_BLIND)
 
-TYPE_PROC_REF(/mob, can_read)(obj/O)
+/mob/proc/can_read(obj/O)
 	if(is_blind())
 		to_chat(src, span_warning("As you are trying to read [O], you suddenly feel very stupid!"))
 		return

@@ -148,7 +148,7 @@
 
 // Firemodes/Ammotypes
 
-TYPE_PROC_REF(/obj/item/gun/energy, update_ammo_types)()
+/obj/item/gun/energy/proc/update_ammo_types()
 	var/obj/item/ammo_casing/energy/C
 	for(var/i in 1 to length(ammo_type))
 		var/v = ammo_type[i]
@@ -161,7 +161,7 @@ TYPE_PROC_REF(/obj/item/gun/energy, update_ammo_types)()
 			ammo_type[C] = isnull(user_can_select)? TRUE : user_can_select
 	set_firemode_index(initial(current_firemode_index))
 
-TYPE_PROC_REF(/obj/item/gun/energy, set_firemode_index)(index, mob/user_for_feedback)
+/obj/item/gun/energy/proc/set_firemode_index(index, mob/user_for_feedback)
 	chambered = null		//unchamber whatever we have chambered
 	if(index > length(ammo_type))
 		index = 1
@@ -176,37 +176,37 @@ TYPE_PROC_REF(/obj/item/gun/energy, set_firemode_index)(index, mob/user_for_feed
 	post_set_firemode()
 	update_icon(TRUE)
 
-TYPE_PROC_REF(/obj/item/gun/energy, post_set_firemode)(recharge_newshot = TRUE)
+/obj/item/gun/energy/proc/post_set_firemode(recharge_newshot = TRUE)
 	if(recharge_newshot)
 		recharge_newshot(TRUE)
 
-TYPE_PROC_REF(/obj/item/gun/energy, set_firemode_to_next)(mob/user_for_feedback)
+/obj/item/gun/energy/proc/set_firemode_to_next(mob/user_for_feedback)
 	return set_firemode_index(++current_firemode_index, user_for_feedback)
 
-TYPE_PROC_REF(/obj/item/gun/energy, set_firemode_to_prev)(mob/user_for_feedback)
+/obj/item/gun/energy/proc/set_firemode_to_prev(mob/user_for_feedback)
 	return set_firemode_index(--current_firemode_index, user_for_feedback)
 
-TYPE_PROC_REF(/obj/item/gun/energy, get_firemode_index)(casing_type)
+/obj/item/gun/energy/proc/get_firemode_index(casing_type)
 	var/obj/item/ammo_casing/energy/E = locate(casing_type) in ammo_type
 	if(E)
 		return ammo_type.Find(E)
 
-TYPE_PROC_REF(/obj/item/gun/energy, set_firemode_to_type)(casing_type)
+/obj/item/gun/energy/proc/set_firemode_to_type(casing_type)
 	var/index = get_firemode_index(casing_type)
 	if(index)
 		set_firemode_index(index)
 
 /// This is the proc used in general for when a user switches firemodes. Just goes to next firemode by default.
-TYPE_PROC_REF(/obj/item/gun/energy, select_fire)(mob/living/user)
+/obj/item/gun/energy/proc/select_fire(mob/living/user)
 	return user_set_firemode_to_next(user)
 
-TYPE_PROC_REF(/obj/item/gun/energy, can_select_fire)(mob/living/user)
+/obj/item/gun/energy/proc/can_select_fire(mob/living/user)
 	return (length(ammo_type) > 1)
 
 #define INCREMENT_OR_WRAP(i) i = (i >= length(ammo_type))? 1 : (i + 1)
 #define DECREMENT_OR_WRAP(i) i = (i <= 1)? length(ammo_type) : (i - 1)
 #define IS_VALID_INDEX(i) (ammo_type[ammo_type[i]])
-TYPE_PROC_REF(/obj/item/gun/energy, user_set_firemode_to_next)(mob/user_for_feedback)
+/obj/item/gun/energy/proc/user_set_firemode_to_next(mob/user_for_feedback)
 	var/current_index = current_firemode_index
 	var/new_index = current_index
 	INCREMENT_OR_WRAP(new_index)
@@ -219,7 +219,7 @@ TYPE_PROC_REF(/obj/item/gun/energy, user_set_firemode_to_next)(mob/user_for_feed
 
 	set_firemode_index(new_index, user_for_feedback)
 
-TYPE_PROC_REF(/obj/item/gun/energy, user_set_firemode_to_prev)(mob/user_for_feedback)
+/obj/item/gun/energy/proc/user_set_firemode_to_prev(mob/user_for_feedback)
 	var/current_index = current_firemode_index
 	var/new_index = current_index
 	DECREMENT_OR_WRAP(new_index)
@@ -273,7 +273,7 @@ TYPE_PROC_REF(/obj/item/gun/energy, user_set_firemode_to_prev)(mob/user_for_feed
 			. += "[icon_state]_charge[ratio]"
 
 ///Used by update_icon_state() and update_overlays()
-TYPE_PROC_REF(/obj/item/gun/energy, get_charge_ratio)()
+/obj/item/gun/energy/proc/get_charge_ratio()
 	return can_shoot() ? CEILING(clamp(cell.charge / cell.maxcharge, 0, 1) * charge_sections, 1) : 0
 	// Sets the ratio to 0 if the gun doesn't have enough charge to fire, or if its power cell is removed.
 
@@ -349,7 +349,7 @@ TYPE_PROC_REF(/obj/item/gun/energy, get_charge_ratio)()
 	else
 		return
 
-TYPE_PROC_REF(/obj/item/gun/energy, eject_cell)(mob/user, put_it_in_their_hand, sounds_and_words)
+/obj/item/gun/energy/proc/eject_cell(mob/user, put_it_in_their_hand, sounds_and_words)
 	if(!cell)
 		if(sounds_and_words)
 			to_chat(user, span_notice("There's no cell in \the [src]."))

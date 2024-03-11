@@ -40,7 +40,7 @@ GLOBAL_LIST_EMPTY(possible_gifts)
 	M.put_in_hands(I)
 	I.add_fingerprint(M)
 
-TYPE_PROC_REF(/obj/item/a_gift, get_gift_type)()
+/obj/item/a_gift/proc/get_gift_type()
 	var/gift_type_list = list(/obj/item/sord,
 		/obj/item/storage/wallet,
 		/obj/item/storage/photo_album,

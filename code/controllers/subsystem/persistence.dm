@@ -51,7 +51,7 @@ SUBSYSTEM_DEF(persistence)
 	LoadFolders()
 	return ..()
 
-TYPE_PROC_REF(/datum/controller/subsystem/persistence, LoadSatchels)()
+/datum/controller/subsystem/persistence/proc/LoadSatchels()
 	var/placed_satchel = 0
 	var/path
 
@@ -86,12 +86,12 @@ TYPE_PROC_REF(/datum/controller/subsystem/persistence, LoadSatchels)()
 			if((free_satchels + placed_satchel) == 10) //ten tiles, more than enough to kill anything that moves
 				break
 
-TYPE_PROC_REF(/datum/controller/subsystem/persistence, LoadPoly)()
+/datum/controller/subsystem/persistence/proc/LoadPoly()
 	for(var/mob/living/simple_animal/parrot/Poly/P in GLOB.alive_mob_list)
 		twitterize(P.speech_buffer, "polytalk")
 		break //Who's been duping the bird?!
 
-TYPE_PROC_REF(/datum/controller/subsystem/persistence, LoadChiselMessages)()
+/datum/controller/subsystem/persistence/proc/LoadChiselMessages()
 	var/list/saved_messages = list()
 	if(fexists("data/npc_saves/ChiselMessages.sav")) //legacy compatability to convert old format to new
 		var/savefile/chisel_messages_sav = new /savefile("data/npc_saves/ChiselMessages.sav")
@@ -136,7 +136,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/persistence, LoadChiselMessages)()
 
 	log_world("Loaded [saved_messages.len] engraved messages on map [SSmapping.config.map_name]")
 
-TYPE_PROC_REF(/datum/controller/subsystem/persistence, LoadTrophies)()
+/datum/controller/subsystem/persistence/proc/LoadTrophies()
 	if(fexists("data/npc_saves/TrophyItems.sav")) //legacy compatability to convert old format to new
 		var/savefile/S = new /savefile("data/npc_saves/TrophyItems.sav")
 		var/saved_json
@@ -155,7 +155,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/persistence, LoadTrophies)()
 		saved_trophies = json["data"]
 	SetUpTrophies(saved_trophies.Copy())
 
-TYPE_PROC_REF(/datum/controller/subsystem/persistence, LoadRecentModes)()
+/datum/controller/subsystem/persistence/proc/LoadRecentModes()
 	var/json_file = file("data/RecentModes.json")
 	if(!fexists(json_file))
 		return
@@ -164,7 +164,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/persistence, LoadRecentModes)()
 		return
 	saved_modes = json["data"]
 
-TYPE_PROC_REF(/datum/controller/subsystem/persistence, LoadRecentRulesets)()
+/datum/controller/subsystem/persistence/proc/LoadRecentRulesets()
 	var/json_file = file("data/RecentRulesets.json")
 	if(!fexists(json_file))
 		return
@@ -173,7 +173,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/persistence, LoadRecentRulesets)()
 		return
 	saved_dynamic_rules = json["data"]
 
-TYPE_PROC_REF(/datum/controller/subsystem/persistence, LoadRecentStorytellers)()
+/datum/controller/subsystem/persistence/proc/LoadRecentStorytellers()
 	var/json_file = file("data/RecentStorytellers.json")
 	if(!fexists(json_file))
 		return
@@ -185,7 +185,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/persistence, LoadRecentStorytellers)()
 		average_dynamic_threat = saved_storytellers[4]
 	saved_storytellers.len = 3
 
-TYPE_PROC_REF(/datum/controller/subsystem/persistence, LoadRecentMaps)()
+/datum/controller/subsystem/persistence/proc/LoadRecentMaps()
 	var/json_file = file("data/RecentMaps.json")
 	if(!fexists(json_file))
 		return
@@ -194,7 +194,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/persistence, LoadRecentMaps)()
 		return
 	saved_maps = json["maps"]
 
-TYPE_PROC_REF(/datum/controller/subsystem/persistence, LoadAntagReputation)()
+/datum/controller/subsystem/persistence/proc/LoadAntagReputation()
 	var/json = file2text(FILE_ANTAG_REP)
 	if(!json)
 		var/json_file = file(FILE_ANTAG_REP)
@@ -204,7 +204,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/persistence, LoadAntagReputation)()
 		return
 	antag_rep = json_decode(json)
 
-TYPE_PROC_REF(/datum/controller/subsystem/persistence, LoadSavedVote)(ckey)
+/datum/controller/subsystem/persistence/proc/LoadSavedVote(ckey)
 	var/json_file = wrap_file("data/player_saves/[copytext(ckey,1,2)]/[ckey]/SavedVotes.json")
 	if(!fexists(json_file))
 		return
@@ -213,7 +213,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/persistence, LoadSavedVote)(ckey)
 		return
 	saved_votes[ckey] = json["data"]
 
-TYPE_PROC_REF(/datum/controller/subsystem/persistence, SetUpTrophies)(list/trophy_items)
+/datum/controller/subsystem/persistence/proc/SetUpTrophies(list/trophy_items)
 	for(var/A in GLOB.trophy_cases)
 		var/obj/structure/displaycase/trophy/T = A
 		if (T.showpiece)
@@ -239,7 +239,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/persistence, SetUpTrophies)(list/troph
 		T.placer_key = chosen_trophy["placer_key"]
 		T.update_icon()
 
-TYPE_PROC_REF(/datum/controller/subsystem/persistence, CollectData)()
+/datum/controller/subsystem/persistence/proc/CollectData()
 	CollectChiselMessages()
 	CollectSecretSatchels()
 	CollectTrophies()
@@ -259,7 +259,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/persistence, CollectData)()
 	SaveNoticeboards()
 	SaveFolders()
 
-TYPE_PROC_REF(/datum/controller/subsystem/persistence, LoadPanicBunker)()
+/datum/controller/subsystem/persistence/proc/LoadPanicBunker()
 	var/bunker_path = file("data/bunker_passthrough.json")
 	if(fexists(bunker_path))
 		var/list/json = json_decode(file2text(bunker_path))
@@ -268,17 +268,17 @@ TYPE_PROC_REF(/datum/controller/subsystem/persistence, LoadPanicBunker)()
 			if(daysSince(GLOB.bunker_passthrough[ckey]) >= CONFIG_GET(number/max_bunker_days))
 				GLOB.bunker_passthrough -= ckey
 
-TYPE_PROC_REF(/datum/controller/subsystem/persistence, GetPhotoAlbums)()
+/datum/controller/subsystem/persistence/proc/GetPhotoAlbums()
 	var/album_path = file("data/photo_albums.json")
 	if(fexists(album_path))
 		return json_decode(file2text(album_path))
 
-TYPE_PROC_REF(/datum/controller/subsystem/persistence, GetPhotoFrames)()
+/datum/controller/subsystem/persistence/proc/GetPhotoFrames()
 	var/frame_path = file("data/photo_frames.json")
 	if(fexists(frame_path))
 		return json_decode(file2text(frame_path))
 
-TYPE_PROC_REF(/datum/controller/subsystem/persistence, LoadPhotoPersistence)()
+/datum/controller/subsystem/persistence/proc/LoadPhotoPersistence()
 	var/album_path = file("data/photo_albums.json")
 	var/frame_path = file("data/photo_frames.json")
 	if(fexists(album_path))
@@ -301,7 +301,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/persistence, LoadPhotoPersistence)()
 				if(json[PF.persistence_id])
 					PF.load_from_id(json[PF.persistence_id])
 
-TYPE_PROC_REF(/datum/controller/subsystem/persistence, SavePhotoPersistence)()
+/datum/controller/subsystem/persistence/proc/SavePhotoPersistence()
 	var/album_path = file("data/photo_albums.json")
 	var/frame_path = file("data/photo_frames.json")
 
@@ -337,17 +337,17 @@ TYPE_PROC_REF(/datum/controller/subsystem/persistence, SavePhotoPersistence)()
 
 	WRITE_FILE(frame_path, frame_json)
 
-TYPE_PROC_REF(/datum/controller/subsystem/persistence, GetNoticeboardsPaper)()
+/datum/controller/subsystem/persistence/proc/GetNoticeboardsPaper()
 	var/frame_path = file("data/notice_board_papers.json")
 	if(fexists(frame_path))
 		return json_decode(file2text(frame_path))
 
-TYPE_PROC_REF(/datum/controller/subsystem/persistence, GetNoticeboardsPhotos)()
+/datum/controller/subsystem/persistence/proc/GetNoticeboardsPhotos()
 	var/frame_path = file("data/notice_board_photos.json")
 	if(fexists(frame_path))
 		return json_decode(file2text(frame_path))
 
-TYPE_PROC_REF(/datum/controller/subsystem/persistence, LoadNoticeboards)()
+/datum/controller/subsystem/persistence/proc/LoadNoticeboards()
 	var/photo_path = file("data/notice_board_photos.json")
 	var/paper_path = file("data/notice_board_papers.json")
 
@@ -372,7 +372,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/persistence, LoadNoticeboards)()
 					N.PopulatePaperFromList(json[N.persistenceID])
 
 
-TYPE_PROC_REF(/datum/controller/subsystem/persistence, SaveNoticeboards)()
+/datum/controller/subsystem/persistence/proc/SaveNoticeboards()
 	var/photo_path = file("data/notice_board_photos.json")
 	var/paper_path = file("data/notice_board_papers.json")
 	var/list/photo_json = list()
@@ -401,7 +401,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/persistence, SaveNoticeboards)()
 	WRITE_FILE(photo_path, photo_json)
 	WRITE_FILE(paper_path, paper_json)
 
-TYPE_PROC_REF(/datum/controller/subsystem/persistence, CollectSecretSatchels)()
+/datum/controller/subsystem/persistence/proc/CollectSecretSatchels()
 	satchel_blacklist = typecacheof(list(/obj/item/stack/tile/plasteel, /obj/item/crowbar))
 	var/list/satchels_to_add = list()
 	for(var/A in new_secret_satchels)
@@ -432,7 +432,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/persistence, CollectSecretSatchels)()
 	file_data["data"] = old_secret_satchels + satchels_to_add
 	WRITE_FILE(json_file, json_encode(file_data))
 
-TYPE_PROC_REF(/datum/controller/subsystem/persistence, CollectChiselMessages)()
+/datum/controller/subsystem/persistence/proc/CollectChiselMessages()
 	var/json_file = wrap_file("data/npc_saves/ChiselMessages[SSmapping.config.map_name].json")
 	
 	for(var/obj/structure/chisel_message/M in chisel_messages)
@@ -447,25 +447,25 @@ TYPE_PROC_REF(/datum/controller/subsystem/persistence, CollectChiselMessages)()
 	
 	WRITE_FILE(json_file, json_encode(file_data))
 
-TYPE_PROC_REF(/datum/controller/subsystem/persistence, SaveChiselMessage)(obj/structure/chisel_message/M)
+/datum/controller/subsystem/persistence/proc/SaveChiselMessage(obj/structure/chisel_message/M)
 	saved_messages += list(M.pack()) // dm eats one list
 
 
-TYPE_PROC_REF(/datum/controller/subsystem/persistence, CollectTrophies)()
+/datum/controller/subsystem/persistence/proc/CollectTrophies()
 	var/json_file = file("data/npc_saves/TrophyItems.json")
 	var/list/file_data = list()
 	file_data["data"] = remove_duplicate_trophies(saved_trophies)
 	fdel(json_file)
 	WRITE_FILE(json_file, json_encode(file_data))
 
-TYPE_PROC_REF(/datum/controller/subsystem/persistence, SavePanicBunker)()
+/datum/controller/subsystem/persistence/proc/SavePanicBunker()
 	var/json_file = file("data/bunker_passthrough.json")
 	var/list/file_data = list()
 	file_data["data"] = GLOB.bunker_passthrough
 	fdel(json_file)
 	WRITE_FILE(json_file,json_encode(file_data))
 
-TYPE_PROC_REF(/datum/controller/subsystem/persistence, remove_duplicate_trophies)(list/trophies)
+/datum/controller/subsystem/persistence/proc/remove_duplicate_trophies(list/trophies)
 	var/list/ukeys = list()
 	. = list()
 	for(var/trophy in trophies)
@@ -476,7 +476,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/persistence, remove_duplicate_trophies
 			. += list(trophy)
 			ukeys[tkey] = TRUE
 
-TYPE_PROC_REF(/datum/controller/subsystem/persistence, SaveTrophy)(obj/structure/displaycase/trophy/T)
+/datum/controller/subsystem/persistence/proc/SaveTrophy(obj/structure/displaycase/trophy/T)
 	if(!T.added_roundstart && T.showpiece)
 		var/list/data = list()
 		data["path"] = T.showpiece.type
@@ -484,7 +484,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/persistence, SaveTrophy)(obj/structure
 		data["placer_key"] = T.placer_key
 		saved_trophies += list(data)
 
-TYPE_PROC_REF(/datum/controller/subsystem/persistence, CollectRoundtype)()
+/datum/controller/subsystem/persistence/proc/CollectRoundtype()
 	saved_modes[3] = saved_modes[2]
 	saved_modes[2] = saved_modes[1]
 	saved_modes[1] = SSticker.mode.config_tag
@@ -494,7 +494,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/persistence, CollectRoundtype)()
 	fdel(json_file)
 	WRITE_FILE(json_file, json_encode(file_data))
 
-TYPE_PROC_REF(/datum/controller/subsystem/persistence, CollectStoryteller)(datum/game_mode/dynamic/mode)
+/datum/controller/subsystem/persistence/proc/CollectStoryteller(datum/game_mode/dynamic/mode)
 	saved_storytellers.len = 3
 	saved_storytellers[3] = saved_storytellers[2]
 	saved_storytellers[2] = saved_storytellers[1]
@@ -506,7 +506,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/persistence, CollectStoryteller)(datum
 	fdel(json_file)
 	WRITE_FILE(json_file, json_encode(file_data))
 
-TYPE_PROC_REF(/datum/controller/subsystem/persistence, CollectRulesets)(datum/game_mode/dynamic/mode)
+/datum/controller/subsystem/persistence/proc/CollectRulesets(datum/game_mode/dynamic/mode)
 	saved_dynamic_rules[3] = saved_dynamic_rules[2]
 	saved_dynamic_rules[2] = saved_dynamic_rules[1]
 	saved_dynamic_rules[1] = list()
@@ -519,7 +519,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/persistence, CollectRulesets)(datum/ga
 	fdel(json_file)
 	WRITE_FILE(json_file, json_encode(file_data))
 
-TYPE_PROC_REF(/datum/controller/subsystem/persistence, RecordMaps)()
+/datum/controller/subsystem/persistence/proc/RecordMaps()
 	saved_maps = saved_maps?.len ? list("[SSmapping.config.map_name]") | saved_maps : list("[SSmapping.config.map_name]")
 	var/json_file = file("data/RecentMaps.json")
 	var/list/file_data = list()
@@ -528,7 +528,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/persistence, RecordMaps)()
 	WRITE_FILE(json_file, json_encode(file_data))
 
 
-TYPE_PROC_REF(/datum/controller/subsystem/persistence, CollectAntagReputation)()
+/datum/controller/subsystem/persistence/proc/CollectAntagReputation()
 	var/ANTAG_REP_MAXIMUM = CONFIG_GET(number/antag_rep_maximum)
 
 	for(var/p_ckey in antag_rep_change)
@@ -542,7 +542,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/persistence, CollectAntagReputation)()
 	fdel(FILE_ANTAG_REP)
 	text2file(json_encode(antag_rep), FILE_ANTAG_REP)
 
-TYPE_PROC_REF(/datum/controller/subsystem/persistence, LoadRandomizedRecipes)()
+/datum/controller/subsystem/persistence/proc/LoadRandomizedRecipes()
 	var/json_file = file("data/RandomizedChemRecipes.json")
 	var/json
 	if(fexists(json_file))
@@ -561,7 +561,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/persistence, LoadRandomizedRecipes)()
 		if(!R.HasConflicts()) //Might want to try again if conflicts happened in the future.
 			add_chemical_reaction(R)
 
-TYPE_PROC_REF(/datum/controller/subsystem/persistence, SaveRandomizedRecipes)()
+/datum/controller/subsystem/persistence/proc/SaveRandomizedRecipes()
 	var/json_file = file("data/RandomizedChemRecipes.json")
 	var/list/file_data = list()
 
@@ -583,7 +583,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/persistence, SaveRandomizedRecipes)()
 	fdel(json_file)
 	WRITE_FILE(json_file, json_encode(file_data))
 
-TYPE_PROC_REF(/datum/controller/subsystem/persistence, SaveSavedVotes)()
+/datum/controller/subsystem/persistence/proc/SaveSavedVotes()
 	for(var/ckey in saved_votes)
 		var/json_file = wrap_file("data/player_saves/[copytext(ckey,1,2)]/[ckey]/SavedVotes.json")
 		var/list/file_data = list()
@@ -591,7 +591,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/persistence, SaveSavedVotes)()
 		fdel(json_file)
 		WRITE_FILE(json_file, json_encode(file_data))
 
-TYPE_PROC_REF(/datum/controller/subsystem/persistence, LoadPaintings)()
+/datum/controller/subsystem/persistence/proc/LoadPaintings()
 	var/json_file = file("data/paintings.json")
 	if(fexists(json_file))
 		paintings = json_decode(file2text(json_file))
@@ -599,7 +599,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/persistence, LoadPaintings)()
 	for(var/obj/structure/sign/painting/P in painting_frames)
 		P.load_persistent()
 
-TYPE_PROC_REF(/datum/controller/subsystem/persistence, SavePaintings)()
+/datum/controller/subsystem/persistence/proc/SavePaintings()
 	for(var/obj/structure/sign/painting/P in painting_frames)
 		P.save_persistent()
 
@@ -607,7 +607,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/persistence, SavePaintings)()
 	fdel(json_file)
 	WRITE_FILE(json_file, json_encode(paintings))
 
-TYPE_PROC_REF(/datum/controller/subsystem/persistence, SaveScars)()
+/datum/controller/subsystem/persistence/proc/SaveScars()
 	for(var/i in GLOB.joined_player_list)
 		var/mob/living/carbon/human/ending_human = get_mob_by_ckey(i)
 		if(!istype(ending_human) || !ending_human.mind || !ending_human.client || !ending_human.client.prefs || !ending_human.client.prefs.persistent_scars)
@@ -628,12 +628,12 @@ TYPE_PROC_REF(/datum/controller/subsystem/persistence, SaveScars)()
 			return
 		ending_human.client.prefs.save_character()
 
-TYPE_PROC_REF(/datum/controller/subsystem/persistence, GetFolders)()
+/datum/controller/subsystem/persistence/proc/GetFolders()
 	var/folder_path = file("data/folders.json")
 	if(fexists(folder_path))
 		return json_decode(file2text(folder_path))
 
-TYPE_PROC_REF(/datum/controller/subsystem/persistence, LoadFolders)()
+/datum/controller/subsystem/persistence/proc/LoadFolders()
 	var/folder_path = file("data/folders.json")
 	var/list/folder_json = list()
 
@@ -650,7 +650,7 @@ TYPE_PROC_REF(/datum/controller/subsystem/persistence, LoadFolders)()
 			F.PopulatePaperFromList(folder_json[F.persistenceID])
 
 
-TYPE_PROC_REF(/datum/controller/subsystem/persistence, SaveFolders)()
+/datum/controller/subsystem/persistence/proc/SaveFolders()
 	var/folder_path = file("data/folders.json")
 	var/list/folder_json = list()
 

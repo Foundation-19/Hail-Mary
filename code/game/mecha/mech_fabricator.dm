@@ -114,7 +114,7 @@
  * * D - Design datum to get information on.
  * * categories - Boolean, whether or not to parse snowflake categories into the part information list.
  */
-TYPE_PROC_REF(/obj/machinery/mecha_part_fabricator, output_part_info)(datum/design/D, categories = FALSE)
+/obj/machinery/mecha_part_fabricator/proc/output_part_info(datum/design/D, categories = FALSE)
 	var/cost = list()
 	for(var/c in D.materials)
 		var/datum/material/M = c
@@ -187,7 +187,7 @@ TYPE_PROC_REF(/obj/machinery/mecha_part_fabricator, output_part_info)(datum/desi
  * Returns null if there is no material container available.
  * List format is list(material_name = list(amount = ..., ref = ..., etc.))
  */
-TYPE_PROC_REF(/obj/machinery/mecha_part_fabricator, output_available_resources)()
+/obj/machinery/mecha_part_fabricator/proc/output_available_resources()
 	var/datum/component/material_container/materials = rmat.mat_container
 
 	var/list/material_data = list()
@@ -217,7 +217,7 @@ TYPE_PROC_REF(/obj/machinery/mecha_part_fabricator, output_available_resources)(
  *
  * Adds the overlay to show the fab working and sets active power usage settings.
  */
-TYPE_PROC_REF(/obj/machinery/mecha_part_fabricator, on_start_printing)()
+/obj/machinery/mecha_part_fabricator/proc/on_start_printing()
 	add_overlay("fab-active")
 	use_power = ACTIVE_POWER_USE
 
@@ -226,7 +226,7 @@ TYPE_PROC_REF(/obj/machinery/mecha_part_fabricator, on_start_printing)()
  *
  * Removes the overlay to show the fab working and sets idle power usage settings. Additionally resets the description and turns off queue processing.
  */
-TYPE_PROC_REF(/obj/machinery/mecha_part_fabricator, on_finish_printing)()
+/obj/machinery/mecha_part_fabricator/proc/on_finish_printing()
 	cut_overlay("fab-active")
 	use_power = IDLE_POWER_USE
 	desc = initial(desc)
@@ -238,7 +238,7 @@ TYPE_PROC_REF(/obj/machinery/mecha_part_fabricator, on_finish_printing)()
  * Returns a list of k,v resources with their amounts.
  * * D - Design datum to calculate the modified resource cost of.
  */
-TYPE_PROC_REF(/obj/machinery/mecha_part_fabricator, get_resources_w_coeff)(datum/design/D)
+/obj/machinery/mecha_part_fabricator/proc/get_resources_w_coeff(datum/design/D)
 	var/list/resources = list()
 	for(var/R in D.materials)
 		var/datum/material/M = R
@@ -252,7 +252,7 @@ TYPE_PROC_REF(/obj/machinery/mecha_part_fabricator, get_resources_w_coeff)(datum
  * Returns TRUE if there are sufficient resources to print the item.
  * * D - Design datum to calculate the modified resource cost of.
  */
-TYPE_PROC_REF(/obj/machinery/mecha_part_fabricator, check_resources)(datum/design/D)
+/obj/machinery/mecha_part_fabricator/proc/check_resources(datum/design/D)
 	if(length(D.reagents_list)) // No reagents storage - no reagent designs.
 		return FALSE
 	var/datum/component/material_container/materials = rmat.mat_container
@@ -267,7 +267,7 @@ TYPE_PROC_REF(/obj/machinery/mecha_part_fabricator, check_resources)(datum/desig
  * Returns TRUE if the next part has started building.
  * * verbose - Whether the machine should use say() procs. Set to FALSE to disable the machine saying reasons for failure to build.
  */
-TYPE_PROC_REF(/obj/machinery/mecha_part_fabricator, build_next_in_queue)(verbose = TRUE)
+/obj/machinery/mecha_part_fabricator/proc/build_next_in_queue(verbose = TRUE)
 	if(!length(queue))
 		return FALSE
 
@@ -286,7 +286,7 @@ TYPE_PROC_REF(/obj/machinery/mecha_part_fabricator, build_next_in_queue)(verbose
  * * D - Design datum to attempt to print.
  * * verbose - Whether the machine should use say() procs. Set to FALSE to disable the machine saying reasons for failure to build.
  */
-TYPE_PROC_REF(/obj/machinery/mecha_part_fabricator, build_part)(datum/design/D, verbose = TRUE)
+/obj/machinery/mecha_part_fabricator/proc/build_part(datum/design/D, verbose = TRUE)
 	if(!D)
 		return FALSE
 
@@ -352,7 +352,7 @@ TYPE_PROC_REF(/obj/machinery/mecha_part_fabricator, build_part)(datum/design/D, 
  * Return TRUE if the part was successfully dispensed.
  * * D - Design datum to attempt to dispense.
  */
-TYPE_PROC_REF(/obj/machinery/mecha_part_fabricator, dispense_built_part)(datum/design/D)
+/obj/machinery/mecha_part_fabricator/proc/dispense_built_part(datum/design/D)
 	var/obj/item/I = new D.build_path(src)
 	// I.material_flags |= MATERIAL_NO_EFFECTS //Find a better way to do this.
 	I.set_custom_materials(build_materials)
@@ -377,7 +377,7 @@ TYPE_PROC_REF(/obj/machinery/mecha_part_fabricator, dispense_built_part)(datum/d
  * Does final checks for datum IDs and makes sure this machine can build the designs.
  * * part_list - List of datum design ids for designs to add to the queue.
  */
-TYPE_PROC_REF(/obj/machinery/mecha_part_fabricator, add_part_set_to_queue)(list/part_list)
+/obj/machinery/mecha_part_fabricator/proc/add_part_set_to_queue(list/part_list)
 	for(var/v in stored_research.researched_designs)
 		var/datum/design/D = SSresearch.techweb_design_by_id(v)
 		if((D.build_type & MECHFAB) && (D.id in part_list))
@@ -389,7 +389,7 @@ TYPE_PROC_REF(/obj/machinery/mecha_part_fabricator, add_part_set_to_queue)(list/
  * Returns TRUE if successful and FALSE if the design was not added to the queue.
  * * D - Datum design to add to the queue.
  */
-TYPE_PROC_REF(/obj/machinery/mecha_part_fabricator, add_to_queue)(datum/design/D)
+/obj/machinery/mecha_part_fabricator/proc/add_to_queue(datum/design/D)
 	if(!istype(queue))
 		queue = list()
 	if(D)
@@ -403,7 +403,7 @@ TYPE_PROC_REF(/obj/machinery/mecha_part_fabricator, add_to_queue)(datum/design/D
  * Returns TRUE if successful and FALSE if a design was not removed from the queue.
  * * index - Index in the build queue of the element to remove.
  */
-TYPE_PROC_REF(/obj/machinery/mecha_part_fabricator, remove_from_queue)(index)
+/obj/machinery/mecha_part_fabricator/proc/remove_from_queue(index)
 	if(!isnum(index) || !ISINTEGER(index) || !istype(queue) || (index<1 || index>length(queue)))
 		return FALSE
 	queue.Cut(index,++index)
@@ -414,7 +414,7 @@ TYPE_PROC_REF(/obj/machinery/mecha_part_fabricator, remove_from_queue)(index)
  *
  * Returns a formatted list of lists containing formatted part information for every part in the build queue.
  */
-TYPE_PROC_REF(/obj/machinery/mecha_part_fabricator, list_queue)()
+/obj/machinery/mecha_part_fabricator/proc/list_queue()
 	if(!istype(queue) || !length(queue))
 		return null
 
@@ -429,7 +429,7 @@ TYPE_PROC_REF(/obj/machinery/mecha_part_fabricator, list_queue)()
  *
  * Requires an R&D Console visible within 7 tiles. Copies techweb research. Updates tgui's state data.
  */
-TYPE_PROC_REF(/obj/machinery/mecha_part_fabricator, sync)()
+/obj/machinery/mecha_part_fabricator/proc/sync()
 	for(var/obj/machinery/computer/rdconsole/RDC in orange(7,src))
 		RDC.stored_research.copy_research_to(stored_research)
 		update_static_data(usr)
@@ -447,7 +447,7 @@ TYPE_PROC_REF(/obj/machinery/mecha_part_fabricator, sync)()
  * * resource - Material datum reference to the resource to calculate the cost of.
  * * roundto - Rounding value for round() proc
  */
-TYPE_PROC_REF(/obj/machinery/mecha_part_fabricator, get_resource_cost_w_coeff)(datum/design/D, datum/material/resource, roundto = 1)
+/obj/machinery/mecha_part_fabricator/proc/get_resource_cost_w_coeff(datum/design/D, datum/material/resource, roundto = 1)
 	return round(D.materials[resource]*component_coeff, roundto)
 
 /**
@@ -457,7 +457,7 @@ TYPE_PROC_REF(/obj/machinery/mecha_part_fabricator, get_resource_cost_w_coeff)(d
  * * D - Design datum to calculate the modified build time of.
  * * roundto - Rounding value for round() proc
  */
-TYPE_PROC_REF(/obj/machinery/mecha_part_fabricator, get_construction_time_w_coeff)(construction_time, roundto = 1) //aran
+/obj/machinery/mecha_part_fabricator/proc/get_construction_time_w_coeff(construction_time, roundto = 1) //aran
 	return round(construction_time*time_coeff, roundto)
 
 /obj/machinery/mecha_part_fabricator/ui_assets(mob/user)
@@ -624,7 +624,7 @@ TYPE_PROC_REF(/obj/machinery/mecha_part_fabricator, get_construction_time_w_coef
  * eject_sheet - Byond REF of the material to eject.
  *	eject_amt - Number of sheets to attempt to eject.
  */
-TYPE_PROC_REF(/obj/machinery/mecha_part_fabricator, eject_sheets)(eject_sheet, eject_amt)
+/obj/machinery/mecha_part_fabricator/proc/eject_sheets(eject_sheet, eject_amt)
 	var/datum/component/material_container/mat_container = rmat.mat_container
 	if (!mat_container)
 		say("No access to material storage, please contact the quartermaster.")
@@ -638,10 +638,10 @@ TYPE_PROC_REF(/obj/machinery/mecha_part_fabricator, eject_sheets)(eject_sheet, e
 	rmat.silo_log(src, "ejected", -count, "sheets", matlist)
 	return count
 
-TYPE_PROC_REF(/obj/machinery/mecha_part_fabricator, AfterMaterialInsert)(item_inserted, id_inserted, amount_inserted)
+/obj/machinery/mecha_part_fabricator/proc/AfterMaterialInsert(item_inserted, id_inserted, amount_inserted)
 	var/datum/material/M = id_inserted
 	add_overlay("fab-load-[M.name]")
-	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, cut_overlay), "fab-load-[M.name]"), 10)
+	addtimer(CALLBACK(src, /atom/proc/cut_overlay, "fab-load-[M.name]"), 10)
 
 /obj/machinery/mecha_part_fabricator/screwdriver_act(mob/living/user, obj/item/I)
 	if(..())
@@ -659,7 +659,7 @@ TYPE_PROC_REF(/obj/machinery/mecha_part_fabricator, AfterMaterialInsert)(item_in
 		return FALSE
 	return default_deconstruction_crowbar(I)
 
-TYPE_PROC_REF(/obj/machinery/mecha_part_fabricator, is_insertion_ready)(mob/user)
+/obj/machinery/mecha_part_fabricator/proc/is_insertion_ready(mob/user)
 	if(panel_open)
 		to_chat(user, span_warning("You can't load [src] while it's opened!"))
 		return FALSE

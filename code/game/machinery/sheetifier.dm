@@ -25,10 +25,10 @@
 /obj/machinery/sheetifier/update_icon_state()
 	icon_state = "base_machine[busy_processing ? "_processing" : ""]"
 
-TYPE_PROC_REF(/obj/machinery/sheetifier, CanInsertMaterials)()
+/obj/machinery/sheetifier/proc/CanInsertMaterials()
 	return !busy_processing
 
-TYPE_PROC_REF(/obj/machinery/sheetifier, AfterInsertMaterials)(item_inserted, id_inserted, amount_inserted)
+/obj/machinery/sheetifier/proc/AfterInsertMaterials(item_inserted, id_inserted, amount_inserted)
 	busy_processing = TRUE
 	update_icon()
 	var/datum/material/last_inserted_material = id_inserted
@@ -37,7 +37,7 @@ TYPE_PROC_REF(/obj/machinery/sheetifier, AfterInsertMaterials)(item_inserted, id
 	flick_overlay_static(processing_overlay, src, 64)
 	addtimer(CALLBACK(src, PROC_REF(finish_processing)), 64)
 
-TYPE_PROC_REF(/obj/machinery/sheetifier, finish_processing)()
+/obj/machinery/sheetifier/proc/finish_processing()
 	busy_processing = FALSE
 	update_icon()
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
