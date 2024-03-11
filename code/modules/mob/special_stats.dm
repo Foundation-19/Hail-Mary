@@ -129,7 +129,7 @@ proc/get_top_level_mob(mob/S)
 /// CHARISMA
 
 /mob/living/carbon/human/initialize_special_charisma()
-	RegisterSignal(src, COMSIG_PARENT_EXAMINE, .proc/handle_special_charisma_examine_moodlet)
+	RegisterSignal(src, COMSIG_PARENT_EXAMINE, PROC_REF(handle_special_charisma_examine_moodlet))
 
 /mob/living/carbon/human/Destroy()
 	UnregisterSignal(src, COMSIG_PARENT_EXAMINE)

@@ -24,7 +24,7 @@
 
 
 /obj/item/reagent_containers/food/drinks/attack(mob/living/M, mob/user, def_zone)
-	INVOKE_ASYNC(src, .proc/attempt_forcedrink, M, user)
+	INVOKE_ASYNC(src, PROC_REF(attempt_forcedrink), M, user)
 
 /obj/item/reagent_containers/food/drinks/proc/attempt_forcedrink(mob/living/M, mob/user, force, silent, vorebite)
 	if(!reagents || !reagents.total_volume)
