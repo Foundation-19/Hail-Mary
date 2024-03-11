@@ -46,7 +46,7 @@
 			continue
 		GLOB.uplink_items += path
 	//(sub)typesof entries are listed by the order they are loaded in the code, so we'll have to rearrange them here.
-	GLOB.uplink_items = sortList(GLOB.uplink_items, /proc/cmp_uplink_items_dsc)
+	GLOB.uplink_items = sortList(GLOB.uplink_items, GLOBAL_PROC_REF(cmp_uplink_items_dsc))
 
 	init_subtypes(/datum/crafting_recipe, GLOB.crafting_recipes)
 

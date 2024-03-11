@@ -32,7 +32,7 @@ proc name: return air (/obj/machinery/atmospherics/pipe/return_air)
 
 The following runtime has occurred 48 time(s).
 runtime error: bad resource file
-proc name: send asset (/proc/send_asset)
+proc name: send asset (GLOBAL_PROC_REF(send_asset))
   source file: asset_cache.dm,44
   usr: Mariabella Pycroft-Crane (/mob/living/carbon/human)
   src: null
@@ -52,7 +52,7 @@ runtime error: undefined proc or verb /turf/closed/wall/shuttle/high pressure mo
 
 The following runtime has occurred 15 time(s).
 runtime error: Simple animal being instantiated in nullspace
-proc name: stack trace (/proc/stack_trace)
+proc name: stack trace (GLOBAL_PROC_REF(stack_trace))
   source file: unsorted.dm,1358
   usr: the Securitron (/mob/living/simple_animal/bot/secbot)
   src: null

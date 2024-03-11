@@ -294,7 +294,7 @@
 	//	user.visible_message(span_warning("[user] unclenches their teeth from [target]'s neck."),
 	//						span_warning("You retract your fangs and release [target] from your bite."))
 
-	// /proc/log_combat(atom/user, atom/target, what_done, atom/object=null, addition=null)
+	// GLOBAL_PROC_REF(log_combat)(atom/user, atom/target, what_done, atom/object=null, addition=null)
 	log_combat(owner, target, "fed on blood", addition="(and took [amount_taken] blood)")
 
 	// Killed Target?

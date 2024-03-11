@@ -1758,7 +1758,7 @@
 	..()
 
 /////////////////////////Coloured Crayon Powder////////////////////////////
-//For colouring in /proc/mix_color_from_reagents
+//For colouring in GLOBAL_PROC_REF(mix_color_from_reagents)
 
 
 /datum/reagent/colorful_reagent/crayonpowder
