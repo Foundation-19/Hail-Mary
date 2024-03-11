@@ -17,7 +17,7 @@
 	set_picture(P, datum_name, datum_desc, TRUE)
 	return ..()
 
-/obj/item/photo/proc/set_picture(datum/picture/P, setname, setdesc, name_override = FALSE)
+TYPE_PROC_REF(/obj/item/photo, set_picture)(datum/picture/P, setname, setdesc, name_override = FALSE)
 	if(!istype(P))
 		return
 	picture = P
@@ -71,7 +71,7 @@
 	else
 		. += span_warning("You need to get closer to get a good look at this photo!")
 
-/obj/item/photo/proc/show(mob/user)
+TYPE_PROC_REF(/obj/item/photo, show)(mob/user)
 	if(!istype(picture) || !picture.picture_image)
 		to_chat(user, span_warning("[src] seems to be blank..."))
 		return

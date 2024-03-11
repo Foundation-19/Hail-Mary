@@ -22,7 +22,7 @@ SUBSYSTEM_DEF(sun)
 		azimuth += 360
 	complete_movement()
 
-/datum/controller/subsystem/sun/proc/complete_movement()
+TYPE_PROC_REF(/datum/controller/subsystem/sun, complete_movement)()
 	SEND_SIGNAL(src, COMSIG_SUN_MOVED, azimuth)
 
 /datum/controller/subsystem/sun/vv_edit_var(var_name, var_value)

@@ -65,7 +65,7 @@
 		return
 	return ..()
 
-/mob/living/simple_animal/hostile/jungle/mook/proc/WarmupAttack(forced_slash_combo = FALSE)
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/jungle/mook, WarmupAttack)(forced_slash_combo = FALSE)
 	if(attack_state == MOOK_ATTACK_NEUTRAL && target)
 		attack_state = MOOK_ATTACK_WARMUP
 		walk(src,0)
@@ -78,7 +78,7 @@
 	attack_state = MOOK_ATTACK_RECOVERY
 	ResetNeutral()
 
-/mob/living/simple_animal/hostile/jungle/mook/proc/SlashCombo()
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/jungle/mook, SlashCombo)()
 	if(attack_state == MOOK_ATTACK_WARMUP && !stat)
 		attack_state = MOOK_ATTACK_ACTIVE
 		update_icons()
@@ -87,7 +87,7 @@
 		addtimer(CALLBACK(src, PROC_REF(SlashAttack)), 6)
 		addtimer(CALLBACK(src, PROC_REF(AttackRecovery)), 9)
 
-/mob/living/simple_animal/hostile/jungle/mook/proc/SlashAttack()
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/jungle/mook, SlashAttack)()
 	if(target && !stat && attack_state == MOOK_ATTACK_ACTIVE)
 		melee_damage_lower = 15
 		melee_damage_upper = 15
@@ -102,7 +102,7 @@
 		new /obj/effect/temp_visual/kinetic_blast(swing_turf)
 		playsound(src, 'sound/weapons/slashmiss.ogg', 50, 1)
 
-/mob/living/simple_animal/hostile/jungle/mook/proc/LeapAttack()
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/jungle/mook, LeapAttack)()
 	if(target && !stat && attack_state == MOOK_ATTACK_WARMUP)
 		attack_state = MOOK_ATTACK_ACTIVE
 		density = FALSE
@@ -118,7 +118,7 @@
 	attack_state = MOOK_ATTACK_RECOVERY
 	ResetNeutral()
 
-/mob/living/simple_animal/hostile/jungle/mook/proc/AttackRecovery()
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/jungle/mook, AttackRecovery)()
 	if(attack_state == MOOK_ATTACK_ACTIVE && !stat)
 		attack_state = MOOK_ATTACK_RECOVERY
 		density = TRUE
@@ -138,7 +138,7 @@
 			return
 		addtimer(CALLBACK(src, PROC_REF(ResetNeutral)), ATTACK_INTERMISSION_TIME)
 
-/mob/living/simple_animal/hostile/jungle/mook/proc/ResetNeutral()
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/jungle/mook, ResetNeutral)()
 	if(attack_state == MOOK_ATTACK_RECOVERY)
 		attack_state = MOOK_ATTACK_NEUTRAL
 		ranged_cooldown = world.time + ranged_cooldown_time

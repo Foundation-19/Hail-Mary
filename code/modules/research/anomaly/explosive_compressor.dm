@@ -54,7 +54,7 @@
 /**
  * Says (no, literally) the data of required explosive power for a certain anomaly type.
  */
-/obj/machinery/research/explosive_compressor/proc/say_requirements(obj/item/raw_anomaly_core/C)
+TYPE_PROC_REF(/obj/machinery/research/explosive_compressor, say_requirements)(obj/item/raw_anomaly_core/C)
 	var/required = get_required_radius(C.anomaly_type)
 	if(isnull(required))
 		say("Unfortunately, due to diminishing supplies of condensed anomalous matter, [C] and any cores of its type are no longer of a sufficient quality level to be compressed into a working core.")
@@ -69,7 +69,7 @@
  * Arguments:
  * * anomaly_type - anomaly type define
  */
-/obj/machinery/research/explosive_compressor/proc/get_required_radius(anomaly_type)
+TYPE_PROC_REF(/obj/machinery/research/explosive_compressor, get_required_radius)(anomaly_type)
 	var/already_made = SSresearch.created_anomaly_types[anomaly_type]
 	var/hard_limit = SSresearch.anomaly_hard_limit_by_type[anomaly_type]
 	if(already_made >= hard_limit)
@@ -118,7 +118,7 @@
 /**
  * The ""explosion"" proc.
  */
-/obj/machinery/research/explosive_compressor/proc/do_implosion()
+TYPE_PROC_REF(/obj/machinery/research/explosive_compressor, do_implosion)()
 	var/required_radius = get_required_radius(inserted_core.anomaly_type)
 	// By now, we should be sure that we have a core, a TTV, and that the TTV has both tanks in place.
 	var/datum/gas_mixture/mix1 = inserted_bomb.tank_one.air_contents

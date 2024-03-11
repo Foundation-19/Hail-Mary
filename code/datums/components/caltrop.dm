@@ -58,7 +58,7 @@
 	if(soundfile)
 		src.soundfile = soundfile
 
-/datum/component/caltrop/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+TYPE_PROC_REF(/datum/component/caltrop, on_entered)(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	SIGNAL_HANDLER
 
 	if(!prob(probability))
@@ -108,7 +108,7 @@
 			span_userdanger("You step on [parent]!")
 		)
 
-	INVOKE_ASYNC(H, /mob/living/carbon/human/.proc/apply_damage, damage, BRUTE, picked_def_zone, FALSE, FALSE, FALSE, CANT_WOUND)
+	INVOKE_ASYNC(H, TYPE_PROC_REF(/mob/living/carbon/human, apply_damage), damage, BRUTE, picked_def_zone, FALSE, FALSE, FALSE, CANT_WOUND)
 
 	if(!(flags & CALTROP_NOSTUN)) // Won't set off the paralysis.
 		H.Paralyze(60)

@@ -3,7 +3,7 @@
  * Splits off into PhysicalLife() and BiologicalLife(). Override those instead of this.
  */
 
-/mob/living/proc/Life(seconds, times_fired)
+TYPE_PROC_REF(/mob/living, Life)(seconds, times_fired)
 
 	//SHOULD_NOT_SLEEP(TRUE)
 	if(mob_transforming)
@@ -44,7 +44,7 @@
  * Handles biological life processes like chemical metabolism, breathing, etc
  * Returns TRUE or FALSE based on if we were interrupted. This is used by overridden variants to check if they should stop.
  */
-/mob/living/proc/BiologicalLife(seconds, times_fired)
+TYPE_PROC_REF(/mob/living, BiologicalLife)(seconds, times_fired)
 	SEND_SIGNAL(src,COMSIG_LIVING_BIOLOGICAL_LIFE, seconds, times_fired)
 	handle_diseases()// DEAD check is in the proc itself; we want it to spread even if the mob is dead, but to handle its disease-y properties only if you're not.
 
@@ -80,7 +80,7 @@
  * Handles physical life processes like being on fire. Don't ask why this is considered "Life".
  * Returns TRUE or FALSE based on if we were interrupted. This is used by overridden variants to check if they should stop.
  */
-/mob/living/proc/PhysicalLife(seconds, times_fired)
+TYPE_PROC_REF(/mob/living, PhysicalLife)(seconds, times_fired)
 	SEND_SIGNAL(src,COMSIG_LIVING_PHYSICAL_LIFE, seconds, times_fired)
 	if(digitalinvis)
 		handle_diginvis() //AI becomes unable to see mob
@@ -105,20 +105,20 @@
 		machine.check_eye(src)
 	return TRUE
 
-/mob/living/proc/handle_breathing(times_fired)
+TYPE_PROC_REF(/mob/living, handle_breathing)(times_fired)
 	return
 
-/mob/living/proc/handle_mutations_and_radiation()
+TYPE_PROC_REF(/mob/living, handle_mutations_and_radiation)()
 	radiation = 0 //so radiation don't accumulate in simple animals
 	return
 
-/mob/living/proc/handle_diseases()
+TYPE_PROC_REF(/mob/living, handle_diseases)()
 	return
 
-/mob/living/proc/handle_wounds()
+TYPE_PROC_REF(/mob/living, handle_wounds)()
 	return
 
-/mob/living/proc/handle_diginvis()
+TYPE_PROC_REF(/mob/living, handle_diginvis)()
 	if(!digitaldisguise)
 		src.digitaldisguise = image(loc = src)
 	src.digitaldisguise.override = 1
@@ -126,13 +126,13 @@
 		AI.client.images |= src.digitaldisguise
 
 
-/mob/living/proc/handle_random_events()
+TYPE_PROC_REF(/mob/living, handle_random_events)()
 	return
 
-/mob/living/proc/handle_environment(datum/gas_mixture/environment)
+TYPE_PROC_REF(/mob/living, handle_environment)(datum/gas_mixture/environment)
 	return
 
-/mob/living/proc/handle_fire()
+TYPE_PROC_REF(/mob/living, handle_fire)()
 	if(fire_stacks < 0) //If we've doused ourselves in water to avoid fire, dry off slowly
 		fire_stacks = min(0, fire_stacks + 1)//So we dry ourselves back to default, nonflammable.
 	if(!on_fire)
@@ -149,7 +149,7 @@
 	var/turf/location = get_turf(src)
 	location.hotspot_expose(700, 10, 1)
 
-/mob/living/proc/handle_stomach()
+TYPE_PROC_REF(/mob/living, handle_stomach)()
 	return
 
 /**
@@ -161,15 +161,15 @@
  * * amount (int) checks for having a specific amount of that chemical.
  * * needs_metabolizing (bool) takes into consideration if the chemical is matabolizing when it's checked.
  */
-/mob/living/proc/has_reagent(reagent, amount = -1, needs_metabolizing = FALSE)
+TYPE_PROC_REF(/mob/living, has_reagent)(reagent, amount = -1, needs_metabolizing = FALSE)
 	return reagents.has_reagent(reagent, amount, needs_metabolizing)
 
 //this updates all special effects: knockdown, druggy, stuttering, etc..
-/mob/living/proc/handle_status_effects()
+TYPE_PROC_REF(/mob/living, handle_status_effects)()
 	if(confused)
 		confused = max(0, confused - 1)
 
-/mob/living/proc/handle_traits()
+TYPE_PROC_REF(/mob/living, handle_traits)()
 	//Eyes
 	if(eye_blind)			//blindness, heals slowly over time
 		if(!stat && !(HAS_TRAIT(src, TRAIT_BLIND)))
@@ -187,10 +187,10 @@
 			else
 				update_eyeblur()
 
-/mob/living/proc/update_damage_hud()
+TYPE_PROC_REF(/mob/living, update_damage_hud)()
 	return
 
-/mob/living/proc/handle_gravity()
+TYPE_PROC_REF(/mob/living, handle_gravity)()
 	var/gravity = mob_has_gravity()
 	update_gravity(gravity)
 
@@ -198,17 +198,17 @@
 		gravity_animate()
 		handle_high_gravity(gravity)
 
-/mob/living/proc/gravity_animate()
+TYPE_PROC_REF(/mob/living, gravity_animate)()
 	if(!get_filter("gravity"))
 		add_filter("gravity",1, GRAVITY_MOTION_BLUR)
 	INVOKE_ASYNC(src, PROC_REF(gravity_pulse_animation))
 
-/mob/living/proc/gravity_pulse_animation()
+TYPE_PROC_REF(/mob/living, gravity_pulse_animation)()
 	animate(get_filter("gravity"), y = 1, time = 10)
 	sleep(10)
 	animate(get_filter("gravity"), y = 0, time = 10)
 
-/mob/living/proc/handle_high_gravity(gravity)
+TYPE_PROC_REF(/mob/living, handle_high_gravity)(gravity)
 	if(gravity >= GRAVITY_DAMAGE_TRESHOLD) //Aka gravity values of 3 or more
 		var/grav_stregth = gravity - GRAVITY_DAMAGE_TRESHOLD
 		adjustBruteLoss(min(grav_stregth,3))

@@ -15,7 +15,7 @@
 	var/obj/item/gun/energy/chrono_gun/PA = null
 	var/list/erased_minds = list() //a collection of minds from the dead
 
-/obj/item/chrono_eraser/proc/pass_mind(datum/mind/M)
+TYPE_PROC_REF(/obj/item/chrono_eraser, pass_mind)(datum/mind/M)
 	erased_minds += M
 
 /obj/item/chrono_eraser/dropped(mob/user)
@@ -78,7 +78,7 @@
 		field_disconnect(field)
 	return ..()
 
-/obj/item/gun/energy/chrono_gun/proc/field_connect(obj/effect/chrono_field/F)
+TYPE_PROC_REF(/obj/item/gun/energy/chrono_gun, field_connect)(obj/effect/chrono_field/F)
 	var/mob/living/user = src.loc
 	if(F.gun)
 		if(isliving(user) && F.captured)
@@ -92,7 +92,7 @@
 			to_chat(user, "<span class='notice'>Connection established with target: <b>[F.captured]</b></span>")
 
 
-/obj/item/gun/energy/chrono_gun/proc/field_disconnect(obj/effect/chrono_field/F)
+TYPE_PROC_REF(/obj/item/gun/energy/chrono_gun, field_disconnect)(obj/effect/chrono_field/F)
 	if(F && field == F)
 		var/mob/living/user = src.loc
 		if(F.gun == src)
@@ -102,7 +102,7 @@
 	field = null
 	startpos = null
 
-/obj/item/gun/energy/chrono_gun/proc/field_check(obj/effect/chrono_field/F)
+TYPE_PROC_REF(/obj/item/gun/energy/chrono_gun, field_check)(obj/effect/chrono_field/F)
 	if(F)
 		if(field == F)
 			var/turf/currentpos = get_turf(src)
@@ -112,7 +112,7 @@
 		field_disconnect(F)
 		return 0
 
-/obj/item/gun/energy/chrono_gun/proc/pass_mind(datum/mind/M)
+TYPE_PROC_REF(/obj/item/gun/energy/chrono_gun, pass_mind)(datum/mind/M)
 	if(TED)
 		TED.pass_mind(M)
 

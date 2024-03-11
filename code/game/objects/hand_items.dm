@@ -41,7 +41,7 @@
 /obj/item/hand_item/licker/attack_obj_nohit(obj/O, mob/living/user)
 	return start_licking(src, O, user)
 
-/obj/item/hand_item/licker/proc/start_licking(atom/source, atom/licked, mob/living/carbon/user)
+TYPE_PROC_REF(/obj/item/hand_item/licker, start_licking)(atom/source, atom/licked, mob/living/carbon/user)
 	if(!iscarbon(user))
 		return FALSE
 	if(licking)
@@ -73,7 +73,7 @@
 	lick_atom(licked, user)
 	return TRUE
 
-/obj/item/hand_item/licker/proc/lick_atom(atom/movable/licked, mob/living/carbon/user)
+TYPE_PROC_REF(/obj/item/hand_item/licker, lick_atom)(atom/movable/licked, mob/living/carbon/user)
 	var/list/lick_words = get_lick_words(user)
 	if(isliving(licked))
 		user.visible_message(
@@ -91,7 +91,7 @@
 		)
 	lick_flavor(atom_licked = licked, licker = user)
 
-/obj/item/hand_item/licker/proc/lick_flavor(atom/source, atom/atom_licked, mob/living/carbon/licker)
+TYPE_PROC_REF(/obj/item/hand_item/licker, lick_flavor)(atom/source, atom/atom_licked, mob/living/carbon/licker)
 	if(!atom_licked)
 		return
 	if(!licker)
@@ -103,7 +103,7 @@
 	licker.taste(null, atom_licked)
 	playsound(get_turf(src), pokesound, 25, 1, SOUND_DISTANCE(LICK_SOUND_TEXT_RANGE))
 
-/obj/item/hand_item/licker/proc/lick_wound(mob/living/licked, mob/living/carbon/user)
+TYPE_PROC_REF(/obj/item/hand_item/licker, lick_wound)(mob/living/licked, mob/living/carbon/user)
 	if(!iscarbon(licked))
 		return FALSE
 	var/obj/item/organ/tongue/our_tongue = user.getorganslot(ORGAN_SLOT_TONGUE)
@@ -155,7 +155,7 @@
 	user.visible_message(span_alert("[user] was interrupted!"))
 	return LICK_CANCEL
 
-/obj/item/hand_item/licker/proc/lick_heal(mob/living/licked, mob/living/carbon/user)
+TYPE_PROC_REF(/obj/item/hand_item/licker, lick_heal)(mob/living/licked, mob/living/carbon/user)
 	if(!iscarbon(licked))
 		return FALSE
 	var/obj/item/organ/tongue/our_tongue = user.getorganslot(ORGAN_SLOT_TONGUE)
@@ -168,7 +168,7 @@
 	tongue_healer.attack(licked, user)
 	return TRUE
 
-/obj/item/hand_item/licker/proc/get_lick_words(mob/living/carbon/user)
+TYPE_PROC_REF(/obj/item/hand_item/licker, get_lick_words)(mob/living/carbon/user)
 	if(!user)
 		return
 

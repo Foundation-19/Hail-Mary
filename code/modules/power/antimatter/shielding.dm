@@ -32,17 +32,17 @@
 	. = ..()
 	addtimer(CALLBACK(src, PROC_REF(controllerscan)), 10)
 
-/obj/machinery/am_shielding/proc/overheat()
+TYPE_PROC_REF(/obj/machinery/am_shielding, overheat)()
 	visible_message(span_danger("[src] melts!"))
 	new /obj/effect/hotspot(loc)
 	qdel(src)
 
-/obj/machinery/am_shielding/proc/collapse()
+TYPE_PROC_REF(/obj/machinery/am_shielding, collapse)()
 	visible_message(span_notice("[src] collapses back into a container!"))
 	new /obj/item/am_shielding_container(drop_location())
 	qdel(src)
 
-/obj/machinery/am_shielding/proc/controllerscan(priorscan = 0)
+TYPE_PROC_REF(/obj/machinery/am_shielding, controllerscan)(priorscan = 0)
 	//Make sure we are the only one here
 	if(!isturf(loc))
 		collapse()
@@ -166,7 +166,7 @@
 
 
 //Call this to link a detected shilding unit to the controller
-/obj/machinery/am_shielding/proc/link_control(obj/machinery/power/am_control_unit/AMC)
+TYPE_PROC_REF(/obj/machinery/am_shielding, link_control)(obj/machinery/power/am_control_unit/AMC)
 	if(!istype(AMC))
 		return 0
 	if(control_unit && control_unit != AMC)
@@ -177,7 +177,7 @@
 
 
 //Scans cards for shields or the control unit and if all there it
-/obj/machinery/am_shielding/proc/core_check()
+TYPE_PROC_REF(/obj/machinery/am_shielding, core_check)()
 	for(var/direction in GLOB.alldirs)
 		var/found_am_device=0
 		for(var/obj/machinery/machine in get_step(loc, direction))
@@ -191,7 +191,7 @@
 	return 1
 
 
-/obj/machinery/am_shielding/proc/setup_core()
+TYPE_PROC_REF(/obj/machinery/am_shielding, setup_core)()
 	processing = TRUE
 	GLOB.machines |= src
 	START_PROCESSING(SSmachines, src)
@@ -202,7 +202,7 @@
 	return
 
 
-/obj/machinery/am_shielding/proc/shutdown_core()
+TYPE_PROC_REF(/obj/machinery/am_shielding, shutdown_core)()
 	processing = FALSE
 	if(!control_unit)
 		return
@@ -211,7 +211,7 @@
 	return
 
 
-/obj/machinery/am_shielding/proc/check_stability(injecting_fuel = 0)
+TYPE_PROC_REF(/obj/machinery/am_shielding, check_stability)(injecting_fuel = 0)
 	if(stability > 0)
 		return
 	if(injecting_fuel && control_unit)
@@ -221,7 +221,7 @@
 	return
 
 
-/obj/machinery/am_shielding/proc/recalc_efficiency(new_efficiency)//tbh still not 100% sure how I want to deal with efficiency so this is likely temp
+TYPE_PROC_REF(/obj/machinery/am_shielding, recalc_efficiency)(new_efficiency)//tbh still not 100% sure how I want to deal with efficiency so this is likely temp
 	if(!control_unit || !processing)
 		return
 	if(stability < 50)

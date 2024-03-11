@@ -57,7 +57,7 @@
 /obj/item/storage/bag/trash/cyborg
 	insertable = FALSE
 
-/obj/item/storage/bag/trash/proc/janicart_insert(mob/user, obj/structure/janitorialcart/J)
+TYPE_PROC_REF(/obj/item/storage/bag/trash, janicart_insert)(mob/user, obj/structure/janitorialcart/J)
 	if(insertable)
 		J.put_in_cart(src, user)
 		J.mybag=src
@@ -119,7 +119,7 @@
 		UnregisterSignal(listeningTo, COMSIG_MOVABLE_MOVED)
 	listeningTo = null
 
-/obj/item/storage/bag/ore/proc/Pickup_ores(mob/living/user)
+TYPE_PROC_REF(/obj/item/storage/bag/ore, Pickup_ores)(mob/living/user)
 	var/show_message = FALSE
 	var/obj/structure/ore_box/box
 	var/turf/tile = user.loc
@@ -471,7 +471,7 @@ obj/item/storage/bag/chemistry/tribal
 	listeningTo = user
 
 
-/obj/item/storage/bag/casings/proc/Pickup_casings(mob/living/user)
+TYPE_PROC_REF(/obj/item/storage/bag/casings, Pickup_casings)(mob/living/user)
 	var/show_message = FALSE
 	var/turf/tile = user.loc
 	if (!isturf(tile))

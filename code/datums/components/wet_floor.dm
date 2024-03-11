@@ -51,7 +51,7 @@
 		stack_trace("Warning: Wet floor component wasn't on a turf when being destroyed! This is really bad!")
 	return ..()
 
-/datum/component/wet_floor/proc/update_overlay()
+TYPE_PROC_REF(/datum/component/wet_floor, update_overlay)()
 	var/intended
 	if(!istype(parent, /turf/open/floor))
 		intended = generic_turf_overlay
@@ -69,11 +69,11 @@
 		T.add_overlay(intended)
 		current_overlay = intended
 
-/datum/component/wet_floor/proc/AfterSlip(mob/living/L)
+TYPE_PROC_REF(/datum/component/wet_floor, AfterSlip)(mob/living/L)
 	if(highest_strength == TURF_WET_LUBE)
 		L.confused = max(L.confused, 8)
 
-/datum/component/wet_floor/proc/update_flags()
+TYPE_PROC_REF(/datum/component/wet_floor, update_flags)()
 	var/intensity
 	lube_flags = NONE
 	switch(highest_strength)
@@ -98,14 +98,14 @@
 
 	parent.LoadComponent(/datum/component/slippery, intensity, lube_flags, CALLBACK(src, PROC_REF(AfterSlip)))
 
-/datum/component/wet_floor/proc/dry(datum/source, strength = TURF_WET_WATER, immediate = FALSE, duration_decrease = INFINITY)
+TYPE_PROC_REF(/datum/component/wet_floor, dry)(datum/source, strength = TURF_WET_WATER, immediate = FALSE, duration_decrease = INFINITY)
 	for(var/i in time_left_list)
 		if(text2num(i) <= strength)
 			time_left_list[i] = max(0, time_left_list[i] - duration_decrease)
 	if(immediate)
 		check()
 
-/datum/component/wet_floor/proc/max_time_left()
+TYPE_PROC_REF(/datum/component/wet_floor, max_time_left)()
 	. = 0
 	for(var/i in time_left_list)
 		. = max(., time_left_list[i])
@@ -130,12 +130,12 @@
 	check()
 	last_process = world.time
 
-/datum/component/wet_floor/proc/update_strength()
+TYPE_PROC_REF(/datum/component/wet_floor, update_strength)()
 	highest_strength = 0			//Not bitflag.
 	for(var/i in time_left_list)
 		highest_strength = max(highest_strength, text2num(i))
 
-/datum/component/wet_floor/proc/is_wet()
+TYPE_PROC_REF(/datum/component/wet_floor, is_wet)()
 	. = 0
 	for(var/i in time_left_list)
 		. |= text2num(i)
@@ -157,7 +157,7 @@
 
 	//NB it's possible we get deleted after this, due to inherit
 
-/datum/component/wet_floor/proc/add_wet(type, duration_minimum = 0, duration_add = 0, duration_maximum = MAXIMUM_WET_TIME, _permanent = FALSE)
+TYPE_PROC_REF(/datum/component/wet_floor, add_wet)(type, duration_minimum = 0, duration_add = 0, duration_maximum = MAXIMUM_WET_TIME, _permanent = FALSE)
 	var/static/list/allowed_types = list(TURF_WET_WATER, TURF_WET_LUBE, TURF_WET_ICE, TURF_WET_PERMAFROST, TURF_WET_SUPERLUBE)
 	if(duration_minimum <= 0 || !type)
 		return FALSE
@@ -173,7 +173,7 @@
 		permanent = TRUE
 		STOP_PROCESSING(SSwet_floors, src)
 
-/datum/component/wet_floor/proc/_do_add_wet(type, duration_minimum, duration_add, duration_maximum)
+TYPE_PROC_REF(/datum/component/wet_floor, _do_add_wet)(type, duration_minimum, duration_add, duration_maximum)
 	var/time = 0
 	if(LAZYACCESS(time_left_list, "[type]"))
 		time = clamp(LAZYACCESS(time_left_list, "[type]") + duration_add, duration_minimum, duration_maximum)
@@ -183,7 +183,7 @@
 	check(TRUE)
 	return TRUE
 
-/datum/component/wet_floor/proc/gc(on_init = FALSE)
+TYPE_PROC_REF(/datum/component/wet_floor, gc)(on_init = FALSE)
 	if(!LAZYLEN(time_left_list))
 		if(on_init)
 			var/turf/T = parent
@@ -192,7 +192,7 @@
 		return TRUE
 	return FALSE
 
-/datum/component/wet_floor/proc/check(force_update = FALSE)
+TYPE_PROC_REF(/datum/component/wet_floor, check)(force_update = FALSE)
 	var/changed = FALSE
 	for(var/i in time_left_list)
 		if(time_left_list[i] <= 0)

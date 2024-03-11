@@ -22,7 +22,7 @@
 		unswarm()
 	return ..()
 
-/datum/component/swarming/proc/join_swarm(datum/source, atom/movable/AM)
+TYPE_PROC_REF(/datum/component/swarming, join_swarm)(datum/source, atom/movable/AM)
 	var/datum/component/swarming/other_swarm = AM.GetComponent(/datum/component/swarming)
 	if(!other_swarm)
 		return
@@ -31,7 +31,7 @@
 	other_swarm.swarm()
 	other_swarm.swarm_members |= src
 
-/datum/component/swarming/proc/leave_swarm(datum/source, atom/movable/AM)
+TYPE_PROC_REF(/datum/component/swarming, leave_swarm)(datum/source, atom/movable/AM)
 	var/datum/component/swarming/other_swarm = AM.GetComponent(/datum/component/swarming)
 	if(!other_swarm || !(other_swarm in swarm_members))
 		return
@@ -42,13 +42,13 @@
 	if(!other_swarm.swarm_members.len)
 		other_swarm.unswarm()
 
-/datum/component/swarming/proc/swarm()
+TYPE_PROC_REF(/datum/component/swarming, swarm)()
 	var/atom/movable/owner = parent
 	if(!is_swarming)
 		is_swarming = TRUE
 		animate(owner, pixel_x = owner.pixel_x + offset_x, pixel_y = owner.pixel_y + offset_y, time = 2)
 
-/datum/component/swarming/proc/unswarm()
+TYPE_PROC_REF(/datum/component/swarming, unswarm)()
 	var/atom/movable/owner = parent
 	if(is_swarming)
 		animate(owner, pixel_x = owner.pixel_x - offset_x, pixel_y = owner.pixel_y - offset_y, time = 2)

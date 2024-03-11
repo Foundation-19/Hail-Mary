@@ -43,7 +43,7 @@
 			if(D & demand_connects)
 				send_request(D)
 ///Can we be added to the ductnet?
-/datum/component/plumbing/proc/can_add(datum/ductnet/D, dir)
+TYPE_PROC_REF(/datum/component/plumbing, can_add)(datum/ductnet/D, dir)
 	if(!active)
 		return
 	if(!dir || !D)
@@ -53,10 +53,10 @@
 
 	return TRUE
 ///called from in process(). only calls process_request(), but can be overwritten for children with special behaviour
-/datum/component/plumbing/proc/send_request(dir)
+TYPE_PROC_REF(/datum/component/plumbing, send_request)(dir)
 	process_request(amount = MACHINE_REAGENT_TRANSFER, reagent = null, dir = dir)
 ///check who can give us what we want, and how many each of them will give us
-/datum/component/plumbing/proc/process_request(amount, reagent, dir)
+TYPE_PROC_REF(/datum/component/plumbing, process_request)(amount, reagent, dir)
 	var/list/valid_suppliers = list()
 	var/datum/ductnet/net
 	if(!ducts.Find(num2text(dir)))
@@ -70,7 +70,7 @@
 		var/datum/component/plumbing/give = A
 		give.transfer_to(src, amount / valid_suppliers.len, reagent, net)
 ///returns TRUE when they can give the specified amount and reagent. called by process request
-/datum/component/plumbing/proc/can_give(amount, reagent, datum/ductnet/net)
+TYPE_PROC_REF(/datum/component/plumbing, can_give)(amount, reagent, datum/ductnet/net)
 	if(amount <= 0)
 		return
 
@@ -82,7 +82,7 @@
 	else if(reagents.total_volume > 0) //take whatever
 		return TRUE
 ///this is where the reagent is actually transferred and is thus the finish point of our process()
-/datum/component/plumbing/proc/transfer_to(datum/component/plumbing/target, amount, reagent, datum/ductnet/net)
+TYPE_PROC_REF(/datum/component/plumbing, transfer_to)(datum/component/plumbing/target, amount, reagent, datum/ductnet/net)
 	if(!reagents || !target || !target.reagents)
 		return FALSE
 	if(reagent)
@@ -90,7 +90,7 @@
 	else
 		reagents.trans_to(target.parent, amount)
 ///We create our luxurious piping overlays/underlays, to indicate where we do what. only called once if use_overlays = TRUE in Initialize()
-/datum/component/plumbing/proc/create_overlays()
+TYPE_PROC_REF(/datum/component/plumbing, create_overlays)()
 	var/atom/movable/AM = parent
 	for(var/image/I in ducterlays)
 		AM.overlays.Remove(I)
@@ -123,7 +123,7 @@
 		AM.add_overlay(I)
 		ducterlays += I
 ///we stop acting like a plumbing thing and disconnect if we are, so we can safely be moved and stuff
-/datum/component/plumbing/proc/disable()
+TYPE_PROC_REF(/datum/component/plumbing, disable)()
 	if(!active)
 		return
 	STOP_PROCESSING(SSfluids, src)
@@ -137,7 +137,7 @@
 				duct.attempt_connect()
 
 ///settle wherever we are, and start behaving like a piece of plumbing
-/datum/component/plumbing/proc/enable()
+TYPE_PROC_REF(/datum/component/plumbing, enable)()
 	if(active)
 		return
 	update_dir()
@@ -162,7 +162,7 @@
 						direct_connect(P, D)
 
 /// Toggle our machinery on or off. This is called by a hook from default_unfasten_wrench with anchored as only param, so we dont have to copypaste this on every object that can move
-/datum/component/plumbing/proc/toggle_active(obj/O, new_state)
+TYPE_PROC_REF(/datum/component/plumbing, toggle_active)(obj/O, new_state)
 	if(new_state)
 		enable()
 	else
@@ -170,7 +170,7 @@
 /** We update our connects only when we settle down by taking our current and original direction to find our new connects
 * If someone wants it to fucking spin while connected to something go actually knock yourself out
 */
-/datum/component/plumbing/proc/update_dir()
+TYPE_PROC_REF(/datum/component/plumbing, update_dir)()
 	if(!turn_connects)
 		return
 	var/atom/movable/AM = parent
@@ -190,11 +190,11 @@
 		demand_connects = new_demand_connects
 		supply_connects = new_supply_connects
 ///Give the direction of a pipe, and it'll return wich direction it originally was when it's object pointed SOUTH
-/datum/component/plumbing/proc/get_original_direction(dir)
+TYPE_PROC_REF(/datum/component/plumbing, get_original_direction)(dir)
 	var/atom/movable/AM = parent
 	return turn(dir, dir2angle(AM.dir) - 180)
 //special case in-case we want to connect directly with another machine without a duct
-/datum/component/plumbing/proc/direct_connect(datum/component/plumbing/P, dir)
+TYPE_PROC_REF(/datum/component/plumbing, direct_connect)(datum/component/plumbing/P, dir)
 	if(!P.active)
 		return
 	var/opposite_dir = turn(dir, 180)

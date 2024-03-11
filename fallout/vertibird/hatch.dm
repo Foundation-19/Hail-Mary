@@ -5,7 +5,7 @@
 	anchored = 1
 	density = 1
 
-/obj/vertibird_exit_door/proc/eject(obj/I)
+TYPE_PROC_REF(/obj/vertibird_exit_door, eject)(obj/I)
 	if(!GLOB.vertibird)
 		return
 

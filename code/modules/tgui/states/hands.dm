@@ -16,7 +16,7 @@ GLOBAL_DATUM_INIT(hands_state, /datum/ui_state/hands_state, new)
 	if(. > UI_CLOSE)
 		return min(., user.hands_can_use_topic(src_object))
 
-/mob/proc/hands_can_use_topic(src_object)
+TYPE_PROC_REF(/mob, hands_can_use_topic)(src_object)
 	return UI_CLOSE
 
 /mob/living/hands_can_use_topic(src_object)

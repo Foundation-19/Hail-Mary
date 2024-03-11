@@ -14,7 +14,7 @@
 	var/obj/machinery/computer/cargo/inserted_console
 
 /// Choose what our prize is :D
-/obj/item/coupon/proc/generate()
+TYPE_PROC_REF(/obj/item/coupon, generate)()
 	discounted_pack = pick(subtypesof(/datum/supply_pack/goody))
 	var/list/chances = list("0.10" = 4, "0.15" = 8, "0.20" = 10, "0.25" = 8, "0.50" = 4, COUPON_OMEN = 1)
 	discount_pct_off = pickweight(chances)

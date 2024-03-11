@@ -68,7 +68,7 @@
 			O.dismember()
 	return (BRUTELOSS)
 
-/obj/item/zombie_hand/proc/check_feast(mob/living/target, mob/living/user)
+TYPE_PROC_REF(/obj/item/zombie_hand, check_feast)(mob/living/target, mob/living/user)
 	if(target.stat == DEAD)
 		var/hp_gained = target.maxHealth
 		target.gib()
@@ -150,7 +150,7 @@
 			O.dismember()
 	return (BRUTELOSS)
 
-/obj/item/ghoul_zombie_hand/proc/check_feast(mob/living/target, mob/living/user)
+TYPE_PROC_REF(/obj/item/ghoul_zombie_hand, check_feast)(mob/living/target, mob/living/user)
 	if(target.stat == DEAD)
 		var/hp_gained = target.maxHealth
 		target.gib()

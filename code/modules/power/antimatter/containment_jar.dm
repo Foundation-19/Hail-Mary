@@ -33,7 +33,7 @@
 	//check_stability()
 	return
 
-/obj/item/am_containment/proc/usefuel(wanted)
+TYPE_PROC_REF(/obj/item/am_containment, usefuel)(wanted)
 	if(fuel < wanted)
 		wanted = fuel
 	fuel -= wanted

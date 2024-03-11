@@ -19,7 +19,7 @@
 	var/display_timer = 1
 	var/clumsy_check = GRENADE_CLUMSY_FUMBLE
 	var/sticky = FALSE
-	// I moved the explosion vars and behavior to base grenades because we want all grenades to call [/obj/item/grenade/proc/prime] so we can send COMSIG_GRENADE_PRIME
+	// I moved the explosion vars and behavior to base grenades because we want all grenades to call [TYPE_PROC_REF(/obj/item/grenade, prime)] so we can send COMSIG_GRENADE_PRIME
 	///how big of a devastation explosion radius on prime
 	var/ex_dev = 0
 	///how big of a heavy explosion radius on prime
@@ -55,7 +55,7 @@
 	if(!QDELETED(src))
 		qdel(src)
 
-/obj/item/grenade/proc/botch_check(mob/living/carbon/human/user)
+TYPE_PROC_REF(/obj/item/grenade, botch_check)(mob/living/carbon/human/user)
 	var/clumsy = HAS_TRAIT(user, TRAIT_CLUMSY)
 	if(clumsy)
 		if(clumsy_check == GRENADE_CLUMSY_FUMBLE && prob(50))
@@ -93,7 +93,7 @@
 		if(!botch_check(user)) // if they botch the prime, it'll be handled in botch_check
 			preprime(user)
 
-/obj/item/grenade/proc/log_grenade(mob/user, turf/T)
+TYPE_PROC_REF(/obj/item/grenade, log_grenade)(mob/user, turf/T)
 	var/message = "[ADMIN_LOOKUPFLW(user)]) has primed \a [src] for detonation at [ADMIN_VERBOSEJMP(T)]"
 	GLOB.bombers += message
 	message_admins(message)
@@ -101,7 +101,7 @@
 
 
 // for electric beep on activation
-/obj/item/grenade/proc/preprime(mob/user, delayoverride, msg = TRUE, volume = 60)
+TYPE_PROC_REF(/obj/item/grenade, preprime)(mob/user, delayoverride, msg = TRUE, volume = 60)
 	var/turf/T = get_turf(src)
 	log_grenade(user, T) //Inbuilt admin procs already handle null users
 	if(user)
@@ -128,7 +128,7 @@
 	. = ..()
 
 // for ticking sound until detonation
-/obj/item/grenade/proc/primetimer(mob/user, delayoverride, msg = TRUE, volume = 60)
+TYPE_PROC_REF(/obj/item/grenade, primetimer)(mob/user, delayoverride, msg = TRUE, volume = 60)
 	var/turf/T = get_turf(src)
 	log_grenade(user, T) //Inbuilt admin procs already handle null users
 	if(user)
@@ -145,7 +145,7 @@
 	addtimer(CALLBACK(src, PROC_REF(prime)), isnull(delayoverride)? det_time : delayoverride)
 
 // For hissing fuse sound
-/obj/item/grenade/proc/primefuse(mob/user, delayoverride, msg = TRUE, volume = 60)
+TYPE_PROC_REF(/obj/item/grenade, primefuse)(mob/user, delayoverride, msg = TRUE, volume = 60)
 	var/turf/T = get_turf(src)
 	log_grenade(user, T) //Inbuilt admin procs already handle null users
 	if(user)
@@ -162,7 +162,7 @@
 	addtimer(CALLBACK(src, PROC_REF(prime)), isnull(delayoverride)? det_time : delayoverride)
 
 
-/obj/item/grenade/proc/prime(mob/living/lanced_by)
+TYPE_PROC_REF(/obj/item/grenade, prime)(mob/living/lanced_by)
 	var/turf/T = get_turf(src)
 	log_game("Grenade detonation at [AREACOORD(T)], location [loc]")
 
@@ -174,7 +174,7 @@
 	if(ex_dev || ex_heavy || ex_light || ex_flame)
 		explosion(loc, ex_dev, ex_heavy, ex_light, flame_range = ex_flame)
 
-/obj/item/grenade/proc/update_mob()
+TYPE_PROC_REF(/obj/item/grenade, update_mob)()
 	if(ismob(loc))
 		var/mob/M = loc
 		M.dropItemToGround(src)
@@ -213,5 +213,5 @@
 			return BLOCK_SUCCESS | BLOCK_PHYSICAL_EXTERNAL
 	return ..()
 
-/obj/item/proc/grenade_prime_react(obj/item/grenade/nade)
+TYPE_PROC_REF(/obj/item, grenade_prime_react)(obj/item/grenade/nade)
 	return

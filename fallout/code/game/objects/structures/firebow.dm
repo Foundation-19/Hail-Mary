@@ -41,7 +41,7 @@
 	
 	..()
 
-/obj/item/firebow/proc/AttemptIgnite(mob/user)
+TYPE_PROC_REF(/obj/item/firebow, AttemptIgnite)(mob/user)
 	if(user.stat)
 		return FALSE
 
@@ -67,19 +67,19 @@
 	return FALSE
 	
 
-/obj/item/firebow/proc/StartBurning(mob/user)
+TYPE_PROC_REF(/obj/item/firebow, StartBurning)(mob/user)
 	cinder = TRUE
 	heat = 1500
 	addtimer(CALLBACK(src, PROC_REF(Extinguish), user), burnLength)
 	UpdateIcon()
 
-/obj/item/firebow/proc/Extinguish(mob/user)
+TYPE_PROC_REF(/obj/item/firebow, Extinguish)(mob/user)
 	cinder = FALSE
 	heat = 0
 	user.visible_message(span_notice("[src] loses it's glowing embers, extinguishing silently."))
 	UpdateIcon()
 
-/obj/item/firebow/proc/UpdateIcon()
+TYPE_PROC_REF(/obj/item/firebow, UpdateIcon)()
 	icon_state = "[iconBaseState][cinder]"
 
 // Peter, I've had enough of your nonsense! You need to grow up and stop wasting your time and money on this catgirl fantasy! You're a married man with three kids and a dog! You have responsibilities and obligations! You can't just run away to some imaginary place where you think you'll be happy! You need to face reality and deal with your problems! You need to work on your marriage and your parenting and your career! You need to be a good husband and a good father and a good citizen! You need to stop being so selfish and immature and foolish! You need to stop being Peter Griffin and start being a man!

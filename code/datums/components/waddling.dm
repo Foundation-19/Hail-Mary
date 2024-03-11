@@ -17,7 +17,7 @@
 		side_waddle_time = amount_to_bob_side
 	RegisterSignal(parent, list(COMSIG_MOVABLE_MOVED), PROC_REF(Waddle))
 
-/datum/component/waddling/proc/Waddle()
+TYPE_PROC_REF(/datum/component/waddling, Waddle)()
 	if(waddling)
 		return
 	if(isliving(parent))

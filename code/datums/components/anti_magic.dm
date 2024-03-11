@@ -28,16 +28,16 @@
 	reaction = _reaction
 	expire = _expire
 
-/datum/component/anti_magic/proc/on_equip(datum/source, mob/equipper, slot)
+TYPE_PROC_REF(/datum/component/anti_magic, on_equip)(datum/source, mob/equipper, slot)
 	if(!CHECK_BITFIELD(allowed_slots, slotdefine2slotbit(slot))) //Check that the slot is valid for antimagic
 		UnregisterSignal(equipper, COMSIG_MOB_RECEIVE_MAGIC)
 		return
 	RegisterSignal(equipper, COMSIG_MOB_RECEIVE_MAGIC, PROC_REF(protect), TRUE)
 
-/datum/component/anti_magic/proc/on_drop(datum/source, mob/user)
+TYPE_PROC_REF(/datum/component/anti_magic, on_drop)(datum/source, mob/user)
 	UnregisterSignal(user, COMSIG_MOB_RECEIVE_MAGIC)
 
-/datum/component/anti_magic/proc/protect(datum/source, mob/user, _magic, _holy, _psychic, chargecost = 1, self, list/protection_sources)
+TYPE_PROC_REF(/datum/component/anti_magic, protect)(datum/source, mob/user, _magic, _holy, _psychic, chargecost = 1, self, list/protection_sources)
 	if(((_magic && magic) || (_holy && holy) || (_psychic && psychic)) && (!self || blocks_self))
 		protection_sources += parent
 		reaction?.Invoke(user, chargecost)

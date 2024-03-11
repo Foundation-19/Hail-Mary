@@ -58,7 +58,7 @@
 		lockerelectronics.accesses = req_access
 
 //USE THIS TO FILL IT, NOT INITIALIZE OR NEW
-/obj/structure/closet/proc/PopulateContents()
+TYPE_PROC_REF(/obj/structure/closet, PopulateContents)()
 	return
 
 /obj/structure/closet/Destroy()
@@ -76,7 +76,7 @@
 	. = ..()
 	closet_update_overlays(.)
 
-/obj/structure/closet/proc/closet_update_overlays(list/new_overlays)
+TYPE_PROC_REF(/obj/structure/closet, closet_update_overlays)(list/new_overlays)
 	. = new_overlays
 	if(!opened)
 		if(icon_door)
@@ -128,7 +128,7 @@
 		return TRUE
 	return !density
 
-/obj/structure/closet/proc/can_open(mob/living/user)
+TYPE_PROC_REF(/obj/structure/closet, can_open)(mob/living/user)
 	if(welded || locked)
 		return FALSE
 	var/turf/T = get_turf(src)
@@ -139,7 +139,7 @@
 			return FALSE
 	return TRUE
 
-/obj/structure/closet/proc/can_close(mob/living/user)
+TYPE_PROC_REF(/obj/structure/closet, can_close)(mob/living/user)
 	var/turf/T = get_turf(src)
 	for(var/obj/structure/closet/closet in T)
 		if(closet != src && !closet.wall_mounted)
@@ -151,7 +151,7 @@
 			return FALSE
 	return TRUE
 
-/obj/structure/closet/proc/can_lock(mob/living/user, check_access = TRUE) //set check_access to FALSE if you only need to check if a locker has a functional lock rather than access
+TYPE_PROC_REF(/obj/structure/closet, can_lock)(mob/living/user, check_access = TRUE) //set check_access to FALSE if you only need to check if a locker has a functional lock rather than access
 	if(!secure)
 		return FALSE
 	if(broken)
@@ -166,7 +166,7 @@
 		return TRUE
 	to_chat(user, span_notice("Access denied."))
 
-/obj/structure/closet/proc/togglelock(mob/living/user)
+TYPE_PROC_REF(/obj/structure/closet, togglelock)(mob/living/user)
 	add_fingerprint(user)
 	if(eigen_target)
 		return
@@ -179,7 +179,7 @@
 	span_notice("You [locked ? null : "un"]lock [src]."))
 	update_icon()
 
-/obj/structure/closet/proc/dump_contents(override = TRUE) //Override is for not revealing the locker electronics when you open the locker, for example
+TYPE_PROC_REF(/obj/structure/closet, dump_contents)(override = TRUE) //Override is for not revealing the locker electronics when you open the locker, for example
 	var/atom/L = drop_location()
 	for(var/atom/movable/AM in src)
 		if(AM == lockerelectronics && override)
@@ -190,13 +190,13 @@
 	if(throwing)
 		throwing.finalize(FALSE)
 
-/obj/structure/closet/proc/take_contents()
+TYPE_PROC_REF(/obj/structure/closet, take_contents)()
 	var/atom/L = drop_location()
 	for(var/atom/movable/AM in L)
 		if(AM != src && insert(AM) == -1) // limit reached
 			break
 
-/obj/structure/closet/proc/open(mob/living/user)
+TYPE_PROC_REF(/obj/structure/closet, open)(mob/living/user)
 	if(opened || !can_open(user))
 		return
 	playsound(loc, open_sound, 15, 1, -3)
@@ -208,7 +208,7 @@
 	update_icon()
 	return 1
 
-/obj/structure/closet/proc/insert(atom/movable/AM)
+TYPE_PROC_REF(/obj/structure/closet, insert)(atom/movable/AM)
 	if(contents.len >= storage_capacity)
 		return -1
 	if(insertion_allowed(AM))
@@ -223,7 +223,7 @@
 		return FALSE
 
 
-/obj/structure/closet/proc/insertion_allowed(atom/movable/AM)
+TYPE_PROC_REF(/obj/structure/closet, insertion_allowed)(atom/movable/AM)
 	if(ismob(AM))
 		if(!isliving(AM)) //let's not put ghosts or camera mobs inside closets...
 			return FALSE
@@ -259,7 +259,7 @@
 
 	return TRUE
 
-/obj/structure/closet/proc/close(mob/living/user)
+TYPE_PROC_REF(/obj/structure/closet, close)(mob/living/user)
 	if(!opened || !can_close(user))
 		return FALSE
 	take_contents()
@@ -270,19 +270,19 @@
 	update_icon()
 	return TRUE
 
-/obj/structure/closet/proc/toggle(mob/living/user)
+TYPE_PROC_REF(/obj/structure/closet, toggle)(mob/living/user)
 	if(opened)
 		return close(user)
 	else
 		return open(user)
 
-/obj/structure/closet/proc/bust_open()
+TYPE_PROC_REF(/obj/structure/closet, bust_open)()
 	welded = FALSE //applies to all lockers
 	locked = FALSE //applies to critter crates and secure lockers only
 	broken = TRUE //applies to secure lockers only
 	open()
 
-/obj/structure/closet/proc/handle_lock_addition(mob/user, obj/item/electronics/airlock/E)
+TYPE_PROC_REF(/obj/structure/closet, handle_lock_addition)(mob/user, obj/item/electronics/airlock/E)
 	add_fingerprint(user)
 	if(lock_in_use)
 		to_chat(user, span_notice("Wait for work on [src] to be done first!"))
@@ -310,7 +310,7 @@
 	update_icon()
 	return TRUE
 
-/obj/structure/closet/proc/handle_lock_removal(mob/user, obj/item/screwdriver/S)
+TYPE_PROC_REF(/obj/structure/closet, handle_lock_removal)(mob/user, obj/item/screwdriver/S)
 	if(lock_in_use)
 		to_chat(user, span_notice("Wait for work on [src] to be done first!"))
 		return
@@ -360,7 +360,7 @@
 	else
 		return ..()
 
-/obj/structure/closet/proc/tool_interact(obj/item/W, mob/user)//returns TRUE if attackBy call shouldnt be continued (because tool was used/closet was of wrong type), FALSE if otherwise
+TYPE_PROC_REF(/obj/structure/closet, tool_interact)(obj/item/W, mob/user)//returns TRUE if attackBy call shouldnt be continued (because tool was used/closet was of wrong type), FALSE if otherwise
 	. = TRUE
 	if(istype(W, /obj/item/wrench) && anchorable)
 		if(isinspace() && !anchored)
@@ -428,7 +428,7 @@
 	else
 		return FALSE
 
-/obj/structure/closet/proc/after_weld(weld_state)
+TYPE_PROC_REF(/obj/structure/closet, after_weld)(weld_state)
 	return
 
 /obj/structure/closet/MouseDrop_T(atom/movable/O, mob/living/user)
@@ -617,7 +617,7 @@
 /obj/structure/closet/return_temperature()
 	return
 
-/obj/structure/closet/proc/dive_into(mob/living/user)
+TYPE_PROC_REF(/obj/structure/closet, dive_into)(mob/living/user)
 	var/turf/T1 = get_turf(user)
 	var/turf/T2 = get_turf(src)
 	if(!opened)

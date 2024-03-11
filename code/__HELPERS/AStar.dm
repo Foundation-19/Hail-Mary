@@ -18,9 +18,9 @@ Also added 'exclude' turf to avoid travelling over; defaults to null
 
 Actual Adjacent procs :
 
-	/turf/proc/reachableAdjacentTurfs : returns reachable turfs in cardinal directions (uses simulated_only)
+	TYPE_PROC_REF(/turf, reachableAdjacentTurfs) : returns reachable turfs in cardinal directions (uses simulated_only)
 
-	/turf/proc/reachableAdjacentAtmosTurfs : returns turfs in cardinal directions reachable via atmos
+	TYPE_PROC_REF(/turf, reachableAdjacentAtmosTurfs) : returns turfs in cardinal directions reachable via atmos
 
 */
 #define PF_TIEBREAKER 0.005
@@ -51,14 +51,14 @@ Actual Adjacent procs :
 	nt = pnt
 	bf = _bf
 
-/datum/PathNode/proc/setp(p,pg,ph,pnt)
+TYPE_PROC_REF(/datum/PathNode, setp)(p,pg,ph,pnt)
 	prevNode = p
 	g = pg
 	h = ph
 	f = g + h*(1+ PF_TIEBREAKER)
 	nt = pnt
 
-/datum/PathNode/proc/calc_f()
+TYPE_PROC_REF(/datum/PathNode, calc_f)()
 	f = g + h
 
 //////////////////////
@@ -74,7 +74,7 @@ Actual Adjacent procs :
 	return b.f - a.f
 
 //wrapper that returns an empty list if A* failed to find a path
-/proc/get_path_to(caller, end, dist, maxnodes, maxnodedepth = 30, mintargetdist, adjacent = /turf/proc/reachableTurftest, id=null, turf/exclude=null, simulated_only = 1)
+/proc/get_path_to(caller, end, dist, maxnodes, maxnodedepth = 30, mintargetdist, adjacent = TYPE_PROC_REF(/turf, reachableTurftest), id=null, turf/exclude=null, simulated_only = 1)
 	var/l = SSpathfinder.mobs.getfree(caller)
 	while(!l)
 		stoplag(3)
@@ -86,7 +86,7 @@ Actual Adjacent procs :
 		path = list()
 	return path
 
-/proc/cir_get_path_to(caller, end, dist, maxnodes, maxnodedepth = 30, mintargetdist, adjacent = /turf/proc/reachableTurftest, id=null, turf/exclude=null, simulated_only = 1)
+/proc/cir_get_path_to(caller, end, dist, maxnodes, maxnodedepth = 30, mintargetdist, adjacent = TYPE_PROC_REF(/turf, reachableTurftest), id=null, turf/exclude=null, simulated_only = 1)
 	var/l = SSpathfinder.circuits.getfree(caller)
 	while(!l)
 		stoplag(3)
@@ -97,7 +97,7 @@ Actual Adjacent procs :
 		path = list()
 	return path
 
-/proc/AStar(caller, _end, dist, maxnodes, maxnodedepth = 30, mintargetdist, adjacent = /turf/proc/reachableTurftest, id=null, turf/exclude=null, simulated_only = 1)
+/proc/AStar(caller, _end, dist, maxnodes, maxnodedepth = 30, mintargetdist, adjacent = TYPE_PROC_REF(/turf, reachableTurftest), id=null, turf/exclude=null, simulated_only = 1)
 	//sanitation
 	var/turf/end = get_turf(_end)
 	var/turf/start = get_turf(caller)
@@ -172,7 +172,7 @@ Actual Adjacent procs :
 //Returns adjacent turfs in cardinal directions that are reachable
 //simulated_only controls whether only simulated turfs are considered or not
 
-/turf/proc/reachableAdjacentTurfs(caller, ID, simulated_only)
+TYPE_PROC_REF(/turf, reachableAdjacentTurfs)(caller, ID, simulated_only)
 	var/list/L = new()
 	var/turf/T
 	var/static/space_type_cache = typecacheof(/turf/open/space)
@@ -185,15 +185,15 @@ Actual Adjacent procs :
 			L.Add(T)
 	return L
 
-/turf/proc/reachableTurftest(caller, turf/T, ID, simulated_only)
+TYPE_PROC_REF(/turf, reachableTurftest)(caller, turf/T, ID, simulated_only)
 	if(T && !T.density && !(simulated_only && SSpathfinder.space_type_cache[T.type]) && !LinkBlockedWithAccess(T,caller, ID))
 		return TRUE
 
 //Returns adjacent turfs in cardinal directions that are reachable via atmos
-/turf/proc/reachableAdjacentAtmosTurfs()
+TYPE_PROC_REF(/turf, reachableAdjacentAtmosTurfs)()
 	return atmos_adjacent_turfs
 
-/turf/proc/LinkBlockedWithAccess(turf/T, caller, ID)
+TYPE_PROC_REF(/turf, LinkBlockedWithAccess)(turf/T, caller, ID)
 	var/adir = get_dir(src, T)
 	var/rdir = ((adir & MASK_ODD)<<1)|((adir & MASK_EVEN)>>1)
 	for(var/obj/structure/window/W in src)

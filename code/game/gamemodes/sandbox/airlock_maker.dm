@@ -33,7 +33,7 @@
 
 	interact()
 
-/datum/airlock_maker/proc/linkpretty(href,desc,active)
+TYPE_PROC_REF(/datum/airlock_maker, linkpretty)(href,desc,active)
 	if(!desc)
 		var/static/list/defaults = list("No","Yes")
 		desc = defaults[active+1]
@@ -41,7 +41,7 @@
 		return "<a href='?src=[REF(src)];[href]'><b>[desc]</b></a>"
 	return "<a href='?src=[REF(src)];[href]'><i>[desc]</i></a>"
 
-/datum/airlock_maker/proc/interact()
+TYPE_PROC_REF(/datum/airlock_maker, interact)()
 	var/list/leftcolumn = list()
 	var/list/rightcolumn = list()
 	leftcolumn += "<u><b>Required Access</b></u>"

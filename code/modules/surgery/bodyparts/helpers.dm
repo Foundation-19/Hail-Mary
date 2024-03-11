@@ -1,5 +1,5 @@
 
-/mob/living/proc/get_bodypart(zone)
+TYPE_PROC_REF(/mob/living, get_bodypart)(zone)
 	return
 
 /mob/living/carbon/get_bodypart(zone)
@@ -12,7 +12,7 @@
 			return L
 
 ///Get the bodypart for whatever hand we have active, Only relevant for carbons
-/mob/proc/get_active_hand()
+TYPE_PROC_REF(/mob, get_active_hand)()
 	return FALSE
 
 /mob/living/carbon/get_active_hand()
@@ -28,7 +28,7 @@
 			return L
 	return FALSE
 
-/mob/proc/has_left_hand(check_disabled = TRUE)
+TYPE_PROC_REF(/mob, has_left_hand)(check_disabled = TRUE)
 	return TRUE
 
 /mob/living/carbon/has_left_hand(check_disabled = TRUE)
@@ -42,7 +42,7 @@
 	return TRUE
 
 
-/mob/proc/has_right_hand(check_disabled = TRUE)
+TYPE_PROC_REF(/mob, has_right_hand)(check_disabled = TRUE)
 	return TRUE
 
 /mob/living/carbon/has_right_hand(check_disabled = TRUE)
@@ -55,7 +55,7 @@
 /mob/living/carbon/alien/larva/has_right_hand()
 	return TRUE
 
-/mob/proc/has_left_leg()
+TYPE_PROC_REF(/mob, has_left_leg)()
 	return TRUE
 
 /mob/living/carbon/has_left_leg()
@@ -65,7 +65,7 @@
 	else
 		return FALSE
 
-/mob/proc/has_right_leg()
+TYPE_PROC_REF(/mob, has_right_leg)()
 	return TRUE
 
 /mob/living/carbon/has_right_leg()
@@ -76,7 +76,7 @@
 		return FALSE
 
 //Limb numbers
-/mob/proc/get_num_arms(check_disabled = TRUE)
+TYPE_PROC_REF(/mob, get_num_arms)(check_disabled = TRUE)
 	return 2
 
 /mob/living/carbon/get_num_arms(check_disabled = TRUE)
@@ -92,14 +92,14 @@
 
 
 //sometimes we want to ignore that we don't have the required amount of arms.
-/mob/proc/get_arm_ignore()
+TYPE_PROC_REF(/mob, get_arm_ignore)()
 	return 0
 
 /mob/living/carbon/alien/larva/get_arm_ignore()
 	return 1 //so we can still handcuff larvas.
 
 
-/mob/proc/get_num_legs(check_disabled = TRUE)
+TYPE_PROC_REF(/mob, get_num_legs)(check_disabled = TRUE)
 	return 2
 
 /mob/living/carbon/get_num_legs(check_disabled = TRUE)
@@ -114,7 +114,7 @@
 				.++
 
 //sometimes we want to ignore that we don't have the required amount of legs.
-/mob/proc/get_leg_ignore()
+TYPE_PROC_REF(/mob, get_leg_ignore)()
 	return FALSE
 
 /mob/living/carbon/get_leg_ignore()
@@ -125,7 +125,7 @@
 /mob/living/carbon/alien/larva/get_leg_ignore()
 	return TRUE
 
-/mob/living/proc/get_missing_limbs()
+TYPE_PROC_REF(/mob/living, get_missing_limbs)()
 	return list()
 
 /mob/living/carbon/get_missing_limbs()
@@ -143,7 +143,7 @@
 			full -= zone
 	return full
 
-/mob/living/proc/get_disabled_limbs()
+TYPE_PROC_REF(/mob/living, get_disabled_limbs)()
 	return list()
 
 /mob/living/carbon/get_disabled_limbs()
@@ -165,17 +165,17 @@
 	return disabled
 
 ///Remove a specific embedded item from the carbon mob
-/mob/living/carbon/proc/remove_embedded_object(obj/item/I)
+TYPE_PROC_REF(/mob/living/carbon, remove_embedded_object)(obj/item/I)
 	SEND_SIGNAL(src, COMSIG_CARBON_EMBED_REMOVAL, I)
 
 ///Remove all embedded objects from all limbs on the carbon mob
-/mob/living/carbon/proc/remove_all_embedded_objects()
+TYPE_PROC_REF(/mob/living/carbon, remove_all_embedded_objects)()
 	for(var/X in bodyparts)
 		var/obj/item/bodypart/L = X
 		for(var/obj/item/I in L.embedded_objects)
 			remove_embedded_object(I)
 
-/mob/living/carbon/proc/has_embedded_objects(include_harmless=FALSE)
+TYPE_PROC_REF(/mob/living/carbon, has_embedded_objects)(include_harmless=FALSE)
 	for(var/X in bodyparts)
 		var/obj/item/bodypart/L = X
 		for(var/obj/item/I in L.embedded_objects)
@@ -185,7 +185,7 @@
 
 
 //Helper for quickly creating a new limb - used by augment code in species.dm spec_attacked_by
-/mob/living/carbon/proc/newBodyPart(zone, robotic, fixed_icon)
+TYPE_PROC_REF(/mob/living/carbon, newBodyPart)(zone, robotic, fixed_icon)
 	var/obj/item/bodypart/L
 	switch(zone)
 		if(BODY_ZONE_L_ARM)
@@ -262,7 +262,7 @@
 			L.change_bodypart_status(BODYPART_ROBOTIC)
 	. = L
 
-/mob/living/carbon/proc/Digitigrade_Leg_Swap(swap_back)
+TYPE_PROC_REF(/mob/living/carbon, Digitigrade_Leg_Swap)(swap_back)
 	for(var/X in bodyparts)
 		var/obj/item/bodypart/O = X
 		if((O.body_part == LEG_LEFT || O.body_part == LEG_RIGHT) && ((!O.use_digitigrade && !swap_back) || (O.use_digitigrade && swap_back)))
@@ -278,7 +278,7 @@
 		if(H.wear_suit)
 			H.update_inv_wear_suit()
 
-/mob/living/carbon/proc/get_body_parts_flags()
+TYPE_PROC_REF(/mob/living/carbon, get_body_parts_flags)()
 	for(var/X in bodyparts)
 		var/obj/item/bodypart/L = X
 		switch(L.body_part)

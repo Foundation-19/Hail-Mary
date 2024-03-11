@@ -39,7 +39,7 @@
 
 	addtimer(CALLBACK(src, PROC_REF(pop), teletarget), 30)
 
-/obj/effect/nettingportal/proc/pop(teletarget)
+TYPE_PROC_REF(/obj/effect/nettingportal, pop)(teletarget)
 	if(teletarget)
 		for(var/mob/living/L in get_turf(src))
 			do_teleport(L, teletarget, 2, channel = TELEPORT_CHANNEL_BLUESPACE)//teleport what's in the tile to the beacon

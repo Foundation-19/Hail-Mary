@@ -158,15 +158,15 @@
 	data["isoccupant"] = (user == occupant)
 	return data
 
-/obj/machinery/vr_sleeper/proc/get_vr_spawnpoint() //proc so it can be overridden for team games or something
+TYPE_PROC_REF(/obj/machinery/vr_sleeper, get_vr_spawnpoint)() //proc so it can be overridden for team games or something
 	return safepick(GLOB.vr_spawnpoints[vr_category])
 
-/obj/machinery/vr_sleeper/proc/build_spawnpoints() // used to rebuild the list for admins if need be
+TYPE_PROC_REF(/obj/machinery/vr_sleeper, build_spawnpoints)() // used to rebuild the list for admins if need be
 	GLOB.vr_spawnpoints = list()
 	for(var/obj/effect/landmark/vr_spawn/V in GLOB.landmarks_list)
 		GLOB.vr_spawnpoints[V.vr_category] = V
 
-/obj/machinery/vr_sleeper/proc/new_player(mob/M, location, datum/outfit/outfit, transfer = TRUE)
+TYPE_PROC_REF(/obj/machinery/vr_sleeper, new_player)(mob/M, location, datum/outfit/outfit, transfer = TRUE)
 	if(!M)
 		return
 	cleanup_vr_mob()
@@ -186,17 +186,17 @@
 	else
 		to_chat(M, span_notice("Transfer failed! virtual reality data likely corrupted!"))
 
-/obj/machinery/vr_sleeper/proc/unset_vr_mob(datum/component/virtual_reality/VR)
+TYPE_PROC_REF(/obj/machinery/vr_sleeper, unset_vr_mob)(datum/component/virtual_reality/VR)
 	vr_mob = null
 
-/obj/machinery/vr_sleeper/proc/set_vr_mob(datum/component/virtual_reality/VR)
+TYPE_PROC_REF(/obj/machinery/vr_sleeper, set_vr_mob)(datum/component/virtual_reality/VR)
 	vr_mob = VR.parent
 
-/obj/machinery/vr_sleeper/proc/cleanup_vr_mob()
+TYPE_PROC_REF(/obj/machinery/vr_sleeper, cleanup_vr_mob)()
 	if(vr_mob)
 		QDEL_NULL(vr_mob)
 
-/obj/machinery/vr_sleeper/proc/emagNotify()
+TYPE_PROC_REF(/obj/machinery/vr_sleeper, emagNotify)()
 	if(vr_mob)
 		vr_mob.Dizzy(10)
 
@@ -271,7 +271,7 @@
 		return INITIALIZE_HINT_QDEL
 	addtimer(CALLBACK(src, PROC_REF(clean_up)), 3 MINUTES, TIMER_LOOP)
 
-/obj/effect/vr_clean_master/proc/clean_up()
+TYPE_PROC_REF(/obj/effect/vr_clean_master, clean_up)()
 	if (!vr_area)
 		qdel(src)
 		return

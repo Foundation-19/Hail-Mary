@@ -89,7 +89,7 @@
 	. = ..()
 	INVOKE_ASYNC(src, PROC_REF(try_heal), M, user)
 
-/obj/item/stack/medical/proc/try_heal(mob/living/M, mob/user, silent = FALSE)
+TYPE_PROC_REF(/obj/item/stack/medical, try_heal)(mob/living/M, mob/user, silent = FALSE)
 	if(heal(M, user))
 		log_combat(user, M, "healed", src.name)
 		if(!infinite_uses)
@@ -97,7 +97,7 @@
 		if(repeating && amount > 0)
 			try_heal(M, user, TRUE)
 
-/obj/item/stack/medical/proc/heal(mob/living/M, mob/user)
+TYPE_PROC_REF(/obj/item/stack/medical, heal)(mob/living/M, mob/user)
 	if(iscarbon(M))
 		return heal_carbon(M, user, heal_brute, 0)
 	if(isanimal(M) && can_heal_critters)
@@ -107,7 +107,7 @@
 
 /// Returns a bodypart and a bitfield in a list with the first valid bodypart we can work on
 /// Returns just a number (FALSE) if nothing is found
-/obj/item/stack/medical/proc/pick_a_bodypart(mob/living/carbon/C, mob/user)
+TYPE_PROC_REF(/obj/item/stack/medical, pick_a_bodypart)(mob/living/carbon/C, mob/user)
 	var/obj/item/bodypart/first_choice = C.get_bodypart(check_zone(user.zone_selected))
 	var/do_these_things = check_bodypart(user, C, first_choice, TRUE)
 	var/list/output_heal_instructions = list("bodypart" = UNABLE_TO_HEAL, "operations" = UNABLE_TO_HEAL)
@@ -144,7 +144,7 @@
 /// Returns a string if the limb is certainly not suitable for healing
 /// Returns a bitfield if the limb can be healed
 /// Returns 0 if the limb just doesnt need healing
-/obj/item/stack/medical/proc/check_bodypart(mob/living/carbon/user, mob/living/carbon/C, obj/item/bodypart/target_bodypart, output_message = FALSE)
+TYPE_PROC_REF(/obj/item/stack/medical, check_bodypart)(mob/living/carbon/user, mob/living/carbon/C, obj/item/bodypart/target_bodypart, output_message = FALSE)
 	if(!iscarbon(C))
 		return output_message ? CARBON_ISNT : UNABLE_TO_HEAL
 	if(!target_bodypart || !istype(target_bodypart, /obj/item/bodypart))
@@ -175,7 +175,7 @@
 /* * * * * * * * * * * * * * * * * * *
  * Proc that heals simplemobs
  * * * * * * * * * * * * * * * * * * */
-/obj/item/stack/medical/proc/heal_critter(mob/living/M, mob/user)
+TYPE_PROC_REF(/obj/item/stack/medical, heal_critter)(mob/living/M, mob/user)
 	if(!isanimal(M))
 		return
 	var/mob/living/simple_animal/critter = M
@@ -198,7 +198,7 @@
 /* * * * * * * * * * * * * * * * * * *
  * Proc that actually does the healing
  * * * * * * * * * * * * * * * * * * */
-/obj/item/stack/medical/proc/heal_carbon(mob/living/carbon/C, mob/living/user)
+TYPE_PROC_REF(/obj/item/stack/medical, heal_carbon)(mob/living/carbon/C, mob/living/user)
 	if(!iscarbon(C) || !user)
 		return FALSE
 	if(is_healing)
@@ -262,7 +262,7 @@
 	return TRUE
 
 /// Returns if the user is skilled enough to use this thing effectively (unused, currently)
-/obj/item/stack/medical/proc/is_skilled_enough(mob/user, mob/target)
+TYPE_PROC_REF(/obj/item/stack/medical, is_skilled_enough)(mob/user, mob/target)
 	return NO_SKILLS_REQUIRED
 /* 	if(!needed_trait)
 		return NO_SKILLS_REQUIRED
@@ -290,7 +290,7 @@
 
 
 /// returns how long it should take to use this thing
-/obj/item/stack/medical/proc/get_delay_time(mob/user, mob/target, is_skilled = TRUE)
+TYPE_PROC_REF(/obj/item/stack/medical, get_delay_time)(mob/user, mob/target, is_skilled = TRUE)
 	. = other_delay
 	if(user == target)
 		. = self_delay
@@ -300,7 +300,7 @@
 /* * * * * * * * * * * * * * * * * * *
  * Outputs a message at the start or end of use
  */
-/obj/item/stack/medical/proc/do_medical_message(mob/user, mob/target, obj/item/bodypart/part, which_message, is_skilled, bandage_code)
+TYPE_PROC_REF(/obj/item/stack/medical, do_medical_message)(mob/user, mob/target, obj/item/bodypart/part, which_message, is_skilled, bandage_code)
 	if(!user || !target)
 		return
 	var/target_part = istype(part) ? "[part.name]" : "wounds"
@@ -371,7 +371,7 @@
 	return mutable_appearance('icons/obj/clothing/belt_overlays.dmi', "pouch")
 
 ///Override this proc for special post heal effects.
-/obj/item/stack/medical/proc/post_heal_effects(amount_healed, mob/living/carbon/healed_mob, mob/user)
+TYPE_PROC_REF(/obj/item/stack/medical, post_heal_effects)(amount_healed, mob/living/carbon/healed_mob, mob/user)
 	return
 
 /obj/item/stack/medical/bruise_pack

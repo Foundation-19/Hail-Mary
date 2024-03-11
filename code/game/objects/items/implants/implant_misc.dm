@@ -77,7 +77,7 @@
 	activated = 0
 	var/healthstring = ""
 
-/obj/item/implant/health/proc/sensehealth()
+TYPE_PROC_REF(/obj/item/implant/health, sensehealth)()
 	if (!imp_in)
 		return "ERROR"
 	else

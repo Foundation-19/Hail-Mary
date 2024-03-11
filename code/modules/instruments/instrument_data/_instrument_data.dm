@@ -54,12 +54,12 @@
 	if(isnull(id))
 		id = "[type]"
 
-/datum/instrument/proc/Initialize()
+TYPE_PROC_REF(/datum/instrument, Initialize)()
 	if(CHECK_BITFIELD(instrument_flags, INSTRUMENT_LEGACY | INSTRUMENT_DO_NOT_AUTOSAMPLE))
 		return
 	calculate_samples()
 
-/datum/instrument/proc/ready()
+TYPE_PROC_REF(/datum/instrument, ready)()
 	if(CHECK_BITFIELD(instrument_flags, INSTRUMENT_LEGACY))
 		return legacy_instrument_path && legacy_instrument_ext
 	else if(CHECK_BITFIELD(instrument_flags, INSTRUMENT_DO_NOT_AUTOSAMPLE))
@@ -76,7 +76,7 @@
 	songs_using = null
 	return ..()
 
-/datum/instrument/proc/calculate_samples()
+TYPE_PROC_REF(/datum/instrument, calculate_samples)()
 	if(!length(real_samples))
 		CRASH("No real samples defined for [id] [type] on calculate_samples() call.")
 	var/list/real_keys = list()

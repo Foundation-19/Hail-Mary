@@ -7,7 +7,7 @@
 	. = ..()
 	invisibility = INVISIBILITY_ABSTRACT
 
-/obj/effect/manifest/proc/manifest()
+TYPE_PROC_REF(/obj/effect/manifest, manifest)()
 	var/dat = "<B>Wasteland Census</B>:<BR>"
 	for(var/mob/living/carbon/human/M in GLOB.carbon_list)
 		dat += text("    <B>[]</B> -  []<BR>", M.name, M.get_assignment())

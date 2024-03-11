@@ -95,7 +95,7 @@
 			(locate(/obj/machinery) in src) ))
 		plantShrooms()
 
-/turf/open/floor/plating/f13/inside/mountain/proc/plantShrooms()
+TYPE_PROC_REF(/turf/open/floor/plating/f13/inside/mountain, plantShrooms)()
 	if(prob(SHROOM_SPAWN))
 		turfPlant = new /obj/structure/flora/wasteplant/wild_fungus(src)
 		. = TRUE //in case we ever need this to return if we spawned

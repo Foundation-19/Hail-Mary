@@ -73,7 +73,7 @@
 	else
 		return ..()
 
-/obj/structure/table/snooker/proc/can_be_rotated(mob/user,rotation_type)
+TYPE_PROC_REF(/obj/structure/table/snooker, can_be_rotated)(mob/user,rotation_type)
 	if(anchored)
 		to_chat(user, span_warning("[src] cannot be rotated while the spinning bolts are in place!"))
 		return FALSE

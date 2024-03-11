@@ -34,13 +34,13 @@
 	else if(component == button_shrink)
 		set_view_size(width-1, height-1)
 
-/obj/screen/movable/pic_in_pic/proc/make_backgrounds()
+TYPE_PROC_REF(/obj/screen/movable/pic_in_pic, make_backgrounds)()
 	standard_background = new /mutable_appearance()
 	standard_background.icon = 'icons/misc/pic_in_pic.dmi'
 	standard_background.icon_state = "background"
 	standard_background.layer = SPACE_LAYER
 
-/obj/screen/movable/pic_in_pic/proc/add_buttons()
+TYPE_PROC_REF(/obj/screen/movable/pic_in_pic, add_buttons)()
 	var/static/mutable_appearance/move_tab
 	if(!move_tab)
 		move_tab = new /mutable_appearance()
@@ -93,7 +93,7 @@
 	button_shrink.transform = M
 	vis_contents += button_shrink
 
-/obj/screen/movable/pic_in_pic/proc/add_background()
+TYPE_PROC_REF(/obj/screen/movable/pic_in_pic, add_background)()
 	if((width > 0) && (height > 0))
 		var/matrix/M = matrix()
 		M.Scale(width + 0.5, height + 0.5)
@@ -101,7 +101,7 @@
 		standard_background.transform = M
 		add_overlay(standard_background)
 
-/obj/screen/movable/pic_in_pic/proc/set_view_size(width, height, do_refresh = TRUE)
+TYPE_PROC_REF(/obj/screen/movable/pic_in_pic, set_view_size)(width, height, do_refresh = TRUE)
 	width = clamp(width, 0, max_dimensions)
 	height = clamp(height, 0, max_dimensions)
 	src.width = width
@@ -115,19 +115,19 @@
 	if(do_refresh)
 		refresh_view()
 
-/obj/screen/movable/pic_in_pic/proc/set_view_center(atom/target, do_refresh = TRUE)
+TYPE_PROC_REF(/obj/screen/movable/pic_in_pic, set_view_center)(atom/target, do_refresh = TRUE)
 	center = target
 	if(do_refresh)
 		refresh_view()
 
-/obj/screen/movable/pic_in_pic/proc/refresh_view()
+TYPE_PROC_REF(/obj/screen/movable/pic_in_pic, refresh_view)()
 	vis_contents -= viewing_turfs
 	if(!width || !height)
 		return
 	viewing_turfs = get_visible_turfs()
 	vis_contents += viewing_turfs
 
-/obj/screen/movable/pic_in_pic/proc/get_visible_turfs()
+TYPE_PROC_REF(/obj/screen/movable/pic_in_pic, get_visible_turfs)()
 	var/turf/T = get_turf(center)
 	if(!T)
 		return list()
@@ -135,12 +135,12 @@
 	var/turf/upperright = locate(min(world.maxx, lowerleft.x + width - 1), min(world.maxy, lowerleft.y + height - 1), lowerleft.z)
 	return block(lowerleft, upperright)
 
-/obj/screen/movable/pic_in_pic/proc/show_to(client/C)
+TYPE_PROC_REF(/obj/screen/movable/pic_in_pic, show_to)(client/C)
 	if(C)
 		shown_to[C] = 1
 		C.screen += src
 
-/obj/screen/movable/pic_in_pic/proc/unshow_to(client/C)
+TYPE_PROC_REF(/obj/screen/movable/pic_in_pic, unshow_to)(client/C)
 	if(C)
 		shown_to -= C
 		C.screen -= src

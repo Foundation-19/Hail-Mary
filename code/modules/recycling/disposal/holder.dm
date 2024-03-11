@@ -23,7 +23,7 @@
 	return ..()
 
 // initialize a holder from the contents of a disposal unit
-/obj/structure/disposalholder/proc/init(obj/machinery/disposal/D)
+TYPE_PROC_REF(/obj/structure/disposalholder, init)(obj/machinery/disposal/D)
 	gas = D.air_contents// transfer gas resv. into holder object
 
 	//Check for any living mobs trigger hasmob.
@@ -56,7 +56,7 @@
 
 // start the movement process
 // argument is the disposal unit the holder started in
-/obj/structure/disposalholder/proc/start(obj/machinery/disposal/D)
+TYPE_PROC_REF(/obj/structure/disposalholder, start)(obj/machinery/disposal/D)
 	if(!D.trunk)
 		D.expel(src) // no trunk connected, so expel immediately
 		return
@@ -66,7 +66,7 @@
 	start_moving()
 
 /// Starts the movement process, persists while the holder is moving through pipes
-/obj/structure/disposalholder/proc/start_moving()
+TYPE_PROC_REF(/obj/structure/disposalholder, start_moving)()
 	var/delay = world.tick_lag
 	var/datum/move_loop/our_loop = SSmove_manager.move_disposals(src, delay = delay, timeout = delay * count)
 	if(our_loop)
@@ -75,17 +75,17 @@
 		RegisterSignal(our_loop, COMSIG_PARENT_QDELETING, PROC_REF(movement_stop))
 		current_pipe = loc
 
-/obj/structure/disposalholder/proc/pre_move(datum/move_loop/source)
+TYPE_PROC_REF(/obj/structure/disposalholder, pre_move)(datum/move_loop/source)
 	SIGNAL_HANDLER
 	last_pipe = loc
 
-/obj/structure/disposalholder/proc/try_expel(datum/move_loop/source, succeed, visual_delay)
+TYPE_PROC_REF(/obj/structure/disposalholder, try_expel)(datum/move_loop/source, succeed, visual_delay)
 	SIGNAL_HANDLER
 	if(current_pipe || !active)
 		return
 	last_pipe.expel(src, get_turf(src), dir)
 
-/obj/structure/disposalholder/proc/movement_stop(datum/source)
+TYPE_PROC_REF(/obj/structure/disposalholder, movement_stop)(datum/source)
 	SIGNAL_HANDLER
 	current_pipe = null
 	last_pipe = null
@@ -107,11 +107,11 @@
 	qdel(src)
 
 // find the turf which should contain the next pipe
-/obj/structure/disposalholder/proc/nextloc()
+TYPE_PROC_REF(/obj/structure/disposalholder, nextloc)()
 	return get_step(src, dir)
 
 // find a matching pipe on a turf
-/obj/structure/disposalholder/proc/findpipe(turf/T)
+TYPE_PROC_REF(/obj/structure/disposalholder, findpipe)(turf/T)
 	if(!T)
 		return null
 
@@ -124,7 +124,7 @@
 
 // merge two holder objects
 // used when a holder meets a stuck holder
-/obj/structure/disposalholder/proc/merge(obj/structure/disposalholder/other)
+TYPE_PROC_REF(/obj/structure/disposalholder, merge)(obj/structure/disposalholder/other)
 	for(var/A in other)
 		var/atom/movable/AM = A
 		AM.forceMove(src) // move everything in other holder to this one
@@ -146,7 +146,7 @@
 	playsound(src.loc, 'sound/effects/clang.ogg', 50, FALSE, FALSE)
 
 // called to vent all gas in holder to a location
-/obj/structure/disposalholder/proc/vent_gas(turf/T)
+TYPE_PROC_REF(/obj/structure/disposalholder, vent_gas)(turf/T)
 	T.assume_air(gas)
 
 /obj/structure/disposalholder/AllowDrop()

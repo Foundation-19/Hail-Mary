@@ -162,7 +162,7 @@ Difficulty: Extremely Hard
 	return ..()
 
 /// Shoots out homing frost orbs that explode into ice blast projectiles after a couple seconds
-/mob/living/simple_animal/hostile/megafauna/demonic_frost_miner/proc/frost_orbs(added_delay = 10, shoot_times = 8)
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/megafauna/demonic_frost_miner, frost_orbs)(added_delay = 10, shoot_times = 8)
 	for(var/i in 1 to shoot_times)
 		var/turf/startloc = get_turf(src)
 		var/turf/endloc = get_turf(target)
@@ -175,12 +175,12 @@ Difficulty: Extremely Hard
 			P.original = target
 		P.set_homing_target(target)
 		P.fire(rand(0, 360))
-		addtimer(CALLBACK(P, /obj/item/projectile/frost_orb/proc/orb_explosion, projectile_speed_multiplier), 20) // make the orbs home in after a second
+		addtimer(CALLBACK(P, TYPE_PROC_REF(/obj/item/projectile/frost_orb, orb_explosion), projectile_speed_multiplier), 20) // make the orbs home in after a second
 		SLEEP_CHECK_DEATH(added_delay)
 	SetRecoveryTime(40, 60)
 
 /// Called when the orb is exploding, shoots out projectiles
-/obj/item/projectile/frost_orb/proc/orb_explosion(projectile_speed_multiplier)
+TYPE_PROC_REF(/obj/item/projectile/frost_orb, orb_explosion)(projectile_speed_multiplier)
 	for(var/i in 0 to 5)
 		var/angle = i * 60
 		var/turf/startloc = get_turf(src)
@@ -197,7 +197,7 @@ Difficulty: Extremely Hard
 	qdel(src)
 
 /// Shoots out snowballs with a random spread
-/mob/living/simple_animal/hostile/megafauna/demonic_frost_miner/proc/snowball_machine_gun(shots = 60, spread = 45)
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/megafauna/demonic_frost_miner, snowball_machine_gun)(shots = 60, spread = 45)
 	for(var/i in 1 to shots)
 		var/turf/startloc = get_turf(src)
 		var/turf/endloc = get_turf(target)
@@ -214,7 +214,7 @@ Difficulty: Extremely Hard
 	SetRecoveryTime(15, 15)
 
 /// Shoots out ice blasts in a shotgun like pattern
-/mob/living/simple_animal/hostile/megafauna/demonic_frost_miner/proc/ice_shotgun(shots = 5, list/patterns = list(list(-40, -20, 0, 20, 40), list(-30, -10, 10, 30)))
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/megafauna/demonic_frost_miner, ice_shotgun)(shots = 5, list/patterns = list(list(-40, -20, 0, 20, 40), list(-30, -10, 10, 30)))
 	for(var/i in 1 to shots)
 		var/list/pattern = patterns[i % length(patterns) + 1] // alternating patterns
 		for(var/spread in pattern)
@@ -233,7 +233,7 @@ Difficulty: Extremely Hard
 	SetRecoveryTime(15, 20)
 
 /// Checks if the demonic frost miner is ready to be enraged
-/mob/living/simple_animal/hostile/megafauna/demonic_frost_miner/proc/check_enraged()
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/megafauna/demonic_frost_miner, check_enraged)()
 	if(enraged)
 		return
 	if(health > maxHealth*0.25)
@@ -286,7 +286,7 @@ Difficulty: Extremely Hard
 	RegisterSignal(user, COMSIG_MOB_DEATH, PROC_REF(resurrect))
 
 /// Resurrects the target when they die by cloning them into a new duplicate body and transferring their mind to the clone on a safe station turf
-/obj/item/resurrection_crystal/proc/resurrect(mob/living/carbon/user, gibbed)
+TYPE_PROC_REF(/obj/item/resurrection_crystal, resurrect)(mob/living/carbon/user, gibbed)
 	user.visible_message(span_notice("You see [user]'s soul dragged out of their body!"), span_notice("You feel your soul dragged away to a fresh body!"))
 	var/typepath = user.type
 	var/turf/T = find_safe_turf()
@@ -354,7 +354,7 @@ Difficulty: Extremely Hard
 	return ..()
 
 /// Blocks movement from the status effect owner
-/datum/status_effect/ice_block_talisman/proc/owner_moved()
+TYPE_PROC_REF(/datum/status_effect/ice_block_talisman, owner_moved)()
 	return COMPONENT_MOVABLE_BLOCK_PRE_MOVE
 
 /datum/status_effect/ice_block_talisman/on_remove()

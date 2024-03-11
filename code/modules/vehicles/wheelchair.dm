@@ -81,24 +81,24 @@
 		qdel(src)
 	return TRUE
 
-/obj/vehicle/ridden/wheelchair/proc/handle_rotation(direction)
+TYPE_PROC_REF(/obj/vehicle/ridden/wheelchair, handle_rotation)(direction)
 	if(has_buckled_mobs())
 		handle_rotation_overlayed()
 		for(var/m in buckled_mobs)
 			var/mob/living/buckled_mob = m
 			buckled_mob.setDir(direction)
 
-/obj/vehicle/ridden/wheelchair/proc/handle_rotation_overlayed()
+TYPE_PROC_REF(/obj/vehicle/ridden/wheelchair, handle_rotation_overlayed)()
 	cut_overlays()
 	wheels.dir = dir
 	add_overlay(wheels)
 
 
 
-/obj/vehicle/ridden/wheelchair/proc/can_be_rotated(mob/living/user)
+TYPE_PROC_REF(/obj/vehicle/ridden/wheelchair, can_be_rotated)(mob/living/user)
 	return TRUE
 
-/obj/vehicle/ridden/wheelchair/proc/can_user_rotate(mob/living/user)
+TYPE_PROC_REF(/obj/vehicle/ridden/wheelchair, can_user_rotate)(mob/living/user)
 	var/mob/living/L = user
 	if(istype(L))
 		if(!user.canUseTopic(src, BE_CLOSE, ismonkey(user)))

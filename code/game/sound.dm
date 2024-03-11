@@ -90,7 +90,7 @@
 			listening_mob.playsound_local(turf_source, soundin, vol, vary, frequency, falloff_exponent, channel, pressure_affected, S, maxdistance, falloff_distance, 1, use_reverb) */
 
 
-/mob/proc/playsound_local(
+TYPE_PROC_REF(/mob, playsound_local)(
 		turf/turf_source, 
 		soundin, 
 		vol as num, 
@@ -192,22 +192,22 @@
 			var/mob/M = m
 			M.playsound_local(M, null, volume, vary, frequency, falloff, channel, pressure_affected, S)
 
-/mob/proc/stop_sound_channel(chan)
+TYPE_PROC_REF(/mob, stop_sound_channel)(chan)
 	SEND_SOUND(src, sound(null, repeat = 0, wait = 0, channel = chan))
 
-/mob/proc/set_sound_channel_volume(channel, volume)
+TYPE_PROC_REF(/mob, set_sound_channel_volume)(channel, volume)
 	var/sound/S = sound(null, FALSE, FALSE, channel, volume)
 	S.status = SOUND_UPDATE
 	SEND_SOUND(src, S)
 
-/client/proc/playtitlemusic(vol = 85)
+TYPE_PROC_REF(/client, playtitlemusic)(vol = 85)
 	set waitfor = FALSE
 	UNTIL(SSticker.login_music) //wait for SSticker init to set the login music
 
 	if(prefs && (prefs.toggles & SOUND_LOBBY))
 		SEND_SOUND(src, sound(SSticker.login_music, repeat = 0, wait = 0, volume = vol, channel = CHANNEL_LOBBYMUSIC)) // MAD JAMS
 
-/client/proc/playbeginmusic(vol = 75)
+TYPE_PROC_REF(/client, playbeginmusic)(vol = 75)
 
 	SEND_SOUND(src, sound(SSticker.begin_music, repeat = 0, wait = 0, volume = vol, channel = CHANNEL_LOBBYMUSIC))
 

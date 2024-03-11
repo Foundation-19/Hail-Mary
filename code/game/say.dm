@@ -4,7 +4,7 @@ This file has the basic atom/movable level speech procs.
 And the base of the send_speech() proc, which is the core of saycode.
 */
 
-/atom/movable/proc/say(message, bubble_type, list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null, just_chat)
+TYPE_PROC_REF(/atom/movable, say)(message, bubble_type, list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null, just_chat)
 	if(!can_speak())
 		return
 	if(message == "" || !message)
@@ -14,19 +14,19 @@ And the base of the send_speech() proc, which is the core of saycode.
 		language = get_selected_language()
 	send_speech(message, 7, src, , spans, message_language=language, just_chat = just_chat)
 
-/atom/movable/proc/Hear(message, atom/movable/speaker, message_language, raw_message, radio_freq, list/spans, message_mode, atom/movable/source)
+TYPE_PROC_REF(/atom/movable, Hear)(message, atom/movable/speaker, message_language, raw_message, radio_freq, list/spans, message_mode, atom/movable/source)
 	SEND_SIGNAL(src, COMSIG_MOVABLE_HEAR, args)
 
-/atom/movable/proc/can_speak()
+TYPE_PROC_REF(/atom/movable, can_speak)()
 	return 1
 
-/atom/movable/proc/send_speech(message, range = 7, atom/movable/source = src, bubble_type, list/spans, datum/language/message_language = null, message_mode, just_chat)
+TYPE_PROC_REF(/atom/movable, send_speech)(message, range = 7, atom/movable/source = src, bubble_type, list/spans, datum/language/message_language = null, message_mode, just_chat)
 	var/rendered = compose_message(src, message_language, message, , spans, message_mode, source)
 	for(var/_AM in get_hearers_in_view(range, source))
 		var/atom/movable/AM = _AM
 		AM.Hear(rendered, src, message_language, message, , spans, message_mode, source)
 
-/atom/movable/proc/compose_message(atom/movable/speaker, datum/language/message_language, raw_message, radio_freq, list/spans, message_mode, face_name = FALSE, atom/movable/source)
+TYPE_PROC_REF(/atom/movable, compose_message)(atom/movable/speaker, datum/language/message_language, raw_message, radio_freq, list/spans, message_mode, face_name = FALSE, atom/movable/source)
 	if(!source)
 		source = speaker
 	//This proc uses text() because it is faster than appending strings. Thanks BYOND.
@@ -54,13 +54,13 @@ And the base of the send_speech() proc, which is the core of saycode.
 
 	return "[spanpart1][spanpart2][freqpart][languageicon][compose_track_href(speaker, namepart)][namepart][compose_job(speaker, message_language, raw_message, radio_freq)][endspanpart][messagepart]"
 
-/atom/movable/proc/compose_track_href(atom/movable/speaker, message_langs, raw_message, radio_freq)
+TYPE_PROC_REF(/atom/movable, compose_track_href)(atom/movable/speaker, message_langs, raw_message, radio_freq)
 	return ""
 
-/atom/movable/proc/compose_job(atom/movable/speaker, message_langs, raw_message, radio_freq)
+TYPE_PROC_REF(/atom/movable, compose_job)(atom/movable/speaker, message_langs, raw_message, radio_freq)
 	return ""
 
-/atom/movable/proc/say_mod(input, message_mode)
+TYPE_PROC_REF(/atom/movable, say_mod)(input, message_mode)
 	var/ending = copytext_char(input, -1)
 	if(copytext_char(input, -2) == "!!")
 		return verb_yell
@@ -71,7 +71,7 @@ And the base of the send_speech() proc, which is the core of saycode.
 	else
 		return verb_say
 
-/atom/movable/proc/say_quote(input, list/spans=list(speech_span), message_mode)
+TYPE_PROC_REF(/atom/movable, say_quote)(input, list/spans=list(speech_span), message_mode)
 	if(!input)
 		input = "..."
 
@@ -87,7 +87,7 @@ And the base of the send_speech() proc, which is the core of saycode.
 	input = varname.Replace_char(input, "<[html]>$1</[html]>")
 
 /// Converts specific characters, like +, |, and _ to formatted output.
-/atom/movable/proc/say_emphasis(input)
+TYPE_PROC_REF(/atom/movable, say_emphasis)(input)
 	var/static/regex/italics = regex(@"\|((?=\S)[\w\W]*?(?<=\S))\|", "g")
 	input = italics.Replace_char(input, "<i>$1</i>")
 	var/static/regex/bold = regex(@"\+((?=\S)[\w\W]*?(?<=\S))\+", "g")
@@ -96,7 +96,7 @@ And the base of the send_speech() proc, which is the core of saycode.
 	input = underline.Replace_char(input, "<u>$1</u>")
 	return input
 
-/atom/movable/proc/say_narrate_replace(input, atom/thing)
+TYPE_PROC_REF(/atom/movable, say_narrate_replace)(input, atom/thing)
 	if(!istype(thing))
 		return
 	if(findtext(input, "@"))
@@ -104,13 +104,13 @@ And the base of the send_speech() proc, which is the core of saycode.
 	return
 
 /// Quirky citadel proc for our custom sayverbs to strip the verb out. Snowflakey as hell, say rewrite 3.0 when?
-/atom/movable/proc/quoteless_say_quote(input, list/spans = list(speech_span), message_mode)
+TYPE_PROC_REF(/atom/movable, quoteless_say_quote)(input, list/spans = list(speech_span), message_mode)
 	if((input[1] == "!") && (length_char(input) > 1))
 		return ""
 	var/pos = findtext(input, "*")
 	return pos? copytext(input, pos + 1) : input
 
-/atom/movable/proc/lang_treat(atom/movable/speaker, datum/language/language, raw_message, list/spans, message_mode, no_quote = FALSE)
+TYPE_PROC_REF(/atom/movable, lang_treat)(atom/movable/speaker, datum/language/language, raw_message, list/spans, message_mode, no_quote = FALSE)
 	if(has_language(language))
 		var/atom/movable/AM = speaker.GetSource()
 		raw_message = say_emphasis(raw_message)
@@ -150,7 +150,7 @@ And the base of the send_speech() proc, which is the core of saycode.
 	return GLOB.reverseradiochannels["[freq]"]
 	
 
-/atom/movable/proc/attach_spans(input, list/spans)
+TYPE_PROC_REF(/atom/movable, attach_spans)(input, list/spans)
 	if((input[1] == "!") && (length(input) > 2))
 		return
 	var/customsayverb = findtext(input, "*")
@@ -176,22 +176,22 @@ And the base of the send_speech() proc, which is the core of saycode.
 		return "2"
 	return "0"
 
-/atom/movable/proc/GetVoice()
+TYPE_PROC_REF(/atom/movable, GetVoice)()
 	return "[src]"	//Returns the atom's name, prepended with 'The' if it's not a proper noun
 
-/atom/movable/proc/IsVocal()
+TYPE_PROC_REF(/atom/movable, IsVocal)()
 	return 1
 
-/atom/movable/proc/get_alt_name()
+TYPE_PROC_REF(/atom/movable, get_alt_name)()
 
 //HACKY VIRTUALSPEAKER STUFF BEYOND THIS POINT
 //these exist mostly to deal with the AIs hrefs and job stuff.
 
-/atom/movable/proc/GetJob() //Get a job, you lazy butte
+TYPE_PROC_REF(/atom/movable, GetJob)() //Get a job, you lazy butte
 
-/atom/movable/proc/GetSource()
+TYPE_PROC_REF(/atom/movable, GetSource)()
 
-/atom/movable/proc/GetRadio()
+TYPE_PROC_REF(/atom/movable, GetRadio)()
 
 //VIRTUALSPEAKERS
 /atom/movable/virtualspeaker
@@ -244,5 +244,5 @@ INITIALIZE_IMMEDIATE(/atom/movable/virtualspeaker)
 	return radio
 
 //To get robot span classes, stuff like that.
-/atom/movable/proc/get_spans()
+TYPE_PROC_REF(/atom/movable, get_spans)()
 	return list()

@@ -82,7 +82,7 @@
 
 	time_to_end()
 
-/datum/round_event/portal_storm/proc/spawn_mob(type, spawn_list)
+TYPE_PROC_REF(/datum/round_event/portal_storm, spawn_mob)(type, spawn_list)
 	if(!type)
 		return
 	var/turf/T = pick_n_take(spawn_list)
@@ -91,7 +91,7 @@
 	new type(T)
 	spawn_effects(T)
 
-/datum/round_event/portal_storm/proc/spawn_effects(turf/T)
+TYPE_PROC_REF(/datum/round_event/portal_storm, spawn_effects)(turf/T)
 	if(!T)
 		log_game("Portal Storm failed to spawn effect due to an invalid location.")
 		return
@@ -99,12 +99,12 @@
 	flick_overlay_static(storm, T, 15)
 	playsound(T, 'sound/magic/lightningbolt.ogg', rand(80, 100), 1)
 
-/datum/round_event/portal_storm/proc/spawn_hostile()
+TYPE_PROC_REF(/datum/round_event/portal_storm, spawn_hostile)()
 	if(!hostile_types || !hostile_types.len)
 		return 0
 	return ISMULTIPLE(activeFor, 2)
 
-/datum/round_event/portal_storm/proc/spawn_boss()
+TYPE_PROC_REF(/datum/round_event/portal_storm, spawn_boss)()
 	if(!boss_types || !boss_types.len)
 		return 0
 
@@ -112,7 +112,7 @@
 		next_boss_spawn += CEILING(number_of_hostiles / number_of_bosses, 1)
 		return 1
 
-/datum/round_event/portal_storm/proc/time_to_end()
+TYPE_PROC_REF(/datum/round_event/portal_storm, time_to_end)()
 	if(!hostile_types.len && !boss_types.len)
 		endWhen = activeFor
 

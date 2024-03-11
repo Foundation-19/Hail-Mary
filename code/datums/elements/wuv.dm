@@ -34,7 +34,7 @@
 	. = ..()
 	UnregisterSignal(source, COMSIG_MOB_ATTACK_HAND)
 
-/datum/element/wuv/proc/on_attack_hand(datum/source, mob/user)
+TYPE_PROC_REF(/datum/element/wuv, on_attack_hand)(datum/source, mob/user)
 	var/mob/living/L = source
 
 	if(L.stat == DEAD)
@@ -46,7 +46,7 @@
 		if(INTENT_HELP)
 			addtimer(CALLBACK(src, PROC_REF(pet_the_dog), source, user), 1)
 
-/datum/element/wuv/proc/pet_the_dog(mob/target, mob/user)
+TYPE_PROC_REF(/datum/element/wuv, pet_the_dog)(mob/target, mob/user)
 	if(QDELETED(target) || QDELETED(user) || target.stat != CONSCIOUS)
 		return
 	new /obj/effect/temp_visual/heart(target.loc)
@@ -55,7 +55,7 @@
 	if(pet_moodlet && !CHECK_BITFIELD(target.flags_1, HOLOGRAM_1)) //prevents unlimited happiness petting park exploit.
 		SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, target, pet_moodlet, target)
 
-/datum/element/wuv/proc/kick_the_dog(mob/target, mob/user)
+TYPE_PROC_REF(/datum/element/wuv, kick_the_dog)(mob/target, mob/user)
 	if(QDELETED(target) || QDELETED(user) || target.stat != CONSCIOUS)
 		return
 	if(punt_emote)

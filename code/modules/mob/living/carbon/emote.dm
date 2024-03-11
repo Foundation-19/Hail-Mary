@@ -210,7 +210,7 @@
 	else
 		qdel(rock)
 
-/datum/emote/living/carbon/rocker/proc/reset_damage()
+TYPE_PROC_REF(/datum/emote/living/carbon/rocker, reset_damage)()
 	hasPickedUp = FALSE
 	timerEnabled = FALSE
 	damageMult = initial(damageMult)
@@ -250,7 +250,7 @@
 	else
 		qdel(brick)
 
-/datum/emote/living/carbon/bricker/proc/reset_damage()
+TYPE_PROC_REF(/datum/emote/living/carbon/bricker, reset_damage)()
 	hasPickedUp = FALSE
 	timerEnabled = FALSE
 	damageMult = initial(damageMult)

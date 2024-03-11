@@ -35,7 +35,7 @@
 	SEND_SIGNAL(src, COMSIG_HUMAN_MELEE_UNARMED_ATTACK, A)
 	return . | A.attack_hand(src, intent, .)
 
-/atom/proc/attack_hand(mob/user, act_intent = user.a_intent, attackchain_flags)
+TYPE_PROC_REF(/atom, attack_hand)(mob/user, act_intent = user.a_intent, attackchain_flags)
 	//SHOULD_NOT_SLEEP(TRUE)
 	if(!(interaction_flags_atom & INTERACT_ATOM_NO_FINGERPRINT_ATTACK_HAND))
 		add_fingerprint(user)
@@ -54,16 +54,16 @@
 		else if(attack_hand_is_action)
 			user.DelayNextAction()
 
-/atom/proc/on_attack_hand(mob/user, act_intent = user.a_intent, unarmed_attack_flags)
+TYPE_PROC_REF(/atom, on_attack_hand)(mob/user, act_intent = user.a_intent, unarmed_attack_flags)
 
 //Return a non FALSE value to cancel whatever called this from propagating, if it respects it.
-/atom/proc/_try_interact(mob/user)
+TYPE_PROC_REF(/atom, _try_interact)(mob/user)
 	if(IsAdminGhost(user))		//admin abuse
 		return interact(user)
 	if(can_interact(user))
 		return interact(user)
 
-/atom/proc/can_interact(mob/user)
+TYPE_PROC_REF(/atom, can_interact)(mob/user)
 	if(!user.can_interact_with(src))
 		return FALSE
 	if((interaction_flags_atom & INTERACT_ATOM_REQUIRES_DEXTERITY) && !user.IsAdvancedToolUser())
@@ -85,7 +85,7 @@
 	if(!anchored && (interaction_flags_atom & INTERACT_ATOM_REQUIRES_ANCHORED))
 		return FALSE
 
-/atom/proc/interact(mob/user)
+TYPE_PROC_REF(/atom, interact)(mob/user)
 	if(interaction_flags_atom & INTERACT_ATOM_NO_FINGERPRINT_INTERACT)
 		add_hiddenprint(user)
 	else
@@ -129,7 +129,7 @@
 /mob/living/UnarmedAttack(atom/A, proximity, intent = a_intent, flags = NONE)
 	A.attack_animal(src, intent, flags)
 
-/atom/proc/attack_animal(mob/user)
+TYPE_PROC_REF(/atom, attack_animal)(mob/user)
 	SEND_SIGNAL(src, COMSIG_ATOM_ATTACK_ANIMAL, user)
 
 /mob/living/RestrainedClickOn(atom/A)
@@ -143,7 +143,7 @@
 		return
 	return !isnull(A.attack_paw(src, intent, flags))
 
-/atom/proc/attack_paw(mob/user)
+TYPE_PROC_REF(/atom, attack_paw)(mob/user)
 	if(SEND_SIGNAL(src, COMSIG_ATOM_ATTACK_PAW, user) & COMPONENT_NO_ATTACK_HAND)
 		return TRUE
 	return FALSE
@@ -192,7 +192,7 @@
 /mob/living/carbon/alien/UnarmedAttack(atom/A, proximity, intent = a_intent, flags = NONE)
 	A.attack_alien(src, intent, flags)
 
-/atom/proc/attack_alien(mob/living/carbon/alien/user)
+TYPE_PROC_REF(/atom, attack_alien)(mob/living/carbon/alien/user)
 	attack_paw(user)
 	return
 
@@ -203,7 +203,7 @@
 /mob/living/carbon/alien/larva/UnarmedAttack(atom/A, proximity, intent = a_intent, flags = NONE)
 	A.attack_larva(src, intent, flags)
 
-/atom/proc/attack_larva(mob/user)
+TYPE_PROC_REF(/atom, attack_larva)(mob/user)
 	return
 
 /*
@@ -213,7 +213,7 @@
 /mob/living/simple_animal/slime/UnarmedAttack(atom/A, proximity, intent = a_intent, flags = NONE)
 	A.attack_slime(src, intent, flags)
 
-/atom/proc/attack_slime(mob/user)
+TYPE_PROC_REF(/atom, attack_slime)(mob/user)
 	return
 /mob/living/simple_animal/slime/RestrainedClickOn(atom/A)
 	return
@@ -224,7 +224,7 @@
 /mob/living/simple_animal/drone/UnarmedAttack(atom/A, proximity, intent = a_intent, flags = NONE)
 	A.attack_drone(src, intent, flags)
 
-/atom/proc/attack_drone(mob/living/simple_animal/drone/user)
+TYPE_PROC_REF(/atom, attack_drone)(mob/living/simple_animal/drone/user)
 	attack_hand(user) //defaults to attack_hand. Override it when you don't want drones to do same stuff as humans.
 
 /mob/living/simple_animal/slime/RestrainedClickOn(atom/A)

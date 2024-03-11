@@ -161,19 +161,19 @@
 /obj/item/lightreplacer/update_icon_state()
 	icon_state = "lightreplacer[(obj_flags & EMAGGED ? 1 : 0)]"
 
-/obj/item/lightreplacer/proc/status_string()
+TYPE_PROC_REF(/obj/item/lightreplacer, status_string)()
 	return "It has [uses] light\s remaining (plus [bulb_shards] fragment\s)."
 
-/obj/item/lightreplacer/proc/Use(mob/user)
+TYPE_PROC_REF(/obj/item/lightreplacer, Use)(mob/user)
 	playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
 	AddUses(-1)
 	return 1
 
 // Negative numbers will subtract
-/obj/item/lightreplacer/proc/AddUses(amount = 1)
+TYPE_PROC_REF(/obj/item/lightreplacer, AddUses)(amount = 1)
 	uses = clamp(uses + amount, 0, max_uses)
 
-/obj/item/lightreplacer/proc/AddShards(amount = 1, user)
+TYPE_PROC_REF(/obj/item/lightreplacer, AddShards)(amount = 1, user)
 	bulb_shards += amount
 	var/new_bulbs = round(bulb_shards / shards_required)
 	if(new_bulbs > 0)
@@ -184,13 +184,13 @@
 		playsound(src.loc, 'sound/machines/ding.ogg', 50, 1)
 	return new_bulbs
 
-/obj/item/lightreplacer/proc/Charge(mob/user)
+TYPE_PROC_REF(/obj/item/lightreplacer, Charge)(mob/user)
 	charge += 1
 	if(charge > 3)
 		AddUses(1)
 		charge = 1
 
-/obj/item/lightreplacer/proc/ReplaceLight(obj/machinery/light/target, mob/living/U)
+TYPE_PROC_REF(/obj/item/lightreplacer, ReplaceLight)(obj/machinery/light/target, mob/living/U)
 
 	if(target.status != LIGHT_OK)
 		if(CanUse(U))
@@ -224,7 +224,7 @@
 		to_chat(U, span_warning("There is a working [target.fitting] already inserted!"))
 		return
 
-/obj/item/lightreplacer/proc/Emag()
+TYPE_PROC_REF(/obj/item/lightreplacer, Emag)()
 	obj_flags ^= EMAGGED
 	playsound(src.loc, "sparks", 100, 1)
 	if(obj_flags & EMAGGED)
@@ -233,7 +233,7 @@
 		name = initial(name)
 	update_icon()
 
-/obj/item/lightreplacer/proc/CanUse(mob/living/user)
+TYPE_PROC_REF(/obj/item/lightreplacer, CanUse)(mob/living/user)
 	src.add_fingerprint(user)
 	if(uses > 0)
 		return 1
@@ -258,7 +258,7 @@
 	if(!used)
 		to_chat(U, failmsg)
 
-/obj/item/lightreplacer/proc/janicart_insert(mob/user, obj/structure/janitorialcart/J)
+TYPE_PROC_REF(/obj/item/lightreplacer, janicart_insert)(mob/user, obj/structure/janitorialcart/J)
 	J.put_in_cart(src, user)
 	J.myreplacer = src
 	J.update_icon()

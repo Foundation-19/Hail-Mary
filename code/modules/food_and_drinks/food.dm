@@ -24,11 +24,11 @@
 		pixel_y = rand(-5, 5)
 
 
-/obj/item/reagent_containers/food/proc/adjust_food_quality(new_quality)
+TYPE_PROC_REF(/obj/item/reagent_containers/food, adjust_food_quality)(new_quality)
 	food_quality = clamp(new_quality,0,100)
 
 
-/obj/item/reagent_containers/food/proc/checkLiked(fraction, mob/M)
+TYPE_PROC_REF(/obj/item/reagent_containers/food, checkLiked)(fraction, mob/M)
 	if(last_check_time + 50 < world.time)
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M

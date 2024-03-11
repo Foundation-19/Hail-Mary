@@ -40,7 +40,7 @@
 	mush.teach(H, TRUE)
 	RegisterSignal(C, COMSIG_MOB_ON_NEW_MIND, PROC_REF(on_new_mind))
 
-/datum/species/mush/proc/on_new_mind(mob/owner)
+TYPE_PROC_REF(/datum/species/mush, on_new_mind)(mob/owner)
 	mush.teach(owner, TRUE) //make_temporary TRUE as it shouldn't carry over to other mobs on mind transfer_to.
 
 /datum/species/mush/on_species_loss(mob/living/carbon/C)

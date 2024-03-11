@@ -16,44 +16,44 @@ TGS_DEFINE_AND_SET_GLOBAL(tgs, null)
 
 TGS_PROTECT_DATUM(/datum/tgs_api)
 
-/datum/tgs_api/proc/ApiVersion()
+TYPE_PROC_REF(/datum/tgs_api, ApiVersion)()
 	return TGS_UNIMPLEMENTED
 
-/datum/tgs_api/proc/OnWorldNew(datum/tgs_event_handler/event_handler)
+TYPE_PROC_REF(/datum/tgs_api, OnWorldNew)(datum/tgs_event_handler/event_handler)
 	return TGS_UNIMPLEMENTED
 
-/datum/tgs_api/proc/OnInitializationComplete()
+TYPE_PROC_REF(/datum/tgs_api, OnInitializationComplete)()
 	return TGS_UNIMPLEMENTED
 
-/datum/tgs_api/proc/OnTopic(T)
+TYPE_PROC_REF(/datum/tgs_api, OnTopic)(T)
 	return TGS_UNIMPLEMENTED
 
-/datum/tgs_api/proc/OnReboot()
+TYPE_PROC_REF(/datum/tgs_api, OnReboot)()
 	return TGS_UNIMPLEMENTED
 
-/datum/tgs_api/proc/InstanceName()
+TYPE_PROC_REF(/datum/tgs_api, InstanceName)()
 	return TGS_UNIMPLEMENTED
 
-/datum/tgs_api/proc/TestMerges()
+TYPE_PROC_REF(/datum/tgs_api, TestMerges)()
 	return TGS_UNIMPLEMENTED
 
-/datum/tgs_api/proc/EndProcess()
+TYPE_PROC_REF(/datum/tgs_api, EndProcess)()
 	return TGS_UNIMPLEMENTED
 
-/datum/tgs_api/proc/Revision()
+TYPE_PROC_REF(/datum/tgs_api, Revision)()
 	return TGS_UNIMPLEMENTED
 
-/datum/tgs_api/proc/ChatChannelInfo()
+TYPE_PROC_REF(/datum/tgs_api, ChatChannelInfo)()
 	return TGS_UNIMPLEMENTED
 
-/datum/tgs_api/proc/ChatBroadcast(message, list/channels)
+TYPE_PROC_REF(/datum/tgs_api, ChatBroadcast)(message, list/channels)
 	return TGS_UNIMPLEMENTED
 
-/datum/tgs_api/proc/ChatTargetedBroadcast(message, admin_only)
+TYPE_PROC_REF(/datum/tgs_api, ChatTargetedBroadcast)(message, admin_only)
 	return TGS_UNIMPLEMENTED
 
-/datum/tgs_api/proc/ChatPrivateMessage(message, datum/tgs_chat_user/user)
+TYPE_PROC_REF(/datum/tgs_api, ChatPrivateMessage)(message, datum/tgs_chat_user/user)
 	return TGS_UNIMPLEMENTED
 
-/datum/tgs_api/proc/SecurityLevel()
+TYPE_PROC_REF(/datum/tgs_api, SecurityLevel)()
 	return TGS_UNIMPLEMENTED

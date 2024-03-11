@@ -18,27 +18,27 @@
 //Stuff like mobility flag updates, resting updates, etc.
 
 //Force-set resting variable, without needing to resist/etc.
-/mob/living/proc/set_resting(new_resting, silent = FALSE, updating = TRUE)
+TYPE_PROC_REF(/mob/living, set_resting)(new_resting, silent = FALSE, updating = TRUE)
 	if(new_resting != resting)
 		resting = new_resting
 		if(!silent)
 			to_chat(src, span_notice("You are now [resting? "resting" : "getting up"]."))
 		update_resting(updating)
 
-/mob/living/proc/update_resting(update_mobility = TRUE)
+TYPE_PROC_REF(/mob/living, update_resting)(update_mobility = TRUE)
 	if(update_mobility)
 		update_mobility()
 
 //Force mob to rest, does NOT do stamina damage.
 //It's really not recommended to use this proc to give feedback, hence why silent is defaulting to true.
-/mob/living/proc/KnockToFloor(disarm_items = TRUE, silent = TRUE, updating = TRUE)
+TYPE_PROC_REF(/mob/living, KnockToFloor)(disarm_items = TRUE, silent = TRUE, updating = TRUE)
 	if(!silent && !resting)
 		to_chat(src, span_warning("You are knocked to the floor!"))
 	set_resting(TRUE, TRUE, updating)
 	if(disarm_items)
 		drop_all_held_items()
 
-/mob/living/proc/lay_down()
+TYPE_PROC_REF(/mob/living, lay_down)()
 	set name = "Rest"
 	set category = "IC"
 	if(client?.prefs?.autostand)
@@ -58,13 +58,13 @@
 		else
 			resist_a_rest()
 
-/mob/living/proc/resist_a_rest(automatic = FALSE, ignoretimer = FALSE) //Lets mobs resist out of resting. Major QOL change with combat reworks.
+TYPE_PROC_REF(/mob/living, resist_a_rest)(automatic = FALSE, ignoretimer = FALSE) //Lets mobs resist out of resting. Major QOL change with combat reworks.
 	set_resting(FALSE, TRUE)
 	return TRUE
 
 //Updates canmove, lying and icons. Could perhaps do with a rename but I can't think of anything to describe it.
 //Robots, animals and brains have their own version so don't worry about them
-/mob/living/proc/update_mobility()
+TYPE_PROC_REF(/mob/living, update_mobility)()
 	var/stat_softcrit = stat == SOFT_CRIT
 	var/stat_conscious = (stat == CONSCIOUS) || stat_softcrit
 

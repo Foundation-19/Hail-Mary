@@ -23,7 +23,7 @@
 	LAZYREMOVE(SSpersistence.photo_albums, src)
 	return ..()
 
-/obj/item/storage/photo_album/proc/get_picture_id_list()
+TYPE_PROC_REF(/obj/item/storage/photo_album, get_picture_id_list)()
 	var/list/L = list()
 	for(var/i in contents)
 		if(istype(i, /obj/item/photo))
@@ -38,12 +38,12 @@
 		. |= P.picture.id
 
 //Manual loading, DO NOT USE FOR HARDCODED/MAPPED IN ALBUMS. This is for if an album needs to be loaded mid-round from an ID.
-/obj/item/storage/photo_album/proc/persistence_load()
+TYPE_PROC_REF(/obj/item/storage/photo_album, persistence_load)()
 	var/list/data = SSpersistence.GetPhotoAlbums()
 	if(data[persistence_id])
 		populate_from_id_list(data[persistence_id])
 
-/obj/item/storage/photo_album/proc/populate_from_id_list(list/ids)
+TYPE_PROC_REF(/obj/item/storage/photo_album, populate_from_id_list)(list/ids)
 	var/list/current_ids = get_picture_id_list()
 	for(var/i in ids)
 		if(i in current_ids)

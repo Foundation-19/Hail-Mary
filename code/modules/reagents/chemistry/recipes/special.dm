@@ -54,7 +54,7 @@ GLOBAL_LIST_INIT(food_reagents, build_reagents_to_food()) //reagentid = related 
 	var/max_result_reagents = 1
 	var/list/possible_results = list()
 
-/datum/chemical_reaction/randomized/proc/GenerateRecipe()
+TYPE_PROC_REF(/datum/chemical_reaction/randomized, GenerateRecipe)()
 	created = world.time
 	if(randomize_container)
 		required_container = pick(possible_containers)
@@ -97,7 +97,7 @@ GLOBAL_LIST_INIT(food_reagents, build_reagents_to_food()) //reagentid = related 
 
 	return TRUE
 
-/datum/chemical_reaction/randomized/proc/GetPossibleReagents(kind)
+TYPE_PROC_REF(/datum/chemical_reaction/randomized, GetPossibleReagents)(kind)
 	switch(kind)
 		if(RNGCHEM_INPUT)
 			return possible_reagents.Copy()
@@ -106,14 +106,14 @@ GLOBAL_LIST_INIT(food_reagents, build_reagents_to_food()) //reagentid = related 
 		if(RNGCHEM_OUTPUT)
 			return possible_results.Copy()
 
-/datum/chemical_reaction/randomized/proc/HasConflicts()
+TYPE_PROC_REF(/datum/chemical_reaction/randomized, HasConflicts)()
 	for(var/x in required_reagents)
 		for(var/datum/chemical_reaction/R in GLOB.chemical_reactions_list[x])
 			if(chem_recipes_do_conflict(R,src))
 				return TRUE
 	return FALSE
 
-/datum/chemical_reaction/randomized/proc/unwrap_reagent_list(list/textreagents)
+TYPE_PROC_REF(/datum/chemical_reaction/randomized, unwrap_reagent_list)(list/textreagents)
 	. = list()
 	for(var/R in textreagents)
 		var/pathR = text2path(R)
@@ -121,7 +121,7 @@ GLOBAL_LIST_INIT(food_reagents, build_reagents_to_food()) //reagentid = related 
 			return null
 		.[pathR] = textreagents[R]
 
-/datum/chemical_reaction/randomized/proc/LoadOldRecipe(recipe_data)
+TYPE_PROC_REF(/datum/chemical_reaction/randomized, LoadOldRecipe)(recipe_data)
 	created = text2num(recipe_data["timestamp"])
 	var/req_reag = unwrap_reagent_list(recipe_data["required_reagents"])
 	if(!req_reag)
@@ -182,7 +182,7 @@ GLOBAL_LIST_INIT(food_reagents, build_reagents_to_food()) //reagentid = related 
 	else
 		SSticker.OnRoundstart(CALLBACK(src,PROC_REF(UpdateInfo)))
 
-/obj/item/paper/secretrecipe/proc/UpdateInfo()
+TYPE_PROC_REF(/obj/item/paper/secretrecipe, UpdateInfo)()
 	var/datum/chemical_reaction/recipe = get_chemical_reaction(recipe_id)
 	if(!recipe)
 		info = "This recipe is illegible."

@@ -130,7 +130,7 @@
 				chosen = mat
 		return TRUE
 
-/obj/machinery/mineral/mint/proc/create_coins()
+TYPE_PROC_REF(/obj/machinery/mineral/mint, create_coins)()
 	var/turf/T = get_step(src,output_dir)
 	var/temp_list = list()
 	temp_list[chosen] = 400

@@ -130,7 +130,7 @@
 		drop_caps(balance)
 		updateDialog()
 
-/obj/machinery/computer/slot_machine/proc/drop_caps(amt)
+TYPE_PROC_REF(/obj/machinery/computer/slot_machine, drop_caps)(amt)
 	// Come back when you're a little bit richer...
 	if(!balance)
 		return FALSE
@@ -153,7 +153,7 @@
 
 	return FALSE
 
-/obj/machinery/computer/slot_machine/proc/spin(mob/user)
+TYPE_PROC_REF(/obj/machinery/computer/slot_machine, spin)(mob/user)
 	if(!can_spin(user))
 		return
 
@@ -181,7 +181,7 @@
 		update_icon()
 		updateDialog()
 
-/obj/machinery/computer/slot_machine/proc/can_spin(mob/user)
+TYPE_PROC_REF(/obj/machinery/computer/slot_machine, can_spin)(mob/user)
 	if(!user)
 		return 0
 	if(stat & NOPOWER)
@@ -196,12 +196,12 @@
 		return 0
 	return 1
 
-/obj/machinery/computer/slot_machine/proc/toggle_reel_spin(value, delay = 0) //value is 1 or 0 aka on or off
+TYPE_PROC_REF(/obj/machinery/computer/slot_machine, toggle_reel_spin)(value, delay = 0) //value is 1 or 0 aka on or off
 	for(var/list/reel in reels)
 		reels[reel] = value
 		sleep(delay)
 
-/obj/machinery/computer/slot_machine/proc/randomize_reels()
+TYPE_PROC_REF(/obj/machinery/computer/slot_machine, randomize_reels)()
 
 	for(var/reel in reels)
 		if(reels[reel])
@@ -209,7 +209,7 @@
 			reel[2] = reel[1]
 			reel[1] = pick(symbols)
 
-/obj/machinery/computer/slot_machine/proc/give_prizes(mob/user)
+TYPE_PROC_REF(/obj/machinery/computer/slot_machine, give_prizes)(mob/user)
 	var/linelength = get_lines()
 
 	if(reels[1][2] + reels[2][2] + reels[3][2] + reels[4][2] + reels[5][2] == "[SEVEN][SEVEN][SEVEN][SEVEN][SEVEN]")
@@ -233,7 +233,7 @@
 
 	else
 		to_chat(user, span_warning("No luck!"))
-/obj/machinery/computer/slot_machine/proc/get_lines()
+TYPE_PROC_REF(/obj/machinery/computer/slot_machine, get_lines)()
 	var/amountthesame
 	for(var/i = 1, i <= 3, i++)
 		var/inputtext = reels[1][i] + reels[2][i] + reels[3][i] + reels[4][i] + reels[5][i]
@@ -250,7 +250,7 @@
 
 	return amountthesame
 
-/obj/machinery/computer/slot_machine/proc/give_money(amt)
+TYPE_PROC_REF(/obj/machinery/computer/slot_machine, give_money)(amt)
 	balance += amt
 
 #undef SEVEN

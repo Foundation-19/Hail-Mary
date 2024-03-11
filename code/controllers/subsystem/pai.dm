@@ -82,7 +82,7 @@ SUBSYSTEM_DEF(pai)
 				return
 		recruitWindow(usr)
 
-/datum/controller/subsystem/pai/proc/recruitWindow(mob/M)
+TYPE_PROC_REF(/datum/controller/subsystem/pai, recruitWindow)(mob/M)
 	var/datum/paiCandidate/candidate
 	for(var/datum/paiCandidate/c in candidates)
 		if(c.key == M.key)
@@ -133,10 +133,10 @@ SUBSYSTEM_DEF(pai)
 
 	M << browse(dat, "window=paiRecruit")
 
-/datum/controller/subsystem/pai/proc/spam_again()
+TYPE_PROC_REF(/datum/controller/subsystem/pai, spam_again)()
 	ghost_spam = FALSE
 
-/datum/controller/subsystem/pai/proc/check_ready(datum/paiCandidate/C)
+TYPE_PROC_REF(/datum/controller/subsystem/pai, check_ready)(datum/paiCandidate/C)
 	if(!C.ready)
 		return FALSE
 	for(var/mob/dead/observer/O in GLOB.player_list)
@@ -144,7 +144,7 @@ SUBSYSTEM_DEF(pai)
 			return C
 	return FALSE
 
-/datum/controller/subsystem/pai/proc/findPAI(obj/item/paicard/p, mob/user)
+TYPE_PROC_REF(/datum/controller/subsystem/pai, findPAI)(obj/item/paicard/p, mob/user)
 	if(!ghost_spam)
 		ghost_spam = TRUE
 		for(var/mob/dead/observer/G in GLOB.player_list)

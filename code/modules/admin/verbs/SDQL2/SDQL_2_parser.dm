@@ -61,12 +61,12 @@
 /datum/sdql_parser/New(query_list)
 	query = query_list
 
-/datum/sdql_parser/proc/parse_error(error_message)
+TYPE_PROC_REF(/datum/sdql_parser, parse_error)(error_message)
 	error = 1
 	to_chat(usr, span_warning("SDQL2 Parsing Error: [error_message]"), confidential = TRUE)
 	return query.len + 1
 
-/datum/sdql_parser/proc/parse()
+TYPE_PROC_REF(/datum/sdql_parser, parse)()
 	tree = list()
 	query_options(1, tree)
 
@@ -75,24 +75,24 @@
 	else
 		return tree
 
-/datum/sdql_parser/proc/token(i)
+TYPE_PROC_REF(/datum/sdql_parser, token)(i)
 	if(i <= query.len)
 		return query[i]
 
 	else
 		return null
 
-/datum/sdql_parser/proc/tokens(i, num)
+TYPE_PROC_REF(/datum/sdql_parser, tokens)(i, num)
 	if(i + num <= query.len)
 		return query.Copy(i, i + num)
 
 	else
 		return null
 
-/datum/sdql_parser/proc/tokenl(i)
+TYPE_PROC_REF(/datum/sdql_parser, tokenl)(i)
 	return lowertext(token(i))
 
-/datum/sdql_parser/proc/query_options(i, list/node)
+TYPE_PROC_REF(/datum/sdql_parser, query_options)(i, list/node)
 	var/list/options = list()
 	if(tokenl(i) == "using")
 		i = option_assignments(i + 1, node, options)
@@ -101,7 +101,7 @@
 		node["options"] = options
 
 //option_assignment: query_option '=' define
-/datum/sdql_parser/proc/option_assignment(i, list/node, list/assignment_list = list())
+TYPE_PROC_REF(/datum/sdql_parser, option_assignment)(i, list/node, list/assignment_list = list())
 	var/type = tokenl(i)
 	if(!(type in SDQL2_VALID_OPTION_TYPES))
 		parse_error("Invalid option type: [type]")
@@ -114,7 +114,7 @@
 	return (i + 3)
 
 //option_assignments: option_assignment, [',' option_assignments]
-/datum/sdql_parser/proc/option_assignments(i, list/node, list/store)
+TYPE_PROC_REF(/datum/sdql_parser, option_assignments)(i, list/node, list/store)
 	i = option_assignment(i, node, store)
 
 	if(token(i) == ",")
@@ -123,7 +123,7 @@
 	return i
 
 //query: select_query | delete_query | update_query
-/datum/sdql_parser/proc/query(i, list/node)
+TYPE_PROC_REF(/datum/sdql_parser, query)(i, list/node)
 	query_type = tokenl(i)
 
 	switch(query_type)
@@ -146,7 +146,7 @@
 
 
 // select_query: 'SELECT' object_selectors
-/datum/sdql_parser/proc/select_query(i, list/node)
+TYPE_PROC_REF(/datum/sdql_parser, select_query)(i, list/node)
 	var/list/select = list()
 	i = object_selectors(i + 1, select)
 
@@ -155,7 +155,7 @@
 
 
 //delete_query: 'DELETE' object_selectors
-/datum/sdql_parser/proc/delete_query(i, list/node)
+TYPE_PROC_REF(/datum/sdql_parser, delete_query)(i, list/node)
 	var/list/select = list()
 	i = object_selectors(i + 1, select)
 
@@ -165,7 +165,7 @@
 
 
 //update_query: 'UPDATE' object_selectors 'SET' assignments
-/datum/sdql_parser/proc/update_query(i, list/node)
+TYPE_PROC_REF(/datum/sdql_parser, update_query)(i, list/node)
 	var/list/select = list()
 	i = object_selectors(i + 1, select)
 
@@ -183,7 +183,7 @@
 
 
 //call_query: 'CALL' call_function ['ON' object_selectors]
-/datum/sdql_parser/proc/call_query(i, list/node)
+TYPE_PROC_REF(/datum/sdql_parser, call_query)(i, list/node)
 	var/list/func = list()
 	i = variable(i + 1, func) // Yes technically does anything variable() matches but I don't care, if admins fuck up this badly then they shouldn't be allowed near SDQL.
 
@@ -200,7 +200,7 @@
 	return i
 
 // object_selectors: select_item [('FROM' | 'IN') from_item] [modifier_list]
-/datum/sdql_parser/proc/object_selectors(i, list/node)
+TYPE_PROC_REF(/datum/sdql_parser, object_selectors)(i, list/node)
 	i = select_item(i, node)
 
 	if (tokenl(i) == "from" || tokenl(i) == "in")
@@ -216,7 +216,7 @@
 	return i
 
 // modifier_list: ('WHERE' bool_expression | 'MAP' expression) [modifier_list]
-/datum/sdql_parser/proc/modifier_list(i, list/node)
+TYPE_PROC_REF(/datum/sdql_parser, modifier_list)(i, list/node)
 	while (TRUE)
 		if (tokenl(i) == "where")
 			i++
@@ -236,7 +236,7 @@
 			return i
 
 //select_list:select_item [',' select_list]
-/datum/sdql_parser/proc/select_list(i, list/node)
+TYPE_PROC_REF(/datum/sdql_parser, select_list)(i, list/node)
 	i = select_item(i, node)
 
 	if(token(i) == ",")
@@ -245,7 +245,7 @@
 	return i
 
 //assignments: assignment, [',' assignments]
-/datum/sdql_parser/proc/assignments(i, list/node)
+TYPE_PROC_REF(/datum/sdql_parser, assignments)(i, list/node)
 	i = assignment(i, node)
 
 	if(token(i) == ",")
@@ -255,7 +255,7 @@
 
 
 //select_item: '*' | select_function | object_type
-/datum/sdql_parser/proc/select_item(i, list/node)
+TYPE_PROC_REF(/datum/sdql_parser, select_item)(i, list/node)
 	if (token(i) == "*")
 		node += "*"
 		i++
@@ -269,7 +269,7 @@
 	return i
 
 // Standardized method for handling the IN/FROM and WHERE options.
-/datum/sdql_parser/proc/selectors(i, list/node)
+TYPE_PROC_REF(/datum/sdql_parser, selectors)(i, list/node)
 	while (token(i))
 		var/tok = tokenl(i)
 		if (tok in list("from", "in"))
@@ -295,7 +295,7 @@
 	return i
 
 //from_item: 'world' | expression
-/datum/sdql_parser/proc/from_item(i, list/node)
+TYPE_PROC_REF(/datum/sdql_parser, from_item)(i, list/node)
 	if(token(i) == "world")
 		node += "world"
 		i++
@@ -307,7 +307,7 @@
 
 
 //bool_expression: expression [bool_operator bool_expression]
-/datum/sdql_parser/proc/bool_expression(i, list/node)
+TYPE_PROC_REF(/datum/sdql_parser, bool_expression)(i, list/node)
 
 	var/list/bool = list()
 	i = expression(i, bool)
@@ -322,7 +322,7 @@
 
 
 //assignment: <variable name> '=' expression
-/datum/sdql_parser/proc/assignment(i, list/node, list/assignment_list = list())
+TYPE_PROC_REF(/datum/sdql_parser, assignment)(i, list/node, list/assignment_list = list())
 	assignment_list += token(i)
 
 	if(token(i + 1) == ".")
@@ -341,7 +341,7 @@
 
 
 //variable: <variable name> | variable '.' variable | variable '[' <list index> ']' | '{' <ref as hex number> '}' | '(' expression ')' | call_function
-/datum/sdql_parser/proc/variable(i, list/node)
+TYPE_PROC_REF(/datum/sdql_parser, variable)(i, list/node)
 	var/list/L = list(token(i))
 	node[++node.len] = L
 
@@ -389,7 +389,7 @@
 
 
 //object_type: <type path>
-/datum/sdql_parser/proc/object_type(i, list/node)
+TYPE_PROC_REF(/datum/sdql_parser, object_type)(i, list/node)
 
 	if(token(i)[1] != "/")
 		return parse_error("Expected type, but it didn't begin with /")
@@ -404,7 +404,7 @@
 
 
 //comparator: '=' | '==' | '!=' | '<>' | '<' | '<=' | '>' | '>='
-/datum/sdql_parser/proc/comparator(i, list/node)
+TYPE_PROC_REF(/datum/sdql_parser, comparator)(i, list/node)
 
 	if(token(i) in list("=", "==", "!=", "<>", "<", "<=", ">", ">="))
 		node += token(i)
@@ -416,7 +416,7 @@
 
 
 //bool_operator: 'AND' | '&&' | 'OR' | '||'
-/datum/sdql_parser/proc/bool_operator(i, list/node)
+TYPE_PROC_REF(/datum/sdql_parser, bool_operator)(i, list/node)
 
 	if(tokenl(i) in list("and", "or", "&&", "||"))
 		node += token(i)
@@ -428,7 +428,7 @@
 
 
 //string: ''' <some text> ''' | '"' <some text > '"'
-/datum/sdql_parser/proc/string(i, list/node)
+TYPE_PROC_REF(/datum/sdql_parser, string)(i, list/node)
 
 	if(token(i)[1] in list("'", "\""))
 		node += token(i)
@@ -439,7 +439,7 @@
 	return i + 1
 
 //array: '[' expression_list ']'
-/datum/sdql_parser/proc/array(i, list/node)
+TYPE_PROC_REF(/datum/sdql_parser, array)(i, list/node)
 	// Arrays get turned into this: list("[", list(exp_1a = exp_1b, ...), ...), "[" is to mark the next node as an array.
 	if(token(i)[1] != "\[")
 		parse_error("Expected an array but found '[token(i)]'")
@@ -492,7 +492,7 @@
 	return i + 1
 
 //selectors_array: '@[' object_selectors ']'
-/datum/sdql_parser/proc/selectors_array(i, list/node)
+TYPE_PROC_REF(/datum/sdql_parser, selectors_array)(i, list/node)
 	if(token(i) == "@\[")
 		node += token(i++)
 		if(token(i) != "]")
@@ -509,7 +509,7 @@
 	return i + 1
 
 //call_function: <function name> ['(' [arguments] ')']
-/datum/sdql_parser/proc/call_function(i, list/node, list/arguments)
+TYPE_PROC_REF(/datum/sdql_parser, call_function)(i, list/node, list/arguments)
 	if(length(tokenl(i)))
 		var/procname = ""
 		if(tokenl(i) == "global" && token(i + 1) == ".") // Global proc.
@@ -539,7 +539,7 @@
 
 
 //expression: ( unary_expression | value ) [binary_operator expression]
-/datum/sdql_parser/proc/expression(i, list/node)
+TYPE_PROC_REF(/datum/sdql_parser, expression)(i, list/node)
 
 	if(token(i) in unary_operators)
 		i = unary_expression(i, node)
@@ -564,7 +564,7 @@
 
 
 //unary_expression: unary_operator ( unary_expression | value )
-/datum/sdql_parser/proc/unary_expression(i, list/node)
+TYPE_PROC_REF(/datum/sdql_parser, unary_expression)(i, list/node)
 
 	if(token(i) in unary_operators)
 		var/list/unary_exp = list()
@@ -588,7 +588,7 @@
 
 
 //binary_operator: comparator | '+' | '-' | '/' | '*' | '&' | '|' | '^' | '%'
-/datum/sdql_parser/proc/binary_operator(i, list/node)
+TYPE_PROC_REF(/datum/sdql_parser, binary_operator)(i, list/node)
 
 	if(token(i) in (binary_operators + comparators))
 		node += token(i)
@@ -600,7 +600,7 @@
 
 
 //value: variable | string | number | 'null' | object_type | array | selectors_array
-/datum/sdql_parser/proc/value(i, list/node)
+TYPE_PROC_REF(/datum/sdql_parser, value)(i, list/node)
 	if(token(i) == "null")
 		node += "null"
 		i++

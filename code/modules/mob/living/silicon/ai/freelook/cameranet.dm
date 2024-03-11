@@ -38,14 +38,14 @@ GLOBAL_DATUM_INIT(cameranet, /datum/cameranet, new)
 	obscured_transparent.plane = CAMERA_STATIC_PLANE
 
 // Checks if a chunk has been Generated in x, y, z.
-/datum/cameranet/proc/chunkGenerated(x, y, z)
+TYPE_PROC_REF(/datum/cameranet, chunkGenerated)(x, y, z)
 	x &= ~(CHUNK_SIZE - 1)
 	y &= ~(CHUNK_SIZE - 1)
 	return chunks["[x],[y],[z]"]
 
 // Returns the chunk in the x, y, z.
 // If there is no chunk, it creates a new chunk and returns that.
-/datum/cameranet/proc/getCameraChunk(x, y, z)
+TYPE_PROC_REF(/datum/cameranet, getCameraChunk)(x, y, z)
 	x &= ~(CHUNK_SIZE - 1)
 	y &= ~(CHUNK_SIZE - 1)
 	var/key = "[x],[y],[z]"
@@ -55,7 +55,7 @@ GLOBAL_DATUM_INIT(cameranet, /datum/cameranet, new)
 
 // Updates what the aiEye can see. It is recommended you use this when the aiEye moves or it's location is set.
 
-/datum/cameranet/proc/visibility(list/moved_eyes, client/C, list/other_eyes, use_static = USE_STATIC_OPAQUE)
+TYPE_PROC_REF(/datum/cameranet, visibility)(list/moved_eyes, client/C, list/other_eyes, use_static = USE_STATIC_OPAQUE)
 	if(!islist(moved_eyes))
 		moved_eyes = moved_eyes ? list(moved_eyes) : list()
 	if(islist(other_eyes))
@@ -108,12 +108,12 @@ GLOBAL_DATUM_INIT(cameranet, /datum/cameranet, new)
 
 // Updates the chunks that the turf is located in. Use this when obstacles are destroyed or	when doors open.
 
-/datum/cameranet/proc/updateVisibility(atom/A, opacity_check = 1)
+TYPE_PROC_REF(/datum/cameranet, updateVisibility)(atom/A, opacity_check = 1)
 	if(!SSticker || (opacity_check && !A.opacity))
 		return
 	majorChunkChange(A, 2)
 
-/datum/cameranet/proc/updateChunk(x, y, z)
+TYPE_PROC_REF(/datum/cameranet, updateChunk)(x, y, z)
 	var/datum/camerachunk/chunk = chunkGenerated(x, y, z)
 	if (!chunk)
 		return
@@ -121,18 +121,18 @@ GLOBAL_DATUM_INIT(cameranet, /datum/cameranet, new)
 
 // Removes a camera from a chunk.
 
-/datum/cameranet/proc/removeCamera(obj/machinery/camera/c)
+TYPE_PROC_REF(/datum/cameranet, removeCamera)(obj/machinery/camera/c)
 	majorChunkChange(c, 0)
 
 // Add a camera to a chunk.
 
-/datum/cameranet/proc/addCamera(obj/machinery/camera/c)
+TYPE_PROC_REF(/datum/cameranet, addCamera)(obj/machinery/camera/c)
 	if(c.can_use())
 		majorChunkChange(c, 1)
 
 // Used for Cyborg cameras. Since portable cameras can be in ANY chunk.
 
-/datum/cameranet/proc/updatePortableCamera(obj/machinery/camera/c)
+TYPE_PROC_REF(/datum/cameranet, updatePortableCamera)(obj/machinery/camera/c)
 	if(c.can_use())
 		majorChunkChange(c, 1)
 
@@ -142,7 +142,7 @@ GLOBAL_DATUM_INIT(cameranet, /datum/cameranet, new)
 // Setting the choice to 0 will remove the camera from the chunks.
 // If you want to update the chunks around an object, without adding/removing a camera, use choice 2.
 
-/datum/cameranet/proc/majorChunkChange(atom/c, choice)
+TYPE_PROC_REF(/datum/cameranet, majorChunkChange)(atom/c, choice)
 	if(!c)
 		return
 
@@ -166,12 +166,12 @@ GLOBAL_DATUM_INIT(cameranet, /datum/cameranet, new)
 
 // Will check if a mob is on a viewable turf. Returns 1 if it is, otherwise returns 0.
 
-/datum/cameranet/proc/checkCameraVis(mob/living/target)
+TYPE_PROC_REF(/datum/cameranet, checkCameraVis)(mob/living/target)
 	var/turf/position = get_turf(target)
 	return checkTurfVis(position)
 
 
-/datum/cameranet/proc/checkTurfVis(turf/position)
+TYPE_PROC_REF(/datum/cameranet, checkTurfVis)(turf/position)
 	var/datum/camerachunk/chunk = chunkGenerated(position.x, position.y, position.z)
 	if(chunk)
 		if(chunk.changed)
@@ -180,7 +180,7 @@ GLOBAL_DATUM_INIT(cameranet, /datum/cameranet, new)
 			return 1
 	return 0
 
-/datum/cameranet/proc/stat_entry()
+TYPE_PROC_REF(/datum/cameranet, stat_entry)()
 	if(!statclick)
 		statclick = new/obj/effect/statclick/debug(null, "Initializing...", src)
 

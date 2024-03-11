@@ -19,7 +19,7 @@
 	return (armorval/max(organnum, 1))
 
 
-/mob/living/carbon/human/proc/checkarmor(obj/item/bodypart/def_zone, d_type)
+TYPE_PROC_REF(/mob/living/carbon/human, checkarmor)(obj/item/bodypart/def_zone, d_type)
 	if(!d_type || !def_zone)
 		return 0
 	var/protection = 0
@@ -35,7 +35,7 @@
 	return protection
 
 ///Get all the clothing on a specific body part
-/mob/living/carbon/human/proc/clothingonpart(obj/item/bodypart/def_zone)
+TYPE_PROC_REF(/mob/living/carbon/human, clothingonpart)(obj/item/bodypart/def_zone)
 	var/list/covering_part = list()
 	var/list/body_parts = list(head, wear_mask, wear_suit, w_uniform, back, gloves, shoes, belt, s_store, glasses, ears, wear_id, wear_neck) //Everything but pockets. Pockets are l_store and r_store. (if pockets were allowed, putting something armored, gloves or hats for example, would double up on the armor)
 	for(var/bp in body_parts)
@@ -65,7 +65,7 @@
 				return martial_art_result
 	return ..()
 
-/mob/living/carbon/human/proc/check_martial_melee_block()
+TYPE_PROC_REF(/mob/living/carbon/human, check_martial_melee_block)()
 	if(mind)
 		if(mind.martial_art && prob(mind.martial_art.block_chance) && mind.martial_art.can_use(src) && in_throw_mode && !incapacitated(FALSE, TRUE))
 			return TRUE

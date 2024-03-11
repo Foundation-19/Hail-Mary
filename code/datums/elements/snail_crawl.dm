@@ -18,13 +18,13 @@
 	if(istype(target))
 		target.remove_movespeed_modifier(/datum/movespeed_modifier/snail_crawl)
 
-/datum/element/snailcrawl/proc/snail_crawl(mob/living/carbon/snail)
+TYPE_PROC_REF(/datum/element/snailcrawl, snail_crawl)(mob/living/carbon/snail)
 	if(snail.resting && !snail.buckled && lubricate(snail))
 		snail.add_movespeed_modifier(/datum/movespeed_modifier/snail_crawl)
 	else
 		snail.remove_movespeed_modifier(/datum/movespeed_modifier/snail_crawl)
 
-/datum/element/snailcrawl/proc/lubricate(atom/movable/snail)
+TYPE_PROC_REF(/datum/element/snailcrawl, lubricate)(atom/movable/snail)
 	var/turf/open/OT = get_turf(snail)
 	if(istype(OT))
 		OT.MakeSlippery(TURF_WET_LUBE, 20)

@@ -1,7 +1,7 @@
 
 
 //Cost function for suit Procs/Verbs/Abilities
-/obj/item/clothing/suit/space/space_ninja/proc/ninjacost(cost = 0, specificCheck = 0)
+TYPE_PROC_REF(/obj/item/clothing/suit/space/space_ninja, ninjacost)(cost = 0, specificCheck = 0)
 	var/mob/living/carbon/human/H = affecting
 	var/actualCost = cost*10
 	if(cost && cell.charge < actualCost)

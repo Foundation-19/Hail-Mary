@@ -141,7 +141,7 @@
 				data["viruses"] = preserve
 	return TRUE
 
-/datum/reagent/blood/proc/get_diseases()
+TYPE_PROC_REF(/datum/reagent/blood, get_diseases)()
 	. = list()
 	if(data && data["viruses"])
 		for(var/thing in data["viruses"])
@@ -617,7 +617,7 @@
 
 	return ..()
 
-/datum/reagent/spraytan/proc/tan_mutant_color(color, limit = MINIMUM_MUTANT_COLOR)
+TYPE_PROC_REF(/datum/reagent/spraytan, tan_mutant_color)(color, limit = MINIMUM_MUTANT_COLOR)
 	var/newcolor = ""
 	var/len = length(color)
 	var/char = ""
@@ -731,7 +731,7 @@
 		return
 	..()
 
-/datum/reagent/mutationtoxin/proc/mutate(mob/living/carbon/human/H)
+TYPE_PROC_REF(/datum/reagent/mutationtoxin, mutate)(mob/living/carbon/human/H)
 	if(QDELETED(H))
 		return
 	var/current_species = H.dna.species.type
@@ -1364,10 +1364,10 @@
 	if(current_cycle > 10 && prob(15))
 		to_chat(M, span_warning("You feel unstable..."))
 		current_cycle = 1
-		addtimer(CALLBACK(M, /mob/living/proc/bluespace_shuffle), 30)
+		addtimer(CALLBACK(M, TYPE_PROC_REF(/mob/living, bluespace_shuffle)), 30)
 	..()
 
-/mob/living/proc/bluespace_shuffle()
+TYPE_PROC_REF(/mob/living, bluespace_shuffle)()
 	do_teleport(src, get_turf(src), 5, asoundin = 'sound/effects/phasein.ogg', channel = TELEPORT_CHANNEL_BLUESPACE)
 
 /datum/reagent/telecrystal
@@ -2592,7 +2592,7 @@
 	return
 
 ///turn an object into a special material
-/datum/reagent/metalgen/proc/metal_morph(atom/A)
+TYPE_PROC_REF(/datum/reagent/metalgen, metal_morph)(atom/A)
 	var/metal_ref = data["material"]
 	if(!metal_ref)
 		return

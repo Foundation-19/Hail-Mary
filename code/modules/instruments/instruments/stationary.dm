@@ -15,7 +15,7 @@
 	QDEL_NULL(song)
 	return ..()
 
-/obj/structure/musician/proc/should_stop_playing(mob/user)
+TYPE_PROC_REF(/obj/structure/musician, should_stop_playing)(mob/user)
 	if(!(anchored || can_play_unanchored))
 		return TRUE
 	if(!user)

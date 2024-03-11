@@ -1,22 +1,22 @@
 //These procs handle putting s tuff in your hands
 //as they handle all relevant stuff like adding it to the player's screen and updating their overlays.
 
-/mob/proc/deleteWornItem(obj/item/I)
+TYPE_PROC_REF(/mob, deleteWornItem)(obj/item/I)
 	.= temporarilyRemoveItemFromInventory(I, TRUE)
 	qdel(I)
 
 //Returns the thing we're currently holding
-/mob/proc/get_active_held_item()
+TYPE_PROC_REF(/mob, get_active_held_item)()
 	return get_item_for_held_index(active_hand_index)
 
 //Finds the opposite limb for the active one (eg: upper left arm will find the item in upper right arm)
 //So we're treating each "pair" of limbs as a team, so "both" refers to them
-/mob/proc/get_inactive_held_item()
+TYPE_PROC_REF(/mob, get_inactive_held_item)()
 	return get_item_for_held_index(get_inactive_hand_index())
 
 //Finds the opposite index for the active one (eg: upper left arm will find the item in upper right arm)
 //So we're treating each "pair" of limbs as a team, so "both" refers to them
-/mob/proc/get_inactive_hand_index()
+TYPE_PROC_REF(/mob, get_inactive_hand_index)()
 	var/other_hand = 0
 	if(!(active_hand_index % 2))
 		other_hand = active_hand_index-1 //finding the matching "left" limb
@@ -26,28 +26,28 @@
 		other_hand = 0
 	return other_hand
 
-/mob/proc/get_item_for_held_index(i)
+TYPE_PROC_REF(/mob, get_item_for_held_index)(i)
 	if(i > 0 && i <= held_items.len)
 		return held_items[i]
 
 //Odd = left. Even = right
-/mob/proc/held_index_to_dir(i)
+TYPE_PROC_REF(/mob, held_index_to_dir)(i)
 	if(!(i % 2))
 		return "r"
 	return "l"
 
 //Check we have an organ for this hand slot (Dismemberment), Only relevant for humans
-/mob/proc/has_hand_for_held_index(i)
+TYPE_PROC_REF(/mob, has_hand_for_held_index)(i)
 	return TRUE
 
 //Check we have an organ for our active hand slot (Dismemberment),Only relevant for humans
-/mob/proc/has_active_hand()
+TYPE_PROC_REF(/mob, has_active_hand)()
 	return has_hand_for_held_index(active_hand_index)
 
 //Finds the first available (null) index OR all available (null) indexes in held_items based on a side.
 //Lefts: 1, 3, 5, 7...
 //Rights:2, 4, 6, 8...
-/mob/proc/get_empty_held_index_for_side(side = "left", all = FALSE)
+TYPE_PROC_REF(/mob, get_empty_held_index_for_side)(side = "left", all = FALSE)
 	var/start = 0
 	var/static/list/lefts = list("l" = TRUE,"L" = TRUE,"LEFT" = TRUE,"left" = TRUE)
 	var/static/list/rights = list("r" = TRUE,"R" = TRUE,"RIGHT" = TRUE,"right" = TRUE) //"to remain silent"
@@ -69,7 +69,7 @@
 
 
 //Same as the above, but returns the first or ALL held *ITEMS* for the side
-/mob/proc/get_held_items_for_side(side = "left", all = FALSE)
+TYPE_PROC_REF(/mob, get_held_items_for_side)(side = "left", all = FALSE)
 	var/start = 0
 	var/static/list/lefts = list("l" = TRUE,"L" = TRUE,"LEFT" = TRUE,"left" = TRUE)
 	var/static/list/rights = list("r" = TRUE,"R" = TRUE,"RIGHT" = TRUE,"right" = TRUE) //"to remain silent"
@@ -91,7 +91,7 @@
 	return holding_items
 
 
-/mob/proc/get_empty_held_indexes()
+TYPE_PROC_REF(/mob, get_empty_held_indexes)()
 	var/list/L
 	for(var/i in 1 to held_items.len)
 		if(!held_items[i])
@@ -100,18 +100,18 @@
 			L += i
 	return L
 
-/mob/proc/get_held_index_of_item(obj/item/I)
+TYPE_PROC_REF(/mob, get_held_index_of_item)(obj/item/I)
 	return held_items.Find(I)
 
 
 //Sad that this will cause some overhead, but the alias seems necessary
 //*I* may be happy with a million and one references to "indexes" but others won't be
-/mob/proc/is_holding(obj/item/I)
+TYPE_PROC_REF(/mob, is_holding)(obj/item/I)
 	return get_held_index_of_item(I)
 
 
 //Checks if we're holding an item of type: typepath
-/mob/proc/is_holding_item_of_type(typepath)
+TYPE_PROC_REF(/mob, is_holding_item_of_type)(typepath)
 	for(var/obj/item/I in held_items)
 		if(istype(I, typepath))
 			return I
@@ -119,7 +119,7 @@
 
 //Checks if we're holding a tool that has given quality
 //Returns the tool that has the best version of this quality
-/mob/proc/is_holding_tool_quality(quality)
+TYPE_PROC_REF(/mob, is_holding_tool_quality)(quality)
 	var/obj/item/best_item
 	var/best_quality = INFINITY
 
@@ -134,7 +134,7 @@
 //To appropriately fluff things like "they are holding [I] in their [get_held_index_name(get_held_index_of_item(I))]"
 //Can be overridden to pass off the fluff to something else (eg: science allowing people to add extra robotic limbs, and having this proc react to that
 // with say "they are holding [I] in their Nanotrasen Brand Utility Arm - Right Edition" or w/e
-/mob/proc/get_held_index_name(i)
+TYPE_PROC_REF(/mob, get_held_index_name)(i)
 	var/list/hand = list()
 	if(i > 2)
 		hand += "upper "
@@ -154,10 +154,10 @@
 
 //Returns if a certain item can be equipped to a certain slot.
 // Currently invalid for two-handed items - call obj/item/mob_can_equip() instead.
-/mob/proc/can_equip(obj/item/I, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE, clothing_check = FALSE, list/return_warning)
+TYPE_PROC_REF(/mob, can_equip)(obj/item/I, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE, clothing_check = FALSE, list/return_warning)
 	return FALSE
 
-/mob/proc/can_put_in_hand(I, hand_index)
+TYPE_PROC_REF(/mob, can_put_in_hand)(I, hand_index)
 	if(hand_index > held_items.len)
 		return FALSE
 	if(!put_in_hand_check(I))
@@ -166,7 +166,7 @@
 		return FALSE
 	return !held_items[hand_index]
 
-/mob/proc/put_in_hand(obj/item/I, hand_index, forced = FALSE, ignore_anim = TRUE)
+TYPE_PROC_REF(/mob, put_in_hand)(obj/item/I, hand_index, forced = FALSE, ignore_anim = TRUE)
 	if(forced || can_put_in_hand(I, hand_index))
 		if(isturf(I.loc) && !ignore_anim)
 			I.do_pickup_animation(src)
@@ -189,16 +189,16 @@
 	return FALSE
 
 //Puts the item into the first available left hand if possible and calls all necessary triggers/updates. returns 1 on success.
-/mob/proc/put_in_l_hand(obj/item/I)
+TYPE_PROC_REF(/mob, put_in_l_hand)(obj/item/I)
 	return put_in_hand(I, get_empty_held_index_for_side("l"))
 
 
 //Puts the item into the first available right hand if possible and calls all necessary triggers/updates. returns 1 on success.
-/mob/proc/put_in_r_hand(obj/item/I)
+TYPE_PROC_REF(/mob, put_in_r_hand)(obj/item/I)
 	return put_in_hand(I, get_empty_held_index_for_side("r"))
 
 
-/mob/proc/put_in_hand_check(obj/item/I)
+TYPE_PROC_REF(/mob, put_in_hand_check)(obj/item/I)
 	if(incapacitated() && !(I.item_flags&ABSTRACT)) //Cit change - Changes lying to incapacitated so that it's plausible to pick things up while on the ground
 		return FALSE
 	if(!istype(I))
@@ -207,19 +207,19 @@
 
 
 //Puts the item into our active hand if possible. returns TRUE on success.
-/mob/proc/put_in_active_hand(obj/item/I, forced = FALSE, ignore_animation = TRUE)
+TYPE_PROC_REF(/mob, put_in_active_hand)(obj/item/I, forced = FALSE, ignore_animation = TRUE)
 	return put_in_hand(I, active_hand_index, forced, ignore_animation)
 
 
 //Puts the item into our inactive hand if possible, returns TRUE on success
-/mob/proc/put_in_inactive_hand(obj/item/I)
+TYPE_PROC_REF(/mob, put_in_inactive_hand)(obj/item/I)
 	return put_in_hand(I, get_inactive_hand_index())
 
 
 //Puts the item our active hand if possible. Failing that it tries other hands. Returns TRUE on success.
 //If both fail it drops it on the floor and returns FALSE.
 //This is probably the main one you need to know :)
-/mob/proc/put_in_hands(obj/item/I, del_on_fail = FALSE, merge_stacks = TRUE, forced = FALSE)
+TYPE_PROC_REF(/mob, put_in_hands)(obj/item/I, del_on_fail = FALSE, merge_stacks = TRUE, forced = FALSE)
 	if(!I)
 		return FALSE
 
@@ -261,21 +261,21 @@
 	I.dropped(src)
 	return FALSE
 
-/mob/proc/drop_all_held_items()
+TYPE_PROC_REF(/mob, drop_all_held_items)()
 	. = FALSE
 	for(var/obj/item/I in held_items)
 		. |= dropItemToGround(I)
 
 //Here lie drop_from_inventory and before_item_take, already forgotten and not missed.
 
-/mob/proc/canUnEquip(obj/item/I, force)
+TYPE_PROC_REF(/mob, canUnEquip)(obj/item/I, force)
 	if(!I)
 		return TRUE
 	if(HAS_TRAIT(I, TRAIT_NODROP) && !force)
 		return FALSE
 	return TRUE
 
-/mob/proc/putItemFromInventoryInHandIfPossible(obj/item/I, hand_index, force_removal = FALSE)
+TYPE_PROC_REF(/mob, putItemFromInventoryInHandIfPossible)(obj/item/I, hand_index, force_removal = FALSE)
 	if(!can_put_in_hand(I, hand_index))
 		return FALSE
 	if(!temporarilyRemoveItemFromInventory(I, force_removal))
@@ -290,22 +290,22 @@
 
 //for when you want the item to end up on the ground
 //will force move the item to the ground and call the turf's Entered
-/mob/proc/dropItemToGround(obj/item/I, force = FALSE, drop_inv = TRUE)
+TYPE_PROC_REF(/mob, dropItemToGround)(obj/item/I, force = FALSE, drop_inv = TRUE)
 	return doUnEquip(I, force, drop_location(), FALSE, invdrop = drop_inv)
 
 //for when the item will be immediately placed in a loc other than the ground
-/mob/proc/transferItemToLoc(obj/item/I, newloc = null, force = FALSE)
+TYPE_PROC_REF(/mob, transferItemToLoc)(obj/item/I, newloc = null, force = FALSE)
 	return doUnEquip(I, force, newloc, FALSE)
 
 //visibly unequips I but it is NOT MOVED AND REMAINS IN SRC
 //item MUST BE FORCEMOVE'D OR QDEL'D
-/mob/proc/temporarilyRemoveItemFromInventory(obj/item/I, force = FALSE, idrop = TRUE)
+TYPE_PROC_REF(/mob, temporarilyRemoveItemFromInventory)(obj/item/I, force = FALSE, idrop = TRUE)
 	return doUnEquip(I, force, null, TRUE, idrop)
 
 //DO NOT CALL THIS PROC
 //use one of the above 3 helper procs
 //you may override it, but do not modify the args
-/mob/proc/doUnEquip(obj/item/I, force, newloc, no_move, invdrop = TRUE) //Force overrides TRAIT_NODROP for things like wizarditis and admin undress.
+TYPE_PROC_REF(/mob, doUnEquip)(obj/item/I, force, newloc, no_move, invdrop = TRUE) //Force overrides TRAIT_NODROP for things like wizarditis and admin undress.
 													//Use no_move if the item is just gonna be immediately moved afterward
 													//Invdrop is used to prevent stuff in pockets dropping. only set to false if it's going to immediately be replaced
 	if(!I) //If there's nothing to drop, the drop is automatically succesfull. If(unEquip) should generally be used to check for TRAIT_NODROP.
@@ -340,7 +340,7 @@
 //set qdel_on_fail to have it delete W if it fails to equip
 //set disable_warning to disable the 'you are unable to equip that' warning.
 //unset redraw_mob to prevent the mob from being redrawn at the end.
-/mob/proc/equip_to_slot_if_possible(obj/item/W, slot, qdel_on_fail = FALSE, disable_warning = FALSE, redraw_mob = TRUE, bypass_equip_delay_self = FALSE, clothing_check = FALSE, displace_worn = FALSE)
+TYPE_PROC_REF(/mob, equip_to_slot_if_possible)(obj/item/W, slot, qdel_on_fail = FALSE, disable_warning = FALSE, redraw_mob = TRUE, bypass_equip_delay_self = FALSE, clothing_check = FALSE, displace_worn = FALSE)
 	if(!istype(W))
 		return FALSE
 	var/list/warning = list(span_warning("You are unable to equip that!"))
@@ -367,17 +367,17 @@
 
 //This is an UNSAFE proc. It merely handles the actual job of equipping. All the checks on whether you can or can't equip need to be done before! Use mob_can_equip() for that task.
 //In most cases you will want to use equip_to_slot_if_possible()
-/mob/proc/equip_to_slot(obj/item/W, slot)
+TYPE_PROC_REF(/mob, equip_to_slot)(obj/item/W, slot)
 	return
 
 //This is just a commonly used configuration for the equip_to_slot_if_possible() proc, used to equip people when the round starts and when events happen and such.
 //Also bypasses equip delay checks, since the mob isn't actually putting it on.
-/mob/proc/equip_to_slot_or_del(obj/item/W, slot)
+TYPE_PROC_REF(/mob, equip_to_slot_or_del)(obj/item/W, slot)
 	return equip_to_slot_if_possible(W, slot, TRUE, TRUE, FALSE, TRUE)
 
 //puts the item "W" into an appropriate slot in a human's inventory
 //returns 0 if it cannot, 1 if successful
-/mob/proc/equip_to_appropriate_slot(obj/item/W, clothing_check = FALSE)
+TYPE_PROC_REF(/mob, equip_to_appropriate_slot)(obj/item/W, clothing_check = FALSE)
 	if(!istype(W))
 		return 0
 	var/slot_priority = W.slot_equipment_priority
@@ -407,7 +407,7 @@
  * * Optional - include_pockets (TRUE/FALSE), whether or not to include the pockets and suit storage in the returned list
  */
 
-/mob/living/proc/get_equipped_items(include_pockets = FALSE)
+TYPE_PROC_REF(/mob/living, get_equipped_items)(include_pockets = FALSE)
 	var/list/items = list()
 	for(var/obj/item/I in contents)
 		if(I.item_flags & IN_INVENTORY)
@@ -415,14 +415,14 @@
 	items -= held_items
 	return items
 
-/mob/living/proc/unequip_everything()
+TYPE_PROC_REF(/mob/living, unequip_everything)()
 	var/list/items = list()
 	items |= get_equipped_items(TRUE)
 	for(var/I in items)
 		dropItemToGround(I)
 	drop_all_held_items()
 
-/obj/item/proc/equip_to_best_slot(mob/M)
+TYPE_PROC_REF(/obj/item, equip_to_best_slot)(mob/M)
 	if(src != M.get_active_held_item())
 		to_chat(M, span_warning("You are not holding anything to equip!"))
 		return FALSE
@@ -458,10 +458,10 @@
 		I.equip_to_best_slot(src)
 
 //used in code for items usable by both carbon and drones, this gives the proper back slot for each mob.(defibrillator, backpack watertank, ...)
-/mob/proc/getBackSlot()
+TYPE_PROC_REF(/mob, getBackSlot)()
 	return SLOT_BACK
 
-/mob/proc/getBeltSlot()
+TYPE_PROC_REF(/mob, getBeltSlot)()
 	return SLOT_BELT
 
 
@@ -472,7 +472,7 @@
 //This is for multi-handed mobs, such as a human with a third limb installed
 //This is a very rare proc to call (besides admin fuckery) so
 //any cost it has isn't a worry
-/mob/proc/change_number_of_hands(amt)
+TYPE_PROC_REF(/mob, change_number_of_hands)(amt)
 	if(amt < held_items.len)
 		for(var/i in held_items.len to amt step -1)
 			dropItemToGround(held_items[i])
@@ -506,7 +506,7 @@
 
 
 //GetAllContents that is reasonable and not stupid
-/mob/living/carbon/proc/get_all_gear()
+TYPE_PROC_REF(/mob/living/carbon, get_all_gear)()
 	var/list/processing_list = get_equipped_items(include_pockets = TRUE) + held_items
 	listclearnulls(processing_list) // handles empty hands
 	var/i = 0

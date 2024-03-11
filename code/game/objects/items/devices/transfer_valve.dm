@@ -82,7 +82,7 @@
 	if(attached_device)
 		attached_device.on_found(finder)
 
-/obj/item/transfer_valve/proc/on_entered(atom/movable/AM as mob|obj)
+TYPE_PROC_REF(/obj/item/transfer_valve, on_entered)(atom/movable/AM as mob|obj)
 	SIGNAL_HANDLER
 	if(attached_device)
 		INVOKE_ASYNC(attached_device, PROC_REF(on_entered), AM)
@@ -139,13 +139,13 @@
 	attack_self(usr)
 	add_fingerprint(usr)
 
-/obj/item/transfer_valve/proc/process_activation(obj/item/D)
+TYPE_PROC_REF(/obj/item/transfer_valve, process_activation)(obj/item/D)
 	if(toggle)
 		toggle = FALSE
 		toggle_valve()
 		addtimer(CALLBACK(src, PROC_REF(toggle_off)), 5)	//To stop a signal being spammed from a proxy sensor constantly going off or whatever
 
-/obj/item/transfer_valve/proc/toggle_off()
+TYPE_PROC_REF(/obj/item/transfer_valve, toggle_off)()
 	toggle = TRUE
 
 /obj/item/transfer_valve/update_icon()
@@ -170,7 +170,7 @@
 			if(sensor.on && sensor.visible)
 				add_overlay("proxy_beam")
 
-/obj/item/transfer_valve/proc/merge_gases(datum/gas_mixture/target, change_volume = TRUE)
+TYPE_PROC_REF(/obj/item/transfer_valve, merge_gases)(datum/gas_mixture/target, change_volume = TRUE)
 	var/target_self = FALSE
 	if(!target || (target == tank_one.air_contents))
 		target = tank_two.air_contents
@@ -184,7 +184,7 @@
 	if(!target_self)
 		tank_two.air_contents.transfer_ratio_to(target, 1)
 
-/obj/item/transfer_valve/proc/split_gases()
+TYPE_PROC_REF(/obj/item/transfer_valve, split_gases)()
 	if (!valve_open || !tank_one || !tank_two)
 		return
 	var/ratio1 = tank_one.air_contents.return_volume()/tank_two.air_contents.return_volume()
@@ -195,7 +195,7 @@
 	Exadv1: I know this isn't how it's going to work, but this was just to check
 	it explodes properly when it gets a signal (and it does).
 */
-/obj/item/transfer_valve/proc/toggle_valve()
+TYPE_PROC_REF(/obj/item/transfer_valve, toggle_valve)()
 	if(!valve_open && tank_one && tank_two)
 		valve_open = TRUE
 		var/turf/bombturf = get_turf(src)
@@ -228,7 +228,7 @@
 
 		merge_gases()
 		for(var/i in 1 to 6)
-			addtimer(CALLBACK(src, /atom/.proc/update_icon), 20 + (i - 1) * 10)
+			addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_icon)), 20 + (i - 1) * 10)
 
 	else if(valve_open && tank_one && tank_two)
 		split_gases()
@@ -239,7 +239,7 @@
 	This doesn't do anything but the timer etc. expects it to be here
 	eventually maybe have it update icon to show state (timer, prox etc.) like old bombs
 */
-/obj/item/transfer_valve/proc/c_state()
+TYPE_PROC_REF(/obj/item/transfer_valve, c_state)()
 	return
 
 /obj/item/transfer_valve/ui_state(mob/user)
@@ -296,5 +296,5 @@
 /**
  * Returns if this is ready to be detonated. Checks if both tanks are in place.
  */
-/obj/item/transfer_valve/proc/ready()
+TYPE_PROC_REF(/obj/item/transfer_valve, ready)()
 	return tank_one && tank_two

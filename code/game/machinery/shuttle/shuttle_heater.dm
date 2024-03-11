@@ -85,19 +85,19 @@
 	var/datum/gas_mixture/air_contents = airs[1]
 	. += "The engine heater's gas dial reads [air_contents.return_volume()] liters in internal tank.<br>"
 
-/obj/machinery/atmospherics/components/unary/shuttle/heater/proc/updateGasStats()
+TYPE_PROC_REF(/obj/machinery/atmospherics/components/unary/shuttle/heater, updateGasStats)()
 	var/datum/gas_mixture/air_contents = airs[1]
 	if(!air_contents)
 		return
 	air_contents.set_volume(gas_capacity)
 	air_contents.set_temperature(T20C)
 
-/obj/machinery/atmospherics/components/unary/shuttle/heater/proc/hasFuel(required)
+TYPE_PROC_REF(/obj/machinery/atmospherics/components/unary/shuttle/heater, hasFuel)(required)
 	var/datum/gas_mixture/air_contents = airs[1]
 	var/moles = air_contents.total_moles()
 	return moles >= required
 
-/obj/machinery/atmospherics/components/unary/shuttle/heater/proc/consumeFuel(amount)
+TYPE_PROC_REF(/obj/machinery/atmospherics/components/unary/shuttle/heater, consumeFuel)(amount)
 	var/datum/gas_mixture/air_contents = airs[1]
 	air_contents.remove(amount)
 	return
@@ -115,7 +115,7 @@
 		return
 	return ..()
 
-/obj/machinery/atmospherics/components/unary/shuttle/heater/proc/update_adjacent_engines()
+TYPE_PROC_REF(/obj/machinery/atmospherics/components/unary/shuttle/heater, update_adjacent_engines)()
 	var/engine_turf
 	switch(dir)
 		if(NORTH)

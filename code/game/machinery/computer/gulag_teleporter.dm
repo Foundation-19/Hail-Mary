@@ -124,11 +124,11 @@
 				return
 			addtimer(CALLBACK(src, PROC_REF(teleport), usr), 5)
 
-/obj/machinery/computer/gulag_teleporter_computer/proc/scan_machinery()
+TYPE_PROC_REF(/obj/machinery/computer/gulag_teleporter_computer, scan_machinery)()
 	teleporter = findteleporter()
 	beacon = findbeacon()
 
-/obj/machinery/computer/gulag_teleporter_computer/proc/findteleporter()
+TYPE_PROC_REF(/obj/machinery/computer/gulag_teleporter_computer, findteleporter)()
 	var/obj/machinery/gulag_teleporter/teleporterf = null
 
 	for(var/direction in GLOB.cardinals)
@@ -136,10 +136,10 @@
 		if(teleporterf && teleporterf.is_operational())
 			return teleporterf
 
-/obj/machinery/computer/gulag_teleporter_computer/proc/findbeacon()
+TYPE_PROC_REF(/obj/machinery/computer/gulag_teleporter_computer, findbeacon)()
 	return locate(/obj/structure/gulag_beacon)
 
-/obj/machinery/computer/gulag_teleporter_computer/proc/teleport(mob/user)
+TYPE_PROC_REF(/obj/machinery/computer/gulag_teleporter_computer, teleport)(mob/user)
 	if(!id) //incase the ID was removed after the transfer timer was set.
 		say("Warning: Unable to transfer prisoner without a valid Prisoner ID inserted!")
 		return

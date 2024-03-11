@@ -41,7 +41,7 @@ GLOBAL_DATUM_INIT(openspace_backdrop_one_for_all, /atom/movable/openspace_backdr
 /*
 Prevents players on higher Zs from seeing into buildings they arent meant to.
 */
-/turf/open/transparent/openspace/proc/is_wall_below()
+TYPE_PROC_REF(/turf/open/transparent/openspace, is_wall_below)()
 	var/turf/A = SSmapping.get_turf_below(src)
 	if(istype(A,/turf/closed/wall))
 		opacity = 1
@@ -90,10 +90,10 @@ Prevents players on higher Zs from seeing into buildings they arent meant to.
 			return FALSE
 	return TRUE
 
-/turf/open/transparent/openspace/proc/CanCoverUp()
+TYPE_PROC_REF(/turf/open/transparent/openspace, CanCoverUp)()
 	return can_cover_up
 
-/turf/open/transparent/openspace/proc/CanBuildHere()
+TYPE_PROC_REF(/turf/open/transparent/openspace, CanBuildHere)()
 	return can_build_on
 
 /turf/open/transparent/openspace/attackby(obj/item/C, mob/user, params)

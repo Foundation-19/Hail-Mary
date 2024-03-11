@@ -32,7 +32,7 @@
 	if(!.) //if we're not being caught
 		splat(hit_atom)
 
-/obj/item/reagent_containers/food/snacks/pie/cream/proc/splat(atom/movable/hit_atom)
+TYPE_PROC_REF(/obj/item/reagent_containers/food/snacks/pie/cream, splat)(atom/movable/hit_atom)
 	if(isliving(loc)) //someone caught us!
 		return
 	var/turf/T = get_turf(hit_atom)

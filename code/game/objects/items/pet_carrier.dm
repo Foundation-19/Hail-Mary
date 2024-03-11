@@ -187,7 +187,7 @@
 	else
 		return ..()
 
-/obj/item/pet_carrier/proc/load_occupant(mob/living/user, mob/living/target)
+TYPE_PROC_REF(/obj/item/pet_carrier, load_occupant)(mob/living/user, mob/living/target)
 	if(pet_carrier_full(src))
 		to_chat(user, span_warning("[src] is already carrying too much!"))
 		return FALSE
@@ -207,14 +207,14 @@
 	add_occupant(target)
 	return TRUE
 
-/obj/item/pet_carrier/proc/add_occupant(mob/living/occupant)
+TYPE_PROC_REF(/obj/item/pet_carrier, add_occupant)(mob/living/occupant)
 	if(occupant in occupants || !istype(occupant))
 		return
 	occupant.forceMove(src)
 	occupants += occupant
 	occupant_weight += occupant.mob_size
 
-/obj/item/pet_carrier/proc/remove_occupant(mob/living/occupant, turf/new_turf)
+TYPE_PROC_REF(/obj/item/pet_carrier, remove_occupant)(mob/living/occupant, turf/new_turf)
 	if(!(occupant in occupants) || !istype(occupant))
 		return
 	occupant.forceMove(new_turf ? new_turf : get_turf(src))

@@ -58,7 +58,7 @@ SUBSYSTEM_DEF(tgui)
  * required user mob
  * return datum/tgui
  */
-/datum/controller/subsystem/tgui/proc/request_pooled_window(mob/user)
+TYPE_PROC_REF(/datum/controller/subsystem/tgui, request_pooled_window)(mob/user)
 	if(!user.client)
 		return null
 	var/list/windows = user.client.tgui_windows
@@ -94,7 +94,7 @@ SUBSYSTEM_DEF(tgui)
  *
  * required user mob
  */
-/datum/controller/subsystem/tgui/proc/force_close_all_windows(mob/user)
+TYPE_PROC_REF(/datum/controller/subsystem/tgui, force_close_all_windows)(mob/user)
 	log_tgui(user, context = "SStgui/force_close_all_windows")
 	if(user.client)
 		user.client.tgui_windows = list()
@@ -110,7 +110,7 @@ SUBSYSTEM_DEF(tgui)
  * required user mob
  * required window_id string
  */
-/datum/controller/subsystem/tgui/proc/force_close_window(mob/user, window_id)
+TYPE_PROC_REF(/datum/controller/subsystem/tgui, force_close_window)(mob/user, window_id)
 	log_tgui(user, context = "SStgui/force_close_window")
 	// Close all tgui datums based on window_id.
 	for(var/datum/tgui/ui in user.tgui_open_uis)
@@ -133,7 +133,7 @@ SUBSYSTEM_DEF(tgui)
  *
  * return datum/tgui The found UI.
  */
-/datum/controller/subsystem/tgui/proc/try_update_ui(
+TYPE_PROC_REF(/datum/controller/subsystem/tgui, try_update_ui)(
 		mob/user,
 		datum/src_object,
 		datum/tgui/ui)
@@ -163,7 +163,7 @@ SUBSYSTEM_DEF(tgui)
  *
  * return datum/tgui The found UI.
  */
-/datum/controller/subsystem/tgui/proc/get_open_ui(mob/user, datum/src_object)
+TYPE_PROC_REF(/datum/controller/subsystem/tgui, get_open_ui)(mob/user, datum/src_object)
 	var/key = "[REF(src_object)]"
 	// No UIs opened for this src_object
 	if(isnull(open_uis_by_src[key]) || !istype(open_uis_by_src[key], /list))
@@ -183,7 +183,7 @@ SUBSYSTEM_DEF(tgui)
  *
  * return int The number of UIs updated.
  */
-/datum/controller/subsystem/tgui/proc/update_uis(datum/src_object)
+TYPE_PROC_REF(/datum/controller/subsystem/tgui, update_uis)(datum/src_object)
 	var/count = 0
 	var/key = "[REF(src_object)]"
 	// No UIs opened for this src_object
@@ -205,7 +205,7 @@ SUBSYSTEM_DEF(tgui)
  *
  * return int The number of UIs closed.
  */
-/datum/controller/subsystem/tgui/proc/close_uis(datum/src_object)
+TYPE_PROC_REF(/datum/controller/subsystem/tgui, close_uis)(datum/src_object)
 	var/count = 0
 	var/key = "[REF(src_object)]"
 	// No UIs opened for this src_object
@@ -225,7 +225,7 @@ SUBSYSTEM_DEF(tgui)
  *
  * return int The number of UIs closed.
  */
-/datum/controller/subsystem/tgui/proc/close_all_uis()
+TYPE_PROC_REF(/datum/controller/subsystem/tgui, close_all_uis)()
 	var/count = 0
 	for(var/key in open_uis_by_src)
 		for(var/datum/tgui/ui in open_uis_by_src[key])
@@ -245,7 +245,7 @@ SUBSYSTEM_DEF(tgui)
  *
  * return int The number of UIs updated.
  */
-/datum/controller/subsystem/tgui/proc/update_user_uis(mob/user, datum/src_object)
+TYPE_PROC_REF(/datum/controller/subsystem/tgui, update_user_uis)(mob/user, datum/src_object)
 	var/count = 0
 	if(length(user?.tgui_open_uis) == 0)
 		return count
@@ -265,7 +265,7 @@ SUBSYSTEM_DEF(tgui)
  *
  * return int The number of UIs closed.
  */
-/datum/controller/subsystem/tgui/proc/close_user_uis(mob/user, datum/src_object)
+TYPE_PROC_REF(/datum/controller/subsystem/tgui, close_user_uis)(mob/user, datum/src_object)
 	var/count = 0
 	if(length(user?.tgui_open_uis) == 0)
 		return count
@@ -282,7 +282,7 @@ SUBSYSTEM_DEF(tgui)
  *
  * required ui datum/tgui The UI to be added.
  */
-/datum/controller/subsystem/tgui/proc/on_open(datum/tgui/ui)
+TYPE_PROC_REF(/datum/controller/subsystem/tgui, on_open)(datum/tgui/ui)
 	var/key = "[REF(ui.src_object)]"
 	if(isnull(open_uis_by_src[key]) || !istype(open_uis_by_src[key], /list))
 		open_uis_by_src[key] = list()
@@ -300,7 +300,7 @@ SUBSYSTEM_DEF(tgui)
  *
  * return bool If the UI was removed or not.
  */
-/datum/controller/subsystem/tgui/proc/on_close(datum/tgui/ui)
+TYPE_PROC_REF(/datum/controller/subsystem/tgui, on_close)(datum/tgui/ui)
 	var/key = "[REF(ui.src_object)]"
 	if(isnull(open_uis_by_src[key]) || !istype(open_uis_by_src[key], /list))
 		return FALSE
@@ -324,7 +324,7 @@ SUBSYSTEM_DEF(tgui)
  *
  * return int The number of UIs closed.
  */
-/datum/controller/subsystem/tgui/proc/on_logout(mob/user)
+TYPE_PROC_REF(/datum/controller/subsystem/tgui, on_logout)(mob/user)
 	close_user_uis(user)
 
 /**
@@ -337,7 +337,7 @@ SUBSYSTEM_DEF(tgui)
  *
  * return bool If the UIs were transferred.
  */
-/datum/controller/subsystem/tgui/proc/on_transfer(mob/source, mob/target)
+TYPE_PROC_REF(/datum/controller/subsystem/tgui, on_transfer)(mob/source, mob/target)
 	// The old mob had no open UIs.
 	if(length(source?.tgui_open_uis) == 0)
 		return FALSE

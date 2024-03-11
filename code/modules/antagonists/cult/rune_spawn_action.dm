@@ -19,7 +19,7 @@
 		return FALSE
 	return ..()
 
-/datum/action/innate/cult/create_rune/proc/turf_check(turf/T)
+TYPE_PROC_REF(/datum/action/innate/cult/create_rune, turf_check)(turf/T)
 	if(!T)
 		return FALSE
 	if(isspaceturf(T))

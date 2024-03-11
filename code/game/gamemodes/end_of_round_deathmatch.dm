@@ -10,14 +10,14 @@ GLOBAL_LIST_INIT(eord_arsenal, list(
 	return INITIALIZE_HINT_QDEL
 
 
-/datum/controller/subsystem/ticker/proc/grant_eord_respawn(datum/dcs, mob/source)
+TYPE_PROC_REF(/datum/controller/subsystem/ticker, grant_eord_respawn)(datum/dcs, mob/source)
 	SIGNAL_HANDLER
 	if(!source.client)
 		return
-	add_verb(source.client, /client/proc/eord_respawn)
+	add_verb(source.client, TYPE_PROC_REF(/client, eord_respawn))
 
 
-/mob/proc/spawn_at_eord(turf/spawn_location)
+TYPE_PROC_REF(/mob, spawn_at_eord)(turf/spawn_location)
 
 	var/datum/job/role = SSjob.GetJob(mind.assigned_role)
 	if(!role)
@@ -42,7 +42,7 @@ GLOBAL_LIST_INIT(eord_arsenal, list(
 
 
 /// This is only available to mobs once they join EORD.
-/client/proc/eord_respawn()
+TYPE_PROC_REF(/client, eord_respawn)()
 	set name = "EORD Respawn"
 	set category = "OOC"
 
@@ -64,7 +64,7 @@ GLOBAL_LIST_INIT(eord_arsenal, list(
 	mob.spawn_at_eord(spawn_location)
 
 
-/datum/controller/subsystem/ticker/proc/end_of_round_deathmatch()
+TYPE_PROC_REF(/datum/controller/subsystem/ticker, end_of_round_deathmatch)()
 	RegisterSignal(SSdcs, COMSIG_GLOB_MOB_LOGIN, PROC_REF(grant_eord_respawn)) // New mobs can now respawn into EORD
 	var/list/spawns = GLOB.deathmatch_spawn_points.Copy()
 
@@ -79,7 +79,7 @@ GLOBAL_LIST_INIT(eord_arsenal, list(
 			continue
 		if(!player_mob.client)
 			continue
-		add_verb(player_mob.client, /client/proc/eord_respawn)
+		add_verb(player_mob.client, TYPE_PROC_REF(/client, eord_respawn))
 		if(!player_mob.client.prefs?.end_of_round_deathmatch)
 			continue
 		if(isliving(player_mob) && is_centcom_level(player_mob.z))
@@ -108,7 +108,7 @@ GLOBAL_LIST_INIT(eord_arsenal, list(
 		CHECK_TICK
 
 
-/mob/living/carbon/human/proc/apply_assigned_role_to_spawn(datum/job/role, client/preference_source)
+TYPE_PROC_REF(/mob/living/carbon/human, apply_assigned_role_to_spawn)(datum/job/role, client/preference_source)
 	dna.species.before_equip_job(role, src, FALSE)
 
 	var/datum/outfit/job/job_outfit = role.outfit

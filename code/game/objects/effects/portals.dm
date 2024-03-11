@@ -56,7 +56,7 @@
 		user.forceMove(get_turf(src))
 		return TRUE
 
-/obj/effect/portal/proc/on_entered(atom/movable/AM, oldloc, force_stop = 0)
+TYPE_PROC_REF(/obj/effect/portal, on_entered)(atom/movable/AM, oldloc, force_stop = 0)
 	SIGNAL_HANDLER
 	if(force_stop)
 		return
@@ -97,12 +97,12 @@
 /obj/effect/portal/singularity_act()
 	return
 
-/obj/effect/portal/proc/link_portal(obj/effect/portal/newlink)
+TYPE_PROC_REF(/obj/effect/portal, link_portal)(obj/effect/portal/newlink)
 	linked = newlink
 	if(atmos_link)
 		link_atmos()
 
-/obj/effect/portal/proc/link_atmos()
+TYPE_PROC_REF(/obj/effect/portal, link_atmos)()
 	if(atmos_source || atmos_destination)
 		unlink_atmos()
 	if(!isopenturf(get_turf(src)))
@@ -128,7 +128,7 @@
 	atmos_source.air_update_turf(FALSE)
 	atmos_destination.air_update_turf(FALSE)
 
-/obj/effect/portal/proc/unlink_atmos()
+TYPE_PROC_REF(/obj/effect/portal, unlink_atmos)()
 	if(istype(atmos_source))
 		if(istype(atmos_destination) && !atmos_source.Adjacent(atmos_destination) && !CANATMOSPASS(atmos_destination, atmos_source))
 			LAZYREMOVE(atmos_source.atmos_adjacent_turfs, atmos_destination)
@@ -151,7 +151,7 @@
 	if(!teleport(O, TRUE))
 		return ..()
 
-/obj/effect/portal/proc/teleport(atom/movable/M, force = FALSE)
+TYPE_PROC_REF(/obj/effect/portal, teleport)(atom/movable/M, force = FALSE)
 	if(!force && (!istype(M) || iseffect(M) || (ismecha(M) && !mech_sized) || (!isobj(M) && !ismob(M)))) //Things that shouldn't teleport.
 		return
 	var/turf/real_target = get_link_target_turf()
@@ -171,7 +171,7 @@
 		return TRUE
 	return FALSE
 
-/obj/effect/portal/proc/get_link_target_turf()
+TYPE_PROC_REF(/obj/effect/portal, get_link_target_turf)()
 	var/turf/real_target
 	if(!istype(linked) || QDELETED(linked))
 		if(hardlinked)
@@ -193,7 +193,7 @@
 	force_teleport = TRUE // force teleports because they're a mapmaker tool
 	var/id // var edit or set id in map editor
 
-/obj/effect/portal/permanent/proc/set_linked()
+TYPE_PROC_REF(/obj/effect/portal/permanent, set_linked)()
 	if(!id)
 		return
 	for(var/obj/effect/portal/permanent/P in GLOB.portals - src)

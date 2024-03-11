@@ -51,7 +51,7 @@
 	var/rad_insulation = RAD_NO_INSULATION
 
 	///The custom materials this atom is made of, used by a lot of things like furniture, walls, and floors (if I finish the functionality, that is.)
-	///The list referenced by this var can be shared by multiple objects and should not be directly modified. Instead, use [set_custom_materials][/atom/proc/set_custom_materials].
+	///The list referenced by this var can be shared by multiple objects and should not be directly modified. Instead, use [set_custom_materials][TYPE_PROC_REF(/atom, set_custom_materials)].
 	var/list/custom_materials
 	///Bitfield for how the atom handles materials.
 	var/material_flags = NONE
@@ -92,7 +92,7 @@
 
 	///Mobs that are currently do_after'ing this atom, to be cleared from on Destroy()
 	var/list/targeted_by
-	/// If false makes [CanPass][/atom/proc/CanPass] call [CanPassThrough][/atom/movable/proc/CanPassThrough] on this type instead of using default behaviour
+	/// If false makes [CanPass][TYPE_PROC_REF(/atom, CanPass)] call [CanPassThrough][TYPE_PROC_REF(/atom/movable, CanPassThrough)] on this type instead of using default behaviour
 	var/generic_canpass = TRUE
 
 	/// What does this creature taste like?
@@ -124,7 +124,7 @@
 // /turf/Initialize
 // /turf/open/space/Initialize
 
-/atom/proc/Initialize(mapload, ...)
+TYPE_PROC_REF(/atom, Initialize)(mapload, ...)
 	SHOULD_CALL_PARENT(TRUE)
 	SHOULD_NOT_SLEEP(TRUE)
 	if(flags_1 & INITIALIZED_1)
@@ -151,11 +151,11 @@
 	return INITIALIZE_HINT_NORMAL
 
 //called if Initialize returns INITIALIZE_HINT_LATELOAD
-/atom/proc/LateInitialize()
+TYPE_PROC_REF(/atom, LateInitialize)()
 	return
 
 // Put your AddComponent() calls here
-/atom/proc/ComponentInitialize()
+TYPE_PROC_REF(/atom, ComponentInitialize)()
 	return
 
 /atom/Destroy()
@@ -182,10 +182,10 @@
  * Checks if a projectile should ricochet off of us. Projectiles get final say.
  * [__DEFINES/projectiles.dm] for return values.
  */
-/atom/proc/check_projectile_ricochet(obj/item/projectile/P)
+TYPE_PROC_REF(/atom, check_projectile_ricochet)(obj/item/projectile/P)
 	return (flags_1 & DEFAULT_RICOCHET_1)? PROJECTILE_RICOCHET_YES : PROJECTILE_RICOCHET_NO
 
-/atom/proc/handle_ricochet(obj/item/projectile/P)
+TYPE_PROC_REF(/atom, handle_ricochet)(obj/item/projectile/P)
 	var/turf/p_turf = get_turf(P)
 	var/face_direction = get_dir(src, p_turf)
 	var/face_angle = dir2angle(face_direction)
@@ -202,7 +202,7 @@
 
 
 /// Whether the mover object can avoid being blocked by this atom, while arriving from (or leaving through) the border_dir.
-/atom/proc/CanPass(atom/movable/mover, border_dir)
+TYPE_PROC_REF(/atom, CanPass)(atom/movable/mover, border_dir)
 	SHOULD_CALL_PARENT(TRUE)
 	SHOULD_BE_PURE(TRUE)
 	. = CanAllowThrough(mover, border_dir)
@@ -211,7 +211,7 @@
 		return mover.CanPassThrough(src, REVERSE_DIR(border_dir), .)
 
 /// Returns true or false to allow the mover to move through src
-/atom/proc/CanAllowThrough(atom/movable/mover, border_dir)
+TYPE_PROC_REF(/atom, CanAllowThrough)(atom/movable/mover, border_dir)
 	SHOULD_CALL_PARENT(TRUE)
 	//SHOULD_BE_PURE(TRUE)
 	if(mover.pass_flags & pass_flags_self)
@@ -221,7 +221,7 @@
 	return !density
 
 
-/atom/proc/onCentCom()
+TYPE_PROC_REF(/atom, onCentCom)()
 	var/turf/T = get_turf(src)
 	if(!T)
 		return FALSE
@@ -251,7 +251,7 @@
 				if(T in shuttle_area)
 					return TRUE
 
-/atom/proc/onSyndieBase()
+TYPE_PROC_REF(/atom, onSyndieBase)()
 	var/turf/T = get_turf(src)
 	if(!T)
 		return FALSE
@@ -264,14 +264,14 @@
 
 	return FALSE
 
-/atom/proc/attack_hulk(mob/living/carbon/human/user, does_attack_animation = FALSE)
+TYPE_PROC_REF(/atom, attack_hulk)(mob/living/carbon/human/user, does_attack_animation = FALSE)
 	SEND_SIGNAL(src, COMSIG_ATOM_HULK_ATTACK, user)
 	if(does_attack_animation)
 		user.DelayNextAction(CLICK_CD_MELEE)
 		log_combat(user, src, "punched", "hulk powers")
 		user.do_attack_animation(src, ATTACK_EFFECT_SMASH)
 
-/atom/proc/CheckParts(list/parts_list, datum/crafting_recipe/R)
+TYPE_PROC_REF(/atom, CheckParts)(list/parts_list, datum/crafting_recipe/R)
 	SEND_SIGNAL(src, COMSIG_ATOM_CHECKPARTS, parts_list, R)
 	if(parts_list)
 		for(var/A in parts_list)
@@ -291,86 +291,86 @@
 		parts_list.Cut()
 
 //common name
-/atom/proc/update_multiz(prune_on_fail = FALSE)
+TYPE_PROC_REF(/atom, update_multiz)(prune_on_fail = FALSE)
 	return FALSE
 
-/atom/proc/assume_air(datum/gas_mixture/giver)
+TYPE_PROC_REF(/atom, assume_air)(datum/gas_mixture/giver)
 
 	return null
 
-/atom/proc/assume_air_moles(datum/gas_mixture/giver, moles)
+TYPE_PROC_REF(/atom, assume_air_moles)(datum/gas_mixture/giver, moles)
 	return null
 
 
-/atom/proc/assume_air_ratio(datum/gas_mixture/giver, ratio)
+TYPE_PROC_REF(/atom, assume_air_ratio)(datum/gas_mixture/giver, ratio)
 	return null
 
-/atom/proc/remove_air(amount)
+TYPE_PROC_REF(/atom, remove_air)(amount)
 	return null
 
-/atom/proc/remove_air_ratio(ratio)
+TYPE_PROC_REF(/atom, remove_air_ratio)(ratio)
 	return null
 
-/atom/proc/transfer_air(datum/gas_mixture/taker, amount)
+TYPE_PROC_REF(/atom, transfer_air)(datum/gas_mixture/taker, amount)
 	return null
 
-/atom/proc/transfer_air_ratio(datum/gas_mixture/taker, ratio)
+TYPE_PROC_REF(/atom, transfer_air_ratio)(datum/gas_mixture/taker, ratio)
 	return null
 
-/atom/proc/return_air()
+TYPE_PROC_REF(/atom, return_air)()
 	if(loc)
 		return loc.return_air()
 	else
 		return null
 
-/atom/proc/check_eye(mob/user)
+TYPE_PROC_REF(/atom, check_eye)(mob/user)
 	return
 
-/atom/proc/Bumped(atom/movable/AM)
+TYPE_PROC_REF(/atom, Bumped)(atom/movable/AM)
 	set waitfor = FALSE
 
 // Convenience procs to see if a container is open for chemistry handling
-/atom/proc/is_open_container()
+TYPE_PROC_REF(/atom, is_open_container)()
 	return is_refillable() && is_drainable()
 
-/atom/proc/is_injectable(allowmobs = TRUE)
+TYPE_PROC_REF(/atom, is_injectable)(allowmobs = TRUE)
 	return reagents && (reagents.reagents_holder_flags & (INJECTABLE | REFILLABLE))
 
-/atom/proc/is_drawable(allowmobs = TRUE)
+TYPE_PROC_REF(/atom, is_drawable)(allowmobs = TRUE)
 	return reagents && (reagents.reagents_holder_flags & (DRAWABLE | DRAINABLE))
 
-/atom/proc/is_refillable()
+TYPE_PROC_REF(/atom, is_refillable)()
 	return reagents && (reagents.reagents_holder_flags & REFILLABLE)
 
-/atom/proc/is_drainable()
+TYPE_PROC_REF(/atom, is_drainable)()
 	return reagents && (reagents.reagents_holder_flags & DRAINABLE)
 
 
-/atom/proc/AllowDrop()
+TYPE_PROC_REF(/atom, AllowDrop)()
 	return FALSE
 
-/atom/proc/CheckExit()
+TYPE_PROC_REF(/atom, CheckExit)()
 	return TRUE
 
-/atom/proc/HasProximity(atom/movable/AM as mob|obj)
+TYPE_PROC_REF(/atom, HasProximity)(atom/movable/AM as mob|obj)
 	return
 
-/atom/proc/emp_act(severity)
+TYPE_PROC_REF(/atom, emp_act)(severity)
 	var/protection = SEND_SIGNAL(src, COMSIG_ATOM_EMP_ACT, severity)
 	if(!(protection & EMP_PROTECT_WIRES) && istype(wires))
 		wires.emp_pulse(severity)
 	return protection // Pass the protection value collected here upwards
 
-/atom/proc/bullet_act(obj/item/projectile/P, def_zone)
+TYPE_PROC_REF(/atom, bullet_act)(obj/item/projectile/P, def_zone)
 	SEND_SIGNAL(src, COMSIG_ATOM_BULLET_ACT, P, def_zone)
 	. = P.on_hit(src, 0, def_zone)
 
 //used on altdisarm() for special interactions between the shoved victim (target) and the src, with user being the one shoving the target on it.
 // IMPORTANT: if you wish to add a new own shove_act() to a certain object, remember to add SHOVABLE_ONTO to its obj_flags bitfied var first.
-/atom/proc/shove_act(mob/living/target, mob/living/user)
+TYPE_PROC_REF(/atom, shove_act)(mob/living/target, mob/living/user)
 	return FALSE
 
-/atom/proc/in_contents_of(container)//can take class or object instance as argument
+TYPE_PROC_REF(/atom, in_contents_of)(container)//can take class or object instance as argument
 	if(ispath(container))
 		if(istype(src.loc, container))
 			return TRUE
@@ -378,7 +378,7 @@
 		return TRUE
 	return FALSE
 
-/atom/proc/get_examine_name(mob/user)
+TYPE_PROC_REF(/atom, get_examine_name)(mob/user)
 	. = "\a [src]"
 	var/list/override = list(gender == PLURAL ? "some" : "a", " ", "[name]")
 	if(article)
@@ -399,10 +399,10 @@
 		. = override.Join("")
 
 ///Generate the full examine string of this atom (including icon for goonchat)
-/atom/proc/get_examine_string(mob/user, thats = FALSE)
+TYPE_PROC_REF(/atom, get_examine_string)(mob/user, thats = FALSE)
 	return "[icon2html(src, user)] [thats? "That's ":""][get_examine_name(user)]"
 
-/atom/proc/examine(mob/user)
+TYPE_PROC_REF(/atom, examine)(mob/user)
 	. = list("[get_examine_string(user, TRUE)].")
 
 	if(desc)
@@ -444,14 +444,14 @@
  *
  * Produces a signal [COMSIG_PARENT_EXAMINE_MORE]
  */
-/atom/proc/examine_more(mob/user)
+TYPE_PROC_REF(/atom, examine_more)(mob/user)
 	. = list()
 	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE_MORE, user, .)
 	if(!LAZYLEN(.)) // lol ..length
 		return list("<span class='notice'><i>You examine [src] closer, but find nothing of interest...</i></span>")
 
 /// Updates the icon of the atom
-/atom/proc/update_icon()
+TYPE_PROC_REF(/atom, update_icon)()
 	// I expect we're going to need more return flags and options in this proc
 	var/signalOut = SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_ICON)
 	. = FALSE
@@ -473,15 +473,15 @@
 	SEND_SIGNAL(src, COMSIG_ATOM_UPDATED_ICON, signalOut, .)
 
 /// Updates the icon state of the atom
-/atom/proc/update_icon_state()
+TYPE_PROC_REF(/atom, update_icon_state)()
 
 /// Updates the overlays of the atom
-/atom/proc/update_overlays()
+TYPE_PROC_REF(/atom, update_overlays)()
 	SHOULD_CALL_PARENT(1)
 	. = list()
 	SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_OVERLAYS, .)
 
-/atom/proc/relaymove(mob/living/user)
+TYPE_PROC_REF(/atom, relaymove)(mob/living/user)
 	if(!istype(user))
 		return				//why are you buckling nonliving mobs to atoms?
 	if(user.buckle_message_cooldown <= world.time)
@@ -490,35 +490,35 @@
 		SEND_SIGNAL(user, COMSIG_ATOM_RELAYMOVE, src)
 		SEND_SIGNAL(src, COMSIG_ATOM_RELAYMOVE, user)
 
-/atom/proc/contents_explosion(severity, target)
+TYPE_PROC_REF(/atom, contents_explosion)(severity, target)
 	return //For handling the effects of explosions on contents that would not normally be effected
 
-/atom/proc/ex_act(severity, target)
+TYPE_PROC_REF(/atom, ex_act)(severity, target)
 	set waitfor = FALSE
 	contents_explosion(severity, target)
 	SEND_SIGNAL(src, COMSIG_ATOM_EX_ACT, severity, target)
 
-/atom/proc/blob_act(obj/structure/blob/B)
+TYPE_PROC_REF(/atom, blob_act)(obj/structure/blob/B)
 	SEND_SIGNAL(src, COMSIG_ATOM_BLOB_ACT, B)
 	return
 
-/atom/proc/fire_act(exposed_temperature, exposed_volume)
+TYPE_PROC_REF(/atom, fire_act)(exposed_temperature, exposed_volume)
 	SEND_SIGNAL(src, COMSIG_ATOM_FIRE_ACT, exposed_temperature, exposed_volume)
 	return
 
-/atom/proc/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
+TYPE_PROC_REF(/atom, hitby)(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	if(density && !has_gravity(AM)) //thrown stuff bounces off dense stuff in no grav, unless the thrown stuff ends up inside what it hit(embedding, bola, etc...).
 		addtimer(CALLBACK(src, PROC_REF(hitby_react), AM), 2)
 
-/atom/proc/hitby_react(atom/movable/AM)
+TYPE_PROC_REF(/atom, hitby_react)(atom/movable/AM)
 	if(AM && isturf(AM.loc))
 		step(AM, turn(AM.dir, 180))
 
-/atom/proc/handle_slip(mob/living/carbon/C, knockdown_amount, obj/O, lube)
+TYPE_PROC_REF(/atom, handle_slip)(mob/living/carbon/C, knockdown_amount, obj/O, lube)
 	return
 
 //returns the mob's dna info as a list, to be inserted in an object's blood_DNA list
-/mob/living/proc/get_blood_dna_list()
+TYPE_PROC_REF(/mob/living, get_blood_dna_list)()
 	var/blood_id = get_blood_id()
 	if(!(blood_id in GLOB.blood_reagent_types))
 		return
@@ -541,7 +541,7 @@
 	return list("color" = BLOOD_COLOR_XENO, "UNKNOWN DNA" = "X*")
 
 //to add a mob's dna info into an object's blood_DNA list.
-/atom/proc/transfer_mob_blood_dna(mob/living/L)
+TYPE_PROC_REF(/atom, transfer_mob_blood_dna)(mob/living/L)
 	// Returns 0 if we have that blood already
 	var/new_blood_dna = L.get_blood_dna_list()
 	if(!new_blood_dna)
@@ -562,7 +562,7 @@
 	return changed
 
 //to add blood dna info to the object's blood_DNA list
-/atom/proc/transfer_blood_dna(list/blood_dna, list/datum/disease/diseases)
+TYPE_PROC_REF(/atom, transfer_blood_dna)(list/blood_dna, list/datum/disease/diseases)
 	LAZYINITLIST(blood_DNA)
 
 	var/old_length = blood_DNA.len
@@ -578,14 +578,14 @@
 			blood_DNA["color"] = BlendRGB(blood_DNA["color"], blood_dna["color"])
 
 //to add blood from a mob onto something, and transfer their dna info
-/atom/proc/add_mob_blood(mob/living/M)
+TYPE_PROC_REF(/atom, add_mob_blood)(mob/living/M)
 	var/list/blood_dna = M.get_blood_dna_list()
 	if(!blood_dna)
 		return FALSE
 	return add_blood_DNA(blood_dna, M.diseases)
 
 //to add blood onto something, with blood dna info to include.
-/atom/proc/add_blood_DNA(list/blood_dna, list/datum/disease/diseases)
+TYPE_PROC_REF(/atom, add_blood_DNA)(list/blood_dna, list/datum/disease/diseases)
 	return FALSE
 
 /obj/add_blood_DNA(list/blood_dna, list/datum/disease/diseases)
@@ -597,7 +597,7 @@
 		return
 	add_blood_overlay()
 
-/obj/item/proc/add_blood_overlay()
+TYPE_PROC_REF(/obj/item, add_blood_overlay)()
 	if(!blood_DNA.len)
 		return
 	if(initial(icon) && initial(icon_state))
@@ -643,50 +643,50 @@
 	update_inv_gloves()	//handles bloody hands overlays and updating
 	return TRUE
 
-/atom/proc/blood_DNA_to_color()
+TYPE_PROC_REF(/atom, blood_DNA_to_color)()
 	return (blood_DNA && blood_DNA["color"]) || BLOOD_COLOR_HUMAN
 
-/atom/proc/clean_blood()
+TYPE_PROC_REF(/atom, clean_blood)()
 	. = blood_DNA? TRUE : FALSE
 	blood_DNA = null
 
-/atom/proc/wash_cream()
+TYPE_PROC_REF(/atom, wash_cream)()
 	return TRUE
 
-/atom/proc/isinspace()
+TYPE_PROC_REF(/atom, isinspace)()
 	if(isspaceturf(get_turf(src)))
 		return TRUE
 	else
 		return FALSE
 
-/atom/proc/handle_fall()
+TYPE_PROC_REF(/atom, handle_fall)()
 	return
 
-/atom/proc/singularity_act()
+TYPE_PROC_REF(/atom, singularity_act)()
 	return
 
-/atom/proc/singularity_pull(obj/singularity/S, current_size)
+TYPE_PROC_REF(/atom, singularity_pull)(obj/singularity/S, current_size)
 	SEND_SIGNAL(src, COMSIG_ATOM_SING_PULL, S, current_size)
 
-/atom/proc/acid_act(acidpwr, acid_volume)
+TYPE_PROC_REF(/atom, acid_act)(acidpwr, acid_volume)
 	SEND_SIGNAL(src, COMSIG_ATOM_ACID_ACT, acidpwr, acid_volume)
 
-/atom/proc/emag_act()
+TYPE_PROC_REF(/atom, emag_act)()
 	return SEND_SIGNAL(src, COMSIG_ATOM_EMAG_ACT)
 
-/atom/proc/rad_act(strength)
+TYPE_PROC_REF(/atom, rad_act)(strength)
 	SEND_SIGNAL(src, COMSIG_ATOM_RAD_ACT, strength)
 
-/atom/proc/narsie_act()
+TYPE_PROC_REF(/atom, narsie_act)()
 	SEND_SIGNAL(src, COMSIG_ATOM_NARSIE_ACT)
 
-/atom/proc/ratvar_act()
+TYPE_PROC_REF(/atom, ratvar_act)()
 	SEND_SIGNAL(src, COMSIG_ATOM_RATVAR_ACT)
 
-/atom/proc/rcd_vals(mob/user, obj/item/construction/rcd/the_rcd)
+TYPE_PROC_REF(/atom, rcd_vals)(mob/user, obj/item/construction/rcd/the_rcd)
 	return FALSE
 
-/atom/proc/rcd_act(mob/user, obj/item/construction/rcd/the_rcd, passed_mode)
+TYPE_PROC_REF(/atom, rcd_act)(mob/user, obj/item/construction/rcd/the_rcd, passed_mode)
 	SEND_SIGNAL(src, COMSIG_ATOM_RCD_ACT, user, the_rcd, passed_mode)
 	return FALSE
 
@@ -695,15 +695,15 @@
  *
  * Default behaviour is to return, we define here to allow for cleaner code later on
  */
-/atom/proc/zap_act(power, zap_flags, shocked_targets)
+TYPE_PROC_REF(/atom, zap_act)(power, zap_flags, shocked_targets)
 	return
 
-/atom/proc/storage_contents_dump_act(obj/item/storage/src_object, mob/user)
+TYPE_PROC_REF(/atom, storage_contents_dump_act)(obj/item/storage/src_object, mob/user)
 	if(GetComponent(/datum/component/storage))
 		return component_storage_contents_dump_act(src_object, user)
 	return FALSE
 
-/atom/proc/component_storage_contents_dump_act(datum/component/storage/src_object, mob/user)
+TYPE_PROC_REF(/atom, component_storage_contents_dump_act)(datum/component/storage/src_object, mob/user)
 	var/list/things = src_object.contents()
 	var/datum/progressbar/progress = new(user, things.len, src)
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
@@ -715,38 +715,38 @@
 		user.active_storage.ui_show(user)
 	return TRUE
 
-/atom/proc/get_dumping_location(obj/item/storage/source,mob/user)
+TYPE_PROC_REF(/atom, get_dumping_location)(obj/item/storage/source,mob/user)
 	return null
 
 //This proc is called on the location of an atom when the atom is Destroy()'d
-/atom/proc/handle_atom_del(atom/A)
+TYPE_PROC_REF(/atom, handle_atom_del)(atom/A)
 	SEND_SIGNAL(src, COMSIG_ATOM_CONTENTS_DEL, A)
 
 //called when the turf the atom resides on is ChangeTurfed
-/atom/proc/HandleTurfChange(turf/T)
+TYPE_PROC_REF(/atom, HandleTurfChange)(turf/T)
 	for(var/a in src)
 		var/atom/A = a
 		A.HandleTurfChange(T)
 
 //the vision impairment to give to the mob whose perspective is set to that atom (e.g. an unfocused camera giving you an impaired vision when looking through it)
-/atom/proc/get_remote_view_fullscreens(mob/user)
+TYPE_PROC_REF(/atom, get_remote_view_fullscreens)(mob/user)
 	return
 
 //the sight changes to give to the mob whose perspective is set to that atom (e.g. A mob with nightvision loses its nightvision while looking through a normal camera)
-/atom/proc/update_remote_sight(mob/living/user)
+TYPE_PROC_REF(/atom, update_remote_sight)(mob/living/user)
 	return
 
 
 //Hook for running code when a dir change occurs
-/atom/proc/setDir(newdir, ismousemovement=FALSE)
+TYPE_PROC_REF(/atom, setDir)(newdir, ismousemovement=FALSE)
 	SEND_SIGNAL(src, COMSIG_ATOM_DIR_CHANGE, dir, newdir)
 	dir = newdir
 
-/atom/proc/mech_melee_attack(obj/mecha/M)
+TYPE_PROC_REF(/atom, mech_melee_attack)(obj/mecha/M)
 	return
 
 //If a mob logouts/logins in side of an object you can use this proc
-/atom/proc/on_log(login)
+TYPE_PROC_REF(/atom, on_log)(login)
 	if(loc)
 		loc.on_log(login)
 
@@ -762,7 +762,7 @@
 /*
 	Adds an instance of colour_type to the atom's atom_colours list
 */
-/atom/proc/add_atom_colour(coloration, colour_priority)
+TYPE_PROC_REF(/atom, add_atom_colour)(coloration, colour_priority)
 	if(!atom_colours || !atom_colours.len)
 		atom_colours = list()
 		atom_colours.len = COLOUR_PRIORITY_AMOUNT //four priority levels currently.
@@ -777,7 +777,7 @@
 /*
 	Removes an instance of colour_type from the atom's atom_colours list
 */
-/atom/proc/remove_atom_colour(colour_priority, coloration)
+TYPE_PROC_REF(/atom, remove_atom_colour)(colour_priority, coloration)
 	if(!atom_colours)
 		atom_colours = list()
 		atom_colours.len = COLOUR_PRIORITY_AMOUNT //four priority levels currently.
@@ -793,7 +793,7 @@
 	Resets the atom's color to null, and then sets it to the highest priority
 	colour available
 */
-/atom/proc/update_atom_colour()
+TYPE_PROC_REF(/atom, update_atom_colour)()
 	if(!atom_colours)
 		atom_colours = list()
 		atom_colours.len = COLOUR_PRIORITY_AMOUNT //four priority levels currently.
@@ -925,13 +925,13 @@
 	. += "[VV_HREF_TARGETREF(refid, VV_HK_AUTO_RENAME, "<b id='name'>[src]</b>")]"
 	. += "<br><font size='1'><a href='?_src_=vars;[HrefToken()];rotatedatum=[refid];rotatedir=left'><<</a> <a href='?_src_=vars;[HrefToken()];datumedit=[refid];varnameedit=dir' id='dir'>[dir2text(dir) || dir]</a> <a href='?_src_=vars;[HrefToken()];rotatedatum=[refid];rotatedir=right'>>></a></font>"
 
-/atom/proc/drop_location()
+TYPE_PROC_REF(/atom, drop_location)()
 	var/atom/L = loc
 	if(!L)
 		return null
 	return L.AllowDrop() ? L : L.drop_location()
 
-/atom/proc/vv_auto_rename(newname)
+TYPE_PROC_REF(/atom, vv_auto_rename)(newname)
 	name = newname
 
 /**
@@ -965,13 +965,13 @@
 /atom/Exited(atom/movable/gone, direction)
 	SEND_SIGNAL(src, COMSIG_ATOM_EXITED, gone, direction)
 
-/atom/proc/return_temperature()
+TYPE_PROC_REF(/atom, return_temperature)()
 	return
 
 // Tool behavior procedure. Redirects to tool-specific procs by default.
 // You can override it to catch all tool interactions, for use in complex deconstruction procs.
 // Just don't forget to return ..() in the end.
-/atom/proc/tool_act(mob/living/user, obj/item/I, tool_type)
+TYPE_PROC_REF(/atom, tool_act)(mob/living/user, obj/item/I, tool_type)
 	switch(tool_type)
 		if(TOOL_CROWBAR)
 			return crowbar_act(user, I)
@@ -989,35 +989,35 @@
 			return analyzer_act(user, I)
 
 // Tool-specific behavior procs. To be overridden in subtypes.
-/atom/proc/crowbar_act(mob/living/user, obj/item/I)
+TYPE_PROC_REF(/atom, crowbar_act)(mob/living/user, obj/item/I)
 	return
 
-/atom/proc/multitool_act(mob/living/user, obj/item/I)
+TYPE_PROC_REF(/atom, multitool_act)(mob/living/user, obj/item/I)
 	return
 
-/atom/proc/multitool_check_buffer(user, obj/item/I, silent = FALSE)
+TYPE_PROC_REF(/atom, multitool_check_buffer)(user, obj/item/I, silent = FALSE)
 	if(!istype(I, /obj/item/multitool))
 		if(user && !silent)
 			to_chat(user, span_warning("[I] has no data buffer!"))
 		return FALSE
 	return TRUE
 
-/atom/proc/screwdriver_act(mob/living/user, obj/item/I)
+TYPE_PROC_REF(/atom, screwdriver_act)(mob/living/user, obj/item/I)
 	SEND_SIGNAL(src, COMSIG_ATOM_SCREWDRIVER_ACT, user, I)
 
-/atom/proc/wrench_act(mob/living/user, obj/item/I)
+TYPE_PROC_REF(/atom, wrench_act)(mob/living/user, obj/item/I)
 	return
 
-/atom/proc/wirecutter_act(mob/living/user, obj/item/I)
+TYPE_PROC_REF(/atom, wirecutter_act)(mob/living/user, obj/item/I)
 	return
 
-/atom/proc/welder_act(mob/living/user, obj/item/I)
+TYPE_PROC_REF(/atom, welder_act)(mob/living/user, obj/item/I)
 	return
 
-/atom/proc/analyzer_act(mob/living/user, obj/item/I)
+TYPE_PROC_REF(/atom, analyzer_act)(mob/living/user, obj/item/I)
 	return
 
-/atom/proc/GenerateTag()
+TYPE_PROC_REF(/atom, GenerateTag)()
 	return
 
 /**
@@ -1028,11 +1028,11 @@
  * * dock - Stationary dock the shuttle's at
  * * idnum - ID number of the shuttle
  */
-/atom/proc/connect_to_shuttle(obj/docking_port/mobile/port, obj/docking_port/stationary/dock, idnum, override=FALSE)
+TYPE_PROC_REF(/atom, connect_to_shuttle)(obj/docking_port/mobile/port, obj/docking_port/stationary/dock, idnum, override=FALSE)
 	return
 
 // Generic logging helper
-/atom/proc/log_message(message, message_type, color=null, log_globally=TRUE)
+TYPE_PROC_REF(/atom, log_message)(message, message_type, color=null, log_globally=TRUE)
 	if(!log_globally)
 		return
 
@@ -1075,7 +1075,7 @@
 			log_game(log_text)
 
 // Helper for logging chat messages or other logs with arbitrary inputs (e.g. announcements)
-/atom/proc/log_talk(message, message_type, tag=null, log_globally=TRUE, forced_by=null)
+TYPE_PROC_REF(/atom, log_talk)(message, message_type, tag=null, log_globally=TRUE, forced_by=null)
 	var/prefix = tag ? "([tag]) " : ""
 	var/suffix = forced_by ? " FORCED by [forced_by]" : ""
 	log_message("[prefix]\"[message]\"[suffix]", message_type, log_globally=log_globally)
@@ -1156,14 +1156,14 @@
 
 	victim.log_message(message, LOG_ATTACK, color="blue")
 
-/atom/proc/add_filter(name,priority,list/params)
+TYPE_PROC_REF(/atom, add_filter)(name,priority,list/params)
 	LAZYINITLIST(filter_data)
 	var/list/p = params.Copy()
 	p["priority"] = priority
 	filter_data[name] = p
 	update_filters()
 
-/atom/proc/update_filters()
+TYPE_PROC_REF(/atom, update_filters)()
 	filters = null
 	filter_data = sortTim(filter_data, GLOBAL_PROC_REF(cmp_filter_data_priority), TRUE)
 	for(var/f in filter_data)
@@ -1173,11 +1173,11 @@
 		filters += filter(arglist(arguments))
 	UNSETEMPTY(filter_data)
 
-/atom/proc/get_filter(name)
+TYPE_PROC_REF(/atom, get_filter)(name)
 	if(filter_data && filter_data[name])
 		return filters[filter_data.Find(name)]
 
-/atom/proc/remove_filter(name_or_names)
+TYPE_PROC_REF(/atom, remove_filter)(name_or_names)
 	if(!filter_data)
 		return
 
@@ -1188,11 +1188,11 @@
 			filter_data -= name
 	update_filters()
 
-/atom/proc/intercept_zImpact(atom/movable/AM, levels = 1)
+TYPE_PROC_REF(/atom, intercept_zImpact)(atom/movable/AM, levels = 1)
 	. |= SEND_SIGNAL(src, COMSIG_ATOM_INTERCEPT_Z_FALL, AM, levels)
 
 ///Sets the custom materials for an item.
-/atom/proc/set_custom_materials(list/materials, multiplier = 1)
+TYPE_PROC_REF(/atom, set_custom_materials)(list/materials, multiplier = 1)
 	if(custom_materials) //Only runs if custom materials existed at first. Should usually be the case but check anyways
 		for(var/i in custom_materials)
 			var/datum/material/custom_material = SSmaterials.GetMaterialRef(i)
@@ -1223,7 +1223,7 @@
  * * Gravity if the Z level has an SSMappingTrait for ZTRAIT_GRAVITY
  * * otherwise no gravity
  */
-/atom/proc/has_gravity(turf/T)
+TYPE_PROC_REF(/atom, has_gravity)(turf/T)
 	if(!T || !isturf(T))
 		T = get_turf(src)
 
@@ -1260,7 +1260,7 @@
  *
  * Override this if you want custom behaviour in whatever gets hit by the rust
  */
-/atom/proc/rust_heretic_act()
+TYPE_PROC_REF(/atom, rust_heretic_act)()
 	return
 
 ///Passes Stat Browser Panel clicks to the game and calls client click on an atom

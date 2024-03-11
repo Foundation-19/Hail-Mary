@@ -35,7 +35,7 @@
 	holder.click_intercept = src
 	mode.enter_mode(src)
 	
-/datum/buildmode/proc/quit()
+TYPE_PROC_REF(/datum/buildmode, quit)()
 	mode.exit_mode(src)
 	holder.screen -= buttons
 	holder.click_intercept = null
@@ -51,7 +51,7 @@
 	QDEL_LIST(dirswitch_buttons)
 	return ..()
 
-/datum/buildmode/proc/post_login()
+TYPE_PROC_REF(/datum/buildmode, post_login)()
 	// since these will get wiped upon login
 	holder.screen += buttons
 	// re-open the according switch mode
@@ -61,7 +61,7 @@
 		if(BM_SWITCHSTATE_DIR)
 			open_dirswitch()
 
-/datum/buildmode/proc/create_buttons()
+TYPE_PROC_REF(/datum/buildmode, create_buttons)()
 	// keep a reference so we can update it upon mode switch
 	modebutton = new /obj/screen/buildmode/mode(src)
 	buttons += modebutton
@@ -76,7 +76,7 @@
 
 // this creates a nice offset grid for choosing between buildmode options,
 // because going "click click click ah hell" sucks.
-/datum/buildmode/proc/build_options_grid(list/elements, list/buttonslist, buttontype)
+TYPE_PROC_REF(/datum/buildmode, build_options_grid)(list/elements, list/buttonslist, buttontype)
 	var/pos_idx = 0
 	for(var/thing in elements)
 		var/x = pos_idx % switch_width
@@ -87,44 +87,44 @@
 		buttonslist += B
 		pos_idx++
 
-/datum/buildmode/proc/close_switchstates()
+TYPE_PROC_REF(/datum/buildmode, close_switchstates)()
 	switch(switch_state)
 		if(BM_SWITCHSTATE_MODE)
 			close_modeswitch()
 		if(BM_SWITCHSTATE_DIR)
 			close_dirswitch()
 
-/datum/buildmode/proc/toggle_modeswitch()
+TYPE_PROC_REF(/datum/buildmode, toggle_modeswitch)()
 	if(switch_state == BM_SWITCHSTATE_MODE)
 		close_modeswitch()
 	else
 		close_switchstates()
 		open_modeswitch()
 	
-/datum/buildmode/proc/open_modeswitch()
+TYPE_PROC_REF(/datum/buildmode, open_modeswitch)()
 	switch_state = BM_SWITCHSTATE_MODE
 	holder.screen += modeswitch_buttons
 
-/datum/buildmode/proc/close_modeswitch()
+TYPE_PROC_REF(/datum/buildmode, close_modeswitch)()
 	switch_state = BM_SWITCHSTATE_NONE
 	holder.screen -= modeswitch_buttons
 
-/datum/buildmode/proc/toggle_dirswitch()
+TYPE_PROC_REF(/datum/buildmode, toggle_dirswitch)()
 	if(switch_state == BM_SWITCHSTATE_DIR)
 		close_dirswitch()
 	else
 		close_switchstates()
 		open_dirswitch()
 	
-/datum/buildmode/proc/open_dirswitch()
+TYPE_PROC_REF(/datum/buildmode, open_dirswitch)()
 	switch_state = BM_SWITCHSTATE_DIR
 	holder.screen += dirswitch_buttons
 
-/datum/buildmode/proc/close_dirswitch()
+TYPE_PROC_REF(/datum/buildmode, close_dirswitch)()
 	switch_state = BM_SWITCHSTATE_NONE
 	holder.screen -= dirswitch_buttons
 
-/datum/buildmode/proc/change_mode(newmode)
+TYPE_PROC_REF(/datum/buildmode, change_mode)(newmode)
 	mode.exit_mode(src)
 	QDEL_NULL(mode)
 	close_switchstates()
@@ -132,13 +132,13 @@
 	mode.enter_mode(src)
 	modebutton.update_icon()
 
-/datum/buildmode/proc/change_dir(newdir)
+TYPE_PROC_REF(/datum/buildmode, change_dir)(newdir)
 	build_dir = newdir
 	close_dirswitch()
 	dirbutton.update_icon()
 	return 1
 
-/datum/buildmode/proc/InterceptClickOn(mob/user, params, atom/object)
+TYPE_PROC_REF(/datum/buildmode, InterceptClickOn)(mob/user, params, atom/object)
 	mode.handle_click(user.client, params, object)
 	return TRUE // no doing underlying actions
 

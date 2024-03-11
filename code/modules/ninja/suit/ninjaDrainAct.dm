@@ -11,7 +11,7 @@ They *could* go in their appropriate files, but this is supposed to be modular
 
 
 //Needs to return the amount drained from the atom, if no drain on a power object, return FALSE, otherwise, return a define.
-/atom/proc/ninjadrain_act()
+TYPE_PROC_REF(/atom, ninjadrain_act)()
 	return INVALID_DRAIN
 
 
@@ -114,7 +114,7 @@ They *could* go in their appropriate files, but this is supposed to be modular
 			corrupt()
 			update_icon()
 
-/obj/machinery/proc/AI_notify_hack()
+TYPE_PROC_REF(/obj/machinery, AI_notify_hack)()
 	var/turf/location = get_turf(src)
 	var/alertstr = "<span class='userdanger'>Network Alert: Hacking attempt detected[location?" in [location]":". Unable to pinpoint location"]</span>."
 	for(var/mob/living/silicon/ai/AI in GLOB.player_list)

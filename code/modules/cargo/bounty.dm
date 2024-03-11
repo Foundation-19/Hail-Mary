@@ -8,18 +8,18 @@ GLOBAL_LIST_EMPTY(bounties_list)
 	var/high_priority = FALSE
 
 // Displayed on bounty UI screen.
-/datum/bounty/proc/completion_string()
+TYPE_PROC_REF(/datum/bounty, completion_string)()
 	return ""
 
 // Displayed on bounty UI screen.
-/datum/bounty/proc/reward_string()
+TYPE_PROC_REF(/datum/bounty, reward_string)()
 	return "[reward] Credits"
 
-/datum/bounty/proc/can_claim()
+TYPE_PROC_REF(/datum/bounty, can_claim)()
 	return !claimed
 
 // Called when the claim button is clicked. Override to provide fancy rewards.
-/datum/bounty/proc/claim()
+TYPE_PROC_REF(/datum/bounty, claim)()
 	if(can_claim())
 		var/datum/bank_account/D = SSeconomy.get_dep_account(ACCOUNT_CAR)
 		if(D)
@@ -27,19 +27,19 @@ GLOBAL_LIST_EMPTY(bounties_list)
 		claimed = TRUE
 
 // If an item sent in the cargo shuttle can satisfy the bounty.
-/datum/bounty/proc/applies_to(obj/O)
+TYPE_PROC_REF(/datum/bounty, applies_to)(obj/O)
 	return FALSE
 
 // Called when an object is shipped on the cargo shuttle.
-/datum/bounty/proc/ship(obj/O)
+TYPE_PROC_REF(/datum/bounty, ship)(obj/O)
 	return
 
 // When randomly generating the bounty list, duplicate bounties must be avoided.
 // This proc is used to determine if two bounties are duplicates, or incompatible in general.
-/datum/bounty/proc/compatible_with(other_bounty)
+TYPE_PROC_REF(/datum/bounty, compatible_with)(other_bounty)
 	return TRUE
 
-/datum/bounty/proc/mark_high_priority(scale_reward = 2)
+TYPE_PROC_REF(/datum/bounty, mark_high_priority)(scale_reward = 2)
 	if(high_priority)
 		return
 	high_priority = TRUE

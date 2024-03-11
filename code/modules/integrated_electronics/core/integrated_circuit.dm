@@ -41,11 +41,11 @@ a creative player the means to solve many problems.  Circuits are held inside an
 		. += text
 
 // Can be called via electronic_assembly/attackby()
-/obj/item/integrated_circuit/proc/additem(obj/item/I, mob/living/user)
+TYPE_PROC_REF(/obj/item/integrated_circuit, additem)(obj/item/I, mob/living/user)
 	attackby(I, user)
 
 // This should be used when someone is examining while the case is opened.
-/obj/item/integrated_circuit/proc/internal_examine(mob/user)
+TYPE_PROC_REF(/obj/item/integrated_circuit, internal_examine)(mob/user)
 	to_chat(user, "This board has [inputs.len] input pin\s, [outputs.len] output pin\s and [activators.len] activation pin\s.")
 	for(var/k in 1 to inputs.len)
 		var/datum/integrated_io/I = inputs[k]
@@ -63,19 +63,19 @@ a creative player the means to solve many problems.  Circuits are held inside an
 	interact(user)
 
 // This should be used when someone is examining from an 'outside' perspective, e.g. reading a screen or LED.
-/obj/item/integrated_circuit/proc/external_examine(mob/user)
+TYPE_PROC_REF(/obj/item/integrated_circuit, external_examine)(mob/user)
 	return any_examine(user)
 
-/obj/item/integrated_circuit/proc/any_examine(mob/user)
+TYPE_PROC_REF(/obj/item/integrated_circuit, any_examine)(mob/user)
 	return
 
-/obj/item/integrated_circuit/proc/attackby_react(atom/movable/A,mob/user)
+TYPE_PROC_REF(/obj/item/integrated_circuit, attackby_react)(atom/movable/A,mob/user)
 	return
 
-/obj/item/integrated_circuit/proc/sense(atom/movable/A,mob/user,prox)
+TYPE_PROC_REF(/obj/item/integrated_circuit, sense)(atom/movable/A,mob/user,prox)
 	return
 
-/obj/item/integrated_circuit/proc/check_interactivity(mob/user)
+TYPE_PROC_REF(/obj/item/integrated_circuit, check_interactivity)(mob/user)
 	if(assembly)
 		return assembly.check_interactivity(user)
 	else
@@ -89,7 +89,7 @@ a creative player the means to solve many problems.  Circuits are held inside an
 	LAZYSET(custom_materials, /datum/material/iron, w_class * SScircuit.cost_multiplier)
 	. = ..()
 
-/obj/item/integrated_circuit/proc/on_data_written() //Override this for special behaviour when new data gets pushed to the circuit.
+TYPE_PROC_REF(/obj/item/integrated_circuit, on_data_written)() //Override this for special behaviour when new data gets pushed to the circuit.
 	return
 
 /obj/item/integrated_circuit/Destroy()
@@ -296,33 +296,33 @@ a creative player the means to solve many problems.  Circuits are held inside an
 		else
 			interact(usr) // To refresh the UI.
 
-/obj/item/integrated_circuit/proc/push_data()
+TYPE_PROC_REF(/obj/item/integrated_circuit, push_data)()
 	for(var/k in 1 to outputs.len)
 		var/datum/integrated_io/O = outputs[k]
 		O.push_data()
 
-/obj/item/integrated_circuit/proc/pull_data()
+TYPE_PROC_REF(/obj/item/integrated_circuit, pull_data)()
 	for(var/k in 1 to inputs.len)
 		var/datum/integrated_io/I = inputs[k]
 		I.push_data()
 
-/obj/item/integrated_circuit/proc/draw_idle_power()
+TYPE_PROC_REF(/obj/item/integrated_circuit, draw_idle_power)()
 	if(assembly)
 		return assembly.draw_power(power_draw_idle)
 
 // Override this for special behaviour when there's no power left.
-/obj/item/integrated_circuit/proc/power_fail()
+TYPE_PROC_REF(/obj/item/integrated_circuit, power_fail)()
 	return
 
 // Returns true if there's enough power to work().
-/obj/item/integrated_circuit/proc/check_power()
+TYPE_PROC_REF(/obj/item/integrated_circuit, check_power)()
 	if(!assembly)
 		return FALSE // Not in an assembly, therefore no power.
 	if(assembly.draw_power(power_draw_per_use))
 		return TRUE // Battery has enough.
 	return FALSE // Not enough power.
 
-/obj/item/integrated_circuit/proc/check_then_do_work(ord,ignore_power = FALSE)
+TYPE_PROC_REF(/obj/item/integrated_circuit, check_then_do_work)(ord,ignore_power = FALSE)
 	if(world.time < next_use) 	// All intergrated circuits have an internal cooldown, to protect from spam.
 		return FALSE
 	if(assembly && ext_cooldown && (world.time < assembly.ext_next_use)) 	// Some circuits have external cooldown, to protect from spam.
@@ -337,10 +337,10 @@ a creative player the means to solve many problems.  Circuits are held inside an
 	do_work(ord)
 	return TRUE
 
-/obj/item/integrated_circuit/proc/do_work(ord)
+TYPE_PROC_REF(/obj/item/integrated_circuit, do_work)(ord)
 	return
 
-/obj/item/integrated_circuit/proc/disconnect_all()
+TYPE_PROC_REF(/obj/item/integrated_circuit, disconnect_all)()
 	var/datum/integrated_io/I
 
 	for(var/i in inputs)
@@ -355,12 +355,12 @@ a creative player the means to solve many problems.  Circuits are held inside an
 		I = i
 		I.disconnect_all()
 
-/obj/item/integrated_circuit/proc/ext_moved(oldLoc, dir)
+TYPE_PROC_REF(/obj/item/integrated_circuit, ext_moved)(oldLoc, dir)
 	return
 
 
 // Returns the object that is supposed to be used in attack messages, location checks, etc.
-/obj/item/integrated_circuit/proc/get_object()
+TYPE_PROC_REF(/obj/item/integrated_circuit, get_object)()
 	// If the component is located in an assembly, let assembly determine it.
 	if(assembly)
 		return assembly.get_object()
@@ -379,7 +379,7 @@ a creative player the means to solve many problems.  Circuits are held inside an
 
 
 // Checks if the target object is reachable. Useful for various manipulators and manipulator-like objects.
-/obj/item/integrated_circuit/proc/check_target(atom/target, exclude_contents = FALSE, exclude_components = FALSE, exclude_self = FALSE)
+TYPE_PROC_REF(/obj/item/integrated_circuit, check_target)(atom/target, exclude_contents = FALSE, exclude_components = FALSE, exclude_self = FALSE)
 	if(!target)
 		return FALSE
 

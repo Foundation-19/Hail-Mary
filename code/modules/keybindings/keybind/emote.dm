@@ -3,7 +3,7 @@
 	weight = WEIGHT_EMOTE
 	var/emote_key
 
-/datum/keybinding/emote/proc/link_to_emote(datum/emote/faketype)
+TYPE_PROC_REF(/datum/keybinding/emote, link_to_emote)(datum/emote/faketype)
 	hotkey_keys = list("Unbound")
 	emote_key = initial(faketype.key)
 	name = initial(faketype.key)

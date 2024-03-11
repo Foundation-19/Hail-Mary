@@ -46,7 +46,7 @@ GLOBAL_LIST_EMPTY(casing_sound_properties)
 		set_up_sound_datums()
 
 /// First one to exist makes everyone else exist
-/datum/ammo_sound_properties/proc/set_up_sound_datums()
+TYPE_PROC_REF(/datum/ammo_sound_properties, set_up_sound_datums)()
 	GLOB.casing_sound_properties[category] = src
 	for(var/some_sound in subtypesof(/datum/ammo_sound_properties))
 		if(some_sound == type)
@@ -55,7 +55,7 @@ GLOBAL_LIST_EMPTY(casing_sound_properties)
 		GLOB.casing_sound_properties[loadysound.category] = loadysound
 
 /// returns a list of vars
-/datum/ammo_sound_properties/proc/shootlist(silenced)
+TYPE_PROC_REF(/datum/ammo_sound_properties, shootlist)(silenced)
 	. = list()
 	.[CSP_INDEX_SOUND_OUT] = silenced ? pick(shoot_sound_silenced) : pick(shoot_sound)
 	.[CSP_INDEX_VARY] = vary

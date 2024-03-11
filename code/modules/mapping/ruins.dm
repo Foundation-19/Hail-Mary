@@ -1,4 +1,4 @@
-/datum/map_template/ruin/proc/try_to_place(z,allowed_areas,turf/forced_turf)
+TYPE_PROC_REF(/datum/map_template/ruin, try_to_place)(z,allowed_areas,turf/forced_turf)
 	var/sanity = forced_turf ? 1 : PLACEMENT_TRIES
 	if(SSmapping.level_trait(z,ZTRAIT_ISOLATED_RUINS))
 		return place_on_isolated_level(z)
@@ -46,7 +46,7 @@
 		new /obj/effect/landmark/ruin(central_turf, src)
 		return central_turf
 
-/datum/map_template/ruin/proc/place_on_isolated_level(z)
+TYPE_PROC_REF(/datum/map_template/ruin, place_on_isolated_level)(z)
 	var/datum/turf_reservation/reservation = SSmapping.RequestBlockReservation(width, height, z) //Make the new level creation work with different traits.
 	if(!reservation)
 		return

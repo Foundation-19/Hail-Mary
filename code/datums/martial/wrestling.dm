@@ -1,4 +1,4 @@
-/mob/living/carbon/human/proc/wrestling_help()
+TYPE_PROC_REF(/mob/living/carbon/human, wrestling_help)()
 	set name = "Recall Teachings"
 	set desc = "Remember how to wrestle."
 	set category = "Wrestling"
@@ -17,7 +17,7 @@
 	var/datum/action/strike/strike = new/datum/action/strike()
 	var/datum/action/drop/drop = new/datum/action/drop()
 
-/datum/martial_art/wrestling/proc/check_streak(mob/living/carbon/human/A, mob/living/carbon/human/D)
+TYPE_PROC_REF(/datum/martial_art/wrestling, check_streak)(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	if(!can_use(A, D))
 		return FALSE
 	switch(streak)
@@ -142,7 +142,7 @@
 	log_combat(A, D, "punched with wrestling")
 	..()
 
-/datum/martial_art/wrestling/proc/throw_wrassle(mob/living/carbon/human/A, mob/living/carbon/human/D)
+TYPE_PROC_REF(/datum/martial_art/wrestling, throw_wrassle)(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	if(!D)
 		return
 	if(!A.pulling || A.pulling != D)
@@ -213,7 +213,7 @@
 	log_combat(A, D, "has thrown with wrestling")
 	return FALSE
 
-/datum/martial_art/wrestling/proc/FlipAnimation(mob/living/carbon/human/D)
+TYPE_PROC_REF(/datum/martial_art/wrestling, FlipAnimation)(mob/living/carbon/human/D)
 	set waitfor = FALSE
 	var/transform_before
 	var/laying_before
@@ -227,7 +227,7 @@
 			D.transform = transform_before
 			animate(D, transform = null, time = 1, loop = 0)
 
-/datum/martial_art/wrestling/proc/slam(mob/living/carbon/human/A, mob/living/carbon/human/D)
+TYPE_PROC_REF(/datum/martial_art/wrestling, slam)(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	if(!D)
 		return
 	if(!A.pulling || A.pulling != D)
@@ -336,11 +336,11 @@
 	log_combat(A, D, "body-slammed")
 	return FALSE
 
-/datum/martial_art/wrestling/proc/CheckStrikeTurf(mob/living/carbon/human/A, turf/T)
+TYPE_PROC_REF(/datum/martial_art/wrestling, CheckStrikeTurf)(mob/living/carbon/human/A, turf/T)
 	if (A && (T && isturf(T) && get_dist(A, T) <= 1))
 		A.forceMove(T)
 
-/datum/martial_art/wrestling/proc/strike(mob/living/carbon/human/A, mob/living/carbon/human/D)
+TYPE_PROC_REF(/datum/martial_art/wrestling, strike)(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	if(!D)
 		return
 	var/turf/T = get_turf(A)
@@ -358,7 +358,7 @@
 		D.Unconscious(20)
 	log_combat(A, D, "headbutted")
 
-/datum/martial_art/wrestling/proc/kick(mob/living/carbon/human/A, mob/living/carbon/human/D)
+TYPE_PROC_REF(/datum/martial_art/wrestling, kick)(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	if(!D)
 		return
 	var/damage = damage_roll(A,D)
@@ -375,7 +375,7 @@
 		D.throw_at(T, 3, 2)
 	log_combat(A, D, "roundhouse-kicked")
 
-/datum/martial_art/wrestling/proc/drop(mob/living/carbon/human/A, mob/living/carbon/human/D)
+TYPE_PROC_REF(/datum/martial_art/wrestling, drop)(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	if(!D)
 		return
 	var/obj/surface = null

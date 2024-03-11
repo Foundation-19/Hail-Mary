@@ -191,7 +191,7 @@
 	tastes = list("crust" = 1, "tomato" = 1, "cheese" = 1, "pepperoni" = 2, "9 millimeter bullets" = 2)
 	
 
-/obj/item/reagent_containers/food/snacks/proc/try_break_off(mob/living/M, mob/living/user) //maybe i give you a pizza maybe i break off your arm
+TYPE_PROC_REF(/obj/item/reagent_containers/food/snacks, try_break_off)(mob/living/M, mob/living/user) //maybe i give you a pizza maybe i break off your arm
 	var/obj/item/bodypart/l_arm = user.get_bodypart(BODY_ZONE_L_ARM)
 	var/obj/item/bodypart/r_arm = user.get_bodypart(BODY_ZONE_R_ARM)
 	if(prob(50) && iscarbon(user) && M == user && (r_arm || l_arm))
@@ -202,7 +202,7 @@
 			r_arm.dismember()
 		playsound(user,pick('sound/misc/desceration-01.ogg','sound/misc/desceration-02.ogg','sound/misc/desceration-01.ogg') ,50, TRUE, -1)
 
-/obj/item/reagent_containers/food/snacks/proc/i_kill_you(obj/item/I, mob/user)
+TYPE_PROC_REF(/obj/item/reagent_containers/food/snacks, i_kill_you)(obj/item/I, mob/user)
 	if(istype(I, /obj/item/reagent_containers/food/snacks/pineappleslice))
 		to_chat(user, "<font color='red' size='7'>If you want something crazy like pineapple, I kill you.</font>")
 		user.gib() //if you want something crazy like pineapple, i kill you

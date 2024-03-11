@@ -39,7 +39,7 @@
 
 /mob/living/simple_animal/pet/cat/Initialize()
 	. = ..()
-	add_verb(src, /mob/living/proc/lay_down)
+	add_verb(src, TYPE_PROC_REF(/mob/living, lay_down))
 
 /mob/living/simple_animal/pet/cat/ComponentInitialize()
 	. = ..()
@@ -135,7 +135,7 @@
 		Write_Memory(TRUE)
 	..()
 
-/mob/living/simple_animal/pet/cat/Runtime/proc/Read_Memory()
+TYPE_PROC_REF(/mob/living/simple_animal/pet/cat/Runtime, Read_Memory)()
 	if(fexists("data/npc_saves/Runtime.sav")) //legacy compatability to convert old format to new
 		var/savefile/S = new /savefile("data/npc_saves/Runtime.sav")
 		S["family"] >> family
@@ -149,7 +149,7 @@
 	if(isnull(family))
 		family = list()
 
-/mob/living/simple_animal/pet/cat/Runtime/proc/Write_Memory(dead)
+TYPE_PROC_REF(/mob/living/simple_animal/pet/cat/Runtime, Write_Memory)(dead)
 	var/json_file = file("data/npc_saves/Runtime.json")
 	var/list/file_data = list()
 	family = list()
@@ -165,7 +165,7 @@
 	fdel(json_file)
 	WRITE_FILE(json_file, json_encode(file_data))
 
-/mob/living/simple_animal/pet/cat/Runtime/proc/Deploy_The_Cats()
+TYPE_PROC_REF(/mob/living/simple_animal/pet/cat/Runtime, Deploy_The_Cats)()
 	cats_deployed = 1
 	for(var/cat_type in family)
 		if(family[cat_type] > 0)

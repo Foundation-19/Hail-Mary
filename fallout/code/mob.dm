@@ -54,7 +54,7 @@
 	see_in_dark = 8
 	can_ghost_into = TRUE
 
-/mob/living/simple_animal/pet/catslug/proc/catslug_color()
+TYPE_PROC_REF(/mob/living/simple_animal/pet/catslug, catslug_color)()
 	set name = "Pick Color"
 	set category = "IC"
 	set desc = "You can set your color!"
@@ -65,8 +65,8 @@
 
 /mob/living/simple_animal/pet/catslug/Initialize()
 	. = ..()
-	verbs += /mob/living/simple_animal/pet/catslug/proc/catslug_color
-	add_verb(src, /mob/living/proc/lay_down)
+	verbs += TYPE_PROC_REF(/mob/living/simple_animal/pet/catslug, catslug_color)
+	add_verb(src, TYPE_PROC_REF(/mob/living, lay_down))
 
 /mob/living/simple_animal/pet/catslug/update_mobility()
 	. = ..()

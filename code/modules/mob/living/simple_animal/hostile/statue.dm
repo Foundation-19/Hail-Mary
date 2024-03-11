@@ -109,7 +109,7 @@
 	if(!can_be_seen(get_turf(loc)))
 		..()
 
-/mob/living/simple_animal/hostile/statue/proc/can_be_seen(turf/destination)
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/statue, can_be_seen)(turf/destination)
 	if(!cannot_be_seen)
 		return null
 	// Check for darkness

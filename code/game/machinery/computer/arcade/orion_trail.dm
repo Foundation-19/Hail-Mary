@@ -79,7 +79,7 @@
 		"You have made it to Orion! Congratulations! Your crew is one of the few to start a new foothold for mankind!"
 		)
 
-/obj/machinery/computer/arcade/orion_trail/proc/newgame()
+TYPE_PROC_REF(/obj/machinery/computer/arcade/orion_trail, newgame)()
 	// Set names of settlers in crew
 	settlers = list()
 	for(var/i = 1; i <= 3; i++)
@@ -312,7 +312,7 @@
 						var/mob/living/L = usr
 						L.Stun(200, ignore_canstun = TRUE) //you can't run :^)
 					var/S = new /obj/singularity/academy(usr.loc)
-					addtimer(CALLBACK(src, /atom/movable/proc/say, "[S] winks out, just as suddenly as it appeared."), 50)
+					addtimer(CALLBACK(src, TYPE_PROC_REF(/atom/movable, say), "[S] winks out, just as suddenly as it appeared."), 50)
 					QDEL_IN(S, 50)
 			else
 				event = null
@@ -447,7 +447,7 @@
 	return
 
 
-/obj/machinery/computer/arcade/orion_trail/proc/event()
+TYPE_PROC_REF(/obj/machinery/computer/arcade/orion_trail, event)()
 	eventdat = "<center><h1>[event]</h1></center>"
 	canContinueEvent = 0
 	switch(event)
@@ -687,7 +687,7 @@
 
 
 //Add Random/Specific crewmember
-/obj/machinery/computer/arcade/orion_trail/proc/add_crewmember(specific = "")
+TYPE_PROC_REF(/obj/machinery/computer/arcade/orion_trail, add_crewmember)(specific = "")
 	var/newcrew = ""
 	if(specific)
 		newcrew = specific
@@ -703,7 +703,7 @@
 
 
 //Remove Random/Specific crewmember
-/obj/machinery/computer/arcade/orion_trail/proc/remove_crewmember(specific = "", dont_remove = "")
+TYPE_PROC_REF(/obj/machinery/computer/arcade/orion_trail, remove_crewmember)(specific = "", dont_remove = "")
 	var/list/safe2remove = settlers
 	var/removed = ""
 	if(dont_remove)
@@ -721,7 +721,7 @@
 	return removed
 
 
-/obj/machinery/computer/arcade/orion_trail/proc/win(mob/user)
+TYPE_PROC_REF(/obj/machinery/computer/arcade/orion_trail, win)(mob/user)
 	gameStatus = ORION_STATUS_START
 	say("Congratulations, you made it to Orion!")
 	if(obj_flags & EMAGGED)

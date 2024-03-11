@@ -38,7 +38,7 @@
 	if(broken)
 		. += "Its debug output is printing \"[broken_message]\"."
 
-/obj/machinery/atmospherics/miner/proc/check_operation()
+TYPE_PROC_REF(/obj/machinery/atmospherics/miner, check_operation)()
 	if(!active)
 		return FALSE
 	var/turf/T = get_turf(src)
@@ -69,17 +69,17 @@
 		broken_message = ""
 	return TRUE
 
-/obj/machinery/atmospherics/miner/proc/set_active(setting)
+TYPE_PROC_REF(/obj/machinery/atmospherics/miner, set_active)(setting)
 	if(active != setting)
 		active = setting
 		update_icon()
 
-/obj/machinery/atmospherics/miner/proc/set_broken(setting)
+TYPE_PROC_REF(/obj/machinery/atmospherics/miner, set_broken)(setting)
 	if(broken != setting)
 		broken = setting
 		update_icon()
 
-/obj/machinery/atmospherics/miner/proc/update_power()
+TYPE_PROC_REF(/obj/machinery/atmospherics/miner, update_power)()
 	if(!active)
 		active_power_usage = idle_power_usage
 	var/turf/T = get_turf(src)
@@ -97,7 +97,7 @@
 		if(GASMINER_POWER_FULLSCALE)
 			active_power_usage = (spawn_mol * power_draw_dynamic_mol_coeff) + (P * power_draw_dynamic_kpa_coeff)
 
-/obj/machinery/atmospherics/miner/proc/do_use_power(amount)
+TYPE_PROC_REF(/obj/machinery/atmospherics/miner, do_use_power)(amount)
 	var/turf/T = get_turf(src)
 	if(T && istype(T))
 		var/obj/structure/cable/C = T.get_cable_node() //check if we have a node cable on the machine turf, the first found is picked
@@ -127,7 +127,7 @@
 		if(do_use_power(active_power_usage))
 			mine_gas()
 
-/obj/machinery/atmospherics/miner/proc/mine_gas()
+TYPE_PROC_REF(/obj/machinery/atmospherics/miner, mine_gas)()
 	var/turf/open/O = get_turf(src)
 	if(!isopenturf(O))
 		return FALSE

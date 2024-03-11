@@ -16,7 +16,7 @@
 	. = ..()
 	reagents.add_reagent(/datum/reagent/liquidgibs, 5)
 
-/obj/effect/decal/cleanable/robot_debris/proc/streak(list/directions)
+TYPE_PROC_REF(/obj/effect/decal/cleanable/robot_debris, streak)(list/directions)
 	set waitfor = 0
 	var/direction = pick(directions)
 	for (var/i = 0, i < pick(1, 200; 2, 150; 3, 50), i++)

@@ -62,7 +62,7 @@
 	thruster_active = FALSE
 	return ..()
 
-/obj/machinery/shuttle/engine/proc/check_setup()
+TYPE_PROC_REF(/obj/machinery/shuttle/engine, check_setup)()
 	if(!anchored)
 		attached_heater = null
 		update_engine()
@@ -94,7 +94,7 @@
 	update_engine()
 	return
 
-/obj/machinery/shuttle/engine/proc/update_engine()
+TYPE_PROC_REF(/obj/machinery/shuttle/engine, update_engine)()
 	if(!attached_heater)
 		icon_state = icon_state_off
 		thruster_active = FALSE
@@ -119,7 +119,7 @@
 	return
 
 //Thanks to spaceheater.dm for inspiration :)
-/obj/machinery/shuttle/engine/proc/fireEngine()
+TYPE_PROC_REF(/obj/machinery/shuttle/engine, fireEngine)()
 	var/turf/heatTurf = loc
 	if(!heatTurf)
 		return

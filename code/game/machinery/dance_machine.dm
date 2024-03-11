@@ -138,7 +138,7 @@
 				volume = text2num(new_volume)
 				return TRUE
 
-/obj/machinery/jukebox/proc/activate_music()
+TYPE_PROC_REF(/obj/machinery/jukebox, activate_music)()
 	var/jukeboxslottotake = SSjukeboxes.addjukebox(src, selection, 2)
 	if(jukeboxslottotake)
 		active = TRUE
@@ -154,7 +154,7 @@
 	dance_setup()
 	lights_spin()
 
-/obj/machinery/jukebox/disco/proc/dance_setup()
+TYPE_PROC_REF(/obj/machinery/jukebox/disco, dance_setup)()
 	var/turf/cen = get_turf(src)
 	FOR_DVIEW(var/turf/t, 3, get_turf(src),INVISIBILITY_LIGHTING)
 		if(t.x == cen.x && t.y > cen.y)
@@ -216,7 +216,7 @@
 		continue
 	FOR_DVIEW_END
 
-/obj/machinery/jukebox/disco/proc/hierofunk()
+TYPE_PROC_REF(/obj/machinery/jukebox/disco, hierofunk)()
 	for(var/i in 1 to 10)
 		spawn_atom_to_turf(/obj/effect/temp_visual/hierophant/telegraph/edge, src, 1, FALSE)
 		sleep(5)
@@ -225,7 +225,7 @@
 
 #define DISCO_INFENO_RANGE (rand(85, 115)*0.01)
 
-/obj/machinery/jukebox/disco/proc/lights_spin()
+TYPE_PROC_REF(/obj/machinery/jukebox/disco, lights_spin)()
 	for(var/i in 1 to 25)
 		if(QDELETED(src) || !active)
 			return
@@ -303,7 +303,7 @@
 
 #undef DISCO_INFENO_RANGE
 
-/obj/machinery/jukebox/disco/proc/dance(mob/living/M) //Show your moves
+TYPE_PROC_REF(/obj/machinery/jukebox/disco, dance)(mob/living/M) //Show your moves
 	set waitfor = FALSE
 	switch(rand(0,9))
 		if(0 to 1)
@@ -315,7 +315,7 @@
 		if(7 to 9)
 			dance5(M)
 
-/obj/machinery/jukebox/disco/proc/dance2(mob/living/M)
+TYPE_PROC_REF(/obj/machinery/jukebox/disco, dance2)(mob/living/M)
 	for(var/i = 1, i < 10, i++)
 		for(var/d in list(NORTH,SOUTH,EAST,WEST,EAST,SOUTH,NORTH,SOUTH,EAST,WEST,EAST,SOUTH))
 			M.setDir(d)
@@ -324,7 +324,7 @@
 			sleep(1)
 		sleep(20)
 
-/obj/machinery/jukebox/disco/proc/dance3(mob/living/M)
+TYPE_PROC_REF(/obj/machinery/jukebox/disco, dance3)(mob/living/M)
 	var/matrix/initial_matrix = matrix(M.transform)
 	for (var/i in 1 to 75)
 		if (!M)
@@ -372,7 +372,7 @@
 	M.lying_fix()
 
 
-/obj/machinery/jukebox/disco/proc/dance4(mob/living/M)
+TYPE_PROC_REF(/obj/machinery/jukebox/disco, dance4)(mob/living/M)
 	var/speed = rand(1,3)
 	set waitfor = 0
 	var/time = 30
@@ -386,7 +386,7 @@
 			//	NS.update_canmove()
 		time--
 
-/obj/machinery/jukebox/disco/proc/dance5(mob/living/M)
+TYPE_PROC_REF(/obj/machinery/jukebox/disco, dance5)(mob/living/M)
 	animate(M, transform = matrix(180, MATRIX_ROTATE), time = 1, loop = 0)
 	var/matrix/initial_matrix = matrix(M.transform)
 	for (var/i in 1 to 60)
@@ -421,11 +421,11 @@
 		sleep(1)
 	M.lying_fix()
 
-/mob/living/proc/lying_fix()
+TYPE_PROC_REF(/mob/living, lying_fix)()
 	animate(src, transform = null, time = 1, loop = 0)
 	lying_prev = 0
 
-/obj/machinery/jukebox/proc/dance_over()
+TYPE_PROC_REF(/obj/machinery/jukebox, dance_over)()
 	var/position = SSjukeboxes.findjukeboxindex(src)
 	if(!position)
 		return

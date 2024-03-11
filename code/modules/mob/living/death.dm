@@ -18,20 +18,20 @@
 	spawn_gibs(no_bodyparts)
 	qdel(src)
 
-/mob/living/proc/gib_animation()
+TYPE_PROC_REF(/mob/living, gib_animation)()
 	return
 
-/mob/living/proc/spawn_gibs(with_bodyparts, atom/loc_override)
+TYPE_PROC_REF(/mob/living, spawn_gibs)(with_bodyparts, atom/loc_override)
 	var/location = loc_override ? loc_override.drop_location() : drop_location()
 	if(mob_biotypes & MOB_ROBOTIC)
 		new /obj/effect/gibspawner/robot(location, src, get_static_viruses())
 	else
 		new /obj/effect/gibspawner/generic(location, src, get_static_viruses())
 
-/mob/living/proc/spill_organs()
+TYPE_PROC_REF(/mob/living, spill_organs)()
 	return
 
-/mob/living/proc/spread_bodyparts()
+TYPE_PROC_REF(/mob/living, spread_bodyparts)()
 	return
 
 /mob/living/dust(just_ash, drop_items, force)
@@ -47,10 +47,10 @@
 	spawn_dust(just_ash)
 	QDEL_IN(src,5) // since this is sometimes called in the middle of movement, allow half a second for movement to finish, ghosting to happen and animation to play. Looks much nicer and doesn't cause multiple runtimes.
 
-/mob/living/proc/dust_animation()
+TYPE_PROC_REF(/mob/living, dust_animation)()
 	return
 
-/mob/living/proc/spawn_dust(just_ash = FALSE)
+TYPE_PROC_REF(/mob/living, spawn_dust)(just_ash = FALSE)
 	new /obj/effect/decal/cleanable/ash(loc)
 
 

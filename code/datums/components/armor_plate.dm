@@ -31,7 +31,7 @@
 	var/obj/item/typecast = upgrade_item
 	upgrade_name = initial(typecast.name)
 
-/datum/component/armor_plate/proc/examine(datum/source, mob/user, list/examine_list)
+TYPE_PROC_REF(/datum/component/armor_plate, examine)(datum/source, mob/user, list/examine_list)
 	//upgrade_item could also be typecast here instead
 	if(ismecha(parent))
 		if(amount)
@@ -47,7 +47,7 @@
 		else
 			examine_list += span_notice("It can be strengthened with up to [maxamount] [upgrade_name].")
 
-/datum/component/armor_plate/proc/applyplate(datum/source, obj/item/I, mob/user, params)
+TYPE_PROC_REF(/datum/component/armor_plate, applyplate)(datum/source, obj/item/I, mob/user, params)
 	if(!istype(I,upgrade_item))
 		return
 	if(amount >= maxamount)
@@ -74,12 +74,12 @@
 		to_chat(user, span_info("You strengthen [O], improving its resistance against attacks."))
 
 
-/datum/component/armor_plate/proc/dropplates(datum/source, force)
+TYPE_PROC_REF(/datum/component/armor_plate, dropplates)(datum/source, force)
 	if(ismecha(parent)) //items didn't drop the plates before and it causes erroneous behavior for the time being with collapsible helmets
 		for(var/i in 1 to amount)
 			new upgrade_item(get_turf(parent))
 
-/datum/component/armor_plate/proc/apply_mech_overlays(obj/mecha/mech, list/overlays)
+TYPE_PROC_REF(/datum/component/armor_plate, apply_mech_overlays)(obj/mecha/mech, list/overlays)
 	if(amount)
 		var/overlay_string = "ripley-g"
 		if(amount >= 3)

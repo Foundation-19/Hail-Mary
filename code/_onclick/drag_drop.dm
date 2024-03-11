@@ -32,7 +32,7 @@ GLOBAL_VAR_INIT(use_experimental_clickdrag_thing, TRUE)
 	return
 
 // receive a mousedrop
-/atom/proc/MouseDrop_T(atom/dropping, mob/user)
+TYPE_PROC_REF(/atom, MouseDrop_T)(atom/dropping, mob/user)
 	SEND_SIGNAL(src, COMSIG_MOUSEDROPPED_ONTO, dropping, user)
 	return
 
@@ -59,7 +59,7 @@ GLOBAL_VAR_INIT(use_experimental_clickdrag_thing, TRUE)
 		active_mousedown_item.onMouseUp(object, location, params, mob)
 		active_mousedown_item = null
 
-/mob/proc/CanMobAutoclick(object, location, params)
+TYPE_PROC_REF(/mob, CanMobAutoclick)(object, location, params)
 
 /mob/living/carbon/CanMobAutoclick(atom/object, location, params)
 	if(!object.IsAutoclickable())
@@ -68,26 +68,26 @@ GLOBAL_VAR_INIT(use_experimental_clickdrag_thing, TRUE)
 	if(h)
 		. = h.CanItemAutoclick(object, location, params)
 
-/mob/proc/canMobMousedown(atom/object, location, params)
+TYPE_PROC_REF(/mob, canMobMousedown)(atom/object, location, params)
 
 /mob/living/carbon/canMobMousedown(atom/object, location, params)
 	var/obj/item/H = get_active_held_item()
 	if(H)
 		. = H.canItemMouseDown(object, location, params)
 
-/obj/item/proc/CanItemAutoclick(object, location, params)
+TYPE_PROC_REF(/obj/item, CanItemAutoclick)(object, location, params)
 
-/obj/item/proc/canItemMouseDown(object, location, params)
+TYPE_PROC_REF(/obj/item, canItemMouseDown)(object, location, params)
 	if(canMouseDown)
 		return src
 
-/obj/item/proc/onMouseDown(object, location, params, mob)
+TYPE_PROC_REF(/obj/item, onMouseDown)(object, location, params, mob)
 	return
 
-/obj/item/proc/onMouseUp(object, location, params, mob)
+TYPE_PROC_REF(/obj/item, onMouseUp)(object, location, params, mob)
 	return
 
-/atom/proc/IsAutoclickable()
+TYPE_PROC_REF(/atom, IsAutoclickable)()
 	. = 1
 
 /obj/screen/IsAutoclickable()
@@ -128,7 +128,7 @@ GLOBAL_VAR_INIT(use_experimental_clickdrag_thing, TRUE)
 		active_mousedown_item.onMouseDrag(src_object, over_object, src_location, over_location, params, mob)
 
 
-/obj/item/proc/onMouseDrag(src_object, over_object, src_location, over_location, params, mob)
+TYPE_PROC_REF(/obj/item, onMouseDrag)(src_object, over_object, src_location, over_location, params, mob)
 	return
 
 /client/MouseDrop(src_object, over_object, src_location, over_location, src_control, over_control, params)

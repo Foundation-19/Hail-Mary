@@ -69,7 +69,7 @@
 		else
 			to_chat(user, span_notice("It seems [src]'s trunk was empty."))
 
-/obj/vehicle/sealed/car/proc/mob_try_forced_enter(mob/forcer, mob/M, silent = FALSE)
+TYPE_PROC_REF(/obj/vehicle/sealed/car, mob_try_forced_enter)(mob/forcer, mob/M, silent = FALSE)
 	if(!istype(M))
 		return FALSE
 	if(occupant_amount() >= max_occupants)
@@ -79,7 +79,7 @@
 		return TRUE
 	return FALSE
 
-/obj/vehicle/sealed/car/proc/mob_forced_enter(mob/M, silent = FALSE)
+TYPE_PROC_REF(/obj/vehicle/sealed/car, mob_forced_enter)(mob/M, silent = FALSE)
 	if(!silent)
 		M.visible_message(span_warning("[M] is forced into \the [src]!"))
 	M.forceMove(src)

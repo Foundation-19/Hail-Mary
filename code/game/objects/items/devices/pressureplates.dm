@@ -37,7 +37,7 @@
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
-/obj/item/pressure_plate/proc/on_entered(atom/movable/AM)
+TYPE_PROC_REF(/obj/item/pressure_plate, on_entered)(atom/movable/AM)
 	SIGNAL_HANDLER
 	if(!can_trigger || !active)
 		return
@@ -51,7 +51,7 @@
 	can_trigger = FALSE
 	addtimer(CALLBACK(src, PROC_REF(trigger)), trigger_delay)
 
-/obj/item/pressure_plate/proc/trigger()
+TYPE_PROC_REF(/obj/item/pressure_plate, trigger)()
 	can_trigger = TRUE
 	if(istype(sigdev))
 		sigdev.signal()

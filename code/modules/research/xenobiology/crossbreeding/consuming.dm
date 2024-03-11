@@ -40,7 +40,7 @@ Consuming extracts:
 		return
 	..()
 
-/obj/item/slimecross/consuming/proc/spawncookie()
+TYPE_PROC_REF(/obj/item/slimecross/consuming, spawncookie)()
 	return new cookietype(get_turf(src))
 
 /obj/item/slime_cookie //While this technically acts like food, it's so removed from it that I made it its' own type.
@@ -56,7 +56,7 @@ Consuming extracts:
 	throw_speed = 3
 	throw_range = 6
 
-/obj/item/slime_cookie/proc/do_effect(mob/living/M, mob/user)
+TYPE_PROC_REF(/obj/item/slime_cookie, do_effect)(mob/living/M, mob/user)
 	return
 
 /obj/item/slime_cookie/attack(mob/living/M, mob/user)

@@ -116,7 +116,7 @@
  * Generates the holder and images (if not generated yet) and adds them to client.images.
  * Run when the component is registered to a player mob, or upon login.
  */
-/datum/component/field_of_vision/proc/generate_fov_holder(mob/M, _angle = 0)
+TYPE_PROC_REF(/datum/component/field_of_vision, generate_fov_holder)(mob/M, _angle = 0)
 	if(QDELETED(fov))
 		fov = new(get_turf(M))
 		fov.icon_state = "[shadow_angle]"
@@ -152,7 +152,7 @@
 		resize_fov(current_fov_size, getviewsize(M.client.view))
 
 ///Rotates the shadow cone to a certain degree. Backend shenanigans.
-/datum/component/field_of_vision/proc/rotate_shadow_cone(new_angle)
+TYPE_PROC_REF(/datum/component/field_of_vision, rotate_shadow_cone)(new_angle)
 	var/simple_degrees = SIMPLIFY_DEGREES(new_angle - angle)
 	var/to_scale = cos(simple_degrees) * sin(simple_degrees)
 	if(to_scale)
@@ -166,7 +166,7 @@
  * Resizes the shadow to match the current screen size.
  * Run when the client view size is changed, or if the player has a viewsize different than "15x15" on login/comp registration.
  */
-/datum/component/field_of_vision/proc/resize_fov(list/old_view, list/view)
+TYPE_PROC_REF(/datum/component/field_of_vision, resize_fov)(list/old_view, list/view)
 	current_fov_size = view
 	var/old_size = max(old_view[1], old_view[2])
 	var/new_size = max(view[1], view[2])
@@ -174,42 +174,42 @@
 		return
 	visual_shadow.transform = shadow_mask.transform = shadow_mask.transform.Scale(new_size/old_size)
 
-/datum/component/field_of_vision/proc/on_mob_login(mob/source, client/client)
+TYPE_PROC_REF(/datum/component/field_of_vision, on_mob_login)(mob/source, client/client)
 	generate_fov_holder(source, angle)
 
-/datum/component/field_of_vision/proc/on_mob_logout(mob/source, client/client)
+TYPE_PROC_REF(/datum/component/field_of_vision, on_mob_logout)(mob/source, client/client)
 	UnregisterSignal(source, list(COMSIG_ATOM_DIR_CHANGE, COMSIG_MOVABLE_MOVED, COMSIG_MOB_DEATH,
 								COMSIG_LIVING_REVIVE, COMSIG_ROBOT_UPDATE_ICONS))
 	if(length(nested_locs))
 		UNREGISTER_NESTED_LOCS(nested_locs, COMSIG_MOVABLE_MOVED, 1)
 
-/datum/component/field_of_vision/proc/on_dir_change(mob/source, old_dir, new_dir)
+TYPE_PROC_REF(/datum/component/field_of_vision, on_dir_change)(mob/source, old_dir, new_dir)
 	fov.dir = new_dir
 
 ///Hides the shadow, other visibility comsig procs will take it into account. Called when the mob dies.
-/datum/component/field_of_vision/proc/hide_fov(mob/source)
+TYPE_PROC_REF(/datum/component/field_of_vision, hide_fov)(mob/source)
 	fov.alpha = 0
 
 /// Shows the shadow. Called when the mob is revived.
-/datum/component/field_of_vision/proc/show_fov(mob/source)
+TYPE_PROC_REF(/datum/component/field_of_vision, show_fov)(mob/source)
 	fov.alpha = 255
 
 /// Hides the shadow when looking through other items, shows it otherwise.
-/datum/component/field_of_vision/proc/on_reset_perspective(mob/source, atom/target)
+TYPE_PROC_REF(/datum/component/field_of_vision, on_reset_perspective)(mob/source, atom/target)
 	if(source.client.eye == source || source.client.eye == source.loc)
 		fov.alpha = 255
 	else
 		fov.alpha = 0
 
 /// Called when the client view size is changed.
-/datum/component/field_of_vision/proc/on_change_view(mob/source, client, list/old_view, list/view)
+TYPE_PROC_REF(/datum/component/field_of_vision, on_change_view)(mob/source, client, list/old_view, list/view)
 	resize_fov(old_view, view)
 
 /**
  * Called when the owner mob moves around. Used to keep shadow located right behind us,
  * As well as modify the owner mask to match the topmost item.
  */
-/datum/component/field_of_vision/proc/on_mob_moved(mob/source, atom/oldloc, dir, forced)
+TYPE_PROC_REF(/datum/component/field_of_vision, on_mob_moved)(mob/source, atom/oldloc, dir, forced)
 	var/turf/T
 	if(!isturf(source.loc)) //Recalculate all nested locations.
 		UNREGISTER_NESTED_LOCS( nested_locs, COMSIG_MOVABLE_MOVED, 1)
@@ -226,7 +226,7 @@
 		fov.forceMove(T, harderforce = TRUE)
 
 /// Pretty much like the above, but meant for other movables the mob is stored in (bodybags, boxes, mechs etc).
-/datum/component/field_of_vision/proc/on_loc_moved(atom/movable/source, atom/oldloc, dir, forced)
+TYPE_PROC_REF(/datum/component/field_of_vision, on_loc_moved)(atom/movable/source, atom/oldloc, dir, forced)
 	if(isturf(source.loc) && isturf(oldloc)) //This is the case of the topmost movable loc moving around the world, skip.
 		fov.forceMove(source.loc, harderforce = TRUE)
 		return
@@ -241,7 +241,7 @@
 			fov.forceMove(topmost.loc, harderforce = TRUE)
 
 /// A hacky comsig proc for things that somehow decide to change icon on the go. may make a change_icon_file() proc later but...
-/datum/component/field_of_vision/proc/manual_centered_render_source(mob/source, old_icon)
+TYPE_PROC_REF(/datum/component/field_of_vision, manual_centered_render_source)(mob/source, old_icon)
 	if(!isturf(source.loc))
 		return
 	CENTERED_RENDER_SOURCE(owner_mask, source, src)
@@ -288,22 +288,22 @@
 		success_statement;\
 	}
 
-/datum/component/field_of_vision/proc/on_examinate(mob/source, atom/target)
+TYPE_PROC_REF(/datum/component/field_of_vision, on_examinate)(mob/source, atom/target)
 	if(fov.alpha)
 		FOV_ANGLE_CHECK(source, target, return, return COMPONENT_DENY_EXAMINATE|COMPONENT_EXAMINATE_BLIND)
 
-/datum/component/field_of_vision/proc/on_visible_message(mob/source, atom/target, message, range, list/ignored_mobs)
+TYPE_PROC_REF(/datum/component/field_of_vision, on_visible_message)(mob/source, atom/target, message, range, list/ignored_mobs)
 	if(fov.alpha)
 		FOV_ANGLE_CHECK(source, target, return, return COMPONENT_NO_VISIBLE_MESSAGE)
 
-/datum/component/field_of_vision/proc/on_fov_view(mob/source, list/atoms)
+TYPE_PROC_REF(/datum/component/field_of_vision, on_fov_view)(mob/source, list/atoms)
 	if(!fov.alpha)
 		return
 	for(var/k in atoms)
 		var/atom/A = k
 		FOV_ANGLE_CHECK(source, A, continue, atoms -= A)
 
-/datum/component/field_of_vision/proc/is_viewer(mob/source, atom/center, depth, list/viewers_list)
+TYPE_PROC_REF(/datum/component/field_of_vision, is_viewer)(mob/source, atom/center, depth, list/viewers_list)
 	if(fov.alpha)
 		FOV_ANGLE_CHECK(source, center, return, viewers_list -= source)
 

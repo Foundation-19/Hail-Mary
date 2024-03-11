@@ -322,7 +322,7 @@
   - balance: nukeop uplinks now have 5 unlimited discounts and 10 limited discounts
       shared between the team, rather than 3 individual discounts like traitor uplinks
   - bugfix: corpses no longer feel, light-headed or otherwise
-  - code_imp: removed /datum/mutation/human/proc/on_move in favor of having the chameleon
+  - code_imp: removed TYPE_PROC_REF(/datum/mutation/human, on_move) in favor of having the chameleon
       mutation register for a signal
   RaveRadbury:
   - tweak: '"Religiously Comforted" from Spiritual Quirk occurs on examine and lasts

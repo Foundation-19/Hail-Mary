@@ -3,11 +3,11 @@
 #define VASSAL_SCAN_PING_TIME 20 //2s update time.
 
 
-/datum/antagonist/bloodsucker/proc/attempt_turn_vassal(mob/living/carbon/C)
+TYPE_PROC_REF(/datum/antagonist/bloodsucker, attempt_turn_vassal)(mob/living/carbon/C)
 	C.silent = 0
 	return SSticker.mode.make_vassal(C,owner)
 
-/datum/antagonist/bloodsucker/proc/FreeAllVassals()
+TYPE_PROC_REF(/datum/antagonist/bloodsucker, FreeAllVassals)()
 	for(var/datum/antagonist/vassal/V in vassals)
 		SSticker.mode.remove_vassal(V.owner)
 
@@ -53,11 +53,11 @@
 	update_vassal_icons_added(owner.current, "vassal")
 	. = ..()
 
-/datum/antagonist/vassal/proc/give_thrall_eyes()
+TYPE_PROC_REF(/datum/antagonist/vassal, give_thrall_eyes)()
 	var/obj/item/organ/eyes/vassal/E = new
 	E.Insert(owner.current)
 
-/datum/antagonist/vassal/proc/remove_thrall_eyes()
+TYPE_PROC_REF(/datum/antagonist/vassal, remove_thrall_eyes)()
 	var/obj/item/organ/eyes/E = new
 	E.Insert(owner.current)
 
@@ -131,13 +131,13 @@
 /datum/status_effect/agent_pinpointer/vassal_edition/scan_for_target()
 	// DO NOTHING. We already have our target, and don't wanna do anything from agent_pinpointer
 
-/datum/antagonist/vassal/proc/update_vassal_icons_added(mob/living/vassal, icontype="vassal")
+TYPE_PROC_REF(/datum/antagonist/vassal, update_vassal_icons_added)(mob/living/vassal, icontype="vassal")
 	var/datum/atom_hud/antag/bloodsucker/hud = GLOB.huds[ANTAG_HUD_BLOODSUCKER]
 	hud.join_hud(vassal)
 	set_antag_hud(vassal, icontype) // Located in icons/mob/hud.dmi
 	owner.current.hud_list[ANTAG_HUD].icon = image('icons/mob/hud.dmi', owner.current, "bloodsucker")
 
-/datum/antagonist/vassal/proc/update_vassal_icons_removed(mob/living/vassal)
+TYPE_PROC_REF(/datum/antagonist/vassal, update_vassal_icons_removed)(mob/living/vassal)
 	var/datum/atom_hud/antag/hud = GLOB.huds[ANTAG_HUD_BLOODSUCKER]
 	hud.leave_hud(vassal)
 	set_antag_hud(vassal, null)

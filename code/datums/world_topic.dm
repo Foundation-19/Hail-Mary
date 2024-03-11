@@ -25,7 +25,7 @@
 	var/key_valid
 	var/require_comms_key = FALSE
 
-/datum/world_topic/proc/TryRun(list/input, addr)
+TYPE_PROC_REF(/datum/world_topic, TryRun)(list/input, addr)
 	key_valid = config && (CONFIG_GET(string/comms_key) == input["key"])
 	if(require_comms_key && !key_valid)
 		return "Bad Key"
@@ -34,7 +34,7 @@
 	if(islist(.))
 		. = list2params(.)
 
-/datum/world_topic/proc/Run(list/input, addr)
+TYPE_PROC_REF(/datum/world_topic, Run)(list/input, addr)
 	CRASH("Run() not implemented for [type]!")
 
 // TOPICS

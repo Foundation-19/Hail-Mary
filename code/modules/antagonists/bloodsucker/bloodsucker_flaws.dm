@@ -80,5 +80,5 @@
 //		C.IgniteMob()
 
 
-/datum/antagonist/bloodsucker/proc/AssignRandomBane()
+TYPE_PROC_REF(/datum/antagonist/bloodsucker, AssignRandomBane)()
 	return

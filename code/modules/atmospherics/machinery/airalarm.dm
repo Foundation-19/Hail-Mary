@@ -10,7 +10,7 @@
 	if(max1) src.max1 = max1
 	if(max2) src.max2 = max2
 
-/datum/tlv/proc/get_danger_level(val as num)
+TYPE_PROC_REF(/datum/tlv, get_danger_level)(val as num)
 	if(max2 != -1 && val >= max2)
 		return 2
 	if(min2 != -1 && val <= min2)
@@ -450,7 +450,7 @@
 			. = TRUE
 	update_icon()
 
-/obj/machinery/airalarm/proc/reset(wire)
+TYPE_PROC_REF(/obj/machinery/airalarm, reset)(wire)
 	switch(wire)
 		if(WIRE_POWER)
 			if(!wires.is_cut(WIRE_POWER))
@@ -461,7 +461,7 @@
 				aidisabled = FALSE
 
 
-/obj/machinery/airalarm/proc/shock(mob/user, prb)
+TYPE_PROC_REF(/obj/machinery/airalarm, shock)(mob/user, prb)
 	if((stat & (NOPOWER)))		// unpowered, no shock
 		return 0
 	if(!prob(prb))
@@ -474,7 +474,7 @@
 	else
 		return 0
 
-/obj/machinery/airalarm/proc/refresh_all()
+TYPE_PROC_REF(/obj/machinery/airalarm, refresh_all)()
 	var/area/A = get_base_area(src)
 	for(var/id_tag in A.air_vent_names)
 		var/list/I = A.air_vent_info[id_tag]
@@ -487,12 +487,12 @@
 			continue
 		send_signal(id_tag, list("status"))
 
-/obj/machinery/airalarm/proc/set_frequency(new_frequency)
+TYPE_PROC_REF(/obj/machinery/airalarm, set_frequency)(new_frequency)
 	SSradio.remove_object(src, frequency)
 	frequency = new_frequency
 	radio_connection = SSradio.add_object(src, frequency, RADIO_TO_AIRALARM)
 
-/obj/machinery/airalarm/proc/send_signal(target, list/command, mob/user)//sends signal 'command' to 'target'. Returns 0 if no radio connection, 1 otherwise
+TYPE_PROC_REF(/obj/machinery/airalarm, send_signal)(target, list/command, mob/user)//sends signal 'command' to 'target'. Returns 0 if no radio connection, 1 otherwise
 	if(!radio_connection)
 		return 0
 
@@ -504,7 +504,7 @@
 
 	return 1
 
-/obj/machinery/airalarm/proc/get_mode_name(mode_value)
+TYPE_PROC_REF(/obj/machinery/airalarm, get_mode_name)(mode_value)
 	switch(mode_value)
 		if(AALARM_MODE_SCRUBBING)
 			return "Filtering"
@@ -525,7 +525,7 @@
 		if(AALARM_MODE_FLOOD)
 			return "Flood"
 
-/obj/machinery/airalarm/proc/apply_mode()
+TYPE_PROC_REF(/obj/machinery/airalarm, apply_mode)()
 	var/area/A = get_base_area(src)
 	switch(mode)
 		if(AALARM_MODE_SCRUBBING)
@@ -728,7 +728,7 @@
 	*/
 	return
 
-/obj/machinery/airalarm/proc/post_alert(alert_level)
+TYPE_PROC_REF(/obj/machinery/airalarm, post_alert)(alert_level)
 	var/datum/radio_frequency/frequency = SSradio.return_frequency(alarm_frequency)
 
 	if(!frequency)
@@ -747,7 +747,7 @@
 
 	frequency.post_signal(src, alert_signal, range = -1)
 
-/obj/machinery/airalarm/proc/apply_danger_level()
+TYPE_PROC_REF(/obj/machinery/airalarm, apply_danger_level)()
 	var/area/A = get_base_area(src)
 
 	var/new_area_danger_level = 0
@@ -863,7 +863,7 @@
 	togglelock(user)
 	return TRUE
 
-/obj/machinery/airalarm/proc/togglelock(mob/living/user)
+TYPE_PROC_REF(/obj/machinery/airalarm, togglelock)(mob/living/user)
 	if(stat & (NOPOWER|BROKEN))
 		to_chat(user, span_warning("It does nothing!"))
 	else

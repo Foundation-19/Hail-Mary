@@ -17,7 +17,7 @@
 	return dir
 
 // Sorting check, to be overridden in subtypes
-/obj/structure/disposalpipe/sorting/proc/check_sorting(obj/structure/disposalholder/H)
+TYPE_PROC_REF(/obj/structure/disposalpipe/sorting, check_sorting)(obj/structure/disposalholder/H)
 	return FALSE
 
 

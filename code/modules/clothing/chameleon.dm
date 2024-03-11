@@ -77,7 +77,7 @@
 	..()
 	initialize_outfits()
 
-/datum/action/chameleon_outfit/proc/initialize_outfits()
+TYPE_PROC_REF(/datum/action/chameleon_outfit, initialize_outfits)()
 	var/static/list/standard_outfit_options
 	if(!standard_outfit_options)
 		standard_outfit_options = list()
@@ -91,7 +91,7 @@
 /datum/action/chameleon_outfit/Trigger()
 	return select_outfit(owner)
 
-/datum/action/chameleon_outfit/proc/select_outfit(mob/user)
+TYPE_PROC_REF(/datum/action/chameleon_outfit, select_outfit)(mob/user)
 	if(!user || !IsAvailable())
 		return FALSE
 	var/selected = input("Select outfit to change into", "Chameleon Outfit") as null|anything in outfit_options
@@ -162,7 +162,7 @@
 			qdel(O)
 	..()
 
-/datum/action/item_action/chameleon/change/proc/initialize_disguises()
+TYPE_PROC_REF(/datum/action/item_action/chameleon/change, initialize_disguises)()
 	if(button)
 		button.name = "Change [chameleon_name] Appearance"
 
@@ -176,7 +176,7 @@
 			chameleon_list[chameleon_item_name] = I
 
 
-/datum/action/item_action/chameleon/change/proc/select_look(mob/user)
+TYPE_PROC_REF(/datum/action/item_action/chameleon/change, select_look)(mob/user)
 	var/obj/item/picked_item
 	var/picked_name
 	picked_name = input("Select [chameleon_name] to change into", "Chameleon [chameleon_name]", picked_name) as null|anything in chameleon_list
@@ -187,7 +187,7 @@
 		return
 	update_look(user, picked_item)
 
-/datum/action/item_action/chameleon/change/proc/random_look(mob/user)
+TYPE_PROC_REF(/datum/action/item_action/chameleon/change, random_look)(mob/user)
 	var/picked_name = pick(chameleon_list)
 	// If a user is provided, then this item is in use, and we
 	// need to update our icons and stuff
@@ -201,7 +201,7 @@
 	else
 		update_item(chameleon_list[picked_name])
 
-/datum/action/item_action/chameleon/change/proc/update_look(mob/user, obj/item/picked_item)
+TYPE_PROC_REF(/datum/action/item_action/chameleon/change, update_look)(mob/user, obj/item/picked_item)
 	if(isliving(user))
 		var/mob/living/C = user
 		if(C.stat != CONSCIOUS)
@@ -212,7 +212,7 @@
 		thing.update_slot_icon()
 	UpdateButtonIcon()
 
-/datum/action/item_action/chameleon/change/proc/update_item(obj/item/picked_item)
+TYPE_PROC_REF(/datum/action/item_action/chameleon/change, update_item)(obj/item/picked_item)
 	target.name = initial(picked_item.name)
 	target.desc = initial(picked_item.desc)
 	target.icon_state = initial(picked_item.icon_state)
@@ -248,7 +248,7 @@
 	select_look(owner)
 	return 1
 
-/datum/action/item_action/chameleon/change/proc/emp_randomise(amount = EMP_RANDOMISE_TIME)
+TYPE_PROC_REF(/datum/action/item_action/chameleon/change, emp_randomise)(amount = EMP_RANDOMISE_TIME)
 	START_PROCESSING(SSprocessing, src)
 	random_look(owner)
 

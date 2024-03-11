@@ -219,7 +219,7 @@
 	if(!charging)
 		..()
 
-/mob/living/simple_animal/hostile/deathclaw/proc/Charge()
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/deathclaw, Charge)()
 	var/turf/T = get_turf(target)
 	if(!T || T == loc)
 		return
@@ -232,7 +232,7 @@
 	animate(D, alpha = 0, color = "#FF0000", transform = matrix()*2, time = 1)
 	throw_at(T, get_dist(src, T), 1, src, 0, callback = CALLBACK(src, PROC_REF(charge_end)))
 
-/mob/living/simple_animal/hostile/deathclaw/proc/charge_end(list/effects_to_destroy)
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/deathclaw, charge_end)(list/effects_to_destroy)
 	charging = FALSE
 	if(target)
 		Goto(target, move_to_delay, minimum_distance)

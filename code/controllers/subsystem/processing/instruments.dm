@@ -26,13 +26,13 @@ PROCESSING_SUBSYSTEM_DEF(instruments)
 	synthesizer_instrument_ids = get_allowed_instrument_ids()
 	return ..()
 
-/datum/controller/subsystem/processing/instruments/proc/on_song_new(datum/song/S)
+TYPE_PROC_REF(/datum/controller/subsystem/processing/instruments, on_song_new)(datum/song/S)
 	songs += S
 
-/datum/controller/subsystem/processing/instruments/proc/on_song_del(datum/song/S)
+TYPE_PROC_REF(/datum/controller/subsystem/processing/instruments, on_song_del)(datum/song/S)
 	songs -= S
 
-/datum/controller/subsystem/processing/instruments/proc/initialize_instrument_data()
+TYPE_PROC_REF(/datum/controller/subsystem/processing/instruments, initialize_instrument_data)()
 	for(var/path in subtypesof(/datum/instrument))
 		var/datum/instrument/I = path
 		if(initial(I.abstract_type) == path)
@@ -45,10 +45,10 @@ PROCESSING_SUBSYSTEM_DEF(instruments)
 		instrument_data[I.id] = I
 		CHECK_TICK
 
-/datum/controller/subsystem/processing/instruments/proc/get_instrument(id_or_path)
+TYPE_PROC_REF(/datum/controller/subsystem/processing/instruments, get_instrument)(id_or_path)
 	return instrument_data["[id_or_path]"]
 
-/datum/controller/subsystem/processing/instruments/proc/reserve_instrument_channel(datum/instrument/I)
+TYPE_PROC_REF(/datum/controller/subsystem/processing/instruments, reserve_instrument_channel)(datum/instrument/I)
 	if(current_instrument_channels > max_instrument_channels)
 		return
 	. = SSsounds.reserve_sound_channel(I)

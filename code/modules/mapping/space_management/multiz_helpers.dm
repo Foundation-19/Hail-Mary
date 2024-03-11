@@ -41,9 +41,9 @@
 				return get_dir(us, them)
 		return (dir | get_dir(us, them))
 
-/turf/proc/above()
+TYPE_PROC_REF(/turf, above)()
 	return get_step_multiz(src, UP)
 
-/turf/proc/below()
+TYPE_PROC_REF(/turf, below)()
 	return get_step_multiz(src, DOWN)
 	

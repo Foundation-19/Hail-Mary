@@ -56,7 +56,7 @@
  * * immediate - defaults to TRUE - if TRUE, writes to cached/last_attack_immediate instead of last_attack. This ensures it can't collide with any delay checks in the actual attack.
  * * flush - defaults to FALSE - Use this while using this proc outside of clickcode to ensure everything is set properly. This should never be set to TRUE if this is called from clickcode.
  */
-/mob/proc/DelayNextAction(amount = 0, ignore_mod = FALSE, considered_action = TRUE, immediate = TRUE, flush = FALSE)
+TYPE_PROC_REF(/mob, DelayNextAction)(amount = 0, ignore_mod = FALSE, considered_action = TRUE, immediate = TRUE, flush = FALSE)
 	if(immediate)
 		if(considered_action)
 			last_action_immediate = world.time
@@ -73,7 +73,7 @@
 /**
  * Get estimated time of next attack.
  */
-/mob/proc/EstimatedNextActionTime()
+TYPE_PROC_REF(/mob, EstimatedNextActionTime)()
 	var/attack_speed = unarmed_attack_speed * GetActionCooldownMod() + GetActionCooldownAdjust()
 	var/obj/item/I = get_active_held_item()
 	if(I)
@@ -85,7 +85,7 @@
 /**
  * Sets our next action to. The difference is DelayNextAction cannot reduce next_action under any circumstances while this can.
  */
-/mob/proc/SetNextAction(amount = 0, ignore_mod = FALSE, considered_action = TRUE, immediate = TRUE, flush = FALSE)
+TYPE_PROC_REF(/mob, SetNextAction)(amount = 0, ignore_mod = FALSE, considered_action = TRUE, immediate = TRUE, flush = FALSE)
 	if(immediate)
 		if(considered_action)
 			last_action_immediate = world.time
@@ -110,26 +110,26 @@
  * * ignore_next_action - Defaults to FALSE. Ignore next_action and only care about cooldown param and everything else. Generally unused.
  * * immediate - Defaults to FALSE. Checks last action using immediate, used on the head end of an attack. This is to prevent colliding attacks in case of sleep. Not that you should sleep() in an attack but.. y'know.
  */
-/mob/proc/CheckActionCooldown(cooldown = 0.5, from_next_action = FALSE, ignore_mod = FALSE, ignore_next_action = FALSE, immediate = FALSE)
+TYPE_PROC_REF(/mob, CheckActionCooldown)(cooldown = 0.5, from_next_action = FALSE, ignore_mod = FALSE, ignore_next_action = FALSE, immediate = FALSE)
 	return (ignore_next_action || (world.time >= (immediate? next_action_immediate : next_action))) && \
 	(world.time >= ((from_next_action? (immediate? next_action_immediate : next_action) : (immediate? last_action_immediate : last_action)) + max(0, ignore_mod? cooldown : (cooldown * GetActionCooldownMod() + GetActionCooldownAdjust()))))
 
 /**
  * Gets action_cooldown_mod.
  */
-/mob/proc/GetActionCooldownMod()
+TYPE_PROC_REF(/mob, GetActionCooldownMod)()
 	return action_cooldown_mod
 
 /**
  * Gets action_cooldown_adjust
  */
-/mob/proc/GetActionCooldownAdjust()
+TYPE_PROC_REF(/mob, GetActionCooldownAdjust)()
 	return action_cooldown_adjust
 
 /**
  * Flushes last_action and next_action
  */
-/mob/proc/FlushCurrentAction()
+TYPE_PROC_REF(/mob, FlushCurrentAction)()
 	last_action = last_action_immediate
 	next_action = next_action_immediate
 	hud_used?.clickdelay?.mark_dirty()
@@ -137,7 +137,7 @@
 /**
  * Discards last_action and next_action
  */
-/mob/proc/DiscardCurrentAction()
+TYPE_PROC_REF(/mob, DiscardCurrentAction)()
 	last_action_immediate = last_action
 	next_action_immediate = next_action
 	hud_used?.clickdelay?.mark_dirty()
@@ -145,7 +145,7 @@
 /**
  * Checks if we can resist again.
  */
-/mob/proc/CheckResistCooldown()
+TYPE_PROC_REF(/mob, CheckResistCooldown)()
 	return (world.time >= next_resist)
 
 /**
@@ -155,7 +155,7 @@
  * * extra_cooldown - Extra cooldown to apply to next_resist. Defaults to this mob's resist_cooldown.
  * * override - Defaults to FALSE - if TRUE, extra_cooldown will replace the old next_resist even if the old is longer.
  */
-/mob/proc/MarkResistTime(extra_cooldown = resist_cooldown, override = FALSE)
+TYPE_PROC_REF(/mob, MarkResistTime)(extra_cooldown = resist_cooldown, override = FALSE)
 	last_resist = world.time
 	next_resist = override? (world.time + extra_cooldown) : max(next_resist, world.time + extra_cooldown)
 	hud_used?.resistdelay?.mark_dirty()
@@ -186,17 +186,17 @@
 /**
  * Checks if a user's clickdelay is met for a standard attack, this is called before an attack happens.
  */
-/obj/item/proc/CheckAttackCooldown(mob/user, atom/target)
+TYPE_PROC_REF(/obj/item, CheckAttackCooldown)(mob/user, atom/target)
 	return user.CheckActionCooldown(attack_speed, clickdelay_from_next_action, clickdelay_mod_bypass, clickdelay_ignores_next_action)
 
 /**
  * Called after a successful attack to set a mob's clickdelay.
  */
-/obj/item/proc/ApplyAttackCooldown(mob/user, atom/target, attackchain_flags)
+TYPE_PROC_REF(/obj/item, ApplyAttackCooldown)(mob/user, atom/target, attackchain_flags)
 	user.DelayNextAction(attack_unwieldlyness, clickdelay_mod_bypass, !(attackchain_flags & ATTACK_IGNORE_ACTION))
 
 /**
  * Get estimated time that a user has to not attack for to use us
  */
-/obj/item/proc/GetEstimatedAttackSpeed()
+TYPE_PROC_REF(/obj/item, GetEstimatedAttackSpeed)()
 	return attack_speed

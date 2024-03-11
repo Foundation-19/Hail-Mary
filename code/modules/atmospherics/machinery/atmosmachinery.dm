@@ -79,20 +79,20 @@
 	return ..()
 	//return QDEL_HINT_FINDREFERENCE
 
-/obj/machinery/atmospherics/proc/destroy_network()
+TYPE_PROC_REF(/obj/machinery/atmospherics, destroy_network)()
 	return
 
-/obj/machinery/atmospherics/proc/build_network()
+TYPE_PROC_REF(/obj/machinery/atmospherics, build_network)()
 	// Called to build a network from this node
 	return
 
-/obj/machinery/atmospherics/proc/nullifyNode(i)
+TYPE_PROC_REF(/obj/machinery/atmospherics, nullifyNode)(i)
 	if(nodes[i])
 		var/obj/machinery/atmospherics/N = nodes[i]
 		N.disconnect(src)
 		nodes[i] = null
 
-/obj/machinery/atmospherics/proc/getNodeConnects()
+TYPE_PROC_REF(/obj/machinery/atmospherics, getNodeConnects)()
 	var/list/node_connects = list()
 	node_connects.len = device_type
 
@@ -105,7 +105,7 @@
 				break
 	return node_connects
 
-/obj/machinery/atmospherics/proc/normalize_cardinal_directions()
+TYPE_PROC_REF(/obj/machinery/atmospherics, normalize_cardinal_directions)()
 	switch(dir)
 		if(SOUTH)
 			setDir(NORTH)
@@ -113,7 +113,7 @@
 			setDir(EAST)
 
 //this is called just after the air controller sets up turfs
-/obj/machinery/atmospherics/proc/atmosinit(list/node_connects)
+TYPE_PROC_REF(/obj/machinery/atmospherics, atmosinit)(list/node_connects)
 	if(!node_connects) //for pipes where order of nodes doesn't matter
 		node_connects = getNodeConnects()
 
@@ -124,54 +124,54 @@
 				break
 	update_icon()
 
-/obj/machinery/atmospherics/proc/setPipingLayer(new_layer)
+TYPE_PROC_REF(/obj/machinery/atmospherics, setPipingLayer)(new_layer)
 	piping_layer = (pipe_flags & PIPING_DEFAULT_LAYER_ONLY) ? PIPING_LAYER_DEFAULT : new_layer
 	update_icon()
 
-/obj/machinery/atmospherics/proc/can_be_node(obj/machinery/atmospherics/target, iteration)
+TYPE_PROC_REF(/obj/machinery/atmospherics, can_be_node)(obj/machinery/atmospherics/target, iteration)
 	return connection_check(target, piping_layer)
 
 //Find a connecting /obj/machinery/atmospherics in specified direction
-/obj/machinery/atmospherics/proc/findConnecting(direction, prompted_layer)
+TYPE_PROC_REF(/obj/machinery/atmospherics, findConnecting)(direction, prompted_layer)
 	for(var/obj/machinery/atmospherics/target in get_step(src, direction))
 		if(target.initialize_directions & get_dir(target,src))
 			if(connection_check(target, prompted_layer))
 				return target
 
-/obj/machinery/atmospherics/proc/connection_check(obj/machinery/atmospherics/target, given_layer)
+TYPE_PROC_REF(/obj/machinery/atmospherics, connection_check)(obj/machinery/atmospherics/target, given_layer)
 	if(isConnectable(target, given_layer) && target.isConnectable(src, given_layer) && (target.initialize_directions & get_dir(target,src)))
 		return TRUE
 	return FALSE
 
-/obj/machinery/atmospherics/proc/isConnectable(obj/machinery/atmospherics/target, given_layer)
+TYPE_PROC_REF(/obj/machinery/atmospherics, isConnectable)(obj/machinery/atmospherics/target, given_layer)
 	if(isnull(given_layer))
 		given_layer = piping_layer
 	if((target.piping_layer == given_layer) || (target.pipe_flags & PIPING_ALL_LAYER))
 		return TRUE
 	return FALSE
 
-/obj/machinery/atmospherics/proc/pipeline_expansion()
+TYPE_PROC_REF(/obj/machinery/atmospherics, pipeline_expansion)()
 	return nodes
 
-/obj/machinery/atmospherics/proc/SetInitDirections()
+TYPE_PROC_REF(/obj/machinery/atmospherics, SetInitDirections)()
 	return
 
-/obj/machinery/atmospherics/proc/GetInitDirections()
+TYPE_PROC_REF(/obj/machinery/atmospherics, GetInitDirections)()
 	return initialize_directions
 
-/obj/machinery/atmospherics/proc/returnPipenet()
+TYPE_PROC_REF(/obj/machinery/atmospherics, returnPipenet)()
 	return
 
-/obj/machinery/atmospherics/proc/returnPipenetAir()
+TYPE_PROC_REF(/obj/machinery/atmospherics, returnPipenetAir)()
 	return
 
-/obj/machinery/atmospherics/proc/setPipenet()
+TYPE_PROC_REF(/obj/machinery/atmospherics, setPipenet)()
 	return
 
-/obj/machinery/atmospherics/proc/replacePipenet()
+TYPE_PROC_REF(/obj/machinery/atmospherics, replacePipenet)()
 	return
 
-/obj/machinery/atmospherics/proc/disconnect(obj/machinery/atmospherics/reference)
+TYPE_PROC_REF(/obj/machinery/atmospherics, disconnect)(obj/machinery/atmospherics/reference)
 	if(istype(reference, /obj/machinery/atmospherics/pipe))
 		var/obj/machinery/atmospherics/pipe/P = reference
 		P.destroy_network()
@@ -222,11 +222,11 @@
 		deconstruct(TRUE)
 	return TRUE
 
-/obj/machinery/atmospherics/proc/can_unwrench(mob/user)
+TYPE_PROC_REF(/obj/machinery/atmospherics, can_unwrench)(mob/user)
 	return can_unwrench
 
 // Throws the user when they unwrench a pipe with a major difference between the internal and environmental pressure.
-/obj/machinery/atmospherics/proc/unsafe_pressure_release(mob/user, pressures = null)
+TYPE_PROC_REF(/obj/machinery/atmospherics, unsafe_pressure_release)(mob/user, pressures = null)
 	if(!user)
 		return
 	if(!pressures)
@@ -252,7 +252,7 @@
 			transfer_fingerprints_to(stored)
 	..()
 
-/obj/machinery/atmospherics/proc/getpipeimage(iconset, iconstate, direction, col=rgb(255,255,255), piping_layer=2)
+TYPE_PROC_REF(/obj/machinery/atmospherics, getpipeimage)(iconset, iconstate, direction, col=rgb(255,255,255), piping_layer=2)
 
 	//Add identifiers for the iconset
 	if(iconsetids[iconset] == null)
@@ -327,18 +327,18 @@
 	return ..()
 
 
-/obj/machinery/atmospherics/proc/can_crawl_through()
+TYPE_PROC_REF(/obj/machinery/atmospherics, can_crawl_through)()
 	return TRUE
 
-/obj/machinery/atmospherics/proc/returnPipenets()
+TYPE_PROC_REF(/obj/machinery/atmospherics, returnPipenets)()
 	return list()
 
 /obj/machinery/atmospherics/update_remote_sight(mob/user)
 	user.sight |= (SEE_TURFS|BLIND)
 
 //Used for certain children of obj/machinery/atmospherics to not show pipe vision when mob is inside it.
-/obj/machinery/atmospherics/proc/can_see_pipes()
+TYPE_PROC_REF(/obj/machinery/atmospherics, can_see_pipes)()
 	return TRUE
 
-/obj/machinery/atmospherics/proc/update_layer()
+TYPE_PROC_REF(/obj/machinery/atmospherics, update_layer)()
 	layer = initial(layer) + (piping_layer - PIPING_LAYER_DEFAULT) * PIPING_LAYER_LCHANGE

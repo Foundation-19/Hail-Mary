@@ -29,7 +29,7 @@
 	var/pixel_x = 0
 	var/pixel_y = 0
 
-/datum/position/proc/valid()
+TYPE_PROC_REF(/datum/position, valid)()
 	return x && y && z && !isnull(pixel_x) && !isnull(pixel_y)
 
 /datum/position/New(_x = 0, _y = 0, _z = 0, _pixel_x = 0, _pixel_y = 0)	//first argument can also be a /datum/point.
@@ -54,16 +54,16 @@
 	pixel_x = _pixel_x
 	pixel_y = _pixel_y
 
-/datum/position/proc/return_turf()
+TYPE_PROC_REF(/datum/position, return_turf)()
 	return locate(x, y, z)
 
-/datum/position/proc/return_px()
+TYPE_PROC_REF(/datum/position, return_px)()
 	return pixel_x
 
-/datum/position/proc/return_py()
+TYPE_PROC_REF(/datum/position, return_py)()
 	return pixel_y
 
-/datum/position/proc/return_point()
+TYPE_PROC_REF(/datum/position, return_point)()
 	return new /datum/point(src)
 
 /datum/point		//A precise point on the map in absolute pixel locations based on world.icon_size. Pixels are FROM THE EDGE OF THE MAP!
@@ -71,10 +71,10 @@
 	var/y = 0
 	var/z = 0
 
-/datum/point/proc/valid()
+TYPE_PROC_REF(/datum/point, valid)()
 	return x && y && z
 
-/datum/point/proc/copy_to(datum/point/p = new)
+TYPE_PROC_REF(/datum/point, copy_to)(datum/point/p = new)
 	p.x = x
 	p.y = y
 	p.z = z
@@ -97,7 +97,7 @@
 		_pixel_y = A.pixel_y
 	initialize_location(_x, _y, _z, _pixel_x, _pixel_y)
 
-/datum/point/proc/initialize_location(tile_x, tile_y, tile_z, p_x = 0, p_y = 0)
+TYPE_PROC_REF(/datum/point, initialize_location)(tile_x, tile_y, tile_z, p_x = 0, p_y = 0)
 	if(!isnull(tile_x))
 		x = ((tile_x - 1) * world.icon_size) + world.icon_size / 2 + p_x + 1
 	if(!isnull(tile_y))
@@ -105,28 +105,28 @@
 	if(!isnull(tile_z))
 		z = tile_z
 
-/datum/point/proc/debug_out()
+TYPE_PROC_REF(/datum/point, debug_out)()
 	var/turf/T = return_turf()
 	return "\ref[src] aX [x] aY [y] aZ [z] pX [return_px()] pY [return_py()] mX [T.x] mY [T.y] mZ [T.z]"
 
-/datum/point/proc/move_atom_to_src(atom/movable/AM)
+TYPE_PROC_REF(/datum/point, move_atom_to_src)(atom/movable/AM)
 	AM.forceMove(return_turf())
 	AM.pixel_x = return_px()
 	AM.pixel_y = return_py()
 
-/datum/point/proc/return_turf()
+TYPE_PROC_REF(/datum/point, return_turf)()
 	return locate(CEILING(x / world.icon_size, 1), CEILING(y / world.icon_size, 1), z)
 
-/datum/point/proc/return_coordinates()		//[turf_x, turf_y, z]
+TYPE_PROC_REF(/datum/point, return_coordinates)()		//[turf_x, turf_y, z]
 	return list(CEILING(x / world.icon_size, 1), CEILING(y / world.icon_size, 1), z)
 
-/datum/point/proc/return_position()
+TYPE_PROC_REF(/datum/point, return_position)()
 	return new /datum/position(src)
 
-/datum/point/proc/return_px()
+TYPE_PROC_REF(/datum/point, return_px)()
 	return MODULUS(x, world.icon_size) - 16 - 1
 
-/datum/point/proc/return_py()
+TYPE_PROC_REF(/datum/point, return_py)()
 	return MODULUS(y, world.icon_size) - 16 - 1
 
 /datum/point/vector
@@ -163,39 +163,39 @@
 	v.starting_z = starting_z
 	return v
 
-/datum/point/vector/proc/initialize_trajectory(pixel_speed, new_angle)
+TYPE_PROC_REF(/datum/point/vector, initialize_trajectory)(pixel_speed, new_angle)
 	if(!isnull(pixel_speed))
 		speed = pixel_speed
 	set_angle(new_angle)
 
-/datum/point/vector/proc/set_angle(new_angle)		//calculations use "byond angle" where north is 0 instead of 90, and south is 180 instead of 270.
+TYPE_PROC_REF(/datum/point/vector, set_angle)(new_angle)		//calculations use "byond angle" where north is 0 instead of 90, and south is 180 instead of 270.
 	if(isnull(angle))
 		return
 	angle = new_angle
 	update_offsets()
 
-/datum/point/vector/proc/update_offsets()
+TYPE_PROC_REF(/datum/point/vector, update_offsets)()
 	mpx = sin(angle) * speed
 	mpy = cos(angle) * speed
 
-/datum/point/vector/proc/set_speed(new_speed)
+TYPE_PROC_REF(/datum/point/vector, set_speed)(new_speed)
 	if(isnull(new_speed) || speed == new_speed)
 		return
 	speed = new_speed
 	update_offsets()
 
-/datum/point/vector/proc/increment(multiplier = 1)
+TYPE_PROC_REF(/datum/point/vector, increment)(multiplier = 1)
 	iteration++
 	x += mpx * (multiplier)
 	y += mpy * (multiplier)
 
-/datum/point/vector/proc/pixel_increment(pixels = 32, update_iteration = TRUE, realistic_iteration = FALSE)
+TYPE_PROC_REF(/datum/point/vector, pixel_increment)(pixels = 32, update_iteration = TRUE, realistic_iteration = FALSE)
 	if(update_iteration)
 		iteration += realistic_iteration? round(pixels / speed) : 1
 	x += sin(angle) * pixels
 	y += cos(angle) * pixels
 
-/datum/point/vector/proc/return_vector_after_increments(amount = 7, multiplier = 1, force_simulate = FALSE)
+TYPE_PROC_REF(/datum/point/vector, return_vector_after_increments)(amount = 7, multiplier = 1, force_simulate = FALSE)
 	var/datum/point/vector/v = copy_to()
 	if(force_simulate)
 		for(var/i in 1 to amount)
@@ -204,7 +204,7 @@
 		v.increment(multiplier * amount)
 	return v
 
-/datum/point/vector/proc/on_z_change()
+TYPE_PROC_REF(/datum/point/vector, on_z_change)()
 	return
 
 /datum/point/vector/processed		//pixel_speed is per decisecond.
@@ -216,7 +216,7 @@
 	STOP_PROCESSING(SSprojectiles, src)
 	return ..()
 
-/datum/point/vector/processed/proc/start()
+TYPE_PROC_REF(/datum/point/vector/processed, start)()
 	last_process = world.time
 	last_move = world.time
 	START_PROCESSING(SSprojectiles, src)

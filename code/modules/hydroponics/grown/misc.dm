@@ -245,12 +245,12 @@
 /obj/item/reagent_containers/food/snacks/grown/cherry_bomb/ex_act(severity)
 	qdel(src) //Ensuring that it's deleted by its own explosion. Also prevents mass chain reaction with piles of cherry bombs
 
-/obj/item/reagent_containers/food/snacks/grown/cherry_bomb/proc/prime(mob/living/lanced_by)
+TYPE_PROC_REF(/obj/item/reagent_containers/food/snacks/grown/cherry_bomb, prime)(mob/living/lanced_by)
 	icon_state = "cherry_bomb_lit"
 	playsound(src, 'sound/effects/fuse.ogg', seed.potency, 0)
-	addtimer(CALLBACK(src, /obj/item/reagent_containers/food/snacks/grown/cherry_bomb/proc/detonate), rand(50, 100))
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/item/reagent_containers/food/snacks/grown/cherry_bomb, detonate)), rand(50, 100))
 
-/obj/item/reagent_containers/food/snacks/grown/cherry_bomb/proc/detonate()
+TYPE_PROC_REF(/obj/item/reagent_containers/food/snacks/grown/cherry_bomb, detonate)()
 	reagents.chem_temp = 1000 //Sets off the black powder
 	reagents.handle_reactions()
 
@@ -516,7 +516,7 @@
 	transform *= TRANSFORM_USING_VARIABLE(40, 100) + 0.5 //temporary fix for size?
 
 
-/obj/item/reagent_containers/food/snacks/grown/coconut/proc/prime()
+TYPE_PROC_REF(/obj/item/reagent_containers/food/snacks/grown/coconut, prime)()
 	if (defused)
 		return
 	reagents.chem_temp = 1000

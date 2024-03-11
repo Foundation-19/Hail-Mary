@@ -133,7 +133,7 @@ SUBSYSTEM_DEF(garbage)
 
 
 
-/datum/controller/subsystem/garbage/proc/InitQueues()
+TYPE_PROC_REF(/datum/controller/subsystem/garbage, InitQueues)()
 	if (isnull(queues)) // Only init the queues if they don't already exist, prevents overriding of recovered lists
 		queues = new(GC_QUEUE_COUNT)
 		pass_counts = new(GC_QUEUE_COUNT)
@@ -143,7 +143,7 @@ SUBSYSTEM_DEF(garbage)
 			pass_counts[i] = 0
 			fail_counts[i] = 0
 
-/datum/controller/subsystem/garbage/proc/HandleQueue(level = GC_QUEUE_FILTER)
+TYPE_PROC_REF(/datum/controller/subsystem/garbage, HandleQueue)(level = GC_QUEUE_FILTER)
 	if (level == GC_QUEUE_FILTER)
 		delslasttick = 0
 		gcedlasttick = 0
@@ -199,11 +199,11 @@ SUBSYSTEM_DEF(garbage)
 			if (GC_QUEUE_CHECK)
 				#ifdef REFERENCE_TRACKING
 				if(reference_find_on_fail[refID])
-					INVOKE_ASYNC(D, /datum/proc/find_references)
+					INVOKE_ASYNC(D, TYPE_PROC_REF(/datum, find_references))
 					ref_searching = TRUE
 				#ifdef GC_FAILURE_HARD_LOOKUP
 				else
-					INVOKE_ASYNC(D, /datum/proc/find_references)
+					INVOKE_ASYNC(D, TYPE_PROC_REF(/datum, find_references))
 					ref_searching = TRUE
 				#endif
 				reference_find_on_fail -= refID
@@ -246,7 +246,7 @@ SUBSYSTEM_DEF(garbage)
 		queue.Cut(1,count+1)
 		count = 0
 
-/datum/controller/subsystem/garbage/proc/Queue(datum/D, level = GC_QUEUE_FILTER)
+TYPE_PROC_REF(/datum/controller/subsystem/garbage, Queue)(datum/D, level = GC_QUEUE_FILTER)
 	if (isnull(D))
 		return
 	if (level > GC_QUEUE_COUNT)
@@ -261,7 +261,7 @@ SUBSYSTEM_DEF(garbage)
 	queue[++queue.len] = list(gctime, refid) // not += for byond reasons
 
 //this is mainly to separate things profile wise.
-/datum/controller/subsystem/garbage/proc/HardDelete(datum/D)
+TYPE_PROC_REF(/datum/controller/subsystem/garbage, HardDelete)(datum/D)
 	++delslasttick
 	++totaldels
 	var/type = D.type

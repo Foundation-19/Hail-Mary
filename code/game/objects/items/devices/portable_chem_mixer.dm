@@ -58,7 +58,7 @@
  *
  * A list of dispensable reagents is created by iterating through each source beaker in the portable chemical beaker and reading its contents
  */
-/obj/item/storage/portable_chem_mixer/proc/update_contents()
+TYPE_PROC_REF(/obj/item/storage/portable_chem_mixer, update_contents)()
 	dispensable_reagents.Cut()
 
 	for (var/obj/item/reagent_containers/B in contents)
@@ -97,7 +97,7 @@
  * * mob/living/user							-	The user who is trying to exchange beakers
  *	* obj/item/reagent_containers/new_beaker	-	The new beaker that the user wants to put into the device
  */
-/obj/item/storage/portable_chem_mixer/proc/replace_beaker(mob/living/user, obj/item/reagent_containers/new_beaker)
+TYPE_PROC_REF(/obj/item/storage/portable_chem_mixer, replace_beaker)(mob/living/user, obj/item/reagent_containers/new_beaker)
 	if(!user)
 		return FALSE
 	if(beaker)

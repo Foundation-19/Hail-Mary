@@ -38,7 +38,7 @@
 
 // expel the contents of the holder object, then delete it
 // called when the holder exits the outlet
-/obj/structure/disposaloutlet/proc/expel(obj/structure/disposalholder/H)
+TYPE_PROC_REF(/obj/structure/disposaloutlet, expel)(obj/structure/disposalholder/H)
 	H.active = FALSE
 	flick("outlet-open", src)
 	if((start_eject + 30) < world.time)
@@ -48,7 +48,7 @@
 	else
 		addtimer(CALLBACK(src, PROC_REF(expel_holder), H), 20)
 
-/obj/structure/disposaloutlet/proc/expel_holder(obj/structure/disposalholder/H, playsound=FALSE)
+TYPE_PROC_REF(/obj/structure/disposaloutlet, expel_holder)(obj/structure/disposalholder/H, playsound=FALSE)
 	if(playsound)
 		playsound(src, 'sound/machines/hiss.ogg', 50, 0, 0)
 

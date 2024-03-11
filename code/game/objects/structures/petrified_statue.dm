@@ -74,7 +74,7 @@
 	qdel(src)
 
 
-/mob/proc/petrify(statue_timer)
+TYPE_PROC_REF(/mob, petrify)(statue_timer)
 
 /mob/living/carbon/human/petrify(statue_timer)
 	if(!isturf(loc))

@@ -103,11 +103,11 @@
 	if(move_dir == eat_dir)
 		return TRUE
 
-/obj/machinery/recycler/proc/on_entered(datum/source, atom/movable/AM)
+TYPE_PROC_REF(/obj/machinery/recycler, on_entered)(datum/source, atom/movable/AM)
 	SIGNAL_HANDLER
 	INVOKE_ASYNC(src, PROC_REF(eat), AM)
 
-/obj/machinery/recycler/proc/eat(atom/AM0)
+TYPE_PROC_REF(/obj/machinery/recycler, eat)(atom/AM0)
 	if(stat & (BROKEN|NOPOWER) || safety_mode)
 		return
 
@@ -156,7 +156,7 @@
 	if(buzz)
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 50, 0)
 
-/obj/machinery/recycler/proc/recycle_item(obj/item/I)
+TYPE_PROC_REF(/obj/machinery/recycler, recycle_item)(obj/item/I)
 
 	. = list()
 	for(var/A in I)
@@ -186,19 +186,19 @@
 		materials.retrieve_all()
 
 
-/obj/machinery/recycler/proc/emergency_stop(mob/living/L)
+TYPE_PROC_REF(/obj/machinery/recycler, emergency_stop)(mob/living/L)
 	playsound(src, 'sound/machines/buzz-sigh.ogg', 50, 0)
 	safety_mode = TRUE
 	update_icon()
 	L.forceMove(loc)
 	addtimer(CALLBACK(src, PROC_REF(reboot)), SAFETY_COOLDOWN)
 
-/obj/machinery/recycler/proc/reboot()
+TYPE_PROC_REF(/obj/machinery/recycler, reboot)()
 	playsound(src, 'sound/machines/ping.ogg', 50, 0)
 	safety_mode = FALSE
 	update_icon()
 
-/obj/machinery/recycler/proc/crush_living(mob/living/L)
+TYPE_PROC_REF(/obj/machinery/recycler, crush_living)(mob/living/L)
 
 	. = list()
 	L.forceMove(loc)

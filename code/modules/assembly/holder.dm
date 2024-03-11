@@ -27,14 +27,14 @@
 	return TRUE
 
 
-/obj/item/assembly_holder/proc/assemble(obj/item/assembly/A, obj/item/assembly/A2, mob/user)
+TYPE_PROC_REF(/obj/item/assembly_holder, assemble)(obj/item/assembly/A, obj/item/assembly/A2, mob/user)
 	attach(A,user)
 	attach(A2,user)
 	name = "[A.name]-[A2.name] assembly"
 	update_icon()
 	SSblackbox.record_feedback("tally", "assembly_made", 1, "[initial(A.name)]-[initial(A2.name)]")
 
-/obj/item/assembly_holder/proc/attach(obj/item/assembly/A, mob/user)
+TYPE_PROC_REF(/obj/item/assembly_holder, attach)(obj/item/assembly/A, mob/user)
 	if(!A.remove_item_from_storage(src))
 		if(user)
 			user.transferItemToLoc(A, src)
@@ -70,7 +70,7 @@
 	if(master)
 		master.update_icon()
 
-/obj/item/assembly_holder/proc/on_entered(atom/movable/AM as mob|obj)
+TYPE_PROC_REF(/obj/item/assembly_holder, on_entered)(atom/movable/AM as mob|obj)
 	SIGNAL_HANDLER
 	if(a_left)
 		INVOKE_ASYNC(a_left, PROC_REF(on_entered), AM)
@@ -136,7 +136,7 @@
 		a_right.attack_self(user)
 
 
-/obj/item/assembly_holder/proc/process_activation(obj/D, normal = 1, special = 1)
+TYPE_PROC_REF(/obj/item/assembly_holder, process_activation)(obj/D, normal = 1, special = 1)
 	if(!D)
 		return FALSE
 	if((normal) && (a_right) && (a_left))

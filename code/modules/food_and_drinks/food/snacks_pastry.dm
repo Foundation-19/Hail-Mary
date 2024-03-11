@@ -24,7 +24,7 @@
 	if(prob(30))
 		decorate_donut()
 
-/obj/item/reagent_containers/food/snacks/donut/proc/decorate_donut()
+TYPE_PROC_REF(/obj/item/reagent_containers/food/snacks/donut, decorate_donut)()
 	if(is_decorated || !decorated_icon)
 		return
 	is_decorated = TRUE
@@ -480,7 +480,7 @@
 		S.previous_typepath = type
 		addtimer(CALLBACK(S, PROC_REF(cool_down)), 7 MINUTES) //canonically they reverted back to normal after 7 minutes.
 
-/obj/item/reagent_containers/food/snacks/donkpocket/proc/cool_down()
+TYPE_PROC_REF(/obj/item/reagent_containers/food/snacks/donkpocket, cool_down)()
 	if(!previous_typepath) //This shouldn't happen.
 		qdel(src)
 		return

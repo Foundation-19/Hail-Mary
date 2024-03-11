@@ -45,7 +45,7 @@
 		Write_Memory(TRUE, gibbed)
 	..()
 
-/mob/living/carbon/monkey/punpun/proc/Read_Memory()
+TYPE_PROC_REF(/mob/living/carbon/monkey/punpun, Read_Memory)()
 	if(fexists("data/npc_saves/Punpun.sav")) //legacy compatability to convert old format to new
 		var/savefile/S = new /savefile("data/npc_saves/Punpun.sav")
 		S["ancestor_name"]	>> ancestor_name
@@ -63,7 +63,7 @@
 		relic_hat = json["relic_hat"]
 		relic_mask = json["relic_hat"]
 
-/mob/living/carbon/monkey/punpun/proc/Write_Memory(dead, gibbed)
+TYPE_PROC_REF(/mob/living/carbon/monkey/punpun, Write_Memory)(dead, gibbed)
 	var/json_file = file("data/npc_saves/Punpun.json")
 	var/list/file_data = list()
 	if(gibbed)

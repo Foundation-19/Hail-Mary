@@ -1,4 +1,4 @@
-/client/proc/mentor_memo()
+TYPE_PROC_REF(/client, mentor_memo)()
 	set name = "Mentor Memos"
 	set category = "Server"
 	if(!check_rights(0))
@@ -11,7 +11,7 @@
 		return
 	mentor_memo_output(memotask)
 
-/client/proc/show_mentor_memo()
+TYPE_PROC_REF(/client, show_mentor_memo)()
 	set name = "Show Memos"
 	set category = "Mentor"
 	if(!is_mentor())
@@ -21,7 +21,7 @@
 		return
 	mentor_memo_output("Show")
 
-/client/proc/mentor_memo_output(task)
+TYPE_PROC_REF(/client, mentor_memo_output)(task)
 	if(!task)
 		return
 	if(!SSdbcore.IsConnected())

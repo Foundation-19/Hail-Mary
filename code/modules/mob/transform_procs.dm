@@ -1,6 +1,6 @@
 #define TRANSFORMATION_DURATION 22
 
-/mob/living/carbon/proc/monkeyize(tr_flags = (TR_KEEPITEMS | TR_KEEPVIRUS | TR_KEEPSTUNS | TR_KEEPREAGENTS | TR_DEFAULTMSG))
+TYPE_PROC_REF(/mob/living/carbon, monkeyize)(tr_flags = (TR_KEEPITEMS | TR_KEEPVIRUS | TR_KEEPSTUNS | TR_KEEPREAGENTS | TR_DEFAULTMSG))
 	if(mob_transforming || transformation_timer)
 		return
 
@@ -21,7 +21,7 @@
 
 	transformation_timer = addtimer(CALLBACK(src, PROC_REF(finish_monkeyize), tr_flags), TRANSFORMATION_DURATION, TIMER_UNIQUE)
 
-/mob/living/carbon/proc/finish_monkeyize(tr_flags)
+TYPE_PROC_REF(/mob/living/carbon, finish_monkeyize)(tr_flags)
 	transformation_timer = null
 
 	var/list/missing_bodyparts_zones = get_missing_limbs()
@@ -155,7 +155,7 @@
 //////////////////////////           Humanize               //////////////////////////////
 //Could probably be merged with monkeyize but other transformations got their own procs, too
 
-/mob/living/carbon/proc/humanize(tr_flags = (TR_KEEPITEMS | TR_KEEPVIRUS | TR_KEEPSTUNS | TR_KEEPREAGENTS | TR_DEFAULTMSG))
+TYPE_PROC_REF(/mob/living/carbon, humanize)(tr_flags = (TR_KEEPITEMS | TR_KEEPVIRUS | TR_KEEPSTUNS | TR_KEEPREAGENTS | TR_DEFAULTMSG))
 	if (mob_transforming || transformation_timer)
 		return
 
@@ -179,7 +179,7 @@
 
 	transformation_timer = addtimer(CALLBACK(src, PROC_REF(finish_humanize), tr_flags), TRANSFORMATION_DURATION, TIMER_UNIQUE)
 
-/mob/living/carbon/proc/finish_humanize(tr_flags)
+TYPE_PROC_REF(/mob/living/carbon, finish_humanize)(tr_flags)
 	transformation_timer = null
 
 	var/list/stored_implants = list()
@@ -332,7 +332,7 @@
 	invisibility = INVISIBILITY_MAXIMUM
 	return ..()
 
-/mob/proc/AIize(transfer_after = TRUE)
+TYPE_PROC_REF(/mob, AIize)(transfer_after = TRUE)
 	var/list/turf/landmark_loc = list()
 	for(var/obj/effect/landmark/start/ai/sloc in GLOB.landmarks_list)
 		if(locate(/mob/living/silicon/ai) in sloc.loc)
@@ -361,7 +361,7 @@
 
 	qdel(src)
 
-/mob/living/carbon/human/proc/Robotize(delete_items = 0, transfer_after = TRUE)
+TYPE_PROC_REF(/mob/living/carbon/human, Robotize)(delete_items = 0, transfer_after = TRUE)
 	if(mob_transforming)
 		return
 	for(var/obj/item/W in src)
@@ -406,7 +406,7 @@
 	qdel(src)
 
 //human -> alien
-/mob/living/carbon/human/proc/Alienize(mind_transfer = TRUE)
+TYPE_PROC_REF(/mob/living/carbon/human, Alienize)(mind_transfer = TRUE)
 	if (mob_transforming)
 		return
 	for(var/obj/item/W in src)
@@ -440,7 +440,7 @@
 	. = new_xeno
 	qdel(src)
 
-/mob/living/carbon/human/proc/slimeize(reproduce, mind_transfer = TRUE)
+TYPE_PROC_REF(/mob/living/carbon/human, slimeize)(reproduce, mind_transfer = TRUE)
 	if (mob_transforming)
 		return
 	for(var/obj/item/W in src)
@@ -475,7 +475,7 @@
 	. = new_slime
 	qdel(src)
 
-/mob/proc/become_overmind(starting_points = 60, mind_transfer = FALSE)
+TYPE_PROC_REF(/mob, become_overmind)(starting_points = 60, mind_transfer = FALSE)
 	var/mob/camera/blob/B = new /mob/camera/blob(get_turf(src), starting_points)
 	if(mind && mind_transfer)
 		mind.transfer_to(B)
@@ -485,7 +485,7 @@
 	qdel(src)
 
 
-/mob/living/carbon/human/proc/corgize(mind_transfer = TRUE)
+TYPE_PROC_REF(/mob/living/carbon/human, corgize)(mind_transfer = TRUE)
 	if (mob_transforming)
 		return
 	for(var/obj/item/W in src)
@@ -509,7 +509,7 @@
 	. = new_corgi
 	qdel(src)
 
-/mob/living/carbon/proc/gorillize(mind_transfer = TRUE)
+TYPE_PROC_REF(/mob/living/carbon, gorillize)(mind_transfer = TRUE)
 	if(mob_transforming)
 		return
 
@@ -570,7 +570,7 @@
 	. = new_mob
 	qdel(src)
 
-/mob/proc/Animalize(mind_transfer = TRUE)
+TYPE_PROC_REF(/mob, Animalize)(mind_transfer = TRUE)
 
 	var/list/mobtypes = typesof(/mob/living/simple_animal)
 	var/mobpath = input("Which type of mob should [src] turn into?", "Choose a type") as null|anything in mobtypes
@@ -597,7 +597,7 @@
  * This proc is here to force coders to manually place their mob in this list, hopefully tested.
  * This also gives a place to explain -why- players shouldnt be turn into certain mobs and hopefully someone can fix them.
  */
-/mob/proc/safe_animal(MP)
+TYPE_PROC_REF(/mob, safe_animal)(MP)
 
 //Bad mobs! - Remember to add a comment explaining what's wrong with the mob
 	if(!MP)
@@ -633,7 +633,7 @@
 
 #undef TRANSFORMATION_DURATION
 
-/mob/living/proc/turn_into_pickle()
+TYPE_PROC_REF(/mob/living, turn_into_pickle)()
 	//if they're already a pickle, turn them back instead
 	if(istype(src, /mob/living/simple_animal/pickle))
 		//turn them back from being a pickle, but release them alive

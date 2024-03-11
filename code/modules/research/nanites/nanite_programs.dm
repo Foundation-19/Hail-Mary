@@ -70,13 +70,13 @@
 		nanites.programs -= src
 	return ..()
 
-/datum/nanite_program/proc/copy()
+TYPE_PROC_REF(/datum/nanite_program, copy)()
 	var/datum/nanite_program/new_program = new type()
 	copy_programming(new_program, TRUE)
 
 	return new_program
 
-/datum/nanite_program/proc/copy_programming(datum/nanite_program/target, copy_activated = TRUE)
+TYPE_PROC_REF(/datum/nanite_program, copy_programming)(datum/nanite_program/target, copy_activated = TRUE)
 	if(copy_activated)
 		target.activated = activated
 	target.timer_restart = timer_restart
@@ -98,21 +98,21 @@
 
 ///Register extra settings by overriding this.
 ///extra_settings[name] = new typepath() for each extra setting
-/datum/nanite_program/proc/register_extra_settings()
+TYPE_PROC_REF(/datum/nanite_program, register_extra_settings)()
 	return
 
 ///You can override this if you need to have special behavior after setting certain settings.
-/datum/nanite_program/proc/set_extra_setting(setting, value)
+TYPE_PROC_REF(/datum/nanite_program, set_extra_setting)(setting, value)
 	var/datum/nanite_extra_setting/ES = extra_settings[setting]
 	return ES.set_value(value)
 
 ///You probably shouldn't be overriding this one, but I'm not a cop.
-/datum/nanite_program/proc/get_extra_setting_value(setting)
+TYPE_PROC_REF(/datum/nanite_program, get_extra_setting_value)(setting)
 	var/datum/nanite_extra_setting/ES = extra_settings[setting]
 	return ES.get_value()
 
 ///Used for getting information about the extra settings to the frontend
-/datum/nanite_program/proc/get_extra_settings_frontend()
+TYPE_PROC_REF(/datum/nanite_program, get_extra_settings_frontend)()
 	var/list/out = list()
 	for(var/name in extra_settings)
 		var/datum/nanite_extra_setting/ES = extra_settings[name]
@@ -120,47 +120,47 @@
 	return out
 
 ///Copy of the list instead of direct reference for obvious reasons
-/datum/nanite_program/proc/copy_extra_settings_to(datum/nanite_program/target)
+TYPE_PROC_REF(/datum/nanite_program, copy_extra_settings_to)(datum/nanite_program/target)
 	var/list/copy_list = list()
 	for(var/ns_name in extra_settings)
 		var/datum/nanite_extra_setting/extra_setting = extra_settings[ns_name]
 		copy_list[ns_name] = extra_setting.get_copy()
 	target.extra_settings = copy_list
 
-/datum/nanite_program/proc/on_add(datum/component/nanites/_nanites)
+TYPE_PROC_REF(/datum/nanite_program, on_add)(datum/component/nanites/_nanites)
 	nanites = _nanites
 	if(nanites.host_mob)
 		on_mob_add()
 
-/datum/nanite_program/proc/on_mob_add()
+TYPE_PROC_REF(/datum/nanite_program, on_mob_add)()
 	host_mob = nanites.host_mob
 	if(activated) //apply activation effects depending on initial status; starts the restart and shutdown timers
 		activate()
 	else
 		deactivate()
 
-/datum/nanite_program/proc/on_mob_remove()
+TYPE_PROC_REF(/datum/nanite_program, on_mob_remove)()
 	return
 
-/datum/nanite_program/proc/toggle()
+TYPE_PROC_REF(/datum/nanite_program, toggle)()
 	if(!activated)
 		activate()
 	else
 		deactivate()
 
-/datum/nanite_program/proc/activate()
+TYPE_PROC_REF(/datum/nanite_program, activate)()
 	activated = TRUE
 	if(timer_shutdown)
 		timer_shutdown_next = world.time + timer_shutdown
 
-/datum/nanite_program/proc/deactivate()
+TYPE_PROC_REF(/datum/nanite_program, deactivate)()
 	if(passive_enabled)
 		disable_passive_effect()
 	activated = FALSE
 	if(timer_restart)
 		timer_restart_next = world.time + timer_restart
 
-/datum/nanite_program/proc/on_process()
+TYPE_PROC_REF(/datum/nanite_program, on_process)()
 	if(!activated)
 		if(timer_restart_next && world.time > timer_restart_next)
 			activate()
@@ -189,7 +189,7 @@
 
 //If false, disables active and passive effects, but doesn't consume nanites
 //Can be used to avoid consuming nanites for nothing
-/datum/nanite_program/proc/check_conditions()
+TYPE_PROC_REF(/datum/nanite_program, check_conditions)()
 	for(var/R in rules)
 		var/datum/nanite_rule/rule = R
 		if(!rule.check_rule())
@@ -197,19 +197,19 @@
 	return TRUE
 
 //Constantly procs as long as the program is active
-/datum/nanite_program/proc/active_effect()
+TYPE_PROC_REF(/datum/nanite_program, active_effect)()
 	return
 
 //Procs once when the program activates
-/datum/nanite_program/proc/enable_passive_effect()
+TYPE_PROC_REF(/datum/nanite_program, enable_passive_effect)()
 	passive_enabled = TRUE
 
 //Procs once when the program deactivates
-/datum/nanite_program/proc/disable_passive_effect()
+TYPE_PROC_REF(/datum/nanite_program, disable_passive_effect)()
 	passive_enabled = FALSE
 
 //Checks conditions then fires the nanite trigger effect
-/datum/nanite_program/proc/trigger(delayed = FALSE, comm_message)
+TYPE_PROC_REF(/datum/nanite_program, trigger)(delayed = FALSE, comm_message)
 	if(!can_trigger)
 		return
 	if(!activated)
@@ -225,34 +225,34 @@
 	on_trigger(comm_message)
 
 //Nanite trigger effect, requires can_trigger to be used
-/datum/nanite_program/proc/on_trigger(comm_message)
+TYPE_PROC_REF(/datum/nanite_program, on_trigger)(comm_message)
 	return
 
-/datum/nanite_program/proc/consume_nanites(amount, force = FALSE)
+TYPE_PROC_REF(/datum/nanite_program, consume_nanites)(amount, force = FALSE)
 	return nanites.consume_nanites(amount, force)
 
-/datum/nanite_program/proc/on_emp(severity)
+TYPE_PROC_REF(/datum/nanite_program, on_emp)(severity)
 	if(program_flags & NANITE_EMP_IMMUNE)
 		return
 	if(prob(80 / severity))
 		software_error()
 
-/datum/nanite_program/proc/on_shock(shock_damage)
+TYPE_PROC_REF(/datum/nanite_program, on_shock)(shock_damage)
 	if(!(program_flags & NANITE_SHOCK_IMMUNE))
 		if(prob(10))
 			software_error()
 		else if(prob(33))
 			qdel(src)
 
-/datum/nanite_program/proc/on_minor_shock()
+TYPE_PROC_REF(/datum/nanite_program, on_minor_shock)()
 	if(!(program_flags & NANITE_SHOCK_IMMUNE))
 		if(prob(10))
 			software_error()
 
-/datum/nanite_program/proc/on_death()
+TYPE_PROC_REF(/datum/nanite_program, on_death)()
 	return
 
-/datum/nanite_program/proc/software_error(type)
+TYPE_PROC_REF(/datum/nanite_program, software_error)(type)
 	if(!type)
 		type = rand(1,5)
 	switch(type)
@@ -275,7 +275,7 @@
 			nanites.add_program(null, rogue, src)
 			qdel(src)
 
-/datum/nanite_program/proc/receive_signal(code, source)
+TYPE_PROC_REF(/datum/nanite_program, receive_signal)(code, source)
 	if(activation_code && code == activation_code && !activated)
 		activate()
 		host_mob.investigate_log("'s [name] nanite program was activated by [source] with code [code].", INVESTIGATE_NANITES)

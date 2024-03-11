@@ -44,7 +44,7 @@ SUBSYSTEM_DEF(fail2topic)
 /datum/controller/subsystem/fail2topic/Shutdown()
 	DropFirewallRule()
 
-/datum/controller/subsystem/fail2topic/proc/IsRateLimited(ip)
+TYPE_PROC_REF(/datum/controller/subsystem/fail2topic, IsRateLimited)(ip)
 	var/last_attempt = rate_limiting[ip]
 
 	var/static/datum/config_entry/keyed_list/topic_rate_limit_whitelist/cached_whitelist_entry
@@ -79,7 +79,7 @@ SUBSYSTEM_DEF(fail2topic)
 			fail_counts[ip] = failures + 1
 			return TRUE
 
-/datum/controller/subsystem/fail2topic/proc/BanFromFirewall(ip)
+TYPE_PROC_REF(/datum/controller/subsystem/fail2topic, BanFromFirewall)(ip)
 	if (!enabled)
 		return
 
@@ -99,7 +99,7 @@ SUBSYSTEM_DEF(fail2topic)
 	else
 		subsystem_log("Banned [ip].")
 
-/datum/controller/subsystem/fail2topic/proc/DropFirewallRule()
+TYPE_PROC_REF(/datum/controller/subsystem/fail2topic, DropFirewallRule)()
 	if (!enabled)
 		return
 

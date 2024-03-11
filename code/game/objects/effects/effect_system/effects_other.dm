@@ -25,7 +25,7 @@
 	stop()
 	return ..()
 
-/datum/effect_system/trail_follow/proc/stop()
+TYPE_PROC_REF(/datum/effect_system/trail_follow, stop)()
 	oldposition = null
 	STOP_PROCESSING(SSfastprocess, src)
 	active = FALSE
@@ -57,7 +57,7 @@
 				QDEL_IN(E, qdel_in_time)
 	oldposition = get_turf(holder)
 
-/datum/effect_system/trail_follow/proc/check_conditions()
+TYPE_PROC_REF(/datum/effect_system/trail_follow, check_conditions)()
 	if(!get_turf(holder))
 		return FALSE
 	return TRUE
@@ -78,7 +78,7 @@
 	nograv_required = TRUE
 	qdel_in_time = 20
 
-/datum/effect_system/trail_follow/proc/set_dir(obj/effect/particle_effect/ion_trails/I)
+TYPE_PROC_REF(/datum/effect_system/trail_follow, set_dir)(obj/effect/particle_effect/ion_trails/I)
 	I.setDir(holder.dir)
 
 //Reagent-based explosion effect

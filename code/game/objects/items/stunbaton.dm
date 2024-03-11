@@ -56,7 +56,7 @@
 /obj/item/melee/baton/loaded //this one starts with a cell pre-installed.
 	preload_cell_type = /obj/item/stock_parts/cell/high/plus
 
-/obj/item/melee/baton/proc/deductcharge(chrgdeductamt, chargecheck = TRUE, explode = TRUE)
+TYPE_PROC_REF(/obj/item/melee/baton, deductcharge)(chrgdeductamt, chargecheck = TRUE, explode = TRUE)
 	var/obj/item/stock_parts/cell/copper_top = get_cell()
 	if(!copper_top)
 		switch_status(FALSE, TRUE)
@@ -71,7 +71,7 @@
 		//we're below minimum, turn off
 		switch_status(FALSE)
 
-/obj/item/melee/baton/proc/switch_status(new_status = FALSE, silent = FALSE)
+TYPE_PROC_REF(/obj/item/melee/baton, switch_status)(new_status = FALSE, silent = FALSE)
 	if(turned_on != new_status)
 		turned_on = new_status
 		if(!silent)
@@ -150,7 +150,7 @@
 	. = common_baton_melee(A, user, TRUE)		//return true (attackchain interrupt) if this also returns true. no harm-disarming.
 
 //return TRUE to interrupt attack chain.
-/obj/item/melee/baton/proc/common_baton_melee(mob/M, mob/living/user, disarming = FALSE)
+TYPE_PROC_REF(/obj/item/melee/baton, common_baton_melee)(mob/M, mob/living/user, disarming = FALSE)
 	if(iscyborg(M) || !isliving(M))		//can't baton cyborgs
 		return FALSE
 	if(turned_on && HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
@@ -172,7 +172,7 @@
 						span_warning("[user] has prodded you with [src]. Luckily it was off"))
 	return disarming || (user.a_intent != INTENT_HARM)
 
-/obj/item/melee/baton/proc/baton_stun(mob/living/L, mob/user, disarming = FALSE)
+TYPE_PROC_REF(/obj/item/melee/baton, baton_stun)(mob/living/L, mob/user, disarming = FALSE)
 	var/list/return_list = list()
 	if(L.mob_run_block(src, 0, "[user]'s [name]", ATTACK_TYPE_MELEE, 0, user, null, return_list) & BLOCK_SUCCESS) //No message; check_shields() handles that
 		playsound(L, 'sound/weapons/genhit.ogg', 50, 1)
@@ -219,7 +219,7 @@
 
 	return TRUE
 
-/obj/item/melee/baton/proc/clowning_around(mob/living/user)
+TYPE_PROC_REF(/obj/item/melee/baton, clowning_around)(mob/living/user)
 	user.visible_message(span_danger("[user] accidentally hits [user.p_them()]self with [src]!"), \
 						span_userdanger("You accidentally hit yourself with [src]!"))
 	SEND_SIGNAL(user, COMSIG_LIVING_MINOR_SHOCK)

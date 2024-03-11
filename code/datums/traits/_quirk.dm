@@ -42,7 +42,7 @@
 	SSquirks.quirk_objects -= src
 	return ..()
 
-/datum/quirk/proc/transfer_mob(mob/living/to_mob)
+TYPE_PROC_REF(/datum/quirk, transfer_mob)(mob/living/to_mob)
 	quirk_holder.roundstart_quirks -= src
 	to_mob.roundstart_quirks += src
 	if(mob_trait)
@@ -51,15 +51,15 @@
 	quirk_holder = to_mob
 	on_transfer()
 
-/datum/quirk/proc/add() //special "on add" effects
-/datum/quirk/proc/on_spawn() //these should only trigger when the character is being created for the first time, i.e. roundstart/latejoin
-/datum/quirk/proc/remove() //special "on remove" effects
-/datum/quirk/proc/on_process() //process() has some special checks, so this is the actual process
-/datum/quirk/proc/post_add() //for text, disclaimers etc. given after you spawn in with the trait
-/datum/quirk/proc/on_transfer() //code called when the trait is transferred to a new mob
+TYPE_PROC_REF(/datum/quirk, add)() //special "on add" effects
+TYPE_PROC_REF(/datum/quirk, on_spawn)() //these should only trigger when the character is being created for the first time, i.e. roundstart/latejoin
+TYPE_PROC_REF(/datum/quirk, remove)() //special "on remove" effects
+TYPE_PROC_REF(/datum/quirk, on_process)() //process() has some special checks, so this is the actual process
+TYPE_PROC_REF(/datum/quirk, post_add)() //for text, disclaimers etc. given after you spawn in with the trait
+TYPE_PROC_REF(/datum/quirk, on_transfer)() //code called when the trait is transferred to a new mob
 
-/datum/quirk/proc/clone_data() //return additional data that should be remembered by cloning
-/datum/quirk/proc/on_clone(data) //create the quirk from clone data
+TYPE_PROC_REF(/datum/quirk, clone_data)() //return additional data that should be remembered by cloning
+TYPE_PROC_REF(/datum/quirk, on_clone)(data) //create the quirk from clone data
 
 /datum/quirk/process()
 	if(QDELETED(quirk_holder))
@@ -70,7 +70,7 @@
 		return
 	on_process()
 
-/mob/living/proc/get_trait_string(medical) //helper string. gets a string of all the traits the mob has
+TYPE_PROC_REF(/mob/living, get_trait_string)(medical) //helper string. gets a string of all the traits the mob has
 	var/list/dat = list()
 	if(!medical)
 		for(var/V in roundstart_quirks)
@@ -87,12 +87,12 @@
 			return "None"
 		return dat.Join("<br>")
 
-/mob/living/proc/cleanse_trait_datums() //removes all trait datums
+TYPE_PROC_REF(/mob/living, cleanse_trait_datums)() //removes all trait datums
 	for(var/V in roundstart_quirks)
 		var/datum/quirk/T = V
 		qdel(T)
 
-/mob/living/proc/transfer_trait_datums(mob/living/to_mob)
+TYPE_PROC_REF(/mob/living, transfer_trait_datums)(mob/living/to_mob)
 	for(var/V in roundstart_quirks)
 		var/datum/quirk/T = V
 		T.transfer_mob(to_mob)

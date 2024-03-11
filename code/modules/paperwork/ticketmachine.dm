@@ -47,7 +47,7 @@
 	. = ..()
 	update_icon()
 
-/obj/machinery/ticket_machine/proc/increment()
+TYPE_PROC_REF(/obj/machinery/ticket_machine, increment)()
 	if(current_number > ticket_number)
 		return
 	if(current_number && !(obj_flags & EMAGGED) && tickets[current_number])
@@ -98,7 +98,7 @@
 /obj/item/assembly/control/ticket_machine/LateInitialize()
 	find_machine()
 
-/obj/item/assembly/control/ticket_machine/proc/find_machine() //Locate the one to which we're linked
+TYPE_PROC_REF(/obj/item/assembly/control/ticket_machine, find_machine)() //Locate the one to which we're linked
 	for(var/obj/machinery/ticket_machine/ticketsplease in GLOB.machines)
 		if(ticketsplease.id == id)
 			linked = ticketsplease
@@ -126,7 +126,7 @@
 			icon_state = "ticketmachine_0"
 	handle_maptext()
 
-/obj/machinery/ticket_machine/proc/handle_maptext()
+TYPE_PROC_REF(/obj/machinery/ticket_machine, handle_maptext)()
 	switch(ticket_number) //This is here to handle maptext offsets so that the numbers align.
 		if(0 to 9)
 			maptext_x = 13
@@ -157,14 +157,14 @@
 			update_icon()
 			return
 
-/obj/machinery/ticket_machine/proc/reset_cooldown()
+TYPE_PROC_REF(/obj/machinery/ticket_machine, reset_cooldown)()
 	ready = TRUE
 
 /obj/machinery/ticket_machine/attack_hand(mob/living/carbon/user)
 	. = ..()
 	INVOKE_ASYNC(src, PROC_REF(attempt_ticket), user)
 
-/obj/machinery/ticket_machine/proc/attempt_ticket(mob/living/carbon/user)
+TYPE_PROC_REF(/obj/machinery/ticket_machine, attempt_ticket)(mob/living/carbon/user)
 	if(!ready)
 		to_chat(user,span_warning("You press the button, but nothing happens..."))
 		return

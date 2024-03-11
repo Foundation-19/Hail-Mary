@@ -33,7 +33,7 @@
 	..()
 
 // Refreshes list of active supermatter crystals
-/datum/computer_file/program/supermatter_monitor/proc/refresh()
+TYPE_PROC_REF(/datum/computer_file/program/supermatter_monitor, refresh)()
 	supermatters = list()
 	var/turf/T = get_turf(ui_host())
 	if(!T)
@@ -47,7 +47,7 @@
 	if(!(active in supermatters))
 		active = null
 
-/datum/computer_file/program/supermatter_monitor/proc/get_status()
+TYPE_PROC_REF(/datum/computer_file/program/supermatter_monitor, get_status)()
 	. = SUPERMATTER_INACTIVE
 	for(var/obj/machinery/power/supermatter_crystal/S in supermatters)
 		. = max(., S.get_status())

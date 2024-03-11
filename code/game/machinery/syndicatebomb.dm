@@ -33,7 +33,7 @@
 	var/detonation_timer
 	var/explode_now = FALSE
 
-/obj/machinery/syndicatebomb/proc/try_detonate(ignore_active = FALSE)
+TYPE_PROC_REF(/obj/machinery/syndicatebomb, try_detonate)(ignore_active = FALSE)
 	. = (payload in src) && (active || ignore_active) && !defused
 	if(.)
 		payload.detonate()
@@ -105,7 +105,7 @@
 /obj/machinery/syndicatebomb/update_icon_state()
 	icon_state = "[initial(icon_state)][active ? "-active" : "-inactive"][open_panel ? "-wires" : ""]"
 
-/obj/machinery/syndicatebomb/proc/seconds_remaining()
+TYPE_PROC_REF(/obj/machinery/syndicatebomb, seconds_remaining)()
 	if(active)
 		. = max(0, round((detonation_timer - world.time) / 10))
 	else
@@ -184,7 +184,7 @@
 		else if(anchored)
 			to_chat(user, span_warning("The bomb is bolted to the floor!"))
 
-/obj/machinery/syndicatebomb/proc/activate()
+TYPE_PROC_REF(/obj/machinery/syndicatebomb, activate)()
 	active = TRUE
 	START_PROCESSING(SSfastprocess, src)
 	countdown.start()
@@ -192,7 +192,7 @@
 	detonation_timer = world.time + (timer_set * 10)
 	playsound(loc, 'sound/machines/click.ogg', 30, 1)
 
-/obj/machinery/syndicatebomb/proc/settings(mob/user)
+TYPE_PROC_REF(/obj/machinery/syndicatebomb, settings)(mob/user)
 	var/new_timer = input(user, "Please set the timer.", "Timer", "[timer_set]") as num
 	if(in_range(src, user) && isliving(user)) //No running off and setting bombs from across the station
 		timer_set = clamp(new_timer, minimum_timer, maximum_timer)
@@ -271,7 +271,7 @@
 	detonate()
 	..()
 
-/obj/item/bombcore/proc/detonate()
+TYPE_PROC_REF(/obj/item/bombcore, detonate)()
 	if(adminlog)
 		message_admins(adminlog)
 		log_game(adminlog)
@@ -280,7 +280,7 @@
 		qdel(loc)
 	qdel(src)
 
-/obj/item/bombcore/proc/defuse()
+TYPE_PROC_REF(/obj/item/bombcore, defuse)()
 //Note: 	Because of how var/defused is used you shouldn't override this UNLESS you intend to set the var to 0 or
 //			otherwise remove the core/reset the wires before the end of defuse(). It will repeatedly be called otherwise.
 
@@ -292,7 +292,7 @@
 	var/defusals = 0
 	var/attempts = 0
 
-/obj/item/bombcore/training/proc/reset()
+TYPE_PROC_REF(/obj/item/bombcore/training, reset)()
 	var/obj/machinery/syndicatebomb/holder = loc
 	if(istype(holder))
 		if(holder.wires)

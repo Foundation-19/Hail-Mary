@@ -27,7 +27,7 @@
 /obj/item/stack/ore/bluespace_crystal/get_part_rating()
 	return 1
 
-/obj/item/stack/ore/bluespace_crystal/proc/blink_mob(mob/living/L)
+TYPE_PROC_REF(/obj/item/stack/ore/bluespace_crystal, blink_mob)(mob/living/L)
 	do_teleport(L, get_turf(L), blink_range, asoundin = 'sound/effects/phasein.ogg', channel = TELEPORT_CHANNEL_BLUESPACE)
 
 //Artificial bluespace crystal, doesn't give you much research.

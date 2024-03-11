@@ -82,7 +82,7 @@
 
 	//addtimer(CALLBACK(src, PROC_REF(Spread)), delay)
 
-/obj/structure/glowshroom/proc/Spread()
+TYPE_PROC_REF(/obj/structure/glowshroom, Spread)()
 	return //temp disable
 
 	/*var/turf/ownturf = get_turf(src)
@@ -131,7 +131,7 @@
 		myseed.yield -= shrooms_planted
 		addtimer(CALLBACK(src, PROC_REF(Spread)), delay)*/
 
-/obj/structure/glowshroom/proc/CalcDir(turf/location = loc)
+TYPE_PROC_REF(/obj/structure/glowshroom, CalcDir)(turf/location = loc)
 	var/direction = 16
 
 	for(var/wallDir in GLOB.cardinals)

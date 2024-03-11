@@ -38,15 +38,15 @@
 	egg_process()
 
 
-/obj/item/organ/body_egg/proc/egg_process()
+TYPE_PROC_REF(/obj/item/organ/body_egg, egg_process)()
 	return
 
-/obj/item/organ/body_egg/proc/RefreshInfectionImage()
+TYPE_PROC_REF(/obj/item/organ/body_egg, RefreshInfectionImage)()
 	RemoveInfectionImages()
 	AddInfectionImages()
 
-/obj/item/organ/body_egg/proc/AddInfectionImages(mob/living/carbon/C)
+TYPE_PROC_REF(/obj/item/organ/body_egg, AddInfectionImages)(mob/living/carbon/C)
 	return
 
-/obj/item/organ/body_egg/proc/RemoveInfectionImages(mob/living/carbon/C)
+TYPE_PROC_REF(/obj/item/organ/body_egg, RemoveInfectionImages)(mob/living/carbon/C)
 	return

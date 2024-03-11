@@ -1,5 +1,5 @@
 
-/mob/living/proc/run_armor_check(def_zone = null, attack_flag = "melee", absorb_text = "Your armor absorbs the blow!", soften_text = "Your armor softens the blow!", armour_penetration, penetrated_text = "Your armor was penetrated!", silent=FALSE)
+TYPE_PROC_REF(/mob/living, run_armor_check)(def_zone = null, attack_flag = "melee", absorb_text = "Your armor absorbs the blow!", soften_text = "Your armor softens the blow!", armour_penetration, penetrated_text = "Your armor was penetrated!", silent=FALSE)
 	var/armor = getarmor(def_zone, attack_flag)
 
 	if(silent && armor > 0)
@@ -32,27 +32,27 @@
 	return armor
 
 
-/mob/living/proc/getarmor(def_zone, type)
+TYPE_PROC_REF(/mob/living, getarmor)(def_zone, type)
 	return 0
 
 //this returns the mob's protection against eye damage (number between -1 and 2) from bright lights
-/mob/living/proc/get_eye_protection()
+TYPE_PROC_REF(/mob/living, get_eye_protection)()
 	return 0
 
 //this returns the mob's protection against ear damage (0:no protection; 1: some ear protection; 2: has no ears)
-/mob/living/proc/get_ear_protection()
+TYPE_PROC_REF(/mob/living, get_ear_protection)()
 	return 0
 
-/mob/living/proc/is_mouth_covered(head_only = 0, mask_only = 0)
+TYPE_PROC_REF(/mob/living, is_mouth_covered)(head_only = 0, mask_only = 0)
 	return FALSE
 
-/mob/living/proc/is_eyes_covered(check_glasses = 1, check_head = 1, check_mask = 1)
+TYPE_PROC_REF(/mob/living, is_eyes_covered)(check_glasses = 1, check_head = 1, check_mask = 1)
 	return FALSE
 
-/mob/living/proc/on_hit(obj/item/projectile/P)
+TYPE_PROC_REF(/mob/living, on_hit)(obj/item/projectile/P)
 	return BULLET_ACT_HIT
 
-/mob/living/proc/handle_projectile_attack_redirection(obj/item/projectile/P, redirection_mode, silent = FALSE)
+TYPE_PROC_REF(/mob/living, handle_projectile_attack_redirection)(obj/item/projectile/P, redirection_mode, silent = FALSE)
 	P.ignore_source_check = TRUE
 	switch(redirection_mode)
 		if(REDIRECT_METHOD_DEFLECT)
@@ -119,7 +119,7 @@
 	return P.on_hit(src, final_percent, def_zone) ? BULLET_ACT_HIT : BULLET_ACT_BLOCK
 
 /// Returns TRUE if the thing is fired by a player controlled mob, and we're too wounded to be killed
-/mob/living/proc/ranged_mob_grief(obj/item/projectile/P)
+TYPE_PROC_REF(/mob/living, ranged_mob_grief)(obj/item/projectile/P)
 	if(!istype(P)) // No projectile, no problem (here at least)
 		return FALSE
 	if(!isanimal(P.firer)) // Only simplemobs here pls
@@ -131,10 +131,10 @@
 		return TRUE
 	return FALSE
 
-/mob/living/proc/check_projectile_dismemberment(obj/item/projectile/P, def_zone)
+TYPE_PROC_REF(/mob/living, check_projectile_dismemberment)(obj/item/projectile/P, def_zone)
 	return 0
 
-/obj/item/proc/get_volume_by_throwforce_and_or_w_class()
+TYPE_PROC_REF(/obj/item, get_volume_by_throwforce_and_or_w_class)()
 		if(throwforce && w_class)
 				return clamp((throwforce + w_class) * 5, 30, 100)// Add the item's throwforce to its weight class and multiply by 5, then clamp the value between 30 and 100
 		else if(w_class)
@@ -142,7 +142,7 @@
 		else
 				return 0
 
-/mob/living/proc/catch_item(obj/item/I, skip_throw_mode_check = FALSE)
+TYPE_PROC_REF(/mob/living, catch_item)(obj/item/I, skip_throw_mode_check = FALSE)
 	return FALSE
 
 /mob/living/hitby(atom/movable/AM, skipcatch, hitpush = TRUE, blocked = FALSE, datum/thrownthing/throwingdatum)
@@ -226,7 +226,7 @@
 	IgniteMob()
 
 /// SRC is GRABBED by USER
-/mob/living/proc/grabbedby(mob/living/carbon/user, supress_message = FALSE)
+TYPE_PROC_REF(/mob/living, grabbedby)(mob/living/carbon/user, supress_message = FALSE)
 	if(user == anchored || !isturf(user.loc))
 		return FALSE
 
@@ -248,7 +248,7 @@
 	grippedby(user)
 
 //proc to upgrade a simple pull into a more aggressive grab.
-/mob/living/proc/grippedby(mob/living/carbon/user, instant = FALSE)
+TYPE_PROC_REF(/mob/living, grippedby)(mob/living/carbon/user, instant = FALSE)
 	if(user.grab_state < GRAB_KILL)
 		user.DelayNextAction(CLICK_CD_GRABBING, flush = TRUE)
 		playsound(src, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
@@ -483,7 +483,7 @@
 	return 1
 
 ///As the name suggests, this should be called to apply electric shocks.
-/mob/living/proc/electrocute_act(shock_damage, source, siemens_coeff = 1, flags = NONE)
+TYPE_PROC_REF(/mob/living, electrocute_act)(shock_damage, source, siemens_coeff = 1, flags = NONE)
 	SEND_SIGNAL(src, COMSIG_LIVING_ELECTROCUTE_ACT, shock_damage, source, siemens_coeff, flags)
 	shock_damage *= siemens_coeff
 	if((flags & SHOCK_TESLA) && HAS_TRAIT(src, TRAIT_TESLA_SHOCKIMMUNE))
@@ -560,7 +560,7 @@
 
 
 //called when the mob receives a bright flash
-/mob/living/proc/flash_act(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, type = /obj/screen/fullscreen/flash)
+TYPE_PROC_REF(/mob/living, flash_act)(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, type = /obj/screen/fullscreen/flash)
 	if(get_eye_protection() < intensity && (override_blindness_check || !(HAS_TRAIT(src, TRAIT_BLIND))))
 		overlay_fullscreen("flash", type)
 		addtimer(CALLBACK(src, PROC_REF(clear_fullscreen), "flash", 25), 25)
@@ -568,11 +568,11 @@
 	return FALSE
 
 //called when the mob receives a loud bang
-/mob/living/proc/soundbang_act()
+TYPE_PROC_REF(/mob/living, soundbang_act)()
 	return 0
 
 //to damage the clothes worn by a mob
-/mob/living/proc/damage_clothes(damage_amount, damage_type = BRUTE, damage_flag = 0, def_zone)
+TYPE_PROC_REF(/mob/living, damage_clothes)(damage_amount, damage_type = BRUTE, damage_flag = 0, def_zone)
 	return
 
 
@@ -583,8 +583,8 @@
 	floating_need_update = TRUE
 
 
-/mob/living/proc/getBruteLoss_nonProsthetic()
+TYPE_PROC_REF(/mob/living, getBruteLoss_nonProsthetic)()
 	return getBruteLoss()
 
-/mob/living/proc/getFireLoss_nonProsthetic()
+TYPE_PROC_REF(/mob/living, getFireLoss_nonProsthetic)()
 	return getFireLoss()

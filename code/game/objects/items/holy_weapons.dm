@@ -44,7 +44,7 @@
 	else
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 40, 1)
 
-/obj/item/holybeacon/proc/beacon_armor(mob/M)
+TYPE_PROC_REF(/obj/item/holybeacon, beacon_armor)(mob/M)
 	var/list/holy_armor_list = typesof(/obj/item/storage/box/holy)
 	var/list/display_names = list()
 	for(var/V in holy_armor_list)
@@ -303,7 +303,7 @@
  * Arguments:
  * * M The mob choosing a nullrod reskin
  */
-/obj/item/nullrod/proc/reskin_holy_weapon(mob/living/L)
+TYPE_PROC_REF(/obj/item/nullrod, reskin_holy_weapon)(mob/living/L)
 	/* if(GLOB.holy_weapon_type)
 		return */
 	var/obj/item/holy_weapon
@@ -340,7 +340,7 @@
  * Arguments:
  * * user The mob interacting with a menu
  */
-/obj/item/nullrod/proc/check_menu(mob/user)
+TYPE_PROC_REF(/obj/item/nullrod, check_menu)(mob/user)
 	if(!istype(user))
 		return FALSE
 	if(QDELETED(src) || reskinned)
@@ -349,7 +349,7 @@
 		return FALSE
 	return TRUE
 
-/obj/item/nullrod/proc/jedi_spin(mob/living/user)
+TYPE_PROC_REF(/obj/item/nullrod, jedi_spin)(mob/living/user)
 	for(var/i in list(NORTH,SOUTH,EAST,WEST,EAST,SOUTH,NORTH,SOUTH,EAST,WEST,EAST,SOUTH))
 		if(QDELETED(user) || user.incapacitated())
 			return

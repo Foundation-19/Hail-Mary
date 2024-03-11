@@ -35,7 +35,7 @@
 	START_PROCESSING(SSobj, src)
 	RegisterSignal(living_owner, COMSIG_LIVING_REVIVE, PROC_REF(restart_process))
 
-/datum/component/glow_heal/proc/restart_process()
+TYPE_PROC_REF(/datum/component/glow_heal, restart_process)()
 	START_PROCESSING(SSobj, src)
 
 /datum/component/glow_heal/process()

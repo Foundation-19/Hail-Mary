@@ -91,7 +91,7 @@
 
 //Assembly / attached device memes
 
-/obj/item/onetankbomb/proc/on_entered(atom/movable/AM as mob|obj) //for mousetraps
+TYPE_PROC_REF(/obj/item/onetankbomb, on_entered)(atom/movable/AM as mob|obj) //for mousetraps
 	SIGNAL_HANDLER
 	if(bombassembly)
 		INVOKE_ASYNC(bombassembly, PROC_REF(on_entered), AM)
@@ -124,7 +124,7 @@
 // ---------- Procs below are for tanks that are used exclusively in 1-tank bombs ----------
 
 //Bomb assembly proc. This turns assembly+tank into a bomb
-/obj/item/tank/proc/bomb_assemble(obj/item/assembly_holder/assembly, mob/living/user)
+TYPE_PROC_REF(/obj/item/tank, bomb_assemble)(obj/item/assembly_holder/assembly, mob/living/user)
 	//Check if either part of the assembly has an igniter, but if both parts are igniters, then fuck it
 	if(isigniter(assembly.a_left) == isigniter(assembly.a_right))
 		return
@@ -154,7 +154,7 @@
 	to_chat(user, span_notice("You attach [assembly] to [src]."))
 	return
 
-/obj/item/tank/proc/ignite()	//This happens when a bomb is told to explode
+TYPE_PROC_REF(/obj/item/tank, ignite)()	//This happens when a bomb is told to explode
 	var/fuel_moles = air_contents.get_moles(GAS_PLASMA) + air_contents.get_moles(GAS_O2)/6
 	var/datum/gas_mixture/bomb_mixture = air_contents.copy()
 	var/strength = 1
@@ -204,7 +204,7 @@
 
 	ground_zero.air_update_turf()
 
-/obj/item/tank/proc/release()	//This happens when the bomb is not welded. Tank contents are just spat out.
+TYPE_PROC_REF(/obj/item/tank, release)()	//This happens when the bomb is not welded. Tank contents are just spat out.
 	var/turf/T = get_turf(src)
 	if(!T)
 		return

@@ -8,13 +8,13 @@
 	if(.)
 		update_camera_location(destination)
 
-/mob/living/silicon/proc/do_camera_update(oldLoc)
+TYPE_PROC_REF(/mob/living/silicon, do_camera_update)(oldLoc)
 	if(!QDELETED(builtInCamera) && oldLoc != get_turf(src))
 		GLOB.cameranet.updatePortableCamera(builtInCamera)
 	updating = FALSE
 
 #define SILICON_CAMERA_BUFFER 10
-/mob/living/silicon/proc/update_camera_location(oldLoc)
+TYPE_PROC_REF(/mob/living/silicon, update_camera_location)(oldLoc)
 	oldLoc = get_turf(oldLoc)
 	if(!QDELETED(builtInCamera) && !updating && oldLoc != get_turf(src))
 		updating = TRUE

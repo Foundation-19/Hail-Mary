@@ -1,5 +1,5 @@
 
-/mob/living/silicon/pai/proc/fold_out(force = FALSE)
+TYPE_PROC_REF(/mob/living/silicon/pai, fold_out)(force = FALSE)
 	if(emitterhealth < 0)
 		to_chat(src, span_warning("Your holochassis emitters are still too unstable! Please wait for automatic repair."))
 		return FALSE
@@ -45,7 +45,7 @@
 	visible_message(span_boldnotice("[src] folds out its holochassis emitter and forms a holoshell around itself!"))
 	holoform = TRUE
 
-/mob/living/silicon/pai/proc/fold_in(force = FALSE)
+TYPE_PROC_REF(/mob/living/silicon/pai, fold_in)(force = FALSE)
 	emitter_next_use = world.time + (force? emitteroverloadcd : emittercd)
 	icon_state = "[chassis]"
 	if(!holoform)
@@ -69,7 +69,7 @@
 	set_resting(FALSE, TRUE, FALSE)
 	update_mobility()
 
-/mob/living/silicon/pai/proc/choose_chassis()
+TYPE_PROC_REF(/mob/living/silicon/pai, choose_chassis)()
 	if(!isturf(loc) && loc != card)
 		to_chat(src, span_boldwarning("You can not change your holochassis composite while not on the ground or in your card!"))
 		return FALSE
@@ -107,7 +107,7 @@
 		return ..()
 	return FALSE
 
-/mob/living/silicon/pai/proc/toggle_integrated_light()
+TYPE_PROC_REF(/mob/living/silicon/pai, toggle_integrated_light)()
 	if(!light_range)
 		set_light_on(TRUE)
 		to_chat(src, span_notice("You enable your integrated light."))

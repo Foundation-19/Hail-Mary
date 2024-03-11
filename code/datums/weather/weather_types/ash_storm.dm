@@ -84,7 +84,7 @@
 	sound_wo.stop()
 	sound_wi.stop()
 
-/datum/weather/ash_storm/proc/is_ash_immune(atom/L)
+TYPE_PROC_REF(/datum/weather/ash_storm, is_ash_immune)(atom/L)
 	while (L && !isturf(L))
 		if(ismecha(L)) //Mechs are immune
 			return TRUE

@@ -57,7 +57,7 @@
 		if(is_border(T))
 			place(T)
 
-/datum/mapGeneratorModule/border/proc/is_border(turf/T)
+TYPE_PROC_REF(/datum/mapGeneratorModule/border, is_border)(turf/T)
 	for(var/direction in list(SOUTH,EAST,WEST,NORTH))
 		if (get_step(T,direction) in mother.map)
 			continue

@@ -46,26 +46,26 @@
 		S.disconnect(src, TRUE)
 	return ..()
 
-/datum/ntnet/proc/interface_connect(datum/component/ntnet_interface/I)
+TYPE_PROC_REF(/datum/ntnet, interface_connect)(datum/component/ntnet_interface/I)
 	if(connected_interfaces_by_id[I.hardware_id])
 		return FALSE
 	connected_interfaces_by_id[I.hardware_id] = I
 	return TRUE
 
-/datum/ntnet/proc/interface_disconnect(datum/component/ntnet_interface/I)
+TYPE_PROC_REF(/datum/ntnet, interface_disconnect)(datum/component/ntnet_interface/I)
 	connected_interfaces_by_id -= I.hardware_id
 	return TRUE
 
-/datum/ntnet/proc/find_interface_id(id)
+TYPE_PROC_REF(/datum/ntnet, find_interface_id)(id)
 	return connected_interfaces_by_id[id]
 
-/datum/ntnet/proc/find_service_id(id)
+TYPE_PROC_REF(/datum/ntnet, find_service_id)(id)
 	return services_by_id[id]
 
-/datum/ntnet/proc/find_service_path(path)
+TYPE_PROC_REF(/datum/ntnet, find_service_path)(path)
 	return services_by_path[path]
 
-/datum/ntnet/proc/register_service(datum/ntnet_service/S)
+TYPE_PROC_REF(/datum/ntnet, register_service)(datum/ntnet_service/S)
 	if(!istype(S))
 		return FALSE
 	if(services_by_path[S.type] || services_by_id[S.id])
@@ -74,14 +74,14 @@
 	services_by_id[S.id] = S
 	return TRUE
 
-/datum/ntnet/proc/unregister_service(datum/ntnet_service/S)
+TYPE_PROC_REF(/datum/ntnet, unregister_service)(datum/ntnet_service/S)
 	if(!istype(S))
 		return FALSE
 	services_by_path -= S.type
 	services_by_id -= S.id
 	return TRUE
 
-/datum/ntnet/proc/create_service(type)
+TYPE_PROC_REF(/datum/ntnet, create_service)(type)
 	var/datum/ntnet_service/S = new type
 	if(!istype(S))
 		return FALSE
@@ -89,7 +89,7 @@
 	if(!.)
 		qdel(S)
 
-/datum/ntnet/proc/destroy_service(type)
+TYPE_PROC_REF(/datum/ntnet, destroy_service)(type)
 	var/datum/ntnet_service/S = find_service_path(type)
 	if(!istype(S))
 		return FALSE
@@ -97,7 +97,7 @@
 	if(.)
 		qdel(src)
 
-/datum/ntnet/proc/process_data_transmit(datum/component/ntnet_interface/sender, datum/netdata/data)
+TYPE_PROC_REF(/datum/ntnet, process_data_transmit)(datum/component/ntnet_interface/sender, datum/netdata/data)
 	if(!check_relay_operation())
 		return FALSE
 	data.network_id = src
@@ -123,7 +123,7 @@
 
 	return TRUE
 
-/datum/ntnet/proc/check_relay_operation(zlevel)	//can be expanded later but right now it's true/false.
+TYPE_PROC_REF(/datum/ntnet, check_relay_operation)(zlevel)	//can be expanded later but right now it's true/false.
 	for(var/i in relays)
 		var/obj/machinery/ntnet_relay/n = i
 		if(zlevel && n.z != zlevel)
@@ -132,14 +132,14 @@
 			return TRUE
 	return FALSE
 
-/datum/ntnet/proc/log_data_transfer(datum/netdata/data)
+TYPE_PROC_REF(/datum/ntnet, log_data_transfer)(datum/netdata/data)
 	logs += "[STATION_TIME_TIMESTAMP("hh:mm:ss", world.time)] - [data.generate_netlog()]"
 	if(logs.len > setting_maxlogcount)
 		logs = logs.Copy(logs.len - setting_maxlogcount, 0)
 	return
 
 // Simplified logging: Adds a log. log_string is mandatory parameter, source is optional.
-/datum/ntnet/proc/add_log(log_string, obj/item/computer_hardware/network_card/source = null)
+TYPE_PROC_REF(/datum/ntnet, add_log)(log_string, obj/item/computer_hardware/network_card/source = null)
 	var/log_text = "[STATION_TIME_TIMESTAMP("hh:mm:ss", world.time)] - "
 	if(source)
 		log_text += "[source.get_network_tag()] - "
@@ -154,7 +154,7 @@
 
 
 // Checks whether NTNet operates. If parameter is passed checks whether specific function is enabled.
-/datum/ntnet/proc/check_function(specific_action = 0)
+TYPE_PROC_REF(/datum/ntnet, check_function)(specific_action = 0)
 	if(!relays || !relays.len) // No relays found. NTNet is down
 		return FALSE
 
@@ -177,7 +177,7 @@
 	return TRUE
 
 // Builds lists that contain downloadable software.
-/datum/ntnet/proc/build_software_lists()
+TYPE_PROC_REF(/datum/ntnet, build_software_lists)()
 	available_station_software = list()
 	available_antag_software = list()
 	for(var/F in typesof(/datum/computer_file/program))
@@ -192,7 +192,7 @@
 			available_antag_software.Add(prog)
 
 // Attempts to find a downloadable file according to filename var
-/datum/ntnet/proc/find_ntnet_file_by_name(filename)
+TYPE_PROC_REF(/datum/ntnet, find_ntnet_file_by_name)(filename)
 	for(var/N in available_station_software)
 		var/datum/computer_file/program/P = N
 		if(filename == P.filename)
@@ -202,26 +202,26 @@
 		if(filename == P.filename)
 			return P
 
-/datum/ntnet/proc/get_chat_channel_by_id(id)
+TYPE_PROC_REF(/datum/ntnet, get_chat_channel_by_id)(id)
 	for(var/datum/ntnet_conversation/chan in chat_channels)
 		if(chan.id == id)
 			return chan
 
 // Resets the IDS alarm
-/datum/ntnet/proc/resetIDS()
+TYPE_PROC_REF(/datum/ntnet, resetIDS)()
 	intrusion_detection_alarm = FALSE
 
-/datum/ntnet/proc/toggleIDS()
+TYPE_PROC_REF(/datum/ntnet, toggleIDS)()
 	resetIDS()
 	intrusion_detection_enabled = !intrusion_detection_enabled
 
 // Removes all logs
-/datum/ntnet/proc/purge_logs()
+TYPE_PROC_REF(/datum/ntnet, purge_logs)()
 	logs = list()
 	add_log("-!- LOGS DELETED BY SYSTEM OPERATOR -!-")
 
 // Updates maximal amount of stored logs. Use this instead of setting the number, it performs required checks.
-/datum/ntnet/proc/update_max_log_count(lognumber)
+TYPE_PROC_REF(/datum/ntnet, update_max_log_count)(lognumber)
 	if(!lognumber)
 		return FALSE
 	// Trim the value if necessary
@@ -229,7 +229,7 @@
 	setting_maxlogcount = lognumber
 	add_log("Configuration Updated. Now keeping [setting_maxlogcount] logs in system memory.")
 
-/datum/ntnet/proc/toggle_function(function)
+TYPE_PROC_REF(/datum/ntnet, toggle_function)(function)
 	if(!function)
 		return
 	function = text2num(function)
@@ -250,7 +250,7 @@
 /datum/ntnet/station
 	network_id = "SS13-NTNET"
 
-/datum/ntnet/station/proc/register_map_supremecy()					//called at map init to make this what station networks use.
+TYPE_PROC_REF(/datum/ntnet/station, register_map_supremecy)()					//called at map init to make this what station networks use.
 	for(var/obj/machinery/ntnet_relay/R in GLOB.machines)
 		relays.Add(R)
 		R.NTNet = src

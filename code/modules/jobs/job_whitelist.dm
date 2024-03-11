@@ -5,7 +5,7 @@
 		return FALSE
 	return TRUE
 
-/datum/job/proc/whitelist_locked(client/C, jobname)
+TYPE_PROC_REF(/datum/job, whitelist_locked)(client/C, jobname)
 	if(!whitelist_path)
 		return FALSE // come on in
 	var/list/whitelist = world.file2list(whitelist_path)
@@ -26,7 +26,7 @@
 
 
 //Get this client's whitelists from the database, if any.
-/client/proc/set_job_whitelist_from_db()
+TYPE_PROC_REF(/client, set_job_whitelist_from_db)()
 	if(!CONFIG_GET(flag/use_role_whitelist))
 		return -1
 	if(!SSdbcore.Connect())

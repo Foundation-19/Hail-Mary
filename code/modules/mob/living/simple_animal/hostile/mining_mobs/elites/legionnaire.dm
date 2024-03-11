@@ -95,7 +95,7 @@
 		if(SPEW_SMOKE)
 			spew_smoke()
 
-/mob/living/simple_animal/hostile/asteroid/elite/legionnaire/proc/legionnaire_charge(target)
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/asteroid/elite/legionnaire, legionnaire_charge)(target)
 	ranged_cooldown = world.time + 50
 	var/dir_to_target = get_dir(get_turf(src), get_turf(target))
 	var/turf/T = get_step(get_turf(src), dir_to_target)
@@ -106,7 +106,7 @@
 	visible_message(span_boldwarning("[src] prepares to charge!"))
 	addtimer(CALLBACK(src, PROC_REF(legionnaire_charge_2), dir_to_target, 0), 5)
 
-/mob/living/simple_animal/hostile/asteroid/elite/legionnaire/proc/legionnaire_charge_2(move_dir, times_ran)
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/asteroid/elite/legionnaire, legionnaire_charge_2)(move_dir, times_ran)
 	if(times_ran >= 4)
 		return
 	var/turf/T = get_step(get_turf(src), move_dir)
@@ -135,7 +135,7 @@
 		L.adjustBruteLoss(50)
 	addtimer(CALLBACK(src, PROC_REF(legionnaire_charge_2), move_dir, (times_ran + 1)), 2)
 
-/mob/living/simple_animal/hostile/asteroid/elite/legionnaire/proc/head_detach(target)
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/asteroid/elite/legionnaire, head_detach)(target)
 	ranged_cooldown = world.time + 10
 	if(myhead != null)
 		myhead.adjustBruteLoss(600)
@@ -159,11 +159,11 @@
 			myhead.melee_damage_lower = 20
 			myhead.melee_damage_upper = 20
 
-/mob/living/simple_animal/hostile/asteroid/elite/legionnaire/proc/onHeadDeath()
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/asteroid/elite/legionnaire, onHeadDeath)()
 	myhead = null
 	addtimer(CALLBACK(src, PROC_REF(regain_head)), 50)
 
-/mob/living/simple_animal/hostile/asteroid/elite/legionnaire/proc/regain_head()
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/asteroid/elite/legionnaire, regain_head)()
 	has_head = TRUE
 	if(stat == DEAD)
 		return
@@ -172,7 +172,7 @@
 	icon_aggro = "legionnaire"
 	visible_message(span_boldwarning("The top of [src]'s spine leaks a black liquid, forming into a skull!"))
 
-/mob/living/simple_animal/hostile/asteroid/elite/legionnaire/proc/bonfire_teleport()
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/asteroid/elite/legionnaire, bonfire_teleport)()
 	ranged_cooldown = world.time + 5
 	if(mypile == null)
 		var/obj/structure/legionnaire_bonfire/newpile = new /obj/structure/legionnaire_bonfire(loc)
@@ -195,7 +195,7 @@
 		visible_message(span_boldwarning("[src] forms from the bonfire!"))
 		mypile.forceMove(legionturf)
 
-/mob/living/simple_animal/hostile/asteroid/elite/legionnaire/proc/spew_smoke()
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/asteroid/elite/legionnaire, spew_smoke)()
 	ranged_cooldown = world.time + 60
 	var/turf/T = null
 	if(myhead != null)

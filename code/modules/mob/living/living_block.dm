@@ -2,7 +2,7 @@
 // and similar "stop this attack before it actually impacts the target" as opposed to "defend once it has hit".
 
 /** The actual proc for block checks. DO NOT USE THIS DIRECTLY UNLESS YOU HAVE VERY GOOD REASON TO. To reduce copypaste for differences between handling for real attacks and virtual checks.
- * Automatically checks all held items for /obj/item/proc/run_block() with the same parameters.
+ * Automatically checks all held items for TYPE_PROC_REF(/obj/item, run_block)() with the same parameters.
  * @params
  * real_attack - If this attack is real. This one is quirky; If it's real, run_block is called. If it's not, check_block is called and none of the regular checks happen, and this is effectively only useful
  * 	for populating return_list with blocking metadata.
@@ -16,7 +16,7 @@
  * return_list - If something wants to grab things from what items/whatever put into list/block_return on obj/item/run_block and the comsig, pass in a list so you can grab anything put in it after block runs.
  * attack_direction - Direction of the attack. It is highly recommended to put this in, as the automatic guesswork that's done otherwise is quite inaccurate at times.
  */
-/mob/living/proc/do_run_block(real_attack = TRUE, atom/object, damage, attack_text, attack_type, armour_penetration, mob/attacker, def_zone, list/return_list = list(), attack_direction)
+TYPE_PROC_REF(/mob/living, do_run_block)(real_attack = TRUE, atom/object, damage, attack_text, attack_type, armour_penetration, mob/attacker, def_zone, list/return_list = list(), attack_direction)
 	if(real_attack)
 		. = run_parry(object, damage, attack_text, attack_type, armour_penetration, attacker, def_zone, return_list)			//Parry - Highest priority!
 		if((. & BLOCK_SUCCESS) && !(. & BLOCK_CONTINUE_CHAIN))
@@ -56,7 +56,7 @@
 		return_list[BLOCK_RETURN_PROJECTILE_BLOCK_PERCENTAGE] = return_list[BLOCK_RETURN_MITIGATION_PERCENT]
 
 /// Gets an unsortedlist of objects to run block checks on. List must have associative values for priorities!
-/mob/living/proc/get_blocking_items()
+TYPE_PROC_REF(/mob/living, get_blocking_items)()
 	. = list()
 	if(active_block_item)
 		var/datum/block_parry_data/data = active_block_item.get_block_parry_data()
@@ -77,7 +77,7 @@
 	var/block_priority = BLOCK_PRIORITY_DEFAULT
 
 /// Runs block and returns flag for do_run_block to process.
-/obj/item/proc/run_block(mob/living/owner, atom/object, damage, attack_text, attack_type, armour_penetration, mob/attacker, def_zone, final_block_chance, list/block_return)
+TYPE_PROC_REF(/obj/item, run_block)(mob/living/owner, atom/object, damage, attack_text, attack_type, armour_penetration, mob/attacker, def_zone, final_block_chance, list/block_return)
 	. = SEND_SIGNAL(src, COMSIG_ITEM_RUN_BLOCK, owner, object, damage, attack_text, attack_type, armour_penetration, attacker, def_zone, final_block_chance, block_return)
 	if(. & BLOCK_SUCCESS)
 		return
@@ -88,7 +88,7 @@
 	return . | BLOCK_NONE
 
 /// Returns block information using list/block_return. Used for check_block() on mobs.
-/obj/item/proc/check_block(mob/living/owner, atom/object, damage, attack_text, attack_type, armour_penetration, mob/attacker, def_zone, final_block_chance, list/block_return)
+TYPE_PROC_REF(/obj/item, check_block)(mob/living/owner, atom/object, damage, attack_text, attack_type, armour_penetration, mob/attacker, def_zone, final_block_chance, list/block_return)
 	SEND_SIGNAL(src, COMSIG_ITEM_CHECK_BLOCK, owner, object, damage, attack_text, attack_type, armour_penetration, attacker, def_zone, final_block_chance, block_return)
 	var/existing = block_return[BLOCK_RETURN_NORMAL_BLOCK_CHANCE]
 	block_return[BLOCK_RETURN_NORMAL_BLOCK_CHANCE] = max(existing || 0, final_block_chance)

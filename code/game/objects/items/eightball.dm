@@ -41,7 +41,7 @@
 	if(MakeHaunted())
 		return INITIALIZE_HINT_QDEL
 
-/obj/item/toy/eightball/proc/MakeHaunted()
+TYPE_PROC_REF(/obj/item/toy/eightball, MakeHaunted)()
 	. = prob(1)
 	if(.)
 		new /obj/item/toy/eightball/haunted(loc)
@@ -68,13 +68,13 @@
 
 	shaking = FALSE
 
-/obj/item/toy/eightball/proc/start_shaking(user)
+TYPE_PROC_REF(/obj/item/toy/eightball, start_shaking)(user)
 	return
 
-/obj/item/toy/eightball/proc/get_answer()
+TYPE_PROC_REF(/obj/item/toy/eightball, get_answer)()
 	return pick(possible_answers)
 
-/obj/item/toy/eightball/proc/clear_cooldown()
+TYPE_PROC_REF(/obj/item/toy/eightball, clear_cooldown)()
 	on_cooldown = FALSE
 
 // A broken magic eightball, it only says "YOU SUCK" over and over again.

@@ -39,7 +39,7 @@
 		return
 	sweep(user, A)
 
-/obj/item/broom/proc/sweep(datum/source, atom/newLoc)
+TYPE_PROC_REF(/obj/item/broom, sweep)(datum/source, atom/newLoc)
 	if(!ismob(source) || !isturf(newLoc) || (get_dist(source, newLoc) > 1))
 		return
 	var/turf/target = newLoc
@@ -60,7 +60,7 @@
 	if(things_swept)
 		playsound(loc, 'sound/weapons/thudswoosh.ogg', 30, TRUE, -1)
 
-/obj/item/broom/proc/janicart_insert(mob/user, obj/structure/janitorialcart/J) //bless you whoever fixes this copypasta
+TYPE_PROC_REF(/obj/item/broom, janicart_insert)(mob/user, obj/structure/janitorialcart/J) //bless you whoever fixes this copypasta
 	J.put_in_cart(src, user)
 	J.mybroom=src
 	J.update_icon()

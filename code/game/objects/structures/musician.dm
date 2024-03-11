@@ -33,7 +33,7 @@
 // note is a number from 1-7 for A-G
 // acc is either "b", "n", or "#"
 // oct is 1-8 (or 9 for C)
-/datum/song/proc/playnote(note, acc as text, oct)
+TYPE_PROC_REF(/datum/song, playnote)(note, acc as text, oct)
 	// handle accidental -> B<>C of E<>F
 	if(acc == "b" && (note == 3 || note == 6)) // C or F
 		if(note == 3)
@@ -77,10 +77,10 @@
 		var/mob/M = i
 		M.playsound_local(source, null, 70, falloff = 5, S = music_played)
 
-/datum/song/proc/updateDialog(mob/user)
+TYPE_PROC_REF(/datum/song, updateDialog)(mob/user)
 	instrumentObj.updateDialog()		// assumes it's an object in world, override if otherwise
 
-/datum/song/proc/shouldStopPlaying(mob/user)
+TYPE_PROC_REF(/datum/song, shouldStopPlaying)(mob/user)
 	if(instrumentObj)
 		if(!user.canUseTopic(instrumentObj))
 			return TRUE
@@ -88,7 +88,7 @@
 	else
 		return TRUE
 
-/datum/song/proc/playsong(mob/user)
+TYPE_PROC_REF(/datum/song, playsong)(mob/user)
 	while(repeat >= 0)
 		var/cur_oct[7]
 		var/cur_acc[7]
@@ -138,7 +138,7 @@
 	repeat = 0
 	updateDialog(user)
 
-/datum/song/proc/interact(mob/user)
+TYPE_PROC_REF(/datum/song, interact)(mob/user)
 	var/dat = ""
 
 	if(lines.len > 0)
@@ -194,7 +194,7 @@
 	popup.set_title_image(user.browse_rsc_icon(instrumentObj.icon, instrumentObj.icon_state))
 	popup.open()
 
-/datum/song/proc/ParseSong(text)
+TYPE_PROC_REF(/datum/song, ParseSong)(text)
 	set waitfor = FALSE
 	//split into lines
 	lines = splittext(text, "\n")
@@ -300,7 +300,7 @@
 	updateDialog(usr)
 	return
 
-/datum/song/proc/sanitize_tempo(new_tempo)
+TYPE_PROC_REF(/datum/song, sanitize_tempo)(new_tempo)
 	new_tempo = abs(new_tempo)
 	return max(round(new_tempo, world.tick_lag), world.tick_lag)
 

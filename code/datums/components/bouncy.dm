@@ -28,7 +28,7 @@
 	. = ..()
 	UnregisterSignal(parent, bounce_signals)
 
-/datum/component/bouncy/proc/bounce_up(datum/source)
+TYPE_PROC_REF(/datum/component/bouncy, bounce_up)(datum/source)
 	var/atom/movable/A = parent
 	switch(rand(1, 3))
 		if(1)

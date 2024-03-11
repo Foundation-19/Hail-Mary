@@ -313,7 +313,7 @@ GLOBAL_LIST_EMPTY(family_heirlooms)
 	if(prob(2)) //we'll all be mad soon enough
 		madness()
 
-/datum/quirk/insanity/proc/madness()
+TYPE_PROC_REF(/datum/quirk/insanity, madness)()
 	quirk_holder.hallucination += rand(10, 25)
 
 /datum/quirk/insanity/post_add() //I don't /think/ we'll need this but for newbies who think "roleplay as insane" = "license to kill" it's probably a good thing to have
@@ -360,14 +360,14 @@ GLOBAL_LIST_EMPTY(family_heirlooms)
 
 /* small chance to make eye contact with inanimate objects/mindless mobs because of nerves
 Edit: TK~  This is the dumbest fucking shit I've ever seen in my life.  This isn't fucking socially anxious, it's a fucking mania.
-/datum/quirk/social_anxiety/proc/looks_at_floor(datum/source, atom/A)
+TYPE_PROC_REF(/datum/quirk/social_anxiety, looks_at_floor)(datum/source, atom/A)
 	var/mob/living/mind_check = A
 	if(prob(85) || (istype(mind_check) && mind_check.mind))
 		return
 
 	addtimer(CALLBACK(GLOBAL_PROC, PROC_REF(to_chat), quirk_holder, span_smallnotice("You make eye contact with [A].")), 3)
 */
-/datum/quirk/social_anxiety/proc/eye_contact(datum/source, mob/living/other_mob, triggering_examiner)
+TYPE_PROC_REF(/datum/quirk/social_anxiety, eye_contact)(datum/source, mob/living/other_mob, triggering_examiner)
 	if(prob(75))
 		return
 	var/msg

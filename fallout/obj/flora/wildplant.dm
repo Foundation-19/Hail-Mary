@@ -62,7 +62,7 @@
 		else if (health <= (myseed.endurance / 2))
 			to_chat(user, span_warning("It looks unhealthy."))
 
-/obj/structure/flora/wild_plant/proc/plantdies()
+TYPE_PROC_REF(/obj/structure/flora/wild_plant, plantdies)()
 	health = 0
 	harvest = 0
 	if(!dead)

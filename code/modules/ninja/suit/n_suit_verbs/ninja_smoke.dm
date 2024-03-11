@@ -1,7 +1,7 @@
 
 
 //Smoke bomb
-/obj/item/clothing/suit/space/space_ninja/proc/ninjasmoke()
+TYPE_PROC_REF(/obj/item/clothing/suit/space/space_ninja, ninjasmoke)()
 
 	if(!ninjacost(0,N_SMOKE_BOMB))
 		var/mob/living/carbon/human/H = affecting

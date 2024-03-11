@@ -24,17 +24,17 @@
 /obj/item/button/attackby(obj/item/W, mob/user, params)
 	activate(user)
 
-/obj/item/button/proc/attach_to_storage(datum/source, obj/item/storage/S)
+TYPE_PROC_REF(/obj/item/button, attach_to_storage)(datum/source, obj/item/storage/S)
 	RegisterSignal(S, COMSIG_BUTTON_UPDATE, PROC_REF(reaction))
 
-/obj/item/button/proc/activate(datum/source, mob/user)
+TYPE_PROC_REF(/obj/item/button, activate)(datum/source, mob/user)
 	playsound(get_turf(src), click_sound, 50, TRUE)
 	SEND_SIGNAL(loc, COMSIG_BUTTON_CLICK, user, src)
 
-/obj/item/button/proc/reaction(datum/source, parameters)
+TYPE_PROC_REF(/obj/item/button, reaction)(datum/source, parameters)
 	return
 
-/obj/item/button/proc/use_message(mob/user)
+TYPE_PROC_REF(/obj/item/button, use_message)(mob/user)
 	to_chat(user, span_notice("You press [src]."))
 
 /obj/item/button/battery_toggle

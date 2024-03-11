@@ -60,7 +60,7 @@
 	sheet_type = /obj/item/stack/sheet/mineral/uranium
 	canSmoothWith = list(/turf/closed/wall/mineral/uranium, /obj/structure/falsewall/uranium)
 
-/turf/closed/wall/mineral/uranium/proc/radiate()
+TYPE_PROC_REF(/turf/closed/wall/mineral/uranium, radiate)()
 	if(!active)
 		if(world.time > last_event+15)
 			active = 1
@@ -101,7 +101,7 @@
 		return
 	..()
 
-/turf/closed/wall/mineral/plasma/proc/PlasmaBurn(temperature)
+TYPE_PROC_REF(/turf/closed/wall/mineral/plasma, PlasmaBurn)(temperature)
 	new girder_type(src)
 	src.ChangeTurf(/turf/open/floor/plasteel)
 	var/turf/open/T = src
@@ -111,7 +111,7 @@
 	if(exposed_temperature > 300)
 		PlasmaBurn(exposed_temperature)
 
-/turf/closed/wall/mineral/plasma/proc/ignite(exposed_temperature)
+TYPE_PROC_REF(/turf/closed/wall/mineral/plasma, ignite)(exposed_temperature)
 	if(exposed_temperature > 300)
 		PlasmaBurn(exposed_temperature)
 
@@ -146,7 +146,7 @@
 	..()
 
 //Bringing back an old version of wall smoothing code because this has a bit of a special icon.
-/turf/closed/wall/mineral/wood/proc/relativewall()
+TYPE_PROC_REF(/turf/closed/wall/mineral/wood, relativewall)()
 	var/junction = 0
 
 	for(var/cdir in GLOB.cardinals)

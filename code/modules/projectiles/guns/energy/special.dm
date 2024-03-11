@@ -215,23 +215,23 @@
 	..()
 	select_fire()
 
-/obj/item/gun/energy/wormhole_projector/proc/on_portal_destroy(obj/effect/portal/P)
+TYPE_PROC_REF(/obj/item/gun/energy/wormhole_projector, on_portal_destroy)(obj/effect/portal/P)
 	if(P == p_blue)
 		p_blue = null
 	else if(P == p_orange)
 		p_orange = null
 
-/obj/item/gun/energy/wormhole_projector/proc/has_blue_portal()
+TYPE_PROC_REF(/obj/item/gun/energy/wormhole_projector, has_blue_portal)()
 	if(istype(p_blue) && !QDELETED(p_blue))
 		return TRUE
 	return FALSE
 
-/obj/item/gun/energy/wormhole_projector/proc/has_orange_portal()
+TYPE_PROC_REF(/obj/item/gun/energy/wormhole_projector, has_orange_portal)()
 	if(istype(p_orange) && !QDELETED(p_orange))
 		return TRUE
 	return FALSE
 
-/obj/item/gun/energy/wormhole_projector/proc/crosslink()
+TYPE_PROC_REF(/obj/item/gun/energy/wormhole_projector, crosslink)()
 	if(!has_blue_portal() && !has_orange_portal())
 		return
 	if(!has_blue_portal() && has_orange_portal())
@@ -243,7 +243,7 @@
 	p_orange.link_portal(p_blue)
 	p_blue.link_portal(p_orange)
 
-/obj/item/gun/energy/wormhole_projector/proc/create_portal(obj/item/projectile/beam/wormhole/W, turf/target)
+TYPE_PROC_REF(/obj/item/gun/energy/wormhole_projector, create_portal)(obj/item/projectile/beam/wormhole/W, turf/target)
 	var/obj/effect/portal/P = new /obj/effect/portal(target, src, 300, null, FALSE, null, atmos_link)
 	if(istype(W, /obj/item/projectile/beam/wormhole/orange))
 		qdel(p_orange)

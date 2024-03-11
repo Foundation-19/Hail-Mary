@@ -29,7 +29,7 @@
 	. = ..()
 	INVOKE_ASYNC(src, PROC_REF(setup_visuals))
 
-/mob/living/simple_animal/hostile/zombie/proc/setup_visuals()
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/zombie, setup_visuals)()
 	var/datum/preferences/dummy_prefs = new
 	dummy_prefs.pref_species = new /datum/species/zombie
 	dummy_prefs.be_random_body = TRUE

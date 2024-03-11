@@ -22,7 +22,7 @@
 		. += "<span class='notice'>Serves as a substitute for <b>fire/air alarm</b>, <b>firelock</b>, and <b>APC</b> electronics.</span>"
 		. += "<span class='notice'>It can also be used on an APC with no power cell to <b>fabricate a low-capacity cell</b> at a high power cost.</span>"
 
-/obj/item/electroadaptive_pseudocircuit/proc/adapt_circuit(mob/living/silicon/robot/R, circuit_cost = 0)
+TYPE_PROC_REF(/obj/item/electroadaptive_pseudocircuit, adapt_circuit)(mob/living/silicon/robot/R, circuit_cost = 0)
 	if(QDELETED(R) || !istype(R))
 		return
 	if(!R.cell)
@@ -59,7 +59,7 @@
 	playsound(user, 'sound/items/deconstruct.ogg', 50, TRUE)
 	qdel(target)
 
-/obj/item/electroadaptive_pseudocircuit/proc/recharge()
+TYPE_PROC_REF(/obj/item/electroadaptive_pseudocircuit, recharge)()
 	playsound(src, 'sound/machines/chime.ogg', 25, TRUE)
 	recharging = FALSE
 	icon_state = initial(icon_state)

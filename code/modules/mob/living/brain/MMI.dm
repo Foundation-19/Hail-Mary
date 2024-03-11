@@ -26,7 +26,7 @@
 	. = ..()
 	. += add_mmi_overlay()
 
-/obj/item/mmi/proc/add_mmi_overlay()
+TYPE_PROC_REF(/obj/item/mmi, add_mmi_overlay)()
 	if(brainmob && brainmob.stat != DEAD)
 		. += "mmi_alive"
 	else
@@ -96,7 +96,7 @@
 		update_icon()
 		name = initial(name)
 
-/obj/item/mmi/proc/eject_brain(mob/user)
+TYPE_PROC_REF(/obj/item/mmi, eject_brain)(mob/user)
 	brainmob.container = null //Reset brainmob mmi var.
 	brainmob.forceMove(brain) //Throw mob into brain.
 	brainmob.set_stat(DEAD)
@@ -114,7 +114,7 @@
 	brain = null //No more brain in here
 
 
-/obj/item/mmi/proc/transfer_identity(mob/living/L) //Same deal as the regular brain proc. Used for human-->robot people.
+TYPE_PROC_REF(/obj/item/mmi, transfer_identity)(mob/living/L) //Same deal as the regular brain proc. Used for human-->robot people.
 	if(!brainmob)
 		brainmob = new(src)
 	brainmob.name = L.real_name
@@ -143,7 +143,7 @@
 	else
 		braintype = "Cyborg"
 
-/obj/item/mmi/proc/replacement_ai_name()
+TYPE_PROC_REF(/obj/item/mmi, replacement_ai_name)()
 	return brainmob.name
 
 /obj/item/mmi/verb/Toggle_Listening()

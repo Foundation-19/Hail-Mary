@@ -169,7 +169,7 @@
 					message_admins("An anomalous pizza box was silently created with no command report in a pizza crate delivery.")
 				break
 
-/datum/supply_pack/organic/pizza/proc/anomalous_pizza_report()
+TYPE_PROC_REF(/datum/supply_pack/organic/pizza, anomalous_pizza_report)()
 	print_command_report("[station_name()], our anomalous materials divison has reported a missing object that is highly likely to have been sent to your station during a routine cargo \
 	delivery. Please search all crates and manifests provided with the delivery and return the object if is located. The object resembles a standard <b>\[DATA EXPUNGED\]</b> and is to be \
 	considered <b>\[REDACTED\]</b> and returned at your leisure. Note that objects the anomaly produces are specifically attuned exactly to the individual opening the anomaly; regardless \

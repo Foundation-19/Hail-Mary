@@ -1,4 +1,4 @@
-/mob/living/proc/alien_talk(message, shown_name = real_name)
+TYPE_PROC_REF(/mob/living, alien_talk)(message, shown_name = real_name)
 	src.log_talk(message, LOG_SAY)
 	message = trim(message)
 	if(!message)

@@ -21,10 +21,10 @@
 	var/static/list/signals_b_gone = list(COMSIG_ATOM_HAS_GRAVITY, COMSIG_TURF_HAS_GRAVITY)
 	UnregisterSignal(source, signals_b_gone)
 
-/datum/element/forced_gravity/proc/gravity_check(datum/source, turf/location, list/gravs)
+TYPE_PROC_REF(/datum/element/forced_gravity, gravity_check)(datum/source, turf/location, list/gravs)
 	if(!ignore_space && isspaceturf(location))
 		return
 	gravs += gravity
 
-/datum/element/forced_gravity/proc/turf_gravity_check(datum/source, atom/checker, list/gravs)
+TYPE_PROC_REF(/datum/element/forced_gravity, turf_gravity_check)(datum/source, atom/checker, list/gravs)
 	return gravity_check(null, source, gravs)

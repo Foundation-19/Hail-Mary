@@ -59,7 +59,7 @@
 				occupier.notify_ghost_cloning("Your core files are being restored!", source = src)
 				. = TRUE
 
-/obj/machinery/computer/aifixer/proc/Fix()
+TYPE_PROC_REF(/obj/machinery/computer/aifixer, Fix)()
 	use_power(1000)
 	occupier.adjustOxyLoss(-1, 0)
 	occupier.adjustFireLoss(-1, 0)

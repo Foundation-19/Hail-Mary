@@ -96,14 +96,14 @@ effective or pretty fucking useless.
 	else
 		to_chat(user, span_warning("The radioactive microlaser is still recharging."))
 
-/obj/item/healthanalyzer/rad_laser/proc/radiation_aftereffect(mob/living/M)
+TYPE_PROC_REF(/obj/item/healthanalyzer/rad_laser, radiation_aftereffect)(mob/living/M)
 	if(QDELETED(M))
 		return
 	if(intensity >= 5)
 		M.apply_effect(round(intensity/0.075), EFFECT_UNCONSCIOUS)
 	M.rad_act(intensity*10)
 
-/obj/item/healthanalyzer/rad_laser/proc/get_cooldown()
+TYPE_PROC_REF(/obj/item/healthanalyzer/rad_laser, get_cooldown)()
 	return round(max(10, (stealth*30 + intensity*5 - wavelength/4)))
 
 /obj/item/healthanalyzer/rad_laser/attack_self(mob/user)
@@ -211,7 +211,7 @@ effective or pretty fucking useless.
 	if(slot == SLOT_BELT)
 		return 1
 
-/obj/item/shadowcloak/proc/Activate(mob/living/carbon/human/user)
+TYPE_PROC_REF(/obj/item/shadowcloak, Activate)(mob/living/carbon/human/user)
 	if(!user)
 		return
 	to_chat(user, span_notice("You activate [src]."))
@@ -220,7 +220,7 @@ effective or pretty fucking useless.
 	old_alpha = user.alpha
 	on = TRUE
 
-/obj/item/shadowcloak/proc/Deactivate()
+TYPE_PROC_REF(/obj/item/shadowcloak, Deactivate)()
 	to_chat(user, span_notice("You deactivate [src]."))
 	STOP_PROCESSING(SSobj, src)
 	if(user)

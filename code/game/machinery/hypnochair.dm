@@ -75,10 +75,10 @@
 				interrupt_interrogation()
 			. = TRUE
 
-/obj/machinery/hypnochair/proc/set_phrase(phrase)
+TYPE_PROC_REF(/obj/machinery/hypnochair, set_phrase)(phrase)
 	trigger_phrase = phrase
 
-/obj/machinery/hypnochair/proc/interrogate()
+TYPE_PROC_REF(/obj/machinery/hypnochair, interrogate)()
 	if(!trigger_phrase)
 		playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 25, TRUE)
 		return
@@ -111,7 +111,7 @@
 			"...an annoying buzz in your ears..."\
 		)]</span>")
 
-/obj/machinery/hypnochair/proc/finish_interrogation()
+TYPE_PROC_REF(/obj/machinery/hypnochair, finish_interrogation)()
 	interrogating = FALSE
 	STOP_PROCESSING(SSobj, src)
 	update_icon()
@@ -133,7 +133,7 @@
 			victim.gain_trauma(new /datum/brain_trauma/severe/hypnotic_stupor(), TRAUMA_RESILIENCE_SURGERY)
 	victim = null
 
-/obj/machinery/hypnochair/proc/interrupt_interrogation()
+TYPE_PROC_REF(/obj/machinery/hypnochair, interrupt_interrogation)()
 	deltimer(timerid)
 	interrogating = FALSE
 	STOP_PROCESSING(SSobj, src)

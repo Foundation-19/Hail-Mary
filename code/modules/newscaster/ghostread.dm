@@ -14,7 +14,7 @@
 		if(istype(D, /datum/news/feed_channel))		//safety
 			render_news_channel(D)
 
-/mob/dead/observer/proc/render_news_channel_list()
+TYPE_PROC_REF(/mob/dead/observer, render_news_channel_list)()
 	var/datum/news_network/news_network = GLOB.news_network
 	var/list/content = list()
 	for(var/i in news_network.network_channels)
@@ -22,7 +22,7 @@
 		content += "<b><a href='?_src_=[REF(src)];show_news_channel=[REF(FC)]'>[FC.channel_name] ([length(FC.messages)] messages)[FC.locked? " (LOCKED)":""][FC.censored? " (CENSORED)":""][FC.is_admin_channel? " (ADMIN)":""]</a></b>"
 	return content.Join("<br>")
 
-/mob/dead/observer/proc/render_news_channel(datum/news/feed_channel/FC)
+TYPE_PROC_REF(/mob/dead/observer, render_news_channel)(datum/news/feed_channel/FC)
 	var/list/content = list()
 	content += "<B>[FC.channel_name]: </B><FONT SIZE=1>\[created by: <FONT COLOR='maroon'>[FC.returnAuthor(-1)]</FONT>\]</FONT><HR>"
 	if(FC.censored)

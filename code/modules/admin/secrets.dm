@@ -1,4 +1,4 @@
-/datum/admins/proc/Secrets()
+TYPE_PROC_REF(/datum/admins, Secrets)()
 	if(!check_rights(0))
 		return
 
@@ -93,7 +93,7 @@
 
 
 
-/datum/admins/proc/Secrets_topic(item,href_list)
+TYPE_PROC_REF(/datum/admins, Secrets_topic)(item,href_list)
 	var/datum/round_event/E
 	var/ok = 0
 	switch(item)

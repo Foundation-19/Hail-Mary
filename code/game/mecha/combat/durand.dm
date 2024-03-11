@@ -55,7 +55,7 @@
 	. = ..()
 
 ///Relays the signal from the action button to the shield, and creates a new shield if the old one is MIA.
-/obj/mecha/combat/durand/proc/relay(datum/source, list/signal_args)
+TYPE_PROC_REF(/obj/mecha/combat/durand, relay)(datum/source, list/signal_args)
 	if(!shield) //if the shield somehow got deleted
 		shield = new/obj/durand_shield
 		shield.chassis = src
@@ -65,14 +65,14 @@
 	SEND_SIGNAL(shield, COMSIG_MECHA_ACTION_ACTIVATE, source, signal_args)
 
 //Redirects projectiles to the shield if defense_check decides they should be blocked and returns true.
-/obj/mecha/combat/durand/proc/prehit(obj/item/projectile/source, list/signal_args)
+TYPE_PROC_REF(/obj/mecha/combat/durand, prehit)(obj/item/projectile/source, list/signal_args)
 	if(defense_check(source.loc) && shield)
 		signal_args[2] = shield
 
 
 /**Checks if defense mode is enabled, and if the attacker is standing in an area covered by the shield.
 Expects a turf. Returns true if the attack should be blocked, false if not.*/
-/obj/mecha/combat/durand/proc/defense_check(turf/aloc)
+TYPE_PROC_REF(/obj/mecha/combat/durand, defense_check)(turf/aloc)
 	if (!defense_mode || !shield || shield.switching)
 		return FALSE
 	. = FALSE
@@ -156,7 +156,7 @@ own integrity back to max. Shield is automatically dropped if we run out of powe
 and relayed by the mech itself. The "forced" variabe, signal_args[1], will skip the to-pilot text and is meant for when
 the shield is disabled by means other than the action button (like running out of power)*/
 
-/obj/durand_shield/proc/activate(datum/source, datum/action/innate/mecha/mech_defense_mode/button, list/signal_args)
+TYPE_PROC_REF(/obj/durand_shield, activate)(datum/source, datum/action/innate/mecha/mech_defense_mode/button, list/signal_args)
 	if(!chassis || !chassis.occupant)
 		return
 	if(switching && !signal_args[1])

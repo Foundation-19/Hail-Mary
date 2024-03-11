@@ -163,7 +163,7 @@
 	else
 		. += "glass_raised"
 
-/obj/structure/fireaxecabinet/proc/toggle_lock(mob/user)
+TYPE_PROC_REF(/obj/structure/fireaxecabinet, toggle_lock)(mob/user)
 	to_chat(user, "<span class = 'caution'> Resetting circuitry...</span>")
 	playsound(src, 'sound/machines/locktoggle.ogg', 50, 1)
 	if(do_after(user, 20, target = src))

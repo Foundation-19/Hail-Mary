@@ -316,7 +316,7 @@
 	else
 		return ..()
 
-/obj/item/circuitboard/machine/vendor/proc/set_type(obj/machinery/vending/typepath)
+TYPE_PROC_REF(/obj/item/circuitboard/machine/vendor, set_type)(obj/machinery/vending/typepath)
 	build_path = typepath
 	name = "[vending_names_paths[build_path]] Vendor (Machine Board)"
 	req_components = list(initial(typepath.refill_canister) = 1)

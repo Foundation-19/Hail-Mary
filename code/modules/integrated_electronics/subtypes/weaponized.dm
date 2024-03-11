@@ -111,7 +111,7 @@
 	assembly.visible_message(span_danger("[assembly] fires [installed_gun]!"))
 	shootAt(locate(target_x, target_y, T.z))
 
-/obj/item/integrated_circuit/weaponized/weapon_firing/proc/shootAt(turf/target)
+TYPE_PROC_REF(/obj/item/integrated_circuit/weaponized/weapon_firing, shootAt)(turf/target)
 	var/turf/T = get_turf(src)
 	var/turf/U = target
 	if(!istype(T) || !istype(U))
@@ -202,12 +202,12 @@
 		message_admins("activated a grenade assembly. Last touches: Assembly: [holder.fingerprintslast] Circuit: [fingerprintslast] Grenade: [attached_grenade.fingerprintslast]")
 
 // These procs do not relocate the grenade, that's the callers responsibility
-/obj/item/integrated_circuit/weaponized/grenade/proc/attach_grenade(obj/item/grenade/G)
+TYPE_PROC_REF(/obj/item/integrated_circuit/weaponized/grenade, attach_grenade)(obj/item/grenade/G)
 	attached_grenade = G
 	G.forceMove(src)
 	desc += " \An [attached_grenade] is attached to it!"
 
-/obj/item/integrated_circuit/weaponized/grenade/proc/detach_grenade()
+TYPE_PROC_REF(/obj/item/integrated_circuit/weaponized/grenade, detach_grenade)()
 	if(!attached_grenade)
 		return
 	attached_grenade.forceMove(drop_location())
@@ -332,7 +332,7 @@
 	else
 		activate_pin(3)
 
-/obj/item/integrated_circuit/weaponized/proc/attempt_stun(mob/living/L,stunforce = 70) //Copied from stunbaton code.
+TYPE_PROC_REF(/obj/item/integrated_circuit/weaponized, attempt_stun)(mob/living/L,stunforce = 70) //Copied from stunbaton code.
 
 	if(!L || !isliving(L))
 		return 0

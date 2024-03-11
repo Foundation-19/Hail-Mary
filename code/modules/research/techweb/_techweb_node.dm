@@ -22,7 +22,7 @@
 	display_name = "ERROR"
 	description = "This usually means something in the database has corrupted. If it doesn't go away automatically, inform Central Command for their techs to fix it ASAP(tm)"
 
-/datum/techweb_node/proc/Initialize()
+TYPE_PROC_REF(/datum/techweb_node, Initialize)()
 	//Make lists associative for lookup
 	for(var/id in prereq_ids)
 		prereq_ids[id] = TRUE
@@ -66,23 +66,23 @@
 	Initialize()
 	return src
 
-/datum/techweb_node/proc/on_design_deletion(datum/design/D)
+TYPE_PROC_REF(/datum/techweb_node, on_design_deletion)(datum/design/D)
 	prune_design_id(D.id)
 
-/datum/techweb_node/proc/on_node_deletion(datum/techweb_node/TN)
+TYPE_PROC_REF(/datum/techweb_node, on_node_deletion)(datum/techweb_node/TN)
 	prune_node_id(TN.id)
 
-/datum/techweb_node/proc/prune_design_id(design_id)
+TYPE_PROC_REF(/datum/techweb_node, prune_design_id)(design_id)
 	design_ids -= design_id
 
-/datum/techweb_node/proc/prune_node_id(node_id)
+TYPE_PROC_REF(/datum/techweb_node, prune_node_id)(node_id)
 	prereq_ids -= node_id
 	unlock_ids -= node_id
 
-/datum/techweb_node/proc/price_display(datum/techweb/TN)
+TYPE_PROC_REF(/datum/techweb_node, price_display)(datum/techweb/TN)
 	return techweb_point_display_generic(get_price(TN))
 
-/datum/techweb_node/proc/get_price(datum/techweb/host)
+TYPE_PROC_REF(/datum/techweb_node, get_price)(datum/techweb/host)
 	if(host)
 		var/list/actual_costs = research_costs
 		if(host.boosted_nodes[id])

@@ -50,7 +50,7 @@ obj/structure/safe/LateInitialize()
 			I.forceMove(src)
 
 
-/obj/structure/safe/proc/check_unlocked(mob/user, canhear)
+TYPE_PROC_REF(/obj/structure/safe, check_unlocked)(mob/user, canhear)
 	if(explosion_count > 2)
 		return 1
 	if(user && canhear)
@@ -64,13 +64,13 @@ obj/structure/safe/LateInitialize()
 		return TRUE
 	return FALSE
 
-/obj/structure/safe/proc/decrement(num)
+TYPE_PROC_REF(/obj/structure/safe, decrement)(num)
 	num -= 1
 	if(num < 0)
 		num = 71
 	return num
 
-/obj/structure/safe/proc/increment(num)
+TYPE_PROC_REF(/obj/structure/safe, increment)(num)
 	num += 1
 	if(num > 71)
 		num = 0

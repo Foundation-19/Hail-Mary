@@ -126,7 +126,7 @@
 		to_chat(src, span_brass("You activate [T]."))
 		T.activate()
 
-/mob/camera/eminence/proc/attempt_recall(obj/structure/destructible/clockwork/massive/celestial_gateway/G)
+TYPE_PROC_REF(/mob/camera/eminence, attempt_recall)(obj/structure/destructible/clockwork/massive/celestial_gateway/G)
 	if(G.recalling)
 		return
 	if(!G.recalls_remaining)
@@ -143,7 +143,7 @@
 	transform = matrix() * 2
 	invisibility = SEE_INVISIBLE_MINIMUM
 
-/mob/camera/eminence/proc/issue_command(atom/movable/A)
+TYPE_PROC_REF(/mob/camera/eminence, issue_command)(atom/movable/A)
 	var/list/commands
 	var/atom/movable/command_location
 	if(A == src)
@@ -203,7 +203,7 @@
 		for(var/mob/M in servants_and_ghosts())
 			M.playsound_local(M, 'sound/machines/clockcult/eminence_command.ogg', 75, FALSE, pressure_affected = FALSE)
 
-/mob/camera/eminence/proc/superheat_wall(turf/closed/wall/clockwork/wall)
+TYPE_PROC_REF(/mob/camera/eminence, superheat_wall)(turf/closed/wall/clockwork/wall)
 	if(!istype(wall))
 		return
 	if(superheated_walls >= SUPERHEATED_CLOCKWORK_WALL_LIMIT && !wall.heated)
@@ -217,7 +217,7 @@
 		superheated_walls--
 		to_chat(src, "<span class='neovgre_small'>You cool [wall]. <b>Superheated walls:</b> [superheated_walls]/[SUPERHEATED_CLOCKWORK_WALL_LIMIT]")
 
-/mob/camera/eminence/proc/eminence_help()
+TYPE_PROC_REF(/mob/camera/eminence, eminence_help)()
 	to_chat(src, "<span class='bold alloy'>You can make use of certain shortcuts to perform different actions:</span>")
 	to_chat(src, "<span class='alloy'><b>Alt-Click a clockwork wall</b> to superheat or cool it down. \
 	Superheated walls can't be destroyed by hulks or mechs and are much slower to deconstruct, and are marked by a bright red glow. \

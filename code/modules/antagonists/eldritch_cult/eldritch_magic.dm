@@ -365,7 +365,7 @@
 		INVOKE_ASYNC(src, PROC_REF(fire_line), user,T)
 	return ..()
 
-/obj/effect/proc_holder/spell/pointed/nightwatchers_rite/proc/line_target(offset, range, atom/at , atom/user)
+TYPE_PROC_REF(/obj/effect/proc_holder/spell/pointed/nightwatchers_rite, line_target)(offset, range, atom/at , atom/user)
 	if(!at)
 		return
 	var/angle = ATAN2(at.x - user.x, at.y - user.y) + offset
@@ -378,7 +378,7 @@
 		T = check
 	return (getline(user, T) - get_turf(user))
 
-/obj/effect/proc_holder/spell/pointed/nightwatchers_rite/proc/fire_line(atom/source, list/turfs)
+TYPE_PROC_REF(/obj/effect/proc_holder/spell/pointed/nightwatchers_rite, fire_line)(atom/source, list/turfs)
 	var/list/hit_list = list()
 	for(var/turf/T in turfs)
 		if(istype(T, /turf/closed))
@@ -442,7 +442,7 @@
 /obj/effect/proc_holder/spell/aoe_turf/fire_cascade/cast(list/targets, mob/user = usr)
 	INVOKE_ASYNC(src, PROC_REF(fire_cascade), user,range)
 
-/obj/effect/proc_holder/spell/aoe_turf/fire_cascade/proc/fire_cascade(atom/centre,max_range)
+TYPE_PROC_REF(/obj/effect/proc_holder/spell/aoe_turf/fire_cascade, fire_cascade)(atom/centre,max_range)
 	playsound(get_turf(centre), 'sound/items/welder.ogg', 75, TRUE)
 	var/_range = 1
 	for(var/i = 0, i <= max_range,i++)
@@ -488,7 +488,7 @@
 	has_fire_ring = TRUE
 	addtimer(CALLBACK(src, PROC_REF(remove), user), duration, TIMER_OVERRIDE|TIMER_UNIQUE)
 
-/obj/effect/proc_holder/spell/targeted/fire_sworn/proc/remove()
+TYPE_PROC_REF(/obj/effect/proc_holder/spell/targeted/fire_sworn, remove)()
 	has_fire_ring = FALSE
 
 /obj/effect/proc_holder/spell/targeted/fire_sworn/process()

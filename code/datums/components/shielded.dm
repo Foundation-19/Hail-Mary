@@ -83,7 +83,7 @@
 	if(holder && ((old_charges < 1 && charges >= 1) || (!del_on_overload && old_charges >= 1 && charges < 1)))
 		update_shield_overlay(charges < 1)
 
-/datum/component/shielded/proc/adjust_charges(amount)
+TYPE_PROC_REF(/datum/component/shielded, adjust_charges)(amount)
 	var/old_charges = charges
 	charges = clamp(charges + amount, 0, max_charges)
 	if(recharge_delay && recharge_rate && (dissipating ? !charges : charges == max_charges))
@@ -96,7 +96,7 @@
 	if(holder && ((old_charges < 1 && charges >= 1) || (!del_on_overload && old_charges >= 1 && charges < 1)))
 		update_shield_overlay(charges < 1)
 
-/datum/component/shielded/proc/update_shield_overlay(broken)
+TYPE_PROC_REF(/datum/component/shielded, update_shield_overlay)(broken)
 	if(!holder)
 		return
 	var/to_add = broken ? broken_state : shield_state
@@ -107,7 +107,7 @@
 		var/layer = (holder.layer > MOB_LAYER ? holder.layer : MOB_LAYER) + 0.01
 		SSvis_overlays.add_vis_overlay(holder, 'icons/effects/effects.dmi', to_add, layer, GAME_PLANE, holder.dir)
 
-/datum/component/shielded/proc/on_equip(obj/item/source, mob/living/equipper, slot)
+TYPE_PROC_REF(/datum/component/shielded, on_equip)(obj/item/source, mob/living/equipper, slot)
 	if(!(accepted_slots & slotdefine2slotbit(slot)))
 		return
 	holder = equipper
@@ -119,7 +119,7 @@
 		var/layer = (holder.layer > MOB_LAYER ? holder.layer : MOB_LAYER) + 0.01
 		cached_vis_overlay = SSvis_overlays.add_vis_overlay(holder, 'icons/effects/effects.dmi', to_add, layer, GAME_PLANE, holder.dir)
 
-/datum/component/shielded/proc/on_drop(obj/item/source, mob/dropper)
+TYPE_PROC_REF(/datum/component/shielded, on_drop)(obj/item/source, mob/dropper)
 	if(holder == dropper)
 		UnregisterSignal(holder, COMSIG_LIVING_GET_BLOCKING_ITEMS)
 		UnregisterSignal(parent, list(COMSIG_ITEM_RUN_BLOCK, COMSIG_ITEM_CHECK_BLOCK))
@@ -128,10 +128,10 @@
 			cached_vis_overlay = null
 		holder = null
 
-/datum/component/shielded/proc/include_shield(mob/source, list/items)
+TYPE_PROC_REF(/datum/component/shielded, include_shield)(mob/source, list/items)
 	items += parent
 
-/datum/component/shielded/proc/on_run_block(obj/item/source, mob/living/owner, atom/object, damage, attack_text, attack_type, armour_penetration, mob/attacker, def_zone, final_block_chance, list/block_return)
+TYPE_PROC_REF(/datum/component/shielded, on_run_block)(obj/item/source, mob/living/owner, atom/object, damage, attack_text, attack_type, armour_penetration, mob/attacker, def_zone, final_block_chance, list/block_return)
 	if(block_return[BLOCK_RETURN_NORMAL_BLOCK_CHANCE] >= 100) //already blocked by another shielded item, don't do anything.
 		block_return[BLOCK_RETURN_BLOCK_CAPACITY] += round(charges)
 		return BLOCK_NONE
@@ -156,12 +156,12 @@
 	block_return[BLOCK_RETURN_BLOCK_CAPACITY] += rounded_charges
 	return BLOCK_SUCCESS | BLOCK_PHYSICAL_EXTERNAL
 
-/datum/component/shielded/proc/on_check_block(obj/item/source, mob/living/owner, atom/object, damage, attack_text, attack_type, armour_penetration, mob/attacker, def_zone, final_block_chance, list/block_return)
+TYPE_PROC_REF(/datum/component/shielded, on_check_block)(obj/item/source, mob/living/owner, atom/object, damage, attack_text, attack_type, armour_penetration, mob/attacker, def_zone, final_block_chance, list/block_return)
 	if(charges >= 1)
 		block_return[BLOCK_RETURN_NORMAL_BLOCK_CHANCE] = 100
 		block_return[BLOCK_RETURN_BLOCK_CAPACITY] += round(charges)
 
-/datum/component/shielded/proc/living_block(mob/living/source, real_attack, object, damage, attack_text, attack_type, armour_penetration, attacker, def_zone, return_list)
+TYPE_PROC_REF(/datum/component/shielded, living_block)(mob/living/source, real_attack, object, damage, attack_text, attack_type, armour_penetration, attacker, def_zone, return_list)
 	if(!real_attack)
 		if(charges >= 1)
 			return_list[BLOCK_RETURN_NORMAL_BLOCK_CHANCE] = 100

@@ -151,7 +151,7 @@
 	if(ptank)
 		. += span_notice("\The [src] has \a [ptank] attached. Alt-click to remove it.")
 
-/obj/item/flamethrower/proc/toggle_igniter(mob/user)
+TYPE_PROC_REF(/obj/item/flamethrower, toggle_igniter)(mob/user)
 	if(!ptank)
 		to_chat(user, span_notice("Attach a plasma tank first!"))
 		return
@@ -179,7 +179,7 @@
 	update_icon()
 
 //Called from turf.dm turf/dblclick
-/obj/item/flamethrower/proc/flame_turf(turflist)
+TYPE_PROC_REF(/obj/item/flamethrower, flame_turf)(turflist)
 	if(!lit || operating)
 		return
 	operating = TRUE
@@ -201,7 +201,7 @@
 		attack_self(usr)
 
 
-/obj/item/flamethrower/proc/default_ignite(turf/target, release_amount = 0.05)
+TYPE_PROC_REF(/obj/item/flamethrower, default_ignite)(turf/target, release_amount = 0.05)
 	//TODO: DEFERRED Consider checking to make sure tank pressure is high enough before doing this...
 	//Transfer 5% of current tank air contents to turf
 	var/datum/gas_mixture/air_transfer = ptank.air_contents.remove_ratio(release_amount)
@@ -242,11 +242,11 @@
 			return BLOCK_SUCCESS | BLOCK_PHYSICAL_EXTERNAL
 	return ..()
 
-/obj/item/assembly/igniter/proc/flamethrower_process(turf/open/location)
+TYPE_PROC_REF(/obj/item/assembly/igniter, flamethrower_process)(turf/open/location)
 	location.hotspot_expose(700,2)
 
 /obj/item/assembly/igniter/cold/flamethrower_process(turf/open/location)
 	return
 
-/obj/item/assembly/igniter/proc/ignite_turf(obj/item/flamethrower/F,turf/open/location,release_amount = 0.05)
+TYPE_PROC_REF(/obj/item/assembly/igniter, ignite_turf)(obj/item/flamethrower/F,turf/open/location,release_amount = 0.05)
 	F.default_ignite(location,release_amount)

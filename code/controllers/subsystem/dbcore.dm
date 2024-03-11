@@ -61,7 +61,7 @@ SUBSYSTEM_DEF(dbcore)
 		return FALSE
 	return ..()
 
-/datum/controller/subsystem/dbcore/proc/Connect()
+TYPE_PROC_REF(/datum/controller/subsystem/dbcore, Connect)()
 	if(IsConnected())
 		return TRUE
 
@@ -99,7 +99,7 @@ SUBSYSTEM_DEF(dbcore)
 		log_sql("Connect() failed | [last_error]")
 		++failed_connections
 
-/datum/controller/subsystem/dbcore/proc/CheckSchemaVersion()
+TYPE_PROC_REF(/datum/controller/subsystem/dbcore, CheckSchemaVersion)()
 	if(CONFIG_GET(flag/sql_enabled))
 		if(Connect())
 			log_world("Database connection established.")
@@ -122,7 +122,7 @@ SUBSYSTEM_DEF(dbcore)
 	else
 		log_sql("Database is not enabled in configuration.")
 
-/datum/controller/subsystem/dbcore/proc/SetRoundID()
+TYPE_PROC_REF(/datum/controller/subsystem/dbcore, SetRoundID)()
 	if(!Connect())
 		return
 	var/datum/db_query/query_round_initialize = SSdbcore.NewQuery(
@@ -135,7 +135,7 @@ SUBSYSTEM_DEF(dbcore)
 	GLOB.round_id = "[query_round_initialize.last_insert_id]"
 	qdel(query_round_initialize)
 
-/datum/controller/subsystem/dbcore/proc/SetRoundStart()
+TYPE_PROC_REF(/datum/controller/subsystem/dbcore, SetRoundStart)()
 	if(!Connect())
 		return
 	var/datum/db_query/query_round_start = SSdbcore.NewQuery(
@@ -145,7 +145,7 @@ SUBSYSTEM_DEF(dbcore)
 	query_round_start.Execute()
 	qdel(query_round_start)
 
-/datum/controller/subsystem/dbcore/proc/SetRoundEnd()
+TYPE_PROC_REF(/datum/controller/subsystem/dbcore, SetRoundEnd)()
 	if(!Connect())
 		return
 	var/datum/db_query/query_round_end = SSdbcore.NewQuery(
@@ -155,28 +155,28 @@ SUBSYSTEM_DEF(dbcore)
 	query_round_end.Execute()
 	qdel(query_round_end)
 
-/datum/controller/subsystem/dbcore/proc/Disconnect()
+TYPE_PROC_REF(/datum/controller/subsystem/dbcore, Disconnect)()
 	failed_connections = 0
 	if (connection)
 		rustg_sql_disconnect_pool(connection)
 	connection = null
 
-/datum/controller/subsystem/dbcore/proc/IsConnected()
+TYPE_PROC_REF(/datum/controller/subsystem/dbcore, IsConnected)()
 	if(!CONFIG_GET(flag/sql_enabled))
 		return FALSE
 	if (!connection)
 		return FALSE
 	return json_decode(rustg_sql_connected(connection))["status"] == "online"
 
-/datum/controller/subsystem/dbcore/proc/ErrorMsg()
+TYPE_PROC_REF(/datum/controller/subsystem/dbcore, ErrorMsg)()
 	if(!CONFIG_GET(flag/sql_enabled))
 		return "Database disabled by configuration"
 	return last_error
 
-/datum/controller/subsystem/dbcore/proc/ReportError(error)
+TYPE_PROC_REF(/datum/controller/subsystem/dbcore, ReportError)(error)
 	last_error = error
 
-/datum/controller/subsystem/dbcore/proc/NewQuery(sql_query, arguments)
+TYPE_PROC_REF(/datum/controller/subsystem/dbcore, NewQuery)(sql_query, arguments)
 	if(IsAdminAdvancedProcCall())
 		log_admin_private("ERROR: Advanced admin proc call led to sql query: [sql_query]. Query has been blocked")
 		message_admins("ERROR: Advanced admin proc call led to sql query. Query has been blocked")
@@ -195,7 +195,7 @@ Delayed insert mode was removed in mysql 7 and only works with MyISAM type table
 	It was included because it is still supported in mariadb.
 	It does not work with duplicate_key and the mysql server ignores it in those cases
 */
-/datum/controller/subsystem/dbcore/proc/MassInsert(table, list/rows, duplicate_key = FALSE, ignore_errors = FALSE, delayed = FALSE, warn = FALSE, async = TRUE, special_columns = null)
+TYPE_PROC_REF(/datum/controller/subsystem/dbcore, MassInsert)(table, list/rows, duplicate_key = FALSE, ignore_errors = FALSE, delayed = FALSE, warn = FALSE, async = TRUE, special_columns = null)
 	if (!table || !rows || !istype(rows))
 		return
 	// Prepare column list
@@ -292,16 +292,16 @@ Delayed insert mode was removed in mysql 7 and only works with MyISAM type table
 	//fuck off kevinz
 	return FALSE
 
-/datum/db_query/proc/Activity(activity)
+TYPE_PROC_REF(/datum/db_query, Activity)(activity)
 	last_activity = activity
 	last_activity_time = world.time
 
-/datum/db_query/proc/warn_execute(async = FALSE)
+TYPE_PROC_REF(/datum/db_query, warn_execute)(async = FALSE)
 	. = Execute(async)
 	if(!.)
 		to_chat(usr, span_danger("A SQL error occurred during this operation, check the server logs."))
 
-/datum/db_query/proc/Execute(async = FALSE, log_error = TRUE)
+TYPE_PROC_REF(/datum/db_query, Execute)(async = FALSE, log_error = TRUE)
 	Activity("Execute")
 	if(in_progress)
 		CRASH("Attempted to start a new query while waiting on the old one")
@@ -322,7 +322,7 @@ Delayed insert mode was removed in mysql 7 and only works with MyISAM type table
 		log_query_debug("Query used: [sql]")
 		slow_query_check()
 
-/datum/db_query/proc/run_query(async)
+TYPE_PROC_REF(/datum/db_query, run_query)(async)
 	var/job_result_str
 
 	if (async)
@@ -351,10 +351,10 @@ Delayed insert mode was removed in mysql 7 and only works with MyISAM type table
 			last_error = "offline"
 			return FALSE
 
-/datum/db_query/proc/slow_query_check()
+TYPE_PROC_REF(/datum/db_query, slow_query_check)()
 	message_admins("HEY! A database query timed out. Did the server just hang? <a href='?_src_=holder;[HrefToken()];slowquery=yes'>\[YES\]</a>|<a href='?_src_=holder;[HrefToken()];slowquery=no'>\[NO\]</a>")
 
-/datum/db_query/proc/NextRow(async)
+TYPE_PROC_REF(/datum/db_query, NextRow)(async)
 	Activity("NextRow")
 	
 	if (rows && next_row_to_take <= rows.len)
@@ -364,9 +364,9 @@ Delayed insert mode was removed in mysql 7 and only works with MyISAM type table
 	else
 		return FALSE
 
-/datum/db_query/proc/ErrorMsg()
+TYPE_PROC_REF(/datum/db_query, ErrorMsg)()
 	return last_error
 
-/datum/db_query/proc/Close()
+TYPE_PROC_REF(/datum/db_query, Close)()
 	rows = null
 	item = null

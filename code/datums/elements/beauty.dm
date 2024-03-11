@@ -24,13 +24,13 @@
 		exit_area(null, A)
 	return ..()
 
-/datum/element/beauty/proc/enter_area(datum/source, area/A)
+TYPE_PROC_REF(/datum/element/beauty, enter_area)(datum/source, area/A)
 	if(A.outdoors)
 		return
 	A.totalbeauty += beauty
 	A.update_beauty()
 
-/datum/element/beauty/proc/exit_area(datum/source, area/A)
+TYPE_PROC_REF(/datum/element/beauty, exit_area)(datum/source, area/A)
 	if(A.outdoors)
 		return
 	A.totalbeauty -= beauty

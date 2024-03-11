@@ -41,7 +41,7 @@
 /obj/machinery/portable_atmospherics/return_air()
 	return air_contents
 
-/obj/machinery/portable_atmospherics/proc/connect(obj/machinery/atmospherics/components/unary/portables_connector/new_port)
+TYPE_PROC_REF(/obj/machinery/portable_atmospherics, connect)(obj/machinery/atmospherics/components/unary/portables_connector/new_port)
 	//Make sure not already connected to something else
 	if(connected_port || !new_port || new_port.connected_device)
 		return FALSE
@@ -66,7 +66,7 @@
 	if(.)
 		disconnect()
 
-/obj/machinery/portable_atmospherics/proc/disconnect()
+TYPE_PROC_REF(/obj/machinery/portable_atmospherics, disconnect)()
 	if(!connected_port)
 		return FALSE
 	anchored = FALSE
@@ -94,7 +94,7 @@
 		. += span_notice("\The [src] contains [holding]. Alt-click [src] to remove it.")
 		. += span_notice("Click [src] with another gas tank to hot swap [holding].")
 
-/obj/machinery/portable_atmospherics/proc/replace_tank(mob/living/user, close_valve, obj/item/tank/new_tank)
+TYPE_PROC_REF(/obj/machinery/portable_atmospherics, replace_tank)(mob/living/user, close_valve, obj/item/tank/new_tank)
 	if(holding)
 		holding.forceMove(drop_location())
 		if(Adjacent(user) && !issilicon(user))

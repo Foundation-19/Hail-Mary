@@ -8,7 +8,7 @@
 	if(trippy)
 		SEND_SIGNAL(M, COMSIG_CLEAR_MOOD_EVENT, "[type]_high")
 
-/datum/reagent/drug/proc/dont_do_drugs(mob/living/carbon/M)
+TYPE_PROC_REF(/datum/reagent/drug, dont_do_drugs)(mob/living/carbon/M)
 	if(!iscarbon(M))
 		return
 	if(NODRUGS(M))

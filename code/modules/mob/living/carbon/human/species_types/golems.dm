@@ -407,7 +407,7 @@
 	var/teleport_cooldown = 100
 	var/last_teleport = 0
 
-/datum/species/golem/bluespace/proc/reactive_teleport(mob/living/carbon/human/H)
+TYPE_PROC_REF(/datum/species/golem/bluespace, reactive_teleport)(mob/living/carbon/human/H)
 	H.visible_message(span_warning("[H] teleports!"), span_danger("You destabilize and teleport!"))
 	new /obj/effect/particle_effect/sparks(get_turf(H))
 	playsound(get_turf(H), "sparks", 50, 1)
@@ -471,7 +471,7 @@
 	playsound(get_turf(H), 'sound/weapons/flash.ogg', 25, 1)
 	addtimer(CALLBACK(src, PROC_REF(teleport), H), 15)
 
-/datum/action/innate/unstable_teleport/proc/teleport(mob/living/carbon/human/H)
+TYPE_PROC_REF(/datum/action/innate/unstable_teleport, teleport)(mob/living/carbon/human/H)
 	H.visible_message(span_warning("[H] disappears in a shower of sparks!"), span_danger("You teleport!"))
 	var/datum/effect_system/spark_spread/spark_system = new /datum/effect_system/spark_spread
 	spark_system.set_up(10, 0, src)
@@ -566,7 +566,7 @@
 	UnregisterSignal(H, COMSIG_MOB_SAY)
 	. = ..()
 
-/datum/species/golem/clockwork/proc/handle_speech(datum/source, list/speech_args)
+TYPE_PROC_REF(/datum/species/golem/clockwork, handle_speech)(datum/source, list/speech_args)
 	speech_args[SPEECH_SPANS] |= SPAN_ROBOT //beep
 
 /datum/species/golem/clockwork/spec_death(gibbed, mob/living/carbon/human/H)
@@ -680,7 +680,7 @@
 	new /obj/effect/decal/cleanable/ash(get_turf(src))
 	..()
 
-/obj/structure/cloth_pile/proc/revive()
+TYPE_PROC_REF(/obj/structure/cloth_pile, revive)()
 	if(QDELETED(src) || QDELETED(cloth_golem)) //QDELETED also checks for null, so if no cloth golem is set this won't runtime
 		return
 	if(cloth_golem.suiciding || HAS_TRAIT(cloth_golem, TRAIT_NOCLONE))
@@ -763,7 +763,7 @@
 	if(world.time > last_gong_time + gong_cooldown)
 		gong(H)
 
-/datum/species/golem/bronze/proc/gong(mob/living/carbon/human/H)
+TYPE_PROC_REF(/datum/species/golem/bronze, gong)(mob/living/carbon/human/H)
 	last_gong_time = world.time
 	for(var/mob/living/M in get_hearers_in_view(7,H))
 		if(M.stat == DEAD)	//F
@@ -835,7 +835,7 @@
 			to_chat(H, span_notice("You create a new cardboard golem shell."))
 			create_brother(H.loc)
 
-/datum/species/golem/cardboard/proc/create_brother(location)
+TYPE_PROC_REF(/datum/species/golem/cardboard, create_brother)(location)
 	new /obj/effect/mob_spawn/human/golem/servant(location, /datum/species/golem/cardboard, owner)
 	last_creation = world.time
 
@@ -920,7 +920,7 @@
 			badtime.appearance_flags = RESET_COLOR
 			H.overlays_standing[FIRE_LAYER+0.5] = badtime
 			H.apply_overlay(FIRE_LAYER+0.5)
-			addtimer(CALLBACK(H, /mob/living/carbon/.proc/remove_overlay, FIRE_LAYER+0.5), 25)
+			addtimer(CALLBACK(H, TYPE_PROC_REF(/mob/living/carbon, remove_overlay), FIRE_LAYER+0.5), 25)
 	else
 		playsound(get_turf(owner),'sound/magic/RATTLEMEBONES.ogg', 100)
 	for(var/mob/living/L in orange(7, get_turf(owner)))

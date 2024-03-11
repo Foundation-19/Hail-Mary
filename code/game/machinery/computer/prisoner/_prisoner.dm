@@ -19,7 +19,7 @@
 	id_eject(user)
 	return TRUE
 
-/obj/machinery/computer/prisoner/proc/id_insert(mob/user, obj/item/card/id/prisoner/P)
+TYPE_PROC_REF(/obj/machinery/computer/prisoner, id_insert)(mob/user, obj/item/card/id/prisoner/P)
 	if(istype(P))
 		if(contained_id)
 			to_chat(user, span_warning("There's already an ID card in the console!"))
@@ -32,7 +32,7 @@
 		playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
 		updateUsrDialog()
 
-/obj/machinery/computer/prisoner/proc/id_eject(mob/user)
+TYPE_PROC_REF(/obj/machinery/computer/prisoner, id_eject)(mob/user)
 	if(!contained_id)
 		to_chat(user, span_warning("There's no ID card in the console!"))
 		return

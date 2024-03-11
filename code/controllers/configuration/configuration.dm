@@ -24,7 +24,7 @@
 
 	var/static/regex/ic_filter_regex
 
-/datum/controller/configuration/proc/admin_reload()
+TYPE_PROC_REF(/datum/controller/configuration, admin_reload)()
 	if(IsAdminAdvancedProcCall())
 		return
 	log_admin("[key_name_admin(usr)] has forcefully reloaded the configuration from disk.")
@@ -32,7 +32,7 @@
 	full_wipe()
 	Load(world.params[OVERRIDE_CONFIG_DIRECTORY_PARAMETER])
 
-/datum/controller/configuration/proc/Load(_directory)
+TYPE_PROC_REF(/datum/controller/configuration, Load)(_directory)
 	if(IsAdminAdvancedProcCall())		//If admin proccall is detected down the line it will horribly break everything.
 		return
 	if(_directory)
@@ -58,7 +58,7 @@
 	if (Master)
 		Master.OnConfigLoad()
 
-/datum/controller/configuration/proc/full_wipe()
+TYPE_PROC_REF(/datum/controller/configuration, full_wipe)()
 	if(IsAdminAdvancedProcCall())
 		return
 	entries_by_type.Cut()
@@ -74,7 +74,7 @@
 
 	return ..()
 
-/datum/controller/configuration/proc/InitEntries()
+TYPE_PROC_REF(/datum/controller/configuration, InitEntries)()
 	var/list/_entries = list()
 	entries = _entries
 	var/list/_entries_by_type = list()
@@ -94,11 +94,11 @@
 		_entries[esname] = E
 		_entries_by_type[I] = E
 
-/datum/controller/configuration/proc/RemoveEntry(datum/config_entry/CE)
+TYPE_PROC_REF(/datum/controller/configuration, RemoveEntry)(datum/config_entry/CE)
 	entries -= CE.name
 	entries_by_type -= CE.type
 
-/datum/controller/configuration/proc/LoadEntries(filename, list/stack = list())
+TYPE_PROC_REF(/datum/controller/configuration, LoadEntries)(filename, list/stack = list())
 	if(IsAdminAdvancedProcCall())
 		return
 
@@ -202,7 +202,7 @@
 	return msg
 
 /// Your typical GET but returns a config.
-/datum/controller/configuration/proc/GetEntryDatum(entry_type)
+TYPE_PROC_REF(/datum/controller/configuration, GetEntryDatum)(entry_type)
 	var/datum/config_entry/E = entry_type
 	var/entry_is_abstract = initial(E.abstract_type) == entry_type
 	if(entry_is_abstract)
@@ -215,7 +215,7 @@
 		return
 	return E
 
-/datum/controller/configuration/proc/Get(entry_type)
+TYPE_PROC_REF(/datum/controller/configuration, Get)(entry_type)
 	var/datum/config_entry/E = entry_type
 	var/entry_is_abstract = initial(E.abstract_type) == entry_type
 	if(entry_is_abstract)
@@ -228,7 +228,7 @@
 		return
 	return E.config_entry_value
 
-/datum/controller/configuration/proc/Set(entry_type, new_val)
+TYPE_PROC_REF(/datum/controller/configuration, Set)(entry_type, new_val)
 	var/datum/config_entry/E = entry_type
 	var/entry_is_abstract = initial(E.abstract_type) == entry_type
 	if(entry_is_abstract)
@@ -241,7 +241,7 @@
 		return
 	return E.ValidateAndSet("[new_val]")
 
-/datum/controller/configuration/proc/LoadModes()
+TYPE_PROC_REF(/datum/controller/configuration, LoadModes)()
 	gamemode_cache = typecacheof(/datum/game_mode, TRUE)
 	modes = list()
 	mode_names = list()
@@ -268,7 +268,7 @@
 		qdel(M)
 	votable_modes += "secret"
 
-/datum/controller/configuration/proc/LoadMOTD()
+TYPE_PROC_REF(/datum/controller/configuration, LoadMOTD)()
 	motd = file2text("[directory]/motd.txt")
 	var/tm_info = GLOB.revdata.GetTestMergeInfo()
 	if(motd || tm_info)
@@ -293,7 +293,7 @@ Example config:
 
 */
 /*
-/datum/controller/configuration/proc/LoadPolicy()
+TYPE_PROC_REF(/datum/controller/configuration, LoadPolicy)()
 	policy = list()
 	var/rawpolicy = file2text("[directory]/policy.json")
 	if(rawpolicy)
@@ -304,7 +304,7 @@ Example config:
 		else
 			policy = parsed
 */
-/datum/controller/configuration/proc/loadmaplist(filename)
+TYPE_PROC_REF(/datum/controller/configuration, loadmaplist)(filename)
 	log_config("Loading config file [filename]...")
 	filename = "[directory]/[filename]"
 	var/list/Lines = world.file2list(filename)
@@ -364,7 +364,7 @@ Example config:
 				log_config("Unknown command in map vote config: '[command]'")
 
 
-/datum/controller/configuration/proc/pick_mode(mode_name)
+TYPE_PROC_REF(/datum/controller/configuration, pick_mode)(mode_name)
 	// I wish I didn't have to instance the game modes in order to look up
 	// their information, but it is the only way (at least that I know of).
 	// ^ This guy didn't try hard enough
@@ -376,7 +376,7 @@ Example config:
 	return new /datum/game_mode/extended()
 
 /// For dynamic.
-/datum/controller/configuration/proc/pick_storyteller(storyteller_name)
+TYPE_PROC_REF(/datum/controller/configuration, pick_storyteller)(storyteller_name)
 	for(var/T in storyteller_cache)
 		var/datum/dynamic_storyteller/S = T
 		var/name = initial(S.name)
@@ -385,7 +385,7 @@ Example config:
 	return /datum/dynamic_storyteller/classic
 
 /// Same with this
-/datum/controller/configuration/proc/get_runnable_storytellers()
+TYPE_PROC_REF(/datum/controller/configuration, get_runnable_storytellers)()
 	var/list/datum/dynamic_storyteller/runnable_storytellers = new
 	var/list/probabilities = Get(/datum/config_entry/keyed_list/storyteller_weight)
 	var/list/repeated_mode_adjust = Get(/datum/config_entry/number_list/repeated_mode_adjust)
@@ -410,7 +410,7 @@ Example config:
 		runnable_storytellers[S] = probability
 	return runnable_storytellers
 
-/datum/controller/configuration/proc/get_runnable_modes()
+TYPE_PROC_REF(/datum/controller/configuration, get_runnable_modes)()
 	var/list/datum/game_mode/runnable_modes = new
 	var/list/probabilities = Get(/datum/config_entry/keyed_list/probability)
 	var/list/min_pop = Get(/datum/config_entry/keyed_list/min_pop)
@@ -443,7 +443,7 @@ Example config:
 			runnable_modes[M] = final_weight
 	return runnable_modes
 
-/datum/controller/configuration/proc/get_runnable_midround_modes(crew)
+TYPE_PROC_REF(/datum/controller/configuration, get_runnable_midround_modes)(crew)
 	var/list/datum/game_mode/runnable_modes = new
 	var/list/probabilities = Get(/datum/config_entry/keyed_list/probability)
 	var/list/min_pop = Get(/datum/config_entry/keyed_list/min_pop)
@@ -466,7 +466,7 @@ Example config:
 			runnable_modes[M] = probabilities[M.config_tag]
 	return runnable_modes
 
-/datum/controller/configuration/proc/LoadChatFilter()
+TYPE_PROC_REF(/datum/controller/configuration, LoadChatFilter)()
 	var/list/in_character_filter = list()
 	if(!fexists("[directory]/in_character_filter.txt"))
 		return
@@ -480,5 +480,5 @@ Example config:
 	ic_filter_regex = in_character_filter.len ? regex("\\b([jointext(in_character_filter, "|")])\\b", "i") : null
 
 //Message admins when you can.
-/datum/controller/configuration/proc/DelayedMessageAdmins(text)
+TYPE_PROC_REF(/datum/controller/configuration, DelayedMessageAdmins)(text)
 	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(message_admins), text), 0)

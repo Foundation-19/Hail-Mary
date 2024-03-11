@@ -1,4 +1,4 @@
-/mob/living/proc/check_devil_bane_multiplier(obj/item/weapon, mob/living/attacker)
+TYPE_PROC_REF(/mob/living, check_devil_bane_multiplier)(obj/item/weapon, mob/living/attacker)
 	var/datum/antagonist/devil/devilInfo = mind.has_antag_datum(/datum/antagonist/devil)
 	switch(devilInfo.bane)
 		if(BANE_WHITECLOTHES)

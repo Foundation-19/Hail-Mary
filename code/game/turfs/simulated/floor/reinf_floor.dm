@@ -145,7 +145,7 @@
 		be_removed()
 	return ..()
 
-/turf/open/floor/engine/cult/proc/be_removed()
+TYPE_PROC_REF(/turf/open/floor/engine/cult, be_removed)()
 	qdel(realappearance)
 	realappearance = null
 
@@ -155,7 +155,7 @@
 		var/previouscolor = color
 		color = "#FAE48C"
 		animate(src, color = previouscolor, time = 8)
-		addtimer(CALLBACK(src, /atom/proc/update_atom_colour), 8)
+		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_atom_colour)), 8)
 
 /turf/open/floor/engine/cult/airless
 	initial_gas_mix = AIRLESS_ATMOS

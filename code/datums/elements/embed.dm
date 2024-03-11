@@ -74,7 +74,7 @@
 
 
 /// Checking to see if we're gonna embed into a human
-/datum/element/embed/proc/checkEmbedMob(obj/item/weapon, mob/living/carbon/victim, hit_zone, datum/thrownthing/throwingdatum, blocked = FALSE, forced = FALSE)
+TYPE_PROC_REF(/datum/element/embed, checkEmbedMob)(obj/item/weapon, mob/living/carbon/victim, hit_zone, datum/thrownthing/throwingdatum, blocked = FALSE, forced = FALSE)
 	if(blocked || !istype(victim) || HAS_TRAIT(victim, TRAIT_PIERCEIMMUNE))
 		return
 
@@ -115,7 +115,7 @@
 	return TRUE
 
 /// We need the hit_zone if we're embedding into a human, so this proc only handles if we're embedding into a turf
-/datum/element/embed/proc/checkEmbedOther(obj/item/weapon, turf/closed/hit, datum/thrownthing/throwingdatum, forced=FALSE)
+TYPE_PROC_REF(/datum/element/embed, checkEmbedOther)(obj/item/weapon, turf/closed/hit, datum/thrownthing/throwingdatum, forced=FALSE)
 	if(!istype(hit))
 		return
 
@@ -149,16 +149,16 @@
 	return TRUE
 
 ///A different embed element has been attached, so we'll detach and let them handle things
-/datum/element/embed/proc/severancePackage(obj/weapon, datum/element/E)
+TYPE_PROC_REF(/datum/element/embed, severancePackage)(obj/weapon, datum/element/E)
 	if(istype(E, /datum/element/embed))
 		Detach(weapon)
 
 ///If we don't want to be embeddable anymore (deactivating an e-dagger for instance)
-/datum/element/embed/proc/detachFromWeapon(obj/weapon)
+TYPE_PROC_REF(/datum/element/embed, detachFromWeapon)(obj/weapon)
 	Detach(weapon)
 
 ///Someone inspected our embeddable item
-/datum/element/embed/proc/examined(obj/item/I, mob/user, list/examine_list)
+TYPE_PROC_REF(/datum/element/embed, examined)(obj/item/I, mob/user, list/examine_list)
 	if(I.isEmbedHarmless())
 		examine_list += "[I] feels sticky, and could probably get stuck to someone if thrown properly!"
 	else
@@ -170,7 +170,7 @@
  * If we hit a valid target (carbon or closed turf), we create the shrapnel_type object and immediately call tryEmbed() on it, targeting what we impacted. That will lead
  *	it to call tryForceEmbed() on its own embed element (it's out of our hands here, our projectile is done), where it will run through all the checks it needs to.
  */
-/datum/element/embed/proc/checkEmbedProjectile(obj/item/projectile/P, atom/movable/firer, atom/hit, angle, hit_zone)
+TYPE_PROC_REF(/datum/element/embed, checkEmbedProjectile)(obj/item/projectile/P, atom/movable/firer, atom/hit, angle, hit_zone)
 	if(!iscarbon(hit))
 		Detach(P)
 		return // we don't care
@@ -195,7 +195,7 @@
  * * hit_zone- if our target is a carbon, try to hit them in this zone, if we don't have one, pick a random one. If our target is a bodypart, we already know where we're hitting.
  * * forced- if we want this to succeed 100%
  */
-/datum/element/embed/proc/tryForceEmbed(obj/item/I, atom/target, hit_zone, forced=FALSE)
+TYPE_PROC_REF(/datum/element/embed, tryForceEmbed)(obj/item/I, atom/target, hit_zone, forced=FALSE)
 	var/obj/item/bodypart/limb
 	var/mob/living/carbon/C
 	if(!forced && !prob(embed_chance))

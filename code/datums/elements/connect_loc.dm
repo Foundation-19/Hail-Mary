@@ -22,7 +22,7 @@
 	unregister_signals(listener, listener.loc)
 	UnregisterSignal(listener, COMSIG_MOVABLE_MOVED)
 
-/datum/element/connect_loc/proc/update_signals(atom/movable/listener)
+TYPE_PROC_REF(/datum/element/connect_loc, update_signals)(atom/movable/listener)
 	var/atom/listener_loc = listener.loc
 	if(isnull(listener_loc))
 		return
@@ -31,13 +31,13 @@
 		//override=TRUE because more than one connect_loc element instance tracked object can be on the same loc
 		listener.RegisterSignal(listener_loc, signal, connections[signal], override=TRUE)
 
-/datum/element/connect_loc/proc/unregister_signals(datum/listener, atom/old_loc)
+TYPE_PROC_REF(/datum/element/connect_loc, unregister_signals)(datum/listener, atom/old_loc)
 	if(isnull(old_loc))
 		return
 
 	listener.UnregisterSignal(old_loc, connections)
 
-/datum/element/connect_loc/proc/on_moved(atom/movable/listener, atom/old_loc)
+TYPE_PROC_REF(/datum/element/connect_loc, on_moved)(atom/movable/listener, atom/old_loc)
 	SIGNAL_HANDLER
 	unregister_signals(listener, old_loc)
 	update_signals(listener)

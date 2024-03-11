@@ -53,7 +53,7 @@
 	. = ..()
 	RegisterSignal(user, COMSIG_LIVING_SHOCK_PREVENTED, PROC_REF(Shocked))
 
-/obj/item/clothing/gloves/color/yellow/sprayon/proc/Shocked()
+TYPE_PROC_REF(/obj/item/clothing/gloves/color/yellow/sprayon, Shocked)()
 	shocks_remaining--
 	if(shocks_remaining < 0)
 		qdel(src) //if we run out of uses, the gloves crumble away into nothing, just like my dreams after working with .dm

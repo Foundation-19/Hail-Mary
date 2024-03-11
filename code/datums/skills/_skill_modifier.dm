@@ -37,7 +37,7 @@ GLOBAL_LIST_EMPTY(potential_mods_per_skill)
 	if(register)
 		register()
 
-/datum/skill_modifier/proc/register()
+TYPE_PROC_REF(/datum/skill_modifier, register)()
 	if(GLOB.skill_modifiers[identifier])
 		CRASH("Skill modifier identifier \"[identifier]\" already taken.")
 	GLOB.skill_modifiers[identifier] = src
@@ -89,7 +89,7 @@ GLOBAL_LIST_EMPTY(potential_mods_per_skill)
 		LAZYADDASSOC(O, id, "[P]" = G)\
 	}
 
-/datum/mind/proc/add_skill_modifier(id)
+TYPE_PROC_REF(/datum/mind, add_skill_modifier)(id)
 	if(LAZYACCESS(skill_holder.all_current_skill_modifiers, id))
 		return
 	var/datum/skill_modifier/M = GLOB.skill_modifiers[id]
@@ -127,7 +127,7 @@ GLOBAL_LIST_EMPTY(potential_mods_per_skill)
 		LAZYREMOVEASSOC(O, id, "[P]")\
 	}
 
-/datum/mind/proc/remove_skill_modifier(id, mind_transfer = FALSE)
+TYPE_PROC_REF(/datum/mind, remove_skill_modifier)(id, mind_transfer = FALSE)
 	if(!LAZYACCESS(skill_holder.all_current_skill_modifiers, id))
 		return
 	var/datum/skill_modifier/M = GLOB.skill_modifiers[id]
@@ -153,10 +153,10 @@ GLOBAL_LIST_EMPTY(potential_mods_per_skill)
 
 #undef REMOVE_MOD_STEP
 
-/datum/mind/proc/on_skill_modifier_deletion(datum/skill_modifier/source)
+TYPE_PROC_REF(/datum/mind, on_skill_modifier_deletion)(datum/skill_modifier/source)
 	remove_skill_modifier(source.identifier)
 
-/datum/skill_modifier/proc/apply_modifier(value, skillpath, datum/skill_holder/H, method = MODIFIER_TARGET_VALUE)
+TYPE_PROC_REF(/datum/skill_modifier, apply_modifier)(value, skillpath, datum/skill_holder/H, method = MODIFIER_TARGET_VALUE)
 	. = value
 	var/mod = value_mod
 	switch(method)
@@ -195,10 +195,10 @@ GLOBAL_LIST_EMPTY(potential_mods_per_skill)
 		. += value - diff - LAZYACCESS(to_access[identifier], "[skillpath]")
 
 ///Body bound modifier signal procs.
-/datum/skill_modifier/proc/on_mind_transfer(datum/mind/source, mob/new_character, mob/old_character)
+TYPE_PROC_REF(/datum/skill_modifier, on_mind_transfer)(datum/mind/source, mob/new_character, mob/old_character)
 	source.remove_skill_modifier(identifier, TRUE)
 	UnregisterSignal(source, COMSIG_MIND_TRANSFER)
 
-/datum/skill_modifier/proc/on_mob_new_mind(mob/source)
+TYPE_PROC_REF(/datum/skill_modifier, on_mob_new_mind)(mob/source)
 	source.mind.add_skill_modifier(identifier)
 	RegisterSignal(source.mind, COMSIG_MIND_TRANSFER, /datum/skill_modifier.proc/on_mind_transfer)

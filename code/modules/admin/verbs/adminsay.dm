@@ -2,7 +2,7 @@
 GLOBAL_LIST_EMPTY(adminchat)
 GLOBAL_PROTECT(adminchat)
 
-/client/proc/cmd_admin_say(msg as text)
+TYPE_PROC_REF(/client, cmd_admin_say)(msg as text)
 	set category = "Special Verbs"
 	set name = "Asay" //Gave this shit a shorter name so you only have to time out "asay" rather than "admin say" to use it --NeoFite
 	set hidden = 1
@@ -21,6 +21,6 @@ GLOBAL_PROTECT(adminchat)
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Asay") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-/client/proc/get_admin_say()
+TYPE_PROC_REF(/client, get_admin_say)()
 	var/msg = input(src, null, "asay \"text\"") as text
 	cmd_admin_say(msg)

@@ -21,7 +21,7 @@
 	. = ..()
 	refreshID()
 
-/obj/item/storage/wallet/proc/refreshID()
+TYPE_PROC_REF(/obj/item/storage/wallet, refreshID)()
 	LAZYCLEARLIST(combined_access)
 	if(!(front_id in src))
 		front_id = null

@@ -19,7 +19,7 @@
 	if(!cell && cell_type)
 		cell = new cell_type
 
-/obj/item/inducer/proc/induce(obj/item/stock_parts/cell/target, coefficient)
+TYPE_PROC_REF(/obj/item/inducer, induce)(obj/item/stock_parts/cell/target, coefficient)
 	var/totransfer = min(cell.charge,(powertransfer * coefficient))
 	var/transferred = target.give(totransfer)
 	cell.use(transferred)
@@ -46,7 +46,7 @@
 
 	return ..()
 
-/obj/item/inducer/proc/cantbeused(mob/user)
+TYPE_PROC_REF(/obj/item/inducer, cantbeused)(mob/user)
 	if(!user.IsAdvancedToolUser())
 		to_chat(user, span_warning("You don't have the dexterity to use [src]!"))
 		return TRUE
@@ -95,7 +95,7 @@
 
 	return ..()
 
-/obj/item/inducer/proc/recharge(atom/movable/A, mob/user)
+TYPE_PROC_REF(/obj/item/inducer, recharge)(atom/movable/A, mob/user)
 	if(!isturf(A) && user.loc == A)
 		return FALSE
 	if(recharging)

@@ -7,7 +7,7 @@
 		return ELEMENT_INCOMPATIBLE
 	RegisterSignal(target, COMSIG_ATOM_UPDATED_ICON, PROC_REF(update_onmob), override = TRUE)
 
-/datum/element/update_icon_updates_onmob/proc/update_onmob(obj/item/target)
+TYPE_PROC_REF(/datum/element/update_icon_updates_onmob, update_onmob)(obj/item/target)
 	if(ismob(target.loc))
 		var/mob/M = target.loc
 		if(M.is_holding(target))

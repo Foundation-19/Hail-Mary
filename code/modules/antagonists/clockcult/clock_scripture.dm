@@ -47,10 +47,10 @@ Judgement 5 converts
 /datum/clockwork_scripture/New()
 	creation_update()
 
-/datum/clockwork_scripture/proc/creation_update() //updates any on-creation effects
+TYPE_PROC_REF(/datum/clockwork_scripture, creation_update)() //updates any on-creation effects
 	return FALSE //return TRUE if updated
 
-/datum/clockwork_scripture/proc/run_scripture()
+TYPE_PROC_REF(/datum/clockwork_scripture, run_scripture)()
 	var/successful = FALSE
 	if(can_recite() && has_requirements())
 		if(slab.busy)
@@ -76,7 +76,7 @@ Judgement 5 converts
 	qdel(src)
 	return successful
 
-/datum/clockwork_scripture/proc/can_recite() //If the words can be spoken
+TYPE_PROC_REF(/datum/clockwork_scripture, can_recite)() //If the words can be spoken
 	if(!invoker || !slab || invoker.get_active_held_item() != slab)
 		return FALSE
 	if(!is_servant_of_ratvar(invoker, requires_full_power))
@@ -87,7 +87,7 @@ Judgement 5 converts
 		return FALSE
 	return TRUE
 
-/datum/clockwork_scripture/proc/has_requirements() //if we have the power and invokers to do it
+TYPE_PROC_REF(/datum/clockwork_scripture, has_requirements)() //if we have the power and invokers to do it
 	var/checked_penalty = FALSE
 	if(!GLOB.ratvar_awakens && !slab.no_cost)
 		checked_penalty = check_offstation_penalty()
@@ -130,17 +130,17 @@ Judgement 5 converts
 			SEND_SOUND(invoker, sound('sound/magic/clockwork/invoke_general.ogg'))
 	return TRUE
 
-/datum/clockwork_scripture/proc/check_offstation_penalty()//don't cast spells away from the station
+TYPE_PROC_REF(/datum/clockwork_scripture, check_offstation_penalty)()//don't cast spells away from the station
 	var/turf/T = get_turf(invoker)
 	if(!T || (!is_centcom_level(T.z) && !is_station_level(T.z) && !is_mining_level(T.z) && !is_reebe(T.z)))
 		channel_time *= 3
 		power_cost *= 3
 		return TRUE
 
-/datum/clockwork_scripture/proc/check_special_requirements() //Special requirements for scriptures, checked multiple times during invocation
+TYPE_PROC_REF(/datum/clockwork_scripture, check_special_requirements)() //Special requirements for scriptures, checked multiple times during invocation
 	return TRUE
 
-/datum/clockwork_scripture/proc/recital() //The process of speaking the words
+TYPE_PROC_REF(/datum/clockwork_scripture, recital)() //The process of speaking the words
 	if(!channel_time && invocations.len)
 		if(multiple_invokers_used)
 			for(var/mob/living/L in range(1, invoker))
@@ -163,7 +163,7 @@ Judgement 5 converts
 	chanting = FALSE
 	return TRUE
 
-/datum/clockwork_scripture/proc/chant()
+TYPE_PROC_REF(/datum/clockwork_scripture, chant)()
 	set waitfor = FALSE
 	chanting = TRUE
 	for(var/invocation in invocations)
@@ -177,16 +177,16 @@ Judgement 5 converts
 		else
 			clockwork_say(invoker, text2ratvar(invocation), whispered)
 
-/datum/clockwork_scripture/proc/scripture_effects() //The actual effects of the recital after its conclusion
+TYPE_PROC_REF(/datum/clockwork_scripture, scripture_effects)() //The actual effects of the recital after its conclusion
 
 
-/datum/clockwork_scripture/proc/scripture_fail() //Called if the scripture fails to invoke.
+TYPE_PROC_REF(/datum/clockwork_scripture, scripture_fail)() //Called if the scripture fails to invoke.
 
 
-/datum/clockwork_scripture/proc/pre_recital() //Called before the scripture is recited
+TYPE_PROC_REF(/datum/clockwork_scripture, pre_recital)() //Called before the scripture is recited
 
 
-/datum/clockwork_scripture/proc/post_recital() //Called after the scripture is recited
+TYPE_PROC_REF(/datum/clockwork_scripture, post_recital)() //Called after the scripture is recited
 
 //Channeled scripture begins instantly but runs constantly
 /datum/clockwork_scripture/channeled
@@ -214,9 +214,9 @@ Judgement 5 converts
 		chant_end_effects()
 	return TRUE
 
-/datum/clockwork_scripture/channeled/proc/chant_effects(chant_number) //The chant's periodic effects
+TYPE_PROC_REF(/datum/clockwork_scripture/channeled, chant_effects)(chant_number) //The chant's periodic effects
 
-/datum/clockwork_scripture/channeled/proc/chant_end_effects() //The chant's effect upon ending
+TYPE_PROC_REF(/datum/clockwork_scripture/channeled, chant_end_effects)() //The chant's effect upon ending
 	to_chat(invoker, span_brass("You cease your chant."))
 
 
@@ -245,7 +245,7 @@ Judgement 5 converts
 		return FALSE
 	return TRUE
 
-/datum/clockwork_scripture/create_object/proc/get_spawn_path(mob/user)
+TYPE_PROC_REF(/datum/clockwork_scripture/create_object, get_spawn_path)(mob/user)
 	return object_path
 
 /datum/clockwork_scripture/create_object/scripture_effects()
@@ -287,7 +287,7 @@ Judgement 5 converts
 	creation_update()
 	confirmed = FALSE
 
-/datum/clockwork_scripture/create_object/construct/proc/get_constructs()
+TYPE_PROC_REF(/datum/clockwork_scripture/create_object/construct, get_constructs)()
 	var/constructs = 0
 	for(var/V in GLOB.all_clockwork_mobs)
 		if(istype(V, construct_type))
@@ -297,7 +297,7 @@ Judgement 5 converts
 			constructs++
 	return constructs
 
-/datum/clockwork_scripture/create_object/construct/proc/update_construct_limit() //Change this on a per-scripture basis, for dynamic limits
+TYPE_PROC_REF(/datum/clockwork_scripture/create_object/construct, update_construct_limit)() //Change this on a per-scripture basis, for dynamic limits
 
 
 //Uses a ranged slab ability, returning only when the ability no longer exists(ie, when interrupted) or finishes.

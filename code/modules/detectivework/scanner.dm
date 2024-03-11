@@ -40,7 +40,7 @@
 /obj/item/detective_scanner/attack(mob/living/M, mob/user)
 	return
 
-/obj/item/detective_scanner/proc/PrintReport()
+TYPE_PROC_REF(/obj/item/detective_scanner, PrintReport)()
 	// Create our paper
 	var/obj/item/paper/P = new(get_turf(src))
 
@@ -67,7 +67,7 @@
 	scan(A, user)
 	return FALSE
 
-/obj/item/detective_scanner/proc/scan(atom/A, mob/user)
+TYPE_PROC_REF(/obj/item/detective_scanner, scan)(atom/A, mob/user)
 	set waitfor = 0
 	if(!scanning)
 		// Can remotely scan objects and mobs.
@@ -180,7 +180,7 @@
 		scanning = FALSE
 		return
 
-/obj/item/detective_scanner/proc/add_log(msg, broadcast = TRUE)
+TYPE_PROC_REF(/obj/item/detective_scanner, add_log)(msg, broadcast = TRUE)
 	if(scanning)
 		if(broadcast && ismob(loc))
 			var/mob/M = loc
@@ -212,7 +212,7 @@
 	if(LAZYLEN(log) && !scanning)
 		. += span_notice("Alt-click to clear scanner logs.")
 
-/obj/item/detective_scanner/proc/displayDetectiveScanResults(mob/living/user)
+TYPE_PROC_REF(/obj/item/detective_scanner, displayDetectiveScanResults)(mob/living/user)
 	// No need for can-use checks since the action button should do proper checks
 	if(!LAZYLEN(log))
 		to_chat(user, span_notice("Cannot display logs, the scanner has no logs."))

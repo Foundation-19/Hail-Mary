@@ -43,7 +43,7 @@
 	if(put_here)
 		tat_location = put_here
 
-/datum/tattoo/proc/on_apply(mob/user)
+TYPE_PROC_REF(/datum/tattoo, on_apply)(mob/user)
 	if(fade_time)
 		addtimer(CALLBACK(src, PROC_REF(fade_tattoo)), fade_time)
 
@@ -54,7 +54,7 @@
 	. = ..()
 
 /// Is the tattoo visible?
-/datum/tattoo/proc/is_it_visible(mob/viewer)
+TYPE_PROC_REF(/datum/tattoo, is_it_visible)(mob/viewer)
 	if(!owner_limb)
 		return FALSE
 	var/obj/item/bodypart/meatchunk = owner_limb.resolve()
@@ -77,7 +77,7 @@
 		return FALSE // uncovered? uncovered
 	return TRUE
 
-/datum/tattoo/proc/fade_tattoo()
+TYPE_PROC_REF(/datum/tattoo, fade_tattoo)()
 	if(fadedness++ > TATTOO_VERY_FADED)
 		qdel(src)
 		return
@@ -85,7 +85,7 @@
 
 /// Is the tattoo somewhere really private? So you dont examine someone in power armor and find FOXYGRANDMA above their ass
 /// A really in-depth check through a person's privates to see if their relevant bits are, in fact, visible
-/datum/tattoo/proc/invade_privacy()
+TYPE_PROC_REF(/datum/tattoo, invade_privacy)()
 	if(extra_private)
 		return FALSE // extra private? *must* be revealed
 	if(!owner_limb)
@@ -96,7 +96,7 @@
 	if(!grundlehaver)
 		return TRUE // how the heck did you sever a chest? nice
 
-/datum/tattoo/proc/get_desc(mob/viewer, check_vis = TRUE)
+TYPE_PROC_REF(/datum/tattoo, get_desc)(mob/viewer, check_vis = TRUE)
 	if(!owner_limb)
 		return
 	if(check_vis && !is_it_visible(viewer))
@@ -118,7 +118,7 @@
 
 /// takes in the tat's location, outputs words about their location
 /// person is the person the tat is allegedly on, cus we dont *really* keep track ourselves
-/datum/tattoo/proc/location2words()
+TYPE_PROC_REF(/datum/tattoo, location2words)()
 	var/obj/item/bodypart/ourlimb = owner_limb.resolve()
 	var/mob/living/carbon/human/person = ourlimb?.owner
 	switch(tat_location)
@@ -292,7 +292,7 @@
 		start_apply_tattoo(victim, user)
 
 /// it puts the tattoo on its skin, it does a good job (at duplicating code)
-/obj/item/tattoo_holder/proc/start_apply_tattoo(mob/living/carbon/human/victim, mob/living/user)
+TYPE_PROC_REF(/obj/item/tattoo_holder, start_apply_tattoo)(mob/living/carbon/human/victim, mob/living/user)
 	if(applying)
 		user.show_message(span_alert("You're already applying this!"))
 		return
@@ -335,7 +335,7 @@
 		return
 	apply_tattoo(victim, user, tat_loc, put_it_there)
 
-/obj/item/tattoo_holder/proc/apply_tattoo(mob/living/carbon/human/victim, mob/living/user, tat_loc, part)
+TYPE_PROC_REF(/obj/item/tattoo_holder, apply_tattoo)(mob/living/carbon/human/victim, mob/living/user, tat_loc, part)
 	applying = TRUE
 	if(!ishuman(victim))
 		user.show_message(span_alert("No longer exists, probably!"))
@@ -370,7 +370,7 @@
 		return
 	finish_tattoo(victim, user, tat_loc, part)
 
-/obj/item/tattoo_holder/proc/finish_tattoo(mob/living/carbon/human/victim, mob/living/user, tat_loc, part)
+TYPE_PROC_REF(/obj/item/tattoo_holder, finish_tattoo)(mob/living/carbon/human/victim, mob/living/user, tat_loc, part)
 	abort() // job successfully failed~
 	var/obj/item/bodypart/pretty_part = victim.get_bodypart(part)
 	if(!pretty_part)
@@ -383,21 +383,21 @@
 		qdel(src)
 
 /// reset
-/obj/item/tattoo_holder/proc/abort(mob/living/carbon/human/victim, mob/living/user)
+TYPE_PROC_REF(/obj/item/tattoo_holder, abort)(mob/living/carbon/human/victim, mob/living/user)
 	applying = FALSE
 
 // returns TRUE if theres any charges left
-/obj/item/tattoo_holder/proc/use_charge()
+TYPE_PROC_REF(/obj/item/tattoo_holder, use_charge)()
 	if(uses_left == UNLIMITED_TATTOO)
 		return TRUE
 	if(uses_left-- > 0)
 		return TRUE
 
 // returns TRUE if theres any charges left, but doesnt decrement
-/obj/item/tattoo_holder/proc/has_charge()
+TYPE_PROC_REF(/obj/item/tattoo_holder, has_charge)()
 	return abs(uses_left) // yay maths
 
-/obj/item/tattoo_holder/proc/change_stuff(mob/user)
+TYPE_PROC_REF(/obj/item/tattoo_holder, change_stuff)(mob/user)
 	if(!istype(loaded_tat))
 		loaded_tat = new
 		if(!istype(loaded_tat))
@@ -500,7 +500,7 @@
 		return
 	. += span_notice("It is loaded with \a [flash].")
 
-/obj/item/tattoo_gun/proc/eject_flash(mob/user, delet)
+TYPE_PROC_REF(/obj/item/tattoo_gun, eject_flash)(mob/user, delet)
 	if(!flash)
 		return
 	if(delet)
@@ -514,7 +514,7 @@
 	flash = null
 	playsound(get_turf(src), 'sound/machines/click.ogg', 50, 1)
 
-/obj/item/tattoo_gun/proc/insert_flash(mob/user, obj/item/tattoo_holder/nutat)
+TYPE_PROC_REF(/obj/item/tattoo_gun, insert_flash)(mob/user, obj/item/tattoo_holder/nutat)
 	if(!nutat)
 		return
 	if(flash)
@@ -531,7 +531,7 @@
 	. = ..()
 	return prepare_engraving_skin(victim, user)
 
-/obj/item/tattoo_gun/proc/prepare_engraving_skin(mob/living/carbon/human/victim, mob/living/user)
+TYPE_PROC_REF(/obj/item/tattoo_gun, prepare_engraving_skin)(mob/living/carbon/human/victim, mob/living/user)
 	if(engraving)
 		user.show_message(span_alert("You're already stabbing someone!"))
 		return
@@ -582,7 +582,7 @@
 	soundloop.start()
 	return STOP_ATTACK_PROC_CHAIN // dont hurt them, we want to hurt em
 
-/obj/item/tattoo_gun/proc/engrave_skin(mob/living/carbon/human/victim, mob/living/user, tat_loc, part)
+TYPE_PROC_REF(/obj/item/tattoo_gun, engrave_skin)(mob/living/carbon/human/victim, mob/living/user, tat_loc, part)
 	if(!ishuman(victim))
 		user.show_message(span_alert("No longer exists, probably!"))
 		abort()
@@ -623,12 +623,12 @@
 		return TRUE
 	engrave_skin(victim, user, tat_loc, part)
 
-/obj/item/tattoo_gun/proc/abort(mob/living/carbon/human/victim, mob/living/user)
+TYPE_PROC_REF(/obj/item/tattoo_gun, abort)(mob/living/carbon/human/victim, mob/living/user)
 	engraving = FALSE
 	operation_counter = 1
 	soundloop.stop()
 
-/obj/item/tattoo_gun/proc/finish(mob/living/carbon/human/victim, mob/living/user, tat_loc, part)
+TYPE_PROC_REF(/obj/item/tattoo_gun, finish)(mob/living/carbon/human/victim, mob/living/user, tat_loc, part)
 	abort() // job successfully failed~
 	if(!flash)
 		user.show_message(span_alert("You popped out the template!"))
@@ -645,7 +645,7 @@
 	user.visible_message(span_notice("[user] finishes up [user.p_their()] masterpiece on [victim]'s [lowertext(tat_loc)]!"))
 	playsound(get_turf(src), 'sound/machines/ding.ogg', 50, 1)
 
-/obj/item/tattoo_gun/proc/make_noises_and_pain(mob/living/carbon/human/victim, mob/living/user, tat_loc, part)
+TYPE_PROC_REF(/obj/item/tattoo_gun, make_noises_and_pain)(mob/living/carbon/human/victim, mob/living/user, tat_loc, part)
 	if(!istype(victim))
 		abort()
 		return

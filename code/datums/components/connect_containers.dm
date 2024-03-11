@@ -30,7 +30,7 @@
 	if(src.tracked != tracked)
 		set_tracked(tracked)
 
-/datum/component/connect_containers/proc/set_tracked(atom/movable/new_tracked)
+TYPE_PROC_REF(/datum/component/connect_containers, set_tracked)(atom/movable/new_tracked)
 	if(tracked)
 		UnregisterSignal(tracked, list(COMSIG_MOVABLE_MOVED, COMSIG_PARENT_QDELETING))
 		unregister_signals(tracked.loc)
@@ -41,11 +41,11 @@
 	RegisterSignal(tracked, COMSIG_PARENT_QDELETING, PROC_REF(handle_tracked_qdel))
 	update_signals(tracked)
 
-/datum/component/connect_containers/proc/handle_tracked_qdel()
+TYPE_PROC_REF(/datum/component/connect_containers, handle_tracked_qdel)()
 	SIGNAL_HANDLER
 	qdel(src)
 
-/datum/component/connect_containers/proc/update_signals(atom/movable/listener)
+TYPE_PROC_REF(/datum/component/connect_containers, update_signals)(atom/movable/listener)
 	if(!ismovable(listener.loc))
 		return
 
@@ -54,7 +54,7 @@
 		for(var/signal in connections)
 			parent.RegisterSignal(container, signal, connections[signal])
 
-/datum/component/connect_containers/proc/unregister_signals(atom/movable/location)
+TYPE_PROC_REF(/datum/component/connect_containers, unregister_signals)(atom/movable/location)
 	if(!ismovable(location))
 		return
 
@@ -62,7 +62,7 @@
 		UnregisterSignal(target, COMSIG_MOVABLE_MOVED)
 		parent.UnregisterSignal(target, connections)
 
-/datum/component/connect_containers/proc/on_moved(atom/movable/listener, atom/old_loc)
+TYPE_PROC_REF(/datum/component/connect_containers, on_moved)(atom/movable/listener, atom/old_loc)
 	SIGNAL_HANDLER
 	unregister_signals(old_loc)
 	update_signals(listener)

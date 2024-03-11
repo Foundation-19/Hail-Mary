@@ -92,7 +92,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 		complete_trajectory()
 	return ..()
 
-/obj/effect/immovablerod/proc/complete_trajectory()
+TYPE_PROC_REF(/obj/effect/immovablerod, complete_trajectory)()
 	//We hit what we wanted to hit, time to go
 	special_target = null
 	destination = get_edge_target_turf(src, dir)
@@ -136,7 +136,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 		qdel(src)
 		qdel(other)
 
-/obj/effect/immovablerod/proc/penetrate(mob/living/L)
+TYPE_PROC_REF(/obj/effect/immovablerod, penetrate)(mob/living/L)
 	L.visible_message(span_danger("[L] is penetrated by an immovable rod!") , span_userdanger("The rod penetrates you!") , "<span class ='danger'>You hear a CLANG!</span>")
 	if(ishuman(L))
 		var/mob/living/carbon/human/H = L

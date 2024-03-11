@@ -52,7 +52,7 @@ GLOBAL_LIST_INIT(huds, list(
 	GLOB.all_huds -= src
 	return ..()
 
-/datum/atom_hud/proc/remove_hud_from(mob/M)
+TYPE_PROC_REF(/datum/atom_hud, remove_hud_from)(mob/M)
 	if(!M || !hudusers[M])
 		return
 	if (!--hudusers[M])
@@ -66,7 +66,7 @@ GLOBAL_LIST_INIT(huds, list(
 			for(var/atom/A in hudatoms)
 				remove_from_single_hud(M, A)
 
-/datum/atom_hud/proc/remove_from_hud(atom/A, clear_list)
+TYPE_PROC_REF(/datum/atom_hud, remove_from_hud)(atom/A, clear_list)
 	if(!A)
 		return FALSE
 	if(!(hudusers[A])) // don't unregister if it's also a mob in our users list
@@ -77,13 +77,13 @@ GLOBAL_LIST_INIT(huds, list(
 		hudatoms -= A
 	return TRUE
 
-/datum/atom_hud/proc/remove_from_single_hud(mob/M, atom/A) //unsafe, no sanity apart from client
+TYPE_PROC_REF(/datum/atom_hud, remove_from_single_hud)(mob/M, atom/A) //unsafe, no sanity apart from client
 	if(!M || !M.client || !A)
 		return
 	for(var/i in hud_icons)
 		M.client.images -= A.hud_list[i]
 
-/datum/atom_hud/proc/add_hud_to(mob/M)
+TYPE_PROC_REF(/datum/atom_hud, add_hud_to)(mob/M)
 	if(!M)
 		return
 	if(!hudusers[M])
@@ -100,14 +100,14 @@ GLOBAL_LIST_INIT(huds, list(
 	else
 		hudusers[M]++
 
-/datum/atom_hud/proc/show_hud_images_after_cooldown(M)
+TYPE_PROC_REF(/datum/atom_hud, show_hud_images_after_cooldown)(M)
 	if(queued_to_see[M])
 		queued_to_see -= M
 		next_time_allowed[M] = world.time + ADD_HUD_TO_COOLDOWN
 		for(var/atom/A in hudatoms)
 			add_to_single_hud(M, A)
 
-/datum/atom_hud/proc/add_to_hud(atom/A, send_signal)
+TYPE_PROC_REF(/datum/atom_hud, add_to_hud)(atom/A, send_signal)
 	if(!A)
 		return FALSE
 	hudatoms |= A
@@ -117,7 +117,7 @@ GLOBAL_LIST_INIT(huds, list(
 			add_to_single_hud(M, A)
 	return TRUE
 
-/datum/atom_hud/proc/add_to_single_hud(mob/M, atom/A, send_signal) //unsafe, no sanity apart from client
+TYPE_PROC_REF(/datum/atom_hud, add_to_single_hud)(mob/M, atom/A, send_signal) //unsafe, no sanity apart from client
 	if(!M || !M.client || !A)
 		return
 	for(var/i in hud_icons)
@@ -125,7 +125,7 @@ GLOBAL_LIST_INIT(huds, list(
 			M.client.images |= A.hud_list[i]
 
 //MOB PROCS
-/mob/proc/reload_huds()
+TYPE_PROC_REF(/mob, reload_huds)()
 	for(var/datum/atom_hud/hud in GLOB.all_huds)
 		if(hud && hud.hudusers[src])
 			for(var/atom/A in hud.hudatoms)
@@ -134,7 +134,7 @@ GLOBAL_LIST_INIT(huds, list(
 /mob/dead/new_player/reload_huds()
 	return
 
-/mob/proc/add_click_catcher()
+TYPE_PROC_REF(/mob, add_click_catcher)()
 	client.screen += client.void
 
 /mob/dead/new_player/add_click_catcher()

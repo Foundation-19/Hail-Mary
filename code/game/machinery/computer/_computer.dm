@@ -73,10 +73,10 @@
 	SSvis_overlays.add_vis_overlay(src, icon, overlay_state, layer, plane, dir)
 	SSvis_overlays.add_vis_overlay(src, icon, overlay_state, EMISSIVE_LAYER, EMISSIVE_PLANE, dir, alpha=128)
 
-/obj/machinery/computer/proc/why_overlays()
+TYPE_PROC_REF(/obj/machinery/computer, why_overlays)()
 	update_overlays()
 
-/obj/machinery/computer/proc/update_connection()
+TYPE_PROC_REF(/obj/machinery/computer, update_connection)()
 	if(connectable)
 		icon_state = initial(icon_state)
 		var/obj/machinery/computer/left_turf = null

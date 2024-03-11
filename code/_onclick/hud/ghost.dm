@@ -80,7 +80,7 @@
 
 	HandlePlanes()
 
-/datum/hud/ghost/proc/HandlePlanes()
+TYPE_PROC_REF(/datum/hud/ghost, HandlePlanes)()
 	if(check_rights(R_ADMIN, 0))
 		return
 	plane_masters["[OBJITEM_PLANE]"].Hide()

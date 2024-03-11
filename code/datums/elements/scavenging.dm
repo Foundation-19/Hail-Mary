@@ -60,7 +60,7 @@
 		maximum_loot_per_player -= target
 	UnregisterSignal(target, list(COMSIG_ATOM_ATTACK_HAND, COMSIG_PARENT_ATTACKBY, COMSIG_PARENT_EXAMINE))
 
-/datum/element/scavenging/proc/on_examine(atom/source, mob/user, list/examine_list)
+TYPE_PROC_REF(/datum/element/scavenging, on_examine)(atom/source, mob/user, list/examine_list)
 	var/methods = tool_types.Copy()
 	if(can_use_hands)
 		methods += list("bare handed")
@@ -69,11 +69,11 @@
 	var/text = english_list(methods, "", " or ")
 	examine_list += span_notice("Looks like [source.p_they()] can be scavenged [length(tool_types) ? "with" : ""][length(methods == 1) ? "" : "either "][length(tool_types) ? "a " : ""][text]")
 
-/datum/element/scavenging/proc/scavenge_barehanded(atom/source, mob/user)
+TYPE_PROC_REF(/datum/element/scavenging, scavenge_barehanded)(atom/source, mob/user)
 	scavenge(source, user, 1)
 	return COMPONENT_NO_ATTACK_HAND
 
-/datum/element/scavenging/proc/scavenge_tool(atom/source, obj/item/I, mob/user, params)
+TYPE_PROC_REF(/datum/element/scavenging, scavenge_tool)(atom/source, obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM || !I.tool_behaviour) //Robust trash disposal techniques!
 		return
 	var/speed_multi = tool_types[I.tool_behaviour]
@@ -83,7 +83,7 @@
 	return COMPONENT_NO_AFTERATTACK
 
 /// This proc has to be asynced (cough cough, do_after) in order to return the comsig values in time to stop the attack chain.
-/datum/element/scavenging/proc/scavenge(atom/source, mob/user, speed_multi = 1)
+TYPE_PROC_REF(/datum/element/scavenging, scavenge)(atom/source, mob/user, speed_multi = 1)
 	set waitfor = FALSE
 
 	if(players_busy_scavenging[user])
@@ -102,11 +102,11 @@
 		spawn_loot(source, user)
 	players_busy_scavenging -= user
 
-/datum/element/scavenging/proc/set_progress(atom/source, start_time)
+TYPE_PROC_REF(/datum/element/scavenging, set_progress)(atom/source, start_time)
 	progress_per_atom[source] = world.time - start_time
 	return TRUE
 
-/datum/element/scavenging/proc/spawn_loot(atom/source, mob/user)
+TYPE_PROC_REF(/datum/element/scavenging, spawn_loot)(atom/source, mob/user)
 	progress_per_atom -= source
 
 	var/loot = pickweight(loot_table)

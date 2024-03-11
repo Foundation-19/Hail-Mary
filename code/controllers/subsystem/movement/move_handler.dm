@@ -17,7 +17,7 @@
  *
  * You can find the logic for this control in this file
  *
- * Specifics of how different loops operate can be found in the movement_types.dm file, alongside the [add to loop][/datum/controller/subsystem/move_manager/proc/add_to_loop] helper procs that use them
+ * Specifics of how different loops operate can be found in the movement_types.dm file, alongside the [add to loop][TYPE_PROC_REF(/datum/controller/subsystem/move_manager, add_to_loop)] helper procs that use them
  *
 **/
 SUBSYSTEM_DEF(move_manager)
@@ -26,7 +26,7 @@ SUBSYSTEM_DEF(move_manager)
 	runlevels = RUNLEVEL_GAME | RUNLEVEL_POSTGAME
 
 ///Adds a movable thing to a movement subsystem. Returns TRUE if it all worked, FALSE if it failed somehow
-/datum/controller/subsystem/move_manager/proc/add_to_loop(atom/movable/thing_to_add, datum/controller/subsystem/movement/subsystem = SSmovement, datum/move_loop/loop_type, priority = MOVEMENT_DEFAULT_PRIORITY, flags, datum/extra_info)
+TYPE_PROC_REF(/datum/controller/subsystem/move_manager, add_to_loop)(atom/movable/thing_to_add, datum/controller/subsystem/movement/subsystem = SSmovement, datum/move_loop/loop_type, priority = MOVEMENT_DEFAULT_PRIORITY, flags, datum/extra_info)
 	var/datum/movement_packet/our_data = thing_to_add.move_packet
 	if(!our_data)
 		our_data = new(thing_to_add)
@@ -35,7 +35,7 @@ SUBSYSTEM_DEF(move_manager)
 	return our_data.add_loop(arglist(arguments))
 
 ///Returns the subsystem's loop if we're processing on it, null otherwise
-/datum/controller/subsystem/move_manager/proc/processing_on(atom/movable/packet_owner, datum/controller/subsystem/movement/subsystem)
+TYPE_PROC_REF(/datum/controller/subsystem/move_manager, processing_on)(atom/movable/packet_owner, datum/controller/subsystem/movement/subsystem)
 	var/datum/movement_packet/packet = packet_owner.move_packet
 	if(!packet)
 		return
@@ -74,7 +74,7 @@ SUBSYSTEM_DEF(move_manager)
 	return ..()
 
 ///Adds a loop to our parent. Returns the created loop if a success, null otherwise
-/datum/movement_packet/proc/add_loop(datum/controller/subsystem/movement/subsystem, datum/move_loop/loop_type, priority, flags, datum/extra_info)
+TYPE_PROC_REF(/datum/movement_packet, add_loop)(datum/controller/subsystem/movement/subsystem, datum/move_loop/loop_type, priority, flags, datum/extra_info)
 	var/datum/move_loop/existing_loop = existing_loops[subsystem]
 
 	if(existing_loop && existing_loop.priority > priority)
@@ -99,7 +99,7 @@ SUBSYSTEM_DEF(move_manager)
 	return new_loop
 
 ///Attempts to contest the current running move loop. Returns TRUE if the loop is active, FALSE otherwise
-/datum/movement_packet/proc/contest_running_loop(datum/move_loop/contestant)
+TYPE_PROC_REF(/datum/movement_packet, contest_running_loop)(datum/move_loop/contestant)
 	var/datum/controller/subsystem/movement/contesting_subsystem = contestant.controller
 
 	if(contestant.flags & MOVEMENT_LOOP_IGNORE_PRIORITY)
@@ -120,7 +120,7 @@ SUBSYSTEM_DEF(move_manager)
 	return TRUE
 
 ///Tries to figure out the current favorite loop to run. More complex then just deciding between two different loops, assumes no running loop currently exists
-/datum/movement_packet/proc/decide_on_running_loop()
+TYPE_PROC_REF(/datum/movement_packet, decide_on_running_loop)()
 	if(running_loop)
 		return
 	if(!length(existing_loops)) //Die
@@ -143,7 +143,7 @@ SUBSYSTEM_DEF(move_manager)
 	running_loop = favorite
 	favorite_subsystem.add_loop(running_loop)
 
-/datum/movement_packet/proc/remove_loop(datum/controller/subsystem/movement/remove_from, datum/move_loop/loop_to_remove)
+TYPE_PROC_REF(/datum/movement_packet, remove_loop)(datum/controller/subsystem/movement/remove_from, datum/move_loop/loop_to_remove)
 	if(loop_to_remove == running_loop)
 		remove_from.remove_loop(loop_to_remove)
 		running_loop = null
@@ -156,7 +156,7 @@ SUBSYSTEM_DEF(move_manager)
 	decide_on_running_loop()
 	return
 
-/datum/movement_packet/proc/remove_subsystem(datum/controller/subsystem/movement/remove)
+TYPE_PROC_REF(/datum/movement_packet, remove_subsystem)(datum/controller/subsystem/movement/remove)
 	var/datum/move_loop/our_loop = existing_loops[remove]
 	if(!our_loop)
 		return FALSE

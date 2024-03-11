@@ -32,7 +32,7 @@
 	if(!wave_type)
 		determine_wave_type()
 
-/datum/round_event/meteor_wave/proc/determine_wave_type()
+TYPE_PROC_REF(/datum/round_event/meteor_wave, determine_wave_type)()
 	if(!wave_name)
 		wave_name = pickweight(list(
 			"normal" = 50,

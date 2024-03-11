@@ -63,7 +63,7 @@
 /datum/signal/subspace/New(data)
 	src.data = data || list()
 
-/datum/signal/subspace/proc/copy()
+TYPE_PROC_REF(/datum/signal/subspace, copy)()
 	var/datum/signal/subspace/copy = new
 	copy.original = src
 	copy.source = source
@@ -74,19 +74,19 @@
 	copy.data = data.Copy()
 	return copy
 
-/datum/signal/subspace/proc/mark_done()
+TYPE_PROC_REF(/datum/signal/subspace, mark_done)()
 	var/datum/signal/subspace/current = src
 	while (current)
 		current.data["done"] = TRUE
 		current = current.original
 
-/datum/signal/subspace/proc/send_to_receivers()
+TYPE_PROC_REF(/datum/signal/subspace, send_to_receivers)()
 	for(var/obj/machinery/telecomms/receiver/R in GLOB.telecomms_list)
 		R.receive_signal(src)
 	for(var/obj/machinery/telecomms/allinone/R in GLOB.telecomms_list)
 		R.receive_signal(src)
 
-/datum/signal/subspace/proc/broadcast()
+TYPE_PROC_REF(/datum/signal/subspace, broadcast)()
 	set waitfor = FALSE
 
 // Vocal transmissions (i.e. using saycode).

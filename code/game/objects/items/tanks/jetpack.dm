@@ -34,7 +34,7 @@
 	else
 		toggle_internals(user)
 
-/obj/item/tank/jetpack/proc/cycle(mob/user)
+TYPE_PROC_REF(/obj/item/tank/jetpack, cycle)(mob/user)
 	if(user.incapacitated())
 		return
 
@@ -48,7 +48,7 @@
 		var/datum/action/A = X
 		A.UpdateButtonIcon()
 
-/obj/item/tank/jetpack/proc/turn_on(mob/user)
+TYPE_PROC_REF(/obj/item/tank/jetpack, turn_on)(mob/user)
 	on = TRUE
 	icon_state = "[initial(icon_state)]-on"
 	ion_trail.start()
@@ -56,7 +56,7 @@
 	if(full_speed)
 		user.add_movespeed_modifier(/datum/movespeed_modifier/jetpack/fullspeed)
 
-/obj/item/tank/jetpack/proc/turn_off(mob/user)
+TYPE_PROC_REF(/obj/item/tank/jetpack, turn_off)(mob/user)
 	on = FALSE
 	stabilizers = FALSE
 	icon_state = initial(icon_state)
@@ -64,10 +64,10 @@
 	UnregisterSignal(user, COMSIG_MOVABLE_MOVED)
 	user.remove_movespeed_modifier(/datum/movespeed_modifier/jetpack/fullspeed)
 
-/obj/item/tank/jetpack/proc/move_react(mob/user)
+TYPE_PROC_REF(/obj/item/tank/jetpack, move_react)(mob/user)
 	allow_thrust(0.01, user)
 
-/obj/item/tank/jetpack/proc/allow_thrust(num, mob/living/user)
+TYPE_PROC_REF(/obj/item/tank/jetpack, allow_thrust)(num, mob/living/user)
 	if(!on)
 		return
 	if((num < 0.005 || air_contents.total_moles() < num))
@@ -228,7 +228,7 @@
 //Back worn jetpacks, hardsuit internal packs, and so on.
 //Used in Process_Spacemove() and wherever you want to check for/get a jetpack
 
-/mob/proc/get_jetpack()
+TYPE_PROC_REF(/mob, get_jetpack)()
 	return
 
 /mob/living/carbon/get_jetpack()

@@ -54,30 +54,30 @@
 	return temp
 
 // Relays icon update to the computer.
-/datum/computer_file/program/proc/update_computer_icon()
+TYPE_PROC_REF(/datum/computer_file/program, update_computer_icon)()
 	if(computer)
 		computer.update_icon()
 
 // Attempts to create a log in global ntnet datum. Returns 1 on success, 0 on fail.
-/datum/computer_file/program/proc/generate_network_log(text)
+TYPE_PROC_REF(/datum/computer_file/program, generate_network_log)(text)
 	if(computer)
 		return computer.add_log(text)
 	return 0
 
-/datum/computer_file/program/proc/is_supported_by_hardware(hardware_flag = 0, loud = 0, mob/user = null)
+TYPE_PROC_REF(/datum/computer_file/program, is_supported_by_hardware)(hardware_flag = 0, loud = 0, mob/user = null)
 	if(!(hardware_flag & usage_flags))
 		if(loud && computer && user)
 			to_chat(user, span_danger("\The [computer] flashes a \"Hardware Error - Incompatible software\" warning."))
 		return 0
 	return 1
 
-/datum/computer_file/program/proc/get_signal(specific_action = 0)
+TYPE_PROC_REF(/datum/computer_file/program, get_signal)(specific_action = 0)
 	if(computer)
 		return computer.get_ntnet_status(specific_action)
 	return 0
 
 // Called by Process() on device that runs us, once every tick.
-/datum/computer_file/program/proc/process_tick()
+TYPE_PROC_REF(/datum/computer_file/program, process_tick)()
 	return 1
 
 /**
@@ -91,7 +91,7 @@
  *transfer, if TRUE and access_to_check is null, will tell this proc to use the program's transfer_access in place of access_to_check
  *access can contain a list of access numbers to check against. If access is not empty, it will be used istead of checking any inserted ID.
 */
-/datum/computer_file/program/proc/can_run(mob/user, loud = FALSE, access_to_check, transfer = FALSE, list/access)
+TYPE_PROC_REF(/datum/computer_file/program, can_run)(mob/user, loud = FALSE, access_to_check, transfer = FALSE, list/access)
 	// Defaults to required_access
 	if(!access_to_check)
 		if(transfer && transfer_access)
@@ -131,14 +131,14 @@
 
 // This attempts to retrieve header data for UIs. If implementing completely new device of different type than existing ones
 // always include the device here in this proc. This proc basically relays the request to whatever is running the program.
-/datum/computer_file/program/proc/get_header_data()
+TYPE_PROC_REF(/datum/computer_file/program, get_header_data)()
 	if(computer)
 		return computer.get_header_data()
 	return list()
 
 // This is performed on program startup. May be overridden to add extra logic. Remember to include ..() call. Return 1 on success, 0 on failure.
 // When implementing new program based device, use this to run the program.
-/datum/computer_file/program/proc/run_program(mob/living/user)
+TYPE_PROC_REF(/datum/computer_file/program, run_program)(mob/living/user)
 	if(can_run(user, 1))
 		if(requires_ntnet)
 			var/obj/item/card/id/ID
@@ -161,11 +161,11 @@
  *the emagging affected anything, and FALSE if no change was made (already emagged, or has no
  *emag functions).
 **/
-/datum/computer_file/program/proc/run_emag()
+TYPE_PROC_REF(/datum/computer_file/program, run_emag)()
 	return FALSE
 
 // Use this proc to kill the program. Designed to be implemented by each program if it requires on-quit logic, such as the NTNRC client.
-/datum/computer_file/program/proc/kill_program(forced = FALSE)
+TYPE_PROC_REF(/datum/computer_file/program, kill_program)(forced = FALSE)
 	program_state = PROGRAM_STATE_KILLED
 	if(requires_ntnet)
 		var/obj/item/card/id/ID

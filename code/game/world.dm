@@ -73,12 +73,12 @@ GLOBAL_LIST(topic_status_cache)
 	HandleTestRun()
 	#endif
 
-/world/proc/InitTgs()
+TYPE_PROC_REF(/world, InitTgs)()
 	TgsNew(new /datum/tgs_event_handler/impl, TGS_SECURITY_TRUSTED)
 	GLOB.revdata.load_tgs_info()
 	GLOB.tgs_initialized = TRUE
 
-/world/proc/HandleTestRun()
+TYPE_PROC_REF(/world, HandleTestRun)()
 	//trigger things to run the whole process
 	Master.sleep_offline_after_initializations = FALSE
 	SSticker.start_immediately = TRUE
@@ -91,7 +91,7 @@ GLOBAL_LIST(topic_status_cache)
 #endif
 	SSticker.OnRoundstart(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(_addtimer), cb, 10 SECONDS))
 
-/world/proc/SetupLogs()
+TYPE_PROC_REF(/world, SetupLogs)()
 	var/override_dir = params[OVERRIDE_LOG_DIRECTORY_PARAMETER]
 	if(!override_dir)
 		var/realtime = world.realtime
@@ -201,7 +201,7 @@ GLOBAL_LIST(topic_status_cache)
 	handler = new handler()
 	return handler.TryRun(input, addr)
 
-/world/proc/AnnouncePR(announcement, list/payload)
+TYPE_PROC_REF(/world, AnnouncePR)(announcement, list/payload)
 	var/static/list/PRcounts = list()	//PR id -> number of times announced this round
 	var/id = "[payload["pull_request"]["id"]]"
 	if(!PRcounts[id])
@@ -215,7 +215,7 @@ GLOBAL_LIST(topic_status_cache)
 	for(var/client/C in GLOB.clients)
 		C.AnnouncePR(final_composed)
 
-/world/proc/FinishTestRun()
+TYPE_PROC_REF(/world, FinishTestRun)()
 	set waitfor = FALSE
 	var/list/fail_reasons
 	if(GLOB)
@@ -287,7 +287,7 @@ GLOBAL_LIST(topic_status_cache)
 		call(debug_server, "auxtools_shutdown")()
 	..()
 
-/world/proc/update_status()
+TYPE_PROC_REF(/world, update_status)()
 
 	var/list/features = list()
 
@@ -346,7 +346,7 @@ GLOBAL_LIST(topic_status_cache)
 
 	status = s
 
-/world/proc/update_hub_visibility(new_visibility)
+TYPE_PROC_REF(/world, update_hub_visibility)(new_visibility)
 	if(new_visibility == GLOB.hub_visibility)
 		return
 	GLOB.hub_visibility = new_visibility
@@ -355,16 +355,16 @@ GLOBAL_LIST(topic_status_cache)
 	else
 		hub_password = "SORRYNOPASSWORD"
 
-/world/proc/incrementMaxZ()
+TYPE_PROC_REF(/world, incrementMaxZ)()
 	maxz++
 	SSmobs.MaxZChanged()
 	SSidlenpcpool.MaxZChanged()
 	world.refresh_atmos_grid()
 
 /// Auxtools atmos
-/world/proc/refresh_atmos_grid()
+TYPE_PROC_REF(/world, refresh_atmos_grid)()
 
-/world/proc/change_fps(new_value = 20)
+TYPE_PROC_REF(/world, change_fps)(new_value = 20)
 	if(new_value <= 0)
 		CRASH("change_fps() called with [new_value] new_value.")
 	if(fps == new_value)
@@ -374,7 +374,7 @@ GLOBAL_LIST(topic_status_cache)
 	on_tickrate_change()
 
 
-/world/proc/change_tick_lag(new_value = 0.5)
+TYPE_PROC_REF(/world, change_tick_lag)(new_value = 0.5)
 	if(new_value <= 0)
 		CRASH("change_tick_lag() called with [new_value] new_value.")
 	if(tick_lag == new_value)
@@ -384,5 +384,5 @@ GLOBAL_LIST(topic_status_cache)
 	on_tickrate_change()
 
 
-/world/proc/on_tickrate_change()
+TYPE_PROC_REF(/world, on_tickrate_change)()
 	SStimer?.reset_buckets()

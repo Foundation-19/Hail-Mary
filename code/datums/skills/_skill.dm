@@ -45,20 +45,20 @@ GLOBAL_LIST_INIT_TYPED(skill_datums, /datum/skill, init_skill_datums())
 /**
  * Ensures what someone's setting as a value for this skill is valid.
  */
-/datum/skill/proc/sanitize_value(new_value)
+TYPE_PROC_REF(/datum/skill, sanitize_value)(new_value)
 	return new_value
 
 /**
  * Sets the new value of this skill in the holder skills list.
  * As well as possible feedback messages or secondary effects on value change, that's on you.
  */
-/datum/skill/proc/set_skill_value(datum/skill_holder/H, value, mob/owner)
+TYPE_PROC_REF(/datum/skill, set_skill_value)(datum/skill_holder/H, value, mob/owner)
 	H.skills[type] = value
 
 /**
  * Checks if a value is greater
  */
-/datum/skill/proc/is_value_greater(existing, new_value)
+TYPE_PROC_REF(/datum/skill, is_value_greater)(existing, new_value)
 	if(!existing)
 		return TRUE
 	return new_value > existing
@@ -66,7 +66,7 @@ GLOBAL_LIST_INIT_TYPED(skill_datums, /datum/skill, init_skill_datums())
 /**
  * Get a list of data used in the skill panel menu.
  */
-/datum/skill/proc/get_skill_data(datum/skill_holder/H)
+TYPE_PROC_REF(/datum/skill, get_skill_data)(datum/skill_holder/H)
 	var/skill_value = H.owner.get_skill_value(type, FALSE)
 	. = list(
 		"name" = name,
@@ -246,7 +246,7 @@ GLOBAL_LIST_INIT_TYPED(skill_datums, /datum/skill, init_skill_datums())
 /**
  * Gets the base value required to reach a level specified by the 'num' arg.
  */
-/datum/skill/level/proc/get_skill_level_value(num)
+TYPE_PROC_REF(/datum/skill/level, get_skill_level_value)(num)
 	switch(level_up_method)
 		if(STANDARD_LEVEL_UP)
 			. = XP_LEVEL(standard_xp_lvl_up, xp_lvl_multiplier, num)

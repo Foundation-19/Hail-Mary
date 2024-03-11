@@ -90,13 +90,13 @@
 		if(isclosedturf(T) && !isindestructiblewall(T))
 			CreateDoor(T)
 
-/obj/item/projectile/magic/door/proc/CreateDoor(turf/T)
+TYPE_PROC_REF(/obj/item/projectile/magic/door, CreateDoor)(turf/T)
 	var/door_type = pick(door_types)
 	var/obj/structure/mineral_door/D = new door_type(T)
 	T.ChangeTurf(/turf/open/floor/plating, flags = CHANGETURF_INHERIT_AIR)
 	D.Open()
 
-/obj/item/projectile/magic/door/proc/OpenDoor(obj/machinery/door/D)
+TYPE_PROC_REF(/obj/item/projectile/magic/door, OpenDoor)(obj/machinery/door/D)
 	if(istype(D, /obj/machinery/door/airlock))
 		var/obj/machinery/door/airlock/A = D
 		A.locked = FALSE
@@ -262,7 +262,7 @@
 	target.animate_atom_living(firer)
 	. = ..()
 
-/atom/proc/animate_atom_living(mob/living/owner = null)
+TYPE_PROC_REF(/atom, animate_atom_living)(mob/living/owner = null)
 	if((isitem(src) || isstructure(src)) && !is_type_in_list(src, GLOB.protected_objects))
 		if(istype(src, /obj/structure/statue/petrified))
 			var/obj/structure/statue/petrified/P = src
@@ -387,7 +387,7 @@
 		addtimer(CALLBACK(src, PROC_REF(bust_open)), 5 MINUTES)
 	addtimer(CALLBACK(src, PROC_REF(magicly_lock)), 5)
 
-/obj/structure/closet/decay/proc/magicly_lock()
+TYPE_PROC_REF(/obj/structure/closet/decay, magicly_lock)()
 	if(!welded)
 		return
 	icon_state = magic_icon
@@ -397,7 +397,7 @@
 	if(weld_state)
 		unmagify()
 
-/obj/structure/closet/decay/proc/decay()
+TYPE_PROC_REF(/obj/structure/closet/decay, decay)()
 	animate(src, alpha = 0, time = 30)
 	addtimer(CALLBACK(GLOBAL_PROC, PROC_REF(qdel), src), 30)
 
@@ -409,7 +409,7 @@
 		else
 			addtimer(CALLBACK(src, PROC_REF(decay)), 15 SECONDS)
 
-/obj/structure/closet/decay/proc/unmagify()
+TYPE_PROC_REF(/obj/structure/closet/decay, unmagify)()
 	icon_state = weakened_icon
 	update_icon()
 	addtimer(CALLBACK(src, PROC_REF(decay)), 15 SECONDS)

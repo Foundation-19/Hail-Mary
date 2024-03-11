@@ -54,7 +54,7 @@
 	QDEL_NULL(emporium_action)
 	. = ..()
 
-/datum/antagonist/changeling/proc/generate_name()
+TYPE_PROC_REF(/datum/antagonist/changeling, generate_name)()
 	var/honorific
 	if(owner.current.gender == FEMALE)
 		honorific = "Ms."
@@ -69,7 +69,7 @@
 	else
 		changelingID = "[honorific] [rand(1,999)]"
 
-/datum/antagonist/changeling/proc/create_actions()
+TYPE_PROC_REF(/datum/antagonist/changeling, create_actions)()
 	cellular_emporium = new(src)
 	emporium_action = new(cellular_emporium)
 
@@ -97,14 +97,14 @@
 	owner.current.hud_used?.lingchemdisplay?.invisibility = INVISIBILITY_ABSTRACT
 	. = ..()
 
-/datum/antagonist/changeling/proc/remove_clownmut()
+TYPE_PROC_REF(/datum/antagonist/changeling, remove_clownmut)()
 	if (owner)
 		var/mob/living/carbon/human/H = owner.current
 		if(istype(H) && owner.assigned_role == "Clown")
 			to_chat(H, "You have evolved beyond your clownish nature, allowing you to wield weapons without harming yourself.")
 			H.dna.remove_mutation(CLOWNMUT)
 
-/datum/antagonist/changeling/proc/reset_properties(hardReset = FALSE)
+TYPE_PROC_REF(/datum/antagonist/changeling, reset_properties)(hardReset = FALSE)
 	changeling_speak = 0
 	chosen_sting = null
 
@@ -122,7 +122,7 @@
 	chem_charges = min(chem_charges, chem_storage)
 
 
-/datum/antagonist/changeling/proc/remove_changeling_powers()
+TYPE_PROC_REF(/datum/antagonist/changeling, remove_changeling_powers)()
 	if(ishuman(owner.current) || ismonkey(owner.current))
 		reset_properties()
 		for(var/obj/effect/proc_holder/changeling/p in purchasedpowers)
@@ -136,7 +136,7 @@
 		owner.current.hud_used.lingstingdisplay.icon_state = null
 		owner.current.hud_used.lingstingdisplay.invisibility = INVISIBILITY_ABSTRACT
 
-/datum/antagonist/changeling/proc/reset_powers()
+TYPE_PROC_REF(/datum/antagonist/changeling, reset_powers)()
 	if(purchasedpowers)
 		remove_changeling_powers()
 	loudfactor = 0
@@ -149,14 +149,14 @@
 				purchasedpowers += S
 				S.on_purchase(owner.current,TRUE)
 
-/datum/antagonist/changeling/proc/has_sting(obj/effect/proc_holder/changeling/power)
+TYPE_PROC_REF(/datum/antagonist/changeling, has_sting)(obj/effect/proc_holder/changeling/power)
 	for(var/obj/effect/proc_holder/changeling/P in purchasedpowers)
 		if(initial(power.name) == P.name)
 			return TRUE
 	return FALSE
 
 
-/datum/antagonist/changeling/proc/purchase_power(sting_name)
+TYPE_PROC_REF(/datum/antagonist/changeling, purchase_power)(sting_name)
 	var/obj/effect/proc_holder/changeling/thepower = null
 
 	for(var/path in all_powers)
@@ -200,7 +200,7 @@
 		to_chat(owner.current, span_warning("Our blood has grown extremely flammable. Our blood will react explosively to heat."))
 		bloodtestwarnings = 2
 
-/datum/antagonist/changeling/proc/readapt()
+TYPE_PROC_REF(/datum/antagonist/changeling, readapt)()
 	if(!ishuman(owner.current))
 		to_chat(owner.current, span_danger("We can't remove our evolutions in this form!"))
 		return
@@ -216,7 +216,7 @@
 		return 0
 
 //Called in life()
-/datum/antagonist/changeling/proc/regenerate()
+TYPE_PROC_REF(/datum/antagonist/changeling, regenerate)()
 	var/mob/living/carbon/the_ling = owner.current
 	if(istype(the_ling))
 		emporium_action.Grant(the_ling)
@@ -230,18 +230,18 @@
 		owner.current.hud_used?.lingchemdisplay?.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#dd66dd'>[round(chem_charges)]</font></div>"
 
 
-/datum/antagonist/changeling/proc/get_dna(dna_owner)
+TYPE_PROC_REF(/datum/antagonist/changeling, get_dna)(dna_owner)
 	for(var/datum/changelingprofile/prof in stored_profiles)
 		if(dna_owner == prof.name)
 			return prof
 
-/datum/antagonist/changeling/proc/has_dna(datum/dna/tDNA)
+TYPE_PROC_REF(/datum/antagonist/changeling, has_dna)(datum/dna/tDNA)
 	for(var/datum/changelingprofile/prof in stored_profiles)
 		if(tDNA.is_same_as(prof.dna))
 			return TRUE
 	return FALSE
 
-/datum/antagonist/changeling/proc/can_absorb_dna(mob/living/carbon/human/target, verbose=1)
+TYPE_PROC_REF(/datum/antagonist/changeling, can_absorb_dna)(mob/living/carbon/human/target, verbose=1)
 	var/mob/living/carbon/user = owner.current
 	if(!istype(user))
 		return
@@ -276,7 +276,7 @@
 	return 1
 
 
-/datum/antagonist/changeling/proc/create_profile(mob/living/carbon/human/H, protect = 0)
+TYPE_PROC_REF(/datum/antagonist/changeling, create_profile)(mob/living/carbon/human/H, protect = 0)
 	var/datum/changelingprofile/prof = new
 
 	H.dna.real_name = H.real_name //Set this again, just to be sure that it's properly set.
@@ -309,7 +309,7 @@
 
 	return prof
 
-/datum/antagonist/changeling/proc/add_profile(datum/changelingprofile/prof)
+TYPE_PROC_REF(/datum/antagonist/changeling, add_profile)(datum/changelingprofile/prof)
 	if(stored_profiles.len > dna_max)
 		if(!push_out_profile())
 			return
@@ -320,12 +320,12 @@
 	stored_profiles += prof
 	absorbedcount++
 
-/datum/antagonist/changeling/proc/add_new_profile(mob/living/carbon/human/H, protect = 0)
+TYPE_PROC_REF(/datum/antagonist/changeling, add_new_profile)(mob/living/carbon/human/H, protect = 0)
 	var/datum/changelingprofile/prof = create_profile(H, protect)
 	add_profile(prof)
 	return prof
 
-/datum/antagonist/changeling/proc/remove_profile(mob/living/carbon/human/H, force = 0)
+TYPE_PROC_REF(/datum/antagonist/changeling, remove_profile)(mob/living/carbon/human/H, force = 0)
 	for(var/datum/changelingprofile/prof in stored_profiles)
 		if(H.real_name == prof.name)
 			if(prof.protected && !force)
@@ -333,12 +333,12 @@
 			stored_profiles -= prof
 			qdel(prof)
 
-/datum/antagonist/changeling/proc/get_profile_to_remove()
+TYPE_PROC_REF(/datum/antagonist/changeling, get_profile_to_remove)()
 	for(var/datum/changelingprofile/prof in stored_profiles)
 		if(!prof.protected)
 			return prof
 
-/datum/antagonist/changeling/proc/push_out_profile()
+TYPE_PROC_REF(/datum/antagonist/changeling, push_out_profile)()
 	var/datum/changelingprofile/removeprofile = get_profile_to_remove()
 	if(removeprofile)
 		stored_profiles -= removeprofile
@@ -346,7 +346,7 @@
 	return 0
 
 
-/datum/antagonist/changeling/proc/create_initial_profile()
+TYPE_PROC_REF(/datum/antagonist/changeling, create_initial_profile)()
 	var/mob/living/carbon/C = owner.current	//only carbons have dna now, so we have to typecaste
 	if(ishuman(C))
 		add_new_profile(C)
@@ -381,7 +381,7 @@
 /datum/antagonist/changeling/farewell()
 	to_chat(owner.current, span_userdanger("You grow weak and lose your powers! You are no longer a changeling and are stuck in your current form!"))
 
-/datum/antagonist/changeling/proc/forge_team_objectives()
+TYPE_PROC_REF(/datum/antagonist/changeling, forge_team_objectives)()
 	if(GLOB.changeling_team_objective_type)
 		var/datum/objective/changeling_team_objective/team_objective = new GLOB.changeling_team_objective_type
 		team_objective.owner = owner
@@ -391,7 +391,7 @@
 			qdel(team_objective)
 	return
 
-/datum/antagonist/changeling/proc/forge_objectives()
+TYPE_PROC_REF(/datum/antagonist/changeling, forge_objectives)()
 	//OBJECTIVES - random traitor objectives. Unique objectives "steal brain" and "identity theft".
 	//No escape alone because changelings aren't suited for it and it'd probably just lead to rampant robusting
 	//If it seems like they'd be able to do it in play, add a 10% chance to have to escape alone
@@ -489,12 +489,12 @@
 			objectives += identity_theft
 		escape_objective_possible = FALSE
 
-/datum/antagonist/changeling/proc/update_changeling_icons_added()
+TYPE_PROC_REF(/datum/antagonist/changeling, update_changeling_icons_added)()
 	var/datum/atom_hud/antag/hud = GLOB.huds[ANTAG_HUD_CHANGELING]
 	hud.join_hud(owner.current)
 	set_antag_hud(owner.current, "changeling")
 
-/datum/antagonist/changeling/proc/update_changeling_icons_removed()
+TYPE_PROC_REF(/datum/antagonist/changeling, update_changeling_icons_removed)()
 	var/datum/atom_hud/antag/hud = GLOB.huds[ANTAG_HUD_CHANGELING]
 	hud.leave_hud(owner.current)
 	set_antag_hud(owner.current, null)
@@ -508,7 +508,7 @@
 	if(stored_profiles.len && (owner.current.real_name != first_prof.name))
 		.["Transform to initial appearance."] = CALLBACK(src,PROC_REF(admin_restore_appearance))
 
-/datum/antagonist/changeling/proc/admin_restore_appearance(mob/admin)
+TYPE_PROC_REF(/datum/antagonist/changeling, admin_restore_appearance)(mob/admin)
 	if(!stored_profiles.len || !iscarbon(owner.current))
 		to_chat(admin, span_danger("Resetting DNA failed!"))
 	else
@@ -543,7 +543,7 @@
 	qdel(dna)
 	. = ..()
 
-/datum/changelingprofile/proc/copy_profile(datum/changelingprofile/newprofile)
+TYPE_PROC_REF(/datum/changelingprofile, copy_profile)(datum/changelingprofile/newprofile)
 	newprofile.name = name
 	newprofile.protected = protected
 	newprofile.dna = new dna.type

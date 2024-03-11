@@ -10,7 +10,7 @@
 		date = rustg_git_commit_date(commit)
 	originmastercommit = rustg_git_revparse("origin/master")
 
-/datum/getrev/proc/load_tgs_info()
+TYPE_PROC_REF(/datum/getrev, load_tgs_info)()
 	testmerge = world.TgsTestMerges()
 	var/datum/tgs_revision_information/revinfo = world.TgsRevision()
 	if(revinfo)
@@ -21,7 +21,7 @@
 	// goes to DD log and config_error.txt
 	log_world(get_log_message())
 
-/datum/getrev/proc/get_log_message()
+TYPE_PROC_REF(/datum/getrev, get_log_message)()
 	var/list/msg = list()
 	msg += "Running /tg/ revision: [date]"
 	if(originmastercommit)
@@ -39,7 +39,7 @@
 
 	return msg.Join("\n")
 
-/datum/getrev/proc/GetTestMergeInfo(header = TRUE)
+TYPE_PROC_REF(/datum/getrev, GetTestMergeInfo)(header = TRUE)
 	if(!testmerge.len)
 		return ""
 	. = header ? "The following pull requests are currently test merged:<br>" : ""

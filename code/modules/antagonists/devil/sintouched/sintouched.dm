@@ -25,7 +25,7 @@
 	. = ..()
 	sin = pick(sins)
 
-/datum/antagonist/sintouched/proc/forge_objectives()
+TYPE_PROC_REF(/datum/antagonist/sintouched, forge_objectives)()
 	var/datum/objective/sintouched/O
 	switch(sin)//traditional seven deadly sins... except lust.
 		if(SIN_ACEDIA)
@@ -71,12 +71,12 @@
 	remove_hud()
 	. = ..()
 
-/datum/antagonist/sintouched/proc/add_hud()
+TYPE_PROC_REF(/datum/antagonist/sintouched, add_hud)()
 	var/datum/atom_hud/antag/hud = GLOB.huds[ANTAG_HUD_SINTOUCHED]
 	hud.join_hud(owner.current)
 	set_antag_hud(owner.current, "sintouched")
 
-/datum/antagonist/sintouched/proc/remove_hud()
+TYPE_PROC_REF(/datum/antagonist/sintouched, remove_hud)()
 	var/datum/atom_hud/antag/hud = GLOB.huds[ANTAG_HUD_SINTOUCHED]
 	hud.leave_hud(owner.current)
 	set_antag_hud(owner.current, null)

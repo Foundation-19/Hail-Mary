@@ -33,7 +33,7 @@
 	set desc = "Relinquish your life and enter the land of the dead."
 	revert_to_reality(FALSE)
 
-/mob/living/carbon/human/virtual_reality/proc/revert_to_reality(deathchecks = TRUE)
+TYPE_PROC_REF(/mob/living/carbon/human/virtual_reality, revert_to_reality)(deathchecks = TRUE)
 	if(real_mind && mind)
 		real_mind.current.ckey = ckey
 		real_mind.current.stop_sound_channel(CHANNEL_HEARTBEAT)

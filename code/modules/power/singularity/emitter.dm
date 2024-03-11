@@ -97,7 +97,7 @@
 	. = ..()
 	AddComponent(/datum/component/simple_rotation, ROTATION_ALTCLICK | ROTATION_CLOCKWISE | ROTATION_COUNTERCLOCKWISE | ROTATION_VERBS, null, CALLBACK(src, PROC_REF(can_be_rotated)))
 
-/obj/machinery/power/emitter/proc/can_be_rotated(mob/user,rotation_type)
+TYPE_PROC_REF(/obj/machinery/power/emitter, can_be_rotated)(mob/user,rotation_type)
 	if (anchored)
 		to_chat(user, span_warning("It is fastened to the floor!"))
 		return FALSE
@@ -184,12 +184,12 @@
 			return FALSE
 		fire_beam()
 
-/obj/machinery/power/emitter/proc/check_delay()
+TYPE_PROC_REF(/obj/machinery/power/emitter, check_delay)()
 	if((src.last_shot + src.fire_delay) <= world.time)
 		return TRUE
 	return FALSE
 
-/obj/machinery/power/emitter/proc/fire_beam_pulse()
+TYPE_PROC_REF(/obj/machinery/power/emitter, fire_beam_pulse)()
 	if(!check_delay())
 		return FALSE
 	if(state != EMITTER_WELDED)
@@ -198,7 +198,7 @@
 		add_load(active_power_usage)
 		fire_beam()
 
-/obj/machinery/power/emitter/proc/fire_beam(mob/user)
+TYPE_PROC_REF(/obj/machinery/power/emitter, fire_beam)(mob/user)
 	var/obj/item/projectile/P = new projectile_type(get_turf(src))
 	playsound(get_turf(src), projectile_sound, 50, TRUE)
 	if(prob(35))
@@ -313,7 +313,7 @@
 			return
 	return ..()
 
-/obj/machinery/power/emitter/proc/integrate(obj/item/gun/energy/E,mob/user)
+TYPE_PROC_REF(/obj/machinery/power/emitter, integrate)(obj/item/gun/energy/E,mob/user)
 	if(istype(E, /obj/item/gun/energy))
 		if(!E.can_emitter)
 			to_chat(user, span_warning("[E] cannot fit into emitters."))
@@ -325,7 +325,7 @@
 		set_projectile()
 		return TRUE
 
-/obj/machinery/power/emitter/proc/remove_gun(mob/user)
+TYPE_PROC_REF(/obj/machinery/power/emitter, remove_gun)(mob/user)
 	if(!gun)
 		return
 	user.put_in_hands(gun)
@@ -335,7 +335,7 @@
 	set_projectile()
 	return TRUE
 
-/obj/machinery/power/emitter/proc/set_projectile()
+TYPE_PROC_REF(/obj/machinery/power/emitter, set_projectile)()
 	if(LAZYLEN(gun_properties))
 		if(mode || !gun_properties["lethal_projectile"])
 			projectile_type = gun_properties["stun_projectile"]

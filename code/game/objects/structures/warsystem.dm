@@ -30,7 +30,7 @@ GLOBAL_VAR_INIT(warstate_glob, COLD_WAR)
 	if(GLOB.warstate_bos>GLOB.warstate_enc)
 		change_state()
 
-/obj/structure/warmachine/proc/change_state()
+TYPE_PROC_REF(/obj/structure/warmachine, change_state)()
 	//touch it only if it's bigger
 	if(GLOB.warstate_bos > GLOB.warstate_enc)
 		GLOB.warstate_glob = GLOB.warstate_bos
@@ -39,7 +39,7 @@ GLOBAL_VAR_INIT(warstate_glob, COLD_WAR)
 		GLOB.warstate_glob = TRUCE
 		to_chat(world, "<span class='big bold'>A truce has been signed between The United States Government and the Brotherhood of Steel.</span>")
 
-/obj/structure/warmachine/proc/announcewar()
+TYPE_PROC_REF(/obj/structure/warmachine, announcewar)()
 	switch(GLOB.warstate_glob)
 		if(COLD_WAR)
 			to_chat(world, "<span class='big bold'>The United States Government and the Brotherhood of Steel are now engaged in a cold war.</span>")

@@ -43,7 +43,7 @@
 	if(Adjacent(user))
 		ui_interact(user)
 
-/obj/structure/ore_box/proc/dump_box_contents()
+TYPE_PROC_REF(/obj/structure/ore_box, dump_box_contents)()
 	var/drop = drop_location()
 	for(var/obj/item/stack/ore/O in src)
 		if(QDELETED(O))

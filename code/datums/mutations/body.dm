@@ -17,7 +17,7 @@
 		SEND_SIGNAL(owner, COMSIG_ADD_MOOD_EVENT, "epilepsy", /datum/mood_event/epilepsy)
 		addtimer(CALLBACK(src, PROC_REF(jitter_less)), 90)
 
-/datum/mutation/human/epilepsy/proc/jitter_less(mob/living/carbon/human/owner)
+TYPE_PROC_REF(/datum/mutation/human/epilepsy, jitter_less)(mob/living/carbon/human/owner)
 	if(owner)
 		owner.jitteriness = 10
 

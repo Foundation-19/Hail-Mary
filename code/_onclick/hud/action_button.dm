@@ -11,7 +11,7 @@
 	var/id
 	var/ordered = TRUE //If the button gets placed into the default bar
 
-/obj/screen/movable/action_button/proc/can_use(mob/user)
+TYPE_PROC_REF(/obj/screen/movable/action_button, can_use)(mob/user)
 	if (linked_action)
 		return linked_action.owner == user
 	else if (isobserver(user))
@@ -141,7 +141,7 @@
 	return TRUE
 
 
-/obj/screen/movable/action_button/hide_toggle/proc/InitialiseIcon(datum/hud/owner_hud)
+TYPE_PROC_REF(/obj/screen/movable/action_button/hide_toggle, InitialiseIcon)(datum/hud/owner_hud)
 	var/settings = owner_hud.get_action_buttons_icons()
 	icon = settings["bg_icon"]
 	icon_state = settings["bg_state"]
@@ -166,7 +166,7 @@
 /obj/screen/movable/action_button/MouseExited()
 	closeToolTip(usr)
 
-/datum/hud/proc/get_action_buttons_icons()
+TYPE_PROC_REF(/datum/hud, get_action_buttons_icons)()
 	. = list()
 	.["bg_icon"] = ui_style
 	.["bg_state"] = "template"
@@ -178,13 +178,13 @@
 
 //see human and alien hud for specific implementations.
 
-/mob/proc/update_action_buttons_icon(status_only = FALSE)
+TYPE_PROC_REF(/mob, update_action_buttons_icon)(status_only = FALSE)
 	for(var/X in actions)
 		var/datum/action/A = X
 		A.UpdateButtonIcon(status_only)
 
 //This is the proc used to update all the action buttons.
-/mob/proc/update_action_buttons(reload_screen)
+TYPE_PROC_REF(/mob, update_action_buttons)(reload_screen)
 	if(!hud_used || !client)
 		return
 
@@ -224,7 +224,7 @@
 	if(reload_screen)
 		client.screen += hud_used.hide_actions_toggle
 
-/datum/hud/proc/ButtonNumberToScreenCoords(number, supportedcolumns) // TODO : Make this zero-indexed for readabilty
+TYPE_PROC_REF(/datum/hud, ButtonNumberToScreenCoords)(number, supportedcolumns) // TODO : Make this zero-indexed for readabilty
 	var/row = round((number - 1)/supportedcolumns)
 	var/col = ((number - 1)%(supportedcolumns)) + 1
 
@@ -235,7 +235,7 @@
 
 	return "WEST[coord_col]:[coord_col_offset],NORTH[coord_row]:-6"
 
-/datum/hud/proc/SetButtonCoords(obj/screen/button,number, supportedcolumns)
+TYPE_PROC_REF(/datum/hud, SetButtonCoords)(obj/screen/button,number, supportedcolumns)
 	var/row = round((number-1)/supportedcolumns)
 	var/col = ((number - 1)%(supportedcolumns)) + 1
 	var/x_offset = 32*(col-1) + 4 + 2*col

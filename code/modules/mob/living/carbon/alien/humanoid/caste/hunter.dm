@@ -15,7 +15,7 @@
 
 //Hunter verbs
 
-/mob/living/carbon/alien/humanoid/hunter/proc/toggle_leap(message = 1)
+TYPE_PROC_REF(/mob/living/carbon/alien/humanoid/hunter, toggle_leap)(message = 1)
 	leap_on_click = !leap_on_click
 	leap_icon.icon_state = "leap_[leap_on_click ? "on":"off"]"
 	update_icons()
@@ -33,7 +33,7 @@
 
 #define MAX_ALIEN_LEAP_DIST 7
 
-/mob/living/carbon/alien/humanoid/hunter/proc/leap_at(atom/A)
+TYPE_PROC_REF(/mob/living/carbon/alien/humanoid/hunter, leap_at)(atom/A)
 	if(!CHECK_MULTIPLE_BITFIELDS(mobility_flags, MOBILITY_STAND | MOBILITY_MOVE) || leaping)
 		return
 
@@ -52,7 +52,7 @@
 		update_icons()
 		throw_at(A, MAX_ALIEN_LEAP_DIST, 1, src, FALSE, TRUE, callback = CALLBACK(src, PROC_REF(leap_end)))
 
-/mob/living/carbon/alien/humanoid/hunter/proc/leap_end()
+TYPE_PROC_REF(/mob/living/carbon/alien/humanoid/hunter, leap_end)()
 	leaping = 0
 	weather_immunities -= "lava"
 	update_icons()

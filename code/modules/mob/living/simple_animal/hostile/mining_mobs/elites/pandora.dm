@@ -106,13 +106,13 @@
 	else
 		cooldown_time = 10
 
-/mob/living/simple_animal/hostile/asteroid/elite/pandora/proc/singular_shot(target)
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/asteroid/elite/pandora, singular_shot)(target)
 	ranged_cooldown = world.time + (cooldown_time * 0.5)
 	var/dir_to_target = get_dir(get_turf(src), get_turf(target))
 	var/turf/T = get_step(get_turf(src), dir_to_target)
 	singular_shot_line(sing_shot_length, dir_to_target, T)
 
-/mob/living/simple_animal/hostile/asteroid/elite/pandora/proc/singular_shot_line(procsleft, angleused, turf/T)
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/asteroid/elite/pandora, singular_shot_line)(procsleft, angleused, turf/T)
 	if(procsleft <= 0)
 		return
 	new /obj/effect/temp_visual/hierophant/blast/pandora(T, src, null, null, list(owner))
@@ -120,14 +120,14 @@
 	procsleft = procsleft - 1
 	addtimer(CALLBACK(src, PROC_REF(singular_shot_line), procsleft, angleused, T), 2)
 
-/mob/living/simple_animal/hostile/asteroid/elite/pandora/proc/magic_box(target)
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/asteroid/elite/pandora, magic_box)(target)
 	ranged_cooldown = world.time + cooldown_time
 	var/turf/T = get_turf(target)
 	for(var/t in spiral_range_turfs(3, T))
 		if(get_dist(t, T) > 1)
 			new /obj/effect/temp_visual/hierophant/blast/pandora(t, src, null, null, list(owner))
 
-/mob/living/simple_animal/hostile/asteroid/elite/pandora/proc/pandora_teleport(target)
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/asteroid/elite/pandora, pandora_teleport)(target)
 	ranged_cooldown = world.time + cooldown_time
 	var/turf/T = get_turf(target)
 	var/turf/source = get_turf(src)
@@ -136,7 +136,7 @@
 	playsound(source,'sound/machines/airlockopen.ogg', 200, 1)
 	addtimer(CALLBACK(src, PROC_REF(pandora_teleport_2), T, source), 2)
 
-/mob/living/simple_animal/hostile/asteroid/elite/pandora/proc/pandora_teleport_2(turf/T, turf/source)
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/asteroid/elite/pandora, pandora_teleport_2)(turf/T, turf/source)
 	new /obj/effect/temp_visual/hierophant/telegraph/teleport(T, src)
 	new /obj/effect/temp_visual/hierophant/telegraph/teleport(source, src)
 	for(var/t in RANGE_TURFS(1, T))
@@ -148,20 +148,20 @@
 	density = FALSE
 	addtimer(CALLBACK(src, PROC_REF(pandora_teleport_3), T), 2)
 
-/mob/living/simple_animal/hostile/asteroid/elite/pandora/proc/pandora_teleport_3(turf/T)
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/asteroid/elite/pandora, pandora_teleport_3)(turf/T)
 	forceMove(T)
 	animate(src, alpha = 255, time = 2, easing = EASE_IN) //fade IN
 	density = TRUE
 	visible_message(span_hierophant_warning("[src] fades in!"))
 
-/mob/living/simple_animal/hostile/asteroid/elite/pandora/proc/aoe_squares(target)
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/asteroid/elite/pandora, aoe_squares)(target)
 	ranged_cooldown = world.time + cooldown_time
 	var/turf/T = get_turf(target)
 	new /obj/effect/temp_visual/hierophant/blast/pandora(T, src, null, null, list(owner))
 	var/max_size = 2
 	addtimer(CALLBACK(src, PROC_REF(aoe_squares_2), T, 0, max_size), 2)
 
-/mob/living/simple_animal/hostile/asteroid/elite/pandora/proc/aoe_squares_2(turf/T, ring, max_size)
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/asteroid/elite/pandora, aoe_squares_2)(turf/T, ring, max_size)
 	if(ring > max_size)
 		return
 	for(var/t in spiral_range_turfs(ring, T))

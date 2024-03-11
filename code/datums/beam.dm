@@ -32,11 +32,11 @@
 	if(time < INFINITY) 
 		addtimer(CALLBACK(src,PROC_REF(End)), time)
 
-/datum/beam/proc/Start()
+TYPE_PROC_REF(/datum/beam, Start)()
 	Draw()
 	recalculate_in(sleep_time)
 
-/datum/beam/proc/recalculate()
+TYPE_PROC_REF(/datum/beam, recalculate)()
 	if(recalculating)
 		recalculate_in(sleep_time)
 		return
@@ -59,29 +59,29 @@
 	else
 		End()
 
-/datum/beam/proc/afterDraw()
+TYPE_PROC_REF(/datum/beam, afterDraw)()
 	return
 
-/datum/beam/proc/recalculate_in(time)
+TYPE_PROC_REF(/datum/beam, recalculate_in)(time)
 	if(timing_id)
 		deltimer(timing_id)
 	if(!finished)
 		timing_id = addtimer(CALLBACK(src, PROC_REF(recalculate)), time, TIMER_STOPPABLE)
 
-/datum/beam/proc/after_calculate()
+TYPE_PROC_REF(/datum/beam, after_calculate)()
 	if((sleep_time == null) || finished)	//Does not automatically recalculate.
 		return
 	if(isnull(timing_id))
 		timing_id = addtimer(CALLBACK(src, PROC_REF(recalculate)), sleep_time, TIMER_STOPPABLE)
 
-/datum/beam/proc/End(destroy_self = TRUE)
+TYPE_PROC_REF(/datum/beam, End)(destroy_self = TRUE)
 	finished = TRUE
 	if(!isnull(timing_id))
 		deltimer(timing_id)
 	if(!QDELETED(src) && destroy_self)
 		qdel(src)
 
-/datum/beam/proc/Reset()
+TYPE_PROC_REF(/datum/beam, Reset)()
 	for(var/obj/effect/ebeam/B in elements)
 		qdel(B)
 	elements.Cut()
@@ -93,7 +93,7 @@
 	origin = null
 	return ..()
 
-/datum/beam/proc/Draw()
+TYPE_PROC_REF(/datum/beam, Draw)()
 	if(!origin_oldloc || !target_oldloc)
 		return
 	var/Angle = round(Get_Angle(origin_oldloc,target_oldloc))
@@ -165,7 +165,7 @@
 /obj/effect/ebeam/singularity_act()
 	return
 
-/atom/proc/Beam(atom/BeamTarget,icon_state="b_beam",icon='icons/effects/beam.dmi',time=50, maxdistance=10,beam_type=/obj/effect/ebeam,beam_sleep_time = 3)
+TYPE_PROC_REF(/atom, Beam)(atom/BeamTarget,icon_state="b_beam",icon='icons/effects/beam.dmi',time=50, maxdistance=10,beam_type=/obj/effect/ebeam,beam_sleep_time = 3)
 	var/datum/beam/newbeam = new(src,BeamTarget,icon,icon_state,time,maxdistance,beam_type,beam_sleep_time)
-	INVOKE_ASYNC(newbeam, /datum/beam/.proc/Start)
+	INVOKE_ASYNC(newbeam, TYPE_PROC_REF(/datum/beam, Start))
 	return newbeam

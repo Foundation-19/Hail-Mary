@@ -1,7 +1,7 @@
 /**
  * Compiles our lines into "chords" with numbers. This makes there have to be a bit of lag at the beginning of the song, but repeats will not have to parse it again, and overall playback won't be impacted by as much lag.
  */
-/datum/song/proc/compile_synthesized()
+TYPE_PROC_REF(/datum/song, compile_synthesized)()
 	if(!length(src.lines))
 		return
 	var/list/lines = src.lines		//cache for hyepr speed!
@@ -42,7 +42,7 @@
  * Plays a specific numerical key from our instrument to anyone who can hear us.
  * Does a hearing check if enough time has passed.
  */
-/datum/song/proc/playkey_synth(key, mob/user)
+TYPE_PROC_REF(/datum/song, playkey_synth)(key, mob/user)
 	if(can_noteshift)
 		key = clamp(key + note_shift, key_min, key_max)
 	if((world.time - MUSICIAN_HEARCHECK_MINDELAY) > last_hearcheck)
@@ -68,7 +68,7 @@
 /**
  * Stops all sounds we are "responsible" for. Only works in synthesized mode.
  */
-/datum/song/proc/terminate_all_sounds(clear_channels = TRUE)
+TYPE_PROC_REF(/datum/song, terminate_all_sounds)(clear_channels = TRUE)
 	for(var/i in hearing_mobs)
 		terminate_sound_mob(i)
 	if(clear_channels)
@@ -81,14 +81,14 @@
 /**
  * Stops all sounds we are responsible for in a given person. Only works in synthesized mode.
  */
-/datum/song/proc/terminate_sound_mob(mob/M)
+TYPE_PROC_REF(/datum/song, terminate_sound_mob)(mob/M)
 	for(var/channel in channels_playing)
 		M.stop_sound_channel(text2num(channel))
 
 /**
  * Pops a channel we have reserved so we don't have to release and re-request them from SSsounds every time we play a note. This is faster.
  */
-/datum/song/proc/pop_channel()
+TYPE_PROC_REF(/datum/song, pop_channel)()
 	if(length(channels_idle))			//just pop one off of here if we have one available
 		. = text2num(channels_idle[1])
 		channels_idle.Cut(1,2)
@@ -105,7 +105,7 @@
  * Arguments:
  * * wait_ds - the deciseconds we should decay by. This is to compensate for any lag, as otherwise songs would get pretty nasty during high time dilation.
  */
-/datum/song/proc/process_decay(wait_ds)
+TYPE_PROC_REF(/datum/song, process_decay)(wait_ds)
 	var/linear_dropoff = cached_linear_dropoff * wait_ds
 	var/exponential_dropoff = cached_exponential_dropoff ** wait_ds
 	for(var/channel in channels_playing)

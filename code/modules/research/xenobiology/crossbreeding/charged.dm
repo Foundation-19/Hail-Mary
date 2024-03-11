@@ -24,7 +24,7 @@ Charged extracts:
 	playsound(src, 'sound/effects/light_flicker.ogg', 50, 1)
 	do_effect(user)
 
-/obj/item/slimecross/charged/proc/do_effect(mob/user) //If, for whatever reason, you don't want to delete the extract, don't do ..()
+TYPE_PROC_REF(/obj/item/slimecross/charged, do_effect)(mob/user) //If, for whatever reason, you don't want to delete the extract, don't do ..()
 	qdel(src)
 	return
 
@@ -175,7 +175,7 @@ Charged extracts:
 	user.visible_message(span_warning("[src] starts shuddering violently!"))
 	addtimer(CALLBACK(src, PROC_REF(startTimer)), 50)
 
-/obj/item/slimecross/charged/gold/proc/startTimer()
+TYPE_PROC_REF(/obj/item/slimecross/charged/gold, startTimer)()
 	START_PROCESSING(SSobj, src)
 
 /obj/item/slimecross/charged/gold/process()
@@ -199,7 +199,7 @@ Charged extracts:
 	user.visible_message(span_danger("[src] begins to shake with rapidly increasing force!"))
 	addtimer(CALLBACK(src, PROC_REF(boom)), 50)
 
-/obj/item/slimecross/charged/oil/proc/boom()
+TYPE_PROC_REF(/obj/item/slimecross/charged/oil, boom)()
 	explosion(get_turf(src), 3, 2, 1) //Much smaller effect than normal oils, but devastatingly strong where it does hit.
 	qdel(src)
 

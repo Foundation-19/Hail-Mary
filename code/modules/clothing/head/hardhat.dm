@@ -26,14 +26,14 @@
 /obj/item/clothing/head/hardhat/attack_self(mob/living/user)
 	toggle_helmet_light(user)
 
-/obj/item/clothing/head/hardhat/proc/toggle_helmet_light(mob/living/user)
+TYPE_PROC_REF(/obj/item/clothing/head/hardhat, toggle_helmet_light)(mob/living/user)
 	set_light_on(!light_on)
 	update_icon()
 
-/obj/item/clothing/head/hardhat/proc/turn_on(mob/user)
+TYPE_PROC_REF(/obj/item/clothing/head/hardhat, turn_on)(mob/user)
 	set_light_on(TRUE)
 
-/obj/item/clothing/head/hardhat/proc/turn_off(mob/user)
+TYPE_PROC_REF(/obj/item/clothing/head/hardhat, turn_off)(mob/user)
 	set_light_on(FALSE)
 
 /obj/item/clothing/head/hardhat/update_icon_state()
@@ -127,7 +127,7 @@
 		toggle_welding_screen(user)
 		return TRUE
 
-/obj/item/clothing/head/hardhat/weldhat/proc/toggle_welding_screen(mob/living/user)
+TYPE_PROC_REF(/obj/item/clothing/head/hardhat/weldhat, toggle_welding_screen)(mob/living/user)
 	if(weldingvisortoggle(user))
 		playsound(src, 'sound/mecha/mechmove03.ogg', 50, TRUE) //Visors don't just come from nothing
 	update_icon()

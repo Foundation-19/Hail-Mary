@@ -149,7 +149,7 @@
 	var/damage_coeff = 0.7
 	selectable = 0
 
-/obj/item/mecha_parts/mecha_equipment/anticcw_armor_booster/proc/attack_react()
+TYPE_PROC_REF(/obj/item/mecha_parts/mecha_equipment/anticcw_armor_booster, attack_react)()
 	if(action_checks(src))
 		start_cooldown()
 		return 1
@@ -167,7 +167,7 @@
 	var/damage_coeff = 0.75
 	selectable = 0
 
-/obj/item/mecha_parts/mecha_equipment/antiproj_armor_booster/proc/projectile_react()
+TYPE_PROC_REF(/obj/item/mecha_parts/mecha_equipment/antiproj_armor_booster, projectile_react)()
 	if(action_checks(src))
 		start_cooldown()
 		return 1
@@ -280,7 +280,7 @@
 	..()
 	return
 
-/obj/item/mecha_parts/mecha_equipment/tesla_energy_relay/proc/get_charge()
+TYPE_PROC_REF(/obj/item/mecha_parts/mecha_equipment/tesla_energy_relay, get_charge)()
 	if(equip_ready) //disabled
 		return
 	var/area/A = get_area(chassis)
@@ -289,7 +289,7 @@
 		return 1000 //making magic
 
 
-/obj/item/mecha_parts/mecha_equipment/tesla_energy_relay/proc/get_MUTATION_POWER_channel(area/A)
+TYPE_PROC_REF(/obj/item/mecha_parts/mecha_equipment/tesla_energy_relay, get_MUTATION_POWER_channel)(area/A)
 	var/pow_chan
 	if(A)
 		for(var/c in use_channels)
@@ -366,7 +366,7 @@
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
-/obj/item/mecha_parts/mecha_equipment/generator/proc/generator_init()
+TYPE_PROC_REF(/obj/item/mecha_parts/mecha_equipment/generator, generator_init)()
 	fuel = new /obj/item/stack/sheet/mineral/plasma(src, 0)
 
 /obj/item/mecha_parts/mecha_equipment/generator/detach()
@@ -396,7 +396,7 @@
 		if(result)
 			send_byjax(chassis.occupant,"exosuit.browser","[REF(src)]",src.get_equip_info())
 
-/obj/item/mecha_parts/mecha_equipment/generator/proc/load_fuel(obj/item/stack/sheet/P)
+TYPE_PROC_REF(/obj/item/mecha_parts/mecha_equipment/generator, load_fuel)(obj/item/stack/sheet/P)
 	if(P.type == fuel.type && P.amount > 0)
 		var/to_load = max(max_fuel - fuel.amount*MINERAL_MATERIAL_AMOUNT,0)
 		if(to_load)

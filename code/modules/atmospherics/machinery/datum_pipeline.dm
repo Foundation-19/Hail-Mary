@@ -29,7 +29,7 @@
 		reconcile_air()
 	update = air.react(src)
 
-/datum/pipeline/proc/build_pipeline(obj/machinery/atmospherics/base)
+TYPE_PROC_REF(/datum/pipeline, build_pipeline)(obj/machinery/atmospherics/base)
 	var/volume = 0
 	if(istype(base, /obj/machinery/atmospherics/pipe))
 		var/obj/machinery/atmospherics/pipe/E = base
@@ -78,14 +78,14 @@
 
 	air.set_volume(volume)
 
-/datum/pipeline/proc/addMachineryMember(obj/machinery/atmospherics/components/C)
+TYPE_PROC_REF(/datum/pipeline, addMachineryMember)(obj/machinery/atmospherics/components/C)
 	other_atmosmch |= C
 	var/datum/gas_mixture/G = C.returnPipenetAir(src)
 	if(!G)
 		stack_trace("addMachineryMember: Null gasmix added to pipeline datum from [C] which is of type [C.type]. Nearby: ([C.x], [C.y], [C.z])")
 	other_airs |= G
 
-/datum/pipeline/proc/addMember(obj/machinery/atmospherics/A, obj/machinery/atmospherics/N)
+TYPE_PROC_REF(/datum/pipeline, addMember)(obj/machinery/atmospherics/A, obj/machinery/atmospherics/N)
 	if(istype(A, /obj/machinery/atmospherics/pipe))
 		var/obj/machinery/atmospherics/pipe/P = A
 		if(P.parent)
@@ -104,7 +104,7 @@
 		A.setPipenet(src, N)
 		addMachineryMember(A)
 
-/datum/pipeline/proc/merge(datum/pipeline/E)
+TYPE_PROC_REF(/datum/pipeline, merge)(datum/pipeline/E)
 	if(E == src)
 		return
 	air.set_volume(air.return_volume() + E.air.return_volume())
@@ -121,7 +121,7 @@
 	update = TRUE
 	qdel(E)
 
-/obj/machinery/atmospherics/proc/addMember(obj/machinery/atmospherics/A)
+TYPE_PROC_REF(/obj/machinery/atmospherics, addMember)(obj/machinery/atmospherics/A)
 	return
 
 /obj/machinery/atmospherics/pipe/addMember(obj/machinery/atmospherics/A)
@@ -134,7 +134,7 @@
 	P.addMember(A, src)
 
 
-/datum/pipeline/proc/temporarily_store_air()
+TYPE_PROC_REF(/datum/pipeline, temporarily_store_air)()
 	//Update individual gas_mixtures by volume ratio
 
 	for(var/obj/machinery/atmospherics/pipe/member in members)
@@ -146,7 +146,7 @@
 
 		member.air_temporary.set_temperature(air.return_temperature())
 
-/datum/pipeline/proc/temperature_interact(turf/target, share_volume, thermal_conductivity)
+TYPE_PROC_REF(/datum/pipeline, temperature_interact)(turf/target, share_volume, thermal_conductivity)
 	var/total_heat_capacity = air.heat_capacity()
 	var/partial_heat_capacity = total_heat_capacity*(share_volume/air.return_volume())
 	var/target_temperature
@@ -202,17 +202,17 @@
 			air.set_temperature(air.return_temperature() - heat/total_heat_capacity)
 	update = TRUE
 
-/datum/pipeline/proc/return_air()
+TYPE_PROC_REF(/datum/pipeline, return_air)()
 	. = other_airs + air
 	if(null in .)
 		stack_trace("[src]([REF(src)]) has one or more null gas mixtures, which may cause bugs. Null mixtures will not be considered in reconcile_air().")
 		listclearnulls(.)
 
-/datum/pipeline/proc/empty()
+TYPE_PROC_REF(/datum/pipeline, empty)()
 	for(var/datum/gas_mixture/GM in get_all_connected_airs())
 		GM.clear()
 
-/datum/pipeline/proc/get_all_connected_airs()
+TYPE_PROC_REF(/datum/pipeline, get_all_connected_airs)()
 	var/list/datum/gas_mixture/GL = list()
 	var/list/datum/pipeline/PL = list()
 	PL += src
@@ -239,6 +239,6 @@
 					GL += C.portableConnectorReturnAir()
 	return GL
 
-/datum/pipeline/proc/reconcile_air()
+TYPE_PROC_REF(/datum/pipeline, reconcile_air)()
 	var/list/datum/gas_mixture/GL = get_all_connected_airs()
 	equalize_all_gases_in_list(GL)

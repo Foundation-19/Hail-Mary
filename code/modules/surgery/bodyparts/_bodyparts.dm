@@ -182,7 +182,7 @@
 	pixel_y = rand(-3, 3)
 
 //empties the bodypart from its organs and other things inside it
-/obj/item/bodypart/proc/drop_organs(mob/user)
+TYPE_PROC_REF(/obj/item/bodypart, drop_organs)(mob/user)
 	var/turf/T = get_turf(src)
 	if(status != BODYPART_ROBOTIC)
 		playsound(T, 'sound/misc/splort.ogg', 50, 1, -1)
@@ -194,7 +194,7 @@
 		drop_organ.transfer_to_limb(src, owner)
 
 ///since organs aren't actually stored in the bodypart themselves while attached to a person, we have to query the owner for what we should have
-/obj/item/bodypart/proc/get_organs()
+TYPE_PROC_REF(/obj/item/bodypart, get_organs)()
 	if(!owner)
 		return
 	. = list()
@@ -204,7 +204,7 @@
 			. += organ_check
 
 //Return TRUE to get whatever mob this is in to update health.
-/obj/item/bodypart/proc/on_life()
+TYPE_PROC_REF(/obj/item/bodypart, on_life)()
 	if(current_gauze)
 		bandage_heal()
 		needs_processing = TRUE
@@ -220,7 +220,7 @@
 //Applies brute and burn damage to the organ. Returns 1 if the damage-icon states changed at all.
 //Damage will not exceed max_damage using this proc
 //Cannot apply negative damage
-/obj/item/bodypart/proc/receive_damage(brute = 0, burn = 0, stamina = 0, blocked = 0, updating_health = TRUE, required_status = null, wound_bonus = 0, bare_wound_bonus = 0, sharpness = SHARP_NONE, damage_coverings = TRUE) // maybe separate BRUTE_SHARP and BRUTE_OTHER eventually somehow hmm
+TYPE_PROC_REF(/obj/item/bodypart, receive_damage)(brute = 0, burn = 0, stamina = 0, blocked = 0, updating_health = TRUE, required_status = null, wound_bonus = 0, bare_wound_bonus = 0, sharpness = SHARP_NONE, damage_coverings = TRUE) // maybe separate BRUTE_SHARP and BRUTE_OTHER eventually somehow hmm
 	if(owner && (owner.status_flags & GODMODE))
 		return FALSE	//godmode
 	var/dmg_mlt = CONFIG_GET(number/damage_multiplier)
@@ -334,7 +334,7 @@
 	return update_bodypart_damage_state()
 
 /// Allows us to roll for and apply a wound without actually dealing damage. Used for aggregate wounding power with pellet clouds
-/obj/item/bodypart/proc/painless_wound_roll(wounding_type, phantom_wounding_dmg, wound_bonus, bare_wound_bonus, sharpness=SHARP_NONE)
+TYPE_PROC_REF(/obj/item/bodypart, painless_wound_roll)(wounding_type, phantom_wounding_dmg, wound_bonus, bare_wound_bonus, sharpness=SHARP_NONE)
 	if(!owner || phantom_wounding_dmg <= WOUND_MINIMUM_DAMAGE || wound_bonus == CANT_WOUND)
 		return
 
@@ -380,7 +380,7 @@
 /**
  * check_wounding() is where we handle rolling for, selecting, and applying a wound if we meet the criteria
  *
- * We generate a "score" for how woundable the attack was based on the damage and other factors discussed in [/obj/item/bodypart/proc/check_wounding_mods], then go down the list from most severe to least severe wounds in that category.
+ * We generate a "score" for how woundable the attack was based on the damage and other factors discussed in [TYPE_PROC_REF(/obj/item/bodypart, check_wounding_mods)], then go down the list from most severe to least severe wounds in that category.
  * We can promote a wound from a lesser to a higher severity this way, but we give up if we have a wound of the given type and fail to roll a higher severity, so no sidegrades/downgrades
  *
  * Arguments:
@@ -389,7 +389,7 @@
  * * wound_bonus- The wound_bonus of an attack
  * * bare_wound_bonus- The bare_wound_bonus of an attack
  */
-/obj/item/bodypart/proc/check_wounding(woundtype, damage, wound_bonus, bare_wound_bonus)
+TYPE_PROC_REF(/obj/item/bodypart, check_wounding)(woundtype, damage, wound_bonus, bare_wound_bonus)
 	// actually roll wounds if applicable
 	if(woundtype == WOUND_SLASH || woundtype == WOUND_PIERCE)
 		if(!is_organic_limb())
@@ -459,7 +459,7 @@
 				log_wound(owner, new_wound, damage, wound_bonus, bare_wound_bonus, base_roll) // dismembering wounds are logged in the apply_wound() for loss wounds since they delete themselves immediately, these will be immediately returned
 			return new_wound
 
-/obj/item/bodypart/proc/apply_bleed_wound(woundtype, wounds_checking)
+TYPE_PROC_REF(/obj/item/bodypart, apply_bleed_wound)(woundtype, wounds_checking)
 	var/datum/wound/bleed/this_wound
 	for(var/datum/wound/bleed/bloody in wounds)
 		if(bloody.type in wounds_checking)
@@ -476,7 +476,7 @@
 	return this_wound
 
 // try forcing a specific wound, but only if there isn't already a wound of that severity or greater for that type on this bodypart
-/obj/item/bodypart/proc/force_wound_upwards(specific_woundtype, smited = FALSE)
+TYPE_PROC_REF(/obj/item/bodypart, force_wound_upwards)(specific_woundtype, smited = FALSE)
 	var/datum/wound/potential_wound = specific_woundtype
 	for(var/i in wounds)
 		var/datum/wound/existing_wound = i
@@ -498,7 +498,7 @@
  * Arguments:
  * * It's the same ones on [receive_damage]
  */
-/obj/item/bodypart/proc/check_woundings_mods(wounding_type, damage, wound_bonus, bare_wound_bonus)
+TYPE_PROC_REF(/obj/item/bodypart, check_woundings_mods)(wounding_type, damage, wound_bonus, bare_wound_bonus)
 	var/armor_ablation = 0
 	var/injury_mod = 0
 
@@ -535,7 +535,7 @@
 //Heals brute and burn damage for the organ. Returns 1 if the damage-icon states changed at all.
 //Damage cannot go below zero.
 //Cannot remove negative damage (i.e. apply damage)
-/obj/item/bodypart/proc/heal_damage(brute, burn, stamina, only_robotic = FALSE, only_organic = TRUE, updating_health = TRUE, bleed, ignore_status = FALSE)
+TYPE_PROC_REF(/obj/item/bodypart, heal_damage)(brute, burn, stamina, only_robotic = FALSE, only_organic = TRUE, updating_health = TRUE, bleed, ignore_status = FALSE)
 
 	if(!ignore_status)
 		if(only_robotic && status != BODYPART_ROBOTIC) //This makes organic limbs not heal when the proc is in Robotic mode.
@@ -557,7 +557,7 @@
 	return update_bodypart_damage_state()
 
 //Returns total damage.
-/obj/item/bodypart/proc/get_damage(include_stamina = FALSE)
+TYPE_PROC_REF(/obj/item/bodypart, get_damage)(include_stamina = FALSE)
 	var/total = brute_dam + burn_dam
 	if(include_stamina)
 		total = max(total, stamina_dam)
@@ -566,12 +566,12 @@
 //Checks disabled status thresholds
 
 //Checks disabled status thresholds
-/obj/item/bodypart/proc/update_disabled()
+TYPE_PROC_REF(/obj/item/bodypart, update_disabled)()
 	if(!owner)
 		return
 	set_disabled(is_disabled())
 
-/obj/item/bodypart/proc/is_disabled()
+TYPE_PROC_REF(/obj/item/bodypart, is_disabled)()
 	if(!owner)
 		return
 	if(HAS_TRAIT(owner, TRAIT_PARALYSIS))
@@ -594,7 +594,7 @@
 	else
 		return BODYPART_NOT_DISABLED
 
-/obj/item/bodypart/proc/check_disabled() //This might be depreciated and should be safe to remove.
+TYPE_PROC_REF(/obj/item/bodypart, check_disabled)() //This might be depreciated and should be safe to remove.
 	if(!can_dismember() || HAS_TRAIT(owner, TRAIT_NODISMEMBER))
 		return
 	if(!disabled && (get_damage(TRUE) >= max_damage))
@@ -603,7 +603,7 @@
 		set_disabled(FALSE)
 
 
-/obj/item/bodypart/proc/set_disabled(new_disabled)
+TYPE_PROC_REF(/obj/item/bodypart, set_disabled)(new_disabled)
 	if(disabled == new_disabled || !owner)
 		return FALSE
 	disabled = new_disabled
@@ -618,7 +618,7 @@
 
 //Updates an organ's brute/burn states for use by update_damage_overlays()
 //Returns 1 if we need to update overlays. 0 otherwise.
-/obj/item/bodypart/proc/update_bodypart_damage_state()
+TYPE_PROC_REF(/obj/item/bodypart, update_bodypart_damage_state)()
 	var/tbrute	= round( (brute_dam/max_damage)*3, 1 )
 	var/tburn	= round( (burn_dam/max_damage)*3, 1 )
 	if((tbrute != brutestate) || (tburn != burnstate))
@@ -628,7 +628,7 @@
 	return FALSE
 
 //Change organ status
-/obj/item/bodypart/proc/change_bodypart_status(new_limb_status, heal_limb, change_icon_to_default)
+TYPE_PROC_REF(/obj/item/bodypart, change_bodypart_status)(new_limb_status, heal_limb, change_icon_to_default)
 	status = new_limb_status
 	if(heal_limb)
 		burn_dam = 0
@@ -649,11 +649,11 @@
 		owner.update_hair()
 		owner.update_damage_overlays()
 
-/obj/item/bodypart/proc/is_organic_limb()
+TYPE_PROC_REF(/obj/item/bodypart, is_organic_limb)()
 	return (status == BODYPART_ORGANIC)
 
 //we inform the bodypart of the changes that happened to the owner, or give it the informations from a source mob.
-/obj/item/bodypart/proc/update_limb(dropping_limb, mob/living/carbon/source)
+TYPE_PROC_REF(/obj/item/bodypart, update_limb)(dropping_limb, mob/living/carbon/source)
 	body_markings_list = list()
 	var/mob/living/carbon/C
 	if(source)
@@ -749,7 +749,7 @@
 		no_update = TRUE //when attached, the limb won't be affected by the appearance changes of its mob owner.
 
 //to update the bodypart's icon when not attached to a mob
-/obj/item/bodypart/proc/update_icon_dropped()
+TYPE_PROC_REF(/obj/item/bodypart, update_icon_dropped)()
 	cut_overlays()
 	var/list/standing = get_limb_icon(1)
 	if(!standing.len)
@@ -761,7 +761,7 @@
 	add_overlay(standing)
 
 //Gives you a proper icon appearance for the dismembered limb
-/obj/item/bodypart/proc/get_limb_icon(dropped)
+TYPE_PROC_REF(/obj/item/bodypart, get_limb_icon)(dropped)
 	cut_overlays()
 	icon_state = "" //to erase the default sprite, we're building the visual aspects of the bodypart through overlays alone.
 
@@ -947,7 +947,7 @@
 	qdel(src)
 
 /// Get whatever wound of the given type is currently attached to this limb, if any
-/obj/item/bodypart/proc/get_wound_type(checking_type)
+TYPE_PROC_REF(/obj/item/bodypart, get_wound_type)(checking_type)
 	if(isnull(wounds))
 		return
 	for(var/i in wounds)
@@ -955,7 +955,7 @@
 			return i
 
 /// Returns if the wound is in some way hurt
-/obj/item/bodypart/proc/is_damaged(stam_too = FALSE)
+TYPE_PROC_REF(/obj/item/bodypart, is_damaged)(stam_too = FALSE)
 	if(brute_dam)
 		return TRUE
 	if(burn_dam)
@@ -973,7 +973,7 @@
  * Arguments:
  * * replaced- If true, this is being called from the remove_wound() of a wound that's being replaced, so the bandage that already existed is still relevant, but the new wound hasn't been added yet
  */
-/obj/item/bodypart/proc/update_wounds(replaced = FALSE)
+TYPE_PROC_REF(/obj/item/bodypart, update_wounds)(replaced = FALSE)
 	var/dam_mul = 1 //initial(wound_damage_multiplier)
 	// we can only have one wound per type, but remember there's multiple types
 	// we can (normally) only have one wound per type, but remember there's multiple types (smites like :B:loodless can generate multiple cuts on a limb)
@@ -992,7 +992,7 @@
  * destroy_coverings() destroys coverings, not much else to say
  *
  */
-/obj/item/bodypart/proc/destroy_coverings(which_covering, intentionally_removed, by_who)
+TYPE_PROC_REF(/obj/item/bodypart, destroy_coverings)(which_covering, intentionally_removed, by_who)
 	if(!which_covering)
 		which_covering = "both"
 	if(current_gauze && (which_covering == "bandage" || which_covering == "both"))
@@ -1028,7 +1028,7 @@
 		QDEL_NULL(current_suture)
 		. = TRUE
 
-/obj/item/bodypart/proc/get_bleed_rate(include_reductions = TRUE)
+TYPE_PROC_REF(/obj/item/bodypart, get_bleed_rate)(include_reductions = TRUE)
 	if(status != BODYPART_ORGANIC) // maybe in the future we can bleed oil from aug parts, but not now
 		return
 	var/bleed_rate = 0
@@ -1048,7 +1048,7 @@
 	//	bleed_rate *= 0.75
 	return bleed_rate
 
-/obj/item/bodypart/proc/has_bleed_wounds()
+TYPE_PROC_REF(/obj/item/bodypart, has_bleed_wounds)()
 	if(status != BODYPART_ORGANIC) // maybe in the future we can bleed oil from aug parts, but not now
 		return FALSE
 	for(var/datum/wound/woundie in wounds)
@@ -1068,7 +1068,7 @@
  * * skill_mult- The time multiplier used for the covering's duration
  * * just_check- Just return if a bandage would be applied
  */
-/obj/item/bodypart/proc/apply_gauze(obj/item/stack/medical/gauze/gauze, skill_mult = 1, just_check = FALSE)
+TYPE_PROC_REF(/obj/item/bodypart, apply_gauze)(obj/item/stack/medical/gauze/gauze, skill_mult = 1, just_check = FALSE)
 	if(!istype(gauze) || !gauze)
 		return BANDAGE_NOT_APPLIED
 	if(!istype(current_gauze)) // No bandage, put one on
@@ -1096,7 +1096,7 @@
 			apply_gauze_to_limb(gauze, skill_mult)
 		return BANDAGE_NEW_APPLIED
 
-/obj/item/bodypart/proc/apply_gauze_to_limb(obj/item/stack/medical/gauze/gauze, skill_mult = 1)
+TYPE_PROC_REF(/obj/item/bodypart, apply_gauze_to_limb)(obj/item/stack/medical/gauze/gauze, skill_mult = 1)
 	QDEL_NULL(current_gauze)
 	S_TIMER_COOLDOWN_RESET(src, BANDAGE_COOLDOWN_ID)
 	current_gauze = new gauze.type(src, 1)
@@ -1107,7 +1107,7 @@
 /**
  * check_gauze_time() checks if the gauze has time left to be on the wound
  */
-/obj/item/bodypart/proc/check_gauze_time()
+TYPE_PROC_REF(/obj/item/bodypart, check_gauze_time)()
 	if(!current_gauze || !istype(current_gauze, /obj/item/stack/medical/gauze))
 		return BANDAGE_NOT_FOUND
 	if(S_TIMER_COOLDOWN_TIMELEFT(src, BANDAGE_COOLDOWN_ID)) // Bandage has some time left in it
@@ -1123,7 +1123,7 @@
 /**
  * bandage_heal() applies some healing to the limb based on the bandage applied there
  */
-/obj/item/bodypart/proc/bandage_heal()
+TYPE_PROC_REF(/obj/item/bodypart, bandage_heal)()
 	if(!current_gauze)
 		return
 	if(!istype(current_gauze, /obj/item/stack/medical/gauze))
@@ -1156,7 +1156,7 @@
  * * brute - How much brute is being calculated for bandage damage
  * * burn - How much burn is being calculated for bandage damage - usually multiplied
  */
-/obj/item/bodypart/proc/damage_gauze(brute = 0, burn = 0)
+TYPE_PROC_REF(/obj/item/bodypart, damage_gauze)(brute = 0, burn = 0)
 	if(!istype(current_gauze))
 		return FALSE
 	if(brute < 1 && burn < 1)
@@ -1203,7 +1203,7 @@
  * * skill_mult- The time multiplier used for the covering's duration
  * * just_check- Just return if a suture would be applied
  */
-/obj/item/bodypart/proc/apply_suture(obj/item/stack/medical/suture/suture, skill_mult = 1, just_check = FALSE)
+TYPE_PROC_REF(/obj/item/bodypart, apply_suture)(obj/item/stack/medical/suture/suture, skill_mult = 1, just_check = FALSE)
 	if(!istype(suture) || !suture)
 		return SUTURE_NOT_APPLIED
 	if(!istype(current_suture)) // No suture, put one on
@@ -1231,7 +1231,7 @@
 			apply_suture_to_limb(suture, skill_mult)
 		return SUTURE_NEW_APPLIED
 
-/obj/item/bodypart/proc/apply_suture_to_limb(obj/item/stack/medical/suture/suture, skill_mult = 1)
+TYPE_PROC_REF(/obj/item/bodypart, apply_suture_to_limb)(obj/item/stack/medical/suture/suture, skill_mult = 1)
 	QDEL_NULL(current_suture)
 	S_TIMER_COOLDOWN_RESET(src, SUTURE_COOLDOWN_ID)
 	current_suture = new suture.type(src, 1)
@@ -1243,7 +1243,7 @@
 /**
  * check_suture_time() checks if the suture has time left to be on the wound
  */
-/obj/item/bodypart/proc/check_suture_time(seep_amt = 0)
+TYPE_PROC_REF(/obj/item/bodypart, check_suture_time)(seep_amt = 0)
 	if(!current_suture || !istype(current_suture, /obj/item/stack/medical/suture))
 		return SUTURE_NOT_FOUND
 	if(S_TIMER_COOLDOWN_TIMELEFT(src, SUTURE_COOLDOWN_ID)) // Bandage has some time left in it
@@ -1259,7 +1259,7 @@
 /**
  * suture_heal() applies some healing to the limb based on the suture applied there
  */
-/obj/item/bodypart/proc/suture_heal()
+TYPE_PROC_REF(/obj/item/bodypart, suture_heal)()
 	if(!current_suture)
 		return
 	if(!istype(current_suture, /obj/item/stack/medical/suture))
@@ -1277,7 +1277,7 @@
  * * brute - How much brute is being calculated for bandage damage
  * * burn - How much burn is being calculated for bandage damage - usually multiplied
  */
-/obj/item/bodypart/proc/damage_suture(brute = 0, burn = 0)
+TYPE_PROC_REF(/obj/item/bodypart, damage_suture)(brute = 0, burn = 0)
 	if(!istype(current_suture))
 		return FALSE
 	if((brute + burn) < 1)
@@ -1321,7 +1321,7 @@
  * Arguments:
  * * bleed_heal - amount to heal bleed_dam, before nutrition modifiers
  */
-/obj/item/bodypart/proc/covering_heal_nutrition_mod(bleed_heal, damage_heal)
+TYPE_PROC_REF(/obj/item/bodypart, covering_heal_nutrition_mod)(bleed_heal, damage_heal)
 	if(!is_damaged())
 		return FALSE // no damage, so dont spend any nutrition
 
@@ -1361,7 +1361,7 @@
  * * covering - either COVERING_SUTURE or COVERING_BANDAGE, picks which to check
  * * format_out - either COVERING_TIME_TRUE, COVERING_TIME_MINUTE, COVERING_TIME_MINUTE_FUZZY
  */
-/obj/item/bodypart/proc/get_covering_timeleft(covering, format_out = COVERING_TIME_MINUTE)
+TYPE_PROC_REF(/obj/item/bodypart, get_covering_timeleft)(covering, format_out = COVERING_TIME_MINUTE)
 	if(!istype(current_gauze) && !istype(current_suture))
 		return FALSE
 	if(!covering)
@@ -1382,7 +1382,7 @@
 				. = round(., 5)
 
 /// Adds a tattoo to this bodypart
-/obj/item/bodypart/proc/add_tattoo(datum/tattoo/tat, location)
+TYPE_PROC_REF(/obj/item/bodypart, add_tattoo)(datum/tattoo/tat, location)
 	if(tattoos[location]) // theres a tat there
 		return FALSE
 	var/datum/tattoo/ink
@@ -1400,7 +1400,7 @@
 	return TRUE
 
 /// Removes a tattoo to this bodypart. accepts a location, path, type, or anything in between, cus why tf not
-/obj/item/bodypart/proc/remove_tattoo(datum/tattoo/tat, location)
+TYPE_PROC_REF(/obj/item/bodypart, remove_tattoo)(datum/tattoo/tat, location)
 	if(location)
 		if(!istype(tat) && !ispath(tat) && istype(tattoos[location], /datum/tattoo))
 			var/datum/tattoo/tattie = tattoos[location]
@@ -1435,7 +1435,7 @@
 				return TRUE
 
 /// Gets all the cool tats' flavors
-/obj/item/bodypart/proc/get_tattoo_flavor(mob/viewer)
+TYPE_PROC_REF(/obj/item/bodypart, get_tattoo_flavor)(mob/viewer)
 	if(!LAZYLEN(tattoos))
 		return
 	var/list/msg = list()
@@ -1446,7 +1446,7 @@
 	. = jointext(msg, "<br>")
 
 /// Returns if any tats are visible
-/obj/item/bodypart/proc/are_any_tattoos_visible(mob/viewer)
+TYPE_PROC_REF(/obj/item/bodypart, are_any_tattoos_visible)(mob/viewer)
 	if(!LAZYLEN(tattoos))
 		return FALSE // cant see any!
 	for(var/key in tattoos)

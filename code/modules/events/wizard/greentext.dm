@@ -61,7 +61,7 @@
 	STOP_PROCESSING(SSobj, src)
 	..()
 
-/obj/item/greentext/proc/check_winner()
+TYPE_PROC_REF(/obj/item/greentext, check_winner)()
 	if(!new_holder)
 		return
 

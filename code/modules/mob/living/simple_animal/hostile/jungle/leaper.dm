@@ -95,7 +95,7 @@
 	playsound(src,'sound/effects/snap.ogg',50, 1, -1)
 	return ..()
 
-/obj/structure/leaper_bubble/proc/on_entered(atom/movable/AM)
+TYPE_PROC_REF(/obj/structure/leaper_bubble, on_entered)(atom/movable/AM)
 	SIGNAL_HANDLER
 	if(isliving(AM))
 		var/mob/living/L = AM
@@ -198,7 +198,7 @@
 		projectile_ready = FALSE
 		update_icons()
 
-/mob/living/simple_animal/hostile/jungle/leaper/proc/Hop(player_hop = FALSE)
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/jungle/leaper, Hop)(player_hop = FALSE)
 	if(z != target.z)
 		return
 	hopping = TRUE
@@ -214,7 +214,7 @@
 		update_icons()
 	throw_at(new_turf, max(3,get_dist(src,new_turf)), 1, src, FALSE, callback = CALLBACK(src, PROC_REF(FinishHop)))
 
-/mob/living/simple_animal/hostile/jungle/leaper/proc/FinishHop()
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/jungle/leaper, FinishHop)()
 	density = TRUE
 	mob_transforming = FALSE
 	pass_flags &= ~PASSMOB
@@ -224,18 +224,18 @@
 		face_atom(target)
 		addtimer(CALLBACK(src, PROC_REF(OpenFire), target), 5)
 
-/mob/living/simple_animal/hostile/jungle/leaper/proc/BellyFlop()
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/jungle/leaper, BellyFlop)()
 	var/turf/new_turf = get_turf(target)
 	hopping = TRUE
 	mob_transforming = TRUE
 	new /obj/effect/temp_visual/leaper_crush(new_turf)
 	addtimer(CALLBACK(src, PROC_REF(BellyFlopHop), new_turf), 30)
 
-/mob/living/simple_animal/hostile/jungle/leaper/proc/BellyFlopHop(turf/T)
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/jungle/leaper, BellyFlopHop)(turf/T)
 	density = FALSE
 	throw_at(T, get_dist(src,T),1,src, FALSE, callback = CALLBACK(src, PROC_REF(Crush)))
 
-/mob/living/simple_animal/hostile/jungle/leaper/proc/Crush()
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/jungle/leaper, Crush)()
 	hopping = FALSE
 	density = TRUE
 	mob_transforming = FALSE

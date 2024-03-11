@@ -33,11 +33,11 @@
 	. = ..()
 	addtimer(CALLBACK(src, PROC_REF(inert_check)), 2400)
 
-/obj/item/organ/regenerative_core/proc/inert_check()
+TYPE_PROC_REF(/obj/item/organ/regenerative_core, inert_check)()
 	if(!preserved)
 		go_inert()
 
-/obj/item/organ/regenerative_core/proc/preserved(implanted = 0)
+TYPE_PROC_REF(/obj/item/organ/regenerative_core, preserved)(implanted = 0)
 	if(inert)
 		name = initial(name)
 		inert = FALSE
@@ -49,7 +49,7 @@
 	else
 		SSblackbox.record_feedback("nested tally", "hivelord_core", 1, list("[type]", "stabilizer"))
 
-/obj/item/organ/regenerative_core/proc/go_inert()
+TYPE_PROC_REF(/obj/item/organ/regenerative_core, go_inert)()
 	inert = TRUE
 	name = "decayed regenerative core"
 	desc = "All that remains of a hivelord. It has decayed, and is completely useless."
@@ -74,7 +74,7 @@
 	if(proximity_flag)
 		apply_healing_core(target, user)
 
-/obj/item/organ/regenerative_core/proc/apply_healing_core(atom/target, mob/user)
+TYPE_PROC_REF(/obj/item/organ/regenerative_core, apply_healing_core)(atom/target, mob/user)
 	if(!user || !ishuman(target))
 		return
 	var/mob/living/carbon/human/H = target

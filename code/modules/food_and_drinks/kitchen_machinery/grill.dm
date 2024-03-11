@@ -115,7 +115,7 @@
 		return
 	return ..()
 
-/obj/machinery/grill/proc/finish_grill()
+TYPE_PROC_REF(/obj/machinery/grill, finish_grill)()
 	switch(grill_time) //no 0-9 to prevent spam
 		if(10 to 15)
 			grilled_item.name = "lightly-grilled [grilled_item.name]"

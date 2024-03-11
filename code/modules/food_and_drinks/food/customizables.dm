@@ -66,7 +66,7 @@
 		. = ..()
 
 
-/obj/item/reagent_containers/food/snacks/customizable/proc/update_name(obj/item/reagent_containers/food/snacks/S)
+TYPE_PROC_REF(/obj/item/reagent_containers/food/snacks/customizable, update_name)(obj/item/reagent_containers/food/snacks/S)
 	for(var/obj/item/I in ingredients)
 		if(!istype(S, I.type))
 			customname = "custom"
@@ -84,7 +84,7 @@
 			customname = S.name
 	name = "[customname] [initial(name)]"
 
-/obj/item/reagent_containers/food/snacks/customizable/proc/initialize_custom_food(obj/item/BASE, obj/item/I, mob/user)
+TYPE_PROC_REF(/obj/item/reagent_containers/food/snacks/customizable, initialize_custom_food)(obj/item/BASE, obj/item/I, mob/user)
 	if(istype(BASE, /obj/item/reagent_containers))
 		var/obj/item/reagent_containers/RC = BASE
 		RC.reagents.trans_to(src,RC.reagents.total_volume)
@@ -94,7 +94,7 @@
 		attackby(I, user)
 	qdel(BASE)
 
-/obj/item/reagent_containers/food/snacks/customizable/proc/mix_filling_color(obj/item/reagent_containers/food/snacks/S)
+TYPE_PROC_REF(/obj/item/reagent_containers/food/snacks/customizable, mix_filling_color)(obj/item/reagent_containers/food/snacks/S)
 	if(ingredients.len == 1)
 		filling_color = S.filling_color
 	else

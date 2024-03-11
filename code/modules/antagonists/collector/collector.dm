@@ -4,7 +4,7 @@
 	show_name_in_check_antagonists = FALSE
 	blacklisted_quirks = list() // no blacklist, these guys are harmless
 
-/datum/antagonist/collector/proc/forge_objectives()
+TYPE_PROC_REF(/datum/antagonist/collector, forge_objectives)()
 	var/datum/objective/hoard/collector/O = new
 	O.owner = owner
 	O.find_target()

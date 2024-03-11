@@ -23,7 +23,7 @@
 //randomly assigning a sign
 	set_sign(pick(barsigns))
 
-/obj/structure/sign/barsign/proc/set_sign(datum/barsign/sign)
+TYPE_PROC_REF(/obj/structure/sign/barsign, set_sign)(datum/barsign/sign)
 	if(!istype(sign))
 		return
 	icon_state = sign.icon
@@ -114,12 +114,12 @@
 	addtimer(CALLBACK(src, PROC_REF(syndie_bar_good)), 10 SECONDS)
 	return TRUE
 
-/obj/structure/sign/barsign/proc/syndie_bar_good()
+TYPE_PROC_REF(/obj/structure/sign/barsign, syndie_bar_good)()
 	set_sign(new /datum/barsign/hiddensigns/syndibarsign)
 	req_access = list(ACCESS_SYNDICATE)
 
 
-/obj/structure/sign/barsign/proc/pick_sign(mob/user)
+TYPE_PROC_REF(/obj/structure/sign/barsign, pick_sign)(mob/user)
 	var/picked_name = input(user, "Available Signage", "Bar Sign", name) as null|anything in barsigns
 	if(!picked_name)
 		return

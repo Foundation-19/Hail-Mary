@@ -4,7 +4,7 @@
 	STOP_PROCESSING(SShuds, src)
 	return ..()
 
-/obj/screen/action_bar/proc/mark_dirty()
+TYPE_PROC_REF(/obj/screen/action_bar, mark_dirty)()
 	var/mob/living/L = hud?.mymob
 	if(L?.client && update_to_mob(L))
 		START_PROCESSING(SShuds, src)
@@ -14,7 +14,7 @@
 	if(!L?.client || !update_to_mob(L))
 		return PROCESS_KILL
 
-/obj/screen/action_bar/proc/update_to_mob(mob/living/L)
+TYPE_PROC_REF(/obj/screen/action_bar, update_to_mob)(mob/living/L)
 	return FALSE
 
 /datum/hud/var/obj/screen/action_bar/clickdelay/clickdelay

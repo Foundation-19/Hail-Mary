@@ -38,7 +38,7 @@
 		draw_rune(target,user)
 
 ///Gives you a charge and destroys a corresponding influence
-/obj/item/forbidden_book/proc/get_power_from_influence(atom/target, mob/user)
+TYPE_PROC_REF(/obj/item/forbidden_book, get_power_from_influence)(atom/target, mob/user)
 	var/obj/effect/reality_smash/RS = target
 	to_chat(target, span_danger("You start drawing power from influence..."))
 	if(do_after(user,10 SECONDS,TRUE,RS))
@@ -46,7 +46,7 @@
 		charge += 1
 
 ///Draws a rune on a selected turf
-/obj/item/forbidden_book/proc/draw_rune(atom/target,mob/user)
+TYPE_PROC_REF(/obj/item/forbidden_book, draw_rune)(atom/target,mob/user)
 
 	for(var/turf/T in range(1,target))
 		if(is_type_in_typecache(T, blacklisted_turfs))
@@ -60,7 +60,7 @@
 		new /obj/effect/eldritch/big(A)
 
 ///Removes runes from the selected turf
-/obj/item/forbidden_book/proc/remove_rune(atom/target,mob/user)
+TYPE_PROC_REF(/obj/item/forbidden_book, remove_rune)(atom/target,mob/user)
 
 	to_chat(user, span_danger("You start removing a rune..."))
 	if(do_after(user,2 SECONDS,FALSE, user))

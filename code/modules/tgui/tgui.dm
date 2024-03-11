@@ -75,7 +75,7 @@
  *
  * return bool - TRUE if a new pooled window is opened, FALSE in all other situations including if a new pooled window didn't open because one already exists.
  */
-/datum/tgui/proc/open()
+TYPE_PROC_REF(/datum/tgui, open)()
 	if(!user.client)
 		return FALSE
 	if(window)
@@ -119,7 +119,7 @@
  *
  * optional can_be_suspended bool
  */
-/datum/tgui/proc/close(can_be_suspended = TRUE)
+TYPE_PROC_REF(/datum/tgui, close)(can_be_suspended = TRUE)
 	if(closing)
 		return
 	closing = TRUE
@@ -143,7 +143,7 @@
  *
  * required value bool Enable/disable auto-updating.
  */
-/datum/tgui/proc/set_autoupdate(autoupdate)
+TYPE_PROC_REF(/datum/tgui, set_autoupdate)(autoupdate)
 	src.autoupdate = autoupdate
 
 /**
@@ -153,7 +153,7 @@
  *
  * required state datum/ui_state/state Next state
  */
-/datum/tgui/proc/set_state(datum/ui_state/state)
+TYPE_PROC_REF(/datum/tgui, set_state)(datum/ui_state/state)
 	src.state = state
 
 /**
@@ -165,7 +165,7 @@
  *
  * return bool - true if an asset was actually sent
  */
-/datum/tgui/proc/send_asset(datum/asset/asset)
+TYPE_PROC_REF(/datum/tgui, send_asset)(datum/asset/asset)
 	if(!window)
 		CRASH("send_asset() was called either without calling open() first or when open() did not return TRUE.")
 	return window.send_asset(asset)
@@ -178,7 +178,7 @@
  * optional custom_data list Custom data to send instead of ui_data.
  * optional force bool Send an update even if UI is not interactive.
  */
-/datum/tgui/proc/send_full_update(custom_data, force)
+TYPE_PROC_REF(/datum/tgui, send_full_update)(custom_data, force)
 	if(!user.client || !initialized || closing)
 		return
 	var/should_update_data = force || status >= UI_UPDATE
@@ -195,7 +195,7 @@
  * optional custom_data list Custom data to send instead of ui_data.
  * optional force bool Send an update even if UI is not interactive.
  */
-/datum/tgui/proc/send_update(custom_data, force)
+TYPE_PROC_REF(/datum/tgui, send_update)(custom_data, force)
 	if(!user.client || !initialized || closing)
 		return
 	var/should_update_data = force || status >= UI_UPDATE
@@ -210,7 +210,7 @@
  *
  * return list
  */
-/datum/tgui/proc/get_payload(custom_data, with_data, with_static_data)
+TYPE_PROC_REF(/datum/tgui, get_payload)(custom_data, with_data, with_static_data)
 	var/list/json_data = list()
 	json_data["config"] = list(
 		"title" = title,
@@ -280,7 +280,7 @@
  *
  * Updates the status, and returns TRUE if status has changed.
  */
-/datum/tgui/proc/process_status()
+TYPE_PROC_REF(/datum/tgui, process_status)()
 	var/prev_status = status
 	status = src_object.ui_status(user, state)
 	return prev_status != status
@@ -290,7 +290,7 @@
  *
  * Callback for handling incoming tgui messages.
  */
-/datum/tgui/proc/on_message(type, list/payload, list/href_list)
+TYPE_PROC_REF(/datum/tgui, on_message)(type, list/payload, list/href_list)
 	// Pass act type messages to ui_act
 	if(type && copytext(type, 1, 5) == "act/")
 		var/act_type = copytext(type, 5)

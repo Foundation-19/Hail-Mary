@@ -16,7 +16,7 @@
 		rename_bot()
 		return
 
-/obj/item/bot_assembly/proc/rename_bot()
+TYPE_PROC_REF(/obj/item/bot_assembly, rename_bot)()
 	var/t = stripped_input(usr, "Enter new robot name", name, created_name,MAX_NAME_LEN)
 	if(!t)
 		return
@@ -24,7 +24,7 @@
 		return
 	created_name = t
 
-/obj/item/bot_assembly/proc/can_finish_build(obj/item/I, mob/user)
+TYPE_PROC_REF(/obj/item/bot_assembly, can_finish_build)(obj/item/I, mob/user)
 	if(istype(loc, /obj/item/storage/backpack))
 		to_chat(user, span_warning("You must take [src] out of [loc] first!"))
 		return FALSE

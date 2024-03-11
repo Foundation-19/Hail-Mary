@@ -1,11 +1,11 @@
 /mob/living/carbon
 	var/list/overlays_standing[TOTAL_LAYERS]
 
-/mob/living/carbon/proc/apply_overlay(cache_index)
+TYPE_PROC_REF(/mob/living/carbon, apply_overlay)(cache_index)
 	if((. = overlays_standing[cache_index]))
 		add_overlay(.)
 
-/mob/living/carbon/proc/remove_overlay(cache_index)
+TYPE_PROC_REF(/mob/living/carbon, remove_overlay)(cache_index)
 	var/I = overlays_standing[cache_index]
 	if(I)
 		cut_overlay(I)
@@ -168,7 +168,7 @@
 //mob HUD updates for items in our inventory
 
 //update whether handcuffs appears on our hud.
-/mob/living/carbon/proc/update_hud_handcuffed()
+TYPE_PROC_REF(/mob/living/carbon, update_hud_handcuffed)()
 	if(hud_used)
 		for(var/hand in hud_used.hand_slots)
 			var/obj/screen/inventory/hand/H = hud_used.hand_slots[hand]
@@ -176,25 +176,25 @@
 				H.update_icon()
 
 //update whether our head item appears on our hud.
-/mob/living/carbon/proc/update_hud_head(obj/item/I)
+TYPE_PROC_REF(/mob/living/carbon, update_hud_head)(obj/item/I)
 	return
 
 //update whether our mask item appears on our hud.
-/mob/living/carbon/proc/update_hud_wear_mask(obj/item/I)
+TYPE_PROC_REF(/mob/living/carbon, update_hud_wear_mask)(obj/item/I)
 	return
 
 //update whether our neck item appears on our hud.
-/mob/living/carbon/proc/update_hud_neck(obj/item/I)
+TYPE_PROC_REF(/mob/living/carbon, update_hud_neck)(obj/item/I)
 	return
 
 //update whether our back item appears on our hud.
-/mob/living/carbon/proc/update_hud_back(obj/item/I)
+TYPE_PROC_REF(/mob/living/carbon, update_hud_back)(obj/item/I)
 	return
 
 /mob/living/carbon/update_body()
 	update_body_parts()
 
-/mob/living/carbon/proc/update_body_parts()
+TYPE_PROC_REF(/mob/living/carbon, update_body_parts)()
 	//CHECK FOR UPDATE
 	var/oldkey = icon_render_key
 	icon_render_key = generate_icon_render_key()
@@ -250,7 +250,7 @@
 
 //produces a key based on the mob's limbs
 
-/mob/living/carbon/proc/generate_icon_render_key()
+TYPE_PROC_REF(/mob/living/carbon, generate_icon_render_key)()
 	for(var/X in bodyparts)
 		var/obj/item/bodypart/BP = X
 		. += "-[BP.body_zone]"
@@ -270,7 +270,7 @@
 
 
 //change the mob's icon to the one matching its key
-/mob/living/carbon/proc/load_limb_from_cache()
+TYPE_PROC_REF(/mob/living/carbon, load_limb_from_cache)()
 	if(limb_icon_cache[icon_render_key])
 		remove_overlay(BODYPARTS_LAYER)
 		overlays_standing[BODYPARTS_LAYER] = limb_icon_cache[icon_render_key]

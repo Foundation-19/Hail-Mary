@@ -7,7 +7,7 @@ Contents:
 */
 
 
-/obj/item/clothing/suit/space/space_ninja/proc/toggle_stealth()
+TYPE_PROC_REF(/obj/item/clothing/suit/space/space_ninja, toggle_stealth)()
 	if(!affecting || stealth_cooldown > world.time)
 		return
 	if(stealth)
@@ -23,20 +23,20 @@ Contents:
 						span_notice("You are now mostly invisible to normal detection."))
 		addtimer(CALLBACK(src, PROC_REF(enable_signals)), 3 SECONDS)
 
-/obj/item/clothing/suit/space/space_ninja/proc/enable_signals()
+TYPE_PROC_REF(/obj/item/clothing/suit/space/space_ninja, enable_signals)()
 	if(!affecting)
 		return
 	RegisterSignal(affecting, list(COMSIG_MOB_ITEM_ATTACK, COMSIG_MOB_ATTACK_RANGED, COMSIG_HUMAN_MELEE_UNARMED_ATTACK, COMSIG_MOB_ATTACK_HAND, COMSIG_MOB_THROW, COMSIG_PARENT_ATTACKBY, COMSIG_MOVABLE_TELEPORTED, COMSIG_LIVING_GUN_PROCESS_FIRE), PROC_REF(reduce_stealth))
 	RegisterSignal(affecting, COMSIG_MOVABLE_BUMP, PROC_REF(bumping_stealth))
 
-/obj/item/clothing/suit/space/space_ninja/proc/reduce_stealth(datum/source)
+TYPE_PROC_REF(/obj/item/clothing/suit/space/space_ninja, reduce_stealth)(datum/source)
 	affecting.alpha = min(affecting.alpha + 40, 100)
 
-/obj/item/clothing/suit/space/space_ninja/proc/bumping_stealth(datum/source, atom/A)
+TYPE_PROC_REF(/obj/item/clothing/suit/space/space_ninja, bumping_stealth)(datum/source, atom/A)
 	if(isliving(A))
 		affecting.alpha = min(affecting.alpha + 20, 100)
 
-/obj/item/clothing/suit/space/space_ninja/proc/cancel_stealth()
+TYPE_PROC_REF(/obj/item/clothing/suit/space/space_ninja, cancel_stealth)()
 	if(!affecting || !stealth)
 		return FALSE
 	stealth = !stealth
@@ -47,7 +47,7 @@ Contents:
 					span_notice("You are now visible."))
 	return TRUE
 
-/obj/item/clothing/suit/space/space_ninja/proc/stealth()
+TYPE_PROC_REF(/obj/item/clothing/suit/space/space_ninja, stealth)()
 	if(!s_busy)
 		toggle_stealth()
 	else

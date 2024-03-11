@@ -20,7 +20,7 @@
 		StartChargeup(user)
 	return 1
 
-/obj/effect/proc_holder/spell/targeted/tesla/proc/StartChargeup(mob/user = usr)
+TYPE_PROC_REF(/obj/effect/proc_holder/spell/targeted/tesla, StartChargeup)(mob/user = usr)
 	ready = 1
 	to_chat(user, span_notice("You start gathering the power."))
 	Snd = new/sound('sound/magic/lightning_chargeup.ogg',channel = 7)
@@ -35,7 +35,7 @@
 	else
 		revert_cast(user, 0)
 
-/obj/effect/proc_holder/spell/targeted/tesla/proc/Reset(mob/user = usr)
+TYPE_PROC_REF(/obj/effect/proc_holder/spell/targeted/tesla, Reset)(mob/user = usr)
 	ready = 0
 	user.cut_overlay(halo)
 
@@ -61,7 +61,7 @@
 	Bolt(user,target,30,5,user)
 	Reset(user)
 
-/obj/effect/proc_holder/spell/targeted/tesla/proc/Bolt(mob/origin,mob/target,bolt_energy,bounces,mob/user = usr)
+TYPE_PROC_REF(/obj/effect/proc_holder/spell/targeted/tesla, Bolt)(mob/origin,mob/target,bolt_energy,bounces,mob/user = usr)
 	origin.Beam(target,icon_state="lightning[rand(1,12)]",time=5)
 	var/mob/living/carbon/current = target
 	if(current.anti_magic_check())

@@ -575,7 +575,7 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 		to_chat(user, span_notice("You toggle high-volume mode [use_command ? "on" : "off"]."))
 		return TRUE
 
-/obj/item/radio/headset/proc/bowmanize()
+TYPE_PROC_REF(/obj/item/radio/headset, bowmanize)()
 	cut_overlays()
 	var/icon/yeas = icon(icon,icon_state)
 	icon_state = "antenna_alt"

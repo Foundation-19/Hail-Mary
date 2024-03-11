@@ -87,7 +87,7 @@
 /**
  * Returns a html formatted string describing attached mech status
  */
-/obj/item/mecha_parts/mecha_tracking/proc/get_mecha_info()
+TYPE_PROC_REF(/obj/item/mecha_parts/mecha_tracking, get_mecha_info)()
 	if(!chassis)
 		return FALSE
 
@@ -127,18 +127,18 @@
 /**
  * Attempts to EMP mech that the tracker is attached to, if there is one and tracker is not on cooldown
  */
-/obj/item/mecha_parts/mecha_tracking/proc/shock()
+TYPE_PROC_REF(/obj/item/mecha_parts/mecha_tracking, shock)()
 	if(recharging)
 		return
 	if(chassis)
 		chassis.emp_act(80)
-		addtimer(CALLBACK(src, /obj/item/mecha_parts/mecha_tracking/proc/recharge), 5 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
+		addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/item/mecha_parts/mecha_tracking, recharge)), 5 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
 		recharging = TRUE
 
 /**
  * Resets recharge variable, allowing tracker to be EMP pulsed again
  */
-/obj/item/mecha_parts/mecha_tracking/proc/recharge()
+TYPE_PROC_REF(/obj/item/mecha_parts/mecha_tracking, recharge)()
 	recharging = FALSE
 
 /obj/item/mecha_parts/mecha_tracking/ai_control

@@ -63,13 +63,13 @@
 	if (O.loc != src.loc)
 		step(O, get_dir(O, src))
 
-/obj/structure/proc/do_climb(atom/movable/A)
+TYPE_PROC_REF(/obj/structure, do_climb)(atom/movable/A)
 	if(climbable)
 		density = FALSE
 		. = step(A,get_dir(A,src.loc))
 		density = TRUE
 
-/obj/structure/proc/climb_structure(mob/living/user)
+TYPE_PROC_REF(/obj/structure, climb_structure)(mob/living/user)
 	src.add_fingerprint(user)
 	user.visible_message(span_warning("[user] starts climbing onto [src]."), \
 								span_notice("You start climbing onto [src]..."))
@@ -105,7 +105,7 @@
 		if(examine_status)
 			. +=  examine_status
 
-/obj/structure/proc/examine_status(mob/user) //An overridable proc, mostly for falsewalls.
+TYPE_PROC_REF(/obj/structure, examine_status)(mob/user) //An overridable proc, mostly for falsewalls.
 	var/healthpercent = (obj_integrity/max_integrity) * 100
 	switch(healthpercent)
 		if(50 to 99)

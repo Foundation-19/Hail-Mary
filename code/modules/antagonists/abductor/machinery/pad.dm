@@ -5,11 +5,11 @@
 	icon_state = "alien-pad-idle"
 	var/turf/teleport_target
 
-/obj/machinery/abductor/pad/proc/Warp(mob/living/target)
+TYPE_PROC_REF(/obj/machinery/abductor/pad, Warp)(mob/living/target)
 	if(!target.buckled)
 		target.forceMove(get_turf(src))
 
-/obj/machinery/abductor/pad/proc/Send()
+TYPE_PROC_REF(/obj/machinery/abductor/pad, Send)()
 	if(teleport_target == null)
 		teleport_target = GLOB.teleportlocs[pick(GLOB.teleportlocs)]
 	flick("alien-pad", src)
@@ -19,27 +19,27 @@
 		to_chat(target, span_warning("The instability of the warp leaves you disoriented!"))
 		target.Stun(60)
 
-/obj/machinery/abductor/pad/proc/Retrieve(mob/living/target)
+TYPE_PROC_REF(/obj/machinery/abductor/pad, Retrieve)(mob/living/target)
 	flick("alien-pad", src)
 	new /obj/effect/temp_visual/dir_setting/ninja(get_turf(target), target.dir)
 	Warp(target)
 
-/obj/machinery/abductor/pad/proc/doMobToLoc(place, atom/movable/target)
+TYPE_PROC_REF(/obj/machinery/abductor/pad, doMobToLoc)(place, atom/movable/target)
 	flick("alien-pad", src)
 	target.forceMove(place)
 	new /obj/effect/temp_visual/dir_setting/ninja(get_turf(target), target.dir)
 
-/obj/machinery/abductor/pad/proc/MobToLoc(place,mob/living/target)
+TYPE_PROC_REF(/obj/machinery/abductor/pad, MobToLoc)(place,mob/living/target)
 	new /obj/effect/temp_visual/teleport_abductor(place)
 	addtimer(CALLBACK(src, PROC_REF(doMobToLoc), place, target), 80)
 
-/obj/machinery/abductor/pad/proc/doPadToLoc(place)
+TYPE_PROC_REF(/obj/machinery/abductor/pad, doPadToLoc)(place)
 	flick("alien-pad", src)
 	for(var/mob/living/target in get_turf(src))
 		target.forceMove(place)
 		new /obj/effect/temp_visual/dir_setting/ninja(get_turf(target), target.dir)
 
-/obj/machinery/abductor/pad/proc/PadToLoc(place)
+TYPE_PROC_REF(/obj/machinery/abductor/pad, PadToLoc)(place)
 	new /obj/effect/temp_visual/teleport_abductor(place)
 	addtimer(CALLBACK(src, PROC_REF(doPadToLoc), place), 80)
 

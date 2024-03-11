@@ -32,44 +32,44 @@
 	var/hue
 	var/quality
 
-/datum/spacevine_mutation/proc/add_mutation_to_vinepiece(obj/structure/spacevine/holder)
+TYPE_PROC_REF(/datum/spacevine_mutation, add_mutation_to_vinepiece)(obj/structure/spacevine/holder)
 	holder.mutations |= src
 	holder.add_atom_colour(hue, FIXED_COLOUR_PRIORITY)
 
-/datum/spacevine_mutation/proc/process_mutation(obj/structure/spacevine/holder)
+TYPE_PROC_REF(/datum/spacevine_mutation, process_mutation)(obj/structure/spacevine/holder)
 	return
 
-/datum/spacevine_mutation/proc/process_temperature(obj/structure/spacevine/holder, temp, volume)
+TYPE_PROC_REF(/datum/spacevine_mutation, process_temperature)(obj/structure/spacevine/holder, temp, volume)
 	return
 
-/datum/spacevine_mutation/proc/on_birth(obj/structure/spacevine/holder)
+TYPE_PROC_REF(/datum/spacevine_mutation, on_birth)(obj/structure/spacevine/holder)
 	return
 
-/datum/spacevine_mutation/proc/on_grow(obj/structure/spacevine/holder)
+TYPE_PROC_REF(/datum/spacevine_mutation, on_grow)(obj/structure/spacevine/holder)
 	return
 
-/datum/spacevine_mutation/proc/on_death(obj/structure/spacevine/holder)
+TYPE_PROC_REF(/datum/spacevine_mutation, on_death)(obj/structure/spacevine/holder)
 	return
 
-/datum/spacevine_mutation/proc/on_hit(obj/structure/spacevine/holder, mob/hitter, obj/item/I, expected_damage)
+TYPE_PROC_REF(/datum/spacevine_mutation, on_hit)(obj/structure/spacevine/holder, mob/hitter, obj/item/I, expected_damage)
 	. = expected_damage
 
-/datum/spacevine_mutation/proc/on_cross(obj/structure/spacevine/holder, mob/crosser)
+TYPE_PROC_REF(/datum/spacevine_mutation, on_cross)(obj/structure/spacevine/holder, mob/crosser)
 	return
 
-/datum/spacevine_mutation/proc/on_chem(obj/structure/spacevine/holder, datum/reagent/R)
+TYPE_PROC_REF(/datum/spacevine_mutation, on_chem)(obj/structure/spacevine/holder, datum/reagent/R)
 	return
 
-/datum/spacevine_mutation/proc/on_eat(obj/structure/spacevine/holder, mob/living/eater)
+TYPE_PROC_REF(/datum/spacevine_mutation, on_eat)(obj/structure/spacevine/holder, mob/living/eater)
 	return
 
-/datum/spacevine_mutation/proc/on_spread(obj/structure/spacevine/holder, turf/target)
+TYPE_PROC_REF(/datum/spacevine_mutation, on_spread)(obj/structure/spacevine/holder, turf/target)
 	return
 
-/datum/spacevine_mutation/proc/on_buckle(obj/structure/spacevine/holder, mob/living/buckled)
+TYPE_PROC_REF(/datum/spacevine_mutation, on_buckle)(obj/structure/spacevine/holder, mob/living/buckled)
 	return
 
-/datum/spacevine_mutation/proc/on_explosion(severity, target, obj/structure/spacevine/holder)
+TYPE_PROC_REF(/datum/spacevine_mutation, on_explosion)(severity, target, obj/structure/spacevine/holder)
 	return
 
 
@@ -298,7 +298,7 @@
 	. += text
 
 
-/obj/structure/spacevine/proc/on_chem_effect(datum/reagent/R)
+TYPE_PROC_REF(/obj/structure/spacevine, on_chem_effect)(datum/reagent/R)
 	var/override = 0
 	for(var/datum/spacevine_mutation/SM in mutations)
 		override += SM.on_chem(src, R)
@@ -306,7 +306,7 @@
 		if(prob(50))
 			qdel(src)
 
-/obj/structure/spacevine/proc/eat(mob/eater)
+TYPE_PROC_REF(/obj/structure/spacevine, eat)(mob/eater)
 	var/override = 0
 	for(var/datum/spacevine_mutation/SM in mutations)
 		override += SM.on_eat(src, eater)
@@ -334,7 +334,7 @@
 		if(BURN)
 			playsound(src.loc, 'sound/items/welder.ogg', 100, TRUE)
 
-/obj/structure/spacevine/proc/on_entered(atom/movable/AM)
+TYPE_PROC_REF(/obj/structure/spacevine, on_entered)(atom/movable/AM)
 	SIGNAL_HANDLER
 	if(!isliving(AM))
 		return
@@ -390,14 +390,14 @@
 		if(alert(usr, "Are you sure you want to delete this spacevine cluster?", "Delete Vines", "Yes", "No") == "Yes")
 			DeleteVines()
 
-/datum/spacevine_controller/proc/DeleteVines()	//this is kill
+TYPE_PROC_REF(/datum/spacevine_controller, DeleteVines)()	//this is kill
 	QDEL_LIST(vines)	//this will also qdel us
 
 /datum/spacevine_controller/Destroy()
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
-/datum/spacevine_controller/proc/spawn_spacevine_piece(turf/location, obj/structure/spacevine/parent, list/muts)
+TYPE_PROC_REF(/datum/spacevine_controller, spawn_spacevine_piece)(turf/location, obj/structure/spacevine/parent, list/muts)
 	var/obj/structure/spacevine/SV = new(location)
 	growth_queue += SV
 	vines += SV
@@ -452,7 +452,7 @@
 
 	growth_queue = growth_queue + queue_end
 
-/obj/structure/spacevine/proc/grow()
+TYPE_PROC_REF(/obj/structure/spacevine, grow)()
 	if(!energy)
 		src.icon_state = pick("Med1", "Med2", "Med3")
 		energy = 1
@@ -464,7 +464,7 @@
 	for(var/datum/spacevine_mutation/SM in mutations)
 		SM.on_grow(src)
 
-/obj/structure/spacevine/proc/entangle_mob()
+TYPE_PROC_REF(/obj/structure/spacevine, entangle_mob)()
 	if(!has_buckled_mobs() && prob(25))
 		for(var/mob/living/V in src.loc)
 			entangle(V)
@@ -472,7 +472,7 @@
 				break //only capture one mob at a time
 
 
-/obj/structure/spacevine/proc/entangle(mob/living/V)
+TYPE_PROC_REF(/obj/structure/spacevine, entangle)(mob/living/V)
 	if(!V || isvineimmune(V))
 		return
 	for(var/datum/spacevine_mutation/SM in mutations)
@@ -481,7 +481,7 @@
 		to_chat(V, span_danger("The vines [pick("wind", "tangle", "tighten")] around you!"))
 		buckle_mob(V, 1)
 
-/obj/structure/spacevine/proc/spread()
+TYPE_PROC_REF(/obj/structure/spacevine, spread)()
 	var/direction = pick(GLOB.cardinals)
 	var/turf/stepturf = get_step(src,direction)
 	if (!isspaceturf(stepturf) && stepturf.Enter(src))

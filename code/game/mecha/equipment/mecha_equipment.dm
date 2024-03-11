@@ -21,14 +21,14 @@
 	var/harmful = FALSE //Controls if equipment can be used to attack by a pacifist.
 	//var/destroy_sound = 'sound/mecha/critdestr.ogg'
 
-/obj/item/mecha_parts/mecha_equipment/proc/update_chassis_page()
+TYPE_PROC_REF(/obj/item/mecha_parts/mecha_equipment, update_chassis_page)()
 	if(chassis)
 		send_byjax(chassis.occupant,"exosuit.browser","eq_list",chassis.get_equipment_list())
 		send_byjax(chassis.occupant,"exosuit.browser","equipment_menu",chassis.get_equipment_menu(),"dropdowns")
 		return 1
 	return
 
-/obj/item/mecha_parts/mecha_equipment/proc/update_equip_info()
+TYPE_PROC_REF(/obj/item/mecha_parts/mecha_equipment, update_equip_info)()
 	if(chassis)
 		send_byjax(chassis.occupant,"exosuit.browser","[REF(src)]",get_equip_info())
 		return 1
@@ -51,11 +51,11 @@
 		chassis = null
 	return ..()
 
-/obj/item/mecha_parts/mecha_equipment/proc/critfail()
+TYPE_PROC_REF(/obj/item/mecha_parts/mecha_equipment, critfail)()
 	if(chassis)
 		mecha_log_message("Critical failure", color="red")
 
-/obj/item/mecha_parts/mecha_equipment/proc/get_equip_info()
+TYPE_PROC_REF(/obj/item/mecha_parts/mecha_equipment, get_equip_info)()
 	if(!chassis)
 		return
 	var/txt = "<span style=\"color:[equip_ready?"#0f0":"#f00"];\">*</span>&nbsp;"
@@ -68,14 +68,14 @@
 
 	return txt
 
-/obj/item/mecha_parts/mecha_equipment/proc/is_ranged()//add a distance restricted equipment. Why not?
+TYPE_PROC_REF(/obj/item/mecha_parts/mecha_equipment, is_ranged)()//add a distance restricted equipment. Why not?
 	return range&RANGED //rename to MECHA_RANGE and MECHA_MELEE
 
-/obj/item/mecha_parts/mecha_equipment/proc/is_melee()
+TYPE_PROC_REF(/obj/item/mecha_parts/mecha_equipment, is_melee)()
 	return range&MELEE
 
 
-/obj/item/mecha_parts/mecha_equipment/proc/action_checks(atom/target)
+TYPE_PROC_REF(/obj/item/mecha_parts/mecha_equipment, action_checks)(atom/target)
 	if(!target)
 		return 0
 	if(!chassis)
@@ -91,15 +91,15 @@
 		return 0
 	return 1
 
-/obj/item/mecha_parts/mecha_equipment/proc/action(atom/target)
+TYPE_PROC_REF(/obj/item/mecha_parts/mecha_equipment, action)(atom/target)
 	return 0
 
-/obj/item/mecha_parts/mecha_equipment/proc/start_cooldown()
+TYPE_PROC_REF(/obj/item/mecha_parts/mecha_equipment, start_cooldown)()
 	set_ready_state(0)
 	chassis.use_power(energy_drain)
 	addtimer(CALLBACK(src, PROC_REF(set_ready_state), 1), equip_cooldown)
 
-/obj/item/mecha_parts/mecha_equipment/proc/do_after_cooldown(atom/target)
+TYPE_PROC_REF(/obj/item/mecha_parts/mecha_equipment, do_after_cooldown)(atom/target)
 	if(!chassis)
 		return
 	var/C = chassis.loc
@@ -110,7 +110,7 @@
 	if(!chassis || 	chassis.loc != C || src != chassis.selected || !(get_dir(chassis, target)&chassis.dir))
 		return 0
 
-/obj/item/mecha_parts/mecha_equipment/proc/do_after_mecha(atom/target, delay)
+TYPE_PROC_REF(/obj/item/mecha_parts/mecha_equipment, do_after_mecha)(atom/target, delay)
 	if(!chassis)
 		return
 	var/C = chassis.loc
@@ -118,11 +118,11 @@
 	if(!chassis || 	chassis.loc != C || src != chassis.selected || !(get_dir(chassis, target)&chassis.dir))
 		return 0
 
-/obj/item/mecha_parts/mecha_equipment/proc/can_attach(obj/mecha/M)
+TYPE_PROC_REF(/obj/item/mecha_parts/mecha_equipment, can_attach)(obj/mecha/M)
 	if(M.equipment.len<M.max_equip)
 		return 1
 
-/obj/item/mecha_parts/mecha_equipment/proc/attach(obj/mecha/M)
+TYPE_PROC_REF(/obj/item/mecha_parts/mecha_equipment, attach)(obj/mecha/M)
 	M.equipment += src
 	chassis = M
 	forceMove(M)
@@ -130,7 +130,7 @@
 	src.update_chassis_page()
 	return
 
-/obj/item/mecha_parts/mecha_equipment/proc/detach(atom/moveto=null)
+TYPE_PROC_REF(/obj/item/mecha_parts/mecha_equipment, detach)(atom/moveto=null)
 	moveto = moveto || get_turf(chassis)
 	if(src.Move(moveto))
 		chassis.equipment -= src
@@ -147,25 +147,25 @@
 	if(href_list["detach"])
 		detach()
 
-/obj/item/mecha_parts/mecha_equipment/proc/set_ready_state(state)
+TYPE_PROC_REF(/obj/item/mecha_parts/mecha_equipment, set_ready_state)(state)
 	equip_ready = state
 	if(chassis)
 		send_byjax(chassis.occupant,"exosuit.browser","[REF(src)]",src.get_equip_info())
 	return
 
-/obj/item/mecha_parts/mecha_equipment/proc/occupant_message(message)
+TYPE_PROC_REF(/obj/item/mecha_parts/mecha_equipment, occupant_message)(message)
 	if(chassis)
 		chassis.occupant_message("[icon2html(src, chassis.occupant)] [message]")
 	return
 
-/obj/item/mecha_parts/mecha_equipment/proc/mecha_log_message(message, color) //on tg this just overrides log_message
+TYPE_PROC_REF(/obj/item/mecha_parts/mecha_equipment, mecha_log_message)(message, color) //on tg this just overrides log_message
 	log_message(message, LOG_GAME, color)			//pass to default admin logging too
 	if(chassis)
 		chassis.mecha_log_message(message, color)		//and pass to our chassis
 
 //Used for reloading weapons/tools etc. that use some form of resource
-/obj/item/mecha_parts/mecha_equipment/proc/rearm()
+TYPE_PROC_REF(/obj/item/mecha_parts/mecha_equipment, rearm)()
 	return 0
 
-/obj/item/mecha_parts/mecha_equipment/proc/needs_rearm()
+TYPE_PROC_REF(/obj/item/mecha_parts/mecha_equipment, needs_rearm)()
 	return 0

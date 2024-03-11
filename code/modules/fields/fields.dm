@@ -45,7 +45,7 @@
 	STOP_PROCESSING(SSfields, src)
 	return ..()
 
-/datum/proximity_monitor/advanced/proc/assume_params(list/field_params)
+TYPE_PROC_REF(/datum/proximity_monitor/advanced, assume_params)(list/field_params)
 	var/pass_check = TRUE
 	for(var/param in field_params)
 		if(vars[param] || isnull(vars[param]) || (param in vars))
@@ -54,7 +54,7 @@
 			pass_check = FALSE
 	return pass_check
 
-/datum/proximity_monitor/advanced/proc/check_variables()
+TYPE_PROC_REF(/datum/proximity_monitor/advanced, check_variables)()
 	var/pass = TRUE
 	if(field_shape == FIELD_NO_SHAPE)	//If you're going to make a manually updated field you shouldn't be using automatic checks so don't.
 		pass = FALSE
@@ -74,25 +74,25 @@
 			process_edge_turf(T)
 			CHECK_TICK	//Same here.
 
-/datum/proximity_monitor/advanced/proc/process_inner_turf(turf/T)
+TYPE_PROC_REF(/datum/proximity_monitor/advanced, process_inner_turf)(turf/T)
 
-/datum/proximity_monitor/advanced/proc/process_edge_turf(turf/T)
+TYPE_PROC_REF(/datum/proximity_monitor/advanced, process_edge_turf)(turf/T)
 
 /datum/proximity_monitor/advanced/New()
 	if(requires_processing)
 		START_PROCESSING(SSfields, src)
 
-/datum/proximity_monitor/advanced/proc/begin_field() // shitty hack to get around initialize restrictions
+TYPE_PROC_REF(/datum/proximity_monitor/advanced, begin_field)() // shitty hack to get around initialize restrictions
 	setup_field()
 	post_setup_field()
 
-/datum/proximity_monitor/advanced/proc/full_cleanup()	 //Full cleanup for when you change something that would require complete resetting.
+TYPE_PROC_REF(/datum/proximity_monitor/advanced, full_cleanup)()	 //Full cleanup for when you change something that would require complete resetting.
 	for(var/turf/T in edge_turfs)
 		cleanup_edge_turf(T)
 	for(var/turf/T in field_turfs)
 		cleanup_field_turf(T)
 
-/datum/proximity_monitor/advanced/proc/check_movement()
+TYPE_PROC_REF(/datum/proximity_monitor/advanced, check_movement)()
 	if(!use_host_turf)
 		if(host.loc != last_host_loc)
 			last_host_loc = host.loc
@@ -103,7 +103,7 @@
 			return TRUE
 	return FALSE
 
-/datum/proximity_monitor/advanced/proc/recalculate_field(ignore_movement_check = FALSE)	//Call every time the field moves (done automatically if you use update_center) or a setup specification is changed.
+TYPE_PROC_REF(/datum/proximity_monitor/advanced, recalculate_field)(ignore_movement_check = FALSE)	//Call every time the field moves (done automatically if you use update_center) or a setup specification is changed.
 	if(!(ignore_movement_check || check_movement()) && (field_shape != FIELD_NO_SHAPE))
 		return
 	update_new_turfs()
@@ -126,28 +126,28 @@
 			setup_edge_turf(T)
 			CHECK_TICK
 
-/datum/proximity_monitor/advanced/proc/field_turf_canpass(atom/movable/AM, obj/effect/abstract/proximity_checker/advanced/field_turf/F, border_dir)
+TYPE_PROC_REF(/datum/proximity_monitor/advanced, field_turf_canpass)(atom/movable/AM, obj/effect/abstract/proximity_checker/advanced/field_turf/F, border_dir)
 	return TRUE
 
-/datum/proximity_monitor/advanced/proc/field_turf_uncross(atom/movable/AM, obj/effect/abstract/proximity_checker/advanced/field_turf/F)
+TYPE_PROC_REF(/datum/proximity_monitor/advanced, field_turf_uncross)(atom/movable/AM, obj/effect/abstract/proximity_checker/advanced/field_turf/F)
 	return TRUE
 
-/datum/proximity_monitor/advanced/proc/field_turf_crossed(atom/movable/AM, obj/effect/abstract/proximity_checker/advanced/field_turf/F)
+TYPE_PROC_REF(/datum/proximity_monitor/advanced, field_turf_crossed)(atom/movable/AM, obj/effect/abstract/proximity_checker/advanced/field_turf/F)
 	return TRUE
 
-/datum/proximity_monitor/advanced/proc/field_turf_uncrossed(atom/movable/AM, obj/effect/abstract/proximity_checker/advanced/field_turf/F)
+TYPE_PROC_REF(/datum/proximity_monitor/advanced, field_turf_uncrossed)(atom/movable/AM, obj/effect/abstract/proximity_checker/advanced/field_turf/F)
 	return TRUE
 
-/datum/proximity_monitor/advanced/proc/field_edge_canpass(atom/movable/AM, obj/effect/abstract/proximity_checker/advanced/field_edge/F, border_dir)
+TYPE_PROC_REF(/datum/proximity_monitor/advanced, field_edge_canpass)(atom/movable/AM, obj/effect/abstract/proximity_checker/advanced/field_edge/F, border_dir)
 	return TRUE
 
-/datum/proximity_monitor/advanced/proc/field_edge_uncross(atom/movable/AM, obj/effect/abstract/proximity_checker/advanced/field_edge/F)
+TYPE_PROC_REF(/datum/proximity_monitor/advanced, field_edge_uncross)(atom/movable/AM, obj/effect/abstract/proximity_checker/advanced/field_edge/F)
 	return TRUE
 
-/datum/proximity_monitor/advanced/proc/field_edge_crossed(atom/movable/AM, obj/effect/abstract/proximity_checker/advanced/field_edge/F)
+TYPE_PROC_REF(/datum/proximity_monitor/advanced, field_edge_crossed)(atom/movable/AM, obj/effect/abstract/proximity_checker/advanced/field_edge/F)
 	return TRUE
 
-/datum/proximity_monitor/advanced/proc/field_edge_uncrossed(atom/movable/AM, obj/effect/abstract/proximity_checker/advanced/field_edge/F)
+TYPE_PROC_REF(/datum/proximity_monitor/advanced, field_edge_uncrossed)(atom/movable/AM, obj/effect/abstract/proximity_checker/advanced/field_edge/F)
 	return TRUE
 
 /datum/proximity_monitor/advanced/HandleMove()
@@ -156,9 +156,9 @@
 	if(last_host_loc != new_host_loc)
 		recalculate_field()
 
-/datum/proximity_monitor/advanced/proc/post_setup_field()
+TYPE_PROC_REF(/datum/proximity_monitor/advanced, post_setup_field)()
 
-/datum/proximity_monitor/advanced/proc/setup_field()
+TYPE_PROC_REF(/datum/proximity_monitor/advanced, setup_field)()
 	update_new_turfs()
 	if(setup_field_turfs)
 		for(var/turf/T in field_turfs_new)
@@ -169,21 +169,21 @@
 			setup_edge_turf(T)
 			CHECK_TICK
 
-/datum/proximity_monitor/advanced/proc/cleanup_field_turf(turf/T)
+TYPE_PROC_REF(/datum/proximity_monitor/advanced, cleanup_field_turf)(turf/T)
 	qdel(field_turfs[T])
 	field_turfs -= T
 
-/datum/proximity_monitor/advanced/proc/cleanup_edge_turf(turf/T)
+TYPE_PROC_REF(/datum/proximity_monitor/advanced, cleanup_edge_turf)(turf/T)
 	qdel(edge_turfs[T])
 	edge_turfs -= T
 
-/datum/proximity_monitor/advanced/proc/setup_field_turf(turf/T)
+TYPE_PROC_REF(/datum/proximity_monitor/advanced, setup_field_turf)(turf/T)
 	field_turfs[T] = new /obj/effect/abstract/proximity_checker/advanced/field_turf(T, src)
 
-/datum/proximity_monitor/advanced/proc/setup_edge_turf(turf/T)
+TYPE_PROC_REF(/datum/proximity_monitor/advanced, setup_edge_turf)(turf/T)
 	edge_turfs[T] = new /obj/effect/abstract/proximity_checker/advanced/field_edge(T, src)
 
-/datum/proximity_monitor/advanced/proc/update_new_turfs()
+TYPE_PROC_REF(/datum/proximity_monitor/advanced, update_new_turfs)()
 	if(!istype(host))
 		return FALSE
 	var/turf/center = get_turf(host)
@@ -214,7 +214,7 @@
 					edge_turfs_new -= T
 
 //Gets edge direction/corner, only works with square radius/WDH fields!
-/datum/proximity_monitor/advanced/proc/get_edgeturf_direction(turf/T, turf/center_override = null)
+TYPE_PROC_REF(/datum/proximity_monitor/advanced, get_edgeturf_direction)(turf/T, turf/center_override = null)
 	var/turf/checking_from = get_turf(host)
 	if(istype(center_override))
 		checking_from = center_override
@@ -295,7 +295,7 @@
 	listeningTo = null
 	return ..()
 
-/obj/item/multitool/field_debug/proc/setup_debug_field()
+TYPE_PROC_REF(/obj/item/multitool/field_debug, setup_debug_field)()
 	var/list/new_params = field_params.Copy()
 	new_params["host"] = src
 	current = make_field(field_type, new_params)
@@ -318,11 +318,11 @@
 		UnregisterSignal(listeningTo, COMSIG_MOVABLE_MOVED)
 		listeningTo = null
 
-/obj/item/multitool/field_debug/proc/on_mob_move()
+TYPE_PROC_REF(/obj/item/multitool/field_debug, on_mob_move)()
 	check_turf(get_turf(src))
 
 /obj/item/multitool/field_debug/process()
 	check_turf(get_turf(src))
 
-/obj/item/multitool/field_debug/proc/check_turf(turf/T)
+TYPE_PROC_REF(/obj/item/multitool/field_debug, check_turf)(turf/T)
 	current.HandleMove()

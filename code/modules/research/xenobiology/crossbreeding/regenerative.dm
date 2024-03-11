@@ -9,9 +9,9 @@ Regenerative extracts:
 	effect = "regenerative"
 	icon_state = "regenerative"
 
-/obj/item/slimecross/regenerative/proc/core_effect(mob/living/carbon/human/target, mob/user)
+TYPE_PROC_REF(/obj/item/slimecross/regenerative, core_effect)(mob/living/carbon/human/target, mob/user)
 	return
-/obj/item/slimecross/regenerative/proc/core_effect_before(mob/living/carbon/human/target, mob/user)
+TYPE_PROC_REF(/obj/item/slimecross/regenerative, core_effect_before)(mob/living/carbon/human/target, mob/user)
 	return
 
 
@@ -116,7 +116,7 @@ Regenerative extracts:
 	if(fireproofed)
 		target.visible_message(span_notice("Some of [target]'s clothing gets coated in the goo, and turns blue!"))
 
-/obj/item/slimecross/regenerative/darkblue/proc/fireproof(obj/item/clothing/C)
+TYPE_PROC_REF(/obj/item/slimecross/regenerative/darkblue, fireproof)(obj/item/clothing/C)
 	C.name = "fireproofed [C.name]"
 	C.remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
 	C.add_atom_colour("#000080", FIXED_COLOUR_PRIORITY)

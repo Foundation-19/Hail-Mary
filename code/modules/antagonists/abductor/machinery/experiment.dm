@@ -108,7 +108,7 @@
  * * type The type of experiment to be performed
  * * user The mob starting the experiment
  */
-/obj/machinery/abductor/experiment/proc/experiment(mob/occupant, type, mob/user)
+TYPE_PROC_REF(/obj/machinery/abductor/experiment, experiment)(mob/occupant, type, mob/user)
 	LAZYINITLIST(history)
 	var/mob/living/carbon/human/H = occupant
 
@@ -170,7 +170,7 @@
  * Arguments:
  * * H The human mob to be sent back
  */
-/obj/machinery/abductor/experiment/proc/send_back(mob/living/carbon/human/H)
+TYPE_PROC_REF(/obj/machinery/abductor/experiment, send_back)(mob/living/carbon/human/H)
 	H.Sleeping(160)
 	H.uncuff()
 	if(console && console.pad && console.pad.teleport_target)

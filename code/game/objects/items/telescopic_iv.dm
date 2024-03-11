@@ -12,6 +12,6 @@
 	if(proximity && isopenturf(target) && user.can_reach(target))
 		deploy_iv(user, target)
 
-/obj/item/tele_iv/proc/deploy_iv(mob/user, atom/location)
+TYPE_PROC_REF(/obj/item/tele_iv, deploy_iv)(mob/user, atom/location)
 	new /obj/machinery/iv_drip/telescopic(location)
 	qdel(src)

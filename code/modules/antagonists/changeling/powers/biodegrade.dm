@@ -56,19 +56,19 @@
 
 	return used
 
-/obj/effect/proc_holder/changeling/biodegrade/proc/dissolve_handcuffs(mob/living/carbon/human/user, obj/O)
+TYPE_PROC_REF(/obj/effect/proc_holder/changeling/biodegrade, dissolve_handcuffs)(mob/living/carbon/human/user, obj/O)
 	if(O && user.handcuffed == O)
 		user.visible_message(span_warning("[O] dissolve[O.gender==PLURAL?"":"s"] into a puddle of sizzling goop."))
 		new /obj/effect/decal/cleanable/greenglow(O.drop_location())
 		qdel(O)
 
-/obj/effect/proc_holder/changeling/biodegrade/proc/dissolve_straightjacket(mob/living/carbon/human/user, obj/S)
+TYPE_PROC_REF(/obj/effect/proc_holder/changeling/biodegrade, dissolve_straightjacket)(mob/living/carbon/human/user, obj/S)
 	if(S && user.wear_suit == S)
 		user.visible_message(span_warning("[S] dissolves into a puddle of sizzling goop."))
 		new /obj/effect/decal/cleanable/greenglow(S.drop_location())
 		qdel(S)
 
-/obj/effect/proc_holder/changeling/biodegrade/proc/open_closet(mob/living/carbon/human/user, obj/structure/closet/C)
+TYPE_PROC_REF(/obj/effect/proc_holder/changeling/biodegrade, open_closet)(mob/living/carbon/human/user, obj/structure/closet/C)
 	if(C && user.loc == C)
 		C.visible_message(span_warning("[C]'s door breaks and opens!"))
 		new /obj/effect/decal/cleanable/greenglow(C.drop_location())
@@ -78,7 +78,7 @@
 		C.open()
 		to_chat(user, span_warning("We open the container restraining us!"))
 
-/obj/effect/proc_holder/changeling/biodegrade/proc/dissolve_cocoon(mob/living/carbon/human/user, obj/structure/spider/cocoon/C)
+TYPE_PROC_REF(/obj/effect/proc_holder/changeling/biodegrade, dissolve_cocoon)(mob/living/carbon/human/user, obj/structure/spider/cocoon/C)
 	if(C && user.loc == C)
 		new /obj/effect/decal/cleanable/greenglow(C.drop_location())
 		qdel(C) //The cocoon's destroy will move the changeling outside of it without interference

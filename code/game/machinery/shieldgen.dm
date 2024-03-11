@@ -90,7 +90,7 @@
 	return ..()
 
 
-/obj/machinery/shieldgen/proc/shields_up()
+TYPE_PROC_REF(/obj/machinery/shieldgen, shields_up)()
 	active = TRUE
 	update_icon()
 	move_resist = INFINITY
@@ -100,7 +100,7 @@
 			if(!(stat & BROKEN) || prob(33))
 				deployed_shields += new /obj/structure/emergency_shield(target_tile)
 
-/obj/machinery/shieldgen/proc/shields_down()
+TYPE_PROC_REF(/obj/machinery/shieldgen, shields_down)()
 	active = FALSE
 	move_resist = initial(move_resist)
 	update_icon()
@@ -241,7 +241,7 @@
 		cleanup_field(d)
 	return ..()
 
-/obj/machinery/shieldwallgen/proc/power()
+TYPE_PROC_REF(/obj/machinery/shieldwallgen, power)()
 	if(!anchored)
 		power = 0
 		return
@@ -265,11 +265,11 @@
 	power()
 	use_stored_power(50)
 
-/obj/machinery/shieldwallgen/proc/use_stored_power(amount)
+TYPE_PROC_REF(/obj/machinery/shieldwallgen, use_stored_power)(amount)
 	power = clamp(power - amount, 0, maximum_stored_power)
 	update_activity()
 
-/obj/machinery/shieldwallgen/proc/update_activity()
+TYPE_PROC_REF(/obj/machinery/shieldwallgen, update_activity)()
 	if(active)
 		icon_state = "Shield_Gen +a"
 		if(active == ACTIVE_SETUPFIELDS)
@@ -291,7 +291,7 @@
 		for(var/d in GLOB.cardinals)
 			cleanup_field(d)
 
-/obj/machinery/shieldwallgen/proc/setup_field(direction)
+TYPE_PROC_REF(/obj/machinery/shieldwallgen, setup_field)(direction)
 	if(!direction)
 		return
 
@@ -319,7 +319,7 @@
 		new/obj/machinery/shieldwall(T, src, G)
 	return TRUE
 
-/obj/machinery/shieldwallgen/proc/cleanup_field(direction)
+TYPE_PROC_REF(/obj/machinery/shieldwallgen, cleanup_field)(direction)
 	var/obj/machinery/shieldwall/F
 	var/obj/machinery/shieldwallgen/G
 	var/turf/T = loc
@@ -448,7 +448,7 @@
 	if(damage_type == BRUTE || damage_type == BURN)
 		drain_power(damage_amount)
 
-/obj/machinery/shieldwall/proc/drain_power(drain_amount)
+TYPE_PROC_REF(/obj/machinery/shieldwall, drain_power)(drain_amount)
 	if(needs_power && gen_primary)
 		gen_primary.use_stored_power(drain_amount*0.5)
 		if(gen_secondary) //using power may cause us to be destroyed

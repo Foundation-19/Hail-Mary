@@ -62,7 +62,7 @@
 	desc = "[initial(desc)][BB ? "" : " This one is spent."]"
 
 /// When you shoot a bullet, the bullet and powder go away! wow!
-/obj/item/ammo_casing/proc/deduct_powder_and_bullet_mats()
+TYPE_PROC_REF(/obj/item/ammo_casing, deduct_powder_and_bullet_mats)()
 	if(!LAZYLEN(custom_materials))
 		return // good enough
 	var/iron_to_deduct
@@ -115,18 +115,18 @@
 		set_custom_materials(newmats)
 
 //proc to magically refill a casing with a new projectile
-/obj/item/ammo_casing/proc/newshot() //For energy weapons, syringe gun, shotgun shells and wands (!).
+TYPE_PROC_REF(/obj/item/ammo_casing, newshot)() //For energy weapons, syringe gun, shotgun shells and wands (!).
 	if(!BB)
 		BB = new projectile_type(src, src)
 
 /// Returns our sound data lookup table~
-/obj/item/ammo_casing/proc/get_sound_datum()
+TYPE_PROC_REF(/obj/item/ammo_casing, get_sound_datum)()
 	if(!LAZYLEN(GLOB.casing_sound_properties))
 		setup_sound_datums()
 	return GLOB.casing_sound_properties[sound_properties]
 
 /// Sets up our precious sound datums
-/obj/item/ammo_casing/proc/setup_sound_datums()
+TYPE_PROC_REF(/obj/item/ammo_casing, setup_sound_datums)()
 	if(LAZYLEN(GLOB.casing_sound_properties))
 		return
 	new /datum/ammo_sound_properties/light_pistol(TRUE) // it'll set it all up
@@ -161,7 +161,7 @@
 		bounce_away(FALSE, NONE)
 	. = ..()
 
-/obj/item/ammo_casing/proc/bounce_away(still_warm = FALSE, bounce_delay = 3, toss_direction, max_dist = 6, max_spread = 2)
+TYPE_PROC_REF(/obj/item/ammo_casing, bounce_away)(still_warm = FALSE, bounce_delay = 3, toss_direction, max_dist = 6, max_spread = 2)
 	update_icon()
 	SpinAnimation(10, 1)
 	var/matrix/M = matrix(transform)
@@ -181,7 +181,7 @@
 	else if(this_turf_here && this_turf_here.bullet_bounce_sound)
 		addtimer(CALLBACK(GLOBAL_PROC, PROC_REF(playsound), src, this_turf_here.bullet_bounce_sound, 60, 1), bounce_delay) //Soft / non-solid turfs that shouldn't make a sound when a shell casing is ejected over them.
 
-/obj/item/ammo_casing/proc/get_casing_destination(eject_direction, max_dist = 6, max_spread = 2)
+TYPE_PROC_REF(/obj/item/ammo_casing, get_casing_destination)(eject_direction, max_dist = 6, max_spread = 2)
 	if(!eject_direction)
 		return get_turf(src) // just throw it on the ground
 	return get_ranged_target_turf(src, eject_direction, rand(1,max_dist), max_spread)

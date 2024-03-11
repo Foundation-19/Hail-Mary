@@ -206,7 +206,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	var/persistent_scars = TRUE
 	/// We have 5 slots for persistent scars, if enabled we pick a random one to load (empty by default) and scars at the end of the shift if we survived as our original person
 	var/list/scars_list = list("1" = "", "2" = "", "3" = "", "4" = "", "5" = "")
-	/// Which of the 5 persistent scar slots we randomly roll to load for this round, if enabled. Actually rolled in [/datum/preferences/proc/load_character(slot)]
+	/// Which of the 5 persistent scar slots we randomly roll to load for this round, if enabled. Actually rolled in [TYPE_PROC_REF(/datum/preferences, load_character)(slot)]
 	var/scars_index = 1
 
 	var/hide_ckey = FALSE //pref for hiding if your ckey shows round-end or not
@@ -255,7 +255,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 #define ERP_CATEGORY_ROW "<tr valign='top' width='17%'>"
 #define MAX_MUTANT_ROWS 5
 
-/datum/preferences/proc/ShowChoices(mob/user)
+TYPE_PROC_REF(/datum/preferences, ShowChoices)(mob/user)
 	if(!user || !user.client)
 		return
 
@@ -862,7 +862,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 #undef APPEARANCE_CATEGORY_COLUMN
 #undef MAX_MUTANT_ROWS
 
-/datum/preferences/proc/SetChoices(mob/user, limit = 17, list/splitJobs = list("Chief Engineer"), widthPerColumn = 295, height = 620)
+TYPE_PROC_REF(/datum/preferences, SetChoices)(mob/user, limit = 17, list/splitJobs = list("Chief Engineer"), widthPerColumn = 295, height = 620)
 	if(!SSjob)
 		return
 
@@ -995,7 +995,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	popup.set_content(HTML)
 	popup.open(FALSE)
 
-/datum/preferences/proc/SetJobPreferenceLevel(datum/job/job, level)
+TYPE_PROC_REF(/datum/preferences, SetJobPreferenceLevel)(datum/job/job, level)
 	if (!job)
 		return FALSE
 
@@ -1009,7 +1009,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	job_preferences["[job.title]"] = level
 	return TRUE
 
-/datum/preferences/proc/UpdateJobPreference(mob/user, role, desiredLvl)
+TYPE_PROC_REF(/datum/preferences, UpdateJobPreference)(mob/user, role, desiredLvl)
 	if(!SSjob || SSjob.occupations.len <= 0)
 		return
 	var/datum/job/job = SSjob.GetJob(role)
@@ -1045,10 +1045,10 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	return 1
 
 
-/datum/preferences/proc/ResetJobs()
+TYPE_PROC_REF(/datum/preferences, ResetJobs)()
 	job_preferences = list()
 
-/datum/preferences/proc/SetQuirks(mob/user)
+TYPE_PROC_REF(/datum/preferences, SetQuirks)(mob/user)
 	if(!SSquirks)
 		to_chat(user, span_danger("The quirk subsystem is still initializing! Try again in a minute."))
 		return
@@ -1124,7 +1124,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 
 
-/datum/preferences/proc/SetSpecial(mob/user)
+TYPE_PROC_REF(/datum/preferences, SetSpecial)(mob/user)
 //	if(!SSquirks)
 	//	to_chat(user, span_danger("The quirk subsystem is still initializing! Try again in a minute."))
 //		return
@@ -1155,7 +1155,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	popup.open(0)
 	return
 
-/datum/preferences/proc/GetQuirkBalance()
+TYPE_PROC_REF(/datum/preferences, GetQuirkBalance)()
 	var/bal = 5
 	for(var/V in all_quirks)
 		var/datum/quirk/T = SSquirks.quirks[V]
@@ -1165,7 +1165,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			return bal + 1 //max 1 point regardless of how many prosthetics
 	return bal
 
-/datum/preferences/proc/GetPositiveQuirkCount()
+TYPE_PROC_REF(/datum/preferences, GetPositiveQuirkCount)()
 	. = 0
 	for(var/q in all_quirks)
 		if(SSquirks.quirk_points[q] > 0)
@@ -1178,7 +1178,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		if(C)
 			C.clear_character_previews()
 
-/datum/preferences/proc/process_link(mob/user, list/href_list)
+TYPE_PROC_REF(/datum/preferences, process_link)(mob/user, list/href_list)
 	if(href_list["jobbancheck"])
 		var/datum/db_query/query_get_jobban = SSdbcore.NewQuery(
 			"SELECT reason, bantime, duration, expiration_time, IFNULL((SELECT byond_key FROM [format_table_name("player")] WHERE [format_table_name("player")].ckey = [format_table_name("ban")].a_ckey), a_ckey) FROM [format_table_name("ban")] WHERE ckey = :ckey AND (bantype = 'JOB_PERMABAN'  OR (bantype = 'JOB_TEMPBAN' AND expiration_time > Now())) AND isnull(unbanned) AND job = :job",
@@ -2093,7 +2093,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	ShowChoices(user)
 	return 1
 
-/datum/preferences/proc/copy_to(mob/living/carbon/human/character, icon_updates = 1, roundstart_checks = TRUE, initial_spawn = FALSE)
+TYPE_PROC_REF(/datum/preferences, copy_to)(mob/living/carbon/human/character, icon_updates = 1, roundstart_checks = TRUE, initial_spawn = FALSE)
 	if(be_random_name)
 		real_name = pref_species.random_name(gender)
 
@@ -2227,7 +2227,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		character.update_body()
 		character.update_hair()
 
-/datum/preferences/proc/post_copy_to(mob/living/carbon/human/character)
+TYPE_PROC_REF(/datum/preferences, post_copy_to)(mob/living/carbon/human/character)
 	//if no legs, and not a paraplegic or a slime, give them a free wheelchair
 	if(modified_limbs[BODY_ZONE_L_LEG] == LOADOUT_LIMB_AMPUTATED && modified_limbs[BODY_ZONE_R_LEG] == LOADOUT_LIMB_AMPUTATED && !character.has_quirk(/datum/quirk/paraplegic) && !isjellyperson(character))
 		if(character.buckled)
@@ -2239,7 +2239,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			wheels.setDir(spawn_chair.dir)
 		wheels.buckle_mob(character)
 
-/datum/preferences/proc/get_default_name(name_id)
+TYPE_PROC_REF(/datum/preferences, get_default_name)(name_id)
 	switch(name_id)
 		if("human")
 			return random_unique_name()
@@ -2249,7 +2249,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			return DEFAULT_CYBORG_NAME
 	return random_unique_name()
 
-/datum/preferences/proc/ask_for_custom_name(mob/user,name_id)
+TYPE_PROC_REF(/datum/preferences, ask_for_custom_name)(mob/user,name_id)
 	var/namedata = GLOB.preferences_custom_names[name_id]
 	if(!namedata)
 		return
@@ -2268,7 +2268,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		else
 			custom_names[name_id] = sanitized_name
 
-/datum/preferences/proc/get_filtered_holoform(filter_type)
+TYPE_PROC_REF(/datum/preferences, get_filtered_holoform)(filter_type)
 	if(!custom_holoform_icon)
 		return
 	LAZYINITLIST(cached_holoform_icons)
@@ -2277,13 +2277,13 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	return cached_holoform_icons[filter_type]
 
 //Resets the client's keybindings. Asks them for which
-/datum/preferences/proc/force_reset_keybindings()
+TYPE_PROC_REF(/datum/preferences, force_reset_keybindings)()
 	var/choice = tgalert(parent.mob, "Your basic keybindings need to be reset, emotes will remain as before. Would you prefer 'hotkey' or 'classic' mode?", "Reset keybindings", "Hotkey", "Classic")
 	hotkeys = (choice != "Classic")
 	force_reset_keybindings_direct(hotkeys)
 
 /// Does the actual reset
-/datum/preferences/proc/force_reset_keybindings_direct(hotkeys = TRUE)
+TYPE_PROC_REF(/datum/preferences, force_reset_keybindings_direct)(hotkeys = TRUE)
 	var/list/oldkeys = key_bindings
 	key_bindings = (hotkeys) ? deepCopyList(GLOB.hotkey_keybinding_list_by_key) : deepCopyList(GLOB.classic_keybinding_list_by_key)
 
@@ -2292,7 +2292,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			key_bindings[key] = oldkeys[key]
 	parent?.ensure_keys_set(src)
 
-/datum/preferences/proc/is_loadout_slot_available(slot)
+TYPE_PROC_REF(/datum/preferences, is_loadout_slot_available)(slot)
 	var/list/L
 	LAZYINITLIST(L)
 	for(var/i in loadout_data["SAVE_[loadout_slot]"])
@@ -2310,19 +2310,19 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			if(L[slot] < DEFAULT_SLOT_AMT)
 				return TRUE
 
-/datum/preferences/proc/has_loadout_gear(save_slot, gear_type)
+TYPE_PROC_REF(/datum/preferences, has_loadout_gear)(save_slot, gear_type)
 	var/list/gear_list = loadout_data["SAVE_[save_slot]"]
 	for(var/loadout_gear in gear_list)
 		if(loadout_gear[LOADOUT_ITEM] == gear_type)
 			return loadout_gear
 	return FALSE
 
-/datum/preferences/proc/remove_gear_from_loadout(save_slot, gear_type)
+TYPE_PROC_REF(/datum/preferences, remove_gear_from_loadout)(save_slot, gear_type)
 	var/find_gear = has_loadout_gear(save_slot, gear_type)
 	if(find_gear)
 		loadout_data["SAVE_[save_slot]"] -= list(find_gear)
 
-/datum/preferences/proc/reset_quirks(why)
+TYPE_PROC_REF(/datum/preferences, reset_quirks)(why)
 	all_quirks = list()
 	if(istype(parent))
 		switch(why)

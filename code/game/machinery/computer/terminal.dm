@@ -156,7 +156,7 @@
 	updateUsrDialog()
 	return
 /*
-/obj/machinery/computer/terminal/proc/write_documents()
+TYPE_PROC_REF(/obj/machinery/computer/terminal, write_documents)()
 	if (doc_title_1)
 		var/file_in_memory = text2path("/datum/terminal/document/[doc_title_1]")
 		var/datum/terminal/document/N = new file_in_memory

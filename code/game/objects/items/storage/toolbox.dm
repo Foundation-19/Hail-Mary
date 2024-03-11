@@ -296,7 +296,7 @@ GLOBAL_LIST_EMPTY(rubber_toolbox_icons)
 	new /obj/item/clothing/mask/infiltrator(src)
 	new /obj/item/clothing/shoes/combat/sneakboots(src)
 
-/obj/item/storage/toolbox/proc/rubberify()
+TYPE_PROC_REF(/obj/item/storage/toolbox, rubberify)()
 	name = "rubber [name]"
 	desc = replacetext(desc, "Danger", "Bouncy")
 	desc = replacetext(desc, "robust", "safe")
@@ -313,7 +313,7 @@ GLOBAL_LIST_EMPTY(rubber_toolbox_icons)
 	icon = GLOB.rubber_toolbox_icons[icon_state]
 	AddComponent(/datum/component/bouncy)
 
-/obj/item/storage/toolbox/proc/generate_rubber_toolbox_icon()
+TYPE_PROC_REF(/obj/item/storage/toolbox, generate_rubber_toolbox_icon)()
 	var/icon/new_icon = icon(icon, icon_state)
 	var/icon/smooth = icon('icons/obj/storage.dmi', "rubber_toolbox_blend")
 	new_icon.Blend(smooth, ICON_MULTIPLY)

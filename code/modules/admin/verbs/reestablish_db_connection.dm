@@ -1,4 +1,4 @@
-/client/proc/reestablish_db_connection()
+TYPE_PROC_REF(/client, reestablish_db_connection)()
 	set category = "Special Verbs"
 	set name = "Reestablish DB Connection"
 	if (!CONFIG_GET(flag/sql_enabled))

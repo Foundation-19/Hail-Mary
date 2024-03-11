@@ -19,12 +19,12 @@
 	var/loudness = 0 //Determines how much having this ability will affect changeling blood tests. At 4, the blood will react violently and turn to ash, creating a unique message in the process. At 10, the blood will explode when heated.
 
 
-/obj/effect/proc_holder/changeling/proc/on_purchase(mob/user, is_respec)
+TYPE_PROC_REF(/obj/effect/proc_holder/changeling, on_purchase)(mob/user, is_respec)
 	action.Grant(user)
 	if(!is_respec)
 		SSblackbox.record_feedback("tally", "changeling_power_purchase", 1, name)
 
-/obj/effect/proc_holder/changeling/proc/on_refund(mob/user)
+TYPE_PROC_REF(/obj/effect/proc_holder/changeling, on_refund)(mob/user)
 	action.Remove(user)
 	return
 
@@ -33,7 +33,7 @@
 		return
 	try_to_sting(user)
 
-/obj/effect/proc_holder/changeling/proc/try_to_sting(mob/user, mob/target)
+TYPE_PROC_REF(/obj/effect/proc_holder/changeling, try_to_sting)(mob/user, mob/target)
 	if(!can_sting(user, target))
 		return
 	var/datum/antagonist/changeling/c = user.mind.has_antag_datum(/datum/antagonist/changeling)
@@ -42,14 +42,14 @@
 		sting_feedback(user, target)
 		c.chem_charges -= chemical_cost
 
-/obj/effect/proc_holder/changeling/proc/sting_action(mob/user, mob/target)
+TYPE_PROC_REF(/obj/effect/proc_holder/changeling, sting_action)(mob/user, mob/target)
 	return 0
 
-/obj/effect/proc_holder/changeling/proc/sting_feedback(mob/user, mob/target)
+TYPE_PROC_REF(/obj/effect/proc_holder/changeling, sting_feedback)(mob/user, mob/target)
 	return 0
 
 //Fairly important to remember to return 1 on success >.<
-/obj/effect/proc_holder/changeling/proc/can_sting(mob/living/user, mob/target)
+TYPE_PROC_REF(/obj/effect/proc_holder/changeling, can_sting)(mob/living/user, mob/target)
 	if(!ishuman(user) && !ismonkey(user)) //typecast everything from mob to carbon from this point onwards
 		return 0
 	if(req_human && !ishuman(user))
@@ -73,7 +73,7 @@
 	return 1
 
 //used in /mob/Stat()
-/obj/effect/proc_holder/changeling/proc/can_be_used_by(mob/user)
+TYPE_PROC_REF(/obj/effect/proc_holder/changeling, can_be_used_by)(mob/user)
 	if(QDELETED(user))
 		return FALSE
 	if(!ishuman(user) && !ismonkey(user))

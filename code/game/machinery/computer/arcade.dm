@@ -60,7 +60,7 @@
 
 	light_color = LIGHT_COLOR_GREEN
 
-/obj/machinery/computer/arcade/proc/Reset()
+TYPE_PROC_REF(/obj/machinery/computer/arcade, Reset)()
 	return
 
 /obj/machinery/computer/arcade/Initialize()
@@ -81,7 +81,7 @@
 	prizes[/obj/effect/spawner/lootdrop/plush] = counterlist_sum(prizes) * ARCADE_RATIO_PLUSH
 	Reset()
 
-/obj/machinery/computer/arcade/proc/prizevend(mob/user, list/rarity_classes)
+TYPE_PROC_REF(/obj/machinery/computer/arcade, prizevend)(mob/user, list/rarity_classes)
 	SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "arcade", /datum/mood_event/arcade)
 
 	if(!contents.len)

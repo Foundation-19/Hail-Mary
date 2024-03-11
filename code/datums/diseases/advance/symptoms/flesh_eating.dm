@@ -56,7 +56,7 @@ Bonus
 			to_chat(M, span_userdanger("[pick("You cringe as a violent pain takes over your body.", "It feels like your body is eating itself inside out.", "IT HURTS.")]"))
 			Flesheat(M, A)
 
-/datum/symptom/flesh_eating/proc/Flesheat(mob/living/M, datum/disease/advance/A)
+TYPE_PROC_REF(/datum/symptom/flesh_eating, Flesheat)(mob/living/M, datum/disease/advance/A)
 	var/get_damage = rand(15,25) * power
 	M.adjustBruteLoss(get_damage)
 	if(pain)
@@ -127,7 +127,7 @@ Bonus
 				to_chat(M, span_userdanger("[pick("You feel your muscles weakening.", "Some of your skin detaches itself.", "You feel sandy.")]"))
 			Flesh_death(M, A)
 
-/datum/symptom/flesh_death/proc/Flesh_death(mob/living/M, datum/disease/advance/A)
+TYPE_PROC_REF(/datum/symptom/flesh_death, Flesh_death)(mob/living/M, datum/disease/advance/A)
 	var/get_damage = rand(6,10)
 	M.adjustBruteLoss(get_damage)
 	if(chems)

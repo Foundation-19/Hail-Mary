@@ -63,12 +63,12 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(GAS_O2, GAS_N2, GAS_CO2, GA
 	var/heat_resistance = 0 // makes the crystal more resistant against heat damage.
 	var/powerloss_inhibition = 0 // Reduces how much power the supermatter loses each tick
 
-/datum/gas/proc/breath(partial_pressure, light_threshold, heavy_threshold, moles, mob/living/carbon/C, obj/item/organ/lungs/lungs)
+TYPE_PROC_REF(/datum/gas, breath)(partial_pressure, light_threshold, heavy_threshold, moles, mob/living/carbon/C, obj/item/organ/lungs/lungs)
 	// This is only called on gases with the GAS_FLAG_BREATH_PROC flag. When possible, do NOT use this--
 	// greatly prefer just adding a reagent. This is mostly around for legacy reasons.
 	return null
 
-/datum/auxgm/proc/add_gas(datum/gas/gas)
+TYPE_PROC_REF(/datum/auxgm, add_gas)(datum/gas/gas)
 	var/g = gas.id
 	if(g)
 		datums[g] = gas

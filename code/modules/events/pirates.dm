@@ -38,7 +38,7 @@
 	threat_message.answer_callback = CALLBACK(src,PROC_REF(answered))
 	SScommunications.send_message(threat_message,unique = TRUE)
 
-/datum/round_event/pirates/proc/answered()
+TYPE_PROC_REF(/datum/round_event/pirates, answered)()
 	if(threat_message && threat_message.answered == 1)
 		var/datum/bank_account/D = SSeconomy.get_dep_account(ACCOUNT_CAR)
 		if(D)
@@ -56,7 +56,7 @@
 	if(!paid_off && !shuttle_spawned)
 		spawn_shuttle()
 
-/datum/round_event/pirates/proc/spawn_shuttle()
+TYPE_PROC_REF(/datum/round_event/pirates, spawn_shuttle)()
 	shuttle_spawned = TRUE
 
 	var/list/candidates = pollGhostCandidates("Do you wish to be considered for pirate crew?", ROLE_TRAITOR)
@@ -116,7 +116,7 @@
 	else
 		STOP_PROCESSING(SSobj,src)
 
-/obj/machinery/shuttle_scrambler/proc/toggle_on(mob/user)
+TYPE_PROC_REF(/obj/machinery/shuttle_scrambler, toggle_on)(mob/user)
 	SSshuttle.registerTradeBlockade(src)
 	AddComponent(/datum/component/gps, "Nautical Signal")
 	active = TRUE
@@ -137,14 +137,14 @@
 		dump_loot(user)
 
 //interrupt_research
-/obj/machinery/shuttle_scrambler/proc/interrupt_research()
+TYPE_PROC_REF(/obj/machinery/shuttle_scrambler, interrupt_research)()
 	for(var/obj/machinery/rnd/server/S in GLOB.machines)
 		if(S.stat & (NOPOWER|BROKEN))
 			continue
 		S.emp_act(80)
 		new /obj/effect/temp_visual/emp(get_turf(S))
 
-/obj/machinery/shuttle_scrambler/proc/dump_loot(mob/user)
+TYPE_PROC_REF(/obj/machinery/shuttle_scrambler, dump_loot)(mob/user)
 	if(credits_stored)	// Prevents spamming empty holochips
 		new /obj/item/holochip(drop_location(), credits_stored)
 		to_chat(user,span_notice("You retrieve the siphoned credits!"))
@@ -152,10 +152,10 @@
 	else
 		to_chat(user,span_notice("There's nothing to withdraw."))
 
-/obj/machinery/shuttle_scrambler/proc/send_notification()
+TYPE_PROC_REF(/obj/machinery/shuttle_scrambler, send_notification)()
 	priority_announce("Data theft signal detected, source registered on local gps units.")
 
-/obj/machinery/shuttle_scrambler/proc/toggle_off(mob/user)
+TYPE_PROC_REF(/obj/machinery/shuttle_scrambler, toggle_off)(mob/user)
 	SSshuttle.clearTradeBlockade(src)
 	active = FALSE
 	STOP_PROCESSING(SSobj,src)
@@ -207,7 +207,7 @@
 		engines_cooling = TRUE
 		addtimer(CALLBACK(src,PROC_REF(reset_cooldown)),engine_cooldown,TIMER_UNIQUE)
 
-/obj/docking_port/mobile/pirate/proc/reset_cooldown()
+TYPE_PROC_REF(/obj/docking_port/mobile/pirate, reset_cooldown)()
 	engines_cooling = FALSE
 
 /obj/docking_port/mobile/pirate/canMove()
@@ -243,7 +243,7 @@
 	else
 		say("Located: [AM.name] at [get_area_name(AM)]")
 
-/obj/machinery/loot_locator/proc/find_random_loot()
+TYPE_PROC_REF(/obj/machinery/loot_locator, find_random_loot)()
 	if(!GLOB.exports_list.len)
 		setupExports()
 	var/list/possible_loot = list()
@@ -338,7 +338,7 @@
 			stop_sending()
 			. = TRUE
 
-/obj/machinery/computer/piratepad_control/proc/recalc()
+TYPE_PROC_REF(/obj/machinery/computer/piratepad_control, recalc)()
 	if(sending)
 		return
 	status_report = "Predicted value: "
@@ -357,7 +357,7 @@
 	if(!value)
 		status_report += "0"
 
-/obj/machinery/computer/piratepad_control/proc/send()
+TYPE_PROC_REF(/obj/machinery/computer/piratepad_control, send)()
 	if(!sending)
 		return
 
@@ -396,7 +396,7 @@
 	pad.icon_state = pad.idle_state
 	sending = FALSE
 
-/obj/machinery/computer/piratepad_control/proc/start_sending()
+TYPE_PROC_REF(/obj/machinery/computer/piratepad_control, start_sending)()
 	if(sending)
 		return
 	sending = TRUE
@@ -405,7 +405,7 @@
 	pad.icon_state = pad.warmup_state
 	sending_timer = addtimer(CALLBACK(src,PROC_REF(send)),warmup_time, TIMER_STOPPABLE)
 
-/obj/machinery/computer/piratepad_control/proc/stop_sending()
+TYPE_PROC_REF(/obj/machinery/computer/piratepad_control, stop_sending)()
 	if(!sending)
 		return
 	sending = FALSE
@@ -417,7 +417,7 @@
 	export_category = EXPORT_PIRATE
 
 //Attempts to find the thing on station
-/datum/export/pirate/proc/find_loot()
+TYPE_PROC_REF(/datum/export/pirate, find_loot)()
 	return
 
 /datum/export/pirate/ransom

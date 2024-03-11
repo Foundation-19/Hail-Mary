@@ -12,7 +12,7 @@
 
 #define TK_MAXRANGE 15
 
-/atom/proc/attack_tk(mob/user)
+TYPE_PROC_REF(/atom, attack_tk)(mob/user)
 	if(user.stat || !tkMaxRangeCheck(user, src))
 		return
 	new /obj/effect/temp_visual/telekinesis(get_turf(src))
@@ -32,7 +32,7 @@
 		return
 	attack_tk_grab(user)
 
-/obj/proc/attack_tk_grab(mob/user)
+TYPE_PROC_REF(/obj, attack_tk_grab)(mob/user)
 	var/obj/item/tk_grab/O = new(src)
 	O.tk_user = user
 	if(O.focus_object(src))
@@ -50,7 +50,7 @@
 	There are not a lot of defaults at this time, add more where appropriate.
 */
 
-/atom/proc/attack_self_tk(mob/user)
+TYPE_PROC_REF(/atom, attack_self_tk)(mob/user)
 	return
 
 /obj/item/attack_self_tk(mob/user)
@@ -159,7 +159,7 @@
 /obj/item/tk_grab/attack(mob/living/M, mob/living/user, def_zone)
 	return
 
-/obj/item/tk_grab/proc/focus_object(obj/target)
+TYPE_PROC_REF(/obj/item/tk_grab, focus_object)(obj/target)
 	if(!check_if_focusable(target))
 		return
 	focus = target
@@ -167,7 +167,7 @@
 	apply_focus_overlay()
 	return TRUE
 
-/obj/item/tk_grab/proc/check_if_focusable(obj/target)
+TYPE_PROC_REF(/obj/item/tk_grab, check_if_focusable)(obj/target)
 	if(!tk_user || !istype(tk_user) || QDELETED(target) || !istype(target) || !tk_user.dna.check_mutation(TK))
 		qdel(src)
 		return
@@ -176,7 +176,7 @@
 		return
 	return TRUE
 
-/obj/item/tk_grab/proc/apply_focus_overlay()
+TYPE_PROC_REF(/obj/item/tk_grab, apply_focus_overlay)()
 	if(!focus)
 		return
 	new /obj/effect/temp_visual/telekinesis(get_turf(focus))

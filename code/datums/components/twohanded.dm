@@ -88,14 +88,14 @@
 								COMSIG_ITEM_SHARPEN_ACT))
 
 /// Triggered on equip of the item containing the component
-/datum/component/two_handed/proc/on_equip(datum/source, mob/user, slot)
+TYPE_PROC_REF(/datum/component/two_handed, on_equip)(datum/source, mob/user, slot)
 	if(require_twohands && slot == SLOT_HANDS) // force equip the item
 		wield(user)
 	if(!user.is_holding(parent) && wielded && !require_twohands)
 		unwield(user)
 
 /// Triggered on drop of item containing the component
-/datum/component/two_handed/proc/on_drop(datum/source, mob/user)
+TYPE_PROC_REF(/datum/component/two_handed, on_drop)(datum/source, mob/user)
 	if(require_twohands)
 		unwield(user, show_message=TRUE)
 	if(wielded)
@@ -104,7 +104,7 @@
 		qdel(src)
 
 /// Triggered on attack self of the item containing the component
-/datum/component/two_handed/proc/on_attack_self(datum/source, mob/user)
+TYPE_PROC_REF(/datum/component/two_handed, on_attack_self)(datum/source, mob/user)
 	if(!user.is_holding(parent))
 		return			//give no quarter to telekinesis powergaemrs (telekinetic wielding will desync the offhand and result in all sorts of bugs so no until someone codes it properly)
 	if(wielded)
@@ -118,7 +118,7 @@
  * vars:
  * * user The mob/living/carbon that is wielding the item
  */
-/datum/component/two_handed/proc/wield(mob/living/carbon/user)
+TYPE_PROC_REF(/datum/component/two_handed, wield)(mob/living/carbon/user)
 	if(wielded)
 		return
 	if(ismonkey(user))
@@ -180,7 +180,7 @@
  * * user The mob/living/carbon that is unwielding the item
  * * show_message (option) show a message to chat on unwield
  */
-/datum/component/two_handed/proc/unwield(mob/living/carbon/user, show_message=TRUE)
+TYPE_PROC_REF(/datum/component/two_handed, unwield)(mob/living/carbon/user, show_message=TRUE)
 	if(!wielded || !user)
 		return
 
@@ -242,7 +242,7 @@
 /**
  * on_attack triggers on attack with the parent item
  */
-/datum/component/two_handed/proc/on_attack(obj/item/source, mob/living/target, mob/living/user)
+TYPE_PROC_REF(/datum/component/two_handed, on_attack)(obj/item/source, mob/living/target, mob/living/user)
 	if(wielded && attacksound)
 		var/obj/item/parent_item = parent
 		playsound(parent_item.loc, attacksound, 50, TRUE)
@@ -252,7 +252,7 @@
  *
  * Updates the icon using icon_wielded if set
  */
-/datum/component/two_handed/proc/on_update_icon(datum/source)
+TYPE_PROC_REF(/datum/component/two_handed, on_update_icon)(datum/source)
 	if(icon_wielded && wielded)
 		var/obj/item/parent_item = parent
 		if(parent_item)
@@ -262,13 +262,13 @@
 /**
  * on_moved Triggers on item moved
  */
-/datum/component/two_handed/proc/on_moved(datum/source, mob/user, dir)
+TYPE_PROC_REF(/datum/component/two_handed, on_moved)(datum/source, mob/user, dir)
 	unwield(user)
 
 /**
  * on_swap_hands Triggers on swapping hands, blocks swap if the other hand is busy
  */
-/datum/component/two_handed/proc/on_swap_hands(mob/user, obj/item/held_item)
+TYPE_PROC_REF(/datum/component/two_handed, on_swap_hands)(mob/user, obj/item/held_item)
 	if(!held_item)
 		return
 	if(held_item == parent)
@@ -277,7 +277,7 @@
 /**
  * on_sharpen Triggers on usage of a sharpening stone on the item
  */
-/datum/component/two_handed/proc/on_sharpen(obj/item/item, amount, max_amount)
+TYPE_PROC_REF(/datum/component/two_handed, on_sharpen)(obj/item/item, amount, max_amount)
 	if(!item)
 		return COMPONENT_BLOCK_SHARPEN_BLOCKED
 	if(sharpened_increase)

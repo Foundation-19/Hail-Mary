@@ -35,7 +35,7 @@ obj/dugpit/New(lnk)
 	return GM
 */
 
-/turf/open/indestructible/ground/outside/desert/proc/handle_item_insertion(obj/item/W, mob/user)
+TYPE_PROC_REF(/turf/open/indestructible/ground/outside/desert, handle_item_insertion)(obj/item/W, mob/user)
 	if(!istype(W))
 		return
 
@@ -83,7 +83,7 @@ obj/dugpit/New(lnk)
 			storedindex--
 			I.forceMove(get_turf(M))
 
-/turf/open/indestructible/ground/outside/desert/proc/finishBury(mob/user)
+TYPE_PROC_REF(/turf/open/indestructible/ground/outside/desert, finishBury)(mob/user)
 	if(!(gravebody in src.loc))
 		gravebody = null
 	user.show_message(span_notice("You cover the hole with dirt."), 1)
@@ -98,11 +98,11 @@ obj/dugpit/New(lnk)
 		mypit.icon_state = "mound_small"
 		update_icon()
 
-/turf/open/indestructible/ground/outside/desert/proc/finishBody()
+TYPE_PROC_REF(/turf/open/indestructible/ground/outside/desert, finishBody)()
 	gravebody.loc = mypit
 	unburylevel = 0
 
-/turf/open/indestructible/ground/outside/desert/proc/finishCoffin()
+TYPE_PROC_REF(/turf/open/indestructible/ground/outside/desert, finishCoffin)()
 	gravecoffin.loc = mypit
 
 /turf/open/indestructible/ground/outside/desert/attackby(obj/item/W, mob/user, params)
@@ -209,7 +209,7 @@ obj/dugpit/New(lnk)
 			return FALSE
 
 
-/turf/open/indestructible/ground/outside/desert/proc/gets_dug(mob/user)
+TYPE_PROC_REF(/turf/open/indestructible/ground/outside/desert, gets_dug)(mob/user)
 	if(dug)
 		return
 	for (var/obj/item/I in pitcontents)

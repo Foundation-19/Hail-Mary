@@ -26,7 +26,7 @@
 	anchored = TRUE
 	var/icon_state_inuse
 
-/obj/structure/weightmachine/proc/AnimateMachine(mob/living/user)
+TYPE_PROC_REF(/obj/structure/weightmachine, AnimateMachine)(mob/living/user)
 	return
 
 /obj/structure/weightmachine/on_attack_hand(mob/living/user, act_intent = user.a_intent, unarmed_attack_flags)

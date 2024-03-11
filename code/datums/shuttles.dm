@@ -15,7 +15,7 @@
 	var/port_x_offset
 	var/port_y_offset
 
-/datum/map_template/shuttle/proc/prerequisites_met()
+TYPE_PROC_REF(/datum/map_template/shuttle, prerequisites_met)()
 	return TRUE
 
 /datum/map_template/shuttle/New()
@@ -33,7 +33,7 @@
 	if(!cached_map)
 		cached_map = null
 
-/datum/map_template/shuttle/proc/discover_port_offset()
+TYPE_PROC_REF(/datum/map_template/shuttle, discover_port_offset)()
 	var/key
 	var/list/models = cached_map.grid_models
 	for(key in models)
@@ -104,10 +104,10 @@
 			rack.AddComponent(/datum/component/magnetic_catch)
 
 //Whatever special stuff you want
-/datum/map_template/shuttle/proc/post_load(obj/docking_port/mobile/M)
+TYPE_PROC_REF(/datum/map_template/shuttle, post_load)(obj/docking_port/mobile/M)
 	return
 
-/datum/map_template/shuttle/proc/on_bought()
+TYPE_PROC_REF(/datum/map_template/shuttle, on_bought)()
 	return
 
 /datum/map_template/shuttle/emergency

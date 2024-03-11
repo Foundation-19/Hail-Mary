@@ -258,7 +258,7 @@
 	terminate_effects()
 	. = ..()
 
-/obj/item/organ/eyes/robotic/glow/proc/terminate_effects()
+TYPE_PROC_REF(/obj/item/organ/eyes/robotic/glow, terminate_effects)()
 	if(owner && active)
 		deactivate(TRUE)
 	active = FALSE
@@ -270,13 +270,13 @@
 	else if(istype(action, /datum/action/item_action/organ_action/use))
 		prompt_for_controls(owner)
 
-/obj/item/organ/eyes/robotic/glow/proc/toggle_active()
+TYPE_PROC_REF(/obj/item/organ/eyes/robotic/glow, toggle_active)()
 	if(active)
 		deactivate()
 	else
 		activate()
 
-/obj/item/organ/eyes/robotic/glow/proc/prompt_for_controls(mob/user)
+TYPE_PROC_REF(/obj/item/organ/eyes/robotic/glow, prompt_for_controls)(mob/user)
 	var/C = input(owner, "Select Color", "Select color", "#ffffff") as color|null
 	if(!C || QDELETED(src) || QDELETED(user) || QDELETED(owner) || owner != user)
 		return
@@ -290,7 +290,7 @@
 #define MAX_SATURATION 192
 #define MAX_LIGHTNESS 256
 
-/obj/item/organ/eyes/robotic/glow/proc/assume_rgb(newcolor)
+TYPE_PROC_REF(/obj/item/organ/eyes/robotic/glow, assume_rgb)(newcolor)
 	var/current_color = RGB2EYECOLORSTRING(newcolor)
 	left_eye_color = current_color
 	right_eye_color = current_color
@@ -307,16 +307,16 @@
 #undef MAX_SATURATION
 #undef MAX_LIGHTNESS
 
-/obj/item/organ/eyes/robotic/glow/proc/cycle_mob_overlay()
+TYPE_PROC_REF(/obj/item/organ/eyes/robotic/glow, cycle_mob_overlay)()
 	remove_mob_overlay()
 	mob_overlay.color = current_color_string
 	add_mob_overlay()
 
-/obj/item/organ/eyes/robotic/glow/proc/add_mob_overlay()
+TYPE_PROC_REF(/obj/item/organ/eyes/robotic/glow, add_mob_overlay)()
 	if(!QDELETED(owner))
 		owner.add_overlay(mob_overlay)
 
-/obj/item/organ/eyes/robotic/glow/proc/remove_mob_overlay()
+TYPE_PROC_REF(/obj/item/organ/eyes/robotic/glow, remove_mob_overlay)()
 	if(!QDELETED(owner))
 		owner.cut_overlay(mob_overlay)
 
@@ -326,7 +326,7 @@
 		return
 	deactivate(silent = TRUE)
 
-/obj/item/organ/eyes/robotic/glow/proc/activate(silent = FALSE)
+TYPE_PROC_REF(/obj/item/organ/eyes/robotic/glow, activate)(silent = FALSE)
 	start_visuals()
 	if(!silent)
 		to_chat(owner, span_warning("Your [src] clicks and makes a whining noise, before shooting out a beam of light!"))
@@ -334,7 +334,7 @@
 	RegisterSignal(owner, COMSIG_ATOM_DIR_CHANGE, PROC_REF(update_visuals))
 	cycle_mob_overlay()
 
-/obj/item/organ/eyes/robotic/glow/proc/deactivate(silent = FALSE)
+TYPE_PROC_REF(/obj/item/organ/eyes/robotic/glow, deactivate)(silent = FALSE)
 	clear_visuals()
 	if(!silent)
 		to_chat(owner, span_warning("Your [src] shuts off!"))
@@ -342,7 +342,7 @@
 	UnregisterSignal(owner, COMSIG_ATOM_DIR_CHANGE)
 	remove_mob_overlay()
 
-/obj/item/organ/eyes/robotic/glow/proc/update_visuals(datum/source, olddir, newdir)
+TYPE_PROC_REF(/obj/item/organ/eyes/robotic/glow, update_visuals)(datum/source, olddir, newdir)
 	if((LAZYLEN(eye_lighting) < light_beam_distance) || !on_mob)
 		regenerate_light_effects()
 	var/turf/scanfrom = get_turf(owner)
@@ -366,7 +366,7 @@
 		else
 			L.forceMove(scanning)
 
-/obj/item/organ/eyes/robotic/glow/proc/clear_visuals(delete_everything = FALSE)
+TYPE_PROC_REF(/obj/item/organ/eyes/robotic/glow, clear_visuals)(delete_everything = FALSE)
 	if(delete_everything)
 		QDEL_LIST(eye_lighting)
 		QDEL_NULL(on_mob)
@@ -377,7 +377,7 @@
 		if(!QDELETED(on_mob))
 			on_mob.forceMove(src)
 
-/obj/item/organ/eyes/robotic/glow/proc/start_visuals()
+TYPE_PROC_REF(/obj/item/organ/eyes/robotic/glow, start_visuals)()
 	if(!islist(eye_lighting))
 		regenerate_light_effects()
 	if((LAZYLEN(eye_lighting) < light_beam_distance) || !on_mob)
@@ -385,18 +385,18 @@
 	sync_light_effects()
 	update_visuals()
 
-/obj/item/organ/eyes/robotic/glow/proc/set_distance(dist)
+TYPE_PROC_REF(/obj/item/organ/eyes/robotic/glow, set_distance)(dist)
 	light_beam_distance = dist
 	regenerate_light_effects()
 
-/obj/item/organ/eyes/robotic/glow/proc/regenerate_light_effects()
+TYPE_PROC_REF(/obj/item/organ/eyes/robotic/glow, regenerate_light_effects)()
 	clear_visuals(TRUE)
 	on_mob = new(src)
 	for(var/i in 1 to light_beam_distance)
 		LAZYADD(eye_lighting,new /obj/effect/abstract/eye_lighting(src))
 	sync_light_effects()
 
-/obj/item/organ/eyes/robotic/glow/proc/sync_light_effects()
+TYPE_PROC_REF(/obj/item/organ/eyes/robotic/glow, sync_light_effects)()
 	for(var/I in eye_lighting)
 		var/obj/effect/abstract/eye_lighting/L = I
 		L.set_light(light_object_range, light_object_power, current_color_string)

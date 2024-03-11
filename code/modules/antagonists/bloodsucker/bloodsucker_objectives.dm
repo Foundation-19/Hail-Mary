@@ -11,7 +11,7 @@
 	martyr_compatible = TRUE
 
 //						 GENERATE!
-/datum/objective/bloodsucker/proc/generate_objective()
+TYPE_PROC_REF(/datum/objective/bloodsucker, generate_objective)()
 	update_explanation_text()
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -19,7 +19,7 @@
 //	//							 PROCS 									//	//
 
 
-/datum/objective/bloodsucker/proc/return_possible_targets()
+TYPE_PROC_REF(/datum/objective/bloodsucker, return_possible_targets)()
 	var/list/possible_targets = list()
 
 	// Look at all crew members, and for/loop through.
@@ -60,7 +60,7 @@
 // Vassal becomes a Head, or part of a department
 /datum/objective/bloodsucker/protege
 
-	// LOOKUP: /datum/crewmonitor/proc/update_data(z)  for .assignment to see how to get a person's PDA.
+	// LOOKUP: TYPE_PROC_REF(/datum/crewmonitor, update_data)(z)  for .assignment to see how to get a person's PDA.
 	var/list/roles = list(
 		"Captain",
 		"Head of Personnel",

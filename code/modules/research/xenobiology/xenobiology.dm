@@ -45,7 +45,7 @@
 		grind_results[/datum/reagent/toxin/slimejelly] = 20
 
 //Effect when activated by a Luminescent. Separated into a minor and major effect. Returns cooldown in deciseconds.
-/obj/item/slime_extract/proc/activate(mob/living/carbon/human/user, datum/species/jelly/luminescent/species, activation_type)
+TYPE_PROC_REF(/obj/item/slime_extract, activate)(mob/living/carbon/human/user, datum/species/jelly/luminescent/species, activation_type)
 	to_chat(user, span_notice("Nothing happened... This slime extract cannot be activated this way."))
 	return 0
 
@@ -469,7 +469,7 @@
 				return
 			to_chat(user, span_notice("You stop feeding [src], and your body returns to its slimelike state."))
 
-/obj/item/slime_extract/adamantine/proc/reset_armor(datum/species/jelly/luminescent/species)
+TYPE_PROC_REF(/obj/item/slime_extract/adamantine, reset_armor)(datum/species/jelly/luminescent/species)
 	if(istype(species))
 		species.armor -= 25
 
@@ -692,7 +692,7 @@
 		being_used = FALSE
 		..()
 
-/obj/item/slimepotion/slime/sentience/proc/after_success(mob/living/user, mob/living/simple_animal/SM)
+TYPE_PROC_REF(/obj/item/slimepotion/slime/sentience, after_success)(mob/living/user, mob/living/simple_animal/SM)
 	return
 
 /obj/item/slimepotion/slime/sentience/nuclear

@@ -61,7 +61,7 @@
 	role_name = "fugitive hunter"
 	return SUCCESSFUL_SPAWN
 
-/datum/round_event/ghost_role/fugitives/proc/gear_fugitive(mob/dead/selected, turf/landing_turf, backstory) //spawns normal fugitive
+TYPE_PROC_REF(/datum/round_event/ghost_role/fugitives, gear_fugitive)(mob/dead/selected, turf/landing_turf, backstory) //spawns normal fugitive
 	var/datum/mind/player_mind = new /datum/mind(selected.key)
 	player_mind.active = TRUE
 	var/mob/living/carbon/human/S = new(landing_turf)
@@ -87,7 +87,7 @@
 	return S
 
 //special spawn for one member. it can be used for a special mob or simply to give one normal member special items.
-/datum/round_event/ghost_role/fugitives/proc/gear_fugitive_leader(mob/dead/leader, turf/landing_turf, backstory)
+TYPE_PROC_REF(/datum/round_event/ghost_role/fugitives, gear_fugitive_leader)(mob/dead/leader, turf/landing_turf, backstory)
 	var/datum/mind/player_mind = new /datum/mind(leader.key)
 	player_mind.active = TRUE
 	//if you want to add a fugitive with a special leader in the future, make this switch with the backstory
@@ -97,7 +97,7 @@
 	new /obj/item/autosurgeon(landing_turf)
 
 //security team gets called in after 10 minutes of prep to find the refugees
-/datum/round_event/ghost_role/fugitives/proc/spawn_hunters()
+TYPE_PROC_REF(/datum/round_event/ghost_role/fugitives, spawn_hunters)()
 	var/backstory = pick("space cop", "russian", "bounty hunter")
 	var/datum/map_template/shuttle/ship
 	if(backstory == "space cop")

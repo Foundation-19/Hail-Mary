@@ -13,7 +13,7 @@
 
 	var/weight = 5
 
-/obj/item/chromosome/proc/can_apply(datum/mutation/human/HM)
+TYPE_PROC_REF(/obj/item/chromosome, can_apply)(datum/mutation/human/HM)
 	if(!HM || !(HM.can_chromosome == CHROMOSOME_NONE))
 		return FALSE
 	if((stabilizer_coeff != 1) && (HM.stabilizer_coeff != -1)) //if the chromosome is 1, we dont change anything. If the mutation is -1, we cant change it. sorry
@@ -25,7 +25,7 @@
 	if((energy_coeff != 1) && (HM.energy_coeff != -1))
 		return TRUE
 
-/obj/item/chromosome/proc/apply(datum/mutation/human/HM)
+TYPE_PROC_REF(/obj/item/chromosome, apply)(datum/mutation/human/HM)
 	if(HM.stabilizer_coeff != -1)
 		HM.stabilizer_coeff = stabilizer_coeff
 	if(HM.synchronizer_coeff != -1)

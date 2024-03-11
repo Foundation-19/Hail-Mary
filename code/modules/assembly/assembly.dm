@@ -32,22 +32,22 @@
 /obj/item/assembly/get_part_rating()
 	return 1
 
-/obj/item/assembly/proc/on_attach()
+TYPE_PROC_REF(/obj/item/assembly, on_attach)()
 
-/obj/item/assembly/proc/on_detach() //call this when detaching it from a device. handles any special functions that need to be updated ex post facto
+TYPE_PROC_REF(/obj/item/assembly, on_detach)() //call this when detaching it from a device. handles any special functions that need to be updated ex post facto
 	if(!holder)
 		return FALSE
 	forceMove(holder.drop_location())
 	holder = null
 	return TRUE
 
-/obj/item/assembly/proc/holder_movement()							//Called when the holder is moved
+TYPE_PROC_REF(/obj/item/assembly, holder_movement)()							//Called when the holder is moved
 	if(!holder)
 		return FALSE
 	setDir(holder.dir)
 	return TRUE
 
-/obj/item/assembly/proc/is_secured(mob/user)
+TYPE_PROC_REF(/obj/item/assembly, is_secured)(mob/user)
 	if(!secured)
 		to_chat(user, span_warning("The [name] is unsecured!"))
 		return FALSE
@@ -55,7 +55,7 @@
 
 
 //Called when another assembly acts on this one, var/radio will determine where it came from for wire calcs
-/obj/item/assembly/proc/pulsed(radio = FALSE)
+TYPE_PROC_REF(/obj/item/assembly, pulsed)(radio = FALSE)
 	if(wire_type & WIRE_RECEIVE)
 		INVOKE_ASYNC(src, PROC_REF(activate))
 	if(radio && (wire_type & WIRE_RADIO_RECEIVE))
@@ -64,7 +64,7 @@
 
 
 //Called when this device attempts to act on another device, var/radio determines if it was sent via radio or direct
-/obj/item/assembly/proc/pulse(radio = FALSE)
+TYPE_PROC_REF(/obj/item/assembly, pulse)(radio = FALSE)
 	if(connected && wire_type)
 		connected.pulse_assembly(src)
 		return TRUE
@@ -76,14 +76,14 @@
 
 
 // What the device does when turned on
-/obj/item/assembly/proc/activate()
+TYPE_PROC_REF(/obj/item/assembly, activate)()
 	if(QDELETED(src) || !secured || (next_activate > world.time))
 		return FALSE
 	next_activate = world.time + activate_cooldown
 	return TRUE
 
 
-/obj/item/assembly/proc/toggle_secure()
+TYPE_PROC_REF(/obj/item/assembly, toggle_secure)()
 	secured = !secured
 	update_icon()
 	return secured

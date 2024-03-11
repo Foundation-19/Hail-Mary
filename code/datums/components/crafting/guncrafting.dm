@@ -92,7 +92,7 @@
 	if(can_disassemble && disassembly_start_step)
 		. += disassembly_hints()
 
-/obj/machinery/workbench/proc/disassembly_hints()
+TYPE_PROC_REF(/obj/machinery/workbench, disassembly_hints)()
 	if(!can_disassemble || !disassembly_start_step || !disassembly_steps_remaining)
 		return
 	var/list/msge = list()
@@ -144,7 +144,7 @@
 				msge += span_green("The plating is <b>dented to heck</b>!")
 	return msge.Join("<br>")
 
-/obj/machinery/workbench/proc/try_disassemble(obj/item/tool, mob/user)
+TYPE_PROC_REF(/obj/machinery/workbench, try_disassemble)(obj/item/tool, mob/user)
 	if(!can_disassemble)
 		return
 	if(!istype(tool) || !istype(user))
@@ -310,7 +310,7 @@
 				span_notice("You <b>stopped</b> disassembling [src]!"))
 			return TRUE
 
-/obj/machinery/workbench/proc/disassemble_it(mob/user)
+TYPE_PROC_REF(/obj/machinery/workbench, disassemble_it)(mob/user)
 	if(!user)
 		return
 	visible_message(span_notice("[user] <b>disassembled</b> [src] into a bunch of stuff!"),

@@ -188,7 +188,7 @@
 	if(!port_servants())
 		STOP_PROCESSING(SSfastprocess, src)
 
-/turf/open/indestructible/clock_spawn_room/proc/port_servants()
+TYPE_PROC_REF(/turf/open/indestructible/clock_spawn_room, port_servants)()
 	. = FALSE
 	for(var/mob/living/L in src)
 		if(is_servant_of_ratvar(L) && L.stat != DEAD)
@@ -206,17 +206,17 @@
 	update_visuals()
 	ImmediateCalculateAdjacentTurfs()
 
-/turf/open/proc/GetHeatCapacity()
+TYPE_PROC_REF(/turf/open, GetHeatCapacity)()
 	. = air.heat_capacity()
 
-/turf/open/proc/GetTemperature()
+TYPE_PROC_REF(/turf/open, GetTemperature)()
 	. = air.return_temperature()
 
-/turf/open/proc/TakeTemperature(temp)
+TYPE_PROC_REF(/turf/open, TakeTemperature)(temp)
 	air.set_temperature(air.return_temperature() + temp)
 	air_update_turf()
 
-/turf/open/proc/freon_gas_act()
+TYPE_PROC_REF(/turf/open, freon_gas_act)()
 	for(var/obj/I in contents)
 		if(I.resistance_flags & FREEZE_PROOF)
 			return
@@ -228,7 +228,7 @@
 	MakeSlippery(TURF_WET_PERMAFROST, 50)
 	return 1
 
-/turf/open/proc/water_vapor_gas_act()
+TYPE_PROC_REF(/turf/open, water_vapor_gas_act)()
 	MakeSlippery(TURF_WET_WATER, min_wet_time = 100, wet_time_to_add = 50)
 
 	for(var/mob/living/simple_animal/slime/M in src)
@@ -279,21 +279,21 @@
 		lube |= SLIDE_ICE
 
 	if(lube&SLIDE)
-		new /datum/forced_movement(C, get_ranged_target_turf(C, olddir, 4), 1, FALSE, CALLBACK(C, /mob/living/carbon/.proc/spin, 1, 1))
+		new /datum/forced_movement(C, get_ranged_target_turf(C, olddir, 4), 1, FALSE, CALLBACK(C, TYPE_PROC_REF(/mob/living/carbon, spin), 1, 1))
 	else if(lube&SLIDE_ICE)
 		new /datum/forced_movement(C, get_ranged_target_turf(C, olddir, 1), 1, FALSE)	//spinning would be bad for ice, fucks up the next dir
 	return TRUE
 
-/turf/open/proc/MakeSlippery(wet_setting = TURF_WET_WATER, min_wet_time = 0, wet_time_to_add = 0, max_wet_time = MAXIMUM_WET_TIME, permanent)
+TYPE_PROC_REF(/turf/open, MakeSlippery)(wet_setting = TURF_WET_WATER, min_wet_time = 0, wet_time_to_add = 0, max_wet_time = MAXIMUM_WET_TIME, permanent)
 	AddComponent(/datum/component/wet_floor, wet_setting, min_wet_time, wet_time_to_add, max_wet_time, permanent)
 
-/turf/open/proc/MakeDry(wet_setting = TURF_WET_WATER, immediate = FALSE, amount = INFINITY)
+TYPE_PROC_REF(/turf/open, MakeDry)(wet_setting = TURF_WET_WATER, immediate = FALSE, amount = INFINITY)
 	SEND_SIGNAL(src, COMSIG_TURF_MAKE_DRY, wet_setting, immediate, amount)
 
 /turf/open/get_dumping_location()
 	return src
 
-/turf/open/proc/ClearWet()//Nuclear option of immediately removing slipperyness from the tile instead of the natural drying over time
+TYPE_PROC_REF(/turf/open, ClearWet)()//Nuclear option of immediately removing slipperyness from the tile instead of the natural drying over time
 	qdel(GetComponent(/datum/component/wet_floor))
 
 /turf/open/rad_act(pulse_strength)

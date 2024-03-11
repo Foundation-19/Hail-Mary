@@ -82,7 +82,7 @@ All foods are distributed among various categories. Use common sense.
 	else
 		..()
 
-/obj/item/reagent_containers/food/snacks/proc/On_Consume(mob/living/eater)
+TYPE_PROC_REF(/obj/item/reagent_containers/food/snacks, On_Consume)(mob/living/eater)
 	if(!eater)
 		return
 	if(!reagents.total_volume)
@@ -103,7 +103,7 @@ All foods are distributed among various categories. Use common sense.
 		return ..()
 	INVOKE_ASYNC(src, PROC_REF(attempt_forcefeed), M, user)
 
-/obj/item/reagent_containers/food/snacks/proc/attempt_forcefeed(mob/living/M, mob/living/user, forced, silent, vorebite)
+TYPE_PROC_REF(/obj/item/reagent_containers/food/snacks, attempt_forcefeed)(mob/living/M, mob/living/user, forced, silent, vorebite)
 	if(!eatverb)
 		eatverb = pick("bite","chew","nibble","gnaw","gobble","chomp")
 	if(!reagents.total_volume) //Shouldn't be needed but it checks to see if it has anything left in it.
@@ -288,7 +288,7 @@ All foods are distributed among various categories. Use common sense.
 			else
 				reagents.add_reagent(r_id, amount)
 
-/obj/item/reagent_containers/food/snacks/proc/slice(accuracy, obj/item/W, mob/user)
+TYPE_PROC_REF(/obj/item/reagent_containers/food/snacks, slice)(accuracy, obj/item/W, mob/user)
 	if((slices_num <= 0 || !slices_num) || !slice_path) //is the food sliceable?
 		return FALSE
 
@@ -309,7 +309,7 @@ All foods are distributed among various categories. Use common sense.
 	qdel(src)
 	return TRUE
 
-/obj/item/reagent_containers/food/snacks/proc/initialize_slice(obj/item/reagent_containers/food/snacks/slice, reagents_per_slice)
+TYPE_PROC_REF(/obj/item/reagent_containers/food/snacks, initialize_slice)(obj/item/reagent_containers/food/snacks/slice, reagents_per_slice)
 	slice.create_reagents(slice.volume, reagent_flags, reagent_value)
 	reagents.trans_to(slice,reagents_per_slice)
 	if(name != initial(name))
@@ -320,7 +320,7 @@ All foods are distributed among various categories. Use common sense.
 		slice.foodtype = foodtype //if something happens that overrode our food type, make sure the slice carries that over
 	slice.adjust_food_quality(food_quality)
 
-/obj/item/reagent_containers/food/snacks/proc/generate_trash(atom/location)
+TYPE_PROC_REF(/obj/item/reagent_containers/food/snacks, generate_trash)(atom/location)
 	if(trash)
 		if(ispath(trash, /obj/item))
 			. = new trash(location)
@@ -333,7 +333,7 @@ All foods are distributed among various categories. Use common sense.
 			trash = null
 			return
 
-/obj/item/reagent_containers/food/snacks/proc/update_snack_overlays(obj/item/reagent_containers/food/snacks/S)
+TYPE_PROC_REF(/obj/item/reagent_containers/food/snacks, update_snack_overlays)(obj/item/reagent_containers/food/snacks/S)
 	cut_overlays()
 	var/mutable_appearance/filling = mutable_appearance(icon, "[initial(icon_state)]_filling")
 	if(S.filling_color == "#FFFFFF")
@@ -344,7 +344,7 @@ All foods are distributed among various categories. Use common sense.
 	add_overlay(filling)
 
 // initialize_cooked_food() is called when microwaving the food
-/obj/item/reagent_containers/food/snacks/proc/initialize_cooked_food(obj/item/reagent_containers/food/snacks/S, cooking_efficiency = 1)
+TYPE_PROC_REF(/obj/item/reagent_containers/food/snacks, initialize_cooked_food)(obj/item/reagent_containers/food/snacks/S, cooking_efficiency = 1)
 	S.create_reagents(S.volume, reagent_flags, reagent_value)
 	if(reagents)
 		reagents.trans_to(S, reagents.total_volume)
@@ -450,7 +450,7 @@ All foods are distributed among various categories. Use common sense.
 		return ..()
 
 // //////////////////////////////////////////////Frying////////////////////////////////////////
-/atom/proc/fry(cook_time = 30) //you can truly fry anything
+TYPE_PROC_REF(/atom, fry)(cook_time = 30) //you can truly fry anything
 	//don't fry reagent containers that aren't food items, indestructable items, or items that are already fried
 	if(isitem(src))
 		var/obj/item/fried_item = src

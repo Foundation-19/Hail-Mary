@@ -10,7 +10,7 @@
 	populate()
 	mark_immutable()
 
-/datum/gas_mixture/immutable/proc/populate()
+TYPE_PROC_REF(/datum/gas_mixture/immutable, populate)()
 	return
 
 

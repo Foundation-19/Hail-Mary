@@ -45,7 +45,7 @@
 		checkplanks()
 	return
 
-/obj/structure/barricade/wooden/planks/proc/checkplanks()
+TYPE_PROC_REF(/obj/structure/barricade/wooden/planks, checkplanks)()
 	obj_integrity = planks * 50 //Each board adds 50 health
 	icon_state = "board-[planks]"
 	if(obj_integrity <= 0)

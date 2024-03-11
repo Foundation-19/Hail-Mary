@@ -46,9 +46,9 @@ proc/BC_IsKeyWhitelisted(var/key)
 		return 0
 
 //////////////////////////////////////////////////////////////////////////////////
-//ADMIN_VERB_ADD(/client/proc/BC_WhitelistKeyVerb, R_ADMIN, FALSE)
-///client/proc/BC_WhitelistKeyVerb()
-/datum/admins/proc/BC_WhitelistKeyVerb()
+//ADMIN_VERB_ADD(TYPE_PROC_REF(/client, BC_WhitelistKeyVerb), R_ADMIN, FALSE)
+TYPE_PROC_REF(///client, BC_WhitelistKeyVerb)()
+TYPE_PROC_REF(/datum/admins, BC_WhitelistKeyVerb)()
 
 	set name = "Border Control - Whitelist Key"
 	set category = "Admin.Border Control"
@@ -86,9 +86,9 @@ proc/BC_WhitelistKey(var/key)
 
 
 //////////////////////////////////////////////////////////////////////////////////
-//ADMIN_VERB_ADD(/client/proc/BC_RemoveKeyVerb, R_ADMIN, FALSE)
-///client/proc/BC_RemoveKeyVerb()
-/datum/admins/proc/BC_RemoveKeyVerb()
+//ADMIN_VERB_ADD(TYPE_PROC_REF(/client, BC_RemoveKeyVerb), R_ADMIN, FALSE)
+TYPE_PROC_REF(///client, BC_RemoveKeyVerb)()
+TYPE_PROC_REF(/datum/admins, BC_RemoveKeyVerb)()
 
 	set name = "Border Control - Remove Key"
 	set category = "Admin.Border Control"
@@ -120,9 +120,9 @@ proc/BC_RemoveKey(var/key)
 
 
 //////////////////////////////////////////////////////////////////////////////////
-//ADMIN_VERB_ADD(/client/proc/BC_ToggleState, R_ADMIN, FALSE)
-///client/proc/BC_ToggleState()
-/datum/admins/proc/BC_ToggleState()
+//ADMIN_VERB_ADD(TYPE_PROC_REF(/client, BC_ToggleState), R_ADMIN, FALSE)
+TYPE_PROC_REF(///client, BC_ToggleState)()
+TYPE_PROC_REF(/datum/admins, BC_ToggleState)()
 
 	set name = "Border Control - Toggle Mode"
 	set category = "Admin.Border Control"
@@ -159,7 +159,7 @@ proc/BC_RemoveKey(var/key)
 
 //////////////////////////////////////////////////////////////////////////////////
 
-/hook/startup/proc/loadBorderControlWhitelistHook()
+TYPE_PROC_REF(/hook/startup, loadBorderControlWhitelistHook)()
 	BC_LoadWhitelist()
 	return 1
 

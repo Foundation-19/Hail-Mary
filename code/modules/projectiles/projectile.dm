@@ -179,7 +179,7 @@
  * Artificially modified to be called at around every world.icon_size pixels of movement.
  * WARNING: Range() can only be called once per pixel_increment_amount pixels.
  */
-/obj/item/projectile/proc/Range()
+TYPE_PROC_REF(/obj/item/projectile, Range)()
 	range--
 	if(wound_bonus != CANT_WOUND)
 		wound_bonus += wound_falloff_tile
@@ -192,12 +192,12 @@
 	if(range <= 0 && loc)
 		on_range()
 
-/obj/item/projectile/proc/on_range() //if we want there to be effects when they reach the end of their range
+TYPE_PROC_REF(/obj/item/projectile, on_range)() //if we want there to be effects when they reach the end of their range
 	SEND_SIGNAL(src, COMSIG_PROJECTILE_RANGE_OUT)
 	qdel(src)
 
 //to get the correct limb (if any) for the projectile hit message
-/mob/living/proc/check_limb_hit(hit_zone)
+TYPE_PROC_REF(/mob/living, check_limb_hit)(hit_zone)
 	if(has_limbs)
 		return hit_zone
 
@@ -207,10 +207,10 @@
 	else //when a limb is missing the damage is actually passed to the chest
 		return BODY_ZONE_CHEST
 
-/obj/item/projectile/proc/prehit(atom/target)
+TYPE_PROC_REF(/obj/item/projectile, prehit)(atom/target)
 	return TRUE
 
-/obj/item/projectile/proc/on_hit(atom/target, blocked = FALSE)
+TYPE_PROC_REF(/obj/item/projectile, on_hit)(atom/target, blocked = FALSE)
 	if(fired_from)
 		SEND_SIGNAL(fired_from, COMSIG_PROJECTILE_ON_HIT, firer, target, Angle)
 
@@ -309,13 +309,13 @@
 	// stamina is handled elsewhere, no more armor piercing rubbers!
 	return L.apply_effects(stun, knockdown, unconscious, irradiate, slur, stutter, eyeblur, drowsy, blocked, 0, jitter, knockdown_stamoverride, knockdown_stam_max)
 
-/obj/item/projectile/proc/vol_by_damage()
+TYPE_PROC_REF(/obj/item/projectile, vol_by_damage)()
 	if(src.damage)
 		return clamp((src.damage) * 0.67, 30, 100)// Multiply projectile damage by 0.67, then CLAMP the value between 30 and 100
 	else
 		return 50 //if the projectile doesn't do damage, play its hitsound at 50% volume
 
-/obj/item/projectile/proc/on_ricochet(atom/A)
+TYPE_PROC_REF(/obj/item/projectile, on_ricochet)(atom/A)
 	if(!ricochet_auto_aim_angle || !ricochet_auto_aim_range)
 		return
 
@@ -334,7 +334,7 @@
 	if(unlucky_sob)
 		setAngle(get_projectile_angle(src, unlucky_sob.loc))
 
-/obj/item/projectile/proc/store_hitscan_collision(datum/point/pcache)
+TYPE_PROC_REF(/obj/item/projectile, store_hitscan_collision)(datum/point/pcache)
 	beam_segments[beam_index] = pcache
 	beam_index = pcache
 	beam_segments[beam_index] = null
@@ -383,7 +383,7 @@
 #define DO_NOT_QDEL 2		//Pass through.
 #define FORCE_QDEL 3		//Force deletion.
 
-/obj/item/projectile/proc/process_hit(turf/T, atom/target, qdel_self, hit_something = FALSE)		//probably needs to be reworked entirely when pixel movement is done.
+TYPE_PROC_REF(/obj/item/projectile, process_hit)(turf/T, atom/target, qdel_self, hit_something = FALSE)		//probably needs to be reworked entirely when pixel movement is done.
 	if(is_supereffective(target))
 		damage += (supereffective_damage * damage_mod)
 	if(QDELETED(src) || !T || !target)		//We're done, nothing's left.
@@ -410,7 +410,7 @@
 	return hit_something
 
 /// Check if the projectile is Super Effective on the target!
-/obj/item/projectile/proc/is_supereffective(atom/target)
+TYPE_PROC_REF(/obj/item/projectile, is_supereffective)(atom/target)
 	if(!istype(target))
 		return FALSE // ???
 	if(LAZYLEN(supereffective_faction) && isliving(target))
@@ -453,7 +453,7 @@
 #undef DO_NOT_QDEL
 #undef FORCE_QDEL
 
-/obj/item/projectile/proc/select_target(turf/T, atom/target)			//Select a target from a turf.
+TYPE_PROC_REF(/obj/item/projectile, select_target)(turf/T, atom/target)			//Select a target from a turf.
 	if((original in T) && can_hit_target(original, permutated, TRUE, TRUE))
 		return original
 	if(target && can_hit_target(target, permutated, target == original, TRUE))
@@ -483,7 +483,7 @@
 		return T
 	//Returns null if nothing at all was found.
 
-/obj/item/projectile/proc/check_ricochet(atom/A)
+TYPE_PROC_REF(/obj/item/projectile, check_ricochet)(atom/A)
 	if(ricochets > ricochets_max)		//safety thing, we don't care about what the other thing says about this.
 		return FALSE
 	var/them = A.check_projectile_ricochet(src)
@@ -503,7 +503,7 @@
 		else
 			CRASH("Invalid return value for projectile ricochet check from [A].")
 
-/obj/item/projectile/proc/check_ricochet_flag(atom/A)
+TYPE_PROC_REF(/obj/item/projectile, check_ricochet_flag)(atom/A)
 	if((flag in list("energy", "laser")) && (A.flags_ricochet & RICOCHET_SHINY))
 		return TRUE
 	if((flag in list("bomb", "bullet")) && (A.flags_ricochet & RICOCHET_HARD))
@@ -511,7 +511,7 @@
 	return FALSE
 
 /// one move is a tile.
-/obj/item/projectile/proc/return_predicted_turf_after_moves(moves, forced_angle)		//I say predicted because there's no telling that the projectile won't change direction/location in flight.
+TYPE_PROC_REF(/obj/item/projectile, return_predicted_turf_after_moves)(moves, forced_angle)		//I say predicted because there's no telling that the projectile won't change direction/location in flight.
 	if(!trajectory && isnull(forced_angle) && isnull(Angle))
 		return FALSE
 	var/datum/point/vector/current = trajectory
@@ -521,7 +521,7 @@
 	var/datum/point/vector/v = current.return_vector_after_increments(TILES_TO_PIXELS(moves) / (pixel_increment_amount || SSprojectiles.global_pixel_increment_amount))
 	return v.return_turf()
 
-/obj/item/projectile/proc/return_pathing_turfs_in_moves(moves, forced_angle)
+TYPE_PROC_REF(/obj/item/projectile, return_pathing_turfs_in_moves)(moves, forced_angle)
 	var/turf/current = get_turf(src)
 	var/turf/ending = return_predicted_turf_after_moves(moves, forced_angle)
 	return getline(current, ending)
@@ -545,7 +545,7 @@
 	else
 		pixels_tick_leftover = required_pixels
 
-/obj/item/projectile/proc/fire(angle, atom/direct_target, spread_override)
+TYPE_PROC_REF(/obj/item/projectile, fire)(angle, atom/direct_target, spread_override)
 	if(fired_from)
 		SEND_SIGNAL(fired_from, COMSIG_PROJECTILE_BEFORE_FIRE, src, original)	//If no angle needs to resolve it from xo/yo!
 	if(LAZYLEN(embedding))//our embedding stats change, possibly
@@ -592,7 +592,7 @@
 		START_PROCESSING(SSprojectiles, src)
 	pixel_move(round(PROJECTILE_FIRING_INSTANT_TRAVEL_AMOUNT / pixel_increment_amount), FALSE, allow_animation = FALSE)	//move it now!
 
-/obj/item/projectile/proc/setAngle(new_angle, hitscan_store_segment = TRUE)	//wrapper for overrides.
+TYPE_PROC_REF(/obj/item/projectile, setAngle)(new_angle, hitscan_store_segment = TRUE)	//wrapper for overrides.
 	Angle = new_angle
 	pixel_move_interrupted = TRUE
 	if(!nondirectional_sprite)
@@ -625,9 +625,9 @@
 	if(zc)
 		after_z_change(old, target)
 
-/obj/item/projectile/proc/after_z_change(atom/olcloc, atom/newloc)
+TYPE_PROC_REF(/obj/item/projectile, after_z_change)(atom/olcloc, atom/newloc)
 
-/obj/item/projectile/proc/before_z_change(atom/oldloc, atom/newloc)
+TYPE_PROC_REF(/obj/item/projectile, before_z_change)(atom/oldloc, atom/newloc)
 
 /obj/item/projectile/vv_edit_var(var_name, var_value)
 	switch(var_name)
@@ -637,20 +637,20 @@
 		else
 			return ..()
 
-/obj/item/projectile/proc/set_pixel_increment_amount(new_speed)
+TYPE_PROC_REF(/obj/item/projectile, set_pixel_increment_amount)(new_speed)
 	pixel_increment_amount = new_speed
 	if(trajectory)
 		trajectory.set_speed(new_speed)
 		return TRUE
 	return FALSE
 
-/obj/item/projectile/proc/record_hitscan_start(datum/point/pcache)
+TYPE_PROC_REF(/obj/item/projectile, record_hitscan_start)(datum/point/pcache)
 	if(pcache)
 		beam_segments = list()
 		beam_index = pcache
 		beam_segments[beam_index] = null	//record start.
 
-/obj/item/projectile/proc/process_hitscan()
+TYPE_PROC_REF(/obj/item/projectile, process_hitscan)()
 	var/ttm = round(world.icon_size / pixel_increment_amount, 1)
 	var/safety = range * 10
 	record_hitscan_start(RETURN_POINT_VECTOR_INCREMENT(src, Angle, MUZZLE_EFFECT_PIXEL_INCREMENT, 1))
@@ -672,7 +672,7 @@
  * Trajectory multiplier directly modifies the factor of pixel_increment_amount to go per time.
  * It's complicated, so probably just don't mess with this unless you know what you're doing.
  */
-/obj/item/projectile/proc/pixel_move(times, hitscanning = FALSE, deciseconds_equivalent = world.tick_lag, trajectory_multiplier = 1, allow_animation = TRUE)
+TYPE_PROC_REF(/obj/item/projectile, pixel_move)(times, hitscanning = FALSE, deciseconds_equivalent = world.tick_lag, trajectory_multiplier = 1, allow_animation = TRUE)
 	if(!loc || !trajectory)
 		return
 	if(!nondirectional_sprite && !hitscanning)
@@ -737,7 +737,7 @@
 			pixel_x = traj_px
 			pixel_y = traj_py
 
-/obj/item/projectile/proc/set_homing_target(atom/A)
+TYPE_PROC_REF(/obj/item/projectile, set_homing_target)(atom/A)
 	if(!A || (!isturf(A) && !isturf(A.loc)))
 		return FALSE
 	homing = TRUE
@@ -751,7 +751,7 @@
 
 //Returns true if the target atom is on our current turf and above the right layer
 //If direct target is true it's the originally clicked target.
-/obj/item/projectile/proc/can_hit_target(atom/target, list/passthrough, direct_target = FALSE, ignore_loc = FALSE)
+TYPE_PROC_REF(/obj/item/projectile, can_hit_target)(atom/target, list/passthrough, direct_target = FALSE, ignore_loc = FALSE)
 	if(QDELETED(target))
 		return FALSE
 	if(!ignore_source_check && firer)
@@ -776,7 +776,7 @@
 	return TRUE
 
 //Spread is FORCED!
-/obj/item/projectile/proc/preparePixelProjectile(atom/target, atom/source, params, spread = 0)
+TYPE_PROC_REF(/obj/item/projectile, preparePixelProjectile)(atom/target, atom/source, params, spread = 0)
 	var/turf/curloc = get_turf(source)
 	var/turf/targloc = get_turf(target)
 	trajectory_ignore_forcemove = TRUE
@@ -834,7 +834,7 @@
 		angle = arctan(y - oy, x - ox)
 	return list(angle, p_x, p_y)
 
-/obj/item/projectile/proc/on_entered(atom/movable/AM) //A mob moving on a tile with a projectile is hit by it.
+TYPE_PROC_REF(/obj/item/projectile, on_entered)(atom/movable/AM) //A mob moving on a tile with a projectile is hit by it.
 	SIGNAL_HANDLER
 	if(isliving(AM) && !(pass_flags & PASSMOB))
 		var/mob/living/L = AM
@@ -858,18 +858,18 @@
 	QDEL_NULL(trajectory)
 	return ..()
 
-/obj/item/projectile/proc/cleanup_beam_segments()
+TYPE_PROC_REF(/obj/item/projectile, cleanup_beam_segments)()
 	QDEL_LIST_ASSOC(beam_segments)
 	beam_segments = list()
 	QDEL_NULL(beam_index)
 
-/obj/item/projectile/proc/finalize_hitscan_and_generate_tracers(impacting = TRUE)
+TYPE_PROC_REF(/obj/item/projectile, finalize_hitscan_and_generate_tracers)(impacting = TRUE)
 	if(trajectory && beam_index)
 		var/datum/point/pcache = trajectory.copy_to()
 		beam_segments[beam_index] = pcache
 	generate_hitscan_tracers(null, null, impacting, hitscan_effect_generation++)
 
-/obj/item/projectile/proc/generate_hitscan_tracers(cleanup = TRUE, duration = 3, impacting = TRUE, generation)
+TYPE_PROC_REF(/obj/item/projectile, generate_hitscan_tracers)(cleanup = TRUE, duration = 3, impacting = TRUE, generation)
 	if(!length(beam_segments))
 		return
 	. = list()

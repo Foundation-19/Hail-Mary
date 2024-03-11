@@ -31,10 +31,10 @@
 	. = ..()
 	AddComponent(/datum/component/simple_rotation,ROTATION_ALTCLICK | ROTATION_CLOCKWISE, CALLBACK(src, PROC_REF(can_user_rotate)),CALLBACK(src, PROC_REF(can_be_rotated)),null)
 
-/obj/structure/chair/proc/can_be_rotated(mob/user)
+TYPE_PROC_REF(/obj/structure/chair, can_be_rotated)(mob/user)
 	return TRUE
 
-/obj/structure/chair/proc/can_user_rotate(mob/user)
+TYPE_PROC_REF(/obj/structure/chair, can_user_rotate)(mob/user)
 	var/mob/living/L = user
 
 	if(istype(L))
@@ -50,7 +50,7 @@
 	RemoveFromLatejoin()
 	return ..()
 
-/obj/structure/chair/proc/RemoveFromLatejoin()
+TYPE_PROC_REF(/obj/structure/chair, RemoveFromLatejoin)()
 	SSjob.latejoin_trackers -= src	//These may be here due to the arrivals shuttle
 
 /obj/structure/chair/deconstruct()
@@ -125,14 +125,14 @@
 	else
 		setDir(turn(dir,-90))
 
-/obj/structure/chair/proc/handle_rotation(direction)
+TYPE_PROC_REF(/obj/structure/chair, handle_rotation)(direction)
 	handle_layer()
 	if(has_buckled_mobs())
 		for(var/m in buckled_mobs)
 			var/mob/living/buckled_mob = m
 			buckled_mob.setDir(direction)
 
-/obj/structure/chair/proc/handle_layer()
+TYPE_PROC_REF(/obj/structure/chair, handle_layer)()
 	if(has_buckled_mobs() && dir == NORTH)
 		plane = MOB_PLANE
 		layer = ABOVE_MOB_LAYER
@@ -345,7 +345,7 @@
 
 	return ..()
 
-/obj/structure/chair/comfy/proc/GetArmrest()
+TYPE_PROC_REF(/obj/structure/chair/comfy, GetArmrest)()
 	return mutable_appearance('icons/obj/chairs.dmi', "comfychair_armrest")
 
 /obj/structure/chair/comfy/Destroy()
@@ -356,7 +356,7 @@
 	. = ..()
 	update_armrest()
 
-/obj/structure/chair/comfy/proc/update_armrest()
+TYPE_PROC_REF(/obj/structure/chair/comfy, update_armrest)()
 	if(has_buckled_mobs())
 		add_overlay(armrest)
 	else
@@ -526,7 +526,7 @@
 /obj/item/chair/attack_self(mob/user)
 	plant(user)
 
-/obj/item/chair/proc/plant(mob/user)
+TYPE_PROC_REF(/obj/item/chair, plant)(mob/user)
 	for(var/obj/A in get_turf(loc))
 		if(istype(A, /obj/structure/chair))
 			to_chat(user, span_danger("There is already a chair here."))
@@ -542,7 +542,7 @@
 	C.setDir(dir)
 	qdel(src)
 
-/obj/item/chair/proc/smash(mob/living/user)
+TYPE_PROC_REF(/obj/item/chair, smash)(mob/living/user)
 	var/stack_type = initial(origin_type.buildstacktype)
 	if(!stack_type)
 		return
@@ -770,7 +770,7 @@
 	item_chair = null
 	var/mutable_appearance/overlay
 
-/obj/structure/chair/booth/proc/update_overlay()
+TYPE_PROC_REF(/obj/structure/chair/booth, update_overlay)()
 		add_overlay(overlay)
 
 /obj/structure/chair/booth/Initialize()
@@ -783,7 +783,7 @@
 	QDEL_NULL(overlay)
 	return ..()
 
-/obj/structure/chair/booth/proc/GetOverlay()
+TYPE_PROC_REF(/obj/structure/chair/booth, GetOverlay)()
 	return mutable_appearance('icons/obj/chairs.dmi', "booth_single_overlay")
 
 /obj/structure/chair/left
@@ -796,7 +796,7 @@
 	item_chair = null
 	var/mutable_appearance/overlay
 
-/obj/structure/chair/left/proc/update_overlay()
+TYPE_PROC_REF(/obj/structure/chair/left, update_overlay)()
 		add_overlay(overlay)
 
 /obj/structure/chair/left/Initialize()
@@ -809,7 +809,7 @@
 	QDEL_NULL(overlay)
 	return ..()
 
-/obj/structure/chair/left/proc/GetOverlay()
+TYPE_PROC_REF(/obj/structure/chair/left, GetOverlay)()
 	return mutable_appearance('icons/obj/chairs.dmi', "booth_leftend_overlay")
 
 /obj/structure/chair/west_middle
@@ -842,7 +842,7 @@
 	item_chair = null
 	var/mutable_appearance/overlay
 
-/obj/structure/chair/middle/proc/update_overlay()
+TYPE_PROC_REF(/obj/structure/chair/middle, update_overlay)()
 		add_overlay(overlay)
 
 /obj/structure/chair/middle/Initialize()
@@ -855,7 +855,7 @@
 	QDEL_NULL(overlay)
 	return ..()
 
-/obj/structure/chair/middle/proc/GetOverlay()
+TYPE_PROC_REF(/obj/structure/chair/middle, GetOverlay)()
 	return mutable_appearance('icons/obj/chairs.dmi', "booth_middle_overlay")
 
 /obj/structure/chair/right
@@ -868,7 +868,7 @@
 	item_chair = null
 	var/mutable_appearance/overlay
 
-/obj/structure/chair/right/proc/update_overlay()
+TYPE_PROC_REF(/obj/structure/chair/right, update_overlay)()
 		add_overlay(overlay)
 
 /obj/structure/chair/right/Initialize()
@@ -881,5 +881,5 @@
 	QDEL_NULL(overlay)
 	return ..()
 
-/obj/structure/chair/right/proc/GetOverlay()
+TYPE_PROC_REF(/obj/structure/chair/right, GetOverlay)()
 	return mutable_appearance('icons/obj/chairs.dmi', "booth_rightend_overlay")

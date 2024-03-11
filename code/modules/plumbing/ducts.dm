@@ -68,7 +68,7 @@ All the important duct code:
 
 
 ///start looking around us for stuff to connect to
-/obj/machinery/duct/proc/attempt_connect()
+TYPE_PROC_REF(/obj/machinery/duct, attempt_connect)()
 
 	for(var/atom/movable/AM in loc)
 		var/datum/component/plumbing/P = AM.GetComponent(/datum/component/plumbing)
@@ -84,7 +84,7 @@ All the important duct code:
 	update_icon()
 
 ///see if whatever we found can be connected to
-/obj/machinery/duct/proc/connect_network(atom/movable/AM, direction, ignore_color)
+TYPE_PROC_REF(/obj/machinery/duct, connect_network)(atom/movable/AM, direction, ignore_color)
 	if(istype(AM, /obj/machinery/duct))
 		return connect_duct(AM, direction, ignore_color)
 
@@ -94,7 +94,7 @@ All the important duct code:
 	return connect_plumber(plumber, direction)
 
 ///connect to a duct
-/obj/machinery/duct/proc/connect_duct(obj/machinery/duct/D, direction, ignore_color)
+TYPE_PROC_REF(/obj/machinery/duct, connect_duct)(obj/machinery/duct/D, direction, ignore_color)
 	var/opposite_dir = turn(direction, 180)
 	if(!active || !D.active)
 		return
@@ -134,7 +134,7 @@ All the important duct code:
 	return TRUE
 
 ///connect to a plumbing object
-/obj/machinery/duct/proc/connect_plumber(datum/component/plumbing/P, direction)
+TYPE_PROC_REF(/obj/machinery/duct, connect_plumber)(datum/component/plumbing/P, direction)
 	var/opposite_dir = turn(direction, 180)
 	if(duct_layer != DUCT_LAYER_DEFAULT) //plumbing devices don't support multilayering. 3 is the default layer so we only use that. We can change this later
 		return FALSE
@@ -151,7 +151,7 @@ All the important duct code:
 			return TRUE
 
 ///we disconnect ourself from our neighbours. we also destroy our ductnet and tell our neighbours to make a new one
-/obj/machinery/duct/proc/disconnect_duct(skipanchor)
+TYPE_PROC_REF(/obj/machinery/duct, disconnect_duct)(skipanchor)
 	if(!skipanchor) //since set_anchored calls us too.
 		set_anchored(FALSE)
 	active = FALSE
@@ -165,7 +165,7 @@ All the important duct code:
 		qdel(src)
 
 ///''''''''''''''''optimized''''''''''''''''' proc for quickly reconnecting after a duct net was destroyed
-/obj/machinery/duct/proc/reconnect()
+TYPE_PROC_REF(/obj/machinery/duct, reconnect)()
 	if(neighbours.len && !duct)
 		create_duct()
 	for(var/atom/movable/AM in neighbours)
@@ -189,7 +189,7 @@ All the important duct code:
 				neighbours -= AM //we moved
 
 ///Special proc to draw a new connect frame based on neighbours. not the norm so we can support multiple duct kinds
-/obj/machinery/duct/proc/generate_connects()
+TYPE_PROC_REF(/obj/machinery/duct, generate_connects)()
 	if(lock_connects)
 		return
 	connects = 0
@@ -198,40 +198,40 @@ All the important duct code:
 	update_icon()
 
 ///create a new duct datum
-/obj/machinery/duct/proc/create_duct()
+TYPE_PROC_REF(/obj/machinery/duct, create_duct)()
 	duct = new()
 	duct.add_duct(src)
 
 ///add a duct as neighbour. this means we're connected and will connect again if we ever regenerate
-/obj/machinery/duct/proc/add_neighbour(obj/machinery/duct/D, direction)
+TYPE_PROC_REF(/obj/machinery/duct, add_neighbour)(obj/machinery/duct/D, direction)
 	if(!(D in neighbours))
 		neighbours[D] = direction
 	if(!(src in D.neighbours))
 		D.neighbours[src] = turn(direction, 180)
 
 ///remove all our neighbours, and remove us from our neighbours aswell
-/obj/machinery/duct/proc/lose_neighbours()
+TYPE_PROC_REF(/obj/machinery/duct, lose_neighbours)()
 	for(var/obj/machinery/duct/D in neighbours)
 		D.neighbours.Remove(src)
 	neighbours = list()
 
 ///add a connect direction
-/obj/machinery/duct/proc/add_connects(new_connects) //make this a define to cut proc calls?
+TYPE_PROC_REF(/obj/machinery/duct, add_connects)(new_connects) //make this a define to cut proc calls?
 	if(!lock_connects)
 		connects |= new_connects
 
 ///remove a connect direction
-/obj/machinery/duct/proc/remove_connects(dead_connects)
+TYPE_PROC_REF(/obj/machinery/duct, remove_connects)(dead_connects)
 	if(!lock_connects)
 		connects &= ~dead_connects
 
 ///remove our connects
-/obj/machinery/duct/proc/reset_connects()
+TYPE_PROC_REF(/obj/machinery/duct, reset_connects)()
 	if(!lock_connects)
 		connects = 0
 
 ///get a list of the ducts we can connect to if we are dumb
-/obj/machinery/duct/proc/get_adjacent_ducts()
+TYPE_PROC_REF(/obj/machinery/duct, get_adjacent_ducts)()
 	var/list/adjacents = list()
 	for(var/A in GLOB.cardinals)
 		if(A & connects)
@@ -255,7 +255,7 @@ All the important duct code:
 	icon_state = temp_icon
 
 ///update the layer we are on
-/obj/machinery/duct/proc/handle_layer()
+TYPE_PROC_REF(/obj/machinery/duct, handle_layer)()
 	var/offset
 	switch(duct_layer)//it's a bitfield, but it's fine because it only works when there's one layer, and multiple layers should be handled differently
 		if(FIRST_DUCT_LAYER)
@@ -294,7 +294,7 @@ All the important duct code:
 		span_hear("You hear ratcheting."))
 	return TRUE
 ///collection of all the sanity checks to prevent us from stacking ducts that shouldn't be stacked
-/obj/machinery/duct/proc/can_anchor(turf/T)
+TYPE_PROC_REF(/obj/machinery/duct, can_anchor)(turf/T)
 	if(!T)
 		T = get_turf(src)
 	for(var/obj/machinery/duct/D in T)
@@ -367,7 +367,7 @@ All the important duct code:
 	. = ..()
 	update_connects()
 
-/obj/machinery/duct/multilayered/proc/update_connects()
+TYPE_PROC_REF(/obj/machinery/duct/multilayered, update_connects)()
 	if(dir & NORTH || dir & SOUTH)
 		connects = NORTH | SOUTH
 	else

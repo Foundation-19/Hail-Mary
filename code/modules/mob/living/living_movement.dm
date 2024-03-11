@@ -8,7 +8,7 @@
 	if(ismousemovement)
 		update_pixel_shifting()
 
-/mob/living/proc/update_pixel_shifting(moved = FALSE)
+TYPE_PROC_REF(/mob/living, update_pixel_shifting)(moved = FALSE)
 	if(combat_flags & COMBAT_FLAG_ACTIVE_BLOCKING)
 		animate(src, pixel_x = get_standard_pixel_x_offset(), pixel_y = get_standard_pixel_y_offset(), time = 2.5, flags = ANIMATION_END_NOW)
 	else if(moved)
@@ -53,13 +53,13 @@
 	return ..()
 
 /// whether or not we can slide under another living mob. defaults to if we're not dense. CanPass should check "overriding circumstances" like buckled mobs/having PASSMOB flag, etc.
-/mob/living/proc/can_move_under_living(mob/living/other)
+TYPE_PROC_REF(/mob/living, can_move_under_living)(mob/living/other)
 	return !density
 
-/mob/living/proc/update_move_intent_slowdown()
+TYPE_PROC_REF(/mob/living, update_move_intent_slowdown)()
 	add_movespeed_modifier((m_intent == MOVE_INTENT_WALK)? /datum/movespeed_modifier/config_walk_run/walk : /datum/movespeed_modifier/config_walk_run/run)
 
-/mob/living/proc/update_turf_movespeed(turf/open/T)
+TYPE_PROC_REF(/mob/living, update_turf_movespeed)(turf/open/T)
 	if(isopenturf(T))
 		if(HAS_TRAIT(src, TRAIT_HARD_YARDS))
 			remove_movespeed_modifier(/datum/movespeed_modifier/turf_slowdown)
@@ -77,10 +77,10 @@
 		return
 	remove_movespeed_modifier(/datum/movespeed_modifier/turf_slowdown)
 
-/mob/living/proc/update_special_speed(speed)//SPECIAL Integration
+TYPE_PROC_REF(/mob/living, update_special_speed)(speed)//SPECIAL Integration
 	add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/special_speed, multiplicative_slowdown = speed)
 
-/mob/living/proc/update_pull_movespeed()
+TYPE_PROC_REF(/mob/living, update_pull_movespeed)()
 	if(pulling)
 		var/should_slow = FALSE
 		if(isliving(pulling))
@@ -136,7 +136,7 @@
 	if(. && client)
 		reset_perspective()
 
-/mob/living/proc/update_z(new_z) // 1+ to register, null to unregister
+TYPE_PROC_REF(/mob/living, update_z)(new_z) // 1+ to register, null to unregister
 	if(isnull(new_z) && audiovisual_redirect)
 		return
 	if (registered_z != new_z)

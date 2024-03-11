@@ -56,7 +56,7 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 	if(cooldown_period)
 		owner_AI.malf_cooldown = world.time + cooldown_period
 
-/datum/action/innate/ai/proc/adjust_uses(amt, silent)
+TYPE_PROC_REF(/datum/action/innate/ai, adjust_uses)(amt, silent)
 	uses += amt
 	if(uses)
 		if(!silent)
@@ -116,7 +116,7 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 	attached_action = null
 	return ..()
 
-/obj/effect/proc_holder/ranged_ai/proc/toggle(mob/user)
+TYPE_PROC_REF(/obj/effect/proc_holder/ranged_ai, toggle)(mob/user)
 	if(active)
 		remove_ranged_ability(disable_text)
 	else
@@ -136,13 +136,13 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 		if((AM.power_type && AM.power_type != /datum/action/innate/ai) || AM.upgrade)
 			possible_modules += AM
 
-/datum/module_picker/proc/remove_malf_verbs(mob/living/silicon/ai/AI) //Removes all malfunction-related abilities from the target AI.
+TYPE_PROC_REF(/datum/module_picker, remove_malf_verbs)(mob/living/silicon/ai/AI) //Removes all malfunction-related abilities from the target AI.
 	for(var/datum/AI_Module/AM in possible_modules)
 		for(var/datum/action/A in AI.actions)
 			if(istype(A, initial(AM.power_type)))
 				qdel(A)
 
-/datum/module_picker/proc/use(mob/user)
+TYPE_PROC_REF(/datum/module_picker, use)(mob/user)
 	var/list/dat = list()
 	dat += "<B>Select use of processing time: (currently #[processing_time] left.)</B><BR>"
 	dat += "<HR>"
@@ -226,7 +226,7 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 	var/unlock_text = span_notice("Hello World!") //Text shown when an ability is unlocked
 	var/unlock_sound //Sound played when an ability is unlocked
 
-/datum/AI_Module/proc/upgrade(mob/living/silicon/ai/AI) //Apply upgrades!
+TYPE_PROC_REF(/datum/AI_Module, upgrade)(mob/living/silicon/ai/AI) //Apply upgrades!
 	return
 
 /datum/AI_Module/large //Big, powerful stuff that can only be used once.
@@ -263,7 +263,7 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 	active = TRUE
 	set_us_up_the_bomb(owner)
 
-/datum/action/innate/ai/nuke_station/proc/set_us_up_the_bomb(mob/living/owner)
+TYPE_PROC_REF(/datum/action/innate/ai/nuke_station, set_us_up_the_bomb)(mob/living/owner)
 	set waitfor = FALSE
 	to_chat(owner, "<span class='small boldannounce'>run -o -a 'selfdestruct'</span>")
 	sleep(5)
@@ -363,7 +363,7 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 			AI.doomsday_device = null
 	return ..()
 
-/obj/machinery/doomsday_device/proc/start()
+TYPE_PROC_REF(/obj/machinery/doomsday_device, start)()
 	detonation_timer = world.time + DEFAULT_DOOMSDAY_TIMER
 	next_announce = world.time + DOOMSDAY_ANNOUNCE_INTERVAL
 	timing = TRUE
@@ -372,7 +372,7 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 	SSshuttle.registerHostileEnvironment(src)
 	SSmapping.add_nuke_threat(src) //This causes all blue "circuit" tiles on the map to change to animated red icon state.
 
-/obj/machinery/doomsday_device/proc/seconds_remaining()
+TYPE_PROC_REF(/obj/machinery/doomsday_device, seconds_remaining)()
 	. = max(0, (round((detonation_timer - world.time) / 10)))
 
 /obj/machinery/doomsday_device/process()
@@ -393,7 +393,7 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 		minor_announce("[sec_left] SECONDS UNTIL DOOMSDAY DEVICE ACTIVATION!", "ERROR ER0RR $R0RRO$!R41.%%!!(%$^^__+ @#F0E4", TRUE)
 		next_announce += DOOMSDAY_ANNOUNCE_INTERVAL
 
-/obj/machinery/doomsday_device/proc/detonate()
+TYPE_PROC_REF(/obj/machinery/doomsday_device, detonate)()
 	sound_to_playing_players('sound/machines/alarm.ogg')
 	sleep(100)
 	for(var/i in GLOB.mob_living_list)
@@ -576,7 +576,7 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 	uses = 2
 	linked_ability_type = /obj/effect/proc_holder/ranged_ai/overload_machine
 
-/datum/action/innate/ai/ranged/overload_machine/proc/detonate_machine(obj/machinery/M)
+TYPE_PROC_REF(/datum/action/innate/ai/ranged/overload_machine, detonate_machine)(obj/machinery/M)
 	if(M && !QDELETED(M))
 		var/turf/T = get_turf(M)
 		message_admins("[ADMIN_LOOKUPFLW(usr)] overloaded [M.name] at [ADMIN_VERBOSEJMP(T)].")
@@ -628,7 +628,7 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 	uses = 4
 	linked_ability_type = /obj/effect/proc_holder/ranged_ai/override_machine
 
-/datum/action/innate/ai/ranged/override_machine/proc/animate_machine(obj/machinery/M)
+TYPE_PROC_REF(/datum/action/innate/ai/ranged/override_machine, animate_machine)(obj/machinery/M)
 	if(M && !QDELETED(M))
 		new/mob/living/simple_animal/hostile/mimic/copy/machine(get_turf(M), M, owner, 1)
 
@@ -701,11 +701,11 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 	to_chat(owner, span_warning("You are no longer able to shunt your core to APCs."))
 	adjust_uses(-1)
 
-/mob/living/silicon/ai/proc/remove_transformer_image(client/C, image/I, turf/T)
+TYPE_PROC_REF(/mob/living/silicon/ai, remove_transformer_image)(client/C, image/I, turf/T)
 	if(C && I.loc == T)
 		C.images -= I
 
-/mob/living/silicon/ai/proc/can_place_transformer(datum/action/innate/ai/place_transformer/action)
+TYPE_PROC_REF(/mob/living/silicon/ai, can_place_transformer)(datum/action/innate/ai/place_transformer/action)
 	if(!eyeobj || !isturf(loc) || incapacitated() || !action)
 		return
 	var/turf/middle = get_turf(eyeobj)
@@ -783,7 +783,7 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 	for(var/obj/machinery/light/L in GLOB.machines)
 		if(is_station_level(L.z))
 			L.no_emergency = TRUE
-			INVOKE_ASYNC(L, /obj/machinery/light/.proc/update, FALSE)
+			INVOKE_ASYNC(L, TYPE_PROC_REF(/obj/machinery/light, update), FALSE)
 		CHECK_TICK
 	to_chat(owner, span_notice("Emergency light connections severed."))
 	owner.playsound_local(owner, 'sound/effects/light_flicker.ogg', 50, FALSE)

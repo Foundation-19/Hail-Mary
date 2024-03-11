@@ -25,7 +25,7 @@
 	else
 		return ..()
 
-/obj/machinery/computer/upload/proc/can_upload_to(mob/living/silicon/S)
+TYPE_PROC_REF(/obj/machinery/computer/upload, can_upload_to)(mob/living/silicon/S)
 	if(S.stat == DEAD)
 		return 0
 	return 1

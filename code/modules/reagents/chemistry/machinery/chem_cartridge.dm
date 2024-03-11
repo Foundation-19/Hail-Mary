@@ -22,14 +22,14 @@
 	. = ..()
 	charge = maxCharge
 
-/obj/item/stock_parts/chem_cartridge/proc/takeMaterial(ammount)
+TYPE_PROC_REF(/obj/item/stock_parts/chem_cartridge, takeMaterial)(ammount)
 	ammount = round(ammount)
 	if(charge <= 0 || ammount > charge)
 		return FALSE
 	charge = (charge - ammount)
 	return TRUE
 
-/obj/item/stock_parts/chem_cartridge/proc/getPercentage()
+TYPE_PROC_REF(/obj/item/stock_parts/chem_cartridge, getPercentage)()
 	return round((charge / maxCharge) * 100)
 
 /obj/item/stock_parts/chem_cartridge/examine()

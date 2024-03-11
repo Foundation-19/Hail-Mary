@@ -11,7 +11,7 @@ SUBSYSTEM_DEF(radio)
 		saymodes[SM.key] = SM
 	return ..()
 
-/datum/controller/subsystem/radio/proc/add_object(obj/device, new_frequency as num, filter = null as text|null)
+TYPE_PROC_REF(/datum/controller/subsystem/radio, add_object)(obj/device, new_frequency as num, filter = null as text|null)
 	var/f_text = num2text(new_frequency)
 	var/datum/radio_frequency/frequency = frequencies[f_text]
 	if(!frequency)
@@ -19,7 +19,7 @@ SUBSYSTEM_DEF(radio)
 	frequency.add_listener(device, filter)
 	return frequency
 
-/datum/controller/subsystem/radio/proc/remove_object(obj/device, old_frequency)
+TYPE_PROC_REF(/datum/controller/subsystem/radio, remove_object)(obj/device, old_frequency)
 	var/f_text = num2text(old_frequency)
 	var/datum/radio_frequency/frequency = frequencies[f_text]
 	if(frequency)
@@ -27,7 +27,7 @@ SUBSYSTEM_DEF(radio)
 		// let's don't delete frequencies in case a non-listener keeps a reference
 	return 1
 
-/datum/controller/subsystem/radio/proc/return_frequency(new_frequency as num)
+TYPE_PROC_REF(/datum/controller/subsystem/radio, return_frequency)(new_frequency as num)
 	var/f_text = num2text(new_frequency)
 	var/datum/radio_frequency/frequency = frequencies[f_text]
 	if(!frequency)

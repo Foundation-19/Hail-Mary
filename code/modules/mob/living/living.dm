@@ -23,7 +23,7 @@
 	..()
 	prepare_data_huds()
 
-/mob/living/proc/prepare_data_huds()
+TYPE_PROC_REF(/mob/living, prepare_data_huds)()
 	med_hud_set_health()
 	med_hud_set_status()
 
@@ -52,7 +52,7 @@
 		ZImpactDamage(T, levels)
 	return ..()
 
-/mob/living/proc/ZImpactDamage(turf/T, levels)
+TYPE_PROC_REF(/mob/living, ZImpactDamage)(turf/T, levels)
 	if(levels <= 2 && HAS_TRAIT(src, TRAIT_FREERUNNING)) //levels is incremented prior to damage proc and is always >= 2
 		visible_message(span_danger("[src] slams into [T], rolling as they land and keeping their pace!"),
 						span_userdanger("You slam into [T], rolling and keeping your momentum!"))
@@ -63,7 +63,7 @@
 		adjustBruteLoss((levels * 5) ** 1.5)
 		DefaultCombatKnockdown(levels * 50)
 
-/mob/living/proc/OpenCraftingMenu()
+TYPE_PROC_REF(/mob/living, OpenCraftingMenu)()
 	return
 
 //Generic Bump(). Override MobBump() and ObjBump() instead of this.
@@ -90,7 +90,7 @@
 	last_bumped = world.time
 
 //Called when we bump onto a mob
-/mob/living/proc/MobBump(mob/M)
+TYPE_PROC_REF(/mob/living, MobBump)(mob/M)
 	//Even if we don't push/swap places, we "touched" them, so spread fire
 	spreadFire(M)
 
@@ -229,11 +229,11 @@
 	return mob_details.Join("")
 
 //Called when we bump onto an obj
-/mob/living/proc/ObjBump(obj/O)
+TYPE_PROC_REF(/mob/living, ObjBump)(obj/O)
 	return
 
 //Called when we want to push an atom/movable
-/mob/living/proc/PushAM(atom/movable/AM, force = move_force)
+TYPE_PROC_REF(/mob/living, PushAM)(atom/movable/AM, force = move_force)
 	if(now_pushing)
 		return TRUE
 	if(moving_diagonally)// no pushing during diagonal moves.
@@ -336,7 +336,7 @@
 
 		set_pull_offsets(M, state)
 
-/mob/living/proc/set_pull_offsets(mob/living/M, grab_state = GRAB_PASSIVE)
+TYPE_PROC_REF(/mob/living, set_pull_offsets)(mob/living/M, grab_state = GRAB_PASSIVE)
 	if(M.buckled || SEND_SIGNAL(M, COMSIG_COMBAT_MODE_CHECK, COMBAT_MODE_ACTIVE))
 		return //don't make them change direction or offset them if they're buckled into something or in combat mode.
 	var/offset = 0
@@ -368,7 +368,7 @@
 				M.lying_prev = M.lying
 			animate(M, pixel_x = -offset, pixel_y = 0, 3)
 
-/mob/living/proc/reset_pull_offsets(mob/living/M, override)
+TYPE_PROC_REF(/mob/living, reset_pull_offsets)(mob/living/M, override)
 	if(!override && M.buckled)
 		return
 	animate(M, pixel_x = 0, pixel_y = 0, 1)
@@ -446,7 +446,7 @@
 		RegisterSignal(src, COMSIG_LIVING_STATUS_UNCONSCIOUS, PROC_REF(stop_looking_up))
 		RegisterSignal(src, COMSIG_LIVING_STATUS_SLEEP, PROC_REF(stop_looking_up))
 
-/mob/living/proc/stop_looking_up()
+TYPE_PROC_REF(/mob/living, stop_looking_up)()
 	reset_perspective(null)
 	UnregisterSignal(src, list(COMSIG_LIVING_STATUS_PARALYZE, COMSIG_LIVING_STATUS_UNCONSCIOUS, COMSIG_LIVING_STATUS_SLEEP, COMSIG_LIVING_STATUS_KNOCKDOWN, COMSIG_MOVABLE_MOVED, COMSIG_MOB_CLIENT_CHANGE_VIEW))
 
@@ -460,19 +460,19 @@
 		return FALSE
 	return TRUE
 
-/mob/living/proc/InCritical()
+TYPE_PROC_REF(/mob/living, InCritical)()
 	return (health <= crit_threshold && (stat == SOFT_CRIT || stat == UNCONSCIOUS))
 
-/mob/living/proc/InFullCritical()
+TYPE_PROC_REF(/mob/living, InFullCritical)()
 	return (health <= HEALTH_THRESHOLD_FULLCRIT && stat == UNCONSCIOUS)
 
 //This proc is used for mobs which are affected by pressure to calculate the amount of pressure that actually
 //affects them once clothing is factored in. ~Errorage
-/mob/living/proc/calculate_affecting_pressure(pressure)
+TYPE_PROC_REF(/mob/living, calculate_affecting_pressure)(pressure)
 	return pressure
 
 
-/mob/living/proc/adjustBodyTemp(actual, desired, incrementboost)
+TYPE_PROC_REF(/mob/living, adjustBodyTemp)(actual, desired, incrementboost)
 	var/temperature = actual
 	var/difference = abs(actual-desired)	//get difference
 	var/increments = difference/10 //find how many increments apart they are
@@ -492,15 +492,15 @@
 
 
 
-/mob/living/proc/getMaxHealth()
+TYPE_PROC_REF(/mob/living, getMaxHealth)()
 	return maxHealth
 
-/mob/living/proc/setMaxHealth(newMaxHealth)
+TYPE_PROC_REF(/mob/living, setMaxHealth)(newMaxHealth)
 	maxHealth = newMaxHealth
 
 // MOB PROCS //END
 
-/mob/living/proc/mob_sleep()
+TYPE_PROC_REF(/mob/living, mob_sleep)()
 	set name = "Sleep"
 	set category = "IC"
 
@@ -511,10 +511,10 @@
 		if(alert(src, "You sure you want to sleep for a while?", "Sleep", "Yes", "No") == "Yes")
 			SetSleeping(400) //Short nap
 
-/mob/proc/get_contents()
+TYPE_PROC_REF(/mob, get_contents)()
 
 /*CIT CHANGE - comments out lay_down proc to be modified in modular_citadel
-/mob/living/proc/lay_down()
+TYPE_PROC_REF(/mob/living, lay_down)()
 	set name = "Rest"
 	set category = "IC"
 
@@ -523,7 +523,7 @@
 	update_canmove()
 */
 
-/mob/living/proc/surrender()
+TYPE_PROC_REF(/mob/living, surrender)()
 	set name = "Surrender"
 	set category = "IC"
 
@@ -549,7 +549,7 @@
 	return ret
 
 // Living mobs use can_inject() to make sure that the mob is not syringe-proof in general.
-/mob/living/proc/can_inject(mob/user, error_msg, target_zone, penetrate_thick = FALSE, bypass_immunity = FALSE)
+TYPE_PROC_REF(/mob/living, can_inject)(mob/user, error_msg, target_zone, penetrate_thick = FALSE, bypass_immunity = FALSE)
 	return TRUE
 
 /mob/living/is_injectable(allowmobs = TRUE)
@@ -558,7 +558,7 @@
 /mob/living/is_drawable(allowmobs = TRUE)
 	return (allowmobs && reagents && can_inject())
 
-/mob/living/proc/get_organ_target()
+TYPE_PROC_REF(/mob/living, get_organ_target)()
 	var/mob/shooter = src
 	var/t = shooter.zone_selected
 	if ((t in list( BODY_ZONE_PRECISE_EYES, BODY_ZONE_PRECISE_MOUTH )))
@@ -567,7 +567,7 @@
 	return def_zone
 
 
-/mob/living/proc/updatehealth()
+TYPE_PROC_REF(/mob/living, updatehealth)()
 	if(status_flags & GODMODE)
 		return
 	health = maxHealth - getOxyLoss() - getToxLoss() - getFireLoss() - getBruteLoss() - getCloneLoss()
@@ -577,7 +577,7 @@
 	med_hud_set_status()
 
 //proc used to ressuscitate a mob
-/mob/living/proc/revive(full_heal = FALSE, admin_revive = FALSE)
+TYPE_PROC_REF(/mob/living, revive)(full_heal = FALSE, admin_revive = FALSE)
 	SEND_SIGNAL(src, COMSIG_LIVING_REVIVE, full_heal, admin_revive)
 	if(full_heal)
 		fully_heal(admin_revive)
@@ -599,7 +599,7 @@
 				spell.updateButtonIcon()
 
 //proc used to remove all immobilisation effects + reset stamina
-/mob/living/proc/remove_CC(should_update_mobility = TRUE)
+TYPE_PROC_REF(/mob/living, remove_CC)(should_update_mobility = TRUE)
 	SetAllImmobility(0, FALSE)
 	setStaminaLoss(0)
 	SetUnconscious(0, FALSE)
@@ -607,7 +607,7 @@
 		update_mobility()
 
 //proc used to completely heal a mob.
-/mob/living/proc/fully_heal(admin_revive = FALSE)
+TYPE_PROC_REF(/mob/living, fully_heal)(admin_revive = FALSE)
 	restore_blood()
 	setToxLoss(0, 0) //zero as second argument not automatically call updatehealth().
 	setOxyLoss(0, 0)
@@ -641,21 +641,21 @@
 				O.setOrganDamage(0)
 
 //proc called by revive(), to check if we can actually ressuscitate the mob (we don't want to revive him and have him instantly die again)
-/mob/living/proc/can_be_revived()
+TYPE_PROC_REF(/mob/living, can_be_revived)()
 	. = 1
 	if(health <= HEALTH_THRESHOLD_DEAD)
 		return 0
 
-/mob/living/proc/update_damage_overlays()
+TYPE_PROC_REF(/mob/living, update_damage_overlays)()
 	return
 
-/mob/living/proc/on_entered(atom/movable/AM)
+TYPE_PROC_REF(/mob/living, on_entered)(atom/movable/AM)
 	SIGNAL_HANDLER
 	for(var/i in get_equipped_items())
 		var/obj/item/item = i
 		SEND_SIGNAL(item, COMSIG_ITEM_WEARERCROSSED, AM)
 
-/mob/living/proc/makeTrail(turf/target_turf, turf/start, direction)
+TYPE_PROC_REF(/mob/living, makeTrail)(turf/target_turf, turf/start, direction)
 	if(!has_gravity() || !isturf(start) || !blood_volume)
 		return
 	var/blood_exists = locate(/obj/effect/decal/cleanable/trail_holder) in start
@@ -693,8 +693,8 @@
 		return
 	..()
 
-///Returns how much blood we're losing from being dragged a tile, from [mob/living/proc/makeTrail]
-/mob/living/proc/bleedDragAmount()
+///Returns how much blood we're losing from being dragged a tile, from [TYPE_PROC_REF(mob/living, makeTrail)]
+TYPE_PROC_REF(/mob/living, bleedDragAmount)()
 	var/brute_ratio = round(getBruteLoss() / maxHealth, 0.1)
 	return max(1, brute_ratio * 2)
 
@@ -705,7 +705,7 @@
 		bleed_amount += iter_wound.drag_bleed_amount()
 	return bleed_amount
 
-/mob/living/proc/getTrail()
+TYPE_PROC_REF(/mob/living, getTrail)()
 	if(getBruteLoss() < 300)
 		return pick("ltrails_1", "ltrails_2")
 	else
@@ -756,7 +756,7 @@
 		DelayNextAction(CLICK_CD_RESIST)
 
 /// The actual proc for resisting. Return TRUE to give CLICK_CD_RESIST clickdelay.
-/mob/living/proc/do_resist()
+TYPE_PROC_REF(/mob/living, do_resist)()
 	set waitfor = FALSE			// some of these sleep.
 	SEND_SIGNAL(src, COMSIG_LIVING_RESIST, src)
 	//resisting grabs (as if it helps anyone...)
@@ -800,7 +800,7 @@
 	return FALSE
 
 /// Proc to resist a grab. moving_resist is TRUE if this began by someone attempting to move. Return FALSE if still grabbed/failed to break out. Use this instead of resist_grab() directly.
-/mob/proc/attempt_resist_grab(moving_resist, forced, log = TRUE)
+TYPE_PROC_REF(/mob, attempt_resist_grab)(moving_resist, forced, log = TRUE)
 	if(!pulledby)	//not being grabbed
 		return TRUE
 	var/old_gs = pulledby.grab_state		//how strong the grab is
@@ -815,7 +815,7 @@
  * Forced is if something other than the user mashing movement keys/pressing resist button did it, silent is if it makes messages (like "attempted to resist" and "broken free").
  * Forced does NOT force success!
  */
-/mob/proc/do_resist_grab(moving_resist, forced, silent = FALSE)
+TYPE_PROC_REF(/mob, do_resist_grab)(moving_resist, forced, silent = FALSE)
 	return FALSE
 
 /mob/living/do_resist_grab(moving_resist, forced, silent = FALSE)
@@ -836,16 +836,16 @@
 		pulledby.stop_pulling()
 		return TRUE
 
-/mob/living/proc/resist_buckle()
+TYPE_PROC_REF(/mob/living, resist_buckle)()
 	buckled?.user_unbuckle_mob(src,src)
 
-/mob/living/proc/resist_fire()
+TYPE_PROC_REF(/mob/living, resist_fire)()
 	return
 
-/mob/living/proc/resist_restraints()
+TYPE_PROC_REF(/mob/living, resist_restraints)()
 	return
 
-/mob/living/proc/get_visible_name()
+TYPE_PROC_REF(/mob/living, get_visible_name)()
 	return name
 
 /mob/living/update_gravity(has_gravity,override = 0)
@@ -977,7 +977,7 @@
 	else
 		step_towards(src,S)
 
-/mob/living/proc/do_jitter_animation(jitteriness)
+TYPE_PROC_REF(/mob/living, do_jitter_animation)(jitteriness)
 	var/amplitude = min(4, (jitteriness/100) + 1)
 	var/pixel_x_diff = rand(-amplitude, amplitude)
 	var/pixel_y_diff = rand(-amplitude/3, amplitude/3)
@@ -987,7 +987,7 @@
 	animate(pixel_x = final_pixel_x , pixel_y = final_pixel_y , time = 2)
 	floating_need_update = TRUE
 
-/mob/living/proc/get_temperature(datum/gas_mixture/environment)
+TYPE_PROC_REF(/mob/living, get_temperature)(datum/gas_mixture/environment)
 	var/loc_temp = environment ? environment.return_temperature() : T0C
 	if(isobj(loc))
 		var/obj/oloc = loc
@@ -999,17 +999,17 @@
 		loc_temp = heat_turf.return_temperature()
 	return loc_temp
 
-/mob/living/proc/get_standard_pixel_x_offset(lying = 0)
+TYPE_PROC_REF(/mob/living, get_standard_pixel_x_offset)(lying = 0)
 	return initial(pixel_x)
 
-/mob/living/proc/get_standard_pixel_y_offset(lying = 0)
+TYPE_PROC_REF(/mob/living, get_standard_pixel_y_offset)(lying = 0)
 	return initial(pixel_y)
 
 /mob/living/cancel_camera()
 	..()
 	cameraFollow = null
 
-/mob/living/proc/can_track(mob/living/user)
+TYPE_PROC_REF(/mob/living, can_track)(mob/living/user)
 	//basic fast checks go first. When overriding this proc, I recommend calling ..() at the end.
 	var/turf/T = get_turf(src)
 	if(!T)
@@ -1032,10 +1032,10 @@
 	return 1
 
 //used in datum/reagents/reaction() proc
-/mob/living/proc/get_permeability_protection(list/target_zones)
+TYPE_PROC_REF(/mob/living, get_permeability_protection)(list/target_zones)
 	return 0
 
-/mob/living/proc/harvest(mob/living/user) //used for extra objects etc. in butchering
+TYPE_PROC_REF(/mob/living, harvest)(mob/living/user) //used for extra objects etc. in butchering
 	return
 
 /mob/living/canUseTopic(atom/movable/M, be_close=FALSE, no_dextery=FALSE, no_tk=FALSE)
@@ -1050,24 +1050,24 @@
 		return FALSE
 	return TRUE
 
-/mob/living/proc/can_use_guns(obj/item/G)//actually used for more than guns!
+TYPE_PROC_REF(/mob/living, can_use_guns)(obj/item/G)//actually used for more than guns!
 	if(G.trigger_guard != TRIGGER_GUARD_ALLOW_ALL && !IsAdvancedToolUser())
 		to_chat(src, span_warning("You don't have the dexterity to do this!"))
 		return FALSE
 	return TRUE
 
-/mob/living/proc/update_stamina()
+TYPE_PROC_REF(/mob/living, update_stamina)()
 	return
 
 /mob/living/carbon/alien/update_stamina()
 	return
 
-/mob/living/proc/owns_soul()
+TYPE_PROC_REF(/mob/living, owns_soul)()
 	if(mind)
 		return mind.soulOwner == mind
 	return TRUE
 
-/mob/living/proc/return_soul()
+TYPE_PROC_REF(/mob/living, return_soul)()
 	hellbound = 0
 	if(mind)
 		var/datum/antagonist/devil/devilInfo = mind.soulOwner.has_antag_datum(/datum/antagonist/devil)
@@ -1075,16 +1075,16 @@
 			devilInfo.remove_soul(mind)
 		mind.soulOwner = mind
 
-/mob/living/proc/has_bane(banetype)
+TYPE_PROC_REF(/mob/living, has_bane)(banetype)
 	var/datum/antagonist/devil/devilInfo = is_devil(src)
 	return devilInfo && banetype == devilInfo.bane
 
-/mob/living/proc/check_weakness(obj/item/weapon, mob/living/attacker)
+TYPE_PROC_REF(/mob/living, check_weakness)(obj/item/weapon, mob/living/attacker)
 	if(mind && mind.has_antag_datum(/datum/antagonist/devil))
 		return check_devil_bane_multiplier(weapon, attacker)
 	return 1
 
-/mob/living/proc/check_acedia()
+TYPE_PROC_REF(/mob/living, check_acedia)()
 	if(mind && mind.has_objective(/datum/objective/sintouched/acedia))
 		return TRUE
 	return FALSE
@@ -1095,7 +1095,7 @@
 
 // Called when we are hit by a bolt of polymorph and changed
 // Generally the mob we are currently in is about to be deleted
-/mob/living/proc/wabbajack_act(mob/living/new_mob)
+TYPE_PROC_REF(/mob/living, wabbajack_act)(mob/living/new_mob)
 	new_mob.name = real_name
 	new_mob.real_name = real_name
 
@@ -1140,16 +1140,16 @@
 	if((magic && HAS_TRAIT(src, TRAIT_ANTIMAGIC)) || (holy && HAS_TRAIT(src, TRAIT_HOLY)))
 		return src
 
-/mob/living/proc/fakefireextinguish()
+TYPE_PROC_REF(/mob/living, fakefireextinguish)()
 	return
 
-/mob/living/proc/fakefire()
+TYPE_PROC_REF(/mob/living, fakefire)()
 	return
 
 
 
 //Mobs on Fire
-/mob/living/proc/IgniteMob()
+TYPE_PROC_REF(/mob/living, IgniteMob)()
 	if(fire_stacks > 0 && !on_fire)
 		on_fire = 1
 		visible_message(span_warning("[src] catches fire!"), \
@@ -1161,7 +1161,7 @@
 		return TRUE
 	return FALSE
 
-/mob/living/proc/ExtinguishMob()
+TYPE_PROC_REF(/mob/living, ExtinguishMob)()
 	if(on_fire)
 		on_fire = 0
 		fire_stacks = 0
@@ -1172,14 +1172,14 @@
 		SEND_SIGNAL(src, COMSIG_LIVING_EXTINGUISHED, src)
 		update_fire()
 
-/mob/living/proc/adjust_fire_stacks(add_fire_stacks) //Adjusting the amount of fire_stacks we have on person
+TYPE_PROC_REF(/mob/living, adjust_fire_stacks)(add_fire_stacks) //Adjusting the amount of fire_stacks we have on person
 	fire_stacks = clamp(fire_stacks + add_fire_stacks, -20, 20)
 	if(on_fire && fire_stacks <= 0)
 		ExtinguishMob()
 
 //Share fire evenly between the two mobs
 //Called in MobBump() and Crossed()
-/mob/living/proc/spreadFire(mob/living/L)
+TYPE_PROC_REF(/mob/living, spreadFire)(mob/living/L)
 	if(!istype(L))
 		return
 	var/L_old_on_fire = L.on_fire
@@ -1198,7 +1198,7 @@
 //Mobs on Fire end
 
 // used by secbot and monkeys Crossed
-/mob/living/proc/knockOver(mob/living/carbon/C)
+TYPE_PROC_REF(/mob/living, knockOver)(mob/living/carbon/C)
 	if(C.key) //save us from monkey hordes
 		C.visible_message("<span class='warning'>[pick( \
 						"[C] dives out of [src]'s way!", \
@@ -1217,7 +1217,7 @@
 /mob/living/can_be_pulled()
 	return ..() && !(buckled && buckled.buckle_prevents_pull)
 
-/mob/living/proc/AddAbility(obj/effect/proc_holder/A)
+TYPE_PROC_REF(/mob/living, AddAbility)(obj/effect/proc_holder/A)
 	if(!A)
 		return
 	abilities.Add(A)
@@ -1225,7 +1225,7 @@
 	if(A.has_action)
 		A.action.Grant(src)
 
-/mob/living/proc/RemoveAbility(obj/effect/proc_holder/A)
+TYPE_PROC_REF(/mob/living, RemoveAbility)(obj/effect/proc_holder/A)
 	if(!A)
 		return
 	abilities.Remove(A)
@@ -1233,7 +1233,7 @@
 	if(A.action)
 		A.action.Remove(src)
 
-/mob/living/proc/add_abilities_to_panel()
+TYPE_PROC_REF(/mob/living, add_abilities_to_panel)()
 	var/list/L = list()
 	for(var/obj/effect/proc_holder/A in abilities)
 		L[++L.len] = list("[A.panel]",A.get_panel_text(),A.name,"[REF(A)]")
@@ -1258,7 +1258,7 @@
 	if(!over.Adjacent(src) || (user != src) || !canUseTopic(over))
 		return
 
-/mob/living/proc/get_static_viruses() //used when creating blood and other infective objects
+TYPE_PROC_REF(/mob/living, get_static_viruses)() //used when creating blood and other infective objects
 	if(!LAZYLEN(diseases))
 		return
 	var/list/datum/disease/result = list()
@@ -1309,7 +1309,7 @@
 		if(NAMEOF(src, lighting_alpha))
 			sync_lighting_plane_alpha()
 
-/mob/living/proc/do_adrenaline(
+TYPE_PROC_REF(/mob/living, do_adrenaline)(
 			stamina_boost = 150,
 			put_on_feet = TRUE,
 			clamp_unconscious_to = 0,
@@ -1344,7 +1344,7 @@
 /mob/living/canface()
 	return ..() && CHECK_MOBILITY(src, MOBILITY_MOVE)
 
-/mob/living/proc/set_gender(ngender = NEUTER, silent = FALSE, update_icon = TRUE, forced = FALSE)
+TYPE_PROC_REF(/mob/living, set_gender)(ngender = NEUTER, silent = FALSE, update_icon = TRUE, forced = FALSE)
 	if(forced || (!ckey || client?.prefs.cit_toggles & (ngender == FEMALE ? FORCED_FEM : FORCED_MASC)))
 		gender = ngender
 		return TRUE
@@ -1381,7 +1381,7 @@
 	do_give(target)
 
 
-/mob/living/proc/do_give(mob/living/target)
+TYPE_PROC_REF(/mob/living, do_give)(mob/living/target)
 	if(incapacitated() || !Adjacent(target))
 		return
 
@@ -1462,5 +1462,5 @@
 		)
 
 
-/mob/living/proc/update_water()
+TYPE_PROC_REF(/mob/living, update_water)()
 	return

@@ -46,7 +46,7 @@
 		. += span_notice("You reveal [src]!")
 		flare()
 
-/obj/structure/trap/proc/flare()
+TYPE_PROC_REF(/obj/structure/trap, flare)()
 	// Makes the trap visible, and starts the cooldown until it's
 	// able to be triggered again.
 	visible_message(span_warning("[src] flares brightly!"))
@@ -60,11 +60,11 @@
 	else
 		animate(src, alpha = initial(alpha), time = time_between_triggers)
 
-/obj/structure/trap/proc/on_entered(atom/movable/AM)
+TYPE_PROC_REF(/obj/structure/trap, on_entered)(atom/movable/AM)
 	SIGNAL_HANDLER
 	INVOKE_ASYNC(src, PROC_REF(process_entered), AM)
 
-/obj/structure/trap/proc/process_entered(atom/movable/AM)
+TYPE_PROC_REF(/obj/structure/trap, process_entered)(atom/movable/AM)
 	if(last_trigger + time_between_triggers > world.time)
 		return
 	// Don't want the traps triggered by sparks, ghosts or projectiles.
@@ -82,7 +82,7 @@
 	if(isliving(AM))
 		trap_effect(AM)
 
-/obj/structure/trap/proc/trap_effect(mob/living/L)
+TYPE_PROC_REF(/obj/structure/trap, trap_effect)(mob/living/L)
 	return
 
 /obj/structure/trap/stun
@@ -219,7 +219,7 @@
 	stored_trap.name = name
 	stored_trap.stored_item = src
 
-/obj/item/bountytrap/proc/announce_fugitive()
+TYPE_PROC_REF(/obj/item/bountytrap, announce_fugitive)()
 	spark_system.start()
 	playsound(src, 'sound/machines/ding.ogg', 50, TRUE)
 	radio.talk_into(src, "Fugitive has triggered this trap in the [get_area_name(src)]!", RADIO_CHANNEL_COMMON)

@@ -163,7 +163,7 @@ GLOBAL_LIST_INIT(sacredwellitems_high, typecacheof(list(/obj/item/gun/energy/las
 
 
 
-/obj/structure/sacredwell/proc/update_meter() //checks if sacredmeter is above max, if it is, minuses sacredmeter_max from current amnt to simulate 'overflow'
+TYPE_PROC_REF(/obj/structure/sacredwell, update_meter)() //checks if sacredmeter is above max, if it is, minuses sacredmeter_max from current amnt to simulate 'overflow'
 
 	if(src.sacredmeter < src.sacredmeter_max)
 
@@ -184,7 +184,7 @@ GLOBAL_LIST_INIT(sacredwellitems_high, typecacheof(list(/obj/item/gun/energy/las
 	return
 
 
-/obj/structure/sacredwell/proc/dontspam() //might need to fiddle w/ this......
+TYPE_PROC_REF(/obj/structure/sacredwell, dontspam)() //might need to fiddle w/ this......
 
 	desc = "A deep well that hums and thrums with power and unknown energies. Despite the fact it is hot to the touch, the geiger counter stays quiet. This is where the mistakes of the old world go to be cleansed. And with enough sacrifice comes gifts.<br><span class='notice'> The well is currently resting.</span>"
 	cooling = 1

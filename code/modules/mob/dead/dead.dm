@@ -18,7 +18,7 @@ INITIALIZE_IMMEDIATE(/mob/dead)
 	prepare_huds()
 
 	if(length(CONFIG_GET(keyed_list/cross_server)))
-		add_verb(src, /mob/dead/proc/server_hop)
+		add_verb(src, TYPE_PROC_REF(/mob/dead, server_hop))
 	set_focus(src)
 
 	become_hearing_sensitive()
@@ -56,7 +56,7 @@ INITIALIZE_IMMEDIATE(/mob/dead)
 	if(client.holder)
 		. += "Players Ready: [SSticker.totalPlayersReady]"
 
-/mob/dead/proc/server_hop()
+TYPE_PROC_REF(/mob/dead, server_hop)()
 	set category = "OOC"
 	set name = "Server Hop!"
 	set desc= "Jump to the other server"
@@ -66,7 +66,7 @@ INITIALIZE_IMMEDIATE(/mob/dead)
 	var/pick
 	switch(csa.len)
 		if(0)
-			remove_verb(src, /mob/dead/proc/server_hop)
+			remove_verb(src, TYPE_PROC_REF(/mob/dead, server_hop))
 			to_chat(src, span_notice("Server Hop has been disabled."))
 		if(1)
 			pick = csa[0]
@@ -96,7 +96,7 @@ INITIALIZE_IMMEDIATE(/mob/dead)
 
 	C << link("[addr]?server_hop=[key]")
 
-/mob/dead/proc/update_z(new_z) // 1+ to register, null to unregister
+TYPE_PROC_REF(/mob/dead, update_z)(new_z) // 1+ to register, null to unregister
 	if (registered_z != new_z)
 		if (registered_z)
 			SSmobs.dead_players_by_zlevel[registered_z] -= src

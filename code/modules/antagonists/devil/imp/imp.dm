@@ -73,7 +73,7 @@
 	. = ..()
 	give_objectives()
 
-/datum/antagonist/imp/proc/give_objectives()
+TYPE_PROC_REF(/datum/antagonist/imp, give_objectives)()
 	var/datum/objective/newobjective = new
 	newobjective.explanation_text = "Try to get a promotion to a higher devilic rank."
 	newobjective.owner = owner

@@ -5,7 +5,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, typecacheof(list(
 
 //VENTCRAWLING
 
-/mob/living/proc/handle_ventcrawl(atom/A)
+TYPE_PROC_REF(/mob/living, handle_ventcrawl)(atom/A)
 	if(!ventcrawler || !Adjacent(A))
 		return
 	. = TRUE //return value to stop the client from being shown the turf contents stat tab on alt-click.
@@ -83,7 +83,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, typecacheof(list(
 	..()
 
 
-/mob/living/proc/add_ventcrawl(obj/machinery/atmospherics/starting_machine)
+TYPE_PROC_REF(/mob/living, add_ventcrawl)(obj/machinery/atmospherics/starting_machine)
 	if(!istype(starting_machine) || !starting_machine.can_see_pipes())
 		return
 	var/list/totalMembers = list()
@@ -107,7 +107,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, typecacheof(list(
 		setMovetype(movement_type | VENTCRAWLING)
 
 
-/mob/living/proc/remove_ventcrawl()
+TYPE_PROC_REF(/mob/living, remove_ventcrawl)()
 	if(client)
 		for(var/image/current_image in pipes_shown)
 			client.images -= current_image
@@ -118,7 +118,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, typecacheof(list(
 
 
 //OOP
-/atom/proc/update_pipe_vision(atom/new_loc = null)
+TYPE_PROC_REF(/atom, update_pipe_vision)(atom/new_loc = null)
 	return
 
 /mob/living/update_pipe_vision(atom/new_loc = null)

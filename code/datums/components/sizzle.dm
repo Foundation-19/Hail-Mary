@@ -15,7 +15,7 @@
 	food.cut_overlay(sizzling)
 	food.add_overlay(sizzling)
 
-/datum/component/sizzle/proc/setup_sizzle()
+TYPE_PROC_REF(/datum/component/sizzle, setup_sizzle)()
 	var/atom/food = parent
 	var/icon/grill_marks = icon(initial(food.icon), initial(food.icon_state))	//we only want to apply grill marks to the initial icon_state for each object
 	grill_marks.Blend("#fff", ICON_ADD) 	//fills the icon_state with white (except where it's transparent)

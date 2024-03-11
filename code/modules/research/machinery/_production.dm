@@ -38,11 +38,11 @@
 	host_research = null
 	return ..()
 
-/obj/machinery/rnd/production/proc/update_research()
+TYPE_PROC_REF(/obj/machinery/rnd/production, update_research)()
 	host_research.copy_research_to(stored_research, TRUE)
 	update_designs()
 
-/obj/machinery/rnd/production/proc/update_designs()
+TYPE_PROC_REF(/obj/machinery/rnd/production, update_designs)()
 	cached_designs.Cut()
 	for(var/i in stored_research.researched_designs)
 		var/datum/design/d = SSresearch.techweb_design_by_id(i)
@@ -60,7 +60,7 @@
 	popup.set_content(generate_ui())
 	popup.open()
 
-/obj/machinery/rnd/production/proc/calculate_efficiency()
+TYPE_PROC_REF(/obj/machinery/rnd/production, calculate_efficiency)()
 	var/total_manip_rating = 0
 	var/manips = 0
 	if(reagents)		//If reagents/materials aren't initialized, don't bother, we'll be doing this again after reagents init anyways.
@@ -90,7 +90,7 @@
 		reagents.trans_to(G, G.reagents.maximum_volume)
 	return ..()
 
-/obj/machinery/rnd/production/proc/do_print(path, amount, list/matlist, notify_admins, mob/user)
+TYPE_PROC_REF(/obj/machinery/rnd/production, do_print)(path, amount, list/matlist, notify_admins, mob/user)
 	if(notify_admins)
 		message_admins("[ADMIN_LOOKUPFLW(user)] has built [amount] of [path] at a [src]([type]).")
 	for(var/i in 1 to amount)
@@ -101,7 +101,7 @@
 	SSblackbox.record_feedback("nested tally", "item_printed", amount, list("[type]", "[path]"))
 	investigate_log("[key_name(user)] built [amount] of [path] at [src]([type]).", INVESTIGATE_RESEARCH)
 
-/obj/machinery/rnd/production/proc/check_mat(datum/design/being_built, mat)	// now returns how many times the item can be built with the material
+TYPE_PROC_REF(/obj/machinery/rnd/production, check_mat)(datum/design/being_built, mat)	// now returns how many times the item can be built with the material
 	if (!materials.mat_container)  // no connected silo
 		return 0
 	var/list/all_materials = being_built.reagents_list + being_built.materials
@@ -115,10 +115,10 @@
 	var/ef = efficient_with(being_built.build_path) ? print_cost_coeff : 1
 	return round(A / max(1, all_materials[mat] * ef))
 
-/obj/machinery/rnd/production/proc/efficient_with(path)
+TYPE_PROC_REF(/obj/machinery/rnd/production, efficient_with)(path)
 	return !ispath(path, /obj/item/stack/sheet) && !ispath(path, /obj/item/stack/ore/bluespace_crystal)
 
-/obj/machinery/rnd/production/proc/user_try_print_id(id, amount)
+TYPE_PROC_REF(/obj/machinery/rnd/production, user_try_print_id)(id, amount)
 	if((!istype(linked_console) && requires_console) || !id)
 		return FALSE
 	if(istext(amount))
@@ -175,7 +175,7 @@
 	addtimer(CALLBACK(src, PROC_REF(do_print), D.build_path, amount, efficient_mats, D.dangerous_construction, usr), (20 * timecoeff * amount) ** 0.5)
 	return TRUE
 
-/obj/machinery/rnd/production/proc/search(string)
+TYPE_PROC_REF(/obj/machinery/rnd/production, search)(string)
 	matching_designs.Cut()
 	for(var/v in stored_research.researched_designs)
 		var/datum/design/D = SSresearch.techweb_design_by_id(v)
@@ -184,7 +184,7 @@
 		if(findtext(D.name,string))
 			matching_designs.Add(D)
 
-/obj/machinery/rnd/production/proc/generate_ui()
+TYPE_PROC_REF(/obj/machinery/rnd/production, generate_ui)()
 	var/list/ui = list()
 	ui += ui_header()
 	switch(screen)
@@ -204,7 +204,7 @@
 		ui[i] = replacetextEx(ui[i], RDSCREEN_NOBREAK, "")
 	return ui.Join("")
 
-/obj/machinery/rnd/production/proc/ui_header()
+TYPE_PROC_REF(/obj/machinery/rnd/production, ui_header)()
 	var/list/l = list()
 	l += "<div class='statusDisplay'><b>[host_research.organization] [department_tag] Department Lathe</b>"
 	l += "Security protocols: [(obj_flags & EMAGGED)? "<font color='red'>Disabled</font>" : "<font color='green'>Enabled</font>"]"
@@ -217,7 +217,7 @@
 	l += "<a href='?src=[REF(src)];switch_screen=[RESEARCH_FABRICATOR_SCREEN_MAIN]'>Main Screen</a></div>[RDSCREEN_NOBREAK]"
 	return l
 
-/obj/machinery/rnd/production/proc/ui_screen_materials()
+TYPE_PROC_REF(/obj/machinery/rnd/production, ui_screen_materials)()
 	if (!materials.mat_container)
 		screen = RESEARCH_FABRICATOR_SCREEN_MAIN
 		return ui_screen_main()
@@ -235,7 +235,7 @@
 	l += "</div>[RDSCREEN_NOBREAK]"
 	return l
 
-/obj/machinery/rnd/production/proc/ui_screen_chemicals()
+TYPE_PROC_REF(/obj/machinery/rnd/production, ui_screen_chemicals)()
 	var/list/l = list()
 	l += "<div class='statusDisplay'><A href='?src=[REF(src)];disposeall=1'>Disposal All Chemicals in Storage</A>"
 	l += "<h3>Chemical Storage:</h3>"
@@ -245,7 +245,7 @@
 	l += "</div>"
 	return l
 
-/obj/machinery/rnd/production/proc/ui_screen_search()
+TYPE_PROC_REF(/obj/machinery/rnd/production, ui_screen_search)()
 	var/list/l = list()
 	var/coeff = print_cost_coeff
 	l += "<h2>Search Results:</h2>"
@@ -260,7 +260,7 @@
 	l += "</div>"
 	return l
 
-/obj/machinery/rnd/production/proc/design_menu_entry(datum/design/D, coeff)
+TYPE_PROC_REF(/obj/machinery/rnd/production, design_menu_entry)(datum/design/D, coeff)
 	if(!istype(D))
 		return
 	if(!coeff)
@@ -333,7 +333,7 @@
 		eject_sheets(M, ls["eject_amt"])
 	updateUsrDialog()
 
-/obj/machinery/rnd/production/proc/eject_sheets(eject_sheet, eject_amt)
+TYPE_PROC_REF(/obj/machinery/rnd/production, eject_sheets)(eject_sheet, eject_amt)
 	var/datum/component/material_container/mat_container = materials.mat_container
 	if (!mat_container)
 		say("No access to material storage, please contact the quartermaster.")
@@ -347,7 +347,7 @@
 	materials.silo_log(src, "ejected", -count, "sheets", matlist)
 	return count
 
-/obj/machinery/rnd/production/proc/ui_screen_main()
+TYPE_PROC_REF(/obj/machinery/rnd/production, ui_screen_main)()
 	var/list/l = list()
 	l += "<form name='search' action='?src=[REF(src)]'>\
 	<input type='hidden' name='src' value='[REF(src)]'>\
@@ -361,7 +361,7 @@
 
 	return l
 
-/obj/machinery/rnd/production/proc/ui_screen_category_view()
+TYPE_PROC_REF(/obj/machinery/rnd/production, ui_screen_category_view)()
 	if(!selected_category)
 		return ui_screen_main()
 	var/list/l = list()
@@ -377,7 +377,7 @@
 	l += "</div>"
 	return l
 
-/obj/machinery/rnd/production/proc/list_categories(list/categories, menu_num)
+TYPE_PROC_REF(/obj/machinery/rnd/production, list_categories)(list/categories, menu_num)
 	if(!categories)
 		return
 

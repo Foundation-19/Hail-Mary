@@ -7,7 +7,7 @@
 #define DROP_AT_LOCATION 2
 
 // External storage-related logic:
-// /mob/proc/ClickOn() in /_onclick/click.dm - clicking items in storages
+// TYPE_PROC_REF(/mob, ClickOn)() in /_onclick/click.dm - clicking items in storages
 // /mob/living/Move() in /modules/mob/living/living.dm - hiding storage boxes on mob movement
 
 /datum/component/storage
@@ -147,7 +147,7 @@
 /datum/component/storage/PreTransfer()
 	update_actions()
 
-/datum/component/storage/proc/update_actions()
+TYPE_PROC_REF(/datum/component/storage, update_actions)()
 	QDEL_NULL(modeswitch_action)
 	if(!isitem(parent) || !allow_quick_gather)
 		return
@@ -160,7 +160,7 @@
 			return
 		modeswitch_action.Grant(M)
 
-/datum/component/storage/proc/change_master(datum/component/storage/concrete/new_master)
+TYPE_PROC_REF(/datum/component/storage, change_master)(datum/component/storage/concrete/new_master)
 	if(new_master == src || (!isnull(new_master) && !istype(new_master)))
 		return FALSE
 	if(master)
@@ -170,18 +170,18 @@
 		master.on_slave_link(src)
 	return TRUE
 
-/datum/component/storage/proc/master()
+TYPE_PROC_REF(/datum/component/storage, master)()
 	if(master == src)
 		return			//infinite loops yo.
 	return master
 
-/datum/component/storage/proc/real_location()
+TYPE_PROC_REF(/datum/component/storage, real_location)()
 	var/datum/component/storage/concrete/master = master()
 	return master? master.real_location() : null
 
 //What players can access
 //this proc can probably eat a refactor at some point.
-/datum/component/storage/proc/accessible_items(random_access = TRUE)
+TYPE_PROC_REF(/datum/component/storage, accessible_items)(random_access = TRUE)
 	var/list/contents = contents()
 	if(contents)
 		if(limited_random_access && random_access)
@@ -193,13 +193,13 @@
 	return contents
 
 
-/datum/component/storage/proc/attack_self(datum/source, mob/M)
+TYPE_PROC_REF(/datum/component/storage, attack_self)(datum/source, mob/M)
 	if(check_locked(source, M, TRUE))
 		return FALSE
 	if((M.get_active_held_item() == parent) && allow_quick_empty)
 		quick_empty(M)
 
-/datum/component/storage/proc/preattack_intercept(datum/source, obj/O, mob/M, params)
+TYPE_PROC_REF(/datum/component/storage, preattack_intercept)(datum/source, obj/O, mob/M, params)
 	if(!isitem(O) || !click_gather || SEND_SIGNAL(O, COMSIG_CONTAINS_STORAGE))
 		return FALSE
 	. = COMPONENT_NO_ATTACK
@@ -229,7 +229,7 @@
 	to_chat(M, span_notice("You put everything you could [insert_preposition] [parent]."))
 	A.do_squish(1.4, 0.4)
 
-/datum/component/storage/proc/handle_mass_item_insertion(list/things, datum/component/storage/src_object, mob/user, datum/progressbar/progress)
+TYPE_PROC_REF(/datum/component/storage, handle_mass_item_insertion)(list/things, datum/component/storage/src_object, mob/user, datum/progressbar/progress)
 	var/atom/source_real_location = src_object.real_location()
 	for(var/obj/item/I in things)
 		things -= I
@@ -247,7 +247,7 @@
 	progress.update(progress.goal - things.len)
 	return FALSE
 
-/datum/component/storage/proc/handle_mass_pickup(list/things, atom/thing_loc, list/rejections, datum/progressbar/progress)
+TYPE_PROC_REF(/datum/component/storage, handle_mass_pickup)(list/things, atom/thing_loc, list/rejections, datum/progressbar/progress)
 	var/atom/real_location = real_location()
 	for(var/obj/item/I in things)
 		things -= I
@@ -270,7 +270,7 @@
 	progress.update(progress.goal - things.len)
 	return FALSE
 
-/datum/component/storage/proc/quick_empty(mob/M)
+TYPE_PROC_REF(/datum/component/storage, quick_empty)(mob/M)
 	var/atom/A = parent
 	if(!M.canUseStorage() || !A.Adjacent(M) || M.incapacitated())
 		return
@@ -286,7 +286,7 @@
 	qdel(progress)
 	A.do_squish(0.8, 1.2)
 
-/datum/component/storage/proc/mass_remove_from_storage(atom/target, list/things, datum/progressbar/progress, trigger_on_found = TRUE)
+TYPE_PROC_REF(/datum/component/storage, mass_remove_from_storage)(atom/target, list/things, datum/progressbar/progress, trigger_on_found = TRUE)
 	var/atom/real_location = real_location()
 	for(var/obj/item/I in things)
 		things -= I
@@ -301,7 +301,7 @@
 	progress.update(progress.goal - length(things))
 	return FALSE
 
-/datum/component/storage/proc/do_quick_empty(atom/_target)
+TYPE_PROC_REF(/datum/component/storage, do_quick_empty)(atom/_target)
 	if(!_target)
 		_target = get_turf(parent)
 	if(usr)
@@ -314,33 +314,33 @@
 		remove_from_storage(I, _target)
 	return TRUE
 
-/datum/component/storage/proc/set_locked(datum/source, new_state)
+TYPE_PROC_REF(/datum/component/storage, set_locked)(datum/source, new_state)
 	locked = new_state
 	if(check_locked())
 		close_all()
 
-/datum/component/storage/proc/close(mob/M)
+TYPE_PROC_REF(/datum/component/storage, close)(mob/M)
 	ui_hide(M)
 
-/datum/component/storage/proc/close_all()
+TYPE_PROC_REF(/datum/component/storage, close_all)()
 	. = FALSE
 	for(var/mob/M in can_see_contents())
 		close(M)
 		. = TRUE //returns TRUE if any mobs actually got a close(M) call
 
-/datum/component/storage/proc/check_views()
+TYPE_PROC_REF(/datum/component/storage, check_views)()
 	for(var/mob/M in can_see_contents())
 		if(!isobserver(M) && !M.can_reach(parent, STORAGE_VIEW_DEPTH))
 			close(M)
 
-/datum/component/storage/proc/emp_act(datum/source, severity)
+TYPE_PROC_REF(/datum/component/storage, emp_act)(datum/source, severity)
 	if(emp_shielded)
 		return
 	var/datum/component/storage/concrete/master = master()
 	master.emp_act(source, severity)
 
 //Resets something that is being removed from storage.
-/datum/component/storage/proc/_removal_reset(atom/movable/thing)
+TYPE_PROC_REF(/datum/component/storage, _removal_reset)(atom/movable/thing)
 	if(!istype(thing))
 		return FALSE
 	var/datum/component/storage/concrete/master = master()
@@ -348,7 +348,7 @@
 		return FALSE
 	return master._removal_reset(thing)
 
-/datum/component/storage/proc/_remove_and_refresh(datum/source, atom/movable/thing)
+TYPE_PROC_REF(/datum/component/storage, _remove_and_refresh)(datum/source, atom/movable/thing)
 	if(LAZYACCESS(ui_item_blocks, thing))
 		var/obj/screen/storage/volumetric_box/center/C = ui_item_blocks[thing]
 		for(var/i in can_see_contents())		//runtimes result if mobs can access post deletion.
@@ -360,7 +360,7 @@
 	refresh_mob_views()
 
 //Call this proc to handle the removal of an item from the storage item. The item will be moved to the new_location target, if that is null it's being deleted
-/datum/component/storage/proc/remove_from_storage(atom/movable/AM, atom/new_location)
+TYPE_PROC_REF(/datum/component/storage, remove_from_storage)(atom/movable/AM, atom/new_location)
 	if(!istype(AM))
 		return FALSE
 	if(HAS_TRAIT(AM, TRAIT_NO_STORAGE_REMOVE))
@@ -370,13 +370,13 @@
 		return FALSE
 	return master.remove_from_storage(AM, new_location)
 
-/datum/component/storage/proc/refresh_mob_views()
+TYPE_PROC_REF(/datum/component/storage, refresh_mob_views)()
 	var/list/seeing = can_see_contents()
 	for(var/i in seeing)
 		ui_show(i)
 	return TRUE
 
-/datum/component/storage/proc/can_see_contents()
+TYPE_PROC_REF(/datum/component/storage, can_see_contents)()
 	var/list/cansee = list()
 	for(var/mob/M in is_using)
 		if(M.active_storage == src && M.client)
@@ -386,7 +386,7 @@
 	return cansee
 
 //Tries to dump content
-/datum/component/storage/proc/dump_content_at(atom/dest_object, mob/M)
+TYPE_PROC_REF(/datum/component/storage, dump_content_at)(atom/dest_object, mob/M)
 	var/atom/A = parent
 	var/atom/dump_destination = dest_object.get_dumping_location()
 	if(A.Adjacent(M) && dump_destination && M.Adjacent(dump_destination))
@@ -399,7 +399,7 @@
 	return FALSE
 
 //This proc is called when you want to place an item into the storage item.
-/datum/component/storage/proc/attackby(datum/source, obj/item/I, mob/M, params)
+TYPE_PROC_REF(/datum/component/storage, attackby)(datum/source, obj/item/I, mob/M, params)
 	if(istype(I, /obj/item/hand_labeler))
 		var/obj/item/hand_labeler/labeler = I
 		if(labeler.mode)
@@ -416,7 +416,7 @@
 	var/atom/A = parent
 	A.do_squish()
 
-/datum/component/storage/proc/return_inv(recursive)
+TYPE_PROC_REF(/datum/component/storage, return_inv)(recursive)
 	var/list/ret = list()
 	ret |= contents()
 	if(recursive)
@@ -425,18 +425,18 @@
 			SEND_SIGNAL(A, COMSIG_TRY_STORAGE_RETURN_INVENTORY, ret, TRUE)
 	return ret
 
-/datum/component/storage/proc/contents()			//ONLY USE IF YOU NEED TO COPY CONTENTS OF REAL LOCATION, COPYING IS NOT AS FAST AS DIRECT ACCESS!
+TYPE_PROC_REF(/datum/component/storage, contents)()			//ONLY USE IF YOU NEED TO COPY CONTENTS OF REAL LOCATION, COPYING IS NOT AS FAST AS DIRECT ACCESS!
 	var/atom/real_location = real_location()
 	return real_location.contents.Copy()
 
 //Abuses the fact that lists are just references, or something like that.
-/datum/component/storage/proc/signal_return_inv(datum/source, list/interface, recursive = TRUE)
+TYPE_PROC_REF(/datum/component/storage, signal_return_inv)(datum/source, list/interface, recursive = TRUE)
 	if(!islist(interface))
 		return FALSE
 	interface |= return_inv(recursive)
 	return TRUE
 
-/datum/component/storage/proc/mousedrop_onto(datum/source, atom/over_object, mob/M)
+TYPE_PROC_REF(/datum/component/storage, mousedrop_onto)(datum/source, atom/over_object, mob/M)
 	set waitfor = FALSE
 	. = COMPONENT_NO_MOUSEDROP
 	var/atom/A = parent
@@ -463,7 +463,7 @@
 				return
 			A.add_fingerprint(M)
 
-/datum/component/storage/proc/user_show_to_mob(mob/M, force = FALSE, ghost = FALSE)
+TYPE_PROC_REF(/datum/component/storage, user_show_to_mob)(mob/M, force = FALSE, ghost = FALSE)
 	var/atom/A = parent
 	if(!istype(M))
 		return FALSE
@@ -472,7 +472,7 @@
 		return FALSE
 	ui_show(M, !ghost)
 
-/datum/component/storage/proc/mousedrop_receive(datum/source, atom/movable/O, mob/M)
+TYPE_PROC_REF(/datum/component/storage, mousedrop_receive)(datum/source, atom/movable/O, mob/M)
 	if(isitem(O))
 		var/obj/item/I = O
 		if(iscarbon(M) || isdrone(M))
@@ -485,7 +485,7 @@
 
 //This proc return 1 if the item can be picked up and 0 if it can't.
 //Set the stop_messages to stop it from printing messages
-/datum/component/storage/proc/can_be_inserted(obj/item/I, stop_messages = FALSE, mob/M)
+TYPE_PROC_REF(/datum/component/storage, can_be_inserted)(obj/item/I, stop_messages = FALSE, mob/M)
 	if(!istype(I) || (I.item_flags & ABSTRACT))
 		return FALSE //Not an item
 	if(I == parent)
@@ -554,7 +554,7 @@
 	return master.slave_can_insert_object(src, I, stop_messages, M)
 
 /// Has our quota been met?
-/datum/component/storage/proc/check_quota(obj/item/I)
+TYPE_PROC_REF(/datum/component/storage, check_quota)(obj/item/I)
 	if(!LAZYLEN(quota))
 		return
 	var/atom/real_location = real_location()
@@ -571,13 +571,13 @@
 					return "[quota[i]] [I]\s"
 				tally[i]++
 
-/datum/component/storage/proc/_insert_physical_item(obj/item/I, override = FALSE)
+TYPE_PROC_REF(/datum/component/storage, _insert_physical_item)(obj/item/I, override = FALSE)
 	return FALSE
 
 //This proc handles items being inserted. It does not perform any checks of whether an item can or can't be inserted. That's done by can_be_inserted()
 //The stop_warning parameter will stop the insertion message from being displayed. It is intended for cases where you are inserting multiple items at once,
 //such as when picking up all the items on a tile with one click.
-/datum/component/storage/proc/handle_item_insertion(obj/item/I, prevent_warning = FALSE, mob/M, datum/component/storage/remote)
+TYPE_PROC_REF(/datum/component/storage, handle_item_insertion)(obj/item/I, prevent_warning = FALSE, mob/M, datum/component/storage/remote)
 	var/atom/parent = src.parent
 	var/datum/component/storage/concrete/master = master()
 	if(!istype(master))
@@ -588,7 +588,7 @@
 		parent.add_fingerprint(M)
 	. = master.handle_item_insertion_from_slave(src, I, prevent_warning, M)
 
-/datum/component/storage/proc/mob_item_insertion_feedback(mob/user, mob/M, obj/item/I, override = FALSE)
+TYPE_PROC_REF(/datum/component/storage, mob_item_insertion_feedback)(mob/user, mob/M, obj/item/I, override = FALSE)
 	if(silent && !override)
 		return
 	if(rustle_sound)
@@ -600,34 +600,34 @@
 		else if(I && I.w_class >= 3) //Otherwise they can only see large or normal items from a distance...
 			viewing.show_message(span_notice("[M] puts [I] [insert_preposition]to [parent]."), MSG_VISUAL)
 
-/datum/component/storage/proc/update_icon()
+TYPE_PROC_REF(/datum/component/storage, update_icon)()
 	if(isobj(parent))
 		var/obj/O = parent
 		O.update_icon()
 
-/datum/component/storage/proc/signal_insertion_attempt(datum/source, obj/item/I, mob/M, silent = FALSE, force = FALSE)
+TYPE_PROC_REF(/datum/component/storage, signal_insertion_attempt)(datum/source, obj/item/I, mob/M, silent = FALSE, force = FALSE)
 	if((!force && !can_be_inserted(I, TRUE, M)) || (I == parent))
 		return FALSE
 	return handle_item_insertion(I, silent, M)
 
-/datum/component/storage/proc/signal_can_insert(datum/source, obj/item/I, mob/M, silent = FALSE)
+TYPE_PROC_REF(/datum/component/storage, signal_can_insert)(datum/source, obj/item/I, mob/M, silent = FALSE)
 	return can_be_inserted(I, silent, M)
 
-/datum/component/storage/proc/show_to_ghost(datum/source, mob/dead/observer/M)
+TYPE_PROC_REF(/datum/component/storage, show_to_ghost)(datum/source, mob/dead/observer/M)
 	return user_show_to_mob(M, TRUE, TRUE)
 
-/datum/component/storage/proc/signal_show_attempt(datum/source, mob/showto, force = FALSE)
+TYPE_PROC_REF(/datum/component/storage, signal_show_attempt)(datum/source, mob/showto, force = FALSE)
 	return user_show_to_mob(showto, force)
 
-/datum/component/storage/proc/on_check()
+TYPE_PROC_REF(/datum/component/storage, on_check)()
 	return TRUE
 
-/datum/component/storage/proc/check_locked(datum/source, mob/user, message = FALSE)
+TYPE_PROC_REF(/datum/component/storage, check_locked)(datum/source, mob/user, message = FALSE)
 	. = locked
 	if(message && . && user)
 		to_chat(user, span_warning("[parent] seems to be locked!"))
 
-/datum/component/storage/proc/signal_take_type(datum/source, type, atom/destination, amount = INFINITY, check_adjacent = FALSE, force = FALSE, mob/user, list/inserted)
+TYPE_PROC_REF(/datum/component/storage, signal_take_type)(datum/source, type, atom/destination, amount = INFINITY, check_adjacent = FALSE, force = FALSE, mob/user, list/inserted)
 	if(!force)
 		if(check_adjacent)
 			if(!user || !user.can_reach(destination) || !user.can_reach(parent))
@@ -644,11 +644,11 @@
 			remove_from_storage(i, destination)
 	return TRUE
 
-/datum/component/storage/proc/remaining_space_items()
+TYPE_PROC_REF(/datum/component/storage, remaining_space_items)()
 	var/atom/real_location = real_location()
 	return max(0, max_items - real_location.contents.len)
 
-/datum/component/storage/proc/signal_fill_type(datum/source, type, amount = 20, force = FALSE)
+TYPE_PROC_REF(/datum/component/storage, signal_fill_type)(datum/source, type, amount = 20, force = FALSE)
 	SIGNAL_HANDLER
 
 	var/atom/real_location = real_location()
@@ -661,7 +661,7 @@
 			return TRUE
 	return TRUE
 
-/datum/component/storage/proc/on_attack_hand(datum/source, mob/user)
+TYPE_PROC_REF(/datum/component/storage, on_attack_hand)(datum/source, mob/user)
 	var/atom/A = parent
 	if(!attack_hand_interact)
 		return
@@ -685,27 +685,27 @@
 			ui_show(user)
 			A.do_jiggle()
 
-/datum/component/storage/proc/signal_on_pickup(datum/source, mob/user)
+TYPE_PROC_REF(/datum/component/storage, signal_on_pickup)(datum/source, mob/user)
 	var/atom/A = parent
 	update_actions()
 	for(var/mob/M in range(1, A))
 		if(M.active_storage == src)
 			close(M)
 
-/datum/component/storage/proc/signal_take_obj(datum/source, atom/movable/AM, new_loc, force = FALSE)
+TYPE_PROC_REF(/datum/component/storage, signal_take_obj)(datum/source, atom/movable/AM, new_loc, force = FALSE)
 	if(!(AM in real_location()))
 		return FALSE
 	if(HAS_TRAIT(AM, TRAIT_NO_STORAGE_REMOVE))
 		return NO_REMOVE_FROM_STORAGE
 	return remove_from_storage(AM, new_loc)
 
-/datum/component/storage/proc/signal_quick_empty(datum/source, atom/loctarget)
+TYPE_PROC_REF(/datum/component/storage, signal_quick_empty)(datum/source, atom/loctarget)
 	return do_quick_empty(loctarget)
 
-/datum/component/storage/proc/signal_hide_attempt(datum/source, mob/target)
+TYPE_PROC_REF(/datum/component/storage, signal_hide_attempt)(datum/source, mob/target)
 	return ui_hide(target)
 
-/datum/component/storage/proc/on_alt_click(datum/source, mob/user)
+TYPE_PROC_REF(/datum/component/storage, on_alt_click)(datum/source, mob/user)
 	if(!isliving(user) || !user.can_reach(parent))
 		return
 	if(check_locked(source, user, TRUE))
@@ -734,11 +734,11 @@
 		user.visible_message(span_warning("[user] draws [I] from [parent]!"), span_notice("You draw [I] from [parent]."))
 		return TRUE
 
-/datum/component/storage/proc/action_trigger(datum/action/source, obj/target)
+TYPE_PROC_REF(/datum/component/storage, action_trigger)(datum/action/source, obj/target)
 	gather_mode_switch(source.owner)
 	return COMPONENT_ACTION_BLOCK_TRIGGER
 
-/datum/component/storage/proc/gather_mode_switch(mob/user)
+TYPE_PROC_REF(/datum/component/storage, gather_mode_switch)(mob/user)
 	collection_mode = (collection_mode+1)%3
 	switch(collection_mode)
 		if(COLLECT_SAME)
@@ -751,5 +751,5 @@
 /**
  * Gets our max volume
  */
-/datum/component/storage/proc/get_max_volume()
+TYPE_PROC_REF(/datum/component/storage, get_max_volume)()
 	return max_volume || AUTO_SCALE_STORAGE_VOLUME(max_w_class, max_combined_w_class)

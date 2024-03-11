@@ -8,7 +8,7 @@
 	var/list/gland_colors
 	var/list/amounts
 
-/obj/machinery/abductor/gland_dispenser/proc/random_color()
+TYPE_PROC_REF(/obj/machinery/abductor/gland_dispenser, random_color)()
 	//TODO : replace with presets or spectrum
 	return rgb(rand(0,255),rand(0,255),rand(0,255))
 
@@ -71,7 +71,7 @@
 	else
 		return ..()
 
-/obj/machinery/abductor/gland_dispenser/proc/Dispense(count)
+TYPE_PROC_REF(/obj/machinery/abductor/gland_dispenser, Dispense)(count)
 	if(amounts[count]>0)
 		amounts[count]--
 		var/T = gland_types[count]

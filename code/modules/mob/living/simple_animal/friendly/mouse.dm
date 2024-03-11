@@ -40,7 +40,7 @@
 	icon_living = "mouse_[body_color]"
 	icon_dead = "mouse_[body_color]_dead"
 
-/mob/living/simple_animal/mouse/proc/splat()
+TYPE_PROC_REF(/mob/living/simple_animal/mouse, splat)()
 	src.health = 0
 	src.icon_dead = "mouse_[body_color]_splat"
 	death()
@@ -102,7 +102,7 @@
  *Checks the mouse cap, if it's above the cap, doesn't spawn a mouse. If below, spawns a mouse and adds it to cheeserats.
  */
 
-/mob/living/simple_animal/mouse/proc/be_fruitful()
+TYPE_PROC_REF(/mob/living/simple_animal/mouse, be_fruitful)()
 	var/cap = CONFIG_GET(number/ratcap)
 	if(LAZYLEN(SSmobs.cheeserats) >= cap)
 		visible_message(span_warning("[src] carefully eats the cheese, hiding it from the [cap] mice on the station!"))
@@ -114,7 +114,7 @@
 /**
  *Spawns a new regal rat, says some good jazz, and if sentient, transfers the relivant mind.
  */
-/mob/living/simple_animal/mouse/proc/evolve()
+TYPE_PROC_REF(/mob/living/simple_animal/mouse, evolve)()
 	var/mob/living/simple_animal/hostile/regalrat = new /mob/living/simple_animal/hostile/regalrat(loc)
 	visible_message(span_warning("[src] devours the cheese! He morphs into something... greater!"))
 	regalrat.say("RISE, MY SUBJECTS! SCREEEEEEE!")

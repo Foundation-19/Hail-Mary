@@ -6,7 +6,7 @@ If ever any of these procs are useful for non-shuttles, rename it to proc/rotate
 
 /************************************Base proc************************************/
 
-/atom/proc/shuttleRotate(rotation, params=ROTATE_DIR|ROTATE_SMOOTH|ROTATE_OFFSET)
+TYPE_PROC_REF(/atom, shuttleRotate)(rotation, params=ROTATE_DIR|ROTATE_SMOOTH|ROTATE_OFFSET)
 	if(params & ROTATE_DIR)
 		//rotate our direction
 		setDir(angle2dir(rotation+dir2angle(dir)))

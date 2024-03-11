@@ -14,7 +14,7 @@
 /obj/machinery/mass_driver/connect_to_shuttle(obj/docking_port/mobile/port, obj/docking_port/stationary/dock, idnum, override=FALSE)
 	id = "[idnum][id]"
 
-/obj/machinery/mass_driver/proc/drive(amount)
+TYPE_PROC_REF(/obj/machinery/mass_driver, drive)(amount)
 	if(stat & (BROKEN|NOPOWER))
 		return
 	use_power(500)
@@ -51,7 +51,7 @@
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
-/obj/machinery/mass_driver/pressure_plate/proc/on_entered(datum/source, atom/movable/AM)
+TYPE_PROC_REF(/obj/machinery/mass_driver/pressure_plate, on_entered)(datum/source, atom/movable/AM)
 	SIGNAL_HANDLER
 
 	if(isliving(AM))

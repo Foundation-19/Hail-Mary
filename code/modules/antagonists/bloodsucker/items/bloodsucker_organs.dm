@@ -1,6 +1,6 @@
 
 
-/datum/antagonist/bloodsucker/proc/CheckVampOrgans()
+TYPE_PROC_REF(/datum/antagonist/bloodsucker, CheckVampOrgans)()
 	// Do I have any parts that need replacing?
 	var/obj/item/organ/O
 	// Heart
@@ -18,7 +18,7 @@
 		var/obj/item/organ/eyes/vassal/bloodsucker/E = new
 		E.Insert(owner.current)
 
-/datum/antagonist/bloodsucker/proc/RemoveVampOrgans()
+TYPE_PROC_REF(/datum/antagonist/bloodsucker, RemoveVampOrgans)()
 	// Heart
 	var/obj/item/organ/heart/H = new
 	H.Insert(owner.current)
@@ -39,7 +39,7 @@
 	fakingit = 0
 	return ..()
 
-/obj/item/organ/heart/vampheart/proc/FakeStart()
+TYPE_PROC_REF(/obj/item/organ/heart/vampheart, FakeStart)()
 	fakingit = 1 // We're pretending to beat, to fool people.
 
 /obj/item/organ/heart/vampheart/HeartStrengthMessage()

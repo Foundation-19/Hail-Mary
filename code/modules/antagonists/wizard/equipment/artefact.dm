@@ -113,7 +113,7 @@
 			C.gain_trauma(lore)
 		addtimer(CALLBACK(src, /obj/singularity/wizard.proc/deranged, C), 100)
 
-/obj/singularity/wizard/proc/deranged(mob/living/carbon/C)
+TYPE_PROC_REF(/obj/singularity/wizard, deranged)(mob/living/carbon/C)
 	if(!C || C.stat == DEAD)
 		return
 	C.vomit(0, TRUE, TRUE, 3, TRUE)
@@ -199,7 +199,7 @@
 
 	desc = "A shard capable of resurrecting humans as skeleton thralls[unlimited ? "." : ", [spooky_scaries.len]/3 active thralls."]"
 
-/obj/item/necromantic_stone/proc/check_spooky()
+TYPE_PROC_REF(/obj/item/necromantic_stone, check_spooky)()
 	if(unlimited) //no point, the list isn't used.
 		return
 
@@ -215,7 +215,7 @@
 	listclearnulls(spooky_scaries)
 
 //Funny gimmick, skeletons always seem to wear roman/ancient armour
-/obj/item/necromantic_stone/proc/equip_roman_skeleton(mob/living/carbon/human/H)
+TYPE_PROC_REF(/obj/item/necromantic_stone, equip_roman_skeleton)(mob/living/carbon/human/H)
 	for(var/obj/item/I in H)
 		H.dropItemToGround(I)
 
@@ -314,7 +314,7 @@
 				GiveHint(target,user)
 		cooldown = world.time + cooldown_time
 
-/obj/item/voodoo/proc/update_targets()
+TYPE_PROC_REF(/obj/item/voodoo, update_targets)()
 	possible = null
 	if(!voodoo_link)
 		return
@@ -322,7 +322,7 @@
 		if(md5(H.dna.uni_identity) in voodoo_link.fingerprints)
 			LAZYOR(possible, H)
 
-/obj/item/voodoo/proc/GiveHint(mob/victim,force=0)
+TYPE_PROC_REF(/obj/item/voodoo, GiveHint)(mob/victim,force=0)
 	if(prob(50) || force)
 		var/way = dir2text(get_dir(victim,get_turf(src)))
 		to_chat(victim, span_notice("You feel a dark presence from [way]"))
@@ -359,13 +359,13 @@
 	var/on_cooldown = 0 //0: usable, 1: in use, 2: on cooldown
 	var/mob/living/carbon/last_user
 
-/obj/item/warpwhistle/proc/interrupted(mob/living/carbon/user)
+TYPE_PROC_REF(/obj/item/warpwhistle, interrupted)(mob/living/carbon/user)
 	if(!user || QDELETED(src) || user.mob_transforming)
 		on_cooldown = FALSE
 		return TRUE
 	return FALSE
 
-/obj/item/warpwhistle/proc/end_effect(mob/living/carbon/user)
+TYPE_PROC_REF(/obj/item/warpwhistle, end_effect)(mob/living/carbon/user)
 	user.invisibility = initial(user.invisibility)
 	user.status_flags &= ~GODMODE
 	REMOVE_TRAIT(user, TRAIT_MOBILITY_NOMOVE, src)

@@ -46,10 +46,10 @@
 	RegisterSignal(src, COMSIG_TWOHANDED_WIELD, PROC_REF(on_wield))
 	RegisterSignal(src, COMSIG_TWOHANDED_UNWIELD, PROC_REF(on_unwield))
 
-/obj/item/melee/smith/twohand/proc/on_wield(obj/item/source, mob/user)
+TYPE_PROC_REF(/obj/item/melee/smith/twohand, on_wield)(obj/item/source, mob/user)
 	wielded = TRUE
 
-/obj/item/melee/smith/twohand/proc/on_unwield(obj/item/source, mob/user)
+TYPE_PROC_REF(/obj/item/melee/smith/twohand, on_unwield)(obj/item/source, mob/user)
 	wielded = FALSE
 
 /obj/item/melee/smith/twohand/update_icon_state()

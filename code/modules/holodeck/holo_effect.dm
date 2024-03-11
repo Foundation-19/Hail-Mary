@@ -9,18 +9,18 @@
 	icon_state = "x2"
 	invisibility = INVISIBILITY_ABSTRACT
 
-/obj/effect/holodeck_effect/proc/activate(obj/machinery/computer/holodeck/HC)
+TYPE_PROC_REF(/obj/effect/holodeck_effect, activate)(obj/machinery/computer/holodeck/HC)
 	return
 
-/obj/effect/holodeck_effect/proc/deactivate(obj/machinery/computer/holodeck/HC)
+TYPE_PROC_REF(/obj/effect/holodeck_effect, deactivate)(obj/machinery/computer/holodeck/HC)
 	qdel(src)
 	return
 
 // Called by the holodeck computer as long as the program is running
-/obj/effect/holodeck_effect/proc/tick(obj/machinery/computer/holodeck/HC)
+TYPE_PROC_REF(/obj/effect/holodeck_effect, tick)(obj/machinery/computer/holodeck/HC)
 	return
 
-/obj/effect/holodeck_effect/proc/safety(active)
+TYPE_PROC_REF(/obj/effect/holodeck_effect, safety)(active)
 	return
 
 

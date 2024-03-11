@@ -8,7 +8,7 @@
 	name = "The Rising Bass"
 	id = MARTIALART_RISINGBASS
 	allow_temp_override = FALSE
-	help_verb = /mob/living/carbon/human/proc/rising_bass_help
+	help_verb = TYPE_PROC_REF(/mob/living/carbon/human, rising_bass_help)
 	pugilist = TRUE
 	var/datum/action/risingbassmove/sidekick = new/datum/action/risingbassmove/sidekick()
 	var/datum/action/risingbassmove/deftswitch = new/datum/action/risingbassmove/deftswitch()
@@ -16,7 +16,7 @@
 	var/physdammod = 0.7
 	var/stamdammod = 0.28
 
-/datum/martial_art/the_rising_bass/proc/check_streak(mob/living/carbon/human/A, mob/living/carbon/human/D)
+TYPE_PROC_REF(/datum/martial_art/the_rising_bass, check_streak)(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	if(findtext(streak,SIDE_KICK_COMBO))
 		streak = ""
 		sideKick(A,D)
@@ -71,7 +71,7 @@
 	button_icon_state = "deftswitch"
 	movestreak = "deft"
 
-/datum/martial_art/the_rising_bass/proc/checkfordensity(turf/target, mob/mover)
+TYPE_PROC_REF(/datum/martial_art/the_rising_bass, checkfordensity)(turf/target, mob/mover)
 	if (target.density)
 		return FALSE
 	var/border_dir = get_dir(target, mover)
@@ -81,7 +81,7 @@
 	return TRUE
 
 
-/datum/martial_art/the_rising_bass/proc/sideKick(mob/living/carbon/human/A, mob/living/carbon/human/D)
+TYPE_PROC_REF(/datum/martial_art/the_rising_bass, sideKick)(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	var/damage = (damage_roll(A,D)*0.5)
 	if(CHECK_MOBILITY(D, MOBILITY_STAND))
 		var/dir = A.dir & (NORTH | SOUTH) ? pick(EAST, WEST) : pick(NORTH, SOUTH)
@@ -100,7 +100,7 @@
 		return TRUE
 	return TRUE
 
-/datum/martial_art/the_rising_bass/proc/shoulderFlip(mob/living/carbon/human/A, mob/living/carbon/human/D)
+TYPE_PROC_REF(/datum/martial_art/the_rising_bass, shoulderFlip)(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	var/damage = damage_roll(A,D)
 	var/stunthreshold = A.dna.species.punchstunthreshold
 	var/turf/H = get_step(A, get_dir(D,A))
@@ -120,7 +120,7 @@
 	return TRUE
 
 //Repulse Punch - Slams the opponent far away from you.
-/datum/martial_art/the_rising_bass/proc/repulsePunch(mob/living/carbon/human/A, mob/living/carbon/human/D)
+TYPE_PROC_REF(/datum/martial_art/the_rising_bass, repulsePunch)(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	var/damage = damage_roll(A,D)
 	if(CHECK_MOBILITY(D, MOBILITY_STAND) && repulsecool < world.time)
 		A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
@@ -137,7 +137,7 @@
 		return TRUE
 	return FALSE
 
-/datum/martial_art/the_rising_bass/proc/footSmash(mob/living/carbon/human/A, mob/living/carbon/human/D)
+TYPE_PROC_REF(/datum/martial_art/the_rising_bass, footSmash)(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	var/damage = (damage_roll(A,D)*0.5)
 	if(CHECK_MOBILITY(D, MOBILITY_STAND))
 		A.do_attack_animation(D, ATTACK_EFFECT_KICK)
@@ -150,7 +150,7 @@
 		return TRUE
 	return FALSE
 
-/datum/martial_art/the_rising_bass/proc/deftSwitch(mob/living/carbon/human/A, mob/living/carbon/human/D)
+TYPE_PROC_REF(/datum/martial_art/the_rising_bass, deftSwitch)(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	if(CHECK_MOBILITY(D, MOBILITY_STAND))
 		if (D.get_active_held_item())
 			var/obj/item/G = D.get_active_held_item()
@@ -220,7 +220,7 @@
 	A.adjustStaminaLossBuffered(totalStamDam) //Changed it so the autododge takes more stamina than carp. -Farmwizard
 	return BULLET_ACT_FORCE_PIERCE
 
-/mob/living/carbon/human/proc/rising_bass_help()
+TYPE_PROC_REF(/mob/living/carbon/human, rising_bass_help)()
 	set name = "Recall Teachings"
 	set desc = "Remember the martial techniques of the Rising Bass clan."
 	set category = "Rising Bass"

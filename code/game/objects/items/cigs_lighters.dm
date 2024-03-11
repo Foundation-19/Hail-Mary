@@ -40,7 +40,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 /obj/item/match/fire_act(exposed_temperature, exposed_volume)
 	matchignite()
 
-/obj/item/match/proc/matchignite()
+TYPE_PROC_REF(/obj/item/match, matchignite)()
 	if(!lit && !burnt)
 		lit = TRUE
 		icon_state = "match_lit"
@@ -54,7 +54,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 		START_PROCESSING(SSobj, src)
 		update_icon()
 
-/obj/item/match/proc/matchburnout()
+TYPE_PROC_REF(/obj/item/match, matchburnout)()
 	if(lit)
 		lit = FALSE
 		burnt = TRUE
@@ -88,7 +88,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	else
 		..()
 
-/obj/item/proc/help_light_cig(mob/living/M)
+TYPE_PROC_REF(/obj/item, help_light_cig)(mob/living/M)
 	var/mask_item = M.get_item_by_slot(SLOT_WEAR_MASK)
 	if(istype(mask_item, /obj/item/clothing/mask/cigarette))
 		return mask_item
@@ -157,7 +157,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 			else
 				to_chat(user, span_notice("[src] is full."))
 
-/obj/item/clothing/mask/cigarette/proc/light(flavor_text = null)
+TYPE_PROC_REF(/obj/item/clothing/mask/cigarette, light)(flavor_text = null)
 	if(lit)
 		return
 	if(!(flags_1 & INITIALIZED_1))
@@ -200,7 +200,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 		M.update_inv_hands()
 
 
-/obj/item/clothing/mask/cigarette/proc/handle_reagents()
+TYPE_PROC_REF(/obj/item/clothing/mask/cigarette, handle_reagents)()
 	if(reagents.total_volume)
 		if(iscarbon(loc))
 			var/mob/living/carbon/C = loc
@@ -565,7 +565,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	if(get_temperature())
 		. = span_rose("With a single flick of [user.p_their()] wrist, [user] smoothly lights [A] with [src]. Damn [user.p_theyre()] cool.")
 
-/obj/item/lighter/proc/set_lit(new_lit)
+TYPE_PROC_REF(/obj/item/lighter, set_lit)(new_lit)
 	lit = new_lit
 	if(lit)
 		force = 5
@@ -933,7 +933,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 		ENABLE_BITFIELD(reagents.reagents_holder_flags, NO_REACT)
 		STOP_PROCESSING(SSobj, src)
 
-/obj/item/clothing/mask/vape/proc/hand_reagents()//had to rename to avoid duplicate error
+TYPE_PROC_REF(/obj/item/clothing/mask/vape, hand_reagents)()//had to rename to avoid duplicate error
 	if(reagents.total_volume)
 		if(iscarbon(loc))
 			var/mob/living/carbon/C = loc
@@ -1185,11 +1185,11 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 		bongturnoff()
 
 
-/obj/item/bong/proc/bongturnon()
+TYPE_PROC_REF(/obj/item/bong, bongturnon)()
 	icon_state = icon_on
 	set_light_on(TRUE)
 
-/obj/item/bong/proc/bongturnoff()
+TYPE_PROC_REF(/obj/item/bong, bongturnoff)()
 	icon_state = icon_off
 	set_light_on(FALSE)
 

@@ -32,19 +32,19 @@
 
 // Checks to see if it can send/receive.
 
-/obj/machinery/telecomms/relay/proc/can(datum/signal/signal)
+TYPE_PROC_REF(/obj/machinery/telecomms/relay, can)(datum/signal/signal)
 	if(!on)
 		return FALSE
 	if(!is_freq_listening(signal))
 		return FALSE
 	return TRUE
 
-/obj/machinery/telecomms/relay/proc/can_send(datum/signal/signal)
+TYPE_PROC_REF(/obj/machinery/telecomms/relay, can_send)(datum/signal/signal)
 	if(!can(signal))
 		return FALSE
 	return broadcasting
 
-/obj/machinery/telecomms/relay/proc/can_receive(datum/signal/signal)
+TYPE_PROC_REF(/obj/machinery/telecomms/relay, can_receive)(datum/signal/signal)
 	if(!can(signal))
 		return FALSE
 	return receiving

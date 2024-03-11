@@ -1,9 +1,9 @@
-/datum/admins/proc/create_panel_helper(template)
+TYPE_PROC_REF(/datum/admins, create_panel_helper)(template)
 	var/final_html = replacetext(template, "/* ref src */", "[REF(src)];[HrefToken()]")
 	final_html = replacetext(final_html,"/* hreftokenfield */","[HrefTokenFormField()]")
 	return final_html
 
-/datum/admins/proc/create_object(mob/user)
+TYPE_PROC_REF(/datum/admins, create_object)(mob/user)
 	var/static/create_object_html = null
 	if (!create_object_html)
 		var/objectjs = null
@@ -13,7 +13,7 @@
 
 	user << browse(create_panel_helper(create_object_html), "window=create_object;size=425x475")
 
-/datum/admins/proc/quick_create_object(mob/user)
+TYPE_PROC_REF(/datum/admins, quick_create_object)(mob/user)
 	var/static/list/create_object_forms = list(
 	/obj, /obj/structure, /obj/machinery, /obj/effect,
 	/obj/item, /obj/item/clothing, /obj/item/stack, /obj/item,

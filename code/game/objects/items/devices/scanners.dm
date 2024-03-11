@@ -50,7 +50,7 @@ GENETICS SCANNER
 		return null
 	scan()
 
-/obj/item/t_scanner/proc/scan()
+TYPE_PROC_REF(/obj/item/t_scanner, scan)()
 	t_ray_scan(loc)
 
 /proc/t_ray_scan(mob/viewer, flick_time = 8, distance = 3)
@@ -716,16 +716,16 @@ GENETICS SCANNER
 			else
 				to_chat(user, span_warning("[src]'s barometer function says a storm will land in approximately [butchertime(fixed)]."))
 		cooldown = TRUE
-		addtimer(CALLBACK(src,/obj/item/analyzer/proc/ping), cooldown_time)
+		addtimer(CALLBACK(src,TYPE_PROC_REF(/obj/item/analyzer, ping)), cooldown_time)
 
-/obj/item/analyzer/proc/ping()
+TYPE_PROC_REF(/obj/item/analyzer, ping)()
 	if(isliving(loc))
 		var/mob/living/L = loc
 		to_chat(L, span_notice("[src]'s barometer function is ready!"))
 	playsound(src, 'sound/machines/click.ogg', 100)
 	cooldown = FALSE
 
-/obj/item/analyzer/proc/butchertime(amount)
+TYPE_PROC_REF(/obj/item/analyzer, butchertime)(amount)
 	if(!amount)
 		return
 	if(accuracy)
@@ -778,7 +778,7 @@ GENETICS SCANNER
 			to_chat(user, span_notice("Instability of the last fusion reaction: [instability]\n This indicates it was [tier]"))
 	return
 
-/obj/item/analyzer/proc/scan_turf(mob/user, turf/location)
+TYPE_PROC_REF(/obj/item/analyzer, scan_turf)(mob/user, turf/location)
 
 	var/datum/gas_mixture/environment = location.return_air()
 
@@ -980,7 +980,7 @@ GENETICS SCANNER
 		else
 			to_chat(user,span_warning("No database to update from."))
 
-/obj/item/sequence_scanner/proc/gene_scan(mob/living/carbon/C, mob/living/user)
+TYPE_PROC_REF(/obj/item/sequence_scanner, gene_scan)(mob/living/carbon/C, mob/living/user)
 	if(!iscarbon(C) || !C.has_dna())
 		return
 	buffer = C.dna.mutation_index
@@ -990,7 +990,7 @@ GENETICS SCANNER
 			to_chat(user, span_notice("[get_display_name(A)]"))
 
 
-/obj/item/sequence_scanner/proc/display_sequence(mob/living/user)
+TYPE_PROC_REF(/obj/item/sequence_scanner, display_sequence)(mob/living/user)
 	if(!LAZYLEN(buffer) || !ready)
 		return
 	var/list/options = list()
@@ -1018,11 +1018,11 @@ GENETICS SCANNER
 		icon_state = "[icon_state]_recharging"
 		addtimer(CALLBACK(src, PROC_REF(recharge)), cooldown, TIMER_UNIQUE)
 
-/obj/item/sequence_scanner/proc/recharge()
+TYPE_PROC_REF(/obj/item/sequence_scanner, recharge)()
 	icon_state = initial(icon_state)
 	ready = TRUE
 
-/obj/item/sequence_scanner/proc/get_display_name(mutation)
+TYPE_PROC_REF(/obj/item/sequence_scanner, get_display_name)(mutation)
 	var/datum/mutation/human/HM = GET_INITIALIZED_MUTATION(mutation)
 	if(!HM)
 		return "ERROR"

@@ -126,17 +126,17 @@ GLOBAL_LIST_INIT(anvil_recipes, list(
 
 	return ..()
 
-/obj/structure/anvil/proc/CheckBusy(mob/user)
+TYPE_PROC_REF(/obj/structure/anvil, CheckBusy)(mob/user)
 	var/mob/living/carbon/human/F = user
 
 	return F.busy || busy
 
-/obj/structure/anvil/proc/SetBusy(value, mob/living/carbon/human/H)
+TYPE_PROC_REF(/obj/structure/anvil, SetBusy)(value, mob/living/carbon/human/H)
 	if(H)
 		H.busy = value
 	busy = value
 
-/obj/structure/anvil/proc/ResetAnvil()
+TYPE_PROC_REF(/obj/structure/anvil, ResetAnvil)()
 	set_light_on(FALSE)
 	currentquality = initial(currentquality)
 	stepsdone = ""
@@ -148,7 +148,7 @@ GLOBAL_LIST_INIT(anvil_recipes, list(
 	cut_overlay(image(icon= 'icons/fallout/objects/crafting/blacksmith.dmi',icon_state="workpiece"))
 	SetBusy(FALSE, null)
 
-/obj/structure/anvil/proc/HandleIngot(obj/item/ingot/notsword, mob/user)
+TYPE_PROC_REF(/obj/structure/anvil, HandleIngot)(obj/item/ingot/notsword, mob/user)
 	if(workpiece_state)
 		to_chat(user, "There's already a workpiece! Finish it or take it off.")
 		return FALSE
@@ -173,7 +173,7 @@ GLOBAL_LIST_INIT(anvil_recipes, list(
 		to_chat(user, "The ingot isn't workable yet!")
 		return FALSE
 
-/obj/structure/anvil/proc/do_shaping(mob/user, qualitychange)
+TYPE_PROC_REF(/obj/structure/anvil, do_shaping)(mob/user, qualitychange)
 	if(!iscarbon(user))
 		return
 	
@@ -303,7 +303,7 @@ GLOBAL_LIST_INIT(anvil_recipes, list(
 	
 	SetBusy(FALSE, user) // Set it to false, cause we're done now some how.
 
-/obj/structure/anvil/proc/tryfinish(mob/user) // Oh god before I prettify this code I just feel like I'm having a stroke at all this word garble.
+TYPE_PROC_REF(/obj/structure/anvil, tryfinish)(mob/user) // Oh god before I prettify this code I just feel like I'm having a stroke at all this word garble.
 
 	var/artifactchance = 0
 	var/combinedqualitymax = user.mind.get_skill_level(/datum/skill/level/dwarfy/blacksmithing)/4 + itemqualitymax //This is no longer as good. /2 divisor to /4 to make the max ~12 

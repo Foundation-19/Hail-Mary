@@ -23,7 +23,7 @@
 	. = ..()
 	UnregisterSignal(src, COMSIG_ATOM_LICKED)
 
-/obj/structure/destructible/tribal_torch/proc/smooch_fire(atom/A, mob/living/carbon/licker, obj/item/hand_item/tongue)
+TYPE_PROC_REF(/obj/structure/destructible/tribal_torch, smooch_fire)(atom/A, mob/living/carbon/licker, obj/item/hand_item/tongue)
 	if(!iscarbon(licker) || !tongue || !burning || HAS_TRAIT(licker, TRAIT_RESISTHEAT))
 		return FALSE
 
@@ -70,7 +70,7 @@
 		return
 	..()
 
-/obj/structure/destructible/tribal_torch/proc/StartBurning()
+TYPE_PROC_REF(/obj/structure/destructible/tribal_torch, StartBurning)()
 	if(!burning)
 		burning = TRUE
 		set_light(7)
@@ -82,13 +82,13 @@
 	if(!flickering && prob(flicker_chance))
 		flicker(rand(1, 4)) // 0.1 to 0.4 seconds
 
-/obj/structure/destructible/tribal_torch/proc/flicker(duration)
+TYPE_PROC_REF(/obj/structure/destructible/tribal_torch, flicker)(duration)
 	addtimer(CALLBACK(src, PROC_REF(unflicker), light_range), duration)
 	set_light(light_range - rand(1, 2))
 	flickering = TRUE
 	addtimer(CALLBACK(src, PROC_REF(unflicker)), duration)
 
-/obj/structure/destructible/tribal_torch/proc/unflicker(new_range)
+TYPE_PROC_REF(/obj/structure/destructible/tribal_torch, unflicker)(new_range)
 	set_light(new_range)
 	flickering = FALSE
 

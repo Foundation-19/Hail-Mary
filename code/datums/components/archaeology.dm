@@ -25,7 +25,7 @@
 	for(var/I in other_archdrops)
 		_archdrops[I] += other_archdrops[I]
 
-/datum/component/archaeology/proc/Dig(obj/item/I, mob/living/user)
+TYPE_PROC_REF(/datum/component/archaeology, Dig)(obj/item/I, mob/living/user)
 	if(dug)
 		to_chat(user, span_notice("Looks like someone has dug here already."))
 		return
@@ -43,7 +43,7 @@
 			SSblackbox.record_feedback("tally", "pick_used_mining", 1, I.type)
 			return COMPONENT_NO_AFTERATTACK
 
-/datum/component/archaeology/proc/gets_dug()
+TYPE_PROC_REF(/datum/component/archaeology, gets_dug)()
 	if(dug)
 		return
 	else
@@ -72,7 +72,7 @@
 	if(callback)
 		callback.Invoke()
 
-/datum/component/archaeology/proc/SingDig(S, current_size)
+TYPE_PROC_REF(/datum/component/archaeology, SingDig)(S, current_size)
 	switch(current_size)
 		if(STAGE_THREE)
 			if(prob(30))
@@ -84,7 +84,7 @@
 			if(current_size >= STAGE_FIVE && prob(70))
 				gets_dug()
 
-/datum/component/archaeology/proc/BombDig(severity, target)
+TYPE_PROC_REF(/datum/component/archaeology, BombDig)(severity, target)
 	switch(severity)
 		if(3)
 			return

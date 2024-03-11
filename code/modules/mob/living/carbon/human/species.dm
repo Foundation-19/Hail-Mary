@@ -158,12 +158,12 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 	if(!GLOB.roundstart_races.len)
 		GLOB.roundstart_races += "human"
 
-/datum/species/proc/check_roundstart_eligible()
+TYPE_PROC_REF(/datum/species, check_roundstart_eligible)()
 	if(id in (CONFIG_GET(keyed_list/roundstart_races)))
 		return TRUE
 	return FALSE
 
-/datum/species/proc/random_name(gender,unique,lastname)
+TYPE_PROC_REF(/datum/species, random_name)(gender,unique,lastname)
 	if(unique)
 		return random_unique_name(gender)
 
@@ -181,18 +181,18 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 	return randname
 
 //Called when cloning, copies some vars that should be kept
-/datum/species/proc/copy_properties_from(datum/species/old_species)
+TYPE_PROC_REF(/datum/species, copy_properties_from)(datum/species/old_species)
 	mutant_bodyparts["limbs_id"] = old_species.mutant_bodyparts["limbs_id"]
 	return
 
 //Please override this locally if you want to define when what species qualifies for what rank if human authority is enforced.
-/datum/species/proc/qualifies_for_rank(rank, list/features) //SPECIES JOB RESTRICTIONS
+TYPE_PROC_REF(/datum/species, qualifies_for_rank)(rank, list/features) //SPECIES JOB RESTRICTIONS
 	//if(rank in GLOB.command_positions) Left as an example: The format qualifies for rank takes.
 	//	return 0 //It returns false when it runs the proc so they don't get jobs from the global list.
 	return 1 //It returns 1 to say they are a-okay to continue.
 
 //Will regenerate missing organs
-/datum/species/proc/regenerate_organs(mob/living/carbon/C,datum/species/old_species,replace_current=TRUE)
+TYPE_PROC_REF(/datum/species, regenerate_organs)(mob/living/carbon/C,datum/species/old_species,replace_current=TRUE)
 	var/obj/item/organ/brain/brain = C.getorganslot(ORGAN_SLOT_BRAIN)
 	var/obj/item/organ/heart/heart = C.getorganslot(ORGAN_SLOT_HEART)
 	var/obj/item/organ/lungs/lungs = C.getorganslot(ORGAN_SLOT_LUNGS)
@@ -311,7 +311,7 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 		var/obj/item/organ/I = new path()
 		I.Insert(C)
 
-/datum/species/proc/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load)
+TYPE_PROC_REF(/datum/species, on_species_gain)(mob/living/carbon/C, datum/species/old_species, pref_load)
 	// Drop the items the new species can't wear
 	for(var/slot_id in no_equip)
 		var/obj/item/thing = C.get_item_by_slot(slot_id)
@@ -369,12 +369,12 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 
 	SEND_SIGNAL(C, COMSIG_SPECIES_GAIN, src, old_species)
 
-/datum/species/proc/update_species_slowdown(mob/living/carbon/human/H)
+TYPE_PROC_REF(/datum/species, update_species_slowdown)(mob/living/carbon/human/H)
 	H.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/species, TRUE, multiplicative_slowdown = speedmod)
 
 // EDIT ENDS
 
-/datum/species/proc/on_species_loss(mob/living/carbon/human/C, datum/species/new_species, pref_load)
+TYPE_PROC_REF(/datum/species, on_species_loss)(mob/living/carbon/human/C, datum/species/new_species, pref_load)
 	if(C.dna.species.exotic_bloodtype)
 		if(!new_species.exotic_bloodtype)
 			C.dna.blood_type = random_blood_type()
@@ -411,7 +411,7 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 
 	SEND_SIGNAL(C, COMSIG_SPECIES_LOSS, src)
 
-/datum/species/proc/handle_hair(mob/living/carbon/human/H, forced_colour)
+TYPE_PROC_REF(/datum/species, handle_hair)(mob/living/carbon/human/H, forced_colour)
 	H.remove_overlay(HAIR_LAYER)
 	var/obj/item/bodypart/head/HD = H.get_bodypart(BODY_ZONE_HEAD)
 	if(!HD) //Decapitated
@@ -571,7 +571,7 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 
 	H.apply_overlay(HAIR_LAYER)
 
-/datum/species/proc/handle_body(mob/living/carbon/human/H)
+TYPE_PROC_REF(/datum/species, handle_body)(mob/living/carbon/human/H)
 	H.remove_overlay(BODY_LAYER)
 
 	var/list/standing = list()
@@ -629,7 +629,7 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 	H.apply_overlay(BODY_LAYER)
 	handle_mutant_bodyparts(H)
 
-/datum/species/proc/handle_mutant_bodyparts(mob/living/carbon/human/H, forced_colour)
+TYPE_PROC_REF(/datum/species, handle_mutant_bodyparts)(mob/living/carbon/human/H, forced_colour)
 	var/list/bodyparts_to_add = mutant_bodyparts.Copy()
 
 	H.remove_overlay(BODY_BEHIND_LAYER)
@@ -933,7 +933,7 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 /*
  * Equip the outfit required for life. Replaces items currently worn.
  */
-/datum/species/proc/give_important_for_life(mob/living/carbon/human/human_to_equip)
+TYPE_PROC_REF(/datum/species, give_important_for_life)(mob/living/carbon/human/human_to_equip)
 	if(!outfit_important_for_life)
 		return
 	outfit_important_for_life= new()
@@ -941,7 +941,7 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 
 /* TODO: Snowflake trail marks
 // Impliments different trails for species depending on if they're wearing shoes.
-/datum/species/proc/get_move_trail(mob/living/carbon/human/H)
+TYPE_PROC_REF(/datum/species, get_move_trail)(mob/living/carbon/human/H)
 	if(H.lying)
 		return /obj/effect/decal/cleanable/blood/footprints/tracks/body
 	if(H.shoes || (H.wear_suit && (H.wear_suit.body_parts_covered & FEET)))
@@ -950,7 +950,7 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 	else
 		return move_trail */
 
-/datum/species/proc/spec_life(mob/living/carbon/human/H)
+TYPE_PROC_REF(/datum/species, spec_life)(mob/living/carbon/human/H)
 	if(HAS_TRAIT(H, TRAIT_NOBREATH))
 		H.setOxyLoss(0)
 		H.losebreath = 0
@@ -959,15 +959,15 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 		if((H.health < H.crit_threshold) && takes_crit_damage)
 			H.adjustBruteLoss(1)
 
-/datum/species/proc/spec_death(gibbed, mob/living/carbon/human/H)
+TYPE_PROC_REF(/datum/species, spec_death)(gibbed, mob/living/carbon/human/H)
 	if(H)
 		stop_wagging_tail(H)
 
-/datum/species/proc/auto_equip(mob/living/carbon/human/H)
+TYPE_PROC_REF(/datum/species, auto_equip)(mob/living/carbon/human/H)
 	// handles the equipping of species-specific gear
 	return
 
-/datum/species/proc/can_equip(obj/item/I, slot, disable_warning, mob/living/carbon/human/H, bypass_equip_delay_self = FALSE, clothing_check = FALSE, list/return_warning)
+TYPE_PROC_REF(/datum/species, can_equip)(obj/item/I, slot, disable_warning, mob/living/carbon/human/H, bypass_equip_delay_self = FALSE, clothing_check = FALSE, list/return_warning)
 	if(slot in no_equip)
 		if(!I.species_exception || !is_type_in_list(src, I.species_exception))
 			return FALSE
@@ -1162,33 +1162,33 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 			return FALSE
 	return FALSE //Unsupported slot
 
-/datum/species/proc/equip_delay_self_check(obj/item/I, mob/living/carbon/human/H, bypass_equip_delay_self)
+TYPE_PROC_REF(/datum/species, equip_delay_self_check)(obj/item/I, mob/living/carbon/human/H, bypass_equip_delay_self)
 	if(!I.equip_delay_self || bypass_equip_delay_self)
 		return TRUE
 	H.visible_message(span_notice("[H] start putting on [I]..."), span_notice("You start putting on [I]..."))
 	return do_after(H, I.equip_delay_self, target = H)
 
-/datum/species/proc/before_equip_job(datum/job/J, mob/living/carbon/human/H)
+TYPE_PROC_REF(/datum/species, before_equip_job)(datum/job/J, mob/living/carbon/human/H)
 	return
 
-/datum/species/proc/after_equip_job(datum/job/J, mob/living/carbon/human/H)
+TYPE_PROC_REF(/datum/species, after_equip_job)(datum/job/J, mob/living/carbon/human/H)
 	H.update_mutant_bodyparts()
 
-/datum/species/proc/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
+TYPE_PROC_REF(/datum/species, handle_chemicals)(datum/reagent/chem, mob/living/carbon/human/H)
 	if(chem.type == exotic_blood && !istype(exotic_blood, /datum/reagent/blood))
 		H.blood_volume = min(H.blood_volume + round(chem.volume, 0.1), BLOOD_VOLUME_MAXIMUM)
 		H.reagents.del_reagent(chem.type)
 		return TRUE
 	return FALSE
 
-/datum/species/proc/check_weakness(obj/item, mob/living/attacker)
+TYPE_PROC_REF(/datum/species, check_weakness)(obj/item, mob/living/attacker)
 	return FALSE
 
 /////////////
 ////LIFE////
 ////////////
 
-/datum/species/proc/handle_digestion(mob/living/carbon/human/H)
+TYPE_PROC_REF(/datum/species, handle_digestion)(mob/living/carbon/human/H)
 	if(HAS_TRAIT(src, TRAIT_NOHUNGER))
 		return //hunger is for BABIES
 
@@ -1278,10 +1278,10 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 		if(0 to NUTRITION_LEVEL_STARVING)
 			H.throw_alert("nutrition", /obj/screen/alert/starving)
 
-/datum/species/proc/update_health_hud(mob/living/carbon/human/H)
+TYPE_PROC_REF(/datum/species, update_health_hud)(mob/living/carbon/human/H)
 	return 0
 
-/datum/species/proc/handle_mutations_and_radiation(mob/living/carbon/human/H)
+TYPE_PROC_REF(/datum/species, handle_mutations_and_radiation)(mob/living/carbon/human/H)
 	. = FALSE
 	var/radiation = H.radiation
 	if(HAS_TRAIT(H, TRAIT_RADIMMUNE)) //Runs before FEV check so you can make supermutants that AREN'T slowed by rads.
@@ -1318,7 +1318,7 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 			to_chat(H, span_danger("Your hair starts to fall out in clumps..."))
 			addtimer(CALLBACK(src, PROC_REF(go_bald), H), 50)
 
-/datum/species/proc/go_bald(mob/living/carbon/human/H)
+TYPE_PROC_REF(/datum/species, go_bald)(mob/living/carbon/human/H)
 	if(QDELETED(H))	//may be called from a timer
 		return
 	H.facial_hair_style = "Shaved"
@@ -1329,13 +1329,13 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 // ATTACK PROCS //
 //////////////////
 
-/datum/species/proc/spec_updatehealth(mob/living/carbon/human/H)
+TYPE_PROC_REF(/datum/species, spec_updatehealth)(mob/living/carbon/human/H)
 	return
 
-/datum/species/proc/spec_fully_heal(mob/living/carbon/human/H)
+TYPE_PROC_REF(/datum/species, spec_fully_heal)(mob/living/carbon/human/H)
 	return
 
-/datum/species/proc/help(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
+TYPE_PROC_REF(/datum/species, help)(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(target.health >= 0 && !HAS_TRAIT(target, TRAIT_FAKEDEATH))
 		target.help_shake_act(user)
 		if(target != user)
@@ -1352,7 +1352,7 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 		else
 			to_chat(user, span_notice("You do not breathe, so you cannot perform CPR."))
 
-/datum/species/proc/grab(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
+TYPE_PROC_REF(/datum/species, grab)(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(target.check_martial_melee_block())
 		target.visible_message(span_warning("[target] blocks [user]'s grab attempt!"), target = user, \
 			target_message = span_warning("[target] blocks your grab attempt!"))
@@ -1363,7 +1363,7 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 		target.grabbedby(user)
 		return 1
 
-/datum/species/proc/harm(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style, attackchain_flags = NONE)
+TYPE_PROC_REF(/datum/species, harm)(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style, attackchain_flags = NONE)
 	if(!attacker_style && HAS_TRAIT(user, TRAIT_PACIFISM))
 		to_chat(user, span_warning("You don't want to harm [target]!"))
 		return FALSE
@@ -1478,10 +1478,10 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 		else if(!(target.mobility_flags & MOBILITY_STAND))
 			target.forcesay(GLOB.hit_appends)
 
-/datum/species/proc/spec_unarmedattacked(mob/living/carbon/human/user, mob/living/carbon/human/target)
+TYPE_PROC_REF(/datum/species, spec_unarmedattacked)(mob/living/carbon/human/user, mob/living/carbon/human/target)
 	return
 
-/datum/species/proc/disarm(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
+TYPE_PROC_REF(/datum/species, disarm)(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	// CITADEL EDIT slap mouthy gits and booty
 	var/aim_for_mouth = user.zone_selected == "mouth"
 	var/target_on_help = target.a_intent == INTENT_HELP
@@ -1608,10 +1608,10 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 		log_combat(user, target, "attempted to disarm")
 
 
-/datum/species/proc/spec_hitby(atom/movable/AM, mob/living/carbon/human/H)
+TYPE_PROC_REF(/datum/species, spec_hitby)(atom/movable/AM, mob/living/carbon/human/H)
 	return
 
-/datum/species/proc/spec_attack_hand(mob/living/carbon/human/M, mob/living/carbon/human/H, datum/martial_art/attacker_style, act_intent, attackchain_flags)
+TYPE_PROC_REF(/datum/species, spec_attack_hand)(mob/living/carbon/human/M, mob/living/carbon/human/H, datum/martial_art/attacker_style, act_intent, attackchain_flags)
 	if(!istype(M))
 		return
 	CHECK_DNA_AND_SPECIES(M)
@@ -1636,7 +1636,7 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 		if("disarm")
 			disarm(M, H, attacker_style)
 
-/datum/species/proc/spec_attacked_by(obj/item/I, mob/living/user, obj/item/bodypart/affecting, intent, mob/living/carbon/human/H, attackchain_flags = NONE, damage_multiplier = 1)
+TYPE_PROC_REF(/datum/species, spec_attacked_by)(obj/item/I, mob/living/user, obj/item/bodypart/affecting, intent, mob/living/carbon/human/H, attackchain_flags = NONE, damage_multiplier = 1)
 	var/totitemdamage = H.pre_attacked_by(I, user) * damage_multiplier
 
 	if(!affecting) //Something went wrong. Maybe the limb is missing?
@@ -1740,7 +1740,7 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 			H.forcesay(GLOB.hit_appends)	//forcesay checks stat already.
 	return TRUE
 
-/datum/species/proc/alt_spec_attack_hand(mob/living/carbon/human/M, mob/living/carbon/human/H, datum/martial_art/attacker_style)
+TYPE_PROC_REF(/datum/species, alt_spec_attack_hand)(mob/living/carbon/human/M, mob/living/carbon/human/H, datum/martial_art/attacker_style)
 	if(!istype(M))
 		return TRUE
 	CHECK_DNA_AND_SPECIES(M)
@@ -1768,7 +1768,7 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 			return TRUE
 	return FALSE
 
-/datum/species/proc/althelp(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
+TYPE_PROC_REF(/datum/species, althelp)(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(user == target && istype(user))
 		if(IS_STAMCRIT(user))
 			to_chat(user, span_warning("You're too exhausted for that."))
@@ -1787,7 +1787,7 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 		user.adjustStaminaLossBuffered(user.stambuffer) //Rewards good stamina management by making it easier to instantly get up from resting
 		playsound(user, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 
-/datum/species/proc/altdisarm(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
+TYPE_PROC_REF(/datum/species, altdisarm)(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(IS_STAMCRIT(user))
 		to_chat(user, span_warning("You're too exhausted."))
 		return FALSE
@@ -1875,7 +1875,7 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 		target.ShoveOffBalance(SHOVE_OFFBALANCE_DURATION)
 		log_combat(user, target, "shoved", append_message)
 
-/datum/species/proc/apply_damage(damage, damagetype = BRUTE, def_zone = null, blocked, mob/living/carbon/human/H, forced = FALSE, spread_damage = FALSE, wound_bonus = 0, bare_wound_bonus = 0, sharpness = SHARP_NONE, damage_threshold = 0, sendsignal = TRUE)
+TYPE_PROC_REF(/datum/species, apply_damage)(damage, damagetype = BRUTE, def_zone = null, blocked, mob/living/carbon/human/H, forced = FALSE, spread_damage = FALSE, wound_bonus = 0, bare_wound_bonus = 0, sharpness = SHARP_NONE, damage_threshold = 0, sendsignal = TRUE)
 	if(sendsignal)
 		SEND_SIGNAL(H, COMSIG_MOB_APPLY_DAMAGE, damage, damagetype, def_zone, blocked, forced, spread_damage, wound_bonus, bare_wound_bonus, sharpness, damage_threshold)
 	var/hit_percent = (100-(blocked+armor))/100
@@ -1949,7 +1949,7 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 			H.adjustOrganLoss(ORGAN_SLOT_BRAIN, damage_amount)
 	return 1
 
-/datum/species/proc/on_hit(obj/item/projectile/P, mob/living/carbon/human/H)
+TYPE_PROC_REF(/datum/species, on_hit)(obj/item/projectile/P, mob/living/carbon/human/H)
 	// called when hit by a projectile
 	switch(P.type)
 		if(/obj/item/projectile/energy/floramut) // overwritten by plants/pods
@@ -1957,14 +1957,14 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 		if(/obj/item/projectile/energy/florayield)
 			H.show_message(span_notice("The radiation beam dissipates harmlessly through your body."))
 
-/datum/species/proc/bullet_act(obj/item/projectile/P, mob/living/carbon/human/H)
+TYPE_PROC_REF(/datum/species, bullet_act)(obj/item/projectile/P, mob/living/carbon/human/H)
 	// called before a projectile hit
 	return
 
 /**
- * The human species version of [/mob/living/carbon/proc/get_biological_state]. Depends on the HAS_FLESH and HAS_BONE species traits, having bones lets you have bone wounds, having flesh lets you have burn, slash, and piercing wounds
+ * The human species version of [TYPE_PROC_REF(/mob/living/carbon, get_biological_state)]. Depends on the HAS_FLESH and HAS_BONE species traits, having bones lets you have bone wounds, having flesh lets you have burn, slash, and piercing wounds
  */
-/datum/species/proc/get_biological_state(mob/living/carbon/human/H)
+TYPE_PROC_REF(/datum/species, get_biological_state)(mob/living/carbon/human/H)
 	. = BIO_INORGANIC
 	if(HAS_FLESH in species_traits)
 		. |= BIO_JUST_FLESH
@@ -1975,11 +1975,11 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 //BREATHING//
 /////////////
 
-/datum/species/proc/breathe(mob/living/carbon/human/H)
+TYPE_PROC_REF(/datum/species, breathe)(mob/living/carbon/human/H)
 	if(HAS_TRAIT(H, TRAIT_NOBREATH))
 		return TRUE
 
-/datum/species/proc/handle_environment(datum/gas_mixture/environment, mob/living/carbon/human/H)
+TYPE_PROC_REF(/datum/species, handle_environment)(datum/gas_mixture/environment, mob/living/carbon/human/H)
 	if(!environment)
 		return
 	if(istype(H.loc, /obj/machinery/atmospherics/components/unary/cryo_cell))
@@ -2099,7 +2099,7 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 // FIRE //
 //////////
 
-/datum/species/proc/handle_fire(mob/living/carbon/human/H, no_protection = FALSE)
+TYPE_PROC_REF(/datum/species, handle_fire)(mob/living/carbon/human/H, no_protection = FALSE)
 	if(HAS_TRAIT(H, TRAIT_NOFIRE))
 		return
 	if(H.on_fire)
@@ -2167,19 +2167,19 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 			H.adjust_bodytemperature(BODYTEMP_HEATING_MAX + (H.fire_stacks * 12))
 			SEND_SIGNAL(H, COMSIG_ADD_MOOD_EVENT, "on_fire", /datum/mood_event/on_fire)
 
-/datum/species/proc/CanIgniteMob(mob/living/carbon/human/H)
+TYPE_PROC_REF(/datum/species, CanIgniteMob)(mob/living/carbon/human/H)
 	if(HAS_TRAIT(H, TRAIT_NOFIRE))
 		return FALSE
 	return TRUE
 
-/datum/species/proc/ExtinguishMob(mob/living/carbon/human/H)
+TYPE_PROC_REF(/datum/species, ExtinguishMob)(mob/living/carbon/human/H)
 	return
 
 ////////////
 //Stun//
 ////////////
 
-/datum/species/proc/spec_stun(mob/living/carbon/human/H,amount)
+TYPE_PROC_REF(/datum/species, spec_stun)(mob/living/carbon/human/H,amount)
 	if(H)
 		stop_wagging_tail(H)
 	. = stunmod * H.physiology.stun_mod * amount
@@ -2188,26 +2188,26 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 //Space Move//
 //////////////
 
-/datum/species/proc/space_move(mob/living/carbon/human/H)
+TYPE_PROC_REF(/datum/species, space_move)(mob/living/carbon/human/H)
 	return 0
 
-/datum/species/proc/negates_gravity(mob/living/carbon/human/H)
+TYPE_PROC_REF(/datum/species, negates_gravity)(mob/living/carbon/human/H)
 	return 0
 
 ////////////////
 //Tail Wagging//
 ////////////////
 
-/datum/species/proc/can_wag_tail(mob/living/carbon/human/H)
+TYPE_PROC_REF(/datum/species, can_wag_tail)(mob/living/carbon/human/H)
 	if(!tail_type || !wagging_type)
 		return FALSE
 	else
 		return mutant_bodyparts[tail_type] || mutant_bodyparts[wagging_type]
 
-/datum/species/proc/is_wagging_tail(mob/living/carbon/human/H)
+TYPE_PROC_REF(/datum/species, is_wagging_tail)(mob/living/carbon/human/H)
 	return mutant_bodyparts[wagging_type]
 
-/datum/species/proc/start_wagging_tail(mob/living/carbon/human/H)
+TYPE_PROC_REF(/datum/species, start_wagging_tail)(mob/living/carbon/human/H)
 	if(tail_type && wagging_type)
 		if(mutant_bodyparts[tail_type])
 			mutant_bodyparts[wagging_type] = mutant_bodyparts[tail_type]
@@ -2217,7 +2217,7 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 				mutant_bodyparts -= "spines"
 			H.update_body()
 
-/datum/species/proc/stop_wagging_tail(mob/living/carbon/human/H)
+TYPE_PROC_REF(/datum/species, stop_wagging_tail)(mob/living/carbon/human/H)
 	if(tail_type && wagging_type)
 		if(mutant_bodyparts[wagging_type])
 			mutant_bodyparts[tail_type] = mutant_bodyparts[wagging_type]
@@ -2227,7 +2227,7 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 				mutant_bodyparts -= "waggingspines"
 			H.update_body()
 
-/datum/species/proc/get_laugh_sound(mob/living/carbon/human/H)
+TYPE_PROC_REF(/datum/species, get_laugh_sound)(mob/living/carbon/human/H)
 	if(H.gender != FEMALE)
 		return pick(laugh_male)
 	else

@@ -25,7 +25,7 @@ SUBSYSTEM_DEF(pathfinder)
 	free = 1
 	flow = new/list(lcount)
 
-/datum/flowcache/proc/getfree(atom/M)
+TYPE_PROC_REF(/datum/flowcache, getfree)(atom/M)
 	if(run < lcount)
 		run += 1
 		while(flow[free])
@@ -38,11 +38,11 @@ SUBSYSTEM_DEF(pathfinder)
 	else
 		return 0
 
-/datum/flowcache/proc/toolong(l)
+TYPE_PROC_REF(/datum/flowcache, toolong)(l)
 	log_game("Pathfinder route took longer than 150 ticks, src bot [flow[flow[l]]]")
 	found(l)
 
-/datum/flowcache/proc/found(l)
+TYPE_PROC_REF(/datum/flowcache, found)(l)
 	deltimer(flow[l])
 	flow[l] = null
 	run -= 1

@@ -1,4 +1,4 @@
-/mob/living/carbon/alien/humanoid/proc/adjust_body_temperature(current, loc_temp, boost)
+TYPE_PROC_REF(/mob/living/carbon/alien/humanoid, adjust_body_temperature)(current, loc_temp, boost)
 	var/temperature = current
 	var/difference = abs(current-loc_temp)	//get difference
 	var/increments// = difference/10			//find how many increments apart they are

@@ -31,11 +31,11 @@
 	UnregisterSignal(source, COMSIG_CLICK_ALT)
 	UnregisterSignal(source, COMSIG_PARENT_EXAMINE)
 
-/datum/element/mob_holder/proc/on_examine(mob/living/source, mob/user, list/examine_list)
+TYPE_PROC_REF(/datum/element/mob_holder, on_examine)(mob/living/source, mob/user, list/examine_list)
 	if(ishuman(user) && !istype(source.loc, /obj/item/clothing/head/mob_holder))
 		examine_list += "<span class='notice'>Looks like [source.p_they(TRUE)] can be picked up with <b>Alt+Click</b>!</span>"
 
-/datum/element/mob_holder/proc/mob_try_pickup(mob/living/source, mob/user)
+TYPE_PROC_REF(/datum/element/mob_holder, mob_try_pickup)(mob/living/source, mob/user)
 	if(!ishuman(user) || !user.Adjacent(source) || user.incapacitated())
 		return FALSE
 	if(user.get_active_held_item())
@@ -64,7 +64,7 @@
 	user.put_in_hands(holder)
 	return TRUE
 
-/datum/element/mob_holder/proc/drone_worn_icon(mob/living/simple_animal/drone/D, obj/item/clothing/head/mob_holder/holder, mob/user)
+TYPE_PROC_REF(/datum/element/mob_holder, drone_worn_icon)(mob/living/simple_animal/drone/D, obj/item/clothing/head/mob_holder/holder, mob/user)
 	var/new_state = "[D.visualAppearence]_hat"
 	holder.item_state = new_state
 	holder.icon_state = new_state
@@ -109,19 +109,19 @@
 	RegisterSignal(src, COMSIG_VORE_CAN_BE_FED_PREY, PROC_REF(relay_can_be_fed))
 	RegisterSignal(src, COMSIG_VORE_SNIFF_LIVING, PROC_REF(relay_sniff))
 
-/obj/item/clothing/head/mob_holder/proc/relay_caneat()
+TYPE_PROC_REF(/obj/item/clothing/head/mob_holder, relay_caneat)()
 	return SEND_SIGNAL(held_mob, COMSIG_VORE_CAN_EAT)
 
-/obj/item/clothing/head/mob_holder/proc/relay_can_be_eaten()
+TYPE_PROC_REF(/obj/item/clothing/head/mob_holder, relay_can_be_eaten)()
 	return SEND_SIGNAL(held_mob, COMSIG_VORE_CAN_BE_EATEN)
 
-/obj/item/clothing/head/mob_holder/proc/relay_can_be_fed()
+TYPE_PROC_REF(/obj/item/clothing/head/mob_holder, relay_can_be_fed)()
 	return SEND_SIGNAL(held_mob, COMSIG_VORE_CAN_BE_FED_PREY)
 
-/obj/item/clothing/head/mob_holder/proc/relay_sniff(datum/source, mob/living/living_sniffer)
+TYPE_PROC_REF(/obj/item/clothing/head/mob_holder, relay_sniff)(datum/source, mob/living/living_sniffer)
 	return SEND_SIGNAL(held_mob, COMSIG_VORE_SNIFF_LIVING, living_sniffer)
 
-/obj/item/clothing/head/mob_holder/proc/assimilate(mob/living/target)
+TYPE_PROC_REF(/obj/item/clothing/head/mob_holder, assimilate)(mob/living/target)
 	target.setDir(SOUTH)
 	held_mob = target
 	target.forceMove(src)
@@ -169,7 +169,7 @@
 	if(held_mob && !ismob(loc) && !istype(loc,/obj/item/storage))//don't release on soft-drops
 		release()
 
-/obj/item/clothing/head/mob_holder/proc/release(atom/movable/here)
+TYPE_PROC_REF(/obj/item/clothing/head/mob_holder, release)(atom/movable/here)
 	if(held_mob)
 		var/mob/living/L = held_mob
 		held_mob = null
@@ -204,7 +204,7 @@
 			return location.loc.assume_air(env)
 	return location.assume_air(env)
 
-/obj/item/clothing/head/mob_holder/proc/get_loc_for_air()
+TYPE_PROC_REF(/obj/item/clothing/head/mob_holder, get_loc_for_air)()
 	var/atom/location = loc
 	if(!loc)
 		return //null

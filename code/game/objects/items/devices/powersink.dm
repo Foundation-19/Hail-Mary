@@ -39,7 +39,7 @@ GLOBAL_LIST_EMPTY(power_sinks)
 /obj/item/powersink/update_icon_state()
 	icon_state = "powersink[mode == OPERATING]"
 
-/obj/item/powersink/proc/set_mode(value)
+TYPE_PROC_REF(/obj/item/powersink, set_mode)(value)
 	if(value == mode)
 		return
 	switch(value)

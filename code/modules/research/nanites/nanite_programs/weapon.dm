@@ -86,7 +86,7 @@
 							span_userdanger("You start emitting a high-pitched buzzing, and your skin begins to glow..."))
 	addtimer(CALLBACK(src, PROC_REF(boom)), clamp((nanites.nanite_volume * 0.35), 25, 150))
 
-/datum/nanite_program/explosive/proc/boom()
+TYPE_PROC_REF(/datum/nanite_program/explosive, boom)()
 	var/nanite_amount = nanites.nanite_volume
 	var/heavy_range = FLOOR(nanite_amount/100, 1) - 1
 	var/light_range = FLOOR(nanite_amount/50, 1) - 1
@@ -180,7 +180,7 @@
 	log_game("A mind control nanite program brainwashed [key_name(host_mob)] with the objective '[sent_directive]'.")
 	addtimer(CALLBACK(src, PROC_REF(end_brainwashing)), 600)
 
-/datum/nanite_program/comm/mind_control/proc/end_brainwashing()
+TYPE_PROC_REF(/datum/nanite_program/comm/mind_control, end_brainwashing)()
 	if(host_mob.mind && host_mob.mind.has_antag_datum(/datum/antagonist/brainwashed))
 		host_mob.mind.remove_antag_datum(/datum/antagonist/brainwashed)
 	log_game("[key_name(host_mob)] is no longer brainwashed by nanites.")

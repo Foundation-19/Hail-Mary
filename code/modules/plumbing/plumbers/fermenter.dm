@@ -46,11 +46,11 @@
 	AddElement(/datum/element/connect_loc, loc_connections)
 
 
-/obj/machinery/plumbing/fermenter/proc/on_entered(atom/movable/AM)
+TYPE_PROC_REF(/obj/machinery/plumbing/fermenter, on_entered)(atom/movable/AM)
 	SIGNAL_HANDLER
 	INVOKE_ASYNC(src, PROC_REF(ferment), AM)
 
-/obj/machinery/plumbing/fermenter/proc/ferment(atom/AM)
+TYPE_PROC_REF(/obj/machinery/plumbing/fermenter, ferment)(atom/AM)
 	if(stat & NOPOWER)
 		return
 	if(reagents.holder_full())

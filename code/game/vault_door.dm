@@ -39,7 +39,7 @@ GLOBAL_LIST_EMPTY(vault_doors)
 	// 	return
 	return
 
-/obj/structure/vaultdoor/proc/repair()
+TYPE_PROC_REF(/obj/structure/vaultdoor, repair)()
 	icon_state = "open"
 	set_opacity(1)
 	src.density = FALSE
@@ -49,7 +49,7 @@ GLOBAL_LIST_EMPTY(vault_doors)
 	destroyed = FALSE
 	isworn = FALSE
 
-/obj/structure/vaultdoor/proc/destroy()
+TYPE_PROC_REF(/obj/structure/vaultdoor, destroy)()
 	icon_state = "empty"
 	set_opacity(0)
 	src.density = FALSE
@@ -58,7 +58,7 @@ GLOBAL_LIST_EMPTY(vault_doors)
 /obj/structure/vaultdoor/obj_destruction() //No you can't just shoot it and expect it to break
 	destroy()
 
-/obj/structure/vaultdoor/proc/open()
+TYPE_PROC_REF(/obj/structure/vaultdoor, open)()
 	is_busy = TRUE
 	flick("opening", src)
 	icon_state = "open"
@@ -69,7 +69,7 @@ GLOBAL_LIST_EMPTY(vault_doors)
 	is_busy = FALSE
 	is_open = TRUE
 
-/obj/structure/vaultdoor/proc/close()
+TYPE_PROC_REF(/obj/structure/vaultdoor, close)()
 	is_busy = TRUE
 	flick("closing", src)
 	icon_state = "closed"
@@ -80,7 +80,7 @@ GLOBAL_LIST_EMPTY(vault_doors)
 	is_busy = FALSE
 	is_open = FALSE
 
-/obj/structure/vaultdoor/proc/vaultactivate()
+TYPE_PROC_REF(/obj/structure/vaultdoor, vaultactivate)()
 	if(destroyed)
 		to_chat(usr, span_warning("[src] is broken"))
 		return
@@ -125,7 +125,7 @@ GLOBAL_LIST_EMPTY(vault_doors)
 	density = TRUE
 	resistance_flags = FIRE_PROOF | ACID_PROOF | UNACIDABLE | FREEZE_PROOF | INDESTRUCTIBLE
 
-/obj/machinery/doorButtons/vaultButton/proc/activate()
+TYPE_PROC_REF(/obj/machinery/doorButtons/vaultButton, activate)()
 	for(var/obj/structure/vaultdoor/vdoor in world)
 		vdoor.vaultactivate()
 
@@ -145,7 +145,7 @@ GLOBAL_LIST_EMPTY(vault_doors)
 	density = TRUE
 	resistance_flags = FIRE_PROOF | ACID_PROOF | UNACIDABLE | FREEZE_PROOF | INDESTRUCTIBLE
 
-/obj/machinery/doorButtons/wornvaultButton/proc/activate()
+TYPE_PROC_REF(/obj/machinery/doorButtons/wornvaultButton, activate)()
 	for(var/obj/structure/vaultdoor/vdoor in world)
 		if(vdoor.isworn == TRUE)
 			vdoor.vaultactivate()

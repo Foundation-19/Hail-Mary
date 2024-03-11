@@ -18,7 +18,7 @@
 	var/opaque = 1 //whether the smoke can block the view when in enough amount
 
 
-/obj/effect/particle_effect/smoke/proc/fade_out(frames = 16)
+TYPE_PROC_REF(/obj/effect/particle_effect/smoke, fade_out)(frames = 16)
 	if(alpha == 0) //Handle already transparent case
 		return
 	if(frames == 0)
@@ -40,7 +40,7 @@
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
-/obj/effect/particle_effect/smoke/proc/kill_smoke()
+TYPE_PROC_REF(/obj/effect/particle_effect/smoke, kill_smoke)()
 	STOP_PROCESSING(SSobj, src)
 	INVOKE_ASYNC(src, PROC_REF(fade_out))
 	QDEL_IN(src, 10)
@@ -54,7 +54,7 @@
 		smoke_mob(L)
 	return 1
 
-/obj/effect/particle_effect/smoke/proc/smoke_mob(mob/living/carbon/C)
+TYPE_PROC_REF(/obj/effect/particle_effect/smoke, smoke_mob)(mob/living/carbon/C)
 	if(!istype(C))
 		return 0
 	if(lifetime<1)
@@ -67,11 +67,11 @@
 	addtimer(CALLBACK(src, PROC_REF(remove_smoke_delay), C), 10)
 	return 1
 
-/obj/effect/particle_effect/smoke/proc/remove_smoke_delay(mob/living/carbon/C)
+TYPE_PROC_REF(/obj/effect/particle_effect/smoke, remove_smoke_delay)(mob/living/carbon/C)
 	if(C)
 		C.smoke_delay = 0
 
-/obj/effect/particle_effect/smoke/proc/spread_smoke()
+TYPE_PROC_REF(/obj/effect/particle_effect/smoke, spread_smoke)()
 	var/turf/t_loc = get_turf(src)
 	if(!t_loc)
 		return
@@ -161,7 +161,7 @@
 	var/weldvents = TRUE
 	var/distcheck = TRUE
 
-/datum/effect_system/smoke_spread/freezing/proc/Chilled(atom/A)
+TYPE_PROC_REF(/datum/effect_system/smoke_spread/freezing, Chilled)(atom/A)
 	if(isopenturf(A))
 		var/turf/open/T = A
 		if(T.air)

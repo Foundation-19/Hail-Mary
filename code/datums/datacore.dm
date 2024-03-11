@@ -35,7 +35,7 @@
 	var/time = ""
 	var/dataId = 0
 
-/datum/datacore/proc/createCrimeEntry(cname = "", cdetails = "", author = "", time = "")
+TYPE_PROC_REF(/datum/datacore, createCrimeEntry)(cname = "", cdetails = "", author = "", time = "")
 	var/datum/data/crime/c = new /datum/data/crime
 	c.crimeName = cname
 	c.crimeDetails = cdetails
@@ -44,14 +44,14 @@
 	c.dataId = ++securityCrimeCounter
 	return c
 
-/datum/datacore/proc/addMinorCrime(id = "", datum/data/crime/crime)
+TYPE_PROC_REF(/datum/datacore, addMinorCrime)(id = "", datum/data/crime/crime)
 	for(var/datum/data/record/R in security)
 		if(R.fields["id"] == id)
 			var/list/crimes = R.fields["mi_crim"]
 			crimes |= crime
 			return
 
-/datum/datacore/proc/removeMinorCrime(id, cDataId)
+TYPE_PROC_REF(/datum/datacore, removeMinorCrime)(id, cDataId)
 	for(var/datum/data/record/R in security)
 		if(R.fields["id"] == id)
 			var/list/crimes = R.fields["mi_crim"]
@@ -60,7 +60,7 @@
 					crimes -= crime
 					return
 
-/datum/datacore/proc/removeMajorCrime(id, cDataId)
+TYPE_PROC_REF(/datum/datacore, removeMajorCrime)(id, cDataId)
 	for(var/datum/data/record/R in security)
 		if(R.fields["id"] == id)
 			var/list/crimes = R.fields["ma_crim"]
@@ -69,14 +69,14 @@
 					crimes -= crime
 					return
 
-/datum/datacore/proc/addMajorCrime(id = "", datum/data/crime/crime)
+TYPE_PROC_REF(/datum/datacore, addMajorCrime)(id = "", datum/data/crime/crime)
 	for(var/datum/data/record/R in security)
 		if(R.fields["id"] == id)
 			var/list/crimes = R.fields["ma_crim"]
 			crimes |= crime
 			return
 
-/datum/datacore/proc/manifest()
+TYPE_PROC_REF(/datum/datacore, manifest)()
 	for(var/mob/dead/new_player/N in GLOB.player_list)
 		if(!N?.client)
 			continue
@@ -86,12 +86,12 @@
 			manifest_inject(N.new_character, N.client, N.client.prefs)
 		CHECK_TICK
 
-/datum/datacore/proc/manifest_modify(name, assignment)
+TYPE_PROC_REF(/datum/datacore, manifest_modify)(name, assignment)
 	var/datum/data/record/foundrecord = find_record("name", name, GLOB.data_core.general)
 	if(foundrecord)
 		foundrecord.fields["rank"] = assignment
 
-/datum/datacore/proc/get_manifest_dr(monochrome, OOC)
+TYPE_PROC_REF(/datum/datacore, get_manifest_dr)(monochrome, OOC)
 	var/list/command = list()
 	var/list/bos = list()
 	var/list/enclave = list()
@@ -220,7 +220,7 @@
 	dat = replacetext(dat, "\t", "")
 	return dat
 
-/datum/datacore/proc/get_manifest_tg() //copypasted from tg, renamed to avoid namespace conflicts
+TYPE_PROC_REF(/datum/datacore, get_manifest_tg)() //copypasted from tg, renamed to avoid namespace conflicts
 	var/list/manifest_out = list()
 	var/list/departments = list(
 		"Command" = GLOB.command_positions,
@@ -256,7 +256,7 @@
 			))
 	return manifest_out
 
-/datum/datacore/proc/get_manifest(monochrome, OOC)
+TYPE_PROC_REF(/datum/datacore, get_manifest)(monochrome, OOC)
 	var/list/heads = list()
 	var/list/sec = list()
 	var/list/eng = list()
@@ -364,7 +364,7 @@
 	return dat
 
 
-/datum/datacore/proc/manifest_inject(mob/living/carbon/human/H, client/C, datum/preferences/prefs)
+TYPE_PROC_REF(/datum/datacore, manifest_inject)(mob/living/carbon/human/H, client/C, datum/preferences/prefs)
 	set waitfor = FALSE
 	var/static/list/show_directions = list(SOUTH, WEST)
 	if(H.mind && (H.mind.assigned_role != H.mind.special_role))
@@ -462,7 +462,7 @@
 		locked += L
 	return
 
-/datum/datacore/proc/get_id_photo(mob/living/carbon/human/H, client/C, show_directions = list(SOUTH))
+TYPE_PROC_REF(/datum/datacore, get_id_photo)(mob/living/carbon/human/H, client/C, show_directions = list(SOUTH))
 	var/datum/job/J = SSjob.GetJob(H.mind.assigned_role)
 	var/datum/preferences/P
 	if(!C)
@@ -471,14 +471,14 @@
 		P = C.prefs
 	return get_flat_human_icon(null, J, P, DUMMY_HUMAN_SLOT_MANIFEST, show_directions)
 
-/datum/datacore/proc/get_record_by_name(username)
+TYPE_PROC_REF(/datum/datacore, get_record_by_name)(username)
 	for(var/i in general)
 		var/datum/data/record/to_check = i
 		if(username != to_check.fields["name"])
 			continue
 		return to_check
 
-/datum/datacore/proc/remove_record_by_name(username)
+TYPE_PROC_REF(/datum/datacore, remove_record_by_name)(username)
 	for(var/datacore_list in list(general, medical, security, locked))
 		for(var/j in datacore_list)
 			var/datum/data/record/to_remove = j

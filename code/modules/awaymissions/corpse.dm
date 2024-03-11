@@ -80,16 +80,16 @@
 		GLOB.mob_spawners -= job_name
 	return ..()
 
-/obj/effect/mob_spawn/proc/can_latejoin() //If it can be taken from the lobby.
+TYPE_PROC_REF(/obj/effect/mob_spawn, can_latejoin)() //If it can be taken from the lobby.
 	return ghost_usable
 
-/obj/effect/mob_spawn/proc/special(mob/M)
+TYPE_PROC_REF(/obj/effect/mob_spawn, special)(mob/M)
 	return
 
-/obj/effect/mob_spawn/proc/equip(mob/M)
+TYPE_PROC_REF(/obj/effect/mob_spawn, equip)(mob/M)
 	return
 
-/obj/effect/mob_spawn/proc/create(ckey, name)
+TYPE_PROC_REF(/obj/effect/mob_spawn, create)(ckey, name)
 	var/mob/living/M = new mob_type(get_turf(src)) //living mobs only
 	if(!random)
 		M.real_name = mob_name ? mob_name : M.name

@@ -31,10 +31,10 @@ GLOBAL_LIST_INIT(frying_bad_chems, list(
 /datum/reagent/mercury = 1,
 ))
 
-/datum/component/fried/proc/examine(datum/source, mob/user, list/examine_list)
+TYPE_PROC_REF(/datum/component/fried, examine)(datum/source, mob/user, list/examine_list)
 	examine_list += "[parent] has been [frying_examine_text]"
 
-/datum/component/fried/proc/setup_fried_item() //sets the name, colour and examine text and edibility up
+TYPE_PROC_REF(/datum/component/fried, setup_fried_item)() //sets the name, colour and examine text and edibility up
 	//first we do some checks depending on the type of item being fried
 	var/list/fried_tastes = list("crispy")
 	var/fried_foodtypes = FRIED
@@ -86,7 +86,7 @@ GLOBAL_LIST_INIT(frying_bad_chems, list(
 		var/bad_chem_amount = max(4,GLOB.frying_bad_chems[bad_chem] * (fry_power/12.5)) //4u of bad chem reached when deeply fried
 		owner.reagents.add_reagent(bad_chem, bad_chem_amount)
 
-/datum/component/fried/proc/restore_name() //restore somethings name
+TYPE_PROC_REF(/datum/component/fried, restore_name)() //restore somethings name
 	//we do string manipulation and not restoring their name to real_name because some things hide your real_name and we want to maintain that
 	if(copytext(owner.name,1,14) == "lightly fried ")
 		owner.name = copytext(owner.name,15)
@@ -100,7 +100,7 @@ GLOBAL_LIST_INIT(frying_bad_chems, list(
 				if(owner.name == "the physical manifestation of fried foods") //if the name is still this, their name hasn't changed, so we can safely restore their stored name
 					owner.name = stored_name
 
-/datum/component/fried/proc/restore() //restore a fried mob to being not-fried
+TYPE_PROC_REF(/datum/component/fried, restore)() //restore a fried mob to being not-fried
 	if(ismob(owner))
 		//restore the name, the colour should wash off itself, and then remove the component
 		restore_name()

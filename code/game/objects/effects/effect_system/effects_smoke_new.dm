@@ -6,7 +6,7 @@
 /datum/effect_fancy
 	var/index
 
-/datum/effect_fancy/proc/do_effect(turf/start, turf/end, params)
+TYPE_PROC_REF(/datum/effect_fancy, do_effect)(turf/start, turf/end, params)
 	return
 
 /datum/effect_fancy/smoke_cone
@@ -78,7 +78,7 @@
 	var/distance_modifier = 1
 
 /// Sets up the smoke and starts it processing
-/obj/effect/particle_effect/fancy_smoke/proc/start(distance_modifier = 1)
+TYPE_PROC_REF(/obj/effect/particle_effect/fancy_smoke, start)(distance_modifier = 1)
 	START_PROCESSING(SSeffects, src)
 	// checks if we're in an outside area, and sets our direction to the wind if we are
 	var/area/A = get_area(src)
@@ -104,7 +104,7 @@
 	. = ..()
 	STOP_PROCESSING(SSeffects, src)
 
-/obj/effect/particle_effect/fancy_smoke/proc/fade_out()
+TYPE_PROC_REF(/obj/effect/particle_effect/fancy_smoke, fade_out)()
 	var/rotation_dir = pick(-1, 1)
 	animate(
 		src,
@@ -127,7 +127,7 @@
 		driftdir = turn(driftdir, 90 * rand(-1, 1))
 		walk(src, driftdir, driftdelay, 32)
 
-/obj/effect/particle_effect/fancy_smoke/proc/smoke_mob(mob/living/carbon/C)
+TYPE_PROC_REF(/obj/effect/particle_effect/fancy_smoke, smoke_mob)(mob/living/carbon/C)
 	if(!istype(C))
 		return 0
 	if(lifetime<1)

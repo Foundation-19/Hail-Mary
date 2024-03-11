@@ -25,17 +25,17 @@
 	if(canUseBeacon(user))
 		generate_options(user)
 
-/obj/item/choice_beacon/proc/generate_display_names() // return the list that will be used in the choice selection. entries should be in (type.name = type) fashion. see choice_beacon/hero for how this is done.
+TYPE_PROC_REF(/obj/item/choice_beacon, generate_display_names)() // return the list that will be used in the choice selection. entries should be in (type.name = type) fashion. see choice_beacon/hero for how this is done.
 	return list()
 
-/obj/item/choice_beacon/proc/canUseBeacon(mob/living/user)
+TYPE_PROC_REF(/obj/item/choice_beacon, canUseBeacon)(mob/living/user)
 	if(user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
 		return TRUE
 	else
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 40, 1)
 		return FALSE
 
-/obj/item/choice_beacon/proc/generate_options(mob/living/M)
+TYPE_PROC_REF(/obj/item/choice_beacon, generate_options)(mob/living/M)
 	if(!stored_options || force_refresh)
 		stored_options = generate_display_names()
 	if(!stored_options.len)
@@ -47,10 +47,10 @@
 	spawn_option(stored_options[choice],M)
 	qdel(src)
 
-/obj/item/choice_beacon/proc/create_choice_atom(atom/choice, mob/owner)
+TYPE_PROC_REF(/obj/item/choice_beacon, create_choice_atom)(atom/choice, mob/owner)
 	return new choice()
 
-/obj/item/choice_beacon/proc/spawn_option(atom/choice,mob/living/M)
+TYPE_PROC_REF(/obj/item/choice_beacon, spawn_option)(atom/choice,mob/living/M)
 	var/obj/new_item = create_choice_atom(choice, M)
 	var/obj/structure/closet/supplypod/bluespacepod/pod = new()
 	pod.explosionSize = list(0,0,0,0)

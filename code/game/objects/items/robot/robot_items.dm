@@ -359,19 +359,19 @@
 	. = ..()
 	check_amount()
 
-/obj/item/borg/lollipop/proc/check_amount()	//Doesn't even use processing ticks.
+TYPE_PROC_REF(/obj/item/borg/lollipop, check_amount)()	//Doesn't even use processing ticks.
 	if(charging)
 		return
 	if(candy < candymax)
 		addtimer(CALLBACK(src, PROC_REF(charge_lollipops)), charge_delay)
 		charging = TRUE
 
-/obj/item/borg/lollipop/proc/charge_lollipops()
+TYPE_PROC_REF(/obj/item/borg/lollipop, charge_lollipops)()
 	candy++
 	charging = FALSE
 	check_amount()
 
-/obj/item/borg/lollipop/proc/dispense(atom/A, mob/user)
+TYPE_PROC_REF(/obj/item/borg/lollipop, dispense)(atom/A, mob/user)
 	if(candy <= 0)
 		to_chat(user, span_warning("No treats left in storage!"))
 		return FALSE
@@ -409,7 +409,7 @@
 	playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
 	return TRUE
 
-/obj/item/borg/lollipop/proc/shootL(atom/target, mob/living/user, params)
+TYPE_PROC_REF(/obj/item/borg/lollipop, shootL)(atom/target, mob/living/user, params)
 	if(candy <= 0)
 		to_chat(user, span_warning("Not enough lollipops left!"))
 		return FALSE
@@ -424,7 +424,7 @@
 	user.visible_message(span_warning("[user] blasts a flying lollipop at [target]!"))
 	check_amount()
 
-/obj/item/borg/lollipop/proc/shootG(atom/target, mob/living/user, params)	//Most certainly a good idea.
+TYPE_PROC_REF(/obj/item/borg/lollipop, shootG)(atom/target, mob/living/user, params)	//Most certainly a good idea.
 	if(candy <= 0)
 		to_chat(user, span_warning("Not enough gumballs left!"))
 		return FALSE
@@ -591,7 +591,7 @@
 /obj/item/borg/projectile_dampen/update_icon_state()
 	icon_state = "[initial(icon_state)][active]"
 
-/obj/item/borg/projectile_dampen/proc/activate_field()
+TYPE_PROC_REF(/obj/item/borg/projectile_dampen, activate_field)()
 	if(istype(dampening_field))
 		QDEL_NULL(dampening_field)
 	dampening_field = make_field(/datum/proximity_monitor/advanced/peaceborg_dampener, list("current_range" = field_radius, "host" = src, "projector" = src))
@@ -600,7 +600,7 @@
 		owner.module.allow_riding = FALSE
 	active = TRUE
 
-/obj/item/borg/projectile_dampen/proc/deactivate_field()
+TYPE_PROC_REF(/obj/item/borg/projectile_dampen, deactivate_field)()
 	QDEL_NULL(dampening_field)
 	visible_message(span_warning("\The [src] shuts off!"))
 	for(var/P in tracked)
@@ -611,7 +611,7 @@
 	if(owner)
 		owner.module.allow_riding = TRUE
 
-/obj/item/borg/projectile_dampen/proc/get_host()
+TYPE_PROC_REF(/obj/item/borg/projectile_dampen, get_host)()
 	if(istype(host))
 		return host
 	else
@@ -636,11 +636,11 @@
 	process_usage()
 	update_location()
 
-/obj/item/borg/projectile_dampen/proc/update_location()
+TYPE_PROC_REF(/obj/item/borg/projectile_dampen, update_location)()
 	if(dampening_field)
 		dampening_field.HandleMove()
 
-/obj/item/borg/projectile_dampen/proc/process_usage()
+TYPE_PROC_REF(/obj/item/borg/projectile_dampen, process_usage)()
 	var/usage = 0
 	for(var/I in tracked)
 		var/obj/item/projectile/P = I
@@ -653,7 +653,7 @@
 		deactivate_field()
 		visible_message(span_warning("[src] blinks \"ENERGY DEPLETED\"."))
 
-/obj/item/borg/projectile_dampen/proc/process_recharge()
+TYPE_PROC_REF(/obj/item/borg/projectile_dampen, process_recharge)()
 	if(!istype(host))
 		if(iscyborg(host.loc))
 			host = host.loc
@@ -664,7 +664,7 @@
 		host.cell.use(energy_recharge*energy_recharge_cyborg_drain_coefficient)
 		energy += energy_recharge
 
-/obj/item/borg/projectile_dampen/proc/dampen_projectile(obj/item/projectile/P, track_projectile = TRUE)
+TYPE_PROC_REF(/obj/item/borg/projectile_dampen, dampen_projectile)(obj/item/projectile/P, track_projectile = TRUE)
 	if(tracked[P])
 		return
 	if(track_projectile)
@@ -673,7 +673,7 @@
 	P.pixels_per_second *= projectile_speed_coefficient
 	P.add_overlay(projectile_effect)
 
-/obj/item/borg/projectile_dampen/proc/restore_projectile(obj/item/projectile/P)
+TYPE_PROC_REF(/obj/item/borg/projectile_dampen, restore_projectile)(obj/item/projectile/P)
 	tracked -= P
 	P.damage *= (1/projectile_damage_coefficient)
 	P.pixels_per_second *= (1/projectile_speed_coefficient)

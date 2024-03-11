@@ -113,7 +113,7 @@
 			if(RAD_LEVEL_CRITICAL + 1 to INFINITY)
 				icon_state = "geiger_on_5"
 
-/obj/item/geiger_counter/proc/update_sound()
+TYPE_PROC_REF(/obj/item/geiger_counter, update_sound)()
 	var/datum/looping_sound/geiger/loop = soundloop
 	if(!scanning)
 		loop.stop()
@@ -145,7 +145,7 @@
 	listeningTo = user
 	to_chat(user,"equipped")
 
-/obj/item/geiger_counter/proc/redirect_rad_act(datum/source, amount)
+TYPE_PROC_REF(/obj/item/geiger_counter, redirect_rad_act)(datum/source, amount)
 	rad_act(amount)
 
 /obj/item/geiger_counter/dropped(mob/user)
@@ -187,7 +187,7 @@
 			radiation_count = 0
 		return TRUE
 
-/obj/item/geiger_counter/proc/scan(atom/A, mob/user)
+TYPE_PROC_REF(/obj/item/geiger_counter, scan)(atom/A, mob/user)
 	if(isliving(A))
 		var/mob/living/M = A
 		if(!M.radiation)

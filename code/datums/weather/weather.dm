@@ -107,7 +107,7 @@
  * Calculates duration and hit areas, and makes a callback for the actual weather to start
  *
  */
-/datum/weather/proc/telegraph()
+TYPE_PROC_REF(/datum/weather, telegraph)()
 	if(stage == STARTUP_STAGE || !tag_weather)
 		end()
 		return
@@ -145,7 +145,7 @@
  * Begins dealing effects from weather to mobs in the area
  *
  */
-/datum/weather/proc/start()
+TYPE_PROC_REF(/datum/weather, start)()
 	if(stage >= MAIN_STAGE)
 		return
 	stage = MAIN_STAGE
@@ -160,7 +160,7 @@
  * Sends sounds and messages to mobs to notify them
  *
  */
-/datum/weather/proc/wind_down()
+TYPE_PROC_REF(/datum/weather, wind_down)()
 	if(stage >= WIND_DOWN_STAGE)
 		return
 	stage = WIND_DOWN_STAGE
@@ -168,7 +168,7 @@
 	alert_players(end_message, end_sound)
 	addtimer(CALLBACK(src, PROC_REF(end)), end_duration)
 
-/datum/weather/proc/alert_players(message, sound_play)
+TYPE_PROC_REF(/datum/weather, alert_players)(message, sound_play)
 	if(!message && !sound_play)
 		return FALSE
 	for(var/M in GLOB.player_list)
@@ -185,7 +185,7 @@
  * Removes weather from processing completely
  *
  */
-/datum/weather/proc/end(forced)
+TYPE_PROC_REF(/datum/weather, end)(forced)
 	if(stage == END_STAGE)
 		return 1
 	stage = END_STAGE
@@ -214,7 +214,7 @@
  * Returns TRUE if the living mob can be affected by the weather
  *
  */
-/datum/weather/proc/can_weather_act(mob/living/L)
+TYPE_PROC_REF(/datum/weather, can_weather_act)(mob/living/L)
 /* 	var/turf/mob_turf = get_turf(L)
 	if(mob_turf && !(mob_turf.z in impacted_z_levels))
 		return */
@@ -228,14 +228,14 @@
  * Affects the mob with whatever the weather does
  *
  */
-/datum/weather/proc/weather_act(mob/living/L)
+TYPE_PROC_REF(/datum/weather, weather_act)(mob/living/L)
 	return
 
 /**
  * Affects a turf, ONCE, with whatever the weather does
  *
  */
-/datum/weather/proc/weather_act_turf(turf/T)
+TYPE_PROC_REF(/datum/weather, weather_act_turf)(turf/T)
 	return
 
 
@@ -243,7 +243,7 @@
  * Updates the overlays on impacted areas
  *
  */
-/datum/weather/proc/update_areas()
+TYPE_PROC_REF(/datum/weather, update_areas)()
 	for(var/V in impacted_areas)
 		var/area/N = V
 		N.layer = overlay_layer

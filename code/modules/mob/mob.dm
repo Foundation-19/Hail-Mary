@@ -50,7 +50,7 @@
 	tag = "mob_[next_mob_id++]"
 
 /// Prepare, or re-prepare
-/atom/proc/prepare_huds()
+TYPE_PROC_REF(/atom, prepare_huds)()
 	if(!islist(hud_list))
 		hud_list = list()
 	for(var/hud in hud_possible)
@@ -65,7 +65,7 @@
 				I.appearance_flags = RESET_COLOR|RESET_TRANSFORM
 				hud_list[hud] = I
 
-/mob/proc/Cell()
+TYPE_PROC_REF(/mob, Cell)()
 	set category = "Admin"
 	set hidden = 1
 
@@ -82,10 +82,10 @@
 
 	to_chat(usr, t)
 
-/mob/proc/get_photo_description(obj/item/camera/camera)
+TYPE_PROC_REF(/mob, get_photo_description)(obj/item/camera/camera)
 	return "a ... thing?"
 
-/mob/proc/show_message(msg, type, alt_msg, alt_type, pref_check)//Message, type of message (1 or 2), alternative message, alt message type (1 or 2)
+TYPE_PROC_REF(/mob, show_message)(msg, type, alt_msg, alt_type, pref_check)//Message, type of message (1 or 2), alternative message, alt message type (1 or 2)
 	if(audiovisual_redirect)
 		audiovisual_redirect.show_message(msg ? "<avredirspan class='small'>[msg]</avredirspan>" : null, type, alt_msg ? "<avredirspan class='small'>[alt_msg]</avredirspan>" : null, alt_type)
 
@@ -139,7 +139,7 @@
  * * target (optional) is the other mob involved with the visible message. For example, the attacker in many combat messages.
  * * target_message (optional) is what the target mob will see e.g. "[src] does something to you!"
  */
-/atom/proc/visible_message(
+TYPE_PROC_REF(/atom, visible_message)(
 		message,
 		self_message,
 		blind_message,
@@ -213,7 +213,7 @@ mob/visible_message(message, self_message, blind_message, vision_distance = DEFA
  * * hearing_distance (optional) is the range, how many tiles away the message can be heard.
  * * ignored_mobs (optional) doesn't show any message to any given mob in the list.
  */
-/atom/proc/audible_message(
+TYPE_PROC_REF(/atom, audible_message)(
 		message,
 		deaf_message,
 		hearing_distance = DEFAULT_MESSAGE_RANGE,
@@ -263,7 +263,7 @@ mob/visible_message(message, self_message, blind_message, vision_distance = DEFA
 
 
 ///Returns the client runechat visible messages preference according to the message type.
-/atom/proc/runechat_prefs_check(mob/target, visible_message_flags = NONE)
+TYPE_PROC_REF(/atom, runechat_prefs_check)(mob/target, visible_message_flags = NONE)
 	if(!target.client?.prefs)
 		return FALSE
 	if(!target.client.prefs.chat_on_map || !target.client.prefs.see_chat_non_mob)
@@ -280,17 +280,17 @@ mob/visible_message(message, self_message, blind_message, vision_distance = DEFA
 	return TRUE
 
 
-/mob/proc/get_item_by_slot(slot_id)
+TYPE_PROC_REF(/mob, get_item_by_slot)(slot_id)
 	return null
 
-/mob/proc/restrained(ignore_grab)
+TYPE_PROC_REF(/mob, restrained)(ignore_grab)
 	return
 
-/mob/proc/incapacitated(ignore_restraints, ignore_grab)
+TYPE_PROC_REF(/mob, incapacitated)(ignore_restraints, ignore_grab)
 	return
 
 //This proc is called whenever someone clicks an inventory ui slot.
-/mob/proc/attack_ui(slot)
+TYPE_PROC_REF(/mob, attack_ui)(slot)
 	var/obj/item/W = get_active_held_item()
 
 	if(istype(W))
@@ -309,12 +309,12 @@ mob/visible_message(message, self_message, blind_message, vision_distance = DEFA
 	return FALSE
 
 /// Checks for slots that are currently obscured by other garments.
-/mob/proc/check_obscured_slots()
+TYPE_PROC_REF(/mob, check_obscured_slots)()
 	return
 
 // reset_perspective(thing) set the eye to the thing (if it's equal to current default reset to mob perspective)
 // reset_perspective() set eye to common default : mob on turf, loc otherwise
-/mob/proc/reset_perspective(atom/A)
+TYPE_PROC_REF(/mob, reset_perspective)(atom/A)
 	if(!client)
 		return
 	if(A)
@@ -347,11 +347,11 @@ mob/visible_message(message, self_message, blind_message, vision_distance = DEFA
 	SEND_SIGNAL(src, COMSIG_MOB_RESET_PERSPECTIVE, A)
 	return TRUE
 
-/mob/proc/show_inv(mob/user)
+TYPE_PROC_REF(/mob, show_inv)(mob/user)
 	return
 
 //view() but with a signal, to allow blacklisting some of the otherwise visible atoms.
-/mob/proc/fov_view(dist = world.view)
+TYPE_PROC_REF(/mob, fov_view)(dist = world.view)
 	. = view(dist, src)
 	SEND_SIGNAL(src, COMSIG_MOB_FOV_VIEW, .)
 
@@ -396,7 +396,7 @@ mob/visible_message(message, self_message, blind_message, vision_distance = DEFA
 	to_chat(src, result.Join("\n"))
 	SEND_SIGNAL(src, COMSIG_MOB_EXAMINATE, A)
 
-/mob/proc/clear_from_recent_examines(atom/A)
+TYPE_PROC_REF(/mob, clear_from_recent_examines)(atom/A)
 	if(!client)
 		return
 	UnregisterSignal(A, COMSIG_PARENT_QDELETING)
@@ -409,7 +409,7 @@ mob/visible_message(message, self_message, blind_message, vision_distance = DEFA
  * Also note that examine_more() doesn't proc this or extend the timer, just because it's simpler this way and doesn't lose much.
  *	The nice part about relying on examining is that we don't bother checking visibility, because we already know they were both visible to each other within the last second, and the one who triggers it is currently seeing them
  */
-/mob/proc/handle_eye_contact(mob/living/examined_mob)
+TYPE_PROC_REF(/mob, handle_eye_contact)(mob/living/examined_mob)
 	return
 
 /mob/living/handle_eye_contact(mob/living/examined_mob)
@@ -453,10 +453,10 @@ mob/visible_message(message, self_message, blind_message, vision_distance = DEFA
 	SEND_SIGNAL(src, COMSIG_MOB_POINTED, A)
 	return TRUE
 
-/mob/proc/can_resist()
+TYPE_PROC_REF(/mob, can_resist)()
 	return FALSE		//overridden in living.dm
 
-/mob/proc/spin(spintime, speed)
+TYPE_PROC_REF(/mob, spin)(spintime, speed)
 	set waitfor = 0
 	var/D = dir
 	if((spintime < 1)||(speed < 1)||!spintime||!speed)
@@ -475,10 +475,10 @@ mob/visible_message(message, self_message, blind_message, vision_distance = DEFA
 		setDir(D)
 		spintime -= speed
 
-/mob/proc/update_pull_hud_icon()
+TYPE_PROC_REF(/mob, update_pull_hud_icon)()
 	hud_used?.pull_icon?.update_icon()
 
-/mob/proc/update_rest_hud_icon()
+TYPE_PROC_REF(/mob, update_rest_hud_icon)()
 	hud_used?.rest_icon?.update_icon()
 
 /mob/verb/mode()
@@ -565,7 +565,7 @@ mob/visible_message(message, self_message, blind_message, vision_distance = DEFA
 	M.key = key
 
 
-/mob/proc/transfer_ckey(mob/new_mob, send_signal = TRUE)
+TYPE_PROC_REF(/mob, transfer_ckey)(mob/new_mob, send_signal = TRUE)
 	if(!new_mob || (!ckey && new_mob.ckey))
 		CRASH("transfer_ckey() called [new_mob ? "on ckey-less mob with a player mob as target" : "without a valid mob target"]!")
 	if(!ckey)
@@ -645,12 +645,12 @@ GLOBAL_VAR_INIT(exploit_warn_spam_prevention, 0)
 
 // The src mob is trying to strip an item from someone
 // Defined in living.dm
-/mob/proc/stripPanelUnequip(obj/item/what, mob/who)
+TYPE_PROC_REF(/mob, stripPanelUnequip)(obj/item/what, mob/who)
 	return
 
 // The src mob is trying to place an item on someone
 // Defined in living.dm
-/mob/proc/stripPanelEquip(obj/item/what, mob/who)
+TYPE_PROC_REF(/mob, stripPanelEquip)(obj/item/what, mob/who)
 	return
 
 /mob/MouseDrop(mob/M)
@@ -670,15 +670,15 @@ GLOBAL_VAR_INIT(exploit_warn_spam_prevention, 0)
 		var/mob/M = dropping
 		M.show_inv(user)
 
-/mob/proc/is_muzzled()
+TYPE_PROC_REF(/mob, is_muzzled)()
 	return FALSE
 
 /// Adds this list to the output to the stat browser
-/mob/proc/get_status_tab_items()
+TYPE_PROC_REF(/mob, get_status_tab_items)()
 	. = list()
 
 /// Gets all relevant proc holders for the browser statpenl
-/mob/proc/get_proc_holders()
+TYPE_PROC_REF(/mob, get_proc_holders)()
 	. = list()
 	if(mind)
 		. += get_spells_for_statpanel(mind.spell_list)
@@ -689,7 +689,7 @@ GLOBAL_VAR_INIT(exploit_warn_spam_prevention, 0)
  *
  * Shows charge and other important info
  */
-/mob/proc/get_spells_for_statpanel(list/spells)
+TYPE_PROC_REF(/mob, get_spells_for_statpanel)(list/spells)
 	var/list/L = list()
 	for(var/obj/effect/proc_holder/spell/S in spells)
 		if((!S.mobs_blacklist || !S.mobs_blacklist[src]) && (!S.mobs_whitelist || S.mobs_whitelist[src]))
@@ -702,7 +702,7 @@ GLOBAL_VAR_INIT(exploit_warn_spam_prevention, 0)
 					L[++L.len] = list("[S.panel]", "[S.holder_var_type] [S.holder_var_amount]", S.name, REF(S))
 	return L
 
-/mob/proc/add_stings_to_statpanel(list/stings)
+TYPE_PROC_REF(/mob, add_stings_to_statpanel)(list/stings)
 	for(var/obj/effect/proc_holder/changeling/S in stings)
 		if(S.chemical_cost >=0 && S.can_be_used_by(src))
 			statpanel("[S.panel]",((S.chemical_cost > 0) ? "[S.chemical_cost]" : ""),S)
@@ -710,7 +710,7 @@ GLOBAL_VAR_INIT(exploit_warn_spam_prevention, 0)
 #define MOB_FACE_DIRECTION_DELAY 1
 
 // facing verbs
-/mob/proc/canface()
+TYPE_PROC_REF(/mob, canface)()
 	if(world.time < client.last_turn)
 		return FALSE
 	if(stat == DEAD || stat == UNCONSCIOUS)
@@ -723,7 +723,7 @@ GLOBAL_VAR_INIT(exploit_warn_spam_prevention, 0)
 		return FALSE
 	return TRUE
 
-/mob/proc/fall(forced)
+TYPE_PROC_REF(/mob, fall)(forced)
 	drop_all_held_items()
 
 /mob/verb/eastface()
@@ -790,10 +790,10 @@ GLOBAL_VAR_INIT(exploit_warn_spam_prevention, 0)
 		pixel_y--
 		is_shifted = TRUE
 
-/mob/proc/IsAdvancedToolUser()//This might need a rename but it should replace the can this mob use things check
+TYPE_PROC_REF(/mob, IsAdvancedToolUser)()//This might need a rename but it should replace the can this mob use things check
 	return FALSE
 
-/mob/proc/swap_hand()
+TYPE_PROC_REF(/mob, swap_hand)()
 	var/obj/item/held_item = get_active_held_item()
 	var/obj/item/new_item = get_inactive_held_item()
 	if((SEND_SIGNAL(src, COMSIG_MOB_SWAP_HANDS, held_item) & COMPONENT_BLOCK_SWAP))
@@ -802,31 +802,31 @@ GLOBAL_VAR_INIT(exploit_warn_spam_prevention, 0)
 		held_item.attempt_wield(src)
 	return TRUE
 
-/mob/proc/activate_hand(selhand)
+TYPE_PROC_REF(/mob, activate_hand)(selhand)
 	return
 
-/mob/proc/assess_threat(judgement_criteria, lasercolor = "", datum/callback/weaponcheck=null) //For sec bot threat assessment
+TYPE_PROC_REF(/mob, assess_threat)(judgement_criteria, lasercolor = "", datum/callback/weaponcheck=null) //For sec bot threat assessment
 	return 0
 
-/mob/proc/get_ghost(even_if_they_cant_reenter = 0)
+TYPE_PROC_REF(/mob, get_ghost)(even_if_they_cant_reenter = 0)
 	if(mind)
 		return mind.get_ghost(even_if_they_cant_reenter)
 
-/mob/proc/grab_ghost(force)
+TYPE_PROC_REF(/mob, grab_ghost)(force)
 	if(mind)
 		return mind.grab_ghost(force = force)
 
-/mob/proc/notify_ghost_cloning(message = "Someone is trying to revive you. Re-enter your corpse if you want to be revived!", sound = 'sound/effects/genetics.ogg', atom/source = null, flashwindow)
+TYPE_PROC_REF(/mob, notify_ghost_cloning)(message = "Someone is trying to revive you. Re-enter your corpse if you want to be revived!", sound = 'sound/effects/genetics.ogg', atom/source = null, flashwindow)
 	var/mob/dead/observer/ghost = get_ghost()
 	if(ghost)
 		ghost.notify_cloning(message, sound, source, flashwindow)
 		return ghost
 
-/mob/proc/AddSpell(obj/effect/proc_holder/spell/S)
+TYPE_PROC_REF(/mob, AddSpell)(obj/effect/proc_holder/spell/S)
 	mob_spell_list += S
 	S.action.Grant(src)
 
-/mob/proc/RemoveSpell(obj/effect/proc_holder/spell/spell)
+TYPE_PROC_REF(/mob, RemoveSpell)(obj/effect/proc_holder/spell/spell)
 	if(!spell)
 		return
 	for(var/X in mob_spell_list)
@@ -837,7 +837,7 @@ GLOBAL_VAR_INIT(exploit_warn_spam_prevention, 0)
 	if(client)
 		client << output(null, "statbrowser:check_spells")
 
-/mob/proc/anti_magic_check(magic = TRUE, holy = FALSE, tinfoil = FALSE, chargecost = 1, self = FALSE)
+TYPE_PROC_REF(/mob, anti_magic_check)(magic = TRUE, holy = FALSE, tinfoil = FALSE, chargecost = 1, self = FALSE)
 	if(!magic && !holy && !tinfoil)
 		return
 	var/list/protection_sources = list()
@@ -875,7 +875,7 @@ GLOBAL_VAR_INIT(exploit_warn_spam_prevention, 0)
 	M.pixel_y = initial(M.pixel_y)
 
 //returns the height in pixel the mob should have when buckled to another mob.
-/mob/proc/get_mob_buckling_height(mob/seat)
+TYPE_PROC_REF(/mob, get_mob_buckling_height)(mob/seat)
 	if(isliving(seat))
 		var/mob/living/L = seat
 		if(L.mob_size <= MOB_SIZE_SMALL) //being on top of a small mob doesn't put you very high.
@@ -883,28 +883,28 @@ GLOBAL_VAR_INIT(exploit_warn_spam_prevention, 0)
 	return 9
 
 //can the mob be buckled to something by default?
-/mob/proc/can_buckle()
+TYPE_PROC_REF(/mob, can_buckle)()
 	return TRUE
 
 //can the mob be unbuckled from something by default?
-/mob/proc/can_unbuckle()
+TYPE_PROC_REF(/mob, can_unbuckle)()
 	return TRUE
 
-/mob/proc/can_buckle_others(mob/living/target, atom/buckle_to)
+TYPE_PROC_REF(/mob, can_buckle_others)(mob/living/target, atom/buckle_to)
 	return TRUE
 
 //Can the mob interact() with an atom?
-/mob/proc/can_interact_with(atom/A)
+TYPE_PROC_REF(/mob, can_interact_with)(atom/A)
 	return IsAdminGhost(src) || Adjacent(A) || A.hasSiliconAccessInArea(src)
 
 //Can the mob use Topic to interact with machines
-/mob/proc/canUseTopic(atom/movable/M, be_close=FALSE, no_dextery=FALSE, no_tk=FALSE)
+TYPE_PROC_REF(/mob, canUseTopic)(atom/movable/M, be_close=FALSE, no_dextery=FALSE, no_tk=FALSE)
 	return
 
-/mob/proc/canUseStorage()
+TYPE_PROC_REF(/mob, canUseStorage)()
 	return FALSE
 
-/mob/proc/faction_check_mob(mob/target, exact_match)
+TYPE_PROC_REF(/mob, faction_check_mob)(mob/target, exact_match)
 	if(exact_match) //if we need an exact match, we need to do some bullfuckery.
 		var/list/faction_src = faction.Copy()
 		var/list/faction_target = target.faction.Copy()
@@ -934,7 +934,7 @@ GLOBAL_VAR_INIT(exploit_warn_spam_prevention, 0)
 
 //This will update a mob's name, real_name, mind.name, GLOB.data_core records, pda, id and traitor text
 //Calling this proc without an oldname will only update the mob and skip updating the pda, id and records ~Carn
-/mob/proc/fully_replace_character_name(oldname,newname)
+TYPE_PROC_REF(/mob, fully_replace_character_name)(oldname,newname)
 	log_message("[src] name changed from [oldname] to [newname]", LOG_OWNERSHIP)
 	if(!newname)
 		return 0
@@ -958,10 +958,10 @@ GLOBAL_VAR_INIT(exploit_warn_spam_prevention, 0)
 	return 1
 
 //Updates GLOB.data_core records with new name , see mob/living/carbon/human
-/mob/proc/replace_records_name(oldname,newname)
+TYPE_PROC_REF(/mob, replace_records_name)(oldname,newname)
 	return
 
-/mob/proc/replace_identification_name(oldname,newname)
+TYPE_PROC_REF(/mob, replace_identification_name)(oldname,newname)
 	var/list/searching = GetAllContents()
 	var/search_id = 1
 	var/search_pda = 1
@@ -985,24 +985,24 @@ GLOBAL_VAR_INIT(exploit_warn_spam_prevention, 0)
 					break
 				search_pda = 0
 
-/mob/proc/update_stat()
+TYPE_PROC_REF(/mob, update_stat)()
 	return
 
-/mob/proc/update_health_hud()
+TYPE_PROC_REF(/mob, update_health_hud)()
 	return
 
-/mob/proc/update_sight()
+TYPE_PROC_REF(/mob, update_sight)()
 	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
 
 	sync_lighting_plane_alpha()
 
-/mob/proc/sync_lighting_plane_alpha()
+TYPE_PROC_REF(/mob, sync_lighting_plane_alpha)()
 	if(hud_used)
 		var/obj/screen/plane_master/lighting/L = hud_used.plane_masters["[LIGHTING_PLANE]"]
 		if (L)
 			L.alpha = lighting_alpha
 
-/mob/proc/update_mouse_pointer()
+TYPE_PROC_REF(/mob, update_mouse_pointer)()
 	if (!client)
 		return
 	client.mouse_pointer_icon = initial(client.mouse_pointer_icon)
@@ -1011,10 +1011,10 @@ GLOBAL_VAR_INIT(exploit_warn_spam_prevention, 0)
 		if(M.mouse_pointer)
 			client.mouse_pointer_icon = M.mouse_pointer
 
-/mob/proc/is_literate()
+TYPE_PROC_REF(/mob, is_literate)()
 	return 0
 
-/mob/proc/can_hold_items()
+TYPE_PROC_REF(/mob, can_hold_items)()
 	return FALSE
 
 /mob/vv_get_dropdown()
@@ -1097,18 +1097,18 @@ GLOBAL_VAR_INIT(exploit_warn_spam_prevention, 0)
 	H.open_language_menu(usr)
 
 ///Adjust the nutrition of a mob
-/mob/proc/adjust_nutrition(change, max = INFINITY) //Honestly FUCK the oldcoders for putting nutrition on /mob someone else can move it up because holy hell I'd have to fix SO many typechecks
+TYPE_PROC_REF(/mob, adjust_nutrition)(change, max = INFINITY) //Honestly FUCK the oldcoders for putting nutrition on /mob someone else can move it up because holy hell I'd have to fix SO many typechecks
 	nutrition = clamp(nutrition + change, 0, max)
 
 ///Force set the mob nutrition
-/mob/proc/set_nutrition(change) //Seriously fuck you oldcoders.
+TYPE_PROC_REF(/mob, set_nutrition)(change) //Seriously fuck you oldcoders.
 	nutrition = max(0, change)
 
 /mob/setMovetype(newval)
 	. = ..()
 	update_movespeed(FALSE)
 
-/mob/proc/getLAssailant()
+TYPE_PROC_REF(/mob, getLAssailant)()
 	return LAssailant?.resolve()
 
 /// Updates the grab state of the mob and updates movespeed
@@ -1124,7 +1124,7 @@ GLOBAL_VAR_INIT(exploit_warn_spam_prevention, 0)
 		if(GRAB_KILL)
 			add_movespeed_modifier(/datum/movespeed_modifier/grab_slowdown/kill)
 
-/mob/proc/update_equipment_speed_mods()
+TYPE_PROC_REF(/mob, update_equipment_speed_mods)()
 	var/speedies = equipped_speed_mods()
 	if(!speedies)
 		remove_movespeed_modifier(/datum/movespeed_modifier/equipment_speedmod, update=TRUE)
@@ -1133,13 +1133,13 @@ GLOBAL_VAR_INIT(exploit_warn_spam_prevention, 0)
 
 /// Gets the combined speed modification of all worn items
 /// Except base mob type doesnt really wear items
-/mob/proc/equipped_speed_mods()
+TYPE_PROC_REF(/mob, equipped_speed_mods)()
 	for(var/obj/item/I in held_items)
 		if(I.item_flags & SLOWS_WHILE_IN_HAND)
 			. += I.slowdown
 
 
-/mob/proc/set_stat(new_stat)
+TYPE_PROC_REF(/mob, set_stat)(new_stat)
 	if(new_stat == stat)
 		return
 	SEND_SIGNAL(src, COMSIG_MOB_STATCHANGE, new_stat)
@@ -1151,7 +1151,7 @@ GLOBAL_VAR_INIT(exploit_warn_spam_prevention, 0)
  * Mostly called by doUnEquip()
  * Like item dropped() on mob side.
  */
-/mob/proc/on_item_dropped(obj/item/I)
+TYPE_PROC_REF(/mob, on_item_dropped)(obj/item/I)
 	return
 
 
@@ -1159,7 +1159,7 @@ GLOBAL_VAR_INIT(exploit_warn_spam_prevention, 0)
 	set hidden = FALSE
 	tilt_left()
 
-/mob/proc/tilt_left()
+TYPE_PROC_REF(/mob, tilt_left)()
 	if(!canface() || is_tilted < -50)
 		return FALSE
 	transform = transform.Turn(-1)
@@ -1169,7 +1169,7 @@ GLOBAL_VAR_INIT(exploit_warn_spam_prevention, 0)
 	set hidden = FALSE
 	tilt_right()
 
-/mob/proc/tilt_right()
+TYPE_PROC_REF(/mob, tilt_right)()
 	if(!canface() || is_tilted > 50)
 		return FALSE
 	transform = transform.Turn(1)

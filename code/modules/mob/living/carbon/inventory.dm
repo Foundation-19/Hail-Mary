@@ -14,7 +14,7 @@
 			return legcuffed
 	return null
 
-/mob/living/carbon/proc/equip_in_one_of_slots(obj/item/I, list/slots, qdel_on_fail = 1, critical = FALSE)
+TYPE_PROC_REF(/mob/living/carbon, equip_in_one_of_slots)(obj/item/I, list/slots, qdel_on_fail = 1, critical = FALSE)
 	for(var/slot in slots)
 		if(equip_to_slot_if_possible(I, slots[slot], qdel_on_fail = 0, disable_warning = TRUE))
 			return slot
@@ -136,7 +136,7 @@
 			update_inv_legcuffed()
 
 //handle stuff to update when a mob equips/unequips a mask.
-/mob/living/proc/wear_mask_update(obj/item/clothing/C, toggle_off = 1)
+TYPE_PROC_REF(/mob/living, wear_mask_update)(obj/item/clothing/C, toggle_off = 1)
 	update_inv_wear_mask()
 
 /mob/living/carbon/wear_mask_update(obj/item/clothing/C, toggle_off = 1)
@@ -145,7 +145,7 @@
 	return ..()
 
 //handle stuff to update when a mob equips/unequips a headgear.
-/mob/living/carbon/proc/head_update(obj/item/I, forced)
+TYPE_PROC_REF(/mob/living/carbon, head_update)(obj/item/I, forced)
 	if(istype(I, /obj/item/clothing))
 		var/obj/item/clothing/C = I
 		if(C.tint || initial(C.tint))
@@ -155,6 +155,6 @@
 		update_inv_wear_mask()
 	update_inv_head()
 
-/mob/living/carbon/proc/get_holding_bodypart_of_item(obj/item/I)
+TYPE_PROC_REF(/mob/living/carbon, get_holding_bodypart_of_item)(obj/item/I)
 	var/index = get_held_index_of_item(I)
 	return index && hand_bodyparts[index]

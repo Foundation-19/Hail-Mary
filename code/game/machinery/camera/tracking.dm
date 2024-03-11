@@ -1,4 +1,4 @@
-/mob/living/silicon/ai/proc/get_camera_list()
+TYPE_PROC_REF(/mob/living/silicon/ai, get_camera_list)()
 	var/list/L = list()
 	for (var/obj/machinery/camera/C in GLOB.cameranet.cameras)
 		L.Add(C)
@@ -14,7 +14,7 @@
 
 	return T
 
-/mob/living/silicon/ai/proc/show_camera_list()
+TYPE_PROC_REF(/mob/living/silicon/ai, show_camera_list)()
 	var/list/cameras = get_camera_list()
 	var/camera = input(src, "Choose which camera you want to view", "Cameras") as null|anything in cameras
 	switchCamera(cameras[camera])
@@ -26,7 +26,7 @@
 	var/list/humans = list()
 	var/list/others = list()
 
-/mob/living/silicon/ai/proc/trackable_mobs()
+TYPE_PROC_REF(/mob/living/silicon/ai, trackable_mobs)()
 	track.initialized = TRUE
 	track.names.Cut()
 	track.namecounts.Cut()
@@ -71,7 +71,7 @@
 
 	ai_actual_track(target)
 
-/mob/living/silicon/ai/proc/ai_actual_track(mob/living/target)
+TYPE_PROC_REF(/mob/living/silicon/ai, ai_actual_track)(mob/living/target)
 	if(!istype(target))
 		return
 	var/mob/living/silicon/ai/U = usr

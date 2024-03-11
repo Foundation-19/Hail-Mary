@@ -27,12 +27,12 @@
 /datum/gas_reaction/New()
 	init_reqs()
 
-/datum/gas_reaction/proc/init_reqs()
+TYPE_PROC_REF(/datum/gas_reaction, init_reqs)()
 
-/datum/gas_reaction/proc/react(datum/gas_mixture/air, atom/location)
+TYPE_PROC_REF(/datum/gas_reaction, react)(datum/gas_mixture/air, atom/location)
 	return NO_REACTION
 
-/datum/gas_reaction/proc/test()
+TYPE_PROC_REF(/datum/gas_reaction, test)()
 	return list("success" = TRUE)
 
 /datum/gas_reaction/nobliumsupression

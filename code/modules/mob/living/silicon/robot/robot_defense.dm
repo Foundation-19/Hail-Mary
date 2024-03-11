@@ -130,7 +130,7 @@
 	INVOKE_ASYNC(src, PROC_REF(beep_boop_rogue_bot), user)
 	return TRUE
 
-/mob/living/silicon/robot/proc/beep_boop_rogue_bot(mob/user)
+TYPE_PROC_REF(/mob/living/silicon/robot, beep_boop_rogue_bot)(mob/user)
 	SetEmagged(1)
 	SetStun(60) //Borgs were getting into trouble because they would attack the emagger before the new laws were shown
 	lawupdate = FALSE

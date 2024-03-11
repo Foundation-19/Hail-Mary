@@ -52,7 +52,7 @@
 
 	return ..()
 
-/obj/item/implant/explosive/proc/timed_explosion(cause)
+TYPE_PROC_REF(/obj/item/implant/explosive, timed_explosion)(cause)
 	if(cause == "death" && imp_in.stat != DEAD)
 		return FALSE
 	heavy = round(heavy)
@@ -72,7 +72,7 @@
 	else //If the delay is short, just blow up already jeez
 		boom_goes_the_weasel()
 
-/obj/item/implant/explosive/proc/double_pain(message = FALSE)
+TYPE_PROC_REF(/obj/item/implant/explosive, double_pain)(message = FALSE)
 	playsound(get_turf(imp_in ? imp_in : src), 'sound/items/timer.ogg', 30, 0)
 	if(!imp_in)
 		return
@@ -80,7 +80,7 @@
 		imp_in.visible_message(span_warning("[imp_in] doubles over in pain!"))
 	imp_in.DefaultCombatKnockdown(140)
 
-/obj/item/implant/explosive/proc/boom_goes_the_weasel()
+TYPE_PROC_REF(/obj/item/implant/explosive, boom_goes_the_weasel)()
 	explosion(get_turf(imp_in ? imp_in : src), heavy, medium, weak, weak, flame_range = weak)
 	if(!QDELETED(imp_in))
 		imp_in.gib(TRUE)

@@ -11,22 +11,22 @@
 	item_flags = DROPDEL
 
 
-/obj/item/implant/proc/trigger(emote, mob/living/carbon/source)
+TYPE_PROC_REF(/obj/item/implant, trigger)(emote, mob/living/carbon/source)
 	return
 
-/obj/item/implant/proc/on_death(emote, mob/living/carbon/source)
+TYPE_PROC_REF(/obj/item/implant, on_death)(emote, mob/living/carbon/source)
 	return
 
-/obj/item/implant/proc/activate()
+TYPE_PROC_REF(/obj/item/implant, activate)()
 	SEND_SIGNAL(src, COMSIG_IMPLANT_ACTIVATED)
 
 /obj/item/implant/ui_action_click()
 	activate("action_button")
 
-/obj/item/implant/proc/can_be_implanted_in(mob/living/target) // for human-only and other special requirements
+TYPE_PROC_REF(/obj/item/implant, can_be_implanted_in)(mob/living/target) // for human-only and other special requirements
 	return TRUE
 
-/mob/living/proc/can_be_implanted()
+TYPE_PROC_REF(/mob/living, can_be_implanted)()
 	return TRUE
 
 /mob/living/silicon/can_be_implanted()
@@ -40,7 +40,7 @@
 //What does the implant do upon injection?
 //return 1 if the implant injects
 //return 0 if there is no room for implant / it fails
-/obj/item/implant/proc/implant(mob/living/target, mob/user, silent = FALSE)
+TYPE_PROC_REF(/obj/item/implant, implant)(mob/living/target, mob/user, silent = FALSE)
 	if(SEND_SIGNAL(src, COMSIG_IMPLANT_IMPLANTING, args) & COMPONENT_STOP_IMPLANTING)
 		return
 	LAZYINITLIST(target.implants)
@@ -88,7 +88,7 @@
 
 	return TRUE
 
-/obj/item/implant/proc/removed(mob/living/source, silent = FALSE, special = 0)
+TYPE_PROC_REF(/obj/item/implant, removed)(mob/living/source, silent = FALSE, special = 0)
 	SEND_SIGNAL(src, COMSIG_IMPLANT_REMOVING, args)
 	imp_in = null
 	source.implants -= src
@@ -106,7 +106,7 @@
 		removed(imp_in)
 	return ..()
 
-/obj/item/implant/proc/get_data()
+TYPE_PROC_REF(/obj/item/implant, get_data)()
 	return "No information available about this implant."
 
 /obj/item/implant/dropped(mob/user)

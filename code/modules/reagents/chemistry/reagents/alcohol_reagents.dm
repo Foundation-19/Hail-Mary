@@ -1294,7 +1294,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	inverse_chem			= /datum/reagent/consumable/ethanol/neuroweak
 	value = REAGENT_VALUE_UNCOMMON
 
-/datum/reagent/consumable/ethanol/neurotoxin/proc/pickt()
+TYPE_PROC_REF(/datum/reagent/consumable/ethanol/neurotoxin, pickt)()
 	return (pick(TRAIT_PARALYSIS_L_ARM,TRAIT_PARALYSIS_R_ARM,TRAIT_PARALYSIS_R_LEG,TRAIT_PARALYSIS_L_LEG))
 
 /datum/reagent/consumable/ethanol/neurotoxin/on_mob_life(mob/living/carbon/M)
@@ -2365,7 +2365,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	boozepwr /= volume //Blending boozepwr to volume.
 	generate_data_info(data)
 
-/datum/reagent/consumable/ethanol/fruit_wine/proc/generate_data_info(list/data)
+TYPE_PROC_REF(/datum/reagent/consumable/ethanol/fruit_wine, generate_data_info)(list/data)
 	var/minimum_percent = 0.15 //Percentages measured between 0 and 1.
 	var/list/primary_tastes = list()
 	var/list/secondary_tastes = list()

@@ -83,7 +83,7 @@
 		for(var/datum/plant_gene/reagent/G in genes)
 			. += span_notice("- [G.get_name()] -")
 
-/obj/item/seeds/proc/Copy()
+TYPE_PROC_REF(/obj/item/seeds, Copy)()
 	var/obj/item/seeds/S = new type(null, 1)
 	// Copy all the stats
 	S.lifespan = lifespan
@@ -106,31 +106,31 @@
 	S.reagents_add = reagents_add.Copy() // Faster than grabbing the list from genes.
 	return S
 
-obj/item/seeds/proc/is_gene_forbidden(typepath)
+TYPE_PROC_REF(obj/item/seeds, is_gene_forbidden)(typepath)
 	return (typepath in forbiddengenes)
 
 
-/obj/item/seeds/proc/get_gene(typepath)
+TYPE_PROC_REF(/obj/item/seeds, get_gene)(typepath)
 	return (locate(typepath) in genes)
 
-/obj/item/seeds/proc/reagents_from_genes()
+TYPE_PROC_REF(/obj/item/seeds, reagents_from_genes)()
 	reagents_add = list()
 	for(var/datum/plant_gene/reagent/R in genes)
 		reagents_add[R.reagent_id] = R.rate
 
 ///This proc adds a mutability_flag to a gene
-/obj/item/seeds/proc/set_mutability(typepath, mutability)
+TYPE_PROC_REF(/obj/item/seeds, set_mutability)(typepath, mutability)
 	var/datum/plant_gene/g = get_gene(typepath)
 	if(g)
 		g.mutability_flags |=  mutability
 
 ///This proc removes a mutability_flag from a gene
-/obj/item/seeds/proc/unset_mutability(typepath, mutability)
+TYPE_PROC_REF(/obj/item/seeds, unset_mutability)(typepath, mutability)
 	var/datum/plant_gene/g = get_gene(typepath)
 	if(g)
 		g.mutability_flags &=  ~mutability
 
-/obj/item/seeds/proc/mutate(lifemut = 2, endmut = 5, productmut = 1, yieldmut = 2, potmut = 25, wrmut = 2, wcmut = 5, traitmut = 0, stabmut = 3)
+TYPE_PROC_REF(/obj/item/seeds, mutate)(lifemut = 2, endmut = 5, productmut = 1, yieldmut = 2, potmut = 25, wrmut = 2, wcmut = 5, traitmut = 0, stabmut = 3)
 	adjust_lifespan(rand(-lifemut,lifemut))
 	adjust_endurance(rand(-endmut,endmut))
 	adjust_production(rand(-productmut,productmut))
@@ -162,7 +162,7 @@ obj/item/seeds/proc/is_gene_forbidden(typepath)
 
 
 // Harvest procs
-/obj/item/seeds/proc/getYield()
+TYPE_PROC_REF(/obj/item/seeds, getYield)()
 	var/return_yield = yield
 
 	var/obj/machinery/hydroponics/parent = loc
@@ -175,7 +175,7 @@ obj/item/seeds/proc/is_gene_forbidden(typepath)
 	return return_yield
 
 
-/obj/item/seeds/proc/harvest(mob/user)
+TYPE_PROC_REF(/obj/item/seeds, harvest)(mob/user)
 	///Reference to the tray/soil the seeds are planted in.
 	var/obj/machinery/hydroponics/parent = loc //for ease of access
 	///Count used for creating the correct amount of results to the harvest.
@@ -228,7 +228,7 @@ obj/item/seeds/proc/is_gene_forbidden(typepath)
 
 	return result
 
-/obj/item/seeds/proc/harvest_userless()
+TYPE_PROC_REF(/obj/item/seeds, harvest_userless)()
 	var/obj/machinery/hydroponics/parent = loc //for ease of access
 	var/t_amount = 0
 	var/list/result = list()
@@ -254,7 +254,7 @@ obj/item/seeds/proc/is_gene_forbidden(typepath)
 	parent.update_tray()
 	return result
 
-/obj/item/seeds/proc/prepare_result(obj/item/reagent_containers/food/snacks/grown/T)
+TYPE_PROC_REF(/obj/item/seeds, prepare_result)(obj/item/reagent_containers/food/snacks/grown/T)
 	if(!T.reagents)
 		CRASH("[T] has no reagents.")
 
@@ -272,7 +272,7 @@ obj/item/seeds/proc/is_gene_forbidden(typepath)
 
 
 /// Setters procs ///
-/obj/item/seeds/proc/adjust_yield(adjustamt)
+TYPE_PROC_REF(/obj/item/seeds, adjust_yield)(adjustamt)
 	if(yield != -1) // Unharvestable shouldn't suddenly turn harvestable
 		yield = clamp(yield + adjustamt, 0, 10)
 
@@ -282,26 +282,26 @@ obj/item/seeds/proc/is_gene_forbidden(typepath)
 		if(C)
 			C.value = yield
 
-/obj/item/seeds/proc/adjust_lifespan(adjustamt)
+TYPE_PROC_REF(/obj/item/seeds, adjust_lifespan)(adjustamt)
 	lifespan = clamp(lifespan + adjustamt, 10, 100)
 	var/datum/plant_gene/core/C = get_gene(/datum/plant_gene/core/lifespan)
 	if(C)
 		C.value = lifespan
 
-/obj/item/seeds/proc/adjust_endurance(adjustamt)
+TYPE_PROC_REF(/obj/item/seeds, adjust_endurance)(adjustamt)
 	endurance = clamp(endurance + adjustamt, 10, 100)
 	var/datum/plant_gene/core/C = get_gene(/datum/plant_gene/core/endurance)
 	if(C)
 		C.value = endurance
 
-/obj/item/seeds/proc/adjust_production(adjustamt)
+TYPE_PROC_REF(/obj/item/seeds, adjust_production)(adjustamt)
 	if(yield != -1)
 		production = clamp(production + adjustamt, 1, 10)
 		var/datum/plant_gene/core/C = get_gene(/datum/plant_gene/core/production)
 		if(C)
 			C.value = production
 
-/obj/item/seeds/proc/adjust_instability(adjustamt)
+TYPE_PROC_REF(/obj/item/seeds, adjust_instability)(adjustamt)
 	if(instability == -1)
 		return
 	instability = clamp(instability + adjustamt, 0, 100)
@@ -309,20 +309,20 @@ obj/item/seeds/proc/is_gene_forbidden(typepath)
 	if(C)
 		C.value = instability
 
-/obj/item/seeds/proc/adjust_potency(adjustamt)
+TYPE_PROC_REF(/obj/item/seeds, adjust_potency)(adjustamt)
 	if(potency != -1)
 		potency = clamp(potency + adjustamt, 0, 100)
 		var/datum/plant_gene/core/C = get_gene(/datum/plant_gene/core/potency)
 		if(C)
 			C.value = potency
 
-/obj/item/seeds/proc/adjust_weed_rate(adjustamt)
+TYPE_PROC_REF(/obj/item/seeds, adjust_weed_rate)(adjustamt)
 	weed_rate = clamp(weed_rate + adjustamt, 0, 10)
 	var/datum/plant_gene/core/C = get_gene(/datum/plant_gene/core/weed_rate)
 	if(C)
 		C.value = weed_rate
 
-/obj/item/seeds/proc/adjust_weed_chance(adjustamt)
+TYPE_PROC_REF(/obj/item/seeds, adjust_weed_chance)(adjustamt)
 	weed_chance = clamp(weed_chance + adjustamt, 0, 67)
 	var/datum/plant_gene/core/C = get_gene(/datum/plant_gene/core/weed_chance)
 	if(C)
@@ -330,7 +330,7 @@ obj/item/seeds/proc/is_gene_forbidden(typepath)
 
 //Directly setting stats
 
-/obj/item/seeds/proc/set_yield(adjustamt)
+TYPE_PROC_REF(/obj/item/seeds, set_yield)(adjustamt)
 	if(yield != -1) // Unharvestable shouldn't suddenly turn harvestable
 		yield = clamp(adjustamt, 0, 10)
 
@@ -340,33 +340,33 @@ obj/item/seeds/proc/is_gene_forbidden(typepath)
 		if(C)
 			C.value = yield
 
-/obj/item/seeds/proc/set_lifespan(adjustamt)
+TYPE_PROC_REF(/obj/item/seeds, set_lifespan)(adjustamt)
 	lifespan = clamp(adjustamt, 10, 100)
 	var/datum/plant_gene/core/C = get_gene(/datum/plant_gene/core/lifespan)
 	if(C)
 		C.value = lifespan
 
-/obj/item/seeds/proc/set_endurance(adjustamt)
+TYPE_PROC_REF(/obj/item/seeds, set_endurance)(adjustamt)
 	endurance = clamp(adjustamt, 10, 100)
 	var/datum/plant_gene/core/C = get_gene(/datum/plant_gene/core/endurance)
 	if(C)
 		C.value = endurance
 
-/obj/item/seeds/proc/set_production(adjustamt)
+TYPE_PROC_REF(/obj/item/seeds, set_production)(adjustamt)
 	if(yield != -1)
 		production = clamp(adjustamt, 1, 10)
 		var/datum/plant_gene/core/C = get_gene(/datum/plant_gene/core/production)
 		if(C)
 			C.value = production
 
-/obj/item/seeds/proc/set_potency(adjustamt)
+TYPE_PROC_REF(/obj/item/seeds, set_potency)(adjustamt)
 	if(potency != -1)
 		potency = clamp(adjustamt, 0, 100)
 		var/datum/plant_gene/core/C = get_gene(/datum/plant_gene/core/potency)
 		if(C)
 			C.value = potency
 
-/obj/item/seeds/proc/set_instability(adjustamt)
+TYPE_PROC_REF(/obj/item/seeds, set_instability)(adjustamt)
 	if(instability == -1)
 		return
 	instability = clamp(adjustamt, 0, 100)
@@ -374,20 +374,20 @@ obj/item/seeds/proc/is_gene_forbidden(typepath)
 	if(C)
 		C.value = instability
 
-/obj/item/seeds/proc/set_weed_rate(adjustamt)
+TYPE_PROC_REF(/obj/item/seeds, set_weed_rate)(adjustamt)
 	weed_rate = clamp(adjustamt, 0, 10)
 	var/datum/plant_gene/core/C = get_gene(/datum/plant_gene/core/weed_rate)
 	if(C)
 		C.value = weed_rate
 
-/obj/item/seeds/proc/set_weed_chance(adjustamt)
+TYPE_PROC_REF(/obj/item/seeds, set_weed_chance)(adjustamt)
 	weed_chance = clamp(adjustamt, 0, 67)
 	var/datum/plant_gene/core/C = get_gene(/datum/plant_gene/core/weed_chance)
 	if(C)
 		C.value = weed_chance
 
 
-/obj/item/seeds/proc/get_analyzer_text()  //in case seeds have something special to tell to the analyzer
+TYPE_PROC_REF(/obj/item/seeds, get_analyzer_text)()  //in case seeds have something special to tell to the analyzer
 	var/text = ""
 	if(!get_gene(/datum/plant_gene/trait/plant_type/weed_hardy) && !get_gene(/datum/plant_gene/trait/plant_type/fungal_metabolism) && !get_gene(/datum/plant_gene/trait/plant_type/alien_properties))
 		text += "- Plant type: Normal plant\n"
@@ -420,7 +420,7 @@ obj/item/seeds/proc/is_gene_forbidden(typepath)
 	text += "*---------*"
 	return text
 
-/obj/item/seeds/proc/on_chem_reaction(datum/reagents/S)  //in case seeds have some special interaction with special chems
+TYPE_PROC_REF(/obj/item/seeds, on_chem_reaction)(datum/reagents/S)  //in case seeds have some special interaction with special chems
 	return
 
 /obj/item/seeds/attackby(obj/item/O, mob/user, params)
@@ -516,7 +516,7 @@ obj/item/seeds/proc/is_gene_forbidden(typepath)
 			if(!(seed.icon_harvest in states))
 				to_chat(world, "[seed.name] ([seed.type]) lacks the [seed.icon_harvest] icon!")
 
-/obj/item/seeds/proc/randomize_stats()
+TYPE_PROC_REF(/obj/item/seeds, randomize_stats)()
 	set_lifespan(rand(25, 60))
 	set_endurance(rand(15, 35))
 	set_production(rand(2, 10))
@@ -526,7 +526,7 @@ obj/item/seeds/proc/is_gene_forbidden(typepath)
 	set_weed_chance(rand(5, 100))
 	maturation = rand(6, 12)
 
-/obj/item/seeds/proc/add_random_reagents(lower = 0, upper = 2)
+TYPE_PROC_REF(/obj/item/seeds, add_random_reagents)(lower = 0, upper = 2)
 	var/amount_random_reagents = rand(lower, upper)
 	for(var/i in 1 to amount_random_reagents)
 		var/random_amount = rand(4, 15) * 0.01 // this must be multiplied by 0.01, otherwise, it will not properly associate
@@ -537,7 +537,7 @@ obj/item/seeds/proc/is_gene_forbidden(typepath)
 			qdel(R)
 	reagents_from_genes()
 
-/obj/item/seeds/proc/add_random_traits(lower = 0, upper = 2)
+TYPE_PROC_REF(/obj/item/seeds, add_random_traits)(lower = 0, upper = 2)
 	var/amount_random_traits = rand(lower, upper)
 	for(var/i in 1 to amount_random_traits)
 		var/random_trait = pick((subtypesof(/datum/plant_gene/trait)-typesof(/datum/plant_gene/trait/plant_type)))
@@ -547,7 +547,7 @@ obj/item/seeds/proc/is_gene_forbidden(typepath)
 		else
 			qdel(T)
 
-/obj/item/seeds/proc/add_random_plant_type(normal_plant_chance = 75)
+TYPE_PROC_REF(/obj/item/seeds, add_random_plant_type)(normal_plant_chance = 75)
 	if(prob(normal_plant_chance))
 		var/random_plant_type = pick(subtypesof(/datum/plant_gene/trait/plant_type))
 		var/datum/plant_gene/trait/plant_type/P = new random_plant_type

@@ -98,7 +98,7 @@
 	arm()
 	notify_ghosts("[user] put a reverse bear trap on [target]!", source = src, action = NOTIFY_ORBIT, ghost_sound = 'sound/machines/beep.ogg')
 
-/obj/item/reverse_bear_trap/proc/snap()
+TYPE_PROC_REF(/obj/item/reverse_bear_trap, snap)()
 	reset()
 	var/mob/living/carbon/human/H = loc
 	if(!istype(H) || H.get_item_by_slot(SLOT_HEAD) != src)
@@ -114,14 +114,14 @@
 		jill.death() //just in case, for some reason, they're still alive
 		flash_color(jill, flash_color = "#FF0000", flash_time = 100)
 
-/obj/item/reverse_bear_trap/proc/reset()
+TYPE_PROC_REF(/obj/item/reverse_bear_trap, reset)()
 	ticking = FALSE
 	REMOVE_TRAIT(src, TRAIT_NODROP, REVERSE_BEAR_TRAP_TRAIT)
 	soundloop.stop()
 	soundloop2.stop()
 	STOP_PROCESSING(SSprocessing, src)
 
-/obj/item/reverse_bear_trap/proc/arm() //hulen
+TYPE_PROC_REF(/obj/item/reverse_bear_trap, arm)() //hulen
 	ticking = TRUE
 	escape_chance = initial(escape_chance) //we keep these vars until re-arm, for tracking purposes
 	time_left = initial(time_left)

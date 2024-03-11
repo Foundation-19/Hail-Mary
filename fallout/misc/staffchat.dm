@@ -1,20 +1,20 @@
 //this file is where we put all of our fortuna verb additions
 GLOBAL_LIST_INIT(staff_verbs, list(
-	/client/proc/cmd_staff_say,
-	/client/proc/open_event_panel
+	TYPE_PROC_REF(/client, cmd_staff_say),
+	TYPE_PROC_REF(/client, open_event_panel)
 	))
 GLOBAL_PROTECT(staff_verbs)
 GLOBAL_LIST_EMPTY(staff)
 GLOBAL_PROTECT(staff)
-/client/proc/add_staff_verbs()
+TYPE_PROC_REF(/client, add_staff_verbs)()
 	if(is_staff())
 		add_verb(src, GLOB.staff_verbs)
 
-/client/proc/remove_staff_verbs()
+TYPE_PROC_REF(/client, remove_staff_verbs)()
 	remove_verb(src, GLOB.staff_verbs)
 
 
-/client/proc/cmd_staff_say(msg as text)
+TYPE_PROC_REF(/client, cmd_staff_say)(msg as text)
 	set category = "OOC"
 	set name = "Schat"
 	set hidden = 1
@@ -35,7 +35,7 @@ GLOBAL_PROTECT(staff)
 	to_chat(GLOB.admins | GLOB.staff, msg, confidential = TRUE)
 
 //add or remove a targets crafting knowledge
-/client/proc/modify_recipes(mob/living/target)
+TYPE_PROC_REF(/client, modify_recipes)(mob/living/target)
 	set category = null
 	set name = "Modify Recipes"
 
@@ -102,7 +102,7 @@ GLOBAL_PROTECT(staff)
 
 			
 //event coordinator stuff
-/datum/admins/proc/event_panel()
+TYPE_PROC_REF(/datum/admins, event_panel)()
 	if(!check_rights(R_SPAWN))
 		message_admins("[ADMIN_TPMONTY(usr)] tried to use open_event_panel() without perms!")
 		log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use open_event_panel() without perms!")
@@ -145,7 +145,7 @@ GLOBAL_PROTECT(staff)
 	popup.open()
 	return
 
-/client/proc/open_event_panel()
+TYPE_PROC_REF(/client, open_event_panel)()
 	set name = "Event Coordinator Panel"
 	set category = "Admin.Fun"
 

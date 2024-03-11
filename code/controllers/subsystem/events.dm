@@ -44,17 +44,17 @@ SUBSYSTEM_DEF(events)
 			return
 
 //checks if we should select a random event yet, and reschedules if necessary
-/datum/controller/subsystem/events/proc/checkEvent()
+TYPE_PROC_REF(/datum/controller/subsystem/events, checkEvent)()
 	if(scheduled <= world.time)
 		spawnEvent()
 		reschedule()
 
 //decides which world.time we should select another random event at.
-/datum/controller/subsystem/events/proc/reschedule()
+TYPE_PROC_REF(/datum/controller/subsystem/events, reschedule)()
 	scheduled = world.time + rand(frequency_lower, max(frequency_lower,frequency_upper))
 
 //selects a random event based on whether it can occur and it's 'weight'(probability)
-/datum/controller/subsystem/events/proc/spawnEvent()
+TYPE_PROC_REF(/datum/controller/subsystem/events, spawnEvent)()
 	set waitfor = FALSE	//for the admin prompt
 	if(!CONFIG_GET(flag/allow_random_events))
 		return
@@ -86,7 +86,7 @@ SUBSYSTEM_DEF(events)
 			if(TriggerEvent(E))
 				return
 
-/datum/controller/subsystem/events/proc/TriggerEvent(datum/round_event_control/E)
+TYPE_PROC_REF(/datum/controller/subsystem/events, TriggerEvent)(datum/round_event_control/E)
 	. = E.preRunEvent()
 	if(. == EVENT_CANT_RUN)//we couldn't run this event for some reason, set its max_occurrences to 0
 		E.max_occurrences = 0
@@ -98,7 +98,7 @@ SUBSYSTEM_DEF(events)
 //aka Badmin Central
 // > Not in modules/admin
 // REEEEEEEEE
-/client/proc/forceEvent()
+TYPE_PROC_REF(/client, forceEvent)()
 	set name = "Trigger Event"
 	set category = "Admin.Events"
 
@@ -107,7 +107,7 @@ SUBSYSTEM_DEF(events)
 
 	holder.forceEvent()
 
-/datum/admins/proc/forceEvent()
+TYPE_PROC_REF(/datum/admins, forceEvent)()
 	var/dat 	= ""
 	var/normal 	= ""
 	var/magic 	= ""
@@ -150,7 +150,7 @@ SUBSYSTEM_DEF(events)
 */
 
 //sets up the holidays and holidays list
-/datum/controller/subsystem/events/proc/getHoliday()
+TYPE_PROC_REF(/datum/controller/subsystem/events, getHoliday)()
 	if(!CONFIG_GET(flag/allow_holidays))
 		return		// Holiday stuff was not enabled in the config!
 
@@ -176,12 +176,12 @@ SUBSYSTEM_DEF(events)
 		set_station_name(new_station_name())
 		world.update_status()*/
 
-/datum/controller/subsystem/events/proc/toggleWizardmode()
+TYPE_PROC_REF(/datum/controller/subsystem/events, toggleWizardmode)()
 	wizardmode = !wizardmode
 	message_admins("Summon Events has been [wizardmode ? "enabled, events will occur every [SSevents.frequency_lower / 600] to [SSevents.frequency_upper / 600] minutes" : "disabled"]!")
 	log_game("Summon Events was [wizardmode ? "enabled" : "disabled"]!")
 
 
-/datum/controller/subsystem/events/proc/resetFrequency()
+TYPE_PROC_REF(/datum/controller/subsystem/events, resetFrequency)()
 	frequency_lower = initial(frequency_lower)
 	frequency_upper = initial(frequency_upper)

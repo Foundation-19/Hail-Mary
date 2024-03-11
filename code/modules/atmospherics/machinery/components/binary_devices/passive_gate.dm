@@ -80,13 +80,13 @@ Passive gate is similar to the regular pump except:
 
 //Radio remote control
 
-/obj/machinery/atmospherics/components/binary/passive_gate/proc/set_frequency(new_frequency)
+TYPE_PROC_REF(/obj/machinery/atmospherics/components/binary/passive_gate, set_frequency)(new_frequency)
 	SSradio.remove_object(src, frequency)
 	frequency = new_frequency
 	if(frequency)
 		radio_connection = SSradio.add_object(src, frequency, filter = RADIO_ATMOSIA)
 
-/obj/machinery/atmospherics/components/binary/passive_gate/proc/broadcast_status()
+TYPE_PROC_REF(/obj/machinery/atmospherics/components/binary/passive_gate, broadcast_status)()
 	if(!radio_connection)
 		return
 

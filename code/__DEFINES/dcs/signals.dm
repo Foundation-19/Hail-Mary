@@ -5,7 +5,7 @@
 // global signals
 // These are signals which can be listened to by any component on any parent
 // start global signals with "!", this used to be necessary but now it's just a formatting choice
-/// from base of datum/controller/subsystem/mapping/proc/add_new_zlevel(): (list/args)
+/// from base of TYPE_PROC_REF(datum/controller/subsystem/mapping, add_new_zlevel)(): (list/args)
 #define COMSIG_GLOB_NEW_Z "!new_z"
 /// called after a successful var edit somewhere in the world: (list/args)
 #define COMSIG_GLOB_VAR_EDIT "!var_edit"
@@ -56,7 +56,7 @@
 #define COMSIG_SUBSYSTEM_POST_INITIALIZE "subsystem_post_initialize"
 
 // /atom signals
-//from base of atom/proc/Initialize(): sent any time a new atom is created
+//from base of TYPE_PROC_REF(atom, Initialize)(): sent any time a new atom is created
 #define COMSIG_ATOM_CREATED "atom_created"
 //from SSatoms InitAtom - Only if the  atom was not deleted or failed initialization
 #define COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZE "atom_init_success"
@@ -106,7 +106,7 @@
 #define COMSIG_ATOM_RCD_ACT "atom_rcd_act"
 ///from base of atom/singularity_pull(): (S, current_size)
 #define COMSIG_ATOM_SING_PULL "atom_sing_pull"
-///from obj/machinery/bsa/full/proc/fire(): ()
+///from TYPE_PROC_REF(obj/machinery/bsa/full, fire)(): ()
 #define COMSIG_ATOM_BSA_BEAM "atom_bsa_beam_pass"
 	#define COMSIG_ATOM_BLOCKS_BSA_BEAM (1<<0)
 ///from base of atom/setDir(): (old_dir, new_dir). Called before the direction changes.
@@ -124,7 +124,7 @@
 ///from base of datum/radiation_wave/check_obstructions(): (datum/radiation_wave, width)
 #define COMSIG_ATOM_RAD_WAVE_PASSING "atom_rad_wave_pass"
 	#define COMPONENT_RAD_WAVE_HANDLED (1<<0)
-///from internal loop in the base of /atom/movable/proc/get_locs(): (list/locs)
+///from internal loop in the base of TYPE_PROC_REF(/atom/movable, get_locs)(): (list/locs)
 #define COMSIG_ATOM_GET_LOCS "atom_get_locs"
 
 #define COMSIG_ATOM_SCREWDRIVER_ACT "atom_screwdriver_act"		//from base of atom/screwdriver_act(): (mob/living/user, obj/item/I)
@@ -140,29 +140,29 @@
 #define COMSIG_ATOM_INTERCEPT_Z_FALL "movable_intercept_z_impact"	//called for each movable in a turf contents on /turf/zImpact(): (atom/movable/A, levels)
 
 // Lighting:
-///from base of [atom/proc/set_light]: (l_range, l_power, l_color, l_on)
+///from base of [TYPE_PROC_REF(atom, set_light)]: (l_range, l_power, l_color, l_on)
 #define COMSIG_ATOM_SET_LIGHT "atom_set_light"
-	/// Blocks [/atom/proc/set_light], [/atom/proc/set_light_power], [/atom/proc/set_light_range], [/atom/proc/set_light_color], [/atom/proc/set_light_on], and [/atom/proc/set_light_flags].
+	/// Blocks [TYPE_PROC_REF(/atom, set_light)], [TYPE_PROC_REF(/atom, set_light_power)], [TYPE_PROC_REF(/atom, set_light_range)], [TYPE_PROC_REF(/atom, set_light_color)], [TYPE_PROC_REF(/atom, set_light_on)], and [TYPE_PROC_REF(/atom, set_light_flags)].
 	#define COMPONENT_BLOCK_LIGHT_UPDATE (1<<0)
-///Called right before the atom changes the value of light_power to a different one, from base [atom/proc/set_light_power]: (new_power)
+///Called right before the atom changes the value of light_power to a different one, from base [TYPE_PROC_REF(atom, set_light_power)]: (new_power)
 #define COMSIG_ATOM_SET_LIGHT_POWER "atom_set_light_power"
-///Called right after the atom changes the value of light_power to a different one, from base of [/atom/proc/set_light_power]: (old_power)
+///Called right after the atom changes the value of light_power to a different one, from base of [TYPE_PROC_REF(/atom, set_light_power)]: (old_power)
 #define COMSIG_ATOM_UPDATE_LIGHT_POWER "atom_update_light_power"
-///Called right before the atom changes the value of light_range to a different one, from base [atom/proc/set_light_range]: (new_range)
+///Called right before the atom changes the value of light_range to a different one, from base [TYPE_PROC_REF(atom, set_light_range)]: (new_range)
 #define COMSIG_ATOM_SET_LIGHT_RANGE "atom_set_light_range"
-///Called right after the atom changes the value of light_range to a different one, from base of [/atom/proc/set_light_range]: (old_range)
+///Called right after the atom changes the value of light_range to a different one, from base of [TYPE_PROC_REF(/atom, set_light_range)]: (old_range)
 #define COMSIG_ATOM_UPDATE_LIGHT_RANGE "atom_update_light_range"
-///Called right before the atom changes the value of light_color to a different one, from base [atom/proc/set_light_color]: (new_color)
+///Called right before the atom changes the value of light_color to a different one, from base [TYPE_PROC_REF(atom, set_light_color)]: (new_color)
 #define COMSIG_ATOM_SET_LIGHT_COLOR "atom_set_light_color"
-///Called right after the atom changes the value of light_color to a different one, from base of [/atom/proc/set_light_color]: (old_color)
+///Called right after the atom changes the value of light_color to a different one, from base of [TYPE_PROC_REF(/atom, set_light_color)]: (old_color)
 #define COMSIG_ATOM_UPDATE_LIGHT_COLOR "atom_update_light_color"
-///Called right before the atom changes the value of light_on to a different one, from base [atom/proc/set_light_on]: (new_value)
+///Called right before the atom changes the value of light_on to a different one, from base [TYPE_PROC_REF(atom, set_light_on)]: (new_value)
 #define COMSIG_ATOM_SET_LIGHT_ON "atom_set_light_on"
-///Called right after the atom changes the value of light_on to a different one, from base of [/atom/proc/set_light_on]: (old_value)
+///Called right after the atom changes the value of light_on to a different one, from base of [TYPE_PROC_REF(/atom, set_light_on)]: (old_value)
 #define COMSIG_ATOM_UPDATE_LIGHT_ON "atom_update_light_on"
-///Called right before the atom changes the value of light_flags to a different one, from base [atom/proc/set_light_flags]: (new_flags)
+///Called right before the atom changes the value of light_flags to a different one, from base [TYPE_PROC_REF(atom, set_light_flags)]: (new_flags)
 #define COMSIG_ATOM_SET_LIGHT_FLAGS "atom_set_light_flags"
-///Called right after the atom changes the value of light_flags to a different one, from base of [/atom/proc/set_light_flags]: (old_flags)
+///Called right after the atom changes the value of light_flags to a different one, from base of [TYPE_PROC_REF(/atom, set_light_flags)]: (old_flags)
 #define COMSIG_ATOM_UPDATE_LIGHT_FLAGS "atom_update_light_flags"
 
 /////////////////
@@ -306,7 +306,7 @@
 #define COMSIG_LIVING_REVIVE "living_revive"					//from base of mob/living/revive() (full_heal, admin_revive)
 
 #define COMSIG_MOB_RESET_PERSPECTIVE "mob_reset_perspective"		//from base of /mob/reset_perspective(): (atom/target)
-#define COMSIG_LIVING_GUN_PROCESS_FIRE "living_gun_process_fire"	//from base of /obj/item/gun/proc/process_fire(): (atom/target, params, zone_override)
+#define COMSIG_LIVING_GUN_PROCESS_FIRE "living_gun_process_fire"	//from base of TYPE_PROC_REF(/obj/item/gun, process_fire)(): (atom/target, params, zone_override)
 // This returns flags as defined for block in __DEFINES/combat.dm!
 #define COMSIG_LIVING_RUN_BLOCK "living_do_run_block"				//from base of mob/living/do_run_block(): (real_attack, atom/object, damage, attack_text, attack_type, armour_penetration, mob/attacker, def_zone)
 #define COMSIG_LIVING_GET_BLOCKING_ITEMS "get_blocking_items"	//from base of mob/living/get_blocking_items(): (list/items)
@@ -336,12 +336,12 @@
 #define COMSIG_LIVING_PHYSICAL_LIFE "physical_life"				//from base of mob/living/PhysicalLife() (seconds, times_fired)
 
 // /mob/living/carbon physiology signals
-#define COMSIG_CARBON_GAIN_WOUND "carbon_gain_wound"				//from /datum/wound/proc/apply_wound() (/mob/living/carbon/C, /datum/wound/W, /obj/item/bodypart/L)
-#define COMSIG_CARBON_LOSE_WOUND "carbon_lose_wound"				//from /datum/wound/proc/remove_wound() (/mob/living/carbon/C, /datum/wound/W, /obj/item/bodypart/L)
-///from base of /obj/item/bodypart/proc/attach_limb(): (new_limb, special) allows you to fail limb attachment
+#define COMSIG_CARBON_GAIN_WOUND "carbon_gain_wound"				//from TYPE_PROC_REF(/datum/wound, apply_wound)() (/mob/living/carbon/C, /datum/wound/W, /obj/item/bodypart/L)
+#define COMSIG_CARBON_LOSE_WOUND "carbon_lose_wound"				//from TYPE_PROC_REF(/datum/wound, remove_wound)() (/mob/living/carbon/C, /datum/wound/W, /obj/item/bodypart/L)
+///from base of TYPE_PROC_REF(/obj/item/bodypart, attach_limb)(): (new_limb, special) allows you to fail limb attachment
 #define COMSIG_CARBON_ATTACH_LIMB "carbon_attach_limb"
 	#define COMPONENT_NO_ATTACH (1<<0)
-#define COMSIG_CARBON_REMOVE_LIMB "carbon_remove_limb"			//from base of /obj/item/bodypart/proc/drop_limb(special, dismembered)
+#define COMSIG_CARBON_REMOVE_LIMB "carbon_remove_limb"			//from base of TYPE_PROC_REF(/obj/item/bodypart, drop_limb)(special, dismembered)
 
 #define COMSIG_CARBON_SOUNDBANG "carbon_soundbang"					//from base of mob/living/carbon/soundbang_act(): (list(intensity))
 #define COMSIG_CARBON_IDENTITY_TRANSFERRED_TO "carbon_id_transferred_to" //from datum/dna/transfer_identity(): (datum/dna, transfer_SE)
@@ -370,7 +370,7 @@
 
 // /obj/item signals
 #define COMSIG_ITEM_ATTACK "item_attack"						//from base of obj/item/attack(): (/mob/living/target, /mob/living/user)
-#define COMSIG_MOB_APPLY_DAMAGE	"mob_apply_damage"				//from base of /mob/living/proc/apply_damage(): (damage, damagetype, def_zone)
+#define COMSIG_MOB_APPLY_DAMAGE	"mob_apply_damage"				//from base of TYPE_PROC_REF(/mob/living, apply_damage)(): (damage, damagetype, def_zone)
 #define COMSIG_ITEM_ATTACK_SELF "item_attack_self"				//from base of obj/item/attack_self(): (/mob)
 	#define COMPONENT_NO_INTERACT 1
 #define COMSIG_ITEM_ATTACK_OBJ "item_attack_obj"				//from base of obj/item/attack_obj(): (/obj, /mob)
@@ -423,47 +423,47 @@
 #define COMSIG_ITEM_MOUSE_EXIT "item_mouse_exit"				//from base of obj/item/MouseExited(): (location, control, params)
 #define COMSIG_ITEM_MOUSE_ENTER "item_mouse_enter"				//from base of obj/item/MouseEntered(): (location, control, params)
 #define COMSIG_ITEM_DECONSTRUCTOR_DEEPSCAN "deconstructor_deepscan"			//Called by deconstructive analyzers deepscanning an item: (obj/machinery/rnd/destructive_analyzer/analyzer_machine, mob/user, list/information_list)
-#define COMSIG_ITEM_DISABLE_EMBED "item_disable_embed"			///from [/obj/item/proc/disableEmbedding]:
-#define COMSIG_EFFECT_MINE_TRIGGERED "minegoboom"						///from [/obj/effect/mine/proc/triggermine]:
+#define COMSIG_ITEM_DISABLE_EMBED "item_disable_embed"			///from [TYPE_PROC_REF(/obj/item, disableEmbedding)]:
+#define COMSIG_EFFECT_MINE_TRIGGERED "minegoboom"						///from [TYPE_PROC_REF(/obj/effect/mine, triggermine)]:
 	// Uncovered information
 	#define COMPONENT_DEEPSCAN_UNCOVERED_INFORMATION		1
-#define COMSIG_ITEM_MINE_TRIGGERED "itemineboom"						///from [/obj/item/mine/proc/triggermine]:
+#define COMSIG_ITEM_MINE_TRIGGERED "itemineboom"						///from [TYPE_PROC_REF(/obj/item/mine, triggermine)]:
 
 // /obj/item/grenade signals
 #define COMSIG_GRENADE_PRIME "grenade_prime"					//called in /obj/item/gun/process_fire (user, target, params, zone_override)
 #define COMSIG_GRENADE_ARMED "grenade_armed"					//called in /obj/item/gun/process_fire (user, target, params, zone_override)
 
 // /obj/item/clothing signals
-#define COMSIG_SHOES_STEP_ACTION "shoes_step_action"			//from base of obj/item/clothing/shoes/proc/step_action(): ()
+#define COMSIG_SHOES_STEP_ACTION "shoes_step_action"			//from base of TYPE_PROC_REF(obj/item/clothing/shoes, step_action)(): ()
 #define COMSIG_SUIT_MADE_HELMET "suit_made_helmet"				//from base of obj/item/clothing/suit/MakeHelmet(): (helmet)
 
 // /obj/item/implant signals
-#define COMSIG_IMPLANT_ACTIVATED "implant_activated"			//from base of /obj/item/implant/proc/activate(): ()
-#define COMSIG_IMPLANT_IMPLANTING "implant_implanting"			//from base of /obj/item/implant/proc/implant(): (list/args)
+#define COMSIG_IMPLANT_ACTIVATED "implant_activated"			//from base of TYPE_PROC_REF(/obj/item/implant, activate)(): ()
+#define COMSIG_IMPLANT_IMPLANTING "implant_implanting"			//from base of TYPE_PROC_REF(/obj/item/implant, implant)(): (list/args)
 	#define COMPONENT_STOP_IMPLANTING 1
-#define COMSIG_IMPLANT_OTHER "implant_other"					//called on already installed implants when a new one is being added in /obj/item/implant/proc/implant(): (list/args, obj/item/implant/new_implant)
+#define COMSIG_IMPLANT_OTHER "implant_other"					//called on already installed implants when a new one is being added in TYPE_PROC_REF(/obj/item/implant, implant)(): (list/args, obj/item/implant/new_implant)
 	//#define COMPONENT_STOP_IMPLANTING 1 //The name makes sense for both
 	#define COMPONENT_DELETE_NEW_IMPLANT 2
 	#define COMPONENT_DELETE_OLD_IMPLANT 4
 #define COMSIG_IMPLANT_EXISTING_UPLINK "implant_uplink_exists"	//called on implants being implanted into someone with an uplink implant: (datum/component/uplink)
 	//This uses all return values of COMSIG_IMPLANT_OTHER
-#define COMSIG_IMPLANT_REMOVING "implant_removing"				//from base of /obj/item/implant/proc/removed() (list/args)
+#define COMSIG_IMPLANT_REMOVING "implant_removing"				//from base of TYPE_PROC_REF(/obj/item/implant, removed)() (list/args)
 
 // /obj/item/pda signals
 #define COMSIG_PDA_CHANGE_RINGTONE "pda_change_ringtone"		//called on pda when the user changes the ringtone: (mob/living/user, new_ringtone)
 	#define COMPONENT_STOP_RINGTONE_CHANGE 1
 
 // /obj/item/radio signals
-#define COMSIG_RADIO_NEW_FREQUENCY "radio_new_frequency"		//called from base of /obj/item/radio/proc/set_frequency(): (list/args)
+#define COMSIG_RADIO_NEW_FREQUENCY "radio_new_frequency"		//called from base of TYPE_PROC_REF(/obj/item/radio, set_frequency)(): (list/args)
 
 // /obj/item/pen signals
 #define COMSIG_PEN_ROTATED "pen_rotated"						//called after rotation in /obj/item/pen/attack_self(): (rotation, mob/living/carbon/user)
 
 // /obj/item/projectile signals (sent to the firer)
-#define COMSIG_PROJECTILE_SELF_ON_HIT "projectile_self_on_hit"			///from base of /obj/item/projectile/proc/on_hit(): (atom/movable/firer, atom/target, Angle, hit_limb)
-#define COMSIG_PROJECTILE_ON_HIT "projectile_on_hit"			///from base of /obj/item/projectile/proc/on_hit(): (atom/movable/firer, atom/target, Angle, hit_limb)
-#define COMSIG_PROJECTILE_BEFORE_FIRE "projectile_before_fire" 			// from base of /obj/item/projectile/proc/fire(): (obj/item/projectile, atom/original_target)
-#define COMSIG_PROJECTILE_FIRE "projectile_fire"				///from the base of /obj/item/projectile/proc/fire(): ()
+#define COMSIG_PROJECTILE_SELF_ON_HIT "projectile_self_on_hit"			///from base of TYPE_PROC_REF(/obj/item/projectile, on_hit)(): (atom/movable/firer, atom/target, Angle, hit_limb)
+#define COMSIG_PROJECTILE_ON_HIT "projectile_on_hit"			///from base of TYPE_PROC_REF(/obj/item/projectile, on_hit)(): (atom/movable/firer, atom/target, Angle, hit_limb)
+#define COMSIG_PROJECTILE_BEFORE_FIRE "projectile_before_fire" 			// from base of TYPE_PROC_REF(/obj/item/projectile, fire)(): (obj/item/projectile, atom/original_target)
+#define COMSIG_PROJECTILE_FIRE "projectile_fire"				///from the base of TYPE_PROC_REF(/obj/item/projectile, fire)(): ()
 #define COMSIG_PROJECTILE_RANGE_OUT "projectile_range_out"				// sent to targets during the process_hit proc of projectiles
 #define COMSIG_EMBED_TRY_FORCE "item_try_embed"					// sent when trying to force an embed (mainly for projectiles, only used in the embed element)
 #define COMSIG_PROJECTILE_PREHIT "com_proj_prehit"				///sent to targets during the process_hit proc of projectiles
@@ -553,15 +553,15 @@
 #define COMSIG_TRY_STORAGE_CAN_INSERT "storage_can_equip"			//(obj/item/insertion_candidate, mob/user, silent) - returns bool
 
 // /datum/component/two_handed signals
-#define COMSIG_TWOHANDED_WIELD "twohanded_wield"						//from base of datum/component/two_handed/proc/wield(mob/living/carbon/user): (/mob/user)
+#define COMSIG_TWOHANDED_WIELD "twohanded_wield"						//from base of TYPE_PROC_REF(datum/component/two_handed, wield)(mob/living/carbon/user): (/mob/user)
 	#define COMPONENT_TWOHANDED_BLOCK_WIELD 1
-#define COMSIG_TWOHANDED_UNWIELD "twohanded_unwield"					//from base of datum/component/two_handed/proc/unwield(mob/living/carbon/user): (/mob/user)
+#define COMSIG_TWOHANDED_UNWIELD "twohanded_unwield"					//from base of TYPE_PROC_REF(datum/component/two_handed, unwield)(mob/living/carbon/user): (/mob/user)
 
 // /datum/component/squeak signals
 #define COMSIG_CROSS_SQUEAKED "cross_squeaked"							// sent when a squeak component squeaks from crossing something, to delay anything else crossing that might squeak to prevent ear hurt.
 
 // /datum/action signals
-#define COMSIG_ACTION_TRIGGER "action_trigger"						//from base of datum/action/proc/Trigger(): (datum/action)
+#define COMSIG_ACTION_TRIGGER "action_trigger"						//from base of TYPE_PROC_REF(datum/action, Trigger)(): (datum/action)
 	#define COMPONENT_ACTION_BLOCK_TRIGGER 1
 
 //Xenobio hotkeys

@@ -230,7 +230,7 @@ SUBSYSTEM_DEF(ticker)
 				Master.SetRunLevel(RUNLEVEL_POSTGAME)
 
 
-/datum/controller/subsystem/ticker/proc/setup()
+TYPE_PROC_REF(/datum/controller/subsystem/ticker, setup)()
 	to_chat(world, span_boldannounce("Starting game..."))
 	var/init_start = world.timeofday
 		//Create and announce mode
@@ -336,7 +336,7 @@ SUBSYSTEM_DEF(ticker)
 
 	return TRUE
 
-/datum/controller/subsystem/ticker/proc/PostSetup()
+TYPE_PROC_REF(/datum/controller/subsystem/ticker, PostSetup)()
 	set waitfor = FALSE
 	mode.post_setup()
 	GLOB.start_state = new /datum/station_state()
@@ -356,27 +356,27 @@ SUBSYSTEM_DEF(ticker)
 
 
 //These callbacks will fire after roundstart key transfer
-/datum/controller/subsystem/ticker/proc/OnRoundstart(datum/callback/cb)
+TYPE_PROC_REF(/datum/controller/subsystem/ticker, OnRoundstart)(datum/callback/cb)
 	if(!HasRoundStarted())
 		LAZYADD(round_start_events, cb)
 	else
 		cb.InvokeAsync()
 
 //These callbacks will fire before roundend report
-/datum/controller/subsystem/ticker/proc/OnRoundend(datum/callback/cb)
+TYPE_PROC_REF(/datum/controller/subsystem/ticker, OnRoundend)(datum/callback/cb)
 	if(current_state >= GAME_STATE_FINISHED)
 		cb.InvokeAsync()
 	else
 		LAZYADD(round_end_events, cb)
 
-/datum/controller/subsystem/ticker/proc/station_explosion_detonation(atom/bomb)
+TYPE_PROC_REF(/datum/controller/subsystem/ticker, station_explosion_detonation)(atom/bomb)
 	if(bomb)	//BOOM
 		var/turf/epi = bomb.loc
 		qdel(bomb)
 		if(epi)
 			explosion(epi, 512, 0, 0, 0, TRUE, TRUE, 0, TRUE)
 
-/datum/controller/subsystem/ticker/proc/create_characters()
+TYPE_PROC_REF(/datum/controller/subsystem/ticker, create_characters)()
 	for(var/mob/dead/new_player/player in GLOB.player_list)
 		if(player.ready == PLAYER_READY_TO_PLAY && player.mind)
 			GLOB.joined_player_list += player.ckey
@@ -385,14 +385,14 @@ SUBSYSTEM_DEF(ticker)
 			player.new_player_panel()
 		CHECK_TICK
 
-/datum/controller/subsystem/ticker/proc/collect_minds()
+TYPE_PROC_REF(/datum/controller/subsystem/ticker, collect_minds)()
 	for(var/mob/dead/new_player/P in GLOB.player_list)
 		if(P.new_character && P.new_character.mind)
 			SSticker.minds += P.new_character.mind
 		CHECK_TICK
 
 
-/datum/controller/subsystem/ticker/proc/equip_characters()
+TYPE_PROC_REF(/datum/controller/subsystem/ticker, equip_characters)()
 	var/captainless=1
 	for(var/mob/dead/new_player/N in GLOB.player_list)
 		var/mob/living/carbon/human/player = N.new_character
@@ -414,7 +414,7 @@ SUBSYSTEM_DEF(ticker)
 				to_chat(N, "Captainship not forced on anyone.")
 			CHECK_TICK
 
-/datum/controller/subsystem/ticker/proc/transfer_characters()
+TYPE_PROC_REF(/datum/controller/subsystem/ticker, transfer_characters)()
 	var/list/livings = list()
 	for(var/mob/dead/new_player/player in GLOB.mob_list)
 		var/mob/living = player.transfer_character()
@@ -436,12 +436,12 @@ SUBSYSTEM_DEF(ticker)
 	SSmatchmaking.matchmake()
 
 
-/datum/controller/subsystem/ticker/proc/release_characters(list/livings)
+TYPE_PROC_REF(/datum/controller/subsystem/ticker, release_characters)(list/livings)
 	for(var/I in livings)
 		var/mob/living/L = I
 		L.mob_transforming = FALSE
 
-/datum/controller/subsystem/ticker/proc/send_tip_of_the_round()
+TYPE_PROC_REF(/datum/controller/subsystem/ticker, send_tip_of_the_round)()
 	var/m
 	if(selected_tip)
 		m = selected_tip
@@ -453,7 +453,7 @@ SUBSYSTEM_DEF(ticker)
 	if(m)
 		to_chat(world, "<span class='purple'><b>Tip of the round: </b>[html_encode(m)]</span>")
 
-/datum/controller/subsystem/ticker/proc/check_queue()
+TYPE_PROC_REF(/datum/controller/subsystem/ticker, check_queue)()
 	var/hpc = CONFIG_GET(number/hard_popcap)
 	if(!queued_players.len || !hpc)
 		return
@@ -476,7 +476,7 @@ SUBSYSTEM_DEF(ticker)
 			queued_players -= next_in_line
 			queue_delay = 0
 
-/datum/controller/subsystem/ticker/proc/check_maprotate()
+TYPE_PROC_REF(/datum/controller/subsystem/ticker, check_maprotate)()
 	if (!CONFIG_GET(flag/maprotation))
 		return
 	if (SSshuttle.emergency && SSshuttle.emergency.mode != SHUTTLE_ESCAPE || SSshuttle.canRecall())
@@ -490,7 +490,7 @@ SUBSYSTEM_DEF(ticker)
 	if (!prob((world.time/600)*CONFIG_GET(number/maprotatechancedelta)) && CONFIG_GET(flag/tgstyle_maprotation))
 		return
 	if(CONFIG_GET(flag/tgstyle_maprotation))
-		INVOKE_ASYNC(SSmapping, /datum/controller/subsystem/mapping/.proc/maprotate)
+		INVOKE_ASYNC(SSmapping, TYPE_PROC_REF(/datum/controller/subsystem/mapping, maprotate))
 	else
 		var/vote_type = CONFIG_GET(string/map_vote_type)
 		switch(vote_type)
@@ -506,10 +506,10 @@ SUBSYSTEM_DEF(ticker)
 				SSvote.initiate_vote("map","server", display = SHOW_RESULTS + SHOW_WINNER)
 		// fallback
 
-/datum/controller/subsystem/ticker/proc/HasRoundStarted()
+TYPE_PROC_REF(/datum/controller/subsystem/ticker, HasRoundStarted)()
 	return current_state >= GAME_STATE_PLAYING
 
-/datum/controller/subsystem/ticker/proc/IsRoundInProgress()
+TYPE_PROC_REF(/datum/controller/subsystem/ticker, IsRoundInProgress)()
 	return current_state == GAME_STATE_PLAYING
 
 /proc/send_gamemode_vote() //CIT CHANGE - adds roundstart gamemode votes
@@ -572,7 +572,7 @@ SUBSYSTEM_DEF(ticker)
 		if(GAME_STATE_FINISHED)
 			Master.SetRunLevel(RUNLEVEL_POSTGAME)
 
-/datum/controller/subsystem/ticker/proc/send_news_report()
+TYPE_PROC_REF(/datum/controller/subsystem/ticker, send_news_report)()
 	var/news_message
 	var/news_source = "Nash Publishing"
 	switch(news_report)
@@ -637,25 +637,25 @@ SUBSYSTEM_DEF(ticker)
 	else
 		return "We regret to inform you that shit be whack, yo. None of our reporters have any idea of what may or may not have gone on."
 
-/datum/controller/subsystem/ticker/proc/GetTimeLeft()
+TYPE_PROC_REF(/datum/controller/subsystem/ticker, GetTimeLeft)()
 	if(isnull(SSticker.timeLeft))
 		return max(0, start_at - world.time)
 	return timeLeft
 
-/datum/controller/subsystem/ticker/proc/SetTimeLeft(newtime)
+TYPE_PROC_REF(/datum/controller/subsystem/ticker, SetTimeLeft)(newtime)
 	if(newtime >= 0 && isnull(timeLeft))	//remember, negative means delayed
 		start_at = world.time + newtime
 	else
 		timeLeft = newtime
 
 //Everyone who wanted to be an observer gets made one now
-/datum/controller/subsystem/ticker/proc/create_observers()
+TYPE_PROC_REF(/datum/controller/subsystem/ticker, create_observers)()
 	for(var/mob/dead/new_player/player in GLOB.player_list)
 		if(player.ready == PLAYER_READY_TO_OBSERVE && player.mind)
 			//Break chain since this has a sleep input in it
 			addtimer(CALLBACK(player, /mob/dead/new_player.proc/make_me_an_observer), 1)
 
-/datum/controller/subsystem/ticker/proc/load_mode()
+TYPE_PROC_REF(/datum/controller/subsystem/ticker, load_mode)()
 	var/mode = trim(file2text("data/mode.txt"))
 	if(mode)
 		GLOB.master_mode = mode
@@ -663,12 +663,12 @@ SUBSYSTEM_DEF(ticker)
 		GLOB.master_mode = "extended"
 	log_game("Saved mode is '[GLOB.master_mode]'")
 
-/datum/controller/subsystem/ticker/proc/save_mode(the_mode)
+TYPE_PROC_REF(/datum/controller/subsystem/ticker, save_mode)(the_mode)
 	var/F = file("data/mode.txt")
 	fdel(F)
 	WRITE_FILE(F, the_mode)
 
-/datum/controller/subsystem/ticker/proc/SetRoundEndSound(the_sound)
+TYPE_PROC_REF(/datum/controller/subsystem/ticker, SetRoundEndSound)(the_sound)
 	set waitfor = FALSE
 	round_end_sound_sent = FALSE
 	round_end_sound = fcopy_rsc(the_sound)
@@ -679,7 +679,7 @@ SUBSYSTEM_DEF(ticker)
 		C.Export("##action=load_rsc", round_end_sound)
 	round_end_sound_sent = TRUE
 
-/datum/controller/subsystem/ticker/proc/Reboot(reason, end_string, delay)
+TYPE_PROC_REF(/datum/controller/subsystem/ticker, Reboot)(reason, end_string, delay)
 	set waitfor = FALSE
 	if(usr && !check_rights(R_SERVER, TRUE))
 		return

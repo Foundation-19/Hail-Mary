@@ -19,7 +19,7 @@ SUBSYSTEM_DEF(jukeboxes)
 	song_beat = beat
 	song_associated_id = assocID
 
-/datum/controller/subsystem/jukeboxes/proc/addjukebox(obj/jukebox, datum/track/T, jukefalloff = 1)
+TYPE_PROC_REF(/datum/controller/subsystem/jukeboxes, addjukebox)(obj/jukebox, datum/track/T, jukefalloff = 1)
 	if(!istype(T))
 		CRASH("[src] tried to play a song with a nonexistant track")
 	var/channeltoreserve = pick(freejukeboxchannels)
@@ -43,7 +43,7 @@ SUBSYSTEM_DEF(jukeboxes)
 		M.playsound_local(M, null, 100, channel = youvegotafreejukebox[2], S = song_to_init)
 	return activejukeboxes.len
 
-/datum/controller/subsystem/jukeboxes/proc/removejukebox(IDtoremove)
+TYPE_PROC_REF(/datum/controller/subsystem/jukeboxes, removejukebox)(IDtoremove)
 	if(islist(activejukeboxes[IDtoremove]))
 		var/jukechannel = activejukeboxes[IDtoremove][2]
 		for(var/mob/M in GLOB.player_list)
@@ -56,7 +56,7 @@ SUBSYSTEM_DEF(jukeboxes)
 	else
 		CRASH("Tried to remove jukebox with invalid ID")
 
-/datum/controller/subsystem/jukeboxes/proc/findjukeboxindex(obj/jukebox)
+TYPE_PROC_REF(/datum/controller/subsystem/jukeboxes, findjukeboxindex)(obj/jukebox)
 	if(activejukeboxes.len)
 		for(var/list/jukeinfo in activejukeboxes)
 			if(jukebox in jukeinfo)

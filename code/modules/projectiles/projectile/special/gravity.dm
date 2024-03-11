@@ -40,7 +40,7 @@
 	for(var/turf/F in range(T,power))
 		new /obj/effect/temp_visual/gravpush(F)
 
-/obj/item/projectile/gravity/proc/get_target(turf/origin, atom/movable/AM)
+TYPE_PROC_REF(/obj/item/projectile/gravity, get_target)(turf/origin, atom/movable/AM)
 	return origin
 
 /obj/item/projectile/gravity/repulse

@@ -50,7 +50,7 @@
 	playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
 	push_over()
 
-/obj/item/cardboard_cutout/proc/push_over()
+TYPE_PROC_REF(/obj/item/cardboard_cutout, push_over)()
 	name = initial(name)
 	desc = "[initial(desc)] It's been pushed over."
 	icon = initial(icon)
@@ -106,7 +106,7 @@
  * * crayon The crayon used to change and recolor the cardboard cutout
  * * user The mob choosing a skin of the cardboard cutout
  */
-/obj/item/cardboard_cutout/proc/change_appearance(obj/item/toy/crayon/crayon, mob/living/user)
+TYPE_PROC_REF(/obj/item/cardboard_cutout, change_appearance)(obj/item/toy/crayon/crayon, mob/living/user)
 	var/new_appearance = show_radial_menu(user, src, possible_appearances, custom_check = CALLBACK(src, PROC_REF(check_menu), user, crayon), radius = 36, require_near = TRUE)
 	if(!new_appearance)
 		return
@@ -221,7 +221,7 @@
  * * user The mob interacting with a menu
  * * crayon The crayon used to interact with a menu
  */
-/obj/item/cardboard_cutout/proc/check_menu(mob/living/user, obj/item/toy/crayon/crayon)
+TYPE_PROC_REF(/obj/item/cardboard_cutout, check_menu)(mob/living/user, obj/item/toy/crayon/crayon)
 	if(!istype(user))
 		return FALSE
 	if(user.incapacitated())

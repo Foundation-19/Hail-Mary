@@ -45,7 +45,7 @@
 	else
 		RegisterSignal(parent, COMSIG_ATOM_ENTERED, PROC_REF(Slip))
 
-/datum/component/slippery/proc/add_connect_loc_behalf_to_parent()
+TYPE_PROC_REF(/datum/component/slippery, add_connect_loc_behalf_to_parent)()
 	if(ismovable(parent))
 		AddComponent(/datum/component/connect_loc_behalf, parent, default_connections)
 
@@ -71,13 +71,13 @@
  * source - the source of the signal
  * AM - the atom/movable that is being slipped.
  */
-/datum/component/slippery/proc/Slip(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+TYPE_PROC_REF(/datum/component/slippery, Slip)(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	SIGNAL_HANDLER
 	if(!isliving(arrived))
 		return
 	var/mob/living/victim = arrived
 	if(!(victim.movement_type & (FLYING | FLOATING)) && victim.slip(knockdown_time, parent, lube_flags, paralyze_time, force_drop_items) && callback)
-		INVOKE_ASYNC(callback, /datum/callback/.proc/Invoke, victim)
+		INVOKE_ASYNC(callback, TYPE_PROC_REF(/datum/callback, Invoke), victim)
 
 /*
  * Gets called when COMSIG_ITEM_EQUIPPED is sent to parent.
@@ -88,7 +88,7 @@
  * equipper - the mob we're equipping the slippery thing to
  * slot - the slot we're equipping the slippery thing to on the equipper.
  */
-/datum/component/slippery/proc/on_equip(datum/source, mob/equipper, slot)
+TYPE_PROC_REF(/datum/component/slippery, on_equip)(datum/source, mob/equipper, slot)
 	SIGNAL_HANDLER
 
 	if((!LAZYLEN(slot_whitelist) || (slot in slot_whitelist)) && isliving(equipper))
@@ -104,7 +104,7 @@
  * source - the source of the signal
  * possible_holder - the mob being deleted.
  */
-/datum/component/slippery/proc/holder_deleted(datum/source, datum/possible_holder)
+TYPE_PROC_REF(/datum/component/slippery, holder_deleted)(datum/source, datum/possible_holder)
 	SIGNAL_HANDLER
 
 	if(possible_holder == holder)
@@ -117,7 +117,7 @@
  * source - the source of the signal
  * user - the mob that was formerly wearing our slippery item.
  */
-/datum/component/slippery/proc/on_drop(datum/source, mob/user)
+TYPE_PROC_REF(/datum/component/slippery, on_drop)(datum/source, mob/user)
 	SIGNAL_HANDLER
 
 	UnregisterSignal(user, COMSIG_PARENT_QDELETING)
@@ -134,7 +134,7 @@
  * source - the source of the signal
  * AM - the atom/movable that slipped on us.
  */
-/datum/component/slippery/proc/Slip_on_wearer(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+TYPE_PROC_REF(/datum/component/slippery, Slip_on_wearer)(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	SIGNAL_HANDLER
 
 	if(holder.lying && !holder.buckled)

@@ -27,7 +27,7 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 	))
 
 
-/mob/living/carbon/proc/handle_hallucinations()
+TYPE_PROC_REF(/mob/living/carbon, handle_hallucinations)()
 	if(!hallucination)
 		return
 
@@ -41,7 +41,7 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 
 	next_hallucination = world.time + rand(100, 600)
 
-/mob/living/carbon/proc/set_screwyhud(hud_type)
+TYPE_PROC_REF(/mob/living/carbon, set_screwyhud)(hud_type)
 	hal_screwyhud = hud_type
 	update_health_hud()
 
@@ -55,7 +55,7 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 	target = C
 	natural = !forced
 
-/datum/hallucination/proc/wake_and_restore()
+TYPE_PROC_REF(/datum/hallucination, wake_and_restore)()
 	target.set_screwyhud(SCREWYHUD_NONE)
 	target.SetSleeping(0)
 
@@ -65,7 +65,7 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 	return ..()
 
 //Returns a random turf in a ring around the target mob, useful for sound hallucinations
-/datum/hallucination/proc/random_far_turf()
+TYPE_PROC_REF(/datum/hallucination, random_far_turf)()
 	var/turf/target_T = get_turf(target)
 	if(!target_T)
 		return
@@ -111,7 +111,7 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 	if(target.client)
 		target.client.images |= current_image
 
-/obj/effect/hallucination/simple/proc/GetImage()
+TYPE_PROC_REF(/obj/effect/hallucination/simple, GetImage)()
 	var/image/I = image(image_icon,src,image_state,image_layer,dir=src.dir)
 	I.pixel_x = px
 	I.pixel_y = py
@@ -119,7 +119,7 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 		I.color = col_mod
 	return I
 
-/obj/effect/hallucination/simple/proc/Show(update=1)
+TYPE_PROC_REF(/obj/effect/hallucination/simple, Show)(update=1)
 	if(active)
 		if(target.client)
 			target.client.images.Remove(current_image)
@@ -190,7 +190,7 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 			new /datum/hallucination/fake_alert(target, TRUE, "too_much_tox")
 		next_expand = world.time + FAKE_FLOOD_EXPAND_TIME
 
-/datum/hallucination/fake_flood/proc/Expand()
+TYPE_PROC_REF(/datum/hallucination/fake_flood, Expand)()
 	for(var/turf/FT in flood_turfs)
 		for(var/dir in GLOB.cardinals)
 			var/turf/T = get_step(FT, dir)
@@ -288,7 +288,7 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 	bubblegum = new(wall, target)
 	addtimer(CALLBACK(src, PROC_REF(bubble_attack), landing), 10)
 
-/datum/hallucination/oh_yeah/proc/bubble_attack(turf/landing)
+TYPE_PROC_REF(/datum/hallucination/oh_yeah, bubble_attack)(turf/landing)
 	var/charged = FALSE //only get hit once
 	while(get_turf(bubblegum) != landing && target && target.stat != DEAD)
 		bubblegum.forceMove(get_step_towards(bubblegum, landing))
@@ -330,10 +330,10 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 			for(var/i in 1 to rand(5, 10))
 				target.playsound_local(source, 'sound/weapons/laser.ogg', 25, 1)
 				if(prob(50))
-					addtimer(CALLBACK(target, /mob/.proc/playsound_local, source, 'sound/weapons/sear.ogg', 25, 1), rand(5,10))
+					addtimer(CALLBACK(target, TYPE_PROC_REF(/mob, playsound_local), source, 'sound/weapons/sear.ogg', 25, 1), rand(5,10))
 					hits++
 				else
-					addtimer(CALLBACK(target, /mob/.proc/playsound_local, source, 'sound/weapons/effects/searwall.ogg', 25, 1), rand(5,10))
+					addtimer(CALLBACK(target, TYPE_PROC_REF(/mob, playsound_local), source, 'sound/weapons/effects/searwall.ogg', 25, 1), rand(5,10))
 				sleep(rand(CLICK_CD_RANGE, CLICK_CD_RANGE + 6))
 				if(hits >= 4 && prob(70))
 					target.playsound_local(source, get_sfx("bodyfall"), 25, 1)
@@ -343,10 +343,10 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 			for(var/i in 1 to rand(5, 10))
 				target.playsound_local(source, 'sound/weapons/taser2.ogg', 25, 1)
 				if(prob(50))
-					addtimer(CALLBACK(target, /mob/.proc/playsound_local, source, 'sound/weapons/tap.ogg', 25, 1), rand(5,10))
+					addtimer(CALLBACK(target, TYPE_PROC_REF(/mob, playsound_local), source, 'sound/weapons/tap.ogg', 25, 1), rand(5,10))
 					hits++
 				else
-					addtimer(CALLBACK(target, /mob/.proc/playsound_local, source, 'sound/weapons/effects/searwall.ogg', 25, 1), rand(5,10))
+					addtimer(CALLBACK(target, TYPE_PROC_REF(/mob, playsound_local), source, 'sound/weapons/effects/searwall.ogg', 25, 1), rand(5,10))
 				sleep(rand(CLICK_CD_RANGE, CLICK_CD_RANGE + 6))
 				if(hits >= 3 && prob(70))
 					target.playsound_local(source, get_sfx("bodyfall"), 25, 1)
@@ -364,10 +364,10 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 			for(var/i in 1 to rand(3, 6))
 				target.playsound_local(source, get_sfx("gunshot"), 25)
 				if(prob(60))
-					addtimer(CALLBACK(target, /mob/.proc/playsound_local, source, 'sound/weapons/pierce.ogg', 25, 1), rand(5,10))
+					addtimer(CALLBACK(target, TYPE_PROC_REF(/mob, playsound_local), source, 'sound/weapons/pierce.ogg', 25, 1), rand(5,10))
 					hits++
 				else
-					addtimer(CALLBACK(target, /mob/.proc/playsound_local, source, "ricochet", 25, 1), rand(5,10))
+					addtimer(CALLBACK(target, TYPE_PROC_REF(/mob, playsound_local), source, "ricochet", 25, 1), rand(5,10))
 				sleep(rand(CLICK_CD_RANGE, CLICK_CD_RANGE + 6))
 				if(hits >= 2 && prob(80))
 					target.playsound_local(source, get_sfx("bodyfall"), 25, 1)
@@ -623,13 +623,13 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 	var/image/bolt_light
 	var/obj/machinery/door/airlock/airlock
 
-/obj/effect/hallucination/fake_door_lock/proc/lock()
+TYPE_PROC_REF(/obj/effect/hallucination/fake_door_lock, lock)()
 	bolt_light = image(airlock.overlays_file, get_turf(airlock), "lights_bolts",layer=airlock.layer+0.1)
 	if(target.client)
 		target.client.images |= bolt_light
 		target.playsound_local(get_turf(airlock), 'sound/machines/boltsdown.ogg',30,0,3)
 
-/obj/effect/hallucination/fake_door_lock/proc/unlock()
+TYPE_PROC_REF(/obj/effect/hallucination/fake_door_lock, unlock)()
 	if(target.client)
 		target.client.images.Remove(bolt_light)
 		target.playsound_local(get_turf(airlock), 'sound/machines/boltsup.ogg',30,0,3)
@@ -1052,10 +1052,10 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 	plane = FLOOR_PLANE
 	var/image/image
 
-/obj/effect/hallucination/danger/proc/show_icon()
+TYPE_PROC_REF(/obj/effect/hallucination/danger, show_icon)()
 	return
 
-/obj/effect/hallucination/danger/proc/clear_icon()
+TYPE_PROC_REF(/obj/effect/hallucination/danger, clear_icon)()
 	if(image && target.client)
 		target.client.images -= image
 
@@ -1085,10 +1085,10 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 	if(target.client)
 		target.client.images += image
 
-/obj/effect/hallucination/danger/lava/proc/on_entered(atom/movable/AM)
+TYPE_PROC_REF(/obj/effect/hallucination/danger/lava, on_entered)(atom/movable/AM)
 	SIGNAL_HANDLER
 	if(AM == target)
-		INVOKE_ASYNC(target, /mob/living/.proc/adjustStaminaLoss, 20)
+		INVOKE_ASYNC(target, TYPE_PROC_REF(/mob/living, adjustStaminaLoss), 20)
 		new /datum/hallucination/fire(target)
 
 /obj/effect/hallucination/danger/chasm
@@ -1107,7 +1107,7 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 	if(target.client)
 		target.client.images += image
 
-/obj/effect/hallucination/danger/chasm/proc/on_entered(atom/movable/AM)
+TYPE_PROC_REF(/obj/effect/hallucination/danger/chasm, on_entered)(atom/movable/AM)
 	SIGNAL_HANDLER
 	if(AM == target)
 		if(istype(target, /obj/effect/dummy/phased_mob))
@@ -1142,7 +1142,7 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 	if(target.client)
 		target.client.images += image
 
-/obj/effect/hallucination/danger/anomaly/proc/on_entered(atom/movable/AM)
+TYPE_PROC_REF(/obj/effect/hallucination/danger/anomaly, on_entered)(atom/movable/AM)
 	SIGNAL_HANDLER
 	if(AM == target)
 		new /datum/hallucination/shock(target)
@@ -1205,14 +1205,14 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 		sleep(20)
 	clear_fire()
 
-/datum/hallucination/fire/proc/update_temp()
+TYPE_PROC_REF(/datum/hallucination/fire, update_temp)()
 	if(stage <= 0)
 		target.clear_alert("temp", clear_override = TRUE)
 	else
 		target.clear_alert("temp", clear_override = TRUE)
 		target.throw_alert("temp", /obj/screen/alert/hot, stage, override = TRUE)
 
-/datum/hallucination/fire/proc/clear_fire()
+TYPE_PROC_REF(/datum/hallucination/fire, clear_fire)()
 	if(!active)
 		return
 	active = FALSE
@@ -1251,12 +1251,12 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 	target.do_jitter_animation(target.jitteriness)
 	addtimer(CALLBACK(src, PROC_REF(shock_drop)), 20)
 
-/datum/hallucination/shock/proc/reset_shock_animation()
+TYPE_PROC_REF(/datum/hallucination/shock, reset_shock_animation)()
 	if(target.client)
 		target.client.images.Remove(shock_image)
 		target.client.images.Remove(electrocution_skeleton_anim)
 
-/datum/hallucination/shock/proc/shock_drop()
+TYPE_PROC_REF(/datum/hallucination/shock, shock_drop)()
 	target.jitteriness = max(target.jitteriness - 990, 10) //Still jittery, but vastly less
 	target.DefaultCombatKnockdown(60)
 

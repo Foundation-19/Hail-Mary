@@ -65,7 +65,7 @@
 
 /// If the chamber is empty, take a round from the magazine and put it in there
 /// If the chamber is not empty, or theres no magazine, do nothing
-/obj/item/gun/ballistic/proc/chamber_round()
+TYPE_PROC_REF(/obj/item/gun/ballistic, chamber_round)()
 	if (chambered || !magazine)
 		return
 	else if (magazine.ammo_count())
@@ -157,7 +157,7 @@
 		return
 
 
-/obj/item/gun/ballistic/proc/is_magazine_allowed(obj/item/ammo_box/mag_to_check, mob/user)
+TYPE_PROC_REF(/obj/item/gun/ballistic, is_magazine_allowed)(obj/item/ammo_box/mag_to_check, mob/user)
 	. = FALSE
 	if(!istype(mag_to_check))
 		if(user)
@@ -168,7 +168,7 @@
 	if(user)
 		to_chat(user, span_alert("You can't seem to fit \the [mag_to_check] into \the [src]."))
 
-/obj/item/gun/ballistic/proc/load_fixed_magazine(obj/item/casing_or_magazine, user, params)
+TYPE_PROC_REF(/obj/item/gun/ballistic, load_fixed_magazine)(obj/item/casing_or_magazine, user, params)
 	if(istype(casing_or_magazine, /obj/item/ammo_casing) || istype(casing_or_magazine, /obj/item/ammo_box))
 		var/num_loaded = magazine.attackby(casing_or_magazine, user, params, 1)
 		if(num_loaded)
@@ -182,7 +182,7 @@
 			to_chat(user, span_alert("You can't fit \the [casing_or_magazine] into \the [src]!"))
 			return FALSE
 
-/obj/item/gun/ballistic/proc/pump(mob/living/M, visible = TRUE)
+TYPE_PROC_REF(/obj/item/gun/ballistic, pump)(mob/living/M, visible = TRUE)
 	if(visible)
 		M.visible_message(span_warning("[M] [cock_wording]\s \the [src]."), span_warning("You [cock_wording] \the [src]."))
 		playsound(M, cock_sound, 60, 1)
@@ -192,13 +192,13 @@
 	update_firemode()
 	return 1
 
-/obj/item/gun/ballistic/proc/pump_unload(mob/M)
+TYPE_PROC_REF(/obj/item/gun/ballistic, pump_unload)(mob/M)
 	if(chambered)//We have a shell in the chamber
 		chambered.forceMove(drop_location())//Eject casing
 		chambered.bounce_away()
 		chambered = null
 
-/obj/item/gun/ballistic/proc/pump_reload(mob/M)
+TYPE_PROC_REF(/obj/item/gun/ballistic, pump_reload)(mob/M)
 	if(chambered)
 		return FALSE
 	if(!magazine)
@@ -230,7 +230,7 @@
 ///obj/item/gun/ballistic/AltClick(mob/living/user)
 //	pump(user, TRUE)
 
-/obj/item/gun/ballistic/proc/eject_magazine(mob/living/user, is_enbloc, put_it_in_their_hand, sounds_and_words)
+TYPE_PROC_REF(/obj/item/gun/ballistic, eject_magazine)(mob/living/user, is_enbloc, put_it_in_their_hand, sounds_and_words)
 	if(magazine.fixed_mag)
 		return FALSE
 	magazine.forceMove(drop_location())
@@ -258,7 +258,7 @@
 	else
 		..()
 
-/obj/item/gun/ballistic/proc/eject_chambered_round(mob/living/user, sounds_and_words)
+TYPE_PROC_REF(/obj/item/gun/ballistic, eject_chambered_round)(mob/living/user, sounds_and_words)
 	if(sounds_and_words)
 		to_chat(user, span_notice("You eject \a [chambered] from \the [src]'s chamber."))
 		playsound(src, "gun_slide_lock", 70, 1)
@@ -272,7 +272,7 @@
 	if (chambered && !casing_ejector)
 		. += "A [chambered.BB ? span_green("live") : span_alert("spent")] one is in the chamber."
 
-/obj/item/gun/ballistic/proc/get_ammo(countchambered = 1)
+TYPE_PROC_REF(/obj/item/gun/ballistic, get_ammo)(countchambered = 1)
 	var/boolets = 0 //mature var names for mature people
 	if (chambered && countchambered)
 		boolets++
@@ -280,7 +280,7 @@
 		boolets += magazine.ammo_count()
 	return boolets
 
-/obj/item/gun/ballistic/proc/get_max_ammo(countchambered = 1)
+TYPE_PROC_REF(/obj/item/gun/ballistic, get_max_ammo)(countchambered = 1)
 	var/boolets = 0 //mature var names for very mature people
 	if (chambered && countchambered)
 		boolets++
@@ -306,7 +306,7 @@
 			if(iscarbon(user))
 				var/mob/living/carbon/C = user
 				B.add_blood_DNA(C.dna, C.diseases)
-			var/datum/callback/gibspawner = CALLBACK(user, /mob/living/proc/spawn_gibs, FALSE, B)
+			var/datum/callback/gibspawner = CALLBACK(user, TYPE_PROC_REF(/mob/living, spawn_gibs), FALSE, B)
 			B.throw_at(target, BRAINS_BLOWN_THROW_RANGE, BRAINS_BLOWN_THROW_SPEED, callback=gibspawner)
 			return(BRUTELOSS)
 		else
@@ -319,7 +319,7 @@
 #undef BRAINS_BLOWN_THROW_SPEED
 #undef BRAINS_BLOWN_THROW_RANGE
 
-/obj/item/gun/ballistic/proc/sawoff(mob/user)
+TYPE_PROC_REF(/obj/item/gun/ballistic, sawoff)(mob/user)
 	if(sawn_off)
 		to_chat(user, span_warning("\The [src] is already shortened!"))
 		return
@@ -385,7 +385,7 @@
 	return data
 
 // Sawing guns related proc
-/obj/item/gun/ballistic/proc/blow_up(mob/user)
+TYPE_PROC_REF(/obj/item/gun/ballistic, blow_up)(mob/user)
 	. = 0
 	for(var/obj/item/ammo_casing/AC in magazine.stored_ammo)
 		if(AC.BB)
@@ -401,7 +401,7 @@
 		magazine?.max_ammo = initial(magazine?.max_ammo)
 	..()
 
-/obj/item/gun/ballistic/proc/get_ejector_direction(mob/user)
+TYPE_PROC_REF(/obj/item/gun/ballistic, get_ejector_direction)(mob/user)
 	if(user?.dir)
 		switch(handedness)
 			if(GUN_EJECTOR_RIGHT)

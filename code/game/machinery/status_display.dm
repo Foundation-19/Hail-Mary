@@ -35,18 +35,18 @@
 	var/index2
 
 /// Immediately blank the display.
-/obj/machinery/status_display/proc/remove_display()
+TYPE_PROC_REF(/obj/machinery/status_display, remove_display)()
 	cut_overlays()
 	if(maptext)
 		maptext = ""
 
 /// Immediately change the display to the given picture.
-/obj/machinery/status_display/proc/set_picture(state)
+TYPE_PROC_REF(/obj/machinery/status_display, set_picture)(state)
 	remove_display()
 	add_overlay(state)
 
 /// Immediately change the display to the given two lines.
-/obj/machinery/status_display/proc/update_display(line1, line2)
+TYPE_PROC_REF(/obj/machinery/status_display, update_display)(line1, line2)
 	var/new_text = {"<div style="font-size:[FONT_SIZE];color:[FONT_COLOR];font:'[FONT_STYLE]';text-align:center;" valign="top">[line1]<br>[line2]</div>"}
 	if(maptext != new_text)
 		maptext = new_text
@@ -54,7 +54,7 @@
 /// Prepare the display to marquee the given two lines.
 ///
 /// Call with no arguments to disable.
-/obj/machinery/status_display/proc/set_message(m1, m2)
+TYPE_PROC_REF(/obj/machinery/status_display, set_message)(m1, m2)
 	if(m1)
 		index1 = (length_char(m1) > CHARS_PER_LINE)
 		message1 = m1
@@ -98,7 +98,7 @@
 		return PROCESS_KILL
 
 /// Update the display and, if necessary, re-enable processing.
-/obj/machinery/status_display/proc/update()
+TYPE_PROC_REF(/obj/machinery/status_display, update)()
 	if (process() != PROCESS_KILL)
 		START_PROCESSING(SSmachines, src)
 
@@ -122,7 +122,7 @@
 			. += "\t<tt>[html_encode(message2)]</tt>"
 
 // Helper procs for child display types.
-/obj/machinery/status_display/proc/display_shuttle_status(obj/docking_port/mobile/shuttle)
+TYPE_PROC_REF(/obj/machinery/status_display, display_shuttle_status)(obj/docking_port/mobile/shuttle)
 	if(!shuttle)
 		// the shuttle is missing - no processing
 		update_display("shutl?","")
@@ -138,7 +138,7 @@
 		// don't kill processing, the timer might turn back on
 		remove_display()
 
-/obj/machinery/status_display/proc/examine_shuttle(mob/user, obj/docking_port/mobile/shuttle)
+TYPE_PROC_REF(/obj/machinery/status_display, examine_shuttle)(mob/user, obj/docking_port/mobile/shuttle)
 	if (shuttle)
 		var/modestr = shuttle.getModeStr()
 		if (modestr)

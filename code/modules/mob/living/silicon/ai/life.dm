@@ -46,7 +46,7 @@
 	else if(!aiRestorePowerRoutine)
 		ai_lose_power()
 
-/mob/living/silicon/ai/proc/lacks_power()
+TYPE_PROC_REF(/mob/living/silicon/ai, lacks_power)()
 	var/turf/T = get_turf(src)
 	var/area/A = get_area(src)
 	switch(requires_power)
@@ -94,7 +94,7 @@
 	sync_lighting_plane_alpha()
 
 
-/mob/living/silicon/ai/proc/start_RestorePowerRoutine()
+TYPE_PROC_REF(/mob/living/silicon/ai, start_RestorePowerRoutine)()
 	to_chat(src, "Backup battery online. Scanners, camera, and radio interface offline. Beginning fault-detection.")
 	end_multicam()
 	sleep(50)
@@ -157,7 +157,7 @@
 		sleep(50)
 		theAPC = null
 
-/mob/living/silicon/ai/proc/ai_restore_power()
+TYPE_PROC_REF(/mob/living/silicon/ai, ai_restore_power)()
 	if(aiRestorePowerRoutine)
 		if(aiRestorePowerRoutine == POWER_RESTORATION_APC_FOUND)
 			to_chat(src, "Alert cancelled. Power has been restored.")
@@ -167,7 +167,7 @@
 		set_blindness(0)
 		update_sight()
 
-/mob/living/silicon/ai/proc/ai_lose_power()
+TYPE_PROC_REF(/mob/living/silicon/ai, ai_lose_power)()
 	disconnect_shell()
 	aiRestorePowerRoutine = POWER_RESTORATION_START
 	blind_eyes(1)

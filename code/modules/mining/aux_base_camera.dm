@@ -148,7 +148,7 @@
 		B.RCD = new /obj/item/construction/rcd/internal(B) //If the RCD is lost somehow, make a new (empty) one!
 		B.RCD.console = B
 
-/datum/action/innate/aux_base/proc/check_spot()
+TYPE_PROC_REF(/datum/action/innate/aux_base, check_spot)()
 //Check a loction to see if it is inside the aux base at the station. Camera visbility checks omitted so as to not hinder construction.
 	var/turf/build_target = get_turf(remote_eye)
 	var/area/build_area = get_area(build_target)

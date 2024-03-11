@@ -103,7 +103,7 @@
 		user.client.images -= to_remove
 		user.client.change_view(CONFIG_GET(string/default_view))
 
-/obj/machinery/computer/camera_advanced/shuttle_docker/proc/placeLandingSpot()
+TYPE_PROC_REF(/obj/machinery/computer/camera_advanced/shuttle_docker, placeLandingSpot)()
 	if(designating_target_loc || !current_user)
 		return
 
@@ -112,7 +112,7 @@
 	if(designate_time && (landing_clear != SHUTTLE_DOCKER_BLOCKED))
 		to_chat(current_user, span_warning("Targeting transit location, please wait [DisplayTimeText(designate_time)]..."))
 		designating_target_loc = the_eye.loc
-		var/wait_completed = do_after(current_user, designate_time, FALSE, designating_target_loc, TRUE, CALLBACK(src, /obj/machinery/computer/camera_advanced/shuttle_docker/proc/canDesignateTarget))
+		var/wait_completed = do_after(current_user, designate_time, FALSE, designating_target_loc, TRUE, CALLBACK(src, TYPE_PROC_REF(/obj/machinery/computer/camera_advanced/shuttle_docker, canDesignateTarget)))
 		designating_target_loc = null
 		if(!current_user)
 			return
@@ -159,12 +159,12 @@
 		to_chat(current_user, span_notice("Transit location designated"))
 	return
 
-/obj/machinery/computer/camera_advanced/shuttle_docker/proc/canDesignateTarget()
+TYPE_PROC_REF(/obj/machinery/computer/camera_advanced/shuttle_docker, canDesignateTarget)()
 	if(!designating_target_loc || !current_user || (eyeobj.loc != designating_target_loc) || (stat & (NOPOWER|BROKEN)) )
 		return FALSE
 	return TRUE
 
-/obj/machinery/computer/camera_advanced/shuttle_docker/proc/rotateLandingSpot()
+TYPE_PROC_REF(/obj/machinery/computer/camera_advanced/shuttle_docker, rotateLandingSpot)()
 	var/mob/camera/aiEye/remote/shuttle_docker/the_eye = eyeobj
 	var/list/image_cache = the_eye.placement_images
 	the_eye.setDir(turn(the_eye.dir, -90))
@@ -180,7 +180,7 @@
 	y_offset = -Tmp
 	checkLandingSpot()
 
-/obj/machinery/computer/camera_advanced/shuttle_docker/proc/checkLandingSpot()
+TYPE_PROC_REF(/obj/machinery/computer/camera_advanced/shuttle_docker, checkLandingSpot)()
 	var/mob/camera/aiEye/remote/shuttle_docker/the_eye = eyeobj
 	var/turf/eyeturf = get_turf(the_eye)
 	if(!eyeturf)
@@ -208,7 +208,7 @@
 				I.icon_state = "red"
 				. = SHUTTLE_DOCKER_BLOCKED
 
-/obj/machinery/computer/camera_advanced/shuttle_docker/proc/checkLandingTurf(turf/T, list/overlappers)
+TYPE_PROC_REF(/obj/machinery/computer/camera_advanced/shuttle_docker, checkLandingTurf)(turf/T, list/overlappers)
 	// Too close to the map edge is never allowed
 	if(!T || T.x <= 10 || T.y <= 10 || T.x >= world.maxx - 10 || T.y >= world.maxy - 10)
 		return SHUTTLE_DOCKER_BLOCKED
@@ -248,7 +248,7 @@
 			else
 				return SHUTTLE_DOCKER_BLOCKED
 
-/obj/machinery/computer/camera_advanced/shuttle_docker/proc/update_hidden_docking_ports(list/remove_images, list/add_images)
+TYPE_PROC_REF(/obj/machinery/computer/camera_advanced/shuttle_docker, update_hidden_docking_ports)(list/remove_images, list/add_images)
 	if(!see_hidden && current_user && current_user.client)
 		current_user.client.images -= remove_images
 		current_user.client.images += add_images

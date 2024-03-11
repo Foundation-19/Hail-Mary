@@ -3,7 +3,7 @@
 	category_text = "Input"
 	power_draw_per_use = 5
 
-/obj/item/integrated_circuit/input/proc/ask_for_input(mob/user)
+TYPE_PROC_REF(/obj/item/integrated_circuit/input, ask_for_input)(mob/user)
 	return
 
 /obj/item/integrated_circuit/input/button
@@ -683,7 +683,7 @@
 	radio_connection.post_signal(src, signal)
 	activate_pin(2)
 
-/obj/item/integrated_circuit/input/signaler/proc/set_frequency(new_frequency)
+TYPE_PROC_REF(/obj/item/integrated_circuit/input/signaler, set_frequency)(new_frequency)
 	if(!frequency)
 		return
 	SSradio.remove_object(src, frequency)

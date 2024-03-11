@@ -739,7 +739,7 @@ What a mess.*/
 	updateUsrDialog()
 	return
 
-/obj/machinery/computer/secure_data/proc/get_photo(mob/user)
+TYPE_PROC_REF(/obj/machinery/computer/secure_data, get_photo)(mob/user)
 	var/obj/item/photo/P = null
 	if(issilicon(user))
 		var/mob/living/silicon/tempAI = user
@@ -750,7 +750,7 @@ What a mess.*/
 		P = user.get_active_held_item()
 	return P
 
-/obj/machinery/computer/secure_data/proc/print_photo(icon/temp, person_name)
+TYPE_PROC_REF(/obj/machinery/computer/secure_data, print_photo)(icon/temp, person_name)
 	if (printing)
 		return
 	printing = TRUE
@@ -798,7 +798,7 @@ What a mess.*/
 			qdel(R)
 			continue
 
-/obj/machinery/computer/secure_data/proc/canUseSecurityRecordsConsole(mob/user, message1 = 0, record1, record2)
+TYPE_PROC_REF(/obj/machinery/computer/secure_data, canUseSecurityRecordsConsole)(mob/user, message1 = 0, record1, record2)
 	if(user)
 		if(authenticated)
 			if(user.canUseTopic(src, !hasSiliconAccessInArea(user)))

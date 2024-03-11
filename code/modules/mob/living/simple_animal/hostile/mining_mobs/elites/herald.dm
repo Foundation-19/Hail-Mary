@@ -56,7 +56,7 @@
 	if(my_mirror != null)
 		qdel(my_mirror)
 
-/mob/living/simple_animal/hostile/asteroid/elite/herald/proc/become_ghost()
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/asteroid/elite/herald, become_ghost)()
 	icon_state = "herald_ghost"
 
 /mob/living/simple_animal/hostile/asteroid/elite/herald/say(message, bubble_type, list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null, just_chat)
@@ -123,7 +123,7 @@
 		if(HERALD_MIRROR)
 			herald_mirror()
 
-/mob/living/simple_animal/hostile/asteroid/elite/herald/proc/shoot_projectile(turf/marker, set_angle, is_teleshot)
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/asteroid/elite/herald, shoot_projectile)(turf/marker, set_angle, is_teleshot)
 	var/turf/startloc = get_turf(src)
 	var/obj/item/projectile/herald/H = null
 	if(!is_teleshot)
@@ -136,7 +136,7 @@
 		H.original = target
 	H.fire(set_angle)
 
-/mob/living/simple_animal/hostile/asteroid/elite/herald/proc/herald_trishot(target)
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/asteroid/elite/herald, herald_trishot)(target)
 	ranged_cooldown = world.time + 30
 	playsound(get_turf(src), 'sound/magic/clockwork/invoke_general.ogg', 20, TRUE)
 	var/target_turf = get_turf(target)
@@ -150,17 +150,17 @@
 		addtimer(CALLBACK(src, PROC_REF(shoot_projectile), target_turf, angle_to_target, FALSE), 12)
 		addtimer(CALLBACK(src, PROC_REF(shoot_projectile), target_turf, angle_to_target, FALSE), 14)
 
-/mob/living/simple_animal/hostile/asteroid/elite/herald/proc/herald_circleshot()
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/asteroid/elite/herald, herald_circleshot)()
 	var/static/list/directional_shot_angles = list(0, 45, 90, 135, 180, 225, 270, 315)
 	for(var/i in directional_shot_angles)
 		shoot_projectile(get_turf(src), i, FALSE)
 
-/mob/living/simple_animal/hostile/asteroid/elite/herald/proc/unenrage()
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/asteroid/elite/herald, unenrage)()
 	if(stat == DEAD || is_mirror)
 		return
 	icon_state = "herald"
 
-/mob/living/simple_animal/hostile/asteroid/elite/herald/proc/herald_directionalshot()
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/asteroid/elite/herald, herald_directionalshot)()
 	ranged_cooldown = world.time + 50
 	if(!is_mirror)
 		icon_state = "herald_enraged"
@@ -171,14 +171,14 @@
 		addtimer(CALLBACK(src, PROC_REF(herald_circleshot)), 15)
 	addtimer(CALLBACK(src, PROC_REF(unenrage)), 20)
 
-/mob/living/simple_animal/hostile/asteroid/elite/herald/proc/herald_teleshot(target)
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/asteroid/elite/herald, herald_teleshot)(target)
 	ranged_cooldown = world.time + 30
 	playsound(get_turf(src), 'sound/magic/clockwork/invoke_general.ogg', 20, TRUE)
 	var/target_turf = get_turf(target)
 	var/angle_to_target = Get_Angle(src, target_turf)
 	shoot_projectile(target_turf, angle_to_target, TRUE)
 
-/mob/living/simple_animal/hostile/asteroid/elite/herald/proc/herald_mirror()
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/asteroid/elite/herald, herald_mirror)()
 	ranged_cooldown = world.time + 40
 	playsound(get_turf(src), 'sound/magic/clockwork/invoke_general.ogg', 20, TRUE)
 	if(my_mirror != null)
@@ -252,12 +252,12 @@
 	body_parts_covered = CHEST|GROIN|ARMS
 	var/hit_reaction_chance = 10
 
-/obj/item/clothing/neck/cloak/herald_cloak/proc/reactionshot(mob/living/carbon/owner)
+TYPE_PROC_REF(/obj/item/clothing/neck/cloak/herald_cloak, reactionshot)(mob/living/carbon/owner)
 	var/static/list/directional_shot_angles = list(0, 45, 90, 135, 180, 225, 270, 315)
 	for(var/i in directional_shot_angles)
 		shoot_projectile(get_turf(owner), i, owner)
 
-/obj/item/clothing/neck/cloak/herald_cloak/proc/shoot_projectile(turf/marker, set_angle, mob/living/carbon/owner)
+TYPE_PROC_REF(/obj/item/clothing/neck/cloak/herald_cloak, shoot_projectile)(turf/marker, set_angle, mob/living/carbon/owner)
 	var/turf/startloc = get_turf(owner)
 	var/obj/item/projectile/herald/H = null
 	H = new /obj/item/projectile/herald(startloc)

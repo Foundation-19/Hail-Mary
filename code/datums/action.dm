@@ -32,7 +32,7 @@
 	if(desc)
 		button.desc = desc
 
-/datum/action/proc/link_to(Target)
+TYPE_PROC_REF(/datum/action, link_to)(Target)
 	target = Target
 	RegisterSignal(Target, COMSIG_ATOM_UPDATED_ICON, PROC_REF(OnUpdatedIcon))
 
@@ -44,7 +44,7 @@
 	button = null
 	return ..()
 
-/datum/action/proc/Grant(mob/M)
+TYPE_PROC_REF(/datum/action, Grant)(mob/M)
 	if(M)
 		if(owner)
 			if(owner == M)
@@ -76,7 +76,7 @@
 	else
 		Remove(owner)
 
-/datum/action/proc/Remove(mob/M)
+TYPE_PROC_REF(/datum/action, Remove)(mob/M)
 	if(M)
 		if(M.client)
 			M.client.screen -= button
@@ -87,17 +87,17 @@
 	button.locked = FALSE
 	button.id = null
 
-/datum/action/proc/Trigger()
+TYPE_PROC_REF(/datum/action, Trigger)()
 	if(!IsAvailable())
 		return FALSE
 	if(SEND_SIGNAL(src, COMSIG_ACTION_TRIGGER, target) & COMPONENT_ACTION_BLOCK_TRIGGER)
 		return FALSE
 	return TRUE
 
-/datum/action/proc/Process()
+TYPE_PROC_REF(/datum/action, Process)()
 	return
 
-/datum/action/proc/IsAvailable(silent = FALSE)
+TYPE_PROC_REF(/datum/action, IsAvailable)(silent = FALSE)
 	if(!owner)
 		return FALSE
 	var/mob/living/L = owner
@@ -117,7 +117,7 @@
 			return FALSE
 	return TRUE
 
-/datum/action/proc/UpdateButtonIcon(status_only = FALSE, force = FALSE)
+TYPE_PROC_REF(/datum/action, UpdateButtonIcon)(status_only = FALSE, force = FALSE)
 	if(!button)
 		return
 	if(!status_only)
@@ -155,7 +155,7 @@
 		button.color = rgb(255,255,255,255)
 		return 1
 
-/datum/action/proc/ApplyIcon(obj/screen/movable/action_button/current_button, force = FALSE)
+TYPE_PROC_REF(/datum/action, ApplyIcon)(obj/screen/movable/action_button/current_button, force = FALSE)
 	if(icon_icon && button_icon_state && ((current_button.button_icon_state != button_icon_state) || force))
 		current_button.cut_overlays()
 		current_button.add_overlay(mutable_appearance(icon_icon, button_icon_state))
@@ -173,7 +173,7 @@
 	var/mob/M = target
 	M.ghostize(can_reenter_corpse = TRUE, voluntary = TRUE)
 
-/datum/action/proc/OnUpdatedIcon()
+TYPE_PROC_REF(/datum/action, OnUpdatedIcon)()
 	UpdateButtonIcon()
 
 //Presets for item actions
@@ -702,10 +702,10 @@
 		Deactivate()
 	return 1
 
-/datum/action/innate/proc/Activate()
+TYPE_PROC_REF(/datum/action/innate, Activate)()
 	return
 
-/datum/action/innate/proc/Deactivate()
+TYPE_PROC_REF(/datum/action/innate, Deactivate)()
 	return
 
 //Preset for an action with a cooldown
@@ -727,7 +727,7 @@
 /datum/action/cooldown/IsAvailable(silent = FALSE)
 	return next_use_time <= world.time
 
-/datum/action/cooldown/proc/StartCooldown()
+TYPE_PROC_REF(/datum/action/cooldown, StartCooldown)()
 	next_use_time = world.time + cooldown_time
 	button.maptext = "<b>[round(cooldown_time/10, 0.1)]</b>"
 	UpdateButtonIcon()

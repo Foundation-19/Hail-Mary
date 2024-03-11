@@ -78,7 +78,7 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 	. = ..()
 	holder = null
 
-/datum/reagent/proc/reaction_mob(mob/living/M, method=TOUCH, reac_volume, show_message = 1, touch_protection = 0)
+TYPE_PROC_REF(/datum/reagent, reaction_mob)(mob/living/M, method=TOUCH, reac_volume, show_message = 1, touch_protection = 0)
 	if(!istype(M))
 		return 0
 	if(method == VAPOR) //smoke, foam, spray
@@ -89,7 +89,7 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 				M.reagents.add_reagent(type, amount)
 	return 1
 
-/datum/reagent/proc/reaction_synth(mob/living/M, method=TOUCH, reac_volume, show_message = 1, touch_protection = 0)
+TYPE_PROC_REF(/datum/reagent, reaction_synth)(mob/living/M, method=TOUCH, reac_volume, show_message = 1, touch_protection = 0)
 	if(!istype(M))
 		return FALSE
 	if(!isrobotic(M))
@@ -102,25 +102,25 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 				M.reagents.add_reagent(type, amount)
 	return 1
 
-/datum/reagent/proc/reaction_obj(obj/O, volume)
+TYPE_PROC_REF(/datum/reagent, reaction_obj)(obj/O, volume)
 	return
 
-/datum/reagent/proc/reaction_turf(turf/T, volume)
+TYPE_PROC_REF(/datum/reagent, reaction_turf)(turf/T, volume)
 	return
 
-/datum/reagent/proc/on_mob_life(mob/living/carbon/M)
+TYPE_PROC_REF(/datum/reagent, on_mob_life)(mob/living/carbon/M)
 	current_cycle++
 	if(holder)
 		holder.remove_reagent(type, metabolization_rate * M.metabolism_efficiency) //By default it slowly disappears.
 
-/datum/reagent/proc/on_mob_life_synth(mob/living/carbon/M)
+TYPE_PROC_REF(/datum/reagent, on_mob_life_synth)(mob/living/carbon/M)
 	current_cycle++
 	if(holder)
 		holder.remove_reagent(type, metabolization_rate * M.metabolism_efficiency) //By default it slowly disappears.
 	return TRUE
 
 //called when a mob processes chems when dead.
-/datum/reagent/proc/on_mob_dead(mob/living/carbon/M)
+TYPE_PROC_REF(/datum/reagent, on_mob_dead)(mob/living/carbon/M)
 	if(!(chemical_flags & REAGENT_DEAD_PROCESS)) //justincase
 		return
 	current_cycle++
@@ -128,7 +128,7 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 		holder.remove_reagent(type, metabolization_rate * M.metabolism_efficiency) //By default it slowly disappears.
 
 // Called when this reagent is first added to a mob
-/datum/reagent/proc/on_mob_add(mob/living/L, amount)
+TYPE_PROC_REF(/datum/reagent, on_mob_add)(mob/living/L, amount)
 	if(!iscarbon(L))
 		return
 	var/mob/living/carbon/M = L
@@ -160,35 +160,35 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 		log_reagent("MOB ADD: on_mob_add() (mixed purity): merged [volume - impureVol] of [type] and [volume] of [impure_chem]")
 
 // Called when this reagent is removed while inside a mob
-/datum/reagent/proc/on_mob_delete(mob/living/L)
+TYPE_PROC_REF(/datum/reagent, on_mob_delete)(mob/living/L)
 	var/turf/T = get_turf(L)
 	log_reagent("MOB DELETE: on_mob_delete: [key_name(L)] at [AREACOORD(T)] - [type]")
 
 // Called when this reagent first starts being metabolized by a liver
-/datum/reagent/proc/on_mob_metabolize(mob/living/L)
+TYPE_PROC_REF(/datum/reagent, on_mob_metabolize)(mob/living/L)
 	return
 
 // Called when this reagent first starts being metabolized by a synth
-/datum/reagent/proc/on_mob_metabolize_synth(mob/living/L)
+TYPE_PROC_REF(/datum/reagent, on_mob_metabolize_synth)(mob/living/L)
 	return
 
 // Called when this reagent stops being metabolized by a synth
-/datum/reagent/proc/on_mob_end_metabolize(mob/living/L)
+TYPE_PROC_REF(/datum/reagent, on_mob_end_metabolize)(mob/living/L)
 	return
 
 // Called when this reagent stops being metabolized by a liver
-/datum/reagent/proc/on_mob_end_metabolize_synth(mob/living/L)
+TYPE_PROC_REF(/datum/reagent, on_mob_end_metabolize_synth)(mob/living/L)
 	return
 
-/datum/reagent/proc/on_move(mob/M)
+TYPE_PROC_REF(/datum/reagent, on_move)(mob/M)
 	return
 
 // Called after add_reagents creates a new reagent.
-/datum/reagent/proc/on_new(data)
+TYPE_PROC_REF(/datum/reagent, on_new)(data)
 	return
 
 // Called when two reagents of the same are mixing.
-/datum/reagent/proc/on_merge(data, amount, mob/living/carbon/M, purity)
+TYPE_PROC_REF(/datum/reagent, on_merge)(data, amount, mob/living/carbon/M, purity)
 	if(!iscarbon(M))
 		return
 	var/turf/T = get_turf(M)
@@ -217,49 +217,49 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 		M.reagents.add_reagent(impure_chem, impureVol, FALSE, other_purity = 1-cached_purity)
 		log_reagent("MOB ADD: on_merge() (mixed purity): merged [volume - impureVol] of [type] and [volume] of [impure_chem]")
 
-/datum/reagent/proc/on_update(atom/A)
+TYPE_PROC_REF(/datum/reagent, on_update)(atom/A)
 	return
 
 //Ran by a reagent holder on a specific reagent after copying its data.
-/datum/reagent/proc/post_copy_data()
+TYPE_PROC_REF(/datum/reagent, post_copy_data)()
 	return
 
 // Called when the reagent container is hit by an explosion
-/datum/reagent/proc/on_ex_act(severity)
+TYPE_PROC_REF(/datum/reagent, on_ex_act)(severity)
 	return
 
 // Called if the reagent has passed the overdose threshold and is set to be triggering overdose effects
-/datum/reagent/proc/overdose_process(mob/living/M)
+TYPE_PROC_REF(/datum/reagent, overdose_process)(mob/living/M)
 	return
 
-/datum/reagent/proc/overdose_start(mob/living/M)
+TYPE_PROC_REF(/datum/reagent, overdose_start)(mob/living/M)
 	to_chat(M, span_userdanger("You feel like you took too much of [name]!"))
 	SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "[type]_overdose", /datum/mood_event/overdose, name)
 
-/datum/reagent/proc/addiction_act_stage1(mob/living/M)
+TYPE_PROC_REF(/datum/reagent, addiction_act_stage1)(mob/living/M)
 	SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "[type]_overdose", /datum/mood_event/withdrawal_light, name)
 	if(prob(30))
 		to_chat(M, span_notice("You feel like having some [name] right about now."))
 
-/datum/reagent/proc/addiction_act_stage2(mob/living/M)
+TYPE_PROC_REF(/datum/reagent, addiction_act_stage2)(mob/living/M)
 	SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "[type]_overdose", /datum/mood_event/withdrawal_medium, name)
 	if(prob(30))
 		to_chat(M, span_notice("You feel like you need [name]. You just can't get enough."))
 
-/datum/reagent/proc/addiction_act_stage3(mob/living/M)
+TYPE_PROC_REF(/datum/reagent, addiction_act_stage3)(mob/living/M)
 	SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "[type]_overdose", /datum/mood_event/withdrawal_severe, name)
 	if(prob(30))
 		to_chat(M, span_danger("You have an intense craving for [name]."))
 
-/datum/reagent/proc/addiction_act_stage4(mob/living/M)
+TYPE_PROC_REF(/datum/reagent, addiction_act_stage4)(mob/living/M)
 	SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "[type]_overdose", /datum/mood_event/withdrawal_critical, name)
 	if(prob(30))
 		to_chat(M, span_boldannounce("You're not feeling good at all! You really need some [name]."))
 
-/datum/reagent/proc/on_addiction_start(mob/living/M)
+TYPE_PROC_REF(/datum/reagent, on_addiction_start)(mob/living/M)
 	return
 
-/datum/reagent/proc/on_addiction_end(mob/living/M)
+TYPE_PROC_REF(/datum/reagent, on_addiction_end)(mob/living/M)
 	return
 
 /**
@@ -267,7 +267,7 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
  * Defined on a per-chem level as opposed to by the tray.
  * Can affect plant's health, stats, or cause the plant to react in certain ways.
  */
-/datum/reagent/proc/on_hydroponics_apply(obj/item/seeds/myseed, datum/reagents/chems, obj/machinery/hydroponics/mytray, mob/user)
+TYPE_PROC_REF(/datum/reagent, on_hydroponics_apply)(obj/item/seeds/myseed, datum/reagents/chems, obj/machinery/hydroponics/mytray, mob/user)
 	if(!mytray || !chems)
 		return
 	return
@@ -281,7 +281,7 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 	return rs.Join(" | ")
 
 //For easy bloodsucker disgusting and blood removal
-/datum/reagent/proc/disgust_bloodsucker(mob/living/carbon/C, disgust, blood_change, blood_puke = TRUE, force)
+TYPE_PROC_REF(/datum/reagent, disgust_bloodsucker)(mob/living/carbon/C, disgust, blood_change, blood_puke = TRUE, force)
 	if(AmBloodsucker(C))
 		var/datum/antagonist/bloodsucker/bloodsuckerdatum = C.mind.has_antag_datum(ANTAG_DATUM_BLOODSUCKER)
 		if(disgust)

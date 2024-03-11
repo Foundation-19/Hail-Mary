@@ -1,4 +1,4 @@
-/client/proc/panicbunker()
+TYPE_PROC_REF(/client, panicbunker)()
 	set category = "Server"
 	set name = "Toggle Panic Bunker"
 	if (!CONFIG_GET(flag/sql_enabled))
@@ -26,7 +26,7 @@
 		message_admins("The Database is not connected! Panic bunker will not work until the connection is reestablished.")
 	SSblackbox.record_feedback("nested tally", "admin_toggle", 1, list("Toggle Panic Bunker", "[new_pb ? "Enabled" : "Disabled"]")) //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-/client/proc/toggle_interviews()
+TYPE_PROC_REF(/client, toggle_interviews)()
 	set category = "Server"
 	set name = "Toggle PB Interviews"
 	if (!CONFIG_GET(flag/panic_bunker))

@@ -148,7 +148,7 @@
 
 	return ..()
 
-/obj/machinery/autolathe/proc/AfterMaterialInsert(obj/item/item_inserted, id_inserted, amount_inserted)
+TYPE_PROC_REF(/obj/machinery/autolathe, AfterMaterialInsert)(obj/item/item_inserted, id_inserted, amount_inserted)
 	if(istype(item_inserted, /obj/item/stack/ore/bluespace_crystal))
 		use_power(MINERAL_MATERIAL_AMOUNT / 10)
 	else if(item_inserted.custom_materials?.len && item_inserted.custom_materials[SSmaterials.GetMaterialRef(/datum/material/glass)])
@@ -240,7 +240,7 @@
 
 	return
 
-/obj/machinery/autolathe/proc/make_item(power, list/materials_used, list/picked_materials, multiplier, coeff, is_stack)
+TYPE_PROC_REF(/obj/machinery/autolathe, make_item)(power, list/materials_used, list/picked_materials, multiplier, coeff, is_stack)
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	var/atom/A = drop_location()
 	use_power(power)
@@ -281,7 +281,7 @@
 	if(in_range(user, src) || isobserver(user))
 		. += "<span class='notice'>The status display reads: Storing up to <b>[materials.max_amount]</b> material units.<br>Material consumption at <b>[prod_coeff*100]%</b>.</span>"
 
-/obj/machinery/autolathe/proc/main_win(mob/user)
+TYPE_PROC_REF(/obj/machinery/autolathe, main_win)(mob/user)
 	var/dat = "<div class='statusDisplay'><h3>Autolathe Menu:</h3><br>"
 	dat += materials_printout()
 
@@ -307,7 +307,7 @@
 	dat += "</tr></table></div>"
 	return dat
 
-/obj/machinery/autolathe/proc/category_win(mob/user,selected_category)
+TYPE_PROC_REF(/obj/machinery/autolathe, category_win)(mob/user,selected_category)
 	var/dat = "<A href='?src=[REF(src)];menu=[AUTOLATHE_MAIN_MENU]'>Return to main menu</A>"
 	dat += "<div class='statusDisplay'><h3>Browsing [selected_category]:</h3><br>"
 	dat += materials_printout()
@@ -344,7 +344,7 @@
 	dat += "</div>"
 	return dat
 
-/obj/machinery/autolathe/proc/search_win(mob/user)
+TYPE_PROC_REF(/obj/machinery/autolathe, search_win)(mob/user)
 	var/dat = "<A href='?src=[REF(src)];menu=[AUTOLATHE_MAIN_MENU]'>Return to main menu</A>"
 	dat += "<div class='statusDisplay'><h3>Search results:</h3><br>"
 	dat += materials_printout()
@@ -373,7 +373,7 @@
 	dat += "</div>"
 	return dat
 
-/obj/machinery/autolathe/proc/materials_printout()
+TYPE_PROC_REF(/obj/machinery/autolathe, materials_printout)()
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	var/dat = "<b>Total amount:</b> [materials.total_amount] / [materials.max_amount] cm<sup>3</sup><br>"
 	for(var/mat_id in materials.materials)
@@ -383,7 +383,7 @@
 			dat += "<b>[M.name] amount:</b> [mineral_amount] cm<sup>3</sup><br>"
 	return dat
 
-/obj/machinery/autolathe/proc/can_build(datum/design/D, amount = 1)
+TYPE_PROC_REF(/obj/machinery/autolathe, can_build)(datum/design/D, amount = 1)
 	if(D.make_reagents.len)
 		return FALSE
 
@@ -398,7 +398,7 @@
 
 	return materials.has_materials(required_materials)
 
-/obj/machinery/autolathe/proc/get_design_cost(datum/design/D)
+TYPE_PROC_REF(/obj/machinery/autolathe, get_design_cost)(datum/design/D)
 	var/coeff = (ispath(D.build_path, /obj/item/stack) ? 1 : prod_coeff)
 	var/dat
 	for(var/i in D.materials)
@@ -409,7 +409,7 @@
 			dat += "[D.materials[i] * coeff] [M.name] "
 	return dat
 
-/obj/machinery/autolathe/proc/reset(wire)
+TYPE_PROC_REF(/obj/machinery/autolathe, reset)(wire)
 	switch(wire)
 		if(WIRE_HACK)
 			if(!wires.is_cut(wire))
@@ -421,7 +421,7 @@
 			if(!wires.is_cut(wire))
 				disabled = FALSE
 
-/obj/machinery/autolathe/proc/shock(mob/user, prb)
+TYPE_PROC_REF(/obj/machinery/autolathe, shock)(mob/user, prb)
 	if(stat & (BROKEN|NOPOWER))		// unpowered, no shock
 		return FALSE
 	if(!prob(prb))
@@ -434,7 +434,7 @@
 	else
 		return FALSE
 
-/obj/machinery/autolathe/proc/adjust_hacked(state)
+TYPE_PROC_REF(/obj/machinery/autolathe, adjust_hacked)(state)
 	hacked = state
 	for(var/id in SSresearch.techweb_designs)
 		var/datum/design/D = SSresearch.techweb_design_by_id(id)
@@ -638,7 +638,7 @@
 			return
 	return ..()
 
-/obj/machinery/autolathe/ammo/proc/insert_thing(obj/item/thing, obj/item/thing_bag, datum/component/material_container/mat_box)
+TYPE_PROC_REF(/obj/machinery/autolathe/ammo, insert_thing)(obj/item/thing, obj/item/thing_bag, datum/component/material_container/mat_box)
 	var/mat_amount = mat_box.get_item_material_amount(thing)
 	if(!mat_amount)
 		return AUTOLATHE_SKIP_INSERTING
@@ -652,7 +652,7 @@
 		mat_box.after_insert.Invoke(thing, mat_box.last_inserted_id, mat_box.insert_item(thing))
 	return AUTOLATHE_INSERT_OK
 
-/obj/machinery/autolathe/ammo/proc/pre_insert_check(mob/user, obj/item/O)
+TYPE_PROC_REF(/obj/machinery/autolathe/ammo, pre_insert_check)(mob/user, obj/item/O)
 	if(!istype(O))
 		return FALSE
 	var/obj/item/stuff_holder = O
@@ -667,7 +667,7 @@
 		return FALSE
 	return TRUE
 
-/obj/machinery/autolathe/ammo/proc/insert_bullets_from_box(mob/user, obj/item/ammo_box/ammobox)
+TYPE_PROC_REF(/obj/machinery/autolathe/ammo, insert_bullets_from_box)(mob/user, obj/item/ammo_box/ammobox)
 	if(!user)
 		return FALSE
 	if(!istype(ammobox))
@@ -690,7 +690,7 @@
 		to_chat(user, span_warning("There aren't any casings in \the [ammobox] to recycle!"))
 	return TRUE
 
-/obj/machinery/autolathe/ammo/proc/insert_magazine_from_gun(mob/user, obj/item/gun/ballistic/gun_thing)
+TYPE_PROC_REF(/obj/machinery/autolathe/ammo, insert_magazine_from_gun)(mob/user, obj/item/gun/ballistic/gun_thing)
 	if(!user)
 		return FALSE
 	if(!istype(gun_thing))
@@ -717,7 +717,7 @@
 	QDEL_NULL(gun_thing.magazine)
 	return TRUE
 
-/obj/machinery/autolathe/ammo/proc/insert_things_from_bag(mob/user, obj/item/storage/bag/casings/O)
+TYPE_PROC_REF(/obj/machinery/autolathe/ammo, insert_things_from_bag)(mob/user, obj/item/storage/bag/casings/O)
 	var/obj/item/storage/bag/casings/casings_bag = O
 	var/datum/component/material_container/mats = GetComponent(/datum/component/material_container)
 	var/count = 0
@@ -878,7 +878,7 @@
 	/// someone stuck us into a machine frame for some reason
 	var/framed = TRUE
 
-/obj/machinery/autolathe/ammo/improvised/proc/tableize()
+TYPE_PROC_REF(/obj/machinery/autolathe/ammo/improvised, tableize)()
 	icon_state_base = "autolathe_tabletop"
 	icon_state_open = "autolathe_tabletop_t"
 	icon_state_busy = "autolathe_tabletop_n"
@@ -888,7 +888,7 @@
 	wooded = FALSE
 	frament()
 
-/obj/machinery/autolathe/ammo/improvised/proc/frament()
+TYPE_PROC_REF(/obj/machinery/autolathe/ammo/improvised, frament)()
 	framed = FALSE
 
 /obj/machinery/autolathe/ammo/improvised/deconstruct(disassembled = TRUE)

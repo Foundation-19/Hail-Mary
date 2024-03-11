@@ -94,7 +94,7 @@
 			end_syphon()
 			. = TRUE
 
-/obj/machinery/computer/bank_machine/proc/end_syphon()
+TYPE_PROC_REF(/obj/machinery/computer/bank_machine, end_syphon)()
 	siphoning = FALSE
 	new /obj/item/holochip(drop_location(), syphoning_credits) //get the loot
 	syphoning_credits = 0

@@ -75,7 +75,7 @@
 	. = ..()
 	REMOVE_TRAIT(src, TRAIT_NODROP, NINJA_SUIT_TRAIT)
 
-/obj/item/clothing/gloves/space_ninja/proc/toggledrain()
+TYPE_PROC_REF(/obj/item/clothing/gloves/space_ninja, toggledrain)()
 	var/mob/living/carbon/human/U = loc
 	to_chat(U, "You <b>[candrain?"disable":"enable"]</b> special interaction.")
 	candrain=!candrain

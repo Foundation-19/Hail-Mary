@@ -26,7 +26,7 @@
 		owner.adjust_nutrition(50)
 		addtimer(CALLBACK(src, PROC_REF(synth_cool)), 50)
 
-/obj/item/organ/cyberimp/chest/nutriment/proc/synth_cool()
+TYPE_PROC_REF(/obj/item/organ/cyberimp/chest/nutriment, synth_cool)()
 	synthesizing = FALSE
 
 /obj/item/organ/cyberimp/chest/nutriment/emp_act(severity)
@@ -85,7 +85,7 @@
 	reviving = TRUE
 	to_chat(owner, span_notice("You feel a faint buzzing as your reviver implant starts patching your wounds..."))
 
-/obj/item/organ/cyberimp/chest/reviver/proc/heal()
+TYPE_PROC_REF(/obj/item/organ/cyberimp/chest/reviver, heal)()
 	if(!owner)
 		return
 	if(owner.getOxyLoss())
@@ -119,7 +119,7 @@
 			to_chat(H, span_userdanger("You feel a horrible agony in your chest!"))
 			addtimer(CALLBACK(src, PROC_REF(undo_heart_attack)), (60 * severity/100) SECONDS)
 
-/obj/item/organ/cyberimp/chest/reviver/proc/undo_heart_attack()
+TYPE_PROC_REF(/obj/item/organ/cyberimp/chest/reviver, undo_heart_attack)()
 	var/mob/living/carbon/human/H = owner
 	if(!H || !istype(H))
 		return
@@ -157,7 +157,7 @@
 /obj/item/organ/cyberimp/chest/thrusters/ui_action_click()
 	toggle()
 
-/obj/item/organ/cyberimp/chest/thrusters/proc/toggle(silent = FALSE)
+TYPE_PROC_REF(/obj/item/organ/cyberimp/chest/thrusters, toggle)(silent = FALSE)
 	if(!on)
 		if(crit_fail || (organ_flags & ORGAN_FAILING))
 			if(!silent)
@@ -186,10 +186,10 @@
 	else
 		icon_state = "imp_jetpack"
 
-/obj/item/organ/cyberimp/chest/thrusters/proc/move_react()
+TYPE_PROC_REF(/obj/item/organ/cyberimp/chest/thrusters, move_react)()
 	allow_thrust(0.01)
 
-/obj/item/organ/cyberimp/chest/thrusters/proc/allow_thrust(num)
+TYPE_PROC_REF(/obj/item/organ/cyberimp/chest/thrusters, allow_thrust)(num)
 	if(!on || !owner)
 		return 0
 

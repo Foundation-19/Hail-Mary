@@ -1,4 +1,4 @@
-/mob/living/proc/Ellipsis(original_msg, chance = 50, keep_words)
+TYPE_PROC_REF(/mob/living, Ellipsis)(original_msg, chance = 50, keep_words)
 	if(chance <= 0)
 		return "..."
 	if(chance >= 100)
@@ -265,14 +265,14 @@
 	I.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
 	INVOKE_ASYNC(GLOBAL_PROC, /.proc/flick_overlay, I, speech_bubble_recipients, 30)
 
-/mob/proc/binarycheck()
+TYPE_PROC_REF(/mob, binarycheck)()
 	return FALSE
 
 /mob/living/can_speak(message) //For use outside of Say()
 	if(can_speak_basic(message) && can_speak_vocal(message))
 		return 1
 
-/mob/living/proc/can_speak_basic(message, ignore_spam = FALSE) //Check BEFORE handling of xeno and ling channels
+TYPE_PROC_REF(/mob/living, can_speak_basic)(message, ignore_spam = FALSE) //Check BEFORE handling of xeno and ling channels
 	if(client)
 		if(client.prefs.muted & MUTE_IC)
 			to_chat(src, span_danger("You cannot speak in IC (muted)."))
@@ -282,7 +282,7 @@
 
 	return 1
 
-/mob/living/proc/can_speak_vocal(message) //Check AFTER handling of xeno and ling channels
+TYPE_PROC_REF(/mob/living, can_speak_vocal)(message) //Check AFTER handling of xeno and ling channels
 	if(HAS_TRAIT(src, TRAIT_MUTE))
 		return 0
 
@@ -294,12 +294,12 @@
 
 	return 1
 
-/mob/living/proc/get_key(message)
+TYPE_PROC_REF(/mob/living, get_key)(message)
 	var/key = message[1]
 	if(key in GLOB.department_radio_prefixes)
 		return lowertext(message[1 + length(key)])
 
-/mob/living/proc/get_message_language(message)
+TYPE_PROC_REF(/mob/living, get_message_language)(message)
 	if(message[1] == ",")
 		var/key = message[1 + length(message[1])]
 		for(var/ld in GLOB.all_languages)
@@ -308,7 +308,7 @@
 				return LD
 	return null
 
-/mob/living/proc/treat_message(message)
+TYPE_PROC_REF(/mob/living, treat_message)(message)
 
 	if(HAS_TRAIT(src, TRAIT_UNINTELLIGIBLE_SPEECH))
 		message = unintelligize(message)
@@ -336,7 +336,7 @@
 
 	return message
 
-/mob/living/proc/radio(message, message_mode, list/spans, language)
+TYPE_PROC_REF(/mob/living, radio)(message, message_mode, list/spans, language)
 	var/obj/item/implant/radio/imp = locate() in implants
 	if(imp?.radio.on)
 		if(message_mode == MODE_HEADSET)

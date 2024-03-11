@@ -192,7 +192,7 @@
 	..()
 	radio = new(src)
 
-/obj/item/cartridge/proc/post_status(command, data1, data2)
+TYPE_PROC_REF(/obj/item/cartridge, post_status)(command, data1, data2)
 
 	var/datum/radio_frequency/frequency = SSradio.return_frequency(FREQ_STATUS_DISPLAYS)
 
@@ -209,7 +209,7 @@
 
 	frequency.post_signal(src, status_signal)
 
-/obj/item/cartridge/proc/generate_menu(mob/user)
+TYPE_PROC_REF(/obj/item/cartridge, generate_menu)(mob/user)
 	if(!host_pda)
 		return
 	switch(host_pda.mode)
@@ -731,7 +731,7 @@ Code:
 	host_pda.attack_self(usr)
 
 
-/obj/item/cartridge/proc/bot_control()
+TYPE_PROC_REF(/obj/item/cartridge, bot_control)()
 
 
 	var/mob/living/simple_animal/bot/Bot
@@ -791,12 +791,12 @@ Code:
 	return menu
 
 //If the cartridge adds a special line to the top of the messaging app
-/obj/item/cartridge/proc/message_header()
+TYPE_PROC_REF(/obj/item/cartridge, message_header)()
 	return ""
 
 //If the cartridge adds something to each potetial messaging target
-/obj/item/cartridge/proc/message_special(obj/item/pda/target)
+TYPE_PROC_REF(/obj/item/cartridge, message_special)(obj/item/pda/target)
 	return ""
 
 //This is called for special abilities of cartridges
-/obj/item/cartridge/proc/special(mob/living/user, list/params)
+TYPE_PROC_REF(/obj/item/cartridge, special)(mob/living/user, list/params)

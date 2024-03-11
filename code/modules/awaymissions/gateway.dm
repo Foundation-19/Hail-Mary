@@ -15,40 +15,40 @@ GLOBAL_LIST_EMPTY(gateway_destinations)
 	var/hidden = FALSE /// Will not show on gateway controls at all.
 
 /* Can a gateway link to this destination right now. */
-/datum/gateway_destination/proc/is_available()
+TYPE_PROC_REF(/datum/gateway_destination, is_available)()
 	return enabled && (world.time - SSticker.round_start_time >= wait)
 
 /* Returns user-friendly description why you can't connect to this destination, displayed in UI */
-/datum/gateway_destination/proc/get_available_reason()
+TYPE_PROC_REF(/datum/gateway_destination, get_available_reason)()
 	. = "Unreachable"
 	if(world.time - SSticker.round_start_time < wait)
 		. = "Connection desynchronized. Recalibration in progress."
 
 /* Check if the movable is allowed to arrive at this destination (exile implants mostly) */
-/datum/gateway_destination/proc/incoming_pass_check(atom/movable/AM)
+TYPE_PROC_REF(/datum/gateway_destination, incoming_pass_check)(atom/movable/AM)
 	return TRUE
 
 /* Get the actual turf we'll arrive at */
-/datum/gateway_destination/proc/get_target_turf()
+TYPE_PROC_REF(/datum/gateway_destination, get_target_turf)()
 	CRASH("get target turf not implemented for this destination type")
 
 /* Called after moving the movable to target turf */
-/datum/gateway_destination/proc/post_transfer(atom/movable/AM)
+TYPE_PROC_REF(/datum/gateway_destination, post_transfer)(atom/movable/AM)
 	if (ismob(AM))
 		var/mob/M = AM
 		if (M.client)
 			M.client.move_delay = max(world.time + 5, M.client.move_delay)
 
 /* Called when gateway activates with this destination. */
-/datum/gateway_destination/proc/activate(obj/machinery/gateway/activated)
+TYPE_PROC_REF(/datum/gateway_destination, activate)(obj/machinery/gateway/activated)
 	return
 
 /* Called when gateway targeting this destination deactivates. */
-/datum/gateway_destination/proc/deactivate(obj/machinery/gateway/deactivated)
+TYPE_PROC_REF(/datum/gateway_destination, deactivate)(obj/machinery/gateway/deactivated)
 	return
 
 /* Returns data used by gateway controller ui */
-/datum/gateway_destination/proc/get_ui_data()
+TYPE_PROC_REF(/datum/gateway_destination, get_ui_data)()
 	. = list()
 	.["ref"] = REF(src)
 	.["name"] = name
@@ -110,7 +110,7 @@ GLOBAL_LIST_EMPTY(gateway_destinations)
 				return FALSE
 	return TRUE
 
-/datum/gateway_destination/gateway/home/proc/check_exile_implant(mob/living/L)
+TYPE_PROC_REF(/datum/gateway_destination/gateway/home, check_exile_implant)(mob/living/L)
 	for(var/obj/item/implant/exile/E in L.implants)//Checking that there is an exile implant
 		to_chat(L, span_userdanger("The station gate has detected your exile implant and is blocking your entry."))
 		return TRUE
@@ -177,13 +177,13 @@ GLOBAL_LIST_EMPTY(gateway_destinations)
 	update_icon()
 	return ..()
 
-/obj/machinery/gateway/proc/generate_destination()
+TYPE_PROC_REF(/obj/machinery/gateway, generate_destination)()
 	destination = new destination_type
 	destination.name = destination_name
 	destination.target_gateway = src
 	GLOB.gateway_destinations += destination
 
-/obj/machinery/gateway/proc/deactivate()
+TYPE_PROC_REF(/obj/machinery/gateway, deactivate)()
 	var/datum/gateway_destination/dest = target
 	target = null
 	dest.deactivate(src)
@@ -207,11 +207,11 @@ GLOBAL_LIST_EMPTY(gateway_destinations)
 /obj/machinery/gateway/safe_throw_at(atom/target, range, speed, mob/thrower, spin = TRUE, diagonals_first = FALSE, datum/callback/callback, force = MOVE_FORCE_STRONG, gentle = FALSE)
 	return
 
-/obj/machinery/gateway/proc/generate_bumper()
+TYPE_PROC_REF(/obj/machinery/gateway, generate_bumper)()
 	portal = new(get_turf(src))
 	portal.gateway = src
 
-/obj/machinery/gateway/proc/activate(datum/gateway_destination/D)
+TYPE_PROC_REF(/obj/machinery/gateway, activate)(datum/gateway_destination/D)
 	if(!powered() || target)
 		return
 	target = D
@@ -220,7 +220,7 @@ GLOBAL_LIST_EMPTY(gateway_destinations)
 	use_power = ACTIVE_POWER_USE
 	update_icon()
 
-/obj/machinery/gateway/proc/Transfer(atom/movable/AM)
+TYPE_PROC_REF(/obj/machinery/gateway, Transfer)(atom/movable/AM)
 	if(!target || !target.incoming_pass_check(AM))
 		return
 	AM.forceMove(target.get_target_turf())
@@ -311,10 +311,10 @@ GLOBAL_LIST_EMPTY(gateway_destinations)
 				G.deactivate()
 			return TRUE
 
-/obj/machinery/computer/gateway_control/proc/try_to_linkup()
+TYPE_PROC_REF(/obj/machinery/computer/gateway_control, try_to_linkup)()
 	G = locate(/obj/machinery/gateway) in view(7,get_turf(src))
 
-/obj/machinery/computer/gateway_control/proc/try_to_connect(datum/gateway_destination/D)
+TYPE_PROC_REF(/obj/machinery/computer/gateway_control, try_to_connect)(datum/gateway_destination/D)
 	if(!D || !G)
 		return
 	if(!D.is_available() || G.target)

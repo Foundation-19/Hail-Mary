@@ -71,13 +71,13 @@
 
 	update_parents()
 
-/obj/machinery/atmospherics/components/binary/volume_pump/proc/set_frequency(new_frequency)
+TYPE_PROC_REF(/obj/machinery/atmospherics/components/binary/volume_pump, set_frequency)(new_frequency)
 	SSradio.remove_object(src, frequency)
 	frequency = new_frequency
 	if(frequency)
 		radio_connection = SSradio.add_object(src, frequency)
 
-/obj/machinery/atmospherics/components/binary/volume_pump/proc/broadcast_status()
+TYPE_PROC_REF(/obj/machinery/atmospherics/components/binary/volume_pump, broadcast_status)()
 	if(!radio_connection)
 		return
 

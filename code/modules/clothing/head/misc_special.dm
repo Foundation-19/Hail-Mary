@@ -296,7 +296,7 @@
 	if(paranoia)
 		QDEL_NULL(paranoia)
 
-/obj/item/clothing/head/foilhat/proc/warp_up()
+TYPE_PROC_REF(/obj/item/clothing/head/foilhat, warp_up)()
 	name = "scorched tinfoil hat"
 	desc = "A badly warped up hat. Quite unprobable this will still work against any of fictional and contemporary dangers it used to."
 	warped = TRUE

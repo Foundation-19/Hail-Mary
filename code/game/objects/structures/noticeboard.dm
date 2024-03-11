@@ -30,12 +30,12 @@
 	LAZYREMOVE(SSpersistence.noticeBoards, src)
 	..()
 
-/obj/structure/noticeboard/proc/PersistenceLoad()
+TYPE_PROC_REF(/obj/structure/noticeboard, PersistenceLoad)()
 	var/list/data = SSpersistence.GetNoticeboardsPhotos()
 	if(data[persistenceID])
 		PopulatePhotosFromIDList(data[persistenceID])
 
-/obj/structure/noticeboard/proc/PopulatePhotosFromIDList(list/ids)
+TYPE_PROC_REF(/obj/structure/noticeboard, PopulatePhotosFromIDList)(list/ids)
 	var/list/current_ids = GetPictureIDList()
 	for(var/i in ids)
 		if(i in current_ids)
@@ -46,7 +46,7 @@
 			notices++
 	update_icon()
 
-/obj/structure/noticeboard/proc/PopulatePaperFromList(list/ids)
+TYPE_PROC_REF(/obj/structure/noticeboard, PopulatePaperFromList)(list/ids)
 	var/list/current_ids = StorePaperDataList()
 	for(var/i in ids)
 		if(i in current_ids)
@@ -58,7 +58,7 @@
 			notices++
 	update_icon()
 
-/obj/structure/noticeboard/proc/StorePaperDataList()
+TYPE_PROC_REF(/obj/structure/noticeboard, StorePaperDataList)()
 	var/list/L = list()
 	for(var/i in contents)
 		if(istype(i, /obj/item/paper))
@@ -79,7 +79,7 @@
 	if(paperData.len)
 		. = paperData
 	
-/obj/structure/noticeboard/proc/GetPictureIDList()
+TYPE_PROC_REF(/obj/structure/noticeboard, GetPictureIDList)()
 	var/list/L = list()
 	for(var/i in contents)
 		if(istype(i, /obj/item/photo))

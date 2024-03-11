@@ -122,7 +122,7 @@
 		else
 			consume(L)
 
-/obj/item/his_grace/proc/awaken(mob/user) //Good morning, Mr. Grace.
+TYPE_PROC_REF(/obj/item/his_grace, awaken)(mob/user) //Good morning, Mr. Grace.
 	if(awakened)
 		return
 	awakened = TRUE
@@ -136,7 +136,7 @@
 	icon_state = "his_grace_awakened"
 	move_gracefully()
 
-/obj/item/his_grace/proc/move_gracefully()
+TYPE_PROC_REF(/obj/item/his_grace, move_gracefully)()
 	if(!awakened)
 		return
 	var/static/list/transforms
@@ -156,7 +156,7 @@
 	animate(transform=transforms[3], time=0.2)
 	animate(transform=transforms[4], time=0.3)
 
-/obj/item/his_grace/proc/drowse() //Good night, Mr. Grace.
+TYPE_PROC_REF(/obj/item/his_grace, drowse)() //Good night, Mr. Grace.
 	if(!awakened || ascended)
 		return
 	var/turf/T = get_turf(src)
@@ -172,7 +172,7 @@
 	awakened = FALSE
 	bloodthirst = 0
 
-/obj/item/his_grace/proc/consume(mob/living/meal) //Here's your dinner, Mr. Grace.
+TYPE_PROC_REF(/obj/item/his_grace, consume)(mob/living/meal) //Here's your dinner, Mr. Grace.
 	if(!meal)
 		return
 	var/victims = 0
@@ -194,7 +194,7 @@
 		ascend()
 	update_stats()
 
-/obj/item/his_grace/proc/adjust_bloodthirst(amt)
+TYPE_PROC_REF(/obj/item/his_grace, adjust_bloodthirst)(amt)
 	prev_bloodthirst = bloodthirst
 	if(prev_bloodthirst < HIS_GRACE_CONSUME_OWNER && !ascended)
 		bloodthirst = clamp(bloodthirst + amt, HIS_GRACE_SATIATED, HIS_GRACE_CONSUME_OWNER)
@@ -202,7 +202,7 @@
 		bloodthirst = clamp(bloodthirst + amt, HIS_GRACE_CONSUME_OWNER, HIS_GRACE_FALL_ASLEEP)
 	update_stats()
 
-/obj/item/his_grace/proc/update_stats()
+TYPE_PROC_REF(/obj/item/his_grace, update_stats)()
 	REMOVE_TRAIT(src, TRAIT_NODROP, HIS_GRACE_TRAIT)
 	var/mob/living/master = get_atom_on_turf(src, /mob/living)
 	switch(bloodthirst)
@@ -240,7 +240,7 @@
 				master.visible_message(span_warning("[src] is satiated."), "<span class='his_grace big'>[src]'s hunger recedes...</span>")
 	force = initial(force) + force_bonus
 
-/obj/item/his_grace/proc/ascend()
+TYPE_PROC_REF(/obj/item/his_grace, ascend)()
 	if(ascended)
 		return
 	var/mob/living/carbon/human/master = loc

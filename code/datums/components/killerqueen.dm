@@ -61,24 +61,24 @@
 	UnregisterSignal(parent, list(COMSIG_ATOM_ATTACK_ANIMAL, COMSIG_ATOM_ATTACK_HAND, COMSIG_ATOM_ATTACK_PAW,
 	COMSIG_MOVABLE_BUMP, COMSIG_PARENT_ATTACKBY, COMSIG_PARENT_EXAMINE))
 
-/datum/component/killerqueen/proc/attackby_detonate(datum/source, obj/item/I, mob/user)
+TYPE_PROC_REF(/datum/component/killerqueen, attackby_detonate)(datum/source, obj/item/I, mob/user)
 	detonate(user)
 
-/datum/component/killerqueen/proc/bump_detonate(datum/source, atom/A)
+TYPE_PROC_REF(/datum/component/killerqueen, bump_detonate)(datum/source, atom/A)
 	var/atom/us = parent
 	if(!us.density)		// lazy anti-item-throw-OHKO, we need something better at some point
 		return
 	detonate(A)
 
-/datum/component/killerqueen/proc/touch_detonate(datum/source, mob/user)
+TYPE_PROC_REF(/datum/component/killerqueen, touch_detonate)(datum/source, mob/user)
 	detonate(user)
 	return COMPONENT_NO_ATTACK_HAND
 
-/datum/component/killerqueen/proc/on_examine(datum/source, mob/examiner, list/examine_return)
+TYPE_PROC_REF(/datum/component/killerqueen, on_examine)(datum/source, mob/examiner, list/examine_return)
 	if(examine_message)
 		examine_return += examine_message
 
-/datum/component/killerqueen/proc/detonate(atom/victim)
+TYPE_PROC_REF(/datum/component/killerqueen, detonate)(atom/victim)
 	if(!isliving(victim) && living_only)
 		return
 	if(pre_explode && !pre_explode.Invoke(parent, victim))

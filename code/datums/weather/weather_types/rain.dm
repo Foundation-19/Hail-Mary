@@ -115,7 +115,7 @@
 		tray.adjustWater(80)
 		CHECK_TICK
 
-/datum/weather/rain/proc/wash_obj(obj/O)
+TYPE_PROC_REF(/datum/weather/rain, wash_obj)(obj/O)
 	. = SEND_SIGNAL(O, COMSIG_COMPONENT_CLEAN_ACT, CLEAN_WEAK)
 	O.remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
 	if(isitem(O))

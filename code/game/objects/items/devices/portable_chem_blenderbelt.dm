@@ -120,17 +120,17 @@
 		return
 	memoire.preprocess_speech(speaker, raw_message)
 
-/obj/item/storage/blender_belt/proc/speak(mob/user, thing_say, atom/movable/extra, atom/movable/extra2)
+TYPE_PROC_REF(/obj/item/storage/blender_belt, speak)(mob/user, thing_say, atom/movable/extra, atom/movable/extra2)
 	if(!istype(memoire))
 		return
 	memoire.speak(user, thing_say, extra, extra2)
 
-/obj/item/storage/blender_belt/proc/abort()
+TYPE_PROC_REF(/obj/item/storage/blender_belt, abort)()
 	unlock_belt()
 	blending = FALSE
 	soundloop.stop()
 
-/obj/item/storage/blender_belt/proc/lock_belt(silent)
+TYPE_PROC_REF(/obj/item/storage/blender_belt, lock_belt)(silent)
 	var/was_locked = islocked()
 	SEND_SIGNAL(src, COMSIG_TRY_STORAGE_SET_LOCKSTATE, TRUE)
 	SEND_SIGNAL(batbox, COMSIG_TRY_STORAGE_SET_LOCKSTATE, TRUE)
@@ -138,7 +138,7 @@
 		var/turf/here = get_turf(src)
 		here.audible_message(span_notice("[src] locks itself tight!"))
 
-/obj/item/storage/blender_belt/proc/unlock_belt(silent)
+TYPE_PROC_REF(/obj/item/storage/blender_belt, unlock_belt)(silent)
 	var/was_locked = islocked()
 	SEND_SIGNAL(src, COMSIG_TRY_STORAGE_SET_LOCKSTATE, FALSE)
 	SEND_SIGNAL(batbox, COMSIG_TRY_STORAGE_SET_LOCKSTATE, FALSE)
@@ -146,16 +146,16 @@
 		var/turf/here = get_turf(src)
 		here.audible_message(span_notice("[src] unlocks itself!"))
 
-/obj/item/storage/blender_belt/proc/islocked()
+TYPE_PROC_REF(/obj/item/storage/blender_belt, islocked)()
 	return (SEND_SIGNAL(src, COMSIG_IS_STORAGE_LOCKED)) && (SEND_SIGNAL(batbox, COMSIG_IS_STORAGE_LOCKED))
 
-/obj/item/storage/blender_belt/proc/still_running()
+TYPE_PROC_REF(/obj/item/storage/blender_belt, still_running)()
 	return blending
 
-/obj/item/storage/blender_belt/proc/stop_running()
+TYPE_PROC_REF(/obj/item/storage/blender_belt, stop_running)()
 	blending = FALSE
 
-/obj/item/storage/blender_belt/proc/start_running(mob/user, grindset)
+TYPE_PROC_REF(/obj/item/storage/blender_belt, start_running)(mob/user, grindset)
 	if(grindset != BLENDER_BLENDMODE_GRIND && grindset != BLENDER_BLENDMODE_JUICE)
 		return
 	grind_or_juice = grindset
@@ -164,7 +164,7 @@
 	blending = TRUE
 	blend_loop(user)
 
-/obj/item/storage/blender_belt/proc/blend_loop(mob/user)
+TYPE_PROC_REF(/obj/item/storage/blender_belt, blend_loop)(mob/user)
 	if(!can_operate(user))
 		abort()
 		return FALSE
@@ -212,7 +212,7 @@
 		return FALSE
 	INVOKE_ASYNC(src, PROC_REF(blend_loop), user) // and loop!
 	
-/obj/item/storage/blender_belt/proc/get_thing_to_blend(mob/user)
+TYPE_PROC_REF(/obj/item/storage/blender_belt, get_thing_to_blend)(mob/user)
 	for(var/obj/item/thing in contents)
 		if(thing == batbox)
 			continue // no grinding our battery!
@@ -220,7 +220,7 @@
 			continue
 		return thing
 
-/obj/item/storage/blender_belt/proc/grind_thing(mob/user, obj/item/thing)
+TYPE_PROC_REF(/obj/item/storage/blender_belt, grind_thing)(mob/user, obj/item/thing)
 	switch(grind_or_juice)
 		if(BLENDER_BLENDMODE_GRIND)
 			switch(thing.on_grind(src))
@@ -250,7 +250,7 @@
 	destroy_thing(user, thing, FALSE, partial_juice)
 	return TRUE
 
-/obj/item/storage/blender_belt/proc/destroy_thing(mob/user, obj/item/thing, silent, still_juicy)
+TYPE_PROC_REF(/obj/item/storage/blender_belt, destroy_thing)(mob/user, obj/item/thing, silent, still_juicy)
 	if(!thing)
 		return
 	var/turf/here = get_turf(src)
@@ -266,7 +266,7 @@
 		here.visible_message(span_notice("[src] grinds [thing] up!"))
 	qdel(thing)
 
-/obj/item/storage/blender_belt/proc/can_blend_thing(mob/user, obj/item/thing, silent)
+TYPE_PROC_REF(/obj/item/storage/blender_belt, can_blend_thing)(mob/user, obj/item/thing, silent)
 	if(!istype(thing))
 		return FALSE
 	if(istype(thing, /obj/item/clothing/head/mob_holder))
@@ -284,7 +284,7 @@
 			return FALSE
 	return TRUE
 
-/obj/item/storage/blender_belt/proc/should_destroy(obj/item/thing)
+TYPE_PROC_REF(/obj/item/storage/blender_belt, should_destroy)(obj/item/thing)
 	if(istype(thing, /obj/item/reagent_containers/glass))
 		return FALSE
 	if(istype(thing, /obj/item/reagent_containers/syringe))
@@ -303,7 +303,7 @@
 		return FALSE
 	return TRUE
 
-/obj/item/storage/blender_belt/proc/dump_thing(mob/user, obj/item/thing, violently, silent)
+TYPE_PROC_REF(/obj/item/storage/blender_belt, dump_thing)(mob/user, obj/item/thing, violently, silent)
 	if(!istype(thing))
 		return
 	var/turf/here = get_turf(src)
@@ -320,7 +320,7 @@
 			here.visible_message(span_alert("[src] drops [thing] on the [here]!"))
 	return TRUE
 
-/obj/item/storage/blender_belt/proc/check_or_use_charge(just_check)
+TYPE_PROC_REF(/obj/item/storage/blender_belt, check_or_use_charge)(just_check)
 	//first, find our power cell
 	if(!batbox) // okay first actually, check if the batbox is there
 		return
@@ -330,7 +330,7 @@
 		return powa.use(150)
 	return FALSE
 
-/obj/item/storage/blender_belt/proc/can_operate(mob/user, silent)
+TYPE_PROC_REF(/obj/item/storage/blender_belt, can_operate)(mob/user, silent)
 	var/codederreur
 	. = TRUE
 	if(!batbox)
@@ -354,7 +354,7 @@
 	if(!silent && codederreur)
 		speak(user, codederreur)
 
-/obj/item/storage/blender_belt/proc/check_part()
+TYPE_PROC_REF(/obj/item/storage/blender_belt, check_part)()
 	if(!istype(batbox))
 		return FALSE
 	for(var/obj/item/stock_parts/manipulator/grabby in batbox.contents)
@@ -399,7 +399,7 @@
 		blent.open_blender_grindpanel(owner)
 		return
 
-/obj/item/storage/blender_belt/proc/open_blender_grindpanel(mob/user)
+TYPE_PROC_REF(/obj/item/storage/blender_belt, open_blender_grindpanel)(mob/user)
 	if(blending || !user.canUseTopic(src))
 		return
 	var/static/blender_grind = image(icon = 'icons/mob/radial.dmi', icon_state = "radial_grind")
@@ -415,7 +415,7 @@
 		if("JUICE")
 			start_running(user, BLENDER_BLENDMODE_JUICE)
 
-/obj/item/storage/blender_belt/proc/open_blender_controlpanel(mob/user)
+TYPE_PROC_REF(/obj/item/storage/blender_belt, open_blender_controlpanel)(mob/user)
 	if(blending || !user.canUseTopic(src))
 		return
 
@@ -436,7 +436,7 @@
 		if("examine contents")
 			describe_contents(user)
 
-/obj/item/storage/blender_belt/proc/eject_all(mob/user)
+TYPE_PROC_REF(/obj/item/storage/blender_belt, eject_all)(mob/user)
 	if(user)
 		user.visible_message(span_notice("[user] presses the eject everything button!"))
 	var/list/what_drop = list()
@@ -463,7 +463,7 @@
 		return
 	speak(user, BLENDER_LINE_DUMP)
 
-/obj/item/storage/blender_belt/proc/toggle_dispenser_mode(mob/user)
+TYPE_PROC_REF(/obj/item/storage/blender_belt, toggle_dispenser_mode)(mob/user)
 	if(blending)
 		speak(user, BLENDER_LINE_CANT_CHANGE_WHILE_BLENDING)
 		return
@@ -473,14 +473,14 @@
 		if(BLENDER_BELTMODE_GRINDER)
 			set_dispenser(user)
 
-/obj/item/storage/blender_belt/proc/set_dispenser(mob/user)
+TYPE_PROC_REF(/obj/item/storage/blender_belt, set_dispenser)(mob/user)
 	if(user)
 		user.show_message(span_notice("You flip the switch on [src] to DISPENSER mode."))
 	grind_or_dispense = BLENDER_BELTMODE_DISPENSER
 	speak(user, BLENDER_LINE_SET_TO_DISPENSER)
 	lock_belt()
 
-/obj/item/storage/blender_belt/proc/set_grinder(mob/user)
+TYPE_PROC_REF(/obj/item/storage/blender_belt, set_grinder)(mob/user)
 	if(user)
 		user.show_message(span_notice("You flip the switch on [src] to BLENDER mode."))
 	if(istype(brevin))
@@ -490,7 +490,7 @@
 	close_window(user)
 	unlock_belt()
 
-/obj/item/storage/blender_belt/proc/describe_contents(mob/user)
+TYPE_PROC_REF(/obj/item/storage/blender_belt, describe_contents)(mob/user)
 	if(!istype(internal_beaker))
 		return
 	if(internal_beaker.reagents.total_volume <= 0)
@@ -503,7 +503,7 @@
 	speak(user, BLENDER_LINE_EXAMINE_OKAY)
 	print_contents(user)
 
-/obj/item/storage/blender_belt/proc/print_contents(mob/user)
+TYPE_PROC_REF(/obj/item/storage/blender_belt, print_contents)(mob/user)
 	var/obj/item/paper/our_paper = new(get_turf(src))
 	if(!our_paper)
 		return FALSE
@@ -518,7 +518,7 @@
 		our_paper.forceMove(the_here)
 	return TRUE
 
-/obj/item/storage/blender_belt/proc/write_contents()
+TYPE_PROC_REF(/obj/item/storage/blender_belt, write_contents)()
 	if(!istype(internal_beaker))
 		return
 	var/list/msg_out = list()
@@ -549,7 +549,7 @@
 	msg_out += "<center>- END OF REPORT -</center><br>"
 	return span_robot(msg_out.Join())
 
-/obj/item/storage/blender_belt/proc/eject_beaker(mob/user, silent)
+TYPE_PROC_REF(/obj/item/storage/blender_belt, eject_beaker)(mob/user, silent)
 	if(!istype(brevin))
 		return
 	brevin.forceMove(get_turf(src))
@@ -561,7 +561,7 @@
 	brevin = null
 	update_icon()
 
-/obj/item/storage/blender_belt/proc/insert_beaker(mob/user, obj/item/reagent_containers/new_brevin, silent)
+TYPE_PROC_REF(/obj/item/storage/blender_belt, insert_beaker)(mob/user, obj/item/reagent_containers/new_brevin, silent)
 	if(!istype(new_brevin))
 		return
 	var/obj/item/reagent_containers/old_brevin = brevin
@@ -629,7 +629,7 @@
 			ui.set_autoupdate(FALSE)
 		ui.open()
 
-/obj/item/storage/blender_belt/proc/close_window(mob/user, datum/tgui/ui)
+TYPE_PROC_REF(/obj/item/storage/blender_belt, close_window)(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(ui)
 		ui.close()

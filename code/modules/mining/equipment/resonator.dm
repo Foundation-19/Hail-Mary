@@ -32,7 +32,7 @@
 		burst_time = 50
 		to_chat(user, span_info("You set the resonator's fields to detonate after 5 seconds."))
 
-/obj/item/resonator/proc/CreateResonance(target, mob/user)
+TYPE_PROC_REF(/obj/item/resonator, CreateResonance)(target, mob/user)
 	var/turf/T = get_turf(target)
 	var/obj/effect/temp_visual/resonance/R = locate(/obj/effect/temp_visual/resonance) in T
 	if(R)
@@ -81,7 +81,7 @@
 	creator = null
 	. = ..()
 
-/obj/effect/temp_visual/resonance/proc/check_pressure(turf/proj_turf)
+TYPE_PROC_REF(/obj/effect/temp_visual/resonance, check_pressure)(turf/proj_turf)
 	if(!proj_turf)
 		proj_turf = get_turf(src)
 	resonance_damage = initial(resonance_damage)
@@ -92,7 +92,7 @@
 		name = initial(name)
 	resonance_damage *= damage_multiplier
 
-/obj/effect/temp_visual/resonance/proc/burst()
+TYPE_PROC_REF(/obj/effect/temp_visual/resonance, burst)()
 	var/turf/T = get_turf(src)
 	new /obj/effect/temp_visual/resonance_crush(T)
 	if(ismineralturf(T))

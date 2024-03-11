@@ -97,7 +97,7 @@
 	var/checkdir = 4	//door won't open if turf in this dir is `turftype`
 	var/turftype = /turf/open/space
 
-/obj/machinery/door/poddoor/shuttledock/proc/check()
+TYPE_PROC_REF(/obj/machinery/door/poddoor/shuttledock, check)()
 	var/turf/T = get_step(src, checkdir)
 	if(!istype(T, turftype))
 		INVOKE_ASYNC(src, PROC_REF(open))

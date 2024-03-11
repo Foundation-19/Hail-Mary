@@ -96,7 +96,7 @@
 	holder.show_popup_menus = 0
 	holder.screen += buttons
 
-/datum/buildmode/proc/quit()
+TYPE_PROC_REF(/datum/buildmode, quit)()
 	holder.screen -= buttons
 	holder.click_intercept = null
 	holder.show_popup_menus = 1
@@ -115,18 +115,18 @@
 	cornerB = null
 	return ..()
 
-/datum/buildmode/proc/create_buttons()
+TYPE_PROC_REF(/datum/buildmode, create_buttons)()
 	buttons += new /obj/screen/buildmode/mode(src)
 	buttons += new /obj/screen/buildmode/help(src)
 	buttons += new /obj/screen/buildmode/bdir(src)
 	buttons += new /obj/screen/buildmode/quit(src)
 
-/datum/buildmode/proc/toggle_modes()
+TYPE_PROC_REF(/datum/buildmode, toggle_modes)()
 	mode = (mode % NUM_BUILDMODES) +1
 	Reset()
 	return
 
-/datum/buildmode/proc/show_help(mob/user)
+TYPE_PROC_REF(/datum/buildmode, show_help)(mob/user)
 	var/list/dat = list()
 	switch(mode)
 		if(BASIC_BUILDMODE)
@@ -173,7 +173,7 @@
 			dat += "***********************************************************"
 	to_chat(user, "<font color='blue'>[dat.Join("\n")]</font>")
 
-/datum/buildmode/proc/change_settings(mob/user)
+TYPE_PROC_REF(/datum/buildmode, change_settings)(mob/user)
 	switch(mode)
 		if(BASIC_BUILDMODE)
 			return 1
@@ -222,7 +222,7 @@
 			cornerA = null
 			cornerB = null
 
-/datum/buildmode/proc/change_dir()
+TYPE_PROC_REF(/datum/buildmode, change_dir)()
 	switch(build_dir)
 		if(NORTH)
 			build_dir = EAST
@@ -236,7 +236,7 @@
 			build_dir = NORTH
 	return 1
 
-/datum/buildmode/proc/Reset()//Reset temporary variables
+TYPE_PROC_REF(/datum/buildmode, Reset)()//Reset temporary variables
 	cornerA = null
 	cornerB = null
 
@@ -254,7 +254,7 @@
 			log_admin("[key_name(usr)] has entered build mode.")
 
 
-/datum/buildmode/proc/InterceptClickOn(user,params,atom/object) //Click Intercept
+TYPE_PROC_REF(/datum/buildmode, InterceptClickOn)(user,params,atom/object) //Click Intercept
 	var/list/pa = params2list(params)
 	var/right_click = pa.Find("right")
 	var/left_click = pa.Find("left")

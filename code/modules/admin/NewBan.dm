@@ -174,7 +174,7 @@ GLOBAL_PROTECT(Banlist)
 			timeleftstring = "[exp] Minutes"
 		return timeleftstring
 
-/datum/admins/proc/unbanpanel()
+TYPE_PROC_REF(/datum/admins, unbanpanel)()
 	var/count = 0
 	var/dat
 	GLOB.Banlist.cd = "/base"

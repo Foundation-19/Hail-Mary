@@ -163,7 +163,7 @@
 	if(O)
 		return O.damage
 
-/mob/living/carbon/proc/adjustAllOrganLoss(amount, maximum)
+TYPE_PROC_REF(/mob/living/carbon, adjustAllOrganLoss)(amount, maximum)
 	for(var/obj/item/organ/O in internal_organs)
 		if(O && !(status_flags & GODMODE))
 			continue
@@ -172,7 +172,7 @@
 		O.applyOrganDamage(amount, maximum)
 		O.onDamage(amount, maximum)
 
-/mob/living/carbon/proc/getFailingOrgans()
+TYPE_PROC_REF(/mob/living/carbon, getFailingOrgans)()
 	.=list()
 	for(var/obj/item/organ/O in internal_organs)
 		if(O.organ_flags & ORGAN_FAILING)
@@ -181,7 +181,7 @@
 ////////////////////////////////////////////
 
 //Returns a list of damaged bodyparts
-/mob/living/carbon/proc/get_damaged_bodyparts(brute = FALSE, burn = FALSE, stamina = FALSE, status, bleed = FALSE)
+TYPE_PROC_REF(/mob/living/carbon, get_damaged_bodyparts)(brute = FALSE, burn = FALSE, stamina = FALSE, status, bleed = FALSE)
 	var/list/obj/item/bodypart/parts = list()
 	for(var/X in bodyparts)
 		var/obj/item/bodypart/BP = X
@@ -192,7 +192,7 @@
 	return parts
 
 //Returns a list of damageable bodyparts
-/mob/living/carbon/proc/get_damageable_bodyparts()
+TYPE_PROC_REF(/mob/living/carbon, get_damageable_bodyparts)()
 	var/list/obj/item/bodypart/parts = list()
 	for(var/X in bodyparts)
 		var/obj/item/bodypart/BP = X
@@ -279,7 +279,7 @@
 	update_stamina()
 
 ///Returns a list of bodyparts with wounds (in case someone has a wound on an otherwise fully healed limb)
-/mob/living/carbon/proc/get_wounded_bodyparts(brute = FALSE, burn = FALSE, stamina = FALSE, status)
+TYPE_PROC_REF(/mob/living/carbon, get_wounded_bodyparts)(brute = FALSE, burn = FALSE, stamina = FALSE, status)
 	var/list/obj/item/bodypart/parts = list()
 	for(var/X in bodyparts)
 		var/obj/item/bodypart/BP = X

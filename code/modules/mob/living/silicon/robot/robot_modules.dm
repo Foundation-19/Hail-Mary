@@ -73,24 +73,24 @@
 		O.emp_act(severity)
 	..()
 
-/obj/item/robot_module/proc/get_usable_modules()
+TYPE_PROC_REF(/obj/item/robot_module, get_usable_modules)()
 	. = modules.Copy()
 
-/obj/item/robot_module/proc/get_inactive_modules()
+TYPE_PROC_REF(/obj/item/robot_module, get_inactive_modules)()
 	. = list()
 	var/mob/living/silicon/robot/R = loc
 	for(var/m in get_usable_modules())
 		if(!(m in R.held_items))
 			. += m
 
-/obj/item/robot_module/proc/get_or_create_estorage(storage_type)
+TYPE_PROC_REF(/obj/item/robot_module, get_or_create_estorage)(storage_type)
 	for(var/datum/robot_energy_storage/S in storages)
 		if(istype(S, storage_type))
 			return S
 
 	return new storage_type(src)
 
-/obj/item/robot_module/proc/add_module(obj/item/I, nonstandard, requires_rebuild)
+TYPE_PROC_REF(/obj/item/robot_module, add_module)(obj/item/I, nonstandard, requires_rebuild)
 	rad_flags |= RAD_NO_CONTAMINATE
 	if(istype(I, /obj/item/stack))
 		var/obj/item/stack/S = I
@@ -140,7 +140,7 @@
 		rebuild_modules()
 	return I
 
-/obj/item/robot_module/proc/remove_module(obj/item/I, delete_after)
+TYPE_PROC_REF(/obj/item/robot_module, remove_module)(obj/item/I, delete_after)
 	basic_modules -= I
 	modules -= I
 	emag_modules -= I
@@ -150,7 +150,7 @@
 	if(delete_after)
 		qdel(I)
 
-/obj/item/robot_module/proc/respawn_consumable(mob/living/silicon/robot/R, coeff = 1)
+TYPE_PROC_REF(/obj/item/robot_module, respawn_consumable)(mob/living/silicon/robot/R, coeff = 1)
 	for(var/datum/robot_energy_storage/st in storages)
 		st.energy = min(st.max_energy, st.energy + coeff * st.recharge_rate)
 
@@ -177,7 +177,7 @@
 
 	R.toner = R.tonermax
 
-/obj/item/robot_module/proc/rebuild_modules() //builds the usable module list from the modules we have
+TYPE_PROC_REF(/obj/item/robot_module, rebuild_modules)() //builds the usable module list from the modules we have
 	var/mob/living/silicon/robot/R = loc
 	var/held_modules = R.held_items.Copy()
 	R.uneq_all()
@@ -198,7 +198,7 @@
 	if(R.hud_used)
 		R.hud_used.update_robot_modules_display()
 
-/obj/item/robot_module/proc/transform_to(new_module_type)
+TYPE_PROC_REF(/obj/item/robot_module, transform_to)(new_module_type)
 	var/mob/living/silicon/robot/R = loc
 	var/obj/item/robot_module/RM = new new_module_type(R)
 	if(!RM.be_transformed_to(src))
@@ -213,14 +213,14 @@
 	qdel(src)
 	return RM
 
-/obj/item/robot_module/proc/be_transformed_to(obj/item/robot_module/old_module)
+TYPE_PROC_REF(/obj/item/robot_module, be_transformed_to)(obj/item/robot_module/old_module)
 	for(var/i in old_module.added_modules)
 		added_modules += i
 		old_module.added_modules -= i
 	did_feedback = old_module.did_feedback
 	return TRUE
 
-/obj/item/robot_module/proc/do_transform_animation()
+TYPE_PROC_REF(/obj/item/robot_module, do_transform_animation)()
 	var/mob/living/silicon/robot/R = loc
 	if(R.hat)
 		R.hat.forceMove(get_turf(R))
@@ -229,7 +229,7 @@
 	R.setDir(SOUTH)
 	do_transform_delay()
 
-/obj/item/robot_module/proc/do_transform_delay()
+TYPE_PROC_REF(/obj/item/robot_module, do_transform_delay)()
 	var/mob/living/silicon/robot/R = loc
 	var/prev_locked_down = R.locked_down
 	sleep(1)
@@ -258,7 +258,7 @@
  * Arguments:
  * * user The mob interacting with a menu
  */
-/obj/item/robot_module/proc/check_menu(mob/user)
+TYPE_PROC_REF(/obj/item/robot_module, check_menu)(mob/user)
 	if(!istype(user))
 		return FALSE
 	if(user.incapacitated() || !user.Adjacent(src))
@@ -849,7 +849,7 @@ obj/item/robot_module/assaultron/remove_module(obj/item/I, delete_after)
 		R.storages |= src
 	return
 
-/datum/robot_energy_storage/proc/use_charge(amount)
+TYPE_PROC_REF(/datum/robot_energy_storage, use_charge)(amount)
 	if (energy >= amount)
 		energy -= amount
 		if (energy == 0)
@@ -858,7 +858,7 @@ obj/item/robot_module/assaultron/remove_module(obj/item/I, delete_after)
 	else
 		return 0
 
-/datum/robot_energy_storage/proc/add_charge(amount)
+TYPE_PROC_REF(/datum/robot_energy_storage, add_charge)(amount)
 	energy = min(energy + amount, max_energy)
 
 /datum/robot_energy_storage/metal

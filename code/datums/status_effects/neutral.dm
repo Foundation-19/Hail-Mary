@@ -35,7 +35,7 @@
 		return FALSE
 	return ..()
 
-/datum/status_effect/syphon_mark/proc/get_kill()
+TYPE_PROC_REF(/datum/status_effect/syphon_mark, get_kill)()
 	if(!QDELETED(reward_target))
 		reward_target.get_kill(owner)
 

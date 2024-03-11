@@ -130,11 +130,11 @@
 		return
 	..()
 
-/obj/machinery/camera/proc/setViewRange(num = 7)
+TYPE_PROC_REF(/obj/machinery/camera, setViewRange)(num = 7)
 	src.view_range = num
 	GLOB.cameranet.updateVisibility(src, 0)
 
-/obj/machinery/camera/proc/shock(mob/living/user)
+TYPE_PROC_REF(/obj/machinery/camera, shock)(mob/living/user)
 	if(!istype(user))
 		return
 	user.electrocute_act(10, src)
@@ -305,7 +305,7 @@
 	else
 		icon_state = "[initial(icon_state)][in_use_lights ? "_in_use" : ""]"
 
-/obj/machinery/camera/proc/toggle_cam(mob/user, displaymessage = 1)
+TYPE_PROC_REF(/obj/machinery/camera, toggle_cam)(mob/user, displaymessage = 1)
 	status = !status
 	if(can_use())
 		GLOB.cameranet.addCamera(src)
@@ -345,24 +345,24 @@
 			O.reset_perspective(null)
 			to_chat(O, "The screen bursts into static.")
 
-/obj/machinery/camera/proc/triggerCameraAlarm()
+TYPE_PROC_REF(/obj/machinery/camera, triggerCameraAlarm)()
 	alarm_on = TRUE
 	for(var/mob/living/silicon/S in GLOB.silicon_mobs)
 		S.triggerAlarm("Camera", get_area(src), list(src), src)
 
-/obj/machinery/camera/proc/cancelCameraAlarm()
+TYPE_PROC_REF(/obj/machinery/camera, cancelCameraAlarm)()
 	alarm_on = FALSE
 	for(var/mob/living/silicon/S in GLOB.silicon_mobs)
 		S.cancelAlarm("Camera", get_area(src), src)
 
-/obj/machinery/camera/proc/can_use()
+TYPE_PROC_REF(/obj/machinery/camera, can_use)()
 	if(!status)
 		return FALSE
 	if(stat & EMPED)
 		return FALSE
 	return TRUE
 
-/obj/machinery/camera/proc/can_see()
+TYPE_PROC_REF(/obj/machinery/camera, can_see)()
 	var/list/see = null
 	var/turf/pos = get_turf(src)
 	if(isXRay())
@@ -371,7 +371,7 @@
 		see = get_hear(view_range, pos)
 	return see
 
-/atom/proc/auto_turn()
+TYPE_PROC_REF(/atom, auto_turn)()
 	//Automatically turns based on nearby walls.
 	var/turf/closed/wall/T = null
 	for(var/i in GLOB.cardinals)
@@ -395,7 +395,7 @@
 
 	return null
 
-/obj/machinery/camera/proc/Togglelight(on=0)
+TYPE_PROC_REF(/obj/machinery/camera, Togglelight)(on=0)
 	for(var/mob/living/silicon/ai/A in GLOB.ai_list)
 		for(var/obj/machinery/camera/cam in A.lit_cameras)
 			if(cam == src)

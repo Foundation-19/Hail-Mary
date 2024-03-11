@@ -33,7 +33,7 @@
 	charging = 1
 	throw_at(targeted_atom, range, 1, src, FALSE, TRUE, callback = CALLBACK(src, PROC_REF(charging_end)))
 
-/mob/living/simple_animal/hostile/guardian/charger/proc/charging_end()
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/guardian/charger, charging_end)()
 	charging = 0
 
 /mob/living/simple_animal/hostile/guardian/charger/Move()

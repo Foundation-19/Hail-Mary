@@ -68,7 +68,7 @@
 		myhead = null
 		H.gib()
 
-/datum/species/dullahan/proc/update_vision_perspective(mob/living/carbon/human/H)
+TYPE_PROC_REF(/datum/species/dullahan, update_vision_perspective)(mob/living/carbon/human/H)
 	var/obj/item/organ/eyes/eyes = H.getorganslot(ORGAN_SLOT_EYES)
 	if(eyes)
 		H.update_tint()
@@ -129,19 +129,19 @@
 	RegisterSignal(owner, COMSIG_LIVING_REGENERATE_LIMBS, PROC_REF(unlist_head))
 	RegisterSignal(owner, COMSIG_LIVING_REVIVE, PROC_REF(retrieve_head))
 
-/obj/item/dullahan_relay/proc/examinate_check(mob/source, atom/target)
+TYPE_PROC_REF(/obj/item/dullahan_relay, examinate_check)(mob/source, atom/target)
 	if(source.client.eye == src)
 		return COMPONENT_ALLOW_EXAMINATE
 
-/obj/item/dullahan_relay/proc/include_owner(datum/source, list/processing_list, list/hearers)
+TYPE_PROC_REF(/obj/item/dullahan_relay, include_owner)(datum/source, list/processing_list, list/hearers)
 	if(!QDELETED(owner))
 		hearers += owner
 
-/obj/item/dullahan_relay/proc/unlist_head(datum/source, noheal = FALSE, list/excluded_limbs)
+TYPE_PROC_REF(/obj/item/dullahan_relay, unlist_head)(datum/source, noheal = FALSE, list/excluded_limbs)
 	excluded_limbs |= BODY_ZONE_HEAD // So we don't gib when regenerating limbs.
 
 //Retrieving the owner's head for better ahealing.
-/obj/item/dullahan_relay/proc/retrieve_head(datum/source, full_heal, admin_revive)
+TYPE_PROC_REF(/obj/item/dullahan_relay, retrieve_head)(datum/source, full_heal, admin_revive)
 	if(admin_revive)
 		var/obj/item/bodypart/head/H = loc
 		var/turf/T = get_turf(owner)

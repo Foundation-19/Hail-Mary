@@ -1,12 +1,12 @@
 
-/mob/living/carbon/alien/proc/updatePlasmaDisplay()
+TYPE_PROC_REF(/mob/living/carbon/alien, updatePlasmaDisplay)()
 	if(hud_used) //clientless aliens
 		hud_used.alien_plasma_display.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='magenta'>[round(getPlasma())]</font></div>"
 
 /mob/living/carbon/alien/larva/updatePlasmaDisplay()
 	return
 
-/mob/living/carbon/alien/proc/findQueen()
+TYPE_PROC_REF(/mob/living/carbon/alien, findQueen)()
 	if(hud_used)
 		hud_used.alien_queen_finder.cut_overlays()
 		var/mob/queen = get_alien_type(/mob/living/carbon/alien/humanoid/royal/queen)

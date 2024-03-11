@@ -153,7 +153,7 @@ Difficulty: Medium
 		shoot_ka()
 	transform_weapon()
 
-/mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/proc/shoot_ka()
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/megafauna/blood_drunk_miner, shoot_ka)()
 	if(ranged_cooldown <= world.time && get_dist(src, target) <= MINER_DASH_RANGE && !Adjacent(target))
 		ranged_cooldown = world.time + ranged_cooldown_time
 		visible_message(span_danger("[src] fires the proto-kinetic accelerator!"))
@@ -164,7 +164,7 @@ Difficulty: Medium
 
 //I'm still of the belief that this entire proc needs to be wiped from existence.
 //  do not take my touching of it to be endorsement of it. ~mso
-/mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/proc/quick_attack_loop()
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/megafauna/blood_drunk_miner, quick_attack_loop)()
 	while(!QDELETED(target) && !CheckActionCooldown()) //this is done this way because next_move can change to be sooner while we sleep.
 		stoplag(1)
 	sleep((next_action - world.time) * 1.5) //but don't ask me what the fuck this is about
@@ -177,7 +177,7 @@ Difficulty: Medium
 		return
 	AttackingTarget()
 
-/mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/proc/dash(atom/dash_target)
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/megafauna/blood_drunk_miner, dash)(atom/dash_target)
 	if(world.time < dash_cooldown)
 		return
 	var/list/accessable_turfs = list()
@@ -229,7 +229,7 @@ Difficulty: Medium
 	shoot_ka()
 	return TRUE
 
-/mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/proc/transform_weapon()
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/megafauna/blood_drunk_miner, transform_weapon)()
 	if(time_until_next_transform <= world.time)
 		miner_saw.transform_cooldown = 0
 		miner_saw.transform_weapon(src, TRUE)
@@ -245,7 +245,7 @@ Difficulty: Medium
 	. = ..()
 	INVOKE_ASYNC(src, PROC_REF(fade_out))
 
-/obj/effect/temp_visual/dir_setting/miner_death/proc/fade_out()
+TYPE_PROC_REF(/obj/effect/temp_visual/dir_setting/miner_death, fade_out)()
 	var/matrix/M = new
 	M.Turn(pick(90, 270))
 	var/final_dir = dir

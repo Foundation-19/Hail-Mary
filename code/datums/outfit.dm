@@ -55,15 +55,15 @@
 			all_types += vars[a]
 	.=..()
 //////////////////////////////////////////////////////
-/datum/outfit/proc/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE, client/preference_source)
+TYPE_PROC_REF(/datum/outfit, pre_equip)(mob/living/carbon/human/H, visualsOnly = FALSE, client/preference_source)
 	//to be overridden for customization depending on client prefs,species etc
 	return
 
-/datum/outfit/proc/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE, client/preference_source)
+TYPE_PROC_REF(/datum/outfit, post_equip)(mob/living/carbon/human/H, visualsOnly = FALSE, client/preference_source)
 	//to be overridden for toggling internals, id binding, access etc
 	return
 
-/datum/outfit/proc/equip(mob/living/carbon/human/H, visualsOnly = FALSE, client/preference_source)
+TYPE_PROC_REF(/datum/outfit, equip)(mob/living/carbon/human/H, visualsOnly = FALSE, client/preference_source)
 	pre_equip(H, visualsOnly, preference_source)
 
 	//Start with uniform,suit,backpack for additional slots
@@ -172,7 +172,7 @@
 
 //Returns a list of all the item paths this outfit contains, along with a quantity
 //Returned list is in the format path = quantity
-/datum/outfit/proc/get_all_item_paths()
+TYPE_PROC_REF(/datum/outfit, get_all_item_paths)()
 	var/list/data = list()
 	for (var/item in all_types)
 		data[item] = 1
@@ -183,7 +183,7 @@
 	return data
 
 //Returns a list of all the paths this outfit could contain. This includes the entireity of random lists
-/datum/outfit/proc/get_all_possible_item_paths()
+TYPE_PROC_REF(/datum/outfit, get_all_possible_item_paths)()
 	var/list/data = list()
 	for (var/item in all_possible_types)
 		if(!ispath(item))
@@ -200,7 +200,7 @@
 
 //Spawns the entire contents of the outfit into a location.
 //This could be a turf or a container, it should probably be one of those two
-/datum/outfit/proc/spawn_at(atom/location)
+TYPE_PROC_REF(/datum/outfit, spawn_at)(atom/location)
 	var/list/paths = get_all_item_paths()
 	var/list/items = list()
 	for (var/a in paths)
@@ -217,7 +217,7 @@
 
 
 
-/datum/outfit/proc/apply_fingerprints(mob/living/carbon/human/H)
+TYPE_PROC_REF(/datum/outfit, apply_fingerprints)(mob/living/carbon/human/H)
 	if(!istype(H))
 		return
 	if(H.back)
@@ -258,7 +258,7 @@
 		I.add_fingerprint(H,1)
 	return 1
 
-/datum/outfit/proc/get_chameleon_disguise_info()
+TYPE_PROC_REF(/datum/outfit, get_chameleon_disguise_info)()
 	var/list/types = list(uniform, suit, back, belt, gloves, shoes, head, mask, neck, ears, glasses, id, l_pocket, r_pocket, suit_store, r_hand, l_hand)
 	types += chameleon_extras
 	listclearnulls(types)

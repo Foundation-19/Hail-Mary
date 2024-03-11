@@ -93,7 +93,7 @@
 	toggle_the_gate(user)
 	return ..()
 
-/obj/structure/necropolis_gate/proc/toggle_the_gate(mob/user, legion_damaged)
+TYPE_PROC_REF(/obj/structure/necropolis_gate, toggle_the_gate)(mob/user, legion_damaged)
 	if(changing_openness)
 		return
 	changing_openness = TRUE
@@ -273,7 +273,7 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 /obj/structure/stone_tile/singularity_pull()
 	return
 
-/obj/structure/stone_tile/proc/on_entered(atom/movable/AM)
+TYPE_PROC_REF(/obj/structure/stone_tile, on_entered)(atom/movable/AM)
 	SIGNAL_HANDLER
 	if(falling || fallen)
 		return
@@ -293,7 +293,7 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 		if(UNIQUE_EFFECT)
 			crossed_effect(AM)
 
-/obj/structure/stone_tile/proc/collapse()
+TYPE_PROC_REF(/obj/structure/stone_tile, collapse)()
 	falling = TRUE
 	var/break_that_sucker = fall_on_cross == DESTROY_ON_CROSS
 	playsound(src, 'sound/effects/pressureplate.ogg', 50, TRUE)
@@ -310,7 +310,7 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 	else
 		addtimer(CALLBACK(src, PROC_REF(rebuild)), 55)
 
-/obj/structure/stone_tile/proc/rebuild()
+TYPE_PROC_REF(/obj/structure/stone_tile, rebuild)()
 	pixel_x = initial(pixel_x)
 	pixel_y = initial(pixel_y) - 5
 	animate(src, alpha = initial(alpha), pixel_x = initial(pixel_x), pixel_y = initial(pixel_y), time = 30)
@@ -318,7 +318,7 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 	falling = FALSE
 	fallen = FALSE
 
-/obj/structure/stone_tile/proc/crossed_effect(atom/movable/AM)
+TYPE_PROC_REF(/obj/structure/stone_tile, crossed_effect)(atom/movable/AM)
 	return
 
 /obj/structure/stone_tile/block

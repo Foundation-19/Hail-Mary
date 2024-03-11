@@ -89,7 +89,7 @@ SUBSYSTEM_DEF(overlays)
 		. = iconbro.appearance
 		icon_cache[icon] = .
 
-/atom/proc/build_appearance_list(old_overlays)
+TYPE_PROC_REF(/atom, build_appearance_list)(old_overlays)
 	var/static/image/appearance_bro = new()
 	var/list/new_overlays = list()
 	if (!islist(old_overlays))
@@ -115,7 +115,7 @@ SUBSYSTEM_DEF(overlays)
 
 #define NOT_QUEUED_ALREADY (!(flags_1 & OVERLAY_QUEUED_1))
 #define QUEUE_FOR_COMPILE flags_1 |= OVERLAY_QUEUED_1; SSoverlays.queue += src;
-/atom/proc/cut_overlays()
+TYPE_PROC_REF(/atom, cut_overlays)()
 	LAZYINITLIST(remove_overlays)
 	LAZYINITLIST(add_overlays)
 	remove_overlays = overlays.Copy()
@@ -125,7 +125,7 @@ SUBSYSTEM_DEF(overlays)
 	if(NOT_QUEUED_ALREADY && remove_overlays.len)
 		QUEUE_FOR_COMPILE
 
-/atom/proc/cut_overlay(list/overlays)
+TYPE_PROC_REF(/atom, cut_overlay)(list/overlays)
 	if(!overlays)
 		return
 	overlays = build_appearance_list(overlays)
@@ -144,7 +144,7 @@ SUBSYSTEM_DEF(overlays)
 		QUEUE_FOR_COMPILE
 	UNSETEMPTY(add_overlays)
 
-/atom/proc/add_overlay(list/overlays)
+TYPE_PROC_REF(/atom, add_overlay)(list/overlays)
 	if(!overlays)
 		return
 
@@ -158,7 +158,7 @@ SUBSYSTEM_DEF(overlays)
 	if(NOT_QUEUED_ALREADY && fa_len != a_len)
 		QUEUE_FOR_COMPILE
 
-/atom/proc/copy_overlays(atom/other, cut_old)	//copys our_overlays from another atom
+TYPE_PROC_REF(/atom, copy_overlays)(atom/other, cut_old)	//copys our_overlays from another atom
 	if(!other)
 		if(cut_old)
 			cut_overlays()
@@ -178,16 +178,16 @@ SUBSYSTEM_DEF(overlays)
 #undef QUEUE_FOR_COMPILE
 
 //TODO: Better solution for these?
-/image/proc/add_overlay(x)
+TYPE_PROC_REF(/image, add_overlay)(x)
 	overlays |= x
 
-/image/proc/cut_overlay(x)
+TYPE_PROC_REF(/image, cut_overlay)(x)
 	overlays -= x
 
-/image/proc/cut_overlays(x)
+TYPE_PROC_REF(/image, cut_overlays)(x)
 	overlays.Cut()
 
-/image/proc/copy_overlays(atom/other, cut_old)
+TYPE_PROC_REF(/image, copy_overlays)(atom/other, cut_old)
 	if(!other)
 		if(cut_old)
 			cut_overlays()

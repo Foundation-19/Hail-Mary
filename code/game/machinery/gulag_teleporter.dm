@@ -112,12 +112,12 @@ The console is located at computer/gulag_teleporter.dm
 			span_notice("You successfully break out of [src]!"))
 		open_machine()
 
-/obj/machinery/gulag_teleporter/proc/locate_reclaimer()
+TYPE_PROC_REF(/obj/machinery/gulag_teleporter, locate_reclaimer)()
 	linked_reclaimer = locate(/obj/machinery/gulag_item_reclaimer)
 	if(linked_reclaimer)
 		linked_reclaimer.linked_teleporter = src
 
-/obj/machinery/gulag_teleporter/proc/toggle_open()
+TYPE_PROC_REF(/obj/machinery/gulag_teleporter, toggle_open)()
 	if(panel_open)
 		to_chat(usr, span_notice("Close the maintenance panel first."))
 		return
@@ -129,7 +129,7 @@ The console is located at computer/gulag_teleporter.dm
 		open_machine()
 
 // strips and stores all occupant's items
-/obj/machinery/gulag_teleporter/proc/strip_occupant()
+TYPE_PROC_REF(/obj/machinery/gulag_teleporter, strip_occupant)()
 	if(linked_reclaimer)
 		linked_reclaimer.stored_items[occupant] = list()
 	var/mob/living/mob_occupant = occupant
@@ -147,7 +147,7 @@ The console is located at computer/gulag_teleporter.dm
 		else
 			I.forceMove(src)
 
-/obj/machinery/gulag_teleporter/proc/handle_prisoner(obj/item/id, datum/data/record/R)
+TYPE_PROC_REF(/obj/machinery/gulag_teleporter, handle_prisoner)(obj/item/id, datum/data/record/R)
 	if(!ishuman(occupant))
 		return
 	strip_occupant()

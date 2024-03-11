@@ -1,11 +1,11 @@
-/datum/space_level/proc/set_linkage(new_linkage)
+TYPE_PROC_REF(/datum/space_level, set_linkage)(new_linkage)
 	linkage = new_linkage
 	if(linkage == SELFLOOPING)
 		neigbours = list(TEXT_NORTH,TEXT_SOUTH,TEXT_EAST,TEXT_WEST,TEXT_UP,TEXT_DOWN)
 		for(var/A in neigbours)
 			neigbours[A] = src
 
-/datum/space_level/proc/set_neigbours(list/L)
+TYPE_PROC_REF(/datum/space_level, set_neigbours)(list/L)
 	for(var/datum/space_transition_point/P in L)
 		if(P.x == xi && P.y == yi) // Checking for z levels up or down on the same grid.
 			if(P.z == zi+1) // if it's above
@@ -52,7 +52,7 @@
 		return
 	point_grid[x][y][z] = src
 
-/datum/space_transition_point/proc/set_neigbours(list/grid)
+TYPE_PROC_REF(/datum/space_transition_point, set_neigbours)(list/grid)
 	var/max_X = grid.len
 	var/list/max_Y = grid[1]
 	var/list/max_Z = grid[2]
@@ -72,7 +72,7 @@
 	if(z-1 >= 1)
 		neigbours |= grid[x][y][z-1]
 
-/datum/controller/subsystem/mapping/proc/setup_map_transitions() //listamania
+TYPE_PROC_REF(/datum/controller/subsystem/mapping, setup_map_transitions)() //listamania
 	var/list/SLS = list()
 	var/list/cached_z_list = z_list
 	var/conf_set_len = 0

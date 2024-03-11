@@ -34,7 +34,7 @@ would spawn and follow the beaker, even if it is carried or thrown.
 	location = null
 	return ..()
 
-/datum/effect_system/proc/set_up(n = 3, c = FALSE, loca)
+TYPE_PROC_REF(/datum/effect_system, set_up)(n = 3, c = FALSE, loca)
 	if(n > 10)
 		n = 10
 	number = n
@@ -44,10 +44,10 @@ would spawn and follow the beaker, even if it is carried or thrown.
 	else
 		location = get_turf(loca)
 
-/datum/effect_system/proc/attach(atom/atom)
+TYPE_PROC_REF(/datum/effect_system, attach)(atom/atom)
 	holder = atom
 
-/datum/effect_system/proc/start()
+TYPE_PROC_REF(/datum/effect_system, start)()
 	if(QDELETED(src))
 		return
 	for(var/i in 1 to number)
@@ -58,7 +58,7 @@ would spawn and follow the beaker, even if it is carried or thrown.
 
 
 /* // Replacing with modern bay's interpretation to see if this solves the intense amount of times it's called and the lag it makes due to the callback it uses.
-/datum/effect_system/proc/generate_effect()
+TYPE_PROC_REF(/datum/effect_system, generate_effect)()
 	if(holder)
 		location = get_turf(holder)
 	if(!location) //no location, no effects
@@ -79,7 +79,7 @@ would spawn and follow the beaker, even if it is carried or thrown.
 	if(!QDELETED(src))
 		addtimer(CALLBACK(src, PROC_REF(decrement_total_effect)), 20)
 */
-/datum/effect_system/proc/generate_effect()
+TYPE_PROC_REF(/datum/effect_system, generate_effect)()
 	if(holder)
 		location = get_turf(holder)
 	var/obj/effect/effect = new effect_type(location)
@@ -95,7 +95,7 @@ would spawn and follow the beaker, even if it is carried or thrown.
 	var/datum/move_loop/loop = SSmove_manager.move(effect, direction, step_delay, timeout = step_delay * step_amt, priority = MOVEMENT_ABOVE_SPACE_PRIORITY)
 	RegisterSignal(loop, COMSIG_PARENT_QDELETING, PROC_REF(decrement_total_effect))
 
-/datum/effect_system/proc/decrement_total_effect()
+TYPE_PROC_REF(/datum/effect_system, decrement_total_effect)()
 	total_effects--
 	if(autocleanup && total_effects <= 0)
 		qdel(src)

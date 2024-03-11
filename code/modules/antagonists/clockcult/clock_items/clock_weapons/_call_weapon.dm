@@ -42,7 +42,7 @@
 	owner.update_action_buttons_icon()
 	return TRUE
 
-/datum/action/innate/call_weapon/proc/weapon_reset(cooldown_time)
+TYPE_PROC_REF(/datum/action/innate/call_weapon, weapon_reset)(cooldown_time)
 	cooldown = world.time + cooldown_time
 	addtimer(CALLBACK(owner, /mob.proc/update_action_buttons_icon), cooldown_time)
 	owner.update_action_buttons_icon()

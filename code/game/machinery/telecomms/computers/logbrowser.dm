@@ -86,7 +86,7 @@
 				race = "Unidentifiable"
 
 			data["race"] = race
-			// based on [/atom/movable/proc/lang_treat]
+			// based on [TYPE_PROC_REF(/atom/movable, lang_treat)]
 			var/message = C.parameters["message"]
 			var/language = C.parameters["language"]
 

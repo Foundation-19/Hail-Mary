@@ -79,7 +79,7 @@
 
 // open/closedoor checks if door_timer has power, if so it checks if the
 // linked door is open/closed (by density) then opens it/closes it.
-/obj/machinery/door_timer/proc/timer_start()
+TYPE_PROC_REF(/obj/machinery/door_timer, timer_start)()
 	if(stat & (NOPOWER|BROKEN))
 		return 0
 
@@ -100,7 +100,7 @@
 		C.update_icon()
 	return 1
 
-/obj/machinery/door_timer/proc/timer_end(forced = FALSE)
+TYPE_PROC_REF(/obj/machinery/door_timer, timer_end)(forced = FALSE)
 
 	if(stat & (NOPOWER|BROKEN))
 		return 0
@@ -130,12 +130,12 @@
 	return 1
 
 
-/obj/machinery/door_timer/proc/time_left(seconds = FALSE)
+TYPE_PROC_REF(/obj/machinery/door_timer, time_left)(seconds = FALSE)
 	. = max(0,timer_duration - (activation_time ? REALTIMEOFDAY - activation_time : 0))
 	if(seconds)
 		. /= 10
 
-/obj/machinery/door_timer/proc/set_timer(value)
+TYPE_PROC_REF(/obj/machinery/door_timer, set_timer)(value)
 	var/new_time = clamp(value,0,MAX_TIMER)
 	. = new_time == timer_duration //return 1 on no change
 	timer_duration = new_time
@@ -173,7 +173,7 @@
 
 
 // Adds an icon in case the screen is broken/off, stolen from status_display.dm
-/obj/machinery/door_timer/proc/set_picture(state)
+TYPE_PROC_REF(/obj/machinery/door_timer, set_picture)(state)
 	if(maptext)
 		maptext = ""
 	cut_overlays()
@@ -182,7 +182,7 @@
 
 //Checks to see if there's 1 line or 2, adds text-icons-numbers/letters over display
 // Stolen from status_display
-/obj/machinery/door_timer/proc/update_display(line1, line2)
+TYPE_PROC_REF(/obj/machinery/door_timer, update_display)(line1, line2)
 	var/new_text = {"<div style="font-size:[FONT_SIZE];color:[FONT_COLOR];font:'[FONT_STYLE]';text-align:center;" valign="top">[line1]<br>[line2]</div>"}
 	if(maptext != new_text)
 		maptext = new_text

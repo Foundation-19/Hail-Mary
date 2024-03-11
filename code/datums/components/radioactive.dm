@@ -55,7 +55,7 @@
 		return PROCESS_KILL
 
 
-/datum/component/radioactive/proc/glow_loop(atom/movable/master)
+TYPE_PROC_REF(/datum/component/radioactive, glow_loop)(atom/movable/master)
 	var/filter = master.get_filter("rad_glow")
 	if(filter)
 		animate(filter, alpha = 110, time = 15, loop = -1)
@@ -72,7 +72,7 @@
 	else
 		strength = max(strength, _strength)
 
-/datum/component/radioactive/proc/rad_examine(datum/source, mob/user, list/examine_list)
+TYPE_PROC_REF(/datum/component/radioactive, rad_examine)(datum/source, mob/user, list/examine_list)
 	var/atom/master = parent
 	var/list/out = list()
 	if(get_dist(master, user) <= 1)
@@ -89,7 +89,7 @@
 	out += "."
 	examine_list += out.Join()
 
-/datum/component/radioactive/proc/rad_attack(datum/source, atom/movable/target, mob/living/user)
+TYPE_PROC_REF(/datum/component/radioactive, rad_attack)(datum/source, atom/movable/target, mob/living/user)
 	radiation_pulse(parent, strength/20)
 	target.rad_act(strength/2)
 	if(!hl3_release_date)

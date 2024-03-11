@@ -393,7 +393,7 @@
 	. = ..()
 	UnregisterSignal(M, COMSIG_MOB_SAY)
 
-/obj/item/clothing/head/frenchberet/proc/handle_speech(datum/source, mob/speech_args)
+TYPE_PROC_REF(/obj/item/clothing/head/frenchberet, handle_speech)(datum/source, mob/speech_args)
 	var/message = speech_args[SPEECH_MESSAGE]
 	if(message[1] != "*")
 		message = " [message]"

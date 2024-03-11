@@ -35,7 +35,7 @@
 
 //Defines the region the map represents, sets map
 //Returns the map
-/datum/mapGenerator/proc/defineRegion(turf/Start, turf/End, replace = 0)
+TYPE_PROC_REF(/datum/mapGenerator, defineRegion)(turf/Start, turf/End, replace = 0)
 	if(!checkRegion(Start, End))
 		return 0
 
@@ -47,7 +47,7 @@
 
 //Defines the region the map represents, as a CIRCLE!, sets map
 //Returns the map
-/datum/mapGenerator/proc/defineCircularRegion(turf/Start, turf/End, replace = 0)
+TYPE_PROC_REF(/datum/mapGenerator, defineCircularRegion)(turf/Start, turf/End, replace = 0)
 	if(!checkRegion(Start, End))
 		return 0
 
@@ -82,13 +82,13 @@
 
 
 //Empties the map list, he's dead jim.
-/datum/mapGenerator/proc/undefineRegion()
+TYPE_PROC_REF(/datum/mapGenerator, undefineRegion)()
 	map = list() //bai bai
 
 
 //Checks for and Rejects bad region coordinates
 //Returns 1/0
-/datum/mapGenerator/proc/checkRegion(turf/Start, turf/End)
+TYPE_PROC_REF(/datum/mapGenerator, checkRegion)(turf/Start, turf/End)
 	. = 1
 
 	if(!Start || !End)
@@ -103,7 +103,7 @@
 
 
 //Requests the mapGeneratorModule(s) to (re)generate
-/datum/mapGenerator/proc/generate()
+TYPE_PROC_REF(/datum/mapGenerator, generate)()
 	syncModules()
 	if(!modules || !modules.len)
 		return
@@ -112,7 +112,7 @@
 
 
 //Requests the mapGeneratorModule(s) to (re)generate this one turf
-/datum/mapGenerator/proc/generateOneTurf(turf/T)
+TYPE_PROC_REF(/datum/mapGenerator, generateOneTurf)(turf/T)
 	if(!T)
 		return
 	syncModules()
@@ -123,7 +123,7 @@
 
 
 //Replaces all paths in the module list with actual module datums
-/datum/mapGenerator/proc/initialiseModules()
+TYPE_PROC_REF(/datum/mapGenerator, initialiseModules)()
 	for(var/path in modules)
 		if(ispath(path))
 			modules.Remove(path)
@@ -132,7 +132,7 @@
 
 
 //Sync mapGeneratorModule(s) to mapGenerator
-/datum/mapGenerator/proc/syncModules()
+TYPE_PROC_REF(/datum/mapGenerator, syncModules)()
 	for(var/datum/mapGeneratorModule/mod in modules)
 		mod.sync(src)
 
@@ -142,7 +142,7 @@
 // HERE BE DEBUG DRAGONS //
 ///////////////////////////
 
-/client/proc/debugNatureMapGenerator()
+TYPE_PROC_REF(/client, debugNatureMapGenerator)()
 	set name = "Test Nature Map Generator"
 	set category = "Debug"
 

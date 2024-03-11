@@ -1,4 +1,4 @@
-/datum/admins/proc/player_panel_new()//The new one
+TYPE_PROC_REF(/datum/admins, player_panel_new)()//The new one
 	if(!check_rights(R_ADMIN))
 		message_admins("[ADMIN_TPMONTY(usr)] tried to use player_panel_new() without admin perms.")
 		log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use player_panel_new() without admin perms.")

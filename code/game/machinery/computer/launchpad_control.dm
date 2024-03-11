@@ -34,13 +34,13 @@
 	else
 		return ..()
 
-/obj/machinery/computer/launchpad/proc/pad_exists(number)
+TYPE_PROC_REF(/obj/machinery/computer/launchpad, pad_exists)(number)
 	var/obj/machinery/launchpad/pad = launchpads[number]
 	if(QDELETED(pad))
 		return FALSE
 	return TRUE
 
-/obj/machinery/computer/launchpad/proc/teleport(mob/user, obj/machinery/launchpad/pad, sending)
+TYPE_PROC_REF(/obj/machinery/computer/launchpad, teleport)(mob/user, obj/machinery/launchpad/pad, sending)
 	if(QDELETED(pad))
 		to_chat(user, span_warning("ERROR: Launchpad not responding. Check launchpad integrity."))
 		return
@@ -49,7 +49,7 @@
 		return
 	pad.doteleport(user, sending)
 
-/obj/machinery/computer/launchpad/proc/get_pad(number)
+TYPE_PROC_REF(/obj/machinery/computer/launchpad, get_pad)(number)
 	var/obj/machinery/launchpad/pad = launchpads[number]
 	return pad
 

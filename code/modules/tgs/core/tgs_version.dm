@@ -11,7 +11,7 @@
 			if(version_bits.len == 4)
 				deprecated_patch = text2num(version_bits[4])
 
-/datum/tgs_version/proc/Valid(allow_wildcards = FALSE)
+TYPE_PROC_REF(/datum/tgs_version, Valid)(allow_wildcards = FALSE)
 	if(suite == null)
 		return FALSE
 	if(allow_wildcards)

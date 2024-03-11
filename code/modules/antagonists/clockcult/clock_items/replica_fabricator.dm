@@ -72,7 +72,7 @@
 	return !fabricate(target, user)
 
 //A note here; return values are for if we CAN BE PUT ON A TABLE, not IF WE ARE SUCCESSFUL, unless no_table_check is TRUE
-/obj/item/clockwork/replica_fabricator/proc/fabricate(atom/target, mob/living/user, silent, no_table_check)
+TYPE_PROC_REF(/obj/item/clockwork/replica_fabricator, fabricate)(atom/target, mob/living/user, silent, no_table_check)
 	if(!target || !user)
 		return FALSE
 	if(repairing)
@@ -163,7 +163,7 @@
 //This(modifying an existing object, in this case the list) is the only way to get information OUT of a do_after callback, which this is used as.
 
 //The fabricate check proc.
-/obj/item/clockwork/replica_fabricator/proc/fabricate_checks(list/fabrication_values, atom/target, expected_type, mob/user, silent) //checked constantly while fabricating
+TYPE_PROC_REF(/obj/item/clockwork/replica_fabricator, fabricate_checks)(list/fabrication_values, atom/target, expected_type, mob/user, silent) //checked constantly while fabricating
 	if(!islist(fabrication_values) || QDELETED(target) || QDELETED(user))
 		return FALSE
 	if(repairing)
@@ -182,7 +182,7 @@
 	return TRUE
 
 //The repair check proc.
-/obj/item/clockwork/replica_fabricator/proc/fabricator_repair_checks(list/repair_values, atom/target, mob/user, silent) //Exists entirely to avoid an otherwise unreadable series of checks.
+TYPE_PROC_REF(/obj/item/clockwork/replica_fabricator, fabricator_repair_checks)(list/repair_values, atom/target, mob/user, silent) //Exists entirely to avoid an otherwise unreadable series of checks.
 	if(!islist(repair_values) || QDELETED(target) || QDELETED(user))
 		return FALSE
 	if(isliving(target)) //standard checks for if we can affect the target

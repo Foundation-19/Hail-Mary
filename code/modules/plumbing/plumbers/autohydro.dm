@@ -37,7 +37,7 @@
 	AddComponent(/datum/component/simple_rotation, ROTATION_ALTCLICK | ROTATION_CLOCKWISE | ROTATION_COUNTERCLOCKWISE | ROTATION_VERBS, null, CALLBACK(src, PROC_REF(can_be_rotated)))
 
 
-/obj/machinery/hydroponics/constructable/proc/can_be_rotated(mob/user, rotation_type)
+TYPE_PROC_REF(/obj/machinery/hydroponics/constructable, can_be_rotated)(mob/user, rotation_type)
 	return !anchored
 
 /obj/machinery/hydroponics/constructable/automagic/process()

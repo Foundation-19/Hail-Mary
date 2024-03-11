@@ -98,7 +98,7 @@
 	if(!QDELETED(A))
 		A.update_icon() //removing the overlays
 
-/datum/element/polychromic/proc/apply_overlays(atom/source, list/overlays)
+TYPE_PROC_REF(/datum/element/polychromic, apply_overlays)(atom/source, list/overlays)
 	var/list/L = colors_by_atom[source]
 	var/f_icon = icon_file || source.icon
 	if(isnum(overlays_states))
@@ -107,7 +107,7 @@
 	else
 		overlays += colors_by_atom[source]
 
-/datum/element/polychromic/proc/apply_worn_overlays(obj/item/source, isinhands, icon, used_state, style_flags, list/overlays)
+TYPE_PROC_REF(/datum/element/polychromic, apply_worn_overlays)(obj/item/source, isinhands, icon, used_state, style_flags, list/overlays)
 	if(poly_flags & (isinhands ? POLYCHROMIC_NO_HELD : POLYCHROMIC_NO_WORN))
 		return
 	var/f_icon = worn_file || icon
@@ -121,7 +121,7 @@
 			var/mutable_appearance/M = L[i]
 			overlays += mutable_appearance(f_icon, overlays_states[i], color = M.color)
 
-/datum/element/polychromic/proc/set_color(atom/source, mob/user)
+TYPE_PROC_REF(/datum/element/polychromic, set_color)(atom/source, mob/user)
 	var/choice = input(user,"Polychromic options", "Recolor [source]") as null|anything in overlays_names
 	if(!choice || QDELETED(source) || !user.canUseTopic(source, BE_CLOSE, NO_DEXTERY))
 		return
@@ -143,7 +143,7 @@
 	source.update_icon()
 	return TRUE
 
-/datum/element/polychromic/proc/grant_user_action(atom/source, mob/user, slot)
+TYPE_PROC_REF(/datum/element/polychromic, grant_user_action)(atom/source, mob/user, slot)
 	if(slot == SLOT_IN_BACKPACK || slot == SLOT_LEGCUFFED || slot == SLOT_HANDCUFFED || slot == SLOT_GENERC_DEXTROUS_STORAGE)
 		return
 	var/datum/action/polychromic/P = actions_by_atom[source]
@@ -155,17 +155,17 @@
 		RegisterSignal(P, COMSIG_ACTION_TRIGGER, PROC_REF(activate_action))
 	P.Grant(user)
 
-/datum/element/polychromic/proc/remove_user_action(atom/source, mob/user)
+TYPE_PROC_REF(/datum/element/polychromic, remove_user_action)(atom/source, mob/user)
 	var/datum/action/polychromic/P = actions_by_atom[source]
 	P?.Remove(user)
 
-/datum/element/polychromic/proc/activate_action(datum/action/source, atom/target)
+TYPE_PROC_REF(/datum/element/polychromic, activate_action)(datum/action/source, atom/target)
 	set_color(target, source.owner)
 
-/datum/element/polychromic/proc/on_examine(atom/source, mob/user, list/examine_list)
+TYPE_PROC_REF(/datum/element/polychromic, on_examine)(atom/source, mob/user, list/examine_list)
 	examine_list += span_notice("Alt-click to recolor it.")
 
-/datum/element/polychromic/proc/register_helmet(atom/source, obj/item/clothing/head/H)
+TYPE_PROC_REF(/datum/element/polychromic, register_helmet)(atom/source, obj/item/clothing/head/H)
 	if(!isitem(H)) //backup in case if it messes up somehow
 		if(istype(source,/obj/item/clothing/suit/hooded)) //so how come it be like this, where toggleable headslots are named separately (helmet/hood) anyways?
 			var/obj/item/clothing/suit/hooded/sourcesuit = source
@@ -182,7 +182,7 @@
 	RegisterSignal(H, COMSIG_ITEM_WORN_OVERLAYS, PROC_REF(apply_worn_overlays))
 	RegisterSignal(H, COMSIG_PARENT_QDELETING, PROC_REF(unregister_helmet))
 
-/datum/element/polychromic/proc/unregister_helmet(atom/source)
+TYPE_PROC_REF(/datum/element/polychromic, unregister_helmet)(atom/source)
 	var/obj/item/clothing/suit/S = suit_by_helmet[source]
 	suit_by_helmet -= source
 	helmet_by_suit -= S

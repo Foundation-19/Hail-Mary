@@ -21,7 +21,7 @@
 			new I
 	..()
 
-/datum/antagonist/traitor/proc/set_traitor_kind(kind)
+TYPE_PROC_REF(/datum/antagonist/traitor, set_traitor_kind)(kind)
 	var/swap_from_old = FALSE
 	if(traitor_kind)
 		traitor_kind.remove_innate_effects(owner.current)
@@ -77,20 +77,20 @@
 	owner.special_role = null
 	. = ..()
 
-/datum/antagonist/traitor/proc/handle_hearing(datum/source, list/hearing_args)
+TYPE_PROC_REF(/datum/antagonist/traitor, handle_hearing)(datum/source, list/hearing_args)
 	var/message = hearing_args[HEARING_RAW_MESSAGE]
 	message = GLOB.syndicate_code_phrase_regex.Replace(message, span_blue("$1"))
 	message = GLOB.syndicate_code_response_regex.Replace(message, span_red("$1"))
 	hearing_args[HEARING_RAW_MESSAGE] = message
 
 // needs to be refactored to base /datum/antagonist sometime..
-/datum/antagonist/traitor/proc/add_objective(datum/objective/O)
+TYPE_PROC_REF(/datum/antagonist/traitor, add_objective)(datum/objective/O)
 	objectives += O
 
-/datum/antagonist/traitor/proc/remove_objective(datum/objective/O)
+TYPE_PROC_REF(/datum/antagonist/traitor, remove_objective)(datum/objective/O)
 	objectives -= O
 
-/datum/antagonist/traitor/proc/forge_traitor_objectives()
+TYPE_PROC_REF(/datum/antagonist/traitor, forge_traitor_objectives)()
 	traitor_kind.forge_objectives(src)
 
 /datum/antagonist/traitor/greet()
@@ -100,17 +100,17 @@
 	if(should_give_codewords)
 		give_codewords()
 
-/datum/antagonist/traitor/proc/update_traitor_icons_added(datum/mind/traitor_mind)
+TYPE_PROC_REF(/datum/antagonist/traitor, update_traitor_icons_added)(datum/mind/traitor_mind)
 	var/datum/atom_hud/antag/traitorhud = GLOB.huds[ANTAG_HUD_TRAITOR]
 	traitorhud.join_hud(owner.current)
 	set_antag_hud(owner.current, "traitor")
 
-/datum/antagonist/traitor/proc/update_traitor_icons_removed(datum/mind/traitor_mind)
+TYPE_PROC_REF(/datum/antagonist/traitor, update_traitor_icons_removed)(datum/mind/traitor_mind)
 	var/datum/atom_hud/antag/traitorhud = GLOB.huds[ANTAG_HUD_TRAITOR]
 	traitorhud.leave_hud(owner.current)
 	set_antag_hud(owner.current, null)
 
-/datum/antagonist/traitor/proc/finalize_traitor()
+TYPE_PROC_REF(/datum/antagonist/traitor, finalize_traitor)()
 	if(traitor_kind.finalize_traitor(src))
 		if(should_equip)
 			equip(silent)
@@ -148,7 +148,7 @@
 			H.dna.add_mutation(CLOWNMUT)
 	UnregisterSignal(M, COMSIG_MOVABLE_HEAR)
 
-/datum/antagonist/traitor/proc/give_codewords()
+TYPE_PROC_REF(/datum/antagonist/traitor, give_codewords)()
 	if(!owner.current)
 		return
 	var/mob/traitor_mob=owner.current
@@ -164,7 +164,7 @@
 	antag_memory += "<b>Code Phrase</b>: <span class='blue'>[phrases]</span><br>"
 	antag_memory += "<b>Code Response</b>: <span class='red'>[responses]</span><br>"
 
-/datum/antagonist/traitor/proc/add_law_zero()
+TYPE_PROC_REF(/datum/antagonist/traitor, add_law_zero)()
 	var/mob/living/silicon/ai/killer = owner.current
 	if(!killer || !istype(killer))
 		return
@@ -175,10 +175,10 @@
 	to_chat(killer, "Your radio has been upgraded! Use :t to speak on an encrypted channel with Syndicate Agents!")
 	killer.add_malf_picker()
 
-/datum/antagonist/traitor/proc/equip(silent = FALSE)
+TYPE_PROC_REF(/datum/antagonist/traitor, equip)(silent = FALSE)
 	owner.equip_traitor(traitor_kind, silent, src)
 
-/datum/antagonist/traitor/proc/assign_exchange_role()
+TYPE_PROC_REF(/datum/antagonist/traitor, assign_exchange_role)()
 	//set faction
 	var/faction = "red"
 	if(owner == SSticker.mode.exchange_blue)
@@ -275,7 +275,7 @@
 	return result.Join("<br>")
 
 /// Proc detailing contract kit buys/completed contracts/additional info
-/datum/antagonist/traitor/proc/contractor_round_end()
+TYPE_PROC_REF(/datum/antagonist/traitor, contractor_round_end)()
 	var result = ""
 	var total_spent_rep = 0
 

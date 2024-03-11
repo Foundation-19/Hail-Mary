@@ -23,10 +23,10 @@ SUBSYSTEM_DEF(nightshift)
 		return
 	check_nightshift()
 
-/datum/controller/subsystem/nightshift/proc/announce(message)
+TYPE_PROC_REF(/datum/controller/subsystem/nightshift, announce)(message)
 	priority_announce(message, sound='sound/misc/notice2.ogg', sender_override="Automated Lighting System Announcement")
 
-/datum/controller/subsystem/nightshift/proc/check_nightshift()
+TYPE_PROC_REF(/datum/controller/subsystem/nightshift, check_nightshift)()
 	var/emergency = GLOB.security_level >= SEC_LEVEL_RED
 	var/announcing = TRUE
 	var/time = STATION_TIME(FALSE, world.time)
@@ -44,7 +44,7 @@ SUBSYSTEM_DEF(nightshift)
 	if(nightshift_active != night_time)
 		update_nightshift(night_time, announcing)
 
-/datum/controller/subsystem/nightshift/proc/update_nightshift(active, announce = TRUE, resumed = FALSE)
+TYPE_PROC_REF(/datum/controller/subsystem/nightshift, update_nightshift)(active, announce = TRUE, resumed = FALSE)
 	if(!resumed)
 		currentrun = GLOB.apcs_list.Copy()
 		nightshift_active = active

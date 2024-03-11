@@ -609,7 +609,7 @@
 	new_spawn.fully_replace_character_name(new_spawn.real_name,generate_pirate_name())
 	new_spawn.mind.add_antag_datum(/datum/antagonist/pirate)
 
-/obj/effect/mob_spawn/human/pirate/proc/generate_pirate_name()
+TYPE_PROC_REF(/obj/effect/mob_spawn/human/pirate, generate_pirate_name)()
 	var/beggings = strings(PIRATE_NAMES_FILE, "beginnings")
 	var/endings = strings(PIRATE_NAMES_FILE, "endings")
 	return "[rank] [pick(beggings)][pick(endings)]"
@@ -936,7 +936,7 @@
 		melt_em(M)
 
 //Pop a human in here to increase the number of uses by 1 and melt the human
-/obj/effect/mob_spawn/human/fev_pit/proc/melt_em(mob/living/carbon/human/M)
+TYPE_PROC_REF(/obj/effect/mob_spawn/human/fev_pit, melt_em)(mob/living/carbon/human/M)
 	playsound(get_turf(src), 'sound/FermiChem/acidmelt.ogg', 50, 0, 2)
 	uses++
 	qdel(M)

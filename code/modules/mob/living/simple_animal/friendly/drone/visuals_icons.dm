@@ -6,12 +6,12 @@
 //Drone visuals
 
 
-/mob/living/simple_animal/drone/proc/apply_overlay(cache_index)
+TYPE_PROC_REF(/mob/living/simple_animal/drone, apply_overlay)(cache_index)
 	if((. = drone_overlays[cache_index]))
 		add_overlay(.)
 
 
-/mob/living/simple_animal/drone/proc/remove_overlay(cache_index)
+TYPE_PROC_REF(/mob/living/simple_animal/drone, remove_overlay)(cache_index)
 	var/I = drone_overlays[cache_index]
 	if(I)
 		cut_overlay(I)
@@ -59,7 +59,7 @@
 	apply_overlay(DRONE_HANDS_LAYER)
 
 
-/mob/living/simple_animal/drone/proc/update_inv_internal_storage()
+TYPE_PROC_REF(/mob/living/simple_animal/drone, update_inv_internal_storage)()
 	if(internal_storage && client && hud_used && hud_used.hud_shown)
 		internal_storage.screen_loc = ui_drone_storage
 		client.screen += internal_storage
@@ -93,7 +93,7 @@
 	update_inv_internal_storage()
 
 
-/mob/living/simple_animal/drone/proc/pickVisualAppearence()
+TYPE_PROC_REF(/mob/living/simple_animal/drone, pickVisualAppearence)()
 	picked = FALSE
 	var/appearence = input("Choose your appearance!", "Appearance", "Maintenance Drone") in list("Maintenance Drone", "Repair Drone", "Scout Drone")
 	switch(appearence)
@@ -123,7 +123,7 @@
 
 
 
-/mob/living/simple_animal/drone/proc/getItemPixelShiftY()
+TYPE_PROC_REF(/mob/living/simple_animal/drone, getItemPixelShiftY)()
 	switch(visualAppearence)
 		if(MAINTDRONE)
 			. = 0

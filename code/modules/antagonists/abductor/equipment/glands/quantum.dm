@@ -18,7 +18,7 @@
 		addtimer(CALLBACK(src, PROC_REF(quantum_swap)), rand(600, 2400))
 		return
 
-/obj/item/organ/heart/gland/quantum/proc/quantum_swap()
+TYPE_PROC_REF(/obj/item/organ/heart/gland/quantum, quantum_swap)()
 	if(QDELETED(entangled_mob))
 		entangled_mob = null
 		return

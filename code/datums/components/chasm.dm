@@ -28,7 +28,7 @@
 	target_turf = target
 	START_PROCESSING(SSobj, src) // process on create, in case stuff is still there
 
-/datum/component/chasm/proc/Entered(datum/source, atom/movable/AM)
+TYPE_PROC_REF(/datum/component/chasm, Entered)(datum/source, atom/movable/AM)
 	START_PROCESSING(SSobj, src)
 	drop_stuff(AM)
 
@@ -36,7 +36,7 @@
 	if (!drop_stuff())
 		STOP_PROCESSING(SSobj, src)
 
-/datum/component/chasm/proc/is_safe()
+TYPE_PROC_REF(/datum/component/chasm, is_safe)()
 	//if anything matching this typecache is found in the chasm, we don't drop things
 	var/static/list/chasm_safeties_typecache = typecacheof(list(/obj/structure/lattice/catwalk, /obj/structure/stone_tile))
 
@@ -47,7 +47,7 @@
 			LAZYREMOVE(found_safeties, S)
 	return LAZYLEN(found_safeties)
 
-/datum/component/chasm/proc/drop_stuff(AM)
+TYPE_PROC_REF(/datum/component/chasm, drop_stuff)(AM)
 	. = 0
 	if (is_safe())
 		return FALSE
@@ -59,7 +59,7 @@
 			. = 1
 			INVOKE_ASYNC(src, PROC_REF(drop), thing)
 
-/datum/component/chasm/proc/droppable(atom/movable/AM)
+TYPE_PROC_REF(/datum/component/chasm, droppable)(atom/movable/AM)
 	// avoid an infinite loop, but allow falling a large distance
 	if(falling_atoms[AM] && falling_atoms[AM] > 30)
 		return FALSE
@@ -78,7 +78,7 @@
 			return FALSE
 	return TRUE
 
-/datum/component/chasm/proc/drop(atom/movable/AM)
+TYPE_PROC_REF(/datum/component/chasm, drop)(atom/movable/AM)
 	//Make sure the item is still there after our sleep
 	if(!AM || QDELETED(AM) || SEND_SIGNAL(AM, COMSIG_MOVABLE_CHASM_DROP, src))
 		return

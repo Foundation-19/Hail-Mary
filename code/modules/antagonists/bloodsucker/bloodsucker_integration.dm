@@ -1,6 +1,6 @@
 //				INTEGRATION: Adding Procs and Datums to existing "classes"
 
-/mob/living/proc/HaveBloodsuckerBodyparts(displaymessage = "") // displaymessage can be something such as "rising from death" for Torpid Sleep. givewarningto is the person receiving messages.
+TYPE_PROC_REF(/mob/living, HaveBloodsuckerBodyparts)(displaymessage = "") // displaymessage can be something such as "rising from death" for Torpid Sleep. givewarningto is the person receiving messages.
 	if(!getorganslot(ORGAN_SLOT_HEART))
 		if(displaymessage != "")
 			to_chat(src, span_warning("Without a heart, you are incapable of [displaymessage]."))
@@ -16,7 +16,7 @@
 	return TRUE
 
 // 			EXAMINING
-/mob/living/carbon/human/proc/ReturnVampExamine(mob/viewer)
+TYPE_PROC_REF(/mob/living/carbon/human, ReturnVampExamine)(mob/viewer)
 	if(!mind || !viewer.mind)
 		return ""
 	// Target must be a Vamp
@@ -44,7 +44,7 @@
 	return returnIcon + returnString
 
 
-/mob/living/carbon/human/proc/ReturnVassalExamine(mob/viewer)
+TYPE_PROC_REF(/mob/living/carbon/human, ReturnVassalExamine)(mob/viewer)
 	if(!mind || !viewer.mind)
 		return ""
 	// Am I not even a Vassal? Then I am not marked.
@@ -80,7 +80,7 @@
 
 
 // Am I "pale" when examined? Bloodsuckers can trick this.
-/mob/living/carbon/proc/ShowAsPaleExamine()
+TYPE_PROC_REF(/mob/living/carbon, ShowAsPaleExamine)()
 
 	// Normal Creatures:
 	if(!mind || !mind.has_antag_datum(ANTAG_DATUM_BLOODSUCKER))
@@ -100,7 +100,7 @@
 
 	return ..() // Return vamp check
 
-/mob/living/carbon/proc/scan_blood_volume()
+TYPE_PROC_REF(/mob/living/carbon, scan_blood_volume)()
 	// Vamps don't show up normally to scanners unless Masquerade power is on ----> scanner.dm
 	if(mind)
 		var/datum/antagonist/bloodsucker/bloodsuckerdatum = mind.has_antag_datum(ANTAG_DATUM_BLOODSUCKER)
@@ -108,10 +108,10 @@
 			return BLOOD_VOLUME_NORMAL
 	return blood_volume
 
-/mob/living/proc/IsFrenzied()
+TYPE_PROC_REF(/mob/living, IsFrenzied)()
 	return FALSE
 
-/mob/living/proc/StartFrenzy(inTime = 120)
+TYPE_PROC_REF(/mob/living, StartFrenzy)(inTime = 120)
 	set waitfor = FALSE
 
 

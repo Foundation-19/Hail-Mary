@@ -34,14 +34,14 @@
 
 	icon_state = "relief_valve-t-blown"
 
-/obj/machinery/atmospherics/components/binary/relief_valve/proc/open()
+TYPE_PROC_REF(/obj/machinery/atmospherics/components/binary/relief_valve, open)()
 	opened = TRUE
 	update_icon_nopipes()
 	update_parents()
 	var/datum/pipeline/parent1 = parents[1]
 	parent1.reconcile_air()
 
-/obj/machinery/atmospherics/components/binary/relief_valve/proc/close()
+TYPE_PROC_REF(/obj/machinery/atmospherics/components/binary/relief_valve, close)()
 	opened = FALSE
 	update_icon_nopipes()
 

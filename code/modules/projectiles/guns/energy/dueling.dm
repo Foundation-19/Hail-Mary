@@ -38,7 +38,7 @@
 	STOP_PROCESSING(SSobj, src)
 	. = ..()
 
-/datum/duel/proc/try_begin()
+TYPE_PROC_REF(/datum/duel, try_begin)()
 	//Check if both guns are held and if so begin.
 	var/mob/living/A = get_duelist(gun_A)
 	var/mob/living/B = get_duelist(gun_B)
@@ -47,7 +47,7 @@
 		return
 	begin()
 
-/datum/duel/proc/begin()
+TYPE_PROC_REF(/datum/duel, begin)()
 	state = DUEL_PREPARATION
 	confirmations.Cut()
 	fired.Cut()
@@ -57,13 +57,13 @@
 
 	START_PROCESSING(SSobj, src)
 
-/datum/duel/proc/get_duelist(obj/item/gun/energy/dueling/G)
+TYPE_PROC_REF(/datum/duel, get_duelist)(obj/item/gun/energy/dueling/G)
 	var/mob/living/L = G.loc
 	if(!istype(L) || !L.is_holding(G))
 		return
 	return L
 
-/datum/duel/proc/message_duelists(message)
+TYPE_PROC_REF(/datum/duel, message_duelists)(message)
 	var/mob/living/LA = get_duelist(gun_A)
 	if(LA)
 		to_chat(LA,message)
@@ -71,10 +71,10 @@
 	if(LB)
 		to_chat(LB,message)
 
-/datum/duel/proc/other_gun(obj/item/gun/energy/dueling/G)
+TYPE_PROC_REF(/datum/duel, other_gun)(obj/item/gun/energy/dueling/G)
 	return G == gun_A ? gun_B : gun_A
 
-/datum/duel/proc/end()
+TYPE_PROC_REF(/datum/duel, end)()
 	message_duelists(span_notice("Duel finished. Re-engaging safety."))
 	STOP_PROCESSING(SSobj, src)
 	state = DUEL_IDLE
@@ -100,21 +100,21 @@
 			if(check_fired())
 				end()
 
-/datum/duel/proc/back_to_prep()
+TYPE_PROC_REF(/datum/duel, back_to_prep)()
 	message_duelists(span_notice("Positions invalid. Please move to valid positions [required_distance] steps aways from each other to continue."))
 	state = DUEL_PREPARATION
 	confirmations.Cut()
 	countdown_step = countdown_length
 
-/datum/duel/proc/confirm_positioning()
+TYPE_PROC_REF(/datum/duel, confirm_positioning)()
 	message_duelists(span_notice("Position confirmed. Confirm readiness by pulling the trigger once."))
 	state = DUEL_READY
 
-/datum/duel/proc/confirm_ready()
+TYPE_PROC_REF(/datum/duel, confirm_ready)()
 	message_duelists(span_notice("Readiness confirmed. Starting countdown. Commence firing at zero mark."))
 	state = DUEL_COUNTDOWN
 
-/datum/duel/proc/countdown_step()
+TYPE_PROC_REF(/datum/duel, countdown_step)()
 	countdown_step--
 	if(countdown_step == 0)
 		state = DUEL_FIRING
@@ -122,7 +122,7 @@
 	else
 		message_duelists(span_userdanger("[countdown_step]!"))
 
-/datum/duel/proc/check_fired()
+TYPE_PROC_REF(/datum/duel, check_fired)()
 	if(fired.len == 2)
 		return TRUE
 	//Let's say if gun was dropped/stowed the user is finished
@@ -132,7 +132,7 @@
 		return TRUE
 	return FALSE
 
-/datum/duel/proc/check_positioning()
+TYPE_PROC_REF(/datum/duel, check_positioning)()
 	var/mob/living/A = get_duelist(gun_A)
 	var/mob/living/B = get_duelist(gun_B)
 	if(!A || !B)
@@ -180,7 +180,7 @@
 	else
 		. += "ERROR: No linking number on gun."
 
-/obj/item/gun/energy/dueling/proc/setting_iconstate()
+TYPE_PROC_REF(/obj/item/gun/energy/dueling, setting_iconstate)()
 	switch(setting)
 		if(DUEL_SETTING_A)
 			return "duel_red"
@@ -196,7 +196,7 @@
 	else
 		toggle_setting(user)
 
-/obj/item/gun/energy/dueling/proc/toggle_setting(mob/living/user)
+TYPE_PROC_REF(/obj/item/gun/energy/dueling, toggle_setting)(mob/living/user)
 	switch(setting)
 		if(DUEL_SETTING_A)
 			setting = DUEL_SETTING_B
@@ -229,7 +229,7 @@
 			to_chat(user,span_warning("[src] is locked. Wait for FIRE signal before shooting."))
 			return FALSE
 
-/obj/item/gun/energy/dueling/proc/is_duelist(mob/living/L)
+TYPE_PROC_REF(/obj/item/gun/energy/dueling, is_duelist)(mob/living/L)
 	if(!istype(L))
 		return FALSE
 	if(!L.is_holding(duel.other_gun(src)))

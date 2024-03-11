@@ -7,7 +7,7 @@ PROCESSING_SUBSYSTEM_DEF(projectiles)
 	var/global_pixel_increment_amount = 4
 	var/global_projectile_speed_multiplier = 1
 
-/datum/controller/subsystem/processing/projectiles/proc/set_pixel_speed(new_speed)
+TYPE_PROC_REF(/datum/controller/subsystem/processing/projectiles, set_pixel_speed)(new_speed)
 	global_pixel_increment_amount = new_speed
 	for(var/i in processing)
 		var/obj/item/projectile/P = i

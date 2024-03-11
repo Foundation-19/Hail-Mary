@@ -129,7 +129,7 @@
 		var/mutable_appearance/M = mutable_appearance(icon_file, "slab_[inhand_overlay]")
 		. += M
 
-/obj/item/clockwork/slab/proc/check_on_mob(mob/user)
+TYPE_PROC_REF(/obj/item/clockwork/slab, check_on_mob)(mob/user)
 	if(user && !(src in user.held_items) && slab_ability && slab_ability.ranged_ability_user) //if we happen to check and we AREN'T in user's hands, remove whatever ability we have
 		slab_ability.remove_ranged_ability()
 
@@ -190,13 +190,13 @@
 		to_chat(user, span_notice("Object link canceled."))
 		return TRUE
 
-/obj/item/clockwork/slab/proc/access_display(mob/living/user)
+TYPE_PROC_REF(/obj/item/clockwork/slab, access_display)(mob/living/user)
 	if(!is_servant_of_ratvar(user))
 		return FALSE
 	ui_interact(user)
 	return TRUE
 
-/obj/item/clockwork/slab/proc/recite_scripture(datum/clockwork_scripture/scripture, mob/living/user)
+TYPE_PROC_REF(/obj/item/clockwork/slab, recite_scripture)(datum/clockwork_scripture/scripture, mob/living/user)
 	if(!scripture || !user || !user.canUseTopic(src) || (!no_cost && !can_recite_scripture(user)))
 		return FALSE
 	if(user.get_active_held_item() != src)
@@ -226,7 +226,7 @@
  * Conversion
  * * what - What section?
  */
-/obj/item/clockwork/slab/proc/get_recollection(what) //Now DMDOC compliant!*
+TYPE_PROC_REF(/obj/item/clockwork/slab, get_recollection)(what) //Now DMDOC compliant!*
 	. = list()
 	switch(what) //need someone to rewrite info for this.
 		if("Default")
@@ -373,7 +373,7 @@
 			update_static_data()
 	return TRUE
 
-/obj/item/clockwork/slab/proc/quickbind_to_slot(datum/clockwork_scripture/scripture, index) //takes a typepath(typecast for initial()) and binds it to a slot
+TYPE_PROC_REF(/obj/item/clockwork/slab, quickbind_to_slot)(datum/clockwork_scripture/scripture, index) //takes a typepath(typecast for initial()) and binds it to a slot
 	if(!ispath(scripture) || !scripture || (scripture in quickbound))
 		return
 	while(LAZYLEN(quickbound) < index)
@@ -384,7 +384,7 @@
 	quickbound[index] = scripture
 	update_quickbind()
 
-/obj/item/clockwork/slab/proc/update_quickbind()
+TYPE_PROC_REF(/obj/item/clockwork/slab, update_quickbind)()
 	for(var/datum/action/item_action/clock/quickbind/Q in actions)
 		qdel(Q) //regenerate all our quickbound scriptures
 	if(LAZYLEN(quickbound))

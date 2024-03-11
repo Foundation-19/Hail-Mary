@@ -88,30 +88,30 @@ GLOBAL_DATUM_INIT(keycard_events, /datum/events, new)
 				sendEvent(KEYCARD_BSA_UNLOCK, ID)
 				. = TRUE
 
-/obj/machinery/keycard_auth/proc/sendEvent(event_type, trigger_id)
+TYPE_PROC_REF(/obj/machinery/keycard_auth, sendEvent)(event_type, trigger_id)
 	triggerer = usr
 	event = event_type
 	waiting = 1
 	GLOB.keycard_events.fireEvent("triggerEvent", src, trigger_id)
 	addtimer(CALLBACK(src, PROC_REF(eventSent)), 20)
 
-/obj/machinery/keycard_auth/proc/eventSent()
+TYPE_PROC_REF(/obj/machinery/keycard_auth, eventSent)()
 	triggerer = null
 	event = ""
 	waiting = 0
 
-/obj/machinery/keycard_auth/proc/triggerEvent(source, trigger_id)
+TYPE_PROC_REF(/obj/machinery/keycard_auth, triggerEvent)(source, trigger_id)
 	icon_state = "auth_on"
 	first_id = trigger_id
 	event_source = source
 	addtimer(CALLBACK(src, PROC_REF(eventTriggered)), 20)
 
-/obj/machinery/keycard_auth/proc/eventTriggered()
+TYPE_PROC_REF(/obj/machinery/keycard_auth, eventTriggered)()
 	icon_state = "auth_off"
 	event_source = null
 	first_id = null
 
-/obj/machinery/keycard_auth/proc/trigger_event(confirmer)
+TYPE_PROC_REF(/obj/machinery/keycard_auth, trigger_event)(confirmer)
 	log_game("[key_name(triggerer)] triggered and [key_name(confirmer)] confirmed event [event]")
 	message_admins("[ADMIN_LOOKUPFLW(triggerer)] triggered and [ADMIN_LOOKUPFLW(confirmer)] confirmed event [event]")
 

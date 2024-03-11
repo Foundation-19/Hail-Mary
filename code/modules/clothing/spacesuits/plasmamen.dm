@@ -17,7 +17,7 @@
 	. += span_notice("There [extinguishes_left == 1 ? "is" : "are"] [extinguishes_left] extinguisher charge\s left in this suit.")
 
 
-/obj/item/clothing/suit/space/eva/plasmaman/proc/Extinguish(mob/living/carbon/human/H)
+TYPE_PROC_REF(/obj/item/clothing/suit/space/eva/plasmaman, Extinguish)(mob/living/carbon/human/H)
 	if(!istype(H))
 		return
 

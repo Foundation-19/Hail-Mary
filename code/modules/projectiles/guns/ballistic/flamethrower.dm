@@ -77,7 +77,7 @@
 	else
 		icon_state = "m2_flamethrower_back"
 
-/obj/item/m2flamethrowertank/proc/attach_gun(mob/user)
+TYPE_PROC_REF(/obj/item/m2flamethrowertank, attach_gun)(mob/user)
 	if(!gun)
 		gun = new(src)
 	gun.forceMove(src)

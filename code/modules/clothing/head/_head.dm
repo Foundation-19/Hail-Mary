@@ -112,7 +112,7 @@
 
 	..()
 
-/obj/item/clothing/head/proc/attach_accessory(obj/item/I, mob/user, notifyAttach = 1)
+TYPE_PROC_REF(/obj/item/clothing/head, attach_accessory)(obj/item/I, mob/user, notifyAttach = 1)
 	. = FALSE
 	if(istype(I, /obj/item/clothing/armoraccessory))
 		var/obj/item/clothing/armoraccessory/A = I
@@ -148,7 +148,7 @@
 
 			return TRUE
 
-/obj/item/clothing/head/proc/remove_accessory(mob/user)
+TYPE_PROC_REF(/obj/item/clothing/head, remove_accessory)(mob/user)
 	if(!isliving(user))
 		return
 	if(!can_use(user))

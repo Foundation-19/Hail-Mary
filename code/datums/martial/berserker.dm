@@ -6,10 +6,10 @@
 	name = "Berserker Rites"
 	id = MARTIALART_BERSERKER
 	allow_temp_override = FALSE
-	help_verb = /mob/living/carbon/human/proc/berserker_blows_help
+	help_verb = TYPE_PROC_REF(/mob/living/carbon/human, berserker_blows_help)
 	pugilist = TRUE
 
-/datum/martial_art/berserker/proc/check_streak(mob/living/carbon/human/A, mob/living/carbon/human/D)
+TYPE_PROC_REF(/datum/martial_art/berserker, check_streak)(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	if(findtext(streak,HARD_PUNCH_COMBO))
 		streak = ""
 		hardPunch(A,D)
@@ -25,7 +25,7 @@
 	return FALSE
 
 ///Gutpunch: Harm Harm, high force punch on every second harm punch, has a chance to crit for near triple damage
-/datum/martial_art/berserker/proc/hardPunch(mob/living/carbon/human/A, mob/living/carbon/human/D)
+TYPE_PROC_REF(/datum/martial_art/berserker, hardPunch)(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	///this var is so that the strong punch is always aiming for the body part the user is targeting and not trying to apply to the chest before deviating
 	var/obj/item/bodypart/affecting = D.get_bodypart(ran_zone(A.zone_selected))
 	var/armor_block = D.run_armor_check(affecting, "melee")
@@ -49,7 +49,7 @@
 	return TRUE
 
 ///Shouldercheck: Harm Harm Harm combo, throws people seven tiles backwards
-/datum/martial_art/berserker/proc/shoulderCheck(mob/living/carbon/human/A, mob/living/carbon/human/D)
+TYPE_PROC_REF(/datum/martial_art/berserker, shoulderCheck)(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	var/damage = (damage_roll(A,D) + 3)
 	var/obj/item/bodypart/affecting = D.get_bodypart(BODY_ZONE_CHEST)
 	var/armor_block = D.run_armor_check(affecting, "melee")
@@ -65,7 +65,7 @@
 	return TRUE
 
 ///chokeslam: Harm Grab combo, knocks people down, deals stamina damage while they're on the floor
-/datum/martial_art/berserker/proc/chokeSlam(mob/living/carbon/human/A, mob/living/carbon/human/D)
+TYPE_PROC_REF(/datum/martial_art/berserker, chokeSlam)(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	var/damage = damage_roll(A,D)
 	A.do_attack_animation(D, ATTACK_EFFECT_KICK)
 	var/obj/item/bodypart/affecting = D.get_bodypart(BODY_ZONE_HEAD)
@@ -141,7 +141,7 @@
 	H.physiology.stamina_mod = initial(H.physiology.stamina_mod)
 	H.physiology.stun_mod = initial(H.physiology.stun_mod)
 
-/mob/living/carbon/human/proc/berserker_blows_help()
+TYPE_PROC_REF(/mob/living/carbon/human, berserker_blows_help)()
 	set name = "Recall Teachings"
 	set desc = "Remember the sacred rites of the Berserker."
 	set category = "Berserker"

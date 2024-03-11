@@ -68,7 +68,7 @@ GLOBAL_LIST_INIT(cargo_shuttle_leave_behind_typecache, typecacheof(list(
 		var/atom/oldloc = leave_behind[victim]
 		victim.forceMove(oldloc)
 
-/obj/docking_port/mobile/supply/proc/check_blacklist(areaInstances, list/typecache)
+TYPE_PROC_REF(/obj/docking_port/mobile/supply, check_blacklist)(areaInstances, list/typecache)
 	for(var/place in areaInstances)
 		var/area/shuttle/shuttle_area = place
 		for(var/trf in shuttle_area)
@@ -96,7 +96,7 @@ GLOBAL_LIST_INIT(cargo_shuttle_leave_behind_typecache, typecacheof(list(
 	if(getDockedId() == "supply_away") // Sell when we get home
 		sell()
 
-/obj/docking_port/mobile/supply/proc/buy()
+TYPE_PROC_REF(/obj/docking_port/mobile/supply, buy)()
 	if(!SSshuttle.shoppinglist.len)
 		return
 
@@ -184,7 +184,7 @@ GLOBAL_LIST_INIT(cargo_shuttle_leave_behind_typecache, typecacheof(list(
 
 	investigate_log("[purchases] orders in this shipment, worth [value] credits. [cargo_budget.account_balance] credits left.", INVESTIGATE_CARGO)
 
-/obj/docking_port/mobile/supply/proc/sell()
+TYPE_PROC_REF(/obj/docking_port/mobile/supply, sell)()
 	var/datum/bank_account/D = SSeconomy.get_dep_account(ACCOUNT_CAR)
 	var/gain = 0
 

@@ -88,7 +88,7 @@
 		return FALSE
 	return TRUE
 
-/datum/action/bloodsucker/targeted/mesmerize/proc/ContinueTarget(atom/A)
+TYPE_PROC_REF(/datum/action/bloodsucker/targeted/mesmerize, ContinueTarget)(atom/A)
 	var/mob/living/carbon/target = A
 	var/mob/living/L = owner
 
@@ -118,7 +118,7 @@
 	// 5 second windup
 	addtimer(CALLBACK(src, PROC_REF(apply_effects), L, target, power_time), 6 SECONDS)
 
-/datum/action/bloodsucker/targeted/mesmerize/proc/apply_effects(aggressor, victim, power_time)
+TYPE_PROC_REF(/datum/action/bloodsucker/targeted/mesmerize, apply_effects)(aggressor, victim, power_time)
 	var/mob/living/carbon/target = victim
 	var/mob/living/L = aggressor
 	if(!success)

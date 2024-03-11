@@ -47,7 +47,7 @@
 	scan_for_target()
 	update_icon()
 
-/obj/item/pinpointer/proc/scan_for_target()
+TYPE_PROC_REF(/obj/item/pinpointer, scan_for_target)()
 	return
 
 /obj/item/pinpointer/update_overlays()
@@ -82,7 +82,7 @@
 	var/has_owner = FALSE
 	var/pinpointer_owner = null
 
-/obj/item/pinpointer/crew/proc/trackable(mob/living/carbon/human/H)
+TYPE_PROC_REF(/obj/item/pinpointer/crew, trackable)(mob/living/carbon/human/H)
 	var/turf/here = get_turf(src)
 	if(H && (H.z == 0 || H.z == here.z) && istype(H.w_uniform, /obj/item/clothing/under))
 		var/obj/item/clothing/under/U = H.w_uniform

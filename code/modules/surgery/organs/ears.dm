@@ -42,7 +42,7 @@
 	else if(!. && !deaf)
 		deaf = 1	//stop being not deaf you deaf idiot
 
-/obj/item/organ/ears/proc/restoreEars()
+TYPE_PROC_REF(/obj/item/organ/ears, restoreEars)()
 	deaf = 0
 	ear_damage = 0
 	organ_flags &= ~ORGAN_FAILING
@@ -52,32 +52,32 @@
 	if(iscarbon(owner) && HAS_TRAIT(C, TRAIT_DEAF))
 		deaf = 1
 
-/obj/item/organ/ears/proc/adjustEarDamage(ddmg, ddeaf)
+TYPE_PROC_REF(/obj/item/organ/ears, adjustEarDamage)(ddmg, ddeaf)
 	ear_damage = max(ear_damage + (ddmg*damage_multiplier), 0)
 	deaf = max(deaf + (ddeaf*damage_multiplier), 0)
 
-/obj/item/organ/ears/proc/minimumDeafTicks(value)
+TYPE_PROC_REF(/obj/item/organ/ears, minimumDeafTicks)(value)
 	deaf = max(deaf, value)
 
 /obj/item/organ/ears/invincible
 	damage_multiplier = 0
 
 
-/mob/proc/restoreEars()
+TYPE_PROC_REF(/mob, restoreEars)()
 
 /mob/living/carbon/restoreEars()
 	var/obj/item/organ/ears/ears = getorgan(/obj/item/organ/ears)
 	if(ears)
 		ears.restoreEars()
 
-/mob/proc/adjustEarDamage()
+TYPE_PROC_REF(/mob, adjustEarDamage)()
 
 /mob/living/carbon/adjustEarDamage(ddmg, ddeaf)
 	var/obj/item/organ/ears/ears = getorgan(/obj/item/organ/ears)
 	if(ears)
 		ears.adjustEarDamage(ddmg, ddeaf)
 
-/mob/proc/minimumDeafTicks()
+TYPE_PROC_REF(/mob, minimumDeafTicks)()
 
 /mob/living/carbon/minimumDeafTicks(value)
 	var/obj/item/organ/ears/ears = getorgan(/obj/item/organ/ears)

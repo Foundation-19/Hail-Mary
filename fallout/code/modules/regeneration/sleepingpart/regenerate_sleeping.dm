@@ -36,7 +36,7 @@
 	UnregisterSignal(M, COMSIG_MOB_SLEEPING)
 
 // The actual code!
-/datum/component/sleeping_regeneration/proc/OnSleep()
+TYPE_PROC_REF(/datum/component/sleeping_regeneration, OnSleep)()
 	// Just making sure the person is actually /mob/living, ya never know!
 	if(!isliving(parent))
 		return

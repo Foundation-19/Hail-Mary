@@ -80,7 +80,7 @@ GLOBAL_DATUM_INIT(crewmonitor, /datum/crewmonitor, new)
 		ui = new(user, src, "CrewConsole")
 		ui.open()
 
-/datum/crewmonitor/proc/show(mob/M, source)
+TYPE_PROC_REF(/datum/crewmonitor, show)(mob/M, source)
 	ui_sources[M] = source
 	ui_interact(M)
 
@@ -97,7 +97,7 @@ GLOBAL_DATUM_INIT(crewmonitor, /datum/crewmonitor, new)
 	.["sensors"] = zdata
 	.["link_allowed"] = isAI(user)
 
-/datum/crewmonitor/proc/update_data(z)
+TYPE_PROC_REF(/datum/crewmonitor, update_data)(z)
 	if(data_by_z["[z]"] && last_update["[z]"] && world.time <= last_update["[z]"] + SENSORS_UPDATE_PERIOD)
 		return data_by_z["[z]"]
 

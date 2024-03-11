@@ -24,7 +24,7 @@
 	return ..()
 
 // Returns independent copy of this file.
-/datum/computer_file/proc/clone(rename = FALSE)
+TYPE_PROC_REF(/datum/computer_file, clone)(rename = FALSE)
 	var/datum/computer_file/temp = new type
 	temp.unsendable = unsendable
 	temp.undeletable = undeletable

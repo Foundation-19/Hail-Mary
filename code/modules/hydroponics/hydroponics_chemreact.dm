@@ -2,7 +2,7 @@
  *This is NOW the gradual affects that each chemical applies on every process() proc. Nutrients now use a more robust reagent holder in order to apply less insane
  * stat changes as opposed to 271 lines of individual statline effects. Shoutout to the original comments on chems, I just cleaned a few up.
  */
-/obj/machinery/hydroponics/proc/apply_chemicals(mob/user)
+TYPE_PROC_REF(/obj/machinery/hydroponics, apply_chemicals)(mob/user)
 	///Contains the reagents within the tray.
 	if(myseed)
 		myseed.on_chem_reaction(reagents) //In case seeds have some special interactions with special chems, currently only used by vines
@@ -11,7 +11,7 @@
 		chem.on_hydroponics_apply(myseed, reagents, src, user)
 
 
-/obj/machinery/hydroponics/proc/mutation_roll(mob/user)
+TYPE_PROC_REF(/obj/machinery/hydroponics, mutation_roll)(mob/user)
 	switch(rand(1, 100))
 		if(91 to 100)
 			adjustHealth(-10)

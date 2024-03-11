@@ -87,7 +87,7 @@
 /obj/item/ammo_casing/mws_batt/get_cell()
 	return cell
 
-/obj/item/ammo_casing/mws_batt/proc/chargeshot()
+TYPE_PROC_REF(/obj/item/ammo_casing/mws_batt, chargeshot)()
 	if(cell.charge >= e_cost)
 		cell.use(e_cost)
 		newshot()

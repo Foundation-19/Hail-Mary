@@ -168,7 +168,7 @@
 	playsound(src, 'sound/machines/twobeep.ogg', 100, 1)
 	return BRUTELOSS
 
-/obj/item/destTagger/proc/openwindow(mob/user)
+TYPE_PROC_REF(/obj/item/destTagger, openwindow)(mob/user)
 	var/dat = "<tt><center><h1><b>TagMaster 2.2</b></h1></center>"
 
 	dat += "<table style='width:100%; padding:4px;'><tr>"

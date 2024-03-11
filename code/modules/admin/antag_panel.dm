@@ -14,7 +14,7 @@ GLOBAL_VAR(antag_prototypes)
 		return sorttext(initial(A.name),initial(B.name))
 	return sorttext(b_cat,a_cat)
 
-/datum/mind/proc/add_antag_wrapper(antag_type,mob/user)
+TYPE_PROC_REF(/datum/mind, add_antag_wrapper)(antag_type,mob/user)
 	var/datum/antagonist/new_antag = new antag_type()
 	new_antag.admin_add(src,user)
 	//If something gone wrong/admin-add assign another antagonist due to whatever clean it up
@@ -27,7 +27,7 @@ GLOBAL_VAR(antag_prototypes)
 			L -= x
 	return L
 
-/datum/antagonist/proc/antag_panel()
+TYPE_PROC_REF(/datum/antagonist, antag_panel)()
 	var/list/commands = list()
 	for(var/command in get_admin_commands())
 		commands += "<a href='?src=[REF(src)];command=[command]'>[command]</a>"
@@ -40,7 +40,7 @@ GLOBAL_VAR(antag_prototypes)
 
 	return parts.Join("<br>")
 
-/datum/antagonist/proc/antag_panel_objectives()
+TYPE_PROC_REF(/datum/antagonist, antag_panel_objectives)()
 	var/result = "<i><b>Objectives</b></i>:<br>"
 	if (objectives.len == 0)
 		result += "EMPTY<br>"
@@ -53,13 +53,13 @@ GLOBAL_VAR(antag_prototypes)
 	result += "<a href='?src=[REF(owner)];obj_announce=1'>Announce objectives</a><br>"
 	return result
 
-/datum/antagonist/proc/antag_panel_memory()
+TYPE_PROC_REF(/datum/antagonist, antag_panel_memory)()
 	var/out = "<b>Memory:</b><br>"
 	out += antag_memory
 	out += "<br><a href='?src=[REF(src)];memory_edit=1'>Edit memory</a><br>"
 	return out
 
-/datum/mind/proc/get_common_admin_commands()
+TYPE_PROC_REF(/datum/mind, get_common_admin_commands)()
 	var/common_commands = "<span>Common Commands:</span>"
 	if(ishuman(current))
 		common_commands += "<a href='?src=[REF(src)];common=undress'>undress</a>"
@@ -76,7 +76,7 @@ GLOBAL_VAR(antag_prototypes)
 					break
 	return common_commands
 
-/datum/mind/proc/get_special_statuses()
+TYPE_PROC_REF(/datum/mind, get_special_statuses)()
 	var/list/result = list()
 	if(!current)
 		result += span_bad("No body!")
@@ -89,7 +89,7 @@ GLOBAL_VAR(antag_prototypes)
 			result += span_bad("Emagged")
 	return result.Join(" | ")
 
-/datum/mind/proc/traitor_panel()
+TYPE_PROC_REF(/datum/mind, traitor_panel)()
 	if(!SSticker.HasRoundStarted())
 		alert("Not before round-start!", "Alert")
 		return

@@ -19,7 +19,7 @@ PROCESSING_SUBSYSTEM_DEF(circuit)
 	circuits_init()
 	return ..()
 
-/datum/controller/subsystem/processing/circuit/proc/circuits_init()
+TYPE_PROC_REF(/datum/controller/subsystem/processing/circuit, circuits_init)()
 	//Cached lists for free performance
 	for(var/path in typesof(/obj/item/integrated_circuit))
 		var/obj/item/integrated_circuit/IC = path

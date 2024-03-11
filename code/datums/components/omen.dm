@@ -40,7 +40,7 @@
  * While we're walking around, roll to see if there's any environmental hazards (currently only vending machines) on one of the adjacent tiles we can trigger.
  * We do the prob() at the beginning to A. add some tension for /when/ it will strike, and B. (more importantly) ameliorate the fact that we're checking up to 5 turfs's contents each time
  */
-/datum/component/omen/proc/check_accident(atom/movable/our_guy)
+TYPE_PROC_REF(/datum/component/omen, check_accident)(atom/movable/our_guy)
 	if(!prob(15))
 		return
 	for(var/t in get_adjacent_open_turfs(our_guy))
@@ -52,7 +52,7 @@
 				return
 
 /// If we get knocked down, see if we have a really bad slip and bash our head hard
-/datum/component/omen/proc/check_slip(mob/living/our_guy, amount)
+TYPE_PROC_REF(/datum/component/omen, check_slip)(mob/living/our_guy, amount)
 	if(amount <= 0 || prob(50)) // 50% chance to bonk our head
 		return
 
@@ -67,7 +67,7 @@
 	qdel(src)
 
 /// Hijack the mood system to see if we get the blessing mood event to cancel the omen
-/datum/component/omen/proc/check_bless(mob/living/our_guy, category)
+TYPE_PROC_REF(/datum/component/omen, check_bless)(mob/living/our_guy, category)
 	if(category != "blessing")
 		return
 	to_chat(our_guy, span_nicegreen("You feel a horrible omen lifted off your shoulders!"))

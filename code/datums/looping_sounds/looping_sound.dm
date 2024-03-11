@@ -41,14 +41,14 @@
 	output_atoms = null
 	return ..()
 
-/datum/looping_sound/proc/start(atom/add_thing)
+TYPE_PROC_REF(/datum/looping_sound, start)(atom/add_thing)
 	if(add_thing)
 		output_atoms |= add_thing
 	if(timerid)
 		return
 	on_start()
 
-/datum/looping_sound/proc/stop(atom/remove_thing)
+TYPE_PROC_REF(/datum/looping_sound, stop)(atom/remove_thing)
 	if(remove_thing)
 		output_atoms -= remove_thing
 	if(!timerid)
@@ -57,7 +57,7 @@
 	deltimer(timerid)
 	timerid = null
 
-/datum/looping_sound/proc/sound_loop(starttime)
+TYPE_PROC_REF(/datum/looping_sound, sound_loop)(starttime)
 	if(max_loops && world.time >= starttime + mid_length * max_loops)
 		stop()
 		return
@@ -66,7 +66,7 @@
 	if(!timerid)
 		timerid = addtimer(CALLBACK(src, PROC_REF(sound_loop), world.time), mid_length, TIMER_STOPPABLE | TIMER_LOOP)
 
-/datum/looping_sound/proc/play(soundfile)
+TYPE_PROC_REF(/datum/looping_sound, play)(soundfile)
 	var/list/atoms_cache = output_atoms
 	var/sound/S = sound(soundfile)
 	if(direct)
@@ -79,7 +79,7 @@
 		else
 			playsound(thing, S, volume)
 
-/datum/looping_sound/proc/get_sound(starttime, _mid_sounds)
+TYPE_PROC_REF(/datum/looping_sound, get_sound)(starttime, _mid_sounds)
 	if(!_mid_sounds)
 		. = mid_sounds
 	else
@@ -87,13 +87,13 @@
 	while(!isfile(.) && !isnull(.))
 		. = pickweight(.)
 
-/datum/looping_sound/proc/on_start()
+TYPE_PROC_REF(/datum/looping_sound, on_start)()
 	var/start_wait = 0
 	if(start_sound)
 		play(start_sound)
 		start_wait = start_length
 	addtimer(CALLBACK(src, PROC_REF(sound_loop)), start_wait)
 
-/datum/looping_sound/proc/on_stop()
+TYPE_PROC_REF(/datum/looping_sound, on_stop)()
 	if(end_sound)
 		play(end_sound)

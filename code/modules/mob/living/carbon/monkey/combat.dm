@@ -20,17 +20,17 @@
 	var/next_battle_screech = 0
 	var/battle_screech_cooldown = 50
 
-/mob/living/carbon/monkey/proc/IsStandingStill()
+TYPE_PROC_REF(/mob/living/carbon/monkey, IsStandingStill)()
 	return resisting || pickpocketing || disposing_body
 
 // blocks
 // taken from /mob/living/carbon/human/interactive/
-/mob/living/carbon/monkey/proc/walk2derpless(target)
+TYPE_PROC_REF(/mob/living/carbon/monkey, walk2derpless)(target)
 	if(!target || IsStandingStill())
 		return 0
 
 	if(myPath.len <= 0)
-		myPath = get_path_to(src, get_turf(target), /turf/proc/Distance, MAX_RANGE_FIND + 1, 250,1)
+		myPath = get_path_to(src, get_turf(target), TYPE_PROC_REF(/turf, Distance), MAX_RANGE_FIND + 1, 250,1)
 
 	if(myPath)
 		if(myPath.len > 0)
@@ -49,20 +49,20 @@
 	return 0
 
 // taken from /mob/living/carbon/human/interactive/
-/mob/living/carbon/monkey/proc/IsDeadOrIncap(checkDead = TRUE)
+TYPE_PROC_REF(/mob/living/carbon/monkey, IsDeadOrIncap)(checkDead = TRUE)
 	if(!CHECK_MOBILITY(src, MOBILITY_MOVE))
 		return TRUE
 	if(health <= 0 && checkDead)
 		return TRUE
 	return FALSE
 
-/mob/living/carbon/monkey/proc/battle_screech()
+TYPE_PROC_REF(/mob/living/carbon/monkey, battle_screech)()
 	if(next_battle_screech < world.time)
 		emote(pick("roar","screech"))
 		for(var/mob/living/carbon/monkey/M in view(7,src))
 			M.next_battle_screech = world.time + battle_screech_cooldown
 
-/mob/living/carbon/monkey/proc/equip_item(obj/item/I)
+TYPE_PROC_REF(/mob/living/carbon/monkey, equip_item)(obj/item/I)
 
 	if(I.loc == src)
 		return TRUE
@@ -78,7 +78,7 @@
 
 	return TRUE
 
-/mob/living/carbon/monkey/proc/pickup_and_wear(obj/item/I)
+TYPE_PROC_REF(/mob/living/carbon/monkey, pickup_and_wear)(obj/item/I)
 	if(QDELETED(I) || I.loc != src)
 		return
 	equip_to_appropriate_slot(I, TRUE)
@@ -93,7 +93,7 @@
 		MarkResistTime()
 		cuff_resist(I)
 
-/mob/living/carbon/monkey/proc/should_target(mob/living/L)
+TYPE_PROC_REF(/mob/living/carbon/monkey, should_target)(mob/living/L)
 	if(HAS_TRAIT(src, TRAIT_PACIFISM))
 		return FALSE
 
@@ -106,7 +106,7 @@
 
 	return FALSE
 
-/mob/living/carbon/monkey/proc/handle_combat()
+TYPE_PROC_REF(/mob/living/carbon/monkey, handle_combat)()
 	if(pickupTarget)
 		if(restrained() || blacklistItems[pickupTarget] || HAS_TRAIT(pickupTarget, TRAIT_NODROP))
 			pickupTarget = null
@@ -282,7 +282,7 @@
 
 	return IsStandingStill()
 
-/mob/living/carbon/monkey/proc/pickpocket(mob/M)
+TYPE_PROC_REF(/mob/living/carbon/monkey, pickpocket)(mob/M)
 	if(do_mob(src, M, MONKEY_ITEM_SNATCH_DELAY) && pickupTarget)
 		for(var/obj/item/I in M.held_items)
 			if(I == pickupTarget)
@@ -296,13 +296,13 @@
 	pickupTarget = null
 	pickupTimer = 0
 
-/mob/living/carbon/monkey/proc/stuff_mob_in()
+TYPE_PROC_REF(/mob/living/carbon/monkey, stuff_mob_in)()
 	if(bodyDisposal && target && Adjacent(bodyDisposal))
 		bodyDisposal.stuff_mob_in(target, src)
 	disposing_body = FALSE
 	back_to_idle()
 
-/mob/living/carbon/monkey/proc/back_to_idle()
+TYPE_PROC_REF(/mob/living/carbon/monkey, back_to_idle)()
 
 	if(pulling)
 		stop_pulling()
@@ -314,7 +314,7 @@
 	walk_to(src,0)
 
 // attack using a held weapon otherwise bite the enemy, then if we are angry there is a chance we might calm down a little
-/mob/living/carbon/monkey/proc/monkey_attack(mob/living/L)
+TYPE_PROC_REF(/mob/living/carbon/monkey, monkey_attack)(mob/living/L)
 	var/obj/item/Weapon = locate(/obj/item) in held_items
 
 	// attack with weapon if we have one
@@ -343,7 +343,7 @@
 			back_to_idle()
 
 // get angry are a mob
-/mob/living/carbon/monkey/proc/retaliate(mob/living/L)
+TYPE_PROC_REF(/mob/living/carbon/monkey, retaliate)(mob/living/L)
 	mode = MONKEY_HUNT
 	target = L
 	if(L != src)
@@ -413,7 +413,7 @@
 		INVOKE_ASYNC(src, PROC_REF(knockOver), M)
 		return
 
-/mob/living/carbon/monkey/proc/monkeyDrop(obj/item/A)
+TYPE_PROC_REF(/mob/living/carbon/monkey, monkeyDrop)(obj/item/A)
 	if(A)
 		dropItemToGround(A, TRUE)
 		update_icons()

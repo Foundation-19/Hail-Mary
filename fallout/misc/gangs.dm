@@ -113,21 +113,21 @@ GLOBAL_DATUM_INIT(denmob, /datum/gang/denmob, new)
 		else
 			add_member(starting_members)
 
-/datum/gang/proc/is_solo()
+TYPE_PROC_REF(/datum/gang, is_solo)()
 	return members.len == 1
 
-/datum/gang/proc/add_leader(mob/living/carbon/new_leader)
+TYPE_PROC_REF(/datum/gang, add_leader)(mob/living/carbon/new_leader)
 	leader = new_leader
 
-	remove_verb(new_leader,/mob/living/proc/assumeleader)
+	remove_verb(new_leader,TYPE_PROC_REF(/mob/living, assumeleader))
 
-	add_verb(new_leader,/mob/living/proc/invitegang)
-	add_verb(new_leader,/mob/living/proc/removemember)
-	add_verb(new_leader,/mob/living/proc/transferleader)
-	add_verb(new_leader,/mob/living/proc/setwelcome)
+	add_verb(new_leader,TYPE_PROC_REF(/mob/living, invitegang))
+	add_verb(new_leader,TYPE_PROC_REF(/mob/living, removemember))
+	add_verb(new_leader,TYPE_PROC_REF(/mob/living, transferleader))
+	add_verb(new_leader,TYPE_PROC_REF(/mob/living, setwelcome))
 	if(!round_start)
-		add_verb(new_leader,/mob/living/proc/setcolor)
-	add_verb(new_leader,/mob/living/proc/leavegang)
+		add_verb(new_leader,TYPE_PROC_REF(/mob/living, setcolor))
+	add_verb(new_leader,TYPE_PROC_REF(/mob/living, leavegang))
 	to_chat(new_leader, span_notice("You have become a new leader of the [name]! You can now invite and remove members at will. You have also received a Gangtool device that allows you to buy a special gear for you and your gang."))
 
 	var/obj/item/device/gangtool/gangtool = new(new_leader)
@@ -148,39 +148,39 @@ GLOBAL_DATUM_INIT(denmob, /datum/gang/denmob, new)
 		var/obj/item/device/gangtool/tool = assigned_tool
 		tool.name = "[initial(tool.name)] - [name]"
 
-/datum/gang/proc/remove_leader(mob/living/carbon/old_leader)
+TYPE_PROC_REF(/datum/gang, remove_leader)(mob/living/carbon/old_leader)
 	leader = null
-	remove_verb(old_leader,/mob/living/proc/invitegang)
-	remove_verb(old_leader,/mob/living/proc/removemember)
-	remove_verb(old_leader,/mob/living/proc/transferleader)
-	remove_verb(old_leader,/mob/living/proc/setwelcome)
+	remove_verb(old_leader,TYPE_PROC_REF(/mob/living, invitegang))
+	remove_verb(old_leader,TYPE_PROC_REF(/mob/living, removemember))
+	remove_verb(old_leader,TYPE_PROC_REF(/mob/living, transferleader))
+	remove_verb(old_leader,TYPE_PROC_REF(/mob/living, setwelcome))
 	if(!round_start)
-		remove_verb(old_leader,/mob/living/proc/setcolor)
-	add_verb(old_leader,/mob/living/proc/assumeleader)
+		remove_verb(old_leader,TYPE_PROC_REF(/mob/living, setcolor))
+	add_verb(old_leader,TYPE_PROC_REF(/mob/living, assumeleader))
 	to_chat(old_leader, span_warning("You are no longer the leader of the [name]!"))
 	if(assigned_tool)
 		assigned_tool.audible_message(span_warning("With a change of the [name] leadership, [assigned_tool] ceases to function and self-destructs!"))
 		qdel(assigned_tool)
 
-/datum/gang/proc/add_member(mob/living/carbon/new_member)
+TYPE_PROC_REF(/datum/gang, add_member)(mob/living/carbon/new_member)
 	members |= new_member
 	new_member.faction |= "[name]-gang"
-	remove_verb(new_member,/mob/living/proc/creategang)
+	remove_verb(new_member,TYPE_PROC_REF(/mob/living, creategang))
 
-	add_verb(new_member,/mob/living/proc/leavegang)
+	add_verb(new_member,TYPE_PROC_REF(/mob/living, leavegang))
 
-	add_verb(new_member,/mob/living/proc/assumeleader)
+	add_verb(new_member,TYPE_PROC_REF(/mob/living, assumeleader))
 	to_chat(new_member, span_notice("You are now a member of the [name]! Everyone can recognize your gang membership now."))
 	if(welcome_text)
 		to_chat(new_member, "<span class='notice'>Welcome text: </span><span class='purple'>[welcome_text]</span>")
 
-/datum/gang/proc/remove_member(mob/living/carbon/member)
+TYPE_PROC_REF(/datum/gang, remove_member)(mob/living/carbon/member)
 	members -= member
 	member.gang = null
 	member.faction -= "[name]-gang"
-	add_verb(member,/mob/living/proc/creategang)
-	remove_verb(member,/mob/living/proc/leavegang)
-	remove_verb(member,/mob/living/proc/assumeleader)
+	add_verb(member,TYPE_PROC_REF(/mob/living, creategang))
+	remove_verb(member,TYPE_PROC_REF(/mob/living, leavegang))
+	remove_verb(member,TYPE_PROC_REF(/mob/living, assumeleader))
 	to_chat(member, span_warning("You are no longer a member of the [name]!"))
 
 	if(!members.len && !round_start)
@@ -188,7 +188,7 @@ GLOBAL_DATUM_INIT(denmob, /datum/gang/denmob, new)
 		GLOB.all_gangs -= src
 		qdel(src)
 
-/mob/living/proc/invitegang()
+TYPE_PROC_REF(/mob/living, invitegang)()
 	set name = "Invite To Gang"
 	set desc = "Invite others to your gang. Only independent raiders in view can be offered to join!"
 	set category = "Gang"
@@ -223,7 +223,7 @@ GLOBAL_DATUM_INIT(denmob, /datum/gang/denmob, new)
 	G.add_member(C)
 	C.gang = G
 
-/mob/living/proc/creategang()
+TYPE_PROC_REF(/mob/living, creategang)()
 	set name = "Create Gang"
 	set category = "Gang"
 
@@ -245,7 +245,7 @@ GLOBAL_DATUM_INIT(denmob, /datum/gang/denmob, new)
 	G.add_member(src)
 	G.add_leader(src)
 
-/mob/living/proc/leavegang()
+TYPE_PROC_REF(/mob/living, leavegang)()
 	set name = "Leave Gang"
 	set category = "Gang"
 
@@ -260,7 +260,7 @@ GLOBAL_DATUM_INIT(denmob, /datum/gang/denmob, new)
 		G.remove_leader(src)
 	G.remove_member(src)
 
-/mob/living/proc/assumeleader()
+TYPE_PROC_REF(/mob/living, assumeleader)()
 	set name = "Assume Leadership"
 	set desc = "Become a new gang leader if the old one is missing or dead."
 	set category = "Gang"
@@ -277,7 +277,7 @@ GLOBAL_DATUM_INIT(denmob, /datum/gang/denmob, new)
 	else if(G)
 		G.add_leader(src)
 
-/mob/living/proc/transferleader()
+TYPE_PROC_REF(/mob/living, transferleader)()
 	set name = "Transfer Leadership"
 	set desc = "Transfer your leader position to a different gang member in view."
 	set category = "Gang"
@@ -305,7 +305,7 @@ GLOBAL_DATUM_INIT(denmob, /datum/gang/denmob, new)
 		G.remove_leader(src)
 		G.add_leader(H)
 
-/mob/living/proc/removemember()
+TYPE_PROC_REF(/mob/living, removemember)()
 	set name = "Remove Member"
 	set desc = "Remove an alive gang member from the gang in view."
 	set category = "Gang"
@@ -333,7 +333,7 @@ GLOBAL_DATUM_INIT(denmob, /datum/gang/denmob, new)
 		to_chat(H, span_warning("You have been kicked from the [G.name] by [src.real_name]!"))
 		G.remove_member(H)
 
-/mob/living/proc/setwelcome()
+TYPE_PROC_REF(/mob/living, setwelcome)()
 	set name = "Set Welcome Text"
 	set desc = "Set a welcome text that will show to all new members of the gang upon joining."
 	set category = "Gang"
@@ -347,7 +347,7 @@ GLOBAL_DATUM_INIT(denmob, /datum/gang/denmob, new)
 
 	to_chat(src, span_notice("You have set a welcome text for a new gang members!"))
 
-/mob/living/proc/setcolor()
+TYPE_PROC_REF(/mob/living, setcolor)()
 	set name = "Choose Gang Color"
 	set desc = "Set a color of your gang that will be visible on the gang members upon examine."
 	set category = "Gang"

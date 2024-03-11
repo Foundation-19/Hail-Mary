@@ -12,7 +12,7 @@
 	/// Variable dictating if we are in the process of restoring the AI in the inserted intellicard
 	var/restoring = FALSE
 
-/datum/computer_file/program/aidiag/proc/get_ai(cardcheck)
+TYPE_PROC_REF(/datum/computer_file/program/aidiag, get_ai)(cardcheck)
 
 	var/obj/item/computer_hardware/ai_slot/ai_slot
 

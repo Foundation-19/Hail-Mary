@@ -51,7 +51,7 @@
 	else
 		return QDEL_HINT_LETMELIVE
 
-/atom/movable/lighting_object/proc/update()
+TYPE_PROC_REF(/atom/movable/lighting_object, update)()
 	if (loc != myturf)
 		if (loc)
 			var/turf/oldturf = get_turf(myturf)

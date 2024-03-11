@@ -81,7 +81,7 @@
  *for far away targets. This information is returned in the form of a list.
  *
 */
-/datum/computer_file/program/radar/proc/track()
+TYPE_PROC_REF(/datum/computer_file/program/radar, track)()
 	var/atom/movable/signal = find_atom()
 	if(!trackable(signal))
 		return
@@ -123,7 +123,7 @@
  *Arguments:
  **arg1 is the atom being evaluated.
 */
-/datum/computer_file/program/radar/proc/trackable(atom/movable/signal)
+TYPE_PROC_REF(/datum/computer_file/program/radar, trackable)(atom/movable/signal)
 	if(!signal || !computer)
 		return FALSE
 	var/turf/here = get_turf(computer)
@@ -144,7 +144,7 @@
  *as to limit the load players may place on the server using these
  *somewhat costly loops.
 */
-/datum/computer_file/program/radar/proc/scan()
+TYPE_PROC_REF(/datum/computer_file/program/radar, scan)()
 	return
 
 /**
@@ -158,7 +158,7 @@
  *GLOB.poi_list), but the result will be the same; evaluate the string and
  *return an atom reference.
 */
-/datum/computer_file/program/radar/proc/find_atom()
+TYPE_PROC_REF(/datum/computer_file/program/radar, find_atom)()
 	return
 
 //We use SSfastprocess for the program icon state because it runs faster than process_tick() does.

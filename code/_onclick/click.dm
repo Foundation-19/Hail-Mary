@@ -23,7 +23,7 @@
 /**
  * Common mob click code
  */
-/mob/proc/CommonClickOn(atom/A, params)
+TYPE_PROC_REF(/mob, CommonClickOn)(atom/A, params)
 	//SHOULD_NOT_SLEEP(TRUE)
 	if(mob_transforming)
 		return
@@ -48,7 +48,7 @@
 	* item/afterattack(atom,user,adjacent,params) - used both ranged and adjacent
 	* mob/RangedAttack(atom,params) - used only ranged, only used for tk and laser eyes but could be changed
 */
-/mob/proc/ClickOn(atom/A, params)
+TYPE_PROC_REF(/mob, ClickOn)(atom/A, params)
 	//SHOULD_NOT_SLEEP(TRUE)
 	if(check_click_intercept(params,A))
 		return
@@ -139,7 +139,7 @@
 			return RangedAttack(A,params)
 
 //Is the atom obscured by a PREVENT_CLICK_UNDER_1 object above it
-/atom/proc/IsObscured()
+TYPE_PROC_REF(/atom, IsObscured)()
 	if(!isturf(loc)) //This only makes sense for things directly on turfs for now
 		return FALSE
 	var/turf/T = get_turf_pixel(src)
@@ -157,7 +157,7 @@
 	return FALSE
 
 
-/atom/proc/AllowClick()
+TYPE_PROC_REF(/atom, AllowClick)()
 	return FALSE
 
 /turf/AllowClick()
@@ -165,7 +165,7 @@
 
 
 // Default behavior: ignore double clicks (the second click that makes the doubleclick call already calls for a normal click)
-/mob/proc/DblClickOn(atom/A, params)
+TYPE_PROC_REF(/mob, DblClickOn)(atom/A, params)
 	return
 
 
@@ -179,7 +179,7 @@
 	proximity_flag is not currently passed to attack_hand, and is instead used
 	in human click code to allow glove touches only at melee range.
 */
-/mob/proc/UnarmedAttack(atom/A, proximity, intent = a_intent, flags = NONE)
+TYPE_PROC_REF(/mob, UnarmedAttack)(atom/A, proximity, intent = a_intent, flags = NONE)
 
 /*
 	Ranged unarmed attack:
@@ -189,7 +189,7 @@
 	for things like ranged glove touches, spitting alien acid/neurotoxin,
 	animals lunging, etc.
 */
-/mob/proc/RangedAttack(atom/A, params)
+TYPE_PROC_REF(/mob, RangedAttack)(atom/A, params)
 	SEND_SIGNAL(src, COMSIG_MOB_ATTACK_RANGED, A, params)
 /*
 	Restrained ClickOn
@@ -197,14 +197,14 @@
 	Used when you are handcuffed and click things.
 	Not currently used by anything but could easily be.
 */
-/mob/proc/RestrainedClickOn(atom/A)
+TYPE_PROC_REF(/mob, RestrainedClickOn)(atom/A)
 	return
 
 /*
 	Middle click
 	Only used for swapping hands
 */
-/mob/proc/MiddleClickOn(atom/A)
+TYPE_PROC_REF(/mob, MiddleClickOn)(atom/A)
 	return
 
 /mob/living/carbon/MiddleClickOn(atom/A)
@@ -220,7 +220,7 @@
 
 // In case of use break glass
 /*
-/atom/proc/MiddleClick(mob/M as mob)
+TYPE_PROC_REF(/atom, MiddleClick)(mob/M as mob)
 	return
 */
 
@@ -229,14 +229,14 @@
 	For most mobs, examine.
 	This is overridden in ai.dm
 */
-/mob/proc/ShiftClickOn(atom/A)
+TYPE_PROC_REF(/mob, ShiftClickOn)(atom/A)
 	A.ShiftClick(src)
 	return
 
-/atom/proc/ShiftClick(mob/user)
+TYPE_PROC_REF(/atom, ShiftClick)(mob/user)
 	attempt_examinate(user)
 
-/atom/proc/attempt_examinate(mob/user)
+TYPE_PROC_REF(/atom, attempt_examinate)(mob/user)
 	var/flags = SEND_SIGNAL(src, COMSIG_CLICK_SHIFT, user) | SEND_SIGNAL(user, COMSIG_MOB_CLICKED_SHIFT_ON, src)
 	if(!(flags & COMPONENT_DENY_EXAMINATE) && user.client && (user.client.eye == user || user.client.eye == user.loc || flags & COMPONENT_ALLOW_EXAMINATE))
 		user.examinate(src)
@@ -246,10 +246,10 @@
 	For most objects, pull
 */
 
-/mob/proc/CtrlClickOn(atom/A)
+TYPE_PROC_REF(/mob, CtrlClickOn)(atom/A)
 	return A.CtrlClick(src)
 
-/atom/proc/CtrlClick(mob/user)
+TYPE_PROC_REF(/atom, CtrlClick)(mob/user)
 	SEND_SIGNAL(src, COMSIG_CLICK_CTRL, user)
 	var/mob/living/ML = user
 	if(istype(ML))
@@ -269,7 +269,7 @@
 	Alt click
 	Used as an alternate way to interact with things.
 */
-/mob/proc/AltClickOn(atom/A)
+TYPE_PROC_REF(/mob, AltClickOn)(atom/A)
 	. = SEND_SIGNAL(src, COMSIG_MOB_ALTCLICKON, A)
 	if(. & COMSIG_MOB_CANCEL_CLICKON)
 		return
@@ -284,36 +284,36 @@
 			return TRUE
 	..()
 
-/atom/proc/AltClick(mob/user)
+TYPE_PROC_REF(/atom, AltClick)(mob/user)
 	SEND_SIGNAL(src, COMSIG_CLICK_ALT, user)
 	var/turf/T = get_turf(src)
 	if(T && (isturf(loc) || isturf(src)) && user.TurfAdjacent(T))
 		user.listed_turf = T
 		user.client << output("[url_encode(json_encode(T.name))];", "statbrowser:create_listedturf")
 
-/// Use this instead of [/mob/proc/AltClickOn] where you only want turf content listing without additional atom alt-click interaction
-/atom/proc/AltClickNoInteract(mob/user, atom/A)
+/// Use this instead of [TYPE_PROC_REF(/mob, AltClickOn)] where you only want turf content listing without additional atom alt-click interaction
+TYPE_PROC_REF(/atom, AltClickNoInteract)(mob/user, atom/A)
 	var/turf/T = get_turf(A)
 	if(T && user.TurfAdjacent(T))
 		user.listed_turf = T
 		user.client << output("[url_encode(json_encode(T.name))];", "statbrowser:create_listedturf")
 
-/mob/proc/TurfAdjacent(turf/T)
+TYPE_PROC_REF(/mob, TurfAdjacent)(turf/T)
 	return T.Adjacent(src)
 
 /*
 	Control+Shift click
 	Unused except for AI
 */
-/mob/proc/CtrlShiftClickOn(atom/A)
+TYPE_PROC_REF(/mob, CtrlShiftClickOn)(atom/A)
 	A.CtrlShiftClick(src)
 	return
 
-/mob/proc/ShiftMiddleClickOn(atom/A)
+TYPE_PROC_REF(/mob, ShiftMiddleClickOn)(atom/A)
 	src.pointed(A)
 	return
 
-/atom/proc/CtrlShiftClick(mob/user)
+TYPE_PROC_REF(/atom, CtrlShiftClick)(mob/user)
 	SEND_SIGNAL(src, COMSIG_CLICK_CTRL_SHIFT)
 	return
 
@@ -323,7 +323,7 @@
 	Laser Eyes: as the name implies, handles this since nothing else does currently
 	face_atom: turns the mob towards what you clicked on
 */
-/mob/proc/LaserEyes(atom/A, params)
+TYPE_PROC_REF(/mob, LaserEyes)(atom/A, params)
 	return
 
 /mob/living/LaserEyes(atom/A, params)
@@ -343,7 +343,7 @@
 	return TRUE
 
 // Simple helper to face what you clicked on, in case it should be needed in more than one place
-/mob/proc/face_atom(atom/A, ismousemovement = FALSE)
+TYPE_PROC_REF(/mob, face_atom)(atom/A, ismousemovement = FALSE)
 	if( buckled || stat != CONSCIOUS || !loc || !A || !A.x || !A.y )
 		return
 	var/atom/L = loc
@@ -375,7 +375,7 @@
 			setDir(WEST, ismousemovement)
 
 //debug
-/obj/screen/proc/scale_to(x1,y1)
+TYPE_PROC_REF(/obj/screen, scale_to)(x1,y1)
 	if(!y1)
 		y1 = x1
 	var/matrix/M = new
@@ -392,7 +392,7 @@
 #define MAX_SAFE_BYOND_ICON_SCALE_TILES (MAX_SAFE_BYOND_ICON_SCALE_PX / world.icon_size)
 #define MAX_SAFE_BYOND_ICON_SCALE_PX (33 * 32)			//Not using world.icon_size on purpose.
 
-/obj/screen/click_catcher/proc/UpdateGreed(view_size_x = 15, view_size_y = 15)
+TYPE_PROC_REF(/obj/screen/click_catcher, UpdateGreed)(view_size_x = 15, view_size_y = 15)
 	var/icon/newicon = icon('icons/mob/screen_gen.dmi', "catcher")
 	var/ox = min(MAX_SAFE_BYOND_ICON_SCALE_TILES, view_size_x)
 	var/oy = min(MAX_SAFE_BYOND_ICON_SCALE_TILES, view_size_y)
@@ -421,7 +421,7 @@
 
 /* MouseWheelOn */
 
-/mob/proc/MouseWheelOn(atom/A, delta_x, delta_y, params)
+TYPE_PROC_REF(/mob, MouseWheelOn)(atom/A, delta_x, delta_y, params)
 	return
 
 /mob/dead/observer/MouseWheelOn(atom/A, delta_x, delta_y, params)
@@ -434,7 +434,7 @@
 			view = 1
 		add_view_range(view)
 
-/mob/proc/check_click_intercept(params,A)
+TYPE_PROC_REF(/mob, check_click_intercept)(params,A)
 	//Client level intercept
 	if(client && client.click_intercept)
 		if(call(client.click_intercept, "InterceptClickOn")(src, params, A))

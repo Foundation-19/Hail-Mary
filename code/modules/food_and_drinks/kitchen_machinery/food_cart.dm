@@ -56,7 +56,7 @@
 	popup.set_content(dat)
 	popup.open()
 
-/obj/machinery/food_cart/proc/isFull()
+TYPE_PROC_REF(/obj/machinery/food_cart, isFull)()
 	return food_stored >= STORAGE_CAPACITY
 
 /obj/machinery/food_cart/attackby(obj/item/O, mob/user, params)

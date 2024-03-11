@@ -34,7 +34,7 @@
 		update_damage_hud()
 
 //Procs called while dead
-/mob/living/carbon/proc/handle_death()
+TYPE_PROC_REF(/mob/living/carbon, handle_death)()
 	for(var/datum/reagent/R in reagents.reagent_list)
 		if(R.chemical_flags & REAGENT_DEAD_PROCESS)
 			R.on_mob_dead(src)
@@ -76,7 +76,7 @@
 	*/
 
 //Second link in a breath chain, calls check_breath()
-/mob/living/carbon/proc/breathe()
+TYPE_PROC_REF(/mob/living/carbon, breathe)()
 	if(HAS_TRAIT(src, TRAIT_NOBREATH)) // lol i dont breathe
 		if(getOxyLoss())
 			adjustOxyLoss(-oxyloss)
@@ -124,14 +124,14 @@
 	// 	loc.assume_air(breath)
 	// 	air_update_turf()
 
-/mob/living/carbon/proc/has_smoke_protection()
+TYPE_PROC_REF(/mob/living/carbon, has_smoke_protection)()
 	if(HAS_TRAIT(src, TRAIT_NOBREATH))
 		return TRUE
 	return FALSE
 
 
 //Third link in a breath chain, calls handle_breath_temperature()
-/mob/living/carbon/proc/check_breath()
+TYPE_PROC_REF(/mob/living/carbon, check_breath)()
 	if((status_flags & GODMODE))
 		return
 
@@ -309,10 +309,10 @@
 	return 1
 
 //Fourth and final link in a breath chain
-/mob/living/carbon/proc/handle_breath_temperature(datum/gas_mixture/breath)
+TYPE_PROC_REF(/mob/living/carbon, handle_breath_temperature)(datum/gas_mixture/breath)
 	return
 
-/mob/living/carbon/proc/get_breath_from_internal(volume_needed)
+TYPE_PROC_REF(/mob/living/carbon, get_breath_from_internal)(volume_needed)
 	var/obj/item/clothing/check
 	var/internals = FALSE
 
@@ -334,7 +334,7 @@
 				return FALSE //to differentiate between no internals and active, but empty internals
 
 // Make corpses rot, emitting miasma
-/mob/living/carbon/proc/rot()
+TYPE_PROC_REF(/mob/living/carbon, rot)()
 	// Properly stored corpses shouldn't create miasma
 	if(istype(loc, /obj/structure/closet/crate/coffin)|| istype(loc, /obj/structure/closet/body_bag) || istype(loc, /obj/structure/bodycontainer))
 		return
@@ -368,16 +368,16 @@
 	miasma_turf.air.merge(stank)
 	miasma_turf.air_update_turf()
 
-/mob/living/carbon/proc/handle_blood()
+TYPE_PROC_REF(/mob/living/carbon, handle_blood)()
 	return
 
-/mob/living/carbon/proc/handle_bodyparts()
+TYPE_PROC_REF(/mob/living/carbon, handle_bodyparts)()
 	for(var/I in bodyparts)
 		var/obj/item/bodypart/BP = I
 		if(BP.needs_processing)
 			. |= BP.on_life()
 
-/mob/living/carbon/proc/handle_organs()
+TYPE_PROC_REF(/mob/living/carbon, handle_organs)()
 	if(stat != DEAD)
 		for(var/V in internal_organs)
 			var/obj/item/organ/O = V
@@ -660,7 +660,7 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
 			drunkenness = max(drunkenness - 0.2, 0)
 
 //used in human and monkey handle_environment()
-/mob/living/carbon/proc/natural_bodytemperature_stabilization()
+TYPE_PROC_REF(/mob/living/carbon, natural_bodytemperature_stabilization)()
 	if (HAS_TRAIT(src, TRAIT_COLDBLOODED))
 		return 0 //Return 0 as your natural temperature. Species proc handle_environment() will adjust your temperature based on this.
 
@@ -678,14 +678,14 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
 //LIVER//
 /////////
 
-/mob/living/carbon/proc/handle_liver()
+TYPE_PROC_REF(/mob/living/carbon, handle_liver)()
 	var/obj/item/organ/liver/liver = getorganslot(ORGAN_SLOT_LIVER)
 	if((!dna && !liver) || (NOLIVER in dna.species.species_traits))
 		return
 	if(!liver || liver.organ_flags & ORGAN_FAILING)
 		liver_failure()
 
-/mob/living/carbon/proc/liver_failure()
+TYPE_PROC_REF(/mob/living/carbon, liver_failure)()
 	reagents.end_metabolization(src, keep_liverless = TRUE) //Stops trait-based effects on reagents, to prevent permanent buffs
 	reagents.metabolize(src, can_overdose=FALSE, liverless = TRUE)
 	if(HAS_TRAIT(src, TRAIT_STABLELIVER))
@@ -699,7 +699,7 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
 //BRAIN DAMAGE//
 ////////////////
 
-/mob/living/carbon/proc/handle_brain_damage()
+TYPE_PROC_REF(/mob/living/carbon, handle_brain_damage)()
 	for(var/T in get_traumas())
 		var/datum/brain_trauma/BT = T
 		BT.on_life()
@@ -708,7 +708,7 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
 //MONKEYS WITH TOO MUCH CHOLOESTROL//
 /////////////////////////////////////
 
-/mob/living/carbon/proc/can_heartattack()
+TYPE_PROC_REF(/mob/living/carbon, can_heartattack)()
 	if(!needs_heart())
 		return FALSE
 	var/obj/item/organ/heart/heart = getorganslot(ORGAN_SLOT_HEART)
@@ -716,14 +716,14 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
 		return FALSE
 	return TRUE
 
-/mob/living/carbon/proc/needs_heart()
+TYPE_PROC_REF(/mob/living/carbon, needs_heart)()
 	if(HAS_TRAIT(src, TRAIT_STABLEHEART))
 		return FALSE
 	if(dna && dna.species && (NOBLOOD in dna.species.species_traits)) //not all carbons have species!
 		return FALSE
 	return TRUE
 
-/mob/living/carbon/proc/undergoing_cardiac_arrest()
+TYPE_PROC_REF(/mob/living/carbon, undergoing_cardiac_arrest)()
 	var/obj/item/organ/heart/heart = getorganslot(ORGAN_SLOT_HEART)
 	if(istype(heart) && heart.beating)
 		return FALSE
@@ -731,7 +731,7 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
 		return FALSE
 	return TRUE
 
-/mob/living/carbon/proc/set_heartattack(status)
+TYPE_PROC_REF(/mob/living/carbon, set_heartattack)(status)
 	if(!can_heartattack())
 		return FALSE
 

@@ -39,7 +39,7 @@
 /datum/team/pirate
 	name = "Pirate crew"
 
-/datum/team/pirate/proc/forge_objectives()
+TYPE_PROC_REF(/datum/team/pirate, forge_objectives)()
 	var/datum/objective/loot/getbooty = new()
 	getbooty.team = src
 	for(var/obj/machinery/computer/piratepad_control/P in GLOB.machines)
@@ -66,7 +66,7 @@
 		var/area/storage_area = get_area(cargo_hold)
 		explanation_text = "Acquire loot and store [target_value] of credits worth in [storage_area.name] cargo hold."
 
-/datum/objective/loot/proc/loot_listing()
+TYPE_PROC_REF(/datum/objective/loot, loot_listing)()
 	//Lists notable loot.
 	if(!cargo_hold || !cargo_hold.total_report)
 		return "Nothing"
@@ -79,7 +79,7 @@
 		loot_texts += E.total_printout(cargo_hold.total_report,notes = FALSE)
 	return loot_texts.Join(", ")
 
-/datum/objective/loot/proc/get_loot_value()
+TYPE_PROC_REF(/datum/objective/loot, get_loot_value)()
 	return cargo_hold.points
 
 /datum/objective/loot/check_completion()

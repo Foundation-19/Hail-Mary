@@ -1,5 +1,5 @@
 //LISTS - CAN NOT DO VV_DO_TOPIC BECAUSE LISTS AREN'T DATUMS :(
-/client/proc/vv_do_list(list/target, href_list)
+TYPE_PROC_REF(/client, vv_do_list)(list/target, href_list)
 	var/target_index = text2num(GET_VV_VAR_TARGET)
 	if(check_rights(R_VAREDIT))
 		if(target_index)

@@ -168,13 +168,13 @@ Class Procs:
 		component_parts.Cut()
 	return ..()
 
-/obj/machinery/proc/locate_machinery()
+TYPE_PROC_REF(/obj/machinery, locate_machinery)()
 	return
 
 /obj/machinery/process()//If you dont use process or power why are you here
 	return PROCESS_KILL
 
-/obj/machinery/proc/process_atmos()//If you dont use process why are you here
+TYPE_PROC_REF(/obj/machinery, process_atmos)()//If you dont use process why are you here
 	return PROCESS_KILL
 
 /obj/machinery/emp_act(severity)
@@ -183,7 +183,7 @@ Class Procs:
 		use_power(1000 + severity*65)
 		new /obj/effect/temp_visual/emp(loc)
 
-/obj/machinery/proc/open_machine(drop = TRUE)
+TYPE_PROC_REF(/obj/machinery, open_machine)(drop = TRUE)
 	state_open = TRUE
 	density = FALSE
 	if(drop)
@@ -191,9 +191,9 @@ Class Procs:
 	update_icon()
 	updateUsrDialog()
 
-/obj/machinery/proc/createmessage(source, title, message, priority)
+TYPE_PROC_REF(/obj/machinery, createmessage)(source, title, message, priority)
 
-/obj/machinery/proc/dropContents(list/subset = null)
+TYPE_PROC_REF(/obj/machinery, dropContents)(list/subset = null)
 	var/turf/T = get_turf(src)
 	for(var/atom/movable/A in contents)
 		if(subset && !(A in subset))
@@ -206,10 +206,10 @@ Class Procs:
 		SEND_SIGNAL(src, COMSIG_MACHINE_EJECT_OCCUPANT, occupant)
 		occupant = null
 
-/obj/machinery/proc/can_be_occupant(atom/movable/am)
+TYPE_PROC_REF(/obj/machinery, can_be_occupant)(atom/movable/am)
 	return occupant_typecache ? is_type_in_typecache(am, occupant_typecache) : isliving(am)
 
-/obj/machinery/proc/close_machine(atom/movable/target = null)
+TYPE_PROC_REF(/obj/machinery, close_machine)(atom/movable/target = null)
 	state_open = FALSE
 	density = TRUE
 	if(!target)
@@ -233,7 +233,7 @@ Class Procs:
 	updateUsrDialog()
 	update_icon()
 
-/obj/machinery/proc/auto_use_power()
+TYPE_PROC_REF(/obj/machinery, auto_use_power)()
 	if(!powered(power_channel))
 		return 0
 	if(use_power == 1)
@@ -242,7 +242,7 @@ Class Procs:
 		use_power(active_power_usage,power_channel)
 	return 1
 
-/obj/machinery/proc/is_operational()
+TYPE_PROC_REF(/obj/machinery, is_operational)()
 	return !(stat & (NOPOWER|BROKEN|MAINT))
 
 /obj/machinery/can_interact(mob/user)
@@ -265,7 +265,7 @@ Class Procs:
 				return FALSE
 	return TRUE
 
-/obj/machinery/proc/check_nap_violations()
+TYPE_PROC_REF(/obj/machinery, check_nap_violations)()
 	if(!SSeconomy.full_ancap)
 		return TRUE
 	if(occupant && !state_open)
@@ -292,7 +292,7 @@ Class Procs:
 				return FALSE
 	return TRUE
 
-/obj/machinery/proc/nap_violation(mob/violator)
+TYPE_PROC_REF(/obj/machinery, nap_violation)(mob/violator)
 	return
 
 /obj/machinery/CanAllowThrough(atom/movable/mover, border_dir)
@@ -365,17 +365,17 @@ Class Procs:
 	..()
 	RefreshParts()
 
-/obj/machinery/proc/RefreshParts() //Placeholder proc for machines that are built using frames.
+TYPE_PROC_REF(/obj/machinery, RefreshParts)() //Placeholder proc for machines that are built using frames.
 	return
 
-/obj/machinery/proc/default_pry_open(obj/item/I)
+TYPE_PROC_REF(/obj/machinery, default_pry_open)(obj/item/I)
 	. = !(state_open || panel_open || is_operational() || (flags_1 & NODECONSTRUCT_1)) && I.tool_behaviour == TOOL_CROWBAR
 	if(.)
 		I.play_tool_sound(src, 50)
 		visible_message(span_notice("[usr] pries open \the [src]."), span_notice("You pry open \the [src]."))
 		open_machine()
 
-/obj/machinery/proc/default_deconstruction_crowbar(obj/item/I, ignore_panel = 0)
+TYPE_PROC_REF(/obj/machinery, default_deconstruction_crowbar)(obj/item/I, ignore_panel = 0)
 	. = (panel_open || ignore_panel) && !(flags_1 & NODECONSTRUCT_1) && I.tool_behaviour == TOOL_CROWBAR
 	if(.)
 		I.play_tool_sound(src, 50)
@@ -391,7 +391,7 @@ Class Procs:
 			component_parts.Cut()
 	qdel(src)
 
-/obj/machinery/proc/spawn_frame(disassembled)
+TYPE_PROC_REF(/obj/machinery, spawn_frame)(disassembled)
 	var/obj/structure/frame/machine/M = new /obj/structure/frame/machine(loc)
 	. = M
 	M.setAnchored(anchored)
@@ -416,7 +416,7 @@ Class Procs:
 		update_icon()
 		updateUsrDialog()
 
-/obj/machinery/proc/default_deconstruction_screwdriver(mob/user, icon_state_open, icon_state_closed, obj/item/I)
+TYPE_PROC_REF(/obj/machinery, default_deconstruction_screwdriver)(mob/user, icon_state_open, icon_state_closed, obj/item/I)
 	if(!(flags_1 & NODECONSTRUCT_1) && I.tool_behaviour == TOOL_SCREWDRIVER)
 		I.play_tool_sound(src, 50)
 		if(!panel_open)
@@ -430,7 +430,7 @@ Class Procs:
 		return TRUE
 	return FALSE
 
-/obj/machinery/proc/default_change_direction_wrench(mob/user, obj/item/I)
+TYPE_PROC_REF(/obj/machinery, default_change_direction_wrench)(mob/user, obj/item/I)
 	if(panel_open && I.tool_behaviour == TOOL_WRENCH)
 		I.play_tool_sound(src, 50)
 		setDir(turn(dir,-90))
@@ -438,13 +438,13 @@ Class Procs:
 		return 1
 	return 0
 
-/obj/proc/can_be_unfasten_wrench(mob/user, silent) //if we can unwrench this object; returns SUCCESSFUL_UNFASTEN and FAILED_UNFASTEN, which are both TRUE, or CANT_UNFASTEN, which isn't.
+TYPE_PROC_REF(/obj, can_be_unfasten_wrench)(mob/user, silent) //if we can unwrench this object; returns SUCCESSFUL_UNFASTEN and FAILED_UNFASTEN, which are both TRUE, or CANT_UNFASTEN, which isn't.
 	if(!(isfloorturf(loc) || istype(loc, /turf/open/indestructible)) && !anchored)
 		to_chat(user, span_warning("[src] needs to be on the floor to be secured!"))
 		return FAILED_UNFASTEN
 	return SUCCESSFUL_UNFASTEN
 
-/obj/proc/default_unfasten_wrench(mob/user, obj/item/I, time = 20) //try to unwrench an object in a WONDERFUL DYNAMIC WAY
+TYPE_PROC_REF(/obj, default_unfasten_wrench)(mob/user, obj/item/I, time = 20) //try to unwrench an object in a WONDERFUL DYNAMIC WAY
 	if(!(flags_1 & NODECONSTRUCT_1) && I.tool_behaviour == TOOL_WRENCH)
 		var/can_be_unfasten = can_be_unfasten_wrench(user)
 		if(!can_be_unfasten || can_be_unfasten == FAILED_UNFASTEN)
@@ -463,14 +463,14 @@ Class Procs:
 		return FAILED_UNFASTEN
 	return CANT_UNFASTEN
 
-/obj/proc/unfasten_wrench_check(prev_anchored, mob/user) //for the do_after, this checks if unfastening conditions are still valid
+TYPE_PROC_REF(/obj, unfasten_wrench_check)(prev_anchored, mob/user) //for the do_after, this checks if unfastening conditions are still valid
 	if(anchored != prev_anchored)
 		return FALSE
 	if(can_be_unfasten_wrench(user, TRUE) != SUCCESSFUL_UNFASTEN) //if we aren't explicitly successful, cancel the fuck out
 		return FALSE
 	return TRUE
 
-/obj/machinery/proc/exchange_parts(mob/user, obj/item/storage/part_replacer/W)
+TYPE_PROC_REF(/obj/machinery, exchange_parts)(mob/user, obj/item/storage/part_replacer/W)
 	if(!istype(W))
 		return FALSE
 	if((flags_1 & NODECONSTRUCT_1) && !W.works_from_distance)
@@ -515,7 +515,7 @@ Class Procs:
 		return TRUE
 	return FALSE
 
-/obj/machinery/proc/display_parts(mob/user)
+TYPE_PROC_REF(/obj/machinery, display_parts)(mob/user)
 	. = list()
 	. += span_notice("It contains the following parts:")
 	for(var/obj/item/C in component_parts)
@@ -541,14 +541,14 @@ Class Procs:
 		. += display_parts(user, TRUE)
 
 //called on machinery construction (i.e from frame to machinery) but not on initialization
-/obj/machinery/proc/on_construction()
+TYPE_PROC_REF(/obj/machinery, on_construction)()
 	return
 
 //called on deconstruction before the final deletion
-/obj/machinery/proc/on_deconstruction()
+TYPE_PROC_REF(/obj/machinery, on_deconstruction)()
 	return
 
-/obj/machinery/proc/can_be_overridden()
+TYPE_PROC_REF(/obj/machinery, can_be_overridden)()
 	. = 1
 
 /obj/machinery/zap_act(power, zap_flags, shocked_objects)
@@ -566,7 +566,7 @@ Class Procs:
 		SEND_SIGNAL(src, COMSIG_MACHINE_EJECT_OCCUPANT, occupant)
 		occupant = null
 
-/obj/machinery/proc/adjust_item_drop_location(atom/movable/AM)	// Adjust item drop location to a 3x3 grid inside the tile, returns slot id from 0 to 8
+TYPE_PROC_REF(/obj/machinery, adjust_item_drop_location)(atom/movable/AM)	// Adjust item drop location to a 3x3 grid inside the tile, returns slot id from 0 to 8
 	var/md5 = md5(AM.name)										// Oh, and it's deterministic too. A specific item will always drop from the same slot.
 	for (var/i in 1 to 32)
 		. += hex2num(md5[i])

@@ -1,4 +1,4 @@
-/obj/mecha/proc/get_armour_facing(relative_dir)
+TYPE_PROC_REF(/obj/mecha, get_armour_facing)(relative_dir)
 	switch(relative_dir)
 		if(180) // BACKSTAB!
 			return facing_modifiers[BACK_ARMOUR]
@@ -147,7 +147,7 @@
 		occupant?.update_mouse_pointer()
 	if(!equipment_disabled && occupant) //prevent spamming this message with back-to-back EMPs
 		to_chat(occupant, "<span=danger>Error -- Connection to equipment control unit has been lost.</span>")
-	addtimer(CALLBACK(src, /obj/mecha/proc/restore_equipment), 3 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/mecha, restore_equipment)), 3 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
 	equipment_disabled = 1
 
 /obj/mecha/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
@@ -274,7 +274,7 @@
 	mecha_log_message("Attacked by [I]. Attacker - [user]")
 	return ..()
 
-/obj/mecha/proc/mech_toxin_damage(mob/living/target)
+TYPE_PROC_REF(/obj/mecha, mech_toxin_damage)(mob/living/target)
 	playsound(src, 'sound/effects/spray2.ogg', 50, 1)
 	if(target.reagents)
 		if(target.reagents.get_reagent_amount(/datum/reagent/cryptobiolin) + force < force*2)
@@ -291,7 +291,7 @@
 		log_combat(M.occupant, src, "attacked", M, "(INTENT: [uppertext(M.occupant.a_intent)]) (DAMTYPE: [uppertext(M.damtype)])")
 		. = ..()
 
-/obj/mecha/proc/full_repair(charge_cell)
+TYPE_PROC_REF(/obj/mecha, full_repair)(charge_cell)
 	obj_integrity = max_integrity
 	if(cell && charge_cell)
 		cell.charge = cell.maxcharge

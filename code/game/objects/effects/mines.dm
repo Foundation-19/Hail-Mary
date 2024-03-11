@@ -17,10 +17,10 @@
 
 
 
-/obj/effect/mine/proc/mineEffect(mob/victim)
+TYPE_PROC_REF(/obj/effect/mine, mineEffect)(mob/victim)
 	to_chat(victim, span_danger("*click*"))
 
-/obj/effect/mine/proc/on_entered(datum/source)
+TYPE_PROC_REF(/obj/effect/mine, on_entered)(datum/source)
 	SIGNAL_HANDLER
 	if(triggered || !isturf(loc) || !isliving(usr) || isstructure(usr) || isnottriggermine(usr))
 		return
@@ -32,7 +32,7 @@
 
 	INVOKE_ASYNC(src, PROC_REF(triggermine), AM)
 
-/obj/effect/mine/proc/triggermine(mob/victim)
+TYPE_PROC_REF(/obj/effect/mine, triggermine)(mob/victim)
 	if(triggered)
 		return
 	visible_message(span_danger("[victim] sets off [icon2html(src, viewers(src))] [src]!"))

@@ -6,7 +6,7 @@
 //user = whoever said the message
 //message = the message
 //language = the language.
-/datum/saymode/proc/handle_message(mob/living/user, message, datum/language/language)
+TYPE_PROC_REF(/datum/saymode, handle_message)(mob/living/user, message, datum/language/language)
 	return TRUE
 
 

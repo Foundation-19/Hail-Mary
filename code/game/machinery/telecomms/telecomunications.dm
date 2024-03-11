@@ -32,7 +32,7 @@ GLOBAL_LIST_EMPTY(telecomms_list)
 	var/hide = FALSE  // Is it a hidden machine?
 
 
-/obj/machinery/telecomms/proc/relay_information(datum/signal/subspace/signal, filter, copysig, amount = 20)
+TYPE_PROC_REF(/obj/machinery/telecomms, relay_information)(datum/signal/subspace/signal, filter, copysig, amount = 20)
 	// relay signal to all linked machinery that are of type [filter]. If signal has been sent [amount] times, stop sending
 
 	if(!on)
@@ -64,14 +64,14 @@ GLOBAL_LIST_EMPTY(telecomms_list)
 
 	return send_count
 
-/obj/machinery/telecomms/proc/relay_direct_information(datum/signal/signal, obj/machinery/telecomms/machine)
+TYPE_PROC_REF(/obj/machinery/telecomms, relay_direct_information)(datum/signal/signal, obj/machinery/telecomms/machine)
 	// send signal directly to a machine
 	machine.receive_information(signal, src)
 
-/obj/machinery/telecomms/proc/receive_information(datum/signal/signal, obj/machinery/telecomms/machine_from)
+TYPE_PROC_REF(/obj/machinery/telecomms, receive_information)(datum/signal/signal, obj/machinery/telecomms/machine_from)
 	// receive information from linked machinery
 
-/obj/machinery/telecomms/proc/is_freq_listening(datum/signal/signal)
+TYPE_PROC_REF(/obj/machinery/telecomms, is_freq_listening)(datum/signal/signal)
 	// return TRUE if found, FALSE if not found
 	return signal && (!freq_listening.len || (signal.frequency in freq_listening))
 
@@ -94,7 +94,7 @@ GLOBAL_LIST_EMPTY(telecomms_list)
 	return ..()
 
 // Used in auto linking
-/obj/machinery/telecomms/proc/add_link(obj/machinery/telecomms/T)
+TYPE_PROC_REF(/obj/machinery/telecomms, add_link)(obj/machinery/telecomms/T)
 	var/turf/position = get_turf(src)
 	var/turf/T_position = get_turf(T)
 	if((position.z == T_position.z) || (long_range_link && T.long_range_link))
@@ -116,7 +116,7 @@ GLOBAL_LIST_EMPTY(telecomms_list)
 		else
 			icon_state = "[initial(icon_state)]_off"
 
-/obj/machinery/telecomms/proc/update_power()
+TYPE_PROC_REF(/obj/machinery/telecomms, update_power)()
 	if(toggled)
 		// if powered, on. if not powered, off. if too damaged, off
 		if(CHECK_BITFIELD(stat, (BROKEN | NOPOWER | EMPED)))

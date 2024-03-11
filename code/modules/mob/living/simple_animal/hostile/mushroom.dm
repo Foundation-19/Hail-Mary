@@ -92,7 +92,7 @@
 		addtimer(CALLBACK(src, PROC_REF(stop_retreat)), 30)
 	. = ..()
 
-/mob/living/simple_animal/hostile/mushroom/proc/stop_retreat()
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/mushroom, stop_retreat)()
 	retreat_distance = null
 
 /mob/living/simple_animal/hostile/mushroom/attack_animal(mob/living/L)
@@ -123,7 +123,7 @@
 	..(gibbed)
 	UpdateMushroomCap()
 
-/mob/living/simple_animal/hostile/mushroom/proc/UpdateMushroomCap()
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/mushroom, UpdateMushroomCap)()
 	cut_overlays()
 	cap_living.color = cap_color
 	cap_dead.color = cap_color
@@ -132,7 +132,7 @@
 	else
 		add_overlay(cap_living)
 
-/mob/living/simple_animal/hostile/mushroom/proc/Recover()
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/mushroom, Recover)()
 	visible_message("[src] slowly begins to recover.")
 	faint_ticker = 0
 	revive(full_heal = 1)
@@ -140,10 +140,10 @@
 	recovery_cooldown = 1
 	addtimer(CALLBACK(src, PROC_REF(recovery_recharge)), 300)
 
-/mob/living/simple_animal/hostile/mushroom/proc/recovery_recharge()
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/mushroom, recovery_recharge)()
 	recovery_cooldown = 0
 
-/mob/living/simple_animal/hostile/mushroom/proc/LevelUp(level_gain)
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/mushroom, LevelUp)(level_gain)
 	if(powerlevel <= 9)
 		powerlevel += level_gain
 		if(prob(25))
@@ -153,7 +153,7 @@
 		maxHealth += (level_gain * rand(1,5))
 	adjustBruteLoss(-maxHealth) //They'll always heal, even if they don't gain a level, in case you want to keep this shroom around instead of harvesting it
 
-/mob/living/simple_animal/hostile/mushroom/proc/Bruise()
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/mushroom, Bruise)()
 	if(!bruised && !stat)
 		src.visible_message("The [src.name] was bruised!")
 		bruised = 1

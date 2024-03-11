@@ -51,7 +51,7 @@
 		return
 	status_alarm(FALSE)
 
-/datum/weather/rad_storm/proc/status_alarm(active)	//Makes the status displays show the radiation warning for those who missed the announcement.
+TYPE_PROC_REF(/datum/weather/rad_storm, status_alarm)(active)	//Makes the status displays show the radiation warning for those who missed the announcement.
 	var/datum/radio_frequency/frequency = SSradio.return_frequency(FREQ_STATUS_DISPLAYS)
 	if(!frequency)
 		return

@@ -56,7 +56,7 @@
 	if(!locate(/obj/structure/lattice) in src)
 		throw_atom(AM)
 
-/turf/open/space/transit/proc/throw_atom(atom/movable/AM)
+TYPE_PROC_REF(/turf/open/space/transit, throw_atom)(atom/movable/AM)
 	set waitfor = FALSE
 	if(!AM || istype(AM, /obj/docking_port))
 		return

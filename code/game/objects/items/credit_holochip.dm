@@ -59,7 +59,7 @@
 	holochip_overlay.color = overlay_color
 	add_overlay(holochip_overlay)
 
-/obj/item/holochip/proc/spend(amount, pay_anyway = FALSE)
+TYPE_PROC_REF(/obj/item/holochip, spend)(amount, pay_anyway = FALSE)
 	if(credits >= amount)
 		credits -= amount
 		if(credits == 0)

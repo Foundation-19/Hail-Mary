@@ -2,7 +2,7 @@
 	var/name
 	var/mutability_flags = PLANT_GENE_EXTRACTABLE | PLANT_GENE_REMOVABLE ///These flags tells the genemodder if we want the gene to be extractable, only removable or neither.
 
-/datum/plant_gene/proc/get_name() // Used for manipulator display and gene disk name.
+TYPE_PROC_REF(/datum/plant_gene, get_name)() // Used for manipulator display and gene disk name.
 	var/formatted_name
 	if(!(mutability_flags & PLANT_GENE_REMOVABLE && mutability_flags & PLANT_GENE_EXTRACTABLE))
 		if(mutability_flags & PLANT_GENE_REMOVABLE)
@@ -14,15 +14,15 @@
 	formatted_name += name
 	return formatted_name
 
-/datum/plant_gene/proc/can_add(obj/item/seeds/S)
+TYPE_PROC_REF(/datum/plant_gene, can_add)(obj/item/seeds/S)
 	return !istype(S, /obj/item/seeds/sample) // Samples can't accept new genes
 
-/datum/plant_gene/proc/Copy()
+TYPE_PROC_REF(/datum/plant_gene, Copy)()
 	var/datum/plant_gene/G = new type
 	G.mutability_flags = mutability_flags
 	return G
 
-/datum/plant_gene/proc/apply_vars(obj/item/seeds/S) // currently used for fire resist, can prob. be further refactored
+TYPE_PROC_REF(/datum/plant_gene, apply_vars)(obj/item/seeds/S) // currently used for fire resist, can prob. be further refactored
 	return
 
 // Core plant genes store 5 main variables: lifespan, endurance, production, yield, potency
@@ -32,7 +32,7 @@
 /datum/plant_gene/core/get_name()
 	return "[name] [value]"
 
-/datum/plant_gene/core/proc/apply_stat(obj/item/seeds/S)
+TYPE_PROC_REF(/datum/plant_gene/core, apply_stat)(obj/item/seeds/S)
 	return
 
 /datum/plant_gene/core/New(i = null)
@@ -132,7 +132,7 @@
 
 
 
-/datum/plant_gene/reagent/proc/set_reagent(reag_id)
+TYPE_PROC_REF(/datum/plant_gene/reagent, set_reagent)(reag_id)
 	reagent_id = reag_id
 	name = "UNKNOWN"
 
@@ -193,26 +193,26 @@
 			return FALSE
 	return TRUE
 
-/datum/plant_gene/trait/proc/on_new(obj/item/reagent_containers/food/snacks/grown/G, newloc)
+TYPE_PROC_REF(/datum/plant_gene/trait, on_new)(obj/item/reagent_containers/food/snacks/grown/G, newloc)
 	return
 
-/datum/plant_gene/trait/proc/on_consume(obj/item/reagent_containers/food/snacks/grown/G, mob/living/carbon/target)
+TYPE_PROC_REF(/datum/plant_gene/trait, on_consume)(obj/item/reagent_containers/food/snacks/grown/G, mob/living/carbon/target)
 	return
 
-/datum/plant_gene/trait/proc/on_slip(obj/item/reagent_containers/food/snacks/grown/G, mob/living/carbon/target)
+TYPE_PROC_REF(/datum/plant_gene/trait, on_slip)(obj/item/reagent_containers/food/snacks/grown/G, mob/living/carbon/target)
 	return
 
-/datum/plant_gene/trait/proc/on_squash(obj/item/reagent_containers/food/snacks/grown/G, atom/target)
+TYPE_PROC_REF(/datum/plant_gene/trait, on_squash)(obj/item/reagent_containers/food/snacks/grown/G, atom/target)
 	return
 
-/datum/plant_gene/trait/proc/on_attackby(obj/item/reagent_containers/food/snacks/grown/G, obj/item/I, mob/user)
+TYPE_PROC_REF(/datum/plant_gene/trait, on_attackby)(obj/item/reagent_containers/food/snacks/grown/G, obj/item/I, mob/user)
 	return
 
-/datum/plant_gene/trait/proc/on_throw_impact(obj/item/reagent_containers/food/snacks/grown/G, atom/target)
+TYPE_PROC_REF(/datum/plant_gene/trait, on_throw_impact)(obj/item/reagent_containers/food/snacks/grown/G, atom/target)
 	return
 
 ///This proc triggers when the tray processes and a roll is sucessful, the success chance scales with production.
-/datum/plant_gene/trait/proc/on_grow(obj/machinery/hydroponics/H)
+TYPE_PROC_REF(/datum/plant_gene/trait, on_grow)(obj/machinery/hydroponics/H)
 	return
 
 /datum/plant_gene/trait/squash
@@ -245,7 +245,7 @@
 
 	G.AddComponent(/datum/component/slippery, min(stun_len,140), NONE, CALLBACK(src, PROC_REF(handle_slip), G))
 
-/datum/plant_gene/trait/slip/proc/handle_slip(obj/item/reagent_containers/food/snacks/grown/G, mob/M)
+TYPE_PROC_REF(/datum/plant_gene/trait/slip, handle_slip)(obj/item/reagent_containers/food/snacks/grown/G, mob/M)
 	for(var/datum/plant_gene/trait/T in G.seed.genes)
 		T.on_slip(G, M)
 
@@ -295,10 +295,10 @@
 	trait_id = "glow"
 	var/glow_color = "#C3E381"
 
-/datum/plant_gene/trait/glow/proc/glow_range(obj/item/seeds/S)
+TYPE_PROC_REF(/datum/plant_gene/trait/glow, glow_range)(obj/item/seeds/S)
 	return 1.4 + S.potency*rate
 
-/datum/plant_gene/trait/glow/proc/glow_power(obj/item/seeds/S)
+TYPE_PROC_REF(/datum/plant_gene/trait/glow, glow_power)(obj/item/seeds/S)
 	return max(S.potency*(rate + 0.01), 0.1)
 
 /datum/plant_gene/trait/glow/on_new(obj/item/reagent_containers/food/snacks/grown/G, newloc)

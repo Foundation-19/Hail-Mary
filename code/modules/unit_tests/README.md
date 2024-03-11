@@ -53,7 +53,7 @@ You can find more information about all of these from their respective doc comme
 
 `/datum/unit_test` - The base for all tests to be ran. Subtypes must override `Run()`. `New()` and `Destroy()` can be used for setup and teardown. To fail, use `Fail(reason)`.
 
-`/datum/unit_test/proc/allocate(type, ...)` - Allocates an instance of the provided type with the given arguments. Is automatically destroyed when the test is over. Commonly seen in the form of `var/mob/living/carbon/human/human = allocate(/mob/living/carbon/human)`.
+`TYPE_PROC_REF(/datum/unit_test, allocate)(type, ...)` - Allocates an instance of the provided type with the given arguments. Is automatically destroyed when the test is over. Commonly seen in the form of `var/mob/living/carbon/human/human = allocate(/mob/living/carbon/human)`.
 
 `TEST_ASSERT(assertion, reason)` - Stops the unit test and fails if the assertion is not met. For example: `TEST_ASSERT(powered(), "Machine is not powered")`.
 

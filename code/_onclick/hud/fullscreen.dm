@@ -1,4 +1,4 @@
-/mob/proc/overlay_fullscreen(category, type, severity)
+TYPE_PROC_REF(/mob, overlay_fullscreen)(category, type, severity)
 	var/obj/screen/fullscreen/screen = screens[category]
 	if (!screen || screen.type != type)
 		// needs to be recreated
@@ -16,7 +16,7 @@
 
 	return screen
 
-/mob/proc/clear_fullscreen(category, animated = 10)
+TYPE_PROC_REF(/mob, clear_fullscreen)(category, animated = 10)
 	var/obj/screen/fullscreen/screen = screens[category]
 	if(!screen)
 		return
@@ -31,21 +31,21 @@
 			client.screen -= screen
 		qdel(screen)
 
-/mob/proc/clear_fullscreen_after_animate(obj/screen/fullscreen/screen)
+TYPE_PROC_REF(/mob, clear_fullscreen_after_animate)(obj/screen/fullscreen/screen)
 	if(client)
 		client.screen -= screen
 	qdel(screen)
 
-/mob/proc/clear_fullscreens()
+TYPE_PROC_REF(/mob, clear_fullscreens)()
 	for(var/category in screens)
 		clear_fullscreen(category)
 
-/mob/proc/hide_fullscreens()
+TYPE_PROC_REF(/mob, hide_fullscreens)()
 	if(client)
 		for(var/category in screens)
 			client.screen -= screens[category]
 
-/mob/proc/reload_fullscreen()
+TYPE_PROC_REF(/mob, reload_fullscreen)()
 	if(client)
 		var/obj/screen/fullscreen/screen
 		for(var/category in screens)
@@ -67,13 +67,13 @@
 	var/severity = 0
 	var/show_when_dead = FALSE
 
-/obj/screen/fullscreen/proc/update_for_view(client_view)
+TYPE_PROC_REF(/obj/screen/fullscreen, update_for_view)(client_view)
 	if (screen_loc == "CENTER-7,CENTER-7" && view != client_view)
 		var/list/actualview = getviewsize(client_view)
 		view = client_view
 		transform = matrix(actualview[1]/FULLSCREEN_OVERLAY_RESOLUTION_X, 0, 0, 0, actualview[2]/FULLSCREEN_OVERLAY_RESOLUTION_Y, 0)
 
-/obj/screen/fullscreen/proc/should_show_to(mob/mymob)
+TYPE_PROC_REF(/obj/screen/fullscreen, should_show_to)(mob/mymob)
 	if(!show_when_dead && mymob.stat == DEAD)
 		return FALSE
 	return TRUE

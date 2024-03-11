@@ -38,7 +38,7 @@
 		soulsharer = null
 	return ..()
 
-/datum/soullink/proc/removeSoulsharer(mob/living/sharer)
+TYPE_PROC_REF(/datum/soullink, removeSoulsharer)(mob/living/sharer)
 	if(soulsharer == sharer)
 		soulsharer = null
 		LAZYREMOVE(sharer.sharedSoullinks, src)
@@ -46,7 +46,7 @@
 //Used to assign variables, called primarily by soullink()
 //Override this to create more unique soullinks (Eg: 1->Many relationships)
 //Return TRUE/FALSE to return the soullink/null in soullink()
-/datum/soullink/proc/parseArgs(mob/living/owner, mob/living/sharer)
+TYPE_PROC_REF(/datum/soullink, parseArgs)(mob/living/owner, mob/living/sharer)
 	if(!owner || !sharer)
 		return FALSE
 	soulowner = owner
@@ -57,11 +57,11 @@
 
 //Runs after /living death()
 //Override this for content
-/datum/soullink/proc/ownerDies(gibbed, mob/living/owner)
+TYPE_PROC_REF(/datum/soullink, ownerDies)(gibbed, mob/living/owner)
 
 //Runs after /living death()
 //Override this for content
-/datum/soullink/proc/sharerDies(gibbed, mob/living/owner)
+TYPE_PROC_REF(/datum/soullink, sharerDies)(gibbed, mob/living/owner)
 
 //Quick-use helper
 /proc/soullink(typepath, ...)

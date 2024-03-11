@@ -326,7 +326,7 @@
 		initialize_wikibook()
 	..()
 
-/obj/item/book/manual/wiki/proc/initialize_wikibook()
+TYPE_PROC_REF(/obj/item/book/manual/wiki, initialize_wikibook)()
 	var/wikiurl = CONFIG_GET(string/wikiurltg)
 	if(wikiurl)
 		dat = {"

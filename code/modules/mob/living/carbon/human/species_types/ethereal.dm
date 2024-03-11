@@ -91,13 +91,13 @@
 		fixed_mut_color = rgb(128,128,128)
 	H.update_body()
 
-/datum/species/ethereal/proc/on_emp_act(mob/living/carbon/human/H, severity)
+TYPE_PROC_REF(/datum/species/ethereal, on_emp_act)(mob/living/carbon/human/H, severity)
 	EMPeffect = TRUE
 	spec_updatehealth(H)
 	to_chat(H, span_notice("You feel the light of your body leave you."))
 	addtimer(CALLBACK(src, PROC_REF(stop_emp), H), (severity/5) SECONDS, TIMER_UNIQUE|TIMER_OVERRIDE) //lights out
 
-/datum/species/ethereal/proc/on_emag_act(mob/living/carbon/human/H, mob/user)
+TYPE_PROC_REF(/datum/species/ethereal, on_emag_act)(mob/living/carbon/human/H, mob/user)
 	if(emageffect)
 		return
 	emageffect = TRUE
@@ -113,25 +113,25 @@
 	handle_charge(H)
 
 
-/datum/species/ethereal/proc/stop_emp(mob/living/carbon/human/H)
+TYPE_PROC_REF(/datum/species/ethereal, stop_emp)(mob/living/carbon/human/H)
 	EMPeffect = FALSE
 	spec_updatehealth(H)
 	to_chat(H, span_notice("You feel more energized as your shine comes back."))
 
 
-/datum/species/ethereal/proc/handle_emag(mob/living/carbon/human/H)
+TYPE_PROC_REF(/datum/species/ethereal, handle_emag)(mob/living/carbon/human/H)
 	if(!emageffect)
 		return
 	current_color = pick(ETHEREAL_COLORS)
 	spec_updatehealth(H)
 	addtimer(CALLBACK(src, PROC_REF(handle_emag), H), 5) //Call ourselves every 0.5 seconds to change color
 
-/datum/species/ethereal/proc/stop_emag(mob/living/carbon/human/H)
+TYPE_PROC_REF(/datum/species/ethereal, stop_emag)(mob/living/carbon/human/H)
 	emageffect = FALSE
 	spec_updatehealth(H)
 	H.visible_message(span_danger("[H] stops flickering and goes back to their normal state!"))
 
-/datum/species/ethereal/proc/handle_charge(mob/living/carbon/human/H)
+TYPE_PROC_REF(/datum/species/ethereal, handle_charge)(mob/living/carbon/human/H)
 	brutemod = 1.25
 	switch(get_charge(H))
 		if(ETHEREAL_CHARGE_NONE)
@@ -158,7 +158,7 @@
 			H.clear_alert("ethereal_charge")
 			H.clear_alert("ethereal_overcharge")
 
-/datum/species/ethereal/proc/discharge_process(mob/living/carbon/human/H)
+TYPE_PROC_REF(/datum/species/ethereal, discharge_process)(mob/living/carbon/human/H)
 	to_chat(H, span_warning("You begin to lose control over your charge!"))
 	H.visible_message(span_danger("[H] begins to spark violently!"))
 	var/static/mutable_appearance/overcharge //shameless copycode from lightning spell
@@ -182,7 +182,7 @@
 		H.Paralyze(100)
 		return
 
-/datum/species/ethereal/proc/get_charge(mob/living/carbon/H) //this feels like it should be somewhere else. Eh?
+TYPE_PROC_REF(/datum/species/ethereal, get_charge)(mob/living/carbon/H) //this feels like it should be somewhere else. Eh?
 	var/obj/item/organ/stomach/ethereal/stomach = H.getorganslot(ORGAN_SLOT_STOMACH)
 	if(istype(stomach))
 		return stomach.crystal_charge

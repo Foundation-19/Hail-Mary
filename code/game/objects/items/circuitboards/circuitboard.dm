@@ -15,7 +15,7 @@
 	grind_results = list(/datum/reagent/silicon = 20)
 	var/build_path = null
 
-/obj/item/circuitboard/proc/apply_default_parts(obj/machinery/M)
+TYPE_PROC_REF(/obj/item/circuitboard, apply_default_parts)(obj/machinery/M)
 	return
 
 // Circuitboard/machine

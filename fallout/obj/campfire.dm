@@ -60,7 +60,7 @@
 /obj/structure/campfire/fire_act(exposed_temperature, exposed_volume)
 	fire()
 
-/obj/structure/campfire/proc/on_entered(atom/movable/AM)
+TYPE_PROC_REF(/obj/structure/campfire, on_entered)(atom/movable/AM)
 	SIGNAL_HANDLER
 	if(fired)
 		INVOKE_ASYNC(src, PROC_REF(burn_process))
@@ -82,7 +82,7 @@
 //		var/datum/gas_mixture/affected = location.air
 //		affected.temperature *= 1.01
 
-/obj/structure/campfire/proc/fire(mob/living/user)
+TYPE_PROC_REF(/obj/structure/campfire, fire)(mob/living/user)
 
 //	BeginAmbient('sound/effects/comfyfire.ogg', 20, 12)
 
@@ -96,7 +96,7 @@
 	burned = 0
 	burn_process()
 
-/obj/structure/campfire/proc/burn_process()
+TYPE_PROC_REF(/obj/structure/campfire, burn_process)()
 	var/turf/location = get_turf(src)
 	for(var/A in location)
 		if(A == src)

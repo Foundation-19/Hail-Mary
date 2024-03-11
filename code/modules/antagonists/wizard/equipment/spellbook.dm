@@ -17,14 +17,14 @@
 	..()
 	no_coexistance_typecache = typecacheof(no_coexistance_typecache)
 
-/datum/spellbook_entry/proc/IsAvailible() // For config prefs / gamemode restrictions - these are round applied
+TYPE_PROC_REF(/datum/spellbook_entry, IsAvailible)() // For config prefs / gamemode restrictions - these are round applied
 	if(istype(SSticker.mode,/datum/game_mode/dynamic))
 		var/datum/game_mode/dynamic/mode = SSticker.mode
 		if(dynamic_requirement > 0 && mode.threat_level < dynamic_requirement)
 			return 0
 	return 1
 
-/datum/spellbook_entry/proc/CanBuy(mob/living/carbon/human/user,obj/item/spellbook/book) // Specific circumstances
+TYPE_PROC_REF(/datum/spellbook_entry, CanBuy)(mob/living/carbon/human/user,obj/item/spellbook/book) // Specific circumstances
 	if(book.uses<cost || limit == 0)
 		return 0
 	for(var/spell in user.mind.spell_list)
@@ -32,7 +32,7 @@
 			return 0
 	return 1
 
-/datum/spellbook_entry/proc/Buy(mob/living/carbon/human/user,obj/item/spellbook/book) //return 1 on success
+TYPE_PROC_REF(/datum/spellbook_entry, Buy)(mob/living/carbon/human/user,obj/item/spellbook/book) //return 1 on success
 	if(!S || QDELETED(S))
 		S = new spell_type()
 	//Check if we got the spell already
@@ -70,7 +70,7 @@
 	to_chat(user, span_notice("You have learned [S.name]."))
 	return 1
 
-/datum/spellbook_entry/proc/CanRefund(mob/living/carbon/human/user,obj/item/spellbook/book)
+TYPE_PROC_REF(/datum/spellbook_entry, CanRefund)(mob/living/carbon/human/user,obj/item/spellbook/book)
 	if(!refundable)
 		return 0
 	if(!S)
@@ -80,7 +80,7 @@
 			return 1
 	return 0
 
-/datum/spellbook_entry/proc/Refund(mob/living/carbon/human/user,obj/item/spellbook/book) //return point value or -1 for failure
+TYPE_PROC_REF(/datum/spellbook_entry, Refund)(mob/living/carbon/human/user,obj/item/spellbook/book) //return point value or -1 for failure
 	var/area/wizard_station/A = GLOB.areas_by_type[/area/wizard_station]
 	if(!(user in A.contents))
 		to_chat(user, span_warning("You can only refund spells at the wizard lair"))
@@ -95,7 +95,7 @@
 			qdel(S)
 			return cost * (spell_levels+1)
 	return -1
-/datum/spellbook_entry/proc/GetInfo()
+TYPE_PROC_REF(/datum/spellbook_entry, GetInfo)()
 	if(!S)
 		S = new spell_type()
 	var/dat =""
@@ -608,7 +608,7 @@
 	. = ..()
 	prepare_spells()
 
-/obj/item/spellbook/proc/prepare_spells()
+TYPE_PROC_REF(/obj/item/spellbook, prepare_spells)()
 	var/entry_types = subtypesof(/datum/spellbook_entry) - /datum/spellbook_entry/item - /datum/spellbook_entry/summon
 	for(var/T in entry_types)
 		var/datum/spellbook_entry/E = new T
@@ -639,7 +639,7 @@
 				BB.limit++
 		qdel(O)
 
-/obj/item/spellbook/proc/GetCategoryHeader(category)
+TYPE_PROC_REF(/obj/item/spellbook, GetCategoryHeader)(category)
 	var/dat = ""
 	switch(category)
 		if("Offensive")
@@ -669,7 +669,7 @@
 			dat += "These powerful spells change the very fabric of reality. Not always in your favour.<BR>"
 	return dat
 
-/obj/item/spellbook/proc/wrap(content)
+TYPE_PROC_REF(/obj/item/spellbook, wrap)(content)
 	var/dat = ""
 	dat +="<html><head><meta http-equiv='Content-Type' content='text/html; charset=UTF-8'><title>Spellbook</title></head>"
 	dat += {"

@@ -155,14 +155,14 @@
 
 
 ///Clears the affected_turfs lazylist, removing from its contents the effects of being near the light.
-/datum/component/overlay_lighting/proc/clean_old_turfs()
+TYPE_PROC_REF(/datum/component/overlay_lighting, clean_old_turfs)()
 	for(var/turf/lit_turf as anything in affected_turfs)
 		lit_turf.dynamic_lumcount -= lum_power
 	affected_turfs = null
 
 
 ///Populates the affected_turfs lazylist, adding to its contents the effects of being near the light.
-/datum/component/overlay_lighting/proc/get_new_turfs()
+TYPE_PROC_REF(/datum/component/overlay_lighting, get_new_turfs)()
 	if(!current_holder)
 		return
 	var/atom/movable/light_source = GET_LIGHT_SOURCE
@@ -175,7 +175,7 @@
 
 
 ///Clears the old affected turfs and populates the new ones.
-/datum/component/overlay_lighting/proc/make_luminosity_update()
+TYPE_PROC_REF(/datum/component/overlay_lighting, make_luminosity_update)()
 	clean_old_turfs()
 	if(!isturf(current_holder?.loc))
 		return
@@ -185,7 +185,7 @@
 
 
 ///Adds the luminosity and source for the afected movable atoms to keep track of their visibility.
-/datum/component/overlay_lighting/proc/add_dynamic_lumi()
+TYPE_PROC_REF(/datum/component/overlay_lighting, add_dynamic_lumi)()
 	var/atom/movable/light_source = GET_LIGHT_SOURCE
 	LAZYSET(light_source.affected_dynamic_lights, src, lumcount_range + 1)
 	light_source.vis_contents += visible_mask
@@ -194,7 +194,7 @@
 		current_holder.vis_contents += cone
 
 ///Removes the luminosity and source for the afected movable atoms to keep track of their visibility.
-/datum/component/overlay_lighting/proc/remove_dynamic_lumi()
+TYPE_PROC_REF(/datum/component/overlay_lighting, remove_dynamic_lumi)()
 	var/atom/movable/light_source = GET_LIGHT_SOURCE
 	LAZYREMOVE(light_source.affected_dynamic_lights, src)
 	light_source.vis_contents -= visible_mask
@@ -204,7 +204,7 @@
 		directional_atom.moveToNullspace()
 
 ///Called to change the value of parent_attached_to.
-/datum/component/overlay_lighting/proc/set_parent_attached_to(atom/movable/new_parent_attached_to)
+TYPE_PROC_REF(/datum/component/overlay_lighting, set_parent_attached_to)(atom/movable/new_parent_attached_to)
 	if(new_parent_attached_to == parent_attached_to)
 		return
 
@@ -225,7 +225,7 @@
 
 
 ///Called to change the value of current_holder.
-/datum/component/overlay_lighting/proc/set_holder(atom/movable/new_holder)
+TYPE_PROC_REF(/datum/component/overlay_lighting, set_holder)(atom/movable/new_holder)
 	if(new_holder == current_holder)
 		return
 	if(current_holder)
@@ -250,7 +250,7 @@
 
 
 ///Used to determine the new valid current_holder from the parent's loc.
-/datum/component/overlay_lighting/proc/check_holder()
+TYPE_PROC_REF(/datum/component/overlay_lighting, check_holder)()
 	var/atom/movable/movable_parent = GET_PARENT
 	if(isturf(movable_parent.loc))
 		set_holder(movable_parent)
@@ -266,7 +266,7 @@
 
 
 ///Called when the current_holder is qdeleted, to remove the light effect.
-/datum/component/overlay_lighting/proc/on_holder_qdel(atom/movable/source, force)
+TYPE_PROC_REF(/datum/component/overlay_lighting, on_holder_qdel)(atom/movable/source, force)
 	SIGNAL_HANDLER
 	UnregisterSignal(current_holder, list(COMSIG_PARENT_QDELETING, COMSIG_MOVABLE_MOVED))
 	if(directional)
@@ -275,7 +275,7 @@
 
 
 ///Called when current_holder changes loc.
-/datum/component/overlay_lighting/proc/on_holder_moved(atom/movable/source, OldLoc, Dir, Forced)
+TYPE_PROC_REF(/datum/component/overlay_lighting, on_holder_moved)(atom/movable/source, OldLoc, Dir, Forced)
 	SIGNAL_HANDLER
 	if(!(overlay_lighting_flags & LIGHTING_ON))
 		return
@@ -283,7 +283,7 @@
 
 
 ///Called when parent changes loc.
-/datum/component/overlay_lighting/proc/on_parent_moved(atom/movable/source, OldLoc, Dir, Forced)
+TYPE_PROC_REF(/datum/component/overlay_lighting, on_parent_moved)(atom/movable/source, OldLoc, Dir, Forced)
 	SIGNAL_HANDLER
 	var/atom/movable/movable_parent = parent
 	if(overlay_lighting_flags & LIGHTING_ATTACHED)
@@ -295,7 +295,7 @@
 
 
 ///Called when the current_holder is qdeleted, to remove the light effect.
-/datum/component/overlay_lighting/proc/on_parent_attached_to_qdel(atom/movable/source, force)
+TYPE_PROC_REF(/datum/component/overlay_lighting, on_parent_attached_to_qdel)(atom/movable/source, force)
 	SIGNAL_HANDLER
 	UnregisterSignal(parent_attached_to, list(COMSIG_PARENT_QDELETING, COMSIG_MOVABLE_MOVED))
 	if(directional)
@@ -306,7 +306,7 @@
 
 
 ///Called when parent_attached_to changes loc.
-/datum/component/overlay_lighting/proc/on_parent_attached_to_moved(atom/movable/source, OldLoc, Dir, Forced)
+TYPE_PROC_REF(/datum/component/overlay_lighting, on_parent_attached_to_moved)(atom/movable/source, OldLoc, Dir, Forced)
 	SIGNAL_HANDLER
 	check_holder()
 	if(!(overlay_lighting_flags & LIGHTING_ON) || !current_holder)
@@ -315,7 +315,7 @@
 
 
 ///Changes the range which the light reaches. 0 means no light, 6 is the maximum value.
-/datum/component/overlay_lighting/proc/set_range(atom/source, old_range)
+TYPE_PROC_REF(/datum/component/overlay_lighting, set_range)(atom/source, old_range)
 	SIGNAL_HANDLER
 	var/new_range = source.light_range
 	if(range == new_range)
@@ -340,7 +340,7 @@
 
 
 ///Changes the intensity/brightness of the light by altering the visual object's alpha.
-/datum/component/overlay_lighting/proc/set_power(atom/source, old_power)
+TYPE_PROC_REF(/datum/component/overlay_lighting, set_power)(atom/source, old_power)
 	SIGNAL_HANDLER
 	var/new_power = source.light_power
 	if(new_power == 0)
@@ -353,7 +353,7 @@
 
 
 ///Changes the light's color, pretty straightforward.
-/datum/component/overlay_lighting/proc/set_color(atom/source, old_color)
+TYPE_PROC_REF(/datum/component/overlay_lighting, set_color)(atom/source, old_color)
 	SIGNAL_HANDLER
 	var/new_color = source.light_color
 	visible_mask.color = new_color
@@ -362,7 +362,7 @@
 
 
 ///Toggles the light on and off.
-/datum/component/overlay_lighting/proc/on_toggle(atom/source, old_value)
+TYPE_PROC_REF(/datum/component/overlay_lighting, on_toggle)(atom/source, old_value)
 	SIGNAL_HANDLER
 	var/new_value = source.light_on
 	if(new_value) //Truthy value input, turn on.
@@ -372,7 +372,7 @@
 
 
 ///Triggered right after the parent light flags change.
-/datum/component/overlay_lighting/proc/on_light_flags_change(atom/source, old_flags)
+TYPE_PROC_REF(/datum/component/overlay_lighting, on_light_flags_change)(atom/source, old_flags)
 	SIGNAL_HANDLER
 	var/new_flags = source.light_flags
 	var/atom/movable/movable_parent = parent
@@ -389,7 +389,7 @@
 
 
 ///Toggles the light on.
-/datum/component/overlay_lighting/proc/turn_on()
+TYPE_PROC_REF(/datum/component/overlay_lighting, turn_on)()
 	if(overlay_lighting_flags & LIGHTING_ON)
 		return
 	if(current_holder)
@@ -401,7 +401,7 @@
 
 
 ///Toggles the light off.
-/datum/component/overlay_lighting/proc/turn_off()
+TYPE_PROC_REF(/datum/component/overlay_lighting, turn_off)()
 	if(!(overlay_lighting_flags & LIGHTING_ON))
 		return
 	if(current_holder)
@@ -411,7 +411,7 @@
 
 
 ///Here we append the behavior associated to changing lum_power.
-/datum/component/overlay_lighting/proc/set_lum_power(new_lum_power)
+TYPE_PROC_REF(/datum/component/overlay_lighting, set_lum_power)(new_lum_power)
 	if(lum_power == new_lum_power)
 		return
 	. = lum_power
@@ -422,7 +422,7 @@
 
 
 ///Here we append the behavior associated to changing lum_power.
-/datum/component/overlay_lighting/proc/cast_directional_light()
+TYPE_PROC_REF(/datum/component/overlay_lighting, cast_directional_light)()
 	var/final_distance = cast_range
 	//Lower the distance by 1 if we're not looking at a cardinal direction, and we're not a short cast
 	if(final_distance > SHORT_CAST && !(ALL_CARDINALS & current_direction))
@@ -436,17 +436,17 @@
 	directional_atom.forceMove(scanning)
 
 ///Called when current_holder changes loc.
-/datum/component/overlay_lighting/proc/on_holder_dir_change(atom/movable/source, olddir, newdir)
+TYPE_PROC_REF(/datum/component/overlay_lighting, on_holder_dir_change)(atom/movable/source, olddir, newdir)
 	SIGNAL_HANDLER
 	set_direction(newdir)
 
 ///Called when parent changes loc.
-/datum/component/overlay_lighting/proc/on_parent_dir_change(atom/movable/source, olddir, newdir)
+TYPE_PROC_REF(/datum/component/overlay_lighting, on_parent_dir_change)(atom/movable/source, olddir, newdir)
 	SIGNAL_HANDLER
 	set_direction(newdir)
 
 ///Sets a new direction for the directional cast, then updates luminosity
-/datum/component/overlay_lighting/proc/set_direction(newdir)
+TYPE_PROC_REF(/datum/component/overlay_lighting, set_direction)(newdir)
 	if(!newdir)
 		return
 	if(current_direction == newdir)
@@ -456,7 +456,7 @@
 	if(overlay_lighting_flags & LIGHTING_ON)
 		make_luminosity_update()
 
-/datum/component/overlay_lighting/proc/on_parent_crafted(datum/source, atom/movable/new_craft)
+TYPE_PROC_REF(/datum/component/overlay_lighting, on_parent_crafted)(datum/source, atom/movable/new_craft)
 	SIGNAL_HANDLER
 
 	if(!istype(new_craft))

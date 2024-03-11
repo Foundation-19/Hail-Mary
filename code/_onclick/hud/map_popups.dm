@@ -14,7 +14,7 @@
 /obj/screen
 /**
  * Map name assigned to this object.
- * Automatically set by /client/proc/add_obj_to_map.
+ * Automatically set by TYPE_PROC_REF(/client, add_obj_to_map).
  */
 	var/assigned_map
 /**
@@ -44,7 +44,7 @@
  *
  * If applicable, "assigned_map" has to be assigned before this proc call.
  */
-/obj/screen/proc/set_position(x, y, px = 0, py = 0)
+TYPE_PROC_REF(/obj/screen, set_position)(x, y, px = 0, py = 0)
 	if(assigned_map)
 		screen_loc = "[assigned_map]:[x]:[px],[y]:[py]"
 	else
@@ -55,7 +55,7 @@
  *
  * If applicable, "assigned_map" has to be assigned before this proc call.
  */
-/obj/screen/proc/fill_rect(x1, y1, x2, y2)
+TYPE_PROC_REF(/obj/screen, fill_rect)(x1, y1, x2, y2)
 	if(assigned_map)
 		screen_loc = "[assigned_map]:[x1],[y1] to [x2],[y2]"
 	else
@@ -65,7 +65,7 @@
  * Registers screen obj with the client, which makes it visible on the
  * assigned map, and becomes a part of the assigned map's lifecycle.
  */
-/client/proc/register_map_obj(obj/screen/screen_obj)
+TYPE_PROC_REF(/client, register_map_obj)(obj/screen/screen_obj)
 	if(!screen_obj.assigned_map)
 		CRASH("Can't register [screen_obj] without 'assigned_map' property.")
 	if(!screen_maps[screen_obj.assigned_map])
@@ -84,7 +84,7 @@
  * on relog. any of the buttons are going to get caught by garbage collection
  * anyway. they're effectively qdel'd.
  */
-/client/proc/clear_map(map_name)
+TYPE_PROC_REF(/client, clear_map)(map_name)
 	if(!map_name || !(map_name in screen_maps))
 		return FALSE
 	for(var/obj/screen/screen_obj in screen_maps[map_name])
@@ -96,7 +96,7 @@
 /**
  * Clears all the maps of registered screen objects.
  */
-/client/proc/clear_all_maps()
+TYPE_PROC_REF(/client, clear_all_maps)()
 	for(var/map_name in screen_maps)
 		clear_map(map_name)
 
@@ -108,7 +108,7 @@
  *
  * Returns a map name.
  */
-/client/proc/create_popup(name, ratiox = 100, ratioy = 100)
+TYPE_PROC_REF(/client, create_popup)(name, ratiox = 100, ratioy = 100)
 	winclone(src, "popupwindow", name)
 	var/list/winparams = list()
 	winparams["size"] = "[ratiox]x[ratioy]"
@@ -132,7 +132,7 @@
  *
  * Width and height are multiplied by 64 by default.
  */
-/client/proc/setup_popup(popup_name, width = 9, height = 9, \
+TYPE_PROC_REF(/client, setup_popup)(popup_name, width = 9, height = 9, \
 		tilesize = 2, bg_icon)
 	if(!popup_name)
 		return
@@ -153,7 +153,7 @@
 /**
  * Closes a popup.
  */
-/client/proc/close_popup(popup)
+TYPE_PROC_REF(/client, close_popup)(popup)
 	winshow(src, popup, 0)
 	handle_popup_close(popup)
 

@@ -423,7 +423,7 @@
 		return "[output] \[Cable: [cable ? cable.amount : 0] m\][(cable && cable.amount) ? "- <a href='?src=[REF(src)];toggle=1'>[!equip_ready?"Dea":"A"]ctivate</a>|<a href='?src=[REF(src)];cut=1'>Cut</a>" : null]"
 	return
 
-/obj/item/mecha_parts/mecha_equipment/cable_layer/proc/use_cable(amount)
+TYPE_PROC_REF(/obj/item/mecha_parts/mecha_equipment/cable_layer, use_cable)(amount)
 	if(!cable || cable.amount<1)
 		set_ready_state(1)
 		occupant_message("Cable depleted, [src] deactivated.")
@@ -436,10 +436,10 @@
 	update_equip_info()
 	return 1
 
-/obj/item/mecha_parts/mecha_equipment/cable_layer/proc/reset()
+TYPE_PROC_REF(/obj/item/mecha_parts/mecha_equipment/cable_layer, reset)()
 	last_piece = null
 
-/obj/item/mecha_parts/mecha_equipment/cable_layer/proc/dismantleFloor(turf/new_turf)
+TYPE_PROC_REF(/obj/item/mecha_parts/mecha_equipment/cable_layer, dismantleFloor)(turf/new_turf)
 	if(isfloorturf(new_turf))
 		var/turf/open/floor/T = new_turf
 		if(!isplatingturf(T))
@@ -448,7 +448,7 @@
 			T.make_plating()
 	return !new_turf.intact
 
-/obj/item/mecha_parts/mecha_equipment/cable_layer/proc/layCable(turf/new_turf)
+TYPE_PROC_REF(/obj/item/mecha_parts/mecha_equipment/cable_layer, layCable)(turf/new_turf)
 	if(equip_ready || !istype(new_turf) || !dismantleFloor(new_turf))
 		return reset()
 	var/fdirn = turn(chassis.dir,180)

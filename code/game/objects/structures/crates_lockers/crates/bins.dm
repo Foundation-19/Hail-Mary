@@ -38,7 +38,7 @@
 	else
 		return ..()
 
-/obj/structure/closet/crate/bin/proc/do_animate()
+TYPE_PROC_REF(/obj/structure/closet/crate/bin, do_animate)()
 	playsound(loc, open_sound, 15, 1, -3)
 	flick("animate_largebins", src)
 	spawn(13)
@@ -70,7 +70,7 @@
 	else
 		return ..()
 
-/obj/structure/closet/crate/bin/trash_fallout/proc/do_animated()
+TYPE_PROC_REF(/obj/structure/closet/crate/bin/trash_fallout, do_animated)()
 	playsound(loc, open_sound, 15, 1, -3)
 	flick("animate_trashbin", src)
 	spawn(13)

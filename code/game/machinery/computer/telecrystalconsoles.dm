@@ -50,13 +50,13 @@ GLOBAL_LIST_INIT(possible_uplinker_IDs, list("Alfa","Bravo","Charlie","Delta","E
 	if(uplinkholder)
 		add_overlay("[initial(icon_state)]-closed")
 
-/obj/machinery/computer/telecrystals/uplinker/proc/ejectuplink()
+TYPE_PROC_REF(/obj/machinery/computer/telecrystals/uplinker, ejectuplink)()
 	if(uplinkholder)
 		uplinkholder.forceMove(drop_location())
 		uplinkholder = null
 		update_icon()
 
-/obj/machinery/computer/telecrystals/uplinker/proc/donateTC(amt, addLog = 1)
+TYPE_PROC_REF(/obj/machinery/computer/telecrystals/uplinker, donateTC)(amt, addLog = 1)
 	if(uplinkholder && linkedboss)
 		var/datum/component/uplink/hidden_uplink = uplinkholder.GetComponent(/datum/component/uplink)
 		if(amt < 0)
@@ -70,7 +70,7 @@ GLOBAL_LIST_INIT(possible_uplinker_IDs, list("Alfa","Bravo","Charlie","Delta","E
 			if(addLog)
 				linkedboss.logTransfer("[src] donated [amt] telecrystals to [linkedboss].")
 
-/obj/machinery/computer/telecrystals/uplinker/proc/giveTC(amt, addLog = 1)
+TYPE_PROC_REF(/obj/machinery/computer/telecrystals/uplinker, giveTC)(amt, addLog = 1)
 	if(uplinkholder && linkedboss)
 		var/datum/component/uplink/hidden_uplink = uplinkholder.GetComponent(/datum/component/uplink)
 		if(amt < 0)
@@ -135,10 +135,10 @@ GLOBAL_LIST_INIT(possible_uplinker_IDs, list("Alfa","Bravo","Charlie","Delta","E
 	var/list/TCstations = list()
 	var/list/transferlog = list()
 
-/obj/machinery/computer/telecrystals/boss/proc/logTransfer(logmessage)
+TYPE_PROC_REF(/obj/machinery/computer/telecrystals/boss, logTransfer)(logmessage)
 	transferlog += ("<b>[STATION_TIME_TIMESTAMP("hh:mm:ss", world.time)]</b> [logmessage]")
 
-/obj/machinery/computer/telecrystals/boss/proc/scanUplinkers()
+TYPE_PROC_REF(/obj/machinery/computer/telecrystals/boss, scanUplinkers)()
 	for(var/obj/machinery/computer/telecrystals/uplinker/A in urange(scanrange, src.loc))
 		if(!A.linkedboss)
 			TCstations += A
@@ -147,13 +147,13 @@ GLOBAL_LIST_INIT(possible_uplinker_IDs, list("Alfa","Bravo","Charlie","Delta","E
 		getDangerous()
 		virgin = 0
 
-/obj/machinery/computer/telecrystals/boss/proc/getDangerous()//This scales the TC assigned with the round population.
+TYPE_PROC_REF(/obj/machinery/computer/telecrystals/boss, getDangerous)()//This scales the TC assigned with the round population.
 	var/list/nukeops = get_antag_minds(/datum/antagonist/nukeop)
 	var/danger = GLOB.joined_player_list.len - nukeops.len
 	danger = CEILING(danger, 10)
 	scaleTC(danger)
 
-/obj/machinery/computer/telecrystals/boss/proc/scaleTC(amt)//Its own proc, since it'll probably need a lot of tweaks for balance, use a fancier algorhithm, etc.
+TYPE_PROC_REF(/obj/machinery/computer/telecrystals/boss, scaleTC)(amt)//Its own proc, since it'll probably need a lot of tweaks for balance, use a fancier algorhithm, etc.
 	storedcrystals += amt * NUKESCALINGMODIFIER
 
 /////////

@@ -112,7 +112,7 @@
 	. = ..()
 	SSnanites.nanite_relays -= src
 
-/datum/nanite_program/relay/proc/relay_signal(code, relay_code, source)
+TYPE_PROC_REF(/datum/nanite_program/relay, relay_signal)(code, relay_code, source)
 	if(!activated)
 		return
 	if(!host_mob)
@@ -122,7 +122,7 @@
 		return
 	SEND_SIGNAL(host_mob, COMSIG_NANITE_SIGNAL, code, source)
 
-/datum/nanite_program/relay/proc/relay_comm_signal(comm_code, relay_code, comm_message)
+TYPE_PROC_REF(/datum/nanite_program/relay, relay_comm_signal)(comm_code, relay_code, comm_message)
 	if(!activated)
 		return
 	if(!host_mob)
@@ -328,7 +328,7 @@
 	. = ..()
 	qdel(button)
 
-/datum/nanite_program/dermal_button/proc/press()
+TYPE_PROC_REF(/datum/nanite_program/dermal_button, press)()
 	if(activated)
 		host_mob.visible_message(span_notice("[host_mob] presses a button on [host_mob.p_their()] forearm."),
 								span_notice("You press the nanite button on your forearm."), null, 2)

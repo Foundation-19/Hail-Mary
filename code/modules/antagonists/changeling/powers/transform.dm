@@ -142,7 +142,7 @@
 	changeling_transform(user, chosen_prof)
 	return TRUE
 
-/datum/antagonist/changeling/proc/select_dna(prompt, title)
+TYPE_PROC_REF(/datum/antagonist/changeling, select_dna)(prompt, title)
 	var/mob/living/carbon/user = owner.current
 	if(!istype(user))
 		return

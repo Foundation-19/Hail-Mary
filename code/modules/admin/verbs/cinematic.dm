@@ -1,4 +1,4 @@
-/client/proc/cinematic()
+TYPE_PROC_REF(/client, cinematic)()
 	set name = "cinematic"
 	set category = "Admin.Fun"
 	set desc = "Shows a cinematic."	// Intended for testing but I thought it might be nice for events on the rare occasion Feel free to comment it out if it's not wanted.

@@ -2,7 +2,7 @@
 	name = "Generic Virus PDA cart"
 	var/charges = 5
 
-/obj/item/cartridge/virus/proc/send_virus(obj/item/pda/target, mob/living/U)
+TYPE_PROC_REF(/obj/item/cartridge/virus, send_virus)(obj/item/pda/target, mob/living/U)
 	return
 
 /obj/item/cartridge/virus/message_header()

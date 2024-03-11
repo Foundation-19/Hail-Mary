@@ -15,7 +15,7 @@
 	can_synth = FALSE
 	ghoulfriendly = TRUE
 
-/datum/reagent/blob/proc/send_message(mob/living/M)
+TYPE_PROC_REF(/datum/reagent/blob, send_message)(mob/living/M)
 	var/totalmessage = message
 	if(message_living && !issilicon(M))
 		totalmessage += message_living
@@ -27,22 +27,22 @@
 		return 0 //the dead, and blob mobs, don't cause reactions
 	return round(reac_volume * min(1.5 - touch_protection, 1), 0.1) //full touch protection means 50% volume, any prot below 0.5 means 100% volume.
 
-/datum/reagent/blob/proc/damage_reaction(obj/structure/blob/B, damage, damage_type, damage_flag) //when the blob takes damage, do this
+TYPE_PROC_REF(/datum/reagent/blob, damage_reaction)(obj/structure/blob/B, damage, damage_type, damage_flag) //when the blob takes damage, do this
 	return damage
 
-/datum/reagent/blob/proc/death_reaction(obj/structure/blob/B, damage_flag) //when a blob dies, do this
+TYPE_PROC_REF(/datum/reagent/blob, death_reaction)(obj/structure/blob/B, damage_flag) //when a blob dies, do this
 	return
 
-/datum/reagent/blob/proc/expand_reaction(obj/structure/blob/B, obj/structure/blob/newB, turf/T, mob/camera/blob/O) //when the blob expands, do this
+TYPE_PROC_REF(/datum/reagent/blob, expand_reaction)(obj/structure/blob/B, obj/structure/blob/newB, turf/T, mob/camera/blob/O) //when the blob expands, do this
 	return
 
-/datum/reagent/blob/proc/tesla_reaction(obj/structure/blob/B, power) //when the blob is hit by a tesla bolt, do this
+TYPE_PROC_REF(/datum/reagent/blob, tesla_reaction)(obj/structure/blob/B, power) //when the blob is hit by a tesla bolt, do this
 	return 1 //return 0 to ignore damage
 
-/datum/reagent/blob/proc/extinguish_reaction(obj/structure/blob/B) //when the blob is hit with water, do this
+TYPE_PROC_REF(/datum/reagent/blob, extinguish_reaction)(obj/structure/blob/B) //when the blob is hit with water, do this
 	return
 
-/datum/reagent/blob/proc/emp_reaction(obj/structure/blob/B, severity) //when the blob is hit with an emp, do this
+TYPE_PROC_REF(/datum/reagent/blob, emp_reaction)(obj/structure/blob/B, severity) //when the blob is hit with an emp, do this
 	return
 
 //does brute damage but can replicate when damaged and has a chance of expanding again
@@ -489,7 +489,7 @@
 		B.visible_message(span_boldwarning("The blob ruptures, spraying the area with liquid!"))
 		extinguisharea(B, 50)
 
-/datum/reagent/blob/pressurized_slime/proc/extinguisharea(obj/structure/blob/B, probchance)
+TYPE_PROC_REF(/datum/reagent/blob/pressurized_slime, extinguisharea)(obj/structure/blob/B, probchance)
 	for(var/turf/open/T in range(1, B))
 		if(prob(probchance))
 			T.MakeSlippery(TURF_WET_WATER, min_wet_time = 10 SECONDS, wet_time_to_add = 5 SECONDS)

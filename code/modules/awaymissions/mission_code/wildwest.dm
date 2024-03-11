@@ -105,7 +105,7 @@
 			if("Immortality")
 				to_chat(user, "<B>Your wish is granted, but at a terrible cost...</B>")
 				to_chat(user, "The Wish Granter punishes you for your selfishness, claiming your soul and warping your body to match the darkness in your heart.")
-				add_verb(user, /mob/living/carbon/proc/immortality)
+				add_verb(user, TYPE_PROC_REF(/mob/living/carbon, immortality))
 				user.set_species(/datum/species/shadow)
 			if("To Kill")
 				to_chat(user, "<B>Your wish is granted, but at a terrible cost...</B>")
@@ -139,7 +139,7 @@
 	AddElement(/datum/element/connect_loc, loc_connections)
 
 
-/obj/effect/meatgrinder/proc/on_entered(atom/movable/AM)
+TYPE_PROC_REF(/obj/effect/meatgrinder, on_entered)(atom/movable/AM)
 	SIGNAL_HANDLER
 	Bumped(AM)
 
@@ -164,7 +164,7 @@
 
 /////For the Wishgranter///////////
 
-/mob/living/carbon/proc/immortality() //Mob proc so people cant just clone themselves to get rid of the shadowperson race. No hiding your wickedness.
+TYPE_PROC_REF(/mob/living/carbon, immortality)() //Mob proc so people cant just clone themselves to get rid of the shadowperson race. No hiding your wickedness.
 	set category = "Immortality"
 	set name = "Resurrection"
 

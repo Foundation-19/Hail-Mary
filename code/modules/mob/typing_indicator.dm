@@ -2,7 +2,7 @@
 GLOBAL_LIST_EMPTY(typing_indicator_overlays)
 
 /// Fetches the typing indicator we'll use from GLOB.typing_indicator_overlays
-/mob/proc/get_indicator_overlay(state)
+TYPE_PROC_REF(/mob, get_indicator_overlay)(state)
 	. = GLOB.typing_indicator_overlays[state]
 	if(.)
 		return
@@ -12,11 +12,11 @@ GLOBAL_LIST_EMPTY(typing_indicator_overlays)
 	// We only support paths for now because anything else isn't necessary yet.
 
 /// Gets the state we will use for typing indicators. Defaults to src.typing_indicator_state
-/mob/proc/get_typing_indicator_icon_state()
+TYPE_PROC_REF(/mob, get_typing_indicator_icon_state)()
 	return typing_indicator_state
 
 /// Generates the mutable appearance for typing indicator. Should prevent stuck overlays.
-/mob/proc/generate_typing_indicator()
+TYPE_PROC_REF(/mob, generate_typing_indicator)()
 	var/state = get_typing_indicator_icon_state()
 	if(ispath(state))
 		var/atom/thing = new state(null)
@@ -31,7 +31,7 @@ GLOBAL_LIST_EMPTY(typing_indicator_overlays)
  * @param state_override - Sets the state that we will fetch. Defaults to src.get_typing_indicator_icon_state()
  * @param force - shows even if src.typing_indcator_enabled is FALSE.
  */
-/mob/proc/display_typing_indicator(timeout_override = TYPING_INDICATOR_TIMEOUT, state_override = generate_typing_indicator(), force = FALSE)
+TYPE_PROC_REF(/mob, display_typing_indicator)(timeout_override = TYPING_INDICATOR_TIMEOUT, state_override = generate_typing_indicator(), force = FALSE)
 	if(((!typing_indicator_enabled || (stat != CONSCIOUS)) && !force) || typing_indicator_current)
 		return
 	typing_indicator_current = state_override
@@ -41,7 +41,7 @@ GLOBAL_LIST_EMPTY(typing_indicator_overlays)
 /**
  * Removes typing indicator.
  */
-/mob/proc/clear_typing_indicator()
+TYPE_PROC_REF(/mob, clear_typing_indicator)()
 	cut_overlay(typing_indicator_current)
 	typing_indicator_current = null
 	if(typing_indicator_timerid)
@@ -56,7 +56,7 @@ GLOBAL_LIST_EMPTY(typing_indicator_overlays)
 	appearance_flags = RESET_COLOR | TILE_BOUND | PIXEL_SCALE
 	layer = ABOVE_FLY_LAYER
 
-mob/proc/toggle_typing_indicator()
+TYPE_PROC_REF(mob, toggle_typing_indicator)()
 	if(!typing_indicator_current && typing_indicator_enabled)
 		display_typing_indicator()
 	else

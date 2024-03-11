@@ -53,7 +53,7 @@
 	forceMove(newLoc)
 	check_light_level()
 
-/obj/effect/dummy/phased_mob/shadow/proc/check_light_level()
+TYPE_PROC_REF(/obj/effect/dummy/phased_mob/shadow, check_light_level)()
 	var/turf/T = get_turf(src)
 	var/light_amount = T.get_lumcount()
 	if(light_amount > 0.2) // jaunt ends
@@ -61,7 +61,7 @@
 	else if (light_amount < 0.2 && (!QDELETED(jaunter))) //heal in the dark
 		jaunter.heal_overall_damage(1,1)
 
-/obj/effect/dummy/phased_mob/shadow/proc/end_jaunt(forced = FALSE)
+TYPE_PROC_REF(/obj/effect/dummy/phased_mob/shadow, end_jaunt)(forced = FALSE)
 	if(jaunter)
 		if(forced)
 			visible_message(span_boldwarning("[jaunter] is revealed by the light!"))

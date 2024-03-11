@@ -59,7 +59,7 @@
 /datum/proximity_monitor/advanced/peaceborg_dampener/cleanup_edge_turf(turf/T)
 	..()
 
-/datum/proximity_monitor/advanced/peaceborg_dampener/proc/get_edgeturf_overlay(direction)
+TYPE_PROC_REF(/datum/proximity_monitor/advanced/peaceborg_dampener, get_edgeturf_overlay)(direction)
 	switch(direction)
 		if(NORTH)
 			return edgeturf_north
@@ -80,14 +80,14 @@
 		else
 			return generic_edge
 
-/datum/proximity_monitor/advanced/peaceborg_dampener/proc/capture_projectile(obj/item/projectile/P, track_projectile = TRUE)
+TYPE_PROC_REF(/datum/proximity_monitor/advanced/peaceborg_dampener, capture_projectile)(obj/item/projectile/P, track_projectile = TRUE)
 	if(P in tracked)
 		return
 	projector.dampen_projectile(P, track_projectile)
 	if(track_projectile)
 		tracked += P
 
-/datum/proximity_monitor/advanced/peaceborg_dampener/proc/release_projectile(obj/item/projectile/P)
+TYPE_PROC_REF(/datum/proximity_monitor/advanced/peaceborg_dampener, release_projectile)(obj/item/projectile/P)
 	projector.restore_projectile(P)
 	tracked -= P
 

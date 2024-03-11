@@ -50,7 +50,7 @@
 		if(tank)
 			updateTank(tank, 1, user)
 
-/obj/item/melee/powerfist/proc/updateTank(obj/item/tank/internals/thetank, removing = 0, mob/living/carbon/human/user)
+TYPE_PROC_REF(/obj/item/melee/powerfist, updateTank)(obj/item/tank/internals/thetank, removing = 0, mob/living/carbon/human/user)
 	if(removing)
 		if(!tank)
 			to_chat(user, span_notice("\The [src] currently has no tank attached to it."))

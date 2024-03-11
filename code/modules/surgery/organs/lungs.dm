@@ -81,7 +81,7 @@
 	. = ..()
 	populate_gas_info()
 
-/obj/item/organ/lungs/proc/populate_gas_info()
+TYPE_PROC_REF(/obj/item/organ/lungs, populate_gas_info)()
 	gas_min[breathing_class] = safe_breath_min
 	gas_max[breathing_class] = safe_breath_max
 	gas_damage[breathing_class] = list(
@@ -118,7 +118,7 @@
 		owner.emote("cough")
 		owner.Dizzy(1)
 
-/obj/item/organ/lungs/proc/check_breath(datum/gas_mixture/breath, mob/living/carbon/human/H)
+TYPE_PROC_REF(/obj/item/organ/lungs, check_breath)(datum/gas_mixture/breath, mob/living/carbon/human/H)
 //TODO: add lung damage = less oxygen gains
 	var/breathModifier = (5-(5*(damage/maxHealth)/2)) //range 2.5 - 5
 	if((H.status_flags & GODMODE))
@@ -349,7 +349,7 @@
 	return TRUE
 
 
-/obj/item/organ/lungs/proc/handle_too_little_breath(mob/living/carbon/human/H = null, breath_pp = 0, safe_breath_min = 0, true_pp = 0)
+TYPE_PROC_REF(/obj/item/organ/lungs, handle_too_little_breath)(mob/living/carbon/human/H = null, breath_pp = 0, safe_breath_min = 0, true_pp = 0)
 	. = 0
 	if(!H || !safe_breath_min) //the other args are either: Ok being 0 or Specifically handled.
 		return FALSE
@@ -366,7 +366,7 @@
 		H.failed_last_breath = TRUE
 
 
-/obj/item/organ/lungs/proc/handle_breath_temperature(datum/gas_mixture/breath, mob/living/carbon/human/H) // called by human/life, handles temperatures
+TYPE_PROC_REF(/obj/item/organ/lungs, handle_breath_temperature)(datum/gas_mixture/breath, mob/living/carbon/human/H) // called by human/life, handles temperatures
 	var/breath_temperature = breath.return_temperature()
 
 	if(!HAS_TRAIT(H, TRAIT_RESISTCOLD)) // COLD DAMAGE

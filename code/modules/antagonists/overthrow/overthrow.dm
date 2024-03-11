@@ -48,7 +48,7 @@
 		team.add_member(owner)
 
 // Used to name the team at round start. If no name is passed, a syndicate themed one is given randomly.
-/datum/antagonist/overthrow/proc/name_team()
+TYPE_PROC_REF(/datum/antagonist/overthrow, name_team)()
 	var/team_name = stripped_input(owner.current, "Name your team:", "Team name", , MAX_NAME_LEN)
 	var/already_taken = FALSE
 	for(var/datum/antagonist/overthrow/O in GLOB.antagonists)
@@ -87,7 +87,7 @@
 	.["Give overthrow boss equip"] = CALLBACK(src,PROC_REF(equip_initial_overthrow_agent))
 
 // Dynamically creates the HUD for the team if it doesn't exist already, inserting it into the global huds list, and assigns it to the user. The index is saved into a var owned by the team datum.
-/datum/antagonist/overthrow/proc/update_overthrow_icons_added(datum/mind/traitor_mind)
+TYPE_PROC_REF(/datum/antagonist/overthrow, update_overthrow_icons_added)(datum/mind/traitor_mind)
 	var/datum/atom_hud/antag/overthrowhud = GLOB.huds[team.hud_entry_num]
 	if(!overthrowhud)
 		overthrowhud = new()
@@ -96,14 +96,14 @@
 	overthrowhud.join_hud(owner.current)
 	set_antag_hud(owner.current, "traitor")
 // Removes hud. Destroying the hud datum itself in case the team is deleted is done on team Destroy().
-/datum/antagonist/overthrow/proc/update_overthrow_icons_removed(datum/mind/traitor_mind)
+TYPE_PROC_REF(/datum/antagonist/overthrow, update_overthrow_icons_removed)(datum/mind/traitor_mind)
 	var/datum/atom_hud/antag/overthrowhud = GLOB.huds[team.hud_entry_num]
 	if(overthrowhud)
 		overthrowhud.leave_hud(owner.current)
 		set_antag_hud(owner.current, null)
 
 // Gives the storage implant with a random item. They're sleeping agents, after all.
-/datum/antagonist/overthrow/proc/equip_overthrow()
+TYPE_PROC_REF(/datum/antagonist/overthrow, equip_overthrow)()
 	if(!owner || !owner.current || !ishuman(owner.current)) // only equip existing human overthrow members. This excludes the AI, in particular.
 		return
 	var/obj/item/implant/storage/S = locate(/obj/item/implant/storage) in owner.current.implants
@@ -116,7 +116,7 @@
 		SEND_SIGNAL(S, COMSIG_TRY_STORAGE_INSERT, I, null, TRUE, TRUE)
 
 // Equip the initial overthrow agent. Manually called in overthrow gamemode, when the initial agents are chosen. Gives uplink, AI module board and the converter.
-/datum/antagonist/overthrow/proc/equip_initial_overthrow_agent()
+TYPE_PROC_REF(/datum/antagonist/overthrow, equip_initial_overthrow_agent)()
 	if(!owner || !owner.current || !ishuman(owner.current))
 		return
 	var/mob/living/carbon/human/H = owner.current

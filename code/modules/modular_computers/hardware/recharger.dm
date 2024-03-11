@@ -4,7 +4,7 @@
 	var/charge_rate = 100
 	device_type = MC_CHARGE
 
-/obj/item/computer_hardware/recharger/proc/use_power(amount, charging=0)
+TYPE_PROC_REF(/obj/item/computer_hardware/recharger, use_power)(amount, charging=0)
 	if(charging)
 		return 1
 	return 0

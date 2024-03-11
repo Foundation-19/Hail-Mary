@@ -21,11 +21,11 @@
 		frequency = sanitize_frequency(frequency)
 	set_frequency(frequency)
 
-/obj/item/integrated_signaler/proc/set_frequency(new_frequency)
+TYPE_PROC_REF(/obj/item/integrated_signaler, set_frequency)(new_frequency)
 	frequency = new_frequency
 	radio_connection = SSradio.return_frequency(frequency)
 
-/obj/item/integrated_signaler/proc/send_activation()
+TYPE_PROC_REF(/obj/item/integrated_signaler, send_activation)()
 	if(last_transmission && world.time < (last_transmission + 5))
 		return
 	last_transmission = world.time

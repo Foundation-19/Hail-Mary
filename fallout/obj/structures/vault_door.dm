@@ -39,7 +39,7 @@
 	src.density = 0
 	destroyed = 1
 
-/obj/structure/vault_door/proc/open()
+TYPE_PROC_REF(/obj/structure/vault_door, open)()
 	is_busy = 1
 	flick(opening_state, src)
 	icon_state = open_state
@@ -49,7 +49,7 @@
 			src.set_opacity(0)
 			src.density = 0
 			is_busy = 0
-/obj/structure/vault_door/proc/close()
+TYPE_PROC_REF(/obj/structure/vault_door, close)()
 	is_busy = 1
 	flick(closing_state, src)
 	icon_state = close_state
@@ -60,7 +60,7 @@
 			src.density = 1
 			is_busy = 0
 
-/obj/structure/vault_door/proc/toggle()
+TYPE_PROC_REF(/obj/structure/vault_door, toggle)()
 	if(destroyed)
 		usr << span_warning("[src] is broken.")
 		return
@@ -83,7 +83,7 @@
 	density = 1
 	var/id = 1
 
-/obj/machinery/doorButtons/vaultButton/proc/toggle_door()
+TYPE_PROC_REF(/obj/machinery/doorButtons/vaultButton, toggle_door)()
 	var/opened
 	icon_state = "lever0"
 	for(var/obj/structure/vault_door/door in GLOB.vault_doors)

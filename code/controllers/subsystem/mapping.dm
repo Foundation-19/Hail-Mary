@@ -55,7 +55,7 @@ SUBSYSTEM_DEF(mapping)
 	var/obfuscation_secret
 
 //dlete dis once #39770 is resolved
-/datum/controller/subsystem/mapping/proc/HACK_LoadMapConfig()
+TYPE_PROC_REF(/datum/controller/subsystem/mapping, HACK_LoadMapConfig)()
 	if(!config)
 #ifdef FORCE_MAP
 		config = load_map_config(FORCE_MAP)
@@ -147,7 +147,7 @@ SUBSYSTEM_DEF(mapping)
 	Used by the AI doomsday and the self destruct nuke.
 */
 
-/datum/controller/subsystem/mapping/proc/wipe_reservations(wipe_safety_delay = 100)
+TYPE_PROC_REF(/datum/controller/subsystem/mapping, wipe_reservations)(wipe_safety_delay = 100)
 	if(clearing_reserved_turfs || !initialized)			//in either case this is just not needed.
 		return
 	clearing_reserved_turfs = TRUE
@@ -169,22 +169,22 @@ SUBSYSTEM_DEF(mapping)
 	do_wipe_turf_reservations()
 	clearing_reserved_turfs = FALSE
 
-/datum/controller/subsystem/mapping/proc/safety_clear_transit_dock(obj/docking_port/stationary/transit/T, obj/docking_port/mobile/M, list/returning)
+TYPE_PROC_REF(/datum/controller/subsystem/mapping, safety_clear_transit_dock)(obj/docking_port/stationary/transit/T, obj/docking_port/mobile/M, list/returning)
 	M.setTimer(0)
 	var/error = M.initiate_docking(M.destination, M.preferred_direction)
 	if(!error)
 		returning += M
 		qdel(T, TRUE)
 
-/datum/controller/subsystem/mapping/proc/add_nuke_threat(datum/nuke)
+TYPE_PROC_REF(/datum/controller/subsystem/mapping, add_nuke_threat)(datum/nuke)
 	nuke_threats[nuke] = TRUE
 	check_nuke_threats()
 
-/datum/controller/subsystem/mapping/proc/remove_nuke_threat(datum/nuke)
+TYPE_PROC_REF(/datum/controller/subsystem/mapping, remove_nuke_threat)(datum/nuke)
 	nuke_threats -= nuke
 	check_nuke_threats()
 
-/datum/controller/subsystem/mapping/proc/check_nuke_threats()
+TYPE_PROC_REF(/datum/controller/subsystem/mapping, check_nuke_threats)()
 	for(var/datum/d in nuke_threats)
 		if(!istype(d) || QDELETED(d))
 			nuke_threats -= d
@@ -217,7 +217,7 @@ SUBSYSTEM_DEF(mapping)
 
 	z_list = SSmapping.z_list
 
-/datum/controller/subsystem/mapping/proc/LoadGroup(list/errorList, name, path, files, list/traits, list/default_traits, silent = FALSE, orientation = SOUTH)
+TYPE_PROC_REF(/datum/controller/subsystem/mapping, LoadGroup)(list/errorList, name, path, files, list/traits, list/default_traits, silent = FALSE, orientation = SOUTH)
 	. = list()
 	var/start_time = REALTIMEOFDAY
 
@@ -263,7 +263,7 @@ SUBSYSTEM_DEF(mapping)
 		INIT_ANNOUNCE("Loaded [name] in [(REALTIMEOFDAY - start_time)/10]s!")
 	return parsed_maps
 
-/datum/controller/subsystem/mapping/proc/loadWorld()
+TYPE_PROC_REF(/datum/controller/subsystem/mapping, loadWorld)()
 	//if any of these fail, something has gone horribly, HORRIBLY, wrong
 	var/list/FailedZs = list()
 
@@ -306,7 +306,7 @@ SUBSYSTEM_DEF(mapping)
 
 GLOBAL_LIST_EMPTY(the_station_areas)
 
-/datum/controller/subsystem/mapping/proc/generate_station_area_list()
+TYPE_PROC_REF(/datum/controller/subsystem/mapping, generate_station_area_list)()
 	var/list/station_areas_blacklist = typecacheof(list(/area/space, /area/mine, /area/ruin, /area/asteroid/nearstation))
 	for(var/area/A in world)
 		if (is_type_in_typecache(A, station_areas_blacklist))
@@ -320,7 +320,7 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 	if(!GLOB.the_station_areas.len)
 		log_world("ERROR: Station areas list failed to generate!")
 
-/datum/controller/subsystem/mapping/proc/maprotate()
+TYPE_PROC_REF(/datum/controller/subsystem/mapping, maprotate)()
 	var/players = GLOB.clients.len
 	var/list/mapvotes = list()
 	//count votes
@@ -374,7 +374,7 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 	if (. && VM.map_name != config.map_name)
 		to_chat(world, span_boldannounce("Map rotation has chosen [VM.map_name] for next round!"))
 
-/datum/controller/subsystem/mapping/proc/changemap(datum/map_config/VM)
+TYPE_PROC_REF(/datum/controller/subsystem/mapping, changemap)(datum/map_config/VM)
 	if(!VM.MakeNextMap())
 		next_map_config = load_map_config(default_to_box = TRUE)
 		message_admins("Failed to set new map with next_map.json for [VM.map_name]! Using default as backup!")
@@ -386,13 +386,13 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 
 	stat_map_name = "[config.map_name] (Next: [next_map_config.map_name])"
 
-/*/datum/controller/subsystem/mapping/proc/preloadTemplates(path = "_maps/templates/") //see master controller setup
+/*TYPE_PROC_REF(/datum/controller/subsystem/mapping, preloadTemplates)(path = "_maps/templates/") //see master controller setup
 	var/list/filelist = flist(path)
 	for(var/map in filelist)
 		var/datum/map_template/T = new(path = "[path][map]", rename = "[map]")
 		map_templates[T.name] = T
 */
-/datum/controller/subsystem/mapping/proc/preloadTemplates()
+TYPE_PROC_REF(/datum/controller/subsystem/mapping, preloadTemplates)()
 	for(var/item in subtypesof(/datum/map_template)) //Look for our template subtypes and fire them up to be used later
 		var/datum/map_template/template = new item()
 		map_templates[template.id] = template
@@ -401,7 +401,7 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 	preloadShuttleTemplates()
 	preloadShelterTemplates()
 
-/datum/controller/subsystem/mapping/proc/preloadRuinTemplates()
+TYPE_PROC_REF(/datum/controller/subsystem/mapping, preloadRuinTemplates)()
 	// Still supporting bans by filename
 	var/list/banned = generateMapList("[global.config.directory]/lavaruinblacklist.txt")
 	banned += generateMapList("[global.config.directory]/spaceruinblacklist.txt")
@@ -434,7 +434,7 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 		else if(istype(R, /datum/map_template/ruin/spacenearstation))
 			station_ruins_templates[R.id] = R
 
-/datum/controller/subsystem/mapping/proc/preloadShuttleTemplates()
+TYPE_PROC_REF(/datum/controller/subsystem/mapping, preloadShuttleTemplates)()
 	var/list/unbuyable = generateMapList("[global.config.directory]/unbuyableshuttles.txt")
 
 	for(var/item in subtypesof(/datum/map_template/shuttle))
@@ -449,7 +449,7 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 		shuttle_templates[S.shuttle_id] = S
 		map_templates[S.shuttle_id] = S
 
-/datum/controller/subsystem/mapping/proc/preloadShelterTemplates()
+TYPE_PROC_REF(/datum/controller/subsystem/mapping, preloadShelterTemplates)()
 	for(var/item in subtypesof(/datum/map_template/shelter))
 		var/datum/map_template/shelter/shelter_type = item
 		if(!(initial(shelter_type.mappath)))
@@ -460,7 +460,7 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 		map_templates[S.shelter_id] = S
 
 //Manual loading of away missions.
-/client/proc/admin_away()
+TYPE_PROC_REF(/client, admin_away)()
 	set name = "Load Away Mission / Virtual Reality"
 	set category = "Admin.Events"
 
@@ -511,7 +511,7 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 		message_admins("Loading [away_name] failed!")
 		return
 
-/datum/controller/subsystem/mapping/proc/RequestBlockReservation(width, height, z, type = /datum/turf_reservation, turf_type_override, border_type_override)
+TYPE_PROC_REF(/datum/controller/subsystem/mapping, RequestBlockReservation)(width, height, z, type = /datum/turf_reservation, turf_type_override, border_type_override)
 	UNTIL((!z || reservation_ready["[z]"]) && !clearing_reserved_turfs)
 	var/datum/turf_reservation/reserve = new type
 	if(turf_type_override)
@@ -538,7 +538,7 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 	QDEL_NULL(reserve)
 
 //This is not for wiping reserved levels, use wipe_reservations() for that.
-/datum/controller/subsystem/mapping/proc/initialize_reserved_level(z)
+TYPE_PROC_REF(/datum/controller/subsystem/mapping, initialize_reserved_level)(z)
 	UNTIL(!clearing_reserved_turfs)				//regardless, lets add a check just in case.
 	clearing_reserved_turfs = TRUE			//This operation will likely clear any existing reservations, so lets make sure nothing tries to make one while we're doing it.
 	if(!level_trait(z,ZTRAIT_RESERVED))
@@ -556,7 +556,7 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 	reservation_ready["[z]"] = TRUE
 	clearing_reserved_turfs = FALSE
 
-/datum/controller/subsystem/mapping/proc/reserve_turfs(list/turfs)
+TYPE_PROC_REF(/datum/controller/subsystem/mapping, reserve_turfs)(list/turfs)
 	for(var/i in turfs)
 		var/turf/T = i
 		T.empty(RESERVED_TURF_TYPE, RESERVED_TURF_TYPE, null, TRUE)
@@ -567,7 +567,7 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 		CHECK_TICK
 
 //DO NOT CALL THIS PROC DIRECTLY, CALL wipe_reservations().
-/datum/controller/subsystem/mapping/proc/do_wipe_turf_reservations()
+TYPE_PROC_REF(/datum/controller/subsystem/mapping, do_wipe_turf_reservations)()
 	UNTIL(initialized)							//This proc is for AFTER init, before init turf reservations won't even exist and using this will likely break things.
 	for(var/i in turf_reservations)
 		var/datum/turf_reservation/TR = i
@@ -583,12 +583,12 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 	used_turfs.Cut()
 	reserve_turfs(clearing)
 
-/datum/controller/subsystem/mapping/proc/reg_in_areas_in_z(list/areas)
+TYPE_PROC_REF(/datum/controller/subsystem/mapping, reg_in_areas_in_z)(list/areas)
 	for(var/B in areas)
 		var/area/A = B
 		A.reg_in_areas_in_z()
 
-/datum/controller/subsystem/mapping/proc/get_isolated_ruin_z()
+TYPE_PROC_REF(/datum/controller/subsystem/mapping, get_isolated_ruin_z)()
 	if(!isolated_ruins_z)
 		isolated_ruins_z = add_new_zlevel("Isolated Ruins/Reserved", list(ZTRAIT_RESERVED = TRUE, ZTRAIT_ISOLATED_RUINS = TRUE))
 		initialize_reserved_level(isolated_ruins_z.z_value)
@@ -598,7 +598,7 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 /datum/controller/subsystem/mapping
 	var/list/station_room_templates = list()
 
-/datum/controller/subsystem/mapping/proc/seedStation()
+TYPE_PROC_REF(/datum/controller/subsystem/mapping, seedStation)()
 	for(var/V in GLOB.stationroom_landmarks)
 		var/obj/effect/landmark/stationroom/LM = V
 		LM.load()
@@ -609,7 +609,7 @@ GLOBAL_LIST_EMPTY(the_station_areas)
  * Generates an obfuscated but constant id for an original id for cases where you don't want players codediving for an id.
  * WARNING: MAKE SURE PLAYERS ARE NOT ABLE TO ACCESS THIS. To save performance, it's just secret + an incrementing number. Very guessable if you know what the secret is.
  */
-/datum/controller/subsystem/mapping/proc/get_obfuscated_id(original, id_type = "GENERAL")
+TYPE_PROC_REF(/datum/controller/subsystem/mapping, get_obfuscated_id)(original, id_type = "GENERAL")
 	if(!original)
 		return	//no.
 	var/key = "[original]%[id_type]"
@@ -617,7 +617,7 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 		return random_generated_ids_by_original[key]
 	. = random_generated_ids_by_original[key] = "[obfuscation_secret]%[obfuscation_next_id++]"
 
-/datum/controller/subsystem/mapping/proc/load_marks()
+TYPE_PROC_REF(/datum/controller/subsystem/mapping, load_marks)()
 	var/list/sites = SSmapping.map_load_marks
 
 	if(!LAZYLEN(sites)) //This should never happen unless the base map failed to load

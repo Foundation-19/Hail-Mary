@@ -63,27 +63,27 @@
 
 // CHECKS
 
-/obj/machinery/camera/proc/isEmpProof()
+TYPE_PROC_REF(/obj/machinery/camera, isEmpProof)()
 	return upgrades & CAMERA_UPGRADE_EMP_PROOF
 
-/obj/machinery/camera/proc/isXRay()
+TYPE_PROC_REF(/obj/machinery/camera, isXRay)()
 	return upgrades & CAMERA_UPGRADE_XRAY
 
-/obj/machinery/camera/proc/isMotion()
+TYPE_PROC_REF(/obj/machinery/camera, isMotion)()
 	return upgrades & CAMERA_UPGRADE_MOTION
 
 // UPGRADE PROCS
 
-/obj/machinery/camera/proc/upgradeEmpProof()
+TYPE_PROC_REF(/obj/machinery/camera, upgradeEmpProof)()
 	AddElement(/datum/element/empprotection, EMP_PROTECT_SELF | EMP_PROTECT_WIRES | EMP_PROTECT_CONTENTS)
 	assembly.upgrades.Add(new /obj/item/stack/sheet/mineral/plasma(assembly))
 	upgrades |= CAMERA_UPGRADE_EMP_PROOF
 
-/obj/machinery/camera/proc/upgradeXRay()
+TYPE_PROC_REF(/obj/machinery/camera, upgradeXRay)()
 	assembly.upgrades.Add(new /obj/item/analyzer(assembly))
 	upgrades |= CAMERA_UPGRADE_XRAY
 
 // If you are upgrading Motion, and it isn't in the camera's Initialize(), add it to the machines list.
-/obj/machinery/camera/proc/upgradeMotion()
+TYPE_PROC_REF(/obj/machinery/camera, upgradeMotion)()
 	assembly.upgrades.Add(new /obj/item/assembly/prox_sensor(assembly))
 	upgrades |= CAMERA_UPGRADE_MOTION

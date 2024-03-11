@@ -99,7 +99,7 @@
 		INVOKE_ASYNC(src, PROC_REF(ground_slam), stomp_range, 1, FALSE)
 
 /// Slams the ground around the behemoth throwing back enemies caught nearby
-/mob/living/simple_animal/hostile/megafauna/behemoth/proc/ground_slam(range, delay, do_damage)
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/megafauna/behemoth, ground_slam)(range, delay, do_damage)
 	var/turf/orgin = get_turf(src)
 	var/list/all_turfs = RANGE_TURFS(range, orgin)
 	for(var/i = 0 to range)
@@ -124,7 +124,7 @@
 
 
 /// Larger but slower ground stomp
-/mob/living/simple_animal/hostile/megafauna/behemoth/proc/heavy_stomp()
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/megafauna/behemoth, heavy_stomp)()
 	can_move = FALSE
 	ground_slam(5, 2, TRUE)
 	SetRecoveryTime(0, 0)
@@ -132,7 +132,7 @@
 
 
 /// Shakes all nearby enemies screens and animates the behemoth shaking up and down
-/mob/living/simple_animal/hostile/megafauna/behemoth/proc/disorienting_scream()
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/megafauna/behemoth, disorienting_scream)()
 	can_move = FALSE
 	playsound(src, 'sound/magic/demon_dies.ogg', 600, FALSE, 10)
 	animate(src, pixel_z = rand(5, 15), time = 1, loop = 6)

@@ -1,5 +1,5 @@
 
-/datum/admins/proc/create_mob(mob/user)
+TYPE_PROC_REF(/datum/admins, create_mob)(mob/user)
 	var/static/create_mob_html
 	if (!create_mob_html)
 		var/mobjs = null

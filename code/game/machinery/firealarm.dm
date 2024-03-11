@@ -123,7 +123,7 @@
 		alarm()
 	..()
 
-/obj/machinery/firealarm/proc/alarm(mob/user)
+TYPE_PROC_REF(/obj/machinery/firealarm, alarm)(mob/user)
 	if(!is_operational() || (last_alarm+FIREALARM_COOLDOWN > world.time))
 		return
 	last_alarm = world.time
@@ -133,7 +133,7 @@
 	if(user)
 		log_game("[user] triggered a fire alarm at [COORD(src)]")
 
-/obj/machinery/firealarm/proc/reset(mob/user)
+TYPE_PROC_REF(/obj/machinery/firealarm, reset)(mob/user)
 	if(!is_operational())
 		return
 	var/area/A = get_base_area(src)
@@ -300,7 +300,7 @@
 		new /obj/item/stack/cable_coil(loc, 3)
 	qdel(src)
 
-/obj/machinery/firealarm/proc/update_fire_light(fire)
+TYPE_PROC_REF(/obj/machinery/firealarm, update_fire_light)(fire)
 	if(fire == !!light_power)
 		return  // do nothing if we're already active
 	if(fire)

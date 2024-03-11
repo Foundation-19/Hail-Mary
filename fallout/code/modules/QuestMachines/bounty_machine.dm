@@ -54,15 +54,15 @@
  */
 
 /* Create all quests list */
-/obj/machinery/bounty_machine/proc/InitQuestList()
+TYPE_PROC_REF(/obj/machinery/bounty_machine, InitQuestList)()
 	all_quests = get_all_quests()
 	all_quests.Remove(quest_type)
 
-/obj/machinery/bounty_machine/proc/get_all_quests()
+TYPE_PROC_REF(/obj/machinery/bounty_machine, get_all_quests)()
 	return typesof(quest_type)
 
 /* Returns random quest from database */
-/obj/machinery/bounty_machine/proc/GetRandomQuest()
+TYPE_PROC_REF(/obj/machinery/bounty_machine, GetRandomQuest)()
 	if(all_quests.len == 0) return null
 	var/random_index = rand(1, all_quests.len)
 	var/quest_type = all_quests[random_index]
@@ -71,13 +71,13 @@
 	return Q
 
 /* Create new quests until its count not equal to quest limit */
-/obj/machinery/bounty_machine/proc/UpdateActiveQuests()
+TYPE_PROC_REF(/obj/machinery/bounty_machine, UpdateActiveQuests)()
 	var/i
 	for(i = active_quests.len; i < quest_limit; i++)
 		active_quests += GetRandomQuest()
 
 /* Destroy all active quests. If create_new = 1, will generate new quests */
-/obj/machinery/bounty_machine/proc/ClearActiveQuests(var/create_new = 0)
+TYPE_PROC_REF(/obj/machinery/bounty_machine, ClearActiveQuests)(var/create_new = 0)
 	for(var/Qst in active_quests)
 		del Qst
 	active_quests.Cut()
@@ -85,7 +85,7 @@
 		UpdateActiveQuests()
 
 /* Check quest objectives and complete it. */
-/obj/machinery/bounty_machine/proc/ProcessQuestComplete(var/quest_index, var/mob/user)
+TYPE_PROC_REF(/obj/machinery/bounty_machine, ProcessQuestComplete)(var/quest_index, var/mob/user)
 	quest_index = text2num(quest_index)
 	if(quest_index > active_quests.len)
 		return 0
@@ -145,7 +145,7 @@
 */
 
 /* Find and assign firs pod in distance */
-/obj/machinery/bounty_machine/proc/FindPod(var/distance = 1)
+TYPE_PROC_REF(/obj/machinery/bounty_machine, FindPod)(var/distance = 1)
 	for(var/Obj in view(distance, src))
 		if(istype(Obj, /obj/machinery/bounty_pod))
 			connected_pod = Obj
@@ -154,7 +154,7 @@
 /*
  *	GUI
 */
-/obj/machinery/bounty_machine/proc/ShowUI()
+TYPE_PROC_REF(/obj/machinery/bounty_machine, ShowUI)()
 	var/dat = ""
 	var/datum/asset/assets = get_asset_datum(/datum/asset/simple/bounty_employers)
 	assets.send(usr)

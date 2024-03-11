@@ -27,10 +27,10 @@ SUBSYSTEM_DEF(radturf)
 			glowman.say("[radblastusa]")
 
 /// the irradiated tile got changed and its component deleted, check back in a split second and apply a new one there
-/datum/controller/subsystem/radturf/proc/tile_got_changed(turf_coords, list/puddles, new_rads)
+TYPE_PROC_REF(/datum/controller/subsystem/radturf, tile_got_changed)(turf_coords, list/puddles, new_rads)
 	addtimer(CALLBACK(src, PROC_REF(add_radtile), turf_coords, puddles, new_rads, 5), 2, TIMER_UNIQUE|TIMER_OVERRIDE) //*pain //*doublepain
 
-/datum/controller/subsystem/radturf/proc/add_radtile(turf_coords, list/puddles, new_rads, tries = 5)
+TYPE_PROC_REF(/datum/controller/subsystem/radturf, add_radtile)(turf_coords, list/puddles, new_rads, tries = 5)
 	if(new_rads <= 0) // idk
 		return
 	var/turf/new_turf = coords2turf(turf_coords)

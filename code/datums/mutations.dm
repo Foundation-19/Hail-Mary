@@ -21,15 +21,15 @@ GLOBAL_LIST_EMPTY(mutations_list)
 	var/limb_req //required limbs to acquire this mutation
 	var/time_coeff = 1 //coefficient for timed mutations
 
-/datum/mutation/human/proc/force_give(mob/living/carbon/human/owner)
+TYPE_PROC_REF(/datum/mutation/human, force_give)(mob/living/carbon/human/owner)
 	set_block(owner)
 	. = on_acquiring(owner)
 
-/datum/mutation/human/proc/force_lose(mob/living/carbon/human/owner)
+TYPE_PROC_REF(/datum/mutation/human, force_lose)(mob/living/carbon/human/owner)
 	set_block(owner, 0)
 	. = on_losing(owner)
 
-/datum/mutation/human/proc/set_se(se_string, on = 1)
+TYPE_PROC_REF(/datum/mutation/human, set_se)(se_string, on = 1)
 	if(!se_string || length(se_string) < DNA_STRUC_ENZYMES_BLOCKS * DNA_BLOCK_SIZE)
 		return
 	var/before = copytext(se_string, 1, ((dna_block - 1) * DNA_BLOCK_SIZE) + 1)
@@ -37,24 +37,24 @@ GLOBAL_LIST_EMPTY(mutations_list)
 	var/after = copytext(se_string, (dna_block * DNA_BLOCK_SIZE) + 1, 0)
 	return before + injection + after
 
-/datum/mutation/human/proc/set_block(mob/living/carbon/owner, on = 1)
+TYPE_PROC_REF(/datum/mutation/human, set_block)(mob/living/carbon/owner, on = 1)
 	if(owner && owner.has_dna())
 		owner.dna.struc_enzymes = set_se(owner.dna.struc_enzymes, on)
 
-/datum/mutation/human/proc/check_block_string(se_string)
+TYPE_PROC_REF(/datum/mutation/human, check_block_string)(se_string)
 	if(!se_string || length(se_string) < DNA_STRUC_ENZYMES_BLOCKS * DNA_BLOCK_SIZE)
 		return 0
 	if(hex2num(getblock(se_string, dna_block)) >= lowest_value)
 		return 1
 
-/datum/mutation/human/proc/check_block(mob/living/carbon/human/owner, force_powers=0)
+TYPE_PROC_REF(/datum/mutation/human, check_block)(mob/living/carbon/human/owner, force_powers=0)
 	if(check_block_string(owner.dna.struc_enzymes))
 		if(prob(get_chance)||force_powers)
 			. = on_acquiring(owner)
 	else
 		. = on_losing(owner)
 
-/datum/mutation/human/proc/on_acquiring(mob/living/carbon/human/owner)
+TYPE_PROC_REF(/datum/mutation/human, on_acquiring)(mob/living/carbon/human/owner)
 	if(!owner || !istype(owner) || owner.stat == DEAD || (src in owner.dna.mutations))
 		return TRUE
 	if(species_allowed.len && !species_allowed.Find(owner.dna.species.id))
@@ -75,22 +75,22 @@ GLOBAL_LIST_EMPTY(mutations_list)
 		owner.overlays_standing[layer_used] = mut_overlay
 		owner.apply_overlay(layer_used)
 
-/datum/mutation/human/proc/get_visual_indicator(mob/living/carbon/human/owner)
+TYPE_PROC_REF(/datum/mutation/human, get_visual_indicator)(mob/living/carbon/human/owner)
 	return
 
-/datum/mutation/human/proc/on_attack_hand(mob/living/carbon/human/owner, atom/target, proximity)
+TYPE_PROC_REF(/datum/mutation/human, on_attack_hand)(mob/living/carbon/human/owner, atom/target, proximity)
 	return
 
-/datum/mutation/human/proc/on_ranged_attack(mob/living/carbon/human/owner, atom/target)
+TYPE_PROC_REF(/datum/mutation/human, on_ranged_attack)(mob/living/carbon/human/owner, atom/target)
 	return
 
-/datum/mutation/human/proc/on_move(mob/living/carbon/human/owner, new_loc)
+TYPE_PROC_REF(/datum/mutation/human, on_move)(mob/living/carbon/human/owner, new_loc)
 	return
 
-/datum/mutation/human/proc/on_life(mob/living/carbon/human/owner)
+TYPE_PROC_REF(/datum/mutation/human, on_life)(mob/living/carbon/human/owner)
 	return
 
-/datum/mutation/human/proc/on_losing(mob/living/carbon/human/owner)
+TYPE_PROC_REF(/datum/mutation/human, on_losing)(mob/living/carbon/human/owner)
 	if(owner && istype(owner) && (owner.dna.mutations.Remove(src)))
 		if(text_lose_indication && owner.stat != DEAD)
 			to_chat(owner, text_lose_indication)
@@ -105,14 +105,14 @@ GLOBAL_LIST_EMPTY(mutations_list)
 		return 0
 	return 1
 
-/datum/mutation/human/proc/say_mod(message)
+TYPE_PROC_REF(/datum/mutation/human, say_mod)(message)
 	if(message)
 		return message
 
-/datum/mutation/human/proc/get_spans()
+TYPE_PROC_REF(/datum/mutation/human, get_spans)()
 	return list()
 
-/mob/living/carbon/proc/update_mutations_overlay()
+TYPE_PROC_REF(/mob/living/carbon, update_mutations_overlay)()
 	return
 
 /mob/living/carbon/human/update_mutations_overlay()

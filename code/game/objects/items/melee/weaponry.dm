@@ -536,13 +536,13 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	return ..()
 
 /// Stage 1: The mistake is made
-/obj/item/circlegame/proc/ownerExamined(mob/living/owner, mob/living/sucker)
+TYPE_PROC_REF(/obj/item/circlegame, ownerExamined)(mob/living/owner, mob/living/sucker)
 	if(!istype(sucker) || !in_range(owner, sucker))
 		return
 	addtimer(CALLBACK(src, PROC_REF(waitASecond), owner, sucker), 4)
 
 /// Stage 2: Fear sets in
-/obj/item/circlegame/proc/waitASecond(mob/living/owner, mob/living/sucker)
+TYPE_PROC_REF(/obj/item/circlegame, waitASecond)(mob/living/owner, mob/living/sucker)
 	if(QDELETED(sucker) || QDELETED(src) || QDELETED(owner))
 		return
 
@@ -554,7 +554,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 		addtimer(CALLBACK(src, PROC_REF(GOTTEM), owner, sucker), 6)
 
 /// Stage 3A: We face our own failures
-/obj/item/circlegame/proc/selfGottem(mob/living/owner)
+TYPE_PROC_REF(/obj/item/circlegame, selfGottem)(mob/living/owner)
 	if(QDELETED(src) || QDELETED(owner))
 		return
 
@@ -568,7 +568,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	qdel(src)
 
 /// Stage 3B: We face our reckoning (unless we moved away or they're incapacitated)
-/obj/item/circlegame/proc/GOTTEM(mob/living/owner, mob/living/sucker)
+TYPE_PROC_REF(/obj/item/circlegame, GOTTEM)(mob/living/owner, mob/living/sucker)
 	if(QDELETED(sucker))
 		return
 
@@ -629,7 +629,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	else
 		..()
 
-/obj/item/proc/can_trigger_gun(mob/living/user)
+TYPE_PROC_REF(/obj/item, can_trigger_gun)(mob/living/user)
 	if(!user.can_use_guns(src))
 		return FALSE
 	return TRUE
@@ -688,11 +688,11 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	AddElement(/datum/element/sword_point)
 
 /// triggered on wield of two handed item
-/obj/item/vibro_weapon/proc/on_wield(obj/item/source, mob/user)
+TYPE_PROC_REF(/obj/item/vibro_weapon, on_wield)(obj/item/source, mob/user)
 	wielded = TRUE
 
 /// triggered on unwield of two handed item
-/obj/item/vibro_weapon/proc/on_unwield(obj/item/source, mob/user)
+TYPE_PROC_REF(/obj/item/vibro_weapon, on_unwield)(obj/item/source, mob/user)
 	wielded = FALSE
 
 /obj/item/vibro_weapon/update_icon_state()
@@ -742,11 +742,11 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	AddElement(/datum/element/sword_point)
 
 /// triggered on wield of two handed item
-/obj/item/pitchfork/proc/on_wield(obj/item/source, mob/user)
+TYPE_PROC_REF(/obj/item/pitchfork, on_wield)(obj/item/source, mob/user)
 	wielded = TRUE
 
 /// triggered on unwield of two handed item
-/obj/item/pitchfork/proc/on_unwield(obj/item/source, mob/user)
+TYPE_PROC_REF(/obj/item/pitchfork, on_unwield)(obj/item/source, mob/user)
 	wielded = FALSE
 
 /obj/item/pitchfork/update_icon_state()

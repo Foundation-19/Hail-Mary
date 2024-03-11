@@ -16,7 +16,7 @@
 			return item
 	return module_active
 
-/mob/living/silicon/robot/proc/uneq_module(obj/item/O)
+TYPE_PROC_REF(/mob/living/silicon/robot, uneq_module)(obj/item/O)
 	if(!O)
 		return 0
 	O.mouse_opacity = MOUSE_OPACITY_OPAQUE
@@ -50,7 +50,7 @@
 	hud_used.update_robot_modules_display()
 	return 1
 
-/mob/living/silicon/robot/proc/activate_module(obj/item/O)
+TYPE_PROC_REF(/mob/living/silicon/robot, activate_module)(obj/item/O)
 	. = FALSE
 	if(!(O in module.modules))
 		return
@@ -84,7 +84,7 @@
 			update_sight()
 
 
-/mob/living/silicon/robot/proc/observer_screen_update(obj/item/I,add = TRUE)
+TYPE_PROC_REF(/mob/living/silicon/robot, observer_screen_update)(obj/item/I,add = TRUE)
 	if(observers && observers.len)
 		for(var/M in observers)
 			var/mob/dead/observe = M
@@ -99,14 +99,14 @@
 					observers = null
 					break
 
-/mob/living/silicon/robot/proc/uneq_active()
+TYPE_PROC_REF(/mob/living/silicon/robot, uneq_active)()
 	uneq_module(module_active)
 
-/mob/living/silicon/robot/proc/uneq_all()
+TYPE_PROC_REF(/mob/living/silicon/robot, uneq_all)()
 	for(var/obj/item/I in held_items)
 		uneq_module(I)
 
-/mob/living/silicon/robot/proc/activated(obj/item/O)
+TYPE_PROC_REF(/mob/living/silicon/robot, activated)(obj/item/O)
 	if(O in held_items)
 		return TRUE
 	return FALSE
@@ -115,11 +115,11 @@
 //These are hackish but they help clean up code elsewhere.
 
 //module_selected(module) - Checks whether the module slot specified by "module" is currently selected.
-/mob/living/silicon/robot/proc/module_selected(module) //Module is 1-3
+TYPE_PROC_REF(/mob/living/silicon/robot, module_selected)(module) //Module is 1-3
 	return module == get_selected_module()
 
 //module_active(module) - Checks whether there is a module active in the slot specified by "module".
-/mob/living/silicon/robot/proc/module_active(module) //Module is 1-3
+TYPE_PROC_REF(/mob/living/silicon/robot, module_active)(module) //Module is 1-3
 	if(module < 1 || module > 3)
 		return FALSE
 
@@ -129,14 +129,14 @@
 	return FALSE
 
 //get_selected_module() - Returns the slot number of the currently selected module.  Returns 0 if no modules are selected.
-/mob/living/silicon/robot/proc/get_selected_module()
+TYPE_PROC_REF(/mob/living/silicon/robot, get_selected_module)()
 	if(module_active)
 		return held_items.Find(module_active)
 
 	return 0
 
 //select_module(module) - Selects the module slot specified by "module"
-/mob/living/silicon/robot/proc/select_module(module) //Module is 1-3
+TYPE_PROC_REF(/mob/living/silicon/robot, select_module)(module) //Module is 1-3
 	if(module < 1 || module > 3)
 		return
 
@@ -162,7 +162,7 @@
 	module_active = held_items[module]
 
 //deselect_module(module) - Deselects the module slot specified by "module"
-/mob/living/silicon/robot/proc/deselect_module(module) //Module is 1-3
+TYPE_PROC_REF(/mob/living/silicon/robot, deselect_module)(module) //Module is 1-3
 	if(module < 1 || module > 3)
 		return
 
@@ -182,7 +182,7 @@
 	module_active = null
 
 //toggle_module(module) - Toggles the selection of the module slot specified by "module".
-/mob/living/silicon/robot/proc/toggle_module(module) //Module is 1-3
+TYPE_PROC_REF(/mob/living/silicon/robot, toggle_module)(module) //Module is 1-3
 	if(module < 1 || module > 3)
 		return
 
@@ -196,7 +196,7 @@
 	return
 
 //cycle_modules() - Cycles through the list of selected modules.
-/mob/living/silicon/robot/proc/cycle_modules()
+TYPE_PROC_REF(/mob/living/silicon/robot, cycle_modules)()
 	var/slot_start = get_selected_module()
 	if(slot_start)
 		deselect_module(slot_start) //Only deselect if we have a selected slot.

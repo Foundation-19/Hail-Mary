@@ -74,7 +74,7 @@
 /obj/item/camera_bug/on_unset_machine(mob/user)
 	user.reset_perspective(null)
 
-/obj/item/camera_bug/proc/get_cameras()
+TYPE_PROC_REF(/obj/item/camera_bug, get_cameras)()
 	if( world.time > (last_net_update + 100))
 		bugged_cameras = list()
 		for(var/obj/machinery/camera/camera in GLOB.cameranet.cameras)
@@ -85,7 +85,7 @@
 	return sortList(bugged_cameras)
 
 
-/obj/item/camera_bug/proc/menu(list/cameras)
+TYPE_PROC_REF(/obj/item/camera_bug, menu)(list/cameras)
 	if(!cameras || !cameras.len)
 		return "No bugged cameras found."
 
@@ -139,12 +139,12 @@
 				return .(cameras)
 	return html
 
-/obj/item/camera_bug/proc/get_seens()
+TYPE_PROC_REF(/obj/item/camera_bug, get_seens)()
 	if(current && current.can_use())
 		var/list/seen = current.can_see()
 		return seen
 
-/obj/item/camera_bug/proc/camera_report()
+TYPE_PROC_REF(/obj/item/camera_bug, camera_report)()
 	// this should only be called if current exists
 	var/dat = ""
 	var/list/seen = get_seens()
@@ -295,7 +295,7 @@
 				break
 	src.updateSelfDialog()
 
-/obj/item/camera_bug/proc/same_z_level(obj/machinery/camera/C)
+TYPE_PROC_REF(/obj/item/camera_bug, same_z_level)(obj/machinery/camera/C)
 	var/turf/T_cam = get_turf(C)
 	var/turf/T_bug = get_turf(loc)
 	if(!T_bug || T_cam.z != T_bug.z)

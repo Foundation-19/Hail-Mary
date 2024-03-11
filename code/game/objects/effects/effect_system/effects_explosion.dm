@@ -49,7 +49,7 @@
 
 /datum/effect_system/explosion/smoke
 
-/datum/effect_system/explosion/smoke/proc/create_smoke()
+TYPE_PROC_REF(/datum/effect_system/explosion/smoke, create_smoke)()
 	var/datum/effect_system/smoke_spread/S = new
 	S.set_up(2, location)
 	S.start()

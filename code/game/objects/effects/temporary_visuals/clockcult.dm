@@ -115,7 +115,7 @@
 		transform = M
 	INVOKE_ASYNC(src, PROC_REF(volthit))
 
-/obj/effect/temp_visual/ratvar/volt_hit/proc/volthit()
+TYPE_PROC_REF(/obj/effect/temp_visual/ratvar/volt_hit, volthit)()
 	if(user)
 		Beam(get_turf(user), "volt_ray", time=duration, maxdistance=8, beam_type=/obj/effect/ebeam/volt_ray)
 	var/hit_amount = 0

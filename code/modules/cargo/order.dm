@@ -15,10 +15,10 @@
 	if(prob(MANIFEST_ERROR_CHANCE))
 		errors |= MANIFEST_ERROR_ITEM
 
-/obj/item/paper/fluff/jobs/cargo/manifest/proc/is_approved()
+TYPE_PROC_REF(/obj/item/paper/fluff/jobs/cargo/manifest, is_approved)()
 	return stamped && stamped.len && !is_denied()
 
-/obj/item/paper/fluff/jobs/cargo/manifest/proc/is_denied()
+TYPE_PROC_REF(/obj/item/paper/fluff/jobs/cargo/manifest, is_denied)()
 	return stamped && ("stamp-deny" in stamped)
 
 /datum/supply_order
@@ -42,7 +42,7 @@
 	src.paying_account = paying_account
 	src.applied_coupon = coupon
 
-/datum/supply_order/proc/generateRequisition(turf/T)
+TYPE_PROC_REF(/datum/supply_order, generateRequisition)(turf/T)
 	var/obj/item/paper/P = new(T)
 
 	P.name = "requisition form - #[id] ([pack.name])"
@@ -60,7 +60,7 @@
 	P.update_icon()
 	return P
 
-/datum/supply_order/proc/generateManifest(obj/container, owner, packname) //generates-the-manifests.
+TYPE_PROC_REF(/datum/supply_order, generateManifest)(obj/container, owner, packname) //generates-the-manifests.
 	var/obj/item/paper/fluff/jobs/cargo/manifest/P = new(container, id, 0)
 
 	var/station_name = (P.errors & MANIFEST_ERROR_NAME) ? new_station_name() : station_name()
@@ -111,12 +111,12 @@
 
 	return P
 
-/datum/supply_order/proc/generate(atom/A)
+TYPE_PROC_REF(/datum/supply_order, generate)(atom/A)
 	var/obj/structure/closet/crate/C = pack.generate(A, paying_account)
 	generateManifest(C, paying_account, pack)
 	return C
 
-/datum/supply_order/proc/generateCombo(miscbox, misc_own, misc_contents)
+TYPE_PROC_REF(/datum/supply_order, generateCombo)(miscbox, misc_own, misc_contents)
 	for (var/I in misc_contents)
 		new I(miscbox)
 	generateManifest(miscbox, misc_own, "")

@@ -22,13 +22,13 @@
 
 	var/employer_icon = "employer_00.png"
 
-/datum/bounty_quest/proc/ItsATarget(var/target)
+TYPE_PROC_REF(/datum/bounty_quest, ItsATarget)(var/target)
 	for(var/target_type in target_items)
 		if(istype(target, target_type))
 			return 1
 	return 0
 
-/datum/bounty_quest/proc/GetIconWithPath()
+TYPE_PROC_REF(/datum/bounty_quest, GetIconWithPath)()
 	return text2path("[employer_icon_folder][employer_icon]")
 
 /datum/bounty_quest/faction/wasteland/qst_0

@@ -23,7 +23,7 @@
 	else
 		icon_state = "arcade-ticket"
 
-/obj/item/stack/arcadeticket/proc/pay_tickets()
+TYPE_PROC_REF(/obj/item/stack/arcadeticket, pay_tickets)()
 	amount -= 2
 	if (amount == 0)
 		qdel(src)

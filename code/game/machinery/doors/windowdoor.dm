@@ -104,7 +104,7 @@
 				side_overlay.pixel_x = dir == EAST ? -6 : -31
 				. += side_overlay
 
-/obj/machinery/door/window/proc/open_and_close()
+TYPE_PROC_REF(/obj/machinery/door/window, open_and_close)()
 	if(!open())
 		return
 	autoclose = TRUE
@@ -165,7 +165,7 @@
 /obj/machinery/door/window/CanAStarPass(obj/item/card/id/ID, to_dir, no_id = FALSE)
 	return !density || (dir != to_dir) || (check_access(ID) && hasPower() && !no_id)
 
-/obj/machinery/door/window/proc/on_exit(datum/source, atom/movable/leaving, direction)
+TYPE_PROC_REF(/obj/machinery/door/window, on_exit)(datum/source, atom/movable/leaving, direction)
 	SIGNAL_HANDLER
 
 	if(leaving == src)

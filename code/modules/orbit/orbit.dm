@@ -33,7 +33,7 @@
 		orbiting = null
 	return ..()
 
-/datum/orbit/proc/Check(turf/targetloc, list/checked_already = list())
+TYPE_PROC_REF(/datum/orbit, Check)(turf/targetloc, list/checked_already = list())
 	//Avoid infinite loops for people who end up orbiting themself through another orbiter
 	checked_already[src] = TRUE
 	if (!orbiter)
@@ -77,7 +77,7 @@
 //pre_rotation: Chooses to rotate src 90 degress towards the orbit dir (clockwise/anticlockwise), useful for things to go "head first" like ghosts
 //lockinorbit: Forces src to always be on A's turf, otherwise the orbit cancels when src gets too far away (eg: ghosts)
 
-/atom/movable/proc/orbit(atom/A, radius = 10, clockwise = FALSE, rotation_speed = 20, rotation_segments = 36, pre_rotation = TRUE, lockinorbit = FALSE)
+TYPE_PROC_REF(/atom/movable, orbit)(atom/A, radius = 10, clockwise = FALSE, rotation_speed = 20, rotation_segments = 36, pre_rotation = TRUE, lockinorbit = FALSE)
 	if (!istype(A))
 		return
 
@@ -104,7 +104,7 @@
 	//we stack the orbits up client side, so we can assign this back to normal server side without it breaking the orbit
 	transform = initial_transform
 
-/atom/movable/proc/stop_orbit()
+TYPE_PROC_REF(/atom/movable, stop_orbit)()
 	SpinAnimation(0,0)
 	qdel(orbiting)
 
@@ -121,7 +121,7 @@
 	if (orbiting)
 		stop_orbit()
 
-/atom/movable/proc/transfer_observers_to(atom/movable/target)
+TYPE_PROC_REF(/atom/movable, transfer_observers_to)(atom/movable/target)
 	if(orbiters)
 		for(var/thing in orbiters)
 			var/datum/orbit/O = thing

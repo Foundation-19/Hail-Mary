@@ -96,7 +96,7 @@
 			AddComponent(/datum/component/overlay_lighting, is_directional = TRUE)
 
 
-/atom/movable/proc/update_emissive_block()
+TYPE_PROC_REF(/atom/movable, update_emissive_block)()
 	if(blocks_emissive != EMISSIVE_BLOCK_GENERIC)
 		return
 	if(length(managed_vis_overlays))
@@ -107,7 +107,7 @@
 				break
 	SSvis_overlays.add_vis_overlay(src, icon, icon_state, EMISSIVE_BLOCKER_LAYER, EMISSIVE_BLOCKER_PLANE, dir)
 
-/atom/movable/proc/can_zFall(turf/source, levels = 1, turf/target, direction)
+TYPE_PROC_REF(/atom/movable, can_zFall)(turf/source, levels = 1, turf/target, direction)
 	if(!direction)
 		direction = DOWN
 	if(!source)
@@ -120,7 +120,7 @@
 			return FALSE
 	return !(movement_type & FLYING) && has_gravity(source) && !throwing
 
-/atom/movable/proc/onZImpact(turf/impacted_turf, levels, message = TRUE)
+TYPE_PROC_REF(/atom/movable, onZImpact)(turf/impacted_turf, levels, message = TRUE)
 	if(message)
 		visible_message(span_danger("[src] crashes into [impacted_turf]!"))
 	var/atom/highest = impacted_turf
@@ -147,7 +147,7 @@
  * * target: The target turf to move the src to. Set by can_z_move() if null.
  * * z_move_flags: bitflags used for various checks in both this proc and can_z_move(). See __DEFINES/movement.dm.
  */
-/atom/movable/proc/zMove(dir, turf/target, z_move_flags = ZMOVE_FLIGHT_FLAGS)
+TYPE_PROC_REF(/atom/movable, zMove)(dir, turf/target, z_move_flags = ZMOVE_FLIGHT_FLAGS)
 	if(!target)
 		target = canZMove(dir, get_turf(src), null, z_move_flags)
 		if(!target)
@@ -170,7 +170,7 @@
 	return TRUE
 
 /// Returns a list of movables that should also be affected when src moves through zlevels, and src.
-/atom/movable/proc/get_z_move_affected(z_move_flags)
+TYPE_PROC_REF(/atom/movable, get_z_move_affected)(z_move_flags)
 	. = list(src)
 	if(buckled_mobs)
 		. |= buckled_mobs
@@ -190,7 +190,7 @@
  * * z_move_flags: bitflags used for various checks. See __DEFINES/movement.dm.
  * * rider: A living mob in control of the movable. Only non-null when a mob is riding a vehicle through z-levels.
  */
-/atom/movable/proc/canZMove(direction, turf/start, turf/destination, z_move_flags = ZMOVE_FLIGHT_FLAGS, mob/living/rider)
+TYPE_PROC_REF(/atom/movable, canZMove)(direction, turf/start, turf/destination, z_move_flags = ZMOVE_FLIGHT_FLAGS, mob/living/rider)
 	if(!start)
 		start = get_turf(src)
 		if(!start)
@@ -224,7 +224,7 @@
 
 
 //For physical constraints to travelling up/down.
-/atom/movable/proc/can_zTravel(turf/destination, direction)
+TYPE_PROC_REF(/atom/movable, can_zTravel)(turf/destination, direction)
 	var/turf/T = get_turf(src)
 	if(!T)
 		return FALSE
@@ -276,7 +276,7 @@
 			return FALSE
 	return ..()
 
-/atom/movable/proc/start_pulling(atom/movable/AM, state, force = move_force, supress_message = FALSE)
+TYPE_PROC_REF(/atom/movable, start_pulling)(atom/movable/AM, state, force = move_force, supress_message = FALSE)
 	if(QDELETED(AM))
 		return FALSE
 	if(!(AM.can_be_pulled(src, state, force)))
@@ -308,7 +308,7 @@
 			visible_message(span_warning("[src] has grabbed [M] passively!"))
 	return TRUE
 
-/atom/movable/proc/stop_pulling()
+TYPE_PROC_REF(/atom/movable, stop_pulling)()
 	if(!pulling)
 		return
 	pulling.pulledby = null
@@ -319,7 +319,7 @@
 		var/mob/living/L = ex_pulled
 		L.update_mobility()// mob gets up if it was lyng down in a chokehold
 
-/atom/movable/proc/Move_Pulled(atom/moving_atom)
+TYPE_PROC_REF(/atom/movable, Move_Pulled)(atom/moving_atom)
 	if(!pulling)
 		return FALSE
 	if(pulling.anchored || pulling.move_resist > move_force || !pulling.Adjacent(src, src, pulling))
@@ -345,7 +345,7 @@
 	var/mob/living/pulled_mob = moving_atom
 	set_pull_offsets(pulled_mob, grab_state)
 
-/atom/movable/proc/check_pulling(only_pulling = FALSE, z_allowed = FALSE)
+TYPE_PROC_REF(/atom/movable, check_pulling)(only_pulling = FALSE, z_allowed = FALSE)
 	if(pulling)
 		if(get_dist(src, pulling) > 1 || (z != pulling.z && !z_allowed))
 			stop_pulling()
@@ -359,7 +359,7 @@
 	if(!only_pulling && pulledby && moving_diagonally != FIRST_DIAG_STEP && (get_dist(src, pulledby) > 1 || z != pulledby.z)) //separated from our puller and not in the middle of a diagonal move.
 		pulledby.stop_pulling()
 
-/atom/movable/proc/set_glide_size(target = 8)
+TYPE_PROC_REF(/atom/movable, set_glide_size)(target = 8)
 	SEND_SIGNAL(src, COMSIG_MOVABLE_UPDATE_GLIDE_SIZE, target)
 	glide_size = target
 
@@ -418,7 +418,7 @@
 	vis_locs = null //clears this atom out of all viscontents
 	vis_contents.Cut()
 
-/atom/movable/proc/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
+TYPE_PROC_REF(/atom/movable, throw_impact)(atom/hit_atom, datum/thrownthing/throwingdatum)
 	set waitfor = 0
 	var/hitpush = TRUE
 	var/impact_signal = SEND_SIGNAL(src, COMSIG_MOVABLE_IMPACT, hit_atom, throwingdatum)
@@ -433,13 +433,13 @@
 		step(src, AM.dir)
 	..()
 
-/atom/movable/proc/safe_throw_at(atom/target, range, speed, mob/thrower, spin = TRUE, diagonals_first = FALSE, datum/callback/callback, force = INFINITY, messy_throw = TRUE)
+TYPE_PROC_REF(/atom/movable, safe_throw_at)(atom/target, range, speed, mob/thrower, spin = TRUE, diagonals_first = FALSE, datum/callback/callback, force = INFINITY, messy_throw = TRUE)
 	if((force < (move_resist * MOVE_FORCE_THROW_RATIO)) || (move_resist == INFINITY))
 		return
 	return throw_at(target, range, speed, thrower, spin, diagonals_first, callback, force, messy_throw)
 
 ///If this returns FALSE then callback will not be called.
-/atom/movable/proc/throw_at(atom/target, range, speed, mob/thrower, spin = TRUE, diagonals_first = FALSE, datum/callback/callback, force = MOVE_FORCE_STRONG, gentle = FALSE, quickstart = TRUE)
+TYPE_PROC_REF(/atom/movable, throw_at)(atom/target, range, speed, mob/thrower, spin = TRUE, diagonals_first = FALSE, datum/callback/callback, force = MOVE_FORCE_STRONG, gentle = FALSE, quickstart = TRUE)
 	. = FALSE
 
 	if(QDELETED(src))
@@ -526,20 +526,20 @@
 	if (quickstart)
 		thrown_thing.tick()
 
-/atom/movable/proc/force_pushed(atom/movable/pusher, force = MOVE_FORCE_DEFAULT, direction)
+TYPE_PROC_REF(/atom/movable, force_pushed)(atom/movable/pusher, force = MOVE_FORCE_DEFAULT, direction)
 	return FALSE
 
-/atom/movable/proc/force_push(atom/movable/AM, force = move_force, direction, silent = FALSE)
+TYPE_PROC_REF(/atom/movable, force_push)(atom/movable/AM, force = move_force, direction, silent = FALSE)
 	. = AM.force_pushed(src, force, direction)
 	if(!silent && .)
 		visible_message(span_warning("[src] forcefully pushes against [AM]!"), span_warning("You forcefully push against [AM]!"))
 
-/atom/movable/proc/move_crush(atom/movable/AM, force = move_force, direction, silent = FALSE)
+TYPE_PROC_REF(/atom/movable, move_crush)(atom/movable/AM, force = move_force, direction, silent = FALSE)
 	. = AM.move_crushed(src, force, direction)
 	if(!silent && .)
 		visible_message(span_danger("[src] crushes past [AM]!"), span_danger("You crush [AM]!"))
 
-/atom/movable/proc/move_crushed(atom/movable/pusher, force = MOVE_FORCE_DEFAULT, direction)
+TYPE_PROC_REF(/atom/movable, move_crushed)(atom/movable/pusher, force = MOVE_FORCE_DEFAULT, direction)
 	return FALSE
 
 /*/atom/movable/CanAllowThrough(atom/movable/mover, border_dir)
@@ -553,14 +553,14 @@
 	return ..()*/
 
 // called when this atom is removed from a storage item, which is passed on as S. The loc variable is already set to the new destination before this is called.
-/atom/movable/proc/on_exit_storage(datum/component/storage/concrete/S)
+TYPE_PROC_REF(/atom/movable, on_exit_storage)(datum/component/storage/concrete/S)
 	return
 
 // called when this atom is added into a storage item, which is passed on as S. The loc variable is already set to the storage item.
-/atom/movable/proc/on_enter_storage(datum/component/storage/concrete/S)
+TYPE_PROC_REF(/atom/movable, on_enter_storage)(datum/component/storage/concrete/S)
 	return
 
-/atom/movable/proc/get_spacemove_backup()
+TYPE_PROC_REF(/atom/movable, get_spacemove_backup)()
 	var/atom/movable/dense_object_backup
 	for(var/A in orange(1, get_turf(src)))
 		if(isarea(A))
@@ -580,11 +580,11 @@
 	. = dense_object_backup
 
 //called when a mob resists while inside a container that is itself inside something.
-/atom/movable/proc/relay_container_resist(mob/living/user, obj/O)
+TYPE_PROC_REF(/atom/movable, relay_container_resist)(mob/living/user, obj/O)
 	return
 
 
-/atom/movable/proc/do_attack_animation(atom/A, visual_effect_icon, obj/item/used_item, no_effect)
+TYPE_PROC_REF(/atom/movable, do_attack_animation)(atom/A, visual_effect_icon, obj/item/used_item, no_effect)
 	if(!no_effect && (visual_effect_icon || used_item))
 		do_item_attack_animation(A, visual_effect_icon, used_item)
 
@@ -611,7 +611,7 @@
 	animate(src, pixel_x = pixel_x + pixel_x_diff, pixel_y = pixel_y + pixel_y_diff, transform = M, time = 2)
 	animate(src, pixel_x = pixel_x - pixel_x_diff, pixel_y = pixel_y - pixel_y_diff, transform = OM, time = 2)
 
-/atom/movable/proc/do_item_attack_animation(atom/A, visual_effect_icon, obj/item/used_item)
+TYPE_PROC_REF(/atom/movable, do_item_attack_animation)(atom/A, visual_effect_icon, obj/item/used_item)
 	var/image/I
 	if(visual_effect_icon)
 		I = image('icons/effects/effects.dmi', A, visual_effect_icon, A.layer + 0.1)
@@ -652,7 +652,7 @@
 	. += "<option value='?_src_=holder;[HrefToken()];adminplayerobservefollow=[REF(src)]'>Follow</option>"
 	. += "<option value='?_src_=holder;[HrefToken()];admingetmovable=[REF(src)]'>Get</option>"
 
-/atom/movable/proc/ex_check(ex_id)
+TYPE_PROC_REF(/atom/movable, ex_check)(ex_id)
 	if(!ex_id)
 		return TRUE
 	LAZYINITLIST(acted_explosions)
@@ -662,7 +662,7 @@
 	return TRUE
 
 //TODO: Better floating
-/atom/movable/proc/float(on)
+TYPE_PROC_REF(/atom/movable, float)(on)
 	if(throwing)
 		return
 	if(on && (!(movement_type & FLOATING) || floating_need_update))
@@ -681,73 +681,73 @@
 */
 
 /// Gets or creates the relevant language holder. For mindless atoms, gets the local one. For atom with mind, gets the mind one.
-/atom/movable/proc/get_language_holder(get_minds = TRUE)
+TYPE_PROC_REF(/atom/movable, get_language_holder)(get_minds = TRUE)
 	if(!language_holder)
 		language_holder = new initial_language_holder(src)
 	return language_holder
 
 /// Grants the supplied language and sets omnitongue true.
-/atom/movable/proc/grant_language(language, understood = TRUE, spoken = TRUE, source = LANGUAGE_ATOM)
+TYPE_PROC_REF(/atom/movable, grant_language)(language, understood = TRUE, spoken = TRUE, source = LANGUAGE_ATOM)
 	var/datum/language_holder/LH = get_language_holder()
 	return LH.grant_language(language, understood, spoken, source)
 
 /// Grants every language.
-/atom/movable/proc/grant_all_languages(understood = TRUE, spoken = TRUE, grant_omnitongue = TRUE, source = LANGUAGE_MIND)
+TYPE_PROC_REF(/atom/movable, grant_all_languages)(understood = TRUE, spoken = TRUE, grant_omnitongue = TRUE, source = LANGUAGE_MIND)
 	var/datum/language_holder/LH = get_language_holder()
 	return LH.grant_all_languages(understood, spoken, grant_omnitongue, source)
 
 /// Removes a single language.
-/atom/movable/proc/remove_language(language, understood = TRUE, spoken = TRUE, source = LANGUAGE_ALL)
+TYPE_PROC_REF(/atom/movable, remove_language)(language, understood = TRUE, spoken = TRUE, source = LANGUAGE_ALL)
 	var/datum/language_holder/LH = get_language_holder()
 	return LH.remove_language(language, understood, spoken, source)
 
 /// Removes every language and sets omnitongue false.
-/atom/movable/proc/remove_all_languages(source = LANGUAGE_ALL, remove_omnitongue = FALSE)
+TYPE_PROC_REF(/atom/movable, remove_all_languages)(source = LANGUAGE_ALL, remove_omnitongue = FALSE)
 	var/datum/language_holder/LH = get_language_holder()
 	return LH.remove_all_languages(source, remove_omnitongue)
 
 /// Adds a language to the blocked language list. Use this over remove_language in cases where you will give languages back later.
-/atom/movable/proc/add_blocked_language(language, source = LANGUAGE_ATOM)
+TYPE_PROC_REF(/atom/movable, add_blocked_language)(language, source = LANGUAGE_ATOM)
 	var/datum/language_holder/LH = get_language_holder()
 	return LH.add_blocked_language(language, source)
 
 /// Removes a language from the blocked language list.
-/atom/movable/proc/remove_blocked_language(language, source = LANGUAGE_ATOM)
+TYPE_PROC_REF(/atom/movable, remove_blocked_language)(language, source = LANGUAGE_ATOM)
 	var/datum/language_holder/LH = get_language_holder()
 	return LH.remove_blocked_language(language, source)
 
 /// Checks if atom has the language. If spoken is true, only checks if atom can speak the language.
-/atom/movable/proc/has_language(language, spoken = FALSE)
+TYPE_PROC_REF(/atom/movable, has_language)(language, spoken = FALSE)
 	var/datum/language_holder/LH = get_language_holder()
 	return LH.has_language(language, spoken)
 
 /// Checks if atom can speak the language.
-/atom/movable/proc/can_speak_language(language)
+TYPE_PROC_REF(/atom/movable, can_speak_language)(language)
 	var/datum/language_holder/LH = get_language_holder()
 	return LH.can_speak_language(language)
 
 /// Returns the result of tongue specific limitations on spoken languages.
-/atom/movable/proc/could_speak_language(language)
+TYPE_PROC_REF(/atom/movable, could_speak_language)(language)
 	return TRUE
 
 /// Returns selected language, if it can be spoken, or finds, sets and returns a new selected language if possible.
-/atom/movable/proc/get_selected_language()
+TYPE_PROC_REF(/atom/movable, get_selected_language)()
 	var/datum/language_holder/LH = get_language_holder()
 	return LH.get_selected_language()
 
 /// Gets a random understood language, useful for hallucinations and such.
-/atom/movable/proc/get_random_understood_language()
+TYPE_PROC_REF(/atom/movable, get_random_understood_language)()
 	var/datum/language_holder/LH = get_language_holder()
 	return LH.get_random_understood_language()
 
 /// Gets a random spoken language, useful for forced speech and such.
-/atom/movable/proc/get_random_spoken_language()
+TYPE_PROC_REF(/atom/movable, get_random_spoken_language)()
 	var/datum/language_holder/LH = get_language_holder()
 	return LH.get_random_spoken_language()
 
 /// Copies all languages into the supplied atom/language holder. Source should be overridden when you
 /// do not want the language overwritten by later atom updates or want to avoid blocked languages.
-/atom/movable/proc/copy_languages(from_holder, source_override)
+TYPE_PROC_REF(/atom/movable, copy_languages)(from_holder, source_override)
 	if(isatom(from_holder))
 		var/atom/movable/thing = from_holder
 		from_holder = thing.get_language_holder()
@@ -756,23 +756,23 @@
 
 /// Empties out the atom specific languages and updates them according to the current atoms language holder.
 /// As a side effect, it also creates missing language holders in the process.
-/atom/movable/proc/update_atom_languages()
+TYPE_PROC_REF(/atom/movable, update_atom_languages)()
 	var/datum/language_holder/LH = get_language_holder()
 	return LH.update_atom_languages(src)
 
 /* End language procs */
 
 
-/atom/movable/proc/ConveyorMove(movedir)
+TYPE_PROC_REF(/atom/movable, ConveyorMove)(movedir)
 	set waitfor = FALSE
 	if(!anchored && has_gravity())
 		step(src, movedir)
 
 //Returns an atom's power cell, if it has one. Overload for individual items.
-/atom/movable/proc/get_cell()
+TYPE_PROC_REF(/atom/movable, get_cell)()
 	return
 
-/atom/movable/proc/can_be_pulled(user, grab_state, force)
+TYPE_PROC_REF(/atom/movable, can_be_pulled)(user, grab_state, force)
 	if(src == user || !isturf(loc))
 		return FALSE
 	if(anchored || throwing)
@@ -783,10 +783,10 @@
 
 /// Updates the grab state of the movable
 /// This exists to act as a hook for behaviour
-/atom/movable/proc/setGrabState(newstate)
+TYPE_PROC_REF(/atom/movable, setGrabState)(newstate)
 	grab_state = newstate
 
-/obj/item/proc/do_pickup_animation(atom/target)
+TYPE_PROC_REF(/obj/item, do_pickup_animation)(atom/target)
 	set waitfor = FALSE
 	if(!istype(loc, /turf))
 		return
@@ -818,7 +818,7 @@
 	sleep(1)
 	animate(I, alpha = 0, transform = matrix(), time = 1)
 
-/atom/movable/proc/set_anchored(anchorvalue) //literally only for plumbing ran
+TYPE_PROC_REF(/atom/movable, set_anchored)(anchorvalue) //literally only for plumbing ran
 	SHOULD_CALL_PARENT(TRUE)
 	if(anchored == anchorvalue)
 		return
@@ -834,14 +834,14 @@
  * The alternative to this is to keep a lazy list in every movable atom, copy of locs plus our own custom extra locations.
  * This is a special case of a justified getter, if we want to support the feature.
  */
-/atom/movable/proc/get_locs()
+TYPE_PROC_REF(/atom/movable, get_locs)()
 	. = locs //locs is a special list, so this is the same as locs.Copy(), but internally cheaper
 	for(var/atom/place as anything in locs)
 		// We pass the list by reference, and if something has something to add they'll do so here.
 		SEND_SIGNAL(place, COMSIG_ATOM_GET_LOCS, .)
 
 /// Sets the currently_z_moving variable to a new value. Used to allow some zMovement sources to have precedence over others.
-/atom/movable/proc/set_currently_z_moving(new_z_moving_value, forced = FALSE)
+TYPE_PROC_REF(/atom/movable, set_currently_z_moving)(new_z_moving_value, forced = FALSE)
 	if(forced)
 		currently_z_moving = new_z_moving_value
 		return TRUE
@@ -854,14 +854,14 @@
  * if you want something to move onto a tile with a beartrap or recycler or tripmine or mouse without that object knowing about it at all, use this
  * most of the time you want forceMove()
  */
-/atom/movable/proc/abstract_move(atom/new_loc)
+TYPE_PROC_REF(/atom/movable, abstract_move)(atom/new_loc)
 	var/atom/old_loc = loc
 	move_stacks++
 	loc = new_loc
 	Moved(old_loc)
 
 /// Returns true or false to allow src to move through the blocker, mover has final say
-/atom/movable/proc/CanPassThrough(atom/blocker, movement_dir, blocker_opinion)
+TYPE_PROC_REF(/atom/movable, CanPassThrough)(atom/blocker, movement_dir, blocker_opinion)
 	SHOULD_CALL_PARENT(TRUE)
 	SHOULD_BE_PURE(TRUE)
 	return blocker_opinion

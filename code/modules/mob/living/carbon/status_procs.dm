@@ -31,18 +31,18 @@
 
 ////////////////////////////////////////TRAUMAS/////////////////////////////////////////
 
-/mob/living/carbon/proc/get_traumas()
+TYPE_PROC_REF(/mob/living/carbon, get_traumas)()
 	. = list()
 	var/obj/item/organ/brain/B = getorganslot(ORGAN_SLOT_BRAIN)
 	if(B)
 		. = B.traumas
 
-/mob/living/carbon/proc/has_trauma_type(brain_trauma_type, resilience)
+TYPE_PROC_REF(/mob/living/carbon, has_trauma_type)(brain_trauma_type, resilience)
 	var/obj/item/organ/brain/B = getorganslot(ORGAN_SLOT_BRAIN)
 	if(B)
 		. = B.has_trauma_type(brain_trauma_type, resilience)
 
-/mob/living/carbon/proc/gain_trauma(datum/brain_trauma/trauma, resilience, ...)
+TYPE_PROC_REF(/mob/living/carbon, gain_trauma)(datum/brain_trauma/trauma, resilience, ...)
 	var/obj/item/organ/brain/B = getorganslot(ORGAN_SLOT_BRAIN)
 	if(B)
 		var/list/arguments = list()
@@ -50,17 +50,17 @@
 			arguments = args.Copy(3)
 		. = B.brain_gain_trauma(trauma, resilience, arguments)
 
-/mob/living/carbon/proc/gain_trauma_type(brain_trauma_type = /datum/brain_trauma, resilience)
+TYPE_PROC_REF(/mob/living/carbon, gain_trauma_type)(brain_trauma_type = /datum/brain_trauma, resilience)
 	var/obj/item/organ/brain/B = getorganslot(ORGAN_SLOT_BRAIN)
 	if(B)
 		. = B.gain_trauma_type(brain_trauma_type, resilience)
 
-/mob/living/carbon/proc/cure_trauma_type(brain_trauma_type = /datum/brain_trauma, resilience)
+TYPE_PROC_REF(/mob/living/carbon, cure_trauma_type)(brain_trauma_type = /datum/brain_trauma, resilience)
 	var/obj/item/organ/brain/B = getorganslot(ORGAN_SLOT_BRAIN)
 	if(B)
 		. = B.cure_trauma_type(brain_trauma_type, resilience)
 
-/mob/living/carbon/proc/cure_all_traumas(resilience)
+TYPE_PROC_REF(/mob/living/carbon, cure_all_traumas)(resilience)
 	var/obj/item/organ/brain/B = getorganslot(ORGAN_SLOT_BRAIN)
 	if(B)
 		. = B.cure_all_traumas(resilience)

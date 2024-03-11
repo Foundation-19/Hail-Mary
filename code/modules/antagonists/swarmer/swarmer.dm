@@ -167,7 +167,7 @@
 	DelayNextAction()
 	A.swarmer_act(src)
 
-/atom/proc/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
+TYPE_PROC_REF(/atom, swarmer_act)(mob/living/simple_animal/hostile/swarmer/S)
 	S.DisIntegrate(src)
 	return TRUE //return TRUE/FALSE whether or not an AI swarmer should try this swarmer_act() again, NOT whether it succeeded.
 
@@ -193,7 +193,7 @@
 /obj/item/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	return S.Integrate(src)
 
-/atom/movable/proc/IntegrateAmount()
+TYPE_PROC_REF(/atom/movable, IntegrateAmount)()
 	return 0
 
 /obj/item/IntegrateAmount() //returns the amount of resources gained when eating this item
@@ -474,7 +474,7 @@
 
 ////END CTRL CLICK FOR SWARMERS////
 
-/mob/living/simple_animal/hostile/swarmer/proc/Fabricate(atom/fabrication_object,fabrication_cost = 0)
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/swarmer, Fabricate)(atom/fabrication_object,fabrication_cost = 0)
 	if(!isturf(loc))
 		to_chat(src, span_warning("This is not a suitable location for fabrication. We need more space."))
 	if(resources >= fabrication_cost)
@@ -484,7 +484,7 @@
 		return 0
 	return new fabrication_object(loc)
 
-/mob/living/simple_animal/hostile/swarmer/proc/Integrate(atom/movable/target)
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/swarmer, Integrate)(atom/movable/target)
 	if(isobj(target))
 		var/obj/O = target
 		if(O.resistance_flags & INDESTRUCTIBLE)
@@ -517,13 +517,13 @@
 	return FALSE
 
 
-/mob/living/simple_animal/hostile/swarmer/proc/DisIntegrate(atom/movable/target)
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/swarmer, DisIntegrate)(atom/movable/target)
 	new /obj/effect/temp_visual/swarmer/disintegration(get_turf(target))
 	do_attack_animation(target)
 	DelayNextAction(CLICK_CD_MELEE)
 	target.ex_act(EXPLODE_LIGHT)
 
-/mob/living/simple_animal/hostile/swarmer/proc/DisperseTarget(mob/living/target)
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/swarmer, DisperseTarget)(mob/living/target)
 	if(target == src)
 		return
 
@@ -561,7 +561,7 @@
 		return FALSE
 	return ..()
 
-/mob/living/simple_animal/hostile/swarmer/proc/DismantleMachine(obj/machinery/target)
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/swarmer, DismantleMachine)(obj/machinery/target)
 	do_attack_animation(target)
 	to_chat(src, span_info("We begin to dismantle this machine. We will need to be uninterrupted."))
 	var/obj/effect/temp_visual/swarmer/dismantle/D = new /obj/effect/temp_visual/swarmer/dismantle(get_turf(target))
@@ -651,7 +651,7 @@
 	AddElement(/datum/element/connect_loc, loc_connections)
 
 
-/obj/structure/swarmer/trap/proc/on_entered(atom/movable/AM)
+TYPE_PROC_REF(/obj/structure/swarmer/trap, on_entered)(atom/movable/AM)
 	SIGNAL_HANDLER
 	if(isliving(AM))
 		var/mob/living/L = AM
@@ -662,7 +662,7 @@
 				L.DefaultCombatKnockdown(100)
 			qdel(src)
 
-/mob/living/simple_animal/hostile/swarmer/proc/CreateTrap()
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/swarmer, CreateTrap)()
 	set name = "Create trap"
 	set category = "Swarmer"
 	set desc = "Creates a simple trap that will non-lethally electrocute anything that steps on it. Costs 5 resources"
@@ -672,7 +672,7 @@
 	Fabricate(/obj/structure/swarmer/trap, 5)
 
 
-/mob/living/simple_animal/hostile/swarmer/proc/CreateBarricade()
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/swarmer, CreateBarricade)()
 	set name = "Create barricade"
 	set category = "Swarmer"
 	set desc = "Creates a barricade that will stop anything but swarmers and disabler beams from passing through."
@@ -700,7 +700,7 @@
 	if(istype(O, /obj/item/projectile/beam/disabler))
 		return 1
 
-/mob/living/simple_animal/hostile/swarmer/proc/CreateSwarmer()
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/swarmer, CreateSwarmer)()
 	set name = "Replicate"
 	set category = "Swarmer"
 	set desc = "Creates a shell for a new swarmer. Swarmers will self activate."
@@ -717,11 +717,11 @@
 			playsound(loc,'sound/items/poster_being_created.ogg',50, 1, -1)
 
 
-/mob/living/simple_animal/hostile/swarmer/proc/SwarmerTypeToCreate()
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/swarmer, SwarmerTypeToCreate)()
 	return /obj/effect/mob_spawn/swarmer
 
 
-/mob/living/simple_animal/hostile/swarmer/proc/RepairSelf()
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/swarmer, RepairSelf)()
 	set name = "Self Repair"
 	set category = "Swarmer"
 	set desc = "Attempts to repair damage to our body. You will have to remain motionless until repairs are complete."
@@ -732,13 +732,13 @@
 		adjustHealth(-100)
 		to_chat(src, span_info("We successfully repaired ourselves."))
 
-/mob/living/simple_animal/hostile/swarmer/proc/ToggleLight()
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/swarmer, ToggleLight)()
 	if(!light_range)
 		set_light_on(TRUE)
 	else
 		set_light_on(FALSE)
 
-/mob/living/simple_animal/hostile/swarmer/proc/swarmer_chat(msg)
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/swarmer, swarmer_chat)(msg)
 	var/rendered = "<B>Swarm communication - [src]</b> [say_quote(msg)]"
 	for(var/i in GLOB.mob_list)
 		var/mob/M = i
@@ -748,7 +748,7 @@
 			var/link = FOLLOW_LINK(M, src)
 			to_chat(M, "[link] [rendered]")
 
-/mob/living/simple_animal/hostile/swarmer/proc/ContactSwarmers()
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/swarmer, ContactSwarmers)()
 	var/message = stripped_input(src, "Announce to other swarmers", "Swarmer contact")
 	// TODO get swarmers their own colour rather than just boldtext
 	if(message)

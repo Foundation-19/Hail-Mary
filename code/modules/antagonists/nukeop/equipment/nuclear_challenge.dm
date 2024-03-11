@@ -78,7 +78,7 @@ GLOBAL_VAR_INIT(war_declared, FALSE)
 
 	qdel(src)
 
-/obj/item/nuclear_challenge/proc/check_allowed(mob/living/user)
+TYPE_PROC_REF(/obj/item/nuclear_challenge, check_allowed)(mob/living/user)
 	if(declaring_war)
 		to_chat(user, "You are already in the process of declaring war! Make your mind up.")
 		return FALSE

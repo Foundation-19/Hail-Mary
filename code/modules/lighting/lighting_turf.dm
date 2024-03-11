@@ -15,21 +15,21 @@
 #define PROC_ON_CORNERS(operation) lc_topright?.##operation;lc_bottomright?.##operation;lc_bottomleft?.##operation;lc_topleft?.##operation
 
 // Causes any affecting light sources to be queued for a visibility update, for example a door got opened.
-/turf/proc/reconsider_lights()
+TYPE_PROC_REF(/turf, reconsider_lights)()
 	var/datum/light_source/L
 	var/thing
 	for (thing in affecting_lights)
 		L = thing
 		L.vis_update()
 
-/turf/proc/lighting_clear_overlay()
+TYPE_PROC_REF(/turf, lighting_clear_overlay)()
 	if (lighting_object)
 		qdel(lighting_object, TRUE)
 
 	PROC_ON_CORNERS(update_active())
 
 // Builds a lighting object for us, but only if our area is dynamic.
-/turf/proc/lighting_build_overlay()
+TYPE_PROC_REF(/turf, lighting_build_overlay)()
 	if (lighting_object)
 		qdel(lighting_object,force=TRUE) //Shitty fix for lighting objects persisting after death
 
@@ -60,7 +60,7 @@
 
 
 /// Returns the luminosity scale of the turf, a float beween 0 and 1.
-/turf/proc/get_lumcount()
+TYPE_PROC_REF(/turf, get_lumcount)()
 	var/area/turf_loc = loc
 	if(!IS_DYNAMIC_LIGHTING(turf_loc))
 		return 1 // Non-dynamic lighting is always full bright.
@@ -90,14 +90,14 @@
 // Soft lighting being the threshold at which point the overlay considers
 // itself as too dark to allow sight and see_in_dark becomes useful.
 // So basically if this returns true the tile is unlit black.
-/turf/proc/is_softly_lit()
+TYPE_PROC_REF(/turf, is_softly_lit)()
 	if (!lighting_object)
 		return FALSE
 
 	return !(lighting_object.luminosity || dynamic_lumcount)
 
 
-/turf/proc/set_base_opacity(new_base_opacity)
+TYPE_PROC_REF(/turf, set_base_opacity)(new_base_opacity)
 	if(base_opacity == new_base_opacity)
 		return
 	. = base_opacity
@@ -106,7 +106,7 @@
 
 
 ///Proc to add movable sources of opacity on the turf and let it handle lighting code.
-/turf/proc/add_opacity_source(atom/movable/new_source)
+TYPE_PROC_REF(/turf, add_opacity_source)(atom/movable/new_source)
 	LAZYADD(opacity_sources, new_source)
 	if(directional_opacity == ALL_CARDINALS) //Already opaque, no need to worry on updating.
 		return
@@ -114,7 +114,7 @@
 
 
 ///Proc to remove movable sources of opacity on the turf and let it handle lighting code.
-/turf/proc/remove_opacity_source(atom/movable/old_source)
+TYPE_PROC_REF(/turf, remove_opacity_source)(atom/movable/old_source)
 	LAZYREMOVE(opacity_sources, old_source)
 	if(base_opacity) //Opaque turf, the contents in it are irrelevant.
 		return
@@ -122,7 +122,7 @@
 
 
 ///Calculate on which directions this turfs block view.
-/turf/proc/recalculate_directional_opacity()
+TYPE_PROC_REF(/turf, recalculate_directional_opacity)()
 	. = directional_opacity
 	if(base_opacity)
 		set_directional_opacity(ALL_CARDINALS)
@@ -137,7 +137,7 @@
 	set_directional_opacity(new_directional_opacity)
 
 
-/turf/proc/set_directional_opacity(new_directional_opacity)
+TYPE_PROC_REF(/turf, set_directional_opacity)(new_directional_opacity)
 	if(directional_opacity == new_directional_opacity)
 		return
 	. = directional_opacity
@@ -151,7 +151,7 @@
 			reconsider_lights() //The lighting system only cares whether the tile is fully concealed from all directions or not.
 
 
-/turf/proc/change_area(area/old_area, area/new_area)
+TYPE_PROC_REF(/turf, change_area)(area/old_area, area/new_area)
 	if(SSlighting.initialized)
 		if (new_area.dynamic_lighting != old_area.dynamic_lighting)
 			if (new_area.dynamic_lighting)
@@ -159,7 +159,7 @@
 			else
 				lighting_clear_overlay()
 
-/turf/proc/generate_missing_corners()
+TYPE_PROC_REF(/turf, generate_missing_corners)()
 	if (!IS_DYNAMIC_LIGHTING(src) && !light_sources)
 		return
 	lighting_corners_initialised = TRUE

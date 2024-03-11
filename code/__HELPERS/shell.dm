@@ -3,7 +3,7 @@
 #define SHELLEO_NAME "data/shelleo."
 #define SHELLEO_ERR ".err"
 #define SHELLEO_OUT ".out"
-/world/proc/shelleo(command)
+TYPE_PROC_REF(/world, shelleo)(command)
 	var/static/list/shelleo_ids = list()
 	var/stdout = ""
 	var/stderr = ""

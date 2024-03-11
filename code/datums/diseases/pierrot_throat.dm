@@ -30,7 +30,7 @@
 /datum/disease/pierrot_throat/after_add()
 	RegisterSignal(affected_mob, COMSIG_MOB_SAY, PROC_REF(handle_speech))
 
-/datum/disease/pierrot_throat/proc/handle_speech(datum/source, list/speech_args)
+TYPE_PROC_REF(/datum/disease/pierrot_throat, handle_speech)(datum/source, list/speech_args)
 	var/message = speech_args[SPEECH_MESSAGE]
 	var/list/split_message = splittext(message, " ") //List each word in the message
 	var/applied = 0

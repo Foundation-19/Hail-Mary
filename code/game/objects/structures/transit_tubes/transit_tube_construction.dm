@@ -15,7 +15,7 @@
 	var/flipped_build_type
 	var/base_icon
 
-/obj/structure/c_transit_tube/proc/can_wrench_in_loc(mob/user)
+TYPE_PROC_REF(/obj/structure/c_transit_tube, can_wrench_in_loc)(mob/user)
 	var/turf/source_turf = get_turf(loc)
 	var/existing_tubes = 0
 	for(var/obj/structure/transit_tube/tube in source_turf)
@@ -29,7 +29,7 @@
 	. = ..()
 	AddComponent(/datum/component/simple_rotation,ROTATION_ALTCLICK | ROTATION_CLOCKWISE | ROTATION_FLIP | ROTATION_VERBS,null,null,CALLBACK(src,PROC_REF(after_rot)))
 
-/obj/structure/c_transit_tube/proc/after_rot(mob/user,rotation_type)
+TYPE_PROC_REF(/obj/structure/c_transit_tube, after_rot)(mob/user,rotation_type)
 	if(flipped_build_type && rotation_type == ROTATION_FLIP)
 		setDir(turn(dir,-180)) //Turn back we don't actually flip
 		flipped = !flipped

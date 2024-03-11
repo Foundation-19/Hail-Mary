@@ -22,7 +22,7 @@
 /datum/status_effect/New(list/arguments)
 	on_creation(arglist(arguments))
 
-/datum/status_effect/proc/on_creation(mob/living/new_owner, ...)
+TYPE_PROC_REF(/datum/status_effect, on_creation)(mob/living/new_owner, ...)
 	if(new_owner)
 		owner = new_owner
 	if(owner)
@@ -59,7 +59,7 @@
 	if(duration != -1 && duration < world.time)
 		qdel(src)
 
-/datum/status_effect/proc/on_apply() //Called whenever the buff is applied; returning FALSE will cause it to autoremove itself.
+TYPE_PROC_REF(/datum/status_effect, on_apply)() //Called whenever the buff is applied; returning FALSE will cause it to autoremove itself.
 	SHOULD_CALL_PARENT(TRUE)
 	if(blocks_combatmode)
 		ADD_TRAIT(owner, TRAIT_COMBAT_MODE_LOCKED, src)
@@ -67,12 +67,12 @@
 		ADD_TRAIT(owner, TRAIT_SPRINT_LOCKED, src)
 	return TRUE
 
-/datum/status_effect/proc/tick() //Called every tick.
+TYPE_PROC_REF(/datum/status_effect, tick)() //Called every tick.
 
-/datum/status_effect/proc/before_remove() //! Called before being removed; returning FALSE will cancel removal
+TYPE_PROC_REF(/datum/status_effect, before_remove)() //! Called before being removed; returning FALSE will cancel removal
 	return TRUE
 
-/datum/status_effect/proc/on_remove() //Called whenever the buff expires or is removed; do note that at the point this is called, it is out of the owner's status_effects but owner is not yet null
+TYPE_PROC_REF(/datum/status_effect, on_remove)() //Called whenever the buff expires or is removed; do note that at the point this is called, it is out of the owner's status_effects but owner is not yet null
 	SHOULD_CALL_PARENT(TRUE)
 	if(blocks_combatmode)
 		REMOVE_TRAIT(owner, TRAIT_COMBAT_MODE_LOCKED, src)
@@ -80,7 +80,7 @@
 		REMOVE_TRAIT(owner, TRAIT_SPRINT_LOCKED, src)
 	return TRUE
 
-/datum/status_effect/proc/be_replaced() //Called instead of on_remove when a status effect is replaced by itself or when a status effect with on_remove_on_mob_delete = FALSE has its mob deleted
+TYPE_PROC_REF(/datum/status_effect, be_replaced)() //Called instead of on_remove when a status effect is replaced by itself or when a status effect with on_remove_on_mob_delete = FALSE has its mob deleted
 	owner.clear_alert(id)
 	LAZYREMOVE(owner.status_effects, src)
 	if(blocks_combatmode)
@@ -90,7 +90,7 @@
 	owner = null
 	qdel(src)
 
-/datum/status_effect/proc/refresh()
+TYPE_PROC_REF(/datum/status_effect, refresh)()
 	var/original_duration = initial(duration)
 	if(original_duration == -1)
 		return
@@ -99,7 +99,7 @@
 /**
  * Multiplied to clickdelays
  */
-/datum/status_effect/proc/action_cooldown_mod()
+TYPE_PROC_REF(/datum/status_effect, action_cooldown_mod)()
 	return 1
 
 ////////////////
@@ -115,7 +115,7 @@
 // HELPER PROCS //
 //////////////////
 
-/mob/living/proc/apply_status_effect(effect, ...) //applies a given status effect to this mob, returning the effect if it was successful
+TYPE_PROC_REF(/mob/living, apply_status_effect)(effect, ...) //applies a given status effect to this mob, returning the effect if it was successful
 	. = FALSE
 	var/datum/status_effect/S1 = effect
 	LAZYINITLIST(status_effects)
@@ -133,7 +133,7 @@
 	S1 = new effect(arguments)
 	. = S1
 
-/mob/living/proc/remove_status_effect(effect, ...) //removes all of a given status effect from this mob, returning TRUE if at least one was removed
+TYPE_PROC_REF(/mob/living, remove_status_effect)(effect, ...) //removes all of a given status effect from this mob, returning TRUE if at least one was removed
 	. = FALSE
 	var/list/arguments = args.Copy(2)
 	if(status_effects)
@@ -143,7 +143,7 @@
 				qdel(S)
 				. = TRUE
 
-/mob/living/proc/has_status_effect(effect) //returns the effect if the mob calling the proc owns the given status effect
+TYPE_PROC_REF(/mob/living, has_status_effect)(effect) //returns the effect if the mob calling the proc owns the given status effect
 	. = FALSE
 	if(status_effects)
 		var/datum/status_effect/S1 = effect
@@ -151,7 +151,7 @@
 			if(initial(S1.id) == S.id)
 				return S
 
-/mob/living/proc/has_status_effect_list(effect) //returns a list of effects with matching IDs that the mod owns; use for effects there can be multiple of
+TYPE_PROC_REF(/mob/living, has_status_effect_list)(effect) //returns a list of effects with matching IDs that the mod owns; use for effects there can be multiple of
 	. = list()
 	if(status_effects)
 		var/datum/status_effect/S1 = effect
@@ -182,26 +182,26 @@
 	var/mutable_appearance/status_overlay
 	var/mutable_appearance/status_underlay
 
-/datum/status_effect/stacking/proc/threshold_cross_effect() //what happens when threshold is crossed
+TYPE_PROC_REF(/datum/status_effect/stacking, threshold_cross_effect)() //what happens when threshold is crossed
 
-/datum/status_effect/stacking/proc/stacks_consumed_effect() //runs if status is deleted due to threshold being crossed
+TYPE_PROC_REF(/datum/status_effect/stacking, stacks_consumed_effect)() //runs if status is deleted due to threshold being crossed
 
-/datum/status_effect/stacking/proc/fadeout_effect() //runs if status is deleted due to being under one stack
+TYPE_PROC_REF(/datum/status_effect/stacking, fadeout_effect)() //runs if status is deleted due to being under one stack
 
-/datum/status_effect/stacking/proc/stack_decay_effect() //runs every time tick() causes stacks to decay
+TYPE_PROC_REF(/datum/status_effect/stacking, stack_decay_effect)() //runs every time tick() causes stacks to decay
 
-/datum/status_effect/stacking/proc/on_threshold_cross()
+TYPE_PROC_REF(/datum/status_effect/stacking, on_threshold_cross)()
 	threshold_cross_effect()
 	if(consumed_on_threshold)
 		stacks_consumed_effect()
 		qdel(src)
 
-/datum/status_effect/stacking/proc/on_threshold_drop()
+TYPE_PROC_REF(/datum/status_effect/stacking, on_threshold_drop)()
 
-/datum/status_effect/stacking/proc/can_have_status()
+TYPE_PROC_REF(/datum/status_effect/stacking, can_have_status)()
 	return owner.stat != DEAD
 
-/datum/status_effect/stacking/proc/can_gain_stacks()
+TYPE_PROC_REF(/datum/status_effect/stacking, can_gain_stacks)()
 	return owner.stat != DEAD
 
 /datum/status_effect/stacking/tick()
@@ -211,7 +211,7 @@
 		add_stacks(-stack_decay)
 		stack_decay_effect()
 
-/datum/status_effect/stacking/proc/add_stacks(stacks_added)
+TYPE_PROC_REF(/datum/status_effect/stacking, add_stacks)(stacks_added)
 	if(stacks_added > 0 && !can_gain_stacks())
 		return FALSE
 	owner.cut_overlay(status_overlay)
@@ -286,5 +286,5 @@
 	return !length(sources)
 
 //do_after modifier!
-/datum/status_effect/proc/interact_speed_modifier()
+TYPE_PROC_REF(/datum/status_effect, interact_speed_modifier)()
 	return 1

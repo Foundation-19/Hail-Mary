@@ -1,11 +1,11 @@
 
 
-/atom/proc/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+TYPE_PROC_REF(/atom, temperature_expose)(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	return null
 
 
 
-/turf/proc/hotspot_expose(exposed_temperature, exposed_volume, soh = 0)
+TYPE_PROC_REF(/turf, hotspot_expose)(exposed_temperature, exposed_volume, soh = 0)
 	return
 
 
@@ -60,7 +60,7 @@
 	QDEL_IN(src, 10)
 
 
-/obj/effect/hotspot/proc/perform_exposure()
+TYPE_PROC_REF(/obj/effect/hotspot, perform_exposure)()
 	var/turf/open/location = loc
 	if(!istype(location) || !(location.air))
 		return
@@ -89,12 +89,12 @@
 			AT.fire_act(temperature, volume)
 	return
 
-/obj/effect/hotspot/proc/gauss_lerp(x, x1, x2)
+TYPE_PROC_REF(/obj/effect/hotspot, gauss_lerp)(x, x1, x2)
 	var/b = (x1 + x2) * 0.5
 	var/c = (x2 - x1) / 6
 	return NUM_E ** -((x - b) ** 2 / (2 * c) ** 2)
 
-/obj/effect/hotspot/proc/update_color()
+TYPE_PROC_REF(/obj/effect/hotspot, update_color)()
 	cut_overlays()
 
 	var/heat_r = heat2colour_r(temperature)
@@ -203,7 +203,7 @@
 	DestroyTurf()
 	return ..()
 
-/obj/effect/hotspot/proc/DestroyTurf()
+TYPE_PROC_REF(/obj/effect/hotspot, DestroyTurf)()
 	if(isturf(loc))
 		var/turf/T = loc
 		if(T.to_be_destroyed && !T.changing_turf)
@@ -218,10 +218,10 @@
 				T.to_be_destroyed = FALSE
 				T.max_fire_temperature_sustained = 0
 
-/obj/effect/hotspot/proc/on_entered(atom/movable/AM, oldLoc)
+TYPE_PROC_REF(/obj/effect/hotspot, on_entered)(atom/movable/AM, oldLoc)
 	SIGNAL_HANDLER
 	if(isliving(AM))
-		INVOKE_ASYNC(AM, /atom/.proc/fire_act, temperature, volume)
+		INVOKE_ASYNC(AM, TYPE_PROC_REF(/atom, fire_act), temperature, volume)
 
 /obj/effect/hotspot/singularity_pull()
 	return

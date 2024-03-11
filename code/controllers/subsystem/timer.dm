@@ -61,7 +61,7 @@ SUBSYSTEM_DEF(timer)
 	msg = "B:[bucket_count] P:[length(second_queue)] H:[length(hashes)] C:[length(clienttime_timers)] S:[length(timer_id_dict)] RST:[bucket_reset_count]"
 	return ..()
 
-/datum/controller/subsystem/timer/proc/dump_timer_buckets(full = TRUE)
+TYPE_PROC_REF(/datum/controller/subsystem/timer, dump_timer_buckets)(full = TRUE)
 	var/list/to_log = list("Timer bucket reset. world.time: [world.time], head_offset: [head_offset], practical_offset: [practical_offset]")
 	if (full)
 		for (var/i in 1 to length(bucket_list))
@@ -217,7 +217,7 @@ SUBSYSTEM_DEF(timer)
 /**
  * Generates a string with details about the timed event for debugging purposes
  */
-/datum/controller/subsystem/timer/proc/get_timer_debug_string(datum/timedevent/TE)
+TYPE_PROC_REF(/datum/controller/subsystem/timer, get_timer_debug_string)(datum/timedevent/TE)
 	. = "Timer: [TE]"
 	. += "Prev: [TE.prev ? TE.prev : "NULL"], Next: [TE.next ? TE.next : "NULL"]"
 	if(TE.spent)
@@ -230,7 +230,7 @@ SUBSYSTEM_DEF(timer)
 /**
  * Destroys the existing buckets and creates new buckets from the existing timed events
  */
-/datum/controller/subsystem/timer/proc/reset_buckets()
+TYPE_PROC_REF(/datum/controller/subsystem/timer, reset_buckets)()
 	WARNING("Timer buckets has been reset, this may cause timer to lag")
 	bucket_reset_count++
 
@@ -455,7 +455,7 @@ SUBSYSTEM_DEF(timer)
 /**
  * Removes this timed event from any relevant buckets, or the secondary queue
  */
-/datum/timedevent/proc/bucketEject()
+TYPE_PROC_REF(/datum/timedevent, bucketEject)()
 	// Store local references for the bucket list and secondary queue
 	// This is faster than referencing them from the datum itself
 	var/list/bucket_list = timer_subsystem.bucket_list
@@ -498,7 +498,7 @@ SUBSYSTEM_DEF(timer)
  * buckets is exceeded by the time at which this timed event is scheduled to be invoked.
  * If the timed event is tracking client time, it will be added to a special bucket.
  */
-/datum/timedevent/proc/bucketJoin()
+TYPE_PROC_REF(/datum/timedevent, bucketJoin)()
 	// Generate debug-friendly name for timer
 	var/static/list/bitfield_flags = list("TIMER_UNIQUE", "TIMER_OVERRIDE", "TIMER_CLIENT_TIME", "TIMER_STOPPABLE", "TIMER_NO_HASH_WAIT", "TIMER_LOOP")
 	name = "Timer: [id] (\ref[src]), TTR: [timeToRun], wait:[wait] Flags: [jointext(bitfield_to_list(flags, bitfield_flags), ", ")], \
@@ -550,7 +550,7 @@ SUBSYSTEM_DEF(timer)
 /**
  * Returns a string of the type of the callback for this timer
  */
-/datum/timedevent/proc/getcallingtype()
+TYPE_PROC_REF(/datum/timedevent, getcallingtype)()
 	. = "ERROR"
 	if (callBack.object == GLOBAL_PROC)
 		. = "GLOBAL_PROC"

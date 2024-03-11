@@ -747,7 +747,7 @@
   Davidj361:
   - bugfix: Removed health cost for Twisted Construction upon casting on a wrong object
   - bugfix: Fixed table crafting not properly checking the surrounding area for tools.
-  - code_imp: Changed /datum/personal_crafting/proc/get_surroundings(mob/user) to
+  - code_imp: Changed TYPE_PROC_REF(/datum/personal_crafting, get_surroundings)(mob/user) to
       return 2 lists.
   Denton:
   - bugfix: 'Omegastation: Added advanced magboots to secure storage so that traitors

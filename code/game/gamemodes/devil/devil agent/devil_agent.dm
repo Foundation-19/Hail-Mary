@@ -30,7 +30,7 @@
 /datum/game_mode/devil/devil_agents/add_devil_objectives(datum/mind/devil_mind, quantity)
 	..(devil_mind, quantity - give_outsell_objective(devil_mind))
 
-/datum/game_mode/devil/devil_agents/proc/give_outsell_objective(datum/mind/devil)
+TYPE_PROC_REF(/datum/game_mode/devil/devil_agents, give_outsell_objective)(datum/mind/devil)
 	//If you override this method, have it return the number of objectives added.
 	if(devil_target_list.len && devil_target_list[devil]) // Is a double agent
 		var/datum/mind/target_mind = devil_target_list[devil]

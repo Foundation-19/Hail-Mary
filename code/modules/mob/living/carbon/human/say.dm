@@ -43,16 +43,16 @@
 		return !mind.miming
 	return TRUE
 
-/mob/living/carbon/human/proc/SetSpecialVoice(new_voice)
+TYPE_PROC_REF(/mob/living/carbon/human, SetSpecialVoice)(new_voice)
 	if(new_voice)
 		special_voice = new_voice
 	return
 
-/mob/living/carbon/human/proc/UnsetSpecialVoice()
+TYPE_PROC_REF(/mob/living/carbon/human, UnsetSpecialVoice)()
 	special_voice = ""
 	return
 
-/mob/living/carbon/human/proc/GetSpecialVoice()
+TYPE_PROC_REF(/mob/living/carbon/human, GetSpecialVoice)()
 	return special_voice
 
 /mob/living/carbon/human/binarycheck()
@@ -102,7 +102,7 @@
 	if(name != GetVoice())
 		return " (as [get_id_name("Unknown")])"
 
-/mob/living/carbon/human/proc/forcesay(list/append) //this proc is at the bottom of the file because quote fuckery makes notepad++ cri
+TYPE_PROC_REF(/mob/living/carbon/human, forcesay)(list/append) //this proc is at the bottom of the file because quote fuckery makes notepad++ cri
 	set waitfor = FALSE		// WINGET IS A SLEEP. DO. NOT. SLEEP.
 	if(stat == CONSCIOUS)
 		if(client)

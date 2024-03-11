@@ -1,10 +1,10 @@
-/atom/proc/investigate_log(message, subject)
+TYPE_PROC_REF(/atom, investigate_log)(message, subject)
 	if(!message || !subject)
 		return
 	var/F = wrap_file("[GLOB.log_directory]/[subject].html")
 	WRITE_FILE(F, "<small>[TIME_STAMP("hh:mm:ss", FALSE)] [REF(src)] ([x],[y],[z])</small> || [src] [message]<br>")
 
-/client/proc/investigate_show()
+TYPE_PROC_REF(/client, investigate_show)()
 	set name = "Investigate"
 	set category = "Admin.Game"
 	if(!holder)

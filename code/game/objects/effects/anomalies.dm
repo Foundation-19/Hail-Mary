@@ -62,18 +62,18 @@
 		QDEL_NULL(aSignal)
 	return ..()
 
-/obj/effect/anomaly/proc/anomalyEffect()
+TYPE_PROC_REF(/obj/effect/anomaly, anomalyEffect)()
 	if(prob(movechance))
 		step(src,pick(GLOB.alldirs))
 
-/obj/effect/anomaly/proc/detonate()
+TYPE_PROC_REF(/obj/effect/anomaly, detonate)()
 	return
 
 /obj/effect/anomaly/ex_act(severity, target)
 	if(severity == 1)
 		qdel(src)
 
-/obj/effect/anomaly/proc/anomalyNeutralize()
+TYPE_PROC_REF(/obj/effect/anomaly, anomalyNeutralize)()
 	new /obj/effect/particle_effect/smoke/bad(loc)
 
 	if(prob(core_drop_chance))
@@ -123,7 +123,7 @@
 			if(target && !target.stat)
 				O.throw_at(target, 5, 10)
 
-/obj/effect/anomaly/grav/proc/on_entered(atom/movable/AM)
+TYPE_PROC_REF(/obj/effect/anomaly/grav, on_entered)(atom/movable/AM)
 	SIGNAL_HANDLER
 	gravShock(AM)
 
@@ -133,7 +133,7 @@
 /obj/effect/anomaly/grav/Bumped(atom/movable/AM)
 	gravShock(AM)
 
-/obj/effect/anomaly/grav/proc/gravShock(mob/living/A)
+TYPE_PROC_REF(/obj/effect/anomaly/grav, gravShock)(mob/living/A)
 	if(boing && isliving(A) && !A.stat)
 		A.DefaultCombatKnockdown(40)
 		var/atom/target = get_edge_target_turf(A, get_dir(src, get_step_away(A, src)))
@@ -146,7 +146,7 @@
 /obj/effect/anomaly/grav/high/Initialize(mapload, new_lifespan)
 	. = ..()
 
-/obj/effect/anomaly/grav/high/proc/setup_grav_field()
+TYPE_PROC_REF(/obj/effect/anomaly/grav/high, setup_grav_field)()
 	grav_field = make_field(/datum/proximity_monitor/advanced/gravity, list("current_range" = 7, "host" = src, "gravity_value" = rand(0,3)))
 
 /obj/effect/anomaly/grav/high/Destroy()
@@ -179,7 +179,7 @@
 	for(var/mob/living/M in range(0, src))
 		mobShock(M)
 
-/obj/effect/anomaly/flux/proc/on_entered(atom/movable/AM)
+TYPE_PROC_REF(/obj/effect/anomaly/flux, on_entered)(atom/movable/AM)
 	SIGNAL_HANDLER
 	INVOKE_ASYNC(src, PROC_REF(mobShock), AM)
 
@@ -189,7 +189,7 @@
 /obj/effect/anomaly/flux/Bumped(atom/movable/AM)
 	mobShock(AM)
 
-/obj/effect/anomaly/flux/proc/mobShock(mob/living/M)
+TYPE_PROC_REF(/obj/effect/anomaly/flux, mobShock)(mob/living/M)
 	if(canshock && istype(M))
 		canshock = FALSE //Just so you don't instakill yourself if you slam into the anomaly five times in a second.
 		M.electrocute_act(shockdamage, name, flags = SHOCK_NOGLOVES)
@@ -262,7 +262,7 @@
 					if(M.client)
 						INVOKE_ASYNC(src, PROC_REF(blue_effect), M)
 
-/obj/effect/anomaly/bluespace/proc/blue_effect(mob/M)
+TYPE_PROC_REF(/obj/effect/anomaly/bluespace, blue_effect)(mob/M)
 	var/obj/blueeffect = new /obj(src)
 	blueeffect.screen_loc = "WEST,SOUTH to EAST,NORTH"
 	blueeffect.icon = 'icons/effects/effects.dmi'
@@ -297,7 +297,7 @@
 /obj/effect/anomaly/pyro/detonate()
 	INVOKE_ASYNC(src, PROC_REF(makepyroslime))
 
-/obj/effect/anomaly/pyro/proc/makepyroslime()
+TYPE_PROC_REF(/obj/effect/anomaly/pyro, makepyroslime)()
 	var/turf/open/T = get_turf(src)
 	if(istype(T))
 		T.atmos_spawn_air("o2=500;plasma=500;TEMP=1000") //Make it hot and burny for the new slime
@@ -347,14 +347,14 @@
 		else
 			O.ex_act(EXPLODE_HEAVY)
 
-/obj/effect/anomaly/bhole/proc/grav(r, ex_act_force, pull_chance, turf_removal_chance)
+TYPE_PROC_REF(/obj/effect/anomaly/bhole, grav)(r, ex_act_force, pull_chance, turf_removal_chance)
 	for(var/t = -r, t < r, t++)
 		affect_coord(x+t, y-r, ex_act_force, pull_chance, turf_removal_chance)
 		affect_coord(x-t, y+r, ex_act_force, pull_chance, turf_removal_chance)
 		affect_coord(x+r, y+t, ex_act_force, pull_chance, turf_removal_chance)
 		affect_coord(x-r, y-t, ex_act_force, pull_chance, turf_removal_chance)
 
-/obj/effect/anomaly/bhole/proc/affect_coord(x, y, ex_act_force, pull_chance, turf_removal_chance)
+TYPE_PROC_REF(/obj/effect/anomaly/bhole, affect_coord)(x, y, ex_act_force, pull_chance, turf_removal_chance)
 	//Get turf at coordinate
 	var/turf/T = locate(x, y, z)
 	if(isnull(T))

@@ -33,7 +33,7 @@
 
 	return data
 
-/obj/machinery/computer/station_alert/proc/triggerAlarm(class, area/A, O, obj/source)
+TYPE_PROC_REF(/obj/machinery/computer/station_alert, triggerAlarm)(class, area/A, O, obj/source)
 	if(source.z != z)
 		return
 	if(stat & (BROKEN))
@@ -59,7 +59,7 @@
 	return 1
 
 
-/obj/machinery/computer/station_alert/proc/cancelAlarm(class, area/A, obj/origin)
+TYPE_PROC_REF(/obj/machinery/computer/station_alert, cancelAlarm)(class, area/A, obj/origin)
 	if(stat & (BROKEN))
 		return
 	var/list/L = alarms[class]

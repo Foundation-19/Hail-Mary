@@ -58,7 +58,7 @@
 /**
  * Calls qdel on the chatmessage when its parent is deleted, used to register qdel signal
  */
-/datum/chatmessage/proc/on_parent_qdel()
+TYPE_PROC_REF(/datum/chatmessage, on_parent_qdel)()
 	qdel(src)
 
 /**
@@ -71,7 +71,7 @@
  * * extra_classes - Extra classes to apply to the span that holds the text
  * * lifespan - The lifespan of the message in deciseconds
  */
-/datum/chatmessage/proc/generate_image(text, atom/target, mob/owner, list/extra_classes, lifespan)
+TYPE_PROC_REF(/datum/chatmessage, generate_image)(text, atom/target, mob/owner, list/extra_classes, lifespan)
 	// Register client who owns this message
 	owned_by = owner.client
 	RegisterSignal(owned_by, COMSIG_PARENT_QDELETING, PROC_REF(on_parent_qdel))
@@ -178,7 +178,7 @@
 /**
  * Applies final animations to overlay CHAT_MESSAGE_EOL_FADE deciseconds prior to message deletion
  */
-/datum/chatmessage/proc/end_of_life(fadetime = CHAT_MESSAGE_EOL_FADE)
+TYPE_PROC_REF(/datum/chatmessage, end_of_life)(fadetime = CHAT_MESSAGE_EOL_FADE)
 	animate(message, alpha = 0, time = fadetime, flags = ANIMATION_PARALLEL)
 	QDEL_IN(src, fadetime)
 
@@ -191,7 +191,7 @@
  * * raw_message - The text content of the message
  * * spans - Additional classes to be added to the message
  */
-/mob/proc/create_chat_message(atom/movable/speaker, datum/language/message_language, raw_message, list/spans, runechat_flags = NONE)
+TYPE_PROC_REF(/mob, create_chat_message)(atom/movable/speaker, datum/language/message_language, raw_message, list/spans, runechat_flags = NONE)
 	// Ensure the list we are using, if present, is a copy so we don't modify the list provided to us
 	spans = spans ? spans.Copy() : list()
 
@@ -229,7 +229,7 @@
  * * sat_shift - A value between 0 and 1 that will be multiplied against the saturation
  * * lum_shift - A value between 0 and 1 that will be multiplied against the luminescence
  */
-/datum/chatmessage/proc/colorize_string(name, sat_shift = 1, lum_shift = 1)
+TYPE_PROC_REF(/datum/chatmessage, colorize_string)(name, sat_shift = 1, lum_shift = 1)
 	// seed to help randomness
 	var/static/rseed = rand(1,26)
 

@@ -214,7 +214,7 @@
 	static_inventory += zone_select
 
 
-/datum/hud/proc/toggle_show_robot_modules()
+TYPE_PROC_REF(/datum/hud, toggle_show_robot_modules)()
 	if(!iscyborg(mymob))
 		return
 
@@ -223,7 +223,7 @@
 	R.shown_robot_modules = !R.shown_robot_modules
 	update_robot_modules_display()
 
-/datum/hud/proc/update_robot_modules_display(mob/viewer)
+TYPE_PROC_REF(/datum/hud, update_robot_modules_display)(mob/viewer)
 	if(!iscyborg(mymob))
 		return
 

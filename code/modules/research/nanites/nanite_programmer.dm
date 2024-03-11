@@ -36,7 +36,7 @@
 
 	return default_deconstruction_crowbar(I)
 
-/obj/machinery/nanite_programmer/proc/eject(mob/living/user)
+TYPE_PROC_REF(/obj/machinery/nanite_programmer, eject)(mob/living/user)
 	if(!disk)
 		return
 	disk.forceMove(drop_location())

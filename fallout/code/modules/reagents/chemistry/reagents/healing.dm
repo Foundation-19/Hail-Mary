@@ -199,7 +199,7 @@
 	data["borrowed_health"] = 0	//We passed this along to something that needed it, set it back to 0 so we don't do it twice.
 	return ..()
 
-/datum/reagent/synthtissue/proc/update_name() //They are but babes on creation and have to grow unto godhood
+TYPE_PROC_REF(/datum/reagent/synthtissue, update_name)() //They are but babes on creation and have to grow unto godhood
 	switch(data["grown_volume"])
 		if(-INFINITY to 50)
 			name = "Induced Synthtissue Colony"

@@ -151,7 +151,7 @@ By design, d1 is the smallest direction and d2 is the highest
 	color = null
 	add_atom_colour(cable_color, FIXED_COLOUR_PRIORITY)
 
-/obj/structure/cable/proc/handlecable(obj/item/W, mob/user, params)
+TYPE_PROC_REF(/obj/structure/cable, handlecable)(obj/item/W, mob/user, params)
 	var/turf/T = get_turf(src)
 	if(T.intact)
 		return
@@ -196,7 +196,7 @@ By design, d1 is the smallest direction and d2 is the highest
 
 
 // shock the user with probability prb
-/obj/structure/cable/proc/shock(mob/user, prb, siemens_coeff = 1)
+TYPE_PROC_REF(/obj/structure/cable, shock)(mob/user, prb, siemens_coeff = 1)
 	if(!prob(prb))
 		return 0
 	if (electrocute_mob(user, powernet, src, siemens_coeff))
@@ -210,7 +210,7 @@ By design, d1 is the smallest direction and d2 is the highest
 	if(current_size >= STAGE_FIVE)
 		deconstruct()
 
-/obj/structure/cable/proc/update_stored(length = 1, colorC = "red")
+TYPE_PROC_REF(/obj/structure/cable, update_stored)(length = 1, colorC = "red")
 	stored.amount = length
 	stored.color = colorC
 	stored.update_icon()
@@ -223,37 +223,37 @@ By design, d1 is the smallest direction and d2 is the highest
 // Machines should use add_load(), surplus(), avail()
 // Non-machines should use add_delayedload(), delayed_surplus(), newavail()
 
-/obj/structure/cable/proc/add_avail(amount)
+TYPE_PROC_REF(/obj/structure/cable, add_avail)(amount)
 	if(powernet)
 		powernet.newavail += amount
 
-/obj/structure/cable/proc/add_load(amount)
+TYPE_PROC_REF(/obj/structure/cable, add_load)(amount)
 	if(powernet)
 		powernet.load += amount
 
-/obj/structure/cable/proc/surplus()
+TYPE_PROC_REF(/obj/structure/cable, surplus)()
 	if(powernet)
 		return clamp(powernet.avail-powernet.load, 0, powernet.avail)
 	else
 		return 0
 
-/obj/structure/cable/proc/avail(amount)
+TYPE_PROC_REF(/obj/structure/cable, avail)(amount)
 	if(powernet)
 		return amount ? powernet.avail >= amount : powernet.avail
 	else
 		return 0
 
-/obj/structure/cable/proc/add_delayedload(amount)
+TYPE_PROC_REF(/obj/structure/cable, add_delayedload)(amount)
 	if(powernet)
 		powernet.delayedload += amount
 
-/obj/structure/cable/proc/delayed_surplus()
+TYPE_PROC_REF(/obj/structure/cable, delayed_surplus)()
 	if(powernet)
 		return clamp(powernet.newavail - powernet.delayedload, 0, powernet.newavail)
 	else
 		return 0
 
-/obj/structure/cable/proc/newavail()
+TYPE_PROC_REF(/obj/structure/cable, newavail)()
 	if(powernet)
 		return powernet.newavail
 	else
@@ -265,7 +265,7 @@ By design, d1 is the smallest direction and d2 is the highest
 
 //handles merging diagonally matching cables
 //for info : direction^3 is flipping horizontally, direction^12 is flipping vertically
-/obj/structure/cable/proc/mergeDiagonalsNetworks(direction)
+TYPE_PROC_REF(/obj/structure/cable, mergeDiagonalsNetworks)(direction)
 
 	//search for and merge diagonally matching cables from the first direction component (north/south)
 	var/turf/T  = get_step(src, direction&3)//go north/south
@@ -309,7 +309,7 @@ By design, d1 is the smallest direction and d2 is the highest
 				C.powernet.add_cable(src) //else, we simply connect to the matching cable powernet
 
 // merge with the powernets of power objects in the given direction
-/obj/structure/cable/proc/mergeConnectedNetworks(direction)
+TYPE_PROC_REF(/obj/structure/cable, mergeConnectedNetworks)(direction)
 
 	var/fdir = (!direction)? 0 : turn(direction, 180) //flip the direction, to match with the source position on its turf
 
@@ -337,7 +337,7 @@ By design, d1 is the smallest direction and d2 is the highest
 				C.powernet.add_cable(src) //else, we simply connect to the matching cable powernet
 
 // merge with the powernets of power objects in the source turf
-/obj/structure/cable/proc/mergeConnectedNetworksOnTurf()
+TYPE_PROC_REF(/obj/structure/cable, mergeConnectedNetworksOnTurf)()
 	var/list/to_connect = list()
 
 	if(!powernet) //if we somehow have no powernet, make one (should not happen for cables)
@@ -385,7 +385,7 @@ By design, d1 is the smallest direction and d2 is the highest
 //////////////////////////////////////////////
 
 //if powernetless_only = 1, will only get connections without powernet
-/obj/structure/cable/proc/get_connections(powernetless_only = 0)
+TYPE_PROC_REF(/obj/structure/cable, get_connections)(powernetless_only = 0)
 	. = list()	// this will be a list of all connected power objects
 	var/turf/T
 
@@ -423,7 +423,7 @@ By design, d1 is the smallest direction and d2 is the highest
 
 //should be called after placing a cable which extends another cable, creating a "smooth" cable that no longer terminates in the centre of a turf.
 //needed as this can, unlike other placements, disconnect cables
-/obj/structure/cable/proc/denode()
+TYPE_PROC_REF(/obj/structure/cable, denode)()
 	var/turf/T1 = loc
 	if(!T1)
 		return
@@ -436,13 +436,13 @@ By design, d1 is the smallest direction and d2 is the highest
 		if(PN.is_empty()) //can happen with machines made nodeless when smoothing cables
 			qdel(PN)
 
-/obj/structure/cable/proc/auto_propogate_cut_cable(obj/O)
+TYPE_PROC_REF(/obj/structure/cable, auto_propogate_cut_cable)(obj/O)
 	if(O && !QDELETED(O))
 		var/datum/powernet/newPN = new()// creates a new powernet...
 		propagate_network(O, newPN)//... and propagates it to the other side of the cable
 
 // cut the cable's powernet at this cable and updates the powergrid
-/obj/structure/cable/proc/cut_cable_from_powernet(remove=TRUE)
+TYPE_PROC_REF(/obj/structure/cable, cut_cable_from_powernet)(remove=TRUE)
 	var/turf/T1 = loc
 	var/list/P_list
 	if(!T1)
@@ -595,7 +595,7 @@ By design, d1 is the smallest direction and d2 is the highest
 	to_chat(user, span_notice("You make some restraints out of cable"))
 
 //add cables to the stack
-/obj/item/stack/cable_coil/proc/give(extra)
+TYPE_PROC_REF(/obj/item/stack/cable_coil, give)(extra)
 	if(amount + extra > max_amount)
 		amount = max_amount
 	else
@@ -606,12 +606,12 @@ By design, d1 is the smallest direction and d2 is the highest
 // Cable laying procedures
 //////////////////////////////////////////////
 
-/obj/item/stack/cable_coil/proc/get_new_cable(location)
+TYPE_PROC_REF(/obj/item/stack/cable_coil, get_new_cable)(location)
 	var/path = /obj/structure/cable
 	return new path(location, color)
 
 // called when cable_coil is clicked on a turf
-/obj/item/stack/cable_coil/proc/place_turf(turf/T, mob/user, dirnew)
+TYPE_PROC_REF(/obj/item/stack/cable_coil, place_turf)(turf/T, mob/user, dirnew)
 	if(!isturf(user.loc))
 		return
 
@@ -670,7 +670,7 @@ By design, d1 is the smallest direction and d2 is the highest
 
 // called when cable_coil is click on an installed obj/cable
 // or click on a turf that already contains a "node" cable
-/obj/item/stack/cable_coil/proc/cable_join(obj/structure/cable/C, mob/user, showerror = TRUE, forceddir)
+TYPE_PROC_REF(/obj/item/stack/cable_coil, cable_join)(obj/structure/cable/C, mob/user, showerror = TRUE, forceddir)
 	var/turf/U = user.loc
 	if(!isturf(U))
 		return

@@ -43,10 +43,10 @@
 	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
 	RegisterSignal(parent, COMSIG_UPGRADE_REMOVE, PROC_REF(uninstall))
 
-/datum/component/item_upgrade/proc/attempt_install(datum/source, atom/movable/target, mob/living/user)
+TYPE_PROC_REF(/datum/component/item_upgrade, attempt_install)(datum/source, atom/movable/target, mob/living/user)
 	return can_apply(target, user) && apply(target, user)
 
-/datum/component/item_upgrade/proc/can_apply(atom/A, mob/living/user)
+TYPE_PROC_REF(/datum/component/item_upgrade, can_apply)(atom/A, mob/living/user)
 	//if(isrobot(A))
 	//	return check_robot(A, user)
 	if(isitem(A))
@@ -66,7 +66,7 @@
 
 	return FALSE
 /*
-/datum/component/item_upgrade/proc/check_robot(mob/living/silicon/robot/R, mob/living/user)
+TYPE_PROC_REF(/datum/component/item_upgrade, check_robot)(mob/living/silicon/robot/R, mob/living/user)
 	if(!R.opened)
 		if(user)
 			to_chat(user, span_warning("You need to open [R]'s panel to access its tools."))
@@ -83,7 +83,7 @@
 		to_chat(user, span_warning("[R] has no modifiable tools."))
 	return FALSE
 */
-/*/datum/component/item_upgrade/proc/check_tool(obj/item/tool/T, mob/living/user)
+/*TYPE_PROC_REF(/datum/component/item_upgrade, check_tool)(obj/item/tool/T, mob/living/user)
 	if(!tool_upgrades.len)
 		to_chat(user, span_warning("\The [parent] can not be attached to a tool."))
 		return FALSE
@@ -145,7 +145,7 @@
 
 	return TRUE
 */
-/datum/component/item_upgrade/proc/check_gun(obj/item/gun/G, mob/living/user)
+TYPE_PROC_REF(/datum/component/item_upgrade, check_gun)(obj/item/gun/G, mob/living/user)
 	if(!weapon_upgrades.len)
 		if(user)
 			to_chat(user, span_warning("\The [parent] can not be applied to guns!"))
@@ -175,7 +175,7 @@
 		return FALSE
 	return TRUE
 
-/datum/component/item_upgrade/proc/apply(obj/item/A, mob/living/user)
+TYPE_PROC_REF(/datum/component/item_upgrade, apply)(obj/item/A, mob/living/user)
 	if(user)
 		user.visible_message(span_notice("[user] starts applying [parent] to [A]"), span_notice("You start applying \the [parent] to \the [A]"))
 		var/obj/item/I = parent
@@ -193,7 +193,7 @@
 	A.refresh_upgrades()
 	return TRUE
 
-/datum/component/item_upgrade/proc/uninstall(datum/source, obj/item/I, mob/user, params)
+TYPE_PROC_REF(/datum/component/item_upgrade, uninstall)(datum/source, obj/item/I, mob/user, params)
 	var/obj/item/P = parent
 	I.item_upgrades -= P
 	if(destroy_on_removal)
@@ -205,7 +205,7 @@
 	UnregisterSignal(I, COMSIG_UPGRADE_ADDVAL)
 	UnregisterSignal(I, COMSIG_UPGRADE_APPVAL)
 
-/datum/component/item_upgrade/proc/apply_values(datum/source, obj/item/I)
+TYPE_PROC_REF(/datum/component/item_upgrade, apply_values)(datum/source, obj/item/I)
 	if(!I)
 		return
 	//if(istool(holder))
@@ -214,13 +214,13 @@
 		apply_values_gun(I)
 	return TRUE
 
-/datum/component/item_upgrade/proc/add_values(datum/source, obj/item/I)
+TYPE_PROC_REF(/datum/component/item_upgrade, add_values)(datum/source, obj/item/I)
 	ASSERT(I)
 	if(isgun(I))
 		add_values_gun(I)
 	return TRUE
 
-/*/datum/component/item_upgrade/proc/apply_values_tool(obj/item/tool/T)
+/*TYPE_PROC_REF(/datum/component/item_upgrade, apply_values_tool)(obj/item/tool/T)
 	if(tool_upgrades[UPGRADE_PRECISION])
 		T.precision += tool_upgrades[UPGRADE_PRECISION]
 	if(tool_upgrades[UPGRADE_WORKSPEED])
@@ -260,7 +260,7 @@
 	T.switched_on_force = initial(T.switched_on_force) * T.force_upgrade_mults + T.force_upgrade_mods
 	T.prefixes |= prefix
 */
-/datum/component/item_upgrade/proc/apply_values_gun(var/obj/item/gun/G)
+TYPE_PROC_REF(/datum/component/item_upgrade, apply_values_gun)(var/obj/item/gun/G)
 	if(weapon_upgrades[GUN_UPGRADE_DAMAGE_MULT])
 		G.damage_multiplier *= weapon_upgrades[GUN_UPGRADE_DAMAGE_MULT]
 	if(weapon_upgrades[GUN_UPGRADE_DAMAGEMOD_PLUS])
@@ -354,11 +354,11 @@
 
 	G.update_firemode()
 
-/datum/component/item_upgrade/proc/add_values_gun(obj/item/gun/G)
+TYPE_PROC_REF(/datum/component/item_upgrade, add_values_gun)(obj/item/gun/G)
 	if(weapon_upgrades[GUN_UPGRADE_FULLAUTO])
 		G.firemodes.Add(new /datum/firemode/automatic/rpm200(G))
 
-/datum/component/item_upgrade/proc/apply_values_firemode(datum/firemode/F)
+TYPE_PROC_REF(/datum/component/item_upgrade, apply_values_firemode)(datum/firemode/F)
 	if(weapon_upgrades[GUN_UPGRADE_FIRE_DELAY_MULT])
 		F.settings["fire_delay"] *= weapon_upgrades[GUN_UPGRADE_FIRE_DELAY_MULT]
 		F.settings["autofire_shot_delay"] *= weapon_upgrades[GUN_UPGRADE_FIRE_DELAY_MULT]
@@ -367,7 +367,7 @@
 	//	if(weapon_upgrades[GUN_UPGRADE_MOVE_DELAY_MULT])
 	//		F.settings[i] *= weapon_upgrades[GUN_UPGRADE_MOVE_DELAY_MULT]
 
-/datum/component/item_upgrade/proc/on_examine(atom/source, mob/user, list/examine_list)
+TYPE_PROC_REF(/datum/component/item_upgrade, on_examine)(atom/source, mob/user, list/examine_list)
 	if(tool_upgrades[UPGRADE_SANCTIFY])
 		examine_list += span_notice("Does additional burn damage to mutants.")
 	if (tool_upgrades[UPGRADE_PRECISION] > 0)
@@ -584,7 +584,7 @@
 /datum/component/upgrade_removal/UnregisterFromParent()
 	UnregisterSignal(parent, COMSIG_PARENT_ATTACKBY)
 
-/datum/component/upgrade_removal/proc/attempt_uninstall(datum/source, obj/item/C, mob/user, params)
+TYPE_PROC_REF(/datum/component/upgrade_removal, attempt_uninstall)(datum/source, obj/item/C, mob/user, params)
 	if(!isitem(C))
 		return 0
 

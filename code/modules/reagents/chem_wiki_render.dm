@@ -9,7 +9,7 @@
 
 
 
-/client/proc/generate_wikichem_list()
+TYPE_PROC_REF(/client, generate_wikichem_list)()
 	set name = "Generate Wikichems"
 	set category = "Debug"
 	set desc = "Generate a huge loglist of all the chems. Do not click unless you want lag."

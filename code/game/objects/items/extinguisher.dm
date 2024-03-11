@@ -70,7 +70,7 @@
 	sprite_name = "foam_extinguisher"
 	precision = TRUE
 
-/obj/item/extinguisher/proc/refill()
+TYPE_PROC_REF(/obj/item/extinguisher, refill)()
 	create_reagents(max_water, AMOUNT_VISIBLE)
 	reagents.add_reagent(chem, max_water)
 
@@ -112,7 +112,7 @@
 	if(reagents.total_volume)
 		. += span_notice("Alt-click to empty it.")
 
-/obj/item/extinguisher/proc/AttemptRefill(atom/target, mob/user)
+TYPE_PROC_REF(/obj/item/extinguisher, AttemptRefill)(atom/target, mob/user)
 	if(istype(target, tanktype) && target.Adjacent(user))
 		var/safety_save = safety
 		safety = TRUE
@@ -160,7 +160,7 @@
 		if(user.buckled && isobj(user.buckled) && !user.buckled.anchored)
 			var/obj/B = user.buckled
 			var/movementdirection = turn(direction,180)
-			addtimer(CALLBACK(src, /obj/item/extinguisher/proc/move_chair, B, movementdirection), 1)
+			addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/item/extinguisher, move_chair), B, movementdirection), 1)
 
 		else user.newtonian_move(turn(direction, 180))
 
@@ -188,10 +188,10 @@
 			reagents.trans_to(W,1)
 
 		//Make em move dat ass, hun
-		addtimer(CALLBACK(src, /obj/item/extinguisher/proc/move_particles, water_particles), 2)
+		addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/item/extinguisher, move_particles), water_particles), 2)
 
 //Particle movement loop
-/obj/item/extinguisher/proc/move_particles(list/particles, repetition=0)
+TYPE_PROC_REF(/obj/item/extinguisher, move_particles)(list/particles, repetition=0)
 	//Check if there's anything in here first
 	if(!particles || particles.len == 0)
 		return
@@ -210,10 +210,10 @@
 			break
 	if(repetition < power)
 		repetition++
-		addtimer(CALLBACK(src, /obj/item/extinguisher/proc/move_particles, particles, repetition), 2)
+		addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/item/extinguisher, move_particles), particles, repetition), 2)
 
 //Chair movement loop
-/obj/item/extinguisher/proc/move_chair(obj/B, movementdirection, repetition=0)
+TYPE_PROC_REF(/obj/item/extinguisher, move_chair)(obj/B, movementdirection, repetition=0)
 	step(B, movementdirection)
 
 	var/timer_seconds
@@ -228,14 +228,14 @@
 			return
 
 	repetition++
-	addtimer(CALLBACK(src, /obj/item/extinguisher/proc/move_chair, B, movementdirection, repetition), timer_seconds)
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/item/extinguisher, move_chair), B, movementdirection, repetition), timer_seconds)
 
 /obj/item/extinguisher/AltClick(mob/user)
 	if(!user.canUseTopic(src, BE_CLOSE, ismonkey(user)))
 		return
 	EmptyExtinguisher(user)
 
-/obj/item/extinguisher/proc/EmptyExtinguisher(mob/user)
+TYPE_PROC_REF(/obj/item/extinguisher, EmptyExtinguisher)(mob/user)
 	if(loc == user && reagents.total_volume)
 		reagents.clear_reagents()
 

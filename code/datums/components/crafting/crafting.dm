@@ -2,7 +2,7 @@
 	if(ismob(parent))
 		RegisterSignal(parent, COMSIG_MOB_CLIENT_LOGIN, PROC_REF(create_mob_button))
 
-/datum/component/personal_crafting/proc/create_mob_button(mob/user, client/CL)
+TYPE_PROC_REF(/datum/component/personal_crafting, create_mob_button)(mob/user, client/CL)
 	var/datum/hud/H = user.hud_used
 	var/obj/screen/craft/C = new()
 	C.icon = H.ui_style
@@ -78,7 +78,7 @@
  * R: The /datum/crafting_recipe being attempted.
  * contents: List of items to search for R's reqs.
  */
-/datum/component/personal_crafting/proc/check_contents(atom/a, datum/crafting_recipe/R, list/contents)
+TYPE_PROC_REF(/datum/component/personal_crafting, check_contents)(atom/a, datum/crafting_recipe/R, list/contents)
 	var/list/item_instances = contents["instances"]
 	contents = contents["other"]
 
@@ -114,7 +114,7 @@
 
 	return R.check_requirements(a, requirements_list)
 
-/datum/component/personal_crafting/proc/get_environment(atom/a, list/blacklist = null, radius_range = 1)
+TYPE_PROC_REF(/datum/component/personal_crafting, get_environment)(atom/a, list/blacklist = null, radius_range = 1)
 	. = list()
 
 	if(!isturf(a.loc))
@@ -133,7 +133,7 @@
 				continue
 		. += AM
 
-/datum/component/personal_crafting/proc/get_surroundings(atom/a)
+TYPE_PROC_REF(/datum/component/personal_crafting, get_surroundings)(atom/a)
 	. = list()
 	.["tool_behaviour"] = list()
 	.["other"] = list()
@@ -163,7 +163,7 @@
 			.["tool_behaviour"] += M.machine_tool_behaviour
 			.["other"][M.type] += 1
 
-/datum/component/personal_crafting/proc/check_tools(atom/a, datum/crafting_recipe/R, list/contents)
+TYPE_PROC_REF(/datum/component/personal_crafting, check_tools)(atom/a, datum/crafting_recipe/R, list/contents)
 	if(!R.tools.len)
 		return TRUE
 	var/list/possible_tools = list()
@@ -196,7 +196,7 @@
 			return FALSE
 	return TRUE
 
-/datum/component/personal_crafting/proc/construct_item(atom/a, datum/crafting_recipe/R)
+TYPE_PROC_REF(/datum/component/personal_crafting, construct_item)(atom/a, datum/crafting_recipe/R)
 	var/list/contents = get_surroundings(a)
 	var/send_feedback = 1
 	if(check_contents(a, R, contents))
@@ -242,7 +242,7 @@
 	del_reqs return the list of parts resulting object will receive as argument of CheckParts proc, on the atom level it will add them all to the contents, on all other levels it calls ..() and does whatever is needed afterwards but from contents list already
 */
 
-/datum/component/personal_crafting/proc/del_reqs(datum/crafting_recipe/R, atom/a)
+TYPE_PROC_REF(/datum/component/personal_crafting, del_reqs)(datum/crafting_recipe/R, atom/a)
 	var/list/surroundings
 	var/list/Deletion = list()
 	. = list()
@@ -340,7 +340,7 @@
 		Deletion.Cut(Deletion.len)
 		qdel(DL)
 
-/datum/component/personal_crafting/proc/component_ui_interact(obj/screen/craft/image, location, control, params, mob/user)
+TYPE_PROC_REF(/datum/component/personal_crafting, component_ui_interact)(obj/screen/craft/image, location, control, params, mob/user)
 	if(user != parent)
 		return
 	if(!special_crafting_check(user)) // S.P.E.C.I.A.L.
@@ -445,7 +445,7 @@
 			cur_subcategory = params["subcategory"] || ""
 			. = TRUE
 
-/datum/component/personal_crafting/proc/build_recipe_data(datum/crafting_recipe/R)
+TYPE_PROC_REF(/datum/component/personal_crafting, build_recipe_data)(datum/crafting_recipe/R)
 	var/list/data = list()
 	data["name"] = R.name
 	data["ref"] = "[REF(R)]"
@@ -482,7 +482,7 @@
 
 //Mind helpers
 
-/datum/mind/proc/teach_crafting_recipe(R)
+TYPE_PROC_REF(/datum/mind, teach_crafting_recipe)(R)
 	if(!learned_recipes)
 		learned_recipes = list()
 	learned_recipes |= R

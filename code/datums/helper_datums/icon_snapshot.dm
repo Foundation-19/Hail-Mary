@@ -4,7 +4,7 @@
 	var/icon_state
 	var/list/overlays
 
-/datum/icon_snapshot/proc/makeImg()
+TYPE_PROC_REF(/datum/icon_snapshot, makeImg)()
 	if(!icon || !icon_state)
 		return
 	var/obj/temp = new

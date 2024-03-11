@@ -1,6 +1,6 @@
 
 // External storage-related logic:
-// /mob/proc/ClickOn() in /_onclick/click.dm - clicking items in storages
+// TYPE_PROC_REF(/mob, ClickOn)() in /_onclick/click.dm - clicking items in storages
 // /mob/living/Move() in /modules/mob/living/living.dm - hiding storage boxes on mob movement
 
 /datum/component/storage/concrete
@@ -84,7 +84,7 @@
 		var/atom/A = i
 		A.emp_act(severity)
 
-/datum/component/storage/concrete/proc/on_slave_link(datum/component/storage/S)
+TYPE_PROC_REF(/datum/component/storage/concrete, on_slave_link)(datum/component/storage/S)
 	if(S == src)
 		return
 	if(!length(slaves))
@@ -92,29 +92,29 @@
 	slaves += S
 
 
-/datum/component/storage/concrete/proc/on_slave_unlink(datum/component/storage/S)
+TYPE_PROC_REF(/datum/component/storage/concrete, on_slave_unlink)(datum/component/storage/S)
 	slaves -= S
 	if(!length(slaves))
 		UnregisterSignal(parent, COMSIG_ATOM_GET_LOCS)
 
 
-/datum/component/storage/concrete/proc/get_locs_react(datum/source, list/locs)
+TYPE_PROC_REF(/datum/component/storage/concrete, get_locs_react)(datum/source, list/locs)
 	SIGNAL_HANDLER
 	for(var/datum/component/storage/slave as anything in slaves)
 		locs += slave.parent
 
 
-/datum/component/storage/concrete/proc/on_contents_del(datum/source, atom/A)
+TYPE_PROC_REF(/datum/component/storage/concrete, on_contents_del)(datum/source, atom/A)
 	var/atom/real_location = parent
 	if(A in real_location)
 		usr = null
 		remove_from_storage(A, null)
 
-/datum/component/storage/concrete/proc/on_deconstruct(datum/source, disassembled)
+TYPE_PROC_REF(/datum/component/storage/concrete, on_deconstruct)(datum/source, disassembled)
 	if(drop_all_on_deconstruct)
 		do_quick_empty()
 
-/datum/component/storage/concrete/proc/on_break(datum/source, damage_flag)
+TYPE_PROC_REF(/datum/component/storage/concrete, on_break)(datum/source, damage_flag)
 	if(drop_all_on_break)
 		do_quick_empty()
 	if(unlock_on_break)
@@ -160,10 +160,10 @@
 		O.update_icon()
 	return TRUE
 
-/datum/component/storage/concrete/proc/slave_can_insert_object(datum/component/storage/slave, obj/item/I, stop_messages = FALSE, mob/M)
+TYPE_PROC_REF(/datum/component/storage/concrete, slave_can_insert_object)(datum/component/storage/slave, obj/item/I, stop_messages = FALSE, mob/M)
 	return TRUE
 
-/datum/component/storage/concrete/proc/handle_item_insertion_from_slave(datum/component/storage/slave, obj/item/I, prevent_warning = FALSE, M)
+TYPE_PROC_REF(/datum/component/storage/concrete, handle_item_insertion_from_slave)(datum/component/storage/slave, obj/item/I, prevent_warning = FALSE, M)
 	. = handle_item_insertion(I, prevent_warning, M, slave)
 	if(. && !prevent_warning)
 		slave.mob_item_insertion_feedback(usr, M, I)

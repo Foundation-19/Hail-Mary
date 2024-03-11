@@ -14,7 +14,7 @@
 	var/old_shard = FALSE
 	var/spent = FALSE
 
-/obj/item/soulstone/proc/was_used()
+TYPE_PROC_REF(/obj/item/soulstone, was_used)()
 	if(old_shard)
 		spent = TRUE
 		name = "dull [name]"
@@ -80,7 +80,7 @@
 		return
 	release_shades(user)
 
-/obj/item/soulstone/proc/release_shades(mob/user)
+TYPE_PROC_REF(/obj/item/soulstone, release_shades)(mob/user)
 	for(var/mob/living/simple_animal/shade/A in src)
 		A.status_flags &= ~GODMODE
 		A.forceMove(get_turf(user))
@@ -125,7 +125,7 @@
 ////////////////////////////Proc for moving soul in and out off stone//////////////////////////////////////
 
 
-/obj/item/soulstone/proc/transfer_soul(choice as text, target, mob/user)
+TYPE_PROC_REF(/obj/item/soulstone, transfer_soul)(choice as text, target, mob/user)
 	switch(choice)
 		if("FORCE")
 			if(!iscarbon(target))		//TODO: Add sacrifice stoning for non-organics, just because you have no body doesnt mean you dont have a soul
@@ -233,7 +233,7 @@
 	newstruct.cancel_camera()
 
 
-/obj/item/soulstone/proc/init_shade(mob/living/carbon/human/T, mob/user, vic = 0)
+TYPE_PROC_REF(/obj/item/soulstone, init_shade)(mob/living/carbon/human/T, mob/user, vic = 0)
 	new /obj/effect/decal/remains/human(T.loc) //Spawns a skeleton
 	T.stop_sound_channel(CHANNEL_HEARTBEAT)
 	T.invisibility = INVISIBILITY_ABSTRACT
@@ -264,7 +264,7 @@
 		to_chat(user, "<span class='info'><b>Capture successful!</b>:</span> [T.real_name]'s soul has been ripped from [T.p_their()] body and stored within the soul stone.")
 
 
-/obj/item/soulstone/proc/getCultGhost(mob/living/carbon/human/T, mob/U)
+TYPE_PROC_REF(/obj/item/soulstone, getCultGhost)(mob/living/carbon/human/T, mob/U)
 	var/mob/dead/observer/chosen_ghost
 
 	for(var/mob/dead/observer/ghost in GLOB.player_list) //We put them back in their body

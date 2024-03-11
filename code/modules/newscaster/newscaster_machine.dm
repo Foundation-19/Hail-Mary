@@ -618,7 +618,7 @@ GLOBAL_LIST_EMPTY(allCasters)
 	else
 		take_damage(5, BRUTE, "melee", attacked_by = user)
 
-/obj/machinery/newscaster/proc/AttachPhoto(mob/user)
+TYPE_PROC_REF(/obj/machinery/newscaster, AttachPhoto)(mob/user)
 	var/obj/item/photo/photo = user.is_holding_item_of_type(/obj/item/photo)
 	if(photo)
 		picture = photo.picture
@@ -642,7 +642,7 @@ GLOBAL_LIST_EMPTY(allCasters)
 		if(selection)
 			picture = selection
 
-/obj/machinery/newscaster/proc/scan_user(mob/living/user)
+TYPE_PROC_REF(/obj/machinery/newscaster, scan_user)(mob/living/user)
 	if(ishuman(user))
 		var/mob/living/carbon/human/human_user = user
 		if(human_user.wear_id)
@@ -665,7 +665,7 @@ GLOBAL_LIST_EMPTY(allCasters)
 	else
 		CRASH("Invalid user for this proc")
 
-/obj/machinery/newscaster/proc/print_paper()
+TYPE_PROC_REF(/obj/machinery/newscaster, print_paper)()
 	SSblackbox.record_feedback("amount", "newspapers_printed", 1)
 	var/obj/item/newspaper/NEWSPAPER = new /obj/item/newspaper
 	for(var/datum/news/feed_channel/FC in GLOB.news_network.network_channels)
@@ -680,11 +680,11 @@ GLOBAL_LIST_EMPTY(allCasters)
 	NEWSPAPER.creationTime = GLOB.news_network.lastAction
 	paper_remaining--
 
-/obj/machinery/newscaster/proc/remove_alert()
+TYPE_PROC_REF(/obj/machinery/newscaster, remove_alert)()
 	alert = FALSE
 	update_icon()
 
-/obj/machinery/newscaster/proc/newsAlert(channel)
+TYPE_PROC_REF(/obj/machinery/newscaster, newsAlert)(channel)
 	if(channel)
 		say("Breaking news from [channel]!")
 		alert = TRUE

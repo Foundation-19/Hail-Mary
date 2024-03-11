@@ -300,13 +300,13 @@ GLOBAL_LIST_EMPTY(explosions)
 #undef EX_PREPROCESS_CHECK_TICK
 
 //asyncly populate the affected_turfs list
-/datum/explosion/proc/GatherSpiralTurfs(range, turf/epicenter)
+TYPE_PROC_REF(/datum/explosion, GatherSpiralTurfs)(range, turf/epicenter)
 	set waitfor = FALSE
 	. = list()
 	spiral_range_turfs(range, epicenter, outlist = ., tick_checked = TRUE)
 	++stopped
 
-/datum/explosion/proc/CaculateExplosionBlock(list/affected_turfs)
+TYPE_PROC_REF(/datum/explosion, CaculateExplosionBlock)(list/affected_turfs)
 	set waitfor = FALSE
 
 	. = list()
@@ -337,7 +337,7 @@ GLOBAL_LIST_EMPTY(explosions)
 	explosion_source = null
 	return ..()
 
-/client/proc/check_bomb_impacts()
+TYPE_PROC_REF(/client, check_bomb_impacts)()
 	set name = "Check Bomb Impact"
 	set category = "Debug"
 

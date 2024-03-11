@@ -22,10 +22,10 @@
 	. = ..()
 	UnregisterSignal(parent, list(COMSIG_PROJECTILE_ON_HIT))
 
-/datum/component/mirv/proc/projectile_hit(atom/fired_from, atom/movable/firer, atom/target, Angle)
+TYPE_PROC_REF(/datum/component/mirv, projectile_hit)(atom/fired_from, atom/movable/firer, atom/target, Angle)
 	do_shrapnel(firer, target)
 
-/datum/component/mirv/proc/do_shrapnel(mob/firer, atom/target)
+TYPE_PROC_REF(/datum/component/mirv, do_shrapnel)(mob/firer, atom/target)
 	if(radius < 1)
 		return
 	var/turf/target_turf = get_turf(target)

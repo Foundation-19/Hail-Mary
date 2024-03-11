@@ -12,7 +12,7 @@ SUBSYSTEM_DEF(machines)
 	fire()
 	return ..()
 
-/datum/controller/subsystem/machines/proc/makepowernets()
+TYPE_PROC_REF(/datum/controller/subsystem/machines, makepowernets)()
 	for(var/datum/powernet/PN in powernets)
 		qdel(PN)
 	powernets.Cut()
@@ -51,7 +51,7 @@ SUBSYSTEM_DEF(machines)
 		if (MC_TICK_CHECK)
 			return
 
-/datum/controller/subsystem/machines/proc/setup_template_powernets(list/cables)
+TYPE_PROC_REF(/datum/controller/subsystem/machines, setup_template_powernets)(list/cables)
 	for(var/A in cables)
 		var/obj/structure/cable/PC = A
 		if(!PC.powernet)

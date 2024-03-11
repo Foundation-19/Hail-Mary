@@ -53,10 +53,10 @@
 			return s_store
 	return null
 
-/mob/living/carbon/human/proc/get_all_slots()
+TYPE_PROC_REF(/mob/living/carbon/human, get_all_slots)()
 	. = get_head_slots() | get_body_slots()
 
-/mob/living/carbon/human/proc/get_body_slots()
+TYPE_PROC_REF(/mob/living/carbon/human, get_body_slots)()
 	return list(
 		back,
 		s_store,
@@ -72,7 +72,7 @@
 		w_uniform
 		)
 
-/mob/living/carbon/human/proc/get_head_slots()
+TYPE_PROC_REF(/mob/living/carbon/human, get_head_slots)()
 	return list(
 		head,
 		wear_mask,
@@ -81,7 +81,7 @@
 		ears,
 		)
 
-/mob/living/carbon/human/proc/get_storage_slots()
+TYPE_PROC_REF(/mob/living/carbon/human, get_storage_slots)()
 	return list(
 		back,
 		belt,
@@ -270,7 +270,7 @@
 	sec_hud_set_security_status()
 	..()
 
-/mob/living/carbon/human/proc/equipOutfit(outfit, visualsOnly = FALSE, client/preference_source)
+TYPE_PROC_REF(/mob/living/carbon/human, equipOutfit)(outfit, visualsOnly = FALSE, client/preference_source)
 	var/datum/outfit/O = null
 
 	if(ispath(outfit))
@@ -286,13 +286,13 @@
 
 
 //delete all equipment without dropping anything
-/mob/living/carbon/human/proc/delete_equipment()
+TYPE_PROC_REF(/mob/living/carbon/human, delete_equipment)()
 	for(var/slot in get_all_slots())//order matters, dependant slots go first
 		qdel(slot)
 	for(var/obj/item/I in held_items)
 		qdel(I)
 
-/mob/living/carbon/human/proc/smart_equipbag() // take most recent item out of bag or place held item in bag
+TYPE_PROC_REF(/mob/living/carbon/human, smart_equipbag)() // take most recent item out of bag or place held item in bag
 	if(incapacitated())
 		return
 	var/obj/item/thing = get_active_held_item()
@@ -323,7 +323,7 @@
 	stored.attack_hand(src) // take out thing from backpack
 	return
 
-/mob/living/carbon/human/proc/smart_equipbelt() // put held thing in belt or take most recent item out of belt
+TYPE_PROC_REF(/mob/living/carbon/human, smart_equipbelt)() // put held thing in belt or take most recent item out of belt
 	if(incapacitated())
 		return
 	var/obj/item/thing = get_active_held_item()

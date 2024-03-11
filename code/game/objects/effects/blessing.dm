@@ -22,6 +22,6 @@
 	UnregisterSignal(loc, COMSIG_ATOM_INTERCEPT_TELEPORT)
 	return ..()
 
-/obj/effect/blessing/proc/block_cult_teleport(datum/source, channel, turf/origin, turf/destination)
+TYPE_PROC_REF(/obj/effect/blessing, block_cult_teleport)(datum/source, channel, turf/origin, turf/destination)
 	if(channel == TELEPORT_CHANNEL_CULT)
 		return COMPONENT_BLOCK_TELEPORT

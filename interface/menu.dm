@@ -34,13 +34,13 @@ GLOBAL_LIST_EMPTY(menulist)
 		entry["group"] = "[verb_true_parent.type]"
 	return list2params(entry)
 
-/datum/verbs/menu/proc/Get_checked(client/C)
+TYPE_PROC_REF(/datum/verbs/menu, Get_checked)(client/C)
 	return C.prefs.menuoptions[type] || default || FALSE
 
-/datum/verbs/menu/proc/Load_checked(client/C) //Loads the checked menu item into a new client. Used by icon menus to invoke the checked item.
+TYPE_PROC_REF(/datum/verbs/menu, Load_checked)(client/C) //Loads the checked menu item into a new client. Used by icon menus to invoke the checked item.
 	return
 
-/datum/verbs/menu/proc/Set_checked(client/C, verbpath)
+TYPE_PROC_REF(/datum/verbs/menu, Set_checked)(client/C, verbpath)
 	if (checkbox == CHECKBOX_GROUP)
 		C.prefs.menuoptions[type] = verbpath
 		C.prefs.save_preferences()

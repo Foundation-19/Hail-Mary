@@ -26,7 +26,7 @@
 /obj/item/reagent_containers/food/drinks/attack(mob/living/M, mob/user, def_zone)
 	INVOKE_ASYNC(src, PROC_REF(attempt_forcedrink), M, user)
 
-/obj/item/reagent_containers/food/drinks/proc/attempt_forcedrink(mob/living/M, mob/user, force, silent, vorebite)
+TYPE_PROC_REF(/obj/item/reagent_containers/food/drinks, attempt_forcedrink)(mob/living/M, mob/user, force, silent, vorebite)
 	if(!reagents || !reagents.total_volume)
 		to_chat(user, span_warning("[src] is empty!"))
 		return 0
@@ -116,7 +116,7 @@
 	if(!.) //if the bottle wasn't caught
 		smash(hit_atom, throwingdatum?.thrower, TRUE)
 
-/obj/item/reagent_containers/food/drinks/proc/smash(atom/target, mob/thrower, ranged = FALSE)
+TYPE_PROC_REF(/obj/item/reagent_containers/food/drinks, smash)(atom/target, mob/thrower, ranged = FALSE)
 	if(!isGlass && !istype(src, /obj/item/reagent_containers/food/drinks/bottle)) //I don't like this but I also don't want to rework drink container hierarchy
 		return
 	if(QDELING(src) || (ranged && !target))
@@ -503,7 +503,7 @@
 		crush_can(user)
 	..()
 
-/obj/item/reagent_containers/food/drinks/soda_cans/proc/crush_can(mob/user, silent, vorebite)
+TYPE_PROC_REF(/obj/item/reagent_containers/food/drinks/soda_cans, crush_can)(mob/user, silent, vorebite)
 	if(!silent)
 		user.visible_message(span_warning("[user] crushes the can of [src] on [user.p_their()] forehead!"), span_notice("You crush the can of [src] on your forehead."))
 	playsound(user.loc,'sound/weapons/pierce.ogg', rand(10,50), 1)
@@ -517,7 +517,7 @@
 		pop_top(user)
 	return ..()
 
-/obj/item/reagent_containers/food/drinks/soda_cans/proc/pop_top(mob/user, silent)
+TYPE_PROC_REF(/obj/item/reagent_containers/food/drinks/soda_cans, pop_top)(mob/user, silent)
 	if(!silent)
 		to_chat(user, "You pull back the tab of \the [src] with a satisfying pop.") //Ahhhhhhhh
 	playsound(src, "can_open", 50, 1)

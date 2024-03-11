@@ -154,7 +154,7 @@ GLOBAL_LIST_EMPTY(block_parry_data)
 /**
  * Quirky proc to get average of flags in list that are in attack_type because why is attack_type a flag.
  */
-/datum/block_parry_data/proc/attack_type_list_scan(list/L, attack_type)
+TYPE_PROC_REF(/datum/block_parry_data, attack_type_list_scan)(list/L, attack_type)
 	var/total = 0
 	var/div = 0
 	for(var/flagtext in L)
@@ -176,7 +176,7 @@ GLOBAL_LIST_EMPTY(block_parry_data)
  * * attack_type - int, bitfield of the attack type(s)
  * * parry_time - deciseconds since start of the parry.
  */
-/datum/block_parry_data/proc/get_parry_efficiency(attack_type, parry_time)
+TYPE_PROC_REF(/datum/block_parry_data, get_parry_efficiency)(attack_type, parry_time)
 	var/difference = abs(parry_time - (parry_time_perfect + parry_time_windup))
 	var/leeway = attack_type_list_scan(parry_time_perfect_leeway_override, attack_type)
 	if(isnull(leeway))
@@ -236,7 +236,7 @@ GLOBAL_LIST_EMPTY(block_parry_data)
  * Maybe make this tgui-next someday haha god this is ugly as sin.
  * Does NOT include the popout or title or anything. Just the variables and explanations..
  */
-/datum/block_parry_data/proc/render_html_readout(block_data = FALSE, parry_data = FALSE)
+TYPE_PROC_REF(/datum/block_parry_data, render_html_readout)(block_data = FALSE, parry_data = FALSE)
 	var/list/dat = list()
 	if(block_data)
 		dat += "<div class='statusDisplay'><h3>Block Stats</h3><table style='width:100%'><tr><th>Name/Description</th><th>Value</th></tr>"
@@ -304,7 +304,7 @@ GLOBAL_LIST_EMPTY(block_parry_data)
 /**
  * Called every life tick to handle blocking/parrying effects.
  */
-/mob/living/proc/handle_block_parry(seconds = 1)
+TYPE_PROC_REF(/mob/living, handle_block_parry)(seconds = 1)
 	if(combat_flags & COMBAT_FLAG_ACTIVE_BLOCKING)
 		var/datum/block_parry_data/data = return_block_parry_datum(active_block_item.block_parry_data)
 		adjustStaminaLossBuffered(data.block_stamina_cost_per_second * seconds)

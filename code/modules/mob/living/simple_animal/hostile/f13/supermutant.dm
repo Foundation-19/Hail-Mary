@@ -428,7 +428,7 @@
 	if(charging)
 		DestroySurroundings()
 
-/mob/living/simple_animal/hostile/supermutant/nightkin/rain/proc/Charge()
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/supermutant/nightkin/rain, Charge)()
 	var/turf/T = get_turf(target)
 	if(!T || T == loc)
 		return
@@ -442,7 +442,7 @@
 	addtimer(3)
 	throw_at(T, get_dist(src, T), 1, src, 0, callback = CALLBACK(src, PROC_REF(charge_end)))
 
-/mob/living/simple_animal/hostile/supermutant/nightkin/rain/proc/charge_end(list/effects_to_destroy)
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/supermutant/nightkin/rain, charge_end)(list/effects_to_destroy)
 	charging = FALSE
 	if(target)
 		Goto(target, move_to_delay, minimum_distance)
@@ -504,13 +504,13 @@
 		visible_message(span_danger("\The [Proj] is absorbed by \the [src]'s thick skin, strengthening it!"))
 		return 0
 
-/mob/living/simple_animal/hostile/supermutant/nightkin/rangedmutant/rain/proc/fire_release()
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/supermutant/nightkin/rangedmutant/rain, fire_release)()
 	playsound(get_turf(src),'sound/magic/fireball.ogg', 200, 1)
 
 	for(var/d in GLOB.cardinals)
 		INVOKE_ASYNC(src, PROC_REF(fire_release_wall), d)
 
-/mob/living/simple_animal/hostile/supermutant/nightkin/rangedmutant/rain/proc/fire_release_wall(dir)
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/supermutant/nightkin/rangedmutant/rain, fire_release_wall)(dir)
 	var/list/hit_things = list(src)
 	var/turf/E = get_edge_target_turf(src, dir)
 	var/range = 10

@@ -7,7 +7,7 @@ GLOBAL_PROTECT(VVckey_edit)
 GLOBAL_LIST_INIT(VVpixelmovement, list("bound_x", "bound_y", "step_x", "step_y", "step_size", "bound_height", "bound_width", "bounds"))		//No editing ever.
 GLOBAL_PROTECT(VVpixelmovement)
 
-/client/proc/vv_parse_text(O, new_var)
+TYPE_PROC_REF(/client, vv_parse_text)(O, new_var)
 	if(O && findtext(new_var,"\["))
 		var/process_vars = alert(usr,"\[] detected in string, process as variables?","Process Variables?","Yes","No")
 		if(process_vars == "Yes")
@@ -17,7 +17,7 @@ GLOBAL_PROTECT(VVpixelmovement)
 //FALSE = no subtypes, strict exact type pathing (or the type doesn't have subtypes)
 //TRUE = Yes subtypes
 //NULL = User cancelled at the prompt or invalid type given
-/client/proc/vv_subtype_prompt(type)
+TYPE_PROC_REF(/client, vv_subtype_prompt)(type)
 	if (!ispath(type))
 		return
 	var/list/subtypes = subtypesof(type)
@@ -32,7 +32,7 @@ GLOBAL_PROTECT(VVpixelmovement)
 			else
 				return
 
-/client/proc/vv_reference_list(type, subtypes)
+TYPE_PROC_REF(/client, vv_reference_list)(type, subtypes)
 	. = list()
 	var/list/types = list(type)
 	if (subtypes)
@@ -64,7 +64,7 @@ GLOBAL_PROTECT(VVpixelmovement)
 
 		.["[D]([shorttype])[REF(D)]#[i]"] = D
 
-/client/proc/mod_list_add_ass(atom/O) //hehe
+TYPE_PROC_REF(/client, mod_list_add_ass)(atom/O) //hehe
 
 	var/list/L = vv_get_value(restricted_classes = list(VV_RESTORE_DEFAULT))
 	var/class = L["class"]
@@ -80,7 +80,7 @@ GLOBAL_PROTECT(VVpixelmovement)
 	return var_value
 
 
-/client/proc/mod_list_add(list/L, atom/O, original_name, objectvar)
+TYPE_PROC_REF(/client, mod_list_add)(list/L, atom/O, original_name, objectvar)
 	var/list/LL = vv_get_value(restricted_classes = list(VV_RESTORE_DEFAULT))
 	var/class = LL["class"]
 	if (!class)
@@ -108,7 +108,7 @@ GLOBAL_PROTECT(VVpixelmovement)
 	log_admin("[key_name(src)] modified [original_name]'s [objectvar]: ADDED=[var_value]")
 	message_admins("[key_name_admin(src)] modified [original_name]'s [objectvar]: ADDED=[var_value]")
 
-/client/proc/mod_list(list/L, atom/O, original_name, objectvar, index, autodetect_class = FALSE)
+TYPE_PROC_REF(/client, mod_list)(list/L, atom/O, original_name, objectvar, index, autodetect_class = FALSE)
 	if(!check_rights(R_VAREDIT))
 		return
 	if(!istype(L, /list))
@@ -287,7 +287,7 @@ GLOBAL_PROTECT(VVpixelmovement)
 			return FALSE
 	return TRUE
 
-/client/proc/modify_variables(atom/O, param_var_name = null, autodetect_class = 0)
+TYPE_PROC_REF(/client, modify_variables)(atom/O, param_var_name = null, autodetect_class = 0)
 	if(!check_rights(R_VAREDIT))
 		return
 

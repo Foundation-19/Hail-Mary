@@ -12,11 +12,11 @@
 	RegisterSignal(parent, COMSIG_ITEM_EQUIPPED, PROC_REF(on_equip))
 	RegisterSignal(parent, COMSIG_ITEM_DROPPED, PROC_REF(on_drop))
 
-/datum/component/wearertargeting/proc/on_equip(datum/source, mob/equipper, slot)
+TYPE_PROC_REF(/datum/component/wearertargeting, on_equip)(datum/source, mob/equipper, slot)
 	if((slot in valid_slots) && istype(equipper, mobtype))
 		RegisterSignal(equipper, signals, proctype, TRUE)
 	else
 		UnregisterSignal(equipper, signals)
 
-/datum/component/wearertargeting/proc/on_drop(datum/source, mob/user)
+TYPE_PROC_REF(/datum/component/wearertargeting, on_drop)(datum/source, mob/user)
 	UnregisterSignal(user, signals)

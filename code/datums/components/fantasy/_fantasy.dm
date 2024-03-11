@@ -51,13 +51,13 @@
 		src.announce = announce || src.announce
 	modify()
 
-/datum/component/fantasy/proc/randomQuality()
+TYPE_PROC_REF(/datum/component/fantasy, randomQuality)()
 	var/quality = pick(1;15, 2;14, 2;13, 2;12, 3;11, 3;10, 3;9, 4;8, 4;7, 4;6, 5;5, 5;4, 5;3, 6;2, 6;1, 6;0)
 	if(prob(50))
 		quality = -quality
 	return quality
 
-/datum/component/fantasy/proc/randomAffixes(force)
+TYPE_PROC_REF(/datum/component/fantasy, randomAffixes)(force)
 	if(!affixListing)
 		affixListing = list()
 		for(var/T in subtypesof(/datum/fantasy_affix))
@@ -87,7 +87,7 @@
 		affixes += affix
 		usedSlots |= affix.placement
 
-/datum/component/fantasy/proc/modify()
+TYPE_PROC_REF(/datum/component/fantasy, modify)()
 	var/obj/item/master = parent
 
 	master.force = max(0, master.force + quality)
@@ -112,7 +112,7 @@
 
 	master.name = newName
 
-/datum/component/fantasy/proc/unmodify()
+TYPE_PROC_REF(/datum/component/fantasy, unmodify)()
 	var/obj/item/master = parent
 
 	for(var/i in affixes)
@@ -129,7 +129,7 @@
 
 	master.name = originalName
 
-/datum/component/fantasy/proc/announce()
+TYPE_PROC_REF(/datum/component/fantasy, announce)()
 	var/turf/location = get_turf(parent)
 	var/span
 	var/effect_description

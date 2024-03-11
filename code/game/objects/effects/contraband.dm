@@ -37,7 +37,7 @@
 	poster_structure = null
 	return ..()
 
-/obj/item/poster/proc/react_to_deletion()
+TYPE_PROC_REF(/obj/item/poster, react_to_deletion)()
 	SIGNAL_HANDLER
 	qdel(src)
 
@@ -89,7 +89,7 @@
 	return ..()
 
 
-/obj/structure/sign/poster/proc/randomise(base_type)
+TYPE_PROC_REF(/obj/structure/sign/poster, randomise)(base_type)
 	var/list/poster_types = subtypesof(base_type)
 	var/list/approved_types = list()
 	for(var/t in poster_types)
@@ -135,7 +135,7 @@
 	qdel(src)
 
 
-/obj/structure/sign/poster/proc/roll_and_drop(loc)
+TYPE_PROC_REF(/obj/structure/sign/poster, roll_and_drop)(loc)
 	pixel_x = 0
 	pixel_y = 0
 	var/obj/item/poster/P = poster_item || new poster_item_type(loc, src)
@@ -145,7 +145,7 @@
 
 
 //separated to reduce code duplication. Moved here for ease of reference and to unclutter r_wall/attackby()
-/turf/closed/wall/proc/place_poster(obj/item/poster/P, mob/user)
+TYPE_PROC_REF(/turf/closed/wall, place_poster)(obj/item/poster/P, mob/user)
 	if(!P.poster_structure)
 		to_chat(user, span_warning("[P] has no poster... inside it? Inform a coder!"))
 		return

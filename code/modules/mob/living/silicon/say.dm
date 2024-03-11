@@ -1,4 +1,4 @@
-/mob/living/proc/robot_talk(message)
+TYPE_PROC_REF(/mob/living, robot_talk)(message)
 	log_talk(message, LOG_SAY)
 	var/desig = "Default Cyborg" //ezmode for taters
 	if(issilicon(src))

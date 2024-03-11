@@ -1,10 +1,10 @@
-/datum/tgs_api/v5/proc/TopicResponse(error_message = null)
+TYPE_PROC_REF(/datum/tgs_api/v5, TopicResponse)(error_message = null)
 	var/list/response = list()
 	if(error_message)
 		response[DMAPI5_RESPONSE_ERROR_MESSAGE] = error_message
 	return response
 
-/datum/tgs_api/v5/proc/ProcessTopicJson(json, check_access_identifier)
+TYPE_PROC_REF(/datum/tgs_api/v5, ProcessTopicJson)(json, check_access_identifier)
 	var/list/result = ProcessRawTopic(json, check_access_identifier)
 	if(!result)
 		result = TopicResponse("Runtime error!")
@@ -24,7 +24,7 @@
 
 	return response_json
 
-/datum/tgs_api/v5/proc/ProcessRawTopic(json, check_access_identifier)
+TYPE_PROC_REF(/datum/tgs_api/v5, ProcessRawTopic)(json, check_access_identifier)
 	var/list/topic_parameters = json_decode(json)
 	if(!topic_parameters)
 		return TopicResponse("Invalid topic parameters json: [json]!");
@@ -39,10 +39,10 @@
 
 	return ProcessTopicCommand(command, topic_parameters)
 
-/datum/tgs_api/v5/proc/ResponseTopicChunkCacheKey(payload_id)
+TYPE_PROC_REF(/datum/tgs_api/v5, ResponseTopicChunkCacheKey)(payload_id)
 	return "response[payload_id]"
 
-/datum/tgs_api/v5/proc/ProcessTopicCommand(command, list/topic_parameters)
+TYPE_PROC_REF(/datum/tgs_api/v5, ProcessTopicCommand)(command, list/topic_parameters)
 	switch(command)
 
 		if(DMAPI5_TOPIC_COMMAND_CHAT_COMMAND)

@@ -277,14 +277,14 @@ GLOBAL_LIST_EMPTY(loadout_boxes)
 	build_output_list()
 	max_items = max(LAZYLEN(multiple_choice), 1)
 
-/obj/item/kit_spawner/proc/build_loadout_list()
+TYPE_PROC_REF(/obj/item/kit_spawner, build_loadout_list)()
 	if(LAZYLEN(GLOB.loadout_datums))
 		return
 	for(var/some_box in subtypesof(/datum/loadout_box))
 		var/datum/loadout_box/loadybox = some_box
 		GLOB.loadout_datums[initial(loadybox.entry_tag)] = list(LOADOUT_BITFIELD = initial(loadybox.entry_flags), LOADOUT_CLASS = initial(loadybox.entry_class), LOADOUT_PATH = initial(loadybox.spawn_thing))
 
-/obj/item/kit_spawner/proc/build_output_list()
+TYPE_PROC_REF(/obj/item/kit_spawner, build_output_list)()
 	if(!LAZYLEN(GLOB.loadout_datums))
 		build_loadout_list()
 		return
@@ -311,13 +311,13 @@ GLOBAL_LIST_EMPTY(loadout_boxes)
 	if(can_use_kit(user))
 		use_the_kit(user)
 
-/obj/item/kit_spawner/proc/can_use_kit(mob/living/user)
+TYPE_PROC_REF(/obj/item/kit_spawner, can_use_kit)(mob/living/user)
 	if(user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
 		return TRUE
 	playsound(src, 'sound/machines/synth_no.ogg', 40, 1)
 	return FALSE
 
-/obj/item/kit_spawner/proc/use_the_kit(mob/living/user)
+TYPE_PROC_REF(/obj/item/kit_spawner, use_the_kit)(mob/living/user)
 	if(!LAZYLEN(GLOB.loadout_boxes[type]))
 		build_output_list()
 		if(!LAZYLEN(GLOB.loadout_boxes[type]))
@@ -375,19 +375,19 @@ GLOBAL_LIST_EMPTY(loadout_boxes)
 		qdel(src)
 
 
-/obj/item/kit_spawner/proc/check_choice(choice_to_check)
+TYPE_PROC_REF(/obj/item/kit_spawner, check_choice)(choice_to_check)
 	if(!choice_to_check)
 		return FALSE
 	if(!ispath(choice_to_check))
 		return FALSE
 	return TRUE
 
-/obj/item/kit_spawner/proc/hax_check()
+TYPE_PROC_REF(/obj/item/kit_spawner, hax_check)()
 	if(max_items <= 0)
 		qdel(src)
 		return FALSE
 
-/obj/item/kit_spawner/proc/spawn_the_thing(mob/user, atom/the_thing)
+TYPE_PROC_REF(/obj/item/kit_spawner, spawn_the_thing)(mob/user, atom/the_thing)
 	hax_check()
 	max_items--
 	var/turf/spawn_here

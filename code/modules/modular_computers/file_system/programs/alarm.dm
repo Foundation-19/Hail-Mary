@@ -35,7 +35,7 @@
 
 	return data
 
-/datum/computer_file/program/alarm_monitor/proc/triggerAlarm(class, area/A, O, obj/source)
+TYPE_PROC_REF(/datum/computer_file/program/alarm_monitor, triggerAlarm)(class, area/A, O, obj/source)
 	if(is_station_level(source.z))
 		if(!(A.type in GLOB.the_station_areas))
 			return
@@ -65,7 +65,7 @@
 	return 1
 
 
-/datum/computer_file/program/alarm_monitor/proc/cancelAlarm(class, area/A, obj/origin)
+TYPE_PROC_REF(/datum/computer_file/program/alarm_monitor, cancelAlarm)(class, area/A, obj/origin)
 	var/list/L = alarms[class]
 	var/cleared = 0
 	var/arealevelalarm = FALSE // set to TRUE for alarms that set/clear whole areas
@@ -89,7 +89,7 @@
 	update_alarm_display()
 	return !cleared
 
-/datum/computer_file/program/alarm_monitor/proc/update_alarm_display()
+TYPE_PROC_REF(/datum/computer_file/program/alarm_monitor, update_alarm_display)()
 	has_alert = FALSE
 	for(var/cat in alarms)
 		var/list/L = alarms[cat]

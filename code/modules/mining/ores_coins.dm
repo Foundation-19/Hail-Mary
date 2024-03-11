@@ -130,7 +130,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		sayer.forcesay("POCKET SAAND!!")
 	eyesand(poorsod)
 
-/obj/item/stack/ore/glass/proc/eyesand(mob/living/carbon/human/C)
+TYPE_PROC_REF(/obj/item/stack/ore/glass, eyesand)(mob/living/carbon/human/C)
 	if(C.head && C.head.flags_cover & HEADCOVERSEYES)
 		visible_message(span_danger("[C]'s headgear blocks the sand!"))
 		return
@@ -319,7 +319,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 
 
 
-/obj/item/gibtonite/proc/GibtoniteReaction(mob/user, triggered_by = 0)
+TYPE_PROC_REF(/obj/item/gibtonite, GibtoniteReaction)(mob/user, triggered_by = 0)
 	if(!primed)
 		primed = TRUE
 		playsound(src,'sound/effects/hit_on_shattered_glass.ogg',50,1)
@@ -345,7 +345,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 			log_game("[key_name(user)] has primed a [name] for detonation at [AREACOORD(bombturf)]")
 		det_timer = addtimer(CALLBACK(src, PROC_REF(detonate), notify_admins), det_time, TIMER_STOPPABLE)
 
-/obj/item/gibtonite/proc/detonate(notify_admins)
+TYPE_PROC_REF(/obj/item/gibtonite, detonate)(notify_admins)
 	if(primed)
 		switch(quality)
 			if(GIBTONITE_QUALITY_HIGH)
@@ -414,7 +414,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	addtimer(CALLBACK(src, PROC_REF(manual_suicide), user), 10)//10 = time takes for flip animation
 	return MANUAL_SUICIDE
 
-/obj/item/coin/proc/manual_suicide(mob/living/user)
+TYPE_PROC_REF(/obj/item/coin, manual_suicide)(mob/living/user)
 	var/index = sideslist.Find(coinflip)
 	if (index==2)//tails
 		user.visible_message(span_suicide("\the [src] lands on [coinflip]! [user] promptly falls over, dead!"))

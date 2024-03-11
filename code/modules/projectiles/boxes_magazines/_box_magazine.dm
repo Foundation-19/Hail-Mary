@@ -63,7 +63,7 @@
 			caliber += CALIBER_ANY // default to accepting any old caliber
 	update_icon()
 
-/obj/item/ammo_box/proc/get_round(keep = 0)
+TYPE_PROC_REF(/obj/item/ammo_box, get_round)(keep = 0)
 	if (!stored_ammo.len)
 		return null
 	else
@@ -73,7 +73,7 @@
 			stored_ammo.Insert(1,b)
 		return b
 
-/obj/item/ammo_box/proc/give_round(obj/item/ammo_casing/other_casing, replace_spent = 0)
+TYPE_PROC_REF(/obj/item/ammo_box, give_round)(obj/item/ammo_casing/other_casing, replace_spent = 0)
 	// Boxes don't have a caliber type, magazines do. Not sure if it's intended or not, but if we fail to find a caliber, then we fall back to ammo_type.
 	if(!other_casing)
 		return FALSE
@@ -103,14 +103,14 @@
 			return TRUE
 	return FALSE
 
-/obj/item/ammo_box/proc/eject_round(obj/item/ammo_casing/casing_to_eject, index)
+TYPE_PROC_REF(/obj/item/ammo_box, eject_round)(obj/item/ammo_casing/casing_to_eject, index)
 	if(!istype(casing_to_eject, /obj/item/ammo_casing))
 		return
 	if(index)
 		stored_ammo[index] = null
 	casing_to_eject.forceMove(get_turf(src.loc))
 
-/obj/item/ammo_box/proc/insert_round(obj/item/ammo_casing/other_casing, index)
+TYPE_PROC_REF(/obj/item/ammo_box, insert_round)(obj/item/ammo_casing/other_casing, index)
 	if(!istype(other_casing))
 		return FALSE
 	if(index) // For revolvers
@@ -122,7 +122,7 @@
 	if(.)
 		other_casing.forceMove(src)
 
-/obj/item/ammo_box/proc/can_load(mob/user)
+TYPE_PROC_REF(/obj/item/ammo_box, can_load)(mob/user)
 	if(caliber_change_step != MAGAZINE_CALIBER_CHANGE_STEP_0)
 		to_chat(user, span_alert("You can't load anything into \the [src] while you're working on it!"))
 	return 1
@@ -159,7 +159,7 @@
 		if(load_from_box(A, user, silent))
 			return TRUE
 
-/obj/item/ammo_box/proc/load_from_box(obj/item/ammo_box/other_ammobox, mob/user, silent)
+TYPE_PROC_REF(/obj/item/ammo_box, load_from_box)(obj/item/ammo_box/other_ammobox, mob/user, silent)
 	if(!istype(other_ammobox, /obj/item/ammo_box))
 		return
 	if(!can_load(user))
@@ -179,7 +179,7 @@
 		other_ammobox.update_icon()
 		update_icon()
 
-/obj/item/ammo_box/proc/load_from_casing(obj/item/ammo_casing/other_casing, mob/user, silent)
+TYPE_PROC_REF(/obj/item/ammo_box, load_from_casing)(obj/item/ammo_casing/other_casing, mob/user, silent)
 	if(!istype(other_casing, /obj/item/ammo_casing))
 		return
 	if(!can_load(user))
@@ -195,7 +195,7 @@
 		other_casing.update_icon()
 		update_icon()
 
-/obj/item/ammo_box/proc/change_caliber(mob/living/user, obj/item/ammo_casing/casing_to_use)
+TYPE_PROC_REF(/obj/item/ammo_box, change_caliber)(mob/living/user, obj/item/ammo_casing/casing_to_use)
 	if(!can_change_caliber)
 		return FALSE
 	if(!istype(casing_to_use, /obj/item/ammo_casing))
@@ -351,10 +351,10 @@
 				icon_state = "[initial(icon_state)]-[stored_ammo.len]"
 
 //Behavior for magazines
-/obj/item/ammo_box/magazine/proc/ammo_count()
+TYPE_PROC_REF(/obj/item/ammo_box/magazine, ammo_count)()
 	return stored_ammo.len
 
-/obj/item/ammo_box/magazine/proc/empty_magazine()
+TYPE_PROC_REF(/obj/item/ammo_box/magazine, empty_magazine)()
 	var/turf_mag = get_turf(src)
 	for(var/obj/item/ammo in stored_ammo)
 		ammo.forceMove(turf_mag)

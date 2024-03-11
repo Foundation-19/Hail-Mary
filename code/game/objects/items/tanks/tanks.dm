@@ -26,7 +26,7 @@
 /obj/item/tank/ui_action_click(mob/user)
 	toggle_internals(user)
 
-/obj/item/tank/proc/toggle_internals(mob/user)
+TYPE_PROC_REF(/obj/item/tank, toggle_internals)(mob/user)
 	var/mob/living/carbon/H = user
 	if(!istype(H))
 		return
@@ -74,7 +74,7 @@
 
 	START_PROCESSING(SSobj, src)
 
-/obj/item/tank/proc/populate_gas()
+TYPE_PROC_REF(/obj/item/tank, populate_gas)()
 	return
 /*
 /obj/item/tank/DoRevenantThrowEffects(atom/target)
@@ -261,7 +261,7 @@
 	check_status()
 	return 1
 
-/obj/item/tank/proc/remove_air_volume(volume_to_return)
+TYPE_PROC_REF(/obj/item/tank, remove_air_volume)(volume_to_return)
 	if(!air_contents)
 		return null
 
@@ -280,7 +280,7 @@
 	air_contents.react()
 	check_status()
 
-/obj/item/tank/proc/check_status()
+TYPE_PROC_REF(/obj/item/tank, check_status)()
 	//Handle exploding, leaking, and rupturing of the tank
 
 	if(!air_contents)

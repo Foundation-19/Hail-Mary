@@ -293,7 +293,7 @@ GLOBAL_LIST_EMPTY(vending_products)
  * * recordlist - the list containing /datum/data/vending_product datums
  * * startempty - should we set vending_product record amount from the product list (so it's prefilled at roundstart)
  */
-/obj/machinery/vending/proc/build_inventory(list/productlist, list/recordlist, start_empty = FALSE)
+TYPE_PROC_REF(/obj/machinery/vending, build_inventory)(list/productlist, list/recordlist, start_empty = FALSE)
 	for(var/typepath in productlist)
 		var/amount = productlist[typepath]
 		if(isnull(amount))
@@ -318,7 +318,7 @@ GLOBAL_LIST_EMPTY(vending_products)
  * Arguments:
  * * canister - the vending canister we are refilling from
  */
-/obj/machinery/vending/proc/restock(obj/item/vending_refill/canister)
+TYPE_PROC_REF(/obj/machinery/vending, restock)(obj/item/vending_refill/canister)
 	if (!canister.products)
 		canister.products = products.Copy()
 	if (!canister.contraband)
@@ -336,7 +336,7 @@ GLOBAL_LIST_EMPTY(vending_products)
  * * productlist - list of types -> amount
  * * recordlist - existing record datums
  */
-/obj/machinery/vending/proc/refill_inventory(list/productlist, list/recordlist)
+TYPE_PROC_REF(/obj/machinery/vending, refill_inventory)(list/productlist, list/recordlist)
 	. = 0
 	for(var/R in recordlist)
 		var/datum/data/vending_product/record = R
@@ -350,7 +350,7 @@ GLOBAL_LIST_EMPTY(vending_products)
  *
  * This is used when the machine is deconstructed, so the items aren't "lost"
  */
-/obj/machinery/vending/proc/update_canister()
+TYPE_PROC_REF(/obj/machinery/vending, update_canister)()
 	if (!component_parts)
 		return
 
@@ -365,7 +365,7 @@ GLOBAL_LIST_EMPTY(vending_products)
 /**
  * Given a record list, go through and and return a list of type -> amount
  */
-/obj/machinery/vending/proc/unbuild_inventory(list/recordlist)
+TYPE_PROC_REF(/obj/machinery/vending, unbuild_inventory)(list/recordlist)
 	. = list()
 	for(var/R in recordlist)
 		var/datum/data/vending_product/record = R
@@ -463,7 +463,7 @@ GLOBAL_LIST_EMPTY(vending_products)
 				if(91 to 100)
 					tilt(user, crit=TRUE)
 
-/obj/machinery/vending/proc/freebie(mob/fatty, freebies)
+TYPE_PROC_REF(/obj/machinery/vending, freebie)(mob/fatty, freebies)
 	visible_message(span_notice("[src] yields [freebies > 1 ? "several free goodies" : "a free goody"]!"))
 
 	for(var/i in 1 to freebies)
@@ -480,7 +480,7 @@ GLOBAL_LIST_EMPTY(vending_products)
 			new dump_path(get_turf(src))
 			break
 
-/obj/machinery/vending/proc/tilt(mob/fatty, crit=FALSE)
+TYPE_PROC_REF(/obj/machinery/vending, tilt)(mob/fatty, crit=FALSE)
 	visible_message(span_danger("[src] tips over!"))
 	tilted = TRUE
 	layer = ABOVE_MOB_LAYER
@@ -579,7 +579,7 @@ GLOBAL_LIST_EMPTY(vending_products)
 	if(get_turf(fatty) != get_turf(src))
 		throw_at(get_turf(fatty), 1, 1, spin=FALSE)
 
-/obj/machinery/vending/proc/untilt(mob/user)
+TYPE_PROC_REF(/obj/machinery/vending, untilt)(mob/user)
 	user.visible_message("<span class='notice'>[user] rights [src].", \
 		"<span class='notice'>You right [src].")
 
@@ -592,7 +592,7 @@ GLOBAL_LIST_EMPTY(vending_products)
 	M.Turn(0)
 	transform = M
 
-/obj/machinery/vending/proc/loadingAttempt(obj/item/I, mob/user)
+TYPE_PROC_REF(/obj/machinery/vending, loadingAttempt)(obj/item/I, mob/user)
 	. = TRUE
 	if(!user.transferItemToLoc(I, src))
 		return FALSE
@@ -615,7 +615,7 @@ GLOBAL_LIST_EMPTY(vending_products)
  * Arguments:
  * * user - mob that is doing the loading of the vending machine
  */
-/obj/machinery/vending/proc/compartmentLoadAccessCheck(mob/user)
+TYPE_PROC_REF(/obj/machinery/vending, compartmentLoadAccessCheck)(mob/user)
 	if(!canload_access_list)
 		return TRUE
 	else
@@ -860,7 +860,7 @@ GLOBAL_LIST_EMPTY(vending_products)
  * Arguments:
  * * message - the message to speak
  */
-/obj/machinery/vending/proc/speak(message)
+TYPE_PROC_REF(/obj/machinery/vending, speak)(message)
 	if(stat & (BROKEN|NOPOWER))
 		return
 	if(!message)
@@ -876,7 +876,7 @@ GLOBAL_LIST_EMPTY(vending_products)
  * Arguments:
  * * list/dept_access_list - the list to compare
  */
-/obj/machinery/vending/proc/get_best_discount(obj/item/card/id/C)
+TYPE_PROC_REF(/obj/machinery/vending, get_best_discount)(obj/item/card/id/C)
 	var/list/discounts = NUMLIST2TEXTLIST(C.GetAccess())
 	if(C.registered_account?.account_job)
 		discounts += C.registered_account.account_job.paycheck_department
@@ -899,7 +899,7 @@ GLOBAL_LIST_EMPTY(vending_products)
  * This is called when we are hacked, it selects a random product from the records that has an amount > 0
  * This item is then created and tossed out in front of us with a visible message
  */
-/obj/machinery/vending/proc/throw_item()
+TYPE_PROC_REF(/obj/machinery/vending, throw_item)()
 	var/obj/throw_item = null
 	var/mob/living/target = locate() in view(7, src)
 	if(!target)
@@ -929,7 +929,7 @@ GLOBAL_LIST_EMPTY(vending_products)
  * Arguments:
  * * I - obj/item being thrown
  */
-/obj/machinery/vending/proc/pre_throw(obj/item/I)
+TYPE_PROC_REF(/obj/machinery/vending, pre_throw)(obj/item/I)
 	return
 /**
  * Shock the passed in user
@@ -941,7 +941,7 @@ GLOBAL_LIST_EMPTY(vending_products)
  * * user - the user to shock
  * * prb - probability the shock happens
  */
-/obj/machinery/vending/proc/shock(mob/living/user, prb)
+TYPE_PROC_REF(/obj/machinery/vending, shock)(mob/living/user, prb)
 	if(!istype(user) || stat & (BROKEN|NOPOWER))		// unpowered, no shock
 		return FALSE
 	if(!prob(prb))
@@ -959,7 +959,7 @@ GLOBAL_LIST_EMPTY(vending_products)
  * * I - the item being loaded
  * * user - the user doing the loading
  */
-/obj/machinery/vending/proc/canLoadItem(obj/item/I, mob/user)
+TYPE_PROC_REF(/obj/machinery/vending, canLoadItem)(obj/item/I, mob/user)
 	return FALSE
 
 /obj/machinery/vending/onTransitZ()
@@ -967,7 +967,7 @@ GLOBAL_LIST_EMPTY(vending_products)
 
 
 /* Adding a caps to caps storage and release vending item. */
-/obj/machinery/vending/proc/add_caps(obj/item/I)
+TYPE_PROC_REF(/obj/machinery/vending, add_caps)(obj/item/I)
 	if(istype(I, /obj/item/stack/f13Cash/caps))
 		var/obj/item/stack/f13Cash/currency = I
 		var/inserted_value = FLOOR(currency.amount * 1, 1)
@@ -1005,7 +1005,7 @@ GLOBAL_LIST_EMPTY(vending_products)
 		return
 
 /* Spawn all caps on world and clear caps storage */
-/obj/machinery/vending/proc/remove_all_caps()
+TYPE_PROC_REF(/obj/machinery/vending, remove_all_caps)()
 	if(stored_caps <= 0)
 		return
 	var/obj/item/stack/f13Cash/C = new /obj/item/stack/f13Cash/caps

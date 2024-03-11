@@ -17,7 +17,7 @@
 	playsound(src.loc, 'sound/effects/empulse.ogg', 25, 1)
 	addtimer(CALLBACK(src, PROC_REF(warpbots)), rand(10, 600))
 
-/obj/structure/hivebot_beacon/proc/warpbots()
+TYPE_PROC_REF(/obj/structure/hivebot_beacon, warpbots)()
 	icon_state = "def_radar"
 	visible_message(span_danger("[src] turns on!"))
 	while(bot_amt > 0)

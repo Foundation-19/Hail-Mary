@@ -111,7 +111,7 @@
 			to_chat(owner, "<span class='warning'>You can't bring yourself to say the word \"<span class='phobia'>[word]</span>\"!</span>")
 			speech_args[SPEECH_MESSAGE] = ""
 
-/datum/brain_trauma/mild/phobia/proc/freak_out(atom/reason, trigger_word)
+TYPE_PROC_REF(/datum/brain_trauma/mild/phobia, freak_out)(atom/reason, trigger_word)
 	next_scare = world.time + 120
 	if(owner.stat == DEAD)
 		return
@@ -144,7 +144,7 @@
 			owner.Jitter(10)
 			owner.stuttering += 10
 
-/datum/brain_trauma/mild/phobia/proc/RealityCheck() // Checks if you're not your own fears.
+TYPE_PROC_REF(/datum/brain_trauma/mild/phobia, RealityCheck)() // Checks if you're not your own fears.
 	if(HAS_TRAIT(owner, TRAIT_FEARLESS))
 		return
 

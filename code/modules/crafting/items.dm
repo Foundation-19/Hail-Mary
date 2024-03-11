@@ -19,7 +19,7 @@
 	var/turf/t = get_turf(src)
 	salvage_scan_pulse(t, 5)
 
-/obj/item/metaldetector/proc/salvage_scan_pulse(turf/T, range = world.view)
+TYPE_PROC_REF(/obj/item/metaldetector, salvage_scan_pulse)(turf/T, range = world.view)
 	var/list/salvage = list()
 	for(var/turf/open/indestructible/ground/outside/desert/M in range(range, T))
 		if(M.salvage)
@@ -255,7 +255,7 @@ GLOBAL_LIST_INIT(blueprint_fluff, list(
 	w_class = WEIGHT_CLASS_NORMAL
 	var/list/Loot = list() //List of items
 
-/obj/item/salvage/proc/make_loot(mob/user, place_to_put_it)
+TYPE_PROC_REF(/obj/item/salvage, make_loot)(mob/user, place_to_put_it)
 	if(!place_to_put_it || !isturf(place_to_put_it))
 		place_to_put_it = get_turf(src) //just dump it on the floor you filthy animal
 	// base 1 loot roll, +1 if technophreak, 50% for +1, and 25% for +1

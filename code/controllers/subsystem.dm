@@ -96,11 +96,11 @@
 // Used to initialize the subsystem BEFORE the map has loaded
 // Called AFTER Recover if that is called
 // Prefer to use Initialize if possible
-/datum/controller/subsystem/proc/PreInit()
+TYPE_PROC_REF(/datum/controller/subsystem, PreInit)()
 	return
 
 //This is used so the mc knows when the subsystem sleeps. do not override.
-/datum/controller/subsystem/proc/ignite(resumed = FALSE)
+TYPE_PROC_REF(/datum/controller/subsystem, ignite)(resumed = FALSE)
 	SHOULD_NOT_OVERRIDE(TRUE)
 	set waitfor = FALSE
 	. = SS_SLEEPING
@@ -117,7 +117,7 @@
 //previously, this would have been named 'process()' but that name is used everywhere for different things!
 //fire() seems more suitable. This is the procedure that gets called every 'wait' deciseconds.
 //Sleeping in here prevents future fires until returned.
-/datum/controller/subsystem/proc/fire(resumed = FALSE)
+TYPE_PROC_REF(/datum/controller/subsystem, fire)(resumed = FALSE)
 	flags |= SS_NO_FIRE
 	CRASH("Subsystem [src]([type]) does not fire() but did not set the SS_NO_FIRE flag. Please add the SS_NO_FIRE flag to any subsystem that doesn't fire so it doesn't get added to the processing list and waste cpu.")
 
@@ -133,7 +133,7 @@
 /** Update next_fire for the next run.
  *  reset_time (bool) - Ignore things that would normally alter the next fire, like tick_overrun, and last_fire. (also resets postpone)
  */
-/datum/controller/subsystem/proc/update_nextfire(reset_time = FALSE)
+TYPE_PROC_REF(/datum/controller/subsystem, update_nextfire)(reset_time = FALSE)
 	var/queue_node_flags = flags
 
 	if (reset_time)
@@ -157,7 +157,7 @@
 //Queue it to run.
 // (we loop thru a linked list until we get to the end or find the right point)
 // (this lets us sort our run order correctly without having to re-sort the entire already sorted list)
-/datum/controller/subsystem/proc/enqueue()
+TYPE_PROC_REF(/datum/controller/subsystem, enqueue)()
 	var/SS_priority = priority
 	var/SS_flags = flags
 	var/datum/controller/subsystem/queue_node
@@ -215,7 +215,7 @@
 		queue_node.queue_prev = src
 
 
-/datum/controller/subsystem/proc/dequeue()
+TYPE_PROC_REF(/datum/controller/subsystem, dequeue)()
 	if (queue_next)
 		queue_next.queue_prev = queue_prev
 	if (queue_prev)
@@ -229,7 +229,7 @@
 		state = SS_IDLE
 
 
-/datum/controller/subsystem/proc/pause()
+TYPE_PROC_REF(/datum/controller/subsystem, pause)()
 	. = 1
 	switch(state)
 		if(SS_RUNNING)
@@ -238,9 +238,9 @@
 			state = SS_PAUSING
 
 /// Called after the config has been loaded or reloaded.
-/datum/controller/subsystem/proc/OnConfigLoad()
+TYPE_PROC_REF(/datum/controller/subsystem, OnConfigLoad)()
 
-/datum/controller/subsystem/proc/subsystem_log(msg)
+TYPE_PROC_REF(/datum/controller/subsystem, subsystem_log)(msg)
 	return log_subsystem(name, msg)
 
 //used to initialize the subsystem AFTER the map has loaded
@@ -260,7 +260,7 @@
 		msg = "OFFLINE\t[msg]"
 	return msg
 
-/datum/controller/subsystem/proc/state_letter()
+TYPE_PROC_REF(/datum/controller/subsystem, state_letter)()
 	switch (state)
 		if (SS_RUNNING)
 			. = "R"
@@ -274,7 +274,7 @@
 			. = "  "
 
 /// Causes the next "cycle" fires to be missed. Effect is accumulative but can reset by calling update_nextfire(reset_time = TRUE)
-/datum/controller/subsystem/proc/postpone(cycles = 1)
+TYPE_PROC_REF(/datum/controller/subsystem, postpone)(cycles = 1)
 	if (can_fire && cycles >= 1)
 		postponed_fires += cycles
 

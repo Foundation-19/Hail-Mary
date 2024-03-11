@@ -2,11 +2,11 @@
 	mix_sound = 'sound/effects/bubbles.ogg'
 
 //Called for every reaction step
-/datum/chemical_reaction/proc/FermiCreate(datum/reagents/holder, added_volume, added_purity)
+TYPE_PROC_REF(/datum/chemical_reaction, FermiCreate)(datum/reagents/holder, added_volume, added_purity)
 	return
 
 //Called when reaction STOP_PROCESSING
-/datum/chemical_reaction/proc/FermiFinish(datum/reagents/holder, atom/my_atom, reactVol)
+TYPE_PROC_REF(/datum/chemical_reaction, FermiFinish)(datum/reagents/holder, atom/my_atom, reactVol)
 	if(clear_conversion == REACTION_CLEAR_IMPURE | REACTION_CLEAR_INVERSE)
 		for(var/id in results)
 			var/datum/reagent/R = my_atom.reagents.has_reagent(id)
@@ -27,7 +27,7 @@
 				R.purity = 1
 
 //Called when temperature is above a certain threshold, or if purity is too low.
-/datum/chemical_reaction/proc/FermiExplode(datum/reagents/R0, atom/my_atom, volume, temp, pH, Exploding = FALSE)
+TYPE_PROC_REF(/datum/chemical_reaction, FermiExplode)(datum/reagents/R0, atom/my_atom, volume, temp, pH, Exploding = FALSE)
 	if (Exploding == TRUE)
 		return
 

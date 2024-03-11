@@ -9,7 +9,7 @@
 	var/list/lootable_trash = list()
 	var/list/garbage_list = list()
 
-/obj/item/storage/trash_stack/proc/initialize_lootable_trash()
+TYPE_PROC_REF(/obj/item/storage/trash_stack, initialize_lootable_trash)()
 	garbage_list = list(GLOB.trash_ammo, GLOB.trash_chem, GLOB.trash_clothing, GLOB.trash_craft,
 						GLOB.trash_gun, GLOB.trash_misc, GLOB.trash_money, GLOB.trash_mob,
 						GLOB.trash_part, GLOB.trash_tool, GLOB.trash_attachment)

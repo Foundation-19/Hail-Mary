@@ -73,10 +73,10 @@
 		return //we hide medical hud while morphed
 	..()
 
-/mob/living/simple_animal/hostile/morph/proc/allowed(atom/movable/A) // make it into property/proc ? not sure if worth it
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/morph, allowed)(atom/movable/A) // make it into property/proc ? not sure if worth it
 	return !is_type_in_typecache(A, blacklist_typecache) && (isobj(A) || ismob(A))
 
-/mob/living/simple_animal/hostile/morph/proc/eat(atom/movable/A)
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/morph, eat)(atom/movable/A)
 	if(morphed && !eat_while_disguised)
 		to_chat(src, span_warning("You can not eat anything while you are disguised!"))
 		return FALSE
@@ -97,7 +97,7 @@
 		to_chat(src, span_warning("Your chameleon skin is still repairing itself!"))
 		..()
 
-/mob/living/simple_animal/hostile/morph/proc/assume(atom/movable/target)
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/morph, assume)(atom/movable/target)
 	if(morphed)
 		to_chat(src, span_warning("You must restore to your original form first!"))
 		return
@@ -123,7 +123,7 @@
 	med_hud_set_status() //we're an object honest
 	return
 
-/mob/living/simple_animal/hostile/morph/proc/restore()
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/morph, restore)()
 	if(!morphed)
 		to_chat(src, span_warning("You're already in your normal form!"))
 		return
@@ -157,7 +157,7 @@
 	barf_contents()
 	..()
 
-/mob/living/simple_animal/hostile/morph/proc/barf_contents()
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/morph, barf_contents)()
 	for(var/atom/movable/AM in src)
 		AM.forceMove(loc)
 		if(prob(90))

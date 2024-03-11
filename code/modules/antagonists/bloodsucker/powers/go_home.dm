@@ -29,7 +29,7 @@
 		return FALSE
 	return TRUE
 
-/datum/action/bloodsucker/gohome/proc/flicker_lights(flicker_range, beat_volume)
+TYPE_PROC_REF(/datum/action/bloodsucker/gohome, flicker_lights)(flicker_range, beat_volume)
 	for(var/obj/machinery/light/L in view(flicker_range, get_turf(owner)))
 	playsound(get_turf(owner), 'sound/effects/singlebeat.ogg', beat_volume, 1)
 

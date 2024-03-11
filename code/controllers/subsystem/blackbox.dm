@@ -33,7 +33,7 @@ SUBSYSTEM_DEF(blackbox)
 		if((triggertime < 0) || (world.time > (triggertime +3000)))	//subsystem fires once at roundstart then once every 10 minutes. a 5 min check skips the first fire. The <0 is midnight rollover check
 			update_exp(10,FALSE)
 
-/datum/controller/subsystem/blackbox/proc/CheckPlayerCount()
+TYPE_PROC_REF(/datum/controller/subsystem/blackbox, CheckPlayerCount)()
 	set waitfor = FALSE
 
 	if(!SSdbcore.Connect())
@@ -72,7 +72,7 @@ SUBSYSTEM_DEF(blackbox)
 	return ..()
 
 //Recorded on subsystem shutdown
-/datum/controller/subsystem/blackbox/proc/FinalFeedback()
+TYPE_PROC_REF(/datum/controller/subsystem/blackbox, FinalFeedback)()
 	record_feedback("tally", "ahelp_stats", GLOB.ahelp_tickets.active_tickets.len, "unresolved")
 	for (var/obj/machinery/telecomms/message_server/MS in GLOB.telecomms_list)
 		if (MS.pda_msgs.len)
@@ -114,7 +114,7 @@ SUBSYSTEM_DEF(blackbox)
 
 	SSdbcore.MassInsert(format_table_name("feedback"), sqlrowlist, ignore_errors = TRUE, delayed = TRUE, special_columns = special_columns)
 
-/datum/controller/subsystem/blackbox/proc/Seal()
+TYPE_PROC_REF(/datum/controller/subsystem/blackbox, Seal)()
 	if(sealed)
 		return FALSE
 	if(IsAdminAdvancedProcCall())
@@ -123,7 +123,7 @@ SUBSYSTEM_DEF(blackbox)
 	sealed = TRUE
 	return TRUE
 
-/datum/controller/subsystem/blackbox/proc/LogBroadcast(freq)
+TYPE_PROC_REF(/datum/controller/subsystem/blackbox, LogBroadcast)(freq)
 	if(sealed)
 		return
 	switch(freq)
@@ -172,7 +172,7 @@ SUBSYSTEM_DEF(blackbox)
 		else
 			record_feedback("tally", "radio_usage", 1, "other")
 
-/datum/controller/subsystem/blackbox/proc/find_feedback_datum(key, key_type)
+TYPE_PROC_REF(/datum/controller/subsystem/blackbox, find_feedback_datum)(key, key_type)
 	for(var/datum/feedback_variable/FV in feedback)
 		if(FV.key == key)
 			return FV
@@ -236,7 +236,7 @@ Versioning
 						"admin_toggle" = 2,
 						"gun_fired" = 2)
 */
-/datum/controller/subsystem/blackbox/proc/record_feedback(key_type, key, increment, data, overwrite)
+TYPE_PROC_REF(/datum/controller/subsystem/blackbox, record_feedback)(key_type, key, increment, data, overwrite)
 	if(sealed || !key_type || !istext(key) || !isnum(increment || !data))
 		return
 	var/datum/feedback_variable/FV = find_feedback_datum(key, key_type)
@@ -277,7 +277,7 @@ Versioning
 		else
 			CRASH("Invalid feedback key_type: [key_type]")
 
-/datum/controller/subsystem/blackbox/proc/record_feedback_recurse_list(list/L, list/key_list, increment, depth = 1)
+TYPE_PROC_REF(/datum/controller/subsystem/blackbox, record_feedback_recurse_list)(list/L, list/key_list, increment, depth = 1)
 	if(depth == key_list.len)
 		if(L.Find(key_list[depth]))
 			L["[key_list[depth]]"] += increment
@@ -300,7 +300,7 @@ Versioning
 	key = new_key
 	key_type = new_key_type
 
-/datum/controller/subsystem/blackbox/proc/ReportDeath(mob/living/L)
+TYPE_PROC_REF(/datum/controller/subsystem/blackbox, ReportDeath)(mob/living/L)
 	set waitfor = FALSE
 	if(sealed)
 		return

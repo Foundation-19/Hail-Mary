@@ -82,19 +82,19 @@
 /obj/screen/storage/volumetric_box/MouseEntered(location, control, params)
 	makeItemActive()
 
-/obj/screen/storage/volumetric_box/proc/on_item_mouse_enter()
+TYPE_PROC_REF(/obj/screen/storage/volumetric_box, on_item_mouse_enter)()
 	makeItemActive()
 
-/obj/screen/storage/volumetric_box/proc/on_item_mouse_exit()
+TYPE_PROC_REF(/obj/screen/storage/volumetric_box, on_item_mouse_exit)()
 	makeItemInactive()
 
-/obj/screen/storage/volumetric_box/proc/makeItemInactive()
+TYPE_PROC_REF(/obj/screen/storage/volumetric_box, makeItemInactive)()
 	if(!our_item)
 		return
 	our_item.layer = VOLUMETRIC_STORAGE_ITEM_LAYER
 	our_item.plane = VOLUMETRIC_STORAGE_ITEM_PLANE
 
-/obj/screen/storage/volumetric_box/proc/makeItemActive()
+TYPE_PROC_REF(/obj/screen/storage/volumetric_box, makeItemActive)()
 	if(!our_item)
 		return
 	our_item.layer = VOLUMETRIC_STORAGE_ACTIVE_ITEM_LAYER		//make sure we display infront of the others!
@@ -116,13 +116,13 @@
 	QDEL_NULL(right)
 	return ..()
 
-/obj/screen/storage/volumetric_box/center/proc/on_screen_objects()
+TYPE_PROC_REF(/obj/screen/storage/volumetric_box/center, on_screen_objects)()
 	return list(src)
 
 /**
  * Sets the size of this box screen object and regenerates its left/right borders. This includes the actual border's size!
  */
-/obj/screen/storage/volumetric_box/center/proc/set_pixel_size(pixels)
+TYPE_PROC_REF(/obj/screen/storage/volumetric_box/center, set_pixel_size)(pixels)
 	if(pixel_size == pixels)
 		return
 	pixel_size = pixels

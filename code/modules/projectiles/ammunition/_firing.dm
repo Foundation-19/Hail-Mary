@@ -6,7 +6,7 @@
  * BB.spread - Inaccuracy of the projectile being fired, also added to spread
  * Final spread out, for shotguns, is the angle that the spray pattern will be centered on
  */
-/obj/item/ammo_casing/proc/fire_casing(atom/target, mob/living/user, params, distro, quiet, zone_override, spread, damage_multiplier = 1, penetration_multiplier = 1, projectile_speed_multiplier = 1, atom/fired_from)
+TYPE_PROC_REF(/obj/item/ammo_casing, fire_casing)(atom/target, mob/living/user, params, distro, quiet, zone_override, spread, damage_multiplier = 1, penetration_multiplier = 1, projectile_speed_multiplier = 1, atom/fired_from)
 	var/angle_out = 0
 	if(randomspread) // usually true
 		if(istype(user))
@@ -47,7 +47,7 @@
 	update_icon()
 	return 1
 
-/obj/item/ammo_casing/proc/ready_proj(atom/target, mob/living/user, quiet, zone_override = "", damage_multiplier = 1, penetration_multiplier = 1, projectile_speed_multiplier = 1, fired_from, damage_threshold_penetration = 0)
+TYPE_PROC_REF(/obj/item/ammo_casing, ready_proj)(atom/target, mob/living/user, quiet, zone_override = "", damage_multiplier = 1, penetration_multiplier = 1, projectile_speed_multiplier = 1, fired_from, damage_threshold_penetration = 0)
 	if (!BB)
 		return
 	BB.original = target
@@ -82,7 +82,7 @@
 		reagents.trans_to(BB, reagents.total_volume) //For chemical darts/bullets
 		qdel(reagents)
 
-/obj/item/ammo_casing/proc/throw_proj(atom/target, turf/targloc, mob/living/user, params, spread)
+TYPE_PROC_REF(/obj/item/ammo_casing, throw_proj)(atom/target, turf/targloc, mob/living/user, params, spread)
 	var/turf/curloc = get_turf(user)
 	if (!istype(targloc) || !istype(curloc) || !BB)
 		return 0
@@ -104,7 +104,7 @@
 	deduct_powder_and_bullet_mats()
 	return 1
 
-/obj/item/ammo_casing/proc/spread(turf/target, turf/current, distro)
+TYPE_PROC_REF(/obj/item/ammo_casing, spread)(turf/target, turf/current, distro)
 	var/dx = abs(target.x - current.x)
 	var/dy = abs(target.y - current.y)
 	return locate(target.x + round(gaussian(0, distro) * (dy+2)/8, 1), target.y + round(gaussian(0, distro) * (dx+2)/8, 1), target.z)

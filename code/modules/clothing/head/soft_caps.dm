@@ -29,7 +29,7 @@
 	return TRUE
 
 
-/obj/item/clothing/head/soft/proc/flip(mob/user)
+TYPE_PROC_REF(/obj/item/clothing/head/soft, flip)(mob/user)
 	if(!user.incapacitated())
 		src.flipped = !src.flipped
 		if(src.flipped)

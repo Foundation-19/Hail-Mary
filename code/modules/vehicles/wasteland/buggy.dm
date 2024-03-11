@@ -95,7 +95,7 @@ obj/vehicle/ridden/motorcycle/buggy/user_unbuckle_mob(mob/living/buckled_mob, mo
 	mob_exit(M, silent)
 	return TRUE
 
-/obj/vehicle/ridden/motorcycle/buggy/proc/mob_try_forced_enter(mob/forcer, mob/M, silent = FALSE)
+TYPE_PROC_REF(/obj/vehicle/ridden/motorcycle/buggy, mob_try_forced_enter)(mob/forcer, mob/M, silent = FALSE)
 	if(!istype(M))
 		return FALSE
 	if(occupant_amount() >= max_occupants)
@@ -105,7 +105,7 @@ obj/vehicle/ridden/motorcycle/buggy/user_unbuckle_mob(mob/living/buckled_mob, mo
 		return TRUE
 	return FALSE
 
-/obj/vehicle/ridden/motorcycle/buggy/proc/mob_forced_enter(mob/M, silent = FALSE)
+TYPE_PROC_REF(/obj/vehicle/ridden/motorcycle/buggy, mob_forced_enter)(mob/M, silent = FALSE)
 	if(!silent)
 		M.visible_message("<span class='warning'>[M] is forced into \the [src]!</span>")
 	M.forceMove(src)

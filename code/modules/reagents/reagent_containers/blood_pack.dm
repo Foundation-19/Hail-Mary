@@ -28,7 +28,7 @@
 	update_pack_name()
 	update_icon()
 
-/obj/item/reagent_containers/blood/proc/update_pack_name()
+TYPE_PROC_REF(/obj/item/reagent_containers/blood, update_pack_name)()
 	if(!labelled)
 		if(blood_type)
 			name = "blood pack - [blood_type]"

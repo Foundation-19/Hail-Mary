@@ -21,7 +21,7 @@
 	for(var/mob/living/target in targets)
 		INVOKE_ASYNC(src, PROC_REF(do_jaunt), target)
 
-/obj/effect/proc_holder/spell/targeted/ethereal_jaunt/proc/do_jaunt(mob/living/target)
+TYPE_PROC_REF(/obj/effect/proc_holder/spell/targeted/ethereal_jaunt, do_jaunt)(mob/living/target)
 	target.mob_transforming = 1
 	var/turf/mobloc = get_turf(target)
 	var/obj/effect/dummy/phased_mob/spell_jaunt/holder = new /obj/effect/dummy/phased_mob/spell_jaunt(mobloc)
@@ -58,12 +58,12 @@
 		REMOVE_TRAIT(target, TRAIT_MOBILITY_NOMOVE, src)
 		target.update_mobility()
 
-/obj/effect/proc_holder/spell/targeted/ethereal_jaunt/proc/jaunt_steam(mobloc)
+TYPE_PROC_REF(/obj/effect/proc_holder/spell/targeted/ethereal_jaunt, jaunt_steam)(mobloc)
 	var/datum/effect_system/steam_spread/steam = new /datum/effect_system/steam_spread()
 	steam.set_up(10, 0, mobloc)
 	steam.start()
 
-/obj/effect/proc_holder/spell/targeted/ethereal_jaunt/proc/play_sound(type,mob/living/target)
+TYPE_PROC_REF(/obj/effect/proc_holder/spell/targeted/ethereal_jaunt, play_sound)(type,mob/living/target)
 	switch(type)
 		if("enter")
 			playsound(get_turf(target), 'sound/magic/ethereal_enter.ogg', 50, TRUE, -1)

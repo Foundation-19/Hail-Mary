@@ -17,7 +17,7 @@
 // To put to sleep:  use 		owner.current.fakedeath("bloodsucker") but change name to "bloodsucker_coffin" so you continue to stay fakedeath despite healing in the main thread!
 
 
-/datum/antagonist/bloodsucker/proc/ClaimCoffin(obj/structure/closet/crate/claimed) // NOTE: This can be any "closet" that you are resting AND inside of.
+TYPE_PROC_REF(/datum/antagonist/bloodsucker, ClaimCoffin)(obj/structure/closet/crate/claimed) // NOTE: This can be any "closet" that you are resting AND inside of.
 	// ALREADY CLAIMED
 	if(claimed.resident)
 		if(claimed.resident == owner.current)
@@ -89,7 +89,7 @@
 
 //////////////////////////////////////////////
 
-/obj/structure/closet/crate/proc/ClaimCoffin(mob/living/claimant) // NOTE: This can be any "closet" that you are resting AND inside of.
+TYPE_PROC_REF(/obj/structure/closet/crate, ClaimCoffin)(mob/living/claimant) // NOTE: This can be any "closet" that you are resting AND inside of.
 	// Bloodsucker Claim
 	var/datum/antagonist/bloodsucker/bloodsuckerdatum = claimant.mind.has_antag_datum(ANTAG_DATUM_BLOODSUCKER)
 	if(bloodsuckerdatum)
@@ -102,7 +102,7 @@
 	UnclaimCoffin()
 	return ..()
 
-/obj/structure/closet/crate/proc/UnclaimCoffin()
+TYPE_PROC_REF(/obj/structure/closet/crate, UnclaimCoffin)()
 	if (resident)
 		// Vamp Un-Claim
 		if (resident.mind)
@@ -187,7 +187,7 @@
 	if (user in src) // user.Adjacent(src)
 		LockMe(user, !locked)
 
-/obj/structure/closet/crate/proc/LockMe(mob/user, inLocked = TRUE)
+TYPE_PROC_REF(/obj/structure/closet/crate, LockMe)(mob/user, inLocked = TRUE)
 		// Lock
 	if (user == resident)
 		if (!broken)

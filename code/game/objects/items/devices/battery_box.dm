@@ -52,8 +52,8 @@
 	RegisterSignal(src, COMSIG_BUTTON_CLICK, PROC_REF(toggle_charge_direction))
 	RegisterSignal(src, COMSIG_ITEM_RECHARGE, PROC_REF(charge_me))
 	RegisterSignal(src, COMSIG_CELL_CHECK_CHARGE_PERCENT, PROC_REF(charge_percent))
-	RegisterSignal(src, COMSIG_ATOM_ENTERED, /atom/proc/update_icon)
-	RegisterSignal(src, COMSIG_ATOM_EXITED, /atom/proc/update_icon)
+	RegisterSignal(src, COMSIG_ATOM_ENTERED, TYPE_PROC_REF(/atom, update_icon))
+	RegisterSignal(src, COMSIG_ATOM_EXITED, TYPE_PROC_REF(/atom, update_icon))
 
 /obj/item/storage/battery_box/PopulateContents()
 	. = ..()
@@ -84,7 +84,7 @@
 		charge_in()
 	update_icon()
 
-/obj/item/storage/battery_box/proc/charge_out()
+TYPE_PROC_REF(/obj/item/storage/battery_box, charge_out)()
 	var/charge_amount = BATTERY_BOX_CHARGE_BASE * check_part()
 	var/all_done = TRUE
 	for(var/obj/item/stock_parts/cell/powa in contents)
@@ -101,7 +101,7 @@
 	else
 		become_active()
 
-/obj/item/storage/battery_box/proc/charge_in()
+TYPE_PROC_REF(/obj/item/storage/battery_box, charge_in)()
 	var/charge_amount = BATTERY_BOX_CHARGE_BASE * check_part()
 	var/all_done = TRUE
 	for(var/obj/item/stock_parts/cell/powa in contents)
@@ -143,35 +143,35 @@
 		last_active = active
 	batbox.update_icon()
 
-/obj/item/storage/battery_box/proc/become_active()
+TYPE_PROC_REF(/obj/item/storage/battery_box, become_active)()
 	STOP_PROCESSING(SSprocessing, src)
 	START_PROCESSING(SSfastprocess, src)
 	soundloop.start()
 
-/obj/item/storage/battery_box/proc/become_inactive()
+TYPE_PROC_REF(/obj/item/storage/battery_box, become_inactive)()
 	STOP_PROCESSING(SSfastprocess, src)
 	START_PROCESSING(SSprocessing, src)
 	soundloop.stop()
 
-/obj/item/storage/battery_box/proc/toggle_charge_direction(datum/source, mob/user)
+TYPE_PROC_REF(/obj/item/storage/battery_box, toggle_charge_direction)(datum/source, mob/user)
 	if(!can_operate(user))
 		return
 	TOGGLE_VAR(charge_direction)
 	SEND_SIGNAL(src, COMSIG_BUTTON_UPDATE, user, charge_direction)
 	update_icon()
 
-/obj/item/storage/battery_box/proc/charge_me(datum/source, mult)
+TYPE_PROC_REF(/obj/item/storage/battery_box, charge_me)(datum/source, mult)
 	SIGNAL_HANDLER
 	if(!mult)
 		return
 	. = internal_battery.give(internal_battery.maxcharge * 0.1 * mult)
 
-/obj/item/storage/battery_box/proc/charge_percent()
+TYPE_PROC_REF(/obj/item/storage/battery_box, charge_percent)()
 	SIGNAL_HANDLER
 	var/percent = (internal_battery.charge / internal_battery.maxcharge) * 100
 	return percent
 
-/obj/item/storage/battery_box/proc/can_operate(mob/user, silent)
+TYPE_PROC_REF(/obj/item/storage/battery_box, can_operate)(mob/user, silent)
 	. = TRUE
 	if(!batbox)
 		. = FALSE
@@ -184,7 +184,7 @@
 	if(!check_part())
 		. = FALSE
 
-/obj/item/storage/battery_box/proc/check_part()
+TYPE_PROC_REF(/obj/item/storage/battery_box, check_part)()
 	if(!istype(batbox))
 		return FALSE
 	var/obj/item/stock_parts/capacitor/grabby = locate(/obj/item/stock_parts/capacitor) in batbox
@@ -224,8 +224,8 @@
 
 /obj/item/storage/box/charger_internals/ComponentInitialize()
 	. = ..()
-	RegisterSignal(src, COMSIG_ATOM_ENTERED, /atom/proc/update_icon)
-	RegisterSignal(src, COMSIG_ATOM_EXITED, /atom/proc/update_icon)
+	RegisterSignal(src, COMSIG_ATOM_ENTERED, TYPE_PROC_REF(/atom, update_icon))
+	RegisterSignal(src, COMSIG_ATOM_EXITED, TYPE_PROC_REF(/atom, update_icon))
 
 /obj/item/storage/box/charger_internals/PopulateContents()
 	. = ..()

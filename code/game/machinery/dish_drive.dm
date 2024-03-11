@@ -102,7 +102,7 @@
 		do_the_dishes(TRUE)
 		return TRUE
 
-/obj/machinery/dish_drive/proc/do_the_dishes(manual)
+TYPE_PROC_REF(/obj/machinery/dish_drive, do_the_dishes)(manual)
 	if(!contents.len)
 		return
 	var/obj/machinery/disposal/bin/bin = locate() in view(7, src)

@@ -129,7 +129,7 @@
 ////////////////////////////////////////
 
 /// Set up an instance of embedding for a carbon. This is basically an extension of Initialize() so not much to say
-/datum/component/embedded/proc/initCarbon()
+TYPE_PROC_REF(/datum/component/embedded, initCarbon)()
 	START_PROCESSING(SSdcs, src)
 	var/mob/living/carbon/victim = parent
 	if(!istype(limb))
@@ -156,7 +156,7 @@
 		limb.receive_damage(brute=(1-pain_stam_pct) * damage, stamina=pain_stam_pct * damage, blocked=armor, sharpness = weapon.get_sharpness())
 
 /// Called every time a carbon with a harmful embed moves, rolling a chance for the item to cause pain. The chance is halved if the carbon is crawling or walking.
-/datum/component/embedded/proc/jostleCheck()
+TYPE_PROC_REF(/datum/component/embedded, jostleCheck)()
 	var/mob/living/carbon/victim = parent
 
 	var/damage = weapon.w_class * jostle_pain_mult
@@ -173,7 +173,7 @@
 
 
 /// Called when then item randomly falls out of a carbon. This handles the damage and descriptors, then calls safe_remove()
-/datum/component/embedded/proc/fallOutCarbon()
+TYPE_PROC_REF(/datum/component/embedded, fallOutCarbon)()
 	var/mob/living/carbon/victim = parent
 
 	if(harmful)
@@ -189,7 +189,7 @@
 
 
 /// Called when a carbon with an object embedded/stuck to them inspects themselves and clicks the appropriate link to begin ripping the item out. This handles the ripping attempt, descriptors, and dealing damage, then calls safe_remove()
-/datum/component/embedded/proc/ripOutCarbon(datum/source, obj/item/I, obj/item/bodypart/limb)
+TYPE_PROC_REF(/datum/component/embedded, ripOutCarbon)(datum/source, obj/item/I, obj/item/bodypart/limb)
 	if(I != weapon || src.limb != limb)
 		return
 
@@ -215,7 +215,7 @@
 
 /// This proc handles the final step and actual removal of an embedded/stuck item from a carbon, whether or not it was actually removed safely.
 /// Pass TRUE for to_hands if we want it to go to the victim's hands when they pull it out
-/datum/component/embedded/proc/safeRemoveCarbon(to_hands)
+TYPE_PROC_REF(/datum/component/embedded, safeRemoveCarbon)(to_hands)
 	var/mob/living/carbon/victim = parent
 	limb.embedded_objects -= weapon
 
@@ -248,7 +248,7 @@
 
 
 /// Something deleted or moved our weapon while it was embedded, how rude!
-/datum/component/embedded/proc/byeItemCarbon()
+TYPE_PROC_REF(/datum/component/embedded, byeItemCarbon)()
 	var/mob/living/carbon/victim = parent
 	limb.embedded_objects -= weapon
 	UnregisterSignal(weapon, list(COMSIG_MOVABLE_MOVED, COMSIG_PARENT_QDELETING))
@@ -264,7 +264,7 @@
 
 /// Items embedded/stuck to carbons both check whether they randomly fall out (if applicable), as well as if the target mob and limb still exists.
 /// Items harmfully embedded in carbons have an additional check for random pain (if applicable)
-/datum/component/embedded/proc/processCarbon()
+TYPE_PROC_REF(/datum/component/embedded, processCarbon)()
 	var/mob/living/carbon/victim = parent
 
 	if(!victim || !limb) // in case the victim and/or their limbs exploded (say, due to a sticky bomb)
@@ -297,7 +297,7 @@
 
 /// Turfs are much lower maintenance, since we don't care if they're in pain, but since they don't bleed or scream, we draw an overlay to show their status.
 /// The only difference pointy/sticky items make here is text descriptors and pointy objects making a spark shower on impact.
-/datum/component/embedded/proc/initTurf(datum/thrownthing/throwingdatum)
+TYPE_PROC_REF(/datum/component/embedded, initTurf)(datum/thrownthing/throwingdatum)
 	var/turf/closed/hit = parent
 
 	// we can't store the item IN the turf (cause turfs are just kinda... there), so we fake it by making the item invisible and bailing if it moves due to a blast
@@ -340,10 +340,10 @@
 	else
 		hit.visible_message(span_danger("[weapon] sticks itself to [hit]!"))
 
-/datum/component/embedded/proc/apply_overlay(atom/source, list/overlay_list)
+TYPE_PROC_REF(/datum/component/embedded, apply_overlay)(atom/source, list/overlay_list)
 	overlay_list += overlay
 
-/datum/component/embedded/proc/examineTurf(datum/source, mob/user, list/examine_list)
+TYPE_PROC_REF(/datum/component/embedded, examineTurf)(datum/source, mob/user, list/examine_list)
 	if(harmful)
 		examine_list += "\t <a href='?src=[REF(src)];embedded_object=[REF(weapon)]' class='warning'>There is \a [weapon] embedded in [parent]!</a>"
 	else
@@ -366,7 +366,7 @@
 
 
 /// This proc handles if something knocked the invisible item loose from the turf somehow (probably an explosion). Just make it visible and say it fell loose, then get outta here.
-/datum/component/embedded/proc/itemMoved()
+TYPE_PROC_REF(/datum/component/embedded, itemMoved)()
 	weapon.invisibility = initial(weapon.invisibility)
 	weapon.visible_message(span_notice("[weapon] falls loose from [parent]."))
 	weapon.unembedded()

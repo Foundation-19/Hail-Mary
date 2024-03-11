@@ -24,7 +24,7 @@
 	update_ai_detect_hud()
 	setLoc(loc, TRUE)
 
-/mob/camera/aiEye/proc/update_ai_detect_hud()
+TYPE_PROC_REF(/mob/camera/aiEye, update_ai_detect_hud)()
 	var/datum/atom_hud/ai_detector/hud = GLOB.huds[DATA_HUD_AI_DETECT]
 	var/list/old_images = hud_list[AI_DETECT_HUD]
 	if(!ai_detector_visible)
@@ -56,7 +56,7 @@
 	hud_list[AI_DETECT_HUD] = new_images
 	hud.add_to_hud(src)
 
-/mob/camera/aiEye/proc/get_visible_turfs()
+TYPE_PROC_REF(/mob/camera/aiEye, get_visible_turfs)()
 	if(!isturf(loc))
 		return list()
 	var/client/C = GetViewerClient()
@@ -68,7 +68,7 @@
 // Use this when setting the aiEye's location.
 // It will also stream the chunk that the new loc is in.
 
-/mob/camera/aiEye/proc/setLoc(T, force_update = FALSE, dir)
+TYPE_PROC_REF(/mob/camera/aiEye, setLoc)(T, force_update = FALSE, dir)
 	if(ai)
 		if(!isturf(ai.loc))
 			return
@@ -97,7 +97,7 @@
 /mob/camera/aiEye/Move()
 	return 0
 
-/mob/camera/aiEye/proc/GetViewerClient()
+TYPE_PROC_REF(/mob/camera/aiEye, GetViewerClient)()
 	if(ai)
 		return ai.client
 	return null
@@ -117,7 +117,7 @@
 		QDEL_LIST(L)
 	return ..()
 
-/atom/proc/move_camera_by_click()
+TYPE_PROC_REF(/atom, move_camera_by_click)()
 	if(isAI(usr))
 		var/mob/living/silicon/ai/AI = usr
 		if(AI.eyeobj && (AI.multicam_on || (AI.client.eye == AI.eyeobj)) && (AI.eyeobj.z == z))
@@ -128,7 +128,7 @@
 // This will move the AIEye. It will also cause lights near the eye to light up, if toggled.
 // This is handled in the proc below this one.
 
-/client/proc/AIMove(n, direct, mob/living/silicon/ai/user)
+TYPE_PROC_REF(/client, AIMove)(n, direct, mob/living/silicon/ai/user)
 
 	var/initial = initial(user.sprint)
 	var/max_sprint = 50
@@ -151,7 +151,7 @@
 		user.cameraFollow = null
 
 // Return to the Core.
-/mob/living/silicon/ai/proc/view_core()
+TYPE_PROC_REF(/mob/living/silicon/ai, view_core)()
 	if(istype(current,/obj/machinery/holopad))
 		var/obj/machinery/holopad/H = current
 		H.clear_holo(src)
@@ -166,7 +166,7 @@
 
 	eyeobj?.setLoc(loc)
 
-/mob/living/silicon/ai/proc/create_eye()
+TYPE_PROC_REF(/mob/living/silicon/ai, create_eye)()
 	if(eyeobj)
 		return
 	eyeobj = new /mob/camera/aiEye()
@@ -176,7 +176,7 @@
 	eyeobj.name = "[name] (AI Eye)"
 	set_eyeobj_visible(TRUE)
 
-/mob/living/silicon/ai/proc/set_eyeobj_visible(state = TRUE)
+TYPE_PROC_REF(/mob/living/silicon/ai, set_eyeobj_visible)(state = TRUE)
 	if(!eyeobj)
 		return
 	eyeobj.mouse_opacity = state ? MOUSE_OPACITY_ICON : initial(eyeobj.mouse_opacity)

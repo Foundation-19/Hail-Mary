@@ -73,7 +73,7 @@
 /mob/living/silicon/pai/IgniteMob(mob/living/silicon/pai/P)
 	return FALSE //No we're not flammable
 
-/mob/living/silicon/pai/proc/take_holo_damage(amount)
+TYPE_PROC_REF(/mob/living/silicon/pai, take_holo_damage)(amount)
 	emitterhealth = clamp((emitterhealth - amount), -50, emittermaxhealth)
 	if(emitterhealth < 0)
 		fold_in(force = TRUE)

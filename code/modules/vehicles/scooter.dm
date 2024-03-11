@@ -115,7 +115,7 @@
 //		next_crash = world.time + 10
 
 ///Moves the vehicle forward and if it lands on a table, repeats
-///obj/vehicle/ridden/scooter/skateboard/proc/grind()
+TYPE_PROC_REF(///obj/vehicle/ridden/scooter/skateboard, grind)()
 //	vehicle_move(dir)
 //	if(has_buckled_mobs() && locate(/obj/structure/table) in loc.contents)
 //		var/mob/living/L = buckled_mobs[1]

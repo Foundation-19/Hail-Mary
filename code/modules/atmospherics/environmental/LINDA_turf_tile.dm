@@ -10,7 +10,7 @@
 	var/conductivity_blocked_directions = NONE
 
 	//used for mapping and for breathing while in walls (because that's a thing that needs to be accounted for...)
-	//string parsed by /datum/gas/proc/copy_from_turf
+	//string parsed by TYPE_PROC_REF(/datum/gas, copy_from_turf)
 	var/initial_gas_mix = OPENTURF_DEFAULT_ATMOS
 	//approximation of MOLES_O2STANDARD and MOLES_N2STANDARD pending byond allowing constant expressions to be embedded in constant strings
 	// If someone will place 0 of some gas there, SHIT WILL BREAK. Do not do that.
@@ -42,7 +42,7 @@
 		QDEL_NULL(active_hotspot)
 	return ..()
 
-/turf/proc/update_air_ref()
+TYPE_PROC_REF(/turf, update_air_ref)()
 
 /////////////////GAS MIXTURE PROCS///////////////////
 
@@ -103,11 +103,11 @@
 	update_visuals()
 	return removed
 
-/turf/open/proc/copy_air_with_tile(turf/open/T)
+TYPE_PROC_REF(/turf/open, copy_air_with_tile)(turf/open/T)
 	if(istype(T))
 		air.copy_from(T.air)
 
-/turf/open/proc/copy_air(datum/gas_mixture/copy)
+TYPE_PROC_REF(/turf/open, copy_air)(datum/gas_mixture/copy)
 	if(copy)
 		air.copy_from(copy)
 
@@ -125,15 +125,15 @@
 	if(return_temperature() > heat_capacity)
 		to_be_destroyed = TRUE
 
-/turf/open/proc/eg_reset_cooldowns()
-/turf/open/proc/eg_garbage_collect()
-/turf/open/proc/get_excited()
-/turf/open/proc/set_excited()
+TYPE_PROC_REF(/turf/open, eg_reset_cooldowns)()
+TYPE_PROC_REF(/turf/open, eg_garbage_collect)()
+TYPE_PROC_REF(/turf/open, get_excited)()
+TYPE_PROC_REF(/turf/open, set_excited)()
 
 /////////////////////////GAS OVERLAYS//////////////////////////////
 
 
-/turf/open/proc/update_visuals()
+TYPE_PROC_REF(/turf/open, update_visuals)()
 
 	var/list/atmos_overlay_types = src.atmos_overlay_types // Cache for free performance
 	var/list/new_overlay_types = list()
@@ -168,7 +168,7 @@
 	UNSETEMPTY(new_overlay_types)
 	src.atmos_overlay_types = new_overlay_types
 
-/turf/open/proc/set_visuals(list/new_overlay_types)
+TYPE_PROC_REF(/turf/open, set_visuals)(list/new_overlay_types)
 	if (atmos_overlay_types)
 		for(var/overlay in atmos_overlay_types-new_overlay_types) //doesn't remove overlays that would only be added
 			vis_contents -= overlay
@@ -200,10 +200,10 @@
 		cached_atmos_cooldown = 0;\
 	}
 */
-/turf/proc/process_cell(fire_count)
+TYPE_PROC_REF(/turf, process_cell)(fire_count)
 
-/turf/open/proc/equalize_pressure_in_zone(cyclenum)
-/turf/open/proc/consider_firelocks(turf/T2)
+TYPE_PROC_REF(/turf/open, equalize_pressure_in_zone)(cyclenum)
+TYPE_PROC_REF(/turf/open, consider_firelocks)(turf/T2)
 	var/reconsider_adj = FALSE
 	for(var/obj/machinery/door/firedoor/FD in T2)
 		if((FD.flags_1 & ON_BORDER_1) && get_dir(T2, src) != FD.dir)
@@ -218,7 +218,7 @@
 	if(reconsider_adj)
 		T2.ImmediateCalculateAdjacentTurfs() // We want those firelocks closed yesterday.
 
-/turf/proc/handle_decompression_floor_rip()
+TYPE_PROC_REF(/turf, handle_decompression_floor_rip)()
 /turf/open/floor/handle_decompression_floor_rip(sum)
 	if(sum > 20 && prob(clamp(sum / 10, 0, 30)))
 		remove_tile()
@@ -227,7 +227,7 @@
 
 //////////////////////////SPACEWIND/////////////////////////////
 
-/turf/proc/consider_pressure_difference()
+TYPE_PROC_REF(/turf, consider_pressure_difference)()
 	return
 
 /turf/open/consider_pressure_difference(turf/T, difference)
@@ -236,7 +236,7 @@
 		pressure_difference = difference
 		SSair.high_pressure_delta[src] = TRUE
 
-/turf/open/proc/high_pressure_movements()
+TYPE_PROC_REF(/turf/open, high_pressure_movements)()
 	var/diff = pressure_difference
 	if(locate(/obj/structure/rack) in src)
 		diff *= 0.1
@@ -256,7 +256,7 @@
 /atom/movable/var/pressure_resistance = 10
 /atom/movable/var/last_high_pressure_movement_air_cycle = 0
 
-/atom/movable/proc/experience_pressure_difference(pressure_difference, direction, pressure_resistance_prob_delta = 0, throw_target)
+TYPE_PROC_REF(/atom/movable, experience_pressure_difference)(pressure_difference, direction, pressure_resistance_prob_delta = 0, throw_target)
 	var/const/PROBABILITY_OFFSET = 25
 	var/const/PROBABILITY_BASE_PRECENT = 75
 	var/max_force = sqrt(pressure_difference)*(MOVE_FORCE_DEFAULT / 5)

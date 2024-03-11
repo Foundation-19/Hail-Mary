@@ -15,7 +15,7 @@
 		unset_sting(user)
 	return
 
-/obj/effect/proc_holder/changeling/sting/proc/set_sting(mob/user)
+TYPE_PROC_REF(/obj/effect/proc_holder/changeling/sting, set_sting)(mob/user)
 	to_chat(user, span_notice("We prepare our sting, use alt+click or middle mouse button on target to sting them."))
 	var/datum/antagonist/changeling/changeling = user.mind.has_antag_datum(/datum/antagonist/changeling)
 	changeling.chosen_sting = src
@@ -23,7 +23,7 @@
 	user.hud_used.lingstingdisplay.icon_state = sting_icon
 	user.hud_used.lingstingdisplay.invisibility = 0
 
-/obj/effect/proc_holder/changeling/sting/proc/unset_sting(mob/user)
+TYPE_PROC_REF(/obj/effect/proc_holder/changeling/sting, unset_sting)(mob/user)
 	to_chat(user, span_warning("We retract our sting, we can't sting anyone for now."))
 	var/datum/antagonist/changeling/changeling = user.mind.has_antag_datum(/datum/antagonist/changeling)
 	changeling.chosen_sting = null
@@ -31,7 +31,7 @@
 	user.hud_used.lingstingdisplay.icon_state = null
 	user.hud_used.lingstingdisplay.invisibility = INVISIBILITY_ABSTRACT
 
-/mob/living/carbon/proc/unset_sting()
+TYPE_PROC_REF(/mob/living/carbon, unset_sting)()
 	if(mind)
 		var/datum/antagonist/changeling/changeling = mind.has_antag_datum(/datum/antagonist/changeling)
 		if(changeling && changeling.chosen_sting)
@@ -47,7 +47,7 @@
 		return
 	if(!isturf(user.loc))
 		return
-	if(!AStar(user, target.loc, /turf/proc/Distance, changeling.sting_range, simulated_only = 0))
+	if(!AStar(user, target.loc, TYPE_PROC_REF(/turf, Distance), changeling.sting_range, simulated_only = 0))
 		return
 	return 1
 
@@ -156,7 +156,7 @@
 	addtimer(CALLBACK(src, PROC_REF(remove_fake), target, blade), 600)
 	return TRUE
 
-/obj/effect/proc_holder/changeling/sting/false_armblade/proc/remove_fake(mob/target, obj/item/melee/arm_blade/false/blade)
+TYPE_PROC_REF(/obj/effect/proc_holder/changeling/sting/false_armblade, remove_fake)(mob/target, obj/item/melee/arm_blade/false/blade)
 	playsound(target, 'sound/effects/blobattack.ogg', 30, 1)
 	target.visible_message("<span class='warning'>With a sickening crunch, \
 	[target] reforms [target.p_their()] [blade.name] into an arm!</span>",

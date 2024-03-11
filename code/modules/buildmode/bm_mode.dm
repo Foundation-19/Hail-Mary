@@ -21,26 +21,26 @@
 	preview = null
 	return ..()
 
-/datum/buildmode_mode/proc/enter_mode(datum/buildmode/BM)
+TYPE_PROC_REF(/datum/buildmode_mode, enter_mode)(datum/buildmode/BM)
 	return
 
-/datum/buildmode_mode/proc/exit_mode(datum/buildmode/BM)
+TYPE_PROC_REF(/datum/buildmode_mode, exit_mode)(datum/buildmode/BM)
 	return
 
-/datum/buildmode_mode/proc/get_button_iconstate()
+TYPE_PROC_REF(/datum/buildmode_mode, get_button_iconstate)()
 	return "buildmode_[key]"
 
-/datum/buildmode_mode/proc/show_help(client/c)
+TYPE_PROC_REF(/datum/buildmode_mode, show_help)(client/c)
 	CRASH("No help defined, yell at a coder")
 
-/datum/buildmode_mode/proc/change_settings(client/c)
+TYPE_PROC_REF(/datum/buildmode_mode, change_settings)(client/c)
 	to_chat(c, span_warning("There is no configuration available for this mode"))
 	return
 
-/datum/buildmode_mode/proc/Reset()
+TYPE_PROC_REF(/datum/buildmode_mode, Reset)()
 	deselect_region()
 
-/datum/buildmode_mode/proc/select_tile(turf/T, corner_to_select)
+TYPE_PROC_REF(/datum/buildmode_mode, select_tile)(turf/T, corner_to_select)
 	var/overlaystate
 	BM.holder.images -= preview
 	switch(corner_to_select)
@@ -55,7 +55,7 @@
 	BM.holder.images += preview
 	return T
 
-/datum/buildmode_mode/proc/highlight_region(region)
+TYPE_PROC_REF(/datum/buildmode_mode, highlight_region)(region)
 	BM.holder.images -= preview
 	for(var/t in region)
 		var/image/I = image('icons/turf/overlays.dmi', t, "redOverlay")
@@ -63,13 +63,13 @@
 		preview += I
 	BM.holder.images += preview
 
-/datum/buildmode_mode/proc/deselect_region()
+TYPE_PROC_REF(/datum/buildmode_mode, deselect_region)()
 	BM.holder.images -= preview
 	preview.Cut()
 	cornerA = null
 	cornerB = null
 
-/datum/buildmode_mode/proc/handle_click(client/c, params, object)
+TYPE_PROC_REF(/datum/buildmode_mode, handle_click)(client/c, params, object)
 	var/list/pa = params2list(params)
 	var/left_click = pa.Find("left")
 	if(use_corner_selection)
@@ -88,4 +88,4 @@
 			deselect_region()
 	return
 
-/datum/buildmode_mode/proc/handle_selected_area(client/c, params)
+TYPE_PROC_REF(/datum/buildmode_mode, handle_selected_area)(client/c, params)

@@ -56,7 +56,7 @@
 	else
 		change_setting(1)
 
-/obj/machinery/power/floodlight/proc/change_setting(val, mob/user)
+TYPE_PROC_REF(/obj/machinery/power/floodlight, change_setting)(val, mob/user)
 	if((val < 1) || (val > light_setting_list.len))
 		return
 	active_power_usage = light_setting_list[val]

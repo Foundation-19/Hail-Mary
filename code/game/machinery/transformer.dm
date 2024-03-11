@@ -73,7 +73,7 @@
 		cooldown = FALSE
 		update_icon()
 
-/obj/machinery/transformer/proc/do_transform(mob/living/carbon/human/H)
+TYPE_PROC_REF(/obj/machinery/transformer, do_transform)(mob/living/carbon/human/H)
 	if(stat & (BROKEN|NOPOWER))
 		return
 	if(cooldown == 1)
@@ -107,7 +107,7 @@
 		R.lawupdate = 1
 	addtimer(CALLBACK(src, PROC_REF(unlock_new_robot), R), 50)
 
-/obj/machinery/transformer/proc/unlock_new_robot(mob/living/silicon/robot/R)
+TYPE_PROC_REF(/obj/machinery/transformer, unlock_new_robot)(mob/living/silicon/robot/R)
 	playsound(src.loc, 'sound/machines/ping.ogg', 50, 0)
 	sleep(30)
 	if(R)

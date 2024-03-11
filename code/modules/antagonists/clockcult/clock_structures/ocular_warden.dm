@@ -99,7 +99,7 @@
 			else
 				setDir(pick(GLOB.cardinals))//Random rotation
 
-/obj/structure/destructible/clockwork/ocular_warden/proc/acquire_nearby_targets()
+TYPE_PROC_REF(/obj/structure/destructible/clockwork/ocular_warden, acquire_nearby_targets)()
 	. = list()
 	for(var/mob/living/L in viewers(sight_range, src)) //Doesn't attack the blind
 		var/obj/item/storage/book/bible/B = L.bible_check()
@@ -139,7 +139,7 @@
 			if (M in viewcache)
 				. += M
 
-/obj/structure/destructible/clockwork/ocular_warden/proc/lose_target()
+TYPE_PROC_REF(/obj/structure/destructible/clockwork/ocular_warden, lose_target)()
 	if(!target)
 		return 0
 	target = null

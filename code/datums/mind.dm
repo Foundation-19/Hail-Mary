@@ -89,13 +89,13 @@
 	QDEL_NULL(skill_holder)
 	return ..()
 
-/datum/mind/proc/get_language_holder()
+TYPE_PROC_REF(/datum/mind, get_language_holder)()
 	if(!language_holder)
 		language_holder = new (src)
 
 	return language_holder
 
-/datum/mind/proc/transfer_to(mob/new_character, force_key_move = 0)
+TYPE_PROC_REF(/datum/mind, transfer_to)(mob/new_character, force_key_move = 0)
 	var/old_character = current
 	var/signals = SEND_SIGNAL(new_character, COMSIG_MOB_PRE_PLAYER_CHANGE, new_character, old_character) | SEND_SIGNAL(src, COMSIG_PRE_MIND_TRANSFER, new_character, old_character)
 	if(signals & COMPONENT_STOP_MIND_TRANSFER)
@@ -146,15 +146,15 @@
 	SEND_SIGNAL(src, COMSIG_MIND_TRANSFER, new_character, old_character)
 	SEND_SIGNAL(new_character, COMSIG_MOB_ON_NEW_MIND)
 
-/datum/mind/proc/store_memory(new_text)
+TYPE_PROC_REF(/datum/mind, store_memory)(new_text)
 	if((length_char(memory) + length_char(new_text)) <= MAX_MESSAGE_LEN)
 		memory += "[new_text]<BR>"
 
-/datum/mind/proc/wipe_memory()
+TYPE_PROC_REF(/datum/mind, wipe_memory)()
 	memory = null
 
 // Datum antag mind procs
-/datum/mind/proc/add_antag_datum(datum_type_or_instance, team)
+TYPE_PROC_REF(/datum/mind, add_antag_datum)(datum_type_or_instance, team)
 	if(!datum_type_or_instance)
 		return
 	var/datum/antagonist/A
@@ -181,7 +181,7 @@
 	INVOKE_ASYNC(A, /datum/antagonist.proc/on_gain)
 	return A
 
-/datum/mind/proc/remove_antag_datum(datum_type)
+TYPE_PROC_REF(/datum/mind, remove_antag_datum)(datum_type)
 	if(!datum_type)
 		return
 	var/datum/antagonist/A = has_antag_datum(datum_type)
@@ -190,12 +190,12 @@
 		return TRUE
 
 
-/datum/mind/proc/remove_all_antag_datums() //For the Lazy amongst us.
+TYPE_PROC_REF(/datum/mind, remove_all_antag_datums)() //For the Lazy amongst us.
 	for(var/a in antag_datums)
 		var/datum/antagonist/A = a
 		A.on_removal()
 
-/datum/mind/proc/has_antag_datum(datum_type, check_subtypes = TRUE)
+TYPE_PROC_REF(/datum/mind, has_antag_datum)(datum_type, check_subtypes = TRUE)
 	if(!datum_type)
 		return
 	. = FALSE
@@ -211,44 +211,44 @@
 	objectives, uplinks, powers etc are all handled.
 */
 
-/datum/mind/proc/remove_changeling()
+TYPE_PROC_REF(/datum/mind, remove_changeling)()
 	var/datum/antagonist/changeling/C = has_antag_datum(/datum/antagonist/changeling)
 	if(C)
 		remove_antag_datum(/datum/antagonist/changeling)
 		special_role = null
 
-/datum/mind/proc/remove_traitor()
+TYPE_PROC_REF(/datum/mind, remove_traitor)()
 	remove_antag_datum(/datum/antagonist/traitor)
 
-/datum/mind/proc/remove_brother()
+TYPE_PROC_REF(/datum/mind, remove_brother)()
 	if(src in SSticker.mode.brothers)
 		remove_antag_datum(/datum/antagonist/brother)
 	SSticker.mode.update_brother_icons_removed(src)
 
-/datum/mind/proc/remove_nukeop()
+TYPE_PROC_REF(/datum/mind, remove_nukeop)()
 	var/datum/antagonist/nukeop/nuke = has_antag_datum(/datum/antagonist/nukeop,TRUE)
 	if(nuke)
 		remove_antag_datum(nuke.type)
 		special_role = null
 
-/datum/mind/proc/remove_wizard()
+TYPE_PROC_REF(/datum/mind, remove_wizard)()
 	remove_antag_datum(/datum/antagonist/wizard)
 	special_role = null
 
-/datum/mind/proc/remove_cultist()
+TYPE_PROC_REF(/datum/mind, remove_cultist)()
 	if(src in SSticker.mode.cult)
 		SSticker.mode.remove_cultist(src, 0, 0)
 	special_role = null
 	remove_antag_equip()
 
-/datum/mind/proc/remove_rev()
+TYPE_PROC_REF(/datum/mind, remove_rev)()
 	var/datum/antagonist/rev/rev = has_antag_datum(/datum/antagonist/rev)
 	if(rev)
 		remove_antag_datum(rev.type)
 		special_role = null
 
 
-/datum/mind/proc/remove_antag_equip()
+TYPE_PROC_REF(/datum/mind, remove_antag_equip)()
 	var/list/Mob_Contents = current.get_contents()
 	for(var/obj/item/I in Mob_Contents)
 		var/datum/component/uplink/O = I.GetComponent(/datum/component/uplink)
@@ -256,7 +256,7 @@
 		if(O)
 			O.unlock_code = null
 
-/datum/mind/proc/remove_all_antag() //For the Lazy amongst us.
+TYPE_PROC_REF(/datum/mind, remove_all_antag)() //For the Lazy amongst us.
 	remove_changeling()
 	remove_traitor()
 	remove_nukeop()
@@ -265,7 +265,7 @@
 	remove_rev()
 	SSticker.mode.update_cult_icons_removed(src)
 
-/datum/mind/proc/equip_traitor(datum/traitor_class/traitor_class, silent = FALSE, datum/antagonist/uplink_owner)
+TYPE_PROC_REF(/datum/mind, equip_traitor)(datum/traitor_class/traitor_class, silent = FALSE, datum/antagonist/uplink_owner)
 	if(!current)
 		return
 	if(!traitor_class)
@@ -340,7 +340,7 @@
 
 //Link a new mobs mind to the creator of said mob. They will join any team they are currently on, and will only switch teams when their creator does.
 
-/datum/mind/proc/enslave_mind_to_creator(mob/living/creator)
+TYPE_PROC_REF(/datum/mind, enslave_mind_to_creator)(mob/living/creator)
 	if(iscultist(creator))
 		if(iscultist(creator, TRUE))
 			SSticker.mode.add_cultist(src)
@@ -374,7 +374,7 @@
 		message_admins("[ADMIN_LOOKUPFLW(current)] has been created by [ADMIN_LOOKUPFLW(creator)], an antagonist.")
 		to_chat(current, span_userdanger("Despite your creators current allegiances, your true master remains [creator.real_name]. If their loyalties change, so do yours. This will never change unless your creator's body is destroyed."))
 
-/datum/mind/proc/show_memory(mob/recipient, window=1)
+TYPE_PROC_REF(/datum/mind, show_memory)(mob/recipient, window=1)
 	if(!recipient)
 		recipient = current
 	var/output = "<B>[current.real_name]'s Memories:</B><br>"
@@ -619,13 +619,13 @@
 		usr = current
 	traitor_panel()
 
-/datum/mind/proc/get_all_objectives()
+TYPE_PROC_REF(/datum/mind, get_all_objectives)()
 	var/list/all_objectives = list()
 	for(var/datum/antagonist/A in antag_datums)
 		all_objectives |= A.objectives
 	return all_objectives
 
-/datum/mind/proc/announce_objectives()
+TYPE_PROC_REF(/datum/mind, announce_objectives)()
 	var/obj_count = 1
 	to_chat(current, span_notice("Your current objectives:"))
 	for(var/objective in get_all_objectives())
@@ -633,7 +633,7 @@
 		to_chat(current, "<B>Objective #[obj_count]</B>: [O.explanation_text]")
 		obj_count++
 
-/datum/mind/proc/find_syndicate_uplink()
+TYPE_PROC_REF(/datum/mind, find_syndicate_uplink)()
 	var/list/L = current.GetAllContents()
 	for (var/i in L)
 		var/atom/movable/I = i
@@ -641,54 +641,54 @@
 		if(.)
 			break
 
-/datum/mind/proc/take_uplink()
+TYPE_PROC_REF(/datum/mind, take_uplink)()
 	qdel(find_syndicate_uplink())
 
-/datum/mind/proc/make_Traitor()
+TYPE_PROC_REF(/datum/mind, make_Traitor)()
 	if(!(has_antag_datum(/datum/antagonist/traitor)))
 		add_antag_datum(/datum/antagonist/traitor)
 
-/datum/mind/proc/make_Contractor_Support()
+TYPE_PROC_REF(/datum/mind, make_Contractor_Support)()
 	if(!(has_antag_datum(/datum/antagonist/traitor/contractor_support)))
 		add_antag_datum(/datum/antagonist/traitor/contractor_support)
 
-/datum/mind/proc/make_Changeling()
+TYPE_PROC_REF(/datum/mind, make_Changeling)()
 	var/datum/antagonist/changeling/C = has_antag_datum(/datum/antagonist/changeling)
 	if(!C)
 		C = add_antag_datum(/datum/antagonist/changeling)
 		special_role = ROLE_CHANGELING
 	return C
 
-/datum/mind/proc/make_Wizard()
+TYPE_PROC_REF(/datum/mind, make_Wizard)()
 	if(!has_antag_datum(/datum/antagonist/wizard))
 		special_role = ROLE_WIZARD
 		assigned_role = ROLE_WIZARD
 		add_antag_datum(/datum/antagonist/wizard)
 
 
-/datum/mind/proc/make_Cultist()
+TYPE_PROC_REF(/datum/mind, make_Cultist)()
 	if(!has_antag_datum(/datum/antagonist/cult,TRUE))
 		SSticker.mode.add_cultist(src,FALSE,equip=TRUE)
 		special_role = ROLE_CULTIST
 		to_chat(current, "<font color=\"purple\"><b><i>You catch a glimpse of the Realm of Nar'Sie, The Geometer of Blood. You now see how flimsy your world is, you see that it should be open to the knowledge of Nar'Sie.</b></i></font>")
 		to_chat(current, "<font color=\"purple\"><b><i>Assist your new brethren in their dark dealings. Their goal is yours, and yours is theirs. You serve the Dark One above all else. Bring It back.</b></i></font>")
 
-/datum/mind/proc/make_Rev()
+TYPE_PROC_REF(/datum/mind, make_Rev)()
 	var/datum/antagonist/rev/head/head = new()
 	head.give_flash = TRUE
 	head.give_hud = TRUE
 	add_antag_datum(head)
 	special_role = ROLE_REV_HEAD
 
-/datum/mind/proc/AddSpell(obj/effect/proc_holder/spell/S)
+TYPE_PROC_REF(/datum/mind, AddSpell)(obj/effect/proc_holder/spell/S)
 	spell_list += S
 	S.action.Grant(current)
 
-/datum/mind/proc/owns_soul()
+TYPE_PROC_REF(/datum/mind, owns_soul)()
 	return soulOwner == src
 
 //To remove a specific spell from a mind
-/datum/mind/proc/RemoveSpell(obj/effect/proc_holder/spell/spell)
+TYPE_PROC_REF(/datum/mind, RemoveSpell)(obj/effect/proc_holder/spell/spell)
 	if(!spell)
 		return
 	for(var/X in spell_list)
@@ -698,11 +698,11 @@
 			qdel(S)
 	current?.client << output(null, "statbrowser:check_spells")
 
-/datum/mind/proc/RemoveAllSpells()
+TYPE_PROC_REF(/datum/mind, RemoveAllSpells)()
 	for(var/obj/effect/proc_holder/S in spell_list)
 		RemoveSpell(S)
 
-/datum/mind/proc/transfer_martial_arts(mob/living/new_character)
+TYPE_PROC_REF(/datum/mind, transfer_martial_arts)(mob/living/new_character)
 	if(!ishuman(new_character))
 		return
 	if(martial_art)
@@ -711,13 +711,13 @@
 		else
 			martial_art.teach(new_character)
 
-/datum/mind/proc/transfer_actions(mob/living/new_character)
+TYPE_PROC_REF(/datum/mind, transfer_actions)(mob/living/new_character)
 	if(current && current.actions)
 		for(var/datum/action/A in current.actions)
 			A.Grant(new_character)
 	transfer_mindbound_actions(new_character)
 
-/datum/mind/proc/transfer_mindbound_actions(mob/living/new_character)
+TYPE_PROC_REF(/datum/mind, transfer_mindbound_actions)(mob/living/new_character)
 	for(var/X in spell_list)
 		var/obj/effect/proc_holder/spell/S = X
 		S.action.Grant(new_character)
@@ -727,7 +727,7 @@
 			var/obj/effect/proc_holder/changeling/I = P
 			I.action.Grant(new_character)
 
-/datum/mind/proc/disrupt_spells(delay, list/exceptions = New())
+TYPE_PROC_REF(/datum/mind, disrupt_spells)(delay, list/exceptions = New())
 	for(var/X in spell_list)
 		var/obj/effect/proc_holder/spell/S = X
 		for(var/type in exceptions)
@@ -737,36 +737,36 @@
 		S.updateButtonIcon()
 		INVOKE_ASYNC(S, /obj/effect/proc_holder/spell.proc/start_recharge)
 
-/datum/mind/proc/get_ghost(even_if_they_cant_reenter)
+TYPE_PROC_REF(/datum/mind, get_ghost)(even_if_they_cant_reenter)
 	for(var/mob/dead/observer/G in GLOB.dead_mob_list)
 		if(G.mind == src)
 			if(G.can_reenter_corpse || even_if_they_cant_reenter)
 				return G
 			break
 
-/datum/mind/proc/grab_ghost(force)
+TYPE_PROC_REF(/datum/mind, grab_ghost)(force)
 	var/mob/dead/observer/G = get_ghost(even_if_they_cant_reenter = force)
 	. = G
 	if(G)
 		G.reenter_corpse()
 
 /// Sets our can_hijack to the fastest speed our antag datums allow.
-/datum/mind/proc/get_hijack_speed()
+TYPE_PROC_REF(/datum/mind, get_hijack_speed)()
 	. = 0
 	for(var/datum/antagonist/A in antag_datums)
 		. = max(., A.hijack_speed())
 
-/datum/mind/proc/has_objective(objective_type)
+TYPE_PROC_REF(/datum/mind, has_objective)(objective_type)
 	for(var/datum/antagonist/A in antag_datums)
 		for(var/O in A.objectives)
 			if(istype(O,objective_type))
 				return TRUE
 
-/mob/proc/sync_mind()
+TYPE_PROC_REF(/mob, sync_mind)()
 	mind_initialize()	//updates the mind (or creates and initializes one if one doesn't exist)
 	mind.active = 1		//indicates that the mind is currently synced with a client
 
-/datum/mind/proc/has_martialart(string)
+TYPE_PROC_REF(/datum/mind, has_martialart)(string)
 	if(martial_art && martial_art.id == string)
 		return martial_art
 	return FALSE
@@ -778,7 +778,7 @@
 	return
 
 //Initialisation procs
-/mob/proc/mind_initialize()
+TYPE_PROC_REF(/mob, mind_initialize)()
 	if(mind)
 		mind.key = key
 

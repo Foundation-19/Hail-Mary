@@ -30,14 +30,14 @@
 	//BOT = the name of the bot (this can be used on any of the emotes)
 	//THREAT_LEVEL = the level of the threat detected (can be used on arrest_emote and infraction)
 
-/datum/beepsky_fashion/proc/get_overlay(dir)
+TYPE_PROC_REF(/datum/beepsky_fashion, get_overlay)(dir)
 	if(icon_file && obj_icon_state)
 		var/image/beepsky_overlay = image(icon_file, obj_icon_state, dir = dir)
 		beepsky_overlay.alpha = obj_alpha
 		beepsky_overlay.color = obj_color
 		return beepsky_overlay
 
-/datum/beepsky_fashion/proc/stun_attack(mob/living/carbon/C) //fired when beepsky does a stun attack with the fashion worn, for sounds/overlays/etc
+TYPE_PROC_REF(/datum/beepsky_fashion, stun_attack)(mob/living/carbon/C) //fired when beepsky does a stun attack with the fashion worn, for sounds/overlays/etc
 	return
 
 //actual fashions from here on out

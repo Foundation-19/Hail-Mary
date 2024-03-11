@@ -33,7 +33,7 @@
 		icon_state = "term"
 
 
-/obj/machinery/power/proc/can_terminal_dismantle()
+TYPE_PROC_REF(/obj/machinery/power, can_terminal_dismantle)()
 	. = 0
 
 /obj/machinery/power/apc/can_terminal_dismantle()
@@ -47,7 +47,7 @@
 		. = 1
 
 
-/obj/machinery/power/terminal/proc/dismantle(mob/living/user, obj/item/I)
+TYPE_PROC_REF(/obj/machinery/power/terminal, dismantle)(mob/living/user, obj/item/I)
 	if(isturf(loc))
 		var/turf/T = loc
 		if(T.intact)

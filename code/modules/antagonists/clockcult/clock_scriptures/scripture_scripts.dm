@@ -220,7 +220,7 @@
 	addtimer(CALLBACK(owner, /mob.proc/update_action_buttons_icon), CLOCKWORK_ARMOR_COOLDOWN)
 	return TRUE
 
-/datum/action/innate/clockwork_armaments/proc/remove_item_if_better(obj/item/I, mob/user)
+TYPE_PROC_REF(/datum/action/innate/clockwork_armaments, remove_item_if_better)(obj/item/I, mob/user)
 	if(!I)
 		return TRUE
 	if(is_type_in_typecache(I, ratvarian_armor_typecache))

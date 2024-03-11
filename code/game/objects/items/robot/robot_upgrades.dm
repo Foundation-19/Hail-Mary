@@ -17,7 +17,7 @@
 	// if module is reset
 	var/one_use = FALSE
 
-/obj/item/borg/upgrade/proc/action(mob/living/silicon/robot/R, user = usr)
+TYPE_PROC_REF(/obj/item/borg/upgrade, action)(mob/living/silicon/robot/R, user = usr)
 	if(R.stat == DEAD)
 		to_chat(user, span_warning("[src] will not function on a deceased cyborg."))
 		return FALSE
@@ -31,10 +31,10 @@
 This proc gets called by upgrades after installing them. Use this for things that for example need to be moved into a specific borg item,
 as performing this in action() will cause the upgrade to end up in the borg instead of its intended location due to forceMove() being called afterwards..
 */
-/obj/item/borg/upgrade/proc/afterInstall(mob/living/silicon/robot/R, user = usr)
+TYPE_PROC_REF(/obj/item/borg/upgrade, afterInstall)(mob/living/silicon/robot/R, user = usr)
 	return
 
-/obj/item/borg/upgrade/proc/deactivate(mob/living/silicon/robot/R, user = usr)
+TYPE_PROC_REF(/obj/item/borg/upgrade, deactivate)(mob/living/silicon/robot/R, user = usr)
 	if (!(src in R.upgrades))
 		return FALSE
 	return TRUE
@@ -354,12 +354,12 @@ as performing this in action() will cause the upgrade to end up in the borg inst
 	else
 		icon_state = "cyborg_upgrade5"
 
-/obj/item/borg/upgrade/selfrepair/proc/activate_sr()
+TYPE_PROC_REF(/obj/item/borg/upgrade/selfrepair, activate_sr)()
 	START_PROCESSING(SSobj, src)
 	on = TRUE
 	update_icon()
 
-/obj/item/borg/upgrade/selfrepair/proc/deactivate_sr()
+TYPE_PROC_REF(/obj/item/borg/upgrade/selfrepair, deactivate_sr)()
 	STOP_PROCESSING(SSobj, src)
 	on = FALSE
 	update_icon()

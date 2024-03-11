@@ -73,12 +73,12 @@
 	spawn_payload(type, numspawned)
 	return INITIALIZE_HINT_QDEL
 
-/obj/effect/payload_spawner/proc/spawn_payload(type, numspawned)
+TYPE_PROC_REF(/obj/effect/payload_spawner, spawn_payload)(type, numspawned)
 	for(var/loop in 1 to numspawned)
 		var/obj/item/grenade/P = new type(loc)
 		if(istype(P))
 			P.active = TRUE
-			addtimer(CALLBACK(P, /obj/item/grenade/proc/prime), rand(15,60))
+			addtimer(CALLBACK(P, TYPE_PROC_REF(/obj/item/grenade, prime)), rand(15,60))
 		var/steps = rand(1,4)
 		for(var/i in 1 to steps)
 			step_away(src,loc)
@@ -89,7 +89,7 @@
 /obj/effect/payload_spawner/random_slime/volatile
 	volatile = TRUE
 
-/obj/item/slime_extract/proc/activate_slime()
+TYPE_PROC_REF(/obj/item/slime_extract, activate_slime)()
 	var/list/slime_chems = src.activate_reagents
 	if(!QDELETED(src))
 		var/chem = pick(slime_chems)
@@ -107,7 +107,7 @@
 		var/chosen = pick(subtypesof(/obj/item/slime_extract))
 		var/obj/item/slime_extract/P = new chosen(loc)
 		if(volatile)
-			addtimer(CALLBACK(P, /obj/item/slime_extract/proc/activate_slime), rand(15,60))
+			addtimer(CALLBACK(P, TYPE_PROC_REF(/obj/item/slime_extract, activate_slime)), rand(15,60))
 		var/steps = rand(1,4)
 		for(var/i in 1 to steps)
 			step_away(src,loc)

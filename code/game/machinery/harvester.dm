@@ -64,7 +64,7 @@
 		start_harvest()
 	return TRUE
 
-/obj/machinery/harvester/proc/can_harvest()
+TYPE_PROC_REF(/obj/machinery/harvester, can_harvest)()
 	if(!powered(EQUIP) || state_open || !occupant || !iscarbon(occupant))
 		return
 	var/mob/living/carbon/C = occupant
@@ -87,7 +87,7 @@
 		return
 	return TRUE
 
-/obj/machinery/harvester/proc/start_harvest()
+TYPE_PROC_REF(/obj/machinery/harvester, start_harvest)()
 	if(!occupant || !iscarbon(occupant))
 		return
 	var/mob/living/carbon/C = occupant
@@ -99,7 +99,7 @@
 	update_icon()
 	addtimer(CALLBACK(src, PROC_REF(harvest)), interval)
 
-/obj/machinery/harvester/proc/harvest()
+TYPE_PROC_REF(/obj/machinery/harvester, harvest)()
 	warming_up = FALSE
 	update_icon()
 	if(!harvesting || state_open || !powered(EQUIP) || !occupant || !iscarbon(occupant))
@@ -134,7 +134,7 @@
 	use_power(5000)
 	addtimer(CALLBACK(src, PROC_REF(harvest)), interval)
 
-/obj/machinery/harvester/proc/end_harvesting()
+TYPE_PROC_REF(/obj/machinery/harvester, end_harvesting)()
 	warming_up = FALSE
 	harvesting = FALSE
 	open_machine()

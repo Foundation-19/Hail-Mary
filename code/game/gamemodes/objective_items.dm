@@ -8,10 +8,10 @@
 	var/list/altitems = list()				//Items which can serve as an alternative to the objective (darn you blueprints)
 	var/list/special_equipment = list()
 
-/datum/objective_item/proc/check_special_completion() //for objectives with special checks (is that slime extract unused? does that intellicard have an ai in it? etcetc)
+TYPE_PROC_REF(/datum/objective_item, check_special_completion)() //for objectives with special checks (is that slime extract unused? does that intellicard have an ai in it? etcetc)
 	return 1
 
-/datum/objective_item/proc/TargetExists()
+TYPE_PROC_REF(/datum/objective_item, TargetExists)()
 	return TRUE
 
 /datum/objective_item/steal/New()

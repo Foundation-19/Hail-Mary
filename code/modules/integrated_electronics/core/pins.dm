@@ -47,14 +47,14 @@ D [1]/  ||
 	holder = null
 	return ..()
 
-/datum/integrated_io/proc/data_as_type(as_type)
+TYPE_PROC_REF(/datum/integrated_io, data_as_type)(as_type)
 	if(!isweakref(data))
 		return
 	var/datum/weakref/w = data
 	var/output = w.resolve()
 	return istype(output, as_type) ? output : null
 
-/datum/integrated_io/proc/display_data(input)
+TYPE_PROC_REF(/datum/integrated_io, display_data)(input)
 	if(isnull(input))
 		return "(null)" // Empty data means nothing to show.
 
@@ -86,13 +86,13 @@ D [1]/  ||
 /datum/integrated_io/activate/display_data()
 	return "(\[pulse\])"
 
-/datum/integrated_io/proc/display_pin_type()
+TYPE_PROC_REF(/datum/integrated_io, display_pin_type)()
 	return IC_FORMAT_ANY
 
 /datum/integrated_io/activate/display_pin_type()
 	return IC_FORMAT_PULSE
 
-/datum/integrated_io/proc/scramble()
+TYPE_PROC_REF(/datum/integrated_io, scramble)()
 	if(isnull(data))
 		return
 	if(isnum(data))
@@ -104,7 +104,7 @@ D [1]/  ||
 /datum/integrated_io/activate/scramble()
 	push_data()
 
-/datum/integrated_io/proc/handle_wire(datum/integrated_io/linked_pin, obj/item/tool, action, mob/living/user)
+TYPE_PROC_REF(/datum/integrated_io, handle_wire)(datum/integrated_io/linked_pin, obj/item/tool, action, mob/living/user)
 	if(istype(tool, /obj/item/multitool))
 		var/obj/item/multitool/multitool = tool
 		switch(action)
@@ -133,7 +133,7 @@ D [1]/  ||
 
 	return FALSE
 
-/datum/integrated_io/proc/write_data_to_pin(new_data)
+TYPE_PROC_REF(/datum/integrated_io, write_data_to_pin)(new_data)
 	if(isnull(new_data) || isnum(new_data) || istext(new_data) || isweakref(new_data))
 		data = new_data
 		holder.on_data_written()
@@ -142,7 +142,7 @@ D [1]/  ||
 		data = new_list.Copy(max(1,new_list.len - IC_MAX_LIST_LENGTH+1),0)
 		holder.on_data_written()
 
-/datum/integrated_io/proc/push_data()
+TYPE_PROC_REF(/datum/integrated_io, push_data)()
 	for(var/k in 1 to linked.len)
 		var/datum/integrated_io/io = linked[k]
 		io.write_data_to_pin(data)
@@ -152,32 +152,32 @@ D [1]/  ||
 		var/datum/integrated_io/io = linked[k]
 		io.holder.check_then_do_work(io.ord)
 
-/datum/integrated_io/proc/pull_data()
+TYPE_PROC_REF(/datum/integrated_io, pull_data)()
 	for(var/k in 1 to linked.len)
 		var/datum/integrated_io/io = linked[k]
 		write_data_to_pin(io.data)
 
-/datum/integrated_io/proc/get_linked_to_desc()
+TYPE_PROC_REF(/datum/integrated_io, get_linked_to_desc)()
 	if(linked.len)
 		return "the [english_list(linked)]"
 	return "nothing"
 
 
-/datum/integrated_io/proc/connect_pin(datum/integrated_io/pin)
+TYPE_PROC_REF(/datum/integrated_io, connect_pin)(datum/integrated_io/pin)
 	pin.linked |= src
 	linked |= pin
 
 // Iterates over every linked pin and disconnects them.
-/datum/integrated_io/proc/disconnect_all()
+TYPE_PROC_REF(/datum/integrated_io, disconnect_all)()
 	for(var/pin in linked)
 		disconnect_pin(pin)
 
-/datum/integrated_io/proc/disconnect_pin(datum/integrated_io/pin)
+TYPE_PROC_REF(/datum/integrated_io, disconnect_pin)(datum/integrated_io/pin)
 	pin.linked.Remove(src)
 	linked.Remove(pin)
 
 
-/datum/integrated_io/proc/ask_for_data_type(mob/user, default, list/allowed_data_types = list("string","number","null"))
+TYPE_PROC_REF(/datum/integrated_io, ask_for_data_type)(mob/user, default, list/allowed_data_types = list("string","number","null"))
 	var/type_to_use = input("Please choose a type to use.","[src] type setting") as null|anything in allowed_data_types
 	if(!holder.check_interactivity(user))
 		return
@@ -200,11 +200,11 @@ D [1]/  ||
 				return new_data
 
 // Basically a null check
-/datum/integrated_io/proc/is_valid()
+TYPE_PROC_REF(/datum/integrated_io, is_valid)()
 	return !isnull(data)
 
 // This proc asks for the data to write, then writes it.
-/datum/integrated_io/proc/ask_for_pin_data(mob/user)
+TYPE_PROC_REF(/datum/integrated_io, ask_for_pin_data)(mob/user)
 	var/new_data = ask_for_data_type(user)
 	write_data_to_pin(new_data)
 

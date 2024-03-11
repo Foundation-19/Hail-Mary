@@ -14,7 +14,7 @@
 	qdel(hood)
 	hood = null
 
-/obj/item/clothing/suit/proc/MakeHelmet(obj/item/clothing/head/H)
+TYPE_PROC_REF(/obj/item/clothing/suit, MakeHelmet)(obj/item/clothing/head/H)
 	SEND_SIGNAL(src, COMSIG_SUIT_MADE_HELMET, H)
 	return H
 
@@ -36,7 +36,7 @@
 		RemoveHood()
 	..()
 
-/obj/item/clothing/suit/hooded/proc/RemoveHood()
+TYPE_PROC_REF(/obj/item/clothing/suit/hooded, RemoveHood)()
 	suittoggled = FALSE
 	if(ishuman(hood.loc))
 		var/mob/living/carbon/H = hood.loc
@@ -57,7 +57,7 @@
 	..()
 	RemoveHood()
 
-/obj/item/clothing/suit/hooded/proc/ToggleHood()
+TYPE_PROC_REF(/obj/item/clothing/suit/hooded, ToggleHood)()
 	if(!hood)
 		to_chat(loc, span_warning("[src] seems to be missing its hood.."))
 		return
@@ -116,7 +116,7 @@
 /obj/item/clothing/suit/toggle/ui_action_click()
 	suit_toggle()
 
-/obj/item/clothing/suit/toggle/proc/suit_toggle()
+TYPE_PROC_REF(/obj/item/clothing/suit/toggle, suit_toggle)()
 	set src in usr
 
 	if(!can_use(usr))
@@ -180,7 +180,7 @@
 		RemoveHelmet()
 	..()
 
-/obj/item/clothing/suit/space/hardsuit/proc/RemoveHelmet(message = TRUE)
+TYPE_PROC_REF(/obj/item/clothing/suit/space/hardsuit, RemoveHelmet)(message = TRUE)
 	if(!helmet)
 		return
 	suittoggled = FALSE
@@ -201,7 +201,7 @@
 	..()
 	RemoveHelmet()
 
-/obj/item/clothing/suit/space/hardsuit/proc/ToggleHelmet(message = TRUE)
+TYPE_PROC_REF(/obj/item/clothing/suit/space/hardsuit, ToggleHelmet)(message = TRUE)
 	var/mob/living/carbon/human/H = loc
 	if(!helmettype)
 		return

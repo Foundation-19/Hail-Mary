@@ -69,7 +69,7 @@
 		chassis.visible_message(span_warning("[chassis] loads [target] into [src]."))
 		mecha_log_message("[target] loaded. Life support functions engaged.")
 
-/obj/item/mecha_parts/mecha_equipment/medical/sleeper/proc/patient_insertion_check(mob/living/carbon/target)
+TYPE_PROC_REF(/obj/item/mecha_parts/mecha_equipment/medical/sleeper, patient_insertion_check)(mob/living/carbon/target)
 	if(target.buckled)
 		occupant_message(span_warning("[target] will not fit into the sleeper because [target.p_theyre()] buckled to [target.buckled]!"))
 		return
@@ -81,7 +81,7 @@
 		return
 	return 1
 
-/obj/item/mecha_parts/mecha_equipment/medical/sleeper/proc/go_out()
+TYPE_PROC_REF(/obj/item/mecha_parts/mecha_equipment/medical/sleeper, go_out)()
 	if(!patient)
 		return
 	patient.forceMove(get_turf(src))
@@ -121,7 +121,7 @@
 		if (istype(R))
 			inject_reagent(R, SG)
 
-/obj/item/mecha_parts/mecha_equipment/medical/sleeper/proc/get_patient_stats()
+TYPE_PROC_REF(/obj/item/mecha_parts/mecha_equipment/medical/sleeper, get_patient_stats)()
 	if(!patient)
 		return
 	return {"<html>
@@ -151,7 +151,7 @@
 				</body>
 				</html>"}
 
-/obj/item/mecha_parts/mecha_equipment/medical/sleeper/proc/get_patient_dam()
+TYPE_PROC_REF(/obj/item/mecha_parts/mecha_equipment/medical/sleeper, get_patient_dam)()
 	var/t1
 	switch(patient.stat)
 		if(0)
@@ -173,14 +173,14 @@
 				<span class='danger'>[length(patient.get_traumas()) ? "Brain Traumas detected." : ""]</span><br />
 				"}
 
-/obj/item/mecha_parts/mecha_equipment/medical/sleeper/proc/get_patient_reagents()
+TYPE_PROC_REF(/obj/item/mecha_parts/mecha_equipment/medical/sleeper, get_patient_reagents)()
 	if(patient.reagents)
 		for(var/datum/reagent/R in patient.reagents.reagent_list)
 			if(R.volume > 0)
 				. += "[R]: [round(R.volume,0.01)]<br />"
 	return . || "None"
 
-/obj/item/mecha_parts/mecha_equipment/medical/sleeper/proc/get_available_reagents()
+TYPE_PROC_REF(/obj/item/mecha_parts/mecha_equipment/medical/sleeper, get_available_reagents)()
 	var/output
 	var/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/SG = locate(/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun) in chassis
 	if(SG && SG.reagents && islist(SG.reagents.reagent_list))
@@ -190,7 +190,7 @@
 	return output
 
 
-/obj/item/mecha_parts/mecha_equipment/medical/sleeper/proc/inject_reagent(datum/reagent/R,obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/SG)
+TYPE_PROC_REF(/obj/item/mecha_parts/mecha_equipment/medical/sleeper, inject_reagent)(datum/reagent/R,obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/SG)
 	if(!R || !patient || !SG || !(SG in chassis.equipment))
 		return 0
 	var/to_inject = min(R.volume, inject_amount)
@@ -391,7 +391,7 @@
 	if (href_list["purge_all"])
 		reagents.clear_reagents()
 
-/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/proc/get_reagents_page()
+TYPE_PROC_REF(/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun, get_reagents_page)()
 	var/output = {"<html>
 						<head>
 						<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>
@@ -420,7 +420,7 @@
 						"}
 	return output
 
-/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/proc/get_reagents_form()
+TYPE_PROC_REF(/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun, get_reagents_form)()
 	var/r_list = get_reagents_list()
 	var/inputs
 	if(r_list)
@@ -435,14 +435,14 @@
 						"}
 	return output
 
-/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/proc/get_reagents_list()
+TYPE_PROC_REF(/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun, get_reagents_list)()
 	var/output
 	for(var/i=1 to known_reagents.len)
 		var/reagent_id = known_reagents[i]
 		output += {"<input type="checkbox" value="[reagent_id]" name="reagent_[i]" [(reagent_id in processed_reagents)? "checked=\"1\"" : null]> [known_reagents[reagent_id]]<br />"}
 	return output
 
-/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/proc/get_current_reagents()
+TYPE_PROC_REF(/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun, get_current_reagents)()
 	var/output
 	for(var/datum/reagent/R in reagents.reagent_list)
 		if(R.volume > 0)
@@ -451,7 +451,7 @@
 		output += "Total: [round(reagents.total_volume,0.001)]/[reagents.maximum_volume] - <a href=\"?src=[REF(src)];purge_all=1\">Purge All</a>"
 	return output || "None"
 
-/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/proc/load_syringe(obj/item/reagent_containers/syringe/S)
+TYPE_PROC_REF(/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun, load_syringe)(obj/item/reagent_containers/syringe/S)
 	if(syringes.len<max_syringes)
 		if(!chassis?.can_reach(S))
 			occupant_message("Unable to load syringe.")
@@ -465,7 +465,7 @@
 	occupant_message("[src]'s syringe chamber is full.")
 	return 0
 
-/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/proc/analyze_reagents(atom/A)
+TYPE_PROC_REF(/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun, analyze_reagents)(atom/A)
 	if(get_dist(src,A) >= 4)
 		occupant_message("The object is too far away.")
 		return 0
@@ -480,7 +480,7 @@
 	occupant_message("Analyzis complete.")
 	return 1
 
-/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/proc/add_known_reagent(r_id,r_name)
+TYPE_PROC_REF(/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun, add_known_reagent)(r_id,r_name)
 	if(!(r_id in known_reagents))
 		known_reagents += r_id
 		known_reagents[r_id] = r_name

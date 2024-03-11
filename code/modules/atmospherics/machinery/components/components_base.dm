@@ -20,7 +20,7 @@
 
 // Iconnery
 
-/obj/machinery/atmospherics/components/proc/update_icon_nopipes()
+TYPE_PROC_REF(/obj/machinery/atmospherics/components, update_icon_nopipes)()
 	return
 
 /obj/machinery/atmospherics/components/update_icon()
@@ -55,7 +55,7 @@
 	if(!shift_underlay_only)
 		PIPING_LAYER_SHIFT(src, piping_layer)
 
-/obj/machinery/atmospherics/components/proc/get_pipe_underlay(state, dir, color = null)
+TYPE_PROC_REF(/obj/machinery/atmospherics/components, get_pipe_underlay)(state, dir, color = null)
 	if(color)
 		. = getpipeimage('icons/obj/atmospherics/components/binary_devices.dmi', state, dir, color, piping_layer = shift_underlay_only ? piping_layer : 2)
 	else
@@ -80,7 +80,7 @@
 			var/datum/pipeline/P = parents[i]
 			P.build_pipeline(src)
 
-/obj/machinery/atmospherics/components/proc/nullifyPipenet(datum/pipeline/reference)
+TYPE_PROC_REF(/obj/machinery/atmospherics/components, nullifyPipenet)(datum/pipeline/reference)
 	if(!reference)
 		CRASH("nullifyPipenet(null) called by [type] on [COORD(src)]")
 	var/i = parents.Find(reference)
@@ -125,7 +125,7 @@
 			T.assume_air_moles(air, shared_loss)
 		air_update_turf(1)
 
-/obj/machinery/atmospherics/components/proc/safe_input(title, text, default_set)
+TYPE_PROC_REF(/obj/machinery/atmospherics/components, safe_input)(title, text, default_set)
 	var/new_value = input(usr,text,title,default_set) as num
 	if(usr.canUseTopic(src))
 		return new_value
@@ -133,7 +133,7 @@
 
 // Helpers
 
-/obj/machinery/atmospherics/components/proc/update_parents()
+TYPE_PROC_REF(/obj/machinery/atmospherics/components, update_parents)()
 	for(var/i in 1 to device_type)
 		var/datum/pipeline/parent = parents[i]
 		if(!parent)

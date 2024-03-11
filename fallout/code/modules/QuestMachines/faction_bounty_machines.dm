@@ -48,7 +48,7 @@
 	return ..()
 
 /* Add caps */
-/obj/machinery/bounty_machine/faction/proc/add_caps(var/obj/item/stack/f13Cash/caps/C)
+TYPE_PROC_REF(/obj/machinery/bounty_machine/faction, add_caps)(var/obj/item/stack/f13Cash/caps/C)
 	if(!C) return
 
 	var/mob/character = usr
@@ -60,7 +60,7 @@
 		qdel(C)
 
 /* Spawn all caps on world and clear caps storage */
-/obj/machinery/bounty_machine/faction/proc/remove_all_caps()
+TYPE_PROC_REF(/obj/machinery/bounty_machine/faction, remove_all_caps)()
 	if(stored_caps <= 0)
 		return
 	var/obj/item/stack/f13Cash/caps/C = new/obj/item/stack/f13Cash/caps
@@ -76,7 +76,7 @@
 	src.ShowUI(usr)
 
 /* Buy item */
-/obj/machinery/bounty_machine/faction/proc/buy(var/item_index, var/mob/user)
+TYPE_PROC_REF(/obj/machinery/bounty_machine/faction, buy)(var/item_index, var/mob/user)
 	if(item_index > price_list.len)
 		to_chat(usr, "Invalid item! *beep*")
 		return
@@ -110,7 +110,7 @@
 
 /* GUI */
 /* Shop UI*/
-/obj/machinery/bounty_machine/faction/proc/GetShopUI()
+TYPE_PROC_REF(/obj/machinery/bounty_machine/faction, GetShopUI)()
 	var/dat = "<h1>Shop</h1>"
 	dat += "<a href='?src=\ref[src];exit=1'>Exit</a><br><br>"
 	dat += "<font color = 'green'>Caps stored: [stored_caps]</font>"
@@ -138,7 +138,7 @@
 	return dat
 
 /* Quest UI */
-/obj/machinery/bounty_machine/faction/proc/GetQuestUI()
+TYPE_PROC_REF(/obj/machinery/bounty_machine/faction, GetQuestUI)()
 	var/dat = {"<meta charset="UTF-8">"}
 	var/datum/asset/assets = get_asset_datum(/datum/asset/simple/bounty_employers)
 	assets.send(usr)

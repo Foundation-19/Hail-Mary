@@ -34,7 +34,7 @@
 /obj/item/reagent_containers/medspray/attack(mob/living/L, mob/user, def_zone)
 	INVOKE_ASYNC(src, PROC_REF(attempt_spray), L, user, def_zone)		// this is shitcode because the params for attack aren't even right but i'm not in the mood to refactor right now.
 
-/obj/item/reagent_containers/medspray/proc/attempt_spray(mob/living/L, mob/user, def_zone)
+TYPE_PROC_REF(/obj/item/reagent_containers/medspray, attempt_spray)(mob/living/L, mob/user, def_zone)
 	if(!reagents || !reagents.total_volume)
 		to_chat(user, span_warning("[src] is empty!"))
 		return

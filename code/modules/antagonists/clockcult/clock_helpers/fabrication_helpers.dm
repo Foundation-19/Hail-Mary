@@ -5,10 +5,10 @@
 //otherwise, return literally any non-list thing but preferably FALSE
 //returning TRUE won't produce the "cannot be fabricated" message and will still prevent fabrication
 
-/atom/proc/fabrication_vals(mob/living/user, obj/item/clockwork/replica_fabricator/fabricator, silent)
+TYPE_PROC_REF(/atom, fabrication_vals)(mob/living/user, obj/item/clockwork/replica_fabricator/fabricator, silent)
 	return FALSE
 
-/atom/proc/consume_visual(obj/item/clockwork/replica_fabricator/fabricator, power_amount)
+TYPE_PROC_REF(/atom, consume_visual)(obj/item/clockwork/replica_fabricator/fabricator, power_amount)
 	if(get_clockwork_power(power_amount))
 		var/obj/effect/temp_visual/ratvar/beam/itemconsume/B = new /obj/effect/temp_visual/ratvar/beam/itemconsume(get_turf(src))
 		B.pixel_x = pixel_x
@@ -250,7 +250,7 @@
 			"<span class='alloy'>You finish repairing [src]. It is now at <b>[obj_integrity]/[max_integrity]</b> integrity.</span>")
 
 //Fabricator mob heal proc, to avoid as much copypaste as possible.
-/mob/living/proc/fabricator_heal(mob/living/user, obj/item/clockwork/replica_fabricator/fabricator)
+TYPE_PROC_REF(/mob/living, fabricator_heal)(mob/living/user, obj/item/clockwork/replica_fabricator/fabricator)
 	var/list/repair_values = list()
 	if(!fabricator.fabricator_repair_checks(repair_values, src, user))
 		return
@@ -270,7 +270,7 @@
 
 	return TRUE
 
-/mob/living/proc/fabricator_heal_tick(amount)
+TYPE_PROC_REF(/mob/living, fabricator_heal_tick)(amount)
 	var/static/list/damage_heal_order = list(BRUTE, BURN, TOX, OXY)
 	heal_ordered_damage(amount, damage_heal_order)
 

@@ -35,7 +35,7 @@
 	stealth_armor = getArmor(arglist(stealth_armor))
 	combat_armor = getArmor(arglist(combat_armor))
 
-/obj/item/clothing/suit/armor/abductor/vest/proc/toggle_nodrop()
+TYPE_PROC_REF(/obj/item/clothing/suit/armor/abductor/vest, toggle_nodrop)()
 	if(HAS_TRAIT_FROM(src, TRAIT_NODROP, ABDUCTOR_VEST_TRAIT))
 		REMOVE_TRAIT(src, TRAIT_NODROP, ABDUCTOR_VEST_TRAIT)
 	else
@@ -43,7 +43,7 @@
 	if(ismob(loc))
 		to_chat(loc, span_notice("Your vest is now [HAS_TRAIT_FROM(src, TRAIT_NODROP, ABDUCTOR_VEST_TRAIT) ? "locked" : "unlocked"]."))
 
-/obj/item/clothing/suit/armor/abductor/vest/proc/flip_mode()
+TYPE_PROC_REF(/obj/item/clothing/suit/armor/abductor/vest, flip_mode)()
 	switch(mode)
 		if(VEST_STEALTH)
 			mode = VEST_COMBAT
@@ -65,10 +65,10 @@
 	if(slot == SLOT_WEAR_SUIT) //we only give the mob the ability to activate the vest if he's actually wearing it.
 		return TRUE
 
-/obj/item/clothing/suit/armor/abductor/vest/proc/SetDisguise(datum/icon_snapshot/entry)
+TYPE_PROC_REF(/obj/item/clothing/suit/armor/abductor/vest, SetDisguise)(datum/icon_snapshot/entry)
 	disguise = entry
 
-/obj/item/clothing/suit/armor/abductor/vest/proc/ActivateStealth()
+TYPE_PROC_REF(/obj/item/clothing/suit/armor/abductor/vest, ActivateStealth)()
 	if(disguise == null)
 		return
 	stealth_active = 1
@@ -82,7 +82,7 @@
 		M.add_overlay(disguise.overlays)
 		M.update_inv_hands()
 
-/obj/item/clothing/suit/armor/abductor/vest/proc/DeactivateStealth()
+TYPE_PROC_REF(/obj/item/clothing/suit/armor/abductor/vest, DeactivateStealth)()
 	if(!stealth_active)
 		return
 	stealth_active = 0
@@ -107,7 +107,7 @@
 			else
 				ActivateStealth()
 
-/obj/item/clothing/suit/armor/abductor/vest/proc/Adrenaline()
+TYPE_PROC_REF(/obj/item/clothing/suit/armor/abductor/vest, Adrenaline)()
 	if(ishuman(loc))
 		if(combat_cooldown != initial(combat_cooldown))
 			to_chat(loc, span_warning("Combat injection is still recharging."))
@@ -138,7 +138,7 @@
 	lefthand_file = 'icons/mob/inhands/antag/abductor_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/antag/abductor_righthand.dmi'
 
-/obj/item/abductor/proc/AbductorCheck(mob/user)
+TYPE_PROC_REF(/obj/item/abductor, AbductorCheck)(mob/user)
 	if (HAS_TRAIT(user, TRAIT_ABDUCTOR_TRAINING))
 		return TRUE
 	if (istype(user) && user.mind && HAS_TRAIT(user.mind, TRAIT_ABDUCTOR_TRAINING))
@@ -146,7 +146,7 @@
 	to_chat(user, span_warning("You can't figure how this works!"))
 	return FALSE
 
-/obj/item/abductor/proc/ScientistCheck(mob/user)
+TYPE_PROC_REF(/obj/item/abductor, ScientistCheck)(mob/user)
 	var/training = HAS_TRAIT(user, TRAIT_ABDUCTOR_TRAINING) || (user.mind && HAS_TRAIT(user.mind, TRAIT_ABDUCTOR_TRAINING))
 	var/sci_training = HAS_TRAIT(user, TRAIT_ABDUCTOR_SCIENTIST_TRAINING) || (user.mind && HAS_TRAIT(user.mind, TRAIT_ABDUCTOR_SCIENTIST_TRAINING))
 
@@ -213,12 +213,12 @@
 		if(GIZMO_MARK)
 			mark(target, user)
 
-/obj/item/abductor/gizmo/proc/scan(atom/target, mob/living/user)
+TYPE_PROC_REF(/obj/item/abductor/gizmo, scan)(atom/target, mob/living/user)
 	if(ishuman(target))
 		console.AddSnapshot(target)
 		to_chat(user, span_notice("You scan [target] and add [target.p_them()] to the database."))
 
-/obj/item/abductor/gizmo/proc/mark(atom/target, mob/living/user)
+TYPE_PROC_REF(/obj/item/abductor/gizmo, mark)(atom/target, mob/living/user)
 	if(marked == target)
 		to_chat(user, span_warning("This specimen is already marked!"))
 		return
@@ -228,7 +228,7 @@
 	else
 		prepare(target,user)
 
-/obj/item/abductor/gizmo/proc/prepare(atom/target, mob/living/user)
+TYPE_PROC_REF(/obj/item/abductor/gizmo, prepare)(atom/target, mob/living/user)
 	if(get_dist(target,user)>1)
 		to_chat(user, span_warning("You need to be next to the specimen to prepare it for transport!"))
 		return
@@ -262,7 +262,7 @@
 		return
 	radio_off(target, user)
 
-/obj/item/abductor/silencer/proc/radio_off(atom/target, mob/living/user)
+TYPE_PROC_REF(/obj/item/abductor/silencer, radio_off)(atom/target, mob/living/user)
 	if( !(user in (viewers(7,target))) )
 		return
 
@@ -275,7 +275,7 @@
 		to_chat(user, span_notice("You silence [M]'s radio devices."))
 		radio_off_mob(M)
 
-/obj/item/abductor/silencer/proc/radio_off_mob(mob/living/carbon/human/M)
+TYPE_PROC_REF(/obj/item/abductor/silencer, radio_off_mob)(mob/living/carbon/human/M)
 	var/list/all_items = M.GetAllContents()
 
 	for(var/obj/I in all_items)
@@ -316,7 +316,7 @@
 		if(MIND_DEVICE_MESSAGE)
 			mind_message(target, user)
 
-/obj/item/abductor/mind_device/proc/mind_control(atom/target, mob/living/user)
+TYPE_PROC_REF(/obj/item/abductor/mind_device, mind_control)(atom/target, mob/living/user)
 	if(iscarbon(target))
 		var/mob/living/carbon/C = target
 		var/obj/item/organ/heart/gland/G = C.getorganslot("heart")
@@ -349,7 +349,7 @@
 		G.mind_control(command, user)
 		to_chat(user, span_notice("You send the command to your target."))
 
-/obj/item/abductor/mind_device/proc/mind_message(atom/target, mob/living/user)
+TYPE_PROC_REF(/obj/item/abductor/mind_device, mind_message)(atom/target, mob/living/user)
 	if(isliving(target))
 		var/mob/living/L = target
 		if(L.stat == DEAD)
@@ -446,7 +446,7 @@
 	. = ..()
 	AddElement(/datum/element/update_icon_updates_onmob)
 
-/obj/item/abductor/baton/proc/toggle(mob/living/user=usr)
+TYPE_PROC_REF(/obj/item/abductor/baton, toggle)(mob/living/user=usr)
 	mode = (mode+1)%BATON_MODES
 	var/txt
 	switch(mode)
@@ -509,7 +509,7 @@
 /obj/item/abductor/baton/attack_self(mob/living/user)
 	toggle(user)
 
-/obj/item/abductor/baton/proc/StunAttack(mob/living/L,mob/living/user)
+TYPE_PROC_REF(/obj/item/abductor/baton, StunAttack)(mob/living/L,mob/living/user)
 
 	L.lastattacker = user.real_name
 	L.lastattackerckey = user.ckey
@@ -529,7 +529,7 @@
 
 	log_combat(user, L, "stunned")
 
-/obj/item/abductor/baton/proc/SleepAttack(mob/living/L,mob/living/user)
+TYPE_PROC_REF(/obj/item/abductor/baton, SleepAttack)(mob/living/L,mob/living/user)
 	if(L.incapacitated(TRUE, TRUE))
 		if(L.anti_magic_check(FALSE, FALSE, TRUE, 0))
 			to_chat(user, span_warning("The specimen's tinfoil protection is interfering with the sleep inducement!"))
@@ -553,7 +553,7 @@
 		L.visible_message(span_danger("[user] tried to induce sleep in [L] with [src]!"), \
 							span_userdanger("You suddenly feel drowsy!"))
 
-/obj/item/abductor/baton/proc/CuffAttack(mob/living/L,mob/living/user)
+TYPE_PROC_REF(/obj/item/abductor/baton, CuffAttack)(mob/living/L,mob/living/user)
 	if(!iscarbon(L))
 		return
 	var/mob/living/carbon/C = L
@@ -573,7 +573,7 @@
 		else
 			to_chat(user, span_warning("[C] doesn't have two hands..."))
 
-/obj/item/abductor/baton/proc/ProbeAttack(mob/living/L,mob/living/user)
+TYPE_PROC_REF(/obj/item/abductor/baton, ProbeAttack)(mob/living/L,mob/living/user)
 	L.visible_message(span_danger("[user] probes [L] with [src]!"), \
 						span_userdanger("[user] probes you!"))
 
@@ -663,7 +663,7 @@
 	playsound(src, 'sound/machines/terminal_alert.ogg', 50)
 	addtimer(CALLBACK(src, PROC_REF(try_spawn_machine)), 30)
 
-/obj/item/abductor_machine_beacon/proc/try_spawn_machine()
+TYPE_PROC_REF(/obj/item/abductor_machine_beacon, try_spawn_machine)()
 	var/viable = FALSE
 	if(isfloorturf(loc))
 		var/turf/T = loc
@@ -810,7 +810,7 @@
 	AddElement(/datum/element/connect_loc, loc_connections)
 
 
-/obj/structure/table/optable/abductor/proc/on_entered(atom/movable/AM)
+TYPE_PROC_REF(/obj/structure/table/optable/abductor, on_entered)(atom/movable/AM)
 	SIGNAL_HANDLER
 	if(iscarbon(AM))
 		START_PROCESSING(SSobj, src)

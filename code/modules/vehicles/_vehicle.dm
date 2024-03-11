@@ -49,41 +49,41 @@
 		if(0 to 25)
 			. += "<span class='warning'>It's falling apart!</span>"
 
-/obj/vehicle/proc/is_key(obj/item/I)
+TYPE_PROC_REF(/obj/vehicle, is_key)(obj/item/I)
 	return I? (key_type_exact? (I.type == key_type) : istype(I, key_type)) : FALSE
 
-/obj/vehicle/proc/return_occupants()
+TYPE_PROC_REF(/obj/vehicle, return_occupants)()
 	return occupants
 
-/obj/vehicle/proc/occupant_amount()
+TYPE_PROC_REF(/obj/vehicle, occupant_amount)()
 	return length(occupants)
 
-/obj/vehicle/proc/return_amount_of_controllers_with_flag(flag)
+TYPE_PROC_REF(/obj/vehicle, return_amount_of_controllers_with_flag)(flag)
 	. = 0
 	for(var/i in occupants)
 		if(occupants[i] & flag)
 			.++
 
-/obj/vehicle/proc/return_controllers_with_flag(flag)
+TYPE_PROC_REF(/obj/vehicle, return_controllers_with_flag)(flag)
 	RETURN_TYPE(/list/mob)
 	. = list()
 	for(var/i in occupants)
 		if(occupants[i] & flag)
 			. += i
 
-/obj/vehicle/proc/return_drivers()
+TYPE_PROC_REF(/obj/vehicle, return_drivers)()
 	return return_controllers_with_flag(VEHICLE_CONTROL_DRIVE)
 
-/obj/vehicle/proc/driver_amount()
+TYPE_PROC_REF(/obj/vehicle, driver_amount)()
 	return return_amount_of_controllers_with_flag(VEHICLE_CONTROL_DRIVE)
 
-/obj/vehicle/proc/is_driver(mob/M)
+TYPE_PROC_REF(/obj/vehicle, is_driver)(mob/M)
 	return is_occupant(M) && occupants[M] & VEHICLE_CONTROL_DRIVE
 
-/obj/vehicle/proc/is_occupant(mob/M)
+TYPE_PROC_REF(/obj/vehicle, is_occupant)(mob/M)
 	return !isnull(occupants[M])
 
-/obj/vehicle/proc/add_occupant(mob/M, control_flags)
+TYPE_PROC_REF(/obj/vehicle, add_occupant)(mob/M, control_flags)
 	if(!istype(M) || occupants[M])
 		return FALSE
 	occupants[M] = NONE
@@ -92,14 +92,14 @@
 	grant_passenger_actions(M)
 	return TRUE
 
-/obj/vehicle/proc/after_add_occupant(mob/M)
+TYPE_PROC_REF(/obj/vehicle, after_add_occupant)(mob/M)
 	auto_assign_occupant_flags(M)
 
-/obj/vehicle/proc/auto_assign_occupant_flags(mob/M)	//override for each type that needs it. Default is assign driver if drivers is not at max.
+TYPE_PROC_REF(/obj/vehicle, auto_assign_occupant_flags)(mob/M)	//override for each type that needs it. Default is assign driver if drivers is not at max.
 	if(driver_amount() < max_drivers)
 		add_control_flags(M, VEHICLE_CONTROL_DRIVE|VEHICLE_CONTROL_PERMISSION)
 
-/obj/vehicle/proc/remove_occupant(mob/M)
+TYPE_PROC_REF(/obj/vehicle, remove_occupant)(mob/M)
 	if(!istype(M))
 		return FALSE
 	remove_control_flags(M, ALL)
@@ -109,14 +109,14 @@
 	after_remove_occupant(M)
 	return TRUE
 
-/obj/vehicle/proc/after_remove_occupant(mob/M)
+TYPE_PROC_REF(/obj/vehicle, after_remove_occupant)(mob/M)
 
 /obj/vehicle/relaymove(mob/user, direction)
 	if(is_driver(user))
 		return driver_move(user, direction)
 	return FALSE
 
-/obj/vehicle/proc/driver_move(mob/user, direction)
+TYPE_PROC_REF(/obj/vehicle, driver_move)(mob/user, direction)
 	if(key_type && !is_key(inserted_key))
 		to_chat(user, "<span class='warning'>[src] has no key inserted!</span>")
 		return FALSE
@@ -124,7 +124,7 @@
 		return
 	vehicle_move(direction)
 
-/obj/vehicle/proc/vehicle_move(direction)
+TYPE_PROC_REF(/obj/vehicle, vehicle_move)(direction)
 	if(lastmove + movedelay > world.time)
 		return FALSE
 	lastmove = world.time
@@ -138,10 +138,10 @@
 		after_move(direction)
 		return step(src, direction)
 
-/obj/vehicle/proc/after_move(direction)
+TYPE_PROC_REF(/obj/vehicle, after_move)(direction)
 	return
 
-/obj/vehicle/proc/add_control_flags(mob/controller, flags)
+TYPE_PROC_REF(/obj/vehicle, add_control_flags)(mob/controller, flags)
 	if(!istype(controller) || !flags)
 		return FALSE
 	occupants[controller] |= flags
@@ -150,7 +150,7 @@
 			grant_controller_actions_by_flag(controller, i)
 	return TRUE
 
-/obj/vehicle/proc/remove_control_flags(mob/controller, flags)
+TYPE_PROC_REF(/obj/vehicle, remove_control_flags)(mob/controller, flags)
 	if(!istype(controller) || !flags)
 		return FALSE
 	occupants[controller] &= ~flags
@@ -178,7 +178,7 @@
 		return BULLET_ACT_HIT
 	. = ..()
 
-/obj/vehicle/proc/vehicle_update_water()
+TYPE_PROC_REF(/obj/vehicle, vehicle_update_water)()
 	return
 
 /obj/vehicle/vehicle_update_water()

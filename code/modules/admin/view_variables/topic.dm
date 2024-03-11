@@ -1,6 +1,6 @@
 //DO NOT ADD MORE TO THIS FILE.
 //Use vv_do_topic() for datums!
-/client/proc/view_var_Topic(href, href_list, hsrc)
+TYPE_PROC_REF(/client, view_var_Topic)(href, href_list, hsrc)
 	if( (usr.client != src) || !src.holder || !holder.CheckAdminHref(href, href_list))
 		return
 	var/target = GET_VV_TARGET

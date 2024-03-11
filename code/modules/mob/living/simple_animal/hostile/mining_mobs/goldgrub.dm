@@ -61,7 +61,7 @@
 		return
 	return ..()
 
-/mob/living/simple_animal/hostile/asteroid/goldgrub/proc/EatOre(atom/targeted_ore)
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/asteroid/goldgrub, EatOre)(atom/targeted_ore)
 	for(var/obj/item/stack/ore/O in get_turf(targeted_ore))
 		if(length(loot) < 10)
 			var/using = min(10 - length(loot), O.amount)
@@ -70,7 +70,7 @@
 			O.use(using)
 	visible_message(span_notice("The ore was swallowed whole!"))
 
-/mob/living/simple_animal/hostile/asteroid/goldgrub/proc/Burrow()//Begin the chase to kill the goldgrub in time
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/asteroid/goldgrub, Burrow)()//Begin the chase to kill the goldgrub in time
 	if(!stat)
 		visible_message(span_danger("The [name] buries into the ground, vanishing from sight!"))
 		qdel(src)

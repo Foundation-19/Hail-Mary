@@ -59,22 +59,22 @@
 		return FALSE
 	return ..()
 
-/datum/config_entry/proc/VASProcCallGuard(str_val)
+TYPE_PROC_REF(/datum/config_entry, VASProcCallGuard)(str_val)
 	. = !((protection & CONFIG_ENTRY_LOCKED) && IsAdminAdvancedProcCall() && GLOB.LastAdminCalledProc == "ValidateAndSet" && GLOB.LastAdminCalledTargetRef == "[REF(src)]")
 	if(!.)
 		log_admin_private("Config set of [type] to [str_val] attempted by [key_name(usr)]")
 
-/datum/config_entry/proc/ValidateAndSet(str_val)
+TYPE_PROC_REF(/datum/config_entry, ValidateAndSet)(str_val)
 	VASProcCallGuard(str_val)
 	CRASH("Invalid config entry type!")
 
-/datum/config_entry/proc/ValidateListEntry(key_name, key_value)
+TYPE_PROC_REF(/datum/config_entry, ValidateListEntry)(key_name, key_value)
 	return TRUE
 
-/datum/config_entry/proc/DeprecationUpdate(value)
+TYPE_PROC_REF(/datum/config_entry, DeprecationUpdate)(value)
 	return
 
-/datum/config_entry/proc/OnPostload()
+TYPE_PROC_REF(/datum/config_entry, OnPostload)()
 	return
 
 /datum/config_entry/string
@@ -218,10 +218,10 @@
 /datum/config_entry/keyed_list/vv_edit_var(var_name, var_value)
 	return var_name != NAMEOF(src, splitter) && ..()
 
-/datum/config_entry/keyed_list/proc/preprocess_key(key)
+TYPE_PROC_REF(/datum/config_entry/keyed_list, preprocess_key)(key)
 	return key
 
-/datum/config_entry/keyed_list/proc/preprocess_value(value)
+TYPE_PROC_REF(/datum/config_entry/keyed_list, preprocess_value)(value)
 	return value
 
 //snowflake for donator things being on one line smh
@@ -245,5 +245,5 @@
 		config_entry_value[process_key(i)] = TRUE
 	return length(keys)? TRUE : FALSE
 
-/datum/config_entry/multi_keyed_flag/proc/process_key(key)
+TYPE_PROC_REF(/datum/config_entry/multi_keyed_flag, process_key)(key)
 	return trim(key)

@@ -63,13 +63,13 @@
 
 #undef SET_DIAGONAL
 
-/datum/lighting_corner/proc/update_active()
+TYPE_PROC_REF(/datum/lighting_corner, update_active)()
 	active = FALSE
 	if(northeast?.lighting_object || northwest?.lighting_object || southeast?.lighting_object || southwest?.lighting_object)
 		active = TRUE
 
 // God that was a mess, now to do the rest of the corner code! Hooray!
-/datum/lighting_corner/proc/update_lumcount(delta_r, delta_g, delta_b)
+TYPE_PROC_REF(/datum/lighting_corner, update_lumcount)(delta_r, delta_g, delta_b)
 
 	if ((abs(delta_r)+abs(delta_g)+abs(delta_b)) == 0)
 		return
@@ -82,7 +82,7 @@
 		needs_update = TRUE
 		GLOB.lighting_update_corners += src
 
-/datum/lighting_corner/proc/update_objects()
+TYPE_PROC_REF(/datum/lighting_corner, update_objects)()
 	// Cache these values a head of time so 4 individual lighting objects don't all calculate them individually.
 	var/lum_r = src.lum_r
 	var/lum_g = src.lum_g

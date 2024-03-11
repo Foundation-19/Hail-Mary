@@ -104,7 +104,7 @@
 		return BULLET_ACT_BLOCK
 	return ..()
 
-/mob/living/simple_animal/hostile/clockwork/marauder/proc/deflect_projectile(obj/item/projectile/P)
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/clockwork/marauder, deflect_projectile)(obj/item/projectile/P)
 	if(!shield_health)
 		return
 	var/energy_projectile = istype(P, /obj/item/projectile/energy) || istype(P, /obj/item/projectile/beam)
@@ -250,7 +250,7 @@
 /mob/living/simple_animal/hostile/clockwork/marauder/guardian/Process_Spacemove(movement_dir = 0, continuous_move)
 	return 1
 
-/mob/living/simple_animal/hostile/clockwork/marauder/guardian/proc/bind_to_host(mob/living/new_host)
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/clockwork/marauder/guardian, bind_to_host)(mob/living/new_host)
 	if(!new_host)
 		return FALSE
 	host = new_host
@@ -262,7 +262,7 @@
 	LM.Grant(host)
 	return TRUE
 
-/mob/living/simple_animal/hostile/clockwork/marauder/guardian/proc/unbind_from_host()
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/clockwork/marauder/guardian, unbind_from_host)()
 	if(host)
 		for(var/datum/action/innate/summon_guardian/SG in host.actions)
 			qdel(SG)
@@ -273,7 +273,7 @@
 	return FALSE
 
 //DAMAGE and FATIGUE
-/mob/living/simple_animal/hostile/clockwork/marauder/guardian/proc/heal_host()
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/clockwork/marauder/guardian, heal_host)()
 	if(!host)
 		return
 	var/resulthealth = round((host.health / host.maxHealth) * 100, 0.5)
@@ -310,7 +310,7 @@
 			G.hosthealth.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#AF0AAF'>HOST<br>[resulthealth]</font></div>"
 		hud_used.healths.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#AF0AAF'>[round((health / maxHealth) * 100, 0.5)]%</font>"
 
-/mob/living/simple_animal/hostile/clockwork/marauder/guardian/proc/update_stats()
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/clockwork/marauder/guardian, update_stats)()
 	if(GLOB.ratvar_awakens)
 		speed = 0
 		melee_damage_lower = 20
@@ -391,7 +391,7 @@
 	if(istype(I, /obj/item/nullrod) || !blockOrCounter(user, I))
 		return ..()
 
-/mob/living/simple_animal/hostile/clockwork/marauder/guardian/proc/blockOrCounter(mob/target, atom/textobject)
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/clockwork/marauder/guardian, blockOrCounter)(mob/target, atom/textobject)
 	if(GLOB.ratvar_awakens) //if ratvar has woken, we block nearly everything at a very high chance
 		blockchance = 90
 		counterchance = 90
@@ -427,7 +427,7 @@
 		return TRUE
 	return ..()
 */
-/mob/living/simple_animal/hostile/clockwork/marauder/guardian/proc/guardian_comms(message)
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/clockwork/marauder/guardian, guardian_comms)(message)
 	var/name_part = span_sevtug("[src] ([true_name])")
 	message = span_sevtug_small("\"[message]\"") //Processed output
 	to_chat(src, "[name_part]<span class='sevtug_small'>:</span> [message]")
@@ -438,7 +438,7 @@
 			to_chat(M, "[link] [name_part] <span class='sevtug_small'>(to</span> <span class='sevtug'>[findtextEx(host.name, host.real_name) ? "[host.name]" : "[host.real_name] (as [host.name])"]</span><span class='sevtug_small'>):</span> [message] ")
 	return TRUE
 
-/mob/living/simple_animal/hostile/clockwork/marauder/guardian/proc/return_to_host()
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/clockwork/marauder/guardian, return_to_host)()
 	if(is_in_host())
 		return FALSE
 	if(!host)
@@ -456,7 +456,7 @@
 		to_chat(host, span_sevtug("[true_name] has weakened and will need to recover before manifesting again!"))
 	return TRUE
 
-/mob/living/simple_animal/hostile/clockwork/marauder/guardian/proc/try_emerge()
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/clockwork/marauder/guardian, try_emerge)()
 	if(!host)
 		to_chat(src, span_warning("You don't have a host!"))
 		return FALSE
@@ -469,7 +469,7 @@
 			return FALSE
 	return emerge_from_host(FALSE)
 
-/mob/living/simple_animal/hostile/clockwork/marauder/guardian/proc/emerge_from_host(hostchosen, force) //Notice that this is a proc rather than a verb - guardians can NOT exit at will, but they CAN return
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/clockwork/marauder/guardian, emerge_from_host)(hostchosen, force) //Notice that this is a proc rather than a verb - guardians can NOT exit at will, but they CAN return
 	if(!is_in_host())
 		return FALSE
 	if(!force && recovering)
@@ -491,7 +491,7 @@
 /mob/living/simple_animal/hostile/clockwork/marauder/guardian/get_alt_name()
 	return " ([text2ratvar(true_name)])"
 
-/mob/living/simple_animal/hostile/clockwork/marauder/guardian/proc/is_in_host() //Checks if the guardian is inside of their host
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/clockwork/marauder/guardian, is_in_host)() //Checks if the guardian is inside of their host
 	return host && loc == host
 
 //HOST ACTIONS

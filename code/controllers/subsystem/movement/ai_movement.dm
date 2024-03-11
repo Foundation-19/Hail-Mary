@@ -13,7 +13,7 @@ MOVEMENT_SUBSYSTEM_DEF(ai_movement)
 	SetupAIMovementInstances()
 	return ..()
 
-/datum/controller/subsystem/movement/ai_movement/proc/SetupAIMovementInstances()
+TYPE_PROC_REF(/datum/controller/subsystem/movement/ai_movement, SetupAIMovementInstances)()
 	movement_types = list()
 	for(var/key as anything in subtypesof(/datum/ai_movement))
 		var/datum/ai_movement/ai_movement = new key

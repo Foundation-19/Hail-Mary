@@ -129,7 +129,7 @@
 			return
 		release_mob(M)
 
-/obj/structure/kitchenspike/proc/release_mob(mob/living/M)
+TYPE_PROC_REF(/obj/structure/kitchenspike, release_mob)(mob/living/M)
 	var/matrix/m180 = matrix(M.transform)
 	m180.Turn(180)
 	animate(M, transform = m180, time = 3)

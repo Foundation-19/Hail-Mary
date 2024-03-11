@@ -90,7 +90,7 @@
 			return
 		untie_mob(M)
 
-/obj/structure/cross/proc/untie_mob(mob/living/M)
+TYPE_PROC_REF(/obj/structure/cross, untie_mob)(mob/living/M)
 	M.pixel_y = M.get_standard_pixel_y_offset()
 	M.adjustBruteLoss(15)
 	src.visible_message(span_danger("[M] falls free of [src]!"))
@@ -187,7 +187,7 @@
 			return
 		untie_mob(M)
 
-/obj/structure/gallow/proc/untie_mob(mob/living/M)
+TYPE_PROC_REF(/obj/structure/gallow, untie_mob)(mob/living/M)
 	M.pixel_y = M.get_standard_pixel_y_offset()
 	src.visible_message(span_danger("[M] falls free of [src]!"))
 	unbuckle_mob(M,force=1)

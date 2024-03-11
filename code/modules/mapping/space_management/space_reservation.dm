@@ -15,7 +15,7 @@
 	turf_type = /turf/open/space/transit
 	borderturf = /turf/open/space/transit/border
 
-/datum/turf_reservation/proc/Release()
+TYPE_PROC_REF(/datum/turf_reservation, Release)()
 	var/v = reserved_turfs.Copy()
 	for(var/i in reserved_turfs)
 		reserved_turfs -= i
@@ -30,7 +30,7 @@
 	*/
 	. = ..()
 
-/datum/turf_reservation/proc/Reserve(width, height, zlevel)
+TYPE_PROC_REF(/datum/turf_reservation, Reserve)(width, height, zlevel)
 	if(width > world.maxx || height > world.maxy || width < 1 || height < 1)
 		return FALSE
 	var/list/avail = SSmapping.unused_turfs["[zlevel]"]

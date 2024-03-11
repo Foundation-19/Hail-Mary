@@ -66,25 +66,25 @@ SUBSYSTEM_DEF(economy)
 	//disabled payday
 
 
-/datum/controller/subsystem/economy/proc/get_dep_account(dep_id)
+TYPE_PROC_REF(/datum/controller/subsystem/economy, get_dep_account)(dep_id)
 	for(var/datum/bank_account/department/D in generated_accounts)
 		if(D.department_id == dep_id)
 			return D
 
-/datum/controller/subsystem/economy/proc/eng_payout()
+TYPE_PROC_REF(/datum/controller/subsystem/economy, eng_payout)()
 	var/engineering_cash = 3000
 	var/datum/bank_account/D = get_dep_account(ACCOUNT_ENG)
 	if(D)
 		D.adjust_money(engineering_cash)
 
 
-/datum/controller/subsystem/economy/proc/car_payout()
+TYPE_PROC_REF(/datum/controller/subsystem/economy, car_payout)()
 	var/cargo_cash = 250
 	var/datum/bank_account/D = get_dep_account(ACCOUNT_CAR)
 	if(D)
 		D.adjust_money(cargo_cash)
 
-/datum/controller/subsystem/economy/proc/secmedsrv_payout()
+TYPE_PROC_REF(/datum/controller/subsystem/economy, secmedsrv_payout)()
 	var/crew
 	var/alive_crew
 	var/dead_monsters
@@ -123,7 +123,7 @@ SUBSYSTEM_DEF(economy)
 	if(D)
 		D.adjust_money(min(cash_to_grant, MAX_GRANT_SECMEDSRV))
 
-/datum/controller/subsystem/economy/proc/sci_payout()
+TYPE_PROC_REF(/datum/controller/subsystem/economy, sci_payout)()
 	var/science_bounty = 0
 	for(var/mob/living/simple_animal/slime/S in GLOB.mob_list)
 		if(S.stat == DEAD)
@@ -133,7 +133,7 @@ SUBSYSTEM_DEF(economy)
 	if(D)
 		D.adjust_money(min(science_bounty, MAX_GRANT_SCI))
 
-/datum/controller/subsystem/economy/proc/civ_payout()
+TYPE_PROC_REF(/datum/controller/subsystem/economy, civ_payout)()
 	var/civ_cash = (rand(1,5) * 500)
 	var/datum/bank_account/D = get_dep_account(ACCOUNT_CIV)
 	if(D)

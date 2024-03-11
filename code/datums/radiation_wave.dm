@@ -53,7 +53,7 @@
 		remaining_contam = max(0,remaining_contam-((min(strength,remaining_contam)-RAD_MINIMUM_CONTAMINATION) * RAD_CONTAMINATION_STR_COEFFICIENT))
 	check_obstructions(atoms) // reduce our overall strength if there are radiation insulators
 
-/datum/radiation_wave/proc/get_rad_atoms()
+TYPE_PROC_REF(/datum/radiation_wave, get_rad_atoms)()
 	var/list/atoms = list()
 	var/distance = steps
 	var/cmove_dir = move_dir
@@ -75,7 +75,7 @@
 
 	return atoms
 
-/datum/radiation_wave/proc/check_obstructions(list/atoms)
+TYPE_PROC_REF(/datum/radiation_wave, check_obstructions)(list/atoms)
 	var/width = steps
 	var/cmove_dir = move_dir
 	if(cmove_dir == NORTH || cmove_dir == SOUTH)
@@ -91,7 +91,7 @@
 		if (thing.rad_insulation != RAD_NO_INSULATION)
 			intensity *= (1-((1-thing.rad_insulation)/width))
 
-/datum/radiation_wave/proc/radiate(list/atoms, strength)
+TYPE_PROC_REF(/datum/radiation_wave, radiate)(list/atoms, strength)
 	var/can_contam = strength >= RAD_MINIMUM_CONTAMINATION
 	var/list/contam_atoms = list()
 	for(var/k in 1 to atoms.len)

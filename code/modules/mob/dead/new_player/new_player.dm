@@ -38,7 +38,7 @@
 /mob/dead/new_player/prepare_huds()
 	return
 
-/mob/dead/new_player/proc/new_player_panel()
+TYPE_PROC_REF(/mob/dead/new_player, new_player_panel)()
 	if (client?.interviewee)
 		return
 
@@ -78,7 +78,7 @@
 	popup.set_content(output.Join())
 	popup.open(FALSE)
 
-/mob/dead/new_player/proc/playerpolls()
+TYPE_PROC_REF(/mob/dead/new_player, playerpolls)()
 	var/list/output = list()
 	if (SSdbcore.Connect())
 		var/isadmin = FALSE
@@ -346,7 +346,7 @@
 				to_chat(src, span_notice("Vote successful."))
 
 //When you cop out of the round (NB: this HAS A SLEEP FOR PLAYER INPUT IN IT)
-/mob/dead/new_player/proc/make_me_an_observer()
+TYPE_PROC_REF(/mob/dead/new_player, make_me_an_observer)()
 	if(QDELETED(src) || !src.client)
 		ready = PLAYER_NOT_READY
 		return FALSE
@@ -407,7 +407,7 @@
 			return "[jobtitle] requires a whitelist."
 	return "Error: Unknown job availability."
 
-/mob/dead/new_player/proc/IsJobUnavailable(rank, latejoin = FALSE)
+TYPE_PROC_REF(/mob/dead/new_player, IsJobUnavailable)(rank, latejoin = FALSE)
 	var/datum/job/job = SSjob.GetJob(rank)
 	if(!job)
 		return JOB_UNAVAILABLE_GENERIC
@@ -444,7 +444,7 @@
 
 	return JOB_AVAILABLE
 
-/mob/dead/new_player/proc/AttemptLateSpawn(rank)
+TYPE_PROC_REF(/mob/dead/new_player, AttemptLateSpawn)(rank)
 	var/error = IsJobUnavailable(rank)
 	if(error != JOB_AVAILABLE)
 		alert(src, get_job_unavailable_error_message(error, rank))
@@ -534,7 +534,7 @@
 
 	log_manifest(character.mind.key,character.mind,character,latejoin = TRUE)
 
-/mob/dead/new_player/proc/AddEmploymentContract(mob/living/carbon/human/employee)
+TYPE_PROC_REF(/mob/dead/new_player, AddEmploymentContract)(mob/living/carbon/human/employee)
 	//TODO:  figure out a way to exclude wizards/nukeops/demons from this.
 	for(var/C in GLOB.employmentCabinets)
 		var/obj/structure/filingcabinet/employment/employmentCabinet = C
@@ -542,7 +542,7 @@
 			employmentCabinet.addFile(employee)
 
 
-/mob/dead/new_player/proc/LateChoices()
+TYPE_PROC_REF(/mob/dead/new_player, LateChoices)()
 	var/list/dat = list()
 
 	dat += "<div class='notice'>Round Duration: [DisplayTimeText(world.time - SSticker.round_start_time)]</div>"
@@ -586,7 +586,7 @@
 	popup.open(FALSE) // 0 is passed to open so that it doesn't use the onclose() proc
 
 
-/mob/dead/new_player/proc/create_character(transfer_after)
+TYPE_PROC_REF(/mob/dead/new_player, create_character)(transfer_after)
 	spawning = 1
 	close_spawn_windows()
 
@@ -625,7 +625,7 @@
 	if(transfer_after)
 		transfer_character()
 
-/mob/dead/new_player/proc/transfer_character()
+TYPE_PROC_REF(/mob/dead/new_player, transfer_character)()
 	. = new_character
 	if(.)
 		new_character.key = key		//Manually transfer the key to log them in
@@ -633,7 +633,7 @@
 		new_character = null
 		qdel(src)
 
-/mob/dead/new_player/proc/ViewManifest()
+TYPE_PROC_REF(/mob/dead/new_player, ViewManifest)()
 	if(!client)
 		return
 	if(world.time < client.crew_manifest_delay)
@@ -650,7 +650,7 @@
 	return 0
 
 
-/mob/dead/new_player/proc/close_spawn_windows()
+TYPE_PROC_REF(/mob/dead/new_player, close_spawn_windows)()
 
 	src << browse(null, "window=latechoices") //closes late choices window
 	src << browse(null, "window=playersetup") //closes the player setup window
@@ -665,7 +665,7 @@
 	This also does some admin notification and logging as well, as well as some extra logic to make sure things don't go wrong
 */
 
-/mob/dead/new_player/proc/check_preferences()
+TYPE_PROC_REF(/mob/dead/new_player, check_preferences)()
 	if(!client)
 		return FALSE //Not sure how this would get run without the mob having a client, but let's just be safe.
 	if(client.prefs.joblessrole != RETURNTOLOBBY)
@@ -692,7 +692,7 @@
  * This proc will both prepare the user by removing all verbs from them, as well as
  * giving them the interview form and forcing it to appear.
  */
-/mob/dead/new_player/proc/register_for_interview()
+TYPE_PROC_REF(/mob/dead/new_player, register_for_interview)()
 	// First we detain them by removing all the verbs they have on client
 	for (var/v in client.verbs)
 		var/procpath/verb_path = v
@@ -710,5 +710,5 @@
 		I.ui_interact(src)
 
 	// Add verb for re-opening the interview panel, and re-init the verbs for the stat panel
-	add_verb(src, /mob/dead/new_player/proc/open_interview)
+	add_verb(src, TYPE_PROC_REF(/mob/dead/new_player, open_interview))
 

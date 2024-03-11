@@ -116,7 +116,7 @@ GLOBAL_LIST_EMPTY(bodycontainers) //Let them act as spawnpoints for revenants an
 			span_notice("You successfully break out of [src]!"))
 		open()
 
-/obj/structure/bodycontainer/proc/open()
+TYPE_PROC_REF(/obj/structure/bodycontainer, open)()
 	recursive_organ_check(src)
 	playsound(src.loc, 'sound/items/deconstruct.ogg', 50, 1)
 	playsound(src, 'sound/effects/roll.ogg', 5, 1)
@@ -126,7 +126,7 @@ GLOBAL_LIST_EMPTY(bodycontainers) //Let them act as spawnpoints for revenants an
 		AM.forceMove(T)
 	update_icon()
 
-/obj/structure/bodycontainer/proc/close()
+TYPE_PROC_REF(/obj/structure/bodycontainer, close)()
 	playsound(src, 'sound/effects/roll.ogg', 5, 1)
 	playsound(src, 'sound/items/deconstruct.ogg', 50, 1)
 	for(var/atom/movable/AM in connected.loc)
@@ -232,7 +232,7 @@ GLOBAL_LIST_EMPTY(crematoriums)
 		if(locked)
 			icon_state = "crema_active"
 
-/obj/structure/bodycontainer/crematorium/proc/cremate(mob/user)
+TYPE_PROC_REF(/obj/structure/bodycontainer/crematorium, cremate)(mob/user)
 	if(locked)
 		return //don't let you cremate something twice or w/e
 	// Make sure we don't delete the actual morgue and its tray

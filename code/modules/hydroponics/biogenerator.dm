@@ -161,7 +161,7 @@
  * Arguments:
  * * user The mob starting the biomass processing
  */
-/obj/machinery/biogenerator/proc/activate(mob/user)
+TYPE_PROC_REF(/obj/machinery/biogenerator, activate)(mob/user)
 	if(user.stat != CONSCIOUS)
 		return
 	if(stat != NONE)
@@ -188,7 +188,7 @@
 		processing = FALSE
 		update_icon()
 
-/obj/machinery/biogenerator/proc/check_cost(list/materials, multiplier = 1, remove_points = TRUE)
+TYPE_PROC_REF(/obj/machinery/biogenerator, check_cost)(list/materials, multiplier = 1, remove_points = TRUE)
 	if(materials.len != 1 || materials[1] != SSmaterials.GetMaterialRef(/datum/material/biomass))
 		return FALSE
 	if (materials[SSmaterials.GetMaterialRef(/datum/material/biomass)]*multiplier/efficiency > points)
@@ -199,7 +199,7 @@
 		update_icon()
 		return TRUE
 
-/obj/machinery/biogenerator/proc/check_container_volume(list/reagents, multiplier = 1)
+TYPE_PROC_REF(/obj/machinery/biogenerator, check_container_volume)(list/reagents, multiplier = 1)
 	var/sum_reagents = 0
 	for(var/R in reagents)
 		sum_reagents += reagents[R]
@@ -210,7 +210,7 @@
 
 	return TRUE
 
-/obj/machinery/biogenerator/proc/create_product(datum/design/D, amount)
+TYPE_PROC_REF(/obj/machinery/biogenerator, create_product)(datum/design/D, amount)
 	if(!beaker || !loc)
 		return FALSE
 
@@ -240,7 +240,7 @@
 	update_icon()
 	return .
 
-/obj/machinery/biogenerator/proc/detach(mob/living/user)
+TYPE_PROC_REF(/obj/machinery/biogenerator, detach)(mob/living/user)
 	if(beaker)
 		if(can_interact(user))
 			user.put_in_hands(beaker)

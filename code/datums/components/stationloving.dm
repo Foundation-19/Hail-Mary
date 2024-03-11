@@ -41,7 +41,7 @@
 		else
 			inform_admins = inform_admins
 
-/datum/component/stationloving/proc/record_position()
+TYPE_PROC_REF(/datum/component/stationloving, record_position)()
 	if(!COOLDOWN_FINISHED(src, turf_record_cooldown))
 		return FALSE
 	var/turf/you_are_here = get_turf(parent)
@@ -53,7 +53,7 @@
 		COOLDOWN_START(src, turf_record_cooldown, 10 SECONDS)
 		return TRUE
 
-/datum/component/stationloving/proc/is_turf_okay_to_use(turf/right_here)
+TYPE_PROC_REF(/datum/component/stationloving, is_turf_okay_to_use)(turf/right_here)
 	if(right_here.density)
 		return FALSE
 	if(!(right_here.z in allowed_z))
@@ -62,7 +62,7 @@
 		return FALSE
 	return TRUE
 
-/datum/component/stationloving/proc/get_recorded_turf()
+TYPE_PROC_REF(/datum/component/stationloving, get_recorded_turf)()
 	if(!LAZYLEN(put_it_here))
 		return FALSE // fuck
 	var/check_index = put_here_index - 1
@@ -80,7 +80,7 @@
 			check_index = 1
 	return FALSE // double fuck
 
-/datum/component/stationloving/proc/relocate()
+TYPE_PROC_REF(/datum/component/stationloving, relocate)()
 	var/turf/targetturf
 	if(put_somewhere_random)
 		targetturf = find_safe_turf()
@@ -100,7 +100,7 @@
 	// move the disc, so ghosts remain orbiting it even if it's "destroyed"
 	return targetturf
 
-/datum/component/stationloving/proc/check_in_bounds()
+TYPE_PROC_REF(/datum/component/stationloving, check_in_bounds)()
 	if(in_bounds())
 		return
 	var/turf/currentturf = get_turf(parent)
@@ -109,10 +109,10 @@
 	if(inform_admins)
 		message_admins("[parent] has been moved out of bounds in [ADMIN_VERBOSEJMP(currentturf)]. Moving it to [ADMIN_VERBOSEJMP(targetturf)].")
 
-/datum/component/stationloving/proc/check_soul_imbue()
+TYPE_PROC_REF(/datum/component/stationloving, check_soul_imbue)()
 	return disallow_soul_imbue
 
-/datum/component/stationloving/proc/in_bounds()
+TYPE_PROC_REF(/datum/component/stationloving, in_bounds)()
 	var/static/list/allowed_shuttles = typecacheof(list(/area/shuttle/syndicate, /area/shuttle/escape, /area/shuttle/pod_1, /area/shuttle/pod_2, /area/shuttle/pod_3, /area/shuttle/pod_4))
 	var/turf/T = get_turf(parent)
 	if (!T)
@@ -132,7 +132,7 @@
 
 	return FALSE
 
-/datum/component/stationloving/proc/check_deletion(datum/source, force) // TRUE = interrupt deletion, FALSE = proceed with deletion
+TYPE_PROC_REF(/datum/component/stationloving, check_deletion)(datum/source, force) // TRUE = interrupt deletion, FALSE = proceed with deletion
 
 	var/turf/T = get_turf(parent)
 

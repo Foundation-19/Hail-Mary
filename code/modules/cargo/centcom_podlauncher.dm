@@ -9,7 +9,7 @@
 //The user can change properties of the supplypod using the UI, and change the way that items are taken from the bay (One at a time, ordered, random, etc)
 //Many of the effects of the supplypod set here are put into action in supplypod.dm
 
-/client/proc/centcom_podlauncher() //Creates a verb for admins to open up the ui
+TYPE_PROC_REF(/client, centcom_podlauncher)() //Creates a verb for admins to open up the ui
 	set name = "Config/Launch Supplypod"
 	set desc = "Configure and launch a CentCom supplypod full of whatever your heart desires!"
 	set category = "Admin.Events"
@@ -478,7 +478,7 @@
 /datum/centcom_podlauncher/ui_close() //Uses the destroy() proc. When the user closes the UI, we clean up the temp_pod and supplypod_selector variables.
 	qdel(src)
 
-/datum/centcom_podlauncher/proc/updateCursor(launching, turf_picking) //Update the mouse of the user
+TYPE_PROC_REF(/datum/centcom_podlauncher, updateCursor)(launching, turf_picking) //Update the mouse of the user
 	if (!holder) //Can't update the mouse icon if the client doesnt exist!
 		return
 	if (launching || turf_picking) //If the launching param is true, we give the user new mouse icons.
@@ -498,7 +498,7 @@
 		if (M)
 			M.update_mouse_pointer() //set the moues icons to null, then call update_moues_pointer() which resets them to the correct values based on what the mob is doing (in a mech, holding a spell, etc)()
 
-/datum/centcom_podlauncher/proc/InterceptClickOn(user,params,atom/target) //Click Intercept so we know where to send pods where the user clicks
+TYPE_PROC_REF(/datum/centcom_podlauncher, InterceptClickOn)(user,params,atom/target) //Click Intercept so we know where to send pods where the user clicks
 	var/list/pa = params2list(params)
 	var/left_click = pa.Find("left")
 	if (launcherActivated)
@@ -545,11 +545,11 @@
 			dropoff_turf = get_turf(target)
 			to_chat(user, "<span class = 'notice'> You've selected [dropoff_turf] at [COORD(dropoff_turf)] as your dropoff location.</span>")
 
-/datum/centcom_podlauncher/proc/refreshBay() //Called whenever the bay is switched, as well as wheneber a pod is launched
+TYPE_PROC_REF(/datum/centcom_podlauncher, refreshBay)() //Called whenever the bay is switched, as well as wheneber a pod is launched
 	orderedArea = createOrderedArea(bay) //Create an ordered list full of turfs form the bay
 	preLaunch()	//Fill acceptable turfs from orderedArea, then fill launchList from acceptableTurfs (see proc for more info)
 
-/datum/centcom_podlauncher/proc/createOrderedArea(area/A) //This assumes the area passed in is a continuous square
+TYPE_PROC_REF(/datum/centcom_podlauncher, createOrderedArea)(area/A) //This assumes the area passed in is a continuous square
 	if (isnull(A)) //If theres no supplypod bay mapped into centcom, throw an error
 		to_chat(holder.mob, "No /area/centcom/supplypod/loading/one (or /two or /three or /four) in the world! You can make one yourself (then refresh) for now, but yell at a mapper to fix this, today!")
 		CRASH("No /area/centcom/supplypod/loading/one (or /two or /three or /four) has been mapped into the centcom z-level!")
@@ -573,7 +573,7 @@
 				orderedArea.Add(locate(j,startY - (i - endY),1)) //After gathering the start/end x and y, go through locating each turf from top left to bottom right, like one would read a book
 	return orderedArea //Return the filled list
 
-/datum/centcom_podlauncher/proc/preLaunch() //Creates a list of acceptable items,
+TYPE_PROC_REF(/datum/centcom_podlauncher, preLaunch)() //Creates a list of acceptable items,
 	numTurfs = 0 //Counts the number of turfs that can be launched (remember, supplypods either launch all at once or one turf-worth of items at a time)
 	acceptableTurfs = list()
 	for (var/turf/T in orderedArea) //Go through the orderedArea list
@@ -597,7 +597,7 @@
 	updateSelector() //Call updateSelector(), which, if we are launching one at a time (launchChoice==2), will move to the next turf that will be launched
 	//UpdateSelector() is here (instead if the if(1) switch block) because it also moves the selector to nullspace (to hide it) if needed
 
-/datum/centcom_podlauncher/proc/launch(turf/A) //Game time started
+TYPE_PROC_REF(/datum/centcom_podlauncher, launch)(turf/A) //Game time started
 	if (isnull(A))
 		return
 	var/obj/structure/closet/supplypod/centcompod/toLaunch = DuplicateObject(temp_pod) //Duplicate the temp_pod (which we have been varediting or configuring with the UI) and store the result
@@ -629,7 +629,7 @@
 		launchCounter++ //We only need to increment launchCounter if we are cloning objects.
 		//If we aren't cloning objects, taking and removing the first item each time from the acceptableTurfs list will inherently iterate through the list in order
 
-/datum/centcom_podlauncher/proc/updateSelector() //Ensures that the selector effect will showcase the next item if needed
+TYPE_PROC_REF(/datum/centcom_podlauncher, updateSelector)() //Ensures that the selector effect will showcase the next item if needed
 	if (launchChoice == 1 && length(acceptableTurfs) && !temp_pod.reversing && !temp_pod.effectMissile) //We only show the selector if we are taking items from the bay
 		var/index = launchCounter + 1 //launchCounter acts as an index to the ordered acceptableTurfs list, so adding one will show the next item in the list
 		if (index > acceptableTurfs.len) //out of bounds check
@@ -638,7 +638,7 @@
 	else
 		selector.moveToNullspace() //Otherwise, we move the selector to nullspace until it is needed again
 
-/datum/centcom_podlauncher/proc/clearBay() //Clear all objs and mobs from the selected bay
+TYPE_PROC_REF(/datum/centcom_podlauncher, clearBay)() //Clear all objs and mobs from the selected bay
 	for (var/obj/O in bay.GetAllContents())
 		qdel(O)
 	for (var/mob/M in bay.GetAllContents())
@@ -650,7 +650,7 @@
 	qdel(selector) //Delete the selector effect
 	. = ..()
 
-/datum/centcom_podlauncher/proc/supplypod_punish_log(list/whoDyin)
+TYPE_PROC_REF(/datum/centcom_podlauncher, supplypod_punish_log)(list/whoDyin)
 	var/podString = effectBurst ? "5 pods" : "a pod"
 	var/whomString = ""
 	if (LAZYLEN(whoDyin))

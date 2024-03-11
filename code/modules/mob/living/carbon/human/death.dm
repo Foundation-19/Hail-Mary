@@ -53,19 +53,19 @@
 	if(is_devil(src))
 		INVOKE_ASYNC(is_devil(src), /datum/antagonist/devil.proc/beginResurrectionCheck, src)
 
-/mob/living/carbon/human/proc/makeSkeleton()
+TYPE_PROC_REF(/mob/living/carbon/human, makeSkeleton)()
 	ADD_TRAIT(src, TRAIT_DISFIGURED, TRAIT_GENERIC)
 	set_species(/datum/species/skeleton)
 	return TRUE
 
 
-/mob/living/carbon/proc/Drain()
+TYPE_PROC_REF(/mob/living/carbon, Drain)()
 	become_husk(CHANGELING_DRAIN)
 	ADD_TRAIT(src, TRAIT_NOCLONE, CHANGELING_DRAIN)
 	blood_volume = 0
 	return TRUE
 
-/mob/living/carbon/proc/makeUncloneable()
+TYPE_PROC_REF(/mob/living/carbon, makeUncloneable)()
 	ADD_TRAIT(src, TRAIT_NOCLONE, MADE_UNCLONEABLE)
 	blood_volume = 0
 	return TRUE

@@ -35,16 +35,16 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	RegisterSignal(parent, COMSIG_CLICK_ALT, PROC_REF(on_AltClick))
 
 ///Called on COMSIG_ITEM_ATTACK_SELF
-/datum/component/gps/item/proc/interact(datum/source, mob/user)
+TYPE_PROC_REF(/datum/component/gps/item, interact)(datum/source, mob/user)
 	if(user)
 		ui_interact(user)
 
 ///Called on COMSIG_PARENT_EXAMINE
-/datum/component/gps/item/proc/on_examine(datum/source, mob/user, list/examine_list)
+TYPE_PROC_REF(/datum/component/gps/item, on_examine)(datum/source, mob/user, list/examine_list)
 	examine_list += span_notice("Alt-click to switch it [tracking ? "off":"on"].")
 
 ///Called on COMSIG_ATOM_EMP_ACT
-/datum/component/gps/item/proc/on_emp_act(datum/source, severity)
+TYPE_PROC_REF(/datum/component/gps/item, on_emp_act)(datum/source, severity)
 	emped = TRUE
 	var/atom/A = parent
 	A.cut_overlay("working")
@@ -53,18 +53,18 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	SStgui.close_uis(src) //Close the UI control if it is open.
 
 ///Restarts the GPS after getting turned off by an EMP.
-/datum/component/gps/item/proc/reboot()
+TYPE_PROC_REF(/datum/component/gps/item, reboot)()
 	emped = FALSE
 	var/atom/A = parent
 	A.cut_overlay("emp")
 	A.add_overlay("working")
 
 ///Calls toggletracking
-/datum/component/gps/item/proc/on_AltClick(datum/source, mob/user)
+TYPE_PROC_REF(/datum/component/gps/item, on_AltClick)(datum/source, mob/user)
 	toggletracking(user)
 
 ///Toggles the tracking for the gps
-/datum/component/gps/item/proc/toggletracking(mob/user)
+TYPE_PROC_REF(/datum/component/gps/item, toggletracking)(mob/user)
 	if(!user.canUseTopic(parent, BE_CLOSE))
 		return //user not valid to use gps
 	if(emped)

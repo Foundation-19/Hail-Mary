@@ -37,7 +37,7 @@ GLOBAL_LIST_EMPTY(mobs_with_editable_flavor_text) //et tu, hacky code
 	if(can_edit && ismob(target)) //but only mobs receive the proc/verb for the time being
 		var/mob/M = target
 		LAZYOR(GLOB.mobs_with_editable_flavor_text[M], src)
-		M.verbs |= /mob/proc/manage_flavor_tests
+		M.verbs |= TYPE_PROC_REF(/mob, manage_flavor_tests)
 
 	if(save_key && ishuman(target))
 		RegisterSignal(target, COMSIG_HUMAN_PREFS_COPIED_TO, PROC_REF(update_prefs_flavor_text))
@@ -51,9 +51,9 @@ GLOBAL_LIST_EMPTY(mobs_with_editable_flavor_text) //et tu, hacky code
 		LAZYREMOVE(GLOB.mobs_with_editable_flavor_text[M], src)
 		if(!GLOB.mobs_with_editable_flavor_text[M])
 			GLOB.mobs_with_editable_flavor_text -= M
-			remove_verb(M, /mob/proc/manage_flavor_tests)
+			remove_verb(M, TYPE_PROC_REF(/mob, manage_flavor_tests))
 
-/datum/element/flavor_text/proc/show_flavor(atom/target, mob/user, list/examine_list)
+TYPE_PROC_REF(/datum/element/flavor_text, show_flavor)(atom/target, mob/user, list/examine_list)
 	if(!always_show && isliving(target) && !isobserver(user))
 		var/mob/living/L = target
 		var/unknown = L.get_visible_name() == "Unknown"
@@ -89,7 +89,7 @@ GLOBAL_LIST_EMPTY(mobs_with_editable_flavor_text) //et tu, hacky code
 			onclose(usr, "[target.name]")
 		return TRUE
 
-/mob/proc/manage_flavor_tests()
+TYPE_PROC_REF(/mob, manage_flavor_tests)()
 	set name = "Manage Flavor Texts"
 	set desc = "Used to manage your various flavor texts."
 	set category = "IC"
@@ -113,7 +113,7 @@ GLOBAL_LIST_EMPTY(mobs_with_editable_flavor_text) //et tu, hacky code
 	var/datum/element/flavor_text/F = choices[chosen]
 	F.set_flavor(src)
 
-/datum/element/flavor_text/proc/set_flavor(mob/user)
+TYPE_PROC_REF(/datum/element/flavor_text, set_flavor)(mob/user)
 	if(!(user in texts_by_atom))
 		return FALSE
 
@@ -125,7 +125,7 @@ GLOBAL_LIST_EMPTY(mobs_with_editable_flavor_text) //et tu, hacky code
 		return TRUE
 	return FALSE
 
-/datum/element/flavor_text/proc/update_prefs_flavor_text(mob/living/carbon/human/H, datum/preferences/P, icon_updates = TRUE, roundstart_checks = TRUE)
+TYPE_PROC_REF(/datum/element/flavor_text, update_prefs_flavor_text)(mob/living/carbon/human/H, datum/preferences/P, icon_updates = TRUE, roundstart_checks = TRUE)
 	if(P.features.Find(save_key))
 		texts_by_atom[H] = P.features[save_key]
 
@@ -151,7 +151,7 @@ GLOBAL_LIST_EMPTY(mobs_with_editable_flavor_text) //et tu, hacky code
 	. = ..()
 	UnregisterSignal(C, list(COMSIG_CARBON_IDENTITY_TRANSFERRED_TO, COMSIG_MOB_ANTAG_ON_GAIN, COMSIG_HUMAN_PREFS_COPIED_TO, COMSIG_HUMAN_HARDSET_DNA, COMSIG_HUMAN_ON_RANDOMIZE))
 
-/datum/element/flavor_text/carbon/proc/update_dna_flavor_text(mob/living/carbon/C)
+TYPE_PROC_REF(/datum/element/flavor_text/carbon, update_dna_flavor_text)(mob/living/carbon/C)
 	texts_by_atom[C] = C.dna.features[save_key]
 
 /datum/element/flavor_text/carbon/set_flavor(mob/living/carbon/user)
@@ -159,10 +159,10 @@ GLOBAL_LIST_EMPTY(mobs_with_editable_flavor_text) //et tu, hacky code
 	if(. && user.dna)
 		user.dna.features[save_key] = texts_by_atom[user]
 
-/datum/element/flavor_text/carbon/proc/unset_flavor(mob/living/carbon/user)
+TYPE_PROC_REF(/datum/element/flavor_text/carbon, unset_flavor)(mob/living/carbon/user)
 	texts_by_atom[user] = ""
 
-/datum/element/flavor_text/carbon/proc/on_antag_gain(mob/living/carbon/user, datum/antagonist/antag)
+TYPE_PROC_REF(/datum/element/flavor_text/carbon, on_antag_gain)(mob/living/carbon/user, datum/antagonist/antag)
 	if(is_type_in_typecache(antag, i_dont_even_know_who_you_are))
 		texts_by_atom[user] = ""
 		if(user.dna)

@@ -8,11 +8,11 @@
 	RemoveCurrentCoat()
 	return ..()
 
-/datum/component/spraycan_paintable/proc/RemoveCurrentCoat()
+TYPE_PROC_REF(/datum/component/spraycan_paintable, RemoveCurrentCoat)()
 	var/atom/A = parent
 	A.remove_atom_colour(FIXED_COLOUR_PRIORITY, current_paint)
 
-/datum/component/spraycan_paintable/proc/Repaint(datum/source, obj/item/toy/crayon/spraycan/spraycan, mob/living/user)
+TYPE_PROC_REF(/datum/component/spraycan_paintable, Repaint)(datum/source, obj/item/toy/crayon/spraycan/spraycan, mob/living/user)
 	if(!istype(spraycan) || user.a_intent == INTENT_HARM)
 		return
 	. = COMPONENT_NO_AFTERATTACK

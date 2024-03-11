@@ -718,7 +718,7 @@
 /obj/item/clothing/under/f13/khan/ui_action_click()
 	uniform_toggle()
 
-/obj/item/clothing/under/f13/khan/proc/uniform_toggle()
+TYPE_PROC_REF(/obj/item/clothing/under/f13/khan, uniform_toggle)()
 	set src in usr
 
 	if(!can_use(usr))

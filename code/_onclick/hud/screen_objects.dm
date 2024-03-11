@@ -30,7 +30,7 @@
 /obj/screen/orbit()
 	return
 
-/obj/screen/proc/component_click(obj/screen/component_button/component, params)
+TYPE_PROC_REF(/obj/screen, component_click)(obj/screen/component_button/component, params)
 	return
 
 /obj/screen/text
@@ -123,7 +123,7 @@
 		else
 			icon_state = icon_empty
 
-/obj/screen/inventory/proc/add_overlays()
+TYPE_PROC_REF(/obj/screen/inventory, add_overlays)()
 	var/mob/user = hud?.mymob
 
 	if(!user || !slot_id)
@@ -321,7 +321,7 @@
 		if(MOVE_INTENT_RUN)
 			icon_state = "running"
 
-/obj/screen/mov_intent/proc/toggle(mob/user)
+TYPE_PROC_REF(/obj/screen/mov_intent, toggle)(mob/user)
 	if(isobserver(user))
 		return
 	user.toggle_move_intent(user)
@@ -440,7 +440,7 @@
 		vis_contents -= hover_overlays_cache[hovering]
 		hovering = null
 
-/obj/screen/zone_sel/proc/get_zone_at(icon_x, icon_y)
+TYPE_PROC_REF(/obj/screen/zone_sel, get_zone_at)(icon_x, icon_y)
 	switch(icon_y)
 		if(1 to 9) //Legs
 			switch(icon_x)
@@ -478,7 +478,7 @@
 							return BODY_ZONE_PRECISE_EYES
 				return BODY_ZONE_HEAD
 
-/obj/screen/zone_sel/proc/set_selected_zone(choice, mob/user)
+TYPE_PROC_REF(/obj/screen/zone_sel, set_selected_zone)(choice, mob/user)
 	if(user != hud?.mymob)
 		return
 
@@ -624,7 +624,7 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/splash)
 
 	holder.screen += src
 
-/obj/screen/splash/proc/Fade(out, qdel_after = TRUE)
+TYPE_PROC_REF(/obj/screen/splash, Fade)(out, qdel_after = TRUE)
 	if(QDELETED(src))
 		return
 	if(out)

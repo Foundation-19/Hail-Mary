@@ -78,19 +78,19 @@
 	else
 		..()
 
-/obj/item/gun/energy/kinetic_accelerator/proc/get_remaining_mod_capacity()
+TYPE_PROC_REF(/obj/item/gun/energy/kinetic_accelerator, get_remaining_mod_capacity)()
 	var/current_capacity_used = 0
 	for(var/A in get_modkits())
 		var/obj/item/borg/upgrade/modkit/M = A
 		current_capacity_used += M.cost
 	return max_mod_capacity - current_capacity_used
 
-/obj/item/gun/energy/kinetic_accelerator/proc/get_modkits()
+TYPE_PROC_REF(/obj/item/gun/energy/kinetic_accelerator, get_modkits)()
 	. = list()
 	for(var/A in modkits)
 		. += A
 
-/obj/item/gun/energy/kinetic_accelerator/proc/modify_projectile(obj/item/projectile/kinetic/K)
+TYPE_PROC_REF(/obj/item/gun/energy/kinetic_accelerator, modify_projectile)(obj/item/projectile/kinetic/K)
 	K.kinetic_gun = src //do something special on-hit, easy!
 	for(var/A in get_modkits())
 		var/obj/item/borg/upgrade/modkit/M = A
@@ -141,16 +141,16 @@
 		// calls dropped().
 		addtimer(CALLBACK(src, PROC_REF(empty_if_not_held)), 2)
 
-/obj/item/gun/energy/kinetic_accelerator/proc/empty_if_not_held()
+TYPE_PROC_REF(/obj/item/gun/energy/kinetic_accelerator, empty_if_not_held)()
 	if(!ismob(loc) && !istype(loc, /obj/item/integrated_circuit))
 		empty()
 
-/obj/item/gun/energy/kinetic_accelerator/proc/empty()
+TYPE_PROC_REF(/obj/item/gun/energy/kinetic_accelerator, empty)()
 	if(cell)
 		cell.use(cell.charge)
 	update_icon()
 
-/obj/item/gun/energy/kinetic_accelerator/proc/attempt_reload(recharge_time)
+TYPE_PROC_REF(/obj/item/gun/energy/kinetic_accelerator, attempt_reload)(recharge_time)
 	if(!cell)
 		return
 	if(overheat)
@@ -175,7 +175,7 @@
 /obj/item/gun/energy/kinetic_accelerator/emp_act(severity)
 	return
 
-/obj/item/gun/energy/kinetic_accelerator/proc/reload()
+TYPE_PROC_REF(/obj/item/gun/energy/kinetic_accelerator, reload)()
 	cell.give(cell.maxcharge)
 	if(!silenced)
 		playsound(src.loc, 'sound/weapons/kenetic_reload.ogg', 60, 1)
@@ -246,7 +246,7 @@
 	strike_thing(target)
 	. = ..()
 
-/obj/item/projectile/kinetic/proc/strike_thing(atom/target)
+TYPE_PROC_REF(/obj/item/projectile/kinetic, strike_thing)(atom/target)
 	var/turf/target_turf = get_turf(target)
 	if(!target_turf)
 		target_turf = get_turf(src)
@@ -295,7 +295,7 @@
 			return
 	to_chat(R, span_alert("Upgrade error - Aborting Kinetic Accelerator linking.")) //No applicable KA found, insufficient capacity, or some other problem.
 
-/obj/item/borg/upgrade/modkit/proc/install(obj/item/gun/energy/kinetic_accelerator/KA, mob/user)
+TYPE_PROC_REF(/obj/item/borg/upgrade/modkit, install)(obj/item/gun/energy/kinetic_accelerator/KA, mob/user)
 	. = TRUE
 	if(src in KA.modkits) // Sanity check to prevent installing the same modkit twice thanks to occasional click/lag delays.
 		return FALSE
@@ -328,19 +328,19 @@
 		to_chat(user, "<span class='notice'>You don't have room(<b>[KA.get_remaining_mod_capacity()]%</b> remaining, [cost]% needed) to install this modkit. Use a crowbar to remove existing modkits.</span>")
 		. = FALSE
 
-/obj/item/borg/upgrade/modkit/proc/uninstall(obj/item/gun/energy/kinetic_accelerator/KA, forcemove = TRUE)
+TYPE_PROC_REF(/obj/item/borg/upgrade/modkit, uninstall)(obj/item/gun/energy/kinetic_accelerator/KA, forcemove = TRUE)
 	KA.modkits -= src
 	if(forcemove)
 		forceMove(get_turf(KA))
 
-/obj/item/borg/upgrade/modkit/proc/modify_projectile(obj/item/projectile/kinetic/K)
+TYPE_PROC_REF(/obj/item/borg/upgrade/modkit, modify_projectile)(obj/item/projectile/kinetic/K)
 
 //use this one for effects you want to trigger before any damage is done at all and before damage is decreased by pressure
-/obj/item/borg/upgrade/modkit/proc/projectile_prehit(obj/item/projectile/kinetic/K, atom/target, obj/item/gun/energy/kinetic_accelerator/KA)
+TYPE_PROC_REF(/obj/item/borg/upgrade/modkit, projectile_prehit)(obj/item/projectile/kinetic/K, atom/target, obj/item/gun/energy/kinetic_accelerator/KA)
 //use this one for effects you want to trigger before mods that do damage
-/obj/item/borg/upgrade/modkit/proc/projectile_strike_predamage(obj/item/projectile/kinetic/K, turf/target_turf, atom/target, obj/item/gun/energy/kinetic_accelerator/KA)
+TYPE_PROC_REF(/obj/item/borg/upgrade/modkit, projectile_strike_predamage)(obj/item/projectile/kinetic/K, turf/target_turf, atom/target, obj/item/gun/energy/kinetic_accelerator/KA)
 //and this one for things that don't need to trigger before other damage-dealing mods
-/obj/item/borg/upgrade/modkit/proc/projectile_strike(obj/item/projectile/kinetic/K, turf/target_turf, atom/target, obj/item/gun/energy/kinetic_accelerator/KA)
+TYPE_PROC_REF(/obj/item/borg/upgrade/modkit, projectile_strike)(obj/item/projectile/kinetic/K, turf/target_turf, atom/target, obj/item/gun/energy/kinetic_accelerator/KA)
 
 //Range
 /obj/item/borg/upgrade/modkit/range
@@ -542,7 +542,7 @@
 			var/armor = L.run_armor_check(K.def_zone, K.flag, null, null, K.armour_penetration)
 			L.apply_damage(bounties_reaped[L.type]*kill_modifier, K.damage_type, K.def_zone, armor)
 
-/obj/item/borg/upgrade/modkit/bounty/proc/get_kill(mob/living/L)
+TYPE_PROC_REF(/obj/item/borg/upgrade/modkit/bounty, get_kill)(mob/living/L)
 	var/bonus_mod = 1
 	if(ismegafauna(L)) //megafauna reward
 		bonus_mod = 4

@@ -117,7 +117,7 @@
 /mob/living/simple_animal/hostile/jungle/seedling/OpenFire()
 	WarmupAttack()
 
-/mob/living/simple_animal/hostile/jungle/seedling/proc/WarmupAttack()
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/jungle/seedling, WarmupAttack)()
 	if(combatant_state == SEEDLING_STATE_NEUTRAL)
 		combatant_state = SEEDLING_STATE_WARMUP
 		walk(src,0)
@@ -133,7 +133,7 @@
 				return
 		addtimer(CALLBACK(src, PROC_REF(Volley)), 5)
 
-/mob/living/simple_animal/hostile/jungle/seedling/proc/SolarBeamStartup(mob/living/living_target)//It's more like requiem than final spark
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/jungle/seedling, SolarBeamStartup)(mob/living/living_target)//It's more like requiem than final spark
 	if(combatant_state == SEEDLING_STATE_WARMUP && target)
 		combatant_state = SEEDLING_STATE_ACTIVE
 		living_target.apply_status_effect(/datum/status_effect/seedling_beam_indicator, src)
@@ -144,7 +144,7 @@
 		solar_beam_identifier = world.time
 		addtimer(CALLBACK(src, PROC_REF(Beamu), living_target, solar_beam_identifier), 35)
 
-/mob/living/simple_animal/hostile/jungle/seedling/proc/Beamu(mob/living/living_target, beam_id = 0)
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/jungle/seedling, Beamu)(mob/living/living_target, beam_id = 0)
 	if(combatant_state == SEEDLING_STATE_ACTIVE && living_target && beam_id == solar_beam_identifier)
 		if(living_target.z == z)
 			update_icons()
@@ -166,7 +166,7 @@
 			return
 	AttackRecovery()
 
-/mob/living/simple_animal/hostile/jungle/seedling/proc/Volley()
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/jungle/seedling, Volley)()
 	if(combatant_state == SEEDLING_STATE_WARMUP && target)
 		combatant_state = SEEDLING_STATE_ACTIVE
 		update_icons()
@@ -175,7 +175,7 @@
 			addtimer(cb, i)
 		addtimer(CALLBACK(src, PROC_REF(AttackRecovery)), 14)
 
-/mob/living/simple_animal/hostile/jungle/seedling/proc/InaccurateShot()
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/jungle/seedling, InaccurateShot)()
 	if(!QDELETED(target) && combatant_state == SEEDLING_STATE_ACTIVE && !stat)
 		if(get_dist(src,target) <= 3)//If they're close enough just aim straight at them so we don't miss at point blank ranges
 			Shoot(target)
@@ -186,7 +186,7 @@
 		readied_shot.fire()
 		playsound(src, projectilesound, 100, 1)
 
-/mob/living/simple_animal/hostile/jungle/seedling/proc/AttackRecovery()
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/jungle/seedling, AttackRecovery)()
 	if(combatant_state == SEEDLING_STATE_ACTIVE)
 		combatant_state = SEEDLING_STATE_RECOVERY
 		update_icons()
@@ -195,7 +195,7 @@
 			face_atom(target)
 		addtimer(CALLBACK(src, PROC_REF(ResetNeutral)), 10)
 
-/mob/living/simple_animal/hostile/jungle/seedling/proc/ResetNeutral()
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/jungle/seedling, ResetNeutral)()
 	combatant_state = SEEDLING_STATE_NEUTRAL
 	if(target && !stat)
 		update_icons()

@@ -52,7 +52,7 @@
 	else
 		return ..()
 
-/obj/structure/table_frame/proc/make_new_table(table_type, custom_materials) //makes sure the new table made retains what we had as a frame
+TYPE_PROC_REF(/obj/structure/table_frame, make_new_table)(table_type, custom_materials) //makes sure the new table made retains what we had as a frame
 	var/obj/structure/table/T = new table_type(loc)
 	T.frame = type
 	T.framestack = framestack
@@ -138,4 +138,4 @@
 		var/previouscolor = color
 		color = "#960000"
 		animate(src, color = previouscolor, time = 8)
-		addtimer(CALLBACK(src, /atom/proc/update_atom_colour), 8)
+		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_atom_colour)), 8)

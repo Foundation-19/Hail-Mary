@@ -72,7 +72,7 @@
 
 
 
-/obj/machinery/magnetic_module/proc/Cmd(command, modifier)
+TYPE_PROC_REF(/obj/machinery/magnetic_module, Cmd)(command, modifier)
 
 	if(command)
 		switch(command)
@@ -164,7 +164,7 @@
 	update_icon()
 
 
-/obj/machinery/magnetic_module/proc/magnetic_process() // proc that actually does the magneting
+TYPE_PROC_REF(/obj/machinery/magnetic_module, magnetic_process)() // proc that actually does the magneting
 	if(magneting)
 		return
 	while(on)
@@ -321,7 +321,7 @@
 
 	updateUsrDialog()
 
-/obj/machinery/magnetic_controller/proc/MagnetMove()
+TYPE_PROC_REF(/obj/machinery/magnetic_controller, MagnetMove)()
 	if(looping)
 		return
 
@@ -364,7 +364,7 @@
 	looping = 0
 
 
-/obj/machinery/magnetic_controller/proc/filter_path()
+TYPE_PROC_REF(/obj/machinery/magnetic_controller, filter_path)()
 	// Generates the rpath variable using the path string, think of this as "string2list"
 	// Doesn't use params2list() because of the akward way it stacks entities
 	rpath = list() //  clear rpath

@@ -28,7 +28,7 @@
 /datum/action/innate/dash/Activate()
 	dashing_item.attack_self(holder) //Used to toggle dash behavior in the dashing item
 
-/datum/action/innate/dash/proc/Teleport(mob/user, atom/target)
+TYPE_PROC_REF(/datum/action/innate/dash, Teleport)(mob/user, atom/target)
 	if(!IsAvailable())
 		return
 	var/turf/T = get_turf(target)
@@ -41,7 +41,7 @@
 		holder.update_action_buttons_icon()
 		addtimer(CALLBACK(src, PROC_REF(charge)), charge_rate)
 
-/datum/action/innate/dash/proc/charge()
+TYPE_PROC_REF(/datum/action/innate/dash, charge)()
 	current_charges = clamp(current_charges + 1, 0, max_charges)
 	holder.update_action_buttons_icon()
 	if(recharge_sound)

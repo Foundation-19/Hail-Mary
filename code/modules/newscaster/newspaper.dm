@@ -111,7 +111,7 @@
 	else
 		to_chat(user, "The paper is full of unintelligible symbols!")
 
-/obj/item/newspaper/proc/notContent(list/L)
+TYPE_PROC_REF(/obj/item/newspaper, notContent)(list/L)
 	if(!L.len)
 		return 0
 	for(var/i=L.len;i>0;i--)

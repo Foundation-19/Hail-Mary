@@ -19,7 +19,7 @@
 	. = ..()
 	create_reagents(100, OPENCONTAINER)
 
-/obj/structure/janitorialcart/proc/wet_mop(obj/item/mop, mob/user)
+TYPE_PROC_REF(/obj/structure/janitorialcart, wet_mop)(obj/item/mop, mob/user)
 	if(reagents.total_volume < 1)
 		to_chat(user, span_warning("[src] is out of water!"))
 		return 0
@@ -29,7 +29,7 @@
 		playsound(loc, 'sound/effects/slosh.ogg', 25, 1)
 		return 1
 
-/obj/structure/janitorialcart/proc/put_in_cart(obj/item/I, mob/user)
+TYPE_PROC_REF(/obj/structure/janitorialcart, put_in_cart)(obj/item/I, mob/user)
 	if(!user.transferItemToLoc(I, src))
 		return
 	to_chat(user, span_notice("You put [I] into [src]."))
@@ -162,7 +162,7 @@
  * Arguments:
  * * user The mob interacting with a menu
  */
-/obj/structure/janitorialcart/proc/check_menu(mob/living/user)
+TYPE_PROC_REF(/obj/structure/janitorialcart, check_menu)(mob/living/user)
 	if(!istype(user))
 		return FALSE
 	if(user.incapacitated())

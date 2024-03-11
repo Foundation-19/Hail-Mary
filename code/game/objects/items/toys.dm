@@ -92,7 +92,7 @@
 	if(!..()) //was it caught by a mob?
 		balloon_burst(hit_atom)
 
-/obj/item/toy/balloon/proc/balloon_burst(atom/AT)
+TYPE_PROC_REF(/obj/item/toy/balloon, balloon_burst)(atom/AT)
 	if(reagents.total_volume >= 1)
 		var/turf/T
 		if(AT)
@@ -411,7 +411,7 @@
 	else
 		to_chat(user, "[src] is already active.")
 
-/obj/item/toy/windupToolbox/proc/Rumble()
+TYPE_PROC_REF(/obj/item/toy/windupToolbox, Rumble)()
 	var/static/list/transforms
 	if(!transforms)
 		var/matrix/M1 = matrix()
@@ -428,7 +428,7 @@
 	animate(transform=transforms[3], time=0.2)
 	animate(transform=transforms[4], time=0.3)
 
-/obj/item/toy/windupToolbox/proc/stopRumble()
+TYPE_PROC_REF(/obj/item/toy/windupToolbox, stopRumble)()
 	icon_state = initial(icon_state)
 	active = FALSE
 	animate(src, transform=matrix())
@@ -520,7 +520,7 @@
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
-/obj/item/toy/snappop/proc/pop_burst(n=3, c=1)
+TYPE_PROC_REF(/obj/item/toy/snappop, pop_burst)(n=3, c=1)
 	var/datum/effect_system/spark_spread/s = new()
 	s.set_up(n, c, src)
 	s.start()
@@ -537,7 +537,7 @@
 	if(!..())
 		pop_burst()
 
-/obj/item/toy/snappop/proc/on_entered(H as mob|obj)
+TYPE_PROC_REF(/obj/item/toy/snappop, on_entered)(H as mob|obj)
 	SIGNAL_HANDLER
 	if(ishuman(H) || issilicon(H)) //i guess carp and shit shouldn't set them off
 		var/mob/living/carbon/M = H
@@ -557,7 +557,7 @@
 	. = ..()
 	addtimer(CALLBACK(src, PROC_REF(respawn)), respawn_time)
 
-/obj/effect/decal/cleanable/ash/snappop_phoenix/proc/respawn()
+TYPE_PROC_REF(/obj/effect/decal/cleanable/ash/snappop_phoenix, respawn)()
 	new /obj/item/toy/snappop/phoenix(get_turf(src))
 	qdel(src)
 
@@ -670,16 +670,16 @@
 		return
 	..()
 
-/obj/item/toy/talking/proc/activation_message(mob/user)
+TYPE_PROC_REF(/obj/item/toy/talking, activation_message)(mob/user)
 	user.visible_message(
 		span_notice("[user] pulls the string on \the [src]."),
 		span_notice("You pull the string on \the [src]."),
 		span_notice("You hear a string being pulled."))
 
-/obj/item/toy/talking/proc/generate_messages()
+TYPE_PROC_REF(/obj/item/toy/talking, generate_messages)()
 	return list(pick(messages))
 
-/obj/item/toy/talking/proc/toy_talk(mob/user, message)
+TYPE_PROC_REF(/obj/item/toy/talking, toy_talk)(mob/user, message)
 	user.loc.visible_message("<span class='[span]'>[icon2html(src, viewers(user.loc))] [message]</span>")
 	if(chattering)
 		chatter(message, phomeme, user)
@@ -760,7 +760,7 @@
 	playsound(src, 'sound/items/cardshuffle.ogg', 50, 1)
 	return BRUTELOSS
 
-/obj/item/toy/cards/proc/apply_card_vars(obj/item/toy/cards/newobj, obj/item/toy/cards/sourceobj) // Applies variables for supporting multiple types of card deck
+TYPE_PROC_REF(/obj/item/toy/cards, apply_card_vars)(obj/item/toy/cards/newobj, obj/item/toy/cards/sourceobj) // Applies variables for supporting multiple types of card deck
 	if(!istype(sourceobj))
 		return
 
@@ -780,7 +780,7 @@
 	. = ..()
 	populate_deck()
 
-/obj/item/toy/cards/deck/proc/populate_deck()
+TYPE_PROC_REF(/obj/item/toy/cards/deck, populate_deck)()
 	icon_state = "deck_[deckstyle]_full"
 	for(var/i in 2 to 10)
 		cards += "[i] of Hearts"
@@ -808,7 +808,7 @@
 /obj/item/toy/cards/deck/on_attack_hand(mob/user, act_intent = user.a_intent, unarmed_attack_flags)
 	draw_card(user)
 
-/obj/item/toy/cards/deck/proc/draw_card(mob/user)
+TYPE_PROC_REF(/obj/item/toy/cards/deck, draw_card)(mob/user)
 	if(user.lying)
 		return
 	var/choice = null
@@ -972,7 +972,7 @@
  * Arguments:
  * * user The mob interacting with a menu
  */
-/obj/item/toy/cards/cardhand/proc/check_menu(mob/living/user)
+TYPE_PROC_REF(/obj/item/toy/cards/cardhand, check_menu)(mob/living/user)
 	if(!istype(user))
 		return FALSE
 	if(user.incapacitated())
@@ -982,7 +982,7 @@
 /**
  * This proc updates the sprite for when you create a hand of cards
  */
-/obj/item/toy/cards/cardhand/proc/update_sprite()
+TYPE_PROC_REF(/obj/item/toy/cards/cardhand, update_sprite)()
 	cut_overlays()
 	var/overlay_cards = currenthand.len
 

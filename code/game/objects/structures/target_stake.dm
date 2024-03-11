@@ -15,7 +15,7 @@
 		pinned_target.nullPinnedLoc()
 	return ..()
 
-/obj/structure/target_stake/proc/handle_density()
+TYPE_PROC_REF(/obj/structure/target_stake, handle_density)()
 	if(length(buckled_mobs) || pinned_target)
 		density = TRUE
 	else
@@ -29,7 +29,7 @@
 	handle_density()
 	return ..()
 
-/obj/structure/target_stake/proc/nullPinnedTarget()
+TYPE_PROC_REF(/obj/structure/target_stake, nullPinnedTarget)()
 	pinned_target = null
 
 /obj/structure/target_stake/Move()
@@ -52,7 +52,7 @@
 	if(pinned_target)
 		removeTarget(user)
 
-/obj/structure/target_stake/proc/removeTarget(mob/user)
+TYPE_PROC_REF(/obj/structure/target_stake, removeTarget)(mob/user)
 	pinned_target.layer = OBJ_LAYER
 	pinned_target.forceMove(user.loc)
 	pinned_target.nullPinnedLoc()

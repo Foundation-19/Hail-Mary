@@ -12,7 +12,7 @@
 		pcollar = null
 	return ..()
 
-/mob/living/simple_animal/pet/proc/add_collar(obj/item/clothing/neck/petcollar/P, mob/user)
+TYPE_PROC_REF(/mob/living/simple_animal/pet, add_collar)(obj/item/clothing/neck/petcollar/P, mob/user)
 	if(QDELETED(P) || pcollar)
 		return
 	if(!user.transferItemToLoc(P, src))

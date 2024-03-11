@@ -278,5 +278,5 @@
 	if(choice)
 		curse(user)
 
-/obj/structure/mirror/magic/proc/curse(mob/living/user)
+TYPE_PROC_REF(/obj/structure/mirror/magic, curse)(mob/living/user)
 	return

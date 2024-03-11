@@ -18,7 +18,7 @@
 	UnregisterSignal(target, list(COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_DROPPED))
 	user_by_item -= target
 
-/datum/element/earhealing/proc/equippedChanged(datum/source, mob/living/carbon/user, slot)
+TYPE_PROC_REF(/datum/element/earhealing, equippedChanged)(datum/source, mob/living/carbon/user, slot)
 	if(slot == SLOT_EARS && istype(user))
 		user_by_item[source] = user
 	else

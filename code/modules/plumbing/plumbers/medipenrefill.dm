@@ -86,7 +86,7 @@
 		return default_deconstruction_screwdriver(user, "medipen_refiller_open", "medipen_refiller", I)
 
 /// refills the medipen
-/obj/machinery/medipen_refiller/proc/refill(obj/item/reagent_containers/hypospray/medipen/P, mob/user)
+TYPE_PROC_REF(/obj/machinery/medipen_refiller, refill)(obj/item/reagent_containers/hypospray/medipen/P, mob/user)
 	new P.type(loc)
 	reagents.remove_reagent(allowed[P.type], 10)
 	cut_overlays()

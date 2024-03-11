@@ -94,9 +94,9 @@
 	F.environment_smash = ENVIRONMENT_SMASH_WALLS
 	F.mob_size = MOB_SIZE_LARGE
 	F.speed = 1
-	addtimer(CALLBACK(F, /mob/living/simple_animal/hostile/asteroid/fugu/proc/Deflate), 100)
+	addtimer(CALLBACK(F, TYPE_PROC_REF(/mob/living/simple_animal/hostile/asteroid/fugu, Deflate)), 100)
 
-/mob/living/simple_animal/hostile/asteroid/fugu/proc/Deflate()
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/asteroid/fugu, Deflate)()
 	if(wumbo)
 		walk(src, 0)
 		wumbo = 0

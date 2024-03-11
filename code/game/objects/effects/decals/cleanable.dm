@@ -34,7 +34,7 @@
 
 	addtimer(CALLBACK(src, /datum.proc/_AddElement, list(/datum/element/beauty, beauty)), 0)
 
-/obj/effect/decal/cleanable/proc/replace_decal(obj/effect/decal/cleanable/C) // Returns true if we should give up in favor of the pre-existing decal
+TYPE_PROC_REF(/obj/effect/decal/cleanable, replace_decal)(obj/effect/decal/cleanable/C) // Returns true if we should give up in favor of the pre-existing decal
 	if(mergeable_decal)
 		return TRUE
 
@@ -77,7 +77,7 @@
 
 //Add "bloodiness" of this blood's type, to the human's shoes
 //This is on /cleanable because fuck this ancient mess
-/obj/effect/decal/cleanable/proc/on_entered(atom/movable/O)
+TYPE_PROC_REF(/obj/effect/decal/cleanable, on_entered)(atom/movable/O)
 	SIGNAL_HANDLER
 	if(ishuman(O))
 		var/mob/living/carbon/human/H = O
@@ -97,7 +97,7 @@
 			update_icon()
 			H.update_inv_shoes()
 
-/obj/effect/decal/cleanable/proc/can_bloodcrawl_in()
+TYPE_PROC_REF(/obj/effect/decal/cleanable, can_bloodcrawl_in)()
 	if((blood_state != BLOOD_STATE_OIL) && (blood_state != BLOOD_STATE_NOT_BLOODY))
 		return bloodiness
 	else

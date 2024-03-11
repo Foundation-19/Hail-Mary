@@ -21,7 +21,7 @@ GLOBAL_LIST(uplink_purchase_logs_by_key)	//assoc key = /datum/uplink_purchase_lo
 		GLOB.uplink_purchase_logs_by_key -= owner
 	return ..()
 
-/datum/uplink_purchase_log/proc/MergeWithAndDel(datum/uplink_purchase_log/other)
+TYPE_PROC_REF(/datum/uplink_purchase_log, MergeWithAndDel)(datum/uplink_purchase_log/other)
 	if(!istype(other))
 		return
 	. = owner == other.owner
@@ -36,16 +36,16 @@ GLOBAL_LIST(uplink_purchase_logs_by_key)	//assoc key = /datum/uplink_purchase_lo
 			UPE.amount_purchased += UPE_O.amount_purchased
 	qdel(other)
 
-/datum/uplink_purchase_log/proc/TotalTelecrystalsSpent()
+TYPE_PROC_REF(/datum/uplink_purchase_log, TotalTelecrystalsSpent)()
 	. = total_spent
 
-/datum/uplink_purchase_log/proc/generate_render(show_key = TRUE)
+TYPE_PROC_REF(/datum/uplink_purchase_log, generate_render)(show_key = TRUE)
 	. = ""
 	for(var/hash in purchase_log)
 		var/datum/uplink_purchase_entry/UPE = purchase_log[hash]
 		. += "<span class='tooltip_container'>\[[UPE.icon_b64][show_key?"([owner])":""]<span class='tooltip_hover'><b>[UPE.name]</b><br>[UPE.spent_cost ? "[UPE.spent_cost] TC" : "[UPE.base_cost] TC<br>(Surplus)"]<br>[UPE.desc]</span>[(UPE.amount_purchased > 1) ? "x[UPE.amount_purchased]" : ""]\]</span>"
 
-/datum/uplink_purchase_log/proc/LogPurchase(atom/A, datum/uplink_item/uplink_item, spent_cost)
+TYPE_PROC_REF(/datum/uplink_purchase_log, LogPurchase)(atom/A, datum/uplink_item/uplink_item, spent_cost)
 	var/datum/uplink_purchase_entry/UPE
 	var/hash = hash_purchase(uplink_item, spent_cost)
 	if(purchase_log[hash])
@@ -63,7 +63,7 @@ GLOBAL_LIST(uplink_purchase_logs_by_key)	//assoc key = /datum/uplink_purchase_lo
 	UPE.amount_purchased++
 	total_spent += spent_cost
 
-/datum/uplink_purchase_log/proc/hash_purchase(datum/uplink_item/uplink_item, spent_cost)
+TYPE_PROC_REF(/datum/uplink_purchase_log, hash_purchase)(datum/uplink_item/uplink_item, spent_cost)
 	return "[uplink_item.type]|[uplink_item.name]|[uplink_item.cost]|[spent_cost]"
 
 /datum/uplink_purchase_entry

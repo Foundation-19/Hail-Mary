@@ -25,7 +25,7 @@
 		on = TRUE
 	update_brightness()
 
-/obj/item/flashlight/proc/update_brightness(mob/user)
+TYPE_PROC_REF(/obj/item/flashlight, update_brightness)(mob/user)
 	if(on)
 		icon_state = "[initial(icon_state)]-on"
 	else
@@ -186,7 +186,7 @@
 			holo_cooldown = world.time + 10 SECONDS
 			return
 
-// see: [/datum/wound/burn/proc/uv()]
+// see: [TYPE_PROC_REF(/datum/wound/burn, uv)()]
 /obj/item/flashlight/pen/paramedic
 	name = "paramedic penlight"
 	desc = "A high-powered UV penlight intended to help stave off infection in the field on serious burned patients. Probably really bad to look into. Comes with a rubberized coating for 'that comfy mouth-feel'."
@@ -306,7 +306,7 @@
 	else
 		. = ""
 
-/obj/item/flashlight/flare/proc/turn_off()
+TYPE_PROC_REF(/obj/item/flashlight/flare, turn_off)()
 	on = FALSE
 	force = initial(src.force)
 	damtype = initial(src.damtype)
@@ -503,7 +503,7 @@
 		STOP_PROCESSING(SSobj, src)
 		update_icon()
 
-/obj/item/flashlight/glowstick/proc/turn_off()
+TYPE_PROC_REF(/obj/item/flashlight/glowstick, turn_off)()
 	on = FALSE
 	set_light_on(FALSE)
 	update_icon()
@@ -536,7 +536,7 @@
 		user.visible_message(span_notice("[user] cracks and shakes [src]."), span_notice("You crack and shake [src], turning it on!"))
 		activate()
 
-/obj/item/flashlight/glowstick/proc/activate()
+TYPE_PROC_REF(/obj/item/flashlight/glowstick, activate)()
 	if(!on)
 		on = TRUE
 		set_light_on(TRUE)

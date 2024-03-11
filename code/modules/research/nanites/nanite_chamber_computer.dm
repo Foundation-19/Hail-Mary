@@ -10,7 +10,7 @@
 	. = ..()
 	find_chamber()
 
-/obj/machinery/computer/nanite_chamber_control/proc/find_chamber()
+TYPE_PROC_REF(/obj/machinery/computer/nanite_chamber_control, find_chamber)()
 	for(var/direction in GLOB.cardinals)
 		var/C = locate(/obj/machinery/nanite_chamber, get_step(src, direction))
 		if(C)

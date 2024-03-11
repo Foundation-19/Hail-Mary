@@ -4,7 +4,7 @@
 	var/last_taste_time
 	var/last_taste_text
 
-/mob/living/proc/get_taste_sensitivity()
+TYPE_PROC_REF(/mob/living, get_taste_sensitivity)()
 	return DEFAULT_TASTE_SENSITIVITY
 
 /mob/living/carbon/get_taste_sensitivity()
@@ -15,7 +15,7 @@
 		. = 101 // can't taste anything without a tongue
 
 // non destructively tastes a reagent container
-/mob/living/proc/taste(datum/reagents/from, atom/thing_licked)
+TYPE_PROC_REF(/mob/living, taste)(datum/reagents/from, atom/thing_licked)
 	if(last_taste_time + 50 > world.time)
 		return FALSE
 	var/taste_sensitivity = get_taste_sensitivity()

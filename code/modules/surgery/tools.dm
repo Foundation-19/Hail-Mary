@@ -363,7 +363,7 @@
 	. = ..()
 	linked_techweb = SSresearch.science_tech
 
-/obj/item/surgical_drapes/advanced/proc/get_advanced_surgeries()
+TYPE_PROC_REF(/obj/item/surgical_drapes/advanced, get_advanced_surgeries)()
 	. = list()
 	if(!linked_techweb)
 		return

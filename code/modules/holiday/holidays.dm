@@ -13,21 +13,21 @@
 	var/obj/item/drone_hat //If this is defined, drones without a default hat will spawn with this one during the holiday; check drones_as_items.dm to see this used
 
 // This proc gets run before the game starts when the holiday is activated. Do festive shit here.
-/datum/holiday/proc/celebrate()
+TYPE_PROC_REF(/datum/holiday, celebrate)()
 	return
 
 // When the round starts, this proc is ran to get a text message to display to everyone to wish them a happy holiday
-/datum/holiday/proc/greet()
+TYPE_PROC_REF(/datum/holiday, greet)()
 	return "Have a happy [name]!"
 
 // Returns special prefixes for the station name on certain days. You wind up with names like "Christmas Object Epsilon". See new_station_name()
-/datum/holiday/proc/getStationPrefix()
+TYPE_PROC_REF(/datum/holiday, getStationPrefix)()
 	//get the first word of the Holiday and use that
 	var/i = findtext(name," ")
 	return copytext(name, 1, i)
 
 // Return 1 if this holidy should be celebrated today
-/datum/holiday/proc/shouldCelebrate(dd, mm, yy, ww, ddd)
+TYPE_PROC_REF(/datum/holiday, shouldCelebrate)(dd, mm, yy, ww, ddd)
 	if(always_celebrate)
 		return TRUE
 
@@ -565,7 +565,7 @@ Since Ramadan is an entire month that lasts 29.5 days on average, the start and 
 /datum/holiday/xmas/celebrate()
 	SSticker.OnRoundstart(CALLBACK(src, PROC_REF(roundstart_celebrate)))
 
-/datum/holiday/xmas/proc/roundstart_celebrate()
+TYPE_PROC_REF(/datum/holiday/xmas, roundstart_celebrate)()
 	for(var/obj/machinery/computer/security/telescreen/entertainment/Monitor in GLOB.machines)
 		Monitor.icon_state = "entertainment_xmas"
 

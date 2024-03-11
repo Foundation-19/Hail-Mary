@@ -48,7 +48,7 @@
 	var/mob/living/simple_animal/slime/S = owner
 	S.Feed()
 
-/mob/living/simple_animal/slime/proc/CanFeedon(mob/living/M, silent = FALSE)
+TYPE_PROC_REF(/mob/living/simple_animal/slime, CanFeedon)(mob/living/M, silent = FALSE)
 	if(!Adjacent(M))
 		return FALSE
 
@@ -101,7 +101,7 @@
 		return FALSE
 	return TRUE
 
-/mob/living/simple_animal/slime/proc/Feedon(mob/living/M)
+TYPE_PROC_REF(/mob/living/simple_animal/slime, Feedon)(mob/living/M)
 	M.unbuckle_all_mobs(force=1) //Slimes rip other mobs (eg: shoulder parrots) off (Slimes Vs Slimes is already handled in CanFeedon())
 	if(M.buckle_mob(src, force=TRUE))
 		layer = M.layer+0.01 //appear above the target mob
@@ -110,7 +110,7 @@
 	else
 		to_chat(src, "<span class='warning'><i>I have failed to latch onto the subject!</i></span>")
 
-/mob/living/simple_animal/slime/proc/Feedstop(silent = FALSE, living=1)
+TYPE_PROC_REF(/mob/living/simple_animal/slime, Feedstop)(silent = FALSE, living=1)
 	if(buckled)
 		if(!living)
 			to_chat(src, "<span class='warning'>[pick("This subject is incompatible", \

@@ -21,18 +21,18 @@
 	. = ..()
 	UnregisterSignal(parent, list(COMSIG_ITEM_AFTERATTACK, COMSIG_HOSTILE_ATTACKINGTARGET, COMSIG_PROJECTILE_ON_HIT))
 
-/datum/component/igniter/proc/item_afterattack(obj/item/source, atom/target, mob/user, proximity_flag, click_parameters)
+TYPE_PROC_REF(/datum/component/igniter, item_afterattack)(obj/item/source, atom/target, mob/user, proximity_flag, click_parameters)
 	if(!proximity_flag)
 		return
 	do_igniter(target)
 
-/datum/component/igniter/proc/hostile_attackingtarget(mob/living/simple_animal/hostile/attacker, atom/target)
+TYPE_PROC_REF(/datum/component/igniter, hostile_attackingtarget)(mob/living/simple_animal/hostile/attacker, atom/target)
 	do_igniter(target)
 
-/datum/component/igniter/proc/projectile_hit(atom/fired_from, atom/movable/firer, atom/target, Angle)
+TYPE_PROC_REF(/datum/component/igniter, projectile_hit)(atom/fired_from, atom/movable/firer, atom/target, Angle)
 	do_igniter(target)
 
-/datum/component/igniter/proc/do_igniter(atom/target)
+TYPE_PROC_REF(/datum/component/igniter, do_igniter)(atom/target)
 	if(isliving(target))
 		var/mob/living/L = target
 		L.adjust_fire_stacks(fire_stacks)

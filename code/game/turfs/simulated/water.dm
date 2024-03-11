@@ -50,7 +50,7 @@
 			to_chat(L, span_warning("You climb out of \the [src]."))
 	..()
 
-/mob/living/proc/check_submerged()
+TYPE_PROC_REF(/mob/living, check_submerged)()
 	if(buckled)
 		return 0
 	if(locate(/obj/structure/lattice/catwalk) in loc)
@@ -62,7 +62,7 @@
 	return 0
 
 // Use this to have things react to having water applied to them.
-/atom/movable/proc/water_act(amount)
+TYPE_PROC_REF(/atom/movable, water_act)(amount)
 	return
 
 /mob/living/water_act(amount)

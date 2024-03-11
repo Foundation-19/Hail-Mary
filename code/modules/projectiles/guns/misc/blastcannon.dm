@@ -69,7 +69,7 @@
 	return ..()
 
 //returns the third value of a bomb blast
-/obj/item/gun/blastcannon/proc/calculate_bomb()
+TYPE_PROC_REF(/obj/item/gun/blastcannon, calculate_bomb)()
 	if(!istype(bomb) || !istype(bomb.tank_one) || !istype(bomb.tank_two))
 		return 0
 	var/datum/gas_mixture/temp = new(max(reaction_volume_mod, 0))

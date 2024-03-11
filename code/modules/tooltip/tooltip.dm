@@ -49,7 +49,7 @@ Notes:
 	..()
 
 
-/datum/tooltip/proc/show(atom/movable/thing, params = null, title = null, content = null, theme = "default", special = "none")
+TYPE_PROC_REF(/datum/tooltip, show)(atom/movable/thing, params = null, title = null, content = null, theme = "default", special = "none")
 	if (!thing || !params || (!title && !content) || !owner || !isnum(world.icon_size))
 		return 0
 	if (!init)
@@ -86,7 +86,7 @@ Notes:
 	return 1
 
 
-/datum/tooltip/proc/hide()
+TYPE_PROC_REF(/datum/tooltip, hide)()
 	if (queueHide)
 		addtimer(CALLBACK(src, PROC_REF(do_hide)), 1)
 	else
@@ -96,7 +96,7 @@ Notes:
 
 	return TRUE
 
-/datum/tooltip/proc/do_hide()
+TYPE_PROC_REF(/datum/tooltip, do_hide)()
 	winshow(owner, control, FALSE)
 
 /* TG SPECIFIC CODE */

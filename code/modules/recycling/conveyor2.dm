@@ -76,7 +76,7 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 	else
 		return ..()
 
-/obj/machinery/conveyor/proc/update_move_direction()
+TYPE_PROC_REF(/obj/machinery/conveyor, update_move_direction)()
 	switch(dir)
 		if(NORTH)
 			forwards = NORTH
@@ -112,7 +112,7 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 		movedir = backwards
 	update()
 
-/obj/machinery/conveyor/proc/update()
+TYPE_PROC_REF(/obj/machinery/conveyor, update)()
 	if(stat & BROKEN)
 		icon_state = "conveyor-broken"
 		operating = FALSE
@@ -134,7 +134,7 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 	affecting = loc.contents - src		// moved items will be all in loc
 	addtimer(CALLBACK(src, PROC_REF(convey), affecting), 1)
 
-/obj/machinery/conveyor/proc/convey(list/affecting)
+TYPE_PROC_REF(/obj/machinery/conveyor, convey)(list/affecting)
 	var/turf/T = get_step(src, movedir)
 	if(length(T.contents) > 150)
 		return
@@ -179,7 +179,7 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 
 // make the conveyor broken
 // also propagate inoperability to any connected conveyor with the same ID
-/obj/machinery/conveyor/proc/broken()
+TYPE_PROC_REF(/obj/machinery/conveyor, broken)()
 	stat |= BROKEN
 	update()
 
@@ -194,7 +194,7 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 
 //set the operable var if ID matches, propagating in the given direction
 
-/obj/machinery/conveyor/proc/set_operable(stepdir, match_id, op)
+TYPE_PROC_REF(/obj/machinery/conveyor, set_operable)(stepdir, match_id, op)
 
 	if(id != match_id)
 		return

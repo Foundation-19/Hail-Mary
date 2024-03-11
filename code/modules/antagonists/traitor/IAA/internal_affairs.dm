@@ -14,7 +14,7 @@
 	var/list/datum/mind/targets_stolen
 
 
-/datum/antagonist/traitor/internal_affairs/proc/give_pinpointer()
+TYPE_PROC_REF(/datum/antagonist/traitor/internal_affairs, give_pinpointer)()
 	if(owner && owner.current)
 		owner.current.apply_status_effect(/datum/status_effect/agent_pinpointer)
 
@@ -53,7 +53,7 @@
 	icon = 'icons/obj/device.dmi'
 	icon_state = "pinon"
 
-/datum/status_effect/agent_pinpointer/proc/point_to_target() //If we found what we're looking for, show the distance and direction
+TYPE_PROC_REF(/datum/status_effect/agent_pinpointer, point_to_target)() //If we found what we're looking for, show the distance and direction
 	if(!scan_target)
 		linked_alert.icon_state = "pinonnull"
 		return
@@ -74,7 +74,7 @@
 			if(16 to INFINITY)
 				linked_alert.icon_state = "pinonfar"
 
-/datum/status_effect/agent_pinpointer/proc/scan_for_target()
+TYPE_PROC_REF(/datum/status_effect/agent_pinpointer, scan_for_target)()
 	scan_target = null
 	if(owner)
 		if(owner.mind)
@@ -98,7 +98,7 @@
 /proc/is_internal_objective(datum/objective/O)
 	return (istype(O, /datum/objective/assassinate/internal)||istype(O, /datum/objective/destroy/internal))
 
-/datum/antagonist/traitor/proc/replace_escape_objective()
+TYPE_PROC_REF(/datum/antagonist/traitor, replace_escape_objective)()
 	if(!owner || !objectives.len)
 		return
 	for (var/objective_ in objectives)
@@ -110,7 +110,7 @@
 	martyr_objective.owner = owner
 	add_objective(martyr_objective)
 
-/datum/antagonist/traitor/proc/reinstate_escape_objective()
+TYPE_PROC_REF(/datum/antagonist/traitor, reinstate_escape_objective)()
 	if(!owner||!objectives.len)
 		return
 	for (var/objective_ in objectives)
@@ -125,7 +125,7 @@
 	escape_objective.owner = owner
 	add_objective(escape_objective)
 
-/datum/antagonist/traitor/internal_affairs/proc/steal_targets(datum/mind/victim)
+TYPE_PROC_REF(/datum/antagonist/traitor/internal_affairs, steal_targets)(datum/mind/victim)
 	if(!owner.current||owner.current.stat==DEAD)
 		return
 	to_chat(owner.current, span_userdanger(" Target eliminated: [victim.name]"))
@@ -172,7 +172,7 @@
 		else
 			to_chat(owner.current,span_userdanger("All the other agents are dead. You have done us all a great service and shall be honorably exiled upon returning to base."))
 
-/datum/antagonist/traitor/internal_affairs/proc/iaa_process()
+TYPE_PROC_REF(/datum/antagonist/traitor/internal_affairs, iaa_process)()
 	if(owner&&owner.current&&owner.current.stat!=DEAD)
 		for(var/objective_ in objectives)
 			if(!is_internal_objective(objective_))
@@ -199,7 +199,7 @@
 					to_chat(owner.current, fail_msg)
 					objective.stolen = FALSE
 
-/datum/antagonist/traitor/internal_affairs/proc/forge_iaa_objectives()
+TYPE_PROC_REF(/datum/antagonist/traitor/internal_affairs, forge_iaa_objectives)()
 	if(SSticker.mode.target_list.len && SSticker.mode.target_list[owner]) // Is a double agent
 		// Assassinate
 		var/datum/mind/target_mind = SSticker.mode.target_list[owner]
@@ -225,7 +225,7 @@
 	escape_objective.owner = owner
 	add_objective(escape_objective)
 
-/datum/antagonist/traitor/internal_affairs/proc/greet_iaa()
+TYPE_PROC_REF(/datum/antagonist/traitor/internal_affairs, greet_iaa)()
 	var/crime = pick("distribution of contraband" , "embezzlement", "piloting under the influence", "dereliction of duty", "syndicate collaboration", "mutiny", "multiple homicides", "corporate espionage", "receiving bribes", "malpractice", "worship of prohibited life forms", "possession of profane texts", "murder", "arson", "insulting their manager", "grand theft", "conspiracy", "attempting to unionize", "vandalism", "gross incompetence")
 
 	to_chat(owner.current, span_userdanger("You are the [special_role]."))

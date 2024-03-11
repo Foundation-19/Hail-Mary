@@ -22,7 +22,7 @@
 
 //This proc doesn't just check if the painter can be used, but also uses it.
 //Only call this if you are certain that the painter will be used right after this check!
-/obj/item/airlock_painter/proc/use_paint(mob/user)
+TYPE_PROC_REF(/obj/item/airlock_painter, use_paint)(mob/user)
 	if(can_use(user))
 		ink.charges--
 		playsound(src.loc, 'sound/effects/spray2.ogg', 50, 1)
@@ -33,7 +33,7 @@
 //This proc only checks if the painter can be used.
 //Call this if you don't want the painter to be used right after this check, for example
 //because you're expecting user input.
-/obj/item/airlock_painter/proc/can_use(mob/user)
+TYPE_PROC_REF(/obj/item/airlock_painter, can_use)(mob/user)
 	if(!ink)
 		to_chat(user, span_notice("There is no toner cartridge installed in [src]!"))
 		return 0
@@ -173,7 +173,7 @@
 	. = ..()
 	ink = new /obj/item/toner/large(src)
 
-/obj/item/airlock_painter/decal/proc/update_decal_path()
+TYPE_PROC_REF(/obj/item/airlock_painter/decal, update_decal_path)()
 	var/yellow_fix = "" //This will have to do until someone refactor's markings.dm
 	if (stored_color)
 		yellow_fix = "_"

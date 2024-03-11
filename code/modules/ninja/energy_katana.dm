@@ -66,7 +66,7 @@
 
 	..()
 
-/obj/item/energy_katana/proc/returnToOwner(mob/living/carbon/human/user, doSpark = 1, caught = 0)
+TYPE_PROC_REF(/obj/item/energy_katana, returnToOwner)(mob/living/carbon/human/user, doSpark = 1, caught = 0)
 	if(!istype(user))
 		return
 	forceMove(get_turf(user))

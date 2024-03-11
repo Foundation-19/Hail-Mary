@@ -34,7 +34,7 @@
 		air_update_turf(1)
 	ConsumeTile()
 
-/obj/structure/blob/proc/creation_action() //When it's created by the overmind, do this.
+TYPE_PROC_REF(/obj/structure/blob, creation_action)() //When it's created by the overmind, do this.
 	return
 
 /obj/structure/blob/Destroy()
@@ -88,7 +88,7 @@
 	else
 		remove_atom_colour(FIXED_COLOUR_PRIORITY)
 
-/obj/structure/blob/proc/Pulse_Area(mob/camera/blob/pulsing_overmind, claim_range = 10, pulse_range = 3, expand_range = 2)
+TYPE_PROC_REF(/obj/structure/blob, Pulse_Area)(mob/camera/blob/pulsing_overmind, claim_range = 10, pulse_range = 3, expand_range = 2)
 	if(QDELETED(pulsing_overmind))
 		pulsing_overmind = overmind
 	Be_Pulsed()
@@ -121,7 +121,7 @@
 		if(distance <= pulse_range)
 			B.Be_Pulsed()
 
-/obj/structure/blob/proc/Be_Pulsed()
+TYPE_PROC_REF(/obj/structure/blob, Be_Pulsed)()
 	if(pulse_timestamp <= world.time)
 		ConsumeTile()
 		if(heal_timestamp <= world.time)
@@ -132,13 +132,13 @@
 		return 1 //we did it, we were pulsed!
 	return 0 //oh no we failed
 
-/obj/structure/blob/proc/ConsumeTile()
+TYPE_PROC_REF(/obj/structure/blob, ConsumeTile)()
 	for(var/atom/A in loc)
 		A.blob_act(src)
 	if(iswallturf(loc))
 		loc.blob_act(src) //don't ask how a wall got on top of the core, just eat it
 
-/obj/structure/blob/proc/blob_attack_animation(atom/A = null, controller) //visually attacks an atom
+TYPE_PROC_REF(/obj/structure/blob, blob_attack_animation)(atom/A = null, controller) //visually attacks an atom
 	var/obj/effect/temp_visual/blob/O = new /obj/effect/temp_visual/blob(src.loc)
 	O.setDir(dir)
 	if(controller)
@@ -151,7 +151,7 @@
 		O.do_attack_animation(A) //visually attack the whatever
 	return O //just in case you want to do something to the animation.
 
-/obj/structure/blob/proc/expand(turf/T = null, controller = null, expand_reaction = 1)
+TYPE_PROC_REF(/obj/structure/blob, expand)(turf/T = null, controller = null, expand_reaction = 1)
 	if(!T)
 		var/list/dirs = list(1,2,4,8)
 		for(var/i = 1 to 4)
@@ -239,7 +239,7 @@
 	else
 		return ..()
 
-/obj/structure/blob/proc/chemeffectreport(mob/user)
+TYPE_PROC_REF(/obj/structure/blob, chemeffectreport)(mob/user)
 	RETURN_TYPE(/list)
 	. = list()
 	if(overmind)
@@ -249,7 +249,7 @@
 	else
 		. += "<b>No Material Detected!</b><br>"
 
-/obj/structure/blob/proc/typereport()
+TYPE_PROC_REF(/obj/structure/blob, typereport)()
 	RETURN_TYPE(/list)
 	. = list("<b>Blob Type:</b> <span class='notice'>[uppertext(initial(name))]</span>")
 	. += "<b>Health:</b> <span class='notice'>[obj_integrity]/[max_integrity]</span>"
@@ -297,7 +297,7 @@
 		overmind.blobstrain.death_reaction(src, damage_flag)
 	..()
 
-/obj/structure/blob/proc/change_to(type, controller)
+TYPE_PROC_REF(/obj/structure/blob, change_to)(type, controller)
 	if(!ispath(type))
 		CRASH("change_to(): invalid type for blob")
 	var/obj/structure/blob/B = new type(src.loc, controller)
@@ -323,10 +323,10 @@
 			. += "<b>Progress to Critical Mass:</b> <span class='notice'>[overmind.blobs_legit.len]/[overmind.blobwincount].</span>"
 		. += "It seems to be made of [get_chem_name()]."
 
-/obj/structure/blob/proc/scannerreport()
+TYPE_PROC_REF(/obj/structure/blob, scannerreport)()
 	return "A generic blob. Looks like someone forgot to override this proc, adminhelp this."
 
-/obj/structure/blob/proc/get_chem_name()
+TYPE_PROC_REF(/obj/structure/blob, get_chem_name)()
 	if(overmind)
 		return overmind.blobstrain.name
 	return "some kind of organic tissue"

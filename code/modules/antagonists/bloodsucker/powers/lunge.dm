@@ -37,7 +37,7 @@
 		sleep(5)
 
 //Without this, the leap component would get removed too early, causing the normal crash into effects.
-/datum/action/bloodsucker/lunge/proc/DelayedDeactivatePower() 
+TYPE_PROC_REF(/datum/action/bloodsucker/lunge, DelayedDeactivatePower)() 
 	addtimer(CALLBACK(src, PROC_REF(DeactivatePower)), 1 SECONDS, TIMER_UNIQUE)
 
 /datum/action/bloodsucker/lunge/DeactivatePower(mob/living/user = owner)

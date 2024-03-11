@@ -39,7 +39,7 @@
 	var/jumping = FALSE
 	var/timer
 
-/obj/structure/pool/Lboard/proc/backswim()
+TYPE_PROC_REF(/obj/structure/pool/Lboard, backswim)()
 	if(jumping)
 		for(var/mob/living/jumpee in loc) //hackzors.
 			playsound(jumpee, 'sound/effects/splash.ogg', 60, TRUE, 1)
@@ -47,7 +47,7 @@
 				jumpee.AddElement(/datum/element/swimming)
 			jumpee.Stun(2)
 
-/obj/structure/pool/Lboard/proc/reset_position(mob/user, initial_layer, initial_px, initial_py)
+TYPE_PROC_REF(/obj/structure/pool/Lboard, reset_position)(mob/user, initial_layer, initial_px, initial_py)
 	user.layer = initial_layer
 	user.pixel_x = initial_px
 	user.pixel_y = initial_py
@@ -79,7 +79,7 @@
 				jumper.forceMove(T)
 				addtimer(CALLBACK(src, PROC_REF(dive), jumper, original_layer, original_px, original_py), 10)
 
-/obj/structure/pool/Lboard/proc/dive(mob/living/carbon/jumper, original_layer, original_px, original_py)
+TYPE_PROC_REF(/obj/structure/pool/Lboard, dive)(mob/living/carbon/jumper, original_layer, original_px, original_py)
 	switch(rand(1, 100))
 		if(1 to 20)
 			jumper.visible_message(span_notice("[jumper] goes for a small dive!"), \
@@ -146,10 +146,10 @@
 	addtimer(CALLBACK(src, PROC_REF(togglejumping)), 35)
 	reset_position(jumper, original_layer, original_px, original_py)
 
-/obj/structure/pool/Lboard/proc/togglejumping()
+TYPE_PROC_REF(/obj/structure/pool/Lboard, togglejumping)()
 	jumping = FALSE
 
-/obj/structure/pool/Lboard/proc/on_finish_jump(mob/living/victim)
+TYPE_PROC_REF(/obj/structure/pool/Lboard, on_finish_jump)(mob/living/victim)
 	if(istype(victim.loc, /turf/open/pool))
 		var/turf/open/pool/P = victim.loc
 		if(!P.filled)		//you dun fucked up now

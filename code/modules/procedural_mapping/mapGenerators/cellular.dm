@@ -28,7 +28,7 @@
 	//We assume 2D everywhere anyway
 	start = locate(min_x,min_y,Start.z)
 
-/datum/mapGenerator/ca/proc/initialize()
+TYPE_PROC_REF(/datum/mapGenerator/ca, initialize)()
 	old_state = new/list(width)
 	for(var/i = 1,i<=width,i++)
 		old_state[i] = new/list(height)
@@ -55,7 +55,7 @@
 			if(T)
 				T.ChangeTurf(type_map[current_state[i][j]+1])
 
-/datum/mapGenerator/ca/proc/apply_rule(i,j)
+TYPE_PROC_REF(/datum/mapGenerator/ca, apply_rule)(i,j)
 	var/value = 0
 	for(var/dx=-1,dx<=1,dx++)
 		for(var/dy=-1,dy<=1,dy++)

@@ -118,7 +118,7 @@
 		return ..()
 
 //callback proc used on stacks use_tool to stop unnecessary amounts being wasted from spam clicking.
-/obj/structure/frame/computer/proc/check_state(target_state)
+TYPE_PROC_REF(/obj/structure/frame/computer, check_state)(target_state)
 	if(state == target_state)
 		return TRUE
 	return FALSE

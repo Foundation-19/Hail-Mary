@@ -55,13 +55,13 @@
 	src.tier = 0
 	tag = ARMORID
 
-/datum/armor/proc/modifyRating(tier = 0, linemelee = 0, linebullet = 0, linelaser = 0, melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 0, acid = 0, magic = 0, wound = 0, damage_threshold = 0)
+TYPE_PROC_REF(/datum/armor, modifyRating)(tier = 0, linemelee = 0, linebullet = 0, linelaser = 0, melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 0, acid = 0, magic = 0, wound = 0, damage_threshold = 0)
 	return getArmor(tier, src.linemelee+linemelee, src.linebullet+linebullet, src.linelaser+linelaser, src.melee+melee, src.bullet+bullet, src.laser+laser, src.energy+energy, src.bomb+bomb, src.bio+bio, src.rad+rad, src.fire+fire, src.acid+acid, src.magic+magic, src.wound+wound, src.damage_threshold+damage_threshold)
 
-/datum/armor/proc/modifyAllRatings(modifier = 0)
+TYPE_PROC_REF(/datum/armor, modifyAllRatings)(modifier = 0)
 	return getArmor(tier, linemelee+modifier, linebullet+modifier, linelaser+modifier, melee, bullet, laser, energy+modifier, bomb+modifier, bio+modifier, rad+modifier, fire+modifier, acid+modifier, magic+modifier, wound+modifier, damage_threshold+modifier)
 
-/datum/armor/proc/setRating(tier, linemelee, linebullet, linelaser, melee, bullet, laser, energy, bomb, bio, rad, fire, acid, magic, wound)
+TYPE_PROC_REF(/datum/armor, setRating)(tier, linemelee, linebullet, linelaser, melee, bullet, laser, energy, bomb, bio, rad, fire, acid, magic, wound)
 	return getArmor((isnull(tier) ? src.tier : tier),\
 					(isnull(linemelee) ? src.linemelee : linemelee),\
 					(isnull(linebullet) ? src.linebullet : linebullet),\
@@ -79,16 +79,16 @@
 					(isnull(wound) ? src.wound : wound),\
 					(isnull(damage_threshold) ? src.damage_threshold : damage_threshold))
 
-/datum/armor/proc/getRating(rating)
+TYPE_PROC_REF(/datum/armor, getRating)(rating)
 	return vars[rating]
 
-/datum/armor/proc/getList()
+TYPE_PROC_REF(/datum/armor, getList)()
 	return list("tier" = tier, "linemelee" = linemelee, "linebullet" = linebullet, "linelaser" = linelaser, "melee" = melee, "bullet" = bullet, "laser" = laser, "energy" = energy, "bomb" = bomb, "bio" = bio, "rad" = rad, "fire" = fire, "acid" = acid, "magic" = magic, "wound" = wound, "damage_threshold" = damage_threshold)
 
-/datum/armor/proc/attachArmor(datum/armor/AA)
+TYPE_PROC_REF(/datum/armor, attachArmor)(datum/armor/AA)
 	return getArmor(tier, linemelee+AA.linemelee, linebullet+AA.linebullet, linelaser+AA.linelaser, melee+AA.melee, bullet+AA.bullet, laser+AA.laser, energy+AA.energy, bomb+AA.bomb, bio+AA.bio, rad+AA.rad, fire+AA.fire, acid+AA.acid, magic+AA.magic, wound+AA.wound, damage_threshold+AA.damage_threshold)
 
-/datum/armor/proc/detachArmor(datum/armor/AA)
+TYPE_PROC_REF(/datum/armor, detachArmor)(datum/armor/AA)
 	return getArmor(tier, linemelee-AA.linemelee, linebullet-AA.linebullet, linelaser-AA.linelaser, melee+AA.melee, bullet+AA.bullet, laser+AA.laser, energy-AA.energy, bomb-AA.bomb, bio-AA.bio, rad-AA.rad, fire-AA.fire, acid-AA.acid, magic-AA.magic, wound-AA.wound, damage_threshold-AA.damage_threshold)
 
 /datum/armor/vv_edit_var(var_name, var_value)

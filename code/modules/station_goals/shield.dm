@@ -28,7 +28,7 @@
 		return TRUE
 	return FALSE
 
-/datum/station_goal/proc/get_coverage()
+TYPE_PROC_REF(/datum/station_goal, get_coverage)()
 	var/list/coverage = list()
 	for(var/obj/machinery/satellite/meteor_shield/A in GLOB.machines)
 		if(!A.active || !is_station_level(A.z))
@@ -56,7 +56,7 @@
 			toggle(text2num(params["id"]))
 			. = TRUE
 
-/obj/machinery/computer/sat_control/proc/toggle(id)
+TYPE_PROC_REF(/obj/machinery/computer/sat_control, toggle)(id)
 	for(var/obj/machinery/satellite/S in GLOB.machines)
 		if(S.id == id && S.z == z)
 			S.toggle()
@@ -102,7 +102,7 @@
 /obj/machinery/satellite/interact(mob/user)
 	toggle(user)
 
-/obj/machinery/satellite/proc/toggle(mob/user)
+TYPE_PROC_REF(/obj/machinery/satellite, toggle)(mob/user)
 	if(!active && !isinspace())
 		if(user)
 			to_chat(user, span_warning("You can only activate [src] in space."))
@@ -160,7 +160,7 @@
 		else
 			change_meteor_chance(0.125)
 
-/obj/machinery/satellite/meteor_shield/proc/space_los(meteor)
+TYPE_PROC_REF(/obj/machinery/satellite/meteor_shield, space_los)(meteor)
 	for(var/turf/T in getline(src,meteor))
 		if(!isspaceturf(T))
 			return FALSE
@@ -187,7 +187,7 @@
 		else
 			change_meteor_chance(0.5)
 
-/obj/machinery/satellite/meteor_shield/proc/change_meteor_chance(mod)
+TYPE_PROC_REF(/obj/machinery/satellite/meteor_shield, change_meteor_chance)(mod)
 	var/datum/round_event_control/E = locate(/datum/round_event_control/meteor_wave) in SSevents.control
 	if(E)
 		E.weight *= mod

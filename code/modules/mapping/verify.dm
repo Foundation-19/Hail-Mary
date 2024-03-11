@@ -13,7 +13,7 @@
 	original_path = map.original_path || "Untitled"
 
 /// Show a rendered version of this report to a client.
-/datum/map_report/proc/show_to(client/C)
+TYPE_PROC_REF(/datum/map_report, show_to)(client/C)
 	var/list/html = list()
 	html += "<p>Report for map file <tt>[original_path]</tt></p>"
 	if(crashed)
@@ -53,7 +53,7 @@
 /// Check a parsed but not yet loaded map for errors.
 ///
 /// Returns a [/datum/map_report] if there are errors or `FALSE` otherwise.
-/datum/parsed_map/proc/check_for_errors()
+TYPE_PROC_REF(/datum/parsed_map, check_for_errors)()
 	var/datum/map_report/report = new(src)
 	. = report
 

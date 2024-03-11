@@ -54,7 +54,7 @@
  * Arguments:
  * * approved_by - The user who approved the interview, used for logging
  */
-/datum/interview/proc/approve(client/approved_by)
+TYPE_PROC_REF(/datum/interview, approve)(client/approved_by)
 	status = INTERVIEW_APPROVED
 	read_only = TRUE
 	GLOB.interviews.approved_ckeys |= owner_ckey
@@ -73,7 +73,7 @@
  * Arguments:
  * * denied_by - The user who denied the interview, used for logging
  */
-/datum/interview/proc/deny(client/denied_by)
+TYPE_PROC_REF(/datum/interview, deny)(client/denied_by)
 	status = INTERVIEW_DENIED
 	read_only = TRUE
 	GLOB.interviews.close_interview(src)
@@ -90,7 +90,7 @@
 /**
  * Forces client to reconnect, used in the callback from approval
  */
-/datum/interview/proc/reconnect_owner()
+TYPE_PROC_REF(/datum/interview, reconnect_owner)()
 	if (!owner)
 		return
 	winset(owner, null, "command=.reconnect")
@@ -98,7 +98,7 @@
 /**
  * Verb for opening the existing interview, or if relevant creating a new interview if possible.
  */
-/mob/dead/new_player/proc/open_interview()
+TYPE_PROC_REF(/mob/dead/new_player, open_interview)()
 	set name = "Open Interview"
 	set category = "Interview"
 	var/mob/dead/new_player/M = usr
@@ -164,5 +164,5 @@
 /**
  * Generates a clickable link to open this interview
  */
-/datum/interview/proc/link_self()
+TYPE_PROC_REF(/datum/interview, link_self)()
 	return "<a href='?_src_=holder;[HrefToken(TRUE)];interview=[REF(src)]'>Interview #[id]</a>"

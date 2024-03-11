@@ -18,29 +18,29 @@ SUBSYSTEM_DEF(matchmaking)
 	return ..()
 
 
-/datum/controller/subsystem/matchmaking/proc/add_candidate_aspiration(mob/living/candidate, datum/matchmaking_pref/aspiration)
+TYPE_PROC_REF(/datum/controller/subsystem/matchmaking, add_candidate_aspiration)(mob/living/candidate, datum/matchmaking_pref/aspiration)
 	if(!bachelors[candidate])
 		RegisterSignal(candidate, COMSIG_PARENT_QDELETING, PROC_REF(on_candidate_qdel))
 		RegisterSignal(candidate, COMSIG_MOB_CLIENT_LOGOUT, PROC_REF(on_candidate_logout))
 	LAZYADD(bachelors[candidate], aspiration)
 
 
-/datum/controller/subsystem/matchmaking/proc/remove_candidate_aspiration(mob/living/candidate, datum/matchmaking_pref/aspiration)
+TYPE_PROC_REF(/datum/controller/subsystem/matchmaking, remove_candidate_aspiration)(mob/living/candidate, datum/matchmaking_pref/aspiration)
 	LAZYREMOVE(bachelors[candidate], aspiration)
 	if(!bachelors[candidate])
 		remove_candidate(candidate)
 
 
-/datum/controller/subsystem/matchmaking/proc/remove_candidate(mob/living/candidate)
+TYPE_PROC_REF(/datum/controller/subsystem/matchmaking, remove_candidate)(mob/living/candidate)
 	bachelors -= candidate
 	UnregisterSignal(candidate, list(COMSIG_PARENT_QDELETING, COMSIG_MOB_CLIENT_LOGOUT))
 
 
-/datum/controller/subsystem/matchmaking/proc/on_candidate_qdel(mob/living/candidate)
+TYPE_PROC_REF(/datum/controller/subsystem/matchmaking, on_candidate_qdel)(mob/living/candidate)
 	SIGNAL_HANDLER
 	remove_candidate(candidate)
 
-/datum/controller/subsystem/matchmaking/proc/on_candidate_logout(mob/living/candidate)
+TYPE_PROC_REF(/datum/controller/subsystem/matchmaking, on_candidate_logout)(mob/living/candidate)
 	SIGNAL_HANDLER
 	if(candidate.key)
 		return // They disconnected and may be back.
@@ -48,7 +48,7 @@ SUBSYSTEM_DEF(matchmaking)
 	remove_candidate(candidate)
 
 
-/datum/controller/subsystem/matchmaking/proc/matchmake()
+TYPE_PROC_REF(/datum/controller/subsystem/matchmaking, matchmake)()
 	for(var/mob/living/candidate as anything in bachelors)
 		if(candidate.stat != CONSCIOUS || !candidate.mind || !candidate.client?.prefs)
 			continue
@@ -103,11 +103,11 @@ SUBSYSTEM_DEF(matchmaking)
 	return ..()
 
 
-/datum/matchmaking_pref/proc/on_candidate_qdel(mob/living/source, force)
+TYPE_PROC_REF(/datum/matchmaking_pref, on_candidate_qdel)(mob/living/source, force)
 	qdel(src)
 
 
-/datum/matchmaking_pref/proc/try_finding_matches()
+TYPE_PROC_REF(/datum/matchmaking_pref, try_finding_matches)()
 	if(matches_found >= matches_aimed)
 		SSmatchmaking.remove_candidate_aspiration(pref_holder, src)
 		return
@@ -158,7 +158,7 @@ SUBSYSTEM_DEF(matchmaking)
 			break // No more searching for this one.
 
 
-/datum/matchmaking_pref/proc/enact_match(mob/living/target)
+TYPE_PROC_REF(/datum/matchmaking_pref, enact_match)(mob/living/target)
 	matches_found++
 	if(spawn_time > 0)
 		addtimer(CALLBACK(src, PROC_REF(do_enact_match), WEAKREF(target)), spawn_time)
@@ -168,7 +168,7 @@ SUBSYSTEM_DEF(matchmaking)
 		SSmatchmaking.remove_candidate_aspiration(pref_holder, src)
 
 
-/datum/matchmaking_pref/proc/do_enact_match(mob/living/target)
+TYPE_PROC_REF(/datum/matchmaking_pref, do_enact_match)(mob/living/target)
 	if(QDELETED(pref_holder) || !pref_holder.ckey || !pref_holder.mind)
 		qdel(src)
 		return
@@ -194,7 +194,7 @@ SUBSYSTEM_DEF(matchmaking)
 	on_match_enacted(target)
 
 
-/datum/matchmaking_pref/proc/on_match_enacted(mob/living/target)
+TYPE_PROC_REF(/datum/matchmaking_pref, on_match_enacted)(mob/living/target)
 	return
 
 

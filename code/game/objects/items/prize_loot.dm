@@ -11,7 +11,7 @@
 	. = ..()
 	uses_left = rand(2, initial(src.uses_left))
 
-/obj/item/lockpick_set/proc/use_pick(mob/user)
+TYPE_PROC_REF(/obj/item/lockpick_set, use_pick)(mob/user)
 	uses_left--
 	switch(uses_left)
 		if(1)
@@ -91,7 +91,7 @@
 			. += "The lock looks tampered with."
 		. += "There [prize_amount > 1 ? "are" : "is"] [prize_amount] [prize_amount > 1 ? "objects" : "object"]."
 
-/obj/item/locked_box/proc/initialize_prizes()
+TYPE_PROC_REF(/obj/item/locked_box, initialize_prizes)()
 	if(!global_loot_lists.len)
 		return // Stop proceeding if we have no prizes.
 
@@ -103,7 +103,7 @@
 	for(var/iii in 1 to prize_amount) //go back up to understand why we populate prizes
 		prizes += pick(potential_prizes)
 
-/obj/item/locked_box/proc/spawn_prizes()
+TYPE_PROC_REF(/obj/item/locked_box, spawn_prizes)()
 	if(trapped) //gnarly
 		spawn(3 SECONDS)
 			explosion(src, 0,0,1, flame_range = 2)

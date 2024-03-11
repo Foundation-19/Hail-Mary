@@ -5,7 +5,7 @@
 	handle_robot_hud_updates()
 	handle_robot_cell()
 
-/mob/living/silicon/robot/proc/handle_robot_cell()
+TYPE_PROC_REF(/mob/living/silicon/robot, handle_robot_cell)()
 	if(stat != DEAD)
 		if(low_power_mode)
 			if(cell && cell.charge)
@@ -14,7 +14,7 @@
 		else if(stat == CONSCIOUS)
 			use_power()
 
-/mob/living/silicon/robot/proc/use_power()
+TYPE_PROC_REF(/mob/living/silicon/robot, use_power)()
 	if(cell && cell.charge)
 		if(cell.charge <= 100)
 			uneq_all()
@@ -26,7 +26,7 @@
 		update_headlamp()
 	diag_hud_set_borgcell()
 
-/mob/living/silicon/robot/proc/handle_robot_hud_updates()
+TYPE_PROC_REF(/mob/living/silicon/robot, handle_robot_hud_updates)()
 	if(!client)
 		return
 
@@ -52,7 +52,7 @@
 		else
 			hud_used.healths.icon_state = "health7"
 
-/mob/living/silicon/robot/proc/update_cell_hud_icon()
+TYPE_PROC_REF(/mob/living/silicon/robot, update_cell_hud_icon)()
 	if(cell)
 		var/cellcharge = cell.charge/cell.maxcharge
 		switch(cellcharge)

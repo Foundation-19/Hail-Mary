@@ -130,14 +130,14 @@ Difficulty: Hard
 	if(charging)
 		DestroySurroundings()
 
-/mob/living/simple_animal/hostile/megafauna/bubblegum/proc/triple_charge()
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/megafauna/bubblegum, triple_charge)()
 	charge()
 	sleep(10)
 	charge()
 	sleep(10)
 	charge()
 
-/mob/living/simple_animal/hostile/megafauna/bubblegum/proc/charge()
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/megafauna/bubblegum, charge)()
 	var/turf/T = get_turf(target)
 	if(!T || T == loc)
 		return
@@ -178,7 +178,7 @@ Difficulty: Hard
 	charging = 0
 
 
-/mob/living/simple_animal/hostile/megafauna/bubblegum/proc/blood_warp()
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/megafauna/bubblegum, blood_warp)()
 	var/obj/effect/decal/cleanable/blood/found_bloodpool
 	var/list/pools = list()
 	var/can_jaunt = FALSE
@@ -200,7 +200,7 @@ Difficulty: Hard
 		visible_message(span_danger("And springs back out!"))
 
 
-/mob/living/simple_animal/hostile/megafauna/bubblegum/proc/blood_spray()
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/megafauna/bubblegum, blood_spray)()
 	visible_message(span_danger("[src] sprays a stream of gore!"))
 	var/turf/E = get_edge_target_turf(src, src.dir)
 	var/range = 10
@@ -217,7 +217,7 @@ Difficulty: Hard
 		previousturf = J
 		sleep(1)
 
-/mob/living/simple_animal/hostile/megafauna/bubblegum/proc/slaughterlings()
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/megafauna/bubblegum, slaughterlings)()
 	visible_message(span_danger("[src] summons a shoal of slaughterlings!"))
 	for(var/obj/effect/decal/cleanable/blood/H in range(src, 10))
 		if(prob(25))

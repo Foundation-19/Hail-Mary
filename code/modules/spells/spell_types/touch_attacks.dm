@@ -7,12 +7,12 @@
 	include_user = 1
 	range = -1
 
-/obj/effect/proc_holder/spell/targeted/touch/proc/remove_hand(recharge = FALSE)
+TYPE_PROC_REF(/obj/effect/proc_holder/spell/targeted/touch, remove_hand)(recharge = FALSE)
 	QDEL_NULL(attached_hand)
 	if(recharge)
 		charge_counter = charge_max
 
-/obj/effect/proc_holder/spell/targeted/touch/proc/on_hand_destroy(obj/item/melee/touch_attack/hand)
+TYPE_PROC_REF(/obj/effect/proc_holder/spell/targeted/touch, on_hand_destroy)(obj/item/melee/touch_attack/hand)
 	if(hand != attached_hand)
 		CRASH("Incorrect touch spell hand.")
 	//Start recharging.
@@ -38,7 +38,7 @@
 	else
 		return ..()
 
-/obj/effect/proc_holder/spell/targeted/touch/proc/ChargeHand(mob/living/carbon/user)
+TYPE_PROC_REF(/obj/effect/proc_holder/spell/targeted/touch, ChargeHand)(mob/living/carbon/user)
 	attached_hand = new hand_path(src)
 	attached_hand.attached_spell = src
 	if(!user.put_in_hands(attached_hand))

@@ -60,7 +60,7 @@
 			//Deny animation would be nice to have.
 			playsound(src, 'sound/machines/buzz-sigh.ogg', 30, 1)
 
-/obj/machinery/door/password/proc/ask_for_pass(mob/user)
+TYPE_PROC_REF(/obj/machinery/door/password, ask_for_pass)(mob/user)
 	var/guess = stripped_input(user,"Enter the password:", "Password", "")
 	if(guess == password)
 		return TRUE

@@ -41,11 +41,11 @@
 		M.update_inv_gloves()
 
 // Called just before an attack_hand(), in mob/UnarmedAttack()
-/obj/item/clothing/gloves/proc/Touch(atom/A, proximity)
+TYPE_PROC_REF(/obj/item/clothing/gloves, Touch)(atom/A, proximity)
 	return FALSE // return TRUE to cancel attack_hand()
 
-/obj/item/melee/unarmed/proc/Touch(atom/A, proximity)
+TYPE_PROC_REF(/obj/item/melee/unarmed, Touch)(atom/A, proximity)
 	return FALSE
 
-/obj/item/pda/proc/Touch(atom/A, proximity)
+TYPE_PROC_REF(/obj/item/pda, Touch)(atom/A, proximity)
 	return FALSE

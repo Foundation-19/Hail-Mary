@@ -1,4 +1,4 @@
-/obj/item/melee/proc/check_martial_counter(mob/living/carbon/human/target, mob/living/carbon/human/user)
+TYPE_PROC_REF(/obj/item/melee, check_martial_counter)(mob/living/carbon/human/target, mob/living/carbon/human/user)
 	if(target.check_martial_melee_block())
 		target.visible_message(span_danger("[target.name] blocks [src] and twists [user]'s arm behind [user.p_their()] back!"),
 					span_userdanger("You block the attack!"))
@@ -147,13 +147,13 @@
 	addtimer(CALLBACK(src, PROC_REF(manual_suicide), user), (5 SECONDS) * i)
 	return MANUAL_SUICIDE
 
-/obj/item/melee/sabre/proc/suicide_dismember(mob/living/user, obj/item/bodypart/affecting)
+TYPE_PROC_REF(/obj/item/melee/sabre, suicide_dismember)(mob/living/user, obj/item/bodypart/affecting)
 	if(!QDELETED(affecting) && affecting.dismemberable && affecting.owner == user && !QDELETED(user))
 		playsound(user, hitsound, 25, 1)
 		affecting.dismember(BRUTE)
 		user.adjustBruteLoss(20)
 
-/obj/item/melee/sabre/proc/manual_suicide(mob/living/user, originally_nodropped)
+TYPE_PROC_REF(/obj/item/melee/sabre, manual_suicide)(mob/living/user, originally_nodropped)
 	if(!QDELETED(user))
 		user.adjustBruteLoss(200)
 		user.death(FALSE)
@@ -360,7 +360,7 @@
 	user.dropItemToGround(src, TRUE)
 	shard.Bumped(user)
 
-/obj/item/melee/supermatter_sword/proc/consume_everything(target)
+TYPE_PROC_REF(/obj/item/melee/supermatter_sword, consume_everything)(target)
 	if(isnull(target))
 		shard.Consume()
 	else if(!isturf(target))
@@ -432,13 +432,13 @@
 	if (held_sausage)
 		. += mutable_appearance(icon, "roastingstick_sausage")
 
-/obj/item/melee/roastingstick/proc/extend(user)
+TYPE_PROC_REF(/obj/item/melee/roastingstick, extend)(user)
 	to_chat(user, "<span class ='warning'>You extend [src].</span>")
 	icon_state = "roastingstick_1"
 	item_state = "nullrod"
 	w_class = WEIGHT_CLASS_BULKY
 
-/obj/item/melee/roastingstick/proc/retract(user)
+TYPE_PROC_REF(/obj/item/melee/roastingstick, retract)(user)
 	to_chat(user, "<span class ='notice'>You collapse [src].</span>")
 	icon_state = "roastingstick_0"
 	item_state = null
@@ -472,7 +472,7 @@
 			QDEL_NULL(beam)
 			playsound(src, 'sound/weapons/batonextend.ogg', 50, 1)
 
-/obj/item/melee/roastingstick/proc/finish_roasting(user, atom/target)
+TYPE_PROC_REF(/obj/item/melee/roastingstick, finish_roasting)(user, atom/target)
 	to_chat(user, "You finish roasting [held_sausage]")
 	playsound(src,'sound/items/welder2.ogg',50,1)
 	held_sausage.add_atom_colour(rgb(103,63,24), FIXED_COLOUR_PRIORITY)

@@ -56,11 +56,11 @@ proc/get_mobs_by_status(status)
 	if(can_invite_to_himself)
 		can_invite_to += "[name]"
 	if(id != "none")
-		verbs += /mob/proc/leave_faction
+		verbs += TYPE_PROC_REF(/mob, leave_faction)
 	if(can_invite_to.len)
-		verbs += /mob/proc/convert_to_status
+		verbs += TYPE_PROC_REF(/mob, convert_to_status)
 
-mob/proc/set_status(var/status)
+TYPE_PROC_REF(mob, set_status)(var/status)
 	var/datum/status/S = get_status_datum(status)
 	var/datum/status/last_S = get_status_datum(src.status)
 	if(!S)
@@ -84,7 +84,7 @@ mob/proc/set_status(var/status)
 
 	return 1
 
-/mob/proc/leave_faction()
+TYPE_PROC_REF(/mob, leave_faction)()
 	set name = "Leave Faction"
 	set category = "Faction"
 	if(status == "none")
@@ -99,7 +99,7 @@ mob/proc/set_status(var/status)
 	set_status("none")
 
 
-/mob/proc/convert_to_status(mob/M in oview(), status in get_can_invite_status())
+TYPE_PROC_REF(/mob, convert_to_status)(mob/M in oview(), status in get_can_invite_status())
 	set name = "Invite To"
 	set category = "Faction"
 	if(!M.mind || !M.client)
@@ -123,7 +123,7 @@ mob/proc/set_status(var/status)
 	if(S.welcome_text)
 		to_chat(M, "<br>[S.welcome_text]")
 
-/mob/proc/get_can_invite_status()
+TYPE_PROC_REF(/mob, get_can_invite_status)()
 	var/datum/status/S = get_status_datum(src.status)
 	return S.can_invite_to
 

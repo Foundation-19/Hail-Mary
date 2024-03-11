@@ -57,7 +57,7 @@ GLOBAL_VAR(orbital_cow_cooldown)
 		. += "Under it reads: [DisplayTimeText(GLOB.orbital_cow_cooldown - world.time, 30)]."
 
 /// Activates the beacon!
-/obj/item/brahmin_beacon/proc/activate_beacon(mob/user)
+TYPE_PROC_REF(/obj/item/brahmin_beacon, activate_beacon)(mob/user)
 	if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
 		return FALSE
 	if(!COOLDOWN_FINISHED(src, clickyclick) || delivering_cow)
@@ -68,7 +68,7 @@ GLOBAL_VAR(orbital_cow_cooldown)
 	user.show_message(span_notice("You press one or more buttons on the uplink..."))
 	addtimer(CALLBACK(src, PROC_REF(claim_beacon), user), 3 SECONDS)
 
-/obj/item/brahmin_beacon/proc/claim_beacon(mob/user)
+TYPE_PROC_REF(/obj/item/brahmin_beacon, claim_beacon)(mob/user)
 	if(!GLOB.orbital_cow_catapult_ready)
 		playsound(src, 'sound/machines/up_end.ogg', 40, ignore_walls = TRUE)
 		if(in_range(src, user))
@@ -86,7 +86,7 @@ GLOBAL_VAR(orbital_cow_cooldown)
 	addtimer(VARSET_CALLBACK(GLOB, orbital_cow_catapult_ready, TRUE), COW_CANNON_RELOAD_DELAY)
 	addtimer(CALLBACK(src, PROC_REF(reset_beacon)), COW_CANNON_RELOAD_DELAY)
 
-/obj/item/brahmin_beacon/proc/drop_cow(mob/user)
+TYPE_PROC_REF(/obj/item/brahmin_beacon, drop_cow)(mob/user)
 	var/obj/structure/closet/supplypod/bluespacepod/pod = new()
 	pod.explosionSize = list(0,0,2,0) // a bit of a boom
 	pod.setStyle(STYLE_BOX)
@@ -109,11 +109,11 @@ GLOBAL_VAR(orbital_cow_cooldown)
 	new /obj/effect/abstract/DPtarget(get_turf(src), pod)
 	addtimer(CALLBACK(src, PROC_REF(reset_beacon)), 7.5 SECONDS)
 
-/obj/item/brahmin_beacon/proc/reset_beacon(mob/user)
+TYPE_PROC_REF(/obj/item/brahmin_beacon, reset_beacon)(mob/user)
 	delivering_cow = FALSE
 	update_icon()
 
-/obj/item/brahmin_beacon/proc/beep_loop()
+TYPE_PROC_REF(/obj/item/brahmin_beacon, beep_loop)()
 	playsound(src, 'sound/machines/targbeep.ogg', 100, ignore_walls = TRUE)
 	if(beeps_left-- < 0)
 		beeps_left = initial(beeps_left)

@@ -128,7 +128,7 @@ Difficulty: Medium
 	else
 		fire_walls()
 
-/mob/living/simple_animal/hostile/megafauna/dragon/proc/fire_rain()
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/megafauna/dragon, fire_rain)()
 	if(!target)
 		return
 	target.visible_message(span_boldwarning("Fire rains from the sky!"))
@@ -136,13 +136,13 @@ Difficulty: Medium
 		if(prob(11))
 			new /obj/effect/temp_visual/target(turf)
 
-/mob/living/simple_animal/hostile/megafauna/dragon/proc/fire_walls()
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/megafauna/dragon, fire_walls)()
 	playsound(get_turf(src),'sound/magic/fireball.ogg', 200, 1)
 
 	for(var/d in GLOB.cardinals)
 		INVOKE_ASYNC(src, PROC_REF(fire_wall), d)
 
-/mob/living/simple_animal/hostile/megafauna/dragon/proc/fire_wall(dir)
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/megafauna/dragon, fire_wall)(dir)
 	var/list/hit_things = list(src)
 	var/turf/E = get_edge_target_turf(src, dir)
 	var/range = 10
@@ -162,12 +162,12 @@ Difficulty: Medium
 		previousturf = J
 		sleep(1)
 
-/mob/living/simple_animal/hostile/megafauna/dragon/proc/triple_swoop()
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/megafauna/dragon, triple_swoop)()
 	swoop_attack(swoop_duration = 30)
 	swoop_attack(swoop_duration = 30)
 	swoop_attack(swoop_duration = 30)
 
-/mob/living/simple_animal/hostile/megafauna/dragon/proc/swoop_attack(fire_rain, atom/movable/manual_target, swoop_duration = 40)
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/megafauna/dragon, swoop_attack)(fire_rain, atom/movable/manual_target, swoop_duration = 40)
 	if(stat || swooping)
 		return
 	if(manual_target)
@@ -316,7 +316,7 @@ Difficulty: Medium
 	. = ..()
 	INVOKE_ASYNC(src, PROC_REF(fall), flame_hit)
 
-/obj/effect/temp_visual/target/proc/fall(list/flame_hit)
+TYPE_PROC_REF(/obj/effect/temp_visual/target, fall)(list/flame_hit)
 	var/turf/T = get_turf(src)
 	playsound(T,'sound/magic/fleshtostone.ogg', 80, 1)
 	new /obj/effect/temp_visual/fireball(T)
@@ -362,7 +362,7 @@ Difficulty: Medium
 	. = ..()
 	INVOKE_ASYNC(src, PROC_REF(flight), negative)
 
-/obj/effect/temp_visual/dragon_flight/proc/flight(negative)
+TYPE_PROC_REF(/obj/effect/temp_visual/dragon_flight, flight)(negative)
 	if(negative)
 		animate(src, pixel_x = -DRAKE_SWOOP_HEIGHT*0.1, pixel_z = DRAKE_SWOOP_HEIGHT*0.15, time = 3, easing = BOUNCE_EASING)
 	else

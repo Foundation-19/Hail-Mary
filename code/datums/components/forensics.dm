@@ -23,24 +23,24 @@
 	check_blood()
 	RegisterSignal(parent, COMSIG_COMPONENT_CLEAN_ACT, PROC_REF(clean_act))
 
-/datum/component/forensics/proc/wipe_fingerprints()
+TYPE_PROC_REF(/datum/component/forensics, wipe_fingerprints)()
 	fingerprints = null
 	return TRUE
 
-/datum/component/forensics/proc/wipe_hiddenprints()
+TYPE_PROC_REF(/datum/component/forensics, wipe_hiddenprints)()
 	return	//no.
 
-/datum/component/forensics/proc/wipe_blood_DNA()
+TYPE_PROC_REF(/datum/component/forensics, wipe_blood_DNA)()
 	blood_DNA = null
 	if(isitem(parent))
 		qdel(parent.GetComponent(/datum/component/decal/blood))
 	return TRUE
 
-/datum/component/forensics/proc/wipe_fibers()
+TYPE_PROC_REF(/datum/component/forensics, wipe_fibers)()
 	fibers = null
 	return TRUE
 
-/datum/component/forensics/proc/clean_act(strength)
+TYPE_PROC_REF(/datum/component/forensics, clean_act)(strength)
 	if(strength >= CLEAN_IMPRESSIVE)
 		wipe_fingerprints()
 	if(strength >= CLEAN_WEAK)
@@ -48,7 +48,7 @@
 	if(strength >= CLEAN_IMPRESSIVE)
 		wipe_fibers()
 
-/datum/component/forensics/proc/add_fingerprint_list(list/_fingerprints)	//list(text)
+TYPE_PROC_REF(/datum/component/forensics, add_fingerprint_list)(list/_fingerprints)	//list(text)
 	if(!length(_fingerprints))
 		return
 	LAZYINITLIST(fingerprints)
@@ -56,7 +56,7 @@
 		fingerprints[i] = i
 	return TRUE
 
-/datum/component/forensics/proc/add_fingerprint(mob/living/M, ignoregloves = FALSE)
+TYPE_PROC_REF(/datum/component/forensics, add_fingerprint)(mob/living/M, ignoregloves = FALSE)
 	if(!M)
 		return
 	add_hiddenprint(M)
@@ -74,7 +74,7 @@
 		LAZYSET(fingerprints, full_print, full_print)
 	return TRUE
 
-/datum/component/forensics/proc/add_fiber_list(list/_fibertext)		//list(text)
+TYPE_PROC_REF(/datum/component/forensics, add_fiber_list)(list/_fibertext)		//list(text)
 	if(!length(_fibertext))
 		return
 	LAZYINITLIST(fibers)
@@ -82,7 +82,7 @@
 		fibers[i] = i
 	return TRUE
 
-/datum/component/forensics/proc/add_fibers(mob/living/carbon/human/M)
+TYPE_PROC_REF(/datum/component/forensics, add_fibers)(mob/living/carbon/human/M)
 	var/fibertext
 	var/item_multiplier = isitem(src)?1.2:1
 	if(M.wear_suit)
@@ -114,7 +114,7 @@
 			LAZYSET(fibers, fibertext, fibertext)
 	return TRUE
 
-/datum/component/forensics/proc/add_hiddenprint_list(list/_hiddenprints)	//list(ckey = text)
+TYPE_PROC_REF(/datum/component/forensics, add_hiddenprint_list)(list/_hiddenprints)	//list(ckey = text)
 	if(!length(_hiddenprints))
 		return
 	LAZYINITLIST(hiddenprints)
@@ -122,7 +122,7 @@
 		hiddenprints[i] = _hiddenprints[i]
 	return TRUE
 
-/datum/component/forensics/proc/add_hiddenprint(mob/living/M)
+TYPE_PROC_REF(/datum/component/forensics, add_hiddenprint)(mob/living/M)
 	if(!M || !M.key)
 		return
 	var/hasgloves = ""
@@ -142,7 +142,7 @@
 	A.fingerprintslast = M.ckey
 	return TRUE
 
-/datum/component/forensics/proc/add_blood_DNA(list/dna)		//list(dna_enzymes = type)
+TYPE_PROC_REF(/datum/component/forensics, add_blood_DNA)(list/dna)		//list(dna_enzymes = type)
 	if(!length(dna))
 		return
 	LAZYINITLIST(blood_DNA)
@@ -151,7 +151,7 @@
 	check_blood()
 	return TRUE
 
-/datum/component/forensics/proc/check_blood()
+TYPE_PROC_REF(/datum/component/forensics, check_blood)()
 	if(!isitem(parent))
 		return
 	if(!length(blood_DNA))

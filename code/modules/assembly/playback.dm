@@ -20,7 +20,7 @@
 	if(listening && !radio_freq)
 		record_speech(speaker, raw_message, message_language)
 
-/obj/item/assembly/playback/proc/record_speech(atom/movable/speaker, raw_message, datum/language/message_language)
+TYPE_PROC_REF(/obj/item/assembly/playback, record_speech)(atom/movable/speaker, raw_message, datum/language/message_language)
 	recorded = raw_message
 	listening = FALSE
 	languages = message_language
@@ -33,7 +33,7 @@
 		return FALSE
 	say("[recorded]", language = languages) // Repeat the message in the language it was said in
 
-/obj/item/assembly/playback/proc/record()
+TYPE_PROC_REF(/obj/item/assembly/playback, record)()
 	if(!secured || holder)
 		return FALSE
 	listening = !listening

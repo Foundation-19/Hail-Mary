@@ -125,7 +125,7 @@
 
 /// By default, a rule is acceptable if it satisfies the threat level/population requirements.
 /// If your rule has extra checks, such as counting security officers, do that in ready() instead
-/datum/dynamic_ruleset/proc/acceptable(population = 0, threat_level = 0)
+TYPE_PROC_REF(/datum/dynamic_ruleset, acceptable)(population = 0, threat_level = 0)
 	if(minimum_players > population)
 		SSblackbox.record_feedback("tally","dynamic",1,"Times rulesets rejected due to low pop")
 		return FALSE
@@ -154,7 +154,7 @@
 			return TRUE
 
 /// Called when a suitable rule is picked during roundstart(). Will some times attempt to scale a rule up when there is threat remaining. Returns the amount of scaled steps.
-/datum/dynamic_ruleset/proc/scale_up(extra_rulesets = 0, remaining_threat_level = 0)
+TYPE_PROC_REF(/datum/dynamic_ruleset, scale_up)(extra_rulesets = 0, remaining_threat_level = 0)
 	remaining_threat_level -= cost
 	if(scaling_cost && scaling_cost <= remaining_threat_level) // Only attempts to scale the modes with a scaling cost explicitly set.
 		var/new_prob
@@ -173,18 +173,18 @@
 		return scaled_times * scaling_cost
 
 /// This is called if persistent variable is true everytime SSTicker ticks.
-/datum/dynamic_ruleset/proc/rule_process()
+TYPE_PROC_REF(/datum/dynamic_ruleset, rule_process)()
 	return TRUE
 	
 /// Called on game mode pre_setup for roundstart rulesets.
 /// Do everything you need to do before job is assigned here.
 /// IMPORTANT: ASSIGN special_role HERE
-/datum/dynamic_ruleset/proc/pre_execute()
+TYPE_PROC_REF(/datum/dynamic_ruleset, pre_execute)()
 	return TRUE
 
 /// Called on post_setup on roundstart and when the rule executes on midround and latejoin.
 /// Give your candidates or assignees equipment and antag datum here.
-/datum/dynamic_ruleset/proc/execute()
+TYPE_PROC_REF(/datum/dynamic_ruleset, execute)()
 	for(var/datum/mind/M in assigned)
 		M.add_antag_datum(antag_datum)
 	return TRUE
@@ -192,7 +192,7 @@
 /// Here you can perform any additional checks you want. (such as checking the map etc)
 /// Remember that on roundstart no one knows what their job is at this point.
 /// IMPORTANT: If ready() returns TRUE, that means pre_execute() or execute() should never fail!
-/datum/dynamic_ruleset/proc/ready(forced = 0)
+TYPE_PROC_REF(/datum/dynamic_ruleset, ready)(forced = 0)
 	if (required_candidates > candidates.len)
 		SSblackbox.record_feedback("tally","dynamic",1,"Times rulesets rejected due to not enough candidates")
 		return FALSE
@@ -200,13 +200,13 @@
 
 /// Runs from gamemode process() if ruleset fails to start, like delayed rulesets not getting valid candidates.
 /// This one only handles refunding the threat, override in ruleset to clean up the rest.
-/datum/dynamic_ruleset/proc/clean_up()
+TYPE_PROC_REF(/datum/dynamic_ruleset, clean_up)()
 	return
 
 /// Gets weight of the ruleset
 /// Note that this decreases weight if repeatable is TRUE and repeatable_weight_decrease is higher than 0
 /// Note: If you don't want repeatable rulesets to decrease their weight use the weight variable directly
-/datum/dynamic_ruleset/proc/get_weight()
+TYPE_PROC_REF(/datum/dynamic_ruleset, get_weight)()
 	if(repeatable && weight > 1 && repeatable_weight_decrease > 0)
 		for(var/datum/dynamic_ruleset/DR in mode.executed_rules)
 			if(istype(DR, type))
@@ -216,20 +216,20 @@
 /// Here you can remove candidates that do not meet your requirements.
 /// This means if their job is not correct or they have disconnected you can remove them from candidates here.
 /// Usually this does not need to be changed unless you need some specific requirements from your candidates.
-/datum/dynamic_ruleset/proc/trim_candidates()
+TYPE_PROC_REF(/datum/dynamic_ruleset, trim_candidates)()
 	return
 
 /// Set mode result and news report here.
 /// Only called if ruleset is flagged as HIGHLANDER_RULESET
-/datum/dynamic_ruleset/proc/round_result()
+TYPE_PROC_REF(/datum/dynamic_ruleset, round_result)()
 
 /// Checks if round is finished, return true to end the round.
 /// Only called if ruleset is flagged as HIGHLANDER_RULESET
-/datum/dynamic_ruleset/proc/check_finished()
+TYPE_PROC_REF(/datum/dynamic_ruleset, check_finished)()
 	return FALSE
 
 /// Returns a list to be displayed on statbus.
-/datum/dynamic_ruleset/proc/get_blackbox_info()
+TYPE_PROC_REF(/datum/dynamic_ruleset, get_blackbox_info)()
 	var/list/ruleset_data = list()
 	ruleset_data["name"] = name
 	ruleset_data["rule_type"] = ruletype

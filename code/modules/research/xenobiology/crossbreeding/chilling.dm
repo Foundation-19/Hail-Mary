@@ -23,7 +23,7 @@ Chilling extracts:
 	playsound(src, 'sound/effects/glassbr1.ogg', 50, 1)
 	do_effect(user)
 
-/obj/item/slimecross/chilling/proc/do_effect(mob/user) //If, for whatever reason, you don't want to delete the extract, don't do ..()
+TYPE_PROC_REF(/obj/item/slimecross/chilling, do_effect)(mob/user) //If, for whatever reason, you don't want to delete the extract, don't do ..()
 	qdel(src)
 	return
 
@@ -266,7 +266,7 @@ Chilling extracts:
 	user.visible_message(span_danger("[src] begins to shake with muted intensity!"))
 	addtimer(CALLBACK(src, PROC_REF(boom)), 50)
 
-/obj/item/slimecross/chilling/oil/proc/boom()
+TYPE_PROC_REF(/obj/item/slimecross/chilling/oil, boom)()
 	explosion(get_turf(src), -1, -1, 10, 0) //Large radius, but mostly light damage, and no flash.
 	qdel(src)
 

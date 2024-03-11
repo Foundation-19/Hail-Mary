@@ -55,7 +55,7 @@
 	movable_parent.inertia_moving = FALSE
 	return ..()
 
-/datum/component/drift/proc/apply_initial_visuals(visual_delay)
+TYPE_PROC_REF(/datum/component/drift, apply_initial_visuals)(visual_delay)
 	// If something "somewhere" doesn't want us to apply our glidesize delays, don't
 	if(SEND_SIGNAL(parent, COMSIG_MOVABLE_DRIFT_VISUAL_ATTEMPT) & DRIFT_VISUAL_FAILED)
 		return
@@ -72,7 +72,7 @@
 		//It's ok if it's not, it's just important if it is.
 		mob_parent.client?.visual_delay = MOVEMENT_ADJUSTED_GLIDE_SIZE(visual_delay, SSspacedrift.visual_delay)
 
-/datum/component/drift/proc/newtonian_impulse(datum/source, inertia_direction)
+TYPE_PROC_REF(/datum/component/drift, newtonian_impulse)(datum/source, inertia_direction)
 	SIGNAL_HANDLER
 	var/atom/movable/movable_parent = parent
 	inertia_last_loc = movable_parent.loc
@@ -81,7 +81,7 @@
 		qdel(src)
 	return COMPONENT_MOVABLE_NEWTONIAN_BLOCK
 
-/datum/component/drift/proc/drifting_start()
+TYPE_PROC_REF(/datum/component/drift, drifting_start)()
 	SIGNAL_HANDLER
 	var/atom/movable/movable_parent = parent
 	inertia_last_loc = movable_parent.loc
@@ -93,21 +93,21 @@
 	// If you stop pulling something mid drift, I want it to retain that momentum
 	RegisterSignal(movable_parent, COMSIG_ATOM_NO_LONGER_PULLING, PROC_REF(stopped_pulling))
 
-/datum/component/drift/proc/drifting_stop()
+TYPE_PROC_REF(/datum/component/drift, drifting_stop)()
 	SIGNAL_HANDLER
 	var/atom/movable/movable_parent = parent
 	movable_parent.inertia_moving = FALSE
 	ignore_next_glide = FALSE
 	UnregisterSignal(movable_parent, list(COMSIG_MOVABLE_MOVED, COMSIG_MOVABLE_NEWTONIAN_MOVE, COMSIG_MOVABLE_UPDATE_GLIDE_SIZE, COMSIG_ATOM_NO_LONGER_PULLING))
 
-/datum/component/drift/proc/before_move(datum/source)
+TYPE_PROC_REF(/datum/component/drift, before_move)(datum/source)
 	SIGNAL_HANDLER
 	var/atom/movable/movable_parent = parent
 	movable_parent.inertia_moving = TRUE
 	old_dir = movable_parent.dir
 	delayed = FALSE
 
-/datum/component/drift/proc/after_move(datum/source, succeeded, visual_delay)
+TYPE_PROC_REF(/datum/component/drift, after_move)(datum/source, succeeded, visual_delay)
 	SIGNAL_HANDLER
 	if(!succeeded)
 		qdel(src)
@@ -123,12 +123,12 @@
 	inertia_last_loc = movable_parent.loc
 	ignore_next_glide = TRUE
 
-/datum/component/drift/proc/loop_death(datum/source)
+TYPE_PROC_REF(/datum/component/drift, loop_death)(datum/source)
 	SIGNAL_HANDLER
 	drifting_loop = null
 	UnregisterSignal(parent, COMSIG_MOVABLE_NEWTONIAN_MOVE)
 
-/datum/component/drift/proc/handle_move(datum/source, old_loc)
+TYPE_PROC_REF(/datum/component/drift, handle_move)(datum/source, old_loc)
 	SIGNAL_HANDLER
 	// This can happen, because signals once sent cannot be stopped
 	if(QDELETED(src))
@@ -146,7 +146,7 @@
 /// We're going to take the passed in glide size
 /// and use it to manually delay our loop for that period
 /// to allow the other movement to complete
-/datum/component/drift/proc/handle_glidesize_update(datum/source, glide_size)
+TYPE_PROC_REF(/datum/component/drift, handle_glidesize_update)(datum/source, glide_size)
 	SIGNAL_HANDLER
 	// If we aren't drifting, or this is us, fuck off
 	var/atom/movable/movable_parent = parent
@@ -162,13 +162,13 @@
 	delayed = TRUE
 
 /// If we're pulling something and stop, we want it to continue at our rate and such
-/datum/component/drift/proc/stopped_pulling(datum/source, atom/movable/was_pulling)
+TYPE_PROC_REF(/datum/component/drift, stopped_pulling)(datum/source, atom/movable/was_pulling)
 	SIGNAL_HANDLER
 	// This does mean it falls very slightly behind, but otherwise they'll potentially run into us
 	var/next_move_in = drifting_loop.timer - world.time + world.tick_lag
 	was_pulling.newtonian_move(drifting_loop.direction, start_delay = next_move_in)
 
-/datum/component/drift/proc/glide_to_halt(glide_for)
+TYPE_PROC_REF(/datum/component/drift, glide_to_halt)(glide_for)
 	if(!ismob(parent))
 		qdel(src)
 		return
@@ -185,7 +185,7 @@
 	qdel(drifting_loop)
 	RegisterSignal(parent, COMSIG_MOB_CLIENT_PRE_MOVE, PROC_REF(allow_final_movement))
 
-/datum/component/drift/proc/allow_final_movement(datum/source)
+TYPE_PROC_REF(/datum/component/drift, allow_final_movement)(datum/source)
 	// Some things want to allow movement out of spacedrift, we should let them
 	if(SEND_SIGNAL(parent, COMSIG_MOVABLE_DRIFT_BLOCK_INPUT) & DRIFT_ALLOW_INPUT)
 		return

@@ -125,7 +125,7 @@ GLOBAL_LIST_INIT(devil_suffix, list(" the Red", " the Soulless", " the Master", 
 	. = ..()
 	.["Toggle ascendable"] = CALLBACK(src,PROC_REF(admin_toggle_ascendable))
 
-/datum/antagonist/devil/proc/admin_toggle_ascendable(mob/admin)
+TYPE_PROC_REF(/datum/antagonist/devil, admin_toggle_ascendable)(mob/admin)
 	ascendable = !ascendable
 	message_admins("[key_name_admin(admin)] set [owner.current] devil ascendable to [ascendable]")
 	log_admin("[key_name_admin(admin)] set [owner.current] devil ascendable to [ascendable])")
@@ -180,7 +180,7 @@ GLOBAL_LIST_INIT(devil_suffix, list(" the Red", " the Soulless", " the Master", 
 /proc/randomdevilbanish()
 	return pick(BANISH_WATER, BANISH_COFFIN, BANISH_FORMALDYHIDE, BANISH_RUNES, BANISH_CANDLES, BANISH_DESTRUCTION, BANISH_FUNERAL_GARB)
 
-/datum/antagonist/devil/proc/add_soul(datum/mind/soul)
+TYPE_PROC_REF(/datum/antagonist/devil, add_soul)(datum/mind/soul)
 	if(soulsOwned.Find(soul))
 		return
 	soulsOwned += soul
@@ -198,13 +198,13 @@ GLOBAL_LIST_INIT(devil_suffix, list(" the Red", " the Soulless", " the Master", 
 		if(ARCH_THRESHOLD)
 			increase_arch_devil()
 
-/datum/antagonist/devil/proc/remove_soul(datum/mind/soul)
+TYPE_PROC_REF(/datum/antagonist/devil, remove_soul)(datum/mind/soul)
 	if(soulsOwned.Remove(soul))
 		check_regression()
 		to_chat(owner.current, span_warning("You feel as though a soul has slipped from your grasp."))
 		update_hud()
 
-/datum/antagonist/devil/proc/check_regression()
+TYPE_PROC_REF(/datum/antagonist/devil, check_regression)()
 	if(form == ARCH_DEVIL)
 		return //arch devil can't regress
 	//Yes, fallthrough behavior is intended, so I can't use a switch statement.
@@ -216,7 +216,7 @@ GLOBAL_LIST_INIT(devil_suffix, list(" the Red", " the Soulless", " the Master", 
 		give_appropriate_spells()
 		to_chat(owner.current, span_warning("As punishment for your failures, all of your powers except contract creation have been revoked."))
 
-/datum/antagonist/devil/proc/regress_humanoid()
+TYPE_PROC_REF(/datum/antagonist/devil, regress_humanoid)()
 	to_chat(owner.current, span_warning("Your powers weaken, have more contracts be signed to regain power."))
 	if(ishuman(owner.current))
 		var/mob/living/carbon/human/H = owner.current
@@ -227,7 +227,7 @@ GLOBAL_LIST_INIT(devil_suffix, list(" the Red", " the Soulless", " the Master", 
 		owner.current.forceMove(get_turf(owner.current))//Fixes dying while jaunted leaving you permajaunted.
 	form = BASIC_DEVIL
 
-/datum/antagonist/devil/proc/regress_blood_lizard()
+TYPE_PROC_REF(/datum/antagonist/devil, regress_blood_lizard)()
 	var/mob/living/carbon/true_devil/D = owner.current
 	to_chat(D, span_warning("Your powers weaken, have more contracts be signed to regain power."))
 	D.oldform.forceMove(D.drop_location())
@@ -238,7 +238,7 @@ GLOBAL_LIST_INIT(devil_suffix, list(" the Red", " the Soulless", " the Master", 
 	update_hud()
 
 
-/datum/antagonist/devil/proc/increase_blood_lizard()
+TYPE_PROC_REF(/datum/antagonist/devil, increase_blood_lizard)()
 	to_chat(owner.current, span_warning("You feel as though your humanoid form is about to shed.  You will soon turn into a blood lizard."))
 	sleep(50)
 	if(ishuman(owner.current))
@@ -256,7 +256,7 @@ GLOBAL_LIST_INIT(devil_suffix, list(" the Red", " the Soulless", " the Master", 
 
 
 
-/datum/antagonist/devil/proc/increase_true_devil()
+TYPE_PROC_REF(/datum/antagonist/devil, increase_true_devil)()
 	to_chat(owner.current, span_warning("You feel as though your current form is about to shed.  You will soon turn into a true devil."))
 	sleep(50)
 	var/mob/living/carbon/true_devil/A = new /mob/living/carbon/true_devil(owner.current.loc)
@@ -269,7 +269,7 @@ GLOBAL_LIST_INIT(devil_suffix, list(" the Red", " the Soulless", " the Master", 
 	form = TRUE_DEVIL
 	update_hud()
 
-/datum/antagonist/devil/proc/increase_arch_devil()
+TYPE_PROC_REF(/datum/antagonist/devil, increase_arch_devil)()
 	if(!ascendable)
 		return
 	var/mob/living/carbon/true_devil/D = owner.current
@@ -319,20 +319,20 @@ GLOBAL_LIST_INIT(devil_suffix, list(" the Red", " the Soulless", " the Master", 
 	SSticker.mode.devil_ascended++
 	form = ARCH_DEVIL
 
-/datum/antagonist/devil/proc/remove_spells()
+TYPE_PROC_REF(/datum/antagonist/devil, remove_spells)()
 	for(var/X in owner.spell_list)
 		var/obj/effect/proc_holder/spell/S = X
 		if(is_type_in_typecache(S, devil_spells))
 			owner.RemoveSpell(S)
 
-/datum/antagonist/devil/proc/give_summon_contract()
+TYPE_PROC_REF(/datum/antagonist/devil, give_summon_contract)()
 	owner.AddSpell(new /obj/effect/proc_holder/spell/targeted/summon_contract(null))
 	if(obligation == OBLIGATION_FIDDLE)
 		owner.AddSpell(new /obj/effect/proc_holder/spell/targeted/conjure_item/violin(null))
 	else if(obligation == OBLIGATION_DANCEOFF)
 		owner.AddSpell(new /obj/effect/proc_holder/spell/targeted/summon_dancefloor(null))
 
-/datum/antagonist/devil/proc/give_appropriate_spells()
+TYPE_PROC_REF(/datum/antagonist/devil, give_appropriate_spells)()
 	remove_spells()
 	give_summon_contract()
 	if(SOULVALUE >= ARCH_THRESHOLD && ascendable)
@@ -344,26 +344,26 @@ GLOBAL_LIST_INIT(devil_suffix, list(" the Red", " the Soulless", " the Master", 
 	else if(SOULVALUE >= 0)
 		give_base_spells()
 
-/datum/antagonist/devil/proc/give_base_spells()
+TYPE_PROC_REF(/datum/antagonist/devil, give_base_spells)()
 	owner.AddSpell(new /obj/effect/proc_holder/spell/aimed/fireball/hellish(null))
 	owner.AddSpell(new /obj/effect/proc_holder/spell/targeted/conjure_item/summon_pitchfork(null))
 
-/datum/antagonist/devil/proc/give_blood_spells()
+TYPE_PROC_REF(/datum/antagonist/devil, give_blood_spells)()
 	owner.AddSpell(new /obj/effect/proc_holder/spell/targeted/conjure_item/summon_pitchfork(null))
 	owner.AddSpell(new /obj/effect/proc_holder/spell/aimed/fireball/hellish(null))
 	owner.AddSpell(new /obj/effect/proc_holder/spell/targeted/infernal_jaunt(null))
 
-/datum/antagonist/devil/proc/give_true_spells()
+TYPE_PROC_REF(/datum/antagonist/devil, give_true_spells)()
 	owner.AddSpell(new /obj/effect/proc_holder/spell/targeted/conjure_item/summon_pitchfork/greater(null))
 	owner.AddSpell(new /obj/effect/proc_holder/spell/aimed/fireball/hellish(null))
 	owner.AddSpell(new /obj/effect/proc_holder/spell/targeted/infernal_jaunt(null))
 	owner.AddSpell(new /obj/effect/proc_holder/spell/targeted/sintouch(null))
 
-/datum/antagonist/devil/proc/give_arch_spells()
+TYPE_PROC_REF(/datum/antagonist/devil, give_arch_spells)()
 	owner.AddSpell(new /obj/effect/proc_holder/spell/targeted/conjure_item/summon_pitchfork/ascended(null))
 	owner.AddSpell(new /obj/effect/proc_holder/spell/targeted/sintouch/ascended(null))
 
-/datum/antagonist/devil/proc/beginResurrectionCheck(mob/living/body)
+TYPE_PROC_REF(/datum/antagonist/devil, beginResurrectionCheck)(mob/living/body)
 	if(SOULVALUE>0)
 		to_chat(owner.current, span_userdanger("Your body has been damaged to the point that you may no longer use it.  At the cost of some of your power, you will return to life soon.  Remain in your body."))
 		sleep(DEVILRESURRECTTIME)
@@ -383,7 +383,7 @@ GLOBAL_LIST_INIT(devil_suffix, list(" the Red", " the Soulless", " the Master", 
 	else
 		to_chat(owner.current, span_userdanger("Your hellish powers are too weak to resurrect yourself."))
 
-/datum/antagonist/devil/proc/check_banishment(mob/living/body)
+TYPE_PROC_REF(/datum/antagonist/devil, check_banishment)(mob/living/body)
 	switch(banish)
 		if(BANISH_WATER)
 			if(iscarbon(body))
@@ -427,7 +427,7 @@ GLOBAL_LIST_INIT(devil_suffix, list(" the Red", " the Soulless", " the Master", 
 						return 1
 				return 0
 
-/datum/antagonist/devil/proc/hellish_resurrection(mob/living/body)
+TYPE_PROC_REF(/datum/antagonist/devil, hellish_resurrection)(mob/living/body)
 	message_admins("[owner.name] (true name is: [truename]) is resurrecting using hellish energy.</a>")
 	if(SOULVALUE < ARCH_THRESHOLD || !ascendable) // once ascended, arch devils do not go down in power by any means.
 		reviveNumber += LOSS_PER_DEATH
@@ -446,7 +446,7 @@ GLOBAL_LIST_INIT(devil_suffix, list(" the Red", " the Soulless", " the Master", 
 		create_new_body()
 	check_regression()
 
-/datum/antagonist/devil/proc/create_new_body()
+TYPE_PROC_REF(/datum/antagonist/devil, create_new_body)()
 	if(GLOB.blobstart.len > 0)
 		var/turf/targetturf = get_turf(pick(GLOB.blobstart))
 		var/mob/currentMob = owner.current
@@ -484,7 +484,7 @@ GLOBAL_LIST_INIT(devil_suffix, list(" the Red", " the Soulless", " the Master", 
 		CRASH("Unable to find a blobstart landmark for hellish resurrection")
 
 
-/datum/antagonist/devil/proc/update_hud()
+TYPE_PROC_REF(/datum/antagonist/devil, update_hud)()
 	if(iscarbon(owner.current))
 		var/mob/living/C = owner.current
 		if(C.hud_used && C.hud_used.devilsouldisplay)
@@ -539,7 +539,7 @@ GLOBAL_LIST_INIT(devil_suffix, list(" the Red", " the Soulless", " the Master", 
 	owner.current.remove_all_languages(LANGUAGE_DEVIL)
 	.=..()
 
-/datum/antagonist/devil/proc/printdevilinfo()
+TYPE_PROC_REF(/datum/antagonist/devil, printdevilinfo)()
 	var/list/parts = list()
 	parts += "The devil's true name is: [truename]"
 	parts += "The devil's bans were:"

@@ -10,7 +10,7 @@
 	*
 	* Pellet cloud currently works on two classes of sources: directed (ammo casings), and circular (grenades, landmines).
 	*	-Directed: This means you're shooting multiple pellets, like buckshot. If an ammo casing is defined as having multiple pellets, it will automatically create a pellet cloud
-	*		and call COMSIG_PELLET_CLOUD_INIT (see [/obj/item/ammo_casing/proc/fire_casing]). Thus, the only projectiles fired will be the ones fired here.
+	*		and call COMSIG_PELLET_CLOUD_INIT (see [TYPE_PROC_REF(/obj/item/ammo_casing, fire_casing)]). Thus, the only projectiles fired will be the ones fired here.
 	*		The magnitude var controls how many pellets are created.
 	*	-Circular: This results in a big spray of shrapnel flying all around the detonation point when the grenade fires COMSIG_GRENADE_PRIME or landmine triggers COMSIG_ITEM_MINE_TRIGGERED.
 	*		The magnitude var controls how big the detonation radius is (the bigger the magnitude, the more shrapnel is created). Grenades can be covered with bodies to reduce shrapnel output.
@@ -37,9 +37,9 @@
 
 	/// Another associated list for hit bodyparts on carbons so we can track how much wounding potential we have for each bodypart
 	var/list/wound_info_by_part = list()
-	/// For grenades, any /mob/living's the grenade is moved onto, see [/datum/component/pellet_cloud/proc/handle_martyrs]
+	/// For grenades, any /mob/living's the grenade is moved onto, see [TYPE_PROC_REF(/datum/component/pellet_cloud, handle_martyrs)]
 	var/list/bodies
-	/// For grenades, tracking people who die covering a grenade for achievement purposes, see [/datum/component/pellet_cloud/proc/handle_martyrs()]
+	/// For grenades, tracking people who die covering a grenade for achievement purposes, see [TYPE_PROC_REF(/datum/component/pellet_cloud, handle_martyrs)()]
 	var/list/purple_hearts
 
 	/// For grenades, tracking how many pellets are removed due to martyrs and how many pellets are added due to the last person to touch it being on top of it
@@ -93,10 +93,10 @@
 /**
  * create_casing_pellets() is for directed pellet clouds for ammo casings that have multiple pellets (buckshot and scatter lasers for instance)
  *
- * Honestly this is mostly just a rehash of [/obj/item/ammo_casing/proc/fire_casing()] for pellet counts > 1, except this lets us tamper with the pellets and hook onto them for tracking purposes.
+ * Honestly this is mostly just a rehash of [TYPE_PROC_REF(/obj/item/ammo_casing, fire_casing)()] for pellet counts > 1, except this lets us tamper with the pellets and hook onto them for tracking purposes.
  * The arguments really don't matter, this proc is triggered by COMSIG_PELLET_CLOUD_INIT which is only for this really, it's just a big mess of the state vars we need for doing the stuff over here.
  */
-/datum/component/pellet_cloud/proc/create_casing_pellets(obj/item/ammo_casing/shell, atom/target, mob/living/user, fired_from, randomspread, spread, zone_override, params, distro)
+TYPE_PROC_REF(/datum/component/pellet_cloud, create_casing_pellets)(obj/item/ammo_casing/shell, atom/target, mob/living/user, fired_from, randomspread, spread, zone_override, params, distro)
 	shooter = user
 	var/targloc = get_turf(target)
 	if(!zone_override)
@@ -123,9 +123,9 @@
 /**
  * create_blast_pellets() is for when we have a central point we want to shred the surroundings of with a ring of shrapnel, namely frag grenades and landmines.
  *
- * Note that grenades have extra handling for someone throwing themselves/being thrown on top of it, while landmines do not (obviously, it's a landmine!). See [/datum/component/pellet_cloud/proc/handle_martyrs()]
+ * Note that grenades have extra handling for someone throwing themselves/being thrown on top of it, while landmines do not (obviously, it's a landmine!). See [TYPE_PROC_REF(/datum/component/pellet_cloud, handle_martyrs)()]
  */
-/datum/component/pellet_cloud/proc/create_blast_pellets(obj/O, mob/living/lanced_by)
+TYPE_PROC_REF(/datum/component/pellet_cloud, create_blast_pellets)(obj/O, mob/living/lanced_by)
 	var/atom/A = parent
 
 	if(isgrenade(parent)) // handle_martyrs can reduce the radius and thus the number of pellets we produce if someone dives on top of a frag grenade
@@ -150,7 +150,7 @@
  *
  * Note we track anyone who's alive and client'd when they get shredded in var/list/purple_hearts, for achievement checking later
  */
-/datum/component/pellet_cloud/proc/handle_martyrs(mob/living/lanced_by)
+TYPE_PROC_REF(/datum/component/pellet_cloud, handle_martyrs)(mob/living/lanced_by)
 	var/magnitude_absorbed
 	var/list/martyrs = list()
 
@@ -198,7 +198,7 @@
 			break
 
 ///One of our pellets hit something, record what it was and check if we're done (terminated == num_pellets)
-/datum/component/pellet_cloud/proc/pellet_hit(obj/item/projectile/P, atom/movable/firer, atom/target, Angle, hit_zone)
+TYPE_PROC_REF(/datum/component/pellet_cloud, pellet_hit)(obj/item/projectile/P, atom/movable/firer, atom/target, Angle, hit_zone)
 	LAZYREMOVE(pellets, P)
 	terminated++
 	hits++
@@ -227,7 +227,7 @@
 		finalize()
 
 ///One of our pellets disappeared due to hitting their max range (or just somehow got qdel'd), remove it from our list and check if we're done (terminated == num_pellets)
-/datum/component/pellet_cloud/proc/pellet_range(obj/item/projectile/P)
+TYPE_PROC_REF(/datum/component/pellet_cloud, pellet_range)(obj/item/projectile/P)
 	LAZYREMOVE(pellets, P)
 	terminated++
 	UnregisterSignal(P, list(COMSIG_PARENT_QDELETING, COMSIG_PROJECTILE_RANGE_OUT, COMSIG_PROJECTILE_SELF_ON_HIT))
@@ -235,7 +235,7 @@
 		finalize()
 
 /// Minor convenience function for creating each shrapnel piece with circle explosions, mostly stolen from the MIRV component
-/datum/component/pellet_cloud/proc/pew(atom/target, spread=0)
+TYPE_PROC_REF(/datum/component/pellet_cloud, pew)(atom/target, spread=0)
 	var/obj/item/projectile/P = new projectile_type(get_turf(parent))
 
 	//Shooting Code:
@@ -252,7 +252,7 @@
 	P.fire()
 
 ///All of our pellets are accounted for, time to go target by target and tell them how many things they got hit by.
-/datum/component/pellet_cloud/proc/finalize()
+TYPE_PROC_REF(/datum/component/pellet_cloud, finalize)()
 	var/obj/item/projectile/P = projectile_type
 	var/proj_name = initial(P.name)
 
@@ -282,7 +282,7 @@
 	qdel(src)
 
 /// Look alive, we're armed! Now we start watching to see if anyone's covering us
-/datum/component/pellet_cloud/proc/grenade_armed(obj/item/nade)
+TYPE_PROC_REF(/datum/component/pellet_cloud, grenade_armed)(obj/item/nade)
 	if(ismob(nade.loc))
 		shooter = nade.loc
 	LAZYINITLIST(bodies)
@@ -291,30 +291,30 @@
 	RegisterSignal(parent, COMSIG_MOVABLE_UNCROSSED, PROC_REF(grenade_uncrossed))
 
 /// Someone dropped the grenade, so set them to the shooter in case they're on top of it when it goes off
-/datum/component/pellet_cloud/proc/grenade_dropped(obj/item/nade, mob/living/slick_willy)
+TYPE_PROC_REF(/datum/component/pellet_cloud, grenade_dropped)(obj/item/nade, mob/living/slick_willy)
 	shooter = slick_willy
 	grenade_moved()
 
 /// Our grenade has moved, reset var/list/bodies so we're "on top" of any mobs currently on the tile
-/datum/component/pellet_cloud/proc/grenade_moved()
+TYPE_PROC_REF(/datum/component/pellet_cloud, grenade_moved)()
 	LAZYCLEARLIST(bodies)
 	for(var/mob/living/L in get_turf(parent))
 		RegisterSignal(L, COMSIG_PARENT_QDELETING, PROC_REF(on_target_qdel), override=TRUE)
 		LAZYADD(bodies, L)
 
 /// Someone who was originally "under" the grenade has moved off the tile and is now eligible for being a martyr and "covering" it
-/datum/component/pellet_cloud/proc/grenade_uncrossed(datum/source, atom/movable/AM)
+TYPE_PROC_REF(/datum/component/pellet_cloud, grenade_uncrossed)(datum/source, atom/movable/AM)
 	LAZYREMOVE(bodies, AM)
 
 /// Our grenade or landmine or caseless shell or whatever tried deleting itself, so we intervene and nullspace it until we're done here
-/datum/component/pellet_cloud/proc/nullspace_parent()
+TYPE_PROC_REF(/datum/component/pellet_cloud, nullspace_parent)()
 	var/atom/movable/AM = parent
 	AM.moveToNullspace()
 	queued_delete = TRUE
 	return TRUE
 
 /// Someone who was originally "under" the grenade has moved off the tile and is now eligible for being a martyr and "covering" it
-/datum/component/pellet_cloud/proc/on_target_qdel(atom/target)
+TYPE_PROC_REF(/datum/component/pellet_cloud, on_target_qdel)(atom/target)
 	UnregisterSignal(target, COMSIG_PARENT_QDELETING)
 	LAZYREMOVE(targets_hit, target)
 	LAZYREMOVE(bodies, target)

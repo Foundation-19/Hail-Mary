@@ -41,33 +41,33 @@
 	if(src.rotation_flags & ROTATION_EIGHTDIR)
 		default_rotation_direction = ROTATION_EIGHTDIR
 
-/datum/component/simple_rotation/proc/add_signals()
+TYPE_PROC_REF(/datum/component/simple_rotation, add_signals)()
 	if(rotation_flags & ROTATION_ALTCLICK)
 		RegisterSignal(parent, COMSIG_CLICK_ALT, PROC_REF(HandRot))
 		RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(ExamineMessage))
 	if(rotation_flags & ROTATION_WRENCH)
 		RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, PROC_REF(WrenchRot))
 
-/datum/component/simple_rotation/proc/add_verbs()
+TYPE_PROC_REF(/datum/component/simple_rotation, add_verbs)()
 	if(rotation_flags & ROTATION_VERBS)
 		var/atom/movable/AM = parent
 		if(rotation_flags & ROTATION_FLIP)
-			AM.verbs += /atom/movable/proc/simple_rotate_flip
+			AM.verbs += TYPE_PROC_REF(/atom/movable, simple_rotate_flip)
 		if(rotation_flags & ROTATION_CLOCKWISE)
-			AM.verbs += /atom/movable/proc/simple_rotate_clockwise
+			AM.verbs += TYPE_PROC_REF(/atom/movable, simple_rotate_clockwise)
 		if(rotation_flags & ROTATION_COUNTERCLOCKWISE)
-			AM.verbs += /atom/movable/proc/simple_rotate_counterclockwise
+			AM.verbs += TYPE_PROC_REF(/atom/movable, simple_rotate_counterclockwise)
 		if(src.rotation_flags & ROTATION_EIGHTDIR)
-			AM.verbs += /atom/movable/proc/simple_rotate_eightdir
+			AM.verbs += TYPE_PROC_REF(/atom/movable, simple_rotate_eightdir)
 
-/datum/component/simple_rotation/proc/remove_verbs()
+TYPE_PROC_REF(/datum/component/simple_rotation, remove_verbs)()
 	if(parent)
 		var/atom/movable/AM = parent
-		AM.verbs -= /atom/movable/proc/simple_rotate_flip
-		AM.verbs -= /atom/movable/proc/simple_rotate_clockwise
-		AM.verbs -= /atom/movable/proc/simple_rotate_counterclockwise
+		AM.verbs -= TYPE_PROC_REF(/atom/movable, simple_rotate_flip)
+		AM.verbs -= TYPE_PROC_REF(/atom/movable, simple_rotate_clockwise)
+		AM.verbs -= TYPE_PROC_REF(/atom/movable, simple_rotate_counterclockwise)
 
-/datum/component/simple_rotation/proc/remove_signals()
+TYPE_PROC_REF(/datum/component/simple_rotation, remove_signals)()
 	UnregisterSignal(parent, list(COMSIG_CLICK_ALT, COMSIG_PARENT_EXAMINE, COMSIG_PARENT_ATTACKBY))
 
 /datum/component/simple_rotation/RegisterWithParent()
@@ -97,11 +97,11 @@
 	remove_verbs()
 	. = ..()
 
-/datum/component/simple_rotation/proc/ExamineMessage(datum/source, mob/user, list/examine_list)
+TYPE_PROC_REF(/datum/component/simple_rotation, ExamineMessage)(datum/source, mob/user, list/examine_list)
 	if(rotation_flags & ROTATION_ALTCLICK)
 		examine_list += span_notice("Alt-click to rotate it clockwise.")
 
-/datum/component/simple_rotation/proc/HandRot(datum/source, mob/user, rotation = default_rotation_direction)
+TYPE_PROC_REF(/datum/component/simple_rotation, HandRot)(datum/source, mob/user, rotation = default_rotation_direction)
 	if(can_be_rotated)
 		if(!can_be_rotated.Invoke(user, rotation))
 			return
@@ -117,7 +117,7 @@
 	BaseRot(user, rotation)
 	return TRUE
 
-/datum/component/simple_rotation/proc/WrenchRot(datum/source, obj/item/I, mob/living/user)
+TYPE_PROC_REF(/datum/component/simple_rotation, WrenchRot)(datum/source, obj/item/I, mob/living/user)
 	if(can_be_rotated)
 		if(!can_be_rotated.Invoke(user, default_rotation_direction))
 			return
@@ -134,7 +134,7 @@
 		BaseRot(user,default_rotation_direction)
 		return COMPONENT_NO_AFTERATTACK
 
-/datum/component/simple_rotation/proc/BaseRot(mob/user,rotation_type)
+TYPE_PROC_REF(/datum/component/simple_rotation, BaseRot)(mob/user,rotation_type)
 	var/atom/movable/AM = parent
 	var/rot_degree
 	switch(rotation_type)
@@ -152,19 +152,19 @@
 	else
 		default_after_rotation(user, rotation_type)
 
-/datum/component/simple_rotation/proc/default_can_user_rotate(mob/living/user, rotation_type)
+TYPE_PROC_REF(/datum/component/simple_rotation, default_can_user_rotate)(mob/living/user, rotation_type)
 	if(!istype(user) || !user.canUseTopic(parent, BE_CLOSE, NO_DEXTERY))
 		return FALSE
 	return TRUE
 
-/datum/component/simple_rotation/proc/default_can_be_rotated(mob/user, rotation_type)
+TYPE_PROC_REF(/datum/component/simple_rotation, default_can_be_rotated)(mob/user, rotation_type)
 	var/atom/movable/AM = parent
 	return !AM.anchored
 
-/datum/component/simple_rotation/proc/default_after_rotation(mob/user, rotation_type)
+TYPE_PROC_REF(/datum/component/simple_rotation, default_after_rotation)(mob/user, rotation_type)
 	to_chat(user,span_notice("You [rotation_type == ROTATION_FLIP ? "flip" : "rotate"] [parent]."))
 
-/atom/movable/proc/simple_rotate_clockwise()
+TYPE_PROC_REF(/atom/movable, simple_rotate_clockwise)()
 	set name = "Rotate Clockwise"
 	set category = "Object"
 	set src in oview(1)
@@ -172,7 +172,7 @@
 	if(rotcomp)
 		rotcomp.HandRot(null,usr,ROTATION_CLOCKWISE)
 
-/atom/movable/proc/simple_rotate_counterclockwise()
+TYPE_PROC_REF(/atom/movable, simple_rotate_counterclockwise)()
 	set name = "Rotate Counter-Clockwise"
 	set category = "Object"
 	set src in oview(1)
@@ -180,7 +180,7 @@
 	if(rotcomp)
 		rotcomp.HandRot(null,usr,ROTATION_COUNTERCLOCKWISE)
 
-/atom/movable/proc/simple_rotate_flip()
+TYPE_PROC_REF(/atom/movable, simple_rotate_flip)()
 	set name = "Flip"
 	set category = "Object"
 	set src in oview(1)
@@ -188,7 +188,7 @@
 	if(rotcomp)
 		rotcomp.HandRot(null,usr,ROTATION_FLIP)
 
-/atom/movable/proc/simple_rotate_eightdir()
+TYPE_PROC_REF(/atom/movable, simple_rotate_eightdir)()
 	set name = "Rotate 45 Degrees"
 	set category = "Object"
 	set src in oview(1)

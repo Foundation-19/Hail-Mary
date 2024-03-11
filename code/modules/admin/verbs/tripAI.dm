@@ -1,4 +1,4 @@
-/client/proc/triple_ai()
+TYPE_PROC_REF(/client, triple_ai)()
 	set category = "Admin.Events"
 	set name = "Create AI Triumvirate"
 

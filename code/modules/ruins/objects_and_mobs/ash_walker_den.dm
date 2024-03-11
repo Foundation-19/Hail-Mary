@@ -25,7 +25,7 @@
 	consume()
 	spawn_mob()
 
-/obj/structure/lavaland/ash_walker/proc/consume()
+TYPE_PROC_REF(/obj/structure/lavaland/ash_walker, consume)()
 	for(var/mob/living/H in view(src, 1)) //Only for corpse right next to/on same tile
 		if(H.stat)
 			visible_message(span_warning("Serrated tendrils eagerly pull [H] to [src], tearing the body apart as its blood seeps over the eggs."))
@@ -40,7 +40,7 @@
 			H.gib()
 			obj_integrity = min(obj_integrity + max_integrity*0.05,max_integrity)//restores 5% hp of tendril
 
-/obj/structure/lavaland/ash_walker/proc/spawn_mob()
+TYPE_PROC_REF(/obj/structure/lavaland/ash_walker, spawn_mob)()
 	if(meat_counter >= ASH_WALKER_SPAWN_THRESHOLD)
 		new /obj/effect/mob_spawn/human/ash_walker(get_step(loc, pick(GLOB.alldirs)))
 		visible_message(span_danger("One of the eggs swells to an unnatural size and tumbles free. It's ready to hatch!"))

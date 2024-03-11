@@ -1,6 +1,6 @@
 
 //Allows the ninja to kidnap people
-/obj/item/clothing/suit/space/space_ninja/proc/ninjanet()
+TYPE_PROC_REF(/obj/item/clothing/suit/space/space_ninja, ninjanet)()
 	var/mob/living/carbon/human/H = affecting
 	var/mob/living/carbon/C
 

@@ -86,18 +86,18 @@
 	activate(user)
 	return TRUE
 
-/obj/effect/proc_holder/mob_common/proc/is_lowpop()
+TYPE_PROC_REF(/obj/effect/proc_holder/mob_common, is_lowpop)()
 	return living_player_count() < MOB_POWER_FULL_MIN_PLAYERS
 
-/obj/effect/proc_holder/mob_common/proc/is_medpop()
+TYPE_PROC_REF(/obj/effect/proc_holder/mob_common, is_medpop)()
 	return living_player_count() < MOB_POWER_SOME_MIN_PLAYERS
 
 /// Toggles active and inactive
-/obj/effect/proc_holder/mob_common/proc/activate(mob/living/user)
+TYPE_PROC_REF(/obj/effect/proc_holder/mob_common, activate)(mob/living/user)
 	return
 
 /// Is it available?
-/obj/effect/proc_holder/mob_common/proc/is_available(mob/living/user)
+TYPE_PROC_REF(/obj/effect/proc_holder/mob_common, is_available)(mob/living/user)
 	if(user.stat != CONSCIOUS)
 		return FALSE
 	if(user.incapacitated())
@@ -359,7 +359,7 @@
 	COOLDOWN_START(src, nest_cooldown, 30 SECONDS)
 	return TRUE
 
-/obj/effect/proc_holder/mob_common/make_nest/proc/can_they_nest(mob/living/user)
+TYPE_PROC_REF(/obj/effect/proc_holder/mob_common/make_nest, can_they_nest)(mob/living/user)
 	if(!user.ckey)
 		return FALSE
 	if(!islist(GLOB.player_made_nests[user.ckey]))

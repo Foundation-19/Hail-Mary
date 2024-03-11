@@ -39,7 +39,7 @@
 
 	return ..()
 
-/datum/dna/proc/transfer_identity(mob/living/carbon/destination, transfer_SE = 0)
+TYPE_PROC_REF(/datum/dna, transfer_identity)(mob/living/carbon/destination, transfer_SE = 0)
 	if(!istype(destination))
 		return
 	var/old_size = destination.dna.features["body_size"]
@@ -61,7 +61,7 @@
 
 	SEND_SIGNAL(destination, COMSIG_CARBON_IDENTITY_TRANSFERRED_TO, src, transfer_SE)
 
-/datum/dna/proc/copy_dna(datum/dna/new_dna)
+TYPE_PROC_REF(/datum/dna, copy_dna)(datum/dna/new_dna)
 	new_dna.unique_enzymes = unique_enzymes
 	new_dna.mutation_index = mutation_index
 	new_dna.default_mutation_genes = default_mutation_genes
@@ -76,7 +76,7 @@
 	new_dna.mutations = mutations.Copy()
 
 //See mutation.dm for what 'class' does. 'time' is time till it removes itself in decimals. 0 for no timer
-/datum/dna/proc/add_mutation(mutation, class = MUT_OTHER, time)
+TYPE_PROC_REF(/datum/dna, add_mutation)(mutation, class = MUT_OTHER, time)
 	var/mutation_type = mutation
 	if(istype(mutation, /datum/mutation/human))
 		var/datum/mutation/human/HM = mutation
@@ -85,24 +85,24 @@
 		return
 	return force_give(new mutation_type (class, time, copymut = mutation))
 
-/datum/dna/proc/remove_mutation(mutation_type)
+TYPE_PROC_REF(/datum/dna, remove_mutation)(mutation_type)
 	return force_lose(get_mutation(mutation_type))
 
-/datum/dna/proc/check_mutation(mutation_type)
+TYPE_PROC_REF(/datum/dna, check_mutation)(mutation_type)
 	return get_mutation(mutation_type)
 
-/datum/dna/proc/remove_all_mutations(list/classes = list(MUT_NORMAL, MUT_EXTRA, MUT_OTHER), mutadone = FALSE)
+TYPE_PROC_REF(/datum/dna, remove_all_mutations)(list/classes = list(MUT_NORMAL, MUT_EXTRA, MUT_OTHER), mutadone = FALSE)
 	remove_mutation_group(mutations, classes, mutadone)
 	scrambled = FALSE
 
-/datum/dna/proc/remove_mutation_group(list/group, list/classes = list(MUT_NORMAL, MUT_EXTRA, MUT_OTHER), mutadone = FALSE)
+TYPE_PROC_REF(/datum/dna, remove_mutation_group)(list/group, list/classes = list(MUT_NORMAL, MUT_EXTRA, MUT_OTHER), mutadone = FALSE)
 	if(!group)
 		return
 	for(var/datum/mutation/human/HM in group)
 		if((HM.class in classes) && !(HM.mutadone_proof && mutadone))
 			force_lose(HM)
 
-/datum/dna/proc/generate_uni_identity()
+TYPE_PROC_REF(/datum/dna, generate_uni_identity)()
 	. = ""
 	var/list/L = new /list(DNA_UNI_IDENTITY_BLOCKS)
 
@@ -139,7 +139,7 @@
 			. += random_string(DNA_BLOCK_SIZE,GLOB.hex_characters)
 	return .
 
-/datum/dna/proc/generate_dna_blocks()
+TYPE_PROC_REF(/datum/dna, generate_dna_blocks)()
 	var/list/mutations_temp = GLOB.good_mutations + GLOB.bad_mutations + GLOB.not_good_mutations
 	if(species && species.inert_mutation)
 		var/bonus = GET_INITIALIZED_MUTATION(species.inert_mutation)
@@ -187,7 +187,7 @@
 		difficulty--
 	return sequence
 
-/datum/dna/proc/generate_unique_enzymes()
+TYPE_PROC_REF(/datum/dna, generate_unique_enzymes)()
 	. = ""
 	if(istype(holder))
 		real_name = holder.real_name
@@ -196,7 +196,7 @@
 		. += random_string(DNA_UNIQUE_ENZYMES_LEN, GLOB.hex_characters)
 	return .
 
-/datum/dna/proc/update_ui_block(blocknumber)
+TYPE_PROC_REF(/datum/dna, update_ui_block)(blocknumber)
 	if(!blocknumber || !ishuman(holder))
 		return
 	var/mob/living/carbon/human/H = holder
@@ -233,7 +233,7 @@
 			sanitize_hexcolor(features["mcolor3"], 6)
 
 //Please use add_mutation or activate_mutation instead
-/datum/dna/proc/force_give(datum/mutation/human/HM)
+TYPE_PROC_REF(/datum/dna, force_give)(datum/mutation/human/HM)
 	if(holder && HM)
 		if(HM.class == MUT_NORMAL)
 			set_se(1, HM)
@@ -243,21 +243,21 @@
 		update_instability()
 
 //Use remove_mutation instead
-/datum/dna/proc/force_lose(datum/mutation/human/HM)
+TYPE_PROC_REF(/datum/dna, force_lose)(datum/mutation/human/HM)
 	if(holder && (HM in mutations))
 		set_se(0, HM)
 		. = HM.on_losing(holder)
 		update_instability(FALSE)
 		return
 
-/datum/dna/proc/is_same_as(datum/dna/D)
+TYPE_PROC_REF(/datum/dna, is_same_as)(datum/dna/D)
 	if(uni_identity != D.uni_identity || mutation_index != D.mutation_index || real_name != D.real_name || custom_species != D.custom_species)
 		return FALSE
 	if(species.type != D.species.type || features != D.features || blood_type != D.blood_type || skin_tone_override != D.skin_tone_override)
 		return FALSE
 	return TRUE
 
-/datum/dna/proc/update_instability(alert=TRUE)
+TYPE_PROC_REF(/datum/dna, update_instability)(alert=TRUE)
 	stability = 100
 	for(var/datum/mutation/human/M in mutations)
 		if(M.class == MUT_EXTRA)
@@ -285,11 +285,11 @@
 
 
 //used to update dna UI, UE, and dna.real_name.
-/datum/dna/proc/update_dna_identity()
+TYPE_PROC_REF(/datum/dna, update_dna_identity)()
 	uni_identity = generate_uni_identity()
 	unique_enzymes = generate_unique_enzymes()
 
-/datum/dna/proc/initialize_dna(newblood_type, randomise = TRUE)
+TYPE_PROC_REF(/datum/dna, initialize_dna)(newblood_type, randomise = TRUE)
 	if(newblood_type)
 		blood_type = newblood_type
 	unique_enzymes = generate_unique_enzymes()
@@ -318,7 +318,7 @@
 
 /////////////////////////// DNA MOB-PROCS //////////////////////
 
-/mob/proc/set_species(datum/species/mrace, icon_update = 1)
+TYPE_PROC_REF(/mob, set_species)(datum/species/mrace, icon_update = 1)
 	return
 
 /mob/living/brain/set_species(datum/species/mrace, icon_update = 1)
@@ -357,14 +357,14 @@
 		update_mutations_overlay()// no lizard with human hulk overlay please.
 
 
-/mob/proc/has_dna()
+TYPE_PROC_REF(/mob, has_dna)()
 	return
 
 /mob/living/carbon/has_dna()
 	return dna
 
 
-/mob/living/carbon/human/proc/hardset_dna(ui, list/mutation_index, newreal_name, newblood_type, datum/species/mrace, newfeatures, list/default_mutation_genes)
+TYPE_PROC_REF(/mob/living/carbon/human, hardset_dna)(ui, list/mutation_index, newreal_name, newblood_type, datum/species/mrace, newfeatures, list/default_mutation_genes)
 
 	if(newreal_name)
 		real_name = newreal_name
@@ -404,14 +404,14 @@
 		update_mutations_overlay()
 
 
-/mob/living/carbon/proc/create_dna()
+TYPE_PROC_REF(/mob/living/carbon, create_dna)()
 	dna = new /datum/dna(src)
 	if(!dna.species)
 		var/rando_race = pick(GLOB.roundstart_races)
 		dna.species = new rando_race()
 
 //proc used to update the mob's appearance after its dna UI has been changed
-/mob/living/carbon/proc/updateappearance(icon_update=1, mutcolor_update=0, mutations_overlay_update=0)
+TYPE_PROC_REF(/mob/living/carbon, updateappearance)(icon_update=1, mutcolor_update=0, mutations_overlay_update=0)
 	if(!has_dna())
 		return
 
@@ -444,7 +444,7 @@
 			update_mutations_overlay()
 
 
-/mob/proc/domutcheck()
+TYPE_PROC_REF(/mob, domutcheck)()
 	return
 
 /mob/living/carbon/domutcheck()
@@ -457,7 +457,7 @@
 
 	update_mutations_overlay()
 
-/datum/dna/proc/check_block(mutation)
+TYPE_PROC_REF(/datum/dna, check_block)(mutation)
 	var/datum/mutation/human/HM = get_mutation(mutation)
 	if(check_block_string(mutation))
 		if(!HM)
@@ -466,20 +466,20 @@
 	return force_lose(HM)
 
 //Return the active mutation of a type if there is one
-/datum/dna/proc/get_mutation(A)
+TYPE_PROC_REF(/datum/dna, get_mutation)(A)
 	for(var/datum/mutation/human/HM in mutations)
 		if(HM.type == A)
 			return HM
 
-/datum/dna/proc/check_block_string(mutation)
+TYPE_PROC_REF(/datum/dna, check_block_string)(mutation)
 	if((LAZYLEN(mutation_index) > DNA_MUTATION_BLOCKS) || !(mutation in mutation_index))
 		return 0
 	return is_gene_active(mutation)
 
-/datum/dna/proc/is_gene_active(mutation)
+TYPE_PROC_REF(/datum/dna, is_gene_active)(mutation)
 	return (mutation_index[mutation] == GET_SEQUENCE(mutation))
 
-/datum/dna/proc/set_se(on=TRUE, datum/mutation/human/HM)
+TYPE_PROC_REF(/datum/dna, set_se)(on=TRUE, datum/mutation/human/HM)
 	if(!HM || !(HM.type in mutation_index) || (LAZYLEN(mutation_index) < DNA_MUTATION_BLOCKS))
 		return
 	. = TRUE
@@ -491,7 +491,7 @@
 		default_mutation_genes[HM.type] = mutation_index[HM.type]
 
 
-/datum/dna/proc/activate_mutation(mutation) //note that this returns a boolean and not a new mob
+TYPE_PROC_REF(/datum/dna, activate_mutation)(mutation) //note that this returns a boolean and not a new mob
 	if(!mutation)
 		return FALSE
 	var/mutation_type = mutation
@@ -523,7 +523,7 @@
 		return 0
 	return getleftblocks(istring, blocknumber, blocksize) + replacement + getrightblocks(istring, blocknumber, blocksize)
 
-/datum/dna/proc/mutation_in_sequence(mutation)
+TYPE_PROC_REF(/datum/dna, mutation_in_sequence)(mutation)
 	if(!mutation)
 		return
 	if(istype(mutation, /datum/mutation/human))
@@ -533,13 +533,13 @@
 	else if(mutation in mutation_index)
 		return TRUE
 
-/mob/living/carbon/proc/randmut(list/candidates, difficulty = 2)
+TYPE_PROC_REF(/mob/living/carbon, randmut)(list/candidates, difficulty = 2)
 	if(!has_dna())
 		return
 	var/mutation = pick(candidates)
 	. = dna.add_mutation(mutation)
 
-/mob/living/carbon/proc/easy_randmut(quality = POSITIVE + NEGATIVE + MINOR_NEGATIVE, scrambled = TRUE, sequence = TRUE, exclude_monkey = TRUE)
+TYPE_PROC_REF(/mob/living/carbon, easy_randmut)(quality = POSITIVE + NEGATIVE + MINOR_NEGATIVE, scrambled = TRUE, sequence = TRUE, exclude_monkey = TRUE)
 	if(!has_dna())
 		return
 	var/list/mutations = list()
@@ -565,7 +565,7 @@
 		return TRUE
 
 
-/mob/living/carbon/proc/randmuti()
+TYPE_PROC_REF(/mob/living/carbon, randmuti)()
 	if(!has_dna())
 		return
 	var/num = rand(1, DNA_UNI_IDENTITY_BLOCKS)
@@ -573,12 +573,12 @@
 	dna.uni_identity = newdna
 	updateappearance(mutations_overlay_update=1)
 
-/mob/living/carbon/proc/clean_dna()
+TYPE_PROC_REF(/mob/living/carbon, clean_dna)()
 	if(!has_dna())
 		return
 	dna.remove_all_mutations()
 
-/mob/living/carbon/proc/clean_randmut(list/candidates, difficulty = 2)
+TYPE_PROC_REF(/mob/living/carbon, clean_randmut)(list/candidates, difficulty = 2)
 	clean_dna()
 	randmut(candidates, difficulty)
 
@@ -616,7 +616,7 @@
 
 /////////////////////////// DNA HELPER-PROCS
 
-/mob/living/carbon/human/proc/something_horrible()
+TYPE_PROC_REF(/mob/living/carbon/human, something_horrible)()
 	if(!has_dna()) //shouldn't ever happen anyway so it's just in really weird cases
 		return
 	if(dna.stability > 0)
@@ -654,7 +654,7 @@
 				else
 					set_species(/datum/species/dullahan)
 
-/datum/dna/proc/update_body_size(old_size)
+TYPE_PROC_REF(/datum/dna, update_body_size)(old_size)
 	if(!holder || features["body_size"] == old_size)
 		return
 	holder.resize = features["body_size"] / old_size
@@ -667,7 +667,7 @@
 		holder.remove_movespeed_modifier(/datum/movespeed_modifier/small_stride)
 
 // duplicated code *pwns*
-/datum/dna/proc/shift_genital_order(which_one, move_up)
+TYPE_PROC_REF(/datum/dna, shift_genital_order)(which_one, move_up)
 	if(!which_one)
 		return
 	var/list/our_genitals = decode_cockstring()
@@ -702,7 +702,7 @@
 
 /// takes in whatever's at features["genital_order"] and spits out a list in order of what's present
 /// reverses it cus its more intuitive that way (for everyone but me)
-/datum/dna/proc/decode_cockstring()
+TYPE_PROC_REF(/datum/dna, decode_cockstring)()
 	var/list/list_out = list()
 	list_out = splittext(features["genital_order"], ":")
 	list_out = reverseList(list_out)
@@ -710,7 +710,7 @@
 
 /// takes in a list of nads and outputs a cockstring, then saves it
 /// Also unreverses it, cus i crave the pain
-/datum/dna/proc/encode_cockstring(list/cockstring)
+TYPE_PROC_REF(/datum/dna, encode_cockstring)(list/cockstring)
 	var/list/default_cockstring = splittext(DEF_COCKSTRING, ":")
 	cockstring = reverseList(cockstring)
 	for(var/coc in cockstring) // just to make sure nothing wierd got in there

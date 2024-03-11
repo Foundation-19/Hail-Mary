@@ -46,10 +46,10 @@
 	C.pixel_x = world.icon_size*_x
 	C.pixel_y = world.icon_size*_y
 
-/obj/item/binoculars/proc/on_unwield(obj/item/source, mob/user)
+TYPE_PROC_REF(/obj/item/binoculars, on_unwield)(obj/item/source, mob/user)
 	unwield(user)
 
-/obj/item/binoculars/proc/rotate(mob/living/user, old_dir, direction = FALSE)
+TYPE_PROC_REF(/obj/item/binoculars, rotate)(mob/living/user, old_dir, direction = FALSE)
 	var/_x = 0
 	var/_y = 0
 	switch(direction)

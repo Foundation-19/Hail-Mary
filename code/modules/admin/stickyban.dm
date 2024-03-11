@@ -1,4 +1,4 @@
-/datum/admins/proc/stickyban(action,data)
+TYPE_PROC_REF(/datum/admins, stickyban)(action,data)
 	if(!check_rights(R_BAN))
 		return
 	switch (action)
@@ -150,7 +150,7 @@
 			world.SetConfig("ban",ckey,list2stickyban(cached_ban))
 
 
-/datum/admins/proc/stickyban_gethtml(ckey, ban)
+TYPE_PROC_REF(/datum/admins, stickyban_gethtml)(ckey, ban)
 	. = {"
 		<a href='?_src_=holder;[HrefToken()];stickyban=remove&ckey=[ckey]'>\[-\]</a>
 		<a href='?_src_=holder;[HrefToken()];stickyban=revert&ckey=[ckey]'>\[revert\]</a>
@@ -169,7 +169,7 @@
 		. += "<li><a href='?_src_=holder;[HrefToken()];stickyban=remove_alt&ckey=[ckey]&alt=[ckey(key)]'>\[-\]</a>[key]</li>"
 	. += "</ol>\n"
 
-/datum/admins/proc/stickyban_show()
+TYPE_PROC_REF(/datum/admins, stickyban_show)()
 	if(!check_rights(R_BAN))
 		return
 	var/list/bans = sortList(world.GetConfig("ban"))
@@ -240,7 +240,7 @@
 	. = list2params(.)
 
 
-/client/proc/stickybanpanel()
+TYPE_PROC_REF(/client, stickybanpanel)()
 	set name = "Sticky Ban Panel"
 	set category = "Admin"
 	if (!holder)

@@ -122,7 +122,7 @@
 		return TRUE
 	return ..()
 
-/obj/item/hand_tele/proc/try_dispel_portal(atom/target, mob/user, delay = 30)
+TYPE_PROC_REF(/obj/item/hand_tele, try_dispel_portal)(atom/target, mob/user, delay = 30)
 	var/datum/beam/B = user.Beam(target, icon_state = "rped_upgrade", maxdistance = 50)
 	if(is_parent_of_portal(target) && (!delay || do_after(user, delay, target = target)))
 		qdel(target)
@@ -193,10 +193,10 @@
 	investigate_log("was used by [key_name(user)] at [AREACOORD(user)] to create a portal pair with destinations [AREACOORD(c1)] and [AREACOORD(c2)].", INVESTIGATE_PORTAL)
 	add_fingerprint(user)
 
-/obj/item/hand_tele/proc/on_portal_destroy(obj/effect/portal/P)
+TYPE_PROC_REF(/obj/item/hand_tele, on_portal_destroy)(obj/effect/portal/P)
 	active_portal_pairs -= P	//If this portal pair is made by us it'll be erased along with the other portal by the portal.
 
-/obj/item/hand_tele/proc/is_parent_of_portal(obj/effect/portal/P)
+TYPE_PROC_REF(/obj/item/hand_tele, is_parent_of_portal)(obj/effect/portal/P)
 	if(!istype(P))
 		return FALSE
 	if(active_portal_pairs[P])

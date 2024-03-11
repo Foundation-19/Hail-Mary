@@ -96,7 +96,7 @@
 /mob/living/silicon/ai/RangedAttack(atom/A)
 	A.attack_ai(src)
 
-/atom/proc/attack_ai(mob/user)
+TYPE_PROC_REF(/atom, attack_ai)(mob/user)
 	return
 
 /*
@@ -122,15 +122,15 @@
 /* Questions: Instead of an Emag check on every function, can we not add to airlocks onclick if emag return? */
 
 /* Atom Procs */
-/atom/proc/AICtrlClick()
+TYPE_PROC_REF(/atom, AICtrlClick)()
 	return
 
-/atom/proc/AIAltClick(mob/living/silicon/ai/user)
+TYPE_PROC_REF(/atom, AIAltClick)(mob/living/silicon/ai/user)
 	return AltClick(user)
 
-/atom/proc/AIShiftClick()
+TYPE_PROC_REF(/atom, AIShiftClick)()
 	return
-/atom/proc/AICtrlShiftClick()
+TYPE_PROC_REF(/atom, AICtrlShiftClick)()
 	return
 
 /* Airlocks */

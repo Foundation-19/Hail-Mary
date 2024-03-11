@@ -80,7 +80,7 @@
 	legsweep.Remove(H)
 	lungpunch.Remove(H)
 
-/datum/martial_art/krav_maga/proc/check_streak(mob/living/carbon/human/A, mob/living/carbon/human/D)
+TYPE_PROC_REF(/datum/martial_art/krav_maga, check_streak)(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	switch(streak)
 		if("neck_chop")
 			streak = ""
@@ -96,7 +96,7 @@
 			return TRUE
 	return FALSE
 
-/datum/martial_art/krav_maga/proc/leg_sweep(mob/living/carbon/human/A, mob/living/carbon/human/D)
+TYPE_PROC_REF(/datum/martial_art/krav_maga, leg_sweep)(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	var/obj/item/bodypart/affecting = D.get_bodypart(BODY_ZONE_CHEST)
 	var/armor_block = D.run_armor_check(affecting, "melee")
 	var/damage = (damage_roll(A,D)*2 + 25)
@@ -110,7 +110,7 @@
 	log_combat(A, D, "leg sweeped")
 	return TRUE
 
-/datum/martial_art/krav_maga/proc/quick_choke(mob/living/carbon/human/A, mob/living/carbon/human/D)//is actually lung punch
+TYPE_PROC_REF(/datum/martial_art/krav_maga, quick_choke)(mob/living/carbon/human/A, mob/living/carbon/human/D)//is actually lung punch
 	var/damage = damage_roll(A,D)
 	D.visible_message(span_warning("[A] pounds [D] on the chest!"), \
 					span_userdanger("[A] slams your chest! You can't breathe!"))
@@ -121,7 +121,7 @@
 	log_combat(A, D, "quickchoked")
 	return TRUE
 
-/datum/martial_art/krav_maga/proc/neck_chop(mob/living/carbon/human/A, mob/living/carbon/human/D)
+TYPE_PROC_REF(/datum/martial_art/krav_maga, neck_chop)(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	var/damage = (damage_roll(A,D)*0.5)
 	D.visible_message(span_warning("[A] karate chops [D]'s neck!"), \
 					span_userdanger("[A] karate chops your neck, rendering you unable to speak!"))

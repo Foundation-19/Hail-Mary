@@ -20,7 +20,7 @@
 		part = null
 		qdel(src)
 
-/obj/structure/chair/e_chair/proc/shock()
+TYPE_PROC_REF(/obj/structure/chair/e_chair, shock)()
 	if(last_time + 50 > world.time)
 		return
 	last_time = world.time

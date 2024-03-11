@@ -25,7 +25,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 	QDEL_NULL(rstatclick)
 	return ..()
 
-/datum/admin_help_tickets/proc/TicketByID(id)
+TYPE_PROC_REF(/datum/admin_help_tickets, TicketByID)(id)
 	var/list/lists = list(active_tickets, closed_tickets, resolved_tickets)
 	for(var/I in lists)
 		for(var/J in I)
@@ -33,7 +33,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 			if(AH.id == id)
 				return J
 
-/datum/admin_help_tickets/proc/TicketsByCKey(ckey)
+TYPE_PROC_REF(/datum/admin_help_tickets, TicketsByCKey)(ckey)
 	. = list()
 	var/list/lists = list(active_tickets, closed_tickets, resolved_tickets)
 	for(var/I in lists)
@@ -43,7 +43,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 				. += AH
 
 //private
-/datum/admin_help_tickets/proc/ListInsert(datum/admin_help/new_ticket)
+TYPE_PROC_REF(/datum/admin_help_tickets, ListInsert)(datum/admin_help/new_ticket)
 	var/list/ticket_list
 	switch(new_ticket.state)
 		if(AHELP_ACTIVE)
@@ -64,7 +64,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 	ticket_list += new_ticket
 
 //opens the ticket listings for one of the 3 states
-/datum/admin_help_tickets/proc/BrowseTickets(state)
+TYPE_PROC_REF(/datum/admin_help_tickets, BrowseTickets)(state)
 	var/list/l2b
 	var/title
 	switch(state)
@@ -88,7 +88,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 	usr << browse(dat.Join(), "window=ahelp_list[state];size=600x480")
 
 //Tickets statpanel
-/datum/admin_help_tickets/proc/stat_entry()
+TYPE_PROC_REF(/datum/admin_help_tickets, stat_entry)()
 	SHOULD_CALL_PARENT(TRUE)
 	SHOULD_NOT_SLEEP(TRUE)
 	var/list/L = list()
@@ -108,21 +108,21 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 	return L
 
 //Reassociate still open ticket if one exists
-/datum/admin_help_tickets/proc/ClientLogin(client/C)
+TYPE_PROC_REF(/datum/admin_help_tickets, ClientLogin)(client/C)
 	C.current_ticket = CKey2ActiveTicket(C.ckey)
 	if(C.current_ticket)
 		C.current_ticket.initiator = C
 		C.current_ticket.AddInteraction("Client reconnected.")
 
 //Dissasociate ticket
-/datum/admin_help_tickets/proc/ClientLogout(client/C)
+TYPE_PROC_REF(/datum/admin_help_tickets, ClientLogout)(client/C)
 	if(C.current_ticket)
 		C.current_ticket.AddInteraction("Client disconnected.")
 		C.current_ticket.initiator = null
 		C.current_ticket = null
 
 //Get a ticket given a ckey
-/datum/admin_help_tickets/proc/CKey2ActiveTicket(ckey)
+TYPE_PROC_REF(/datum/admin_help_tickets, CKey2ActiveTicket)(ckey)
 	for(var/I in active_tickets)
 		var/datum/admin_help/AH = I
 		if(AH.initiator_ckey == ckey)
@@ -143,7 +143,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 	GLOB.ahelp_tickets.BrowseTickets(current_state)
 
 //called by admin topic
-/obj/effect/statclick/ticket_list/proc/Action()
+TYPE_PROC_REF(/obj/effect/statclick/ticket_list, Action)()
 	Click()
 
 //
@@ -219,19 +219,19 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 	GLOB.ahelp_tickets.resolved_tickets -= src
 	return ..()
 
-/datum/admin_help/proc/AddInteraction(formatted_message)
+TYPE_PROC_REF(/datum/admin_help, AddInteraction)(formatted_message)
 	if(heard_by_no_admins && usr && usr.ckey != initiator_ckey)
 		heard_by_no_admins = FALSE
 		send2irc(initiator_ckey, "Ticket #[id]: Answered by [key_name(usr)]")
 	_interactions += "[TIME_STAMP("hh:mm:ss", FALSE)]: [formatted_message]"
 
 //Removes the ahelp verb and returns it after 2 minutes
-/datum/admin_help/proc/TimeoutVerb()
+TYPE_PROC_REF(/datum/admin_help, TimeoutVerb)()
 	remove_verb(initiator, /client/verb/adminhelp)
-	initiator.adminhelptimerid = addtimer(CALLBACK(initiator, /client/proc/giveadminhelpverb), 1200, TIMER_STOPPABLE) //2 minute cooldown of admin helps
+	initiator.adminhelptimerid = addtimer(CALLBACK(initiator, TYPE_PROC_REF(/client, giveadminhelpverb)), 1200, TIMER_STOPPABLE) //2 minute cooldown of admin helps
 
 //private
-/datum/admin_help/proc/FullMonty(ref_src)
+TYPE_PROC_REF(/datum/admin_help, FullMonty)(ref_src)
 	if(!ref_src)
 		ref_src = "[REF(src)]"
 	. = ADMIN_FULLMONTY_NONAME(initiator.mob)
@@ -239,7 +239,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 		. += ClosureLinks(ref_src)
 
 //private
-/datum/admin_help/proc/ClosureLinks(ref_src)
+TYPE_PROC_REF(/datum/admin_help, ClosureLinks)(ref_src)
 	if(!ref_src)
 		ref_src = "[REF(src)]"
 	. = " (<A HREF='?_src_=holder;[HrefToken(TRUE)];ahelp=[ref_src];ahelp_action=reject'>REJT</A>)"
@@ -249,20 +249,20 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 	. += " (<A HREF='?_src_=holder;[HrefToken(TRUE)];ahelp=[ref_src];ahelp_action=handleissue'>HANDLE</A>)"
 
 //private
-/datum/admin_help/proc/LinkedReplyName(ref_src)
+TYPE_PROC_REF(/datum/admin_help, LinkedReplyName)(ref_src)
 	if(!ref_src)
 		ref_src = "[REF(src)]"
 	return "<A HREF='?_src_=holder;[HrefToken(TRUE)];ahelp=[ref_src];ahelp_action=reply'>[initiator_key_name]</A>"
 
 //private
-/datum/admin_help/proc/TicketHref(msg, ref_src, action = "ticket")
+TYPE_PROC_REF(/datum/admin_help, TicketHref)(msg, ref_src, action = "ticket")
 	if(!ref_src)
 		ref_src = "[REF(src)]"
 	return "<A HREF='?_src_=holder;[HrefToken(TRUE)];ahelp=[ref_src];ahelp_action=[action]'>[msg]</A>"
 
 //message from the initiator without a target, all admins will see this
 //won't bug irc
-/datum/admin_help/proc/MessageNoRecipient(msg)
+TYPE_PROC_REF(/datum/admin_help, MessageNoRecipient)(msg)
 	msg = copytext_char(msg, 1, MAX_MESSAGE_LEN)
 	var/ref_src = "[REF(src)]"
 	//Message to be sent to all admins
@@ -281,7 +281,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 	to_chat(initiator, "<span class='adminnotice'>PM to-<b>Admins</b>: <span class='linkify'>[msg]</span></span>")
 
 //Reopen a closed ticket
-/datum/admin_help/proc/Reopen()
+TYPE_PROC_REF(/datum/admin_help, Reopen)()
 	if(state == AHELP_ACTIVE)
 		to_chat(usr, span_warning("This ticket is already open."))
 		return
@@ -312,7 +312,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 	TicketPanel()	//can only be done from here, so refresh it
 
 //private
-/datum/admin_help/proc/RemoveActive()
+TYPE_PROC_REF(/datum/admin_help, RemoveActive)()
 	if(state != AHELP_ACTIVE)
 		return
 	closed_at = world.time
@@ -322,7 +322,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 		initiator.current_ticket = null
 
 //Mark open ticket as closed/meme
-/datum/admin_help/proc/Close(key_name = key_name_admin(usr), silent = FALSE)
+TYPE_PROC_REF(/datum/admin_help, Close)(key_name = key_name_admin(usr), silent = FALSE)
 	if(state != AHELP_ACTIVE)
 		return
 	RemoveActive()
@@ -337,14 +337,14 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 		log_admin_private(msg)
 
 //Mark open ticket as resolved/legitimate, returns ahelp verb
-/datum/admin_help/proc/Resolve(key_name = key_name_admin(usr), silent = FALSE)
+TYPE_PROC_REF(/datum/admin_help, Resolve)(key_name = key_name_admin(usr), silent = FALSE)
 	if(state != AHELP_ACTIVE)
 		return
 	RemoveActive()
 	state = AHELP_RESOLVED
 	GLOB.ahelp_tickets.ListInsert(src)
 
-	addtimer(CALLBACK(initiator, /client/proc/giveadminhelpverb), 50)
+	addtimer(CALLBACK(initiator, TYPE_PROC_REF(/client, giveadminhelpverb)), 50)
 
 	AddInteraction("<font color='green'>Resolved by [key_name].</font>")
 	to_chat(initiator, span_adminhelp("Your ticket has been resolved by [usr?.client?.holder?.fakekey? usr.client.holder.fakekey : "an administrator"]. The Adminhelp verb will be returned to you shortly."))
@@ -355,7 +355,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 		log_admin_private(msg)
 
 //Close and return ahelp verb, use if ticket is incoherent
-/datum/admin_help/proc/Reject(key_name = key_name_admin(usr))
+TYPE_PROC_REF(/datum/admin_help, Reject)(key_name = key_name_admin(usr))
 	if(state != AHELP_ACTIVE)
 		return
 
@@ -376,7 +376,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 	Close(silent = TRUE)
 
 //Resolve ticket with IC Issue message
-/datum/admin_help/proc/ICIssue(key_name = key_name_admin(usr))
+TYPE_PROC_REF(/datum/admin_help, ICIssue)(key_name = key_name_admin(usr))
 	if(state != AHELP_ACTIVE)
 		return
 
@@ -393,7 +393,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 	Resolve(silent = TRUE)
 
 //Let the initiator know their ahelp is being handled
-/datum/admin_help/proc/HandleIssue(key_name = key_name_admin(usr))
+TYPE_PROC_REF(/datum/admin_help, HandleIssue)(key_name = key_name_admin(usr))
 	if(state != AHELP_ACTIVE)
 		return
 
@@ -409,7 +409,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 	AddInteraction("Being handled by [key_name]")
 
 //Show the ticket panel
-/datum/admin_help/proc/TicketPanel()
+TYPE_PROC_REF(/datum/admin_help, TicketPanel)()
 	var/list/dat = list("<html><head><meta http-equiv='Content-Type' content='text/html; charset=UTF-8'><title>Ticket #[id]</title></head>")
 	var/ref_src = "[REF(src)]"
 	dat += "<h4>Admin Help Ticket #[id]: [LinkedReplyName(ref_src)]</h4>"
@@ -440,7 +440,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 
 	usr << browse(dat.Join(), "window=ahelp[id];size=620x480")
 
-/datum/admin_help/proc/Retitle()
+TYPE_PROC_REF(/datum/admin_help, Retitle)()
 	var/new_title = input(usr, "Enter a title for the ticket", "Rename Ticket", name) as text|null
 	if(new_title)
 		name = new_title
@@ -451,7 +451,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 	TicketPanel()	//we have to be here to do this
 
 //Forwarded action from admin/Topic
-/datum/admin_help/proc/Action(action)
+TYPE_PROC_REF(/datum/admin_help, Action)(action)
 	testing("Ahelp action: [action]")
 	switch(action)
 		if("ticket")
@@ -498,13 +498,13 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 // CLIENT PROCS
 //
 
-/client/proc/giveadminhelpverb()
+TYPE_PROC_REF(/client, giveadminhelpverb)()
 	add_verb(src, /client/verb/adminhelp)
 	deltimer(adminhelptimerid)
 	adminhelptimerid = 0
 
 // Used for methods where input via arg doesn't work
-/client/proc/get_adminhelp()
+TYPE_PROC_REF(/client, get_adminhelp)()
 	var/msg = input(src, "Please describe your problem concisely and an admin will help as soon as they're able.", "Adminhelp contents") as text
 	adminhelp(msg)
 

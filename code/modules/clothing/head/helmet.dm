@@ -57,7 +57,7 @@
 
 
 ///Called when attached_light value changes.
-/obj/item/clothing/head/helmet/proc/set_attached_light(obj/item/flashlight/seclite/new_attached_light)
+TYPE_PROC_REF(/obj/item/clothing/head/helmet, set_attached_light)(obj/item/flashlight/seclite/new_attached_light)
 	if(attached_light == new_attached_light)
 		return
 	. = attached_light
@@ -388,7 +388,7 @@
 		return TRUE
 
 
-/obj/item/clothing/head/helmet/proc/toggle_helmlight()
+TYPE_PROC_REF(/obj/item/clothing/head/helmet, toggle_helmlight)()
 	set name = "Toggle Helmetlight"
 	set category = "Object"
 	set desc = "Click to toggle your helmet's attached flashlight."
@@ -407,7 +407,7 @@
 	update_helmlight()
 
 
-/obj/item/clothing/head/helmet/proc/update_helmlight()
+TYPE_PROC_REF(/obj/item/clothing/head/helmet, update_helmlight)()
 	if(attached_light)
 		update_icon()
 

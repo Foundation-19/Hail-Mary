@@ -9,7 +9,7 @@
 	give_objective()
 	start_the_hunt()
 
-/datum/antagonist/blood_contract/proc/give_objective()
+TYPE_PROC_REF(/datum/antagonist/blood_contract, give_objective)()
 	var/datum/objective/survive/survive = new
 	survive.owner = owner
 	objectives += survive
@@ -18,13 +18,13 @@
 	. = ..()
 	to_chat(owner, span_userdanger("You've been marked for death! Don't let the demons get you! KILL THEM ALL!"))
 
-/datum/antagonist/blood_contract/proc/start_the_hunt()
+TYPE_PROC_REF(/datum/antagonist/blood_contract, start_the_hunt)()
 	var/mob/living/carbon/human/H = owner.current
 	if(!istype(H))
 		return
 	H.add_atom_colour("#FF0000", ADMIN_COLOUR_PRIORITY)
 	var/obj/effect/mine/pickup/bloodbath/B = new(H)
-	INVOKE_ASYNC(B, /obj/effect/mine/pickup/bloodbath/.proc/mineEffect, H) //could use moving out from the mine
+	INVOKE_ASYNC(B, TYPE_PROC_REF(/obj/effect/mine/pickup/bloodbath, mineEffect), H) //could use moving out from the mine
 
 	for(var/mob/living/carbon/human/P in GLOB.player_list)
 		if(P == H || HAS_TRAIT(P, TRAIT_NO_MIDROUND_ANTAG))

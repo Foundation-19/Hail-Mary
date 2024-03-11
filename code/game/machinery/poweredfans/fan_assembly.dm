@@ -64,7 +64,7 @@
 		deconstruct()
 	return TRUE
 
-/obj/machinery/fan_assembly/proc/weld(obj/item/weldingtool/W, mob/living/user)
+TYPE_PROC_REF(/obj/machinery/fan_assembly, weld)(obj/item/weldingtool/W, mob/living/user)
 	if(!W.tool_start_check(user, amount=0))
 		return FALSE
 	switch(stat)

@@ -47,32 +47,32 @@
 	apply(A)
 	return ..()
 
-/datum/element/decal/proc/apply(atom/target)
+TYPE_PROC_REF(/datum/element/decal, apply)(atom/target)
 	if(target.flags_1 & INITIALIZED_1)
 		target.update_icon() //could use some queuing here now maybe.
 	else if(!QDELETED(target) && num_decals_per_atom[target] == 1)
 		RegisterSignal(target, COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZE, PROC_REF(late_update_icon))
 	if(isitem(target))
-		addtimer(CALLBACK(target, /obj/item/.proc/update_slot_icon), 0, TIMER_UNIQUE)
+		addtimer(CALLBACK(target, TYPE_PROC_REF(/obj/item, update_slot_icon)), 0, TIMER_UNIQUE)
 
-/datum/element/decal/proc/late_update_icon(atom/source)
+TYPE_PROC_REF(/datum/element/decal, late_update_icon)(atom/source)
 	source.update_icon()
 	UnregisterSignal(source,COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZE)
 
-/datum/element/decal/proc/apply_overlay(atom/source, list/overlay_list)
+TYPE_PROC_REF(/datum/element/decal, apply_overlay)(atom/source, list/overlay_list)
 	if(first_dir)
 		pic.dir = first_dir == SOUTH ? source.dir : turn(first_dir, dir2angle(source.dir)-180) //Never turn a dir by 0.
 	for(var/i in 1 to num_decals_per_atom[source])
 		overlay_list += pic
 
-/datum/element/decal/proc/rotate_react(atom/source, old_dir, new_dir)
+TYPE_PROC_REF(/datum/element/decal, rotate_react)(atom/source, old_dir, new_dir)
 	if(old_dir == new_dir)
 		return
 	source.update_icon()
 
-/datum/element/decal/proc/clean_react(datum/source, strength)
+TYPE_PROC_REF(/datum/element/decal, clean_react)(datum/source, strength)
 	if(strength >= cleanable)
 		Detach(source)
 
-/datum/element/decal/proc/examine(datum/source, mob/user, list/examine_list)
+TYPE_PROC_REF(/datum/element/decal, examine)(datum/source, mob/user, list/examine_list)
 	examine_list += description

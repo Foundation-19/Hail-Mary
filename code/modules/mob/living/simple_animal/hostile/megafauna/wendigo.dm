@@ -114,7 +114,7 @@ Difficulty: Hard
 		INVOKE_ASYNC(src, PROC_REF(ground_slam), stomp_range, 1)
 
 /// Slams the ground around the wendigo throwing back enemies caught nearby
-/mob/living/simple_animal/hostile/megafauna/wendigo/proc/ground_slam(range, delay)
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/megafauna/wendigo, ground_slam)(range, delay)
 	var/turf/orgin = get_turf(src)
 	var/list/all_turfs = RANGE_TURFS(range, orgin)
 	for(var/i = 0 to range)
@@ -135,14 +135,14 @@ Difficulty: Hard
 		sleep(delay)
 
 /// Larger but slower ground stomp
-/mob/living/simple_animal/hostile/megafauna/wendigo/proc/heavy_stomp()
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/megafauna/wendigo, heavy_stomp)()
 	can_move = FALSE
 	ground_slam(5, 2)
 	SetRecoveryTime(0, 0)
 	can_move = TRUE
 
 /// Teleports to a location 4 turfs away from the enemy in view
-/mob/living/simple_animal/hostile/megafauna/wendigo/proc/teleport()
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/megafauna/wendigo, teleport)()
 	var/list/possible_ends = list()
 	for(var/turf/T in view(4, target.loc) - view(3, target.loc))
 		if(isclosedturf(T))
@@ -153,7 +153,7 @@ Difficulty: Hard
 	SetRecoveryTime(20, 0)
 
 /// Shakes all nearby enemies screens and animates the wendigo shaking up and down
-/mob/living/simple_animal/hostile/megafauna/wendigo/proc/disorienting_scream()
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/megafauna/wendigo, disorienting_scream)()
 	can_move = FALSE
 	playsound(src, 'sound/magic/demon_dies.ogg', 600, FALSE, 10)
 	animate(src, pixel_z = rand(5, 15), time = 1, loop = 6)

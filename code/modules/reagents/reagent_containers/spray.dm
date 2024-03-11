@@ -68,7 +68,7 @@
 	if(reagents.has_reagent(/datum/reagent/toxin/acid/fantiacid))
 		message_admins("[ADMIN_LOOKUPFLW(user)] fired fluoroantimonic acid from \a [src] at [ADMIN_VERBOSEJMP(T)].")
 		log_game("[key_name(user)] fired fluoroantimonic acid from \a [src] at [AREACOORD(T)].")
-/obj/item/reagent_containers/spray/proc/spray(atom/A)
+TYPE_PROC_REF(/obj/item/reagent_containers/spray, spray)(atom/A)
 	if((last_spray + spray_cooldown) > world.time)
 		return
 	var/range = clamp(get_dist(src, A), 1, current_range)
@@ -90,7 +90,7 @@
 	INVOKE_ASYNC(src, PROC_REF(do_spray), A, wait_step, D, range, puff_reagent_left)
 	return TRUE
 
-/obj/item/reagent_containers/spray/proc/do_spray(atom/A, wait_step, obj/effect/decal/chempuff/D, range, puff_reagent_left)
+TYPE_PROC_REF(/obj/item/reagent_containers/spray, do_spray)(atom/A, wait_step, obj/effect/decal/chempuff/D, range, puff_reagent_left)
 	var/range_left = range
 	for(var/i=0, i<range, i++)
 		range_left--
@@ -291,7 +291,7 @@
 	to_chat(usr, span_warning("You can not empty this!"))
 	return
 
-/obj/item/reagent_containers/spray/waterflower/cyborg/proc/generate_reagents()
+TYPE_PROC_REF(/obj/item/reagent_containers/spray/waterflower/cyborg, generate_reagents)()
 	reagents.add_reagent(generate_type, generate_amount)
 
 //chemsprayer

@@ -127,7 +127,7 @@
 /obj/machinery/button/attack_robot(mob/user)
 	return attack_ai(user)
 
-/obj/machinery/button/proc/setup_device()
+TYPE_PROC_REF(/obj/machinery/button, setup_device)()
 	if(id && istype(device, /obj/item/assembly/control))
 		var/obj/item/assembly/control/A = device
 		A.id = id
@@ -183,7 +183,7 @@
 	if(device)
 		device.pulsed()
 
-	addtimer(CALLBACK(src, /atom/.proc/update_icon), 15)
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_icon)), 15)
 
 /obj/machinery/button/power_change()
 	..()

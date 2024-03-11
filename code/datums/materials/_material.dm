@@ -40,7 +40,7 @@ Simple datum which is instanced once per type and is used for every object of sa
 		cached_texture_filter = filter(type="layer", icon=texture_icon, blend_mode = BLEND_INSET_OVERLAY)
 
 ///This proc is called when the material is added to an object.
-/datum/material/proc/on_applied(atom/source, amount, material_flags)
+TYPE_PROC_REF(/datum/material, on_applied)(atom/source, amount, material_flags)
 	if(material_flags & MATERIAL_COLOR) //Prevent changing things with pre-set colors, to keep colored toolboxes their looks for example
 		if(color) //Do we have a custom color?
 			source.add_atom_colour(color, FIXED_COLOUR_PRIORITY)
@@ -65,10 +65,10 @@ Simple datum which is instanced once per type and is used for every object of sa
 	source.mat_update_desc(src)
 
 ///This proc is called when a material updates an object's description
-/atom/proc/mat_update_desc(/datum/material/mat)
+TYPE_PROC_REF(/atom, mat_update_desc)(/datum/material/mat)
 	return
 ///This proc is called when the material is added to an object specifically.
-/datum/material/proc/on_applied_obj(obj/o, amount, material_flags)
+TYPE_PROC_REF(/datum/material, on_applied_obj)(obj/o, amount, material_flags)
 	if(material_flags & MATERIAL_AFFECT_STATISTICS)
 		var/new_max_integrity = CEILING(o.max_integrity * integrity_modifier, 1)
 		o.modify_max_integrity(new_max_integrity)
@@ -93,7 +93,7 @@ Simple datum which is instanced once per type and is used for every object of sa
 	I.usesound = item_sound_override
 	I.throwhitsound = item_sound_override
 
-/datum/material/proc/on_applied_turf(turf/T, amount, material_flags)
+TYPE_PROC_REF(/datum/material, on_applied_turf)(turf/T, amount, material_flags)
 	if(isopenturf(T))
 		if(!turf_sound_override)
 			return
@@ -104,7 +104,7 @@ Simple datum which is instanced once per type and is used for every object of sa
 		O.heavyfootstep = turf_sound_override
 
 ///This proc is called when the material is removed from an object.
-/datum/material/proc/on_removed(atom/source, material_flags)
+TYPE_PROC_REF(/datum/material, on_removed)(atom/source, material_flags)
 	if(material_flags & MATERIAL_COLOR) //Prevent changing things with pre-set colors, to keep colored toolboxes their looks for example
 		if(color)
 			source.remove_atom_colour(FIXED_COLOUR_PRIORITY, color)
@@ -123,12 +123,12 @@ Simple datum which is instanced once per type and is used for every object of sa
 		on_removed_turf(source, material_flags)
 
 ///This proc is called when the material is removed from an object specifically.
-/datum/material/proc/on_removed_obj(obj/o, material_flags)
+TYPE_PROC_REF(/datum/material, on_removed_obj)(obj/o, material_flags)
 	if(material_flags & MATERIAL_AFFECT_STATISTICS)
 		var/new_max_integrity = initial(o.max_integrity)
 		o.modify_max_integrity(new_max_integrity)
 		o.force = initial(o.force)
 		o.throwforce = initial(o.throwforce)
 
-/datum/material/proc/on_removed_turf(turf/T, material_flags)
+TYPE_PROC_REF(/datum/material, on_removed_turf)(turf/T, material_flags)
 	return

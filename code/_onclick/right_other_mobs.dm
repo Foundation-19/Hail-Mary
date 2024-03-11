@@ -46,5 +46,5 @@
 			to_chat(M, "[src] [message].")
 	return TRUE
 
-/atom/proc/alt_attack_hand(mob/user)
+TYPE_PROC_REF(/atom, alt_attack_hand)(mob/user)
 	return FALSE

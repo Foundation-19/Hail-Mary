@@ -45,7 +45,7 @@
 
 	return INITIALIZE_HINT_LATELOAD //we need turfs to have air
 
-/obj/machinery/disposal/proc/trunk_check()
+TYPE_PROC_REF(/obj/machinery/disposal, trunk_check)()
 	trunk = locate() in loc
 	if(!trunk)
 		pressure_charging = FALSE
@@ -103,7 +103,7 @@
 	else
 		return ..()
 
-/obj/machinery/disposal/proc/place_item_in_disposal(obj/item/I, mob/user)
+TYPE_PROC_REF(/obj/machinery/disposal, place_item_in_disposal)(obj/item/I, mob/user)
 	if(istype(I, /obj/item/clothing/head/mob_holder))
 		var/obj/item/clothing/head/mob_holder/H = I
 		var/mob/living/m = H.held_mob
@@ -120,7 +120,7 @@
 	if(istype(target))
 		stuff_mob_in(target, user)
 
-/obj/machinery/disposal/proc/stuff_mob_in(mob/living/target, mob/living/user)
+TYPE_PROC_REF(/obj/machinery/disposal, stuff_mob_in)(mob/living/target, mob/living/user)
 	if(!can_stuff_mob_in(target, user))
 		return
 	add_fingerprint(user)
@@ -140,7 +140,7 @@
 			target.LAssailant = WEAKREF(user)
 		update_icon()
 
-/obj/machinery/disposal/proc/can_stuff_mob_in(mob/living/target, mob/living/user, pushing = FALSE)
+TYPE_PROC_REF(/obj/machinery/disposal, can_stuff_mob_in)(mob/living/target, mob/living/user, pushing = FALSE)
 	if(!pushing && !iscarbon(user) && !user.ventcrawler) //only carbon and ventcrawlers can climb into disposal by themselves.
 		if(iscyborg(user))
 			var/mob/living/silicon/robot/borg = user
@@ -165,13 +165,13 @@
 /obj/machinery/disposal/container_resist(mob/living/user)
 	attempt_escape(user)
 
-/obj/machinery/disposal/proc/attempt_escape(mob/user)
+TYPE_PROC_REF(/obj/machinery/disposal, attempt_escape)(mob/user)
 	if(flushing)
 		return
 	go_out(user)
 
 // leave the disposal
-/obj/machinery/disposal/proc/go_out(mob/user)
+TYPE_PROC_REF(/obj/machinery/disposal, go_out)(mob/user)
 	user.forceMove(loc)
 	update_icon()
 
@@ -184,14 +184,14 @@
 
 
 // eject the contents of the disposal unit
-/obj/machinery/disposal/proc/eject()
+TYPE_PROC_REF(/obj/machinery/disposal, eject)()
 	var/turf/T = get_turf(src)
 	for(var/atom/movable/AM in src)
 		AM.forceMove(T)
 		AM.pipe_eject(0)
 	update_icon()
 
-/obj/machinery/disposal/proc/flush()
+TYPE_PROC_REF(/obj/machinery/disposal, flush)()
 	flushing = TRUE
 	flushAnimation()
 	sleep(10)
@@ -209,12 +209,12 @@
 	flushing = FALSE
 	flush = FALSE
 
-/obj/machinery/disposal/proc/newHolderDestination(obj/structure/disposalholder/H)
+TYPE_PROC_REF(/obj/machinery/disposal, newHolderDestination)(obj/structure/disposalholder/H)
 	for(var/obj/item/smallDelivery/O in src)
 		H.tomail = TRUE
 		return
 
-/obj/machinery/disposal/proc/flushAnimation()
+TYPE_PROC_REF(/obj/machinery/disposal, flushAnimation)()
 	flick("[icon_state]-flush", src)
 
 // called when area power changes
@@ -223,7 +223,7 @@
 	update_icon()	// update icon
 
 // called when holder is expelled from a disposal
-/obj/machinery/disposal/proc/expel(obj/structure/disposalholder/H)
+TYPE_PROC_REF(/obj/machinery/disposal, expel)(obj/structure/disposalholder/H)
 	H.active = FALSE
 
 	var/turf/T = get_turf(src)
@@ -408,7 +408,7 @@
 	else if(full_pressure)
 		. += "dispover-ready"
 
-/obj/machinery/disposal/bin/proc/do_flush()
+TYPE_PROC_REF(/obj/machinery/disposal/bin, do_flush)()
 	set waitfor = FALSE
 	flush()
 
@@ -512,7 +512,7 @@
 		M.forceMove(src)
 	flush()
 
-/atom/movable/proc/CanEnterDisposals()
+TYPE_PROC_REF(/atom/movable, CanEnterDisposals)()
 	return TRUE
 
 /obj/item/projectile/CanEnterDisposals()

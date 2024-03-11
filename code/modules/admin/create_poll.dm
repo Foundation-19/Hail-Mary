@@ -1,4 +1,4 @@
-/client/proc/create_poll()
+TYPE_PROC_REF(/client, create_poll)()
 	set name = "Create Poll"
 	set category = "Special Verbs"
 	if(!check_rights(R_POLL))

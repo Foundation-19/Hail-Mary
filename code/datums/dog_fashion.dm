@@ -17,7 +17,7 @@
 	name = replacetext(name, "REAL_NAME", M.real_name)
 	desc = replacetext(desc, "NAME", name)
 
-/datum/dog_fashion/proc/apply(mob/living/simple_animal/pet/dog/D)
+TYPE_PROC_REF(/datum/dog_fashion, apply)(mob/living/simple_animal/pet/dog/D)
 	if(name)
 		D.name = name
 	if(desc)
@@ -31,7 +31,7 @@
 	if(speak_emote)
 		D.speak_emote = speak_emote
 
-/datum/dog_fashion/proc/get_overlay(dir)
+TYPE_PROC_REF(/datum/dog_fashion, get_overlay)(dir)
 	if(icon_file && obj_icon_state)
 		var/image/corgI = image(icon_file, obj_icon_state, dir = dir)
 		corgI.alpha = obj_alpha

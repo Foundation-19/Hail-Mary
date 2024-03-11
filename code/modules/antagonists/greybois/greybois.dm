@@ -17,7 +17,7 @@
 	equipERT()
 	. = ..()
 
-/datum/antagonist/greybois/proc/equipERT()
+TYPE_PROC_REF(/datum/antagonist/greybois, equipERT)()
 	var/mob/living/carbon/human/H = owner.current
 	if(!istype(H))
 		return

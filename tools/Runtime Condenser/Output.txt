@@ -14,7 +14,7 @@ runtime error: Component is missing a pipenet! Rebuilding...
 
 The following runtime has occurred 709 time(s).
 runtime error: wrong type of value for list
-proc name: updateghostimages (/mob/dead/observer/proc/updateghostimages)
+proc name: updateghostimages (TYPE_PROC_REF(/mob/dead/observer, updateghostimages))
   source file: observer.dm,488
   usr: (src)
   src: Argon IXV (/mob/dead/observer)
@@ -40,7 +40,7 @@ proc name: send asset (GLOBAL_PROC_REF(send_asset))
 
 The following runtime has occurred 30 time(s).
 runtime error: list index out of bounds
-proc name: GetGreaterChild (/Heap/proc/GetGreaterChild)
+proc name: GetGreaterChild (TYPE_PROC_REF(/Heap, GetGreaterChild))
   source file: heap.dm,62
   usr: null
   src: /Heap (/Heap)
@@ -60,7 +60,7 @@ proc name: stack trace (GLOBAL_PROC_REF(stack_trace))
 
 The following runtime has occurred 12 time(s).
 runtime error: Cannot read null.viewavail
-proc name: record (/obj/machinery/computer/monitor/proc/record)
+proc name: record (TYPE_PROC_REF(/obj/machinery/computer/monitor, record))
   source file: monitor.dm,41
   usr: null
   src: Engineering Power Monitoring C... (/obj/machinery/computer/monitor)
@@ -69,7 +69,7 @@ proc name: record (/obj/machinery/computer/monitor/proc/record)
 
 The following runtime has occurred 11 time(s).
 runtime error: Cannot read null.selection_color
-proc name: SetChoices (/datum/preferences/proc/SetChoices)
+proc name: SetChoices (TYPE_PROC_REF(/datum/preferences, SetChoices))
   source file: preferences.dm,543
   usr: Sweetestbro (/mob/new_player)
   src: /datum/preferences (/datum/preferences)
@@ -101,7 +101,7 @@ proc name: Entered (/turf/Entered)
 
 The following runtime has occurred 5 time(s).
 runtime error: bad client
-proc name: open (/datum/browser/proc/open)
+proc name: open (TYPE_PROC_REF(/datum/browser, open))
   source file: browser.dm,106
   usr: Timothy Catleay (/mob/living/carbon/human)
   src: /datum/browser (/datum/browser)
@@ -121,7 +121,7 @@ proc name: assume air (/turf/open/assume_air)
 
 The following runtime has occurred 3 time(s).
 runtime error: Cannot read null.gases
-proc name: tile graphic (/turf/open/proc/tile_graphic)
+proc name: tile graphic (TYPE_PROC_REF(/turf/open, tile_graphic))
   source file: LINDA_turf_tile.dm,110
   usr: null
   src: the floor (81,52,5) (/turf/open/floor/plasteel/freezer)
@@ -149,7 +149,7 @@ proc name: remove air (/turf/open/remove_air)
 
 The following runtime has occurred 2 time(s).
 runtime error: Cannot execute null.return pressure().
-proc name: update pressure (/obj/mecha/working/ripley/proc/update_pressure)
+proc name: update pressure (TYPE_PROC_REF(/obj/mecha/working/ripley, update_pressure))
   source file: ripley.dm,150
   usr: 0
   src: the APLU \"Ripley\" (/obj/mecha/working/ripley)
@@ -170,7 +170,7 @@ runtime error: undefined proc or verb /turf/closed/wall/r_wall/high pressure mov
 
 The following runtime has occurred 1 time(s).
 runtime error: bad client
-proc name: show (/datum/html_interface/proc/show)
+proc name: show (TYPE_PROC_REF(/datum/html_interface, show))
   source file: html_interface.dm,227
   usr: Mariabella Pycroft-Crane (/mob/living/carbon/human)
   src: /datum/html_interface/nanotras... (/datum/html_interface/nanotrasen)
@@ -178,7 +178,7 @@ proc name: show (/datum/html_interface/proc/show)
 
 The following runtime has occurred 1 time(s).
 runtime error: Cannot execute null.GetAtmosAdjacentTurfs().
-proc name: spread smoke (/obj/effect/particle_effect/smoke/proc/spread_smoke)
+proc name: spread smoke (TYPE_PROC_REF(/obj/effect/particle_effect/smoke, spread_smoke))
   source file: effects_smoke.dm,74
   usr: null
   src: the smoke (/obj/effect/particle_effect/smoke)
@@ -187,7 +187,7 @@ proc name: spread smoke (/obj/effect/particle_effect/smoke/proc/spread_smoke)
 
 The following runtime has occurred 1 time(s).
 runtime error: Cannot read null.pipe_vision_img
-proc name: add ventcrawl (/mob/living/proc/add_ventcrawl)
+proc name: add ventcrawl (TYPE_PROC_REF(/mob/living, add_ventcrawl))
   source file: ventcrawling.dm,94
   usr: (src)
   src: the monkey (809) (/mob/living/carbon/monkey)
@@ -204,7 +204,7 @@ proc name: Click (/obj/screen/grab/Click)
 
 The following runtime has occurred 1 time(s).
 runtime error: list index out of bounds
-proc name: mod list add (/client/proc/mod_list_add)
+proc name: mod list add (TYPE_PROC_REF(/client, mod_list_add))
   source file: modifyvariables.dm,161
   usr: the potted plant (/mob/dead/observer)
   src: MimicFaux (/client)
@@ -212,7 +212,7 @@ proc name: mod list add (/client/proc/mod_list_add)
 
 The following runtime has occurred 1 time(s).
 runtime error: Cannot execute null.get reagent amount().
-proc name: get fuel (/obj/item/weapon/weldingtool/proc/get_fuel)
+proc name: get fuel (TYPE_PROC_REF(/obj/item/weapon/weldingtool, get_fuel))
   source file: tools.dm,334
   usr: null
   src: the welding tool (/obj/item/weapon/weldingtool)

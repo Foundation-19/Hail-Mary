@@ -66,7 +66,7 @@
 				new /obj/effect/temp_visual/revenant(affected_mob.loc)
 				addtimer(CALLBACK(src, PROC_REF(curses)), 150)
 
-/datum/disease/revblight/proc/curses()
+TYPE_PROC_REF(/datum/disease/revblight, curses)()
 	if(QDELETED(affected_mob))
 		return
 	affected_mob.playsound_local(affected_mob, 'sound/effects/curse5.ogg', 40, 1, -1)

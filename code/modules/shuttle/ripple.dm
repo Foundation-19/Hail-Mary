@@ -16,5 +16,5 @@
 	animate(src, alpha=255, time=time_left)
 	addtimer(CALLBACK(src, PROC_REF(stop_animation)), 8, TIMER_CLIENT_TIME)
 
-/obj/effect/abstract/ripple/proc/stop_animation()
+TYPE_PROC_REF(/obj/effect/abstract/ripple, stop_animation)()
 	icon_state = "medi_holo_no_anim"

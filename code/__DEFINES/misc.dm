@@ -391,7 +391,7 @@ GLOBAL_LIST_INIT(pda_reskins, list(PDA_SKIN_CLASSIC = 'icons/obj/pda.dmi'))
 #define MOUSE_OPACITY_ICON 1
 #define MOUSE_OPACITY_OPAQUE 2
 
-//world/proc/shelleo
+TYPE_PROC_REF(//world, shelleo)
 #define SHELLEO_ERRORLEVEL 1
 #define SHELLEO_STDOUT 2
 #define SHELLEO_STDERR 3

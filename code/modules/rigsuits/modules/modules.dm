@@ -136,12 +136,12 @@
 	stat_modules +=	new/stat_rig_module/charge(src)
 
 // Called when the module is installed into a suit.
-/obj/item/rig_module/proc/installed(obj/item/rig/new_holder)
+TYPE_PROC_REF(/obj/item/rig_module, installed)(obj/item/rig/new_holder)
 	holder = new_holder
 	return
 
 //Proc for one-use abilities like teleport.
-/obj/item/rig_module/proc/engage()
+TYPE_PROC_REF(/obj/item/rig_module, engage)()
 	if(damage >= 2)
 		to_chat(usr, span_warning("The [interface_name] is damaged beyond use!"))
 		return 0
@@ -174,7 +174,7 @@
 	return 1
 
 // Proc for toggling on active abilities.
-/obj/item/rig_module/proc/activate()
+TYPE_PROC_REF(/obj/item/rig_module, activate)()
 	if(active || !engage())
 		return 0
 
@@ -190,7 +190,7 @@
 	return 1
 
 // Proc for toggling off active abilities.
-/obj/item/rig_module/proc/deactivate()
+TYPE_PROC_REF(/obj/item/rig_module, deactivate)()
 	if(!active)
 		return 0
 
@@ -207,7 +207,7 @@
 	return 1
 
 // Called when the module is uninstalled from a suit.
-/obj/item/rig_module/proc/removed()
+TYPE_PROC_REF(/obj/item/rig_module, removed)()
 	deactivate()
 	holder = null
 	return
@@ -221,10 +221,10 @@
 
 // Called by holder rigsuit attackby()
 // Checks if an item is usable with this module and handles it if it is
-/obj/item/rig_module/proc/accepts_item(obj/item/input_device)
+TYPE_PROC_REF(/obj/item/rig_module, accepts_item)(obj/item/input_device)
 	return 0
 
-/mob/proc/SetupStat(obj/item/rig/R)
+TYPE_PROC_REF(/mob, SetupStat)(obj/item/rig/R)
 	if(R && (R.item_flags & NODROP) && R.installed_modules.len && statpanel("Hardsuit Modules"))
 		var/cell_status = R.cell ? "[R.cell.charge]/[R.cell.maxcharge]" : "ERROR"
 		stat("Suit charge", cell_status)
@@ -243,10 +243,10 @@
 	..()
 	src.module = module
 
-/stat_rig_module/proc/AddHref(list/href_list)
+TYPE_PROC_REF(/stat_rig_module, AddHref)(list/href_list)
 	return
 
-/stat_rig_module/proc/CanUse()
+TYPE_PROC_REF(/stat_rig_module, CanUse)()
 	return 0
 
 /stat_rig_module/Click()

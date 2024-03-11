@@ -114,8 +114,8 @@ we use a hook instead
 	. = ..()
 	*/
 
-/datum/gas_mixture/proc/__gasmixture_unregister()
-/datum/gas_mixture/proc/__gasmixture_register()
+TYPE_PROC_REF(/datum/gas_mixture, __gasmixture_unregister)()
+TYPE_PROC_REF(/datum/gas_mixture, __gasmixture_register)()
 
 /proc/gas_types()
 	var/list/L = subtypesof(/datum/gas)
@@ -124,128 +124,128 @@ we use a hook instead
 		L[gt] = initial(G.specific_heat)
 	return L
 
-/datum/gas_mixture/proc/heat_capacity() //joules per kelvin
+TYPE_PROC_REF(/datum/gas_mixture, heat_capacity)() //joules per kelvin
 
-/datum/gas_mixture/proc/partial_heat_capacity(gas_type)
+TYPE_PROC_REF(/datum/gas_mixture, partial_heat_capacity)(gas_type)
 
-/datum/gas_mixture/proc/total_moles()
+TYPE_PROC_REF(/datum/gas_mixture, total_moles)()
 
-/datum/gas_mixture/proc/return_pressure() //kilopascals
+TYPE_PROC_REF(/datum/gas_mixture, return_pressure)() //kilopascals
 
-/datum/gas_mixture/proc/return_temperature() //kelvins
+TYPE_PROC_REF(/datum/gas_mixture, return_temperature)() //kelvins
 
-/datum/gas_mixture/proc/set_min_heat_capacity(n)
-/datum/gas_mixture/proc/set_temperature(new_temp)
-/datum/gas_mixture/proc/set_volume(new_volume)
-/datum/gas_mixture/proc/get_moles(gas_type)
-/datum/gas_mixture/proc/set_moles(gas_type, moles)
+TYPE_PROC_REF(/datum/gas_mixture, set_min_heat_capacity)(n)
+TYPE_PROC_REF(/datum/gas_mixture, set_temperature)(new_temp)
+TYPE_PROC_REF(/datum/gas_mixture, set_volume)(new_volume)
+TYPE_PROC_REF(/datum/gas_mixture, get_moles)(gas_type)
+TYPE_PROC_REF(/datum/gas_mixture, set_moles)(gas_type, moles)
 
 // VV WRAPPERS - EXTOOLS HOOKED PROCS DO NOT TAKE ARGUMENTS FROM CALL() FOR SOME REASON.
-/datum/gas_mixture/proc/vv_set_moles(gas_type, moles)
+TYPE_PROC_REF(/datum/gas_mixture, vv_set_moles)(gas_type, moles)
 	return set_moles(gas_type, moles)
-/datum/gas_mixture/proc/vv_get_moles(gas_type)
+TYPE_PROC_REF(/datum/gas_mixture, vv_get_moles)(gas_type)
 	return get_moles(gas_type)
-/datum/gas_mixture/proc/vv_set_temperature(new_temp)
+TYPE_PROC_REF(/datum/gas_mixture, vv_set_temperature)(new_temp)
 	return set_temperature(new_temp)
-/datum/gas_mixture/proc/vv_set_volume(new_volume)
+TYPE_PROC_REF(/datum/gas_mixture, vv_set_volume)(new_volume)
 	return set_volume(new_volume)
-/datum/gas_mixture/proc/vv_react(datum/holder)
+TYPE_PROC_REF(/datum/gas_mixture, vv_react)(datum/holder)
 	return react(holder)
 
-/datum/gas_mixture/proc/scrub_into(datum/gas_mixture/target, ratio, list/gases)
-/datum/gas_mixture/proc/mark_immutable()
-/datum/gas_mixture/proc/get_gases()
-/datum/gas_mixture/proc/multiply(factor)
-/datum/gas_mixture/proc/get_last_share()
-/datum/gas_mixture/proc/clear()
+TYPE_PROC_REF(/datum/gas_mixture, scrub_into)(datum/gas_mixture/target, ratio, list/gases)
+TYPE_PROC_REF(/datum/gas_mixture, mark_immutable)()
+TYPE_PROC_REF(/datum/gas_mixture, get_gases)()
+TYPE_PROC_REF(/datum/gas_mixture, multiply)(factor)
+TYPE_PROC_REF(/datum/gas_mixture, get_last_share)()
+TYPE_PROC_REF(/datum/gas_mixture, clear)()
 
-/datum/gas_mixture/proc/adjust_moles(gas_type, amt = 0)
+TYPE_PROC_REF(/datum/gas_mixture, adjust_moles)(gas_type, amt = 0)
 	set_moles(gas_type, clamp(get_moles(gas_type) + amt,0,INFINITY))
 
-/datum/gas_mixture/proc/return_volume() //liters
+TYPE_PROC_REF(/datum/gas_mixture, return_volume)() //liters
 
-/datum/gas_mixture/proc/thermal_energy() //joules
+TYPE_PROC_REF(/datum/gas_mixture, thermal_energy)() //joules
 
-/datum/gas_mixture/proc/archive()
+TYPE_PROC_REF(/datum/gas_mixture, archive)()
 	//Update archived versions of variables
 	//Returns: 1 in all cases
 
-/datum/gas_mixture/proc/merge(datum/gas_mixture/giver)
+TYPE_PROC_REF(/datum/gas_mixture, merge)(datum/gas_mixture/giver)
 	//Merges all air from giver into self. giver is untouched.
 	//Returns: 1 if we are mutable, 0 otherwise
 
-/datum/gas_mixture/proc/remove(amount)
+TYPE_PROC_REF(/datum/gas_mixture, remove)(amount)
 	//Removes amount of gas from the gas_mixture
 	//Returns: gas_mixture with the gases removed
 
-/datum/gas_mixture/proc/transfer_to(datum/gas_mixture/target, amount)
+TYPE_PROC_REF(/datum/gas_mixture, transfer_to)(datum/gas_mixture/target, amount)
 	//Transfers amount of gas to target. Equivalent to target.merge(remove(amount)) but faster.
 
-/datum/gas_mixture/proc/transfer_ratio_to(datum/gas_mixture/target, ratio)
+TYPE_PROC_REF(/datum/gas_mixture, transfer_ratio_to)(datum/gas_mixture/target, ratio)
 	//Transfers ratio of gas to target. Equivalent to target.merge(remove_ratio(amount)) but faster.
 
-/datum/gas_mixture/proc/remove_ratio(ratio)
+TYPE_PROC_REF(/datum/gas_mixture, remove_ratio)(ratio)
 	//Proportionally removes amount of gas from the gas_mixture
 	//Returns: gas_mixture with the gases removed
 
-/datum/gas_mixture/proc/copy()
+TYPE_PROC_REF(/datum/gas_mixture, copy)()
 	//Creates new, identical gas mixture
 	//Returns: duplicate gas mixture
 
-/datum/gas_mixture/proc/copy_from(datum/gas_mixture/sample)
+TYPE_PROC_REF(/datum/gas_mixture, copy_from)(datum/gas_mixture/sample)
 	//Copies variables from sample
 	//Returns: 1 if we are mutable, 0 otherwise
 
-/datum/gas_mixture/proc/copy_from_turf(turf/model)
+TYPE_PROC_REF(/datum/gas_mixture, copy_from_turf)(turf/model)
 	//Copies all gas info from the turf into the gas list along with temperature
 	//Returns: 1 if we are mutable, 0 otherwise
 
-/datum/gas_mixture/proc/parse_gas_string(gas_string)
+TYPE_PROC_REF(/datum/gas_mixture, parse_gas_string)(gas_string)
 	//Copies variables from a particularly formatted string.
 	//Returns: 1 if we are mutable, 0 otherwise
 
-/datum/gas_mixture/proc/share(datum/gas_mixture/sharer)
+TYPE_PROC_REF(/datum/gas_mixture, share)(datum/gas_mixture/sharer)
 	//Performs air sharing calculations between two gas_mixtures assuming only 1 boundary length
 	//Returns: amount of gas exchanged (+ if sharer received)
 
-/datum/gas_mixture/proc/temperature_share(datum/gas_mixture/sharer, conduction_coefficient,temperature=null,heat_capacity=null)
+TYPE_PROC_REF(/datum/gas_mixture, temperature_share)(datum/gas_mixture/sharer, conduction_coefficient,temperature=null,heat_capacity=null)
 	//Performs temperature sharing calculations (via conduction) between two gas_mixtures assuming only 1 boundary length
 	//Returns: new temperature of the sharer
 
-/datum/gas_mixture/proc/compare(datum/gas_mixture/sample)
+TYPE_PROC_REF(/datum/gas_mixture, compare)(datum/gas_mixture/sample)
 	//Compares sample to self to see if within acceptable ranges that group processing may be enabled
 	//Returns: a string indicating what check failed, or "" if check passes
 
-/datum/gas_mixture/proc/react(datum/holder)
+TYPE_PROC_REF(/datum/gas_mixture, react)(datum/holder)
 	//Performs various reactions such as combustion or fusion (LOL)
 	//Returns: 1 if any reaction took place; 0 otherwise
 
-/datum/gas_mixture/proc/adjust_heat(amt)
+TYPE_PROC_REF(/datum/gas_mixture, adjust_heat)(amt)
 	//Adjusts the thermal energy of the gas mixture, rather than having to do the full calculation.
 	//Returns: null
 
-/datum/gas_mixture/proc/equalize_with(datum/gas_mixture/giver)
+TYPE_PROC_REF(/datum/gas_mixture, equalize_with)(datum/gas_mixture/giver)
 	//Makes this mix have the same temperature and gas ratios as the giver, but with the same pressure, accounting for volume.
 	//Returns: null
 
-/datum/gas_mixture/proc/get_oxidation_power(temp)
+TYPE_PROC_REF(/datum/gas_mixture, get_oxidation_power)(temp)
 	//Gets how much oxidation this gas can do, optionally at a given temperature.
 
-/datum/gas_mixture/proc/get_fuel_amount(temp)
+TYPE_PROC_REF(/datum/gas_mixture, get_fuel_amount)(temp)
 	//Gets how much fuel for fires (not counting trit/plasma!) this gas has, optionally at a given temperature.
 
 /proc/equalize_all_gases_in_list(list/L)
 	//Makes every gas in the given list have the same pressure, temperature and gas proportions.
 	//Returns: null
 
-/datum/gas_mixture/proc/__remove()
+TYPE_PROC_REF(/datum/gas_mixture, __remove)()
 /datum/gas_mixture/remove(amount)
 	var/datum/gas_mixture/removed = new type
 	__remove(removed, amount)
 
 	return removed
 
-/datum/gas_mixture/proc/__remove_ratio()
+TYPE_PROC_REF(/datum/gas_mixture, __remove_ratio)()
 /datum/gas_mixture/remove_ratio(ratio)
 	var/datum/gas_mixture/removed = new type
 	__remove_ratio(removed, ratio)
@@ -328,7 +328,7 @@ we use a hook instead
 				break
 */
 
-/datum/gas_mixture/proc/set_analyzer_results(instability)
+TYPE_PROC_REF(/datum/gas_mixture, set_analyzer_results)(instability)
 	if(!analyzer_results)
 		analyzer_results = new
 	analyzer_results["fusion"] = instability

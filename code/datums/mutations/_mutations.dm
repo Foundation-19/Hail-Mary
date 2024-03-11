@@ -53,7 +53,7 @@
 	if(copymut && istype(copymut, /datum/mutation/human))
 		copy_mutation(copymut)
 
-/datum/mutation/human/proc/on_acquiring(mob/living/carbon/human/H)
+TYPE_PROC_REF(/datum/mutation/human, on_acquiring)(mob/living/carbon/human/H)
 	if(!H || !istype(H) || H.stat == DEAD || (src in H.dna.mutations))
 		return TRUE
 	if(species_allowed.len && !species_allowed.Find(H.dna.species.id))
@@ -88,22 +88,22 @@
 	if(!modified)
 		addtimer(CALLBACK(src, PROC_REF(modify), 5)) //gonna want children calling ..() to run first
 
-/datum/mutation/human/proc/get_visual_indicator()
+TYPE_PROC_REF(/datum/mutation/human, get_visual_indicator)()
 	return
 
-/datum/mutation/human/proc/on_attack_hand(atom/target, proximity, act_intent, unarmed_attack_flags)
+TYPE_PROC_REF(/datum/mutation/human, on_attack_hand)(atom/target, proximity, act_intent, unarmed_attack_flags)
 	return
 
-/datum/mutation/human/proc/on_ranged_attack(atom/target, mouseparams)
+TYPE_PROC_REF(/datum/mutation/human, on_ranged_attack)(atom/target, mouseparams)
 	return
 
-/datum/mutation/human/proc/on_move(atom/new_loc)
+TYPE_PROC_REF(/datum/mutation/human, on_move)(atom/new_loc)
 	return
 
-/datum/mutation/human/proc/on_life()
+TYPE_PROC_REF(/datum/mutation/human, on_life)()
 	return
 
-/datum/mutation/human/proc/on_losing(mob/living/carbon/human/owner)
+TYPE_PROC_REF(/datum/mutation/human, on_losing)(mob/living/carbon/human/owner)
 	if(owner && istype(owner) && (owner.dna.mutations.Remove(src)))
 		if(text_lose_indication && owner.stat != DEAD)
 			to_chat(owner, text_lose_indication)
@@ -122,14 +122,14 @@
 		return 0
 	return 1
 
-/datum/mutation/human/proc/say_mod(message)
+TYPE_PROC_REF(/datum/mutation/human, say_mod)(message)
 	if(message)
 		return message
 
-/datum/mutation/human/proc/get_spans()
+TYPE_PROC_REF(/datum/mutation/human, get_spans)()
 	return list()
 
-/mob/living/carbon/proc/update_mutations_overlay()
+TYPE_PROC_REF(/mob/living/carbon, update_mutations_overlay)()
 	return
 
 /mob/living/carbon/human/update_mutations_overlay()
@@ -151,14 +151,14 @@
 				apply_overlay(CM.layer_used)
 
 
-/datum/mutation/human/proc/modify() //called when a genome is applied so we can properly update some stats without having to remove and reapply the mutation from someone
+TYPE_PROC_REF(/datum/mutation/human, modify)() //called when a genome is applied so we can properly update some stats without having to remove and reapply the mutation from someone
 	if(modified || !power || !owner)
 		return
 	power.charge_max *= GET_MUTATION_ENERGY(src)
 	power.charge_counter *= GET_MUTATION_ENERGY(src)
 	modified = TRUE
 
-/datum/mutation/human/proc/copy_mutation(datum/mutation/human/HM)
+TYPE_PROC_REF(/datum/mutation/human, copy_mutation)(datum/mutation/human/HM)
 	if(!HM)
 		return
 	chromosome_name = HM.chromosome_name
@@ -170,7 +170,7 @@
 	can_chromosome = HM.can_chromosome
 	valid_chrom_list = HM.valid_chrom_list
 
-/datum/mutation/human/proc/remove_chromosome()
+TYPE_PROC_REF(/datum/mutation/human, remove_chromosome)()
 	stabilizer_coeff = initial(stabilizer_coeff)
 	synchronizer_coeff = initial(synchronizer_coeff)
 	power_coeff = initial(power_coeff)
@@ -179,13 +179,13 @@
 	can_chromosome = initial(can_chromosome)
 	chromosome_name = null
 
-/datum/mutation/human/proc/remove()
+TYPE_PROC_REF(/datum/mutation/human, remove)()
 	if(dna)
 		dna.force_lose(src)
 	else
 		qdel(src)
 
-/datum/mutation/human/proc/grant_spell()
+TYPE_PROC_REF(/datum/mutation/human, grant_spell)()
 	if(!ispath(power) || !owner)
 		return FALSE
 
@@ -197,7 +197,7 @@
 
 // Runs through all the coefficients and uses this to determine which chromosomes the
 // mutation can take. Stores these as text strings in a list.
-/datum/mutation/human/proc/update_valid_chromosome_list()
+TYPE_PROC_REF(/datum/mutation/human, update_valid_chromosome_list)()
 	valid_chrom_list.Cut()
 
 	if(can_chromosome == CHROMOSOME_NEVER)

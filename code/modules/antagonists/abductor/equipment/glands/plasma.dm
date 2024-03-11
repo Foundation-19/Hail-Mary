@@ -12,7 +12,7 @@
 	addtimer(CALLBACK(GLOBAL_PROC, PROC_REF(to_chat), owner, span_userdanger("A massive stomachache overcomes you.")), 150)
 	addtimer(CALLBACK(src, PROC_REF(vomit_plasma)), 200)
 
-/obj/item/organ/heart/gland/plasma/proc/vomit_plasma()
+TYPE_PROC_REF(/obj/item/organ/heart/gland/plasma, vomit_plasma)()
 	if(!owner)
 		return
 	owner.visible_message(span_danger("[owner] vomits a cloud of plasma!"))

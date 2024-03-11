@@ -49,11 +49,11 @@
 	return ..()
 
 /// triggered on wield of two handed item
-/obj/item/kinetic_crusher/proc/on_wield(obj/item/source, mob/user)
+TYPE_PROC_REF(/obj/item/kinetic_crusher, on_wield)(obj/item/source, mob/user)
 	wielded = TRUE
 
 /// triggered on unwield of two handed item
-/obj/item/kinetic_crusher/proc/on_unwield(obj/item/source, mob/user)
+TYPE_PROC_REF(/obj/item/kinetic_crusher, on_unwield)(obj/item/source, mob/user)
 	wielded = FALSE
 
 /obj/item/kinetic_crusher/examine(mob/living/user)
@@ -147,7 +147,7 @@
 			if(user && lavaland_equipment_pressure_check(get_turf(user))) //CIT CHANGE - makes sure below only happens in low pressure environments
 				user.adjustStaminaLoss(-30)//CIT CHANGE - makes crushers heal stamina
 
-/obj/item/kinetic_crusher/proc/Recharge()
+TYPE_PROC_REF(/obj/item/kinetic_crusher, Recharge)()
 	if(!charged)
 		charged = TRUE
 		update_icon()
@@ -268,7 +268,7 @@
 	. = ..()
 	. += span_notice("Causes [effect_desc()] when attached to a kinetic crusher.")
 
-/obj/item/crusher_trophy/proc/effect_desc()
+TYPE_PROC_REF(/obj/item/crusher_trophy, effect_desc)()
 	return "errors"
 
 /obj/item/crusher_trophy/attackby(obj/item/A, mob/living/user)
@@ -277,7 +277,7 @@
 	else
 		..()
 
-/obj/item/crusher_trophy/proc/add_to(obj/item/kinetic_crusher/H, mob/living/user)
+TYPE_PROC_REF(/obj/item/crusher_trophy, add_to)(obj/item/kinetic_crusher/H, mob/living/user)
 	for(var/t in H.trophies)
 		var/obj/item/crusher_trophy/T = t
 		if(istype(T, denied_type) || istype(src, T.denied_type))
@@ -289,15 +289,15 @@
 	to_chat(user, span_notice("You attach [src] to [H]."))
 	return TRUE
 
-/obj/item/crusher_trophy/proc/remove_from(obj/item/kinetic_crusher/H, mob/living/user)
+TYPE_PROC_REF(/obj/item/crusher_trophy, remove_from)(obj/item/kinetic_crusher/H, mob/living/user)
 	forceMove(get_turf(H))
 	H.trophies -= src
 	return TRUE
 
-/obj/item/crusher_trophy/proc/on_melee_hit(mob/living/target, mob/living/user) //the target and the user
-/obj/item/crusher_trophy/proc/on_projectile_fire(obj/item/projectile/destabilizer/marker, mob/living/user) //the projectile fired and the user
-/obj/item/crusher_trophy/proc/on_mark_application(mob/living/target, datum/status_effect/crusher_mark/mark, had_mark) //the target, the mark applied, and if the target had a mark before
-/obj/item/crusher_trophy/proc/on_mark_detonation(mob/living/target, mob/living/user) //the target and the user
+TYPE_PROC_REF(/obj/item/crusher_trophy, on_melee_hit)(mob/living/target, mob/living/user) //the target and the user
+TYPE_PROC_REF(/obj/item/crusher_trophy, on_projectile_fire)(obj/item/projectile/destabilizer/marker, mob/living/user) //the projectile fired and the user
+TYPE_PROC_REF(/obj/item/crusher_trophy, on_mark_application)(mob/living/target, datum/status_effect/crusher_mark/mark, had_mark) //the target, the mark applied, and if the target had a mark before
+TYPE_PROC_REF(/obj/item/crusher_trophy, on_mark_detonation)(mob/living/target, mob/living/user) //the target and the user
 
 //goliath
 /obj/item/crusher_trophy/goliath_tentacle
@@ -417,7 +417,7 @@
 		addtimer(CALLBACK(src, PROC_REF(pushback), L, user), 1) //no free backstabs, we push AFTER module stuff is done
 		L.adjustFireLoss(bonus_value, forced = TRUE)
 
-/obj/item/crusher_trophy/tail_spike/proc/pushback(mob/living/target, mob/living/user)
+TYPE_PROC_REF(/obj/item/crusher_trophy/tail_spike, pushback)(mob/living/target, mob/living/user)
 	if(!QDELETED(target) && !QDELETED(user) && (!target.anchored || ismegafauna(target))) //megafauna will always be pushed
 		step(target, get_dir(user, target))
 
@@ -480,7 +480,7 @@
 	deadly_shot = TRUE
 	addtimer(CALLBACK(src, PROC_REF(reset_deadly_shot)), 300, TIMER_UNIQUE|TIMER_OVERRIDE)
 
-/obj/item/crusher_trophy/blaster_tubes/proc/reset_deadly_shot()
+TYPE_PROC_REF(/obj/item/crusher_trophy/blaster_tubes, reset_deadly_shot)()
 	deadly_shot = FALSE
 
 //hierophant

@@ -8,21 +8,21 @@
 	name = "AI photo camera"
 	flash_enabled = FALSE
 
-/obj/item/camera/siliconcam/proc/toggle_camera_mode(mob/user)
+TYPE_PROC_REF(/obj/item/camera/siliconcam, toggle_camera_mode)(mob/user)
 	if(in_camera_mode)
 		camera_mode_off(user)
 	else
 		camera_mode_on(user)
 
-/obj/item/camera/siliconcam/proc/camera_mode_off(mob/user)
+TYPE_PROC_REF(/obj/item/camera/siliconcam, camera_mode_off)(mob/user)
 	in_camera_mode = FALSE
 	to_chat(user, "<B>Camera Mode deactivated</B>")
 
-/obj/item/camera/siliconcam/proc/camera_mode_on(mob/user)
+TYPE_PROC_REF(/obj/item/camera/siliconcam, camera_mode_on)(mob/user)
 	in_camera_mode = TRUE
 	to_chat(user, "<B>Camera Mode activated</B>")
 
-/obj/item/camera/siliconcam/proc/selectpicture(mob/user)
+TYPE_PROC_REF(/obj/item/camera/siliconcam, selectpicture)(mob/user)
 	var/list/nametemp = list()
 	var/find
 	if(!stored.len)
@@ -38,7 +38,7 @@
 		return
 	return temp[find]
 
-/obj/item/camera/siliconcam/proc/viewpictures(mob/user)
+TYPE_PROC_REF(/obj/item/camera/siliconcam, viewpictures)(mob/user)
 	var/datum/picture/selection = selectpicture(user)
 	if(istype(selection))
 		show_picture(user, selection)
@@ -82,7 +82,7 @@
 		return
 	borgprint(usr)
 
-/obj/item/camera/siliconcam/robot_camera/proc/borgprint(mob/user)
+TYPE_PROC_REF(/obj/item/camera/siliconcam/robot_camera, borgprint)(mob/user)
 	var/mob/living/silicon/robot/C = loc
 	if(!istype(C) || C.toner < 20)
 		to_chat(user, span_warning("Insufficent toner to print image."))

@@ -59,7 +59,7 @@
 		return
 	sense()
 
-/obj/item/assembly/prox_sensor/proc/sense()
+TYPE_PROC_REF(/obj/item/assembly/prox_sensor, sense)()
 	if(!scanning || !secured || next_activate > world.time)
 		return FALSE
 	pulse(FALSE)
@@ -80,14 +80,14 @@
 		toggle_scan(TRUE)
 		time = initial(time)
 
-/obj/item/assembly/prox_sensor/proc/toggle_scan(scan)
+TYPE_PROC_REF(/obj/item/assembly/prox_sensor, toggle_scan)(scan)
 	if(!secured)
 		return FALSE
 	scanning = scan
 	proximity_monitor.SetRange(scanning ? sensitivity : 0)
 	update_icon()
 
-/obj/item/assembly/prox_sensor/proc/sensitivity_change(value)
+TYPE_PROC_REF(/obj/item/assembly/prox_sensor, sensitivity_change)(value)
 	var/sense = min(max(sensitivity + value, 0), 5)
 	sensitivity = sense
 	if(scanning && proximity_monitor.SetRange(sense))

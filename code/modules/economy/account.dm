@@ -25,32 +25,32 @@
 		SSeconomy.bank_accounts -= src
 	return ..()
 
-/datum/bank_account/proc/dumpeet()
+TYPE_PROC_REF(/datum/bank_account, dumpeet)()
 	being_dumped = TRUE
 	withdrawDelay = world.time + DUMPTIME
 
-/datum/bank_account/proc/_adjust_money(amt)
+TYPE_PROC_REF(/datum/bank_account, _adjust_money)(amt)
 	account_balance += amt
 	if(account_balance < 0)
 		account_balance = 0
 
-/datum/bank_account/proc/has_money(amt)
+TYPE_PROC_REF(/datum/bank_account, has_money)(amt)
 	return account_balance >= amt
 
-/datum/bank_account/proc/adjust_money(amt)
+TYPE_PROC_REF(/datum/bank_account, adjust_money)(amt)
 	if((amt < 0 && has_money(-amt)) || amt > 0)
 		_adjust_money(amt)
 		return TRUE
 	return FALSE
 
-/datum/bank_account/proc/transfer_money(datum/bank_account/from, amount)
+TYPE_PROC_REF(/datum/bank_account, transfer_money)(datum/bank_account/from, amount)
 	if(!from.transferable || !from.has_money(amount))
 		return FALSE
 	adjust_money(amount)
 	from.adjust_money(-amount)
 	return TRUE
 
-/datum/bank_account/proc/payday(amt_of_paychecks, free = FALSE)
+TYPE_PROC_REF(/datum/bank_account, payday)(amt_of_paychecks, free = FALSE)
 	var/money_to_transfer = account_job.paycheck * amt_of_paychecks
 	if(free)
 		adjust_money(money_to_transfer)
@@ -66,7 +66,7 @@
 	bank_card_talk("ERROR: Payday aborted, unable to contact departmental account.")
 	return FALSE
 
-/datum/bank_account/proc/bank_card_talk(message, force)
+TYPE_PROC_REF(/datum/bank_account, bank_card_talk)(message, force)
 	if(!message || !bank_cards.len)
 		return
 	for(var/obj/A in bank_cards)

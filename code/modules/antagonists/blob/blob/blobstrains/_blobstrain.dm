@@ -22,7 +22,7 @@ GLOBAL_LIST_INIT(valid_blobstrains, subtypesof(/datum/blobstrain) - list(/datum/
 		stack_trace("blobstrain created without overmind")
 	overmind = new_overmind
 
-/datum/blobstrain/proc/on_gain()
+TYPE_PROC_REF(/datum/blobstrain, on_gain)()
 	overmind.color = complementary_color
 	for(var/BL in GLOB.blobs)
 		var/obj/structure/blob/B = BL
@@ -33,42 +33,42 @@ GLOBAL_LIST_INIT(valid_blobstrains, subtypesof(/datum/blobstrain) - list(/datum/
 		to_chat(BM, "Your overmind's blob strain is now: <b><font color=\"[color]\">[name]</b></font>!")
 		to_chat(BM, "The <b><font color=\"[color]\">[name]</b></font> strain [shortdesc ? "[shortdesc]" : "[description]"]")
 
-/datum/blobstrain/proc/on_lose()
+TYPE_PROC_REF(/datum/blobstrain, on_lose)()
 
-/datum/blobstrain/proc/on_sporedeath(mob/living/spore)
+TYPE_PROC_REF(/datum/blobstrain, on_sporedeath)(mob/living/spore)
 
-/datum/blobstrain/proc/send_message(mob/living/M)
+TYPE_PROC_REF(/datum/blobstrain, send_message)(mob/living/M)
 	var/totalmessage = message
 	if(message_living && !issilicon(M))
 		totalmessage += message_living
 	totalmessage += "!"
 	to_chat(M, span_userdanger("[totalmessage]"))
 
-/datum/blobstrain/proc/core_process()
+TYPE_PROC_REF(/datum/blobstrain, core_process)()
 	if(resource_delay <= world.time)
 		resource_delay = world.time + 10 // 1 second
 		overmind.add_points(point_rate)
 	overmind.blob_core.obj_integrity = min(overmind.blob_core.max_integrity, overmind.blob_core.obj_integrity+core_regen)
 
-/datum/blobstrain/proc/attack_living(mob/living/L) // When the blob attacks people
+TYPE_PROC_REF(/datum/blobstrain, attack_living)(mob/living/L) // When the blob attacks people
 	send_message(L)
 
-/datum/blobstrain/proc/blobbernaut_attack(mob/living/L) // When this blob's blobbernaut attacks people
+TYPE_PROC_REF(/datum/blobstrain, blobbernaut_attack)(mob/living/L) // When this blob's blobbernaut attacks people
 
-/datum/blobstrain/proc/damage_reaction(obj/structure/blob/B, damage, damage_type, damage_flag, coefficient = 1) //when the blob takes damage, do this
+TYPE_PROC_REF(/datum/blobstrain, damage_reaction)(obj/structure/blob/B, damage, damage_type, damage_flag, coefficient = 1) //when the blob takes damage, do this
 	return coefficient*damage
 
-/datum/blobstrain/proc/death_reaction(obj/structure/blob/B, damage_flag, coefficient = 1) //when a blob dies, do this
+TYPE_PROC_REF(/datum/blobstrain, death_reaction)(obj/structure/blob/B, damage_flag, coefficient = 1) //when a blob dies, do this
 	return
 
-/datum/blobstrain/proc/expand_reaction(obj/structure/blob/B, obj/structure/blob/newB, turf/T, mob/camera/blob/O, coefficient = 1) //when the blob expands, do this
+TYPE_PROC_REF(/datum/blobstrain, expand_reaction)(obj/structure/blob/B, obj/structure/blob/newB, turf/T, mob/camera/blob/O, coefficient = 1) //when the blob expands, do this
 	return
 
-/datum/blobstrain/proc/tesla_reaction(obj/structure/blob/B, power, coefficient = 1) //when the blob is hit by a tesla bolt, do this
+TYPE_PROC_REF(/datum/blobstrain, tesla_reaction)(obj/structure/blob/B, power, coefficient = 1) //when the blob is hit by a tesla bolt, do this
 	return 1 //return 0 to ignore damage
 
-/datum/blobstrain/proc/extinguish_reaction(obj/structure/blob/B, coefficient = 1) //when the blob is hit with water, do this
+TYPE_PROC_REF(/datum/blobstrain, extinguish_reaction)(obj/structure/blob/B, coefficient = 1) //when the blob is hit with water, do this
 	return
 
-/datum/blobstrain/proc/emp_reaction(obj/structure/blob/B, severity, coefficient = 1) //when the blob is hit with an emp, do this
+TYPE_PROC_REF(/datum/blobstrain, emp_reaction)(obj/structure/blob/B, severity, coefficient = 1) //when the blob is hit with an emp, do this
 	return

@@ -1,8 +1,8 @@
-/matrix/proc/TurnTo(old_angle, new_angle)
+TYPE_PROC_REF(/matrix, TurnTo)(old_angle, new_angle)
 	. = new_angle - old_angle
 	Turn(.) //BYOND handles cases such as -270, 360, 540 etc. DOES NOT HANDLE 180 TURNS WELL, THEY TWEEN AND LOOK LIKE SHIT
 
-/atom/proc/SpinAnimation(speed = 10, loops = -1, clockwise = 1, segments = 3, parallel = TRUE)
+TYPE_PROC_REF(/atom, SpinAnimation)(speed = 10, loops = -1, clockwise = 1, segments = 3, parallel = TRUE)
 	if(!segments)
 		return
 	var/segment = 360/segments
@@ -29,7 +29,7 @@
 		//3 billion% intentional
 
 //Dumps the matrix data in format a-f
-/matrix/proc/tolist()
+TYPE_PROC_REF(/matrix, tolist)()
 	. = list()
 	. += a
 	. += b
@@ -44,7 +44,7 @@
 	b e 0
 	c f 1
 */
-/matrix/proc/togrid()
+TYPE_PROC_REF(/matrix, togrid)()
 	. = list()
 	. += a
 	. += d
@@ -57,17 +57,17 @@
 	. += 1
 
 //The X pixel offset of this matrix
-/matrix/proc/get_x_shift()
+TYPE_PROC_REF(/matrix, get_x_shift)()
 	. = c
 
 //The Y pixel offset of this matrix
-/matrix/proc/get_y_shift()
+TYPE_PROC_REF(/matrix, get_y_shift)()
 	. = f
 
-/matrix/proc/get_x_skew()
+TYPE_PROC_REF(/matrix, get_x_skew)()
 	. = b
 
-/matrix/proc/get_y_skew()
+TYPE_PROC_REF(/matrix, get_y_skew)()
 	. = d
 
 //Skews a matrix in a particular direction
@@ -75,7 +75,7 @@
 
 //As Rotation is defined as a scale+skew, these procs will break any existing rotation
 //Unless the result is multiplied against the current matrix
-/matrix/proc/set_skew(x = 0, y = 0)
+TYPE_PROC_REF(/matrix, set_skew)(x = 0, y = 0)
 	b = x
 	d = y
 

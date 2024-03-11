@@ -27,7 +27,7 @@
 			return
 	..(user, target)
 
-/obj/effect/proc_holder/changeling/weapon/proc/check_weapon(mob/user, obj/item/hand_item)
+TYPE_PROC_REF(/obj/effect/proc_holder/changeling/weapon, check_weapon)(mob/user, obj/item/hand_item)
 	if(istype(hand_item, weapon_type))
 		user.temporarilyRemoveItemFromInventory(hand_item, TRUE) //DROPDEL will delete the item
 		if(!silent)
@@ -83,7 +83,7 @@
 	..(H, target)
 
 //checks if we already have an organic suit and casts it off.
-/obj/effect/proc_holder/changeling/suit/proc/check_suit(mob/user)
+TYPE_PROC_REF(/obj/effect/proc_holder/changeling/suit, check_suit)(mob/user)
 	var/datum/antagonist/changeling/changeling = user.mind.has_antag_datum(/datum/antagonist/changeling)
 	if(!ishuman(user) || !changeling)
 		return 1
@@ -320,11 +320,11 @@
 		chain = firer.Beam(src, icon_state = "tentacle", time = INFINITY, maxdistance = INFINITY, beam_sleep_time = 1)
 	..()
 
-/obj/item/projectile/tentacle/proc/reset_throw(mob/living/carbon/human/H)
+TYPE_PROC_REF(/obj/item/projectile/tentacle, reset_throw)(mob/living/carbon/human/H)
 	if(H.in_throw_mode)
 		H.throw_mode_off() //Don't annoy the changeling if he doesn't catch the item
 
-/obj/item/projectile/tentacle/proc/tentacle_grab(mob/living/carbon/human/H, mob/living/carbon/C)
+TYPE_PROC_REF(/obj/item/projectile/tentacle, tentacle_grab)(mob/living/carbon/human/H, mob/living/carbon/C)
 	if(H.Adjacent(C))
 		if(H.get_active_held_item() && !H.get_inactive_held_item())
 			H.swap_hand()
@@ -333,7 +333,7 @@
 		C.grabbedby(H)
 		C.grippedby(H, instant = TRUE) //instant aggro grab
 
-/obj/item/projectile/tentacle/proc/tentacle_stab(mob/living/carbon/human/H, mob/living/carbon/C)
+TYPE_PROC_REF(/obj/item/projectile/tentacle, tentacle_stab)(mob/living/carbon/human/H, mob/living/carbon/C)
 	if(H.Adjacent(C))
 		for(var/obj/item/I in H.held_items)
 			if(I.get_sharpness())

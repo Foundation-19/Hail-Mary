@@ -1,7 +1,7 @@
 /mob/living
 	var/list/alternate_screams
 
-/mob/living/carbon/proc/reindex_screams()
+TYPE_PROC_REF(/mob/living/carbon, reindex_screams)()
 	clear_screams()
 	if(head)
 		add_screams(head.alternate_screams)
@@ -33,13 +33,13 @@
 		add_screams(wear_id.alternate_screams)
 
 //Note that the following two are for /mob/living, while the above two are for /carbon and /human
-/mob/living/proc/add_screams(list/screams)
+TYPE_PROC_REF(/mob/living, add_screams)(list/screams)
 	LAZYINITLIST(alternate_screams)
 	if(!screams || screams.len == 0)
 		return
 	for(var/S in screams)
 		LAZYADD(alternate_screams, S)
 
-/mob/living/proc/clear_screams()
+TYPE_PROC_REF(/mob/living, clear_screams)()
 	LAZYINITLIST(alternate_screams)
 	LAZYCLEARLIST(alternate_screams)

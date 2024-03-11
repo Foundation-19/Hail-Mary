@@ -1,5 +1,5 @@
 
-/obj/item/clothing/suit/space/space_ninja/proc/ninja_sword_recall()
+TYPE_PROC_REF(/obj/item/clothing/suit/space/space_ninja, ninja_sword_recall)()
 	var/mob/living/carbon/human/H = affecting
 
 	var/cost = 0

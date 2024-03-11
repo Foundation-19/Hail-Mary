@@ -52,7 +52,7 @@
 		effects += STD0
 		effects += STD1
 
-/obj/effect/proc_holder/spell/spacetime_dist/proc/clean_turfs()
+TYPE_PROC_REF(/obj/effect/proc_holder/spell/spacetime_dist, clean_turfs)()
 	for(var/effect in effects)
 		qdel(effect)
 	effects.Cut()
@@ -87,7 +87,7 @@
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
-/obj/effect/cross_action/spacetime_dist/proc/walk_link(atom/movable/AM)
+TYPE_PROC_REF(/obj/effect/cross_action/spacetime_dist, walk_link)(atom/movable/AM)
 	if(ismob(AM))
 		var/mob/M = AM
 		if(M.anti_magic_check(chargecost = 0))
@@ -97,14 +97,14 @@
 		linked_dist.get_walker(AM)
 		walks_left--
 
-/obj/effect/cross_action/spacetime_dist/proc/get_walker(atom/movable/AM)
+TYPE_PROC_REF(/obj/effect/cross_action/spacetime_dist, get_walker)(atom/movable/AM)
 	busy = TRUE
 	flick("purplesparkles", src)
 	AM.forceMove(get_turf(src))
 	playsound(get_turf(src),sound,70,0)
 	busy = FALSE
 
-/obj/effect/cross_action/spacetime_dist/proc/on_entered(atom/movable/AM)
+TYPE_PROC_REF(/obj/effect/cross_action/spacetime_dist, on_entered)(atom/movable/AM)
 	SIGNAL_HANDLER
 	if(!busy)
 		walk_link(AM)

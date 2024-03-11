@@ -38,7 +38,7 @@
 
 // Checks if the event can be spawned. Used by event controller and "false alarm" event.
 // Admin-created events override this.
-/datum/round_event_control/proc/canSpawnEvent(players_amt, gamemode)
+TYPE_PROC_REF(/datum/round_event_control, canSpawnEvent)(players_amt, gamemode)
 	if(occurrences >= max_occurrences)
 		return FALSE
 	if(earliest_start >= world.time-SSticker.round_start_time)
@@ -62,7 +62,7 @@
 			return can_be_midround_wizard && ..()
 	return ..()
 
-/datum/round_event_control/proc/preRunEvent()
+TYPE_PROC_REF(/datum/round_event_control, preRunEvent)()
 	if(!ispath(typepath, /datum/round_event))
 		return EVENT_CANT_RUN
 
@@ -92,7 +92,7 @@
 		log_admin_private("[key_name(usr)] cancelled event [name].")
 		SSblackbox.record_feedback("tally", "event_admin_cancelled", 1, typepath)
 
-/datum/round_event_control/proc/runEvent()
+TYPE_PROC_REF(/datum/round_event_control, runEvent)()
 	var/datum/round_event/E = new typepath()
 	E.current_players = get_active_player_count(alive_check = 1, afk_check = 1, human_check = 1)
 	E.control = src
@@ -107,7 +107,7 @@
 	return E
 
 //Special admins setup
-/datum/round_event_control/proc/admin_setup()
+TYPE_PROC_REF(/datum/round_event_control, admin_setup)()
 	return
 
 /datum/round_event	//NOTE: Times are measured in master controller ticks!
@@ -130,13 +130,13 @@
 //EDIT: if there's anything you want to override within the new() call, it will not be overridden by the time this proc is called.
 //It will only have been overridden by the time we get to announce() start() tick() or end() (anything but setup basically).
 //This is really only for setting defaults which can be overridden later when New() finishes.
-/datum/round_event/proc/setup()
+TYPE_PROC_REF(/datum/round_event, setup)()
 	return
 
 //Called when the tick is equal to the startWhen variable.
 //Allows you to start before announcing or vice versa.
 //Only called once.
-/datum/round_event/proc/start()
+TYPE_PROC_REF(/datum/round_event, start)()
 	return
 
 /**
@@ -144,7 +144,7 @@
  * Provides ghosts a follow link to an atom if possible
  * Only called once.
  */
-/datum/round_event/proc/announce_to_ghosts(atom/atom_of_interest)
+TYPE_PROC_REF(/datum/round_event, announce_to_ghosts)(atom/atom_of_interest)
 	if(control.alert_observers)
 		if (atom_of_interest)
 			notify_ghosts("[control.name] has an object of interest: [atom_of_interest]!", source=atom_of_interest, action=NOTIFY_ORBIT, header="Something's Interesting!")
@@ -153,14 +153,14 @@
 //Called when the tick is equal to the announceWhen variable.
 //Allows you to announce before starting or vice versa.
 //Only called once.
-/datum/round_event/proc/announce(fake)
+TYPE_PROC_REF(/datum/round_event, announce)(fake)
 	return
 
 //Called on or after the tick counter is equal to startWhen.
 //You can include code related to your event or add your own
 //time stamped events.
 //Called more than once.
-/datum/round_event/proc/tick()
+TYPE_PROC_REF(/datum/round_event, tick)()
 	return
 
 //Called on or after the tick is equal or more than endWhen
@@ -169,11 +169,11 @@
 //the activeFor variable.
 //For example: if(activeFor == myOwnVariable + 30) doStuff()
 //Only called once.
-/datum/round_event/proc/end()
+TYPE_PROC_REF(/datum/round_event, end)()
 	return
 
 // Returns threat; used for dynamic. Used for custom stuff, just returns the threat var by default.
-/datum/round_event/proc/threat()
+TYPE_PROC_REF(/datum/round_event, threat)()
 	return threat
 
 //Do not override this proc, instead use the appropiate procs.
@@ -213,7 +213,7 @@
 //Garbage collects the event by removing it from the global events list,
 //which should be the only place it's referenced.
 //Called when start(), announce() and end() has all been called.
-/datum/round_event/proc/kill()
+TYPE_PROC_REF(/datum/round_event, kill)()
 	SSevents.running -= src
 
 

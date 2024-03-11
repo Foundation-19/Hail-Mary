@@ -17,7 +17,7 @@
 	var/list/obj/structure/closet/crate/laircoffins = new list()
 
 // Called by Coffin when an area is claimed as a vamp's lair
-/area/proc/ClaimAsLair(/obj/structure/closet/crate/inClaimant)
+TYPE_PROC_REF(/area, ClaimAsLair)(/obj/structure/closet/crate/inClaimant)
 	set waitfor = FALSE // Don't make on_gain() wait for this function to finish. This lets this code run on the side.
 
 	laircoffins += laircoffins
@@ -28,7 +28,7 @@
 		return
 		*/
 
-/datum/antagonist/bloodsucker/proc/RunLair()
+TYPE_PROC_REF(/datum/antagonist/bloodsucker, RunLair)()
 	set waitfor = FALSE // Don't make on_gain() wait for this function to finish. This lets this code run on the side.
 	while(!AmFinalDeath() && coffin && lair)
 		// WAit 2 min and Repeat

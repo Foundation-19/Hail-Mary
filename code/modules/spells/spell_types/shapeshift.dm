@@ -49,7 +49,7 @@
 			Shapeshift(M)
 
 
-/obj/effect/proc_holder/spell/targeted/shapeshift/proc/Shapeshift(mob/living/caster)
+TYPE_PROC_REF(/obj/effect/proc_holder/spell/targeted/shapeshift, Shapeshift)(mob/living/caster)
 	var/obj/shapeshift_holder/H = locate() in caster
 	if(H)
 		to_chat(caster, span_warning("You're already shapeshifted!"))
@@ -62,7 +62,7 @@
 	mobs_whitelist = null
 	mobs_blacklist = null
 
-/obj/effect/proc_holder/spell/targeted/shapeshift/proc/Restore(mob/living/shape)
+TYPE_PROC_REF(/obj/effect/proc_holder/spell/targeted/shapeshift, Restore)(mob/living/shape)
 	var/obj/shapeshift_holder/H = locate() in shape
 	if(!H)
 		return
@@ -129,14 +129,14 @@
 	if(AM == stored && !restoring)
 		restore()
 
-/obj/shapeshift_holder/proc/casterDeath()
+TYPE_PROC_REF(/obj/shapeshift_holder, casterDeath)()
 	//Something kills the stored caster through direct damage.
 	if(source.revert_on_death)
 		restore(death=TRUE)
 	else
 		shape.death()
 
-/obj/shapeshift_holder/proc/shapeDeath()
+TYPE_PROC_REF(/obj/shapeshift_holder, shapeDeath)()
 	//Shape dies.
 	if(source.die_with_shapeshifted_form)
 		if(source.revert_on_death)
@@ -144,7 +144,7 @@
 	else
 		restore()
 
-/obj/shapeshift_holder/proc/restore(death=FALSE)
+TYPE_PROC_REF(/obj/shapeshift_holder, restore)(death=FALSE)
 	restoring = TRUE
 	qdel(slink)
 	stored.forceMove(get_turf(src))

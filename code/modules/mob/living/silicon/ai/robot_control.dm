@@ -6,7 +6,7 @@
 		qdel(src)
 	owner = new_owner
 
-/datum/robot_control/proc/is_interactable(mob/user)
+TYPE_PROC_REF(/datum/robot_control, is_interactable)(mob/user)
 	if(user != owner || owner.incapacitated())
 		return FALSE
 	if(owner.control_disabled)

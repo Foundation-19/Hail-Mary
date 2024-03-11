@@ -21,7 +21,7 @@
 	Adds an instance of colour_type to the mob's client_colours list
 	colour_type - a typepath (subtyped from /datum/client_colour)
 */
-/mob/proc/add_client_colour(colour_type)
+TYPE_PROC_REF(/mob, add_client_colour)(colour_type)
 	if(!ispath(colour_type, /datum/client_colour))
 		return
 
@@ -35,7 +35,7 @@
 	Removes an instance of colour_type from the mob's client_colours list
 	colour_type - a typepath (subtyped from /datum/client_colour)
 */
-/mob/proc/remove_client_colour(colour_type)
+TYPE_PROC_REF(/mob, remove_client_colour)(colour_type)
 	if(!ispath(colour_type, /datum/client_colour))
 		return
 
@@ -52,7 +52,7 @@
 	Resets the mob's client.color to null, and then sets it to the highest priority
 	client_colour datum, if one exists
 */
-/mob/proc/update_client_colour()
+TYPE_PROC_REF(/mob, update_client_colour)()
 	if(!client)
 		return
 	client.color = ""

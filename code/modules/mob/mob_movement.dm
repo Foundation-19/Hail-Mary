@@ -8,7 +8,7 @@
 #define CONFUSION_DIAGONAL_MOVE_PROB_PER_SECOND 3
 
 //See mob_movespeed.dm
-/mob/proc/movement_delay()	//update /living/movement_delay() if you change this
+TYPE_PROC_REF(/mob, movement_delay)()	//update /living/movement_delay() if you change this
 	return cached_multiplicative_slowdown
 
 /client/verb/drop_item()
@@ -17,7 +17,7 @@
 		mob.dropItemToGround(mob.get_active_held_item())
 	return
 
-/client/proc/Move_object(direction)
+TYPE_PROC_REF(/client, Move_object)(direction)
 	if(mob && mob.control_object)
 		if(mob.control_object.density)
 			step(mob.control_object,direction)
@@ -127,7 +127,7 @@
 
 
 /// Process_Grab(): checks for grab, attempts to break if so. Return TRUE to prevent movement.
-/client/proc/Process_Grab()
+TYPE_PROC_REF(/client, Process_Grab)()
 	if(mob.pulledby)
 		if((mob.pulledby == mob.pulling) && (mob.pulledby.grab_state == GRAB_PASSIVE))			//Don't autoresist passive grabs if we're grabbing them too.
 			return
@@ -144,7 +144,7 @@
 ///Process_Incorpmove
 ///Called by client/Move()
 ///Allows mobs to run though walls
-/client/proc/Process_Incorpmove(direction)
+TYPE_PROC_REF(/client, Process_Incorpmove)(direction)
 	var/turf/mobloc = get_turf(mob)
 	if(!isliving(mob))
 		return
@@ -296,17 +296,17 @@
 			continue
 		return rebound
 
-/mob/proc/mob_has_gravity()
+TYPE_PROC_REF(/mob, mob_has_gravity)()
 	return has_gravity()
 
-/mob/proc/mob_negates_gravity()
+TYPE_PROC_REF(/mob, mob_negates_gravity)()
 	return FALSE
 
 
-/mob/proc/slip(s_amount, w_amount, obj/O, lube)
+TYPE_PROC_REF(/mob, slip)(s_amount, w_amount, obj/O, lube)
 	return
 
-/mob/proc/update_gravity(has_gravity, override=FALSE)
+TYPE_PROC_REF(/mob, update_gravity)(has_gravity, override=FALSE)
 	var/speed_change = max(0, has_gravity - STANDARD_GRAVITY)
 	if(!speed_change)
 		remove_movespeed_modifier(/datum/movespeed_modifier/gravity)
@@ -318,7 +318,7 @@
 //4: r-arm 5: chest 6: l-arm
 //1: r-leg 2: groin 3: l-leg
 
-/client/proc/check_has_body_select()
+TYPE_PROC_REF(/client, check_has_body_select)()
 	return mob && mob.hud_used && mob.hud_used.zone_select && istype(mob.hud_used.zone_select, /obj/screen/zone_sel)
 
 /client/verb/body_toggle_head()
@@ -407,7 +407,7 @@
 	if(mob)
 		mob.toggle_move_intent(usr)
 
-/mob/proc/toggle_move_intent(mob/user)
+TYPE_PROC_REF(/mob, toggle_move_intent)(mob/user)
 	if(m_intent == MOVE_INTENT_RUN)
 		m_intent = MOVE_INTENT_WALK
 	else

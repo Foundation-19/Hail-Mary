@@ -50,12 +50,12 @@ There are several things that need to be remembered:
 
 //ported from citadel
 //Add an entry to overlays, assuming it exists
-/mob/living/carbon/human/proc/apply_layer(cache_index)
+TYPE_PROC_REF(/mob/living/carbon/human, apply_layer)(cache_index)
 	if((. = overlays_standing[cache_index]))
 		add_overlay(.)
 
 //Remove an entry from overlays, and from the list
-/mob/living/carbon/human/proc/remove_layer(cache_index)
+TYPE_PROC_REF(/mob/living/carbon/human, remove_layer)(cache_index)
 	var/I = overlays_standing[cache_index]
 	if(I)
 		cut_overlay(I)
@@ -67,7 +67,7 @@ There are several things that need to be remembered:
 	dna.species.handle_hair(src)
 
 //used when putting/removing clothes that hide certain mutant body parts to just update those and not update the whole body.
-/mob/living/carbon/human/proc/update_mutant_bodyparts()
+TYPE_PROC_REF(/mob/living/carbon/human, update_mutant_bodyparts)()
 	dna.species.handle_mutant_bodyparts(src)
 
 
@@ -512,7 +512,7 @@ There are several things that need to be remembered:
 		. = generate_alpha_masked_clothing(index,state,icon,female,alpha_mask)
 	return mutable_appearance(., layer = -layer)
 
-/mob/living/carbon/human/proc/get_overlays_copy(list/unwantedLayers)
+TYPE_PROC_REF(/mob/living/carbon/human, get_overlays_copy)(list/unwantedLayers)
 	var/list/out = new
 	for(var/i in 1 to TOTAL_LAYERS)
 		if(overlays_standing[i])
@@ -570,7 +570,7 @@ alpha_mask: a text string or list of text, the actual icons are stored in a glob
 use_mob_overlay_icon: if FALSE, it will always use the default_icon_file even if mob_overlay_icon is present.
 
 */
-/obj/item/proc/build_worn_icon(default_layer = 0, default_icon_file = null, isinhands = FALSE, femaleuniform = NO_FEMALE_UNIFORM, override_state, style_flags = NONE, use_mob_overlay_icon = TRUE, alpha_mask)
+TYPE_PROC_REF(/obj/item, build_worn_icon)(default_layer = 0, default_icon_file = null, isinhands = FALSE, femaleuniform = NO_FEMALE_UNIFORM, override_state, style_flags = NONE, use_mob_overlay_icon = TRUE, alpha_mask)
 
 	var/t_state
 	t_state = override_state || item_state || icon_state
@@ -617,7 +617,7 @@ use_mob_overlay_icon: if FALSE, it will always use the default_icon_file even if
 	return standing
 
 
-/obj/item/proc/get_held_offsets()
+TYPE_PROC_REF(/obj/item, get_held_offsets)()
 	var/list/L
 	if(ismob(loc))
 		var/mob/M = loc
@@ -626,7 +626,7 @@ use_mob_overlay_icon: if FALSE, it will always use the default_icon_file even if
 
 
 //Can't think of a better way to do this, sadly
-/mob/proc/get_item_offsets_for_index(i)
+TYPE_PROC_REF(/mob, get_item_offsets_for_index)(i)
 	switch(i)
 		if(3) //odd = left hands
 			return list("x" = 0, "y" = 16)
@@ -685,7 +685,7 @@ use_mob_overlay_icon: if FALSE, it will always use the default_icon_file even if
 
 
 
-/mob/living/carbon/human/proc/update_observer_view(obj/item/I, inventory)
+TYPE_PROC_REF(/mob/living/carbon/human, update_observer_view)(obj/item/I, inventory)
 	if(observers && observers.len)
 		for(var/M in observers)
 			var/mob/dead/observe = M
@@ -701,7 +701,7 @@ use_mob_overlay_icon: if FALSE, it will always use the default_icon_file even if
 					break
 
 // Only renders the head of the human
-/mob/living/carbon/human/proc/update_body_parts_head_only()
+TYPE_PROC_REF(/mob/living/carbon/human, update_body_parts_head_only)()
 	if (!dna)
 		return
 

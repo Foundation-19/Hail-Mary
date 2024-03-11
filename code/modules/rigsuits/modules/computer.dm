@@ -57,7 +57,7 @@
 		else
 			integrated_ai.get_rig_stats = 0
 
-/obj/item/rig_module/ai_container/proc/update_verb_holder()
+TYPE_PROC_REF(/obj/item/rig_module/ai_container, update_verb_holder)()
 	if(!verb_holder)
 		verb_holder = new(src)
 	if(integrated_ai)
@@ -154,7 +154,7 @@
 	eject_ai()
 	..()
 
-/obj/item/rig_module/ai_container/proc/eject_ai(mob/user)
+TYPE_PROC_REF(/obj/item/rig_module/ai_container, eject_ai)(mob/user)
 
 	if(ai_card)
 		if(istype(ai_card, /obj/item/aicard))
@@ -175,7 +175,7 @@
 
 
 
-/obj/item/rig_module/ai_container/proc/integrate_ai(obj/item/ai,mob/user)
+TYPE_PROC_REF(/obj/item/rig_module/ai_container, integrate_ai)(obj/item/ai,mob/user)
 	if(!ai) return
 
 	// The ONLY THING all the different AI systems have in common is that they all store the mob inside an item.
@@ -288,7 +288,7 @@
 		return 1
 	return 0
 
-/obj/item/rig_module/datajack/proc/load_data(incoming_data)
+TYPE_PROC_REF(/obj/item/rig_module/datajack, load_data)(incoming_data)
 
 	if(islist(incoming_data))
 		for(var/entry in incoming_data)
@@ -452,7 +452,7 @@
 
 	return 1
 
-/obj/item/rig_module/power_sink/proc/drain_complete(mob/living/M)
+TYPE_PROC_REF(/obj/item/rig_module/power_sink, drain_complete)(mob/living/M)
 
 	if(!interfaced_with)
 		to_chat(if(M) M, "<font color='blue'><b>Total power drained:</b> [round(total_power_drained/1000)]kJ.</font>")

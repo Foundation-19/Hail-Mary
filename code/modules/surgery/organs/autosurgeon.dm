@@ -17,7 +17,7 @@
 	if(starting_organ)
 		insert_organ(new starting_organ(src))
 
-/obj/item/autosurgeon/proc/insert_organ(obj/item/organ/I)
+TYPE_PROC_REF(/obj/item/autosurgeon, insert_organ)(obj/item/organ/I)
 	storedorgan = I
 	I.forceMove(src)
 	I.organ_flags |= ORGAN_FROZEN //Stops decay

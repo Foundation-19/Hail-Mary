@@ -10,7 +10,7 @@
 	var/inverse = 0 // For inverse dir frames like light fixtures.
 	var/pixel_shift //The amount of pixels
 
-/obj/item/wallframe/proc/try_build(turf/on_wall, mob/user)
+TYPE_PROC_REF(/obj/item/wallframe, try_build)(turf/on_wall, mob/user)
 	if(get_dist(on_wall,user)>1)
 		return
 	var/ndir = get_dir(on_wall, user)
@@ -30,7 +30,7 @@
 
 	return TRUE
 
-/obj/item/wallframe/proc/attach(turf/on_wall, mob/user)
+TYPE_PROC_REF(/obj/item/wallframe, attach)(turf/on_wall, mob/user)
 	if(result_path)
 		playsound(src.loc, 'sound/machines/click.ogg', 75, 1)
 		user.visible_message("[user.name] attaches [src] to the wall.",
@@ -55,7 +55,7 @@
 
 	qdel(src)
 
-/obj/item/wallframe/proc/after_attach(obj/O)
+TYPE_PROC_REF(/obj/item/wallframe, after_attach)(obj/O)
 	transfer_fingerprints_to(O)
 
 /obj/item/wallframe/screwdriver_act(mob/user, obj/item/I)

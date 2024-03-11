@@ -34,7 +34,7 @@
 	var/stat_msg2
 
 
-/obj/machinery/computer/communications/proc/checkCCcooldown()
+TYPE_PROC_REF(/obj/machinery/computer/communications, checkCCcooldown)()
 	var/obj/item/circuitboard/computer/communications/CM = circuit
 	if(CM.lastTimeUsed + 600 > world.time)
 		return FALSE
@@ -608,7 +608,7 @@
 	popup.set_content(dat)
 	popup.open()
 
-/obj/machinery/computer/communications/proc/get_javascript_header(form_id)
+TYPE_PROC_REF(/obj/machinery/computer/communications, get_javascript_header)(form_id)
 	var/dat = {"<script type="text/javascript">
 						function getLength(){
 							var reasonField = document.getElementById('reasonfield');
@@ -625,7 +625,7 @@
 					</script>"}
 	return dat
 
-/obj/machinery/computer/communications/proc/get_call_shuttle_form(ai_interface = 0)
+TYPE_PROC_REF(/obj/machinery/computer/communications, get_call_shuttle_form)(ai_interface = 0)
 	var/form_id = "callshuttle"
 	var/dat = get_javascript_header(form_id)
 	dat += "<form name='callshuttle' id='[form_id]' action='?src=[REF(src)]' method='get' style='display: inline'>"
@@ -635,7 +635,7 @@
 	dat += "<BR>Are you sure you want to call the train? \[ <a href='#' onclick='submit()'>Call</a> \]"
 	return dat
 
-/obj/machinery/computer/communications/proc/get_cancel_shuttle_form()
+TYPE_PROC_REF(/obj/machinery/computer/communications, get_cancel_shuttle_form)()
 	var/form_id = "cancelshuttle"
 	var/dat = get_javascript_header(form_id)
 	dat += "<form name='cancelshuttle' id='[form_id]' action='?src=[REF(src)]' method='get' style='display: inline'>"
@@ -645,7 +645,7 @@
 	dat += "<BR>Are you sure you want to cancel the train? \[ <a href='#' onclick='submit()'>Cancel</a> \]"
 	return dat
 
-/obj/machinery/computer/communications/proc/interact_ai(mob/living/silicon/ai/user)
+TYPE_PROC_REF(/obj/machinery/computer/communications, interact_ai)(mob/living/silicon/ai/user)
 	var/dat = ""
 	switch(aistate)
 		if(STATE_DEFAULT)
@@ -729,7 +729,7 @@
 	dat += "<BR><BR>\[ [(aistate != STATE_DEFAULT) ? "<A HREF='?src=[REF(src)];operation=ai-main'>Main Menu</A> | " : ""]<A HREF='?src=[REF(user)];mach_close=communications'>Close</A> \]"
 	return dat
 
-/obj/machinery/computer/communications/proc/make_announcement(mob/living/user, is_silicon)
+TYPE_PROC_REF(/obj/machinery/computer/communications, make_announcement)(mob/living/user, is_silicon)
 	if(!SScommunications.can_announce(user, is_silicon))
 		to_chat(user, span_alert("Intercomms recharging. Please stand by."))
 		return
@@ -744,7 +744,7 @@
 	SScommunications.make_announcement(user, is_silicon, input)
 	deadchat_broadcast("<span class='deadsay'><span class='name'>[user.real_name]</span> made an priority announcement from <span class='name'>[get_area_name(usr, TRUE)]</span>.</span>", user)
 
-/obj/machinery/computer/communications/proc/post_status(command, data1, data2)
+TYPE_PROC_REF(/obj/machinery/computer/communications, post_status)(command, data1, data2)
 
 	var/datum/radio_frequency/frequency = SSradio.return_frequency(FREQ_STATUS_DISPLAYS)
 
@@ -767,11 +767,11 @@
 	SSshuttle.autoEvac()
 	return ..()
 
-/obj/machinery/computer/communications/proc/overrideCooldown()
+TYPE_PROC_REF(/obj/machinery/computer/communications, overrideCooldown)()
 	var/obj/item/circuitboard/computer/communications/CM = circuit
 	CM.lastTimeUsed = 0
 
-/obj/machinery/computer/communications/proc/add_message(datum/comm_message/new_message)
+TYPE_PROC_REF(/obj/machinery/computer/communications, add_message)(datum/comm_message/new_message)
 	messages += new_message
 
 /datum/comm_message

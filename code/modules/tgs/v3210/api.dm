@@ -43,13 +43,13 @@
 /datum/tgs_api/v3210/ApiVersion()
 	return new /datum/tgs_version("3.2.1.3")
 
-/datum/tgs_api/v3210/proc/trim_left(text)
+TYPE_PROC_REF(/datum/tgs_api/v3210, trim_left)(text)
 	for (var/i = 1 to length(text))
 		if (text2ascii(text, i) > 32)
 			return copytext(text, i)
 	return ""
 
-/datum/tgs_api/v3210/proc/trim_right(text)
+TYPE_PROC_REF(/datum/tgs_api/v3210, trim_right)(text)
 	for (var/i = length(text), i > 0, i--)
 		if (text2ascii(text, i) > 32)
 			return copytext(text, 1, i + 1)
@@ -94,7 +94,7 @@
 /datum/tgs_api/v3210/InstanceName()
 	return world.params[SERVICE_INSTANCE_PARAM]
 
-/datum/tgs_api/v3210/proc/ExportService(command, skip_compat_check = FALSE)
+TYPE_PROC_REF(/datum/tgs_api/v3210, ExportService)(command, skip_compat_check = FALSE)
 	. = FALSE
 	if(skip_compat_check && !fexists(SERVICE_INTERFACE_DLL))
 		TGS_ERROR_LOG("Service parameter present but no interface DLL detected. This is symptomatic of running a service less than version 3.1! Please upgrade.")

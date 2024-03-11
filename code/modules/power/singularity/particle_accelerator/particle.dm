@@ -43,7 +43,7 @@
 			B.take_damage(energy*0.6)
 			movement_range = 0
 
-/obj/effect/accelerated_particle/proc/on_entered(atom/A)
+TYPE_PROC_REF(/obj/effect/accelerated_particle, on_entered)(atom/A)
 	SIGNAL_HANDLER
 	if(isliving(A))
 		INVOKE_ASYNC(src, PROC_REF(toxmob), A)
@@ -55,10 +55,10 @@
 /obj/effect/accelerated_particle/singularity_pull()
 	return
 
-/obj/effect/accelerated_particle/proc/toxmob(mob/living/M)
+TYPE_PROC_REF(/obj/effect/accelerated_particle, toxmob)(mob/living/M)
 	M.rad_act(energy*6)
 
-/obj/effect/accelerated_particle/proc/move()
+TYPE_PROC_REF(/obj/effect/accelerated_particle, move)()
 	if(!step(src,dir))
 		var/turf/T = get_step(src,dir)
 		if(T)

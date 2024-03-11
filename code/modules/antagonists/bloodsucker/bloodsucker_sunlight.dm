@@ -17,7 +17,7 @@
 	countdown()
 	hud_tick()
 
-/obj/effect/sunlight/proc/countdown()
+TYPE_PROC_REF(/obj/effect/sunlight, countdown)()
 	set waitfor = FALSE
 
 	while(!cancel_me)
@@ -87,7 +87,7 @@
 
 
 
-/obj/effect/sunlight/proc/hud_tick()
+TYPE_PROC_REF(/obj/effect/sunlight, hud_tick)()
 	set waitfor = FALSE
 	while(!cancel_me)
 		// Update all Bloodsucker sunlight huds
@@ -100,7 +100,7 @@
 		sleep(10)
 		time_til_cycle --
 
-/obj/effect/sunlight/proc/warn_daylight(danger_level =0, vampwarn = "", vassalwarn = "")
+TYPE_PROC_REF(/obj/effect/sunlight, warn_daylight)(danger_level =0, vampwarn = "", vassalwarn = "")
 	for(var/datum/mind/M in SSticker.mode.bloodsuckers)
 		if(!istype(M))
 			continue
@@ -124,7 +124,7 @@
 			to_chat(M,vassalwarn)
 
 
-/obj/effect/sunlight/proc/punish_vamps()
+TYPE_PROC_REF(/obj/effect/sunlight, punish_vamps)()
 	// Cycle through all vamp antags and check if they're inside a closet.
 	for(var/datum/mind/M in SSticker.mode.bloodsuckers)
 		if(!istype(M) || !istype(M.current))
@@ -162,7 +162,7 @@
 			M.current.updatehealth()
 			SEND_SIGNAL(M.current, COMSIG_ADD_MOOD_EVENT, "vampsleep", /datum/mood_event/daylight_2)
 
-/obj/effect/sunlight/proc/day_end()
+TYPE_PROC_REF(/obj/effect/sunlight, day_end)()
 	for(var/datum/mind/M in SSticker.mode.bloodsuckers)
 		if(!istype(M) || !istype(M.current))
 			continue
@@ -178,7 +178,7 @@
 				bloodsuckerdatum.powers -= P
 				P.Remove(M.current)
 
-/obj/effect/sunlight/proc/vamps_rank_up()
+TYPE_PROC_REF(/obj/effect/sunlight, vamps_rank_up)()
 	set waitfor = FALSE
 	// Cycle through all vamp antags and check if they're inside a closet.
 	for(var/datum/mind/M in SSticker.mode.bloodsuckers)
@@ -188,7 +188,7 @@
 		if(istype(bloodsuckerdatum))
 			bloodsuckerdatum.RankUp()	// Rank up! Must still be in a coffin to level!
 
-/obj/effect/sunlight/proc/give_home_power()
+TYPE_PROC_REF(/obj/effect/sunlight, give_home_power)()
 	// It's late...! Give the "Vanishing Act" gohome power to bloodsuckers.
 	for(var/datum/mind/M in SSticker.mode.bloodsuckers)
 		if(!istype(M) || !istype(M.current))

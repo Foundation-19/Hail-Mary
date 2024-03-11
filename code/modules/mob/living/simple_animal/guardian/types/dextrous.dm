@@ -75,7 +75,7 @@
 /mob/living/simple_animal/hostile/guardian/dextrous/getBeltSlot()
 	return SLOT_GENERC_DEXTROUS_STORAGE
 
-/mob/living/simple_animal/hostile/guardian/dextrous/proc/update_inv_internal_storage()
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/guardian/dextrous, update_inv_internal_storage)()
 	if(internal_storage && client && hud_used && hud_used.hud_shown)
 		internal_storage.screen_loc = ui_id
 		client.screen += internal_storage

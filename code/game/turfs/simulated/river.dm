@@ -70,7 +70,7 @@
 	invisibility = INVISIBILITY_ABSTRACT
 
 
-/turf/proc/Spread(probability = 30, prob_loss = 25, whitelisted_area)
+TYPE_PROC_REF(/turf, Spread)(probability = 30, prob_loss = 25, whitelisted_area)
 	if(probability <= 0)
 		return
 	var/list/cardinal_turfs = list()

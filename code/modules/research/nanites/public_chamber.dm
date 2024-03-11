@@ -27,12 +27,12 @@
 	if(board)
 		cloud_id = board.cloud_id
 
-/obj/machinery/public_nanite_chamber/proc/set_busy(status, working_icon)
+TYPE_PROC_REF(/obj/machinery/public_nanite_chamber, set_busy)(status, working_icon)
 	busy = status
 	busy_icon_state = working_icon
 	update_icon()
 
-/obj/machinery/public_nanite_chamber/proc/inject_nanites(mob/living/attacker)
+TYPE_PROC_REF(/obj/machinery/public_nanite_chamber, inject_nanites)(mob/living/attacker)
 	if(stat & (NOPOWER|BROKEN))
 		return
 	if((stat & MAINT) || panel_open)
@@ -49,7 +49,7 @@
 	addtimer(CALLBACK(src, PROC_REF(set_busy), TRUE, "[initial(icon_state)]_falling"),60)
 	addtimer(CALLBACK(src, PROC_REF(complete_injection), locked_state, attacker),80)
 
-/obj/machinery/public_nanite_chamber/proc/complete_injection(locked_state, mob/living/attacker)
+TYPE_PROC_REF(/obj/machinery/public_nanite_chamber, complete_injection)(locked_state, mob/living/attacker)
 	//TODO MACHINE DING
 	locked = locked_state
 	set_busy(FALSE)
@@ -60,7 +60,7 @@
 		log_combat(attacker, occupant, "injected", null, "with nanites via [src]")
 	occupant.AddComponent(/datum/component/nanites, 75, cloud_id)
 
-/obj/machinery/public_nanite_chamber/proc/change_cloud(mob/living/attacker)
+TYPE_PROC_REF(/obj/machinery/public_nanite_chamber, change_cloud)(mob/living/attacker)
 	if(stat & (NOPOWER|BROKEN))
 		return
 	if((stat & MAINT) || panel_open)
@@ -76,7 +76,7 @@
 	addtimer(CALLBACK(src, PROC_REF(set_busy), TRUE, "[initial(icon_state)]_falling"),40)
 	addtimer(CALLBACK(src, PROC_REF(complete_cloud_change), locked_state, attacker),60)
 
-/obj/machinery/public_nanite_chamber/proc/complete_cloud_change(locked_state, mob/living/attacker)
+TYPE_PROC_REF(/obj/machinery/public_nanite_chamber, complete_cloud_change)(locked_state, mob/living/attacker)
 	locked = locked_state
 	set_busy(FALSE)
 	if(!occupant)
@@ -109,7 +109,7 @@
 		else
 			. += "green"
 
-/obj/machinery/public_nanite_chamber/proc/toggle_open(mob/user)
+TYPE_PROC_REF(/obj/machinery/public_nanite_chamber, toggle_open)(mob/user)
 	if(panel_open)
 		to_chat(user, span_notice("Close the maintenance panel first."))
 		return
@@ -151,7 +151,7 @@
 
 	addtimer(CALLBACK(src, PROC_REF(try_inject_nanites), attacker), 30) //If someone is shoved in give them a chance to get out before the injection starts
 
-/obj/machinery/public_nanite_chamber/proc/try_inject_nanites(mob/living/attacker)
+TYPE_PROC_REF(/obj/machinery/public_nanite_chamber, try_inject_nanites)(mob/living/attacker)
 	if(occupant)
 		var/mob/living/L = occupant
 		if(SEND_SIGNAL(L, COMSIG_HAS_NANITES))

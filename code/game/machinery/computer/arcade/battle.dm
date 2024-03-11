@@ -119,7 +119,7 @@
 	updateUsrDialog()
 	return
 
-/obj/machinery/computer/arcade/battle/proc/arcade_action(mob/user)
+TYPE_PROC_REF(/obj/machinery/computer/arcade/battle, arcade_action)(mob/user)
 	if ((enemy_mp <= 0) || (enemy_hp <= 0))
 		if(!gameover)
 			gameover = TRUE

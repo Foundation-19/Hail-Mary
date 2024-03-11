@@ -13,7 +13,7 @@
 	if(istype(input, /datum/weakref) && !QDELETED(input))
 		return input.resolve()
 
-/datum/proc/create_weakref() //Forced creation for admin proccalls
+TYPE_PROC_REF(/datum, create_weakref)() //Forced creation for admin proccalls
 	return WEAKREF(src)
 
 /**
@@ -76,7 +76,7 @@
  *
  * This will return `null` if the datum was deleted. This MUST be respected.
  */
-/datum/weakref/proc/resolve()
+TYPE_PROC_REF(/datum/weakref, resolve)()
 	var/datum/D = locate(reference)
 	return (!QDELETED(D) && D.weak_reference == src) ? D : null
 

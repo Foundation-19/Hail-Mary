@@ -19,7 +19,7 @@
  * required url string Must be an https URL.
  * optional extra_data list Optional settings.
  */
-/datum/tgui_panel/proc/play_music(url, extra_data)
+TYPE_PROC_REF(/datum/tgui_panel, play_music)(url, extra_data)
 	if(!is_ready())
 		return
 	if(!findtext(url, GLOB.is_http_protocol))
@@ -36,7 +36,7 @@
  *
  * Stops playing music through the browser.
  */
-/datum/tgui_panel/proc/stop_music()
+TYPE_PROC_REF(/datum/tgui_panel, stop_music)()
 	if(!is_ready())
 		return
 	window.send_message("audio/stopMusic")

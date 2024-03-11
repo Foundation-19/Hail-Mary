@@ -22,22 +22,22 @@
 	. = ..()
 	. += "This countdown is displaying: [displayed_text]."
 
-/obj/effect/countdown/proc/attach(atom/A)
+TYPE_PROC_REF(/obj/effect/countdown, attach)(atom/A)
 	attached_to = A
 	forceMove(get_turf(A))
 
-/obj/effect/countdown/proc/start()
+TYPE_PROC_REF(/obj/effect/countdown, start)()
 	if(!started)
 		START_PROCESSING(SSfastprocess, src)
 		started = TRUE
 
-/obj/effect/countdown/proc/stop()
+TYPE_PROC_REF(/obj/effect/countdown, stop)()
 	if(started)
 		maptext = null
 		STOP_PROCESSING(SSfastprocess, src)
 		started = FALSE
 
-/obj/effect/countdown/proc/get_value()
+TYPE_PROC_REF(/obj/effect/countdown, get_value)()
 	// Get the value from our atom
 	return
 

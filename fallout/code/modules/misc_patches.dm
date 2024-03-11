@@ -2,7 +2,7 @@
 	. = ..()
 	HandlePopupMenu()
 
-/mob/living/proc/HandlePopupMenu()
+TYPE_PROC_REF(/mob/living, HandlePopupMenu)()
 	if(!client)
 		return
 	
@@ -21,7 +21,7 @@
 	. = ..()
 	UnregisterSignal(src, COMSIG_ATOM_LICKED)
 
-/obj/item/reagent_containers/food/drinks/proc/LapDrink(atom/A, mob/living/carbon/licker, obj/item/hand_item/tongue)
+TYPE_PROC_REF(/obj/item/reagent_containers/food/drinks, LapDrink)(atom/A, mob/living/carbon/licker, obj/item/hand_item/tongue)
 	if(!iscarbon(licker) || !tongue)
 		return FALSE
 

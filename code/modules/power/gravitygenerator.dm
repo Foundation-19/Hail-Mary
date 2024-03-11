@@ -47,7 +47,7 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 /obj/machinery/gravity_generator/update_icon_state()
 	icon_state = "[get_status()]_[sprite_number]"
 
-/obj/machinery/gravity_generator/proc/get_status()
+TYPE_PROC_REF(/obj/machinery/gravity_generator, get_status)()
 	return "off"
 
 // You aren't allowed to move.
@@ -55,10 +55,10 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 	. = ..()
 	qdel(src)
 
-/obj/machinery/gravity_generator/proc/set_broken()
+TYPE_PROC_REF(/obj/machinery/gravity_generator, set_broken)()
 	obj_break()
 
-/obj/machinery/gravity_generator/proc/set_fix()
+TYPE_PROC_REF(/obj/machinery/gravity_generator, set_fix)()
 	stat &= ~BROKEN
 
 /obj/machinery/gravity_generator/part/Destroy()
@@ -136,7 +136,7 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 			qdel(O)
 	return ..()
 
-/obj/machinery/gravity_generator/main/proc/setup_parts()
+TYPE_PROC_REF(/obj/machinery/gravity_generator/main, setup_parts)()
 	var/turf/our_turf = get_turf(src)
 	// 9x9 block obtained from the bottom middle of the block
 	var/list/spawn_turfs = block(locate(our_turf.x - 1, our_turf.y + 2, our_turf.z), locate(our_turf.x + 1, our_turf.y, our_turf.z))
@@ -155,9 +155,9 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 		part.main_part = src
 		parts += part
 		part.update_icon()
-		part.RegisterSignal(src, COMSIG_ATOM_UPDATED_ICON, /atom/proc/update_icon)
+		part.RegisterSignal(src, COMSIG_ATOM_UPDATED_ICON, TYPE_PROC_REF(/atom, update_icon))
 
-/obj/machinery/gravity_generator/main/proc/connected_parts()
+TYPE_PROC_REF(/obj/machinery/gravity_generator/main, connected_parts)()
 	return parts.len == 8
 
 /obj/machinery/gravity_generator/main/set_broken()
@@ -261,7 +261,7 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 	return on || charging_state != POWER_IDLE ? "on" : "off"
 
 // Set the charging state based on power/breaker.
-/obj/machinery/gravity_generator/main/proc/set_power()
+TYPE_PROC_REF(/obj/machinery/gravity_generator/main, set_power)()
 	var/new_state = FALSE
 	if(stat & (NOPOWER|BROKEN) || !breaker)
 		new_state = FALSE
@@ -273,7 +273,7 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 	update_icon()
 
 // Set the state of the gravity.
-/obj/machinery/gravity_generator/main/proc/set_state(new_state)
+TYPE_PROC_REF(/obj/machinery/gravity_generator/main, set_state)(new_state)
 	charging_state = POWER_IDLE
 	on = new_state
 	use_power = on ? ACTIVE_POWER_USE : IDLE_POWER_USE
@@ -341,11 +341,11 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 					current_overlay = overlay_state
 
 
-/obj/machinery/gravity_generator/main/proc/pulse_radiation()
+TYPE_PROC_REF(/obj/machinery/gravity_generator/main, pulse_radiation)()
 	radiation_pulse(src, 200)
 
 // Shake everyone on the z level to let them know that gravity was enagaged/disenagaged.
-/obj/machinery/gravity_generator/main/proc/shake_everyone()
+TYPE_PROC_REF(/obj/machinery/gravity_generator/main, shake_everyone)()
 	var/turf/T = get_turf(src)
 	var/sound/alert_sound = sound('sound/effects/alert.ogg')
 	for(var/i in GLOB.mob_list)
@@ -357,7 +357,7 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 			shake_camera(M, 15, 1)
 			M.playsound_local(T, null, 100, 1, 0.5, S = alert_sound)
 
-/obj/machinery/gravity_generator/main/proc/gravity_in_level()
+TYPE_PROC_REF(/obj/machinery/gravity_generator/main, gravity_in_level)()
 	var/turf/T = get_turf(src)
 	if(!T)
 		return FALSE
@@ -365,7 +365,7 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 		return length(GLOB.gravity_generators["[T.z]"])
 	return FALSE
 
-/obj/machinery/gravity_generator/main/proc/update_list()
+TYPE_PROC_REF(/obj/machinery/gravity_generator/main, update_list)()
 	var/turf/T = get_turf(src.loc)
 	if(T)
 		var/list/z_list = list()
@@ -383,7 +383,7 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 			else
 				GLOB.gravity_generators["[z]"] -= src
 
-/obj/machinery/gravity_generator/main/proc/change_setting(value)
+TYPE_PROC_REF(/obj/machinery/gravity_generator/main, change_setting)(value)
 	if(value != setting)
 		setting = value
 		shake_everyone()

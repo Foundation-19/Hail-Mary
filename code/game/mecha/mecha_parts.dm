@@ -9,7 +9,7 @@
 	w_class = WEIGHT_CLASS_GIGANTIC
 	flags_1 = CONDUCT_1
 
-/obj/item/mecha_parts/proc/try_attach_part(mob/user, obj/mecha/M) //For attaching parts to a finished mech
+TYPE_PROC_REF(/obj/item/mecha_parts, try_attach_part)(mob/user, obj/mecha/M) //For attaching parts to a finished mech
 	if(!user.transferItemToLoc(src, M))
 		to_chat(user, span_warning("\The [src] is stuck to your hand, you cannot put it in \the [M]!"))
 		return FALSE

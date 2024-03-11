@@ -54,7 +54,7 @@ other types of metals and chemistry for reagents).
 	SSresearch.techweb_designs -= id
 	return ..()
 
-/datum/design/proc/InitializeMaterials()
+TYPE_PROC_REF(/datum/design, InitializeMaterials)()
 	if(debug_materials)
 		material_cost_autobalance()
 	var/list/temp_list = list()
@@ -68,7 +68,7 @@ other types of metals and chemistry for reagents).
 	materials = temp_list
 
 
-/datum/design/proc/material_cost_autobalance()
+TYPE_PROC_REF(/datum/design, material_cost_autobalance)()
 	if(ispath(build_path, /obj/item/ammo_box))
 		var/list/design_materials = list()
 		var/obj/item/ammo_box/this_box = new build_path()
@@ -85,7 +85,7 @@ other types of metals and chemistry for reagents).
 		qdel(this_bullet)
 		analyze_cost_findings(design_materials)
 
-/datum/design/proc/analyze_cost_findings(list/result_materials)
+TYPE_PROC_REF(/datum/design, analyze_cost_findings)(list/result_materials)
 	if(!LAZYLEN(result_materials))
 		return
 	var/list/whine_about_it = list()
@@ -99,7 +99,7 @@ other types of metals and chemistry for reagents).
 	if(LAZYLEN(whine_about_it))
 		actually_whine_about_it(whine_about_it)
 
-/datum/design/proc/actually_whine_about_it(list/whine_list)
+TYPE_PROC_REF(/datum/design, actually_whine_about_it)(list/whine_list)
 	if(!LAZYLEN(whine_list))
 		return
 	message_admins(span_abductor("Heads up, nerds!") + " Ammolathe design '[src]' returns more materials than it costs!")
@@ -112,7 +112,7 @@ other types of metals and chemistry for reagents).
 		message_admins("[src] - [name_of_mat]: costs [cost_of_design], but returns [materials_returned] if reinserted. Suggested mat cost: [suggested_amount_of_mat]")
 
 
-/datum/design/proc/get_asset_path()
+TYPE_PROC_REF(/datum/design, get_asset_path)()
 	if(research_icon && research_icon_state)
 		return "[research_icon]-[research_icon_state]"
 	var/atom/item = initial(build_path)
@@ -140,7 +140,7 @@ other types of metals and chemistry for reagents).
 		icon_string += "-[keyboard]"
 	return icon_string
 
-/datum/design/proc/icon_html(client/user)
+TYPE_PROC_REF(/datum/design, icon_html)(client/user)
 	var/datum/asset/spritesheet/sheet = get_asset_datum(/datum/asset/spritesheet/research_designs)
 	sheet.send(user)
 	return sheet.icon_tag(get_asset_path())

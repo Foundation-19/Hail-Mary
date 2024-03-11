@@ -27,11 +27,11 @@
 	identification_id = ntnet_card_uid++
 
 // Returns a string identifier of this network card
-/obj/item/computer_hardware/network_card/proc/get_network_tag()
+TYPE_PROC_REF(/obj/item/computer_hardware/network_card, get_network_tag)()
 	return "[identification_string] (NID [identification_id])"
 
 // 0 - No signal, 1 - Low signal, 2 - High signal. 3 - Wired Connection
-/obj/item/computer_hardware/network_card/proc/get_signal(specific_action = 0)
+TYPE_PROC_REF(/obj/item/computer_hardware/network_card, get_signal)(specific_action = 0)
 	if(!holder) // Hardware is not installed in anything. No signal. How did this even get called?
 		return 0
 

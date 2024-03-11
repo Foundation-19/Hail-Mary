@@ -28,16 +28,16 @@ GLOBAL_LIST_EMPTY(objectives)
 		team.objectives -= src
 	. = ..()
 
-/datum/objective/proc/get_owners() // Combine owner and team into a single list.
+TYPE_PROC_REF(/datum/objective, get_owners)() // Combine owner and team into a single list.
 	. = (team && team.members) ? team.members.Copy() : list()
 	if(owner)
 		. += owner
 
-/datum/objective/proc/admin_edit(mob/admin)
+TYPE_PROC_REF(/datum/objective, admin_edit)(mob/admin)
 	return
 
 //Shared by few objective types
-/datum/objective/proc/admin_simple_target_pick(mob/admin)
+TYPE_PROC_REF(/datum/objective, admin_simple_target_pick)(mob/admin)
 	var/list/possible_targets = list("Free objective")
 	var/def_value
 	for(var/datum/mind/possible_target in SSticker.minds)
@@ -59,7 +59,7 @@ GLOBAL_LIST_EMPTY(objectives)
 
 	update_explanation_text()
 
-/datum/objective/proc/considered_escaped(datum/mind/M)
+TYPE_PROC_REF(/datum/objective, considered_escaped)(datum/mind/M)
 	if(!considered_alive(M))
 		return FALSE
 	if(M.force_escaped)
@@ -73,10 +73,10 @@ GLOBAL_LIST_EMPTY(objectives)
 		return FALSE
 	return location.onCentCom() || location.onSyndieBase()
 
-/datum/objective/proc/check_completion()
+TYPE_PROC_REF(/datum/objective, check_completion)()
 	return completed
 
-/datum/objective/proc/is_unique_objective(possible_target)
+TYPE_PROC_REF(/datum/objective, is_unique_objective)(possible_target)
 	var/list/datum/mind/owners = get_owners()
 	for(var/datum/mind/M in owners)
 		for(var/datum/objective/O in M.get_all_objectives()) //This scope is debatable, probably should be passed in by caller.
@@ -84,10 +84,10 @@ GLOBAL_LIST_EMPTY(objectives)
 				return FALSE
 	return TRUE
 
-/datum/objective/proc/get_target()
+TYPE_PROC_REF(/datum/objective, get_target)()
 	return target
 
-/datum/objective/proc/get_crewmember_minds()
+TYPE_PROC_REF(/datum/objective, get_crewmember_minds)()
 	. = list()
 	for(var/V in GLOB.data_core.locked)
 		var/datum/data/record/R = V
@@ -95,7 +95,7 @@ GLOBAL_LIST_EMPTY(objectives)
 		if(M)
 			. += M
 
-/datum/objective/proc/find_target(dupe_search_range, blacklist)
+TYPE_PROC_REF(/datum/objective, find_target)(dupe_search_range, blacklist)
 	var/list/datum/mind/owners = get_owners()
 	if(!dupe_search_range)
 		dupe_search_range = get_owners()
@@ -124,7 +124,7 @@ GLOBAL_LIST_EMPTY(objectives)
 	update_explanation_text()
 	return target
 
-/datum/objective/proc/find_target_by_role(role, role_type=0, invert=0)//Option sets either to check assigned role or special role. Default to assigned., invert inverts the check, eg: "Don't choose a Ling"
+TYPE_PROC_REF(/datum/objective, find_target_by_role)(role, role_type=0, invert=0)//Option sets either to check assigned role or special role. Default to assigned., invert inverts the check, eg: "Don't choose a Ling"
 	var/list/datum/mind/owners = get_owners()
 	for(var/datum/mind/possible_target in get_crewmember_minds())
 		if(!(possible_target in owners) && ishuman(possible_target.current))
@@ -147,11 +147,11 @@ GLOBAL_LIST_EMPTY(objectives)
 
 	update_explanation_text()
 
-/datum/objective/proc/update_explanation_text()
+TYPE_PROC_REF(/datum/objective, update_explanation_text)()
 	if(team_explanation_text && LAZYLEN(get_owners()) > 1)
 		explanation_text = team_explanation_text
 
-/datum/objective/proc/give_special_equipment(special_equipment)
+TYPE_PROC_REF(/datum/objective, give_special_equipment)(special_equipment)
 	var/datum/mind/receiver = pick(get_owners())
 	if(receiver && receiver.current)
 		if(ishuman(receiver.current))
@@ -205,7 +205,7 @@ GLOBAL_LIST_EMPTY(objectives)
 	if(won)
 		STOP_PROCESSING(SSprocessing,src)
 
-/datum/objective/assassinate/once/proc/check_midround_completion()
+TYPE_PROC_REF(/datum/objective/assassinate/once, check_midround_completion)()
 	return won || !considered_alive(target) //The target afking / logging off for a bit during the round doesn't complete it, but them being afk at roundend does.
 
 /datum/objective/assassinate/internal
@@ -538,7 +538,7 @@ GLOBAL_LIST_EMPTY(possible_items)
 			approved_targets += possible_item
 	return set_target(safepick(approved_targets))
 
-/datum/objective/steal/proc/set_target(datum/objective_item/item)
+TYPE_PROC_REF(/datum/objective/steal, set_target)(datum/objective_item/item)
 	if(item)
 		targetinfo = item
 		steal_target = targetinfo.targetitem
@@ -613,7 +613,7 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 /datum/objective/steal/exchange/admin_edit(mob/admin)
 	return
 
-/datum/objective/steal/exchange/proc/set_faction(faction,otheragent)
+TYPE_PROC_REF(/datum/objective/steal/exchange, set_faction)(faction,otheragent)
 	target = otheragent
 	if(faction == "red")
 		targetinfo = new/datum/objective_item/unique/docs_blue
@@ -645,7 +645,7 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 /datum/objective/download
 	name = "download"
 
-/datum/objective/download/proc/gen_amount_goal()
+TYPE_PROC_REF(/datum/objective/download, gen_amount_goal)()
 	target_amount = rand(20,40)
 	update_explanation_text()
 	return target_amount
@@ -680,7 +680,7 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 	name = "capture"
 	var/captured_amount = 0
 
-/datum/objective/capture/proc/gen_amount_goal()
+TYPE_PROC_REF(/datum/objective/capture, gen_amount_goal)()
 	target_amount = rand(5,10)
 	explanation_text = "Capture [target_amount] lifeform\s with an energy net. Live, rare specimens are worth more."
 	return target_amount
@@ -727,7 +727,7 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 /datum/objective/absorb
 	name = "absorb"
 
-/datum/objective/absorb/proc/gen_amount_goal(lowbound = 4, highbound = 6)
+TYPE_PROC_REF(/datum/objective/absorb, gen_amount_goal)(lowbound = 4, highbound = 6)
 	target_amount = rand (lowbound,highbound)
 	var/n_p = 1 //autowin
 	var/list/datum/mind/owners = get_owners()
@@ -896,7 +896,7 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 	var/min_lings = 3 //Minimum amount of lings for this team objective to be possible
 	var/escape_objective_compatible = FALSE
 
-/datum/objective/changeling_team_objective/proc/prepare()
+TYPE_PROC_REF(/datum/objective/changeling_team_objective, prepare)()
 	return FALSE
 
 //Impersonate department
@@ -923,7 +923,7 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 		return FALSE
 
 
-/datum/objective/changeling_team_objective/impersonate_department/proc/get_department_staff()
+TYPE_PROC_REF(/datum/objective/changeling_team_objective/impersonate_department, get_department_staff)()
 	department_minds = list()
 	department_real_names = list()
 
@@ -959,7 +959,7 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 	return TRUE
 
 
-/datum/objective/changeling_team_objective/impersonate_department/proc/get_heads()
+TYPE_PROC_REF(/datum/objective/changeling_team_objective/impersonate_department, get_heads)()
 	department_minds = list()
 	department_real_names = list()
 
@@ -1064,7 +1064,7 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 /datum/objective/hoard/get_target()
 	return hoarded_item
 
-/datum/objective/hoard/proc/set_target(obj/item/I)
+TYPE_PROC_REF(/datum/objective/hoard, set_target)(obj/item/I)
 	if(I)
 		hoarded_item = I
 		explanation_text = "Keep [I] on your person at all times."
@@ -1152,7 +1152,7 @@ GLOBAL_LIST_EMPTY(possible_sabotages)
 			approved_targets += possible_sabotage
 	return set_target(safepick(approved_targets))
 
-/datum/objective/sabotage/proc/set_target(datum/sabotage_objective/sabo)
+TYPE_PROC_REF(/datum/objective/sabotage, set_target)(datum/sabotage_objective/sabo)
 	if(sabo)
 		targetinfo = sabo
 		explanation_text = "[targetinfo.name]"
@@ -1170,10 +1170,10 @@ GLOBAL_LIST_EMPTY(possible_sabotages)
 	completable = FALSE
 	var/flavor_file
 
-/datum/objective/flavor/proc/get_flavor_list()
+TYPE_PROC_REF(/datum/objective/flavor, get_flavor_list)()
 	return world.file2list(flavor_file)
 
-/datum/objective/flavor/proc/forge_objective()
+TYPE_PROC_REF(/datum/objective/flavor, forge_objective)()
 	var/flavor_list = get_flavor_list()
 	explanation_text = pick(flavor_list)
 
@@ -1212,7 +1212,7 @@ GLOBAL_LIST_EMPTY(possible_sabotages)
 														/area/science/test_area/,
 														/area/shuttle/))
 
-/datum/objective/contract/proc/generate_dropoff()	// Generate a random valid area on the station that the dropoff will happen.
+TYPE_PROC_REF(/datum/objective/contract, generate_dropoff)()	// Generate a random valid area on the station that the dropoff will happen.
 	var/found = FALSE
 	while(!found)
 		var/area/dropoff_area = pick(GLOB.sortedAreas)
@@ -1220,7 +1220,7 @@ GLOBAL_LIST_EMPTY(possible_sabotages)
 			dropoff = dropoff_area
 			found = TRUE
 
-/datum/objective/contract/proc/dropoff_check(mob/user, mob/target)	// Check if both the contractor and contract target are at the dropoff point.
+TYPE_PROC_REF(/datum/objective/contract, dropoff_check)(mob/user, mob/target)	// Check if both the contractor and contract target are at the dropoff point.
 	var/area/user_area = get_area(user)
 	var/area/target_area = get_area(target)
 	return (istype(user_area, dropoff) && istype(target_area, dropoff))

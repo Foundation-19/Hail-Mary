@@ -78,13 +78,13 @@
 /mob/living/silicon/contents_explosion(severity, target)
 	return
 
-/mob/living/silicon/proc/cancelAlarm()
+TYPE_PROC_REF(/mob/living/silicon, cancelAlarm)()
 	return
 
-/mob/living/silicon/proc/triggerAlarm()
+TYPE_PROC_REF(/mob/living/silicon, triggerAlarm)()
 	return
 
-/mob/living/silicon/proc/queueAlarm(message, type, incoming = 1)
+TYPE_PROC_REF(/mob/living/silicon, queueAlarm)(message, type, incoming = 1)
 	var/in_cooldown = (alarms_to_show.len > 0 || alarms_to_clear.len > 0)
 	if(incoming)
 		alarms_to_show += message
@@ -216,7 +216,7 @@
 	return
 
 
-/mob/living/silicon/proc/statelaws(force = 0)
+TYPE_PROC_REF(/mob/living/silicon, statelaws)(force = 0)
 
 	//"radiomod" is inserted before a hardcoded message to change if and how it is handled by an internal radio.
 	say("[radiomod] Current Active Laws:")
@@ -273,7 +273,7 @@
 					sleep(10)
 
 
-/mob/living/silicon/proc/checklaws() //Gives you a link-driven interface for deciding what laws the statelaws() proc will share with the crew. --NeoFite
+TYPE_PROC_REF(/mob/living/silicon, checklaws)() //Gives you a link-driven interface for deciding what laws the statelaws() proc will share with the crew. --NeoFite
 
 	var/list = "<b>Which laws do you want to include when stating them for the crew?</b><br><br>"
 
@@ -329,7 +329,7 @@
 
 	usr << browse(list, "window=laws")
 
-/mob/living/silicon/proc/set_autosay() //For allowing the AI and borgs to set the radio behavior of auto announcements (state laws, arrivals).
+TYPE_PROC_REF(/mob/living/silicon, set_autosay)() //For allowing the AI and borgs to set the radio behavior of auto announcements (state laws, arrivals).
 	if(!radio)
 		to_chat(src, "Radio not detected.")
 		return
@@ -364,7 +364,7 @@
 /mob/living/silicon/assess_threat(judgement_criteria, lasercolor = "", datum/callback/weaponcheck=null) //Secbots won't hunt silicon units
 	return -10
 
-/mob/living/silicon/proc/remove_sensors()
+TYPE_PROC_REF(/mob/living/silicon, remove_sensors)()
 	var/datum/atom_hud/secsensor = GLOB.huds[sec_hud]
 	var/datum/atom_hud/medsensor = GLOB.huds[med_hud]
 	var/datum/atom_hud/diagsensor = GLOB.huds[d_hud]
@@ -372,7 +372,7 @@
 	medsensor.remove_hud_from(src)
 	diagsensor.remove_hud_from(src)
 
-/mob/living/silicon/proc/add_sensors()
+TYPE_PROC_REF(/mob/living/silicon, add_sensors)()
 	var/datum/atom_hud/secsensor = GLOB.huds[sec_hud]
 	var/datum/atom_hud/medsensor = GLOB.huds[med_hud]
 	var/datum/atom_hud/diagsensor = GLOB.huds[d_hud]
@@ -380,7 +380,7 @@
 	medsensor.add_hud_to(src)
 	diagsensor.add_hud_to(src)
 
-/mob/living/silicon/proc/toggle_sensors()
+TYPE_PROC_REF(/mob/living/silicon, toggle_sensors)()
 	if(incapacitated())
 		return
 	sensors_on = !sensors_on
@@ -391,11 +391,11 @@
 	add_sensors()
 	to_chat(src, "Sensor overlay activated.")
 
-/mob/living/silicon/proc/GetPhoto(mob/user)
+TYPE_PROC_REF(/mob/living/silicon, GetPhoto)(mob/user)
 	if (aicamera)
 		return aicamera.selectpicture(user)
 
-/mob/living/silicon/proc/ai_roster()
+TYPE_PROC_REF(/mob/living/silicon, ai_roster)()
 	if(!client)
 		return
 	if(world.time < client.crew_manifest_delay)

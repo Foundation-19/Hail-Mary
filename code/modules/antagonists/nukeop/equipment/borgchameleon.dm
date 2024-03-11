@@ -57,7 +57,7 @@
 	else
 		to_chat(user, span_warning("You need at least [activationCost] charge in your cell to use [src]!"))
 
-/obj/item/borg_chameleon/proc/toggle(mob/living/silicon/robot/user)
+TYPE_PROC_REF(/obj/item/borg_chameleon, toggle)(mob/living/silicon/robot/user)
 	if(active)
 		playsound(src, 'sound/effects/pop.ogg', 100, TRUE, -6)
 		to_chat(user, span_notice("You deactivate \the [src]."))
@@ -141,7 +141,7 @@
 	else
 		return PROCESS_KILL
 
-/obj/item/borg_chameleon/proc/activate(mob/living/silicon/robot/user)
+TYPE_PROC_REF(/obj/item/borg_chameleon, activate)(mob/living/silicon/robot/user)
 	START_PROCESSING(SSobj, src)
 	src.user = user
 	savedName = user.name
@@ -159,7 +159,7 @@
 	RegisterSignal(user, signalCache, PROC_REF(disrupt))
 	listeningTo = user
 
-/obj/item/borg_chameleon/proc/deactivate(mob/living/silicon/robot/user)
+TYPE_PROC_REF(/obj/item/borg_chameleon, deactivate)(mob/living/silicon/robot/user)
 	STOP_PROCESSING(SSobj, src)
 	if(listeningTo)
 		UnregisterSignal(listeningTo, signalCache)
@@ -173,7 +173,7 @@
 	user.update_icons()
 	src.user = user
 
-/obj/item/borg_chameleon/proc/disrupt(mob/living/silicon/robot/user)
+TYPE_PROC_REF(/obj/item/borg_chameleon, disrupt)(mob/living/silicon/robot/user)
 	if(active)
 		to_chat(user, span_danger("Your chameleon field deactivates."))
 		deactivate(user)

@@ -462,36 +462,36 @@ obj/item/melee/onehanded/knife/switchblade
 	. = ..()
 
 // Description for trying to stun when still on cooldown.
-/obj/item/melee/classic_baton/proc/get_wait_description()
+TYPE_PROC_REF(/obj/item/melee/classic_baton, get_wait_description)()
 	return
 
 // Description for when turning their baton "on"
-/obj/item/melee/classic_baton/proc/get_on_description()
+TYPE_PROC_REF(/obj/item/melee/classic_baton, get_on_description)()
 	. = list()
 	.["local_on"] = "<span class ='warning'>You extend the baton.</span>"
 	.["local_off"] = "<span class ='notice'>You collapse the baton.</span>"
 	return .
 
 // Default message for stunning mob.
-/obj/item/melee/classic_baton/proc/get_stun_description(mob/living/target, mob/living/user)
+TYPE_PROC_REF(/obj/item/melee/classic_baton, get_stun_description)(mob/living/target, mob/living/user)
 	. = list()
 	.["visible"] =  "<span class ='danger'>[user] has knocked down [target] with [src]!</span>"
 	.["local"] = "<span class ='danger'>[user] has knocked down [target] with [src]!</span>"
 	return .
 
 // Default message for stunning a silicon.
-/obj/item/melee/classic_baton/proc/get_silicon_stun_description(mob/living/target, mob/living/user)
+TYPE_PROC_REF(/obj/item/melee/classic_baton, get_silicon_stun_description)(mob/living/target, mob/living/user)
 	. = list()
 	.["visible"] = span_danger("[user] pulses [target]'s sensors with the baton!")
 	.["local"] = span_danger("You pulse [target]'s sensors with the baton!")
 	return .
 
 // Are we applying any special effects when we stun to carbon
-/obj/item/melee/classic_baton/proc/additional_effects_carbon(mob/living/target, mob/living/user)
+TYPE_PROC_REF(/obj/item/melee/classic_baton, additional_effects_carbon)(mob/living/target, mob/living/user)
 	return
 
 // Are we applying any special effects when we stun to silicon
-/obj/item/melee/classic_baton/proc/additional_effects_silicon(mob/living/target, mob/living/user)
+TYPE_PROC_REF(/obj/item/melee/classic_baton, additional_effects_silicon)(mob/living/target, mob/living/user)
 	return
 
 /obj/item/melee/classic_baton/attack(mob/living/target, mob/living/user)
@@ -733,7 +733,7 @@ obj/item/melee/onehanded/knife/switchblade
 	if(can_adjust_unarmed == TRUE)
 		toggle_unarmed_adjust()
 
-/obj/item/melee/unarmed/proc/toggle_unarmed_adjust()
+TYPE_PROC_REF(/obj/item/melee/unarmed, toggle_unarmed_adjust)()
 	unarmed_adjusted = !unarmed_adjusted
 	to_chat(usr, span_notice("[src] is ready to be worn on another hand."))
 

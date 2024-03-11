@@ -11,7 +11,7 @@
 /datum/wires/explosive/on_cut(index, mend)
 	explode()
 
-/datum/wires/explosive/proc/explode()
+TYPE_PROC_REF(/datum/wires/explosive, explode)()
 	return
 
 

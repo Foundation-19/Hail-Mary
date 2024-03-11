@@ -231,7 +231,7 @@
 	GLOB.mechas_list -= src //global mech list
 	return ..()
 
-/obj/mecha/proc/restore_equipment()
+TYPE_PROC_REF(/obj/mecha, restore_equipment)()
 	equipment_disabled = 0
 	if(istype(src, /obj/mecha/combat))
 		mouse_pointer = 'icons/mecha/mecha_mouse.dmi'
@@ -257,18 +257,18 @@
 ////// Helpers /////////
 ////////////////////////
 
-/obj/mecha/proc/add_airtank()
+TYPE_PROC_REF(/obj/mecha, add_airtank)()
 	internal_tank = new /obj/machinery/portable_atmospherics/canister/air(src)
 	return internal_tank
 
-/obj/mecha/proc/add_cell(obj/item/stock_parts/cell/C=null)
+TYPE_PROC_REF(/obj/mecha, add_cell)(obj/item/stock_parts/cell/C=null)
 	if(C)
 		C.forceMove(src)
 		cell = C
 		return
 	cell = new /obj/item/stock_parts/cell/high/plus(src)
 
-/obj/mecha/proc/add_cabin()
+TYPE_PROC_REF(/obj/mecha, add_cabin)()
 	cabin_air = new
 	cabin_air.set_temperature(T20C)
 
@@ -277,14 +277,14 @@
 
 	return cabin_air
 
-/obj/mecha/proc/add_radio()
+TYPE_PROC_REF(/obj/mecha, add_radio)()
 	radio = new(src)
 	radio.name = "[src] radio"
 	radio.icon = icon
 	radio.icon_state = icon_state
 	radio.subspace_transmission = TRUE
 
-/obj/mecha/proc/can_use(mob/user)
+TYPE_PROC_REF(/obj/mecha, can_use)(mob/user)
 	if(user != occupant)
 		return 0
 	if(user && ismob(user))
@@ -420,7 +420,7 @@
 	diag_hud_set_mechcell()
 	diag_hud_set_mechstat()
 
-/obj/mecha/proc/drop_item()//Derpfix, but may be useful in future for engineering exosuits.
+TYPE_PROC_REF(/obj/mecha, drop_item)()//Derpfix, but may be useful in future for engineering exosuits.
 	return
 
 /obj/mecha/Hear(message, atom/movable/speaker, message_language, raw_message, radio_freq, list/spans, message_mode, atom/movable/source)
@@ -440,7 +440,7 @@
 ////////////////////////////
 
 
-/obj/mecha/proc/click_action(atom/target,mob/user,params)
+TYPE_PROC_REF(/obj/mecha, click_action)(atom/target,mob/user,params)
 	if(!occupant || occupant != user )
 		return
 	if(!locate(/turf) in list(target,target.loc)) // Prevents inventory from being drilled
@@ -494,7 +494,7 @@
 			melee_can_hit = 1
 
 
-/obj/mecha/proc/range_action(atom/target)
+TYPE_PROC_REF(/obj/mecha, range_action)(atom/target)
 	return
 
 
@@ -548,7 +548,7 @@
 		return
 	return domove(direction)
 
-/obj/mecha/proc/domove(direction)
+TYPE_PROC_REF(/obj/mecha, domove)(direction)
 	if(can_move >= world.time)
 		return 0
 	if(!Process_Spacemove(direction))
@@ -577,13 +577,13 @@
 		return 1
 	return 0
 
-/obj/mecha/proc/mechturn(direction)
+TYPE_PROC_REF(/obj/mecha, mechturn)(direction)
 	setDir(direction)
 	if(turnsound)
 		playsound(src,turnsound,40,1)
 	return 1
 
-/obj/mecha/proc/mechstep(direction)
+TYPE_PROC_REF(/obj/mecha, mechstep)(direction)
 	var/current_dir = dir
 	var/result = step(src,direction)
 	if(strafe)
@@ -592,7 +592,7 @@
 		playsound(src,stepsound,40,1)
 	return result
 
-/obj/mecha/proc/mechsteprand()
+TYPE_PROC_REF(/obj/mecha, mechsteprand)()
 	var/result = step_rand(src)
 	if(result && stepsound)
 		playsound(src,stepsound,40,1)
@@ -635,7 +635,7 @@
 ////////  Internal damage  ////////
 ///////////////////////////////////
 
-/obj/mecha/proc/check_for_internal_damage(list/possible_int_damage,ignore_threshold=null)
+TYPE_PROC_REF(/obj/mecha, check_for_internal_damage)(list/possible_int_damage,ignore_threshold=null)
 	if(!islist(possible_int_damage) || isemptylist(possible_int_damage))
 		return
 	if(prob(20))
@@ -653,14 +653,14 @@
 				qdel(ME)
 	return
 
-/obj/mecha/proc/setInternalDamage(int_dam_flag)
+TYPE_PROC_REF(/obj/mecha, setInternalDamage)(int_dam_flag)
 	internal_damage |= int_dam_flag
 	log_append_to_last("Internal damage of type [int_dam_flag].",1)
 	SEND_SOUND(occupant, sound('sound/machines/warning-buzzer.ogg',wait=0))
 	diag_hud_set_mechstat()
 	return
 
-/obj/mecha/proc/clearInternalDamage(int_dam_flag)
+TYPE_PROC_REF(/obj/mecha, clearInternalDamage)(int_dam_flag)
 	if(internal_damage & int_dam_flag)
 		switch(int_dam_flag)
 			if(MECHA_INT_TEMP_CONTROL)
@@ -760,7 +760,7 @@
 			ai_enter_mech(AI, interaction)
 
 //Hack and From Card interactions share some code, so leave that here for both to use.
-/obj/mecha/proc/ai_enter_mech(mob/living/silicon/ai/AI, interaction)
+TYPE_PROC_REF(/obj/mecha, ai_enter_mech)(mob/living/silicon/ai/AI, interaction)
 	AI.ai_restore_power()
 	AI.forceMove(src)
 	occupant = AI
@@ -783,7 +783,7 @@
 
 
 //An actual AI (simple_animal mecha pilot) entering the mech
-/obj/mecha/proc/aimob_enter_mech(mob/living/simple_animal/hostile/syndicate/mecha_pilot/pilot_mob)
+TYPE_PROC_REF(/obj/mecha, aimob_enter_mech)(mob/living/simple_animal/hostile/syndicate/mecha_pilot/pilot_mob)
 	if(pilot_mob && pilot_mob.Adjacent(src))
 		if(occupant)
 			return
@@ -793,7 +793,7 @@
 		pilot_mob.forceMove(src)
 		GrantActions(pilot_mob)//needed for checks, and incase a badmin puts somebody in the mob
 
-/obj/mecha/proc/aimob_exit_mech(mob/living/simple_animal/hostile/syndicate/mecha_pilot/pilot_mob)
+TYPE_PROC_REF(/obj/mecha, aimob_exit_mech)(mob/living/simple_animal/hostile/syndicate/mecha_pilot/pilot_mob)
 	if(occupant == pilot_mob)
 		occupant = null
 	if(pilot_mob.mecha == src)
@@ -822,7 +822,7 @@
 		return cabin_air
 	return ..()
 
-/obj/mecha/proc/return_pressure()
+TYPE_PROC_REF(/obj/mecha, return_pressure)()
 	var/datum/gas_mixture/t_air = return_air()
 	if(t_air)
 		. = t_air.return_pressure()
@@ -887,7 +887,7 @@
 		to_chat(user, span_warning("You stop entering the exosuit!"))
 	return
 
-/obj/mecha/proc/moved_inside(mob/living/carbon/human/H)
+TYPE_PROC_REF(/obj/mecha, moved_inside)(mob/living/carbon/human/H)
 	if(H?.client && (H in range(1)))
 		occupant = H
 		H.forceMove(src)
@@ -905,7 +905,7 @@
 	else
 		return 0
 
-/obj/mecha/proc/mmi_move_inside(obj/item/mmi/mmi_as_oc, mob/user)
+TYPE_PROC_REF(/obj/mecha, mmi_move_inside)(obj/item/mmi/mmi_as_oc, mob/user)
 	if(!mmi_as_oc.brainmob || !mmi_as_oc.brainmob.client)
 		to_chat(user, span_warning("Consciousness matrix not detected!"))
 		return FALSE
@@ -930,7 +930,7 @@
 		to_chat(user, span_notice("You stop inserting the MMI."))
 	return FALSE
 
-/obj/mecha/proc/mmi_moved_inside(obj/item/mmi/mmi_as_oc, mob/user)
+TYPE_PROC_REF(/obj/mecha, mmi_moved_inside)(obj/item/mmi/mmi_as_oc, mob/user)
 	if(!(Adjacent(mmi_as_oc) && Adjacent(user)))
 		return FALSE
 	if(!mmi_as_oc.brainmob || !mmi_as_oc.brainmob.client)
@@ -968,7 +968,7 @@
 	if(occupant && occupant == M) // The occupant exited the mech without calling go_out()
 		go_out(TRUE, newloc)
 
-/obj/mecha/proc/go_out(forced, atom/newloc = loc)
+TYPE_PROC_REF(/obj/mecha, go_out)(forced, atom/newloc = loc)
 	if(!occupant)
 		return
 	var/atom/movable/mob_container
@@ -1028,12 +1028,12 @@
 ////// Access stuff /////
 /////////////////////////
 
-/obj/mecha/proc/operation_allowed(mob/M)
+TYPE_PROC_REF(/obj/mecha, operation_allowed)(mob/M)
 	req_access = operation_req_access
 	req_one_access = list()
 	return allowed(M)
 
-/obj/mecha/proc/internals_access_allowed(mob/M)
+TYPE_PROC_REF(/obj/mecha, internals_access_allowed)(mob/M)
 	req_one_access = internals_req_access
 	req_access = list()
 	return allowed(M)
@@ -1044,19 +1044,19 @@
 /////// Messages and Log ///////
 ////////////////////////////////
 
-/obj/mecha/proc/occupant_message(message as text)
+TYPE_PROC_REF(/obj/mecha, occupant_message)(message as text)
 	if(message)
 		if(occupant && occupant.client)
 			to_chat(occupant, "[icon2html(src, occupant)] [message]")
 	return
 
-/obj/mecha/proc/mecha_log_message(message, color)
+TYPE_PROC_REF(/obj/mecha, mecha_log_message)(message, color)
 	log.len++
 	log[log.len] = list("time"="[STATION_TIME_TIMESTAMP("hh:mm:ss", world.time)]","date","year"="[GLOB.year_integer]","message"="[color?"<font color='[color]'>":null][message][color?"</font>":null]")
 	log_message(message, LOG_GAME, color)			//also do the normal admin logs I guess.
 	return log.len
 
-/obj/mecha/proc/log_append_to_last(message as text,red=null)
+TYPE_PROC_REF(/obj/mecha, log_append_to_last)(message as text,red=null)
 	var/list/last_entry = log[log.len]
 	last_entry["message"] += "<br>[red?"<font color='red'>":null][message][red?"</font>":null]"
 	return
@@ -1065,10 +1065,10 @@
 ///// Power stuff /////
 ///////////////////////
 
-/obj/mecha/proc/has_charge(amount)
+TYPE_PROC_REF(/obj/mecha, has_charge)(amount)
 	return (get_charge()>=amount)
 
-/obj/mecha/proc/get_charge()
+TYPE_PROC_REF(/obj/mecha, get_charge)()
 	for(var/obj/item/mecha_parts/mecha_equipment/tesla_energy_relay/R in equipment)
 		var/relay_charge = R.get_charge()
 		if(relay_charge)
@@ -1076,12 +1076,12 @@
 	if(cell)
 		return max(0, cell.charge)
 
-/obj/mecha/proc/use_power(amount)
+TYPE_PROC_REF(/obj/mecha, use_power)(amount)
 	if(get_charge() && cell.use(amount))
 		return 1
 	return 0
 
-/obj/mecha/proc/give_power(amount)
+TYPE_PROC_REF(/obj/mecha, give_power)(amount)
 	if(!isnull(get_charge()))
 		cell.give(amount)
 		return 1
@@ -1096,7 +1096,7 @@
 ////// Ammo stuff /////
 ///////////////////////
 
-/obj/mecha/proc/ammo_resupply(obj/item/mecha_ammo/A, mob/user,fail_chat_override = FALSE)
+TYPE_PROC_REF(/obj/mecha, ammo_resupply)(obj/item/mecha_ammo/A, mob/user,fail_chat_override = FALSE)
 	if(!A.rounds)
 		if(!fail_chat_override)
 			to_chat(user, span_warning("This box of ammo is empty!"))

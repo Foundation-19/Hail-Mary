@@ -11,18 +11,18 @@
 	L = new()
 	cmp = compare
 
-/datum/Heap/proc/IsEmpty()
+TYPE_PROC_REF(/datum/Heap, IsEmpty)()
 	return !L.len
 
 //Insert and place at its position a new node in the heap
-/datum/Heap/proc/Insert(atom/A)
+TYPE_PROC_REF(/datum/Heap, Insert)(atom/A)
 
 	L.Add(A)
 	Swim(L.len)
 
 //removes and returns the first element of the heap
 //(i.e the max or the min dependant on the comparison function)
-/datum/Heap/proc/Pop()
+TYPE_PROC_REF(/datum/Heap, Pop)()
 	if(!L.len)
 		return 0
 	. = L[1]
@@ -33,7 +33,7 @@
 		Sink(1)
 
 //Get a node up to its right position in the heap
-/datum/Heap/proc/Swim(index)
+TYPE_PROC_REF(/datum/Heap, Swim)(index)
 	var/parent = round(index * 0.5)
 
 	while(parent > 0 && (call(cmp)(L[index],L[parent]) > 0))
@@ -42,7 +42,7 @@
 		parent = round(index * 0.5)
 
 //Get a node down to its right position in the heap
-/datum/Heap/proc/Sink(index)
+TYPE_PROC_REF(/datum/Heap, Sink)(index)
 	var/g_child = GetGreaterChild(index)
 
 	while(g_child > 0 && (call(cmp)(L[index],L[g_child]) < 0))
@@ -52,7 +52,7 @@
 
 //Returns the greater (relative to the comparison proc) of a node children
 //or 0 if there's no child
-/datum/Heap/proc/GetGreaterChild(index)
+TYPE_PROC_REF(/datum/Heap, GetGreaterChild)(index)
 	if(index * 2 > L.len)
 		return 0
 
@@ -65,12 +65,12 @@
 		return index * 2
 
 //Replaces a given node so it verify the heap condition
-/datum/Heap/proc/ReSort(atom/A)
+TYPE_PROC_REF(/datum/Heap, ReSort)(atom/A)
 	var/index = L.Find(A)
 
 	Swim(index)
 	Sink(index)
 
-/datum/Heap/proc/List()
+TYPE_PROC_REF(/datum/Heap, List)()
 	. = L.Copy()
 

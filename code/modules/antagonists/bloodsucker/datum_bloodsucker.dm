@@ -94,7 +94,7 @@
 	return ..() + 3 * bloodsucker_level
 
 
-/datum/antagonist/bloodsucker/proc/SelectFirstName()
+TYPE_PROC_REF(/datum/antagonist/bloodsucker, SelectFirstName)()
 	// Names (EVERYONE gets one))
 	if(owner.current.gender == MALE)
 		bloodsucker_name = pick("Desmond","Rudolph","Dracul","Vlad","Pyotr","Gregor","Cristian","Christoff","Marcu","Andrei","Constantin","Gheorghe","Grigore","Ilie","Iacob","Luca","Mihail","Pavel","Vasile","Octavian","Sorin", \
@@ -111,7 +111,7 @@
 						"Alcestis","Damaris","Elisavet","Khthonia","Teodora",  // Greek
 						"Nefret","Ankhesenpep") // Egyptian
 
-/datum/antagonist/bloodsucker/proc/SelectTitle(am_fledgling = 0, forced = FALSE)
+TYPE_PROC_REF(/datum/antagonist/bloodsucker, SelectTitle)(am_fledgling = 0, forced = FALSE)
 	// Already have Title
 	if(!forced && bloodsucker_title != null)
 		return
@@ -126,7 +126,7 @@
 	else
 		bloodsucker_title = null
 
-/datum/antagonist/bloodsucker/proc/SelectReputation(am_fledgling = 0, forced=FALSE)
+TYPE_PROC_REF(/datum/antagonist/bloodsucker, SelectReputation)(am_fledgling = 0, forced=FALSE)
 	// Already have Reputation
 	if(!forced && bloodsucker_reputation != null)
 		return
@@ -150,10 +150,10 @@
 							   "Unspoiled","Disgraced","Defrocked","Shamed","Meek","Timid","Broken")//,"Fresh")
 
 
-/datum/antagonist/bloodsucker/proc/AmFledgling()
+TYPE_PROC_REF(/datum/antagonist/bloodsucker, AmFledgling)()
 	return !bloodsucker_title
 
-/datum/antagonist/bloodsucker/proc/ReturnFullName(include_rep=0)
+TYPE_PROC_REF(/datum/antagonist/bloodsucker, ReturnFullName)(include_rep=0)
 
 	var/fullname
 	// Name First
@@ -168,11 +168,11 @@
 	return fullname
 
 
-/datum/antagonist/bloodsucker/proc/BuyPower(datum/action/bloodsucker/power)//(obj/effect/proc_holder/spell/power)
+TYPE_PROC_REF(/datum/antagonist/bloodsucker, BuyPower)(datum/action/bloodsucker/power)//(obj/effect/proc_holder/spell/power)
 	powers += power
 	power.Grant(owner.current)// owner.AddSpell(power)
 
-/datum/antagonist/bloodsucker/proc/AssignStarterPowersAndStats()
+TYPE_PROC_REF(/datum/antagonist/bloodsucker, AssignStarterPowersAndStats)()
 	// Blood/Rank Counter
 	add_hud()
 	update_hud(TRUE) 	// Set blood value, current rank
@@ -216,7 +216,7 @@
 	// Disabilities
 	CureDisabilities()
 
-/datum/antagonist/bloodsucker/proc/ClearAllPowersAndStats()
+TYPE_PROC_REF(/datum/antagonist/bloodsucker, ClearAllPowersAndStats)()
 	// Blood/Rank Counter
 	remove_hud()
 	// Powers
@@ -253,7 +253,7 @@
 		owner.hasSoul = TRUE
 //owner.current.hellbound = FALSE
 
-/datum/antagonist/bloodsucker/proc/RankUp()
+TYPE_PROC_REF(/datum/antagonist/bloodsucker, RankUp)()
 	set waitfor = FALSE
 	if(!owner || !owner.current)
 		return
@@ -266,11 +266,11 @@
 		if(bloodsucker_level_unspent >= 2)
 			to_chat(owner, "<span class='announce'>Bloodsucker Tip: If you cannot find or steal a coffin to use, you can build one from wooden planks.</span><br>")
 
-/datum/antagonist/bloodsucker/proc/LevelUpPowers()
+TYPE_PROC_REF(/datum/antagonist/bloodsucker, LevelUpPowers)()
 	for(var/datum/action/bloodsucker/power in powers)
 		power.level_current ++
 
-/datum/antagonist/bloodsucker/proc/SpendRank()
+TYPE_PROC_REF(/datum/antagonist/bloodsucker, SpendRank)()
 	set waitfor = FALSE
 	if(bloodsucker_level_unspent <= 0 || !owner || !owner.current || !owner.current.client || !isliving(owner.current))
 		return
@@ -354,7 +354,7 @@
 	return
 
 // Create Objectives
-/datum/antagonist/bloodsucker/proc/forge_bloodsucker_objectives() // Fledgling vampires can have different objectives.
+TYPE_PROC_REF(/datum/antagonist/bloodsucker, forge_bloodsucker_objectives)() // Fledgling vampires can have different objectives.
 
 	// TEAM
 	//clan = new /datum/team/vampireclan(owner)
@@ -394,11 +394,11 @@
 	add_objective(survive_objective)
 
 
-/datum/antagonist/bloodsucker/proc/add_objective(datum/objective/O)
+TYPE_PROC_REF(/datum/antagonist/bloodsucker, add_objective)(datum/objective/O)
 	objectives += O
 	objectives_given += O
 
-/datum/antagonist/bloodsucker/proc/clear_bloodsucker_objectives()
+TYPE_PROC_REF(/datum/antagonist/bloodsucker, clear_bloodsucker_objectives)()
 
 	var/datum/team/team = get_team()
 	if(team)
@@ -608,13 +608,13 @@
 
 		// HUD! //
 
-/datum/antagonist/bloodsucker/proc/update_bloodsucker_icons_added(datum/mind/m)
+TYPE_PROC_REF(/datum/antagonist/bloodsucker, update_bloodsucker_icons_added)(datum/mind/m)
 	var/datum/atom_hud/antag/vamphud = GLOB.huds[ANTAG_HUD_BLOODSUCKER]
 	vamphud.join_hud(owner.current)
 	set_antag_hud(owner.current, "bloodsucker") // "bloodsucker"
 	owner.current.hud_list[ANTAG_HUD].icon = image('icons/mob/hud.dmi', owner.current, "bloodsucker")	//Check prepare_huds in mob.dm to see why.
 
-/datum/antagonist/bloodsucker/proc/update_bloodsucker_icons_removed(datum/mind/m)
+TYPE_PROC_REF(/datum/antagonist/bloodsucker, update_bloodsucker_icons_removed)(datum/mind/m)
 	var/datum/atom_hud/antag/vamphud = GLOB.huds[ANTAG_HUD_BLOODSUCKER]
 	vamphud.leave_hud(owner.current)
 	set_antag_hud(owner.current, null)
@@ -626,7 +626,7 @@
 		return
 	..()
 
-/datum/atom_hud/antag/bloodsucker/proc/check_valid_hud_user(mob/M, atom/A) // Remember: A is being added to M's hud. Because M's hud is a /antag/vassal hud, this means M is the vassal here.
+TYPE_PROC_REF(/datum/atom_hud/antag/bloodsucker, check_valid_hud_user)(mob/M, atom/A) // Remember: A is being added to M's hud. Because M's hud is a /antag/vassal hud, this means M is the vassal here.
 	// Ghost Admins always see Bloodsuckers/Vassals
 	if (isobserver(M))
 		return TRUE
@@ -674,10 +674,10 @@
 	var/obj/screen/bloodsucker/rank_counter/vamprank_display
 	var/obj/screen/bloodsucker/sunlight_counter/sunlight_display
 
-/datum/antagonist/bloodsucker/proc/add_hud()
+TYPE_PROC_REF(/datum/antagonist/bloodsucker, add_hud)()
 	return
 
-/datum/antagonist/bloodsucker/proc/remove_hud()
+TYPE_PROC_REF(/datum/antagonist/bloodsucker, remove_hud)()
 	// No Hud? Get out.
 	if (!owner.current.hud_used)
 		return
@@ -685,7 +685,7 @@
 	owner.current.hud_used.vamprank_display.invisibility = INVISIBILITY_ABSTRACT
 	owner.current.hud_used.sunlight_display.invisibility = INVISIBILITY_ABSTRACT
 
-/datum/antagonist/bloodsucker/proc/update_hud(updateRank=FALSE)
+TYPE_PROC_REF(/datum/antagonist/bloodsucker, update_hud)(updateRank=FALSE)
 	if(FinalDeath)
 		return
 	// No Hud? Get out.
@@ -711,10 +711,10 @@
 /obj/screen/bloodsucker
 	invisibility = INVISIBILITY_ABSTRACT
 
-/obj/screen/bloodsucker/proc/clear()
+TYPE_PROC_REF(/obj/screen/bloodsucker, clear)()
 	invisibility = INVISIBILITY_ABSTRACT
 
-/obj/screen/bloodsucker/proc/update_counter(value, valuecolor)
+TYPE_PROC_REF(/obj/screen/bloodsucker, update_counter)(value, valuecolor)
 	invisibility = 0
 
 /obj/screen/bloodsucker/blood_counter
@@ -743,7 +743,7 @@
 	icon_state = "sunlight_night"
 	screen_loc = ui_sunlight_display
 
-/datum/antagonist/bloodsucker/proc/update_sunlight(value, amDay = FALSE)
+TYPE_PROC_REF(/datum/antagonist/bloodsucker, update_sunlight)(value, amDay = FALSE)
 	// No Hud? Get out.
 	if(!owner.current.hud_used)
 		return
@@ -765,7 +765,7 @@
 	..()
 	maptext = "<div align='center' valign='bottom' style='position:relative; top:0px; left:6px'><font color='[valuecolor]'>[value]</font></div>"
 
-/datum/antagonist/bloodsucker/proc/count_vassals(datum/mind/master)
+TYPE_PROC_REF(/datum/antagonist/bloodsucker, count_vassals)(datum/mind/master)
 	var/datum/antagonist/bloodsucker/B = master.has_antag_datum(ANTAG_DATUM_BLOODSUCKER)
 	var/vassal_amount = B.vassals.len
 	return vassal_amount

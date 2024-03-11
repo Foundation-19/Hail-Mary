@@ -18,7 +18,7 @@
 
 // Add an AI eye to the chunk, then update if changed.
 
-/datum/camerachunk/proc/add(mob/camera/aiEye/eye)
+TYPE_PROC_REF(/datum/camerachunk, add)(mob/camera/aiEye/eye)
 	eye.visibleCameraChunks += src
 	seenby += eye
 	if(changed)
@@ -26,7 +26,7 @@
 
 // Remove an AI eye from the chunk, then update if changed.
 
-/datum/camerachunk/proc/remove(mob/camera/aiEye/eye, remove_static_with_last_chunk = TRUE)
+TYPE_PROC_REF(/datum/camerachunk, remove)(mob/camera/aiEye/eye, remove_static_with_last_chunk = TRUE)
 	eye.visibleCameraChunks -= src
 	seenby -= eye
 	if(remove_static_with_last_chunk && !eye.visibleCameraChunks.len)
@@ -40,7 +40,7 @@
 
 // Called when a chunk has changed. I.E: A wall was deleted.
 
-/datum/camerachunk/proc/visibilityChanged(turf/loc)
+TYPE_PROC_REF(/datum/camerachunk, visibilityChanged)(turf/loc)
 	if(!visibleTurfs[loc])
 		return
 	hasChanged()
@@ -48,7 +48,7 @@
 // Updates the chunk, makes sure that it doesn't update too much. If the chunk isn't being watched it will
 // instead be flagged to update the next time an AI Eye moves near it.
 
-/datum/camerachunk/proc/hasChanged(update_now = 0)
+TYPE_PROC_REF(/datum/camerachunk, hasChanged)(update_now = 0)
 	if(seenby.len || update_now)
 		addtimer(CALLBACK(src, PROC_REF(update)), UPDATE_BUFFER, TIMER_UNIQUE)
 	else
@@ -56,7 +56,7 @@
 
 // The actual updating. It gathers the visible turfs from cameras and puts them into the appropiate lists.
 
-/datum/camerachunk/proc/update()
+TYPE_PROC_REF(/datum/camerachunk, update)()
 	var/list/newVisibleTurfs = list()
 
 	for(var/camera in cameras)

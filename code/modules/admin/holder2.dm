@@ -66,7 +66,7 @@ GLOBAL_PROTECT(href_token)
 		return QDEL_HINT_LETMELIVE
 	. = ..()
 
-/datum/admins/proc/activate()
+TYPE_PROC_REF(/datum/admins, activate)()
 	if(IsAdminAdvancedProcCall())
 		var/msg = " has tried to elevate permissions!"
 		message_admins("[key_name_admin(usr)][msg]")
@@ -79,7 +79,7 @@ GLOBAL_PROTECT(href_token)
 		associate(GLOB.directory[target])	//find the client for a ckey if they are connected and associate them with us
 
 
-/datum/admins/proc/deactivate()
+TYPE_PROC_REF(/datum/admins, deactivate)()
 	if(IsAdminAdvancedProcCall())
 		var/msg = " has tried to elevate permissions!"
 		message_admins("[key_name_admin(usr)][msg]")
@@ -91,9 +91,9 @@ GLOBAL_PROTECT(href_token)
 	var/client/C
 	if ((C = owner) || (C = GLOB.directory[target]))
 		disassociate()
-		add_verb(C, /client/proc/readmin)
+		add_verb(C, TYPE_PROC_REF(/client, readmin))
 
-/datum/admins/proc/associate(client/C)
+TYPE_PROC_REF(/datum/admins, associate)(client/C)
 	if(IsAdminAdvancedProcCall())
 		var/msg = " has tried to elevate permissions!"
 		message_admins("[key_name_admin(usr)][msg]")
@@ -111,12 +111,12 @@ GLOBAL_PROTECT(href_token)
 		owner = C
 		owner.holder = src
 		owner.add_admin_verbs()	//TODO <--- todo what? the proc clearly exists and works since its the backbone to our entire admin system
-		remove_verb(owner, /client/proc/readmin)
+		remove_verb(owner, TYPE_PROC_REF(/client, readmin))
 		owner.init_verbs() //re-initialize the verb list
 		GLOB.admins |= C
 		GLOB.adminchat |= C //fortuna add
 
-/datum/admins/proc/disassociate()
+TYPE_PROC_REF(/datum/admins, disassociate)()
 	if(IsAdminAdvancedProcCall())
 		var/msg = " has tried to elevate permissions!"
 		message_admins("[key_name_admin(usr)][msg]")
@@ -130,13 +130,13 @@ GLOBAL_PROTECT(href_token)
 		owner.holder = null
 		owner = null
 
-/datum/admins/proc/check_for_rights(rights_required)
+TYPE_PROC_REF(/datum/admins, check_for_rights)(rights_required)
 	if(rights_required && !(rights_required & rank.rights))
 		return 0
 	return 1
 
 
-/datum/admins/proc/check_if_greater_rights_than_holder(datum/admins/other)
+TYPE_PROC_REF(/datum/admins, check_if_greater_rights_than_holder)(datum/admins/other)
 	if(!other)
 		return 1 //they have no rights
 	if(rank.rights == R_EVERYTHING)

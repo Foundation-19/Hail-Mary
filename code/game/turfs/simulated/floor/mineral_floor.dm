@@ -49,11 +49,11 @@
 		return
 	..()
 
-/turf/open/floor/mineral/plasma/proc/PlasmaBurn(temperature)
+TYPE_PROC_REF(/turf/open/floor/mineral/plasma, PlasmaBurn)(temperature)
 	make_plating()
 	atmos_spawn_air("plasma=20;TEMP=[temperature]")
 
-/turf/open/floor/mineral/plasma/proc/ignite(exposed_temperature)
+TYPE_PROC_REF(/turf/open/floor/mineral/plasma, ignite)(exposed_temperature)
 	if(exposed_temperature > 300)
 		PlasmaBurn(exposed_temperature)
 
@@ -174,7 +174,7 @@
 	if(!.)
 		radiate()
 
-/turf/open/floor/mineral/uranium/proc/radiate()
+TYPE_PROC_REF(/turf/open/floor/mineral/uranium, radiate)()
 	if(!active)
 		if(world.time > last_event+15)
 			active = 1

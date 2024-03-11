@@ -1,4 +1,4 @@
-/obj/machinery/door/proc/checkForMultipleDoors()
+TYPE_PROC_REF(/obj/machinery/door, checkForMultipleDoors)()
 	if(!src.loc)
 		return 0
 	for(var/obj/machinery/door/D in src.loc)
@@ -6,7 +6,7 @@
 			return 0
 	return 1
 
-/turf/closed/wall/proc/checkForMultipleDoors()
+TYPE_PROC_REF(/turf/closed/wall, checkForMultipleDoors)()
 	if(!src.loc)
 		return 0
 	for(var/obj/machinery/door/D in locate(src.x,src.y,src.z))

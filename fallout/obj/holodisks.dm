@@ -29,7 +29,7 @@
 	src.playAudio(user)
 	return
 
-/obj/item/holodisk/proc/playAudio(mob/user)
+TYPE_PROC_REF(/obj/item/holodisk, playAudio)(mob/user)
 	if(!src.busy)
 		src.busy = 1
 		playsound(get_turf(src),src.soundFile,50)

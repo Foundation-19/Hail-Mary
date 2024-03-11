@@ -35,7 +35,7 @@
 	QDEL_NULL(friend)
 
 //If the friend goes afk, make a brand new friend. Plenty of fish in the sea of imagination.
-/datum/brain_trauma/special/imaginary_friend/proc/reroll_friend()
+TYPE_PROC_REF(/datum/brain_trauma/special/imaginary_friend, reroll_friend)()
 	if(friend.client) //reconnected
 		return
 	friend_initialized = FALSE
@@ -43,10 +43,10 @@
 	make_friend()
 	get_ghost()
 
-/datum/brain_trauma/special/imaginary_friend/proc/make_friend()
+TYPE_PROC_REF(/datum/brain_trauma/special/imaginary_friend, make_friend)()
 	friend = new(get_turf(owner), src)
 
-/datum/brain_trauma/special/imaginary_friend/proc/get_ghost()
+TYPE_PROC_REF(/datum/brain_trauma/special/imaginary_friend, get_ghost)()
 	set waitfor = FALSE
 	var/list/candidates = pollCandidatesForMob("Do you want to play as [owner]'s imaginary friend?", ROLE_PAI, null, null, 75, friend, POLL_IGNORE_IMAGINARYFRIEND)
 	if(LAZYLEN(candidates))
@@ -82,7 +82,7 @@
 	greet()
 	Show()
 
-/mob/camera/imaginary_friend/proc/greet()
+TYPE_PROC_REF(/mob/camera/imaginary_friend, greet)()
 		to_chat(src, "<span class='notice'><b>You are the imaginary friend of [owner]!</b></span>")
 		to_chat(src, span_notice("You are absolutely loyal to your friend, no matter what."))
 		to_chat(src, span_notice("You cannot directly influence the world around you, but you can see what [owner] cannot."))
@@ -100,13 +100,13 @@
 	hide = new
 	hide.Grant(src)
 
-/mob/camera/imaginary_friend/proc/setup_friend()
+TYPE_PROC_REF(/mob/camera/imaginary_friend, setup_friend)()
 	var/gender = pick(MALE, FEMALE)
 	real_name = random_unique_name(gender)
 	name = real_name
 	human_image = get_flat_human_icon(null, pick(SSjob.occupations))
 
-/mob/camera/imaginary_friend/proc/Show()
+TYPE_PROC_REF(/mob/camera/imaginary_friend, Show)()
 	if(!client) //nobody home
 		return
 
@@ -154,7 +154,7 @@
 		create_chat_message(speaker, message_language, raw_message, spans)
 	to_chat(src, compose_message(speaker, message_language, raw_message, radio_freq, spans, message_mode, FALSE, source))
 
-/mob/camera/imaginary_friend/proc/friend_talk(message)
+TYPE_PROC_REF(/mob/camera/imaginary_friend, friend_talk)(message)
 	message = capitalize(trim(copytext_char(sanitize(message), 1, MAX_MESSAGE_LEN)))
 
 	if(!message)
@@ -193,7 +193,7 @@
 	loc = destination
 	Show()
 
-/mob/camera/imaginary_friend/proc/recall()
+TYPE_PROC_REF(/mob/camera/imaginary_friend, recall)()
 	if(!owner || loc == owner)
 		return FALSE
 	forceMove(owner)
@@ -216,7 +216,7 @@
 	background_icon_state = "bg_revenant"
 	button_icon_state = "hide"
 
-/datum/action/innate/imaginary_hide/proc/update_status()
+TYPE_PROC_REF(/datum/action/innate/imaginary_hide, update_status)()
 	var/mob/camera/imaginary_friend/I = owner
 	if(I.hidden)
 		name = "Show"

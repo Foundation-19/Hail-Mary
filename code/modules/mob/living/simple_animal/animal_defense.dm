@@ -119,7 +119,7 @@
 		return
 	return ..()
 
-/mob/living/simple_animal/proc/attack_threshold_check(damage, damagetype = BRUTE, armorcheck = "melee")
+TYPE_PROC_REF(/mob/living/simple_animal, attack_threshold_check)(damage, damagetype = BRUTE, armorcheck = "melee")
 	var/temp_damage = damage
 	if(!damage_coeff[damagetype])
 		temp_damage = 0

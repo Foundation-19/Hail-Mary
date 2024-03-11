@@ -31,6 +31,6 @@ SUBSYSTEM_DEF(processing)
 		if (MC_TICK_CHECK)
 			return
 
-/datum/proc/process()
+TYPE_PROC_REF(/datum, process)()
 	set waitfor = 0
 	return PROCESS_KILL

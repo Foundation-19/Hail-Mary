@@ -167,13 +167,13 @@
 	icon_state = "purplecyan"
 	gas_type = GAS_METHYL_BROMIDE
 
-/obj/machinery/portable_atmospherics/canister/proc/get_time_left()
+TYPE_PROC_REF(/obj/machinery/portable_atmospherics/canister, get_time_left)()
 	if(timing)
 		. = round(max(0, valve_timer - world.time) / 10, 1)
 	else
 		. = timer_set
 
-/obj/machinery/portable_atmospherics/canister/proc/set_active()
+TYPE_PROC_REF(/obj/machinery/portable_atmospherics/canister, set_active)()
 	timing = !timing
 	if(timing)
 		valve_timer = world.time + (timer_set * 10)
@@ -212,7 +212,7 @@
 	update_icon()
 
 
-/obj/machinery/portable_atmospherics/canister/proc/create_gas()
+TYPE_PROC_REF(/obj/machinery/portable_atmospherics/canister, create_gas)()
 	if(gas_type)
 		// air_contents.add_gas(gas_type)
 		if(starter_temp)
@@ -285,7 +285,7 @@
 	stat |= BROKEN
 	canister_break()
 
-/obj/machinery/portable_atmospherics/canister/proc/canister_break()
+TYPE_PROC_REF(/obj/machinery/portable_atmospherics/canister, canister_break)()
 	disconnect()
 	var/turf/T = get_turf(src)
 	T.assume_air(air_contents)

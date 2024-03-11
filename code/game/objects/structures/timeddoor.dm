@@ -17,7 +17,7 @@
 	. = ..()
 	addtimer(CALLBACK(src, PROC_REF(timeddeletedoor)), deletion_time)
 
-/obj/structure/timeddoor/proc/timeddeletedoor()
+TYPE_PROC_REF(/obj/structure/timeddoor, timeddeletedoor)()
 	playsound(loc, 'sound/f13machines/doorhidden_open.ogg', 50, TRUE, -1)
 	qdel(src)
 
@@ -28,7 +28,7 @@
 	. = ..()
 	addtimer(CALLBACK(src, PROC_REF(timeddeletedoor2)), deletion_time)
 
-/obj/structure/timeddoor/proc/timeddeletedoor2()
+TYPE_PROC_REF(/obj/structure/timeddoor, timeddeletedoor2)()
 	playsound(loc, 'sound/f13machines/doorhidden_open.ogg', 50, TRUE, -1)
 	qdel(src)
 
@@ -39,7 +39,7 @@
 	. = ..()
 	addtimer(CALLBACK(src, PROC_REF(timeddeletedoor3)), deletion_time)
 
-/obj/structure/timeddoor/proc/timeddeletedoor3()
+TYPE_PROC_REF(/obj/structure/timeddoor, timeddeletedoor3)()
 	playsound(loc, 'sound/f13machines/doorhidden_open.ogg', 50, TRUE, -1)
 	qdel(src)
 
@@ -50,6 +50,6 @@
 	. = ..()
 	addtimer(CALLBACK(src, PROC_REF(timeddeletedoor4)), deletion_time)
 
-/obj/structure/timeddoor/proc/timeddeletedoor4()
+TYPE_PROC_REF(/obj/structure/timeddoor, timeddeletedoor4)()
 	playsound(loc, 'sound/f13machines/doorhidden_open.ogg', 50, TRUE, -1)
 	qdel(src)

@@ -40,7 +40,7 @@
  * * W- The wound being used to generate the severity and description info
  * * add_to_scars- Should always be TRUE unless you're just storing a scar for later usage, like how cuts want to store a scar for the highest severity of cut, rather than the severity when the wound is fully healed (probably demoted to moderate)
  */
-/datum/scar/proc/generate(obj/item/bodypart/BP, datum/wound/W, add_to_scars=TRUE)
+TYPE_PROC_REF(/datum/scar, generate)(obj/item/bodypart/BP, datum/wound/W, add_to_scars=TRUE)
 	if(!(BP.body_zone in applicable_zones))
 		qdel(src)
 		return
@@ -71,14 +71,14 @@
 			precise_location = "amputation"
 
 /// Used when we finalize a scar from a healing cut
-/datum/scar/proc/lazy_attach(obj/item/bodypart/BP, datum/wound/W)
+TYPE_PROC_REF(/datum/scar, lazy_attach)(obj/item/bodypart/BP, datum/wound/W)
 	LAZYADD(BP.scars, src)
 	if(BP.owner)
 		victim = BP.owner
 		LAZYADD(victim.all_scars, src)
 
 /// Used to "load" a persistent scar
-/datum/scar/proc/load(obj/item/bodypart/BP, version, description, specific_location, severity=WOUND_SEVERITY_SEVERE)
+TYPE_PROC_REF(/datum/scar, load)(obj/item/bodypart/BP, version, description, specific_location, severity=WOUND_SEVERITY_SEVERE)
 	if(!(BP.body_zone in applicable_zones) || !(BP.is_organic_limb() || BP.render_like_organic))
 		qdel(src)
 		return
@@ -103,7 +103,7 @@
 	return TRUE
 
 /// What will show up in examine_more() if this scar is visible
-/datum/scar/proc/get_examine_description(mob/viewer)
+TYPE_PROC_REF(/datum/scar, get_examine_description)(mob/viewer)
 	if(!victim || !is_visible(viewer))
 		return
 
@@ -121,7 +121,7 @@
 	return "\t[msg]"
 
 /// Whether a scar can currently be seen by the viewer
-/datum/scar/proc/is_visible(mob/viewer)
+TYPE_PROC_REF(/datum/scar, is_visible)(mob/viewer)
 	if(!victim || !viewer)
 		return
 	if(get_dist(viewer, victim) > visibility)
@@ -142,11 +142,11 @@
 	return TRUE
 
 /// Used to format a scar to safe in preferences for persistent scars
-/datum/scar/proc/format()
+TYPE_PROC_REF(/datum/scar, format)()
 	if(!fake)
 		return "[SCAR_CURRENT_VERSION]|[limb.body_zone]|[description]|[precise_location]|[severity]"
 
 /// Used to format a scar to safe in preferences for persistent scars
-/datum/scar/proc/format_amputated(body_zone)
+TYPE_PROC_REF(/datum/scar, format_amputated)(body_zone)
 	description = pick(list("is several skintone shades paler than the rest of the body", "is a gruesome patchwork of artificial flesh", "has a large series of attachment scars at the articulation points"))
 	return "[SCAR_CURRENT_VERSION]|[body_zone]|[description]|amputated|[WOUND_SEVERITY_LOSS]"

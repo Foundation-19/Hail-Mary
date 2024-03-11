@@ -49,7 +49,7 @@
 			target = SSshuttle.getShuttle("syndicate")
 	..()
 
-/obj/item/pinpointer/nuke/proc/switch_mode_to(new_mode)
+TYPE_PROC_REF(/obj/item/pinpointer/nuke, switch_mode_to)(new_mode)
 	if(isliving(loc))
 		var/mob/living/L = loc
 		to_chat(L, span_userdanger("Your [name] beeps as it reconfigures it's tracking algorithms."))

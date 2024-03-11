@@ -120,7 +120,7 @@
 			A.lights = !A.lights
 			A.update_icon()
 
-/obj/machinery/door/airlock/proc/reset_ai_wire()
+TYPE_PROC_REF(/obj/machinery/door/airlock, reset_ai_wire)()
 	if(aiControlDisabled == 1)
 		aiControlDisabled = 0
 	else if(aiControlDisabled == 2)

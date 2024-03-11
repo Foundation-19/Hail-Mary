@@ -42,7 +42,7 @@
 /obj/item/candle/get_temperature()
 	return lit * heat * heats_space
 
-/obj/item/candle/proc/light(show_message)
+TYPE_PROC_REF(/obj/item/candle, light)(show_message)
 	if(!lit)
 		lit = TRUE
 		if(show_message)
@@ -51,7 +51,7 @@
 		START_PROCESSING(SSobj, src)
 		update_icon()
 
-/obj/item/candle/proc/put_out_candle()
+TYPE_PROC_REF(/obj/item/candle, put_out_candle)()
 	if(!lit)
 		return
 	lit = FALSE
@@ -113,12 +113,12 @@
 	if(!flickering && prob(flicker_chance))
 		flicker(rand(1, 4)) // 0.1 to 0.4 seconds
 
-/obj/item/candle/tribal_torch/proc/flicker(duration)
+TYPE_PROC_REF(/obj/item/candle/tribal_torch, flicker)(duration)
 	flickering = TRUE
 	addtimer(CALLBACK(src, PROC_REF(unflicker), light_range), duration)
 	set_light_range(light_range - rand(1, 2))
 
-/obj/item/candle/tribal_torch/proc/unflicker(new_range)
+TYPE_PROC_REF(/obj/item/candle/tribal_torch, unflicker)(new_range)
 	set_light_range(new_range)
 	flickering = FALSE
 
@@ -143,7 +143,7 @@
 	icon_state = "torch_[lit ? null : "un"]lit"
 	item_state = "torch[lit ? "-on" : null]"
 
-/obj/item/candle/tribal_torch/proc/do_wallmount(turf/T, mob/user)
+TYPE_PROC_REF(/obj/item/candle/tribal_torch, do_wallmount)(turf/T, mob/user)
 	var/ndir = turn(get_dir(T, user), 180)
 	if(!(ndir in GLOB.cardinals))
 		return

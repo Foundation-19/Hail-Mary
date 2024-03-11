@@ -22,12 +22,12 @@
 
 	return b
 
-/obj/item/ammo_box/magazine/internal/cylinder/proc/rotate()
+TYPE_PROC_REF(/obj/item/ammo_box/magazine/internal/cylinder, rotate)()
 	var/b = stored_ammo[1]
 	stored_ammo.Cut(1,2)
 	stored_ammo.Insert(0, b)
 
-/obj/item/ammo_box/magazine/internal/cylinder/proc/spin()
+TYPE_PROC_REF(/obj/item/ammo_box/magazine/internal/cylinder, spin)()
 	for(var/i in 1 to rand(0, max_ammo*2))
 		rotate()
 

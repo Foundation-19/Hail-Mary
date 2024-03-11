@@ -91,7 +91,7 @@
 	to_chat(user, span_warning("Try as you might, you can't get [W] to fit into [src]."))
 	return ..()
 
-/obj/item/trash/f13/electronic/toaster/proc/spew_contents()
+TYPE_PROC_REF(/obj/item/trash/f13/electronic/toaster, spew_contents)()
 	var/atom/throw_target
 	for(var/obj/item/I in contents)
 		if(I == cell)
@@ -100,7 +100,7 @@
 		I.forceMove(get_turf(src))
 		I.throw_at(throw_target,2,3)
 
-/obj/item/trash/f13/electronic/toaster/proc/toasterize()
+TYPE_PROC_REF(/obj/item/trash/f13/electronic/toaster, toasterize)()
 	if(!cell || cell.charge <= 0 || !is_toasting)
 		return
 	cell.charge = cell.charge - power_use //Use min() or floor? not here, this is the badlands
@@ -132,7 +132,7 @@
 		I.forceMove(get_turf(src))
 
 
-/obj/item/trash/f13/electronic/toaster/proc/is_toastable(obj/item/I)
+TYPE_PROC_REF(/obj/item/trash/f13/electronic/toaster, is_toastable)(obj/item/I)
 	return is_type_in_typecache(I,toastables)
 
 

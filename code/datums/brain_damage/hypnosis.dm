@@ -26,7 +26,7 @@
 		qdel(src)
 	..()
 
-/datum/brain_trauma/hypnosis/proc/friendliify(phrase)
+TYPE_PROC_REF(/datum/brain_trauma/hypnosis, friendliify)(phrase)
 	phrase = replacetext(lowertext(phrase), "kill", "hug")
 	phrase = replacetext(lowertext(phrase), "murder", "cuddle")
 	phrase = replacetext(lowertext(phrase), "harm", "snuggle")

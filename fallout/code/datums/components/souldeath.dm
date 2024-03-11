@@ -9,7 +9,7 @@
 	RegisterSignal(parent, COMSIG_ITEM_EQUIPPED, PROC_REF(equip))
 	RegisterSignal(parent, COMSIG_ITEM_DROPPED, PROC_REF(unequip))
 
-/datum/component/souldeath/proc/equip(datum/source, mob/living/equipper, slot)
+TYPE_PROC_REF(/datum/component/souldeath, equip)(datum/source, mob/living/equipper, slot)
 	if(!slot || equip_slot == slot)
 		wearer = equipper
 		RegisterSignal(wearer, COMSIG_MOB_DEATH, PROC_REF(die), TRUE)
@@ -20,12 +20,12 @@
 			signal = FALSE
 		return
 
-/datum/component/souldeath/proc/unequip()
+TYPE_PROC_REF(/datum/component/souldeath, unequip)()
 	UnregisterSignal(wearer, COMSIG_MOB_DEATH)
 	wearer = null
 	signal = FALSE
 
-/datum/component/souldeath/proc/die()
+TYPE_PROC_REF(/datum/component/souldeath, die)()
 	if(!wearer)
 		return //idfk
 	new/obj/effect/temp_visual/souldeath(wearer.loc, wearer)

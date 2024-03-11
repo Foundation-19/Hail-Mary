@@ -4,14 +4,14 @@
 #define CREDIT_EASE_DURATION 22
 #define CREDITS_PATH "[global.config.directory]/contributors.dmi"
 
-/client/proc/RollCredits()
+TYPE_PROC_REF(/client, RollCredits)()
 	set waitfor = FALSE
 	if(!fexists(CREDITS_PATH))
 		return
 	var/icon/credits_icon = new(CREDITS_PATH)
 	LAZYINITLIST(credits)
 	var/list/_credits = credits
-	add_verb(src, /client/proc/ClearCredits)
+	add_verb(src, TYPE_PROC_REF(/client, ClearCredits))
 	var/static/list/credit_order_for_this_round
 	if(isnull(credit_order_for_this_round))
 		credit_order_for_this_round = list("Thanks for playing!") + (shuffle(icon_states(credits_icon)) - "Thanks for playing!")
@@ -21,13 +21,13 @@
 		_credits += new /obj/screen/credit(null, I, src, credits_icon)
 		sleep(CREDIT_SPAWN_SPEED)
 	sleep(CREDIT_ROLL_SPEED - CREDIT_SPAWN_SPEED)
-	remove_verb(src, /client/proc/ClearCredits)
+	remove_verb(src, TYPE_PROC_REF(/client, ClearCredits))
 	qdel(credits_icon)
 
-/client/proc/ClearCredits()
+TYPE_PROC_REF(/client, ClearCredits)()
 	set name = "Hide Credits"
 	set category = "OOC"
-	remove_verb(src, /client/proc/ClearCredits)
+	remove_verb(src, TYPE_PROC_REF(/client, ClearCredits))
 	QDEL_LIST(credits)
 	credits = null
 
@@ -65,5 +65,5 @@
 	parent = null
 	return ..()
 
-/obj/screen/credit/proc/FadeOut()
+TYPE_PROC_REF(/obj/screen/credit, FadeOut)()
 	animate(src, alpha = 0, transform = target, time = CREDIT_EASE_DURATION)

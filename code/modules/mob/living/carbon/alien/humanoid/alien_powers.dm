@@ -43,7 +43,7 @@ Doesn't work on other aliens/AI.*/
 	if(plasma_cost > 0)
 		return "[plasma_cost]"
 
-/obj/effect/proc_holder/alien/proc/cost_check(check_turf = FALSE, mob/living/carbon/user, silent = FALSE)
+TYPE_PROC_REF(/obj/effect/proc_holder/alien, cost_check)(check_turf = FALSE, mob/living/carbon/user, silent = FALSE)
 	if(user.stat)
 		if(!silent)
 			to_chat(user, span_noticealien("You must be conscious to do this."))
@@ -58,7 +58,7 @@ Doesn't work on other aliens/AI.*/
 		return FALSE
 	return TRUE
 
-/obj/effect/proc_holder/alien/proc/check_vent_block(mob/living/user)
+TYPE_PROC_REF(/obj/effect/proc_holder/alien, check_vent_block)(mob/living/user)
 	var/obj/machinery/atmospherics/components/unary/atmos_thing = locate() in user.loc
 	if(atmos_thing)
 		var/rusure = alert(user, "Laying eggs and shaping resin here would block access to [atmos_thing]. Do you want to continue?", "Blocking Atmospheric Component", "Yes", "No")
@@ -148,12 +148,12 @@ Doesn't work on other aliens/AI.*/
 	action_icon_state = "alien_acid"
 
 /obj/effect/proc_holder/alien/acid/on_gain(mob/living/carbon/user)
-	add_verb(user, /mob/living/carbon/proc/corrosive_acid)
+	add_verb(user, TYPE_PROC_REF(/mob/living/carbon, corrosive_acid))
 
 /obj/effect/proc_holder/alien/acid/on_lose(mob/living/carbon/user)
-	remove_verb(user, /mob/living/carbon/proc/corrosive_acid)
+	remove_verb(user, TYPE_PROC_REF(/mob/living/carbon, corrosive_acid))
 
-/obj/effect/proc_holder/alien/acid/proc/corrode(atom/target,mob/living/carbon/user = usr)
+TYPE_PROC_REF(/obj/effect/proc_holder/alien/acid, corrode)(atom/target,mob/living/carbon/user = usr)
 	if(target in oview(1,user))
 		if(target.acid_act(200, 100))
 			user.visible_message(span_alertalien("[user] vomits globs of vile stuff all over [target]. It begins to sizzle and melt under the bubbling mess of acid!"))
@@ -175,7 +175,7 @@ Doesn't work on other aliens/AI.*/
 	else
 		return corrode(O,user)
 
-/mob/living/carbon/proc/corrosive_acid(O as obj|turf in oview(1)) // right click menu verb ugh
+TYPE_PROC_REF(/mob/living/carbon, corrosive_acid)(O as obj|turf in oview(1)) // right click menu verb ugh
 	set name = "Corrosive Acid"
 
 	if(!iscarbon(usr))
@@ -321,14 +321,14 @@ Doesn't work on other aliens/AI.*/
 		to_chat(user, span_noticealien("You reveal yourself!"))
 
 
-/mob/living/carbon/proc/getPlasma()
+TYPE_PROC_REF(/mob/living/carbon, getPlasma)()
 	var/obj/item/organ/alien/plasmavessel/vessel = getorgan(/obj/item/organ/alien/plasmavessel)
 	if(!vessel)
 		return 0
 	return vessel.storedPlasma
 
 
-/mob/living/carbon/proc/adjustPlasma(amount)
+TYPE_PROC_REF(/mob/living/carbon, adjustPlasma)(amount)
 	var/obj/item/organ/alien/plasmavessel/vessel = getorgan(/obj/item/organ/alien/plasmavessel)
 	if(!vessel)
 		return 0
@@ -344,7 +344,7 @@ Doesn't work on other aliens/AI.*/
 	. = ..()
 	updatePlasmaDisplay()
 
-/mob/living/carbon/proc/usePlasma(amount)
+TYPE_PROC_REF(/mob/living/carbon, usePlasma)(amount)
 	if(getPlasma() >= amount)
 		adjustPlasma(-amount)
 		return 1

@@ -30,12 +30,12 @@
 	if(autogenerate_icon && !picture_icon && picture_image)
 		regenerate_small_icon()
 
-/datum/picture/proc/get_small_icon(iconstate)
+TYPE_PROC_REF(/datum/picture, get_small_icon)(iconstate)
 	if(!picture_icon)
 		regenerate_small_icon(iconstate)
 	return picture_icon
 
-/datum/picture/proc/regenerate_small_icon(iconstate)
+TYPE_PROC_REF(/datum/picture, regenerate_small_icon)(iconstate)
 	if(!picture_image)
 		return
 	var/icon/small_img = icon(picture_image)
@@ -125,7 +125,7 @@
 	. += "/[n].png"
 
 //BE VERY CAREFUL WITH THIS PROC, TO AVOID DUPLICATION.
-/datum/picture/proc/log_to_file()
+TYPE_PROC_REF(/datum/picture, log_to_file)()
 	if(!picture_image)
 		return
 	if(!CONFIG_GET(flag/log_pictures))
@@ -148,7 +148,7 @@
 	json[id] = serialize_json()
 	WRITE_FILE(jsonpath, json_encode(json))
 
-/datum/picture/proc/Copy(greyscale = FALSE, cropx = 0, cropy = 0)
+TYPE_PROC_REF(/datum/picture, Copy)(greyscale = FALSE, cropx = 0, cropy = 0)
 	var/datum/picture/P = new
 	P.picture_name = picture_name
 	P.picture_desc = picture_desc

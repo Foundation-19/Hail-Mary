@@ -69,7 +69,7 @@
 					new /obj/structure/cable(loc, cable_color, NONE, network_directions[i])
 					do_knot = FALSE
 
-/obj/effect/mapping_helpers/network_builder/power_cable/proc/should_auto_knot()
+TYPE_PROC_REF(/obj/effect/mapping_helpers/network_builder/power_cable, should_auto_knot)()
 	return (locate(/obj/machinery/power/terminal) in loc)
 
 /obj/effect/mapping_helpers/network_builder/power_cable/knot

@@ -40,7 +40,7 @@
 	if(selfcharge)
 		init_charge()
 
-/obj/item/pneumatic_cannon/proc/init_charge()	//wrapper so it can be vv'd easier
+TYPE_PROC_REF(/obj/item/pneumatic_cannon, init_charge)()	//wrapper so it can be vv'd easier
 	START_PROCESSING(SSobj, src)
 
 /obj/item/pneumatic_cannon/process()
@@ -95,7 +95,7 @@
 		var/obj/item/IW = W
 		load_item(IW, user)
 
-/obj/item/pneumatic_cannon/proc/can_load_item(obj/item/I, mob/user)
+TYPE_PROC_REF(/obj/item/pneumatic_cannon, can_load_item)(obj/item/I, mob/user)
 	if(!istype(I))			//Players can't load non items, this allows for admin varedit inserts.
 		return TRUE
 	if(allowed_typecache && !is_type_in_typecache(I, allowed_typecache))
@@ -112,7 +112,7 @@
 		return FALSE
 	return TRUE
 
-/obj/item/pneumatic_cannon/proc/load_item(obj/item/I, mob/user)
+TYPE_PROC_REF(/obj/item/pneumatic_cannon, load_item)(obj/item/I, mob/user)
 	if(!can_load_item(I, user))
 		return FALSE
 	if(user)		//Only use transfer proc if there's a user, otherwise just set loc.
@@ -133,7 +133,7 @@
 		return
 	Fire(user, target)
 
-/obj/item/pneumatic_cannon/proc/Fire(mob/living/user, atom/target)
+TYPE_PROC_REF(/obj/item/pneumatic_cannon, Fire)(mob/living/user, atom/target)
 	if(!istype(user) && !target)
 		return
 	var/discharge = 0
@@ -170,7 +170,7 @@
 		C.visible_message(span_warning("[C] is thrown down by the force of the cannon!"), "<span class='userdanger'>[src] slams into your shoulder, knocking you down!")
 		C.DefaultCombatKnockdown(60)
 
-/obj/item/pneumatic_cannon/proc/fire_items(turf/target, mob/user)
+TYPE_PROC_REF(/obj/item/pneumatic_cannon, fire_items)(turf/target, mob/user)
 	if(fire_mode == PCANNON_FIREALL)
 		for(var/obj/item/ITD in loadedItems) //Item To Discharge
 			if(!throw_item(target, ITD, user))
@@ -187,7 +187,7 @@
 			if(!throw_item(target, I, user))
 				break
 
-/obj/item/pneumatic_cannon/proc/throw_item(turf/target, obj/item/I, mob/user)
+TYPE_PROC_REF(/obj/item/pneumatic_cannon, throw_item)(turf/target, obj/item/I, mob/user)
 	if(!istype(I))
 		return FALSE
 	loadedItems -= I
@@ -196,7 +196,7 @@
 	I.throw_at(target, pressureSetting * 10 * range_multiplier, pressureSetting * 2, user)
 	return TRUE
 
-/obj/item/pneumatic_cannon/proc/get_target(turf/target, turf/starting)
+TYPE_PROC_REF(/obj/item/pneumatic_cannon, get_target)(turf/target, turf/starting)
 	if(range_multiplier == 1)
 		return target
 	var/x_o = (target.x - starting.x)
@@ -223,7 +223,7 @@
 	maxWeightClass = 7
 	gasPerThrow = 5
 
-/obj/item/pneumatic_cannon/proc/updateTank(obj/item/tank/internals/thetank, removing = 0, mob/living/carbon/human/user)
+TYPE_PROC_REF(/obj/item/pneumatic_cannon, updateTank)(obj/item/tank/internals/thetank, removing = 0, mob/living/carbon/human/user)
 	if(removing)
 		if(!tank)
 			return
@@ -247,7 +247,7 @@
 		return
 	. += tank.icon_state
 
-/obj/item/pneumatic_cannon/proc/fill_with_type(type, amount)
+TYPE_PROC_REF(/obj/item/pneumatic_cannon, fill_with_type)(type, amount)
 	if(!ispath(type, /obj) && !ispath(type, /mob))
 		return FALSE
 	var/loaded = 0

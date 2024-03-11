@@ -12,7 +12,7 @@ GLOBAL_DATUM_INIT(_preloader, /datum/map_preloader, new)
 	var/swap_y
 	var/swap_xy
 
-/world/proc/preloader_setup(list/the_attributes, path, turn_angle, swap_x, swap_y, swap_xy)
+TYPE_PROC_REF(/world, preloader_setup)(list/the_attributes, path, turn_angle, swap_x, swap_y, swap_xy)
 	if(length(the_attributes) || turn_angle)
 		GLOB.use_preloader = TRUE
 		var/datum/map_preloader/preloader_local = GLOB._preloader
@@ -23,7 +23,7 @@ GLOBAL_DATUM_INIT(_preloader, /datum/map_preloader, new)
 		preloader_local.swap_y = swap_y
 		preloader_local.swap_xy = swap_xy
 
-/world/proc/preloader_load(atom/what)
+TYPE_PROC_REF(/world, preloader_load)(atom/what)
 	GLOB.use_preloader = FALSE
 	var/datum/map_preloader/preloader_local = GLOB._preloader
 	for(var/attribute in preloader_local.attributes)

@@ -74,7 +74,7 @@ GLOBAL_LIST_EMPTY(player_made_nests)
 		GLOB.player_made_nests[spawned_by_ckey][type] -= src
 	. = ..()
 
-/obj/structure/nest/proc/register_ckey(ckey)
+TYPE_PROC_REF(/obj/structure/nest, register_ckey)(ckey)
 	if(!ckey)
 		return
 	if(!islist(GLOB.player_made_nests[ckey]))
@@ -101,11 +101,11 @@ GLOBAL_LIST_EMPTY(player_made_nests)
 			to_chat(user, span_warning("You feel it is impossible to destroy this without covering it with something."))
 			return
 
-/obj/structure/nest/proc/remove_nest()
+TYPE_PROC_REF(/obj/structure/nest, remove_nest)()
 	playsound(src, 'sound/effects/break_stone.ogg', 100, 1)
 	visible_message("[src] collapses!")
 
-/obj/structure/nest/proc/try_seal(mob/user, obj/item/stack/S, itempath, cover_state, timer)
+TYPE_PROC_REF(/obj/structure/nest, try_seal)(mob/user, obj/item/stack/S, itempath, cover_state, timer)
 	if(!coverable)
 		to_chat(user, span_warning("\The [src] is unable to be covered!"))
 		return
@@ -132,7 +132,7 @@ GLOBAL_LIST_EMPTY(player_made_nests)
 			to_chat(user, span_warning("You find something while covering the hole!"))
 	do_seal(itempath, cover_state, timer)
 
-/obj/structure/nest/proc/do_seal(itempath, cover_state, timer)
+TYPE_PROC_REF(/obj/structure/nest, do_seal)(itempath, cover_state, timer)
 	SEND_SIGNAL(src, COMSIG_SPAWNER_COVERED)
 	covered = TRUE
 	covertype = itempath
@@ -141,7 +141,7 @@ GLOBAL_LIST_EMPTY(player_made_nests)
 	if(timer)
 		addtimer(CALLBACK(src, PROC_REF(do_unseal)), timer)
 
-/obj/structure/nest/proc/try_unseal(mob/user = null, obj/item/I = null)
+TYPE_PROC_REF(/obj/structure/nest, try_unseal)(mob/user = null, obj/item/I = null)
 	if(!istype(user))
 		return
 	if(!istype(I))
@@ -152,7 +152,7 @@ GLOBAL_LIST_EMPTY(player_made_nests)
 		return
 	do_unseal()
 
-/obj/structure/nest/proc/do_unseal()
+TYPE_PROC_REF(/obj/structure/nest, do_unseal)()
 	SEND_SIGNAL(src, COMSIG_SPAWNER_UNCOVERED)
 	covered = FALSE
 	covertype = null

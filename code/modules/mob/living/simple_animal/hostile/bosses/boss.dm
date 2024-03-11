@@ -106,7 +106,7 @@
 	..()
 	START_PROCESSING(SSobj, src)
 
-/datum/boss_active_timed_battle/proc/assign_abilities(list/L)
+TYPE_PROC_REF(/datum/boss_active_timed_battle, assign_abilities)(list/L)
 	if(!L)
 		return FALSE
 	abilities = L
@@ -115,13 +115,13 @@
 		if(AB.boss_cost > highest_cost)
 			highest_cost = AB.boss_cost
 
-/datum/boss_active_timed_battle/proc/spend(cost)
+TYPE_PROC_REF(/datum/boss_active_timed_battle, spend)(cost)
 	if(cost <= points)
 		points -= cost
 		return TRUE
 	return FALSE
 
-/datum/boss_active_timed_battle/proc/refund(cost)
+TYPE_PROC_REF(/datum/boss_active_timed_battle, refund)(cost)
 	points = min(points+cost, max_points)
 
 /datum/boss_active_timed_battle/process()

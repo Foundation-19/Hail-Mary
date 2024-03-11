@@ -27,9 +27,9 @@
 		CHECK_TICK
 
 //Cyberboss says: "USE THIS TO FILL IT, NOT INITIALIZE OR NEW"
-/obj/item/storage/proc/PopulateContents()
+TYPE_PROC_REF(/obj/item/storage, PopulateContents)()
 
-/obj/item/storage/proc/dump_everything(datum/source)
+TYPE_PROC_REF(/obj/item/storage, dump_everything)(datum/source)
 	SIGNAL_HANDLER
 	SEND_SIGNAL(src, COMSIG_TRY_STORAGE_HIDE_ALL)
 	if(contents)

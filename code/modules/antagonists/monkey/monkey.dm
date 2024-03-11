@@ -63,7 +63,7 @@
 		stack_trace("Wrong team type passed to [type] initialization.")
 	monkey_team = new_team
 
-/datum/antagonist/monkey/proc/forge_objectives()
+TYPE_PROC_REF(/datum/antagonist/monkey, forge_objectives)()
 	objectives |= monkey_team.objectives
 
 /datum/antagonist/monkey/admin_remove(mob/admin)
@@ -145,41 +145,41 @@
 /datum/team/monkey
 	name = "Monkeys"
 
-/datum/team/monkey/proc/update_objectives()
+TYPE_PROC_REF(/datum/team/monkey, update_objectives)()
 	objectives = list()
 	var/datum/objective/monkey/O = new()
 	O.team = src
 	objectives += O
 
-/datum/team/monkey/proc/infected_monkeys_alive()
+TYPE_PROC_REF(/datum/team/monkey, infected_monkeys_alive)()
 	var/datum/disease/D = new /datum/disease/transformation/jungle_fever()
 	for(var/mob/living/carbon/monkey/M in GLOB.alive_mob_list)
 		if(M.HasDisease(D))
 			return TRUE
 	return FALSE
 
-/datum/team/monkey/proc/infected_monkeys_escaped()
+TYPE_PROC_REF(/datum/team/monkey, infected_monkeys_escaped)()
 	var/datum/disease/D = new /datum/disease/transformation/jungle_fever()
 	for(var/mob/living/carbon/monkey/M in GLOB.alive_mob_list)
 		if(M.HasDisease(D) && (M.onCentCom() || M.onSyndieBase()))
 			return TRUE
 	return FALSE
 
-/datum/team/monkey/proc/infected_humans_escaped()
+TYPE_PROC_REF(/datum/team/monkey, infected_humans_escaped)()
 	var/datum/disease/D = new /datum/disease/transformation/jungle_fever()
 	for(var/mob/living/carbon/human/M in GLOB.alive_mob_list)
 		if(M.HasDisease(D) && (M.onCentCom() || M.onSyndieBase()))
 			return TRUE
 	return FALSE
 
-/datum/team/monkey/proc/infected_humans_alive()
+TYPE_PROC_REF(/datum/team/monkey, infected_humans_alive)()
 	var/datum/disease/D = new /datum/disease/transformation/jungle_fever()
 	for(var/mob/living/carbon/human/M in GLOB.alive_mob_list)
 		if(M.HasDisease(D))
 			return TRUE
 	return FALSE
 
-/datum/team/monkey/proc/get_result()
+TYPE_PROC_REF(/datum/team/monkey, get_result)()
 	if(infected_monkeys_escaped())
 		return MONKEYS_ESCAPED
 	if(infected_monkeys_alive())

@@ -23,7 +23,7 @@
 	if(isnum(vol) && vol > 0)
 		volume = vol
 	if(container_flags & APTFT_VERB && length(possible_transfer_amounts))
-		verbs += /obj/item/reagent_containers/proc/set_APTFT
+		verbs += TYPE_PROC_REF(/obj/item/reagent_containers, set_APTFT)
 	create_reagents(volume, reagent_flags, reagent_value)
 	if(spawned_disease)
 		var/datum/disease/F = new spawned_disease()
@@ -44,7 +44,7 @@
 		set_APTFT()
 		return TRUE
 
-/obj/item/reagent_containers/proc/set_APTFT() //set amount_per_transfer_from_this
+TYPE_PROC_REF(/obj/item/reagent_containers, set_APTFT)() //set amount_per_transfer_from_this
 	set name = "Set Transfer Amount"
 	set category = "Object"
 	set waitfor = FALSE
@@ -53,7 +53,7 @@
 		amount_per_transfer_from_this = N
 		to_chat(usr, span_notice("[src]'s transfer amount is now [amount_per_transfer_from_this] units."))
 
-/obj/item/reagent_containers/proc/add_initial_reagents()
+TYPE_PROC_REF(/obj/item/reagent_containers, add_initial_reagents)()
 	if(list_reagents)
 		reagents.add_reagent_list(list_reagents)
 
@@ -74,7 +74,7 @@
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
-/obj/item/reagent_containers/proc/canconsume(mob/eater, mob/user)
+TYPE_PROC_REF(/obj/item/reagent_containers, canconsume)(mob/eater, mob/user)
 	if(!iscarbon(eater))
 		return 0
 	var/mob/living/carbon/C = eater
@@ -104,7 +104,7 @@
 	. = ..()
 	SplashReagents(hit_atom, TRUE)
 
-/obj/item/reagent_containers/proc/bartender_check(atom/target)
+TYPE_PROC_REF(/obj/item/reagent_containers, bartender_check)(atom/target)
 	. = FALSE
 	if(!get_turf(src) || !target.CanPass(src, get_dir(src, target)) || !thrownby || !thrownby.actions)
 		return
@@ -112,10 +112,10 @@
 	if(D?.active)
 		return TRUE
 
-/obj/item/reagent_containers/proc/ForceResetRotation()
+TYPE_PROC_REF(/obj/item/reagent_containers, ForceResetRotation)()
 	transform = initial(transform)
 
-/obj/item/reagent_containers/proc/SplashReagents(atom/target, thrown = FALSE)
+TYPE_PROC_REF(/obj/item/reagent_containers, SplashReagents)(atom/target, thrown = FALSE)
 	if(!reagents || !reagents.total_volume || !spillable)
 		return
 
@@ -170,13 +170,13 @@
 	reagents.expose_temperature(exposed_temperature)
 	temp_check()
 
-/obj/item/reagent_containers/proc/temp_check()
+TYPE_PROC_REF(/obj/item/reagent_containers, temp_check)()
 	if(container_flags & TEMP_WEAK)
 		if(reagents.chem_temp >= 444)//assuming polypropylene
 			START_PROCESSING(SSobj, src)
 
 //melts glass beakers
-/obj/item/reagent_containers/proc/pH_check()
+TYPE_PROC_REF(/obj/item/reagent_containers, pH_check)()
 	if(container_flags & PH_WEAK)
 		if((reagents.pH < 1.5) || (reagents.pH > 12.5))
 			START_PROCESSING(SSobj, src)

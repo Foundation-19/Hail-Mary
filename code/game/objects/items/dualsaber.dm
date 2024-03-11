@@ -113,7 +113,7 @@
 
 /// Triggered on wield of two handed item
 /// Specific hulk checks due to reflection chance for balance issues and switches hitsounds.
-/obj/item/dualsaber/proc/on_wield(obj/item/source, mob/living/carbon/user)
+TYPE_PROC_REF(/obj/item/dualsaber, on_wield)(obj/item/source, mob/living/carbon/user)
 	if(user.has_dna() && user.dna.check_mutation(HULK))
 		to_chat(user, span_warning("You lack the grace to wield this!"))
 		return COMPONENT_TWOHANDED_BLOCK_WIELD
@@ -130,7 +130,7 @@
 
 /// Triggered on unwield of two handed item
 /// switch hitsounds
-/obj/item/dualsaber/proc/on_unwield(obj/item/source, mob/living/carbon/user)
+TYPE_PROC_REF(/obj/item/dualsaber, on_unwield)(obj/item/source, mob/living/carbon/user)
 	sharpness = initial(sharpness)
 	w_class = initial(w_class)
 	total_mass = initial(total_mass)
@@ -187,7 +187,7 @@
 	if(spinnable && (wielded) && prob(50))
 		INVOKE_ASYNC(src, PROC_REF(jedi_spin), user)
 
-/obj/item/dualsaber/proc/jedi_spin(mob/living/user)
+TYPE_PROC_REF(/obj/item/dualsaber, jedi_spin)(mob/living/user)
 	for(var/i in list(NORTH,SOUTH,EAST,WEST,EAST,SOUTH,NORTH,SOUTH,EAST,WEST,EAST,SOUTH))
 		if(QDELETED(user) || user.incapacitated())
 			return
@@ -196,7 +196,7 @@
 			user.SpinAnimation(7, 1)
 		sleep(1)
 
-/obj/item/dualsaber/proc/impale(mob/living/user)
+TYPE_PROC_REF(/obj/item/dualsaber, impale)(mob/living/user)
 	to_chat(user, span_warning("You twirl around a bit before losing your balance and impaling yourself on [src]."))
 	if (force)
 		user.take_bodypart_damage(20,25)
@@ -224,7 +224,7 @@
 	else
 		STOP_PROCESSING(SSobj, src)
 
-/obj/item/dualsaber/proc/rainbow_process()
+TYPE_PROC_REF(/obj/item/dualsaber, rainbow_process)()
 	light_color = pick(rainbow_colors)
 
 /obj/item/dualsaber/ignition_effect(atom/A, mob/user)

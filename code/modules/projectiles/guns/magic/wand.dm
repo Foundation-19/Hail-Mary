@@ -49,7 +49,7 @@
 	update_icon()
 
 
-/obj/item/gun/magic/wand/proc/zap_self(mob/living/user)
+TYPE_PROC_REF(/obj/item/gun/magic/wand, zap_self)(mob/living/user)
 	user.visible_message(span_danger("[user] zaps [user.p_them()]self with [src]."))
 	playsound(user, fire_sound, 50, 1)
 	user.log_message("zapped [user.p_them()]self with a <b>[src]</b>", LOG_ATTACK)

@@ -74,7 +74,7 @@
 			to_chat(user, span_notice("You manage to open the pod."))
 			empty_pod()
 
-/obj/structure/transit_tube_pod/proc/empty_pod(atom/location)
+TYPE_PROC_REF(/obj/structure/transit_tube_pod, empty_pod)(atom/location)
 	if(!location)
 		location = get_turf(src)
 	for(var/atom/movable/M in contents)
@@ -87,7 +87,7 @@
 	else
 		return ..()
 
-/obj/structure/transit_tube_pod/proc/follow_tube()
+TYPE_PROC_REF(/obj/structure/transit_tube_pod, follow_tube)()
 	set waitfor = 0
 	if(moving)
 		return

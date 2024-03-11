@@ -36,7 +36,7 @@
 		papers.Add(generate_paper())
 	update_icon()
 
-/obj/item/paper_bin/proc/generate_paper()
+TYPE_PROC_REF(/obj/item/paper_bin, generate_paper)()
 	var/obj/item/paper/paper = new papertype(src)
 	if(SSevents.holidays && SSevents.holidays[APRIL_FOOLS])
 		if(prob(30))
@@ -48,7 +48,7 @@
 	QDEL_LIST(papers)
 	. = ..()
 
-/obj/item/paper_bin/proc/dump_contents(atom/droppoint, collapse = FALSE)
+TYPE_PROC_REF(/obj/item/paper_bin, dump_contents)(atom/droppoint, collapse = FALSE)
 	if(!droppoint)
 		droppoint = drop_location()
 	if(collapse)
@@ -123,7 +123,7 @@
 	else
 		return ..()
 
-/obj/item/paper_bin/proc/at_overlay_limit()
+TYPE_PROC_REF(/obj/item/paper_bin, at_overlay_limit)()
 	return overlays.len >= MAX_ATOM_OVERLAYS - 1
 
 /obj/item/paper_bin/examine(mob/user)

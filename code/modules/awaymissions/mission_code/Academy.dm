@@ -122,7 +122,7 @@
 					give_control()
 		next_check = world.time + cooldown
 
-/obj/structure/academy_wizard_spawner/proc/give_control()
+TYPE_PROC_REF(/obj/structure/academy_wizard_spawner, give_control)()
 	set waitfor = FALSE
 
 	if(!current_wizard)
@@ -135,7 +135,7 @@
 		current_wizard.ghostize() // on the off chance braindead defender gets back in
 		C.transfer_ckey(current_wizard, FALSE)
 
-/obj/structure/academy_wizard_spawner/proc/summon_wizard()
+TYPE_PROC_REF(/obj/structure/academy_wizard_spawner, summon_wizard)()
 	var/turf/T = src.loc
 	var/mob/living/carbon/human/wizbody = new(T)
 	wizbody.fully_replace_character_name(wizbody.real_name, "Academy Teacher")
@@ -193,7 +193,7 @@
 	return ..()
 
 
-/obj/item/dice/d20/fate/proc/effect(mob/living/carbon/human/user,roll)
+TYPE_PROC_REF(/obj/item/dice/d20/fate, effect)(mob/living/carbon/human/user,roll)
 	if(!reusable)
 		used = 1
 	visible_message(span_userdanger("The die flare briefly."))

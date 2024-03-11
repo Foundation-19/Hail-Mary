@@ -33,7 +33,7 @@ handles linking back and forth.
 	else if (allow_standalone)
 		_MakeLocal()
 
-/datum/component/remote_materials/proc/LateInitialize()
+TYPE_PROC_REF(/datum/component/remote_materials, LateInitialize)()
 	silo = GLOB.ore_silo_default
 	if (silo)
 		silo.connected += src
@@ -53,7 +53,7 @@ handles linking back and forth.
 		mat_container.retrieve_all(P.drop_location())
 	return ..()
 
-/datum/component/remote_materials/proc/_MakeLocal()
+TYPE_PROC_REF(/datum/component/remote_materials, _MakeLocal)()
 	silo = null
 	var/static/list/allowed_mats = list(
 		/datum/material/iron,
@@ -71,13 +71,13 @@ handles linking back and forth.
 
 	mat_container = parent.AddComponent(/datum/component/material_container, allowed_mats, local_size, allowed_types=/obj/item/stack, _after_insert = after_insert)
 
-/datum/component/remote_materials/proc/set_local_size(size)
+TYPE_PROC_REF(/datum/component/remote_materials, set_local_size)(size)
 	local_size = size
 	if (!silo && mat_container)
 		mat_container.max_amount = size
 
 // called if disconnected by ore silo UI or destruction
-/datum/component/remote_materials/proc/disconnect_from(obj/machinery/ore_silo/old_silo)
+TYPE_PROC_REF(/datum/component/remote_materials, disconnect_from)(obj/machinery/ore_silo/old_silo)
 	if (!old_silo || silo != old_silo)
 		return
 	silo = null
@@ -85,7 +85,7 @@ handles linking back and forth.
 	if (allow_standalone)
 		_MakeLocal()
 
-/datum/component/remote_materials/proc/OnAttackBy(datum/source, obj/item/I, mob/user)
+TYPE_PROC_REF(/datum/component/remote_materials, OnAttackBy)(datum/source, obj/item/I, mob/user)
 	if (istype(I, /obj/item/multitool))
 		var/obj/item/multitool/M = I
 		if (!QDELETED(M.buffer) && istype(M.buffer, /obj/machinery/ore_silo))
@@ -109,14 +109,14 @@ handles linking back and forth.
 		if (silo.remote_attackby(parent, user, I, src))
 			return COMPONENT_NO_AFTERATTACK
 
-/datum/component/remote_materials/proc/on_hold()
+TYPE_PROC_REF(/datum/component/remote_materials, on_hold)()
 	return silo && silo.holds["[get_area(parent)]/[category]"]
 
-/datum/component/remote_materials/proc/silo_log(obj/machinery/M, action, amount, noun, list/mats)
+TYPE_PROC_REF(/datum/component/remote_materials, silo_log)(obj/machinery/M, action, amount, noun, list/mats)
 	if (silo)
 		silo.silo_log(M || parent, action, amount, noun, mats)
 
-/datum/component/remote_materials/proc/format_amount()
+TYPE_PROC_REF(/datum/component/remote_materials, format_amount)()
 	if (mat_container)
 		return "[mat_container.total_amount] / [mat_container.max_amount == INFINITY ? "Unlimited" : mat_container.max_amount] ([silo ? "remote" : "local"])"
 	else

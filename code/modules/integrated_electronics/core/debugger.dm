@@ -56,7 +56,7 @@
 		now off.</span>")
 		accepting_refs = FALSE
 
-/obj/item/integrated_electronics/debugger/proc/write_data(datum/integrated_io/io, mob/user)
+TYPE_PROC_REF(/obj/item/integrated_electronics/debugger, write_data)(datum/integrated_io/io, mob/user)
 	//If the pin can take data:
 	if(io.io_type == DATA_CHANNEL)
 		//If the debugger is set to copy, copy the data in the pin onto it

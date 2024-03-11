@@ -10,7 +10,7 @@
 	Note that in all cases the neighbor is handled simply; this is usually the user's mob, in which case it is up to you
 	to check that the mob is not inside of something
 */
-/atom/proc/Adjacent(atom/neighbor) // basic inheritance, unused
+TYPE_PROC_REF(/atom, Adjacent)(atom/neighbor) // basic inheritance, unused
 	return 0
 
 // Not a sane use of the function and (for now) indicative of an error elsewhere
@@ -92,7 +92,7 @@
 	This is defined as any dense ON_BORDER_1 object, or any dense object without LETPASSTHROW.
 	The border_only flag allows you to not objects (for source and destination squares)
 */
-/turf/proc/ClickCross(target_dir, border_only, atom/target, atom/movable/mover)
+TYPE_PROC_REF(/turf, ClickCross)(target_dir, border_only, atom/target, atom/movable/mover)
 	for(var/obj/O in src)
 		if((mover && O.CanPass(mover, target_dir)) || (!mover && !O.density))
 			continue
@@ -111,7 +111,7 @@
  * Checks whether this turf can be left from the given direction.
  * This expects a cardinal direction, and makes no check for it.
  */
-/turf/proc/move_uncross(border_dir)
+TYPE_PROC_REF(/turf, move_uncross)(border_dir)
 	for(var/obj/object in src)
 		if(!object.density || !(object.flags_1 & ON_BORDER_1))
 			continue
@@ -126,7 +126,7 @@
  * Checks whether this turf can be entered by the given mover.
  * This expects a cardinal direction, and makes no check for it.
  */
-/turf/proc/move_cross(atom/movable/mover, border_dir)
+TYPE_PROC_REF(/turf, move_cross)(atom/movable/mover, border_dir)
 	if(density)
 		return FALSE
 	for(var/atom/movable/movable as anything in src)
@@ -140,7 +140,7 @@
  * Checks whether an attack from the given attacker can enter this turf.
  * This expects a cardinal direction, and makes no check for it.
  */
-/turf/proc/attack_cross(border_dir)
+TYPE_PROC_REF(/turf, attack_cross)(border_dir)
 	if(density)
 		return FALSE
 	for(var/atom/movable/movable as anything in src)

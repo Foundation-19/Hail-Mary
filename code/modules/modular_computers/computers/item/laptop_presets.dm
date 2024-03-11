@@ -7,7 +7,7 @@
 	install_programs()
 
 
-/obj/item/modular_computer/laptop/preset/proc/install_programs()
+TYPE_PROC_REF(/obj/item/modular_computer/laptop/preset, install_programs)()
 	return
 
 

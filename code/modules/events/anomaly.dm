@@ -12,7 +12,7 @@
 	announceWhen	= 1
 
 
-/datum/round_event/anomaly/proc/findEventArea()
+TYPE_PROC_REF(/datum/round_event/anomaly, findEventArea)()
 	var/static/list/allowed_areas
 	if(!allowed_areas)
 		//Places that shouldn't explode

@@ -7,10 +7,10 @@
 	href_list = thref_list.Copy()
 	return
 
-/datum/topic_input/proc/get(i)
+TYPE_PROC_REF(/datum/topic_input, get)(i)
 	return listgetindex(href_list,i)
 
-/datum/topic_input/proc/getAndLocate(i)
+TYPE_PROC_REF(/datum/topic_input, getAndLocate)(i)
 	var/t = get(i)
 	if(t)
 		t = locate(t)
@@ -18,45 +18,45 @@
 		t = null
 	return t || null
 
-/datum/topic_input/proc/getNum(i)
+TYPE_PROC_REF(/datum/topic_input, getNum)(i)
 	var/t = get(i)
 	if(t)
 		t = text2num(t)
 	return isnum(t) ? t : null
 
-/datum/topic_input/proc/getObj(i)
+TYPE_PROC_REF(/datum/topic_input, getObj)(i)
 	var/t = getAndLocate(i)
 	return isobj(t) ? t : null
 
-/datum/topic_input/proc/getMob(i)
+TYPE_PROC_REF(/datum/topic_input, getMob)(i)
 	var/t = getAndLocate(i)
 	return ismob(t) ? t : null
 
-/datum/topic_input/proc/getTurf(i)
+TYPE_PROC_REF(/datum/topic_input, getTurf)(i)
 	var/t = getAndLocate(i)
 	return isturf(t) ? t : null
 
-/datum/topic_input/proc/getAtom(i)
+TYPE_PROC_REF(/datum/topic_input, getAtom)(i)
 	return getType(i, /atom)
 
-/datum/topic_input/proc/getArea(i)
+TYPE_PROC_REF(/datum/topic_input, getArea)(i)
 	var/t = getAndLocate(i)
 	return isarea(t) ? t : null
 
-/datum/topic_input/proc/getStr(i)//params should always be text, but...
+TYPE_PROC_REF(/datum/topic_input, getStr)(i)//params should always be text, but...
 	var/t = get(i)
 	return istext(t) ? t : null
 
-/datum/topic_input/proc/getType(i,type)
+TYPE_PROC_REF(/datum/topic_input, getType)(i,type)
 	var/t = getAndLocate(i)
 	return istype(t,type) ? t : null
 
-/datum/topic_input/proc/getPath(i)
+TYPE_PROC_REF(/datum/topic_input, getPath)(i)
 	var/t = get(i)
 	if(t)
 		t = text2path(t)
 	return ispath(t) ? t : null
 
-/datum/topic_input/proc/getList(i)
+TYPE_PROC_REF(/datum/topic_input, getList)(i)
 	var/t = getAndLocate(i)
 	return islist(t) ? t : null

@@ -1,5 +1,5 @@
 // Tries to draw power from charger or, if no operational charger is present, from power cell.
-/obj/item/modular_computer/proc/use_power(amount = 0)
+TYPE_PROC_REF(/obj/item/modular_computer, use_power)(amount = 0)
 	if(check_power_override())
 		return TRUE
 
@@ -20,7 +20,7 @@
 			return FALSE
 	return FALSE
 
-/obj/item/modular_computer/proc/give_power(amount)
+TYPE_PROC_REF(/obj/item/modular_computer, give_power)(amount)
 	var/obj/item/computer_hardware/battery/battery_module = all_components[MC_CELL]
 	if(battery_module && battery_module.battery)
 		return battery_module.battery.give(amount)
@@ -31,7 +31,7 @@
 	return battery_module?.get_cell()
 
 // Used in following function to reduce copypaste
-/obj/item/modular_computer/proc/power_failure()
+TYPE_PROC_REF(/obj/item/modular_computer, power_failure)()
 	if(enabled) // Shut down the computer
 		if(active_program)
 			active_program.event_powerfailure(0)
@@ -41,7 +41,7 @@
 		shutdown_computer(0)
 
 // Handles power-related things, such as battery interaction, recharging, shutdown when it's discharged
-/obj/item/modular_computer/proc/handle_power()
+TYPE_PROC_REF(/obj/item/modular_computer, handle_power)()
 	var/obj/item/computer_hardware/recharger/recharger = all_components[MC_CHARGE]
 	if(recharger)
 		recharger.process()
@@ -60,5 +60,5 @@
 		return FALSE
 
 // Used by child types if they have other power source than battery or recharger
-/obj/item/modular_computer/proc/check_power_override()
+TYPE_PROC_REF(/obj/item/modular_computer, check_power_override)()
 	return FALSE

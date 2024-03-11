@@ -134,7 +134,7 @@
 			say("Authorization controller abuse detected, lockdown engaged.")
 			playsound(src, 'sound/machines/buzz-sigh.ogg', 50, 0)
 
-/obj/machinery/computer/emergency_shuttle/proc/authorize(mob/user, source)
+TYPE_PROC_REF(/obj/machinery/computer/emergency_shuttle, authorize)(mob/user, source)
 	var/obj/item/card/id/ID = user.get_idcard(TRUE)
 
 	if(ID in authorized)
@@ -175,7 +175,7 @@
 			[TIME_LEFT] seconds", system_error, alert=TRUE)
 		. = TRUE
 
-/obj/machinery/computer/emergency_shuttle/proc/increase_hijack_stage()
+TYPE_PROC_REF(/obj/machinery/computer/emergency_shuttle, increase_hijack_stage)()
 	var/obj/docking_port/mobile/emergency/shuttle = SSshuttle.emergency
 	shuttle.hijack_status++
 	if(hijack_announce)
@@ -192,7 +192,7 @@
 /obj/machinery/computer/emergency_shuttle/AltClick(user)
 	attempt_hijack_stage(user)
 
-/obj/machinery/computer/emergency_shuttle/proc/attempt_hijack_stage(mob/living/user)
+TYPE_PROC_REF(/obj/machinery/computer/emergency_shuttle, attempt_hijack_stage)(mob/living/user)
 	if(!user.can_reach(src))
 		return
 	if(!user?.mind?.get_hijack_speed())
@@ -216,7 +216,7 @@
 		to_chat(user, span_notice("You reprogram some of [src]'s programming, putting it on timeout for [hijack_stage_cooldown/10] seconds."))
 	hijack_hacking = FALSE
 
-/obj/machinery/computer/emergency_shuttle/proc/announce_hijack_stage()
+TYPE_PROC_REF(/obj/machinery/computer/emergency_shuttle, announce_hijack_stage)()
 	var/msg
 	switch(SSshuttle.emergency.hijack_status)
 		if(NOT_BEGUN)
@@ -357,10 +357,10 @@
 		SSshuttle.emergencyLastCallLoc = null
 	priority_announce("The train has been recalled.[SSshuttle.emergencyLastCallLoc ? " Recall signal traced. Results can be viewed on any communications console." : "" ]", null, 'sound/f13/quest.ogg', "Vault-Tec")
 
-/obj/docking_port/mobile/emergency/proc/is_hijacked()
+TYPE_PROC_REF(/obj/docking_port/mobile/emergency, is_hijacked)()
 	return hijack_status == HIJACKED
 
-/obj/docking_port/mobile/emergency/proc/ShuttleDBStuff()
+TYPE_PROC_REF(/obj/docking_port/mobile/emergency, ShuttleDBStuff)()
 	set waitfor = FALSE
 	if(!SSdbcore.Connect())
 		return

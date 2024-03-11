@@ -144,7 +144,7 @@ GLOBAL_LIST_INIT(warning_ckeys, list())
 
 	..() //redirect to hsrc.Topic()
 
-/client/proc/is_content_unlocked()
+TYPE_PROC_REF(/client, is_content_unlocked)()
 	if(!prefs.unlock_content)
 		return 0
 	return 1
@@ -161,7 +161,7 @@ GLOBAL_LIST_INIT(warning_ckeys, list())
  * The second checks for the same duplicate message too many times and mutes
  * you for it
  */
-/client/proc/handle_spam_prevention(message, mute_type)
+TYPE_PROC_REF(/client, handle_spam_prevention)(message, mute_type)
 
 	//Increment message count
 	total_message_count += 1
@@ -247,7 +247,7 @@ GLOBAL_LIST_INIT(warning_ckeys, list())
 		if(check_rights_for(src, R_SPAWN)) //Fortuna edit. Are they lower ranked staff?
 			GLOB.staff |= src
 	else if(GLOB.deadmins[ckey])
-		add_verb(src, /client/proc/readmin)
+		add_verb(src, TYPE_PROC_REF(/client, readmin))
 		connecting_admin = TRUE
 	if(CONFIG_GET(flag/autoadmin))
 		if(!GLOB.admin_datums[ckey])
@@ -286,7 +286,7 @@ GLOBAL_LIST_INIT(warning_ckeys, list())
 	fps = prefs.clientfps //(prefs.clientfps < 0) ? RECOMMENDED_FPS : prefs.clientfps
 
 	if(fexists(roundend_report_file()))
-		add_verb(src, /client/proc/show_previous_roundend_report)
+		add_verb(src, TYPE_PROC_REF(/client, show_previous_roundend_report))
 
 	var/full_version = "[byond_version].[byond_build ? byond_build : "xxx"]"
 	log_access("Login: [key_name(src)] from [address ? address : "localhost"]-[computer_id] || BYOND v[full_version]")
@@ -545,7 +545,7 @@ GLOBAL_LIST_INIT(warning_ckeys, list())
 	. = ..() //Even though we're going to be hard deleted there are still some things that want to know the destroy is happening
 	return QDEL_HINT_HARDDEL_NOW
 
-/client/proc/set_client_age_from_db(connectiontopic)
+TYPE_PROC_REF(/client, set_client_age_from_db)(connectiontopic)
 	if (IsGuestKey(src.key))
 		return
 	if(!SSdbcore.Connect())
@@ -694,7 +694,7 @@ GLOBAL_LIST_INIT(warning_ckeys, list())
 		player_age = -1
 	. = player_age
 
-/client/proc/findJoinDate()
+TYPE_PROC_REF(/client, findJoinDate)()
 	var/list/http = world.Export("http://byond.com/members/[ckey]?format=text")
 	if(!http)
 		log_world("Failed to connect to byond member page to age check [ckey]")
@@ -707,7 +707,7 @@ GLOBAL_LIST_INIT(warning_ckeys, list())
 		else
 			CRASH("Age check regex failed for [src.ckey]")
 
-/client/proc/validate_key_in_db()
+TYPE_PROC_REF(/client, validate_key_in_db)()
 	var/key
 	var/datum/db_query/query_check_byond_key = SSdbcore.NewQuery(
 		"SELECT byond_key FROM [format_table_name("player")] WHERE ckey = :ckey",
@@ -737,7 +737,7 @@ GLOBAL_LIST_INIT(warning_ckeys, list())
 			else
 				CRASH("Key check regex failed for [ckey]")
 
-/client/proc/check_randomizer(topic)
+TYPE_PROC_REF(/client, check_randomizer)(topic)
 	. = FALSE
 	if (connection != "seeker")
 		return
@@ -813,7 +813,7 @@ GLOBAL_LIST_INIT(warning_ckeys, list())
 		qdel(src)
 		return TRUE
 
-/client/proc/cid_check_reconnect()
+TYPE_PROC_REF(/client, cid_check_reconnect)()
 	var/token = md5("[rand(0,9999)][world.time][rand(0,9999)][ckey][rand(0,9999)][address][rand(0,9999)][computer_id][rand(0,9999)]")
 	. = token
 	log_access("Failed Login: [key] [computer_id] [address] - CID randomizer check")
@@ -822,10 +822,10 @@ GLOBAL_LIST_INIT(warning_ckeys, list())
 	src << browse({"<a id='link' href="byond://[url]?token=[token]">byond://[url]?token=[token]</a><script type="text/javascript">document.getElementById("link").click();window.location="byond://winset?command=.quit"</script>"}, "border=0;titlebar=0;size=1x1;window=redirect")
 	to_chat(src, {"<a href="byond://[url]?token=[token]">You will be automatically taken to the game, if not, click here to be taken manually</a>"})
 
-/client/proc/note_randomizer_user()
+TYPE_PROC_REF(/client, note_randomizer_user)()
 	add_system_note("CID-Error", "Detected as using a cid randomizer.")
 
-/client/proc/add_system_note(system_ckey, message)
+TYPE_PROC_REF(/client, add_system_note)(system_ckey, message)
 	//check to see if we noted them in the last day.
 	var/datum/db_query/query_get_notes = SSdbcore.NewQuery(
 		"SELECT id FROM [format_table_name("messages")] WHERE type = 'note' AND targetckey = :targetckey AND adminckey = :adminckey AND timestamp + INTERVAL 1 DAY < NOW() AND deleted = 0 AND expire_timestamp > NOW()",
@@ -854,7 +854,7 @@ GLOBAL_LIST_INIT(warning_ckeys, list())
 	create_message("note", key, system_ckey, message, null, null, 0, 0, null, 0, 0)
 
 
-/client/proc/check_ip_intel()
+TYPE_PROC_REF(/client, check_ip_intel)()
 	set waitfor = 0 //we sleep when getting the intel, no need to hold up the client connection while we sleep
 	if (CONFIG_GET(string/ipintel_email))
 		var/datum/ipintel/res = get_ip_intel(address)
@@ -925,27 +925,27 @@ GLOBAL_LIST_INIT(warning_ckeys, list())
 
 	..()
 
-/client/proc/add_verbs_from_config()
+TYPE_PROC_REF(/client, add_verbs_from_config)()
 	if (interviewee)
 		return
 	if(CONFIG_GET(flag/see_own_notes))
-		add_verb(src, /client/proc/self_notes)
+		add_verb(src, TYPE_PROC_REF(/client, self_notes))
 	if(CONFIG_GET(flag/use_exp_tracking))
-		add_verb(src, /client/proc/self_playtime)
+		add_verb(src, TYPE_PROC_REF(/client, self_playtime))
 
 
 #undef UPLOAD_LIMIT
 
 //checks if a client is afk
 //3000 frames = 5 minutes
-/client/proc/is_afk(duration = CONFIG_GET(number/inactivity_period))
+TYPE_PROC_REF(/client, is_afk)(duration = CONFIG_GET(number/inactivity_period))
 	if(inactivity > duration)
 		return inactivity
 	return FALSE
 
 /// Send resources to the client.
 /// Sends both game resources and browser assets.
-/client/proc/send_resources()
+TYPE_PROC_REF(/client, send_resources)()
 #if (PRELOAD_RSC == 0)
 	var/static/next_external_rsc = 0
 	var/list/external_rsc_urls = CONFIG_GET(keyed_list/external_rsc_urls)
@@ -973,7 +973,7 @@ GLOBAL_LIST_INIT(warning_ckeys, list())
 
 //Hook, override it to run code when dir changes
 //Like for /atoms, but clients are their own snowflake FUCK
-/client/proc/setDir(newdir)
+TYPE_PROC_REF(/client, setDir)(newdir)
 	dir = newdir
 
 /client/vv_edit_var(var_name, var_value)
@@ -989,7 +989,7 @@ GLOBAL_LIST_INIT(warning_ckeys, list())
 			return TRUE
 	. = ..()
 
-/client/proc/rescale_view(change, min, max)
+TYPE_PROC_REF(/client, rescale_view)(change, min, max)
 	var/viewscale = getviewsize(view)
 	var/x = viewscale[1]
 	var/y = viewscale[2]
@@ -997,7 +997,7 @@ GLOBAL_LIST_INIT(warning_ckeys, list())
 	y = clamp(y+change, min,max)
 	change_view("[x]x[y]")
 
-/client/proc/change_view(new_size)
+TYPE_PROC_REF(/client, change_view)(new_size)
 	if (isnull(new_size))
 		CRASH("change_view called without argument.")
 
@@ -1019,22 +1019,22 @@ GLOBAL_LIST_INIT(warning_ckeys, list())
 		fit_viewport()
 	SEND_SIGNAL(mob, COMSIG_MOB_CLIENT_CHANGE_VIEW, src, old_view, actualview)
 
-/client/proc/generate_clickcatcher()
+TYPE_PROC_REF(/client, generate_clickcatcher)()
 	if(!void)
 		void = new()
 		screen += void
 
-/client/proc/apply_clickcatcher(list/actualview)
+TYPE_PROC_REF(/client, apply_clickcatcher)(list/actualview)
 	generate_clickcatcher()
 	if(!actualview)
 		actualview = getviewsize(view)
 	void.UpdateGreed(actualview[1],actualview[2])
 
-/client/proc/AnnouncePR(announcement)
+TYPE_PROC_REF(/client, AnnouncePR)(announcement)
 	if(prefs && prefs.chat_toggles & CHAT_PULLR)
 		to_chat(src, announcement)
 
-/client/proc/show_character_previews(mutable_appearance/MA)
+TYPE_PROC_REF(/client, show_character_previews)(mutable_appearance/MA)
 	var/pos = 0
 	for(var/D in GLOB.cardinals)
 		pos++
@@ -1047,18 +1047,18 @@ GLOBAL_LIST_INIT(warning_ckeys, list())
 		O.dir = D
 		O.screen_loc = "character_preview_map:0,[pos]"
 
-/client/proc/clear_character_previews()
+TYPE_PROC_REF(/client, clear_character_previews)()
 	for(var/index in char_render_holders)
 		var/obj/screen/S = char_render_holders[index]
 		screen -= S
 		qdel(S)
 	char_render_holders = null
 
-/client/proc/can_have_part(part_name)
+TYPE_PROC_REF(/client, can_have_part)(part_name)
 	return prefs.pref_species.mutant_bodyparts[part_name] || (part_name in GLOB.unlocked_mutant_parts)
 
 /// compiles a full list of verbs and sends it to the browser
-/client/proc/init_verbs()
+TYPE_PROC_REF(/client, init_verbs)()
 	if(IsAdminAdvancedProcCall())
 		return
 	var/list/verblist = list()
@@ -1075,7 +1075,7 @@ GLOBAL_LIST_INIT(warning_ckeys, list())
 		verblist[++verblist.len] = list(verb_to_init.category, verb_to_init.name)
 	src << output("[url_encode(json_encode(verb_tabs))];[url_encode(json_encode(verblist))]", "statbrowser:init_verbs")
 
-/client/proc/check_panel_loaded()
+TYPE_PROC_REF(/client, check_panel_loaded)()
 	if(statbrowser_ready)
 		return
 	to_chat(src, span_userdanger("<span class='message linkify'>Statpanel failed to load, click <a href='?src=[REF(src)];reload_statbrowser=1'>here</a> to reload the panel </span>"))
@@ -1083,7 +1083,7 @@ GLOBAL_LIST_INIT(warning_ckeys, list())
 /**
  * Initializes dropdown menus on client
  */
-/client/proc/initialize_menus()
+TYPE_PROC_REF(/client, initialize_menus)()
 	var/list/topmenus = GLOB.menulist[/datum/verbs/menu]
 	for (var/thing in topmenus)
 		var/datum/verbs/menu/topmenu = thing

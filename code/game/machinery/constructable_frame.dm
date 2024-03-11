@@ -50,7 +50,7 @@
 		else
 			. += "It does not require any more components."
 
-/obj/structure/frame/machine/proc/update_namelist()
+TYPE_PROC_REF(/obj/structure/frame/machine, update_namelist)()
 	if(!req_components)
 		return
 
@@ -67,7 +67,7 @@
 			var/obj/O = tname
 			req_component_names[tname] = initial(O.name)
 
-/obj/structure/frame/machine/proc/get_req_components_amt()
+TYPE_PROC_REF(/obj/structure/frame/machine, get_req_components_amt)()
 	var/amt = 0
 	for(var/path in req_components)
 		amt += req_components[path]

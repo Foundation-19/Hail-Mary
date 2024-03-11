@@ -3026,7 +3026,7 @@
 		START_PROCESSING(SSobj, src)
 		assign_traits(user)
 
-/obj/item/clothing/suit/armor/power_armor/proc/assign_traits(mob/user)
+TYPE_PROC_REF(/obj/item/clothing/suit/armor/power_armor, assign_traits)(mob/user)
 	if(no_power) // Has no charge left
 		return
 	ADD_TRAIT(user, TRAIT_STUNIMMUNE, "PA_stun_immunity")
@@ -3040,7 +3040,7 @@
 		STOP_PROCESSING(SSobj, src)
 		remove_traits(user)
 
-/obj/item/clothing/suit/armor/power_armor/proc/remove_traits(mob/user)
+TYPE_PROC_REF(/obj/item/clothing/suit/armor/power_armor, remove_traits)(mob/user)
 	REMOVE_TRAIT(user, TRAIT_STUNIMMUNE, "PA_stun_immunity")
 	REMOVE_TRAIT(user, TRAIT_PUSHIMMUNE, "PA_push_immunity")
 	REMOVE_TRAIT(user, SPREAD_CONTROL, "PA_spreadcontrol")
@@ -3062,7 +3062,7 @@
 		restore_power(user)
 		return
 
-/obj/item/clothing/suit/armor/power_armor/proc/remove_power(mob/user)
+TYPE_PROC_REF(/obj/item/clothing/suit/armor/power_armor, remove_power)(mob/user)
 	if(salvage_step > 1) // Being salvaged
 		to_chat(user, span_warning("Components in [src] require repairs!"))
 	else
@@ -3072,7 +3072,7 @@
 	remove_traits(user)
 	user.update_equipment_speed_mods()
 
-/obj/item/clothing/suit/armor/power_armor/proc/restore_power(mob/user)
+TYPE_PROC_REF(/obj/item/clothing/suit/armor/power_armor, restore_power)(mob/user)
 	to_chat(user, span_notice("\The [src]'s power restored."))
 	slowdown -= unpowered_slowdown
 	no_power = FALSE
@@ -3202,7 +3202,7 @@
 		toggle_cell(user)
 	return
 
-/obj/item/clothing/suit/armor/power_armor/proc/toggle_cell(mob/living/user)
+TYPE_PROC_REF(/obj/item/clothing/suit/armor/power_armor, toggle_cell)(mob/living/user)
 	if(cell)
 		user.visible_message(span_notice("[user] removes \the [cell] from [src]!"), \
 			span_notice("You remove [cell]."))
@@ -3222,7 +3222,7 @@
 	if(ispath(salvaged_type))
 		. += salvage_hint()
 
-/obj/item/clothing/suit/armor/power_armor/proc/salvage_hint()
+TYPE_PROC_REF(/obj/item/clothing/suit/armor/power_armor, salvage_hint)()
 	switch(salvage_step)
 		if(0)
 			return "<span class='notice'>The wiring cover is <i>screwed</i> in place.</span>"
@@ -3259,7 +3259,7 @@
 			addtimer(CALLBACK(src, PROC_REF(end_emp_effect), induced_slowdown), 50)
 	return
 
-/obj/item/clothing/suit/armor/power_armor/proc/end_emp_effect(slowdown_induced)
+TYPE_PROC_REF(/obj/item/clothing/suit/armor/power_armor, end_emp_effect)(slowdown_induced)
 	emped = FALSE
 	slowdown -= slowdown_induced // Even if armor is dropped it'll fix slowdown
 	if(isliving(loc))

@@ -22,7 +22,7 @@
 	toggle_activate(user)
 
 
-/obj/item/bottlecap_mine/proc/toggle_activate(mob/user)
+TYPE_PROC_REF(/obj/item/bottlecap_mine, toggle_activate)(mob/user)
 	switch(state)
 		if(DISABLED)
 			state = PREACTIVE
@@ -41,7 +41,7 @@
 			update_icon()
 			STOP_PROCESSING(SSobj, src)
 
-/obj/item/bottlecap_mine/proc/boom()
+TYPE_PROC_REF(/obj/item/bottlecap_mine, boom)()
 	explosion(src.loc,0,2,3, flame_range = 6)
 
 /obj/item/bottlecap_mine/process()
@@ -58,7 +58,7 @@
 		playsound(get_turf(src),'sound/f13weapons/mine_one.ogg',100, extrarange = -5)
 
 /*
-/obj/item/bottlecap_mine/proc/on_entered(go/AM)
+TYPE_PROC_REF(/obj/item/bottlecap_mine, on_entered)(go/AM)
 	if(state == ACTIVE && ishuman(AM))
 		boom()
 */
@@ -139,7 +139,7 @@
 		to_chat(user, span_notice("You drop the mine and activate the 5-second arming process."))
 		return
 
-/obj/item/mine/proc/arm()
+TYPE_PROC_REF(/obj/item/mine, arm)()
 	visible_message(span_danger("[src] beeps!"))
 	if(armed)
 		triggermine()
@@ -151,10 +151,10 @@
 		wires.interact(user)
 	else ..()
 
-/obj/item/mine/proc/mineEffect(mob/victim)
+TYPE_PROC_REF(/obj/item/mine, mineEffect)(mob/victim)
 	to_chat(victim, span_danger("*click*"))
 
-/obj/item/mine/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+TYPE_PROC_REF(/obj/item/mine, on_entered)(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	SIGNAL_HANDLER
 	if(!armed)
 		return
@@ -166,7 +166,7 @@
 
 	INVOKE_ASYNC(src, PROC_REF(triggermine), arrived)
 
-/obj/item/mine/proc/triggermine(mob/victim)
+TYPE_PROC_REF(/obj/item/mine, triggermine)(mob/victim)
 	if(triggered)
 		return
 	visible_message(span_danger("[victim] sets off [icon2html(src, viewers(src))] [src]!"))

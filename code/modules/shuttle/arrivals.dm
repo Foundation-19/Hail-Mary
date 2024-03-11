@@ -103,7 +103,7 @@
 	else if(!found_awake)
 		Launch(FALSE)
 
-/obj/docking_port/mobile/arrivals/proc/CheckTurfsPressure()
+TYPE_PROC_REF(/obj/docking_port/mobile/arrivals, CheckTurfsPressure)()
 	for(var/I in SSjob.latejoin_trackers)
 		var/turf/open/T = get_turf(I)
 		var/pressure = T.air.return_pressure()
@@ -111,7 +111,7 @@
 			return TRUE
 	return FALSE
 
-/obj/docking_port/mobile/arrivals/proc/PersonCheck()
+TYPE_PROC_REF(/obj/docking_port/mobile/arrivals, PersonCheck)()
 	for(var/V in GLOB.player_list)
 		var/mob/M = V
 		if((get_area(M) in areas) && M.stat != DEAD)
@@ -122,13 +122,13 @@
 				return TRUE
 	return FALSE
 
-/obj/docking_port/mobile/arrivals/proc/NukeDiskCheck()
+TYPE_PROC_REF(/obj/docking_port/mobile/arrivals, NukeDiskCheck)()
 	for (var/obj/item/disk/nuclear/N in GLOB.poi_list)
 		if (get_area(N) in areas)
 			return TRUE
 	return FALSE
 
-/obj/docking_port/mobile/arrivals/proc/SendToStation()
+TYPE_PROC_REF(/obj/docking_port/mobile/arrivals, SendToStation)()
 	var/dockTime = CONFIG_GET(number/arrivals_shuttle_dock_window)
 	if(mode == SHUTTLE_CALL && timeLeft(1) > dockTime)
 		if(console)
@@ -172,7 +172,7 @@
 	if(. == SHUTTLE_ALREADY_DOCKED)
 		. = SHUTTLE_CAN_DOCK
 
-/obj/docking_port/mobile/arrivals/proc/Launch(pickingup)
+TYPE_PROC_REF(/obj/docking_port/mobile/arrivals, Launch)(pickingup)
 	if(pickingup)
 		force_depart = TRUE
 	if(mode == SHUTTLE_IDLE)
@@ -183,7 +183,7 @@
 			target = SSshuttle.getDock("arrivals_stationary")
 		request(target)		//we will intentionally never return SHUTTLE_ALREADY_DOCKED
 
-/obj/docking_port/mobile/arrivals/proc/RequireUndocked(mob/user)
+TYPE_PROC_REF(/obj/docking_port/mobile/arrivals, RequireUndocked)(mob/user)
 	if(mode == SHUTTLE_CALL || damaged)
 		return
 
@@ -193,7 +193,7 @@
 	while(mode != SHUTTLE_CALL && !damaged)
 		stoplag()
 
-/obj/docking_port/mobile/arrivals/proc/QueueAnnounce(mob, rank)
+TYPE_PROC_REF(/obj/docking_port/mobile/arrivals, QueueAnnounce)(mob, rank)
 	if(mode != SHUTTLE_CALL)
 		AnnounceArrival(mob, rank)
 	else

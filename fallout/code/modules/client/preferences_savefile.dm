@@ -1,4 +1,4 @@
-/datum/preferences/proc/cit_character_pref_load(savefile/S)
+TYPE_PROC_REF(/datum/preferences, cit_character_pref_load)(savefile/S)
 	//ipcs
 	S["feature_ipc_screen"] >> features["ipc_screen"]
 	S["feature_ipc_antenna"] >> features["ipc_antenna"]
@@ -15,7 +15,7 @@
 	features["mcolor3"]	= sanitize_hexcolor(features["mcolor3"], 6, FALSE)
 
 
-/datum/preferences/proc/cit_character_pref_save(savefile/S)
+TYPE_PROC_REF(/datum/preferences, cit_character_pref_save)(savefile/S)
 	//ipcs
 	WRITE_FILE(S["feature_ipc_screen"], features["ipc_screen"])
 	WRITE_FILE(S["feature_ipc_antenna"], features["ipc_antenna"])

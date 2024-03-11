@@ -139,7 +139,7 @@ GLOBAL_LIST_INIT(meteorsC, list(/obj/effect/meteor/dust)) //for space dust event
 		if(!istype(A, /turf/closed/mineral) && !istype(A, /turf/open/floor/plating/asteroid))
 			get_hit()
 
-/obj/effect/meteor/proc/ram_turf(turf/T)
+TYPE_PROC_REF(/obj/effect/meteor, ram_turf)(turf/T)
 	//first bust whatever is in the turf
 	for(var/atom/A in T)
 		if(A != src)
@@ -155,7 +155,7 @@ GLOBAL_LIST_INIT(meteorsC, list(/obj/effect/meteor/dust)) //for space dust event
 
 //process getting 'hit' by colliding with a dense object
 //or randomly when ramming turfs
-/obj/effect/meteor/proc/get_hit()
+TYPE_PROC_REF(/obj/effect/meteor, get_hit)()
 	hits--
 	if(hits <= 0)
 		make_debris()
@@ -177,17 +177,17 @@ GLOBAL_LIST_INIT(meteorsC, list(/obj/effect/meteor/dust)) //for space dust event
 	else
 		. = ..()
 
-/obj/effect/meteor/proc/make_debris()
+TYPE_PROC_REF(/obj/effect/meteor, make_debris)()
 	for(var/throws = dropamt, throws > 0, throws--)
 		var/thing_to_spawn = pick(meteordrop)
 		new thing_to_spawn(get_turf(src))
 
-/obj/effect/meteor/proc/chase_target(atom/chasing, delay = 1)
+TYPE_PROC_REF(/obj/effect/meteor, chase_target)(atom/chasing, delay = 1)
 	set waitfor = FALSE
 	if(chasing)
 		walk_towards(src, chasing, delay)
 
-/obj/effect/meteor/proc/meteor_effect()
+TYPE_PROC_REF(/obj/effect/meteor, meteor_effect)()
 	if(heavy)
 		var/sound/meteor_sound = sound(meteorsound)
 		var/random_frequency = get_rand_frequency()

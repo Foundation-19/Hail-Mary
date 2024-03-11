@@ -62,7 +62,7 @@
 		late_joining_list += character
 	return
 
-/datum/game_mode/traitor/internal_affairs/proc/check_potential_agents()
+TYPE_PROC_REF(/datum/game_mode/traitor/internal_affairs, check_potential_agents)()
 
 	for(var/M in late_joining_list)
 		if(istype(M, /datum/mind))

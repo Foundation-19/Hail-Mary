@@ -21,7 +21,7 @@
 	addtimer(CALLBACK(src, PROC_REF(generate_announcement)), 1800)
 	. = ..()
 
-/obj/structure/blob/core/proc/generate_announcement()
+TYPE_PROC_REF(/obj/structure/blob/core, generate_announcement)()
 	priority_announce("Confirmed outbreak of level 5 biohazard aboard [station_name()]. All personnel must contain the outbreak.", "Biohazard Alert", "outbreak5")
 
 /obj/structure/blob/core/scannerreport()

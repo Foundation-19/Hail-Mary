@@ -44,7 +44,7 @@
 		return TRUE
 	return ..()
 
-/datum/species/synth/proc/assume_disguise(datum/species/S, mob/living/carbon/human/H)
+TYPE_PROC_REF(/datum/species/synth, assume_disguise)(datum/species/S, mob/living/carbon/human/H)
 	if(S && !istype(S, type))
 		name = S.name
 		say_mod = S.say_mod
@@ -112,7 +112,7 @@
 	else
 		return ..()
 
-/datum/species/synth/proc/handle_speech(datum/source, list/speech_args)
+TYPE_PROC_REF(/datum/species/synth, handle_speech)(datum/source, list/speech_args)
 	if (isliving(source)) // yeah it's gonna be living but just to be clean
 		var/mob/living/L = source
 		if(fake_species && L.health > disguise_fail_health)

@@ -46,7 +46,7 @@ BONUS
 					to_chat(H, span_warning("Your hair starts to fall out in clumps..."))
 					addtimer(CALLBACK(src, PROC_REF(Shed), H, TRUE), 50)
 
-/datum/symptom/shedding/proc/Shed(mob/living/carbon/human/H, fullbald)
+TYPE_PROC_REF(/datum/symptom/shedding, Shed)(mob/living/carbon/human/H, fullbald)
 	if(fullbald)
 		H.facial_hair_style = "Shaved"
 		H.hair_style = "Bald"

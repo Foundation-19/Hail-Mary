@@ -67,7 +67,7 @@
 	landingDelay = 20 //Very speedy!
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 
-/obj/structure/closet/supplypod/proc/specialisedPod()
+TYPE_PROC_REF(/obj/structure/closet/supplypod, specialisedPod)()
 	return 1
 
 /obj/structure/closet/supplypod/extractionpod/specialisedPod(atom/movable/holder)
@@ -87,7 +87,7 @@
 	else
 		. += "[icon_state]_door"
 
-/obj/structure/closet/supplypod/proc/setStyle(chosenStyle, duringInit = FALSE) //Used to give the sprite an icon state, name, and description
+TYPE_PROC_REF(/obj/structure/closet/supplypod, setStyle)(chosenStyle, duringInit = FALSE) //Used to give the sprite an icon state, name, and description
 	if (!duringInit && style == chosenStyle) //Check if the input style is already the same as the pod's style. This happens in centcom_podlauncher, and as such we set the style to STYLE_CENTCOM.
 		setStyle(STYLE_CENTCOM) //We make sure to not check this during initialize() so the standard supplypod works correctly.
 		return
@@ -113,7 +113,7 @@
 /obj/structure/closet/supplypod/toggle(mob/living/user) //Supplypods shouldn't be able to be manually opened under any circumstances, as the open() proc generates supply order datums
 	return
 
-/obj/structure/closet/supplypod/proc/handleReturningClose(atom/movable/holder, returntobay)
+TYPE_PROC_REF(/obj/structure/closet/supplypod, handleReturningClose)(atom/movable/holder, returntobay)
 	opened = FALSE
 	INVOKE_ASYNC(holder, PROC_REF(setClosed)) //Use the INVOKE_ASYNC proc to call setClosed() on whatever the holder may be, without giving the atom/movable base class a setClosed() proc definition
 	for(var/atom/movable/O in get_turf(holder))
@@ -137,7 +137,7 @@
 		stay_after_drop = FALSE
 		specialisedPod(holder) // Do special actions for specialised pods - this is likely if we were already doing manual launches
 
-/obj/structure/closet/supplypod/proc/preOpen() //Called before the open() proc. Handles anything that occurs right as the pod lands.
+TYPE_PROC_REF(/obj/structure/closet/supplypod, preOpen)() //Called before the open() proc. Handles anything that occurs right as the pod lands.
 	var/turf/T = get_turf(src)
 	var/list/B = explosionSize //Mostly because B is more readable than explosionSize :p
 	if (landingSound)
@@ -211,7 +211,7 @@
 		if(!stay_after_drop) // Departing should be handled manually
 			addtimer(CALLBACK(src, PROC_REF(depart), holder), departureDelay) //Finish up the pod's duties after a certain amount of time
 
-/obj/structure/closet/supplypod/proc/depart(atom/movable/holder)
+TYPE_PROC_REF(/obj/structure/closet/supplypod, depart)(atom/movable/holder)
 	if (leavingSound)
 		playsound(get_turf(holder), leavingSound, soundVolume, 0, 0)
 	if (reversing) //If we're reversing, we call the close proc. This sends the pod back up to centcom
@@ -230,17 +230,17 @@
 	. = ..()
 	return
 
-/obj/structure/closet/supplypod/extractionpod/proc/send_up(atom/movable/holder)
+TYPE_PROC_REF(/obj/structure/closet/supplypod/extractionpod, send_up)(atom/movable/holder)
 	if(!holder)
 		holder = src
 	if(leavingSound)
 		playsound(get_turf(holder), leavingSound, soundVolume, 0, 0)
 	handleReturningClose(holder, FALSE)
 
-/obj/structure/closet/supplypod/proc/setOpened() //Proc exists here, as well as in any atom that can assume the role of a "holder" of a supplypod. Check the open() proc for more details
+TYPE_PROC_REF(/obj/structure/closet/supplypod, setOpened)() //Proc exists here, as well as in any atom that can assume the role of a "holder" of a supplypod. Check the open() proc for more details
 	update_icon()
 
-/obj/structure/closet/supplypod/proc/setClosed() //Ditto
+TYPE_PROC_REF(/obj/structure/closet/supplypod, setClosed)() //Ditto
 	update_icon()
 
 /obj/structure/closet/supplypod/Destroy()
@@ -310,10 +310,10 @@
 		addtimer(CALLBACK(src, PROC_REF(playFallingSound)), soundStartTime)
 	addtimer(CALLBACK(src, PROC_REF(beginLaunch), pod.effectCircle), pod.landingDelay)
 
-/obj/effect/abstract/DPtarget/proc/playFallingSound()
+TYPE_PROC_REF(/obj/effect/abstract/DPtarget, playFallingSound)()
 	playsound(src, pod.fallingSound, pod.soundVolume, 1, 6)
 
-/obj/effect/abstract/DPtarget/proc/beginLaunch(effectCircle) //Begin the animation for the pod falling. The effectCircle param determines whether the pod gets to come in from any descent angle
+TYPE_PROC_REF(/obj/effect/abstract/DPtarget, beginLaunch)(effectCircle) //Begin the animation for the pod falling. The effectCircle param determines whether the pod gets to come in from any descent angle
 	fallingPod = new /obj/effect/abstract/DPfall(drop_location(), pod)
 	var/matrix/M = matrix(fallingPod.transform) //Create a new matrix that we can rotate
 	var/angle = effectCircle ? rand(0,360) : rand(70,110) //The angle that we can come in from
@@ -328,7 +328,7 @@
 	animate(fallingPod, pixel_z = 0, pixel_x = -16, time = pod.fallDuration, , easing = LINEAR_EASING) //Make the pod fall! At an angle!
 	addtimer(CALLBACK(src, PROC_REF(endLaunch)), pod.fallDuration, TIMER_CLIENT_TIME) //Go onto the last step after a very short falling animation
 
-/obj/effect/abstract/DPtarget/proc/endLaunch()
+TYPE_PROC_REF(/obj/effect/abstract/DPtarget, endLaunch)()
 	pod.update_icon()
 	pod.forceMove(drop_location()) //The fallingPod animation is over, now's a good time to forceMove the actual pod into position
 	QDEL_NULL(fallingPod) //Delete the falling pod effect, because at this point its animation is over. We dont use temp_visual because we want to manually delete it as soon as the pod appears

@@ -7,10 +7,10 @@
 /datum/nanite_program/sensor/register_extra_settings()
 	extra_settings[NES_SENT_CODE] = new /datum/nanite_extra_setting/number(0, 1, 9999)
 
-/datum/nanite_program/sensor/proc/check_event()
+TYPE_PROC_REF(/datum/nanite_program/sensor, check_event)()
 	return FALSE
 
-/datum/nanite_program/sensor/proc/send_code()
+TYPE_PROC_REF(/datum/nanite_program/sensor, send_code)()
 	if(activated)
 		var/datum/nanite_extra_setting/ES = extra_settings[NES_SENT_CODE]
 		SEND_SIGNAL(host_mob, COMSIG_NANITE_SIGNAL, ES.value, "a [name] program")
@@ -19,7 +19,7 @@
 	if(check_event())
 		send_code()
 
-/datum/nanite_program/sensor/proc/make_rule(datum/nanite_program/target)
+TYPE_PROC_REF(/datum/nanite_program/sensor, make_rule)(datum/nanite_program/target)
 	return
 
 /datum/nanite_program/sensor/repeat
@@ -250,7 +250,7 @@
 /datum/nanite_program/sensor/voice/on_mob_remove()
 	UnregisterSignal(host_mob, COMSIG_MOVABLE_HEAR, PROC_REF(on_hear))
 
-/datum/nanite_program/sensor/voice/proc/on_hear(datum/source, list/hearing_args)
+TYPE_PROC_REF(/datum/nanite_program/sensor/voice, on_hear)(datum/source, list/hearing_args)
 	var/datum/nanite_extra_setting/sentence = extra_settings[NES_SENTENCE]
 	var/datum/nanite_extra_setting/inclusive = extra_settings[NES_INCLUSIVE_MODE]
 	if(!sentence.get_value())

@@ -1,7 +1,7 @@
 #define EXTERNALREPLYCOUNT 2
 
 //allows right clicking mobs to send an admin PM to their client, forwards the selected mob's client to cmd_admin_pm
-/client/proc/cmd_admin_pm_context(mob/M in GLOB.mob_list)
+TYPE_PROC_REF(/client, cmd_admin_pm_context)(mob/M in GLOB.mob_list)
 	set category = null
 	set name = "Admin PM Mob"
 	if(!holder)
@@ -13,7 +13,7 @@
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Admin PM Mob") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 //shows a list of clients we could send PMs to, then forwards our choice to cmd_admin_pm
-/client/proc/cmd_admin_pm_panel()
+TYPE_PROC_REF(/client, cmd_admin_pm_panel)()
 	set category = "Admin"
 	set name = "Admin PM"
 	if(!holder)
@@ -34,7 +34,7 @@
 	cmd_admin_pm(targets[target],null)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Admin PM") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-/client/proc/cmd_ahelp_reply(whom)
+TYPE_PROC_REF(/client, cmd_ahelp_reply)(whom)
 	if(prefs.muted & MUTE_ADMINHELP)
 		to_chat(src, span_danger("Error: Admin-PM: You are unable to use admin PM-s (muted)."), confidential = TRUE)
 		return
@@ -70,7 +70,7 @@
 
 //takes input from cmd_admin_pm_context, cmd_admin_pm_panel or /client/Topic and sends them a PM.
 //Fetching a message if needed. src is the sender and C is the target client
-/client/proc/cmd_admin_pm(whom, msg)
+TYPE_PROC_REF(/client, cmd_admin_pm)(whom, msg)
 	if(prefs.muted & MUTE_ADMINHELP)
 		to_chat(src, span_danger("Error: Admin-PM: You are unable to use admin PM-s (muted)."), confidential = TRUE)
 		return
@@ -236,7 +236,7 @@
 			if(X.key!=key && X.key!=recipient.key)	//check client/X is an admin and isn't the sender or recipient
 				to_chat(X, "<span class='notice'><B>PM: [key_name(src, X, 0)]-&gt;[key_name(recipient, X, 0)]:</B> [keywordparsedmsg]</span>" , confidential = TRUE)
 
-/client/proc/popup_admin_pm(client/recipient, msg)
+TYPE_PROC_REF(/client, popup_admin_pm)(client/recipient, msg)
 	var/sender = src
 	var/sendername = key
 	var/reply = input(recipient, msg,"Admin PM from-[sendername]", "") as message|null	//show message and await a reply

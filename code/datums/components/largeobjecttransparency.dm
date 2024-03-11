@@ -64,7 +64,7 @@
 	UnregisterSignal(parent, COMSIG_MOVABLE_MOVED)
 	UnregisterFromTurfs()
 
-/datum/component/largetransparency/proc/RegisterWithTurfs()
+TYPE_PROC_REF(/datum/component/largetransparency, RegisterWithTurfs)()
 	var/turf/current_tu = get_turf(parent)
 	if(!current_tu)
 		return
@@ -86,24 +86,24 @@
 	if(amounthidden)
 		reduceAlpha()
 
-/datum/component/largetransparency/proc/UnregisterFromTurfs()
+TYPE_PROC_REF(/datum/component/largetransparency, UnregisterFromTurfs)()
 	var/list/signal_list = list(COMSIG_ATOM_ENTERED, COMSIG_ATOM_EXITED, COMSIG_TURF_CHANGE, COMSIG_ATOM_CREATED)
 	for(var/regist_tu in registered_turfs)
 		UnregisterSignal(regist_tu, signal_list)
 	registered_turfs.Cut()
 
-/datum/component/largetransparency/proc/OnMove()
+TYPE_PROC_REF(/datum/component/largetransparency, OnMove)()
 	SIGNAL_HANDLER
 	amounthidden = 0
 	restoreAlpha()
 	UnregisterFromTurfs()
 	RegisterWithTurfs()
 
-/datum/component/largetransparency/proc/OnTurfChange()
+TYPE_PROC_REF(/datum/component/largetransparency, OnTurfChange)()
 	SIGNAL_HANDLER
 	addtimer(CALLBACK(src, PROC_REF(OnMove)), 1, TIMER_UNIQUE|TIMER_OVERRIDE) //*pain
 
-/datum/component/largetransparency/proc/objectEnter(datum/source, atom/enterer)
+TYPE_PROC_REF(/datum/component/largetransparency, objectEnter)(datum/source, atom/enterer)
 	SIGNAL_HANDLER
 	if(!(enterer.flags_1 & CRITICAL_ATOM_1))
 		return
@@ -111,7 +111,7 @@
 		reduceAlpha()
 	amounthidden++
 
-/datum/component/largetransparency/proc/objectLeave(datum/source, atom/leaver)
+TYPE_PROC_REF(/datum/component/largetransparency, objectLeave)(datum/source, atom/leaver)
 	SIGNAL_HANDLER
 	if(!(leaver.flags_1 & CRITICAL_ATOM_1))
 		return
@@ -119,13 +119,13 @@
 	if(!amounthidden)
 		restoreAlpha()
 
-/datum/component/largetransparency/proc/reduceAlpha()
+TYPE_PROC_REF(/datum/component/largetransparency, reduceAlpha)()
 	var/atom/par_atom = parent
 	par_atom.alpha = target_alpha
 	if(toggle_click)
 		par_atom.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
-/datum/component/largetransparency/proc/restoreAlpha()
+TYPE_PROC_REF(/datum/component/largetransparency, restoreAlpha)()
 	var/atom/par_atom = parent
 	par_atom.alpha = initial_alpha
 	if(toggle_click)

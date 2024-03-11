@@ -37,7 +37,7 @@ post_signal(obj/source as obj|null, datum/signal/signal, var/filter as text|null
 		filter - described above.
 		range - radius of regular byond's square circle on that z-level. null means everywhere, on all z-levels.
 
-obj/proc/receive_signal(datum/signal/signal, receive_method as num, receive_param)
+TYPE_PROC_REF(obj, receive_signal)(datum/signal/signal, receive_method as num, receive_param)
 	Handler from received signals. By default does nothing. Define your own for your object.
 	Avoid of sending signals directly from this proc, use spawn(0). Do not use sleep() here please.
 	parameters:
@@ -94,7 +94,7 @@ GLOBAL_LIST_EMPTY(all_radios)
 
 //If range > 0, only post to devices on the same z_level and within range
 //Use range = -1, to restrain to the same z_level without limiting range
-/datum/radio_frequency/proc/post_signal(obj/source as obj|null, datum/signal/signal, filter = null as text|null, range = null as num|null)
+TYPE_PROC_REF(/datum/radio_frequency, post_signal)(obj/source as obj|null, datum/signal/signal, filter = null as text|null, range = null as num|null)
 	// Ensure the signal's data is fully filled
 	signal.source = source
 	signal.frequency = frequency
@@ -128,7 +128,7 @@ GLOBAL_LIST_EMPTY(all_radios)
 					continue
 			device.receive_signal(signal)
 
-/datum/radio_frequency/proc/add_listener(obj/device, filter as text|null)
+TYPE_PROC_REF(/datum/radio_frequency, add_listener)(obj/device, filter as text|null)
 	if (!filter)
 		filter = "_default"
 
@@ -138,7 +138,7 @@ GLOBAL_LIST_EMPTY(all_radios)
 	devices_line += device
 
 
-/datum/radio_frequency/proc/remove_listener(obj/device)
+TYPE_PROC_REF(/datum/radio_frequency, remove_listener)(obj/device)
 	for(var/devices_filter in devices)
 		var/list/devices_line = devices[devices_filter]
 		if(!devices_line)
@@ -148,7 +148,7 @@ GLOBAL_LIST_EMPTY(all_radios)
 			devices -= devices_filter
 
 
-/obj/proc/receive_signal(datum/signal/signal)
+TYPE_PROC_REF(/obj, receive_signal)(datum/signal/signal)
 	return
 
 /datum/signal

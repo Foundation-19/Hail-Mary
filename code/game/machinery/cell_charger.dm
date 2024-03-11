@@ -82,7 +82,7 @@
 	QDEL_NULL(charging)
 	return ..()
 
-/obj/machinery/cell_charger/proc/removecell()
+TYPE_PROC_REF(/obj/machinery/cell_charger, removecell)()
 	charging.update_icon()
 	charging = null
 	update_icon()

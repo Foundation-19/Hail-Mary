@@ -16,13 +16,13 @@
 	LAZYREMOVE(SSpersistence.folders, src)
 	..()
 
-/obj/item/folder/proc/PersistenceLoad()
+TYPE_PROC_REF(/obj/item/folder, PersistenceLoad)()
 	var/list/data = SSpersistence.GetFolders()
 	if(data)
 		if(data[persistenceID])
 			PopulatePaperFromList(data[persistenceID])
 
-/obj/item/folder/proc/PopulatePaperFromList(list/ids)
+TYPE_PROC_REF(/obj/item/folder, PopulatePaperFromList)(list/ids)
 	var/list/current_ids = StorePaperDataList()
 	for(var/i in ids)
 		if(i in current_ids)
@@ -33,7 +33,7 @@
 			P.forceMove(src)
 	update_icon()
 
-/obj/item/folder/proc/StorePaperDataList()
+TYPE_PROC_REF(/obj/item/folder, StorePaperDataList)()
 	var/list/L = list()
 	for(var/i in contents)
 		if(istype(i, /obj/item/paper))

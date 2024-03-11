@@ -10,7 +10,7 @@
 	var/require_all_chems = TRUE    //any on the list or all on the list?
 	var/silicons_obey_prob = FALSE
 
-/datum/surgery_step/proc/try_op(mob/user, mob/living/target, target_zone, obj/item/tool, datum/surgery/surgery, try_to_fail = FALSE)
+TYPE_PROC_REF(/datum/surgery_step, try_op)(mob/user, mob/living/target, target_zone, obj/item/tool, datum/surgery/surgery, try_to_fail = FALSE)
 	var/success = FALSE
 	if(accept_hand)
 		if(!tool)
@@ -49,7 +49,7 @@
 				surgery.status--
 	return FALSE
 
-/datum/surgery_step/proc/initiate(mob/user, mob/living/target, target_zone, obj/item/tool, datum/surgery/surgery, try_to_fail = FALSE)
+TYPE_PROC_REF(/datum/surgery_step, initiate)(mob/user, mob/living/target, target_zone, obj/item/tool, datum/surgery/surgery, try_to_fail = FALSE)
 	surgery.step_in_progress = TRUE
 	var/speed_mod = 1
 	var/advance = FALSE
@@ -84,27 +84,27 @@
 	surgery.step_in_progress = FALSE
 	return advance
 
-/datum/surgery_step/proc/preop(mob/user, mob/living/target, target_zone, obj/item/tool, datum/surgery/surgery)
+TYPE_PROC_REF(/datum/surgery_step, preop)(mob/user, mob/living/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	display_results(user, target, span_notice("You begin to perform surgery on [target]..."),
 		"[user] begins to perform surgery on [target].",
 		"[user] begins to perform surgery on [target].")
 
-/datum/surgery_step/proc/success(mob/user, mob/living/target, target_zone, obj/item/tool, datum/surgery/surgery)
+TYPE_PROC_REF(/datum/surgery_step, success)(mob/user, mob/living/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	display_results(user, target, span_notice("You succeed."),
 		"[user] succeeds!",
 		"[user] finishes.")
 	return TRUE
 
-/datum/surgery_step/proc/failure(mob/user, mob/living/target, target_zone, obj/item/tool, datum/surgery/surgery)
+TYPE_PROC_REF(/datum/surgery_step, failure)(mob/user, mob/living/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	display_results(user, target, span_warning("You screw up!"),
 		span_warning("[user] screws up!"),
 		"[user] finishes.", TRUE) //By default the patient will notice if the wrong thing has been cut
 	return FALSE
 
-/datum/surgery_step/proc/tool_check(mob/user, obj/item/tool)
+TYPE_PROC_REF(/datum/surgery_step, tool_check)(mob/user, obj/item/tool)
 	return TRUE
 
-/datum/surgery_step/proc/chem_check(mob/living/target)
+TYPE_PROC_REF(/datum/surgery_step, chem_check)(mob/living/target)
 	if(!LAZYLEN(chems_needed))
 		return TRUE
 	if(require_all_chems)
@@ -117,7 +117,7 @@
 		for(var/R in chems_needed)
 			if(target.reagents.has_reagent(R))
 				return TRUE
-/datum/surgery_step/proc/get_chem_list()
+TYPE_PROC_REF(/datum/surgery_step, get_chem_list)()
 	if(!LAZYLEN(chems_needed))
 		return
 	var/list/chems = list()
@@ -129,7 +129,7 @@
 	return english_list(chems, and_text = require_all_chems ? " and " : " or ")
 
 //Replaces visible_message during operations so only people looking over the surgeon can tell what they're doing, allowing for shenanigans.
-/datum/surgery_step/proc/display_results(mob/user, mob/living/carbon/target, self_message, detailed_message, vague_message, target_detailed = FALSE)
+TYPE_PROC_REF(/datum/surgery_step, display_results)(mob/user, mob/living/carbon/target, self_message, detailed_message, vague_message, target_detailed = FALSE)
 	var/list/detailed_mobs = get_hearers_in_view(1, user) //Only the surgeon and people looking over his shoulder can see the operation clearly
 	if(!target_detailed)
 		detailed_mobs -= target //The patient can't see well what's going on, unless it's something like getting cut

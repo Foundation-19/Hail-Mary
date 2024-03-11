@@ -27,13 +27,13 @@
 	unset_control() //remove from control computer
 	return ..()
 
-/obj/machinery/power/tracker/proc/set_control(obj/machinery/power/solar_control/SC)
+TYPE_PROC_REF(/obj/machinery/power/tracker, set_control)(obj/machinery/power/solar_control/SC)
 	unset_control()
 	control = SC
 	SC.connected_tracker = src
 
 //set the control of the tracker to null and removes it from the previous control computer if needed
-/obj/machinery/power/tracker/proc/unset_control()
+TYPE_PROC_REF(/obj/machinery/power/tracker, unset_control)()
 	if(control)
 		if(control.track == SOLAR_TRACK_AUTO)
 			control.track = SOLAR_TRACK_OFF
@@ -41,12 +41,12 @@
 		control = null
 
 ///Tell the controller to turn the solar panels
-/obj/machinery/power/tracker/proc/sun_update(datum/source, azimuth)
+TYPE_PROC_REF(/obj/machinery/power/tracker, sun_update)(datum/source, azimuth)
 	setDir(angle2dir(azimuth))
 	if(control && control.track == SOLAR_TRACK_AUTO)
 		control.set_panels(azimuth)
 
-/obj/machinery/power/tracker/proc/Make(obj/item/solar_assembly/S)
+TYPE_PROC_REF(/obj/machinery/power/tracker, Make)(obj/item/solar_assembly/S)
 	if(!S)
 		assembly = new /obj/item/solar_assembly
 		assembly.glass_type = new /obj/item/stack/sheet/glass(null, 2)

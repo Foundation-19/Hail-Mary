@@ -82,7 +82,7 @@
 	..() // activate = FALSE
 	user.update_mobility()
 
-/datum/action/bloodsucker/targeted/haste/proc/on_move()
+TYPE_PROC_REF(/datum/action/bloodsucker/targeted/haste, on_move)()
 	for(var/mob/living/L in dview(1, get_turf(owner)))
 		if(!hit[L] && (L != owner))
 			hit[L] = TRUE

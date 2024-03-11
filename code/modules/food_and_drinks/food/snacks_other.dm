@@ -425,7 +425,7 @@
 	head = mutable_appearance('icons/obj/lollipop.dmi', "lollipop_head")
 	change_head_color(rgb(rand(0, 255), rand(0, 255), rand(0, 255)))
 
-/obj/item/reagent_containers/food/snacks/lollipop/proc/change_head_color(C)
+TYPE_PROC_REF(/obj/item/reagent_containers/food/snacks/lollipop, change_head_color)(C)
 	headcolor = C
 	cut_overlay(head)
 	head.color = C
@@ -447,7 +447,7 @@
 	. = ..(user, slot)
 	spamchecking = FALSE
 
-/obj/item/reagent_containers/food/snacks/lollipop/cyborg/proc/spamcheck()
+TYPE_PROC_REF(/obj/item/reagent_containers/food/snacks/lollipop/cyborg, spamcheck)()
 	if(spamchecking)
 		qdel(src)
 
@@ -475,7 +475,7 @@
 	. = ..(user, slot)
 	spamchecking = FALSE
 
-/obj/item/reagent_containers/food/snacks/gumball/cyborg/proc/spamcheck()
+TYPE_PROC_REF(/obj/item/reagent_containers/food/snacks/gumball/cyborg, spamcheck)()
 	if(spamchecking)
 		qdel(src)
 
@@ -641,7 +641,7 @@
 			burnmallow(TRUE)
 	return ..()
 
-/obj/item/reagent_containers/food/snacks/marshmallow/proc/burnmallow(reallyburned = FALSE)
+TYPE_PROC_REF(/obj/item/reagent_containers/food/snacks/marshmallow, burnmallow)(reallyburned = FALSE)
 	if (reallyburned && burned == 1)
 		icon_state = "marshmallowrburned"
 	else if (burned == 0)

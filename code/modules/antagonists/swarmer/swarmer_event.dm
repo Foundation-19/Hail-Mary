@@ -20,7 +20,7 @@
 		swarmer_report += "<br><br>Our long-range sensors have detected an odd signal emanating from your station's gateway. We recommend immediate investigation of your gateway, as something may have come through."
 		print_command_report(swarmer_report, announce=TRUE)
 
-/datum/round_event/spawn_swarmer/proc/find_swarmer()
+TYPE_PROC_REF(/datum/round_event/spawn_swarmer, find_swarmer)()
 	for(var/i in GLOB.mob_living_list)
 		var/mob/living/L = i
 		if(istype(L, /mob/living/simple_animal/hostile/swarmer) && L.client) //If there is a swarmer with an active client, we've found our swarmer

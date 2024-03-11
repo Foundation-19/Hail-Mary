@@ -18,8 +18,8 @@
 	hud_type = /datum/hud/monkey
 
 /mob/living/carbon/monkey/Initialize(mapload, cubespawned=FALSE, mob/spawner)
-	add_verb(src, /mob/living/proc/mob_sleep)
-	add_verb(src, /mob/living/proc/lay_down)
+	add_verb(src, TYPE_PROC_REF(/mob/living, mob_sleep))
+	add_verb(src, TYPE_PROC_REF(/mob/living, lay_down))
 
 	if(unique_name) //used to exclude pun pun
 		gender = pick(MALE, FEMALE)

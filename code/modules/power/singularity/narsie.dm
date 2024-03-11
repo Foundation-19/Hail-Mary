@@ -69,7 +69,7 @@
 	soul_goal = round(1 + LAZYLEN(souls_needed) * 0.75)
 	INVOKE_ASYNC(src, PROC_REF(begin_the_end))
 
-/obj/singularity/narsie/large/cult/proc/begin_the_end()
+TYPE_PROC_REF(/obj/singularity/narsie/large/cult, begin_the_end)()
 	sleep(50)
 	priority_announce("An acausal dimensional event has been detected in your sector. Event has been flagged EXTINCTION-CLASS. Directing all available assets toward simulating solutions. SOLUTION ETA: 60 SECONDS.","Central Command Higher Dimensional Affairs", 'sound/misc/airraid.ogg')
 	sleep(500)
@@ -143,7 +143,7 @@
 	return
 
 
-/obj/singularity/narsie/proc/pickcultist() //Narsie rewards her cultists with being devoured first, then picks a ghost to follow.
+TYPE_PROC_REF(/obj/singularity/narsie, pickcultist)() //Narsie rewards her cultists with being devoured first, then picks a ghost to follow.
 	var/list/cultists = list()
 	var/list/noncultists = list()
 	for(var/obj/structure/destructible/clockwork/massive/ratvar/enemy in GLOB.poi_list) //Prioritize killing Ratvar
@@ -183,7 +183,7 @@
 		return
 
 
-/obj/singularity/narsie/proc/acquire(atom/food)
+TYPE_PROC_REF(/obj/singularity/narsie, acquire)(atom/food)
 	if(food == target)
 		return
 	to_chat(target, "<span class='cultsmall'>NAR'SIE HAS LOST INTEREST IN YOU.</span>")
@@ -208,7 +208,7 @@
 	return
 
 
-/obj/singularity/narsie/proc/narsie_spawn_animation()
+TYPE_PROC_REF(/obj/singularity/narsie, narsie_spawn_animation)()
 	icon = 'icons/obj/narsie_spawn_anim.dmi'
 	setDir(SOUTH)
 	move_self = 0

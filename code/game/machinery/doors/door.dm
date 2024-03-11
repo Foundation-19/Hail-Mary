@@ -68,7 +68,7 @@
 	real_explosion_block = explosion_block
 	explosion_block = EXPLOSION_BLOCK_PROC
 
-/obj/machinery/door/proc/set_init_door_layer()
+TYPE_PROC_REF(/obj/machinery/door, set_init_door_layer)()
 	if(density)
 		layer = closingLayer
 	else
@@ -132,7 +132,7 @@
 		return !opacity
 	return !density
 
-/obj/machinery/door/proc/bumpopen(mob/user)
+TYPE_PROC_REF(/obj/machinery/door, bumpopen)(mob/user)
 	if(operating)
 		return
 	src.add_fingerprint(user)
@@ -154,7 +154,7 @@
 		return
 	..()
 
-/obj/machinery/door/proc/try_to_lockpick(obj/item/lockpick_set/picking, mob/user)
+TYPE_PROC_REF(/obj/machinery/door, try_to_lockpick)(obj/item/lockpick_set/picking, mob/user)
 	if(!istype(picking))
 		return FALSE
 
@@ -237,7 +237,7 @@
 	picking.in_use = FALSE
 	picking.use_pick(user)
 
-/obj/machinery/door/proc/try_to_activate_door(mob/user, force_open)
+TYPE_PROC_REF(/obj/machinery/door, try_to_activate_door)(mob/user, force_open)
 	add_fingerprint(user)
 	if(operating || (obj_flags & EMAGGED))
 		return
@@ -259,16 +259,16 @@
 		return TRUE
 	return ..()
 
-/obj/machinery/door/proc/unrestricted_side(mob/M) //Allows for specific side of airlocks to be unrestrected (IE, can exit maint freely, but need access to enter)
+TYPE_PROC_REF(/obj/machinery/door, unrestricted_side)(mob/M) //Allows for specific side of airlocks to be unrestrected (IE, can exit maint freely, but need access to enter)
 	return get_dir(src, M) & unres_sides
 
-/obj/machinery/door/proc/try_to_weld(obj/item/weldingtool/W, mob/user)
+TYPE_PROC_REF(/obj/machinery/door, try_to_weld)(obj/item/weldingtool/W, mob/user)
 	return
 
-/obj/machinery/door/proc/try_to_crowbar(obj/item/I, mob/user)
+TYPE_PROC_REF(/obj/machinery/door, try_to_crowbar)(obj/item/I, mob/user)
 	return
 
-/obj/machinery/door/proc/is_holding_pressure()
+TYPE_PROC_REF(/obj/machinery/door, is_holding_pressure)()
 	var/turf/open/T = loc
 	if(!T)
 		return FALSE
@@ -345,7 +345,7 @@
 	if(prob(severity/5) && (istype(src, /obj/machinery/door/airlock) || istype(src, /obj/machinery/door/window)) )
 		INVOKE_ASYNC(src, PROC_REF(open))
 
-/obj/machinery/door/proc/unelectrify()
+TYPE_PROC_REF(/obj/machinery/door, unelectrify)()
 	secondsElectrified = MACHINE_NOT_ELECTRIFIED
 
 /obj/machinery/door/update_icon_state()
@@ -354,7 +354,7 @@
 	else
 		icon_state = "door0"
 
-/obj/machinery/door/proc/do_animate(animation)
+TYPE_PROC_REF(/obj/machinery/door, do_animate)(animation)
 	switch(animation)
 		if("opening")
 			if(panel_open)
@@ -371,7 +371,7 @@
 				flick("door_deny", src)
 
 
-/obj/machinery/door/proc/open()
+TYPE_PROC_REF(/obj/machinery/door, open)()
 	if(!density)
 		return 1
 	if(operating)
@@ -391,7 +391,7 @@
 	autoclose_in(autoclose)
 	return 1
 
-/obj/machinery/door/proc/close()
+TYPE_PROC_REF(/obj/machinery/door, close)()
 	if(density)
 		return TRUE
 	if(operating || welded)
@@ -424,12 +424,12 @@
 		crush()
 	return 1
 
-/obj/machinery/door/proc/CheckForMobs()
+TYPE_PROC_REF(/obj/machinery/door, CheckForMobs)()
 	if(locate(/mob/living) in get_turf(src))
 		sleep(1)
 		open()
 
-/obj/machinery/door/proc/crush()
+TYPE_PROC_REF(/obj/machinery/door, crush)()
 	for(var/mob/living/L in get_turf(src))
 		L.visible_message(span_warning("[src] closes on [L], crushing [L.p_them()]!"), span_userdanger("[src] closes on you and crushes you!"))
 		if(iscarbon(L))
@@ -459,20 +459,20 @@
 	for(var/obj/mecha/M in get_turf(src))
 		M.take_damage(DOOR_CRUSH_DAMAGE)
 
-/obj/machinery/door/proc/autoclose()
+TYPE_PROC_REF(/obj/machinery/door, autoclose)()
 	if(!QDELETED(src) && !density && !operating && !locked && !welded && autoclose)
 		close()
 
-/obj/machinery/door/proc/autoclose_in(wait)
+TYPE_PROC_REF(/obj/machinery/door, autoclose_in)(wait)
 	addtimer(CALLBACK(src, PROC_REF(autoclose)), wait, TIMER_UNIQUE | TIMER_NO_HASH_WAIT | TIMER_OVERRIDE)
 
-/obj/machinery/door/proc/requiresID()
+TYPE_PROC_REF(/obj/machinery/door, requiresID)()
 	return 1
 
-/obj/machinery/door/proc/hasPower()
+TYPE_PROC_REF(/obj/machinery/door, hasPower)()
 	return !(stat & NOPOWER)
 
-/obj/machinery/door/proc/update_freelook_sight()
+TYPE_PROC_REF(/obj/machinery/door, update_freelook_sight)()
 	if(!glass && GLOB.cameranet)
 		GLOB.cameranet.updateVisibility(src, 0)
 
@@ -487,17 +487,17 @@
 /obj/machinery/door/get_dumping_location(obj/item/storage/source,mob/user)
 	return null
 
-/obj/machinery/door/proc/lock()
+TYPE_PROC_REF(/obj/machinery/door, lock)()
 	return
 
-/obj/machinery/door/proc/unlock()
+TYPE_PROC_REF(/obj/machinery/door, unlock)()
 	return
 
-/obj/machinery/door/proc/hostile_lockdown(mob/origin)
+TYPE_PROC_REF(/obj/machinery/door, hostile_lockdown)(mob/origin)
 	if(!stat) //So that only powered doors are closed.
 		close() //Close ALL the doors!
 
-/obj/machinery/door/proc/disable_lockdown()
+TYPE_PROC_REF(/obj/machinery/door, disable_lockdown)()
 	if(!stat) //Opens only powered doors.
 		open() //Open everything!
 

@@ -44,7 +44,7 @@
 	A.attack_ghost(src)
 
 // Oh by the way this didn't work with old click code which is why clicking shit didn't spam you
-/atom/proc/attack_ghost(mob/dead/observer/user)
+TYPE_PROC_REF(/atom, attack_ghost)(mob/dead/observer/user)
 	if(SEND_SIGNAL(src, COMSIG_ATOM_ATTACK_GHOST, user) & COMPONENT_NO_ATTACK_HAND)
 		return TRUE
 	if(user.client)

@@ -32,7 +32,7 @@
 	suicide_mob = REF(user)
 	return MANUAL_SUICIDE
 
-/obj/item/assembly/signaler/proc/manual_suicide(datum/mind/suicidee)
+TYPE_PROC_REF(/obj/item/assembly/signaler, manual_suicide)(datum/mind/suicidee)
 	var/mob/living/user = suicidee.current
 	if(!istype(user))
 		return
@@ -121,7 +121,7 @@
 			to_chat(user, "You transfer the frequency and code of \the [signaler2.name] to \the [name]")
 	..()
 
-/obj/item/assembly/signaler/proc/signal()
+TYPE_PROC_REF(/obj/item/assembly/signaler, signal)()
 	if(!radio_connection)
 		return
 
@@ -152,7 +152,7 @@
 			LM.playsound_local(get_turf(src), 'sound/machines/triple_beep.ogg', ASSEMBLY_BEEP_VOLUME, TRUE)
 	return TRUE
 
-/obj/item/assembly/signaler/proc/set_frequency(new_frequency)
+TYPE_PROC_REF(/obj/item/assembly/signaler, set_frequency)(new_frequency)
 	SSradio.remove_object(src, frequency)
 	frequency = new_frequency
 	radio_connection = SSradio.add_object(src, frequency, RADIO_SIGNALER)
@@ -164,7 +164,7 @@
 /obj/item/assembly/signaler/receiver
 	var/on = FALSE
 
-/obj/item/assembly/signaler/receiver/proc/toggle_safety()
+TYPE_PROC_REF(/obj/item/assembly/signaler/receiver, toggle_safety)()
 	on = !on
 
 /obj/item/assembly/signaler/receiver/activate()

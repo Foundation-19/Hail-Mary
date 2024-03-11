@@ -183,7 +183,7 @@
 	..()
 	user.remove_alt_appearance("standard_borg_disguise")
 
-/obj/item/clothing/suit/cardborg/proc/disguise(mob/living/carbon/human/H, obj/item/clothing/head/cardborg/borghead)
+TYPE_PROC_REF(/obj/item/clothing/suit/cardborg, disguise)(mob/living/carbon/human/H, obj/item/clothing/head/cardborg/borghead)
 	if(istype(H))
 		if(!borghead)
 			borghead = H.head

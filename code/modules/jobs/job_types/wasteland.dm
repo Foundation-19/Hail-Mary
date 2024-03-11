@@ -171,7 +171,7 @@ Raider
 */
 
 	H.social_faction = FACTION_RAIDERS
-	add_verb(H, /mob/living/proc/creategang)
+	add_verb(H, TYPE_PROC_REF(/mob/living, creategang))
 
 /datum/outfit/loadout/raider_sadist
 	name = "Sadist"
@@ -503,7 +503,7 @@ Raider
 */
 
 	H.social_faction = FACTION_RAIDERS
-	add_verb(H, /mob/living/proc/creategang)
+	add_verb(H, TYPE_PROC_REF(/mob/living, creategang))
 
 
 /datum/outfit/loadout/raider_sheriff
@@ -779,7 +779,7 @@ Raider
 */
 
 	H.social_faction = FACTION_RAIDERS
-	add_verb(H, /mob/living/proc/creategang)
+	add_verb(H, TYPE_PROC_REF(/mob/living, creategang))
 
 
 /datum/outfit/loadout/tribal_drifter

@@ -85,7 +85,7 @@
 	if(!beehome)
 		. += span_warning("This bee is homeless!")
 
-/mob/living/simple_animal/hostile/poison/bees/proc/generate_bee_visuals()
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/poison/bees, generate_bee_visuals)()
 	cut_overlays()
 
 	var/col = BEE_DEFAULT_COLOUR
@@ -147,14 +147,14 @@
 				L.reagents.add_reagent(beegent.type, rand(1,5))
 
 
-/mob/living/simple_animal/hostile/poison/bees/proc/assign_reagent(datum/reagent/R)
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/poison/bees, assign_reagent)(datum/reagent/R)
 	if(istype(R))
 		beegent = R
 		name = "[initial(name)] ([R.name])"
 		generate_bee_visuals()
 
 
-/mob/living/simple_animal/hostile/poison/bees/proc/pollinate(obj/machinery/hydroponics/Hydro)
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/poison/bees, pollinate)(obj/machinery/hydroponics/Hydro)
 	if(!istype(Hydro) || !Hydro.myseed || Hydro.dead || Hydro.recent_bee_visit)
 		LoseTarget()
 		return
@@ -241,7 +241,7 @@
 	return
 
 
-/mob/living/simple_animal/hostile/poison/bees/proc/reagent_incompatible(mob/living/simple_animal/hostile/poison/bees/B)
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/poison/bees, reagent_incompatible)(mob/living/simple_animal/hostile/poison/bees/B)
 	if(!B)
 		return FALSE
 	if(B.beegent && beegent && B.beegent.type != beegent.type || B.beegent && !beegent || !B.beegent && beegent)

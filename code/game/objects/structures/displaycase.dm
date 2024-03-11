@@ -50,7 +50,7 @@
 		. += trophy_message
 
 
-/obj/structure/displaycase/proc/dump()
+TYPE_PROC_REF(/obj/structure/displaycase, dump)()
 	if (showpiece)
 		showpiece.forceMove(loc)
 		showpiece = null
@@ -79,7 +79,7 @@
 		update_icon()
 		trigger_alarm()
 
-/obj/structure/displaycase/proc/trigger_alarm()
+TYPE_PROC_REF(/obj/structure/displaycase, trigger_alarm)()
 	//Activate Anti-theft
 	if(alert)
 		var/area/alarmed = get_base_area(src)
@@ -152,7 +152,7 @@
 	else
 		return ..()
 
-/obj/structure/displaycase/proc/toggle_lock(mob/user)
+TYPE_PROC_REF(/obj/structure/displaycase, toggle_lock)(mob/user)
 	open = !open
 	update_icon()
 

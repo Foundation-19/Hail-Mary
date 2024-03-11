@@ -7,5 +7,5 @@
 	. = ..()
 	valid_slots = _valid_slots
 
-/datum/component/wearertargeting/earprotection/proc/reducebang(datum/source, list/reflist)
+TYPE_PROC_REF(/datum/component/wearertargeting/earprotection, reducebang)(datum/source, list/reflist)
 	reflist[1]--

@@ -1,11 +1,11 @@
 
-/client/proc/callproc()
+TYPE_PROC_REF(/client, callproc)()
 	set category = "Debug"
 	set name = "Advanced ProcCall"
 	set waitfor = FALSE
 	callproc_blocking()
 
-/client/proc/callproc_blocking(list/get_retval)
+TYPE_PROC_REF(/client, callproc_blocking)(list/get_retval)
 	if(!check_rights(R_DEBUG))
 		return
 
@@ -118,7 +118,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		GLOB.AdminProcCaller = null
 
 //adv proc call this, ya nerds
-/world/proc/WrapAdminProcCall(datum/target, procname, list/arguments)
+TYPE_PROC_REF(/world, WrapAdminProcCall)(datum/target, procname, list/arguments)
 	if(target == GLOBAL_PROC)
 		return call(text2path("/proc/[procname]"))(arglist(arguments))
 	else if(target != world)
@@ -133,7 +133,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	return usr && usr.client && GLOB.AdminProcCaller == usr.client.ckey
 #endif
 
-/client/proc/callproc_datum(datum/A as null|area|mob|obj|turf)
+TYPE_PROC_REF(/client, callproc_datum)(datum/A as null|area|mob|obj|turf)
 	set category = "Debug"
 	set name = "Atom ProcCall"
 	set waitfor = FALSE
@@ -165,7 +165,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	if(.)
 		to_chat(usr, .)
 
-/client/proc/get_callproc_args()
+TYPE_PROC_REF(/client, get_callproc_args)()
 	var/argnum = input("Number of arguments","Number:",0) as num|null
 	if(isnull(argnum))
 		return
@@ -184,7 +184,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	if(LAZYLEN(named_args))
 		. += named_args
 
-/client/proc/get_callproc_returnval(returnval,procname)
+TYPE_PROC_REF(/client, get_callproc_returnval)(returnval,procname)
 	. = ""
 	if(islist(returnval))
 		var/list/returnedlist = returnval

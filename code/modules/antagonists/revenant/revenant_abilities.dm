@@ -16,7 +16,7 @@
 
 
 //Harvest; activated ly clicking the target, will try to drain their essence.
-/mob/living/simple_animal/revenant/proc/Harvest(mob/living/carbon/human/target)
+TYPE_PROC_REF(/mob/living/simple_animal/revenant, Harvest)(mob/living/carbon/human/target)
 	set waitfor = FALSE
 	if(!castcheck(0))
 		return
@@ -150,7 +150,7 @@
 		return FALSE
 	return TRUE
 
-/obj/effect/proc_holder/spell/aoe_turf/revenant/proc/attempt_cast(mob/living/simple_animal/revenant/user = usr)
+TYPE_PROC_REF(/obj/effect/proc_holder/spell/aoe_turf/revenant, attempt_cast)(mob/living/simple_animal/revenant/user = usr)
 	if(!istype(user)) //If you're not a revenant, it works. Please, please, please don't give this to a non-revenant.
 		name = "[initial(name)]"
 		if(locked)
@@ -194,7 +194,7 @@
 		for(var/turf/T in targets)
 			INVOKE_ASYNC(src, PROC_REF(overload), T, user)
 
-/obj/effect/proc_holder/spell/aoe_turf/revenant/overload/proc/overload(turf/T, mob/user)
+TYPE_PROC_REF(/obj/effect/proc_holder/spell/aoe_turf/revenant/overload, overload)(turf/T, mob/user)
 	for(var/obj/machinery/light/L in T)
 		if(!L.on)
 			return
@@ -205,7 +205,7 @@
 		new /obj/effect/temp_visual/revenant(get_turf(L))
 		addtimer(CALLBACK(src, PROC_REF(overload_shock), L, user), 20)
 
-/obj/effect/proc_holder/spell/aoe_turf/revenant/overload/proc/overload_shock(obj/machinery/light/L, mob/user)
+TYPE_PROC_REF(/obj/effect/proc_holder/spell/aoe_turf/revenant/overload, overload_shock)(obj/machinery/light/L, mob/user)
 	if(!L.on) //wait, wait, don't shock me
 		return
 	flick("[L.base_state]2", L)
@@ -235,7 +235,7 @@
 		for(var/turf/T in targets)
 			INVOKE_ASYNC(src, PROC_REF(defile), T)
 
-/obj/effect/proc_holder/spell/aoe_turf/revenant/defile/proc/defile(turf/T)
+TYPE_PROC_REF(/obj/effect/proc_holder/spell/aoe_turf/revenant/defile, defile)(turf/T)
 	for(var/obj/effect/blessing/B in T)
 		qdel(B)
 		new /obj/effect/temp_visual/revenant(T)
@@ -286,7 +286,7 @@
 		for(var/turf/T in targets)
 			INVOKE_ASYNC(src, PROC_REF(malfunction), T, user)
 
-/obj/effect/proc_holder/spell/aoe_turf/revenant/malfunction/proc/malfunction(turf/T, mob/user)
+TYPE_PROC_REF(/obj/effect/proc_holder/spell/aoe_turf/revenant/malfunction, malfunction)(turf/T, mob/user)
 	for(var/mob/living/simple_animal/bot/bot in T)
 		if(!bot.emagged)
 			new /obj/effect/temp_visual/revenant(bot.loc)
@@ -332,7 +332,7 @@
 		for(var/turf/T in targets)
 			INVOKE_ASYNC(src, PROC_REF(blight), T, user)
 
-/obj/effect/proc_holder/spell/aoe_turf/revenant/blight/proc/blight(turf/T, mob/user)
+TYPE_PROC_REF(/obj/effect/proc_holder/spell/aoe_turf/revenant/blight, blight)(turf/T, mob/user)
 	for(var/mob/living/mob in T)
 		if(mob == user)
 			continue

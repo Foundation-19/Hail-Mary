@@ -13,7 +13,7 @@
 	var/bodyCensor
 	var/photo_file
 
-/datum/news/feed_message/proc/returnAuthor(censor)
+TYPE_PROC_REF(/datum/news/feed_message, returnAuthor)(censor)
 	if(censor == -1)
 		censor = authorCensor
 	var/txt = "[GLOB.news_network.redactedText]"
@@ -21,7 +21,7 @@
 		txt = author
 	return txt
 
-/datum/news/feed_message/proc/returnBody(censor)
+TYPE_PROC_REF(/datum/news/feed_message, returnBody)(censor)
 	if(censor == -1)
 		censor = bodyCensor
 	var/txt = "[GLOB.news_network.redactedText]"
@@ -29,7 +29,7 @@
 		txt = body
 	return txt
 
-/datum/news/feed_message/proc/toggleCensorAuthor()
+TYPE_PROC_REF(/datum/news/feed_message, toggleCensorAuthor)()
 	if(authorCensor)
 		authorCensorTime.Add(GLOB.news_network.lastAction*-1)
 	else
@@ -37,7 +37,7 @@
 	authorCensor = !authorCensor
 	GLOB.news_network.lastAction ++
 
-/datum/news/feed_message/proc/toggleCensorBody()
+TYPE_PROC_REF(/datum/news/feed_message, toggleCensorBody)()
 	if(bodyCensor)
 		bodyCensorTime.Add(GLOB.news_network.lastAction*-1)
 	else

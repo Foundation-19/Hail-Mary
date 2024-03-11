@@ -1,11 +1,11 @@
 //Thing meant for allowing datums and objects to access an NTnet network datum.
-/datum/proc/ntnet_receive(datum/netdata/data)
+TYPE_PROC_REF(/datum, ntnet_receive)(datum/netdata/data)
 	return
 
-/datum/proc/ntnet_receive_broadcast(datum/netdata/data)
+TYPE_PROC_REF(/datum, ntnet_receive_broadcast)(datum/netdata/data)
 	return
 
-/datum/proc/ntnet_send(datum/netdata/data, netid)
+TYPE_PROC_REF(/datum, ntnet_send)(datum/netdata/data, netid)
 	var/datum/component/ntnet_interface/NIC = GetComponent(/datum/component/ntnet_interface)
 	if(!NIC)
 		return FALSE
@@ -31,14 +31,14 @@
 	SSnetworks.unregister_interface(src)
 	return ..()
 
-/datum/component/ntnet_interface/proc/__network_receive(datum/netdata/data)			//Do not directly proccall!
+TYPE_PROC_REF(/datum/component/ntnet_interface, __network_receive)(datum/netdata/data)			//Do not directly proccall!
 	SEND_SIGNAL(parent, COMSIG_COMPONENT_NTNET_RECEIVE, data)
 	if(differentiate_broadcast && data.broadcast)
 		parent.ntnet_receive_broadcast(data)
 	else
 		parent.ntnet_receive(data)
 
-/datum/component/ntnet_interface/proc/__network_send(datum/netdata/data, netid)			//Do not directly proccall!
+TYPE_PROC_REF(/datum/component/ntnet_interface, __network_send)(datum/netdata/data, netid)			//Do not directly proccall!
 	// Process data before sending it
 	data.pre_send(src)
 
@@ -52,17 +52,17 @@
 		net.process_data_transmit(src, data)
 	return TRUE
 
-/datum/component/ntnet_interface/proc/register_connection(datum/ntnet/net)
+TYPE_PROC_REF(/datum/component/ntnet_interface, register_connection)(datum/ntnet/net)
 	if(net.interface_connect(src))
 		networks_connected_by_id[net.network_id] = net
 	return TRUE
 
-/datum/component/ntnet_interface/proc/unregister_all_connections()
+TYPE_PROC_REF(/datum/component/ntnet_interface, unregister_all_connections)()
 	for(var/i in networks_connected_by_id)
 		unregister_connection(networks_connected_by_id[i])
 	return TRUE
 
-/datum/component/ntnet_interface/proc/unregister_connection(datum/ntnet/net)
+TYPE_PROC_REF(/datum/component/ntnet_interface, unregister_connection)(datum/ntnet/net)
 	net.interface_disconnect(src)
 	networks_connected_by_id -= net.network_id
 	return TRUE

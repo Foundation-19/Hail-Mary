@@ -185,7 +185,7 @@
 	if(is_servant_of_ratvar(user) || isobserver(user))
 		. += span_brass("Can be consumed by a replica fabricator as a source of power.")
 
-/obj/item/clockwork/alloy_shards/proc/replace_name_desc()
+TYPE_PROC_REF(/obj/item/clockwork/alloy_shards, replace_name_desc)()
 	name = "replicant alloy shard"
 	desc = "A broken shard of some oddly malleable metal. It occasionally moves and seems to glow."
 	clockwork_desc = "A broken shard of replicant alloy."

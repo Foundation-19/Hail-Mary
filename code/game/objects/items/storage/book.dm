@@ -21,7 +21,7 @@ GLOBAL_LIST_INIT(biblenames, list("Bible", "Quran", "Scrapbook", "Burning Bible"
 GLOBAL_LIST_INIT(biblestates, list("bible", "koran", "scrapbook", "burning",       "honk1",       "honk2",        "creeper",       "white",       "holylight",   "atheist",          "tome",        "kingyellow",         "ithaqua", "scientology", "melted",       "necronomicon"))
 GLOBAL_LIST_INIT(bibleitemstates, list("bible", "koran", "scrapbook", "bible",         "bible",       "bible",        "syringe_kit",   "syringe_kit", "syringe_kit", "syringe_kit",      "syringe_kit", "kingyellow",         "ithaqua", "scientology", "melted",       "necronomicon"))
 
-/mob/proc/bible_check() //The bible, if held, might protect against certain things
+TYPE_PROC_REF(/mob, bible_check)() //The bible, if held, might protect against certain things
 	var/obj/item/storage/book/bible/B = locate() in src
 	if(is_holding(B))
 		return B
@@ -79,7 +79,7 @@ GLOBAL_LIST_INIT(bibleitemstates, list("bible", "koran", "scrapbook", "bible",  
  * Arguements: user The mob interacting with the menu
  */
 
-/obj/item/storage/book/bible/proc/check_menu(mob/living/carbon/human/user)
+TYPE_PROC_REF(/obj/item/storage/book/bible, check_menu)(mob/living/carbon/human/user)
 	if(GLOB.bible_icon_state)
 		return FALSE
 	if(!istype(user))
@@ -94,7 +94,7 @@ GLOBAL_LIST_INIT(bibleitemstates, list("bible", "koran", "scrapbook", "bible",  
 		return FALSE
 	return TRUE
 
-/obj/item/storage/book/bible/proc/bless(mob/living/carbon/human/H, mob/living/user)
+TYPE_PROC_REF(/obj/item/storage/book/bible, bless)(mob/living/carbon/human/H, mob/living/user)
 	for(var/X in H.bodyparts)
 		var/obj/item/bodypart/BP = X
 		if(BP.status == BODYPART_ROBOTIC)

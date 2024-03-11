@@ -1,4 +1,4 @@
-/client/proc/dsay(msg as text)
+TYPE_PROC_REF(/client, dsay)(msg as text)
 	set category = "Admin.Game"
 	set name = "Dsay"
 	set hidden = 1
@@ -38,7 +38,7 @@
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Dsay") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-/client/proc/get_dead_say()
+TYPE_PROC_REF(/client, get_dead_say)()
 	var/msg = input(src, null, "dsay \"text\"") as text|null
 
 	if (isnull(msg))

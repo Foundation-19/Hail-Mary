@@ -51,13 +51,13 @@
 	var/setup_error		//What stopepd setting up the mode.
 	var/flipseclevel = FALSE //CIT CHANGE - adds a 10% chance for the alert level to be the opposite of what the gamemode is supposed to have
 
-/datum/game_mode/proc/announce() //Shows the gamemode's name and a fast description.
+TYPE_PROC_REF(/datum/game_mode, announce)() //Shows the gamemode's name and a fast description.
 	to_chat(world, "<b>The gamemode is: <span class='[announce_span]'>[name]</span>!</b>")
 	to_chat(world, "<b>[announce_text]</b>")
 
 
 ///Checks to see if the game can be setup and ran with the current number of players or whatnot.
-/datum/game_mode/proc/can_start()
+TYPE_PROC_REF(/datum/game_mode, can_start)()
 	var/playerC = 0
 	for(var/mob/dead/new_player/player in GLOB.player_list)
 		if((player.client)&&(player.ready == PLAYER_READY_TO_PLAY))
@@ -76,11 +76,11 @@
 
 
 ///Attempts to select players for special roles the mode might have.
-/datum/game_mode/proc/pre_setup()
+TYPE_PROC_REF(/datum/game_mode, pre_setup)()
 	return 1
 
 ///Everyone should now be on the station and have their normal gear.  This is the place to give the special roles extra things
-/datum/game_mode/proc/post_setup(report) //Gamemodes can override the intercept report. Passing TRUE as the argument will force a report.
+TYPE_PROC_REF(/datum/game_mode, post_setup)(report) //Gamemodes can override the intercept report. Passing TRUE as the argument will force a report.
 	//finalize_monster_hunters() Disabled for now
 	if(!report)
 		report = !CONFIG_GET(flag/no_intercept_report)
@@ -108,14 +108,14 @@
 
 
 ///Handles late-join antag assignments
-/datum/game_mode/proc/make_antag_chance(mob/living/carbon/human/character)
+TYPE_PROC_REF(/datum/game_mode, make_antag_chance)(mob/living/carbon/human/character)
 	if(replacementmode && round_converted == 2)
 		replacementmode.make_antag_chance(character)
 	return
 
 
 ///Allows rounds to basically be "rerolled" should the initial premise fall through. Also known as mulligan antags.
-/datum/game_mode/proc/convert_roundtype()
+TYPE_PROC_REF(/datum/game_mode, convert_roundtype)()
 	set waitfor = FALSE
 	var/list/living_crew = list()
 
@@ -197,11 +197,11 @@
 	return 0
 
 //For things that do not die easily
-/datum/game_mode/proc/are_special_antags_dead()
+TYPE_PROC_REF(/datum/game_mode, are_special_antags_dead)()
 	return TRUE
 
 
-/datum/game_mode/proc/check_finished(force_ending) //to be called by SSticker
+TYPE_PROC_REF(/datum/game_mode, check_finished)(force_ending) //to be called by SSticker
 	if(!SSticker.setup_done || !gamemode_ready)
 		return FALSE
 	if(replacementmode && round_converted == 2)
@@ -254,10 +254,10 @@
 	return 0
 
 
-/datum/game_mode/proc/check_win() //universal trigger to be called at mob death, nuke explosion, etc. To be called from everywhere.
+TYPE_PROC_REF(/datum/game_mode, check_win)() //universal trigger to be called at mob death, nuke explosion, etc. To be called from everywhere.
 	return 0
 
-/datum/game_mode/proc/send_intercept()
+TYPE_PROC_REF(/datum/game_mode, send_intercept)()
 	if(flipseclevel && !(config_tag == "extended"))//CIT CHANGE - lets the security level be flipped roundstart
 		priority_announce("Thanks to the tireless efforts of our security and intelligence divisions, there are currently no credible threats to [station_name()]. All station construction projects have been authorized. Have a secure shift!", "Security Report", "commandreport")
 		return
@@ -313,7 +313,7 @@
 //More efficient if you use return list instead of calling this multiple times
 //fail_default_pick makes it use pick() instead of antag rep if it can't find anyone
 //allow_zero_if_insufficient allows it to pick people with zero rep if there isn't enough antags
-/datum/game_mode/proc/antag_pick(list/datum/mind/candidates, return_list = FALSE, fail_default_pick = TRUE, allow_zero_if_insufficient = TRUE)
+TYPE_PROC_REF(/datum/game_mode, antag_pick)(list/datum/mind/candidates, return_list = FALSE, fail_default_pick = TRUE, allow_zero_if_insufficient = TRUE)
 	if(!CONFIG_GET(flag/use_antag_rep)) // || candidates.len <= 1)
 		return pick(candidates)
 
@@ -345,7 +345,7 @@
 			SSpersistence.antag_rep_change[ckey] = -(curr_tickets[ckey] - free_tickets)		//deduct what they spent
 		var/mind = ckey_to_mind[ckey] || (allow_zero_if_insufficient? pick(insufficient) : null)		//we want their mind
 		if(!mind)		//no mind
-			var/warning = "WARNING: No antagonists were successfully picked by /datum/gamemode/proc/antag_pick()![fail_default_pick? " Defaulting to pick()!":""]"
+			var/warning = "WARNING: No antagonists were successfully picked by TYPE_PROC_REF(/datum/gamemode, antag_pick)()![fail_default_pick? " Defaulting to pick()!":""]"
 			message_admins(warning)
 			log_game(warning)
 			if(fail_default_pick)
@@ -370,7 +370,7 @@
 				var/datum/mind/M = pick_n_take(insufficient)
 				add += M
 		if(!length(rolled) && !length(add))		//if no one could normally roll AND no one can zero roll
-			var/warning = "WARNING: No antagonists were successfully picked by /datum/gamemode/proc/antag_pick()![fail_default_pick? " Defaulting to pick()!":""]"
+			var/warning = "WARNING: No antagonists were successfully picked by TYPE_PROC_REF(/datum/gamemode, antag_pick)()![fail_default_pick? " Defaulting to pick()!":""]"
 			message_admins(warning)
 			log_game(warning)
 			var/list/failed = list()
@@ -389,7 +389,7 @@
 			rolled += add
 		return rolled
 
-/datum/game_mode/proc/get_players_for_role(role)
+TYPE_PROC_REF(/datum/game_mode, get_players_for_role)(role)
 	var/list/players = list()
 	var/list/candidates = list()
 	var/list/drafted = list()
@@ -466,7 +466,7 @@
 
 
 
-/datum/game_mode/proc/num_players()
+TYPE_PROC_REF(/datum/game_mode, num_players)()
 	. = 0
 	for(var/mob/dead/new_player/P in GLOB.player_list)
 		if(P.client && P.ready == PLAYER_READY_TO_PLAY)
@@ -534,13 +534,13 @@
 		to_chat(C, msg.Join())
 
 //If the configuration option is set to require players to be logged as old enough to play certain jobs, then this proc checks that they are, otherwise it just returns 1
-/datum/game_mode/proc/age_check(client/C)
+TYPE_PROC_REF(/datum/game_mode, age_check)(client/C)
 	if(get_remaining_days(C) == 0)
 		return 1	//Available in 0 days = available right now = player is old enough to play.
 	return 0
 
 
-/datum/game_mode/proc/get_remaining_days(client/C)
+TYPE_PROC_REF(/datum/game_mode, get_remaining_days)(client/C)
 	if(!C)
 		return 0
 	if(C.prefs?.db_flags & DB_FLAG_EXEMPT)
@@ -554,13 +554,13 @@
 
 	return max(0, enemy_minimum_age - C.player_age)
 
-/datum/game_mode/proc/remove_antag_for_borging(datum/mind/newborgie)
+TYPE_PROC_REF(/datum/game_mode, remove_antag_for_borging)(datum/mind/newborgie)
 	SSticker.mode.remove_cultist(newborgie, 0, 0)
 	var/datum/antagonist/rev/rev = newborgie.has_antag_datum(/datum/antagonist/rev)
 	if(rev)
 		rev.remove_revolutionary(TRUE)
 
-/datum/game_mode/proc/generate_station_goals()
+TYPE_PROC_REF(/datum/game_mode, generate_station_goals)()
 	if(flipseclevel && !(config_tag == "extended")) //CIT CHANGE - allows the sec level to be flipped roundstart
 		for(var/T in subtypesof(/datum/station_goal))
 			var/datum/station_goal/G = new T
@@ -580,21 +580,21 @@
 		station_goals += new picked
 
 
-/datum/game_mode/proc/generate_report() //Generates a small text blurb for the gamemode in centcom report
+TYPE_PROC_REF(/datum/game_mode, generate_report)() //Generates a small text blurb for the gamemode in centcom report
 	return "Gamemode report for [name] not set.  Contact a coder."
 
 //By default nuke just ends the round
-/datum/game_mode/proc/OnNukeExplosion(off_station)
+TYPE_PROC_REF(/datum/game_mode, OnNukeExplosion)(off_station)
 	nuke_off_station = off_station
 	if(!off_station)
 		station_was_nuked = TRUE //Will end the round on next check.
 
 //Additional report section in roundend report
-/datum/game_mode/proc/special_report()
+TYPE_PROC_REF(/datum/game_mode, special_report)()
 	return
 
 //Set result and news report here
-/datum/game_mode/proc/set_round_result()
+TYPE_PROC_REF(/datum/game_mode, set_round_result)()
 	SSticker.mode_result = "undefined"
 	if(station_was_nuked)
 		SSticker.news_report = STATION_DESTROYED_NUKE
@@ -604,9 +604,9 @@
 			SSticker.news_report = SHUTTLE_HIJACK
 
 /// Mode specific admin panel.
-/datum/game_mode/proc/admin_panel()
+TYPE_PROC_REF(/datum/game_mode, admin_panel)()
 	return
 
 /// Mode specific info for ghost game_info
-/datum/game_mode/proc/ghost_info()
+TYPE_PROC_REF(/datum/game_mode, ghost_info)()
 	return

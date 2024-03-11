@@ -84,7 +84,7 @@
 		return
 	humanize_spider(user)
 
-/mob/living/simple_animal/hostile/poison/giant_spider/proc/humanize_spider(mob/user)
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/poison/giant_spider, humanize_spider)(mob/user)
 	if(key || !playable_spider || stat)//Someone is in it, it's dead, or the fun police are shutting it down
 		return FALSE
 	if(isobserver(user))
@@ -255,7 +255,7 @@
 				walk(src,0)
 		return 1
 
-/mob/living/simple_animal/hostile/poison/giant_spider/nurse/proc/GiveUp(C)
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/poison/giant_spider/nurse, GiveUp)(C)
 	spawn(100)
 		if(busy == MOVING_TO_TARGET)
 			if(cocoon_target == C && get_dist(src,cocoon_target) > 1)
@@ -308,7 +308,7 @@
 		busy = SPIDER_IDLE
 		stop_automated_movement = FALSE
 
-/mob/living/simple_animal/hostile/poison/giant_spider/nurse/proc/cocoon()
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/poison/giant_spider/nurse, cocoon)()
 	if(stat != DEAD && cocoon_target && !cocoon_target.anchored)
 		if(cocoon_target == src)
 			to_chat(src, span_warning("You can't wrap yourself!"))
@@ -408,7 +408,7 @@
 	activate(user)
 	return TRUE
 
-/obj/effect/proc_holder/wrap/proc/activate(mob/living/user)
+TYPE_PROC_REF(/obj/effect/proc_holder/wrap, activate)(mob/living/user)
 	var/message
 	if(active)
 		message = span_notice("You no longer prepare to wrap something in a cocoon.")
@@ -432,7 +432,7 @@
 		if(target_atom.anchored)
 			return
 		user.cocoon_target = target_atom
-		INVOKE_ASYNC(user, /mob/living/simple_animal/hostile/poison/giant_spider/nurse/.proc/cocoon)
+		INVOKE_ASYNC(user, TYPE_PROC_REF(/mob/living/simple_animal/hostile/poison/giant_spider/nurse, cocoon))
 		remove_ranged_ability()
 		return TRUE
 
@@ -521,7 +521,7 @@
 	spider_command(owner, input)
 	return TRUE
 
-/datum/action/innate/spider/comm/proc/spider_command(mob/living/user, message)
+TYPE_PROC_REF(/datum/action/innate/spider/comm, spider_command)(mob/living/user, message)
 	if(!message)
 		return
 	var/my_message

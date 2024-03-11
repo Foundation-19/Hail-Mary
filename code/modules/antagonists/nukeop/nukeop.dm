@@ -12,12 +12,12 @@
 	var/send_to_spawnpoint = TRUE //Should the user be moved to default spawnpoint.
 	var/nukeop_outfit = /datum/outfit/syndicate
 
-/datum/antagonist/nukeop/proc/update_synd_icons_added(mob/living/M)
+TYPE_PROC_REF(/datum/antagonist/nukeop, update_synd_icons_added)(mob/living/M)
 	var/datum/atom_hud/antag/opshud = GLOB.huds[ANTAG_HUD_OPS]
 	opshud.join_hud(M)
 	set_antag_hud(M, "synd")
 
-/datum/antagonist/nukeop/proc/update_synd_icons_removed(mob/living/M)
+TYPE_PROC_REF(/datum/antagonist/nukeop, update_synd_icons_removed)(mob/living/M)
 	var/datum/atom_hud/antag/opshud = GLOB.huds[ANTAG_HUD_OPS]
 	opshud.leave_hud(M)
 	set_antag_hud(M, null)
@@ -32,7 +32,7 @@
 	update_synd_icons_removed(M)
 	REMOVE_TRAIT(owner, TRAIT_DISK_VERIFIER, NUKEOP_TRAIT)
 
-/datum/antagonist/nukeop/proc/equip_op()
+TYPE_PROC_REF(/datum/antagonist/nukeop, equip_op)()
 	if(!ishuman(owner.current))
 		return
 	var/mob/living/carbon/human/H = owner.current
@@ -59,7 +59,7 @@
 /datum/antagonist/nukeop/get_team()
 	return nuke_team
 
-/datum/antagonist/nukeop/proc/assign_nuke()
+TYPE_PROC_REF(/datum/antagonist/nukeop, assign_nuke)()
 	if(nuke_team && !nuke_team.tracked_nuke)
 		nuke_team.memorized_code = random_nukecode()
 		var/obj/machinery/nuclearbomb/syndicate/nuke = locate() in GLOB.nuke_list
@@ -75,24 +75,24 @@
 			stack_trace("Syndicate nuke not found during nuke team creation.")
 			nuke_team.memorized_code = null
 
-/datum/antagonist/nukeop/proc/give_alias()
+TYPE_PROC_REF(/datum/antagonist/nukeop, give_alias)()
 	if(nuke_team && nuke_team.syndicate_name)
 		var/number = 1
 		number = nuke_team.members.Find(owner)
 		owner.current.real_name = "[nuke_team.syndicate_name] Operative #[number]"
 
-/datum/antagonist/nukeop/proc/memorize_code()
+TYPE_PROC_REF(/datum/antagonist/nukeop, memorize_code)()
 	if(nuke_team && nuke_team.tracked_nuke && nuke_team.memorized_code)
 		antag_memory += "<B>[nuke_team.tracked_nuke] Code</B>: [nuke_team.memorized_code]<br>"
 		to_chat(owner, "The nuclear authorization code is: <B>[nuke_team.memorized_code]</B>")
 	else
 		to_chat(owner, "Unfortunately the syndicate was unable to provide you with nuclear authorization code.")
 
-/datum/antagonist/nukeop/proc/forge_objectives()
+TYPE_PROC_REF(/datum/antagonist/nukeop, forge_objectives)()
 	if(nuke_team)
 		objectives |= nuke_team.objectives
 
-/datum/antagonist/nukeop/proc/move_to_spawnpoint()
+TYPE_PROC_REF(/datum/antagonist/nukeop, move_to_spawnpoint)()
 	var/team_number = 1
 	if(nuke_team)
 		team_number = nuke_team.members.Find(owner)
@@ -129,10 +129,10 @@
 	.["Send to base"] = CALLBACK(src,PROC_REF(admin_send_to_base))
 	.["Tell code"] = CALLBACK(src,PROC_REF(admin_tell_code))
 
-/datum/antagonist/nukeop/proc/admin_send_to_base(mob/admin)
+TYPE_PROC_REF(/datum/antagonist/nukeop, admin_send_to_base)(mob/admin)
 	owner.current.forceMove(pick(GLOB.nukeop_start))
 
-/datum/antagonist/nukeop/proc/admin_tell_code(mob/admin)
+TYPE_PROC_REF(/datum/antagonist/nukeop, admin_tell_code)(mob/admin)
 	var/code
 	for (var/obj/machinery/nuclearbomb/bombue in GLOB.machines)
 		if (length(bombue.r_code) <= 5 && bombue.r_code != initial(bombue.r_code))
@@ -179,12 +179,12 @@
 	addtimer(CALLBACK(src, PROC_REF(nuketeam_name_assign)), 1)
 
 
-/datum/antagonist/nukeop/leader/proc/nuketeam_name_assign()
+TYPE_PROC_REF(/datum/antagonist/nukeop/leader, nuketeam_name_assign)()
 	if(!nuke_team)
 		return
 	nuke_team.rename_team(ask_name())
 
-/datum/team/nuclear/proc/rename_team(new_name)
+TYPE_PROC_REF(/datum/team/nuclear, rename_team)(new_name)
 	syndicate_name = new_name
 	name = "[syndicate_name] Team"
 	for(var/I in members)
@@ -195,7 +195,7 @@
 		var/chosen_name = H.dna.species.random_name(H.gender,0,syndicate_name)
 		H.fully_replace_character_name(H.real_name,chosen_name)
 
-/datum/antagonist/nukeop/leader/proc/ask_name()
+TYPE_PROC_REF(/datum/antagonist/nukeop/leader, ask_name)()
 	var/randomname = pick(GLOB.last_names)
 	var/newname = stripped_input(owner.current,"You are the nuke operative [title]. Please choose a last name for your family.", "Name change",randomname)
 	if (!newname)
@@ -241,13 +241,13 @@
 	..()
 	syndicate_name = syndicate_name()
 
-/datum/team/nuclear/proc/update_objectives()
+TYPE_PROC_REF(/datum/team/nuclear, update_objectives)()
 	if(core_objective)
 		var/datum/objective/O = new core_objective
 		O.team = src
 		objectives += O
 
-/datum/team/nuclear/proc/disk_rescued()
+TYPE_PROC_REF(/datum/team/nuclear, disk_rescued)()
 	for(var/obj/item/disk/nuclear/D in GLOB.poi_list)
 		//If emergency shuttle is in transit disk is only safe on it
 		if(SSshuttle.emergency.mode == SHUTTLE_ESCAPE)
@@ -263,19 +263,19 @@
 				return FALSE
 	return TRUE
 
-/datum/team/nuclear/proc/operatives_dead()
+TYPE_PROC_REF(/datum/team/nuclear, operatives_dead)()
 	for(var/I in members)
 		var/datum/mind/operative_mind = I
 		if(ishuman(operative_mind.current) && (operative_mind.current.stat != DEAD))
 			return FALSE
 	return TRUE
 
-/datum/team/nuclear/proc/syndies_escaped()
+TYPE_PROC_REF(/datum/team/nuclear, syndies_escaped)()
 	var/obj/docking_port/mobile/S = SSshuttle.getShuttle("syndicate")
 	var/obj/docking_port/stationary/transit/T = locate() in S.loc
 	return S && (is_centcom_level(S.z) || T)
 
-/datum/team/nuclear/proc/get_result()
+TYPE_PROC_REF(/datum/team/nuclear, get_result)()
 	var/evacuation = EMERGENCY_ESCAPED_OR_ENDGAMED
 	var/disk_rescued = disk_rescued()
 	var/syndies_didnt_escape = !syndies_escaped()

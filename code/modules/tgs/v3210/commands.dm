@@ -2,7 +2,7 @@
 #define SERVICE_JSON_PARAM_ADMINONLY "admin_only"
 #define SERVICE_JSON_PARAM_REQUIREDPARAMETERS "required_parameters"
 
-/datum/tgs_api/v3210/proc/ListServiceCustomCommands(warnings_only)
+TYPE_PROC_REF(/datum/tgs_api/v3210, ListServiceCustomCommands)(warnings_only)
 	if(!warnings_only)
 		. = list()
 	var/list/command_name_types = list()
@@ -32,7 +32,7 @@
 		if(!warnings_only)
 			.[command_name] = list(SERVICE_JSON_PARAM_HELPTEXT = initial(stc.help_text), SERVICE_JSON_PARAM_ADMINONLY = initial(stc.admin_only), SERVICE_JSON_PARAM_REQUIREDPARAMETERS = 0)
 
-/datum/tgs_api/v3210/proc/HandleServiceCustomCommand(command, sender, params)
+TYPE_PROC_REF(/datum/tgs_api/v3210, HandleServiceCustomCommand)(command, sender, params)
 	if(!cached_custom_tgs_chat_commands)
 		cached_custom_tgs_chat_commands = list()
 		for(var/I in typesof(/datum/tgs_chat_command) - /datum/tgs_chat_command)

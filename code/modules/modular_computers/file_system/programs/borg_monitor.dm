@@ -65,7 +65,7 @@
 			usr.log_talk(message, LOG_PDA, tag="Cyborg Monitor Program: ID name \"[ID]\" to [R]")
 
 ///This proc is used to determin if a borg should be shown in the list (based on the borg's scrambledcodes var). Syndicate version overrides this to show only syndicate borgs.
-/datum/computer_file/program/borg_monitor/proc/evaluate_borg(mob/living/silicon/robot/R)
+TYPE_PROC_REF(/datum/computer_file/program/borg_monitor, evaluate_borg)(mob/living/silicon/robot/R)
 	if((get_turf(computer)).z != (get_turf(R)).z)
 		return FALSE
 	if(R.scrambledcodes)
@@ -73,7 +73,7 @@
 	return TRUE
 
 ///Gets the ID's name, if one is inserted into the device. This is a seperate proc solely to be overridden by the syndicate version of the app.
-/datum/computer_file/program/borg_monitor/proc/checkID()
+TYPE_PROC_REF(/datum/computer_file/program/borg_monitor, checkID)()
 	var/obj/item/card/id/ID = computer.GetID()
 	if(!ID)
 		return FALSE

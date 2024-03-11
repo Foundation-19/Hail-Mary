@@ -98,7 +98,7 @@ RLD
 		return ..()
 	update_icon()	//ensures that ammo counters (if present) get updated
 
-/obj/item/construction/proc/loadwithsheets(obj/item/stack/sheet/S, value, mob/user)
+TYPE_PROC_REF(/obj/item/construction, loadwithsheets)(obj/item/stack/sheet/S, value, mob/user)
 	var/maxsheets = round((max_matter-matter)/value)    //calculate the max number of sheets that will fit in RCD
 	if(maxsheets > 0)
 		var/amount_to_use = min(S.amount, maxsheets)
@@ -110,7 +110,7 @@ RLD
 	to_chat(user, span_warning("You can't insert any more [S.name] sheets into [src]!"))
 	return 0
 
-/obj/item/construction/proc/activate()
+TYPE_PROC_REF(/obj/item/construction, activate)()
 	playsound(src.loc, 'sound/items/deconstruct.ogg', 50, 1)
 
 /obj/item/construction/attack_self(mob/user)
@@ -118,7 +118,7 @@ RLD
 	if(prob(20))
 		spark_system.start()
 
-/obj/item/construction/proc/useResource(amount, mob/user)
+TYPE_PROC_REF(/obj/item/construction, useResource)(amount, mob/user)
 	if(matter < amount)
 		if(user)
 			to_chat(user, no_ammo_message)
@@ -127,7 +127,7 @@ RLD
 	update_icon()
 	return TRUE
 
-/obj/item/construction/proc/checkResource(amount, mob/user)
+TYPE_PROC_REF(/obj/item/construction, checkResource)(amount, mob/user)
 	. = matter >= amount
 	if(!. && user)
 		to_chat(user, no_ammo_message)
@@ -136,14 +136,14 @@ RLD
 	return .
 
 
-/obj/item/construction/proc/check_menu(mob/living/user)
+TYPE_PROC_REF(/obj/item/construction, check_menu)(mob/living/user)
 	if(!istype(user))
 		return FALSE
 	if(user.incapacitated() || !user.Adjacent(src))
 		return FALSE
 	return TRUE
 
-/obj/item/construction/proc/range_check(atom/A, mob/user)
+TYPE_PROC_REF(/obj/item/construction, range_check)(atom/A, mob/user)
 	if(!(A in range(custom_range, get_turf(user))))
 		to_chat(user, span_warning("The \'Out of Range\' light on [src] blinks red."))
 		return FALSE
@@ -193,7 +193,7 @@ RLD
 
 	toggle_window_type(usr)
 
-/obj/item/construction/rcd/proc/toggle_window_type(mob/user)
+TYPE_PROC_REF(/obj/item/construction/rcd, toggle_window_type)(mob/user)
 	var/window_type_name
 	if (window_type == /obj/structure/window/fulltile)
 		window_type = /obj/structure/window/reinforced/fulltile
@@ -256,7 +256,7 @@ RLD
 		toggle_access(href_list["access"])
 		change_airlock_access(usr)
 
-/obj/item/construction/rcd/proc/toggle_access(acc)
+TYPE_PROC_REF(/obj/item/construction/rcd, toggle_access)(acc)
 	if (acc == "all")
 		conf_access = null
 	else if(acc == "one")
@@ -274,7 +274,7 @@ RLD
 			if (!conf_access.len)
 				conf_access = null
 
-/obj/item/construction/rcd/proc/get_airlock_image(airlock_type)
+TYPE_PROC_REF(/obj/item/construction/rcd, get_airlock_image)(airlock_type)
 	var/obj/machinery/door/airlock/proto = airlock_type
 	var/ic = initial(proto.icon)
 	var/mutable_appearance/MA = mutable_appearance(ic, "closed")
@@ -283,7 +283,7 @@ RLD
 	//Not scaling these down to button size because they look horrible then, instead just bumping up radius.
 	return MA
 
-/obj/item/construction/rcd/proc/change_computer_dir(mob/user)
+TYPE_PROC_REF(/obj/item/construction/rcd, change_computer_dir)(mob/user)
 	if(!user)
 		return
 	var/list/computer_dirs = list(
@@ -305,7 +305,7 @@ RLD
 		if("WEST")
 			computer_dir = 8
 
-/obj/item/construction/rcd/proc/change_airlock_setting(mob/user)
+TYPE_PROC_REF(/obj/item/construction/rcd, change_airlock_setting)(mob/user)
 	if(!user)
 		return
 
@@ -443,7 +443,7 @@ RLD
 			airlock_glass = FALSE
 
 
-/obj/item/construction/rcd/proc/rcd_create(atom/A, mob/user)
+TYPE_PROC_REF(/obj/item/construction/rcd, rcd_create)(atom/A, mob/user)
 	var/list/rcd_results = A.rcd_vals(user, src)
 	if(!rcd_results)
 		return FALSE
@@ -526,7 +526,7 @@ RLD
 	playsound(src, 'sound/effects/pop.ogg', 50, 0)
 	to_chat(user, span_notice("You change RCD's mode to '[choice]'."))
 
-/obj/item/construction/rcd/proc/target_check(atom/A, mob/user) // only returns true for stuff the device can actually work with
+TYPE_PROC_REF(/obj/item/construction/rcd, target_check)(atom/A, mob/user) // only returns true for stuff the device can actually work with
 	if((isturf(A) && A.density && mode==RCD_DECONSTRUCT) || (isturf(A) && !A.density) || (istype(A, /obj/machinery/door/airlock) && mode==RCD_DECONSTRUCT) || istype(A, /obj/structure/grille) || (istype(A, /obj/structure/window) && mode==RCD_DECONSTRUCT) || istype(A, /obj/structure/girder))
 		return TRUE
 	else
@@ -543,14 +543,14 @@ RLD
 		return
 	rcd_create(A, user)
 
-/obj/item/construction/rcd/proc/detonate_pulse()
+TYPE_PROC_REF(/obj/item/construction/rcd, detonate_pulse)()
 	audible_message("<span class='danger'><b>[src] begins to vibrate and \
 		buzz loudly!</b></span>","<span class='danger'><b>[src] begins \
 		vibrating violently!</b></span>")
 	// 5 seconds to get rid of it
 	addtimer(CALLBACK(src, PROC_REF(detonate_pulse_explode)), 50)
 
-/obj/item/construction/rcd/proc/detonate_pulse_explode()
+TYPE_PROC_REF(/obj/item/construction/rcd, detonate_pulse_explode)()
 	explosion(src, 0, 0, 3, 1, flame_range = 1)
 	qdel(src)
 
@@ -728,7 +728,7 @@ RLD
 			to_chat(user, span_notice("You change RLD's mode to 'Deconstruct'."))
 
 
-/obj/item/construction/rld/proc/checkdupes(target)
+TYPE_PROC_REF(/obj/item/construction/rld, checkdupes)(target)
 	. = list()
 	var/turf/checking = get_turf(target)
 	for(var/obj/machinery/light/dupe in checking)
@@ -895,7 +895,7 @@ RLD
 	to_chat(user, span_notice("You change [name]s blueprint to '[choice]'."))
 
 ///pretty much rcd_create, but named differently to make myself feel less bad for copypasting from a sibling-type
-/obj/item/construction/plumbing/proc/create_machine(atom/A, mob/user)
+TYPE_PROC_REF(/obj/item/construction/plumbing, create_machine)(atom/A, mob/user)
 	if(!machinery_data || !isopenturf(A))
 		return FALSE
 
@@ -908,7 +908,7 @@ RLD
 				new blueprint (A, FALSE, FALSE)
 				return TRUE
 
-/obj/item/construction/plumbing/proc/canPlace(turf/T)
+TYPE_PROC_REF(/obj/item/construction/plumbing, canPlace)(turf/T)
 	if(!isopenturf(T))
 		return FALSE
 	. = TRUE

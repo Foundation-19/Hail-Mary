@@ -415,7 +415,7 @@
   - bugfix: Fixes being able to simultaneously perform an attack and a tackle as a
       xeno or monkey with right click and combat mode on.
   - bugfix: Venus human traps and swarmers' names are now numbered.
-  - bugfix: Deletes a duplicate chat feedback on [mob/carbon/proc/swap_hand()]
+  - bugfix: Deletes a duplicate chat feedback on [TYPE_PROC_REF(mob/carbon, swap_hand)()]
   - bugfix: Fixed ai monkeys appearing as catatonic on examine()
   - bugfix: Monkeys and dogs no longer yoink items they can't reach.
   - bugfix: Fixed morph speed being slower while undisguised and some old code related

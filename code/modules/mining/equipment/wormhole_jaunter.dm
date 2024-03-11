@@ -27,14 +27,14 @@
 	. = ..()
 	UnregisterSignal(user, COMSIG_MOVABLE_CHASM_DROP)
 
-/obj/item/wormhole_jaunter/proc/turf_check(mob/user)
+TYPE_PROC_REF(/obj/item/wormhole_jaunter, turf_check)(mob/user)
 	var/turf/device_turf = get_turf(user)
 	if(!device_turf || is_centcom_level(device_turf.z) || is_reserved_level(device_turf.z))
 		to_chat(user, span_notice("You're having difficulties getting the [src.name] to work."))
 		return FALSE
 	return TRUE
 
-/obj/item/wormhole_jaunter/proc/get_destinations(mob/user)
+TYPE_PROC_REF(/obj/item/wormhole_jaunter, get_destinations)(mob/user)
 	var/list/destinations = list()
 
 	for(var/obj/item/beacon/B in GLOB.teleportbeacons)
@@ -44,7 +44,7 @@
 
 	return destinations
 
-/obj/item/wormhole_jaunter/proc/activate(mob/user, adjacent, force_entry = FALSE)
+TYPE_PROC_REF(/obj/item/wormhole_jaunter, activate)(mob/user, adjacent, force_entry = FALSE)
 	if(!turf_check(user))
 		return
 
@@ -74,7 +74,7 @@
 				SSblackbox.record_feedback("tally", "jaunter", 1, "EMP") // EMP accidental activation
 				activate(M)
 
-/obj/item/wormhole_jaunter/proc/chasm_react(mob/source, datum/component/chasm/C)
+TYPE_PROC_REF(/obj/item/wormhole_jaunter, chasm_react)(mob/source, datum/component/chasm/C)
 	to_chat(source, "Your [name] activates, saving you from the chasm!</span>")
 	SSblackbox.record_feedback("tally", "jaunter", 1, "Chasm") // chasm automatic activation
 	activate(source, FALSE, TRUE)

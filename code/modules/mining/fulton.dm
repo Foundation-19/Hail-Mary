@@ -172,7 +172,7 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 	desc = "you shouldnt see this"
 	var/atom/movable/stored_obj
 
-/obj/item/extraction_pack/proc/check_for_living_mobs(atom/A)
+TYPE_PROC_REF(/obj/item/extraction_pack, check_for_living_mobs)(atom/A)
 	if(isliving(A))
 		var/mob/living/L = A
 		if(L.stat != DEAD)

@@ -14,7 +14,7 @@
 	var/special_a = DEFAULT_SPECIAL_ATTR_VALUE // +/- 10% Sprint stamina usage modifier -/+ 0.05 movespeed modifier per lvl below/above 5 AGI
 	var/special_l = DEFAULT_SPECIAL_ATTR_VALUE // Currently nothing
 
-/mob/proc/get_top_level_mob()
+TYPE_PROC_REF(/mob, get_top_level_mob)()
 	if(istype(src.loc,/mob)&&src.loc!=src)
 		var/mob/M=src.loc
 		return M.get_top_level_mob()
@@ -26,7 +26,7 @@ proc/get_top_level_mob(mob/S)
 		return M.get_top_level_mob()
 	return S
 
-/mob/proc/initialize_special_stats()
+TYPE_PROC_REF(/mob, initialize_special_stats)()
 	initialize_special_strength()
 	initialize_special_perception()
 	initialize_special_endurance()
@@ -35,40 +35,40 @@ proc/get_top_level_mob(mob/S)
 	initialize_special_agility()
 	initialize_special_luck()
 
-/mob/proc/initialize_special_strength()
+TYPE_PROC_REF(/mob, initialize_special_strength)()
 	return
 
-/mob/proc/initialize_special_perception()
+TYPE_PROC_REF(/mob, initialize_special_perception)()
 	return
 
-/mob/proc/initialize_special_endurance()
+TYPE_PROC_REF(/mob, initialize_special_endurance)()
 	return
 
-/mob/proc/initialize_special_charisma()
+TYPE_PROC_REF(/mob, initialize_special_charisma)()
 	return
 
-/mob/proc/initialize_special_intelligence()
+TYPE_PROC_REF(/mob, initialize_special_intelligence)()
 	return
 
-/mob/proc/initialize_special_agility()
+TYPE_PROC_REF(/mob, initialize_special_agility)()
 	return
 
-/mob/proc/initialize_special_luck()
+TYPE_PROC_REF(/mob, initialize_special_luck)()
 	return
 
 
 
 /// STRENGTH
 
-/obj/item/proc/calc_melee_dam_mod_from_special(mob/living/user)
+TYPE_PROC_REF(/obj/item, calc_melee_dam_mod_from_special)(mob/living/user)
 	return ((user.special_s - DEFAULT_SPECIAL_ATTR_VALUE) * 2)
 
-/datum/species/proc/calc_unarmed_dam_mod_from_special(mob/living/user)
+TYPE_PROC_REF(/datum/species, calc_unarmed_dam_mod_from_special)(mob/living/user)
 	return ((user.special_s - DEFAULT_SPECIAL_ATTR_VALUE) * 2)
 
 /// PERCEPTION
 
-/obj/item/ammo_casing/proc/calc_bullet_spread_mod_from_special(mob/living/user)
+TYPE_PROC_REF(/obj/item/ammo_casing, calc_bullet_spread_mod_from_special)(mob/living/user)
 	return ((user.special_p - DEFAULT_SPECIAL_ATTR_VALUE) * 5) // +/- 5 degrees of innate spread per lvl
 
 /// ENDURANCE
@@ -77,7 +77,7 @@ proc/get_top_level_mob(mob/S)
 	maxHealth = initial(maxHealth) + ((special_e - DEFAULT_SPECIAL_ATTR_VALUE) * 5)
 	health = maxHealth
 
-/datum/species/proc/get_special_burn_resist_multiplier(mob/living/user)
+TYPE_PROC_REF(/datum/species, get_special_burn_resist_multiplier)(mob/living/user)
 	switch(user.special_e)
 		if(1)
 			return 2
@@ -101,7 +101,7 @@ proc/get_top_level_mob(mob/S)
 			return 0.5
 	return 1
 
-/mob/living/proc/get_special_poison_resist_multiplier()
+TYPE_PROC_REF(/mob/living, get_special_poison_resist_multiplier)()
 	switch(special_e)
 		if(1)
 			return 2
@@ -136,7 +136,7 @@ proc/get_top_level_mob(mob/S)
 	return ..()
 
 
-/mob/proc/handle_special_charisma_examine_moodlet(mob/living/examinee, mob/living/examiner, text)
+TYPE_PROC_REF(/mob, handle_special_charisma_examine_moodlet)(mob/living/examinee, mob/living/examiner, text)
 	if(!istype(examiner))
 		return
 	if(src == examiner)
@@ -173,13 +173,13 @@ proc/get_top_level_mob(mob/S)
 
 /// INTELLIGENCE
 
-/obj/item/gun/proc/gun_firing_special_stat_check(mob/living/user)
+TYPE_PROC_REF(/obj/item/gun, gun_firing_special_stat_check)(mob/living/user)
 	if(user.special_i >= required_int_to_fire)
 		return TRUE
 	to_chat(user, "How do you use this thing?!")
 	return FALSE
 
-/datum/component/personal_crafting/proc/special_crafting_check(mob/living/user)
+TYPE_PROC_REF(/datum/component/personal_crafting, special_crafting_check)(mob/living/user)
 	if(!istype(user))
 		return FALSE
 	if(user.special_i <= MIN_INT_CRAFTING_REQUIREMENT)
@@ -187,21 +187,21 @@ proc/get_top_level_mob(mob/S)
 		return FALSE
 	return TRUE
 
-/datum/crafting_recipe/proc/special_crafting_requirements_check(mob/user)
+TYPE_PROC_REF(/datum/crafting_recipe, special_crafting_requirements_check)(mob/user)
 	return (user.special_i >= required_int)
 
-/datum/crafting_recipe/proc/generate_special_req_text()
+TYPE_PROC_REF(/datum/crafting_recipe, generate_special_req_text)()
 	return ", [required_int] Intelligence"
 
 /// AGILITY
 
-/mob/living/proc/calc_sprint_stamina_mod_from_special()
+TYPE_PROC_REF(/mob/living, calc_sprint_stamina_mod_from_special)()
 	return
 
 /mob/living/carbon/calc_sprint_stamina_mod_from_special()
 	return (1 - ((special_a - DEFAULT_SPECIAL_ATTR_VALUE) * 0.1))
 
-/mob/proc/calc_movespeed_mod_from_special()
+TYPE_PROC_REF(/mob, calc_movespeed_mod_from_special)()
 	return -((special_a - DEFAULT_SPECIAL_ATTR_VALUE) * 0.05)
 
 /// LUCK
@@ -210,7 +210,7 @@ proc/get_top_level_mob(mob/S)
 
 
 /// misc examine procs
-/mob/proc/generate_special_examine_text()
+TYPE_PROC_REF(/mob, generate_special_examine_text)()
 	var/msg = "*---------*" //S:[special_s],P:[special_p],E:[special_e],C:[special_c],I:[special_i],A:[special_a],L:[special_l]<br>"
 	msg += gen_strength_examine_text()
 	msg += gen_perception_examine_text()
@@ -222,25 +222,25 @@ proc/get_top_level_mob(mob/S)
 	msg += "<br> *---------*"
 	return msg
 
-/mob/proc/gen_strength_examine_text()
+TYPE_PROC_REF(/mob, gen_strength_examine_text)()
 	if(special_s <= 3)
 		return "<br>This person looks puny, like a total noodle."
 	if(special_s >= 7)
 		return "<br>Simply built out of muscle, they could wrestle a deathclaw to death."
 
-/mob/proc/gen_perception_examine_text()
+TYPE_PROC_REF(/mob, gen_perception_examine_text)()
 	if(special_p <= 3)
 		return "<br>Even with glasses, an elephant could easily sneak by them."
 	if(special_p >= 7)
 		return "<br>A sharp and attentive gaze almost pierces through you, nothing gets past them it seems."
 
-/mob/proc/gen_endurance_examine_text()
+TYPE_PROC_REF(/mob, gen_endurance_examine_text)()
 	if(special_e <= 3)
 		return "<br>It looks like a stiff breeze could tear them in two."
 	if(special_e >= 7)
 		return "<br>As solid as an oak, they look like they could run for miles on end."
 
-/mob/proc/gen_charisma_examine_text()
+TYPE_PROC_REF(/mob, gen_charisma_examine_text)()
 	switch(special_c)
 		if(1)
 			return "<br>You struggle not to vomit looking at this horribly fugly creature."
@@ -263,19 +263,19 @@ proc/get_top_level_mob(mob/S)
 		if(10)
 			return "<br>They have a perfect beauty to them leagues above the rest."
 
-/mob/proc/gen_intelligence_examine_text()
+TYPE_PROC_REF(/mob, gen_intelligence_examine_text)()
 	if(special_i <= 3)
 		return "<br>They look like they'd struggle to get water out of a boot with instructions printed on the heel."
 	if(special_i >= 7)
 		return "<br>A bright and careful gaze in their eyes, they seem to know much more than you."
 
-/mob/proc/gen_agility_examine_text()
+TYPE_PROC_REF(/mob, gen_agility_examine_text)()
 	if(special_a <= 3)
 		return "<br>Maladroit and unbalanced, it is a wonder they can even stand straight."
 	if(special_a >= 7)
 		return "<br>Moving like a panther, it is a wonder you have even noticed that they are here."
 
-/mob/proc/gen_luck_examine_text()
+TYPE_PROC_REF(/mob, gen_luck_examine_text)()
 	if(special_l <= 3)
 		return "<br>Misfortune just seems to stick to them like a fly to shit."
 	if(special_l >= 7)

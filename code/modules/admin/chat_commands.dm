@@ -123,7 +123,7 @@ GLOBAL_LIST(round_end_notifiees)
 	log_admin("[sender.friendly_name] reloaded admins via chat command.")
 	return "Admins reloaded."
 
-/datum/tgs_chat_command/reload_admins/proc/ReloadAsync()
+TYPE_PROC_REF(/datum/tgs_chat_command/reload_admins, ReloadAsync)()
 	set waitfor = FALSE
 	load_admins()
 

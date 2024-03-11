@@ -17,7 +17,7 @@
 	owner.announce_objectives()
 	to_chat(owner, span_warning("You have a powerful alt-attack that slams people backwards that you can activate by shift+ctrl+clicking your target!"))
 
-/datum/antagonist/slaughter/proc/forge_objectives()
+TYPE_PROC_REF(/datum/antagonist/slaughter, forge_objectives)()
 	if(summoner)
 		var/datum/objective/assassinate/new_objective = new /datum/objective/assassinate
 		new_objective.owner = owner

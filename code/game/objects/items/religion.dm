@@ -58,17 +58,17 @@
 		inspiration(H)
 		special_inspiration(H)
 
-/obj/item/banner/proc/check_inspiration(mob/living/carbon/human/H) //Banner-specific conditions for being eligible
+TYPE_PROC_REF(/obj/item/banner, check_inspiration)(mob/living/carbon/human/H) //Banner-specific conditions for being eligible
 	return
 
-/obj/item/banner/proc/inspiration(mob/living/carbon/human/H)
+TYPE_PROC_REF(/obj/item/banner, inspiration)(mob/living/carbon/human/H)
 	H.adjustBruteLoss(-15)
 	H.adjustFireLoss(-15)
 	H.AdjustAllImmobility(-40)
 	H.AdjustUnconscious(-40)
 	playsound(H, 'sound/magic/staff_healing.ogg', 25, FALSE)
 
-/obj/item/banner/proc/special_inspiration(mob/living/carbon/human/H) //Any banner-specific inspiration effects go here
+TYPE_PROC_REF(/obj/item/banner, special_inspiration)(mob/living/carbon/human/H) //Any banner-specific inspiration effects go here
 	return
 
 /obj/item/banner/security

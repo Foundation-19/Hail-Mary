@@ -86,7 +86,7 @@
 	else
 		return ..()
 
-/obj/machinery/gear_painter/proc/insert_mob(mob/victim, mob/user)
+TYPE_PROC_REF(/obj/machinery/gear_painter, insert_mob)(mob/victim, mob/user)
 	if(inserted)
 		return
 	if(user)
@@ -107,7 +107,7 @@
 	. = ..()
 	drop_item()
 
-/obj/machinery/gear_painter/proc/free_me()
+TYPE_PROC_REF(/obj/machinery/gear_painter, free_me)()
 	SIGNAL_HANDLER
 	if(!inserted)
 		return
@@ -118,7 +118,7 @@
 	update_icon()
 	SStgui.update_uis(src)
 
-/obj/machinery/gear_painter/proc/drop_item(jailbreak)
+TYPE_PROC_REF(/obj/machinery/gear_painter, drop_item)(jailbreak)
 	if(!usr.can_reach(src))
 		return
 	if(!inserted)
@@ -222,7 +222,7 @@
 				return TRUE
 
 /// Produces the preview image of the item, used in the UI, the way the color is not stacking is a sin.
-/obj/machinery/gear_painter/proc/build_preview()
+TYPE_PROC_REF(/obj/machinery/gear_painter, build_preview)()
 	if(inserted) //sanity
 		if(matrix_mode)
 			var/list/cm = rgb_construct_color_matrix(
@@ -264,7 +264,7 @@
 
 			. = preview
 
-/obj/machinery/gear_painter/proc/check_valid_color(list/cm, mob/user)
+TYPE_PROC_REF(/obj/machinery/gear_painter, check_valid_color)(list/cm, mob/user)
 	if(!islist(cm)) // normal
 		var/list/HSV = ReadHSV(RGBtoHSV(cm))
 		if(HSV[3] < minimum_normal_lightness)

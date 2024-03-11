@@ -96,7 +96,7 @@
 	. = ..()
 	build_inventory()
 
-/obj/machinery/mineral/equipment_vendor/proc/build_inventory()
+TYPE_PROC_REF(/obj/machinery/mineral/equipment_vendor, build_inventory)()
 	for(var/p in prize_list)
 		var/datum/data/mining_equipment/M = p
 		GLOB.vending_products[M.equipment_path] = 1
@@ -198,7 +198,7 @@
 		return
 	return ..()
 
-/obj/machinery/mineral/equipment_vendor/proc/RedeemVoucher(obj/item/mining_voucher/voucher, mob/redeemer)
+TYPE_PROC_REF(/obj/machinery/mineral/equipment_vendor, RedeemVoucher)(obj/item/mining_voucher/voucher, mob/redeemer)
 	var/items = list(	"Survival Capsule and Explorer's Webbing" = image(icon = 'icons/obj/storage.dmi', icon_state = "explorerpack"),
 						"Resonator Kit" = image(icon = 'icons/obj/mining.dmi', icon_state = "resonator"),
 						"Minebot Kit" = image(icon = 'icons/mob/aibots.dmi', icon_state = "mining_drone"),
@@ -374,7 +374,7 @@
 	new /obj/item/storage/bag/ore(src)
 	new /obj/item/clothing/glasses/meson/prescription(src)
 
-/obj/machinery/mineral/equipment_vendor/proc/RedeemSVoucher(obj/item/suit_voucher/voucher, mob/redeemer)
+TYPE_PROC_REF(/obj/machinery/mineral/equipment_vendor, RedeemSVoucher)(obj/item/suit_voucher/voucher, mob/redeemer)
 	var/items = list(	"Exo-suit" = image(icon = 'icons/obj/clothing/suits.dmi', icon_state = "exo"),
 						"SEVA suit" = image(icon = 'icons/obj/clothing/suits.dmi', icon_state = "seva"))
 

@@ -67,7 +67,7 @@
 			implant(occupant,usr)
 			. = TRUE
 
-/obj/machinery/implantchair/proc/implant(mob/living/M,mob/user)
+TYPE_PROC_REF(/obj/machinery/implantchair, implant)(mob/living/M,mob/user)
 	if (!istype(M))
 		return
 	if(!ready_implants || !ready)
@@ -84,7 +84,7 @@
 		playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 25, 1)
 	update_icon()
 
-/obj/machinery/implantchair/proc/implant_action(mob/living/M)
+TYPE_PROC_REF(/obj/machinery/implantchair, implant_action)(mob/living/M)
 	var/obj/item/I = new implant_type
 	if(istype(I, /obj/item/implant))
 		var/obj/item/implant/P = I
@@ -109,7 +109,7 @@
 	if(ready)
 		. += "ready"
 
-/obj/machinery/implantchair/proc/replenish()
+TYPE_PROC_REF(/obj/machinery/implantchair, replenish)()
 	if(ready_implants < max_implants)
 		ready_implants++
 	if(ready_implants < max_implants)
@@ -117,7 +117,7 @@
 	else
 		replenishing = FALSE
 
-/obj/machinery/implantchair/proc/set_ready()
+TYPE_PROC_REF(/obj/machinery/implantchair, set_ready)()
 	ready = TRUE
 	update_icon()
 

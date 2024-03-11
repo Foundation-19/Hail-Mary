@@ -149,7 +149,7 @@ SUBSYSTEM_DEF(nightcycle)
 	INVOKE_ASYNC(src, PROC_REF(AnimateTransition))
 	CHECK_TICK
 
-/datum/controller/subsystem/nightcycle/proc/AnimateTransition()
+TYPE_PROC_REF(/datum/controller/subsystem/nightcycle, AnimateTransition)()
 	var/atom/movable/sunlight/light_object = sunlight_source_object
 	light_object.alpha = current_sun_power
 	light_object.color = current_sun_color
@@ -158,7 +158,7 @@ SUBSYSTEM_DEF(nightcycle)
 		sunlight_border_objects[key]?.color = current_sun_color
 
 
-/datum/controller/subsystem/nightcycle/proc/get_border_object(object_key)
+TYPE_PROC_REF(/datum/controller/subsystem/nightcycle, get_border_object)(object_key)
 	. = sunlight_border_objects["[object_key]"]
 	if(!.)
 		. = new /atom/movable/sunlight(null, current_sun_power, current_sun_color, object_key)
@@ -191,7 +191,7 @@ SUBSYSTEM_DEF(nightcycle)
 
 
 ///Proc to initialize sunlight source turfs and affect non-source neighbors.
-/turf/proc/setup_sunlight_source()
+TYPE_PROC_REF(/turf, setup_sunlight_source)()
 	vis_contents += SSnightcycle.sunlight_source_object
 	luminosity = 1
 	for(var/dir in GLOB.alldirs)
@@ -203,7 +203,7 @@ SUBSYSTEM_DEF(nightcycle)
 			neighbor.smooth_sunlight_border()
 
 //Proc to update the lighting of a single turf when a new plating is put down on a sunlight source turf
-/turf/proc/setup_single_sunlight_source()
+TYPE_PROC_REF(/turf, setup_single_sunlight_source)()
 	vis_contents += SSnightcycle.sunlight_source_object
 	luminosity = 1
 	sunlight_state = SUNLIGHT_SOURCE //should be a value of 2
@@ -218,7 +218,7 @@ SUBSYSTEM_DEF(nightcycle)
 	} while(FALSE)
 
 /// Scans neighbors for sunlight sources and sets up the proper object to handle it.
-/turf/proc/smooth_sunlight_border()
+TYPE_PROC_REF(/turf, smooth_sunlight_border)()
 	var/new_junction = NONE
 	for(var/direction in GLOB.cardinals) //Cardinal case first.
 		SUNLIGHT_ADJ_IN_DIR(src, new_junction, direction, direction)
@@ -256,7 +256,7 @@ SUBSYSTEM_DEF(nightcycle)
 	} while(FALSE)
 
 /// Handles the cases of sunlight_state changing during ChangeTurf()
-/turf/proc/handle_sunlight_state_change(old_sunlight_state)
+TYPE_PROC_REF(/turf, handle_sunlight_state_change)(old_sunlight_state)
 	if(sunlight_state == old_sunlight_state)
 		CRASH("handle_sunlight_state_change() called without an actual change.")
 	switch(old_sunlight_state)

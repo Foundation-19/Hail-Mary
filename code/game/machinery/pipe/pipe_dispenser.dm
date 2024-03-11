@@ -71,7 +71,7 @@
 	else
 		return ..()
 
-/obj/machinery/pipedispenser/proc/verify_recipe(recipes, path)
+TYPE_PROC_REF(/obj/machinery/pipedispenser, verify_recipe)(recipes, path)
 	for(var/category in recipes)
 		var/list/cat_recipes = recipes[category]
 		for(var/i in cat_recipes)

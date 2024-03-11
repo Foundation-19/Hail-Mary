@@ -90,7 +90,7 @@
 					if(!(character.job in restricted_jobs))
 						add_latejoin_traitor(character.mind)
 
-/datum/game_mode/traitor/proc/add_latejoin_traitor(datum/mind/character)
+TYPE_PROC_REF(/datum/game_mode/traitor, add_latejoin_traitor)(datum/mind/character)
 	var/datum/antagonist/traitor/new_antag = new antag_datum()
 	character.add_antag_datum(new_antag)
 

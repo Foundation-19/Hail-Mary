@@ -130,7 +130,7 @@ GLOBAL_VAR_INIT(embedpocalypse, FALSE) // if true, all items will be able to emb
 	var/min_reach = 0
 
 	//The list of slots by priority. equip_to_appropriate_slot() uses this list. Doesn't matter if a mob type doesn't have a slot.
-	var/list/slot_equipment_priority = null // for default list, see /mob/proc/equip_to_appropriate_slot()
+	var/list/slot_equipment_priority = null // for default list, see TYPE_PROC_REF(/mob, equip_to_appropriate_slot)()
 
 	// Needs to be in /obj/item because corgis can wear a lot of
 	// non-clothing items
@@ -244,7 +244,7 @@ GLOBAL_VAR_INIT(embedpocalypse, FALSE) // if true, all items will be able to emb
 	if(sharpness && force > 5) //give sharp objects butchering functionality, for consistency
 		AddComponent(/datum/component/butchering, 80 * toolspeed)
 
-/obj/item/proc/check_allowed_items(atom/target, not_inside, target_self)
+TYPE_PROC_REF(/obj/item, check_allowed_items)(atom/target, not_inside, target_self)
 	if(((src in target) && !target_self) || (!isturf(target.loc) && !isturf(target) && not_inside))
 		return 0
 	else
@@ -261,7 +261,7 @@ GLOBAL_VAR_INIT(embedpocalypse, FALSE) // if true, all items will be able to emb
 //TOXLOSS = 4
 //OXYLOSS = 8
 //Output a creative message and then return the damagetype done
-/obj/item/proc/suicide_act(mob/user)
+TYPE_PROC_REF(/obj/item, suicide_act)(mob/user)
 	return
 
 /obj/item/verb/move_to_top()
@@ -421,7 +421,7 @@ GLOBAL_VAR_INIT(embedpocalypse, FALSE) // if true, all items will be able to emb
 	if(!user.put_in_active_hand(src, FALSE, FALSE))
 		user.dropItemToGround(src)
 
-/obj/item/proc/allow_attack_hand_drop(mob/user)
+TYPE_PROC_REF(/obj/item, allow_attack_hand_drop)(mob/user)
 	return TRUE
 
 /obj/item/attack_paw(mob/user)
@@ -468,15 +468,15 @@ GLOBAL_VAR_INIT(embedpocalypse, FALSE) // if true, all items will be able to emb
 			R.activate_module(src)
 			R.hud_used.update_robot_modules_display()
 
-/obj/item/proc/GetDeconstructableContents()
+TYPE_PROC_REF(/obj/item, GetDeconstructableContents)()
 	return GetAllContents() - src
 
 // afterattack() and attack() prototypes moved to _onclick/item_attack.dm for consistency
 
-/obj/item/proc/talk_into(mob/M, input, channel, spans, datum/language/language)
+TYPE_PROC_REF(/obj/item, talk_into)(mob/M, input, channel, spans, datum/language/language)
 	return ITALICS | REDUCE_RANGE
 
-/obj/item/proc/dropped(mob/user)
+TYPE_PROC_REF(/obj/item, dropped)(mob/user)
 	SHOULD_CALL_PARENT(TRUE)
 	current_equipped_slot = null
 	for(var/X in actions)
@@ -491,14 +491,14 @@ GLOBAL_VAR_INIT(embedpocalypse, FALSE) // if true, all items will be able to emb
 	remove_hud_actions(user)
 
 // called just as an item is picked up (loc is not yet changed)
-/obj/item/proc/pickup(mob/user)
+TYPE_PROC_REF(/obj/item, pickup)(mob/user)
 	SHOULD_CALL_PARENT(TRUE)
 	SEND_SIGNAL(src, COMSIG_ITEM_PICKUP, user)
 	item_flags |= IN_INVENTORY
 	add_hud_actions(user)
 
 // called when "found" in pockets and storage items. Returns 1 if the search should end.
-/obj/item/proc/on_found(mob/finder)
+TYPE_PROC_REF(/obj/item, on_found)(mob/finder)
 	return
 
 /obj/item/MouseDrop(atom/over, src_location, over_location, src_control, over_control, params) //Copypaste of /atom/MouseDrop() since this requires code in a very specific spot
@@ -526,7 +526,7 @@ GLOBAL_VAR_INIT(embedpocalypse, FALSE) // if true, all items will be able to emb
 // slot uses the slot_X defines found in setup.dm
 // for items that can be placed in multiple slots
 // note this isn't called during the initial dressing of a player
-/obj/item/proc/equipped(mob/user, slot)
+TYPE_PROC_REF(/obj/item, equipped)(mob/user, slot)
 	SHOULD_CALL_PARENT(TRUE)
 	. = SEND_SIGNAL(src, COMSIG_ITEM_EQUIPPED, user, slot)
 	current_equipped_slot = slot
@@ -543,12 +543,12 @@ GLOBAL_VAR_INIT(embedpocalypse, FALSE) // if true, all items will be able to emb
 //Overlays for the worn overlay so you can overlay while you overlay
 //eg: ammo counters, primed grenade flashing, etc.
 //"icon_file" is used automatically for inhands etc. to make sure it gets the right inhand file
-/obj/item/proc/worn_overlays(isinhands = FALSE, icon_file, used_state, style_flags = NONE)
+TYPE_PROC_REF(/obj/item, worn_overlays)(isinhands = FALSE, icon_file, used_state, style_flags = NONE)
 	. = list()
 	SEND_SIGNAL(src, COMSIG_ITEM_WORN_OVERLAYS, isinhands, icon_file, used_state, style_flags, .)
 
 //sometimes we only want to grant the item's action if it's equipped in a specific slot.
-/obj/item/proc/item_action_slot_check(slot, mob/user, datum/action/A)
+TYPE_PROC_REF(/obj/item, item_action_slot_check)(slot, mob/user, datum/action/A)
 	if(slot == SLOT_IN_BACKPACK || slot == SLOT_LEGCUFFED) //these aren't true slots, so avoid granting actions there
 		return FALSE
 	return TRUE
@@ -557,7 +557,7 @@ GLOBAL_VAR_INIT(embedpocalypse, FALSE) // if true, all items will be able to emb
 //if this is being done by a mob other than M, it will include the mob equipper, who is trying to equip the item to mob M. equipper will be null otherwise.
 //If you are making custom procs but would like to retain partial or complete functionality of this one, include a 'return ..()' to where you want this to happen.
 //Set disable_warning to TRUE if you wish it to not give you outputs.
-/obj/item/proc/mob_can_equip(mob/living/M, mob/living/equipper, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE, clothing_check = FALSE, list/return_warning)
+TYPE_PROC_REF(/obj/item, mob_can_equip)(mob/living/M, mob/living/equipper, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE, clothing_check = FALSE, list/return_warning)
 	if(!M)
 		return FALSE
 
@@ -577,10 +577,10 @@ GLOBAL_VAR_INIT(embedpocalypse, FALSE) // if true, all items will be able to emb
 //This proc is executed when someone clicks the on-screen UI button.
 //The default action is attack_self().
 //Checks before we get to here are: mob is alive, mob is not restrained, stunned, asleep, resting, laying, item is on the mob.
-/obj/item/proc/ui_action_click(mob/user, actiontype)
+TYPE_PROC_REF(/obj/item, ui_action_click)(mob/user, actiontype)
 	attack_self(user)
 
-/obj/item/proc/add_hud_actions(mob/user)
+TYPE_PROC_REF(/obj/item, add_hud_actions)(mob/user)
 	if(!hud_actions || !user.client)
 		return
 
@@ -589,7 +589,7 @@ GLOBAL_VAR_INIT(embedpocalypse, FALSE) // if true, all items will be able to emb
 	for(var/action in hud_actions)
 		user.client.screen |= action
 
-/obj/item/proc/remove_hud_actions(mob/user)
+TYPE_PROC_REF(/obj/item, remove_hud_actions)(mob/user)
 	if(!user)
 		return
 	if(!hud_actions || !user.client)
@@ -598,7 +598,7 @@ GLOBAL_VAR_INIT(embedpocalypse, FALSE) // if true, all items will be able to emb
 	for(var/action in hud_actions)
 		user.client.screen -= action
 
-/obj/item/proc/update_hud_actions()
+TYPE_PROC_REF(/obj/item, update_hud_actions)()
 	if(!hud_actions)
 		return
 
@@ -606,7 +606,7 @@ GLOBAL_VAR_INIT(embedpocalypse, FALSE) // if true, all items will be able to emb
 		var/obj/item/action = A
 		action.update_icon()
 
-/obj/item/proc/eyestab(mob/living/carbon/M, mob/living/carbon/user)
+TYPE_PROC_REF(/obj/item, eyestab)(mob/living/carbon/M, mob/living/carbon/user)
 	if(HAS_TRAIT(user, TRAIT_PACIFISM))
 		to_chat(user, span_warning("You don't want to harm [M]!"))
 		return
@@ -741,7 +741,7 @@ GLOBAL_VAR_INIT(embedpocalypse, FALSE) // if true, all items will be able to emb
 	callback = CALLBACK(src, PROC_REF(after_throw), callback, (spin && messy_throw)) //replace their callback with our own
 	. = ..(target, range, speed, thrower, spin, diagonals_first, callback, force)
 
-/obj/item/proc/after_throw(datum/callback/callback, messy_throw)
+TYPE_PROC_REF(/obj/item, after_throw)(datum/callback/callback, messy_throw)
 	if (callback) //call the original callback
 		. = callback.Invoke()
 	throw_speed = initial(throw_speed) //explosions change this.
@@ -753,20 +753,20 @@ GLOBAL_VAR_INIT(embedpocalypse, FALSE) // if true, all items will be able to emb
 		pixel_x = rand(-8, 8)
 		pixel_y = rand(-8, 8)
 
-/obj/item/proc/remove_item_from_storage(atom/newLoc) //please use this if you're going to snowflake an item out of a obj/item/storage
+TYPE_PROC_REF(/obj/item, remove_item_from_storage)(atom/newLoc) //please use this if you're going to snowflake an item out of a obj/item/storage
 	if(!newLoc)
 		return FALSE
 	if(SEND_SIGNAL(loc, COMSIG_CONTAINS_STORAGE))
 		return SEND_SIGNAL(loc, COMSIG_TRY_STORAGE_TAKE, src, newLoc, TRUE)
 	return FALSE
 
-/obj/item/proc/get_belt_overlay() //Returns the icon used for overlaying the object on a belt
+TYPE_PROC_REF(/obj/item, get_belt_overlay)() //Returns the icon used for overlaying the object on a belt
 	return mutable_appearance('icons/obj/clothing/belt_overlays.dmi', icon_state)
 
-/obj/item/proc/get_worn_belt_overlay(icon_file)
+TYPE_PROC_REF(/obj/item, get_worn_belt_overlay)(icon_file)
 	return
 
-/obj/item/proc/update_slot_icon()
+TYPE_PROC_REF(/obj/item, update_slot_icon)()
 	if(!ismob(loc))
 		return
 	var/mob/owner = loc
@@ -796,24 +796,24 @@ GLOBAL_VAR_INIT(embedpocalypse, FALSE) // if true, all items will be able to emb
 	if(flags & ITEM_SLOT_NECK)
 		owner.update_inv_neck()
 
-/obj/item/proc/get_temperature()
+TYPE_PROC_REF(/obj/item, get_temperature)()
 	return heat
 
-/obj/item/proc/get_sharpness()
+TYPE_PROC_REF(/obj/item, get_sharpness)()
 	return sharpness
 
-/obj/item/proc/get_dismemberment_chance(obj/item/bodypart/affecting)
+TYPE_PROC_REF(/obj/item, get_dismemberment_chance)(obj/item/bodypart/affecting)
 	if(affecting.can_dismember(src))
 		if((sharpness || damtype == BURN) && w_class >= WEIGHT_CLASS_NORMAL && force >= 10)
 			. = force * (affecting.get_damage() / affecting.max_damage)
 
-/obj/item/proc/get_dismember_sound()
+TYPE_PROC_REF(/obj/item, get_dismember_sound)()
 	if(damtype == BURN)
 		. = 'sound/weapons/sear.ogg'
 	else
 		. = pick('sound/misc/desceration-01.ogg', 'sound/misc/desceration-02.ogg', 'sound/misc/desceration-03.ogg')
 
-/obj/item/proc/open_flame(flame_heat=700)
+TYPE_PROC_REF(/obj/item, open_flame)(flame_heat=700)
 	var/turf/location = loc
 	if(ismob(location))
 		var/mob/M = location
@@ -825,7 +825,7 @@ GLOBAL_VAR_INIT(embedpocalypse, FALSE) // if true, all items will be able to emb
 	if(isturf(location))
 		location.hotspot_expose(flame_heat, 1)
 
-/obj/item/proc/ignition_effect(atom/A, mob/user)
+TYPE_PROC_REF(/obj/item, ignition_effect)(atom/A, mob/user)
 	if(get_temperature())
 		. = span_notice("[user] lights [A] with [src].")
 	else
@@ -864,17 +864,17 @@ GLOBAL_VAR_INIT(embedpocalypse, FALSE) // if true, all items will be able to emb
 		MO.desc = "Looks like this was \an [src] some time ago."
 		..()
 
-/obj/item/proc/microwave_act(obj/machinery/microwave/M)
+TYPE_PROC_REF(/obj/item, microwave_act)(obj/machinery/microwave/M)
 	SEND_SIGNAL(src, COMSIG_ITEM_MICROWAVE_ACT, M)
 	if(istype(M) && M.dirty < 100)
 		M.dirty++
 
-/obj/item/proc/on_mob_death(mob/living/L, gibbed)
+TYPE_PROC_REF(/obj/item, on_mob_death)(mob/living/L, gibbed)
 
-/obj/item/proc/grind_requirements(obj/machinery/reagentgrinder/R, silent) //Used to check for extra requirements for grinding an object
+TYPE_PROC_REF(/obj/item, grind_requirements)(obj/machinery/reagentgrinder/R, silent) //Used to check for extra requirements for grinding an object
 	return FALSE
 
-/obj/item/proc/reset_transform() //Used to check for extra requirements for grinding an object
+TYPE_PROC_REF(/obj/item, reset_transform)() //Used to check for extra requirements for grinding an object
 	if(special_transform)
 		transform = special_transform
 	else
@@ -882,11 +882,11 @@ GLOBAL_VAR_INIT(embedpocalypse, FALSE) // if true, all items will be able to emb
 
 //Called BEFORE the object is ground up - use this to change grind results based on conditions
 //Use "return -1" to prevent the grinding from occurring
-/obj/item/proc/on_grind()
+TYPE_PROC_REF(/obj/item, on_grind)()
 
-/obj/item/proc/on_juice()
+TYPE_PROC_REF(/obj/item, on_juice)()
 
-/obj/item/proc/set_force_string()
+TYPE_PROC_REF(/obj/item, set_force_string)()
 	switch(force)
 		if(0 to 4)
 			force_string = "very low"
@@ -904,7 +904,7 @@ GLOBAL_VAR_INIT(embedpocalypse, FALSE) // if true, all items will be able to emb
 			force_string = "exceptionally robust"
 	last_force_string_check = force
 
-/obj/item/proc/openTip(location, control, params, user)
+TYPE_PROC_REF(/obj/item, openTip)(location, control, params, user)
 	if(last_force_string_check != force && !(item_flags & FORCE_STRING_OVERRIDE))
 		set_force_string()
 	if(!(item_flags & FORCE_STRING_OVERRIDE))
@@ -928,7 +928,7 @@ GLOBAL_VAR_INIT(embedpocalypse, FALSE) // if true, all items will be able to emb
 
 // Called when a mob tries to use the item as a tool.
 // Handles most checks.
-/obj/item/proc/use_tool(atom/target, mob/living/user, delay, amount=0, volume=0, datum/callback/extra_checks, skill_gain_mult = STD_USE_TOOL_MULT)
+TYPE_PROC_REF(/obj/item, use_tool)(atom/target, mob/living/user, delay, amount=0, volume=0, datum/callback/extra_checks, skill_gain_mult = STD_USE_TOOL_MULT)
 	// No delay means there is no start message, and no reason to call tool_start_check before use_tool.
 	// Run the start check here so we wouldn't have to call it manually.
 	if(!delay && !tool_start_check(user, amount))
@@ -980,20 +980,20 @@ GLOBAL_VAR_INIT(embedpocalypse, FALSE) // if true, all items will be able to emb
 
 // Called before use_tool if there is a delay, or by use_tool if there isn't.
 // Only ever used by welding tools and stacks, so it's not added on any other use_tool checks.
-/obj/item/proc/tool_start_check(mob/living/user, amount=0)
+TYPE_PROC_REF(/obj/item, tool_start_check)(mob/living/user, amount=0)
 	return tool_use_check(user, amount)
 
 // A check called by tool_start_check once, and by use_tool on every tick of delay.
-/obj/item/proc/tool_use_check(mob/living/user, amount)
+TYPE_PROC_REF(/obj/item, tool_use_check)(mob/living/user, amount)
 	return !amount
 
 // Generic use proc. Depending on the item, it uses up fuel, charges, sheets, etc.
 // Returns TRUE on success, FALSE on failure.
-/obj/item/proc/use(used)
+TYPE_PROC_REF(/obj/item, use)(used)
 	return !used
 
 // Plays item's usesound, if any.
-/obj/item/proc/play_tool_sound(atom/target, volume=50)
+TYPE_PROC_REF(/obj/item, play_tool_sound)(atom/target, volume=50)
 	if(target && usesound && volume)
 		var/played_sound = usesound
 
@@ -1003,11 +1003,11 @@ GLOBAL_VAR_INIT(embedpocalypse, FALSE) // if true, all items will be able to emb
 		playsound(target, played_sound, volume, 1)
 
 // Used in a callback that is passed by use_tool into do_after call. Do not override, do not call manually.
-/obj/item/proc/tool_check_callback(mob/living/user, amount, datum/callback/extra_checks)
+TYPE_PROC_REF(/obj/item, tool_check_callback)(mob/living/user, amount, datum/callback/extra_checks)
 	return tool_use_check(user, amount) && (!extra_checks || extra_checks.Invoke())
 
 // Returns a numeric value for sorting items used as parts in machines, so they can be replaced by the rped
-/obj/item/proc/get_part_rating()
+TYPE_PROC_REF(/obj/item, get_part_rating)()
 	return 0
 
 /obj/item/doMove(atom/destination)
@@ -1031,14 +1031,14 @@ GLOBAL_VAR_INIT(embedpocalypse, FALSE) // if true, all items will be able to emb
 	return ..()
 
 /// Get an item's volume that it uses when being stored.
-/obj/item/proc/get_w_volume()
+TYPE_PROC_REF(/obj/item, get_w_volume)()
 	// if w_volume is 0 you fucked up anyways lol
 	return w_volume || AUTO_SCALE_VOLUME(w_class)
 
-/obj/item/proc/embedded(atom/embedded_target)
+TYPE_PROC_REF(/obj/item, embedded)(atom/embedded_target)
 	return
 
-/obj/item/proc/unembedded()
+TYPE_PROC_REF(/obj/item, unembedded)()
 	if(item_flags & DROPDEL)
 		QDEL_NULL(src)
 		return TRUE
@@ -1046,7 +1046,7 @@ GLOBAL_VAR_INIT(embedpocalypse, FALSE) // if true, all items will be able to emb
 /**
  * Sets our slowdown and updates equipment slowdown of any mob we're equipped on.
  */
-/obj/item/proc/set_slowdown(new_slowdown)
+TYPE_PROC_REF(/obj/item, set_slowdown)(new_slowdown)
 	slowdown = new_slowdown
 	if(CHECK_BITFIELD(item_flags, IN_INVENTORY))
 		var/mob/living/L = loc
@@ -1061,12 +1061,12 @@ GLOBAL_VAR_INIT(embedpocalypse, FALSE) // if true, all items will be able to emb
  * Does the current embedding var meet the criteria for being harmless? Namely, does it explicitly define the pain multiplier and jostle pain mult to be 0? If so, return true.
  *
  */
-/obj/item/proc/isEmbedHarmless()
+TYPE_PROC_REF(/obj/item, isEmbedHarmless)()
 	if(embedding)
 		return !isnull(embedding["pain_mult"]) && !isnull(embedding["jostle_pain_mult"]) && embedding["pain_mult"] == 0 && embedding["jostle_pain_mult"] == 0
 
 ///In case we want to do something special (like self delete) upon failing to embed in something, return true
-/obj/item/proc/failedEmbed()
+TYPE_PROC_REF(/obj/item, failedEmbed)()
 	if(item_flags & DROPDEL)
 		QDEL_NULL(src)
 		return TRUE
@@ -1083,7 +1083,7 @@ GLOBAL_VAR_INIT(embedpocalypse, FALSE) // if true, all items will be able to emb
 
 
 
- * Really, this is used mostly with projectiles with shrapnel payloads, from [/datum/element/embed/proc/checkEmbedProjectile], and called on said shrapnel. Mostly acts as an intermediate between different embed elements.
+ * Really, this is used mostly with projectiles with shrapnel payloads, from [TYPE_PROC_REF(/datum/element/embed, checkEmbedProjectile)], and called on said shrapnel. Mostly acts as an intermediate between different embed elements.
 
 
 
@@ -1107,7 +1107,7 @@ GLOBAL_VAR_INIT(embedpocalypse, FALSE) // if true, all items will be able to emb
 
 
 
-/obj/item/proc/tryEmbed(atom/target, forced=FALSE, silent=FALSE)
+TYPE_PROC_REF(/obj/item, tryEmbed)(atom/target, forced=FALSE, silent=FALSE)
 
 
 
@@ -1151,7 +1151,7 @@ GLOBAL_VAR_INIT(embedpocalypse, FALSE) // if true, all items will be able to emb
 
 
 
-/obj/item/proc/disableEmbedding()
+TYPE_PROC_REF(/obj/item, disableEmbedding)()
 
 
 
@@ -1164,7 +1164,7 @@ GLOBAL_VAR_INIT(embedpocalypse, FALSE) // if true, all items will be able to emb
 
 
 
-/obj/item/proc/get_head_speechspans(mob/living/carbon/user) //we need this all the way back here for reasons
+TYPE_PROC_REF(/obj/item, get_head_speechspans)(mob/living/carbon/user) //we need this all the way back here for reasons
 	return
 
 
@@ -1172,7 +1172,7 @@ GLOBAL_VAR_INIT(embedpocalypse, FALSE) // if true, all items will be able to emb
 
 
 
-/obj/item/proc/updateEmbedding()
+TYPE_PROC_REF(/obj/item, updateEmbedding)()
 	if(!LAZYLEN(embedding))
 		return
 
@@ -1192,14 +1192,14 @@ GLOBAL_VAR_INIT(embedpocalypse, FALSE) // if true, all items will be able to emb
 		projectile_payload = embedding["projectile_payload"])
 	return TRUE
 
-/obj/item/proc/get_held_item_speechspans(mob/living/carbon/user)
+TYPE_PROC_REF(/obj/item, get_held_item_speechspans)(mob/living/carbon/user)
 	return
 
-/obj/item/throwing_star/proc/throwingweapondraw(obj/item/throwing_star/T, mob/living/user)
+TYPE_PROC_REF(/obj/item/throwing_star, throwingweapondraw)(obj/item/throwing_star/T, mob/living/user)
 	user.visible_message(span_danger("[user] grabs \a [T]!"))
 	user.SetThrowDelay(6)
 	user.log_message("[user] pulled a [T]", INDIVIDUAL_ATTACK_LOG)
 
-/obj/item/proc/refresh_upgrades()
+TYPE_PROC_REF(/obj/item, refresh_upgrades)()
 	return
 	

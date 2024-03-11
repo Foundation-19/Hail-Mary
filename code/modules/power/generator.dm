@@ -99,7 +99,7 @@
 	lastgen -= power_output
 	..()
 
-/obj/machinery/power/generator/proc/get_menu(include_link = TRUE)
+TYPE_PROC_REF(/obj/machinery/power/generator, get_menu)(include_link = TRUE)
 	var/t = ""
 	if(!powernet)
 		t += span_bad("Unable to connect to the power network!")
@@ -155,7 +155,7 @@
 	..()
 	update_icon()
 
-/obj/machinery/power/generator/proc/find_circs()
+TYPE_PROC_REF(/obj/machinery/power/generator, find_circs)()
 	kill_circs()
 	var/list/circs = list()
 	var/obj/machinery/atmospherics/components/binary/circulator/C
@@ -220,7 +220,7 @@
 /obj/machinery/power/generator/on_deconstruction()
 	kill_circs()
 
-/obj/machinery/power/generator/proc/kill_circs()
+TYPE_PROC_REF(/obj/machinery/power/generator, kill_circs)()
 	if(hot_circ)
 		hot_circ.generator = null
 		hot_circ = null

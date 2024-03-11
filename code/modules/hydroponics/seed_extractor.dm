@@ -130,7 +130,7 @@
  * Arguments:
  * * O - seed to generate the string from
  */
-/obj/machinery/seed_extractor/proc/generate_seed_string(obj/item/seeds/O)
+TYPE_PROC_REF(/obj/machinery/seed_extractor, generate_seed_string)(obj/item/seeds/O)
 	return "name=[O.name];lifespan=[O.lifespan];endurance=[O.endurance];maturation=[O.maturation];production=[O.production];yield=[O.yield];potency=[O.potency];instability=0"
 
 
@@ -140,7 +140,7 @@
  * needed to go to the ui handler
  *
  */
-/obj/machinery/seed_extractor/proc/add_seed(obj/item/seeds/O)
+TYPE_PROC_REF(/obj/machinery/seed_extractor, add_seed)(obj/item/seeds/O)
 	if(contents.len >= 999)
 		to_chat(usr, span_notice("\The [src] is full."))
 		return FALSE

@@ -148,13 +148,13 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 		return ..()
 
 
-/mob/living/simple_animal/hostile/swarmer/ai/proc/StartAction(deci = 0)
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/swarmer/ai, StartAction)(deci = 0)
 	stop_automated_movement = TRUE
 	AIStatus = AI_OFF
 	addtimer(CALLBACK(src, PROC_REF(EndAction)), deci)
 
 
-/mob/living/simple_animal/hostile/swarmer/ai/proc/EndAction()
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/swarmer/ai, EndAction)()
 	stop_automated_movement = FALSE
 	AIStatus = AI_ON
 
@@ -228,12 +228,12 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 
 
 //So swarmers can learn what is and isn't food
-/mob/living/simple_animal/hostile/swarmer/ai/resource/proc/add_type_to_wanted(typepath)
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/swarmer/ai/resource, add_type_to_wanted)(typepath)
 	if(!sharedWanted[typepath])// this and += is faster than |=
 		sharedWanted += typecacheof(typepath)
 
 
-/mob/living/simple_animal/hostile/swarmer/ai/resource/proc/add_type_to_ignore(typepath)
+TYPE_PROC_REF(/mob/living/simple_animal/hostile/swarmer/ai/resource, add_type_to_ignore)(typepath)
 	if(!sharedIgnore[typepath])
 		sharedIgnore += typecacheof(typepath)
 

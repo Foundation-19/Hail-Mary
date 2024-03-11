@@ -3,7 +3,7 @@
 //NOTE: Breathing happens once per FOUR TICKS, unless the last breath fails. In which case it happens once per ONE TICK! So oxyloss healing is done once per 4 ticks while oxyloss damage is applied once per tick!
 
 // bitflags for the percentual amount of protection a piece of clothing which covers the body part offers.
-// Used with human/proc/get_thermal_protection()
+// Used with TYPE_PROC_REF(human, get_thermal_protection)()
 // The values here should add up to 1.
 // Hands and feet have 2.5%, arms and legs 7.5%, each of the torso parts has 15% and the head has 30%
 #define THERMAL_PROTECTION_HEAD			0.3
@@ -75,7 +75,7 @@
 	if(dna)
 		dna.species.handle_fire(src)
 
-/mob/living/carbon/human/proc/easy_thermal_protection()
+TYPE_PROC_REF(/mob/living/carbon/human, easy_thermal_protection)()
 	var/thermal_protection = 0 //Simple check to estimate how protected we are against multiple temperatures
 	if(wear_suit)
 		if(wear_suit.max_heat_protection_temperature >= FIRE_SUIT_MAX_TEMP_PROTECT)
@@ -100,7 +100,7 @@
 //END FIRE CODE
 
 //This proc returns a number made up of the flags for body parts which you are protected on. (such as HEAD, CHEST, GROIN, etc. See setup.dm for the full list)
-/mob/living/carbon/human/proc/get_heat_protection_flags(temperature) //Temperature is the temperature you're being exposed to.
+TYPE_PROC_REF(/mob/living/carbon/human, get_heat_protection_flags)(temperature) //Temperature is the temperature you're being exposed to.
 	var/thermal_protection_flags = 0
 	//Handle normal clothing
 	if(head)
@@ -125,7 +125,7 @@
 	return thermal_protection_flags
 
 //See proc/get_heat_protection_flags(temperature) for the description of this proc.
-/mob/living/carbon/human/proc/get_cold_protection_flags(temperature)
+TYPE_PROC_REF(/mob/living/carbon/human, get_cold_protection_flags)(temperature)
 	var/thermal_protection_flags = 0
 	//Handle normal clothing
 
@@ -150,7 +150,7 @@
 
 	return thermal_protection_flags
 
-/mob/living/carbon/human/proc/get_thermal_protection(temperature, cold = FALSE)
+TYPE_PROC_REF(/mob/living/carbon/human, get_thermal_protection)(temperature, cold = FALSE)
 	if(cold)
 		temperature = max(temperature, 2.7) //There is an occasional bug where the temperature is miscalculated in ares with a small amount of gas on them, so this is necessary to ensure that that bug does not affect this calculation. Space's temperature is 2.7K and most suits that are intended to protect against any cold, protect down to 2.0K.
 	var/thermal_protection_flags = cold ? get_cold_protection_flags(temperature) : get_heat_protection_flags(temperature)
@@ -233,13 +233,13 @@
 			return TRUE
 	return ..()
 
-/mob/living/carbon/human/proc/handle_active_genes()
+TYPE_PROC_REF(/mob/living/carbon/human, handle_active_genes)()
 	if(HAS_TRAIT(src, TRAIT_MUTATION_STASIS))
 		return
 	for(var/datum/mutation/human/HM in dna.mutations)
 		HM.on_life(src)
 
-/mob/living/carbon/human/proc/handle_heart()
+TYPE_PROC_REF(/mob/living/carbon/human, handle_heart)()
 	var/we_breath = !HAS_TRAIT_FROM(src, TRAIT_NOBREATH, SPECIES_TRAIT)
 
 	if(!undergoing_cardiac_arrest())

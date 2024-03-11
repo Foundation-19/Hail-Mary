@@ -6,7 +6,7 @@
 	var/category
 	var/id
 
-/datum/gang_item/proc/purchase(mob/living/carbon/user, datum/gang/gang, obj/item/device/gangtool/gangtool, check_canbuy = TRUE)
+TYPE_PROC_REF(/datum/gang_item, purchase)(mob/living/carbon/user, datum/gang/gang, obj/item/device/gangtool/gangtool, check_canbuy = TRUE)
 	if(check_canbuy && !can_buy(user, gang, gangtool))
 		return FALSE
 	var/real_cost = get_cost(user, gang, gangtool)
@@ -14,26 +14,26 @@
 	spawn_item(user, gang, gangtool)
 	return TRUE
 
-/datum/gang_item/proc/spawn_item(mob/living/carbon/user, datum/gang/gang, obj/item/device/gangtool/gangtool)
+TYPE_PROC_REF(/datum/gang_item, spawn_item)(mob/living/carbon/user, datum/gang/gang, obj/item/device/gangtool/gangtool)
 	if(item_path)
 		var/obj/item/O = new item_path(user.loc)
 		user.put_in_hands(O)
 	if(spawn_msg)
 		to_chat(user, spawn_msg)
 
-/datum/gang_item/proc/can_buy(mob/living/carbon/user, datum/gang/gang, obj/item/device/gangtool/gangtool)
+TYPE_PROC_REF(/datum/gang_item, can_buy)(mob/living/carbon/user, datum/gang/gang, obj/item/device/gangtool/gangtool)
 	return gang && (gang.influence >= get_cost(user, gang, gangtool))
 
-/datum/gang_item/proc/get_cost(mob/living/carbon/user, datum/gang/gang, obj/item/device/gangtool/gangtool)
+TYPE_PROC_REF(/datum/gang_item, get_cost)(mob/living/carbon/user, datum/gang/gang, obj/item/device/gangtool/gangtool)
 	return cost
 
-/datum/gang_item/proc/get_cost_display(mob/living/carbon/user, datum/gang/gang, obj/item/device/gangtool/gangtool)
+TYPE_PROC_REF(/datum/gang_item, get_cost_display)(mob/living/carbon/user, datum/gang/gang, obj/item/device/gangtool/gangtool)
 	return "([get_cost(user, gang, gangtool)] Influence)"
 
-/datum/gang_item/proc/get_name_display(mob/living/carbon/user, datum/gang/gang, obj/item/device/gangtool/gangtool)
+TYPE_PROC_REF(/datum/gang_item, get_name_display)(mob/living/carbon/user, datum/gang/gang, obj/item/device/gangtool/gangtool)
 	return name
 
-/datum/gang_item/proc/get_extra_info(mob/living/carbon/user, datum/gang/gang, obj/item/device/gangtool/gangtool)
+TYPE_PROC_REF(/datum/gang_item, get_extra_info)(mob/living/carbon/user, datum/gang/gang, obj/item/device/gangtool/gangtool)
 	return
 
 ///////////////////

@@ -8,7 +8,7 @@ PROCESSING_SUBSYSTEM_DEF(dcs)
 /datum/controller/subsystem/processing/dcs/Recover()
 	comp_lookup = SSdcs.comp_lookup
 
-/datum/controller/subsystem/processing/dcs/proc/GetElement(list/arguments)
+TYPE_PROC_REF(/datum/controller/subsystem/processing/dcs, GetElement)(list/arguments)
 	var/datum/element/eletype = arguments[1]
 	var/element_id = eletype
 
@@ -29,7 +29,7 @@ PROCESSING_SUBSYSTEM_DEF(dcs)
 	* Named arguments can appear in any order and we need them to appear after ordered arguments
 	* We assume that no one will pass in a named argument with a value of null
 	**/
-/datum/controller/subsystem/processing/dcs/proc/GetIdFromArguments(list/arguments)
+TYPE_PROC_REF(/datum/controller/subsystem/processing/dcs, GetIdFromArguments)(list/arguments)
 	var/datum/element/eletype = arguments[1]
 	var/list/fullid = list("[eletype]")
 	var/list/named_arguments = list()

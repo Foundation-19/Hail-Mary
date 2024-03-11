@@ -31,7 +31,7 @@
 	else
 		ResetMoveDelay()
 
-/obj/structure/closet/cardboard/proc/ResetMoveDelay()
+TYPE_PROC_REF(/obj/structure/closet/cardboard, ResetMoveDelay)()
 	move_delay = FALSE
 
 /obj/structure/closet/cardboard/open()
@@ -59,7 +59,7 @@
 	mob_storage_capacity = 5
 */
 
-/mob/living/proc/do_alert_animation(atom/A)
+TYPE_PROC_REF(/mob/living, do_alert_animation)(atom/A)
 	var/image/I = image('icons/obj/closet.dmi', A, "cardboard_special", A.layer+1)
 	flick_overlay_view(I, A, 8)
 	I.alpha = 0

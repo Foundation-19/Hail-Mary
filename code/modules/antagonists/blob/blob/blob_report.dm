@@ -7,7 +7,7 @@
 	var/grille = 0
 	var/mach = 0
 
-/datum/station_state/proc/count()
+TYPE_PROC_REF(/datum/station_state, count)()
 	floor = 0
 	wall = 0
 	r_wall = 0
@@ -59,7 +59,7 @@
 			CHECK_TICK
 		CHECK_TICK
 
-/datum/station_state/proc/score(datum/station_state/result)
+TYPE_PROC_REF(/datum/station_state, score)(datum/station_state/result)
 	if(!result)
 		return 0
 	var/output = 0

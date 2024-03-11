@@ -98,7 +98,7 @@
 		cpu.process()
 
 // Used in following function to reduce copypaste
-/obj/machinery/modular_computer/proc/power_failure(malfunction = 0)
+TYPE_PROC_REF(/obj/machinery/modular_computer, power_failure)(malfunction = 0)
 	var/obj/item/computer_hardware/battery/battery_module = cpu.all_components[MC_CELL]
 	if(cpu && cpu.enabled) // Shut down the computer
 		visible_message(span_danger("\The [src]'s screen flickers [battery_module ? "\"BATTERY [malfunction ? "MALFUNCTION" : "CRITICAL"]\"" : "\"EXTERNAL POWER LOSS\""] warning as it shuts down unexpectedly."))

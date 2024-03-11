@@ -852,7 +852,7 @@ obj/item/storage/box/stingbangs
  * * user The mob interacting with a menu
  * * P The pen used to interact with a menu
  */
-/obj/item/storage/box/papersack/proc/check_menu(mob/user, obj/item/pen/P)
+TYPE_PROC_REF(/obj/item/storage/box/papersack, check_menu)(mob/user, obj/item/pen/P)
 	if(!istype(user))
 		return FALSE
 	if(user.incapacitated())

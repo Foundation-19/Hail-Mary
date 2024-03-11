@@ -58,7 +58,7 @@
 			return FALSE //No power, so don't turn on
 		change_power_status(TRUE)
 
-/obj/item/reagent_containers/glass/maunamug/proc/change_power_status(status)
+TYPE_PROC_REF(/obj/item/reagent_containers/glass/maunamug, change_power_status)(status)
 	on = status
 	if(on)
 		START_PROCESSING(SSobj, src)

@@ -11,12 +11,12 @@ PROCESSING_SUBSYSTEM_DEF(effects)
 	setup_effect_list()
 	return ..()
 
-/datum/controller/subsystem/processing/effects/proc/setup_effect_list()
+TYPE_PROC_REF(/datum/controller/subsystem/processing/effects, setup_effect_list)()
 	for(var/type in subtypesof(/datum/effect_fancy))
 		var/datum/effect_fancy/S = new type()
 		effect_list[S.index] = S
 
-/datum/controller/subsystem/processing/effects/proc/do_effect(index, atom/source, atom/target, params)
+TYPE_PROC_REF(/datum/controller/subsystem/processing/effects, do_effect)(index, atom/source, atom/target, params)
 	if(!index)
 		return
 	var/datum/effect_fancy/EF = effect_list[index]

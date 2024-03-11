@@ -62,7 +62,7 @@
 
 
 
-/obj/item/organ/body_egg/alien_embryo/proc/AttemptGrow(kill_on_sucess=TRUE)
+TYPE_PROC_REF(/obj/item/organ/body_egg/alien_embryo, AttemptGrow)(kill_on_sucess=TRUE)
 	if(!owner || bursting)
 		return
 

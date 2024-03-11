@@ -62,7 +62,7 @@ Behavior that's still missing from this component that original food items had t
 			else
 				owner.reagents.add_reagent(rid, amount)
 
-/datum/component/edible/proc/examine(datum/source, mob/user, list/examine_list)
+TYPE_PROC_REF(/datum/component/edible, examine)(datum/source, mob/user, list/examine_list)
 	if(!(food_flags & FOOD_IN_CONTAINER))
 		switch (bitecount)
 			if (0)
@@ -74,14 +74,14 @@ Behavior that's still missing from this component that original food items had t
 			else
 				examine_list += "[parent] was bitten multiple times!"
 
-/datum/component/edible/proc/UseFromHand(obj/item/source, mob/living/M, mob/living/user)
+TYPE_PROC_REF(/datum/component/edible, UseFromHand)(obj/item/source, mob/living/M, mob/living/user)
 	return TryToEat(M, user)
 
-/datum/component/edible/proc/TryToEatTurf(datum/source, mob/user)
+TYPE_PROC_REF(/datum/component/edible, TryToEatTurf)(datum/source, mob/user)
 	return TryToEat(user, user)
 
 ///All the checks for the act of eating itself and
-/datum/component/edible/proc/TryToEat(mob/living/eater, mob/living/feeder)
+TYPE_PROC_REF(/datum/component/edible, TryToEat)(mob/living/eater, mob/living/feeder)
 
 	set waitfor = FALSE
 
@@ -190,7 +190,7 @@ Behavior that's still missing from this component that original food items had t
 	TakeBite(eater, feeder)
 
 ///This function lets the eater take a bite and transfers the reagents to the eater.
-/datum/component/edible/proc/TakeBite(mob/living/eater, mob/living/feeder)
+TYPE_PROC_REF(/datum/component/edible, TakeBite)(mob/living/eater, mob/living/feeder)
 
 	var/atom/owner = parent
 
@@ -215,7 +215,7 @@ Behavior that's still missing from this component that original food items had t
 		return TRUE
 
 ///Checks whether or not the eater can actually consume the food
-/datum/component/edible/proc/CanConsume(mob/living/eater, mob/living/feeder)
+TYPE_PROC_REF(/datum/component/edible, CanConsume)(mob/living/eater, mob/living/feeder)
 	if(!iscarbon(eater))
 		return FALSE
 	var/mob/living/carbon/C = eater
@@ -231,7 +231,7 @@ Behavior that's still missing from this component that original food items had t
 	return TRUE
 
 ///Check foodtypes to see if we should send a moodlet
-/datum/component/edible/proc/checkLiked(fraction, mob/M)
+TYPE_PROC_REF(/datum/component/edible, checkLiked)(fraction, mob/M)
 	if(last_check_time + 50 > world.time)
 		return FALSE
 	if(!ishuman(M))
@@ -258,7 +258,7 @@ Behavior that's still missing from this component that original food items had t
 	last_check_time = world.time
 
 ///Delete the item when it is fully eaten
-/datum/component/edible/proc/On_Consume(mob/living/eater)
+TYPE_PROC_REF(/datum/component/edible, On_Consume)(mob/living/eater)
 
 	var/atom/owner = parent
 
@@ -272,7 +272,7 @@ Behavior that's still missing from this component that original food items had t
 			qdel(parent)
 
 ///Ability to feed food to puppers
-/datum/component/edible/proc/UseByAnimal(datum/source, mob/user)
+TYPE_PROC_REF(/datum/component/edible, UseByAnimal)(datum/source, mob/user)
 
 	var/atom/owner = parent
 

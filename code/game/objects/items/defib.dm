@@ -44,7 +44,7 @@
 /obj/item/defibrillator/loaded
 	cell = /obj/item/stock_parts/cell/high
 
-/obj/item/defibrillator/proc/update_power()
+TYPE_PROC_REF(/obj/item/defibrillator, update_power)()
 	if(!QDELETED(cell))
 		if(QDELETED(paddles) || cell.charge < paddles.revivecost)
 			powered = FALSE
@@ -153,7 +153,7 @@
 		playsound(src, 'sound/machines/defib_saftyOn.ogg', 50, 0)
 	update_power()
 
-/obj/item/defibrillator/proc/toggle_paddles()
+TYPE_PROC_REF(/obj/item/defibrillator, toggle_paddles)()
 	set name = "Toggle Paddles"
 	set category = "Object"
 	on = !on
@@ -175,7 +175,7 @@
 		var/datum/action/A = X
 		A.UpdateButtonIcon()
 
-/obj/item/defibrillator/proc/make_paddles()
+TYPE_PROC_REF(/obj/item/defibrillator, make_paddles)()
 	return new /obj/item/shockpaddles(src)
 
 /obj/item/defibrillator/equipped(mob/user, slot)
@@ -188,7 +188,7 @@
 	if(slot == user.getBackSlot())
 		return 1
 
-/obj/item/defibrillator/proc/remove_paddles(mob/user) //this fox the bug with the paddles when other player stole you the defib when you have the paddles equiped
+TYPE_PROC_REF(/obj/item/defibrillator, remove_paddles)(mob/user) //this fox the bug with the paddles when other player stole you the defib when you have the paddles equiped
 	if(ismob(paddles.loc))
 		var/mob/M = paddles.loc
 		M.dropItemToGround(paddles, TRUE)
@@ -202,7 +202,7 @@
 	QDEL_NULL(cell)
 	return ..()
 
-/obj/item/defibrillator/proc/deductcharge(chrgdeductamt)
+TYPE_PROC_REF(/obj/item/defibrillator, deductcharge)(chrgdeductamt)
 	if(cell)
 		if(cell.charge < (paddles.revivecost+chrgdeductamt))
 			powered = FALSE
@@ -214,7 +214,7 @@
 			update_power()
 			return FALSE
 
-/obj/item/defibrillator/proc/cooldowncheck(mob/user)
+TYPE_PROC_REF(/obj/item/defibrillator, cooldowncheck)(mob/user)
 	spawn(50)
 		if(cell)
 			if(cell.charge >= paddles.revivecost)
@@ -245,7 +245,7 @@
 	update_power()
 	return
 
-/obj/item/defibrillator/primitive/proc/make_paddlesprim()
+TYPE_PROC_REF(/obj/item/defibrillator/primitive, make_paddlesprim)()
 	return new /obj/item/shockpaddles/primitive(src)
 
 
@@ -332,7 +332,7 @@
 	. = ..()
 	check_range()
 
-/obj/item/shockpaddles/proc/check_range()
+TYPE_PROC_REF(/obj/item/shockpaddles, check_range)()
 	if(!req_defib || !defib)
 		return
 	if(!in_range(src,defib))
@@ -343,7 +343,7 @@
 			visible_message(span_notice("[src] snap back into [defib]."))
 		snap_back()
 
-/obj/item/shockpaddles/proc/recharge(time)
+TYPE_PROC_REF(/obj/item/shockpaddles, recharge)(time)
 	if(req_defib || !time)
 		return
 	cooldown = TRUE
@@ -377,7 +377,7 @@
 			to_chat(user, span_notice("The paddles snap back into the main unit."))
 			snap_back()
 
-/obj/item/shockpaddles/proc/snap_back()
+TYPE_PROC_REF(/obj/item/shockpaddles, snap_back)()
 	if(!defib)
 		return
 	defib.on = FALSE
@@ -434,7 +434,7 @@
 
 	do_help(H, user)
 
-/obj/item/shockpaddles/proc/shock_touching(dmg, mob/H)
+TYPE_PROC_REF(/obj/item/shockpaddles, shock_touching)(dmg, mob/H)
 	if(!H.pulledby || !isliving(H.pulledby))
 		return
 	if(req_defib && defib.pullshocksafely)
@@ -445,7 +445,7 @@
 		M.visible_message(span_danger("[M] is electrocuted by [M.p_their()] contact with [H]!"))
 		M.emote("scream")
 
-/obj/item/shockpaddles/proc/do_disarm(mob/living/M, mob/living/user)
+TYPE_PROC_REF(/obj/item/shockpaddles, do_disarm)(mob/living/M, mob/living/user)
 	if(req_defib && defib.safety)
 		return
 	if(!req_defib && !combat)
@@ -472,7 +472,7 @@
 	else
 		recharge(60)
 
-/obj/item/shockpaddles/proc/do_harm(mob/living/carbon/H, mob/living/user)
+TYPE_PROC_REF(/obj/item/shockpaddles, do_harm)(mob/living/carbon/H, mob/living/user)
 	if(req_defib && defib.safety)
 		return
 	if(!req_defib && !combat)
@@ -527,7 +527,7 @@
 	busy = FALSE
 	update_icon()
 
-/obj/item/shockpaddles/proc/do_help(mob/living/carbon/H, mob/living/user)
+TYPE_PROC_REF(/obj/item/shockpaddles, do_help)(mob/living/carbon/H, mob/living/user)
 	user.visible_message(span_warning("[user] begins to place [src] on [H]'s chest."), span_warning("You begin to place [src] on [H]'s chest..."))
 	busy = TRUE
 	update_icon()

@@ -8,7 +8,7 @@
 	H.delete_equipment() //Applying VV to wrong objects is not reccomended.
 	. = ..()
 
-/datum/outfit/varedit/proc/set_equipement_by_slot(slot,item_path)
+TYPE_PROC_REF(/datum/outfit/varedit, set_equipement_by_slot)(slot,item_path)
 	switch(slot)
 		if(SLOT_W_UNIFORM)
 			uniform = item_path
@@ -63,7 +63,7 @@
 			vedits[varname] = I.vars[varname]
 		return vedits
 
-/mob/living/carbon/human/proc/copy_outfit()
+TYPE_PROC_REF(/mob/living/carbon/human, copy_outfit)()
 	var/datum/outfit/varedit/O = new
 
 	//Copy equipment

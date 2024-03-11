@@ -65,7 +65,7 @@ Nothing else in the console has ID requirements.
 		return reagent.name
 	return ID
 
-/obj/machinery/computer/rdconsole/proc/SyncRDevices() //Makes sure it is properly sync'ed up with the devices attached to it (if any).
+TYPE_PROC_REF(/obj/machinery/computer/rdconsole, SyncRDevices)() //Makes sure it is properly sync'ed up with the devices attached to it (if any).
 	for(var/obj/machinery/rnd/D in oview(3,src))
 		if(D.linked_console != null || D.disabled || D.panel_open)
 			continue
@@ -142,7 +142,7 @@ Nothing else in the console has ID requirements.
 	else if(!(linked_destroy && linked_destroy.busy) && !(linked_lathe && linked_lathe.busy) && !(linked_imprinter && linked_imprinter.busy))
 		. = ..()
 
-/obj/machinery/computer/rdconsole/proc/research_node(id, mob/user)
+TYPE_PROC_REF(/obj/machinery/computer/rdconsole, research_node)(id, mob/user)
 	if(!stored_research.available_nodes[id] || stored_research.researched_nodes[id])
 		say("Node unlock failed: Either already researched or not available!")
 		return FALSE
@@ -200,7 +200,7 @@ Nothing else in the console has ID requirements.
 	var/print = linked_imprinter && linked_imprinter.multitool_act(user, I)
 	return lathe || print
 
-/obj/machinery/computer/rdconsole/proc/list_categories(list/categories, menu_num as num)
+TYPE_PROC_REF(/obj/machinery/computer/rdconsole, list_categories)(list/categories, menu_num as num)
 	if(!categories)
 		return
 
@@ -218,7 +218,7 @@ Nothing else in the console has ID requirements.
 	l += "</tr></table></div>"
 	return l
 
-/obj/machinery/computer/rdconsole/proc/ui_header()
+TYPE_PROC_REF(/obj/machinery/computer/rdconsole, ui_header)()
 	var/list/l = list()
 	var/datum/asset/spritesheet/sheet = get_asset_datum(/datum/asset/spritesheet/research_designs)
 	l += "[sheet.css_tag()][RDSCREEN_NOBREAK]"
@@ -229,7 +229,7 @@ Nothing else in the console has ID requirements.
 	l += "[ui_mode == 1? span_linkOn("Normal View") : "<a href='?src=[REF(src)];ui_mode=1'>Normal View</a>"] | [ui_mode == 2? span_linkOn("Expert View") : "<a href='?src=[REF(src)];ui_mode=2'>Expert View</a>"] | [ui_mode == 3? span_linkOn("List View") : "<a href='?src=[REF(src)];ui_mode=3'>List View</a>"]"
 	return l
 
-/obj/machinery/computer/rdconsole/proc/ui_main_menu()
+TYPE_PROC_REF(/obj/machinery/computer/rdconsole, ui_main_menu)()
 	var/list/l = list()
 	if(research_control)
 		l += "<H2><a href='?src=[REF(src)];switch_screen=[RDSCREEN_TECHWEB]'>Technology</a>"
@@ -246,17 +246,17 @@ Nothing else in the console has ID requirements.
 	l += "<hr><a href='?src=[REF(src)];switch_screen=[RDSCREEN_SETTINGS]'>Settings</a></H2>"
 	return l
 
-/obj/machinery/computer/rdconsole/proc/ui_locked()
+TYPE_PROC_REF(/obj/machinery/computer/rdconsole, ui_locked)()
 	return list("<h3><a href='?src=[REF(src)];switch_screen=[RDSCREEN_MENU];unlock_console=1'>SYSTEM LOCKED</a></h3></br>")
 
-/obj/machinery/computer/rdconsole/proc/ui_settings()
+TYPE_PROC_REF(/obj/machinery/computer/rdconsole, ui_settings)()
 	var/list/l = list()
 	l += "<div class='statusDisplay'><h3>R&D Console Settings:</h3>"
 	l += "<A href='?src=[REF(src)];switch_screen=[RDSCREEN_DEVICE_LINKING]'>Device Linkage Menu</A>"
 	l += "<A href='?src=[REF(src)];lock_console=1'>Lock Console</A></div>"
 	return l
 
-/obj/machinery/computer/rdconsole/proc/ui_device_linking()
+TYPE_PROC_REF(/obj/machinery/computer/rdconsole, ui_device_linking)()
 	var/list/l = list()
 	l += "<A href='?src=[REF(src)];switch_screen=[RDSCREEN_SETTINGS]'>Settings Menu</A><div class='statusDisplay'>"
 	l += "<h3>R&D Console Device Linkage Menu:</h3>"
@@ -268,7 +268,7 @@ Nothing else in the console has ID requirements.
 	l += "</div>"
 	return l
 
-/obj/machinery/computer/rdconsole/proc/ui_protolathe_header()
+TYPE_PROC_REF(/obj/machinery/computer/rdconsole, ui_protolathe_header)()
 	var/list/l = list()
 	l += "<div class='statusDisplay'><A href='?src=[REF(src)];switch_screen=[RDSCREEN_PROTOLATHE]'>Protolathe Menu</A>"
 	if(linked_lathe.materials.mat_container)
@@ -278,7 +278,7 @@ Nothing else in the console has ID requirements.
 	l += "<A href='?src=[REF(src)];switch_screen=[RDSCREEN_PROTOLATHE_CHEMICALS]'><B>Chemical volume:</B> [linked_lathe.reagents.total_volume] / [linked_lathe.reagents.maximum_volume]</A></div>"
 	return l
 
-/obj/machinery/computer/rdconsole/proc/ui_protolathe_category_view()	//Legacy code
+TYPE_PROC_REF(/obj/machinery/computer/rdconsole, ui_protolathe_category_view)()	//Legacy code
 	RDSCREEN_UI_LATHE_CHECK
 	var/list/l = list()
 	l += ui_protolathe_header()
@@ -329,7 +329,7 @@ Nothing else in the console has ID requirements.
 	l += "</div>"
 	return l
 
-/obj/machinery/computer/rdconsole/proc/ui_protolathe()		//Legacy code
+TYPE_PROC_REF(/obj/machinery/computer/rdconsole, ui_protolathe)()		//Legacy code
 	RDSCREEN_UI_LATHE_CHECK
 	var/list/l = list()
 	l += ui_protolathe_header()
@@ -346,7 +346,7 @@ Nothing else in the console has ID requirements.
 
 	return l
 
-/obj/machinery/computer/rdconsole/proc/ui_protolathe_search()		//Legacy code
+TYPE_PROC_REF(/obj/machinery/computer/rdconsole, ui_protolathe_search)()		//Legacy code
 	RDSCREEN_UI_LATHE_CHECK
 	var/list/l = list()
 	l += ui_protolathe_header()
@@ -382,7 +382,7 @@ Nothing else in the console has ID requirements.
 	l += "</div>"
 	return l
 
-/obj/machinery/computer/rdconsole/proc/ui_protolathe_materials()		//Legacy code
+TYPE_PROC_REF(/obj/machinery/computer/rdconsole, ui_protolathe_materials)()		//Legacy code
 	RDSCREEN_UI_LATHE_CHECK
 	var/datum/component/material_container/mat_container = linked_lathe.materials.mat_container
 	if (!mat_container)
@@ -403,7 +403,7 @@ Nothing else in the console has ID requirements.
 	l += "</div>[RDSCREEN_NOBREAK]"
 	return l
 
-/obj/machinery/computer/rdconsole/proc/ui_protolathe_chemicals()		//Legacy code
+TYPE_PROC_REF(/obj/machinery/computer/rdconsole, ui_protolathe_chemicals)()		//Legacy code
 	RDSCREEN_UI_LATHE_CHECK
 	var/list/l = list()
 	l += ui_protolathe_header()
@@ -415,7 +415,7 @@ Nothing else in the console has ID requirements.
 	l += "</div>"
 	return l
 
-/obj/machinery/computer/rdconsole/proc/ui_circuit_header()		//Legacy Code
+TYPE_PROC_REF(/obj/machinery/computer/rdconsole, ui_circuit_header)()		//Legacy Code
 	var/list/l = list()
 	l += "<div class='statusDisplay'><A href='?src=[REF(src)];switch_screen=[RDSCREEN_IMPRINTER]'>Circuit Imprinter Menu</A>"
 	if (linked_imprinter.materials.mat_container)
@@ -425,7 +425,7 @@ Nothing else in the console has ID requirements.
 	l += "<A href='?src=[REF(src)];switch_screen=[RDSCREEN_IMPRINTER_CHEMICALS]'><B>Chemical volume:</B> [linked_imprinter.reagents.total_volume] / [linked_imprinter.reagents.maximum_volume]</A></div>"
 	return l
 
-/obj/machinery/computer/rdconsole/proc/ui_circuit()		//Legacy code
+TYPE_PROC_REF(/obj/machinery/computer/rdconsole, ui_circuit)()		//Legacy code
 	RDSCREEN_UI_IMPRINTER_CHECK
 	var/list/l = list()
 	l += ui_circuit_header()
@@ -442,7 +442,7 @@ Nothing else in the console has ID requirements.
 	l += list_categories(linked_imprinter.categories, RDSCREEN_IMPRINTER_CATEGORY_VIEW)
 	return l
 
-/obj/machinery/computer/rdconsole/proc/ui_circuit_category_view()	//Legacy code
+TYPE_PROC_REF(/obj/machinery/computer/rdconsole, ui_circuit_category_view)()	//Legacy code
 	RDSCREEN_UI_IMPRINTER_CHECK
 	var/list/l = list()
 	l += ui_circuit_header()
@@ -476,7 +476,7 @@ Nothing else in the console has ID requirements.
 	l += "</div>"
 	return l
 
-/obj/machinery/computer/rdconsole/proc/ui_circuit_search()	//Legacy code
+TYPE_PROC_REF(/obj/machinery/computer/rdconsole, ui_circuit_search)()	//Legacy code
 	RDSCREEN_UI_IMPRINTER_CHECK
 	var/list/l = list()
 	l += ui_circuit_header()
@@ -506,7 +506,7 @@ Nothing else in the console has ID requirements.
 	l += "</div>"
 	return l
 
-/obj/machinery/computer/rdconsole/proc/ui_circuit_chemicals()		//legacy code
+TYPE_PROC_REF(/obj/machinery/computer/rdconsole, ui_circuit_chemicals)()		//legacy code
 	RDSCREEN_UI_IMPRINTER_CHECK
 	var/list/l = list()
 	l += ui_circuit_header()
@@ -517,7 +517,7 @@ Nothing else in the console has ID requirements.
 		l += "<A href='?src=[REF(src)];disposeI=[R]'>Purge</A>"
 	return l
 
-/obj/machinery/computer/rdconsole/proc/ui_circuit_materials()	//Legacy code!
+TYPE_PROC_REF(/obj/machinery/computer/rdconsole, ui_circuit_materials)()	//Legacy code!
 	RDSCREEN_UI_IMPRINTER_CHECK
 	var/datum/component/material_container/mat_container = linked_imprinter.materials.mat_container
 	if (!mat_container)
@@ -536,7 +536,7 @@ Nothing else in the console has ID requirements.
 		if(amount >= MINERAL_MATERIAL_AMOUNT) l += "<A href='?src=[REF(src)];imprinter_ejectsheet=[ref];eject_amt=50'>All</A>[RDSCREEN_NOBREAK]</div>"
 	return l
 
-/obj/machinery/computer/rdconsole/proc/ui_techdisk()		//Legacy code
+TYPE_PROC_REF(/obj/machinery/computer/rdconsole, ui_techdisk)()		//Legacy code
 	RDSCREEN_UI_TDISK_CHECK
 	var/list/l = list()
 	l += "<div class='statusDisplay'>Disk Operations: <A href='?src=[REF(src)];clear_tech=0'>Clear Disk</A>"
@@ -550,7 +550,7 @@ Nothing else in the console has ID requirements.
 	l += "</div>"
 	return l
 
-/obj/machinery/computer/rdconsole/proc/ui_designdisk()		//Legacy code
+TYPE_PROC_REF(/obj/machinery/computer/rdconsole, ui_designdisk)()		//Legacy code
 	RDSCREEN_UI_DDISK_CHECK
 	var/list/l = list()
 	l += "Disk Operations: <A href='?src=[REF(src)];clear_design=0'>Clear Disk</A><A href='?src=[REF(src)];updt_design=0'>Upload All</A><A href='?src=[REF(src)];eject_design=1'>Eject Disk</A>"
@@ -565,7 +565,7 @@ Nothing else in the console has ID requirements.
 		l += "</div>"
 	return l
 
-/obj/machinery/computer/rdconsole/proc/ui_designdisk_upload()	//Legacy code
+TYPE_PROC_REF(/obj/machinery/computer/rdconsole, ui_designdisk_upload)()	//Legacy code
 	RDSCREEN_UI_DDISK_CHECK
 	var/list/l = list()
 	l += "<A href='?src=[REF(src)];switch_screen=[RDSCREEN_DESIGNDISK];back_screen=[screen]'>Return to Disk Operations</A><div class='statusDisplay'>"
@@ -577,7 +577,7 @@ Nothing else in the console has ID requirements.
 	l += "</div>"
 	return l
 
-/obj/machinery/computer/rdconsole/proc/ui_deconstruct()		//Legacy code
+TYPE_PROC_REF(/obj/machinery/computer/rdconsole, ui_deconstruct)()		//Legacy code
 	RDSCREEN_UI_DECONSTRUCT_CHECK
 	var/list/l = list()
 	if(!linked_destroy.loaded_item)
@@ -643,7 +643,7 @@ Nothing else in the console has ID requirements.
 		l += "</div>"
 	return l
 
-/obj/machinery/computer/rdconsole/proc/ui_techweb()
+TYPE_PROC_REF(/obj/machinery/computer/rdconsole, ui_techweb)()
 	var/list/l = list()
 	if(islist(stored_research.research_logs) && stored_research.research_logs.len)
 		l += "Last action: [stored_research.research_logs[stored_research.research_logs.len]]"
@@ -694,10 +694,10 @@ Nothing else in the console has ID requirements.
 		l += "</div>[RDSCREEN_NOBREAK]"
 	return l
 
-/obj/machinery/computer/rdconsole/proc/machine_icon(atom/item)
+TYPE_PROC_REF(/obj/machinery/computer/rdconsole, machine_icon)(atom/item)
 	return icon2html(initial(item.icon), usr, initial(item.icon_state), SOUTH)
 
-/obj/machinery/computer/rdconsole/proc/ui_techweb_single_node(datum/techweb_node/node, selflink=TRUE, minimal=FALSE)
+TYPE_PROC_REF(/obj/machinery/computer/rdconsole, ui_techweb_single_node)(datum/techweb_node/node, selflink=TRUE, minimal=FALSE)
 	var/list/l = list()
 	if (stored_research.hidden_nodes[node.id])
 		return l
@@ -725,7 +725,7 @@ Nothing else in the console has ID requirements.
 	l += "</div>[RDSCREEN_NOBREAK]"
 	return l
 
-/obj/machinery/computer/rdconsole/proc/ui_techweb_nodeview()
+TYPE_PROC_REF(/obj/machinery/computer/rdconsole, ui_techweb_nodeview)()
 	var/datum/techweb_node/selected_node = SSresearch.techweb_node_by_id(selected_node_id)
 	RDSCREEN_UI_SNODE_CHECK
 	var/list/l = list()
@@ -758,7 +758,7 @@ Nothing else in the console has ID requirements.
 	l += "</tr></table>[RDSCREEN_NOBREAK]"
 	return l
 
-/obj/machinery/computer/rdconsole/proc/ui_techweb_designview()		//Legacy code
+TYPE_PROC_REF(/obj/machinery/computer/rdconsole, ui_techweb_designview)()		//Legacy code
 	var/datum/design/selected_design = SSresearch.techweb_design_by_id(selected_design_id)
 	RDSCREEN_UI_SDESIGN_CHECK
 	var/list/l = list()
@@ -797,7 +797,7 @@ Nothing else in the console has ID requirements.
 	return l
 
 //Fuck TGUI.
-/obj/machinery/computer/rdconsole/proc/generate_ui()
+TYPE_PROC_REF(/obj/machinery/computer/rdconsole, generate_ui)()
 	var/list/ui = list()
 	ui += ui_header()
 	if(locked)
@@ -1083,15 +1083,15 @@ Nothing else in the console has ID requirements.
 	popup.set_content(generate_ui())
 	popup.open()
 
-/obj/machinery/computer/rdconsole/proc/tdisk_uple_complete()
+TYPE_PROC_REF(/obj/machinery/computer/rdconsole, tdisk_uple_complete)()
 	tdisk_uple = FALSE
 	updateUsrDialog()
 
-/obj/machinery/computer/rdconsole/proc/ddisk_uple_complete()
+TYPE_PROC_REF(/obj/machinery/computer/rdconsole, ddisk_uple_complete)()
 	ddisk_uple = FALSE
 	updateUsrDialog()
 
-/obj/machinery/computer/rdconsole/proc/eject_disk(type)
+TYPE_PROC_REF(/obj/machinery/computer/rdconsole, eject_disk)(type)
 	if(type == "design")
 		d_disk.forceMove(get_turf(src))
 		d_disk = null
@@ -1099,7 +1099,7 @@ Nothing else in the console has ID requirements.
 		t_disk.forceMove(get_turf(src))
 		t_disk = null
 
-/obj/machinery/computer/rdconsole/proc/rescan_views()
+TYPE_PROC_REF(/obj/machinery/computer/rdconsole, rescan_views)()
 	var/compare
 	matching_design_ids.Cut()
 	if(searchtype == "proto")
@@ -1113,7 +1113,7 @@ Nothing else in the console has ID requirements.
 		if(findtext(D.name,searchstring))
 			matching_design_ids.Add(D.id)
 
-/obj/machinery/computer/rdconsole/proc/check_canprint(datum/design/D, buildtype)
+TYPE_PROC_REF(/obj/machinery/computer/rdconsole, check_canprint)(datum/design/D, buildtype)
 	var/amount = 50
 	if(buildtype == IMPRINTER)
 		if(QDELETED(linked_imprinter))
@@ -1133,10 +1133,10 @@ Nothing else in the console has ID requirements.
 		return FALSE
 	return amount
 
-/obj/machinery/computer/rdconsole/proc/lock_console(mob/user)
+TYPE_PROC_REF(/obj/machinery/computer/rdconsole, lock_console)(mob/user)
 	locked = TRUE
 
-/obj/machinery/computer/rdconsole/proc/unlock_console(mob/user)
+TYPE_PROC_REF(/obj/machinery/computer/rdconsole, unlock_console)(mob/user)
 	locked = FALSE
 
 /obj/machinery/computer/rdconsole/robotics

@@ -133,13 +133,13 @@
 		return
 	recharge_counter++
 
-/obj/machinery/chem_dispenser/proc/display_beaker()
+TYPE_PROC_REF(/obj/machinery/chem_dispenser, display_beaker)()
 	var/mutable_appearance/b_o = beaker_overlay || mutable_appearance(icon, "disp_beaker")
 	b_o.pixel_y = -4
 	b_o.pixel_x = -7
 	return b_o
 
-/obj/machinery/chem_dispenser/proc/work_animation()
+TYPE_PROC_REF(/obj/machinery/chem_dispenser, work_animation)()
 	if(working_state)
 		flick(working_state,src)
 
@@ -458,7 +458,7 @@
 	powerefficiency = round(newpowereff, 0.01)
 	matefficiency = round(newmateff, 0.01)
 
-/obj/machinery/chem_dispenser/proc/replace_beaker(mob/living/user, obj/item/reagent_containers/new_beaker)
+TYPE_PROC_REF(/obj/machinery/chem_dispenser, replace_beaker)(mob/living/user, obj/item/reagent_containers/new_beaker)
 	if(beaker)
 		var/obj/item/reagent_containers/B = beaker
 		B.forceMove(drop_location())
@@ -481,7 +481,7 @@
 		beaker = null
 	return ..()
 
-/obj/machinery/chem_dispenser/proc/replace_cartridge(mob/living/user, obj/item/stock_parts/chem_cartridge/new_cartridge)
+TYPE_PROC_REF(/obj/machinery/chem_dispenser, replace_cartridge)(mob/living/user, obj/item/stock_parts/chem_cartridge/new_cartridge)
 	if(cartridge)
 		var/obj/item/stock_parts/chem_cartridge/C = cartridge
 		C.forceMove(drop_location())

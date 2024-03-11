@@ -81,7 +81,7 @@
 	handle_damage(FALSE, TRUE, TRUE, FALSE)
 
 /// Update the wound's stats to the apropriate values
-/datum/wound/bleed/proc/handle_damage(silent = FALSE, can_promote = TRUE, force_wound, can_reopen = FALSE, healing = FALSE)
+TYPE_PROC_REF(/datum/wound/bleed, handle_damage)(silent = FALSE, can_promote = TRUE, force_wound, can_reopen = FALSE, healing = FALSE)
 	var/target_severity = get_limb_bleed_severity()
 	switch(target_severity)
 		if(WOUND_DO_NOTHING)
@@ -95,7 +95,7 @@
 	update_wound(what_do, silent, can_promote, force_wound ? target_severity : FALSE, can_reopen)
 
 /// Returns the limb's target wound severity
-/datum/wound/bleed/proc/get_limb_bleed_severity()
+TYPE_PROC_REF(/datum/wound/bleed, get_limb_bleed_severity)()
 	switch(limb.bleed_dam)
 		if(-INFINITY to WOUND_BLEED_CLOSE_THRESHOLD)
 			. = WOUND_DELETE // wound's healed
@@ -109,7 +109,7 @@
 			. = WOUND_SEVERITY_CRITICAL
 
 /// Compares an input limb severity to our current severity, and outputs
-/datum/wound/bleed/proc/check_damage(limb_severity)
+TYPE_PROC_REF(/datum/wound/bleed, check_damage)(limb_severity)
 	if(severity == limb_severity)
 		return WOUND_RENEW // refresh the wound if needed
 	if(severity < limb_severity)
@@ -186,7 +186,7 @@
 	if(second_wind)
 		second_wind()
 
-/datum/wound/bleed/proc/do_splortch(renewing = FALSE)
+TYPE_PROC_REF(/datum/wound/bleed, do_splortch)(renewing = FALSE)
 	var/verbiage = renewing ? "[renew_text]" : "[occur_text]"
 	var/msg = span_danger("[victim]'s [limb.name] [verbiage]!")
 	var/vis_dist = COMBAT_MESSAGE_RANGE
@@ -263,7 +263,7 @@
 	return get_blood_flow(TRUE)
 
 /// calculates how much the wound should be ensmallening
-/datum/wound/bleed/proc/reduce_bloodflow()
+TYPE_PROC_REF(/datum/wound/bleed, reduce_bloodflow)()
 	if(!COOLDOWN_FINISHED(src, bleed_heal_cooldown))
 		return
 	COOLDOWN_START(src, bleed_heal_cooldown, BLEED_HEAL_COOLDOWN_TIME)
@@ -339,7 +339,7 @@
 	//blood_flow -= 0.075 * power // 20u * 0.075 = -1.5 blood flow, pretty good for how little effort it is
 
 /// Someone is trying to cauterize a wound with a fucking lasergun - unused for now, doesnt work
-/datum/wound/bleed/proc/las_cauterize(obj/item/gun/energy/laser/lasgun, mob/user)
+TYPE_PROC_REF(/datum/wound/bleed, las_cauterize)(obj/item/gun/energy/laser/lasgun, mob/user)
 	var/self_penalty_mult = (user == victim ? 1.25 : 1)
 	user.visible_message(span_warning("[user] begins aiming [lasgun] directly at [victim]'s [limb.name]..."), span_userdanger("You begin aiming [lasgun] directly at [user == victim ? "your" : "[victim]'s"] [limb.name]..."))
 	if(!do_after(user, base_treat_time  * self_penalty_mult, target=victim, extra_checks = CALLBACK(src, PROC_REF(still_exists))))
@@ -354,7 +354,7 @@
 	victim.visible_message(span_warning("The cuts on [victim]'s [limb.name] scar over!"))
 
 /// If someone is using a suture to close this cut - unused for now, handled by various other mechanics
-/datum/wound/bleed/proc/suture(obj/item/stack/medical/suture/I, mob/user)
+TYPE_PROC_REF(/datum/wound/bleed, suture)(obj/item/stack/medical/suture/I, mob/user)
 	var/self_penalty_mult = (user == victim ? 1.2 : 1)
 	user.visible_message(span_notice("[user] begins stitching [victim]'s [limb.name] with [I]..."), span_notice("You begin stitching [user == victim ? "your" : "[victim]'s"] [limb.name] with [I]..."))
 
@@ -372,7 +372,7 @@
 
 
 /// If someone is using either a cautery tool or something with heat to cauterize this cut
-/datum/wound/bleed/proc/tool_cauterize(obj/item/I, mob/user)
+TYPE_PROC_REF(/datum/wound/bleed, tool_cauterize)(obj/item/I, mob/user)
 	if(blood_flow <= minimum_flow)
 		to_chat(user, span_danger("You can't cauterize [limb.name] any further, use a bandage and/or a suture!"))
 		return
@@ -394,7 +394,7 @@
 	//	to_chat(user, span_green("You successfully lower the severity of [user == victim ? "your" : "[victim]'s"] cuts."))
 
 /// If someone is licking at their wounds cus they're a cat and that works
-/datum/wound/bleed/proc/lick_wounds(mob/living/carbon/human/user)
+TYPE_PROC_REF(/datum/wound/bleed, lick_wounds)(mob/living/carbon/human/user)
 	if(INTERACTING_WITH(user, victim))
 		to_chat(user, span_warning("You're already interacting with [victim]!"))
 		return

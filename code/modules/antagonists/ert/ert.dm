@@ -28,7 +28,7 @@
 	. = ..()
 	name_source = GLOB.last_names
 
-/datum/antagonist/ert/proc/update_name()
+TYPE_PROC_REF(/datum/antagonist/ert, update_name)()
 	owner.current.fully_replace_character_name(owner.current.real_name,"[role] [pick(name_source)]")
 
 /datum/antagonist/ert/deathsquad/New()
@@ -119,11 +119,11 @@
 	if(istype(new_team))
 		ert_team = new_team
 
-/datum/antagonist/ert/proc/forge_objectives()
+TYPE_PROC_REF(/datum/antagonist/ert, forge_objectives)()
 	if(ert_team)
 		objectives |= ert_team.objectives
 
-/datum/antagonist/ert/proc/equipERT()
+TYPE_PROC_REF(/datum/antagonist/ert, equipERT)()
 	var/mob/living/carbon/human/H = owner.current
 	if(!istype(H))
 		return

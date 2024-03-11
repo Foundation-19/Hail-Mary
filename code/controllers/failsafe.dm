@@ -56,7 +56,7 @@ GLOBAL_REAL(Failsafe, /datum/controller/failsafe)
 	..()
 	return QDEL_HINT_HARDDEL_NOW
 
-/datum/controller/failsafe/proc/Loop()
+TYPE_PROC_REF(/datum/controller/failsafe, Loop)()
 	while(running)
 		lasttick = world.time
 		if(!Master)
@@ -123,7 +123,7 @@ GLOBAL_REAL(Failsafe, /datum/controller/failsafe)
 
 //Emergency loop used when Master got deleted or the main loop exited while Defcon == 0
 //Loop is driven externally so runtimes only cancel the current recovery attempt
-/datum/controller/failsafe/proc/emergency_loop()
+TYPE_PROC_REF(/datum/controller/failsafe, emergency_loop)()
 	//The code in this proc should be kept as simple as possible, anything complicated like to_chat might rely on master existing and runtime
 	//The goal should always be to get a new Master up and running before anything else
 	. = -1
@@ -172,7 +172,7 @@ GLOBAL_REAL(Failsafe, /datum/controller/failsafe)
 	else
 		message_admins(span_boldannounce("Failed to create new MC!"))
 
-/datum/controller/failsafe/proc/defcon_pretty()
+TYPE_PROC_REF(/datum/controller/failsafe, defcon_pretty)()
 	return defcon
 
 /datum/controller/failsafe/stat_entry(msg)

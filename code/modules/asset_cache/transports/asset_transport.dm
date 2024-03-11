@@ -11,13 +11,13 @@
 	var/dont_mutate_filenames = FALSE
 
 /// Called when the transport is loaded by the config controller, not called on the default transport unless it gets loaded by a config change.
-/datum/asset_transport/proc/Load()
+TYPE_PROC_REF(/datum/asset_transport, Load)()
 	if (CONFIG_GET(flag/asset_simple_preload))
 		for(var/client/C in GLOB.clients)
 			addtimer(CALLBACK(src, PROC_REF(send_assets_slow), C, preload), 1 SECONDS)
 
 /// Initialize - Called when SSassets initializes.
-/datum/asset_transport/proc/Initialize(list/assets)
+TYPE_PROC_REF(/datum/asset_transport, Initialize)(list/assets)
 	preload = assets.Copy()
 	if (!CONFIG_GET(flag/asset_simple_preload))
 		return
@@ -30,7 +30,7 @@
 /// asset - the actual asset file (or an asset_cache_item datum)
 /// returns a /datum/asset_cache_item.
 /// mutiple calls to register the same asset under the same asset_name return the same datum
-/datum/asset_transport/proc/register_asset(asset_name, asset)
+TYPE_PROC_REF(/datum/asset_transport, register_asset)(asset_name, asset)
 	var/datum/asset_cache_item/ACI = asset
 	if (!istype(ACI))
 		ACI = new(asset_name, asset)
@@ -57,7 +57,7 @@
 /// Returns a url for a given asset.
 /// asset_name - Name of the asset.
 /// asset_cache_item - asset cache item datum for the asset, optional, overrides asset_name
-/datum/asset_transport/proc/get_asset_url(asset_name, datum/asset_cache_item/asset_cache_item)
+TYPE_PROC_REF(/datum/asset_transport, get_asset_url)(asset_name, datum/asset_cache_item/asset_cache_item)
 	if (!istype(asset_cache_item))
 		asset_cache_item = SSassets.cache[asset_name]
 	
@@ -78,7 +78,7 @@
 /// client - a client or mob
 /// asset_list - A list of asset filenames to be sent to the client. Can optionally be assoicated with the asset's asset_cache_item datum.
 /// Returns TRUE if any assets were sent.
-/datum/asset_transport/proc/send_assets(client/client, list/asset_list)
+TYPE_PROC_REF(/datum/asset_transport, send_assets)(client/client, list/asset_list)
 	if (!istype(client))
 		if (ismob(client))
 			var/mob/M = client
@@ -134,13 +134,13 @@
 
 			client.sent_assets[new_asset_name] = ACI.hash
 
-		addtimer(CALLBACK(client, /client/proc/asset_cache_update_json), 1 SECONDS, TIMER_UNIQUE|TIMER_OVERRIDE)
+		addtimer(CALLBACK(client, TYPE_PROC_REF(/client, asset_cache_update_json)), 1 SECONDS, TIMER_UNIQUE|TIMER_OVERRIDE)
 		return TRUE
 	return FALSE
 
 
 /// Precache files without clogging up the browse() queue, used for passively sending files on connection start.
-/datum/asset_transport/proc/send_assets_slow(client/client, list/files, filerate = 3)
+TYPE_PROC_REF(/datum/asset_transport, send_assets_slow)(client/client, list/files, filerate = 3)
 	var/startingfilerate = filerate
 	for (var/file in files)
 		if (!client)
@@ -153,5 +153,5 @@
 
 /// Check the config is valid to load this transport
 /// Returns TRUE or FALSE
-/datum/asset_transport/proc/validate_config(log = TRUE)
+TYPE_PROC_REF(/datum/asset_transport, validate_config)(log = TRUE)
 	return TRUE

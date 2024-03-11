@@ -56,7 +56,7 @@ Borg Hypospray
 	return 1
 
 // Use this to add more chemicals for the borghypo to produce.
-/obj/item/reagent_containers/borghypo/proc/add_reagent(datum/reagent/reagent)
+TYPE_PROC_REF(/obj/item/reagent_containers/borghypo, add_reagent)(datum/reagent/reagent)
 	reagent_ids |= reagent
 	var/datum/reagents/RG = new(30)
 	RG.my_atom = src
@@ -68,7 +68,7 @@ Borg Hypospray
 	modes[reagent] = modes.len + 1
 	reagent_names[initial(reagent.name)] = reagent
 
-/obj/item/reagent_containers/borghypo/proc/del_reagent(datum/reagent/reagent)
+TYPE_PROC_REF(/obj/item/reagent_containers/borghypo, del_reagent)(datum/reagent/reagent)
 	reagent_ids -= reagent
 	reagent_names -= initial(reagent.name)
 	var/datum/reagents/RG
@@ -84,7 +84,7 @@ Borg Hypospray
 
 		modes[reagent] = modes.len - 1
 
-/obj/item/reagent_containers/borghypo/proc/regenerate_reagents()
+TYPE_PROC_REF(/obj/item/reagent_containers/borghypo, regenerate_reagents)()
 	if(iscyborg(src.loc))
 		var/mob/living/silicon/robot/R = src.loc
 		if(R && R.cell)
@@ -129,7 +129,7 @@ Borg Hypospray
 	. = ..()
 	. += DescribeContents() //Because using the standardized reagents datum was just too cool for whatever fuckwit wrote this
 
-/obj/item/reagent_containers/borghypo/proc/DescribeContents()
+TYPE_PROC_REF(/obj/item/reagent_containers/borghypo, DescribeContents)()
 	var/empty = 1
 
 	for(var/datum/reagents/RS in reagent_list)

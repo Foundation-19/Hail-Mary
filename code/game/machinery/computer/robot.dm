@@ -9,7 +9,7 @@
 	ui_x = 500
 	ui_y = 460
 
-/obj/machinery/computer/robotics/proc/can_control(mob/user, mob/living/silicon/robot/R)
+TYPE_PROC_REF(/obj/machinery/computer/robotics, can_control)(mob/user, mob/living/silicon/robot/R)
 	. = FALSE
 	if(!istype(R))
 		return

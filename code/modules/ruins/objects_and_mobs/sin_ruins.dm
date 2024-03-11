@@ -26,7 +26,7 @@
 	playsound(src, 'sound/lavaland/cursed_slot_machine.ogg', 50, 0)
 	addtimer(CALLBACK(src, PROC_REF(determine_victor), user), 50)
 
-/obj/structure/cursed_slot_machine/proc/determine_victor(mob/living/user)
+TYPE_PROC_REF(/obj/structure/cursed_slot_machine, determine_victor)(mob/living/user)
 	icon_state = "slots1"
 	obj_flags &= ~IN_USE
 	if(prob(win_prob))
@@ -52,7 +52,7 @@
 	. = ..()
 	addtimer(CALLBACK(src, PROC_REF(collapse)), 600)
 
-/obj/structure/cursed_money/proc/collapse()
+TYPE_PROC_REF(/obj/structure/cursed_money, collapse)()
 	visible_message("<span class='warning'>[src] falls in on itself, \
 		canvas rotting away and contents vanishing.</span>")
 	qdel(src)

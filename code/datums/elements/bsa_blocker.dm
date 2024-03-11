@@ -6,5 +6,5 @@
 	RegisterSignal(target, COMSIG_ATOM_BSA_BEAM, PROC_REF(block_bsa))
 	return ..()
 
-/datum/element/bsa_blocker/proc/block_bsa()
+TYPE_PROC_REF(/datum/element/bsa_blocker, block_bsa)()
 	return COMSIG_ATOM_BLOCKS_BSA_BEAM

@@ -76,7 +76,7 @@
 
 
 // This proc will cause the light source to update the top atom, and add itself to the update queue.
-/datum/light_source/proc/update(atom/new_top_atom)
+TYPE_PROC_REF(/datum/light_source, update)(atom/new_top_atom)
 	// This top atom is different.
 	if (new_top_atom && new_top_atom != top_atom)
 		if(top_atom != source_atom && top_atom.light_sources) // Remove ourselves from the light sources of that top atom.
@@ -90,11 +90,11 @@
 	EFFECT_UPDATE(LIGHTING_CHECK_UPDATE)
 
 // Will force an update without checking if it's actually needed.
-/datum/light_source/proc/force_update()
+TYPE_PROC_REF(/datum/light_source, force_update)()
 	EFFECT_UPDATE(LIGHTING_FORCE_UPDATE)
 
 // Will cause the light source to recalculate turfs that were removed or added to visibility only.
-/datum/light_source/proc/vis_update()
+TYPE_PROC_REF(/datum/light_source, vis_update)()
 	EFFECT_UPDATE(LIGHTING_VIS_UPDATE)
 
 // Macro that applies light to a new corner.
@@ -140,7 +140,7 @@
 
 // This is the define used to calculate falloff.
 
-/datum/light_source/proc/remove_lum()
+TYPE_PROC_REF(/datum/light_source, remove_lum)()
 	applied = FALSE
 	var/thing
 	for (thing in affecting_turfs)
@@ -158,7 +158,7 @@
 
 	effect_str = null
 
-/datum/light_source/proc/recalc_corner(datum/lighting_corner/C)
+TYPE_PROC_REF(/datum/light_source, recalc_corner)(datum/lighting_corner/C)
 	LAZYINITLIST(effect_str)
 	if (effect_str[C]) // Already have one.
 		REMOVE_CORNER(C)
@@ -167,7 +167,7 @@
 	APPLY_CORNER(C)
 	UNSETEMPTY(effect_str)
 
-/datum/light_source/proc/update_corners()
+TYPE_PROC_REF(/datum/light_source, update_corners)()
 	var/update = FALSE
 	var/atom/source_atom = src.source_atom
 

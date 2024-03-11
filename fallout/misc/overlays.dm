@@ -2,7 +2,7 @@
 
 /atom/var/list/overlays_cache
 
-/atom/proc/add_cached_overlay(key, overlay)
+TYPE_PROC_REF(/atom, add_cached_overlay)(key, overlay)
 	if(!overlays_cache)
 		overlays_cache = list()
 	if(!overlays_cache.Find(key))
@@ -10,7 +10,7 @@
 	overlays_cache[key] += overlay
 	overlays += overlay
 
-/atom/proc/remove_cached_overlay(key)
+TYPE_PROC_REF(/atom, remove_cached_overlay)(key)
 	if(!overlays_cache || !overlays_cache.Find(key))
 		return
 	overlays -= overlays_cache[key]

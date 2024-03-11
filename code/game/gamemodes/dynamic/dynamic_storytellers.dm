@@ -32,14 +32,14 @@ Property weights are added to the config weight of the ruleset. They are:
 "conversion" -- Basically a bool. Conversion antags, well, convert. It's in its own class 'cause people kinda hate conversion.
 */
 
-/datum/dynamic_storyteller/proc/start_injection_cooldowns()
+TYPE_PROC_REF(/datum/dynamic_storyteller, start_injection_cooldowns)()
 	var/latejoin_injection_cooldown_middle = 0.5*(GLOB.dynamic_first_latejoin_delay_max + GLOB.dynamic_first_latejoin_delay_min)
 	mode.latejoin_injection_cooldown = round(clamp(EXP_DISTRIBUTION(latejoin_injection_cooldown_middle), GLOB.dynamic_first_latejoin_delay_min, GLOB.dynamic_first_latejoin_delay_max)) + world.time
 
 	var/midround_injection_cooldown_middle = 0.5*(GLOB.dynamic_first_midround_delay_min + GLOB.dynamic_first_midround_delay_max)
 	mode.midround_injection_cooldown = round(clamp(EXP_DISTRIBUTION(midround_injection_cooldown_middle), GLOB.dynamic_first_midround_delay_min, GLOB.dynamic_first_midround_delay_max)) + world.time
 
-/datum/dynamic_storyteller/proc/calculate_threat()
+TYPE_PROC_REF(/datum/dynamic_storyteller, calculate_threat)()
 	var/threat = 0
 	for(var/datum/antagonist/A in GLOB.antagonists)
 		if(A?.owner?.current && A.owner.current.stat != DEAD)
@@ -60,10 +60,10 @@ Property weights are added to the config weight of the ruleset. They are:
 	threat += (mode.current_players[CURRENT_DEAD_PLAYERS].len)*dead_player_weight
 	return round(threat,0.1)
 
-/datum/dynamic_storyteller/proc/do_process()
+TYPE_PROC_REF(/datum/dynamic_storyteller, do_process)()
 	return
 
-/datum/dynamic_storyteller/proc/on_start()
+TYPE_PROC_REF(/datum/dynamic_storyteller, on_start)()
 	if (istype(SSticker.mode, /datum/game_mode/dynamic))
 		mode = SSticker.mode
 		GLOB.dynamic_curve_centre = curve_centre
@@ -92,17 +92,17 @@ Property weights are added to the config weight of the ruleset. They are:
 			GLOB.dynamic_curve_centre += (50 - SSpersistence.average_dynamic_threat) / 10
 		GLOB.dynamic_forced_threat_level = forced_threat_level
 
-/datum/dynamic_storyteller/proc/get_midround_cooldown()
+TYPE_PROC_REF(/datum/dynamic_storyteller, get_midround_cooldown)()
 	var/midround_injection_cooldown_middle = 0.5*(GLOB.dynamic_midround_delay_max + GLOB.dynamic_midround_delay_min)
 	return round(clamp(EXP_DISTRIBUTION(midround_injection_cooldown_middle), GLOB.dynamic_midround_delay_min, GLOB.dynamic_midround_delay_max))
 
-/datum/dynamic_storyteller/proc/should_inject_antag(dry_run = FALSE)
+TYPE_PROC_REF(/datum/dynamic_storyteller, should_inject_antag)(dry_run = FALSE)
 	if(mode.forced_injection)
 		mode.forced_injection = !dry_run
 		return TRUE
 	return mode.threat < mode.threat_level
 
-/datum/dynamic_storyteller/proc/roundstart_draft()
+TYPE_PROC_REF(/datum/dynamic_storyteller, roundstart_draft)()
 	var/list/drafted_rules = list()
 	for (var/datum/dynamic_ruleset/roundstart/rule in mode.roundstart_rules)
 		if (rule.acceptable(mode.roundstart_pop_ready, mode.threat_level))	// If we got the population and threat required
@@ -118,7 +118,7 @@ Property weights are added to the config weight of the ruleset. They are:
 					drafted_rules[rule] = calced_weight
 	return drafted_rules
 
-/datum/dynamic_storyteller/proc/midround_draft()
+TYPE_PROC_REF(/datum/dynamic_storyteller, midround_draft)()
 	var/list/drafted_rules = list()
 	for (var/datum/dynamic_ruleset/midround/rule in mode.midround_rules)
 		// if there are antags OR the rule is an antag rule, antag_acceptable will be true.
@@ -152,7 +152,7 @@ Property weights are added to the config weight of the ruleset. They are:
 					drafted_rules[rule] = calced_weight
 	return drafted_rules
 
-/datum/dynamic_storyteller/proc/latejoin_draft(mob/living/carbon/human/newPlayer)
+TYPE_PROC_REF(/datum/dynamic_storyteller, latejoin_draft)(mob/living/carbon/human/newPlayer)
 	var/list/drafted_rules = list()
 	for (var/datum/dynamic_ruleset/latejoin/rule in mode.latejoin_rules)
 		if (rule.acceptable(mode.current_players[CURRENT_LIVING_PLAYERS].len, mode.threat_level - mode.threat))

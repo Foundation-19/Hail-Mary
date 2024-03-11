@@ -15,7 +15,7 @@
 	handle_drop()
 	..()
 
-/obj/item/projectile/bullet/reusable/proc/handle_drop()
+TYPE_PROC_REF(/obj/item/projectile/bullet/reusable, handle_drop)()
 	if(!dropped)
 		if(prob(break_chance))
 			return

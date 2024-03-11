@@ -86,7 +86,7 @@
 				B.defused = TRUE
 				B.update_icon()
 
-/datum/wires/syndicatebomb/proc/tell_admins(obj/machinery/syndicatebomb/B)
+TYPE_PROC_REF(/datum/wires/syndicatebomb, tell_admins)(obj/machinery/syndicatebomb/B)
 	if(istype(B, /obj/machinery/syndicatebomb/training))
 		return
 	var/turf/T = get_turf(B)

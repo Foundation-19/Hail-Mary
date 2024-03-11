@@ -98,7 +98,7 @@
 		our_alert = user.throw_alert("shoealert", /obj/screen/alert/shoes/untied)
 		RegisterSignal(src, COMSIG_SHOES_STEP_ACTION, PROC_REF(check_trip), override=TRUE)
 
-/obj/item/clothing/shoes/proc/restore_offsets(mob/user)
+TYPE_PROC_REF(/obj/item/clothing/shoes, restore_offsets)(mob/user)
 	equipped_before_drop = FALSE
 	user.pixel_y -= offset
 	worn_y_dimension = world.icon_size
@@ -124,7 +124,7 @@
 		var/mob/M = loc
 		M.update_inv_shoes()
 
-/obj/item/proc/negates_gravity()
+TYPE_PROC_REF(/obj/item, negates_gravity)()
 	return FALSE
 
 /**
@@ -137,7 +137,7 @@
  * * state: SHOES_UNTIED, SHOES_TIED, or SHOES_KNOTTED, depending on what you want them to become
  * * user: used to check to see if we're the ones unknotting our own laces
  */
-/obj/item/clothing/shoes/proc/adjust_laces(state, mob/user)
+TYPE_PROC_REF(/obj/item/clothing/shoes, adjust_laces)(state, mob/user)
 	if(!can_be_tied)
 		return
 
@@ -164,7 +164,7 @@
  * *
  * * user: who is the person interacting with the shoes?
  */
-/obj/item/clothing/shoes/proc/handle_tying(mob/user)
+TYPE_PROC_REF(/obj/item/clothing/shoes, handle_tying)(mob/user)
 	///our_guy here is the wearer, if one exists (and he must exist, or we don't care)
 	var/mob/living/carbon/human/our_guy = loc
 	if(!istype(our_guy))
@@ -221,11 +221,11 @@
 				L.Paralyze(10)
 
 ///checking to make sure we're still on the person we're supposed to be, for lacing do_after's
-/obj/item/clothing/shoes/proc/still_shoed(mob/living/carbon/our_guy)
+TYPE_PROC_REF(/obj/item/clothing/shoes, still_shoed)(mob/living/carbon/our_guy)
 	return (loc == our_guy)
 
 ///check_trip runs on each step to see if we fall over as a result of our lace status. Knotted laces are a guaranteed trip, while untied shoes are just a chance to stumble
-/obj/item/clothing/shoes/proc/check_trip()
+TYPE_PROC_REF(/obj/item/clothing/shoes, check_trip)()
 	var/mob/living/carbon/human/our_guy = loc
 	if(!istype(our_guy)) // are they REALLY /our guy/?
 		return

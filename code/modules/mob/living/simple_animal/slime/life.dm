@@ -25,7 +25,7 @@
 		return
 	..()
 
-/mob/living/simple_animal/slime/proc/AIprocess()  // the master AI process
+TYPE_PROC_REF(/mob/living/simple_animal/slime, AIprocess)()  // the master AI process
 
 	if(AIproc || stat || client)
 		return
@@ -147,7 +147,7 @@
 
 	return //TODO: DEFERRED
 
-/mob/living/simple_animal/slime/proc/adjust_body_temperature(current, loc_temp, boost)
+TYPE_PROC_REF(/mob/living/simple_animal/slime, adjust_body_temperature)(current, loc_temp, boost)
 	var/temperature = current
 	var/difference = abs(current-loc_temp)	//get difference
 	var/increments// = difference/10			//find how many increments apart they are
@@ -169,7 +169,7 @@
 	if(prob(30) && !stat)
 		adjustBruteLoss(-1)
 
-/mob/living/simple_animal/slime/proc/handle_feeding()
+TYPE_PROC_REF(/mob/living/simple_animal/slime, handle_feeding)()
 	if(!ismob(buckled))
 		return
 	var/mob/M = buckled
@@ -231,7 +231,7 @@
 	//Heal yourself.
 	adjustBruteLoss(-3)
 
-/mob/living/simple_animal/slime/proc/handle_nutrition()
+TYPE_PROC_REF(/mob/living/simple_animal/slime, handle_nutrition)()
 
 	if(docile) //God as my witness, I will never go hungry again
 		nutrition = 700
@@ -267,7 +267,7 @@
 			if(prob(25-powerlevel*5))
 				powerlevel++
 
-/mob/living/simple_animal/slime/proc/handle_targets()
+TYPE_PROC_REF(/mob/living/simple_animal/slime, handle_targets)()
 	update_mobility()
 
 	if(attacked > 50)
@@ -396,7 +396,7 @@
 /mob/living/simple_animal/slime/handle_automated_speech()
 	return //slime random speech is currently handled in handle_speech()
 
-/mob/living/simple_animal/slime/proc/handle_mood()
+TYPE_PROC_REF(/mob/living/simple_animal/slime, handle_mood)()
 	var/newmood = ""
 	if (rabid || attacked)
 		newmood = "angry"
@@ -419,7 +419,7 @@
 		mood = newmood
 		regenerate_icons()
 
-/mob/living/simple_animal/slime/proc/handle_speech()
+TYPE_PROC_REF(/mob/living/simple_animal/slime, handle_speech)()
 	//Speech understanding starts here
 	var/to_say
 	if (speech_buffer.len > 0)
@@ -591,31 +591,31 @@
 			if(!stat)
 				say (pick(phrases))
 
-/mob/living/simple_animal/slime/proc/get_max_nutrition() // Can't go above it
+TYPE_PROC_REF(/mob/living/simple_animal/slime, get_max_nutrition)() // Can't go above it
 	if (is_adult)
 		return 1200
 	else
 		return 1000
 
-/mob/living/simple_animal/slime/proc/get_grow_nutrition() // Above it we grow, below it we can eat
+TYPE_PROC_REF(/mob/living/simple_animal/slime, get_grow_nutrition)() // Above it we grow, below it we can eat
 	if (is_adult)
 		return 1000
 	else
 		return 800
 
-/mob/living/simple_animal/slime/proc/get_hunger_nutrition() // Below it we will always eat
+TYPE_PROC_REF(/mob/living/simple_animal/slime, get_hunger_nutrition)() // Below it we will always eat
 	if (is_adult)
 		return 600
 	else
 		return 500
 
-/mob/living/simple_animal/slime/proc/get_starve_nutrition() // Below it we will eat before everything else
+TYPE_PROC_REF(/mob/living/simple_animal/slime, get_starve_nutrition)() // Below it we will eat before everything else
 	if(is_adult)
 		return 300
 	else
 		return 200
 
-/mob/living/simple_animal/slime/proc/will_hunt(hunger = -1) // Check for being stopped from feeding and chasing
+TYPE_PROC_REF(/mob/living/simple_animal/slime, will_hunt)(hunger = -1) // Check for being stopped from feeding and chasing
 	if (docile)
 		return 0
 	if (hunger == 2 || rabid || attacked)

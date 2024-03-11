@@ -33,10 +33,10 @@
 		add_ranged_ability(user, msg, TRUE)
 		on_activation(user)
 
-/obj/effect/proc_holder/spell/aimed/proc/on_activation(mob/user)
+TYPE_PROC_REF(/obj/effect/proc_holder/spell/aimed, on_activation)(mob/user)
 	return
 
-/obj/effect/proc_holder/spell/aimed/proc/on_deactivation(mob/user)
+TYPE_PROC_REF(/obj/effect/proc_holder/spell/aimed, on_deactivation)(mob/user)
 	return
 
 /obj/effect/proc_holder/spell/aimed/update_icon()
@@ -71,7 +71,7 @@
 		on_deactivation(user)
 	return TRUE
 
-/obj/effect/proc_holder/spell/aimed/proc/fire_projectile(mob/living/user, atom/target)
+TYPE_PROC_REF(/obj/effect/proc_holder/spell/aimed, fire_projectile)(mob/living/user, atom/target)
 	current_amount--
 	if(!projectile_type)
 		return
@@ -86,7 +86,7 @@
 		P.fire()
 	return TRUE
 
-/obj/effect/proc_holder/spell/aimed/proc/ready_projectile(obj/item/projectile/P, atom/target, mob/user, iteration)
+TYPE_PROC_REF(/obj/effect/proc_holder/spell/aimed, ready_projectile)(obj/item/projectile/P, atom/target, mob/user, iteration)
 	return
 
 /obj/effect/proc_holder/spell/aimed/lightningbolt

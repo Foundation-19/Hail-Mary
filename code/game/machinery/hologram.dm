@@ -329,7 +329,7 @@ GLOBAL_LIST_EMPTY(network_holopads)
 /**
  * hangup_all_calls: Disconnects all current holocalls from the holopad
  */
-/obj/machinery/holopad/proc/hangup_all_calls()
+TYPE_PROC_REF(/obj/machinery/holopad, hangup_all_calls)()
 	for(var/I in holo_calls)
 		var/datum/holocall/HC = I
 		HC.Disconnect(src)
@@ -383,7 +383,7 @@ GLOBAL_LIST_EMPTY(network_holopads)
 
 	update_icon()
 
-/obj/machinery/holopad/proc/activate_holo(mob/living/user)
+TYPE_PROC_REF(/obj/machinery/holopad, activate_holo)(mob/living/user)
 	var/mob/living/silicon/ai/AI = user
 	if(!istype(AI))
 		AI = null
@@ -438,7 +438,7 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 	if(record_mode && speaker == record_user)
 		record_message(speaker,raw_message,message_language)
 
-/obj/machinery/holopad/proc/SetLightsAndPower()
+TYPE_PROC_REF(/obj/machinery/holopad, SetLightsAndPower)()
 	var/total_users = LAZYLEN(masters) + LAZYLEN(holo_calls)
 	use_power = total_users > 0 ? ACTIVE_POWER_USE : IDLE_POWER_USE
 	active_power_usage = HOLOPAD_PASSIVE_POWER_USAGE + (HOLOGRAM_POWER_USAGE * total_users)
@@ -457,7 +457,7 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 	else
 		icon_state = "holopad0"
 
-/obj/machinery/holopad/proc/set_holo(mob/living/user, obj/effect/overlay/holo_pad_hologram/h)
+TYPE_PROC_REF(/obj/machinery/holopad, set_holo)(mob/living/user, obj/effect/overlay/holo_pad_hologram/h)
 	LAZYSET(masters, user, h)
 	LAZYSET(holorays, user, new /obj/effect/overlay/holoray(loc))
 	var/mob/living/silicon/ai/AI = user
@@ -467,12 +467,12 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 	update_holoray(user, get_turf(loc))
 	return TRUE
 
-/obj/machinery/holopad/proc/clear_holo(mob/living/user)
+TYPE_PROC_REF(/obj/machinery/holopad, clear_holo)(mob/living/user)
 	qdel(masters[user]) // Get rid of user's hologram
 	unset_holo(user)
 	return TRUE
 
-/obj/machinery/holopad/proc/unset_holo(mob/living/user)
+TYPE_PROC_REF(/obj/machinery/holopad, unset_holo)(mob/living/user)
 	var/mob/living/silicon/ai/AI = user
 	if(istype(AI) && AI.current == src)
 		AI.current = null
@@ -483,7 +483,7 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 	return TRUE
 
 //Try to transfer hologram to another pad that can project on T
-/obj/machinery/holopad/proc/transfer_to_nearby_pad(turf/T,mob/holo_owner)
+TYPE_PROC_REF(/obj/machinery/holopad, transfer_to_nearby_pad)(turf/T,mob/holo_owner)
 	var/obj/effect/overlay/holo_pad_hologram/h = masters[holo_owner]
 	if(!h || h.HC) //Holocalls can't change source.
 		return FALSE
@@ -499,20 +499,20 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 			return TRUE
 	return FALSE
 
-/obj/machinery/holopad/proc/validate_user(mob/living/user)
+TYPE_PROC_REF(/obj/machinery/holopad, validate_user)(mob/living/user)
 	if(QDELETED(user) || user.incapacitated() || !user.client)
 		return FALSE
 	return TRUE
 
 //Can we display holos there
 //Area check instead of line of sight check because this is a called a lot if AI wants to move around.
-/obj/machinery/holopad/proc/validate_location(turf/T,check_los = FALSE)
+TYPE_PROC_REF(/obj/machinery/holopad, validate_location)(turf/T,check_los = FALSE)
 	if(T.z == z && get_dist(T, src) <= holo_range && T.loc == get_area(src))
 		return TRUE
 	else
 		return FALSE
 
-/obj/machinery/holopad/proc/move_hologram(mob/living/user, turf/new_turf)
+TYPE_PROC_REF(/obj/machinery/holopad, move_hologram)(mob/living/user, turf/new_turf)
 	if(LAZYLEN(masters) && masters[user])
 		var/obj/effect/overlay/holo_pad_hologram/holo = masters[user]
 		var/transfered = FALSE
@@ -529,7 +529,7 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 	return TRUE
 
 
-/obj/machinery/holopad/proc/update_holoray(mob/living/user, turf/new_turf)
+TYPE_PROC_REF(/obj/machinery/holopad, update_holoray)(mob/living/user, turf/new_turf)
 	var/obj/effect/overlay/holo_pad_hologram/holo = masters[user]
 	var/obj/effect/overlay/holoray/ray = holorays[user]
 	var/disty = holo.y - ray.y
@@ -554,7 +554,7 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 
 // RECORDED MESSAGES
 
-/obj/machinery/holopad/proc/setup_replay_holo(datum/holorecord/record)
+TYPE_PROC_REF(/obj/machinery/holopad, setup_replay_holo)(datum/holorecord/record)
 	var/obj/effect/overlay/holo_pad_hologram/Hologram = new(loc)//Spawn a blank effect at the location.
 	Hologram.add_overlay(record.caller_image)
 	Hologram.alpha = 170
@@ -569,21 +569,21 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 	visible_message(span_notice("A holographic image of [record.caller_name] flickers to life before your eyes!"))
 	return Hologram
 
-/obj/machinery/holopad/proc/replay_start()
+TYPE_PROC_REF(/obj/machinery/holopad, replay_start)()
 	if(!replay_mode)
 		replay_mode = TRUE
 		replay_holo = setup_replay_holo(disk.record)
 		SetLightsAndPower()
 		replay_entry(1)
 
-/obj/machinery/holopad/proc/replay_stop()
+TYPE_PROC_REF(/obj/machinery/holopad, replay_stop)()
 	if(replay_mode)
 		replay_mode = FALSE
 		offset = FALSE
 		QDEL_NULL(replay_holo)
 		SetLightsAndPower()
 
-/obj/machinery/holopad/proc/record_start(mob/living/user)
+TYPE_PROC_REF(/obj/machinery/holopad, record_start)(mob/living/user)
 	if(!user || !disk || disk.record)
 		return
 	disk.record = new
@@ -592,7 +592,7 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 	record_user = user
 	disk.record.set_caller_image(user)
 
-/obj/machinery/holopad/proc/record_message(mob/living/speaker,message,language)
+TYPE_PROC_REF(/obj/machinery/holopad, record_message)(mob/living/speaker,message,language)
 	if(!record_mode)
 		return
 	//make this command so you can have multiple languages in single record
@@ -618,7 +618,7 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 	if(disk.record.entries.len >= HOLORECORD_MAX_LENGTH)
 		record_stop()
 
-/obj/machinery/holopad/proc/replay_entry(entry_number)
+TYPE_PROC_REF(/obj/machinery/holopad, replay_entry)(entry_number)
 	if(!replay_mode)
 		return
 	if (!disk.record.entries.len) // check for zero entries such as photographs and no text recordings
@@ -653,12 +653,12 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 			replay_holo.name = entry[2] + " (Hologram)"
 	.(entry_number+1)
 
-/obj/machinery/holopad/proc/record_stop()
+TYPE_PROC_REF(/obj/machinery/holopad, record_stop)()
 	if(record_mode)
 		record_mode = FALSE
 		record_user = null
 
-/obj/machinery/holopad/proc/record_clear()
+TYPE_PROC_REF(/obj/machinery/holopad, record_clear)()
 	if(disk && disk.record)
 		QDEL_NULL(disk.record)
 

@@ -54,7 +54,7 @@
 	mob_type_blacklist_typecache = typecacheof(mob_type_blacklist_typecache)
 	mob_type_ignore_stat_typecache = typecacheof(mob_type_ignore_stat_typecache)
 
-/datum/emote/proc/run_emote(mob/user, params, type_override, intentional = FALSE, only_overhead)
+TYPE_PROC_REF(/datum/emote, run_emote)(mob/user, params, type_override, intentional = FALSE, only_overhead)
 	. = TRUE
 	if(!can_run_emote(user, TRUE, intentional))
 		return FALSE
@@ -97,7 +97,7 @@
 
 
 /// Sends the given emote message for all ghosts with ghost sight enabled, excluding close enough to listen normally.
-/mob/proc/emote_for_ghost_sight(message, admin_only, message_range)
+TYPE_PROC_REF(/mob, emote_for_ghost_sight)(message, admin_only, message_range)
 	for(var/mob/ghost as anything in GLOB.dead_mob_list)
 		if(QDELETED(ghost))
 			continue
@@ -124,7 +124,7 @@
 		ghost.show_message("<span class='emote'>[FOLLOW_LINK(ghost, src)] [message]</span>")
 
 
-/datum/emote/proc/replace_pronoun(mob/user, message)
+TYPE_PROC_REF(/datum/emote, replace_pronoun)(mob/user, message)
 	if(findtext(message, "their"))
 		message = replacetext(message, "their", user.p_their())
 	if(findtext(message, "them"))
@@ -133,7 +133,7 @@
 		message = replacetext(message, "%s", user.p_s())
 	return message
 
-/datum/emote/proc/select_message_type(mob/user)
+TYPE_PROC_REF(/datum/emote, select_message_type)(mob/user)
 	. = message
 	if(!muzzle_ignore && user.is_muzzled() && emote_type == EMOTE_AUDIBLE)
 		return "makes a [pick("strong ", "weak ", "")]noise."
@@ -150,10 +150,10 @@
 	else if(isanimal(user) && message_simple)
 		. = message_simple
 
-/datum/emote/proc/select_param(mob/user, params)
+TYPE_PROC_REF(/datum/emote, select_param)(mob/user, params)
 	return replacetext(message_param, "%t", params)
 
-/datum/emote/proc/can_run_emote(mob/user, status_check = TRUE, intentional = FALSE)
+TYPE_PROC_REF(/datum/emote, can_run_emote)(mob/user, status_check = TRUE, intentional = FALSE)
 	. = TRUE
 	if(mob_type_allowed_typecache) //empty list = anyone can use it unless specifically blacklisted
 		if(!is_type_in_typecache(user, mob_type_allowed_typecache))
@@ -197,7 +197,7 @@
  *
  * Returns the sound that will be made while sending the emote.
  */
-/datum/emote/proc/get_sound(mob/living/user)
+TYPE_PROC_REF(/datum/emote, get_sound)(mob/living/user)
 	return pick(sound) //by default just return this var.
 
 /**
@@ -209,7 +209,7 @@
  *
  * Returns a bool about whether or not the user should play a sound when performing the emote.
  */
-/datum/emote/proc/should_play_sound(mob/user, intentional = FALSE)
+TYPE_PROC_REF(/datum/emote, should_play_sound)(mob/user, intentional = FALSE)
 	if(only_forced_audio && intentional)
 		return FALSE
 	return TRUE

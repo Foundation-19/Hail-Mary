@@ -38,7 +38,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 	var/used = FALSE
 	var/job_spawnpoint = TRUE //Is it a potential job spawnpoint or should we skip it?
 
-/obj/effect/landmark/start/proc/after_round_start()
+TYPE_PROC_REF(/obj/effect/landmark/start, after_round_start)()
 	if(delete_after_roundstart)
 		qdel(src)
 
@@ -457,7 +457,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/start/new_player)
 		GLOB.stationroom_landmarks -= src
 	return ..()
 
-/obj/effect/landmark/stationroom/proc/load(template_name)
+TYPE_PROC_REF(/obj/effect/landmark/stationroom, load)(template_name)
 	var/turf/T = get_turf(src)
 	if(!T)
 		return FALSE

@@ -62,11 +62,11 @@ Bonus
 			Choke(M, A)
 			M.emote("gasp")
 
-/datum/symptom/choking/proc/Choke_stage_3_4(mob/living/M, datum/disease/advance/A)
+TYPE_PROC_REF(/datum/symptom/choking, Choke_stage_3_4)(mob/living/M, datum/disease/advance/A)
 	M.adjustOxyLoss(rand(6,13))
 	return 1
 
-/datum/symptom/choking/proc/Choke(mob/living/M, datum/disease/advance/A)
+TYPE_PROC_REF(/datum/symptom/choking, Choke)(mob/living/M, datum/disease/advance/A)
 	M.adjustOxyLoss(rand(10,18))
 	return 1
 
@@ -133,19 +133,19 @@ Bonus
 				Asphyxiate_death(M, A)
 	return
 
-/datum/symptom/asphyxiation/proc/Asphyxiate_stage_3_4(mob/living/M, datum/disease/advance/A)
+TYPE_PROC_REF(/datum/symptom/asphyxiation, Asphyxiate_stage_3_4)(mob/living/M, datum/disease/advance/A)
 	var/get_damage = rand(10,15) * power
 	M.adjustOxyLoss(get_damage)
 	return 1
 
-/datum/symptom/asphyxiation/proc/Asphyxiate(mob/living/M, datum/disease/advance/A)
+TYPE_PROC_REF(/datum/symptom/asphyxiation, Asphyxiate)(mob/living/M, datum/disease/advance/A)
 	var/get_damage = rand(15,21) * power
 	M.adjustOxyLoss(get_damage)
 	if(paralysis)
 		M.reagents.add_reagent_list(list(/datum/reagent/toxin/pancuronium = 3, /datum/reagent/toxin/sodium_thiopental = 3))
 	return 1
 
-/datum/symptom/asphyxiation/proc/Asphyxiate_death(mob/living/M, datum/disease/advance/A)
+TYPE_PROC_REF(/datum/symptom/asphyxiation, Asphyxiate_death)(mob/living/M, datum/disease/advance/A)
 	var/get_damage = rand(25,35) * power
 	M.adjustOxyLoss(get_damage)
 	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, get_damage/2)

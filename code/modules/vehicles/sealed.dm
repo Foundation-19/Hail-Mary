@@ -20,7 +20,7 @@
 		mob_try_enter(M)
 	return ..()
 
-/obj/vehicle/sealed/proc/mob_try_enter(mob/M)
+TYPE_PROC_REF(/obj/vehicle/sealed, mob_try_enter)(mob/M)
 	if(!istype(M))
 		return FALSE
 	if(occupant_amount() >= max_occupants)
@@ -30,10 +30,10 @@
 		return TRUE
 	return FALSE
 
-/obj/vehicle/sealed/proc/get_enter_delay(mob/M)
+TYPE_PROC_REF(/obj/vehicle/sealed, get_enter_delay)(mob/M)
 	return enter_delay
 
-/obj/vehicle/sealed/proc/mob_enter(mob/M, silent = FALSE)
+TYPE_PROC_REF(/obj/vehicle/sealed, mob_enter)(mob/M, silent = FALSE)
 	if(!istype(M))
 		return FALSE
 	if(!silent)
@@ -42,10 +42,10 @@
 	add_occupant(M)
 	return TRUE
 
-/obj/vehicle/sealed/proc/mob_try_exit(mob/M, mob/user, silent = FALSE, randomstep = FALSE)
+TYPE_PROC_REF(/obj/vehicle/sealed, mob_try_exit)(mob/M, mob/user, silent = FALSE, randomstep = FALSE)
 	mob_exit(M, silent, randomstep)
 
-/obj/vehicle/sealed/proc/mob_exit(mob/M, silent = FALSE, randomstep = FALSE)
+TYPE_PROC_REF(/obj/vehicle/sealed, mob_exit)(mob/M, silent = FALSE, randomstep = FALSE)
 	if(!istype(M))
 		return FALSE
 	remove_occupant(M)
@@ -58,7 +58,7 @@
 		M.visible_message(span_notice("[M] drops out of \the [src]!"))
 	return TRUE
 
-/obj/vehicle/sealed/proc/exit_location(M)
+TYPE_PROC_REF(/obj/vehicle/sealed, exit_location)(M)
 	return drop_location()
 
 /obj/vehicle/sealed/attackby(obj/item/I, mob/user, params)
@@ -73,7 +73,7 @@
 		return
 	return ..()
 
-/obj/vehicle/sealed/proc/remove_key(mob/user)
+TYPE_PROC_REF(/obj/vehicle/sealed, remove_key)(mob/user)
 	if(!inserted_key)
 		to_chat(user, span_notice("There is no key in [src]!"))
 		return
@@ -90,14 +90,14 @@
 	explosion(loc, 0, 1, 2, 3, 0)
 	return ..()
 
-/obj/vehicle/sealed/proc/DumpMobs(randomstep = TRUE)
+TYPE_PROC_REF(/obj/vehicle/sealed, DumpMobs)(randomstep = TRUE)
 	for(var/i in occupants)
 		mob_exit(i, null, randomstep)
 		if(iscarbon(i))
 			var/mob/living/carbon/Carbon = i
 			Carbon.DefaultCombatKnockdown(40)
 
-/obj/vehicle/sealed/proc/DumpSpecificMobs(flag, randomstep = TRUE)
+TYPE_PROC_REF(/obj/vehicle/sealed, DumpSpecificMobs)(flag, randomstep = TRUE)
 	for(var/i in occupants)
 		if((occupants[i] & flag))
 			mob_exit(i, null, randomstep)

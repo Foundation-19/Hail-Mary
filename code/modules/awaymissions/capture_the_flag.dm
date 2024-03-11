@@ -250,7 +250,7 @@
 		ctf_dust_old(user.mind.current)
 	spawn_team_member(new_team_member)
 
-/obj/machinery/capture_the_flag/proc/ctf_dust_old(mob/living/body)
+TYPE_PROC_REF(/obj/machinery/capture_the_flag, ctf_dust_old)(mob/living/body)
 	if(isliving(body) && (team in body.faction))
 		var/turf/T = get_turf(body)
 		new /obj/effect/ctf/ammo(T)
@@ -258,10 +258,10 @@
 		addtimer(CALLBACK(src, PROC_REF(clear_cooldown), body.ckey), respawn_cooldown, TIMER_UNIQUE)
 		body.dust()
 
-/obj/machinery/capture_the_flag/proc/clear_cooldown(ckey)
+TYPE_PROC_REF(/obj/machinery/capture_the_flag, clear_cooldown)(ckey)
 	recently_dead_ckeys -= ckey
 
-/obj/machinery/capture_the_flag/proc/spawn_team_member(client/new_team_member)
+TYPE_PROC_REF(/obj/machinery/capture_the_flag, spawn_team_member)(client/new_team_member)
 	var/mob/living/carbon/human/M = new/mob/living/carbon/human(get_turf(src))
 	new_team_member.prefs.copy_to(M)
 	M.set_species(/datum/species/synth)
@@ -292,7 +292,7 @@
 		if(points >= points_to_win)
 			victory()
 
-/obj/machinery/capture_the_flag/proc/victory()
+TYPE_PROC_REF(/obj/machinery/capture_the_flag, victory)()
 	for(var/mob/M in GLOB.mob_list)
 		var/area/mob_area = get_area(M)
 		if(istype(mob_area, /area/ctf))
@@ -312,7 +312,7 @@
 			CTF.team_members = list()
 			CTF.arena_reset = FALSE
 
-/obj/machinery/capture_the_flag/proc/toggle_ctf()
+TYPE_PROC_REF(/obj/machinery/capture_the_flag, toggle_ctf)()
 	if(!ctf_enabled)
 		start_ctf()
 		. = TRUE
@@ -320,7 +320,7 @@
 		stop_ctf()
 		. = FALSE
 
-/obj/machinery/capture_the_flag/proc/start_ctf()
+TYPE_PROC_REF(/obj/machinery/capture_the_flag, start_ctf)()
 	ctf_enabled = TRUE
 	for(var/d in dead_barricades)
 		var/obj/effect/ctf/dead_barricade/D = d
@@ -334,7 +334,7 @@
 		reset_the_arena()
 		arena_reset = TRUE
 
-/obj/machinery/capture_the_flag/proc/reset_the_arena()
+TYPE_PROC_REF(/obj/machinery/capture_the_flag, reset_the_arena)()
 	var/area/A = get_area(src)
 	var/list/ctf_object_typecache = typecacheof(list(
 				/obj/machinery,
@@ -351,7 +351,7 @@
 			qdel(atm)
 
 
-/obj/machinery/capture_the_flag/proc/stop_ctf()
+TYPE_PROC_REF(/obj/machinery/capture_the_flag, stop_ctf)()
 	ctf_enabled = FALSE
 	arena_reset = FALSE
 	var/area/A = get_area(src)
@@ -363,13 +363,13 @@
 	spawned_mobs.Cut()
 	recently_dead_ckeys.Cut()
 
-/obj/machinery/capture_the_flag/proc/instagib_mode()
+TYPE_PROC_REF(/obj/machinery/capture_the_flag, instagib_mode)()
 	for(var/obj/machinery/capture_the_flag/CTF in GLOB.machines)
 		if(CTF.ctf_enabled == TRUE)
 			CTF.ctf_gear = CTF.instagib_gear
 			CTF.respawn_cooldown = INSTAGIB_RESPAWN
 
-/obj/machinery/capture_the_flag/proc/normal_mode()
+TYPE_PROC_REF(/obj/machinery/capture_the_flag, normal_mode)()
 	for(var/obj/machinery/capture_the_flag/CTF in GLOB.machines)
 		if(CTF.ctf_enabled == TRUE)
 			CTF.ctf_gear = initial(ctf_gear)
@@ -618,7 +618,7 @@
 
 	QDEL_IN(src, AMMO_DROP_LIFETIME)
 
-/obj/effect/ctf/ammo/proc/on_entered(atom/movable/AM)
+TYPE_PROC_REF(/obj/effect/ctf/ammo, on_entered)(atom/movable/AM)
 	SIGNAL_HANDLER
 	reload(AM)
 
@@ -628,7 +628,7 @@
 /obj/effect/ctf/ammo/Bumped(atom/movable/AM)
 	reload(AM)
 
-/obj/effect/ctf/ammo/proc/reload(mob/living/M)
+TYPE_PROC_REF(/obj/effect/ctf/ammo, reload)(mob/living/M)
 	if(!ishuman(M))
 		return
 	for(var/obj/machinery/capture_the_flag/CTF in GLOB.machines)
@@ -654,7 +654,7 @@
 	for(var/obj/machinery/capture_the_flag/CTF in GLOB.machines)
 		CTF.dead_barricades += src
 
-/obj/effect/ctf/dead_barricade/proc/respawn()
+TYPE_PROC_REF(/obj/effect/ctf/dead_barricade, respawn)()
 	if(!QDELETED(src))
 		new /obj/structure/barricade/security/ctf(get_turf(src))
 		qdel(src)
@@ -684,7 +684,7 @@
 /obj/machinery/control_point/on_attack_hand(mob/user, act_intent = user.a_intent, unarmed_attack_flags)
 	capture(user)
 
-/obj/machinery/control_point/proc/capture(mob/user)
+TYPE_PROC_REF(/obj/machinery/control_point, capture)(mob/user)
 	if(do_after(user, 30, target = src))
 		for(var/obj/machinery/capture_the_flag/CTF in GLOB.machines)
 			if(CTF.ctf_enabled && (user.ckey in CTF.team_members))

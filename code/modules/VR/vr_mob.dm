@@ -1,4 +1,4 @@
-/mob/proc/build_virtual_character(mob/M)
+TYPE_PROC_REF(/mob, build_virtual_character)(mob/M)
 	mind_initialize()
 	if(!M)
 		return FALSE

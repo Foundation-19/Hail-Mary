@@ -97,7 +97,7 @@
  * Waits for a user's response to the tgui_text_input's prompt before returning. Returns early if
  * the window was closed by the user.
  */
-/datum/tgui_input_text/proc/wait()
+TYPE_PROC_REF(/datum/tgui_input_text, wait)()
 	while (!entry && !closed)
 		stoplag(1)
 
@@ -151,7 +151,7 @@
 			closed = TRUE
 			return TRUE
 
-/datum/tgui_input_text/proc/set_entry(entry)
+TYPE_PROC_REF(/datum/tgui_input_text, set_entry)(entry)
 	if(!isnull(entry))
 		var/converted_entry = encode ? html_encode(entry) : entry
 		//converted_entry = readd_quotes(converted_entry)

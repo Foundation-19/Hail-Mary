@@ -143,7 +143,7 @@
 		reagents.trans_to(outbag, amount)
 		update_icon()
 
-/obj/machinery/bloodbankgen/proc/beep_stop_pumping(msg = "[src] beeps loudly.", out_instead_of_in = FALSE)
+TYPE_PROC_REF(/obj/machinery/bloodbankgen, beep_stop_pumping)(msg = "[src] beeps loudly.", out_instead_of_in = FALSE)
 	if(out_instead_of_in)
 		filling = FALSE
 	else
@@ -246,7 +246,7 @@
 	popup.set_content(dat)
 	popup.open()
 
-/obj/machinery/bloodbankgen/proc/activateinput()
+TYPE_PROC_REF(/obj/machinery/bloodbankgen, activateinput)()
 	if(bag)
 		draining = TRUE
 		update_icon()
@@ -254,7 +254,7 @@
 		to_chat(usr, span_warning("There is no blood bag in the input slot."))
 		return
 
-/obj/machinery/bloodbankgen/proc/activateoutput()
+TYPE_PROC_REF(/obj/machinery/bloodbankgen, activateoutput)()
 	if(outbag)
 		filling = TRUE
 		update_icon()
@@ -262,7 +262,7 @@
 		to_chat(usr, span_warning("There is no blood bag in the output slot."))
 		return
 
-/obj/machinery/bloodbankgen/proc/check_container_volume(list/reagents, multiplier = 1)
+TYPE_PROC_REF(/obj/machinery/bloodbankgen, check_container_volume)(list/reagents, multiplier = 1)
 	var/sum_reagents = 0
 	for(var/R in reagents)
 		sum_reagents += reagents[R]
@@ -274,7 +274,7 @@
 
 	return TRUE
 
-/obj/machinery/bloodbankgen/proc/detachinput(mob/user)
+TYPE_PROC_REF(/obj/machinery/bloodbankgen, detachinput)(mob/user)
 	if(bag)
 		bag.forceMove(drop_location())
 		if(user && Adjacent(usr) && user.can_hold_items())
@@ -283,7 +283,7 @@
 		draining = null
 		update_icon()
 
-/obj/machinery/bloodbankgen/proc/detachoutput(mob/user)
+TYPE_PROC_REF(/obj/machinery/bloodbankgen, detachoutput)(mob/user)
 	if(outbag)
 		outbag.forceMove(drop_location())
 		if(user && Adjacent(user) && user.can_hold_items())
@@ -292,7 +292,7 @@
 		filling = null
 		update_icon()
 
-/obj/machinery/bloodbankgen/proc/attachinput(obj/item/O, mob/user)
+TYPE_PROC_REF(/obj/machinery/bloodbankgen, attachinput)(obj/item/O, mob/user)
 	if(!bag)
 		if(!user.transferItemToLoc(O, src))
 			return
@@ -303,7 +303,7 @@
 	else
 		to_chat(user, span_notice("There is already something in this slot!"))
 
-/obj/machinery/bloodbankgen/proc/attachoutput(obj/item/O, mob/user)
+TYPE_PROC_REF(/obj/machinery/bloodbankgen, attachoutput)(obj/item/O, mob/user)
 	if(!outbag)
 		if(!user.transferItemToLoc(O, src))
 			return

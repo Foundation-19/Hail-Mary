@@ -1,19 +1,19 @@
 //This proc allows download of past server logs saved within the data/logs/ folder.
-/client/proc/getserverlogs()
+TYPE_PROC_REF(/client, getserverlogs)()
 	set name = "Get Server Logs"
 	set desc = "View/retrieve logfiles."
 	set category = "Admin"
 
 	browseserverlogs()
 
-/client/proc/getcurrentlogs()
+TYPE_PROC_REF(/client, getcurrentlogs)()
 	set name = "Get Current Logs"
 	set desc = "View/retrieve logfiles for the current round."
 	set category = "Admin"
 
 	browseserverlogs("[GLOB.log_directory]/")
 
-/client/proc/browseserverlogs(path = "data/logs/")
+TYPE_PROC_REF(/client, browseserverlogs)(path = "data/logs/")
 	path = browse_files(path)
 	if(!path)
 		return

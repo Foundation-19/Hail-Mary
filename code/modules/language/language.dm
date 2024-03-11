@@ -27,7 +27,7 @@
 	var/icon = 'icons/misc/language.dmi'
 	var/icon_state = "popcorn"
 
-/datum/language/proc/display_icon(atom/movable/hearer)
+TYPE_PROC_REF(/datum/language, display_icon)(atom/movable/hearer)
 	var/understands = hearer.has_language(src.type)
 	if(flags & LANGUAGE_HIDE_ICON_IF_UNDERSTOOD && understands)
 		return FALSE
@@ -35,11 +35,11 @@
 		return FALSE
 	return TRUE
 
-/datum/language/proc/get_icon()
+TYPE_PROC_REF(/datum/language, get_icon)()
 	var/datum/asset/spritesheet/sheet = get_asset_datum(/datum/asset/spritesheet/chat)
 	return sheet.icon_tag("language-[icon_state]")
 
-/datum/language/proc/get_random_name(gender, name_count=2, syllable_count=4, syllable_divisor=2)
+TYPE_PROC_REF(/datum/language, get_random_name)(gender, name_count=2, syllable_count=4, syllable_divisor=2)
 	if(!syllables || !syllables.len)
 		if(gender==FEMALE)
 			return capitalize(pick(GLOB.first_names_female)) + " " + capitalize(pick(GLOB.last_names))
@@ -58,20 +58,20 @@
 
 	return "[trim(full_name)]"
 
-/datum/language/proc/check_cache(input)
+TYPE_PROC_REF(/datum/language, check_cache)(input)
 	var/lookup = scramble_cache[input]
 	if(lookup)
 		scramble_cache -= input
 		scramble_cache[input] = lookup
 	. = lookup
 
-/datum/language/proc/add_to_cache(input, scrambled_text)
+TYPE_PROC_REF(/datum/language, add_to_cache)(input, scrambled_text)
 	// Add it to cache, cutting old entries if the list is too long
 	scramble_cache[input] = scrambled_text
 	if(scramble_cache.len > SCRAMBLE_CACHE_LEN)
 		scramble_cache.Cut(1, scramble_cache.len-SCRAMBLE_CACHE_LEN-1)
 
-/datum/language/proc/scramble(input)
+TYPE_PROC_REF(/datum/language, scramble)(input)
 
 	if(!syllables || !syllables.len)
 		return stars(input)
@@ -110,7 +110,7 @@
 
 	return scrambled_text
 
-/datum/language/proc/get_spoken_verb(msg_end)
+TYPE_PROC_REF(/datum/language, get_spoken_verb)(msg_end)
 	switch(msg_end)
 		if("!")
 			return exclaim_verb

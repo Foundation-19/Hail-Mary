@@ -43,7 +43,7 @@
 		to_chat(usr, msg)
 		return
 
-/obj/item/grown/proc/add_juice()
+TYPE_PROC_REF(/obj/item/grown, add_juice)()
 	if(reagents)
 		return 1
 	return 0

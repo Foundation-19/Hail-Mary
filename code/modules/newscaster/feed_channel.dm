@@ -8,7 +8,7 @@
 	var/authorCensor
 	var/is_admin_channel = 0
 
-/datum/news/feed_channel/proc/returnAuthor(censor)
+TYPE_PROC_REF(/datum/news/feed_channel, returnAuthor)(censor)
 	if(censor == -1)
 		censor = authorCensor
 	var/txt = "[GLOB.news_network.redactedText]"
@@ -16,7 +16,7 @@
 		txt = author
 	return txt
 
-/datum/news/feed_channel/proc/toggleCensorDclass()
+TYPE_PROC_REF(/datum/news/feed_channel, toggleCensorDclass)()
 	if(censored)
 		DclassCensorTime.Add(GLOB.news_network.lastAction*-1)
 	else
@@ -24,7 +24,7 @@
 	censored = !censored
 	GLOB.news_network.lastAction ++
 
-/datum/news/feed_channel/proc/toggleCensorAuthor()
+TYPE_PROC_REF(/datum/news/feed_channel, toggleCensorAuthor)()
 	if(authorCensor)
 		authorCensorTime.Add(GLOB.news_network.lastAction*-1)
 	else

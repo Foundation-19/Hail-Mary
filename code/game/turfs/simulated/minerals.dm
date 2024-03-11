@@ -84,7 +84,7 @@
 	else
 		return attack_hand(user)
 
-/turf/closed/mineral/proc/gets_drilled()
+TYPE_PROC_REF(/turf/closed/mineral, gets_drilled)()
 	if(indestructible) //fortuna edit. RNG rocks that dont budge
 		return
 	if (mineralType && (mineralAmt > 0))
@@ -738,7 +738,7 @@
 		defuse()
 	..()
 
-/turf/closed/mineral/gibtonite/proc/explosive_reaction(mob/user = null, triggered_by_explosion = 0)
+TYPE_PROC_REF(/turf/closed/mineral/gibtonite, explosive_reaction)(mob/user = null, triggered_by_explosion = 0)
 	if(stage == GIBTONITE_UNSTRUCK)
 		activated_overlay = mutable_appearance('icons/turf/smoothrocks.dmi', "rock_Gibtonite_active", ON_EDGED_TURF_LAYER)
 		add_overlay(activated_overlay)
@@ -763,7 +763,7 @@
 
 		countdown(notify_admins)
 
-/turf/closed/mineral/gibtonite/proc/countdown(notify_admins = 0)
+TYPE_PROC_REF(/turf/closed/mineral/gibtonite, countdown)(notify_admins = 0)
 	set waitfor = 0
 	while(istype(src, /turf/closed/mineral/gibtonite) && stage == GIBTONITE_ACTIVE && det_time > 0 && mineralAmt >= 1)
 		det_time--
@@ -775,7 +775,7 @@
 			stage = GIBTONITE_DETONATE
 			explosion(bombturf,1,3,5, adminlog = notify_admins)
 
-/turf/closed/mineral/gibtonite/proc/defuse()
+TYPE_PROC_REF(/turf/closed/mineral/gibtonite, defuse)()
 	if(stage == GIBTONITE_ACTIVE)
 		cut_overlay(activated_overlay)
 		activated_overlay.icon_state = "rock_Gibtonite_inactive"
@@ -881,7 +881,7 @@
 	playsound(src, 'sound/effects/break_stone.ogg', 50, TRUE) //beautiful destruction
 //	H.mind.adjust_experience(/datum/skill/mining, 100) //yay!
 
-/turf/closed/mineral/strong/proc/drop_ores()
+TYPE_PROC_REF(/turf/closed/mineral/strong, drop_ores)()
 	if(prob(10))
 		new /obj/item/stack/sheet/mineral/mythril(src, 5)
 	else

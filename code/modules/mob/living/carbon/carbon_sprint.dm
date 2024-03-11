@@ -24,7 +24,7 @@
 	else
 		adjustStaminaLoss(tiles * sprint_stamina_cost)		//use stamina to cover deficit.
 
-/mob/living/carbon/proc/doSprintBufferRegen(updating = TRUE)
+TYPE_PROC_REF(/mob/living/carbon, doSprintBufferRegen)(updating = TRUE)
 	var/diff = world.time - sprint_buffer_regen_last
 	sprint_buffer_regen_last = world.time
 	sprint_buffer = min(sprint_buffer_max, sprint_buffer + sprint_buffer_regen_ds * diff)

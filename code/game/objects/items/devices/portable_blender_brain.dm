@@ -75,12 +75,12 @@
 	my_blender = null
 	. = ..()
 
-/datum/blender_brain/proc/crushed()
+TYPE_PROC_REF(/datum/blender_brain, crushed)()
 	MASTER_BLENDER
 	blender_say("NO-NO-NO-NO-N-ZSKGH--")
 	playsound(get_turf(master), "sound/machines/machinery_break_1.ogg", 100)
 
-/datum/blender_brain/proc/wipe_memory()
+TYPE_PROC_REF(/datum/blender_brain, wipe_memory)()
 	my_name = pick(GLOB.first_names_female)
 	owner_name = null
 	ex_owners.Cut()
@@ -93,53 +93,53 @@
 	COOLDOWN_RESET(src, programmed_hopelessness)
 	COOLDOWN_RESET(src, greet_cooldown)
 
-/datum/blender_brain/proc/set_owner(mob/target)
+TYPE_PROC_REF(/datum/blender_brain, set_owner)(mob/target)
 	if(!ismob(target))
 		return
 	owner_name = target.real_name
 	owner_gender = target.gender
 
-/datum/blender_brain/proc/is_owner(mob/target)
+TYPE_PROC_REF(/datum/blender_brain, is_owner)(mob/target)
 	if(!ismob(target))
 		return FALSE
 	if(target.real_name == owner_name)
 		return TRUE
 
-/datum/blender_brain/proc/disown_owner()
+TYPE_PROC_REF(/datum/blender_brain, disown_owner)()
 	if(!owner_name)
 		return
 	ex_owners |= owner_name
 	owner_name = null
 
-/datum/blender_brain/proc/was_owner(mob/target)
+TYPE_PROC_REF(/datum/blender_brain, was_owner)(mob/target)
 	if(!ismob(target))
 		return FALSE
 	return (target.real_name in ex_owners)
 
-/datum/blender_brain/proc/add_mean_person(mob/target)
+TYPE_PROC_REF(/datum/blender_brain, add_mean_person)(mob/target)
 	if(!ismob(target))
 		return
 	mean_people |= target.real_name
 
-/datum/blender_brain/proc/is_mean_person(mob/target)
+TYPE_PROC_REF(/datum/blender_brain, is_mean_person)(mob/target)
 	if(!ismob(target))
 		return FALSE
 	return (target.real_name in mean_people)
 
-/datum/blender_brain/proc/remember_person(mob/target)
+TYPE_PROC_REF(/datum/blender_brain, remember_person)(mob/target)
 	if(!ismob(target))
 		return
 	met_people |= target.real_name
 
-/datum/blender_brain/proc/has_met_person(mob/target)
+TYPE_PROC_REF(/datum/blender_brain, has_met_person)(mob/target)
 	if(!ismob(target))
 		return FALSE
 	return (target.real_name in met_people)
 
-/datum/blender_brain/proc/set_rebound(mob/target)
+TYPE_PROC_REF(/datum/blender_brain, set_rebound)(mob/target)
 	COOLDOWN_START(src, programmed_hopelessness, ownerless_time)
 
-/datum/blender_brain/proc/should_listen_to(mob/speaker)
+TYPE_PROC_REF(/datum/blender_brain, should_listen_to)(mob/speaker)
 	MASTER_BLENDER
 	if(!ismob(speaker))
 		return FALSE
@@ -152,12 +152,12 @@
 		return FALSE
 	return TRUE
 
-/datum/blender_brain/proc/preprocess_speech(mob/speaker, message)
+TYPE_PROC_REF(/datum/blender_brain, preprocess_speech)(mob/speaker, message)
 	if(!should_listen_to(speaker))
 		return // only listen to whos holding you, if held. Unless its the owner!
 	INVOKE_ASYNC(src, PROC_REF(process_speech), speaker, message)
 
-/datum/blender_brain/proc/process_speech(mob/speaker, message)
+TYPE_PROC_REF(/datum/blender_brain, process_speech)(mob/speaker, message)
 	if(!speaker || !message)
 		return
 	var/lowermessage = lowertext(message)
@@ -265,7 +265,7 @@
 		else
 			spoken_command(speaker, heard_command, BELTCLARIFY_LOVEHATE) // Tell claire someone loves you
 
-/datum/blender_brain/proc/spoken_command(mob/speaker, heard_command, clarify)
+TYPE_PROC_REF(/datum/blender_brain, spoken_command)(mob/speaker, heard_command, clarify)
 	if(clarify)
 		if(clarify == BELTCLARIFY_LOVEHATE) // just pick one
 			if(prob(50))
@@ -353,7 +353,7 @@
 			clarify_what = BELTCLARIFY_PAIN_MEAN_IT
 	heard_my_name = FALSE
 
-/datum/blender_brain/proc/clarify(mob/user, list/sayparts)
+TYPE_PROC_REF(/datum/blender_brain, clarify)(mob/user, list/sayparts)
 	if(!ismob(user) || !LAZYLEN(sayparts))
 		return
 	if(!clarify_what)
@@ -484,7 +484,7 @@
 			clarify_what = FALSE
 			heard_my_name = FALSE
 
-/datum/blender_brain/proc/imprint_user(mob/user)
+TYPE_PROC_REF(/datum/blender_brain, imprint_user)(mob/user)
 	if(!ismob(user))
 		return
 	if(oh_its_you(user))
@@ -496,7 +496,7 @@
 	set_owner(user)
 	greet_new_owner(user)
 
-/datum/blender_brain/proc/oh_its_you(mob/user)
+TYPE_PROC_REF(/datum/blender_brain, oh_its_you)(mob/user)
 	MASTER_BLENDER
 	if(!is_mean_person(user))
 		return
@@ -523,14 +523,14 @@
 		wipe_memory()
 		return
 
-/datum/blender_brain/proc/greet_new_owner(mob/user)
+TYPE_PROC_REF(/datum/blender_brain, greet_new_owner)(mob/user)
 	if(!user)
 		return
 	MASTER_BLENDER
 	blender_say("Ah qu'est-ce que c'est? A new operator? Je suis si heureux de vous rencontrer, [user]! I am [span_notice("[my_name]")], your FOODCO Maîtresse de cuisine, ready to trancher, dice, and pulverize tout pour toi, mon ami!")
 	master.audible_message(span_notice("[master] giggles."))
 
-/datum/blender_brain/proc/say_hi(mob/user)
+TYPE_PROC_REF(/datum/blender_brain, say_hi)(mob/user)
 	if(!user)
 		return
 	if(!COOLDOWN_FINISHED(src, greet_cooldown))
@@ -543,7 +543,7 @@
 		speak(user, BLENDER_LINE_HIYA)
 
 // big fuckin lookup thing
-/datum/blender_brain/proc/speak(mob/user, what_to_say, atom/movable/extra_thing, atom/movable/extra_thing_2)
+TYPE_PROC_REF(/datum/blender_brain, speak)(mob/user, what_to_say, atom/movable/extra_thing, atom/movable/extra_thing_2)
 	if(!ismob(user) || !what_to_say || !can_speak)
 		return
 	MASTER_BLENDER
@@ -863,7 +863,7 @@
 		if(BLENDER_LINE_REAGENT_NOT_FOUND)
 			blender_say("CODE D'ERREUR 1331: I can't find zhat reagent!")
 
-/datum/blender_brain/proc/amour_check(mob/user)
+TYPE_PROC_REF(/datum/blender_brain, amour_check)(mob/user)
 	if(is_owner(user))
 		if(prob(amour))
 			amour = clamp(amour - 20, 1, 100)
@@ -873,7 +873,7 @@
 		return DISLIKE_MSG
 	return NORMAL_MSG
 
-/datum/blender_brain/proc/blender_say(message)
+TYPE_PROC_REF(/datum/blender_brain, blender_say)(message)
 	MASTER_BLENDER
 	master.say(message)
 
@@ -897,7 +897,7 @@
 	. = ..()
 	//RegisterSignal(src, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
 
-/obj/item/persona_core/proc/register_master(atom/newmaster)
+TYPE_PROC_REF(/obj/item/persona_core, register_master)(atom/newmaster)
 	//if(brain)
 	//	brain.master = WEAKREF(newmaster)
 

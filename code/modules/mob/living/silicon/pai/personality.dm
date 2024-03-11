@@ -7,10 +7,10 @@
 		ready = 0
 */
 
-/datum/paiCandidate/proc/savefile_path(mob/user)
+TYPE_PROC_REF(/datum/paiCandidate, savefile_path)(mob/user)
 	return "data/player_saves/[user.ckey[1]]/[user.ckey]/pai.sav"
 
-/datum/paiCandidate/proc/savefile_save(mob/user)
+TYPE_PROC_REF(/datum/paiCandidate, savefile_save)(mob/user)
 	if(IsGuestKey(user.key))
 		return 0
 
@@ -31,7 +31,7 @@
 // returns 1 if loaded (or file was incompatible)
 // returns 0 if savefile did not exist
 
-/datum/paiCandidate/proc/savefile_load(mob/user, silent = TRUE)
+TYPE_PROC_REF(/datum/paiCandidate, savefile_load)(mob/user, silent = TRUE)
 	if (IsGuestKey(user.key))
 		return 0
 

@@ -143,7 +143,7 @@
 	return
 
 
-/obj/singularity/proc/admin_investigate_setup()
+TYPE_PROC_REF(/obj/singularity, admin_investigate_setup)()
 	var/turf/T = get_turf(src)
 	last_warning = world.time
 	var/count = locate(/obj/machinery/field/containment) in urange(30, src, 1)
@@ -151,7 +151,7 @@
 		message_admins("A singulo has been created without containment fields active at [ADMIN_VERBOSEJMP(T)].")
 	investigate_log("was created at [AREACOORD(T)]. [count?"":"<font color='red'>No containment fields were active</font>"]", INVESTIGATE_SINGULO)
 
-/obj/singularity/proc/dissipate()
+TYPE_PROC_REF(/obj/singularity, dissipate)()
 	if(!dissipate)
 		return
 	if(dissipate_track >= dissipate_delay)
@@ -161,7 +161,7 @@
 		dissipate_track++
 
 
-/obj/singularity/proc/expand(force_size = 0)
+TYPE_PROC_REF(/obj/singularity, expand)(force_size = 0)
 	var/temp_allowed_size = src.allowed_size
 	if(force_size)
 		temp_allowed_size = force_size
@@ -242,7 +242,7 @@
 		return 0
 
 
-/obj/singularity/proc/check_energy()
+TYPE_PROC_REF(/obj/singularity, check_energy)()
 	if(energy <= 0)
 		investigate_log("collapsed.", INVESTIGATE_SINGULO)
 		qdel(src)
@@ -266,7 +266,7 @@
 	return 1
 
 
-/obj/singularity/proc/eat()
+TYPE_PROC_REF(/obj/singularity, eat)()
 	set waitfor = FALSE
 	for(var/tile in spiral_range_turfs(grav_pull, src))
 		var/turf/T = tile
@@ -285,7 +285,7 @@
 					consume(X)
 			CHECK_TICK
 
-/obj/singularity/proc/consume(atom/A)
+TYPE_PROC_REF(/obj/singularity, consume)(atom/A)
 	var/gain = A.singularity_act(current_size, src)
 	src.energy += gain
 	if(istype(A, /obj/machinery/power/supermatter_crystal) && !consumedSupermatter)
@@ -294,7 +294,7 @@
 		consumedSupermatter = 1
 		set_light(10)
 
-/obj/singularity/proc/move(force_move = 0)
+TYPE_PROC_REF(/obj/singularity, move)(force_move = 0)
 	if(!move_self)
 		return 0
 
@@ -308,7 +308,7 @@
 
 	step(src, movement_dir)
 
-/obj/singularity/proc/check_cardinals_range(steps, retry_with_move = FALSE)
+TYPE_PROC_REF(/obj/singularity, check_cardinals_range)(steps, retry_with_move = FALSE)
 	. = length(GLOB.cardinals)			//Should be 4.
 	for(var/i in GLOB.cardinals)
 		. -= check_turfs_in(i, steps)	//-1 for each working direction
@@ -319,7 +319,7 @@
 					return TRUE
 	. = !.
 
-/obj/singularity/proc/check_turfs_in(direction = 0, step = 0)
+TYPE_PROC_REF(/obj/singularity, check_turfs_in)(direction = 0, step = 0)
 	if(!direction)
 		return 0
 	var/steps = 0
@@ -372,7 +372,7 @@
 	return 1
 
 
-/obj/singularity/proc/can_move(turf/T)
+TYPE_PROC_REF(/obj/singularity, can_move)(turf/T)
 	if(!T)
 		return 0
 	if((locate(/obj/machinery/field/containment) in T)||(locate(/obj/machinery/shieldwall) in T))
@@ -388,7 +388,7 @@
 	return 1
 
 
-/obj/singularity/proc/event()
+TYPE_PROC_REF(/obj/singularity, event)()
 	var/numb = rand(1,4)
 	switch(numb)
 		if(1)//EMP
@@ -404,7 +404,7 @@
 	return 1
 
 
-/obj/singularity/proc/combust_mobs()
+TYPE_PROC_REF(/obj/singularity, combust_mobs)()
 	for(var/mob/living/carbon/C in urange(20, src, 1))
 		C.visible_message(span_warning("[C]'s skin bursts into flame!"), \
 						  span_userdanger("You feel an inner fire as your skin bursts into flames!"))
@@ -413,7 +413,7 @@
 	return
 
 
-/obj/singularity/proc/mezzer()
+TYPE_PROC_REF(/obj/singularity, mezzer)()
 	for(var/mob/living/carbon/M in oviewers(8, src))
 		if(isbrain(M)) //Ignore brains
 			continue
@@ -433,7 +433,7 @@
 	return
 
 
-/obj/singularity/proc/emp_area()
+TYPE_PROC_REF(/obj/singularity, emp_area)()
 	empulse_using_range(src, 10)
 	return
 

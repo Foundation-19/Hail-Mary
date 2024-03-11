@@ -84,7 +84,7 @@
 	SStgui.close_uis(src)
 	. = ..()
 
-/obj/proc/setAnchored(anchorvalue)
+TYPE_PROC_REF(/obj, setAnchored)(anchorvalue)
 	SEND_SIGNAL(src, COMSIG_OBJ_SETANCHORED, anchorvalue)
 	anchored = anchorvalue
 
@@ -143,7 +143,7 @@
 	else
 		return null
 
-/obj/proc/handle_internal_lifeform(mob/lifeform_inside_me, breath_request)
+TYPE_PROC_REF(/obj, handle_internal_lifeform)(mob/lifeform_inside_me, breath_request)
 	//Return: (NONSTANDARD)
 	//		null if object handles breathing logic for lifeform
 	//		datum/air_group to tell lifeform to process using that breath return
@@ -155,7 +155,7 @@
 	else
 		return null
 
-/obj/proc/updateUsrDialog()
+TYPE_PROC_REF(/obj, updateUsrDialog)()
 	if((obj_flags & IN_USE) && !(obj_flags & USES_TGUI))
 		var/is_in_use = FALSE
 		var/list/nearby = fov_viewers(1, src)
@@ -182,7 +182,7 @@
 		else
 			obj_flags &= ~IN_USE
 
-/obj/proc/updateDialog(update_viewers = TRUE,update_ais = TRUE)
+TYPE_PROC_REF(/obj, updateDialog)(update_viewers = TRUE,update_ais = TRUE)
 	// Check that people are actually using the machine. If not, don't update anymore.
 	if(obj_flags & IN_USE)
 		var/is_in_use = FALSE
@@ -206,31 +206,31 @@
 		return
 	ui_interact(user)
 
-/obj/proc/container_resist(mob/living/user)
+TYPE_PROC_REF(/obj, container_resist)(mob/living/user)
 	return
 
-/mob/proc/unset_machine()
+TYPE_PROC_REF(/mob, unset_machine)()
 	if(machine)
 		machine.on_unset_machine(src)
 		machine = null
 
 //called when the user unsets the machine.
-/atom/proc/on_unset_machine(mob/user)
+TYPE_PROC_REF(/atom, on_unset_machine)(mob/user)
 	return
 
-/mob/proc/set_machine(obj/O)
+TYPE_PROC_REF(/mob, set_machine)(obj/O)
 	if(src.machine)
 		unset_machine()
 	src.machine = O
 	if(istype(O))
 		O.obj_flags |= IN_USE
 
-/obj/item/proc/updateSelfDialog()
+TYPE_PROC_REF(/obj/item, updateSelfDialog)()
 	var/mob/M = src.loc
 	if(istype(M) && M.client && M.machine == src)
 		src.attack_self(M)
 
-/obj/proc/hide(h)
+TYPE_PROC_REF(/obj, hide)(h)
 	return
 
 /obj/singularity_pull(S, current_size)
@@ -241,10 +241,10 @@
 /obj/get_dumping_location(datum/component/storage/source,mob/user)
 	return get_turf(src)
 
-/obj/proc/CanAStarPass()
+TYPE_PROC_REF(/obj, CanAStarPass)()
 	. = !density
 
-/obj/proc/check_uplink_validity()
+TYPE_PROC_REF(/obj, check_uplink_validity)()
 	return 1
 
 /obj/vv_get_dropdown()
@@ -339,7 +339,7 @@
 		reskin_obj(user)
 		return TRUE
 
-/obj/proc/reskin_obj(mob/M)
+TYPE_PROC_REF(/obj, reskin_obj)(mob/M)
 	if(!LAZYLEN(unique_reskin))
 		return
 	var/list/skins = list()
@@ -352,7 +352,7 @@
 	current_skin = choice
 	return
 
-/obj/proc/check_skinnable(/mob/M)
+TYPE_PROC_REF(/obj, check_skinnable)(/mob/M)
 	if(current_skin && !always_reskinnable)
 		return FALSE
 	return TRUE
@@ -366,10 +366,10 @@
 
 //Called when the object is constructed by an autolathe
 //Has a reference to the autolathe so you can do !!FUN!! things with hacked lathes
-/obj/proc/autolathe_crafted(obj/machinery/autolathe/A)
+TYPE_PROC_REF(/obj, autolathe_crafted)(obj/machinery/autolathe/A)
 	return
 
-/obj/proc/rnd_crafted(obj/machinery/rnd/production/P)
+TYPE_PROC_REF(/obj, rnd_crafted)(obj/machinery/rnd/production/P)
 	return
 
 /obj/handle_ricochet(obj/item/projectile/P)
@@ -377,10 +377,10 @@
 	if(. && ricochet_damage_mod)
 		take_damage(P.damage * ricochet_damage_mod, P.damage_type, P.flag, 0, turn(P.dir, 180), P.armour_penetration, attacked_by = P.firer) // pass along ricochet_damage_mod damage to the structure for the ricochet
 
-/obj/proc/plunger_act(obj/item/plunger/P, mob/living/user, reinforced)
+TYPE_PROC_REF(/obj, plunger_act)(obj/item/plunger/P, mob/living/user, reinforced)
 	return
 
-/obj/proc/setup_armor_values()
+TYPE_PROC_REF(/obj, setup_armor_values)()
 	if(!armor)
 		return
 	if(!islist(armor))

@@ -1,7 +1,7 @@
 /**
  * Generates a list of numbered_display datums for the numerical display system.
  */
-/datum/component/storage/proc/_process_numerical_display()
+TYPE_PROC_REF(/datum/component/storage, _process_numerical_display)()
 	. = list()
 	for(var/obj/item/I in accessible_items())
 		if(QDELETED(I))
@@ -16,7 +16,7 @@
 /**
  * Orients all objects in legacy mode, and returns the objects to show to the user.
  */
-/datum/component/storage/proc/orient2hud_legacy(mob/user, maxcolumns)
+TYPE_PROC_REF(/datum/component/storage, orient2hud_legacy)(mob/user, maxcolumns)
 	. = list()
 	var/list/accessible_contents = accessible_items()
 	var/adjusted_contents = length(accessible_contents)
@@ -80,7 +80,7 @@
 /**
  * Orients all objects in .. volumetric mode. Does not support numerical display!
  */
-/datum/component/storage/proc/orient2hud_volumetric(mob/user, maxcolumns)
+TYPE_PROC_REF(/datum/component/storage, orient2hud_volumetric)(mob/user, maxcolumns)
 	. = list()
 
 	// Generate ui_item_blocks for missing ones and render+orient.
@@ -276,7 +276,7 @@
 /**
  * Shows our UI to a mob.
  */
-/datum/component/storage/proc/ui_show(mob/M, set_screen_size = TRUE)
+TYPE_PROC_REF(/datum/component/storage, ui_show)(mob/M, set_screen_size = TRUE)
 	if(!M.client)
 		return FALSE
 	var/list/cview = getviewsize(M.client.view)
@@ -318,13 +318,13 @@
 /**
  * Proc triggered by signal to ensure logging out clients don't linger.
  */
-/datum/component/storage/proc/on_logout(datum/source, client/C)
+TYPE_PROC_REF(/datum/component/storage, on_logout)(datum/source, client/C)
 	ui_hide(source)
 
 /**
  * Hides our UI from a mob
  */
-/datum/component/storage/proc/ui_hide(mob/M)
+TYPE_PROC_REF(/datum/component/storage, ui_hide)(mob/M)
 	if(!M.client)
 		return TRUE
 	UnregisterSignal(M, COMSIG_MOB_CLIENT_LOGOUT)
@@ -337,14 +337,14 @@
 /**
  * Returns TRUE if we are using volumetric UI instead of box UI
  */
-/datum/component/storage/proc/volumetric_ui()
+TYPE_PROC_REF(/datum/component/storage, volumetric_ui)()
 	var/atom/real_location = real_location()
 	return (storage_flags & STORAGE_LIMIT_VOLUME) && (length(real_location.contents) <= MAXIMUM_VOLUMETRIC_ITEMS) && !display_numerical_stacking
 
 /**
  * Gets the ui item objects to ui_hide.
  */
-/datum/component/storage/proc/get_ui_item_objects_hide(mob/M)
+TYPE_PROC_REF(/datum/component/storage, get_ui_item_objects_hide)(mob/M)
 	if(!volumetric_ui() || M.client?.prefs?.no_tetris_storage)
 		var/atom/real_location = real_location()
 		return real_location.contents
@@ -358,7 +358,7 @@
 /**
  * Gets our ui_boxes, making it if it doesn't exist.
  */
-/datum/component/storage/proc/get_ui_boxes()
+TYPE_PROC_REF(/datum/component/storage, get_ui_boxes)()
 	if(!ui_boxes)
 		ui_boxes = new(null, src)
 	return ui_boxes
@@ -366,7 +366,7 @@
 /**
  * Gets our ui_left, making it if it doesn't exist.
  */
-/datum/component/storage/proc/get_ui_left()
+TYPE_PROC_REF(/datum/component/storage, get_ui_left)()
 	if(!ui_left)
 		ui_left = new(null, src)
 	return ui_left
@@ -374,7 +374,7 @@
 /**
  * Gets our ui_close, making it if it doesn't exist.
  */
-/datum/component/storage/proc/get_ui_close()
+TYPE_PROC_REF(/datum/component/storage, get_ui_close)()
 	if(!ui_close)
 		ui_close = new(null, src)
 	return ui_close
@@ -382,7 +382,7 @@
 /**
  * Gets our ui_continuous, making it if it doesn't exist.
  */
-/datum/component/storage/proc/get_ui_continuous()
+TYPE_PROC_REF(/datum/component/storage, get_ui_continuous)()
 	if(!ui_continuous)
 		ui_continuous = new(null, src)
 	return ui_continuous

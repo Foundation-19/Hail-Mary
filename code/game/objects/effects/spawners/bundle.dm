@@ -12,10 +12,10 @@
 	extra_do_stuff(mapload)
 	return INITIALIZE_HINT_QDEL
 
-/obj/effect/spawner/bundle/proc/extra_do_stuff(mapload)
+TYPE_PROC_REF(/obj/effect/spawner/bundle, extra_do_stuff)(mapload)
 	return
 
-/obj/effect/spawner/bundle/proc/spawn_the_things(mapload)
+TYPE_PROC_REF(/obj/effect/spawner/bundle, spawn_the_things)(mapload)
 	if(items?.len)
 		var/turf/T = get_turf(src)
 		for(var/path in items)

@@ -46,7 +46,7 @@
 	..()
 	return TRUE
 
-/obj/structure/destructible/clockwork/taunting_trail/proc/on_entered(atom/movable/AM)
+TYPE_PROC_REF(/obj/structure/destructible/clockwork/taunting_trail, on_entered)(atom/movable/AM)
 	SIGNAL_HANDLER
 	affect_mob(AM)
 
@@ -58,7 +58,7 @@
 	affect_mob(AM)
 	return ..()
 
-/obj/structure/destructible/clockwork/taunting_trail/proc/affect_mob(mob/living/L)
+TYPE_PROC_REF(/obj/structure/destructible/clockwork/taunting_trail, affect_mob)(mob/living/L)
 	if(istype(L) && !is_servant_of_ratvar(L))
 		if(!L.anti_magic_check(chargecost = 0))
 			L.confused = min(L.confused + 15, 50)

@@ -1,4 +1,4 @@
-/obj/item/modular_computer/proc/can_install_component(obj/item/computer_hardware/H, mob/living/user = null)
+TYPE_PROC_REF(/obj/item/modular_computer, can_install_component)(obj/item/computer_hardware/H, mob/living/user = null)
 	if(!H.can_install(src, user))
 		return FALSE
 
@@ -21,7 +21,7 @@
 
 
 // Installs component.
-/obj/item/modular_computer/proc/install_component(obj/item/computer_hardware/H, mob/living/user = null)
+TYPE_PROC_REF(/obj/item/modular_computer, install_component)(obj/item/computer_hardware/H, mob/living/user = null)
 	if(!can_install_component(H, user))
 		return FALSE
 
@@ -39,7 +39,7 @@
 
 
 // Uninstalls component.
-/obj/item/modular_computer/proc/uninstall_component(obj/item/computer_hardware/H, mob/living/user = null)
+TYPE_PROC_REF(/obj/item/modular_computer, uninstall_component)(obj/item/computer_hardware/H, mob/living/user = null)
 	if(H.holder != src) // Not our component at all.
 		return FALSE
 	if(H.expansion_hw)
@@ -59,7 +59,7 @@
 
 
 // Checks all hardware pieces to determine if name matches, if yes, returns the hardware piece, otherwise returns null
-/obj/item/modular_computer/proc/find_hardware_by_name(name)
+TYPE_PROC_REF(/obj/item/modular_computer, find_hardware_by_name)(name)
 	for(var/i in all_components)
 		var/obj/O = all_components[i]
 		if(O.name == name)

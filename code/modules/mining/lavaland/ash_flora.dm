@@ -25,7 +25,7 @@
 	base_icon = "[icon_state][rand(1, 4)]"
 	icon_state = base_icon
 
-/obj/structure/flora/ash/proc/harvest(user)
+TYPE_PROC_REF(/obj/structure/flora/ash, harvest)(user)
 	if(harvested)
 		return 0
 
@@ -48,7 +48,7 @@
 	addtimer(CALLBACK(src, PROC_REF(regrow)), rand(regrowth_time_low, regrowth_time_high))
 	return 1
 
-/obj/structure/flora/ash/proc/regrow()
+TYPE_PROC_REF(/obj/structure/flora/ash, regrow)()
 	icon_state = base_icon
 	name = initial(name)
 	desc = initial(desc)

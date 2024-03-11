@@ -2,7 +2,7 @@
  * A backwards depth-limited breadth-first-search to see if the target is
  * logically "in" anything adjacent to us.
  */
-/atom/movable/proc/has_direct_access_to(atom/ultimate_target, depth = INVENTORY_DEPTH)
+TYPE_PROC_REF(/atom/movable, has_direct_access_to)(atom/ultimate_target, depth = INVENTORY_DEPTH)
 	if(!ismovable(ultimate_target))
 		return loc == ultimate_target
 	var/atom/movable/checking_movable = ultimate_target
@@ -28,7 +28,7 @@
  * Works inside storages up to the delimited depth for adjacent locations.
  * Works for reach using euclidian distances (cardinal and diagonal moves are not the same)
  */
-/atom/movable/proc/can_reach(atom/ultimate_target, depth = INVENTORY_DEPTH, reach = 1)
+TYPE_PROC_REF(/atom/movable, can_reach)(atom/ultimate_target, depth = INVENTORY_DEPTH, reach = 1)
 	if(!isturf(loc) || reach < 1)
 		return has_direct_access_to(ultimate_target, depth)
 
@@ -90,7 +90,7 @@
  * Can be repurposed for usage of other euclidian ranges.
  * Returns the last reachable turf encountered.
  */
-/atom/proc/euclidian_reach(atom/target, reach = 2, reach_type = REACH_CLICK)
+TYPE_PROC_REF(/atom, euclidian_reach)(atom/target, reach = 2, reach_type = REACH_CLICK)
 	if(reach < 2)
 		CRASH("Use Adjacent() instead of this proc for ranges such as [reach]")
 	var/turf/source_turf = get_turf(src)
@@ -157,7 +157,7 @@
 
 
 /// Avoid calling this directly unless you also guarantee the safety checks euclidian_reach() does.
-/atom/proc/do_cardinal_reach(atom/target, movement_dir, reach, reach_type)
+TYPE_PROC_REF(/atom, do_cardinal_reach)(atom/target, movement_dir, reach, reach_type)
 	var/turf/last_processed_turf = get_turf(src)
 	var/turf/target_turf = get_turf(target)
 	for(var/i in 1 to reach)
@@ -175,7 +175,7 @@
 #define ORDINAL_PIXELS_MOVE 27
 
 /// Avoid calling this directly unless you also guarantee the safety checks euclidian_reach() does.
-/atom/proc/do_ordinal_reach(atom/target, movement_dir, reach, reach_type)
+TYPE_PROC_REF(/atom, do_ordinal_reach)(atom/target, movement_dir, reach, reach_type)
 	var/turf/last_processed_turf = get_turf(src)
 	var/turf/target_turf = get_turf(target)
 
@@ -227,7 +227,7 @@
 
 
 /// Avoid calling this directly unless you also guarantee the safety checks euclidian_reach() does.
-/atom/proc/do_sloping_reach(atom/target, movement_dir, reach, reach_type, dir_angle)
+TYPE_PROC_REF(/atom, do_sloping_reach)(atom/target, movement_dir, reach, reach_type, dir_angle)
 	// We'll simulate movement as if it was to the NE, with increasing x and y values, for simplicity.
 	// For this we'll need to perform some conversions.
 	var/left_dir

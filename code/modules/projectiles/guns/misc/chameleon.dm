@@ -46,7 +46,7 @@
 /obj/item/gun/energy/laser/chameleon/emp_act(severity)
 	return
 
-/obj/item/gun/energy/laser/chameleon/proc/reset_chameleon_vars()
+TYPE_PROC_REF(/obj/item/gun/energy/laser/chameleon, reset_chameleon_vars)()
 	chameleon_ammo_vars = list()
 	chameleon_gun_vars = list()
 	chameleon_projectile_vars = list()
@@ -64,7 +64,7 @@
 	QDEL_NULL(chambered.BB)
 	chambered.newshot()
 
-/obj/item/gun/energy/laser/chameleon/proc/set_chameleon_ammo(obj/item/ammo_casing/AC, passthrough = TRUE, reset = FALSE)
+TYPE_PROC_REF(/obj/item/gun/energy/laser/chameleon, set_chameleon_ammo)(obj/item/ammo_casing/AC, passthrough = TRUE, reset = FALSE)
 	if(!istype(AC))
 		CRASH("[AC] is not /obj/item/ammo_casing!")
 	for(var/V in ammo_copy_vars)
@@ -75,7 +75,7 @@
 		var/obj/item/projectile/P = AC.BB
 		set_chameleon_projectile(P)
 
-/obj/item/gun/energy/laser/chameleon/proc/set_chameleon_projectile(obj/item/projectile/P)
+TYPE_PROC_REF(/obj/item/gun/energy/laser/chameleon, set_chameleon_projectile)(obj/item/projectile/P)
 	if(!istype(P))
 		CRASH("[P] is not /obj/item/projectile!")
 	chameleon_projectile_vars = list("name" = "practice laser", "icon" = 'icons/obj/projectiles.dmi', "icon_state" = "laser", "nodamage" = TRUE)
@@ -95,7 +95,7 @@
 		chambered.projectile_type = P.type
 		chambered.newshot()
 
-/obj/item/gun/energy/laser/chameleon/proc/set_chameleon_gun(obj/item/gun/G , passthrough = TRUE)
+TYPE_PROC_REF(/obj/item/gun/energy/laser/chameleon, set_chameleon_gun)(obj/item/gun/G , passthrough = TRUE)
 	if(!istype(G))
 		CRASH("[G] is not /obj/item/gun!")
 	for(var/V in gun_copy_vars)
@@ -136,12 +136,12 @@
 	set_hitscan(!hitscan_mode)
 	to_chat(user, span_notice("You toggle [src]'s high velocity beam mode to [hitscan_mode? "on" : "off"]."))
 
-/obj/item/gun/energy/laser/chameleon/proc/set_hitscan(hitscan)
+TYPE_PROC_REF(/obj/item/gun/energy/laser/chameleon, set_hitscan)(hitscan)
 	var/obj/item/ammo_casing/energy/chameleon/AC = chambered
 	AC.hitscan_mode = hitscan
 	hitscan_mode = hitscan
 
-/obj/item/gun/energy/laser/chameleon/proc/get_chameleon_projectile(guntype)
+TYPE_PROC_REF(/obj/item/gun/energy/laser/chameleon, get_chameleon_projectile)(guntype)
 	reset_chameleon_vars()
 	var/obj/item/gun/G = new guntype(src)
 	set_chameleon_gun(G)

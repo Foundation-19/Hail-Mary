@@ -24,7 +24,7 @@
 	var/non_standard_plants = non_standard_plants_count()
 	plant_count = rand(round(0.5 * non_standard_plants),round(0.7 * non_standard_plants))
 
-/datum/station_goal/dna_vault/proc/non_standard_plants_count()
+TYPE_PROC_REF(/datum/station_goal/dna_vault, non_standard_plants_count)()
 	. = 0
 	for(var/T in subtypesof(/obj/item/seeds)) //put a cache if it's used anywhere else
 		var/obj/item/seeds/S = T
@@ -72,7 +72,7 @@
 	var/list/plants = list()
 	var/list/dna = list()
 
-/obj/item/dna_probe/proc/clear_data()
+TYPE_PROC_REF(/obj/item/dna_probe, clear_data)()
 	animals = list()
 	plants = list()
 	dna = list()
@@ -181,7 +181,7 @@
 		ui = new(user, src, "DnaVault", name)
 		ui.open()
 
-/obj/machinery/dna_vault/proc/roll_powers(mob/user)
+TYPE_PROC_REF(/obj/machinery/dna_vault, roll_powers)(mob/user)
 	if(user in power_lottery)
 		return
 	var/list/L = list()
@@ -218,7 +218,7 @@
 			upgrade(usr,params["choice"])
 			. = TRUE
 
-/obj/machinery/dna_vault/proc/check_goal()
+TYPE_PROC_REF(/obj/machinery/dna_vault, check_goal)()
 	if(plants.len >= plants_max && animals.len >= animals_max && dna.len >= dna_max)
 		completed = TRUE
 
@@ -246,7 +246,7 @@
 
 
 
-/obj/machinery/dna_vault/proc/upgrade(mob/living/carbon/human/H,upgrade_type)
+TYPE_PROC_REF(/obj/machinery/dna_vault, upgrade)(mob/living/carbon/human/H,upgrade_type)
 	if(!(upgrade_type in power_lottery[H]))
 		return
 	var/datum/species/S = H.dna.species

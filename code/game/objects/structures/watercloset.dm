@@ -323,7 +323,7 @@
 	if(on)
 		. += mutable_appearance('icons/obj/watercloset.dmi', "water", ABOVE_MOB_LAYER)
 
-/obj/machinery/shower/proc/handle_mist()
+TYPE_PROC_REF(/obj/machinery/shower, handle_mist)()
 	// If there is no mist, and the shower was turned on (on a non-freezing temp): make mist in 5 seconds
 	// If there was already mist, and the shower was turned off (or made cold): remove the existing mist in 25 sec
 	var/obj/effect/mist/mist = locate() in loc
@@ -333,17 +333,17 @@
 	if(mist && (!on || watertemp == "freezing"))
 		addtimer(CALLBACK(src, PROC_REF(clear_mist)), 25 SECONDS)
 
-/obj/machinery/shower/proc/make_mist()
+TYPE_PROC_REF(/obj/machinery/shower, make_mist)()
 	var/obj/effect/mist/mist = locate() in loc
 	if(!mist && on && watertemp != "freezing")
 		new /obj/effect/mist(loc)
 
-/obj/machinery/shower/proc/clear_mist()
+TYPE_PROC_REF(/obj/machinery/shower, clear_mist)()
 	var/obj/effect/mist/mist = locate() in loc
 	if(mist && (!on || watertemp == "freezing"))
 		qdel(mist)
 
-/obj/machinery/shower/proc/handle_enter(atom/movable/AM)
+TYPE_PROC_REF(/obj/machinery/shower, handle_enter)(atom/movable/AM)
 	if(on)
 		if(isliving(AM))
 			var/mob/living/L = AM
@@ -353,11 +353,11 @@
 		else if(isobj(AM))
 			wash_obj(AM)
 
-/obj/machinery/shower/proc/on_entered(atom/movable/AM)
+TYPE_PROC_REF(/obj/machinery/shower, on_entered)(atom/movable/AM)
 	SIGNAL_HANDLER
 	INVOKE_ASYNC(src, PROC_REF(handle_enter), AM)
 
-/obj/machinery/shower/proc/wash_obj(obj/O)
+TYPE_PROC_REF(/obj/machinery/shower, wash_obj)(obj/O)
 	. = SEND_SIGNAL(O, COMSIG_COMPONENT_CLEAN_ACT, CLEAN_WEAK)
 	. = O.clean_blood()
 	O.remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
@@ -366,7 +366,7 @@
 		I.acid_level = 0
 		I.extinguish()
 
-/obj/machinery/shower/proc/wash_turf()
+TYPE_PROC_REF(/obj/machinery/shower, wash_turf)()
 	if(isturf(loc))
 		var/turf/tile = loc
 		tile.remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
@@ -376,7 +376,7 @@
 			if(is_cleanable(E))
 				qdel(E)
 
-/obj/machinery/shower/proc/wash_mob(mob/living/L)
+TYPE_PROC_REF(/obj/machinery/shower, wash_mob)(mob/living/L)
 	SEND_SIGNAL(L, COMSIG_COMPONENT_CLEAN_ACT, CLEAN_WEAK)
 	L.wash_cream()
 	L.ExtinguishMob()
@@ -446,7 +446,7 @@
 		L.clean_blood()
 		SEND_SIGNAL(L, COMSIG_COMPONENT_CLEAN_ACT, CLEAN_WEAK)
 
-/obj/machinery/shower/proc/contamination_cleanse(atom/movable/thing)
+TYPE_PROC_REF(/obj/machinery/shower, contamination_cleanse)(atom/movable/thing)
 	var/datum/component/radioactive/healthy_green_glow = thing.GetComponent(/datum/component/radioactive)
 	if(!healthy_green_glow || QDELETED(healthy_green_glow))
 		return
@@ -472,7 +472,7 @@
 	new /obj/item/stack/sheet/metal (loc, 3)
 	qdel(src)
 
-/obj/machinery/shower/proc/check_heat(mob/living/carbon/C)
+TYPE_PROC_REF(/obj/machinery/shower, check_heat)(mob/living/carbon/C)
 	if(watertemp == "freezing")
 		C.adjust_bodytemperature(-80, 80)
 		to_chat(C, span_warning("The water is freezing!"))
@@ -632,7 +632,7 @@
 		drop_materials()
 	..()
 
-/obj/structure/sink/proc/drop_materials()
+TYPE_PROC_REF(/obj/structure/sink, drop_materials)()
 	if(buildstacktype)
 		new buildstacktype(loc,buildstackamount)
 	else
@@ -758,7 +758,7 @@
 	density = FALSE
 	var/open = TRUE
 
-/obj/structure/curtain/proc/toggle()
+TYPE_PROC_REF(/obj/structure/curtain, toggle)()
 	open = !open
 	update_icon()
 

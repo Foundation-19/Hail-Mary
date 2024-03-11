@@ -22,7 +22,7 @@
 	addtimer(CALLBACK(src, PROC_REF(ready_to_regenerate), user), LING_FAKEDEATH_TIME, TIMER_UNIQUE)
 	return TRUE
 
-/obj/effect/proc_holder/changeling/fakedeath/proc/ready_to_regenerate(mob/user)
+TYPE_PROC_REF(/obj/effect/proc_holder/changeling/fakedeath, ready_to_regenerate)(mob/user)
 	if(user && user.mind)
 		var/datum/antagonist/changeling/C = user.mind.has_antag_datum(/datum/antagonist/changeling)
 		if(C && C.purchasedpowers)
