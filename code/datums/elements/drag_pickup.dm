@@ -23,7 +23,7 @@
 		return
 
 	if(over == picker)
-		INVOKE_ASYNC(picker, /mob/.proc/put_in_hands, source)
+		INVOKE_ASYNC(picker, TYPE_PROC_REF(/mob, put_in_hands), source)
 	else if(istype(over, /obj/screen/inventory/hand))
 		var/obj/screen/inventory/hand/Selected_hand = over
 		picker.putItemFromInventoryInHandIfPossible(source, Selected_hand.held_index)

@@ -145,7 +145,7 @@
 		if(glow)
 			qdel(glow)
 		animate(src, color = oldcolor, time = 20, flags = ANIMATION_END_NOW)
-		addtimer(CALLBACK(src, /atom/proc/update_atom_colour), 20)
+		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_atom_colour)), 20)
 		visible_message(span_warning("[src] slowly stops glowing!"))
 		return
 	if(is_eligible_servant(L))
@@ -178,7 +178,7 @@
 			else
 				to_chat(M, span_heavy_brass("[message] [L.real_name]!"))
 	animate(src, color = oldcolor, time = 20, flags = ANIMATION_END_NOW)
-	addtimer(CALLBACK(src, /atom/proc/update_atom_colour), 20)
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_atom_colour)), 20)
 	visible_message(span_warning("[src] slowly stops glowing!"))
 
 
@@ -251,7 +251,7 @@
 		cyborg.color = list("#EC8A2D", "#EC8A2D", "#EC8A2D", rgb(0,0,0))
 		cyborg.apply_status_effect(STATUS_EFFECT_POWERREGEN, giving_power * 0.1) //ten ticks, restoring 10% each
 		animate(cyborg, color = previous_color, time = 100)
-		addtimer(CALLBACK(cyborg, /atom/proc/update_atom_colour), 100)
+		addtimer(CALLBACK(cyborg, TYPE_PROC_REF(/atom, update_atom_colour)), 100)
 
 /obj/effect/clockwork/sigil/transmission/proc/cyborg_checks(mob/living/silicon/robot/cyborg, silent)
 	if(!cyborg.cell)

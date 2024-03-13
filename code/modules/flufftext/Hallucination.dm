@@ -1088,7 +1088,7 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 /obj/effect/hallucination/danger/lava/proc/on_entered(atom/movable/AM)
 	SIGNAL_HANDLER
 	if(AM == target)
-		INVOKE_ASYNC(target, /mob/living/.proc/adjustStaminaLoss, 20)
+		INVOKE_ASYNC(target, TYPE_PROC_REF(/mob/living, adjustStaminaLoss), 20)
 		new /datum/hallucination/fire(target)
 
 /obj/effect/hallucination/danger/chasm

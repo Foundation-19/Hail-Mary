@@ -305,7 +305,7 @@
 			if(67 to 89) //anger
 				if(prob(10))
 					addtimer(CALLBACK(M, /mob/verb/a_intent_change, INTENT_HARM), 2)
-					addtimer(CALLBACK(M, /mob/proc/click_random_mob), 2)
+					addtimer(CALLBACK(M, TYPE_PROC_REF(/mob, click_random_mob)), 2)
 					if(lewd)
 						to_chat(owner, span_warning("You are overwhelmed with anger at the lack of [enthrallGender]'s presence and suddenly lash out!"))
 					else

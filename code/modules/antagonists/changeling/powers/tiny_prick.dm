@@ -47,7 +47,7 @@
 		return
 	if(!isturf(user.loc))
 		return
-	if(!AStar(user, target.loc, /turf/proc/Distance, changeling.sting_range, simulated_only = 0))
+	if(!AStar(user, target.loc, TYPE_PROC_REF(/turf, Distance), changeling.sting_range, simulated_only = 0))
 		return
 	return 1
 
