@@ -165,8 +165,7 @@ All foods are distributed among various categories. Use common sense.
 							M.visible_message(
 								span_notice("[M] unwillingly [eatverb]s \the [src]."),
 								span_notice("You unwillingly [eatverb] \the [src]."))
-					if((600 * (1 + M.overeatduration / 1000)) to INFINITY)
-						if(HAS_TRAIT(M, TRAIT_VORACIOUS))
+						if(HAS_TRAIT(M, TRAIT_VORACIOUS) && fullness >= 600 * (1 + M.overeatduration / 1000))
 							M.visible_message(
 								span_notice("[M] gluttonously [eatverb]s \the [src], cramming it down [M.p_their()] throat!"),
 								span_notice("You gluttonously [eatverb] \the [src], cramming it down your throat!"))
