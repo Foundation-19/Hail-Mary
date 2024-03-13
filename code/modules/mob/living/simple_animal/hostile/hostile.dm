@@ -600,7 +600,7 @@
 			addtimer(CALLBACK(src, PROC_REF(Shoot), A), i * auto_fire_delay)
 	ranged_cooldown = world.time + ranged_cooldown_time
 	if(sound_after_shooting)
-		addtimer(CALLBACK(GLOBAL_PROC, PROC_REF(playsound), src, sound_after_shooting, 100, 0, 0), sound_after_shooting_delay, TIMER_STOPPABLE)
+		addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(playsound), src, sound_after_shooting, 100, 0, 0), sound_after_shooting_delay, TIMER_STOPPABLE)
 	if(projectiletype)
 		if(LAZYLEN(variation_list[MOB_PROJECTILE]) >= 2) // Gotta have multiple different projectiles to cycle through
 			projectiletype = vary_from_list(variation_list[MOB_PROJECTILE], TRUE)
