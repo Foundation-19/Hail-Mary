@@ -21754,6 +21754,7 @@
 /area/f13/village)
 "cWG" = (
 /obj/structure/barricade/tentleathercorner,
+/turf/open/indestructible/ground/outside/dirt,
 /area/f13/caves)
 "cWJ" = (
 /obj/effect/decal/cleanable/dirt,
@@ -21830,9 +21831,6 @@
 	icon_state = "horizontaltopborderbottomleft"
 	},
 /area/f13/wasteland)
-"dad" = (
-/obj/structure/barricade/tentleatheredge,
-/area/f13/legion)
 "daq" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/flora/grass/wasteland{
@@ -23842,7 +23840,10 @@
 	},
 /area/f13/wasteland)
 "dTD" = (
-/area/f13/wasteland)
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/indestructible/ground/outside/desert,
+/area/f13/legion)
 "dTG" = (
 /turf/open/indestructible/ground/outside/roaddirt{
 	dir = 1;
@@ -33548,7 +33549,9 @@
 	},
 /area/f13/building)
 "isJ" = (
-/obj/machinery/door/unpowered/celldoor/legion)
+/obj/machinery/door/unpowered/celldoor/legion,
+/turf/open/indestructible/ground/outside/desert,
+/area/f13/wasteland)
 "isM" = (
 /obj/item/clothing/accessory/medal/conduct,
 /obj/structure/displaycase,
@@ -35995,6 +35998,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/item/card/id/rusted,
 /obj/effect/decal/remains/human,
+/turf/open/indestructible/ground/outside/desert,
 /area/f13/wasteland)
 "jud" = (
 /obj/effect/decal/cleanable/dirt{
@@ -36790,6 +36794,7 @@
 	},
 /obj/effect/decal/cleanable/vomit/old,
 /obj/effect/decal/cleanable/dirt,
+/turf/open/indestructible/ground/outside/desert,
 /area/f13/wasteland)
 "jPH" = (
 /obj/structure/flora/grass/coyote/fourteen,
@@ -38104,6 +38109,8 @@
 "kzA" = (
 /obj/structure/chair/bench,
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/indestructible/ground/outside/desert,
 /area/f13/legion)
 "kzL" = (
 /turf/closed/wall/f13/ruins,
@@ -43041,8 +43048,9 @@
 /area/f13/building/museum)
 "mEL" = (
 /obj/dugpit,
-/obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/vomit/old,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/indestructible/ground/outside/desert,
 /area/f13/legion)
 "mEO" = (
 /obj/effect/decal/marking{
@@ -47542,8 +47550,9 @@
 /turf/open/floor/plasteel/f13/vault_floor/floor/floorsolid,
 /area/f13/building/mall)
 "oGd" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/structure/destructible/tribal_torch/lit,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/indestructible/ground/outside/desert,
 /area/f13/legion)
 "oGh" = (
 /obj/machinery/light/small{
@@ -48839,6 +48848,7 @@
 /area/f13/wasteland)
 "pjY" = (
 /obj/structure/closet/crate/large,
+/turf/open/indestructible/ground/outside/desert,
 /area/f13/legion)
 "pjZ" = (
 /obj/effect/decal/cleanable/dirt,
@@ -50817,6 +50827,7 @@
 "qcT" = (
 /obj/dugpit,
 /obj/effect/decal/cleanable/dirt,
+/turf/open/indestructible/ground/outside/desert,
 /area/f13/legion)
 "qcV" = (
 /obj/structure/decoration/rag,
@@ -51830,6 +51841,7 @@
 "qBr" = (
 /obj/effect/decal/cleanable/blood,
 /obj/effect/decal/cleanable/dirt,
+/turf/open/indestructible/ground/outside/desert,
 /area/f13/wasteland)
 "qBw" = (
 /obj/machinery/light,
@@ -56045,8 +56057,10 @@
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/village)
 "sHj" = (
+/obj/structure/chair/bench,
 /obj/effect/decal/cleanable/dirt,
-/area/f13/wasteland)
+/turf/open/indestructible/ground/outside/desert,
+/area/f13/legion)
 "sHm" = (
 /obj/structure/flora/ausbushes/grassybush,
 /obj/effect/decal/cleanable/dirt,
@@ -56512,6 +56526,10 @@
 "sUf" = (
 /obj/structure/barricade/tentleatheredge{
 	dir = 1
+	},
+/turf/open/indestructible/ground/outside/dirt{
+	dir = 1;
+	icon_state = "dirt"
 	},
 /area/f13/legion)
 "sUl" = (
@@ -59130,6 +59148,7 @@
 /area/f13/wasteland)
 "ubT" = (
 /obj/effect/decal/cleanable/dirt,
+/turf/open/indestructible/ground/outside/desert,
 /area/f13/legion)
 "ubX" = (
 /obj/structure/destructible/tribal_torch/lit,
@@ -59678,6 +59697,7 @@
 	desc = "It smells awful.";
 	name = "waste bucket"
 	},
+/turf/open/indestructible/ground/outside/desert,
 /area/f13/legion)
 "uqy" = (
 /obj/effect/turf_decal/stripes/white/line{
@@ -63317,9 +63337,6 @@
 	icon_state = "bluedirtychess2"
 	},
 /area/f13/village)
-"wdm" = (
-/obj/structure/barricade/tentleatheredge,
-/area/f13/wasteland)
 "wdt" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/indestructible/ground/outside/dirt{
@@ -123148,7 +123165,7 @@ xLC
 xLC
 lHt
 jPD
-sHj
+odm
 juc
 kFH
 tPB
@@ -123404,9 +123421,9 @@ qrV
 xLC
 xLC
 isJ
-sHj
-sHj
-sHj
+odm
+odm
+odm
 kFH
 tPB
 tPB
@@ -123661,9 +123678,9 @@ oRY
 xLC
 xLC
 lHt
-sHj
+odm
 qBr
-sHj
+odm
 kFH
 tPB
 tPB
@@ -123918,9 +123935,9 @@ khW
 xLC
 xLC
 lHt
-sHj
-sHj
-dTD
+odm
+odm
+xLC
 kFH
 tPB
 tPB
@@ -127742,7 +127759,7 @@ qXa
 qXa
 qXa
 cmJ
-wdm
+ixb
 rOL
 aii
 huu
@@ -130311,7 +130328,7 @@ wct
 bXl
 bXl
 bXl
-dad
+dro
 aii
 aii
 aii
@@ -130334,12 +130351,12 @@ xLC
 xLC
 xHs
 aqx
+dTD
 ubT
 ubT
 ubT
 ubT
-ubT
-ubT
+hyi
 aae
 aae
 aae
@@ -130593,9 +130610,9 @@ xHs
 aqx
 kzA
 qcT
-kzA
+sHj
 mEL
-kzA
+sHj
 qcT
 aae
 aae
