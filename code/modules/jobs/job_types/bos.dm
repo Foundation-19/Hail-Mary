@@ -142,11 +142,11 @@ Sentinel
 	suit = /obj/item/clothing/suit/armor/light/duster/bos/scribe/elder
 	glasses = /obj/item/clothing/glasses/night
 	accessory = /obj/item/clothing/accessory/bos/elder
-	suit_store = /obj/item/gun/energy/laser/pistol
+	suit_store = /obj/item/gun/energy/laser/solar
 	neck = /obj/item/clothing/neck/mantle/bos/right
 	ears = /obj/item/radio/headset/headset_bos/command
 	backpack_contents = list(
-		/obj/item/stock_parts/cell/ammo/mfc = 2,
+		//obj/item/melee/powerfist/f13 = 1,
 		/obj/item/melee/onehanded/knife/hunting = 1
 
 	)
