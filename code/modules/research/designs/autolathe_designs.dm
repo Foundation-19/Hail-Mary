@@ -349,6 +349,14 @@
 	build_path = /obj/item/shovel/spade
 	category = list("initial","Misc")
 
+/datum/design/handcuffs
+	name = "Handcuffs"
+	id = "handcuffs"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 500)
+	build_path = /obj/item/restraints/handcuffs
+	category = list("initial","Misc")
+
 /datum/design/hatchet
 	name = "Hatchet"
 	id = "hatchet"
