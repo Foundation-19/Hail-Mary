@@ -290,6 +290,8 @@ obj/item/clothing/head/helmet/f13/enclave/usmcriot
 	dynamic_hair_suffix = ""
 	dynamic_fhair_suffix = ""
 	salvage_loot = list(/obj/item/stack/crafting/armor_plate = 1)
+	armor = ARMOR_VALUE_LIGHT
+	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T1)
 
 /* /obj/item/clothing/head/helmet/f13/legion/Initialize()
 	. = ..()
@@ -316,6 +318,7 @@ obj/item/clothing/head/helmet/f13/enclave/usmcriot
 	item_state = "legion-prime"
 	icon_state = "legion-prime"
 	flags_inv = HIDEEARS|HIDEHAIR
+	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T2, ARMOR_MODIFIER_UP_BULLET_T1)
 
 /obj/item/clothing/head/helmet/f13/legion/prime/slavemaster
 	name = "slavemaster helmet"
@@ -332,30 +335,36 @@ obj/item/clothing/head/helmet/f13/enclave/usmcriot
 	icon_state = "legion-veteran"
 	item_state = "legion-veteran"
 	salvage_loot = list(/obj/item/stack/crafting/armor_plate = 2)
+	armor = ARMOR_VALUE_MEDIUM
+	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T1)
 
 /obj/item/clothing/head/helmet/f13/legion/vet/explorer
 	name = "legion scout hood"
 	desc = "It's a leather hood with metal reinforcments and built in headphones to plug the radio into."
 	icon_state = "legion-explorer"
 	item_state = "legion-explorer"
+	armor_tokens = list()
 
 /obj/item/clothing/head/helmet/f13/legion/vet/combvexil
 	name = "legion bear vexillarius helmet"
 	desc = "This helmet is decorated with the pelt of a ashland bear."
 	icon_state = "legion-vex"
 	item_state = "legion-vex"
+	armor_tokens = list(ARMOR_MODIFIER_UP_BULLET_T1, ARMOR_MODIFIER_UP_DT_T2)
 
 /obj/item/clothing/head/helmet/f13/legion/vet/vexil
 	name = "legion fox vexillarius helmet"
 	desc = "This helmet is decorated with the pelt of a desert fox."
 	icon_state = "legion-vex-alt"
 	item_state = "legion-vex-alt"
+	armor_tokens = list(ARMOR_MODIFIER_UP_BULLET_T1, ARMOR_MODIFIER_UP_DT_T2)
 
 /obj/item/clothing/head/helmet/f13/legion/vet/nightvexil
 	name = "legion nightstalker vexillarius helmet"
 	desc = "This helmet is decorated with the pelt of a nightstalker."
 	icon_state = "legion-vex-night"
 	item_state = "legion-vex-night"
+	armor_tokens = list(ARMOR_MODIFIER_UP_BULLET_T1, ARMOR_MODIFIER_UP_DT_T2)
 
 /obj/item/clothing/head/helmet/f13/legion/venator
 	name = "legion explorer hood"
@@ -376,12 +385,14 @@ obj/item/clothing/head/helmet/f13/enclave/usmcriot
 	desc = "This reinforced leather helmet has a plume of black and dark red feathers."
 	icon_state = "legion-decrec"
 	item_state = "legion-decrec"
+	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T2)
 
 /obj/item/clothing/head/helmet/f13/legion/prime/decan
 	name = "legion prime decanus helmet"
 	desc = "This reinforced leather helmet with a red peak has a plume of black feathers."
 	item_state = "legion-decprime"
 	icon_state = "legion-decprime"
+	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T1, ARMOR_MODIFIER_UP_DT_T1)
 
 /obj/item/clothing/head/helmet/f13/legion/heavy
 	name = "reinforced legion veteran decanus helmet"
@@ -390,6 +401,8 @@ obj/item/clothing/head/helmet/f13/enclave/usmcriot
 	item_state = "legion-decvet"
 	actions_types = list(/datum/action/item_action/toggle)
 	salvage_loot = list(/obj/item/stack/crafting/armor_plate = 2)
+	armor = ARMOR_VALUE_MEDIUM
+	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T1, ARMOR_MODIFIER_UP_DT_T2)
 
 /obj/item/clothing/head/helmet/f13/legion/heavy/attack_self(mob/user)
 	weldingvisortoggle(user)
@@ -401,6 +414,8 @@ obj/item/clothing/head/helmet/f13/enclave/usmcriot
 	desc = "It's a metal helmet with an array of red, white and black feathers, unmistakably a Veteran Decanus."
 	icon_state = "legion-decvet-alt"
 	item_state = "legion-decvet-alt"
+	armor = ARMOR_VALUE_MEDIUM
+	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T1, ARMOR_MODIFIER_UP_DT_T2)
 
 /obj/item/clothing/head/helmet/f13/legion/centurion
 	name = "legion centurion helmet"
@@ -409,6 +424,8 @@ obj/item/clothing/head/helmet/f13/enclave/usmcriot
 	item_state = "legion-centurion"
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
 	salvage_loot = list(/obj/item/stack/crafting/armor_plate = 3)
+	armor = ARMOR_VALUE_MEDIUM
+	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T1, ARMOR_MODIFIER_UP_DT_T2)
 
 /obj/item/clothing/head/helmet/f13/legion/rangercent
 	name = "ranger-hunter centurion helmet"
@@ -417,6 +434,8 @@ obj/item/clothing/head/helmet/f13/enclave/usmcriot
 	item_state = "legion-rangercent"
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
 	salvage_loot = list(/obj/item/stack/crafting/armor_plate = 3)
+	armor = ARMOR_VALUE_MEDIUM
+	armor_tokens = list(ARMOR_MODIFIER_DOWN_LASER_T1, ARMOR_MODIFIER_UP_BULLET_T2, ARMOR_MODIFIER_UP_DT_T1)
 
 /obj/item/clothing/head/helmet/f13/legion/palacent
 	name = "paladin-slayer centurion helmet"
@@ -425,6 +444,8 @@ obj/item/clothing/head/helmet/f13/enclave/usmcriot
 	item_state = "legion-palacent"
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
 	salvage_loot = list(/obj/item/stack/crafting/armor_plate = 3)
+	armor = ARMOR_VALUE_MEDIUM
+	armor_tokens = list(ARMOR_MODIFIER_UP_LASER_T2, ARMOR_MODIFIER_UP_DT_T2)
 
 /obj/item/clothing/head/helmet/f13/legion/legate
 	name = "legion legate helmet"
@@ -435,6 +456,8 @@ obj/item/clothing/head/helmet/f13/enclave/usmcriot
 	flags_inv = HIDEEARS|HIDEEYES|HIDEHAIR
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
 	salvage_loot = list(/obj/item/stack/crafting/armor_plate = 5)
+	armor = ARMOR_VALUE_HEAVY
+	armor_tokens = list(ARMOR_MODIFIER_UP_BULLET_T2, ARMOR_MODIFIER_UP_MELEE_T2, ARMOR_MODIFIER_UP_DT_T3) // Legate OP
 
 /obj/item/clothing/head/f13/servant
 	name = "servant headwear"
@@ -456,7 +479,6 @@ obj/item/clothing/head/helmet/f13/enclave/usmcriot
 	flags_inv = HIDEEARS
 	flags_cover = null
 
-
 //NCR
 
 /obj/item/clothing/head/f13/ncr
@@ -468,11 +490,9 @@ obj/item/clothing/head/helmet/f13/enclave/usmcriot
 	obj_flags = UNIQUE_RENAME
 	unique_reskin = list("M1" = "ncr_old")
 	salvage_loot = list(/obj/item/stack/crafting/armor_plate = 1)
+	armor = ARMOR_VALUE_LIGHT
+	armor_tokens = list(ARMOR_MODIFIER_UP_DT_T1, ARMOR_MODIFIER_UP_BULLET_T1) // The NCR is more tanky, but slower
 
-/* /obj/item/clothing/head/f13/ncr/Initialize()
-	. = ..()
-	AddComponent(/datum/component/armor_plate)
- */
 /obj/item/clothing/head/f13/ncr/steelpot_goggles
 	name = "NCR storm helmet"
 	desc = "A standard issue NCR steel helmet, issued with an additional pair of storm goggles for weather resistance."
@@ -486,7 +506,6 @@ obj/item/clothing/head/helmet/f13/enclave/usmcriot
 	flags_cover = HEADCOVERSEYES
 	visor_flags_cover = HEADCOVERSEYES
 	dog_fashion = null
-
 
 /obj/item/clothing/head/f13/ncr/steelpot_goggles/attack_self(mob/user)
 	if(can_toggle && !user.incapacitated())
@@ -519,6 +538,8 @@ obj/item/clothing/head/helmet/f13/enclave/usmcriot
 	icon_state = "steelpot_med"
 	item_state = "steelpot_med"
 	unique_reskin = list("M1" = "ncr_old_med")
+	armor = ARMOR_VALUE_MEDIUM
+	armor_tokens = list(ARMOR_MODIFIER_UP_DT_T1)
 
 /obj/item/clothing/head/f13/ncr/steelpot_mp
 	name = "NCR military police helmet"
@@ -526,8 +547,10 @@ obj/item/clothing/head/helmet/f13/enclave/usmcriot
 	icon_state = "steelpot_mp"
 	item_state = "steelpot_mp"
 	unique_reskin = list("M1" = "ncr_old_mp")
+	armor = ARMOR_VALUE_MEDIUM
+	armor_tokens = list(ARMOR_MODIFIER_UP_DT_T1)
 
-/obj/item/clothing/head/f13/ncr/steelpot_gambler
+/obj/item/clothing/head/f13/ncr/steelpot_gambler // unsued.
 	name = "NCR gambler helmet"
 	desc = "A standard issue NCR steel helmet. Stashed in the strap are decks of cards, dominoes and cigarettes for personal use."
 	icon_state = "steelpot_gambler"
@@ -550,6 +573,8 @@ obj/item/clothing/head/helmet/f13/enclave/usmcriot
 	hat_type = "ncr"
 	flags_inv = HIDEEARS
 	dog_fashion = null
+	armor = ARMOR_VALUE_MEDIUM
+	armor_tokens = list(ARMOR_MODIFIER_UP_DT_T1)
 
 /obj/item/clothing/head/f13/ncr/standard/conscript
 	name = "NCR conscript helmet"
@@ -561,6 +586,7 @@ obj/item/clothing/head/helmet/f13/enclave/usmcriot
 	visor_flags_cover = HEADCOVERSEYES
 	dog_fashion = null
 	unique_reskin = list("M1" = "ncr_old")
+	armor_tokens = list()
 
 /obj/item/clothing/head/f13/ncr/ncr_flapcap
 	name = "NCR field cap"
@@ -591,18 +617,23 @@ obj/item/clothing/head/helmet/f13/enclave/usmcriot
 	desc = "A khaki campaign hat, popularly used by senior NCOs in the NCRA."
 	icon_state = "ncr_campaign"
 	item_state = "ncr_campaign"
+	armor = ARMOR_VALUE_MEDIUM
+	armor_tokens = list(ARMOR_MODIFIER_UP_DT_T1)
 
 /obj/item/clothing/head/beret/ncr
 	name = "NCR officer beret"
 	desc = "A green beret, standard issue for all commissioned NCR Officers."
 	icon_state = "ncr_officer_beret"
 	item_state = "ncr_officer_beret"
+	armor = ARMOR_VALUE_MEDIUM
+	armor_tokens = list(ARMOR_MODIFIER_UP_DT_T1, ARMOR_MODIFIER_UP_BULLET_T1)
 
 /obj/item/clothing/head/beret/ncr/ncr_medic
 	name = "NCR medical beret"
 	desc = "A white beret, issued to officers of the medical corps."
 	icon_state = "ncr_medical_beret"
 	item_state = "ncr_medical_beret"
+	armor_tokens = list(ARMOR_MODIFIER_UP_ENV_T3)
 
 /obj/item/clothing/head/beret/ncr/ncr_sapper
 	name = "NCR Sapper beret"
@@ -615,6 +646,8 @@ obj/item/clothing/head/helmet/f13/enclave/usmcriot
 	desc = "A tan beret, issued members of the New California Republic Special Operations Command."
 	icon_state = "ncr_sof_beret"
 	item_state = "ncr_sof_beret"
+	armor = ARMOR_VALUE_PA
+	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T1, ARMOR_MODIFIER_UP_BULLET_T1, ARMOR_MODIFIER_UP_DT_T1)
 
 /obj/item/clothing/head/beret/ncr_dresscap
 	name = "NCR peaked cap"
@@ -636,33 +669,26 @@ obj/item/clothing/head/helmet/f13/enclave/usmcriot
 	icon_state = "scoutberet"
 	item_state = "scoutberet"
 	salvage_loot = list(/obj/item/stack/crafting/armor_plate = 2)
+	armor = ARMOR_VALUE_LIGHT
+	armor_tokens = list(ARMOR_MODIFIER_UP_DT_T2, ARMOR_MODIFIER_UP_BULLET_T1)
 
-/* /obj/item/clothing/head/beret/ncr_recon_ranger/Initialize()
-	. = ..()
-	AddComponent(/datum/component/armor_plate)
- */
 /obj/item/clothing/head/f13/trailranger
 	name = "NCR trail ranger hat"
 	desc = "a rustic, homely style cowboy hat worn by NCR trail rangers. Yeehaw!"
 	icon_state = "cowboyrang"
 	item_state = "cowboyrang"
 	salvage_loot = list(/obj/item/stack/crafting/armor_plate = 2)
+	armor = ARMOR_VALUE_LIGHT
+	armor_tokens = list(ARMOR_MODIFIER_UP_DT_T2, ARMOR_MODIFIER_UP_BULLET_T1)
 
-/* /obj/item/clothing/head/f13/trailranger/Initialize()
-	. = ..()
-	AddComponent(/datum/component/armor_plate)
- */
 /obj/item/clothing/head/f13/ranger
 	name = "NCR ranger campaign hat"
 	desc = "An NCR ranger hat, standard issue amongst all but the most elite rangers."
 	icon_state = "rangerhat"
 	item_state = "rangerhat"
 	salvage_loot = list(/obj/item/stack/crafting/armor_plate = 2)
+	armor_tokens = list(ARMOR_MODIFIER_UP_DT_T2, ARMOR_MODIFIER_UP_BULLET_T1)
 
-/* /obj/item/clothing/head/f13/ranger/Initialize()
-	. = ..()
-	AddComponent(/datum/component/armor_plate)
- */
 /obj/item/clothing/head/helmet/f13/combat/ncr_patrol
 	name = "NCR patrol helmet"
 	desc = "A combat helmet hand-manufactured in the NCR and issued to patrol rangers."
@@ -671,11 +697,7 @@ obj/item/clothing/head/helmet/f13/enclave/usmcriot
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEHAIR|HIDEFACIALHAIR|HIDEFACE
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	salvage_loot = list(/obj/item/stack/crafting/armor_plate = 2)
-
-/* /obj/item/clothing/head/helmet/f13/combat/ncr_patrol/Initialize()
-	. = ..()
-	AddComponent(/datum/component/armor_plate)
- */
+	armor_tokens = list(ARMOR_MODIFIER_UP_DT_T1, ARMOR_MODIFIER_UP_BULLET_T1)
 
 /obj/item/clothing/head/helmet/f13/ncr/rangercombat
 	name = "ranger combat helmet"
