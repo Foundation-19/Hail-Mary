@@ -692,6 +692,8 @@ obj/item/clothing/head/helmet/f13/enclave/usmcriot
 	lighting_alpha = LIGHTING_PLANE_ALPHA_NV_TRAIT
 	darkness_view = 24
 	salvage_loot = list(/obj/item/stack/crafting/armor_plate = 3, /obj/item/clothing/glasses/night/polarizing = 1)
+	armor = ARMOR_VALUE_HEAVY
+	armor_tokens = list(ARMOR_MODIFIER_UP_DT_T2)
 
 /* /obj/item/clothing/head/helmet/f13/ncr/rangercombat/Initialize()
 	. = ..()

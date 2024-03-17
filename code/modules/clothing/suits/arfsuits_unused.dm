@@ -232,6 +232,10 @@ Suits. 0-10 in its primary value, slowdown 0, various utility
 	icon_state = "ncr_infantry_vest"
 	item_state = "ncr_infantry_vest"
 	salvage_loot = list(/obj/item/stack/crafting/armor_plate = 2)
+	armor = ARMOR_VALUE_LIGHT
+	armor_tier_desc = ARMOR_CLOTHING_LIGHT
+	slowdown = ARMOR_SLOWDOWN_LIGHT * ARMOR_SLOWDOWN_GLOBAL_MULT
+	armor_tokens = list(ARMOR_MODIFIER_UP_DT_T1, ARMOR_MODIFIER_UP_BULLET_T1) // The NCR is more tanky, but slower
 
 /datum/component/storage/concrete/pockets/bulletbelt/ncr
 	max_items = 2
@@ -247,44 +251,57 @@ Suits. 0-10 in its primary value, slowdown 0, various utility
 	desc = "A standard issue NCR Infantry vest."
 	icon_state = "ncr_infantry_vest"
 	item_state = "ncr_infantry_vest"
+	armor_tokens = list()
 
 /obj/item/clothing/suit/armor/ncrarmor/conscript
 	name = "NCR flak vest"
 	desc = "A standard issue NCR Infantry vest reinforced with a thin kelvar sheet."
 	icon_state = "ncr_kelvar_vest"
 	item_state = "ncr_kelvar_vest"
+	armor_tokens = list()
 
 /obj/item/clothing/suit/armor/ncrarmor/reinforced
 	name = "NCR reinforced patrol vest"
 	desc = "A standard issue NCR Infantry vest reinforced with a groinpad."
 	icon_state = "ncr_reinforced_vest"
 	item_state = "ncr_reinforced_vest"
+	armor = ARMOR_VALUE_MEDIUM
+	armor_tier_desc = ARMOR_CLOTHING_MEDIUM
+	slowdown = ARMOR_SLOWDOWN_MEDIUM * ARMOR_SLOWDOWN_GLOBAL_MULT
+	armor_tokens = list(ARMOR_MODIFIER_UP_DT_T1)
 	salvage_loot = list(/obj/item/stack/crafting/armor_plate = 3)
 
 /obj/item/clothing/suit/armor/ncrarmor/reinforced/engineer
 	name = "NCR blast-padded reinforced patrol vest"
 	desc = "A standard issue NCR Engineer vest reinforced with a groinpad."
+	armor_tokens = list(ARMOR_MODIFIER_UP_DT_T1, ARMOR_MODIFIER_UP_BOMB_T2, ARMOR_MODIFIER_UP_FIRE_T2)
 
-/obj/item/clothing/suit/armor/ncrarmor/mantle/reinforced
+/obj/item/clothing/suit/armor/ncrarmor/reinforced/mantle
 	name = "NCR reinforced mantle vest"
 	desc = "A standard issue NCR Infantry vest reinforced with a groinpad and a mantle."
 	icon_state = "ncr_reinforced_mantle"
 
-/obj/item/clothing/suit/armor/ncrarmor/mantle/reinforced/trenchraider
+/obj/item/clothing/suit/armor/ncrarmor/reinforced/mantle/trenchraider
 	name = "NCR reinforced trench mantle vest"
 	desc = "A standard issue NCR Infantry vest with a really long name and extra melee plating."
+	armor_tokens = list(ARMOR_MODIFIER_UP_DT_T1, ARMOR_MODIFIER_UP_MELEE_T2)
 
 /obj/item/clothing/suit/armor/ncrarmor/labcoat
 	name = "NCR medical labcoat"
 	desc = "An armored labcoat typically issued to NCR Medical Officers. It's a standard white labcoat with the Medical Officer's name stitched into the breast and a two headed bear sewn into the shoulder."
 	icon_state = "ncr_labcoat"
 	item_state = "ncr_labcoat"
+	armor_tokens = list(ARMOR_MODIFIER_UP_ENV_T3)
 
 /obj/item/clothing/suit/armor/ncrarmor/lieutenant
 	name = "NCR officer vest"
 	desc = "A reinforced set of NCR mantle armour, with added padding on the groin, neck and shoulders. Intended for use by the officer class."
 	icon_state = "ncr_lt_armour"
 	item_state = "ncr_lt_armour"
+	armor = ARMOR_VALUE_MEDIUM
+	armor_tier_desc = ARMOR_CLOTHING_MEDIUM
+	slowdown = ARMOR_SLOWDOWN_MEDIUM * ARMOR_SLOWDOWN_LESS_T1 * ARMOR_SLOWDOWN_GLOBAL_MULT
+	armor_tokens = list(ARMOR_MODIFIER_UP_DT_T1, ARMOR_MODIFIER_UP_BULLET_T1)
 
 /obj/item/clothing/suit/armor/ncrarmor/captain/ncr_officer_coat
 	name = "NCR officer vest"
@@ -292,6 +309,10 @@ Suits. 0-10 in its primary value, slowdown 0, various utility
 	icon_state = "ncr_officer_coat"
 	item_state = "ncr_officer_coat"
 	salvage_loot = list(/obj/item/stack/crafting/armor_plate = 5)
+	armor = ARMOR_VALUE_MEDIUM
+	armor_tier_desc = ARMOR_CLOTHING_MEDIUM
+	slowdown = ARMOR_SLOWDOWN_MEDIUM * ARMOR_SLOWDOWN_LESS_T1 * ARMOR_SLOWDOWN_GLOBAL_MULT
+	armor_tokens = list(ARMOR_MODIFIER_UP_DT_T1, ARMOR_MODIFIER_UP_BULLET_T1)
 
 /obj/item/clothing/suit/armor/ncrarmor/captain
 	name = "NCR reinforced officer vest"
@@ -299,6 +320,10 @@ Suits. 0-10 in its primary value, slowdown 0, various utility
 	icon_state = "ncr_captain_armour"
 	item_state = "ncr_captain_armour"
 	salvage_loot = list(/obj/item/stack/crafting/armor_plate = 10) // Le captain
+	armor = ARMOR_VALUE_MEDIUM
+	armor_tier_desc = ARMOR_CLOTHING_MEDIUM
+	slowdown = ARMOR_SLOWDOWN_MEDIUM * ARMOR_SLOWDOWN_GLOBAL_MULT
+	armor_tokens = list(ARMOR_MODIFIER_UP_DT_T2, ARMOR_MODIFIER_UP_BULLET_T2)
 
 /obj/item/clothing/suit/armor/ncrarmor/ncr_dressjack
 	name = "NCR dress jacket"
@@ -312,7 +337,6 @@ Suits. 0-10 in its primary value, slowdown 0, various utility
 	icon_state = "ncr_codressjack"
 	item_state = "ncr_codressjack"
 
-
 //NCR Ranger
 /obj/item/clothing/suit/toggle/armor/rangerrecon
 	name = "ranger recon duster"
@@ -320,6 +344,11 @@ Suits. 0-10 in its primary value, slowdown 0, various utility
 	icon_state = "duster_recon"
 	item_state = "duster_recon"
 	salvage_loot = list(/obj/item/stack/crafting/armor_plate = 4)
+	armor = ARMOR_VALUE_LIGHT
+	stiffness = LIGHT_STIFFNESS
+	armor_tier_desc = ARMOR_CLOTHING_LIGHT
+	slowdown = ARMOR_SLOWDOWN_LIGHT * ARMOR_SLOWDOWN_LESS_T1 * ARMOR_SLOWDOWN_GLOBAL_MULT
+	armor_tokens = list(ARMOR_MODIFIER_UP_DT_T2, ARMOR_MODIFIER_UP_BULLET_T1)
 
 /obj/item/clothing/suit/armor/trailranger
 	name = "ranger vest"
@@ -327,20 +356,38 @@ Suits. 0-10 in its primary value, slowdown 0, various utility
 	icon_state = "cowboyrang"
 	item_state = "cowboyrang"
 	salvage_loot = list(/obj/item/stack/crafting/armor_plate = 4)
+	armor = ARMOR_VALUE_LIGHT
+	stiffness = LIGHT_STIFFNESS
+	armor_tier_desc = ARMOR_CLOTHING_LIGHT
+	slowdown = ARMOR_SLOWDOWN_LIGHT * ARMOR_SLOWDOWN_GLOBAL_MULT
+	armor_tokens = list(ARMOR_MODIFIER_UP_DT_T2, ARMOR_MODIFIER_UP_BULLET_T1)
 
-/obj/item/clothing/suit/armor/modif_r_vest
+/obj/item/clothing/suit/armor/trailranger/modif_r_vest
 	name = "subdued ranger vest"
 	desc = "A quaint little jacket and scarf worn by NCR trail rangers. This one has the leather bleached and the scarf dyed black."
 	icon_state = "modif_r_vest"
 	item_state = "modif_r_vest"
 	salvage_loot = list(/obj/item/stack/crafting/armor_plate = 4)
 
+/obj/item/clothing/suit/armor/medium/combat/desert_ranger/patrol
+	name = "desert ranger patrol armor"
+	desc = "A set of desert ranger patrol armor, modified to be light and breezy here in the swamps, perfect for making blood sausage."
+	icon_state = "ncr_patrol"
+	item_state = "ncr_patrol"
+	stiffness = LIGHT_STIFFNESS
+	slowdown = ARMOR_SLOWDOWN_MEDIUM * ARMOR_SLOWDOWN_LESS_T2 * ARMOR_SLOWDOWN_GLOBAL_MULT
+	armor_tokens = list(ARMOR_MODIFIER_UP_DT_T1, ARMOR_MODIFIER_UP_BULLET_T1)
 
 /obj/item/clothing/suit/armor/rangercombat
 	name = "veteran ranger combat armor"
 	desc = "The NCR veteran ranger combat armor, or black armor consists of a pre-war L.A.P.D. riot suit under a duster with rodeo jeans. Considered one of the most prestigious suits of armor to earn and wear while in service of the NCR Rangers."
 	icon_state = "ranger"
 	item_state = "ranger"
+	armor = ARMOR_VALUE_HEAVY
+	armor_tier_desc = ARMOR_CLOTHING_MEDIUM
+	stiffness = LIGHT_STIFFNESS
+	slowdown = ARMOR_SLOWDOWN_LIGHT * ARMOR_SLOWDOWN_LESS_T3 * ARMOR_SLOWDOWN_GLOBAL_MULT
+	armor_tokens = list(ARMOR_MODIFIER_UP_DT_T2)
 	salvage_loot = list(/obj/item/stack/crafting/armor_plate = 8)
 
 //Great Khan
