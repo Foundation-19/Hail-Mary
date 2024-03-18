@@ -2447,7 +2447,8 @@
 /obj/item/gun/ballistic/automatic/m72
 	name = "\improper M72 gauss rifle"
 	desc = "The M72 rifle is of German design. It uses an electromagnetic field to propel rounds at tremendous speed... and pierce almost any obstacle. Its range, accuracy and stopping power is almost unparalleled."
-	icon_state = "m72"
+	icon = 'icons/fallout/objects/guns/ballistic.dmi'
+	icon_state = "gaussf2"
 	item_state = "sniper"
 	slot_flags = ITEM_SLOT_BACK
 	mag_type = /obj/item/ammo_box/magazine/m2mm
