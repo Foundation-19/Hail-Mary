@@ -46913,9 +46913,6 @@
 /obj/structure/noticeboard{
 	layer = 3
 	},
-/obj/structure/barricade/wooden/strong{
-	icon = 'modular_atom/legio_invicta/icons/icons_legion.dmi'
-	},
 /turf/open/indestructible/ground/outside/gravel{
 	color = "#B7ABAB";
 	footstep = "dirt";
