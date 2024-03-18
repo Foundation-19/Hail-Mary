@@ -1944,24 +1944,6 @@ GLOBAL_LIST_EMPTY(loadout_boxes)
 	entry_class = LOADOUT_CAT_MELEE_TWO
 	spawn_thing = /obj/item/storage/box/gun/melee/chainsaw
 
-/datum/loadout_box/fist_of_the_swampstar // pornstar
-	entry_tag = "Bands of the Swamp Star gloves"
-	entry_flags = LOADOUT_FLAG_WASTER | LOADOUT_FLAG_TRIBAL
-	entry_class = LOADOUT_CAT_MISC
-	spawn_thing = /obj/item/storage/box/gun/melee/fist_of_the_swampstar
-
-/datum/loadout_box/raging_boar // YEET
-	entry_tag = "Raging Boar Scroll"
-	entry_flags = LOADOUT_FLAG_WASTER
-	entry_class = LOADOUT_CAT_MISC
-	spawn_thing = /obj/item/storage/box/gun/melee/raging_boar
-
-/datum/loadout_box/sleeping_carp // Snippity Snap
-	entry_tag = "Sleeping Carp Scroll"
-	entry_flags = LOADOUT_FLAG_WASTER
-	entry_class = LOADOUT_CAT_MISC
-	spawn_thing = /obj/item/storage/box/gun/melee/sleeping_carp
-
 /datum/loadout_box/oldclaymore //FOR SCOTLAND
 	entry_tag = "Old Claymore"
 	entry_flags = LOADOUT_FLAG_WASTER
