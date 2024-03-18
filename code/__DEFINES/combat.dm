@@ -102,8 +102,8 @@
 #define CANSTAGGER		(1<<5)
 
 //Health Defines
-#define HEALTH_THRESHOLD_CRIT -50
-#define HEALTH_THRESHOLD_FULLCRIT -75
+#define HEALTH_THRESHOLD_CRIT 0
+#define HEALTH_THRESHOLD_FULLCRIT -30
 #define HEALTH_THRESHOLD_DEAD -100
 
 //Actual combat defines
