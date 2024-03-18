@@ -63,7 +63,7 @@
 		"linemelee" = 20, \
 		"linebullet" = 20, \
 		"linelaser" = 20, \
-		"energy" = 0, \
+		"energy" = 5, \
 		"bomb" = 0, \
 		"bio" = 10, \
 		"rad" = 10, \
@@ -84,7 +84,7 @@
 		"linemelee" = 35, \
 		"linebullet" = 35, \
 		"linelaser" = 35, \
-		"energy" = 5, \
+		"energy" = 10, \
 		"bomb" = 10, \
 		"bio" = 25, \
 		"rad" = 25, \
@@ -105,7 +105,7 @@
 		"linemelee" = 45, \
 		"linebullet" = 45, \
 		"linelaser" = 45, \
-		"energy" = 0, \
+		"energy" = 15, \
 		"bomb" = 25, \
 		"bio" = 25, \
 		"rad" = 25, \
@@ -904,7 +904,7 @@ GLOBAL_LIST_INIT(armor_token_operation_legend, list(
  * Light Armor
  * Basically clothes, but more
 */
-#define ARMOR_SLOWDOWN_LIGHT 0
+#define ARMOR_SLOWDOWN_LIGHT 0.1
 
 /*
  * Medium Armor

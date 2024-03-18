@@ -2206,7 +2206,6 @@
 	desc = "An old military grade pre war combat armor. This one switches out its ballistic fibers for an ablative coating that disrupts energy weapons."
 	armor_tokens = list(ARMOR_MODIFIER_UP_LASER_T2, ARMOR_MODIFIER_UP_ENV_T1)
 
-
 /obj/item/clothing/suit/armor/medium/combat/dark
 	name = "combat armor"
 	desc = "An old military grade pre war combat armor. Now in dark, and extra-crispy!"
@@ -2228,7 +2227,7 @@
 	icon_state = "combat_armor_mk2"
 	item_state = "combat_armor_mk2"
 	salvage_loot = list(/obj/item/stack/crafting/armor_plate = 8)
-	slowdown = ARMOR_SLOWDOWN_MEDIUM * ARMOR_SLOWDOWN_MORE_T1 * ARMOR_SLOWDOWN_GLOBAL_MULT
+	slowdown = ARMOR_SLOWDOWN_MEDIUM * ARMOR_SLOWDOWN_MORE_T2 * ARMOR_SLOWDOWN_GLOBAL_MULT
 	armor_tokens = list(ARMOR_MODIFIER_UP_BULLET_T2, ARMOR_MODIFIER_UP_MELEE_T1, ARMOR_MODIFIER_UP_LASER_T2, ARMOR_MODIFIER_DOWN_ENV_T1, ARMOR_MODIFIER_UP_DT_T3)
 
 /obj/item/clothing/suit/armor/medium/combat/mk2/dark
@@ -2321,12 +2320,6 @@
 	desc = "Multiple sets of NCR patrol vests that have been fused, stitched and welded together in order to fit the frame of a Super Mutant."
 	icon_state = "mutie_ncr"
 	item_state = "mutie_ncr"
-
-/obj/item/clothing/suit/armor/medium/combat/desert_ranger/patrol
-	name = "desert ranger patrol armor"
-	desc = "A set of desert ranger patrol armor, modified to be light and breezy here in the swamps, perfect for making blood sausage."
-	icon_state = "ncr_patrol"
-	item_state = "ncr_patrol"
 
 /obj/item/clothing/suit/armor/medium/combat/desert_ranger/patrol/mutant
 	name = "mutant desert ranger armor"
