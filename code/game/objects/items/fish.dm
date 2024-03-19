@@ -146,5 +146,5 @@
 /obj/item/fishyegg/shark
 	name = "shark fish egg"
 	icon_state = "shark_eggs"
-	desc = "Shark eggs are often referred to egg cases or mermaid's purses, are typically leather."
+	desc = "Shark eggs are often referred to mermaid's purses, can be used as a egg substitute."
 	grind_results = list(eggyolk = 2)
