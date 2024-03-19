@@ -1177,7 +1177,7 @@ Mayor
 
 //The Quartermaster
 /datum/job/oasis/f13quartermaster
-	title = " Quartermaster"
+	title = "Quartermaster"
 	flag = F13QUARTERMASTER
 	department_flag = DEP_OASIS
 	total_positions = 1
@@ -1206,7 +1206,7 @@ Mayor
 	)
 
 /datum/outfit/job/den/f13quartermaster
-	name = " Quartermaster"
+	name = "Quartermaster"
 	jobtype = /datum/job/oasis/f13quartermaster
 	id = /obj/item/card/id/dogtag/town
 	ears = /obj/item/radio/headset/headset_town/commerce
@@ -1273,7 +1273,7 @@ Mayor
 
 //The Trade Workers
 /datum/job/oasis/f13shopkeeper
-	title = " Trade Worker"
+	title = "Trade Worker"
 	flag = F13SHOPKEEPER
 	department_flag = DEP_OASIS
 	total_positions = 4
