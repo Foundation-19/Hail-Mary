@@ -48,7 +48,7 @@
 
 /obj/mecha/combat/neovgre/obj_destruction()
 	for(var/mob/M in src)
-		to_chat(M, "<span class='brass'>You are consumed by the fires raging within Neovgre...</span>")
+		to_chat(M, span_brass("You are consumed by the fires raging within Neovgre..."))
 		M.dust()
 	playsound(src, 'sound/effects/neovgre_exploding.ogg', 100, 0)
 	src.visible_message("<span class = 'userdanger'>The reactor has gone critical, its going to blow!</span>")
