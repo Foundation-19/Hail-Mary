@@ -109,7 +109,7 @@
 /obj/item/modkit/wolfvest
 	name = "subdued ranger vest modkit"
 	target_items = list(/obj/item/clothing/suit/armor/medium/combat/desert_ranger/patrol)
-	result_item = /obj/item/clothing/suit/armor/modif_r_vest
+	result_item = /obj/item/clothing/suit/armor/trailranger/modif_r_vest
 
 //YEEHAWGUVNAH/Trinity Kemble
 /obj/item/modkit/kemblevest

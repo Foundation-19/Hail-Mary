@@ -1325,7 +1325,7 @@
 /obj/item/gun/ballistic/automatic/service/alr
 	name = "ALR15"
 	desc = "A 5.56x45mm rifle custom built off of a reproduction model AR15-style weapon. Sports a fancy holographic sight picture, forward grip, and a comfortable synthetic thumbhole stock. Bang bang."
-	icon_state = "alr15"
+	icon_state = "armalite-20"
 	item_state = "alr15"
 	weapon_class = WEAPON_CLASS_RIFLE
 	weapon_weight = GUN_ONE_HAND_ONLY
@@ -2447,7 +2447,8 @@
 /obj/item/gun/ballistic/automatic/m72
 	name = "\improper M72 gauss rifle"
 	desc = "The M72 rifle is of German design. It uses an electromagnetic field to propel rounds at tremendous speed... and pierce almost any obstacle. Its range, accuracy and stopping power is almost unparalleled."
-	icon_state = "m72"
+	icon = 'icons/fallout/objects/guns/ballistic.dmi'
+	icon_state = "gaussf2"
 	item_state = "sniper"
 	slot_flags = ITEM_SLOT_BACK
 	mag_type = /obj/item/ammo_box/magazine/m2mm
