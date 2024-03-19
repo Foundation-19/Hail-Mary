@@ -1,8 +1,8 @@
 /obj/item/stealthboy
-	name = "Stealth Boy"
+	name = "Stealth Boy MK1"
 	desc = "The RobCo Stealth Boy 3001 is a personal stealth device, this one is designed to be worn on your belt and the battery can be taken out if you can find an ALTERNATIVE way to CLICK the back open and take the battery out. (alt click to take the battery out and recharge it)"
-	icon = 'icons/obj/pda.dmi' //Placeholder till ones sprited
-	icon_state = "pda" //Placeholder till ones sprited
+	icon = 'icons/fallout/objects/stealthboy.dmi'
+	icon_state = "stealth_boy"
 	item_flags = NOBLUDGEON
 	slot_flags = ITEM_SLOT_BELT
 	throwforce = 5
@@ -13,6 +13,16 @@
 	var/use_per_tick = 400 // normal cell has 10000 charge, 200 charge/second = 50 seconds of stealth
 	var/on = FALSE
 	actions_types = list(/datum/action/item_action/stealthboy_cloak)
+
+
+// Below are Variants of stealth boys that should be increased power usage and less below that one. However I dont know how to make that happen, so they are all the same.
+/obj/item/stealthboy/makeshift
+	name = "Makeshift Stealth Boy"
+	icon_state = "makeshift_stealth"
+
+/obj/item/stealthboy/mk2
+	name = "Stealth Boy MK2"
+	icon_state = "stealth_boy_mk"
 
 /obj/item/stealthboy/Initialize()
 	. = ..()
