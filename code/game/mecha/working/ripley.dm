@@ -5,7 +5,7 @@
 	step_in = 3 //Move speed, lower is faster.
 	max_temperature = 20000
 	max_integrity = 300
-	armor = list("melee" = 30, "bullet" = 15, "laser" = 10, "energy" = 20, "bomb" = 40, "bio" = 0, "rad" = 100, "fire" = 100, "acid" = 100)
+	armor = ARMOR_VALUE_MEDIUM
 	max_equip = 6
 	wreckage = /obj/structure/mecha_wreckage/ripley
 	var/list/cargo = new
