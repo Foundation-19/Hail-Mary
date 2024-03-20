@@ -96,8 +96,7 @@
 /datum/crafting_recipe/bitterdrink
 	name = "Bottle bitterdrink"
 	result = /obj/item/reagent_containers/pill/bitterdrink
-	reqs = list(/obj/item/reagent_containers/food/snacks/grown/broc = 1,
-				/obj/item/reagent_containers/food/snacks/grown/xander = 1,
+	reqs = list(/datum/reagent/medicine/bitter_drink = 5,
 				/obj/item/reagent_containers/food/drinks = 1)
 	tools = list(TOOL_ALCHEMY_TABLE)
 	time = 10
@@ -107,8 +106,7 @@
 /datum/crafting_recipe/bitterdrink5
 	name = "Batch of bitterdrink (x5)"
 	result = /obj/item/storage/box/medicine/bitterdrink5
-	reqs = list(/obj/item/reagent_containers/food/snacks/grown/broc = 5,
-				/obj/item/reagent_containers/food/snacks/grown/xander = 5,
+	reqs = list(/datum/reagent/medicine/bitter_drink = 25,
 				/obj/item/reagent_containers/food/drinks = 5)
 	tools = list(TOOL_ALCHEMY_TABLE)
 	time = 20
