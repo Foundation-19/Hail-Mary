@@ -150,3 +150,16 @@
 	w_class = WEIGHT_CLASS_BULKY
 	result_path = /obj/machinery/defibrillator_mount
 	pixel_shift = -28
+
+/obj/machinery/defibrillator_mount/primitive
+	desc = "Holds a primitive defibrillator."
+	icon_state = "defibrillator_mount_primitive"
+	density = FALSE
+	use_power = FALSE
+	clamps_locked = TRUE
+	plane = MOB_PLANE
+
+/obj/machinery/defibrillator_mount/primitive/Initialize() //loaded subtype for mapping use
+	. = ..()
+	defib = new/obj/item/defibrillator/primitive(src)
+	update_overlays()
