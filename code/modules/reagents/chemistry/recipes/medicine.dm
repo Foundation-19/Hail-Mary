@@ -400,12 +400,12 @@ datum/chemical_reaction/rezadone
 /datum/chemical_reaction/bitterdrink
 	name = "Bitter drink"
 	id = /datum/reagent/medicine/bitter_drink
-	results = list(/datum/reagent/medicine/bitter_drink = 30)
+	results = list(/datum/reagent/medicine/bitter_drink = 25)
 	required_reagents = list(
-		/datum/reagent/consumable/ethanol/salgam = 10,
-		/datum/reagent/consumable/ethanol/brocbrew = 10,
-		/datum/reagent/consumable/ethanol/yellowpulque = 10,
-		/datum/reagent/consumable/sunset = 10,
-		/datum/reagent/consumable/tea/bloodtea = 10
+		/datum/reagent/consumable/ethanol/salgam = 5,
+		/datum/reagent/consumable/ethanol/brocbrew = 5,
+		/datum/reagent/consumable/ethanol/yellowpulque = 5,
+		/datum/reagent/consumable/sunset = 5,
+		/datum/reagent/consumable/tea/bloodtea = 5
 		)
-	required_temp = 452
+	required_temp = 451

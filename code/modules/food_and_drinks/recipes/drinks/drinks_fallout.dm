@@ -442,7 +442,7 @@
 	id = "bloodtea"
 	results = list(/datum/reagent/consumable/tea/bloodtea = 3)
 	required_reagents = list(/datum/reagent/consumable/bloodleafjuice = 1, /datum/reagent/water = 2)
-	required_temp = 316
+	required_temp = 315
 
 /datum/chemical_reaction/fever_blossom_tea
 	name = "Passion Tea"
