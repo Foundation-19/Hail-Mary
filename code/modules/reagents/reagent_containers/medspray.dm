@@ -108,3 +108,9 @@
 	name = "Synthtissue young culture spray"
 	desc = "Spray bottle loaded with synthtissue. Useful in synthtissue grafting surgeries."
 	list_reagents = list(/datum/reagent/synthtissue = 60)
+
+/obj/item/reagent_containers/medspray/sterilizine/honey
+	name = "medical honey (sterilizer)"
+	desc = "Pure honey has antiseptic properties, and probably works just as a sterilizing agent."
+	icon_state = "sterilizer_honey"
+	apply_method = "smear"

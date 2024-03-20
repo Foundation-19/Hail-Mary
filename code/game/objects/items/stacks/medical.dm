@@ -842,6 +842,16 @@
 	cost = 250
 	merge_type = /obj/item/stack/medical/bone_gel/cyborg
 
+/obj/item/stack/medical/bone_gel/superglue
+	name = "superglue (bonegel)"
+	singular_name = "superglue"
+	desc = "Good for gluing together broken bones!"
+	icon_state = "superglue"
+	lefthand_file = NONE
+	righthand_file = NONE
+	grind_results = NONE
+
+
 /obj/item/stack/medical/mesh/aloe
 	name = "aloe cream"
 	desc = "A healing paste you can apply on wounds."

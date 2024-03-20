@@ -4377,9 +4377,6 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/dark,
 /area/f13/ncr)
-"asW" = (
-/turf/open/floor/mineral/uranium,
-/area/f13/radiation)
 "asX" = (
 /turf/open/floor/f13,
 /area/f13/building)
@@ -30458,13 +30455,6 @@
 	icon_state = "bluerustysolid"
 	},
 /area/f13/building/museum)
-"gQY" = (
-/obj/effect/decal/waste{
-	icon_state = "goo12"
-	},
-/obj/structure/wreck/trash/three_barrels,
-/turf/open/indestructible/ground/inside/dirt,
-/area/f13/radiation)
 "gRk" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/indestructible/ground/outside/sidewalk{
@@ -32748,13 +32738,6 @@
 	icon_state = "greenrustychess"
 	},
 /area/f13/building/massfusion)
-"hZn" = (
-/obj/item/flag/vtcc,
-/turf/open/indestructible/ground/outside/roaddirt{
-	dir = 4;
-	icon_state = "innerpavement"
-	},
-/area/f13/wasteland)
 "hZy" = (
 /obj/structure/bonfire/prelit,
 /obj/structure/railing{
@@ -37798,10 +37781,6 @@
 	icon_state = "horizontaltopbordertop2left"
 	},
 /area/f13/wasteland)
-"koE" = (
-/obj/item/pitchfork,
-/turf/open/floor/mineral/uranium,
-/area/f13/radiation)
 "kpw" = (
 /obj/structure/flora/grass/wasteland{
 	icon_state = "tall_grass_4"
@@ -40862,15 +40841,6 @@
 	icon_state = "horizontaltopborderbottom2"
 	},
 /area/f13/wasteland)
-"lHt" = (
-/obj/structure/table/wood,
-/obj/structure/barricade/wooden/strong,
-/obj/structure/barricade/bars{
-	max_integrity = 800;
-	name = "strong metal bars";
-	obj_integrity = 800
-	},
-/turf/open/indestructible/ground/outside/desert)
 "lHx" = (
 /obj/structure/lamp_post/doubles/bent{
 	dir = 8
@@ -46913,9 +46883,6 @@
 /obj/structure/noticeboard{
 	layer = 3
 	},
-/obj/structure/barricade/wooden/strong{
-	icon = 'modular_atom/legio_invicta/icons/icons_legion.dmi'
-	},
 /turf/open/indestructible/ground/outside/gravel{
 	color = "#B7ABAB";
 	footstep = "dirt";
@@ -47845,10 +47812,6 @@
 	},
 /turf/open/indestructible/ground/outside/sidewalk,
 /area/f13/wasteland)
-"oJo" = (
-/obj/item/flag/vtcc,
-/turf/open/indestructible/ground/outside/sidewalk,
-/area/f13/wasteland)
 "oJz" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/f13/wood,
@@ -48637,9 +48600,6 @@
 /obj/structure/flora/ausbushes/reedbush,
 /turf/open/indestructible/ground/outside/water,
 /area/f13/wasteland)
-"pag" = (
-/turf/closed/indestructible/riveted/uranium,
-/area/f13/radiation)
 "pap" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/rack,
@@ -49028,6 +48988,7 @@
 /area/f13/wasteland)
 "pjY" = (
 /obj/structure/closet/crate/large,
+/turf/open/indestructible/ground/outside/desert,
 /area/f13/legion)
 "pjZ" = (
 /obj/effect/decal/cleanable/dirt,
@@ -51805,10 +51766,6 @@
 	icon_state = "outerborder"
 	},
 /area/f13/wasteland)
-"qvz" = (
-/obj/item/twohanded/sledgehammer/atomsjudgement,
-/turf/open/floor/mineral/uranium,
-/area/f13/radiation)
 "qvN" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/fence{
@@ -52084,9 +52041,6 @@
 	icon_state = "dirt"
 	},
 /area/f13/wasteland/khans)
-"qCz" = (
-/turf/closed/mineral/random/low_chance,
-/area/f13/radiation)
 "qCD" = (
 /obj/effect/turf_decal/weather/dirt,
 /obj/structure/flora/grass/jungle,
@@ -55094,14 +55048,6 @@
 	},
 /turf/open/floor/wood_fancy/wood_fancy_dark,
 /area/f13/legion)
-"sdD" = (
-/mob/living/simple_animal/hostile/ghoul/zombie/legendary{
-	desc = "A ferocious feral ghoul, hungry for human meat. This one has exceptionally large, bulging muscles. He.. appears to be wearing some strange tracksuit?";
-	name = "gamma ghoul";
-	speed = 0
-	},
-/turf/open/floor/mineral/uranium,
-/area/f13/radiation)
 "sdK" = (
 /obj/structure/sign/map/left{
 	pixel_y = 30
@@ -56404,13 +56350,6 @@
 	icon_state = "floorrusty"
 	},
 /area/f13/building/mall)
-"sMx" = (
-/obj/structure/reagent_dispensers/barrel/dangerous,
-/obj/effect/decal/waste{
-	icon_state = "goo12"
-	},
-/turf/open/indestructible/ground/inside/dirt,
-/area/f13/radiation)
 "sME" = (
 /obj/structure/barricade/wooden,
 /obj/structure/barricade/wooden/planks/pregame,
@@ -59593,12 +59532,6 @@
 /obj/structure/tires,
 /turf/open/indestructible/ground/outside/road{
 	icon_state = "verticalrightborderleft2bottom"
-	},
-/area/f13/wasteland)
-"uhL" = (
-/obj/item/flag/vtcc,
-/turf/open/indestructible/ground/outside/sidewalk{
-	icon_state = "verticalrightborderright0"
 	},
 /area/f13/wasteland)
 "uih" = (
@@ -65093,10 +65026,6 @@
 /obj/machinery/light/broken,
 /turf/open/floor/f13/wood,
 /area/f13/village)
-"wMP" = (
-/obj/structure/statue/uranium/eng,
-/turf/open/floor/mineral/uranium,
-/area/f13/radiation)
 "wNf" = (
 /obj/effect/decal/cleanable/oil{
 	icon_state = "floor5"
@@ -69663,14 +69592,14 @@ aae
 aaa
 aae
 aae
-qCz
-qCz
-qCz
-qCz
-qCz
-qCz
-qCz
-qCz
+aae
+aae
+aae
+aae
+aae
+aae
+aae
+aae
 aae
 aae
 qqO
@@ -69920,14 +69849,14 @@ aae
 aaa
 aae
 aae
-qCz
-qCz
-qCz
-qCz
-qCz
-qCz
-qCz
-qCz
+aae
+aae
+aae
+aae
+aae
+aae
+aae
+aae
 aae
 aae
 vGl
@@ -70177,14 +70106,14 @@ aae
 aaa
 aae
 aae
-qCz
-qCz
-pag
-pag
-pag
-pag
-qCz
-qCz
+aae
+aae
+aae
+aae
+aae
+aae
+aae
+aae
 aae
 vGl
 jLG
@@ -70434,14 +70363,14 @@ aae
 aaa
 aae
 aae
-qCz
-qCz
-pag
-koE
-asW
-pag
-sMx
-qCz
+aae
+aae
+aae
+aae
+aae
+aae
+aae
+aae
 aae
 aae
 vGl
@@ -70691,14 +70620,14 @@ aae
 aaa
 aae
 aae
-qCz
-qCz
-pag
-wMP
-sdD
-pag
-gQY
-qCz
+aae
+aae
+aae
+aae
+aae
+aae
+aae
+aae
 aae
 aae
 aae
@@ -70948,14 +70877,14 @@ aae
 aaa
 aae
 aae
-qCz
-qCz
-pag
-qvz
-asW
-pag
-qCz
-qCz
+aae
+aae
+aae
+aae
+aae
+aae
+aae
+aae
 aae
 aae
 aae
@@ -71205,14 +71134,14 @@ aae
 aaa
 aae
 aae
-qCz
-qCz
-pag
-pag
-pag
-pag
-qCz
-qCz
+aae
+aae
+aae
+aae
+aae
+aae
+aae
+aae
 aae
 aae
 aae
@@ -71462,14 +71391,14 @@ aaa
 aaa
 aae
 aae
-qCz
-qCz
-qCz
-qCz
-qCz
-qCz
-qCz
-qCz
+aae
+aae
+aae
+aae
+aae
+aae
+aae
+aae
 aae
 aae
 aae
@@ -71719,14 +71648,14 @@ aaa
 aae
 aae
 aae
-qCz
-qCz
-qCz
-qCz
-qCz
-qCz
-qCz
-qCz
+aae
+aae
+aae
+aae
+aae
+aae
+aae
+aae
 aae
 aae
 aae
@@ -94071,7 +94000,7 @@ mHp
 aer
 igF
 hEG
-oJo
+ean
 kls
 kls
 uKF
@@ -98462,7 +98391,7 @@ hEh
 hEh
 hEh
 aiO
-hZn
+hEh
 hEh
 lyo
 hEh
@@ -99708,7 +99637,7 @@ uNJ
 hxz
 uzn
 rIb
-uhL
+tnZ
 aiO
 tnZ
 pPz
@@ -123211,7 +123140,7 @@ lKy
 hyi
 xLC
 xLC
-lHt
+kFH
 kFH
 kFH
 kFH
@@ -123468,7 +123397,7 @@ mdv
 qGl
 xLC
 xLC
-lHt
+kFH
 jPD
 sHj
 juc
@@ -123982,7 +123911,7 @@ oRY
 oRY
 xLC
 xLC
-lHt
+kFH
 sHj
 qBr
 sHj
@@ -124239,7 +124168,7 @@ nWA
 khW
 xLC
 xLC
-lHt
+kFH
 sHj
 sHj
 sqb
@@ -124496,7 +124425,7 @@ jov
 khW
 xLC
 xLC
-lHt
+kFH
 kFH
 kFH
 meo
