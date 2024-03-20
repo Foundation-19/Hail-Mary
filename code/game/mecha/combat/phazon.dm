@@ -345,7 +345,7 @@
 	pixel_y = 0
 	can_be_locked = TRUE
 	dna_lock
-	step_in = 1.3
+	step_in = 1
 	opacity = 0
 	dir_in = 8
 	step_energy_drain = 1
@@ -422,7 +422,7 @@
 	pixel_y = 0
 	can_be_locked = TRUE
 	dna_lock
-	step_in = 1.25
+	step_in = 1
 	opacity = 0
 	dir_in = 8
 	step_energy_drain = 1
@@ -486,7 +486,7 @@
 	pixel_y = 0
 	can_be_locked = TRUE
 	dna_lock
-	step_in = 1.2
+	step_in = 0.8
 	opacity = 0
 	dir_in = 8
 	step_energy_drain = 1
@@ -542,7 +542,7 @@
 	pixel_y = 0
 	can_be_locked = TRUE
 	dna_lock
-	step_in = 1.2
+	step_in = 0.8
 	opacity = 0
 	dir_in = 8
 	step_energy_drain = 1
@@ -593,7 +593,7 @@
 	pixel_y = 0
 	can_be_locked = TRUE
 	dna_lock
-	step_in = 1.2
+	step_in = 0.8
 	opacity = 0
 	dir_in = 8
 	step_energy_drain = 1
@@ -644,7 +644,7 @@
 	pixel_y = 0
 	can_be_locked = TRUE
 	dna_lock
-	step_in = 1.2
+	step_in = 0.8
 	opacity = 0
 	dir_in = 8
 	step_energy_drain = 1
@@ -695,7 +695,7 @@
 	pixel_y = 0
 	can_be_locked = TRUE
 	dna_lock
-	step_in = 1.2
+	step_in = 0.8
 	opacity = 0
 	dir_in = 8
 	step_energy_drain = 1
@@ -746,7 +746,7 @@
 	pixel_y = 0
 	can_be_locked = TRUE
 	dna_lock
-	step_in = 1.2
+	step_in = 1
 	opacity = 0
 	dir_in = 8
 	step_energy_drain = 1
@@ -909,7 +909,7 @@
 	pixel_y = 0
 	can_be_locked = TRUE
 	dna_lock
-	step_in = 0.9
+	step_in = 0.7
 	opacity = 0
 	dir_in = 8
 	step_energy_drain = 1
@@ -960,7 +960,7 @@
 	pixel_y = 0
 	can_be_locked = TRUE
 	dna_lock
-	step_in = 1.1
+	step_in = 0.75
 	opacity = 0
 	dir_in = 8
 	step_energy_drain = 1
@@ -1013,7 +1013,7 @@
 	pixel_y = 0
 	can_be_locked = TRUE
 	dna_lock
-	step_in = 1.0
+	step_in = 0.75
 	opacity = 0
 	dir_in = 8
 	step_energy_drain = 1.3
