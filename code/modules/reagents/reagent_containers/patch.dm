@@ -124,8 +124,19 @@
 	desc = "A strong herbal healing concoction invented and created by the Twin Mothers tribe."
 	icon = 'icons/fallout/objects/medicine/drugs.dmi'
 	icon_state = "patch_bitterdrink"
-	list_reagents = list(/datum/reagent/medicine/healing_powder = 5, /datum/reagent/medicine/bicaridine = 5, /datum/reagent/medicine/kelotane = 5) 
+	list_reagents = list(/datum/reagent/medicine/bitter_drink = 5, /datum/reagent/medicine/bicaridine = 5, /datum/reagent/medicine/kelotane = 5) 
 	self_delay = 5
+
+/obj/item/reagent_containers/pill/patch/random
+	name = "randomized patch"
+	desc = "A long forgotten prescription. who knows what it contains."
+	icon_state = "bandaid"
+
+/obj/item/reagent_containers/pill/patch/random/Initialize()
+	list_reagents = list(get_random_reagent_id() = rand(5,15))
+	var/patch_name = pick("candy", "fun", "discarded", "forgotten", "old", "ancient", "random", "unknown", "strange", "abandoned", "hobo", "trash", "forsaken", "alluring", "peculiar", "anomalous", "unfamiliar", "odd", "funny", "tasty", "neglected", "mysterious", "strange")
+	name = "[patch_name] patch"
+	. = ..()
 
 // ---------------------------------
 // HYDRA - never a thing, make it something. Sprites done.
@@ -138,14 +149,3 @@
 	list_reagents = null
 	self_delay = 0
  */
-
-/obj/item/reagent_containers/pill/patch/random
-	name = "randomized patch"
-	desc = "A long forgotten prescription. who knows what it contains."
-	icon_state = "bandaid"
-
-/obj/item/reagent_containers/pill/patch/random/Initialize()
-	list_reagents = list(get_random_reagent_id() = rand(5,15))
-	var/patch_name = pick("candy", "fun", "discarded", "forgotten", "old", "ancient", "random", "unknown", "strange", "abandoned", "hobo", "trash", "forsaken", "alluring", "peculiar", "anomalous", "unfamiliar", "odd", "funny", "tasty", "neglected", "mysterious", "strange")
-	name = "[patch_name] patch"
-	. = ..()

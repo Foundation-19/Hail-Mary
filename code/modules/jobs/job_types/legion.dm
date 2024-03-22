@@ -37,6 +37,8 @@ Weapons		Lever shotgun, Grease gun, Repeater carbines, Revolvers, simple guns al
 		return
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/legiongate)
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/rip/crossexecution)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bitterdrink)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bitterdrink5)
 
 /datum/outfit/job/CaesarsLegion/Legionnaire
 	belt = /obj/item/storage/belt/army/assault/legion

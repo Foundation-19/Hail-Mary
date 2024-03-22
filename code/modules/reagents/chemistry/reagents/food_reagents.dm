@@ -483,7 +483,12 @@
 	color = "#274E13"
 	taste_description = "tato"
 
-
+/datum/reagent/consumable/bloodleafjuice
+	name = "Bloodleaf Juice"
+	description = "Juiced bloodleaf."
+	nutriment_factor = 1 * REAGENTS_METABOLISM
+	color = "#990000"
+	taste_description = "bitter"
 
 /datum/reagent/consumable/blackpepper
 	name = "Black Pepper"

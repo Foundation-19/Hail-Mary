@@ -318,7 +318,7 @@
 	name = "Antivenom"
 	desc = "A specially prepared solution that stimulates the production of antibodies to fight venoms and poisons."
 	icon = 'icons/fallout/objects/medicine/drugs.dmi'
-	icon_state = "patch_bitterdrink" //awaiting unique icon for antivenom
+	icon_state = "patch_hydra" //awaiting unique icon for antivenom
 	list_reagents = list(/datum/reagent/medicine/antitoxin = 5)
 	self_delay = 5
 
