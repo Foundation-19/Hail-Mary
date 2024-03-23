@@ -4114,7 +4114,6 @@
 	},
 /area/f13/underground/cave)
 "cif" = (
-/obj/effect/landmark/start/f13/seniorscribe,
 /obj/structure/chair/office/dark{
 	dir = 4
 	},
@@ -7219,7 +7218,6 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
 /area/f13/underground/cave)
 "dDb" = (
-/obj/effect/landmark/start/f13/knightcap,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/caves)
 "dDc" = (
@@ -11146,7 +11144,6 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/brotherhood/rnd)
 "fxA" = (
-/obj/effect/landmark/start/f13/Knight,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -15842,7 +15839,6 @@
 /area/f13/caves)
 "hSv" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/start/f13/paladin,
 /turf/open/floor/plasteel/f13/vault_floor/red{
 	icon_state = "darkyellowfull"
 	},
@@ -19470,7 +19466,6 @@
 /turf/open/floor/plasteel/f13/vault_floor/blue/whitebluefull,
 /area/f13/vault)
 "jMQ" = (
-/obj/effect/landmark/start/f13/Knight,
 /obj/structure/chair/f13foldupchair{
 	dir = 4
 	},
@@ -20689,7 +20684,6 @@
 	},
 /area/f13/building)
 "krp" = (
-/obj/effect/landmark/start/f13/Knight,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -25355,7 +25349,6 @@
 /turf/open/floor/plating/f13/inside,
 /area/f13/brotherhood/leisure)
 "mHF" = (
-/obj/effect/landmark/start/f13/seniorknight,
 /obj/structure/chair/wood{
 	dir = 1
 	},
@@ -29149,7 +29142,6 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/start/f13/paladin,
 /turf/open/floor/plasteel/f13/vault_floor/red{
 	icon_state = "darkyellowfull"
 	},
@@ -32653,7 +32645,6 @@
 	layer = 2.7;
 	name = "prewar lounge chair"
 	},
-/obj/effect/landmark/start/f13/headscribe,
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/hostile/renegade/meister,
 /turf/open/floor/carpet/black,
@@ -45312,7 +45303,6 @@
 /turf/open/floor/plasteel/cult,
 /area/f13/underground/cave)
 "wvL" = (
-/obj/effect/landmark/start/f13/Knight,
 /obj/structure/chair/f13foldupchair{
 	dir = 4
 	},
@@ -46289,7 +46279,6 @@
 /area/f13/underground/cave)
 "wWg" = (
 /obj/structure/chair/wood,
-/obj/effect/landmark/start/f13/seniorpaladin,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/f13/vault_floor/red{
 	icon_state = "darkyellowfull"
