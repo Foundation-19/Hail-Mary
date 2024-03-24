@@ -1003,7 +1003,7 @@ GLOBAL_LIST_INIT(hay_recipes, list ( \
 
 /obj/item/stack/sheet/hay/suicide_act(mob/living/carbon/user)
 	user.visible_message(span_suicide("[user] begins shoving hay up [user.p_their()] arse! It looks like [user.p_theyre()] trying to commit suicide!"))
-	addtimer(CALLBACK(user, /mob/proc/gib), 30)
+	addtimer(CALLBACK(user, TYPE_PROC_REF(/mob, gib)), 30)
 	return BRUTELOSS
 
 /obj/item/stack/sheet/hay/fifty

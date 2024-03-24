@@ -190,7 +190,7 @@
 		else
 			playsound(src, 'sound/machines/juicer.ogg', 20, 1)
 	var/run_time = clamp(15 SECONDS - ((3*(max(check_part()-1, 0))) SECONDS), 1 SECONDS, 15 SECONDS)
-	if(!do_after(user, run_time, needhand = FALSE, target = src, extra_checks = CALLBACK(src, .proc/still_running), allow_movement = TRUE))
+	if(!do_after(user, run_time, needhand = FALSE, target = src, extra_checks = CALLBACK(src, PROC_REF(still_running)), allow_movement = TRUE))
 		if(blending)
 			speak(user, BLENDER_LINE_ROCKY_ABORT)
 		else
@@ -210,7 +210,7 @@
 		speak(user, BLENDER_LINE_FULL_SECOND)
 		abort()
 		return FALSE
-	INVOKE_ASYNC(src, .proc/blend_loop, user) // and loop!
+	INVOKE_ASYNC(src, PROC_REF(blend_loop), user) // and loop!
 	
 /obj/item/storage/blender_belt/proc/get_thing_to_blend(mob/user)
 	for(var/obj/item/thing in contents)

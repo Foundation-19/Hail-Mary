@@ -30,7 +30,7 @@
 
 /obj/item/hand_item/licker/Initialize(mapload)
 	. = ..()
-	RegisterSignal(src, COMSIG_LICK_RETURN, .proc/start_licking)
+	RegisterSignal(src, COMSIG_LICK_RETURN, PROC_REF(start_licking))
 
 /obj/item/hand_item/licker/attack(mob/living/L, mob/living/carbon/user)
 	return start_licking(src, L, user)

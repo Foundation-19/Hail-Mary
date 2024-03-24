@@ -110,7 +110,7 @@
 		return
 	if(listeningTo)
 		UnregisterSignal(listeningTo, COMSIG_MOVABLE_MOVED)
-	RegisterSignal(user, COMSIG_MOVABLE_MOVED, .proc/Pickup_ores)
+	RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(Pickup_ores))
 	listeningTo = user
 
 /obj/item/storage/bag/ore/dropped(mob/user)
@@ -467,7 +467,7 @@ obj/item/storage/bag/chemistry/tribal
 		return
 	if(listeningTo)
 		UnregisterSignal(listeningTo, COMSIG_MOVABLE_MOVED)
-	RegisterSignal(user, COMSIG_MOVABLE_MOVED, .proc/Pickup_casings)
+	RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(Pickup_casings))
 	listeningTo = user
 
 
