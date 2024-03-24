@@ -89,7 +89,9 @@
 		for(var/rtypeWL in GLOB.ncr_rangervet_positions)
 			play_records[rtypeWL] = rtypeWL
 	*/
+	/*
 	if(whitelists["leadership"])
 		for(var/rtypeWL in GLOB.command_positions)
 			play_records[rtypeWL] = rtypeWL
 	prefs.job_whitelists = play_records
+	*/

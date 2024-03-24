@@ -14,7 +14,6 @@ here's a tip, go search DEFINES/access.dm
 /datum/outfit/job/den
 	name = "Nash Default Template"
 	ears = /obj/item/radio/headset/headset_town
-	belt = /obj/item/kit_spawner/waster
 	id = /obj/item/card/id/dogtag/town
 	uniform = /obj/item/clothing/under/f13/settler
 	shoes = /obj/item/clothing/shoes/jackboots
@@ -44,18 +43,18 @@ Mayor
 	title = "Mayor"
 	flag = F13MAYOR
 	department_flag = DEP_OASIS
-	total_positions = 0
-	spawn_positions = 0
+	total_positions = 1
+	spawn_positions = 1
 	supervisors = "Nash"
 	description = "You are the civil leader of the Town of Nash. You were chosen by the people to represent and lead them from your manor. Your town is in a terse situation with the slaver town to the south, Redwater. While not at war, you will have to work to keep your people safe from their predations. The Tribals to the south east are also a nuisance but it's best not to provoke them needlessly. Do what's best for the town, and it's people. All while lining your pockets occasionally, of course."
 	enforces = "The Secretary is your stand-in replacement, and under this the Sheriff."
 	selection_color = "#d7b088"
 
-	exp_requirements = 0
+	exp_requirements = 600
 
 	outfit = /datum/outfit/job/den/f13mayor
-	access = list(ACCESS_BAR, ACCESS_CLONING, ACCESS_GATEWAY, ACCESS_CARGO_BOT, ACCESS_MINT_VAULT, ACCESS_CLINIC, ACCESS_KITCHEN, ACCESS_MINING, ACCESS_FORENSICS_LOCKERS, ACCESS_FOLLOWER)
-	minimal_access = list(ACCESS_BAR, ACCESS_CLONING, ACCESS_GATEWAY, ACCESS_CARGO_BOT, ACCESS_MINT_VAULT, ACCESS_KITCHEN, ACCESS_CLINIC, ACCESS_MINING, ACCESS_FORENSICS_LOCKERS, ACCESS_FOLLOWER)
+	access = list(ACCESS_BAR, ACCESS_CLONING, ACCESS_GATEWAY, ACCESS_CARGO_BOT, ACCESS_MINT_VAULT, ACCESS_CLINIC, ACCESS_KITCHEN, ACCESS_MINING, ACCESS_FORENSICS_LOCKERS, ACCESS_FOLLOWER, ACCESS_TOWN, ACCESS_TOWN_CIV, ACCESS_TOWN_BAR, ACCESS_TOWN_MERCH, ACCESS_TOWN_PROSP, ACCESS_TOWN_PREACH, ACCESS_TOWN_SCIENCE, ACCESS_TOWN_DOC, ACCESS_TOWN_SEC, ACCESS_TOWN_HOS, ACCESS_TOWN_CMO, ACCESS_TOWN_COMMAND)
+	minimal_access = list(ACCESS_BAR, ACCESS_CLONING, ACCESS_GATEWAY, ACCESS_CARGO_BOT, ACCESS_MINT_VAULT, ACCESS_KITCHEN, ACCESS_CLINIC, ACCESS_MINING, ACCESS_FORENSICS_LOCKERS, ACCESS_FOLLOWER, ACCESS_TOWN, ACCESS_TOWN_CIV, ACCESS_TOWN_BAR, ACCESS_TOWN_MERCH, ACCESS_TOWN_PROSP, ACCESS_TOWN_PREACH, ACCESS_TOWN_SCIENCE, ACCESS_TOWN_DOC, ACCESS_TOWN_SEC, ACCESS_TOWN_HOS, ACCESS_TOWN_CMO, ACCESS_TOWN_COMMAND)
 	matchmaking_allowed = list(
 		/datum/matchmaking_pref/friend = list(
 			/datum/job/oasis
@@ -93,7 +92,6 @@ Mayor
 	id = /obj/item/card/id/silver/mayor
 	ears = /obj/item/radio/headset/headset_town/mayor
 	backpack = /obj/item/storage/backpack/satchel/explorer
-	belt = /obj/item/kit_spawner/townie/mayor
 	satchel = /obj/item/storage/backpack/satchel/explorer
 	l_pocket = /obj/item/storage/wallet/stash/high
 	r_pocket = /obj/item/flashlight/seclite
@@ -113,7 +111,7 @@ Mayor
 	backpack_contents = list(
 	/obj/item/clothing/under/f13/general/oasis = 1,
 	/obj/item/clothing/head/f13/army/general = 1,
-	// /obj/item/ammo_box/magazine/m45 = 2,
+	/obj/item/ammo_box/magazine/m45 = 2,
 	/obj/item/clothing/shoes/jackboots = 1,
 	/obj/item/clothing/mask/cigarette/pipe/cobpipe = 1
 	)
@@ -123,8 +121,8 @@ Mayor
 	backpack_contents = list(
 		/obj/item/clothing/suit/armor/medium/duster/town/mayor = 1,
 		/obj/item/clothing/head/f13/town/mayor = 1,
-		// /obj/item/gun/ballistic/revolver/m29/peacekeeper = 1,
-		// /obj/item/ammo_box/m44 = 2,
+		/obj/item/gun/ballistic/revolver/m29/peacekeeper = 1,
+		/obj/item/ammo_box/m44 = 2,
 		/obj/item/clothing/shoes/f13/cowboy = 1,
 		/obj/item/clothing/mask/cigarette/cigar = 1
 		)
@@ -136,8 +134,8 @@ Mayor
 		/obj/item/clothing/shoes/jackboots = 1,
 		/obj/item/clothing/suit/armor/light/duster/battlecoat/vault/overseer = 1,
 		/obj/item/reagent_containers/food/drinks/flask/vault113 = 1,
-		// /obj/item/gun/ballistic/automatic/pistol/beretta/automatic = 1,
-		// /obj/item/ammo_box/magazine/m9mm/doublestack = 1
+		/obj/item/gun/ballistic/automatic/pistol/beretta/automatic = 1,
+		/obj/item/ammo_box/magazine/m9mm/doublestack = 1
 		)
 
 /datum/outfit/loadout/highroller
@@ -148,8 +146,8 @@ Mayor
 		/obj/item/clothing/under/f13/sleazeball = 1,
 		/obj/item/clothing/shoes/laceup = 1,
 		/obj/item/toy/cards/deck/unum = 1,
-		// /obj/item/gun/ballistic/automatic/pistol/mk23 = 1,
-		// /obj/item/ammo_box/magazine/m45/socom = 2
+		/obj/item/gun/ballistic/automatic/pistol/mk23 = 1,
+		/obj/item/ammo_box/magazine/m45/socom = 2
 	)
 
 
@@ -174,8 +172,8 @@ Mayor
 	/datum/outfit/loadout/pw
 	)
 
-	access = list(ACCESS_BAR, ACCESS_CLONING, ACCESS_GATEWAY, ACCESS_CARGO_BOT, ACCESS_MINT_VAULT, ACCESS_CLINIC, ACCESS_KITCHEN, ACCESS_MINING, ACCESS_FORENSICS_LOCKERS, ACCESS_FOLLOWER)
-	minimal_access = list(ACCESS_BAR, ACCESS_CLONING, ACCESS_GATEWAY, ACCESS_CARGO_BOT, ACCESS_MINT_VAULT, ACCESS_KITCHEN, ACCESS_CLINIC, ACCESS_MINING, ACCESS_FORENSICS_LOCKERS, ACCESS_FOLLOWER)
+	access = list(ACCESS_BAR, ACCESS_CLONING, ACCESS_GATEWAY, ACCESS_CARGO_BOT, ACCESS_MINT_VAULT, ACCESS_CLINIC, ACCESS_KITCHEN, ACCESS_MINING, ACCESS_FORENSICS_LOCKERS, ACCESS_FOLLOWER, ACCESS_TOWN, ACCESS_TOWN_CIV, ACCESS_TOWN_BAR, ACCESS_TOWN_MERCH, ACCESS_TOWN_PROSP, ACCESS_TOWN_PREACH, ACCESS_TOWN_SCIENCE, ACCESS_TOWN_DOC, ACCESS_TOWN_SEC, ACCESS_TOWN_HOS, ACCESS_TOWN_CMO, ACCESS_TOWN_COMMAND)
+	minimal_access = list(ACCESS_BAR, ACCESS_CLONING, ACCESS_GATEWAY, ACCESS_CARGO_BOT, ACCESS_MINT_VAULT, ACCESS_KITCHEN, ACCESS_CLINIC, ACCESS_MINING, ACCESS_FORENSICS_LOCKERS, ACCESS_FOLLOWER, ACCESS_TOWN, ACCESS_TOWN_CIV, ACCESS_TOWN_BAR, ACCESS_TOWN_MERCH, ACCESS_TOWN_PROSP, ACCESS_TOWN_PREACH, ACCESS_TOWN_SCIENCE, ACCESS_TOWN_DOC, ACCESS_TOWN_SEC, ACCESS_TOWN_HOS, ACCESS_TOWN_CMO, ACCESS_TOWN_COMMAND)
 	matchmaking_allowed = list(
 		/datum/matchmaking_pref/friend = list(
 			/datum/job/oasis
@@ -262,18 +260,17 @@ Mayor
 	description = "You are the civil enforcer of Nash, keeping the settlement within firm control under the authority of the Mayor. With your loyal patrolmen, you maintain your claim to authority by keeping the peace, managing disputes, and protecting the citizens from threats within and without. Never leave Nash undefended, and don't let its people die out. If this town falls, new conquerors don't tend to look kindly upon the old law."
 	enforces = "You are the stand-in leader of Nash if a Mayor or Secretary does not exist."
 	selection_color = "#d7b088"
-	exp_requirements = 0
+	exp_requirements = 400
 
 	outfit = /datum/outfit/job/den/f13sheriff
 
 	loadout_options = list(
 	/datum/outfit/loadout/thelaw,
-	/datum/outfit/loadout/thechief,
-	/datum/outfit/loadout/thedictator
+	/datum/outfit/loadout/thechief
 	)
 
-	access = list(ACCESS_BAR, ACCESS_CLONING, ACCESS_GATEWAY, ACCESS_CARGO_BOT, ACCESS_MINT_VAULT, ACCESS_KITCHEN, ACCESS_MINING, ACCESS_FORENSICS_LOCKERS, ACCESS_CLINIC, ACCESS_FOLLOWER)
-	minimal_access = list(ACCESS_BAR, ACCESS_CLONING, ACCESS_GATEWAY, ACCESS_CARGO_BOT, ACCESS_MINT_VAULT, ACCESS_CLINIC, ACCESS_KITCHEN, ACCESS_MINING, ACCESS_FORENSICS_LOCKERS, ACCESS_CLINIC, ACCESS_FOLLOWER)
+	access = list(ACCESS_BAR, ACCESS_CLONING, ACCESS_GATEWAY, ACCESS_CARGO_BOT, ACCESS_MINT_VAULT, ACCESS_KITCHEN, ACCESS_MINING, ACCESS_FORENSICS_LOCKERS, ACCESS_CLINIC, ACCESS_FOLLOWER, ACCESS_TOWN, ACCESS_TOWN_CIV, ACCESS_TOWN_BAR, ACCESS_TOWN_MERCH, ACCESS_TOWN_PROSP, ACCESS_TOWN_PREACH, ACCESS_TOWN_SCIENCE, ACCESS_TOWN_DOC, ACCESS_TOWN_SEC, ACCESS_TOWN_HOS, ACCESS_TOWN_CMO, ACCESS_TOWN_COMMAND)
+	minimal_access = list(ACCESS_BAR, ACCESS_CLONING, ACCESS_GATEWAY, ACCESS_CARGO_BOT, ACCESS_MINT_VAULT, ACCESS_CLINIC, ACCESS_KITCHEN, ACCESS_MINING, ACCESS_FORENSICS_LOCKERS, ACCESS_CLINIC, ACCESS_FOLLOWER, ACCESS_TOWN, ACCESS_TOWN_CIV, ACCESS_TOWN_BAR, ACCESS_TOWN_MERCH, ACCESS_TOWN_PROSP, ACCESS_TOWN_PREACH, ACCESS_TOWN_SCIENCE, ACCESS_TOWN_DOC, ACCESS_TOWN_SEC, ACCESS_TOWN_HOS, ACCESS_TOWN_CMO, ACCESS_TOWN_COMMAND)
 	matchmaking_allowed = list(
 		/datum/matchmaking_pref/friend = list(
 			/datum/job/oasis
@@ -287,7 +284,6 @@ Mayor
 	name = "Sheriff"
 	jobtype = /datum/job/oasis/f13sheriff
 	id = /obj/item/card/id/dogtag/sheriff
-	belt = /obj/item/kit_spawner/lawman/sheriff
 	ears = /obj/item/radio/headset/headset_town/lawman
 	backpack = /obj/item/storage/backpack/satchel/explorer
 	satchel = /obj/item/storage/backpack/satchel/explorer
@@ -313,11 +309,10 @@ Mayor
 	neck = /obj/item/storage/belt/shoulderholster
 	r_hand = /obj/item/gun/ballistic/rifle/repeater/brush
 	shoes = /obj/item/clothing/shoes/f13/military/plated
-
-	//backpack_contents = list(
-	//	/obj/item/ammo_box/tube/c4570 = 3,
-	//	/obj/item/gun_upgrade/scope/watchman = 1
-	//	)
+	backpack_contents = list(
+		/obj/item/ammo_box/tube/c4570 = 3,
+		/obj/item/gun_upgrade/scope/watchman = 1
+		)
 
 /datum/outfit/loadout/thechief
 	name = "The Chief"
@@ -326,32 +321,12 @@ Mayor
 	head = /obj/item/clothing/head/f13/town/chief
 	neck = /obj/item/storage/belt/shoulderholster/ranger45
 	shoes = /obj/item/clothing/shoes/combat
-	// r_hand = /obj/item/gun/ballistic/shotgun/automatic/combat/citykiller
-	//backpack_contents = list(/obj/item/ammo_box/shotgun/slug = 1,
-	//	/obj/item/ammo_box/shotgun/buck = 2
-	//	)
+	r_hand = /obj/item/gun/ballistic/shotgun/automatic/combat/citykiller
+	backpack_contents = list(/obj/item/ammo_box/shotgun/slug = 1,
+		/obj/item/ammo_box/shotgun/buck = 2
+		)
 
-/datum/outfit/loadout/thedictator
-	name = "The Dictator"
-	uniform = /obj/item/clothing/under/f13/police/chief
-	suit = /obj/item/clothing/suit/armor/medium/duster/town/sheriff
-	//r_hand = /obj/item/gun/energy/laser/scatter
-	//backpack_contents = list(/obj/item/stock_parts/cell/ammo/mfc = 1,
-	//	)
 
-/*
-/datum/outfit/loadout/pew
-	name = "Tactical"
-	suit_store = /obj/item/gun/ballistic/shotgun/automatic/combat/citykiller
-	backpack_contents = list(
-		/obj/item/stock_parts/cell/ammo/ecp = 1,
-		/obj/item/ammo_box/shotgun/bean = 1,
-		/obj/item/ammo_box/shotgun/buck = 1,
-		/obj/item/ammo_box/shotgun/trainshot = 1,
-		/obj/item/gun/energy/laser/auto/oasis = 1,
-		)*/
-
-/*
 /datum/outfit/job/den/f13sheriff/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
 	if(visualsOnly)
@@ -363,7 +338,7 @@ Mayor
 	ADD_TRAIT(H, TRAIT_HARD_YARDS, src)
 	ADD_TRAIT(H, TRAIT_LIFEGIVER, src)
 	ADD_TRAIT(H, TRAIT_SELF_AWARE, src)
-*/
+
 
 /*--------------------------------------------------------------*/
 
@@ -388,8 +363,8 @@ Mayor
 	)
 
 	outfit = /datum/outfit/job/den/f13deputy
-	access = list(ACCESS_BAR, ACCESS_GATEWAY)
-	minimal_access = list(ACCESS_BAR, ACCESS_GATEWAY)
+	access = list(ACCESS_BAR, ACCESS_GATEWAY, ACCESS_TOWN, ACCESS_TOWN_CIV, ACCESS_TOWN_BAR, ACCESS_TOWN_PROSP, ACCESS_TOWN_PREACH, ACCESS_TOWN_SCIENCE, ACCESS_TOWN_DOC, ACCESS_TOWN_SEC)
+	minimal_access = list(ACCESS_BAR, ACCESS_GATEWAY, ACCESS_TOWN, ACCESS_TOWN_CIV, ACCESS_TOWN_BAR, ACCESS_TOWN_PROSP, ACCESS_TOWN_PREACH, ACCESS_TOWN_SCIENCE, ACCESS_TOWN_DOC, ACCESS_TOWN_SEC)
 	matchmaking_allowed = list(
 		/datum/matchmaking_pref/friend = list(
 			/datum/job/oasis
@@ -406,7 +381,6 @@ Mayor
 	ears = /obj/item/radio/headset/headset_town/lawman
 	backpack = /obj/item/storage/backpack/satchel/explorer
 	satchel = /obj/item/storage/backpack/satchel/explorer
-	belt = /obj/item/kit_spawner/lawman
 	suit_store = /obj/item/storage/belt/legholster
 	l_pocket = /obj/item/storage/wallet/stash/mid
 	r_pocket = /obj/item/flashlight/flare
@@ -426,12 +400,12 @@ Mayor
 	suit = /obj/item/clothing/suit/armor/medium/duster/town/deputy
 	head = /obj/item/clothing/head/f13/town/deputy
 	neck = /obj/item/storage/belt/shoulderholster
-	//r_hand = /obj/item/gun/ballistic/rifle/repeater/trail
-	//backpack_contents = list(
-	//	/obj/item/ammo_box/tube/m44 = 2,
-	//	/obj/item/ammo_box/m44 = 2,
-	//	/obj/item/gun/ballistic/revolver/m29 = 1,
-	//	)
+	r_hand = /obj/item/gun/ballistic/rifle/repeater/trail
+	backpack_contents = list(
+		/obj/item/ammo_box/tube/m44 = 2,
+		/obj/item/ammo_box/m44 = 2,
+		/obj/item/gun/ballistic/revolver/m29 = 1,
+		)
 
 /datum/outfit/loadout/police
 	name = "Nash PD"
@@ -439,15 +413,15 @@ Mayor
 	suit = /obj/item/clothing/suit/armor/heavy/vest/bulletproof
 	head = /obj/item/clothing/head/f13/town/officer
 	belt = /obj/item/storage/belt/legholster
-	//r_hand = /obj/item/gun/ballistic/shotgun/police
+	r_hand = /obj/item/gun/ballistic/shotgun/police
 	shoes = /obj/item/clothing/shoes/jackboots
-	//backpack_contents = list(
-	//	/obj/item/ammo_box/shotgun/bean = 1,
-	//	/obj/item/ammo_box/shotgun/buck = 1,
-	//	/obj/item/ammo_box/a357 = 3,
-	//	/obj/item/flashlight/seclite = 1,
-	//	/obj/item/gun/ballistic/revolver/police = 1
-	//	)
+	backpack_contents = list(
+		/obj/item/ammo_box/shotgun/bean = 1,
+		/obj/item/ammo_box/shotgun/buck = 1,
+		/obj/item/ammo_box/a357 = 3,
+		/obj/item/flashlight/seclite = 1,
+		/obj/item/gun/ballistic/revolver/police = 1
+	)
 
 /datum/outfit/loadout/swat
 	name = "S.W.A.T. Officer"
@@ -456,34 +430,34 @@ Mayor
 	head = /obj/item/clothing/head/helmet/alt
 	mask = /obj/item/clothing/mask/balaclava
 	gloves = /obj/item/clothing/gloves/f13/military
-	//suit_store = /obj/item/gun/ballistic/automatic/assault_carbine/policerifle
-	//backpack_contents = list(
-	//	/obj/item/ammo_box/magazine/m45/socom=2,
-	//	/obj/item/gun/ballistic/automatic/pistol/mk23=1,
-	//	/obj/item/ammo_box/magazine/m5mm=1,
-	//	/obj/item/flashlight/seclite = 1
-	//	)
+	suit_store = /obj/item/gun/ballistic/automatic/assault_carbine/policerifle
+	backpack_contents = list(
+		/obj/item/ammo_box/magazine/m45/socom=2,
+		/obj/item/gun/ballistic/automatic/pistol/mk23=1,
+		/obj/item/ammo_box/magazine/m5mm=1,
+		/obj/item/flashlight/seclite = 1
+		)
 
 /datum/outfit/loadout/energy
 	name = "High Tech Officer"
 	uniform = /obj/item/clothing/under/f13/police/officer
 	suit = /obj/item/clothing/suit/armor/heavy/metal/polished
 	gloves = /obj/item/clothing/gloves/f13/military
-	//suit_store = /obj/item/gun/energy/laser/aer9
-	//backpack_contents = list(
-	//	/obj/item/stock_parts/cell/ammo/mfc = 1
-	//	)
+	suit_store = /obj/item/gun/energy/laser/aer9
+	backpack_contents = list(
+		/obj/item/stock_parts/cell/ammo/mfc = 1
+		)
 
-/*
+
 /datum/outfit/job/den/f13deputy/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
 	if(visualsOnly)
 		return
 	ADD_TRAIT(H, TRAIT_HARD_YARDS, src)
-*/
+
 
 /*--------------------------------------------------------------*/
-/*
+
 /datum/job/oasis/f13farmer
 	title = "Farmer"
 	flag = F13FARMER
@@ -497,8 +471,8 @@ Mayor
 
 	outfit = /datum/outfit/job/den/f13farmer
 
-	access = list(ACCESS_BAR, ACCESS_KITCHEN)
-	minimal_access = list(ACCESS_BAR, ACCESS_KITCHEN)
+	access = list(ACCESS_BAR, ACCESS_KITCHEN, ACCESS_TOWN, ACCESS_TOWN_CIV)
+	minimal_access = list(ACCESS_BAR, ACCESS_KITCHEN, ACCESS_TOWN, ACCESS_TOWN_CIV)
 	matchmaking_allowed = list(
 		/datum/matchmaking_pref/friend = list(
 			/datum/job/oasis,
@@ -521,7 +495,6 @@ Mayor
 
 	backpack = /obj/item/storage/backpack/satchel/explorer
 	satchel = /obj/item/storage/backpack/satchel/explorer
-	l_pocket = /obj/item/storage/bag/money/small/settler
 	r_pocket = /obj/item/flashlight/flare
 	belt = /obj/item/storage/bag/plants
 	backpack_contents = list(
@@ -564,9 +537,9 @@ Mayor
 		/obj/item/seeds/cannabis = 1,
 		/obj/item/seeds/tea/catnip = 1,
 		)
-*/
+
 /*--------------------------------------------------------------*/
-/*
+
 /datum/job/oasis/f13prospector
 	title = "Prospector"
 	flag = F13PROSPECTOR
@@ -580,8 +553,8 @@ Mayor
 
 	outfit = /datum/outfit/job/den/f13prospector
 
-	access = list(ACCESS_BAR, ACCESS_MINING)
-	minimal_access = list(ACCESS_BAR, ACCESS_MINING)
+	access = list(ACCESS_BAR, ACCESS_MINING, ACCESS_TOWN, ACCESS_TOWN_CIV, ACCESS_TOWN_PROSP)
+	minimal_access = list(ACCESS_BAR, ACCESS_MINING, ACCESS_TOWN, ACCESS_TOWN_CIV, ACCESS_TOWN_PROSP)
 	matchmaking_allowed = list(
 		/datum/matchmaking_pref/friend = list(
 			/datum/job/oasis,
@@ -602,7 +575,6 @@ Mayor
 	id = /obj/item/card/id/dogtag/town
 	backpack = /obj/item/storage/backpack/satchel/explorer
 	satchel = /obj/item/storage/backpack/satchel/explorer
-	l_pocket = /obj/item/storage/bag/money/small/settler
 	r_pocket = /obj/item/flashlight/lantern
 	belt = /obj/item/storage/bag/ore
 	shoes = /obj/item/clothing/shoes/jackboots
@@ -654,16 +626,14 @@ Mayor
 		/obj/item/pickaxe/silver = 1,
 		/obj/item/shovel = 1,
 		)
-*/
-
 /*--------------------------------------------------------------*/
 
 /datum/job/oasis/f13dendoc
 	title = "Doctor"
 	flag = F13DENDOC
 	department_flag = DEP_OASIS
-	total_positions = 0
-	spawn_positions = 0
+	total_positions = 3
+	spawn_positions = 3
 	supervisors = "The Mayor"
 	description = "Handy with a scalpel and scanner, your expertise in the practice of medicine makes you an indispensible asset to the settlement of Nash. Just remember that you're no Follower - medicine doesn't come for free, and you aren't here out of the kindness of your heart. Make sure to turn a profit on your services, or the Mayor might reconsider your position!"
 	enforces = "Medicine is a public service, and you are under control of local governance - but remember public doesn't equate to free."
@@ -676,8 +646,8 @@ Mayor
 	/datum/outfit/loadout/holidaydoc)
 
 	outfit = /datum/outfit/job/den/f13dendoc
-	access = list(ACCESS_BAR, ACCESS_CLINIC, ACCESS_CLONING, ACCESS_FOLLOWER)
-	minimal_access = list(ACCESS_BAR, ACCESS_CLINIC, ACCESS_CLONING, ACCESS_FOLLOWER)
+	access = list(ACCESS_BAR, ACCESS_CLINIC, ACCESS_CLONING, ACCESS_FOLLOWER, ACCESS_TOWN, ACCESS_TOWN_CIV, ACCESS_TOWN_DOC, ACCESS_TOWN_SCIENCE)
+	minimal_access = list(ACCESS_BAR, ACCESS_CLINIC, ACCESS_CLONING, ACCESS_FOLLOWER, ACCESS_TOWN, ACCESS_TOWN_CIV, ACCESS_TOWN_DOC, ACCESS_TOWN_SCIENCE)
 	matchmaking_allowed = list(
 		/datum/matchmaking_pref/friend = list(
 			/datum/job/oasis
@@ -691,7 +661,6 @@ Mayor
 	name = "Doctor"
 	jobtype = /datum/job/oasis/f13dendoc
 	chemwhiz = TRUE
-	belt = /obj/item/kit_spawner/townie/doctor
 	ears = /obj/item/radio/headset/headset_town/medical
 	uniform = /obj/item/clothing/under/f13/medic
 	neck = /obj/item/clothing/neck/stethoscope
@@ -725,8 +694,8 @@ Mayor
 /datum/outfit/loadout/rescueranger
 	name = "Search and Rescue"
 	backpack_contents = list(/obj/item/clothing/head/f13/police/sergeant = 1,
-	//	/obj/item/gun/ballistic/shotgun/automatic/combat/auto5 = 1,
-	//	/obj/item/ammo_box/shotgun/buck = 1,
+		/obj/item/gun/ballistic/shotgun/automatic/combat/auto5 = 1,
+		/obj/item/ammo_box/shotgun/buck = 1,
 		/obj/item/clothing/suit/toggle/labcoat/paramedic = 1,
 		/obj/item/folder/white = 1,
 		/obj/item/flashlight/pen/paramedic = 1
@@ -761,8 +730,8 @@ Mayor
 		/obj/item/pda/medical = 1,
 		/obj/item/clothing/suit/hooded/surgical = 1,
 		/obj/item/storage/medical/ancientfirstaid = 1,
-	//	/obj/item/ammo_box/m44 = 1,
-	//	/obj/item/gun/ballistic/revolver/m29/snub = 1
+		/obj/item/ammo_box/m44 = 1,
+			/obj/item/gun/ballistic/revolver/m29/snub = 1
 		)
 /*--------------------------------------------------------------*/
 
@@ -785,8 +754,8 @@ Mayor
 	/datum/outfit/loadout/richmantender,
 	/datum/outfit/loadout/diner)
 
-	access = list(ACCESS_BAR, ACCESS_KITCHEN)
-	minimal_access = list(ACCESS_BAR, ACCESS_KITCHEN)
+	access = list(ACCESS_BAR, ACCESS_KITCHEN, ACCESS_TOWN, ACCESS_TOWN_CIV, ACCESS_TOWN_BAR)
+	minimal_access = list(ACCESS_BAR, ACCESS_KITCHEN, ACCESS_TOWN, ACCESS_TOWN_CIV, ACCESS_TOWN_BAR)
 	matchmaking_allowed = list(
 		/datum/matchmaking_pref/friend = list(
 			/datum/job/oasis
@@ -874,8 +843,8 @@ Mayor
 		/datum/outfit/loadout/farmer,
 		/datum/outfit/loadout/prospector
 	)*/
-	access = list(ACCESS_BAR)
-	minimal_access = list(ACCESS_BAR)
+	access = list(ACCESS_BAR, ACCESS_TOWN, ACCESS_TOWN_CIV)
+	minimal_access = list(ACCESS_BAR, ACCESS_TOWN, ACCESS_TOWN_CIV)
 	matchmaking_allowed = list(
 		/datum/matchmaking_pref/friend = list(
 			/datum/job/oasis
@@ -1083,8 +1052,8 @@ Mayor
 	selection_color = "#dcba97"
 	outfit = /datum/outfit/job/oasis/f13detective
 
-	access = list(ACCESS_BAR, ACCESS_FORENSICS_LOCKERS)
-	minimal_access = list(ACCESS_BAR, ACCESS_FORENSICS_LOCKERS)
+	access = list(ACCESS_BAR, ACCESS_FORENSICS_LOCKERS, ACCESS_TOWN, ACCESS_TOWN_CIV, ACCESS_TOWN_SEC)
+	minimal_access = list(ACCESS_BAR, ACCESS_FORENSICS_LOCKERS, ACCESS_TOWN, ACCESS_TOWN_CIV, ACCESS_TOWN_SEC)
 	matchmaking_allowed = list(
 		/datum/matchmaking_pref/friend = list(
 			/datum/job/wasteland/f13wastelander,
@@ -1131,8 +1100,8 @@ Mayor
 	title = "Banker"
 	flag = F13BANKER
 	department_flag = DEP_OASIS
-	total_positions = 1
-	spawn_positions = 2
+	total_positions = 0
+	spawn_positions = 0
 	supervisors = "The Mayor"
 	description = "No matter the nature of society, fortune and profit are there to be made! It is up to you to make deals, distribute caps and earn interest - an easy first venture might be safekeeping possessions in the strongboxes of your vault within the First Bank of Nash. Ensure you make a profit and retain enough capital for your day-to-day operations. You are under the governance of Nash, but perhaps deal-making will take you into other alliances."
 	enforces = "Your bank is a private business and you are not under direct control of local governance, but are subject to their laws."
@@ -1225,8 +1194,8 @@ Mayor
 	)
 
 	outfit = /datum/outfit/job/den/f13quartermaster
-	access = list(ACCESS_BAR, ACCESS_CARGO_BOT)
-	minimal_access = list(ACCESS_BAR, ACCESS_CARGO_BOT)
+	access = list(ACCESS_BAR, ACCESS_CARGO_BOT, ACCESS_TOWN, ACCESS_TOWN_CIV, ACCESS_TOWN_MERCH)
+	minimal_access = list(ACCESS_BAR, ACCESS_CARGO_BOT, ACCESS_TOWN, ACCESS_TOWN_CIV, ACCESS_TOWN_MERCH)
 	matchmaking_allowed = list(
 		/datum/matchmaking_pref/friend = list(
 			/datum/job/oasis
@@ -1322,8 +1291,8 @@ Mayor
 	)
 
 	outfit = /datum/outfit/job/den/f13shopkeeper
-	access = list(ACCESS_BAR, ACCESS_CARGO_BOT)
-	minimal_access = list(ACCESS_BAR, ACCESS_CARGO_BOT)
+	access = list(ACCESS_BAR, ACCESS_CARGO_BOT, ACCESS_TOWN, ACCESS_TOWN_CIV, ACCESS_TOWN_MERCH)
+	minimal_access = list(ACCESS_BAR, ACCESS_CARGO_BOT, ACCESS_TOWN, ACCESS_TOWN_CIV, ACCESS_TOWN_MERCH)
 	matchmaking_allowed = list(
 		/datum/matchmaking_pref/friend = list(
 			/datum/job/oasis
@@ -1412,8 +1381,8 @@ Mayor
 	title = "Vertibird Pilot"
 	flag = F13PILOT
 	department_flag = DEP_OASIS
-	total_positions = 1
-	spawn_positions = 1
+	total_positions = 0
+	spawn_positions = 0
 	supervisors = "Nash's laws"
 	description = "You are a pilot, hired to drive the town's vertibird. Your job is to provide transport for people and aid in search and rescue. Don't forget to charge a fare."
 	selection_color = "#dcba97"
