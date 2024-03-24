@@ -142,11 +142,11 @@ Sentinel
 	suit = /obj/item/clothing/suit/armor/light/duster/bos/scribe/elder
 	glasses = /obj/item/clothing/glasses/night
 	accessory = /obj/item/clothing/accessory/bos/elder
-	suit_store = /obj/item/gun/energy/laser/pistol
+	suit_store = /obj/item/gun/energy/laser/solar
 	neck = /obj/item/clothing/neck/mantle/bos/right
 	ears = /obj/item/radio/headset/headset_bos/command
 	backpack_contents = list(
-		/obj/item/stock_parts/cell/ammo/mfc = 2,
+		//obj/item/melee/powerfist/f13 = 1,
 		/obj/item/melee/onehanded/knife/hunting = 1
 
 	)
@@ -177,13 +177,13 @@ Paladin Commander
 	access = list(ACCESS_BROTHERHOOD_COMMAND, ACCESS_ROBOTICS, ACCESS_BOS, ACCESS_ENGINE_EQUIP, ACCESS_ENGINE, ACCESS_HYDROPONICS, ACCESS_KITCHEN, ACCESS_BAR, ACCESS_SEC_DOORS, ACCESS_CHANGE_IDS)
 	minimal_access = list(ACCESS_BROTHERHOOD_COMMAND, ACCESS_ROBOTICS, ACCESS_BOS, ACCESS_ENGINE_EQUIP, ACCESS_ENGINE, ACCESS_HYDROPONICS, ACCESS_KITCHEN, ACCESS_BAR, ACCESS_SEC_DOORS, ACCESS_CHANGE_IDS)
 
-/datum/outfit/job/bos/f13sentinel/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+/datum/outfit/job/bos/f13commander/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
 	if(visualsOnly)
 		return
 	ADD_TRAIT(H, TRAIT_PA_WEAR, src)
 
-/datum/outfit/job/bos/f13sentinel/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+/datum/outfit/job/bos/f13commander/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
 	if(visualsOnly)
 		return

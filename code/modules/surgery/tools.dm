@@ -111,6 +111,12 @@
 		return
 	return ..()
 
+/obj/item/cautery/primitive
+	name = "primitive cautery"
+	desc = "A welding device tuned down to cauterize wounds. Not very precise."
+	icon_state = "cautery_primitive"
+	toolspeed = 1.5
+
 /obj/item/cautery/augment
 	name = "cautery"
 	desc = "A heated element that cauterizes wounds."
@@ -341,6 +347,21 @@
 	toolspeed = 0.5
 	attack_verb = list("attacked", "slashed", "sawed", "cut")
 	sharpness = SHARP_EDGED
+
+/obj/item/circular_saw/primitive
+	name = "handsaw"
+	desc = "For sawing through wood or possibly bones."
+	icon_state = "saw_primitive"
+	item_state = "saw_primitive"
+	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
+	hitsound = 'sound/effects/shovel_dig.ogg'
+	usesound = 'sound/effects/shovel_dig.ogg'
+	custom_materials = list(/datum/material/iron=2000)
+	toolspeed = 1.2
+	wound_bonus = 0
+	bare_wound_bonus = 10
+	attack_verb = list("sawed", "scratched")
 
 /obj/item/surgical_drapes
 	name = "surgical drapes"

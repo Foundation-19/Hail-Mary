@@ -400,6 +400,29 @@
 	new /obj/item/stack/medical/bone_gel(src)
 	new /obj/item/stack/medical/bone_gel(src)
 
+/obj/item/storage/backpack/duffelbag/med/surgery/primitive
+	name = "surgical duffel bag"
+	desc = "A large duffel bag for holding extra medical supplies - this one seems to be designed for holding surgical tools."
+	icon_state = "toolbag_primitive"
+
+/obj/item/storage/backpack/duffelbag/med/surgery/primitive/PopulateContents()
+	new /obj/item/kitchen/knife(src)
+	new /obj/item/hemostat/tribal(src)
+	new /obj/item/retractor/tribal(src)
+	new /obj/item/circular_saw/primitive(src)
+	new /obj/item/cautery/primitive(src)
+	new /obj/item/bonesetter(src)
+	new /obj/item/bedsheet(src)
+	new /obj/item/reagent_containers/medspray/sterilizine/honey(src)
+	new /obj/item/stack/sticky_tape/surgical(src)
+	new /obj/item/stack/medical/bone_gel/superglue(src)
+
+/obj/item/storage/backpack/duffelbag/med/surgery/primitive/anchored
+	name = "surgical toolset"
+	desc = "Large piece of felt with various surgical tools laid out."
+	icon_state = "surgicalset_primitive"
+	anchored = TRUE
+
 /obj/item/storage/backpack/duffelbag/sec
 	name = "security duffel bag"
 	desc = "A large duffel bag for holding extra security supplies and ammunition."

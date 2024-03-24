@@ -396,3 +396,16 @@ datum/chemical_reaction/rezadone
 		/datum/reagent/medicine/morphine = 5,
 		)
 	required_temp = 451
+
+/datum/chemical_reaction/bitterdrink
+	name = "Bitter drink"
+	id = /datum/reagent/medicine/bitter_drink
+	results = list(/datum/reagent/medicine/bitter_drink = 25)
+	required_reagents = list(
+		/datum/reagent/consumable/ethanol/salgam = 5,
+		/datum/reagent/consumable/ethanol/brocbrew = 5,
+		/datum/reagent/consumable/ethanol/yellowpulque = 5,
+		/datum/reagent/consumable/sunset = 5,
+		/datum/reagent/consumable/tea/bloodtea = 5
+		)
+	required_temp = 451
