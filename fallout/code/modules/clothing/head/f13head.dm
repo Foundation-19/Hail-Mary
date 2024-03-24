@@ -3,8 +3,7 @@ Just leaving this here for quick copy-pasting, for future contributors.
 	icon = 'fallout/icons/obj/clothing/hats.dmi'
 	mob_overlay_icon = 'fallout/icons/mob/clothing/head.dmi'
 	anthro_mob_worn_overlay = 'fallout/icons/mob/clothing/head_muzzled.dmi'
-	mutantrace_variation = STYLE_MUZZLE
-	!!If your hat/helmet covers face and don't have snout-adapted sprites, then use `mutantrace_variation = NONE` instead. Should hide snout sprite when helmet is worn.
+		!!If your hat/helmet covers face and don't have snout-adapted sprites, then use `mutantrace_variation = NONE` instead. Should hide snout sprite when helmet is worn.
 	!!Or if your sprite covers the snout part anyway, use `mutantrace_variation = STYLE_NO_ANTHRO_ICON` instead.
 */
 

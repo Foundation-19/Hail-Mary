@@ -195,7 +195,6 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	S["end_of_round_deathmatch"] >> end_of_round_deathmatch
 	READ_FILE(S["matchmaking_prefs"], matchmaking_prefs)
 	S["autostand"]			>> autostand
-	S["cit_toggles"]		>> cit_toggles
 	S["preferred_chaos"]	>> preferred_chaos
 	S["auto_ooc"]			>> auto_ooc
 	S["no_tetris_storage"]		>> no_tetris_storage
@@ -247,7 +246,6 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	widescreenpref		= sanitize_integer(widescreenpref, 0, 1, initial(widescreenpref))
 	end_of_round_deathmatch = sanitize_integer(end_of_round_deathmatch, FALSE, TRUE, initial(end_of_round_deathmatch))
 	autostand			= sanitize_integer(autostand, 0, 1, initial(autostand))
-	cit_toggles			= sanitize_integer(cit_toggles, 0, 16777215, initial(cit_toggles))
 	auto_ooc			= sanitize_integer(auto_ooc, 0, 1, initial(auto_ooc))
 	no_tetris_storage		= sanitize_integer(no_tetris_storage, 0, 1, initial(no_tetris_storage))
 	key_bindings 			= sanitize_islist(key_bindings, list())
@@ -357,7 +355,6 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	WRITE_FILE(S["widescreenpref"], widescreenpref)
 	WRITE_FILE(S["end_of_round_deathmatch"], end_of_round_deathmatch)
 	WRITE_FILE(S["autostand"], autostand)
-	WRITE_FILE(S["cit_toggles"], cit_toggles)
 	WRITE_FILE(S["preferred_chaos"], preferred_chaos)
 	WRITE_FILE(S["auto_ooc"], auto_ooc)
 	WRITE_FILE(S["no_tetris_storage"], no_tetris_storage)
@@ -608,43 +605,12 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 		size_max = CONFIG_GET(number/body_size_max)
 	features["body_size"]			= sanitize_num_clamp(features["body_size"], size_min, size_max, RESIZE_DEFAULT_SIZE, 0.01)
 
-	var/static/list/B_sizes
-	if(!B_sizes)
-		var/list/L = CONFIG_GET(keyed_list/breasts_cups_prefs)
-		B_sizes = L.Copy()
-	var/static/min_D
-	if(!min_D)
-		min_D = CONFIG_GET(number/penis_min_inches_prefs)
-	var/static/max_D
-	if(!max_D)
-		max_D = CONFIG_GET(number/penis_max_inches_prefs)
-	var/static/min_B
-	if(!min_B)
-		min_B = CONFIG_GET(number/butt_min_size_prefs)
-	var/static/max_B
-	if(!max_B)
-		max_B = CONFIG_GET(number/butt_max_size_prefs)
-	var/static/min_O
-	if(!min_O)
-		min_O = CONFIG_GET(number/belly_min_size_prefs)
-	var/static/max_O
-	if(!max_O)
-		max_O = CONFIG_GET(number/belly_max_size_prefs)
-	var/static/safe_visibilities
-	if(!safe_visibilities)
-		var/list/L = CONFIG_GET(keyed_list/safe_visibility_toggles)
-		safe_visibilities = L.Copy()
-
-
 	custom_speech_verb				= sanitize_inlist(custom_speech_verb, GLOB.speech_verbs, "default")
 	custom_tongue					= sanitize_inlist(custom_tongue, GLOB.roundstart_tongues, "default")
 
 	security_records				= copytext(security_records, 1, MAX_FLAVOR_LEN)
 	medical_records					= copytext(medical_records, 1, MAX_FLAVOR_LEN)
 
-	features["genital_order"]		= sanitize_text(features["genital_order"], DEF_COCKSTRING)
-	features["genital_hide"]		= sanitize_integer(features["genital_hide"], 0, 4096, 0)
-	features["genital_whitelist"]	= copytext(features["genital_whitelist"], 1, MAX_MESSAGE_LEN)
 	features["taste"]				= copytext(features["taste"], 1, MAX_TASTE_LEN)
 	features["flavor_text"]			= copytext(features["flavor_text"], 1, MAX_FLAVOR_LEN)
 	features["silicon_flavor_text"]	= copytext(features["silicon_flavor_text"], 1, MAX_FLAVOR_LEN)
