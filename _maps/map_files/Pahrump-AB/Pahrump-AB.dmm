@@ -43160,6 +43160,7 @@
 /area/f13/building/museum)
 "mEL" = (
 /obj/dugpit,
+/obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/vomit/old,
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/legion)
@@ -47688,6 +47689,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/floor/floorsolid,
 /area/f13/building/mall)
 "oGd" = (
+/obj/effect/decal/cleanable/dirt,
 /obj/structure/destructible/tribal_torch/lit,
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/legion)
@@ -56207,7 +56209,6 @@
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/village)
 "sHj" = (
-/obj/structure/chair/bench,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/indestructible/ground/outside/gravel{
 	color = "#B7ABAB";
@@ -123398,7 +123399,7 @@ xLC
 xLC
 kFH
 jPD
-odm
+sHj
 juc
 kFH
 tPB
@@ -123654,9 +123655,9 @@ qrV
 xLC
 xLC
 isJ
-odm
-odm
-odm
+sHj
+sHj
+sHj
 kFH
 tPB
 tPB
@@ -123913,7 +123914,7 @@ xLC
 kFH
 sHj
 qBr
-odm
+sHj
 kFH
 tPB
 tPB
@@ -130561,7 +130562,7 @@ wct
 bXl
 bXl
 bXl
-dro
+dad
 aii
 aii
 aii
@@ -130843,9 +130844,9 @@ xHs
 aqx
 kzA
 qcT
-sHj
+kzA
 mEL
-sHj
+kzA
 qcT
 aae
 aae
