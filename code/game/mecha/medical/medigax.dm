@@ -6,7 +6,7 @@
 	max_temperature = 25000
 	max_integrity = 350
 	wreckage = /obj/structure/mecha_wreckage/medigax
-	armor = ARMOR_VALUE_HEAVY
+	armor = ARMOR_VALUE_MEDIUM
 	internal_damage_threshold = 30
 	step_energy_drain = 30
 

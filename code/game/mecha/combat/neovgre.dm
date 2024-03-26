@@ -34,7 +34,7 @@
 
 /obj/mecha/combat/neovgre/MouseDrop_T(mob/M, mob/user)
 	if(!is_servant_of_ratvar(user))
-		to_chat(user, span_neovgre("BEGONE HEATHEN!"))
+		to_chat(user, "<span class='neovgre'>BEGONE HEATHEN!</span>")
 		return
 	else
 		..()
@@ -42,7 +42,7 @@
 /obj/mecha/combat/neovgre/moved_inside(mob/living/carbon/human/H)
 	var/list/Itemlist = H.get_contents()
 	for(var/obj/item/clockwork/slab/W in Itemlist)
-		to_chat(H, span_brass("You safely store [W] inside [src]."))
+		to_chat(H, "<span class='brass'>You safely store [W] inside [src].</span>")
 		qdel(W)
 	. = ..()
 
@@ -59,7 +59,7 @@
 	Destroy(src)
 
 /obj/mecha/combat/neovgre/container_resist(mob/living/user)
-	to_chat(user, span_brass("Neovgre requires a lifetime commitment friend, no backing out now!"))
+	to_chat(user, "<span class='brass'>Neovgre requires a lifetime commitment friend, no backing out now!</span>")
 	return
 
 /obj/mecha/combat/neovgre/process()
