@@ -70,15 +70,38 @@
 		/datum/firemode/semi_auto/slow
 	)
 
-/obj/item/gun/energy/laser/plasma/pistol/worn
-	name ="shoddy plasma pistol"
-	desc = "A pistol-sized miniaturized plasma caster built by REPCONN. It fires a bolt of superhot ionized gas. This one's internal parts have loose seals and corroded electronics."
-	ammo_type = list(/obj/item/ammo_casing/energy/plasma/pistol/worn)
-	weapon_class = WEAPON_CLASS_SMALL
+//fallout 4 plasma gun
+//low-tier plasma weapon, loads from physical rounds instead of batteries
+//low damage for plasma and ammo has to be crafted one at a time, but has a large internal magazine
+//still has that 50 wound damage, so still has use against soft target
+/obj/item/gun/ballistic/revolver/F4plasma //fake plasma, so we can load from internal mag
+	name ="short plasma gun"
+	icon = 'icons/fallout/objects/guns/energy.dmi'
+	item_state = "plasma-pistol"
+	icon_state = "plasmagun_f4"
+	desc = "A pistol-sized plasma weapon that loads from catridges of plasma. It fires a bolt of superhot ionized gas."
+	w_class = WEIGHT_CLASS_NORMAL
+	slot_flags = ITEM_SLOT_BELT
+	fire_sound = 'sound/f13weapons/plasmaf4.ogg'
+	equipsound = 'sound/f13weapons/equipsounds/pistolplasequip.ogg'
+	dryfire_sound = 'sound/f13weapons/noammoenergy.ogg'
+	dryfire_text = "*Please Insert Plasma Cartridge*"
+
+	slowdown = GUN_SLOWDOWN_PISTOL_LIGHT
+	force = GUN_MELEE_FORCE_PISTOL_LIGHT
 	weapon_weight = GUN_ONE_HAND_ONLY
+	draw_time = GUN_DRAW_NORMAL
+	fire_delay = GUN_FIRE_DELAY_SLOW
+	autofire_shot_delay = GUN_AUTOFIRE_DELAY_NORMAL
+	burst_shot_delay = GUN_BURSTFIRE_DELAY_NORMAL
+	burst_size = 1
+	mag_type = /obj/item/ammo_box/magazine/internal/f4plasma
+	damage_multiplier = GUN_LESS_DAMAGE_T4 //16.25 damage
+
 	init_firemodes = list(
-		/datum/firemode/semi_auto/slower
+		/datum/firemode/semi_auto/slow
 	)
+
 
 //Glock 86 Plasma pistol
 /obj/item/gun/energy/laser/plasma/glock
@@ -179,3 +202,39 @@
 /obj/item/gun/energy/laser/plasma/spear/ComponentInitialize()
 	. = ..()
 	AddElement(/datum/element/update_icon_updates_onmob)
+
+//fallout 76 plasmacaster
+//physical ammo
+//heavy weapon, purposefully OP
+//10 rounds, high rate of fire, high damage, high slowdown
+/obj/item/gun/ballistic/revolver/F4plasma/caster
+	name ="plasma caster"
+	desc = "A model P94 plasma caster.An industrial-grade energy weapon, firing superheated bolts of plasma down a superconducting barrel.Some people call it a plasma rifle despite looking nothing like one."
+	icon = 'icons/fallout/objects/guns/longguns.dmi'
+	item_state = "plasmacaster_fnv"
+	icon_state = "plasmacaster_fnv"
+
+	w_class = WEIGHT_CLASS_BULKY
+	slot_flags = ITEM_SLOT_BACK
+	fire_sound = 'sound/f13weapons/plasmacaster.ogg'
+	equipsound = 'sound/f13weapons/equipsounds/pistolplasequip.ogg'
+	dryfire_sound = 'sound/f13weapons/noammoenergy.ogg'
+	dryfire_text = "*Please Insert Plasma Cartridge*"
+
+	slowdown = GUN_SLOWDOWN_RIFLE_LMG //heavy weapon
+	force = GUN_MELEE_FORCE_RIFLE_HEAVY //bludgeon
+	weapon_weight = GUN_TWO_HAND_ONLY
+	draw_time = GUN_DRAW_LONG
+	fire_delay = GUN_FIRE_DELAY_NORMAL //yes, it is a fast weapon. wait till you get the turbo
+	autofire_shot_delay =GUN_AUTOFIRE_DELAY_FAST
+	burst_shot_delay = GUN_BURSTFIRE_DELAY_FAST
+	burst_size = 1
+	mag_type = /obj/item/ammo_box/magazine/internal/f4plasma/caster //60dmg per shot
+	damage_multiplier = GUN_EXTRA_DAMAGE_T3 //56 damage
+
+	gun_accuracy_zone_type = ZONE_WEIGHT_PRECISION //weapon long range in FO1/2
+	init_firemodes = list(
+		/datum/firemode/semi_auto
+	)
+
+

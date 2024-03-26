@@ -540,7 +540,7 @@
 	muzzle_type = /obj/effect/projectile/muzzle/laser
 	impact_type = /obj/effect/projectile/impact/laser
 
-/obj/item/projectile/f13plasma //Plasma rifle
+/obj/item/projectile/f13plasma //Plasma caster
 	name = "plasma bolt"
 	icon_state = "plasma_clot"
 	damage_type = BURN
@@ -552,7 +552,7 @@
 	is_reflectable = TRUE
 	pixels_per_second =  TILES_TO_PIXELS(10) //same as 40mm grenade
 
-/obj/item/projectile/plasmacarbine //Plasma carbine
+/obj/item/projectile/plasmacarbine //urban plasma rifle
 	name = "plasma bolt"
 	icon_state = "plasma_clot"
 	damage_type = BURN
@@ -589,13 +589,13 @@
 
 /obj/item/projectile/f13plasma/pistol //Plasma pistol
 	damage = 35
-	wound_bonus = 70 //being hit with plasma is horrific
+	wound_bonus = 50 //being hit with plasma is horrific
 
 /obj/item/projectile/f13plasma/pistol/eve //Eve
 	icon = 'icons/fallout/objects/guns/projectiles.dmi'
 	icon_state = "eve"
 	damage = 45
-	wound_bonus = 75 //being hit with plasma is horrific
+	wound_bonus = 60 //being hit with plasma is horrific
 	light_color = LIGHT_COLOR_PINK
 
 /obj/item/projectile/f13plasma/pistol/eve/worn //Eve worn
@@ -612,12 +612,9 @@
 	wound_bonus = 35 //Adam is stronger, but not in the wounding department.
 	light_color = LIGHT_COLOR_RED
 
-/obj/item/projectile/f13plasma/pistol/worn
-	damage = 30
-
 /obj/item/projectile/f13plasma/pistol/glock //Glock (streamlined plasma pistol)
 	damage = 40
-	wound_bonus = 75 //being hit with plasma is horrific
+	wound_bonus = 55 //being hit with plasma is horrific
 
 /obj/item/projectile/f13plasma/scatter //Multiplas, fires 3 shots, will melt you
 	damage = 35
