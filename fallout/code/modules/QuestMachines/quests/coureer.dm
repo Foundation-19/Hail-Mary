@@ -7,3 +7,4 @@
 	end_message = "The Postal Service is proud of you!"
 	target_items = list(/obj/item/mark = 1)
 	caps_reward = 500
+	

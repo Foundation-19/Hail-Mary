@@ -1,12 +1,12 @@
 {
 	"map_name": "North East Texarkana",
-	"map_path": "map_files/Pahrump-Sunset",
+	"map_path": "map_files/Pahrump-AB",
 	"map_file": [
 		"Dungeons.dmm",
-		"Pahrump-Sunset-Lower.dmm",
-		"Pahrump-Sunset.dmm",
-		"Pahrump-Sunset-Upper.dmm",
-		"Pahrump-Sunset-Upper-2.dmm",
+		"Pahrump-AB-Lower.dmm",
+		"Pahrump-AB.dmm",
+		"Pahrump-AB-Upper.dmm",
+		"Pahrump-AB-Upper-2.dmm",
 		"RedRiver.dmm",
 		"Garland-City.dmm"
 	],
