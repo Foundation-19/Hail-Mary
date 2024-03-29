@@ -1403,8 +1403,6 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
  **/
 #define NAMEOF(datum, X) (#X || ##datum.##X)
 
-<<<<<<< HEAD
-=======
 /**
  * NAMEOF that actually works in static definitions because src::type requires src to be defined
  */
@@ -1414,7 +1412,6 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 #define NAMEOF_STATIC(datum, X) (#X || ##datum.##X)
 #endif
 
->>>>>>> 13cccaee54b8654ff6595b05dc923dfae758734b
 #define VARSET_LIST_CALLBACK(target, var_name, var_value) CALLBACK(GLOBAL_PROC,GLOBAL_PROC_REF(___callbackvarset), ##target, ##var_name, ##var_value)
 //dupe code because dm can't handle 3 level deep macros
 #define VARSET_CALLBACK(datum, var, var_value) CALLBACK(GLOBAL_PROC,GLOBAL_PROC_REF(___callbackvarset), ##datum, NAMEOF(##datum, ##var), ##var_value)
