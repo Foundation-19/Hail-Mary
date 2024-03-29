@@ -492,7 +492,11 @@
 	SSticker.roundend_check_paused = FALSE
 
 /obj/machinery/nuclearbomb/proc/really_actually_explode(off_station)
+<<<<<<< HEAD
 	Cinematic(get_cinematic_type(off_station),world,CALLBACK(SSticker,TYPE_PROC_REF(/datum/controller/subsystem/ticker, station_explosion_detonation),src))
+=======
+	Cinematic(get_cinematic_type(off_station),world,CALLBACK(SSticker, TYPE_PROC_REF(/datum/controller/subsystem/ticker, station_explosion_detonation),src))
+>>>>>>> 13cccaee54b8654ff6595b05dc923dfae758734b
 	INVOKE_ASYNC(GLOBAL_PROC,GLOBAL_PROC_REF(KillEveryoneOnZLevel), z)
 
 /obj/machinery/nuclearbomb/proc/get_cinematic_type(off_station)

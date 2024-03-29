@@ -716,7 +716,11 @@ GENETICS SCANNER
 			else
 				to_chat(user, span_warning("[src]'s barometer function says a storm will land in approximately [butchertime(fixed)]."))
 		cooldown = TRUE
+<<<<<<< HEAD
 		addtimer(CALLBACK(src,TYPE_PROC_REF(/obj/item/analyzer, ping)), cooldown_time)
+=======
+		addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/item/analyzer, ping)), cooldown_time)
+>>>>>>> 13cccaee54b8654ff6595b05dc923dfae758734b
 
 /obj/item/analyzer/proc/ping()
 	if(isliving(loc))
