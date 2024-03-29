@@ -20151,7 +20151,7 @@
 "cqf" = (
 /obj/structure/rack/shelf_metal,
 /obj/item/gun/energy/laser/pistol{
-	step_y = 10
+	pixel_y = 10
 	},
 /obj/item/gun/energy/laser/pistol,
 /turf/open/floor/f13{
@@ -38760,11 +38760,11 @@
 "kMM" = (
 /obj/structure/rack/shelf_metal,
 /obj/item/gun/ballistic/automatic/pistol/beretta{
-	step_y = 5
+	pixel_y = 5
 	},
 /obj/item/gun/ballistic/automatic/pistol/mk23,
 /obj/item/gun/ballistic/automatic/pistol/n99{
-	step_y = -5
+	pixel_y = -5
 	},
 /turf/open/floor/f13{
 	icon_state = "reddirtyfull"
