@@ -215,4 +215,3 @@
 	if(href_list["removecaps"])
 		remove_all_caps()
 	ShowUI()
-	
