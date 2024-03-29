@@ -148,8 +148,8 @@
 	time = 40
 	category = CAT_MEDICAL
 
- /*
- /datum/crafting_recipe/stimpak
+/*
+/datum/crafting_recipe/stimpak
 	name = "Stimpak"
 	result = /obj/item/reagent_containers/hypospray/medipen/stimpak
 	reqs = list(/obj/item/reagent_containers/food/snacks/grown/broc = 1,
