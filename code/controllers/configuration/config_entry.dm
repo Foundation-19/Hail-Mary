@@ -47,7 +47,7 @@
 	var/datum/config_entry/catched = src
 	if(!istype(catched))
 		return
-	var/static/list/banned_edits = list(NAMEOF(catched, name), NAMEOF(catched, vv_VAS), NAMEOF(catched, default), NAMEOF(catched, resident_file), NAMEOF(catched, protection), NAMEOF(catched, abstract_type), NAMEOF(catched, modified), NAMEOF(catched, dupes_allowed))
+	var/static/list/banned_edits = list(NAMEOF_STATIC(src, name), NAMEOF_STATIC(src, vv_VAS), NAMEOF_STATIC(src, default), NAMEOF_STATIC(src, resident_file), NAMEOF_STATIC(src, protection), NAMEOF_STATIC(src, abstract_type), NAMEOF_STATIC(src, modified), NAMEOF_STATIC(src, dupes_allowed)
 	if(var_name == NAMEOF(src, config_entry_value))
 		if(protection & CONFIG_ENTRY_LOCKED)
 			return FALSE
@@ -116,7 +116,7 @@
 	var/datum/config_entry/number/catched = src
 	if(!istype(catched))
 		return
-	var/static/list/banned_edits = list(NAMEOF(catched, max_val), NAMEOF(catched, min_val), NAMEOF(catched, integer))
+	var/static/list/banned_edits = list(NAMEOF_STATIC(src, max_val), NAMEOF_STATIC(src, min_val), NAMEOF_STATIC(src, integer))
 	return !(var_name in banned_edits) && ..()
 
 /datum/config_entry/flag
