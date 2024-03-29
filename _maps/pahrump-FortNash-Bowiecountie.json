@@ -1,11 +1,19 @@
 {
-	"map_name": "Texarkana",
+	"map_name": "South East Texarkana",
 	"map_path": "map_files/Pahrump-AB",
 	"map_file": [
 		"Dungeons.dmm",
 		"Pahrump-AB-Lower.dmm",
 		"Pahrump-AB.dmm",
-		"Pahrump-AB-Upper.dmm"
+		"Pahrump-AB-Upper.dmm",
+		"Pahrump-AB-Upper-2.dmm",
+		"FortNash1.dmm",
+		"FortNashLower.dmm",
+		"FortNashupper1.dmm",
+		"FortNashupper2.dmm",
+		"Bowie_County.dmm",
+		"deerpinepass-alpha.dmm",
+		"deerpinepassupper.dmm"
 	],
 	"station_ruin_budget":0,
 	"space_ruin_levels":0,
@@ -106,36 +114,6 @@
 			"Name": "Rocksprings Upper",
 			"Force X": 2,
 			"Force Y": 1,
-			"Force Z": 2
-		},
-
-		{
-			"Gravity": true,
-			"Baseturf": "/turf/open/indestructible/ground/inside/mountain",
-			"Station": 1,
-			"Up": 1,
-			"Down": -1,
-			"No Parallax": true,
-			"Linkage" : "Cross",
-			"Force North": 1,
-			"Name": "Red River",
-			"Force X": 2,
-			"Force Y": 3,
-			"Force Z": 1
-		},
-
-		{
-			"Gravity": true,
-			"Baseturf": "/turf/open/indestructible/ground/inside/mountain",
-			"Station": 1,
-			"Up": 1,
-			"Down": -1,
-			"No Parallax": true,
-			"Linkage" : "Cross",
-			"Force North": 1,
-			"Name": "Red River",
-			"Force X": 2,
-			"Force Y": 3,
 			"Force Z": 2
 		},
 
