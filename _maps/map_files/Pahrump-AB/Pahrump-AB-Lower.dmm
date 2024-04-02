@@ -61,7 +61,7 @@
 	faction = list("raider");
 	lethal_projectile = /obj/item/projectile/bullet/a762/sport/simple;
 	lethal_projectile_sound = 'sound/f13weapons/auto5.ogg';
-	name = "Repaired Turret";
+	name = "wastebot";
 	scan_range = 9;
 	stun_projectile = /obj/item/projectile/bullet/a762/sport/simple;
 	stun_projectile_sound = 'sound/f13weapons/auto5.ogg';
@@ -1396,7 +1396,8 @@
 	faction = list("raider");
 	name = "Repaired Turret";
 	scan_range = 9;
-	throw_range = 9
+	throw_range = 9;
+	faction = list("wastebot")
 	},
 /turf/open/floor/plasteel/f13/vault_floor/red/whiteredfull{
 	icon_state = "reddirtysolid"
