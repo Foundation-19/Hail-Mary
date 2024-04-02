@@ -58,7 +58,7 @@
 /obj/effect/turf_decal/delivery,
 /obj/machinery/porta_turret/syndicate/vehicle_turret{
 	desc = "An improvised ballistic turret - it looks exceptionally shoddy, yet stil functional. Safe to assume it's a repaired security system from whatever this place once was";
-	faction = list("wastebots");
+	faction = list("wastebot");
 	lethal_projectile = /obj/item/projectile/bullet/a762/sport/simple;
 	lethal_projectile_sound = 'sound/f13weapons/auto5.ogg';
 	name = "Repaired Turret";
@@ -1393,11 +1393,10 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/porta_turret/syndicate/vehicle_turret{
 	desc = "An improvised ballistic turret - it looks exceptionally shoddy, yet stil functional. Safe to assume it's a repaired security system from whatever this place once was";
-	faction = list("raider");
+	faction = list("wastebot");
 	name = "Repaired Turret";
 	scan_range = 9;
-	throw_range = 9;
-	faction = list("wastebot")
+	throw_range = 9
 	},
 /turf/open/floor/plasteel/f13/vault_floor/red/whiteredfull{
 	icon_state = "reddirtysolid"
