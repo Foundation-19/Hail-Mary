@@ -3240,12 +3240,6 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plasteel/f13/vault_floor/dark,
 /area/f13/enclave)
-"bMM" = (
-/mob/living/simple_animal/hostile/chinese/ranged/assault,
-/turf/open/floor/plating/f13/inside/mountain{
-	icon_state = "mountain2"
-	},
-/area/f13/underground/cave)
 "bNh" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
@@ -3869,12 +3863,6 @@
 /obj/machinery/computer/cargo,
 /turf/open/floor/plasteel/f13/vault_floor/blue/white,
 /area/f13/vault)
-"ccT" = (
-/mob/living/simple_animal/hostile/securitron/sentrybot/chew,
-/turf/open/floor/plating/f13/inside/mountain{
-	icon_state = "mountain2"
-	},
-/area/f13/underground/cave)
 "ccZ" = (
 /obj/structure/barricade/sandbags{
 	dir = 1
@@ -4201,7 +4189,8 @@
 /mob/living/simple_animal/hostile/chinese/ranged/assault{
 	desc = "A high ranking chinese soldier.";
 	health = 300;
-	name = "Comrade Yudaisoon"
+	name = "Comrade Yudaisoon";
+	faction = list("wastebots")
 	},
 /turf/open/floor/plasteel/f13{
 	icon_state = "showroomfloor"
@@ -7155,9 +7144,6 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
 /area/f13/underground/cave)
-"dDb" = (
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/caves)
 "dDc" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table/reinforced,
@@ -11044,13 +11030,6 @@
 /obj/structure/chair/office/dark,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/brotherhood/rnd)
-"fxA" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/brotherhood/operations)
 "fxL" = (
 /obj/machinery/chem_dispenser,
 /turf/open/floor/plasteel/f13{
@@ -15721,12 +15700,6 @@
 /obj/effect/spawner/lootdrop/f13/junkspawners,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/caves)
-"hSv" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/f13/vault_floor/red{
-	icon_state = "darkyellowfull"
-	},
-/area/f13/brotherhood/offices1st)
 "hSx" = (
 /obj/machinery/shower{
 	dir = 1
@@ -36640,12 +36613,6 @@
 /obj/machinery/computer/crew,
 /turf/open/floor/plasteel/f13/vault_floor/misc/rarewhite,
 /area/f13/vault)
-"smd" = (
-/obj/structure/chair/f13foldupchair{
-	dir = 4
-	},
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/brotherhood/operations)
 "smi" = (
 /obj/effect/decal/remains/human,
 /obj/effect/decal/cleanable/blood/old,
@@ -73986,7 +73953,7 @@ cCj
 cCj
 cCj
 cCj
-bMM
+atL
 gHj
 gHj
 gHj
@@ -75782,7 +75749,7 @@ nuh
 cCj
 dHW
 cCj
-ccT
+fTd
 cCj
 gHj
 tMp
@@ -78089,7 +78056,7 @@ whv
 whv
 whv
 whv
-bMM
+atL
 cCj
 cCj
 cCj
@@ -102184,7 +102151,7 @@ vto
 vBM
 rZq
 vBM
-hSv
+vBM
 dmB
 dmB
 tot
@@ -102698,7 +102665,7 @@ roa
 roa
 roa
 vBM
-hSv
+vBM
 owt
 pVz
 pVz
@@ -104916,7 +104883,7 @@ hrZ
 hrZ
 hcq
 leT
-dDb
+sKj
 yeA
 hcq
 hrZ
@@ -106015,7 +105982,7 @@ fsV
 jMQ
 wvL
 wvL
-smd
+wvL
 eQJ
 eQJ
 dAI
@@ -107562,7 +107529,7 @@ eQJ
 eQJ
 pIZ
 bJL
-fxA
+khj
 fGu
 eQJ
 eQJ
@@ -107819,7 +107786,7 @@ eXe
 pnf
 wqV
 bJL
-fxA
+khj
 tKg
 uDy
 uDy
