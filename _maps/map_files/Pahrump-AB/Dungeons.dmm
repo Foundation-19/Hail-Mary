@@ -13015,7 +13015,9 @@
 /obj/structure/stone_tile/slab/cracked{
 	dir = 5
 	},
-/mob/living/simple_animal/hostile/trog/tunneler,
+/mob/living/simple_animal/hostile/trog/tunneler{
+	faction = list("tunneler", "jungle")
+	},
 /turf/open/floor/plasteel/cult,
 /area/f13/underground/cave)
 "gxh" = (
@@ -21973,7 +21975,9 @@
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/vault)
 "ldo" = (
-/mob/living/simple_animal/hostile/trog/tunneler,
+/mob/living/simple_animal/hostile/trog/tunneler{
+	faction = list("tunneler", "jungle")
+	},
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/tunnel)
 "ldq" = (
@@ -29963,7 +29967,9 @@
 /turf/open/floor/wood_common,
 /area/f13/underground/cave)
 "oZa" = (
-/mob/living/simple_animal/hostile/trog/tunneler,
+/mob/living/simple_animal/hostile/trog/tunneler{
+	faction = list("tunneler", "jungle")
+	},
 /turf/open/floor/plasteel/cult,
 /area/f13/underground/cave)
 "oZg" = (
@@ -39940,7 +39946,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/blue/whitebluefull,
 /area/f13/enclave)
 "tWF" = (
-/obj/structure/nest/radroach,
+/obj/structure/nest/radroach/jungle,
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/tunnel)
 "tWK" = (
@@ -44010,6 +44016,12 @@
 "vYk" = (
 /turf/open/floor/plasteel/f13/vault_floor/neutral/neutralchess,
 /area/f13/vault)
+"vYz" = (
+/mob/living/simple_animal/hostile/radroach{
+	faction = list("gecko","critter-friend", "jungle")
+	},
+/turf/open/indestructible/ground/inside/mountain,
+/area/f13/tunnel)
 "vYB" = (
 /obj/machinery/light/small{
 	dir = 4;
@@ -64919,7 +64931,7 @@ hrZ
 hrZ
 hrZ
 hrZ
-kxw
+vYz
 kxw
 pif
 hrZ
