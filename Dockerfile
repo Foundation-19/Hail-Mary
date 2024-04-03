@@ -80,5 +80,5 @@ COPY --from=build /deploy ./
 COPY --from=rust_g /rust_g/target/i686-unknown-linux-gnu/release/librust_g.so ./librust_g.so
 
 VOLUME [ "/fortune13/config", "/fortune13/data" ]
-ENTRYPOINT [ "DreamDaemon", "fortune13.dmb", "-port", "54321", "-trusted", "-close", "-verbose" ]
+ENTRYPOINT [ "DreamDaemon", "hailmary.dmb", "-port", "54321", "-trusted", "-close", "-verbose" ]
 EXPOSE 54321

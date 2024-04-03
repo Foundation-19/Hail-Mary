@@ -571,3 +571,6 @@
 	call_backup = /obj/effect/proc_holder/mob_common/summon_backup/small_critter
 	send_mobs = /obj/effect/proc_holder/mob_common/direct_mobs/small_critter
 	. = ..()
+
+/mob/living/simple_animal/hostile/radroach/jungle
+	faction = list("gecko", "critter-friend", "jungle")
