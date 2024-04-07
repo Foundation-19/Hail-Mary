@@ -62,11 +62,11 @@
 		var/mob/living/carbon/mlemmed = licked
 		if(!mlemmed.get_bodypart(user.zone_selected))
 			return FALSE
-		if(lick_wound(licked, user) == LICK_CANCEL)
+/*		if(lick_wound(licked, user) == LICK_CANCEL)
 			return TRUE // one thing at a time
 		if(lick_heal(licked, user) == LICK_CANCEL)
 			return TRUE // one thing at a time
-
+*/
 	if(SEND_SIGNAL(licked, COMSIG_ATOM_LICKED, user, src))
 		return TRUE
 
