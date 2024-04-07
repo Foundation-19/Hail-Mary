@@ -130,3 +130,14 @@
 				/obj/item/stack/rods = 2)
 	category = CAT_CRAFTING
 	subcategory = CAT_TOOL
+
+/datum/crafting_recipe/cellupgrade
+	name = "High cell to Ultra cell convertion"
+	result = /obj/item/stock_parts/cell/bluespace
+	time = 80
+	reqs = list(/obj/item/stock_parts/cell/high = 4,
+				/obj/item/stack/cable_coil = 10,
+				/obj/item/toy/crayon/spraycan = 1)
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	category = CAT_CRAFTING
+	subcategory = CAT_TOOL

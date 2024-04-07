@@ -99,3 +99,10 @@
 	round_term = "cluster"
 	direct_load = TRUE
 	ammo_type = "clusterbang"
+
+/obj/item/mecha_ammo/minigun
+	name = "Minigun ammo pack"
+	desc = "A box of high caliber ammo, ready to be consumed in nano seconds. Cannot be primed by hand."
+	icon_state = "lmg"
+	rounds = 600
+	ammo_type = "minigun"

@@ -681,8 +681,203 @@
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
 
-/datum/crafting_recipe/gun/HMGvehicle
-	name = "Improvised HMG (for vehicles)"
+/datum/crafting_recipe/gun/InmolatorCannon
+	name = "CH-PS \"Immolator\" laser"
+	result = /obj/item/mecha_parts/mecha_equipment/weapon/energy/laser
+	reqs = list(/obj/item/stack/crafting/metalparts = 10,
+	/obj/item/stack/crafting/electronicparts = 10,
+	/obj/item/stack/sheet/metal = 15,
+	/obj/item/advanced_crafting_components/lenses = 1,
+	/obj/item/advanced_crafting_components/conductors = 1)
+	tools = list(TOOL_WORKBENCH)
+	time = 180
+	category = CAT_WEAPONRY
+	subcategory = CAT_WEAPON
+
+/datum/crafting_recipe/gun/SolarisCannon
+	name = "CH-PS \"Immolator\" laser"
+	result = /obj/item/mecha_parts/mecha_equipment/weapon/energy/laser/heavy
+	reqs = list(/obj/item/stack/crafting/metalparts = 10,
+	/obj/item/stack/crafting/electronicparts = 10,
+	/obj/item/stack/crafting/goodparts = 10,
+	/obj/item/stack/sheet/mineral/titanium = 5,
+	/obj/item/advanced_crafting_components/lenses = 1,
+	/obj/item/advanced_crafting_components/conductors = 2,
+	/obj/item/advanced_crafting_components/flux = 1)
+	tools = list(TOOL_WORKBENCH)
+	time = 180
+	category = CAT_WEAPONRY
+	subcategory = CAT_WEAPON
+
+/datum/crafting_recipe/gun/CarbineVehicle
+	name = "FNX-99 \"Hades\" Carbine"
+	result = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/carbine
+	reqs = list(/obj/item/stack/crafting/metalparts = 5,
+	/obj/item/stack/sheet/metal = 10,
+	/obj/item/stack/rods = 2,
+	/obj/item/advanced_crafting_components/assembly = 1,
+	/datum/reagent/fuel = 50)
+	tools = list(TOOL_WORKBENCH)
+	time = 180
+	category = CAT_WEAPONRY
+	subcategory = CAT_WEAPON
+
+/datum/crafting_recipe/gun/Scattershot
+	name = "LBX AC 10 \"Scattershot\""
+	result = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/scattershot
+	reqs = list(/obj/item/stack/crafting/metalparts = 10,
+	/obj/item/stack/crafting/goodparts = 5,
+	/obj/item/stack/sheet/metal = 15,
+	/obj/item/stack/rods = 4,
+	/obj/item/advanced_crafting_components/assembly = 1,)
+	tools = list(TOOL_WORKBENCH)
+	time = 180
+	category = CAT_WEAPONRY
+	subcategory = CAT_WEAPON
+
+/*/datum/crafting_recipe/gun/minigunVehicle
+	name = "Minigun"
+	result = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/minigun
+	reqs = list(/obj/item/stack/crafting/metalparts = 10,
+	/obj/item/stack/crafting/goodparts = 5,
+	/obj/item/stack/crafting/electronicparts = 5,
+	/obj/item/stack/sheet/metal = 10,
+	/obj/item/stack/sheet/mineral/titanium = 20,
+	/obj/item/stack/rods = 6,
+	/obj/item/advanced_crafting_components/assembly = 1,
+	/obj/item/advanced_crafting_components/receiver = 1,
+	/obj/item/advanced_crafting_components/alloys = 1)
+	tools = list(TOOL_WORKBENCH)
+	time = 180
+	category = CAT_WEAPONRY
+	subcategory = CAT_WEAPON*/
+
+/datum/crafting_recipe/gun/PheumonicLauncherVehicle
+	name = "Mounted Pheumonic launcher"
+	result = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/launcher/anykind
+	reqs = list(/obj/item/stack/crafting/metalparts = 20,
+	/obj/item/stack/crafting/goodparts = 10,
+	/obj/item/stack/crafting/electronicparts = 5,
+	/obj/item/stack/sheet/metal = 30,
+	/obj/item/stack/sheet/mineral/titanium = 20,
+	/obj/item/stack/rods = 8,
+	/obj/item/advanced_crafting_components/assembly = 1,
+	/obj/item/advanced_crafting_components/receiver = 1)
+	tools = list(TOOL_WORKBENCH)
+	time = 180
+	category = CAT_WEAPONRY
+	subcategory = CAT_WEAPON
+
+/datum/crafting_recipe/gun/Missile_rack
+	name = "SRM-8 missile rack"
+	result = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack
+	reqs = list(/obj/item/stack/crafting/metalparts = 20,
+	/obj/item/stack/crafting/goodparts = 20,
+	/obj/item/stack/crafting/electronicparts = 10,
+	/obj/item/stack/sheet/mineral/titanium = 50,
+	/obj/item/stack/rods = 8,
+	/obj/item/advanced_crafting_components/alloys = 1)
+	tools = list(TOOL_WORKBENCH)
+	time = 180
+	category = CAT_WEAPONRY
+	subcategory = CAT_WEAPON
+
+/datum/crafting_recipe/gun/Breach_missile_rack
+	name = "BRM-6 missile rack"
+	result = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/breaching
+	reqs = list(/obj/item/stack/crafting/metalparts = 20,
+	/obj/item/stack/crafting/goodparts = 20,
+	/obj/item/stack/crafting/electronicparts = 10,
+	/obj/item/stack/sheet/mineral/titanium = 40,
+	/obj/item/stack/rods = 6,
+	/obj/item/advanced_crafting_components/alloys = 1)
+	tools = list(TOOL_WORKBENCH)
+	time = 180
+	category = CAT_WEAPONRY
+	subcategory = CAT_WEAPON
+
+/datum/crafting_recipe/mech_ammo/scattershot
+	name = "Scattershot ammo pack"
+	result = /obj/item/mecha_ammo/scattershot
+	reqs = list(/obj/item/ammo_box/shotgun/buck = 4,
+	/obj/item/stack/crafting/metalparts = 5,
+	/obj/item/stack/crafting/powder = 10)
+	tools = list(TOOL_WORKBENCH)
+	time = 180
+	category = CAT_WEAPONRY
+	subcategory = CAT_AMMO
+
+/datum/crafting_recipe/mech_ammo/carbine
+	name = "Hades ammo pack"
+	result = /obj/item/mecha_ammo/incendiary
+	reqs = list(/obj/item/ammo_box/a762box = 1,
+	/datum/reagent/fuel = 40,
+	/obj/item/stack/crafting/powder = 10)
+	tools = list(TOOL_WORKBENCH)
+	time = 180
+	category = CAT_WEAPONRY
+	subcategory = CAT_AMMO
+
+/datum/crafting_recipe/mech_ammo/srm8_missiles
+	name = "SRM-8 missile pack"
+	result = /obj/item/mecha_ammo/missiles_he
+	reqs = list(/obj/item/ammo_casing/caseless/rocket = 4,
+	/obj/item/stack/sheet/metal = 10,
+	/obj/item/assembly/timer = 4)
+	tools = list(TOOL_WORKBENCH)
+	time = 180
+	category = CAT_WEAPONRY
+	subcategory = CAT_AMMO
+
+/datum/crafting_recipe/mech_ammo/brm8_missiles
+	name = "BRM-8 missile pack"
+	result = /obj/item/mecha_ammo/missiles_he
+	reqs = list(/obj/item/ammo_casing/caseless/rocket = 3,
+	/obj/item/stack/sheet/mineral/titanium = 20,
+	/obj/item/stack/crafting/powder = 10)
+	tools = list(TOOL_WORKBENCH)
+	time = 180
+	category = CAT_WEAPONRY
+	subcategory = CAT_AMMO
+
+/*/datum/crafting_recipe/mech_ammo/brm8_missiles
+	name = "Minigun Ammo Pack"
+	result = /obj/item/mecha_ammo/minigun
+	reqs = list(/obj/item/ammo_box/magazine/ammobelt/m1919 = 3,
+	/obj/item/stack/sheet/metal = 10,
+	/obj/item/stack/sheet/mineral/titanium = 20,
+	/obj/item/stack/crafting/powder = 30)
+	tools = list(TOOL_WORKBENCH)
+	time = 180
+	category = CAT_WEAPONRY
+	subcategory = CAT_AMMO*/
+
+/datum/crafting_recipe/mech_ammo/antoproj_armor
+	name = "armor booster module (Ranged Weaponry)"
+	result = /obj/item/mecha_parts/mecha_equipment/antiproj_armor_booster
+	reqs = list(/obj/item/shield/riot/tower = 2,
+	/obj/item/stack/cable_coil = 5,
+	/obj/item/stack/sheet/mineral/titanium = 20,
+	/obj/item/stack/crafting/powder = 30)
+	tools = list(TOOL_WELDER)
+	time = 180
+	category = CAT_CARPARTS
+	subcategory = CAT_CAREQUIP
+
+/datum/crafting_recipe/mech_ammo/antomelee_armor
+	name = "armor booster module (Melee Weaponry)"
+	result = /obj/item/mecha_parts/mecha_equipment/anticcw_armor_booster
+	reqs = list(/obj/item/shield/riot/tower = 2,
+	/obj/item/stack/cable_coil = 5,
+	/obj/item/stack/sheet/mineral/titanium = 20,
+	/obj/item/stack/crafting/powder = 30)
+	tools = list(TOOL_WELDER)
+	time = 180
+	category = CAT_CARPARTS
+	subcategory = CAT_CAREQUIP
+
+/datum/crafting_recipe/gun/HMGvehicule
+	name = "Improvised HMG (for vehicules)"
 	result = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg/hobo
 	reqs = list(/obj/item/gun/ballistic/automatic/autopipe = 2,
 	/obj/item/stack/crafting/metalparts = 10,
@@ -691,6 +886,30 @@
 	/obj/item/stack/rods = 2)
 	tools = list(TOOL_WORKBENCH)
 	time = 180
+	category = CAT_WEAPONRY
+	subcategory = CAT_WEAPON
+
+/datum/crafting_recipe/gun/knifegun
+	name = "Knife gun (.44)"
+	result = /obj/item/gun/ballistic/revolver/hobo/knifegun
+	reqs = list(/obj/item/scalpel = 1,
+				/obj/item/stack/rods = 1,
+				/obj/item/ammo_casing/m44 = 1,
+				/obj/item/restraints/handcuffs/cable = 1)
+	tools = list(TOOL_WORKBENCH)
+	time = 120
+	category = CAT_WEAPONRY
+	subcategory = CAT_WEAPON
+
+/datum/crafting_recipe/gun/knucklegun
+	name = "Knucklegun (.45)"
+	result = /obj/item/gun/ballistic/revolver/hobo/knucklegun
+	reqs = list(/obj/item/stack/sheet/metal = 5,
+				/obj/item/stack/rods = 4,
+				/obj/item/ammo_casing/c45 = 4,
+				/obj/item/stack/crafting/metalparts = 1)
+	tools = list(TOOL_WORKBENCH)
+	time = 120
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
 

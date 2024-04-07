@@ -446,7 +446,47 @@
 		RegisterSignal(src, COMSIG_LIVING_STATUS_UNCONSCIOUS, PROC_REF(stop_looking_up))
 		RegisterSignal(src, COMSIG_LIVING_STATUS_SLEEP, PROC_REF(stop_looking_up))
 
+/mob/living/verb/stop_looking()
+	set name = "Stop Looking"
+	set category = "IC"
+	src.stop_looking_up(null)
+
 /mob/living/proc/stop_looking_up()
+	reset_perspective(null)
+	UnregisterSignal(src, list(COMSIG_LIVING_STATUS_PARALYZE, COMSIG_LIVING_STATUS_UNCONSCIOUS, COMSIG_LIVING_STATUS_SLEEP, COMSIG_LIVING_STATUS_KNOCKDOWN, COMSIG_MOVABLE_MOVED, COMSIG_MOB_CLIENT_CHANGE_VIEW))
+
+/mob/living/verb/lookdown()
+	set name = "Look down"
+	set category = "IC"
+	if(src.incapacitated())
+		to_chat(src, "<span class='warning'>You can't look down right now!</span>")
+	var/turf/T = get_turf(src)
+	if(!istype(T, /turf/open/transparent/openspace))
+		var/turf/nt = get_step(T, dir)
+		if(!istype(nt, /turf/open/transparent/openspace))
+			if(istype(nt, /turf/open) || istype(nt, /turf/closed))
+				to_chat(src, "<span class='notice'>You look up at the floor. You can see floor.</span>")
+				return
+		else
+			var/turf/nl = SSmapping.get_turf_below(nt)
+			src.reset_perspective(nl)
+			RegisterSignal(src, COMSIG_MOB_CLIENT_CHANGE_VIEW, .proc/stop_looking_down) //no binos/scops
+			RegisterSignal(src, COMSIG_MOVABLE_MOVED, .proc/stop_looking_down)
+			RegisterSignal(src, COMSIG_LIVING_STATUS_KNOCKDOWN, .proc/stop_looking_down)
+			RegisterSignal(src, COMSIG_LIVING_STATUS_PARALYZE, .proc/stop_looking_down)
+			RegisterSignal(src, COMSIG_LIVING_STATUS_UNCONSCIOUS, .proc/stop_looking_down)
+			RegisterSignal(src, COMSIG_LIVING_STATUS_SLEEP, .proc/stop_looking_down)
+	else
+		var/turf/nl = SSmapping.get_turf_below(T)
+		src.reset_perspective(nl)
+		RegisterSignal(src, COMSIG_MOB_CLIENT_CHANGE_VIEW, .proc/stop_looking_down) //no binos/scops
+		RegisterSignal(src, COMSIG_MOVABLE_MOVED, .proc/stop_looking_down)
+		RegisterSignal(src, COMSIG_LIVING_STATUS_KNOCKDOWN, .proc/stop_looking_down)
+		RegisterSignal(src, COMSIG_LIVING_STATUS_PARALYZE, .proc/stop_looking_down)
+		RegisterSignal(src, COMSIG_LIVING_STATUS_UNCONSCIOUS, .proc/stop_looking_down)
+		RegisterSignal(src, COMSIG_LIVING_STATUS_SLEEP, .proc/stop_looking_down)
+
+/mob/living/proc/stop_looking_down()
 	reset_perspective(null)
 	UnregisterSignal(src, list(COMSIG_LIVING_STATUS_PARALYZE, COMSIG_LIVING_STATUS_UNCONSCIOUS, COMSIG_LIVING_STATUS_SLEEP, COMSIG_LIVING_STATUS_KNOCKDOWN, COMSIG_MOVABLE_MOVED, COMSIG_MOB_CLIENT_CHANGE_VIEW))
 
