@@ -102,7 +102,7 @@
 		
 	licker.taste(null, atom_licked)
 	playsound(get_turf(src), pokesound, 25, 1, SOUND_DISTANCE(LICK_SOUND_TEXT_RANGE))
-
+/*
 /obj/item/hand_item/licker/proc/lick_wound(mob/living/licked, mob/living/carbon/user)
 	if(!iscarbon(licked))
 		return FALSE
@@ -167,7 +167,7 @@
 	lick_flavor(atom_licked = licked, licker = user)
 	tongue_healer.attack(licked, user)
 	return TRUE
-
+*/
 /obj/item/hand_item/licker/proc/get_lick_words(mob/living/carbon/user)
 	if(!user)
 		return
