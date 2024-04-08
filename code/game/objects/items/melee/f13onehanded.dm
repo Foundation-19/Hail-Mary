@@ -676,9 +676,11 @@ obj/item/melee/onehanded/knife/switchblade
 	lefthand_file = 'icons/fallout/onmob/weapons/melee1h_lefthand.dmi'
 	righthand_file = 'icons/fallout/onmob/weapons/melee1h_righthand.dmi'
 	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_GLOVES
+	attack_speed = CLICK_CD_MELEE * 0.9
 	w_class = WEIGHT_CLASS_SMALL
 	flags_1 = CONDUCT_1
 	sharpness = SHARP_NONE
+	armour_penetration = 0.05
 	throwforce = 10
 	throw_range = 5
 	attack_verb = list("punched", "jabbed", "whacked")
