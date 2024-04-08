@@ -675,12 +675,10 @@ obj/item/melee/onehanded/knife/switchblade
 	icon = 'icons/fallout/objects/melee/melee.dmi'
 	lefthand_file = 'icons/fallout/onmob/weapons/melee1h_lefthand.dmi'
 	righthand_file = 'icons/fallout/onmob/weapons/melee1h_righthand.dmi'
-	attack_speed = CLICK_CD_MELEE * 0.9
 	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_GLOVES
 	w_class = WEIGHT_CLASS_SMALL
 	flags_1 = CONDUCT_1
 	sharpness = SHARP_NONE
-	armour_penetration = 0.05
 	throwforce = 10
 	throw_range = 5
 	attack_verb = list("punched", "jabbed", "whacked")
@@ -697,8 +695,8 @@ obj/item/melee/onehanded/knife/switchblade
 	if(ishuman(user) && slot == SLOT_GLOVES)
 		ADD_TRAIT(user, TRAIT_UNARMED_WEAPON, "glove")
 		if(HAS_TRAIT(user, TRAIT_UNARMED_WEAPON))
-			H.dna.species.punchdamagehigh += force + 8 //Work around for turbo bad code here. Makes this correctly stack with your base damage. No longer makes ghouls the kings of melee.
-			H.dna.species.punchdamagelow += force + 8
+			H.dna.species.punchdamagehigh += force //Work around for turbo bad code here. Makes this correctly stack with your base damage. No longer makes ghouls the kings of melee.
+			H.dna.species.punchdamagelow += force
 			H.dna.species.attack_sound = hitsound
 			if(sharpness == SHARP_POINTY || sharpness ==  SHARP_EDGED)
 				H.dna.species.attack_verb = pick("slash","slice","rip","tear","cut","dice")
@@ -710,9 +708,12 @@ obj/item/melee/onehanded/knife/switchblade
 			H.dna.species.punchdamagehigh = 10
 			H.dna.species.punchdamagelow = 1
 		if(HAS_TRAIT(user, TRAIT_IRONFIST))
+			H.dna.species.punchdamagehigh = 10
+			H.dna.species.punchdamagelow = 4
+		if(HAS_TRAIT(user, TRAIT_STEELFIST))
 			H.dna.species.punchdamagehigh = 12
 			H.dna.species.punchdamagelow = 6
-		if(HAS_TRAIT(user, TRAIT_STEELFIST))
+		if(HAS_TRAIT(user, TRAIT_FEV)) //Holy shit that Supermutant had a powerfist!
 			H.dna.species.punchdamagehigh = 16
 			H.dna.species.punchdamagelow = 10
 		H.dna.species.attack_sound = 'sound/weapons/punch1.ogg'
@@ -755,8 +756,8 @@ obj/item/melee/onehanded/knife/switchblade
 	icon_state = "spiked"
 	item_state = "spiked"
 	sharpness = SHARP_POINTY
+	armour_penetration = 0.1
 	force = 28
-	armour_penetration = 0.10
 
 // Sappers			Keywords: Damage 27
 /obj/item/melee/unarmed/sappers
@@ -771,7 +772,7 @@ obj/item/melee/onehanded/knife/switchblade
 	. = ..()
 	if(!istype(M))
 		return
-	M.apply_damage(20, STAMINA, "head", M.run_armor_check("head", "melee"))
+	M.apply_damage(10, STAMINA, "chest", M.run_armor_check("chest", "melee"))
 
 // Tiger claws		Keywords: Damage 33, Pointy
 /obj/item/melee/unarmed/tigerclaw
@@ -816,7 +817,7 @@ obj/item/melee/onehanded/knife/switchblade
 	icon_state = "punch_dagger"
 	item_state = "punch_dagger"
 	force = 29
-	armour_penetration = 0.12
+	armour_penetration = 0.1
 	sharpness = SHARP_POINTY
 	attack_verb = list("stabbed", "sliced", "pierced", "diced", "cut")
 	hitsound = 'sound/weapons/bladeslice.ogg'
@@ -837,7 +838,7 @@ obj/item/melee/unarmed/punchdagger/cyborg
 	slot_flags = ITEM_SLOT_GLOVES
 	w_class = WEIGHT_CLASS_NORMAL
 	force = 35
-	armour_penetration = 1
+	armour_penetration = 0.15
 	sharpness = SHARP_EDGED
 	attack_verb = list("slashed", "sliced", "torn", "ripped", "diced", "cut")
 	hitsound = 'sound/weapons/bladeslice.ogg'
