@@ -62,11 +62,11 @@
 		var/mob/living/carbon/mlemmed = licked
 		if(!mlemmed.get_bodypart(user.zone_selected))
 			return FALSE
-		if(lick_wound(licked, user) == LICK_CANCEL)
+/*		if(lick_wound(licked, user) == LICK_CANCEL)
 			return TRUE // one thing at a time
 		if(lick_heal(licked, user) == LICK_CANCEL)
 			return TRUE // one thing at a time
-
+*/
 	if(SEND_SIGNAL(licked, COMSIG_ATOM_LICKED, user, src))
 		return TRUE
 
@@ -102,7 +102,7 @@
 		
 	licker.taste(null, atom_licked)
 	playsound(get_turf(src), pokesound, 25, 1, SOUND_DISTANCE(LICK_SOUND_TEXT_RANGE))
-
+/*
 /obj/item/hand_item/licker/proc/lick_wound(mob/living/licked, mob/living/carbon/user)
 	if(!iscarbon(licked))
 		return FALSE
@@ -167,7 +167,7 @@
 	lick_flavor(atom_licked = licked, licker = user)
 	tongue_healer.attack(licked, user)
 	return TRUE
-
+*/
 /obj/item/hand_item/licker/proc/get_lick_words(mob/living/carbon/user)
 	if(!user)
 		return
