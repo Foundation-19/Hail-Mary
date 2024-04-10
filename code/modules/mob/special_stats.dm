@@ -130,11 +130,26 @@ proc/get_top_level_mob(mob/S)
 
 /mob/living/carbon/human/initialize_special_charisma()
 	RegisterSignal(src, COMSIG_PARENT_EXAMINE, PROC_REF(handle_special_charisma_examine_moodlet), TRUE)
+	initialize_charisma_traits(src)
 
 /mob/living/carbon/human/Destroy()
 	UnregisterSignal(src, COMSIG_PARENT_EXAMINE)
 	return ..()
 
+
+/mob/proc/initialize_charisma_traits(mob/living/carbon/user)
+	if(HAS_TRAIT_FROM(user, TRAIT_SAY_STUTTERING, "charisma"))
+		REMOVE_TRAIT(user, TRAIT_SAY_STUTTERING, "charisma")
+	if(HAS_TRAIT_FROM(user, TRAIT_SAY_LISPING, "charisma"))
+		REMOVE_TRAIT(user, TRAIT_SAY_LISPING, "charisma")
+	switch(special_c)
+		if(3)
+			ADD_TRAIT(user, TRAIT_SAY_STUTTERING, "charisma")
+		if(2)
+			ADD_TRAIT(user, TRAIT_SAY_LISPING, "charisma")
+		if(1)
+			ADD_TRAIT(user, TRAIT_SAY_STUTTERING, "charisma")
+			ADD_TRAIT(user, TRAIT_SAY_LISPING, "charisma")
 
 /mob/proc/handle_special_charisma_examine_moodlet(mob/living/examinee, mob/living/examiner, text)
 	if(!istype(examiner))
