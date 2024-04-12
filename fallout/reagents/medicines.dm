@@ -248,6 +248,40 @@
 	. = TRUE
 	..()
 
+// ---------------------------
+// BITTER DRINK REAGENT
+
+/datum/reagent/medicine/bitter_drink
+	name = "Bitter drink"
+	description = "An herbal healing concoction which enables wounded soldiers and travelers to tend to their wounds without stopping during journeys."
+	reagent_state = LIQUID
+	color ="#A9FBFB"
+	taste_description = "bitterness"
+	metabolization_rate = 0.5 * REAGENTS_METABOLISM //in between powder/stimpaks and poultice/superstims?
+	overdose_threshold = 31
+	var/heal_factor = -3 //Subtractive multiplier if you do not have the perk.
+	var/heal_factor_perk = -5.2 //Multiplier if you have the right perk.
+	ghoulfriendly = TRUE
+
+/datum/reagent/medicine/bitter_drink/on_mob_life(mob/living/carbon/M)
+	var/is_tribal = FALSE
+	if(HAS_TRAIT(M, TRAIT_TRIBAL))
+		is_tribal = TRUE
+	var/heal_rate = (is_tribal ? heal_factor_perk : heal_factor) * REAGENTS_EFFECT_MULTIPLIER
+	if(!M.reagents.has_reagent(/datum/reagent/medicine/stimpak) && !M.reagents.has_reagent(/datum/reagent/medicine/healing_powder)&& !M.reagents.has_reagent(/datum/reagent/medicine/super_stimpak))
+		M.adjustFireLoss(heal_rate)
+		M.adjustBruteLoss(heal_rate)
+		M.adjustToxLoss(heal_rate)
+		M.hallucination = max(M.hallucination, is_tribal ? 0 : 5)
+		M.radiation -= min(M.radiation, 8)
+		. = TRUE
+	..()
+
+/datum/reagent/medicine/bitter_drink/overdose_process(mob/living/M)
+	M.adjustToxLoss(1*REAGENTS_EFFECT_MULTIPLIER)
+	M.adjustOxyLoss(2*REAGENTS_EFFECT_MULTIPLIER)
+	..()
+	. = TRUE
 
 // ---------------------------
 // RAD-X REAGENT

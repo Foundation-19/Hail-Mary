@@ -174,7 +174,7 @@
 /obj/structure/bonfire/prelit/Initialize()
 	. = ..()
 	var/static/list/loc_connections = list(
-		COMSIG_ATOM_ENTERED = .proc/on_entered,
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
@@ -296,7 +296,7 @@
 /obj/structure/bonfire/proc/on_entered(atom/movable/AM)
 	SIGNAL_HANDLER
 	if(burning & !grill)
-		INVOKE_ASYNC(src, .proc/Burn)
+		INVOKE_ASYNC(src, PROC_REF(Burn))
 
 /obj/structure/bonfire/proc/Burn()
 	var/turf/current_location = get_turf(src)

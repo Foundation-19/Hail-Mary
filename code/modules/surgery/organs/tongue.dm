@@ -30,6 +30,7 @@
 	))
 	healing_factor = STANDARD_ORGAN_HEALING*5 //Fast!!
 	decay_factor = STANDARD_ORGAN_DECAY/2
+/*
 	/// How much licking someone should heal someone
 	var/lick_heal_brute
 	/// How much licking someone should heal someone
@@ -38,6 +39,7 @@
 	var/obj/item/stack/medical/gauze/lick_bandage
 	/// What kind of healpack is applied by licking someone
 	var/obj/item/stack/medical/bruise_pack/lick_healer
+*/
 
 /obj/item/organ/tongue/Initialize(mapload)
 	. = ..()
@@ -50,6 +52,7 @@
 	now_failing = span_warning("Your [name] feels like it's about to fall out!.")
 	now_fixed = span_info("The excruciating pain of your [name] has subsided.")
 	languages_possible = languages_possible_base
+/*
 	if(lick_bandage) // ew
 		initialize_bandage(lick_bandage)
 	if(lick_healer) // ew
@@ -75,6 +78,7 @@
 		return FALSE
 	lick_healer = new lick_pack(src)
 	return TRUE
+*/
 
 /obj/item/organ/tongue/proc/handle_speech(datum/source, list/speech_args) //this wont proc unless there's initial_accents on the tongue
 	for(var/datum/accent/speech_modifier in accents)
@@ -92,20 +96,21 @@
 	if(say_mod && M.dna && M.dna.species)
 		M.dna.species.say_mod = say_mod
 	if(length(initial_accents) || length(accents))
-		RegisterSignal(M, COMSIG_MOB_SAY, .proc/handle_speech)
+		RegisterSignal(M, COMSIG_MOB_SAY, PROC_REF(handle_speech))
 	M.UnregisterSignal(M, COMSIG_MOB_SAY)
 
 /obj/item/organ/tongue/Remove(special = FALSE)
 	if(!QDELETED(owner))
 		if(say_mod && owner.dna?.species)
 			owner.dna.species.say_mod = initial(owner.dna.species.say_mod)
-		UnregisterSignal(owner, COMSIG_MOB_SAY, .proc/handle_speech)
-		owner.RegisterSignal(owner, COMSIG_MOB_SAY, /mob/living/carbon/.proc/handle_tongueless_speech)
+		UnregisterSignal(owner, COMSIG_MOB_SAY, PROC_REF(handle_speech))
+		owner.RegisterSignal(owner, COMSIG_MOB_SAY, TYPE_PROC_REF(/mob/living/carbon, handle_tongueless_speech))
 	return ..()
 
 /obj/item/organ/tongue/could_speak_language(language)
 	return is_type_in_typecache(language, languages_possible)
 
+/*
 /obj/item/organ/tongue/lizard
 	name = "forked tongue"
 	desc = "A thin and long muscle typically found in reptilian races, apparently moonlights as a nose."
@@ -141,6 +146,7 @@
 	taste_sensitivity = 25 // you eat vomit, this is a mercy
 	maxHealth = 80 //years of eatting trash has made your tongue strong
 	initial_accents = list(/datum/accent/fly)
+*/
 
 /obj/item/organ/tongue/abductor
 	name = "superlingual matrix"

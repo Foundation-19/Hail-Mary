@@ -60,6 +60,13 @@
 	meat_type = /obj/item/reagent_containers/food/snacks/fishmeat/salmon
 	secondary_drop = /obj/item/fishyegg/salmon
 
+/obj/item/fishy/shark
+	name = "shark"
+	desc = "oh god, its a landshark. wait its just a regular shark."
+	icon_state = "shark"
+	meat_type = /obj/item/reagent_containers/food/snacks/fishmeat/salmon
+	secondary_drop = /obj/item/fishyegg/shark
+
 /obj/item/fishy/eel
 	name = "electric eel"
 	desc = "When you're down by the sea and an eel bites your knee, that's a moray."
@@ -135,3 +142,9 @@
 	name = "clown fish egg"
 	icon_state = "clown_eggs"
 	desc = "If this tastes funny to you, it's probably because it's toxic."
+
+/obj/item/fishyegg/shark
+	name = "shark fish egg"
+	icon_state = "shark_eggs"
+	desc = "Shark eggs are often referred to mermaid's purses, can be used as a egg substitute."
+	grind_results = list(eggyolk = 2)
