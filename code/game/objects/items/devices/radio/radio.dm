@@ -440,14 +440,14 @@
 
 /obj/item/radio/proc/avoiding_a_sleep(mob/living/user, music_filepath, name_of_music, music_volume)
 	music_name = name_of_music
+	to_chat(user, "<span class='robot'><b>[src]</b> beeps into your ears, 'Now playing: <i>[music_name]</i>.' </span>")
 	if(user.client)
 		var/mob/M = user
 		var/client/C = M.client
 		if(!(C.prefs.toggles & MUSIC_RADIO))
 			return
-	playsound(user, music_filepath, music_volume, channel = music_channel) //plays the music to the user
 	music_playing = TRUE
-	to_chat(user, "<span class='robot'><b>[src]</b> beeps into your ears, 'Now playing: <i>[music_name]</i>.' </span>")
+	playsound(user, music_filepath, music_volume, channel = music_channel) //plays the music to the user
 	update_icon()
 
 /obj/item/radio/proc/playmusic(music_filepath, name_of_music, music_volume) //Plays music at src using the filepath to the audio file. This proc is directly working with the bluespace radio station at radio_station.dm
