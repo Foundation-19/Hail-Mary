@@ -445,6 +445,7 @@
 		var/mob/M = user
 		var/client/C = M.client
 		if(!(C.prefs.toggles & MUSIC_RADIO))
+			to_chat(user, "<span class='robot'><b>[src]</b> your preferences stopped <i>[music_name]</i> from playing!.' </span>")
 			return
 	music_playing = TRUE
 	playsound(user, music_filepath, music_volume, channel = music_channel) //plays the music to the user
