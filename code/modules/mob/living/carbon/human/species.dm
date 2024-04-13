@@ -1353,6 +1353,10 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 			target_message = span_warning("[target] blocks your attack!"))
 		return FALSE
 
+	if(prob(user.get_luck_critfail_chance())) //S.P.E.C.I.A.L.
+		user.visible_message(span_warning("Critical fail! [user] tries to attack [target], but hits [user.p_them()]self instead!"))
+		target = user
+
 	if(!(attackchain_flags & ATTACK_IS_PARRY_COUNTERATTACK))
 		if(HAS_TRAIT(user, TRAIT_PUGILIST))//CITADEL CHANGE - makes punching cause staminaloss but funny martial artist types get a discount
 			user.adjustStaminaLossBuffered(1.5)

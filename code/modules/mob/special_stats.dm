@@ -221,6 +221,16 @@ proc/get_top_level_mob(mob/S)
 
 /// LUCK
 
+/// Chance to drop a gun or hit yourself in melee
+/mob/proc/get_luck_critfail_chance()
+	switch(special_l)
+		if(1)
+			return 10
+		if(2)
+			return 4
+		if(3)
+			return 1
+	return 0
 
 
 

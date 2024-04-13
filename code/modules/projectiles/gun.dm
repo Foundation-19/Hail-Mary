@@ -553,6 +553,10 @@ ATTACHMENTS
 
 	if(!gun_firing_special_stat_check(user)) //S.P.E.C.I.A.L.
 		return
+	if(prob(user.get_luck_critfail_chance()))
+		user.drop_all_held_items()
+		user.visible_message(span_warning("Critical fail! [user] accidentally drops [p_their()] gun!"))
+		return
 	if(on_cooldown(user))
 		return
 	clear_cooldown_mods()
