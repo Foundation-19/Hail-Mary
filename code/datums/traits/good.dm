@@ -538,7 +538,7 @@ GLOBAL_LIST_INIT(pa_repair, list(
 	var/mob/living/carbon/human/H = quirk_holder
 	H.dna.species.punchdamagelow = IRON_FIST_PUNCH_DAMAGE_LOW
 	H.dna.species.punchdamagehigh = IRON_FIST_PUNCH_DAMAGE_MAX
-
+/*
 /datum/quirk/steel_fist
 	name = "Fists of Steel"
 	desc = "You have MASSIVE fists of kung-fury! Even MORE increases unarmed damage."
@@ -552,6 +552,7 @@ GLOBAL_LIST_INIT(pa_repair, list(
 	var/mob/living/carbon/human/H = quirk_holder
 	H.dna.species.punchdamagelow = STEEL_FIST_PUNCH_DAMAGE_LOW
 	H.dna.species.punchdamagehigh = STEEL_FIST_PUNCH_DAMAGE_MAX
+*/
 
 /datum/quirk/light_step
 	name = "Glass Walker"
@@ -761,6 +762,7 @@ GLOBAL_LIST_INIT(pa_repair, list(
 	lose_text = span_danger("You know? Being cold kind of sucks actually.")
 	locked =  FALSE
 
+/*
 /* /datum/quirk/radimmune
 	name = "Radiation - Immune"
 	desc = "Gieger Counters are for suckers."
@@ -778,6 +780,7 @@ GLOBAL_LIST_INIT(pa_repair, list(
 	gain_text = span_notice("You've decided radiation just doesn't matter much.")
 	lose_text = span_danger("You no longer feel like you could roll around in a rad puddle for a while.")
 	locked =  FALSE
+*/
 
 /datum/quirk/radimmunesorta
 	name = "Radiation - Sorta Immune"
@@ -788,6 +791,7 @@ GLOBAL_LIST_INIT(pa_repair, list(
 	lose_text = span_danger("You no longer think you should hang out next to rad puddles.")
 	locked =  FALSE
 
+/*
 /datum/quirk/nohunger
 	name = "Does not Eat"
 	desc = "You don't need to eat to live, lucky you."
@@ -796,6 +800,7 @@ GLOBAL_LIST_INIT(pa_repair, list(
 	gain_text = span_notice("Your need for food has left you.")
 	lose_text = span_danger("GOD YOU WANT A BURGER SO BAD.")
 	locked =  FALSE
+*/
 
 /datum/quirk/thickskin
 	name = "Thick Skin"
@@ -833,6 +838,7 @@ GLOBAL_LIST_INIT(pa_repair, list(
 	lose_text = span_danger("What's a two by four again?")
 	locked =  FALSE
 
+/*
 /datum/quirk/grappler
 	name = "Trained Grappler"
 	desc = "You've got real skills when it comes to grabbing people by the bits!"
@@ -859,6 +865,7 @@ GLOBAL_LIST_INIT(pa_repair, list(
 	gain_text = span_notice("They are already dead.")
 	lose_text = span_danger("Your fists no longer feel so powerful.")
 	locked =  FALSE
+*/
 
 /datum/quirk/quietstep
 	name = "Quiet Step"
