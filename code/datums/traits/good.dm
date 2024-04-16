@@ -122,6 +122,10 @@ GLOBAL_LIST_INIT(sorrows_recipes, list(
 	/datum/crafting_recipe/tribalwar/sorrows/femalegarb,
 	/datum/crafting_recipe/tribalwar/sorrows/yaoguaigauntlet))
 
+GLOBAL_LIST_INIT(wayfarer_recipes, list(
+	/datum/crafting_recipe/tribalwar/wayfarers/lightarmour,
+	/datum/crafting_recipe/tribalwar/wayfarers/heavyarmor))
+
 GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	/datum/crafting_recipe/tribalwar/bone/lightarmour,
 	/datum/crafting_recipe/tribalwar/bone/armour,
@@ -821,6 +825,17 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	gain_text = span_notice("The mysteries of your ancestors are revealed to you.")
 	lose_text = span_danger("You forget how your ancestors have created their garments.")
 	locked =  FALSE
+
+/datum/quirk/wayfarertraditions/add()
+	var/mob/living/carbon/human/H = quirk_holder
+	if(!H.mind.learned_recipes)
+		H.mind.learned_recipes = list()
+	H.mind.learned_recipes |= GLOB.wayfarer_recipes
+
+/datum/quirk/wayfarertraditions/remove()
+	var/mob/living/carbon/human/H = quirk_holder
+	if(H)
+		H.mind.learned_recipes -= GLOB.wayfarer_recipes
 
 /datum/quirk/bonedancertraditions
 	name = "Bone Dancer traditions"
