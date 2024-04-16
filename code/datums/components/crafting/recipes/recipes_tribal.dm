@@ -463,7 +463,6 @@ datum/crafting_recipe/tribalwar/bone
 	time = 30
 	reqs = list(/obj/item/stack/sheet/cloth = 3)
 
-
 /datum/crafting_recipe/tribalwar/bone/helmet
 	name = "Bone Dancer helmet"
 	result = /obj/item/clothing/head/helmet/skull/bone
@@ -471,7 +470,7 @@ datum/crafting_recipe/tribalwar/bone
 	reqs = list(/obj/item/stack/sheet/cloth = 1,
 				/obj/item/stack/sheet/leather = 1,
 				/obj/item/clothing/head/helmet/skull = 1)
-				
+
 // Western' Wayfarers
 
 /datum/crafting_recipe/tribalwar/wayfarers
