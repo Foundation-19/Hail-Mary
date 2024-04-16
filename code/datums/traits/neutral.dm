@@ -10,6 +10,7 @@
 	lose_text = span_notice("You can taste again!")
 	medical_record_text = "Patient suffers from ageusia and is incapable of tasting food or reagents."
 
+/*
 /datum/quirk/no_chocolate
 	name = "Chocolate intolerance"
 	desc = "Your metabolism finds chocolate rather disagreeable."
@@ -18,7 +19,9 @@
 	gain_text = span_notice("You feel like eating chocolate is a bad idea.")
 	lose_text = span_notice("You feel like it's safe to eat chocolate again")
 	medical_record_text = "Patient has an aversion to theobromine, and therefore cannot have chocolate."
+*/
 
+/*
 /datum/quirk/white_woman
 	name = "Peanutbutter difficulties"
 	desc = "Your tongue has difficulty handling the adhesiveness of peanut butter"
@@ -27,6 +30,7 @@
 	gain_text = span_notice("Your tongue lacks the manipulation to properly eat peanut butter.")
 	lose_text = span_notice("Your tongue is skilled at taking on sticky peanut butter.")
 	medical_record_text = "Patient's tongue lacks the dexterity required to eat peanut butter."
+*/
 
 /datum/quirk/autobrew //sugary foods create ethanol
 	name = "Autobrewery syndrome"
@@ -263,6 +267,8 @@
 			species.liked_food |= MEAT
 		if(initial(species.disliked_food) & ~MEAT)
 			species.disliked_food &= ~MEAT
+
+/*
 /datum/quirk/hydra
 	name = "Hydra Heads"
 	desc = "You are a tri-headed creature. To use, format your name like (Rucks-Sucks-Ducks) and use the action button in the top left."
@@ -308,6 +314,8 @@
 	hydra.real_name = selhead
 	hydra.visible_message("<span class='notice'>[hydra.name] pulls the rest of their heads back; and puts [selhead]'s forward.</span>", \
 							"<span class='notice'>You are now talking as [selhead]!</span>", ignored_mobs=owner)
+
+*/
 
 /datum/quirk/sheltered
 	name = "Sheltered"
@@ -372,7 +380,7 @@
 /datum/quirk/smol/remove()
 	if(istype(quirk_holder))
 		quirk_holder.RemoveElement(/datum/element/mob_holder) // undog
-
+/*
 /datum/quirk/cat
 	name = "A cat!"
 	desc = "You identify as a cat! (Mostly to help identify your species mechanically)"
@@ -410,6 +418,7 @@
 	desc = "You identify as a dog! (Mostly to help identify your species mechanically)"
 	value = 0
 	mob_trait = TRAIT_DOG
+*/
 
 /datum/quirk/photographer
 	name = "Photographer"
@@ -455,6 +464,7 @@
 		if(!human_holder.put_in_hands(folder))
 			folder.forceMove(get_turf(human_holder))
 
+/*
 /datum/quirk/zoomies
 	name = "Zoomies"
 	desc = "You can sprint twice as far before you begin to get tired. Just don't run into things."
@@ -466,3 +476,4 @@
 	desc = "You never tire of sprinting at all, just be extremely careful not to run into things."
 	value = 0
 	mob_trait = TRAIT_SUPER_ZOOMIES
+*/
