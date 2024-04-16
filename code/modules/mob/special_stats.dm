@@ -1,18 +1,12 @@
-//////////////////////////////////////////////////////
-////////////////////SUBTLE COMMAND////////////////////
-//////////////////////////////////////////////////////
-
-#define DEFAULT_SPECIAL_ATTR_VALUE 5
-#define MIN_INT_CRAFTING_REQUIREMENT 3
 /mob
 	var/flavor_text = "" //tired of fucking double checking this
-	var/special_s = DEFAULT_SPECIAL_ATTR_VALUE // +/-2 dmg in melee for each level above/below 5 ST
-	var/special_p = DEFAULT_SPECIAL_ATTR_VALUE // +/- 5 degrees of innate gun spread for each level below/above 5 PR
-	var/special_e = DEFAULT_SPECIAL_ATTR_VALUE // +/-5 maxHealth for each level above/below 5 END
-	var/special_c = DEFAULT_SPECIAL_ATTR_VALUE // Desc message + moodlets
-	var/special_i = DEFAULT_SPECIAL_ATTR_VALUE // Can't craft with INT under MIN_INT_CRAFTING_REQUIREMENT, certain recipes can be INT locked, certain guns can be INT locked
-	var/special_a = DEFAULT_SPECIAL_ATTR_VALUE // +/- 10% Sprint stamina usage modifier -/+ 0.05 movespeed modifier per lvl below/above 5 AGI
-	var/special_l = DEFAULT_SPECIAL_ATTR_VALUE // Currently nothing
+	var/special_s = SPECIAL_DEFAULT_ATTR_VALUE // +/-2 dmg in melee for each level above/below 5 ST
+	var/special_p = SPECIAL_DEFAULT_ATTR_VALUE // +/- 5 degrees of innate gun spread for each level below/above 5 PR
+	var/special_e = SPECIAL_DEFAULT_ATTR_VALUE // +/-5 maxHealth for each level above/below 5 END
+	var/special_c = SPECIAL_DEFAULT_ATTR_VALUE // Desc message + moodlets
+	var/special_i = SPECIAL_DEFAULT_ATTR_VALUE // Can't craft with INT under SPECIAL_MIN_INT_CRAFTING_REQUIREMENT, certain recipes can be INT locked, certain guns can be INT locked
+	var/special_a = SPECIAL_DEFAULT_ATTR_VALUE // +/- 10% Sprint stamina usage modifier -/+ 0.05 movespeed modifier per lvl below/above 5 AGI
+	var/special_l = SPECIAL_DEFAULT_ATTR_VALUE // Currently nothing
 
 /mob/proc/get_top_level_mob()
 	if(istype(src.loc,/mob)&&src.loc!=src)
@@ -61,20 +55,20 @@ proc/get_top_level_mob(mob/S)
 /// STRENGTH
 
 /obj/item/proc/calc_melee_dam_mod_from_special(mob/living/user)
-	return ((user.special_s - DEFAULT_SPECIAL_ATTR_VALUE) * 2)
+	return ((user.special_s - SPECIAL_DEFAULT_ATTR_VALUE) * 2)
 
 /datum/species/proc/calc_unarmed_dam_mod_from_special(mob/living/user)
-	return ((user.special_s - DEFAULT_SPECIAL_ATTR_VALUE) * 2)
+	return ((user.special_s - SPECIAL_DEFAULT_ATTR_VALUE) * 2)
 
 /// PERCEPTION
 
 /obj/item/ammo_casing/proc/calc_bullet_spread_mod_from_special(mob/living/user)
-	return ((user.special_p - DEFAULT_SPECIAL_ATTR_VALUE) * 5) // +/- 5 degrees of innate spread per lvl
+	return ((user.special_p - SPECIAL_DEFAULT_ATTR_VALUE) * 5) // +/- 5 degrees of innate spread per lvl
 
 /// ENDURANCE
 
 /mob/living/carbon/human/initialize_special_endurance()
-	maxHealth = initial(maxHealth) + ((special_e - DEFAULT_SPECIAL_ATTR_VALUE) * 5)
+	maxHealth = initial(maxHealth) + ((special_e - SPECIAL_DEFAULT_ATTR_VALUE) * 5)
 	health = maxHealth
 
 /datum/species/proc/get_special_burn_resist_multiplier(mob/living/user)
@@ -197,7 +191,7 @@ proc/get_top_level_mob(mob/S)
 /datum/component/personal_crafting/proc/special_crafting_check(mob/living/user)
 	if(!istype(user))
 		return FALSE
-	if(user.special_i <= MIN_INT_CRAFTING_REQUIREMENT)
+	if(user.special_i <= SPECIAL_MIN_INT_CRAFTING_REQUIREMENT)
 		to_chat(user,  "Your brain is too dumb to craft items.")
 		return FALSE
 	return TRUE
@@ -214,10 +208,10 @@ proc/get_top_level_mob(mob/S)
 	return
 
 /mob/living/carbon/calc_sprint_stamina_mod_from_special()
-	return (1 - ((special_a - DEFAULT_SPECIAL_ATTR_VALUE) * 0.1))
+	return (1 - ((special_a - SPECIAL_DEFAULT_ATTR_VALUE) * 0.1))
 
 /mob/proc/calc_movespeed_mod_from_special()
-	return -((special_a - DEFAULT_SPECIAL_ATTR_VALUE) * 0.05)
+	return -((special_a - SPECIAL_DEFAULT_ATTR_VALUE) * 0.05)
 
 /// LUCK
 

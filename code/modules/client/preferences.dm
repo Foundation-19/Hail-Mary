@@ -205,13 +205,13 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 	var/hide_ckey = FALSE //pref for hiding if your ckey shows round-end or not
 
-	var/special_s = 5
-	var/special_p = 5
-	var/special_e = 5
-	var/special_c = 5
-	var/special_i = 5
-	var/special_a = 5
-	var/special_l = 5
+	var/special_s = SPECIAL_DEFAULT_ATTR_VALUE
+	var/special_p = SPECIAL_DEFAULT_ATTR_VALUE
+	var/special_e = SPECIAL_DEFAULT_ATTR_VALUE
+	var/special_c = SPECIAL_DEFAULT_ATTR_VALUE
+	var/special_i = SPECIAL_DEFAULT_ATTR_VALUE
+	var/special_a = SPECIAL_DEFAULT_ATTR_VALUE
+	var/special_l = SPECIAL_DEFAULT_ATTR_VALUE
 
 	/// Associative list: matchmaking_prefs[/datum/matchmaking_pref subtype] -> number of desired matches
 	var/list/matchmaking_prefs = list()
@@ -1129,7 +1129,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 	dat += "<center><b>Allocate points</b></center>"
 	dat += "<center>Note: SPECIAL is functional here. These points have an effect on gameplay.</center><br>"
-	dat += "<center>[total] out of 35 possible</center><br>"
+	dat += "<center>[total] out of [SPECIAL_MAX_POINT_SUM_CAP] possible</center><br>"
 	dat += "<b>Strength	   :</b> <a href='?_src_=prefs;preference=special_s;task=input'>[special_s]</a><BR>"
 	dat += "<b>Perception  :</b> <a href='?_src_=prefs;preference=special_p;task=input'>[special_p]</a><BR>"
 	dat += "<b>Endurance   :</b> <a href='?_src_=prefs;preference=special_e;task=input'>[special_e]</a><BR>"
@@ -1137,7 +1137,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	dat += "<b>Intelligence:</b> <a href='?_src_=prefs;preference=special_i;task=input'>[special_i]</a><BR>"
 	dat += "<b>Agility     :</b> <a href='?_src_=prefs;preference=special_a;task=input'>[special_a]</a><BR>"
 	dat += "<b>Luck        :</b> <a href='?_src_=prefs;preference=special_l;task=input'>[special_l]</a><BR>"
-	if (total>35)
+	if (total > SPECIAL_MAX_POINT_SUM_CAP)
 		dat += "<center>Maximum exceeded, please change until your total is at or below 35<center>"
 	else
 		dat += "<center><a href='?_src_=prefs;preference=special;task=close'>Done</a></center>"
@@ -1326,43 +1326,43 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				if("special_s")
 					var/new_point = input(user, "Choose Amount(1-10)", "Strength") as num|null
 					if(new_point)
-						special_s = max(min(round(text2num(new_point)), 10),1)
+						special_s = clamp(round(new_point), SPECIAL_MIN_ATTR_VALUE, SPECIAL_MAX_ATTR_VALUE)
 					SetSpecial(user)
 					return 1
 				if("special_p")
 					var/new_point = input(user, "Choose Amount(1-10)", "Perception") as num|null
 					if(new_point)
-						special_p = max(min(round(text2num(new_point)), 10),1)
+						special_p = clamp(round(new_point), SPECIAL_MIN_ATTR_VALUE, SPECIAL_MAX_ATTR_VALUE)
 					SetSpecial(user)
 					return 1
 				if("special_e")
 					var/new_point = input(user, "Choose Amount(1-10)", "Endurance") as num|null
 					if(new_point)
-						special_e = max(min(round(text2num(new_point)), 10),1)
+						special_e = clamp(round(new_point), SPECIAL_MIN_ATTR_VALUE, SPECIAL_MAX_ATTR_VALUE)
 					SetSpecial(user)
 					return 1
 				if("special_c")
 					var/new_point = input(user, "Choose Amount(1-10)", "Charisma") as num|null
 					if(new_point)
-						special_c = max(min(round(text2num(new_point)), 10),1)
+						special_c = clamp(round(new_point), SPECIAL_MIN_ATTR_VALUE, SPECIAL_MAX_ATTR_VALUE)
 					SetSpecial(user)
 					return 1
 				if("special_i")
 					var/new_point = input(user, "Choose Amount(1-10)", "Intelligence") as num|null
 					if(new_point)
-						special_i = max(min(round(text2num(new_point)), 10),1)
+						special_i = clamp(round(new_point), SPECIAL_MIN_ATTR_VALUE, SPECIAL_MAX_ATTR_VALUE)
 					SetSpecial(user)
 					return 1
 				if("special_a")
 					var/new_point = input(user, "Choose Amount(1-10)", "Agility") as num|null
 					if(new_point)
-						special_a = max(min(round(text2num(new_point)), 10),1)
+						special_a = clamp(round(new_point), SPECIAL_MIN_ATTR_VALUE, SPECIAL_MAX_ATTR_VALUE)
 					SetSpecial(user)
 					return 1
 				if("special_l")
 					var/new_point = input(user, "Choose Amount(1-10)", "Luck") as num|null
 					if(new_point)
-						special_l = max(min(round(text2num(new_point)), 10),1)
+						special_l = clamp(round(new_point), SPECIAL_MIN_ATTR_VALUE, SPECIAL_MAX_ATTR_VALUE)
 					SetSpecial(user)
 					return 1
 				if("ghostform")
@@ -2103,7 +2103,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 	character.gender = gender
 	character.age = age
-	//special stuff
+	//S.P.E.C.I.A.L.
+	fix_special_values()
 	character.special_s = special_s
 	character.special_p = special_p
 	character.special_e = special_e
@@ -2320,6 +2321,30 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				to_chat(parent, span_userdanger("Your character had too many positive quirks, likely due to a bug! Your quirks have been reset, and you'll need to set up your quirks again."))
 			else
 				to_chat(parent, span_userdanger("Something went wrong! Your quirks have been reset, and you'll need to set up your quirks again."))
+
+/datum/preferences/proc/clamp_special_values() // S.P.E.C.I.A.L.
+	special_s = clamp(special_s, SPECIAL_MIN_ATTR_VALUE, SPECIAL_MAX_ATTR_VALUE)
+	special_p = clamp(special_p, SPECIAL_MIN_ATTR_VALUE, SPECIAL_MAX_ATTR_VALUE)
+	special_e = clamp(special_e, SPECIAL_MIN_ATTR_VALUE, SPECIAL_MAX_ATTR_VALUE)
+	special_c = clamp(special_c, SPECIAL_MIN_ATTR_VALUE, SPECIAL_MAX_ATTR_VALUE)
+	special_i = clamp(special_i, SPECIAL_MIN_ATTR_VALUE, SPECIAL_MAX_ATTR_VALUE)
+	special_a = clamp(special_a, SPECIAL_MIN_ATTR_VALUE, SPECIAL_MAX_ATTR_VALUE)
+	special_l = clamp(special_l, SPECIAL_MIN_ATTR_VALUE, SPECIAL_MAX_ATTR_VALUE)
+
+/datum/preferences/proc/reset_special_values() // S.P.E.C.I.A.L.
+	special_s = SPECIAL_DEFAULT_ATTR_VALUE
+	special_p = SPECIAL_DEFAULT_ATTR_VALUE
+	special_e = SPECIAL_DEFAULT_ATTR_VALUE
+	special_c = SPECIAL_DEFAULT_ATTR_VALUE
+	special_i = SPECIAL_DEFAULT_ATTR_VALUE
+	special_a = SPECIAL_DEFAULT_ATTR_VALUE
+	special_l = SPECIAL_DEFAULT_ATTR_VALUE
+
+/datum/preferences/proc/fix_special_values() // S.P.E.C.I.A.L.
+	clamp_special_values()
+	var/sum = special_s + special_p + special_e + special_c + special_i + special_a + special_l
+	if(sum > SPECIAL_MAX_POINT_SUM_CAP)
+		reset_special_values()
 
 
 #undef DEFAULT_SLOT_AMT
