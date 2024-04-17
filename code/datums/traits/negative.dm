@@ -72,6 +72,7 @@ GLOBAL_LIST_EMPTY(family_heirlooms)
 		/obj/item/lighter,
 		/obj/item/card/id/rusted,
 		/obj/item/card/id/rusted/fadedvaultid,
+		/obj/item/card/id/rusted/rustedmedallion,
 		/obj/item/card/id/rusted/brokenholodog,
 		/obj/item/card/id/rusted/brokenholodog/enclave,
 		/obj/item/clothing/gloves/ring/silver,
