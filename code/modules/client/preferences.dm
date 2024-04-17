@@ -1131,19 +1131,26 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	dat += "<center>Note: SPECIAL is functional here. These points have an effect on gameplay.</center><br>"
 	dat += "<center>[total] out of [SPECIAL_MAX_POINT_SUM_CAP] possible</center><br>"
 	dat += "<b>Strength	   :</b> <a href='?_src_=prefs;preference=special_s;task=input'>[special_s]</a><BR>"
+	dat += "<font size='1'><i>Strength affects the amount of melee damage you dish out.</i></font><br>"
 	dat += "<b>Perception  :</b> <a href='?_src_=prefs;preference=special_p;task=input'>[special_p]</a><BR>"
+	dat += "<font size='1'><i>Perception affects how well you can fire ranged weapons.</i></font><br>"
 	dat += "<b>Endurance   :</b> <a href='?_src_=prefs;preference=special_e;task=input'>[special_e]</a><BR>"
+	dat += "<font size='1'>Endurance affects your maximum health & resistance to fire and poisons.<i></i></font><br>"
 	dat += "<b>Charisma    :</b> <a href='?_src_=prefs;preference=special_c;task=input'>[special_c]</a><BR>"
+	dat += "<font size='1'><i>Charisma determines your character's examine text, leadership & ability to manipulate others.</i></font><br>"
 	dat += "<b>Intelligence:</b> <a href='?_src_=prefs;preference=special_i;task=input'>[special_i]</a><BR>"
+	dat += "<font size='1'><i>Intelligence is necessary for being able to craft various recipes, as well as the operation of energy weapons.</i></font><br>"
 	dat += "<b>Agility     :</b> <a href='?_src_=prefs;preference=special_a;task=input'>[special_a]</a><BR>"
+	dat += "<font size='1'><i>Agility determines your move speed and how much stamina you use while sprinting.</i></font><br>"
 	dat += "<b>Luck        :</b> <a href='?_src_=prefs;preference=special_l;task=input'>[special_l]</a><BR>"
+	dat += "<font size='1'><i>Luck does stuff!</i></font><br>"
 	if (total > SPECIAL_MAX_POINT_SUM_CAP)
 		dat += "<center>Maximum exceeded, please change until your total is at or below 35<center>"
 	else
 		dat += "<center><a href='?_src_=prefs;preference=special;task=close'>Done</a></center>"
 
 	user << browse(null, "window=preferences")
-	var/datum/browser/popup = new(user, "mob_occupation", "<div align='center'>S.P.E.C.I.A.L</div>", 300, 400) //no reason not to reuse the occupation window, as it's cleaner that way
+	var/datum/browser/popup = new(user, "mob_occupation", "<div align='center'>S.P.E.C.I.A.L</div>", 400, 550) //no reason not to reuse the occupation window, as it's cleaner that way
 	popup.set_window_options("can_close=0")
 	popup.set_content(dat.Join())
 	popup.open(0)
