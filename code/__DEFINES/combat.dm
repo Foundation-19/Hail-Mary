@@ -914,12 +914,12 @@ GLOBAL_LIST_INIT(main_body_parts, list(
 #define SHOTGUN_SPREAD_IMPROVISED 18
 
 /// Bullet spread modifier defines
-#define BULLET_SPREAD_BASE 2 // Base spread added from 'quality' ammo
+#define BULLET_SPREAD_BASE 4 // Base spread added from 'quality' ammo
 
 /// Bullet spread modifier defines
 #define BULLET_SPREAD_MATCH 0 // No extra spread~
-#define BULLET_SPREAD_SURPLUS (BULLET_SPREAD_BASE) // Base spread
-#define BULLET_SPREAD_HANDLOAD (BULLET_SPREAD_BASE * 2) // More spread!
+#define BULLET_SPREAD_SURPLUS (BULLET_SPREAD_BASE * 2) // More spread!
+#define BULLET_SPREAD_HANDLOAD (BULLET_SPREAD_BASE * 4) // Even more spread!
 
 /// Bullet wound falloff defines
 #define BULLET_WOUND_FALLOFF_PISTOL_LIGHT 0
@@ -982,7 +982,7 @@ GLOBAL_LIST_INIT(main_body_parts, list(
 #define GUN_FIREMODE_AUTO 3
 
 /// Max spread recoil can add
-#define GUN_RECOIL_MAX_SPREAD 30
+#define GUN_RECOIL_MAX_SPREAD 50
 
 /// Sawed-off recoil modifier
 #define SAWEDOFF_RECOIL_MULT 2
@@ -991,13 +991,13 @@ GLOBAL_LIST_INIT(main_body_parts, list(
 #define HOBO_RECOIL_MULT 2
 
 // Gun Akimbo Spread modifier
-#define GUN_AKIMBO_RECOIL_MOD 2
+#define GUN_AKIMBO_RECOIL_MOD 4
 
 // If their other hand is full, multiply recoil by this much
 #define GUN_FULL_OTHER_HAND_RECOIL_MOD 2
 
 // Global recoil modifier
-#define GUN_RECOIL_GLOBAL_MULT 0.75
+#define GUN_RECOIL_GLOBAL_MULT 1
 
 /// Gun recoil modifier per shot defines
 #define GUN_RECOIL_NONE (GUN_RECOIL_GLOBAL_MULT * 0.1)
