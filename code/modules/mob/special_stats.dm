@@ -215,6 +215,32 @@ proc/get_top_level_mob(mob/S)
 
 /// LUCK
 
+/// Currently affects only money from trashpiles
+/mob/proc/get_luck_loot_amt_multiplier()
+	switch(special_l)
+		if(1)
+			return 0.5
+		if(2)
+			return 0.625
+		if(3)
+			return 0.750
+		if(4)
+			return 0.875
+		if(5)
+			return 1
+		if(6)
+			return 1.1
+		if(7)
+			return 1.2
+		if(8)
+			return 1.3
+		if(9)
+			return 1.4
+		if(10)
+			return 1.5
+	return 1
+
+
 /// Chance to drop a gun or hit yourself in melee
 /mob/proc/get_luck_critfail_chance()
 	switch(special_l)
