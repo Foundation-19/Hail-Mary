@@ -474,24 +474,23 @@ datum/crafting_recipe/tribalwar/bone
 // Western' Wayfarers
 
 /datum/crafting_recipe/tribalwar/wayfarers
-    always_available = FALSE
+	always_available = FALSE
 
 /datum/crafting_recipe/tribalwar/wayfarers/lightarmour
-    name = "Wayfarers Light Armour"
-    result = /obj/item/clothing/suit/armor/light/tribal/westernwayfarer
-    time = 60
-    reqs = list(/obj/item/stack/crafting/metalparts = 5,
-                /obj/item/stack/sheet/leather = 5,
-                /obj/item/stack/crafting/goodparts = 5)
+	name = "Wayfarers Light Armour"
+	result = /obj/item/clothing/suit/armor/light/tribal/westernwayfarer
+	time = 60
+	reqs = list(/obj/item/stack/crafting/metalparts = 5,
+				/obj/item/stack/sheet/leather = 5,
+				/obj/item/stack/crafting/goodparts = 5)
 
 /datum/crafting_recipe/tribalwar/wayfarers/heavyarmor
-    name = "Wayfarers Heavy Armour"
-    result = /obj/item/clothing/suit/armor/heavy/tribal/westernwayfarer
-    time = 60
-    reqs = list(/obj/item/clothing/suit/armor/light/tribal/westernwayfarer = 1,
-                /obj/item/stack/crafting/metalparts = 10,
-                /obj/item/stack/sheet/leather = 5,
-                /obj/item/stack/crafting/goodparts = 10)
+	name = "Wayfarers Heavy Armour"
+	result = /obj/item/clothing/suit/armor/heavy/tribal/westernwayfarer
+	time = 60
+				/obj/item/stack/crafting/metalparts = 10,
+				/obj/item/stack/sheet/leather = 5,
+				/obj/item/stack/crafting/goodparts = 10)
 
 //Cloth Eyepatch
 /datum/crafting_recipe/tribal/eyepatch
