@@ -556,14 +556,14 @@ mob/visible_message(message, self_message, blind_message, vision_distance = DEFA
 		log_game("[key_name(usr)] AM failed due to disconnect.")
 		return
 
-	if(src.previous_job)
-		M.previous_job = src.previous_job
-
 	var/mob/dead/new_player/M = new /mob/dead/new_player()
 	if(!client)
 		log_game("[key_name(usr)] AM failed due to disconnect.")
 		qdel(M)
 		return
+
+	if(src.previous_job)
+		M.previous_job = src.previous_job
 
 	M.key = key
 
