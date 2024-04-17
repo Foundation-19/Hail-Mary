@@ -906,12 +906,12 @@ GLOBAL_LIST_INIT(main_body_parts, list(
 #define BULLET_FALLOFF_MIN_DAMAGE 3
 
 /// Shotgun pellet count defines
-#define SHOTGUN_PELLET_BASE 10
-#define SHOTGUN_PELLET_IMPROVISED 8
+#define SHOTGUN_PELLET_BASE 8
+#define SHOTGUN_PELLET_IMPROVISED 6
 
 /// Shotgun pellet spread defines
-#define SHOTGUN_SPREAD_BASE 18
-#define SHOTGUN_SPREAD_IMPROVISED 25
+#define SHOTGUN_SPREAD_BASE 25
+#define SHOTGUN_SPREAD_IMPROVISED 18
 
 /// Bullet spread modifier defines
 #define BULLET_SPREAD_BASE 2 // Base spread added from 'quality' ammo
