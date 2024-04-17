@@ -428,7 +428,7 @@ Weapons		Lever shotgun, Grease gun, Repeater carbines, Revolvers, simple guns al
 	shoes = /obj/item/clothing/shoes/f13/military/plated
 	r_pocket = /obj/item/storage/survivalkit/medical/legion
 	l_pocket = /obj/item/flashlight/lantern
-	box = /obj/item/storage/survivalkit_tribal/chief
+	box = /obj/item/storage/survivalkit/tribal/chief
 	backpack_contents = list(
 		/obj/item/melee/onehanded/machete/gladius = 1,
 	//	/obj/item/storage/bag/money/small/legofficers = 1,
@@ -511,7 +511,7 @@ Weapons		Lever shotgun, Grease gun, Repeater carbines, Revolvers, simple guns al
 	name = "Legion Recruit Decanus"
 	jobtype = /datum/job/CaesarsLegion/Legionnaire/f13decanrec
 	id = /obj/item/card/id/dogtag/legion
-	suit = /obj/item/clothing/suit/armor/f13/legion/recruit/decan
+	suit = /obj/item/clothing/suit/armor/legion/recruit/decan
 	head = /obj/item/clothing/head/helmet/f13/legion/recruit/decan
 	mask = /obj/item/clothing/mask/bandana/legion
 	glasses = /obj/item/clothing/glasses/f13/goggles_sandstorm
@@ -594,7 +594,7 @@ Weapons		Lever shotgun, Grease gun, Repeater carbines, Revolvers, simple guns al
 	name = "Vexillarius"
 	jobtype = /datum/job/CaesarsLegion/Legionnaire/f13vexillarius
 	id = /obj/item/card/id/dogtag/legion/veteran
-	suit = /obj/item/clothing/suit/armor/f13/legion/vet/vexil
+	suit = /obj/item/clothing/suit/armor/legion/vet/vexil
 	mask = /obj/item/clothing/mask/bandana/legion
 	neck = /obj/item/storage/belt/holster
 	glasses = /obj/item/clothing/glasses/sunglasses
@@ -678,7 +678,7 @@ Weapons		Lever shotgun, Grease gun, Repeater carbines, Revolvers, simple guns al
 	name = "Legion Explorer"
 	jobtype = /datum/job/CaesarsLegion/Legionnaire/f13explorer
 	id = /obj/item/card/id/dogtag/legion/prime
-	suit = /obj/item/clothing/suit/armor/f13/legion/vet/explorer
+	suit = /obj/item/clothing/suit/armor/legion/vet/explorer
 	head = /obj/item/clothing/head/helmet/f13/legion/vet/explorer
 	neck = /obj/item/storage/belt/shoulderholster
 	r_pocket = /obj/item/flashlight
@@ -850,7 +850,7 @@ Weapons		Lever shotgun, Grease gun, Repeater carbines, Revolvers, simple guns al
 	mask = /obj/item/clothing/mask/bandana/legion
 	head = /obj/item/clothing/head/helmet/f13/legion/prime
 	neck = /obj/item/storage/belt/holster
-	suit = /obj/item/clothing/suit/armor/f13/legion/prime
+	suit = /obj/item/clothing/suit/armor/legion/prime
 	glasses = /obj/item/clothing/glasses/f13/goggles_sandstorm
 	r_pocket = /obj/item/storage/survivalkit/medical/legion
 	l_pocket = /obj/item/flashlight/lantern
