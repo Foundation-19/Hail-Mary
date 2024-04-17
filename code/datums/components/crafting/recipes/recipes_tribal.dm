@@ -488,7 +488,7 @@ datum/crafting_recipe/tribalwar/bone
 	name = "Wayfarers Heavy Armour"
 	result = /obj/item/clothing/suit/armor/heavy/tribal/westernwayfarer
 	time = 60
-				/obj/item/stack/crafting/metalparts = 10,
+	reqs = list(/obj/item/stack/crafting/metalparts = 10,
 				/obj/item/stack/sheet/leather = 5,
 				/obj/item/stack/crafting/goodparts = 10)
 
