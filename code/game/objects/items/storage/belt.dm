@@ -237,7 +237,7 @@
 	new /obj/item/hemostat(src)
 	new /obj/item/weldingtool/basic(src)
 	new /obj/item/bonesetter(src)
-
+*/
 //////////////////
 /// Generic belts
 
@@ -292,7 +292,7 @@
 	icon_state = "militarywebbing"
 	item_state = "militarywebbing"
 	slot_flags = ITEM_SLOT_BELT
-*/
+
 // ---------------------------------------------
 // BANDOLIER - since TG style bandolier was useless, now takes 3 boxes of shotgun ammo, or flasks, or grenades, or improvised bombs/molotovs
 /obj/item/storage/belt/bandolier

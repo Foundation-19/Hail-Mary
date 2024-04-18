@@ -3885,5 +3885,6 @@
 #include "modular_BD2\blacksmith\code\finished_items.dm"
 #include "modular_BD2\blacksmith\code\furnace.dm"
 #include "modular_BD2\blacksmith\code\smithed_items.dm"
+#include "modular_BD2\general\code\modular_BD2.dm"
 #include "modular_BD2\legio_invicta\code\legio_invicta.dm"
 // END_INCLUDE

@@ -384,7 +384,7 @@
 	new /obj/item/stack/medical/gauze(src)
 	new /obj/item/stack/medical/suture(src)
 	new /obj/item/stack/medical/mesh(src)
-	new /obj/item/reagent_containers/pill/patch/bitterdrink(src)
+	new /obj/item/reagent_containers/pill/bitterdrink(src)
 
 // new satchel style that doesnt clutter up the mob so much
 /obj/item/storage/backpack/marching_satchel
@@ -1125,7 +1125,7 @@ added to end of campfire/attackby
 // -------------- PRE-STONE RINGED BONFIRE ----------------- 
 
 /obj/structure/bonfire/safe
-	var/stones = TRUE  // maybe this needs porting from Atom
+	stones = TRUE  // maybe this needs porting from Atom
 	density = TRUE
 
 /obj/structure/bonfire/safe/Initialize()
@@ -1211,9 +1211,6 @@ added to end of campfire/attackby
 	icon = 'modular_BD2/general/icons/tileset_sonora.dmi'
 	icon_state = "desertsmooth"
 	slowdown = 0.3
-	loots = list(
-						/obj/item/stack/crafting/metalparts/five = 10,
-						)
 	footstep = FOOTSTEP_LOOSE_SAND
 	barefootstep = FOOTSTEP_LOOSE_SAND
 	clawfootstep = FOOTSTEP_LOOSE_SAND
