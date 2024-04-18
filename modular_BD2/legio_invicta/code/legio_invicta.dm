@@ -477,7 +477,7 @@
 		/obj/item/stack/sheet/leather = 2,
 		)
 	time = 200
-	tools = list(TOOL_METAL_BENCH)
+	tools = list(TOOL_WORKBENCH)
 	category = CAT_CRAFTING
 	subcategory = CAT_FORGING
 	always_available = FALSE

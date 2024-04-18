@@ -11629,10 +11629,10 @@
 /obj/structure/rack,
 /obj/item/ingot/iron,
 /obj/item/ingot/iron,
-/obj/item/ingot/titanium,
-/obj/item/ingot/titanium,
-/obj/item/ingot/adamantine,
-/obj/item/ingot/adamantine,
+/obj/item/blacksmith/ingot/titanium,
+/obj/item/blacksmith/ingot/titanium,
+/obj/item/blacksmith/ingot/adamantine,
+/obj/item/blacksmith/ingot/adamantine,
 /turf/open/floor/plating/tunnel{
 	icon_state = "tunnelchess"
 	},

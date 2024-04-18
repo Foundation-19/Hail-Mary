@@ -16,7 +16,7 @@
 	force = FORCE_SMITH_LOW
 	throwforce = THROWING_DECENT
 	wound_bonus = WOUNDING_BONUS_MODEST
-	var/wielded_mult = 1
+	wielded_mult = 1
 	material_flags = MATERIAL_COLOR | MATERIAL_AFFECT_STATISTICS
 	total_mass = TOTAL_MASS_MEDIEVAL_WEAPON
 	slot_flags = ITEM_SLOT_BELT
@@ -55,8 +55,7 @@
 	max_integrity = 200
 	flags_1 = CONDUCT_1
 	var/wield_force
-	var/wielded_mult = 1.5
-	var/wielded_icon
+	wielded_mult = 1.5
 	var/mutable_appearance/overlay
 	var/overlay_state = "woodenrod"
 	var/x_offset = null

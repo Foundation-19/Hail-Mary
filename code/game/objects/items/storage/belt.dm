@@ -758,6 +758,8 @@
 	content_overlays = TRUE
 	onmob_overlays = TRUE
 	slot_flags = ITEM_SLOT_NECK
+	var/list/fitting_swords = list(/obj/item/melee/smith/sword, /obj/item/melee/baton/stunsword)
+	var/starting_sword = null
 
 /obj/item/storage/belt/sword/ComponentInitialize()
 	. = ..()
@@ -767,9 +769,7 @@
 	STR.max_combined_w_class = 3
 	STR.can_hold = typecacheof(list(/obj/item/melee, /obj/item/twohanded))
 	STR.quickdraw = TRUE
-	var/list/fitting_swords = list(/obj/item/melee/smith/sword, /obj/item/melee/baton/stunsword)
-	var/starting_sword = null
-
+	
 // Instead of half-assed broken weaboo stuff lets have something that works.
 /obj/item/storage/belt/sword/twin
 	name = "daishō"
