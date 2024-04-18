@@ -982,7 +982,7 @@
 
 /obj/structure/statue/mars/examine(mob/user)
 	. = ..()
-	SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "inspired_art", /datum/mood_event/inspired_art)
+	SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "inspired_art", /datum/mood_event/inspired_art)
 	. += "<span class='notice'>What a inspiring sight.</span>"
 
 /datum/mood_event/inspired_art
