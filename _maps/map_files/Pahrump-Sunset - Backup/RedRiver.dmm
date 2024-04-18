@@ -11654,7 +11654,7 @@
 	},
 /area/f13/wasteland/city)
 "gIH" = (
-/obj/item/ingot/silver,
+/obj/item/blacksmith/ingot/silver,
 /obj/item/blacksmith/ingot/gold,
 /obj/item/blacksmith/ingot/titanium,
 /turf/open/floor/plasteel/dark,
@@ -38844,7 +38844,7 @@
 /area/f13/wasteland)
 "wXv" = (
 /obj/structure/closet/crate/wicker,
-/obj/item/ingot/silver{
+/obj/item/blacksmith/ingot/silver{
 	pixel_x = 5;
 	pixel_y = 2
 	},

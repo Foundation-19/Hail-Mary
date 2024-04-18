@@ -2100,7 +2100,7 @@
 /area/f13/building/massfusion)
 "cKc" = (
 /obj/structure/table/reinforced,
-/obj/item/blacksmith/ingot/adamantine,
+/obj/item/ingot/adamantine,
 /turf/open/floor/plasteel/f13{
 	icon_state = "darkrusty"
 	},
