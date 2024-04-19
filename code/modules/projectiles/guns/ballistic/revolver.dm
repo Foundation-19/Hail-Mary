@@ -676,7 +676,7 @@
 	init_firemodes = list(
 		/datum/firemode/semi_auto/fast
 	)
-	fire_sound = 'sound/f13weapons/magnum_fire.ogg'
+	fire_sound = 'sound/f13weapons/ghoulgun_fire.ogg'
 
 // LEGACY STUFF
 
