@@ -16,13 +16,16 @@
 	icon_dead = "feverblossom-dead"
 	mutatelist = list()
 	reagents_add = list(
-		/datum/reagent/consumable/nutriment = 0.05
+		/datum/reagent/consumable/nutriment = 0.05,
+		/datum/reagent/medicine/medx = 0.01,
+		/datum/reagent/drug/psycho = 0.01,
+		/datum/reagent/drug/jet = 0.04
 	)
 
 /obj/item/reagent_containers/food/snacks/grown/fever_blossom
 	seed = /obj/item/seeds/fever_blossom
 	name = "fever blossom"
-	desc = "A glowing flower of intricate design and a rich scent. It is a known aphrodisiac."
+	desc = "A glowing flower of intricate design and a rich scent. It is a known hallucinogen and numbing agent."
 	icon_state = "fever_blossom"
 	slot_flags = ITEM_SLOT_HEAD
 	filling_color = "#8000ff"
@@ -30,4 +33,4 @@
 	tastes = list("pleasant flora" = 1)
 	foodtype = VEGETABLES
 	juice_results = list(/datum/reagent/consumable/fever_blossom_juice = 0)
-	distill_reagent = /datum/reagent/consumable/ethanol/between_the_sheets
+	distill_reagent = /datum/reagent/consumable/ethanol/feverdream

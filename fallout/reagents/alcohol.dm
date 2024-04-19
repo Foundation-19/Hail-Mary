@@ -593,7 +593,7 @@
 	glass_name = "Alcohol-Z"
 	glass_desc = "An potent generic spirit, distilled through tacky radiation and intense stirring."
 
-/*/datum/reagent/consumable/ethanol/bbock //TDM Begone
+/datum/reagent/consumable/ethanol/bbock //TDM Begone //Reenabled because furry HATE
 	name = "Ballistic Bock"
 	description = "An explosive cocktail that probably shouldn't be ingested. Fills you with <BIG>BALLISTIC RAGE<BIG>."
 	color = "#333333"
@@ -624,7 +624,7 @@
 	if(iscarbon(M))
 		var/mob/living/carbon/C = M
 		C.cure_trauma_type(rage, TRAUMA_RESILIENCE_ABSOLUTE)
-	..()*/
+	..()
 
 /datum/reagent/consumable/ethanol/bbrew
 	name = "Battle Brew"
@@ -1181,3 +1181,29 @@
 	M.set_drugginess(0)
 	M.hallucination += 0
 	..()
+
+/datum/reagent/consumable/ethanol/feverdream
+	name = "Fever Dream"
+	description = "Life could be a dream."
+	color = "#70D7FF"
+	boozepwr = 100
+	taste_description = "fantasy"
+	glass_icon_state = "glass_brown"
+	glass_name = "Fever Dream"
+	glass_desc = "Life could be a dream."
+	var/datum/brain_trauma/special/imaginary_friend/fren
+	var/datum/brain_trauma/severe/hypnotic_stupor/alice
+
+/datum/reagent/consumable/ethanol/feverdream/on_mob_life(mob/living/carbon/M)
+	var/high_message = pick("<br><font color='#70D7FF'><b>Am I dreaming?...</b></font>", "<br><font color='#70D7FF'><b>Is this real?...</b></font>", "<br><font color='#70D7FF'><b>It's like I'm swimming in fog...</b></font>")
+	if(prob(10))
+		to_chat(M, span_notice("[high_message]"))
+	M.AdjustKnockdown(-10, 0)
+	if(iscarbon(M))
+		var/mob/living/carbon/C = M
+		fren = new()
+		alice = new()
+		C.gain_trauma(fren, TRAUMA_RESILIENCE_SURGERY)
+		C.gain_trauma(alice, TRAUMA_RESILIENCE_SURGERY)
+	..()
+	. = TRUE
