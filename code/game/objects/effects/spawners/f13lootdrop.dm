@@ -1130,7 +1130,7 @@
 	name = "autoloader and ammo spawner"
 	items = list(
 				/obj/item/gun/ballistic/automatic/pistol/sig,
-				/obj/item/ammo_box/magazine/m45/socom
+				/obj/item/ammo_box/magazine/m45
 	)
 
 /obj/effect/spawner/bundle/f13/thatgun
