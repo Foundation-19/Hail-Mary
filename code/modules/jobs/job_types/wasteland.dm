@@ -1430,7 +1430,7 @@ Raider
 		/obj/item/grenade/homemade/coffeepotbomb = 2
 	)
 
-	/datum/outfit/loadout/newcanaan
+/datum/outfit/loadout/newcanaan
 	name = "New Canaanite"
 	backpack_contents = list(
 		/obj/item/gun/ballistic/automatic/pistol/m1911 = 10
