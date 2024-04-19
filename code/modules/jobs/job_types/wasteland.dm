@@ -1427,13 +1427,13 @@ Raider
 /datum/outfit/loadout/cleanser
 	name = "Cleanser"
 	backpack_contents = list(
-		/obj/item/grenade/homemade/coffeepotbomb = 2	//This is funny. I swear guys.
+		/obj/item/grenade/homemade/coffeepotbomb = 2
 	)
 
 	/datum/outfit/loadout/newcanaan
 	name = "New Canaanite"
 	backpack_contents = list(
-		/obj/item/gun/ballistic/automatic/pistol/m1911 = 10	//We can't expect God to do all the work.
+		/obj/item/gun/ballistic/automatic/pistol/m1911 = 10
 	)
 
 
