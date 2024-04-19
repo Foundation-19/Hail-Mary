@@ -173,7 +173,7 @@
 	item_state = "eng_hardsuit"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/engine
 	resistance_flags = FIRE_PROOF
-	mutantrace_variation = STYLE_DIGITIGRADE|STYLE_ALL_TAURIC
+	mutantrace_variation = STYLE_DIGITIGRADE
 
 	//Atmospherics
 /obj/item/clothing/head/helmet/space/hardsuit/engine/atmos
@@ -239,7 +239,7 @@
 	resistance_flags = FIRE_PROOF
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/mining
 	heat_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
-	mutantrace_variation = STYLE_DIGITIGRADE|STYLE_ALL_TAURIC
+	mutantrace_variation = STYLE_DIGITIGRADE
 
 /obj/item/clothing/suit/space/hardsuit/mining/Initialize()
 	. = ..()
@@ -332,7 +332,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/syndi
 	jetpack = /obj/item/tank/jetpack/suit
-	mutantrace_variation = STYLE_DIGITIGRADE|STYLE_ALL_TAURIC
+	mutantrace_variation = STYLE_DIGITIGRADE
 
 //Elite Syndie suit
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/elite
@@ -361,7 +361,7 @@
 	heat_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF | ACID_PROOF
-	mutantrace_variation = STYLE_DIGITIGRADE|STYLE_SNEK_TAURIC|STYLE_PAW_TAURIC
+	mutantrace_variation = STYLE_DIGITIGRADE
 
 /obj/item/clothing/suit/space/hardsuit/syndi/elite/debug
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/syndi/elite/debug
@@ -451,7 +451,7 @@
 	item_state = "medical_hardsuit"
 	slowdown = 0.8
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/medical
-	mutantrace_variation = STYLE_DIGITIGRADE|STYLE_ALL_TAURIC
+	mutantrace_variation = STYLE_DIGITIGRADE
 
 	//Research Director hardsuit
 /obj/item/clothing/head/helmet/space/hardsuit/rd
@@ -504,7 +504,7 @@
 	desc = "A special suit that protects against hazardous, low pressure environments. Has an additional layer of armor."
 	item_state = "sec_hardsuit"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/security
-	mutantrace_variation = STYLE_DIGITIGRADE|STYLE_ALL_TAURIC
+	mutantrace_variation = STYLE_DIGITIGRADE
 
 /obj/item/clothing/suit/space/hardsuit/security/Initialize()
 	. = ..()
@@ -757,7 +757,7 @@
 	hardsuit_type = "syndi"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/shielded/syndi
 	slowdown = 0
-	mutantrace_variation = STYLE_DIGITIGRADE|STYLE_ALL_TAURIC
+	mutantrace_variation = STYLE_DIGITIGRADE
 
 /obj/item/clothing/suit/space/hardsuit/shielded/syndi/Initialize()
 	jetpack = new /obj/item/tank/jetpack/suit(src)

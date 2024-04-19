@@ -14,7 +14,7 @@
 	has_sensor = NO_SENSORS
 	alt_covers_chest = TRUE
 	fitted = FEMALE_UNIFORM_TOP
-	mutantrace_variation = STYLE_DIGITIGRADE|STYLE_NO_ANTHRO_ICON
+	mutantrace_variation = STYLE_DIGITIGRADE
 
 /obj/item/clothing/under/syndicate/bloodred
 	name = "blood-red sneaksuit"
@@ -52,7 +52,7 @@
 	icon_state = "tactifool_skirt"
 	item_state = "bl_suit"
 	fitted = FEMALE_UNIFORM_TOP
-	mutantrace_variation = STYLE_DIGITIGRADE|STYLE_NO_ANTHRO_ICON
+	mutantrace_variation = STYLE_DIGITIGRADE
 
 /obj/item/clothing/under/syndicate/cosmetic
 	name = "tactitool turtleneck"
@@ -89,7 +89,6 @@
 	desc = "With a suit lined with this many pockets, you are ready to operate."
 	icon_state = "syndicate_combat"
 	can_adjust = FALSE
-	mutantrace_variation = USE_TAUR_CLIP_MASK
 
 /obj/item/clothing/under/syndicate/rus_army
 	name = "advanced military tracksuit"
@@ -97,7 +96,7 @@
 	icon_state = "rus_under"
 	can_adjust = FALSE
 	resistance_flags = NONE
-	mutantrace_variation = STYLE_DIGITIGRADE|STYLE_NO_ANTHRO_ICON
+	mutantrace_variation = STYLE_DIGITIGRADE
 
 /obj/item/clothing/under/syndicate/baseball
 	name = "major league, number unknown"
@@ -106,5 +105,4 @@
 	item_state = "syndicatebaseball"
 	has_sensor = NO_SENSORS
 	alt_covers_chest = TRUE
-	mutantrace_variation = USE_TAUR_CLIP_MASK
 

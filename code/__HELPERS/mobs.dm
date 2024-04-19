@@ -51,13 +51,12 @@
 
 	var/list/snowflake_ipc_antenna_list = list()
 	for(var/mspath in GLOB.ipc_antennas_list)
-		var/datum/sprite_accessory/snouts/mam_snouts/instance = GLOB.ipc_antennas_list[mspath]
-		if(istype(instance, /datum/sprite_accessory))
-			var/datum/sprite_accessory/S = instance
-			if(intendedspecies && S.recommended_species && !S.recommended_species.Find(intendedspecies))
+		var/datum/sprite_accessory/instance = GLOB.ipc_antennas_list[mspath]
+		if(istype(instance))
+			if(intendedspecies && instance.recommended_species && !instance.recommended_species.Find(intendedspecies))
 				continue
-			if(!S.ckeys_allowed)
-				snowflake_ipc_antenna_list[S.name] = mspath
+			if(!instance.ckeys_allowed)
+				snowflake_ipc_antenna_list[instance.name] = mspath
 	var/color1 = random_color()
 	var/color2 = random_color()
 	var/color3 = random_color()

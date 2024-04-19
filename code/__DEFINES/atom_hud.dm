@@ -27,9 +27,6 @@
 //for antag huds. these are used at the /mob level
 #define ANTAG_HUD		"23"
 #define ONLINE_HUD		"24"
-/// Genital huds
-#define GENITAL_HUD		"25"
-#define TAIL_HUD		"26"
 
 //by default everything in the hud_list of an atom is an image
 //a value in hud_list with one of these will change that behavior
