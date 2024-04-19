@@ -1411,7 +1411,8 @@ Raider
 	name = "Crusader"
 	backpack_contents = list(
 		/obj/item/clothing/suit/armor/light/knight = 1,
-		/obj/item/clothing/head/helmet/f13/knighthelmet = 1
+		/obj/item/clothing/head/helmet/f13/knighthelmet = 1,
+		///obj/item/melee/onehanded/machete = 1,
 	)
 
 /datum/outfit/loadout/samaritan
@@ -1427,13 +1428,15 @@ Raider
 /datum/outfit/loadout/cleanser
 	name = "Cleanser"
 	backpack_contents = list(
-		/obj/item/grenade/homemade/coffeepotbomb = 2
+		/obj/item/grenade/homemade/coffeepotbomb = 2,	//This is funny. I swear guys.
+		///obj/item/gun/ballistic/revolver/m29 = 1,		//Moved here for more *variety*
+		///obj/item/ammo_box/m44 = 2
 	)
 
 /datum/outfit/loadout/newcanaan
 	name = "New Canaanite"
 	backpack_contents = list(
-		/obj/item/gun/ballistic/automatic/pistol/m1911 = 10
+		/obj/item/gun/ballistic/automatic/pistol/m1911 = 10	//We can't expect God to do all the work.
 	)
 
 
