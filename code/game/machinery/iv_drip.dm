@@ -48,7 +48,7 @@
 		else
 			. += "beakeridle"
 		if(beaker.reagents.total_volume)
-			var/mutable_appearance/filling_overlay = mutable_appearance('icons/obj/iv_drip.dmi', "reagent")
+			var/mutable_appearance/filling_overlay = mutable_appearance('modular_BD2/general/icons/primitive_medical.dmi', "reagent")
 
 			var/percent = round((beaker.reagents.total_volume / beaker.volume) * 100)
 			switch(percent)
@@ -212,6 +212,8 @@
 	set name = "Toggle Mode"
 	set src in view(1)
 
+	if(src == /obj/machinery/iv_drip/primitive)
+		return
 	if(!isliving(usr))
 		to_chat(usr, span_warning("You can't do that!"))
 		return

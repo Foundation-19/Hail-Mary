@@ -282,6 +282,7 @@
 /obj/item/stock_parts/cell/pulse/pistol //10 pulse shots
 	name = "pulse pistol power cell"
 	maxcharge = 2000
+	self_recharge = 1
 
 /obj/item/stock_parts/cell/high
 	name = "high-capacity power cell"
