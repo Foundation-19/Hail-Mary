@@ -81,11 +81,14 @@ GLOBAL_LIST_INIT(metalparts_recipes, list(\
 
 /obj/item/stack/crafting/electronicparts/five
 	amount = 5
-
-GLOBAL_LIST_INIT(electronicparts_recipes, list(\
-	new/datum/stack_recipe("ion arrowhead", /obj/item/stack/arrowhead/ion, 1, 1, 1 SECONDS),\
-	))
-
+//BIG IRON EDIT start, make it so you can craft some circit boards with electronic parts
+GLOBAL_LIST_INIT(electronicparts_recipes, list ( \
+	new/datum/stack_recipe("Jukebox circuit board", /obj/item/circuitboard/machine/jukebox, 2),
+))
+/obj/item/stack/crafting/electronicparts/get_main_recipes()
+	. = ..()
+	. += GLOB.electronicparts_recipes
+//BIG IRON EDIT end
 /obj/item/stack/crafting/electronicparts/get_main_recipes()
 	. = ..()
 	. += GLOB.electronicparts_recipes

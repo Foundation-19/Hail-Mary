@@ -346,10 +346,14 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/elite/debug
+	name = "chronicler helmet"
+	armor = list("melee" = 99, "bullet" = 95, "laser" = 95, "energy" = 95, "bomb" = 95, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100, "wound" = 100)
 
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/elite/debug/Initialize()
 	. = ..()
-	soundloop.volume = 0
+	do_sparks(7, FALSE, src)//spawns in, lightning effect also produced, what this mean is upto you
+	playsound(src, "sparks", 100, 1)
+	soundloop.volume = 0.5
 
 /obj/item/clothing/suit/space/hardsuit/syndi/elite
 	name = "elite syndicate hardsuit"
@@ -364,8 +368,10 @@
 	mutantrace_variation = STYLE_DIGITIGRADE
 
 /obj/item/clothing/suit/space/hardsuit/syndi/elite/debug
+	name = "chronicler hardsuit"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/syndi/elite/debug
 	slowdown = 0
+	armor = list("melee" = 99, "bullet" = 95, "laser" = 95, "energy" = 95, "bomb" = 95, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100, "wound" = 100)
 
 //The Owl Hardsuit
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/owl

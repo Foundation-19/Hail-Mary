@@ -11,12 +11,19 @@ export const Jukebox = (props, context) => {
     track_selected,
     track_length,
     track_beat,
+    disk_selected,
+    disk_selected_length,
+    disk_selected_beat,
     volume,
   } = data;
   const songs = flow([
     sortBy(
       song => song.name),
   ])(data.songs || []);
+  const disks = flow([
+    sortBy(
+      disk => disk.name),
+  ])(data.disks || []);
   return (
     <Window
       width={370}
@@ -25,11 +32,18 @@ export const Jukebox = (props, context) => {
         <Section
           title="Song Player"
           buttons={(
-            <Button
-              icon={active ? 'pause' : 'play'}
-              content={active ? 'Stop' : 'Play'}
-              selected={active}
-              onClick={() => act('toggle')} />
+            <>
+              <Button
+                icon={active ? 'pause' : 'play'}
+                content={active ? 'Stop' : 'Play'}
+                selected={active}
+                onClick={() => act('toggle')} />
+              <Button
+                icon={active ? 'pause' : 'play'}
+                content={active ? 'Eject' : 'Eject'}
+                selected={active}
+                onClick={() => act('eject_disk')} />
+            </>
           )}>
           <LabeledList>
             <LabeledList.Item label="Track Selected">
@@ -43,12 +57,30 @@ export const Jukebox = (props, context) => {
                   track: value,
                 })} />
             </LabeledList.Item>
+            <LabeledList.Item label="Disk Selected">
+              <Dropdown
+                overflow-y="scroll"
+                width="240px"
+                options={disks.map(disk => disk.name)}
+                disabled={active}
+                selected={disk_selected || "Select a Disk"}
+                onSelected={value => act('select_record', {
+                  record: value,
+                })} />
+            </LabeledList.Item>
             <LabeledList.Item label="Track Length">
               {track_selected ? track_length : "No Track Selected"}
             </LabeledList.Item>
             <LabeledList.Item label="Track Beat">
               {track_selected ? track_beat : "No Track Selected"}
               {track_beat === 1 ? " beat" : " beats"}
+            </LabeledList.Item>
+            <LabeledList.Item label="Disk Length">
+              {disk_selected ? disk_selected_length : "No Disk Selected"}
+            </LabeledList.Item>
+            <LabeledList.Item label="Disk Beat">
+              {disk_selected ? disk_selected_beat : "No Disk Selected"}
+              {disk_selected_beat === 1 ? " beat" : " beats"}
             </LabeledList.Item>
           </LabeledList>
         </Section>

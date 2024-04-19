@@ -8,6 +8,7 @@
 /obj/machinery/autolathe
 	name = "autolathe"
 	desc = "It produces items using metal and glass."
+	icon = 'icons/fallout/machines/autolathe.dmi'
 	icon_state = "autolathe"
 	var/icon_state_base = "autolathe"
 	var/icon_state_open = "autolathe_t"
@@ -572,7 +573,7 @@
 
 /obj/machinery/autolathe/ammo
 	name = "reloading bench"
-	icon = 'icons/obj/machines/reloadingbench.dmi'
+	icon = 'icons/fallout/machines/reloadingbench.dmi'
 	desc = "An ammo bench that utilizes metal and other materials to make ammo and magazines."
 	circuit = /obj/item/circuitboard/machine/autolathe/ammo
 	stored_research = /datum/techweb/specialized/autounlocking/autolathe/ammo
@@ -833,12 +834,18 @@
 		new /obj/item/book/granter/crafting_recipe/gunsmith_three(src)
 	if(advanced)
 		new /obj/item/book/granter/crafting_recipe/gunsmith_four(src)
+	cut_overlays()
 	return
 
 /obj/machinery/autolathe/ammo/unlocked_basic
 	desc = "A ammo bench where you can make ammo and magazines. Copies of Guns and Ammo, parts one and two, can be found in a drawer."
 	simple = 1
 	basic = 1
+
+/obj/machinery/autolathe/ammo/unlocked_basic/Initialize()
+	. = ..()
+	add_overlay("book1")
+	add_overlay("book2")
 
 /obj/machinery/autolathe/ammo/unlocked
 	simple = 1
@@ -904,4 +911,11 @@
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	materials.max_amount = max_mats
 	prod_coeff = STANDARD_PART_LEVEL_LATHE_COEFFICIENT(default_workspeed)
+
+/obj/machinery/autolathe/ammo/unlocked/Initialize()
+	. = ..()
+	add_overlay("book1")
+	add_overlay("book2")
+	add_overlay("book3")
+	add_overlay("book4")
 

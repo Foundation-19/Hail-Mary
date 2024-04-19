@@ -7,6 +7,10 @@
 	icon = 'icons/fallout/vehicles/small_vehicles.dmi'
 	icon_state = "key-door"
 	var/id = 0
+	
+/obj/item/key/vending/jukebox //ATOM EDIT used exclusively to open a jukebox
+	name = "Jukebox's Access Key"
+	desc = "a key to open the disk tray of a jukebox."//ATOM EDIT -end-
 
 /obj/item/key/vending/proc/set_name(newname)
 	if(name != newname)
