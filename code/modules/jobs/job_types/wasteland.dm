@@ -1419,10 +1419,10 @@ Raider
 	backpack_contents = list(
 		/obj/item/reagent_containers/food/snacks/store/bread/plain = 5,
 		/obj/item/reagent_containers/food/snacks/fishmeat/salmon = 2,
-		/obj/item/reagent_containers/glass/beaker/waterbottle = 2,
-		/obj/item/reagent_containers/glass/beaker/waterbottle/wataur = 1
+		/obj/item/reagent_containers/glass/beaker/waterbottle = 3
 	)	//Matthew 14:17 RSVCE and KJV - Kitsunemitsu
 				//Nerd shit, wataur time. ~TK
+				//Wataur is forbidden. - Yuffels
 
 /datum/outfit/loadout/cleanser
 	name = "Cleanser"
