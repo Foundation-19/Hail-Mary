@@ -103,7 +103,7 @@
 	density = 0
 	pixel_x = 30
 
-/obj/machinery/vending/medical/nash
+/obj/machinery/vending/medical/eastwood
 	products = list(/obj/item/reagent_containers/syringe = 12,
 					/obj/item/reagent_containers/dropper = 3,
 					/obj/item/healthanalyzer = 6,

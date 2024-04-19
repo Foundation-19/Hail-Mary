@@ -1829,9 +1829,9 @@
 	turret_flags = TURRET_ROBOT_OWNED_FLAGS | TURRET_DEFAULT_UTILITY
 	faction = list("wastebot")
 
-/// Nash's Friendliest Autogun
+/// Eastwood's Friendliest Autogun
 /// needs ammo~
-/obj/machinery/porta_turret/f13/nash
+/obj/machinery/porta_turret/f13/eastwood
 	name = "portable .22LR sentry turret"
 	icon = 'icons/obj/turrets.dmi'
 	icon_state = "syndie_off"
@@ -1875,14 +1875,14 @@
 		SP_DISTANT_RANGE(PISTOL_LIGHT_RANGE_DISTANT)
 	)
 
-/obj/machinery/porta_turret/f13/nash/Initialize()
+/obj/machinery/porta_turret/f13/eastwood/Initialize()
 	. = ..()
 	if(our_mag)
 		var/obj/item/ammo_box/magazine/internal/newmag = our_mag
 		our_mag = new newmag(src)
 	chamber_new_round(FALSE)
 
-/obj/machinery/porta_turret/f13/nash/Destroy()
+/obj/machinery/porta_turret/f13/eastwood/Destroy()
 	. = ..()
 	if(istype(our_mag) && obj_integrity <= 0)
 		for(var/obj/item/ammo_casing/casing_to_eject in our_mag.stored_ammo)
@@ -1890,17 +1890,17 @@
 	QDEL_NULL(our_mag)
 	QDEL_NULL(chambered)
 
-/obj/machinery/porta_turret/f13/nash/examine(mob/user)
+/obj/machinery/porta_turret/f13/eastwood/examine(mob/user)
 	. = ..()
 	if(istype(our_mag) && length(our_mag.caliber))
 		. += "It accepts [span_notice(english_list(our_mag.caliber))]"
 	. += "It has [span_notice("[our_mag.ammo_count() + (!!chambered)]")] / [span_notice("[our_mag.max_ammo]")] round\s remaining."
 
-/obj/machinery/porta_turret/f13/nash/proc/out_of_ammo_alert()
+/obj/machinery/porta_turret/f13/eastwood/proc/out_of_ammo_alert()
 	playsound(get_turf(src), 'sound/machines/triple_beep.ogg', 100, FALSE, 0, ignore_walls = TRUE)
 	say("OUT OF: AMMO! NEED: [span_notice(english_list(our_mag.caliber))]!")
 
-/obj/machinery/porta_turret/f13/nash/proc/eject_chambered_round(keep_it)
+/obj/machinery/porta_turret/f13/eastwood/proc/eject_chambered_round(keep_it)
 	if(!istype(chambered))
 		return FALSE
 	if(keep_it && our_mag.give_round(chambered))
@@ -1910,7 +1910,7 @@
 	chambered = null
 	return TRUE
 
-/obj/machinery/porta_turret/f13/nash/proc/chamber_new_round(eject_current)
+/obj/machinery/porta_turret/f13/eastwood/proc/chamber_new_round(eject_current)
 	if(istype(chambered))
 		if(eject_current || !chambered.BB)
 			eject_chambered_round()
@@ -1920,7 +1920,7 @@
 		return TRUE
 	return FALSE
 
-/obj/machinery/porta_turret/f13/nash/attackby(obj/item/I, mob/user, params)
+/obj/machinery/porta_turret/f13/eastwood/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/ammo_box))
 		if(istype(our_mag))
 			our_mag.attackby(I, user)
@@ -1941,7 +1941,7 @@
 		return
 	. = ..()
 
-/obj/machinery/porta_turret/f13/nash/proc/dump_bag_in_turret(obj/item/storage/bag/casings/saq, mob/user)
+/obj/machinery/porta_turret/f13/eastwood/proc/dump_bag_in_turret(obj/item/storage/bag/casings/saq, mob/user)
 	if(!istype(saq))
 		return
 	if(!istype(user))
@@ -1971,7 +1971,7 @@
 	else
 		to_chat(user, span_warning("You couldn't fit anything into [src]!"))
 
-/obj/machinery/porta_turret/f13/nash/proc/undeploy_turret(obj/item/m_tool, mob/user)
+/obj/machinery/porta_turret/f13/eastwood/proc/undeploy_turret(obj/item/m_tool, mob/user)
 	visible_message(span_notice("[user] starts packing up [src]!"),
 		span_notice("You starts packing up [src]!"))
 	if(!m_tool.use_tool(src, user, 3 SECONDS, 0, 100))
@@ -1986,7 +1986,7 @@
 	our_mag = null
 	qdel(src)
 
-/obj/machinery/porta_turret/f13/nash/proc/heal_turret(obj/item/weldertool, mob/user)
+/obj/machinery/porta_turret/f13/eastwood/proc/heal_turret(obj/item/weldertool, mob/user)
 	if(stat & BROKEN)
 		user.show_message(span_alert("It's beyond repair!"))
 		return
@@ -2002,7 +2002,7 @@
 			span_green("You repaired [src]!"))
 
 /// modified to use our silly ammo system
-/obj/machinery/porta_turret/f13/nash/shoot_at_target(atom/movable/target, turf/our_turf)
+/obj/machinery/porta_turret/f13/eastwood/shoot_at_target(atom/movable/target, turf/our_turf)
 	if(!target || !our_turf)
 		return FALSE
 	if(!chambered || (chambered && !chambered.BB))
@@ -2047,7 +2047,7 @@
 	return TRUE
 
 /// dumps loot all over the place
-/obj/machinery/porta_turret/f13/nash/drop_loot(obj/item/I, mob/user)
+/obj/machinery/porta_turret/f13/eastwood/drop_loot(obj/item/I, mob/user)
 	new /obj/item/gun/ballistic/automatic/sportcarbine(get_turf(src))
 	..()
 
@@ -2070,7 +2070,7 @@
 	icon_state = "hivebot_fab_on"
 	w_class = WEIGHT_CLASS_GIGANTIC
 	/// type of turret to make
-	var/obj/machinery/porta_turret/f13/nash/turret_type = /obj/machinery/porta_turret/f13/nash
+	var/obj/machinery/porta_turret/f13/eastwood/turret_type = /obj/machinery/porta_turret/f13/eastwood
 	/// magazine inside the gun, if it was packed up after deploying
 	var/obj/item/ammo_box/magazine/stored_mag
 
@@ -2094,7 +2094,7 @@
 	if(!do_after(user, 3 SECONDS, FALSE, user))
 		user.show_message(span_alert("You were interrupted!"))
 		return
-	var/obj/machinery/porta_turret/f13/nash/turret_new = new turret_type(get_turf(src))
+	var/obj/machinery/porta_turret/f13/eastwood/turret_new = new turret_type(get_turf(src))
 	if(istype(stored_mag))
 		QDEL_NULL(turret_new.our_mag)
 		turret_new.our_mag = stored_mag

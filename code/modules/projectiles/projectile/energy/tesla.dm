@@ -51,14 +51,14 @@
 	impact_light_range = 3.75
 	impact_light_color_override = LIGHT_COLOR_BLUE
 
-/obj/item/projectile/energy/teslacannon/oasis
+/obj/item/projectile/energy/teslacannon/eastwood
 	name = "shock beam"
 	damage = 12 //high damage but low ap
 	flag = "energy"
 	wound_bonus = -5
 	bare_wound_bonus = 35
 
-/obj/item/projectile/energy/teslacannon/oasis/on_hit(atom/target, blocked = FALSE)
+/obj/item/projectile/energy/teslacannon/eastwood/on_hit(atom/target, blocked = FALSE)
 	. = ..()
 	if(!ismob(target) || blocked >= 100) //Fully blocked by mob or collided with dense object - burst into sparks!
 		do_sparks(1, TRUE, src)

@@ -558,7 +558,7 @@
 
 /obj/structure/sign/poster/prewar/poster68
 	name = "General Store Policy"
-	desc = "By decree of the Oasis Town Hall, the general store has the right to refuse any and all refunds to customers for any reason."
+	desc = "By decree of the Eastwood Town Hall, the general store has the right to refuse any and all refunds to customers for any reason."
 	icon_state = "poster68"
 
 /obj/structure/sign/poster/prewar/poster69

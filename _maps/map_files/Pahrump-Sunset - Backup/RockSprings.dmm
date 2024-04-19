@@ -39122,7 +39122,7 @@
 	doc_content_1 = "THoSE FucKInG IDIots iN NAhs, ifuCKN cAn'T STaNd THem.  mAYOr CROwLY DemanDeD I PaY My fuCKIn BiLls tO ThE bAr BUT thAt SOn of a BItCH KNows That i HaVE to SAvE HtmE for kEEpinG my siSter ALiV.  We decIdeD to LEav anD HeaDto rEDwAter, mAYbE SoMeOne Will HIRe Me as a gUard AnD i can AFForD hEr medicieNCEs.";
 	doc_content_2 = "i talk to overbos and they say maybe i work as guard, but they trid to put a collar on becca while iw asn't looking.  I killed four of them getting her out of town but i mad a friend in the bar, his name is Sam and he told me he bring frends.  we goin to make redwater pay";
 	doc_content_3 = "sam bring many frends n we buy chems from the new guys out west, they friendly enough.  becca not looking good and mango scared, going to go out to pick her flowers later, but for now me clean gun.  already kill thre more redwater asholes";
-	doc_content_4 = "becca didnt make it  redwatr and nash will burn";
+	doc_content_4 = "becca didnt make it  redwatr and eastwood will burn";
 	doc_content_5 = "mango thinking about leaving, sister dead and hav no reasn 2 stay here.  think go down to coast and take up fishing, revenge not worth it, becca not want more blood";
 	doc_title_1 = "mango mad";
 	doc_title_2 = "mango rly mad";
@@ -46737,7 +46737,7 @@
 /obj/machinery/computer/terminal{
 	dir = 4;
 	doc_content_1 = "Take me to Snurch.  I'll worship like a snail in the shrine of your light.  I'll tell you my snins.  So you can snarpen your snife";
-	doc_content_2 = "I hate redwater, that town was so nice when I was a kid, but then again I guess everything was nice when I was a kid.  At least for a while the place was run by decent folk, but ever since that snake Johnny rolled into town and killed the sheriff things have been going down hill.  Good folk left for Nash, but I'm going to stay here and work on my armor.  One day I'll go up there and avenge my friends death.";
+	doc_content_2 = "I hate redwater, that town was so nice when I was a kid, but then again I guess everything was nice when I was a kid.  At least for a while the place was run by decent folk, but ever since that snake Johnny rolled into town and killed the sheriff things have been going down hill.  Good folk left for Eastwood, but I'm going to stay here and work on my armor.  One day I'll go up there and avenge my friends death.";
 	doc_content_3 = "armr a92-24 done 294hda bran no fu9aw think well.  worry01 fe ra l  help";
 	doc_title_1 = "Take me to snurch";
 	doc_title_2 = "Garys Memoirs";

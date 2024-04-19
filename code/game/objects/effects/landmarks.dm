@@ -741,7 +741,7 @@ obj/effect/landmark/start/f13/ncrlogisticsofficer
 	name = "Vault Dweller"
 	icon_state = "Vault Dweller"
 
-// Oasis
+// Eastwood
 
 /obj/effect/landmark/start/f13/mayor
 	name = "Mayor"
@@ -910,7 +910,7 @@ obj/effect/landmark/start/f13/ncrlogisticsofficer
 	name = "Guardian"
 	icon_state = "Tribal"
 
-//Followers of the Apocalypse -- nah, nash medical stuff
+//Followers of the Apocalypse -- nah, eastwood medical stuff
 /obj/effect/landmark/start/f13/followersadministrator
 	name = "Senior Doctor"
 	icon_state = "Chief Medical Officer"
@@ -920,7 +920,7 @@ obj/effect/landmark/start/f13/ncrlogisticsofficer
 	icon_state = "Medical Doctor"
 
 /obj/effect/landmark/start/f13/followersguard
-	name = "Nash Paramedic"
+	name = "Eastwood Paramedic"
 	icon_state = "Security Officer"
 
 /obj/effect/landmark/start/f13/followersvolunteer

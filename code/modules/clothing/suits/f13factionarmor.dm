@@ -689,7 +689,7 @@
 	icon_state = "brotherhood_armor_outcast"
 	item_state = "brotherhood_armor_outcast"
 
-//Oasis/Town
+//Eastwood/Town
 /obj/item/clothing/suit/armor/light/duster/town
 	name = "town trenchcoat"
 	desc = "A non-descript black trenchcoat."
@@ -735,7 +735,7 @@
 	armor = list("melee" = 45, "bullet" = 33, "laser" = 45,  "energy" = 35, "bomb" = 30, "bio" = 40, "rad" = 40, "fire" = 50, "acid" = 10, "wound" = 50)
 	slowdown = 0.08 //combat armor but less slowdown
 
-/obj/item/clothing/suit/armor/medium/vest/oasis
+/obj/item/clothing/suit/armor/medium/vest/eastwood
 	name = "OPD vest"
 	desc = "a lightweight ballistic vest that combines protection and comfort. This one has pockets sewn into the front and a badge pinned on it."
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets
@@ -744,9 +744,9 @@
 	item_state = "blueshift"
 	slowdown = 0.02
 
-/obj/item/clothing/suit/armor/medium/vest/breastplate/oasis
+/obj/item/clothing/suit/armor/medium/vest/breastplate/eastwood
 	name = "heavy steel breastplate"
-	desc = "a steel breastplate, inspired by a pre-war design. Looks like oasis citizens added an additional layer of metal on the front face."
+	desc = "a steel breastplate, inspired by a pre-war design. Looks like eastwood citizens added an additional layer of metal on the front face."
 	icon_state = "steel_bib"
 	item_state = "steel_bib"
 	armor = list( "melee" = 30, "bullet" = 50, "laser" = 30, "energy" = 15, "bomb" = 20, "bio" = 30, "rad" = 20, "fire" = 60, "acid" = 0, "wound" = 45)

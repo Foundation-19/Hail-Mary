@@ -75,7 +75,7 @@
 #define EXP_TYPE_VAULT			"Vault"
 #define EXP_TYPE_BROTHERHOOD	"Southern BoS Outcasts"
 #define EXP_TYPE_NCR			"Ncr"
-#define EXP_TYPE_OASIS "Oasis"
+#define EXP_TYPE_EASTWOOD		"Eastwood"
 #define EXP_TYPE_LEGION			"Legion"
 #define EXP_TYPE_WASTELAND		"Wasteland"
 #define EXP_TYPE_ENCLAVE		"Enclave"
@@ -84,7 +84,7 @@
 #define EXP_TYPE_SCRIBE         "Scribe"
 #define EXP_TYPE_DECANUS        "Decanus"
 #define EXP_TYPE_TRIBAL			"Tribal"
-#define EXP_TYPE_FOLLOWERS		"Nash Clinic"
+#define EXP_TYPE_FOLLOWERS		"Followers"
 #define EXP_TYPE_OUTLAW			"Outlaw"
 #define EXP_TYPE_KHAN			"Great Khans"
 //Flags in the players table in the db

@@ -42741,7 +42741,7 @@
 	},
 /area/f13/brotherhood/offices1st)
 "vpe" = (
-/obj/machinery/light/sign/oasis{
+/obj/machinery/light/sign/eastwood{
 	density = 0;
 	pixel_x = -27
 	},

@@ -25971,7 +25971,7 @@
 "uqE" = (
 /obj/structure/ladder/unbreakable{
 	height = 1;
-	id = "Nashsewers"
+	id = "Eastwoodsewers"
 	},
 /turf/open/floor/f13{
 	icon_state = "neutralrustyfull"

@@ -646,12 +646,12 @@
 	name = "South-Western Tunnel"
 	icon_state = "tunnelsw"
 
-/area/f13/tunnel/southeastoasis
-	name = "Oasis Eastern Sewers"
+/area/f13/tunnel/southeasteastwood
+	name = "Eastwood Eastern Sewers"
 	icon_state = "tunnelse"
 
-/area/f13/tunnel/southwestoasis
-	name = "Oasis Western Sewers"
+/area/f13/tunnel/southwesteastwood
+	name = "Eastwood Western Sewers"
 	icon_state = "tunnelsw"
 
 /area/f13/tunnel/sub

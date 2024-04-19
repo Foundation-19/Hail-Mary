@@ -274,14 +274,14 @@
 		if(!isturf(hereturf))
 			return "??UNKNOWN??"
 	switch(hereturf.z)
-		if(Z_LEVEL_NASH_UNDERGROUND)
-			return "Nash Wastes - Underground"
-		if(Z_LEVEL_NASH_COMMON)
-			return "Nash Wastes - Common"
-		if(Z_LEVEL_NASH_LVL2)
-			return "Nash Wastes - Second Story"
-		if(Z_LEVEL_NASH_LVL3)
-			return "Nash Wastes - Third Story"
+		if(Z_LEVEL_EASTWOOD_UNDERGROUND)
+			return "Eastwood Wastes - Underground"
+		if(Z_LEVEL_EASTWOOD_COMMON)
+			return "Eastwood Wastes - Common"
+		if(Z_LEVEL_EASTWOOD_LVL2)
+			return "Eastwood Wastes - Second Story"
+		if(Z_LEVEL_EASTWOOD_LVL3)
+			return "Eastwood Wastes - Third Story"
 		if(Z_LEVEL_REDWATER)
 			return "Southern Wastes - Common"
 		if(Z_LEVEL_REDLICK)
