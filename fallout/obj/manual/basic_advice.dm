@@ -176,7 +176,7 @@
 				<p>
 				<ol>
 				<li>The blue matrix tiles you can just walk right through to another map. The green ones are to leave the region (basically Cryo).</li>
-				<li>There are three map areas. Stacked north to south you have 'Red River', 'Texarkana', and 'Redwater'. The town of Eastwood is in the Texarkana Z, where you spawned!</li>
+				<li>There are three map areas. Stacked north to south you have 'Red River', 'Pahrump', and 'Redwater'. The town of Eastwood is in the Pahrump Z, where you spawned!</li>
 				<li>Remember to close Eastwood's gate, unless you WANT the wildlife to get in!</li>
 				<li>The town can be sealed, if you can find all the ways in.</li>
 				<li>Eastwood has MULTIPLE watch towers you can use to spot monsters working their way in, and if you use binoculars that high up you can see even further!</li>

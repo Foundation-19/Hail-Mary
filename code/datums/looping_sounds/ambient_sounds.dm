@@ -388,7 +388,7 @@
 
 //Generic Ambience End//
 
-//Radio Texarkana//
+//Radio Pahrump//
 
 /datum/looping_sound/ambient/djswampass
 	chance = 10
@@ -438,5 +438,5 @@
 		SOUND_LOOP_ENTRY('sound/f13/anythinggoes.ogg', 97 SECONDS, 10),
 		SOUND_LOOP_ENTRY('sound/f13/thats_life.ogg', 124 SECONDS, 10),
 	)
-// Radio Texarkana End//
+// Radio Pahrump End//
 

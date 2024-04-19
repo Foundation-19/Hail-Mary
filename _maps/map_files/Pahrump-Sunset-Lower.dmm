@@ -13929,7 +13929,7 @@
 /obj/structure/nest/randomized{
 	randomizer_difficulty = 1;
 	randomizer_kind = "mid level mobs";
-	randomizer_tag = "Texarkana Residential District 1"
+	randomizer_tag = "Pahrump Residential District 1"
 	},
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/tunnel)
@@ -29866,7 +29866,7 @@
 /obj/structure/nest/randomized{
 	randomizer_difficulty = 1;
 	randomizer_kind = "mid level mobs";
-	randomizer_tag = "Texarkana Residential District 1"
+	randomizer_tag = "Pahrump Residential District 1"
 	},
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/tunnel)
@@ -30484,7 +30484,7 @@
 	icon_state = "gibbearcore"
 	},
 /mob/living/simple_animal/hostile/raider/ranged/biker{
-	name = "Texarkana Timothy"
+	name = "Pahrump Timothy"
 	},
 /turf/open/indestructible/ground/inside/subway{
 	name = "cave"
@@ -32377,7 +32377,7 @@
 /area/f13/building/hospital)
 "vOQ" = (
 /mob/living/simple_animal/hostile/raider/ranged/biker{
-	name = "Texarkana Timothy"
+	name = "Pahrump Timothy"
 	},
 /turf/open/water,
 /area/f13/building/sewers)

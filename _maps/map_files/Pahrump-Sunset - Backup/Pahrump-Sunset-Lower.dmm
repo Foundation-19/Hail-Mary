@@ -30606,7 +30606,7 @@
 /area/f13/caves)
 "woc" = (
 /mob/living/simple_animal/hostile/raider/ranged/biker{
-	name = "Texarkana Timothy"
+	name = "Pahrump Timothy"
 	},
 /turf/open/floor/f13{
 	icon_state = "greenrustyfull"

@@ -28740,8 +28740,8 @@
 /area/f13/wasteland)
 "ged" = (
 /obj/effect/landmark/vertibird{
-	id = "Eastwood - Middle of Texarkana";
-	name = "Eastwood - Middle of Texarkana"
+	id = "Eastwood - Middle of Pahrump";
+	name = "Eastwood - Middle of Pahrump"
 	},
 /turf/open/indestructible/ground/outside/road{
 	dir = 8;
@@ -33917,7 +33917,7 @@
 /obj/structure/nest/randomized{
 	randomizer_difficulty = 1;
 	randomizer_kind = "mid level mobs";
-	randomizer_tag = "Texarkana Residential District 1"
+	randomizer_tag = "Pahrump Residential District 1"
 	},
 /turf/open/floor/f13/wood,
 /area/f13/village)
@@ -51932,7 +51932,7 @@
 /obj/structure/nest/randomized{
 	randomizer_difficulty = 1;
 	randomizer_kind = "mid level mobs";
-	randomizer_tag = "Texarkana Tigers"
+	randomizer_tag = "Pahrump Tigers"
 	},
 /turf/open/floor/f13/wood,
 /area/f13/village)

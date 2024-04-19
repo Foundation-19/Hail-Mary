@@ -9393,7 +9393,7 @@
 /obj/structure/nest/randomized{
 	randomizer_difficulty = 1;
 	randomizer_kind = "mid level mobs";
-	randomizer_tag = "Texarkana Tigers"
+	randomizer_tag = "Pahrump Tigers"
 	},
 /turf/open/floor/f13/wood,
 /area/f13/building/abandoned)
@@ -9617,7 +9617,7 @@
 /obj/structure/nest/randomized{
 	randomizer_difficulty = 1;
 	randomizer_kind = "mid level mobs";
-	randomizer_tag = "Texarkana Tigers"
+	randomizer_tag = "Pahrump Tigers"
 	},
 /turf/open/indestructible/ground/outside/road{
 	icon_state = "horizontalinnermain0"
@@ -11925,7 +11925,7 @@
 /obj/structure/nest/randomized{
 	randomizer_difficulty = 1;
 	randomizer_kind = "mid level mobs";
-	randomizer_tag = "Texarkana Residential District 1"
+	randomizer_tag = "Pahrump Residential District 1"
 	},
 /turf/open/floor/f13/wood,
 /area/f13/building/abandoned)
@@ -22646,7 +22646,7 @@
 /obj/structure/nest/randomized{
 	randomizer_difficulty = 1;
 	randomizer_kind = "mid level mobs";
-	randomizer_tag = "Texarkana Residential District 1"
+	randomizer_tag = "Pahrump Residential District 1"
 	},
 /turf/open/floor/f13/wood,
 /area/f13/building/abandoned)
@@ -24135,7 +24135,7 @@
 /obj/structure/nest/randomized{
 	randomizer_difficulty = 1;
 	randomizer_kind = "mid level mobs";
-	randomizer_tag = "Texarkana Residential District 1"
+	randomizer_tag = "Pahrump Residential District 1"
 	},
 /turf/open/indestructible/ground/outside/ruins{
 	dir = 8;
@@ -25976,7 +25976,7 @@
 /obj/structure/nest/randomized{
 	randomizer_difficulty = 1;
 	randomizer_kind = "mid level mobs";
-	randomizer_tag = "Texarkana Residential District 1"
+	randomizer_tag = "Pahrump Residential District 1"
 	},
 /turf/open/floor/f13/wood,
 /area/f13/building/abandoned)
@@ -27734,7 +27734,7 @@
 /obj/structure/nest/randomized{
 	randomizer_difficulty = 1;
 	randomizer_kind = "mid level mobs";
-	randomizer_tag = "Texarkana Residential District 1"
+	randomizer_tag = "Pahrump Residential District 1"
 	},
 /turf/open/indestructible/ground/outside/sidewalk{
 	icon_state = "verticaloutermain2"
@@ -31001,8 +31001,8 @@
 /area/f13/wasteland)
 "ged" = (
 /obj/effect/landmark/vertibird{
-	id = "Eastwood - Middle of Texarkana";
-	name = "Eastwood - Middle of Texarkana"
+	id = "Eastwood - Middle of Pahrump";
+	name = "Eastwood - Middle of Pahrump"
 	},
 /turf/open/indestructible/ground/outside/road{
 	dir = 8;
@@ -34106,7 +34106,7 @@
 /obj/structure/nest/randomized{
 	randomizer_difficulty = 3;
 	randomizer_kind = "mid level mobs";
-	randomizer_tag = "Texarkana Residential District 1"
+	randomizer_tag = "Pahrump Residential District 1"
 	},
 /turf/open/indestructible/ground/outside/dirt{
 	dir = 1;
@@ -36468,7 +36468,7 @@
 /obj/structure/nest/randomized{
 	randomizer_difficulty = 3;
 	randomizer_kind = "mid level mobs";
-	randomizer_tag = "Texarkana Residential District 1"
+	randomizer_tag = "Pahrump Residential District 1"
 	},
 /turf/open/floor/f13/wood,
 /area/f13/building/abandoned)
@@ -44810,7 +44810,7 @@
 /obj/structure/nest/randomized{
 	randomizer_difficulty = 1;
 	randomizer_kind = "mid level mobs";
-	randomizer_tag = "Texarkana Residential District 1"
+	randomizer_tag = "Pahrump Residential District 1"
 	},
 /turf/open/indestructible/ground/outside/desert,
 /area/f13/wasteland/city)
@@ -45422,7 +45422,7 @@
 /obj/structure/nest/randomized{
 	randomizer_difficulty = 3;
 	randomizer_kind = "mid level mobs";
-	randomizer_tag = "Texarkana Residential District 1"
+	randomizer_tag = "Pahrump Residential District 1"
 	},
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/wasteland)
@@ -46690,7 +46690,7 @@
 /obj/structure/nest/randomized{
 	randomizer_difficulty = 1;
 	randomizer_kind = "mid level mobs";
-	randomizer_tag = "Texarkana Residential District 1"
+	randomizer_tag = "Pahrump Residential District 1"
 	},
 /turf/open/indestructible/ground/outside/road{
 	icon_state = "verticalinnermain0"
@@ -53621,7 +53621,7 @@
 /obj/structure/nest/randomized{
 	randomizer_difficulty = 3;
 	randomizer_kind = "mid level mobs";
-	randomizer_tag = "Texarkana Residential District 1"
+	randomizer_tag = "Pahrump Residential District 1"
 	},
 /turf/open/indestructible/ground/outside/road{
 	icon_state = "horizontaltopborderbottom2left"
@@ -54113,7 +54113,7 @@
 /obj/structure/nest/randomized{
 	randomizer_difficulty = 1;
 	randomizer_kind = "mid level mobs";
-	randomizer_tag = "Texarkana Residential District 1"
+	randomizer_tag = "Pahrump Residential District 1"
 	},
 /turf/open/floor/f13/wood,
 /area/f13/building/abandoned)
@@ -55656,7 +55656,7 @@
 /obj/structure/nest/randomized{
 	randomizer_difficulty = 3;
 	randomizer_kind = "mid level mobs";
-	randomizer_tag = "Texarkana Residential District 1"
+	randomizer_tag = "Pahrump Residential District 1"
 	},
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/wasteland/city)
@@ -59498,8 +59498,8 @@
 "qLZ" = (
 /obj/machinery/computer/terminal{
 	doc_content_1 = "We're proud to deliver all the possible upcoming technological developments coming down our assembly lines here at the Vault-Tec Exhibit of Technology!  Come on down today and experience the glory of tosmorrow, today!";
-	doc_title_1 = "Welcome to our newest exhibit in the Texarkana metro area!";
-	name = "Texarkana Display of Corporate Technology Terminal";
+	doc_title_1 = "Welcome to our newest exhibit in the Pahrump metro area!";
+	name = "Pahrump Display of Corporate Technology Terminal";
 	termtag = "Secret"
 	},
 /obj/structure/table,
@@ -68493,7 +68493,7 @@
 /obj/structure/nest/randomized{
 	randomizer_difficulty = 1;
 	randomizer_kind = "mid level mobs";
-	randomizer_tag = "Texarkana Residential District 1"
+	randomizer_tag = "Pahrump Residential District 1"
 	},
 /turf/open/floor/f13/wood,
 /area/f13/building/abandoned)
@@ -70226,7 +70226,7 @@
 /obj/structure/nest/randomized{
 	randomizer_difficulty = 1;
 	randomizer_kind = "mid level mobs";
-	randomizer_tag = "Texarkana Tigers"
+	randomizer_tag = "Pahrump Tigers"
 	},
 /turf/open/floor/f13/wood,
 /area/f13/building/abandoned)
@@ -76879,7 +76879,7 @@
 /obj/structure/nest/randomized{
 	randomizer_difficulty = 3;
 	randomizer_kind = "mid level mobs";
-	randomizer_tag = "Texarkana Residential District 1"
+	randomizer_tag = "Pahrump Residential District 1"
 	},
 /turf/open/indestructible/ground/outside/sidewalk{
 	dir = 1;
@@ -77536,7 +77536,7 @@
 /obj/structure/nest/randomized{
 	randomizer_difficulty = 1;
 	randomizer_kind = "mid level mobs";
-	randomizer_tag = "Texarkana Residential District 1"
+	randomizer_tag = "Pahrump Residential District 1"
 	},
 /turf/open/indestructible/ground/outside/sidewalk{
 	icon_state = "verticalleftborderleft0"
@@ -77838,7 +77838,7 @@
 /obj/structure/nest/randomized{
 	randomizer_difficulty = 3;
 	randomizer_kind = "mid level mobs";
-	randomizer_tag = "Texarkana Residential District 1"
+	randomizer_tag = "Pahrump Residential District 1"
 	},
 /turf/open/indestructible/ground/outside/road{
 	icon_state = "verticalinnermain2"
