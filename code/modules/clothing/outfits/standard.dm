@@ -412,7 +412,7 @@
 	suit_store = /obj/item/tank/internals/emergency_oxygen/double
 	back = /obj/item/storage/backpack/holding
 	box = /obj/item/storage/box/debugtools
-	neck = /obj/item/storage/belt/holster/ranger4570bayonet
+	neck = /obj/item/storage/belt/shoulderholster/ranger4570bayonet
 	l_pocket = /obj/item/ammo_box/tube/m44
 	r_pocket = /obj/item/gun/ballistic/revolver/m29/snub
 	backpack_contents = list(

@@ -410,7 +410,7 @@
 	id = "rechargerrifle"
 	build_type = PROTOLATHE
 	materials = list (/datum/material/iron = 8000, /datum/material/glass = 2000, /datum/material/uranium = 1000, /datum/material/gold = 500)
-	build_path = /obj/item/gun/energy/laser/rechargerrifle
+	build_path = /obj/item/gun/energy/laser/wattz/recharger
 	category = list("Weapons")
 
 /datum/design/rechargerpistol

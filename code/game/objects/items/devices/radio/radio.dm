@@ -101,8 +101,6 @@
 				LAZYREMOVE(GLOB.legion_radios, src)
 			if(FACTION_BROTHERHOOD)
 				LAZYREMOVE(GLOB.bos_radios, src)
-			if(FACTION_ENCLAVE)
-				LAZYREMOVE(GLOB.enclave_radios, src)
 	GLOB.radio_list -= src //Big-Iron, removes radio from radio list lmao
 	remove_radio_all(src) //Just to be sure
 	QDEL_NULL(wires)

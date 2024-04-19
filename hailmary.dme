@@ -1332,7 +1332,6 @@
 #include "code\game\objects\structures\guncase.dm"
 #include "code\game\objects\structures\headpike.dm"
 #include "code\game\objects\structures\hivebot.dm"
-#include "code\game\objects\structures\HMG.dm"
 #include "code\game\objects\structures\holosign.dm"
 #include "code\game\objects\structures\janicart.dm"
 #include "code\game\objects\structures\kitchen_spike.dm"
@@ -3888,4 +3887,6 @@
 #include "modular_BD2\blacksmith\code\smithed_items.dm"
 #include "modular_BD2\general\code\modular_BD2.dm"
 #include "modular_BD2\legio_invicta\code\legio_invicta.dm"
+#include "modular_big-iron\code\game\machinery\radio_station.dm"
+#include "modular_big-iron\code\game\objects\circuitboards\radio_station.dm"
 // END_INCLUDE
