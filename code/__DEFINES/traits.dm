@@ -136,8 +136,6 @@
 #define TRAIT_PESSIMIST			"pessimist"
 #define TRAIT_JOLLY				"jolly"
 #define TRAIT_OPTIMIST			"optimist"
-#define TRAIT_IN_HEAT			"ERP Receptive"
-#define TRAIT_HEAT_DETECT		"ERP Seeking"
 #define TRAIT_SMOL				"lil_fella"
 #define TRAIT_NOCRITDAMAGE		"no_crit"
 #define TRAIT_NOSLIPWATER		"noslip_water"
