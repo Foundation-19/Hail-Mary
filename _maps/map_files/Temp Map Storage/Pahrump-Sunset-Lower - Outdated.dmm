@@ -35056,7 +35056,7 @@
 /turf/open/floor/plating/tunnel,
 /area/f13/caves)
 "vdZ" = (
-/obj/structure/blacksmith/furnace,
+/obj/structure/furnace,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/building)
 "vep" = (

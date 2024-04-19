@@ -1247,8 +1247,8 @@
 /obj/structure/closet/crate/footchest{
 	pixel_x = -8
 	},
-/obj/item/blacksmith/ingot/gold,
-/obj/item/blacksmith/ingot/gold,
+/obj/item/ingot/gold,
+/obj/item/ingot/gold,
 /obj/item/coin/gold,
 /turf/open/indestructible/ground/inside/dirt,
 /area/f13/caves)
@@ -11654,9 +11654,9 @@
 	},
 /area/f13/wasteland/city)
 "gIH" = (
-/obj/item/blacksmith/ingot/silver,
-/obj/item/blacksmith/ingot/gold,
-/obj/item/blacksmith/ingot/titanium,
+/obj/item/ingot/silver,
+/obj/item/ingot/gold,
+/obj/item/ingot/titanium,
 /turf/open/floor/plasteel/dark,
 /area/f13/building/abandoned)
 "gIL" = (
@@ -16624,7 +16624,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/building)
 "jFt" = (
-/obj/item/blacksmith/ingot/titanium,
+/obj/item/ingot/titanium,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/dark,
 /area/f13/building/abandoned)
@@ -38844,7 +38844,7 @@
 /area/f13/wasteland)
 "wXv" = (
 /obj/structure/closet/crate/wicker,
-/obj/item/blacksmith/ingot/silver{
+/obj/item/ingot/silver{
 	pixel_x = 5;
 	pixel_y = 2
 	},

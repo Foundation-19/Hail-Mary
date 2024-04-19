@@ -2329,7 +2329,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/white,
 /area/f13/village)
 "aVn" = (
-/obj/structure/blacksmith/furnace,
+/obj/structure/furnace,
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/wasteland)
 "aVq" = (
@@ -13038,7 +13038,7 @@
 /turf/open/floor/f13/wood,
 /area/f13/building)
 "fxC" = (
-/obj/structure/blacksmith/furnace,
+/obj/structure/furnace,
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/caves)
 "fxD" = (
@@ -23515,7 +23515,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/structure/blacksmith/furnace,
+/obj/structure/furnace,
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/caves)
 "jKT" = (

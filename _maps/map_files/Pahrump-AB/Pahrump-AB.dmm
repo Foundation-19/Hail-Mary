@@ -43220,7 +43220,7 @@
 /area/f13/wasteland)
 "mFn" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/blacksmith/furnace,
+/obj/structure/furnace,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	color = "#e4e4e4"
 	},
@@ -60632,7 +60632,7 @@
 /area/f13/wasteland)
 "uIx" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/blacksmith/anvil/obtainable/legion,
+/obj/structure/anvil/obtainable/legion,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	color = "#e4e4e4"
 	},

@@ -11054,7 +11054,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/structure/blacksmith/furnace,
+/obj/structure/furnace,
 /turf/open/floor/plasteel,
 /area/f13/building)
 "aMG" = (

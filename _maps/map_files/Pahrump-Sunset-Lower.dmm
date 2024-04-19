@@ -565,7 +565,7 @@
 /area/f13/caves)
 "asX" = (
 /obj/effect/decal/cleanable/blood/old,
-/obj/item/blacksmith/ingot/gold,
+/obj/item/ingot/gold,
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/caves)
 "atk" = (
