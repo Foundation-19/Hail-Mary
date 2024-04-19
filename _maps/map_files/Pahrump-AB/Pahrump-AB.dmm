@@ -23563,6 +23563,10 @@
 /obj/item/candle/infinite,
 /turf/open/floor/f13/wood,
 /area/f13/city)
+"dNp" = (
+/obj/effect/landmark/start/f13/auxilia,
+/turf/open/indestructible/ground/outside/dirt,
+/area/f13/wasteland)
 "dNv" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/flora/grass/coyote/one,
@@ -37489,6 +37493,14 @@
 	icon_state = "redrustyfull"
 	},
 /area/f13/building/firestation)
+"kgu" = (
+/obj/effect/landmark/start/f13/auxilia,
+/turf/open/indestructible/ground/outside/gravel{
+	color = "#B7ABAB";
+	footstep = "dirt";
+	name = "rocky dirt"
+	},
+/area/f13/wasteland)
 "kgQ" = (
 /obj/structure/barricade/bars,
 /obj/structure/table,
@@ -44412,6 +44424,13 @@
 /obj/structure/simple_door/metal/store,
 /turf/open/floor/plasteel/f13/vault_floor/blue/whitebluefull,
 /area/f13/building)
+"ngf" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/start/f13/ncrrearechelon,
+/turf/open/indestructible/ground/outside/road{
+	icon_state = "verticalinnermain1"
+	},
+/area/f13/wasteland)
 "ngi" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/f13{
@@ -62247,6 +62266,10 @@
 	icon_state = "innermaincornerinner"
 	},
 /area/f13/wasteland)
+"vwj" = (
+/obj/effect/landmark/start/f13/campfollower,
+/turf/open/indestructible/ground/outside/gravel,
+/area/f13/wasteland)
 "vwt" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/indestructible/ground/outside/road{
@@ -63177,6 +63200,10 @@
 /obj/machinery/light,
 /turf/open/floor/f13/wood,
 /area/f13/building/mall)
+"vTo" = (
+/obj/effect/landmark/start/f13/campfollower,
+/turf/open/indestructible/ground/outside/dirt,
+/area/f13/wasteland)
 "vTp" = (
 /obj/structure/fluff/railing{
 	dir = 1;
@@ -75405,7 +75432,7 @@ uNJ
 bMM
 qmG
 bwV
-evq
+ngf
 evq
 uNJ
 uNJ
@@ -120593,7 +120620,7 @@ eBH
 aGR
 etg
 aGR
-aOk
+vTo
 aGR
 xOD
 eXj
@@ -120850,7 +120877,7 @@ eBH
 aGR
 aOk
 aGR
-aOk
+dNp
 aGR
 xOD
 vGl
@@ -124181,7 +124208,7 @@ sqb
 aii
 sqb
 sqb
-sqb
+kgu
 dmB
 njO
 oRY
@@ -125205,7 +125232,7 @@ xLC
 xLC
 aii
 aii
-aii
+vwj
 aii
 aii
 xLC
