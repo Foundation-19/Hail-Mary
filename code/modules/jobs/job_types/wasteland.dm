@@ -1378,7 +1378,8 @@ Raider
 	loadout_options = list(
 	/datum/outfit/loadout/crusader, 	//This is kinda a given. You bet.
 	/datum/outfit/loadout/samaritan, 	//Water and food to share with the wastes.
-	/datum/outfit/loadout/cleanser		//Just some bombs.
+	/datum/outfit/loadout/cleanser,		//Just some bombs.
+	/datum/outfit/loadout/newcanaan		//10 M1911s for the funny gun table.
 	)
 
 	access = list()		//we can expand on this and make alterations as people suggest different loadouts
@@ -1430,6 +1431,12 @@ Raider
 		/obj/item/grenade/homemade/coffeepotbomb = 2,	//This is funny. I swear guys.
 		///obj/item/gun/ballistic/revolver/m29 = 1,		//Moved here for more *variety*
 		///obj/item/ammo_box/m44 = 2
+	)
+
+	/datum/outfit/loadout/newcanaan
+	name = "New Canaanite"
+	backpack_contents = list(
+		/obj/item/gun/ballistic/automatic/pistol/m1911 = 10	//We can't expect God to do all the work.
 	)
 
 
