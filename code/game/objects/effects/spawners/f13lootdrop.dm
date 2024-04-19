@@ -947,7 +947,8 @@
 				/obj/item/gun/ballistic/revolver/colt357/lucky,
 				/obj/item/gun/ballistic/automatic/m1garand/oldglory,
 				/obj/item/gun/ballistic/automatic/pistol/pistol14/lildevil,
-				/obj/item/gun/ballistic/shotgun/automatic/combat/neostead
+				/obj/item/gun/ballistic/shotgun/automatic/combat/neostead,
+				/obj/item/gun/ballistic/revolver/ghoulgun
 				)
 
 
