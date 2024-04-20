@@ -553,8 +553,8 @@ Mayor
 
 	outfit = /datum/outfit/job/den/f13prospector
 
-	access = list(ACCESS_BAR, ACCESS_MINING, ACCESS_TOWN, ACCESS_TOWN_CIV, ACCESS_TOWN_PROSP)
-	minimal_access = list(ACCESS_BAR, ACCESS_MINING, ACCESS_TOWN, ACCESS_TOWN_CIV, ACCESS_TOWN_PROSP)
+	access = list(ACCESS_BAR, ACCESS_MINING, ACCESS_TOWN, ACCESS_TOWN_CIV, ACCESS_TOWN_PROSP, ACCESS_TOWN_MERCH)
+	minimal_access = list(ACCESS_BAR, ACCESS_MINING, ACCESS_TOWN, ACCESS_TOWN_CIV, ACCESS_TOWN_PROSP, ACCESS_TOWN_MERCH)
 	matchmaking_allowed = list(
 		/datum/matchmaking_pref/friend = list(
 			/datum/job/eastwood,
