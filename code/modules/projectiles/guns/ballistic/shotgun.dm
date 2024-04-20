@@ -476,7 +476,7 @@
 /obj/item/gun/ballistic/shotgun/automatic/combat/shotgunlever/stock/tribal
 	name = "Mourning Sunrise"
 	desc = "A speedy lever action shotgun with a sunrise painted on the furnishings, morbid in context of it's purpose."
-	icon = icon = 'icons/fallout/objects/guns/ballistic.dmi'
+	icon = 'icons/fallout/objects/guns/ballistic.dmi'
 	icon_state = "latribal"
 	item_state = "shotgunlever"
 	icon_prefix = "shotgunlever"
