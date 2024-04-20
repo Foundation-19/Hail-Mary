@@ -577,7 +577,7 @@
 	var/datum/track/R = new ()
 
 /obj/item/record_disk/Initialize() //moves them a bit so they are not all accumulated on the same pixel
-	..()
+	. = ..()
 	name = "Generic record disk" // the name changes with music
 	pixel_x = rand(-3, 3)
 	pixel_y = rand(-3, 3)
