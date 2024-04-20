@@ -227,7 +227,7 @@
 	config_entry_value = null
 
 /datum/config_entry/string/rulesurl
-	config_entry_value = null
+	config_entry_value = "https://github.com/Foundation-19/Hail-Mary/blob/rulesupdate/html/bigiron_rules.html"
 
 /datum/config_entry/string/githuburl
 	config_entry_value = "https://github.com/Foundation-19/Hail-Mary"
