@@ -833,7 +833,7 @@ Mayor
 
 	outfit = /datum/outfit/job/den/f13settler
 
-	/*
+	
 	loadout_options = list(
 		/datum/outfit/loadout/provisioner,
 		/datum/outfit/loadout/groundskeeper,
@@ -842,8 +842,9 @@ Mayor
 		/datum/outfit/loadout/militia,
 		/datum/outfit/loadout/singer,
 		/datum/outfit/loadout/farmer,
-		/datum/outfit/loadout/prospector
-	)*/
+		/datum/outfit/loadout/prospector,
+		/datum/outfit/loadout/remnant
+	)
 	access = list(ACCESS_BAR, ACCESS_TOWN, ACCESS_TOWN_CIV)
 	minimal_access = list(ACCESS_BAR, ACCESS_TOWN, ACCESS_TOWN_CIV)
 	matchmaking_allowed = list(
@@ -902,7 +903,7 @@ Mayor
 		/obj/item/clothing/under/f13/cowboyg,
 		/obj/item/clothing/under/f13/cowboyt)
 
-/*
+
 /datum/outfit/loadout/provisioner
 	name = "Provisioner"
 	neck = /obj/item/clothing/neck/scarf/cptpatriot
@@ -914,12 +915,8 @@ Mayor
 	gloves = /obj/item/clothing/gloves/f13/leather
 	shoes = /obj/item/clothing/shoes/f13/explorer
 	backpack_contents = list(/obj/item/reagent_containers/food/drinks/flask = 1,
-	///obj/item/gun/ballistic/automatic/pistol/n99 = 1,
-	///obj/item/ammo_box/magazine/m10mm/adv/simple = 1,
 	/obj/item/storage/medical/ancientfirstaid = 1,
 	/obj/item/reagent_containers/food/drinks/flask/survival = 1,
-	///obj/item/gun/ballistic/automatic/pistol/n99 = 1,
-	///obj/item/ammo_box/magazine/m10mm/adv/simple = 1
 	)
 
 /datum/outfit/loadout/groundskeeper
@@ -966,8 +963,9 @@ Mayor
 	gloves = /obj/item/clothing/gloves/botanic_leather
 	shoes = /obj/item/clothing/shoes/f13/peltboots
 	backpack_contents = list(
-	///obj/item/gun/ballistic/revolver/winchesterrebored = 1,
-	///obj/item/ammo_box/a762/doublestacked = 2,
+	/obj/item/gun/ballistic/rifle/hunting = 1,
+	/obj/item/ammo_box/a308 = 2,
+	/obj/item/gun_upgrade/scope/watchman = 1,
 	/obj/item/fishingrod = 1,
 	/obj/item/binoculars = 1,
 	/obj/item/crafting/campfirekit = 1,
@@ -983,11 +981,10 @@ Mayor
 	shoes = /obj/item/clothing/shoes/f13/military
 	belt = /obj/item/storage/belt/bandolier
 	backpack_contents = list(
-	///obj/item/ammo_box/a308 = 2,
+	/obj/item/gun/ballistic/automatic/combat/worn = 1,
+	/obj/item/ammo_box/magazine/tommygunm45/stick = 2,
 	/obj/item/shovel/trench =1,
 	/obj/item/binoculars = 1,
-	///obj/item/gun/ballistic/rifle/hunting = 1,
-	/obj/item/gun_upgrade/scope/watchman = 1
 	)
 
 /datum/outfit/loadout/singer
@@ -1001,11 +998,7 @@ Mayor
 	/obj/item/grenade/smokebomb = 2,
 	/obj/item/clothing/accessory/pocketprotector/full = 1,
 	/obj/item/choice_beacon/music = 1,
-	///obj/item/gun/energy/laser/complianceregulator = 1,
-	///obj/item/stock_parts/cell/ammo/ec = 1
 	)
-
-// if we ever add back the loadout display you'll have to put the items in places you want it to appear on the display model
 
 /datum/outfit/loadout/farmer
 	name = "Farmer"
@@ -1036,9 +1029,18 @@ Mayor
 	/obj/item/pickaxe/silver = 1,
 	/obj/item/clothing/glasses/welding = 1,
 	/obj/item/t_scanner/adv_mining_scanner = 1,
-	///obj/item/ammo_box/m44 = 2,
-	///obj/item/gun/ballistic/revolver/m29/snub = 1
-	)*/
+	/obj/item/ammo_box/m44 = 2,
+	/obj/item/gun/ballistic/revolver/m29/snub = 1
+	)
+
+/datum/outfit/loadout/remnant
+	name = "Enclave Remnant"
+	backpack_contents = list(
+	/obj/item/clothing/head/f13/enclave/peacekeeper = 1,
+	/obj/item/card/id/dogtag/enclave/trooper = 1,
+	/obj/item/stock_parts/cell/ammo/ec = 3,
+	/obj/item/gun/energy/laser/pistol/worn = 1,
+	)
 
 /*--------------------------------------------------------------*/
  
