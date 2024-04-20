@@ -20917,6 +20917,12 @@
 	icon_state = "horizontalinnermain0"
 	},
 /area/f13/wasteland)
+"czx" = (
+/obj/structure/table/wood/fancy/black,
+/obj/structure/table/wood/fancy/black,
+/obj/machinery/radio_station,
+/turf/open/floor/carpet,
+/area/f13/building)
 "czz" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/start/f13/campfollower,
@@ -24149,6 +24155,9 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/f13/vault_floor/floor,
 /area/f13/building)
+"ebK" = (
+/turf/open/floor/light/colour_cycle/dancefloor_b,
+/area/f13/building)
 "ebN" = (
 /obj/structure/flora/grass/wasteland{
 	icon_state = "tall_grass_4"
@@ -25330,6 +25339,13 @@
 	icon_state = "floorrustysolid"
 	},
 /area/f13/building/mall)
+"eBY" = (
+/obj/item/radio/intercom/retro/kebob,
+/turf/closed/wall/f13/store{
+	desc = "A pre-War wall made of solid concrete.";
+	name = "concrete wall"
+	},
+/area/f13/building)
 "eBZ" = (
 /obj/structure/flora/grass/wasteland{
 	icon_state = "tall_grass_4";
@@ -26508,6 +26524,16 @@
 	icon_state = "outerborder"
 	},
 /area/f13/wasteland)
+"fbd" = (
+/obj/structure/window/fulltile/house{
+	dir = 2;
+	icon_state = "storewindowtop"
+	},
+/turf/closed/wall/f13/store{
+	desc = "A pre-War wall made of solid concrete.";
+	name = "concrete wall"
+	},
+/area/f13/building)
 "fbf" = (
 /obj/structure/fence/cut/medium{
 	dir = 4
@@ -34398,6 +34424,15 @@
 	icon_state = "greenrustysolid"
 	},
 /area/f13/building/massfusion)
+"iGU" = (
+/obj/structure/window/fulltile/house{
+	icon_state = "storewindowright"
+	},
+/turf/closed/wall/f13/store{
+	desc = "A pre-War wall made of solid concrete.";
+	name = "concrete wall"
+	},
+/area/f13/building)
 "iHs" = (
 /obj/structure/cross,
 /obj/effect/mob_spawn/human/corpse/raiderranged,
@@ -38029,6 +38064,10 @@
 /obj/effect/decal/cleanable/blood/gibs/down,
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/building)
+"kuR" = (
+/obj/structure/table/reinforced,
+/turf/open/floor/carpet,
+/area/f13/building)
 "kva" = (
 /obj/item/trash/can,
 /mob/living/simple_animal/hostile/bloatfly,
@@ -39044,6 +39083,10 @@
 	icon_state = "floorrusty"
 	},
 /area/f13/ncr)
+"kSe" = (
+/obj/structure/stairs/south,
+/turf/open/floor/carpet,
+/area/f13/building)
 "kSi" = (
 /obj/structure/table/booth,
 /obj/effect/decal/cleanable/dirt,
@@ -42076,6 +42119,13 @@
 /obj/item/ammo_box/magazine/zipgun,
 /turf/open/indestructible/ground/outside/sidewalk,
 /area/f13/wasteland)
+"mfI" = (
+/obj/structure/chair/comfy/beige{
+	dir = 1
+	},
+/obj/effect/landmark/start/f13/radio_host,
+/turf/open/floor/carpet,
+/area/f13/building)
 "mfL" = (
 /obj/structure/flora/grass/wasteland{
 	icon_state = "tall_grass_6"
@@ -44086,6 +44136,20 @@
 	icon_state = "darkrusty"
 	},
 /area/f13/village)
+"mYp" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/radio/intercom{
+	desc = "Is there anyone on the other end? Who's in there?";
+	frequency = 1291;
+	name = "Mysterious Intercom";
+	pixel_x = 26;
+	pixel_y = -3
+	},
+/turf/closed/wall/f13/store{
+	desc = "A pre-War wall made of solid concrete.";
+	name = "concrete wall"
+	},
+/area/f13/building)
 "mYv" = (
 /obj/effect/decal/waste{
 	icon_state = "goo10"
@@ -45890,6 +45954,9 @@
 	},
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/brotherhood)
+"nPu" = (
+/turf/open/floor/carpet,
+/area/f13/building)
 "nPy" = (
 /obj/machinery/door/poddoor/shutters/old{
 	id = "factorygate";
@@ -47127,10 +47194,29 @@
 	icon_state = "outerturn"
 	},
 /area/f13/city)
+"osL" = (
+/obj/structure/simple_door/metal/store{
+	name = "Radio Host";
+	req_access = 274
+	},
+/turf/open/floor/f13{
+	icon_state = "yellowrustychess"
+	},
+/area/f13/city)
 "osS" = (
 /obj/machinery/workbench,
 /turf/open/floor/wood_fancy/wood_fancy_dark,
 /area/f13/village)
+"osV" = (
+/obj/structure/table/wood/fancy/black,
+/obj/item/record_disk,
+/obj/item/record_disk,
+/obj/item/record_disk,
+/obj/item/record_disk,
+/obj/item/record_disk,
+/obj/item/record_disk,
+/turf/open/floor/light/colour_cycle/dancefloor_b,
+/area/f13/building)
 "osY" = (
 /obj/effect/turf_decal/weather/dirt,
 /obj/effect/turf_decal/weather/dirt{
@@ -47534,6 +47620,9 @@
 	icon_state = "horizontaltopbordertop0"
 	},
 /area/f13/wasteland)
+"oCs" = (
+/turf/open/floor/light/colour_cycle/dancefloor_a,
+/area/f13/building)
 "oCA" = (
 /obj/effect/decal/cleanable/oil/slippery,
 /turf/open/floor/f13{
@@ -50428,6 +50517,11 @@
 /obj/structure/flora/grass/coyote/twelve,
 /turf/open/indestructible/ground/outside/desert,
 /area/f13/wasteland)
+"pNl" = (
+/obj/structure/table/reinforced,
+/obj/item/pda/neko,
+/turf/open/floor/carpet,
+/area/f13/building)
 "pNn" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/oil/streak{
@@ -51590,6 +51684,14 @@
 	},
 /turf/open/indestructible/ground/outside/desert,
 /area/f13/brotherhood)
+"qrP" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/radio/intercom,
+/turf/closed/wall/f13/store{
+	desc = "A pre-War wall made of solid concrete.";
+	name = "concrete wall"
+	},
+/area/f13/building)
 "qrV" = (
 /obj/structure/table/wood,
 /obj/machinery/processor/chopping_block,
@@ -58717,6 +58819,10 @@
 	},
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/wasteland)
+"tNK" = (
+/obj/effect/landmark/start/f13/radio_host,
+/turf/open/floor/carpet,
+/area/f13/building)
 "tNN" = (
 /obj/structure/chair/sofa/right{
 	dir = 8
@@ -59048,6 +59154,13 @@
 /obj/structure/barricade/wooden,
 /turf/closed/wall/mineral/concrete,
 /area/f13/brotherhood)
+"tVA" = (
+/obj/structure/simple_door/metal/store{
+	name = "Radio Host";
+	req_access = 274
+	},
+/turf/open/indestructible/ground/outside/desert,
+/area/f13/building)
 "tVG" = (
 /obj/effect/decal/cleanable/dirt{
 	color = "000000"
@@ -62566,6 +62679,10 @@
 	icon_state = "rubble"
 	},
 /area/f13/wasteland)
+"vEO" = (
+/obj/structure/closet/locker,
+/turf/open/floor/carpet,
+/area/f13/building)
 "vEX" = (
 /obj/structure/simple_door/wood,
 /turf/open/floor/f13/wood,
@@ -99923,12 +100040,12 @@ mHp
 uNJ
 igF
 hEG
-hXb
-xJp
-xJp
-xJp
-pRE
-pRE
+pVH
+pVH
+pVH
+fbd
+mYp
+qrP
 aky
 hJW
 hJW
@@ -100180,12 +100297,12 @@ cml
 uNJ
 igF
 hEG
-anR
-jnJ
-jnJ
-jnJ
-jnJ
-jnJ
+iGU
+pNl
+tNK
+nPu
+czx
+mfI
 oPk
 voM
 wjR
@@ -100437,12 +100554,12 @@ uNJ
 uNJ
 igF
 hEG
-anR
-jnJ
-jnJ
-jnJ
-jnJ
-jnJ
+iGU
+kuR
+nPu
+nPu
+osV
+oCs
 kls
 aYj
 aYj
@@ -100694,12 +100811,12 @@ uNJ
 uNJ
 igF
 hEG
-anR
-jnJ
-jnJ
-jnJ
-jnJ
-jnJ
+pVH
+kuR
+nPu
+nPu
+oCs
+ebK
 kls
 clv
 clv
@@ -100951,12 +101068,12 @@ uNJ
 uNJ
 igF
 hEG
-anR
-jnJ
-jnJ
-jnJ
-jnJ
-jnJ
+tVA
+nPu
+nPu
+nPu
+kSe
+vEO
 kls
 kls
 tsQ
@@ -101208,12 +101325,12 @@ uNJ
 uNJ
 igF
 hEG
-ksO
-hEh
-hEh
-hEh
-hEh
-hEh
+pVH
+pVH
+pVH
+fbd
+eBY
+pVH
 kls
 kls
 kls
@@ -101727,7 +101844,7 @@ xLy
 xLy
 xLy
 xLy
-dHo
+osL
 xLy
 fuT
 xLy

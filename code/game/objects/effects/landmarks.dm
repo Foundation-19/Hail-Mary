@@ -769,6 +769,10 @@ obj/effect/landmark/start/f13/ncrlogisticsofficer
 	name = "Citizen"
 	icon_state = "Settler"
 
+/obj/effect/landmark/start/f13/radio_host
+	name = "Radio Host"
+	icon_state = "Radio-Host"
+
 /obj/effect/landmark/start/f13/pilot
 	name = "Vertibird Pilot"
 	icon_state = "Scribe"

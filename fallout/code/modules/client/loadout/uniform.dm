@@ -255,6 +255,7 @@
 							"Prospector",
 							"Detective",
 							"Barkeep",
+							"Radio Host"
 							)
 
 

@@ -1039,6 +1039,65 @@ Mayor
 	///obj/item/gun/ballistic/revolver/m29/snub = 1
 	)*/
 
+/*--------------------------------------------------------------*/
+ 
+/datum/job/eastwood/f13radio_host
+	title = "Radio Host"
+	flag = F13RADIOHOST
+	department_flag = DEP_EASTWOOD
+	total_positions = 2
+	spawn_positions = 2
+	supervisors = "Eastwood laws"
+	description = "You are the Radio Host of Eastwood. You are expected to risk neck and reputation to get the latest scoop in the region. and since news alone don't pay the bills you can stream music to the masses to keep them entretained."
+	enforces = "Although very independant and vocal  you are still under control of local governance - try to keep a good relationship with them but don't risk your journalist integrity to please the boss."
+	selection_color = "#430fff"
+
+	outfit = /datum/outfit/job/den/f13radio_host
+
+	access = list(ACCESS_BAR, ACCESS_KITCHEN, ACCESS_TOWN, ACCESS_TOWN_CIV)
+	minimal_access = list(ACCESS_BAR, ACCESS_KITCHEN, ACCESS_TOWN, ACCESS_TOWN_CIV)
+	matchmaking_allowed = list(
+		/datum/matchmaking_pref/friend = list(
+			/datum/job/eastwood,
+		),
+		/datum/matchmaking_pref/rival = list(
+			/datum/job/eastwood,
+		),
+	)
+
+	loadout_options = list(
+	/datum/outfit/loadout/abiotic,
+	/datum/outfit/loadout/pomologist,
+	/datum/outfit/loadout/zany,)
+
+/datum/outfit/job/den/f13radio_host
+	name = "Radio Host"
+	jobtype = /datum/job/eastwood/f13radio_host
+
+	id = /obj/item/card/id/dogtag/town
+
+	backpack = /obj/item/storage/backpack/satchel/explorer
+	satchel = /obj/item/storage/backpack/satchel/explorer
+	r_pocket = /obj/item/flashlight/flare
+	belt = /obj/item/pda/detective
+	backpack_contents = list(
+		/obj/item/camera, \
+		/obj/item/camera_film=1,
+		/obj/item/taperecorder=1, \
+		/obj/item/gun/ballistic/automatic/pistol/n99, \
+		/obj/item/ammo_box/magazine/m10mm/adv/simple=2)
+	shoes = 		/obj/item/clothing/shoes/workboots
+
+/datum/outfit/job/den/f13settler/pre_equip(mob/living/carbon/human/H)
+	..()
+	uniform = pick(
+		/obj/item/clothing/under/f13/settler, \
+		/obj/item/clothing/under/f13/brahminm, \
+		/obj/item/clothing/under/f13/machinist, \
+		/obj/item/clothing/under/f13/lumberjack, \
+		/obj/item/clothing/under/f13/roving)
+
+/*--------------------------------------------------------------*/
 /*----------------------------------------------------------------
 --							Detective							--
 ----------------------------------------------------------------*/

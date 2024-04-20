@@ -189,6 +189,7 @@
 							"Prospector",
 							"Detective",
 							"Barkeep",
+							"Radio Host"
 							)
 
 /datum/gear/suit/samurai  //added by TK420634 ~ 5/29/2022 "Samurai Wasteland WeebShit Edition (tm)

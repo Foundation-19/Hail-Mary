@@ -117,6 +117,7 @@ GLOBAL_LIST_INIT(eastwood_positions, list(
 	"Barkeep",
 	"Citizen",
 	"Vertibird Pilot",
+	"Radio Host"
 ))
 
 GLOBAL_LIST_INIT(legion_command_positions, list(
