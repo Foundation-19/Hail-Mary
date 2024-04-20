@@ -95,7 +95,7 @@
 	var/list/command = list()
 	var/list/bos = list()
 	var/list/enclave = list()
-	var/list/oasis = list()
+	var/list/eastwood = list()
 	var/list/leg = list()
 	var/list/ncr = list()
 	var/list/vault = list()
@@ -133,8 +133,8 @@
 		if(rank in GLOB.enclave_positions)
 			enclave[name] = rank
 			department = 1
-		if(rank in GLOB.oasis_positions)
-			oasis[name] = rank
+		if(rank in GLOB.eastwood_positions)
+			eastwood[name] = rank
 			department = 1
 		if(rank in GLOB.legion_positions)
 			leg[name] = rank
@@ -142,9 +142,9 @@
 		if(rank in GLOB.ncr_positions)
 			ncr[name] = rank
 			department = 1
-		if(rank in GLOB.followers_positions)
+/*		if(rank in GLOB.followers_positions)
 			flw[name] = rank
-			department = 1
+			department = 1*/
 		/*
 		if(rank in GLOB.tribal_positions)
 			tribe[name] = rank
@@ -173,10 +173,10 @@
 		for(var/name in enclave)
 			dat += "<tr[even ? " class='alt'" : ""]><td>[name]</td><td>[enclave[name]]</td></tr>"
 			even = !even
-	if(length(oasis))
-		dat += "<tr><th colspan=3>Nash</th></tr>"
-		for(var/name in oasis)
-			dat += "<tr[even ? " class='alt'" : ""]><td>[name]</td><td>[oasis[name]]</td></tr>"
+	if(length(eastwood))
+		dat += "<tr><th colspan=3>Eastwood</th></tr>"
+		for(var/name in eastwood)
+			dat += "<tr[even ? " class='alt'" : ""]><td>[name]</td><td>[eastwood[name]]</td></tr>"
 			even = !even
 	if(length(leg))
 		dat += "<tr><th colspan=3>Caesar's Legion</th></tr>"
@@ -189,7 +189,7 @@
 			dat += "<tr[even ? " class='alt'" : ""]><td>[name]</td><td>[ncr[name]]</td></tr>"
 			even = !even
 	if(length(flw))
-		dat += "<tr><th colspan=3>Nash Clinic</th></tr>"
+		dat += "<tr><th colspan=3>Eastwood Clinic</th></tr>"
 		for(var/name in flw)
 			dat += "<tr[even ? " class='alt'" : ""]><td>[name]</td><td>[flw[name]]</td></tr>"
 			even = !even

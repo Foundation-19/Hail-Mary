@@ -5,8 +5,8 @@
 
 	var/list/templates
 
-/obj/effect/landmark/dungeon_mark/oasis
-	name = "oasis bunker"
+/obj/effect/landmark/dungeon_mark/eastwood
+	name = "eastwood bunker"
 
 /obj/effect/landmark/dungeon_mark/northclaws
 	name = "north claws bunker"

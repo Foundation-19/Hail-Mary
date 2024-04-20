@@ -35,14 +35,14 @@ here's a tip, go search DEFINES/access.dm
 Mayor
 */
 
-/datum/job/oasis
-	exp_type = EXP_TYPE_OASIS
-	faction = FACTION_OASIS
+/datum/job/eastwood
+	exp_type = EXP_TYPE_EASTWOOD
+	faction = FACTION_EASTWOOD
 
-/datum/job/oasis/f13mayor   // /obj/item/card/id/captains_spare for any elected mayors. - Blue
+/datum/job/eastwood/f13mayor   // /obj/item/card/id/captains_spare for any elected mayors. - Blue
 	title = "Mayor"
 	flag = F13MAYOR
-	department_flag = DEP_OASIS
+	department_flag = DEP_EASTWOOD
 	total_positions = 1
 	spawn_positions = 1
 	supervisors = "Eastwood"
@@ -57,10 +57,10 @@ Mayor
 	minimal_access = list(ACCESS_BAR, ACCESS_CLONING, ACCESS_GATEWAY, ACCESS_CARGO_BOT, ACCESS_MINT_VAULT, ACCESS_KITCHEN, ACCESS_CLINIC, ACCESS_MINING, ACCESS_FORENSICS_LOCKERS, ACCESS_FOLLOWER, ACCESS_TOWN, ACCESS_TOWN_CIV, ACCESS_TOWN_BAR, ACCESS_TOWN_MERCH, ACCESS_TOWN_PROSP, ACCESS_TOWN_PREACH, ACCESS_TOWN_SCIENCE, ACCESS_TOWN_DOC, ACCESS_TOWN_SEC, ACCESS_TOWN_HOS, ACCESS_TOWN_CMO, ACCESS_TOWN_COMMAND)
 	matchmaking_allowed = list(
 		/datum/matchmaking_pref/friend = list(
-			/datum/job/oasis
+			/datum/job/eastwood
 		),
 		/datum/matchmaking_pref/rival = list(
-			/datum/job/oasis
+			/datum/job/eastwood
 		)
 	)
 
@@ -88,7 +88,7 @@ Mayor
 
 /datum/outfit/job/den/f13mayor
 	name = "Mayor"
-	jobtype = /datum/job/oasis/f13mayor
+	jobtype = /datum/job/eastwood/f13mayor
 	id = /obj/item/card/id/silver/mayor
 	ears = /obj/item/radio/headset/headset_town/mayor
 	backpack = /obj/item/storage/backpack/satchel/explorer
@@ -109,7 +109,7 @@ Mayor
 /datum/outfit/loadout/dictator
 	name = "Mayor for Life"
 	backpack_contents = list(
-	/obj/item/clothing/under/f13/general/oasis = 1,
+	/obj/item/clothing/under/f13/general/eastwood = 1,
 	/obj/item/clothing/head/f13/army/general = 1,
 	/obj/item/gun/ballistic/automatic/pistol/m1911/custom/jackal = 1,
 	/obj/item/ammo_box/magazine/m45 = 2,
@@ -154,10 +154,10 @@ Mayor
 
 /*--------------------------------------------------------------*/
 
-/datum/job/oasis/f13secretary
+/datum/job/eastwood/f13secretary
 	title = "Secretary"
 	flag = F13SECRETARY
-	department_flag = DEP_OASIS
+	department_flag = DEP_EASTWOOD
 	total_positions = 1
 	spawn_positions = 1
 	supervisors = "The Mayor"
@@ -177,16 +177,16 @@ Mayor
 	minimal_access = list(ACCESS_BAR, ACCESS_CLONING, ACCESS_GATEWAY, ACCESS_CARGO_BOT, ACCESS_MINT_VAULT, ACCESS_KITCHEN, ACCESS_CLINIC, ACCESS_MINING, ACCESS_FORENSICS_LOCKERS, ACCESS_FOLLOWER, ACCESS_TOWN, ACCESS_TOWN_CIV, ACCESS_TOWN_BAR, ACCESS_TOWN_MERCH, ACCESS_TOWN_PROSP, ACCESS_TOWN_PREACH, ACCESS_TOWN_SCIENCE, ACCESS_TOWN_DOC, ACCESS_TOWN_SEC, ACCESS_TOWN_HOS, ACCESS_TOWN_CMO, ACCESS_TOWN_COMMAND)
 	matchmaking_allowed = list(
 		/datum/matchmaking_pref/friend = list(
-			/datum/job/oasis
+			/datum/job/eastwood
 		),
 		/datum/matchmaking_pref/rival = list(
-			/datum/job/oasis
+			/datum/job/eastwood
 		)
 	)
 
 /datum/outfit/job/den/f13secretary
 	name = "Secretary"
-	jobtype = /datum/job/oasis/f13secretary
+	jobtype = /datum/job/eastwood/f13secretary
 	id = /obj/item/card/id/silver
 	belt = /obj/item/kit_spawner/townie/mayor
 	ears = /obj/item/radio/headset/headset_town/mayor
@@ -250,10 +250,10 @@ Mayor
 
 /*--------------------------------------------------------------*/
 
-/datum/job/oasis/f13sheriff
+/datum/job/eastwood/f13sheriff
 	title = "Sheriff"
 	flag = F13SHERIFF
-	department_flag = DEP_OASIS
+	department_flag = DEP_EASTWOOD
 	head_announce = list("Security")
 	total_positions = 1
 	spawn_positions = 1
@@ -274,16 +274,16 @@ Mayor
 	minimal_access = list(ACCESS_BAR, ACCESS_CLONING, ACCESS_GATEWAY, ACCESS_CARGO_BOT, ACCESS_MINT_VAULT, ACCESS_CLINIC, ACCESS_KITCHEN, ACCESS_MINING, ACCESS_FORENSICS_LOCKERS, ACCESS_CLINIC, ACCESS_FOLLOWER, ACCESS_TOWN, ACCESS_TOWN_CIV, ACCESS_TOWN_BAR, ACCESS_TOWN_MERCH, ACCESS_TOWN_PROSP, ACCESS_TOWN_PREACH, ACCESS_TOWN_SCIENCE, ACCESS_TOWN_DOC, ACCESS_TOWN_SEC, ACCESS_TOWN_HOS, ACCESS_TOWN_CMO, ACCESS_TOWN_COMMAND)
 	matchmaking_allowed = list(
 		/datum/matchmaking_pref/friend = list(
-			/datum/job/oasis
+			/datum/job/eastwood
 		),
 		/datum/matchmaking_pref/rival = list(
-			/datum/job/oasis
+			/datum/job/eastwood
 		)
 	)
 
 /datum/outfit/job/den/f13sheriff
 	name = "Sheriff"
-	jobtype = /datum/job/oasis/f13sheriff
+	jobtype = /datum/job/eastwood/f13sheriff
 	id = /obj/item/card/id/dogtag/sheriff
 	ears = /obj/item/radio/headset/headset_town/lawman
 	backpack = /obj/item/storage/backpack/satchel/explorer
@@ -343,17 +343,17 @@ Mayor
 
 /*--------------------------------------------------------------*/
 
-/datum/job/oasis/f13deputy
+/datum/job/eastwood/f13deputy
 	title = "Deputy"
 	flag = F13DEPUTY
-	department_flag = DEP_OASIS
+	department_flag = DEP_EASTWOOD
 	total_positions = 4
 	spawn_positions = 4
 	supervisors = "The Sheriff"
 	description = "You are a loyal protector of Eastwood, keeping the settlement within firm control under the authority of the Mayor. The sheriff is your direct superior, and you should expect to take your day-to-day orders from them. Maintain your claim to authority by keeping the peace, managing disputes, and protecting the citizens from threats within and without. Never leave Eastwood undefended, and don't let its people die out."
 	enforces = "You may be elected temporary Sheriff if one does not exist. This may make you the stand-in leader of Eastwood if a Mayor or Secretary does not exist."
 	selection_color = "#dcba97"
-	exp_type = EXP_TYPE_OASIS
+	exp_type = EXP_TYPE_EASTWOOD
 	exp_requirements = 0
 
 	loadout_options = list(
@@ -368,16 +368,16 @@ Mayor
 	minimal_access = list(ACCESS_BAR, ACCESS_GATEWAY, ACCESS_TOWN, ACCESS_TOWN_CIV, ACCESS_TOWN_BAR, ACCESS_TOWN_PROSP, ACCESS_TOWN_PREACH, ACCESS_TOWN_SCIENCE, ACCESS_TOWN_DOC, ACCESS_TOWN_SEC)
 	matchmaking_allowed = list(
 		/datum/matchmaking_pref/friend = list(
-			/datum/job/oasis
+			/datum/job/eastwood
 		),
 		/datum/matchmaking_pref/rival = list(
-			/datum/job/oasis
+			/datum/job/eastwood
 		)
 	)
 
 /datum/outfit/job/den/f13deputy
 	name = "Deputy"
-	jobtype = /datum/job/oasis/f13deputy
+	jobtype = /datum/job/eastwood/f13deputy
 	id = /obj/item/card/id/dogtag/deputy
 	ears = /obj/item/radio/headset/headset_town/lawman
 	backpack = /obj/item/storage/backpack/satchel/explorer
@@ -459,10 +459,10 @@ Mayor
 
 /*--------------------------------------------------------------*/
 
-/datum/job/oasis/f13farmer
+/datum/job/eastwood/f13farmer
 	title = "Farmer"
 	flag = F13FARMER
-	department_flag = DEP_OASIS
+	department_flag = DEP_EASTWOOD
 	total_positions = 4
 	spawn_positions = 4
 	supervisors = "Eastwood laws"
@@ -476,10 +476,10 @@ Mayor
 	minimal_access = list(ACCESS_BAR, ACCESS_KITCHEN, ACCESS_TOWN, ACCESS_TOWN_CIV)
 	matchmaking_allowed = list(
 		/datum/matchmaking_pref/friend = list(
-			/datum/job/oasis,
+			/datum/job/eastwood,
 		),
 		/datum/matchmaking_pref/rival = list(
-			/datum/job/oasis,
+			/datum/job/eastwood,
 		),
 	)
 
@@ -490,7 +490,7 @@ Mayor
 
 /datum/outfit/job/den/f13farmer
 	name = "Farmer"
-	jobtype = /datum/job/oasis/f13farmer
+	jobtype = /datum/job/eastwood/f13farmer
 
 	id = /obj/item/card/id/dogtag/town
 
@@ -541,10 +541,10 @@ Mayor
 
 /*--------------------------------------------------------------*/
 
-/datum/job/oasis/f13prospector
+/datum/job/eastwood/f13prospector
 	title = "Prospector"
 	flag = F13PROSPECTOR
-	department_flag = DEP_OASIS
+	department_flag = DEP_EASTWOOD
 	total_positions = 4
 	spawn_positions = 4
 	supervisors = "The Mayor"
@@ -554,14 +554,14 @@ Mayor
 
 	outfit = /datum/outfit/job/den/f13prospector
 
-	access = list(ACCESS_BAR, ACCESS_MINING, ACCESS_TOWN, ACCESS_TOWN_CIV, ACCESS_TOWN_PROSP)
-	minimal_access = list(ACCESS_BAR, ACCESS_MINING, ACCESS_TOWN, ACCESS_TOWN_CIV, ACCESS_TOWN_PROSP)
+	access = list(ACCESS_BAR, ACCESS_MINING, ACCESS_TOWN, ACCESS_TOWN_CIV, ACCESS_TOWN_PROSP, ACCESS_TOWN_MERCH)
+	minimal_access = list(ACCESS_BAR, ACCESS_MINING, ACCESS_TOWN, ACCESS_TOWN_CIV, ACCESS_TOWN_PROSP, ACCESS_TOWN_MERCH)
 	matchmaking_allowed = list(
 		/datum/matchmaking_pref/friend = list(
-			/datum/job/oasis,
+			/datum/job/eastwood,
 		),
 		/datum/matchmaking_pref/rival = list(
-			/datum/job/oasis,
+			/datum/job/eastwood,
 		),
 	)
 
@@ -571,7 +571,7 @@ Mayor
 
 /datum/outfit/job/den/f13prospector
 	name = "Prospector"
-	jobtype = /datum/job/oasis/f13prospector
+	jobtype = /datum/job/eastwood/f13prospector
 
 	id = /obj/item/card/id/dogtag/town
 	backpack = /obj/item/storage/backpack/satchel/explorer
@@ -629,10 +629,10 @@ Mayor
 		)
 /*--------------------------------------------------------------*/
 
-/datum/job/oasis/f13dendoc
+/datum/job/eastwood/f13dendoc
 	title = "Doctor"
 	flag = F13DENDOC
-	department_flag = DEP_OASIS
+	department_flag = DEP_EASTWOOD
 	total_positions = 3
 	spawn_positions = 3
 	supervisors = "The Mayor"
@@ -651,16 +651,16 @@ Mayor
 	minimal_access = list(ACCESS_BAR, ACCESS_CLINIC, ACCESS_CLONING, ACCESS_FOLLOWER, ACCESS_TOWN, ACCESS_TOWN_CIV, ACCESS_TOWN_DOC, ACCESS_TOWN_SCIENCE)
 	matchmaking_allowed = list(
 		/datum/matchmaking_pref/friend = list(
-			/datum/job/oasis
+			/datum/job/eastwood
 		),
 		/datum/matchmaking_pref/rival = list(
-			/datum/job/oasis
+			/datum/job/eastwood
 		)
 	)
 
 /datum/outfit/job/den/f13dendoc
 	name = "Doctor"
-	jobtype = /datum/job/oasis/f13dendoc
+	jobtype = /datum/job/eastwood/f13dendoc
 	chemwhiz = TRUE
 	ears = /obj/item/radio/headset/headset_town/medical
 	uniform = /obj/item/clothing/under/f13/medic
@@ -736,10 +736,10 @@ Mayor
 		)
 /*--------------------------------------------------------------*/
 
-/datum/job/oasis/f13barkeep
+/datum/job/eastwood/f13barkeep
 	title = "Barkeep"
 	flag = F13BARKEEP
-	department_flag = DEP_OASIS
+	department_flag = DEP_EASTWOOD
 	total_positions = 2
 	spawn_positions = 2
 	supervisors = "the free market and Eastwood's Laws"
@@ -759,17 +759,17 @@ Mayor
 	minimal_access = list(ACCESS_BAR, ACCESS_KITCHEN, ACCESS_TOWN, ACCESS_TOWN_CIV, ACCESS_TOWN_BAR)
 	matchmaking_allowed = list(
 		/datum/matchmaking_pref/friend = list(
-			/datum/job/oasis
+			/datum/job/eastwood
 		),
 		/datum/matchmaking_pref/rival = list(
-			/datum/job/oasis
+			/datum/job/eastwood
 		)
 	)
 
 
 /datum/outfit/job/den/f13barkeep
 	name = "Barkeep"
-	jobtype = /datum/job/oasis/f13barkeep
+	jobtype = /datum/job/eastwood/f13barkeep
 	uniform = /obj/item/clothing/under/f13/bartenderalt
 	id = /obj/item/card/id/dogtag/town
 	ears = /obj/item/radio/headset/headset_town/commerce
@@ -821,10 +821,10 @@ Mayor
 	shoes = /obj/item/clothing/shoes/f13/military/ncr
 
 /*--------------------------------------------------------------*/
-/datum/job/oasis/f13settler
+/datum/job/eastwood/f13settler
 	title = "Citizen"
 	flag = F13SETTLER
-	department_flag = DEP_OASIS
+	department_flag = DEP_EASTWOOD
 	total_positions = -1
 	spawn_positions =-1
 	supervisors = "Eastwood's laws"
@@ -848,17 +848,17 @@ Mayor
 	minimal_access = list(ACCESS_BAR, ACCESS_TOWN, ACCESS_TOWN_CIV)
 	matchmaking_allowed = list(
 		/datum/matchmaking_pref/friend = list(
-			/datum/job/oasis
+			/datum/job/eastwood
 		),
 		/datum/matchmaking_pref/rival = list(
-			/datum/job/oasis
+			/datum/job/eastwood
 		)
 	)
 
 
 /datum/outfit/job/den/f13settler
 	name = "Citizen"
-	jobtype = /datum/job/oasis/f13settler
+	jobtype = /datum/job/eastwood/f13settler
 	belt = /obj/item/kit_spawner/townie
 	//suit_store = /obj/item/kit_spawner/tools //suit store not workin for some reason
 	id = /obj/item/card/id/dogtag/town
@@ -1040,29 +1040,80 @@ Mayor
 	///obj/item/gun/ballistic/revolver/m29/snub = 1
 	)*/
 
+/*--------------------------------------------------------------*/
+ 
+/datum/job/eastwood/f13radio_host
+	title = "Radio Host"
+	flag = F13RADIOHOST
+	department_flag = DEP_EASTWOOD
+	total_positions = 2
+	spawn_positions = 2
+	supervisors = "Eastwood laws"
+	description = "You are the Radio Host of Eastwood. You are expected to risk neck and reputation to get the latest scoop in the region. and since news alone don't pay the bills you can stream music to the masses to keep them entretained."
+	enforces = "Although very independant and vocal  you are still under control of local governance - try to keep a good relationship with them but don't risk your journalist integrity to please the boss."
+	selection_color = "#dcba97"
+
+	outfit = /datum/outfit/job/den/f13radio_host
+
+	access = list(ACCESS_BAR, ACCESS_KITCHEN, ACCESS_TOWN, ACCESS_TOWN_CIV)
+	minimal_access = list(ACCESS_BAR, ACCESS_KITCHEN, ACCESS_TOWN, ACCESS_TOWN_CIV)
+	matchmaking_allowed = list(
+		/datum/matchmaking_pref/friend = list(
+			/datum/job/eastwood
+		),
+		/datum/matchmaking_pref/rival = list(
+			/datum/job/eastwood
+		),
+	)
+/datum/outfit/job/den/f13radio_host
+	name = "Radio Host"
+	jobtype = /datum/job/eastwood/f13radio_host
+	id = /obj/item/card/id/dogtag/town
+	backpack = /obj/item/storage/backpack/satchel/explorer
+	satchel = /obj/item/storage/backpack/satchel/explorer
+	r_pocket = /obj/item/flashlight/flare
+	belt = /obj/item/pda/detective
+	backpack_contents = list(
+		/obj/item/camera, \
+		/obj/item/camera_film=1,
+		/obj/item/taperecorder=1, \
+		/obj/item/gun/ballistic/automatic/pistol/n99, \
+		/obj/item/ammo_box/magazine/m10mm/adv/simple=2)
+	shoes = /obj/item/clothing/shoes/workboots
+
+/datum/outfit/job/den/f13settler/pre_equip(mob/living/carbon/human/H)
+	..()
+	uniform = pick(
+		/obj/item/clothing/under/f13/settler, \
+		/obj/item/clothing/under/f13/brahminm, \
+		/obj/item/clothing/under/f13/machinist, \
+		/obj/item/clothing/under/f13/lumberjack, \
+		/obj/item/clothing/under/f13/roving)
+
+/*--------------------------------------------------------------*/
 /*----------------------------------------------------------------
 --							Detective							--
 ----------------------------------------------------------------*/
 
-/datum/job/oasis/f13detective
+/datum/job/eastwood/f13detective
 	title = "Detective"
 	flag = F13DETECTIVE
 	total_positions = 1
 	spawn_positions = 1
 	supervisors = "paying clients and Eastwood's laws"
 	selection_color = "#dcba97"
-	outfit = /datum/outfit/job/oasis/f13detective
+	outfit = /datum/outfit/job/eastwood/f13detective
 
 	access = list(ACCESS_BAR, ACCESS_FORENSICS_LOCKERS, ACCESS_TOWN, ACCESS_TOWN_CIV, ACCESS_TOWN_SEC)
 	minimal_access = list(ACCESS_BAR, ACCESS_FORENSICS_LOCKERS, ACCESS_TOWN, ACCESS_TOWN_CIV, ACCESS_TOWN_SEC)
 	matchmaking_allowed = list(
 		/datum/matchmaking_pref/friend = list(
 			/datum/job/wasteland/f13wastelander,
-			/datum/job/oasis/f13detective
+			/datum/job/eastwood/f13detective
 		),
 		/datum/matchmaking_pref/rival = list(
 			/datum/job/wasteland/f13wastelander,
-			/datum/job/oasis/f13detective
+			/datum/job/eastwood/f13detective
 		),
 		/datum/matchmaking_pref/mentor = list(
 			/datum/job/wasteland/f13wastelander
@@ -1070,9 +1121,9 @@ Mayor
 	)
 
 
-/datum/outfit/job/oasis/f13detective
+/datum/outfit/job/eastwood/f13detective
 	name = "Detective"
-	jobtype = /datum/job/oasis/f13detective
+	jobtype = /datum/job/eastwood/f13detective
 	belt = /obj/item/kit_spawner/lawman
 	suit = /obj/item/clothing/suit/det_suit/grey
 	uniform = /obj/item/clothing/under/f13/detectivealt
@@ -1097,10 +1148,10 @@ Mayor
 
 /*--------------------------------------------------------------*/
 
-/datum/job/oasis/f13banker
+/datum/job/eastwood/f13banker
 	title = "Banker"
 	flag = F13BANKER
-	department_flag = DEP_OASIS
+	department_flag = DEP_EASTWOOD
 	total_positions = 0
 	spawn_positions = 0
 	supervisors = "The Mayor"
@@ -1120,7 +1171,7 @@ Mayor
 
 /datum/outfit/job/den/f13banker
 	name = "Banker"
-	jobtype = /datum/job/oasis/f13banker
+	jobtype = /datum/job/eastwood/f13banker
 	belt = /obj/item/kit_spawner/lawman
 
 	uniform = /obj/item/clothing/under/lawyer/blacksuit
@@ -1177,10 +1228,10 @@ Mayor
 /*--------------------------------------------------------------*/
 
 //The Quartermaster
-/datum/job/oasis/f13quartermaster
+/datum/job/eastwood/f13quartermaster
 	title = "Quartermaster"
 	flag = F13QUARTERMASTER
-	department_flag = DEP_OASIS
+	department_flag = DEP_EASTWOOD
 	total_positions = 1
 	spawn_positions = 1
 	supervisors = "the free market and Eastwood's laws"
@@ -1199,16 +1250,16 @@ Mayor
 	minimal_access = list(ACCESS_BAR, ACCESS_CARGO_BOT, ACCESS_TOWN, ACCESS_TOWN_CIV, ACCESS_TOWN_MERCH)
 	matchmaking_allowed = list(
 		/datum/matchmaking_pref/friend = list(
-			/datum/job/oasis
+			/datum/job/eastwood
 		),
 		/datum/matchmaking_pref/rival = list(
-			/datum/job/oasis
+			/datum/job/eastwood
 		)
 	)
 
 /datum/outfit/job/den/f13quartermaster
 	name = "Quartermaster"
-	jobtype = /datum/job/oasis/f13quartermaster
+	jobtype = /datum/job/eastwood/f13quartermaster
 	id = /obj/item/card/id/dogtag/town
 	ears = /obj/item/radio/headset/headset_town/commerce
 	belt = /obj/item/kit_spawner/townie
@@ -1273,10 +1324,10 @@ Mayor
 		return
 
 //The Trade Workers
-/datum/job/oasis/f13shopkeeper
+/datum/job/eastwood/f13shopkeeper
 	title = "Trade Worker"
 	flag = F13SHOPKEEPER
-	department_flag = DEP_OASIS
+	department_flag = DEP_EASTWOOD
 	total_positions = 4
 	spawn_positions = 4
 	supervisors = "the free market and Eastwood's laws"
@@ -1296,16 +1347,16 @@ Mayor
 	minimal_access = list(ACCESS_BAR, ACCESS_CARGO_BOT, ACCESS_TOWN, ACCESS_TOWN_CIV, ACCESS_TOWN_MERCH)
 	matchmaking_allowed = list(
 		/datum/matchmaking_pref/friend = list(
-			/datum/job/oasis
+			/datum/job/eastwood
 		),
 		/datum/matchmaking_pref/rival = list(
-			/datum/job/oasis
+			/datum/job/eastwood
 		)
 	)
 
 /datum/outfit/job/den/f13shopkeeper
 	name = "Shopkeeper"
-	jobtype = /datum/job/oasis/f13shopkeeper
+	jobtype = /datum/job/eastwood/f13shopkeeper
 	id = /obj/item/card/id/dogtag/town
 	ears = /obj/item/radio/headset/headset_town/commerce
 	belt = /obj/item/kit_spawner/townie
@@ -1378,10 +1429,10 @@ Mayor
 
 
 //pilot job, bare basics rn, but we can add as needed
-/datum/job/oasis/f13pilot
+/datum/job/eastwood/f13pilot
 	title = "Vertibird Pilot"
 	flag = F13PILOT
-	department_flag = DEP_OASIS
+	department_flag = DEP_EASTWOOD
 	total_positions = 0
 	spawn_positions = 0
 	supervisors = "Eastwood's laws"
@@ -1394,17 +1445,17 @@ Mayor
 	minimal_access = list(ACCESS_BAR, ACCESS_EVA)
 	matchmaking_allowed = list(
 		/datum/matchmaking_pref/friend = list(
-			/datum/job/oasis
+			/datum/job/eastwood
 		),
 		/datum/matchmaking_pref/rival = list(
-			/datum/job/oasis
+			/datum/job/eastwood
 		)
 	)
 
 
 /datum/outfit/job/den/f13pilot
 	name = "Vertibird Pilot"
-	jobtype = /datum/job/oasis/f13pilot
+	jobtype = /datum/job/eastwood/f13pilot
 	belt = /obj/item/kit_spawner/townie
 	id = /obj/item/card/id/dogtag/town
 	uniform = /obj/item/clothing/under/f13/settler

@@ -4654,7 +4654,7 @@
 	},
 /area/f13/village)
 "bQb" = (
-/obj/item/flag/oasis,
+/obj/item/flag/eastwood,
 /turf/open/indestructible/ground/outside/sidewalk{
 	icon_state = "verticalleftborderleft0"
 	},
@@ -4699,7 +4699,7 @@
 	},
 /area/f13/building)
 "bQV" = (
-/obj/machinery/light/sign/oasis,
+/obj/machinery/light/sign/eastwood,
 /obj/structure/destructible/tribal_torch/lit,
 /turf/open/indestructible/ground/outside/desert,
 /area/f13/wasteland)
@@ -8089,7 +8089,7 @@
 "dqX" = (
 /obj/structure/ladder/unbreakable{
 	height = 2;
-	id = "oasis"
+	id = "eastwood"
 	},
 /turf/open/indestructible/ground/outside/road{
 	icon_state = "verticalinnermain0"
@@ -11682,7 +11682,7 @@
 /turf/open/floor/f13/wood,
 /area/f13/village)
 "ePY" = (
-/obj/item/flag/oasis,
+/obj/item/flag/eastwood,
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/building)
 "eQc" = (
@@ -18975,7 +18975,7 @@
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/wasteland)
 "hJt" = (
-/obj/machinery/msgterminal/oasis/followers,
+/obj/machinery/msgterminal/eastwood/followers,
 /turf/open/floor/f13{
 	icon_state = "floorrusty"
 	},
@@ -19824,7 +19824,7 @@
 "iaV" = (
 /obj/structure/ladder/unbreakable{
 	height = 2;
-	id = "oasisdb"
+	id = "eastwooddb"
 	},
 /turf/open/indestructible/ground/outside/ruins,
 /area/f13/building)
@@ -25226,7 +25226,7 @@
 	},
 /area/f13/building)
 "kkS" = (
-/obj/machinery/light/sign/oasis_sign,
+/obj/machinery/light/sign/eastwood_sign,
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/building)
 "kld" = (
@@ -28158,7 +28158,7 @@
 /turf/open/indestructible/ground/outside/water,
 /area/f13/wasteland)
 "lzW" = (
-/obj/item/flag/oasis,
+/obj/item/flag/eastwood,
 /turf/open/indestructible/ground/outside/sidewalk{
 	dir = 4;
 	icon_state = "outerborder"
@@ -47862,7 +47862,7 @@
 /turf/open/floor/f13/wood,
 /area/f13/building)
 "uel" = (
-/obj/item/flag/oasis,
+/obj/item/flag/eastwood,
 /turf/open/indestructible/ground/outside/road{
 	icon_state = "verticalleftborderright0"
 	},
@@ -48058,7 +48058,7 @@
 /turf/open/floor/f13/wood,
 /area/f13/building)
 "uhi" = (
-/obj/item/flag/oasis,
+/obj/item/flag/eastwood,
 /turf/open/indestructible/ground/outside/sidewalk{
 	icon_state = "verticalrightborderright0"
 	},
@@ -48101,7 +48101,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/floor/floorsolid,
 /area/f13/building)
 "uhY" = (
-/obj/item/flag/oasis,
+/obj/item/flag/eastwood,
 /turf/open/indestructible/ground/outside/road{
 	icon_state = "verticalrightborderleft2"
 	},

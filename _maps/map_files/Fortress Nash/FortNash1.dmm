@@ -40,7 +40,7 @@
 /obj/structure/nest/randomized{
 	randomizer_difficulty = 1;
 	randomizer_kind = "low level mobs";
-	randomizer_tag = "Nash East Road"
+	randomizer_tag = "Eastwood East Road"
 	},
 /turf/open/floor/f13/wood,
 /area/f13/building/abandoned)
@@ -6221,7 +6221,7 @@
 /obj/structure/nest/randomized{
 	randomizer_difficulty = 1;
 	randomizer_kind = "trash mobs";
-	randomizer_tag = "Nash East Road"
+	randomizer_tag = "Eastwood East Road"
 	},
 /turf/open/floor/carpet/black,
 /area/f13/building/abandoned)
@@ -8959,7 +8959,7 @@
 /obj/structure/nest/randomized{
 	randomizer_difficulty = 1;
 	randomizer_kind = "trash mobs";
-	randomizer_tag = "Nash East Road"
+	randomizer_tag = "Eastwood East Road"
 	},
 /turf/open/floor/f13/wood,
 /area/f13/building/abandoned)
@@ -9393,7 +9393,7 @@
 /obj/structure/nest/randomized{
 	randomizer_difficulty = 1;
 	randomizer_kind = "mid level mobs";
-	randomizer_tag = "Texarkana Tigers"
+	randomizer_tag = "Pahrump Tigers"
 	},
 /turf/open/floor/f13/wood,
 /area/f13/building/abandoned)
@@ -9617,7 +9617,7 @@
 /obj/structure/nest/randomized{
 	randomizer_difficulty = 1;
 	randomizer_kind = "mid level mobs";
-	randomizer_tag = "Texarkana Tigers"
+	randomizer_tag = "Pahrump Tigers"
 	},
 /turf/open/indestructible/ground/outside/road{
 	icon_state = "horizontalinnermain0"
@@ -11925,7 +11925,7 @@
 /obj/structure/nest/randomized{
 	randomizer_difficulty = 1;
 	randomizer_kind = "mid level mobs";
-	randomizer_tag = "Texarkana Residential District 1"
+	randomizer_tag = "Pahrump Residential District 1"
 	},
 /turf/open/floor/f13/wood,
 /area/f13/building/abandoned)
@@ -14137,7 +14137,7 @@
 /obj/structure/nest/randomized{
 	randomizer_difficulty = 1;
 	randomizer_kind = "low level mobs";
-	randomizer_tag = "Nash East Road"
+	randomizer_tag = "Eastwood East Road"
 	},
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/wasteland)
@@ -15262,7 +15262,7 @@
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/wasteland)
 "bir" = (
-/obj/machinery/light/sign/nash{
+/obj/machinery/light/sign/eastwood{
 	pixel_x = -14
 	},
 /turf/open/indestructible/ground/outside/sidewalk,
@@ -15673,7 +15673,7 @@
 /obj/structure/nest/randomized{
 	randomizer_difficulty = 1;
 	randomizer_kind = "low level mobs";
-	randomizer_tag = "Nash East Road"
+	randomizer_tag = "Eastwood East Road"
 	},
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/wasteland)
@@ -15742,7 +15742,7 @@
 /obj/structure/nest/randomized{
 	randomizer_difficulty = 1;
 	randomizer_kind = "low level mobs";
-	randomizer_tag = "Nash East Road"
+	randomizer_tag = "Eastwood East Road"
 	},
 /turf/open/indestructible/ground/outside/desert,
 /area/f13/building/abandoned)
@@ -17623,7 +17623,7 @@
 /obj/structure/nest/randomized{
 	randomizer_difficulty = 1;
 	randomizer_kind = "trash mobs";
-	randomizer_tag = "Nash East Road"
+	randomizer_tag = "Eastwood East Road"
 	},
 /turf/open/floor/f13/wood,
 /area/f13/building/abandoned)
@@ -19635,7 +19635,7 @@
 /obj/structure/nest/randomized{
 	randomizer_difficulty = 1;
 	randomizer_kind = "low level mobs";
-	randomizer_tag = "Nash East Road"
+	randomizer_tag = "Eastwood East Road"
 	},
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/wasteland)
@@ -20851,7 +20851,7 @@
 /obj/structure/nest/randomized{
 	randomizer_difficulty = 1;
 	randomizer_kind = "low level mobs";
-	randomizer_tag = "Nash East Road"
+	randomizer_tag = "Eastwood East Road"
 	},
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/building/abandoned)
@@ -22646,7 +22646,7 @@
 /obj/structure/nest/randomized{
 	randomizer_difficulty = 1;
 	randomizer_kind = "mid level mobs";
-	randomizer_tag = "Texarkana Residential District 1"
+	randomizer_tag = "Pahrump Residential District 1"
 	},
 /turf/open/floor/f13/wood,
 /area/f13/building/abandoned)
@@ -23497,7 +23497,7 @@
 /obj/structure/nest/randomized{
 	randomizer_difficulty = 1;
 	randomizer_kind = "low level mobs";
-	randomizer_tag = "Nash East Road"
+	randomizer_tag = "Eastwood East Road"
 	},
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/building/abandoned)
@@ -24135,7 +24135,7 @@
 /obj/structure/nest/randomized{
 	randomizer_difficulty = 1;
 	randomizer_kind = "mid level mobs";
-	randomizer_tag = "Texarkana Residential District 1"
+	randomizer_tag = "Pahrump Residential District 1"
 	},
 /turf/open/indestructible/ground/outside/ruins{
 	dir = 8;
@@ -24381,14 +24381,14 @@
 "dBe" = (
 /obj/machinery/button/door{
 	id = "deskcounter";
-	name = "Nash East Shutters";
+	name = "Eastwood East Shutters";
 	pixel_x = -6;
 	pixel_y = 38;
 	req_one_access_txt = null
 	},
 /obj/machinery/button/door{
-	id = "nasheast";
-	name = "Nash East Shutters";
+	id = "eastwoodeast";
+	name = "Eastwood East Shutters";
 	pixel_x = -6;
 	pixel_y = 29;
 	req_one_access_txt = null
@@ -25976,7 +25976,7 @@
 /obj/structure/nest/randomized{
 	randomizer_difficulty = 1;
 	randomizer_kind = "mid level mobs";
-	randomizer_tag = "Texarkana Residential District 1"
+	randomizer_tag = "Pahrump Residential District 1"
 	},
 /turf/open/floor/f13/wood,
 /area/f13/building/abandoned)
@@ -26710,7 +26710,7 @@
 /obj/structure/nest/randomized{
 	randomizer_difficulty = 1;
 	randomizer_kind = "low level mobs";
-	randomizer_tag = "Nash East Road"
+	randomizer_tag = "Eastwood East Road"
 	},
 /turf/open/indestructible/ground/outside/road{
 	icon_state = "horizontalbottombordertop2"
@@ -26759,7 +26759,7 @@
 /obj/structure/nest/randomized{
 	randomizer_difficulty = 1;
 	randomizer_kind = "trash mobs";
-	randomizer_tag = "Nash East Road"
+	randomizer_tag = "Eastwood East Road"
 	},
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/wasteland)
@@ -26865,8 +26865,8 @@
 /area/f13/wasteland)
 "ewZ" = (
 /obj/effect/landmark/vertibird{
-	id = "Nash - Behind Red River Army Depot";
-	name = "Nash - Behind Red River Army Depot"
+	id = "Eastwood - Behind Red River Army Depot";
+	name = "Eastwood - Behind Red River Army Depot"
 	},
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/wasteland)
@@ -27734,7 +27734,7 @@
 /obj/structure/nest/randomized{
 	randomizer_difficulty = 1;
 	randomizer_kind = "mid level mobs";
-	randomizer_tag = "Texarkana Residential District 1"
+	randomizer_tag = "Pahrump Residential District 1"
 	},
 /turf/open/indestructible/ground/outside/sidewalk{
 	icon_state = "verticaloutermain2"
@@ -28461,7 +28461,7 @@
 /area/f13/wasteland/city)
 "feq" = (
 /obj/machinery/door/poddoor/shutters/preopen{
-	id = "nasheast"
+	id = "eastwoodeast"
 	},
 /turf/open/indestructible/ground/outside/road,
 /area/f13/wasteland)
@@ -28748,7 +28748,7 @@
 /area/f13/wasteland/city)
 "flj" = (
 /obj/machinery/door/poddoor/shutters/preopen{
-	id = "nasheast"
+	id = "eastwoodeast"
 	},
 /turf/open/indestructible/ground/outside/road{
 	icon_state = "horizontaltopborderbottom0"
@@ -29500,8 +29500,8 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/vertibird{
-	id = "Nash - By The Mall";
-	name = "Nash - By The Mall"
+	id = "Eastwood - By The Mall";
+	name = "Eastwood - By The Mall"
 	},
 /turf/open/indestructible/ground/outside/road{
 	icon_state = "horizontalinnermain0"
@@ -31001,8 +31001,8 @@
 /area/f13/wasteland)
 "ged" = (
 /obj/effect/landmark/vertibird{
-	id = "Nash - Middle of Texarkana";
-	name = "Nash - Middle of Texarkana"
+	id = "Eastwood - Middle of Pahrump";
+	name = "Eastwood - Middle of Pahrump"
 	},
 /turf/open/indestructible/ground/outside/road{
 	dir = 8;
@@ -31830,7 +31830,7 @@
 	dir = 8;
 	light_color = "#d8b1b1"
 	},
-/obj/machinery/vending/medical/nash,
+/obj/machinery/vending/medical/eastwood,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
 /area/f13/building/hospital)
 "gwF" = (
@@ -31844,7 +31844,7 @@
 /obj/structure/nest/randomized{
 	randomizer_difficulty = 1;
 	randomizer_kind = "low level mobs";
-	randomizer_tag = "Nash East Road"
+	randomizer_tag = "Eastwood East Road"
 	},
 /turf/open/indestructible/ground/outside/dirt{
 	dir = 4;
@@ -33472,8 +33472,8 @@
 /area/f13/wasteland)
 "gZu" = (
 /obj/effect/landmark/vertibird{
-	id = "Nash - SE of the City of Nash";
-	name = "Nash - SE of the City of Nash"
+	id = "Eastwood - SE of the City of Eastwood";
+	name = "Eastwood - SE of the City of Eastwood"
 	},
 /turf/open/indestructible/ground/outside/road{
 	icon_state = "verticalinnermain0"
@@ -34106,7 +34106,7 @@
 /obj/structure/nest/randomized{
 	randomizer_difficulty = 3;
 	randomizer_kind = "mid level mobs";
-	randomizer_tag = "Texarkana Residential District 1"
+	randomizer_tag = "Pahrump Residential District 1"
 	},
 /turf/open/indestructible/ground/outside/dirt{
 	dir = 1;
@@ -35652,7 +35652,7 @@
 /obj/structure/nest/randomized{
 	randomizer_difficulty = 1;
 	randomizer_kind = "low level mobs";
-	randomizer_tag = "Nash East Road"
+	randomizer_tag = "Eastwood East Road"
 	},
 /turf/open/indestructible/ground/outside/road{
 	icon_state = "horizontalinnermain2"
@@ -36468,7 +36468,7 @@
 /obj/structure/nest/randomized{
 	randomizer_difficulty = 3;
 	randomizer_kind = "mid level mobs";
-	randomizer_tag = "Texarkana Residential District 1"
+	randomizer_tag = "Pahrump Residential District 1"
 	},
 /turf/open/floor/f13/wood,
 /area/f13/building/abandoned)
@@ -39655,7 +39655,7 @@
 /obj/structure/nest/randomized{
 	randomizer_difficulty = 3;
 	randomizer_kind = "low level mobs";
-	randomizer_tag = "Nash East Road"
+	randomizer_tag = "Eastwood East Road"
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/rarewhite/rarecyan,
 /area/f13/building/abandoned)
@@ -39870,8 +39870,8 @@
 "juB" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/vertibird{
-	id = "Nash - Just East of Nash city";
-	name = "Nash - Just East of Nash city"
+	id = "Eastwood - Just East of Eastwood city";
+	name = "Eastwood - Just East of Eastwood city"
 	},
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/wasteland)
@@ -40357,7 +40357,7 @@
 /obj/structure/nest/randomized{
 	randomizer_difficulty = 1;
 	randomizer_kind = "trash mobs";
-	randomizer_tag = "Nash East Road"
+	randomizer_tag = "Eastwood East Road"
 	},
 /turf/open/floor/f13{
 	icon_state = "whitegreenrustychess"
@@ -41828,7 +41828,7 @@
 /obj/structure/nest/randomized{
 	randomizer_difficulty = 1;
 	randomizer_kind = "trash mobs";
-	randomizer_tag = "Nash East Road"
+	randomizer_tag = "Eastwood East Road"
 	},
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/wasteland)
@@ -42162,7 +42162,7 @@
 /area/f13/wasteland)
 "ksw" = (
 /obj/machinery/door/unpowered/securedoor{
-	name = "First Bank of Nash";
+	name = "First Bank of Eastwood";
 	req_one_access_txt = "52"
 	},
 /turf/open/floor/wood_fancy/wood_fancy_light,
@@ -44358,7 +44358,7 @@
 /obj/structure/nest/randomized{
 	randomizer_difficulty = 1;
 	randomizer_kind = "low level mobs";
-	randomizer_tag = "Nash East Road"
+	randomizer_tag = "Eastwood East Road"
 	},
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/building/abandoned)
@@ -44810,7 +44810,7 @@
 /obj/structure/nest/randomized{
 	randomizer_difficulty = 1;
 	randomizer_kind = "mid level mobs";
-	randomizer_tag = "Texarkana Residential District 1"
+	randomizer_tag = "Pahrump Residential District 1"
 	},
 /turf/open/indestructible/ground/outside/desert,
 /area/f13/wasteland/city)
@@ -45422,7 +45422,7 @@
 /obj/structure/nest/randomized{
 	randomizer_difficulty = 3;
 	randomizer_kind = "mid level mobs";
-	randomizer_tag = "Texarkana Residential District 1"
+	randomizer_tag = "Pahrump Residential District 1"
 	},
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/wasteland)
@@ -46690,7 +46690,7 @@
 /obj/structure/nest/randomized{
 	randomizer_difficulty = 1;
 	randomizer_kind = "mid level mobs";
-	randomizer_tag = "Texarkana Residential District 1"
+	randomizer_tag = "Pahrump Residential District 1"
 	},
 /turf/open/indestructible/ground/outside/road{
 	icon_state = "verticalinnermain0"
@@ -50155,8 +50155,8 @@
 "nlx" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/vertibird{
-	id = "Nash - Robot Parking Lot";
-	name = "Nash - Robot Parking Lot"
+	id = "Eastwood - Robot Parking Lot";
+	name = "Eastwood - Robot Parking Lot"
 	},
 /turf/open/indestructible/ground/outside/sidewalk{
 	icon_state = "horizontaloutermain1"
@@ -51037,7 +51037,7 @@
 /obj/structure/nest/randomized{
 	randomizer_difficulty = 1;
 	randomizer_kind = 1;
-	randomizer_tag = "Nash East Road"
+	randomizer_tag = "Eastwood East Road"
 	},
 /turf/open/floor/f13/wood,
 /area/f13/building/abandoned)
@@ -52547,7 +52547,7 @@
 "ofJ" = (
 /obj/structure/ladder/unbreakable{
 	height = 2;
-	id = "Nashsewers"
+	id = "Eastwoodsewers"
 	},
 /turf/open/indestructible/ground/outside/sidewalk,
 /area/f13/building/abandoned)
@@ -53621,7 +53621,7 @@
 /obj/structure/nest/randomized{
 	randomizer_difficulty = 3;
 	randomizer_kind = "mid level mobs";
-	randomizer_tag = "Texarkana Residential District 1"
+	randomizer_tag = "Pahrump Residential District 1"
 	},
 /turf/open/indestructible/ground/outside/road{
 	icon_state = "horizontaltopborderbottom2left"
@@ -54113,7 +54113,7 @@
 /obj/structure/nest/randomized{
 	randomizer_difficulty = 1;
 	randomizer_kind = "mid level mobs";
-	randomizer_tag = "Texarkana Residential District 1"
+	randomizer_tag = "Pahrump Residential District 1"
 	},
 /turf/open/floor/f13/wood,
 /area/f13/building/abandoned)
@@ -55656,7 +55656,7 @@
 /obj/structure/nest/randomized{
 	randomizer_difficulty = 3;
 	randomizer_kind = "mid level mobs";
-	randomizer_tag = "Texarkana Residential District 1"
+	randomizer_tag = "Pahrump Residential District 1"
 	},
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/wasteland/city)
@@ -59376,7 +59376,7 @@
 /turf/open/indestructible/ground/outside/ruins,
 /area/f13/building/abandoned)
 "qJQ" = (
-/obj/machinery/light/sign/nash{
+/obj/machinery/light/sign/eastwood{
 	pixel_x = -14
 	},
 /turf/open/indestructible/ground/outside/sidewalk{
@@ -59498,8 +59498,8 @@
 "qLZ" = (
 /obj/machinery/computer/terminal{
 	doc_content_1 = "We're proud to deliver all the possible upcoming technological developments coming down our assembly lines here at the Vault-Tec Exhibit of Technology!  Come on down today and experience the glory of tosmorrow, today!";
-	doc_title_1 = "Welcome to our newest exhibit in the Texarkana metro area!";
-	name = "Texarkana Display of Corporate Technology Terminal";
+	doc_title_1 = "Welcome to our newest exhibit in the Pahrump metro area!";
+	name = "Pahrump Display of Corporate Technology Terminal";
 	termtag = "Secret"
 	},
 /obj/structure/table,
@@ -60803,7 +60803,7 @@
 	},
 /area/f13/wasteland/city)
 "rlS" = (
-/obj/machinery/light/sign/oasis{
+/obj/machinery/light/sign/eastwood{
 	density = 0;
 	pixel_x = -27
 	},
@@ -62293,8 +62293,8 @@
 /area/f13/building/abandoned)
 "rQb" = (
 /obj/effect/landmark/vertibird{
-	id = "Nash - Christus Saint Michaels Hospital";
-	name = "Nash - Christus Saint Michaels Hospital"
+	id = "Eastwood - Christus Saint Michaels Hospital";
+	name = "Eastwood - Christus Saint Michaels Hospital"
 	},
 /turf/open/indestructible/ground/outside/road{
 	icon_state = "horizontalinnermain2"
@@ -67143,7 +67143,7 @@
 /obj/structure/nest/randomized{
 	randomizer_difficulty = 1;
 	randomizer_kind = "trash mobs";
-	randomizer_tag = "Nash East Road"
+	randomizer_tag = "Eastwood East Road"
 	},
 /turf/open/floor/carpet/black,
 /area/f13/building/abandoned)
@@ -68493,7 +68493,7 @@
 /obj/structure/nest/randomized{
 	randomizer_difficulty = 1;
 	randomizer_kind = "mid level mobs";
-	randomizer_tag = "Texarkana Residential District 1"
+	randomizer_tag = "Pahrump Residential District 1"
 	},
 /turf/open/floor/f13/wood,
 /area/f13/building/abandoned)
@@ -70226,7 +70226,7 @@
 /obj/structure/nest/randomized{
 	randomizer_difficulty = 1;
 	randomizer_kind = "mid level mobs";
-	randomizer_tag = "Texarkana Tigers"
+	randomizer_tag = "Pahrump Tigers"
 	},
 /turf/open/floor/f13/wood,
 /area/f13/building/abandoned)
@@ -70451,7 +70451,7 @@
 /area/f13/building/abandoned)
 "uTE" = (
 /obj/effect/landmark/vertibird{
-	id = "Nash - Middle of Nash town"
+	id = "Eastwood - Middle of Eastwood town"
 	},
 /turf/open/indestructible/ground/outside/road{
 	icon_state = "horizontalinnermain0"
@@ -71359,7 +71359,7 @@
 /obj/structure/nest/randomized{
 	randomizer_difficulty = 1;
 	randomizer_kind = "trash mobs";
-	randomizer_tag = "Nash East Road"
+	randomizer_tag = "Eastwood East Road"
 	},
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/wasteland)
@@ -71556,7 +71556,7 @@
 /obj/structure/nest/randomized{
 	randomizer_difficulty = 1;
 	randomizer_kind = "trash mobs";
-	randomizer_tag = "Nash East Road"
+	randomizer_tag = "Eastwood East Road"
 	},
 /turf/open/floor/f13/wood,
 /area/f13/building/abandoned)
@@ -71768,8 +71768,8 @@
 /area/f13/building/abandoned)
 "vva" = (
 /obj/effect/landmark/vertibird{
-	id = "Nash - Mirelurk Park";
-	name = "Nash - Mirelurk Park"
+	id = "Eastwood - Mirelurk Park";
+	name = "Eastwood - Mirelurk Park"
 	},
 /turf/open/indestructible/ground/outside/dirt{
 	dir = 1;
@@ -73175,8 +73175,8 @@
 /area/f13/wasteland)
 "vWm" = (
 /obj/effect/landmark/vertibird{
-	id = "Nash - Police Station";
-	name = "Nash - Police Station"
+	id = "Eastwood - Police Station";
+	name = "Eastwood - Police Station"
 	},
 /turf/open/indestructible/ground/outside/road,
 /area/f13/wasteland/city)
@@ -73531,7 +73531,7 @@
 "wdG" = (
 /obj/structure/flora/tree/oak_three{
 	pixel_y = 10;
-	name = "Nashling Oak"
+	name = "Eastwoodling Oak"
 	},
 /obj/effect/turf_decal/weather/dirt{
 	color = "#a98c5d"
@@ -73945,7 +73945,7 @@
 /obj/structure/nest/randomized{
 	randomizer_difficulty = 3;
 	randomizer_kind = "low level mobs";
-	randomizer_tag = "Nash East Road"
+	randomizer_tag = "Eastwood East Road"
 	},
 /turf/open/floor/f13/wood,
 /area/f13/building/abandoned)
@@ -75492,7 +75492,7 @@
 /obj/structure/nest/randomized{
 	randomizer_difficulty = 3;
 	randomizer_kind = "low level mobs";
-	randomizer_tag = "Nash East Road"
+	randomizer_tag = "Eastwood East Road"
 	},
 /turf/open/floor/f13{
 	icon_state = "hydrofloor"
@@ -76291,8 +76291,8 @@
 	icon_state = "tall_grass_3"
 	},
 /obj/effect/landmark/vertibird{
-	id = "Nash - Museum";
-	name = "Nash - Museum"
+	id = "Eastwood - Museum";
+	name = "Eastwood - Museum"
 	},
 /turf/open/indestructible/ground/outside/road{
 	dir = 1;
@@ -76879,7 +76879,7 @@
 /obj/structure/nest/randomized{
 	randomizer_difficulty = 3;
 	randomizer_kind = "mid level mobs";
-	randomizer_tag = "Texarkana Residential District 1"
+	randomizer_tag = "Pahrump Residential District 1"
 	},
 /turf/open/indestructible/ground/outside/sidewalk{
 	dir = 1;
@@ -77536,7 +77536,7 @@
 /obj/structure/nest/randomized{
 	randomizer_difficulty = 1;
 	randomizer_kind = "mid level mobs";
-	randomizer_tag = "Texarkana Residential District 1"
+	randomizer_tag = "Pahrump Residential District 1"
 	},
 /turf/open/indestructible/ground/outside/sidewalk{
 	icon_state = "verticalleftborderleft0"
@@ -77838,7 +77838,7 @@
 /obj/structure/nest/randomized{
 	randomizer_difficulty = 3;
 	randomizer_kind = "mid level mobs";
-	randomizer_tag = "Texarkana Residential District 1"
+	randomizer_tag = "Pahrump Residential District 1"
 	},
 /turf/open/indestructible/ground/outside/road{
 	icon_state = "verticalinnermain2"
