@@ -1038,7 +1038,8 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 	backpack_contents = list(
 		/obj/item/ammo_box/magazine/m556/rifle = 2,
 		/obj/item/stack/ore/blackpowder/twenty = 1,
-		/obj/item/book/granter/crafting_recipe/blueprint/r82 = 1
+		/obj/item/book/granter/crafting_recipe/blueprint/r82 = 1,
+		/obj/item/clothing/head/beret/ncr/ncr_sapper = 1,
 		)
 
 /datum/outfit/loadout/combatmedic
@@ -1051,7 +1052,8 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 		/obj/item/clothing/gloves/color/latex/nitrile = 1,
 		/obj/item/clothing/head/f13/ncr/steelpot_med = 1,
 		/obj/item/book/granter/trait/midsurgery = 1,
-		/obj/item/book/granter/trait/chemistry = 1
+		/obj/item/book/granter/trait/chemistry = 1,
+		/obj/item/clothing/head/beret/ncr/ncr_medic = 1,
 		)
 
 // TROOPER
