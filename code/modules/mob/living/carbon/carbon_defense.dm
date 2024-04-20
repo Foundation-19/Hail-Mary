@@ -337,10 +337,6 @@
 
 			else
 				friendly_check = TRUE
-				if(HAS_TRAIT(M, TRAIT_HEADPAT_SLUT))
-					M.visible_message("<span class='notice'>[M] gives [src] a pat on the head to make [p_them()] feel better!</span>", \
-								"<span class='notice'>You give [src] a pat on the head to make [p_them()] feel better!</span>", target = src,
-								target_message = "<span class='notice'>[M] gives you a pat on the head to make you feel better!</span>")
 					SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, "headpat", /datum/mood_event/headpat)
 
 

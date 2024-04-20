@@ -214,24 +214,6 @@
 	gain_text = "<span class='notice'>Your ass rivals those of golems.</span>"
 	lose_text = "<span class='notice'>Your butt feels more squishy and slappable.</span>"
 
-/datum/quirk/headpat_hater
-	name = "Distant"
-	desc = "You don't seem to show much care for being touched. Whether it's because you're reserved or due to self control, others touching your head won't make you wag your tail should you possess one, and the action may even attract your ire.."
-	mob_trait = TRAIT_DISTANT
-	value = 0
-	gain_text = "<span class='notice'>Others' touches begin to make your blood boil...</span>"
-	lose_text = "<span class='notice'>Having your head pet doesn't sound so bad right about now...</span>"
-	medical_record_text = "Patient cares little with or dislikes being touched."
-
-/datum/quirk/headpat_slut
-	name = "Headpat Lover"
-	desc = "You love the feeling of others touching your head! Maybe a little too much, actually... Others patting your head will provide a bigger mood boost and cause aroused reactions."
-	mob_trait = TRAIT_HEADPAT_SLUT
-	value = 0
-	gain_text = "<span class='notice'>You crave headpats immensely!</span>"
-	lose_text = "<span class='notice'>Your headpats addiction wanes.</span>"
-	medical_record_text = "Patient seems overly affectionate."
-
 /datum/quirk/overweight
 	name = "Overweight"
 	desc = "You're particularly fond of food, and join the round being overweight."
