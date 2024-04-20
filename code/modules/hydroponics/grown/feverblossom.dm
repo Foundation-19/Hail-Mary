@@ -19,13 +19,14 @@
 		/datum/reagent/consumable/nutriment = 0.05,
 		/datum/reagent/medicine/medx = 0.01,
 		/datum/reagent/drug/psycho = 0.01,
-		/datum/reagent/drug/jet = 0.04
+		/datum/reagent/drug/jet = 0.04,
+		/datum/reagent/uranium = 0.05
 	)
 
 /obj/item/reagent_containers/food/snacks/grown/fever_blossom
 	seed = /obj/item/seeds/fever_blossom
 	name = "fever blossom"
-	desc = "A glowing flower of intricate design and a rich scent. It is a known hallucinogen and numbing agent."
+	desc = "A glowing flower of intricate design and a rich scent. It is a known hallucinogen and numbing agent. It is also highly radioactive."
 	icon_state = "fever_blossom"
 	slot_flags = ITEM_SLOT_HEAD
 	filling_color = "#8000ff"
