@@ -157,6 +157,7 @@
 /obj/item/gun/ballistic/rifle/repeater/trail/tribal
 	name = "rainstick"
 	desc = "A sactified .44 lever action rifle, coated in detailed markings and a carved bead chain that sounds like rain."
+	icon = icon = 'icons/fallout/objects/guns/ballistic.dmi'
 	icon_state = "trailcarbinet"
 	item_state = "trailcarbine"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/tube44
