@@ -453,3 +453,239 @@
 		for(var/mob/living/M in rangers)
 			if(prob(5+(allowed(M)*4)) && CHECK_MOBILITY(M, MOBILITY_MOVE))
 				dance(M)
+
+/obj/item/record_disk //BIG IRON EDIT START- the objets used in the creation o music
+	name = "record disk" //used to store tracks to add to the jukeboxes
+	desc = "A disk for storing music. Dear god."
+	icon = 'icons/obj/machines/disk_recorder.dmi'
+	icon_state = "record_disk"
+	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
+	force = 5
+	throwforce = 16
+	throw_speed = 2
+	w_class = WEIGHT_CLASS_SMALL
+	attack_verb = list("sliced", "DISKED", "Played music to")
+	siemens_coefficient = 0 //Means it's insulated
+	sharpness = SHARP_EDGED
+	resistance_flags = NONE
+	max_integrity = 45
+	var/datum/track/R = new ()
+
+/obj/item/record_disk/Initialize() //moves them a bit so they are not all accumulated on the same pixel
+	. = ..()
+	name = "Generic record disk" // the name changes with music
+	pixel_x = rand(-3, 3)
+	pixel_y = rand(-3, 3)
+
+/obj/item/record_disk/throw_impact() //since they are not made with petrolium they are a bit more fragile
+	..()
+	src.visible_message("<span class ='warning'>The spinning [src] shatters on impact!</span>")
+	Destroy()
+
+/obj/item/record_disk/Destroy()
+	playsound(src, 'sound/effects/record_shatter.ogg', 100, 0)
+	new /obj/item/record_shard(get_turf(src))
+	new /obj/item/record_shard(get_turf(src))
+	new /obj/item/record_shard(get_turf(src))
+	new /obj/item/record_shard(get_turf(src))
+	new /obj/item/record_shard(get_turf(src))
+	..()
+/obj/item/record_shard //if the disk breaks you get pieces of disk that can cut into your feet if you are not carefull
+	name = "record disk shard"
+	desc = "A broken shard of a record disk. Who knew record disks were so fragile."
+	icon = 'icons/obj/machines/disk_recorder.dmi'
+	icon_state = "record_shard"
+	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
+	w_class = WEIGHT_CLASS_TINY
+	force = 5
+	throwforce = 8
+	attack_verb = list("stabs", "DISKED", "sliced")
+	hitsound = 'sound/weapons/bladeslice.ogg'
+	resistance_flags = ACID_PROOF
+	armor = list("melee" = 100, "bullet" = 0, "laser" = 0, "energy" = 100, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 100)
+	max_integrity = 40
+	sharpness = SHARP_POINTY
+
+/obj/item/record_shard/suicide_act(mob/user)
+	user.visible_message("<span class='suicide'>[user] is slitting [user.p_their()] [pick("wrists", "throat")] with the record disk shard! It looks like [user.p_theyre()] trying to commit suicide.</span>")
+	return (BRUTELOSS)
+
+/obj/item/record_shard/Initialize()
+	. = ..()
+	AddComponent(/datum/component/caltrop, force)
+	AddComponent(/datum/component/butchering, 150, 65)
+	pixel_x = rand(-8, 8)
+	pixel_y = rand(-8, 8)
+
+/obj/item/record_shard/afterattack(atom/A as mob|obj, mob/user, proximity)
+	. = ..()
+	if(!proximity || !(src in user))
+		return
+	if(isturf(A))
+		return
+	if(istype(A, /obj/item/storage))
+		return
+	var/hit_hand = ((user.active_hand_index % 2 == 0) ? "r_" : "l_") + "arm"
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		if(!H.gloves && !HAS_TRAIT(H, TRAIT_PIERCEIMMUNE)) // golems, etc
+			to_chat(H, span_warning("[src] cuts into your hand!"))
+			H.apply_damage(force*0.5, BRUTE, hit_hand)
+	else if(ismonkey(user))
+		var/mob/living/carbon/monkey/M = user
+		if(!HAS_TRAIT(M, TRAIT_PIERCEIMMUNE))
+			to_chat(M, span_warning("[src] cuts into your hand!"))
+			M.apply_damage(force*0.5, BRUTE, hit_hand)
+
+/obj/machinery/gramophone_recorder //used to record new tracks to add to the jukeboxes, due to the nature of such Admin Discretion is advised when when given to the playerbase 
+	name = "Gramophone Recorder"
+	desc = "old gramaphone used to record sounds and audio."
+	icon = 'icons/obj/machines/disk_recorder.dmi'
+	icon_state = "gramophone_recorder"
+	verb_say = "transmit"
+	density = TRUE
+	circuit = /obj/item/circuitboard/machine/gramophone_recorder
+	var/list/music_to_burn
+	var/obj/item/record_disk/R //Our stored record disk
+	var/inuse = FALSE
+	var/list/menu_options = list("EJECT", "Burn existing music", "Burn custom music", "Rename disk", "Update Songs Library")
+	var/datum/track/music_file = null
+	var/custom_name
+	var/loaded_song_path
+	var/loaded_song_name
+	var/loaded_song_length
+	var/loaded_song_beat
+	var/loaded_song_associated_id
+
+/obj/machinery/gramophone_recorder/Initialize()
+	. = ..()
+	Update_library()
+	update_icon()
+
+/obj/machinery/gramophone_recorder/proc/Update_library() //this is used to check for the currently loaded songs
+	var/list/available[SSjukeboxes.songs.len]
+	if(available == null)
+		src.visible_message("<span class='warning'>no song in library</span>")
+	for(var/datum/track/S in SSjukeboxes.songs)
+		available[S.song_name] = S
+	music_to_burn = available
+	src.visible_message("<span class='warning'> music library has been updated.")
+
+/obj/machinery/gramophone_recorder/proc/diskProcess() //its an old piece of tech and it takes it's time
+	addtimer(CALLBACK(src, .proc/burnDisk), 40)
+	inuse = TRUE
+	src.visible_message("<span class='warning'>your disk is being burned, please stand by.")
+
+/obj/machinery/gramophone_recorder/proc/burnDisk() //basically just burns the gathered info into the loaded disk
+	if(!R)
+		visible_message("<span class ='warning'>There's no disk to burn!</span>")
+		inuse = FALSE
+		return
+	R.R.song_path = loaded_song_path
+	R.R.song_name = loaded_song_name
+	R.R.song_length = loaded_song_length
+	R.R.song_beat = loaded_song_beat
+	R.R.song_associated_id = loaded_song_associated_id
+	R.name = "[R.R.song_name] record disk"
+	playsound(src, 'sound/machines/ping.ogg', 50, 1)
+	src.visible_message("<span class='warning'> [R] is ready!.")
+	inuse = FALSE
+
+/obj/machinery/gramophone_recorder/attack_hand(mob/living/user)
+	if(stat & NOPOWER || stat & BROKEN)
+		update_icon()
+		return
+	if(!R)
+		to_chat(user, "<span class='warning'>There is no record disk inserted!</span>")
+		return
+	if(inuse)
+		to_chat(user, "<span class ='warning'>A disk is currently being burned!</span>")
+		return
+	var/choice = input(user, "Disk: [R] \nChoose an option", "[src] menu") as null|anything in menu_options
+	if(!user.Adjacent(src))
+		to_chat(user, "<span class='warning'>You are too far away!")
+		return
+	if(inuse)
+		to_chat(user, "<span class ='warning'>A disk is currently being burned!</span>")
+		return
+	switch(choice)
+		if(null)
+			return
+		if("EJECT")
+			if(inuse == TRUE)
+				to_chat(user, "<span class ='warning'>There's no disk to burn!</span>")
+				return
+			playsound(src, 'sound/effects/disk_tray.ogg', 100, 0)
+			src.visible_message("<span class ='notice'>[user] ejects the [R] from the [src]!</span>")
+			R.forceMove(get_turf(src))
+			R = null
+			icon_state = "gramophone_recorder"
+			return
+		if("Burn existing music")
+			if(!SSjukeboxes.songs.len)
+				src.visible_message("<span class ='notice'> No songs loaded!")
+				return
+			var/list/available = list()
+			for(var/datum/track/S in SSjukeboxes.songs)
+				available[S.song_name] = S
+			music_file = input(user, "Choose a song from the library", "[src] menu") as null|anything in music_to_burn
+			if(QDELETED(src) || !music_file || !istype(available[music_file], /datum/track))
+				return
+			music_file = available[music_file]
+			loaded_song_path = music_file
+			loaded_song_name = music_file.song_name
+			loaded_song_length = music_file.song_length
+			loaded_song_beat = music_file.song_beat
+			if(!findtext(music_file.song_associated_id, "CS", 1, 2))
+				loaded_song_associated_id =  music_file.song_associated_id
+			else
+				loaded_song_associated_id = "CS[music_file.song_associated_id]"
+			diskProcess()
+		if("Burn custom music")
+			loaded_song_path = input(user, "Choose a custom song!") as null|sound //uses the server AllowedUpload, by the time of writting,it was about 1024kb
+			if(loaded_song_path == null)
+				return
+			loaded_song_name = input(user, "Enter the song's name") as null|text
+			if(loaded_song_name == null)
+				loaded_song_name = "CUSTOM"
+			loaded_song_length = input(user, "enter the song's duration (in seconds)") as null|text
+			loaded_song_length = text2num(loaded_song_length)
+			loaded_song_length *= 10 //why is server time in 0.1
+			if(loaded_song_length == null || !isnum(loaded_song_length))
+				loaded_song_length = 1800 //3 minutes is good for most songs, no?
+			loaded_song_beat = 10
+			loaded_song_associated_id = "CS00[loaded_song_path]" //while originally not used for much, associated ID can be used to identify different files when checking for songs to add
+			if(inuse)
+				to_chat(user, "<span class ='warning'>A disk is currently being burned!</span>")
+				return
+			diskProcess()
+		if("Rename disk")
+			custom_name = input(user, "Enter new disk name") as null|text
+			if(custom_name)
+				R.name = custom_name
+				src.audible_message("<span class='robot'><b>[src]</b> beeps, 'Record disk renamed to: [R]' </span>")
+				custom_name = null
+			else
+				to_chat(user, "<span class='warning'>Name selection invalid.</span>")
+		if("Update Songs Library")
+			Update_library()
+			src.audible_message("<span class='robot'><b>[src]</b> beeps, 'updated music library</span>")
+
+/obj/machinery/gramophone_recorder/attackby(obj/item/I, mob/user)
+	if(stat & NOPOWER || stat & BROKEN)
+		update_icon()
+		return
+	if(istype(I, /obj/item/record_disk))
+		if(!R) //only one disk on the tray
+			R = I
+			I.forceMove(src)
+			playsound(src, 'sound/effects/disk_tray.ogg', 100, 0)
+			usr.visible_message("<span class='notice'>[user] loads the [R] into the [src].</span>")
+			icon_state = "loaded_recorder"
+			return
+		else
+			to_chat(user, "<span class ='warning'>There is already a record disk loaded into the [src]!</span>")
+			return
+	..()
