@@ -264,6 +264,8 @@
 /datum/chemical_reaction/smoke_powder/on_reaction(datum/reagents/holder, multiplier)
 	if(holder.has_reagent(/datum/reagent/stabilizing_agent))
 		return
+	if(holder.has_reagent(/datum/reagent/toxin))
+		return
 	holder.remove_reagent(/datum/reagent/smoke_powder, multiplier*3)
 	var/smoke_radius = round(sqrt(multiplier * 0.2), 1)
 	var/location = get_turf(holder.my_atom)
@@ -284,6 +286,8 @@
 	mob_react = FALSE
 
 /datum/chemical_reaction/smoke_powder_smoke/on_reaction(datum/reagents/holder, multiplier)
+	if(holder.has_reagent(/datum/reagent/toxin))
+		return
 	var/location = get_turf(holder.my_atom)
 	var/smoke_radius = round(sqrt(multiplier / 2), 1)
 	var/datum/effect_system/smoke_spread/chem/S = new

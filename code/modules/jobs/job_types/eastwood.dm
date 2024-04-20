@@ -111,6 +111,7 @@ Mayor
 	backpack_contents = list(
 	/obj/item/clothing/under/f13/general/eastwood = 1,
 	/obj/item/clothing/head/f13/army/general = 1,
+	/obj/item/gun/ballistic/automatic/pistol/m1911/custom/jackal = 1,
 	/obj/item/ammo_box/magazine/m45 = 2,
 	/obj/item/clothing/shoes/jackboots = 1,
 	/obj/item/clothing/mask/cigarette/pipe/cobpipe = 1

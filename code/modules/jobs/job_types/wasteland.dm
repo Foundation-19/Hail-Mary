@@ -1420,9 +1420,9 @@ Raider
 		/obj/item/reagent_containers/food/snacks/store/bread/plain = 5,
 		/obj/item/reagent_containers/food/snacks/fishmeat/salmon = 2,
 		/obj/item/reagent_containers/glass/beaker/waterbottle = 2,
-		/obj/item/reagent_containers/glass/beaker/waterbottle/wataur = 1
 	)	//Matthew 14:17 RSVCE and KJV - Kitsunemitsu
 				//Nerd shit, wataur time. ~TK
+					//Both of you need to be reduced to ash. No more furry shit. - Hangyul
 
 /datum/outfit/loadout/cleanser
 	name = "Cleanser"
@@ -1545,7 +1545,7 @@ Raider
 		/obj/item/reagent_containers/hypospray/medipen/stimpak=2,
 		/obj/item/storage/fancy/candle_box,
 		/obj/item/storage/wallet/stash/mid,
-		/obj/item/nullrod = 1,)
+		)
 //end preacher
 
 /*/datum/outfit/job/wasteland/f13enforcer

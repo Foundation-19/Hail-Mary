@@ -667,6 +667,7 @@
 /obj/item/gun/ballistic/revolver/ghoulgun
 	name = "rusted revolver"
 	desc = "A worn but well-maintained revolver. Uses shotgun rounds, with a heavy barrel for greater velocity."
+	icon = 'icons/fallout/objects/guns/ballistic.dmi'
 	icon_state = "ghoulgun"
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/ghoulgun
 	weapon_class = WEAPON_CLASS_SMALL
