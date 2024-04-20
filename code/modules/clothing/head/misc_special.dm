@@ -28,7 +28,6 @@
 	visor_flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
 	visor_flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	resistance_flags = FIRE_PROOF
-	mutantrace_variation = STYLE_MUZZLE
 
 /obj/item/clothing/head/welding/attack_self(mob/user)
 	weldingvisortoggle(user)
@@ -118,7 +117,7 @@
 	icon_state = "hardhat0_pumpkin"
 	item_state = "hardhat0_pumpkin"
 	hat_type = "pumpkin"
-	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDESNOUT
+	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
 	light_system = MOVABLE_LIGHT
 	light_range = 2
 	flags_cover = HEADCOVERSEYES
@@ -180,7 +179,7 @@
 	item_state = "cardborg_h"
 	flags_cover = HEADCOVERSEYES
 	alternate_screams = list('fallout/sound/voice/scream_silicon.ogg')
-	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDESNOUT
+	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/small/rushelmet
 
 	dog_fashion = /datum/dog_fashion/head/cardborg

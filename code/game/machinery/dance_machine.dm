@@ -11,7 +11,15 @@
 	var/stop = 0
 	var/volume = 70
 	var/datum/track/selection = null
+	var/obj/item/lock_part/lock = null //BIG IRON EDIT START 
+	var/open_tray = FALSE //usted to determine if the jukebox is open or not, needs a key
+	var/list/obj/item/record_disk/record_disks = list() //list of inserted disk inthe jukebox
+	var/obj/item/record_disk/selected_disk = null //the disk chosen to view or ejection
 
+/obj/machinery/jukebox/constructed //BIG IRON EDIT start- a sub jukebox with access for everyone
+	req_one_access = null
+	desc = "an improvised jukebox, made with scraps and hopes"
+//BIG IRON EDIT -end-
 /obj/machinery/jukebox/disco
 	name = "radiant dance machine mark IV"
 	desc = "The first three prototypes were discontinued after mass casualty incidents."
@@ -20,6 +28,20 @@
 	anchored = FALSE
 	var/list/spotlights = list()
 	var/list/sparkles = list()
+
+//BIG IRON EDIT -start
+/obj/machinery/jukebox/Initialize() //BIG IRON EDIT -start
+	. = ..()
+	lock = new /obj/item/lock_part()
+	lock.forceMove(src)
+	var/obj/item/key/vending/K = new /obj/item/key/vending()
+	K.name = "[src.name] key"
+	K.forceMove(src.loc)
+	if(lock)
+		lock.is_secured = 0
+		lock.store_key(K)
+		lock.is_secured = 1
+//BIG IRON EDIT -end
 
 /obj/machinery/jukebox/disco/indestructible
 	name = "radiant dance machine mark V"
@@ -37,14 +59,56 @@
 	if(!active && !(flags_1 & NODECONSTRUCT_1))
 		if(istype(O, /obj/item/wrench))
 			if(!anchored && !isinspace())
-				to_chat(user,span_notice("You secure [src] to the floor."))
+				to_chat(user,"<span class='notice'>You secure [src] to the floor.</span>")
 				setAnchored(TRUE)
 			else if(anchored)
-				to_chat(user,span_notice("You unsecure and disconnect [src]."))
+				to_chat(user,"<span class='notice'>You unsecure and disconnect [src].</span>")
 				setAnchored(FALSE)
 			playsound(src, 'sound/items/deconstruct.ogg', 50, 1)
 			return
+		if(istype(O, /obj/item/key)) //BIG IRON EDIT -start this one checks for a key used in the jukebox
+			if(lock.check_key(O)) //check if the key used is assinged to this lock
+				if(open_tray == FALSE)
+					open_tray = TRUE
+					to_chat(user,span_warning("you open the [src]'s tray."))
+				else
+					open_tray = FALSE
+					to_chat(user,span_warning("you close the [src]'s tray."))
+				playsound(src, 'sound/items/Ratchet.ogg', 60, 1)
+				return
+			else
+				playsound(src, 'sound/machines/DeniedBeep.ogg', 60, 1)
+				to_chat(usr, "Unknown key.")
+				return
+		else if(istype(O, /obj/item/record_disk)) //this one checks for a record disk and if the jukebox is open, it adds it to the machine
+			if(open_tray == FALSE)
+				to_chat(usr, "The Disk Tray is not open!")
+				return
+			var/obj/item/record_disk/I = O
+			if(!I.R.song_associated_id)
+				to_chat(user, span_warning("This record is empty!"))
+				return
+			for(var/datum/track/RT in SSjukeboxes.songs)
+				if(I.R.song_associated_id == RT.song_associated_id)
+					to_chat(user, span_warning("this track is already added to the jukebox!"))
+					return
+			record_disks += I
+			O.forceMove(src)
+			playsound(src, 'sound/effects/plastic_click.ogg', 100, 0)
+			if(I.R.song_path)
+				SSjukeboxes.add_song(I.R)
+			return//BIG IRON EDIT -end
 	return ..()
+/obj/machinery/jukebox/proc/eject_record(obj/item/record_disk/M) //BIG IRON EDIT -start- ejects a record as defined and removes it's song from the list
+	if(!M)
+		visible_message("no disk to eject")
+		return
+	playsound(src, 'sound/effects/disk_tray.ogg', 100, 0)
+	src.visible_message("<span class ='notice'> ejected the [selected_disk] from the [src]!</span>")
+	M.forceMove(get_turf(src))
+	SSjukeboxes.remove_song(M.R)
+	record_disks -= M
+	selected_disk = null
 
 /obj/machinery/jukebox/update_icon_state()
 	if(active)
@@ -54,18 +118,18 @@
 
 /obj/machinery/jukebox/ui_status(mob/user)
 	if(!anchored)
-		to_chat(user,span_warning("This device must be anchored by a wrench!"))
+		to_chat(user,"<span class='warning'>This device must be anchored by a wrench!</span>")
 		return UI_CLOSE
 	if(!allowed(user) && !isobserver(user))
-		to_chat(user,span_warning("Error: Access Denied."))
+		to_chat(user,"<span class='warning'>Error: Access Denied.</span>")
 		user.playsound_local(src, 'sound/misc/compiler-failure.ogg', 25, TRUE)
 		return UI_CLOSE
 	if(!SSjukeboxes.songs.len && !isobserver(user))
-		to_chat(user,span_warning("Error: No music tracks have been authorized for your station. Petition Central Command to resolve this issue."))
+		to_chat(user,"<span class='warning'>Error: No music tracks have been authorized for your station. Petition Central Command to resolve this issue.</span>")
 		playsound(src, 'sound/misc/compiler-failure.ogg', 25, TRUE)
 		return UI_CLOSE
 	return ..()
-
+	
 /obj/machinery/jukebox/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
@@ -84,10 +148,23 @@
 	data["track_selected"] = null
 	data["track_length"] = null
 	data["track_beat"] = null
+	data["disks"] = list()
+	for(var/obj/item/record_disk/RD in record_disks)
+		var/list/tracks_data = list(
+			name = RD.name
+		)
+		data["disks"] += list(tracks_data)
+	data["disk_selected"] = null //BIG IRON EDIT- start more tracks data
+	data["disk_selected_lenght"] = null
+	data["disk_beat"] = null //BIG IRON EDIT -end
 	if(selection)
 		data["track_selected"] = selection.song_name
 		data["track_length"] = DisplayTimeText(selection.song_length)
 		data["track_beat"] = selection.song_beat
+	if(selected_disk)
+		data["disk_selected"] = selected_disk
+		data["disk_selected_length"] = DisplayTimeText(selected_disk.R.song_length)
+		data["disk_selected_beat"] = selected_disk.R.song_beat
 	data["volume"] = volume
 	return data
 
@@ -102,7 +179,7 @@
 				return
 			if(!active)
 				if(stop > world.time)
-					to_chat(usr, span_warning("Error: The device is still resetting from the last activation, it will be ready again in [DisplayTimeText(stop-world.time)]."))
+					to_chat(usr, "<span class='warning'>Error: The device is still resetting from the last activation, it will be ready again in [DisplayTimeText(stop-world.time)].</span>")
 					playsound(src, 'sound/misc/compiler-failure.ogg', 50, TRUE)
 					return
 				activate_music()
@@ -113,7 +190,7 @@
 				return TRUE
 		if("select_track")
 			if(active)
-				to_chat(usr, span_warning("Error: You cannot change the song until the current one is over."))
+				to_chat(usr, "<span class='warning'>Error: You cannot change the song until the current one is over.</span>")
 				return
 			var/list/available = list()
 			for(var/datum/track/S in SSjukeboxes.songs)
@@ -123,6 +200,30 @@
 				return
 			selection = available[selected]
 			return TRUE
+		if("select_record") //BIG IRON EDIT -start- how an user chooses a disk
+			if(!record_disks.len)
+				to_chat(usr, "<span class='warning'>Error: no tracks on the bin!.</span>")
+				return
+			var/list/obj/item/record_disk/availabledisks = list()
+			for(var/obj/item/record_disk/RR in record_disks)
+				availabledisks[RR.name] = RR
+			var/selecteddisk = params["record"]
+			if(QDELETED(src) || !selecteddisk)
+				return
+			selected_disk = availabledisks[selecteddisk]
+			updateUsrDialog()
+		if("eject_disk") // sanity check for the disk ejection
+			if(!record_disks.len)
+				to_chat(usr, "<span class='warning'>Error: no disks in trays.</span>")
+				return
+			if(!selected_disk)
+				to_chat(usr,"<span class='warning'>Error: no disk chosen.</span>" )
+				return
+			if(selection == selected_disk.R)
+				selection = null
+			eject_record(selected_disk)
+			return TRUE
+//BIG IRON EDIT -end
 		if("set_volume")
 			var/new_volume = params["volume"]
 			if(new_volume  == "reset")
@@ -139,6 +240,9 @@
 				return TRUE
 
 /obj/machinery/jukebox/proc/activate_music()
+	if(!selection)
+		visible_message("Track is no longer avaible")
+		return
 	var/jukeboxslottotake = SSjukeboxes.addjukebox(src, selection, 2)
 	if(jukeboxslottotake)
 		active = TRUE

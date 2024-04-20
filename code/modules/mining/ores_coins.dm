@@ -247,7 +247,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 /obj/item/stack/ore/slag
 	name = "slag"
 	desc = "Completely useless."
-	icon = 'icons/fallout/objects/crafting/blacksmith.dmi'
+	icon = 'modular_BD2/blacksmith/icons/blacksmith.dmi'
 	icon_state = "slag"
 	item_state = "slag"
 	singular_name = "slag chunk"

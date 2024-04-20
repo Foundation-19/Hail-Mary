@@ -620,7 +620,7 @@ Raider
 		/obj/item/storage/belt/legholster,
 		/obj/item/lighter/fusion = 1,
 		/obj/item/toy/cards/deck = 1,
-		/obj/item/ingot/gold = 10,
+		/obj/item/blacksmith/ingot/gold = 10,
 		/obj/item/storage/fancy/cigarettes/cigars/havana = 1,
 		/obj/item/storage/box/dice = 1,
 		/obj/item/storage/fancy/ringbox/silver = 1,

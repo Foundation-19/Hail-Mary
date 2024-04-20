@@ -947,7 +947,8 @@
 				/obj/item/gun/ballistic/revolver/colt357/lucky,
 				/obj/item/gun/ballistic/automatic/m1garand/oldglory,
 				/obj/item/gun/ballistic/automatic/pistol/pistol14/lildevil,
-				/obj/item/gun/ballistic/shotgun/automatic/combat/neostead
+				/obj/item/gun/ballistic/shotgun/automatic/combat/neostead,
+				/obj/item/gun/ballistic/revolver/ghoulgun
 				)
 
 
@@ -1130,7 +1131,7 @@
 	name = "autoloader and ammo spawner"
 	items = list(
 				/obj/item/gun/ballistic/automatic/pistol/sig,
-				/obj/item/ammo_box/magazine/m45/socom
+				/obj/item/ammo_box/magazine/m45
 	)
 
 /obj/effect/spawner/bundle/f13/thatgun
@@ -2421,7 +2422,7 @@
 		/obj/item/advanced_crafting_components/receiver,
 		/obj/item/advanced_crafting_components/assembly,
 		/obj/item/advanced_crafting_components/alloys,
-// no ingots rip		/obj/item/blacksmith/ingot/adamantine, // Valuable for smithing
+		/obj/item/blacksmith/ingot/adamantine, // Valuable for smithing
 	)
 
 /obj/effect/spawner/lootdrop/f13/attachments

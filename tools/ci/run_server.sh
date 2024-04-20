@@ -10,7 +10,7 @@ cp tools/ci/ci_config.txt ci_test/config/config.txt
 cp tools/ci/ci_maps.txt ci_test/config/maps.txt
 
 cd ci_test
-DreamDaemon fortune13.dmb -close -trusted -verbose -params "log-directory=ci"
+DreamDaemon hailmary.dmb -close -trusted -verbose -params "log-directory=ci"
 
 cd ..
 

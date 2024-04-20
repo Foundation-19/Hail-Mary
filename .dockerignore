@@ -18,9 +18,9 @@ cfg
 data
 SQL
 node_modules
-fortune13.dmb
+hailmary.dmb
 fortune13.int
-fortune13.rsc
+hailmary.rsc
 fortune13.lk
 fortune13.dyn.rsc
 libmariadb.dll

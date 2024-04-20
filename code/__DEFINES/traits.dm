@@ -136,8 +136,6 @@
 #define TRAIT_PESSIMIST			"pessimist"
 #define TRAIT_JOLLY				"jolly"
 #define TRAIT_OPTIMIST			"optimist"
-#define TRAIT_IN_HEAT			"ERP Receptive"
-#define TRAIT_HEAT_DETECT		"ERP Seeking"
 #define TRAIT_SMOL				"lil_fella"
 #define TRAIT_NOCRITDAMAGE		"no_crit"
 #define TRAIT_NOSLIPWATER		"noslip_water"
@@ -334,9 +332,11 @@
 #define TRAIT_EXPLOSIVE_CRAFTING "explosive_crafting" //can craft explosives and bombs
 #define TRAIT_ADVANCED_EXPLOSIVE_CRAFTING "advanced explosive crafting" //can craft almost all kinds of explosives
 /// Lets your tongue heal damage on limbs
+/*
 #define TRAIT_HEAL_TONGUE "healing tongue"
 /// Lets your tongue apply awful bandages to limbs
 #define TRAIT_BANDAGE_TONGUE "coagulating tongue"
+*/
 /// You're hooked on punga!
 #define TRAIT_PUNGAPOWER "pungaful"
 

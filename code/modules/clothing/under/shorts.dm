@@ -49,7 +49,7 @@
 	icon_state = "polypantsu"
 	item_state = "rainbow"
 	body_parts_covered = GROIN
-	mutantrace_variation = STYLE_DIGITIGRADE|STYLE_NO_ANTHRO_ICON
+	mutantrace_variation = STYLE_DIGITIGRADE
 
 	poly_colors = list("#FFFFFF", "#8CC6FF")
 

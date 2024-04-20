@@ -1,24 +1,367 @@
-/* it hurts...why isn't this with the rest of loadout stuff
+/datum/gear/uniform
+	category = LOADOUT_CATEGORY_UNIFORM
+	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_GENERAL
+	slot = SLOT_W_UNIFORM
 
-/datum/gear/uniform/goner_red
-	name = "utility uniform, red"
+/datum/gear/uniform/recon
+	name = "BoS Recon Suit"
+	path = /obj/item/clothing/under/f13/recon
 	cost = 1
-	path = /obj/item/clothing/under/f13/goner/red
 
-/datum/gear/uniform/goner_green
-	name = "utility uniform, green"
+/datum/gear/uniform/legskirt
+	name = "burgundy fatigues"
+	path = /obj/item/clothing/under/f13/legskirt
 	cost = 1
-	path = /obj/item/clothing/under/f13/goner/green
 
-/datum/gear/uniform/goner_blue
-	name = "utility uniform, blue"
-	cost = 1
-	path = /obj/item/clothing/under/f13/goner/blue
+/datum/gear/uniform/vault
+	name = "vault jumpsuit"
+	path = /obj/item/clothing/under/f13/vault
 
-/datum/gear/uniform/goner_yellow
-	name = "utility uniform, yellow"
+/datum/gear/uniform/caravaneer
+	name = "caravaneer outfit"
+	path = /obj/item/clothing/under/f13/caravaneer
+
+/datum/gear/uniform/brahminskin
+	name = "brahmin skin outfit"
+	path = /obj/item/clothing/under/f13/brahminm
+
+/datum/gear/uniform/brahminskin/female
+	name = "female brahmin skin outfit"
+	path = /obj/item/clothing/under/f13/female/brahmin
+
+/datum/gear/uniform/doctorfatigues
+	name = "doctor fatigues"
+	path = /obj/item/clothing/under/f13/doctorm
+
+/datum/gear/unform/doctorfatigues/female
+	name = "female doctor fatigues"
+	path = /obj/item/clothing/under/f13/female/doctor
+
+/datum/gear/uniform/caravan
+	name = "caravan pants"
+	path = /obj/item/clothing/under/f13/caravan
+
+/datum/gear/uniform/settler
+	name = "settler outfit"
+	path = /obj/item/clothing/under/f13/settler
+
+/datum/gear/uniform/rustic
+	name = "rustic outfit"
+	path = /obj/item/clothing/under/f13/rustic
+
+/datum/gear/uniform/sleazeball
+	name = "loanshark outfit"
+	path = /obj/item/clothing/under/f13/sleazeball
+
+/datum/gear/uniform/citizen
+	name = "citizen outfit"
+	path = /obj/item/clothing/under/f13/follower
+
+/datum/gear/uniform/machinist
+	name = "machinist bodysuit"
+	path = /obj/item/clothing/under/f13/machinist
+
+/datum/gear/uniform/mechanic
+	name = "worn mechanic jumpsuit"
+	path = /obj/item/clothing/under/f13/mechanic
+
+/datum/gear/uniform/lumberjack
+	name = "lumberjack outfit"
+	path = /obj/item/clothing/under/f13/lumberjack
+
+/datum/gear/uniform/shiny
+	name = "shiny outfit"
+	path = /obj/item/clothing/under/f13/shiny
+
+/datum/gear/uniform/merca
+	name = "merc outfit"
+	path = /obj/item/clothing/under/f13/merca
+
+/datum/gear/uniform/mercc
+	name = "merc outfit, alt"
+	path = /obj/item/clothing/under/f13/mercc
+
+/datum/gear/unform/mercf
+	name = "female merc outfit"
+	path = /obj/item/clothing/under/f13/female/mercadv
+
+/datum/gear/uniform/bodyguard
+	name = "bodyguard outfit"
+	path = /obj/item/clothing/under/f13/bodyguard
+	cost = 2
+
+/datum/gear/uniform/cowboy
+	name = "cowboy outfit, brown"
+	path = /obj/item/clothing/under/f13/cowboyb
+
+/datum/gear/uniform/cowboy_grey
+	name = "cowboy outfit, grey"
+	path = /obj/item/clothing/under/f13/cowboyg
+
+/datum/gear/uniform/cowboy_tan
+	name = "cowboy outfit, tan"
+	path = /obj/item/clothing/under/f13/cowboyt
+
+/datum/gear/uniform/combat
+	name = "combat uniform"
+	path = /obj/item/clothing/under/f13/combat_shirt
+	cost = 2
+
+/datum/gear/uniform/bdu
+	name = "battle dress uniform"
+	path = /obj/item/clothing/under/f13/bdu
+	cost = 3
+
+/datum/gear/uniform/bdu/desert
+	name = "desert battle dress uniform"
+	path = /obj/item/clothing/under/f13/dbdu
+
+/datum/gear/uniform/syndicate
+	name = "tactical turtleneck"
+	path = /obj/item/clothing/under/syndicate
+
+/datum/gear/uniform/roving
+	name = "roving trader outfit"
+	path = /obj/item/clothing/under/f13/roving
+
+/datum/gear/uniform/gear_harness
+	name = "gear harness outfit"
+	path = /obj/item/clothing/under/misc/gear_harness
+
+/datum/gear/uniform/navy
+	name = "navy jumpsuit"
+	path = /obj/item/clothing/under/f13/navy
+
+/datum/gear/uniform/relaxedwear
+	name = "pre-war male relaxedwear"
+	path = /obj/item/clothing/under/f13/relaxedwear
+
+/datum/gear/uniform/spring
+	name = "pre-war male spring outfit"
+	path = /obj/item/clothing/under/f13/spring
+
+/datum/gear/uniform/formal
+	name = "pre-war male formal wear"
+	path = /obj/item/clothing/under/f13/formal
+
+/datum/gear/uniform/westender
+	name = "classic tender outfit"
+	path = /obj/item/clothing/under/f13/westender
+
+/datum/gear/uniform/rag
+	name = "torn rags"
+	path = /obj/item/clothing/under/f13/rag
+
+//suits
+
+/datum/gear/uniform/suit
+	name = "black suit"
+	path = /obj/item/clothing/under/suit/black
+	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_SUITS
 	cost = 1
-	path = /obj/item/clothing/under/f13/goner/yellow
+
+/datum/gear/uniform/suit/green
+	name = "green suit"
+	path = /obj/item/clothing/under/suit/green
+	cost = 1
+
+/datum/gear/uniform/suit/red
+	name = "red suit"
+	path = /obj/item/clothing/under/suit/red
+	cost = 1
+
+/datum/gear/uniform/suit/charcoal
+	name = "charcoal Suit"
+	path = /obj/item/clothing/under/suit/charcoal
+	cost = 1
+
+/datum/gear/uniform/suit/checkered_suit
+	name = "checkered Suit"
+	path = /obj/item/clothing/under/suit/checkered
+	cost = 1
+
+/datum/gear/uniform/suit/navy
+	name = "navy suit"
+	path = /obj/item/clothing/under/suit/navy
+	cost = 1
+
+/datum/gear/uniform/suit/burgundy
+	name = "burgundy suit"
+	path = /obj/item/clothing/under/suit/burgundy
+	cost = 1
+
+/datum/gear/uniform/suit/tan
+	name = "tan suit"
+	path = /obj/item/clothing/under/suit/tan
+	cost = 1
+
+/datum/gear/uniform/suit/white
+	name = "white formal underclothes"
+	path = /obj/item/clothing/under/suit/white
+	cost = 1
+
+/datum/gear/uniform/mailmanuniform
+	name = "mailman's jumpsuit"
+	path = /obj/item/clothing/under/misc/mailman
+
+//dresses
+
+/datum/gear/uniform/dress
+	name = "striped dress"
+	path = /obj/item/clothing/under/dress/striped
+	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_DRESSES
+	cost = 2
+
+/datum/gear/uniform/dress/sun/white
+	name = "white sundress"
+	path = /obj/item/clothing/under/dress/sundress/white
+	cost = 2
+
+/datum/gear/uniform/dress/sun
+	name = "sundress"
+	path = /obj/item/clothing/under/dress/sundress
+	cost = 2
+
+/datum/gear/uniform/dress/green
+	name = "green dress"
+	path = /obj/item/clothing/under/f13/greendress
+	cost = 2
+
+/datum/gear/uniform/dress/pink
+	name = "pink dress"
+	path = /obj/item/clothing/under/f13/pinkdress
+	cost = 2
+
+/datum/gear/uniform/dress/blue
+	name = "blue dress"
+	path = /obj/item/clothing/under/f13/bluedress
+	cost = 2
+
+/datum/gear/uniform/dress/orange
+	name = "flower dress"
+	path = /obj/item/clothing/under/dress/flower
+	cost = 2
+
+/datum/gear/uniform/dress/bustle
+	name = "western bustle dress"
+	path = /obj/item/clothing/under/dress/westernbustle
+
+/datum/gear/uniform/dress/flamenco
+	name = "flamenco dress"
+	path = /obj/item/clothing/under/dress/flamenco
+
+/datum/gear/uniform/dress/housewife
+	name = "yellow pre-war dress"
+	path = /obj/item/clothing/under/f13/housewifedress50s
+
+/datum/gear/uniform/dress/picnic
+	name = "red pre-war dress"
+	path = /obj/item/clothing/under/f13/picnicdress50s
+
+/datum/gear/uniform/dress/bandage
+	name = "bandage dress"
+	path = /obj/item/clothing/under/f13/erpdress
+
+//Skirts
+
+/datum/gear/uniform/skirt/swept
+	name = "swept skirt"
+	path = /obj/item/clothing/under/dress/skirt/swept
+	cost = 3
+
+/datum/gear/uniform/pants
+	name = "yoga pants"
+	path = /obj/item/clothing/under/pants/yoga
+	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_PANTS
+
+/datum/gear/uniform/kilt
+	name = "kilt"
+	path = /obj/item/clothing/under/costume/kilt
+	cost = 2
+
+/datum/gear/uniform/pants/camo
+	name = "camo pants"
+	path = /obj/item/clothing/under/pants/camo
+
+/datum/gear/uniform/shorts
+	name = "athletic shorts"
+	path = /obj/item/clothing/under/shorts/red
+	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_PANTS
+
+/datum/gear/uniform/pants/bjeans
+	name = "black jeans"
+	path = /obj/item/clothing/under/pants/blackjeans
+
+/datum/gear/uniform/pants/cjeans
+	name = "classic jeans"
+	path = /obj/item/clothing/under/pants/classicjeans
+
+/datum/gear/uniform/pants/khaki
+	name = "khaki pants"
+	path = /obj/item/clothing/under/pants/khaki
+
+/datum/gear/uniform/pants/white
+	name = "white pants"
+	path = /obj/item/clothing/under/pants/white
+
+/datum/gear/uniform/pants/red
+	name = "red pants"
+	path = /obj/item/clothing/under/pants/red
+
+/datum/gear/uniform/pants/tan
+	name = "tan pants"
+	path = /obj/item/clothing/under/pants/tan
+
+/datum/gear/uniform/pants/track
+	name = "track pants"
+	path = /obj/item/clothing/under/pants/track
+
+/datum/gear/uniform/pants/ripped
+	name = "ripped jeans"
+	path = /obj/item/clothing/under/pants/jeanripped
+
+/datum/gear/uniform/shorts/jean
+	name = "jean shorts"
+	path = /obj/item/clothing/under/pants/jeanshort
+
+/datum/gear/uniform/shorts/jeanbshorts
+	name = "jean booty shorts"
+	path = /obj/item/clothing/under/shorts/jeanbshorts
+
+/datum/gear/uniform/shorts/darkbshorts
+	name = "dark booty shorts"
+	path = /obj/item/clothing/under/shorts/darkbshorts
+
+/datum/gear/uniform/shorts/blackbshorts
+	name = "black booty shorts"
+	path = /obj/item/clothing/under/shorts/blackbshorts
+
+/datum/gear/uniform/shorts/brownbshorts
+	name = "Cargo booty shorts"
+	path = /obj/item/clothing/under/shorts/brownbshorts
+
+/datum/gear/uniform/tealturtle
+	name = "teal turtleneck"
+	path = /obj/item/clothing/under/suit/turtle/teal
+	cost = 2
+
+/datum/gear/uniform/greyturtle
+	name = "grey turtleneck"
+	path = /obj/item/clothing/under/suit/turtle/grey
+	cost = 2
+/*
+/datum/gear/uniform/detbrown
+	name = "Brown Worn Suit"
+	path = /obj/item/clothing/under/rank/security/detective/brown
+	cost = 2
+	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_SUITS
+
+/datum/gear/uniform/detbrown/detbrown2
+	name = "Padded Worn Suit"
+	path = /obj/item/clothing/under/rank/security/detective/brown/brown2
+	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_JOBS
+	restricted_desc = "Detective"
+	restricted_roles = list("Detective")
 */
 
 // Grey utility

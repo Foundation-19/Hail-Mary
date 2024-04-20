@@ -2143,6 +2143,7 @@
 	damage_multiplier = GUN_EXTRA_DAMAGE_0
 	cock_delay = GUN_COCK_RIFLE_BASE
 	init_recoil = RIFLE_RECOIL(1.3)
+	slowdown = GUN_SLOWDOWN_RIFLE_LMG
 	init_firemodes = list(
 		/datum/firemode/automatic/rpm150,
 		/datum/firemode/semi_auto/slow
@@ -2260,6 +2261,7 @@
 	damage_multiplier = GUN_EXTRA_DAMAGE_0
 	cock_delay = GUN_COCK_RIFLE_BASE
 	init_recoil = LMG_RECOIL(1)
+	slowdown = GUN_SLOWDOWN_RIFLE_LMG
 	init_firemodes = list(
 		/datum/firemode/automatic/rpm200
 	)
@@ -2287,6 +2289,7 @@
 	weapon_weight = GUN_ONE_HAND_ONLY
 	damage_multiplier = GUN_EXTRA_DAMAGE_0
 	init_recoil = LMG_RECOIL(1)
+	slowdown = GUN_SLOWDOWN_RIFLE_LMG
 	init_firemodes = list(
 		/datum/firemode/automatic/rpm200
 	)
@@ -2365,7 +2368,7 @@
 
 /obj/item/gun/ballistic/automatic/m1919
 	name = "Browning M1919"
-	desc = "This ancient machine gun has been dug up and put into working order by the Dallas Militia. It's loud, heavy and terrifying."
+	desc = "This ancient machine gun has been dug up and put into working order by local forces. It's loud, heavy and terrifying."
 	icon_state = "M38"
 	item_state = "M38"
 	slot_flags = 0
@@ -2377,6 +2380,7 @@
 	damage_multiplier = GUN_EXTRA_DAMAGE_0
 	cock_delay = GUN_COCK_RIFLE_BASE
 	init_recoil = LMG_RECOIL(1.2)
+	slowdown = GUN_SLOWDOWN_RIFLE_LMG * 1.5
 	init_firemodes = list(
 		/datum/firemode/automatic/rpm200
 	)

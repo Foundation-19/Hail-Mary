@@ -189,6 +189,9 @@ GLOBAL_LIST_EMPTY(player_made_nests)
 	swarm_size = 3
 	mob_types = list(/mob/living/simple_animal/hostile/radroach = 15)
 
+/obj/structure/nest/radroach/jungle
+	mob_types = list(/mob/living/simple_animal/hostile/radroach/jungle = 15)
+
 /obj/structure/nest/fireant
 	name = "fireant nest"
 	max_mobs = 2

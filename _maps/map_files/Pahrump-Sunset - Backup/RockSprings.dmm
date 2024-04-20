@@ -13500,7 +13500,7 @@
 	},
 /area/f13/wasteland)
 "gxZ" = (
-/obj/structure/furnace,
+/obj/structure/blacksmith/furnace,
 /turf/open/floor/plasteel/cult,
 /area/f13/building/tribal)
 "gyv" = (
@@ -25240,7 +25240,7 @@
 	},
 /area/f13/building/tribal)
 "mdu" = (
-/obj/structure/furnace,
+/obj/structure/blacksmith/furnace,
 /turf/open/indestructible/ground/outside/sidewalk,
 /area/f13/building)
 "mdO" = (

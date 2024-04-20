@@ -95,7 +95,7 @@
 	var/target_angle = Get_Angle(owner, target)
 	var/matrix/final = matrix()
 	final.Turn(target_angle)
-	seedling_screen_object.transform = final
+	seedling_screen_object?.transform = final
 
 /obj/screen/seedling
 	icon = 'icons/mob/jungle/arachnid.dmi'

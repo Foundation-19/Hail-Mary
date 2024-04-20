@@ -1,6 +1,6 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "aa" = (
-/obj/structure/furnace,
+/obj/structure/blacksmith/furnace,
 /obj/effect/turf_decal/weather/dirt{
 	dir = 1
 	},

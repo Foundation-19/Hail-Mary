@@ -6,8 +6,7 @@
 	icon_state = "clockwork_helmet"
 	w_class = WEIGHT_CLASS_NORMAL
 	resistance_flags = FIRE_PROOF | ACID_PROOF
-	flags_inv = HIDEEARS|HIDEHAIR|HIDEFACE|HIDESNOUT
-	mutantrace_variation = STYLE_MUZZLE
+	flags_inv = HIDEEARS|HIDEHAIR|HIDEFACE
 	armor = ARMOR_VALUE_HEAVY
 
 /obj/item/clothing/head/helmet/clockwork/Initialize()
@@ -51,7 +50,7 @@
 			user.emote("scream")
 			user.apply_damage(30, BRUTE, BODY_ZONE_HEAD)
 			user.adjustOrganLoss(ORGAN_SLOT_BRAIN, 30)
-		addtimer(CALLBACK(user, /mob/living.proc/dropItemToGround, src, TRUE), 1) //equipped happens before putting stuff on(but not before picking items up), 1). thus, we need to wait for it to be on before forcing it off.
+		addtimer(CALLBACK(user, TYPE_PROC_REF(/mob/living,dropItemToGround), src, TRUE), 1) //equipped happens before putting stuff on(but not before picking items up), 1). thus, we need to wait for it to be on before forcing it off.
 
 /obj/item/clothing/head/helmet/clockwork/mob_can_equip(mob/M, mob/equipper, slot, disable_warning = 0)
 	if(equipper && !is_servant_of_ratvar(equipper))
@@ -70,7 +69,7 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	armor = ARMOR_VALUE_HEAVY
 	allowed = list(/obj/item/clockwork, /obj/item/clothing/glasses/wraith_spectacles, /obj/item/clothing/glasses/judicial_visor, /obj/item/mmi/posibrain/soul_vessel, /obj/item/reagent_containers/food/drinks/bottle/holyoil)
-	mutantrace_variation = STYLE_DIGITIGRADE|STYLE_SNEK_TAURIC
+	mutantrace_variation = STYLE_DIGITIGRADE
 
 /obj/item/clothing/suit/armor/clockwork/Initialize()
 	. = ..()
@@ -119,7 +118,7 @@
 			user.apply_damage(15, BURN, BODY_ZONE_CHEST)
 			user.adjust_fire_stacks(2)
 			user.IgniteMob()
-		addtimer(CALLBACK(user, /mob/living.proc/dropItemToGround, src, TRUE), 1)
+		addtimer(CALLBACK(user, TYPE_PROC_REF(/mob/living,dropItemToGround), src, TRUE), 1)
 
 /obj/item/clothing/gloves/clockwork
 	name = "clockwork gauntlets"
@@ -178,7 +177,7 @@
 			user.emote("scream")
 			user.apply_damage(7, BRUTE, BODY_ZONE_L_ARM)
 			user.apply_damage(7, BRUTE, BODY_ZONE_R_ARM)
-		addtimer(CALLBACK(user, /mob/living.proc/dropItemToGround, src, TRUE), 1)
+		addtimer(CALLBACK(user, TYPE_PROC_REF(/mob/living,dropItemToGround), src, TRUE), 1)
 
 /obj/item/clothing/shoes/clockwork
 	name = "clockwork treads"
@@ -228,4 +227,4 @@
 			user.emote("scream")
 			user.apply_damage(7, BURN, BODY_ZONE_L_LEG)
 			user.apply_damage(7, BURN, BODY_ZONE_R_LEG)
-		addtimer(CALLBACK(user, /mob/living.proc/dropItemToGround, src, TRUE), 1)
+		addtimer(CALLBACK(user, TYPE_PROC_REF(/mob/living,dropItemToGround), src, TRUE), 1)
