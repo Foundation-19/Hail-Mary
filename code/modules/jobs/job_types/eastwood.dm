@@ -1050,7 +1050,7 @@ Mayor
 	supervisors = "Eastwood laws"
 	description = "You are the Radio Host of Eastwood. You are expected to risk neck and reputation to get the latest scoop in the region. and since news alone don't pay the bills you can stream music to the masses to keep them entretained."
 	enforces = "Although very independant and vocal  you are still under control of local governance - try to keep a good relationship with them but don't risk your journalist integrity to please the boss."
-	selection_color = "#430fff"
+	selection_color = "#dcba97"
 
 	outfit = /datum/outfit/job/den/f13radio_host
 
@@ -1064,12 +1064,6 @@ Mayor
 			/datum/job/eastwood,
 		),
 	)
-
-	loadout_options = list(
-	/datum/outfit/loadout/abiotic,
-	/datum/outfit/loadout/pomologist,
-	/datum/outfit/loadout/zany,)
-
 /datum/outfit/job/den/f13radio_host
 	name = "Radio Host"
 	jobtype = /datum/job/eastwood/f13radio_host

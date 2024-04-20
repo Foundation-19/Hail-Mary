@@ -29416,6 +29416,15 @@
 	icon_state = "verticalleftborderleft0"
 	},
 /area/f13/building)
+"gvi" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/closed/wall/f13/store{
+	desc = "A pre-War wall made of solid concrete.";
+	name = "concrete wall"
+	},
+/area/f13/building)
 "gvl" = (
 /obj/structure/table,
 /obj/item/phone,
@@ -31926,6 +31935,16 @@
 	icon_state = "housewood3-broken"
 	},
 /area/f13/village)
+"hEp" = (
+/obj/machinery/light{
+	dir = 4;
+	light_color = "#c1caff"
+	},
+/turf/closed/wall/f13/store{
+	desc = "A pre-War wall made of solid concrete.";
+	name = "concrete wall"
+	},
+/area/f13/building)
 "hEq" = (
 /obj/structure/flora/tree/african_acacia,
 /turf/open/indestructible/ground/outside/dirt,
@@ -34197,6 +34216,13 @@
 	icon_state = "dirt"
 	},
 /area/f13/building/khanfort)
+"iDA" = (
+/obj/machinery/light_switch,
+/turf/closed/wall/f13/store{
+	desc = "A pre-War wall made of solid concrete.";
+	name = "concrete wall"
+	},
+/area/f13/building)
 "iEb" = (
 /obj/structure/table/wood,
 /obj/effect/decal/cleanable/dirt,
@@ -58167,6 +58193,13 @@
 /mob/living/simple_animal/hostile/handy,
 /turf/open/floor/f13/wood,
 /area/f13/building)
+"tAN" = (
+/obj/machinery/light,
+/turf/closed/wall/f13/store{
+	desc = "A pre-War wall made of solid concrete.";
+	name = "concrete wall"
+	},
+/area/f13/building)
 "tAP" = (
 /obj/structure/flora/grass/wasteland{
 	icon_state = "tall_grass_2";
@@ -62681,6 +62714,15 @@
 /area/f13/wasteland)
 "vEO" = (
 /obj/structure/closet/locker,
+/obj/item/megaphone,
+/obj/item/flashlight/glowstick/blue,
+/obj/item/flashlight/glowstick/cyan,
+/obj/item/flashlight/glowstick/orange,
+/obj/item/flashlight/glowstick/pink,
+/obj/item/flashlight/glowstick/red,
+/obj/item/flashlight/glowstick/yellow,
+/obj/item/grenade/flashbang,
+/obj/item/grenade/flashbang,
 /turf/open/floor/carpet,
 /area/f13/building)
 "vEX" = (
@@ -100042,7 +100084,7 @@ igF
 hEG
 pVH
 pVH
-pVH
+hEp
 fbd
 mYp
 qrP
@@ -100811,7 +100853,7 @@ uNJ
 uNJ
 igF
 hEG
-pVH
+tAN
 kuR
 nPu
 nPu
@@ -101326,8 +101368,8 @@ uNJ
 igF
 hEG
 pVH
-pVH
-pVH
+iDA
+gvi
 fbd
 eBY
 pVH

@@ -3564,6 +3564,15 @@
 /obj/item/storage/book/bible,
 /turf/open/floor/f13/wood,
 /area/f13/city)
+"iMM" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/closed/wall/f13/store{
+	desc = "A pre-War wall made of solid concrete.";
+	name = "concrete wall"
+	},
+/area/f13/building)
 "iNE" = (
 /obj/effect/decal/cleanable/dirt{
 	color = "#363636"
@@ -5187,7 +5196,9 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/city)
 "mKW" = (
-/obj/item/chair/wood,
+/obj/structure/chair/f13foldupchair{
+	dir = 8
+	},
 /turf/open/floor/wood_fancy/wood_fancy_dark,
 /area/f13/building)
 "mLV" = (
@@ -6699,6 +6710,12 @@
 	icon_state = "darkrustysolid"
 	},
 /area/f13/building/massfusion)
+"qHi" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/closed/wall/r_wall,
+/area/f13/city)
 "qHm" = (
 /obj/item/kirbyplants{
 	icon_state = "plant-06"
@@ -8652,6 +8669,15 @@
 "vIH" = (
 /turf/open/floor/plasteel/f13/vault_floor/floor,
 /area/f13/building/hospital)
+"vIT" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/closed/wall/f13/store{
+	desc = "A pre-War wall made of solid concrete.";
+	name = "concrete wall"
+	},
+/area/f13/building)
 "vJy" = (
 /obj/structure/chair/wood{
 	dir = 4
@@ -8989,6 +9015,13 @@
 	dir = 4
 	},
 /turf/open/indestructible/ground/outside/dirt,
+/area/f13/building)
+"wIP" = (
+/obj/machinery/light,
+/turf/closed/wall/f13/store{
+	desc = "A pre-War wall made of solid concrete.";
+	name = "concrete wall"
+	},
 /area/f13/building)
 "wJQ" = (
 /obj/structure/table/reinforced,
@@ -41097,7 +41130,7 @@ sdE
 bvj
 bvj
 sdE
-sdE
+iMM
 qFi
 dYT
 dYT
@@ -41350,13 +41383,13 @@ oez
 oez
 oez
 oez
-sdE
+wIP
 dpn
 tyU
 fyo
 wmS
 xQG
-dYT
+qHi
 uNh
 uNh
 uNh
@@ -42121,13 +42154,13 @@ oez
 oez
 oez
 oez
-sdE
+wIP
 mnG
 sOm
 isY
 kmu
 wmS
-dYT
+qHi
 uNh
 nSB
 dYT
@@ -42382,7 +42415,7 @@ sdE
 bvj
 bvj
 sdE
-sdE
+vIT
 sdE
 dYT
 dYT
