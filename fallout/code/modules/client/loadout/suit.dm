@@ -177,7 +177,7 @@
 	path = /obj/item/clothing/suit/armor/medium/vest/blueshirt
 	subcategory = LOADOUT_SUBCATEGORY_SUIT_ARMOR 	
 	cost = 4
-	restricted_desc = "Nash"
+	restricted_desc = "Eastwood"
 	restricted_roles = list("Mayor",
 							"Secretary",
 							"Sheriff",
@@ -189,6 +189,7 @@
 							"Prospector",
 							"Detective",
 							"Barkeep",
+							"Radio Host"
 							)
 
 /datum/gear/suit/samurai  //added by TK420634 ~ 5/29/2022 "Samurai Wasteland WeebShit Edition (tm)

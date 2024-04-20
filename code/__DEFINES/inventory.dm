@@ -107,8 +107,6 @@
 #define HIDEHAIR		(1<<8)
 #define HIDEFACIALHAIR	(1<<9)
 #define HIDENECK		(1<<10)
-#define HIDETAUR		(1<<11) //gotta hide that snowflake
-#define HIDESNOUT		(1<<12) //or do we actually hide our snoots
 #define HIDEACCESSORY	(1<<13) //hides the jumpsuit accessory.
 
 //bitflags for clothing coverage - also used for limbs
@@ -141,15 +139,6 @@
 
 //flags for outfits that have mutant race variants: Most of these require additional sprites to work.
 #define STYLE_DIGITIGRADE		(1<<0) //jumpsuits, suits and shoes
-#define STYLE_MUZZLE			(1<<1) //hats or masks
-#define STYLE_SNEK_TAURIC		(1<<2) //taur-friendly suits
-#define STYLE_PAW_TAURIC		(1<<3)
-#define STYLE_HOOF_TAURIC		(1<<4)
-#define STYLE_ALL_TAURIC		(STYLE_SNEK_TAURIC|STYLE_PAW_TAURIC|STYLE_HOOF_TAURIC)
-#define STYLE_NO_ANTHRO_ICON	(1<<5) //When digis fit the default sprite fine and need no copypasted states. This is the case of skirts and winter coats, for example.
-#define USE_SNEK_CLIP_MASK		(1<<6)
-#define USE_QUADRUPED_CLIP_MASK	(1<<7)
-#define USE_TAUR_CLIP_MASK		(USE_SNEK_CLIP_MASK|USE_QUADRUPED_CLIP_MASK)
 
 //digitigrade legs settings.
 #define NOT_DIGITIGRADE				0
@@ -406,7 +395,7 @@ GLOBAL_LIST_INIT(toolbelt_allowed, typecacheof(list(
 	/obj/item/reagent_containers/food/drinks,
 	/obj/item/storage/bag/plants,
 	/obj/item/plant_analyzer,
-	/obj/item/scythe, 
+	/obj/item/scythe,
 	/obj/item/assembly/signaler,
 	/obj/item/grenade/chem_grenade,
 	/obj/item/lightreplacer,
@@ -988,6 +977,3 @@ GLOBAL_LIST_INIT(storage_tray_can_hold, typecacheof(list(
 
 //Internals checker
 #define GET_INTERNAL_SLOTS(C) list(C.head, C.wear_mask)
-
-//Slots that won't trigger humans' update_genitals() on equip().
-GLOBAL_LIST_INIT(no_genitals_update_slots, list(SLOT_L_STORE, SLOT_R_STORE, SLOT_S_STORE, SLOT_IN_BACKPACK, SLOT_LEGCUFFED, SLOT_HANDCUFFED, SLOT_HANDS, SLOT_GENERC_DEXTROUS_STORAGE))

@@ -73,7 +73,7 @@
 		M.old_y = 0
 
 /*
- * Wooden beds and old beds - Use wood for low tech like Oasis and Legion. Old for ruins.
+ * Wooden beds and old beds - Use wood for low tech like Eastwood and Legion. Old for ruins.
  */
 
 /obj/structure/bed/wooden

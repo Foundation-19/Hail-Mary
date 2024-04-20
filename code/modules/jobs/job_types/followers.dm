@@ -1,4 +1,4 @@
-/datum/job/followers //do NOT use this for anything, it's just to store faction datums
+/*/datum/job/followers //do NOT use this for anything, it's just to store faction datums
 	department_flag = FOLLOWERS
 	selection_color = "#ffeeaa"
 	exp_type = EXP_TYPE_FOLLOWERS
@@ -484,4 +484,5 @@ Follower Volunteer
 	backpack_contents = list(
 		/obj/item/stock_parts/cell/ammo/ec = 1,
 	)
+*/
 */

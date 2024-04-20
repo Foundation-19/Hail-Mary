@@ -525,6 +525,7 @@
 /obj/machinery/chem_master/primitive
 	name = "alchemy table"
 	desc = "A wooden table with various bone mortars and pistles, as well as other tools."
+	icon = 'modular_BD2/general/icons/alchemy.dmi'
 	icon_state = "alchemy_table"
 	primitive = TRUE
 	use_power = FALSE

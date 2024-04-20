@@ -197,17 +197,17 @@
 	icon_state = "legionflag_snow"
 	item_state = "legionflag_snow"
 
-/obj/item/flag/oasis
-	name = "Oasis flag"
-	desc = "A flag depicting a stylised pink flower on a green background. It's the symbol of the town of Oasis."
-	icon_state = "oasisflag"
-	item_state = "oasisflag"
+/obj/item/flag/eastwood
+	name = "Eastwood flag"
+	desc = "A flag depicting a stylised pink flower on a green background. It's the symbol of the town of Eastwood."
+	icon_state = "eastwoodflag"
+	item_state = "eastwoodflag"
 
-/obj/item/flag/oasis/snow
-	name = "Oasis snow flag"
-	desc = "A flag depicting a stylised pink flower on a green background. It's the symbol of the town of Oasis."
-	icon_state = "oasisflag_snow"
-	item_state = "oasisflag_snow"
+/obj/item/flag/eastwood/snow
+	name = "Eastwood snow flag"
+	desc = "A flag depicting a stylised pink flower on a green background. It's the symbol of the town of Eastwood."
+	icon_state = "eastwoodflag_snow"
+	item_state = "eastwoodflag_snow"
 
 /obj/item/flag/followers
 	name = "Clinic flag"
@@ -260,7 +260,7 @@
 	desc = "A banner depicting three rivers meeting at its center, overlaid with an ear of corn."
 	icon_state = "cornflag"
 	item_state = "cornflag"
-	faction = "Oasis"
+	faction = "Eastwood"
 
 /obj/item/flag/khan
 	name = "Great Khans flag"
@@ -275,7 +275,7 @@
 		if(do_after(user, 60, target = src))
 			var/obj/item/stack/sheet/leather/H = I
 			if(H.use(1))
-				var/list/choices = list("Bandit", "Outlaw", "BOS", "BOS Snow", "NCR", "NCR Snow", "Legion", "Legion Snow", "Oasis", "Oasis Snow", "Enclave", "Kebab")
+				var/list/choices = list("Bandit", "Outlaw", "BOS", "BOS Snow", "NCR", "NCR Snow", "Legion", "Legion Snow", "Eastwood", "Eastwood Snow", "Enclave", "Kebab")
 				var/flag = input("Please choose which faction flag you wish to create.") in choices
 				switch(flag)
 					if("Bandit")
@@ -326,18 +326,18 @@
 						icon_state = "legionflag_snow"
 						item_state = "legionflag_snow"
 						faction = FACTION_LEGION
-					if("Oasis")
-						name = "Oasis flag"
+					if("Eastwood")
+						name = "Eastwood flag"
 						desc = "A banner depicting three rivers meeting at its center, overlaid with an ear of corn."
-						icon_state = "oasisflag"
-						item_state = "oasisflag"
-						faction = FACTION_OASIS
-					if("Oasis Snow")
+						icon_state = "eastwoodflag"
+						item_state = "eastwoodflag"
+						faction = FACTION_EASTWOOD
+					if("Eastwood Snow")
 						name = "Ripley snow flag"
 						desc = "A banner depicting three rivers meeting at its center, overlaid with an ear of corn."
-						icon_state = "oasisflag_snow"
-						item_state = "oasisflag_snow"
-						faction = FACTION_OASIS
+						icon_state = "eastwoodflag_snow"
+						item_state = "eastwoodflag_snow"
+						faction = FACTION_EASTWOOD
 					if(FACTION_ENCLAVE)
 						name = "Enclave Flag"
 						desc = "A flag depiciting the good ole murica."

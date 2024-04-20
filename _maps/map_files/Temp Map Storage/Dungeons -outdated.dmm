@@ -15329,7 +15329,7 @@
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/underground/cave)
 "plP" = (
-/obj/item/flag/oasis,
+/obj/item/flag/eastwood,
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/underground/cave)
 "plV" = (

@@ -68,7 +68,7 @@ IMPORTANT FACTORS TO CONSIDER WHILE BALANCING
 			startHunger = M.nutrition
 			if(pollStarted == FALSE)
 				pollStarted = TRUE
-				ghosts = pollGhostCandidates("Do you want to play as [M]'s SDGF clone? (Don't ERP without permission from the original, and respect their character.)", ignore_category = POLL_IGNORE_CLONE)
+				ghosts = pollGhostCandidates("Do you want to play as [M]'s SDGF clone?", ignore_category = POLL_IGNORE_CLONE)
 				log_reagent("FERMICHEM: [M] ckey: [M.key] has taken SDGF, and ghosts have been polled.")
 			to_chat(M,span_notice("If a ghost takes your clone, they will be identical to you. You may wish to add note (IC tab) to help them play your character better, and keep them up on the situation."))
 		if(20 to INFINITY)
@@ -91,7 +91,7 @@ IMPORTANT FACTORS TO CONSIDER WHILE BALANCING
 				for(var/mob/dead/observer/C2 in ghosts)
 					if(C2.key && C2)
 						C2.transfer_ckey(SM, FALSE)
-						message_admins("Ghost candidate found! [C2] key [C2.key] is becoming a clone of [M] key: [M.key] (They agreed to respect the character they're becoming, and agreed to not ERP without express permission from the original.)")
+						message_admins("Ghost candidate found! [C2] key [C2.key] is becoming a clone of [M] key: [M.key]")
 						log_reagent("FERMICHEM: [M] ckey: [M.key] is creating a clone, controlled by [C2]")
 						break
 					else
@@ -127,7 +127,7 @@ IMPORTANT FACTORS TO CONSIDER WHILE BALANCING
 					else
 						to_chat(SM, span_userdanger("While you find your newfound existence strange, you share the same memories as [M.real_name]. However, You find yourself indifferent to the goals you previously had, and take more interest in your newfound independence, but still have an indescribable care for the safety of your original."))
 					log_reagent("FERMICHEM: [SM] ckey: [SM.key]'s is not bound by [M] ckey [M.key]'s will, and is free to determine their own goals, while respecting and acting as their origin.")
-	
+
 				to_chat(SM, span_warning("You feel a strange sensation building in your mind as you realise there's two of you. Before you get a chance to think about it, you suddenly split from your old body, and find yourself face to face with your original, a perfect clone of your origin."))
 				SM.client?.change_view(CONFIG_GET(string/default_view))
 				to_chat(M, span_warning("You feel a strange sensation building in your mind as you realise there's two of you. Before you get a chance to think about it, a mass splits from you, and find yourself face to face with yourself."))

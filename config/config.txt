@@ -12,7 +12,7 @@ $include plushies/defines.txt
 $include job_threats.txt
 $include policy.txt
 
-# You can use the @ character at the beginning of a config option to lock it from being edited in-game
+# You can use the @ er at the beginning of a config option to lock it from being edited in-game
 # Example usage:
 # @SERVERNAME tgstation
 # Which sets the SERVERNAME, and disallows admins from being able to change it using View Variables.

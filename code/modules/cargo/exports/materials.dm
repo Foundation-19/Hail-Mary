@@ -85,7 +85,7 @@
 	material_id = /datum/material/adamantine
 	message = "cm3 of pre-war ingots"
 	export_types = list(/obj/item/stack/sheet/mineral/adamantine,
-	/obj/item/ingot/adamantine)
+	/obj/item/blacksmith/ingot/adamantine)
 
 /* /datum/export/material/prewar
 	cost = 15

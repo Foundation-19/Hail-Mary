@@ -169,7 +169,7 @@
 	item_state = "tribal_outcast"
 	heat_protection = CHEST | GROIN | LEGS| ARMS | HEAD
 	armor = list("melee" = 30, "bullet" = 20, "laser" = 15, "energy" = 10, "bomb" = 5, "bio" = 0, "rad" = 0, "fire" = 15, "acid" = 0)
-	allowed = list(/obj/item/gun, /obj/item/kitchen, /obj/item/twohanded, /obj/item/melee/onehanded, /obj/item/twohanded/spear, /obj/item/melee/smith, /obj/item/melee/smith/twohand
+	allowed = list(/obj/item/gun, /obj/item/kitchen, /obj/item/twohanded, /obj/item/melee/onehanded, /obj/item/twohanded/spear, /obj/item/melee/smith, /obj/item/twohanded/smithed
 	)
 
 /obj/item/clothing/suit/hooded/outcast
@@ -296,7 +296,7 @@
 	armor = list("melee" = 15, "bullet" = 10, "laser" = 10, "energy" = 5, "bomb" = 0, "bio" = 0, "rad" = 30, "fire" = 0, "acid" = 0)
 	
 ////////////////
-// Oasis/Town//
+// Eastwood/Town//
 //////////////
 
 /obj/item/clothing/suit/armor/light/town
@@ -312,8 +312,8 @@
 	armor = list("melee" = 25, "bullet" = 20, "laser" = 10, "energy" = 10, "bomb" = 15, "bio" = 10, "rad" = 0, "fire" = 20, "acid" = 5)
 	
 /obj/item/clothing/suit/armor/light/town/vest
-	name = "Oasis flak vest"
-	desc = "A refurbished flak vest, repaired by the Oasis Police Department. The ballistic nylon has a much tougher weave, but it still will not take acid or most high-powered rounds."
+	name = "Eastwood flak vest"
+	desc = "A refurbished flak vest, repaired by the Eastwood Police Department. The ballistic nylon has a much tougher weave, but it still will not take acid or most high-powered rounds."
 	icon_state = "vest_flak"
 	item_state = "vest_flak"
 	armor = list("melee" = 10, "bullet" = 30, "laser" = 10, "energy" = 0, "bomb" = 20, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = -50)
