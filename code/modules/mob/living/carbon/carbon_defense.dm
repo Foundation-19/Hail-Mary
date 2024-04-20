@@ -318,11 +318,6 @@
 					SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, "friendly_hug", /datum/mood_event/besthug, M)
 				else if (mood.sanity >= SANITY_DISTURBED)
 					SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, "friendly_hug", /datum/mood_event/betterhug, M)
-
-			if(HAS_TRAIT(M, TRAIT_DISTANT)) //No mood buff since you're not really liking it.
-				M.visible_message("<span class='warning'>[M] glares at [M] as they give them a pat on the head! They seem annoyed...</span>", \
-					"<span class='warning'>You give [M] a pat on the head to make [p_them()] feel better! Their eyes shift towards you contemptuously...</span>")
-				//M.add_lust(-5) //Why are you touching me?
 				if(prob(5))
 					M.visible_message("<span class='warning'>[M] quickly twists [M]\'s arm!</span>", \
 						"<span class='boldwarning'>Your arm gets twisted in [M]\'s grasp! Maybe you should've taken the hint.</span>")
