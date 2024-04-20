@@ -4,7 +4,7 @@
 #define FACTION_NCR "NCR"
 #define FACTION_LEGION "Legion"
 #define FACTION_BROTHERHOOD "BOS"
-#define FACTION_OASIS "Town"
+#define FACTION_EASTWOOD "Town"
 #define FACTION_ENCLAVE "Enclave"
 #define FACTION_WASTELAND "Wastelander"
 #define FACTION_RAIDERS "Raiders"
@@ -119,7 +119,7 @@
 #define F13OFFDUTYBOS	(1<<11)
 #define F13ENVOY	(1<<12)
 
-#define DEP_OASIS (1<<6)
+#define DEP_EASTWOOD (1<<6)
 
 #define F13SHERIFF		(1<<0)
 #define F13DENDOC       (1<<1)
@@ -136,6 +136,7 @@
 #define F13BANKER		(1<<12)	// IDK MAN BUT IT SEEMS IMPORTANT
 #define F13BARKEEP		(1<<13)
 #define F13PILOT		(1<<14)
+#define F13RADIOHOST	(1<<15)
 
 #define VAULT			(1<<7)
 
@@ -321,6 +322,7 @@
 #define JOB_DISPLAY_ORDER_BANKER 89// IDK MAN BUT IT SEEMS IMPORTANT
 #define JOB_DISPLAY_ORDER_BARKEEP 90
 #define JOB_DISPLAY_ORDER_PILOT 91
+#define JOB_DISPLAY_ORDER_RADIOHOST 91.9
 
 
 #define JOB_DISPLAY_ORDER_OVERSEER 92
