@@ -1058,18 +1058,16 @@ Mayor
 	minimal_access = list(ACCESS_BAR, ACCESS_KITCHEN, ACCESS_TOWN, ACCESS_TOWN_CIV)
 	matchmaking_allowed = list(
 		/datum/matchmaking_pref/friend = list(
-			/datum/job/eastwood,
+			/datum/job/eastwood
 		),
 		/datum/matchmaking_pref/rival = list(
-			/datum/job/eastwood,
+			/datum/job/eastwood
 		),
 	)
 /datum/outfit/job/den/f13radio_host
 	name = "Radio Host"
 	jobtype = /datum/job/eastwood/f13radio_host
-
 	id = /obj/item/card/id/dogtag/town
-
 	backpack = /obj/item/storage/backpack/satchel/explorer
 	satchel = /obj/item/storage/backpack/satchel/explorer
 	r_pocket = /obj/item/flashlight/flare
@@ -1080,7 +1078,7 @@ Mayor
 		/obj/item/taperecorder=1, \
 		/obj/item/gun/ballistic/automatic/pistol/n99, \
 		/obj/item/ammo_box/magazine/m10mm/adv/simple=2)
-	shoes = 		/obj/item/clothing/shoes/workboots
+	shoes = /obj/item/clothing/shoes/workboots
 
 /datum/outfit/job/den/f13settler/pre_equip(mob/living/carbon/human/H)
 	..()
