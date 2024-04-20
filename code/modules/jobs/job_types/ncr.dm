@@ -530,9 +530,9 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 	exp_requirements = 1750
 
 	loadout_options = list( // ALL: Binoculars, Bowie knife
-		/datum/outfit/loadout/vrclassic, // AMR, Sequoia
-		/datum/outfit/loadout/vrlite, // Brush, Sequoia
-		/datum/outfit/loadout/vrshotgunner, // Winchester City-Killer, Sequoia
+		/datum/outfit/loadout/vrclassic, // Sequoia
+		/datum/outfit/loadout/vrlite, // Brush
+		/datum/outfit/loadout/vrshotgunner, // Unique Lever-Action
 		/datum/outfit/loadout/vrcqc // 2 x .45 Long colt revolvers
 		)
 
