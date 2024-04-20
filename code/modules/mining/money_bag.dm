@@ -89,8 +89,8 @@
 	new /obj/item/stack/f13Cash/random/med(src)
 
 
-// Oasis reserves. Spawns with the Mayor.
-/obj/item/storage/bag/money/small/oasis/PopulateContents()
+// Eastwood reserves. Spawns with the Mayor.
+/obj/item/storage/bag/money/small/eastwood/PopulateContents()
 	// exactly 1000 caps, and about 200 in foreign reserves
 	new /obj/item/stack/f13Cash/caps/onezerozerozero(src)
 

@@ -55,7 +55,7 @@
 					if(aminol.lazarused)
 						this["important_info"] = "This creature is tamed, and is bound to follow the commands of who/what had tamed them!"
 					else if(aminol.pop_required_to_jump_into < players_on)
-						this["important_info"] = "This creature's abilities are somewhat limited while Nash sleeps."
+						this["important_info"] = "This creature's abilities are somewhat limited while Eastwood sleeps."
 					else
 						this["important_info"] = aminol.desc_important
 				else

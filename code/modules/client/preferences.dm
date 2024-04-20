@@ -144,9 +144,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	// 0 = character settings, 1 = game preferences
 	var/current_tab = SETTINGS_TAB
 
-	// If in the ERP tab, are we rearranging genitals
-	var/erp_tab_page = ERP_TAB_HOME
-
 	var/unlock_content = 0
 
 	var/list/ignoring = list()
@@ -169,9 +166,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	var/list/job_whitelists = list()
 
 	var/action_buttons_screen_locs = list()
-
-	//bad stuff
-	var/cit_toggles = TOGGLES_CITADEL
 
 	//good stuff
 	var/cb_toggles = AIM_CURSOR_ON
@@ -540,6 +534,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			dat += "<br>"
 			dat += "<b>Play Admin MIDIs:</b> <a href='?_src_=prefs;preference=hear_midis'>[(toggles & SOUND_MIDI) ? "Enabled":"Disabled"]</a><br>"
 			dat += "<b>Play Lobby Music:</b> <a href='?_src_=prefs;preference=lobby_music'>[(toggles & SOUND_LOBBY) ? "Enabled":"Disabled"]</a><br>"
+			dat += "<b>Stream radio music:</b> <a href='?_src_=prefs;preference=music_streaming'>[(toggles & MUSIC_RADIO) ? "Enabled":"Disabled"]</a><br>"
 			dat += "<b>See Pull Requests:</b> <a href='?_src_=prefs;preference=pull_requests'>[(chat_toggles & CHAT_PULLR) ? "Enabled":"Disabled"]</a><br>"
 			dat += "<br>"
 			if(user.client)
@@ -1948,6 +1943,9 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				if("ghost_ears")
 					chat_toggles ^= CHAT_GHOSTEARS
 
+				if("music_streaming")
+					toggles ^= MUSIC_RADIO
+
 				if("ghost_sight")
 					chat_toggles ^= CHAT_GHOSTSIGHT
 
@@ -2021,12 +2019,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				if("tab")
 					if(href_list["tab"])
 						current_tab = text2num(href_list["tab"])
-				if("erp_tab")
-					if(href_list["newtab"])
-						if(href_list["nonumber"])
-							erp_tab_page = href_list["newtab"]
-						else
-							erp_tab_page = text2num(href_list["newtab"])
 
 	chat_toggles |= CHAT_LOOC // the LOOC stays on during sex
 	if(href_list["preference"] == "gear")

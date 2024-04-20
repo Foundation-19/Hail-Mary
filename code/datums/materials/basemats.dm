@@ -215,7 +215,7 @@ Unless you know what you're doing, only use the first three numbers. They're in 
 	name = "pre-war steel"
 	desc = "A powerful material made out of magic, I mean science!"
 	color = "#6d7e8e"
-	strength_modifier = 1.3
+	strength_modifier = 1.2
 	categories = list(MAT_CATEGORY_RIGID = TRUE, MAT_CATEGORY_BASE_RECIPES = TRUE)
 	sheet_type = /obj/item/stack/sheet/mineral/adamantine
 	value_per_unit = 0.25
@@ -310,7 +310,7 @@ Unless you know what you're doing, only use the first three numbers. They're in 
 	name = "bronze"
 	desc = "Clock Cult? Never heard of it."
 	color = "#92661A"
-	strength_modifier = 1.15
+	strength_modifier = 1
 	categories = list(MAT_CATEGORY_RIGID = TRUE, MAT_CATEGORY_BASE_RECIPES = TRUE)
 	sheet_type = /obj/item/stack/sheet/bronze
 	value_per_unit = 0.025

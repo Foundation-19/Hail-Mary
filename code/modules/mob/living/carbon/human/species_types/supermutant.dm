@@ -29,7 +29,7 @@
 		return 0
 	if(rank in GLOB.vault_positions)
 		return 0
-	if(rank in GLOB.oasis_positions)
+	if(rank in GLOB.eastwood_positions)
 		return 0
 	if(rank in GLOB.ncr_positions)
 		return 0
@@ -41,8 +41,8 @@
 		return 0
 	if(rank in GLOB.enclave_positions) 
 		return 0
-	if(rank in GLOB.followers_positions) 
-		return 0
+/*	if(rank in GLOB.followers_positions) 
+		return 0*/
 	/*
 	if(rank in GLOB.tribal_positions) 
 		return 0

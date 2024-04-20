@@ -6,8 +6,7 @@
 	icon_state = "clockwork_helmet"
 	w_class = WEIGHT_CLASS_NORMAL
 	resistance_flags = FIRE_PROOF | ACID_PROOF
-	flags_inv = HIDEEARS|HIDEHAIR|HIDEFACE|HIDESNOUT
-	mutantrace_variation = STYLE_MUZZLE
+	flags_inv = HIDEEARS|HIDEHAIR|HIDEFACE
 	armor = ARMOR_VALUE_HEAVY
 
 /obj/item/clothing/head/helmet/clockwork/Initialize()
@@ -70,7 +69,7 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	armor = ARMOR_VALUE_HEAVY
 	allowed = list(/obj/item/clockwork, /obj/item/clothing/glasses/wraith_spectacles, /obj/item/clothing/glasses/judicial_visor, /obj/item/mmi/posibrain/soul_vessel, /obj/item/reagent_containers/food/drinks/bottle/holyoil)
-	mutantrace_variation = STYLE_DIGITIGRADE|STYLE_SNEK_TAURIC
+	mutantrace_variation = STYLE_DIGITIGRADE
 
 /obj/item/clothing/suit/armor/clockwork/Initialize()
 	. = ..()

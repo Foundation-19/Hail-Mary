@@ -17,8 +17,8 @@
 		if(!affecting)
 			to_chat(user, span_warning("The limb is missing!"))
 			return
-		if(!L.can_inject(user, TRUE, user.zone_selected, FALSE, TRUE)) //stopped by clothing, not by species immunity.
-			return
+		//if(!L.can_inject(user, TRUE, user.zone_selected, FALSE, TRUE)) //stopped by clothing, not by species immunity.
+			//return
 		if(affecting.status != BODYPART_ORGANIC)
 			to_chat(user, span_notice("Medicine won't work on a robotic limb!"))
 			return

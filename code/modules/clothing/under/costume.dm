@@ -6,7 +6,7 @@
 	can_adjust = FALSE
 	strip_delay = 100
 	resistance_flags = NONE
-	mutantrace_variation = STYLE_DIGITIGRADE|STYLE_NO_ANTHRO_ICON
+	mutantrace_variation = STYLE_DIGITIGRADE
 
 /obj/item/clothing/under/costume/jabroni
 	name = "Jabroni Outfit"
@@ -35,7 +35,7 @@
 	body_parts_covered = CHEST|GROIN|ARMS
 	fitted = FEMALE_UNIFORM_TOP
 	can_adjust = FALSE
-	mutantrace_variation = STYLE_DIGITIGRADE|STYLE_NO_ANTHRO_ICON
+	mutantrace_variation = STYLE_DIGITIGRADE
 
 /obj/item/clothing/under/costume/schoolgirl/red
 	name = "red schoolgirl uniform"
@@ -94,7 +94,7 @@
 	desc = "It's not a skirt!"
 	icon_state = "polykilt"
 	body_parts_covered = CHEST|GROIN|ARMS|LEGS
-	mutantrace_variation = STYLE_DIGITIGRADE|STYLE_NO_ANTHRO_ICON
+	mutantrace_variation = STYLE_DIGITIGRADE
 
 /obj/item/clothing/under/costume/kilt/polychromic/ComponentInitialize()
 	. = ..()
@@ -109,7 +109,7 @@
 	fitted = NO_FEMALE_UNIFORM
 	can_adjust = FALSE
 	resistance_flags = NONE
-	mutantrace_variation = STYLE_DIGITIGRADE|STYLE_NO_ANTHRO_ICON
+	mutantrace_variation = STYLE_DIGITIGRADE
 
 /obj/item/clothing/under/costume/gladiator/ash_walker
 	desc = "This gladiator uniform appears to be covered in ash and fairly dated."
@@ -123,7 +123,7 @@
 	body_parts_covered = CHEST|GROIN
 	fitted = FEMALE_UNIFORM_TOP
 	can_adjust = FALSE
-	mutantrace_variation = STYLE_DIGITIGRADE|STYLE_NO_ANTHRO_ICON
+	mutantrace_variation = STYLE_DIGITIGRADE
 
 /obj/item/clothing/under/costume/maid/Initialize()
 	. = ..()
@@ -132,7 +132,7 @@
 
 /obj/item/clothing/under/costume/singer
 	desc = "Just looking at this makes you want to sing."
-	mutantrace_variation = STYLE_DIGITIGRADE|STYLE_NO_ANTHRO_ICON
+	mutantrace_variation = STYLE_DIGITIGRADE
 	body_parts_covered = CHEST|GROIN|ARMS
 	alternate_worn_layer = ABOVE_SHOES_LAYER
 	can_adjust = FALSE
@@ -159,7 +159,7 @@
 	body_parts_covered = CHEST|GROIN|ARMS
 	fitted = FEMALE_UNIFORM_TOP
 	can_adjust = FALSE
-	mutantrace_variation = STYLE_DIGITIGRADE|STYLE_NO_ANTHRO_ICON
+	mutantrace_variation = STYLE_DIGITIGRADE
 
 /obj/item/clothing/under/costume/villain
 	name = "villain suit"
@@ -208,7 +208,6 @@
 	body_parts_covered = CHEST|GROIN|ARMS
 	fitted = FEMALE_UNIFORM_TOP
 	can_adjust = FALSE
-	mutantrace_variation = USE_TAUR_CLIP_MASK
 
 /obj/item/clothing/under/costume/drfreeze
 	name = "doctor freeze's jumpsuit"
@@ -216,7 +215,6 @@
 	icon_state = "drfreeze"
 	item_state = "drfreeze"
 	can_adjust = FALSE
-	mutantrace_variation = USE_TAUR_CLIP_MASK
 
 /obj/item/clothing/under/costume/lobster
 	name = "foam lobster suit"
@@ -225,7 +223,6 @@
 	item_state = "lobster"
 	fitted = NO_FEMALE_UNIFORM
 	can_adjust = FALSE
-	mutantrace_variation = USE_TAUR_CLIP_MASK
 
 /obj/item/clothing/under/costume/gondola
 	name = "gondola hide suit"
@@ -251,7 +248,6 @@
 	icon_state = "christmasmaler"
 	item_state = "christmasmaler"
 	can_adjust = FALSE
-	mutantrace_variation = USE_TAUR_CLIP_MASK
 
 /obj/item/clothing/under/costume/christmas/green
 	name = "green christmas suit"
@@ -265,7 +261,7 @@
 	icon_state = "christmasfemaler"
 	item_state = "christmasfemaler"
 	body_parts_covered = CHEST|GROIN
-	mutantrace_variation = STYLE_DIGITIGRADE|STYLE_NO_ANTHRO_ICON|USE_TAUR_CLIP_MASK
+	mutantrace_variation = STYLE_DIGITIGRADE
 
 /obj/item/clothing/under/costume/christmas/croptop/green
 	name = "green croptop christmas suit"
@@ -282,7 +278,7 @@
 	body_parts_covered = CHEST|GROIN
 	can_adjust = FALSE
 	fitted = FEMALE_UNIFORM_TOP
-	mutantrace_variation = STYLE_DIGITIGRADE|STYLE_NO_ANTHRO_ICON
+	mutantrace_variation = STYLE_DIGITIGRADE
 
 /obj/item/clothing/under/costume/qipao/white
 	name = "White Qipao"
@@ -303,7 +299,6 @@
 	item_state = "cheong"
 	body_parts_covered = CHEST|GROIN
 	can_adjust = FALSE
-	mutantrace_variation = USE_TAUR_CLIP_MASK
 
 /obj/item/clothing/under/costume/cheongsam/white
 	name = "White Cheongsam"

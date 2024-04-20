@@ -174,6 +174,12 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/f13/wood,
 /area/f13/wasteland/khans)
+"akR" = (
+/obj/structure/railing{
+	dir = 4
+	},
+/turf/open/floor/wood_fancy/wood_fancy_dark,
+/area/f13/building)
 "alJ" = (
 /obj/structure/bed,
 /obj/item/bedsheet,
@@ -701,6 +707,16 @@
 /obj/structure/table,
 /turf/open/floor/plasteel/f13/vault_floor/white,
 /area/f13/building/hospital)
+"bvj" = (
+/obj/structure/window/fulltile/house{
+	dir = 2;
+	icon_state = "housewindowvertical"
+	},
+/turf/closed/wall/f13/store{
+	desc = "A pre-War wall made of solid concrete.";
+	name = "concrete wall"
+	},
+/area/f13/building)
 "bxB" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/drinks/bottle/f13nukacola,
@@ -1526,6 +1542,14 @@
 "dpc" = (
 /turf/closed/wall/r_wall/rust,
 /area/f13/building/massfusion)
+"dpn" = (
+/obj/structure/table/wood/club,
+/obj/machinery/computer/terminal{
+	dir = 4;
+	termtag = "Security"
+	},
+/turf/open/floor/wood_fancy/wood_fancy_dark,
+/area/f13/building)
 "dpP" = (
 /obj/item/twohanded/required/kirbyplants/random,
 /turf/open/floor/plasteel/f13/vault_floor/blue/whitebluefull,
@@ -2310,6 +2334,10 @@
 /obj/structure/chair/f13foldupchair,
 /turf/open/transparent/openspace,
 /area/f13/wasteland)
+"fyo" = (
+/obj/structure/closet/fridge/standard,
+/turf/open/floor/wood_fancy/wood_fancy_dark,
+/area/f13/building)
 "fyP" = (
 /obj/structure/lattice/catwalk,
 /obj/machinery/light/small,
@@ -3385,6 +3413,10 @@
 /obj/structure/railing/wood,
 /turf/open/floor/f13/wood,
 /area/f13/wasteland)
+"isY" = (
+/obj/structure/railing,
+/turf/open/floor/wood_fancy/wood_fancy_dark,
+/area/f13/building)
 "itg" = (
 /obj/structure/chair/f13foldupchair{
 	dir = 8
@@ -3532,6 +3564,15 @@
 /obj/item/storage/book/bible,
 /turf/open/floor/f13/wood,
 /area/f13/city)
+"iMM" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/closed/wall/f13/store{
+	desc = "A pre-War wall made of solid concrete.";
+	name = "concrete wall"
+	},
+/area/f13/building)
 "iNE" = (
 /obj/effect/decal/cleanable/dirt{
 	color = "#363636"
@@ -4959,6 +5000,12 @@
 	icon_state = "reddirtyfull"
 	},
 /area/f13/city)
+"mnG" = (
+/obj/structure/bed,
+/obj/item/bedsheet/patriot,
+/obj/item/bedsheet/patriot,
+/turf/open/floor/wood_fancy/wood_fancy_dark,
+/area/f13/building)
 "mnN" = (
 /obj/structure/table,
 /obj/machinery/computer/terminal{
@@ -5148,6 +5195,12 @@
 /obj/structure/table,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/city)
+"mKW" = (
+/obj/structure/chair/f13foldupchair{
+	dir = 8
+	},
+/turf/open/floor/wood_fancy/wood_fancy_dark,
+/area/f13/building)
 "mLV" = (
 /obj/machinery/light{
 	dir = 1;
@@ -6641,6 +6694,15 @@
 	icon_state = "darkrusty"
 	},
 /area/f13/building/massfusion)
+"qFi" = (
+/obj/structure/railing/corner{
+	dir = 8
+	},
+/turf/closed/wall/f13/store{
+	desc = "A pre-War wall made of solid concrete.";
+	name = "concrete wall"
+	},
+/area/f13/building)
 "qFA" = (
 /obj/structure/window/reinforced/fulltile,
 /obj/structure/grille,
@@ -6648,6 +6710,12 @@
 	icon_state = "darkrustysolid"
 	},
 /area/f13/building/massfusion)
+"qHi" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/closed/wall/r_wall,
+/area/f13/city)
 "qHm" = (
 /obj/item/kirbyplants{
 	icon_state = "plant-06"
@@ -7508,6 +7576,11 @@
 	},
 /turf/closed/wall/f13/wood,
 /area/f13/building)
+"sOm" = (
+/obj/structure/table/wood/fancy,
+/obj/item/flashlight/lamp,
+/turf/open/floor/wood_fancy/wood_fancy_dark,
+/area/f13/building)
 "sOQ" = (
 /obj/structure/curtain{
 	color = "#5c131b";
@@ -7809,6 +7882,10 @@
 	},
 /turf/open/floor/carpet/green,
 /area/f13/city)
+"tyU" = (
+/obj/structure/table/wood/club,
+/turf/open/floor/wood_fancy/wood_fancy_dark,
+/area/f13/building)
 "tzD" = (
 /obj/structure/rack,
 /obj/item/gun/energy/laser/complianceregulator,
@@ -8592,6 +8669,15 @@
 "vIH" = (
 /turf/open/floor/plasteel/f13/vault_floor/floor,
 /area/f13/building/hospital)
+"vIT" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/closed/wall/f13/store{
+	desc = "A pre-War wall made of solid concrete.";
+	name = "concrete wall"
+	},
+/area/f13/building)
 "vJy" = (
 /obj/structure/chair/wood{
 	dir = 4
@@ -8783,6 +8869,9 @@
 	icon_state = "housewood1-broken"
 	},
 /area/f13/legion)
+"wmS" = (
+/turf/open/floor/wood_fancy/wood_fancy_dark,
+/area/f13/building)
 "wnK" = (
 /obj/structure/window/fulltile/wood,
 /turf/open/floor/wood_fancy/wood_fancy_dark,
@@ -8926,6 +9015,13 @@
 	dir = 4
 	},
 /turf/open/indestructible/ground/outside/dirt,
+/area/f13/building)
+"wIP" = (
+/obj/machinery/light,
+/turf/closed/wall/f13/store{
+	desc = "A pre-War wall made of solid concrete.";
+	name = "concrete wall"
+	},
 /area/f13/building)
 "wJQ" = (
 /obj/structure/table/reinforced,
@@ -9381,6 +9477,15 @@
 	icon_state = "darkrustysolid"
 	},
 /area/f13/radiation)
+"xQG" = (
+/obj/effect/spawner/lootdrop/f13/alcoholspawner,
+/obj/effect/spawner/lootdrop/f13/alcoholspawner,
+/obj/effect/spawner/lootdrop/f13/alcoholspawner,
+/obj/effect/spawner/lootdrop/f13/alcoholspawner,
+/obj/effect/spawner/lootdrop/f13/alcoholspawner,
+/obj/structure/table/wood/fancy/monochrome,
+/turf/open/floor/wood_fancy/wood_fancy_dark,
+/area/f13/building)
 "xSN" = (
 /turf/closed/wall/f13/store{
 	desc = "A pre-War wall made of solid concrete.";
@@ -41021,12 +41126,12 @@ oez
 oez
 oez
 oez
-oez
-oez
-oez
-oez
-oez
-pPv
+sdE
+bvj
+bvj
+sdE
+iMM
+qFi
 dYT
 dYT
 eZk
@@ -41278,13 +41383,13 @@ oez
 oez
 oez
 oez
-oez
-oez
-oez
-oez
-oez
-oez
-dYT
+wIP
+dpn
+tyU
+fyo
+wmS
+xQG
+qHi
 uNh
 uNh
 uNh
@@ -41535,12 +41640,12 @@ oez
 oez
 oez
 oez
-oez
-oez
-oez
-oez
-oez
-oez
+bvj
+mKW
+wmS
+wmS
+wmS
+xQG
 dYT
 iHJ
 wxo
@@ -41792,12 +41897,12 @@ oez
 oez
 oez
 oez
-oez
-oez
-oez
-oez
-oez
-oez
+bvj
+wmS
+wmS
+wmS
+akR
+wmS
 dYT
 uNh
 itM
@@ -42049,13 +42154,13 @@ oez
 oez
 oez
 oez
-oez
-oez
-oez
-oez
-oez
-oez
-dYT
+wIP
+mnG
+sOm
+isY
+kmu
+wmS
+qHi
 uNh
 nSB
 dYT
@@ -42306,12 +42411,12 @@ oez
 oez
 oez
 oez
-oez
-oez
-oez
-oez
-oez
-oez
+sdE
+bvj
+bvj
+sdE
+vIT
+sdE
 dYT
 dYT
 dYT
@@ -42569,7 +42674,7 @@ geI
 ttz
 oez
 oez
-oez
+blr
 oez
 oez
 oez

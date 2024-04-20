@@ -6,7 +6,7 @@
 	block_priority = BLOCK_PRIORITY_UNIFORM
 	slot_flags = ITEM_SLOT_ICLOTHING
 	armor = ARMOR_VALUE_CLOTHES
-	mutantrace_variation = STYLE_DIGITIGRADE|USE_TAUR_CLIP_MASK
+	mutantrace_variation = STYLE_DIGITIGRADE
 	limb_integrity = 30
 	var/fitted = FEMALE_UNIFORM_FULL // For use in alternate clothing styles for women
 	var/has_sensor = HAS_SENSORS // For the crew computer
@@ -278,13 +278,10 @@
 			fitted = NO_FEMALE_UNIFORM
 		if(!alt_covers_chest) // for the special snowflake suits that expose the chest when adjusted
 			body_parts_covered &= ~CHEST
-			mutantrace_variation &= ~USE_TAUR_CLIP_MASK //How are we supposed to see the uniform otherwise?
 	else
 		fitted = initial(fitted)
 		if(!alt_covers_chest)
 			body_parts_covered |= CHEST
-			if(initial(mutantrace_variation) & USE_TAUR_CLIP_MASK)
-				mutantrace_variation |= USE_TAUR_CLIP_MASK
 
 	return adjusted
 

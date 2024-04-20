@@ -175,7 +175,7 @@
 		clonemind.transfer_to(H)
 
 	else if(get_clone_mind == CLONEPOD_POLL_MIND)
-		var/list/candidates = pollCandidatesForMob("Do you want to play as [clonename]'s defective clone? (Don't ERP without permission from the original)", null, null, null, 100, H, POLL_IGNORE_CLONE)
+		var/list/candidates = pollCandidatesForMob("Do you want to play as [clonename]'s defective clone?", null, null, null, 100, H, POLL_IGNORE_CLONE)
 		if(LAZYLEN(candidates))
 			var/mob/C = pick(candidates)
 			H.key = C.key

@@ -1,6 +1,5 @@
 /obj/item/clothing/under/
 	name = "Base"
-	mutantrace_variation = STYLE_NO_ANTHRO_ICON
 
 /obj/item/clothing/under/misc/pj/red
 	name = "red pj's"
@@ -138,7 +137,7 @@
 	body_parts_covered = CHEST|GROIN|ARMS
 	can_adjust = FALSE
 	fitted = FEMALE_UNIFORM_TOP
-	mutantrace_variation = STYLE_DIGITIGRADE|STYLE_NO_ANTHRO_ICON
+	mutantrace_variation = STYLE_DIGITIGRADE
 
 /obj/item/clothing/under/misc/mailman
 	name = "mailman's jumpsuit"
@@ -197,7 +196,6 @@
 	mob_overlay_icon = 'goon/icons/mob/worn_js_rank.dmi'
 	icon_state = "assistant"
 	item_state = "gy_suit"
-	mutantrace_variation = USE_TAUR_CLIP_MASK
 
 /obj/item/clothing/under/croptop
 	name = "crop top"
@@ -223,7 +221,6 @@
 	item_state = "plasmaman"
 	armor_tokens = list(ARMOR_MODIFIER_UP_ENV_T3)
 	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
-	mutantrace_variation = USE_TAUR_CLIP_MASK
 	can_adjust = FALSE
 	strip_delay = 80
 	var/next_extinguish = 0
@@ -290,7 +287,7 @@
 	item_state = "duraskirt"
 	can_adjust = FALSE
 	body_parts_covered = CHEST|GROIN|ARMS
-	mutantrace_variation = STYLE_DIGITIGRADE|STYLE_NO_ANTHRO_ICON
+	mutantrace_variation = STYLE_DIGITIGRADE
 
 /obj/item/clothing/under/misc/squatter
 	name = "slav squatter tracksuit"
@@ -298,7 +295,6 @@
 	icon_state = "squatteroutfit"
 	item_state = "squatteroutfit"
 	can_adjust = FALSE
-	mutantrace_variation = USE_TAUR_CLIP_MASK
 
 /obj/item/clothing/under/misc/blue_camo
 	name = "russian blue camo"
@@ -306,7 +302,6 @@
 	icon_state = "russobluecamo"
 	item_state = "russobluecamo"
 	can_adjust = FALSE
-	mutantrace_variation = USE_TAUR_CLIP_MASK
 
 /obj/item/clothing/under/misc/keyholesweater
 	name = "keyhole sweater"
@@ -314,7 +309,7 @@
 	icon_state = "keyholesweater"
 	item_state = "keyholesweater"
 	can_adjust = FALSE
-	mutantrace_variation = STYLE_DIGITIGRADE|STYLE_NO_ANTHRO_ICON
+	mutantrace_variation = STYLE_DIGITIGRADE
 
 /obj/item/clothing/under/misc/stripper
 	name = "pink stripper outfit"
@@ -322,7 +317,7 @@
 	item_state = "stripper_p"
 	body_parts_covered = CHEST|GROIN
 	can_adjust = FALSE
-	mutantrace_variation = STYLE_DIGITIGRADE|STYLE_NO_ANTHRO_ICON
+	mutantrace_variation = STYLE_DIGITIGRADE
 	body_parts_hidden = 0
 
 /obj/item/clothing/under/misc/stripper/green
@@ -341,7 +336,6 @@
 	icon_state = "tssuit"
 	item_state = "r_suit"
 	can_adjust = FALSE
-	mutantrace_variation = USE_TAUR_CLIP_MASK
 
 /obj/item/clothing/under/misc/poly_shirt
 	name = "polychromic button-up shirt"
@@ -385,7 +379,7 @@
 	item_state = "rainbow"
 	body_parts_covered = CHEST|ARMS	//Because there's no bottom included
 	can_adjust = FALSE
-	mutantrace_variation = STYLE_DIGITIGRADE|STYLE_NO_ANTHRO_ICON
+	mutantrace_variation = STYLE_DIGITIGRADE
 
 /obj/item/clothing/under/misc/poly_bottomless/ComponentInitialize()
 	. = ..()
@@ -398,7 +392,7 @@
 	item_state = "rainbow"
 	body_parts_covered = CHEST|GROIN
 	can_adjust = FALSE
-	mutantrace_variation = STYLE_DIGITIGRADE|STYLE_NO_ANTHRO_ICON
+	mutantrace_variation = STYLE_DIGITIGRADE
 	var/list/poly_states = 3
 	var/list/poly_colors = list("#808080", "#FFFFFF", "#8CC6FF")
 

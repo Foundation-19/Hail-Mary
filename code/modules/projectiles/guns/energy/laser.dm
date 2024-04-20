@@ -483,8 +483,8 @@
 		/datum/firemode/semi_auto/faster
 	)
 
-// OASIS autolaser
-/obj/item/gun/energy/laser/auto/oasis
+// EASTWOOD autolaser
+/obj/item/gun/energy/laser/auto/eastwood
 	name = "autoshock tesla pistol"
 	desc = " An upgraded version of the Compact RCW. Boasts a higher cell efficiency at the cost of the burstfire and armor melting power."
 	ammo_type =  list(/obj/item/ammo_casing/energy/laser/autolaser/shock) //8dmg + 10 Stamina, flagged as "energy" so very few armors can reduce it below 5-6 dmg, has a very high bare wound bonus, so anyone with no armor on will be crippled
