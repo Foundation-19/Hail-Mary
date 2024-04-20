@@ -562,6 +562,9 @@ mob/visible_message(message, self_message, blind_message, vision_distance = DEFA
 		qdel(M)
 		return
 
+	if(src.previous_job)
+		M.previous_job = src.previous_job
+
 	M.key = key
 
 
