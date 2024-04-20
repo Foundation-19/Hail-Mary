@@ -6,7 +6,7 @@
 	description = "Big Data, in space!"
 	prereq_ids = list("base")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 1000)
-
+/*
 /datum/techweb_node/adv_datatheory
 	id = "adv_datatheory"
 	display_name = "Advanced Data Theory"
@@ -14,6 +14,7 @@
 	prereq_ids = list("datatheory")
 	design_ids = list("icprinter", "icupgadv", "icupgclo")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 3000)
+*/
 
 /////////////////////////plasma tech/////////////////////////
 /datum/techweb_node/basic_plasma
