@@ -241,6 +241,25 @@
 		M.reagents.remove_reagent(R.type,1)
 	..()
 
+/datum/reagent/consumable/ethanol/bloodwine
+	name = "Blood Wine"
+	description = "A strong wine with a metallic undertone."
+	color = "#aa3333"
+	boozepwr = 70
+	taste_description = "Blood and Metal"
+	glass_icon_state = "cognacglass"
+	glass_name = "blood wine"
+	glass_desc = "A Strong beverage brewed from the blood leaves."
+	effective_blood_multiplier = 40 // Mostly water, also the healy stuff
+	effective_blood_max = 600
+	//var/last_added = 0
+	//var/maximum_reachable = BLOOD_VOLUME_NORMAL - 10
+
+/datum/reagent/consumable/ethanol/brocbrew/on_mob_life(mob/living/carbon/M)
+	if(M.blood_volume < BLOOD_VOLUME_NORMAL)
+		M.blood_volume += (0.5*REAGENTS_EFFECT_MULTIPLIER)
+	..()
+	. = TRUE
 //nuka
 
 /datum/reagent/consumable/ethanol/nukadark
