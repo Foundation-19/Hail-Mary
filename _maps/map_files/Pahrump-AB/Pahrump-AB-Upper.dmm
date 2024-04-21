@@ -5422,6 +5422,13 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/closed/wall/r_wall,
 /area/f13/city)
+"nkO" = (
+/obj/structure/railing/wood{
+	dir = 8;
+	icon_state = "post_wood"
+	},
+/turf/open/floor/f13/wood,
+/area/f13/legion)
 "nkX" = (
 /obj/structure/barricade/wooden,
 /turf/open/floor/wood_common,
@@ -69215,8 +69222,8 @@ uWk
 uWk
 uWk
 iEW
-iEW
-iEW
+nkO
+nkO
 iEW
 fjM
 iEW
