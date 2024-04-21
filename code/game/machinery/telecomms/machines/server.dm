@@ -134,7 +134,7 @@
 
 /obj/machinery/telecomms/server/presets/legion
 	id = "Legion Server"
-	freq_listening = list(FREQ_TOWN_PD)
+	freq_listening = list(FREQ_LEGION)
 	autolinkers = list("legion")
 ///man fuck telecomms
 /obj/machinery/telecomms/server/presets/ranger
