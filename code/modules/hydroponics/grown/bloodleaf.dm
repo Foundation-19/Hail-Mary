@@ -20,6 +20,7 @@
 	reagents_add = list(
 		/datum/reagent/blood/synthetics = 0.2,
 		/datum/reagent/medicine/salglu_solution = 0.05,
+		/datum/reagent/medicine/silver_sulfadiazine = 0.05,
 		/datum/reagent/consumable/nutriment = 0.1,
 	)
 
