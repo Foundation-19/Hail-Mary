@@ -40039,6 +40039,10 @@
 	icon_state = "whitegreenrustychess"
 	},
 /area/f13/village)
+"llJ" = (
+/obj/effect/landmark/start/f13/orator,
+/turf/open/indestructible/ground/outside/desert,
+/area/f13/wasteland)
 "lmq" = (
 /obj/structure/flora/tree/jungle/small{
 	color = "#d9b51c"
@@ -125911,7 +125915,7 @@ aii
 aii
 aii
 xLC
-xLC
+llJ
 xcW
 xLC
 xLC
