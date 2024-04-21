@@ -84,6 +84,7 @@ GLOBAL_LIST_INIT(lush_plant_spawn_list, list(
 	/obj/structure/flora/wasteplant/wild_pinyon = 3,
 	/obj/structure/flora/wasteplant/wild_xander = 5,
 	/obj/structure/flora/wasteplant/wild_agave = 5,
+	/obj/structure/flora/wasteplant/wild_bloodleaf = 5,
 	/obj/structure/flora/tree/joshua = 3,
 	/obj/structure/flora/tree/cactus = 2,
 	/obj/structure/flora/tree/wasteland = 2
