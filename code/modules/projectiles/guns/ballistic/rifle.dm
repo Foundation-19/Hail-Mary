@@ -204,6 +204,7 @@
 /obj/item/gun/ballistic/rifle/repeater/brush/tribal
 	name = "medicine stick"
 	desc = "A heavy .45-70 Lever-action rifle. Beautiful paintings coat the fine weapon, a bead that whistles when spun hangs from a hand woven cord."
+	icon = 'icons/fallout/objects/guns/ballistic.dmi'
 	icon_state = "brushgunt"
 	item_state = "brushgun"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/tube4570

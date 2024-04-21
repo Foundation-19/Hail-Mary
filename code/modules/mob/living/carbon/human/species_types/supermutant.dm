@@ -17,10 +17,15 @@
 	..()
 	for(var/obj/item/bodypart/b in C.bodyparts)
 		b.max_damage += 80
+	C.resize = 1.5
+	C.update_transform()
+
 /datum/species/smutant/on_species_loss(mob/living/carbon/C)
 	..()
 	for(var/obj/item/bodypart/b in C.bodyparts)
 		b.max_damage = initial(b.max_damage)
+	C.resize = 0.5
+	C.update_transform()
 
 /datum/species/smutant/qualifies_for_rank(rank, list/features)
 	if(rank in GLOB.legion_positions)

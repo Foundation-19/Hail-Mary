@@ -96,8 +96,7 @@
 /datum/crafting_recipe/bitterdrink
 	name = "Bottle bitterdrink"
 	result = /obj/item/reagent_containers/pill/bitterdrink
-	reqs = list(/datum/reagent/medicine/bitter_drink = 5,
-				/obj/item/reagent_containers/food/drinks = 1)
+	reqs = list(/datum/reagent/medicine/bitter_drink = 5)
 	tools = list(TOOL_ALCHEMY_TABLE)
 	time = 10
 	category = CAT_MEDICAL

@@ -850,6 +850,8 @@ GLOBAL_LIST_EMPTY(playmob_cooldowns)
 		if (togglestatus > 0 && togglestatus < 5)
 			if (togglestatus == AI_Z_OFF || AIStatus == AI_Z_OFF)
 				var/turf/T = get_turf(src)
+				if(!T)
+					return
 				if (AIStatus == AI_Z_OFF)
 					SSidlenpcpool.idle_mobs_by_zlevel[T.z] -= src
 				else

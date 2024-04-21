@@ -1019,7 +1019,7 @@
 	blob_allowed = 0
 	environment = 4
 	grow_chance = 5
-	weather_tags = list(WEATHER_ALL)
+//	weather_tags = list(WEATHER_ALL) tf
 
 /area/f13/followers
 	name = "Followers of the Apocalypse Clinic"
