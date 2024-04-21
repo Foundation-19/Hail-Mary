@@ -139,7 +139,7 @@
 ///man fuck telecomms
 /obj/machinery/telecomms/server/presets/ranger
 	id = "Ranger Server"
-	freq_listening = list(FREQ_BIKER)
+	freq_listening = list(FREQ_RANGER)
 	autolinkers = list("ranger")
 
 /obj/machinery/telecomms/server/presets/khans
