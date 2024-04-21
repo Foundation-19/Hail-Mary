@@ -41265,6 +41265,17 @@
 	icon_state = "desertsmooth5"
 	},
 /area/f13/wasteland)
+"kQx" = (
+/obj/effect/turf_decal/gravel_edge{
+	dir = 1
+	},
+/obj/effect/landmark/start/f13/farmer,
+/turf/open/indestructible/ground/outside/gravel{
+	color = "#B7ABAB";
+	footstep = "dirt";
+	name = "rocky dirt"
+	},
+/area/f13/wasteland)
 "kQF" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/glass,
@@ -67078,8 +67089,8 @@
 /area/f13/wasteland)
 "vED" = (
 /obj/effect/landmark/start/f13/farmer,
-/turf/open/indestructible/ground/outside/graveldirt,
-/area/f13/wasteland)
+/turf/open/floor/plasteel/f13/vault_floor/floor/floorsolid,
+/area/f13/city)
 "vEO" = (
 /obj/structure/closet/locker,
 /obj/item/megaphone,
@@ -72236,6 +72247,8 @@
 	icon_state = "horizontaloutermain2"
 	},
 /area/f13/wasteland)
+"xIv" = (
+)
 "xIC" = (
 /obj/structure/closet/crate/wicker{
 	anchored = 1;
@@ -99133,7 +99146,7 @@ aBo
 apZ
 aHc
 aTl
-tzX
+kQx
 huu
 huu
 hzS
@@ -101448,7 +101461,7 @@ uXY
 uXY
 uXY
 uXY
-uYu
+vED
 pzM
 pLB
 hvo
@@ -101705,7 +101718,7 @@ pzM
 pzM
 pzM
 sIy
-oYk
+xIv
 fvg
 iht
 aUt

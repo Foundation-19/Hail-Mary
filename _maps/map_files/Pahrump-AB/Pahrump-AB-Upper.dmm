@@ -761,16 +761,6 @@
 /obj/structure/table,
 /turf/open/floor/plasteel/f13/vault_floor/white,
 /area/f13/building/hospital)
-"bvj" = (
-/obj/structure/window/fulltile/house{
-	dir = 2;
-	icon_state = "housewindowvertical"
-	},
-/turf/closed/wall/f13/store{
-	desc = "A pre-War wall made of solid concrete.";
-	name = "concrete wall"
-	},
-/area/f13/city)
 "bxB" = (
 /turf/closed/indestructible/rock{
 	desc = "A pre-War wall made of solid concrete.";
@@ -6129,13 +6119,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/closed/wall,
 /area/f13/city)
-"nkO" = (
-/obj/structure/railing/wood{
-	dir = 8;
-	icon_state = "post_wood"
-	},
-/turf/open/floor/f13/wood,
-/area/f13/legion)
 "nkX" = (
 /obj/structure/barricade/wooden,
 /turf/open/floor/wood_common,
@@ -42423,8 +42406,8 @@ oez
 oez
 oez
 anv
-bvj
-bvj
+bah
+bah
 anv
 iMM
 qFi
@@ -42936,7 +42919,7 @@ oez
 oez
 oez
 oez
-bvj
+bah
 mKW
 oGu
 oGu
@@ -43193,7 +43176,7 @@ oez
 oez
 oez
 oez
-bvj
+bah
 oGu
 oGu
 oGu
@@ -43708,8 +43691,8 @@ oez
 oez
 oez
 anv
-bvj
-bvj
+bah
+bah
 anv
 vIT
 anv
