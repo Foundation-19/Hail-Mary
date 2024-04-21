@@ -30,6 +30,7 @@ Weapons		Lever shotgun, Grease gun, Repeater carbines, Revolvers, simple guns al
 /datum/outfit/job/CaesarsLegion
 	ears = null
 	box = null
+	box_two = /obj/item/storage/survivalkit/medical/legion
 
 /datum/outfit/job/CaesarsLegion/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
