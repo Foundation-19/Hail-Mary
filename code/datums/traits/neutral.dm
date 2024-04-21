@@ -147,15 +147,6 @@
 	if(quirk_holder)
 		quirk_holder.remove_client_colour(/datum/client_colour/monochrome)
 
-/datum/quirk/maso
-	name = "Masochism"
-	desc = "You are aroused by pain."
-	value = 0
-	mob_trait = TRAIT_MASO
-	gain_text = span_notice("You desire to be hurt.")
-	lose_text = span_notice("Pain has become less exciting for you.")
-
-
 /datum/quirk/alcohol_intolerance
 	name = "Alcohol Intolerance"
 	desc = "You take toxin damage from alcohol rather than getting drunk."
@@ -205,45 +196,6 @@
 	tick_interval = INFINITY
 	status_type = STATUS_EFFECT_REFRESH
 	alert_type = null
-
-/datum/quirk/steel_ass
-	name = "Buns of Steel"
-	desc = "You've never skipped ass day. You are completely immune to all forms of ass slapping and anyone who tries to slap your rock hard ass usually gets a broken hand."
-	value = 0
-	mob_trait = TRAIT_STEEL_ASS
-	gain_text = "<span class='notice'>Your ass rivals those of golems.</span>"
-	lose_text = "<span class='notice'>Your butt feels more squishy and slappable.</span>"
-
-/datum/quirk/headpat_hater
-	name = "Distant"
-	desc = "You don't seem to show much care for being touched. Whether it's because you're reserved or due to self control, others touching your head won't make you wag your tail should you possess one, and the action may even attract your ire.."
-	mob_trait = TRAIT_DISTANT
-	value = 0
-	gain_text = "<span class='notice'>Others' touches begin to make your blood boil...</span>"
-	lose_text = "<span class='notice'>Having your head pet doesn't sound so bad right about now...</span>"
-	medical_record_text = "Patient cares little with or dislikes being touched."
-
-/datum/quirk/headpat_slut
-	name = "Headpat Lover"
-	desc = "You love the feeling of others touching your head! Maybe a little too much, actually... Others patting your head will provide a bigger mood boost and cause aroused reactions."
-	mob_trait = TRAIT_HEADPAT_SLUT
-	value = 0
-	gain_text = "<span class='notice'>You crave headpats immensely!</span>"
-	lose_text = "<span class='notice'>Your headpats addiction wanes.</span>"
-	medical_record_text = "Patient seems overly affectionate."
-
-/datum/quirk/overweight
-	name = "Overweight"
-	desc = "You're particularly fond of food, and join the round being overweight."
-	value = 0
-	gain_text = "<span class='notice'>You feel a bit chubby!</span>"
-	//no lose_text cause why would there be?
-
-/datum/quirk/overweight/on_spawn()
-	var/mob/living/M = quirk_holder
-	M.nutrition = rand(NUTRITION_LEVEL_FAT + NUTRITION_LEVEL_START_MIN, NUTRITION_LEVEL_FAT + NUTRITION_LEVEL_START_MAX)
-	M.overeatduration = 100
-	ADD_TRAIT(M, TRAIT_FAT, OBESITY)
 
 /datum/quirk/vegetarian
 	name = "Vegetarian"
@@ -352,21 +304,6 @@
 	if(!QDELETED(H))
 		H.remove_language(/datum/language/tribal)
 
-/datum/quirk/smol
-	name = "Smol!"
-	desc = "Maybe you're really smol, maybe you're just really light, maybe you're *really* into yoga. However it is, others can Alt-Click to pick you up like an item!"
-	value = 0
-	mob_trait = TRAIT_SMOL
-	gain_text = span_notice("You feel scoopable! Others can ALT-CLICK you to pick you up!")
-	lose_text = span_notice("You feel a lot less scoopable.")
-
-/datum/quirk/smol/add()
-	if(istype(quirk_holder))
-		quirk_holder.AddElement(/datum/element/mob_holder, "corgi") // dog
-
-/datum/quirk/smol/remove()
-	if(istype(quirk_holder))
-		quirk_holder.RemoveElement(/datum/element/mob_holder) // undog
 /*
 /datum/quirk/cat
 	name = "A cat!"
@@ -452,15 +389,15 @@
 			folder.forceMove(get_turf(human_holder))
 
 /*
-/datum/quirk/zoomies
-	name = "Zoomies"
+/datum/quirk/SPEED
+	name = "SPEED"
 	desc = "You can sprint twice as far before you begin to get tired. Just don't run into things."
 	value = 0
-	mob_trait = TRAIT_ZOOMIES
+	mob_trait = TRAIT_SPEED
 
-/datum/quirk/super_zoomies
-	name = "Zoomies - Super"
+/datum/quirk/super_SPEED
+	name = "SPEED - Super"
 	desc = "You never tire of sprinting at all, just be extremely careful not to run into things."
 	value = 0
-	mob_trait = TRAIT_SUPER_ZOOMIES
+	mob_trait = TRAIT_SUPER_SPEED
 */

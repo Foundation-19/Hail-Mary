@@ -744,12 +744,6 @@
 			power_multiplier *= distancelist[get_dist(user, V)+1]
 			if(L == user)
 				continue
-			if (E.lewd)
-				addtimer(CALLBACK(GLOBAL_PROC,GLOBAL_PROC_REF(to_chat), L, span_love("[E.enthrallGender] has praised me!!")), 5)
-				if(HAS_TRAIT(L, TRAIT_MASO))
-					E.enthrallTally -= power_multiplier
-					E.resistanceTally += power_multiplier
-					E.cooldown += 1
 			else
 				addtimer(CALLBACK(GLOBAL_PROC,GLOBAL_PROC_REF(to_chat), L, "<span class='nicegreen'><b><i>I've been praised for doing a good job!</b></i></span>"), 5)
 			E.resistanceTally -= power_multiplier
@@ -766,14 +760,6 @@
 			var/descmessage = "[(E.lewd?"I've failed [E.enthrallGender]... What a bad, bad pet!":"I did a bad job...")]"
 			if(L == user)
 				continue
-			if (E.lewd)
-				if(HAS_TRAIT(L, TRAIT_MASO))
-					descmessage += "And yet, it feels so good..!</span>" //I don't really understand masco, is this the right sort of thing they like?
-					E.enthrallTally += power_multiplier
-					E.resistanceTally -= power_multiplier
-					addtimer(CALLBACK(GLOBAL_PROC,GLOBAL_PROC_REF(to_chat), L, "<span class='love'>I've let [E.enthrallGender] down...!</b></span>"), 5)
-				else
-					addtimer(CALLBACK(GLOBAL_PROC,GLOBAL_PROC_REF(to_chat), L, "<span class='warning'>I've let [E.enthrallGender] down...</b></span>"), 5)
 			else
 				addtimer(CALLBACK(GLOBAL_PROC,GLOBAL_PROC_REF(to_chat), L, "<span class='warning'>I've failed [E.master]...</b></span>"), 5)
 				E.resistanceTally += power_multiplier

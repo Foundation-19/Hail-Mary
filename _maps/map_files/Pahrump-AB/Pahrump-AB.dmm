@@ -34934,6 +34934,9 @@
 /obj/machinery/autolathe/ammo/unlocked,
 /obj/item/stack/ore/blackpowder/twenty,
 /obj/item/stack/ore/blackpowder/twenty,
+/obj/item/book/granter/crafting_recipe/gunsmith_one,
+/obj/item/book/granter/crafting_recipe/gunsmith_three,
+/obj/item/book/granter/crafting_recipe/gunsmith_two,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	color = "#e4e4e4"
 	},
@@ -40048,6 +40051,10 @@
 	icon_state = "whitegreenrustychess"
 	},
 /area/f13/village)
+"llJ" = (
+/obj/effect/landmark/start/f13/orator,
+/turf/open/indestructible/ground/outside/desert,
+/area/f13/wasteland)
 "lmq" = (
 /obj/structure/flora/tree/jungle/small{
 	color = "#d9b51c"
@@ -48629,6 +48636,13 @@
 	icon_state = "bluedirtychess2"
 	},
 /area/f13/building)
+"oXF" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/start/f13/ncrconscript,
+/turf/open/indestructible/ground/outside/road{
+	icon_state = "horizontaltopborderbottom0"
+	},
+/area/f13/wasteland)
 "oXJ" = (
 /turf/open/indestructible/ground/outside/road{
 	icon_state = "horizontalinnermain3"
@@ -72794,7 +72808,7 @@ bAm
 goa
 nXv
 iLL
-tws
+oXF
 mGE
 mGE
 uNJ
@@ -125922,7 +125936,7 @@ aii
 aii
 aii
 xLC
-xLC
+llJ
 xcW
 xLC
 xLC

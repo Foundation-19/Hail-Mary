@@ -190,14 +190,14 @@
 	amount_per_transfer_from_this = 30
 	volume = 30
 	list_reagents = list(/datum/reagent/consumable/sugar = 30)
-
+/*
 /obj/item/reagent_containers/hypospray/medipen/stimpak/fake
 	name = "stimpak"
 	desc = "A handheld delivery system for medicine, used to rapidly heal physical damage to the body."
 	amount_per_transfer_from_this = 26
 	volume = 26
 	list_reagents = list(/datum/reagent/medicine/fake_stimpak = 26)
-
+*/
 
 /obj/item/reagent_containers/hypospray/medipen/stimpak/epipak
 	name = "epipak"

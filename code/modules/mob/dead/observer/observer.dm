@@ -670,11 +670,11 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	..()
 
 /mob/dead/observer/proc/HandlePlanes()
-	if(check_rights(R_ADMIN, 0))
+	/*if(check_rights(R_ADMIN, 0))
 		return
 	hud_used.plane_masters["[OBJITEM_PLANE]"].Hide()
 	if(client)
-		client.show_popup_menus = 0
+		client.show_popup_menus = 0*/
 
 /proc/updateallghostimages()
 	listclearnulls(GLOB.ghost_images_default)
