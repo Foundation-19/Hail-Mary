@@ -33399,6 +33399,10 @@
 	},
 /turf/open/floor/carpet,
 /area/f13/building/mall)
+"iob" = (
+/obj/effect/landmark/start/f13/farmer,
+/turf/open/floor/plasteel/f13/vault_floor/misc,
+/area/f13/city)
 "iof" = (
 /obj/structure/simple_door/house,
 /obj/structure/barricade/wooden/planks/pregame,
@@ -60620,6 +60624,10 @@
 "uED" = (
 /obj/structure/flora/grass/coyote/sixteen,
 /turf/open/indestructible/ground/outside/dirt,
+/area/f13/wasteland)
+"uEK" = (
+/obj/effect/landmark/start/f13/farmer,
+/turf/open/indestructible/ground/outside/graveldirt,
 /area/f13/wasteland)
 "uET" = (
 /obj/effect/decal/cleanable/dirt,
@@ -94198,7 +94206,7 @@ aBo
 apZ
 aHc
 aTl
-huu
+uEK
 huu
 sqb
 hzS
@@ -96770,7 +96778,7 @@ pzM
 pzM
 pzM
 sIy
-pzM
+iob
 fvg
 iht
 aUt
