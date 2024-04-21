@@ -220,8 +220,6 @@
 #define TRAIT_PHOTOGRAPHER		"photographer"
 #define TRAIT_JOURNALIST		"journalist"
 #define TRAIT_MUSICIAN			"musician"
-#define TRAIT_PERMABONER		"permanent_arousal"
-#define TRAIT_NEVERBONER		"never_aroused"
 #define	TRAIT_HIGH_BLOOD        "high_blood"
 #define TRAIT_PARA              "paraplegic"
 #define TRAIT_EMPATH			"empath"
@@ -274,6 +272,7 @@
 #define TRAIT_AUTOBREW "autobrewery-syndrome"
 #define TRAIT_ZOOMIES "zoomies"
 #define TRAIT_SUPER_ZOOMIES "super zoomies"
+// Hey. Dickheads. Never, ever use anything cringe like 'zoomies' or 'smol' as a define ever again. - Hangyul
 
 // mobility flag traits
 // IN THE FUTURE, IT WOULD BE NICE TO DO SOMETHING SIMILAR TO https://github.com/tgstation/tgstation/pull/48923/files (ofcourse not nearly the same because I have my.. thoughts on it)

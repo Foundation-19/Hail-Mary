@@ -197,27 +197,6 @@
 	status_type = STATUS_EFFECT_REFRESH
 	alert_type = null
 
-/datum/quirk/steel_ass
-	name = "Buns of Steel"
-	desc = "You've never skipped ass day. You are completely immune to all forms of ass slapping and anyone who tries to slap your rock hard ass usually gets a broken hand."
-	value = 0
-	mob_trait = TRAIT_STEEL_ASS
-	gain_text = "<span class='notice'>Your ass rivals those of golems.</span>"
-	lose_text = "<span class='notice'>Your butt feels more squishy and slappable.</span>"
-
-/datum/quirk/overweight
-	name = "Overweight"
-	desc = "You're particularly fond of food, and join the round being overweight."
-	value = 0
-	gain_text = "<span class='notice'>You feel a bit chubby!</span>"
-	//no lose_text cause why would there be?
-
-/datum/quirk/overweight/on_spawn()
-	var/mob/living/M = quirk_holder
-	M.nutrition = rand(NUTRITION_LEVEL_FAT + NUTRITION_LEVEL_START_MIN, NUTRITION_LEVEL_FAT + NUTRITION_LEVEL_START_MAX)
-	M.overeatduration = 100
-	ADD_TRAIT(M, TRAIT_FAT, OBESITY)
-
 /datum/quirk/vegetarian
 	name = "Vegetarian"
 	desc = "You find the idea of eating meat morally and/or physically repulsive."

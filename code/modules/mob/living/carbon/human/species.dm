@@ -1485,8 +1485,6 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 			"You hear a slap.", target = user, target_message = span_notice("You slap [user == target ? "yourself" : "\the [target]"] in the face! "))
 		user.do_attack_animation(target, ATTACK_EFFECT_FACE_SLAP)
 		user.adjustStaminaLossBuffered(3)
-		if (!HAS_TRAIT(target, TRAIT_PERMABONER))
-			stop_wagging_tail(target)
 		return FALSE
 
 //BONK chucklehead!
