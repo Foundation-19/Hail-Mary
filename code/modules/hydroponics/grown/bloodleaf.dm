@@ -17,9 +17,16 @@
 	icon_harvest = "bloodleaf-harvest"
 	icon_grow = "bloodleaf-grow"
 	icon_dead = "bloodleaf-dead"
+	reagents_add = list(
+		/datum/reagent/blood/synthetics = 0.2,
+		/datum/reagent/medicine/salglu_solution = 0.05,
+		/datum/reagent/consumable/nutriment = 0.1,
+	)
 
 /obj/item/reagent_containers/food/snacks/grown/bloodleaf
+	seed = /obj/item/seeds/bloodleaf
 	name = "bloodleaf plant"
 	desc = "Bloodleafs are large flowers that contain a unique healing property when mixed with water."
 	icon_state = "bloodleaf"
-	distill_reagent = /datum/reagent/consumable/bloodleafjuice
+	juice_results = list(/datum/reagent/consumable/bloodleafjuice = 0)
+	distill_reagent = /datum/reagent/consumable/ethanol/bloodwine
