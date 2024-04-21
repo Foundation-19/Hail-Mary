@@ -160,7 +160,7 @@
 	category = CAT_MEDICAL
 	always_available = FALSE
 */
-
+/*
 /datum/crafting_recipe/fake_stimpak
 	name = "Fake stimpak"
 	result = /obj/item/reagent_containers/hypospray/medipen/stimpak/fake
@@ -171,7 +171,7 @@
 	time = 10
 	category = CAT_MEDICAL
 	always_available = TRUE
-
+*/
 /datum/crafting_recipe/stimpak/chemistry // Purely chemistry recipe
 	name = "Stimpak (from chems)"
 	result = /obj/item/reagent_containers/hypospray/medipen/stimpak
