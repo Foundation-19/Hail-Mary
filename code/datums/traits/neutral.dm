@@ -389,15 +389,15 @@
 			folder.forceMove(get_turf(human_holder))
 
 /*
-/datum/quirk/zoomies
-	name = "Zoomies"
+/datum/quirk/SPEED
+	name = "SPEED"
 	desc = "You can sprint twice as far before you begin to get tired. Just don't run into things."
 	value = 0
-	mob_trait = TRAIT_ZOOMIES
+	mob_trait = TRAIT_SPEED
 
-/datum/quirk/super_zoomies
-	name = "Zoomies - Super"
+/datum/quirk/super_SPEED
+	name = "SPEED - Super"
 	desc = "You never tire of sprinting at all, just be extremely careful not to run into things."
 	value = 0
-	mob_trait = TRAIT_SUPER_ZOOMIES
+	mob_trait = TRAIT_SUPER_SPEED
 */

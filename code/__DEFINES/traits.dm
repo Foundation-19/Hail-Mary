@@ -270,8 +270,8 @@
 #define TRAIT_NO_CHOCOLATE "chocolate-intolerance"
 #define TRAIT_WHITE_WOMAN "peanutbutter-difficulties"
 #define TRAIT_AUTOBREW "autobrewery-syndrome"
-#define TRAIT_ZOOMIES "zoomies"
-#define TRAIT_SUPER_ZOOMIES "super zoomies"
+#define TRAIT_SPEED "SPEED"
+#define TRAIT_SUPER_SPEED "super SPEED"
 // Hey. Dickheads. Never, ever use anything cringe like 'zoomies' or 'smol' as a define ever again. - Hangyul
 
 // mobility flag traits
