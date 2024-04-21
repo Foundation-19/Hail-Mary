@@ -48624,6 +48624,13 @@
 	icon_state = "bluedirtychess2"
 	},
 /area/f13/building)
+"oXF" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/start/f13/ncrconscript,
+/turf/open/indestructible/ground/outside/road{
+	icon_state = "horizontaltopborderbottom0"
+	},
+/area/f13/wasteland)
 "oXJ" = (
 /turf/open/indestructible/ground/outside/road{
 	icon_state = "horizontalinnermain3"
@@ -72787,7 +72794,7 @@ bAm
 goa
 nXv
 iLL
-tws
+oXF
 mGE
 mGE
 uNJ
