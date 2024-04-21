@@ -457,10 +457,6 @@
 	if (!isnull(trait_exam))
 		. += trait_exam
 
-	if(HAS_TRAIT(src, TRAIT_SMOL))
-		. += ""
-		. += span_notice("[t_He] looks easy to scoop up.</span>")
-
 	var/traitstring = get_trait_string()
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
