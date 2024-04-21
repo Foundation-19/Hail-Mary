@@ -1441,7 +1441,7 @@
 /area/f13/tunnel)
 "bpq" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/closed/indestructible/rock,
+/turf/closed/wall/r_wall/rust,
 /area/f13/vault)
 "bpr" = (
 /obj/effect/spawner/lootdrop/f13/junkspawners,
@@ -13614,7 +13614,7 @@
 /turf/open/floor/f13/wood,
 /area/f13/caves)
 "jig" = (
-/turf/closed/indestructible/rock,
+/turf/closed/wall/rust,
 /area/f13/vault)
 "jiI" = (
 /obj/effect/decal/cleanable/dirt,
@@ -17902,9 +17902,6 @@
 /obj/structure/flora/wasteplant/wild_punga,
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/tunnel)
-"mYs" = (
-/turf/closed/indestructible/rock,
-/area/f13/den)
 "mYz" = (
 /obj/structure/flora/rock/pile/largejungle{
 	layer = 3.2;
@@ -25118,11 +25115,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/closed/wall/f13/wood/house,
 /area/f13/tunnel)
-"txN" = (
-/obj/structure/decoration/vent/rusty,
-/obj/effect/decal/cleanable/dirt,
-/turf/closed/indestructible/rock,
-/area/f13/den)
 "tyh" = (
 /obj/item/trash/chips,
 /turf/open/water,
@@ -28509,10 +28501,6 @@
 /obj/item/clothing/under/f13/vault,
 /turf/open/floor/plasteel/f13/vault_floor/neutral/neutralchess,
 /area/f13/building/museum)
-"wwZ" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/closed/indestructible/rock,
-/area/f13/den)
 "wxg" = (
 /obj/structure/flora/grass/jungle/b,
 /obj/structure/destructible/tribal_torch/wall/lit{
@@ -29476,10 +29464,6 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/cmo,
 /area/f13/caves)
-"xsy" = (
-/obj/structure/decoration/vent/rusty,
-/turf/closed/indestructible/rock,
-/area/f13/den)
 "xsE" = (
 /obj/effect/decal/cleanable/dirt{
 	color = "#363636"
@@ -56925,31 +56909,31 @@ bsC
 bJq
 dHk
 bsC
-jig
-jig
-jig
-jig
-jig
-jig
-jig
-jig
-jig
-jig
-jig
-jig
-jig
-jig
-jig
-jig
-jig
-jig
-jig
-jig
-jig
-jig
-jig
-jig
-jig
+xZB
+xZB
+xZB
+xZB
+xZB
+xZB
+xZB
+xZB
+xZB
+xZB
+xZB
+xZB
+ydq
+ydq
+ydq
+ydq
+ydq
+ydq
+ydq
+ydq
+ydq
+ydq
+ydq
+xZB
+xZB
 aae
 bsC
 dHk
@@ -57182,7 +57166,7 @@ bsC
 bJq
 dHk
 bsC
-jig
+xZB
 brV
 kmB
 dTV
@@ -57206,7 +57190,7 @@ ltr
 nGS
 ydq
 xZB
-jig
+xZB
 aae
 bsC
 dHk
@@ -57439,7 +57423,7 @@ bsC
 bJq
 dHk
 bsC
-jig
+xZB
 bsm
 kmB
 kmB
@@ -57463,7 +57447,7 @@ ltr
 nHe
 ydq
 xZB
-jig
+xZB
 aae
 bsC
 bsC
@@ -57696,7 +57680,7 @@ bsC
 bJq
 dHk
 bsC
-jig
+xZB
 ydq
 ydq
 ejG
@@ -57720,7 +57704,7 @@ ltr
 nHe
 ydq
 xZB
-jig
+xZB
 aae
 aae
 aae
@@ -57953,7 +57937,7 @@ bsC
 bJq
 dHk
 bsC
-jig
+xZB
 bLL
 cgI
 xcJ
@@ -57977,16 +57961,16 @@ ltr
 nGS
 ydq
 xZB
-jig
-jig
-jig
-jig
-jig
-jig
-jig
-jig
-jig
-jig
+xZB
+xZB
+xZB
+xZB
+xZB
+xZB
+xZB
+xZB
+xZB
+xZB
 aae
 bsC
 dHk
@@ -58210,7 +58194,7 @@ bsC
 bJq
 dHk
 bsC
-jig
+xZB
 bOJ
 bOJ
 cAO
@@ -58243,7 +58227,7 @@ ydq
 ydq
 ydq
 ydq
-jig
+xZB
 aae
 bsC
 dHk
@@ -58467,7 +58451,7 @@ bsC
 bJq
 dHk
 bsC
-jig
+xZB
 bOP
 cmr
 xcJ
@@ -58500,7 +58484,7 @@ nZs
 oyK
 nZs
 ydq
-jig
+xZB
 aae
 bsC
 dHk
@@ -58724,7 +58708,7 @@ bsC
 bJq
 dHk
 bsC
-jig
+xZB
 bOX
 xcJ
 cAO
@@ -58757,7 +58741,7 @@ oBr
 oBr
 nZs
 ydq
-jig
+xZB
 aae
 bsC
 dHk
@@ -58981,7 +58965,7 @@ bsC
 bJq
 dHk
 bsC
-jig
+xZB
 bQh
 cAq
 xcJ
@@ -59014,7 +58998,7 @@ psG
 oBr
 sfi
 ydq
-jig
+xZB
 aak
 bsC
 dHk
@@ -59271,7 +59255,7 @@ psG
 oBr
 nZs
 ydq
-jig
+xZB
 aae
 bsC
 dHk
@@ -59495,7 +59479,7 @@ bKb
 bKb
 bKb
 bsC
-jig
+xZB
 bYt
 dPE
 esb
@@ -59528,7 +59512,7 @@ psG
 oBr
 nZs
 ydq
-jig
+xZB
 aae
 bsC
 dHk
@@ -59752,11 +59736,11 @@ bsC
 bsC
 bHE
 bsC
-jig
-jig
-bpq
-bpq
-jig
+xZB
+ydq
+dQV
+dQV
+ydq
 dQV
 nsG
 ydq
@@ -59785,7 +59769,7 @@ rnh
 oMa
 sky
 ydq
-jig
+ydq
 aae
 bsC
 dHk
@@ -60013,7 +59997,7 @@ bCt
 aae
 aae
 aae
-jig
+ydq
 jTk
 pIu
 fvs
@@ -60042,8 +60026,8 @@ rrL
 rzv
 szv
 vAm
-jig
-jig
+ydq
+ydq
 bsC
 dHk
 bJq
@@ -60270,7 +60254,7 @@ bsC
 aae
 aae
 aae
-jig
+ydq
 fIu
 xcJ
 fXk
@@ -60300,7 +60284,7 @@ rGr
 taL
 wuP
 xBq
-jig
+ydq
 bsC
 dHk
 bJq
@@ -60527,7 +60511,7 @@ bsC
 aae
 aae
 aae
-jig
+ydq
 aau
 xcJ
 xcJ
@@ -60557,7 +60541,7 @@ rzv
 tnT
 wvN
 ycU
-jig
+ydq
 bsC
 dHk
 bJq
@@ -60784,7 +60768,7 @@ bCt
 xWV
 xWV
 jak
-mYs
+xWV
 tFm
 xcJ
 fYi
@@ -60814,7 +60798,7 @@ rzv
 vkT
 wyS
 dpW
-jig
+ydq
 bsC
 dHk
 bJq
@@ -61042,13 +61026,13 @@ keR
 jqC
 sIz
 xWV
-mYs
-mYs
-xsy
-mYs
-mYs
-mYs
-mYs
+xWV
+xWV
+jak
+xWV
+xWV
+xWV
+xWV
 kib
 kzp
 kop
@@ -61071,7 +61055,7 @@ rzv
 vpk
 wCS
 ydq
-jig
+xZB
 bsC
 wrx
 bOm
@@ -61305,7 +61289,7 @@ vtn
 mdV
 hmI
 sGw
-wwZ
+iLJ
 kop
 kop
 kop
@@ -61317,17 +61301,17 @@ aak
 ydq
 nNA
 nNA
-jig
-jig
-jig
-jig
-jig
-jig
-jig
-jig
-jig
-jig
-jig
+ydq
+ydq
+ydq
+ydq
+ydq
+ydq
+ydq
+ydq
+ydq
+ydq
+xZB
 jig
 bsC
 bJq
@@ -61562,7 +61546,7 @@ riZ
 riZ
 riZ
 riZ
-txN
+ktG
 kqf
 kop
 kop
@@ -61571,10 +61555,10 @@ ydq
 aak
 aak
 aak
-jig
-jig
-jig
-jig
+ydq
+ydq
+ydq
+ydq
 bCt
 bCt
 bCt
@@ -61819,7 +61803,7 @@ riZ
 riZ
 riZ
 eQu
-wwZ
+iLJ
 kuM
 kHP
 liZ
@@ -61828,7 +61812,7 @@ ydq
 aak
 aak
 aak
-aaa
+aae
 xAD
 aae
 aae
@@ -62076,16 +62060,16 @@ ktG
 iLJ
 iLJ
 iLJ
-wwZ
-jig
-jig
-jig
-jig
-jig
-aaa
-aaa
-aaa
-aaa
+iLJ
+ydq
+ydq
+ydq
+ydq
+xZB
+aak
+aak
+aak
+aae
 aae
 aae
 aae
