@@ -26533,10 +26533,7 @@
 	dir = 2;
 	icon_state = "storewindowtop"
 	},
-/turf/closed/wall/f13/store{
-	desc = "A pre-War wall made of solid concrete.";
-	name = "concrete wall"
-	},
+/turf/open/floor/carpet,
 /area/f13/building)
 "fbf" = (
 /obj/structure/fence/cut/medium{
@@ -33399,10 +33396,6 @@
 	},
 /turf/open/floor/carpet,
 /area/f13/building/mall)
-"iob" = (
-/obj/effect/landmark/start/f13/farmer,
-/turf/open/floor/plasteel/f13/vault_floor/misc,
-/area/f13/city)
 "iof" = (
 /obj/structure/simple_door/house,
 /obj/structure/barricade/wooden/planks/pregame,
@@ -36626,6 +36619,14 @@
 	icon_state = "floordirtysolid"
 	},
 /area/f13/ncr)
+"jHP" = (
+/obj/machinery/light,
+/obj/machinery/autolathe,
+/turf/closed/wall/f13/store{
+	desc = "A pre-War wall made of solid concrete.";
+	name = "concrete wall"
+	},
+/area/f13/building)
 "jIe" = (
 /obj/structure/chair/booth{
 	icon_state = "booth_east_north"
@@ -38123,6 +38124,8 @@
 /area/f13/building)
 "kuR" = (
 /obj/structure/table/reinforced,
+/obj/item/stack/sheet/glass/fifty,
+/obj/item/stack/sheet/metal/fifty,
 /turf/open/floor/carpet,
 /area/f13/building)
 "kva" = (
@@ -48666,6 +48669,10 @@
 	},
 /turf/open/floor/wood_fancy/wood_fancy_dark,
 /area/f13/legion)
+"oYk" = (
+/obj/effect/landmark/start/f13/farmer,
+/turf/open/floor/plasteel/f13/vault_floor/misc,
+/area/f13/city)
 "oYp" = (
 /obj/effect/spawner/lootdrop/f13/junkspawners,
 /obj/effect/decal/cleanable/dirt,
@@ -58237,11 +58244,10 @@
 /turf/open/floor/f13/wood,
 /area/f13/building)
 "tAN" = (
-/obj/machinery/light,
-/turf/closed/wall/f13/store{
-	desc = "A pre-War wall made of solid concrete.";
-	name = "concrete wall"
+/obj/structure/window/fulltile/house{
+	icon_state = "storewindowright"
 	},
+/turf/open/floor/carpet,
 /area/f13/building)
 "tAP" = (
 /obj/structure/flora/grass/wasteland{
@@ -59235,7 +59241,7 @@
 	name = "Radio Host";
 	req_access = 274
 	},
-/turf/open/indestructible/ground/outside/desert,
+/turf/open/floor/carpet,
 /area/f13/building)
 "tVG" = (
 /obj/effect/decal/cleanable/dirt{
@@ -60624,10 +60630,6 @@
 "uED" = (
 /obj/structure/flora/grass/coyote/sixteen,
 /turf/open/indestructible/ground/outside/dirt,
-/area/f13/wasteland)
-"uEK" = (
-/obj/effect/landmark/start/f13/farmer,
-/turf/open/indestructible/ground/outside/graveldirt,
 /area/f13/wasteland)
 "uET" = (
 /obj/effect/decal/cleanable/dirt,
@@ -62762,6 +62764,10 @@
 /turf/open/indestructible/ground/outside/ruins{
 	icon_state = "rubble"
 	},
+/area/f13/wasteland)
+"vED" = (
+/obj/effect/landmark/start/f13/farmer,
+/turf/open/indestructible/ground/outside/graveldirt,
 /area/f13/wasteland)
 "vEO" = (
 /obj/structure/closet/locker,
@@ -94206,7 +94212,7 @@ aBo
 apZ
 aHc
 aTl
-uEK
+vED
 huu
 sqb
 hzS
@@ -96778,7 +96784,7 @@ pzM
 pzM
 pzM
 sIy
-iob
+oYk
 fvg
 iht
 aUt
@@ -100400,7 +100406,7 @@ cml
 uNJ
 igF
 hEG
-iGU
+tAN
 pNl
 tNK
 nPu
@@ -100657,8 +100663,8 @@ uNJ
 uNJ
 igF
 hEG
-iGU
-kuR
+jHP
+nPu
 nPu
 nPu
 osV
@@ -100914,7 +100920,7 @@ uNJ
 uNJ
 igF
 hEG
-tAN
+iGU
 kuR
 nPu
 nPu
