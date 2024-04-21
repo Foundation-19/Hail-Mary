@@ -781,7 +781,7 @@ obj/effect/landmark/start/f13/ncrlogisticsofficer
 	name = "Doctor"
 
 /obj/effect/landmark/start/f13/quartermaster
-	name = "Pahrump Quartermaster"
+	name = "Quartermaster"
 	icon_state = "Shopkeeper"
 
 /obj/effect/landmark/start/f13/shopkeeper
