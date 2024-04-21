@@ -329,9 +329,6 @@
 					M.apply_damage(5, BRUTE, hand)
 					M.Knockdown(60)//STOP TOUCHING ME! For those spam head pat individuals
 					friendly_check = FALSE
-			else
-				friendly_check = TRUE
-					SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, "headpat", /datum/mood_event/headpat)
 
 		AdjustAllImmobility(-60, FALSE)
 		AdjustUnconscious(-60, FALSE)
