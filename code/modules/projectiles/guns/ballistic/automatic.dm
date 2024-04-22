@@ -1436,7 +1436,7 @@
 
 /obj/item/gun/ballistic/automatic/marksman/policerifle
 	name = "Police Rifle"
-	desc = "A pre-war Rifle that has been constantly repaired and rebuilt by the Nash Police Department. Held together by duct tape and prayers, it somehow still shoots."
+	desc = "A pre-war Rifle that has been constantly repaired and rebuilt by the Eastwood Police Department. Held together by duct tape and prayers, it somehow still shoots."
 	icon = 'icons/fallout/objects/guns/ballistic.dmi'
 	lefthand_file = 'icons/fallout/onmob/weapons/guns_lefthand.dmi'
 	righthand_file = 'icons/fallout/onmob/weapons/guns_righthand.dmi'
@@ -1713,7 +1713,7 @@
  * * * * * * * * * * */
 
 /obj/item/gun/ballistic/automatic/marksman/sniper/snipervenator
-	name = "Explorer sniper rifle"
+	name = "Centurion sniper rifle"
 	desc = "The customized sniper rifle, fitted with a telescopic sight for extreme accuracy and chambered for a high-ballistic performance centerfire cartridge. It is a superior version of the regular sniper rifle and is decorated with the flag of the bull and tokens of a hunt."
 	icon = 'icons/fallout/objects/guns/ballistic.dmi'
 	lefthand_file = 'icons/fallout/onmob/weapons/guns_lefthand.dmi'
@@ -1794,7 +1794,7 @@
 /obj/item/gun/ballistic/automatic/assault_rifle
 	name = "r91 assault rifle"
 	desc = "The R91 was the standard US Army assault rifle, and so saw wide-spread use after the war. Most are worn out by now."
-	icon = 'icons/fallout/objects/guns/ballistic.dmi'
+	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "assault_rifle"
 	item_state = "fnfal"
 	mag_type = /obj/item/ammo_box/magazine/m556/rifle
@@ -2009,7 +2009,7 @@
 
 /obj/item/gun/ballistic/automatic/assault_carbine/policerifle
 	name = "Police Assault Rifle"
-	desc = "A pre-war Rifle that has been constantly repaired and rebuilt by the Nash Police Department. Held together by duct tape and prayers, it somehow still shoots."
+	desc = "A pre-war Rifle that has been constantly repaired and rebuilt by the Eastwood Police Department. Held together by duct tape and prayers, it somehow still shoots."
 	icon = 'icons/fallout/objects/guns/ballistic.dmi'
 	lefthand_file = 'icons/fallout/onmob/weapons/guns_lefthand.dmi'
 	righthand_file = 'icons/fallout/onmob/weapons/guns_righthand.dmi'

@@ -509,6 +509,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		"Recruit Legionnaire",
 		"Prime Legionnaire",
 		"Veteran Legionnaire",
+		"Legion Auxilia",
 		)
 	job_req = list(
 		"Legate",

@@ -13423,6 +13423,10 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/indestructible/ground/outside/sidewalk,
 /area/f13/wasteland)
+"aZG" = (
+/obj/effect/landmark/start/f13/farmer,
+/turf/open/floor/plasteel/f13/vault_floor/misc,
+/area/f13/city)
 "aZH" = (
 /obj/structure/reagent_dispensers/barrel/three,
 /obj/effect/decal/waste{
@@ -17405,6 +17409,10 @@
 	icon_state = "darkdirtysolid"
 	},
 /area/f13/ncr)
+"byu" = (
+/obj/effect/landmark/start/f13/farmer,
+/turf/open/indestructible/ground/outside/graveldirt,
+/area/f13/wasteland)
 "byx" = (
 /obj/machinery/vending/autodrobe,
 /turf/open/floor/f13{
@@ -20917,6 +20925,12 @@
 	icon_state = "horizontalinnermain0"
 	},
 /area/f13/wasteland)
+"czx" = (
+/obj/structure/table/wood/fancy/black,
+/obj/structure/table/wood/fancy/black,
+/obj/machinery/radio_station,
+/turf/open/floor/carpet,
+/area/f13/city)
 "czz" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/start/f13/campfollower,
@@ -23563,6 +23577,10 @@
 /obj/item/candle/infinite,
 /turf/open/floor/f13/wood,
 /area/f13/city)
+"dNp" = (
+/obj/effect/landmark/start/f13/auxilia,
+/turf/open/indestructible/ground/outside/dirt,
+/area/f13/wasteland)
 "dNv" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/flora/grass/coyote/one,
@@ -24149,6 +24167,9 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/f13/vault_floor/floor,
 /area/f13/building)
+"ebK" = (
+/turf/open/floor/light/colour_cycle/dancefloor_b,
+/area/f13/city)
 "ebN" = (
 /obj/structure/flora/grass/wasteland{
 	icon_state = "tall_grass_4"
@@ -25056,8 +25077,8 @@
 /area/f13/building)
 "ewZ" = (
 /obj/effect/landmark/vertibird{
-	id = "Nash - Behind Red River Army Depot";
-	name = "Nash - Behind Red River Army Depot"
+	id = "Eastwood - Behind Red River Army Depot";
+	name = "Eastwood - Behind Red River Army Depot"
 	},
 /obj/effect/turf_decal/weather/dirt,
 /obj/effect/turf_decal/weather/dirt{
@@ -25330,6 +25351,13 @@
 	icon_state = "floorrustysolid"
 	},
 /area/f13/building/mall)
+"eBY" = (
+/obj/item/radio/intercom/retro/kebob,
+/turf/closed/wall/f13/store{
+	desc = "A pre-War wall made of solid concrete.";
+	name = "concrete wall"
+	},
+/area/f13/city)
 "eBZ" = (
 /obj/structure/flora/grass/wasteland{
 	icon_state = "tall_grass_4";
@@ -25983,6 +26011,14 @@
 	},
 /turf/open/floor/f13,
 /area/f13/building)
+"eQY" = (
+/obj/machinery/light,
+/obj/machinery/autolathe,
+/turf/closed/wall/f13/store{
+	desc = "A pre-War wall made of solid concrete.";
+	name = "concrete wall"
+	},
+/area/f13/city)
 "eRa" = (
 /obj/machinery/light{
 	dir = 8
@@ -26508,6 +26544,13 @@
 	icon_state = "outerborder"
 	},
 /area/f13/wasteland)
+"fbd" = (
+/obj/structure/window/fulltile/house{
+	dir = 2;
+	icon_state = "storewindowtop"
+	},
+/turf/open/floor/carpet,
+/area/f13/city)
 "fbf" = (
 /obj/structure/fence/cut/medium{
 	dir = 4
@@ -27496,8 +27539,8 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/vertibird{
-	id = "Nash - By The Mall";
-	name = "Nash - By The Mall"
+	id = "Eastwood - By The Mall";
+	name = "Eastwood - By The Mall"
 	},
 /turf/open/indestructible/ground/outside/road{
 	icon_state = "innershade"
@@ -28740,8 +28783,8 @@
 /area/f13/wasteland)
 "ged" = (
 /obj/effect/landmark/vertibird{
-	id = "Nash - Middle of Texarkana";
-	name = "Nash - Middle of Texarkana"
+	id = "Eastwood - Middle of Pahrump";
+	name = "Eastwood - Middle of Pahrump"
 	},
 /turf/open/indestructible/ground/outside/road{
 	dir = 8;
@@ -29390,6 +29433,15 @@
 	icon_state = "verticalleftborderleft0"
 	},
 /area/f13/building)
+"gvi" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/closed/wall/f13/store{
+	desc = "A pre-War wall made of solid concrete.";
+	name = "concrete wall"
+	},
+/area/f13/city)
 "gvl" = (
 /obj/structure/table,
 /obj/item/phone,
@@ -30810,8 +30862,8 @@
 /area/f13/wasteland)
 "gZu" = (
 /obj/effect/landmark/vertibird{
-	id = "Nash - SE of the City of Nash";
-	name = "Nash - SE of the City of Nash"
+	id = "Eastwood - SE of the City of Eastwood";
+	name = "Eastwood - SE of the City of Eastwood"
 	},
 /turf/open/indestructible/ground/outside/road{
 	icon_state = "horizontalinnermain0"
@@ -31900,6 +31952,16 @@
 	icon_state = "housewood3-broken"
 	},
 /area/f13/village)
+"hEp" = (
+/obj/machinery/light{
+	dir = 4;
+	light_color = "#c1caff"
+	},
+/turf/closed/wall/f13/store{
+	desc = "A pre-War wall made of solid concrete.";
+	name = "concrete wall"
+	},
+/area/f13/city)
 "hEq" = (
 /obj/structure/flora/tree/african_acacia,
 /turf/open/indestructible/ground/outside/dirt,
@@ -33922,7 +33984,7 @@
 /obj/structure/nest/randomized{
 	randomizer_difficulty = 1;
 	randomizer_kind = "mid level mobs";
-	randomizer_tag = "Texarkana Residential District 1"
+	randomizer_tag = "Pahrump Residential District 1"
 	},
 /turf/open/floor/f13/wood,
 /area/f13/village)
@@ -34176,6 +34238,13 @@
 	icon_state = "dirt"
 	},
 /area/f13/building/khanfort)
+"iDA" = (
+/obj/machinery/light_switch,
+/turf/closed/wall/f13/store{
+	desc = "A pre-War wall made of solid concrete.";
+	name = "concrete wall"
+	},
+/area/f13/city)
 "iEb" = (
 /obj/structure/table/wood,
 /obj/effect/decal/cleanable/dirt,
@@ -34403,6 +34472,12 @@
 	icon_state = "greenrustysolid"
 	},
 /area/f13/building/massfusion)
+"iGU" = (
+/obj/structure/window/fulltile/house{
+	icon_state = "storewindowright"
+	},
+/turf/open/floor/carpet,
+/area/f13/city)
 "iHs" = (
 /obj/structure/cross,
 /obj/effect/mob_spawn/human/corpse/raiderranged,
@@ -34859,6 +34934,9 @@
 /obj/machinery/autolathe/ammo/unlocked,
 /obj/item/stack/ore/blackpowder/twenty,
 /obj/item/stack/ore/blackpowder/twenty,
+/obj/item/book/granter/crafting_recipe/gunsmith_one,
+/obj/item/book/granter/crafting_recipe/gunsmith_three,
+/obj/item/book/granter/crafting_recipe/gunsmith_two,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	color = "#e4e4e4"
 	},
@@ -37489,6 +37567,14 @@
 	icon_state = "redrustyfull"
 	},
 /area/f13/building/firestation)
+"kgu" = (
+/obj/effect/landmark/start/f13/auxilia,
+/turf/open/indestructible/ground/outside/gravel{
+	color = "#B7ABAB";
+	footstep = "dirt";
+	name = "rocky dirt"
+	},
+/area/f13/wasteland)
 "kgQ" = (
 /obj/structure/barricade/bars,
 /obj/structure/table,
@@ -38044,6 +38130,12 @@
 /obj/effect/decal/cleanable/blood/gibs/down,
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/building)
+"kuR" = (
+/obj/structure/table/reinforced,
+/obj/item/stack/sheet/glass/fifty,
+/obj/item/stack/sheet/metal/fifty,
+/turf/open/floor/carpet,
+/area/f13/city)
 "kva" = (
 /obj/item/trash/can,
 /mob/living/simple_animal/hostile/bloatfly,
@@ -39059,6 +39151,10 @@
 	icon_state = "floorrusty"
 	},
 /area/f13/ncr)
+"kSe" = (
+/obj/structure/stairs/south,
+/turf/open/floor/carpet,
+/area/f13/city)
 "kSi" = (
 /obj/structure/table/booth,
 /obj/effect/decal/cleanable/dirt,
@@ -39955,6 +40051,10 @@
 	icon_state = "whitegreenrustychess"
 	},
 /area/f13/village)
+"llJ" = (
+/obj/effect/landmark/start/f13/orator,
+/turf/open/indestructible/ground/outside/desert,
+/area/f13/wasteland)
 "lmq" = (
 /obj/structure/flora/tree/jungle/small{
 	color = "#d9b51c"
@@ -42091,6 +42191,13 @@
 /obj/item/ammo_box/magazine/zipgun,
 /turf/open/indestructible/ground/outside/sidewalk,
 /area/f13/wasteland)
+"mfI" = (
+/obj/structure/chair/comfy/beige{
+	dir = 1
+	},
+/obj/effect/landmark/start/f13/radio_host,
+/turf/open/floor/carpet,
+/area/f13/city)
 "mfL" = (
 /obj/structure/flora/grass/wasteland{
 	icon_state = "tall_grass_6"
@@ -44101,6 +44208,20 @@
 	icon_state = "darkrusty"
 	},
 /area/f13/village)
+"mYp" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/radio/intercom{
+	desc = "Is there anyone on the other end? Who's in there?";
+	frequency = 1291;
+	name = "Mysterious Intercom";
+	pixel_x = 26;
+	pixel_y = -3
+	},
+/turf/closed/wall/f13/store{
+	desc = "A pre-War wall made of solid concrete.";
+	name = "concrete wall"
+	},
+/area/f13/city)
 "mYv" = (
 /obj/effect/decal/waste{
 	icon_state = "goo10"
@@ -44412,6 +44533,13 @@
 /obj/structure/simple_door/metal/store,
 /turf/open/floor/plasteel/f13/vault_floor/blue/whitebluefull,
 /area/f13/building)
+"ngf" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/start/f13/ncrrearechelon,
+/turf/open/indestructible/ground/outside/road{
+	icon_state = "verticalinnermain1"
+	},
+/area/f13/wasteland)
 "ngi" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/f13{
@@ -44609,8 +44737,8 @@
 "nlx" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/vertibird{
-	id = "Nash - Robot Parking Lot";
-	name = "Nash - Robot Parking Lot"
+	id = "Eastwood - Robot Parking Lot";
+	name = "Eastwood - Robot Parking Lot"
 	},
 /turf/open/indestructible/ground/outside/sidewalk{
 	icon_state = "horizontaloutermain1"
@@ -45905,6 +46033,9 @@
 	},
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/brotherhood)
+"nPu" = (
+/turf/open/floor/carpet,
+/area/f13/city)
 "nPy" = (
 /obj/machinery/door/poddoor/shutters/old{
 	id = "factorygate";
@@ -47147,10 +47278,29 @@
 	icon_state = "outerturn"
 	},
 /area/f13/city)
+"osL" = (
+/obj/structure/simple_door/metal/store{
+	name = "Radio Host";
+	req_access = 274
+	},
+/turf/open/floor/f13{
+	icon_state = "yellowrustychess"
+	},
+/area/f13/city)
 "osS" = (
 /obj/machinery/workbench,
 /turf/open/floor/wood_fancy/wood_fancy_dark,
 /area/f13/village)
+"osV" = (
+/obj/structure/table/wood/fancy/black,
+/obj/item/record_disk,
+/obj/item/record_disk,
+/obj/item/record_disk,
+/obj/item/record_disk,
+/obj/item/record_disk,
+/obj/item/record_disk,
+/turf/open/floor/light/colour_cycle/dancefloor_b,
+/area/f13/city)
 "osY" = (
 /obj/effect/turf_decal/weather/dirt,
 /obj/effect/turf_decal/weather/dirt{
@@ -47554,6 +47704,9 @@
 	icon_state = "horizontaltopbordertop0"
 	},
 /area/f13/wasteland)
+"oCs" = (
+/turf/open/floor/light/colour_cycle/dancefloor_a,
+/area/f13/city)
 "oCA" = (
 /obj/effect/decal/cleanable/oil/slippery,
 /turf/open/floor/f13{
@@ -48483,6 +48636,13 @@
 	icon_state = "bluedirtychess2"
 	},
 /area/f13/building)
+"oXF" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/start/f13/ncrconscript,
+/turf/open/indestructible/ground/outside/road{
+	icon_state = "horizontaltopborderbottom0"
+	},
+/area/f13/wasteland)
 "oXJ" = (
 /turf/open/indestructible/ground/outside/road{
 	icon_state = "horizontalinnermain3"
@@ -50448,6 +50608,11 @@
 /obj/structure/flora/grass/coyote/twelve,
 /turf/open/indestructible/ground/outside/desert,
 /area/f13/wasteland)
+"pNl" = (
+/obj/structure/table/reinforced,
+/obj/item/pda/neko,
+/turf/open/floor/carpet,
+/area/f13/city)
 "pNn" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/oil/streak{
@@ -51610,6 +51775,14 @@
 	},
 /turf/open/indestructible/ground/outside/desert,
 /area/f13/brotherhood)
+"qrP" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/radio/intercom,
+/turf/closed/wall/f13/store{
+	desc = "A pre-War wall made of solid concrete.";
+	name = "concrete wall"
+	},
+/area/f13/city)
 "qrV" = (
 /obj/structure/table/wood,
 /obj/machinery/processor/chopping_block,
@@ -51952,7 +52125,7 @@
 /obj/structure/nest/randomized{
 	randomizer_difficulty = 1;
 	randomizer_kind = "mid level mobs";
-	randomizer_tag = "Texarkana Tigers"
+	randomizer_tag = "Pahrump Tigers"
 	},
 /turf/open/floor/f13/wood,
 /area/f13/village)
@@ -54467,8 +54640,8 @@
 /area/f13/building)
 "rQb" = (
 /obj/effect/landmark/vertibird{
-	id = "Nash - Christus Saint Michaels Hospital";
-	name = "Nash - Christus Saint Michaels Hospital"
+	id = "Eastwood - Christus Saint Michaels Hospital";
+	name = "Eastwood - Christus Saint Michaels Hospital"
 	},
 /turf/open/indestructible/ground/outside/road{
 	icon_state = "horizontalinnermain2"
@@ -58085,6 +58258,15 @@
 /mob/living/simple_animal/hostile/handy,
 /turf/open/floor/f13/wood,
 /area/f13/building)
+"tAN" = (
+/obj/structure/window/fulltile/house{
+	icon_state = "storewindowright"
+	},
+/turf/closed/wall/f13/store{
+	desc = "A pre-War wall made of solid concrete.";
+	name = "concrete wall"
+	},
+/area/f13/city)
 "tAP" = (
 /obj/structure/flora/grass/wasteland{
 	icon_state = "tall_grass_2";
@@ -58737,6 +58919,10 @@
 	},
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/wasteland)
+"tNK" = (
+/obj/effect/landmark/start/f13/radio_host,
+/turf/open/floor/carpet,
+/area/f13/city)
 "tNN" = (
 /obj/structure/chair/sofa/right{
 	dir = 8
@@ -59068,6 +59254,13 @@
 /obj/structure/barricade/wooden,
 /turf/closed/wall/mineral/concrete,
 /area/f13/brotherhood)
+"tVA" = (
+/obj/structure/simple_door/metal/store{
+	name = "Radio Host";
+	req_access = 274
+	},
+/turf/open/floor/carpet,
+/area/f13/city)
 "tVG" = (
 /obj/effect/decal/cleanable/dirt{
 	color = "000000"
@@ -62247,6 +62440,10 @@
 	icon_state = "innermaincornerinner"
 	},
 /area/f13/wasteland)
+"vwj" = (
+/obj/effect/landmark/start/f13/campfollower,
+/turf/open/indestructible/ground/outside/gravel,
+/area/f13/wasteland)
 "vwt" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/indestructible/ground/outside/road{
@@ -62586,6 +62783,19 @@
 	icon_state = "rubble"
 	},
 /area/f13/wasteland)
+"vEO" = (
+/obj/structure/closet/locker,
+/obj/item/megaphone,
+/obj/item/flashlight/glowstick/blue,
+/obj/item/flashlight/glowstick/cyan,
+/obj/item/flashlight/glowstick/orange,
+/obj/item/flashlight/glowstick/pink,
+/obj/item/flashlight/glowstick/red,
+/obj/item/flashlight/glowstick/yellow,
+/obj/item/grenade/flashbang,
+/obj/item/grenade/flashbang,
+/turf/open/floor/carpet,
+/area/f13/city)
 "vEX" = (
 /obj/structure/simple_door/wood,
 /turf/open/floor/f13/wood,
@@ -63177,6 +63387,10 @@
 /obj/machinery/light,
 /turf/open/floor/f13/wood,
 /area/f13/building/mall)
+"vTo" = (
+/obj/effect/landmark/start/f13/campfollower,
+/turf/open/indestructible/ground/outside/dirt,
+/area/f13/wasteland)
 "vTp" = (
 /obj/structure/fluff/railing{
 	dir = 1;
@@ -63267,8 +63481,8 @@
 /area/f13/wasteland)
 "vWm" = (
 /obj/effect/landmark/vertibird{
-	id = "Nash - Police Station";
-	name = "Nash - Police Station"
+	id = "Eastwood - Police Station";
+	name = "Eastwood - Police Station"
 	},
 /turf/open/indestructible/ground/outside/road,
 /area/f13/wasteland)
@@ -66063,8 +66277,8 @@
 	icon_state = "tall_grass_3"
 	},
 /obj/effect/landmark/vertibird{
-	id = "Nash - Museum";
-	name = "Nash - Museum"
+	id = "Eastwood - Museum";
+	name = "Eastwood - Museum"
 	},
 /turf/open/indestructible/ground/outside/road{
 	icon_state = "horizontalbottombordertop0"
@@ -68307,7 +68521,7 @@
 /obj/structure/nest/randomized{
 	randomizer_difficulty = 3;
 	randomizer_kind = "low level mobs";
-	randomizer_tag = "Nash East Road"
+	randomizer_tag = "Eastwood East Road"
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/rarewhite/rarecyan,
 /area/f13/building)
@@ -72594,7 +72808,7 @@ bAm
 goa
 nXv
 iLL
-tws
+oXF
 mGE
 mGE
 uNJ
@@ -75405,7 +75619,7 @@ uNJ
 bMM
 qmG
 bwV
-evq
+ngf
 evq
 uNJ
 uNJ
@@ -94012,7 +94226,7 @@ aBo
 apZ
 aHc
 aTl
-huu
+byu
 huu
 sqb
 hzS
@@ -95811,7 +96025,7 @@ abk
 gHu
 pzM
 pzM
-pzM
+aZG
 gHu
 pzM
 bFr
@@ -99949,12 +100163,12 @@ mHp
 uNJ
 igF
 hEG
-hXb
-xJp
-xJp
-xJp
-pRE
-pRE
+xLy
+xLy
+hEp
+fbd
+mYp
+qrP
 aky
 hJW
 hJW
@@ -100206,12 +100420,12 @@ cml
 uNJ
 igF
 hEG
-anR
-jnJ
-jnJ
-jnJ
-jnJ
-jnJ
+iGU
+pNl
+tNK
+nPu
+czx
+mfI
 oPk
 voM
 wjR
@@ -100463,12 +100677,12 @@ uNJ
 uNJ
 igF
 hEG
-anR
-jnJ
-jnJ
-jnJ
-jnJ
-jnJ
+eQY
+nPu
+nPu
+nPu
+osV
+oCs
 kls
 aYj
 aYj
@@ -100720,12 +100934,12 @@ uNJ
 uNJ
 igF
 hEG
-anR
-jnJ
-jnJ
-jnJ
-jnJ
-jnJ
+tAN
+kuR
+nPu
+nPu
+oCs
+ebK
 kls
 clv
 clv
@@ -100977,12 +101191,12 @@ uNJ
 uNJ
 igF
 hEG
-anR
-jnJ
-jnJ
-jnJ
-jnJ
-jnJ
+tVA
+nPu
+nPu
+nPu
+kSe
+vEO
 kls
 kls
 tsQ
@@ -101234,12 +101448,12 @@ uNJ
 uNJ
 igF
 hEG
-ksO
-hEh
-hEh
-hEh
-hEh
-hEh
+xLy
+iDA
+gvi
+fbd
+eBY
+xLy
 kls
 kls
 kls
@@ -101753,7 +101967,7 @@ xLy
 xLy
 xLy
 xLy
-dHo
+osL
 xLy
 fuT
 xLy
@@ -120593,7 +120807,7 @@ eBH
 aGR
 etg
 aGR
-aOk
+vTo
 aGR
 xOD
 eXj
@@ -120850,7 +121064,7 @@ eBH
 aGR
 aOk
 aGR
-aOk
+dNp
 aGR
 xOD
 vGl
@@ -124181,7 +124395,7 @@ sqb
 aii
 sqb
 sqb
-sqb
+kgu
 dmB
 njO
 oRY
@@ -125205,7 +125419,7 @@ xLC
 xLC
 aii
 aii
-aii
+vwj
 aii
 aii
 xLC
@@ -125722,7 +125936,7 @@ aii
 aii
 aii
 xLC
-xLC
+llJ
 xcW
 xLC
 xLC

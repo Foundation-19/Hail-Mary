@@ -928,7 +928,7 @@ Raider
 	faction = FACTION_WASTELAND
 	total_positions = -1
 	spawn_positions = -1
-	description = "The most broad and open role, you have arrived in the region for purposes known only to you. If you're new, the settlement of Nash to the Midwest may prove a valuable first stop. Try to make a living for yourself - or simply survive - and craft your own unique story."
+	description = "The most broad and open role, you have arrived in the region for purposes known only to you. If you're new, the settlement of Eastwood to the Midwest may prove a valuable first stop. Try to make a living for yourself - or simply survive - and craft your own unique story."
 	supervisors = "fate"
 	selection_color = "#dddddd"
 
@@ -1420,9 +1420,9 @@ Raider
 		/obj/item/reagent_containers/food/snacks/store/bread/plain = 5,
 		/obj/item/reagent_containers/food/snacks/fishmeat/salmon = 2,
 		/obj/item/reagent_containers/glass/beaker/waterbottle = 2,
-		/obj/item/reagent_containers/glass/beaker/waterbottle/wataur = 1
 	)	//Matthew 14:17 RSVCE and KJV - Kitsunemitsu
 				//Nerd shit, wataur time. ~TK
+					//Both of you need to be reduced to ash. No more furry shit. - Hangyul
 
 /datum/outfit/loadout/cleanser
 	name = "Cleanser"
@@ -1545,7 +1545,7 @@ Raider
 		/obj/item/reagent_containers/hypospray/medipen/stimpak=2,
 		/obj/item/storage/fancy/candle_box,
 		/obj/item/storage/wallet/stash/mid,
-		/obj/item/nullrod = 1,)
+		)
 //end preacher
 
 /*/datum/outfit/job/wasteland/f13enforcer
@@ -1626,9 +1626,9 @@ Raider
 	minimal_access = list(ACCESS_DEN)
 	matchmaking_allowed = list(
 		/datum/matchmaking_pref/rival = list(
-			/datum/job/oasis/f13mayor,
-			/datum/job/oasis/f13sheriff,
-			/datum/job/oasis/f13detective,
+			/datum/job/eastwood/f13mayor,
+			/datum/job/eastwood/f13sheriff,
+			/datum/job/eastwood/f13detective,
 		),
 		/datum/matchmaking_pref/patron = list(
 			/datum/job/wasteland/f13wastelander,

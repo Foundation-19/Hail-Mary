@@ -430,7 +430,7 @@
 			G.reagents.reaction(L, INJECT, fraction)
 			G.reagents.trans_to(L, injecting_amount)
 			to_chat(target, span_danger("You are pricked by [G]!"))
-
+/*
 /datum/plant_gene/trait/smoke
 	name = "gaseous decomposition"
 
@@ -442,7 +442,7 @@
 	S.set_up(G.reagents, smoke_amount, splat_location, 0)
 	S.start()
 	G.reagents.clear_reagents()
-
+*/
 /datum/plant_gene/trait/fire_resistance // Lavaland
 	name = "Fire Resistance"
 

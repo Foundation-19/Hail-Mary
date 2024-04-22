@@ -822,7 +822,7 @@ obj/item/clothing/head/helmet/f13/enclave/usmcriot
 	icon_state = "bos_beret"
 	item_state = "bos_beret"
 
-//Oasis/Town
+//Eastwood/Town
 
 /obj/item/clothing/head/f13/town
 	name = "town tricorn"
@@ -850,7 +850,7 @@ obj/item/clothing/head/helmet/f13/enclave/usmcriot
 	AddComponent(/datum/component/armor_plate)
 
 /obj/item/clothing/head/f13/town/officer
-	name = "Nash officer's cap"
+	name = "Eastwood officer's cap"
 	desc = "A simple dark navy peaked cap, worn by police."
 	icon = 'icons/fallout/clothing/hats.dmi'
 	mob_overlay_icon = 'icons/fallout/onmob/clothes/head.dmi'

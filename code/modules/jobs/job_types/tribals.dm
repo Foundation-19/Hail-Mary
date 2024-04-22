@@ -14,7 +14,7 @@
 		"The Village rests, defend it and prosper this week.  Peace is rare, but at least we can build defenses and take solitude in our isolation.",
 		"The swamp calls the hunters forth, seek out the thing that shines and return it to the shamans to appease the spirits.  If no shaman can be found then hide the item from the out-peoples.",
 		"Something awful happened a bit back and it calls for blood, harass the outlaws of Redwater for their predations of wandering tribesman.  Remember to fortify the southern tunnel to their lands.  We should try to take at least one of them prisoner, and see how they like the collar on their own necks.",
-		"The people of tribe of Nash insulted us in recent weeks, harass the people of Nash for their highbrow attitude.  Remember to Fortify the northern entrance to the village, and try to take them down a peg for their witty insolence.",
+		"The people of tribe of Eastwood insulted us in recent weeks, harass the people of Eastwood for their highbrow attitude.  Remember to Fortify the northern entrance to the village, and try to take them down a peg for their witty insolence.",
 		"This week is one of rememberance.  Think of the times when our tribe came forth from The Cave of Crying.  Of the friends and loved ones lost.  Remember peace, and cry for what is lost.",
 		"This week is one of rememberance.  Think of the times when our tribe has failed at our duties and work together as the family we are to try and solve internal issues. Tomorrow can be better, if only we try today.")
 

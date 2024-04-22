@@ -368,7 +368,7 @@ also: most hitscan weapons have more charge than their normal projectile counter
 	e_cost = 40 //37.5 shots
 
 /obj/item/ammo_casing/energy/laser/autolaser/shock
-	projectile_type = /obj/item/projectile/energy/teslacannon/oasis
+	projectile_type = /obj/item/projectile/energy/teslacannon/eastwood
 	fire_sound = 'sound/weapons/taser.ogg'
 	e_cost = 25 //60 shots
 
