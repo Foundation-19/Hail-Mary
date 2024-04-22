@@ -270,12 +270,13 @@
 
 /obj/item/storage/belt/legholster
 	name = "hip holster"
-	desc = "A side holster that goes on your belt and rests on your hip, and not your neck. Honestly who puts a gun up to their neck? WARNING: Badasses only."
+	desc = "A side holster that goes on your belt and rests on your hip, and maybe your neck. Honestly a lot of people should better protect their neck, right? WARNING: Badasses only."
 	icon = 'icons/fallout/clothing/belts.dmi'
 	mob_overlay_icon = 'icons/fallout/onmob/clothes/belt.dmi'
 	icon_state = "holster_leg"
 	item_state = "holster_leg"
 	component_type = /datum/component/storage/concrete/belt/specialized/gun
+	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_NECK
 
 /obj/item/storage/belt/legholster/police/PopulateContents()
 	new /obj/item/gun/ballistic/revolver/police(src)
