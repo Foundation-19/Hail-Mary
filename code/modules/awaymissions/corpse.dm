@@ -66,7 +66,7 @@
 /obj/effect/mob_spawn/Initialize(mapload)
 	. = ..()
 	if(instant || (roundstart && (mapload || (SSticker && SSticker.current_state > GAME_STATE_SETTING_UP))))
-		INVOKE_ASYNC(src, .proc/create)
+		INVOKE_ASYNC(src, PROC_REF(create))
 	else if(ghost_usable)
 		GLOB.poi_list |= src
 		LAZYADD(GLOB.mob_spawners[job_description ? job_description : name], src)
@@ -210,7 +210,7 @@
 	else
 		H.skin_tone = random_skin_tone()
 	H.update_hair()
-	H.update_body() //update_genitals arg FALSE because these don't quite require/have them most times.
+	H.update_body()
 	if(outfit)
 		var/static/list/slots = list("uniform", "r_hand", "l_hand", "suit", "shoes", "gloves", "ears", "glasses", "mask", "head", "belt", "r_pocket", "l_pocket", "back", "id", "neck", "backpack_contents", "suit_store")
 		for(var/slot in slots)

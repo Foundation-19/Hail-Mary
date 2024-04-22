@@ -27,7 +27,7 @@
 /obj/item/validball/Initialize()
 	. = ..()
 	register_vb_datum()
-	addtimer(CALLBACK(src, .proc/activate_the_validball), autoreveal_time)
+	addtimer(CALLBACK(src, PROC_REF(activate_the_validball)), autoreveal_time)
 	SSvalidball.valid_balls |= src
 
 /obj/item/validball/ComponentInitialize()
@@ -177,7 +177,7 @@
 	user.show_message("You press the SCAN button, and [src] lets out an excited beep!")
 	say(span_robot("Scanning for anomalous signals, please wait."))
 	currently_scanning = TRUE
-	addtimer(CALLBACK(src, .proc/read_scan_ping, user), scan_time)
+	addtimer(CALLBACK(src, PROC_REF(read_scan_ping), user), scan_time)
 
 /obj/item/pinpointer/validball_finder/proc/read_scan_ping()
 	if(!isweakref(scan_turf))
@@ -274,14 +274,14 @@
 		if(!isturf(hereturf))
 			return "??UNKNOWN??"
 	switch(hereturf.z)
-		if(Z_LEVEL_NASH_UNDERGROUND)
-			return "Nash Wastes - Underground"
-		if(Z_LEVEL_NASH_COMMON)
-			return "Nash Wastes - Common"
-		if(Z_LEVEL_NASH_LVL2)
-			return "Nash Wastes - Second Story"
-		if(Z_LEVEL_NASH_LVL3)
-			return "Nash Wastes - Third Story"
+		if(Z_LEVEL_EASTWOOD_UNDERGROUND)
+			return "Eastwood Wastes - Underground"
+		if(Z_LEVEL_EASTWOOD_COMMON)
+			return "Eastwood Wastes - Common"
+		if(Z_LEVEL_EASTWOOD_LVL2)
+			return "Eastwood Wastes - Second Story"
+		if(Z_LEVEL_EASTWOOD_LVL3)
+			return "Eastwood Wastes - Third Story"
 		if(Z_LEVEL_REDWATER)
 			return "Southern Wastes - Common"
 		if(Z_LEVEL_REDLICK)

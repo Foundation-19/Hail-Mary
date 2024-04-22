@@ -3240,12 +3240,6 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plasteel/f13/vault_floor/dark,
 /area/f13/enclave)
-"bMM" = (
-/mob/living/simple_animal/hostile/chinese/ranged/assault,
-/turf/open/floor/plating/f13/inside/mountain{
-	icon_state = "mountain2"
-	},
-/area/f13/underground/cave)
 "bNh" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
@@ -3869,12 +3863,6 @@
 /obj/machinery/computer/cargo,
 /turf/open/floor/plasteel/f13/vault_floor/blue/white,
 /area/f13/vault)
-"ccT" = (
-/mob/living/simple_animal/hostile/securitron/sentrybot/chew,
-/turf/open/floor/plating/f13/inside/mountain{
-	icon_state = "mountain2"
-	},
-/area/f13/underground/cave)
 "ccZ" = (
 /obj/structure/barricade/sandbags{
 	dir = 1
@@ -4102,7 +4090,6 @@
 	},
 /area/f13/underground/cave)
 "cif" = (
-/obj/effect/landmark/start/f13/seniorscribe,
 /obj/structure/chair/office/dark{
 	dir = 4
 	},
@@ -4202,7 +4189,8 @@
 /mob/living/simple_animal/hostile/chinese/ranged/assault{
 	desc = "A high ranking chinese soldier.";
 	health = 300;
-	name = "Comrade Yudaisoon"
+	name = "Comrade Yudaisoon";
+	faction = list("wastebots")
 	},
 /turf/open/floor/plasteel/f13{
 	icon_state = "showroomfloor"
@@ -7156,10 +7144,6 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
 /area/f13/underground/cave)
-"dDb" = (
-/obj/effect/landmark/start/f13/knightcap,
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/caves)
 "dDc" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table/reinforced,
@@ -11046,14 +11030,6 @@
 /obj/structure/chair/office/dark,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/brotherhood/rnd)
-"fxA" = (
-/obj/effect/landmark/start/f13/Knight,
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/brotherhood/operations)
 "fxL" = (
 /obj/machinery/chem_dispenser,
 /turf/open/floor/plasteel/f13{
@@ -13039,7 +13015,9 @@
 /obj/structure/stone_tile/slab/cracked{
 	dir = 5
 	},
-/mob/living/simple_animal/hostile/trog/tunneler,
+/mob/living/simple_animal/hostile/trog/tunneler{
+	faction = list("tunneler", "jungle")
+	},
 /turf/open/floor/plasteel/cult,
 /area/f13/underground/cave)
 "gxh" = (
@@ -15724,13 +15702,6 @@
 /obj/effect/spawner/lootdrop/f13/junkspawners,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/caves)
-"hSv" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/start/f13/paladin,
-/turf/open/floor/plasteel/f13/vault_floor/red{
-	icon_state = "darkyellowfull"
-	},
-/area/f13/brotherhood/offices1st)
 "hSx" = (
 /obj/machinery/shower{
 	dir = 1
@@ -19335,7 +19306,6 @@
 /turf/open/floor/plasteel/f13/vault_floor/blue/whitebluefull,
 /area/f13/vault)
 "jMQ" = (
-/obj/effect/landmark/start/f13/Knight,
 /obj/structure/chair/f13foldupchair{
 	dir = 4
 	},
@@ -20545,7 +20515,6 @@
 	},
 /area/f13/building)
 "krp" = (
-/obj/effect/landmark/start/f13/Knight,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -22006,7 +21975,9 @@
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/vault)
 "ldo" = (
-/mob/living/simple_animal/hostile/trog/tunneler,
+/mob/living/simple_animal/hostile/trog/tunneler{
+	faction = list("tunneler", "jungle")
+	},
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/tunnel)
 "ldq" = (
@@ -25170,7 +25141,6 @@
 /turf/open/floor/plating/f13/inside,
 /area/f13/brotherhood/leisure)
 "mHF" = (
-/obj/effect/landmark/start/f13/seniorknight,
 /obj/structure/chair/wood{
 	dir = 1
 	},
@@ -28938,7 +28908,6 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/start/f13/paladin,
 /turf/open/floor/plasteel/f13/vault_floor/red{
 	icon_state = "darkyellowfull"
 	},
@@ -29998,7 +29967,9 @@
 /turf/open/floor/wood_common,
 /area/f13/underground/cave)
 "oZa" = (
-/mob/living/simple_animal/hostile/trog/tunneler,
+/mob/living/simple_animal/hostile/trog/tunneler{
+	faction = list("tunneler", "jungle")
+	},
 /turf/open/floor/plasteel/cult,
 /area/f13/underground/cave)
 "oZg" = (
@@ -32404,7 +32375,6 @@
 	layer = 2.7;
 	name = "prewar lounge chair"
 	},
-/obj/effect/landmark/start/f13/headscribe,
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/hostile/renegade/meister,
 /turf/open/floor/carpet/black,
@@ -36649,12 +36619,6 @@
 /obj/machinery/computer/crew,
 /turf/open/floor/plasteel/f13/vault_floor/misc/rarewhite,
 /area/f13/vault)
-"smd" = (
-/obj/structure/chair/f13foldupchair{
-	dir = 4
-	},
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/brotherhood/operations)
 "smi" = (
 /obj/effect/decal/remains/human,
 /obj/effect/decal/cleanable/blood/old,
@@ -39982,7 +39946,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/blue/whitebluefull,
 /area/f13/enclave)
 "tWF" = (
-/obj/structure/nest/radroach,
+/obj/structure/nest/radroach/jungle,
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/tunnel)
 "tWK" = (
@@ -42750,7 +42714,7 @@
 	},
 /area/f13/brotherhood/offices1st)
 "vpe" = (
-/obj/machinery/light/sign/oasis{
+/obj/machinery/light/sign/eastwood{
 	density = 0;
 	pixel_x = -27
 	},
@@ -44052,6 +44016,12 @@
 "vYk" = (
 /turf/open/floor/plasteel/f13/vault_floor/neutral/neutralchess,
 /area/f13/vault)
+"vYz" = (
+/mob/living/simple_animal/hostile/radroach{
+	faction = list("gecko","critter-friend", "jungle")
+	},
+/turf/open/indestructible/ground/inside/mountain,
+/area/f13/tunnel)
 "vYB" = (
 /obj/machinery/light/small{
 	dir = 4;
@@ -44975,7 +44945,6 @@
 /turf/open/floor/plasteel/cult,
 /area/f13/underground/cave)
 "wvL" = (
-/obj/effect/landmark/start/f13/Knight,
 /obj/structure/chair/f13foldupchair{
 	dir = 4
 	},
@@ -45947,7 +45916,6 @@
 /area/f13/underground/cave)
 "wWg" = (
 /obj/structure/chair/wood,
-/obj/effect/landmark/start/f13/seniorpaladin,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/f13/vault_floor/red{
 	icon_state = "darkyellowfull"
@@ -64963,7 +64931,7 @@ hrZ
 hrZ
 hrZ
 hrZ
-kxw
+vYz
 kxw
 pif
 hrZ
@@ -73997,7 +73965,7 @@ cCj
 cCj
 cCj
 cCj
-bMM
+atL
 gHj
 gHj
 gHj
@@ -75793,7 +75761,7 @@ nuh
 cCj
 dHW
 cCj
-ccT
+fTd
 cCj
 gHj
 tMp
@@ -78100,7 +78068,7 @@ whv
 whv
 whv
 whv
-bMM
+atL
 cCj
 cCj
 cCj
@@ -102195,7 +102163,7 @@ vto
 vBM
 rZq
 vBM
-hSv
+vBM
 dmB
 dmB
 tot
@@ -102709,7 +102677,7 @@ roa
 roa
 roa
 vBM
-hSv
+vBM
 owt
 pVz
 pVz
@@ -104927,7 +104895,7 @@ hrZ
 hrZ
 hcq
 leT
-dDb
+sKj
 yeA
 hcq
 hrZ
@@ -106026,7 +105994,7 @@ fsV
 jMQ
 wvL
 wvL
-smd
+wvL
 eQJ
 eQJ
 dAI
@@ -107573,7 +107541,7 @@ eQJ
 eQJ
 pIZ
 bJL
-fxA
+khj
 fGu
 eQJ
 eQJ
@@ -107830,7 +107798,7 @@ eXe
 pnf
 wqV
 bJL
-fxA
+khj
 tKg
 uDy
 uDy

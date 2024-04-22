@@ -58,7 +58,7 @@
 /obj/effect/turf_decal/delivery,
 /obj/machinery/porta_turret/syndicate/vehicle_turret{
 	desc = "An improvised ballistic turret - it looks exceptionally shoddy, yet stil functional. Safe to assume it's a repaired security system from whatever this place once was";
-	faction = list("raider");
+	faction = list("wastebot");
 	lethal_projectile = /obj/item/projectile/bullet/a762/sport/simple;
 	lethal_projectile_sound = 'sound/f13weapons/auto5.ogg';
 	name = "Repaired Turret";
@@ -1393,7 +1393,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/porta_turret/syndicate/vehicle_turret{
 	desc = "An improvised ballistic turret - it looks exceptionally shoddy, yet stil functional. Safe to assume it's a repaired security system from whatever this place once was";
-	faction = list("raider");
+	faction = list("wastebot");
 	name = "Repaired Turret";
 	scan_range = 9;
 	throw_range = 9
@@ -2032,8 +2032,8 @@
 "bHh" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/crate,
-/obj/item/ingot/silver,
-/obj/item/ingot/silver,
+/obj/item/blacksmith/ingot/silver,
+/obj/item/blacksmith/ingot/silver,
 /obj/item/coin/silver,
 /obj/item/coin/silver,
 /obj/item/coin/silver,
@@ -11068,7 +11068,6 @@
 /obj/item/stack/sheet/metal/fifty,
 /obj/item/stack/sheet/glass/fifty,
 /obj/machinery/cell_charger,
-/obj/item/integrated_circuit_printer,
 /turf/open/floor/plasteel/f13/vault_floor/dark/darksolid{
 	icon_state = "darkdirtysolid"
 	},
@@ -11627,12 +11626,12 @@
 /area/f13/caves)
 "hqo" = (
 /obj/structure/rack,
-/obj/item/ingot/iron,
-/obj/item/ingot/iron,
-/obj/item/ingot/titanium,
-/obj/item/ingot/titanium,
-/obj/item/ingot/adamantine,
-/obj/item/ingot/adamantine,
+/obj/item/blacksmith/ingot/iron,
+/obj/item/blacksmith/ingot/iron,
+/obj/item/blacksmith/ingot/titanium,
+/obj/item/blacksmith/ingot/titanium,
+/obj/item/blacksmith/ingot/adamantine,
+/obj/item/blacksmith/ingot/adamantine,
 /turf/open/floor/plating/tunnel{
 	icon_state = "tunnelchess"
 	},
@@ -24731,10 +24730,10 @@
 /area/f13/caves)
 "tfm" = (
 /obj/structure/table,
-/obj/item/ingot/uranium,
-/obj/item/ingot/uranium,
-/obj/item/ingot/uranium,
-/obj/item/ingot/uranium,
+/obj/item/blacksmith/ingot/uranium,
+/obj/item/blacksmith/ingot/uranium,
+/obj/item/blacksmith/ingot/uranium,
+/obj/item/blacksmith/ingot/uranium,
 /turf/open/floor/plating/rust,
 /area/f13/radiation)
 "tfn" = (
@@ -25971,7 +25970,7 @@
 "uqE" = (
 /obj/structure/ladder/unbreakable{
 	height = 1;
-	id = "Nashsewers"
+	id = "Eastwoodsewers"
 	},
 /turf/open/floor/f13{
 	icon_state = "neutralrustyfull"
@@ -28306,7 +28305,7 @@
 /area/f13/tunnel)
 "woc" = (
 /mob/living/simple_animal/hostile/raider/ranged/biker{
-	name = "Texarkana Timothy"
+	name = "Pahrump Timothy"
 	},
 /turf/open/floor/f13{
 	icon_state = "greenrustyfull"

@@ -1,7 +1,7 @@
 SUBSYSTEM_DEF(jukeboxes)
 	name = "Jukeboxes"
 	wait = 5
-	var/list/songs = list()
+	var/list/datum/track/songs = list()
 	var/list/activejukeboxes = list()
 	var/list/freejukeboxchannels = list()
 
@@ -115,3 +115,17 @@ SUBSYSTEM_DEF(jukeboxes)
 			M.playsound_local(currentturf, null, 100, channel = jukeinfo[2], S = song_played)
 			CHECK_TICK
 	return
+//BIG IRON EDIT start
+/datum/controller/subsystem/jukeboxes/proc/add_song(datum/track/NS) //proc usted to add a song, when a disk is added to a jukebox
+	if(SSjukeboxes.songs.len)
+		for(var/datum/track/CT in SSjukeboxes.songs)
+			if(NS.song_associated_id == CT.song_associated_id)
+				return FALSE
+	SSjukeboxes.songs += NS
+
+/datum/controller/subsystem/jukeboxes/proc/remove_song(datum/track/NS)  //proc usted to remove a song, when a disk is removed from a jukebox
+	for(var/datum/track/RT in SSjukeboxes.songs)
+		if(NS.song_associated_id == RT.song_associated_id)
+			SSjukeboxes.songs -= NS
+			return TRUE
+//BIG IRON EDIT -end

@@ -1364,7 +1364,7 @@
 	if(current_cycle > 10 && prob(15))
 		to_chat(M, span_warning("You feel unstable..."))
 		current_cycle = 1
-		addtimer(CALLBACK(M, /mob/living/proc/bluespace_shuffle), 30)
+		addtimer(CALLBACK(M, TYPE_PROC_REF(/mob/living, bluespace_shuffle)), 30)
 	..()
 
 /mob/living/proc/bluespace_shuffle()
@@ -1758,7 +1758,7 @@
 	..()
 
 /////////////////////////Coloured Crayon Powder////////////////////////////
-//For colouring in /proc/mix_color_from_reagents
+//For colouring in GLOBAL_PROC_REF(mix_color_from_reagents)
 
 
 /datum/reagent/colorful_reagent/crayonpowder
@@ -2622,7 +2622,7 @@
 /datum/reagent/gravitum/reaction_obj(obj/O, volume)
 	O.AddElement(/datum/element/forced_gravity, 0)
 
-	addtimer(CALLBACK(O, .proc/_RemoveElement, /datum/element/forced_gravity, 0), volume * time_multiplier)
+	addtimer(CALLBACK(O, PROC_REF(_RemoveElement), /datum/element/forced_gravity, 0), volume * time_multiplier)
 
 /datum/reagent/gravitum/on_mob_add(mob/living/L)
 	L.AddElement(/datum/element/forced_gravity, 0) //0 is the gravity, and in this case weightless

@@ -136,7 +136,7 @@
 	START_PROCESSING(SSweather, src) //The reason this doesn't start and stop at main stage is because processing list is also used to see active running weathers (for example, you wouldn't want two ash storms starting at once.)
 	update_areas()
 	alert_players(telegraph_message, telegraph_sound)
-	addtimer(CALLBACK(src, .proc/start), telegraph_duration)
+	addtimer(CALLBACK(src, PROC_REF(start)), telegraph_duration)
 
 /**
  * Starts the actual weather and effects from it
@@ -151,7 +151,7 @@
 	stage = MAIN_STAGE
 	update_areas()
 	alert_players(weather_message, weather_sound)
-	addtimer(CALLBACK(src, .proc/wind_down), weather_duration)
+	addtimer(CALLBACK(src, PROC_REF(wind_down)), weather_duration)
 
 /**
  * Weather enters the winding down phase, stops effects
@@ -166,7 +166,7 @@
 	stage = WIND_DOWN_STAGE
 	update_areas()
 	alert_players(end_message, end_sound)
-	addtimer(CALLBACK(src, .proc/end), end_duration)
+	addtimer(CALLBACK(src, PROC_REF(end)), end_duration)
 
 /datum/weather/proc/alert_players(message, sound_play)
 	if(!message && !sound_play)

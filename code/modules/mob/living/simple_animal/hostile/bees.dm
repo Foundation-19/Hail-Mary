@@ -311,7 +311,7 @@
 
 /mob/living/simple_animal/hostile/poison/bees/short/Initialize()
 	. = ..()
-	addtimer(CALLBACK(src, .proc/death), 50 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(death)), 50 SECONDS)
 
 /mob/living/simple_animal/hostile/poison/bees/short/frenly //these bees need to be frenly or they'd murder everyone
 	faction = list("neutral")

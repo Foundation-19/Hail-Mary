@@ -174,6 +174,12 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/f13/wood,
 /area/f13/wasteland/khans)
+"akR" = (
+/obj/structure/railing{
+	dir = 4
+	},
+/turf/open/floor/wood_fancy/wood_fancy_dark,
+/area/f13/city)
 "alJ" = (
 /obj/structure/bed,
 /obj/item/bedsheet,
@@ -1526,6 +1532,14 @@
 "dpc" = (
 /turf/closed/wall/r_wall/rust,
 /area/f13/building/massfusion)
+"dpn" = (
+/obj/structure/table/wood/club,
+/obj/machinery/computer/terminal{
+	dir = 4;
+	termtag = "Security"
+	},
+/turf/open/floor/wood_fancy/wood_fancy_dark,
+/area/f13/city)
 "dpP" = (
 /obj/item/twohanded/required/kirbyplants/random,
 /turf/open/floor/plasteel/f13/vault_floor/blue/whitebluefull,
@@ -2310,6 +2324,10 @@
 /obj/structure/chair/f13foldupchair,
 /turf/open/transparent/openspace,
 /area/f13/wasteland)
+"fyo" = (
+/obj/structure/closet/fridge/standard,
+/turf/open/floor/wood_fancy/wood_fancy_dark,
+/area/f13/city)
 "fyP" = (
 /obj/structure/lattice/catwalk,
 /obj/machinery/light/small,
@@ -3385,6 +3403,10 @@
 /obj/structure/railing/wood,
 /turf/open/floor/f13/wood,
 /area/f13/wasteland)
+"isY" = (
+/obj/structure/railing,
+/turf/open/floor/wood_fancy/wood_fancy_dark,
+/area/f13/city)
 "itg" = (
 /obj/structure/chair/f13foldupchair{
 	dir = 8
@@ -3531,6 +3553,15 @@
 	},
 /obj/item/storage/book/bible,
 /turf/open/floor/f13/wood,
+/area/f13/city)
+"iMM" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/closed/wall/f13/store{
+	desc = "A pre-War wall made of solid concrete.";
+	name = "concrete wall"
+	},
 /area/f13/city)
 "iNE" = (
 /obj/effect/decal/cleanable/dirt{
@@ -4959,6 +4990,12 @@
 	icon_state = "reddirtyfull"
 	},
 /area/f13/city)
+"mnG" = (
+/obj/structure/bed,
+/obj/item/bedsheet/patriot,
+/obj/item/bedsheet/patriot,
+/turf/open/floor/wood_fancy/wood_fancy_dark,
+/area/f13/city)
 "mnN" = (
 /obj/structure/table,
 /obj/machinery/computer/terminal{
@@ -5147,6 +5184,12 @@
 	},
 /obj/structure/table,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/city)
+"mKW" = (
+/obj/structure/chair/f13foldupchair{
+	dir = 8
+	},
+/turf/open/floor/wood_fancy/wood_fancy_dark,
 /area/f13/city)
 "mLV" = (
 /obj/machinery/light{
@@ -6641,6 +6684,15 @@
 	icon_state = "darkrusty"
 	},
 /area/f13/building/massfusion)
+"qFi" = (
+/obj/structure/railing/corner{
+	dir = 8
+	},
+/turf/closed/wall/f13/store{
+	desc = "A pre-War wall made of solid concrete.";
+	name = "concrete wall"
+	},
+/area/f13/city)
 "qFA" = (
 /obj/structure/window/reinforced/fulltile,
 /obj/structure/grille,
@@ -6648,6 +6700,12 @@
 	icon_state = "darkrustysolid"
 	},
 /area/f13/building/massfusion)
+"qHi" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/closed/wall/r_wall,
+/area/f13/city)
 "qHm" = (
 /obj/item/kirbyplants{
 	icon_state = "plant-06"
@@ -7508,6 +7566,11 @@
 	},
 /turf/closed/wall/f13/wood,
 /area/f13/building)
+"sOm" = (
+/obj/structure/table/wood/fancy,
+/obj/item/flashlight/lamp,
+/turf/open/floor/wood_fancy/wood_fancy_dark,
+/area/f13/city)
 "sOQ" = (
 /obj/structure/curtain{
 	color = "#5c131b";
@@ -7808,6 +7871,10 @@
 	dir = 4
 	},
 /turf/open/floor/carpet/green,
+/area/f13/city)
+"tyU" = (
+/obj/structure/table/wood/club,
+/turf/open/floor/wood_fancy/wood_fancy_dark,
 /area/f13/city)
 "tzD" = (
 /obj/structure/rack,
@@ -8592,6 +8659,15 @@
 "vIH" = (
 /turf/open/floor/plasteel/f13/vault_floor/floor,
 /area/f13/building/hospital)
+"vIT" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/closed/wall/f13/store{
+	desc = "A pre-War wall made of solid concrete.";
+	name = "concrete wall"
+	},
+/area/f13/city)
 "vJy" = (
 /obj/structure/chair/wood{
 	dir = 4
@@ -8927,6 +9003,13 @@
 	},
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/building)
+"wIP" = (
+/obj/machinery/light,
+/turf/closed/wall/f13/store{
+	desc = "A pre-War wall made of solid concrete.";
+	name = "concrete wall"
+	},
+/area/f13/city)
 "wJQ" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/firstaid/toxin{
@@ -9381,6 +9464,15 @@
 	icon_state = "darkrustysolid"
 	},
 /area/f13/radiation)
+"xQG" = (
+/obj/effect/spawner/lootdrop/f13/alcoholspawner,
+/obj/effect/spawner/lootdrop/f13/alcoholspawner,
+/obj/effect/spawner/lootdrop/f13/alcoholspawner,
+/obj/effect/spawner/lootdrop/f13/alcoholspawner,
+/obj/effect/spawner/lootdrop/f13/alcoholspawner,
+/obj/structure/table/wood/fancy/monochrome,
+/turf/open/floor/wood_fancy/wood_fancy_dark,
+/area/f13/city)
 "xSN" = (
 /turf/closed/wall/f13/store{
 	desc = "A pre-War wall made of solid concrete.";
@@ -41021,12 +41113,12 @@ oez
 oez
 oez
 oez
-oez
-oez
-oez
-oez
-oez
-pPv
+anv
+bah
+bah
+anv
+iMM
+qFi
 dYT
 dYT
 eZk
@@ -41278,13 +41370,13 @@ oez
 oez
 oez
 oez
-oez
-oez
-oez
-oez
-oez
-oez
-dYT
+wIP
+dpn
+tyU
+fyo
+oGu
+xQG
+qHi
 uNh
 uNh
 uNh
@@ -41535,12 +41627,12 @@ oez
 oez
 oez
 oez
-oez
-oez
-oez
-oez
-oez
-oez
+bah
+mKW
+oGu
+oGu
+oGu
+xQG
 dYT
 iHJ
 wxo
@@ -41792,12 +41884,12 @@ oez
 oez
 oez
 oez
-oez
-oez
-oez
-oez
-oez
-oez
+bah
+oGu
+oGu
+oGu
+akR
+oGu
 dYT
 uNh
 itM
@@ -42049,13 +42141,13 @@ oez
 oez
 oez
 oez
-oez
-oez
-oez
-oez
-oez
-oez
-dYT
+wIP
+mnG
+sOm
+isY
+nSB
+oGu
+qHi
 uNh
 nSB
 dYT
@@ -42306,12 +42398,12 @@ oez
 oez
 oez
 oez
-oez
-oez
-oez
-oez
-oez
-oez
+anv
+bah
+bah
+anv
+vIT
+anv
 dYT
 dYT
 dYT

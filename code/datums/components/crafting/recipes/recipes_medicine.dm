@@ -50,7 +50,7 @@
 	result = /obj/item/stack/medical/suture/five
 	time = 40
 	reqs = list(/obj/item/stack/medical/gauze = 1,
-				/datum/reagent/medicine/styptic_powder = 10)
+				/obj/item/reagent_containers/food/snacks/grown/bloodleaf = 1)
 	category = CAT_MEDICAL
 
 /datum/crafting_recipe/ointment
@@ -96,9 +96,7 @@
 /datum/crafting_recipe/bitterdrink
 	name = "Bottle bitterdrink"
 	result = /obj/item/reagent_containers/pill/bitterdrink
-	reqs = list(/obj/item/reagent_containers/food/snacks/grown/broc = 1,
-				/obj/item/reagent_containers/food/snacks/grown/xander = 1,
-				/obj/item/reagent_containers/food/drinks = 1)
+	reqs = list(/datum/reagent/medicine/bitter_drink = 5)
 	tools = list(TOOL_ALCHEMY_TABLE)
 	time = 10
 	category = CAT_MEDICAL
@@ -107,8 +105,7 @@
 /datum/crafting_recipe/bitterdrink5
 	name = "Batch of bitterdrink (x5)"
 	result = /obj/item/storage/box/medicine/bitterdrink5
-	reqs = list(/obj/item/reagent_containers/food/snacks/grown/broc = 5,
-				/obj/item/reagent_containers/food/snacks/grown/xander = 5,
+	reqs = list(/datum/reagent/medicine/bitter_drink = 25,
 				/obj/item/reagent_containers/food/drinks = 5)
 	tools = list(TOOL_ALCHEMY_TABLE)
 	time = 20
@@ -150,8 +147,8 @@
 	time = 40
 	category = CAT_MEDICAL
 
- /* 
- /datum/crafting_recipe/stimpak 
+/*
+/datum/crafting_recipe/stimpak
 	name = "Stimpak"
 	result = /obj/item/reagent_containers/hypospray/medipen/stimpak
 	reqs = list(/obj/item/reagent_containers/food/snacks/grown/broc = 1,
@@ -162,7 +159,7 @@
 	category = CAT_MEDICAL
 	always_available = FALSE
 */
-
+/*
 /datum/crafting_recipe/fake_stimpak
 	name = "Fake stimpak"
 	result = /obj/item/reagent_containers/hypospray/medipen/stimpak/fake
@@ -173,7 +170,7 @@
 	time = 10
 	category = CAT_MEDICAL
 	always_available = TRUE
-
+*/
 /datum/crafting_recipe/stimpak/chemistry // Purely chemistry recipe
 	name = "Stimpak (from chems)"
 	result = /obj/item/reagent_containers/hypospray/medipen/stimpak

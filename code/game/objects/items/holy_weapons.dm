@@ -1,4 +1,4 @@
-/obj/item/claymore 
+/obj/item/claymore
 	name = "claymore"
 	desc = "What are you standing around staring at this for? Get to killing!"
 	icon_state = "claymore"
@@ -244,7 +244,7 @@
 	body_parts_covered = CHEST|GROIN|LEGS|ARMS
 	allowed = list(/obj/item/storage/book/bible, HOLY_WEAPONS, /obj/item/reagent_containers/food/drinks/bottle/holywater, /obj/item/storage/fancy/candle_box, /obj/item/candle, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman)
 	hoodtype = /obj/item/clothing/head/hooded/chaplain_hood
-	mutantrace_variation = STYLE_DIGITIGRADE|STYLE_NO_ANTHRO_ICON
+	mutantrace_variation = STYLE_DIGITIGRADE
 
 /obj/item/clothing/head/hooded/chaplain_hood
 	name = "follower hood"
@@ -318,7 +318,7 @@
 
 	nullrod_icons = sortList(nullrod_icons)
 
-	var/choice = show_radial_menu(L, src , nullrod_icons, custom_check = CALLBACK(src, .proc/check_menu, L), radius = 42, require_near = TRUE)
+	var/choice = show_radial_menu(L, src , nullrod_icons, custom_check = CALLBACK(src, PROC_REF(check_menu), L), radius = 42, require_near = TRUE)
 	if(!choice || !check_menu(L))
 		return
 
@@ -722,7 +722,7 @@
 		playsound(get_turf(user), 'sound/effects/woodhit.ogg', 75, 1, -1)
 		H.adjustStaminaLoss(rand(12,18))
 		if(prob(25))
-			(INVOKE_ASYNC(src, .proc/jedi_spin, user))
+			(INVOKE_ASYNC(src, PROC_REF(jedi_spin), user))
 	else
 		return ..()
 

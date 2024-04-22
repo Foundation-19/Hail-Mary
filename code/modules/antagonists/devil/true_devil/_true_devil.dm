@@ -59,7 +59,7 @@
 /mob/living/carbon/true_devil/death(gibbed)
 	set_stat(DEAD)
 	drop_all_held_items()
-	INVOKE_ASYNC(mind.has_antag_datum(/datum/antagonist/devil), /datum/antagonist/devil/proc/beginResurrectionCheck, src)
+	INVOKE_ASYNC(mind.has_antag_datum(/datum/antagonist/devil), TYPE_PROC_REF(/datum/antagonist/devil, beginResurrectionCheck), src)
 
 
 /mob/living/carbon/true_devil/examine(mob/user)

@@ -1192,7 +1192,7 @@
 
 /obj/item/card/id/denid
 	name = "Redwater Mark"
-	desc = "A shady card for shady people. it might let you in to some of the bleaker parts of Nash's underground. Best not be seen with one of these. better yet, just avoid having it"
+	desc = "A shady card for shady people. it might let you in to some of the bleaker parts of Eastwood's underground. Best not be seen with one of these. better yet, just avoid having it"
 	assignment = "gang tattoo"
 
 	access = list(ACCESS_DEN)
@@ -1258,7 +1258,7 @@
 
 /obj/item/card/id/silver/mayor
 	name = "Mayor's mayoral permit"
-	desc = "A silver encrusted identification permit reserved for the Mayor of Oasis."
+	desc = "A silver encrusted identification permit reserved for the Mayor of Eastwood."
 	icon_state = "silver"
 	item_state = "silver_id"
 	assignment = "mayoral permit"

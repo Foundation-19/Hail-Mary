@@ -1375,7 +1375,7 @@
 
 /obj/item/clothing/under/f13/combat/militia
 	name = "NDF fatigues"
-	desc = "An olive-green combat uniform, issued to members of the Nash Defense Force."
+	desc = "An olive-green combat uniform, issued to members of the Eastwood Defense Force."
 
 /obj/item/clothing/under/f13/enclave_officer
 	name = "officer uniform"
@@ -1399,9 +1399,9 @@
 	item_state = "lb_suit"
 	item_color = "general"
 
-/obj/item/clothing/under/f13/general/oasis
+/obj/item/clothing/under/f13/general/eastwood
 	name = "dictator's overcoat"
-	desc = "A grim looking overcoat - preferable standard for the ruler of Nash.<br>It's decorated with golden stars, each one adorned with a tree."
+	desc = "A grim looking overcoat - preferable standard for the ruler of Eastwood.<br>It's decorated with golden stars, each one adorned with a tree."
 
 /obj/item/clothing/under/f13/recon
 	name = "recon armor"

@@ -91,7 +91,7 @@ SUBSYSTEM_DEF(nightcycle)
 				new_time = AFTERNOON
 			if (CYCLE_LATEAFTERNOON to CYCLE_SUNSET)
 				new_time = LATEAFTERNOON
-			if (CYCLE_SUNSET to CYCLE_FULLSUNSET)
+			if (CYCLE_FULLSUNSET to CYCLE_SUNSET)
 				new_time = SUNSET
 			if (CYCLE_FULLSUNSET to CYCLE_NIGHTTIME)
 				new_time = FULLSUNSET
@@ -146,7 +146,7 @@ SUBSYSTEM_DEF(nightcycle)
 			CRASH("Invalid new_time returned from STATION_TIME()")
 
 	current_time = new_time
-	INVOKE_ASYNC(src, .proc/AnimateTransition)
+	INVOKE_ASYNC(src, PROC_REF(AnimateTransition))
 	CHECK_TICK
 
 /datum/controller/subsystem/nightcycle/proc/AnimateTransition()

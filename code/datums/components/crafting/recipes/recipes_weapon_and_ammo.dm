@@ -754,7 +754,7 @@
 
 /datum/crafting_recipe/gun/autoshock
 	name = "Autoshock tesla pistol"
-	result = /obj/item/gun/energy/laser/auto/oasis
+	result = /obj/item/gun/energy/laser/auto/eastwood
 	reqs = list(/obj/item/gun/energy/laser/auto = 1,
 				/obj/item/stock_parts/capacitor/adv = 1,
 				/obj/item/stack/crafting/electronicparts = 10,

@@ -1287,7 +1287,7 @@
 					name = "bighorn"
 				visible_message(span_alertalien("[src] has fully grown."))
 		else
-			udder.generateMilk(milk_reagent)
+			udder?.generateMilk(milk_reagent)
 
 // BIGHORNER CALF
 /mob/living/simple_animal/hostile/retaliate/goat/bighorn/calf

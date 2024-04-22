@@ -243,7 +243,7 @@
 	if(!istype(G, /obj/item/grown/bananapeel) && (!G.reagents || !G.reagents.has_reagent(/datum/reagent/lube)))
 		stun_len /= 3
 
-	G.AddComponent(/datum/component/slippery, min(stun_len,140), NONE, CALLBACK(src, .proc/handle_slip, G))
+	G.AddComponent(/datum/component/slippery, min(stun_len,140), NONE, CALLBACK(src, PROC_REF(handle_slip), G))
 
 /datum/plant_gene/trait/slip/proc/handle_slip(obj/item/reagent_containers/food/snacks/grown/G, mob/M)
 	for(var/datum/plant_gene/trait/T in G.seed.genes)
@@ -430,7 +430,7 @@
 			G.reagents.reaction(L, INJECT, fraction)
 			G.reagents.trans_to(L, injecting_amount)
 			to_chat(target, span_danger("You are pricked by [G]!"))
-
+/*
 /datum/plant_gene/trait/smoke
 	name = "gaseous decomposition"
 
@@ -442,7 +442,7 @@
 	S.set_up(G.reagents, smoke_amount, splat_location, 0)
 	S.start()
 	G.reagents.clear_reagents()
-
+*/
 /datum/plant_gene/trait/fire_resistance // Lavaland
 	name = "Fire Resistance"
 

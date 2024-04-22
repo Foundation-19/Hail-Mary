@@ -6266,7 +6266,7 @@
 "dyv" = (
 /obj/structure/ladder/unbreakable{
 	height = 1;
-	id = "oasis"
+	id = "eastwood"
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/f13{
@@ -23632,7 +23632,7 @@
 /area/f13/caves)
 "nWK" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/flag/oasis,
+/obj/item/flag/eastwood,
 /area/f13/building)
 "nWR" = (
 /obj/structure/curtain{
@@ -25250,7 +25250,7 @@
 	pixel_y = -17
 	},
 /obj/structure/rack,
-/obj/item/clothing/suit/armor/medium/vest/oasis,
+/obj/item/clothing/suit/armor/medium/vest/eastwood,
 /obj/item/clothing/head/helmet/blueshirt,
 /obj/item/clothing/under/rank/security/officer/blueshirt,
 /turf/open/floor/plasteel/f13/vault_floor/dark{
@@ -30207,8 +30207,8 @@
 /area/f13/den)
 "rTg" = (
 /obj/structure/flora/tree/jungle{
-	desc = "Rumor has it that, as long as this tree stands firm, so too will the town of Oasis.";
-	name = "\improper Oasis Oak";
+	desc = "Rumor has it that, as long as this tree stands firm, so too will the town of Eastwood.";
+	name = "\improper Eastwood Oak";
 	pixel_x = -33
 	},
 /turf/open/indestructible/ground/outside/river,
@@ -33904,7 +33904,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/red/whiteredfull,
 /area/f13/brotherhood/reactor)
 "upv" = (
-/obj/item/flag/oasis,
+/obj/item/flag/eastwood,
 /area/f13/building)
 "upG" = (
 /obj/machinery/light/small{
@@ -35056,7 +35056,7 @@
 /turf/open/floor/plating/tunnel,
 /area/f13/caves)
 "vdZ" = (
-/obj/structure/furnace,
+/obj/structure/blacksmith/furnace,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/building)
 "vep" = (

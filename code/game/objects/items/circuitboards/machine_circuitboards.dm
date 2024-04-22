@@ -1258,3 +1258,21 @@
 		/obj/item/stack/cable_coil = 1,
 		/obj/item/stack/sheet/glass = 2)
 
+/obj/item/circuitboard/machine/jukebox //atom edit, constructed circuit board
+	name = "jukebox circuit board"
+	build_path = /obj/machinery/jukebox/constructed
+	req_components = list(
+		/obj/item/stock_parts/manipulator = 1,
+		/obj/item/wallframe/intercom = 1,
+		/obj/item/stack/cable_coil = 1,
+		/obj/item/stack/sheet/glass = 1)
+
+/obj/item/circuitboard/machine/gramophone_recorder //atom edit, gramophone recorder circuit board
+	name = "disk recorder circuit board"
+	build_path = /obj/machinery/gramophone_recorder
+	req_components = list(
+		/obj/item/stock_parts/manipulator = 1,
+		/obj/item/stack/crafting/metalparts = 1,
+		/obj/item/taperecorder/empty = 1,
+		/obj/item/stack/sheet/mineral/wood = 1)
+

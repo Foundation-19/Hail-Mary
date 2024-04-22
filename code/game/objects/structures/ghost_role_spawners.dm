@@ -427,7 +427,7 @@
 		id.update_label()
 	else
 		to_chat(L, span_userdanger("Your owner is already dead!  You will soon perish."))
-		addtimer(CALLBACK(L, /mob.proc/dust, 150)) //Give em a few seconds as a mercy.
+		addtimer(CALLBACK(L, TYPE_PROC_REF(/mob,dust), 150)) //Give em a few seconds as a mercy.
 
 /datum/outfit/demonic_friend
 	name = "Demonic Friend"
@@ -927,7 +927,7 @@
 		to_chat(usr, span_warning("They're dead and cannot be brought back!"))
 		return FALSE
 
-	else if (M.race == /datum/species/smutant)
+	else if (is_species(M, /datum/species/smutant))
 		to_chat(usr, span_warning("You can't put a mutant into the FEV pit!"))
 		return FALSE
 
