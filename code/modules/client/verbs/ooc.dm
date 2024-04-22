@@ -55,10 +55,10 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 
 	mob.log_talk(raw_msg, LOG_OOC, tag="(OOC)")
 
-//	var/keyname = key // commented it out for people to be aware how to revert it. Just delete the edit below <3
+	var/keyname = key // commented it out for people to be aware how to revert it. Just delete the edit below <3
 
 	// main edit here - Changes it to IC name instead of key in OOC messages.
-	var/keyname = GetOOCName()
+	//var/keyname = GetOOCName()
 
 	if(!keyname)
 		return
