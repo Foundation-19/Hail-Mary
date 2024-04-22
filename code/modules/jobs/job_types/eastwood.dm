@@ -583,8 +583,7 @@ Mayor
 		/obj/item/mining_scanner,
 		/obj/item/melee/onehanded/knife/hunting,
 		/obj/item/gun/ballistic/automatic/pistol/n99,
-		/obj/item/ammo_box/magazine/m10mm/adv/simple = 2,
-		w = 1,
+		/obj/item/ammo_box/magazine/m10mm/adv/simple = 2
 		)
 
 /datum/outfit/job/den/f13settler/pre_equip(mob/living/carbon/human/H)
