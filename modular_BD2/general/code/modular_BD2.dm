@@ -796,9 +796,9 @@ hair_head.dm
 hair_face.dm
 */
 
-/obj/structure/rack/shelf_wood
+/*/obj/structure/rack/shelf_wood
 	name = "BUGGED VERSION, MURDER"
-	desc = "NO!!!."
+	desc = "NO!!!."*/
 
 // TEMP FOR PORTING AND FUNCTIOANLITY
 
