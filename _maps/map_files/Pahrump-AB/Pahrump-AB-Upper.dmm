@@ -179,7 +179,7 @@
 	dir = 4
 	},
 /turf/open/floor/wood_fancy/wood_fancy_dark,
-/area/f13/building)
+/area/f13/city)
 "alJ" = (
 /obj/structure/bed,
 /obj/item/bedsheet,
@@ -707,16 +707,6 @@
 /obj/structure/table,
 /turf/open/floor/plasteel/f13/vault_floor/white,
 /area/f13/building/hospital)
-"bvj" = (
-/obj/structure/window/fulltile/house{
-	dir = 2;
-	icon_state = "housewindowvertical"
-	},
-/turf/closed/wall/f13/store{
-	desc = "A pre-War wall made of solid concrete.";
-	name = "concrete wall"
-	},
-/area/f13/building)
 "bxB" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/drinks/bottle/f13nukacola,
@@ -1549,7 +1539,7 @@
 	termtag = "Security"
 	},
 /turf/open/floor/wood_fancy/wood_fancy_dark,
-/area/f13/building)
+/area/f13/city)
 "dpP" = (
 /obj/item/twohanded/required/kirbyplants/random,
 /turf/open/floor/plasteel/f13/vault_floor/blue/whitebluefull,
@@ -2337,7 +2327,7 @@
 "fyo" = (
 /obj/structure/closet/fridge/standard,
 /turf/open/floor/wood_fancy/wood_fancy_dark,
-/area/f13/building)
+/area/f13/city)
 "fyP" = (
 /obj/structure/lattice/catwalk,
 /obj/machinery/light/small,
@@ -3416,7 +3406,7 @@
 "isY" = (
 /obj/structure/railing,
 /turf/open/floor/wood_fancy/wood_fancy_dark,
-/area/f13/building)
+/area/f13/city)
 "itg" = (
 /obj/structure/chair/f13foldupchair{
 	dir = 8
@@ -3572,7 +3562,7 @@
 	desc = "A pre-War wall made of solid concrete.";
 	name = "concrete wall"
 	},
-/area/f13/building)
+/area/f13/city)
 "iNE" = (
 /obj/effect/decal/cleanable/dirt{
 	color = "#363636"
@@ -5005,7 +4995,7 @@
 /obj/item/bedsheet/patriot,
 /obj/item/bedsheet/patriot,
 /turf/open/floor/wood_fancy/wood_fancy_dark,
-/area/f13/building)
+/area/f13/city)
 "mnN" = (
 /obj/structure/table,
 /obj/machinery/computer/terminal{
@@ -5200,7 +5190,7 @@
 	dir = 8
 	},
 /turf/open/floor/wood_fancy/wood_fancy_dark,
-/area/f13/building)
+/area/f13/city)
 "mLV" = (
 /obj/machinery/light{
 	dir = 1;
@@ -6702,7 +6692,7 @@
 	desc = "A pre-War wall made of solid concrete.";
 	name = "concrete wall"
 	},
-/area/f13/building)
+/area/f13/city)
 "qFA" = (
 /obj/structure/window/reinforced/fulltile,
 /obj/structure/grille,
@@ -7580,7 +7570,7 @@
 /obj/structure/table/wood/fancy,
 /obj/item/flashlight/lamp,
 /turf/open/floor/wood_fancy/wood_fancy_dark,
-/area/f13/building)
+/area/f13/city)
 "sOQ" = (
 /obj/structure/curtain{
 	color = "#5c131b";
@@ -7885,7 +7875,7 @@
 "tyU" = (
 /obj/structure/table/wood/club,
 /turf/open/floor/wood_fancy/wood_fancy_dark,
-/area/f13/building)
+/area/f13/city)
 "tzD" = (
 /obj/structure/rack,
 /obj/item/gun/energy/laser/complianceregulator,
@@ -8677,7 +8667,7 @@
 	desc = "A pre-War wall made of solid concrete.";
 	name = "concrete wall"
 	},
-/area/f13/building)
+/area/f13/city)
 "vJy" = (
 /obj/structure/chair/wood{
 	dir = 4
@@ -8869,9 +8859,6 @@
 	icon_state = "housewood1-broken"
 	},
 /area/f13/legion)
-"wmS" = (
-/turf/open/floor/wood_fancy/wood_fancy_dark,
-/area/f13/building)
 "wnK" = (
 /obj/structure/window/fulltile/wood,
 /turf/open/floor/wood_fancy/wood_fancy_dark,
@@ -9022,7 +9009,7 @@
 	desc = "A pre-War wall made of solid concrete.";
 	name = "concrete wall"
 	},
-/area/f13/building)
+/area/f13/city)
 "wJQ" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/firstaid/toxin{
@@ -9485,7 +9472,7 @@
 /obj/effect/spawner/lootdrop/f13/alcoholspawner,
 /obj/structure/table/wood/fancy/monochrome,
 /turf/open/floor/wood_fancy/wood_fancy_dark,
-/area/f13/building)
+/area/f13/city)
 "xSN" = (
 /turf/closed/wall/f13/store{
 	desc = "A pre-War wall made of solid concrete.";
@@ -41126,10 +41113,10 @@ oez
 oez
 oez
 oez
-sdE
-bvj
-bvj
-sdE
+anv
+bah
+bah
+anv
 iMM
 qFi
 dYT
@@ -41387,7 +41374,7 @@ wIP
 dpn
 tyU
 fyo
-wmS
+oGu
 xQG
 qHi
 uNh
@@ -41640,11 +41627,11 @@ oez
 oez
 oez
 oez
-bvj
+bah
 mKW
-wmS
-wmS
-wmS
+oGu
+oGu
+oGu
 xQG
 dYT
 iHJ
@@ -41897,12 +41884,12 @@ oez
 oez
 oez
 oez
-bvj
-wmS
-wmS
-wmS
+bah
+oGu
+oGu
+oGu
 akR
-wmS
+oGu
 dYT
 uNh
 itM
@@ -42158,8 +42145,8 @@ wIP
 mnG
 sOm
 isY
-kmu
-wmS
+nSB
+oGu
 qHi
 uNh
 nSB
@@ -42411,12 +42398,12 @@ oez
 oez
 oez
 oez
-sdE
-bvj
-bvj
-sdE
+anv
+bah
+bah
+anv
 vIT
-sdE
+anv
 dYT
 dYT
 dYT
@@ -42674,7 +42661,7 @@ geI
 ttz
 oez
 oez
-blr
+oez
 oez
 oez
 oez

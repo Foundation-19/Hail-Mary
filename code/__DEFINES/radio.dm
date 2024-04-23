@@ -6,8 +6,8 @@
 #define RADIO_KEY_COMMON ";"
 
 #define RADIO_CHANNEL_SECURITY "Security"
-#define RADIO_KEY_SECURITY "s"
-#define RADIO_TOKEN_SECURITY ":s"
+#define RADIO_KEY_SECURITY "p"
+#define RADIO_TOKEN_SECURITY ":p"
 
 #define RADIO_CHANNEL_ENGINEERING "Engineering"
 #define RADIO_KEY_ENGINEERING "e"
@@ -74,8 +74,8 @@
 #define RADIO_TOKEN_TOWN ":f"
 
 #define RADIO_CHANNEL_TOWN_PD "Sheriff"
-#define RADIO_KEY_TOWN_PD "l"
-#define RADIO_TOKEN_TOWN_PD ":l"
+#define RADIO_KEY_TOWN_PD "s"
+#define RADIO_TOKEN_TOWN_PD ":s"
 
 #define RADIO_CHANNEL_TOWN_COMMERCE "Commerce"
 #define RADIO_KEY_TOWN_COMMERCE "j"
@@ -84,6 +84,10 @@
 #define RADIO_CHANNEL_TOWN_MAYOR "Mayor"
 #define RADIO_KEY_TOWN_MAYOR "y"
 #define RADIO_TOKEN_TOWN_MAYOR ":y"
+
+#define RADIO_CHANNEL_LEGION "Legion"
+#define RADIO_KEY_LEGION "l"
+#define RADIO_TOKEN_LEGION ":l"
 
 #define RADIO_CHANNEL_REDWATER "Redwater"
 #define RADIO_KEY_REDWATER "d"
@@ -114,8 +118,9 @@
 #define FREQ_TOWN_PD 1371 //Town Police
 #define FREQ_RANGER 1373 //Ranger
 #define FREQ_TOWN_MAYOR 1375 //Den
-#define FREQ_TOWN_COMMERCE 1376 //Khans
+#define FREQ_TOWN_COMMERCE 1376 //town merchant
 #define FREQ_BIKER 1379 //Khans
+#define FREQ_LEGION 1381 //Legion
 
 ///hey guess what, telecomm's a fuckin cock, so im making the list here
 ///update this list with all the frequenties the fuckin bus fuckin listens to (which is all of them, fuck you its all of them)
@@ -138,7 +143,8 @@
 		FREQ_TOWN_PD,\
 		FREQ_RANGER,\
 		FREQ_TOWN_COMMERCE,\
-		FREQ_BIKER
+		FREQ_BIKER,\
+		FREQ_LEGION
 
 #define FREQ_HOLOGRID_SOLUTION 1433
 #define FREQ_STATUS_DISPLAYS 1435
@@ -255,7 +261,8 @@ GLOBAL_LIST_INIT(radiochannels, list(
 	RADIO_CHANNEL_TOWN_PD = FREQ_TOWN_PD,
 	RADIO_CHANNEL_TOWN_MAYOR = FREQ_TOWN_MAYOR,
 	RADIO_CHANNEL_RANGER = FREQ_RANGER,
-	RADIO_CHANNEL_TOWN_COMMERCE = FREQ_TOWN_COMMERCE
+	RADIO_CHANNEL_TOWN_COMMERCE = FREQ_TOWN_COMMERCE,
+	RADIO_CHANNEL_LEGION = FREQ_LEGION
 	))
 
 GLOBAL_LIST_INIT(reverseradiochannels, list(
@@ -281,7 +288,8 @@ GLOBAL_LIST_INIT(reverseradiochannels, list(
 	"[FREQ_TOWN_MAYOR]" = RADIO_CHANNEL_TOWN_MAYOR,
 	"[FREQ_TOWN_PD]" = RADIO_CHANNEL_TOWN_PD,
 	"[FREQ_RANGER]" = RADIO_CHANNEL_RANGER,
-	"[FREQ_TOWN_COMMERCE]" = RADIO_CHANNEL_TOWN_COMMERCE
+	"[FREQ_TOWN_COMMERCE]" = RADIO_CHANNEL_TOWN_COMMERCE,
+	"[FREQ_LEGION]" = RADIO_CHANNEL_LEGION
 ))
 
 GLOBAL_LIST_INIT(freqtospan, list(
@@ -306,7 +314,8 @@ GLOBAL_LIST_INIT(freqtospan, list(
 	"[FREQ_TOWN_COMMERCE]" = "servradio",
 	"[FREQ_TOWN_PD]" = "secradio",
 	"[FREQ_TOWN_MAYOR]" = "comradio",
-	"[FREQ_RANGER]" = "rangerradio"
+	"[FREQ_RANGER]" = "rangerradio",
+	"[FREQ_LEGION]" = "legionradio"
 	))
 
 GLOBAL_LIST_INIT(department_radio_prefixes, list(":", "."))
@@ -342,6 +351,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	RADIO_KEY_RANGER = RADIO_CHANNEL_RANGER,
 	RADIO_KEY_TOWN_MAYOR = RADIO_CHANNEL_TOWN_MAYOR,
 	RADIO_KEY_TOWN_COMMERCE = RADIO_CHANNEL_TOWN_COMMERCE,
+	RADIO_KEY_LEGION = RADIO_CHANNEL_LEGION,
 
 	// Admin
 	MODE_KEY_ADMIN = MODE_ADMIN,
