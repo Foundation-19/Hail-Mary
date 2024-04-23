@@ -148,3 +148,4 @@
 	icon_state = "patch_hydra"
 	list_reagents = list(/datum/reagent/medicine/hydra = 20)
 	self_delay = 0
+
