@@ -105,7 +105,7 @@
 	to_chat(user, "<span class ='warning'>The broadcasting antenna is disabled for now!].</span>")
 	return
 	
-	if(stat & (NOPOWER|BROKEN) || . & EMP_PROTECT_SELF)
+	/*if(stat & (NOPOWER|BROKEN) || . & EMP_PROTECT_SELF)
 		update_icon()
 		return
 	if(cooldowntime > world.time)
@@ -130,7 +130,7 @@
 	if(stat & (NOPOWER|BROKEN) || . & EMP_PROTECT_SELF) //Need to check again in case the radio station is destroyed while this proc is in progress
 		update_icon()
 		stopRadioMusic()
-		return
+		return*/
 
 
 /obj/machinery/radio_station/proc/stopRadioMusic()
