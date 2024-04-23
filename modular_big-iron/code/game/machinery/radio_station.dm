@@ -101,6 +101,10 @@
 	..()
 
 /obj/machinery/radio_station/proc/playMusicToRadios(mob/living/user)
+	//disabling temporary to for lag diagnostics
+	to_chat(user, "<span class ='warning'>The broadcasting antenna is disabled for now!].</span>")
+	return
+	
 	if(stat & (NOPOWER|BROKEN) || . & EMP_PROTECT_SELF)
 		update_icon()
 		return
