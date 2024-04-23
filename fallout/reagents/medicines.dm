@@ -11,7 +11,7 @@
 	reagent_state = LIQUID
 	color = "#eb0000"
 	taste_description = "numbness"
-	metabolization_rate = 0.8 * REAGENTS_METABOLISM
+	metabolization_rate = 3 * REAGENTS_METABOLISM
 	overdose_threshold = 60
 	value = REAGENT_VALUE_COMMON
 	ghoulfriendly = TRUE
@@ -102,7 +102,7 @@
 	reagent_state = LIQUID
 	color = "#e50d0d"
 	taste_description = "numbness"
-	metabolization_rate = 0.5 * REAGENTS_METABOLISM
+	metabolization_rate = 1.5 * REAGENTS_METABOLISM
 	overdose_threshold = 40	// you can risk a second dose
 	ghoulfriendly = TRUE
 	var/damage_offset = 6.75	//How much damage will be offset in one tick
@@ -702,7 +702,7 @@
 	description = "Hemostatic granules that help to stop bleeding."
 	reagent_state = LIQUID
 	color = "#bb2424"
-	metabolization_rate = 0.1 * REAGENTS_METABOLISM
+	metabolization_rate = 1.5 * REAGENTS_METABOLISM
 	overdose_threshold = 25
 	bleed_mult = 0.025
 	// How much base clotting we do per bleeding wound, multiplied by the below number for each bleeding wound
@@ -740,7 +740,7 @@
 	description = "A potent mix of herbs that help to stem bleeding."
 	reagent_state = LIQUID
 	color = "#bb2424"
-	metabolization_rate = 1 * REAGENTS_METABOLISM
+	metabolization_rate = 2.5 * REAGENTS_METABOLISM
 	overdose_threshold = 25
 	bleed_mult = 0.025
 	var/clot_rate = 3
