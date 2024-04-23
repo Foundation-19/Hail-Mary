@@ -11,12 +11,12 @@
 	reagent_state = LIQUID
 	color = "#eb0000"
 	taste_description = "numbness"
-	metabolization_rate = 5 * REAGENTS_METABOLISM
+	metabolization_rate = 0.8 * REAGENTS_METABOLISM
 	overdose_threshold = 60
 	value = REAGENT_VALUE_COMMON
 	ghoulfriendly = TRUE
 	var/damage_offset = 3	//Value to offset damage by
-	var/clot_rate = 0.35	//35% as effective as Hydra at clotting bleeding wounds
+	var/clot_rate = 0.35	
 
 /datum/reagent/medicine/stimpak/reaction_mob(mob/living/carbon/M, method, reac_volume, show_message = 1)
 	if(iscarbon(M) && M.stat != DEAD)
@@ -35,6 +35,7 @@
 	..()
 
 /datum/reagent/medicine/stimpak/on_mob_life(mob/living/carbon/M)
+	. = ..()
 	var/is_blocked = FALSE
 	if(!is_blocked)
 		//Clotting properties for pierce/slash wounds
@@ -74,6 +75,7 @@
 		. = TRUE
 
 /datum/reagent/medicine/stimpak/overdose_process(mob/living/carbon/M)
+	. = ..()
 	M.adjustToxLoss(damage_offset * 0.5 * REAGENTS_EFFECT_MULTIPLIER, FALSE)	//50% of damage_offset (1.5)
 	if(M.jitteriness + 15 <= 300)
 		M.jitteriness += 15
@@ -100,7 +102,7 @@
 	reagent_state = LIQUID
 	color = "#e50d0d"
 	taste_description = "numbness"
-	metabolization_rate = 3 * REAGENTS_METABOLISM	// 50 seconds, same as poultice
+	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	overdose_threshold = 40	// you can risk a second dose
 	ghoulfriendly = TRUE
 	var/damage_offset = 6.75	//How much damage will be offset in one tick
@@ -693,3 +695,76 @@
 	..()
 	. = 1
 
+// Chem-based coagulant
+// All-round bleed healer. Works slower than Hydra but works better v multiple wounds.
+/datum/reagent/medicine/hemostatic
+	name = "chemical hemostatic"
+	description = "Hemostatic granules that help to stop bleeding."
+	reagent_state = LIQUID
+	color = "#bb2424"
+	metabolization_rate = 0.1 * REAGENTS_METABOLISM
+	overdose_threshold = 25
+	bleed_mult = 0.025
+	// How much base clotting we do per bleeding wound, multiplied by the below number for each bleeding wound
+	var/clot_rate = 2
+	// If we have multiple bleeding wounds, we count the number of bleeding wounds, then multiply the clot rate by this^(n) before applying it to each cut, so more cuts = less clotting per cut (though still more total clotting)
+	var/clot_coeff_per_wound = 1.5
+
+/datum/reagent/medicine/hemostatic/on_mob_life(mob/living/carbon/M)
+	. = ..()
+	clot_bleed_wounds(user = M, bleed_reduction_rate = clot_rate, coefficient_per_wound = clot_coeff_per_wound, single_wound_full_effect = FALSE)
+
+/datum/reagent/medicine/hemostatic/overdose_process(mob/living/M)
+	. = ..()
+	if(!M.get_blood(TRUE))
+		return
+
+	if(prob(15))
+		M.losebreath += rand(2,4)
+		M.adjustOxyLoss(rand(1,3))
+		if(prob(30))
+			to_chat(M, span_danger("You can feel your blood clotting up in your veins!"))
+		else if(prob(10))
+			to_chat(M, span_userdanger("You feel like your blood has stopped moving!"))
+		if(prob(50))
+			var/obj/item/organ/lungs/our_lungs = M.getorganslot(ORGAN_SLOT_LUNGS)
+			our_lungs.applyOrganDamage(1)
+		else
+			var/obj/item/organ/heart/our_heart = M.getorganslot(ORGAN_SLOT_HEART)
+			our_heart.applyOrganDamage(1)
+
+// Plant-based coagulant
+// Basically the same shit as a hemostatic but flavoured for tribals/Legion. Closes wounds faster but metabolizes quicker, less great at clearing multiple wounds.
+/datum/reagent/medicine/hydra
+	name = "hydra"
+	description = "A potent mix of herbs that help to stem bleeding."
+	reagent_state = LIQUID
+	color = "#bb2424"
+	metabolization_rate = 1 * REAGENTS_METABOLISM
+	overdose_threshold = 25
+	bleed_mult = 0.025
+	var/clot_rate = 3
+	var/clot_coeff_per_wound = 1
+
+/datum/reagent/medicine/hydra/on_mob_life(mob/living/carbon/M)
+	. = ..()
+	clot_bleed_wounds(user = M, bleed_reduction_rate = clot_rate, coefficient_per_wound = clot_coeff_per_wound, single_wound_full_effect = FALSE)
+
+/datum/reagent/medicine/hydra/overdose_process(mob/living/M)
+	. = ..()
+	if(!M.get_blood(TRUE))
+		return
+
+	if(prob(15))
+		M.losebreath += rand(2,4)
+		M.adjustOxyLoss(rand(1,3))
+		if(prob(30))
+			to_chat(M, span_danger("You can feel your blood clotting up in your veins!"))
+		else if(prob(10))
+			to_chat(M, span_userdanger("You feel like your blood has stopped moving!"))
+		if(prob(50))
+			var/obj/item/organ/lungs/our_lungs = M.getorganslot(ORGAN_SLOT_LUNGS)
+			our_lungs.applyOrganDamage(1)
+		else
+			var/obj/item/organ/heart/our_heart = M.getorganslot(ORGAN_SLOT_HEART)
+			our_heart.applyOrganDamage(1)			

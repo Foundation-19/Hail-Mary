@@ -139,13 +139,13 @@
 	. = ..()
 
 // ---------------------------------
-// HYDRA - never a thing, make it something. Sprites done.
+// HYDRA - now a thing. KYS furries.
 
-/* /obj/item/reagent_containers/pill/patch/hydra
+ /obj/item/reagent_containers/pill/patch/hydra
 	name = "Hydra"
-	desc = "Hydra is a drug developed from antivenom. Due to the Legion's disapproval of using modern medicine, some Legionaries attempted to develop a different means to help them heal damaged limbs. To do that, they combined cave fungus, nightstalker blood and the poison from a radscorpion poison gland with antivenom before use. This resulted in the development of Hydra, a curative agent that both anesthetizes and restores crippled limbs over time."
+	desc = "A potent blend of herbs and plants used by Tribals and Legionnaires alike to quickly close wounds."
 	icon = 'icons/fallout/objects/medicine/drugs.dmi'
 	icon_state = "patch_hydra"
-	list_reagents = null
+	list_reagents = list(/datum/reagent/medicine/hydra = 20)
 	self_delay = 0
- */
+ 
