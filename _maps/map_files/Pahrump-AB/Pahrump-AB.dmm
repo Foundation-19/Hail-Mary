@@ -22811,7 +22811,9 @@
 "dmq" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/bot/cleanbot,
+/mob/living/simple_animal/bot/cleanbot{
+	faction = list("neutral","silicon","turret","wastebot")
+	},
 /turf/open/floor/plasteel/f13{
 	icon_state = "plating"
 	},
@@ -67393,7 +67395,9 @@
 /area/f13/wasteland)
 "vJJ" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/bot/cleanbot,
+/mob/living/simple_animal/bot/cleanbot{
+	faction = list("neutral","silicon","turret","wastebot")
+	},
 /turf/open/floor/plasteel/f13{
 	icon_state = "plating"
 	},
