@@ -56,6 +56,7 @@
 				workpiece.icon_state = "hot_ingot"
 				workpiece.set_light_on(TRUE)
 				I.on_attack_hand(user)
+				return
 		else
 			to_chat(user, "The furnace isn't working!.")
 			return
@@ -65,6 +66,7 @@
 			playsound(src, 'modular_BD2/blacksmith/sound/steam_short.ogg',80, 1)
 			if(do_after(user, 3 SECONDS, target = src))
 				G.furnace_smelt()
+				return
 		else
 			to_chat(user, "The furnace isn't working!.")
 			return
