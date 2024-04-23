@@ -416,6 +416,6 @@ datum/chemical_reaction/rezadone
 	results = list(/datum/reagent/medicine/hemostatic = 20)
 	required_reagents = list(
 		/datum/reagent/medicine/bicaridine = 5,
-		/datum/chemical_reaction/morphine = 5,
+		/datum/reagent/medicine/morphine = 5,
 		/datum/reagent/medicine/styptic_powder = 10
 	)
