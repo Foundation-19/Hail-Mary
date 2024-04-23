@@ -1439,10 +1439,6 @@
 "boU" = (
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/tunnel)
-"bpq" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/closed/wall/r_wall/rust,
-/area/f13/vault)
 "bpr" = (
 /obj/effect/spawner/lootdrop/f13/junkspawners,
 /turf/open/indestructible/ground/inside/mountain,
@@ -1469,6 +1465,9 @@
 /obj/structure/barricade/wooden,
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/tunnel)
+"bpS" = (
+/turf/closed/indestructible/rock,
+/area/f13/vault)
 "bpY" = (
 /turf/open/floor/plasteel/caution{
 	dir = 9
@@ -9683,6 +9682,10 @@
 	icon_state = "tunnelchess2"
 	},
 /area/f13/bunker)
+"fGp" = (
+/obj/structure/decoration/vent/rusty,
+/turf/closed/indestructible/rock,
+/area/f13/den)
 "fHD" = (
 /obj/item/trash/f13/c_ration_2,
 /turf/open/indestructible/ground/inside/mountain,
@@ -9849,6 +9852,11 @@
 /mob/living/simple_animal/hostile/supermutant/meleemutant,
 /turf/open/floor/plasteel/f13/vault_floor/floor,
 /area/f13/caves)
+"fOq" = (
+/obj/structure/decoration/vent/rusty,
+/obj/effect/decal/cleanable/dirt,
+/turf/closed/indestructible/rock,
+/area/f13/den)
 "fOD" = (
 /obj/structure/destructible/tribal_torch/lit,
 /obj/effect/spawner/lootdrop/f13/weapon/gun/ammo/tier1,
@@ -13441,6 +13449,10 @@
 /obj/effect/decal/waste,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/bunker)
+"jaB" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/closed/indestructible/rock,
+/area/f13/den)
 "jaQ" = (
 /obj/structure/chair/f13chair1{
 	dir = 8
@@ -13613,9 +13625,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/f13/wood,
 /area/f13/caves)
-"jig" = (
-/turf/closed/wall/rust,
-/area/f13/vault)
 "jiI" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/simple_door/bunker/glass,
@@ -14812,6 +14821,10 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/f13/vault_floor/yellow/whiteyellowfull,
 /area/f13/bunker)
+"knC" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/closed/indestructible/rock,
+/area/f13/vault)
 "knX" = (
 /obj/structure/ladder/unbreakable{
 	height = 1;
@@ -16465,6 +16478,9 @@
 /obj/effect/decal/cleanable/blood/gibs,
 /turf/open/floor/plating/tunnel,
 /area/f13/caves)
+"lKz" = (
+/turf/closed/indestructible/rock,
+/area/f13/den)
 "lKP" = (
 /obj/item/flashlight/flare/torch,
 /obj/effect/decal/cleanable/dirt,
@@ -56909,31 +56925,31 @@ bsC
 bJq
 dHk
 bsC
-xZB
-xZB
-xZB
-xZB
-xZB
-xZB
-xZB
-xZB
-xZB
-xZB
-xZB
-xZB
-ydq
-ydq
-ydq
-ydq
-ydq
-ydq
-ydq
-ydq
-ydq
-ydq
-ydq
-xZB
-xZB
+bpS
+bpS
+bpS
+bpS
+bpS
+bpS
+bpS
+bpS
+bpS
+bpS
+bpS
+bpS
+bpS
+bpS
+bpS
+bpS
+bpS
+bpS
+bpS
+bpS
+bpS
+bpS
+bpS
+bpS
+bpS
 aae
 bsC
 dHk
@@ -57166,7 +57182,7 @@ bsC
 bJq
 dHk
 bsC
-xZB
+bpS
 brV
 kmB
 dTV
@@ -57190,7 +57206,7 @@ ltr
 nGS
 ydq
 xZB
-xZB
+bpS
 aae
 bsC
 dHk
@@ -57423,7 +57439,7 @@ bsC
 bJq
 dHk
 bsC
-xZB
+bpS
 bsm
 kmB
 kmB
@@ -57447,7 +57463,7 @@ ltr
 nHe
 ydq
 xZB
-xZB
+bpS
 aae
 bsC
 bsC
@@ -57680,7 +57696,7 @@ bsC
 bJq
 dHk
 bsC
-xZB
+bpS
 ydq
 ydq
 ejG
@@ -57704,7 +57720,7 @@ ltr
 nHe
 ydq
 xZB
-xZB
+bpS
 aae
 aae
 aae
@@ -57937,7 +57953,7 @@ bsC
 bJq
 dHk
 bsC
-xZB
+bpS
 bLL
 cgI
 xcJ
@@ -57961,16 +57977,16 @@ ltr
 nGS
 ydq
 xZB
-xZB
-xZB
-xZB
-xZB
-xZB
-xZB
-xZB
-xZB
-xZB
-xZB
+bpS
+bpS
+bpS
+bpS
+bpS
+bpS
+bpS
+bpS
+bpS
+bpS
 aae
 bsC
 dHk
@@ -58194,7 +58210,7 @@ bsC
 bJq
 dHk
 bsC
-xZB
+bpS
 bOJ
 bOJ
 cAO
@@ -58227,7 +58243,7 @@ ydq
 ydq
 ydq
 ydq
-xZB
+bpS
 aae
 bsC
 dHk
@@ -58451,7 +58467,7 @@ bsC
 bJq
 dHk
 bsC
-xZB
+bpS
 bOP
 cmr
 xcJ
@@ -58484,7 +58500,7 @@ nZs
 oyK
 nZs
 ydq
-xZB
+bpS
 aae
 bsC
 dHk
@@ -58708,7 +58724,7 @@ bsC
 bJq
 dHk
 bsC
-xZB
+bpS
 bOX
 xcJ
 cAO
@@ -58741,7 +58757,7 @@ oBr
 oBr
 nZs
 ydq
-xZB
+bpS
 aae
 bsC
 dHk
@@ -58965,7 +58981,7 @@ bsC
 bJq
 dHk
 bsC
-xZB
+bpS
 bQh
 cAq
 xcJ
@@ -58998,7 +59014,7 @@ psG
 oBr
 sfi
 ydq
-xZB
+bpS
 aak
 bsC
 dHk
@@ -59222,7 +59238,7 @@ bJq
 bJq
 dHk
 bsC
-bpq
+knC
 bWo
 cAO
 ekg
@@ -59255,7 +59271,7 @@ psG
 oBr
 nZs
 ydq
-xZB
+bpS
 aae
 bsC
 dHk
@@ -59479,7 +59495,7 @@ bKb
 bKb
 bKb
 bsC
-xZB
+bpS
 bYt
 dPE
 esb
@@ -59512,7 +59528,7 @@ psG
 oBr
 nZs
 ydq
-xZB
+bpS
 aae
 bsC
 dHk
@@ -59736,11 +59752,11 @@ bsC
 bsC
 bHE
 bsC
-xZB
-ydq
-dQV
-dQV
-ydq
+bpS
+bpS
+knC
+knC
+bpS
 dQV
 nsG
 ydq
@@ -59769,7 +59785,7 @@ rnh
 oMa
 sky
 ydq
-ydq
+bpS
 aae
 bsC
 dHk
@@ -59997,7 +60013,7 @@ bCt
 aae
 aae
 aae
-ydq
+bpS
 jTk
 pIu
 fvs
@@ -60026,8 +60042,8 @@ rrL
 rzv
 szv
 vAm
-ydq
-ydq
+bpS
+bpS
 bsC
 dHk
 bJq
@@ -60254,7 +60270,7 @@ bsC
 aae
 aae
 aae
-ydq
+bpS
 fIu
 xcJ
 fXk
@@ -60284,7 +60300,7 @@ rGr
 taL
 wuP
 xBq
-ydq
+bpS
 bsC
 dHk
 bJq
@@ -60511,7 +60527,7 @@ bsC
 aae
 aae
 aae
-ydq
+bpS
 aau
 xcJ
 xcJ
@@ -60541,7 +60557,7 @@ rzv
 tnT
 wvN
 ycU
-ydq
+bpS
 bsC
 dHk
 bJq
@@ -60768,7 +60784,7 @@ bCt
 xWV
 xWV
 jak
-xWV
+lKz
 tFm
 xcJ
 fYi
@@ -60798,7 +60814,7 @@ rzv
 vkT
 wyS
 dpW
-ydq
+bpS
 bsC
 dHk
 bJq
@@ -61026,13 +61042,13 @@ keR
 jqC
 sIz
 xWV
-xWV
-xWV
-jak
-xWV
-xWV
-xWV
-xWV
+lKz
+lKz
+fGp
+lKz
+lKz
+lKz
+lKz
 kib
 kzp
 kop
@@ -61055,7 +61071,7 @@ rzv
 vpk
 wCS
 ydq
-xZB
+bpS
 bsC
 wrx
 bOm
@@ -61289,7 +61305,7 @@ vtn
 mdV
 hmI
 sGw
-iLJ
+jaB
 kop
 kop
 kop
@@ -61301,18 +61317,18 @@ aak
 ydq
 nNA
 nNA
-ydq
-ydq
-ydq
-ydq
-ydq
-ydq
-ydq
-ydq
-ydq
-ydq
-xZB
-jig
+bpS
+bpS
+bpS
+bpS
+bpS
+bpS
+bpS
+bpS
+bpS
+bpS
+bpS
+bpS
 bsC
 bJq
 bJq
@@ -61546,7 +61562,7 @@ riZ
 riZ
 riZ
 riZ
-ktG
+fOq
 kqf
 kop
 kop
@@ -61555,10 +61571,10 @@ ydq
 aak
 aak
 aak
-ydq
-ydq
-ydq
-ydq
+bpS
+bpS
+bpS
+bpS
 bCt
 bCt
 bCt
@@ -61803,7 +61819,7 @@ riZ
 riZ
 riZ
 eQu
-iLJ
+jaB
 kuM
 kHP
 liZ
@@ -61812,7 +61828,7 @@ ydq
 aak
 aak
 aak
-aae
+aaa
 xAD
 aae
 aae
@@ -62060,16 +62076,16 @@ ktG
 iLJ
 iLJ
 iLJ
-iLJ
-ydq
-ydq
-ydq
-ydq
-xZB
-aak
-aak
-aak
-aae
+jaB
+bpS
+bpS
+bpS
+bpS
+bpS
+aaa
+aaa
+aaa
+aaa
 aae
 aae
 aae
