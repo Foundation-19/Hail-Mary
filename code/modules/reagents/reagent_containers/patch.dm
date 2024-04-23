@@ -141,7 +141,7 @@
 // ---------------------------------
 // HYDRA - now a thing. KYS furries.
 
- /obj/item/reagent_containers/pill/patch/hydra
+/obj/item/reagent_containers/pill/patch/hydra
 	name = "Hydra"
 	desc = "A potent blend of herbs and plants used by Tribals and Legionnaires alike to quickly close wounds."
 	icon = 'icons/fallout/objects/medicine/drugs.dmi'
