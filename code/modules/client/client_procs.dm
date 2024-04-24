@@ -1002,7 +1002,6 @@ GLOBAL_LIST_EMPTY(every_fucking_sound_file)
 		Export("##action=load_rsc", file)
 		stoplag()
 
-
 //Hook, override it to run code when dir changes
 //Like for /atoms, but clients are their own snowflake FUCK
 /client/proc/setDir(newdir)
