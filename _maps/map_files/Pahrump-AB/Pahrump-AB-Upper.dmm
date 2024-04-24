@@ -6848,7 +6848,6 @@
 /turf/closed/wall/f13/tunnel,
 /area/f13/tunnel/southeast)
 "oQp" = (
-/obj/item/toy/plush/deer,
 /mob/living/simple_animal/pet/bumbles{
 	dir = 2
 	},
