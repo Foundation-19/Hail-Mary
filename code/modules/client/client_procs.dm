@@ -1,7 +1,7 @@
 	////////////
 	//SECURITY//
 	////////////
-#define UPLOAD_LIMIT		1048576	//Restricts client uploads to the server to 1MB //Could probably do with being lower.
+#define UPLOAD_LIMIT		4194304	//Restricts client uploads to the server to 1MB //Could probably do with being lower. BIG IRON EDIT changed it to 4mb,since 1mb is almost unusable
 
 GLOBAL_LIST_INIT(blacklisted_builds, list(
 	"1407" = "bug preventing client display overrides from working leads to clients being able to see things/mobs they shouldn't be able to see",
@@ -279,7 +279,7 @@ GLOBAL_LIST_INIT(warning_ckeys, list())
 		prefs = new /datum/preferences(src)
 		GLOB.preferences_datums[ckey] = prefs
 
-	addtimer(CALLBACK(src, .proc/ensure_keys_set, prefs), 10)	//prevents possible race conditions
+	addtimer(CALLBACK(src, PROC_REF(ensure_keys_set), prefs), 10)	//prevents possible race conditions
 
 	prefs.last_ip = address				//these are gonna be used for banning
 	prefs.last_id = computer_id			//these are gonna be used for banning
@@ -309,10 +309,10 @@ GLOBAL_LIST_INIT(warning_ckeys, list())
 						alert_mob_dupe_login = TRUE
 					if(matches)
 						if(C)
-							message_admins(span_danger("<B>Notice: </B></span><span class='notice'>[key_name_admin(src)] has the same [matches] as [key_name_admin(C)]."))
+							message_admins("<span class='danger'><B>Notice: </B></span><span class='notice'>[key_name_admin(src)] has the same [matches] as [key_name_admin(C)].</span>")
 							log_admin_private("Notice: [key_name(src)] has the same [matches] as [key_name(C)].")
 						else
-							message_admins(span_danger("<B>Notice: </B></span><span class='notice'>[key_name_admin(src)] has the same [matches] as [key_name_admin(C)] (no longer logged in). "))
+							message_admins("<span class='danger'><B>Notice: </B></span><span class='notice'>[key_name_admin(src)] has the same [matches] as [key_name_admin(C)] (no longer logged in). </span>")
 							log_admin_private("Notice: [key_name(src)] has the same [matches] as [key_name(C)] (no longer logged in).")
 
 	if(GLOB.player_details[ckey])
@@ -341,7 +341,7 @@ GLOBAL_LIST_INIT(warning_ckeys, list())
 			log_access("Failed login: [key] - blacklisted byond version")
 			to_chat(src, span_userdanger("Your version of byond is blacklisted."))
 			to_chat(src, span_danger("Byond build [byond_build] ([byond_version].[byond_build]) has been blacklisted for the following reason: [GLOB.blacklisted_builds[num2text(byond_build)]]."))
-			to_chat(src, span_danger("Please download a new version of byond. If [byond_build] is the latest, you can go to <a href=\"https://secure.byond.com/download/build\">BYOND's website</a> to download other versions."))
+			to_chat(src, "<span class='danger'>Please download a new version of byond. If [byond_build] is the latest, you can go to <a href=\"https://secure.byond.com/download/build\">BYOND's website</a> to download other versions.</span>")
 			if(connecting_admin)
 				to_chat(src, "As an admin, you are being allowed to continue using this version, but please consider changing byond versions")
 			else
@@ -354,7 +354,6 @@ GLOBAL_LIST_INIT(warning_ckeys, list())
 
 	// Initialize tgui panel
 	tgui_panel.initialize()
-	addtimer(CALLBACK(src, .proc/nuke_chat), 5 SECONDS)//Reboot it to fix broken chat window instead of making the player do it (bandaid fix)
 	src << browse(file('html/statbrowser.html'), "window=statbrowser")
 
 
@@ -369,7 +368,7 @@ GLOBAL_LIST_INIT(warning_ckeys, list())
 	var/ceb = CONFIG_GET(number/client_error_build)
 	var/cwv = CONFIG_GET(number/client_warn_version)
 	if (byond_version < cev || (byond_version == cev && byond_build < ceb))		//Out of date client.
-		to_chat(src, span_danger("<b>Your version of BYOND is too old:</b>"))
+		to_chat(src, "<span class='danger'><b>Your version of BYOND is too old:</b></span>")
 		var/error_message = CONFIG_GET(string/client_error_message)
 		if(error_message)
 			to_chat(src, error_message)
@@ -390,7 +389,7 @@ GLOBAL_LIST_INIT(warning_ckeys, list())
 			msg += "Visit <a href=\"https://secure.byond.com/download\">BYOND's website</a> to get the latest version of BYOND.<br>"
 			src << browse(msg, "window=warning_popup")
 		else
-			to_chat(src, span_danger("<b>Your version of byond may be getting out of date:</b>"))
+			to_chat(src, "<span class='danger'><b>Your version of byond may be getting out of date:</b></span>")
 			var/warn_message = CONFIG_GET(string/client_warn_message)
 			if(warn_message)
 				to_chat(src, warn_message)
@@ -432,7 +431,6 @@ GLOBAL_LIST_INIT(warning_ckeys, list())
 	if (isnum(cached_player_age) && cached_player_age == -1) //first connection
 		if (nnpa >= 0)
 			message_admins("New user: [key_name_admin(src)] is connecting here for the first time.")
-			to_chat(world, "<font size='4' color='purple'>A new player is connecting for the first time, greet them in OOC/NEWBIE!  Lets get them set up!</font>")
 			if (CONFIG_GET(flag/irc_first_connection_alert))
 				send2irc_adminless_only("New-user", "[key_name(src)] is connecting for the first time!")
 	else if (isnum(cached_player_age) && cached_player_age < nnpa)
@@ -522,7 +520,6 @@ GLOBAL_LIST_INIT(warning_ckeys, list())
 		GLOB.admins -= src
 		GLOB.adminchat -= src //fortuna add
 		if (!GLOB.admins.len && SSticker.IsRoundInProgress()) //Only report this stuff if we are currently playing.
-			/*
 			var/cheesy_message = pick(
 				"I have no admins online!",\
 				"I'm all alone :(",\
@@ -539,9 +536,6 @@ GLOBAL_LIST_INIT(warning_ckeys, list())
 			)
 
 			send2irc("Server", "[cheesy_message] (No admins online)")
-			*/
-			send2irc("Server", "No admins online")
-
 	QDEL_LIST_ASSOC_VAL(char_render_holders)
 	if(movingmob != null)
 		movingmob.client_mobs_in_contents -= mob
@@ -928,8 +922,7 @@ GLOBAL_LIST_INIT(warning_ckeys, list())
 		// unfocus the text bar. This removes the red color from the text bar
 		// so that the visual focus indicator matches reality.
 		winset(src, null, "input.background-color=[COLOR_INPUT_DISABLED]")
-	// v- This right here calls object's Click() proc.
-	// so basically, this does object.Click(location, control, params)
+
 	..()
 
 /client/proc/add_verbs_from_config()
@@ -968,7 +961,7 @@ GLOBAL_LIST_INIT(warning_ckeys, list())
 
 		//Precache the client with all other assets slowly, so as to not block other browse() calls
 		if (CONFIG_GET(flag/asset_simple_preload))
-			addtimer(CALLBACK(SSassets.transport, /datum/asset_transport.proc/send_assets_slow, src, SSassets.transport.preload), 5 SECONDS)
+			addtimer(CALLBACK(SSassets.transport, TYPE_PROC_REF(/datum/asset_transport,send_assets_slow), src, SSassets.transport.preload), 5 SECONDS)
 
 		#if (PRELOAD_RSC == 0)
 		for (var/name in GLOB.vox_sounds)
@@ -976,39 +969,6 @@ GLOBAL_LIST_INIT(warning_ckeys, list())
 			Export("##action=load_rsc", file)
 			stoplag()
 		#endif
-		preload_every_fucking_sound_file() // ha ha what a great idea
-
-GLOBAL_LIST_EMPTY(every_fucking_sound_file)
-
-/// Okay maybe not every sound file, just the important ones
-/client/proc/populate_every_fucking_sound_file()
-	if(LAZYLEN(GLOB.every_fucking_sound_file))
-		return
-	var/list/fucking_sound_folders = list(
-		"sounds/f13npc/",
-		"sounds/f13weapons/",
-		"sounds/creatures/",
-		"sounds/voice/",
-		"sounds/ambience",
-		"sounds/f13",
-		"sounds/f13ambience",
-		"sounds/effects",
-		"sounds/f13items",
-		"sounds/f13music",
-		"sounds/weapons",
-		"sounds/block_parry",
-	)
-	for(var/folder in fucking_sound_folders)
-		GLOB.every_fucking_sound_file |= pathwalk(folder)
-
-/// Goes through every sound file in the universe and forcefeeds them all to the client
-/// Cus this game doesnt have enough loading
-/client/proc/preload_every_fucking_sound_file()
-	if(!LAZYLEN(GLOB.every_fucking_sound_file))
-		populate_every_fucking_sound_file()
-	for (var/file in GLOB.every_fucking_sound_file)
-		Export("##action=load_rsc", file)
-		stoplag()
 
 
 //Hook, override it to run code when dir changes
@@ -1078,7 +1038,7 @@ GLOBAL_LIST_EMPTY(every_fucking_sound_file)
 	var/pos = 0
 	for(var/D in GLOB.cardinals)
 		pos++
-		var/atom/movable/screen/O = LAZYACCESS(char_render_holders, "[D]")
+		var/obj/screen/O = LAZYACCESS(char_render_holders, "[D]")
 		if(!O)
 			O = new
 			LAZYSET(char_render_holders, "[D]", O)
@@ -1089,7 +1049,7 @@ GLOBAL_LIST_EMPTY(every_fucking_sound_file)
 
 /client/proc/clear_character_previews()
 	for(var/index in char_render_holders)
-		var/atom/movable/screen/S = char_render_holders[index]
+		var/obj/screen/S = char_render_holders[index]
 		screen -= S
 		qdel(S)
 	char_render_holders = null
@@ -1145,92 +1105,5 @@ GLOBAL_LIST_EMPTY(every_fucking_sound_file)
 		if (menuitem)
 			menuitem.Load_checked(src)
 
-/* 
-/client/proc/checkGonadDistaste(flag)
-	if(!flag || !prefs)
-		return
-	return CHECK_BITFIELD(prefs.features["genital_hide"], flag)
 
-/client/proc/toggleGenitalException(mob/moob)
-	if(!ismob(moob))
-		return
-	if(genital_exceptions[moob.real_name])
-		genital_exceptions -= moob.real_name
-		saveCockWhitelist()
-		return
-	addGenitalException(moob)
 
-/client/proc/addGenitalException(mob/moob)
-	if(!moob)
-		return
-	genital_exceptions[moob.real_name] = WEAKREF(moob)
-	saveCockWhitelist()
-	
-/client/proc/isGenitalWhitelisted(mob/moob)
-	if(!ismob(moob))
-		return FALSE
-	. = FALSE
-	for(var/ck in genital_exceptions)
-		if(findtext(ckey(moob.real_name), ckey(ck)))
-			. = TRUE
-			break
-		var/datum/weakref/wingus = genital_exceptions[ck]
-		if(isweakref(wingus))
-			var/mob/living/carbon/human/dingus = wingus.resolve()
-			if(dingus == moob)
-				. = TRUE
-				break
-	if(.)
-		genital_exceptions[moob.real_name] = WEAKREF(moob) // just refresh it or something
-		saveCockWhitelist()
-
-/// So turns out letting players see the ckeys of everyone they want to see the genitals of might be a bad idea
-/// So, lets store a list of mob names and dig up the ckey from that! Not a bad idea!
-/client/proc/inspectCockWhitelist(list/cockalist)
-	if(!LAZYLEN(cockalist))
-		return list()
-	var/list/cockout = list()
-	for(var/cock in cockalist) // list of mobs' stored names
-		cockout[cock] = null
-		for(var/mob/living/carbon/human/dick in GLOB.human_list)
-			if(!dick.ckey)
-				continue
-			if(!findtext(ckey(dick.real_name), ckey(cock))) // only ckey the names when checking, dont store them as ckeys lol
-				continue
-			cockout[cock] = WEAKREF(dick)
-	return cockout
-
-/client/proc/loadCockWhitelist()
-	if(!prefs)
-		return FALSE
-	genital_exceptions = inspectCockWhitelist(prefs.decode_cockwhitelist()) // get ready for penis inspection day
-
-/client/proc/saveCockWhitelist()
-	if(!prefs)
-		return FALSE
-	var/list/playerthing = list()
-	for(var/ck in genital_exceptions)
-		var/cock = ck
-		var/datum/weakref/wingus = genital_exceptions[ck]
-		if(isweakref(wingus))
-			var/mob/living/carbon/human/dingus = wingus.resolve()
-			if(dingus)
-				cock = dingus.real_name
-		playerthing |= cock
-	prefs.encode_cockwhitelist(playerthing)
-
-/mob/verb/genital_exception(mob/living/carbon/human/nicebutt as mob in view())
-	set name = "Genital Whitelist"
-	set desc = "Toggle whether or now you can see a specific person's genitals, when exposed."
-	set category = "IC"
-
-	if(!client) // not sure how you did this
-		return FALSE
-	if(!ishuman(nicebutt))
-		to_chat(src, span_alert("[nicebutt] doesn't have anything to hide!"))
-		return FALSE
-	client.toggleGenitalException(nicebutt)
-	to_chat(src, span_notice("Toggled seeing genitals on [nicebutt]."))
-	nicebutt.update_genitals(TRUE)
-	return TRUE
- */
