@@ -161,6 +161,13 @@
 	icon_state = "rider"
 	item_state = "rider"
 
+/obj/item/clothing/head/helmet/knight/f13/rider/riderw
+	name = "Reinforced Rider Helmet" //Not raider. Rider. //Count up your sins
+	desc = "It's a fancy two-tone metal helmet. It's been lined with additional plating and given a fresh coat of paint."
+	icon_state = "riderw"
+	item_state = "riderw"
+	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T3, ARMOR_MODIFIER_UP_LASER_T2)
+
 /obj/item/clothing/head/helmet/f13/metalmask
 	name = "metal mask"
 	desc = "A crudely formed metal hockey mask."
@@ -688,11 +695,7 @@
 	color = "#999999"
 	dynamic_hair_suffix = ""
 
-/obj/item/clothing/head/f13/riderw
-	name = "Reinforced Rider Helmet" //Not raider. Rider. //Count up your sins
-	desc = "It's a fancy two-tone metal helmet. It's been lined with additional plating and given a fresh coat of paint."
-	icon_state = "riderw"
-	item_state = "riderw"
+
 
 //Soft caps
 /obj/item/clothing/head/soft/f13
