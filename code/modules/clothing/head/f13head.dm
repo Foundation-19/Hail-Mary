@@ -67,6 +67,8 @@
 /obj/item/clothing/head/helmet/f13/combat/Initialize()
 	. = ..()
 	AddComponent(/datum/component/spraycan_paintable)
+	AddComponent(/datum/component/armor_plate)
+	
 	START_PROCESSING(SSobj, src)
 
 /obj/item/clothing/head/helmet/f13/combat/Destroy()
