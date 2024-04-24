@@ -211,7 +211,7 @@ proc/get_top_level_mob(mob/S)
 	return (1 - ((special_a - SPECIAL_DEFAULT_ATTR_VALUE) * 0.1))
 
 /mob/proc/calc_movespeed_mod_from_special()
-  return -((special_a - DEFAULT_SPECIAL_ATTR_VALUE) * 0.03)
+  	return -((special_a - DEFAULT_SPECIAL_ATTR_VALUE) * 0.03)
 
 /// LUCK
 
