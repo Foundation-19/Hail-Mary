@@ -61,10 +61,10 @@ proc/get_top_level_mob(mob/S)
 /// STRENGTH
 
 /obj/item/proc/calc_melee_dam_mod_from_special(mob/living/user)
-	return ((user.special_s - DEFAULT_SPECIAL_ATTR_VALUE) * 2)
+	return ((user.special_s - DEFAULT_SPECIAL_ATTR_VALUE) * 1.5)
 
 /datum/species/proc/calc_unarmed_dam_mod_from_special(mob/living/user)
-	return ((user.special_s - DEFAULT_SPECIAL_ATTR_VALUE) * 2)
+	return ((user.special_s - DEFAULT_SPECIAL_ATTR_VALUE) * 1.5)
 
 /// PERCEPTION
 
@@ -202,7 +202,7 @@ proc/get_top_level_mob(mob/S)
 	return (1 - ((special_a - DEFAULT_SPECIAL_ATTR_VALUE) * 0.1))
 
 /mob/proc/calc_movespeed_mod_from_special()
-	return -((special_a - DEFAULT_SPECIAL_ATTR_VALUE) * 0.05)
+	return -((special_a - DEFAULT_SPECIAL_ATTR_VALUE) * 0.03)
 
 /// LUCK
 
