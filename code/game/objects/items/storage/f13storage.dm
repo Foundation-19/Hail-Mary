@@ -404,22 +404,3 @@
 /obj/item/storage/box/medicine/bitterdrink5/PopulateContents()
 	for(var/i in 1 to 5)
 		new /obj/item/reagent_containers/pill/bitterdrink(src)
-
-// -----------------------------------
-// ANTI-WOUND BOXES
-
-/obj/item/storage/box/medicine/hemostatic5
-	name = "box of hemostatic applicators"
-	desc = "A box full of hemostatic applicators."
-
-/obj/item/storage/box/medicine/hemostatic5/PopulateContents()
-	for(var/i in 1 to 5)
-		new /obj/item/reagent_containers/hypospray/medipen/hemostatic(src)
-
-/obj/item/storage/box/medicine/hydra5
-	name = "box of hydra"
-	desc = "A box full of Hydra."
-
-/obj/item/storage/box/medicine/hydra5/PopulateContents()
-	for(var/i in 1 to 5)
-		new /obj/item/reagent_containers/pill/patch/hydra(src)

@@ -147,24 +147,6 @@
 	time = 40
 	category = CAT_MEDICAL
 
-/datum/crafting_recipe/hydra
-	name = "Hydra"
-	result = /obj/item/reagent_containers/pill/patch/hydra
-	reqs = list(/obj/item/reagent_containers/food/snacks/grown/fungus = 3,
-				/obj/item/reagent_containers/food/snacks/grown/broc = 3)
-	time = 5
-	tools = list(TOOL_WORKBENCH)
-	category = CAT_MEDICAL
-
-/datum/crafting_recipe/hydra5
-	name = "Hydra (x5)"
-	result = /obj/item/reagent_containers/pill/patch/hydra
-	reqs = list(/obj/item/reagent_containers/food/snacks/grown/fungus = 15,
-				/obj/item/reagent_containers/food/snacks/grown/broc = 15)
-	time = 15
-	tools = list(TOOL_WORKBENCH)
-	category = CAT_MEDICAL
-
 /*
 /datum/crafting_recipe/stimpak
 	name = "Stimpak"
@@ -254,23 +236,6 @@
 	tools = list(TOOL_WORKBENCH)
 	category = CAT_MEDICAL
 
-/datum/crafting_recipe/hemostatic
-	name = "Hemostatic applicator"
-	result = /obj/item/reagent_containers/hypospray/medipen/hemostatic
-	reqs = list(/obj/item/reagent_containers/syringe = 1,
-				/datum/reagent/medicine/hemostatic = 20)
-	time = 5
-	tools = list(TOOL_WORKBENCH)
-	category = CAT_MEDICAL
-
-/datum/crafting_recipe/hemostatic5
-	name = "Hemostatic applicator (x5)"
-	result = /obj/item/reagent_containers/hypospray/medipen/hemostatic
-	reqs = list(/obj/item/reagent_containers/syringe = 5,
-				/datum/reagent/medicine/hemostatic = 100)
-	time = 5
-	tools = list(TOOL_WORKBENCH)
-	category = CAT_MEDICAL
 
 /datum/crafting_recipe/jet
 	name = "Jet"

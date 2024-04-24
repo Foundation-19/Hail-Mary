@@ -405,8 +405,6 @@
 			return "Your species cannot play as a [jobtitle]."
 		if(JOB_UNAVAILABLE_WHITELIST)
 			return "[jobtitle] requires a whitelist."
-		if(JOB_UNAVAILABLE_SPECIAL)
-			return "[jobtitle] requires certain SPECIAL stats high enough."
 	return "Error: Unknown job availability."
 
 /mob/dead/new_player/proc/IsJobUnavailable(rank, latejoin = FALSE)
@@ -424,8 +422,6 @@
 			return JOB_UNAVAILABLE_SLOTFULL
 	if(jobban_isbanned(src,rank))
 		return JOB_UNAVAILABLE_BANNED
-	if(job.special_stat_check(client?.prefs))
-		return JOB_UNAVAILABLE_SPECIAL
 	if(QDELETED(src))
 		return JOB_UNAVAILABLE_GENERIC
 	if(!job.player_old_enough(client))
@@ -721,3 +717,4 @@
 
 	// Add verb for re-opening the interview panel, and re-init the verbs for the stat panel
 	add_verb(src, /mob/dead/new_player/proc/open_interview)
+

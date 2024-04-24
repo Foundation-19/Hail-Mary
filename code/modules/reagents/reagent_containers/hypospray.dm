@@ -153,13 +153,6 @@
 	else
 		. += span_notice("It is spent.")
 
-/obj/item/reagent_containers/hypospray/medipen/hemostatic
-	name = "hemostatic applicator"
-	desc = "A fast-acting chemical hemotatic. Used to quickly clot and close bleeding wounds."
-	amount_per_transfer_from_this = 20
-	volume = 20
-	list_reagents = list(/datum/reagent/medicine/hemostatic = 20)
-
 ///////////////////
 // FALLOUT HYPOS //
 ///////////////////

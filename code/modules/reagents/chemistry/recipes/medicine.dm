@@ -409,13 +409,3 @@ datum/chemical_reaction/rezadone
 		/datum/reagent/consumable/tea/bloodtea = 5
 		)
 	required_temp = 451
-
-/datum/chemical_reaction/hemostatic
-	name = "Hemostatic"
-	id = /datum/reagent/medicine/hemostatic
-	results = list(/datum/reagent/medicine/hemostatic = 20)
-	required_reagents = list(
-		/datum/reagent/medicine/bicaridine = 5,
-		/datum/reagent/medicine/morphine = 5,
-		/datum/reagent/medicine/styptic_powder = 10
-	)
