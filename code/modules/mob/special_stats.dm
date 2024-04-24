@@ -55,7 +55,7 @@ proc/get_top_level_mob(mob/S)
 /// STRENGTH
 
 /obj/item/proc/calc_melee_dam_mod_from_special(mob/living/user)
-  return ((user.special_s - DEFAULT_SPECIAL_ATTR_VALUE) * 1.5)
+  	return ((user.special_s - DEFAULT_SPECIAL_ATTR_VALUE) * 1.5)
 
 /datum/species/proc/calc_unarmed_dam_mod_from_special(mob/living/user)
 	return ((user.special_s - DEFAULT_SPECIAL_ATTR_VALUE) * 1.5)
