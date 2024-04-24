@@ -1,18 +1,12 @@
-//////////////////////////////////////////////////////
-////////////////////SUBTLE COMMAND////////////////////
-//////////////////////////////////////////////////////
-
-#define DEFAULT_SPECIAL_ATTR_VALUE 5
-#define MIN_INT_CRAFTING_REQUIREMENT 3
 /mob
 	var/flavor_text = "" //tired of fucking double checking this
-	var/special_s = DEFAULT_SPECIAL_ATTR_VALUE // +/-2 dmg in melee for each level above/below 5 ST
-	var/special_p = DEFAULT_SPECIAL_ATTR_VALUE // +/- 5 degrees of innate gun spread for each level below/above 5 PR
-	var/special_e = DEFAULT_SPECIAL_ATTR_VALUE // +/-5 maxHealth for each level above/below 5 END
-	var/special_c = DEFAULT_SPECIAL_ATTR_VALUE // Desc message + moodlets
-	var/special_i = DEFAULT_SPECIAL_ATTR_VALUE // Can't craft with INT under MIN_INT_CRAFTING_REQUIREMENT, certain recipes can be INT locked, certain guns can be INT locked
-	var/special_a = DEFAULT_SPECIAL_ATTR_VALUE // +/- 10% Sprint stamina usage modifier -/+ 0.05 movespeed modifier per lvl below/above 5 AGI
-	var/special_l = DEFAULT_SPECIAL_ATTR_VALUE // Currently nothing
+	var/special_s = SPECIAL_DEFAULT_ATTR_VALUE // +/-2 dmg in melee for each level above/below 5 ST
+	var/special_p = SPECIAL_DEFAULT_ATTR_VALUE // +/- 5 degrees of innate gun spread for each level below/above 5 PR
+	var/special_e = SPECIAL_DEFAULT_ATTR_VALUE // +/-5 maxHealth for each level above/below 5 END
+	var/special_c = SPECIAL_DEFAULT_ATTR_VALUE // Desc message + moodlets
+	var/special_i = SPECIAL_DEFAULT_ATTR_VALUE // Can't craft with INT under SPECIAL_MIN_INT_CRAFTING_REQUIREMENT, certain recipes can be INT locked, certain guns can be INT locked
+	var/special_a = SPECIAL_DEFAULT_ATTR_VALUE // +/- 10% Sprint stamina usage modifier -/+ 0.05 movespeed modifier per lvl below/above 5 AGI
+	var/special_l = SPECIAL_DEFAULT_ATTR_VALUE // Currently nothing
 
 /mob/proc/get_top_level_mob()
 	if(istype(src.loc,/mob)&&src.loc!=src)
@@ -61,11 +55,7 @@ proc/get_top_level_mob(mob/S)
 /// STRENGTH
 
 /obj/item/proc/calc_melee_dam_mod_from_special(mob/living/user)
-<<<<<<< HEAD
   	return ((user.special_s - DEFAULT_SPECIAL_ATTR_VALUE) * 1.5)
-=======
-	return ((user.special_s - DEFAULT_SPECIAL_ATTR_VALUE) * 1.5)
->>>>>>> parent of 80e8668043 (Merge branch 'master' into balance-changes)
 
 /datum/species/proc/calc_unarmed_dam_mod_from_special(mob/living/user)
 	return ((user.special_s - DEFAULT_SPECIAL_ATTR_VALUE) * 1.5)
@@ -73,12 +63,12 @@ proc/get_top_level_mob(mob/S)
 /// PERCEPTION
 
 /obj/item/ammo_casing/proc/calc_bullet_spread_mod_from_special(mob/living/user)
-	return ((user.special_p - DEFAULT_SPECIAL_ATTR_VALUE) * 5) // +/- 5 degrees of innate spread per lvl
+	return ((user.special_p - SPECIAL_DEFAULT_ATTR_VALUE) * 5) // +/- 5 degrees of innate spread per lvl
 
 /// ENDURANCE
 
 /mob/living/carbon/human/initialize_special_endurance()
-	maxHealth = initial(maxHealth) + ((special_e - DEFAULT_SPECIAL_ATTR_VALUE) * 5)
+	maxHealth = initial(maxHealth) + ((special_e - SPECIAL_DEFAULT_ATTR_VALUE) * 5)
 	health = maxHealth
 
 /datum/species/proc/get_special_burn_resist_multiplier(mob/living/user)
@@ -134,11 +124,26 @@ proc/get_top_level_mob(mob/S)
 
 /mob/living/carbon/human/initialize_special_charisma()
 	RegisterSignal(src, COMSIG_PARENT_EXAMINE, PROC_REF(handle_special_charisma_examine_moodlet), TRUE)
+	initialize_charisma_traits(src)
 
 /mob/living/carbon/human/Destroy()
 	UnregisterSignal(src, COMSIG_PARENT_EXAMINE)
 	return ..()
 
+
+/mob/proc/initialize_charisma_traits(mob/living/carbon/user)
+	if(HAS_TRAIT_FROM(user, TRAIT_SAY_STUTTERING, "charisma"))
+		REMOVE_TRAIT(user, TRAIT_SAY_STUTTERING, "charisma")
+	if(HAS_TRAIT_FROM(user, TRAIT_SAY_LISPING, "charisma"))
+		REMOVE_TRAIT(user, TRAIT_SAY_LISPING, "charisma")
+	switch(special_c)
+		if(3)
+			ADD_TRAIT(user, TRAIT_SAY_STUTTERING, "charisma")
+		if(2)
+			ADD_TRAIT(user, TRAIT_SAY_LISPING, "charisma")
+		if(1)
+			ADD_TRAIT(user, TRAIT_SAY_STUTTERING, "charisma")
+			ADD_TRAIT(user, TRAIT_SAY_LISPING, "charisma")
 
 /mob/proc/handle_special_charisma_examine_moodlet(mob/living/examinee, mob/living/examiner, text)
 	if(!istype(examiner))
@@ -186,7 +191,7 @@ proc/get_top_level_mob(mob/S)
 /datum/component/personal_crafting/proc/special_crafting_check(mob/living/user)
 	if(!istype(user))
 		return FALSE
-	if(user.special_i <= MIN_INT_CRAFTING_REQUIREMENT)
+	if(user.special_i <= SPECIAL_MIN_INT_CRAFTING_REQUIREMENT)
 		to_chat(user,  "Your brain is too dumb to craft items.")
 		return FALSE
 	return TRUE
@@ -203,17 +208,49 @@ proc/get_top_level_mob(mob/S)
 	return
 
 /mob/living/carbon/calc_sprint_stamina_mod_from_special()
-	return (1 - ((special_a - DEFAULT_SPECIAL_ATTR_VALUE) * 0.1))
+	return (1 - ((special_a - SPECIAL_DEFAULT_ATTR_VALUE) * 0.1))
 
 /mob/proc/calc_movespeed_mod_from_special()
-<<<<<<< HEAD
   	return -((special_a - DEFAULT_SPECIAL_ATTR_VALUE) * 0.03)
-=======
-	return -((special_a - DEFAULT_SPECIAL_ATTR_VALUE) * 0.03)
->>>>>>> parent of 80e8668043 (Merge branch 'master' into balance-changes)
 
 /// LUCK
 
+/// Currently affects only money from trashpiles
+/mob/proc/get_luck_loot_amt_multiplier()
+	switch(special_l)
+		if(1)
+			return 0.5
+		if(2)
+			return 0.625
+		if(3)
+			return 0.750
+		if(4)
+			return 0.875
+		if(5)
+			return 1
+		if(6)
+			return 1.1
+		if(7)
+			return 1.2
+		if(8)
+			return 1.3
+		if(9)
+			return 1.4
+		if(10)
+			return 1.5
+	return 1
+
+
+/// Chance to drop a gun or hit yourself in melee
+/mob/proc/get_luck_critfail_chance()
+	switch(special_l)
+		if(1)
+			return 10
+		if(2)
+			return 4
+		if(3)
+			return 1
+	return 0
 
 
 
