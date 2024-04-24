@@ -5325,6 +5325,9 @@
 /area/f13/city)
 "lIM" = (
 /obj/machinery/seed_extractor,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/open/floor/plasteel/f13/vault_floor/neutral/neutralchess/neutralchess2,
 /area/f13/followers)
 "lIQ" = (
