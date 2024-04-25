@@ -68,7 +68,10 @@ Mayor
 		/datum/outfit/loadout/mayoral,
 		/datum/outfit/loadout/dictator,
 		/datum/outfit/loadout/firstcitizen,
-		/datum/outfit/loadout/highroller
+		/datum/outfit/loadout/highroller,
+		/datum/outfit/loadout/clinicdirector,
+		/datum/outfit/loadout/richman,
+		/datum/outfit/loadout/eastchief
 		)
 
 
@@ -176,8 +179,8 @@ Mayor
 		/obj/item/book/granter/crafting_recipe/blueprint/leveraction  = 1
 	)
 
-/datum/outfit/loadout/richman
-	name = "Nightstalker Of Eastwood"
+/datum/outfit/loadout/eastchief
+	name = "Cheif of the East"
 	backpack_contents = list(
 		/obj/item/clothing/suit/hooded/cloak/hhunter = 1,
 		/obj/item/clothing/under/f13/exile/tribal = 1,
