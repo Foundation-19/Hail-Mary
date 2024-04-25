@@ -1422,9 +1422,9 @@ Raider
 		/obj/item/reagent_containers/food/snacks/fishmeat/salmon = 2,
 		/obj/item/reagent_containers/glass/beaker/waterbottle = 2,
 	)	//Matthew 14:17 RSVCE and KJV - Kitsunemitsu
-				//Nerd shit, wataur time. ~TK
-          //Wataur is forbidden. - Yuffels
-					  //Both of you need to be reduced to ash. No more furry shit. - Hangyul
+			//Nerd shit, wataur time. ~TK
+				//Wataur is forbidden. - Yuffels
+					//Both of you need to be reduced to ash. No more furry shit. - Hangyul
 
 /datum/outfit/loadout/cleanser
 	name = "Cleanser"
