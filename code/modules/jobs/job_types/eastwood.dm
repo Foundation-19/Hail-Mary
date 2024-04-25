@@ -151,7 +151,39 @@ Mayor
 		/obj/item/ammo_box/magazine/m45/socom = 2
 	)
 
+/datum/outfit/loadout/clinicdirector
+	name = "Doctor In Chief"
+	backpack_contents = list(
+		/obj/item/clothing/suit/armor/medium/duster/follower = 1,
+		/obj/item/book/granter/trait/midsurgery = 1,
+		/obj/item/storage/belt/medical/surgery_belt_adv = 1,
+		/obj/item/storage/box/medicine/stimpaks/stimpaks5 = 1,
+		/obj/item/clipboard = 1,
+		/obj/item/pen = 1,
+		/obj/item/gun/energy/laser/wattz/magneto = 1,
+		/obj/item/stock_parts/cell/ammo/ec = 2
+	)
 
+/datum/outfit/loadout/richman
+	name = "Nightstalker Of Eastwood"
+	backpack_contents = list(
+		/obj/item/clothing/suit/armor/medium/duster/armoredcoat = 1,
+		/obj/item/stack/f13Cash/caps/twozerozero = 1,
+		/obj/item/gun/ballistic/automatic/pistol/m1911/custom/jackal = 1,
+		/obj/item/ammo_box/magazine/m45 = 2,
+		/obj/item/pda = 1,
+		/obj/item/book/granter/crafting_recipe/blueprint/greasegun = 1,
+		/obj/item/book/granter/crafting_recipe/blueprint/leveraction  = 1
+	)
+
+/datum/outfit/loadout/richman
+	name = "Nightstalker Of Eastwood"
+	backpack_contents = list(
+		/obj/item/clothing/suit/hooded/cloak/hhunter = 1,
+		/obj/item/clothing/under/f13/exile/tribal = 1,
+		/obj/item/twohanded/sledgehammer/warmace = 1,
+		/obj/item/storage/box/medicine/poultice5 = 1
+	)
 /*--------------------------------------------------------------*/
 
 /datum/job/eastwood/f13secretary
