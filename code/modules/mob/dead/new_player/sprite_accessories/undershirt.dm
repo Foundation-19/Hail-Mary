@@ -518,7 +518,7 @@
 
 //Fennis Nipple Additions
 
-/datum/sprite_accessory/underwear/top/nipple_a
+/*/datum/sprite_accessory/underwear/top/nipple_a
 	name = "A-cup nipple"
 	icon_state = "pair_nip_a"
 	has_color = TRUE
@@ -617,7 +617,7 @@
 	has_color = TRUE
 	gender = FEMALE
 	covers_belly = FALSE
-
+*/
 
 
 
