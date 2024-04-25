@@ -104,6 +104,8 @@ SUBSYSTEM_DEF(job)
 		var/datum/job/job = GetJob(rank)
 		if(!job)
 			return FALSE
+		if(job.special_stat_check(player.client?.prefs))
+			return FALSE
 		if(jobban_isbanned(player, rank) || QDELETED(player))
 			return FALSE
 		if(!job.player_old_enough(player.client))
@@ -126,6 +128,9 @@ SUBSYSTEM_DEF(job)
 	JobDebug("Running FOC, Job: [job], Level: [level], Flag: [flag]")
 	var/list/candidates = list()
 	for(var/mob/dead/new_player/player in unassigned)
+		if(job.special_stat_check(player.client?.prefs))
+			JobDebug("FOC special stat failed, player: [player]")
+			continue
 		if(jobban_isbanned(player, job.title) || QDELETED(player))
 			JobDebug("FOC isbanned failed, Player: [player]")
 			continue
@@ -163,6 +168,10 @@ SUBSYSTEM_DEF(job)
 			continue
 
 		if((job.title in GLOB.faction_whitelist_positions) && (CONFIG_GET(flag/use_role_whitelist))) //If you want a whitelist position, get a whitelist and choose it.
+			continue
+
+		if(job.special_stat_check(player.client?.prefs))
+			JobDebug("GRJ special stat failed, player: [player]")
 			continue
 
 		if(jobban_isbanned(player, job.title) || QDELETED(player))
@@ -344,6 +353,10 @@ SUBSYSTEM_DEF(job)
 			// Loop through all jobs
 			for(var/datum/job/job in shuffledoccupations) // SHUFFLE ME BABY
 				if(!job)
+					continue
+
+				if(job.special_stat_check(player.client?.prefs))
+					JobDebug("DO special stat failed, player: [player]")
 					continue
 
 				if(jobban_isbanned(player, job.title))

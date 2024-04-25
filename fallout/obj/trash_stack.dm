@@ -38,7 +38,11 @@
 		//var/itemtypebonus= pickweight(lootable_trash)
 		if(itemtype)
 			to_chat(user, span_notice("You scavenge through [src]."))
-			var/atom/newthing = new itemtype(ST)
+			var/atom/newthing
+			if(ispath(itemtype, /obj/item/stack/f13Cash/random)) // SHITCODE TIME (I can't imagine any clever solution right now at 2 AM) ~Tsuru
+				newthing = new itemtype(ST, null, TRUE, user.get_luck_loot_amt_multiplier())
+			else
+				newthing = new itemtype(ST)
 			//if (prob(10+(user.special_l*3.5)))//SPECIAL Integration
 			//	to_chat(user, span_notice("You get lucky and find even more loot!"))
 			//	var/obj/item/bonusitem = new itemtypebonus(ST)
@@ -113,4 +117,3 @@
 	for(var/i in garbage_list)
 		for(var/ii in i)
 			lootable_trash += ii
-

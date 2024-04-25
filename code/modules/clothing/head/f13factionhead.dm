@@ -64,11 +64,11 @@
 	icon_state = "supafly"
 	item_state = "supafly"
 
-/* /obj/item/clothing/head/helmet/f13/raider/supafly/Initialize() //HQ parts reinforcement
+/obj/item/clothing/head/helmet/f13/raider/supafly/Initialize() //HQ parts reinforcement
 	. = ..()
 	AddComponent(/datum/component/armor_plate)
 
- */
+
 /obj/item/clothing/head/helmet/f13/raider/wastehound
 	name = "wastehound raider helmet"
 	desc = "A sack hood made out of a suspicious leather with tufts of hair sticking out. This mask would make Leatherface proud."
@@ -76,10 +76,10 @@
 	item_state = "raider_wastehound_hood"
 	visor_flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
 
-/* /obj/item/clothing/head/helmet/f13/raider/wastehound/Initialize() //HQ parts reinforcement
+/obj/item/clothing/head/helmet/f13/raider/wastehound/Initialize() //HQ parts reinforcement
 	. = ..()
 	AddComponent(/datum/component/armor_plate)
- */
+
 /obj/item/clothing/head/helmet/f13/raider/arclight
 	name = "arclight raider helmet"
 	desc = "Welding mask with rare polarizing glass thats somehow still in working order. A treasured item in the wasteland."
@@ -89,9 +89,9 @@
 	flash_protect = 2
 	tint = 0.5
 
-/* /obj/item/clothing/head/helmet/f13/raider/arclight/Initialize()
+/obj/item/clothing/head/helmet/f13/raider/arclight/Initialize()
 	. = ..()
-	AddComponent(/datum/component/armor_plate) */
+	AddComponent(/datum/component/armor_plate)
 
 /obj/item/clothing/head/helmet/f13/raider/blastmaster
 	name = "blastmaster raider helmet"
@@ -102,10 +102,10 @@
 	dynamic_hair_suffix = ""
 	dynamic_fhair_suffix = ""
 
-/* /obj/item/clothing/head/helmet/f13/raider/blastmaster/Initialize()
+/obj/item/clothing/head/helmet/f13/raider/blastmaster/Initialize()
 	. = ..()
 	AddComponent(/datum/component/armor_plate)
- */
+
 /obj/item/clothing/head/helmet/f13/raider/yankee
 	name = "yankee raider helmet"
 	desc = "Long time ago, it has belonged to a football player, now it belongs to wasteland."
@@ -113,10 +113,10 @@
 	item_state = "yankee"
 	flags_inv = HIDEEARS|HIDEEYES|HIDEFACE
 
-/* /obj/item/clothing/head/helmet/f13/raider/yankee/Initialize()
+/obj/item/clothing/head/helmet/f13/raider/yankee/Initialize()
 	. = ..()
 	AddComponent(/datum/component/armor_plate)
- */
+
 /obj/item/clothing/head/helmet/f13/raider/eyebot
 	name = "eyebot helmet"
 	desc = "It is a dismantled eyebot, hollowed out to accommodate for a humanoid head."
@@ -129,10 +129,10 @@
 	dynamic_hair_suffix = ""
 	dynamic_fhair_suffix = ""
 
-/* /obj/item/clothing/head/helmet/f13/raider/eyebot/Initialize()
+/obj/item/clothing/head/helmet/f13/raider/eyebot/Initialize()
 	. = ..()
 	AddComponent(/datum/component/armor_plate)
- */
+
 /obj/item/clothing/head/helmet/f13/raider/psychotic
 	name = "psycho-tic raider helmet"
 	desc = "A leather skullcap with tufts of hair sticking from each side."
@@ -141,10 +141,10 @@
 	flags_cover = HEADCOVERSEYES
 	flags_inv = HIDEEARS|HIDEEYES|HIDEHAIR
 
-/* /obj/item/clothing/head/helmet/f13/raider/psychotic/Initialize()
+/obj/item/clothing/head/helmet/f13/raider/psychotic/Initialize()
 	. = ..()
 	AddComponent(/datum/component/armor_plate)
- */
+
 /obj/item/clothing/head/helmet/f13/fiend
 	name = "fiend helmet"
 	desc = "A leather cap cobbled together adorned with a bighorner skull, perfect for any drug-fueled frenzy."
@@ -194,10 +194,10 @@
 	icon_state = "enclave"
 	item_color = "enclave"
 
-/* /obj/item/clothing/head/helmet/soft/f13/enclave/Initialize()
+/obj/item/clothing/head/helmet/soft/f13/enclave/Initialize()
 	. = ..()
 	AddComponent(/datum/component/armor_plate)
- */
+
 /obj/item/clothing/head/f13/enclave/peacekeeper
 	name = "peacekeeper cap"
 	desc = "Reinforced field cap issued to the soldiers of the Enclave."
@@ -246,10 +246,10 @@
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	armor_tokens = list(ARMOR_MODIFIER_UP_DT_T2)
 
-/* /obj/item/clothing/head/helmet/f13/enclave/marine/Initialize()
+/obj/item/clothing/head/helmet/f13/enclave/marine/Initialize()
 	. = ..()
 	AddComponent(/datum/component/armor_plate)
- */
+
 obj/item/clothing/head/helmet/f13/enclave/usmcriot
 	name = "old United States Marine Corp riot helmet"
 	desc = "A pre-war riot armor helmet used by the USCM For various tasks and operations, it's handled the nuclear wasteland somewhat better than the rest of the armors you've seen."
@@ -293,10 +293,10 @@ obj/item/clothing/head/helmet/f13/enclave/usmcriot
 	armor = ARMOR_VALUE_LIGHT
 	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T1)
 
-/* /obj/item/clothing/head/helmet/f13/legion/Initialize()
+/obj/item/clothing/head/helmet/f13/legion/Initialize()
 	. = ..()
 	AddComponent(/datum/component/armor_plate)
- */
+ 
 /obj/item/clothing/head/helmet/f13/legion/marsheaddress
 	name = "priestess' headdress"
 	desc = "A headdress made of feathers and decorated with two golden tassles."
@@ -505,6 +505,10 @@ obj/item/clothing/head/helmet/f13/enclave/usmcriot
 	salvage_loot = list(/obj/item/stack/crafting/armor_plate = 1)
 	armor = ARMOR_VALUE_LIGHT
 	armor_tokens = list(ARMOR_MODIFIER_UP_DT_T1, ARMOR_MODIFIER_UP_BULLET_T1) // The NCR is more tanky, but slower
+
+/obj/item/clothing/head/f13/ncr/Initialize()
+	. = ..()	
+	AddComponent(/datum/component/armor_plate)
 
 /obj/item/clothing/head/f13/ncr/steelpot_goggles
 	name = "NCR storm helmet"

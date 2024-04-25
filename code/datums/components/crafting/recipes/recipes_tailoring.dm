@@ -359,13 +359,14 @@ datum/crafting_recipe/steelbib/heavy
 
 /datum/crafting_recipe/riderw
 	name = "Rider Helmet, Reinforced"
-	result = /obj/item/clothing/head/f13/riderw
+	result = /obj/item/clothing/head/helmet/knight/f13/rider/riderw
 	reqs = list(/obj/item/clothing/head/helmet/knight/f13/rider = 1,
 				/obj/item/stack/crafting/goodparts = 2)
 	tools = list(TOOL_WORKBENCH)
 	time = 60
 	category = CAT_CLOTHING
 	subcategory = CAT_ARMOR
+
 
 //Greaves
 

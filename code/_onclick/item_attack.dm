@@ -82,9 +82,10 @@
  * * damage_multiplier - what to multiply the damage by
  */
 /obj/item/proc/attack(mob/living/M, mob/living/user, attackchain_flags = NONE, damage_multiplier = 1)
-	if(SEND_SIGNAL(src, COMSIG_ITEM_ATTACK, M, user) & COMPONENT_ITEM_NO_ATTACK)
+	var/mob/living/target = M
+	if(SEND_SIGNAL(src, COMSIG_ITEM_ATTACK, target, user) & COMPONENT_ITEM_NO_ATTACK)
 		return
-	SEND_SIGNAL(user, COMSIG_MOB_ITEM_ATTACK, M, user)
+	SEND_SIGNAL(user, COMSIG_MOB_ITEM_ATTACK, target, user)
 	if(item_flags & NOBLUDGEON)
 		return
 	if(force && damtype != STAMINA && HAS_TRAIT(user, TRAIT_PACIFISM))
@@ -124,13 +125,18 @@
 	else if(hitsound)
 		playsound(loc, hitsound, get_clamped_volume(), 1, -1)
 
-	M.lastattacker = user.real_name
-	M.lastattackerckey = user.ckey
+	target.lastattacker = user.real_name
+	target.lastattackerckey = user.ckey
 
-	user.do_attack_animation(M)
-	M.attacked_by(src, user, attackchain_flags, damage_multiplier, damage_addition = force_modifier)
+	user.do_attack_animation(target)
 
-	log_combat(user, M, "attacked", src.name, "(INTENT: [uppertext(user.a_intent)]) (DAMTYPE: [uppertext(damtype)])")
+	if(prob(user.get_luck_critfail_chance())) //S.P.E.C.I.A.L.
+		target = user
+		user.visible_message(span_warning("Critical fail! [user] tries to attack [M], but hits [user.p_them()]self instead!"))
+
+	log_combat(user, M, "attacked", src.name, "(INTENT: [uppertext(user.a_intent)]) (DAMTYPE: [uppertext(damtype)])[M != target ? "(Critfail: hit [target] instead)" : ""]")
+
+	target.attacked_by(src, user, attackchain_flags, damage_multiplier, damage_addition = force_modifier)
 	add_fingerprint(user)
 
 //the equivalent of the standard version of attack() but for object targets.
