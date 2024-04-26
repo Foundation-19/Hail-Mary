@@ -556,6 +556,9 @@
 	item_state = "armor_smithed"
 
 
+/obj/item/clothing/suit/armor/heavy/metal/smithed/legion/Initialize()
+	. = ..()
+	AddComponent(/datum/component/armor_plate)
 // ------------------- HELMETS -----------------------------
 
 /obj/item/clothing/head/helmet/f13/legion

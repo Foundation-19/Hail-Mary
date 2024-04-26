@@ -245,6 +245,7 @@ TOGGLE_CHECKBOX(/datum/verbs/menu/Settings/Sound, toggleradiomusic)()
 	else
 		to_chat(usr, "You will no longer hear sounds played in radios")
 	SSblackbox.record_feedback("nested tally", "preferences_verb", 1, list("Toggle Radio Music", "[usr.client.prefs.toggles & MUSIC_RADIO ? "Enabled" : "Disabled"]")) //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+
 /datum/verbs/menu/Settings/Sound/toggleradiomusic/Get_checked(client/C)
 	return C.prefs.toggles & MUSIC_RADIO
 

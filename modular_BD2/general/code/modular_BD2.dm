@@ -797,8 +797,12 @@ hair_face.dm
 */
 
 /obj/structure/rack/shelf_wood
-	name = "BUGGED VERSION, MURDER"
-	desc = "NO!!!."
+	flags_1 = NODECONSTRUCT_1
+	max_integrity = 50
+
+/obj/structure/rack/shelf_wood/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>It's not made to be easily disassembled.</span>"
 
 // TEMP FOR PORTING AND FUNCTIOANLITY
 
