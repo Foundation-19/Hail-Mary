@@ -3602,6 +3602,13 @@
 	dir = 1;
 	icon_state = "innermaincornerouter"
 	},
+/turf/open/indestructible/ground/outside/sidewalk{
+	dir = 1;
+	icon_state = "outermaincornerouter"
+	},
+/turf/open/indestructible/ground/outside/road{
+	icon_state = "innermaincornerouter - N"
+	},
 /area/f13/wasteland)
 "apK" = (
 /obj/structure/window/fulltile/ruins{
@@ -15164,6 +15171,12 @@
 /turf/open/indestructible/ground/outside/road{
 	icon_state = "innermaincornerouter"
 	},
+/turf/open/indestructible/ground/outside/sidewalk{
+	icon_state = "outermaincornerouter"
+	},
+/turf/open/indestructible/ground/outside/road{
+	icon_state = "innermaincornerouter - S"
+	},
 /area/f13/wasteland)
 "bhc" = (
 /obj/structure/flora/ausbushes/sunnybush,
@@ -20640,6 +20653,19 @@
 	icon_state = "horizontalinnermain2"
 	},
 /area/f13/wasteland)
+"crU" = (
+/turf/open/floor/plating/f13/outside/road{
+	dir = 4;
+	icon_state = "crossborder"
+	},
+/turf/open/indestructible/ground/outside/sidewalk{
+	dir = 4;
+	icon_state = "outerborder"
+	},
+/turf/open/indestructible/ground/outside/sidewalk{
+	icon_state = "verticalleftborderleft0"
+	},
+/area/f13/wasteland)
 "csf" = (
 /obj/structure/decoration/rag,
 /turf/closed/wall/mineral/wood,
@@ -23868,6 +23894,9 @@
 	dir = 4;
 	icon_state = "crossborder"
 	},
+/turf/open/indestructible/ground/outside/sidewalk{
+	icon_state = "verticalleftborderleft0"
+	},
 /area/f13/building)
 "dIq" = (
 /obj/effect/decal/cleanable/dirt,
@@ -24076,6 +24105,13 @@
 /turf/open/indestructible/ground/outside/road{
 	dir = 4;
 	icon_state = "innermaincornerouter"
+	},
+/turf/open/indestructible/ground/outside/sidewalk{
+	icon_state = "outermaincornerouter";
+	dir = 4
+	},
+/turf/open/indestructible/ground/outside/road{
+	icon_state = "innermaincornerouter - E"
 	},
 /area/f13/wasteland)
 "dNY" = (
@@ -24875,6 +24911,13 @@
 /turf/open/indestructible/ground/outside/road{
 	dir = 8;
 	icon_state = "innermaincornerouter"
+	},
+/turf/open/indestructible/ground/outside/sidewalk{
+	dir = 8;
+	icon_state = "outermaincornerouter"
+	},
+/turf/open/indestructible/ground/outside/road{
+	icon_state = "innermaincornerouter - W"
 	},
 /area/f13/wasteland)
 "efb" = (
@@ -27210,6 +27253,17 @@
 	dir = 1;
 	icon_state = "innermaincornerinner"
 	},
+/turf/open/indestructible/ground/outside/sidewalk{
+	icon_state = "outermaincornerinner";
+	dir = 1
+	},
+/turf/open/indestructible/ground/outside/sidewalk{
+	dir = 1;
+	icon_state = "outermaincornerinner"
+	},
+/turf/open/indestructible/ground/outside/road{
+	icon_state = "innermaincornerinner - N"
+	},
 /area/f13/wasteland)
 "eYK" = (
 /obj/structure/reagent_dispensers/barrel/dangerous,
@@ -27732,6 +27786,9 @@
 /turf/open/floor/plating/f13/outside/road{
 	dir = 8;
 	icon_state = "crossborder"
+	},
+/turf/open/indestructible/ground/outside/sidewalk{
+	icon_state = "verticalrightborderright0"
 	},
 /area/f13/wasteland)
 "fkI" = (
@@ -30678,6 +30735,18 @@
 /obj/structure/nest/mirelurk,
 /turf/open/indestructible/ground/outside/water,
 /area/f13/village)
+"gwV" = (
+/turf/open/indestructible/ground/outside/road{
+	icon_state = "verticalinnermainbottom"
+	},
+/turf/open/indestructible/ground/outside/sidewalk{
+	dir = 10;
+	icon_state = "verticaloutermainbottom"
+	},
+/turf/open/indestructible/ground/outside/road{
+	icon_state = "verticalinnermainbottom"
+	},
+/area/f13/wasteland)
 "gxo" = (
 /obj/structure/fence/corner{
 	dir = 8;
@@ -34454,6 +34523,13 @@
 	dir = 4;
 	icon_state = "innermaincornerinner"
 	},
+/turf/open/indestructible/ground/outside/sidewalk{
+	icon_state = "outermaincornerinner";
+	dir = 4
+	},
+/turf/open/indestructible/ground/outside/road{
+	icon_state = "innermaincornerinner - E"
+	},
 /area/f13/wasteland)
 "icq" = (
 /obj/structure/window/fulltile/house{
@@ -36709,6 +36785,18 @@
 /obj/structure/decoration/warning,
 /turf/closed/wall/rust,
 /area/f13/building)
+"iTE" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/indestructible/ground/outside/road{
+	icon_state = "verticalinnermaintop"
+	},
+/turf/open/indestructible/ground/outside/sidewalk{
+	icon_state = "verticaloutermaintop"
+	},
+/turf/open/indestructible/ground/outside/road{
+	icon_state = "verticalinnermaintop"
+	},
+/area/f13/wasteland)
 "iTH" = (
 /obj/structure/rack,
 /obj/item/clothing/under/f13/cowboyb,
@@ -41944,6 +42032,13 @@
 /turf/open/indestructible/ground/outside/road{
 	icon_state = "verticalinnermainbottom"
 	},
+/turf/open/indestructible/ground/outside/sidewalk{
+	dir = 10;
+	icon_state = "verticaloutermainbottom"
+	},
+/turf/open/indestructible/ground/outside/road{
+	icon_state = "verticalinnermainbottom"
+	},
 /area/f13/wasteland)
 "lea" = (
 /obj/structure/car/rubbish1,
@@ -43217,6 +43312,15 @@
 	icon_state = "whitedirtysolid"
 	},
 /area/f13/brotherhood)
+"lGF" = (
+/turf/open/floor/plating/f13/outside/road{
+	dir = 8;
+	icon_state = "crossborder"
+	},
+/turf/open/indestructible/ground/outside/sidewalk{
+	icon_state = "verticalrightborderright2"
+	},
+/area/f13/wasteland)
 "lGG" = (
 /obj/structure/tires/two,
 /obj/effect/decal/cleanable/dirt,
@@ -50237,6 +50341,9 @@
 	dir = 8;
 	icon_state = "crossborder"
 	},
+/turf/open/indestructible/ground/outside/sidewalk{
+	icon_state = "verticalrightborderright0"
+	},
 /area/f13/building)
 "ovV" = (
 /obj/structure/table,
@@ -50969,6 +51076,12 @@
 /obj/structure/wreck/car,
 /turf/open/indestructible/ground/outside/road{
 	icon_state = "verticalrightborderlefttop"
+	},
+/turf/open/indestructible/ground/outside/sidewalk{
+	icon_state = "verticaloutermaintop"
+	},
+/turf/open/indestructible/ground/outside/road{
+	icon_state = "verticalinnermaintop"
 	},
 /area/f13/wasteland)
 "oLv" = (
@@ -56647,6 +56760,12 @@
 /turf/open/indestructible/ground/outside/road{
 	icon_state = "verticalrightborderlefttop"
 	},
+/turf/open/indestructible/ground/outside/sidewalk{
+	icon_state = "verticaloutermaintop"
+	},
+/turf/open/indestructible/ground/outside/road{
+	icon_state = "verticalinnermaintop"
+	},
 /area/f13/wasteland)
 "rcv" = (
 /obj/item/phone,
@@ -58674,6 +58793,17 @@
 	dir = 4;
 	icon_state = "innermaincornerinner"
 	},
+/turf/open/indestructible/ground/outside/sidewalk{
+	dir = 4;
+	icon_state = "outermaincornerinner"
+	},
+/turf/open/indestructible/ground/outside/sidewalk{
+	icon_state = "outermaincornerinner";
+	dir = 4
+	},
+/turf/open/indestructible/ground/outside/road{
+	icon_state = "innermaincornerinner - E"
+	},
 /area/f13/wasteland)
 "rYd" = (
 /obj/structure/flora/rock/pile/largejungle,
@@ -59820,6 +59950,13 @@
 	dir = 8;
 	icon_state = "innermaincornerinner"
 	},
+/turf/open/indestructible/ground/outside/sidewalk{
+	dir = 8;
+	icon_state = "outermaincornerinner"
+	},
+/turf/open/indestructible/ground/outside/road{
+	icon_state = "innermaincornerinner - W"
+	},
 /area/f13/wasteland)
 "szi" = (
 /obj/effect/decal/cleanable/dirt,
@@ -59835,6 +59972,12 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/indestructible/ground/outside/road{
 	icon_state = "verticalrightborderlefttop"
+	},
+/turf/open/indestructible/ground/outside/sidewalk{
+	icon_state = "verticaloutermaintop"
+	},
+/turf/open/indestructible/ground/outside/road{
+	icon_state = "verticalinnermaintop"
 	},
 /area/f13/wasteland)
 "szs" = (
@@ -60739,6 +60882,12 @@
 /turf/open/indestructible/ground/outside/road{
 	icon_state = "innermaincornerinner"
 	},
+/turf/open/indestructible/ground/outside/sidewalk{
+	icon_state = "outermaincornerinner"
+	},
+/turf/open/indestructible/ground/outside/road{
+	icon_state = "innermaincornerinner - S"
+	},
 /area/f13/wasteland)
 "sVL" = (
 /obj/effect/turf_decal/gravel_edge{
@@ -61050,6 +61199,15 @@
 /turf/open/indestructible/ground/outside/sidewalk{
 	dir = 1;
 	icon_state = "outerborder"
+	},
+/area/f13/wasteland)
+"tcn" = (
+/turf/open/floor/plating/f13/outside/road{
+	dir = 4;
+	icon_state = "crossborder"
+	},
+/turf/open/indestructible/ground/outside/sidewalk{
+	icon_state = "verticalleftborderleft0"
 	},
 /area/f13/wasteland)
 "tcr" = (
@@ -62186,6 +62344,12 @@
 /turf/open/indestructible/ground/outside/road{
 	icon_state = "innermaincornerinner"
 	},
+/turf/open/indestructible/ground/outside/sidewalk{
+	icon_state = "outermaincornerinner"
+	},
+/turf/open/indestructible/ground/outside/road{
+	icon_state = "innermaincornerinner - S"
+	},
 /area/f13/wasteland)
 "tAq" = (
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -62729,6 +62893,13 @@
 /turf/open/indestructible/ground/outside/road{
 	dir = 4;
 	icon_state = "innermaincornerinner"
+	},
+/turf/open/indestructible/ground/outside/sidewalk{
+	dir = 4;
+	icon_state = "outermaincornerinner"
+	},
+/turf/open/indestructible/ground/outside/road{
+	icon_state = "innermaincornerinner - E"
 	},
 /area/f13/wasteland)
 "tJr" = (
@@ -64609,6 +64780,20 @@
 	},
 /turf/open/floor/f13/wood,
 /area/f13/building/mall)
+"uzP" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/indestructible/ground/outside/road{
+	dir = 1;
+	icon_state = "innermaincornerinner"
+	},
+/turf/open/indestructible/ground/outside/sidewalk{
+	icon_state = "outermaincornerinner";
+	dir = 1
+	},
+/turf/open/indestructible/ground/outside/road{
+	icon_state = "innermaincornerinner - N"
+	},
+/area/f13/wasteland)
 "uzS" = (
 /obj/structure/wreck/trash/secway,
 /obj/machinery/light/broken{
@@ -65027,6 +65212,13 @@
 /area/f13/building)
 "uIj" = (
 /obj/structure/car/rubbish1,
+/turf/open/indestructible/ground/outside/road{
+	icon_state = "verticalinnermainbottom"
+	},
+/turf/open/indestructible/ground/outside/sidewalk{
+	dir = 10;
+	icon_state = "verticaloutermainbottom"
+	},
 /turf/open/indestructible/ground/outside/road{
 	icon_state = "verticalinnermainbottom"
 	},
@@ -65827,6 +66019,9 @@
 	dir = 4;
 	icon_state = "crossborder"
 	},
+/turf/open/indestructible/ground/outside/sidewalk{
+	icon_state = "verticalleftborderleft1"
+	},
 /area/f13/wasteland)
 "uZi" = (
 /turf/open/floor/plasteel/f13/vault_floor/floor,
@@ -66372,6 +66567,15 @@
 	icon_state = "verticaloutermain2top"
 	},
 /area/f13/wasteland)
+"vlR" = (
+/turf/open/floor/plating/f13/outside/road{
+	dir = 4;
+	icon_state = "crossborder"
+	},
+/turf/open/indestructible/ground/outside/sidewalk{
+	icon_state = "verticalleftborderleft2"
+	},
+/area/f13/wasteland)
 "vmf" = (
 /obj/structure/flora/grass/jungle,
 /turf/open/indestructible/ground/outside/dirt{
@@ -66848,6 +67052,9 @@
 /turf/open/indestructible/ground/outside/road{
 	dir = 8;
 	icon_state = "innermaincornerinner"
+	},
+/turf/open/indestructible/ground/outside/road{
+	icon_state = "hole"
 	},
 /area/f13/wasteland)
 "vwt" = (
@@ -68730,6 +68937,12 @@
 /turf/open/indestructible/ground/outside/road{
 	icon_state = "verticalinnermaintop"
 	},
+/turf/open/indestructible/ground/outside/sidewalk{
+	icon_state = "verticaloutermaintop"
+	},
+/turf/open/indestructible/ground/outside/road{
+	icon_state = "verticalinnermaintop"
+	},
 /area/f13/wasteland)
 "wmQ" = (
 /obj/structure/closet/crate/bin/trashbin,
@@ -69677,6 +69890,12 @@
 /turf/open/indestructible/ground/outside/road{
 	icon_state = "innermaincornerinner"
 	},
+/turf/open/indestructible/ground/outside/sidewalk{
+	icon_state = "outermaincornerinner"
+	},
+/turf/open/indestructible/ground/outside/road{
+	icon_state = "innermaincornerinner - S"
+	},
 /area/f13/wasteland)
 "wHm" = (
 /obj/structure/lamp_post/doubles/bent,
@@ -70226,6 +70445,17 @@
 	icon_state = "redmark"
 	},
 /area/f13/city)
+"wTv" = (
+/turf/open/indestructible/ground/outside/road{
+	icon_state = "verticalinnermaintop"
+	},
+/turf/open/indestructible/ground/outside/sidewalk{
+	icon_state = "verticaloutermaintop"
+	},
+/turf/open/indestructible/ground/outside/road{
+	icon_state = "verticalinnermaintop"
+	},
+/area/f13/wasteland)
 "wTN" = (
 /obj/effect/decal/cleanable/dirt{
 	color = "#363636"
@@ -73573,6 +73803,19 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/f13/vault_floor/floor,
 /area/f13/building)
+"ymg" = (
+/turf/open/indestructible/ground/outside/road{
+	dir = 8;
+	icon_state = "innermaincornerinner"
+	},
+/turf/open/indestructible/ground/outside/sidewalk{
+	dir = 8;
+	icon_state = "outermaincornerinner"
+	},
+/turf/open/indestructible/ground/outside/road{
+	icon_state = "innermaincornerinner - W"
+	},
+/area/f13/wasteland)
 
 (1,1,1) = {"
 aaa
@@ -80325,7 +80568,7 @@ eEW
 aXy
 hoM
 eEW
-uZd
+vlR
 ojt
 mHp
 mGE
@@ -81353,7 +81596,7 @@ ycL
 cmV
 cly
 qhx
-fkb
+lGF
 eex
 mHp
 qmZ
@@ -111013,7 +111256,7 @@ iZS
 iTl
 pKY
 skm
-uZd
+tcn
 skm
 skm
 skm
@@ -111021,7 +111264,7 @@ skm
 skm
 skm
 skm
-uZd
+tcn
 qvj
 tws
 kDp
@@ -120474,7 +120717,7 @@ mHp
 nvn
 buC
 pKY
-uZd
+crU
 skm
 hoM
 eEW
@@ -125787,7 +126030,7 @@ aQZ
 mHp
 bxV
 uNJ
-cRP
+gwV
 hHj
 eeK
 rXX
@@ -126047,7 +126290,7 @@ pWU
 syW
 dNL
 sZT
-aKV
+wTv
 mGE
 igF
 sfu
@@ -126302,7 +126545,7 @@ tws
 uNJ
 mGE
 qmG
-vvX
+ymg
 oVg
 eYJ
 mGE
@@ -130505,7 +130748,7 @@ eNJ
 oUF
 bgT
 wjW
-eYJ
+uzP
 ayn
 hEG
 abP
@@ -130760,7 +131003,7 @@ cjI
 aOk
 aOk
 eBH
-iZI
+iTE
 qmG
 ppw
 oXi
@@ -131017,7 +131260,7 @@ bcM
 aGR
 aGR
 eBH
-aKV
+wTv
 ppw
 bMM
 igF
@@ -131531,7 +131774,7 @@ fJC
 aGR
 aGR
 eBH
-aKV
+wTv
 bMM
 bMM
 igF
