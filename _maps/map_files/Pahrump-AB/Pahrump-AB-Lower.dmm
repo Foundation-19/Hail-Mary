@@ -8890,9 +8890,6 @@
 /obj/effect/spawner/lootdrop/f13/weapon/gun/energy/low,
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/radiation)
-"eWv" = (
-/turf/closed/indestructible/rock,
-/area/f13/tunnel)
 "eWD" = (
 /obj/effect/decal/cleanable/blood/old{
 	icon_state = "gib2-old"
@@ -78204,7 +78201,7 @@ aae
 aae
 aae
 aae
-eWv
+aaa
 bsC
 nXt
 nXt
@@ -78461,7 +78458,7 @@ aae
 aae
 aae
 aae
-agO
+aaa
 bsC
 bKb
 bKb
@@ -78718,7 +78715,7 @@ aae
 aae
 aae
 aae
-sUF
+aaa
 bsC
 bKb
 bKb
