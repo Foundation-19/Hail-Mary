@@ -67980,6 +67980,16 @@
 	icon_state = "rubbleplate"
 	},
 /area/f13/building/mall)
+"vWd" = (
+/obj/item/record_disk{
+	desc = "Get rid of this";
+	name = "Cursed Track";
+	R = /datum/track/cursed
+	},
+/turf/open/indestructible/ground/outside/road{
+	icon_state = "horizontalbottombordertop0"
+	},
+/area/f13/wasteland)
 "vWh" = (
 /obj/structure/weightlifter,
 /turf/open/indestructible/ground/outside/dirt,
@@ -96093,7 +96103,7 @@ vSc
 aQZ
 mHp
 pjF
-igF
+vWd
 eJO
 anR
 kls

@@ -453,12 +453,11 @@
 	radio_music_file = music_filepath
 
 	var/atom/loc_layer = loc
-	while(istype(loc_layer, /atom/movable))
+	if(istype(loc_layer, /atom/movable))
 		if(!istype(loc_layer, /mob/living))
 			loc_layer = loc_layer.loc
 		else
 			radio_holder = loc_layer
-			break
 	if(!loc_layer) //if loc is null then this proc doesn't need to continue
 		return
 	if(!istype(loc_layer, /mob/living)) //doesn't need to continue if not on a mob
