@@ -226,6 +226,11 @@
 	path = /obj/item/clothing/head/f13/pot
 	cost = 4
 
+/datum/gear/head/outlaw_bandana
+	name = "Outlaw bandana"
+	path = /obj/item/clothing/head/helmet/f13/khan/bandana
+	cost = 2
+
 //POLICE
 
 /datum/gear/head/police
@@ -428,10 +433,6 @@
 /datum/gear/head/khan/khan_furtrimmed
 	name = "Great Khan fur-trimmed helmet"
 	path = /obj/item/clothing/head/helmet/f13/khan/pelt
-
-/datum/gear/head/khan/khan_bandana
-	name = "Outlaw bandana"
-	path = /obj/item/clothing/head/helmet/f13/khan/bandana
 
 /datum/gear/head/oasishelmet
 	name = "light security helmet"
