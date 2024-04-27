@@ -50078,12 +50078,15 @@
 /area/f13/village)
 "osV" = (
 /obj/structure/table/wood/fancy/black,
-/obj/item/record_disk,
-/obj/item/record_disk,
-/obj/item/record_disk,
-/obj/item/record_disk,
-/obj/item/record_disk,
-/obj/item/record_disk,
+/obj/item/record_disk{
+	R = /datum/track/Jailhouse
+	},
+/obj/item/record_disk{
+	R = /datum/track/Amore
+	},
+/obj/item/record_disk{
+	R = /datum/track/Sixteen
+	},
 /turf/open/floor/light/colour_cycle/dancefloor_b,
 /area/f13/city)
 "osY" = (

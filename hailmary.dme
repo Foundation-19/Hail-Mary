@@ -3873,6 +3873,7 @@
 #include "modular_BD2\blacksmith\code\smithed_items.dm"
 #include "modular_BD2\general\code\modular_BD2.dm"
 #include "modular_BD2\legio_invicta\code\legio_invicta.dm"
+#include "modular_big-iron\code\game\tracks.dm"
 #include "modular_big-iron\code\game\machinery\radio_station.dm"
 #include "modular_big-iron\code\game\objects\circuitboards\radio_station.dm"
 // END_INCLUDE
