@@ -317,9 +317,7 @@
 #define TRAIT_CYBERNETICIST		"Cyberneticist" //Utilizes powerful cybernetics
 #define TRAIT_CYBERNETICIST_EXPERT	"Cyberneticist Expert" //Can augument people into robots directly
 #define TRAIT_MACHINE_SPIRITS	"machine_spirits" //for tribe unique functions.
-/*
 #define TRAIT_HARD_YARDS        "hard_yards" //trekking, removes slowdown on all tiles
-*/
 #define	TRAIT_SOFT_YARDS		"soft_yards" //lesser trekking
 #define	TRAIT_SLUG				"slow" //You're a little slow. On your feet, at least.
 #define	TRAIT_SLOWAF			"slower" //Damn boi how'd you even get here, you're slow as SHIT off road
