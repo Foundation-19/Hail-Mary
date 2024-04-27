@@ -544,7 +544,7 @@
 			emped = TRUE
 			slowdown += induced_slowdown
 			L.update_equipment_speed_mods()
-			addtimer(CALLBACK(src, .proc/end_emp_effect, induced_slowdown), 50)
+			addtimer(CALLBACK(src, PROC_REF(end_emp_effect), induced_slowdown), 50)
 	return
 
 /obj/item/clothing/suit/armor/power_armor/proc/end_emp_effect(slowdown_induced)
@@ -862,7 +862,7 @@
 	armor = list("melee" = 27, "bullet" = 60, "laser" = 27, "energy" = 35, "bomb" = 50, "bio" = 40, "rad" = 10, "fire" = 60, "acid" = 10, "wound" = 50)
 	strip_delay = 70
 	equip_delay_other = 50
-	mutantrace_variation = STYLE_DIGITIGRADE|STYLE_NO_ANTHRO_ICON
+	mutantrace_variation = STYLE_DIGITIGRADE
 	slowdown = 0.05
 
 /obj/item/clothing/suit/armor/light/tribal/bone/cool

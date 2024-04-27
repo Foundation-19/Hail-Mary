@@ -100,7 +100,7 @@ also be like that but I can't be arsed to go back and change them all*/
 #define ACCESS_COMMAND		130	//general command access
 #define ACCESS_TRIBE		131	//general tribe access
 #define ACCESS_NCROFFDUTY	132 //general NCR access
-#define ACCESS_CLINIC		133 //Oasis clinic access
+#define ACCESS_CLINIC		133 //Eastwood clinic access
 #define ACCESS_ENCLAVE 		134 //enclave minibunker
 #define ACCESS_BIKER 		135 //general not-khan cowbikers
 	//The Syndicate
@@ -142,3 +142,4 @@ also be like that but I can't be arsed to go back and change them all*/
 #define ACCESS_TOWN_HOS 282
 #define ACCESS_TOWN_CMO 287
 #define ACCESS_TOWN_COMMAND 283
+#define ACCESS_TOWN_RADIO 284

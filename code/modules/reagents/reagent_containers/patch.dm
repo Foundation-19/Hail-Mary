@@ -17,8 +17,8 @@
 		if(!affecting)
 			to_chat(user, span_warning("The limb is missing!"))
 			return
-		if(!L.can_inject(user, TRUE, user.zone_selected, FALSE, TRUE)) //stopped by clothing, not by species immunity.
-			return
+		//if(!L.can_inject(user, TRUE, user.zone_selected, FALSE, TRUE)) //stopped by clothing, not by species immunity.
+			//return
 		if(affecting.status != BODYPART_ORGANIC)
 			to_chat(user, span_notice("Medicine won't work on a robotic limb!"))
 			return
@@ -124,20 +124,8 @@
 	desc = "A strong herbal healing concoction invented and created by the Twin Mothers tribe."
 	icon = 'icons/fallout/objects/medicine/drugs.dmi'
 	icon_state = "patch_bitterdrink"
-	list_reagents = list(/datum/reagent/medicine/healing_powder = 5, /datum/reagent/medicine/bicaridine = 5, /datum/reagent/medicine/kelotane = 5) 
+	list_reagents = list(/datum/reagent/medicine/bitter_drink = 5, /datum/reagent/medicine/bicaridine = 5, /datum/reagent/medicine/kelotane = 5) 
 	self_delay = 5
-
-// ---------------------------------
-// HYDRA - never a thing, make it something. Sprites done.
-
-/* /obj/item/reagent_containers/pill/patch/hydra
-	name = "Hydra"
-	desc = "Hydra is a drug developed from antivenom. Due to the Legion's disapproval of using modern medicine, some Legionaries attempted to develop a different means to help them heal damaged limbs. To do that, they combined cave fungus, nightstalker blood and the poison from a radscorpion poison gland with antivenom before use. This resulted in the development of Hydra, a curative agent that both anesthetizes and restores crippled limbs over time."
-	icon = 'icons/fallout/objects/medicine/drugs.dmi'
-	icon_state = "patch_hydra"
-	list_reagents = null
-	self_delay = 0
- */
 
 /obj/item/reagent_containers/pill/patch/random
 	name = "randomized patch"
@@ -149,3 +137,14 @@
 	var/patch_name = pick("candy", "fun", "discarded", "forgotten", "old", "ancient", "random", "unknown", "strange", "abandoned", "hobo", "trash", "forsaken", "alluring", "peculiar", "anomalous", "unfamiliar", "odd", "funny", "tasty", "neglected", "mysterious", "strange")
 	name = "[patch_name] patch"
 	. = ..()
+
+// ---------------------------------
+// HYDRA - now a thing. KYS furries.
+
+/obj/item/reagent_containers/pill/patch/hydra
+	name = "Hydra"
+	desc = "A potent blend of herbs and plants used by Tribals and Legionnaires alike to quickly close wounds."
+	icon = 'icons/fallout/objects/medicine/drugs.dmi'
+	icon_state = "patch_hydra"
+	list_reagents = list(/datum/reagent/medicine/hydra = 20)
+	self_delay = 0

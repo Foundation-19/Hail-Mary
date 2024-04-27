@@ -122,7 +122,6 @@
 			if(!backpack_contents)
 				backpack_contents = list()
 			backpack_contents.Insert(1, box_two)
-			backpack_contents[box] = 1
 
 		if(backpack_contents)
 			for(var/path in backpack_contents)

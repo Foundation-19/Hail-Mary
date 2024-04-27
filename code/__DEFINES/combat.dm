@@ -102,8 +102,8 @@
 #define CANSTAGGER		(1<<5)
 
 //Health Defines
-#define HEALTH_THRESHOLD_CRIT -50
-#define HEALTH_THRESHOLD_FULLCRIT -75
+#define HEALTH_THRESHOLD_CRIT 0
+#define HEALTH_THRESHOLD_FULLCRIT -30
 #define HEALTH_THRESHOLD_DEAD -100
 
 //Actual combat defines
@@ -693,7 +693,7 @@ GLOBAL_LIST_INIT(main_body_parts, list(
 #define RUBBERY_RECOIL_RIFLE_GAUSS (BULLET_RECOIL_RIFLE_GAUSS * RUBBERY_RECOIL_MULT)
 #define RUBBERY_WOUND_RIFLE_GAUSS (BULLET_WOUND_RIFLE_GAUSS * 2)
 
-#define BULLET_DAMAGE_SHOTGUN_PELLET 15
+#define BULLET_DAMAGE_SHOTGUN_PELLET 10
 #define BULLET_DAMAGE_RATSHOT_PELLET 6 //six divides easily into the 36 damage of .357, and 60 damage of .45-70
 #define BULLET_DAMAGE_SHOTGUN_PELLET_HANDLOAD (BULLET_DAMAGE_SHOTGUN_PELLET * BULLET_HANDLOAD_MULT_DAMAGE)
 #define BULLET_DAMAGE_SHOTGUN_PELLET_MATCH (BULLET_DAMAGE_SHOTGUN_PELLET * BULLET_MATCH_MULT_DAMAGE)
@@ -713,7 +713,7 @@ GLOBAL_LIST_INIT(main_body_parts, list(
 #define RUBBERY_RECOIL_SHOTGUN_PELLET (BULLET_RECOIL_SHOTGUN_PELLET * RUBBERY_RECOIL_MULT)
 #define RUBBERY_WOUND_SHOTGUN_PELLET (BULLET_WOUND_SHOTGUN_PELLET * 2)
 
-#define BULLET_DAMAGE_SHOTGUN_SLUG 60
+#define BULLET_DAMAGE_SHOTGUN_SLUG 50
 #define BULLET_DAMAGE_SHOTGUN_SLUG_HANDLOAD (BULLET_DAMAGE_SHOTGUN_SLUG * BULLET_HANDLOAD_MULT_DAMAGE)
 #define BULLET_DAMAGE_SHOTGUN_SLUG_MATCH (BULLET_DAMAGE_SHOTGUN_SLUG * BULLET_MATCH_MULT_DAMAGE)
 #define BULLET_STAMINA_SHOTGUN_SLUG (BULLET_DAMAGE_SHOTGUN_SLUG * 0.5)
@@ -906,20 +906,20 @@ GLOBAL_LIST_INIT(main_body_parts, list(
 #define BULLET_FALLOFF_MIN_DAMAGE 3
 
 /// Shotgun pellet count defines
-#define SHOTGUN_PELLET_BASE 10
-#define SHOTGUN_PELLET_IMPROVISED 8
+#define SHOTGUN_PELLET_BASE 8
+#define SHOTGUN_PELLET_IMPROVISED 6
 
 /// Shotgun pellet spread defines
-#define SHOTGUN_SPREAD_BASE 18
-#define SHOTGUN_SPREAD_IMPROVISED 25
+#define SHOTGUN_SPREAD_BASE 25
+#define SHOTGUN_SPREAD_IMPROVISED 18
 
 /// Bullet spread modifier defines
-#define BULLET_SPREAD_BASE 2 // Base spread added from 'quality' ammo
+#define BULLET_SPREAD_BASE 4 // Base spread added from 'quality' ammo
 
 /// Bullet spread modifier defines
 #define BULLET_SPREAD_MATCH 0 // No extra spread~
-#define BULLET_SPREAD_SURPLUS (BULLET_SPREAD_BASE) // Base spread
-#define BULLET_SPREAD_HANDLOAD (BULLET_SPREAD_BASE * 2) // More spread!
+#define BULLET_SPREAD_SURPLUS (BULLET_SPREAD_BASE * 2) // More spread!
+#define BULLET_SPREAD_HANDLOAD (BULLET_SPREAD_BASE * 4) // Even more spread!
 
 /// Bullet wound falloff defines
 #define BULLET_WOUND_FALLOFF_PISTOL_LIGHT 0
@@ -982,7 +982,7 @@ GLOBAL_LIST_INIT(main_body_parts, list(
 #define GUN_FIREMODE_AUTO 3
 
 /// Max spread recoil can add
-#define GUN_RECOIL_MAX_SPREAD 30
+#define GUN_RECOIL_MAX_SPREAD 50
 
 /// Sawed-off recoil modifier
 #define SAWEDOFF_RECOIL_MULT 2
@@ -991,13 +991,13 @@ GLOBAL_LIST_INIT(main_body_parts, list(
 #define HOBO_RECOIL_MULT 2
 
 // Gun Akimbo Spread modifier
-#define GUN_AKIMBO_RECOIL_MOD 2
+#define GUN_AKIMBO_RECOIL_MOD 4
 
 // If their other hand is full, multiply recoil by this much
 #define GUN_FULL_OTHER_HAND_RECOIL_MOD 2
 
 // Global recoil modifier
-#define GUN_RECOIL_GLOBAL_MULT 0.75
+#define GUN_RECOIL_GLOBAL_MULT 1
 
 /// Gun recoil modifier per shot defines
 #define GUN_RECOIL_NONE (GUN_RECOIL_GLOBAL_MULT * 0.1)

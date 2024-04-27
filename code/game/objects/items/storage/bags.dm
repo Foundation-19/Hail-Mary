@@ -110,7 +110,7 @@
 		return
 	if(listeningTo)
 		UnregisterSignal(listeningTo, COMSIG_MOVABLE_MOVED)
-	RegisterSignal(user, COMSIG_MOVABLE_MOVED, .proc/Pickup_ores)
+	RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(Pickup_ores))
 	listeningTo = user
 
 /obj/item/storage/bag/ore/dropped(mob/user)
@@ -354,6 +354,7 @@
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bag"
 	desc = "A bag for holding a variety of medical supplies."
+	slot_flags = ITEM_SLOT_BELT|ITEM_SLOT_POCKET
 	resistance_flags = FLAMMABLE
 	component_type = /datum/component/storage/concrete/bag/chem_med_etc
 
@@ -467,7 +468,7 @@ obj/item/storage/bag/chemistry/tribal
 		return
 	if(listeningTo)
 		UnregisterSignal(listeningTo, COMSIG_MOVABLE_MOVED)
-	RegisterSignal(user, COMSIG_MOVABLE_MOVED, .proc/Pickup_casings)
+	RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(Pickup_casings))
 	listeningTo = user
 
 

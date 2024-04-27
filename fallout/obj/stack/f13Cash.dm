@@ -9,31 +9,24 @@
 /* value of coins to spawn, use as-is for caps */
 /* LOW_MIN / AUR = amount in AUR */
 
-// A low value cash spawn is on average worth 25
-#define LOW_MIN 7
-#define LOW_MAX 19
+/// Average amount of caps spawned from trash pile
+#define AVG_BASE 13 / CASH_CAP
 
-// A medium value cash spawn is on average worth 60ish
-#define MED_MIN 20
-#define MED_MAX 35
+// A low value cash spawn
+#define CASH_MULT_LOW 1
 
+// A medium value cash spawn
+#define CASH_MULT_MED 2.1
 
-// A high value cash spawn is on average worth 280
-#define HIGH_MIN 36
-#define HIGH_MAX 45
+// A high value cash spawn
+#define CASH_MULT_HIGH 3.1
 
-
-// Bad Pebbles fix to NCR money fudgery
-#define TEMP3_MIN 0
-#define TEMP3_MAX 0
-#define TEMP_MIN 0
-#define TEMP_MAX 0
-#define TEMP2_MIN 0
-#define TEMP2_MAX 0
+/// round(AVG * CASH_MULT) +- AVG_SPREAD
+#define AVG_SPEAD 6 / CASH_CAP
 
 // The Bankers Vault-Stash, done like this make it so it only spawns on his person to stop metarushing. Average 8500.
-#define BANKER_MIN 2000
-#define BANKER_MAX 15000
+#define AVG_BANKER 8500 / CASH_CAP
+#define BANKER_SPREAD 6500 / CASH_CAP
 
 /obj/item/stack/f13Cash //DO NOT USE THIS
 	name = "bottle cap"
@@ -141,20 +134,25 @@
 
 /obj/item/stack/f13Cash/random
 	var/money_type = /obj/item/stack/f13Cash/caps
-	var/min_qty = LOW_MIN
-	var/max_qty = LOW_MAX
+	var/average_qty = AVG_BASE
+	var/average_spread = AVG_SPEAD
+	var/average_mult = CASH_MULT_LOW
 	var/spawn_nothing_chance = 0 //chance no money at all spawns
 
-/obj/item/stack/f13Cash/random/Initialize()
+/obj/item/stack/f13Cash/random/Initialize(mapload, new_amount, merge = TRUE, amt_multiplier = 0) //S.P.E.C.I.A.L.
 	..()
+	amt_multiplier = max(amt_multiplier, 0)
+	if(amt_multiplier)
+		average_mult *= amt_multiplier
 	if(!prob(spawn_nothing_chance))
 		spawn_money()
 	return INITIALIZE_HINT_QDEL
 
 /obj/item/stack/f13Cash/random/proc/spawn_money()
+	var/spawn_amount = round(average_qty * average_mult)
 	var/obj/item/stack/f13Cash/stack = new money_type
 	stack.loc = loc
-	stack.amount = round(rand(min_qty, max_qty))
+	stack.amount = round(rand(round(spawn_amount - average_spread), round(spawn_amount + average_spread)))
 	stack.update_icon()
 
 /* we have 6 icons, so we will use our own, instead of stack's   */
@@ -174,8 +172,7 @@
 			icon_state = "[initial(icon_state)]6"
 
 /obj/item/stack/f13Cash/random/low
-	min_qty = LOW_MIN / CASH_CAP
-	max_qty = LOW_MAX / CASH_CAP
+	average_mult = CASH_MULT_LOW
 
 /obj/item/stack/f13Cash/random/low/lowchance
 	spawn_nothing_chance = 75
@@ -184,16 +181,14 @@
 	spawn_nothing_chance = 50
 
 /obj/item/stack/f13Cash/random/med
-	min_qty = MED_MIN / CASH_CAP
-	max_qty = MED_MAX / CASH_CAP
+	average_mult = CASH_MULT_MED
 
 /obj/item/stack/f13Cash/random/high
-	min_qty = HIGH_MIN / CASH_CAP
-	max_qty = HIGH_MAX / CASH_CAP
+	average_mult = CASH_MULT_HIGH
 
 /obj/item/stack/f13Cash/random/banker
-	min_qty = BANKER_MIN / CASH_CAP
-	max_qty = BANKER_MAX / CASH_CAP
+	average_qty = AVG_BANKER
+	average_spread = BANKER_SPREAD
 
 /obj/item/stack/f13Cash/denarius
 	name = "Denarius"
@@ -208,31 +203,27 @@
 	merge_type = /obj/item/stack/f13Cash/denarius
 
 /obj/item/stack/f13Cash/random/denarius
+	average_qty = AVG_BASE / CASH_DEN
+	average_spread = AVG_SPEAD / CASH_DEN
 	money_type = /obj/item/stack/f13Cash/denarius
 
 /obj/item/stack/f13Cash/random/denarius/low
-	min_qty = LOW_MIN / CASH_DEN
-	max_qty = LOW_MAX / CASH_DEN
+	average_mult = CASH_MULT_LOW
 
 /obj/item/stack/f13Cash/random/denarius/med
-	min_qty = MED_MIN / CASH_DEN
-	max_qty = MED_MAX / CASH_DEN
+	average_mult = CASH_MULT_MED
 
 /obj/item/stack/f13Cash/random/denarius/high
-	min_qty = HIGH_MIN / CASH_DEN
-	max_qty = HIGH_MAX / CASH_DEN
+	average_mult = CASH_MULT_HIGH
 
 /obj/item/stack/f13Cash/random/denarius/legionpay_basic
-	min_qty = LOW_MIN / CASH_DEN
-	max_qty = LOW_MAX / CASH_DEN
+	average_mult = CASH_MULT_LOW
 
 /obj/item/stack/f13Cash/random/denarius/legionpay_veteran
-	min_qty = MED_MIN / CASH_DEN
-	max_qty = MED_MAX / CASH_DEN
+	average_mult = CASH_MULT_MED
 
 /obj/item/stack/f13Cash/random/denarius/legionpay_officer
-	min_qty = HIGH_MIN / CASH_DEN
-	max_qty = HIGH_MAX / CASH_DEN
+	average_mult = CASH_MULT_HIGH
 
 /obj/item/stack/f13Cash/aureus
 	name = "Aureus"
@@ -247,19 +238,15 @@
 	merge_type = /obj/item/stack/f13Cash/aureus
 
 /obj/item/stack/f13Cash/random/aureus
+	average_qty = 0
+	average_spread = 0
 	money_type = /obj/item/stack/f13Cash/aureus
 
 /obj/item/stack/f13Cash/random/aureus/low
-	min_qty = 0
-	max_qty = 0
 
 /obj/item/stack/f13Cash/random/aureus/med
-	min_qty = 0
-	max_qty = 0
 
 /obj/item/stack/f13Cash/random/aureus/high
-	min_qty = 0
-	max_qty = 0 //uses flat values because aurei are worth so much
 
 /obj/item/stack/f13Cash/ncr
 	name = "NCR Dollar"
@@ -290,30 +277,29 @@
 
 /obj/item/stack/f13Cash/random/ncr
 	money_type = /obj/item/stack/f13Cash/ncr
+	average_qty = AVG_BASE / CASH_NCR
+	average_spread = AVG_SPEAD / CASH_NCR
 
 /obj/item/stack/f13Cash/random/ncr/low
-	min_qty = TEMP3_MIN / CASH_NCR
-	max_qty = TEMP3_MAX / CASH_NCR
+	average_qty = 0
+	average_spread = 0
 
 /obj/item/stack/f13Cash/random/ncr/med
-	min_qty = TEMP_MIN / CASH_NCR
-	max_qty = TEMP_MAX / CASH_NCR
+	average_qty = 0
+	average_spread = 0
 
 /obj/item/stack/f13Cash/random/ncr/high
-	min_qty = TEMP2_MIN / CASH_NCR
-	max_qty = TEMP2_MAX / CASH_NCR
+	average_qty = 0
+	average_spread = 0
 
 /obj/item/stack/f13Cash/random/ncr/ncrpay_basic
-	min_qty = LOW_MIN / CASH_NCR
-	max_qty = LOW_MAX / CASH_NCR
+	average_mult = CASH_MULT_LOW
 
 /obj/item/stack/f13Cash/random/ncr/ncrpay_veteran
-	min_qty = MED_MIN / CASH_NCR
-	max_qty = MED_MAX / CASH_NCR
+	average_mult = CASH_MULT_MED
 
 /obj/item/stack/f13Cash/random/ncr/ncrpay_officer
-	min_qty = HIGH_MIN / CASH_NCR
-	max_qty = HIGH_MAX / CASH_NCR
+	average_mult = CASH_MULT_HIGH
 
 
 #undef maxCoinIcon
@@ -321,17 +307,3 @@
 #undef CASH_AUR
 #undef CASH_DEN
 #undef CASH_NCR
-#undef LOW_MIN
-#undef LOW_MAX
-#undef MED_MIN
-#undef MED_MAX
-#undef HIGH_MIN
-#undef HIGH_MAX
-#undef BANKER_MIN
-#undef BANKER_MAX
-#undef TEMP3_MIN
-#undef TEMP3_MAX
-#undef TEMP_MIN
-#undef TEMP_MAX
-#undef TEMP2_MIN
-#undef TEMP2_MAX

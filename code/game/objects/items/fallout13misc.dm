@@ -166,7 +166,12 @@
 	desc = "A flag with a two headed bear, the symbol of the New California Republic."
 	icon_state = "ncrflag"
 	item_state = "ncrflag"
-	faction = "NCR"
+	faction = FACTION_NCR
+
+/obj/item/flag/ncr/snow
+	name = "NCR snow flag"
+	icon_state = "ncrflag_snow"
+	item_state = "ncrflag_snow"
 
 /obj/item/flag/bos
 	name = "Brotherhood of Steel flag"
@@ -175,6 +180,11 @@
 	item_state = "bosflag"
 	faction = FACTION_BROTHERHOOD
 
+/obj/item/flag/bos/snow
+	name = "Brotherhood of Steel snow flag"
+	icon_state = "bosflag_snow"
+	item_state = "bosflag_snow"
+
 /obj/item/flag/legion
 	name = "Legion flag"
 	desc = "A flag with a golden bull, the symbol of Caesar's Legion."
@@ -182,11 +192,22 @@
 	item_state = "legionflag"
 	faction = FACTION_LEGION
 
-/obj/item/flag/oasis
-	name = "Oasis flag"
-	desc = "A flag depicting a stylised pink flower on a green background. It's the symbol of the town of Oasis."
-	icon_state = "oasisflag"
-	item_state = "oasisflag"
+/obj/item/flag/legion/snow
+	name = "Legion snow flag"
+	icon_state = "legionflag_snow"
+	item_state = "legionflag_snow"
+
+/obj/item/flag/eastwood
+	name = "Eastwood flag"
+	desc = "A flag depicting a stylised pink flower on a green background. It's the symbol of the town of Eastwood."
+	icon_state = "eastwoodflag"
+	item_state = "eastwoodflag"
+
+/obj/item/flag/eastwood/snow
+	name = "Eastwood snow flag"
+	desc = "A flag depicting a stylised pink flower on a green background. It's the symbol of the town of Eastwood."
+	icon_state = "eastwoodflag_snow"
+	item_state = "eastwoodflag_snow"
 
 /obj/item/flag/followers
 	name = "Clinic flag"
@@ -194,6 +215,14 @@
 	icon_state = "followersflag"
 	item_state = "followersflag"
 	faction = FACTION_FOLLOWERS
+
+/obj/item/flag/followers/snow
+	name = "Clinic snow flag"
+	desc = "A white flag with a turqoise cross on it representing the clinic doctors."
+	icon_state = "followersflag_snow"
+	item_state = "followersflag_snow"
+
+
 
 /// Locust flag but renamed to bandit.
 
@@ -213,23 +242,25 @@
 	item_state = "gunnerflag"
 	faction = "Gunner"
 
+/obj/item/flag/enclave 
+	name = "Enclave Flag"
+	desc = "A flag depiciting the good ole murica."
+	icon_state = "enclaveflag"
+	item_state = "enclaveflag"
+	faction = FACTION_ENCLAVE
+
+/obj/item/flag/kebab // Easteregg kebab flag
+	name = "Kebab flag"
+	desc = "A banner depicting a roach with a cigar."
+	icon_state = "kebabflag"
+	item_state = "kebabflag"
+
 /obj/item/flag/yuma
 	name = "Yuma banner"
 	desc = "A banner depicting three rivers meeting at its center, overlaid with an ear of corn."
 	icon_state = "cornflag"
 	item_state = "cornflag"
-	faction = "Oasis"
-
-/obj/item/flag/vtcc
-	name = "Vault-Tec Cityscape Coalition flag"
-	desc = "A flag reminiscent of that from old America. The symbol of Vault-Tec appropriated in place of the old stars sharing their colour, with 4 stripes in 2 colours."
-	icon_state = "vtccflag"
-	item_state = "vtccflag"
-	faction = "VTCC"
-
-/obj/item/flag/vtcc/highvhills
-	name = "High Valley Hills flag"
-	desc = "A flag with two white stripes, blue border and a red centre with a white Vault-Tec logo, turned on its side and stretched out."
+	faction = "Eastwood"
 
 /obj/item/flag/khan
 	name = "Great Khans flag"
@@ -244,7 +275,7 @@
 		if(do_after(user, 60, target = src))
 			var/obj/item/stack/sheet/leather/H = I
 			if(H.use(1))
-				var/list/choices = list("Bandit", "Outlaw", "BOS", "Followers")
+				var/list/choices = list("Bandit", "Outlaw", "BOS", "BOS Snow", "NCR", "NCR Snow", "Legion", "Legion Snow", "Eastwood", "Eastwood Snow", "Enclave", "Kebab")
 				var/flag = input("Please choose which faction flag you wish to create.") in choices
 				switch(flag)
 					if("Bandit")
@@ -265,12 +296,60 @@
 						icon_state = "bosflag"
 						item_state = "bosflag"
 						faction = FACTION_BROTHERHOOD
-					if("Followers")
-						name = "Clinic flag"
-						desc = "A white flag with a turqoise cross on it representing the clinic doctors."
-						icon_state = "followersflag"
-						item_state = "followersflag"
-						faction = FACTION_FOLLOWERS
+					if("BOS Snow")
+						name = "BOS snow flag"
+						desc = "A red and black flag with a sword surrounded in gears and wings, in a dazzling gold."
+						icon_state = "bosflag_snow"
+						item_state = "bosflag_snow"
+						faction = FACTION_BROTHERHOOD
+					if(FACTION_NCR)
+						name = "NCR flag"
+						desc = "A flag with a two headed bear, the symbol of the New California Republic."
+						icon_state = "ncrflag"
+						item_state = "ncrflag"
+						faction = FACTION_NCR
+					if("NCR Snow")
+						name = "NCR snow flag"
+						desc = "A flag with a two headed bear, the symbol of the New California Republic."
+						icon_state = "ncrflag_snow"
+						item_state = "ncrflag_snow"
+						faction = FACTION_NCR
+					if(FACTION_LEGION)
+						name = "Legion flag"
+						desc = "A flag with a golden bull, the symbol of Caesar's Legion."
+						icon_state = "legionflag"
+						item_state = "legionflag"
+						faction = FACTION_LEGION
+					if("Legion Snow")
+						name = "Legion snow flag"
+						desc = "A flag with a golden bull, the symbol of Caesar's Legion."
+						icon_state = "legionflag_snow"
+						item_state = "legionflag_snow"
+						faction = FACTION_LEGION
+					if("Eastwood")
+						name = "Eastwood flag"
+						desc = "A banner depicting three rivers meeting at its center, overlaid with an ear of corn."
+						icon_state = "eastwoodflag"
+						item_state = "eastwoodflag"
+						faction = FACTION_EASTWOOD
+					if("Eastwood Snow")
+						name = "Ripley snow flag"
+						desc = "A banner depicting three rivers meeting at its center, overlaid with an ear of corn."
+						icon_state = "eastwoodflag_snow"
+						item_state = "eastwoodflag_snow"
+						faction = FACTION_EASTWOOD
+					if(FACTION_ENCLAVE)
+						name = "Enclave Flag"
+						desc = "A flag depiciting the good ole murica."
+						icon_state = "enclaveflag"
+						item_state = "enclaveflag"
+						faction = FACTION_ENCLAVE
+					if("Kebab")
+						name = "Kebab flag"
+						desc = "A banner depicting a roach with a cigar."
+						icon_state = "kebabflag"
+						item_state = "kebabflag"
+						faction = "Kebab"
 				update_icon()
 	else
 		attack_hand(user)
@@ -299,26 +378,19 @@
 	dropped(thrower)
 
 
-/*   OLDER things that isnt the flags in a way, and how to use them in the upper things.
-				var/list/choices = list("NCR", "Legion", "Yuma", "BOS", "Followers", "Great Khans")
-					if(FACTION_NCR)
-						name = "NCR flag"
-						desc = "A flag with a two headed bear, the symbol of the New California Republic."
-						icon_state = "ncrflag"
-						item_state = "ncrflag"
-						faction = "NCR"
-					if(FACTION_LEGION)
-						name = "Legion flag"
-						desc = "A flag with a golden bull, the symbol of Caesar's Legion."
-						icon_state = "legionflag"
-						item_state = "legionflag"
-						faction = FACTION_LEGION
-					if("Yuma")
-						name = "Yuma flag"
-						desc = "A banner depicting three rivers meeting at its center, overlaid with an ear of corn."
-						icon_state = "cornflag"
-						item_state = "cornflag"
-						faction = FACTION_OASIS
+/*
+Legacy Content.
+/obj/item/flag/vtcc
+	name = "Vault-Tec Cityscape Coalition flag"
+	desc = "A flag reminiscent of that from old America. The symbol of Vault-Tec appropriated in place of the old stars sharing their colour, with 4 stripes in 2 colours."
+	icon_state = "vtccflag"
+	item_state = "vtccflag"
+	faction = "VTCC"
+
+/obj/item/flag/vtcc/highvhills
+	name = "High Valley Hills flag"
+	desc = "A flag with two white stripes, blue border and a red centre with a white Vault-Tec logo, turned on its side and stretched out."
+
 
 					if("Great Khans")
 						name = "Great Khans flag"
@@ -326,8 +398,21 @@
 						icon_state = "khanflag"
 						item_state = "khanflag"
 						faction = "Great Khans"
-*/
 
+					if("Followers")
+						name = "Clinic flag"
+						desc = "A white flag with a turqoise cross on it representing the clinic doctors."
+						icon_state = "followersflag"
+						item_state = "followersflag"
+						faction = FACTION_FOLLOWERS
+					if("Followers Snow")
+						name = "Clinic snow flag"
+						desc = "A white flag with a turqoise cross on it representing the clinic doctors."
+						icon_state = "followersflag_snow"
+						item_state = "followersflag_snow"
+						faction = FACTION_FOLLOWERS
+
+*/
 ////////Viper stuff////// subject to change, but this way was simple
 /obj/item/viper_venom
 	name = "Viper venom"

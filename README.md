@@ -65,8 +65,8 @@ handle the codebase properly. This'll take a little while, and if everything's
 done right you'll get a message like this:
 
 ```
-saving fortune13.dmb (DEBUG mode)
-fortune13.dmb - 0 errors, 0 warnings
+saving hailmary.dmb (DEBUG mode)
+hailmary.dmb - 0 errors, 0 warnings
 ```
 
 If you see any errors or warnings, something has gone wrong - possibly a corrupt
@@ -100,7 +100,7 @@ and install it themselves. Directions can be found at the [rust-g
 repo](https://github.com/tgstation13/rust-g).
 
 Finally, to start the server, run Dream Daemon and enter the path to your
-compiled fortune13.dmb file. Make sure to set the port to the one you
+compiled hailmary.dmb file. Make sure to set the port to the one you
 specified in the config.txt, and set the Security box to 'Safe'. Then press GO
 and the server should start up and be ready to join. It is also recommended that
 you set up the SQL backend (see below).

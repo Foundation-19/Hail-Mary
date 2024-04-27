@@ -264,6 +264,8 @@
 /datum/chemical_reaction/smoke_powder/on_reaction(datum/reagents/holder, multiplier)
 	if(holder.has_reagent(/datum/reagent/stabilizing_agent))
 		return
+	if(holder.has_reagent(/datum/reagent/toxin))
+		return
 	holder.remove_reagent(/datum/reagent/smoke_powder, multiplier*3)
 	var/smoke_radius = round(sqrt(multiplier * 0.2), 1)
 	var/location = get_turf(holder.my_atom)
@@ -284,6 +286,8 @@
 	mob_react = FALSE
 
 /datum/chemical_reaction/smoke_powder_smoke/on_reaction(datum/reagents/holder, multiplier)
+	if(holder.has_reagent(/datum/reagent/toxin))
+		return
 	var/location = get_turf(holder.my_atom)
 	var/smoke_radius = round(sqrt(multiplier / 2), 1)
 	var/datum/effect_system/smoke_spread/chem/S = new
@@ -415,13 +419,13 @@
 	var/T3 = created_volume * 120
 	var/added_delay = 0.5 SECONDS
 	if(created_volume >= 75)
-		addtimer(CALLBACK(src, .proc/zappy_zappy, holder, T1), added_delay)
+		addtimer(CALLBACK(src, PROC_REF(zappy_zappy), holder, T1), added_delay)
 		added_delay += 1.5 SECONDS
 	if(created_volume >= 40)
-		addtimer(CALLBACK(src, .proc/zappy_zappy, holder, T2), added_delay)
+		addtimer(CALLBACK(src, PROC_REF(zappy_zappy), holder, T2), added_delay)
 		added_delay += 1.5 SECONDS
 	if(created_volume >= 10)			//10 units minimum for lightning, 40 units for secondary blast, 75 units for tertiary blast.
-		addtimer(CALLBACK(src, .proc/zappy_zappy, holder, T3), added_delay)
+		addtimer(CALLBACK(src, PROC_REF(zappy_zappy), holder, T3), added_delay)
 	..()
 
 /datum/chemical_reaction/reagent_explosion/teslium_lightning/proc/zappy_zappy(datum/reagents/holder, power)

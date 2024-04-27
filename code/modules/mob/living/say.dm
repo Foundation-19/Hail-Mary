@@ -22,12 +22,12 @@
 
 /mob/living/say(message, bubble_type, list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null, just_chat)
 	/* var/static/list/crit_allowed_modes = list(
-		MODE_WHISPER = TRUE, 
-		MODE_CUSTOM_SAY = TRUE, 
-		MODE_SING = TRUE, 
-		MODE_HEADSET = TRUE, 
-		MODE_ROBOT = TRUE, 
-		MODE_CHANGELING = TRUE, 
+		MODE_WHISPER = TRUE,
+		MODE_CUSTOM_SAY = TRUE,
+		MODE_SING = TRUE,
+		MODE_HEADSET = TRUE,
+		MODE_ROBOT = TRUE,
+		MODE_CHANGELING = TRUE,
 		MODE_ALIEN = TRUE
 		) */
 	var/static/list/unconscious_allowed_modes = list(MODE_CHANGELING = TRUE, MODE_ALIEN = TRUE)
@@ -263,7 +263,7 @@
 			speech_bubble_recipients.Add(M.client)
 	var/image/I = image('icons/mob/talk.dmi', src, "[bubble_type][say_test(message)]", FLY_LAYER)
 	I.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
-	INVOKE_ASYNC(GLOBAL_PROC, /.proc/flick_overlay, I, speech_bubble_recipients, 30)
+	INVOKE_ASYNC(GLOBAL_PROC,GLOBAL_PROC_REF(flick_overlay), I, speech_bubble_recipients, 30)
 
 /mob/proc/binarycheck()
 	return FALSE
@@ -316,7 +316,7 @@
 	if(derpspeech)
 		message = derpspeech(message, stuttering)
 
-	if(stuttering)
+	if(stuttering || HAS_TRAIT(src, TRAIT_SAY_STUTTERING))
 		message = stutter(message)
 
 	if(slurring)
@@ -327,6 +327,9 @@
 
 	if(clockcultslurring)
 		message = CLOCK_CULT_SLUR(message)
+
+	if(HAS_TRAIT(src, TRAIT_SAY_LISPING))
+		message = lisp_replace(message)
 
 	var/end_char = copytext(message, length(message), length(message) + 1)
 	if(!(end_char in list(".", "?", "!", "-", "~", ",", "_", "+", "|", "*")))

@@ -144,9 +144,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	// 0 = character settings, 1 = game preferences
 	var/current_tab = SETTINGS_TAB
 
-	// If in the ERP tab, are we rearranging genitals
-	var/erp_tab_page = ERP_TAB_HOME
-
 	var/unlock_content = 0
 
 	var/list/ignoring = list()
@@ -169,9 +166,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	var/list/job_whitelists = list()
 
 	var/action_buttons_screen_locs = list()
-
-	//bad stuff
-	var/cit_toggles = TOGGLES_CITADEL
 
 	//good stuff
 	var/cb_toggles = AIM_CURSOR_ON
@@ -211,13 +205,13 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 	var/hide_ckey = FALSE //pref for hiding if your ckey shows round-end or not
 
-	var/special_s = 5
-	var/special_p = 5
-	var/special_e = 5
-	var/special_c = 5
-	var/special_i = 5
-	var/special_a = 5
-	var/special_l = 5
+	var/special_s = SPECIAL_DEFAULT_ATTR_VALUE
+	var/special_p = SPECIAL_DEFAULT_ATTR_VALUE
+	var/special_e = SPECIAL_DEFAULT_ATTR_VALUE
+	var/special_c = SPECIAL_DEFAULT_ATTR_VALUE
+	var/special_i = SPECIAL_DEFAULT_ATTR_VALUE
+	var/special_a = SPECIAL_DEFAULT_ATTR_VALUE
+	var/special_l = SPECIAL_DEFAULT_ATTR_VALUE
 
 	/// Associative list: matchmaking_prefs[/datum/matchmaking_pref subtype] -> number of desired matches
 	var/list/matchmaking_prefs = list()
@@ -513,7 +507,27 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			dat += "</tr></table>"
 
 			dat += "</td>"
-
+			dat += "<table><tr><td width='340px' height='300px' valign='top'>"
+			dat += "<h2>Clothing & Equipment</h2>"
+			dat += "<b>Underwear:</b><a style='display:block;width:100px' href ='?_src_=prefs;preference=underwear;task=input'>[underwear]</a>"
+			if(GLOB.underwear_list[underwear]?.has_color)
+				dat += "<b>Underwear Color:</b> <span style='border:1px solid #161616; background-color: #[undie_color];'>&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=undie_color;task=input'>Change</a><BR>"
+			dat += "<b>Undershirt:</b><a style='display:block;width:100px' href ='?_src_=prefs;preference=undershirt;task=input'>[undershirt]</a>"
+			if(GLOB.undershirt_list[undershirt]?.has_color)
+				dat += "<b>Undershirt Color:</b> <span style='border:1px solid #161616; background-color: #[shirt_color];'>&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=shirt_color;task=input'>Change</a><BR>"
+			dat += "<b>Socks:</b><a style='display:block;width:100px' href ='?_src_=prefs;preference=socks;task=input'>[socks]</a>"
+			if(GLOB.socks_list[socks]?.has_color)
+				dat += "<b>Socks Color:</b> <span style='border:1px solid #161616; background-color: #[socks_color];'>&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=socks_color;task=input'>Change</a><BR>"
+			dat += "<b>Backpack:</b><a style='display:block;width:100px' href ='?_src_=prefs;preference=bag;task=input'>[backbag]</a>"
+			dat += "<b>Jumpsuit:</b><BR><a href ='?_src_=prefs;preference=suit;task=input'>[jumpsuit_style]</a><BR>"
+			if((HAS_FLESH in pref_species.species_traits) || (HAS_BONE in pref_species.species_traits))
+				dat += "<BR><b>Temporal Scarring:</b><BR><a href='?_src_=prefs;preference=persistent_scars'>[(persistent_scars) ? "Enabled" : "Disabled"]</A>"
+				dat += "<a href='?_src_=prefs;preference=clear_scars'>Clear scar slots</A>"
+/*Uplink choice disabled since not implemented, pointless button
+			dat += "<b>Uplink Location:</b><a style='display:block;width:100px' href ='?_src_=prefs;preference=uplink_loc;task=input'>[uplink_spawn_loc]</a>"
+			dat += "</td>"
+*/
+			dat +="<td width='220px' height='300px' valign='top'>"
 			dat += "</tr></table>"
 
 
@@ -540,6 +554,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			dat += "<br>"
 			dat += "<b>Play Admin MIDIs:</b> <a href='?_src_=prefs;preference=hear_midis'>[(toggles & SOUND_MIDI) ? "Enabled":"Disabled"]</a><br>"
 			dat += "<b>Play Lobby Music:</b> <a href='?_src_=prefs;preference=lobby_music'>[(toggles & SOUND_LOBBY) ? "Enabled":"Disabled"]</a><br>"
+			dat += "<b>Stream radio music:</b> <a href='?_src_=prefs;preference=music_streaming'>[(toggles & MUSIC_RADIO) ? "Enabled":"Disabled"]</a><br>"
 			dat += "<b>See Pull Requests:</b> <a href='?_src_=prefs;preference=pull_requests'>[(chat_toggles & CHAT_PULLR) ? "Enabled":"Disabled"]</a><br>"
 			dat += "<br>"
 			if(user.client)
@@ -890,7 +905,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		//The job before the current job. I only use this to get the previous jobs color when I'm filling in blank rows.
 		var/datum/job/lastJob
 
-		for(var/datum/job/job in sortList(SSjob.occupations, /proc/cmp_job_display_asc))
+		for(var/datum/job/job in sortList(SSjob.occupations, GLOBAL_PROC_REF(cmp_job_display_asc)))
 			if(job.total_positions == 0)
 				continue
 
@@ -913,6 +928,9 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			lastJob = job
 			if(jobban_isbanned(user, rank))
 				HTML += "<font color=red>[rank]</font></td><td><a href='?_src_=prefs;bancheck=[rank]'> BANNED</a></td></tr>"
+				continue
+			if(job.special_stat_check(src))
+				HTML += "<font color=red>[rank]</font></td><td><font color=red>\[SPECIAL [job.special_stat_check(src)]\]</font></td></tr>"
 				continue
 			var/required_playtime_remaining = job.required_playtime_remaining(user.client)
 			if(required_playtime_remaining)
@@ -1135,21 +1153,28 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 	dat += "<center><b>Allocate points</b></center>"
 	dat += "<center>Note: SPECIAL is functional here. These points have an effect on gameplay.</center><br>"
-	dat += "<center>[total] out of 35 possible</center><br>"
+	dat += "<center>[total] out of [SPECIAL_MAX_POINT_SUM_CAP] possible</center><br>"
 	dat += "<b>Strength	   :</b> <a href='?_src_=prefs;preference=special_s;task=input'>[special_s]</a><BR>"
+	dat += "<font size='1'><i>Strength affects the amount of melee damage you dish out.</i></font><br>"
 	dat += "<b>Perception  :</b> <a href='?_src_=prefs;preference=special_p;task=input'>[special_p]</a><BR>"
+	dat += "<font size='1'><i>Perception affects how well you can fire ranged weapons.</i></font><br>"
 	dat += "<b>Endurance   :</b> <a href='?_src_=prefs;preference=special_e;task=input'>[special_e]</a><BR>"
+	dat += "<font size='1'>Endurance affects your maximum health & resistance to fire and poisons.<i></i></font><br>"
 	dat += "<b>Charisma    :</b> <a href='?_src_=prefs;preference=special_c;task=input'>[special_c]</a><BR>"
+	dat += "<font size='1'><i>Charisma determines your character's examine text, leadership & ability to manipulate others.</i></font><br>"
 	dat += "<b>Intelligence:</b> <a href='?_src_=prefs;preference=special_i;task=input'>[special_i]</a><BR>"
+	dat += "<font size='1'><i>Intelligence is necessary for being able to craft various recipes, as well as the operation of energy weapons.</i></font><br>"
 	dat += "<b>Agility     :</b> <a href='?_src_=prefs;preference=special_a;task=input'>[special_a]</a><BR>"
+	dat += "<font size='1'><i>Agility determines your move speed and how much stamina you use while sprinting.</i></font><br>"
 	dat += "<b>Luck        :</b> <a href='?_src_=prefs;preference=special_l;task=input'>[special_l]</a><BR>"
-	if (total>35)
+	dat += "<font size='1'><i>Luck does stuff!</i></font><br>"
+	if (total > SPECIAL_MAX_POINT_SUM_CAP)
 		dat += "<center>Maximum exceeded, please change until your total is at or below 35<center>"
 	else
 		dat += "<center><a href='?_src_=prefs;preference=special;task=close'>Done</a></center>"
 
 	user << browse(null, "window=preferences")
-	var/datum/browser/popup = new(user, "mob_occupation", "<div align='center'>S.P.E.C.I.A.L</div>", 300, 400) //no reason not to reuse the occupation window, as it's cleaner that way
+	var/datum/browser/popup = new(user, "mob_occupation", "<div align='center'>S.P.E.C.I.A.L</div>", 400, 550) //no reason not to reuse the occupation window, as it's cleaner that way
 	popup.set_window_options("can_close=0")
 	popup.set_content(dat.Join())
 	popup.open(0)
@@ -1332,43 +1357,43 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				if("special_s")
 					var/new_point = input(user, "Choose Amount(1-10)", "Strength") as num|null
 					if(new_point)
-						special_s = max(min(round(text2num(new_point)), 10),1)
+						special_s = clamp(round(new_point), SPECIAL_MIN_ATTR_VALUE, SPECIAL_MAX_ATTR_VALUE)
 					SetSpecial(user)
 					return 1
 				if("special_p")
 					var/new_point = input(user, "Choose Amount(1-10)", "Perception") as num|null
 					if(new_point)
-						special_p = max(min(round(text2num(new_point)), 10),1)
+						special_p = clamp(round(new_point), SPECIAL_MIN_ATTR_VALUE, SPECIAL_MAX_ATTR_VALUE)
 					SetSpecial(user)
 					return 1
 				if("special_e")
 					var/new_point = input(user, "Choose Amount(1-10)", "Endurance") as num|null
 					if(new_point)
-						special_e = max(min(round(text2num(new_point)), 10),1)
+						special_e = clamp(round(new_point), SPECIAL_MIN_ATTR_VALUE, SPECIAL_MAX_ATTR_VALUE)
 					SetSpecial(user)
 					return 1
 				if("special_c")
 					var/new_point = input(user, "Choose Amount(1-10)", "Charisma") as num|null
 					if(new_point)
-						special_c = max(min(round(text2num(new_point)), 10),1)
+						special_c = clamp(round(new_point), SPECIAL_MIN_ATTR_VALUE, SPECIAL_MAX_ATTR_VALUE)
 					SetSpecial(user)
 					return 1
 				if("special_i")
 					var/new_point = input(user, "Choose Amount(1-10)", "Intelligence") as num|null
 					if(new_point)
-						special_i = max(min(round(text2num(new_point)), 10),1)
+						special_i = clamp(round(new_point), SPECIAL_MIN_ATTR_VALUE, SPECIAL_MAX_ATTR_VALUE)
 					SetSpecial(user)
 					return 1
 				if("special_a")
 					var/new_point = input(user, "Choose Amount(1-10)", "Agility") as num|null
 					if(new_point)
-						special_a = max(min(round(text2num(new_point)), 10),1)
+						special_a = clamp(round(new_point), SPECIAL_MIN_ATTR_VALUE, SPECIAL_MAX_ATTR_VALUE)
 					SetSpecial(user)
 					return 1
 				if("special_l")
 					var/new_point = input(user, "Choose Amount(1-10)", "Luck") as num|null
 					if(new_point)
-						special_l = max(min(round(text2num(new_point)), 10),1)
+						special_l = clamp(round(new_point), SPECIAL_MIN_ATTR_VALUE, SPECIAL_MAX_ATTR_VALUE)
 					SetSpecial(user)
 					return 1
 				if("ghostform")
@@ -1948,6 +1973,9 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				if("ghost_ears")
 					chat_toggles ^= CHAT_GHOSTEARS
 
+				if("music_streaming")
+					toggles ^= MUSIC_RADIO
+
 				if("ghost_sight")
 					chat_toggles ^= CHAT_GHOSTSIGHT
 
@@ -2021,12 +2049,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				if("tab")
 					if(href_list["tab"])
 						current_tab = text2num(href_list["tab"])
-				if("erp_tab")
-					if(href_list["newtab"])
-						if(href_list["nonumber"])
-							erp_tab_page = href_list["newtab"]
-						else
-							erp_tab_page = text2num(href_list["newtab"])
 
 	chat_toggles |= CHAT_LOOC // the LOOC stays on during sex
 	if(href_list["preference"] == "gear")
@@ -2115,7 +2137,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 	character.gender = gender
 	character.age = age
-	//special stuff
+	//S.P.E.C.I.A.L.
+	fix_special_values()
 	character.special_s = special_s
 	character.special_p = special_p
 	character.special_e = special_e
@@ -2143,8 +2166,11 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	character.facial_hair_style = facial_hair_style
 	character.underwear = underwear
 
+	character.saved_underwear = underwear
 	character.undershirt = undershirt
+	character.saved_undershirt = undershirt
 	character.socks = socks
+	character.saved_socks = socks
 	character.undie_color = undie_color
 	character.shirt_color = shirt_color
 	character.socks_color = socks_color
@@ -2332,6 +2358,30 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				to_chat(parent, span_userdanger("Your character had too many positive quirks, likely due to a bug! Your quirks have been reset, and you'll need to set up your quirks again."))
 			else
 				to_chat(parent, span_userdanger("Something went wrong! Your quirks have been reset, and you'll need to set up your quirks again."))
+
+/datum/preferences/proc/clamp_special_values() // S.P.E.C.I.A.L.
+	special_s = clamp(special_s, SPECIAL_MIN_ATTR_VALUE, SPECIAL_MAX_ATTR_VALUE)
+	special_p = clamp(special_p, SPECIAL_MIN_ATTR_VALUE, SPECIAL_MAX_ATTR_VALUE)
+	special_e = clamp(special_e, SPECIAL_MIN_ATTR_VALUE, SPECIAL_MAX_ATTR_VALUE)
+	special_c = clamp(special_c, SPECIAL_MIN_ATTR_VALUE, SPECIAL_MAX_ATTR_VALUE)
+	special_i = clamp(special_i, SPECIAL_MIN_ATTR_VALUE, SPECIAL_MAX_ATTR_VALUE)
+	special_a = clamp(special_a, SPECIAL_MIN_ATTR_VALUE, SPECIAL_MAX_ATTR_VALUE)
+	special_l = clamp(special_l, SPECIAL_MIN_ATTR_VALUE, SPECIAL_MAX_ATTR_VALUE)
+
+/datum/preferences/proc/reset_special_values() // S.P.E.C.I.A.L.
+	special_s = SPECIAL_DEFAULT_ATTR_VALUE
+	special_p = SPECIAL_DEFAULT_ATTR_VALUE
+	special_e = SPECIAL_DEFAULT_ATTR_VALUE
+	special_c = SPECIAL_DEFAULT_ATTR_VALUE
+	special_i = SPECIAL_DEFAULT_ATTR_VALUE
+	special_a = SPECIAL_DEFAULT_ATTR_VALUE
+	special_l = SPECIAL_DEFAULT_ATTR_VALUE
+
+/datum/preferences/proc/fix_special_values() // S.P.E.C.I.A.L.
+	clamp_special_values()
+	var/sum = special_s + special_p + special_e + special_c + special_i + special_a + special_l
+	if(sum > SPECIAL_MAX_POINT_SUM_CAP)
+		reset_special_values()
 
 
 #undef DEFAULT_SLOT_AMT

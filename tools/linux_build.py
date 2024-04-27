@@ -42,7 +42,7 @@ def stage3(profile_mode=False):
     play("sound/misc/compiler-stage2.ogg")
     logfile = open('server.log~','w')
     p = subprocess.Popen(
-        "DreamDaemon fortune13.dmb 25001 -trusted",
+        "DreamDaemon hailmary.dmb 25001 -trusted",
         shell=True, stdout=PIPE, stderr=STDOUT)
     try:
         while p.returncode is None:

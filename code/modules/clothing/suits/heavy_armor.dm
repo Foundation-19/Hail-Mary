@@ -61,7 +61,7 @@
 	icon_state = "tribal_heavy"
 	item_state = "tribal_heavy"
 	armor = list("melee" = 55, "bullet" = 20, "laser" = 25, "energy" = 20, "bomb" = 45, "bio" = 5, "rad" = 10, "fire" = 30, "acid" = 10)
-	allowed = list(/obj/item/twohanded, /obj/item/melee/onehanded, /obj/item/melee/smith, /obj/item/melee/smith/twohand)
+	allowed = list(/obj/item/twohanded, /obj/item/melee/onehanded, /obj/item/melee/smith, /obj/item/twohanded/smithed)
 
 //////////////////////////
 // Salvaged Power Armor //
@@ -183,7 +183,7 @@
 	name = "legion centurion armor"
 	desc = "The Legion centurion armor is by far the strongest suit of armor available to Caesar's Legion. The armor is composed from other pieces of armor taken from that of the wearer's defeated opponents in combat."
 	icon_state = "legion_centurion"
-	armor = list("melee" = 70, "bullet" = 50, "laser" = 35, "energy" = 35, "bomb" = 40, "bio" = 30, "rad" = 25, "fire" = 40, "acid" = 10)
+	armor = list("melee" = 70, "bullet" = 50, "laser" = 35, "energy" = 35, "bomb" = 40, "bio" = 30, "rad" = 25, "fire" = 40, "acid" = 10, "wound" = 55)
 
 /obj/item/clothing/suit/armor/heavy/legion/palacent
 	name = "paladin-slayer centurion armor"
@@ -239,7 +239,7 @@
 	icon_state = "tribal_power_armor"
 	item_state = "tribal_power_armor"
 	armor = list("melee" = 65, "bullet" = 65, "laser" = 45, "energy" = 40, "bomb" = 45, "bio" = 30, "rad" = 30, "fire" = 60, "acid" = 10)
-	allowed = list(/obj/item/twohanded, /obj/item/melee/onehanded, /obj/item/melee/smith, /obj/item/melee/smith/twohand)
+	allowed = list(/obj/item/twohanded, /obj/item/melee/onehanded, /obj/item/melee/smith, /obj/item/twohanded/smithed)
 
 
 /obj/item/clothing/suit/armor/heavy/environmental

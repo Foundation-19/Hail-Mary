@@ -234,6 +234,20 @@ TOGGLE_CHECKBOX(/datum/verbs/menu/Settings/Sound, toggleprayersounds)()
 	C?.tgui_panel?.stop_music()
 	SSblackbox.record_feedback("nested tally", "preferences_verb", 1, list("Stop Self Sounds")) //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
+TOGGLE_CHECKBOX(/datum/verbs/menu/Settings/Sound, toggleradiomusic)()
+	set name = "Hear/Silence Radio Music"
+	set category = "Preferences"
+	set desc = "Hear music streamed by radio stations"
+	usr.client.prefs.toggles ^= MUSIC_RADIO
+	usr.client.prefs.save_preferences()
+	if(usr.client.prefs.toggles & MUSIC_RADIO)
+		to_chat(usr, "You will now hear songs through radios.")
+	else
+		to_chat(usr, "You will no longer hear sounds played in radios")
+	SSblackbox.record_feedback("nested tally", "preferences_verb", 1, list("Toggle Radio Music", "[usr.client.prefs.toggles & MUSIC_RADIO ? "Enabled" : "Disabled"]")) //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+
+/datum/verbs/menu/Settings/Sound/toggleradiomusic/Get_checked(client/C)
+	return C.prefs.toggles & MUSIC_RADIO
 
 TOGGLE_CHECKBOX(/datum/verbs/menu/Settings, listen_ooc)()
 	set name = "Show/Hide OOC"

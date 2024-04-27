@@ -49,8 +49,8 @@
 	armor = ARMOR_VALUE_HEAVY
 	resistance_flags = FIRE_PROOF
 	refill_canister = /obj/item/vending_refill/medical
-	default_price = PRICE_ABOVE_NORMAL
-	extra_price = PRICE_ABOVE_NORMAL
+	default_price = PRICE_FREE
+	extra_price = PRICE_FREE
 	payment_department = ACCOUNT_MED
 	cost_multiplier_per_dept = list(ACCOUNT_MED = 0)
 
@@ -103,7 +103,7 @@
 	density = 0
 	pixel_x = 30
 
-/obj/machinery/vending/medical/nash
+/obj/machinery/vending/medical/eastwood
 	products = list(/obj/item/reagent_containers/syringe = 12,
 					/obj/item/reagent_containers/dropper = 3,
 					/obj/item/healthanalyzer = 6,

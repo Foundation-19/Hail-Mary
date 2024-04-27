@@ -527,15 +527,6 @@ GLOBAL_LIST_EMPTY(loadout_boxes)
 
 /// Premium guns!
 
-/obj/item/storage/box/gun/premium/maria //fancier guns, for high rank roles
-	name = "Maria case" //maria might not should be allowed, cause meant to be unique, but will see
-	w_class = WEIGHT_CLASS_NORMAL //all neat and tidy pistols
-
-/obj/item/storage/box/gun/premium/maria/PopulateContents()
-	new /obj/item/gun/ballistic/automatic/pistol/ninemil/maria(src)
-	new /obj/item/ammo_box/magazine/m9mm/doublestack(src)
-	new /obj/item/ammo_box/magazine/m9mm/doublestack(src)
-
 /obj/item/storage/box/gun/premium/automatic //beretta m93r, but keeping the naming scheme I got
 	name = "Beretta M93R case" //might be stronk, might need to not take greasegun mags, will see
 
@@ -833,32 +824,11 @@ GLOBAL_LIST_EMPTY(loadout_boxes)
 /obj/item/storage/box/gun/melee/chainsaw/PopulateContents()
 	new /obj/item/twohanded/chainsaw(src)
 
-/obj/item/storage/box/gun/melee/fist_of_the_swampstar
-	name = "bands of the swampstar case"
-	w_class = WEIGHT_CLASS_BULKY
-
-/obj/item/storage/box/gun/melee/fist_of_the_swampstar/PopulateContents()
-	new /obj/item/clothing/gloves/fingerless/pugilist/rapid(src)
-
 /obj/item/storage/box/gun/melee/militarypolice
 	name = "baton case"
 
 /obj/item/storage/box/gun/melee/militarypolice/PopulateContents()
 	new /obj/item/melee/classic_baton/militarypolice(src)
-
-/obj/item/storage/box/gun/melee/raging_boar
-	name = "raging boar case"
-	w_class = WEIGHT_CLASS_BULKY
-
-/obj/item/storage/box/gun/melee/raging_boar/PopulateContents()
-	new /obj/item/book/granter/martial/raging_boar(src)
-
-/obj/item/storage/box/gun/melee/sleeping_carp
-	name = "sleeping carp case"
-	w_class = WEIGHT_CLASS_BULKY
-
-/obj/item/storage/box/gun/melee/sleeping_carp/PopulateContents()
-	new /obj/item/book/granter/martial/carp(src)
 
 /obj/item/storage/box/gun/melee/oldclaymore/PopulateContents()
 	new /obj/item/melee/coyote/oldclaymore(src)
@@ -1304,14 +1274,6 @@ GLOBAL_LIST_EMPTY(loadout_boxes)
 
 /// ENERGY!
 
-/obj/item/storage/box/gun/energy
-	name = "compact rcw case"
-	w_class = WEIGHT_CLASS_NORMAL //no roundstart laser rifles rn
-
-/obj/item/storage/box/gun/energy/PopulateContents()
-	new /obj/item/gun/energy/laser/auto/worn(src)
-	new /obj/item/stock_parts/cell/ammo/ecp(src)
-
 /obj/item/storage/box/gun/energy/plasma
 	name = "plasma pistol case"
 
@@ -1396,12 +1358,6 @@ GLOBAL_LIST_EMPTY(loadout_boxes)
 	entry_class = LOADOUT_CAT_ENERGY
 	spawn_thing = /obj/item/storage/box/gun/energy/stun
 
-/datum/loadout_box/compact_rcw
-	entry_tag = "Compact RCW"
-	entry_flags = LOADOUT_FLAG_WASTER
-	entry_class = LOADOUT_CAT_ENERGY
-	spawn_thing = /obj/item/storage/box/gun/energy/compact_rcw
-
 /datum/loadout_box/wattz1000
 	entry_tag = "Wattz 1000"
 	entry_flags = LOADOUT_FLAG_WASTER
@@ -1415,12 +1371,6 @@ GLOBAL_LIST_EMPTY(loadout_boxes)
 	spawn_thing = /obj/item/storage/box/gun/energy/wornaep7
 
 /// Fancyguns
-
-/datum/loadout_box/maria
-	entry_tag = "Maria"
-	entry_flags = LOADOUT_FLAG_PREMIUM
-	entry_class = LOADOUT_CAT_PREMIUM
-	spawn_thing = /obj/item/storage/box/gun/premium/maria
 
 /datum/loadout_box/beretta_auto
 	entry_tag = "Beretta M93R Burstfire"
@@ -1943,24 +1893,6 @@ GLOBAL_LIST_EMPTY(loadout_boxes)
 	entry_flags = LOADOUT_FLAG_WASTER
 	entry_class = LOADOUT_CAT_MELEE_TWO
 	spawn_thing = /obj/item/storage/box/gun/melee/chainsaw
-
-/datum/loadout_box/fist_of_the_swampstar // pornstar
-	entry_tag = "Bands of the Swamp Star gloves"
-	entry_flags = LOADOUT_FLAG_WASTER | LOADOUT_FLAG_TRIBAL
-	entry_class = LOADOUT_CAT_MISC
-	spawn_thing = /obj/item/storage/box/gun/melee/fist_of_the_swampstar
-
-/datum/loadout_box/raging_boar // YEET
-	entry_tag = "Raging Boar Scroll"
-	entry_flags = LOADOUT_FLAG_WASTER
-	entry_class = LOADOUT_CAT_MISC
-	spawn_thing = /obj/item/storage/box/gun/melee/raging_boar
-
-/datum/loadout_box/sleeping_carp // Snippity Snap
-	entry_tag = "Sleeping Carp Scroll"
-	entry_flags = LOADOUT_FLAG_WASTER
-	entry_class = LOADOUT_CAT_MISC
-	spawn_thing = /obj/item/storage/box/gun/melee/sleeping_carp
 
 /datum/loadout_box/oldclaymore //FOR SCOTLAND
 	entry_tag = "Old Claymore"

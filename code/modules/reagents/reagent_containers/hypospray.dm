@@ -95,6 +95,7 @@
 	amount_per_transfer_from_this = 15
 	volume = 15
 	ignore_flags = 1 //so you can medipen through hardsuits
+	var/syringe_self_delay = FALSE //Same as pills, except for syringes
 	reagent_flags = NONE
 	flags_1 = null
 	list_reagents = list(/datum/reagent/medicine/epinephrine = 10, /datum/reagent/preservahyde = 3, /datum/reagent/medicine/coagulant = 2)
@@ -110,6 +111,10 @@
 		return
 
 	if(M == user)
+		M.visible_message(span_notice("[user] attempts to inject themselves with the [src]."))
+		if(syringe_self_delay)
+			if(!do_mob(user, M, syringe_self_delay))
+				return FALSE
 		to_chat(M, span_notice("You jab yourself with the [src]."))
 
 	else
@@ -126,7 +131,7 @@
 			qdel(src)
 			return
 	update_icon()
-	addtimer(CALLBACK(src, .proc/cyborg_recharge, user), 80)
+	addtimer(CALLBACK(src, PROC_REF(cyborg_recharge), user), 80)
 
 /obj/item/reagent_containers/hypospray/medipen/proc/cyborg_recharge(mob/living/silicon/robot/user)
 	if(!reagents.total_volume && iscyborg(user))
@@ -148,6 +153,13 @@
 	else
 		. += span_notice("It is spent.")
 
+/obj/item/reagent_containers/hypospray/medipen/hemostatic
+	name = "hemostatic applicator"
+	desc = "A fast-acting chemical hemotatic. Used to quickly clot and close bleeding wounds."
+	amount_per_transfer_from_this = 20
+	volume = 20
+	list_reagents = list(/datum/reagent/medicine/hemostatic = 20)
+
 ///////////////////
 // FALLOUT HYPOS //
 ///////////////////
@@ -157,6 +169,7 @@
 	desc = "A handheld delivery system for medicine, used to rapidly heal physical damage to the body."
 	icon = 'icons/fallout/objects/medicine/drugs.dmi'
 	icon_state = "hypo_stimpak"
+	syringe_self_delay = 10 //Double the time of powder
 	custom_price = PRICE_STIMPAK
 	volume = 26
 	amount_per_transfer_from_this = 26
@@ -184,14 +197,14 @@
 	amount_per_transfer_from_this = 30
 	volume = 30
 	list_reagents = list(/datum/reagent/consumable/sugar = 30)
-
+/*
 /obj/item/reagent_containers/hypospray/medipen/stimpak/fake
 	name = "stimpak"
 	desc = "A handheld delivery system for medicine, used to rapidly heal physical damage to the body."
 	amount_per_transfer_from_this = 26
 	volume = 26
 	list_reagents = list(/datum/reagent/medicine/fake_stimpak = 26)
-
+*/
 
 /obj/item/reagent_containers/hypospray/medipen/stimpak/epipak
 	name = "epipak"
@@ -217,10 +230,11 @@
 	name = "super stimpak"
 	desc = "The super version comes in a hypodermic, but with an additional vial containing more powerful drugs than the basic model and a leather belt to strap the needle to the injured limb."
 	icon_state = "hypo_superstimpak"
+	syringe_self_delay = 10 //Double that of powder
+	volume = 10
 	custom_price = PRICE_SUPER_STIM
-	volume = 62
-	amount_per_transfer_from_this = 62
-	list_reagents = list(/datum/reagent/medicine/super_stimpak = 30, /datum/reagent/medicine/stimpak = 20, /datum/reagent/medicine/healing_powder = 4, /datum/reagent/medicine/bicaridine = 4, /datum/reagent/medicine/kelotane = 4)
+	amount_per_transfer_from_this = 10
+	list_reagents = list(/datum/reagent/medicine/super_stimpak = 10)
 
 /obj/item/reagent_containers/hypospray/medipen/stimpak/super/custom
 	desc = "The super version comes in a hypodermic, but with an additional vial to inject more drugs than the basic model and a leather belt to strap the needle to a limb. This particular one will deliver a tailored cocktail."
@@ -501,7 +515,7 @@
 
 /obj/item/hypospray/mkii/afterattack(atom/target, mob/user, proximity)
 	. = ..()
-	INVOKE_ASYNC(src, .proc/attempt_inject, target, user, proximity)
+	INVOKE_ASYNC(src, PROC_REF(attempt_inject), target, user, proximity)
 
 /obj/item/hypospray/mkii/proc/attempt_inject(atom/target, mob/user, proximity)
 	if(!vial || !proximity || !isliving(target))
@@ -537,7 +551,7 @@
 	if(L != user)
 		L.visible_message(span_danger("[user] is trying to [fp_verb] [L] with [src]!"), \
 						span_userdanger("[user] is trying to [fp_verb] you with [src]!"))
-	if(!do_mob(user, L, inject_wait, extra_checks = CALLBACK(L, /mob/living/proc/can_inject, user, FALSE, user.zone_selected, penetrates)))
+	if(!do_mob(user, L, inject_wait, extra_checks = CALLBACK(L, TYPE_PROC_REF(/mob/living, can_inject), user, FALSE, user.zone_selected, penetrates)))
 		return
 	if(!vial.reagents.total_volume)
 		return

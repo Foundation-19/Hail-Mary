@@ -24,7 +24,7 @@
 	item_state = "nun"
 	body_parts_covered = CHEST|GROIN|LEGS|ARMS|HANDS
 	flags_inv = HIDESHOES|HIDEJUMPSUIT
-	mutantrace_variation = STYLE_DIGITIGRADE|STYLE_NO_ANTHRO_ICON
+	mutantrace_variation = STYLE_DIGITIGRADE
 
 /obj/item/clothing/suit/chaplain/studentuni
 	name = "student robe"
@@ -38,13 +38,13 @@
 	desc = "This worn outfit saw much use back in the day."
 	icon_state = "witchhunter"
 	item_state = "witchhunter"
-	mutantrace_variation = STYLE_DIGITIGRADE|STYLE_NO_ANTHRO_ICON
+	mutantrace_variation = STYLE_DIGITIGRADE
 
 /obj/item/clothing/suit/chaplain/pharaoh
 	name = "pharaoh tunic"
 	desc = "Lavish tomb not included."
 	icon_state = "pharaoh"
-	mutantrace_variation = STYLE_DIGITIGRADE|STYLE_NO_ANTHRO_ICON
+	mutantrace_variation = STYLE_DIGITIGRADE
 
 /obj/item/clothing/suit/chaplain/holidaypriest
 	name = "holiday priest"
@@ -52,7 +52,7 @@
 	icon_state = "holidaypriest"
 	item_state = "w_suit"
 	flags_inv = HIDEJUMPSUIT
-	mutantrace_variation = STYLE_DIGITIGRADE|STYLE_NO_ANTHRO_ICON
+	mutantrace_variation = STYLE_DIGITIGRADE
 
 
 //Chef
@@ -65,7 +65,7 @@
 	permeability_coefficient = 0.5
 	allowed = list(/obj/item/kitchen)
 	togglename = "sleeves"
-	mutantrace_variation = STYLE_DIGITIGRADE|STYLE_NO_ANTHRO_ICON
+	mutantrace_variation = STYLE_DIGITIGRADE
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/jacket
 
 //Detective
@@ -78,7 +78,7 @@
 	armor = ARMOR_VALUE_LIGHT
 	cold_protection = CHEST|GROIN|LEGS|ARMS
 	heat_protection = CHEST|GROIN|LEGS|ARMS
-	mutantrace_variation = STYLE_DIGITIGRADE|STYLE_NO_ANTHRO_ICON
+	mutantrace_variation = STYLE_DIGITIGRADE
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/jacket
 
 /obj/item/clothing/suit/det_suit/Initialize()
@@ -121,7 +121,7 @@
 	blood_overlay_type = "armor"
 	resistance_flags = NONE
 	armor = ARMOR_VALUE_LIGHT
-	mutantrace_variation = STYLE_DIGITIGRADE|STYLE_NO_ANTHRO_ICON
+	mutantrace_variation = STYLE_DIGITIGRADE
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/jacket
 	body_parts_hidden = CHEST
 
@@ -134,7 +134,7 @@
 	blood_overlay_type = "coat"
 	body_parts_covered = CHEST|ARMS
 	togglename = "buttons"
-	mutantrace_variation = STYLE_DIGITIGRADE|STYLE_NO_ANTHRO_ICON
+	mutantrace_variation = STYLE_DIGITIGRADE
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/jacket
 
 /obj/item/clothing/suit/toggle/lawyer/purple
@@ -159,7 +159,7 @@
 	icon_state = "suspenders"
 	blood_overlay_type = "armor" //it's the less thing that I can put here
 	body_parts_covered = NONE
-	mutantrace_variation = STYLE_DIGITIGRADE|STYLE_NO_ANTHRO_ICON
+	mutantrace_variation = STYLE_DIGITIGRADE
 
 //Curator
 /obj/item/clothing/suit/curator
@@ -170,7 +170,7 @@
 	blood_overlay_type = "coat"
 	cold_protection = CHEST|ARMS
 	heat_protection = CHEST|ARMS
-	mutantrace_variation = STYLE_DIGITIGRADE|STYLE_NO_ANTHRO_ICON
+	mutantrace_variation = STYLE_DIGITIGRADE
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/jacket
 
 
@@ -183,7 +183,7 @@
 	item_state = "techpriest"
 	body_parts_covered = CHEST|GROIN|LEGS|ARMS
 	hoodtype = /obj/item/clothing/head/hooded/techpriest
-	mutantrace_variation = STYLE_DIGITIGRADE|STYLE_NO_ANTHRO_ICON
+	mutantrace_variation = STYLE_DIGITIGRADE
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/jacket
 
 /obj/item/clothing/head/hooded/techpriest
@@ -193,7 +193,6 @@
 	item_state = "techpriesthood"
 	body_parts_covered = HEAD
 	flags_inv = HIDEHAIR|HIDEEARS
-	mutantrace_variation = STYLE_MUZZLE
 
 
 //Paramedic
@@ -203,14 +202,14 @@
 	desc = "A dark blue vest with reflective strips for emergency medical technicians."
 	icon_state = "paramedic-vest"
 	item_state = "paramedic-vest"
-	mutantrace_variation = STYLE_DIGITIGRADE|STYLE_NO_ANTHRO_ICON
+	mutantrace_variation = STYLE_DIGITIGRADE
 
 /obj/item/clothing/suit/toggle/labcoat/emt
 	name = "emt vest"
 	desc = "A dark blue vest with reflective strips for emergency medical technicians."
 	icon_state = "labcoat_emt"
 	item_state = "labcoat_emt"
-	mutantrace_variation = STYLE_DIGITIGRADE|STYLE_NO_ANTHRO_ICON
+	mutantrace_variation = STYLE_DIGITIGRADE
 
 /obj/item/clothing/suit/toggle/labcoat/emt/red
 	name = "red emt vest"

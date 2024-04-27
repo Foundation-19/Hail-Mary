@@ -90,12 +90,12 @@
 	if(!.)
 		return
 	var/old_damaged = eye_damaged
-	switch(damage)
-		if(INFINITY to maxHealth)
+	if(damage)
+		if(damage >= maxHealth)
 			eye_damaged = BLIND_VISION_THREE
-		if(maxHealth to high_threshold)
+		if(damage >= high_threshold && damage < maxHealth)
 			eye_damaged = BLURRY_VISION_TWO
-		if(high_threshold to low_threshold)
+		if(damage >= low_threshold && damage < high_threshold)
 			eye_damaged = BLURRY_VISION_ONE
 		else
 			eye_damaged = FALSE
@@ -331,7 +331,7 @@
 	if(!silent)
 		to_chat(owner, span_warning("Your [src] clicks and makes a whining noise, before shooting out a beam of light!"))
 	active = TRUE
-	RegisterSignal(owner, COMSIG_ATOM_DIR_CHANGE, .proc/update_visuals)
+	RegisterSignal(owner, COMSIG_ATOM_DIR_CHANGE, PROC_REF(update_visuals))
 	cycle_mob_overlay()
 
 /obj/item/organ/eyes/robotic/glow/proc/deactivate(silent = FALSE)

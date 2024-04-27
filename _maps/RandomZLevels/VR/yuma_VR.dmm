@@ -3,7 +3,7 @@
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/hostile/ghoul/wyomingghost{
 	desc = "A happily proud Enclave commander, mutated and boiled alive by the forced evolutionary virus. His armor looks to be sunken into his flesh.";
-	faction = list("wastebot");
+	faction = list("wastebot","enclave");
 	health = 1500;
 	maxHealth = 1500;
 	name = "Commander Dirsk";
@@ -70,7 +70,9 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/mob/living/simple_animal/hostile/handy/gutsy,
+/mob/living/simple_animal/hostile/handy/gutsy{
+	faction = list("wastebot","enclave")
+	},
 /turf/open/floor/f13{
 	icon_state = "redrustyfull"
 	},
@@ -95,7 +97,9 @@
 /area/awaymission/vr/bos/casino)
 "ak" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/securitron/sentrybot,
+/mob/living/simple_animal/hostile/securitron/sentrybot{
+	faction = list("wastebot","enclave")
+	},
 /turf/open/indestructible/ground/inside/dirt,
 /area/awaymission/vr/bos/enclavebunker)
 "al" = (
@@ -157,7 +161,7 @@
 /area/holodeck/deathmatch/bos/blue_1)
 "aT" = (
 /obj/machinery/porta_turret/syndicate/energy{
-	faction = list("wastebot")
+	faction = list("wastebot","enclave")
 	},
 /turf/open/floor/f13{
 	dir = 10;
@@ -199,7 +203,9 @@
 /turf/closed/indestructible/f13,
 /area/awaymission/vr/public)
 "br" = (
-/mob/living/simple_animal/hostile/handy/protectron,
+/mob/living/simple_animal/hostile/handy/protectron{
+	faction = list("wastebot","enclave")
+	},
 /turf/open/floor/f13{
 	icon_state = "redrustyfull"
 	},
@@ -261,7 +267,9 @@
 /area/awaymission/vr/bos)
 "bT" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/handy/gutsy,
+/mob/living/simple_animal/hostile/handy/gutsy{
+	faction = list("wastebot","enclave")
+	},
 /turf/open/floor/f13{
 	icon_state = "redrustyfull"
 	},
@@ -1145,7 +1153,9 @@
 	},
 /area/awaymission/vr/bos/enclavebunker)
 "gQ" = (
-/mob/living/simple_animal/hostile/handy/gutsy,
+/mob/living/simple_animal/hostile/handy/gutsy{
+	faction = list("wastebot","enclave")
+	},
 /turf/open/floor/f13{
 	icon_state = "redrustyfull"
 	},
@@ -1213,14 +1223,6 @@
 /mob/living/simple_animal/hostile/enclave/soldier,
 /turf/open/floor/f13{
 	icon_state = "reddirtyfull"
-	},
-/area/awaymission/vr/bos/enclavebunker)
-"hG" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/blood/gibs,
-/obj/effect/spawner/lootdrop/f13/weapon/unique,
-/turf/open/floor/f13{
-	icon_state = "redrustyfull"
 	},
 /area/awaymission/vr/bos/enclavebunker)
 "hH" = (
@@ -1308,12 +1310,6 @@
 "iq" = (
 /turf/open/floor/holofloor/plating,
 /area/holodeck/den/programs/armory)
-"it" = (
-/obj/effect/spawner/lootdrop/f13/weapon/unique,
-/turf/open/floor/f13{
-	icon_state = "redrustyfull"
-	},
-/area/awaymission/vr/bos/enclavebunker)
 "iu" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light{
@@ -1902,7 +1898,9 @@
 /area/holodeck/bos/programs/medical)
 "lU" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/handy/assaultron,
+/mob/living/simple_animal/hostile/handy/assaultron{
+	faction = list("wastebot","enclave")
+	},
 /turf/open/floor/f13{
 	icon_state = "reddirtyfull"
 	},
@@ -2941,14 +2939,6 @@
 	},
 /turf/open/floor/circuit,
 /area/awaymission/vr/bos/deathmatch)
-"te" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/f13/cash_random_low,
-/obj/effect/spawner/lootdrop/f13/weapon/unique,
-/turf/open/floor/f13{
-	icon_state = "redrustyfull"
-	},
-/area/awaymission/vr/bos/enclavebunker)
 "tg" = (
 /obj/structure/bed{
 	pixel_y = 7
@@ -3025,7 +3015,9 @@
 /turf/open/floor/circuit/green/off,
 /area/awaymission/vr/public/deathmatch)
 "tQ" = (
-/mob/living/simple_animal/hostile/securitron/sentrybot,
+/mob/living/simple_animal/hostile/securitron/sentrybot{
+	faction = list("wastebot","enclave")
+	},
 /turf/open/floor/f13{
 	icon_state = "redrustyfull"
 	},
@@ -3491,7 +3483,6 @@
 /obj/structure/closet/crate/large,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/lootdrop/f13/weapon/gun/ammo/tier3,
-/obj/effect/spawner/lootdrop/f13/weapon/unique,
 /turf/open/floor/f13{
 	icon_state = "redrustyfull"
 	},
@@ -3876,7 +3867,6 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/effect/spawner/lootdrop/f13/weapon/unique,
 /turf/open/floor/f13{
 	icon_state = "redrustyfull"
 	},
@@ -4402,7 +4392,8 @@
 	health = 1500;
 	maxHealth = 1500;
 	name = "PCU-11";
-	speed = -0.5
+	speed = -0.5;
+	faction = list("wastebot","enclave")
 	},
 /turf/open/floor/plating/tunnel,
 /area/awaymission/vr/bos/enclavebunker)
@@ -4480,7 +4471,6 @@
 /obj/structure/chair/f13chair2{
 	dir = 8
 	},
-/obj/effect/spawner/lootdrop/f13/weapon/unique,
 /turf/open/floor/f13{
 	icon_state = "redrustyfull"
 	},
@@ -4576,7 +4566,9 @@
 /area/awaymission/vr/den)
 "Hc" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/handy/assaultron,
+/mob/living/simple_animal/hostile/handy/assaultron{
+	faction = list("wastebot","enclave")
+	},
 /turf/open/indestructible/ground/inside/subway,
 /area/awaymission/vr/bos/enclavebunker)
 "He" = (
@@ -4777,7 +4769,9 @@
 /area/awaymission/vr/bos/casino)
 "IG" = (
 /obj/effect/decal/cleanable/glass,
-/mob/living/simple_animal/hostile/handy/assaultron,
+/mob/living/simple_animal/hostile/handy/assaultron{
+	faction = list("wastebot","enclave")
+	},
 /turf/open/floor/f13{
 	dir = 10;
 	icon_state = "redmark"
@@ -5193,7 +5187,9 @@
 /turf/open/floor/plating/tunnel,
 /area/awaymission/vr/bos/enclavebunker)
 "LX" = (
-/mob/living/simple_animal/hostile/handy/assaultron,
+/mob/living/simple_animal/hostile/handy/assaultron{
+	faction = list("wastebot","enclave")
+	},
 /turf/open/floor/f13{
 	icon_state = "redrustyfull"
 	},
@@ -5877,7 +5873,6 @@
 /obj/effect/decal/cleanable/blood/old{
 	pixel_x = 12
 	},
-/obj/effect/spawner/lootdrop/f13/weapon/unique,
 /turf/open/floor/f13{
 	icon_state = "reddirtyfull"
 	},
@@ -12529,7 +12524,7 @@ rb
 ma
 xB
 ow
-it
+Qh
 Lr
 Ii
 xB
@@ -14327,7 +14322,7 @@ ma
 Qh
 aa
 Qh
-hG
+KT
 ow
 UG
 ow
@@ -15878,7 +15873,7 @@ Cb
 LK
 ma
 OW
-it
+Qh
 Tx
 Kw
 ma
@@ -16137,7 +16132,7 @@ TU
 ow
 Tv
 RD
-te
+Tx
 ma
 rb
 rb
