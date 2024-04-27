@@ -110,6 +110,26 @@
 	path = /obj/item/clothing/shoes/f13/diesel/alt
 	subcategory = LOADOUT_SUBCATEGORY_SHOES_BOOTS
 
+/datum/gear/shoes/clown
+	name = "clown shoes"
+	path = /obj/item/clothing/shoes/clown
+
+/datum/gear/shoes/jester
+	name = "jester shoes"
+	path = /obj/item/clothing/shoes/jester
+
+/datum/gear/shoes/brit
+	name = "commonwealth boots"
+	path = /obj/item/clothing/shoes/brit
+
+/datum/gear/shoes/fifi
+	name = "Fifi Jester Boots"
+	path = /obj/item/clothing/shoes/fifi
+
+/datum/gear/shoes/ww2brown
+	name = "Type three service shoes"
+	path = /obj/item/clothing/shoes/ww2brown
+
 /// Military aka Two point boots
 
 /datum/gear/shoes/military
@@ -130,14 +150,6 @@
 	name = "combat boots"
 	path = /obj/item/clothing/shoes/combat
 
-/datum/gear/shoes/military/steeltipped
-	name = "steel tipped boots"
-	path = /obj/item/clothing/shoes/f13/military/khan
-
-/datum/gear/shoes/military/steelpelts
-	name = "steel tipped pelt boots"
-	path = /obj/item/clothing/shoes/f13/military/khan_pelt
-
 /datum/gear/shoes/military/duty
 	name = "duty boots"
 	path = /obj/item/clothing/shoes/f13/military/duty
@@ -150,25 +162,13 @@
 	name = "jackboots"
 	path = /obj/item/clothing/shoes/jackboots
 
-/datum/gear/shoes/clown
-	name = "clown shoes"
-	path = /obj/item/clothing/shoes/clown
+/datum/gear/shoes/military/steeltipped
+	name = "steel tipped boots"
+	path = /obj/item/clothing/shoes/f13/military/khan
 
-/datum/gear/shoes/jester
-	name = "jester shoes"
-	path = /obj/item/clothing/shoes/jester
-
-/datum/gear/shoes/brit
-	name = "commonwealth boots"
-	path = /obj/item/clothing/shoes/brit
-
-/datum/gear/shoes/fifi
-	name = "Fifi Jester Boots"
-	path = /obj/item/clothing/shoes/fifi
-
-/datum/gear/shoes/ww2brown
-	name = "Type three service shoes"
-	path = /obj/item/clothing/shoes/ww2brown
+/datum/gear/shoes/military/steelpelts
+	name = "steel tipped pelt boots"
+	path = /obj/item/clothing/shoes/f13/military/khan_pelt
 
 /// Factions Shoes or well NCR boots.
 

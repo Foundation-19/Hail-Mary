@@ -415,21 +415,23 @@
 							"NCR Heavy Trooper"
 						)
 
-/datum/gear/head/khan_bandana
-	name = "Great Khan bandana"
-	path = /obj/item/clothing/head/helmet/f13/khan/bandana
+/datum/gear/head/khan
+	name = "Great Khan helmet"
+	path = /obj/item/clothing/head/helmet/f13/khan
 	subcategory = LOADOUT_SUBCATEGORY_HEAD_FACTIONS
 	cost = 2
 	restricted_desc = "Outlaw"
-	restricted_roles = list("Outlaw")
+	restricted_roles = list("Outlaw",
+							"Wastelander"
+						)
 
-/datum/gear/head/khan_furtrimmed
+/datum/gear/head/khan/khan_furtrimmed
 	name = "Great Khan fur-trimmed helmet"
 	path = /obj/item/clothing/head/helmet/f13/khan/pelt
-	subcategory = LOADOUT_SUBCATEGORY_HEAD_FACTIONS
-	cost = 2
-	restricted_desc = "Outlaw"
-	restricted_roles = list("Outlaw")
+
+/datum/gear/head/khan/khan_bandana
+	name = "Outlaw bandana"
+	path = /obj/item/clothing/head/helmet/f13/khan/bandana
 
 /datum/gear/head/oasishelmet
 	name = "light security helmet"
