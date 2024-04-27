@@ -1030,16 +1030,6 @@
 	traitname = "Power Armor"
 	remarks = list("Daily maintenance is essential, clean and repair your suit often.", "Don't let overconfidence kill you, you are not invincible.", "Mechanized infantry should always be supported by regular infantry.", "You move slowly, pay attention to your position relative to the enemy.", "You are always vulnerable to ambush, do not rest in the field.", "AP rounds will shred your suit, you are not invincible.")
 
-/*
-/obj/item/book/granter/trait/trekking
-	name = "Wasteland Survival Guide"
-	desc = "This indispensable guidebook contains everything that a survivor in the wasteland would need to know."
-	oneuse = TRUE
-	granted_trait = TRAIT_HARD_YARDS
-	traitname = "trekking"
-	remarks = list("Tribes and gangs often hide the best loot in the back room.", "Radiation is best avoided entirely, but it helps to carry spare rad-x.", "Whether ancient or recent, landmines are still a threat, and readers should look out for them.", "Injuries and open bleeding make it harder to travel, always carry spare medical supplies.", "Most animals are simple-minded, and can be led into easy lines of fire.")
-*/
-
 /obj/item/book/granter/trait/explosives
 	name = "Industrial Society and Its Future"
 	desc = "This lengthy manifesto happens to contain a variety of valuable knowledge on how to craft explosives of all kinds."
