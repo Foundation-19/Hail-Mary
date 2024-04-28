@@ -425,7 +425,7 @@
 	path = /obj/item/clothing/head/helmet/f13/khan
 	subcategory = LOADOUT_SUBCATEGORY_HEAD_FACTIONS
 	cost = 2
-	restricted_desc = "Outlaw"
+	restricted_desc = "Wastelanders"
 	restricted_roles = list("Outlaw",
 							"Wastelander"
 						)

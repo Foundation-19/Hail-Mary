@@ -158,7 +158,22 @@
 /datum/gear/suit/punkkit
 	name = "Punk Armor Kit"
 	path = /obj/item/clothing/suit/armor/light/kit/punk
+	restricted_desc = "Wastelander"
+	restricted_roles = list("Wastelander",
+							"Outlaw",
+							"Preacher",
+							)
 	subcategory = LOADOUT_SUBCATEGORY_SUIT_ARMOR 	
+	cost = 2
+
+/datum/gear/suit/khanjacket // Armor kit reskin defense
+	name = "Khan Jacket"
+	path = /obj/item/clothing/suit/toggle/labcoat/khan_jacket
+	restricted_desc = "Wastelander"
+	restricted_roles = list("Wastelander",
+							"Outlaw",
+							)
+	subcategory = LOADOUT_SUBCATEGORY_SUIT_ARMOR
 	cost = 2
 
 /datum/gear/suit/flak
@@ -167,7 +182,6 @@
 	restricted_desc = "Wastelander"
 	restricted_roles = list("Wastelander",
 							"Outlaw",
-							"Preacher",
 							)
 	subcategory = LOADOUT_SUBCATEGORY_SUIT_ARMOR 	
 	cost = 4
