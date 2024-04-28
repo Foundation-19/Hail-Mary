@@ -18577,13 +18577,6 @@
 /mob/living/simple_animal/hostile/ghoul,
 /turf/open/floor/wood_common,
 /area/f13/village)
-"bQJ" = (
-/obj/machinery/door/poddoor/shutters/old{
-	id = "factorygate";
-	name = "road barrier"
-	},
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/brotherhood)
 "bQQ" = (
 /obj/item/storage/trash_stack{
 	icon_state = "trash_2"
@@ -115153,7 +115146,7 @@ oYF
 oYF
 oYF
 oYF
-bQJ
+qMg
 aOk
 aOk
 aOk
