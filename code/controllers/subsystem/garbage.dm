@@ -111,6 +111,8 @@ SUBSYSTEM_DEF(garbage)
 			dellog += "\tIgnored force: [I.no_respect_force] times"
 		if (I.no_hint)
 			dellog += "\tNo hint: [I.no_hint] times"
+		if(LAZYLEN(I.extra_details))
+			dellog += "\tDeleted Metadata: [I.extra_details]"
 	log_qdel(dellog.Join("\n"))
 
 /datum/controller/subsystem/garbage/fire()
@@ -212,6 +214,9 @@ SUBSYSTEM_DEF(garbage)
 				var/datum/qdel_item/I = items[type]
 
 				log_world("## TESTING: GC: -- \ref[D] | [type] was unable to be GC'd --")
+				var/detail = D.dump_harddel_info()
+				if(detail)
+					LAZYADD(I.extra_details, detail)
 				#ifdef TESTING
 				for(var/c in GLOB.admins) //Using testing() here would fill the logs with ADMIN_VV garbage
 					var/client/admin = c
@@ -266,16 +271,19 @@ SUBSYSTEM_DEF(garbage)
 	++totaldels
 	var/type = D.type
 	var/refID = "\ref[D]"
+	var/datum/qdel_item/type_info = items[type]
+	var/detail = D.dump_harddel_info()
+	if(detail)
+		LAZYADD(type_info.extra_details, detail)
 
 	var/tick_usage = TICK_USAGE
 	del(D)
 	tick_usage = TICK_USAGE_TO_MS(tick_usage)
 
-	var/datum/qdel_item/I = items[type]
-	I.hard_deletes++
-	I.hard_delete_time += tick_usage
-	if (tick_usage > I.hard_delete_max)
-		I.hard_delete_max = tick_usage
+	type_info.hard_deletes++
+	type_info.hard_delete_time += tick_usage
+	if (tick_usage > type_info.hard_delete_max)
+		type_info.hard_delete_max = tick_usage
 	if (tick_usage > highest_del_ms)
 		highest_del_ms = tick_usage
 		highest_del_type_string = "[type]"
@@ -288,14 +296,14 @@ SUBSYSTEM_DEF(garbage)
 	var/threshold = 0.5 // increase if we need to
 
 	if (threshold && (time > threshold SECONDS))
-		if (!(I.qdel_flags & QDEL_ITEM_ADMINS_WARNED))
+		if (!(type_info.qdel_flags & QDEL_ITEM_ADMINS_WARNED))
 			log_game("Error: [type]([refID]) took longer than [threshold] seconds to delete (took [round(time/10, 0.1)] seconds to delete)")
 			message_admins("Error: [type]([refID]) took longer than [threshold] seconds to delete (took [round(time/10, 0.1)] seconds to delete).")
-			I.qdel_flags |= QDEL_ITEM_ADMINS_WARNED
-		I.hard_deletes_over_threshold++
+			type_info.qdel_flags |= QDEL_ITEM_ADMINS_WARNED
+		type_info.hard_deletes_over_threshold++
 		var/overrun_limit = 0 // increase if we need to
-		if (overrun_limit && I.hard_deletes_over_threshold >= overrun_limit)
-			I.qdel_flags |= QDEL_ITEM_SUSPENDED_FOR_LAG
+		if (overrun_limit && type_info.hard_deletes_over_threshold >= overrun_limit)
+			type_info.qdel_flags |= QDEL_ITEM_SUSPENDED_FOR_LAG
 
 /datum/controller/subsystem/garbage/Recover()
 	InitQueues() //We first need to create the queues before recovering data
@@ -317,6 +325,7 @@ SUBSYSTEM_DEF(garbage)
 	var/no_hint = 0 //!Number of times it's not even bother to give a qdel hint
 	var/slept_destroy = 0 //!Number of times it's slept in its destroy
 	var/qdel_flags = 0 //!Flags related to this type's trip thru qdel.
+	var/list/extra_details //!Lazylist of string metadata about the deleted objects
 
 /datum/qdel_item/New(mytype)
 	name = "[mytype]"

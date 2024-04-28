@@ -23944,7 +23944,9 @@
 /turf/open/floor/plasteel/darkpurple/side,
 /area/f13/vault)
 "mbd" = (
-/mob/living/simple_animal/bot/cleanbot,
+/mob/living/simple_animal/bot/cleanbot{
+	faction = list("neutral","silicon","turret","enclave")
+	},
 /obj/machinery/light,
 /turf/open/floor/plasteel/f13/vault_floor/purple,
 /area/f13/enclave)
@@ -24539,7 +24541,9 @@
 /turf/open/floor/plasteel/f13/vault_floor/purple,
 /area/f13/enclave)
 "mtH" = (
-/mob/living/simple_animal/bot/cleanbot,
+/mob/living/simple_animal/bot/cleanbot{
+	faction = list("neutral","silicon","turret","enclave")
+	},
 /turf/open/floor/mineral/plastitanium,
 /area/f13/enclave)
 "mtK" = (

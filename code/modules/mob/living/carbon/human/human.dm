@@ -7,6 +7,12 @@ GLOBAL_VAR_INIT(crotch_call_cooldown, 0)
 	icon = 'icons/mob/human.dmi'
 	icon_state = "caucasian_m"
 	appearance_flags = KEEP_TOGETHER|TILE_BOUND|PIXEL_SCALE|LONG_GLIDE
+	var/saved_underwear = ""//saves their underwear so it can be toggled later
+	var/saved_undershirt = ""
+	var/saved_socks = ""
+	var/hidden_underwear = FALSE
+	var/hidden_undershirt = FALSE
+	var/hidden_socks = FALSE
 
 /mob/living/carbon/human/Initialize()
 	add_verb(src, /mob/living/proc/mob_sleep)
@@ -1320,3 +1326,6 @@ GLOBAL_VAR_INIT(crotch_call_cooldown, 0)
 
 /mob/living/carbon/human/species/smutant
 	race = /datum/species/smutant
+
+/mob/living/carbon/human/dump_harddel_info()
+	return "mob name: [real_name]"

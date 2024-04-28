@@ -113,6 +113,7 @@
 	
 	pixels_per_second = BULLET_SPEED_PISTOL_9MM
 	damage_falloff = BULLET_FALLOFF_DEFAULT_PISTOL_LIGHT
+	armour_penetration = 0.1
 
 /* 9mm handload
  * DAMAGE: 15

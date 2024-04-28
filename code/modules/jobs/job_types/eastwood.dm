@@ -68,7 +68,10 @@ Mayor
 		/datum/outfit/loadout/mayoral,
 		/datum/outfit/loadout/dictator,
 		/datum/outfit/loadout/firstcitizen,
-		/datum/outfit/loadout/highroller
+		/datum/outfit/loadout/highroller,
+		/datum/outfit/loadout/clinicdirector,
+		/datum/outfit/loadout/richman,
+		/datum/outfit/loadout/eastchief
 		)
 
 
@@ -151,7 +154,39 @@ Mayor
 		/obj/item/ammo_box/magazine/m45/socom = 2
 	)
 
+/datum/outfit/loadout/clinicdirector
+	name = "Doctor In Chief"
+	backpack_contents = list(
+		/obj/item/clothing/suit/armor/medium/duster/follower = 1,
+		/obj/item/book/granter/trait/midsurgery = 1,
+		/obj/item/storage/belt/medical/surgery_belt_adv = 1,
+		/obj/item/storage/box/medicine/stimpaks/stimpaks5 = 1,
+		/obj/item/clipboard = 1,
+		/obj/item/pen = 1,
+		/obj/item/gun/energy/laser/wattz/magneto = 1,
+		/obj/item/stock_parts/cell/ammo/ec = 2
+	)
 
+/datum/outfit/loadout/richman
+	name = "Nightstalker Of Eastwood"
+	backpack_contents = list(
+		/obj/item/clothing/suit/armor/medium/duster/armoredcoat = 1,
+		/obj/item/stack/f13Cash/caps/twozerozero = 1,
+		/obj/item/gun/ballistic/automatic/pistol/m1911/custom/jackal = 1,
+		/obj/item/ammo_box/magazine/m45 = 2,
+		/obj/item/pda = 1,
+		/obj/item/book/granter/crafting_recipe/blueprint/greasegun = 1,
+		/obj/item/book/granter/crafting_recipe/blueprint/leveraction  = 1
+	)
+
+/datum/outfit/loadout/eastchief
+	name = "Cheif of the East"
+	backpack_contents = list(
+		/obj/item/clothing/suit/hooded/cloak/hhunter = 1,
+		/obj/item/clothing/under/f13/exile/tribal = 1,
+		/obj/item/twohanded/sledgehammer/warmace = 1,
+		/obj/item/storage/box/medicine/poultice5 = 1
+	)
 /*--------------------------------------------------------------*/
 
 /datum/job/eastwood/f13secretary
@@ -583,8 +618,7 @@ Mayor
 		/obj/item/mining_scanner,
 		/obj/item/melee/onehanded/knife/hunting,
 		/obj/item/gun/ballistic/automatic/pistol/n99,
-		/obj/item/ammo_box/magazine/m10mm/adv/simple = 2,
-		w = 1,
+		/obj/item/ammo_box/magazine/m10mm/adv/simple = 2
 		)
 
 /datum/outfit/job/den/f13settler/pre_equip(mob/living/carbon/human/H)
@@ -636,7 +670,7 @@ Mayor
 	total_positions = 3
 	spawn_positions = 3
 	supervisors = "The Mayor"
-	description = "Handy with a scalpel and scanner, your expertise in the practice of medicine makes you an indispensible asset to the settlement of Eastwood. Just remember that you're no Follower - medicine doesn't come for free, and you aren't here out of the kindness of your heart. Make sure to turn a profit on your services, or the Mayor might reconsider your position!"
+	description = "Handy with a scalpel and scanner, your expertise in the practice of medicine makes you an indispensible asset to the settlement of Eastwood. Just remember that you're not a Follower - medicine doesn't come for free, and you aren't here out of the kindness of your heart. Make sure to turn a profit on your services, or the Mayor might reconsider your position, if you're bad enough the sherrif might even kick you out!"
 	enforces = "Medicine is a public service, and you are under control of local governance - but remember public doesn't equate to free."
 	selection_color = "#dcba97"
 

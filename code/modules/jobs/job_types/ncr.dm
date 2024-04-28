@@ -156,6 +156,10 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 		/datum/outfit/loadout/captainfrontline, // AR Service Rifle
 		)
 
+	min_required_special = list(
+		"special_c" = 4,
+		)
+
 /datum/outfit/job/ncr/f13captain/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
 	if(visualsOnly)
@@ -235,6 +239,10 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 			/datum/job/ncr,
 		),
 	)
+
+	min_required_special = list(
+		"special_c" = 4,
+		)
 
 /datum/outfit/job/ncr/f13lieutenant		// AR Service Rifle, Binoculars, Bayonet, M1911 custom
 	name = "NCR Lieutenant"
@@ -534,6 +542,10 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 		/datum/outfit/loadout/vrlite, // Brush
 		/datum/outfit/loadout/vrshotgunner, // Unique Lever-Action
 		/datum/outfit/loadout/vrcqc // 2 x .45 Long colt revolvers
+		)
+
+	min_required_special = list(
+		"special_c" = 4,
 		)
 
 /datum/outfit/job/ncr/f13vetranger/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
