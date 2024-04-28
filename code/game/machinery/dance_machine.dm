@@ -679,7 +679,7 @@
 	src.visible_message("<span class='warning'> music library has been updated.")
 
 /obj/machinery/gramophone_recorder/proc/diskProcess() //its an old piece of tech and it takes it's time
-	addtimer(CALLBACK(src, .proc/burnDisk), 40)
+	addtimer(CALLBACK(src, PROC_REF(burnDisk)), 40)
 	inuse = TRUE
 	src.visible_message("<span class='warning'>your disk is being burned, please stand by.")
 

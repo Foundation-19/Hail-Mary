@@ -469,7 +469,7 @@
 			if(!(wearer.ears == src)) //only want headsets to play music if they're equipped
 				return
 		stopmusic(radio_holder) //stop the previously playing song to make way for the new one
-		addtimer(CALLBACK(src, .proc/avoiding_a_sleep, radio_holder, music_filepath, name_of_music, music_volume), 10)
+		addtimer(CALLBACK(src, PROC_REF(avoiding_a_sleep), radio_holder, music_filepath, name_of_music, music_volume), 10)
 
 /obj/item/radio/proc/stopmusic(mob/living/user, music_turnoff_message_type)
 	if(music_playing)
@@ -489,7 +489,7 @@
 
 /obj/item/radio/dropped(mob/user)
 	..()
-	addtimer(CALLBACK(src, .proc/droppedStopMusic, user), 3)
+	addtimer(CALLBACK(src, PROC_REF(droppedStopMusic), user), 3)
 
 /obj/item/radio/proc/droppedStopMusic(mob/user)
 	var/i
