@@ -24584,16 +24584,6 @@
 	icon_state = "outerpavementdirt"
 	},
 /area/f13/wasteland)
-"dZD" = (
-/obj/item/record_disk{
-	desc = "Get rid of this";
-	name = "Cursed Track";
-	R = /datum/track/cursed
-	},
-/turf/open/indestructible/ground/outside/road{
-	icon_state = "horizontalbottombordertop0"
-	},
-/area/f13/wasteland)
 "dZF" = (
 /mob/living/simple_animal/hostile/raider/junker/creator,
 /turf/open/floor/plasteel/f13{
@@ -44870,15 +44860,12 @@
 /area/f13/building)
 "mly" = (
 /obj/structure/table/wood/fancy/black,
-/obj/item/record_disk{
-	R = /datum/track/Jailhouse
-	},
-/obj/item/record_disk{
-	R = /datum/track/Amore
-	},
-/obj/item/record_disk{
-	R = /datum/track/Sixteen
-	},
+/obj/item/record_disk,
+/obj/item/record_disk,
+/obj/item/record_disk,
+/obj/item/record_disk,
+/obj/item/record_disk,
+/obj/item/record_disk,
 /turf/open/floor/light/colour_cycle/dancefloor_b,
 /area/f13/city)
 "mlF" = (
@@ -96038,7 +96025,7 @@ vSc
 aQZ
 mHp
 pjF
-dZD
+igF
 eJO
 anR
 kls
