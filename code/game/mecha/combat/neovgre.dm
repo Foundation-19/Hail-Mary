@@ -34,7 +34,7 @@
 
 /obj/mecha/combat/neovgre/MouseDrop_T(mob/M, mob/user)
 	if(!is_servant_of_ratvar(user))
-		to_chat(user, "<span class='neovgre'>BEGONE HEATHEN!</span>")
+		to_chat(user, span_neovgre("BEGONE HEATHEN!"))
 		return
 	else
 		..()
@@ -42,7 +42,7 @@
 /obj/mecha/combat/neovgre/moved_inside(mob/living/carbon/human/H)
 	var/list/Itemlist = H.get_contents()
 	for(var/obj/item/clockwork/slab/W in Itemlist)
-		to_chat(H, "<span class='brass'>You safely store [W] inside [src].</span>")
+		to_chat(H, span_brass("You safely store [W] inside [src]."))
 		qdel(W)
 	. = ..()
 
@@ -51,7 +51,7 @@
 		to_chat(M, span_brass("You are consumed by the fires raging within Neovgre..."))
 		M.dust()
 	playsound(src, 'sound/effects/neovgre_exploding.ogg', 100, 0)
-	src.visible_message("<span class = 'userdanger'>The reactor has gone critical, its going to blow!</span>")
+	src.visible_message(span_userdanger("'The reactor has gone critical, its going to blow!"))
 	addtimer(CALLBACK(src,PROC_REF(go_critical)),breach_time)
 
 /obj/mecha/combat/neovgre/proc/go_critical()
@@ -59,7 +59,7 @@
 	Destroy(src)
 
 /obj/mecha/combat/neovgre/container_resist(mob/living/user)
-	to_chat(user, "<span class='brass'>Neovgre requires a lifetime commitment friend, no backing out now!</span>")
+	to_chat(user, span_brass("Neovgre requires a lifetime commitment friend, no backing out now!"))
 	return
 
 /obj/mecha/combat/neovgre/process()

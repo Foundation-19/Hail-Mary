@@ -48,12 +48,12 @@
 	if(!chassis || chassis.occupant != owner)
 		return
 	chassis.is_currently_ejecting = TRUE
-	to_chat(owner, "<span class='notice'>You begin the ejection procedure. Equipment is disabled during this process. Hold still to finish ejecting.<span>")
+	to_chat(owner, span_notice("You begin the ejection procedure. Equipment is disabled during this process. Hold still to finish ejecting."))
 	if(do_after(chassis.occupant,chassis.exit_delay, target = chassis))
-		to_chat(owner, "<span class='notice'>You exit the mech.<span>")
+		to_chat(owner, span_notice("You exit the mech."))
 		chassis.go_out()
 	else
-		to_chat(owner, "<span class='notice'>You stop exiting the mech. Weapons are enabled again.<span>")
+		to_chat(owner, span_notice("You stop exiting the mech. Weapons are enabled again."))
 	chassis.is_currently_ejecting = FALSE
 
 
@@ -208,13 +208,13 @@
 		chassis.bumpsmash = 1
 		chassis.step_in = max(1, round(chassis.step_in*0.75, 0.25))
 		chassis.step_energy_drain = max(chassis.overload_step_energy_drain_min,chassis.step_energy_drain*chassis.leg_overload_coeff)
-		chassis.occupant_message("<span class='danger'>You enable leg actuators overload.</span>")
+		chassis.occupant_message(span_danger("You enable leg actuators overload."))
 	else
 		chassis.leg_overload_mode = 0
 		chassis.bumpsmash = 0
 		chassis.step_in = initial(chassis.step_in)
 		chassis.step_energy_drain = chassis.normal_step_energy_drain
-		chassis.occupant_message("<span class='notice'>You disable leg actuators overload.</span>")
+		chassis.occupant_message(span_notice("You disable leg actuators overload."))
 	UpdateButtonIcon()
 
 /datum/action/innate/mecha/mech_smoke
@@ -314,19 +314,20 @@
 	button_icon_state = "mech_overload_[chassis.landing_mode ? "on" : "off"]"
 	chassis.mecha_log_message("Landing")
 	if(chassis.landing_mode)
-		chassis.landing_mode = 1
-		chassis.bumpsmash = 1
-		chassis.step_in = 7
-		chassis.step_energy_drain = 0.8
-		chassis.occupant_message("<span class='danger'>You are landing.</span>")
-		chassis.mechjumptocoord(4)
+		if(chassis.mechazmove(DOWN))
+			chassis.landing_mode = 1
+			chassis.bumpsmash = 1
+			chassis.step_in = 7
+			chassis.step_energy_drain = 0.8
+			chassis.occupant_message(span_danger("You are landing."))
 	else
-		chassis.landing_mode = 0
-		chassis.bumpsmash = 0
-		chassis.step_in = initial(chassis.step_in)
-		chassis.step_energy_drain = chassis.normal_step_energy_drain
-		chassis.occupant_message("<span class='notice'>You are taking off.</span>")
-		chassis.mechjumptocoord(5)
+		if(chassis.mechazmove(UP))
+			chassis.landing_mode = 0
+			chassis.bumpsmash = 0
+			chassis.step_in = initial(chassis.step_in)
+			chassis.step_energy_drain = chassis.normal_step_energy_drain
+			chassis.occupant_message(span_notice("You are taking off."))
+
 
 	UpdateButtonIcon()
 

@@ -45,7 +45,7 @@
 	move_resist = MOVE_FORCE_EXTREMELY_STRONG
 	light_range = 9
 	var/deflect_chance = 10 //chance to deflect the incoming projectiles, hits, or lesser the effect of ex_act.
-	armor = list("melee" = 20, "bullet" = 10, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 100)
+	armor = ARMOR_VALUE_HEAVY
 	var/list/facing_modifiers = list(FRONT_ARMOUR = 1.5, SIDE_ARMOUR = 1, BACK_ARMOUR = 0.5)
 	var/obj/item/stock_parts/cell/cell
 	var/state = 0
@@ -281,8 +281,8 @@
 	cabin_air = new
 	cabin_air.set_temperature(T20C)
 
-	cabin_air.set_moles(GAS_O2,O2STANDARD*cabin_air.return_volume()/(R_IDEAL_GAS_EQUATION*cabin_air.return_temperature()))
-	cabin_air.set_moles(GAS_N2,N2STANDARD*cabin_air.return_volume()/(R_IDEAL_GAS_EQUATION*cabin_air.return_temperature()))
+	//cabin_air.set_moles(GAS_O2,O2STANDARD*cabin_air.return_volume()/(R_IDEAL_GAS_EQUATION*cabin_air.return_temperature()))
+	//cabin_air.set_moles(GAS_N2,N2STANDARD*cabin_air.return_volume()/(R_IDEAL_GAS_EQUATION*cabin_air.return_temperature()))
 
 	return cabin_air
 
@@ -523,7 +523,7 @@
 	. = ..()
 	occupant?.setDir(newdir)
 
-/obj/mecha/Process_Spacemove(movement_dir = 0)
+/obj/mecha/Process_Spacemove(movement_dir = 0, continuous_move)
 	. = ..()
 	if(.)
 		return 1
@@ -614,6 +614,23 @@
 		var/turf/T = locate(z)
 		A.forceMove(T)
 
+/obj/mecha/proc/mechazmove(Direction)
+	if(Direction == UP)
+		var/turf/T = SSmapping.get_turf_above(src)
+		if(canZMove(UP, destination = T) && canZMove(DOWN, T, loc))
+			zMove(UP, T)
+			return TRUE
+		else
+			occupant_message(span_warning("No Open Space!"))
+			return FALSE
+	else
+		var/turf/T = SSmapping.get_turf_below(src)
+		if(canZMove(DOWN, destination = T))
+			zMove(DOWN, T)
+			return TRUE
+		else
+			occupant_message(span_warning("No Open Space!"))
+			return FALSE
 //Bump
 
 /obj/mecha/Bump(atom/obstacle)

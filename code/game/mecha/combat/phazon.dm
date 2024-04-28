@@ -89,10 +89,10 @@
 
 /obj/mecha/combat/phazon/vertibird/obj_destruction()
 	for(var/mob/M in src)
-		to_chat(M, "<span class='brass'> The vertibird is going to Crash !</span>")
+		to_chat(M, span_brass("The vertibird is going to Crash"))
 		M.dust()
 	playsound(src, 'sound//f13machines//vertibird_crash.ogg', 100, 0)
-	src.visible_message("<span class = 'userdanger'>The reactor has gone critical, its going to blow!</span>")
+	src.visible_message(span_userdanger("The reactor has gone critical, its going to blow!"))
 	addtimer(CALLBACK(src,.proc/go_critical),breach_time)
 
 /obj/mecha/combat/phazon/vertibird/proc/go_critical()
@@ -168,10 +168,10 @@
 
 /obj/mecha/combat/phazon/vertibird/ncr/obj_destruction()
 	for(var/mob/M in src)
-		to_chat(M, "<span class='brass'> The vertibird is going to Crash !</span>")
+		to_chat(M, span_brass(" The vertibird is going to Crash !"))
 		M.dust()
 	playsound(src, 'sound//f13machines//vertibird_crash.ogg', 100, 0)
-	src.visible_message("<span class = 'userdanger'>The reactor has gone critical, its going to blow!</span>")
+	src.visible_message(span_userdanger("The reactor has gone critical, its going to blow!"))
 	addtimer(CALLBACK(src,.proc/go_critical),breach_time)
 
 /obj/mecha/combat/phazon/vertibird/ncr/loaded/Initialize()
@@ -245,10 +245,10 @@
 
 /obj/mecha/combat/phazon/vertibird/enclave/obj_destruction()
 	for(var/mob/M in src)
-		to_chat(M, "<span class='brass'> The vertibird is going to Crash !</span>")
+		to_chat(M, span_brass(" The vertibird is going to Crash !"))
 		M.dust()
 	playsound(src, 'sound//f13machines//vertibird_crash.ogg', 100, 0)
-	src.visible_message("<span class = 'userdanger'>The reactor has gone critical, its going to blow!</span>")
+	src.visible_message(span_userdanger("The reactor has gone critical, its going to blow!"))
 	addtimer(CALLBACK(src,.proc/go_critical),breach_time)
 
 /obj/mecha/combat/phazon/vertibird/enclave/loaded/Initialize()
@@ -316,10 +316,10 @@
 
 /obj/mecha/combat/phazon/vertibird/brotherhood/obj_destruction()
 	for(var/mob/M in src)
-		to_chat(M, "<span class='brass'> The vertibird is going to Crash !</span>")
+		to_chat(M, span_brass(" The vertibird is going to Crash !"))
 		M.dust()
 	playsound(src, 'sound//f13machines//vertibird_crash.ogg', 100, 0)
-	src.visible_message("<span class = 'userdanger'>The reactor has gone critical, its going to blow!</span>")
+	src.visible_message(span_userdanger("The reactor has gone critical, its going to blow!"))
 	addtimer(CALLBACK(src,.proc/go_critical),breach_time)
 
 /obj/mecha/combat/phazon/vertibird/brotherhood/loaded/Initialize()

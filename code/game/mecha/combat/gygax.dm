@@ -25,7 +25,7 @@
 	desc = "A lightweight exosuit, painted in a dark scheme. This model appears to have some modifications."
 	icon_state = "darkgygax"
 	max_integrity = 500
-	armor = list("melee" = 45, "bullet" = 45, "laser" = 60, "energy" = 40, "bomb" = 35, "bio" = 0, "rad" = 100, "fire" = 100, "acid" = 100)
+	armor = ARMOR_VALUE_HEAVY
 	max_temperature = 35000
 	leg_overload_coeff = 100
 	wreckage = /obj/structure/mecha_wreckage/gygax/dark

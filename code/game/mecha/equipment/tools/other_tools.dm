@@ -162,8 +162,8 @@
 		return
 	if(!patient_insertion_check(target))
 		return
-	occupant_message("<span class='notice'>You start putting [target] into [src]...</span>")
-	chassis.visible_message("<span class='warning'>[chassis] starts putting [target] into \the [src].</span>")
+	occupant_message(span_notice("You start putting [target] into [src]..."))
+	chassis.visible_message(span_warning("[chassis] starts putting [target] into \the [src]."))
 	if(do_after_cooldown(target))
 		if(!patient_insertion_check(target))
 			return
@@ -171,19 +171,19 @@
 		patient = target
 		START_PROCESSING(SSobj, src)
 		update_equip_info()
-		occupant_message("<span class='notice'>[target] successfully loaded into [src]. Life support functions engaged... I mean, the seatbelt.</span>")
-		chassis.visible_message("<span class='warning'>[chassis] loads [target] into [src].</span>")
+		occupant_message(span_notice("[target] successfully loaded into [src]. Life support functions engaged... I mean, the seatbelt."))
+		chassis.visible_message(span_warning("[chassis] loads [target] into [src]."))
 		mecha_log_message("[target] loaded. Seatbelt engaged.")
 
 /obj/item/mecha_parts/mecha_equipment/seat/proc/patient_insertion_check(mob/living/carbon/target)
 	if(target.buckled)
-		occupant_message("<span class='warning'>[target] will not fit into the seat because [target.p_theyre()] buckled to [target.buckled]!</span>")
+		occupant_message(span_warning("[target] will not fit into the seat because [target.p_theyre()] buckled to [target.buckled]!"))
 		return
 	if(target.has_buckled_mobs())
-		occupant_message("<span class='warning'>[target] will not fit into the seat because of the creatures attached to it!</span>")
+		occupant_message(span_warning("[target] will not fit into the seat because of the creatures attached to it!"))
 		return
 	if(patient)
-		occupant_message("<span class='warning'>The seat is already occupied!</span>")
+		occupant_message(span_warning("The seat is already occupied!"))
 		return
 	return 1
 
@@ -199,7 +199,7 @@
 
 /obj/item/mecha_parts/mecha_equipment/seat/detach()
 	if(patient)
-		occupant_message("<span class='warning'>Unable to detach [src] - equipment occupied!</span>")
+		occupant_message(span_warning("Unable to detach [src] - equipment occupied!"))
 		return
 	STOP_PROCESSING(SSobj, src)
 	return ..()
@@ -517,7 +517,7 @@
 			occupant_message("Unit is full.")
 			return 0
 	else
-		occupant_message("<span class='warning'>[fuel] traces in target minimal! [P] cannot be used as fuel.</span>")
+		occupant_message(span_warning("[fuel] traces in target minimal! [P] cannot be used as fuel."))
 		return
 
 /obj/item/mecha_parts/mecha_equipment/generator/attackby(weapon,mob/user, params)
