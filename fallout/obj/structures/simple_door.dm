@@ -32,6 +32,7 @@
 	var/close_sound = 'sound/machines/door_close.ogg'
 	var/opening_time = 2
 	var/closing_time = 4
+	var/autoclose = 5 SECONDS
 
 /obj/structure/simple_door/Initialize()
 	. = ..()
@@ -89,6 +90,7 @@
 	density = 0
 	icon_state = "[door_type]open"
 	layer = OPEN_DOOR_LAYER
+	autoclose_in(autoclose)
 
 /obj/structure/simple_door/proc/Close(animate)
 	playsound(src.loc, close_sound, 30, 0, 0)
@@ -102,6 +104,13 @@
 	density = 1
 	moving = 0
 	layer = CLOSED_DOOR_LAYER
+
+/obj/structure/simple_door/proc/autoclose()
+	if(!QDELETED(src) && !density && autoclose && !manual_opened)
+		Close()
+
+/obj/structure/simple_door/proc/autoclose_in(wait)
+	addtimer(CALLBACK(src, PROC_REF(autoclose)), wait, TIMER_UNIQUE | TIMER_NO_HASH_WAIT | TIMER_OVERRIDE)
 
 /* can crowbar off a lock, to force a door open. This is overriden in airlock so shouldnt be an issue */
 /obj/structure/simple_door/proc/try_to_crowbar(obj/item/I, mob/user)
