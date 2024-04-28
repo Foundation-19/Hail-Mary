@@ -446,7 +446,7 @@
 			to_chat(user, "<span class='robot'><b>[src]</b> your preferences stopped <i>[music_name]</i> from playing!.' </span>")
 			return
 	music_playing = TRUE
-	playsound(user, music_filepath, music_volume, channel = music_channel) //plays the music to the user
+	playsound(user, music_filepath, music_volume, channel = music_channel, extrarange = -15) //plays the music to the user
 	update_icon()
 
 /obj/item/radio/proc/playmusic(music_filepath, name_of_music, music_volume) //Plays music at src using the filepath to the audio file. This proc is directly working with the bluespace radio station at radio_station.dm
