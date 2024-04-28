@@ -413,7 +413,7 @@
 "aQq" = (
 /obj/machinery/door/poddoor/shutters/old{
 	id = "bosgarage2";
-	name = "road barrier"
+	name = "Brotherhood Hanger"
 	},
 /turf/open/transparent/openspace,
 /area/f13/brotherhood)
@@ -6209,7 +6209,7 @@
 "nhQ" = (
 /obj/machinery/door/poddoor/shutters/old{
 	id = "bosgarage2";
-	name = "road barrier"
+	name = "Brotherhood Hanger"
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/brotherhood)
@@ -9213,6 +9213,10 @@
 	dir = 4
 	},
 /area/f13/building/hospital)
+"tSo" = (
+/obj/structure/simple_door/room,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/ncr)
 "tSG" = (
 /obj/machinery/light/small,
 /turf/open/transparent/openspace,
@@ -16794,7 +16798,7 @@ dTc
 tfg
 sPe
 cqK
-vmF
+cqK
 cqK
 ujK
 cSz
@@ -17051,7 +17055,7 @@ dTc
 dTc
 lPf
 lPf
-cqK
+tSo
 lPf
 lPf
 dTc
