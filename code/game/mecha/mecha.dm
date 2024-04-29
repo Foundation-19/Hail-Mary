@@ -618,6 +618,8 @@
 	if(Direction == UP)
 		var/turf/T = SSmapping.get_turf_above(src)
 		if(canZMove(UP, destination = T) && canZMove(DOWN, T, loc))
+			if(!do_after(occupant, 15, target = src))
+				return
 			zMove(UP, T)
 			return TRUE
 		else
@@ -626,6 +628,8 @@
 	else
 		var/turf/T = SSmapping.get_turf_below(src)
 		if(canZMove(DOWN, destination = T))
+			if(!do_after(occupant, 15, target = src))
+				return
 			zMove(DOWN, T)
 			return TRUE
 		else

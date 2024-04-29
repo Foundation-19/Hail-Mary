@@ -309,8 +309,6 @@
 		return
 	if(!isnull(forced_state))
 		chassis.landing_mode = forced_state
-	if(!do_after(chassis.occupant, 30, target = chassis))
-		return
 	else
 		chassis.landing_mode = !chassis.landing_mode
 	button_icon_state = "mech_overload_[chassis.landing_mode ? "on" : "off"]"
