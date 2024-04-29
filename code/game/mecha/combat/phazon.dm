@@ -43,9 +43,9 @@
 	step_in = 0.6
 	dir_in = 2
 	step_energy_drain = 1.5
-	max_integrity = 300
+	max_integrity = 150
 	deflect_chance = 30
-	armor = ARMOR_VALUE_MEDIUM
+	armor = ARMOR_VALUE_LIGHT
 	max_temperature = 25000
 	infra_luminosity = 1
 	wreckage = /obj/structure/mecha_wreckage/vertibird
@@ -128,9 +128,9 @@
 	step_in = 0.8
 	dir_in = 2
 	step_energy_drain = 1.4
-	max_integrity = 350
+	max_integrity = 200
 	deflect_chance = 30
-	armor = ARMOR_VALUE_MEDIUM
+	armor = ARMOR_VALUE_LIGHT
 	max_temperature = 25000
 	infra_luminosity = 1
 	wreckage = /obj/structure/mecha_wreckage/vertibird
@@ -207,9 +207,9 @@
 	step_in = 0.6
 	dir_in = 2
 	step_energy_drain = 1.5
-	max_integrity = 300
+	max_integrity = 150
 	deflect_chance = 30
-	armor = ARMOR_VALUE_MEDIUM
+	armor = ARMOR_VALUE_LIGHT
 	max_temperature = 25000
 	infra_luminosity = 1
 	wreckage = /obj/structure/mecha_wreckage/vertibird
@@ -278,9 +278,9 @@
 	step_in = 0.6
 	dir_in = 2
 	step_energy_drain = 1.5
-	max_integrity = 300
+	max_integrity = 150
 	deflect_chance = 30
-	armor = ARMOR_VALUE_MEDIUM
+	armor = ARMOR_VALUE_LIGHT
 	max_temperature = 25000
 	infra_luminosity = 1
 	wreckage = /obj/structure/mecha_wreckage/vertibird
