@@ -59,54 +59,23 @@ GLOBAL_LIST_EMPTY(family_heirlooms)
 /datum/quirk/family_heirloom/on_spawn()
 	var/mob/living/carbon/human/H = quirk_holder
 	var/obj/item/heirloom_type
-	switch(quirk_holder.mind.assigned_role)
-		if("Scribe")
-			heirloom_type = pick(/obj/item/trash/f13/electronic/toaster, /obj/item/screwdriver/crude, /obj/item/toy/tragicthegarnering)
-		if("Knight")
-			heirloom_type = /obj/item/gun/ballistic/automatic/toy/pistol
-		if("BoS Off-Duty")
-			heirloom_type = /obj/item/toy/figure/borg
-		if("Sheriff")
-			heirloom_type = /obj/item/clothing/accessory/medal/silver
-		if("Deputy")
-			heirloom_type = /obj/item/clothing/accessory/medal/bronze_heart
-		if("Texarkana Trade Worker")
-			heirloom_type = /obj/item/coin/plasma
-		if("Town Doctor")
-			heirloom_type = pick(/obj/item/clothing/neck/stethoscope,/obj/item/toy/tragicthegarnering)
-		if("Senior Doctor")
-			heirloom_type = pick(/obj/item/toy/nuke, /obj/item/wrench/medical, /obj/item/clothing/neck/tie/horrible)
-		if("Prime Legionnaire")
-			heirloom_type = pick(/obj/item/melee/onehanded/machete, /obj/item/melee/onehanded/club/warclub, /obj/item/clothing/accessory/talisman, /obj/item/toy/plush/mr_buckety)
-		if("Recruit Legionnaire")
-			heirloom_type = pick(/obj/item/melee/onehanded/machete, /obj/item/melee/onehanded/club/warclub, /obj/item/clothing/accessory/talisman,/obj/item/clothing/accessory/skullcodpiece/fake)
-		if("Den Mob Boss")
-			heirloom_type = /obj/item/lighter/gold
-		if("Den Doctor")
-			heirloom_type = /obj/item/card/id/dogtag/MDfakepermit
-		if("Farmer")
-			heirloom_type = pick(/obj/item/hatchet, /obj/item/shovel/spade, /obj/item/toy/plush/beeplushie)
-		if("Janitor")
-			heirloom_type = /obj/item/mop
-		if("Security Officer")
-			heirloom_type = /obj/item/clothing/accessory/medal/silver/valor
-		if("Scientist")
-			heirloom_type = /obj/item/toy/plush/slimeplushie
-		if("Assistant")
-			heirloom_type = /obj/item/clothing/gloves/cut/family
-		if("Chaplain")
-			heirloom_type = /obj/item/camera/spooky/family
-		if("Captain")
-			heirloom_type = /obj/item/clothing/accessory/medal/gold/captain/family
+	if(quirk_holder.mind.assigned_role)
+		if(quirk_holder.mind.assigned_role in list("Head Paladin", "Paladin", "Head Knight", "Senior Knight", "Knight", "Senior Scribe", "Scribe", "Initiate"))
+			heirloom_type = pick(/obj/item/card/id/rusted/brokenholodog, /obj/item/trash/f13/electronic/toaster)	
+		if(quirk_holder.mind.assigned_role in list("NCR Captain", "NCR Lieutenant", "NCR Veteran Ranger", "NCR Brahmin Baron", "NCR Ranger", "NCR Heavy Trooper", "NCR Sergeant", "NCR Corporal", "NCR Conscript ", "NCR Trooper", "NCR Military Police", "NCR Rear Echelon"))
+			heirloom_type = pick(/obj/item/melee/onehanded/knife/bayonet, /obj/item/lighter, /obj/item/toy/cards/deck, /obj/item/card/id/rusted)
+		if(quirk_holder.mind.assigned_role in list("Legion Centurion", "Legion Orator", "Legion Veteran Decanus", "Legion Prime Decanus", "Legion Recruit Decanus", "Legion Vexillarius", "Legion Explorer", "Veteran Legionnaire", "Prime Legionnaire", "Recruit Legionnaire", "Legion Slavemaster"))
+			heirloom_type = pick(/obj/item/melee/onehanded/machete, /obj/item/melee/onehanded/club/warclub, /obj/item/card/id/rusted/rustedmedallion, /obj/item/clothing/accessory/talisman,/obj/item/clothing/accessory/skullcodpiece/fake, /obj/item/warpaint_bowl)
 	if(!heirloom_type)
 		heirloom_type = pick(
 		/obj/item/toy/cards/deck,
 		/obj/item/lighter,
 		/obj/item/card/id/rusted,
 		/obj/item/card/id/rusted/fadedvaultid,
+		/obj/item/card/id/rusted/rustedmedallion,
+		/obj/item/card/id/rusted/brokenholodog,
+		/obj/item/card/id/rusted/brokenholodog/enclave,
 		/obj/item/clothing/gloves/ring/silver,
-		/obj/item/toy/figure/detective,
-		/obj/item/toy/tragicthegarnering,
 		)
 	heirloom = new heirloom_type(get_turf(quirk_holder))
 	GLOB.family_heirlooms += heirloom
@@ -332,8 +301,8 @@ GLOBAL_LIST_EMPTY(family_heirlooms)
 	var/dumb_thing = TRUE
 
 /datum/quirk/social_anxiety/add()
-	RegisterSignal(quirk_holder, COMSIG_MOB_EYECONTACT, .proc/eye_contact)
-	// RegisterSignal(quirk_holder, COMSIG_MOB_EXAMINATE, .proc/looks_at_floor)
+	RegisterSignal(quirk_holder, COMSIG_MOB_EYECONTACT, PROC_REF(eye_contact))
+	// RegisterSignal(quirk_holder, COMSIG_MOB_EXAMINATE, PROC_REF(looks_at_floor))
 
 /datum/quirk/social_anxiety/remove()
 	if(!quirk_holder)
@@ -365,7 +334,7 @@ Edit: TK~  This is the dumbest fucking shit I've ever seen in my life.  This isn
 	if(prob(85) || (istype(mind_check) && mind_check.mind))
 		return
 
-	addtimer(CALLBACK(GLOBAL_PROC, .proc/to_chat, quirk_holder, span_smallnotice("You make eye contact with [A].")), 3)
+	addtimer(CALLBACK(GLOBAL_PROC,GLOBAL_PROC_REF(to_chat), quirk_holder, span_smallnotice("You make eye contact with [A].")), 3)
 */
 /datum/quirk/social_anxiety/proc/eye_contact(datum/source, mob/living/other_mob, triggering_examiner)
 	if(prob(75))
@@ -388,7 +357,7 @@ Edit: TK~  This is the dumbest fucking shit I've ever seen in my life.  This isn
 			msg += "causing you to freeze up!"
 
 	SEND_SIGNAL(quirk_holder, COMSIG_ADD_MOOD_EVENT, "anxiety_eyecontact", /datum/mood_event/anxiety_eyecontact)
-	addtimer(CALLBACK(GLOBAL_PROC, .proc/to_chat, quirk_holder, span_userdanger("[msg]")), 3) // so the examine signal has time to fire and this will print after
+	addtimer(CALLBACK(GLOBAL_PROC,GLOBAL_PROC_REF(to_chat), quirk_holder, span_userdanger("[msg]")), 3) // so the examine signal has time to fire and this will print after
 	return COMSIG_BLOCK_EYECONTACT
 
 /datum/mood_event/anxiety_eyecontact
@@ -396,6 +365,7 @@ Edit: TK~  This is the dumbest fucking shit I've ever seen in my life.  This isn
 	mood_change = -5
 	timeout = 3 MINUTES
 
+/*
 /datum/quirk/catphobia
 	name = "Phobia - Cats"
 	desc = "You've had a traumatic past, one that has scarred you for life, and it had something to do with cats."
@@ -631,7 +601,7 @@ Edit: TK~  This is the dumbest fucking shit I've ever seen in my life.  This isn
 	. = ..()
 	var/mob/living/carbon/human/H = quirk_holder
 	H?.cure_trauma_type(/datum/brain_trauma/mild/phobia/eye, TRAUMA_RESILIENCE_ABSOLUTE)
-
+*/
 
 /datum/quirk/mute
 	name = "Mute"

@@ -87,7 +87,7 @@
 
 /obj/item/stack/medical/attack(mob/living/M, mob/user)
 	. = ..()
-	INVOKE_ASYNC(src, .proc/try_heal, M, user)
+	INVOKE_ASYNC(src, PROC_REF(try_heal), M, user)
 
 /obj/item/stack/medical/proc/try_heal(mob/living/M, mob/user, silent = FALSE)
 	if(heal(M, user))
@@ -390,6 +390,7 @@
 	grind_results = list(/datum/reagent/medicine/styptic_powder = 10, /datum/reagent/medicine/silver_sulfadiazine = 10)
 	merge_type = /obj/item/stack/medical/bruise_pack
 
+/*
 /obj/item/stack/medical/bruise_pack/lick
 	name = "healing saliva"
 	singular_name = "healing saliva"
@@ -422,6 +423,7 @@
 			user.visible_message(
 				span_green("[user] lick [target]'s [target_part]!"),
 				span_green("You lick [user == target ? "your" : "[target]'s"] [target_part]!"))
+*/
 
 /obj/item/stack/medical/bruise_pack/one
 	amount = 1
@@ -557,6 +559,7 @@
 	merge_type = /obj/item/stack/medical/gauze/cyborg
 
 /// ...
+/*
 /obj/item/stack/medical/gauze/lick
 	name = "coagulating saliva"
 	desc = "A fresh coating of somehow medicinal saliva, good for slowing the blood flow on a wound. Not the best of treatments, but somehow better than nothing."
@@ -582,6 +585,7 @@
 	custom_price = PRICE_REALLY_CHEAP
 	grind_results = null
 	merge_type = /obj/item/stack/medical/gauze/lick
+*/
 
 /* * * * * *
  * SUTURES
@@ -842,6 +846,16 @@
 	cost = 250
 	merge_type = /obj/item/stack/medical/bone_gel/cyborg
 
+/obj/item/stack/medical/bone_gel/superglue
+	name = "superglue (bonegel)"
+	singular_name = "superglue"
+	desc = "Good for gluing together broken bones!"
+	icon_state = "superglue"
+	lefthand_file = NONE
+	righthand_file = NONE
+	grind_results = NONE
+
+
 /obj/item/stack/medical/mesh/aloe
 	name = "aloe cream"
 	desc = "A healing paste you can apply on wounds."
@@ -903,10 +917,11 @@
 		new /obj/item/stack/medical/poultice/five(location)
 
 /obj/item/stack/medical/gauze/bloodleaf
-	name = "bloodleaf salve"
+	name = "\improper bloodleaf salve"
 	singular_name = "bloodleaf salve"
 	desc = "A cooling salve, made from the bloodleaf plant and water. Heals your wounds at a slow but steady rate."
-	icon_state = "healing_salve"
+	icon = 'icons/fallout/objects/medicine/drugs.dmi'
+	icon_state = "bloodleaf_salve"
 	self_delay = 5
 	other_delay = 5
 	heal_per_tick = BLOODLEAF_HEAL_OVER_TIME

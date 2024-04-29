@@ -315,11 +315,11 @@
 	results = list(/datum/reagent/consumable/ethanol/oldpossum = 3)
 	required_reagents = list(/datum/reagent/consumable/ethanol/beer = 1, /datum/reagent/consumable/flour = 1, /datum/reagent/consumable/mutjuice = 1)
 
-/*/datum/chemical_reaction/bbock
+/datum/chemical_reaction/bbock
 	name = "Ballistic Bock"
 	id = "bbock"
 	results = list(/datum/reagent/consumable/ethanol/bbock = 3)
-	required_reagents = list(/datum/reagent/blackpowder = 1, /datum/reagent/radium = 1, /datum/reagent/water = 1)*/ //Made with TDM in mind. Just no. - Risingstarslash
+	required_reagents = list(/datum/reagent/blackpowder = 1, /datum/reagent/radium = 1, /datum/reagent/water = 1) //Made with TDM in mind. Just no. - Risingstarslash //It's so sad Tomoko Maus nuked Coyote Bayou. - Yuffels
 
 /datum/chemical_reaction/hardlemonade
 	name = "Hard Lemonade"
@@ -435,6 +435,13 @@
 	id = "coyotetea"
 	results = list(/datum/reagent/consumable/tea/coyotetea = 3)
 	required_reagents = list(/datum/reagent/consumable/coyotejuice = 1, /datum/reagent/water = 2)
+	required_temp = 315
+
+/datum/chemical_reaction/bloodtea
+	name = "Bloodleaf Tea"
+	id = "bloodtea"
+	results = list(/datum/reagent/consumable/tea/bloodtea = 3)
+	required_reagents = list(/datum/reagent/consumable/bloodleafjuice = 1, /datum/reagent/water = 2)
 	required_temp = 315
 
 /datum/chemical_reaction/fever_blossom_tea

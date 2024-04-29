@@ -7,6 +7,12 @@ GLOBAL_VAR_INIT(crotch_call_cooldown, 0)
 	icon = 'icons/mob/human.dmi'
 	icon_state = "caucasian_m"
 	appearance_flags = KEEP_TOGETHER|TILE_BOUND|PIXEL_SCALE|LONG_GLIDE
+	var/saved_underwear = ""//saves their underwear so it can be toggled later
+	var/saved_undershirt = ""
+	var/saved_socks = ""
+	var/hidden_underwear = FALSE
+	var/hidden_undershirt = FALSE
+	var/hidden_socks = FALSE
 
 /mob/living/carbon/human/Initialize()
 	add_verb(src, /mob/living/proc/mob_sleep)
@@ -33,7 +39,7 @@ GLOBAL_VAR_INIT(crotch_call_cooldown, 0)
 	if(CONFIG_GET(flag/disable_stambuffer))
 		enable_intentional_sprint_mode()
 
-	RegisterSignal(src, COMSIG_COMPONENT_CLEAN_ACT, /atom.proc/clean_blood)
+	RegisterSignal(src, COMSIG_COMPONENT_CLEAN_ACT, TYPE_PROC_REF(/atom,clean_blood))
 	GLOB.human_list += src
 
 	update_body(TRUE)
@@ -214,7 +220,7 @@ GLOBAL_VAR_INIT(crotch_call_cooldown, 0)
 	..()
 	var/mob/living/simple_animal/bot/mulebot/MB = AM
 	if(istype(MB))
-		INVOKE_ASYNC(MB, /mob/living/simple_animal/bot/mulebot/.proc/RunOver, src)
+		INVOKE_ASYNC(MB, TYPE_PROC_REF(/mob/living/simple_animal/bot/mulebot, RunOver), src)
 
 	spreadFire(AM)
 
@@ -777,7 +783,7 @@ GLOBAL_VAR_INIT(crotch_call_cooldown, 0)
 			electrocution_skeleton_anim = mutable_appearance(icon, "electrocuted_base")
 			electrocution_skeleton_anim.appearance_flags |= RESET_COLOR|KEEP_APART
 		add_overlay(electrocution_skeleton_anim)
-		addtimer(CALLBACK(src, .proc/end_electrocution_animation, electrocution_skeleton_anim), anim_duration)
+		addtimer(CALLBACK(src, PROC_REF(end_electrocution_animation), electrocution_skeleton_anim), anim_duration)
 
 	else //or just do a generic animation
 		flick_overlay_view(image(icon,src,"electrocuted_generic",ABOVE_MOB_LAYER), src, anim_duration)
@@ -1320,3 +1326,6 @@ GLOBAL_VAR_INIT(crotch_call_cooldown, 0)
 
 /mob/living/carbon/human/species/smutant
 	race = /datum/species/smutant
+
+/mob/living/carbon/human/dump_harddel_info()
+	return "mob name: [real_name]"

@@ -155,19 +155,22 @@
 //////////
 
 /obj/item/clothing/gloves/legion
-	name = "leather gloves"
-	desc = "Fingerless leather gloves to improve grip."
-	icon = 'icons/fallout/clothing/gloves.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/hand.dmi'
-	icon_state = "legion_fingerless"
-	item_state = "legion_fingerless"
+	name = "fingerless gloves"
+	desc = "Improves the grip on a machete even when slick with blood, widely used by Legion warriors."
+	icon = 'modular_BD2/legio_invicta/icons/icons_legion.dmi'
+	mob_overlay_icon = 'modular_BD2/legio_invicta/icons/onmob_legion.dmi'
+	righthand_file = 'modular_BD2/legio_invicta/icons/onmob_legion_righthand.dmi'
+	lefthand_file = 'modular_BD2/legio_invicta/icons/onmob_legion_lefthand.dmi'
+	icon_state = "gloves_fingerless"
+	item_state = "gloves_fingerless"
+
 	item_color = null	//So they don't wash.
 	transfer_prints = TRUE
 	strip_delay = 40
 	equip_delay_other = 20
 	cold_protection = HANDS
 	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT
-	armor = ARMOR_VALUE_LIGHT
+
 
 /obj/item/clothing/gloves/legion/forgemaster
 	name = "forgemaster gloves"
@@ -182,9 +185,9 @@
 
 /obj/item/clothing/gloves/legion/plated
 	name = "plated gloves"
-	desc = "Leather gloves with metal reinforcement."
-	icon_state = "legion_plated"
-	item_state = "legion_plated"
+	desc = "Leather gloves with metal reinforcements."
+	icon_state = "gloves_plated"
+	item_state = "gloves_plated"
 	transfer_prints = FALSE
 	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T1, ARMOR_MODIFIER_UP_ENV_T1, ARMOR_MODIFIER_UP_DT_T1)
 

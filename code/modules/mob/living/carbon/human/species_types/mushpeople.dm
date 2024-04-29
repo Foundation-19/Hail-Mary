@@ -8,7 +8,7 @@
 	nojumpsuit = TRUE
 
 	say_mod = "poofs" //what does a mushroom sound like
-	species_traits = list(MUTCOLORS, NOEYES, NO_UNDERWEAR,NOGENITALS,NOAROUSAL,HAS_FLESH,HAS_BONE)
+	species_traits = list(MUTCOLORS, NOEYES, NO_UNDERWEAR,HAS_FLESH,HAS_BONE)
 	inherent_traits = list(TRAIT_NOBREATH)
 	speedmod = 1.5 //faster than golems but not by much
 
@@ -38,7 +38,7 @@
 	H.faction |= "mushroom"
 	mush = new()
 	mush.teach(H, TRUE)
-	RegisterSignal(C, COMSIG_MOB_ON_NEW_MIND, .proc/on_new_mind)
+	RegisterSignal(C, COMSIG_MOB_ON_NEW_MIND, PROC_REF(on_new_mind))
 
 /datum/species/mush/proc/on_new_mind(mob/owner)
 	mush.teach(owner, TRUE) //make_temporary TRUE as it shouldn't carry over to other mobs on mind transfer_to.

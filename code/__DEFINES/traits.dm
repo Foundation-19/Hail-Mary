@@ -136,9 +136,6 @@
 #define TRAIT_PESSIMIST			"pessimist"
 #define TRAIT_JOLLY				"jolly"
 #define TRAIT_OPTIMIST			"optimist"
-#define TRAIT_IN_HEAT			"ERP Receptive"
-#define TRAIT_HEAT_DETECT		"ERP Seeking"
-#define TRAIT_SMOL				"lil_fella"
 #define TRAIT_NOCRITDAMAGE		"no_crit"
 #define TRAIT_NOSLIPWATER		"noslip_water"
 #define TRAIT_NOSLIPALL			"noslip_all"
@@ -176,6 +173,8 @@
 #define TRAIT_PARALYSIS_R_LEG	"para-r-leg"
 #define TRAIT_DISK_VERIFIER     "disk-verifier"
 #define TRAIT_UNINTELLIGIBLE_SPEECH "unintelligible-speech"
+#define TRAIT_SAY_STUTTERING	"say-stuttering"
+#define TRAIT_SAY_LISPING		"say-lisping"
 #define TRAIT_SOOTHED_THROAT    "soothed-throat"
 #define TRAIT_LAW_ENFORCEMENT_METABOLISM "law-enforcement-metabolism"
 #define TRAIT_QUICK_CARRY		"quick-carry"
@@ -223,9 +222,6 @@
 #define TRAIT_PHOTOGRAPHER		"photographer"
 #define TRAIT_JOURNALIST		"journalist"
 #define TRAIT_MUSICIAN			"musician"
-#define TRAIT_PERMABONER		"permanent_arousal"
-#define TRAIT_NEVERBONER		"never_aroused"
-#define TRAIT_MASO              "masochism"
 #define	TRAIT_HIGH_BLOOD        "high_blood"
 #define TRAIT_PARA              "paraplegic"
 #define TRAIT_EMPATH			"empath"
@@ -266,8 +262,6 @@
 #define TRAIT_PAPER_SKIN "paper_skin"
 #define TRAIT_GLASS_BONES "glass_bones"
 #define TRAIT_STEEL_ASS "steel_ass"
-#define TRAIT_DISTANT "distant"
-#define TRAIT_HEADPAT_SLUT "headpat_sluuuuut"
 #define TRAIT_HYDRA_HEADS "hydra_heads"
 #define TRAIT_SHELTERED "sheltered"
 #define TRAIT_WEAPONSMITH "weaponsmith"
@@ -278,8 +272,9 @@
 #define TRAIT_NO_CHOCOLATE "chocolate-intolerance"
 #define TRAIT_WHITE_WOMAN "peanutbutter-difficulties"
 #define TRAIT_AUTOBREW "autobrewery-syndrome"
-#define TRAIT_ZOOMIES "zoomies"
-#define TRAIT_SUPER_ZOOMIES "super zoomies"
+#define TRAIT_SPEED "SPEED"
+#define TRAIT_SUPER_SPEED "super SPEED"
+// Hey. Dickheads. Never, ever use anything cringe like 'zoomies' or 'smol' as a define ever again. - Hangyul
 
 // mobility flag traits
 // IN THE FUTURE, IT WOULD BE NICE TO DO SOMETHING SIMILAR TO https://github.com/tgstation/tgstation/pull/48923/files (ofcourse not nearly the same because I have my.. thoughts on it)
@@ -334,9 +329,11 @@
 #define TRAIT_EXPLOSIVE_CRAFTING "explosive_crafting" //can craft explosives and bombs
 #define TRAIT_ADVANCED_EXPLOSIVE_CRAFTING "advanced explosive crafting" //can craft almost all kinds of explosives
 /// Lets your tongue heal damage on limbs
+/*
 #define TRAIT_HEAL_TONGUE "healing tongue"
 /// Lets your tongue apply awful bandages to limbs
 #define TRAIT_BANDAGE_TONGUE "coagulating tongue"
+*/
 /// You're hooked on punga!
 #define TRAIT_PUNGAPOWER "pungaful"
 

@@ -158,6 +158,31 @@
 	..()
 	. = TRUE
 
+/datum/reagent/consumable/tea/bloodtea
+	name = "Bloodleaf Tea"
+	description = "A vibrant and invigorating herbal infusion known for its deep red color and earthy flavor profile."
+	color = "#850101"
+	nutriment_factor = 0 
+	taste_description = 0
+	glass_icon_state = "bloodtea"
+	glass_name = "Bloodleaf Tea"
+	glass_desc = "A vibrant and invigorating herbal infusion known for its deep red color and earthy flavor profile."
+
+/datum/reagent/consumable/tea/bloodtea/on_mob_life(mob/living/carbon/M)
+	if(prob(80))
+		M.Dizzy(-2)
+		M.Jitter(-2)
+	M.radiation += 0.1
+	M.dizziness = max(0,M.dizziness-2)
+	M.drowsyness = max(0,M.drowsyness-1)
+	M.jitteriness = max(0,M.jitteriness-3)
+	M.AdjustSleeping(-20, FALSE)
+	if(M.getToxLoss() && prob(20))
+		M.adjustToxLoss(-1, 0)
+	M.adjust_bodytemperature(20 * TEMPERATURE_DAMAGE_COEFFICIENT, 0, BODYTEMP_NORMAL)
+	..()
+	. = TRUE
+
 /datum/reagent/consumable/tea/fever_blossom_tea
 	name = "Passion Tea"
 	description = "A pleasant tea steeped from fever blossom petals. It yields an earthy, subtle flavor while relaxing the senses."

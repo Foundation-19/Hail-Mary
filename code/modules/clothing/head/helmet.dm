@@ -136,7 +136,6 @@
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	visor_flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	dog_fashion = null
-	mutantrace_variation = STYLE_MUZZLE
 
 /obj/item/clothing/head/helmet/attack_self(mob/user)
 	if(can_toggle && !user.incapacitated())
@@ -268,11 +267,10 @@
 	icon_state = "knight_green"
 	item_state = "knight_green"
 	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T2)
-	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDESNOUT
+	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	strip_delay = 80
 	dog_fashion = null
-	mutantrace_variation = STYLE_MUZZLE
 
 
 /obj/item/clothing/head/helmet/knight/Initialize(mapload)
@@ -314,7 +312,6 @@
 	icon_state = "skull"
 	item_state = "skull"
 	strip_delay = 100
-	mutantrace_variation = STYLE_MUZZLE
 
 /obj/item/clothing/head/helmet/infiltrator
 	name = "insidious helmet"
@@ -323,12 +320,11 @@
 	item_state = "infiltrator"
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	flash_protect = 2
-	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDESNOUT
+	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	dynamic_hair_suffix = ""
 	dynamic_fhair_suffix = ""
 	strip_delay = 80
-	mutantrace_variation = STYLE_MUZZLE
 
 //LightToggle
 
@@ -456,7 +452,7 @@
 
 /obj/item/clothing/head/helmet/armyhelmet/heavy
 	name = "heavy steel helmet"
-	desc = "a steel helmet, inspired by several pre-war designs. This one has been modified by Nash citizens to provide more protection to the face and neck."
+	desc = "a steel helmet, inspired by several pre-war designs. This one has been modified by Eastwood citizens to provide more protection to the face and neck."
 	icon_state = "armyhelmetheavy"
 	item_state = "armyhelmetheavy"
 	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T2, ARMOR_MODIFIER_UP_BULLET_T3)

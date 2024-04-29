@@ -278,7 +278,7 @@
 	var/atom/Uloc = user.loc
 
 	var/drifting = 0
-	if(SSmove_manager.processing_on(user, SSspacedrift))
+	if(user.Process_Spacemove(0) && user.inertia_dir)
 		drifting = TRUE
 
 	var/holding = user.get_active_held_item()
@@ -319,10 +319,10 @@
 				. = 0
 				break
 
-		// mrs Byondley's first grade class teaches you that the loc of a turf is an area.
-		if(stay_close && get_dist(get_turf(user), get_turf(target)) > 1) // I dropped out in kindergarten
+		/*// mrs Byondley's first grade class teaches you that the loc of a turf is an area.
+		if(Uloc != Tloc || Tloc != user) && !drifting) I dropped out in kindergarten 
 			. = 0
-			break
+			break*/
 
 		if(target && !(target in user.do_afters))
 			. = FALSE

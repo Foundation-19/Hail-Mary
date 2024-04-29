@@ -40,7 +40,7 @@
 	if(ratingdesc)
 		desc += " This one has a rating of [DisplayEnergy(maxcharge)], and you should not swallow it."
 	update_icon()
-	RegisterSignal(src, COMSIG_ATOM_LICKED, .proc/lick_battery)
+	RegisterSignal(src, COMSIG_ATOM_LICKED, PROC_REF(lick_battery))
 
 /obj/item/stock_parts/cell/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -282,6 +282,7 @@
 /obj/item/stock_parts/cell/pulse/pistol //10 pulse shots
 	name = "pulse pistol power cell"
 	maxcharge = 2000
+	self_recharge = 1
 
 /obj/item/stock_parts/cell/high
 	name = "high-capacity power cell"
@@ -478,13 +479,13 @@
 	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/stock_parts/cell/ammo/mfc/update_icon()
-	switch(charge)
-		if (((maxcharge/2)+1) to maxcharge)
+	if(charge)
+		if (charge >= (maxcharge/2)+1)
 			icon_state = "mfc-full"
-		if (((maxcharge/4)+1) to (maxcharge/2))
+		if (charge >= ((maxcharge/4)+1) && charge <= (maxcharge/2))
 			icon_state = "mfc-half"
-		if (0 to (maxcharge/4))
-			icon_state = "mfc-empty"
+	else
+		icon_state = "mfc-empty"
 	. = ..()
 
 // Enhanced Microfusion cell - large energy weapons
@@ -521,15 +522,15 @@
 	maxcharge = 1500
 
 /obj/item/stock_parts/cell/ammo/ec/update_icon()
-	switch(charge)
-		if ((((maxcharge/3)*2)+1) to maxcharge)
+	if(charge)
+		if (charge >= (((maxcharge/3)*2)+1))
 			icon_state = "ec-full"
-		if (((maxcharge/3)+1) to ((maxcharge/3)*2))
+		if (charge >= ((maxcharge/3)+1) && charge <= ((maxcharge/3)*2))
 			icon_state = "ec-twothirds"
-		if (((maxcharge/4)+1) to (maxcharge/3))
+		if (charge >= ((maxcharge/4)+1) && charge <= (maxcharge/3))
 			icon_state = "ec-onethirds"
-		if (0 to (maxcharge/4))
-			icon_state = "ec-empty"
+	else
+		icon_state = "ec-empty"
 	. = ..()
 
 // Enhanced energy cell - small energy weapons
@@ -573,13 +574,13 @@
 	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/stock_parts/cell/ammo/ecp/update_icon()
-	switch(charge)
-		if (((maxcharge/2)+1) to maxcharge)
+	if(charge)
+		if (charge >= ((maxcharge/2)+1))
 			icon_state = "ecp-full"
-		if (((maxcharge/4)+1) to (maxcharge/2))
+		if (charge >= ((maxcharge/4)+1) && charge <= (maxcharge/2))
 			icon_state = "ecp-half"
-		if (0 to (maxcharge/4))
-			icon_state = "ecp-empty"
+	else
+		icon_state = "ecp-empty"
 	. = ..()
 
 // Enhanced electron charge pack - rapid fire energy

@@ -18,8 +18,8 @@
 					/obj/item/reagent_containers/glass/bottle/diethylamine = 5)
 	armor = ARMOR_VALUE_HEAVY
 	resistance_flags = FIRE_PROOF
-	default_price = PRICE_REALLY_CHEAP
-	extra_price = PRICE_CHEAP
+	default_price = PRICE_FREE
+	extra_price = PRICE_FREE
 	payment_department = ACCOUNT_SRV
 	cost_multiplier_per_dept = list(ACCOUNT_SRV = 0)
 

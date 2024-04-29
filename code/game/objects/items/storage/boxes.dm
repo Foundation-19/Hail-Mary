@@ -809,7 +809,7 @@ obj/item/storage/box/stingbangs
 
 /obj/item/storage/box/papersack/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/pen))
-		var/choice = show_radial_menu(user, src , papersack_designs, custom_check = CALLBACK(src, .proc/check_menu, user, W), radius = 36, require_near = TRUE)
+		var/choice = show_radial_menu(user, src , papersack_designs, custom_check = CALLBACK(src, PROC_REF(check_menu), user, W), radius = 36, require_near = TRUE)
 		if(!choice)
 			return FALSE
 		if(icon_state == "paperbag_[choice]")
@@ -1372,7 +1372,7 @@ obj/item/storage/box/stingbangs
 
 /obj/item/storage/box/citizenship_permits
 	name = "box of citizenship permits"
-	desc = "A box containing spare citizenship permits for Nash. Use a mayor's ID on a citizenship permit to assign its owner."
+	desc = "A box containing spare citizenship permits for Eastwood. Use a mayor's ID on a citizenship permit to assign its owner."
 	illustration = "id"
 
 /obj/item/storage/box/citizenship_permits/PopulateContents()
@@ -1439,4 +1439,61 @@ list(/obj/item/stack/sheet/metal = 20,
 	desc = "a box!"
 	component_type = /datum/component/storage/concrete/box/debug/tiny_volume_four_item
 
+/* Blueprints for the BOS.*/
 
+/obj/item/storage/box/bos
+	name = "Knight Blueprints"
+	desc = "A box used by the BoS to store Blueprints."
+	
+/obj/item/storage/box/bos/PopulateContents()
+	for(var/i in 1 to 2)
+		var/randomgun = pick(
+							/obj/item/book/granter/crafting_recipe/blueprint/trailcarbine,
+							/obj/item/book/granter/crafting_recipe/blueprint/smg10mm,
+							/obj/item/book/granter/crafting_recipe/blueprint/scoutcarbine,
+							/obj/item/book/granter/crafting_recipe/blueprint/deagle,
+							/obj/item/book/granter/crafting_recipe/blueprint/marksman,
+							/obj/item/book/granter/crafting_recipe/blueprint/pps,
+							)
+		new randomgun(src)
+
+/obj/item/storage/box/bos/senior
+	name = "Senior Knight Blueprints"
+	desc = "A box used by the BoS to store Blueprints. This one seems robust."
+	
+/obj/item/storage/box/bos/senior/PopulateContents()
+	for(var/i in 1 to 3)
+		var/randomgun = pick(
+							/obj/item/book/granter/crafting_recipe/blueprint/magnum_revolver,
+							/obj/item/book/granter/crafting_recipe/blueprint/r82,
+							/obj/item/book/granter/crafting_recipe/blueprint/r84,
+							/obj/item/book/granter/crafting_recipe/blueprint/armalite,
+							/obj/item/book/granter/crafting_recipe/blueprint/leveraction,
+							/obj/item/book/granter/crafting_recipe/blueprint/sniper,
+							)
+		new randomgun(src)	
+
+/obj/item/storage/box/bos/scribe
+	name = "Scribe Blueprints"
+	desc = "A box used by the BoS to store Blueprints."
+	
+/obj/item/storage/box/bos/scribe/PopulateContents()
+	for(var/i in 1 to 2)
+		var/randomgun = pick(
+							/obj/item/book/granter/crafting_recipe/blueprint/plasmapistol,
+							/obj/item/book/granter/crafting_recipe/blueprint/lightplasmapistol,
+							/obj/item/book/granter/crafting_recipe/blueprint/aer9/focused,
+							)
+		new randomgun(src)
+
+/obj/item/storage/box/bos/scribe/senior
+	name = "Senior Scribe Blueprints"
+	desc = "A box used by the BoS to store Blueprints. This one seems robust."
+	
+/obj/item/storage/box/bos/scribe/senior/PopulateContents()
+		var/randomgun = pick(
+							/obj/item/book/granter/crafting_recipe/blueprint/tribeam,
+							/obj/item/book/granter/crafting_recipe/blueprint/rcw,
+							/obj/item/book/granter/crafting_recipe/blueprint/plasmarifle,
+							)
+		new randomgun(src)	

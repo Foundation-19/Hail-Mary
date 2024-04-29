@@ -32,7 +32,7 @@
 	to_chat(user, span_notice("You will now apply the medspray's contents in [squirt_mode ? "short bursts":"extended sprays"]. You'll now use [amount_per_transfer_from_this] units per use."))
 
 /obj/item/reagent_containers/medspray/attack(mob/living/L, mob/user, def_zone)
-	INVOKE_ASYNC(src, .proc/attempt_spray, L, user, def_zone)		// this is shitcode because the params for attack aren't even right but i'm not in the mood to refactor right now.
+	INVOKE_ASYNC(src, PROC_REF(attempt_spray), L, user, def_zone)		// this is shitcode because the params for attack aren't even right but i'm not in the mood to refactor right now.
 
 /obj/item/reagent_containers/medspray/proc/attempt_spray(mob/living/L, mob/user, def_zone)
 	if(!reagents || !reagents.total_volume)
@@ -108,3 +108,9 @@
 	name = "Synthtissue young culture spray"
 	desc = "Spray bottle loaded with synthtissue. Useful in synthtissue grafting surgeries."
 	list_reagents = list(/datum/reagent/synthtissue = 60)
+
+/obj/item/reagent_containers/medspray/sterilizine/honey
+	name = "medical honey (sterilizer)"
+	desc = "Pure honey has antiseptic properties, and probably works just as a sterilizing agent."
+	icon_state = "sterilizer_honey"
+	apply_method = "smear"

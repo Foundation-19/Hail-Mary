@@ -119,7 +119,7 @@ window "infowindow"
 		background-color = none
 		saved-params = "pos;size;is-minimized;is-maximized"
 		is-pane = true
-		image = 'icons\\CoyoteBayouServerBanner.png'
+		image = 'icons\\bigironserverbanner.png'
 		outer-size = 656x538
 		inner-size = 640x499
 	elem "setoocstatus"

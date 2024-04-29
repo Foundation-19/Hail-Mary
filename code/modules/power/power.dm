@@ -336,7 +336,7 @@
 	else if (!power_source)
 		return 0
 	else
-		log_admin("ERROR: /proc/electrocute_mob([M], [power_source], [source]): wrong power_source")
+		log_admin("ERROR: GLOBAL_PROC_REF(electrocute_mob)([M], [power_source], [source]): wrong power_source")
 		return 0
 	if (!cell && !PN)
 		return 0

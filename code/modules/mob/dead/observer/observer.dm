@@ -149,13 +149,13 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	var/old_color = color
 	color = "#960000"
 	animate(src, color = old_color, time = 10, flags = ANIMATION_PARALLEL)
-	addtimer(CALLBACK(src, /atom/proc/update_atom_colour), 10)
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_atom_colour)), 10)
 
 /mob/dead/observer/ratvar_act()
 	var/old_color = color
 	color = "#FAE48C"
 	animate(src, color = old_color, time = 10, flags = ANIMATION_PARALLEL)
-	addtimer(CALLBACK(src, /atom/proc/update_atom_colour), 10)
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_atom_colour)), 10)
 
 /mob/dead/observer/Destroy()
 	GLOB.ghost_images_default -= ghostimage_default
@@ -269,7 +269,7 @@ Transfer_mind is there to check if mob is being deleted/not going to have a body
 Works together with spawning an observer, noted above.
 */
 
-/mob/proc/ghostize(can_reenter_corpse = TRUE, special = FALSE, penalize = FALSE, voluntary = FALSE)
+/mob/proc/ghostize(can_reenter_corpse = TRUE, special = FALSE, penalize = FALSE, voluntary = FALSE, memorize_job = null)
 	var/sig_flags = SEND_SIGNAL(src, COMSIG_MOB_GHOSTIZE, can_reenter_corpse, special, penalize)
 	SEND_SIGNAL(src, COMSIG_MOB_GHOSTIZE_FINAL, can_reenter_corpse, special, penalize)
 	penalize = !(sig_flags & COMPONENT_DO_NOT_PENALIZE_GHOSTING) && (suiciding || penalize) // suicide squad.
@@ -286,6 +286,8 @@ Works together with spawning an observer, noted above.
 	transfer_ckey(ghost, FALSE)
 	if(!QDELETED(ghost))
 		ghost.client.init_verbs()
+	if(memorize_job)
+		ghost.previous_job = memorize_job
 	if(penalize)
 		var/penalty = CONFIG_GET(number/suicide_reenter_round_timer) MINUTES
 		var/roundstart_quit_limit = CONFIG_GET(number/roundstart_suicide_time_limit) MINUTES
@@ -668,11 +670,11 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	..()
 
 /mob/dead/observer/proc/HandlePlanes()
-	if(check_rights(R_ADMIN, 0))
+	/*if(check_rights(R_ADMIN, 0))
 		return
 	hud_used.plane_masters["[OBJITEM_PLANE]"].Hide()
 	if(client)
-		client.show_popup_menus = 0
+		client.show_popup_menus = 0*/
 
 /proc/updateallghostimages()
 	listclearnulls(GLOB.ghost_images_default)

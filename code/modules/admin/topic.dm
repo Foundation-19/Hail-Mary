@@ -704,7 +704,7 @@
 
 	//BoS (Steel Blue)
 		dat += "<table cellpadding='1' cellspacing='0' width='100%'>"
-		dat += "<tr align='center' bgcolor='8eb7e3'><th colspan='[length(GLOB.oasis_positions)]'><a href='?src=[REF(src)];[HrefToken()];jobban3=brotherhooddept;jobban4=[REF(M)]'>Brotherhood Positions</a></th></tr><tr align='center'>"
+		dat += "<tr align='center' bgcolor='8eb7e3'><th colspan='[length(GLOB.eastwood_positions)]'><a href='?src=[REF(src)];[HrefToken()];jobban3=brotherhooddept;jobban4=[REF(M)]'>Brotherhood Positions</a></th></tr><tr align='center'>"
 		for(var/jobPos in GLOB.brotherhood_positions)
 			if(!jobPos)
 				continue
@@ -720,10 +720,10 @@
 				counter = 0
 		dat += "</tr></table>"
 
-	//Oasis (Green)
+	//Eastwood (Green)
 		dat += "<table cellpadding='1' cellspacing='0' width='100%'>"
-		dat += "<tr align='center' bgcolor='8ee3a4'><th colspan='[length(GLOB.oasis_positions)]'><a href='?src=[REF(src)];[HrefToken()];jobban3=oasisdept;jobban4=[REF(M)]'>Oasis Positions</a></th></tr><tr align='center'>"
-		for(var/jobPos in GLOB.oasis_positions)
+		dat += "<tr align='center' bgcolor='8ee3a4'><th colspan='[length(GLOB.eastwood_positions)]'><a href='?src=[REF(src)];[HrefToken()];jobban3=eastwooddept;jobban4=[REF(M)]'>Eastwood Positions</a></th></tr><tr align='center'>"
+		for(var/jobPos in GLOB.eastwood_positions)
 			if(!jobPos)
 				continue
 			if(jobban_isbanned(M, jobPos))
@@ -846,7 +846,7 @@
 				counter = 0
 		dat += "</tr></table>"
 
-	//Followers (Light Blue)
+/*	//Followers (Light Blue)
 		dat += "<table cellpadding='1' cellspacing='0' width='100%'>"
 		dat += "<tr align='center' bgcolor='abfffd'><th colspan='[length(GLOB.followers_positions)]'><a href='?src=[REF(src)];[HrefToken()];jobban3=followersdept;jobban4=[REF(M)]'>Followers Positions</a></th></tr><tr align='center'>"
 		for(var/jobPos in GLOB.followers_positions)
@@ -863,7 +863,7 @@
 				dat += "</tr><tr>"
 				counter = 0
 		dat += "</tr></table>"
-
+*/
 
 	//Non-Human (Green)
 		counter = 0
@@ -1040,8 +1040,8 @@
 					if(!jobPos)
 						continue
 					joblist += jobPos
-			if("oasisdept")
-				for(var/jobPos in GLOB.oasis_positions)
+			if("eastwooddept")
+				for(var/jobPos in GLOB.eastwood_positions)
 					if(!jobPos)
 						continue
 					joblist += jobPos
@@ -1075,11 +1075,11 @@
 					if(!jobPos)
 						continue
 					joblist += jobPos
-			if("followersdept")
+/*			if("followersdept")
 				for(var/jobPos in GLOB.followers_positions)
 					if(!jobPos)
 						continue
-					joblist += jobPos
+					joblist += jobPos*/
 			if("nonhumandept")
 				for(var/jobPos in GLOB.nonhuman_positions)
 					if(!jobPos)
