@@ -161,8 +161,8 @@
 	events = new
 	icon_state += "-open"
 	add_radio()
-	add_cabin()
-	add_airtank()
+	//add_cabin()
+	//add_airtank()
 	spark_system.set_up(2, 0, src)
 	spark_system.attach(src)
 	smoke_system.set_up(3, src)
@@ -266,9 +266,9 @@
 ////// Helpers /////////
 ////////////////////////
 
-/obj/mecha/proc/add_airtank()
+/*/obj/mecha/proc/add_airtank()
 	internal_tank = new /obj/machinery/portable_atmospherics/canister/air(src)
-	return internal_tank
+	return internal_tank*/
 
 /obj/mecha/proc/add_cell(obj/item/stock_parts/cell/C=null)
 	if(C)
@@ -277,15 +277,15 @@
 		return
 	cell = new /obj/item/stock_parts/cell/upgraded(src)
 
-/obj/mecha/proc/add_cabin()
+/*/obj/mecha/proc/add_cabin()
 	cabin_air = new
 	cabin_air.set_temperature(T20C)
 
-	//cabin_air.set_moles(GAS_O2,O2STANDARD*cabin_air.return_volume()/(R_IDEAL_GAS_EQUATION*cabin_air.return_temperature()))
-	//cabin_air.set_moles(GAS_N2,N2STANDARD*cabin_air.return_volume()/(R_IDEAL_GAS_EQUATION*cabin_air.return_temperature()))
+	cabin_air.set_moles(GAS_O2,O2STANDARD*cabin_air.return_volume()/(R_IDEAL_GAS_EQUATION*cabin_air.return_temperature()))
+	cabin_air.set_moles(GAS_N2,N2STANDARD*cabin_air.return_volume()/(R_IDEAL_GAS_EQUATION*cabin_air.return_temperature()))
 
 	return cabin_air
-
+*/
 /obj/mecha/proc/add_radio()
 	radio = new(src)
 	radio.name = "[src] radio"
@@ -515,9 +515,9 @@
 	. = ..()
 	if(.)
 		events.fireEvent("onMove",get_turf(src))
-	if (internal_tank.disconnect()) // Something moved us and broke connection
+	/*if (internal_tank.disconnect()) // Something moved us and broke connection
 		occupant_message("<span class='warning'>Air port connection teared off!</span>")
-		mecha_log_message("Lost connection to gas port.")
+		mecha_log_message("Lost connection to gas port.")*/
 
 /obj/mecha/setDir(newdir)
 	. = ..()
@@ -547,11 +547,11 @@
 		user.forceMove(get_turf(src))
 		to_chat(user, "<span class='notice'>You climb out from [src].</span>")
 		return 0
-	if(internal_tank.connected_port)
+	/*if(internal_tank.connected_port)
 		if(world.time - last_message > 20)
 			occupant_message("<span class='warning'>Unable to move while connected to the air system port!</span>")
 			last_message = world.time
-		return 0
+		return 0*/
 	if(state)
 		occupant_message("<span class='danger'>Maintenance protocols in effect.</span>")
 		return

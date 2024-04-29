@@ -73,19 +73,14 @@
 /obj/mecha/proc/get_stats_part()
 	var/integrity = obj_integrity/max_integrity*100
 	var/cell_charge = get_charge()
-	var/datum/gas_mixture/int_tank_air = internal_tank.return_air()
+	/*var/datum/gas_mixture/int_tank_air = internal_tank.return_air()
 	var/tank_pressure = internal_tank ? round(int_tank_air.return_pressure(),0.01) : "None"
 	var/tank_temperature = internal_tank ? int_tank_air.return_temperature() : "Unknown"
-	var/cabin_pressure = round(return_pressure(),0.01)
+	var/cabin_pressure = round(return_pressure(),0.01)*/
 	. = {"[report_internal_damage()]
 						[integrity<30?"<span class='userdanger'>DAMAGE LEVEL CRITICAL</span><br>":null]
 						<b>Integrity: </b> [integrity]%<br>
 						<b>Powercell charge: </b>[isnull(cell_charge)?"No powercell installed":"[cell.percent()]%"]<br>
-						<b>Air source: </b>[use_internal_tank?"Internal Airtank":"Environment"]<br>
-						<b>Airtank pressure: </b>[tank_pressure]kPa<br>
-						<b>Airtank temperature: </b>[tank_temperature]&deg;K|[tank_temperature - T0C]&deg;C<br>
-						<b>Cabin pressure: </b>[cabin_pressure>WARNING_HIGH_PRESSURE ? span_danger("[cabin_pressure]"): cabin_pressure]kPa<br>
-						<b>Cabin temperature: </b> [return_temperature()]&deg;K|[return_temperature() - T0C]&deg;C<br>
 						[dna_lock?"<b>DNA-locked:</b><br> <span style='font-size:10px;letter-spacing:-1px;'>[dna_lock]</span> \[<a href='?src=[REF(src)];reset_dna=1'>Reset</a>\]<br>":""]<br>
 						[thrusters_action.owner ? "<b>Thrusters: </b> [thrusters_active ? "Enabled" : "Disabled"]<br>" : ""]
 						[defense_action.owner ? "<b>Defense Mode: </b> [defense_mode ? "Enabled" : "Disabled"]<br>" : ""]
@@ -117,7 +112,6 @@
 						<div class='links'>
 						<a href='?src=[REF(src)];toggle_id_upload=1'><span id='t_id_upload'>[add_req_access?"L":"Unl"]ock ID upload panel</span></a><br>
 						<a href='?src=[REF(src)];toggle_maint_access=1'><span id='t_maint_access'>[maint_access?"Forbid":"Permit"] maintenance protocols</span></a><br>
-						<a href='?src=[REF(src)];toggle_port_connection=1'><span id='t_port_connection'>[internal_tank.connected_port?"Disconnect from":"Connect to"] gas port</span></a><br>
 						<a href='?src=[REF(src)];dna_lock=1'>DNA-lock</a><br>
 						<a href='?src=[REF(src)];view_log=1'>View internal log</a><br>
 						<a href='?src=[REF(src)];change_name=1'>Change exosuit name</a><br>
@@ -314,7 +308,7 @@
 		maint_access = !maint_access
 		send_byjax(usr,"exosuit.browser","t_maint_access","[maint_access?"Forbid":"Permit"] maintenance protocols")
 
-	if (href_list["toggle_port_connection"])
+	/*if (href_list["toggle_port_connection"])
 		if(internal_tank.connected_port)
 			if(internal_tank.disconnect())
 				occupant_message("Disconnected from the air system port.")
@@ -331,7 +325,7 @@
 				occupant_message(span_warning("Unable to connect with air system port!"))
 				return
 		send_byjax(occupant,"exosuit.browser","t_port_connection","[internal_tank.connected_port?"Disconnect from":"Connect to"] gas port")
-
+*/
 	if(href_list["dna_lock"])
 		if(!occupant)
 			return
