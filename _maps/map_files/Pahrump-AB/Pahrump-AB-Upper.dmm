@@ -2243,15 +2243,6 @@
 /obj/item/lighter/greyscale,
 /turf/open/indestructible/ground/outside/roof,
 /area/f13/wasteland)
-"eCU" = (
-/obj/structure/railing{
-	dir = 4
-	},
-/turf/closed/wall/f13/store{
-	desc = "A pre-War wall made of solid concrete.";
-	name = "concrete wall"
-	},
-/area/f13/wasteland/ncr)
 "eEi" = (
 /obj/structure/railing{
 	dir = 1
@@ -4486,13 +4477,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/closed/wall,
 /area/f13/ncr)
-"jIC" = (
-/obj/machinery/door/poddoor/gate/preopen{
-	id = "ncrgate";
-	name = "outpost gate"
-	},
-/turf/open/transparent/openspace,
-/area/f13/wasteland/ncr)
 "jII" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/railing{
@@ -6640,6 +6624,13 @@
 	icon_state = "housewood1-broken"
 	},
 /area/f13/building)
+"nZe" = (
+/obj/machinery/door/poddoor/gate/preopen{
+	id = "ncrgate2";
+	name = "outpost gate"
+	},
+/turf/open/transparent/openspace,
+/area/f13/wasteland/ncr)
 "oab" = (
 /obj/effect/decal/cleanable/dirt{
 	color = "#363636"
@@ -17840,7 +17831,7 @@ rLB
 rLB
 rLB
 rLB
-jIC
+xSN
 rLB
 rLB
 rLB
@@ -18097,7 +18088,7 @@ rLB
 rLB
 rLB
 rLB
-rLB
+nZe
 rLB
 rLB
 rLB
@@ -18611,7 +18602,7 @@ qtF
 qtF
 qtF
 qtF
-eCU
+qtF
 qtF
 qtF
 qtF

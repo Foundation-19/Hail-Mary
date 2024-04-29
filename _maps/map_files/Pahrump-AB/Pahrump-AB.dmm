@@ -49131,17 +49131,6 @@
 	color = "#e4e4e4"
 	},
 /area/f13/village)
-"nVr" = (
-/obj/effect/decal/cleanable/dirt,
-/obj{
-	name = "---Merge conflict marker---"
-	},
-/obj/mecha/combat/phazon/buggy/legion/loaded,
-/turf/open/indestructible/ground/outside/dirt{
-	dir = 10;
-	icon_state = "dirt"
-	},
-/area/f13/wasteland)
 "nVu" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/indestructible/ground/outside/road{
@@ -52435,6 +52424,13 @@
 	dir = 8
 	},
 /turf/open/indestructible/ground/outside/water,
+/area/f13/wasteland)
+"plQ" = (
+/obj/mecha/combat/phazon/buggy/legion/loaded,
+/turf/open/indestructible/ground/outside/desert/sonora{
+	dir = 4;
+	icon_state = "desertsmooth4"
+	},
 /area/f13/wasteland)
 "pma" = (
 /obj/structure/flora/grass/jungle,
@@ -124876,7 +124872,7 @@ aae
 aae
 aae
 vGl
-nVr
+eaJ
 jnQ
 lVH
 lWI
@@ -126162,7 +126158,7 @@ dTY
 eqw
 hoi
 jcN
-dJF
+plQ
 dJF
 dJF
 iVP
