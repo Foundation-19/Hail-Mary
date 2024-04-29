@@ -2199,8 +2199,8 @@
 	item_state = "armor_enclave_officer"
 
 /obj/item/clothing/suit/armor/medium/duster/follower
-	name = "follower's duster"
-	desc = "An old military-grade pre-war combat armor under a white weathered duster. An emblem of the Followers is painted on the back of it. It appears to be fitted with metal plates to replace the crumbling ceramic."
+	name = "White duster"
+	desc = "An old military-grade pre-war combat armor under a white weathered duster. An emblem is on the back of it. It appears to be fitted with metal plates to replace the crumbling ceramic."
 	icon_state = "shank_follower"
 	item_state = "shank_follower"
 
