@@ -2306,6 +2306,8 @@
 	righthand_file = 'icons/fallout/onmob/weapons/64x64_righthand.dmi'
 	icon_state = "lewis"
 	item_state = "lewis"
+	inhand_x_dimension = 64
+	inhand_y_dimension = 64
 	mag_type = /obj/item/ammo_box/magazine/lewis
 	init_mag_type = /obj/item/ammo_box/magazine/lewis/l47
 	weapon_class = WEAPON_CLASS_RIFLE

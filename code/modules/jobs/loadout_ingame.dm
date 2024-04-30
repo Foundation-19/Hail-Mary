@@ -87,9 +87,6 @@
 	var/selected_direction = SOUTH
 
 	var/obj/item/loadout_token/token = null
-	
-	var/selectionComplete = FALSE // Sanity check to stop duplicating windows.
-	// I don't know TGUI well enough if there's a framework built in to prevent it from reopening.
 
 //Lets check that the assigned parent is a mob with a job
 /datum/component/loadout_selector/Initialize()
@@ -122,22 +119,15 @@
 	selected_datum.spawn_at(duffelkit)
 	M.dropItemToGround(token)
 	M.put_in_hands(duffelkit)
-
 	M.disable_loadout_select()
-	QDEL_NULL(token)
-
-	selectionComplete = TRUE
 
 /datum/component/loadout_selector/ui_interact(mob/user, datum/tgui/ui)
-	if(selectionComplete)
-		return // NO MORE. ST O P, YOU GOT LOADOUTS AT HOME
-
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "LoadoutSelect", "Loadout Select")
-//		ui.set_autoupdate(FALSE)
+		ui.set_autoupdate(FALSE)
 		ui.open()
-//		ui.send_asset(get_asset_datum(/datum/asset/spritesheet/loadout))
+		ui.send_asset(get_asset_datum(/datum/asset/spritesheet/loadout))
 
 /datum/component/loadout_selector/ui_data(mob/user)
 	var/list/data = list()
@@ -145,19 +135,22 @@
 	data["selected"] = selected_name
 	if (selected_name)
 		data["items"] = selected_items
-		// if(!(selected_datum.name in preview_images) || !(dir2text(selected_direction) in preview_images[selected_datum.name]))
-		// 	generate_previews()
-		data["preview"] = preview_images[selected_datum.name]
+		if(!(selected_datum.name in preview_images) || !(dir2text(selected_direction) in preview_images[selected_datum.name]))
+			generate_previews()
+		data["preview"] = preview_images[selected_datum.name][dir2text(selected_direction)]
 	return data
 
 /datum/component/loadout_selector/ui_act(action, params)
-	. = ..()
+	if(..())
+		return
 	switch(action)
 		if("loadout_select")
 			select_outfit(params["name"])
 		if("loadout_confirm")
 			if (selected_datum)
 				finish()
+		if("loadout_preview_direction")
+			selected_direction = turn(selected_direction, 90 * text2num(params["direction"]))
 	return TRUE
 
 //Selects an outfit and loads the preview of it
@@ -169,8 +162,8 @@
 
 	if (selected_datum)
 		//If random is used, get rid of the generated previews so we'll regenerate them if we re-select this outfit
-//		if (selected_datum.contains_randomisation)
-//			preview_images[selected_datum.name] = null
+		if (selected_datum.contains_randomisation)
+			preview_images[selected_datum.name] = null
 
 		//Clean up old dummy/outfit
 		QDEL_NULL(selected_datum)
@@ -186,7 +179,7 @@
 	selected_datum = new newtype
 	selected_items = selected_datum.ui_data()
 
-//	generate_previews()
+	generate_previews()
 	spawn()
 		if (usr)
 			ui_interact(usr)
@@ -197,34 +190,28 @@
 	if (!istype(parent, /mob))
 		return
 
-	var/mob/L = parent
 	//We need a client to send assets to
-	if (!L.client)
+	var/mob/M = parent
+	if (!M.client)
 		return
 
 	if (preview_images[selected_datum.name] && !selected_datum.contains_randomisation)
 		return //The images have already been generated
 
-	var/equipment_list = CreateEquipList(selected_datum)
+	//They've not been made yet, lets do them. First of all, we make a mannequin based on the user's current appearance
+	var/mob/living/carbon/human/dummy/mannequin = duplicate_human(M)
 
-	var/icon/preview_icon = generate_custom_holoform_from_prefs(L.client.prefs, equipment_list, null, copy_job = FALSE, apply_loadout = TRUE)
+	//Secondly, we equip the currently selected outfit onto that mannequin
+	selected_datum.equip(mannequin, visualsOnly = TRUE)
 
-	preview_images[selected_datum.name] = icon2base64(preview_icon)
+	COMPILE_OVERLAYS(mannequin)
 
+	//Now we have our mannequin, photoshoot time!
+	var/list/cached_icons = list()
+	for (var/direction in GLOB.cardinals)
+		var/icon/preview = getFlatIcon(mannequin, direction)
+		//preview.Scale(preview.Width() * 2.5, preview.Height() * 2.5) // scaled in CSS
+		cached_icons[dir2text(direction)] = icon2base64(preview)
 
-/datum/component/loadout_selector/proc/CreateEquipList(datum/outfit/O)
-	var/list/equipment = list(
-		"[SLOT_W_UNIFORM]"	= O.uniform,
-		"[SLOT_WEAR_SUIT]"	= O.suit,
-		"[SLOT_BACK]"		= O.back,
-		"[SLOT_BELT]"		= O.belt,
-		"[SLOT_GLOVES]"		= O.gloves,
-		"[SLOT_SHOES]"		= O.shoes,
-		"[SLOT_HEAD]"		= O.head,
-		"[SLOT_WEAR_MASK]"	= O.mask,
-		"[SLOT_NECK]"		= O.neck,
-		"[SLOT_EARS]"		= O.ears,
-		"[SLOT_GLASSES]"	= O.glasses,
-		"[SLOT_WEAR_ID]"	= O.id,
-	)
-	return equipment
+	preview_images[selected_datum.name] = cached_icons
+
