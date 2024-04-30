@@ -969,7 +969,38 @@ GLOBAL_LIST_INIT(warning_ckeys, list())
 			Export("##action=load_rsc", file)
 			stoplag()
 		#endif
+		preload_every_fucking_sound_file() //kms
 
+GLOBAL_LIST_EMPTY(every_fucking_sound_file)
+
+/// I fucking loathe the furries.
+/client/proc/populate_every_fucking_sound_file()
+	if(LAZYLEN(GLOB.every_fucking_sound_file))
+		return
+	var/list/fucking_sound_folders = list(
+		"sounds/f13npc/",
+		"sounds/f13weapons/",
+		"sounds/creatures/",
+		"sounds/voice/",
+		"sounds/ambience",
+		"sounds/f13",
+		"sounds/f13ambience",
+		"sounds/effects",
+		"sounds/f13items",
+		"sounds/f13music",
+		"sounds/weapons",
+		"sounds/block_parry",
+	)
+	for(var/folder in fucking_sound_folders)
+		GLOB.every_fucking_sound_file |= pathwalk(folder)
+
+// Wallahi I am cursed to walk this earth as a hollow soul.
+/client/proc/preload_every_fucking_sound_file()
+	if(!LAZYLEN(GLOB.every_fucking_sound_file))
+		populate_every_fucking_sound_file()
+	for (var/file in GLOB.every_fucking_sound_file)
+		Export("##action=load_rsc", file)
+		stoplag()
 
 //Hook, override it to run code when dir changes
 //Like for /atoms, but clients are their own snowflake FUCK

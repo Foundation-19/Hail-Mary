@@ -461,6 +461,12 @@
 	resistance_flags = FIRE_PROOF
 	slowdown = 0
 
+/obj/item/storage/backpack/duffelbag/durathread/dark
+	name = "dark durathread duffel bag"
+	desc = "A lightweight duffel bag made out of durathread."
+	icon_state = "duffel-syndie"
+	item_state = "duffel-syndieammo"
+
 /obj/item/storage/backpack/duffelbag/drone
 	name = "drone duffel bag"
 	desc = "A large duffel bag for holding tools and hats."
