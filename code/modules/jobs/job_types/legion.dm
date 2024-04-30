@@ -1133,7 +1133,7 @@ Weapons		Lever shotgun, Grease gun, Repeater carbines, Revolvers, simple guns al
 	belt = /obj/item/storage/belt/medical/primitive
 	backpack_contents = list(
 	//	/obj/item/storage/bag/money/small/legenlisted = 1,
-		/obj/item/storage/firstaid/ancient = 1,
+		/obj/item/storage/firstaid/bandagekit = 1,
 		/obj/item/stack/sticky_tape/surgical = 1,
 		/obj/item/stack/medical/bone_gel = 1,
 		/obj/item/book/granter/trait/midsurgery = 1,
