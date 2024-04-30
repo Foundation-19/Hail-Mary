@@ -945,7 +945,7 @@
  * * * * * * * */
 
 /* .45-70 match
- * DAMAGE: 70
+ * DAMAGE: OUTDATED
  * STAMIN: 70
  * RECOIL: 1
  * WOUNDS: 25
@@ -953,7 +953,7 @@
  */
 /obj/item/projectile/bullet/c4570
 	name = ".45-70 bullet"
-	armour_penetration = 0.1
+	armour_penetration = 0.2
 	damage = BULLET_DAMAGE_RIFLE_4570
 	stamina = BULLET_STAMINA_RIFLE_4570
 	spread = BULLET_SPREAD_SURPLUS
