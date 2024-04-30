@@ -22688,8 +22688,6 @@
 /turf/open/floor/plasteel/f13/vault_floor/dark/darksolid,
 /area/f13/caves)
 "rjC" = (
-/obj/effect/mapping_helpers/airlock/locked,
-/obj/machinery/door/airlock/vault/derelict,
 /turf/open/indestructible/ground/outside/desert,
 /area/f13/caves)
 "rjK" = (
@@ -23048,6 +23046,7 @@
 "rDm" = (
 /obj/structure/rack,
 /obj/item/stack/sheet/metal/fifty,
+/obj/effect/spawner/bundle/f13/armor/t45d,
 /turf/open/floor/f13{
 	icon_state = "darkrusty"
 	},
