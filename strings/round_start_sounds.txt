@@ -14,3 +14,6 @@ sound/f13/cottonfields.ogg
 sound/f13/sixteentons.ogg
 sound/f13/rockinrobin.ogg
 sound/f13/kickinthehead.ogg
+sound/f13/mistersandman.ogg
+sound/f13/hailmary.ogg
+sound/f13/alliwannado.ogg
