@@ -511,7 +511,8 @@ GLOBAL_LIST_INIT(cloth_recipes, list ( \
  * Durathread
  */
 GLOBAL_LIST_INIT(durathread_recipes, list ( \
-	new/datum/stack_recipe("durathread dufflebag", /obj/item/storage/backpack/duffelbag/durathread, 6, time = 60)
+	new/datum/stack_recipe("durathread dufflebag", /obj/item/storage/backpack/duffelbag/durathread, 6, time = 60), \
+	new/datum/stack_recipe("dark durathread dufflebag", /obj/item/storage/backpack/duffelbag/durathread/dark, 6, time = 60) \
 ))
 
 /obj/item/stack/sheet/durathread

@@ -561,11 +561,11 @@
 	AddComponent(/datum/component/armor_plate)
 // ------------------- HELMETS -----------------------------
 
-/obj/item/clothing/head/helmet/f13/legion
+/*/obj/item/clothing/head/helmet/f13/legion
 	icon = 'modular_BD2/legio_invicta/icons/icons_legion.dmi'
 	righthand_file = 'modular_BD2/legio_invicta/icons/onmob_legion_righthand.dmi'
 	lefthand_file = 'modular_BD2/legio_invicta/icons/onmob_legion_lefthand.dmi'
-	mob_overlay_icon = 'modular_BD2/legio_invicta/icons/onmob_legion.dmi'
+	mob_overlay_icon = 'modular_BD2/legio_invicta/icons/onmob_legion.dmi'*/
 
 /obj/item/clothing/head/f13/servant
 	icon = 'modular_BD2/legio_invicta/icons/icons_legion.dmi'
@@ -585,18 +585,38 @@
 	item_state = "hat_auxilia"
 
 /obj/item/clothing/head/helmet/f13/legion/recruit
+	icon = 'modular_BD2/legio_invicta/icons/icons_legion.dmi'
+	righthand_file = 'modular_BD2/legio_invicta/icons/onmob_legion_righthand.dmi'
+	lefthand_file = 'modular_BD2/legio_invicta/icons/onmob_legion_lefthand.dmi'
+	mob_overlay_icon = 'modular_BD2/legio_invicta/icons/onmob_legion.dmi'
 	icon_state = "helmet_recruit"
 
 /obj/item/clothing/head/helmet/f13/legion/prime
+	icon = 'modular_BD2/legio_invicta/icons/icons_legion.dmi'
+	righthand_file = 'modular_BD2/legio_invicta/icons/onmob_legion_righthand.dmi'
+	lefthand_file = 'modular_BD2/legio_invicta/icons/onmob_legion_lefthand.dmi'
+	mob_overlay_icon = 'modular_BD2/legio_invicta/icons/onmob_legion.dmi'
 	icon_state = "helmet_prime"
 
 /obj/item/clothing/head/helmet/f13/legion/explorer
+	icon = 'modular_BD2/legio_invicta/icons/icons_legion.dmi'
+	righthand_file = 'modular_BD2/legio_invicta/icons/onmob_legion_righthand.dmi'
+	lefthand_file = 'modular_BD2/legio_invicta/icons/onmob_legion_lefthand.dmi'
+	mob_overlay_icon = 'modular_BD2/legio_invicta/icons/onmob_legion.dmi'
 	icon_state = "helmet_explorer"
 
 /obj/item/clothing/head/helmet/f13/legion/vet
+	icon = 'modular_BD2/legio_invicta/icons/icons_legion.dmi'
+	righthand_file = 'modular_BD2/legio_invicta/icons/onmob_legion_righthand.dmi'
+	lefthand_file = 'modular_BD2/legio_invicta/icons/onmob_legion_lefthand.dmi'
+	mob_overlay_icon = 'modular_BD2/legio_invicta/icons/onmob_legion.dmi'
 	icon_state = "helmet_veteran"
 
 /obj/item/clothing/head/helmet/f13/legion/vet/vexil
+	icon = 'modular_BD2/legio_invicta/icons/icons_legion.dmi'
+	righthand_file = 'modular_BD2/legio_invicta/icons/onmob_legion_righthand.dmi'
+	lefthand_file = 'modular_BD2/legio_invicta/icons/onmob_legion_lefthand.dmi'
+	mob_overlay_icon = 'modular_BD2/legio_invicta/icons/onmob_legion.dmi'
 	icon_state = "helmet_vexillarius"
 
 
@@ -935,11 +955,11 @@
 
 /obj/machinery/door/unpowered/securedoor/legion/warroom
 	name = "war room"
-	req_access_txt = "254" // ACCESS_LEGION_CPMMAND
+	req_access_txt = "254" // ACCESS_LEGION_COMMAND
 
 /obj/machinery/door/unpowered/securedoor/legion/centurion
 	name = "centurions quarters"
-	req_access_txt = "264" // ACCESS_LEGION4
+	req_access_txt = "264" // ACCESS_LEGION_CENTURION
 
 
 
