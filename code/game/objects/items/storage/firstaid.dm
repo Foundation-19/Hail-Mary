@@ -75,6 +75,25 @@
 	new /obj/item/reagent_containers/hypospray/medipen/stimpak/epipak(src)
 	new /obj/item/reagent_containers/hypospray/medipen/stimpak/glucose(src)
 
+/obj/item/storage/firstaid/bandagekit
+	name = "bandage first-aid kit"
+	desc = "A first aid kit with the ability to bandage wounds and burns."
+	icon_state = "purple"
+	item_state = "firstaid"
+	possible_icons = list("purple","purple2","purple3","purple4")
+
+/obj/item/storage/firstaid/bandagekit/PopulateContents()
+	if(empty)
+		return
+	new /obj/item/stack/medical/gauze(src)
+	new /obj/item/stack/medical/suture(src)
+	new /obj/item/stack/medical/suture(src)
+	new /obj/item/stack/medical/suture(src)
+	new /obj/item/stack/medical/ointment(src)
+	new /obj/item/stack/medical/ointment(src)
+	new /obj/item/stack/medical/ointment(src)
+	new /obj/item/healthanalyzer(src)
+
 /obj/item/storage/firstaid/fire
 	name = "burn treatment kit"
 	desc = "A specialized medical kit for when the toxins lab <i>-spontaneously-</i> burns down."
