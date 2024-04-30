@@ -325,6 +325,7 @@ obj/item/clothing/head/helmet/f13/enclave/usmcriot
 	desc = "The distinct helmet used by slavemasters."
 	icon_state = "legion-slavemaster"
 	item_state = "legion-slavemaster"
+	mob_overlay_icon = 'icons/fallout/onmob/clothes/head.dmi'
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEHAIR
 	flags_cover = HEADCOVERSEYES
 	dog_fashion = null
