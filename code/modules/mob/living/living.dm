@@ -863,7 +863,7 @@
 	else
 		throw_alert("gravity", /obj/screen/alert/weightless)
 	if(!override && !is_flying())
-		INVOKE_ASYNC(src, /atom/movable.proc/float, !has_gravity)
+		INVOKE_ASYNC(src, TYPE_PROC_REF(/atom/movable,float), !has_gravity)
 
 /mob/living/float(on)
 	if(throwing)
@@ -1345,7 +1345,7 @@
 	return ..() && CHECK_MOBILITY(src, MOBILITY_MOVE)
 
 /mob/living/proc/set_gender(ngender = NEUTER, silent = FALSE, update_icon = TRUE, forced = FALSE)
-	if(forced || (!ckey || client?.prefs.cit_toggles & (ngender == FEMALE ? FORCED_FEM : FORCED_MASC)))
+	if(forced)
 		gender = ngender
 		return TRUE
 	return FALSE

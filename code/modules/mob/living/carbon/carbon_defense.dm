@@ -292,21 +292,11 @@
 			playsound(src, 'sound/items/Nose_boop.ogg', 50, 0)
 
 		else if(check_zone(M.zone_selected) == BODY_ZONE_HEAD)
-			var/datum/species/S
-			if(ishuman(src))
-				S = dna.species
-
 			M.visible_message(span_notice("[M] gives [src] a pat on the head to make [p_them()] feel better!"), \
 						span_notice("You give [src] a pat on the head to make [p_them()] feel better!"), target = src,
 						target_message = span_notice("[M] gives you a pat on the head to make you feel better!"))
 			SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, "headpat", /datum/mood_event/headpat)
 			friendly_check = TRUE
-			if(!(client?.prefs.cit_toggles & NO_AUTO_WAG))
-				if(S?.can_wag_tail(src) && !dna.species.is_wagging_tail())
-					var/static/list/many_tails = list("tail_human", "tail_lizard", "mam_tail")
-					for(var/T in many_tails)
-						if(S.mutant_bodyparts[T] && dna.features[T] != "None")
-							emote("wag")
 
 		else if(check_zone(M.zone_selected) == BODY_ZONE_R_ARM || check_zone(M.zone_selected) == BODY_ZONE_L_ARM)
 			M.visible_message( \
@@ -328,11 +318,6 @@
 					SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, "friendly_hug", /datum/mood_event/besthug, M)
 				else if (mood.sanity >= SANITY_DISTURBED)
 					SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, "friendly_hug", /datum/mood_event/betterhug, M)
-
-			if(HAS_TRAIT(M, TRAIT_DISTANT)) //No mood buff since you're not really liking it.
-				M.visible_message("<span class='warning'>[M] glares at [M] as they give them a pat on the head! They seem annoyed...</span>", \
-					"<span class='warning'>You give [M] a pat on the head to make [p_them()] feel better! Their eyes shift towards you contemptuously...</span>")
-				//M.add_lust(-5) //Why are you touching me?
 				if(prob(5))
 					M.visible_message("<span class='warning'>[M] quickly twists [M]\'s arm!</span>", \
 						"<span class='boldwarning'>Your arm gets twisted in [M]\'s grasp! Maybe you should've taken the hint.</span>")
@@ -344,16 +329,6 @@
 					M.apply_damage(5, BRUTE, hand)
 					M.Knockdown(60)//STOP TOUCHING ME! For those spam head pat individuals
 					friendly_check = FALSE
-
-			else
-				friendly_check = TRUE
-				if(HAS_TRAIT(M, TRAIT_HEADPAT_SLUT))
-					M.visible_message("<span class='notice'>[M] gives [src] a pat on the head to make [p_them()] feel better!</span>", \
-								"<span class='notice'>You give [src] a pat on the head to make [p_them()] feel better!</span>", target = src,
-								target_message = "<span class='notice'>[M] gives you a pat on the head to make you feel better!</span>")
-					SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, "headpat", /datum/mood_event/headpat)
-
-
 
 		AdjustAllImmobility(-60, FALSE)
 		AdjustUnconscious(-60, FALSE)

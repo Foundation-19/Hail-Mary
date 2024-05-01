@@ -356,7 +356,7 @@
 	armor = list("melee" = 40, "bullet" = 40, "laser" = 40, "energy" = 30, "bomb" = 30, "bio" = 15, "rad" = 25, "fire" = 30, "acid" = 15)
 
 ////////////////
-// OASIS/TOWN //
+// EASTWOOD/TOWN //
 ////////////////
 
 /obj/item/clothing/suit/armor/medium/lawcoat
@@ -382,7 +382,7 @@
 
 /obj/item/clothing/suit/armor/medium/vest/breastplate/town
 	name = "steel breastplate"
-	desc = "A steel breastplate inspired by a pre-war design, this one was made locally in Oasis. It uses a stronger steel alloy in it's construction, still heavy though"
+	desc = "A steel breastplate inspired by a pre-war design, this one was made locally in Eastwood. It uses a stronger steel alloy in it's construction, still heavy though"
 	armor = list("melee" = 30, "bullet" = 35, "laser" = 35, "energy" = 15, "bomb" = 10, "bio" = 0, "rad" = 0, "fire" = 20, "acid" = -10)
 	slowdown = 0.11
 
@@ -416,7 +416,7 @@
 	item_state = "mutie_heavy_metal"
 	armor = list("melee" = 40, "bullet" = 30, "laser" = 15, "energy" = 15, "bomb" = 30, "bio" = 0, "rad" = 5, "fire" = 10, "acid" = 0)
 	slowdown = 0.1
-	allowed = list(/obj/item/gun, /obj/item/melee/onehanded, /obj/item/twohanded, /obj/item/melee/smith, /obj/item/melee/smith/twohand)
+	allowed = list(/obj/item/gun, /obj/item/melee/onehanded, /obj/item/twohanded, /obj/item/melee/smith, /obj/item/twohanded/smithed)
 
 /obj/item/clothing/suit/armor/medium/motorball
 	name = "motorball suit"

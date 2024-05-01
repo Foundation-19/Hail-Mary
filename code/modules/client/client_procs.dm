@@ -1,7 +1,7 @@
 	////////////
 	//SECURITY//
 	////////////
-#define UPLOAD_LIMIT		1048576	//Restricts client uploads to the server to 1MB //Could probably do with being lower.
+#define UPLOAD_LIMIT		4194304	//Restricts client uploads to the server to 1MB //Could probably do with being lower. BIG IRON EDIT changed it to 4mb,since 1mb is almost unusable
 
 GLOBAL_LIST_INIT(blacklisted_builds, list(
 	"1407" = "bug preventing client display overrides from working leads to clients being able to see things/mobs they shouldn't be able to see",
@@ -961,7 +961,7 @@ GLOBAL_LIST_INIT(warning_ckeys, list())
 
 		//Precache the client with all other assets slowly, so as to not block other browse() calls
 		if (CONFIG_GET(flag/asset_simple_preload))
-			addtimer(CALLBACK(SSassets.transport, /datum/asset_transport.proc/send_assets_slow, src, SSassets.transport.preload), 5 SECONDS)
+			addtimer(CALLBACK(SSassets.transport, TYPE_PROC_REF(/datum/asset_transport,send_assets_slow), src, SSassets.transport.preload), 5 SECONDS)
 
 		#if (PRELOAD_RSC == 0)
 		for (var/name in GLOB.vox_sounds)
@@ -969,7 +969,38 @@ GLOBAL_LIST_INIT(warning_ckeys, list())
 			Export("##action=load_rsc", file)
 			stoplag()
 		#endif
+		preload_every_fucking_sound_file() //kms
 
+GLOBAL_LIST_EMPTY(every_fucking_sound_file)
+
+/// I fucking loathe the furries.
+/client/proc/populate_every_fucking_sound_file()
+	if(LAZYLEN(GLOB.every_fucking_sound_file))
+		return
+	var/list/fucking_sound_folders = list(
+		"sounds/f13npc/",
+		"sounds/f13weapons/",
+		"sounds/creatures/",
+		"sounds/voice/",
+		"sounds/ambience",
+		"sounds/f13",
+		"sounds/f13ambience",
+		"sounds/effects",
+		"sounds/f13items",
+		"sounds/f13music",
+		"sounds/weapons",
+		"sounds/block_parry",
+	)
+	for(var/folder in fucking_sound_folders)
+		GLOB.every_fucking_sound_file |= pathwalk(folder)
+
+// Wallahi I am cursed to walk this earth as a hollow soul.
+/client/proc/preload_every_fucking_sound_file()
+	if(!LAZYLEN(GLOB.every_fucking_sound_file))
+		populate_every_fucking_sound_file()
+	for (var/file in GLOB.every_fucking_sound_file)
+		Export("##action=load_rsc", file)
+		stoplag()
 
 //Hook, override it to run code when dir changes
 //Like for /atoms, but clients are their own snowflake FUCK

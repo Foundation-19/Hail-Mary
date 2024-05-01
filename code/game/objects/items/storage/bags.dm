@@ -354,6 +354,7 @@
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bag"
 	desc = "A bag for holding a variety of medical supplies."
+	slot_flags = ITEM_SLOT_BELT|ITEM_SLOT_POCKET
 	resistance_flags = FLAMMABLE
 	component_type = /datum/component/storage/concrete/bag/chem_med_etc
 

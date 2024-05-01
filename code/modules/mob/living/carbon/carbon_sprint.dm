@@ -4,7 +4,7 @@
 	if(sprint_buffer)
 		var/use = min(tiles, sprint_buffer)
 		use *= calc_sprint_stamina_mod_from_special(tiles) // S.P.E.C.I.A.L.
-		if(HAS_TRAIT(src, TRAIT_ZOOMIES))
+		if(HAS_TRAIT(src, TRAIT_SPEED))
 			sprint_buffer -= use * 0.5
 		else
 			sprint_buffer -= use
@@ -17,9 +17,9 @@
 	if(!client || !((client in sprint_bind.is_down) || (client in sprint_hold_bind.is_down))) // there are two keybinds, apparently
 		disable_intentional_sprint_mode()
 		return // if you're not holding it, you stop sprinting when you run out
-	if(HAS_TRAIT(src, TRAIT_ZOOMIES))
+	if(HAS_TRAIT(src, TRAIT_SPEED))
 		adjustStaminaLoss(tiles * sprint_stamina_cost * 0.5)
-	if(HAS_TRAIT(src, TRAIT_SUPER_ZOOMIES))
+	if(HAS_TRAIT(src, TRAIT_SUPER_SPEED))
 		return
 	else
 		adjustStaminaLoss(tiles * sprint_stamina_cost)		//use stamina to cover deficit.

@@ -166,7 +166,7 @@
 				<li>Healing Powder: Made with one broc flower and one Xander on the crafting menu, this handy powder can be made on the go and heals you just as much as a stimpack, if slower.</li>
 				<li>Sutures and Bandages: If you are bleeding, it is best to stop it, and quickly! Suture the wound closed, bandage over the sewed up wound and let it heal.</li>
 				<li>Punga can help purge radiation, but it can also be addicting if you eat more than a few in one sitting.</li>
-				<li>Nash is on the western side of the middle Z (everyone spawns on this Z), and its main entrance is on the southern wall!</li>
+				<li>Eastwood is on the western side of the middle Z (everyone spawns on this Z), and its main entrance is on the southern wall!</li>
 				<li>While you have tons of slots and can make loads of characters it can sometimes be hard to get started. It takes time and being seen fairly often before people realize you're actually for real about hanging around. Maybe consider sticking to one character for a while!</li>
 				</ol>
 				<p>
@@ -176,10 +176,10 @@
 				<p>
 				<ol>
 				<li>The blue matrix tiles you can just walk right through to another map. The green ones are to leave the region (basically Cryo).</li>
-				<li>There are three map areas. Stacked north to south you have 'Red River', 'Texarkana', and 'Redwater'. The town of Nash is in the Texarkana Z, where you spawned!</li>
-				<li>Remember to close Nash's gate, unless you WANT the wildlife to get in!</li>
+				<li>There are three map areas. Stacked north to south you have 'Red River', 'Pahrump', and 'Redwater'. The town of Eastwood is in the Pahrump Z, where you spawned!</li>
+				<li>Remember to close Eastwood's gate, unless you WANT the wildlife to get in!</li>
 				<li>The town can be sealed, if you can find all the ways in.</li>
-				<li>Nash has MULTIPLE watch towers you can use to spot monsters working their way in, and if you use binoculars that high up you can see even further!</li>
+				<li>Eastwood has MULTIPLE watch towers you can use to spot monsters working their way in, and if you use binoculars that high up you can see even further!</li>
 				<li>It's not always faster to pull your pistol, but it is if its a cowboy single action army.</li>
 				<li>Green puddles of goop are generally not your friend. Unless you think radiation is a joke.</li>
 				</ol>

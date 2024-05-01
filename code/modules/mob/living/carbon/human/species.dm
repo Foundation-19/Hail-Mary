@@ -614,6 +614,48 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 				standing += left_eye
 				standing += right_eye
 
+	//Underwear, Undershirts & Socks
+	if(!(NO_UNDERWEAR in species_traits))
+		if(H.socks && !H.hidden_socks && H.get_num_legs(FALSE) >= 2)
+			if(H.saved_socks)
+				H.socks = H.saved_socks
+				H.saved_socks = ""
+			var/datum/sprite_accessory/underwear/socks/S = GLOB.socks_list[H.socks]
+			if(S)
+				var/digilegs = ((DIGITIGRADE in species_traits) && S.has_digitigrade) ? "_d" : ""
+				var/mutable_appearance/MA = mutable_appearance(S.icon, "[S.icon_state][digilegs]", -BODY_LAYER)
+				if(S.has_color)
+					MA.color = "#[H.socks_color]"
+				standing += MA
+
+		if(H.underwear && !H.hidden_underwear)
+			if(H.saved_underwear)
+				H.underwear = H.saved_underwear
+				H.saved_underwear = ""
+			var/datum/sprite_accessory/underwear/bottom/B = GLOB.underwear_list[H.underwear]
+			if(B)
+				var/digilegs = ((DIGITIGRADE in species_traits) && B.has_digitigrade) ? "_d" : ""
+				var/mutable_appearance/MA = mutable_appearance(B.icon, "[B.icon_state][digilegs]", -BODY_LAYER)
+				if(B.has_color)
+					MA.color = "#[H.undie_color]"
+				standing += MA
+
+		if(H.undershirt && !H.hidden_undershirt)
+			if(H.saved_undershirt)
+				H.undershirt = H.saved_undershirt
+				H.saved_undershirt = ""
+			var/datum/sprite_accessory/underwear/top/T = GLOB.undershirt_list[H.undershirt]
+			if(T)
+				var/state = "[T.icon_state][((DIGITIGRADE in species_traits) && T.has_digitigrade) ? "_d" : ""]"
+				var/mutable_appearance/MA
+				if(H.dna.species.sexes && H.dna.features["body_model"] == FEMALE)
+					MA = wear_alpha_masked_version(state, T.icon, BODY_LAYER, FEMALE_UNIFORM_TOP)
+				else
+					MA = mutable_appearance(T.icon, state, -BODY_LAYER)
+				if(T.has_color)
+					MA.color = "#[H.shirt_color]"
+				standing += MA
+
 	//Warpaint and tattoos
 	if(H.warpaint)
 		standing += mutable_appearance('icons/mob/tribe_warpaint.dmi', H.warpaint, -MARKING_LAYER, color = H.warpaint_color)
@@ -636,7 +678,6 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 	H.remove_overlay(BODY_ADJ_LAYER)
 	H.remove_overlay(BODY_ADJ_UPPER_LAYER)
 	H.remove_overlay(BODY_FRONT_LAYER)
-	H.remove_overlay(HORNS_LAYER)
 
 	if(!mutant_bodyparts)
 		return
@@ -667,7 +708,7 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 			species_traits += DIGITIGRADE
 		var/should_be_squished = FALSE
 		if(H.wear_suit)
-			if(!(H.wear_suit.mutantrace_variation & STYLE_DIGITIGRADE) || (tauric && (H.wear_suit.mutantrace_variation & STYLE_ALL_TAURIC))) //digitigrade/taur suits
+			if(!(H.wear_suit.mutantrace_variation & STYLE_DIGITIGRADE)) //digitigrade/taur suits
 				should_be_squished = TRUE
 		if(H.w_uniform && !H.wear_suit)
 			if(!(H.w_uniform.mutantrace_variation & STYLE_DIGITIGRADE))
@@ -712,12 +753,10 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 		"[BODY_ADJ_LAYER]" = "ADJ",
 		"[BODY_ADJ_UPPER_LAYER]" = "ADJUP",
 		"[BODY_FRONT_LAYER]" = "FRONT",
-		"[HORNS_LAYER]" = "HORNS",
 		)
 
 	var/g = (H.dna.features["body_model"] == FEMALE) ? "f" : "m"
 	var/husk = HAS_TRAIT(H, TRAIT_HUSK)
-	var/image/tail_hack // tailhud's a bazinga, innit
 
 	for(var/layer in relevant_layers)
 		var/list/standing = list()
@@ -804,10 +843,6 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 							accessory_overlay.color = "#[H.facial_hair_color]"
 						if(EYECOLOR)
 							accessory_overlay.color = "#[H.left_eye_color]"
-						if(HORNCOLOR)
-							accessory_overlay.color = "#[H.dna.features["horns_color"]]"
-						if(WINGCOLOR)
-							accessory_overlay.color = "#[H.dna.features["wings_color"]]"
 				else
 					accessory_overlay.color = forced_colour
 			else
@@ -829,8 +864,6 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 				accessory_overlay.pixel_x += H.dna.species.offset_features[OFFSET_MUTPARTS][1]
 				accessory_overlay.pixel_y += H.dna.species.offset_features[OFFSET_MUTPARTS][2]
 
-			if(layertext == "FRONT" && mutant_string == "tail") // durty hack so asses dont eat tails
-				tail_hack = accessory_overlay
 			standing += accessory_overlay
 
 			if(S.extra) //apply the extra overlay, if there is one
@@ -868,11 +901,6 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 					if(EYECOLOR)
 						extra_accessory_overlay.color = "#[H.left_eye_color]"
 
-					if(HORNCOLOR)
-						extra_accessory_overlay.color = "#[H.dna.features["horns_color"]]"
-					if(WINGCOLOR)
-						extra_accessory_overlay.color = "#[H.dna.features["wings_color"]]"
-
 				if(OFFSET_MUTPARTS in H.dna.species.offset_features)
 					extra_accessory_overlay.pixel_x += H.dna.species.offset_features[OFFSET_MUTPARTS][1]
 					extra_accessory_overlay.pixel_y += H.dna.species.offset_features[OFFSET_MUTPARTS][2]
@@ -909,11 +937,6 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 							extra2_accessory_overlay.color = "#[H.dna.features["mcolor"]]"
 						else
 							extra2_accessory_overlay.color = "#[H.hair_color]"
-					if(HORNCOLOR)
-						extra2_accessory_overlay.color = "#[H.dna.features["horns_color"]]"
-					if(WINGCOLOR)
-						extra2_accessory_overlay.color = "#[H.dna.features["wings_color"]]"
-
 				if(OFFSET_MUTPARTS in H.dna.species.offset_features)
 					extra2_accessory_overlay.pixel_x += H.dna.species.offset_features[OFFSET_MUTPARTS][1]
 					extra2_accessory_overlay.pixel_y += H.dna.species.offset_features[OFFSET_MUTPARTS][2]
@@ -926,9 +949,6 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 	H.apply_overlay(BODY_ADJ_LAYER)
 	H.apply_overlay(BODY_ADJ_UPPER_LAYER)
 	H.apply_overlay(BODY_FRONT_LAYER)
-	H.apply_overlay(HORNS_LAYER)
-	H.tail_hud_update(tail_hack)
-
 
 /*
  * Equip the outfit required for life. Replaces items currently worn.
@@ -1375,6 +1395,10 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 			target_message = span_warning("[target] blocks your attack!"))
 		return FALSE
 
+	if(prob(user.get_luck_critfail_chance())) //S.P.E.C.I.A.L.
+		user.visible_message(span_warning("Critical fail! [user] tries to attack [target], but hits [user.p_them()]self instead!"))
+		target = user
+
 	if(!(attackchain_flags & ATTACK_IS_PARRY_COUNTERATTACK))
 		if(HAS_TRAIT(user, TRAIT_PUGILIST))//CITADEL CHANGE - makes punching cause staminaloss but funny martial artist types get a discount
 			user.adjustStaminaLossBuffered(1.5)
@@ -1487,9 +1511,6 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 	var/target_on_help = target.a_intent == INTENT_HELP
 	var/target_aiming_for_mouth = target.zone_selected == "mouth"
 	var/target_restrained = target.restrained()
-	var/same_dir = (target.dir & user.dir)
-	var/aim_for_groin  = user.zone_selected == "groin"
-	var/target_aiming_for_groin = target.zone_selected == "groin"
 	var/aim_for_head = user.zone_selected == "head"
 	var/target_aiming_for_head = target.zone_selected == "head"
 
@@ -1510,27 +1531,7 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 			"You hear a slap.", target = user, target_message = span_notice("You slap [user == target ? "yourself" : "\the [target]"] in the face! "))
 		user.do_attack_animation(target, ATTACK_EFFECT_FACE_SLAP)
 		user.adjustStaminaLossBuffered(3)
-		if (!HAS_TRAIT(target, TRAIT_PERMABONER))
-			stop_wagging_tail(target)
 		return FALSE
-	else if(aim_for_groin && (target == user || target.lying || same_dir) && (target_on_help || target_restrained || target_aiming_for_groin))
-		if(target.client?.prefs.cit_toggles & NO_ASS_SLAP)
-			to_chat(user,"A force stays your hand, preventing you from slapping \the [target]'s ass!")
-			return FALSE
-		user.do_attack_animation(target, ATTACK_EFFECT_ASS_SLAP)
-		playsound(target.loc, 'sound/weapons/slap.ogg', 50, 1, -1)
-		if(HAS_TRAIT(target, TRAIT_STEEL_ASS))
-			user.adjustStaminaLoss(50)
-			user.visible_message(\
-				"<span class='danger'>\The [user] slaps \the [target]'s ass, but their hand bounces off like they hit metal!</span>",\
-				"<span class='danger'>You slap [user == target ? "your" : "\the [target]'s"] ass, but feel an intense amount of pain as you realise their buns are harder than steel!</span>",\
-				"You hear a slap.")
-			return FALSE
-		user.adjustStaminaLossBuffered(3)
-		target.visible_message(\
-			span_danger("\The [user] slaps [user == target ? "[user.p_their()] own" : "\the [target]'s"] ass!"),\
-			span_notice("[user] slaps your ass! "),\
-			"You hear a slap.", target = user, target_message = span_notice("You slap [user == target ? "your own" : "\the [target]'s"] ass! "))
 
 //BONK chucklehead!
 	else if(aim_for_head && ( target_on_help || target_restrained || target_aiming_for_head))

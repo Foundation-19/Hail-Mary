@@ -620,7 +620,7 @@ Raider
 		/obj/item/storage/belt/legholster,
 		/obj/item/lighter/fusion = 1,
 		/obj/item/toy/cards/deck = 1,
-		/obj/item/ingot/gold = 10,
+		/obj/item/blacksmith/ingot/gold = 10,
 		/obj/item/storage/fancy/cigarettes/cigars/havana = 1,
 		/obj/item/storage/box/dice = 1,
 		/obj/item/storage/fancy/ringbox/silver = 1,
@@ -928,7 +928,7 @@ Raider
 	faction = FACTION_WASTELAND
 	total_positions = -1
 	spawn_positions = -1
-	description = "The most broad and open role, you have arrived in the region for purposes known only to you. If you're new, the settlement of Nash to the Midwest may prove a valuable first stop. Try to make a living for yourself - or simply survive - and craft your own unique story."
+	description = "The most broad and open role, you have arrived in the region for purposes known only to you. If you're new, the settlement of Eastwood to the Midwest may prove a valuable first stop. Try to make a living for yourself - or simply survive - and craft your own unique story."
 	supervisors = "fate"
 	selection_color = "#dddddd"
 
@@ -1378,7 +1378,8 @@ Raider
 	loadout_options = list(
 	/datum/outfit/loadout/crusader, 	//This is kinda a given. You bet.
 	/datum/outfit/loadout/samaritan, 	//Water and food to share with the wastes.
-	/datum/outfit/loadout/cleanser		//Just some bombs.
+	/datum/outfit/loadout/cleanser,		//Just some bombs.
+	/datum/outfit/loadout/newcanaan		//10 M1911s for the funny gun table.
 	)
 
 	access = list()		//we can expand on this and make alterations as people suggest different loadouts
@@ -1420,9 +1421,10 @@ Raider
 		/obj/item/reagent_containers/food/snacks/store/bread/plain = 5,
 		/obj/item/reagent_containers/food/snacks/fishmeat/salmon = 2,
 		/obj/item/reagent_containers/glass/beaker/waterbottle = 2,
-		/obj/item/reagent_containers/glass/beaker/waterbottle/wataur = 1
 	)	//Matthew 14:17 RSVCE and KJV - Kitsunemitsu
-				//Nerd shit, wataur time. ~TK
+			//Nerd shit, wataur time. ~TK
+				//Wataur is forbidden. - Yuffels
+					//Both of you need to be reduced to ash. No more furry shit. - Hangyul
 
 /datum/outfit/loadout/cleanser
 	name = "Cleanser"
@@ -1430,6 +1432,12 @@ Raider
 		/obj/item/grenade/homemade/coffeepotbomb = 2,	//This is funny. I swear guys.
 		///obj/item/gun/ballistic/revolver/m29 = 1,		//Moved here for more *variety*
 		///obj/item/ammo_box/m44 = 2
+	)
+
+/datum/outfit/loadout/newcanaan
+	name = "New Canaanite"
+	backpack_contents = list(
+		/obj/item/gun/ballistic/automatic/pistol/m1911 = 10	//We can't expect God to do all the work.
 	)
 
 
@@ -1545,7 +1553,7 @@ Raider
 		/obj/item/reagent_containers/hypospray/medipen/stimpak=2,
 		/obj/item/storage/fancy/candle_box,
 		/obj/item/storage/wallet/stash/mid,
-		/obj/item/nullrod = 1,)
+		)
 //end preacher
 
 /*/datum/outfit/job/wasteland/f13enforcer
@@ -1626,9 +1634,9 @@ Raider
 	minimal_access = list(ACCESS_DEN)
 	matchmaking_allowed = list(
 		/datum/matchmaking_pref/rival = list(
-			/datum/job/oasis/f13mayor,
-			/datum/job/oasis/f13sheriff,
-			/datum/job/oasis/f13detective,
+			/datum/job/eastwood/f13mayor,
+			/datum/job/eastwood/f13sheriff,
+			/datum/job/eastwood/f13detective,
 		),
 		/datum/matchmaking_pref/patron = list(
 			/datum/job/wasteland/f13wastelander,

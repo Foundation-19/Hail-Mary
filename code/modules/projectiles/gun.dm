@@ -459,7 +459,7 @@ ATTACHMENTS
 			else if(G.can_trigger_gun(user))
 				loop_counter++
 				var/stam_cost = G.getstamcost(user)
-				addtimer(CALLBACK(G, /obj/item/gun.proc/process_fire, target, user, TRUE, params, null, stam_cost), loop_counter)
+				addtimer(CALLBACK(G, TYPE_PROC_REF(/obj/item/gun,process_fire), target, user, TRUE, params, null, stam_cost), loop_counter)
 
 	var/stam_cost = getstamcost(user)
 
@@ -563,6 +563,10 @@ ATTACHMENTS
 	var/time_till_draw = user.AmountWeaponDrawDelay()
 	if(time_till_draw)
 		to_chat(user, "<span class='notice'>You're still drawing your [src]! It'll take another <u>[time_till_draw*0.1] seconds</u> until it's ready!</span>")
+		return
+	if(prob(user.get_luck_critfail_chance()))
+		user.drop_all_held_items()
+		user.visible_message(span_warning("Critical fail! [user] accidentally drops [p_their()] gun!"))
 		return
 	if(pre_fire(user, target, params, zone_override, stam_cost))
 		return TRUE // pre_fire will handle what comes next~ (like firing at your mouse cursor after a delay)

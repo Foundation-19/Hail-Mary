@@ -1281,8 +1281,8 @@
 /area/f13/building)
 "CQ" = (
 /obj/effect/landmark/vertibird{
-	id = "Nash - Christus Saint Michaels Hospital - Rooftop";
-	name = "Nash - Christus Saint Michaels Hospital - Rooftop"
+	id = "Eastwood - Christus Saint Michaels Hospital - Rooftop";
+	name = "Eastwood - Christus Saint Michaels Hospital - Rooftop"
 	},
 /turf/open/floor/plasteel/f13/vault_floor/dark{
 	icon_state = "darkdirty"

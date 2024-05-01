@@ -927,11 +927,11 @@
 	crafting_recipe_types = list(/datum/crafting_recipe/set_vrboard/den)
 
 /obj/item/book/granter/crafting_recipe/ODF
-	name = "Weapons of Texarkana and the Nash Defense Force"
+	name = "Weapons of Pahrump and the Eastwood Defense Force"
 	desc = "a book detailing weapons used in the region and by the local town, it has lithiographed pictures of hand-drawn schematics for each weapon type"
 	oneuse = TRUE
 	crafting_recipe_types = list(/datum/crafting_recipe/policepistol, /datum/crafting_recipe/durathread_vest, /datum/crafting_recipe/policerifle, /datum/crafting_recipe/steelbib/heavy, /datum/crafting_recipe/armyhelmetheavy, /datum/crafting_recipe/huntingshotgun)
-	remarks = list("Looks like Nash hand-crafts replicas from a pre-war police armory", "Some of these weapons are more than 200 years old....", "Duct tape really can hold it together!", "So that is how you laminate armor sheets together", "Looks like you can beat metal into just the right shape to replace the bits")
+	remarks = list("Looks like Eastwood hand-crafts replicas from a pre-war police armory", "Some of these weapons are more than 200 years old....", "Duct tape really can hold it together!", "So that is how you laminate armor sheets together", "Looks like you can beat metal into just the right shape to replace the bits")
 
 
 /obj/item/book/granter/trait/tagger
@@ -967,6 +967,13 @@
 	granted_trait = TRAIT_BIG_LEAGUES
 	traitname = "hitting things"
 	remarks = list("Grognak hit the Death Knight only once, but that was enough.", "Grognak is surprisingly agile, never committing too heavily on an attack, dancing between his enemies.", "Grognak isn't good at talking, but he knows it has its place. He has friends to talk for him.", "Other barbarians might change their weapons, but Grognak could never leave his beloved axe.")
+
+/obj/item/book/granter/trait/specopguide
+	name = "Special Operation Guide"
+	desc = "A book about how to never miss again!."
+	granted_trait = TRAIT_INSANE_AIM
+	traitname = "perfect shooting"
+	remarks = list("Switching to your sidearm is always faster than reloading.", "Use a bola to slow down your target.", "A smoke grenade will make the enemy drop small item that they're holding", "Never chase an enemy alone even if you think you're winning.")
 
 /obj/item/book/granter/trait/lowsurgery
 	name = "First Aid Pamphlet"

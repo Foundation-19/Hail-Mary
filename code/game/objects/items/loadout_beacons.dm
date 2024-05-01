@@ -1274,14 +1274,6 @@ GLOBAL_LIST_EMPTY(loadout_boxes)
 
 /// ENERGY!
 
-/obj/item/storage/box/gun/energy
-	name = "compact rcw case"
-	w_class = WEIGHT_CLASS_NORMAL //no roundstart laser rifles rn
-
-/obj/item/storage/box/gun/energy/PopulateContents()
-	new /obj/item/gun/energy/laser/auto/worn(src)
-	new /obj/item/stock_parts/cell/ammo/ecp(src)
-
 /obj/item/storage/box/gun/energy/plasma
 	name = "plasma pistol case"
 
@@ -1365,12 +1357,6 @@ GLOBAL_LIST_EMPTY(loadout_boxes)
 	entry_flags = LOADOUT_FLAG_WASTER
 	entry_class = LOADOUT_CAT_ENERGY
 	spawn_thing = /obj/item/storage/box/gun/energy/stun
-
-/datum/loadout_box/compact_rcw
-	entry_tag = "Compact RCW"
-	entry_flags = LOADOUT_FLAG_WASTER
-	entry_class = LOADOUT_CAT_ENERGY
-	spawn_thing = /obj/item/storage/box/gun/energy/compact_rcw
 
 /datum/loadout_box/wattz1000
 	entry_tag = "Wattz 1000"

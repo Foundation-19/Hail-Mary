@@ -11,68 +11,83 @@
 	reagent_state = LIQUID
 	color = "#eb0000"
 	taste_description = "numbness"
-	metabolization_rate = 5 * REAGENTS_METABOLISM
+	metabolization_rate = 1 * REAGENTS_METABOLISM
 	overdose_threshold = 60
 	value = REAGENT_VALUE_COMMON
 	ghoulfriendly = TRUE
+	var/damage_offset = 3	//Value to offset damage by
+	var/clot_rate = 0.35	
 
-// insta-heal on inject, 1 of each brute and burn per volume
-/datum/reagent/medicine/stimpak/reaction_mob(mob/living/M, method=INJECT, reac_volume)
-	if(iscarbon(M))
-		if(M.stat == DEAD) // Doesnt work on the dead
-			return
-		if(method != INJECT) // Gotta be injected
-			return
-		if(M.getBruteLoss())
-			M.adjustBruteLoss(-reac_volume)
-		if(M.getFireLoss())
-			M.adjustFireLoss(-reac_volume)
+/datum/reagent/medicine/stimpak/reaction_mob(mob/living/carbon/M, method, reac_volume, show_message = 1)
+	if(iscarbon(M) && M.stat != DEAD)
+		if(method in list(INGEST, VAPOR))
+			M.adjustToxLoss(damage_offset * 0.5 * reac_volume * REAGENTS_EFFECT_MULTIPLIER)
+			if(show_message)
+				to_chat(M, "<span class='warning'>You don't feel so good...</span>")
 	..()
 
-// heals 1 damage of either brute or burn on life, whichever's higher
+/datum/reagent/medicine/stimpak/on_mob_add(mob/living/carbon/M)
+	if(M.mind)
+		var/datum/job/job = SSjob.GetJob(M.mind.assigned_role)
+		if(istype(job))
+			if(job.faction == FACTION_LEGION)
+				SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "betrayed caesar", /datum/mood_event/betrayed_caesar, name)
+	..()
+
 /datum/reagent/medicine/stimpak/on_mob_life(mob/living/carbon/M)
-	if(M.getBruteLoss() > M.getFireLoss())	//Less effective at healing mixed damage types.
-		M.adjustBruteLoss(-1*REAGENTS_EFFECT_MULTIPLIER)
-	else
-		M.adjustFireLoss(-1*REAGENTS_EFFECT_MULTIPLIER)
-	. = TRUE
-	..()
+	. = ..()
+	var/is_blocked = FALSE
+	if(!is_blocked)
+		//Clotting properties for pierce/slash wounds
+		if(current_cycle > 0 && current_cycle % 6 == 0 && M.all_wounds && M.all_wounds.len >= 1)	//Every 6th cycle, reduce blood_flow for all pierce/slash wounds by clot_rate.
+			for(var/datum/wound/iter_wound in M.all_wounds)
+				var/affected_limb_name = iter_wound.limb.name
+				switch(iter_wound.severity)
+					if (WOUND_SEVERITY_CRITICAL)
+						if (iter_wound.wound_type == WOUND_PIERCE)
+							iter_wound.blood_flow -= clot_rate
+							M.visible_message("<span class='notice'>The bleeding hole in [M]'s [affected_limb_name] fills with fresh tissue!</span>", \
+											  "<span class='notice'>You feel the cavity in your [affected_limb_name] weaving back together.</span>")
+						else if (iter_wound.wound_type == WOUND_SLASH)
+							iter_wound.blood_flow -= clot_rate
+							M.visible_message("<span class='notice'>The deep gashes on [M]'s [affected_limb_name] close up!</span>", \
+											  "<span class='notice'>You feel the deep gashes on your [affected_limb_name] close up.</span>")
+					if (WOUND_SEVERITY_SEVERE)
+						if (iter_wound.wound_type == WOUND_PIERCE)
+							iter_wound.blood_flow -= clot_rate
+							M.visible_message("<span class='notice'>The puncture wound on [M]'s [affected_limb_name] shrinks!</span>", \
+											  "<span class='notice'>You feel the puncture wound on your [affected_limb_name] shrinking.</span>")
+						else if (iter_wound.wound_type == WOUND_SLASH)
+							iter_wound.blood_flow -= clot_rate
+							M.visible_message("<span class='notice'>The large cuts on [M]'s [affected_limb_name] mend!</span>", \
+											  "<span class='notice'>You feel the large cuts on your [affected_limb_name] mending.</span>")
+					if (WOUND_SEVERITY_MODERATE)
+						if (iter_wound.wound_type == WOUND_PIERCE || iter_wound.wound_type == WOUND_SLASH)
+							iter_wound.blood_flow -= clot_rate
 
-// Overdose makes you barflock yourself
-/datum/reagent/medicine/stimpak/overdose_process(mob/living/carbon/M)
-	if(M.disgust < 80)
-		M.adjust_disgust(10)
-	..()
-	. = TRUE
-
-/datum/reagent/medicine/fake_stimpak
-	name = "Fake stimfluid"
-	description = "A cocktail of random chemicals designed to mimic stimfluid."
-	reagent_state = LIQUID
-	color = "#eb0000"
-	taste_description = "numbness"
-	metabolization_rate = 5 * REAGENTS_METABOLISM //13 ticks, for 26 damage after 26 healing
-	value = REAGENT_VALUE_COMMON
-	ghoulfriendly = TRUE
-
-// insta-heal on inject, 1 of each brute and burn per volume
-/datum/reagent/medicine/fake_stimpak/reaction_mob(mob/living/M, method=INJECT, reac_volume)
-	if(iscarbon(M))
-		if(M.stat == DEAD) // Doesnt work on the dead
-			return
-		if(method != INJECT) // Gotta be injected
-			return
-		if(M.getBruteLoss())
-			M.adjustBruteLoss(-reac_volume)
-		if(M.getFireLoss())
-			M.adjustFireLoss(-reac_volume)
-	..()
-
-/datum/reagent/medicine/fake_stimpak/on_mob_life(mob/living/carbon/M)
-		M.adjustBruteLoss(1*REAGENTS_EFFECT_MULTIPLIER)
-		M.adjustFireLoss(1*REAGENTS_EFFECT_MULTIPLIER)
+		//Actual healing part starts here
+		M.adjustBruteLoss(-damage_offset * REAGENTS_EFFECT_MULTIPLIER, FALSE)	//100% of damage_offset (3)
+		M.adjustFireLoss(-damage_offset * 0.75 * REAGENTS_EFFECT_MULTIPLIER, FALSE)	//75% of damage_offset (2.25)
+		M.AdjustStun(-damage_offset * 0.66 * REAGENTS_EFFECT_MULTIPLIER, FALSE)	//66% of damage_offset (2)
+		M.AdjustKnockdown(-damage_offset * 0.66 * REAGENTS_EFFECT_MULTIPLIER, FALSE)	//66% of damage_offset (2)
+		M.adjustStaminaLoss(-damage_offset * 0.66 * REAGENTS_EFFECT_MULTIPLIER, FALSE)	//66% of damage_offset (2)
+		M.heal_bodypart_damage(damage_offset, damage_offset * 0.75, only_robotic = TRUE, only_organic = FALSE)	//100% / 75% damage_offset (3/2.25)
 		. = TRUE
-		..()
+
+/datum/reagent/medicine/stimpak/overdose_process(mob/living/carbon/M)
+	. = ..()
+	M.adjustToxLoss(damage_offset * 0.5 * REAGENTS_EFFECT_MULTIPLIER, FALSE)	//50% of damage_offset (1.5)
+	if(M.jitteriness + 15 <= 300)
+		M.jitteriness += 15
+	if(M.disgust + 2.5 <= DISGUST_LEVEL_DISGUSTED + 10)
+		M.disgust += 2.5
+	if(M.dizziness + 0.75 <= 15)
+		M.dizziness += 0.75
+	if(M.confused + 0.5 <= 10)
+		M.confused += 0.5
+	M.hallucination = 15
+	M.druggy = 15
+	. = TRUE
 
 /* 
  * Super Stimpak Juice
@@ -87,55 +102,11 @@
 	reagent_state = LIQUID
 	color = "#e50d0d"
 	taste_description = "numbness"
-	metabolization_rate = 3 * REAGENTS_METABOLISM	// 50 seconds, same as poultice
+	metabolization_rate = 1.5 * REAGENTS_METABOLISM
 	overdose_threshold = 40	// you can risk a second dose
 	ghoulfriendly = TRUE
-	var/clot_rate = 0.10
-	var/clot_coeff_per_wound = 0.7
-
-/datum/reagent/medicine/super_stimpak/reaction_mob(mob/living/M, method=INJECT, reac_volume)
-	if(iscarbon(M))
-		if(M.stat == DEAD)
-			return
-		if(method != INJECT)
-			return
-		if(M.getBruteLoss())
-			M.adjustBruteLoss(-reac_volume)
-		if(M.getFireLoss())
-			M.adjustFireLoss(-reac_volume)
-	..()
-
-/// Slows you down and tells you that your heart's gonna get wrecked if you keep taking more
-/datum/reagent/medicine/super_stimpak/on_mob_metabolize(mob/living/carbon/M) // Stim Sickness
-	. = ..()
-	M.add_movespeed_modifier(/datum/movespeed_modifier/super_stimpak_slowdown)
-	to_chat(M, span_alert("You feel a sudden violent <i>lurch</i> in your chest, followed shortly by your heart racing at an agonizing pace and your muscles burning like you've run one too many marathons."))
-
-/// Removes the slowdown and lets you know its safe to take another dose
-/datum/reagent/medicine/super_stimpak/on_mob_end_metabolize(mob/living/carbon/M)
-	. = ..()
-	M.remove_movespeed_modifier(/datum/movespeed_modifier/super_stimpak_slowdown)
-	to_chat(M, span_notice("Your heart slows to a more reasonable pace, and your aching muscular fatigue fades.")) // tells you when it's safe to take another dose
-
-/// Seals up bleeds like a weaker sanguirite, doesnt do any passive heals though
-/datum/reagent/medicine/super_stimpak/on_mob_life(mob/living/carbon/M) // Heals fleshwounds like a weak sanguirite
-	clot_bleed_wounds(user = M, bleed_reduction_rate = clot_rate, coefficient_per_wound = clot_coeff_per_wound, single_wound_full_effect = FALSE)
-	. = TRUE
-	..()
-
-
-/datum/reagent/medicine/super_stimpak/overdose_process(mob/living/carbon/M)
-	M.adjustOrganLoss(ORGAN_SLOT_HEART, 4)
-	if((M.getOrganLoss(ORGAN_SLOT_HEART) >= 20) && prob(8))
-		var/superstim_od_message = pick(
-			"You feel like someone punched you in the chest, but from the inside.", 
-			"You breathe heavily, yet still feel winded.",
-			"Your heart stops for a moment.",
-			"You feel an agonizing shudder in your chest.")
-		to_chat(M, span_warning("[superstim_od_message]"))
-	. = TRUE
-	..()
-
+	var/damage_offset = 6.75	//How much damage will be offset in one tick
+	var/clot_rate = 0.65	
 
 // ---------------------------
 // LONGPORK STEW REAGENT
@@ -724,3 +695,76 @@
 	..()
 	. = 1
 
+// Chem-based coagulant
+// All-round bleed healer. Works slower than Hydra but works better v multiple wounds.
+/datum/reagent/medicine/hemostatic
+	name = "chemical hemostatic"
+	description = "Hemostatic granules that help to stop bleeding."
+	reagent_state = LIQUID
+	color = "#bb2424"
+	metabolization_rate = 1.5 * REAGENTS_METABOLISM
+	overdose_threshold = 25
+	bleed_mult = 0.025
+	// How much base clotting we do per bleeding wound, multiplied by the below number for each bleeding wound
+	var/clot_rate = 2
+	// If we have multiple bleeding wounds, we count the number of bleeding wounds, then multiply the clot rate by this^(n) before applying it to each cut, so more cuts = less clotting per cut (though still more total clotting)
+	var/clot_coeff_per_wound = 1.5
+
+/datum/reagent/medicine/hemostatic/on_mob_life(mob/living/carbon/M)
+	. = ..()
+	clot_bleed_wounds(user = M, bleed_reduction_rate = clot_rate, coefficient_per_wound = clot_coeff_per_wound, single_wound_full_effect = FALSE)
+
+/datum/reagent/medicine/hemostatic/overdose_process(mob/living/M)
+	. = ..()
+	if(!M.get_blood(TRUE))
+		return
+
+	if(prob(15))
+		M.losebreath += rand(2,4)
+		M.adjustOxyLoss(rand(1,3))
+		if(prob(30))
+			to_chat(M, span_danger("You can feel your blood clotting up in your veins!"))
+		else if(prob(10))
+			to_chat(M, span_userdanger("You feel like your blood has stopped moving!"))
+		if(prob(50))
+			var/obj/item/organ/lungs/our_lungs = M.getorganslot(ORGAN_SLOT_LUNGS)
+			our_lungs.applyOrganDamage(1)
+		else
+			var/obj/item/organ/heart/our_heart = M.getorganslot(ORGAN_SLOT_HEART)
+			our_heart.applyOrganDamage(1)
+
+// Plant-based coagulant
+// Basically the same shit as a hemostatic but flavoured for tribals/Legion. Closes wounds faster but metabolizes quicker, less great at clearing multiple wounds.
+/datum/reagent/medicine/hydra
+	name = "hydra"
+	description = "A potent mix of herbs that help to stem bleeding."
+	reagent_state = LIQUID
+	color = "#bb2424"
+	metabolization_rate = 2.5 * REAGENTS_METABOLISM
+	overdose_threshold = 25
+	bleed_mult = 0.025
+	var/clot_rate = 3
+	var/clot_coeff_per_wound = 1
+
+/datum/reagent/medicine/hydra/on_mob_life(mob/living/carbon/M)
+	. = ..()
+	clot_bleed_wounds(user = M, bleed_reduction_rate = clot_rate, coefficient_per_wound = clot_coeff_per_wound, single_wound_full_effect = FALSE)
+
+/datum/reagent/medicine/hydra/overdose_process(mob/living/M)
+	. = ..()
+	if(!M.get_blood(TRUE))
+		return
+
+	if(prob(15))
+		M.losebreath += rand(2,4)
+		M.adjustOxyLoss(rand(1,3))
+		if(prob(30))
+			to_chat(M, span_danger("You can feel your blood clotting up in your veins!"))
+		else if(prob(10))
+			to_chat(M, span_userdanger("You feel like your blood has stopped moving!"))
+		if(prob(50))
+			var/obj/item/organ/lungs/our_lungs = M.getorganslot(ORGAN_SLOT_LUNGS)
+			our_lungs.applyOrganDamage(1)
+		else
+			var/obj/item/organ/heart/our_heart = M.getorganslot(ORGAN_SLOT_HEART)
+			our_heart.applyOrganDamage(1)			

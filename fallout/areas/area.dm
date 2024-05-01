@@ -646,12 +646,12 @@
 	name = "South-Western Tunnel"
 	icon_state = "tunnelsw"
 
-/area/f13/tunnel/southeastoasis
-	name = "Oasis Eastern Sewers"
+/area/f13/tunnel/southeasteastwood
+	name = "Eastwood Eastern Sewers"
 	icon_state = "tunnelse"
 
-/area/f13/tunnel/southwestoasis
-	name = "Oasis Western Sewers"
+/area/f13/tunnel/southwesteastwood
+	name = "Eastwood Western Sewers"
 	icon_state = "tunnelsw"
 
 /area/f13/tunnel/sub
@@ -1019,7 +1019,7 @@
 	blob_allowed = 0
 	environment = 4
 	grow_chance = 5
-	weather_tags = list(WEATHER_ALL)
+//	weather_tags = list(WEATHER_ALL) tf
 
 /area/f13/followers
 	name = "Followers of the Apocalypse Clinic"

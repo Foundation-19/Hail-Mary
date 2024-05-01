@@ -945,7 +945,7 @@
  * * * * * * * */
 
 /* .45-70 match
- * DAMAGE: 70
+ * DAMAGE: OUTDATED
  * STAMIN: 70
  * RECOIL: 1
  * WOUNDS: 25
@@ -953,7 +953,7 @@
  */
 /obj/item/projectile/bullet/c4570
 	name = ".45-70 bullet"
-	armour_penetration = 0.1
+	armour_penetration = 0.2
 	damage = BULLET_DAMAGE_RIFLE_4570
 	stamina = BULLET_STAMINA_RIFLE_4570
 	spread = BULLET_SPREAD_SURPLUS
@@ -1100,8 +1100,8 @@
 
 /obj/item/projectile/bullet/c4570/knockback/on_hit(atom/target, blocked = FALSE)
 	. = ..()
-	if(ismovable(target) && prob(50))
-		var/atom/movable/M = target
+	if(isliving(target) && prob(50))
+		var/mob/living/M = target
 		var/atom/throw_target = get_edge_target_turf(M, get_dir(src, get_step_away(M, src)))
 		M.safe_throw_at(throw_target, 2, 3)
 

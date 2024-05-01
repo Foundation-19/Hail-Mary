@@ -77,7 +77,7 @@
 	strip_delay = 50
 	equip_delay_other = 50
 	resistance_flags = FIRE_PROOF | ACID_PROOF
-	mutantrace_variation = STYLE_DIGITIGRADE|STYLE_NO_ANTHRO_ICON
+	mutantrace_variation = STYLE_DIGITIGRADE
 	var/magic_flags = SPELL_WIZARD_ROBE
 
 /obj/item/clothing/suit/wizrobe/ComponentInitialize()

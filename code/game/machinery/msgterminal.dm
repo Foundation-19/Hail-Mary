@@ -428,14 +428,14 @@ GLOBAL_LIST_EMPTY(allTerminals)
 	terminal = "Terminal"
 	terminalType = 2
 */
-/obj/machinery/msgterminal/oasis
-	terminalid = "oasis"
-	terminal = "Oasis Terminal"
+/obj/machinery/msgterminal/eastwood
+	terminalid = "eastwood"
+	terminal = "Eastwood Terminal"
 	terminalType = 2
 
-/obj/machinery/msgterminal/oasis/followers
+/obj/machinery/msgterminal/eastwood/followers
 	terminalid = "follower"
-	terminal = "Oasis Followers Terminal"
+	terminal = "Eastwood Followers Terminal"
 	terminalType = 2
 
 /obj/machinery/msgterminal/brotherhood
