@@ -1805,7 +1805,7 @@
 	cock_delay = GUN_COCK_RIFLE_BASE
 	init_recoil = RIFLE_RECOIL(1)
 	init_firemodes = list(
-		/datum/firemode/automatic/rpm200,
+		/datum/firemode/automatic/rpm150,
 		/datum/firemode/semi_auto/fast
 	)
 	can_bayonet = FALSE

@@ -789,15 +789,6 @@ Suits. 0-10 in its primary value, slowdown 0, various utility
 // GREAT KHANS ARMOR //
 ///////////////////////
 
-//Basic Jacket
-/obj/item/clothing/suit/toggle/labcoat/khan_jacket
-	name = "Great Khan jacket"
-	desc = "A black leather jacket. <br>There is an illustration on the back - an aggressive, red-eyed skull wearing a fur hat with horns.<br>The skull has a mongoloid moustache - it's obviously a Great Khans emblem."
-	icon = 'icons/fallout/clothing/khans.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/khaans.dmi'
-	icon_state = "khan_jacket"
-	item_state = "khan_jacket"
-
 //Armored jacket
 /obj/item/clothing/suit/toggle/labcoat/khan_jacket/armored
 	name = "Great Khan armored jacket"

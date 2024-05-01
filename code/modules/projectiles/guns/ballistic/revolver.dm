@@ -616,7 +616,7 @@
 	damage_multiplier = GUN_EXTRA_DAMAGE_0
 	gun_accuracy_zone_type = ZONE_WEIGHT_AUTOMATIC
 	init_firemodes = list(
-		/datum/firemode/semi_auto/fast
+		/datum/firemode/semi_auto/slow
 	)
 	fire_sound = 'sound/f13weapons/magnum_fire.ogg'
 

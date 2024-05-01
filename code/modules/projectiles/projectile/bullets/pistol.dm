@@ -455,7 +455,7 @@
 /obj/item/projectile/bullet/c10mm
 	name = "10mm FMJ bullet"
 	damage = BULLET_DAMAGE_PISTOL_10MM
-	armour_penetration = 0.1
+	armour_penetration = 0.2
 	stamina = BULLET_STAMINA_PISTOL_10MM
 	spread = BULLET_SPREAD_SURPLUS
 	recoil = BULLET_RECOIL_PISTOL_10MM
