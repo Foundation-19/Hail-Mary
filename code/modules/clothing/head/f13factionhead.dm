@@ -325,6 +325,7 @@ obj/item/clothing/head/helmet/f13/enclave/usmcriot
 	desc = "The distinct helmet used by slavemasters."
 	icon_state = "legion-slavemaster"
 	item_state = "legion-slavemaster"
+	mob_overlay_icon = 'icons/fallout/onmob/clothes/head.dmi'
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEHAIR
 	flags_cover = HEADCOVERSEYES
 	dog_fashion = null
@@ -352,6 +353,7 @@ obj/item/clothing/head/helmet/f13/enclave/usmcriot
 /obj/item/clothing/head/helmet/f13/legion/vet/combvexil
 	name = "legion bear vexillarius helmet"
 	desc = "This helmet is decorated with the pelt of a ashland bear."
+	mob_overlay_icon = 'icons/fallout/onmob/clothes/head.dmi'
 	icon_state = "legion-vex"
 	item_state = "legion-vex"
 	armor_tokens = list(ARMOR_MODIFIER_UP_BULLET_T1, ARMOR_MODIFIER_UP_DT_T2)
@@ -366,6 +368,7 @@ obj/item/clothing/head/helmet/f13/enclave/usmcriot
 /obj/item/clothing/head/helmet/f13/legion/vet/nightvexil
 	name = "legion nightstalker vexillarius helmet"
 	desc = "This helmet is decorated with the pelt of a nightstalker."
+	mob_overlay_icon = 'icons/fallout/onmob/clothes/head.dmi'
 	icon_state = "legion-vex-night"
 	item_state = "legion-vex-night"
 	armor_tokens = list(ARMOR_MODIFIER_UP_BULLET_T1, ARMOR_MODIFIER_UP_DT_T2)

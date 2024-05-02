@@ -476,7 +476,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 /datum/quirk/bigleagues
 	name = "Melee - Big Leagues"
 	desc = "Swing for the fences! You deal even more additional damage with melee weapons."
-	value = 3
+	value = 4
 	mob_trait = TRAIT_BIG_LEAGUES
 	gain_text = span_notice("You feel like swinging for the fences!")
 	lose_text = span_danger("You feel like bunting.")
@@ -521,7 +521,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	gain_text = span_notice("You realize how to use Power Armor.")
 	lose_text = span_danger("You forget how Power Armor works.")
 	locked = FALSE
-
+/*
 /datum/quirk/hard_yards
 	name = "Mobility - Wasteland Trekker"
 	desc = "You've spent a lot of time wandering the wastes, and for your hard work you out pace most folks when travelling across them."
@@ -539,7 +539,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	gain_text = span_notice("Rain or shine only slow you down a little.")
 	lose_text = span_danger("You walk with a less sure gait, the ground seeming less firm somehow.")
 	locked = FALSE
-
+*/
 /datum/quirk/lifegiver
 	name = "Health - Tough"
 	desc = "You embody wellness! Instantly gain +10 maximum Health."
@@ -997,7 +997,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	gain_text = span_notice("Your footsteps fade away.")
 	lose_text = span_danger("You're pretty sure that's the sound of your asscheeks clapping, but it might be footsteps.")
 	locked =  FALSE
-
+/*
 /datum/quirk/deadeye
 	name = "Dead Eye"
 	desc = "You hit the shots you aim. No ifs, ands, or buts."
@@ -1006,11 +1006,11 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	gain_text = span_notice("Your aim is legendary, and you know it.")
 	lose_text = span_danger("Your aim could use some work...")
 	locked =  FALSE
-
+*/
 /datum/quirk/straightshooter
 	name = "Straight Shooter"
 	desc = "You're a better than average shot."
-	value = 4
+	value = 6
 	mob_trait = TRAIT_NICE_SHOT
 	gain_text = span_notice("Your aim is amazing, and you know it.")
 	lose_text = span_danger("Your aim could use some work...")

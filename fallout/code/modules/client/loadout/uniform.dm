@@ -320,6 +320,8 @@
 	name = "ripped jeans"
 	path = /obj/item/clothing/under/pants/jeanripped
 
+
+
 /datum/gear/uniform/shorts/jean
 	name = "jean shorts"
 	path = /obj/item/clothing/under/pants/jeanshort
@@ -984,6 +986,19 @@
 	path = /obj/item/clothing/under/f13/sleazeball
 	cost = 1
 	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_WASTELAND
+
+/datum/gear/uniform/wasteland/khan
+	name = "denim pants"
+	path = /obj/item/clothing/under/f13/khan
+	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_WASTELAND
+
+/datum/gear/uniform/wasteland/khan/jorts
+	name = "denim jorts"
+	path = /obj/item/clothing/under/f13/khan/shorts
+
+/datum/gear/uniform/wasteland/khan/booty
+	name = "denim shorts"
+	path = /obj/item/clothing/under/f13/khan/booty
 
 /// Tribal stuff in wasteland tab below
 
