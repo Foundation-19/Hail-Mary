@@ -329,7 +329,7 @@
 
 /datum/crafting_recipe/shutters/window
 	name = "Windowed Shutters"
-	reqs = list(/obj/item/stack/sheet/prewar = 5,
+	reqs = list(/obj/item/stack/sheet/plasteel = 5,
 				/obj/item/stack/sheet/rglass = 10,
 				/obj/item/stack/cable_coil = 10,
 				/obj/item/electronics/airlock = 1
