@@ -14,7 +14,7 @@
 	desc = "A lamp post under construction."
 	icon = 'icons/fallout/objects/96x160_street_decore.dmi'
 	icon_state = "nvlamp-singles"
-	max_integrity = 1000
+	max_integrity = 200
 	sheets_refunded = 5
 	layer = GASFIRE_LAYER
 	plane = MOB_PLANE
@@ -129,7 +129,7 @@
 	icon_state = "nvlamp-singles-on"
 	layer = GASFIRE_LAYER
 	plane = MOB_PLANE
-	max_integrity = 750
+	max_integrity = 100
 	brightness = 15
 	bulb_colour = "#fff598"
 	flickering = TRUE
