@@ -36,7 +36,7 @@
 	refill_canister = /obj/item/vending_refill/wardrobe/sec_wardrobe
 	payment_department = ACCOUNT_SEC
 	cost_multiplier_per_dept = list(ACCOUNT_SEC = 0)
-	default_price = PRICE_CHEAP
+	default_price = PRICE_ABOVE_NORMAL
 	extra_price = PRICE_EXPENSIVE
 
 /obj/item/vending_refill/wardrobe/sec_wardrobe
@@ -74,7 +74,6 @@
 					/obj/item/storage/fancy/cigarettes = 5)
 	premium = list(/obj/item/clothing/head/flatcap = 1)
 	refill_canister = /obj/item/vending_refill/wardrobe/det_wardrobe
-	default_price = PRICE_CHEAP
 	extra_price = 350
 	payment_department = ACCOUNT_SEC
 
@@ -123,7 +122,6 @@
 					/obj/item/clothing/suit/toggle/labcoat/emt/red = 5,
 					/obj/item/clothing/suit/toggle/labcoat/emt/highvis = 5)
 	refill_canister = /obj/item/vending_refill/wardrobe/medi_wardrobe
-	default_price = PRICE_REALLY_CHEAP
 	payment_department = ACCOUNT_MED
 	cost_multiplier_per_dept = list(ACCOUNT_MED = 0)
 
@@ -155,7 +153,6 @@
 					/obj/item/clothing/head/hardhat = 5,
 					/obj/item/clothing/head/hardhat/weldhat = 3)
 	refill_canister = /obj/item/vending_refill/wardrobe/engi_wardrobe
-	default_price = PRICE_REALLY_CHEAP
 	payment_department = ACCOUNT_ENG
 	cost_multiplier_per_dept = list(ACCOUNT_ENG = 0)
 
@@ -179,7 +176,6 @@
 					/obj/item/clothing/under/rank/engineering/atmospheric_technician/skirt = 5,
 					/obj/item/clothing/shoes/sneakers/black = 5)
 	refill_canister = /obj/item/vending_refill/wardrobe/atmos_wardrobe
-	default_price = PRICE_REALLY_CHEAP
 	payment_department = ACCOUNT_ENG
 	cost_multiplier_per_dept = list(ACCOUNT_ENG = 0)
 
@@ -203,7 +199,6 @@
 					/obj/item/clothing/head/soft = 5,
 					/obj/item/radio/headset/headset_cargo = 3)
 	refill_canister = /obj/item/vending_refill/wardrobe/cargo_wardrobe
-	default_price = PRICE_REALLY_CHEAP
 	payment_department = ACCOUNT_CAR
 	cost_multiplier_per_dept = list(ACCOUNT_CAR = 0)
 
@@ -232,7 +227,6 @@
 					/obj/item/clothing/under/misc/mechsuitblue = 1)
 	contraband = list(/obj/item/clothing/suit/hooded/techpriest = 2)
 	refill_canister = /obj/item/vending_refill/wardrobe/robo_wardrobe
-	default_price = PRICE_REALLY_CHEAP
 	payment_department = ACCOUNT_SCI
 	cost_multiplier_per_dept = list(ACCOUNT_SCI = 0)
 
@@ -274,7 +268,6 @@
 					/obj/item/clothing/under/misc/mechsuitwhite = 1,
 					/obj/item/clothing/under/misc/mechsuitblue = 1)
 	refill_canister = /obj/item/vending_refill/wardrobe/science_wardrobe
-	default_price = PRICE_REALLY_CHEAP
 	payment_department = ACCOUNT_SCI
 	cost_multiplier_per_dept = list(ACCOUNT_SCI = 0)
 
@@ -296,7 +289,6 @@
 					/obj/item/clothing/under/rank/civilian/hydroponics/skirt = 5,
 					/obj/item/clothing/mask/bandana = 4)
 	refill_canister = /obj/item/vending_refill/wardrobe/hydro_wardrobe
-	default_price = PRICE_REALLY_CHEAP
 	payment_department = ACCOUNT_SRV
 	cost_multiplier_per_dept = list(ACCOUNT_SRV = 0)
 
@@ -323,7 +315,6 @@
 					/obj/item/clothing/glasses/regular/jamjar = 1,
 					/obj/item/storage/bag/books = 1)
 	refill_canister = /obj/item/vending_refill/wardrobe/curator_wardrobe
-	default_price = PRICE_REALLY_CHEAP
 	payment_department = ACCOUNT_CIV
 	cost_multiplier_per_dept = list(ACCOUNT_CIV = 0)
 
@@ -359,7 +350,6 @@
 					/obj/item/clothing/neck/petcollar = 3,
 					/obj/item/storage/belt/bandolier = 1)
 	refill_canister = /obj/item/vending_refill/wardrobe/bar_wardrobe
-	default_price = PRICE_REALLY_CHEAP
 	payment_department = ACCOUNT_SRV
 	cost_multiplier_per_dept = list(ACCOUNT_SRV = 0)
 
@@ -386,7 +376,6 @@
 					/obj/item/book/granter/crafting_recipe/cooking_sweets_101 = 2,
 					/obj/item/book/granter/crafting_recipe/coldcooking = 2)
 	refill_canister = /obj/item/vending_refill/wardrobe/chef_wardrobe
-	default_price = PRICE_REALLY_CHEAP
 	payment_department = ACCOUNT_SRV
 	cost_multiplier_per_dept = list(ACCOUNT_SRV = 0)
 
@@ -425,7 +414,6 @@
 					/obj/item/screwdriver = 2,
 					/obj/item/stack/cable_coil/random = 4)
 	refill_canister = /obj/item/vending_refill/wardrobe/jani_wardrobe
-	default_price = PRICE_REALLY_CHEAP
 	payment_department = ACCOUNT_SRV
 	cost_multiplier_per_dept = list(ACCOUNT_SRV = 0)
 
@@ -459,7 +447,6 @@
 					/obj/item/clothing/shoes/laceup = 3,
 					/obj/item/clothing/accessory/lawyers_badge = 3)
 	refill_canister = /obj/item/vending_refill/wardrobe/law_wardrobe
-	default_price = PRICE_REALLY_CHEAP
 	payment_department = ACCOUNT_CIV
 	cost_multiplier_per_dept = list(ACCOUNT_CIV = 0)
 
@@ -487,7 +474,6 @@
 					/obj/item/storage/fancy/candle_box = 3)
 
 	refill_canister = /obj/item/vending_refill/wardrobe/chap_wardrobe
-	default_price = PRICE_REALLY_CHEAP
 	payment_department = ACCOUNT_CIV
 	cost_multiplier_per_dept = list(ACCOUNT_CIV = 0)
 
@@ -511,7 +497,6 @@
 					/obj/item/storage/bag/chemistry = 3,
 					/obj/item/fermichem/pHbooklet = 3)//pH indicator)
 	refill_canister = /obj/item/vending_refill/wardrobe/chem_wardrobe
-	default_price = PRICE_REALLY_CHEAP
 	payment_department = ACCOUNT_MED
 	cost_multiplier_per_dept = list(ACCOUNT_MED = 0)
 
@@ -532,7 +517,6 @@
 					/obj/item/storage/backpack/genetics = 3,
 					/obj/item/storage/backpack/satchel/gen = 3)
 	refill_canister = /obj/item/vending_refill/wardrobe/gene_wardrobe
-	default_price = PRICE_REALLY_CHEAP
 	payment_department = ACCOUNT_MED
 	cost_multiplier_per_dept = list(ACCOUNT_MED = 0)
 
@@ -555,7 +539,6 @@
 					/obj/item/storage/backpack/virology = 3,
 					/obj/item/storage/backpack/satchel/vir = 3)
 	refill_canister = /obj/item/vending_refill/wardrobe/viro_wardrobe
-	default_price = PRICE_REALLY_CHEAP
 	payment_department = ACCOUNT_MED
 	cost_multiplier_per_dept = list(ACCOUNT_MED = 0)
 
