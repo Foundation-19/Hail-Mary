@@ -1081,7 +1081,9 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 	exp_requirements = 60
 
 	loadout_options = list(
-		/datum/outfit/loadout/trooperrifleman // Service Rifle, Bayonet
+		/datum/outfit/loadout/trooperrifleman, // Service Rifle, Bayonet
+		/datum/outfit/loadout/trenchfighter,
+		/datum/outfit/loadout/conscripthunting
 		)
 
 	matchmaking_allowed = list(
@@ -1118,6 +1120,15 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 	suit_store = /obj/item/gun/ballistic/automatic/service
 	backpack_contents = list(
 		/obj/item/ammo_box/magazine/m556/rifle = 3,
+		/obj/item/melee/onehanded/knife/bayonet = 1,
+		/obj/item/storage/box/ration/menu_two = 1,
+		)
+
+/datum/outfit/loadout/trenchfighter
+	name = "Trench fighter"
+	suit_store = /obj/item/gun/ballistic/shotgun/trench
+	backpack_contents = list(
+		/obj/item/ammo_box/shotgun/buck = 3,
 		/obj/item/melee/onehanded/knife/bayonet = 1,
 		/obj/item/storage/box/ration/menu_two = 1,
 		)
