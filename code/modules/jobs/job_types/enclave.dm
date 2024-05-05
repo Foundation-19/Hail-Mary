@@ -7,14 +7,13 @@
 
 	access = list(ACCESS_ENCLAVE)
 	minimal_access = list(ACCESS_ENCLAVE)
-	forbids = "Enclave taboos: Aiding Brotherhood members in any way no matter how small."
-	enforces = "Enclave rules: Stay in uniform. Act mature and respectful. Obey orders and always remember you are fighting for the only true legitimate power in this land of savages. Wearing gasmasks outside the compound is encouraged but not required."
-	objectivesList = list("Department of Defense advisory: Collect resources and produce more Patribots, attrition is depleting our reserves.","Department of Defense advisory: Establish checkpoints to show presence, they must not forget who is the legitimate goverment.", "Science Divison advisory: Capture human subjects for experiments, alive. We have some new neurotoxin grenades we wish to do final tests with before field deployment.")
+	forbids = "Betraying your brothers and sisters."
+	enforces = "Survive. Move on. Protect your home, the USS Emminant Domaine. Try to good in the wasteland, or get revenge. Stay discret. Hide your past, many of you are still wanted."
+	objectivesList = list("Admiral Torres advises the crew to survive.")
 
 /datum/outfit/job/enclave
 	id = null
 	ears = /obj/item/radio/headset/headset_enclave
-	glasses = /obj/item/clothing/glasses/night/f13/enclave
 
 /datum/outfit/job/enclave/peacekeeper
 	id = /obj/item/card/id/dogtag/enclave/trooper
@@ -359,3 +358,108 @@
 	ADD_TRAIT(H, TRAIT_SURGERY_HIGH, src)
 	ADD_TRAIT(H, TRAIT_CHEMWHIZ, src)
 	ADD_TRAIT(H, TRAIT_UNETHICAL_PRACTITIONER, src) // Brainwashing
+
+//Last Americans
+/datum/job/enclave/enclaveremnant
+	title = "US Citizen Remnant"
+	flag = F13USCIT
+	display_order = JOB_DISPLAY_ORDER_F13USCIT
+	total_positions = 0
+	spawn_positions = 0
+	description = "Don't get things wrong. The enclave is dead and burried. You are the one of the many childrens or survivors of the once feared organisations, now laying low and trying to survive. The last pillar of the enclave is now the Ship called the USS Eminant Domain, on the coast of the Californian Golf, in Mexico. More than a Ship, its your home. Military organisation are a thing of the past. You and the others are the last US citizens."
+	supervisors = "The hierachy in place."
+	outfit = /datum/outfit/job/enclave/enclaveremnant
+	exp_type = EXP_TYPE_FALLOUT
+	exp_requirements = 0
+
+	loadout_options = list(
+		/datum/outfit/loadout/encivilian,
+		/datum/outfit/loadout/encrew,
+		/datum/outfit/loadout/endoc,
+		/datum/outfit/loadout/ensoldier,
+		/datum/outfit/loadout/enofficer,
+	)
+
+/datum/outfit/job/enclave/enclaveremnant/pre_equip(mob/living/carbon/human/H)
+	..()
+	uniform = pick(
+		/obj/item/clothing/under/f13/bodyguard, \
+		/obj/item/clothing/under/f13/navy, \
+		/obj/item/clothing/under/f13/exile/enclave, \
+		/obj/item/clothing/under/f13/doctorm, \
+		/obj/item/clothing/under/f13/combat, \
+		/obj/item/clothing/under/f13/roving)
+	shoes = /obj/item/clothing/shoes/f13/enclave/serviceboots
+	ears = /obj/item/radio/headset/headset_enclave
+	
+
+/datum/outfit/job/enclave/enclaveremnant
+	name = "US Citizen Remnant"
+	jobtype = /datum/job/enclave/enclaveremnant
+	backpack_contents = list(
+		/obj/item/reagent_containers/hypospray/medipen/stimpak = 1,
+		/obj/item/melee/onehanded/knife/survival = 1
+	)
+
+/datum/outfit/loadout/encivilian
+	name = "Civilian"
+	backpack_contents = list(
+		/obj/item/gun/ballistic/automatic/pistol/ninemil = 1,
+		/obj/item/ammo_box/magazine/m9mm/doublestack = 2,
+		/obj/item/stack/f13Cash/caps/fivezero = 2,
+		/obj/item/clothing/neck/apron/housewife = 1,
+		/obj/item/reagent_containers/spray/cleaner = 1,
+		/obj/item/fishingrod = 1
+	)
+
+/datum/outfit/loadout/encrew
+	name = "Crewmember"
+	backpack_contents = list(
+		/obj/item/stack/f13Cash/caps/fivezero = 1,
+		/obj/item/gun/ballistic/automatic/combat = 1,
+		/obj/item/ammo_box/magazine/tommygunm45/stick = 2,
+		/obj/item/clothing/under/f13/navy = 1,
+		/obj/item/clothing/suit/armor/outfit/vest/utility = 1,
+		/obj/item/storage/belt/utility/full = 1,
+		/obj/item/book/granter/trait/techno = 1,
+		/obj/item/clothing/head/f13/enclave/peacekeeper = 1
+	)	
+
+/datum/outfit/loadout/endoc
+	name = "Doctor"
+	backpack_contents = list(
+		/obj/item/gun/energy/laser/wattzs = 1,
+		/obj/item/stock_parts/cell/ammo/ec = 2,
+		/obj/item/stack/f13Cash/caps/fivezero = 1,
+		/obj/item/gun/ballistic/automatic/combat = 1,
+		/obj/item/clothing/under/f13/navy = 1,
+		/obj/item/clothing/suit/armor/medium/duster/follower = 1,
+		/obj/item/book/granter/trait/midsurgery = 1,
+		/obj/item/book/granter/trait/techno = 1,
+		/obj/item/storage/belt/medical/surgery_belt_adv = 1,
+		/obj/item/storage/box/medicine/stimpaks/stimpaks5 = 1,
+		/obj/item/clipboard = 1,
+		/obj/item/pen = 1,
+		/obj/item/clothing/head/beret/enclave/science = 1
+	)	
+
+/datum/outfit/loadout/ensoldier
+	name = "Soldier"
+	backpack_contents = list(
+		/obj/item/gun/energy/laser/aer9/focused = 1,
+		/obj/item/stock_parts/cell/ammo/mfc = 2,
+		/obj/item/clothing/under/f13/navy = 1,
+		/obj/item/clothing/suit/armor/medium/vest/enclave = 1,
+		/obj/item/clothing/head/helmet/f13/combat = 1
+	)
+
+/datum/outfit/loadout/enofficer
+	name = "Officer"
+	backpack_contents = list(
+		/obj/item/clothing/under/f13/navy/officer = 1,
+		/obj/item/clothing/suit/armor/light/duster/autumn = 1,
+		/obj/item/clothing/head/helmet/f13/enclave/officer = 1,
+		/obj/item/clothing/head/beret/enclave = 1,
+		/obj/item/gun/energy/laser/wattzs = 1,
+		/obj/item/stock_parts/cell/ammo/ec = 2
+	)

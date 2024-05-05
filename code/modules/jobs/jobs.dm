@@ -143,7 +143,9 @@ GLOBAL_LIST_INIT(legion_positions, list(
 	"Legion Immune",
 	"Legion Auxilia",
 	"Legion Slave",
-	"Legion Slavemaster"
+	"Legion Slavemaster",
+	"Legion Subject",
+	"Governor of Ostia",
 ))
 
 GLOBAL_LIST_INIT(ncr_rangervet_positions, list(
@@ -218,6 +220,7 @@ GLOBAL_LIST_INIT(enclave_positions, list(
 	"Enclave Specialist",
 	"Enclave Scientist",
 	"Enclave Private",
+	"US Citizen Remnant",
 ))
 
 GLOBAL_LIST_INIT(security_positions, list(

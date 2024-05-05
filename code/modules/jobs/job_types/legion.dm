@@ -1335,8 +1335,7 @@ datum/job/CaesarsLegion/Legionnaire/f13slavemaster
 	ADD_TRAIT(H, TRAIT_GENERIC, src)
 
 
-// Legion Citizen
-// Really only used for ID console
+// Legion Subject
 /datum/job/ncr/f13legioncitizen
 	title = "Legion Citizen"
 	outfit = /datum/outfit/job/CaesarsLegion/Legionnaire/f13legioncitizen
@@ -1354,3 +1353,133 @@ datum/job/CaesarsLegion/Legionnaire/f13slavemaster
 	backpack_contents = list(
 		/obj/item/melee/onehanded/machete/spatha = 1,
 		)
+
+/datum/job/CaesarsLegion/subject
+	title = "Legion Subject"
+	flag = F13LEGIONSUBJECT
+	total_positions = 6
+	spawn_positions = 3
+	description = "A citizen of the Legion port of Ostia. You are not a slave, but freedom is a concept quite far from you. You are not part of the legion military (ain't a off duty role), and live a comfy life. You can manage the shop, the café, or just help the legion arround. You can also become a Gladiator in the arena. As a subject, you must have a latin name."
+	supervisors = "You obey the governor, and the legion military, whom you are also loyal too."
+	display_order = JOB_DISPLAY_ORDER_LEGIONSUBJECT
+	exp_requirements = 0
+	outfit = /datum/outfit/job/CaesarsLegion/subject
+
+	loadout_options = list(
+		/datum/outfit/loadout/subjectoflegion,
+		/datum/outfit/loadout/legionshopkeeper,
+		/datum/outfit/loadout/legiongladiator,
+		/datum/outfit/loadout/legionbarkeep,
+		)
+
+	matchmaking_allowed = list(
+		/datum/matchmaking_pref/friend = list(
+			/datum/job/CaesarsLegion/slave,
+		),
+		/datum/matchmaking_pref/rival = list(
+			/datum/job/CaesarsLegion/slave,
+		),
+	)
+
+/datum/outfit/job/CaesarsLegion/subject/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	..()
+	if(visualsOnly)
+		return
+	ADD_TRAIT(H, TRAIT_MARS_TEACH, src)
+
+/datum/outfit/job/CaesarsLegion/subject
+	name = "Legion Subject"
+	jobtype = /datum/outfit/job/CaesarsLegion/subject
+	id = /obj/item/card/id/dogtag/legimmune
+	uniform = /obj/item/clothing/under/civ/roman_centurion
+	shoes =	/obj/item/clothing/shoes/roman
+	ears = /obj/item/radio
+
+
+/datum/outfit/loadout/subjectoflegion
+	backpack_contents = list(		
+		/obj/item/ammo_box/a357 = 1,
+		/obj/item/gun/ballistic/revolver/colt357 = 1,
+		/obj/item/stack/f13Cash/random/denarius/low = 2,
+		/obj/item/flashlight/lantern = 1,
+	)
+
+/datum/outfit/loadout/legionshopkeeper
+	name = "Legion Shopkeep"
+	backpack_contents = list(
+		/obj/item/clothing/head/f13/servant = 1,
+		/obj/item/clothing/under/civ/spanish_sailor = 1,
+		/obj/item/clothing/gloves/f13/crudemedical = 1,
+		/obj/item/clothing/shoes/roman = 1,
+		/obj/item/flashlight/lantern = 1,
+		/obj/item/ammo_box/shotgun/improvised = 2,
+		/obj/item/stack/f13Cash/random/denarius/med = 1,
+		/obj/item/soap/homemade = 1,
+		/obj/item/gun/ballistic/revolver/widowmaker = 1,
+		/obj/item/lighter = 1,
+		)
+
+/datum/outfit/loadout/legiongladiator
+	name = "Legion Gladiator"
+	backpack_contents = list(
+		/obj/item/clothing/head/helmet/gladiator = 1,
+		/obj/item/clothing/under/gladiator = 1,
+		/obj/item/clothing/shoes/roman = 1,
+		/obj/item/flashlight/lantern = 1,
+		/obj/item/melee/onehanded/machete = 1,
+		/obj/item/stack/f13Cash/random/denarius/low = 1,
+		/obj/item/book/granter/trait/bigleagues = 1,
+		/obj/item/shield/riot/buckler = 1,
+		/obj/item/lighter = 1,
+		)
+
+/datum/outfit/loadout/legionbarkeep
+	name = "Legion Restaurant"
+	backpack_contents = list(
+		/obj/item/clothing/head/f13/servant = 2,
+		/obj/item/clothing/under/civ/spanish_sailor = 2,
+		/obj/item/clothing/gloves/f13/crudemedical = 2,
+		/obj/item/clothing/shoes/roman = 2,
+		/obj/item/flashlight/lantern = 2,
+		/obj/item/reagent_containers/food/condiment/flour = 2,
+		/obj/item/storage/box/bowls = 2,
+		/obj/item/melee/onehanded/knife/cosmicdirty = 1,
+		/obj/item/soap/homemade = 1,
+		/obj/item/lighter = 1,
+		)
+
+/datum/job/CaesarsLegion/governor
+	title = "Governor of Ostia"
+	flag = F13LEGIONGOVERNOR
+	total_positions = 1
+	spawn_positions = 1
+	description = "The Civilian Leader of the Legion port of Ostia. You organise this city, make sure everything is in order, lead arrestation of troublemaker, organise slavesales with the slave master... You have only a limited power over the subject, and have no say in the military. You must have a latin name."
+	supervisors = "You obey the legion top officer (Centurion, Vet Decan, Decan)"
+	display_order = JOB_DISPLAY_ORDER_LEGIONGOVERNOR
+	exp_requirements = 0
+	outfit = /datum/outfit/job/CaesarsLegion/governor
+
+/datum/outfit/job/CaesarsLegion/governor
+	id = /obj/item/card/id/dogtag/legion/centurion
+	ears = /obj/item/radio/headset/headset_legion
+	neck = /obj/item/storage/belt/holster
+	uniform = /obj/item/clothing/under/civ/roman_centurion
+	shoes = /obj/item/clothing/shoes/f13/military/plated
+	r_pocket = /obj/item/storage/survivalkit/medical/legion
+	l_pocket = /obj/item/flashlight/lantern
+	box = /obj/item/storage/survivalkit/tribal/chief
+	box_two = /obj/item/storage/survivalkit/medical/tribal
+	backpack_contents = list(
+		/obj/item/restraints/legcuffs/bola = 1,
+		/obj/item/warpaint_bowl = 1,
+		/obj/item/ammo_box/a357 = 1,
+		/obj/item/gun/ballistic/revolver/colt357 = 1,
+		/obj/item/stack/f13Cash/random/denarius/high = 1,
+		/obj/item/binoculars = 1,
+		)
+
+/datum/outfit/job/CaesarsLegion/governor/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	..()
+	if(visualsOnly)
+		return
+	ADD_TRAIT(H, TRAIT_MARS_TEACH, src)
