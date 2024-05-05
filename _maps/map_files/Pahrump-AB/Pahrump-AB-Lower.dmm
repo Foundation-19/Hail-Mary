@@ -15720,13 +15720,6 @@
 	icon_state = "reddirtyfull"
 	},
 /area/f13/clinic)
-"lFM" = (
-/obj/structure/rack,
-/obj/item/stack/sheet/metal/fifty,
-/turf/open/floor/f13{
-	icon_state = "darkrusty"
-	},
-/area/f13/bunker)
 "lGc" = (
 /obj/effect/decal/cleanable/dirt{
 	color = "#363636"
@@ -18544,11 +18537,6 @@
 	icon_state = "tunnelrusty"
 	},
 /area/f13/bunker)
-"omx" = (
-/obj/effect/mapping_helpers/airlock/locked,
-/obj/machinery/door/airlock/vault/derelict,
-/turf/open/indestructible/ground/outside/desert,
-/area/f13/caves)
 "omG" = (
 /obj/structure/dresser,
 /turf/open/floor/f13/wood,
@@ -21736,6 +21724,11 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/dark/darksolid,
 /area/f13/caves)
+"rjC" = (
+/obj/effect/mapping_helpers/airlock/locked,
+/obj/machinery/door/airlock/vault/derelict,
+/turf/open/indestructible/ground/outside/desert,
+/area/f13/caves)
 "rjK" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/destructible/tribal_torch/lit,
@@ -22059,6 +22052,13 @@
 	dir = 6
 	},
 /turf/open/floor/plasteel/freezer,
+/area/f13/bunker)
+"rDm" = (
+/obj/structure/rack,
+/obj/item/stack/sheet/metal/fifty,
+/turf/open/floor/f13{
+	icon_state = "darkrusty"
+	},
 /area/f13/bunker)
 "rDy" = (
 /obj/effect/decal/cleanable/dirt,
@@ -65318,7 +65318,7 @@ aaa
 bCG
 mmv
 mmv
-omx
+rjC
 bCG
 bCG
 aaa
@@ -91153,7 +91153,7 @@ bIg
 aaB
 aaa
 aaD
-lFM
+rDm
 sxV
 sxV
 yaq
