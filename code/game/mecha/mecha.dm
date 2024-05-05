@@ -47,7 +47,8 @@
 	var/deflect_chance = 10 //chance to deflect the incoming projectiles, hits, or lesser the effect of ex_act.
 	armor = ARMOR_VALUE_HEAVY
 	var/list/facing_modifiers = list(FRONT_ARMOUR = 1.5, SIDE_ARMOUR = 1, BACK_ARMOUR = 0.5)
-	var/obj/item/stock_parts/cell/cell
+	//var/obj/item/stock_parts/cell/cell
+	var/obj/item/reagent_containers/fuel_tank/fuel_holder
 	var/state = 0
 	var/list/log = new
 	var/last_message = 0
@@ -167,7 +168,7 @@
 	spark_system.attach(src)
 	smoke_system.set_up(3, src)
 	smoke_system.attach(src)
-	add_cell()
+	add_fuel_tank()
 	START_PROCESSING(SSobj, src)
 	GLOB.poi_list |= src
 	mecha_log_message("[src.name] created.")
@@ -179,8 +180,17 @@
 	diag_hud_set_mechcell()
 	diag_hud_set_mechstat()
 
-/obj/mecha/get_cell()
-	return cell
+/obj/mecha/attacked_by(obj/item/I, mob/living/user, attackchain_flags, damage_multiplier)
+	if(istype(I, /obj/item/reagent_containers) && fuel_holder)
+		var/obj/item/reagent_containers/c = I
+		if(c.reagents.has_reagent(/datum/reagent/fuel) && fuel_holder.volume > fuel_holder.reagents.total_volume)
+			c.reagents.trans_id_to(fuel_holder, /datum/reagent/fuel, min((fuel_holder.volume - fuel_holder.reagents.total_volume), c.amount_per_transfer_from_this))
+			return TRUE
+	. = ..()
+	
+
+/obj/mecha/proc/get_fuel_tank()
+	return fuel_holder
 
 /obj/mecha/rust_heretic_act()
 	take_damage(50,  BRUTE)
@@ -208,10 +218,10 @@
 			else
 				E.detach(loc)
 				qdel(E)
-		if(cell)
-			WR.crowbar_salvage += cell
-			cell.forceMove(WR)
-			cell.charge = rand(0, cell.charge)
+		if(fuel_holder)
+			WR.crowbar_salvage += fuel_holder
+			fuel_holder.forceMove(WR)
+			fuel_holder.reagents.remove_reagent(/datum/reagent/fuel,rand(0, fuel_holder.volume))
 		if(internal_tank)
 			WR.crowbar_salvage += internal_tank
 			internal_tank.forceMove(WR)
@@ -219,8 +229,8 @@
 		for(var/obj/item/mecha_parts/mecha_equipment/E in equipment)
 			E.detach(loc)
 			qdel(E)
-		if(cell)
-			qdel(cell)
+		if(fuel_holder)
+			qdel(fuel_holder)
 		if(internal_tank)
 			qdel(internal_tank)
 		if(AI)
@@ -228,7 +238,7 @@
 	STOP_PROCESSING(SSobj, src)
 	GLOB.poi_list.Remove(src)
 	equipment.Cut()
-	cell = null
+	fuel_holder = null
 	internal_tank = null
 	assume_air(cabin_air)
 	cabin_air = null
@@ -251,7 +261,7 @@
 
 /obj/mecha/CheckParts(list/parts_list)
 	..()
-	cell = locate(/obj/item/stock_parts/cell) in contents
+	fuel_holder = locate(/obj/item/reagent_containers/fuel_tank) in contents
 	var/obj/item/stock_parts/scanning_module/SM = locate() in contents
 	var/obj/item/stock_parts/capacitor/CP = locate() in contents
 	if(SM)
@@ -270,12 +280,12 @@
 	internal_tank = new /obj/machinery/portable_atmospherics/canister/air(src)
 	return internal_tank*/
 
-/obj/mecha/proc/add_cell(obj/item/stock_parts/cell/C=null)
+/obj/mecha/proc/add_fuel_tank(obj/item/reagent_containers/fuel_tank/C=null)
 	if(C)
 		C.forceMove(src)
-		cell = C
+		fuel_holder = C
 		return
-	cell = new /obj/item/stock_parts/cell/upgraded(src)
+	fuel_holder = new /obj/item/reagent_containers/fuel_tank(src)
 
 /*/obj/mecha/proc/add_cabin()
 	cabin_air = new
@@ -351,8 +361,8 @@
 		if(internal_damage & MECHA_INT_SHORT_CIRCUIT)
 			if(get_charge())
 				spark_system.start()
-				cell.charge -= min(20,cell.charge)
-				cell.maxcharge -= min(20,cell.maxcharge)
+				fuel_holder.reagents.remove_reagent(/datum/reagent/fuel,min(20, fuel_holder.reagents.total_volume))
+				fuel_holder.volume -= min(20, fuel_holder.volume)
 
 	if(internal_temp_regulation)
 		if(cabin_air && cabin_air.return_volume() > 0)
@@ -380,9 +390,9 @@
 				cabin_air.transfer_to(t_air, transfer_moles)
 
 	if(occupant)
-		if(cell)
-			var/cellcharge = cell.charge/cell.maxcharge
-			switch(cellcharge)
+		if(fuel_holder)
+			var/fuelamount = fuel_holder.reagents.total_volume/fuel_holder.volume
+			switch(fuelamount)
 				if(0.75 to INFINITY)
 					occupant.clear_alert("charge")
 				if(0.5 to 0.75)
@@ -1112,17 +1122,17 @@
 		var/relay_charge = R.get_charge()
 		if(relay_charge)
 			return relay_charge
-	if(cell)
-		return max(0, cell.charge)
+	if(fuel_holder)
+		return max(0, fuel_holder.reagents.total_volume)
 
 /obj/mecha/proc/use_power(amount)
-	if(get_charge() && cell.use(amount))
+	if(get_charge() && fuel_holder.reagents.remove_reagent(/datum/reagent/fuel, amount))
 		return 1
 	return 0
 
 /obj/mecha/proc/give_power(amount)
 	if(!isnull(get_charge()))
-		cell.give(amount)
+		fuel_holder.reagents.add_reagent(/datum/reagent/fuel, amount)
 		return 1
 	return 0
 

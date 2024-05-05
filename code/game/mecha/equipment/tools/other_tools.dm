@@ -430,12 +430,12 @@
 		set_ready_state(1)
 		return
 	var/cur_charge = chassis.get_charge()
-	if(isnull(cur_charge) || !chassis.cell)
+	if(isnull(cur_charge) || !chassis.fuel_holder)
 		STOP_PROCESSING(SSobj, src)
 		set_ready_state(1)
-		occupant_message("No powercell detected.")
+		occupant_message("No fuel tank detected.")
 		return
-	if(cur_charge < chassis.cell.maxcharge)
+	if(cur_charge < chassis.fuel_holder.volume)
 		var/area/A = get_base_area(chassis)
 		if(A)
 			var/pow_chan
@@ -444,7 +444,7 @@
 					pow_chan = c
 					break
 			if(pow_chan)
-				var/delta = min(20, chassis.cell.maxcharge-cur_charge)
+				var/delta = min(20, chassis.fuel_holder.volume-cur_charge)
 				chassis.give_power(delta)
 				A.use_power(delta*coeff, pow_chan)
 
@@ -559,7 +559,7 @@
 		STOP_PROCESSING(SSobj, src)
 		return
 	var/use_fuel = fuel_per_cycle_idle
-	if(cur_charge < chassis.cell.maxcharge)
+	if(cur_charge < chassis.fuel_holder.volume)
 		use_fuel = fuel_per_cycle_active
 		chassis.give_power(power_per_cycle)
 	fuel.amount -= min(use_fuel/MINERAL_MATERIAL_AMOUNT,fuel.amount)

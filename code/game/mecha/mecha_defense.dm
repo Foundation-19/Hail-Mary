@@ -138,7 +138,7 @@
 	if (. & EMP_PROTECT_SELF)
 		return
 	if(get_charge())
-		use_power(cell.charge*severity/100)
+		use_power(fuel_holder.reagents.total_volume*severity/100)
 		take_damage(severity/3, BURN, "energy", 1)
 	mecha_log_message("EMP detected", color="red")
 
@@ -222,28 +222,28 @@
 		if(internal_damage & MECHA_INT_TEMP_CONTROL)
 			clearInternalDamage(MECHA_INT_TEMP_CONTROL)
 			to_chat(user, span_notice("You repair the damaged temperature controller."))
-		else if(state==3 && cell)
-			cell.forceMove(loc)
-			cell = null
+		else if(state==3 && fuel_holder)
+			fuel_holder.forceMove(loc)
+			fuel_holder = null
 			state = 4
-			to_chat(user, span_notice("You unscrew and pry out the powercell."))
-			mecha_log_message("Powercell removed")
-		else if(state==4 && cell)
+			to_chat(user, span_notice("You unsecure the fuel tank."))
+			mecha_log_message("Fuel tank removed")
+		else if(state==4 && fuel_holder)
 			state=3
-			to_chat(user, span_notice("You screw the cell in place."))
+			to_chat(user, span_notice("You secure the fuel_tank in place."))
 		return
 
-	else if(istype(W, /obj/item/stock_parts/cell))
+	else if(istype(W, /obj/item/reagent_containers/fuel_tank))
 		if(state==4)
-			if(!cell)
+			if(!fuel_holder)
 				if(!user.transferItemToLoc(W, src))
 					return
-				var/obj/item/stock_parts/cell/C = W
-				to_chat(user, span_notice("You install the powercell."))
-				cell = C
-				mecha_log_message("Powercell installed")
+				var/obj/item/reagent_containers/fuel_tank/C = W
+				to_chat(user, span_notice("You install the fuel tank."))
+				fuel_holder = C
+				mecha_log_message("Fuel Tank installed")
 			else
-				to_chat(user, span_notice("There's already a powercell installed."))
+				to_chat(user, span_notice("There's already a fuel tank installed."))
 		return
 
 	else if(istype(W, /obj/item/weldingtool) && user.a_intent != INTENT_HARM)
@@ -291,10 +291,10 @@
 		log_combat(M.occupant, src, "attacked", M, "(INTENT: [uppertext(M.occupant.a_intent)]) (DAMTYPE: [uppertext(M.damtype)])")
 		. = ..()
 
-/obj/mecha/proc/full_repair(charge_cell)
+/obj/mecha/proc/full_repair(refill_tank)
 	obj_integrity = max_integrity
-	if(cell && charge_cell)
-		cell.charge = cell.maxcharge
+	if(fuel_holder && refill_tank)
+		fuel_holder.reagents.add_reagent("welding_fuel", fuel_holder.volume)
 	if(internal_damage & MECHA_INT_FIRE)
 		clearInternalDamage(MECHA_INT_FIRE)
 	if(internal_damage & MECHA_INT_TEMP_CONTROL)

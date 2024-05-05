@@ -1714,6 +1714,11 @@
 /area/f13/village)
 "ahY" = (
 /obj/structure/rack/shelf_metal,
+/obj/item/reagent_containers/jerrycan,
+/obj/item/reagent_containers/jerrycan,
+/obj/item/reagent_containers/jerrycan,
+/obj/item/reagent_containers/jerrycan,
+/obj/item/reagent_containers/jerrycan,
 /turf/open/floor/f13{
 	icon_state = "floorrusty"
 	},
@@ -13572,13 +13577,7 @@
 	pixel_x = -35;
 	pixel_y = -5
 	},
-/obj/structure/junk/small/table{
-	desc = "Time and the elements has degraded this fuel pump beyond repair.";
-	icon = 'icons/obj/objects.dmi';
-	icon_state = "retrofuelpumppe";
-	name = "fuel pump";
-	pixel_y = 5
-	},
+/obj/structure/reagent_dispensers/vehicle_gas_station,
 /turf/open/indestructible/ground/outside/sidewalk{
 	icon_state = "verticalrightborderright2bottom"
 	},
@@ -17874,11 +17873,6 @@
 /obj/structure/fermenting_barrel,
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/wasteland)
-"bCX" = (
-/obj/structure/table,
-/obj/machinery/cell_charger,
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/brotherhood)
 "bDx" = (
 /obj/structure/rack,
 /obj/item/reagent_containers/food/snacks/candy,
@@ -22429,6 +22423,14 @@
 /obj/effect/landmark/start/f13/recleg,
 /turf/open/indestructible/ground/inside/dirt/stamped,
 /area/f13/legion)
+"ddt" = (
+/obj/item/reagent_containers/jerrycan,
+/turf/open/floor/plasteel/stairs{
+	barefootstep = "woodbarefoot";
+	color = "#A47449";
+	footstep = "wood"
+	},
+/area/f13/wasteland)
 "ddv" = (
 /obj/effect/overlay/junk/telescreen,
 /turf/closed/wall/f13/wood/house,
@@ -31040,15 +31042,6 @@
 /area/f13/building/mall)
 "gBV" = (
 /obj/structure/table,
-/obj/item/stock_parts/cell/high,
-/obj/item/stock_parts/cell/high,
-/obj/item/stock_parts/cell/high,
-/obj/item/stock_parts/cell,
-/obj/item/stock_parts/cell,
-/obj/item/stock_parts/cell,
-/obj/item/stock_parts/cell/hyper,
-/obj/item/stock_parts/cell/hyper,
-/obj/item/stock_parts/cell/hyper,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/brotherhood)
 "gCc" = (
@@ -32847,10 +32840,10 @@
 /area/f13/wasteland)
 "hoi" = (
 /obj/structure/table/wood/bar,
-/obj/item/stock_parts/cell/high,
-/obj/item/stock_parts/cell/high,
-/obj/item/stock_parts/cell/high,
-/obj/item/stock_parts/cell/high,
+/obj/item/reagent_containers/jerrycan,
+/obj/item/reagent_containers/jerrycan,
+/obj/item/reagent_containers/jerrycan,
+/obj/item/reagent_containers/jerrycan,
 /turf/open/indestructible/ground/outside/desert/sonora{
 	dir = 4;
 	icon_state = "desertsmooth4"
@@ -34107,6 +34100,16 @@
 	icon_state = "verticalleftborderright0"
 	},
 /area/f13/building)
+"hRZ" = (
+/obj/item/reagent_containers/jerrycan,
+/obj/item/reagent_containers/jerrycan,
+/obj/item/reagent_containers/jerrycan,
+/obj/item/reagent_containers/jerrycan,
+/obj/item/reagent_containers/jerrycan,
+/turf/open/indestructible/ground/outside/sidewalk{
+	icon_state = "verticaloutermain0"
+	},
+/area/f13/wasteland)
 "hSo" = (
 /obj/effect/decal/marking,
 /obj/item/stack/sheet/mineral/wood,
@@ -49203,7 +49206,6 @@
 "nWX" = (
 /obj/structure/rack,
 /obj/item/storage/toolbox/drone,
-/obj/item/storage/toolbox/electrical,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/brotherhood)
 "nXd" = (
@@ -53663,10 +53665,6 @@
 	color = " A6635D"
 	},
 /area/f13/wasteland)
-"pHm" = (
-/obj/machinery/mech_bay_recharge_port,
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/brotherhood)
 "pHu" = (
 /obj/effect/turf_decal/weather/dirt{
 	dir = 1
@@ -54156,7 +54154,6 @@
 "pSd" = (
 /obj/effect/decal/cleanable/oil/streak,
 /obj/structure/table,
-/obj/machinery/cell_charger,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/brotherhood)
 "pSp" = (
@@ -54348,7 +54345,6 @@
 /area/f13/building/massfusion)
 "pXF" = (
 /obj/structure/table/wood/bar,
-/obj/machinery/cell_charger,
 /turf/open/indestructible/ground/outside/desert/sonora{
 	dir = 4;
 	icon_state = "desertsmooth4"
@@ -54811,13 +54807,7 @@
 	},
 /area/f13/wasteland)
 "qhP" = (
-/obj/structure/junk/small/table{
-	desc = "Time and the elements has degraded this fuel pump beyond repair.";
-	icon = 'icons/obj/objects.dmi';
-	icon_state = "retrofuelpumppe";
-	name = "fuel pump";
-	pixel_y = 5
-	},
+/obj/structure/reagent_dispensers/vehicle_gas_station,
 /turf/open/indestructible/ground/outside/sidewalk{
 	icon_state = "verticalrightborderright2bottom"
 	},
@@ -58286,11 +58276,6 @@
 	icon_state = "floorrusty"
 	},
 /area/f13/building/mall)
-"rMB" = (
-/obj/effect/decal/cleanable/oil,
-/obj/machinery/computer/mech_bay_power_console,
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/brotherhood)
 "rMG" = (
 /obj/structure/debris/v2,
 /turf/open/indestructible/ground/outside/desert/sonora{
@@ -59584,7 +59569,10 @@
 	dir = 1
 	},
 /obj/structure/rack,
-/obj/item/inducer,
+/obj/item/reagent_containers/jerrycan,
+/obj/item/reagent_containers/jerrycan,
+/obj/item/reagent_containers/jerrycan,
+/obj/item/reagent_containers/jerrycan,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/brotherhood)
 "sov" = (
@@ -59971,10 +59959,6 @@
 /obj/effect/landmark/start/f13/deputy,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/city)
-"sxO" = (
-/obj/machinery/computer/mech_bay_power_console,
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/brotherhood)
 "sxW" = (
 /obj/structure/fence/corner{
 	dir = 8
@@ -65407,13 +65391,7 @@
 /turf/open/indestructible/ground/outside/desert,
 /area/f13/wasteland)
 "uLb" = (
-/obj/structure/junk/small/table{
-	desc = "Time and the elements has degraded this fuel pump beyond repair.";
-	icon = 'icons/obj/objects.dmi';
-	icon_state = "retrofuelpumppe";
-	name = "fuel pump";
-	pixel_y = 5
-	},
+/obj/structure/reagent_dispensers/vehicle_gas_station,
 /turf/open/indestructible/ground/outside/sidewalk{
 	icon_state = "verticalleftborderleft0"
 	},
@@ -79430,7 +79408,7 @@ xLa
 apX
 aqi
 arY
-lpo
+hRZ
 hmz
 hmz
 lpo
@@ -107822,7 +107800,7 @@ vOs
 vOs
 vOs
 lwL
-lIY
+ddt
 okr
 wHJ
 qHy
@@ -115134,7 +115112,7 @@ aaa
 aaa
 pxe
 oYF
-sxO
+oYF
 oYF
 oYF
 gnj
@@ -115391,7 +115369,7 @@ aaa
 aaa
 pxe
 oYF
-pHm
+oYF
 oYF
 oYF
 oYF
@@ -115905,7 +115883,7 @@ aaa
 aaa
 pxe
 oYF
-sxO
+oYF
 oYF
 ubv
 pSd
@@ -116162,7 +116140,7 @@ aaa
 aaa
 pxe
 oYF
-pHm
+oYF
 oYF
 oYF
 gBV
@@ -116422,7 +116400,7 @@ oYF
 xYD
 oYF
 ubv
-bCX
+gBV
 pxe
 ejf
 tgs
@@ -116676,7 +116654,7 @@ aaa
 aaa
 pxe
 dGJ
-rMB
+gnj
 oYF
 oYF
 xfy
@@ -116933,7 +116911,7 @@ aaa
 aaa
 pxe
 oYF
-pHm
+oYF
 gnj
 gnj
 oYF

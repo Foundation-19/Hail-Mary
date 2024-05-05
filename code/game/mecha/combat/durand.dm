@@ -161,7 +161,7 @@ the shield is disabled by means other than the action button (like running out o
 		return
 	if(switching && !signal_args[1])
 		return
-	if(!chassis.defense_mode && (!chassis.cell || chassis.cell.charge < 100)) //If it's off, and we have less than 100 units of power
+	if(!chassis.defense_mode && (!chassis.fuel_holder || chassis.fuel_holder.reagents.total_volume < 100)) //If it's off, and we have less than 100 units of power
 		chassis.occupant_message(span_warning("Insufficient power; cannot activate defense mode."))
 		return
 	switching = TRUE
@@ -199,7 +199,7 @@ the shield is disabled by means other than the action button (like running out o
 	. = ..()
 	flick("shield_impact", src)
 	if(!chassis.use_power((max_integrity - obj_integrity) * 35))
-		chassis.cell?.charge = 0
+		chassis.fuel_holder?.reagents?.total_volume = 0
 		chassis.defense_action.Activate(forced_state = TRUE)
 	obj_integrity = 10000
 

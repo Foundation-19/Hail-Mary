@@ -67,16 +67,17 @@
 	if(!obj_integrity) //Integrity is zero but we would heal out of that state if we went into this before it recognises it being zero
 		return
 	if(GLOB.ratvar_awakens) // At this point only timley intervention by lord singulo could hope to stop the superweapon
-		cell.charge = INFINITY
+		fuel_holder.volume = 9999999
+		fuel_holder.reagents.add_reagent("welding_fuel", 9999999)
 		max_integrity = INFINITY
 		obj_integrity = max_integrity
 		CHECK_TICK //Just to be on the safe side lag wise
 	else
-		if(cell.charge < cell.maxcharge)
+		if(fuel_holder.reagents.total_volume < fuel_holder.volume)
 			for(var/obj/effect/clockwork/sigil/transmission/T in range(SIGIL_ACCESS_RANGE, src))
-				var/delta = min(recharge_rate, cell.maxcharge - cell.charge)
+				var/delta = min(recharge_rate, fuel_holder.volume - fuel_holder.reagents.total_volume)
 				if (get_clockwork_power() >= delta)
-					cell.charge += delta
+					fuel_holder.reagents.total_volume += delta
 					adjust_clockwork_power(-delta)
 		if(obj_integrity < max_integrity && istype(loc, /turf/open/floor/clockwork))
 			obj_integrity += min(max_integrity - obj_integrity, max_integrity / 200)

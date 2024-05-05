@@ -1129,10 +1129,6 @@
 	},
 /turf/open/transparent/openspace,
 /area/f13/ncr)
-"cbc" = (
-/obj/machinery/mech_bay_recharge_port,
-/turf/open/floor/plasteel/f13/vault_floor/floor,
-/area/f13/wasteland)
 "cbD" = (
 /obj/effect/decal/cleanable/dirt{
 	color = "#363636"
@@ -3314,10 +3310,6 @@
 	sunlight_state = 1
 	},
 /area/f13/building/hospital)
-"hdT" = (
-/obj/machinery/computer/mech_bay_power_console,
-/turf/open/floor/plasteel/f13/vault_floor/floor,
-/area/f13/wasteland)
 "hen" = (
 /obj/structure/chair/f13foldupchair{
 	dir = 1
@@ -5548,6 +5540,10 @@
 	id = "bosgarage2"
 	},
 /obj/machinery/light/small,
+/obj/item/reagent_containers/jerrycan,
+/obj/item/reagent_containers/jerrycan,
+/obj/item/reagent_containers/jerrycan,
+/obj/item/reagent_containers/jerrycan,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/brotherhood)
 "maM" = (
@@ -6384,10 +6380,6 @@
 /obj/structure/lattice/catwalk,
 /turf/open/transparent/openspace,
 /area/f13/ncr)
-"nCd" = (
-/obj/machinery/mech_bay_recharge_port,
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/brotherhood)
 "nCS" = (
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/building)
@@ -9879,6 +9871,13 @@
 /obj/effect/decal/cleanable/vomit,
 /turf/open/floor/f13/wood,
 /area/f13/city)
+"vvI" = (
+/obj/item/reagent_containers/jerrycan,
+/obj/item/reagent_containers/jerrycan,
+/obj/item/reagent_containers/jerrycan,
+/obj/item/reagent_containers/jerrycan,
+/turf/open/floor/plasteel/f13/vault_floor/floor,
+/area/f13/wasteland)
 "vvS" = (
 /obj/structure/toilet{
 	dir = 8
@@ -10293,10 +10292,6 @@
 /obj/structure/barricade/wooden/planks/pregame,
 /turf/closed/wall/f13/wood/house,
 /area/f13/building)
-"wtG" = (
-/obj/machinery/computer/mech_bay_power_console,
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/brotherhood)
 "wuZ" = (
 /obj/effect/decal/cleanable/generic,
 /obj/effect/decal/cleanable/dirt,
@@ -10310,7 +10305,10 @@
 "wvs" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/table,
-/obj/machinery/cell_charger,
+/obj/item/reagent_containers/jerrycan,
+/obj/item/reagent_containers/jerrycan,
+/obj/item/reagent_containers/jerrycan,
+/obj/item/reagent_containers/jerrycan,
 /turf/open/transparent/openspace,
 /area/f13/ncr)
 "wvQ" = (
@@ -10341,12 +10339,6 @@
 "wzR" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/table,
-/obj/item/stock_parts/cell,
-/obj/item/stock_parts/cell,
-/obj/item/stock_parts/cell/high,
-/obj/item/stock_parts/cell/high,
-/obj/item/stock_parts/cell/hyper,
-/obj/item/stock_parts/cell/hyper,
 /turf/open/transparent/openspace,
 /area/f13/ncr)
 "wAV" = (
@@ -37433,7 +37425,7 @@ wTd
 oez
 ahs
 aIE
-rOF
+vvI
 rOF
 rOF
 rOF
@@ -37949,8 +37941,8 @@ ioD
 rOF
 rOF
 rOF
-cbc
-hdT
+rOF
+rOF
 rOF
 ymf
 oez
@@ -51709,7 +51701,7 @@ srx
 kpP
 uQO
 uQO
-wtG
+uQO
 uQO
 sJR
 dBX
@@ -51966,7 +51958,7 @@ srx
 uQO
 uQO
 uQO
-nCd
+uQO
 uQO
 svq
 gzv
@@ -53251,7 +53243,7 @@ srx
 uQO
 uQO
 uQO
-wtG
+uQO
 uQO
 uQO
 uQO
@@ -53508,7 +53500,7 @@ srx
 qgx
 uQO
 uQO
-nCd
+uQO
 uQO
 uQO
 uQO

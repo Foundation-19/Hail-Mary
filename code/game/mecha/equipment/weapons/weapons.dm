@@ -65,7 +65,7 @@
 	firing_effect_type = /obj/effect/temp_visual/dir_setting/firing_effect/energy
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/get_shot_amount()
-	return min(round(chassis.cell.charge / energy_drain), projectiles_per_shot)
+	return min(round(chassis.fuel_holder.volume / energy_drain), projectiles_per_shot)
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/start_cooldown()
 	set_ready_state(0)

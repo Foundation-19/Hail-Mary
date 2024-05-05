@@ -72,7 +72,7 @@
 
 /obj/mecha/proc/get_stats_part()
 	var/integrity = obj_integrity/max_integrity*100
-	var/cell_charge = get_charge()
+	var/tank_status = get_charge()
 	/*var/datum/gas_mixture/int_tank_air = internal_tank.return_air()
 	var/tank_pressure = internal_tank ? round(int_tank_air.return_pressure(),0.01) : "None"
 	var/tank_temperature = internal_tank ? int_tank_air.return_temperature() : "Unknown"
@@ -80,7 +80,7 @@
 	. = {"[report_internal_damage()]
 						[integrity<30?"<span class='userdanger'>DAMAGE LEVEL CRITICAL</span><br>":null]
 						<b>Integrity: </b> [integrity]%<br>
-						<b>Powercell charge: </b>[isnull(cell_charge)?"No powercell installed":"[cell.percent()]%"]<br>
+						<b>Fuel Tank status: </b>[isnull(tank_status)?"No fuel tank installed":"[fuel_holder.percent()]%"]<br>
 						[dna_lock?"<b>DNA-locked:</b><br> <span style='font-size:10px;letter-spacing:-1px;'>[dna_lock]</span> \[<a href='?src=[REF(src)];reset_dna=1'>Reset</a>\]<br>":""]<br>
 						[thrusters_action.owner ? "<b>Thrusters: </b> [thrusters_active ? "Enabled" : "Disabled"]<br>" : ""]
 						[defense_action.owner ? "<b>Defense Mode: </b> [defense_mode ? "Enabled" : "Disabled"]<br>" : ""]
