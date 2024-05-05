@@ -137,7 +137,7 @@
 	. = ..()
 	reconnect()
 
-/obj/structure/reagent_dispensers/vehicle_gas_station
+/obj/structure/reagent_dispensers/fueltank/vehicle_gas_station
 	name = "Gas Station"
 	desc = "an old world Gasoline station, for comercial distribution of fue."
 	density = TRUE
@@ -152,22 +152,22 @@
 	var/obj/item/key/station_key = new()
 	anchored =  TRUE
 
-/obj/structure/reagent_dispensers/vehicle_gas_station/Initialize()
+/obj/structure/reagent_dispensers/fueltank/vehicle_gas_station/Initialize()
 	. = ..()
 	deez_nozz = new(src)
 	deez_nozz.main_station = src
 	deez_nozz.forceMove(src)
 	station_key = new(loc)
 
-/obj/structure/reagent_dispensers/vehicle_gas_station/examine(mob/user)
+/obj/structure/reagent_dispensers/fueltank/vehicle_gas_station/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>It has a [on = 1 ? "green" : "red"] light turned on"
 	. += "<span class='notice'>the tank access is  [isopen = 1 ? "colsed tight" : "loose and open"]"
 
-/obj/structure/reagent_dispensers/vehicle_gas_station/proc/get_percent()
+/obj/structure/reagent_dispensers/fueltank/vehicle_gas_station/proc/get_percent()
 	return 100*reagents.total_volume/tank_volume
 
-/obj/structure/reagent_dispensers/vehicle_gas_station/attackby(obj/item/I, mob/living/user, attackchain_flags, damage_multiplier, damage_addition)
+/obj/structure/reagent_dispensers/fueltank/vehicle_gas_station/attackby(obj/item/I, mob/living/user, attackchain_flags, damage_multiplier, damage_addition)
 	if(I == station_key)
 		playsound('sound/machines/click.ogg')
 		if(on)
@@ -178,7 +178,10 @@
 		return FALSE
 	. = ..()
 
-/obj/structure/reagent_dispensers/vehicle_gas_station/on_attack_hand(mob/living/user, act_intent, unarmed_attack_flags)
+/obj/structure/reagent_dispensers/fueltank/vehicle_gas_station/boom()
+	return
+
+/obj/structure/reagent_dispensers/fueltank/vehicle_gas_station/on_attack_hand(mob/living/user, act_intent, unarmed_attack_flags)
 	if(!deez_nozz.holder)
 		if(user.IsAdvancedToolUser())
 			user.put_in_active_hand(deez_nozz)
@@ -186,18 +189,18 @@
 			RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(nozzle_check))
 	. = ..()
 	
-/obj/structure/reagent_dispensers/vehicle_gas_station/proc/nozzle_check()
+/obj/structure/reagent_dispensers/fueltank/vehicle_gas_station/proc/nozzle_check()
 	var/turf/here = get_turf(deez_nozz)
 	if(!here.Adjacent(src))
 		return_nozzle()
 
-/obj/structure/reagent_dispensers/vehicle_gas_station/proc/return_nozzle()
+/obj/structure/reagent_dispensers/fueltank/vehicle_gas_station/proc/return_nozzle()
 	if(deez_nozz.holder)
 		UnregisterSignal(deez_nozz.holder, COMSIG_MOVABLE_MOVED)
 	deez_nozz.forceMove(src)
 	deez_nozz.holder = null
 
-/obj/structure/reagent_dispensers/vehicle_gas_station/attackby(obj/item/W, mob/user, params)
+/obj/structure/reagent_dispensers/fueltank/vehicle_gas_station/attackby(obj/item/W, mob/user, params)
 	if(W == deez_nozz)
 		return_nozzle()
 		return
@@ -216,7 +219,7 @@
 	desc = "an old world Gasoline station, for comercial distribution of fue."
 	icon = 'icons/mecha/mech_bay.dmi'
 	icon_state = "fuel_nozzle"
-	var/obj/structure/reagent_dispensers/vehicle_gas_station/main_station = null
+	var/obj/structure/reagent_dispensers/fueltank/vehicle_gas_station/main_station = null
 	var/list/possible_transfer_amounts = list(10, 20, 25, 50, 75, 100, 150, 200)
 	var/amount_per_transfer_from_this = 10
 	var/dispensing = FALSE

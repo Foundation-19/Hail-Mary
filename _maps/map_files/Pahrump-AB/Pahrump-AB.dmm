@@ -13577,7 +13577,7 @@
 	pixel_x = -35;
 	pixel_y = -5
 	},
-/obj/structure/reagent_dispensers/vehicle_gas_station,
+/obj/structure/reagent_dispensers/fueltank/vehicle_gas_station,
 /turf/open/indestructible/ground/outside/sidewalk{
 	icon_state = "verticalrightborderright2bottom"
 	},
@@ -54807,7 +54807,7 @@
 	},
 /area/f13/wasteland)
 "qhP" = (
-/obj/structure/reagent_dispensers/vehicle_gas_station,
+/obj/structure/reagent_dispensers/fueltank/vehicle_gas_station,
 /turf/open/indestructible/ground/outside/sidewalk{
 	icon_state = "verticalrightborderright2bottom"
 	},
@@ -65391,7 +65391,7 @@
 /turf/open/indestructible/ground/outside/desert,
 /area/f13/wasteland)
 "uLb" = (
-/obj/structure/reagent_dispensers/vehicle_gas_station,
+/obj/structure/reagent_dispensers/fueltank/vehicle_gas_station,
 /turf/open/indestructible/ground/outside/sidewalk{
 	icon_state = "verticalleftborderleft0"
 	},
