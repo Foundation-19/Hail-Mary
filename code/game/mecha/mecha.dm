@@ -65,6 +65,8 @@
 	var/breach_time = 0
 	var/recharge_rate = 0
 	var/can_be_locked = FALSE //Whether the mech can be DNA-locked or not.
+	var/stepcooldown = 3
+	var/last_trigger = 0 //Last time step sounded.
 
 	var/bumpsmash = 0 //Whether or not the mech destroys walls by running into it.
 	//inner atmos
@@ -607,8 +609,9 @@
 	var/result = step(src,direction)
 	if(strafe)
 		setDir(current_dir)
-	if(result && stepsound)
+	if(result && stepsound && world.time > last_trigger + stepcooldown)
 		playsound(src,stepsound,20,1)
+		last_trigger = world.time
 	return result
 
 /obj/mecha/proc/mechsteprand()
