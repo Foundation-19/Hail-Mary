@@ -149,7 +149,7 @@
 			to_chat(user, "<span class='notice'>You transfer [trans] units of the solution to [W].</span>")
 	. = ..()
 
-/obj/item/reagent_containers/fuel_tank/use(var/amount = 0)
+/obj/item/reagent_containers/fuel_tank/use(amount = 0)
 	if(reagents.total_volume <= 0)
 		return 0
 	var/used = min(reagents.total_volume,amount)
