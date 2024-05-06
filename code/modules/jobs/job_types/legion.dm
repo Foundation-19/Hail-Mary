@@ -1397,6 +1397,7 @@ datum/job/CaesarsLegion/Legionnaire/f13slavemaster
 
 
 /datum/outfit/loadout/subjectoflegion
+	name = "Legion Subject"
 	backpack_contents = list(		
 		/obj/item/ammo_box/a357 = 1,
 		/obj/item/gun/ballistic/revolver/colt357 = 1,

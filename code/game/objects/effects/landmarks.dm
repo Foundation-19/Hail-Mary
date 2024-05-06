@@ -661,14 +661,14 @@ obj/effect/landmark/start/f13/ncrlogisticsofficer
 	name = "Legion Slave"
 	icon_state = "Wastelander"
 
-/obj/effect/landmark/start/f13/legionciv
+/obj/effect/landmark/start/f13/legionsubject
 	name = "Legion Subject"
-	icon_state = "Legionary"
+	icon_state = "Auxilla"
 
-	/obj/effect/landmark/start/f13/legiongov
+	/obj/effect/landmark/start/f13/legiongovernor
 	name = "Governor of Ostia"
 	icon_state = "Legionary"
-	
+
 // Brotherhood of Steel
 
 /obj/effect/landmark/start/f13/sentinel

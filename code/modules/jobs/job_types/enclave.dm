@@ -364,8 +364,8 @@
 	title = "US Citizen Remnant"
 	flag = F13USCIT
 	display_order = JOB_DISPLAY_ORDER_F13USCIT
-	total_positions = 0
-	spawn_positions = 0
+	total_positions = 7
+	spawn_positions = 3
 	description = "Don't get things wrong. The enclave is dead and burried. You are the one of the many childrens or survivors of the once feared organisations, now laying low and trying to survive. The last pillar of the enclave is now the Ship called the USS Eminant Domain, on the coast of the Californian Golf, in Mexico. More than a Ship, its your home. Military organisation are a thing of the past. You and the others are the last US citizens."
 	supervisors = "The hierachy in place."
 	outfit = /datum/outfit/job/enclave/enclaveremnant
@@ -431,7 +431,6 @@
 		/obj/item/gun/energy/laser/wattzs = 1,
 		/obj/item/stock_parts/cell/ammo/ec = 2,
 		/obj/item/stack/f13Cash/caps/fivezero = 1,
-		/obj/item/gun/ballistic/automatic/combat = 1,
 		/obj/item/clothing/under/f13/navy = 1,
 		/obj/item/clothing/suit/armor/medium/duster/follower = 1,
 		/obj/item/book/granter/trait/midsurgery = 1,
