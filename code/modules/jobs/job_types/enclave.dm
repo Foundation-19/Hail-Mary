@@ -421,7 +421,6 @@
 		/obj/item/clothing/under/f13/navy = 1,
 		/obj/item/clothing/suit/armor/outfit/vest/utility = 1,
 		/obj/item/storage/belt/utility/full = 1,
-		/obj/item/book/granter/trait/techno = 1,
 		/obj/item/clothing/head/f13/enclave/peacekeeper = 1
 	)	
 

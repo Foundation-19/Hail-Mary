@@ -545,13 +545,6 @@
 /obj/structure/closet/crate/miningcar,
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/caves)
-"act" = (
-/mob/living/simple_animal/hostile/supermutant/meleemutant,
-/turf/open/indestructible/ground/outside/desert/sonora{
-	dir = 4;
-	icon_state = "desertsmooth3"
-	},
-/area/f13/wasteland)
 "acu" = (
 /obj/effect/decal/remains/human,
 /turf/open/indestructible/ground/outside/graveldirt,
@@ -33183,13 +33176,6 @@
 	icon_state = "dirtcorner"
 	},
 /area/f13/wasteland)
-"hzu" = (
-/obj/effect/spawner/lootdrop/f13/weapon/melee/random_mid,
-/turf/open/indestructible/ground/outside/desert/sonora{
-	dir = 4;
-	icon_state = "desertsmooth3"
-	},
-/area/f13/wasteland)
 "hzz" = (
 /obj/structure/chair/booth{
 	icon_state = "booth_south_middle"
@@ -38890,18 +38876,6 @@
 	icon_state = "yellowrustysolid"
 	},
 /area/f13/building/massfusion)
-"jSc" = (
-/obj/structure/flora/grass/wasteland{
-	icon_state = "tall_grass_4";
-	layer = 5;
-	pixel_x = -2
-	},
-/obj/effect/spawner/lootdrop/f13/weapon/melee/random_mid,
-/turf/open/indestructible/ground/outside/desert/sonora{
-	dir = 4;
-	icon_state = "desertsmooth3"
-	},
-/area/f13/wasteland)
 "jSf" = (
 /obj/structure/table/rolling,
 /obj/effect/decal/cleanable/dirt,
@@ -39417,7 +39391,7 @@
 	},
 /area/f13/wasteland)
 "kcX" = (
-/obj/effect/spawner/lootdrop/f13/weapon/gun/energy/mid,
+/obj/effect/mob_spawn/human/corpse/raidermelee,
 /turf/open/indestructible/ground/outside/desert/sonora{
 	dir = 4;
 	icon_state = "desertsmooth3"
@@ -48007,16 +47981,7 @@
 /turf/open/indestructible/ground/outside/desert,
 /area/f13/wasteland)
 "nCZ" = (
-/obj/structure/flora/grass/wasteland{
-	icon_state = "tall_grass_4";
-	layer = 5;
-	pixel_x = -2
-	},
-/mob/living/simple_animal/hostile/stalker,
-/turf/open/indestructible/ground/outside/desert/sonora{
-	dir = 4;
-	icon_state = "desertsmooth3"
-	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/wasteland)
 "nDc" = (
 /obj/structure/closet/crate/bin/trashbin,
@@ -49544,10 +49509,6 @@
 	icon_state = "whitedirtysolid"
 	},
 /area/f13/brotherhood)
-"okB" = (
-/obj/effect/spawner/lootdrop/f13/weapon/gun/energy/midhigh,
-/turf/open/indestructible/ground/outside/gravel,
-/area/f13/wasteland)
 "okD" = (
 /obj/structure/simple_door/metal/store,
 /turf/open/floor/f13{
@@ -62422,12 +62383,6 @@
 /obj/structure/spacevine,
 /turf/closed/wall/f13/wood/interior,
 /area/f13/building)
-"tHT" = (
-/obj/structure/nest/supermutant/ranged,
-/turf/open/indestructible/ground/outside/gravel/edge{
-	dir = 4
-	},
-/area/f13/wasteland)
 "tHV" = (
 /obj/effect/decal/cleanable/dirt{
 	color = "000000"
@@ -69547,13 +69502,6 @@
 	icon_state = "horizontalbottomborderbottom0"
 	},
 /area/f13/wasteland)
-"wLc" = (
-/obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/low,
-/turf/open/indestructible/ground/outside/desert/sonora{
-	dir = 4;
-	icon_state = "desertsmooth3"
-	},
-/area/f13/wasteland)
 "wLd" = (
 /obj/item/chair/wood/modern,
 /mob/living/simple_animal/hostile/handy,
@@ -72531,10 +72479,6 @@
 	dir = 1;
 	icon_state = "outerborder"
 	},
-/area/f13/wasteland)
-"xUF" = (
-/mob/living/simple_animal/hostile/supermutant/meleemutant,
-/turf/open/indestructible/ground/outside/gravel,
 /area/f13/wasteland)
 "xUH" = (
 /obj/machinery/microwave,
@@ -124899,7 +124843,7 @@ fVR
 eBH
 sVL
 iJh
-kcX
+sVE
 sVE
 sVE
 sVE
@@ -125160,7 +125104,7 @@ tWI
 pjZ
 jxX
 sVE
-rvy
+kcX
 sVE
 sVE
 sVE
@@ -125675,8 +125619,8 @@ sVE
 sVE
 sVE
 tGP
-hzu
-nCZ
+sVE
+jxX
 sVE
 sVE
 sVE
@@ -126178,7 +126122,7 @@ owU
 ohl
 eTy
 uWo
-tHT
+uWo
 uWo
 uWo
 uWo
@@ -126435,8 +126379,8 @@ ygr
 nUf
 qqE
 sQy
-xUF
-xUF
+aii
+aii
 rot
 aii
 aii
@@ -126444,7 +126388,7 @@ aii
 fFm
 aii
 vJb
-aii
+nCZ
 nuz
 aii
 aii
@@ -126959,7 +126903,7 @@ aii
 orQ
 aii
 fFm
-aii
+nCZ
 aii
 aii
 aii
@@ -127206,7 +127150,7 @@ xav
 oNf
 kvX
 xaY
-okB
+aii
 vaD
 iEw
 iEw
@@ -127724,7 +127668,7 @@ qqE
 vDY
 vvC
 jxX
-kcX
+sVE
 sdB
 sVE
 sVE
@@ -128762,7 +128706,7 @@ quZ
 vBU
 sHj
 sVE
-jSc
+jxX
 sVE
 sVE
 aae
@@ -129789,7 +129733,7 @@ sVE
 sVE
 sVE
 sVE
-wLc
+sVE
 sVE
 sVE
 aae
@@ -132574,7 +132518,7 @@ sVE
 sVE
 ghO
 tnI
-act
+sVE
 rOL
 qqE
 qqE
