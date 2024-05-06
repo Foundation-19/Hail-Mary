@@ -1452,8 +1452,8 @@ datum/job/CaesarsLegion/Legionnaire/f13slavemaster
 /datum/job/CaesarsLegion/governor
 	title = "Governor of Ostia"
 	flag = F13LEGIONGOVERNOR
-	total_positions = 1
-	spawn_positions = 1
+	total_positions = 0
+	spawn_positions = 0
 	description = "The Civilian Leader of the Legion port of Ostia. You organise this city, make sure everything is in order, lead arrestation of troublemaker, organise slavesales with the slave master... You have only a limited power over the subject, and have no say in the military. You must have a latin name."
 	supervisors = "You obey the legion top officer (Centurion, Vet Decan, Decan)"
 	display_order = JOB_DISPLAY_ORDER_LEGIONGOVERNOR
