@@ -42,7 +42,7 @@
 	dna_lock
 	step_in = 0.6
 	dir_in = 2
-	step_energy_drain = 1.5
+	step_energy_drain = 0.75
 	max_integrity = 150
 	deflect_chance = 30
 	armor = ARMOR_VALUE_LIGHT
@@ -127,7 +127,7 @@
 	dna_lock
 	step_in = 0.8
 	dir_in = 2
-	step_energy_drain = 1.4
+	step_energy_drain = 0.7
 	max_integrity = 200
 	deflect_chance = 30
 	armor = ARMOR_VALUE_LIGHT
@@ -206,7 +206,7 @@
 	dna_lock
 	step_in = 0.6
 	dir_in = 2
-	step_energy_drain = 1.5
+	step_energy_drain = 0.75
 	max_integrity = 150
 	deflect_chance = 30
 	armor = ARMOR_VALUE_LIGHT
@@ -277,7 +277,7 @@
 	dna_lock
 	step_in = 0.6
 	dir_in = 2
-	step_energy_drain = 1.5
+	step_energy_drain = 0.75
 	max_integrity = 150
 	deflect_chance = 30
 	armor = ARMOR_VALUE_LIGHT
