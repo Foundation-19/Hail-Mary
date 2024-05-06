@@ -1129,6 +1129,7 @@
 		return max(0, fuel_holder.reagents.total_volume)
 
 /obj/mecha/proc/use_power(amount)
+	amount = amount*0.5 //cut it in half since gasoline is expensive
 	if(get_charge() && fuel_holder.reagents.remove_reagent(/datum/reagent/fuel, amount))
 		return 1
 	return 0
