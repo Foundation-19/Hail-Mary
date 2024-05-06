@@ -6375,11 +6375,6 @@
 	sunlight_state = 1
 	},
 /area/f13/wasteland)
-"nCc" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/lattice/catwalk,
-/turf/open/transparent/openspace,
-/area/f13/ncr)
 "nCS" = (
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/building)
@@ -10303,12 +10298,12 @@
 	},
 /area/f13/building/massfusion)
 "wvs" = (
-/obj/structure/lattice/catwalk,
 /obj/structure/table,
 /obj/item/reagent_containers/jerrycan,
 /obj/item/reagent_containers/jerrycan,
 /obj/item/reagent_containers/jerrycan,
 /obj/item/reagent_containers/jerrycan,
+/obj/structure/lattice/catwalk,
 /turf/open/transparent/openspace,
 /area/f13/ncr)
 "wvQ" = (
@@ -17806,10 +17801,10 @@ rLB
 rLB
 bBj
 wvs
-nCc
-nCc
-nCc
-nCc
+ssV
+ssV
+ssV
+ssV
 ssV
 ssV
 ssV
@@ -19861,7 +19856,7 @@ rLB
 rLB
 rLB
 bBj
-nCc
+ssV
 ssV
 ssV
 ssV
