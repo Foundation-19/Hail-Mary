@@ -54,9 +54,7 @@
 /area/f13/ruins)
 "ao" = (
 /turf/open/floor/wood_common/wood_common_dark,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "aq" = (
 /obj/machinery/iv_drip,
 /turf/open/indestructible/ground/outside/ruins,
@@ -70,9 +68,7 @@
 /turf/open/indestructible/ground/outside/dirt/dark{
 	icon_state = "dirtfull_dark"
 	},
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "au" = (
 /obj/structure/chair/bench{
 	dir = 8
@@ -81,9 +77,7 @@
 	dir = 8
 	},
 /turf/open/floor/wood_common/wood_common_dark,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "av" = (
 /obj/machinery/sleeper,
 /turf/open/floor/plasteel/f13/vault_floor/neutral/neutralsolid,
@@ -141,9 +135,7 @@
 "aL" = (
 /obj/structure/table/wood/settler,
 /turf/open/floor/wood_fancy/wood_fancy_dark,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "aM" = (
 /obj/structure/closet/crate/freezer/blood,
 /obj/effect/spawner/lootdrop/f13/medical/rnd/good,
@@ -192,9 +184,7 @@
 /area/f13/raiders)
 "aX" = (
 /turf/open/pool,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "bb" = (
 /obj/machinery/camera/all{
 	dir = 1;
@@ -265,9 +255,7 @@
 	color = "#5c131b"
 	},
 /turf/open/floor/wood_fancy/wood_fancy_dark,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "bn" = (
 /turf/open/floor/f13/wood{
 	icon_state = "housewood3-broken"
@@ -525,16 +513,12 @@
 /turf/open/floor/wood_fancy/wood_fancy_light{
 	icon_state = "fancy_light-broken1"
 	},
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "cE" = (
 /turf/open/floor/wood_fancy/wood_fancy_light{
 	icon_state = "fancy_light-broken3"
 	},
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "cI" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/drinks/bottle/sunset{
@@ -598,23 +582,17 @@
 "cV" = (
 /obj/structure/spacevine,
 /turf/closed/wall/mineral/wood,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "cW" = (
 /obj/structure/chair/sofa/left{
 	color = "#800000";
 	dir = 1
 	},
 /turf/open/floor/wood_fancy/wood_fancy_dark,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "cX" = (
 /turf/open/floor/plating/f13/outside/roof,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "cY" = (
 /obj/structure/table/wood,
 /obj/item/toy/cards/deck,
@@ -668,17 +646,13 @@
 /turf/open/indestructible/ground/outside/dirt/dark{
 	icon_state = "dirtfull_dark"
 	},
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "dm" = (
 /obj/structure/bookshelf{
 	icon_state = "book-4"
 	},
 /turf/open/floor/wood_fancy,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "dn" = (
 /obj/item/grenade/homemade/firebomb,
 /turf/open/floor/f13/wood{
@@ -710,9 +684,7 @@
 	dir = 4
 	},
 /turf/open/floor/wood_wide/wood_wide_dark,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "dt" = (
 /turf/open/floor/wood_common,
 /area/f13/legion)
@@ -723,17 +695,7 @@
 "dv" = (
 /obj/structure/decoration/legion/chains,
 /turf/closed/wall/rust,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
-"dA" = (
-/obj/structure/chair/wood{
-	dir = 1
-	},
-/turf/open/floor/wood_fancy,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "dB" = (
 /obj/structure/weightmachine/weightlifter,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
@@ -767,9 +729,7 @@
 	dir = 1
 	},
 /turf/open/floor/wood_common,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "dO" = (
 /obj/structure/railing{
 	color = "#A47449";
@@ -1094,12 +1054,6 @@
 /obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/lowmid,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/building)
-"fX" = (
-/obj/structure/table/wood,
-/turf/open/floor/wood_fancy,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
 "gf" = (
 /obj/structure/chair/stool/retro,
 /turf/open/floor/f13/wood,
@@ -1143,9 +1097,7 @@
 	sunlight_state = 1;
 	name = "montain"
 	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "gp" = (
 /obj/structure/rack/shelf_metal,
 /obj/item/stack/f13Cash/random/ncr/med,
@@ -1161,9 +1113,7 @@
 	pixel_y = 12
 	},
 /turf/open/floor/wood_fancy,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "gs" = (
 /obj/effect/turf_decal/stripes/asteroid/line,
 /turf/open/indestructible/ground/outside/roaddirt{
@@ -1229,9 +1179,7 @@
 	layer = 2.8
 	},
 /turf/open/floor/wood_fancy,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "gD" = (
 /obj/effect/decal/cleanable/dirt{
 	color = "#363636"
@@ -1270,9 +1218,7 @@
 /obj/item/reagent_containers/food/snacks/meat/slab,
 /obj/item/reagent_containers/food/snacks/meat/slab,
 /turf/open/floor/wood_fancy,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "gR" = (
 /obj/structure/window/fulltile/wood/broken,
 /obj/structure/barricade/wooden/planks,
@@ -1355,9 +1301,7 @@
 	dir = 8
 	},
 /turf/open/floor/carpet/black,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "hA" = (
 /obj/machinery/microwave/stove,
 /obj/structure/destructible/tribal_torch/wall/lit{
@@ -1622,9 +1566,7 @@
 /area/f13/building)
 "iK" = (
 /turf/open/floor/plating/f13/outside/roof/wood,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "iO" = (
 /obj/machinery/light/small{
 	light_color = "#FF0000";
@@ -1638,9 +1580,7 @@
 /turf/open/floor/wood_fancy/wood_fancy_light{
 	icon_state = "fancy_light-broken2"
 	},
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "iQ" = (
 /obj/structure/decoration/legion{
 	pixel_y = 30
@@ -1714,11 +1654,6 @@
 	dir = 4
 	},
 /area/f13/raiders)
-"jl" = (
-/turf/open/transparent/openspace,
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
 "jm" = (
 /obj/structure/chair/f13chair2,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -1810,12 +1745,6 @@
 /obj/effect/turf_decal/shadow/floor,
 /turf/open/floor/wood_fancy,
 /area/f13/legion)
-"jI" = (
-/obj/structure/spacevine,
-/turf/closed/wall/f13/wood/house,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
 "jJ" = (
 /obj/structure/closet/crate/bin/trashbin{
 	pixel_y = 10
@@ -1842,9 +1771,7 @@
 	dir = 2
 	},
 /turf/open/floor/carpet/black,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "jM" = (
 /obj/structure/simple_door/bunker/glass,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
@@ -1882,9 +1809,7 @@
 	icon_state = "closed"
 	},
 /turf/open/floor/wood_fancy/wood_fancy_dark,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "jZ" = (
 /obj/item/trash/f13/c_ration_3,
 /turf/open/floor/wood_common,
@@ -2047,9 +1972,7 @@
 	dir = 8
 	},
 /turf/open/floor/carpet/black,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "kY" = (
 /obj/structure/flora/junglebush,
 /turf/open/floor/grass,
@@ -2086,14 +2009,7 @@
 	color = "#5c131b"
 	},
 /turf/open/floor/wood_fancy,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
-"lj" = (
-/turf/open/floor/carpet/red,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "lk" = (
 /obj/item/book/granter/crafting_recipe/gunsmith_three,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
@@ -2117,9 +2033,7 @@
 	color = "#5c131b"
 	},
 /turf/open/floor/wood_fancy,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "lv" = (
 /obj/structure/table/reinforced,
 /obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/lowmid,
@@ -2131,9 +2045,7 @@
 	icon_state = "ruinswindowvertical"
 	},
 /turf/open/floor/wood_wide/wood_wide_dark,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "lx" = (
 /obj/structure/window/fulltile/ruins/broken{
 	icon_state = "ruinswindowbrokenvertical"
@@ -2172,9 +2084,7 @@
 /obj/item/reagent_containers/glass/bowl/wooden_bowl,
 /obj/item/reagent_containers/glass/bowl/wooden_bowl,
 /turf/open/floor/wood_fancy,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "lG" = (
 /obj/structure/chair/bench{
 	dir = 8
@@ -2192,9 +2102,7 @@
 	dir = 8
 	},
 /turf/open/floor/wood_wide/wood_wide_dark,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "lJ" = (
 /turf/open/floor/plasteel/f13/vault_floor/blue,
 /area/f13/enclave)
@@ -2275,9 +2183,7 @@
 "lX" = (
 /obj/structure/bed/wooden,
 /turf/open/floor/carpet/black,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "md" = (
 /obj/structure/railing{
 	color = "#A47449";
@@ -2347,9 +2253,7 @@
 /turf/open/indestructible/ground/outside/dirt/dark{
 	icon_state = "dirtfull_dark"
 	},
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "mr" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -2397,9 +2301,7 @@
 	color = "#800000"
 	},
 /turf/open/floor/wood_fancy/wood_fancy_dark,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "mG" = (
 /obj/effect/decal/cleanable/blood{
 	icon_state = "gib2";
@@ -2422,9 +2324,7 @@
 /turf/open/floor/wood_fancy{
 	icon_state = "fancy-broken3"
 	},
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "mK" = (
 /obj/structure/closet/crate/wooden,
 /obj/effect/spawner/lootdrop/f13/blueprintVHigh,
@@ -2528,9 +2428,7 @@
 /obj/structure/spacevine,
 /obj/structure/window/fulltile/ruins,
 /turf/open/indestructible/ground/outside/desert,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "nn" = (
 /obj/machinery/porta_turret/f13/turret_556,
 /turf/open/floor/wood_common,
@@ -2635,9 +2533,7 @@
 	dir = 4
 	},
 /turf/open/floor/carpet/black,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "od" = (
 /obj/machinery/light/small{
 	dir = 2;
@@ -2662,17 +2558,13 @@
 	color = "#5c131b"
 	},
 /turf/open/floor/wood_fancy/wood_fancy_dark,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "ok" = (
 /obj/structure/chair/bench{
 	dir = 1
 	},
 /turf/open/floor/wood_fancy,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "oo" = (
 /obj/structure/chair/bench,
 /obj/structure/destructible/tribal_torch/wall/lit{
@@ -2717,18 +2609,14 @@
 	light_power = 0.6
 	},
 /turf/open/floor/wood_common/wood_common_dark,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "oA" = (
 /obj/structure/bed/old,
 /obj/structure/destructible/tribal_torch/wall/lit{
 	dir = 8
 	},
 /turf/open/floor/wood_wide,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "oB" = (
 /obj/machinery/chem_dispenser/apothecary,
 /obj/structure/destructible/tribal_torch/wall/lit{
@@ -2789,9 +2677,7 @@
 /obj/item/clothing/under/civ/dressr,
 /obj/effect/spawner/lootdrop/wmelee_low,
 /turf/open/floor/wood_fancy,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "oO" = (
 /obj/effect/spawner/lootdrop/f13/weapon/gun/energy/high,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -2824,9 +2710,7 @@
 	dir = 4
 	},
 /turf/open/floor/carpet/black,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "pa" = (
 /obj/effect/mob_spawn/human/corpse,
 /turf/open/floor/wood_fancy,
@@ -2867,9 +2751,7 @@
 /area/f13/ruins)
 "pl" = (
 /turf/open/floor/wood_fancy/wood_fancy_light,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "pm" = (
 /obj/machinery/camera/all{
 	dir = 1;
@@ -2882,15 +2764,11 @@
 	dir = 8
 	},
 /turf/open/floor/carpet/black,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "pC" = (
 /obj/structure/closet/cabinet/anchored,
 /turf/open/floor/wood_wide/wood_wide_dark,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "pG" = (
 /obj/effect/turf_decal/stripes/red/line{
 	dir = 3
@@ -2936,18 +2814,14 @@
 	color = "#A47449";
 	icon_state = "rampdowntop"
 	},
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "pY" = (
 /obj/structure/railing/corner{
 	color = "#A47449";
 	dir = 8
 	},
 /turf/open/transparent/openspace,
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "qb" = (
 /turf/closed/wall/f13/ruins,
 /area/f13/followers)
@@ -2982,9 +2856,7 @@
 	light_power = 0.7
 	},
 /turf/open/transparent/openspace,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "ql" = (
 /obj/structure/obstacle/old_locked_door,
 /turf/open/floor/wood_common,
@@ -3006,9 +2878,7 @@
 	light_range = 5
 	},
 /turf/open/floor/wood_fancy,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "qs" = (
 /obj/structure/window/fulltile/wood,
 /obj/structure/curtain{
@@ -3035,9 +2905,7 @@
 /area/f13/ruins)
 "qA" = (
 /turf/open/floor/wood_fancy/wood_fancy_dark,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "qF" = (
 /obj/structure/decoration/legion/spears{
 	dir = 8;
@@ -3056,9 +2924,7 @@
 	dir = 8
 	},
 /turf/open/floor/wood_wide/wood_wide_dark,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "qK" = (
 /obj/structure/destructible/tribal_torch/lit,
 /obj/structure/decoration/legion/chains2{
@@ -3146,9 +3012,7 @@
 	light_power = 0.6
 	},
 /turf/open/transparent/openspace,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "rt" = (
 /obj/structure/bonfire/prelit,
 /turf/open/floor/wood_fancy,
@@ -3156,9 +3020,7 @@
 "ru" = (
 /obj/machinery/door/unpowered/securedoor/legion/centurion,
 /turf/open/floor/wood_fancy,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "rw" = (
 /obj/structure/rack/shelf_metal,
 /obj/effect/spawner/lootdrop/f13/ncr_ration,
@@ -3181,14 +3043,10 @@
 "rB" = (
 /obj/structure/chair/wood,
 /turf/open/floor/wood_fancy,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "rD" = (
 /turf/closed/indestructible/rock,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "rF" = (
 /obj/structure/bookshelf{
 	icon_state = "book-4"
@@ -3199,9 +3057,7 @@
 	light_range = 5
 	},
 /turf/open/floor/wood_fancy,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "rG" = (
 /obj/effect/turf_decal/shadow/floor{
 	dir = 8
@@ -3219,9 +3075,7 @@
 	dir = 4
 	},
 /turf/open/transparent/openspace,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "rK" = (
 /obj/structure/spacevine,
 /obj/structure/spacevine,
@@ -3304,9 +3158,7 @@
 	pixel_y = 12
 	},
 /turf/open/floor/wood_fancy/wood_fancy_dark,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "sd" = (
 /obj/structure/fence/wooden{
 	dir = 8;
@@ -3328,9 +3180,7 @@
 	light_power = 0.6
 	},
 /turf/open/floor/carpet/black,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "se" = (
 /obj/effect/spawner/lootdrop/cigars_cases,
 /obj/structure/table{
@@ -3449,9 +3299,7 @@
 	pixel_y = -3
 	},
 /turf/open/floor/wood_fancy,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "sM" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/light/small{
@@ -3532,9 +3380,7 @@
 	},
 /obj/structure/chair/sofa/right,
 /turf/open/floor/wood_fancy/wood_fancy_light,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "tb" = (
 /obj/structure/closet/fridge/standard,
 /turf/open/floor/f13/wood,
@@ -3597,9 +3443,7 @@
 	dir = 4
 	},
 /turf/open/floor/carpet/black,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "tt" = (
 /obj/structure/fence/wooden{
 	dir = 8;
@@ -3622,9 +3466,7 @@
 	pixel_x = 5
 	},
 /turf/open/floor/carpet/black,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "tw" = (
 /obj/structure/chair/comfy/shuttle,
 /turf/open/floor/plasteel/f13/vault_floor/plating,
@@ -3646,9 +3488,7 @@
 	dir = 4
 	},
 /turf/open/floor/wood_fancy,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "tH" = (
 /obj/structure/chair/bench,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
@@ -3670,9 +3510,7 @@
 	pixel_y = 24
 	},
 /turf/open/floor/carpet/black,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "tS" = (
 /obj/item/stack/f13Cash/random/ncr/low,
 /turf/open/floor/plasteel/f13/vault_floor/blue/white/side{
@@ -3746,9 +3584,7 @@
 	icon_state = "book-2"
 	},
 /turf/open/floor/wood_fancy,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "up" = (
 /turf/open/indestructible/ground/outside/roaddirt{
 	icon_state = "horizontalinnermain2left"
@@ -3770,9 +3606,7 @@
 	color = "#A47449"
 	},
 /turf/open/transparent/openspace,
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "uv" = (
 /obj/machinery/light/small{
 	dir = 2;
@@ -3800,9 +3634,7 @@
 /turf/open/floor/wood_fancy{
 	icon_state = "fancy-broken2"
 	},
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "uB" = (
 /obj/structure/railing{
 	color = "#A47449";
@@ -3822,9 +3654,7 @@
 /turf/open/floor/wood_wide{
 	icon_state = "wide-broken2"
 	},
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "uJ" = (
 /obj/structure/chair/sofa/corp/right{
 	dir = 8
@@ -3838,9 +3668,7 @@
 /turf/open/floor/wood_fancy{
 	icon_state = "fancy-broken6"
 	},
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "uN" = (
 /obj/machinery/light/small{
 	dir = 4;
@@ -3850,11 +3678,6 @@
 	},
 /turf/open/floor/carpet/royalblack,
 /area/f13/raiders)
-"uP" = (
-/turf/open/floor/wood_fancy,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
 "uQ" = (
 /turf/closed/indestructible/f13vaultrusted,
 /area/f13/wasteland)
@@ -3885,11 +3708,6 @@
 /obj/structure/nest/gecko,
 /turf/open/indestructible/ground/outside/water/running,
 /area/f13/caves)
-"vl" = (
-/turf/closed/wall/f13/wood/house,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
 "vp" = (
 /obj/structure/spacevine,
 /turf/closed/wall/rust,
@@ -3916,18 +3734,14 @@
 	color = "#5c131b"
 	},
 /turf/open/floor/wood_fancy/wood_fancy_dark,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "vz" = (
 /obj/structure/closet/fridge/meat,
 /obj/structure/destructible/tribal_torch/wall/lit{
 	dir = 8
 	},
 /turf/open/floor/wood_fancy,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "vC" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 1
@@ -3947,9 +3761,7 @@
 	dir = 8
 	},
 /turf/open/floor/wood_fancy,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "vI" = (
 /obj/effect/spawner/lootdrop/f13/weapon/melee/tier2,
 /turf/open/floor/wood_worn{
@@ -3973,15 +3785,6 @@
 /obj/item/documents/syndicate/blue,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/enclave)
-"vP" = (
-/obj/structure/window/fulltile/wood,
-/obj/structure/curtain{
-	color = "#5c131b"
-	},
-/turf/open/floor/wood_fancy,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
 "vQ" = (
 /obj/structure/chair/bench{
 	dir = 4;
@@ -4081,12 +3884,6 @@
 	},
 /turf/open/transparent/openspace,
 /area/f13/ruins)
-"wq" = (
-/obj/structure/spacevine,
-/turf/closed/wall/f13/wood,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
 "wr" = (
 /turf/open/floor/f13/wood{
 	icon_state = "housewood4-broken"
@@ -4180,9 +3977,7 @@
 	pixel_x = 2
 	},
 /turf/open/floor/wood_fancy/wood_fancy_dark,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "wI" = (
 /obj/structure/table/wood,
 /obj/effect/turf_decal/shadow/floor{
@@ -4308,9 +4103,7 @@
 "xC" = (
 /obj/structure/sign/legion/radio,
 /turf/closed/wall/rust,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "xD" = (
 /obj/item/kirbyplants{
 	icon_state = "plant-21"
@@ -4323,17 +4116,13 @@
 	layer = 50
 	},
 /turf/open/transparent/openspace,
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "xG" = (
 /obj/structure/barricade/tentleathercorner{
 	dir = 1
 	},
 /turf/open/floor/plating/f13/outside/roof,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "xH" = (
 /obj/structure/closet/cabinet/anchored,
 /turf/open/floor/wood_fancy,
@@ -4394,11 +4183,6 @@
 	},
 /turf/open/floor/wood_common,
 /area/f13/caves)
-"yd" = (
-/turf/open/floor/wood_common,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
 "yf" = (
 /obj/structure/closet/cabinet/anchored,
 /turf/open/floor/f13/wood,
@@ -4431,9 +4215,7 @@
 	dir = 6
 	},
 /turf/open/transparent/openspace,
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "yp" = (
 /obj/structure/window/fulltile/ruins{
 	icon_state = "ruinswindowdestroyed"
@@ -4461,9 +4243,7 @@
 	light_power = 0.7
 	},
 /turf/open/floor/wood_common,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "yu" = (
 /obj/structure/chair/sofa/corner{
 	dir = 1
@@ -4509,9 +4289,7 @@
 	pixel_y = 12
 	},
 /turf/open/floor/wood_fancy,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "yM" = (
 /obj/effect/turf_decal/shadow/floor,
 /obj/effect/turf_decal/shadow/floor,
@@ -4551,9 +4329,7 @@
 "yU" = (
 /obj/structure/table/wood/settler,
 /turf/open/floor/wood_fancy,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "yW" = (
 /obj/item/storage/backpack/duffelbag/sec/surgery,
 /obj/structure/table/rolling,
@@ -4602,9 +4378,7 @@
 /area/f13/enclave)
 "zf" = (
 /turf/open/floor/carpet/black,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "zi" = (
 /obj/structure/railing{
 	color = "#A47449";
@@ -4627,9 +4401,7 @@
 	light_range = 5
 	},
 /turf/open/floor/wood_wide,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "zm" = (
 /obj/structure/lattice,
 /turf/closed/wall/f13/vault,
@@ -4680,9 +4452,7 @@
 	dir = 8
 	},
 /turf/open/floor/wood_fancy,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "zz" = (
 /obj/structure/dresser,
 /obj/item/flashlight/lamp{
@@ -4774,9 +4544,7 @@
 	light_range = 5
 	},
 /turf/open/floor/wood_fancy,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "Ab" = (
 /obj/structure/barricade/wooden/planks,
 /turf/closed/wall/f13/wood/house,
@@ -4905,9 +4673,7 @@
 "AV" = (
 /obj/structure/decoration/vent/rusty,
 /turf/closed/wall/rust,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "AW" = (
 /obj/structure/rack/shelf_metal,
 /obj/effect/spawner/lootdrop/cigars_cases,
@@ -4918,9 +4684,7 @@
 	icon_state = "book-5"
 	},
 /turf/open/floor/wood_fancy,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "AY" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/light/small{
@@ -4970,9 +4734,7 @@
 	},
 /obj/structure/table/wood/settler,
 /turf/open/floor/wood_fancy,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "Bj" = (
 /obj/effect/decal/cleanable/blood/footprints{
 	icon_state = "blood1";
@@ -5075,9 +4837,7 @@
 /turf/open/indestructible/ground/outside/dirt/dark{
 	icon_state = "dirtfull_dark"
 	},
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "BR" = (
 /obj/effect/turf_decal/stripes/asteroid/line,
 /turf/open/indestructible/ground/outside/roaddirt,
@@ -5093,9 +4853,7 @@
 /turf/open/indestructible/ground/outside/dirt/dark{
 	icon_state = "dirtfull_dark"
 	},
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "BU" = (
 /obj/effect/decal/fakelattice,
 /turf/open/floor/f13/wood/outside,
@@ -5212,9 +4970,7 @@
 /area/f13/building)
 "CG" = (
 /turf/open/floor/wood_wide,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "CI" = (
 /obj/machinery/light/fo13colored/Red{
 	desc = "A lighting fixture.";
@@ -5288,9 +5044,7 @@
 	pixel_y = -4
 	},
 /turf/open/floor/plating/f13/outside/roof,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "CZ" = (
 /obj/effect/spawner/lootdrop/f13/weapon/melee/tier4,
 /obj/effect/mob_spawn/human/corpse,
@@ -5327,9 +5081,7 @@
 	color = "#5c131b"
 	},
 /turf/open/floor/wood_fancy/wood_fancy_dark,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "Do" = (
 /obj/structure/window/plastitanium,
 /turf/open/floor/plasteel/f13/vault_floor/blue/whitebluefull,
@@ -5343,9 +5095,7 @@
 	pixel_x = 2
 	},
 /turf/open/floor/carpet/black,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "Dq" = (
 /obj/structure/closet/crate/footlocker,
 /obj/effect/spawner/lootdrop/f13/armor/tier3,
@@ -5371,9 +5121,7 @@
 "Dz" = (
 /obj/structure/rug/big/rug_yellow,
 /turf/open/floor/wood_fancy,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "DB" = (
 /obj/structure/chair/wood,
 /obj/effect/turf_decal/shadow/floor{
@@ -5440,9 +5188,7 @@
 	dir = 4
 	},
 /turf/open/floor/wood_fancy,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "DV" = (
 /obj/structure/curtain,
 /turf/open/indestructible/ground/outside/ruins,
@@ -5493,9 +5239,7 @@
 	},
 /obj/effect/particle_effect/smoke/transparent,
 /turf/open/pool,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "Ee" = (
 /obj/structure/destructible/tribal_torch/wall/lit{
 	dir = 8;
@@ -5523,11 +5267,6 @@
 	},
 /turf/open/floor/wood_common,
 /area/f13/building)
-"Eq" = (
-/turf/closed/wall/rust,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
 "Er" = (
 /obj/machinery/shower{
 	dir = 8
@@ -5664,9 +5403,7 @@
 	dir = 4
 	},
 /turf/open/floor/wood_fancy,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "Fd" = (
 /turf/open/floor/plasteel/f13/vault_floor/white,
 /area/f13/enclave)
@@ -5742,9 +5479,7 @@
 /obj/structure/table/wood/settler,
 /obj/item/binoculars,
 /turf/open/floor/wood_common,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "FH" = (
 /obj/effect/decal/cleanable/blood/footprints{
 	icon_state = "blood1";
@@ -5803,9 +5538,7 @@
 	light_power = 0.6
 	},
 /turf/open/floor/carpet/black,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "Ga" = (
 /obj/structure/flora/tree/oak_three,
 /turf/open/indestructible/ground/outside/water/running,
@@ -5813,9 +5546,7 @@
 "Gc" = (
 /obj/structure/table/wood/fancy/royalblack,
 /turf/open/floor/carpet/black,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "Gf" = (
 /obj/effect/decal/cleanable/blood/footprints{
 	icon_state = "trails_1";
@@ -5828,9 +5559,7 @@
 	dir = 4
 	},
 /turf/open/floor/wood_common/wood_common_dark,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "Gj" = (
 /obj/structure/bed/wooden,
 /turf/open/floor/wood_fancy,
@@ -5922,12 +5651,6 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/carpet/black,
 /area/f13/ruins)
-"GL" = (
-/obj/structure/simple_door/glass,
-/turf/open/floor/wood_fancy,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
 "GM" = (
 /turf/open/floor/f13/wood{
 	icon_state = "housewood4-broken"
@@ -5972,16 +5695,12 @@
 "He" = (
 /obj/structure/table/wood/fancy/red,
 /turf/open/floor/carpet/black,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "Hg" = (
 /obj/structure/window/fulltile/wood,
 /obj/structure/spacevine,
 /turf/open/floor/wood_fancy,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "Hh" = (
 /obj/structure/chair/bench{
 	dir = 1
@@ -6098,9 +5817,7 @@
 "Hy" = (
 /obj/structure/closet/fridge/standard,
 /turf/open/floor/wood_fancy,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "HA" = (
 /obj/item/stack/f13Cash/random/ncr/low,
 /turf/open/floor/plasteel/f13/vault_floor/blue/white/corner{
@@ -6116,9 +5833,7 @@
 	dir = 8
 	},
 /turf/open/floor/wood_fancy/wood_fancy_dark,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "HD" = (
 /obj/structure/barricade/sandbags,
 /obj/structure/destructible/tribal_torch/wall/lit{
@@ -6150,9 +5865,7 @@
 	dir = 8
 	},
 /turf/open/floor/wood_wide,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "HH" = (
 /obj/structure/decoration/legion/spears{
 	dir = 4;
@@ -6188,9 +5901,7 @@
 "HL" = (
 /obj/structure/chair/wood,
 /turf/open/floor/carpet/black,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "HN" = (
 /obj/effect/turf_decal/stripes/asteroid/line,
 /turf/open/floor/plasteel/f13/vault_floor/red/whiteredfull,
@@ -6204,9 +5915,7 @@
 	dir = 4
 	},
 /turf/open/pool,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "HR" = (
 /obj/structure/chair/bench{
 	dir = 4
@@ -6227,15 +5936,11 @@
 	pixel_x = 2
 	},
 /turf/open/floor/wood_fancy,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "HU" = (
 /obj/structure/window/fulltile/wood,
 /turf/open/floor/wood_fancy,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "HV" = (
 /obj/structure/rack/large/shelf_rust,
 /obj/effect/spawner/lootdrop/f13/medical/wasteland/meds/drug,
@@ -6254,14 +5959,6 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/building)
-"If" = (
-/turf/open/floor/f13{
-	color = "#A47449";
-	icon_state = "rampdowntop"
-	},
-/area/f13/legion{
-	name = "Legion City Building"
-	})
 "Ii" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
@@ -6377,9 +6074,7 @@
 	pixel_y = -5
 	},
 /turf/open/floor/wood_fancy,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "IN" = (
 /obj/effect/decal/cleanable/dirt{
 	color = "#363636"
@@ -6423,14 +6118,10 @@
 /turf/open/floor/wood_fancy/wood_fancy_light{
 	icon_state = "fancy_light-broken2"
 	},
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "IY" = (
 /turf/closed/indestructible/rock,
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "IZ" = (
 /obj/structure/fluff/railing{
 	dir = 5;
@@ -6449,15 +6140,11 @@
 	pixel_x = 2
 	},
 /turf/open/floor/wood_wide/wood_wide_dark,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "Je" = (
 /obj/structure/table/wood/settler,
 /turf/open/floor/carpet/red,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "Jg" = (
 /obj/effect/spawner/lootdrop/trash,
 /turf/open/floor/plating/rust,
@@ -6528,14 +6215,10 @@
 	dir = 1
 	},
 /turf/open/floor/carpet/black,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "Jz" = (
 /turf/open/floor/wood_wide/wood_wide_dark,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "JA" = (
 /obj/structure/destructible/tribal_torch/wall/lit{
 	dir = 8
@@ -6543,9 +6226,7 @@
 /turf/open/floor/wood_wide{
 	icon_state = "wide-broken1"
 	},
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "JB" = (
 /obj/structure/bed/old,
 /turf/open/floor/f13/wood,
@@ -6719,9 +6400,7 @@
 "KL" = (
 /obj/structure/table/wood/settler,
 /turf/open/floor/wood_common,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "KP" = (
 /obj/machinery/camera/all{
 	dir = 6;
@@ -6778,9 +6457,7 @@
 "La" = (
 /obj/structure/window/fulltile/ruins,
 /turf/open/floor/wood_wide/wood_wide_dark,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "Lc" = (
 /obj/structure/simple_door/glass,
 /turf/open/floor/wood_fancy,
@@ -6802,9 +6479,7 @@
 	pixel_y = 4
 	},
 /turf/open/pool,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "Ln" = (
 /obj/structure/railing{
 	color = "#A47449";
@@ -6856,9 +6531,7 @@
 	light_range = 5
 	},
 /turf/open/floor/carpet/black,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "Lw" = (
 /obj/machinery/door/airlock/grunge,
 /turf/open/floor/plating/rust,
@@ -6903,9 +6576,7 @@
 "LD" = (
 /obj/machinery/hydroponics/soil/pot,
 /turf/open/floor/plating/f13/outside/roof,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "LE" = (
 /obj/structure/barricade/tentleatheredge{
 	dir = 4
@@ -6915,15 +6586,11 @@
 /turf/open/indestructible/ground/outside/dirt/dark{
 	icon_state = "dirtfull_dark"
 	},
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "LG" = (
 /obj/structure/decoration/legion,
 /turf/closed/wall/f13/wood,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "LH" = (
 /turf/open/floor/f13{
 	color = "#A47449";
@@ -6958,11 +6625,6 @@
 /obj/structure/rack/large/shelf_rust,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/building)
-"LT" = (
-/turf/open/floor/plating/f13/outside/roof/wood/old,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
 "LY" = (
 /obj/item/stock_parts/cell/ammo/ecp/large,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -7141,11 +6803,6 @@
 /obj/effect/landmark/start/f13/usspecialist,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/enclave)
-"MQ" = (
-/turf/open/floor/plating/f13/outside/roof/red,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
 "MU" = (
 /obj/structure/fence{
 	dir = 1;
@@ -7182,9 +6839,7 @@
 /turf/open/floor/wood_fancy{
 	icon_state = "fancy-broken4"
 	},
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "Nc" = (
 /obj/structure/bed/old,
 /obj/item/bedsheet/enclave,
@@ -7196,9 +6851,7 @@
 /turf/open/indestructible/ground/outside/dirt/dark{
 	icon_state = "dirtfull_dark"
 	},
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "Ne" = (
 /obj/structure/simple_door/bunker,
 /obj/structure/curtain{
@@ -7213,9 +6866,7 @@
 	light_range = 5
 	},
 /turf/open/pool,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "Nk" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/light/small{
@@ -7300,9 +6951,7 @@
 /turf/open/floor/wood_fancy{
 	icon_state = "fancy-broken5"
 	},
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "NJ" = (
 /obj/machinery/sleeper{
 	density = 1;
@@ -7319,9 +6968,7 @@
 "NK" = (
 /obj/structure/window/fulltile/ruins,
 /turf/open/floor/wood_wide,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "NM" = (
 /obj/structure/flora/grass/jungle/b,
 /turf/open/indestructible/ground/outside/water/running,
@@ -7351,9 +6998,7 @@
 /turf/open/floor/wood_fancy/wood_fancy_light{
 	icon_state = "fancy_light-broken6"
 	},
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "Oc" = (
 /obj/machinery/vending/nukacolavend,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
@@ -7565,11 +7210,6 @@
 "Pd" = (
 /turf/closed/wall/f13/tentwall,
 /area/f13/legion)
-"Pe" = (
-/turf/closed/wall/f13/wood,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
 "Pf" = (
 /obj/effect/decal/cleanable/dirt{
 	color = "#363636"
@@ -7763,9 +7403,7 @@
 	dir = 4
 	},
 /turf/open/floor/wood_wide/wood_wide_dark,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "Qm" = (
 /obj/effect/decal/marking,
 /turf/open/indestructible/ground/outside/roaddirt{
@@ -7903,16 +7541,12 @@
 /area/f13/building)
 "QY" = (
 /turf/closed/wall/mineral/wood,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "QZ" = (
 /obj/structure/decoration/legion/chains,
 /obj/structure/railing/handrail/legion/end,
 /turf/closed/wall/rust,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "Ra" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/backpack/industrial,
@@ -8053,9 +7687,7 @@
 	pixel_y = 12
 	},
 /turf/open/floor/wood_fancy/wood_fancy_dark,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "RS" = (
 /obj/structure/window/fulltile/wood/broken,
 /obj/structure/barricade/wooden/planks,
@@ -8139,14 +7771,6 @@
 /obj/effect/spawner/lootdrop/f13/blueprintHigh,
 /turf/open/floor/wood_common/wood_common_dark,
 /area/f13/raiders)
-"Sx" = (
-/obj/structure/destructible/tribal_torch/wall/lit{
-	dir = 8
-	},
-/turf/open/transparent/openspace,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
 "Sy" = (
 /obj/machinery/light/small{
 	dir = 8;
@@ -8159,9 +7783,7 @@
 "SB" = (
 /obj/machinery/door/unpowered/securedoor/legion,
 /turf/open/floor/wood_wide/wood_wide_dark,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "SD" = (
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/druggie_pill,
@@ -8353,9 +7975,7 @@
 	dir = 8
 	},
 /turf/open/floor/wood_fancy,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "TD" = (
 /turf/open/floor/carpet/arcade,
 /area/f13/raiders)
@@ -8508,9 +8128,7 @@
 	dir = 4
 	},
 /turf/open/transparent/openspace,
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "Ul" = (
 /obj/structure/fence/post{
 	pixel_x = 16;
@@ -8589,9 +8207,7 @@
 	},
 /obj/structure/spacevine,
 /turf/open/floor/wood_fancy,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "UJ" = (
 /obj/structure/fence{
 	dir = 1;
@@ -8614,14 +8230,6 @@
 	},
 /turf/open/floor/wood_common,
 /area/f13/raiders)
-"UN" = (
-/obj/effect/turf_decal/shadow/floor{
-	dir = 4
-	},
-/turf/open/floor/wood_fancy,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
 "UP" = (
 /obj/structure/table/wood,
 /obj/item/kirbyplants{
@@ -8669,9 +8277,7 @@
 	icon_state = "closed"
 	},
 /turf/open/floor/wood_fancy/wood_fancy_dark,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "Vd" = (
 /obj/machinery/light/small{
 	dir = 2;
@@ -8795,9 +8401,7 @@
 "VG" = (
 /obj/structure/simple_door/room,
 /turf/open/floor/wood_fancy/wood_fancy_dark,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "VI" = (
 /obj/effect/turf_decal/stripes/red/line{
 	dir = 10
@@ -8873,9 +8477,7 @@
 	pixel_x = 5
 	},
 /turf/open/floor/wood_fancy,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "Wd" = (
 /turf/closed/indestructible/rock,
 /area/f13/caves)
@@ -8916,21 +8518,13 @@
 	dir = 8
 	},
 /turf/open/floor/plating/f13/outside/roof,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "Wr" = (
 /obj/structure/closet/cabinet/anchored,
 /obj/effect/spawner/lootdrop/f13/armor/tier2,
 /obj/effect/spawner/lootdrop/f13/armor/clothes,
 /turf/open/floor/wood_common,
 /area/f13/building)
-"Ws" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/wood_fancy,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
 "Wy" = (
 /obj/structure/chair/f13chair2{
 	dir = 4
@@ -8947,9 +8541,7 @@
 /area/f13/enclave)
 "WC" = (
 /turf/open/floor/plating/f13/outside/roof/wood,
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "WD" = (
 /obj/structure/bookshelf{
 	icon_state = "book-5"
@@ -8958,9 +8550,7 @@
 	dir = 8
 	},
 /turf/open/floor/wood_fancy,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "WF" = (
 /obj/structure/dresser,
 /obj/item/kirbyplants{
@@ -8969,9 +8559,7 @@
 	pixel_x = 2
 	},
 /turf/open/floor/wood_wide/wood_wide_dark,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "WG" = (
 /obj/structure/destructible/tribal_torch/wall/lit{
 	dir = 4;
@@ -9022,12 +8610,6 @@
 /obj/effect/spawner/lootdrop/clothing_middle,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/enclave)
-"WR" = (
-/obj/structure/spacevine,
-/turf/closed/wall/rust,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
 "WY" = (
 /obj/structure/chair/comfy/beige{
 	dir = 4
@@ -9140,9 +8722,7 @@
 	dir = 8
 	},
 /turf/open/transparent/openspace,
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "XD" = (
 /obj/item/flag/followers,
 /turf/open/indestructible/ground/outside/ruins,
@@ -9355,9 +8935,7 @@
 "YJ" = (
 /obj/structure/simple_door/repaired,
 /turf/open/floor/wood_fancy,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "YP" = (
 /obj/structure/decoration/legion/tentpole{
 	pixel_x = -12
@@ -9374,18 +8952,14 @@
 	light_power = 0.7
 	},
 /turf/open/floor/carpet/red,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "YT" = (
 /obj/structure/railing/handrail/legion{
 	density = 0;
 	dir = 4
 	},
 /turf/open/transparent/openspace,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "YU" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -9441,18 +9015,14 @@
 /turf/open/indestructible/ground/outside/dirt/dark{
 	icon_state = "dirtfull_dark"
 	},
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "Zk" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/wood_common,
 /area/f13/building)
 "Zl" = (
 /turf/open/transparent/openspace,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "Zm" = (
 /turf/open/floor/wood_worn{
 	icon_state = "worn-broken1"
@@ -9550,9 +9120,7 @@
 	dir = 8
 	},
 /turf/open/pool,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "ZP" = (
 /obj/structure/spacevine,
 /turf/open/indestructible/ground/inside/mountain,
@@ -50950,10 +50518,10 @@ qN
 Vy
 Pp
 QY
-jI
+Jj
 lw
 lw
-jI
+Jj
 cV
 Pp
 Vy
@@ -51468,7 +51036,7 @@ KL
 Zl
 CG
 Qj
-jI
+Jj
 Pp
 Vy
 eg
@@ -51721,10 +51289,10 @@ qN
 Vy
 Pp
 cV
-jI
+Jj
 lw
 lw
-jI
+Jj
 QY
 Pp
 Vy
@@ -52733,10 +52301,10 @@ CT
 CT
 CT
 CT
-vl
+CQ
 CG
 CG
-vl
+CQ
 CT
 CT
 CT
@@ -52990,10 +52558,10 @@ CT
 CT
 CT
 CT
-vl
+CQ
 Jz
 CG
-vl
+CQ
 CT
 CT
 CT
@@ -54532,38 +54100,38 @@ CT
 CT
 CT
 CT
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
 gq
 "}
 (176,1,1) = {"
@@ -54789,38 +54357,38 @@ CT
 CT
 CT
 CT
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
 gq
 "}
 (177,1,1) = {"
@@ -55046,38 +54614,38 @@ CT
 CT
 CT
 CT
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
 gq
 "}
 (178,1,1) = {"
@@ -55303,38 +54871,38 @@ CT
 CT
 CT
 CT
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
 gq
 "}
 (179,1,1) = {"
@@ -55560,38 +55128,38 @@ jj
 jj
 CT
 CT
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
 gq
 "}
 (180,1,1) = {"
@@ -55817,38 +55385,38 @@ jj
 jj
 CT
 CT
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
 gq
 "}
 (181,1,1) = {"
@@ -56074,38 +55642,38 @@ jj
 jj
 jj
 jj
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
 gq
 "}
 (182,1,1) = {"
@@ -56334,35 +55902,35 @@ jj
 CT
 CT
 CT
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
 gq
 "}
 (183,1,1) = {"
@@ -56591,34 +56159,34 @@ jj
 QP
 CT
 CT
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
 gq
 gq
 "}
@@ -56849,33 +56417,33 @@ jj
 jj
 Pi
 Pi
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
 gq
 gq
 "}
@@ -57106,32 +56674,32 @@ jj
 jj
 jj
 Pi
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-MQ
-MQ
-MQ
-MQ
-MQ
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+zk
+zk
+zk
+zk
+zk
 zk
 gq
 gq
@@ -57358,37 +56926,37 @@ uY
 jj
 jj
 go
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-MQ
-MQ
-MQ
-MQ
-MQ
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+zk
+zk
+zk
+zk
+zk
 zk
 gq
 gq
@@ -57614,38 +57182,38 @@ uY
 uY
 jj
 Pi
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-MQ
-MQ
-MQ
-MQ
-MQ
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+zk
+zk
+zk
+zk
+zk
 zk
 gq
 gq
@@ -57864,45 +57432,45 @@ uY
 uY
 uY
 uY
-wq
-wq
-wq
-wq
-Pe
-Pe
-wq
-wq
-wq
-wq
-Pe
-Pe
-wq
-wq
-wq
-Pe
-vP
-vP
-Pe
-wq
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-MQ
-MQ
-MQ
-MQ
-MQ
+nf
+nf
+nf
+nf
+WL
+WL
+nf
+nf
+nf
+nf
+WL
+WL
+nf
+nf
+nf
+WL
+qs
+qs
+WL
+nf
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+zk
+zk
+zk
+zk
+zk
 zk
 gq
 gq
@@ -58121,8 +57689,8 @@ uY
 uY
 uY
 uY
-Pe
-wq
+WL
+nf
 WD
 zf
 zf
@@ -58131,35 +57699,35 @@ oZ
 oc
 zf
 kW
-Pe
+WL
 vz
-uP
-Pe
+xW
+WL
 bl
 ao
 ao
 qA
 oz
-wq
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-MQ
-MQ
-MQ
-MQ
-MQ
+nf
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+zk
+zk
+zk
+zk
+zk
 zk
 gq
 gq
@@ -58378,8 +57946,8 @@ uY
 Ki
 uY
 uY
-Pe
-Pe
+WL
+WL
 ui
 zf
 Gc
@@ -58388,35 +57956,35 @@ Gc
 Gc
 Gc
 zf
-Pe
+WL
 Hy
-uP
-Pe
+xW
+WL
 Dn
 zf
 oZ
 zf
 qA
-vP
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-MQ
-MQ
-MQ
-MQ
-MQ
+qs
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+zk
+zk
+zk
+zk
+zk
 zk
 gq
 gq
@@ -58635,8 +58203,8 @@ uY
 Ki
 uY
 uY
-wq
-wq
+nf
+nf
 AX
 HL
 Gc
@@ -58645,37 +58213,37 @@ Gc
 Gc
 Gc
 Jw
-Pe
+WL
 gr
 uA
-Pe
+WL
 sc
 tM
 He
 He
 ao
-vP
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-MQ
-MQ
-MQ
-MQ
-MQ
-jl
-jl
+qs
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+zk
+zk
+zk
+zk
+zk
+Lk
+Lk
 gq
 "}
 (192,1,1) = {"
@@ -58892,8 +58460,8 @@ uY
 Ki
 uY
 uY
-wq
-wq
+nf
+nf
 yL
 zf
 Gc
@@ -58902,37 +58470,37 @@ Gc
 Gc
 Gc
 zf
-wq
+nf
 Bh
-uP
-Pe
+xW
+WL
 oj
 hy
 zf
 hy
 ao
-Pe
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
+WL
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
 gq
 "}
 (193,1,1) = {"
@@ -59149,8 +58717,8 @@ uY
 uY
 uY
 uY
-wq
-wq
+nf
+nf
 ui
 zf
 zf
@@ -59159,37 +58727,37 @@ zf
 Lv
 zf
 zf
-wq
+nf
 Aa
 ao
-Pe
+WL
 jX
 zf
 zf
 zf
 ao
-wq
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-MQ
-MQ
-MQ
-MQ
-MQ
-MQ
-jl
+nf
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+zk
+zk
+zk
+zk
+zk
+zk
+Lk
 gq
 "}
 (194,1,1) = {"
@@ -59406,47 +58974,47 @@ Ki
 uY
 uY
 uY
-Pe
-wq
+WL
+nf
 dm
-uP
-uP
-uP
-uP
-Pe
+xW
+xW
+xW
+xW
+WL
 lr
 lh
-Pe
-Pe
+WL
+WL
 YJ
-wq
+nf
 RP
 ao
 qA
 qA
 aL
 UF
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-MQ
-MQ
-MQ
-MQ
-MQ
-MQ
-jl
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+zk
+zk
+zk
+zk
+zk
+zk
+Lk
 gq
 "}
 (195,1,1) = {"
@@ -59663,47 +59231,47 @@ Ki
 uY
 uY
 uY
-Pe
-Pe
+WL
+WL
 yL
-uP
-uP
-uP
-uP
+xW
+xW
+xW
+xW
 lh
-lj
-lj
-Sx
+Gy
+Gy
+JD
 ta
 pl
-wq
+nf
 vx
 ao
 ao
 qA
 cW
-vP
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-MQ
-MQ
-MQ
-MQ
-MQ
-MQ
-jl
+qs
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+zk
+zk
+zk
+zk
+zk
+zk
+Lk
 gq
 "}
 (196,1,1) = {"
@@ -59920,47 +59488,47 @@ uY
 uY
 Tl
 Tl
-wq
-wq
+nf
+nf
 ui
-uP
-uP
-uP
-uP
+xW
+xW
+xW
+xW
 lr
-lj
-lj
+Gy
+Gy
 Zl
 IV
 uL
-wq
+nf
 Vc
 qA
 HC
 mC
 wH
-Pe
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-MQ
-MQ
-MQ
-MQ
-MQ
-MQ
-jl
+WL
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+zk
+zk
+zk
+zk
+zk
+zk
+Lk
 gq
 "}
 (197,1,1) = {"
@@ -60178,46 +59746,46 @@ uY
 Tl
 pU
 ZL
-wq
+nf
 rF
-uP
-uP
-uP
+xW
+xW
+xW
 qr
-Pe
-lj
-lj
+WL
+Gy
+Gy
 Jz
 pl
-yd
-Pe
-Pe
+dt
+WL
+WL
 VG
-Pe
-Pe
-Pe
-Pe
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-MQ
-MQ
-MQ
-MQ
-MQ
-MQ
-jl
+WL
+WL
+WL
+WL
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+zk
+zk
+zk
+zk
+zk
+zk
+Lk
 gq
 "}
 (198,1,1) = {"
@@ -60435,46 +60003,46 @@ uY
 Tl
 YA
 HQ
-wq
-wq
-wq
-wq
-wq
-Pe
+nf
+nf
+nf
+nf
+nf
+WL
 LG
-lj
-lj
-lj
-lj
-lj
+Gy
+Gy
+Gy
+Gy
+Gy
 YS
-lj
-lj
-lj
+Gy
+Gy
+Gy
 YS
 Je
 HU
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-MQ
-MQ
-MQ
-MQ
-MQ
-MQ
-jl
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+zk
+zk
+zk
+zk
+zk
+zk
+Lk
 gq
 "}
 (199,1,1) = {"
@@ -60699,33 +60267,33 @@ JA
 YJ
 cE
 ys
-lj
-lj
-lj
-lj
-lj
-lj
-lj
-lj
-lj
-lj
+Gy
+Gy
+Gy
+Gy
+Gy
+Gy
+Gy
+Gy
+Gy
+Gy
 Je
 Hg
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
 uu
 Uk
 WC
@@ -60951,38 +60519,38 @@ DC
 Jz
 Jz
 CG
-If
+Ji
 aX
-wq
+nf
 Jz
 uA
 pl
 cE
-yd
+dt
 NI
 iP
-Pe
+WL
 VG
-Pe
-Pe
-Pe
-Pe
-wq
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
+WL
+WL
+WL
+WL
+nf
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
 xE
 cX
 cX
@@ -61210,36 +60778,36 @@ Jz
 uH
 Eb
 aX
-wq
+nf
 TB
 qH
 zy
-uP
+xW
 pl
 zy
 au
-Pe
+WL
 ao
 sd
 tp
 zf
 FY
-wq
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
+nf
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
 xE
 cX
 cX
@@ -61467,7 +61035,7 @@ zl
 CG
 Lm
 Ni
-wq
+nf
 ok
 yU
 yU
@@ -61475,23 +61043,23 @@ Ob
 ao
 yU
 yU
-wq
+nf
 qA
 jK
 zf
 zf
 zf
-wq
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
+nf
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
 uu
 Uk
 Uk
@@ -61719,36 +61287,36 @@ jj
 jj
 Tl
 Tl
-wq
-wq
-wq
-wq
-wq
-wq
+nf
+nf
+nf
+nf
+nf
+nf
 dN
 HT
 Gg
-uP
+xW
 mJ
 Jc
 cA
-wq
+nf
 qA
 tt
 zf
 zf
 lX
-Pe
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
+WL
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
 xE
 cX
 cX
@@ -61976,36 +61544,36 @@ jj
 jj
 jj
 jj
-MQ
-jl
-jl
-jl
-jl
-jl
-Pe
-wq
-wq
-wq
-wq
-Pe
-Pe
-wq
+zk
+Lk
+Lk
+Lk
+Lk
+Lk
+WL
+nf
+nf
+nf
+nf
+WL
+WL
+nf
 qA
 pX
 zf
 zf
 Dp
-Pe
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
+WL
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
 xE
 LD
 cX
@@ -62229,16 +61797,16 @@ CT
 CT
 CT
 CT
-jl
+Lk
 QP
 QP
 QP
-MQ
-jl
-jl
-jl
-jl
-jl
+zk
+Lk
+Lk
+Lk
+Lk
+Lk
 iK
 iK
 iK
@@ -62246,23 +61814,23 @@ iK
 iK
 iK
 iK
-wq
-Pe
-Pe
-Pe
-wq
-wq
-wq
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
+nf
+WL
+WL
+WL
+nf
+nf
+nf
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
 xE
 cX
 cX
@@ -62484,18 +62052,18 @@ CT
 CT
 CT
 CT
-jl
-jl
-jl
-jl
-jl
+Lk
+Lk
+Lk
+Lk
+Lk
 QP
-MQ
-jl
-jl
-jl
-jl
-jl
+zk
+Lk
+Lk
+Lk
+Lk
+Lk
 iK
 iK
 iK
@@ -62508,18 +62076,18 @@ iK
 iK
 iK
 iK
-MQ
-MQ
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
+zk
+zk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
 xE
 LD
 cX
@@ -62528,8 +62096,8 @@ cX
 sL
 tE
 DU
-uP
-uP
+xW
+xW
 QY
 gq
 "}
@@ -62741,18 +62309,18 @@ CT
 CT
 CT
 CT
-jl
-jl
-jl
-jl
-jl
-jl
-MQ
-jl
-jl
-jl
-jl
-jl
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+zk
+Lk
+Lk
+Lk
+Lk
+Lk
 iK
 iK
 iK
@@ -62765,18 +62333,18 @@ iK
 iK
 iK
 iK
-MQ
-MQ
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
+zk
+zk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
 xE
 cX
 cX
@@ -62785,7 +62353,7 @@ cX
 CW
 lF
 VZ
-uP
+xW
 gC
 QY
 gq
@@ -62998,42 +62566,42 @@ CT
 CT
 CT
 CT
-jl
-jl
-jl
-jl
-jl
-jl
-MQ
-jl
-jl
-jl
-jl
-jl
-MQ
-MQ
-MQ
-MQ
-MQ
-MQ
-MQ
-MQ
-MQ
-MQ
-MQ
-MQ
-MQ
-MQ
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+zk
+Lk
+Lk
+Lk
+Lk
+Lk
+zk
+zk
+zk
+zk
+zk
+zk
+zk
+zk
+zk
+zk
+zk
+zk
+zk
+zk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
 xE
 LD
 cX
@@ -63042,7 +62610,7 @@ cX
 CW
 vE
 Nb
-uP
+xW
 oN
 QY
 gq
@@ -63255,42 +62823,42 @@ CT
 CT
 CT
 CT
-jl
-jl
-jl
-jl
-jl
-jl
-MQ
-MQ
-MQ
-MQ
-MQ
-MQ
-MQ
-MQ
-MQ
-MQ
-MQ
-MQ
-MQ
-MQ
-MQ
-MQ
-MQ
-MQ
-MQ
-MQ
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+zk
+zk
+zk
+zk
+zk
+zk
+zk
+zk
+zk
+zk
+zk
+zk
+zk
+zk
+zk
+zk
+zk
+zk
+zk
+zk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
 xE
 cX
 cX
@@ -63512,42 +63080,42 @@ CT
 CT
 CT
 CT
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
 pY
 XC
 XC
@@ -63769,53 +63337,53 @@ CT
 CT
 CT
 CT
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
 IY
 "}
 (212,1,1) = {"
@@ -64026,53 +63594,53 @@ CT
 CT
 CT
 CT
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
 IY
 "}
 (213,1,1) = {"
@@ -64283,53 +63851,53 @@ CT
 CT
 CT
 CT
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
 IY
 "}
 (214,1,1) = {"
@@ -64540,53 +64108,53 @@ CT
 CT
 CT
 CT
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
-jl
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
+Lk
 IY
 "}
 (215,1,1) = {"
@@ -64797,8 +64365,8 @@ CT
 CT
 CT
 CT
-jl
-jl
+Lk
+Lk
 Pi
 Pi
 Pi
@@ -64819,9 +64387,9 @@ WL
 qs
 WL
 WL
-jl
-jl
-jl
+Lk
+Lk
+Lk
 zU
 zU
 zU
@@ -65054,7 +64622,7 @@ CT
 CT
 CT
 CT
-jl
+Lk
 Pi
 Pi
 Pi
@@ -65076,9 +64644,9 @@ VV
 VB
 xW
 FJ
-jl
-jl
-jl
+Lk
+Lk
+Lk
 zU
 zU
 zU
@@ -65087,9 +64655,9 @@ zU
 zU
 zU
 zU
-Pe
-Pe
-LT
+WL
+WL
+zU
 zU
 zU
 zU
@@ -65311,7 +64879,7 @@ CT
 CT
 CT
 CT
-jl
+Lk
 Pi
 Pi
 Pi
@@ -65333,9 +64901,9 @@ VV
 VB
 xW
 nf
-jl
-jl
-jl
+Lk
+Lk
+Lk
 zU
 zU
 zU
@@ -65346,7 +64914,7 @@ WL
 WL
 Zl
 qk
-Pe
+WL
 nf
 WL
 zU
@@ -65568,7 +65136,7 @@ CT
 CT
 CT
 CT
-jl
+Lk
 Pi
 Pi
 Pi
@@ -65592,7 +65160,7 @@ xW
 qs
 Lk
 Lk
-jl
+Lk
 Lk
 Lk
 Lk
@@ -65601,9 +65169,9 @@ WL
 nf
 WL
 WL
-yd
-yd
-Pe
+dt
+dt
+WL
 nf
 nf
 WL
@@ -65825,7 +65393,7 @@ CT
 CT
 CT
 CT
-jl
+Lk
 Pi
 Pi
 Pi
@@ -65842,8 +65410,8 @@ Lk
 Lk
 qs
 xW
-uP
-Pe
+xW
+WL
 ct
 Zh
 WL
@@ -66082,7 +65650,7 @@ CT
 CT
 CT
 CT
-jl
+Lk
 Pi
 Pi
 Pi
@@ -66100,7 +65668,7 @@ Lk
 nf
 xW
 Zl
-Pe
+WL
 Gj
 ti
 qs
@@ -66339,7 +65907,7 @@ CT
 CT
 CT
 CT
-jl
+Lk
 Pi
 Pi
 Pi
@@ -66596,7 +66164,7 @@ CT
 CT
 CT
 CT
-jl
+Lk
 Pi
 Pi
 Pi
@@ -66620,7 +66188,7 @@ Lk
 Lk
 Lk
 Lk
-jl
+Lk
 Lk
 Lk
 nf
@@ -70204,7 +69772,7 @@ zk
 DD
 aF
 xW
-fX
+kK
 Zl
 CQ
 Pd
@@ -70461,8 +70029,8 @@ zk
 CQ
 xT
 UU
-uP
-uP
+xW
+xW
 CQ
 Pd
 Pd
@@ -73051,13 +72619,13 @@ Io
 Io
 Io
 kJ
-Eq
-Eq
-Eq
-Eq
+GU
+GU
+GU
+GU
 ru
-WR
-GL
+vp
+Lc
 xC
 GU
 qF
@@ -73308,14 +72876,14 @@ kJ
 kJ
 kJ
 kJ
-Eq
+GU
 dv
 rp
 Zl
-uP
-uP
-uP
-uP
+xW
+xW
+xW
+xW
 xW
 xW
 xW
@@ -73570,9 +73138,9 @@ QZ
 rJ
 YT
 EZ
-uP
-uP
-uP
+xW
+xW
+xW
 xW
 xW
 xW
@@ -73822,13 +73390,13 @@ qm
 xW
 oM
 tX
-UN
-UN
-UN
-UN
-uP
-uP
-uP
+tX
+tX
+tX
+tX
+xW
+xW
+xW
 IM
 GU
 HH
@@ -74079,14 +73647,14 @@ xW
 xW
 xW
 ai
-Ws
-Ws
-Ws
-Ws
-uP
+ai
+ai
+ai
+ai
+xW
 rB
-fX
-dA
+kK
+Ci
 GU
 XP
 xW

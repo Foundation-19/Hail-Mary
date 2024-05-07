@@ -31,9 +31,7 @@
 /turf/open/indestructible/ground/outside/dirt/dark{
 	icon_state = "dirt_dark"
 	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "abY" = (
 /obj/structure/table{
 	color = "#c1b6a5"
@@ -160,9 +158,7 @@
 "agZ" = (
 /obj/structure/simple_door/wood,
 /turf/open/floor/wood_common/wood_common_dark,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "ahd" = (
 /obj/machinery/light,
 /turf/open/floor/f13{
@@ -172,16 +168,7 @@
 "ahp" = (
 /obj/structure/spacevine,
 /turf/closed/wall/mineral/wood,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
-"ahF" = (
-/turf/open/indestructible/ground/outside/dirt/dark{
-	icon_state = "dirt_dark"
-	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/legion)
 "ahR" = (
 /obj/structure/bed/mattress{
 	icon_state = "bedroll_unrolled";
@@ -196,9 +183,7 @@
 	},
 /obj/item/reagent_containers/glass/bucket/wood,
 /turf/open/floor/wood_common/wood_common_dark,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "aiy" = (
 /obj/structure/destructible/tribal_torch/wall/lit,
 /turf/open/floor/wood_common,
@@ -296,9 +281,7 @@
 	dir = 4
 	},
 /turf/open/indestructible/ground/outside/dirt/bigsandturf,
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "apj" = (
 /obj/structure/filingcabinet{
 	pixel_x = 1
@@ -333,9 +316,7 @@
 /turf/open/indestructible/ground/outside/dirt/dark{
 	icon_state = "dirtfull_dark"
 	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "aqz" = (
 /obj/structure/chair/folding{
 	dir = 1
@@ -525,11 +506,6 @@
 /obj/structure/flora/tree/tall,
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/wasteland)
-"azp" = (
-/turf/closed/mineral/random/low_chance,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
 "azt" = (
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	color = "#e4e4e4"
@@ -644,9 +620,7 @@
 	dir = 1;
 	icon_state = "dirt"
 	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "aGW" = (
 /obj/structure/railing/wood{
 	dir = 4
@@ -672,9 +646,7 @@
 	icon_state = "cargocrate2"
 	},
 /turf/open/indestructible/ground/outside/desert,
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "aIG" = (
 /obj/structure/window/fulltile/house{
 	dir = 2;
@@ -734,9 +706,7 @@
 "aMO" = (
 /obj/structure/flora/chomp/boulder,
 /turf/open/indestructible/ground/outside/desert,
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "aNH" = (
 /obj/structure/junk/drawer,
 /turf/open/floor/plasteel/f13/vault_floor/blue/whitebluefull,
@@ -764,12 +734,6 @@
 "aOH" = (
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/enclave)
-"aPb" = (
-/obj/structure/barricade/wooden/strong,
-/turf/closed/wall/f13/wood/house,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
 "aPj" = (
 /obj/structure/destructible/tribal_torch/wall/lit{
 	dir = 8
@@ -878,9 +842,7 @@
 	},
 /obj/machinery/reagentgrinder,
 /turf/open/floor/wood_common,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "aWU" = (
 /obj/machinery/recharge_station,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
@@ -965,9 +927,7 @@
 	pixel_y = -16
 	},
 /turf/closed/wall/mineral/wood,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "bdi" = (
 /obj/structure/closet/locker,
 /obj/effect/spawner/lootdrop/minor/beret_or_rabbitears,
@@ -1200,9 +1160,7 @@
 /turf/open/indestructible/ground/outside/dirt/dark{
 	icon_state = "dirtfull_dark"
 	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "bnO" = (
 /obj/structure/barricade/wooden/strong,
 /turf/open/indestructible/ground/outside/desert,
@@ -1398,9 +1356,7 @@
 	dir = 10
 	},
 /turf/open/floor/f13/wood,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "bwq" = (
 /obj/machinery/autolathe,
 /turf/open/floor/f13/wood{
@@ -1411,9 +1367,7 @@
 "bxD" = (
 /obj/structure/reagent_dispensers/keg/milk,
 /turf/open/floor/wood_common,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "bxE" = (
 /obj/structure/table/wood,
 /obj/structure/campfire/stove{
@@ -1421,9 +1375,7 @@
 	pixel_y = -5
 	},
 /turf/open/floor/wood_common,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "bxZ" = (
 /obj/effect/spawner/lootdrop/plush,
 /obj/effect/decal/cleanable/dirt,
@@ -1470,9 +1422,7 @@
 /turf/open/indestructible/ground/outside/road{
 	icon_state = "innermaincornerouter - N"
 	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "byZ" = (
 /obj/structure/bed/mattress{
 	icon_state = "mattress4"
@@ -1553,12 +1503,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/wood_common,
 /area/f13/building)
-"bEj" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/closed/wall/rust,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
 "bFq" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -1605,14 +1549,6 @@
 	},
 /turf/open/indestructible/ground/outside/desert,
 /area/f13/wasteland)
-"bHG" = (
-/turf/open/floor/f13/wood{
-	sunlight_state = 1;
-	name = "Wooden docks"
-	},
-/area/f13/legion{
-	name = "Legion City Building"
-	})
 "bIc" = (
 /obj/structure/cable/blue{
 	icon_state = "1-2"
@@ -1698,9 +1634,7 @@
 	pixel_y = -2
 	},
 /turf/open/floor/plasteel/f13/stone/rugged,
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "bMV" = (
 /obj/structure/railing/wood/post/underlayer{
 	pixel_x = 14
@@ -1768,9 +1702,7 @@
 /turf/open/indestructible/ground/outside/dirt/dark{
 	icon_state = "dirtfull_dark"
 	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "bQY" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/railing/handrail/underlayer{
@@ -1933,9 +1865,7 @@
 /turf/open/indestructible/ground/outside/roaddirt{
 	icon_state = "horizontalinnermain2right"
 	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "ccY" = (
 /obj/structure/stone_tile/block,
 /obj/structure/fence/wooden{
@@ -1958,9 +1888,7 @@
 	name = "Deep water";
 	sunlight_state = 1
 	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "cdd" = (
 /obj/structure/flora/grass/wasteland{
 	icon_state = "tall_grass_2";
@@ -2085,9 +2013,7 @@
 /turf/open/floor/f13/wood{
 	icon_state = "housewood3-broken"
 	},
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "cmp" = (
 /obj/effect/temp_visual/small_smoke,
 /turf/open/floor/plasteel/f13/vault_floor/plating,
@@ -2128,9 +2054,7 @@
 	},
 /obj/structure/table/wood,
 /turf/open/floor/wood_wide,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "coj" = (
 /obj/effect/turf_decal/weather/dirt{
 	dir = 1
@@ -2507,9 +2431,7 @@
 	dir = 8
 	},
 /turf/open/floor/wood_wide/wood_wide_dark,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "cDW" = (
 /turf/open/indestructible/ground/outside/desert{
 	icon_state = "wasteland32"
@@ -2548,9 +2470,7 @@
 	name = "Deep water";
 	sunlight_state = 1
 	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "cGW" = (
 /obj/effect/turf_decal/bot_white,
 /obj/structure/wreck/trash/machinepile,
@@ -2570,9 +2490,7 @@
 	icon_state = "dirt_dark";
 	dir = 6
 	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "cIJ" = (
 /obj/structure/railing/corner{
 	color = "#A47449";
@@ -2805,9 +2723,7 @@
 "cVC" = (
 /obj/structure/rug/big/rug_red,
 /turf/open/floor/wood_fancy,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "cVI" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/closed/mineral/random/low_chance,
@@ -2908,9 +2824,7 @@
 	icon_state = "innercorner";
 	dir = 8
 	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "dbL" = (
 /obj/effect/turf_decal/stripes/white/line,
 /obj/machinery/light/small{
@@ -3061,9 +2975,7 @@
 /obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/lowmid,
 /obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/lowmid,
 /turf/open/floor/wood_common/wood_common_dark,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "diP" = (
 /obj/structure/fluff/railing{
 	color = "#A47449";
@@ -3088,9 +3000,7 @@
 	icon_state = "dirt_dark";
 	dir = 4
 	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "dlm" = (
 /obj/effect/turf_decal/stripes{
 	dir = 1
@@ -3249,14 +3159,6 @@
 /obj/structure/shelf_wood,
 /turf/open/floor/wood_fancy/wood_fancy_dark,
 /area/f13/raiders)
-"dto" = (
-/turf/open/indestructible/ground/outside/dirt/dark{
-	icon_state = "dirt_dark";
-	dir = 9
-	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
 "dtA" = (
 /obj/machinery/camera/all{
 	dir = 8;
@@ -3288,9 +3190,7 @@
 	pixel_x = 5
 	},
 /turf/open/floor/wood_fancy,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "dwr" = (
 /obj/machinery/smartfridge/bottlerack/grownbin,
 /turf/open/floor/wood_fancy,
@@ -3348,9 +3248,7 @@
 	icon_state = "dirt_dark";
 	dir = 1
 	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "dxj" = (
 /turf/open/floor/f13/wood{
 	icon_state = "housewood2-broken"
@@ -3501,9 +3399,7 @@
 	dir = 8
 	},
 /turf/open/floor/wood_common/wood_common_dark,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "dCU" = (
 /obj/structure/closet/crate/wooden,
 /obj/item/crowbar,
@@ -3528,11 +3424,6 @@
 	dir = 4
 	},
 /area/f13/followers)
-"dEW" = (
-/turf/open/indestructible/ground/outside/desert,
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
 "dFC" = (
 /obj/effect/decal/cleanable/blood/footprints{
 	icon_state = "blood1";
@@ -3601,9 +3492,7 @@
 "dHP" = (
 /obj/structure/flora/grass/jungle/b,
 /turf/open/floor/plasteel/f13/stone/rugged,
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "dIs" = (
 /obj/effect/decal/cleanable/blood/gibs/core,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
@@ -3970,9 +3859,7 @@
 	tank_volume = 1500
 	},
 /turf/open/floor/plasteel/f13/stone/rugged,
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "ebP" = (
 /obj/structure/table/reinforced{
 	color = "#c1b6a5"
@@ -4097,12 +3984,6 @@
 /obj/structure/rack/shelf_metal,
 /turf/open/floor/plating/rust,
 /area/f13/ruins)
-"eir" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/f13/wood,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
 "eiF" = (
 /turf/open/indestructible/ground/outside/sidewalk{
 	icon_state = "horizontalbottomborderbottom3"
@@ -4122,9 +4003,7 @@
 /turf/open/floor/wood_fancy{
 	icon_state = "fancy-broken6"
 	},
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "ejH" = (
 /obj/effect/decal/cleanable/blood/tracks{
 	icon_state = "trails_1";
@@ -4147,9 +4026,7 @@
 "ekg" = (
 /obj/structure/bed/wooden,
 /turf/open/floor/wood_fancy,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "ekz" = (
 /turf/open/indestructible/ground/outside/sidewalk{
 	icon_state = "outerpavementcorner";
@@ -4232,9 +4109,7 @@
 "emQ" = (
 /obj/structure/simple_door/wood,
 /turf/open/floor/wood_common,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "emS" = (
 /obj/structure/fence/wooden{
 	pixel_x = 13
@@ -4277,9 +4152,7 @@
 	dir = 4;
 	icon_state = "dirtcorner"
 	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "eqq" = (
 /obj/structure/table,
 /obj/item/reagent_containers/pill/patch/jet{
@@ -4339,14 +4212,6 @@
 	dir = 4
 	},
 /area/f13/wasteland)
-"etd" = (
-/turf/open/indestructible/ground/outside/dirt/dark{
-	icon_state = "dirt_dark";
-	dir = 8
-	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
 "eti" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 5
@@ -4409,9 +4274,7 @@
 	dir = 8
 	},
 /turf/open/floor/carpet/red,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "exh" = (
 /obj/structure/shelf_wood,
 /obj/item/clothing/under/civ/roman_centurion,
@@ -4433,9 +4296,7 @@
 /obj/item/clothing/head/helmet/f13/marlowhat,
 /obj/item/clothing/head/helmet/f13/rustedcowboyhat,
 /turf/open/floor/wood_common,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "exp" = (
 /obj/machinery/hydroponics/soil,
 /turf/open/indestructible/ground/outside/desert,
@@ -4479,11 +4340,6 @@
 /obj/structure/table/wood,
 /turf/open/indestructible/ground/outside/desert,
 /area/f13/wasteland)
-"eAl" = (
-/turf/open/indestructible/ground/outside/dirt,
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
 "eAQ" = (
 /obj/structure/fence/wooden{
 	dir = 4
@@ -4626,9 +4482,7 @@
 	dir = 8
 	},
 /turf/open/floor/wood_common,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "eIh" = (
 /obj/structure/table/wood,
 /obj/item/storage/box/matches,
@@ -4798,9 +4652,7 @@
 "eSb" = (
 /obj/structure/chair/stool/retro,
 /turf/open/floor/wood_common/wood_common_dark,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "eSr" = (
 /obj/structure/bookcase,
 /obj/item/toy/ammo/gun{
@@ -4854,9 +4706,7 @@
 /obj/structure/chair/bench,
 /obj/structure/chair/bench,
 /turf/open/floor/wood_common/wood_common_dark,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "eTS" = (
 /obj/structure/bed/mattress{
 	icon_state = "mattress5"
@@ -4892,9 +4742,7 @@
 /area/f13/building)
 "eUE" = (
 /turf/closed/mineral/random/low_chance,
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "eVc" = (
 /obj/structure/rack/shelf_metal,
 /obj/item/stack/ore/blackpowder/twenty,
@@ -5065,9 +4913,7 @@
 	name = "Deep water";
 	sunlight_state = 1
 	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "fdG" = (
 /obj/effect/turf_decal/weather/dirt{
 	dir = 6
@@ -5103,9 +4949,7 @@
 /turf/open/indestructible/ground/outside/roaddirt{
 	icon_state = "horizontalbottombordertopleft"
 	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "fft" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
@@ -5168,9 +5012,7 @@
 "fhm" = (
 /obj/structure/flora/tallgrass2,
 /turf/open/floor/plasteel/f13/stone/rugged,
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "fhx" = (
 /obj/structure/chair/office/dark{
 	dir = 4
@@ -5182,11 +5024,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/wood_common,
 /area/f13/building)
-"fim" = (
-/turf/closed/wall/f13/wood,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
 "fiu" = (
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/hostile/ghoul/soldier/armored,
@@ -5262,9 +5099,7 @@
 /turf/open/indestructible/ground/outside/dirt/dark{
 	icon_state = "dirtfull_dark"
 	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "for" = (
 /turf/open/indestructible/ground/outside/dirt/dark{
 	icon_state = "dirtcorner_dark";
@@ -5279,9 +5114,7 @@
 /turf/open/floor/wood_fancy{
 	icon_state = "fancy-broken2"
 	},
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "fpw" = (
 /turf/open/indestructible/ground/outside/sidewalk{
 	dir = 9;
@@ -5359,9 +5192,7 @@
 	color = "#A47449"
 	},
 /turf/open/floor/wood_wide,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "ftN" = (
 /obj/machinery/turnstile{
 	dir = 1
@@ -5410,9 +5241,7 @@
 	icon_state = "dirt_dark";
 	dir = 4
 	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "fww" = (
 /obj/structure/fence/wooden{
 	dir = 8;
@@ -5499,17 +5328,13 @@
 /area/f13/wasteland)
 "fAk" = (
 /turf/open/floor/carpet/red,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "fAB" = (
 /obj/structure/simple_door/wood,
 /obj/structure/simple_door/wood,
 /obj/structure/simple_door/wood,
 /turf/open/floor/wood_wide,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "fAJ" = (
 /obj/structure/barricade/bars{
 	max_integrity = 800;
@@ -5543,13 +5368,6 @@
 	icon_state = "horizontalinnermain1"
 	},
 /area/f13/building)
-"fDH" = (
-/turf/open/indestructible/ground/outside/dirt/dark{
-	icon_state = "dirtcorner_dark"
-	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
 "fDO" = (
 /obj/structure/table/wood,
 /obj/effect/spawner/lootdrop/three_course_meal,
@@ -5569,9 +5387,7 @@
 	dir = 8
 	},
 /turf/open/floor/wood_common/wood_common_dark,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "fFL" = (
 /obj/effect/decal/cleanable/blood/gibs/human/limb,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
@@ -5596,9 +5412,7 @@
 /turf/open/indestructible/ground/outside/roaddirt{
 	icon_state = "horizontalinnermain2right"
 	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "fGv" = (
 /obj/effect/decal/cleanable/robot_debris,
 /obj/effect/turf_decal/stripes{
@@ -5621,9 +5435,7 @@
 	name = "Deep water";
 	sunlight_state = 1
 	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "fGS" = (
 /obj/effect/spawner/lootdrop/f13/weapon/gun/energy/hobo,
 /turf/open/indestructible/ground/outside/road{
@@ -5835,9 +5647,7 @@
 	dir = 1;
 	footstep = "wood"
 	},
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "fVc" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -5891,9 +5701,7 @@
 	sunlight_state = 1;
 	name = "Wooden docks"
 	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "fWS" = (
 /obj/structure/flora/tree/joshua{
 	pixel_x = -19;
@@ -5950,9 +5758,7 @@
 /turf/open/indestructible/ground/outside/roaddirt{
 	icon_state = "horizontalinnermainleft"
 	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "fZD" = (
 /obj/structure/fluff/railing{
 	color = "#A47449";
@@ -5961,9 +5767,7 @@
 /turf/open/indestructible/ground/outside/dirt/dark{
 	icon_state = "dirtfull_dark"
 	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "fZR" = (
 /obj/structure/barricade/wooden/planks,
 /turf/closed/wall/f13/wood/house,
@@ -5979,9 +5783,7 @@
 /turf/open/indestructible/ground/outside/roaddirt{
 	icon_state = "horizontalinnermainright"
 	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "gbd" = (
 /obj/structure/bed/mattress{
 	icon_state = "mattress2"
@@ -6015,9 +5817,7 @@
 	icon_state = "horizontalbottombordertopright";
 	dir = 8
 	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "gcY" = (
 /obj/structure/closet/cabinet/anchored,
 /turf/open/floor/wood_fancy,
@@ -6221,12 +6021,6 @@
 	},
 /turf/open/indestructible/ground/outside/desert,
 /area/f13/wasteland/legion)
-"gmN" = (
-/obj/structure/table/wood,
-/turf/open/floor/wood_common/wood_common_dark,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
 "gmS" = (
 /mob/living/simple_animal/hostile/raider/ranged/biker{
 	name = "Oportunistic Raider";
@@ -6316,9 +6110,7 @@
 /turf/open/indestructible/ground/outside/road{
 	icon_state = "innermaincornerouter - E"
 	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "gtj" = (
 /turf/open/indestructible/ground/outside/road{
 	icon_state = "horizontalbottombordertop2right";
@@ -6396,9 +6188,7 @@
 /obj/item/reagent_containers/food/drinks/soda_cans/dr_gibb,
 /obj/item/reagent_containers/food/drinks/drinkingglass/filled/nuka_cola,
 /turf/open/floor/wood_common,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "gvp" = (
 /obj/structure/flora/rock/pile/largejungle,
 /obj/effect/turf_decal/weather/dirt,
@@ -6410,9 +6200,7 @@
 	icon_state = "dirt_dark";
 	dir = 9
 	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "gwG" = (
 /turf/open/indestructible/ground/outside/sidewalk{
 	icon_state = "outerturn"
@@ -6430,9 +6218,7 @@
 	pixel_y = 24
 	},
 /turf/open/floor/wood_common/wood_common_dark,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "gyv" = (
 /turf/closed/indestructible/rock,
 /area/f13/legion)
@@ -6466,9 +6252,7 @@
 	icon_state = "innermaincornerinner";
 	dir = 4
 	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "gzu" = (
 /turf/open/indestructible/ground/outside/sidewalk{
 	icon_state = "outermaincornerinner";
@@ -6540,11 +6324,6 @@
 	icon_state = "verticalinnermaintop"
 	},
 /area/f13/wasteland)
-"gCk" = (
-/turf/closed/wall/rust,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
 "gCt" = (
 /obj/structure/flora/grass/wasteland{
 	icon_state = "tall_grass_6"
@@ -6620,9 +6399,7 @@
 /turf/open/indestructible/ground/outside/dirt/dark{
 	icon_state = "dirtfull_dark"
 	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "gIV" = (
 /obj/structure/lattice/catwalk,
 /obj/machinery/conveyor/auto,
@@ -7145,12 +6922,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/wood_common,
 /area/f13/building)
-"hcI" = (
-/obj/structure/spacevine,
-/turf/closed/wall/f13/wood/house,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
 "hcS" = (
 /turf/open/indestructible/ground/outside/gravel/path_desert{
 	dir = 1
@@ -7195,12 +6966,6 @@
 	name = "Wooden docks"
 	},
 /area/f13/building)
-"hdS" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/closed/wall/f13/wood,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
 "heu" = (
 /obj/item/trash/f13/tin,
 /obj/structure/table,
@@ -7330,9 +7095,7 @@
 	dir = 4
 	},
 /turf/open/indestructible/ground/outside/dirt/bigsandturf,
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "hkV" = (
 /obj/structure/fence/wooden{
 	dir = 8;
@@ -7361,9 +7124,7 @@
 	on = 1
 	},
 /turf/open/floor/plasteel/f13/stone/rugged,
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "hmG" = (
 /obj/structure/simple_door/tentflap_cloth{
 	pixel_y = -4
@@ -7420,9 +7181,7 @@
 "hqb" = (
 /obj/machinery/smartfridge/bottlerack/seedbin,
 /turf/open/floor/plasteel/f13/stone/rugged,
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "hqd" = (
 /obj/structure/window/fulltile/wood,
 /obj/structure/barricade/wooden/planks/pregame,
@@ -7610,9 +7369,7 @@
 	},
 /obj/item/flag/legion,
 /turf/open/floor/plasteel/f13/stone/rugged,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "hzE" = (
 /obj/structure/dresser,
 /obj/item/flashlight/lamp{
@@ -7645,9 +7402,7 @@
 /area/f13/farmhouse)
 "hAq" = (
 /turf/open/floor/wood_mosaic/wood_mosaic_dark,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "hAB" = (
 /obj/structure/table,
 /turf/open/floor/f13{
@@ -7732,9 +7487,7 @@
 	sunlight_state = 1;
 	name = "Wooden docks"
 	},
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "hEz" = (
 /obj/machinery/vending/nukacolavend,
 /obj/effect/decal/cleanable/dirt,
@@ -7815,9 +7568,7 @@
 "hJR" = (
 /obj/structure/simple_door/wood,
 /turf/open/floor/wood_mosaic/wood_mosaic_dark,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "hKc" = (
 /obj/structure/decoration/ruins{
 	dir = 2
@@ -8072,9 +7823,7 @@
 "hYc" = (
 /obj/structure/closet/fridge/standard,
 /turf/open/floor/wood_common,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "hYe" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/bed/mattress{
@@ -8107,9 +7856,7 @@
 	on = 1
 	},
 /turf/open/floor/plasteel/f13/stone/rugged,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "iam" = (
 /obj/structure/barricade/wooden,
 /turf/closed/mineral/random/low_chance,
@@ -8186,12 +7933,6 @@
 /obj/structure/reagent_dispensers/fueltank,
 /turf/open/indestructible/ground/outside/ruins,
 /area/f13/building)
-"ihG" = (
-/obj/machinery/door/unpowered/securedoor/legion,
-/turf/open/floor/wood_common,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
 "ihS" = (
 /obj/effect/decal/cleanable/blood/footprints{
 	icon_state = "trails_2";
@@ -8229,9 +7970,7 @@
 "iiq" = (
 /obj/machinery/door/unpowered/securedoor/legion,
 /turf/open/floor/wood_wide/wood_wide_dark,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "iiS" = (
 /obj/structure/simple_door/metal/barred,
 /turf/open/floor/plasteel/f13/vault_floor/green/whitegreenfull,
@@ -8287,9 +8026,7 @@
 	icon_state = "rampdowntop";
 	dir = 8
 	},
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "imA" = (
 /turf/open/indestructible/ground/outside/road{
 	icon_state = "horizontalinnermainright"
@@ -8505,9 +8242,7 @@
 "ixe" = (
 /obj/structure/table/wood,
 /turf/open/floor/wood_fancy,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "ixA" = (
 /obj/effect/decal/cleanable/blood/footprints{
 	icon_state = "trails_2";
@@ -8578,9 +8313,7 @@
 	dir = 1;
 	icon_state = "dirtcorner"
 	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "iBk" = (
 /obj/structure/rack/shelf_metal,
 /obj/effect/spawner/lootdrop/f13/medical/wasteland/meds,
@@ -8714,9 +8447,7 @@
 /turf/open/floor/f13/wood{
 	icon_state = "housewood4-broken"
 	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "iGy" = (
 /obj/structure/table/wood,
 /obj/effect/decal/cleanable/dirt,
@@ -8797,17 +8528,7 @@
 "iKP" = (
 /obj/structure/closet/crate/footlocker,
 /turf/open/floor/plasteel/f13/stone/rugged,
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
-"iKR" = (
-/turf/open/indestructible/ground/outside/dirt/dark{
-	icon_state = "dirt_dark";
-	dir = 4
-	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "iLh" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -8848,12 +8569,6 @@
 	name = "Wooden docks"
 	},
 /area/f13/raiders)
-"iNJ" = (
-/obj/structure/barricade/wooden/strong,
-/turf/closed/wall/mineral/wood,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
 "iNS" = (
 /obj/structure/simple_door/tentflap_leather{
 	layer = 8
@@ -8966,9 +8681,7 @@
 	name = "Deep water";
 	sunlight_state = 1
 	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "iRm" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/smartfridge/bottlerack,
@@ -9003,9 +8716,7 @@
 	layer = 50
 	},
 /turf/open/floor/wood_mosaic/wood_mosaic_dark,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "iUk" = (
 /turf/closed/wall/f13/tentwall,
 /area/f13/caves)
@@ -9023,16 +8734,6 @@
 /obj/machinery/autolathe,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/enclave)
-"iVf" = (
-/obj/structure/destructible/tribal_torch/wall/lit{
-	dir = 4;
-	light_power = 0.7;
-	light_range = 5
-	},
-/turf/open/floor/wood_common,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
 "iVy" = (
 /obj/structure/table/wood,
 /obj/effect/spawner/lootdrop/f13/seedspawner,
@@ -9065,9 +8766,7 @@
 /turf/open/indestructible/ground/outside/dirt/dark{
 	icon_state = "dirtfull_dark"
 	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "iWB" = (
 /obj/structure/fence/wooden{
 	dir = 4;
@@ -9159,11 +8858,6 @@
 /obj/item/mecha_ammo/lmg,
 /turf/open/floor/vault,
 /area/f13/ruins)
-"iZn" = (
-/turf/closed/wall/mineral/wood,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
 "jba" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt{
@@ -9200,9 +8894,7 @@
 /obj/item/kitchen/knife/butcher/tribal,
 /obj/item/kitchen/knife,
 /turf/open/floor/wood_common,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "jcr" = (
 /obj/structure/filingcabinet{
 	pixel_x = 12
@@ -9231,9 +8923,7 @@
 	layer = 6
 	},
 /turf/open/floor/wood_mosaic/wood_mosaic_dark,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "jen" = (
 /obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/low,
 /obj/structure/rack/large/shelf_rust{
@@ -9288,9 +8978,7 @@
 "jiZ" = (
 /obj/machinery/door/unpowered/celldoor/legion,
 /turf/open/floor/wood_common/wood_common_dark,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "jjk" = (
 /obj/effect/decal/cleanable/blood/footprints{
 	icon_state = "trails_2"
@@ -9360,9 +9048,7 @@
 	dir = 8
 	},
 /turf/open/floor/wood_common,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "joe" = (
 /obj/effect/spawner/lootdrop/f13/junkspawners,
 /turf/open/indestructible/ground/outside/dirt/dark{
@@ -9502,9 +9188,7 @@
 "jwp" = (
 /obj/structure/rug/big/rug_yellow,
 /turf/open/floor/wood_fancy,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "jwG" = (
 /obj/structure/window/fulltile/wood/broken,
 /turf/open/floor/wood_common,
@@ -9530,9 +9214,7 @@
 /obj/effect/spawner/lootdrop/f13/weapon/melee/random_mid,
 /obj/effect/spawner/lootdrop/f13/weapon/melee/random_mid,
 /turf/open/floor/wood_common/wood_common_dark,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "jxN" = (
 /obj/structure/fence/wooden{
 	dir = 8;
@@ -9618,9 +9300,7 @@
 	layer = 0.5
 	},
 /turf/open/floor/wood_fancy,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "jFB" = (
 /turf/open/floor/wood_common/wood_common_dark,
 /area/f13/legion)
@@ -9765,9 +9445,7 @@
 	dir = 8
 	},
 /turf/open/floor/wood_common,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "jOd" = (
 /obj/item/radio/intercom{
 	frequency = 1363;
@@ -9899,9 +9577,7 @@
 "jWb" = (
 /obj/structure/barricade/wooden/strong,
 /turf/open/floor/wood_wide,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "jWh" = (
 /obj/machinery/turnstile{
 	dir = 4
@@ -9909,14 +9585,6 @@
 /obj/structure/simple_door/metal/dirtystore,
 /turf/open/indestructible/ground/outside/ruins,
 /area/f13/building)
-"jWT" = (
-/obj/structure/simple_door/wood,
-/turf/open/indestructible/ground/outside/dirt/dark{
-	icon_state = "dirtfull_dark"
-	},
-/area/f13/legion{
-	name = "Legion City Building"
-	})
 "jWV" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table/wood,
@@ -10232,9 +9900,7 @@
 	icon_state = "dirtcorner_dark";
 	dir = 8
 	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "kjk" = (
 /obj/machinery/smartfridge,
 /turf/closed/wall/f13/tunnel,
@@ -10537,9 +10203,7 @@
 /turf/open/floor/f13/wood{
 	icon_state = "housewood4-broken"
 	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "kBX" = (
 /turf/open/indestructible/ground/outside/ruins,
 /area/f13/building)
@@ -10745,9 +10409,7 @@
 "kKD" = (
 /obj/effect/landmark/start/f13/legionsubject,
 /turf/open/floor/plasteel/f13/stone/rugged,
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "kKP" = (
 /obj/structure/flora/rock/jungle,
 /turf/open/indestructible/ground/inside/mountain,
@@ -10784,15 +10446,11 @@
 	pixel_x = -24
 	},
 /turf/open/floor/wood_wide,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "kMU" = (
 /obj/structure/legion_extractor,
 /turf/open/floor/plasteel/f13/stone/rugged,
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "kMX" = (
 /obj/machinery/workbench,
 /turf/open/indestructible/ground/outside/savannah/rightcenter,
@@ -10906,9 +10564,7 @@
 "kRq" = (
 /obj/structure/barricade/bars,
 /turf/open/floor/wood_common/wood_common_dark,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "kRG" = (
 /obj/structure/destructible/tribal_torch/wall/lit{
 	light_power = 0.8;
@@ -10942,9 +10598,7 @@
 	sunlight_state = 1;
 	name = "Wooden docks"
 	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "kTo" = (
 /obj/effect/spawner/lootdrop/trash,
 /turf/open/indestructible/ground/outside/desert,
@@ -11035,9 +10689,7 @@
 /turf/open/floor/wood_fancy{
 	icon_state = "fancy-broken5"
 	},
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "laU" = (
 /obj/structure/bed/mattress{
 	icon_state = "mattress2"
@@ -11087,9 +10739,7 @@
 /obj/structure/table/wood,
 /obj/machinery/processor/chopping_block,
 /turf/open/floor/wood_wide,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "ldc" = (
 /obj/structure/table/wood/fancy/red,
 /turf/open/floor/wood_common/wood_common_dark,
@@ -11209,17 +10859,13 @@
 	sunlight_state = 1;
 	name = "Wooden docks"
 	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "lfQ" = (
 /obj/structure/chair/comfy/plywood{
 	dir = 8
 	},
 /turf/open/indestructible/ground/outside/dirt/bigsandturf,
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "lgW" = (
 /turf/open/indestructible/ground/outside/dirt/dark{
 	icon_state = "dirt_dark";
@@ -11319,9 +10965,7 @@
 /obj/item/reagent_containers/food/snacks/meat/slab,
 /obj/item/reagent_containers/food/snacks/meat/slab,
 /turf/open/floor/wood_fancy,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "lmJ" = (
 /obj/effect/spawner/lootdrop/clothing_low,
 /turf/open/indestructible/ground/outside/desert,
@@ -11394,9 +11038,7 @@
 "lpv" = (
 /obj/structure/flora/chomp/tall_boulder,
 /turf/open/indestructible/ground/outside/desert,
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "lqJ" = (
 /obj/structure/nest/securitron,
 /turf/open/floor/plating/rust,
@@ -11504,9 +11146,7 @@
 	sunlight_state = 1;
 	name = "Wooden docks"
 	},
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "lwK" = (
 /obj/effect/decal/cleanable/blood/tracks{
 	icon_state = "trails_1";
@@ -11580,9 +11220,7 @@
 	pixel_y = 3
 	},
 /turf/open/floor/plasteel/f13/stone/rugged,
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "lzI" = (
 /obj/structure/barricade/bars{
 	max_integrity = 800;
@@ -11615,9 +11253,7 @@
 	pixel_y = -3
 	},
 /turf/open/floor/wood_common/wood_common_dark,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "lAk" = (
 /obj/effect/turf_decal/vg_decals/numbers/four,
 /turf/open/floor/mech_bay_recharge_floor{
@@ -11650,9 +11286,7 @@
 "lBO" = (
 /obj/structure/chair/wood,
 /turf/open/floor/wood_common/wood_common_dark,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "lBU" = (
 /obj/item/storage/briefcase/crafted,
 /turf/open/indestructible/ground/outside/ruins,
@@ -11821,9 +11455,7 @@
 /area/f13/enclave)
 "lIS" = (
 /turf/open/floor/wood_fancy,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "lJf" = (
 /obj/structure/barricade/wooden,
 /obj/structure/barricade/wooden/planks/pregame,
@@ -12023,9 +11655,7 @@
 	icon_state = "dirt_dark";
 	dir = 8
 	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "lPZ" = (
 /turf/open/indestructible/ground/outside/road{
 	icon_state = "horizontalinnermain3"
@@ -12055,9 +11685,7 @@
 "lQV" = (
 /obj/structure/chair/pew/right,
 /turf/open/floor/wood_mosaic/wood_mosaic_dark,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "lSl" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/start/f13/legionary,
@@ -12087,9 +11715,7 @@
 "lTu" = (
 /obj/structure/chair/bench,
 /turf/open/floor/wood_common,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "lTM" = (
 /obj/structure/stairs/north{
 	color = "#A47449"
@@ -12105,14 +11731,6 @@
 	icon_state = "horizontalinnermain1"
 	},
 /area/f13/wasteland)
-"lUJ" = (
-/turf/open/floor/f13{
-	color = "#A47449";
-	icon_state = "rampdowntop"
-	},
-/area/f13/legion{
-	name = "Legion City Building"
-	})
 "lUV" = (
 /obj/effect/turf_decal/bot_white,
 /obj/structure/wreck/trash/machinepiletwo,
@@ -12141,9 +11759,7 @@
 /turf/open/indestructible/ground/outside/dirt/dark{
 	icon_state = "dirtfull_dark"
 	},
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "lWT" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/wood_fancy/wood_fancy_dark,
@@ -12231,16 +11847,6 @@
 	icon_state = "housewood2"
 	},
 /area/f13/building)
-"mbK" = (
-/obj/structure/destructible/tribal_torch/wall/lit{
-	dir = 4;
-	light_power = 0.7;
-	light_range = 5
-	},
-/turf/open/floor/wood_common/wood_common_dark,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
 "mcr" = (
 /obj/effect/spawner/lootdrop/grille_or_trash,
 /obj/item/radio/intercom{
@@ -12324,9 +11930,7 @@
 /turf/open/indestructible/ground/outside/dirt/dark{
 	icon_state = "dirtfull_dark"
 	},
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "mhu" = (
 /obj/structure/flora/grass/jungle,
 /turf/open/pool{
@@ -12335,9 +11939,7 @@
 	name = "Deep water";
 	sunlight_state = 1
 	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "mhx" = (
 /obj/structure/table,
 /obj/item/toy/darksabre,
@@ -12546,9 +12148,7 @@
 	icon_state = "innermaincornerouter";
 	dir = 1
 	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "mtF" = (
 /obj/structure/table,
 /obj/machinery/microwave,
@@ -12634,9 +12234,7 @@
 	icon_state = "dirtcorner_dark";
 	dir = 4
 	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "myx" = (
 /turf/open/floor/wood_common,
 /area/f13/building)
@@ -12719,9 +12317,7 @@
 "mCe" = (
 /obj/structure/chair/bench,
 /turf/open/floor/wood_common/wood_common_dark,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "mCl" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 4
@@ -12735,9 +12331,7 @@
 /area/f13/wasteland)
 "mCo" = (
 /turf/closed/indestructible/f13/matrix,
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "mCy" = (
 /obj/structure/barricade/sandbags,
 /turf/open/indestructible/ground/outside/dirt{
@@ -12796,9 +12390,7 @@
 "mFU" = (
 /obj/structure/closet/crate/wicker,
 /turf/open/floor/plasteel/f13/stone/rugged,
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "mGi" = (
 /obj/structure/railing/corner{
 	color = "#A47449"
@@ -12831,9 +12423,7 @@
 /turf/open/indestructible/ground/outside/dirt/dark{
 	icon_state = "dirtfull_dark"
 	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "mHb" = (
 /obj/item/grenade/f13/stinger,
 /turf/open/indestructible/ground/outside/ruins,
@@ -13054,14 +12644,6 @@
 /obj/effect/turf_decal/stripes/white/line,
 /turf/open/floor/engine,
 /area/f13/enclave)
-"mVN" = (
-/obj/structure/destructible/tribal_torch/wall/lit{
-	dir = 8
-	},
-/turf/open/floor/wood_common/wood_common_dark,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
 "mWe" = (
 /obj/structure/table/wood,
 /obj/machinery/reagentgrinder,
@@ -13105,21 +12687,12 @@
 /obj/effect/spawner/lootdrop/trash,
 /turf/open/indestructible/ground/outside/ruins,
 /area/f13/building)
-"mZg" = (
-/turf/open/indestructible/ground/outside/dirt/dark{
-	icon_state = "dirtfull_dark"
-	},
-/area/f13/legion{
-	name = "Legion City Building"
-	})
 "mZY" = (
 /obj/structure/bed/mattress{
 	icon_state = "mattress5"
 	},
 /turf/open/floor/wood_common/wood_common_dark,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "nbp" = (
 /obj/structure/fence/wooden{
 	dir = 8;
@@ -13241,9 +12814,7 @@
 	icon_state = "dirt_dark";
 	dir = 5
 	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "nfl" = (
 /obj/machinery/porta_turret/centcom_shuttle/ballistic,
 /obj/effect/decal/cleanable/dirt,
@@ -13308,9 +12879,7 @@
 "ngZ" = (
 /obj/structure/simple_door/wood,
 /turf/open/floor/wood_fancy,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "nho" = (
 /turf/open/floor/vault,
 /area/f13/ruins)
@@ -13322,9 +12891,7 @@
 /turf/open/indestructible/ground/outside/dirt/dark{
 	icon_state = "dirtfull_dark"
 	},
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "nii" = (
 /obj/machinery/camera/all{
 	dir = 5;
@@ -13417,9 +12984,7 @@
 "nmF" = (
 /obj/structure/fluff/beach_umbrella/syndi,
 /turf/open/indestructible/ground/outside/dirt/bigsandturf,
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "nmU" = (
 /obj/structure/cable/blue{
 	icon_state = "2-5"
@@ -13434,9 +12999,7 @@
 /area/f13/wasteland)
 "nnw" = (
 /turf/open/floor/wood_wide/wood_wide_dark,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "nnU" = (
 /obj/structure/window/fulltile/ruins/broken{
 	icon_state = "ruinswindowdestroyed"
@@ -13531,9 +13094,7 @@
 	dir = 4
 	},
 /turf/open/floor/wood_wide/wood_wide_dark,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "ntb" = (
 /obj/machinery/light/fo13colored/Red{
 	dir = 1
@@ -13759,9 +13320,7 @@
 /turf/open/indestructible/ground/outside/road{
 	icon_state = "horizontalinnermain1"
 	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "nEI" = (
 /obj/structure/closet/cabinet/anchored,
 /obj/effect/spawner/bundle/f13/mexican,
@@ -13855,9 +13414,7 @@
 	sunlight_state = 1;
 	name = "Wooden docks"
 	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "nHa" = (
 /obj/effect/decal/cleanable/blood/footprints{
 	icon_state = "trails_2";
@@ -13908,9 +13465,7 @@
 /turf/open/floor/f13/wood{
 	icon_state = "housewood3-broken"
 	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "nKn" = (
 /obj/machinery/microwave/stove,
 /obj/effect/decal/cleanable/dirt,
@@ -13922,9 +13477,7 @@
 	icon_state = "dirt_dark";
 	dir = 8
 	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "nKL" = (
 /obj/structure/table/wood,
 /obj/structure/destructible/tribal_torch/wall/lit{
@@ -13952,9 +13505,7 @@
 "nMn" = (
 /obj/structure/table/wood/bar,
 /turf/open/floor/wood_common,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "nMM" = (
 /obj/structure/fence/wooden{
 	dir = 8;
@@ -13999,9 +13550,7 @@
 /obj/item/clothing/head/helmet/skull,
 /obj/item/clothing/head/helmet/riot,
 /turf/open/floor/wood_common/wood_common_dark,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "nOy" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/rack/shelf_metal,
@@ -14160,9 +13709,7 @@
 "nUx" = (
 /obj/structure/chair/booth,
 /turf/open/floor/wood_common/wood_common_dark,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "nUQ" = (
 /obj/structure/table,
 /obj/effect/spawner/lootdrop/f13/weapon/melee/tier4,
@@ -14207,9 +13754,7 @@
 	icon_state = "innermaincornerinner";
 	dir = 1
 	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "nVO" = (
 /obj/structure/fence/door/opened{
 	dir = 4
@@ -14239,14 +13784,6 @@
 	color = "#A47449"
 	},
 /area/f13/raiders)
-"nXk" = (
-/turf/open/indestructible/ground/outside/dirt/dark{
-	icon_state = "dirt_dark";
-	dir = 1
-	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
 "nXl" = (
 /obj/structure/barricade/wooden/strong,
 /turf/open/indestructible/ground/outside/gravel/path_desert{
@@ -14326,9 +13863,7 @@
 	layer = 3
 	},
 /turf/open/floor/plasteel/f13/stone/rugged,
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "oaQ" = (
 /obj/structure/simple_door/interior,
 /turf/open/floor/f13/wood,
@@ -14365,9 +13900,7 @@
 	sunlight_state = 1;
 	name = "Wooden docks"
 	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "odC" = (
 /turf/open/indestructible/ground/outside/gravel/path_desert{
 	dir = 5
@@ -14545,9 +14078,7 @@
 	pixel_y = 15
 	},
 /turf/open/floor/wood_common/wood_common_dark,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "opY" = (
 /obj/effect/mob_spawn/human/corpse,
 /turf/open/indestructible/ground/outside/dirt,
@@ -14595,9 +14126,7 @@
 	light_range = 5
 	},
 /turf/open/floor/carpet/red,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "otj" = (
 /obj/item/chair/folding,
 /obj/structure/window/reinforced{
@@ -14676,9 +14205,7 @@
 "owH" = (
 /obj/machinery/hydroponics/soil,
 /turf/open/indestructible/ground/outside/desert,
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "oyd" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/bed/wooden,
@@ -14723,9 +14250,7 @@
 	dir = 8
 	},
 /turf/open/floor/wood_fancy,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "ozn" = (
 /obj/structure/flora/grass/jungle/b,
 /obj/structure/fence/wooden{
@@ -14805,9 +14330,7 @@
 /turf/open/indestructible/ground/outside/dirt/dark{
 	icon_state = "dirtfull_dark"
 	},
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "oDD" = (
 /obj/structure/junk/small/bed2,
 /obj/effect/decal/cleanable/dirt,
@@ -14816,9 +14339,7 @@
 "oDE" = (
 /obj/structure/chair/pew/left,
 /turf/open/floor/wood_mosaic/wood_mosaic_dark,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "oDJ" = (
 /obj/effect/decal/cleanable/blood/gibs/human/body,
 /turf/open/indestructible/ground/outside/dirt/dark{
@@ -14857,9 +14378,7 @@
 	color = "#A47449"
 	},
 /turf/open/floor/carpet/red,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "oFk" = (
 /obj/structure/dresser,
 /obj/effect/decal/cleanable/dirt,
@@ -14905,9 +14424,7 @@
 	name = "Deep water";
 	sunlight_state = 1
 	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "oGr" = (
 /obj/structure/barricade/tentleatheredge{
 	dir = 8
@@ -14998,9 +14515,7 @@
 "oKD" = (
 /obj/structure/stone_tile/slab,
 /turf/open/floor/wood_common,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "oKK" = (
 /obj/effect/decal/riverbank,
 /obj/structure/fence/wooden{
@@ -15218,9 +14733,7 @@
 	name = "Deep water";
 	sunlight_state = 1
 	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "pdd" = (
 /obj/structure/barricade/tentclothedge,
 /obj/structure/barricade/wooden,
@@ -15229,9 +14742,7 @@
 "pdm" = (
 /obj/structure/closet/crate/large,
 /turf/open/floor/plasteel/f13/stone/rugged,
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "pdo" = (
 /obj/structure/closet/anchored,
 /obj/item/clothing/under/f13/legslave,
@@ -15367,17 +14878,13 @@
 	name = "Deep water";
 	sunlight_state = 1
 	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "piq" = (
 /obj/structure/stairs/south{
 	color = "#A47449"
 	},
 /turf/open/floor/f13/wood,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "piu" = (
 /obj/structure/table/wood,
 /obj/machinery/reagentgrinder{
@@ -15456,9 +14963,7 @@
 	dir = 9;
 	icon_state = "dirt"
 	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "plB" = (
 /obj/structure/fence/wooden{
 	dir = 8;
@@ -15621,9 +15126,7 @@
 /obj/effect/spawner/lootdrop/f13/weapon/gun/ammo/tier1,
 /obj/effect/spawner/lootdrop/f13/weapon/gun/ammo/tier1,
 /turf/open/floor/wood_common,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "pwz" = (
 /obj/effect/decal/cleanable/blood/footprints{
 	icon_state = "trails_2";
@@ -15653,11 +15156,6 @@
 	sunlight_state = 1
 	},
 /area/f13/wasteland)
-"pye" = (
-/turf/closed/wall/f13/wood/house,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
 "pyp" = (
 /obj/structure/decoration/rag{
 	icon_state = "skin"
@@ -15697,9 +15195,7 @@
 /turf/open/indestructible/ground/outside/dirt/dark{
 	icon_state = "dirtfull_dark"
 	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "pAV" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/unpowered/securedoor/legion,
@@ -15717,9 +15213,7 @@
 	icon_state = "dirt_dark";
 	dir = 1
 	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "pBo" = (
 /obj/structure/bookshelf{
 	icon_state = "book-5"
@@ -15760,17 +15254,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/building)
-"pDe" = (
-/obj/structure/destructible/tribal_torch/wall/lit{
-	dir = 4
-	},
-/turf/open/floor/f13/wood{
-	sunlight_state = 1;
-	name = "Wooden docks"
-	},
-/area/f13/legion{
-	name = "Legion City Building"
-	})
 "pDK" = (
 /obj/structure/fence/wooden{
 	dir = 4;
@@ -15900,9 +15383,7 @@
 /obj/item/reagent_containers/glass/bowl/wooden_bowl,
 /obj/item/reagent_containers/glass/bowl/wooden_bowl,
 /turf/open/floor/wood_fancy,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "pJI" = (
 /obj/structure/table/wood,
 /turf/open/indestructible/ground/outside/ruins,
@@ -15955,9 +15436,7 @@
 	pixel_y = 1
 	},
 /turf/open/floor/plasteel/f13/stone/rugged,
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "pNM" = (
 /obj/machinery/light/small{
 	dir = 2;
@@ -15984,9 +15463,7 @@
 	color = "#A47449"
 	},
 /turf/open/floor/f13/wood,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "pPE" = (
 /obj/structure/shelf_wood,
 /obj/item/clothing/head/hardhat/weldhat,
@@ -16123,9 +15600,7 @@
 	pixel_y = 13
 	},
 /turf/closed/wall/mineral/wood,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "pUW" = (
 /turf/open/indestructible/ground/outside/sidewalk{
 	icon_state = "horizontaltopbordertop2"
@@ -16150,9 +15625,7 @@
 	icon_state = "rampdowntop";
 	dir = 1
 	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "pYt" = (
 /obj/structure/flora/grass/coyote/three,
 /obj/structure/destructible/tribal_torch/lit,
@@ -16163,9 +15636,7 @@
 /obj/item/clothing/under/civ/roman_centurion,
 /obj/item/clothing/under/civ/dressr,
 /turf/open/floor/wood_fancy,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "qaa" = (
 /obj/structure/table/wood,
 /turf/open/floor/wood_fancy,
@@ -16205,9 +15676,7 @@
 /obj/item/storage/box/drinkingglasses,
 /obj/item/reagent_containers/food/drinks/soda_cans/lemon_lime,
 /turf/open/floor/wood_common,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "qbe" = (
 /obj/effect/decal/cleanable/blood/footprints{
 	icon_state = "trails_2";
@@ -16310,9 +15779,7 @@
 "qhM" = (
 /obj/structure/flora/tallgrass6,
 /turf/open/floor/plasteel/f13/stone/rugged,
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "qhO" = (
 /obj/structure/destructible/tribal_torch/wall/lit{
 	dir = 8
@@ -16336,9 +15803,7 @@
 "qjh" = (
 /obj/machinery/hydroponics/soil/pot,
 /turf/open/floor/plasteel/f13/stone/rugged,
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "qjj" = (
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/ruins)
@@ -16419,15 +15884,11 @@
 	dir = 8
 	},
 /turf/open/floor/wood_wide,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "qnO" = (
 /obj/structure/reagent_dispensers/rainwater_tank,
 /turf/open/floor/plasteel/f13/stone/rugged,
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "qoS" = (
 /obj/structure/chair/folding{
 	dir = 8
@@ -16666,9 +16127,7 @@
 	pixel_y = -3
 	},
 /turf/open/floor/wood_common/wood_common_dark,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "qBX" = (
 /obj/structure/table/reinforced,
 /obj/effect/decal/cleanable/dirt,
@@ -16781,9 +16240,7 @@
 "qFD" = (
 /obj/structure/window/fulltile/ruins,
 /turf/open/floor/wood_wide/wood_wide_dark,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "qHc" = (
 /turf/open/indestructible/ground/outside/dirt/dark{
 	icon_state = "dirt_dark"
@@ -16830,9 +16287,7 @@
 /turf/open/indestructible/ground/outside/dirt/dark{
 	icon_state = "dirtfull_dark"
 	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "qJv" = (
 /obj/structure/table/wood,
 /obj/effect/spawner/lootdrop/wrange_middle,
@@ -17168,9 +16623,7 @@
 /area/f13/wasteland)
 "ray" = (
 /turf/open/indestructible/ground/outside/dirt/bigsandturf,
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "raI" = (
 /obj/item/storage/bag/ore,
 /obj/structure/shelf_wood,
@@ -17183,9 +16636,7 @@
 	sunlight_state = 1;
 	name = "Wooden docks"
 	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "raQ" = (
 /obj/structure/simple_door/bunker/glass,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
@@ -17309,9 +16760,7 @@
 	name = "Deep water";
 	sunlight_state = 1
 	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "rhk" = (
 /obj/structure/flora/grass/coyote/one,
 /turf/open/water,
@@ -17368,9 +16817,7 @@
 	name = "Deep water";
 	sunlight_state = 1
 	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "rkf" = (
 /obj/structure/fence/wooden{
 	dir = 4;
@@ -17422,9 +16869,7 @@
 	color = "#A47449"
 	},
 /turf/open/floor/wood_wide,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "roo" = (
 /obj/effect/decal/cleanable/greenglow,
 /turf/open/floor/engine,
@@ -17456,9 +16901,7 @@
 /obj/item/clothing/under/civ/dressr,
 /obj/effect/spawner/lootdrop/wmelee_low,
 /turf/open/floor/wood_fancy,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "rpr" = (
 /obj/structure/ore_box,
 /obj/item/storage/bag/ore,
@@ -17498,9 +16941,7 @@
 /obj/structure/spacevine,
 /obj/structure/spacevine,
 /turf/closed/wall/mineral/wood,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "rrG" = (
 /obj/item/chair/greyscale,
 /obj/effect/decal/cleanable/dirt{
@@ -17668,9 +17109,7 @@
 /turf/open/indestructible/ground/outside/dirt/dark{
 	icon_state = "dirt_dark"
 	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "rzx" = (
 /obj/structure/bookshelf{
 	icon_state = "book-5"
@@ -17785,9 +17224,7 @@
 	layer = 6
 	},
 /turf/open/floor/wood_mosaic/wood_mosaic_dark,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "rHa" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -17824,9 +17261,7 @@
 	icon_state = "dirt_dark";
 	dir = 8
 	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "rIr" = (
 /obj/structure/nest/wolf,
 /obj/machinery/iv_drip,
@@ -17845,9 +17280,7 @@
 "rJp" = (
 /obj/structure/flora/grass/jungle/b,
 /turf/open/water,
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "rKw" = (
 /obj/item/mine/explosive,
 /obj/structure/flora/tallgrass2,
@@ -17933,9 +17366,7 @@
 	name = "Deep water";
 	sunlight_state = 1
 	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "rNm" = (
 /obj/structure/railing/wood/post/underlayer{
 	pixel_x = -18
@@ -17984,9 +17415,7 @@
 /turf/open/indestructible/ground/outside/dirt/dark{
 	icon_state = "dirtfull_dark"
 	},
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "rQa" = (
 /obj/structure/barricade/tentleathercorner{
 	dir = 4
@@ -18004,9 +17433,7 @@
 /turf/open/floor/wood_fancy{
 	icon_state = "fancy-broken4"
 	},
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "rRk" = (
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
@@ -18082,9 +17509,7 @@
 	dir = 1
 	},
 /turf/open/floor/f13/wood,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "rXO" = (
 /turf/open/indestructible/ground/outside/sidewalk{
 	icon_state = "outerbordercorner";
@@ -18111,9 +17536,7 @@
 /obj/item/shield/riot/buckler/stop,
 /obj/item/shield/riot/buckler/stop,
 /turf/open/floor/wood_common/wood_common_dark,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "rYq" = (
 /obj/structure/closet/crate/large,
 /turf/open/indestructible/ground/outside/desert,
@@ -18156,9 +17579,7 @@
 	sunlight_state = 1;
 	name = "Wooden docks"
 	},
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "saV" = (
 /obj/structure/fluff/hedge{
 	pixel_y = 11;
@@ -18395,9 +17816,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/chair/comfy/brown,
 /turf/open/floor/f13/wood,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "slM" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/barricade/bars,
@@ -18451,9 +17870,7 @@
 	sunlight_state = 1;
 	name = "Wooden docks"
 	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "soe" = (
 /obj/structure/destructible/tribal_torch/wall/lit{
 	dir = 4
@@ -18529,9 +17946,7 @@
 	icon_state = "rampdowntop";
 	dir = 4
 	},
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "ssE" = (
 /obj/structure/flora/rock/jungle,
 /turf/open/water,
@@ -18545,9 +17960,7 @@
 	icon_state = "dirt_dark";
 	dir = 4
 	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "ssZ" = (
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
@@ -18560,9 +17973,7 @@
 	dir = 4
 	},
 /turf/open/floor/wood_wide,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "stu" = (
 /turf/open/floor/plasteel/f13/vault_floor/plating,
 /area/f13/ruins)
@@ -18693,9 +18104,7 @@
 /turf/open/floor/f13/wood{
 	icon_state = "housewood4-broken"
 	},
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "syy" = (
 /obj/structure/flora/grass/wasteland{
 	icon_state = "tall_grass_4";
@@ -18767,9 +18176,7 @@
 	icon_state = "dirt_dark";
 	dir = 4
 	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "sBo" = (
 /obj/structure/chair,
 /obj/structure/window/reinforced/survival_pod{
@@ -18836,9 +18243,7 @@
 	peaceful = 1
 	},
 /turf/open/floor/plasteel/f13/stone/rugged,
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "sFH" = (
 /obj/structure/closet/locker,
 /obj/effect/spawner/lootdrop/minor/bowler_or_that,
@@ -18878,9 +18283,7 @@
 	name = "Deep water";
 	sunlight_state = 1
 	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "sGU" = (
 /obj/effect/decal/marking{
 	icon_state = "dottedverticalcorroded";
@@ -18948,9 +18351,7 @@
 	name = "Deep water";
 	sunlight_state = 1
 	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "sKa" = (
 /obj/structure/destructible/tribal_torch/lit{
 	light_power = 0.7;
@@ -18970,9 +18371,7 @@
 /turf/open/indestructible/ground/outside/dirt/dark{
 	icon_state = "dirtfull_dark"
 	},
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "sKU" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/overlay/junk/toilet{
@@ -19070,16 +18469,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
 /area/f13/building)
-"sPs" = (
-/obj/structure/barricade/tentleathercorner{
-	dir = 4
-	},
-/turf/open/indestructible/ground/outside/dirt/dark{
-	icon_state = "dirtfull_dark"
-	},
-/area/f13/legion{
-	name = "Legion City Building"
-	})
 "sPK" = (
 /obj/structure/table/wood,
 /obj/effect/decal/cleanable/dirt,
@@ -19265,9 +18654,7 @@
 /turf/open/indestructible/ground/outside/roaddirt{
 	icon_state = "innermaincornerouter"
 	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "sYY" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -19299,9 +18686,7 @@
 	icon_state = "dirt_dark";
 	dir = 8
 	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "sZQ" = (
 /obj/machinery/light{
 	dir = 8
@@ -19378,18 +18763,14 @@
 	sunlight_state = 1;
 	name = "Wooden docks"
 	},
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "tcU" = (
 /obj/structure/chair/stool/retro/black,
 /turf/open/floor/f13/wood{
 	sunlight_state = 1;
 	name = "Wooden docks"
 	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "tcX" = (
 /turf/open/indestructible/ground/outside/dirt{
 	dir = 9;
@@ -19600,9 +18981,7 @@
 	icon_state = "dirt_dark";
 	dir = 10
 	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "tna" = (
 /obj/machinery/door/airlock/grunge,
 /turf/open/floor/plasteel/f13/vault_floor/plating,
@@ -19629,9 +19008,7 @@
 	name = "Deep water";
 	sunlight_state = 1
 	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "tnB" = (
 /obj/structure/table/rolling,
 /obj/item/grenade/syndieminibomb/concussion,
@@ -19655,9 +19032,7 @@
 	name = "Deep water";
 	sunlight_state = 1
 	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "tnQ" = (
 /obj/structure/barricade/tentclothedge{
 	dir = 1;
@@ -19692,9 +19067,7 @@
 /obj/item/brahminbrand,
 /obj/item/brahminbrand,
 /turf/open/floor/wood_common/wood_common_dark,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "toJ" = (
 /obj/machinery/door/airlock/grunge,
 /obj/structure/barricade/wooden/planks,
@@ -19721,9 +19094,7 @@
 	layer = 2.8
 	},
 /turf/open/floor/wood_fancy,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "tpX" = (
 /obj/structure/flora/junglebush,
 /turf/open/pool{
@@ -19889,16 +19260,7 @@
 /turf/open/indestructible/ground/outside/dirt/dark{
 	icon_state = "dirtfull_dark"
 	},
-/area/f13/legion{
-	name = "Legion City Building"
-	})
-"tws" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/spacevine,
-/turf/closed/wall/rust,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "twB" = (
 /obj/structure/stone_tile/block,
 /obj/structure/fence/wooden{
@@ -19984,9 +19346,7 @@
 /turf/open/floor/wood_fancy{
 	icon_state = "fancy-broken5"
 	},
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "tAR" = (
 /obj/structure/flora/tallgrass5,
 /turf/open/indestructible/ground/outside/dirt{
@@ -20001,17 +19361,13 @@
 /turf/open/indestructible/ground/outside/dirt/dark{
 	icon_state = "dirtfull_dark"
 	},
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "tCL" = (
 /turf/open/indestructible/ground/outside/road{
 	icon_state = "verticalinnermainbottom";
 	dir = 8
 	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "tDD" = (
 /obj/structure/chair/folding{
 	dir = 8
@@ -20019,18 +19375,10 @@
 /obj/effect/turf_decal/stripes/asteroid/line,
 /turf/open/floor/plasteel/f13/vault_floor/plating,
 /area/f13/enclave)
-"tDJ" = (
-/obj/structure/flora/tallgrass6,
-/turf/open/indestructible/ground/outside/desert,
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
 "tDM" = (
 /obj/structure/window/fulltile/ruins,
 /turf/open/floor/wood_wide,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "tEQ" = (
 /obj/structure/fluff/railing{
 	color = "#A47449";
@@ -20041,9 +19389,7 @@
 	sunlight_state = 1;
 	name = "Wooden docks"
 	},
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "tEV" = (
 /obj/structure/table/wood,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
@@ -20057,9 +19403,7 @@
 /turf/open/indestructible/ground/outside/dirt/dark{
 	icon_state = "dirtfull_dark"
 	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "tFk" = (
 /obj/structure/flora/chomp/boulder{
 	layer = 3.9
@@ -20070,9 +19414,7 @@
 	name = "Deep water";
 	sunlight_state = 1
 	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "tGc" = (
 /turf/open/indestructible/ground/outside/sidewalk{
 	icon_state = "horizontaloutermain2";
@@ -20183,9 +19525,7 @@
 /area/f13/building)
 "tLQ" = (
 /turf/open/floor/wood_wide,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "tMg" = (
 /turf/open/floor/f13/wood{
 	sunlight_state = 1;
@@ -20200,9 +19540,7 @@
 /obj/effect/spawner/lootdrop/food,
 /obj/effect/spawner/lootdrop/food,
 /turf/open/floor/wood_common,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "tMG" = (
 /obj/machinery/light/small{
 	dir = 8;
@@ -20280,9 +19618,7 @@
 "tPB" = (
 /obj/structure/chair/stool/retro,
 /turf/open/floor/wood_common,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "tPO" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/closed/wall/rust,
@@ -20391,9 +19727,7 @@
 	pixel_x = -6
 	},
 /turf/open/floor/wood_common/wood_common_dark,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "tTD" = (
 /obj/structure/stone_tile/block,
 /obj/structure/fence/wooden{
@@ -20409,9 +19743,7 @@
 	name = "Deep water";
 	sunlight_state = 1
 	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "tTX" = (
 /obj/structure/table/reinforced{
 	color = "#c1b6a5"
@@ -20429,9 +19761,7 @@
 	pixel_x = 5
 	},
 /turf/open/floor/wood_fancy,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "tVq" = (
 /obj/structure/table/reinforced,
 /obj/effect/decal/cleanable/dirt,
@@ -20449,9 +19779,7 @@
 /obj/item/paper,
 /obj/item/pen,
 /turf/open/floor/wood_fancy,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "tVH" = (
 /obj/structure/barricade/tentleatheredge{
 	pixel_y = -4
@@ -20484,9 +19812,7 @@
 	pixel_x = 1
 	},
 /turf/open/floor/wood_mosaic/wood_mosaic_dark,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "tXi" = (
 /obj/structure/barricade/wooden/strong,
 /obj/structure/barricade/bars{
@@ -20637,9 +19963,7 @@
 /turf/open/indestructible/ground/outside/roaddirt{
 	icon_state = "horizontalinnermain2left"
 	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "uef" = (
 /obj/structure/barricade/wooden,
 /obj/structure/decoration/rag{
@@ -20790,9 +20114,7 @@
 /turf/open/indestructible/ground/outside/dirt/dark{
 	icon_state = "dirtfull_dark"
 	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "upx" = (
 /obj/structure/barricade/wooden{
 	plane = -6
@@ -20840,9 +20162,7 @@
 /obj/item/reagent_containers/glass/bowl/wooden_bowl,
 /obj/machinery/processor/chopping_block,
 /turf/open/floor/wood_common,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "urO" = (
 /turf/open/floor/f13/wood{
 	sunlight_state = 1;
@@ -20866,9 +20186,7 @@
 	icon_state = "dirt_dark";
 	dir = 8
 	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "utA" = (
 /obj/structure/curtain{
 	color = "#363636"
@@ -20897,9 +20215,7 @@
 	pixel_y = -3
 	},
 /turf/open/floor/wood_fancy,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "uvy" = (
 /obj/structure/barricade/wooden,
 /obj/structure/window/fulltile/house{
@@ -20934,14 +20250,6 @@
 /obj/structure/flora/rock/jungle,
 /turf/open/water,
 /area/f13/caves)
-"uwH" = (
-/turf/open/indestructible/ground/outside/dirt/dark{
-	icon_state = "dirt_dark";
-	dir = 6
-	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
 "uwP" = (
 /obj/structure/barricade/wooden/planks,
 /turf/closed/wall/mineral/sandstone{
@@ -21081,9 +20389,7 @@
 "uBS" = (
 /obj/structure/table/wood/bar,
 /turf/open/floor/wood_common/wood_common_dark,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "uCr" = (
 /obj/structure/closet/crate/footchest{
 	anchored = 1
@@ -21218,9 +20524,7 @@
 	sunlight_state = 1;
 	name = "Wooden docks"
 	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "uKI" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/f13/vault_floor/misc/rarewhite,
@@ -21271,9 +20575,7 @@
 	dir = 4
 	},
 /turf/open/floor/wood_common/wood_common_dark,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "uOa" = (
 /obj/machinery/light/small{
 	dir = 8;
@@ -21349,17 +20651,13 @@
 	dir = 8
 	},
 /turf/open/floor/wood_common,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "uSj" = (
 /obj/structure/chair/booth{
 	dir = 1
 	},
 /turf/open/floor/wood_common,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "uSA" = (
 /obj/structure/barricade/wooden,
 /obj/structure/decoration/rag{
@@ -21394,9 +20692,7 @@
 	dir = 1
 	},
 /turf/open/floor/wood_fancy,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "uTx" = (
 /obj/effect/decal/cleanable/dirt{
 	color = "#363636"
@@ -21419,9 +20715,7 @@
 	name = "Deep water";
 	sunlight_state = 1
 	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "uUb" = (
 /obj/structure/flora/burnedlog,
 /turf/open/indestructible/ground/outside/desert,
@@ -21492,20 +20786,13 @@
 	icon_state = "cargocrate3"
 	},
 /turf/open/floor/plasteel/f13/stone/rugged,
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "uWU" = (
 /obj/structure/flora/tallgrass1,
 /turf/open/indestructible/ground/outside/road{
 	icon_state = "horizontalinnermain1"
 	},
 /area/f13/wasteland)
-"uXt" = (
-/turf/open/floor/wood_common/wood_common_dark,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
 "uXQ" = (
 /obj/effect/decal/cleanable/blood/gibs/human/limb,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
@@ -21541,11 +20828,6 @@
 	},
 /turf/closed/wall/mineral/sandstone,
 /area/f13/raiders)
-"vbq" = (
-/turf/open/floor/wood_fancy/wood_fancy_dark,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
 "vbu" = (
 /obj/structure/flora/tree/joshua,
 /turf/open/indestructible/ground/outside/desert,
@@ -21599,9 +20881,7 @@
 "vek" = (
 /obj/structure/closet/crate/footchest,
 /turf/open/floor/plasteel/f13/stone/rugged,
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "vez" = (
 /obj/structure/table/wood/settler,
 /obj/effect/decal/cleanable/dirt,
@@ -21680,9 +20960,7 @@
 	name = "Deep water";
 	sunlight_state = 1
 	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "vhv" = (
 /obj/structure/destructible/tribal_torch/wall/lit{
 	dir = 8
@@ -21712,9 +20990,7 @@
 	pixel_x = 45
 	},
 /turf/open/floor/plasteel/f13/stone/rugged,
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "vir" = (
 /obj/structure/simple_door/repaired,
 /obj/structure/simple_door/repaired,
@@ -21762,9 +21038,7 @@
 "vki" = (
 /obj/structure/table/optable/primitive,
 /turf/open/floor/wood_wide,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "vko" = (
 /obj/effect/turf_decal/stripes/red/line{
 	dir = 6
@@ -21827,9 +21101,7 @@
 	dir = 4
 	},
 /turf/open/floor/wood_fancy,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "vlN" = (
 /obj/effect/decal/cleanable/blood/footprints{
 	icon_state = "trails_1";
@@ -21879,9 +21151,7 @@
 	icon_state = "ruinswindowvertical"
 	},
 /turf/open/floor/wood_wide/wood_wide_dark,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "vof" = (
 /turf/open/floor/f13/wood{
 	icon_state = "housewood4-broken"
@@ -21891,14 +21161,6 @@
 /obj/structure/table,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/enclave)
-"vpG" = (
-/turf/open/indestructible/ground/outside/dirt/dark{
-	icon_state = "dirt_dark";
-	dir = 5
-	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
 "vpW" = (
 /turf/open/indestructible/ground/outside/road{
 	icon_state = "verticalinnermainbottom"
@@ -21938,9 +21200,7 @@
 	name = "Legion Prime Townguard"
 	},
 /turf/open/floor/plasteel/f13/stone/rugged,
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "vrP" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/chair/sofa/left{
@@ -21955,9 +21215,7 @@
 /turf/open/indestructible/ground/outside/roaddirt{
 	icon_state = "innermaincornerinner"
 	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "vsy" = (
 /obj/machinery/seed_extractor,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
@@ -22088,9 +21346,7 @@
 /turf/open/indestructible/ground/outside/dirt/dark{
 	icon_state = "dirtfull_dark"
 	},
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "vBd" = (
 /obj/structure/chair/comfy/brown{
 	dir = 8
@@ -22242,9 +21498,7 @@
 	pixel_y = 7
 	},
 /turf/open/floor/plasteel/f13/stone/rugged,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "vGv" = (
 /obj/structure/closet/crate/wooden/toy,
 /obj/effect/decal/cleanable/dirt,
@@ -22332,9 +21586,7 @@
 	pixel_y = 7
 	},
 /turf/open/indestructible/ground/outside/desert,
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "vNf" = (
 /obj/structure/fluff/railing{
 	color = "#A47449";
@@ -22347,9 +21599,7 @@
 	sunlight_state = 1;
 	name = "Wooden docks"
 	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "vNg" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/junk/cabinet,
@@ -22414,9 +21664,7 @@
 "vRy" = (
 /obj/item/flag/legion,
 /turf/open/floor/plasteel/f13/stone/rugged,
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "vRR" = (
 /obj/structure/chair/folding{
 	dir = 4
@@ -22496,9 +21744,7 @@
 	pixel_y = 24
 	},
 /turf/open/floor/wood_common/wood_common_dark,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "vWx" = (
 /obj/machinery/smartfridge/bottlerack/drug_storage,
 /obj/item/storage/pill_bottle/chem_tin/radx,
@@ -22571,9 +21817,7 @@
 	on = 1
 	},
 /turf/open/floor/plasteel/f13/stone/rugged,
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "vXT" = (
 /obj/structure/rack/shelf_metal,
 /turf/open/floor/engine,
@@ -22631,9 +21875,7 @@
 	icon_state = "dirt_dark";
 	dir = 8
 	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "wce" = (
 /turf/open/indestructible/ground/outside/dirt{
 	icon_state = "dirt";
@@ -22753,9 +21995,7 @@
 /area/f13/wasteland)
 "wim" = (
 /turf/open/floor/wood_common/wood_common_dark,
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "wiA" = (
 /obj/item/fishingrod/spearfisher,
 /obj/structure/closet/crate/footchest{
@@ -22789,9 +22029,7 @@
 "wkv" = (
 /obj/item/reagent_containers/glass/bucket/wood,
 /turf/open/floor/wood_common/wood_common_dark,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "wkJ" = (
 /obj/structure/chair/folding,
 /obj/effect/decal/cleanable/dirt,
@@ -22983,11 +22221,6 @@
 	icon_state = "horizontalinnermain1"
 	},
 /area/f13/wasteland)
-"wrE" = (
-/turf/open/floor/wood_common,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
 "wrJ" = (
 /turf/open/indestructible/ground/outside/sidewalk{
 	icon_state = "verticalrightborderrighttop"
@@ -23009,9 +22242,7 @@
 	on = 1
 	},
 /turf/open/floor/plasteel/f13/stone/rugged,
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "wtr" = (
 /obj/structure/chair/office{
 	dir = 4
@@ -23023,9 +22254,7 @@
 	icon_state = "innermaincornerouter";
 	dir = 8
 	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "wtW" = (
 /obj/structure/rack/shelf_metal,
 /obj/effect/decal/cleanable/dirt,
@@ -23080,9 +22309,7 @@
 /turf/open/indestructible/ground/outside/dirt/dark{
 	icon_state = "dirtfull_dark"
 	},
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "wxE" = (
 /obj/item/reagent_containers/blood/OMinus,
 /obj/item/reagent_containers/blood/OMinus,
@@ -23377,9 +22604,7 @@
 /area/f13/caves)
 "wKu" = (
 /turf/open/floor/plasteel/f13/stone/rugged,
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "wKy" = (
 /turf/open/indestructible/ground/outside/sidewalk{
 	icon_state = "outerbordercorner";
@@ -23474,9 +22699,7 @@
 /turf/open/indestructible/ground/outside/road{
 	icon_state = "innermaincornerinner - W"
 	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "wQE" = (
 /obj/structure/car/rubbish3,
 /obj/effect/decal/cleanable/blood/tracks{
@@ -23492,9 +22715,7 @@
 	dir = 4;
 	icon_state = "dirt"
 	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "wSe" = (
 /obj/structure/simple_door/glass,
 /obj/effect/decal/cleanable/blood/footprints{
@@ -23508,9 +22729,7 @@
 /turf/open/indestructible/ground/outside/dirt/dark{
 	icon_state = "dirtfull_dark"
 	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "wSI" = (
 /mob/living/simple_animal/chicken,
 /turf/open/indestructible/ground/outside/desert,
@@ -23572,9 +22791,7 @@
 "wWC" = (
 /obj/machinery/door/unpowered/securedoor/legion,
 /turf/open/floor/wood_common/wood_common_dark,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "wWI" = (
 /obj/structure/rug/big/rug_blue_shag,
 /turf/open/floor/wood_fancy{
@@ -23733,9 +22950,7 @@
 	pixel_y = -3
 	},
 /turf/open/floor/wood_common/wood_common_dark,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "xfN" = (
 /obj/structure/destructible/tribal_torch/wall/lit{
 	dir = 4;
@@ -23758,9 +22973,7 @@
 	},
 /obj/item/reagent_containers/glass/bucket/wood,
 /turf/open/floor/wood_common/wood_common_dark,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "xgQ" = (
 /obj/item/radio/intercom{
 	frequency = 1363;
@@ -23806,9 +23019,7 @@
 	name = "Deep water";
 	sunlight_state = 1
 	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "xkv" = (
 /obj/effect/decal/remains/human,
 /obj/effect/decal/cleanable/dirt,
@@ -23882,9 +23093,7 @@
 /turf/open/floor/f13/wood{
 	icon_state = "housewood2-broken"
 	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "xpq" = (
 /obj/structure/chair/f13chair2{
 	dir = 8
@@ -24055,9 +23264,7 @@
 /area/f13/legion)
 "xzF" = (
 /turf/open/water,
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "xzP" = (
 /obj/structure/chair/pew/right{
 	dir = 4
@@ -24084,9 +23291,7 @@
 	dir = 4
 	},
 /turf/open/floor/wood_fancy,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "xCi" = (
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/caves)
@@ -24118,9 +23323,7 @@
 	sunlight_state = 1;
 	name = "Wooden docks"
 	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "xEZ" = (
 /obj/structure/cargocrate{
 	pixel_x = 2;
@@ -24133,17 +23336,7 @@
 /turf/open/indestructible/ground/outside/dirt/dark{
 	icon_state = "dirt_dark"
 	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
-"xFs" = (
-/turf/open/indestructible/ground/outside/dirt/dark{
-	icon_state = "dirt_dark";
-	dir = 10
-	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "xGc" = (
 /obj/item/pickaxe/drill,
 /obj/structure/rack,
@@ -24153,9 +23346,7 @@
 "xGh" = (
 /obj/structure/chair/wood,
 /turf/open/floor/wood_fancy,
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "xGm" = (
 /obj/structure/destructible/tribal_torch/wall/lit{
 	dir = 4;
@@ -24223,9 +23414,7 @@
 	color = "#A47449";
 	icon_state = "rampdowntop"
 	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "xKs" = (
 /obj/structure/chair/bench,
 /turf/open/indestructible/ground/outside/ruins,
@@ -24263,13 +23452,6 @@
 /obj/structure/flora/tallgrass4,
 /turf/open/indestructible/ground/outside/desert,
 /area/f13/wasteland)
-"xNl" = (
-/turf/open/indestructible/ground/outside/dirt/dark{
-	icon_state = "dirtfull_dark"
-	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
 "xNm" = (
 /obj/structure/filingcabinet/filingcabinet,
 /obj/structure/filingcabinet/filingcabinet{
@@ -24348,9 +23530,7 @@
 	icon_state = "rampdowntop";
 	dir = 8
 	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "xSY" = (
 /obj/effect/decal/cleanable/blood/gibs{
 	icon_state = "gibup1";
@@ -24398,9 +23578,7 @@
 /turf/open/indestructible/ground/outside/dirt/dark{
 	icon_state = "dirtfull_dark"
 	},
-/area/f13/legion{
-	name = "Legion City Building"
-	})
+/area/f13/legion)
 "xVo" = (
 /obj/structure/chair/folding{
 	dir = 4
@@ -24553,9 +23731,7 @@
 /turf/open/indestructible/ground/outside/dirt/dark{
 	icon_state = "dirtfull_dark"
 	},
-/area/f13/wasteland/legion{
-	name = "Legion port Exterior"
-	})
+/area/f13/wasteland/legion)
 "ycF" = (
 /turf/open/indestructible/ground/outside/road{
 	icon_state = "verticalleftborderrighttop";
@@ -66094,11 +65270,11 @@ jTl
 jTl
 jTl
 jTl
-iZn
-hcI
+eaV
+wYk
 voe
 voe
-hcI
+wYk
 ahp
 vcz
 jTl
@@ -66351,7 +65527,7 @@ jTl
 jTl
 jTl
 jTl
-pye
+vie
 imy
 qnr
 tLQ
@@ -66608,12 +65784,12 @@ jTl
 jTl
 jTl
 jTl
-hcI
+wYk
 oKD
 ftn
 jWb
 nsL
-hcI
+wYk
 pHe
 pHe
 pHe
@@ -66866,11 +66042,11 @@ jTl
 jTl
 jTl
 ahp
-hcI
-pye
-pye
-hcI
-iZn
+wYk
+vie
+vie
+wYk
+eaV
 vcz
 jTl
 jTl
@@ -67364,10 +66540,10 @@ fQa
 fQa
 jTl
 jTl
-iZn
+eaV
 voe
 ahp
-iZn
+eaV
 kYa
 pHe
 pHe
@@ -67624,7 +66800,7 @@ jTl
 qFD
 lcV
 cDA
-hcI
+wYk
 pxL
 pHe
 pHe
@@ -67878,7 +67054,7 @@ fQa
 fQa
 jTl
 jTl
-pye
+vie
 cnJ
 tLQ
 fAB
@@ -68135,10 +67311,10 @@ fQa
 fQa
 fQa
 jTl
-pye
-pye
+vie
+vie
 tLQ
-pye
+vie
 mQS
 pHe
 pHe
@@ -70191,7 +69367,7 @@ pRU
 fak
 nrJ
 fak
-dEW
+cmB
 xzF
 xzF
 xzF
@@ -70448,8 +69624,8 @@ pRU
 fak
 fak
 pKf
-dEW
-dEW
+cmB
+cmB
 xzF
 rJp
 xzF
@@ -70707,7 +69883,7 @@ fak
 qML
 lpv
 aMO
-dEW
+cmB
 xzF
 xzF
 uKF
@@ -70962,11 +70138,11 @@ cKn
 gOR
 pRU
 pRU
-dEW
-dEW
-dEW
-dEW
-dEW
+cmB
+cmB
+cmB
+cmB
+cmB
 uKF
 uKF
 rhi
@@ -71219,11 +70395,11 @@ yhk
 cKn
 gOR
 cKn
-dEW
-dEW
+cmB
+cmB
 aMO
-dEW
-dEW
+cmB
+cmB
 uKF
 wKu
 rhi
@@ -71479,9 +70655,9 @@ cKn
 pRU
 pRU
 fak
-dEW
-dEW
-dEW
+cmB
+cmB
+cmB
 uKF
 sJE
 rjJ
@@ -71738,9 +70914,9 @@ pRU
 fak
 aMO
 lpv
-dEW
-dEW
-fDH
+cmB
+cmB
+tmI
 wKu
 pip
 iQI
@@ -71994,9 +71170,9 @@ cKn
 cKn
 cKn
 gOR
-dEW
+cmB
 aHK
-dEW
+cmB
 xEZ
 eUE
 vRy
@@ -72016,7 +71192,7 @@ wKu
 aqq
 wKu
 wKu
-xNl
+wWy
 hkU
 apd
 ray
@@ -72251,10 +71427,10 @@ cKn
 cKn
 cKn
 wvc
-dEW
-dEW
-dEW
-ahF
+cmB
+cmB
+cmB
+tSF
 uWD
 wKu
 pNG
@@ -72276,7 +71452,7 @@ sKI
 oCT
 rPR
 rPR
-jWT
+cxm
 aAQ
 cLU
 cLU
@@ -72504,15 +71680,15 @@ cKn
 yhk
 wim
 xJU
-xNl
-xNl
-xNl
-vpG
-iKR
-iKR
-iKR
-uwH
-xNl
+wWy
+wWy
+wWy
+pom
+tvG
+tvG
+tvG
+bGe
+wWy
 wKu
 wKu
 fhm
@@ -72761,21 +71937,21 @@ cKn
 yhk
 wim
 xJU
-xNl
-xNl
-xNl
-xNl
-xNl
-xNl
-xNl
-xNl
-xNl
-xNl
+wWy
+wWy
+wWy
+wWy
+wWy
+wWy
+wWy
+wWy
+wWy
+wWy
 wKu
 wKu
 wKu
 sFt
-xNl
+wWy
 wKu
 wKu
 wKu
@@ -72784,7 +71960,7 @@ wKu
 wKu
 wKu
 qhM
-xNl
+wWy
 fZD
 uvi
 vlp
@@ -73009,26 +72185,26 @@ cKn
 cKn
 vFC
 vFC
-mZg
-mZg
-mZg
-azp
-azp
-azp
-iZn
+npy
+npy
+npy
+bdG
+bdG
+bdG
+eaV
 wWC
-iZn
-pye
-pye
-pye
-pye
-hcI
-pye
-pye
-hcI
-pye
-iZn
-iZn
+eaV
+vie
+vie
+vie
+vie
+wYk
+vie
+vie
+wYk
+vie
+eaV
+eaV
 wKu
 wKu
 wKu
@@ -73040,7 +72216,7 @@ wKu
 wKu
 wKu
 wKu
-xNl
+wWy
 wSg
 ups
 lWh
@@ -73266,26 +72442,26 @@ cKn
 cKn
 vFC
 vFC
-mZg
-mZg
-mZg
-mZg
-mZg
-azp
-pye
-uXt
-mVN
-uXt
-uXt
-mVN
+npy
+npy
+npy
+npy
+npy
+bdG
+vie
+jFB
+hud
+jFB
+jFB
+hud
 opJ
-mVN
-uXt
+hud
+jFB
 fFJ
-uXt
-mVN
-uXt
-lUJ
+jFB
+hud
+jFB
+xMn
 wKu
 wKu
 wKu
@@ -73296,10 +72472,10 @@ wKu
 wKu
 dHP
 wKu
-xNl
+wWy
 iWh
-xNl
-xNl
+wWy
+wWy
 lWh
 oyQ
 rQk
@@ -73523,26 +72699,26 @@ cKn
 cKn
 vFC
 vFC
-mZg
-mZg
-mZg
-mZg
-mZg
-azp
-pye
+npy
+npy
+npy
+npy
+npy
+bdG
+vie
 gxJ
 exh
 nOt
-wrE
-uXt
+hwU
+jFB
 opJ
-uXt
-wrE
-uXt
-uXt
-uXt
-uXt
-lUJ
+jFB
+hwU
+jFB
+jFB
+jFB
+jFB
+xMn
 wKu
 wKu
 vrO
@@ -73553,7 +72729,7 @@ wKu
 wKu
 wKu
 wKu
-xNl
+wWy
 mGV
 qjh
 wSg
@@ -73780,25 +72956,25 @@ cKn
 cKn
 vFC
 vFC
-mZg
-mZg
-mZg
-mZg
-mZg
-azp
-pye
-uXt
+npy
+npy
+npy
+npy
+npy
+bdG
+vie
+jFB
 diA
 toz
-wrE
-uXt
+hwU
+jFB
 opJ
-wrE
-wrE
-uXt
-uXt
-uXt
-iZn
+hwU
+hwU
+jFB
+jFB
+jFB
+eaV
 vGn
 wKu
 wKu
@@ -73808,19 +72984,19 @@ wKu
 wKu
 fhm
 wKu
-xNl
+wWy
 wKu
-xNl
-xNl
-xNl
-xNl
-dto
-etd
-etd
-etd
-etd
-etd
-etd
+wWy
+wWy
+wWy
+wWy
+uWh
+lgW
+lgW
+lgW
+lgW
+lgW
+lgW
 rjE
 "}
 (192,1,1) = {"
@@ -74037,27 +73213,27 @@ cKn
 cKn
 cKn
 vFC
-mZg
-iZn
-wrE
-mZg
-mZg
-wrE
-pye
-uXt
+npy
+eaV
+hwU
+npy
+npy
+hwU
+vie
+jFB
 pwf
 tMr
-wrE
-uXt
+hwU
+jFB
 opJ
-uXt
-wrE
-wrE
-wrE
-uXt
-uXt
-lUJ
-xNl
+jFB
+hwU
+hwU
+hwU
+jFB
+jFB
+xMn
+wWy
 wKu
 bMF
 wKu
@@ -74067,16 +73243,16 @@ wKu
 wKu
 wKu
 fnY
-xNl
+wWy
 gIh
-xNl
-xNl
-vpG
-iKR
-iKR
+wWy
+wWy
+pom
+tvG
+tvG
 fwl
-iKR
-iKR
+tvG
+tvG
 myt
 rjE
 "}
@@ -74294,26 +73470,26 @@ cKn
 cKn
 cKn
 cKn
-azp
-iZn
-mZg
-mZg
-wrE
-wrE
-pye
-uXt
-wrE
-wrE
-wrE
+bdG
+eaV
+npy
+npy
+hwU
+hwU
+vie
+jFB
+hwU
+hwU
+hwU
 uND
 opJ
-wrE
-wrE
-mbK
-uXt
-wrE
-uXt
-lUJ
+hwU
+hwU
+qAP
+jFB
+hwU
+jFB
+xMn
 wKu
 wKu
 wKu
@@ -74324,7 +73500,7 @@ wKu
 wKu
 wKu
 wKu
-xNl
+wWy
 wKu
 wSg
 wSg
@@ -74333,8 +73509,8 @@ vAG
 oCT
 vAG
 ngZ
-sPs
-nXk
+aAQ
+uyJ
 cLU
 "}
 (194,1,1) = {"
@@ -74551,24 +73727,24 @@ cKn
 cKn
 cKn
 cKn
-azp
-iZn
-mZg
-wrE
-mZg
-wrE
-pye
+bdG
+eaV
+npy
+hwU
+npy
+hwU
+vie
 vWr
-wrE
-iZn
-hcI
-hcI
+hwU
+eaV
+wYk
+wYk
 bcQ
-uXt
-uXt
-iZn
-uXt
-uXt
+jFB
+jFB
+eaV
+jFB
+jFB
 ahp
 hzu
 wKu
@@ -74582,16 +73758,16 @@ wKu
 wKu
 wKu
 wKu
-xNl
-xNl
-xNl
+wWy
+wWy
+wWy
 lWh
 ekg
 fpd
 pZO
 lIS
-iZn
-nXk
+eaV
+uyJ
 cLU
 "}
 (195,1,1) = {"
@@ -74808,16 +73984,16 @@ cKn
 cKn
 cKn
 cKn
-azp
-iZn
-wrE
-mZg
-wrE
-mZg
-pye
+bdG
+eaV
+hwU
+npy
+hwU
+npy
+vie
 jxH
-wrE
-pye
+hwU
+vie
 oFf
 fAk
 ewI
@@ -74827,7 +74003,7 @@ ewI
 fAk
 fAk
 fAk
-lUJ
+xMn
 wKu
 wKu
 wKu
@@ -74838,7 +74014,7 @@ wKu
 wKu
 wKu
 wKu
-xNl
+wWy
 bQE
 qjh
 wSg
@@ -74847,8 +74023,8 @@ lIS
 xBG
 lIS
 cVC
-iZn
-nXk
+eaV
+uyJ
 cLU
 "}
 (196,1,1) = {"
@@ -75065,16 +74241,16 @@ cKn
 cKn
 cKn
 cKn
-azp
-iZn
-wrE
-wrE
-wrE
-wrE
-pye
+bdG
+eaV
+hwU
+hwU
+hwU
+hwU
+vie
 rYo
-wrE
-pye
+hwU
+vie
 oFf
 fAk
 osN
@@ -75084,20 +74260,20 @@ osN
 fAk
 fAk
 fAk
-lUJ
-xNl
+xMn
+wWy
 wKu
 wKu
 wKu
 wKu
-xNl
+wWy
 wKu
 wKu
 wKu
 wKu
-xNl
-xNl
-xNl
+wWy
+wWy
+wWy
 fZD
 rPR
 tAy
@@ -75105,7 +74281,7 @@ jEm
 ejF
 laJ
 ahp
-nXk
+uyJ
 cLU
 "}
 (197,1,1) = {"
@@ -75322,25 +74498,25 @@ cKn
 cKn
 cKn
 dnz
-azp
-iZn
-uXt
-uXt
-iZn
-iZn
-iZn
-iZn
-wrE
-iZn
-pye
-pye
-iZn
-wrE
-wrE
+bdG
+eaV
+jFB
+jFB
+eaV
+eaV
+eaV
+eaV
+hwU
+eaV
+vie
+vie
+eaV
+hwU
+hwU
 ahp
-wrE
-wrE
-iZn
+hwU
+hwU
+eaV
 xUy
 wKu
 wKu
@@ -75362,7 +74538,7 @@ lIS
 xGh
 ixe
 ahp
-nXk
+uyJ
 cLU
 "}
 (198,1,1) = {"
@@ -75579,29 +74755,29 @@ cKn
 cKn
 cKn
 dnz
-iZn
-iZn
-uXt
-uXt
+eaV
+eaV
+jFB
+jFB
 eHF
-wrE
-wrE
-mVN
-wrE
-wrE
-uXt
-mVN
+hwU
+hwU
+hud
+hwU
+hwU
+jFB
+hud
 xfG
-uXt
+jFB
 lTu
 eHF
 lTu
-wrE
-uXt
-lUJ
+hwU
+jFB
+xMn
 wKu
 wKu
-xNl
+wWy
 wKu
 wKu
 wKu
@@ -75611,15 +74787,15 @@ bnA
 wKu
 vrO
 wKu
-xNl
-xNl
+wWy
+wWy
 tBf
 twg
 nhC
 twg
 nhC
 wxl
-nXk
+uyJ
 cLU
 "}
 (199,1,1) = {"
@@ -75836,26 +75012,26 @@ cKn
 cKn
 cKn
 cKn
-iZn
-iZn
-uXt
-uXt
-wrE
-wrE
-wrE
-wrE
-wrE
-wrE
-wrE
-uXt
+eaV
+eaV
+jFB
+jFB
+hwU
+hwU
+hwU
+hwU
+hwU
+hwU
+hwU
+jFB
 xfG
-uXt
+jFB
 mCe
-uXt
+jFB
 mCe
-uXt
-uXt
-lUJ
+jFB
+jFB
+xMn
 wKu
 pNG
 wKu
@@ -75870,13 +75046,13 @@ wKu
 wKu
 wKu
 wKu
-xNl
-xNl
-xNl
-xNl
+wWy
+wWy
+wWy
+wWy
 gIh
 ycq
-nXk
+uyJ
 cLU
 "}
 (200,1,1) = {"
@@ -76093,8 +75269,8 @@ cKn
 cKn
 cKn
 cKn
-iZn
-iZn
+eaV
+eaV
 jiZ
 kRq
 jiZ
@@ -76102,15 +75278,15 @@ kRq
 jiZ
 kRq
 jiZ
-iZn
-wrE
+eaV
+hwU
 lBO
 xfG
-uXt
-uXt
-uXt
-uXt
-uXt
+jFB
+jFB
+jFB
+jFB
+jFB
 ahp
 iah
 wKu
@@ -76128,13 +75304,13 @@ wKu
 hqb
 kMU
 ebI
-xNl
+wWy
 sKI
 oCT
 oCT
 vAG
 ngZ
-sPs
+aAQ
 "}
 (201,1,1) = {"
 yhk
@@ -76350,48 +75526,48 @@ cKn
 cKn
 cKn
 cKn
-azp
-iZn
+bdG
+eaV
 wkv
 kRq
-uXt
+jFB
 kRq
-uXt
+jFB
 kRq
-uXt
-iZn
-wrE
-uXt
+jFB
+eaV
+hwU
+jFB
 xfG
-uXt
+jFB
 eTO
-uXt
+jFB
 mCe
-uXt
-uXt
-lUJ
+jFB
+jFB
+xMn
 wKu
 wKu
 wKu
 vrO
 wKu
 wKu
-xNl
+wWy
 wKu
 wKu
-xNl
+wWy
 wKu
 wKu
 wKu
 wKu
-xNl
+wWy
 fZD
 rPR
 tVx
 uTl
 cVC
 xBG
-iZn
+eaV
 "}
 (202,1,1) = {"
 yhk
@@ -76607,8 +75783,8 @@ cKn
 cKn
 cKn
 cKn
-azp
-iZn
+bdG
+eaV
 mZY
 kRq
 xgG
@@ -76616,18 +75792,18 @@ kRq
 aih
 kRq
 xgG
-iZn
+eaV
 gxJ
-mbK
+qAP
 xfG
-mbK
+qAP
 mCe
-mbK
+qAP
 mCe
-mbK
-uXt
-lUJ
-xNl
+qAP
+jFB
+xMn
+wWy
 wKu
 wKu
 wKu
@@ -76648,7 +75824,7 @@ tVe
 lIS
 lIS
 dwc
-iZn
+eaV
 "}
 (203,1,1) = {"
 teh
@@ -76864,26 +76040,26 @@ yhk
 yhk
 cKn
 cKn
-iZn
-iZn
-iZn
-iZn
-iZn
-iZn
-iZn
-iZn
-iZn
-pye
-pye
-hcI
-hcI
-pye
-pye
-pye
-pye
-hcI
-hcI
-iZn
+eaV
+eaV
+eaV
+eaV
+eaV
+eaV
+eaV
+eaV
+eaV
+vie
+vie
+wYk
+wYk
+vie
+vie
+vie
+vie
+wYk
+wYk
+eaV
 iGh
 xET
 lfP
@@ -76897,14 +76073,14 @@ wKu
 hmu
 hEh
 imy
-iZn
+eaV
 ahp
 ahp
 ahp
 ahp
 ahp
-iZn
-iZn
+eaV
+eaV
 cLU
 "}
 (204,1,1) = {"
@@ -77121,22 +76297,22 @@ cKn
 yhk
 yhk
 yhk
-iZn
+eaV
 gws
 rIi
 lPC
 nKx
 tmZ
-iZn
+eaV
 uRP
 hYc
 jNQ
-iZn
+eaV
 qbb
-wrE
+hwU
 nMn
 joa
-wrE
+hwU
 nUx
 dCH
 uSj
@@ -77153,7 +76329,7 @@ qhM
 wKu
 wKu
 rZW
-bHG
+eph
 rrx
 oDE
 hAq
@@ -77374,28 +76550,28 @@ pRU
 pRU
 pRU
 pRU
-dEW
+cmB
 pRU
 pRU
 pRU
-iZn
+eaV
 pBb
 owH
 owH
 owH
 pWR
 emQ
-wrE
-wrE
+hwU
+hwU
 bxD
-iZn
+eaV
 gvh
-uXt
+jFB
 nMn
 tPB
-wrE
+hwU
 nUx
-gmN
+vXc
 uSj
 qBs
 kSM
@@ -77410,7 +76586,7 @@ wKu
 wKu
 wKu
 tEQ
-bHG
+eph
 jdV
 lQV
 hAq
@@ -77629,31 +76805,31 @@ fak
 fak
 fak
 fak
-dEW
-dEW
-dEW
-dEW
-dEW
+cmB
+cmB
+cmB
+cmB
+cmB
 pRU
-iZn
+eaV
 pBb
 owH
 owH
 owH
 rzn
-iZn
+eaV
 bxE
-wrE
-wrE
-ihG
-uXt
-uXt
+hwU
+hwU
+glm
+jFB
+jFB
 nMn
 tPB
-wrE
-uXt
-uXt
-wrE
+hwU
+jFB
+jFB
+hwU
 lzW
 odp
 nGK
@@ -77665,9 +76841,9 @@ wKu
 wKu
 wKu
 wKu
-xNl
+wWy
 rZW
-bHG
+eph
 hJR
 hAq
 hAq
@@ -77675,7 +76851,7 @@ hAq
 iTW
 tLQ
 tLQ
-iZn
+eaV
 cLU
 "}
 (207,1,1) = {"
@@ -77886,32 +77062,32 @@ fak
 fak
 fak
 fak
-dEW
-dEW
+cmB
+cmB
 vMS
-dEW
-tDJ
-dEW
-iZn
+cmB
+kHR
+cmB
+eaV
 pBb
 owH
 owH
 owH
-ahF
-iZn
+tSF
+eaV
 urx
-wrE
-wrE
-iZn
+hwU
+hwU
+eaV
 tTi
 uBS
 uBS
 eSb
-wrE
+hwU
 nUx
-gmN
+vXc
 uSj
-iZn
+eaV
 nJQ
 uKF
 fWL
@@ -77920,11 +77096,11 @@ wKu
 wKu
 wKu
 wKu
-xNl
-xNl
-xNl
+wWy
+wWy
+wWy
 rZW
-bHG
+eph
 rFL
 oDE
 hAq
@@ -78143,13 +77319,13 @@ fak
 fak
 fak
 fak
-dEW
-dEW
-dEW
-dEW
-dEW
-dEW
-iZn
+cmB
+cmB
+cmB
+cmB
+cmB
+cmB
+eaV
 nfg
 sBj
 ssY
@@ -78158,30 +77334,30 @@ cIm
 ahp
 aWo
 jce
-iVf
-ihG
-iVf
-uXt
-wrE
-mbK
-wrE
-wrE
-iVf
-wrE
+oIF
+glm
+oIF
+jFB
+hwU
+qAP
+hwU
+hwU
+oIF
+hwU
 agZ
 uKF
 kBB
 uKF
 xJU
 wKu
-xNl
-xNl
-xNl
-xNl
-xNl
-xNl
+wWy
+wWy
+wWy
+wWy
+wWy
+wWy
 rZW
-bHG
+eph
 ahp
 lQV
 hAq
@@ -78400,53 +77576,53 @@ fak
 fak
 fak
 uAr
-dEW
-tDJ
-dEW
-dEW
-fDH
-iKR
-iZn
-pye
-hcI
-hcI
-pye
-pye
+cmB
+kHR
+cmB
+cmB
+tmI
+tvG
+eaV
+vie
+wYk
+wYk
+vie
+vie
 ahp
-pye
-hcI
-hcI
-pye
-hcI
-hcI
-pye
-pye
-pye
-pye
-pye
-hcI
+vie
+wYk
+wYk
+vie
+wYk
+wYk
+vie
+vie
+vie
+vie
+vie
+wYk
 rrx
 snV
 snV
 vNf
 lzy
-xNl
+wWy
 bQE
-xNl
-xNl
-xNl
-xNl
+wWy
+wWy
+wWy
+wWy
 ycq
 lwq
 ssa
-iZn
+eaV
 ahp
 ahp
 ahp
 ahp
 ahp
 ahp
-iZn
+eaV
 cLU
 "}
 (210,1,1) = {"
@@ -78658,11 +77834,11 @@ wxS
 wxS
 wxS
 gsQ
-dEW
-dEW
-fDH
-uwH
-xNl
+cmB
+cmB
+tmI
+bGe
+wWy
 sYw
 fYU
 fYU
@@ -78916,9 +78092,9 @@ yjV
 yjV
 wQm
 gsQ
-fDH
-uwH
-xNl
+tmI
+bGe
+wWy
 sYw
 nVJ
 fGm
@@ -79173,8 +78349,8 @@ yjV
 yjV
 nEF
 tCL
-ahF
-xNl
+tSF
+wWy
 sYw
 nVJ
 vrV
@@ -79430,8 +78606,8 @@ aLN
 aLN
 gca
 byW
-ahF
-xNl
+tSF
+wWy
 dbc
 gas
 mtC
@@ -79688,49 +78864,49 @@ gYz
 wRB
 epX
 kiP
-etd
-etd
-etd
-etd
+lgW
+lgW
+lgW
+lgW
 wbU
-etd
-etd
-etd
-etd
-etd
+lgW
+lgW
+lgW
+lgW
+lgW
 wbU
-etd
+lgW
 sZC
-etd
-etd
-etd
-etd
+lgW
+lgW
+lgW
+lgW
 sZC
 utv
-xFs
-xNl
-dto
+lHt
+wWy
+uWh
 utv
-etd
-etd
+lgW
+lgW
 wbU
-etd
-etd
+lgW
+lgW
 utv
 xSS
 xSS
 xSS
 xSS
 utv
-etd
-etd
+lgW
+lgW
 wbU
-etd
-etd
-etd
-etd
+lgW
+lgW
+lgW
+lgW
 wbU
-etd
+lgW
 utv
 mCo
 "}
@@ -79942,7 +79118,7 @@ kgG
 fak
 gYz
 ckr
-eAl
+uZv
 aGS
 cKn
 cKn
@@ -79964,9 +79140,9 @@ wef
 qte
 pCu
 pCu
-ahF
-xNl
-nXk
+tSF
+wWy
+uyJ
 lNj
 fAJ
 sMs
@@ -80199,7 +79375,7 @@ fak
 gYz
 ckr
 cSL
-eAl
+uZv
 cKn
 cKn
 cKn
@@ -80456,7 +79632,7 @@ fak
 aZm
 cSL
 cSL
-eAl
+uZv
 cKn
 cKn
 cKn
@@ -80478,9 +79654,9 @@ fTY
 fTY
 fTY
 pAV
-ahF
-xNl
-nXk
+tSF
+wWy
+uyJ
 rLj
 vHB
 lNj
@@ -80488,10 +79664,10 @@ lNj
 ezC
 wgn
 aKB
-pDe
+rWm
 tcR
 tcR
-pDe
+rWm
 vie
 oOL
 kHj
@@ -80713,7 +79889,7 @@ fak
 aZm
 cSL
 cSL
-eAl
+uZv
 cKn
 cKn
 cKn
@@ -80737,7 +79913,7 @@ rrk
 cxr
 tSF
 wWy
-nXk
+uyJ
 cmB
 cmB
 cmB
@@ -80746,9 +79922,9 @@ wQe
 uen
 eaV
 ahp
-aPb
-aPb
-iNJ
+aKB
+aKB
+uen
 uen
 uen
 elS
@@ -80988,7 +80164,7 @@ cmB
 cxr
 iBG
 slG
-eir
+fTY
 fTY
 gUd
 rrk
@@ -81484,7 +80660,7 @@ ckr
 cSL
 tcX
 atW
-dEW
+cmB
 cKn
 cKn
 yhk
@@ -81501,8 +80677,8 @@ cmB
 cmB
 wQe
 cxr
-hdS
-fim
+iBG
+wQe
 vha
 ecp
 iBG
@@ -81741,7 +80917,7 @@ cSL
 cSL
 try
 fak
-dEW
+cmB
 cKn
 cKn
 yhk
@@ -81765,7 +80941,7 @@ kHR
 cmB
 tSF
 wWy
-nXk
+uyJ
 cmB
 nmy
 uen
@@ -85091,10 +84267,10 @@ qne
 xzw
 wYk
 fTY
-eir
+fTY
 fUF
-vbq
-pye
+iyT
+vie
 dFN
 dFN
 dFN
@@ -85351,7 +84527,7 @@ fTY
 fiW
 bwk
 pPo
-pye
+vie
 dFN
 tXZ
 fwS
@@ -85607,8 +84783,8 @@ vie
 fTY
 fTY
 syq
-pye
-pye
+vie
+vie
 acZ
 fwS
 fwS
@@ -88457,7 +87633,7 @@ lWT
 lWT
 lWT
 piq
-bEj
+tPO
 hyQ
 hyQ
 hyQ
@@ -88714,7 +87890,7 @@ lWT
 lWT
 lWT
 piq
-tws
+mft
 hyQ
 hyQ
 hyQ
@@ -88970,8 +88146,8 @@ azt
 jrP
 jrP
 lWT
-gCk
-gCk
+rTo
+rTo
 hyQ
 hyQ
 hyQ
