@@ -41,7 +41,7 @@
 	icon_state = "bottom"
 	density = FALSE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	layer = ABOVE_MOB_LAYER
+	layer = ABOVE_ALL_MOB_LAYER
 	anchored = TRUE
 	resistance_flags = INDESTRUCTIBLE
 
@@ -150,7 +150,7 @@
 					H.DefaultCombatKnockdown(40)
 					playsound(src, 'sound/effects/woodhit.ogg', 60, TRUE, 1)
 		else if(filled)
-			victim.adjustStaminaLoss(1)
+			victim.adjustStaminaLoss(3)
 			playsound(src, "water_wade", 20, TRUE)
 	return ..()
 
