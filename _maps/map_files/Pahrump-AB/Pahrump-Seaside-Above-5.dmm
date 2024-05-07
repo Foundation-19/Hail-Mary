@@ -8331,7 +8331,7 @@
 	name = "Admiral Torres";
 	peaceful = 1;
 	speak_chance = 3;
-	speak = list("Hello [CITIZEN]. Ship status [67%]. [ACCEPTABLE] state.");
+	speak = list("Hello 'CITIZEN'. Ship status 67%. 'ACCEPTABLE' state.");
 	color = "#ACD1E9"
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
