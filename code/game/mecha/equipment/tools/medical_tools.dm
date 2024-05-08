@@ -40,6 +40,7 @@
 	var/mob/living/carbon/patient = null
 	var/inject_amount = 10
 	salvageable = 0
+	mech_flags = EXOSUIT_MODULE_COMBAT
 
 /obj/item/mecha_parts/mecha_equipment/medical/sleeper/Destroy()
 	for(var/atom/movable/AM in src)
@@ -234,8 +235,6 @@
 		M.reagents.add_reagent(/datum/reagent/medicine/epinephrine, 5)
 	chassis.use_power(energy_drain)
 	update_equip_info()
-
-
 
 
 ///////////////////////////////// Syringe Gun ///////////////////////////////////////////////////////////////
