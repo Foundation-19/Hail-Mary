@@ -57,7 +57,7 @@
 		spark_system.start()
 
 /obj/mecha/power_drain(clockcult_user, drain_weapons = FALSE)
-	if((!clockcult_user || (occupant && !is_servant_of_ratvar(occupant))) && cell && cell.charge)
-		. = min(cell.charge, MIN_CLOCKCULT_POWER*4)
-		cell.use(.)
+	if((!clockcult_user || (occupant && !is_servant_of_ratvar(occupant))) && fuel_holder && fuel_holder.reagents.total_volume)
+		. = min(fuel_holder.reagents.total_volume, MIN_CLOCKCULT_POWER*4)
+		fuel_holder.use(.)
 		spark_system.start()
