@@ -161,8 +161,8 @@
 
 /obj/structure/reagent_dispensers/fueltank/vehicle_gas_station/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>It has a [on = 1 ? "green" : "red"] light turned on"
-	. += "<span class='notice'>the tank access is  [isopen = 1 ? "colsed tight" : "loose and open"]"
+	. += "<span class='notice'>It has a [on == 1 ? "green" : "red"] light turned on"
+	. += "<span class='notice'>the tank access is  [isopen == 1 ? "colsed tight" : "loose and open"]"
 
 /obj/structure/reagent_dispensers/fueltank/vehicle_gas_station/proc/get_percent()
 	return 100*reagents.total_volume/tank_volume
@@ -207,7 +207,7 @@
 	if(W.tool_behaviour == TOOL_WRENCH && !on)
 		isopen = !isopen
 		playsound('sound/items/ratchet.ogg')
-		to_chat(user, span_notice("You [isopen = 1 ? "open" : "close"] the storage!"))
+		to_chat(user, span_notice("You [isopen == 1 ? "open" : "close"] the storage!"))
 		return
 	if(W.is_refillable() && isopen)
 		return 0 //so we can refill them via their afterattack.else
