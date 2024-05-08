@@ -43,12 +43,12 @@
 	ME.attach(src)
 	max_ammo()
 
-/obj/mecha/combat/gygax/dark/add_cell(obj/item/stock_parts/cell/C=null)
+/obj/mecha/combat/gygax/dark/add_fuel_tank(obj/item/reagent_containers/fuel_tank/C=null)
 	if(C)
 		C.forceMove(src)
-		cell = C
+		fuel_holder = C
 		return
-	cell = new /obj/item/stock_parts/cell/hyper(src)
+	fuel_holder = new /obj/item/reagent_containers/fuel_tank/hyper(src)
 
 /obj/mecha/combat/gygax/GrantActions(mob/living/user, human_occupant = 0)
 	..()

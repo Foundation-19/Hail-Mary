@@ -142,7 +142,7 @@
 	icon_state = "backseat"
 	energy_drain = 5
 	range = MELEE
-	equip_cooldown = 5
+	equip_cooldown = 20
 	var/mob/living/carbon/patient = null
 	salvageable = 0
 	mech_flags = EXOSUIT_MODULE_COMBAT
@@ -162,8 +162,8 @@
 		return
 	if(!patient_insertion_check(target))
 		return
-	occupant_message(span_notice("You start putting [target] into [src]..."))
-	chassis.visible_message(span_warning("[chassis] starts putting [target] into \the [src]."))
+	occupant_message("<span class='notice'>You start putting [target] into [src]...</span>")
+	chassis.visible_message("<span class='warning'>[chassis] starts putting [target] into \the [src].</span>")
 	if(do_after_cooldown(target))
 		if(!patient_insertion_check(target))
 			return
@@ -171,19 +171,19 @@
 		patient = target
 		START_PROCESSING(SSobj, src)
 		update_equip_info()
-		occupant_message(span_notice("[target] successfully loaded into [src]. Life support functions engaged... I mean, the seatbelt."))
-		chassis.visible_message(span_warning("[chassis] loads [target] into [src]."))
+		occupant_message("<span class='notice'>[target] successfully loaded into [src]. Life support functions engaged... I mean, the seatbelt.</span>")
+		chassis.visible_message("<span class='warning'>[chassis] loads [target] into [src].</span>")
 		mecha_log_message("[target] loaded. Seatbelt engaged.")
 
 /obj/item/mecha_parts/mecha_equipment/seat/proc/patient_insertion_check(mob/living/carbon/target)
 	if(target.buckled)
-		occupant_message(span_warning("[target] will not fit into the seat because [target.p_theyre()] buckled to [target.buckled]!"))
+		occupant_message("<span class='warning'>[target] will not fit into the seat because [target.p_theyre()] buckled to [target.buckled]!</span>")
 		return
 	if(target.has_buckled_mobs())
-		occupant_message(span_warning("[target] will not fit into the seat because of the creatures attached to it!"))
+		occupant_message("<span class='warning'>[target] will not fit into the seat because of the creatures attached to it!</span>")
 		return
 	if(patient)
-		occupant_message(span_warning("The seat is already occupied!"))
+		occupant_message("<span class='warning'>The seater is already occupied!</span>")
 		return
 	return 1
 
@@ -199,7 +199,7 @@
 
 /obj/item/mecha_parts/mecha_equipment/seat/detach()
 	if(patient)
-		occupant_message(span_warning("Unable to detach [src] - equipment occupied!"))
+		occupant_message("<span class='warning'>Unable to detach [src] - equipment occupied!</span>")
 		return
 	STOP_PROCESSING(SSobj, src)
 	return ..()
@@ -430,12 +430,12 @@
 		set_ready_state(1)
 		return
 	var/cur_charge = chassis.get_charge()
-	if(isnull(cur_charge) || !chassis.fuel_holder)
+	if(isnull(cur_charge) || !chassis.cell)
 		STOP_PROCESSING(SSobj, src)
 		set_ready_state(1)
-		occupant_message("No fuel tank detected.")
+		occupant_message("No powercell detected.")
 		return
-	if(cur_charge < chassis.fuel_holder.volume)
+	if(cur_charge < chassis.cell.maxcharge)
 		var/area/A = get_base_area(chassis)
 		if(A)
 			var/pow_chan
@@ -444,7 +444,7 @@
 					pow_chan = c
 					break
 			if(pow_chan)
-				var/delta = min(20, chassis.fuel_holder.volume-cur_charge)
+				var/delta = min(20, chassis.cell.maxcharge-cur_charge)
 				chassis.give_power(delta)
 				A.use_power(delta*coeff, pow_chan)
 
@@ -517,7 +517,7 @@
 			occupant_message("Unit is full.")
 			return 0
 	else
-		occupant_message(span_warning("[fuel] traces in target minimal! [P] cannot be used as fuel."))
+		occupant_message("<span class='warning'>[fuel] traces in target minimal! [P] cannot be used as fuel.</span>")
 		return
 
 /obj/item/mecha_parts/mecha_equipment/generator/attackby(weapon,mob/user, params)
@@ -559,7 +559,7 @@
 		STOP_PROCESSING(SSobj, src)
 		return
 	var/use_fuel = fuel_per_cycle_idle
-	if(cur_charge < chassis.fuel_holder.volume)
+	if(cur_charge < chassis.cell.maxcharge)
 		use_fuel = fuel_per_cycle_active
 		chassis.give_power(power_per_cycle)
 	fuel.amount -= min(use_fuel/MINERAL_MATERIAL_AMOUNT,fuel.amount)
