@@ -371,7 +371,6 @@ Mayor
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/policerifle)
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/steelbib/heavy)
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/armyhelmetheavy)
-	ADD_TRAIT(H, TRAIT_HARD_YARDS, src)
 	ADD_TRAIT(H, TRAIT_LIFEGIVER, src)
 	ADD_TRAIT(H, TRAIT_SELF_AWARE, src)
 
@@ -484,12 +483,6 @@ Mayor
 		/obj/item/stock_parts/cell/ammo/mfc = 1
 		)
 
-
-/datum/outfit/job/den/f13deputy/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	..()
-	if(visualsOnly)
-		return
-	ADD_TRAIT(H, TRAIT_HARD_YARDS, src)
 
 
 /*--------------------------------------------------------------*/
@@ -1171,7 +1164,7 @@ Mayor
 	r_pocket = /obj/item/flashlight/flare
 	backpack = /obj/item/storage/backpack/satchel/explorer
 	satchel = /obj/item/storage/backpack/satchel/explorer
-	suit_store = /obj/item/gun/ballistic/revolver
+	suit_store = /obj/item/gun/ballistic/revolver/colt357
 	backpack_contents = list(
 		/obj/item/storage/pill_bottle/chem_tin/radx,
 		/obj/item/pda/detective=1,

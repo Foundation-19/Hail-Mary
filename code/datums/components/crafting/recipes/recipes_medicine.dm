@@ -36,6 +36,14 @@
 	always_available = FALSE
 */
 
+/datum/crafting_recipe/healthanalyzer_tribal
+	name = "General Malaise Book"
+	result = /obj/item/healthanalyzer/tribal
+	time = 20 SECONDS
+	reqs = list(/obj/item/stack/sheet/leather = 2,
+				/obj/item/paper = 5)
+	category = CAT_MEDICAL
+
 /datum/crafting_recipe/upgraded_gauze
 	name = "Improved Gauze"
 	result = /obj/item/stack/medical/gauze/adv/five
