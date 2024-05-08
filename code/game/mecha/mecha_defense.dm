@@ -48,10 +48,12 @@
 		var/facing_modifier = get_armour_facing(abs(dir2angle(dir) - dir2angle(attack_dir)))
 		booster_damage_modifier /= facing_modifier
 		booster_deflection_modifier *= facing_modifier
-	if(prob(deflect_chance * booster_deflection_modifier))
+	if(prob(deflect_chance * booster_deflection_modifier) && damage_flag != "bomb")
 		visible_message(span_danger("[src]'s armour deflects the attack!"))
 		log_append_to_last("Armor saved.")
 		return 0
+	/*if(damage_flag == "bomb")
+		. *= (booster_damage_modifier*1.25)*/
 	if(.)
 		. *= booster_damage_modifier
 
@@ -110,10 +112,11 @@
 	. = ..()
 
 /obj/mecha/ex_act(severity, target)
+	severity-- // MORE DAMAGE
 	mecha_log_message("Affected by explosion of severity: [severity].", color="red")
-	if(prob(deflect_chance))
+	/*if(prob(deflect_chance))
 		severity++
-		log_append_to_last("Armor saved, changing severity to [severity].")
+		log_append_to_last("Armor saved, changing severity to [severity].") NO BOMB REFLECTION*/
 	. = ..()
 
 /obj/mecha/contents_explosion(severity, target)
