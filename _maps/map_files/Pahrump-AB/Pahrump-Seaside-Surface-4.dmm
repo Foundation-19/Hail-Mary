@@ -217,6 +217,9 @@
 	},
 /turf/open/indestructible/ground/outside/desert,
 /area/f13/wasteland)
+"akx" = (
+/turf/closed/indestructible/f13/matrix,
+/area/f13/enclave)
 "ale" = (
 /obj/structure/table/reinforced,
 /obj/machinery/computer/terminal{
@@ -2239,6 +2242,10 @@
 	icon_state = "dirtfull_dark"
 	},
 /area/f13/legion)
+"cxp" = (
+/mob/living/simple_animal/hostile/raider/ranged,
+/turf/open/indestructible/ground/outside/desert,
+/area/f13/wasteland)
 "cxq" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/destructible/tribal_torch/wall/lit{
@@ -3845,16 +3852,6 @@
 "eaV" = (
 /turf/closed/wall/mineral/wood,
 /area/f13/legion)
-"ebt" = (
-/obj/structure/closet/crate/footlocker,
-/obj/machinery/light/small{
-	dir = 4;
-	name = "tan light fixture";
-	light_color = "#FFDDCC";
-	color = "#FFDDCC"
-	},
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/enclave)
 "ebI" = (
 /obj/structure/reagent_dispensers/compostbin{
 	pixel_x = 4;
@@ -5990,14 +5987,6 @@
 	},
 /turf/open/indestructible/ground/outside/desert,
 /area/f13/wasteland)
-"gmS" = (
-/mob/living/simple_animal/hostile/raider/ranged/biker{
-	name = "Oportunistic Raider";
-	speak_chance = 3;
-	speak = list("Eheheh... NCR shooting at merchants and not taking the loot- HEY ! WE WONT SHARE !")
-	},
-/turf/open/indestructible/ground/outside/desert,
-/area/f13/wasteland)
 "gnc" = (
 /obj/structure/table,
 /obj/structure/table,
@@ -6063,11 +6052,6 @@
 	name = "tan light fixture";
 	light_color = "#FFDDCC";
 	color = "#FFDDCC"
-	},
-/obj/item/radio/intercom{
-	frequency = 1363;
-	name = "aircraft carrier intercom";
-	pixel_x = 25
 	},
 /obj/machinery/button/door{
 	pixel_x = 25;
@@ -6246,6 +6230,13 @@
 /obj/machinery/smartfridge/bottlerack/seedbin,
 /turf/open/indestructible/ground/outside/dirt/dark{
 	icon_state = "dirtfull_dark"
+	},
+/area/f13/wasteland)
+"gAn" = (
+/mob/living/simple_animal/hostile/raider/ranged,
+/turf/open/indestructible/ground/outside/dirt{
+	icon_state = "dirt";
+	dir = 1
 	},
 /area/f13/wasteland)
 "gAA" = (
@@ -9324,6 +9315,11 @@
 	},
 /turf/open/indestructible/ground/outside/desert,
 /area/f13/wasteland)
+"jDw" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/start/f13/slavemaster,
+/turf/open/floor/f13/wood,
+/area/f13/legion)
 "jEh" = (
 /obj/item/mecha_parts/mecha_equipment/antiproj_armor_booster,
 /obj/machinery/light/small{
@@ -10112,6 +10108,7 @@
 	speak_chance = 3;
 	speak = list("Eheheh... NCR shooting at merchants and not taking the loot- HEY ! WE WONT SHARE !")
 	},
+/mob/living/simple_animal/hostile/raider/ranged,
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/wasteland)
 "ktk" = (
@@ -10816,12 +10813,7 @@
 /turf/open/floor/engine,
 /area/f13/enclave)
 "ldP" = (
-/mob/living/simple_animal/hostile/raider/ranged/biker{
-	name = "Oportunistic Raider";
-	speak_chance = 3;
-	speak = list("Eheheh... NCR shooting at merchants and not taking the loot- HEY ! WE WONT SHARE !");
-	attack_phrase = list("Eheheh... NCR shooting at merchants and not taking the loot- HEY ! WE WONT SHARE !")
-	},
+/mob/living/simple_animal/hostile/raider/ranged,
 /turf/open/indestructible/ground/outside/desert,
 /area/f13/caves)
 "lev" = (
@@ -32134,7 +32126,7 @@ aOH
 gVF
 wBM
 vSk
-aOH
+nQh
 aOH
 fMQ
 vED
@@ -32642,7 +32634,7 @@ uOD
 aOH
 eJx
 lVZ
-aOH
+eDN
 aOH
 aOH
 vxX
@@ -32900,7 +32892,7 @@ aOH
 aOH
 aOH
 aOH
-aOH
+aru
 aOH
 vxX
 aOH
@@ -33157,8 +33149,8 @@ jfI
 aru
 hkT
 eDN
-ebt
-aOH
+mYt
+akx
 gVF
 tML
 qdH
@@ -56102,7 +56094,7 @@ cKn
 gOR
 fwf
 fak
-esm
+cxp
 fak
 fwd
 cSL
@@ -81188,7 +81180,7 @@ whp
 whp
 whp
 byQ
-gmS
+fak
 fak
 cQi
 wLh
@@ -81444,7 +81436,7 @@ cSL
 cSL
 wlB
 cSL
-nbI
+gAn
 fak
 fak
 xHQ
@@ -81714,7 +81706,7 @@ fak
 fak
 goh
 fak
-gmS
+fak
 nDq
 juM
 fak
@@ -82780,7 +82772,7 @@ hic
 fak
 fak
 vie
-fTY
+jDw
 fTY
 pdo
 xoD
@@ -83294,7 +83286,7 @@ hic
 fak
 fak
 wYk
-fTY
+jDw
 fTY
 fiW
 fiW
@@ -84285,8 +84277,8 @@ juM
 fak
 fak
 nDq
-gmS
 fak
+cxp
 fak
 fak
 fak
@@ -84536,7 +84528,7 @@ fak
 fak
 fak
 fak
-gmS
+fak
 nDq
 juM
 fak
@@ -84546,7 +84538,7 @@ fak
 fak
 fak
 fak
-gmS
+fak
 cKn
 yhk
 cKn
