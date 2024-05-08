@@ -126,6 +126,47 @@
 	subcategory = CAT_MISCELLANEOUS
 	category = CAT_MISC
 
+/// Stock Parts! Comes in a convenient (cloth) box. ///
+
+/datum/crafting_recipe/stockparts_box_t1
+	name = "Build box of basic stock parts"
+	result = /obj/item/storage/box/stockparts/basic
+	time = 5
+	reqs = list(/obj/item/stack/sheet/cloth = 1,
+				/obj/item/stack/crafting/electronicparts = 2,
+				/obj/item/stack/sheet/metal = 2,
+				/obj/item/stack/cable_coil = 5)
+	subcategory = CAT_MISCELLANEOUS
+	category = CAT_MISC
+
+/datum/crafting_recipe/stockparts_box_t2
+	name = "Build box of improved stock parts"
+	result = /obj/item/storage/box/stockparts/improved
+	time = 5
+	reqs = list(/obj/item/stack/sheet/cloth = 1,
+				/obj/item/stack/crafting/electronicparts = 2,
+				/obj/item/stack/crafting/goodparts = 2,
+				/obj/item/stack/sheet/metal = 2,
+				/obj/item/stack/sheet/mineral/silver = 2,
+				/obj/item/stack/cable_coil = 5)
+	subcategory = CAT_MISCELLANEOUS
+	category = CAT_MISC
+
+/datum/crafting_recipe/stockparts_box_t3
+	name = "Build box of cutting-edge stock parts"
+	result = /obj/item/storage/box/stockparts/advanced
+	time = 5
+	reqs = list(/obj/item/stack/sheet/cloth = 1,
+				/obj/item/stack/crafting/electronicparts = 2,
+				/obj/item/stack/crafting/goodparts = 2,
+				/obj/item/stack/sheet/metal = 2,
+				/obj/item/stack/sheet/mineral/silver = 2,
+				/obj/item/stack/sheet/mineral/gold = 2,
+				/obj/item/stack/cable_coil = 5)
+	subcategory = CAT_MISCELLANEOUS
+	category = CAT_MISC
+
+
 /////////////////////
 //Farming & Cooking//
 /////////////////////
