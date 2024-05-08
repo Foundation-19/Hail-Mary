@@ -7859,6 +7859,7 @@
 "aEu" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/shadow,
 /turf/open/indestructible/ground/outside/road,
 /area/f13/city)
 "aEv" = (
@@ -14273,6 +14274,8 @@
 	pixel_x = -35;
 	pixel_y = -5
 	},
+/obj/effect/turf_decal/shadow,
+/obj/effect/turf_decal/shadow,
 /turf/open/indestructible/ground/outside/road{
 	icon_state = "verticalinnermain2top"
 	},
@@ -15957,6 +15960,8 @@
 	},
 /area/f13/wasteland)
 "blf" = (
+/obj/effect/turf_decal/shadow,
+/obj/effect/turf_decal/shadow,
 /turf/open/indestructible/ground/outside/road{
 	icon_state = "verticalinnermain2"
 	},
@@ -22735,6 +22740,32 @@
 	icon_state = "horizontaltopborderbottom0"
 	},
 /area/f13/wasteland)
+"dkE" = (
+/obj/structure/reagent_dispensers/fueltank/vehicle_gas_station,
+/obj/structure/railing/wood/post{
+	pixel_x = -16;
+	pixel_y = 69;
+	layer = 4.3
+	},
+/obj/structure/railing/wood/post{
+	pixel_x = -16;
+	pixel_y = -26
+	},
+/obj/structure/railing/wood/post{
+	pixel_x = -16;
+	pixel_y = -5;
+	layer = 4.3
+	},
+/obj/structure/railing/wood/post{
+	pixel_x = -16;
+	pixel_y = 46
+	},
+/obj/effect/turf_decal/shadow,
+/obj/effect/turf_decal/shadow,
+/turf/open/indestructible/ground/outside/sidewalk{
+	icon_state = "verticalleftborderleft0"
+	},
+/area/f13/city)
 "dkG" = (
 /obj/item/trash/can,
 /turf/open/floor/f13/wood,
@@ -28256,6 +28287,14 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/indestructible/ground/outside/road,
 /area/f13/wasteland)
+"fwq" = (
+/obj/effect/turf_decal/shadow,
+/obj/effect/turf_decal/shadow,
+/turf/open/indestructible/ground/outside/road{
+	dir = 8;
+	icon_state = "horizontalinnermain2left"
+	},
+/area/f13/city)
 "fwJ" = (
 /obj/structure/car,
 /turf/open/indestructible/ground/outside/road{
@@ -28307,6 +28346,11 @@
 	icon_state = "horizontaltopbordertop0"
 	},
 /area/f13/wasteland)
+"fxs" = (
+/obj/effect/turf_decal/shadow,
+/obj/effect/turf_decal/shadow,
+/turf/open/indestructible/ground/outside/road,
+/area/f13/city)
 "fxP" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -29607,6 +29651,8 @@
 "fZv" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/floor,
+/obj/effect/turf_decal/shadow,
+/obj/effect/turf_decal/shadow,
 /turf/open/indestructible/ground/outside/sidewalk{
 	dir = 4;
 	icon_state = "outerturn"
@@ -30464,13 +30510,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/indestructible/ground/outside/road{
 	icon_state = "verylittleshadowleft"
-	},
-/area/f13/wasteland)
-"guv" = (
-/obj/mecha/combat/phazon/buggy/legion/loaded,
-/turf/open/indestructible/ground/outside/desert/sonora{
-	dir = 4;
-	icon_state = "desertsmooth8"
 	},
 /area/f13/wasteland)
 "guA" = (
@@ -33680,10 +33719,6 @@
 /area/f13/wasteland)
 "hKk" = (
 /obj/structure/table/wood/bar,
-/obj/item/reagent_containers/jerrycan,
-/obj/item/reagent_containers/jerrycan,
-/obj/item/reagent_containers/jerrycan,
-/obj/item/reagent_containers/jerrycan,
 /turf/open/indestructible/ground/outside/desert/sonora{
 	dir = 4;
 	icon_state = "desertsmooth4"
@@ -33884,15 +33919,6 @@
 /obj/effect/decal/cleanable/blood/drip,
 /turf/open/indestructible/ground/outside/gravel/edge{
 	dir = 4
-	},
-/area/f13/wasteland)
-"hOn" = (
-/obj/mecha/combat/phazon/buggy/red/loaded{
-	dir = 4
-	},
-/turf/open/indestructible/ground/outside/desert/sonora{
-	dir = 4;
-	icon_state = "desertsmooth4"
 	},
 /area/f13/wasteland)
 "hOz" = (
@@ -34263,6 +34289,13 @@
 	},
 /turf/open/indestructible/ground/outside/water,
 /area/f13/wasteland)
+"hVB" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/shadow,
+/obj/effect/turf_decal/shadow,
+/turf/open/indestructible/ground/outside/road,
+/area/f13/city)
 "hVI" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -36658,6 +36691,8 @@
 	},
 /area/f13/building/mall)
 "iRK" = (
+/obj/effect/turf_decal/shadow,
+/obj/effect/turf_decal/shadow,
 /turf/open/indestructible/ground/outside/road{
 	icon_state = "hole"
 	},
@@ -41693,6 +41728,7 @@
 "laV" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/shadow,
 /turf/open/indestructible/ground/outside/road{
 	icon_state = "horizontaltopborderbottom0"
 	},
@@ -42721,6 +42757,26 @@
 /area/f13/village)
 "lyN" = (
 /obj/structure/reagent_dispensers/fueltank/vehicle_gas_station,
+/obj/structure/railing/wood/post{
+	pixel_x = -16;
+	pixel_y = -26
+	},
+/obj/structure/railing/wood/post{
+	pixel_x = -16;
+	pixel_y = -5;
+	layer = 4.3
+	},
+/obj/structure/railing/wood/post{
+	pixel_x = -16;
+	pixel_y = 46
+	},
+/obj/structure/railing/wood/post{
+	pixel_x = -16;
+	pixel_y = 69;
+	layer = 4.3
+	},
+/obj/effect/turf_decal/shadow,
+/obj/effect/turf_decal/shadow,
 /turf/open/indestructible/ground/outside/sidewalk{
 	icon_state = "verticalleftborderleft0"
 	},
@@ -42816,6 +42872,7 @@
 /area/f13/ncr)
 "lAA" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/shadow,
 /turf/open/indestructible/ground/outside/road{
 	icon_state = "verticalinnermain2"
 	},
@@ -50037,6 +50094,8 @@
 /area/f13/wasteland)
 "osG" = (
 /obj/machinery/light/floor,
+/obj/effect/turf_decal/shadow,
+/obj/effect/turf_decal/shadow,
 /turf/open/indestructible/ground/outside/sidewalk{
 	dir = 4;
 	icon_state = "outerturn"
@@ -50331,6 +50390,8 @@
 	pixel_y = -5
 	},
 /obj/structure/reagent_dispensers/fueltank/vehicle_gas_station,
+/obj/effect/turf_decal/shadow,
+/obj/effect/turf_decal/shadow,
 /turf/open/indestructible/ground/outside/sidewalk{
 	icon_state = "verticalrightborderright2bottom"
 	},
@@ -50380,6 +50441,12 @@
 	icon_state = "bar"
 	},
 /area/f13/building)
+"oyL" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/shadow,
+/obj/effect/turf_decal/shadow,
+/turf/open/indestructible/ground/outside/road,
+/area/f13/city)
 "oyS" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/indestructible/ground/outside/sidewalk{
@@ -51533,6 +51600,14 @@
 	icon_state = "floorrusty"
 	},
 /area/f13/building/mall)
+"oYz" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/shadow,
+/obj/effect/turf_decal/shadow,
+/turf/open/indestructible/ground/outside/road{
+	icon_state = "verticalinnermain2"
+	},
+/area/f13/city)
 "oYD" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
@@ -51856,6 +51931,8 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/floor,
+/obj/effect/turf_decal/shadow,
+/obj/effect/turf_decal/shadow,
 /turf/open/indestructible/ground/outside/sidewalk{
 	dir = 1;
 	icon_state = "outerturn"
@@ -53002,6 +53079,7 @@
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/building)
 "pAp" = (
+/obj/effect/turf_decal/shadow,
 /turf/open/indestructible/ground/outside/road{
 	icon_state = "horizontaltopborderbottom0"
 	},
@@ -54870,6 +54948,8 @@
 	},
 /area/f13/village)
 "qrr" = (
+/obj/effect/turf_decal/shadow,
+/obj/effect/turf_decal/shadow,
 /turf/open/indestructible/ground/outside/road{
 	icon_state = "verticalinnermain2top"
 	},
@@ -55515,6 +55595,7 @@
 /turf/open/floor/f13,
 /area/f13/building)
 "qHy" = (
+/obj/effect/turf_decal/shadow,
 /turf/open/indestructible/ground/outside/road,
 /area/f13/city)
 "qHJ" = (
@@ -55612,6 +55693,8 @@
 "qJT" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/floor,
+/obj/effect/turf_decal/shadow,
+/obj/effect/turf_decal/shadow,
 /turf/open/indestructible/ground/outside/sidewalk{
 	icon_state = "outerturn"
 	},
@@ -56952,6 +57035,8 @@
 /area/f13/building/museum)
 "rnX" = (
 /obj/machinery/light/floor,
+/obj/effect/turf_decal/shadow,
+/obj/effect/turf_decal/shadow,
 /turf/open/indestructible/ground/outside/sidewalk{
 	icon_state = "outerturn"
 	},
@@ -57230,6 +57315,7 @@
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/wasteland)
 "rwS" = (
+/obj/effect/turf_decal/shadow,
 /turf/open/indestructible/ground/outside/road{
 	icon_state = "verylittleshadowright"
 	},
@@ -57514,6 +57600,8 @@
 /area/f13/city)
 "rEM" = (
 /obj/structure/reagent_dispensers/fueltank/vehicle_gas_station,
+/obj/effect/turf_decal/shadow,
+/obj/effect/turf_decal/shadow,
 /turf/open/indestructible/ground/outside/sidewalk{
 	icon_state = "verticalrightborderright2bottom"
 	},
@@ -59666,6 +59754,7 @@
 /turf/open/floor/wood_fancy/wood_fancy_dark,
 /area/f13/city)
 "sAz" = (
+/obj/effect/turf_decal/shadow,
 /turf/open/indestructible/ground/outside/road{
 	dir = 8;
 	icon_state = "horizontalinnermain2left"
@@ -61179,7 +61268,6 @@
 /area/f13/ncr)
 "thX" = (
 /obj/structure/flora/branch,
-/obj/mecha/combat/phazon/buggy/legionarmed/loaded,
 /turf/open/indestructible/ground/outside/dirt{
 	dir = 8;
 	icon_state = "dirtcorner"
@@ -61520,6 +61608,8 @@
 /area/f13/brotherhood)
 "tqq" = (
 /obj/machinery/light/floor,
+/obj/effect/turf_decal/shadow,
+/obj/effect/turf_decal/shadow,
 /turf/open/indestructible/ground/outside/sidewalk{
 	dir = 1;
 	icon_state = "outerturn"
@@ -65549,13 +65639,6 @@
 "uYu" = (
 /turf/open/floor/plasteel/f13/vault_floor/floor/floorsolid,
 /area/f13/city)
-"uYv" = (
-/obj/structure/flora/grass/coyote/one,
-/obj/mecha/combat/phazon/buggy/flamme/loaded{
-	dir = 8
-	},
-/turf/open/indestructible/ground/inside/mountain,
-/area/f13/caves)
 "uYC" = (
 /obj/effect/turf_decal/weather/dirt,
 /obj/structure/flora/rock/pile/largejungle{
@@ -66508,6 +66591,8 @@
 /area/f13/city)
 "vuz" = (
 /obj/machinery/light/floor,
+/obj/effect/turf_decal/shadow,
+/obj/effect/turf_decal/shadow,
 /turf/open/indestructible/ground/outside/sidewalk{
 	dir = 8;
 	icon_state = "outerturn"
@@ -69467,6 +69552,7 @@
 /area/f13/building)
 "wHJ" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/shadow,
 /turf/open/indestructible/ground/outside/road{
 	icon_state = "horizontaltopborderbottom0"
 	},
@@ -69642,6 +69728,7 @@
 /area/f13/wasteland)
 "wNx" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/shadow,
 /turf/open/indestructible/ground/outside/road,
 /area/f13/city)
 "wNL" = (
@@ -72739,6 +72826,7 @@
 	},
 /area/f13/wasteland)
 "xWX" = (
+/obj/effect/turf_decal/shadow,
 /turf/open/indestructible/ground/outside/road{
 	icon_state = "verticalrightborderleft0"
 	},
@@ -105939,11 +106027,11 @@ xvy
 huu
 hjs
 laV
-aEu
-qHy
-qHy
-qHy
-wNx
+hVB
+fxs
+fxs
+fxs
+oyL
 wNx
 uNJ
 uNJ
@@ -106196,11 +106284,11 @@ cyA
 huu
 umm
 laV
-wNx
+oyL
 tqq
 rEM
 vuz
-sAz
+fwq
 sAz
 uNJ
 uNJ
@@ -106453,7 +106541,7 @@ fpO
 huu
 eXN
 wHJ
-lAA
+oYz
 osG
 lyN
 rnX
@@ -106710,7 +106798,7 @@ jvm
 huu
 lWp
 pAp
-wNx
+oyL
 blf
 bdP
 blf
@@ -106967,10 +107055,10 @@ kJA
 huu
 umm
 pAp
-lAA
-aEu
-qHy
-qHy
+oYz
+hVB
+fxs
+fxs
 blf
 lAA
 uNJ
@@ -107224,11 +107312,11 @@ xvy
 bly
 vQv
 pAp
-qHy
+fxs
 pfH
 oxo
 vuz
-qHy
+fxs
 wNx
 uNJ
 uNJ
@@ -107481,11 +107569,11 @@ lwL
 bQu
 okr
 wHJ
-qHy
+fxs
 fZv
-lyN
+dkE
 qJT
-qHy
+fxs
 qHy
 uNJ
 uNJ
@@ -107739,10 +107827,10 @@ lIY
 okr
 pAp
 iRK
-wNx
-aEu
-wNx
-qHy
+oyL
+hVB
+oyL
+fxs
 qHy
 uNJ
 uNJ
@@ -107995,11 +108083,11 @@ xvy
 bly
 okr
 pAp
-qHy
-qHy
-qHy
-qHy
-qHy
+fxs
+fxs
+fxs
+fxs
+fxs
 qHy
 uNJ
 uNJ
@@ -108252,11 +108340,11 @@ cyA
 huu
 okr
 pAp
-qHy
+fxs
 tqq
 rEM
 vuz
-qHy
+fxs
 wNx
 uNJ
 uNJ
@@ -108509,11 +108597,11 @@ fpO
 huu
 okr
 pAp
-qHy
+fxs
 osG
-lyN
+dkE
 rnX
-qHy
+fxs
 qHy
 uNJ
 uNJ
@@ -108766,11 +108854,11 @@ jvm
 huu
 okr
 pAp
-qHy
+fxs
 blf
 qrr
 blf
-qHy
+fxs
 qHy
 uNJ
 uNJ
@@ -125298,7 +125386,7 @@ dWQ
 vGl
 jSA
 ccj
-guv
+izz
 ccj
 thX
 gqe
@@ -125559,7 +125647,7 @@ pNc
 pNc
 sWC
 dJF
-hOn
+dJF
 sVE
 sVE
 eRl
@@ -129143,7 +129231,7 @@ gCY
 fYQ
 aae
 asS
-uYv
+tIG
 aaB
 aaB
 lCv

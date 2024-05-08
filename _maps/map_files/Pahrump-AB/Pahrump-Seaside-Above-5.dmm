@@ -463,19 +463,6 @@
 	},
 /turf/open/floor/wood_common,
 /area/f13/building)
-"cm" = (
-/obj/item/radio/intercom/retro{
-	frequency = 1455;
-	name = "Circus Intercom";
-	pixel_y = -19;
-	pixel_x = 14;
-	canhear_range = 9;
-	chat_color = "#ff4c4c";
-	chat_color_darkened = "#ff4c4c";
-	chat_color_name = "#ff4c4c"
-	},
-/turf/open/floor/plating/f13/outside/roof/wood/old,
-/area/f13/legion)
 "cp" = (
 /obj/structure/barricade/sandbags,
 /turf/open/floor/carpet/red,
@@ -2078,18 +2065,6 @@
 /obj/item/reagent_containers/glass/bowl/wooden_bowl,
 /obj/item/reagent_containers/glass/bowl/wooden_bowl,
 /turf/open/floor/wood_fancy,
-/area/f13/legion)
-"lG" = (
-/obj/structure/chair/bench{
-	dir = 8
-	},
-/mob/living/simple_animal/hostile/ncr/trooper{
-	name = "AWOL 4th Mechanized Plantoon NCR Trooper";
-	speak = list("HEY ! THIS PLACE IS OUT LIMIT. SCRAM OR DIE !","WE DON'T CARE IF YOU ARE LEGION, THE 3rd M, TINMENS OR TANDY HERSELF, ORDERS ARE ORDERS AND YOU ARE DEAD !");
-	speak_chance = 5;
-	attack_phrase = list("HEY ! THIS PLACE IS OUT LIMIT. SCRAM OR DIE !","WE DON'T CARE IF YOU ARE LEGION, THE 3rd M, TINMENS OR TANDY HERSELF, ORDERS ARE ORDERS AND YOU ARE DEAD !")
-	},
-/turf/open/floor/wood_common,
 /area/f13/legion)
 "lI" = (
 /obj/structure/destructible/tribal_torch/wall/lit{
@@ -8976,7 +8951,9 @@
 	icon_state = "closed";
 	opacity = 1
 	},
-/obj/structure/rug/big/rug_red,
+/obj/structure/rug/big/rug_red{
+	layer = 1
+	},
 /turf/open/floor/wood_fancy,
 /area/f13/legion)
 "Zj" = (
@@ -65395,7 +65372,7 @@ CT
 CT
 nf
 nf
-lG
+Yt
 xU
 FL
 yX
@@ -67977,7 +67954,7 @@ WL
 WL
 zU
 zU
-cm
+zU
 zU
 zU
 zU
