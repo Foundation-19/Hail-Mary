@@ -325,6 +325,7 @@ GLOBAL_LIST_INIT(desolate_plant_spawn_list, list(
 	desc = "a stretch of road that looks freshly built"
 	icon_state = "innermiddle"
 	icon = 'icons/fallout/turfs/asphalt.dmi'
+	floor_tile = /obj/item/stack/tile/road
 	sunlight_state = SUNLIGHT_SOURCE
 	footstep = FOOTSTEP_ROAD
 	barefootstep = FOOTSTEP_HARD_BAREFOOT
