@@ -23053,21 +23053,6 @@
 	icon_state = "bluedirtychess2"
 	},
 /area/f13/building)
-"dqp" = (
-/obj/structure/flora/grass/wasteland{
-	icon_state = "tall_grass_8";
-	pixel_x = 3;
-	pixel_y = 7
-	},
-/mob/living/simple_animal/hostile/supermutant/playable{
-	peaceful = 1;
-	name = "Madelena"
-	},
-/turf/open/indestructible/ground/outside/desert/sonora{
-	dir = 4;
-	icon_state = "desertsmooth3"
-	},
-/area/f13/wasteland)
 "dqr" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/campfire/barrel,
@@ -29553,16 +29538,6 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
 /area/f13/brotherhood)
-"fXp" = (
-/mob/living/simple_animal/hostile/supermutant/rangedmutant/varmint{
-	peaceful = 1;
-	name = "Nobrain"
-	},
-/turf/open/indestructible/ground/outside/desert/sonora{
-	dir = 4;
-	icon_state = "desertsmooth3"
-	},
-/area/f13/wasteland)
 "fXq" = (
 /obj/effect/mob_spawn/human/corpse,
 /turf/open/indestructible/ground/outside/gravel,
@@ -39116,19 +39091,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/f13/wood,
 /area/f13/village)
-"jWy" = (
-/obj/structure/flora/grass/wasteland{
-	pixel_x = -3
-	},
-/mob/living/simple_animal/hostile/supermutant/rangedmutant/varmint{
-	peaceful = 1;
-	name = "Birdcantland"
-	},
-/turf/open/indestructible/ground/outside/desert/sonora{
-	dir = 4;
-	icon_state = "desertsmooth4"
-	},
-/area/f13/wasteland)
 "jWC" = (
 /obj/structure/fence{
 	dir = 1
@@ -53234,15 +53196,6 @@
 	},
 /turf/open/indestructible/ground/outside/sidewalk{
 	icon_state = "verticaloutermain1"
-	},
-/area/f13/wasteland)
-"pDX" = (
-/mob/living/simple_animal/hostile/supermutant/nightkin/elitemutant{
-	name = "Bill";
-	peaceful = 1
-	},
-/turf/open/indestructible/ground/outside/desert/sonora/rough{
-	icon_state = "desertcracked3"
 	},
 /area/f13/wasteland)
 "pEs" = (
@@ -133877,7 +133830,7 @@ sVE
 rCl
 rGU
 sVE
-jWy
+dAM
 dJF
 uWK
 hxZ
@@ -135904,7 +135857,7 @@ vDc
 mHb
 cAp
 sVE
-dqp
+hhx
 sVE
 hBY
 fJZ
@@ -136946,7 +136899,7 @@ hGE
 cNw
 sVE
 sVE
-fXp
+sVE
 lgP
 sVE
 sVE
@@ -137195,7 +137148,7 @@ mSM
 izz
 fPm
 roG
-pDX
+hEK
 sVE
 sVE
 jDR

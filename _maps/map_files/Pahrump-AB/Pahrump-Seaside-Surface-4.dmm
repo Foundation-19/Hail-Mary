@@ -664,10 +664,6 @@
 /obj/machinery/workbench,
 /turf/open/indestructible/ground/outside/desert,
 /area/f13/wasteland)
-"aIV" = (
-/obj/item/reagent_containers/jerrycan,
-/turf/open/floor/plasteel/f13/stone/rugged,
-/area/f13/wasteland)
 "aJD" = (
 /obj/structure/simple_door/tentflap_leather{
 	layer = 8
@@ -6046,6 +6042,11 @@
 	sunlight_state = 1
 	},
 /area/f13/wasteland)
+"gpM" = (
+/obj/structure/rack/shelf_metal,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/f13/vault_floor/misc/cmo,
+/area/f13/building)
 "grp" = (
 /obj/machinery/light/small{
 	dir = 4;
@@ -6321,12 +6322,6 @@
 	},
 /turf/open/water,
 /area/f13/caves)
-"gFQ" = (
-/obj/structure/reagent_dispensers/fueltank/vehicle_gas_station{
-	pixel_x = 9
-	},
-/turf/open/floor/plasteel/f13/stone/rugged,
-/area/f13/wasteland)
 "gGt" = (
 /obj/effect/decal/cleanable/greenglow,
 /obj/machinery/light/small{
@@ -7080,15 +7075,6 @@
 /obj/item/stock_parts/cell/high/empty,
 /turf/open/floor/plating/rust,
 /area/f13/ruins)
-"hkm" = (
-/obj/structure/flora/grass/wasteland{
-	icon_state = "tall_grass_2";
-	pixel_x = 8;
-	pixel_y = 1
-	},
-/obj/structure/wreck/bus/orange/alt,
-/turf/open/floor/plasteel/f13/stone/rugged,
-/area/f13/wasteland)
 "hkT" = (
 /obj/item/trash/f13/mre,
 /obj/machinery/camera/all{
@@ -70401,7 +70387,7 @@ fft
 kCB
 keR
 kSy
-sMm
+gpM
 vXa
 fft
 fft
@@ -70661,7 +70647,7 @@ kSy
 aTz
 elU
 fft
-sMm
+gpM
 kSy
 qRj
 fak
@@ -71224,7 +71210,7 @@ fak
 qHc
 wKu
 wKu
-hkm
+pNG
 wKu
 kKD
 wKu
@@ -71480,8 +71466,8 @@ sGc
 sGc
 uAM
 qkY
-gFQ
-aIV
+wKu
+wKu
 fhm
 wKu
 wKu
