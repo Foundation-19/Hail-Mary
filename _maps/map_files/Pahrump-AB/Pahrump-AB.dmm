@@ -65035,6 +65035,10 @@
 /obj/item/clothing/head/f13/ncr,
 /turf/open/floor/plasteel/f13/vault_floor/dark,
 /area/f13/ncr)
+"uEZ" = (
+/obj/machinery/disposal/deliveryChute,
+/turf/open/floor/carpet,
+/area/f13/city)
 "uFh" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -105760,7 +105764,7 @@ hEG
 eQY
 nPu
 nPu
-nPu
+uEZ
 osV
 oCs
 kls
