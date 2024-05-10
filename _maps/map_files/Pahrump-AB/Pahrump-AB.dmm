@@ -46588,6 +46588,10 @@
 	icon_state = "reddirtyfull"
 	},
 /area/f13/building/museum)
+"mUa" = (
+/obj/mecha/combat/durand,
+/turf/open/floor/carpet,
+/area/f13/city)
 "mUv" = (
 /obj/structure/toilet{
 	dir = 8
@@ -105507,7 +105511,7 @@ hEG
 iGU
 pNl
 tNK
-nPu
+mUa
 czx
 mfI
 oPk
