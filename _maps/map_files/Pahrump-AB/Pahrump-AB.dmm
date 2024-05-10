@@ -48034,11 +48034,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/f13/wood,
 /area/f13/building)
-"nwf" = (
-/obj/vertibird,
-/obj/vertibird,
-/turf/open/floor/carpet,
-/area/f13/city)
 "nwk" = (
 /obj/structure/flora/grass/jungle,
 /obj/effect/turf_decal/gravel_edge{
@@ -105508,7 +105503,7 @@ hEG
 iGU
 pNl
 tNK
-nwf
+nPu
 czx
 mfI
 oPk
