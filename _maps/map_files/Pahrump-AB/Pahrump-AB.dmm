@@ -37565,6 +37565,12 @@
 	icon_state = "darkrustysolid"
 	},
 /area/f13/building/massfusion)
+"jig" = (
+/obj/mecha/combat/durand,
+/obj/vertibird,
+/obj/vertibird,
+/turf/open/floor/carpet,
+/area/f13/city)
 "jih" = (
 /obj/structure/wreck/trash/machinepiletwo,
 /turf/open/floor/f13{
@@ -46588,10 +46594,6 @@
 	icon_state = "reddirtyfull"
 	},
 /area/f13/building/museum)
-"mUa" = (
-/obj/mecha/combat/durand,
-/turf/open/floor/carpet,
-/area/f13/city)
 "mUv" = (
 /obj/structure/toilet{
 	dir = 8
@@ -59949,6 +59951,10 @@
 	icon_state = "bluedirtychess2"
 	},
 /area/f13/ncr)
+"swC" = (
+/obj/machinery/disposal/deliveryChute,
+/turf/open/floor/carpet,
+/area/f13/city)
 "swY" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/f13{
@@ -65039,10 +65045,6 @@
 /obj/item/clothing/head/f13/ncr,
 /turf/open/floor/plasteel/f13/vault_floor/dark,
 /area/f13/ncr)
-"uEZ" = (
-/obj/machinery/disposal/deliveryChute,
-/turf/open/floor/carpet,
-/area/f13/city)
 "uFh" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -105511,7 +105513,7 @@ hEG
 iGU
 pNl
 tNK
-mUa
+jig
 czx
 mfI
 oPk
@@ -105768,7 +105770,7 @@ hEG
 eQY
 nPu
 nPu
-uEZ
+swC
 osV
 oCs
 kls
