@@ -42,6 +42,7 @@
 	dna_lock
 	step_in = 0.6
 	dir_in = 2
+	normal_step_energy_drain = 0.75
 	step_energy_drain = 0.75
 	max_integrity = 150
 	deflect_chance = 30
@@ -127,6 +128,7 @@
 	dna_lock
 	step_in = 0.8
 	dir_in = 2
+	normal_step_energy_drain = 0.7
 	step_energy_drain = 0.7
 	max_integrity = 200
 	deflect_chance = 30
@@ -206,6 +208,7 @@
 	dna_lock
 	step_in = 0.6
 	dir_in = 2
+	normal_step_energy_drain = 0.75
 	step_energy_drain = 0.75
 	max_integrity = 150
 	deflect_chance = 30
@@ -277,6 +280,7 @@
 	dna_lock
 	step_in = 0.6
 	dir_in = 2
+	normal_step_energy_drain = 0.75
 	step_energy_drain = 0.75
 	max_integrity = 150
 	deflect_chance = 30
