@@ -126,7 +126,7 @@
 	FermiExplode 		= TRUE		// If the chemical explodes in a special way
 	PurityMin 			= 0.2
 
-/datum/chemical_reaction/fermi/SDGF/FermiExplode(datum/reagents, atom/my_atom, volume, temp, pH)//Spawns an angery teratoma!
+/*/datum/chemical_reaction/fermi/SDGF/FermiExplode(datum/reagents, atom/my_atom, volume, temp, pH)//Spawns an angery teratoma!
 	var/turf/T = get_turf(my_atom)
 	var/amount_to_spawn = round((volume/100), 1)
 	if(amount_to_spawn <= 0)
@@ -139,7 +139,7 @@
 		S.rabid = 1//Make them an angery boi
 		S.color = "#810010"
 	my_atom.reagents.clear_reagents()
-	my_atom.visible_message(span_warning("An horrifying tumoural mass forms in [my_atom]!"))
+	my_atom.visible_message(span_warning("An horrifying tumoural mass forms in [my_atom]!"))*/
 
 /datum/chemical_reaction/fermi/astral
 	name = "Astrogen"

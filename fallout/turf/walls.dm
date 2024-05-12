@@ -48,26 +48,25 @@
 	icon_state = "house0"
 	icon_type_smooth = "house"
 	hardness = 50
-	var/broken = 0
-	canSmoothWith = list(/turf/closed/wall/f13/wood/house, /turf/closed/wall/f13/wood/house/broken, /turf/closed/wall, /turf/closed/wall/f13/wood/house/clean)
+	var/broken = FALSE
+	var/clean = FALSE
+	canSmoothWith = list(/turf/closed/wall/f13/wood/house, /turf/closed/wall/f13/wood/house/broken, /turf/closed/wall, /turf/closed/wall/f13/wood/house/clean, /turf/closed/wall/f13/wood/house/clean/broken)
 
 /turf/closed/wall/f13/wood/house/broken
-	broken = 1
+	desc = "A broken weathered pre-War house wall."
+	broken = TRUE
 	damage = 21
 	icon_state = "house0-broken"
 
-/turf/closed/wall/f13/wood/house/broken/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/stack/sheet/mineral/wood))
-		var/obj/item/stack/sheet/mineral/wood/I = W
-		if(I.amount < 2)
-			return
-		if(!do_after(user, 5 SECONDS, FALSE, src))
-			to_chat(user, span_warning("You must stand still to fix the wall!"))
-			return
-		W.use(2)
-		ChangeTurf(/turf/closed/wall/f13/wood/house)
-	. = ..()
+/turf/closed/wall/f13/wood/house/clean
+	desc = "A freshly painted pre-War house wall."
+	clean = TRUE
+	icon_state = "house0-clean"
 
+/turf/closed/wall/f13/wood/house/clean/broken
+	desc = "A broken freshly painted pre-War house wall."
+	broken = TRUE
+	icon_state = "house0-clean-broken"
 
 /turf/closed/wall/f13/wood/house/take_damage(dam)
 	if(damage + dam > hardness/2)
@@ -75,7 +74,60 @@
 	..()
 
 /turf/closed/wall/f13/wood/house/relative()
-	icon_state = "[icon_type_smooth][junction][broken ? "-broken" : ""]"
+	icon_state = "[icon_type_smooth][junction][clean ? "-clean" : ""][broken ? "-broken" : ""]"
+
+/turf/closed/wall/f13/wood/house/attackby(obj/item/W, mob/user, params)
+	if(clean && istype(W, /obj/item/paint/paint_remover))
+		playsound(user.loc, 'sound/effects/splat.ogg', 25, 1, 5)
+		user.visible_message("[user] starts removing the paint from [src]!", span_notice("You start removing the paint from [src]."))
+		if(!do_after(user, 1 SECONDS, FALSE, src))
+			to_chat(user, span_warning("You must stand still to remove the paint on the wall!"))
+			return
+		user.visible_message("[user] removes the paint from [src]!", span_notice("You remove the paint from [src]."))
+		if(broken)
+			ChangeTurf(/turf/closed/wall/f13/wood/house/broken)
+		else
+			ChangeTurf(/turf/closed/wall/f13/wood/house)
+		return
+
+	if(istype(W, /obj/item/toy/crayon/spraycan))
+		var/obj/item/toy/crayon/spraycan/I = W
+		if(!I.use_charges(user, 2))
+			to_chat(user, span_warning("[I] is too empty to paint [src]!"))
+			return
+
+		if(I.is_capped)
+			to_chat(user, span_warning("Open the cap first!"))
+			return
+
+		playsound(user.loc, 'sound/effects/spray.ogg', 25, 1, 5)
+		user.visible_message("[user] starts coating [src] with a fresh layer of paint!", span_notice("You start coating [src] with a fresh layer of paint."))
+		if(!do_after(user, 1 SECONDS, FALSE, src))
+			to_chat(user, span_warning("You must stand still to paint the wall!"))
+			return                                      
+		user.visible_message("[user] coats [src] with a fresh layer of paint!", span_notice("You coat [src] with a fresh layer of paint."))
+		if(!clean)
+			if(broken)
+				ChangeTurf(/turf/closed/wall/f13/wood/house/clean/broken)
+			else
+				ChangeTurf(/turf/closed/wall/f13/wood/house/clean)
+		src.add_atom_colour(I.paint_color, WASHABLE_COLOUR_PRIORITY)
+		return
+
+
+	if(broken && istype(W, /obj/item/stack/sheet/mineral/wood))
+		var/obj/item/stack/sheet/mineral/wood/I = W
+		if(I.amount < 2)
+			return
+		if(!do_after(user, 5 SECONDS, FALSE, src))
+			to_chat(user, span_warning("You must stand still to fix the wall!"))
+			return
+		W.use(2)
+		if(clean)
+			ChangeTurf(/turf/closed/wall/f13/wood/house/clean)
+		else
+			ChangeTurf(/turf/closed/wall/f13/wood/house)
+	. = ..()
 
 /turf/closed/wall/f13/wood/house/update_icon()
 	if(broken)
@@ -86,12 +138,6 @@ turf/closed/wall/f13/wood/house/update_damage_overlay()
 	if(broken)
 		return
 	..()
-
-/turf/closed/wall/f13/wood/house/clean
-	icon_state = "house0-clean"
-
-/turf/closed/wall/f13/wood/house/clean/relative()
-	icon_state = "[icon_type_smooth][junction]-clean"
 
 /turf/closed/wall/f13/wood/interior
 	name = "interior wall"
