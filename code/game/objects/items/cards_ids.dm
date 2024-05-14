@@ -1144,14 +1144,6 @@
 	item_state = "card-id_leg2"
 	assignment = "orator medallion"
 
-//For PilotBland's frumentarii custom loadout
-/obj/item/card/id/dogtag/legfrumentariiremus
-	name = "Remus Amius' frumentarius medallion"
-	desc = "A golden disc with a string threaded through the top, displaying official markings confirming a frumentarius' status."
-	icon_state = "legionmedallioncent"
-	item_state = "card-id_leg2"
-	assignment = "frumentarius medallion"
-
 /obj/item/card/id/legionbrand
 	name = "Legion's brand"
 	desc = "A brand for identifying Caesar's Legion's slaves."
@@ -1200,7 +1192,7 @@
 
 /obj/item/card/id/denid
 	name = "Redwater Mark"
-	desc = "A shady card for shady people. it might let you in to some of the bleaker parts of Nash's underground. Best not be seen with one of these. better yet, just avoid having it"
+	desc = "A shady card for shady people. it might let you in to some of the bleaker parts of Eastwood's underground. Best not be seen with one of these. better yet, just avoid having it"
 	assignment = "gang tattoo"
 
 	access = list(ACCESS_DEN)
@@ -1266,7 +1258,7 @@
 
 /obj/item/card/id/silver/mayor
 	name = "Mayor's mayoral permit"
-	desc = "A silver encrusted identification permit reserved for the Mayor of Oasis."
+	desc = "A silver encrusted identification permit reserved for the Mayor of Eastwood."
 	icon_state = "silver"
 	item_state = "silver_id"
 	assignment = "mayoral permit"

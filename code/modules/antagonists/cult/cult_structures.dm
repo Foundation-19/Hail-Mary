@@ -72,7 +72,7 @@
 		var/previouscolor = color
 		color = "#FAE48C"
 		animate(src, color = previouscolor, time = 8)
-		addtimer(CALLBACK(src, /atom/proc/update_atom_colour), 8)
+		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_atom_colour)), 8)
 
 /obj/structure/destructible/cult/proc/check_menu(mob/living/user)
 	if(!user || user.incapacitated() || !iscultist(user) || !anchored || cooldowntime > world.time)
@@ -111,7 +111,7 @@
 	to_chat(user, span_cultitalic("You study the schematics etched into the altar..."))
 
 	var/list/options = list("Eldritch Whetstone" = radial_whetstone, "Construct Shell" = radial_shell, "Flask of Unholy Water" = radial_unholy_water)
-	var/choice = show_radial_menu(user, src, options, custom_check = CALLBACK(src, .proc/check_menu, user), require_near = TRUE, tooltips = TRUE)
+	var/choice = show_radial_menu(user, src, options, custom_check = CALLBACK(src, PROC_REF(check_menu), user), require_near = TRUE, tooltips = TRUE)
 
 	var/reward
 	switch(choice)
@@ -158,7 +158,7 @@
 
 
 	var/list/options = list("Shielded Robe" = radial_shielded, "Flagellant's Robe" = radial_flagellant, "Mirror Shield" = radial_mirror)
-	var/choice = show_radial_menu(user, src, options, custom_check = CALLBACK(src, .proc/check_menu, user), require_near = TRUE, tooltips = TRUE)
+	var/choice = show_radial_menu(user, src, options, custom_check = CALLBACK(src, PROC_REF(check_menu), user), require_near = TRUE, tooltips = TRUE)
 
 	var/reward
 	switch(choice)
@@ -178,10 +178,10 @@
 	if(!iscultist(user))
 		to_chat(user, span_warning("The heat radiating from [src] pushes you back."))
 		return
-	if(istype(I, /obj/item/ingot))
-		var/obj/item/ingot/notsword = I
-		to_chat(user, "You heat the [notsword] in the [src].")
-		notsword.workability = "shapeable"
+	if(istype(I, /obj/item/blacksmith/ingot))
+		var/obj/item/blacksmith/ingot/workpiece = I
+		to_chat(user, "You heat the [workpiece] in the [src].")
+		workpiece.workability = "shapeable"
 
 /obj/structure/destructible/cult/pylon
 	name = "pylon"
@@ -289,7 +289,7 @@
 	to_chat(user, span_cultitalic("You flip through the black pages of the archives..."))
 
 	var/list/options = list("Zealot's Blindfold" = radial_blindfold, "Shuttle Curse" = radial_curse, "Veil Walker Set" = radial_veilwalker)
-	var/choice = show_radial_menu(user, src, options, custom_check = CALLBACK(src, .proc/check_menu, user), require_near = TRUE, tooltips = TRUE)
+	var/choice = show_radial_menu(user, src, options, custom_check = CALLBACK(src, PROC_REF(check_menu), user), require_near = TRUE, tooltips = TRUE)
 
 	var/reward
 	switch(choice)

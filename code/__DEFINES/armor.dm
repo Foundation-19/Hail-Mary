@@ -63,13 +63,13 @@
 		"linemelee" = 20, \
 		"linebullet" = 20, \
 		"linelaser" = 20, \
-		"energy" = 0, \
+		"energy" = 5, \
 		"bomb" = 0, \
 		"bio" = 10, \
 		"rad" = 10, \
 		"fire" = 10, \
 		"acid" = 10, \
-		"wound" = 5, \
+		"wound" = 20, \
 		"damage_threshold" = 1)
 
 /* Medium armor values
@@ -84,13 +84,13 @@
 		"linemelee" = 35, \
 		"linebullet" = 35, \
 		"linelaser" = 35, \
-		"energy" = 5, \
+		"energy" = 10, \
 		"bomb" = 10, \
 		"bio" = 25, \
 		"rad" = 25, \
 		"fire" = 25, \
 		"acid" = 25, \
-		"wound" = 10, \
+		"wound" = 35, \
 		"damage_threshold" = 3)
 
 /* Heavy armor values
@@ -105,13 +105,13 @@
 		"linemelee" = 45, \
 		"linebullet" = 45, \
 		"linelaser" = 45, \
-		"energy" = 0, \
+		"energy" = 15, \
 		"bomb" = 25, \
 		"bio" = 25, \
 		"rad" = 25, \
 		"fire" = 35, \
 		"acid" = 35, \
-		"wound" = 25, \
+		"wound" = 45, \
 		"damage_threshold" = 5)
 
 /* Salvaged PA values
@@ -133,7 +133,7 @@
 		"rad" = 50, \
 		"fire" = 80, \
 		"acid" = 80, \
-		"wound" = 45, \
+		"wound" = 80, \
 		"damage_threshold" = 10)
 
 /* Power armor values
@@ -904,7 +904,7 @@ GLOBAL_LIST_INIT(armor_token_operation_legend, list(
  * Light Armor
  * Basically clothes, but more
 */
-#define ARMOR_SLOWDOWN_LIGHT 0
+#define ARMOR_SLOWDOWN_LIGHT 0.1
 
 /*
  * Medium Armor

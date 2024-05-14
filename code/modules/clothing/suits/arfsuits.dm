@@ -19,7 +19,7 @@
 	blood_overlay_type = "armor"
 	slowdown = ARMOR_SLOWDOWN_NONE * ARMOR_SLOWDOWN_GLOBAL_MULT
 	armor_tier_desc = ARMOR_CLOTHING_DESC
-	mutantrace_variation = STYLE_DIGITIGRADE|STYLE_NO_ANTHRO_ICON
+	mutantrace_variation = STYLE_DIGITIGRADE
 
 	/// which mutantrace variations are supported. leave at NONE to keep it snapped at plantigrade
 	//mutantrace_variation = NONE
@@ -219,7 +219,7 @@
 	body_parts_covered = CHEST|GROIN|LEGS|ARMS|HANDS|HEAD
 	resistance_flags = NONE
 	armor = ARMOR_VALUE_LIGHT
-	mutantrace_variation = STYLE_DIGITIGRADE|STYLE_NO_ANTHRO_ICON
+	mutantrace_variation = STYLE_DIGITIGRADE
 	armor_tokens = list()
 
 
@@ -275,7 +275,7 @@
 	icon_state = "officerbluejacket"
 	item_state = "officerbluejacket"
 	// body_parts_covered = CHEST|ARMS
-	mutantrace_variation = STYLE_DIGITIGRADE|STYLE_NO_ANTHRO_ICON
+	mutantrace_variation = STYLE_DIGITIGRADE
 	body_parts_hidden = CHEST|ARMS
 
 /obj/item/clothing/suit/armor/outfit/jacket/banker
@@ -1444,6 +1444,26 @@
 	heat_protection = CHEST | GROIN | LEGS| ARMS | HEAD
 	siemens_coefficient = 1.1
 
+// Basic Jacket. Follows its own path since of labcoat. So if you update the armor kit, then update this aswell as its a reskinned armor kit.
+/obj/item/clothing/suit/toggle/labcoat/khan_jacket
+	name = "Great Khan jacket"
+	desc = "A black leather jacket. <br>There is an illustration on the back - an aggressive, red-eyed skull wearing a fur hat with horns.<br>The skull has a mongoloid moustache - it's obviously a Great Khans emblem."
+	icon = 'icons/fallout/clothing/khans.dmi'
+	mob_overlay_icon = 'icons/fallout/onmob/clothes/khaans.dmi'
+	icon_state = "khan_jacket"
+	item_state = "khan_jacket"
+	min_cold_protection_temperature = ARMOR_MIN_TEMP_PROTECT
+	max_heat_protection_temperature = ARMOR_MAX_TEMP_PROTECT
+	strip_delay = 10
+	equip_delay_other = 10
+	max_integrity = 100
+	pocket_storage_component_path = /datum/component/storage/concrete/pockets/armor
+	slowdown = ARMOR_SLOWDOWN_LIGHT * ARMOR_SLOWDOWN_GLOBAL_MULT
+	armor = ARMOR_VALUE_LIGHT
+	armor_tier_desc = ARMOR_CLOTHING_LIGHT
+	armor_tokens = list(ARMOR_MODIFIER_UP_DT_T1)
+	stiffness = LIGHT_STIFFNESS
+
 ///////////////////////////////////////////////////////////////////
 //Fenis's Snarmor Compendium of Snaggletoothed Snarting Snarmors//
 /////////////////////////////////////////////////////////////////
@@ -1788,7 +1808,7 @@
 	blood_overlay_type = "armor"
 	dog_fashion = /datum/dog_fashion/back
 	armor_tier_desc = ARMOR_CLOTHING_LIGHT
-	mutantrace_variation = STYLE_DIGITIGRADE|STYLE_NO_ANTHRO_ICON
+	mutantrace_variation = STYLE_DIGITIGRADE
 	slowdown = ARMOR_SLOWDOWN_LIGHT * ARMOR_SLOWDOWN_LESS_T2 * ARMOR_SLOWDOWN_GLOBAL_MULT
 	armor = ARMOR_VALUE_LIGHT
 	armor_tokens = list(ARMOR_MODIFIER_DOWN_MELEE_T1, ARMOR_MODIFIER_UP_BULLET_T2, ARMOR_MODIFIER_DOWN_LASER_T1, ARMOR_MODIFIER_UP_ENV_T2, ARMOR_MODIFIER_UP_DT_T1)
@@ -1845,14 +1865,14 @@
 	item_state = "vest_follower"
 
 /obj/item/clothing/suit/armor/medium/vest/town
-	name = "Nash flak vest"
-	desc = "A refurbished flak vest, repaired by the Nash Police Department. The ballistic nylon has a much tougher weave, but it still will not take acid or most high-powered rounds."
+	name = "Eastwood flak vest"
+	desc = "A refurbished flak vest, repaired by the Eastwood Police Department. The ballistic nylon has a much tougher weave, but it still will not take acid or most high-powered rounds."
 	icon = 'icons/fallout/clothing/armored_light.dmi'
 	mob_overlay_icon = 'icons/fallout/onmob/clothes/armor_light.dmi'
 	icon_state = "vest_flak"
 	item_state = "vest_flak"
 
-/obj/item/clothing/suit/armor/medium/vest/oasis
+/obj/item/clothing/suit/armor/medium/vest/eastwood
 	name = "Vault-Sec vest"
 	desc = "a lightweight ballistic vest that is commonly worn by Vault-Tec security personnel. This one still has the badge attached."
 	icon_state = "blueshift"
@@ -1916,7 +1936,7 @@
 	icon_state = "wardenbluejacket"
 	item_state = "wardenbluejacket"
 	// body_parts_covered = CHEST|ARMS
-	mutantrace_variation = STYLE_DIGITIGRADE|STYLE_NO_ANTHRO_ICON
+	mutantrace_variation = STYLE_DIGITIGRADE
 
 /obj/item/clothing/suit/armor/medium/vest/leather
 	name = "security overcoat"
@@ -1991,12 +2011,14 @@
 	mob_overlay_icon = 'icons/fallout/onmob/clothes/armor_light.dmi'
 	icon_state = "light_plates"
 	item_state = "armorkit"
-	slowdown = ARMOR_SLOWDOWN_MEDIUM * ARMOR_SLOWDOWN_LESS_T1 * ARMOR_SLOWDOWN_GLOBAL_MULT
+	armor = ARMOR_VALUE_LIGHT
+	armor_tier_desc = ARMOR_CLOTHING_LIGHT
+	slowdown = ARMOR_SLOWDOWN_LIGHT * ARMOR_SLOWDOWN_LESS_T1 * ARMOR_SLOWDOWN_GLOBAL_MULT
 	armor_tokens = list(ARMOR_MODIFIER_DOWN_BULLET_T2, ARMOR_MODIFIER_UP_MELEE_T1, ARMOR_MODIFIER_UP_LASER_T1, ARMOR_MODIFIER_DOWN_ENV_T1, ARMOR_MODIFIER_UP_DT_T1)
 
-/obj/item/clothing/suit/armor/medium/vest/breastplate/oasis
-	name = "Nash steel breastplate"
-	desc = "a steel breastplate, inspired by a pre-war design. Looks like Nash citizens added an additional layer of metal on the front face."
+/obj/item/clothing/suit/armor/medium/vest/breastplate/eastwood
+	name = "Eastwood steel breastplate"
+	desc = "a steel breastplate, inspired by a pre-war design. Looks like Eastwood citizens added an additional layer of metal on the front face."
 	icon = 'icons/fallout/clothing/armored_medium.dmi'
 	mob_overlay_icon = 'icons/fallout/onmob/clothes/armor_medium.dmi'
 	icon_state = "steel_bib"
@@ -2004,7 +2026,7 @@
 
 /obj/item/clothing/suit/armor/medium/vest/breastplate/town
 	name = "steel breastplate"
-	desc = "A steel breastplate inspired by a pre-war design, this one was made locally in Nash. It uses a stronger steel alloy in it's construction, still heavy though"
+	desc = "A steel breastplate inspired by a pre-war design, this one was made locally in Eastwood. It uses a stronger steel alloy in it's construction, still heavy though"
 	icon = 'icons/fallout/clothing/armored_medium.dmi'
 	mob_overlay_icon = 'icons/fallout/onmob/clothes/armor_medium.dmi'
 
@@ -2025,7 +2047,6 @@
 	icon_state = "metal_chestplate"
 	item_state = "metal_chestplate"
 	siemens_coefficient = 1.3
-	mutantrace_variation = STYLE_PAW_TAURIC
 
 /obj/item/clothing/suit/armor/medium/vest/breastplate/scrap/reinforced
 	name = "reinforced metal chestplate"
@@ -2035,7 +2056,6 @@
 	icon_state = "metal_chestplate2"
 	item_state = "metal_chestplate2"
 	armor_tokens = list(ARMOR_MODIFIER_DOWN_BULLET_T1, ARMOR_MODIFIER_UP_MELEE_T3, ARMOR_MODIFIER_UP_LASER_T2, ARMOR_MODIFIER_DOWN_ENV_T1, ARMOR_MODIFIER_UP_DT_T3)
-	mutantrace_variation = STYLE_PAW_TAURIC
 
 /obj/item/clothing/suit/armor/medium/vest/breastplate/scrap/brokencombat
 	name = "broken combat armor chestpiece"
@@ -2068,7 +2088,7 @@
 	cold_protection = CHEST|GROIN|LEGS|ARMS
 	heat_protection = CHEST|GROIN|LEGS|ARMS
 	strip_delay = 80
-	mutantrace_variation = STYLE_DIGITIGRADE|STYLE_NO_ANTHRO_ICON
+	mutantrace_variation = STYLE_DIGITIGRADE
 	equip_delay_other = 50
 	max_integrity = 200
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/duster/armored
@@ -2179,8 +2199,8 @@
 	item_state = "armor_enclave_officer"
 
 /obj/item/clothing/suit/armor/medium/duster/follower
-	name = "follower's duster"
-	desc = "An old military-grade pre-war combat armor under a white weathered duster. An emblem of the Followers is painted on the back of it. It appears to be fitted with metal plates to replace the crumbling ceramic."
+	name = "White duster"
+	desc = "An old military-grade pre-war combat armor under a white weathered duster. An emblem is on the back of it. It appears to be fitted with metal plates to replace the crumbling ceramic."
 	icon_state = "shank_follower"
 	item_state = "shank_follower"
 
@@ -2206,7 +2226,6 @@
 	desc = "An old military grade pre war combat armor. This one switches out its ballistic fibers for an ablative coating that disrupts energy weapons."
 	armor_tokens = list(ARMOR_MODIFIER_UP_LASER_T2, ARMOR_MODIFIER_UP_ENV_T1)
 
-
 /obj/item/clothing/suit/armor/medium/combat/dark
 	name = "combat armor"
 	desc = "An old military grade pre war combat armor. Now in dark, and extra-crispy!"
@@ -2228,7 +2247,7 @@
 	icon_state = "combat_armor_mk2"
 	item_state = "combat_armor_mk2"
 	salvage_loot = list(/obj/item/stack/crafting/armor_plate = 8)
-	slowdown = ARMOR_SLOWDOWN_MEDIUM * ARMOR_SLOWDOWN_MORE_T1 * ARMOR_SLOWDOWN_GLOBAL_MULT
+	slowdown = ARMOR_SLOWDOWN_MEDIUM * ARMOR_SLOWDOWN_MORE_T2 * ARMOR_SLOWDOWN_GLOBAL_MULT
 	armor_tokens = list(ARMOR_MODIFIER_UP_BULLET_T2, ARMOR_MODIFIER_UP_MELEE_T1, ARMOR_MODIFIER_UP_LASER_T2, ARMOR_MODIFIER_DOWN_ENV_T1, ARMOR_MODIFIER_UP_DT_T3)
 
 /obj/item/clothing/suit/armor/medium/combat/mk2/dark
@@ -2321,12 +2340,6 @@
 	desc = "Multiple sets of NCR patrol vests that have been fused, stitched and welded together in order to fit the frame of a Super Mutant."
 	icon_state = "mutie_ncr"
 	item_state = "mutie_ncr"
-
-/obj/item/clothing/suit/armor/medium/combat/desert_ranger/patrol
-	name = "desert ranger patrol armor"
-	desc = "A set of desert ranger patrol armor, modified to be light and breezy here in the swamps, perfect for making blood sausage."
-	icon_state = "ncr_patrol"
-	item_state = "ncr_patrol"
 
 /obj/item/clothing/suit/armor/medium/combat/desert_ranger/patrol/mutant
 	name = "mutant desert ranger armor"
@@ -2600,7 +2613,7 @@
 	icon_state = "bulletproof"
 	item_state = "armor"
 	blood_overlay_type = "armor"
-	mutantrace_variation = STYLE_DIGITIGRADE|STYLE_NO_ANTHRO_ICON
+	mutantrace_variation = STYLE_DIGITIGRADE
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/magpouch // 4 slots for ammo!
 	slowdown = ARMOR_SLOWDOWN_HEAVY * ARMOR_SLOWDOWN_LESS_T2 * ARMOR_SLOWDOWN_GLOBAL_MULT
 	armor_tokens = list(ARMOR_MODIFIER_UP_BULLET_T3, ARMOR_MODIFIER_DOWN_LASER_T1, ARMOR_MODIFIER_DOWN_ENV_T2, ARMOR_MODIFIER_UP_DT_T3)
@@ -2693,7 +2706,6 @@
 	item_state = "metal_chestplate"
 	slowdown = ARMOR_SLOWDOWN_HEAVY * ARMOR_SLOWDOWN_MORE_T1 * ARMOR_SLOWDOWN_GLOBAL_MULT
 	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T1, ARMOR_MODIFIER_UP_LASER_T1, ARMOR_MODIFIER_UP_ENV_T2, ARMOR_MODIFIER_UP_DT_T1)
-	mutantrace_variation = STYLE_PAW_TAURIC
 
 /obj/item/clothing/suit/armor/heavy/metal/polished
 	name = "polished metal armor"
@@ -2714,7 +2726,7 @@
 	blood_overlay_type = "armor"
 	mob_overlay_icon = null
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
-	mutantrace_variation = STYLE_DIGITIGRADE|STYLE_NO_ANTHRO_ICON
+	mutantrace_variation = STYLE_DIGITIGRADE
 	var/hit_reflect_chance = 40
 	protected_zones = list(BODY_ZONE_CHEST, BODY_ZONE_PRECISE_GROIN)
 	mutantrace_variation = NONE
@@ -2772,7 +2784,6 @@
 	item_state = "metal_chestplate2"
 	slowdown = ARMOR_SLOWDOWN_HEAVY * ARMOR_SLOWDOWN_MORE_T1 * ARMOR_SLOWDOWN_GLOBAL_MULT
 	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T2, ARMOR_MODIFIER_UP_BULLET_T1, ARMOR_MODIFIER_UP_LASER_T1, ARMOR_MODIFIER_UP_ENV_T2, ARMOR_MODIFIER_UP_DT_T1)
-	mutantrace_variation = STYLE_PAW_TAURIC
 
 /obj/item/clothing/suit/armor/heavy/metal/mutant
 	name = "mutant armour"
@@ -3256,7 +3267,7 @@
 			emped = TRUE
 			slowdown += induced_slowdown
 			L.update_equipment_speed_mods()
-			addtimer(CALLBACK(src, .proc/end_emp_effect, induced_slowdown), 50)
+			addtimer(CALLBACK(src, PROC_REF(end_emp_effect), induced_slowdown), 50)
 	return
 
 /obj/item/clothing/suit/armor/power_armor/proc/end_emp_effect(slowdown_induced)
@@ -3390,10 +3401,9 @@
 	desc = "A hood that protects the head and face from biological contaminants."
 	permeability_coefficient = 0.01
 	clothing_flags = THICKMATERIAL | BLOCK_GAS_SMOKE_EFFECT
-	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEHAIR|HIDEFACIALHAIR|HIDEFACE|HIDESNOUT
+	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEHAIR|HIDEFACIALHAIR|HIDEFACE
 	resistance_flags = ACID_PROOF
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
-	mutantrace_variation = STYLE_MUZZLE
 	slowdown = ARMOR_SLOWDOWN_LIGHT * ARMOR_SLOWDOWN_GLOBAL_MULT
 	armor = ARMOR_VALUE_LIGHT
 	armor_tokens = list(ARMOR_MODIFIER_UP_ENV_T4)
@@ -3408,11 +3418,11 @@
 	permeability_coefficient = 0.01
 	clothing_flags = THICKMATERIAL
 	// body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
-	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT|HIDETAUR
+	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
 	strip_delay = 70
 	equip_delay_other = 70
 	resistance_flags = ACID_PROOF
-	mutantrace_variation = STYLE_DIGITIGRADE|STYLE_SNEK_TAURIC|STYLE_PAW_TAURIC
+	mutantrace_variation = STYLE_DIGITIGRADE
 	slowdown = ARMOR_SLOWDOWN_LIGHT * ARMOR_SLOWDOWN_GLOBAL_MULT
 	armor = ARMOR_VALUE_LIGHT
 	armor_tokens = list(ARMOR_MODIFIER_UP_ENV_T4)

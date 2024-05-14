@@ -5,7 +5,7 @@
 	blacklisted = 0
 	sexes = 0
 	meat = /obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/skeleton
-	species_traits = list(NOBLOOD,NOGENITALS,NOAROUSAL,HAS_BONE,NOTRANSSTING)
+	species_traits = list(NOBLOOD,HAS_BONE,NOTRANSSTING)
 	inherent_traits = list(TRAIT_EASYDISMEMBER,TRAIT_LIMBATTACHMENT,TRAIT_CALCIUM_HEALER)
 	inherent_biotypes = MOB_UNDEAD|MOB_HUMANOID
 	mutanttongue = /obj/item/organ/tongue/bone

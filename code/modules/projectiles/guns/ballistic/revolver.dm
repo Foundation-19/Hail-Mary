@@ -615,7 +615,7 @@
 	damage_multiplier = GUN_EXTRA_DAMAGE_0
 	gun_accuracy_zone_type = ZONE_WEIGHT_AUTOMATIC
 	init_firemodes = list(
-		/datum/firemode/semi_auto/fast
+		/datum/firemode/semi_auto/slow
 	)
 	fire_sound = 'sound/f13weapons/magnum_fire.ogg'
 
@@ -655,6 +655,29 @@
 		/datum/firemode/semi_auto/faster
 	)
 	fire_sound = 'sound/weapons/gunshot_silenced.ogg'
+
+/* * * * * * * * * * *
+ * Rusted Revolver
+ * High damage revolver that uses shotgun shells
+ * Uses shotgun shells
+ * Unique
+ * Based off of the Ghoul's revolver from the Fallout show
+ * * * * * * * * * * */
+
+/obj/item/gun/ballistic/revolver/ghoulgun
+	name = "rusted revolver"
+	desc = "A worn but well-maintained revolver. Uses shotgun rounds, with a heavy barrel for greater velocity."
+	icon = 'icons/fallout/objects/guns/ballistic.dmi'
+	icon_state = "ghoulgun"
+	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/ghoulgun
+	weapon_class = WEAPON_CLASS_SMALL
+	weapon_weight = GUN_ONE_HAND_AKIMBO
+	damage_multiplier = GUN_EXTRA_DAMAGE_T2
+	gun_accuracy_zone_type = ZONE_WEIGHT_AUTOMATIC
+	init_firemodes = list(
+		/datum/firemode/semi_auto/fast
+	)
+	fire_sound = 'sound/f13weapons/ghoulgun_fire.ogg'
 
 // LEGACY STUFF
 

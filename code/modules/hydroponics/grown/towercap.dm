@@ -174,7 +174,7 @@
 /obj/structure/bonfire/prelit/Initialize()
 	. = ..()
 	var/static/list/loc_connections = list(
-		COMSIG_ATOM_ENTERED = .proc/on_entered,
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
@@ -296,7 +296,7 @@
 /obj/structure/bonfire/proc/on_entered(atom/movable/AM)
 	SIGNAL_HANDLER
 	if(burning & !grill)
-		INVOKE_ASYNC(src, .proc/Burn)
+		INVOKE_ASYNC(src, PROC_REF(Burn))
 
 /obj/structure/bonfire/proc/Burn()
 	var/turf/current_location = get_turf(src)
@@ -383,7 +383,7 @@
 			to_chat(player, msg_dead)
 			continue
 		if(player.has_language(/datum/language/tribal) && !HAS_TRAIT(player, TRAIT_BLIND))
-			if(!player.z == Z_LEVEL_NASH_UNDERGROUND) //Can be seen while indoors, just not sent. Still, can't see while underground.
+			if(!player.z == Z_LEVEL_EASTWOOD_UNDERGROUND) //Can be seen while indoors, just not sent. Still, can't see while underground.
 				continue
 			var/dirmessage = "somewhere in the distance"
 			if(player.z == B.z)

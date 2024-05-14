@@ -153,17 +153,17 @@
 	icon_state = "hos_cypherkey"
 	channels = list(RADIO_CHANNEL_VAULT = 1, RADIO_CHANNEL_COMMAND = 1, RADIO_CHANNEL_SECURITY = 1)
 
-/obj/item/encryptionkey/headset_minutemen
-	name = "Minutemen radio encryption key"
-	desc = "An encryption key for a radio headset.  To access the Minutemen channel, use :w."
+/obj/item/encryptionkey/headset_ncr
+	name = "NCR radio encryption key"
+	desc = "An encryption key for a radio headset.  To access the NCR channel, use :w."
 	icon_state = "cypherkey"
-	channels = list(RADIO_CHANNEL_MINUTEMEN = 1)
+	channels = list(RADIO_CHANNEL_NCR = 1)
 
 /obj/item/encryptionkey/headset_ranger
 	name = "Ranger radio encryption key"
-	desc = "An encryption key for a radio headset. To access the Ranger channel, use :r."
+	desc = "An encryption key for a radio headset. To access the NCR channel, use :w. To access the Ranger channel, use :r."
 	icon_state = "cypherkey"
-	channels = list(RADIO_CHANNEL_RANGER = 1)
+	channels = list(RADIO_CHANNEL_NCR = 1, RADIO_CHANNEL_RANGER = 1)
 
 /obj/item/encryptionkey/headset_bos
 	name = "Brotherhood radio encryption key"
@@ -178,44 +178,44 @@
 	channels = list(RADIO_CHANNEL_ENCLAVE = 1)
 
 /obj/item/encryptionkey/headset_town
-	name = "Nash radio encryption key"
+	name = "Eastwood Clinic radio encryption key"
 	desc = "An encryption key for a radio headset.\
-		\nTo access the Nash channel, use :f."
+		\nTo access the Town channel, use :f."
 	icon_state = "cypherkey"
 	channels = list(RADIO_CHANNEL_TOWN = 1)
 
 /obj/item/encryptionkey/headset_town/lawman
-	name = "Nash Sheriff radio encryption key"
+	name = "Eastwood Sheriff radio encryption key"
 	desc = "An encryption key for a radio headset.\
-		\nTo access the Nash channel, use :f.\
-		\nTo access the Nash sheriff channel, use :l"
+		\nTo access the Eastwood channel, use :f.\
+		\nTo access the Eastwood sheriff channel, use :l"
 	icon_state = "cypherkey"
 	channels = list(RADIO_CHANNEL_TOWN = 1, RADIO_CHANNEL_TOWN_PD = 1)
 
 /obj/item/encryptionkey/headset_town/commerce
-	name = "Nash commercial radio encryption key"
+	name = "Eastwood commercial radio encryption key"
 	desc = "An encryption key for a radio headset.\
-		\nTo access the Nash channel, use :f.\
-		\nTo access the Nash commerce channel, use :j"
+		\nTo access the Eastwood channel, use :f.\
+		\nTo access the Eastwood commerce channel, use :j"
 	icon_state = "cypherkey"
 	channels = list(RADIO_CHANNEL_TOWN = 1, RADIO_CHANNEL_TOWN_COMMERCE = 1)
 
 /obj/item/encryptionkey/headset_town/medical
-	name = "Nash medical radio encryption key"
+	name = "Eastwood medical radio encryption key"
 	desc = "An encryption key for a radio headset.\
-		\nTo access the Nash channel, use :f.\
-		\nTo access the Nash medical channel, use :m"
+		\nTo access the Eastwood channel, use :f.\
+		\nTo access the Eastwood medical channel, use :m"
 	icon_state = "cypherkey"
 	channels = list(RADIO_CHANNEL_TOWN = 1, RADIO_CHANNEL_MEDICAL = 1)
 
 /obj/item/encryptionkey/headset_town/mayor
-	name = "Nash mayor radio encryption key"
+	name = "Eastwood mayor radio encryption key"
 	desc = "An encryption key for a radio headset.\
-		\nTo access the Nash channel, use :f.\
-		\nTo access the Nash mayor, use :y.\
-		\nTo access the Nash sheriff, use :l.\
-		\nTo access the Nash medical, use :m.\
-		\nTo access the Nash commerce channel, use :j"
+		\nTo access the Eastwood channel, use :f.\
+		\nTo access the Eastwood mayor, use :y.\
+		\nTo access the Eastwood sheriff, use :l.\
+		\nTo access the Eastwood medical, use :m.\
+		\nTo access the Eastwood commerce channel, use :j"
 	icon_state = "cypherkey"
 	channels = list(RADIO_CHANNEL_TOWN = 1, RADIO_CHANNEL_TOWN_PD = 1, RADIO_CHANNEL_TOWN_COMMERCE = 1, RADIO_CHANNEL_TOWN_MAYOR = 1, RADIO_CHANNEL_MEDICAL = 1)
 
@@ -229,7 +229,7 @@
 	name = "Legion radio encryption key"
 	desc = "An encryption key for a radio headset.  To access the Legion channel, use :l."
 	icon_state = "cypherkey"
-	channels = list(RADIO_CHANNEL_TOWN_PD = 1)
+	channels = list(RADIO_CHANNEL_LEGION = 1)
 
 /obj/item/encryptionkey/headset_cent
 	name = "\improper CentCom radio encryption key"

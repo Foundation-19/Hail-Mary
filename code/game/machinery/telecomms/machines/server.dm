@@ -107,10 +107,10 @@
 	freq_listening = list(FREQ_VAULT)
 	autolinkers = list("vault")
 
-/obj/machinery/telecomms/server/presets/minutemen
-	id = "Minutemen Server"
-	freq_listening = list(FREQ_MINUTEMEN)
-	autolinkers = list("MINUTEMEN")
+/obj/machinery/telecomms/server/presets/ncr
+	id = "NCR Server"
+	freq_listening = list(FREQ_NCR)
+	autolinkers = list("ncr")
 
 /obj/machinery/telecomms/server/presets/bos
 	id = "BOS Server"
@@ -134,12 +134,12 @@
 
 /obj/machinery/telecomms/server/presets/legion
 	id = "Legion Server"
-	freq_listening = list(FREQ_TOWN_PD)
+	freq_listening = list(FREQ_LEGION)
 	autolinkers = list("legion")
 ///man fuck telecomms
 /obj/machinery/telecomms/server/presets/ranger
 	id = "Ranger Server"
-	freq_listening = list(FREQ_BIKER)
+	freq_listening = list(FREQ_RANGER)
 	autolinkers = list("ranger")
 
 /obj/machinery/telecomms/server/presets/khans

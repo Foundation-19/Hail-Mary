@@ -214,9 +214,9 @@
 				to_chat(usr, span_notice("You have been added to the queue to join the game. Your position in queue is [SSticker.queued_players.len]."))
 			return
 
-/* 		if(GLOB.data_core.get_record_by_name(client.prefs.real_name))
+		if(GLOB.data_core.get_record_by_name(client.prefs.real_name))
 			alert(src, "This character name is already in use. Choose another.")
-			return */
+			return
 
 		LateChoices()
 
@@ -405,6 +405,8 @@
 			return "Your species cannot play as a [jobtitle]."
 		if(JOB_UNAVAILABLE_WHITELIST)
 			return "[jobtitle] requires a whitelist."
+		if(JOB_UNAVAILABLE_SPECIAL)
+			return "[jobtitle] requires certain SPECIAL stats high enough."
 	return "Error: Unknown job availability."
 
 /mob/dead/new_player/proc/IsJobUnavailable(rank, latejoin = FALSE)
@@ -422,6 +424,8 @@
 			return JOB_UNAVAILABLE_SLOTFULL
 	if(jobban_isbanned(src,rank))
 		return JOB_UNAVAILABLE_BANNED
+	if(job.special_stat_check(client?.prefs))
+		return JOB_UNAVAILABLE_SPECIAL
 	if(QDELETED(src))
 		return JOB_UNAVAILABLE_GENERIC
 	if(!job.player_old_enough(client))
@@ -450,6 +454,11 @@
 		alert(src, get_job_unavailable_error_message(error, rank))
 		return FALSE
 
+	var/datum/job/job = SSjob.GetJob(rank)
+	if(job.faction && (job.faction in SSjob.disabled_factions))
+		alert(src, "An administrator has disabled spawning as the [job.faction] faction!")
+		return FALSE
+
 	if(SSticker.late_join_disabled)
 		alert(src, "An administrator has disabled late join spawning.")
 		return FALSE
@@ -475,8 +484,6 @@
 	var/equip = SSjob.EquipRank(character, rank, TRUE)
 	if(isliving(equip))	//Borgs get borged in the equip, so we need to make sure we handle the new mob.
 		character = equip
-
-	var/datum/job/job = SSjob.GetJob(rank)
 
 	if(job && !job.override_latejoin_spawn(character))
 		SSjob.SendToLateJoin(character)
@@ -533,6 +540,9 @@
 		humanc.client.deadmin()
 
 	log_manifest(character.mind.key,character.mind,character,latejoin = TRUE)
+
+	if(job == src.previous_job)
+		log_and_message_admins("[ADMIN_TPMONTY(character)] has spawned as a job they've previously matrixed as ([character.job])!")
 
 /mob/dead/new_player/proc/AddEmploymentContract(mob/living/carbon/human/employee)
 	//TODO:  figure out a way to exclude wizards/nukeops/demons from this.
@@ -711,4 +721,3 @@
 
 	// Add verb for re-opening the interview panel, and re-init the verbs for the stat panel
 	add_verb(src, /mob/dead/new_player/proc/open_interview)
-

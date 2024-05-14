@@ -152,7 +152,7 @@
 
 	"location": [
 		"area near that @pick(sublocation)",
-		"Oasis bar",
+		"Eastwood bar",
 		"the NCR armory",
 		"that weird bunker",
 		"uptown",
@@ -165,7 +165,7 @@
 	],
 	
 	"sublocation": [
-		"Oasis farm",
+		"Eastwood farm",
 		"NCR's greenhouse",
 		"NCR gate",
 		"RobCo entrance",

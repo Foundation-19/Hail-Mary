@@ -317,7 +317,7 @@
 					/obj/item/grenade/clusterbuster/syndieminibomb,
 					/obj/item/grenade/clusterbuster/teargas,
 					/obj/item/grenade/clusterbuster/clf3,
-					/obj/item/grenade/clusterbuster/slime,
+				//	/obj/item/grenade/clusterbuster/slime, No. ~Pokee
 					/obj/item/grenade/clusterbuster/facid)
 	crate_name = "clusterbang grenade pack crate"
 
@@ -327,7 +327,7 @@
 	cost = 1500
 	contains = list(/obj/item/storage/box/stingbangs)
 	crate_name = "stingbang grenade pack crate"
-
+/*
 /datum/supply_pack/security/crossbreeddangerous
 	name = "Dangerous Crossbreeds Pack"
 	desc = "Contains five of a various selection of slime cross breed items that are dangerous to use."
@@ -431,7 +431,7 @@
 					/obj/item/slimecross/recurring/pyrite,
 					/obj/item/slimecross/recurring/pink)
 	crate_name = "utility crossbreed crate"
-
+*/
 /datum/supply_pack/security/traitbooks
 	name = "Technical manuals"
 	desc = "A box crammed full of manuals, for reading. SCAV issues, Guns and Ammo, how to operate chem-machines, it's all here! Come in groups of three."
@@ -530,12 +530,12 @@
 	cost = 3000
 	num_contained = 6
 	contains = list(
-		/obj/effect/spawner/lootdrop/f13/weapon/wasteland,
-		/obj/effect/spawner/lootdrop/f13/weapon/wasteland,
-		/obj/effect/spawner/lootdrop/f13/weapon/wasteland,
-		/obj/effect/spawner/lootdrop/f13/weapon/wasteland,
-		/obj/effect/spawner/lootdrop/f13/weapon/wasteland,
-		/obj/effect/spawner/lootdrop/f13/weapon/wasteland
+		/obj/effect/spawner/lootdrop/f13/weapon/melee/random,
+		/obj/effect/spawner/lootdrop/f13/weapon/melee/random,
+		/obj/effect/spawner/lootdrop/f13/weapon/gun/energy/mid,
+		/obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/lowmid,
+		/obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/highmid,
+		/obj/effect/spawner/lootdrop/f13/weapon/gun/energy/midhigh
 )
 	crate_name = "Wasteland weapon crate"
 
@@ -545,10 +545,10 @@
 	cost = 4000
 	num_contained = 4
 	contains = list(
-		/obj/effect/spawner/lootdrop/f13/weapon/dungeon,
-		/obj/effect/spawner/lootdrop/f13/weapon/dungeon,
-		/obj/effect/spawner/lootdrop/f13/weapon/dungeon,
-		/obj/effect/spawner/lootdrop/f13/weapon/dungeon
+		/obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/highmid,
+		/obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/highmid,
+		/obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/highmid,
+		/obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/highmid
 )
 	crate_name = "quality weapon crate"
 
@@ -558,8 +558,8 @@
 	cost = 15000 //a big jump from mid tier weapons. shouldn't buy many. will see how this goes with the other changes
 	num_contained = 2
 	contains = list(
-		/obj/effect/spawner/lootdrop/f13/weapon/boss,
-		/obj/effect/spawner/lootdrop/f13/weapon/boss
+		/obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/high,
+		/obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/high
 )
 	crate_name = "Rare weapon crate"
 

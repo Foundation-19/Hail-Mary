@@ -48,10 +48,12 @@
 		var/facing_modifier = get_armour_facing(abs(dir2angle(dir) - dir2angle(attack_dir)))
 		booster_damage_modifier /= facing_modifier
 		booster_deflection_modifier *= facing_modifier
-	if(prob(deflect_chance * booster_deflection_modifier))
+	if(prob(deflect_chance * booster_deflection_modifier) && damage_flag != "bomb")
 		visible_message(span_danger("[src]'s armour deflects the attack!"))
 		log_append_to_last("Armor saved.")
 		return 0
+	/*if(damage_flag == "bomb")
+		. *= (booster_damage_modifier*1.25)*/
 	if(.)
 		. *= booster_damage_modifier
 
@@ -110,10 +112,11 @@
 	. = ..()
 
 /obj/mecha/ex_act(severity, target)
+	severity-- // MORE DAMAGE
 	mecha_log_message("Affected by explosion of severity: [severity].", color="red")
-	if(prob(deflect_chance))
+	/*if(prob(deflect_chance))
 		severity++
-		log_append_to_last("Armor saved, changing severity to [severity].")
+		log_append_to_last("Armor saved, changing severity to [severity].") NO BOMB REFLECTION*/
 	. = ..()
 
 /obj/mecha/contents_explosion(severity, target)
@@ -138,7 +141,7 @@
 	if (. & EMP_PROTECT_SELF)
 		return
 	if(get_charge())
-		use_power(cell.charge*severity/100)
+		use_power(fuel_holder.reagents.total_volume*severity/100)
 		take_damage(severity/3, BURN, "energy", 1)
 	mecha_log_message("EMP detected", color="red")
 
@@ -147,7 +150,7 @@
 		occupant?.update_mouse_pointer()
 	if(!equipment_disabled && occupant) //prevent spamming this message with back-to-back EMPs
 		to_chat(occupant, "<span=danger>Error -- Connection to equipment control unit has been lost.</span>")
-	addtimer(CALLBACK(src, /obj/mecha/proc/restore_equipment), 3 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/mecha, restore_equipment)), 3 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
 	equipment_disabled = 1
 
 /obj/mecha/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
@@ -222,28 +225,28 @@
 		if(internal_damage & MECHA_INT_TEMP_CONTROL)
 			clearInternalDamage(MECHA_INT_TEMP_CONTROL)
 			to_chat(user, span_notice("You repair the damaged temperature controller."))
-		else if(state==3 && cell)
-			cell.forceMove(loc)
-			cell = null
+		else if(state==3 && fuel_holder)
+			fuel_holder.forceMove(loc)
+			fuel_holder = null
 			state = 4
-			to_chat(user, span_notice("You unscrew and pry out the powercell."))
-			mecha_log_message("Powercell removed")
-		else if(state==4 && cell)
+			to_chat(user, span_notice("You unsecure the fuel tank."))
+			mecha_log_message("Fuel tank removed")
+		else if(state==4 && fuel_holder)
 			state=3
-			to_chat(user, span_notice("You screw the cell in place."))
+			to_chat(user, span_notice("You secure the fuel_tank in place."))
 		return
 
-	else if(istype(W, /obj/item/stock_parts/cell))
+	else if(istype(W, /obj/item/reagent_containers/fuel_tank))
 		if(state==4)
-			if(!cell)
+			if(!fuel_holder)
 				if(!user.transferItemToLoc(W, src))
 					return
-				var/obj/item/stock_parts/cell/C = W
-				to_chat(user, span_notice("You install the powercell."))
-				cell = C
-				mecha_log_message("Powercell installed")
+				var/obj/item/reagent_containers/fuel_tank/C = W
+				to_chat(user, span_notice("You install the fuel tank."))
+				fuel_holder = C
+				mecha_log_message("Fuel Tank installed")
 			else
-				to_chat(user, span_notice("There's already a powercell installed."))
+				to_chat(user, span_notice("There's already a fuel tank installed."))
 		return
 
 	else if(istype(W, /obj/item/weldingtool) && user.a_intent != INTENT_HARM)
@@ -291,10 +294,10 @@
 		log_combat(M.occupant, src, "attacked", M, "(INTENT: [uppertext(M.occupant.a_intent)]) (DAMTYPE: [uppertext(M.damtype)])")
 		. = ..()
 
-/obj/mecha/proc/full_repair(charge_cell)
+/obj/mecha/proc/full_repair(refill_tank)
 	obj_integrity = max_integrity
-	if(cell && charge_cell)
-		cell.charge = cell.maxcharge
+	if(fuel_holder && refill_tank)
+		fuel_holder.reagents.add_reagent("welding_fuel", fuel_holder.volume)
 	if(internal_damage & MECHA_INT_FIRE)
 		clearInternalDamage(MECHA_INT_FIRE)
 	if(internal_damage & MECHA_INT_TEMP_CONTROL)

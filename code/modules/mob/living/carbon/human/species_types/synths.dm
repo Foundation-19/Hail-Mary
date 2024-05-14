@@ -3,7 +3,7 @@
 	id = "synth"
 	say_mod = "beep boops" //inherited from a user's real species
 	sexes = 0
-	species_traits = list(NOTRANSSTING,NOGENITALS,NOAROUSAL) //all of these + whatever we inherit from the real species
+	species_traits = list(NOTRANSSTING) //all of these + whatever we inherit from the real species
 	inherent_traits = list(TRAIT_VIRUSIMMUNE,TRAIT_NODISMEMBER,TRAIT_NOLIMBDISABLE,TRAIT_NOHUNGER,TRAIT_NOBREATH)
 	inherent_biotypes = MOB_ROBOTIC|MOB_HUMANOID
 	dangerous_existence = 1
@@ -31,7 +31,7 @@
 /datum/species/synth/on_species_gain(mob/living/carbon/human/H, datum/species/old_species)
 	..()
 	assume_disguise(old_species, H)
-	RegisterSignal(H, COMSIG_MOB_SAY, .proc/handle_speech)
+	RegisterSignal(H, COMSIG_MOB_SAY, PROC_REF(handle_speech))
 
 /datum/species/synth/on_species_loss(mob/living/carbon/human/H)
 	. = ..()

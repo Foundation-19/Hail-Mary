@@ -16,7 +16,7 @@
 	display_name = "Cryostasis Technology"
 	description = "Smart freezing of objects to preserve them!"
 	prereq_ids = list("adv_engi", "biotech")
-	design_ids = list("splitbeaker", "noreactsyringe", "cryotube", "cryo_Grenade")
+	design_ids = list("splitbeaker", "noreactsyringe", "cryotube")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2000)
 /*
 /datum/techweb_node/adv_defibrillator_tec
@@ -90,7 +90,7 @@
 	id = "cyber_implants"
 	display_name = "Cybernetic Implants"
 	description = "Electronic implants that improve humans."
-	prereq_ids = list("adv_biotech", "adv_datatheory")
+	prereq_ids = list("adv_biotech")
 	design_ids = list("ci-nutriment", "ci-breather", "ci-gloweyes", "ci-welding", /*"ci-medhud", "ci-sechud",*/ "ci-service")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 

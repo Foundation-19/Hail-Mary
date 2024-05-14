@@ -785,6 +785,10 @@
 	icon_state = "blueprint2"
 	crafting_recipe_types = list(/datum/crafting_recipe/deagle)
 
+/obj/item/book/granter/crafting_recipe/blueprint/rcw
+	name = "rcw blueprint"
+	icon_state = "blueprint2"
+	crafting_recipe_types = list(/datum/crafting_recipe/rcw)
 /obj/item/book/granter/crafting_recipe/blueprint/aer9
 	name = "aer9 blueprint"
 	icon_state = "blueprint2"
@@ -901,6 +905,10 @@
 	name = "scout carbine blueprint"
 	icon_state = "blueprint2"
 	crafting_recipe_types = list(/datum/crafting_recipe/scoutcarbine)
+/obj/item/book/granter/crafting_recipe/blueprint/magnum_revolver
+	name = "Magnum Revolver blueprint"
+	icon_state = "blueprint2"
+	crafting_recipe_types = list(/datum/crafting_recipe/m2405)
 
 /obj/item/book/granter/crafting_recipe/blueprint/neostead
 	name = "neostead 2000 blueprint"
@@ -919,11 +927,11 @@
 	crafting_recipe_types = list(/datum/crafting_recipe/set_vrboard/den)
 
 /obj/item/book/granter/crafting_recipe/ODF
-	name = "Weapons of Texarkana and the Nash Defense Force"
+	name = "Weapons of Pahrump and the Eastwood Defense Force"
 	desc = "a book detailing weapons used in the region and by the local town, it has lithiographed pictures of hand-drawn schematics for each weapon type"
 	oneuse = TRUE
 	crafting_recipe_types = list(/datum/crafting_recipe/policepistol, /datum/crafting_recipe/durathread_vest, /datum/crafting_recipe/policerifle, /datum/crafting_recipe/steelbib/heavy, /datum/crafting_recipe/armyhelmetheavy, /datum/crafting_recipe/huntingshotgun)
-	remarks = list("Looks like Nash hand-crafts replicas from a pre-war police armory", "Some of these weapons are more than 200 years old....", "Duct tape really can hold it together!", "So that is how you laminate armor sheets together", "Looks like you can beat metal into just the right shape to replace the bits")
+	remarks = list("Looks like Eastwood hand-crafts replicas from a pre-war police armory", "Some of these weapons are more than 200 years old....", "Duct tape really can hold it together!", "So that is how you laminate armor sheets together", "Looks like you can beat metal into just the right shape to replace the bits")
 
 
 /obj/item/book/granter/trait/tagger
@@ -959,6 +967,13 @@
 	granted_trait = TRAIT_BIG_LEAGUES
 	traitname = "hitting things"
 	remarks = list("Grognak hit the Death Knight only once, but that was enough.", "Grognak is surprisingly agile, never committing too heavily on an attack, dancing between his enemies.", "Grognak isn't good at talking, but he knows it has its place. He has friends to talk for him.", "Other barbarians might change their weapons, but Grognak could never leave his beloved axe.")
+
+/obj/item/book/granter/trait/specopguide
+	name = "Special Operation Guide"
+	desc = "A book about how to never miss again!."
+	granted_trait = TRAIT_INSANE_AIM
+	traitname = "perfect shooting"
+	remarks = list("Switching to your sidearm is always faster than reloading.", "Use a bola to slow down your target.", "A smoke grenade will make the enemy drop small item that they're holding", "Never chase an enemy alone even if you think you're winning.")
 
 /obj/item/book/granter/trait/lowsurgery
 	name = "First Aid Pamphlet"
@@ -1005,7 +1020,13 @@
 	traitname = "wirevision"
 	remarks = list("Troubleshooting is a systematic approach to problem solving, do not skip any steps in the process.", "Ensure you have all the required parts before you begin.", "Don't lose track of your tools, or you have a new problem to deal with.", "Make sure you check the colouring of wires extremely carefully- you don't want to be mixing up yellow and lime, or purple and indigo!")
 
-
+/obj/item/book/granter/trait/trekking
+	name = "Wasteland Survival Guide"
+	desc = "This indispensable guidebook contains everything that a survivor in the wasteland would need to know."
+	oneuse = TRUE
+	granted_trait = TRAIT_HARD_YARDS
+	traitname = "trekking"
+	remarks = list("Tribes and gangs often hide the best loot in the back room.", "Radiation is best avoided entirely, but it helps to carry spare rad-x.", "Whether ancient or recent, landmines are still a threat, and readers should look out for them.", "Injuries and open bleeding make it harder to travel, always carry spare medical supplies.", "Most animals are simple-minded, and can be led into easy lines of fire.")
 
 /obj/item/book/granter/trait/pa_wear
 	name = "US Army: Mechanized Infantry Handbook"
@@ -1014,14 +1035,6 @@
 	granted_trait = TRAIT_PA_WEAR
 	traitname = "Power Armor"
 	remarks = list("Daily maintenance is essential, clean and repair your suit often.", "Don't let overconfidence kill you, you are not invincible.", "Mechanized infantry should always be supported by regular infantry.", "You move slowly, pay attention to your position relative to the enemy.", "You are always vulnerable to ambush, do not rest in the field.", "AP rounds will shred your suit, you are not invincible.")
-
-/obj/item/book/granter/trait/trekking
-	name = "Wasteland Survival Guide"
-	desc = "This indispensable guidebook contains everything that a survivor in the wasteland would need to know."
-	oneuse = TRUE
-	granted_trait = TRAIT_HARD_YARDS
-	traitname = "trekking"
-	remarks = list("Tribes and gangs often hide the best loot in the back room.", "Radiation is best avoided entirely, but it helps to carry spare rad-x.", "Whether ancient or recent, landmines are still a threat, and readers should look out for them.", "Injuries and open bleeding make it harder to travel, always carry spare medical supplies.", "Most animals are simple-minded, and can be led into easy lines of fire.")
 
 /obj/item/book/granter/trait/explosives
 	name = "Industrial Society and Its Future"

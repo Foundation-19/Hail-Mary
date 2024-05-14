@@ -65,8 +65,8 @@
 			playsound(src.loc, 'sound/items/welder.ogg', 50, 1)
 			if(W.use_tool(src, user, 150, volume=50))
 				var/datum/crafting_recipe/recipe = locate(recipe_type) in GLOB.crafting_recipes
-				var/amount = recipe.reqs[/obj/item/stack/sheet/plasteel]
-				new /obj/item/stack/sheet/plasteel(loc, amount - rand(1,4))
+				var/amount = recipe.reqs[/obj/item/stack/sheet/prewar]
+				new /obj/item/stack/sheet/prewar(loc, amount - rand(1,4))
 				qdel(src)
 
 /obj/machinery/door/poddoor/examine(mob/user)
@@ -100,9 +100,9 @@
 /obj/machinery/door/poddoor/shuttledock/proc/check()
 	var/turf/T = get_step(src, checkdir)
 	if(!istype(T, turftype))
-		INVOKE_ASYNC(src, .proc/open)
+		INVOKE_ASYNC(src, PROC_REF(open))
 	else
-		INVOKE_ASYNC(src, .proc/close)
+		INVOKE_ASYNC(src, PROC_REF(close))
 
 /obj/machinery/door/poddoor/incinerator_toxmix
 	name = "combustion chamber vent"

@@ -47,7 +47,7 @@
 
 	var/mob/living/carbon/P = parent
 	to_chat(P, span_notice("You are now able to launch tackles! You can do so by activating throw intent, and clicking on your target with an empty hand."))
-	addtimer(CALLBACK(src, .proc/resetTackle), max(base_knockdown, 3 SECONDS), TIMER_STOPPABLE)
+	addtimer(CALLBACK(src, PROC_REF(resetTackle)), max(base_knockdown, 3 SECONDS), TIMER_STOPPABLE)
 
 /datum/component/tackler/Destroy()
 	var/mob/living/carbon/P = parent
@@ -56,9 +56,9 @@
 	..()
 
 /datum/component/tackler/RegisterWithParent()
-	RegisterSignal(parent, COMSIG_MOB_CLICKON, .proc/checkTackle)
-	RegisterSignal(parent, COMSIG_MOVABLE_IMPACT, .proc/sack)
-	RegisterSignal(parent, COMSIG_MOVABLE_POST_THROW, .proc/registerTackle)
+	RegisterSignal(parent, COMSIG_MOB_CLICKON, PROC_REF(checkTackle))
+	RegisterSignal(parent, COMSIG_MOVABLE_IMPACT, PROC_REF(sack))
+	RegisterSignal(parent, COMSIG_MOVABLE_POST_THROW, PROC_REF(registerTackle))
 
 /datum/component/tackler/UnregisterFromParent()
 	UnregisterSignal(parent, list(COMSIG_MOB_CLICKON, COMSIG_MOVABLE_IMPACT, COMSIG_MOVABLE_MOVED, COMSIG_MOVABLE_POST_THROW))
@@ -100,7 +100,7 @@
 		return
 
 	user.tackling = TRUE
-	RegisterSignal(user, COMSIG_MOVABLE_MOVED, .proc/checkObstacle)
+	RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(checkObstacle))
 	playsound(user, 'sound/weapons/thudswoosh.ogg', 40, TRUE, -1)
 
 	var/leap_word = iscatperson(user) ? "pounce" : "leap" ///If cat, "pounce" instead of "leap".
@@ -117,7 +117,7 @@
 	user.adjustStaminaLoss(stamina_cost)
 	user.throw_at(A, range, speed, user, TRUE)
 	user.toggle_throw_mode()
-	addtimer(CALLBACK(src, .proc/resetTackle), max(base_knockdown, 3 SECONDS), TIMER_STOPPABLE)
+	addtimer(CALLBACK(src, PROC_REF(resetTackle)), max(base_knockdown, 3 SECONDS), TIMER_STOPPABLE)
 	return(COMSIG_MOB_CANCEL_CLICKON)
 
 /**
@@ -267,27 +267,27 @@
 	switch(damage_mod)
 		if(-INFINITY to 1)
 			user.visible_message(
-				span_warning("[user] rams into [hit] with a flying tackle!"), 
-				span_userdanger("You rams into [hit] with a flying tackle!"), 
+				span_warning("[user] rams into [hit] with a flying tackle!"),
+				span_userdanger("You rams into [hit] with a flying tackle!"),
 				ignored_mobs = list(hit))
 			to_chat(hit, span_userdanger("[user] rams into you!"))
 		if(1.1 to 3)
 			user.visible_message(
-				span_warning("[user] slams into [hit] with a deadly charge!"), 
-				span_userdanger("You slam into [hit] with a deadly charge!"), 
+				span_warning("[user] slams into [hit] with a deadly charge!"),
+				span_userdanger("You slam into [hit] with a deadly charge!"),
 				ignored_mobs = list(hit))
 			to_chat(hit, span_userdanger("[user] slams into you!"))
 		if(3.1 to INFINITY)
 			user.visible_message(
-				span_warning("[user] CRASHES into [hit] with an atomic clothesline!"), 
-				span_userdanger("You CRASH into [hit] with a atomic clothesline!"), 
+				span_warning("[user] CRASHES into [hit] with an atomic clothesline!"),
+				span_userdanger("You CRASH into [hit] with a atomic clothesline!"),
 				ignored_mobs = list(hit))
 			to_chat(hit, span_userdanger("[user] CRASHES into you!"))
 	playsound(user, 'sound/effects/flesh_impact_1.ogg', 60, TRUE)
 	if(damage_mod >= 2)
 		hit.emote("scream")
 	user.emote("scream")
-	
+
 	var/armormult = clamp(hit.getarmor(BODY_ZONE_CHEST, "melee"), 0, 1)
 
 	hit.apply_damage(tackle_damage, STAMINA, BODY_ZONE_CHEST, armormult)

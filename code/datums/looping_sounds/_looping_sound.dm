@@ -94,7 +94,7 @@
 		play(sound_play)
 		mid_length = sound_play[SL_FILE_LENGTH]
 	if(!timerid)
-		timerid = addtimer(CALLBACK(src, .proc/sound_loop, world.time), mid_length + loop_delay, TIMER_CLIENT_TIME | TIMER_STOPPABLE | TIMER_LOOP)
+		timerid = addtimer(CALLBACK(src, PROC_REF(sound_loop), world.time), mid_length + loop_delay, TIMER_CLIENT_TIME | TIMER_STOPPABLE | TIMER_LOOP)
 	else
 		set_timer_wait(timerid, mid_length + loop_delay)
 
@@ -142,7 +142,7 @@
 		var/list/sound_start = pickweight(start_sound)
 		play(sound_start)
 		start_wait = sound_start[SL_FILE_LENGTH]
-	init_timerid = addtimer(CALLBACK(src, .proc/sound_loop), start_wait, TIMER_CLIENT_TIME | TIMER_STOPPABLE)
+	init_timerid = addtimer(CALLBACK(src, PROC_REF(sound_loop)), start_wait, TIMER_CLIENT_TIME | TIMER_STOPPABLE)
 
 /datum/looping_sound/proc/on_stop()
 	if(end_sound)

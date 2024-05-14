@@ -13,6 +13,6 @@ Format:
 	disabled (disables the map)
 endmap
 
-map Baltimore
-	default
+map pahrump-only
+    default
 endmap

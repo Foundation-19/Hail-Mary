@@ -8,7 +8,6 @@
 /cfg/**/*
 
 # Ignore compiled linux libs in the root folder, e.g. librust_g.so
-/*.so
 
 #Ignore compiled files and other files generated during compilation.
 *.mdme
@@ -17,6 +16,7 @@
 *.lk
 *.int
 *.backup
+*m.dme
 
 ### https://raw.github.com/github/gitignore/cc542de017c606138a87ee4880e5f06b3a306def/Global/Linux.gitignore
 

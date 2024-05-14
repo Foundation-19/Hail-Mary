@@ -5,6 +5,7 @@
 	var/fire_sound
 	var/projectiles_per_shot = 1
 	var/variance = 0
+	var/is_automatic = FALSE
 	var/randomspread = 0 //use random spread for machineguns, instead of shotgun scatter
 	var/projectile_delay = 0
 	var/firing_effect_type = /obj/effect/temp_visual/dir_setting/firing_effect	//the visual effect appearing when the weapon is fired.
@@ -64,12 +65,12 @@
 	firing_effect_type = /obj/effect/temp_visual/dir_setting/firing_effect/energy
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/get_shot_amount()
-	return min(round(chassis.cell.charge / energy_drain), projectiles_per_shot)
+	return min(round(chassis.fuel_holder.volume / energy_drain), projectiles_per_shot)
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/start_cooldown()
 	set_ready_state(0)
 	chassis.use_power(energy_drain*get_shot_amount())
-	addtimer(CALLBACK(src, .proc/set_ready_state, 1), equip_cooldown)
+	addtimer(CALLBACK(src, PROC_REF(set_ready_state), 1), equip_cooldown)
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/laser
 	equip_cooldown = 7
@@ -273,6 +274,40 @@
 	harmful = TRUE
 	ammo_type = "lmg"
 
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg/auto
+	name = "\improper AC AUTO"
+	desc = "A weapon for combat exosuits. Automatic."
+	icon_state = "mecha_uac2"
+	fire_sound = 'sound/f13weapons/bozar_fire.ogg'
+	equip_cooldown = 10
+	projectile = /obj/item/projectile/bullet/lmg/auto
+	projectiles = 150
+	projectiles_cache = 150
+	projectiles_cache_max = 1200
+	projectiles_per_shot = 4
+	variance = 6
+	is_automatic = TRUE
+	randomspread = 1.08
+	harmful = TRUE
+	ammo_type = "lmg"
+
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg/hobo
+	name = "\improper Improvised HMG"
+	desc = "A automatic machine gun make with scraps."
+	icon_state = "mecha_uac2"
+	fire_sound = 'sound/f13weapons/boltfire.ogg'
+	equip_cooldown = 10
+	projectile = /obj/item/projectile/bullet/lmg/hobo
+	projectiles = 25
+	projectiles_cache = 25
+	projectiles_cache_max = 1200
+	projectiles_per_shot = 2
+	variance = 6
+	is_automatic = TRUE
+	randomspread = 1.2
+	harmful = TRUE
+	ammo_type = "lmg"
+
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack
 	name = "\improper SRM-8 missile rack"
 	desc = "A weapon for combat exosuits. Launches light explosive missiles."
@@ -340,7 +375,7 @@
 	var/turf/T = get_turf(src)
 	message_admins("[ADMIN_LOOKUPFLW(chassis.occupant)] fired a [src] in [ADMIN_VERBOSEJMP(T)]")
 	log_game("[key_name(chassis.occupant)] fired a [src] in [AREACOORD(T)]")
-	addtimer(CALLBACK(F, /obj/item/grenade/flashbang.proc/prime), det_time)
+	addtimer(CALLBACK(F, TYPE_PROC_REF(/obj/item/grenade/flashbang,prime)), det_time)
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/launcher/flashbang/clusterbang //Because I am a heartless bastard -Sieve //Heartless? for making the poor man's honkblast? - Kaze
 	name = "\improper SOB-3 grenade launcher"

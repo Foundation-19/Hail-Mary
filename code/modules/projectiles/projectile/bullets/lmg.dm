@@ -6,10 +6,28 @@
 // Mech LMG
 
 /obj/item/projectile/bullet/lmg
-	damage = 25
+	damage = 20
 	icon_state = "mech_autocannon"
 	light_range = 2
 	light_power = 0.5
+	light_color = "#FF7F01"
+
+// Mech LMG Auto
+
+/obj/item/projectile/bullet/lmg/auto
+	damage = 20
+	icon_state = "mech_autocannon"
+	light_range = 3
+	light_power = 0.3
+	light_color = "#FF7F01"
+
+// Mech LMG Hobo
+
+/obj/item/projectile/bullet/lmg/hobo
+	damage = 15
+	icon_state = "mech_autocannon"
+	light_range = 3
+	light_power = 0.7
 	light_color = "#FF7F01"
 
 // Mech FNX-99

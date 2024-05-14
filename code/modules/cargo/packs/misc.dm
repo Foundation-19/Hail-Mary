@@ -16,9 +16,9 @@
 
 /datum/supply_pack/misc/anvil
 	name = "Anvil Crate"
-	desc = "An anvil in a crate. It's got wheels on it so you can move it."
-	cost = 2500
-	contains = list(/obj/structure/anvil/obtainable/basic)
+	desc = "An anvil in a crate, we had to dig this out of the old warehouse. It's got wheels on it so you can move it."
+	cost = 7500
+	contains = list(/obj/structure/blacksmith/anvil/obtainable)
 
 /datum/supply_pack/misc/artsupply
 	name = "Art Supplies"

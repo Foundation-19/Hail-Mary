@@ -152,7 +152,7 @@
 	var/rand_high = prefire_time + (prefire_time * prefire_randomness)
 	var/shoot_delay = rand(rand_low, rand_high)
 	fuse_loop.start()
-	addtimer(CALLBACK(src, .proc/fire_at_cursor, user), shoot_delay)
+	addtimer(CALLBACK(src, PROC_REF(fire_at_cursor), user), shoot_delay)
 	update_icon()
 	return TRUE
 

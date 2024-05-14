@@ -51,6 +51,12 @@
 	multiple_sprites = 2
 	custom_materials = list(/datum/material/iron = MATS_PISTOL_SPEEDLOADER)
 	w_class = WEIGHT_CLASS_TINY
+	can_change_caliber = TRUE
+	
+/obj/item/ammo_box/magazine/zipgun/Initialize()
+	. = ..()
+	name += " [pick(GLOB.hobo_gun_mag_fluff["prefix"])] [pick(GLOB.hobo_gun_mag_fluff["suffix"])][prob(20) ? pick(GLOB.hobo_gun_mag_fluff["prefix"]) : ""]"
+	valid_new_calibers = GLOB.pipe_rifle_valid_calibers
 
 //9mm
 /obj/item/ammo_box/magazine/m9mm

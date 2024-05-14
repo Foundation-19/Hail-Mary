@@ -4,9 +4,10 @@
 
 #ifndef LOWMEMORYMODE
 	#ifdef ALL_MAPS
-		#include "map_files/Baltimore/baltimore_surface.dmm"
-		#include "map_files/Baltimore/baltimore_upperlevel.dmm"
-		#include "map_files/Baltimore/baltimore_underground.dmm"
+		#include "map_files/Pahrump-AB/Dungeons.dmm"
+		#include "map_files/Pahrump-AB/Pahrump-AB-Lower.dmm"
+		#include "map_files/Pahrump-AB/Pahrump-AB.dmm"
+		#include "map_files/Pahrump-AB/Pahrump-AB-Upper.dmm"
 		#ifdef TRAVISBUILDING
 			#include "templates.dm"
 		#endif

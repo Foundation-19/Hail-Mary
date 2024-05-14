@@ -59,8 +59,8 @@
 
 	for(var/obj/I in gun.item_upgrades)
 		var/datum/component/item_upgrade/IU = I.GetComponent(/datum/component/item_upgrade)
-		if(IU.weapon_upgrades[GUN_UPGRADE_CHARGECOST])
-			gun.vars["charge_cost_multiplier"] *= IU.weapon_upgrades[GUN_UPGRADE_CHARGECOST]
+		/*if(IU.weapon_upgrades[GUN_UPGRADE_CHARGECOST])
+			gun.vars["charge_cost_multiplier"] *= IU.weapon_upgrades[GUN_UPGRADE_CHARGECOST] fucking up cost*/
 		if(IU.weapon_upgrades[GUN_UPGRADE_FIRE_DELAY_MULT])
 			gun.vars["fire_delay"] *= IU.weapon_upgrades[GUN_UPGRADE_FIRE_DELAY_MULT]
 			gun.vars["autofire_shot_delay"] *= IU.weapon_upgrades[GUN_UPGRADE_FIRE_DELAY_MULT]
@@ -152,7 +152,7 @@
 	name = "Fully Automatic"
 	desc = "Automatic - 150 RPM."
 	fire_type = GUN_FIREMODE_AUTO
-	firerate_auto = GUN_FIRE_RATE_200
+	firerate_auto = GUN_FIRE_RATE_150
 
 /datum/firemode/burst
 	name = "Burstfire"

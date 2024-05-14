@@ -264,7 +264,7 @@ the storage1 (/obj/screen): attack hand(Mr. English (/mob/living/carbon/human), 
 the storage1 (/obj/screen): DblClick(null, null, null)
 the storage1 (/obj/screen): Click(null, "mapwindow.map", "icon-x=26;icon-y=20;left=1;scr...")
 runtime error: undefined variable /client/var/loc
-proc name: get turf (/proc/get_turf)
+proc name: get turf (GLOBAL_PROC_REF(get_turf))
   source file: helper_procs.dm,38
   usr: the ghost (/mob/dead/observer)
   src: null
@@ -2637,7 +2637,7 @@ the o_clothing (/obj/screen): attack hand(Micheal Simpson (/mob/living/carbon/hu
 the o_clothing (/obj/screen): DblClick(null, null, null)
 the o_clothing (/obj/screen): Click(null, "mapwindow.map", "icon-x=14;icon-y=20;left=1;scr...")
 runtime error: undefined variable /client/var/loc
-proc name: get turf (/proc/get_turf)
+proc name: get turf (GLOBAL_PROC_REF(get_turf))
   source file: helper_procs.dm,38
   usr: the ghost (/mob/dead/observer)
   src: null
@@ -2868,7 +2868,7 @@ the storage1 (/obj/screen): attack hand(Jennifer Ketavim (/mob/living/carbon/hum
 the storage1 (/obj/screen): DblClick(null, null, null)
 the storage1 (/obj/screen): Click(null, "mapwindow.map", "icon-x=30;icon-y=20;left=1;scr...")
 runtime error: Cannot read null.fields
-proc name: mergeRecordLists (/proc/mergeRecordLists)
+proc name: mergeRecordLists (GLOBAL_PROC_REF(mergeRecordLists))
   source file: helpers.dm,263
   usr: Wintermute (/mob/living/silicon/ai)
   src: null
@@ -2885,7 +2885,7 @@ Security Records (/obj/machinery/computer/secure_data): updateUsrDialog()
 Security Records (/obj/machinery/computer/secure_data): Topic("src=\[0x2008e1c];choice=Return", /list (/list))
 Saar Cavaliers (/client): Topic("src=\[0x2008e1c];choice=Return", /list (/list), Security Records (/obj/machinery/computer/secure_data))
 runtime error: Cannot read null.len
-proc name: mergeRecordLists (/proc/mergeRecordLists)
+proc name: mergeRecordLists (GLOBAL_PROC_REF(mergeRecordLists))
   source file: helpers.dm,260
   usr: Wintermute (/mob/living/silicon/ai)
   src: null
@@ -2901,7 +2901,7 @@ Security Records (/obj/machinery/computer/secure_data): updateUsrDialog()
 Security Records (/obj/machinery/computer/secure_data): Topic("src=\[0x2008e1c];choice=Return", /list (/list))
 Saar Cavaliers (/client): Topic("src=\[0x2008e1c];choice=Return", /list (/list), Security Records (/obj/machinery/computer/secure_data))
 runtime error: Cannot read null.len
-proc name: mergeRecordLists (/proc/mergeRecordLists)
+proc name: mergeRecordLists (GLOBAL_PROC_REF(mergeRecordLists))
   source file: helpers.dm,260
   usr: Wintermute (/mob/living/silicon/ai)
   src: null
@@ -2916,7 +2916,7 @@ Security Records (/obj/machinery/computer/secure_data): updateUsrDialog()
 Security Records (/obj/machinery/computer/secure_data): Topic("src=\[0x2008e1c];choice=Return", /list (/list))
 Saar Cavaliers (/client): Topic("src=\[0x2008e1c];choice=Return", /list (/list), Security Records (/obj/machinery/computer/secure_data))
 runtime error: Cannot read null.len
-proc name: mergeRecordLists (/proc/mergeRecordLists)
+proc name: mergeRecordLists (GLOBAL_PROC_REF(mergeRecordLists))
   source file: helpers.dm,260
   usr: Wintermute (/mob/living/silicon/ai)
   src: null
@@ -2930,7 +2930,7 @@ Security Records (/obj/machinery/computer/secure_data): updateUsrDialog()
 Security Records (/obj/machinery/computer/secure_data): Topic("src=\[0x2008e1c];choice=Return", /list (/list))
 Saar Cavaliers (/client): Topic("src=\[0x2008e1c];choice=Return", /list (/list), Security Records (/obj/machinery/computer/secure_data))
 runtime error: Cannot read null.len
-proc name: mergeRecordLists (/proc/mergeRecordLists)
+proc name: mergeRecordLists (GLOBAL_PROC_REF(mergeRecordLists))
   source file: helpers.dm,260
   usr: Wintermute (/mob/living/silicon/ai)
   src: null
@@ -2943,7 +2943,7 @@ Security Records (/obj/machinery/computer/secure_data): updateUsrDialog()
 Security Records (/obj/machinery/computer/secure_data): Topic("src=\[0x2008e1c];choice=Return", /list (/list))
 Saar Cavaliers (/client): Topic("src=\[0x2008e1c];choice=Return", /list (/list), Security Records (/obj/machinery/computer/secure_data))
 runtime error: Cannot read null.fields
-proc name: mergeRecordLists (/proc/mergeRecordLists)
+proc name: mergeRecordLists (GLOBAL_PROC_REF(mergeRecordLists))
   source file: helpers.dm,263
   usr: Wintermute (/mob/living/silicon/ai)
   src: null
@@ -2960,7 +2960,7 @@ Security Records (/obj/machinery/computer/secure_data): updateUsrDialog()
 Security Records (/obj/machinery/computer/secure_data): Topic("src=\[0x2008e1c];choice=Log%20...", /list (/list))
 Saar Cavaliers (/client): Topic("src=\[0x2008e1c];choice=Log%20...", /list (/list), Security Records (/obj/machinery/computer/secure_data))
 runtime error: Cannot read null.len
-proc name: mergeRecordLists (/proc/mergeRecordLists)
+proc name: mergeRecordLists (GLOBAL_PROC_REF(mergeRecordLists))
   source file: helpers.dm,260
   usr: Wintermute (/mob/living/silicon/ai)
   src: null
@@ -2976,7 +2976,7 @@ Security Records (/obj/machinery/computer/secure_data): updateUsrDialog()
 Security Records (/obj/machinery/computer/secure_data): Topic("src=\[0x2008e1c];choice=Log%20...", /list (/list))
 Saar Cavaliers (/client): Topic("src=\[0x2008e1c];choice=Log%20...", /list (/list), Security Records (/obj/machinery/computer/secure_data))
 runtime error: Cannot read null.len
-proc name: mergeRecordLists (/proc/mergeRecordLists)
+proc name: mergeRecordLists (GLOBAL_PROC_REF(mergeRecordLists))
   source file: helpers.dm,260
   usr: Wintermute (/mob/living/silicon/ai)
   src: null
@@ -2991,7 +2991,7 @@ Security Records (/obj/machinery/computer/secure_data): updateUsrDialog()
 Security Records (/obj/machinery/computer/secure_data): Topic("src=\[0x2008e1c];choice=Log%20...", /list (/list))
 Saar Cavaliers (/client): Topic("src=\[0x2008e1c];choice=Log%20...", /list (/list), Security Records (/obj/machinery/computer/secure_data))
 runtime error: Cannot read null.len
-proc name: mergeRecordLists (/proc/mergeRecordLists)
+proc name: mergeRecordLists (GLOBAL_PROC_REF(mergeRecordLists))
   source file: helpers.dm,260
   usr: Wintermute (/mob/living/silicon/ai)
   src: null
@@ -3005,7 +3005,7 @@ Security Records (/obj/machinery/computer/secure_data): updateUsrDialog()
 Security Records (/obj/machinery/computer/secure_data): Topic("src=\[0x2008e1c];choice=Log%20...", /list (/list))
 Saar Cavaliers (/client): Topic("src=\[0x2008e1c];choice=Log%20...", /list (/list), Security Records (/obj/machinery/computer/secure_data))
 runtime error: Cannot read null.len
-proc name: mergeRecordLists (/proc/mergeRecordLists)
+proc name: mergeRecordLists (GLOBAL_PROC_REF(mergeRecordLists))
   source file: helpers.dm,260
   usr: Wintermute (/mob/living/silicon/ai)
   src: null
@@ -3018,7 +3018,7 @@ Security Records (/obj/machinery/computer/secure_data): updateUsrDialog()
 Security Records (/obj/machinery/computer/secure_data): Topic("src=\[0x2008e1c];choice=Log%20...", /list (/list))
 Saar Cavaliers (/client): Topic("src=\[0x2008e1c];choice=Log%20...", /list (/list), Security Records (/obj/machinery/computer/secure_data))
 runtime error: Cannot read null.fields
-proc name: mergeRecordLists (/proc/mergeRecordLists)
+proc name: mergeRecordLists (GLOBAL_PROC_REF(mergeRecordLists))
   source file: helpers.dm,263
   usr: Wintermute (/mob/living/silicon/ai)
   src: null
@@ -3035,7 +3035,7 @@ Security Records (/obj/machinery/computer/secure_data): updateUsrDialog()
 Security Records (/obj/machinery/computer/secure_data): Topic("src=\[0x2008e1c];choice=Return", /list (/list))
 Saar Cavaliers (/client): Topic("src=\[0x2008e1c];choice=Return", /list (/list), Security Records (/obj/machinery/computer/secure_data))
 runtime error: Cannot read null.len
-proc name: mergeRecordLists (/proc/mergeRecordLists)
+proc name: mergeRecordLists (GLOBAL_PROC_REF(mergeRecordLists))
   source file: helpers.dm,260
   usr: Wintermute (/mob/living/silicon/ai)
   src: null
@@ -3051,7 +3051,7 @@ Security Records (/obj/machinery/computer/secure_data): updateUsrDialog()
 Security Records (/obj/machinery/computer/secure_data): Topic("src=\[0x2008e1c];choice=Return", /list (/list))
 Saar Cavaliers (/client): Topic("src=\[0x2008e1c];choice=Return", /list (/list), Security Records (/obj/machinery/computer/secure_data))
 runtime error: Cannot read null.len
-proc name: mergeRecordLists (/proc/mergeRecordLists)
+proc name: mergeRecordLists (GLOBAL_PROC_REF(mergeRecordLists))
   source file: helpers.dm,260
   usr: Wintermute (/mob/living/silicon/ai)
   src: null
@@ -3066,7 +3066,7 @@ Security Records (/obj/machinery/computer/secure_data): updateUsrDialog()
 Security Records (/obj/machinery/computer/secure_data): Topic("src=\[0x2008e1c];choice=Return", /list (/list))
 Saar Cavaliers (/client): Topic("src=\[0x2008e1c];choice=Return", /list (/list), Security Records (/obj/machinery/computer/secure_data))
 runtime error: Cannot read null.len
-proc name: mergeRecordLists (/proc/mergeRecordLists)
+proc name: mergeRecordLists (GLOBAL_PROC_REF(mergeRecordLists))
   source file: helpers.dm,260
   usr: Wintermute (/mob/living/silicon/ai)
   src: null
@@ -3080,7 +3080,7 @@ Security Records (/obj/machinery/computer/secure_data): updateUsrDialog()
 Security Records (/obj/machinery/computer/secure_data): Topic("src=\[0x2008e1c];choice=Return", /list (/list))
 Saar Cavaliers (/client): Topic("src=\[0x2008e1c];choice=Return", /list (/list), Security Records (/obj/machinery/computer/secure_data))
 runtime error: Cannot read null.len
-proc name: mergeRecordLists (/proc/mergeRecordLists)
+proc name: mergeRecordLists (GLOBAL_PROC_REF(mergeRecordLists))
   source file: helpers.dm,260
   usr: Wintermute (/mob/living/silicon/ai)
   src: null
@@ -3093,7 +3093,7 @@ Security Records (/obj/machinery/computer/secure_data): updateUsrDialog()
 Security Records (/obj/machinery/computer/secure_data): Topic("src=\[0x2008e1c];choice=Return", /list (/list))
 Saar Cavaliers (/client): Topic("src=\[0x2008e1c];choice=Return", /list (/list), Security Records (/obj/machinery/computer/secure_data))
 runtime error: Cannot read null.fields
-proc name: mergeRecordLists (/proc/mergeRecordLists)
+proc name: mergeRecordLists (GLOBAL_PROC_REF(mergeRecordLists))
   source file: helpers.dm,263
   usr: Wintermute (/mob/living/silicon/ai)
   src: null
@@ -3110,7 +3110,7 @@ Security Records (/obj/machinery/computer/secure_data): updateUsrDialog()
 Security Records (/obj/machinery/computer/secure_data): Topic("src=\[0x2008e1c];choice=New%20...", /list (/list))
 Saar Cavaliers (/client): Topic("src=\[0x2008e1c];choice=New%20...", /list (/list), Security Records (/obj/machinery/computer/secure_data))
 runtime error: Cannot read null.len
-proc name: mergeRecordLists (/proc/mergeRecordLists)
+proc name: mergeRecordLists (GLOBAL_PROC_REF(mergeRecordLists))
   source file: helpers.dm,260
   usr: Wintermute (/mob/living/silicon/ai)
   src: null
@@ -3126,13 +3126,13 @@ Security Records (/obj/machinery/computer/secure_data): updateUsrDialog()
 Security Records (/obj/machinery/computer/secure_data): Topic("src=\[0x2008e1c];choice=New%20...", /list (/list))
 Saar Cavaliers (/client): Topic("src=\[0x2008e1c];choice=New%20...", /list (/list), Security Records (/obj/machinery/computer/secure_data))
 runtime error: Cannot read null.len
-proc name: mergeRecordLists (/proc/mergeRecordLists)
+proc name: mergeRecordLists (GLOBAL_PROC_REF(mergeRecordLists))
   source file: helpers.dm,260
 runtime error: Cannot read null.len
-proc name: mergeRecordLists (/proc/mergeRecordLists)
+proc name: mergeRecordLists (GLOBAL_PROC_REF(mergeRecordLists))
   source file: helpers.dm,260
 runtime error: Cannot read null.len
-proc name: mergeRecordLists (/proc/mergeRecordLists)
+proc name: mergeRecordLists (GLOBAL_PROC_REF(mergeRecordLists))
   source file: helpers.dm,260
 runtime error: Cannot read null.flags
 proc name: relaymove (/obj/effect/dummy/spell_jaunt/relaymove)
@@ -3210,37 +3210,37 @@ runtime error: Cannot read null.flags
 proc name: relaymove (/obj/effect/dummy/spell_jaunt/relaymove)
   source file: ethereal_jaunt.dm,81
 runtime error: undefined variable /client/var/loc
-proc name: get turf (/proc/get_turf)
+proc name: get turf (GLOBAL_PROC_REF(get_turf))
   source file: helper_procs.dm,38
 runtime error: Cannot read null.fields
-proc name: mergeRecordLists (/proc/mergeRecordLists)
+proc name: mergeRecordLists (GLOBAL_PROC_REF(mergeRecordLists))
   source file: helpers.dm,263
 runtime error: Cannot read null.len
-proc name: mergeRecordLists (/proc/mergeRecordLists)
+proc name: mergeRecordLists (GLOBAL_PROC_REF(mergeRecordLists))
   source file: helpers.dm,260
 runtime error: Cannot read null.len
-proc name: mergeRecordLists (/proc/mergeRecordLists)
+proc name: mergeRecordLists (GLOBAL_PROC_REF(mergeRecordLists))
   source file: helpers.dm,260
 runtime error: Cannot read null.len
-proc name: mergeRecordLists (/proc/mergeRecordLists)
+proc name: mergeRecordLists (GLOBAL_PROC_REF(mergeRecordLists))
   source file: helpers.dm,260
 runtime error: Cannot read null.len
-proc name: mergeRecordLists (/proc/mergeRecordLists)
+proc name: mergeRecordLists (GLOBAL_PROC_REF(mergeRecordLists))
   source file: helpers.dm,260
 runtime error: Cannot read null.fields
-proc name: mergeRecordLists (/proc/mergeRecordLists)
+proc name: mergeRecordLists (GLOBAL_PROC_REF(mergeRecordLists))
   source file: helpers.dm,263
 runtime error: Cannot read null.len
-proc name: mergeRecordLists (/proc/mergeRecordLists)
+proc name: mergeRecordLists (GLOBAL_PROC_REF(mergeRecordLists))
   source file: helpers.dm,260
 runtime error: Cannot read null.len
-proc name: mergeRecordLists (/proc/mergeRecordLists)
+proc name: mergeRecordLists (GLOBAL_PROC_REF(mergeRecordLists))
   source file: helpers.dm,260
 runtime error: Cannot read null.len
-proc name: mergeRecordLists (/proc/mergeRecordLists)
+proc name: mergeRecordLists (GLOBAL_PROC_REF(mergeRecordLists))
   source file: helpers.dm,260
 runtime error: Cannot read null.len
-proc name: mergeRecordLists (/proc/mergeRecordLists)
+proc name: mergeRecordLists (GLOBAL_PROC_REF(mergeRecordLists))
   source file: helpers.dm,260
 runtime error: Cannot read null.reagents
 proc name: fire syringe (/obj/item/weapon/gun/syringe/proc/fire_syringe)
