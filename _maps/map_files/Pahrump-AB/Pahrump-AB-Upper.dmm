@@ -9300,7 +9300,7 @@
 	desc = "It opens and closes. This one looks heavily fortified";
 	id_tag = "MedbayFoyer";
 	name = "Clinic Director";
-	req_access_txt = "287"
+	req_access_txt = "281"
 	},
 /turf/open/floor/plasteel/f13/vault_floor/blue/whitebluefull,
 /area/f13/city)

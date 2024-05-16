@@ -27956,9 +27956,9 @@
 	id = "followersdoorshutters";
 	name = "shutters"
 	},
-/obj/structure/simple_door/bunker/glass{
-	req_access_txt = "280";
-	name = "medical pavilion"
+/obj/machinery/door/airlock/shuttle{
+	name = "medical pavillion";
+	req_access_txt = "280"
 	},
 /turf/open/floor/plasteel/f13/vault_floor/white,
 /area/f13/city)
@@ -33430,9 +33430,9 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/brotherhood)
 "hCJ" = (
-/obj/structure/simple_door/bunker/glass{
-	req_access_txt = "280";
-	name = "medical pavilion"
+/obj/machinery/door/airlock/shuttle{
+	name = "medical pavillion";
+	req_access_txt = "280"
 	},
 /turf/open/floor/plasteel/f13/vault_floor/neutral/neutralsolid,
 /area/f13/city)
@@ -51437,9 +51437,9 @@
 /turf/open/floor/f13/wood,
 /area/f13/village)
 "oQn" = (
-/obj/structure/simple_door/bunker/glass{
+/obj/machinery/door/airlock/shuttle{
 	name = "medical guard";
-	req_access_txt = "281"
+	req_access_txt = "280"
 	},
 /turf/open/floor/plasteel/f13/vault_floor/blue/white/whitebluechess/whitebluechess2,
 /area/f13/city)
@@ -53868,9 +53868,9 @@
 	},
 /area/f13/wasteland)
 "pMu" = (
-/obj/structure/simple_door/bunker/glass{
+/obj/machinery/door/airlock/shuttle{
 	name = "medical guard";
-	req_access_txt = "281"
+	req_access_txt = "280"
 	},
 /turf/open/floor/plasteel/f13/vault_floor/blue/bluechess,
 /area/f13/city)
@@ -55429,11 +55429,11 @@
 	},
 /area/f13/brotherhood)
 "qww" = (
-/obj/structure/simple_door/bunker{
-	req_access_txt = "280";
-	name = "medical pavilion"
+/obj/machinery/door/airlock/shuttle{
+	name = "medical pavillion";
+	req_access_txt = "280"
 	},
-/turf/open/floor/plasteel/f13/vault_floor/blue/bluechess,
+/turf/open/floor/plating/f13/inside,
 /area/f13/city)
 "qwF" = (
 /obj/item/reagent_containers/glass/bucket{
@@ -72011,9 +72011,9 @@
 	},
 /area/f13/building)
 "xAW" = (
-/obj/structure/simple_door/bunker{
-	req_access_txt = "280";
-	name = "medical pavilion"
+/obj/machinery/door/airlock/shuttle{
+	name = "medical pavillion";
+	req_access_txt = "280"
 	},
 /turf/open/floor/plasteel/f13/vault_floor/blue/white/side,
 /area/f13/city)
