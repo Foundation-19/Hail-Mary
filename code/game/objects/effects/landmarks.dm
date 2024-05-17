@@ -661,6 +661,14 @@ obj/effect/landmark/start/f13/ncrlogisticsofficer
 	name = "Legion Slave"
 	icon_state = "Wastelander"
 
+/obj/effect/landmark/start/f13/legiongovernor
+	name = "Governor of Ostia"
+	icon_state = "Legionary"
+
+/obj/effect/landmark/start/f13/legionsubject
+	name = "Legion Subject"
+	icon_state = "Auxilla"
+
 // Brotherhood of Steel
 
 /obj/effect/landmark/start/f13/sentinel
@@ -876,6 +884,11 @@ obj/effect/landmark/start/f13/ncrlogisticsofficer
 /obj/effect/landmark/start/f13/uslightduty
 	name = "Enclave Bunker Duty"
 	icon_state = "usoffduty"
+
+/obj/effect/landmark/start/f13/usciv
+	name = "US Citizen Remnant"
+	icon_state = "usoffduty"
+
 //Tribal
 
 /obj/effect/landmark/start/f13/tribal

@@ -5,7 +5,9 @@
 		"Dungeons.dmm",
 		"Pahrump-AB-Lower.dmm",
 		"Pahrump-AB.dmm",
-		"Pahrump-AB-Upper.dmm"
+		"Pahrump-AB-Upper.dmm",
+		"Pahrump-Seaside-Surface-4.dmm",
+		"Pahrump-Seaside-Above-5.dmm"
 	],
 	"station_ruin_budget":0,
 	"space_ruin_levels":0,
@@ -63,6 +65,33 @@
 			"Name": "Yuma - Upper",
 			"Force X": 1,
 			"Force Y": 1,
+			"Force Z": 2
+		},
+
+		{
+			"Gravity": true,
+			"Baseturf": "/turf/open/indestructible/ground/inside/mountain",
+			"Station": 1,
+			"Up": 1,
+			"No Parallax": true,
+			"Linkage" : "Cross",
+			"Name": "Seaside - Surface",
+			"Force X": 1,
+			"Force Y": 0,
+			"Force Z": 1
+		},
+
+
+		{
+			"Gravity": true,
+			"Baseturf": "/turf/open/transparent/openspace",
+			"Down": -1,
+			"No Parallax": true,
+			"Linkage" : "Cross",
+			"Above": true,
+			"Name": "Seaside - Upper",
+			"Force X": 1,
+			"Force Y": 0,
 			"Force Z": 2
 		}
 	],

@@ -19,7 +19,7 @@
 	// Config actually from the JSON - should default to Box
 	var/map_name = "Yuma"
 	var/map_path = "map_files/Pahrump-AB"
-	var/map_file = list("Dungeons.dmm","Pahrump-AB-Lower.dmm", "Pahrump-AB.dmm", "Pahrump-AB-Upper.dmm")
+	var/map_file = list("Dungeons.dmm","Pahrump-AB-Lower.dmm", "Pahrump-AB.dmm", "Pahrump-AB-Upper.dmm","Pahrump-Seaside-Surface-4.dmm","Pahrump-Seaside-Above-5.dmm")
 	var/list/added_jobs = list()     //Overrides the "none" faction using job name
 	var/list/removed_jobs = list()   //Removes the "none" faction using job name - can also use #all# (case sensitive)
 
@@ -65,6 +65,30 @@
 						ZTRAIT_ABOVE = 1,
 						Z_FORCE_X = 1,
 						Z_FORCE_Y = 1,
+						Z_FORCE_Z = 2,
+						),
+					list(
+						ZTRAIT_GRAVITY = 1,
+						ZTRAIT_BASETURF = /turf/open/indestructible/ground/inside/mountain,
+						ZTRAIT_STATION = 1,
+						ZTRAIT_UP = 1,
+						ZTRAIT_DOWN = -1,
+						ZTRAIT_NOPARALLAX = 1,
+						ZTRAIT_LINKAGE = CROSSLINKED,
+						Z_FORCE_X = 1,
+						Z_FORCE_Y = 0,
+						Z_FORCE_Z = 1,
+						),
+					list(
+						ZTRAIT_GRAVITY = 1,
+						ZTRAIT_BASETURF = /turf/open/transparent/openspace,
+						ZTRAIT_UP = 1,
+						ZTRAIT_DOWN = -1,
+						ZTRAIT_NOPARALLAX = 1,
+						ZTRAIT_LINKAGE = CROSSLINKED,
+						ZTRAIT_ABOVE = 1,
+						Z_FORCE_X = 1,
+						Z_FORCE_Y = 0,
 						Z_FORCE_Z = 2,
 						)
 					)
