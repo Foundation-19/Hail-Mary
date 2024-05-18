@@ -207,6 +207,15 @@
 	if(!user.can_inject(C, TRUE))
 		return
 
+/obj/item/stack/medical/suture/heal_carbon(mob/living/carbon/C, mob/living/user) //So people with berserkers rights can use sutures
+	if(!iscarbon(C) || !user)
+		return FALSE
+	if(is_healing)
+		user.show_message(span_alert("You're already doing something with this!"))
+		return
+	if(!user.can_inject(C, TRUE, bypass_immunity = TRUE))
+		return
+
 	var/list/output_list = pick_a_bodypart(C, user)
 	if(!islist(output_list))
 		to_chat(user, span_phobia("Uh oh! [src] didnt return a list! This is a bug, probably! Report this pls~ =3"))
