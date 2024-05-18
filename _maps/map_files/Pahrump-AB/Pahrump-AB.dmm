@@ -23016,6 +23016,10 @@
 	icon_state = "horizontalbottomborderbottom0"
 	},
 /area/f13/wasteland)
+"doX" = (
+/obj/effect/landmark/start/f13/secretary,
+/turf/open/floor/f13/wood,
+/area/f13/city)
 "dpf" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -95230,7 +95234,7 @@ xhd
 jeh
 iht
 yco
-jeh
+doX
 tQn
 iht
 aiO
