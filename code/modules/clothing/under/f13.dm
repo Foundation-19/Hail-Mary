@@ -949,6 +949,43 @@
 	icon_state = "army_general"
 	item_state = "army_general"
 
+//Atlantic Cross
+
+/obj/item/clothing/under/f13/altantic/uniform
+	name = "Atlantic Cross Uniform"
+	desc = "A uniform derived from old world war 1 US Navy uniforms. Used and made by the Atlantic Cross. This one was with combat more in mind, and loved by marines, but everyone can wear it really."
+	icon_state = "atlanticuniform"
+	item_state = "bl_suit"
+	item_color = "atlanticuniform"
+
+/obj/item/clothing/under/f13/altantic/uniform/captain
+	name = "Atlantic Cross Captain Uniform"
+	desc = "A uniform derived from old world war 1 US Navy uniforms. Shoulder rank insignia have been added, to denote who is the captain."
+	icon_state = "atlanticuniform_captain"
+	item_state = "bl_suit"
+	item_color = "atlanticuniform_captain"
+
+/obj/item/clothing/under/f13/altantic/sailor
+	name = "Atlantic Cross Sailor outfit"
+	desc = "The typical sailor outfit. A bit clicher, with this stripped marcel, its still loved by the crewmembers on board."
+	icon_state = "atlanticsailor"
+	item_state = "bl_suit"
+	item_color = "atlanticsailor"
+
+/obj/item/clothing/under/f13/altantic/sailor/sweater
+	name = "Atlantic Cross warm outfit"
+	desc = "A utilitarian sweater put on when the weather gets cold. Some even find it comfy, and liked by doctors."
+	icon_state = "atlanticdoc"
+	item_state = "bl_suit"
+	item_color = "atlanticdoc"
+
+/obj/item/clothing/under/f13/altantic/sailor/nurse
+	name = "Atlantic Cross nurse dress"
+	desc = "Probably the clothes worn by the founders of the Atlantic Cross. Those nurse dress are based on the World war 1 by those same nurses."
+	icon_state = "atlanticnurse"
+	item_state = "bl_suit"
+	item_color = "atlanticnurse"
+
 //US Navy
 
 /obj/item/clothing/under/f13/navy

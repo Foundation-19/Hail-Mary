@@ -558,9 +558,7 @@
 /turf/open/floor/plating/dirt/dirt_maryland{
 	icon_state = "dirt_original"
 	},
-/area/f13/underground/enclave_base{
-	outdoors = 1
-	})
+/area/f13/wasteland/city)
 "ajb" = (
 /obj/structure/railing{
 	color = "#A47449"
@@ -694,9 +692,7 @@
 /turf/open/floor/plating/dirt/dirt_maryland{
 	icon_state = "dirt_original"
 	},
-/area/f13/underground/enclave_base{
-	outdoors = 1
-	})
+/area/f13/underground/enclave_base)
 "alR" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating/rust,
@@ -919,9 +915,7 @@
 	sunlight_state = 1;
 	name = "rusted Docks"
 	},
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "aoJ" = (
 /obj/item/chair/stool/bar,
 /obj/effect/decal/cleanable/dirt,
@@ -1070,9 +1064,7 @@
 	name = "Brickwall support"
 	},
 /turf/closed/wall/f13/sunset/brick_small_dark,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "arf" = (
 /obj/structure/window/fulltile/house{
 	icon_state = "housewindowbrokenvertical"
@@ -1298,9 +1290,7 @@
 /turf/open/floor/wood_wide/wood_wide_dark{
 	icon_state = "wide_dark-broken5"
 	},
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "auo" = (
 /obj/effect/turf_decal/road_end{
 	dir = 2
@@ -1332,9 +1322,7 @@
 /turf/open/indestructible/ground/outside/desert{
 	icon_state = "wasteland6"
 	},
-/area/f13/underground/enclave_base{
-	outdoors = 1
-	})
+/area/f13/wasteland/city)
 "auV" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -2147,9 +2135,7 @@
 /turf/open/floor/wood_wide{
 	icon_state = "wide_light-broken3"
 	},
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "aJf" = (
 /turf/open/indestructible/ground/outside/sidewalkdirt{
 	icon_state = "verticalrightborderright2bottom"
@@ -2371,9 +2357,7 @@
 /turf/open/floor/wood_wide{
 	icon_state = "wide_light1"
 	},
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "aMV" = (
 /obj/structure/railing/corner,
 /turf/open/pool{
@@ -3502,9 +3486,7 @@
 /turf/open/floor/wood_common{
 	icon_state = "common-broken6"
 	},
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "biH" = (
 /obj/structure/table/booth,
 /obj/item/flashlight/lantern{
@@ -3582,9 +3564,7 @@
 /obj/structure/window/fulltile/wood/broken,
 /obj/structure/railing/wood,
 /turf/open/floor/wood_wide/wood_wide_dark,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "bjP" = (
 /obj/structure/flora/branch_broken,
 /turf/open/indestructible/ground/outside/dirt,
@@ -4131,9 +4111,7 @@
 	sunlight_state = 1;
 	name = "rusted Docks"
 	},
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "bsy" = (
 /obj/structure/railing{
 	color = "#A47449";
@@ -4336,9 +4314,7 @@
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/wood_wide,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "bwz" = (
 /obj/effect/decal/cleanable/greenglow,
 /obj/item/clothing/suit/radiation,
@@ -4821,9 +4797,7 @@
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/wood_wide,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "bFP" = (
 /obj/machinery/vending/snack,
 /turf/open/floor/wood_mosaic,
@@ -5571,9 +5545,7 @@
 /turf/open/floor/plating/dirt/dirt_maryland{
 	icon_state = "dirt_original"
 	},
-/area/f13/underground/enclave_base{
-	outdoors = 1
-	})
+/area/f13/wasteland/city)
 "bWe" = (
 /obj/structure/sink/greyscale{
 	dir = 8;
@@ -6010,9 +5982,7 @@
 	pixel_x = 7
 	},
 /turf/open/indestructible/ground/outside/desert,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "cfh" = (
 /obj/item/trash/f13/dandyapples,
 /turf/open/floor/plasteel/f13/vault_floor/floor/floorsolid,
@@ -6208,9 +6178,7 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/wood_fancy/wood_fancy_light,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "chD" = (
 /obj/item/chair/wood/modern,
 /turf/open/floor/wood_fancy/wood_fancy_light,
@@ -6245,9 +6213,7 @@
 	name = "Brickwall support"
 	},
 /turf/closed/wall/f13/sunset/brick_small,
-/area/f13/underground/enclave_base{
-	outdoors = 1
-	})
+/area/f13/underground/enclave_base)
 "cim" = (
 /obj/structure/wreck/trash/five_tires,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
@@ -6637,9 +6603,7 @@
 /turf/open/floor/wood_wide{
 	icon_state = "wide-broken1"
 	},
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "cpg" = (
 /turf/closed/wall/mineral/concrete{
 	name = "Ship wall"
@@ -6834,9 +6798,7 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/closed/wall/f13/sunset/brick_small,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "ctk" = (
 /obj/structure/flora/grass/coyote/fourteen,
 /obj/effect/decal/cleanable/dirt,
@@ -6860,9 +6822,7 @@
 	name = "Brickwall support"
 	},
 /turf/closed/wall/f13/sunset/brick_small_dark,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "ctz" = (
 /mob/living/simple_animal/hostile/mirelurk/hunter,
 /turf/open/floor/plating/rust{
@@ -6926,9 +6886,7 @@
 /area/f13/citycaves)
 "cvb" = (
 /turf/closed/wall/f13/sunset/brick_small_light,
-/area/f13/underground/enclave_base{
-	outdoors = 1
-	})
+/area/f13/underground/enclave_base)
 "cvf" = (
 /obj/structure/wreck/car{
 	pixel_y = 15
@@ -7751,9 +7709,7 @@
 /turf/open/floor/plating/dirt/dirt_maryland{
 	icon_state = "dirt_original"
 	},
-/area/f13/underground/enclave_base{
-	outdoors = 1
-	})
+/area/f13/wasteland/city)
 "cKH" = (
 /obj/effect/decal/marking{
 	icon_state = "dottedhorizontalcorroded"
@@ -8452,13 +8408,6 @@
 /turf/open/floor/plasteel/f13/vault_floor/floor,
 /area/f13/building/abandoned{
 	light_on = 0
-	})
-"cUL" = (
-/turf/open/indestructible/ground/outside/desert{
-	icon_state = "wasteland8"
-	},
-/area/f13/underground/enclave_base{
-	outdoors = 1
 	})
 "cUU" = (
 /obj/effect/overlay/junk/urinal{
@@ -9409,9 +9358,7 @@
 	pixel_y = 4
 	},
 /turf/open/floor/wood_fancy/wood_fancy_light,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "dlJ" = (
 /obj/effect/decal/remains/human,
 /turf/open/floor/plating/f13/outside/road/baltimore{
@@ -9530,9 +9477,7 @@
 /turf/open/floor/plating/dirt/dirt_maryland{
 	icon_state = "dirt_original"
 	},
-/area/f13/underground/enclave_base{
-	outdoors = 1
-	})
+/area/f13/wasteland/city)
 "dnE" = (
 /obj/structure/fence{
 	layer = 10
@@ -9859,9 +9804,7 @@
 	name = "Brickwall support"
 	},
 /turf/closed/wall/f13/sunset/brick_small_dark,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "dtl" = (
 /turf/open/indestructible/ground/outside/dirt/harsh,
 /area/f13/wasteland/city/citycenter)
@@ -10163,9 +10106,7 @@
 /turf/open/floor/wood_wide{
 	icon_state = "wide_light1"
 	},
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "dxW" = (
 /obj/structure/fence{
 	layer = 10
@@ -10210,9 +10151,7 @@
 /turf/open/floor/wood_wide/wood_wide_dark{
 	icon_state = "wide_dark-broken1"
 	},
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "dyB" = (
 /obj/structure/flora/wasteplant/wild_xander,
 /turf/open/floor/plating/dirt/dirt_maryland{
@@ -10749,9 +10688,7 @@
 	sunlight_state = 1;
 	name = "rusted Docks"
 	},
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "dIw" = (
 /turf/open/floor/plasteel/freezer,
 /area/f13/building/center)
@@ -10873,13 +10810,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/wood_wide/wood_wide_light,
 /area/f13/building/boat)
-"dKw" = (
-/turf/open/floor/plating/dirt/dirt_maryland{
-	icon_state = "grass_7"
-	},
-/area/f13/underground/enclave_base{
-	outdoors = 1
-	})
 "dKB" = (
 /obj/structure/curtain,
 /obj/structure/decoration/vent,
@@ -10931,9 +10861,7 @@
 	name = "Brickwall support"
 	},
 /turf/open/floor/wood_wide,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "dLs" = (
 /obj/structure/closet/crate/large,
 /obj/item/book/granter/trait/explosives_advanced,
@@ -11015,9 +10943,7 @@
 "dML" = (
 /obj/structure/simple_door/metal,
 /turf/open/floor/wood_wide/wood_wide_dark,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "dNw" = (
 /turf/open/indestructible/ground/outside/sidewalkdirt{
 	icon_state = "outerborder";
@@ -11598,9 +11524,7 @@
 /turf/open/floor/wood_wide{
 	icon_state = "wide_light1"
 	},
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "dZK" = (
 /turf/open/floor/plating/f13/outside/road/baltimore{
 	icon_state = "road_east_2"
@@ -12026,9 +11950,7 @@
 	name = "Brickwall support"
 	},
 /turf/closed/wall/f13/sunset/brick_small,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "ehJ" = (
 /obj/structure/barricade/tentclothcorner,
 /turf/open/floor/plating/dirt/dirt_maryland{
@@ -12375,9 +12297,7 @@
 /turf/open/indestructible/ground/outside/desert{
 	icon_state = "wasteland5"
 	},
-/area/f13/underground/enclave_base{
-	outdoors = 1
-	})
+/area/f13/wasteland/city)
 "eon" = (
 /obj/structure/railing{
 	color = "#A47449"
@@ -12449,9 +12369,7 @@
 /turf/open/floor/wood_wide{
 	icon_state = "wide_light1"
 	},
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "epG" = (
 /obj/structure/simple_door/wood,
 /turf/open/floor/wood_common,
@@ -12799,9 +12717,7 @@
 /turf/open/floor/wood_fancy/wood_fancy_light{
 	icon_state = "fancy_light-broken4"
 	},
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "ewP" = (
 /obj/structure/flora/tree/tall{
 	icon_state = "tree_3"
@@ -14448,9 +14364,7 @@
 /obj/effect/decal/cleanable/glass,
 /obj/structure/chair/stool/retro/tan,
 /turf/open/floor/wood_fancy/wood_fancy_light,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "fbv" = (
 /obj/structure/table/wood,
 /obj/structure/curtain{
@@ -14480,9 +14394,7 @@
 /turf/open/floor/wood_wide/wood_wide_dark{
 	icon_state = "wide_dark-broken1"
 	},
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "fbP" = (
 /obj/effect/mob_spawn/human/corpse/raider/ranged,
 /turf/open/floor/wood_common,
@@ -14545,9 +14457,7 @@
 	color = "#FFDDCC"
 	},
 /turf/open/floor/wood_wide,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "fel" = (
 /obj/effect/decal/cleanable/molten_object,
 /turf/open/floor/plating/dirt/dirt_maryland{
@@ -15253,9 +15163,7 @@
 	color = "#A47449"
 	},
 /turf/open/floor/wood_common,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "fqn" = (
 /obj/effect/decal/cleanable/robot_debris,
 /obj/effect/decal/cleanable/glass,
@@ -16504,9 +16412,7 @@
 "fOd" = (
 /obj/structure/simple_door/metal/barred,
 /turf/open/floor/wood_common,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "fOg" = (
 /obj/structure/window/fulltile/house{
 	icon_state = "housewindowvertical"
@@ -16880,9 +16786,7 @@
 /obj/item/reagent_containers/glass/beaker/waterbottle,
 /obj/structure/closet/crate/wooden,
 /turf/open/floor/wood_fancy/wood_fancy_light,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "fUJ" = (
 /obj/effect/turf_decal/stripes/asteroid/line,
 /turf/open/floor/f13/wood/outside,
@@ -17475,9 +17379,7 @@
 	color = "#FFDDCC"
 	},
 /turf/open/floor/wood_fancy/wood_fancy_light,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "gfE" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/closed/wall/f13/sunset/brick_small,
@@ -17937,13 +17839,6 @@
 /area/f13/building/abandoned{
 	light_on = 0
 	})
-"goA" = (
-/turf/open/floor/plasteel/stairs{
-	color = "#B77850"
-	},
-/area/f13/underground/enclave_base{
-	outdoors = 1
-	})
 "goD" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -18281,13 +18176,6 @@
 	icon_state = "dirt_original"
 	},
 /area/f13/wasteland/city/citycenter)
-"gsl" = (
-/turf/open/floor/plating/dirt/dirt_maryland{
-	icon_state = "grass_6"
-	},
-/area/f13/underground/enclave_base{
-	outdoors = 1
-	})
 "gsn" = (
 /obj/structure/chair/bench{
 	dir = 1
@@ -18701,13 +18589,6 @@
 	},
 /turf/open/indestructible/ground/outside/gravel,
 /area/f13/wasteland/town)
-"gze" = (
-/turf/open/floor/plating/dirt/dirt_maryland{
-	icon_state = "grass_4"
-	},
-/area/f13/underground/enclave_base{
-	outdoors = 1
-	})
 "gzh" = (
 /obj/mecha/combat/phazon/pickuptruck/bos/loaded,
 /turf/open/floor/f13/wood{
@@ -19142,9 +19023,7 @@
 	})
 "gHW" = (
 /turf/open/indestructible/ground/outside/desert,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "gHY" = (
 /obj/structure/table,
 /obj/effect/spawner/lootdrop/f13/traitbooks,
@@ -19971,23 +19850,6 @@
 	},
 /turf/open/floor/plating/f13,
 /area/f13/citycaves)
-"gYl" = (
-/obj/structure/railing/wood{
-	pixel_y = 7;
-	name = "wooden docks";
-	color = "#cc3300"
-	},
-/obj/structure/railing/wood{
-	pixel_y = 4;
-	name = "wooden docks";
-	color = "#cc3300"
-	},
-/turf/open/floor/plating/dirt/dirt_maryland{
-	icon_state = "dirt_original"
-	},
-/area/f13/underground/enclave_base{
-	outdoors = 1
-	})
 "gYn" = (
 /obj/structure/fence{
 	dir = 8
@@ -20008,9 +19870,7 @@
 /area/f13/wasteland/city/citycenter)
 "gYz" = (
 /turf/closed/wall/f13/sunset/brick_small_light,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "gYE" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -20205,9 +20065,7 @@
 /turf/open/floor/wood_wide{
 	icon_state = "wide_light1"
 	},
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "hbi" = (
 /obj/effect/spawner/lootdrop/f13/cash_random_med,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
@@ -20628,9 +20486,7 @@
 "hjo" = (
 /obj/structure/destructible/tribal_torch/lit,
 /turf/open/indestructible/ground/outside/desert,
-/area/f13/underground/enclave_base{
-	outdoors = 1
-	})
+/area/f13/wasteland/city)
 "hjG" = (
 /obj/structure/table/wood/fancy,
 /obj/item/storage/book/bible,
@@ -20728,9 +20584,7 @@
 	sunlight_state = 1;
 	name = "rusted Docks"
 	},
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "hlo" = (
 /obj/structure/flora/roadplant{
 	icon_state = "grass_5d"
@@ -20885,9 +20739,7 @@
 	sunlight_state = 1;
 	name = "rusted Docks"
 	},
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "hmW" = (
 /obj/structure/barricade/tentleatheredge,
 /turf/open/floor/wood_mosaic/wood_mosaic_light,
@@ -21210,9 +21062,7 @@
 /area/f13/wasteland/city/citycenter)
 "hsL" = (
 /turf/open/floor/wood_fancy/wood_fancy_light,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "hsT" = (
 /obj/structure/railing{
 	color = "#A47449"
@@ -21695,9 +21545,7 @@
 /turf/open/floor/plating/dirt/dirt_maryland{
 	icon_state = "dirt_original"
 	},
-/area/f13/underground/enclave_base{
-	outdoors = 1
-	})
+/area/f13/wasteland/city)
 "hBX" = (
 /obj/structure/closet/crate/wooden,
 /obj/effect/spawner/lootdrop/cig_packs,
@@ -21962,9 +21810,7 @@
 /turf/open/indestructible/ground/outside/desert{
 	icon_state = "wasteland8"
 	},
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "hHt" = (
 /obj/item/storage/trash_stack{
 	icon_state = "trash_2"
@@ -22933,9 +22779,7 @@
 	dir = 8
 	},
 /turf/open/floor/wood_wide/wood_wide_dark,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "hXW" = (
 /mob/living/simple_animal/hostile/raider/baseball{
 	name = "Baseballin raider"
@@ -23755,9 +23599,7 @@
 	})
 "ioV" = (
 /turf/closed/indestructible/f13/matrix,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "ipn" = (
 /obj/structure/stone_tile/block,
 /obj/structure/railing/handrail/blue{
@@ -23851,9 +23693,7 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/wood_common,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "iqS" = (
 /obj/effect/decal/riverbank{
 	color = "#669999";
@@ -24336,9 +24176,7 @@
 	sunlight_state = 1;
 	name = "rusted Docks"
 	},
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "izE" = (
 /obj/structure/table/reinforced,
 /obj/item/circuitboard/computer/mech_bay_power_console,
@@ -24668,9 +24506,7 @@
 "iEo" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/wood_common,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "iEr" = (
 /obj/effect/decal/remains/human,
 /obj/effect/decal/cleanable/dirt,
@@ -26607,13 +26443,6 @@
 	},
 /turf/open/floor/wood_mosaic,
 /area/f13/building/center)
-"jml" = (
-/turf/open/floor/plating/dirt/dirt_maryland{
-	icon_state = "grass_2"
-	},
-/area/f13/underground/enclave_base{
-	outdoors = 1
-	})
 "jmr" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -26763,9 +26592,7 @@
 	pixel_y = -9
 	},
 /turf/closed/wall/rust,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "joW" = (
 /obj/effect/turf_decal/stripes/white/line{
 	dir = 4
@@ -27403,9 +27230,7 @@
 /turf/open/floor/wood_wide{
 	icon_state = "wide_light-broken2"
 	},
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "jBu" = (
 /obj/structure/falsewall/brick,
 /turf/open/floor/plasteel/freezer,
@@ -27888,14 +27713,6 @@
 	},
 /turf/open/floor/plating/rust,
 /area/f13/ruins)
-"jKU" = (
-/turf/open/floor/plasteel/stairs{
-	color = "#B77850";
-	dir = 1
-	},
-/area/f13/underground/enclave_base{
-	outdoors = 1
-	})
 "jLb" = (
 /obj/structure/cargocrate{
 	color = "#AAAAAA";
@@ -28021,9 +27838,7 @@
 /turf/open/floor/wood_wide/wood_wide_dark{
 	icon_state = "wide_dark-broken5"
 	},
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "jMg" = (
 /obj/structure/closet/crate/large,
 /obj/effect/spawner/lootdrop/wmelee_low,
@@ -28253,9 +28068,7 @@
 	sunlight_state = 1;
 	name = "rusted Docks"
 	},
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "jPO" = (
 /obj/structure/chair/stool/bar,
 /turf/open/floor/plating/dirt/dirt_maryland{
@@ -28680,9 +28493,7 @@
 /obj/structure/window/fulltile/wood/broken,
 /obj/structure/railing/wood,
 /turf/open/floor/wood_fancy/wood_fancy_light,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "jYf" = (
 /obj/machinery/atmospherics/components/unary/tank{
 	volume = 1
@@ -29095,9 +28906,7 @@
 "kfJ" = (
 /obj/structure/barricade/sandbags,
 /turf/open/floor/wood_wide,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "kfP" = (
 /obj/structure/chair/stool/retro/black,
 /turf/open/floor/f13/wood{
@@ -29451,9 +29260,7 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/wood_wide/wood_wide_dark,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "klO" = (
 /obj/structure/stairs/east{
 	color = "#A47449";
@@ -29462,9 +29269,7 @@
 /turf/open/floor/plating/dirt/dirt_maryland{
 	icon_state = "dirt_original"
 	},
-/area/f13/underground/enclave_base{
-	outdoors = 1
-	})
+/area/f13/wasteland/city)
 "klP" = (
 /turf/open/indestructible/ground/outside/sidewalk{
 	icon_state = "horizontaloutermain1"
@@ -30038,9 +29843,7 @@
 "kxo" = (
 /obj/effect/landmark/start/f13/uslightduty,
 /turf/open/indestructible/ground/outside/desert,
-/area/f13/underground/enclave_base{
-	outdoors = 1
-	})
+/area/f13/wasteland/city)
 "kxr" = (
 /turf/open/pool{
 	icon_state = "riverwater_motion";
@@ -30727,9 +30530,7 @@
 "kKq" = (
 /obj/structure/closet/locker/oldstyle,
 /turf/open/floor/wood_common,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "kKu" = (
 /obj/machinery/microwave/stove,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -31005,15 +30806,6 @@
 	color = "#B77850"
 	},
 /area/f13/building)
-"kOy" = (
-/turf/open/floor/plasteel/stairs{
-	color = "#B77850";
-	dir = 4;
-	sunlight_state = 1
-	},
-/area/f13/underground/enclave_base{
-	outdoors = 1
-	})
 "kOA" = (
 /obj/structure/cargocrate{
 	icon_state = "cargocrate2";
@@ -31093,9 +30885,7 @@
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/wood_wide,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "kPV" = (
 /obj/structure/table/wood/junk,
 /turf/open/floor/plating/dirt/dirt_maryland{
@@ -31151,14 +30941,10 @@
 /turf/open/floor/wood_wide{
 	icon_state = "wide_light1"
 	},
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "kQX" = (
 /turf/open/floor/wood_wide/wood_wide_dark,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "kRf" = (
 /obj/structure/fence{
 	layer = 10
@@ -31370,9 +31156,7 @@
 "kUr" = (
 /obj/structure/window/fulltile/wood,
 /turf/open/floor/wood_fancy/wood_fancy_light,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "kUs" = (
 /obj/structure/railing/corner,
 /obj/structure/railing/corner,
@@ -31416,9 +31200,7 @@
 /turf/open/floor/wood_common{
 	icon_state = "common-broken3"
 	},
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "kUT" = (
 /obj/structure/cargocrate{
 	icon_state = "cargocrate3"
@@ -32165,9 +31947,7 @@
 /turf/open/floor/wood_fancy/wood_fancy_light{
 	icon_state = "fancy_light-broken6"
 	},
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "lhn" = (
 /obj/machinery/vending/wardrobe/bar_wardrobe,
 /turf/open/floor/wood_fancy,
@@ -32744,9 +32524,7 @@
 /area/f13/building/center)
 "lsj" = (
 /turf/closed/wall/rust,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "lsB" = (
 /obj/structure/barricade/wooden,
 /obj/effect/overlay/water{
@@ -33120,9 +32898,7 @@
 	name = "Brickwall support"
 	},
 /turf/closed/wall/f13/sunset/brick_small,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "lyT" = (
 /obj/effect/turf_decal/road_end{
 	dir = 8
@@ -33593,9 +33369,7 @@
 /turf/open/floor/plating/dirt/dirt_maryland{
 	icon_state = "dirt_original"
 	},
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "lGj" = (
 /obj/structure/chair/sofa/left{
 	dir = 1
@@ -33919,9 +33693,7 @@
 /area/f13/building/boat)
 "lKI" = (
 /turf/closed/wall/f13/sunset/brick_small,
-/area/f13/underground/enclave_base{
-	outdoors = 1
-	})
+/area/f13/underground/enclave_base)
 "lKJ" = (
 /obj/structure/closet/fridge/standard,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
@@ -34242,9 +34014,7 @@
 	dir = 8
 	},
 /turf/open/floor/wood_fancy/wood_fancy_light,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "lQv" = (
 /obj/effect/decal/remains/human,
 /turf/open/floor/plasteel/f13/vault_floor/yellow/whiteyellowfull,
@@ -34874,9 +34644,7 @@
 "mab" = (
 /obj/structure/barricade/bars,
 /turf/open/floor/wood_common,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "mag" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1;
@@ -35508,9 +35276,7 @@
 /obj/structure/table/reinforced,
 /obj/structure/barricade/bars,
 /turf/open/floor/wood_wide,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "mmX" = (
 /obj/structure/simple_door/tent,
 /turf/open/indestructible/ground/outside/ruins,
@@ -35890,9 +35656,7 @@
 /turf/open/floor/plating/dirt/dirt_maryland{
 	icon_state = "dirt_original"
 	},
-/area/f13/underground/enclave_base{
-	outdoors = 1
-	})
+/area/f13/wasteland/city)
 "mue" = (
 /obj/structure/flora/ausbushes/ywflowers,
 /turf/open/floor/wood_fancy,
@@ -36605,9 +36369,7 @@
 /turf/open/floor/wood_wide{
 	icon_state = "wide_light1"
 	},
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "mEX" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/flora/roadplant{
@@ -36826,9 +36588,7 @@
 	})
 "mIJ" = (
 /turf/closed/indestructible/f13vaultrusted,
-/area/f13/underground/enclave_base{
-	outdoors = 1
-	})
+/area/f13/underground/enclave_base)
 "mIZ" = (
 /obj/structure/barricade/sandbags,
 /turf/open/floor/plating/f13/outside/road/baltimore{
@@ -36873,9 +36633,7 @@
 	sunlight_state = 1;
 	name = "rusted Docks"
 	},
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "mKk" = (
 /obj/structure/fence{
 	dir = 8;
@@ -37036,9 +36794,7 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/wood_fancy/wood_fancy_light,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "mMi" = (
 /turf/open/floor/wood_mosaic{
 	icon_state = "mosaic_dark1"
@@ -37097,9 +36853,7 @@
 /turf/open/floor/wood_wide/wood_wide_dark{
 	icon_state = "wide_dark-broken3"
 	},
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "mNc" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 4
@@ -37113,9 +36867,7 @@
 /obj/structure/barricade/sandbags,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/wood_wide,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "mNi" = (
 /obj/structure/table/reinforced,
 /obj/item/toy/plush/bubbleplush,
@@ -37412,9 +37164,7 @@
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/wood_wide/wood_wide_dark,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "mSM" = (
 /obj/structure/closet/crate/trashcart,
 /obj/effect/spawner/lootdrop/plush,
@@ -37580,9 +37330,7 @@
 	name = "Brickwall support"
 	},
 /turf/closed/wall/f13/sunset/brick_small_light,
-/area/f13/underground/enclave_base{
-	outdoors = 1
-	})
+/area/f13/underground/enclave_base)
 "mVQ" = (
 /obj/item/stack/sheet/lead,
 /obj/item/stack/sheet/lead,
@@ -37692,9 +37440,7 @@
 "mYk" = (
 /obj/structure/barricade/wooden,
 /turf/closed/wall/f13/sunset/brick_small_dark,
-/area/f13/underground/enclave_base{
-	outdoors = 1
-	})
+/area/f13/underground/enclave_base)
 "mYn" = (
 /obj/structure/debris/v3,
 /turf/open/indestructible/ground/outside/sidewalkdirt,
@@ -37790,9 +37536,7 @@
 	dir = 4
 	},
 /turf/open/floor/wood_common,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "mZW" = (
 /obj/structure/cargocrate{
 	color = "#F58FFF"
@@ -38148,9 +37892,7 @@
 /area/f13/brotherhood)
 "ngF" = (
 /turf/open/floor/wood_common,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "ngH" = (
 /obj/item/chair/folding{
 	pixel_y = -1
@@ -39670,9 +39412,7 @@
 	pixel_y = -8
 	},
 /turf/closed/wall/f13/sunset/brick_small,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "nKT" = (
 /obj/effect/overlay/barbed,
 /obj/item/storage/trash_stack{
@@ -40578,9 +40318,7 @@
 /turf/open/floor/wood_fancy/wood_fancy_light{
 	icon_state = "fancy_light-broken3"
 	},
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "obO" = (
 /obj/effect/decal/riverbank{
 	color = "#669999";
@@ -40791,9 +40529,7 @@
 	pixel_y = -9
 	},
 /turf/closed/indestructible/f13vaultrusted,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "oeQ" = (
 /obj/structure/lattice/catwalk,
 /turf/open/pool{
@@ -41319,9 +41055,7 @@
 	id = 757
 	},
 /turf/open/floor/plasteel/f13/stone/rugged,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "ood" = (
 /obj/structure/chair/bench{
 	dir = 8
@@ -41701,9 +41435,7 @@
 /turf/open/floor/plating/dirt/dirt_maryland{
 	icon_state = "grass_6"
 	},
-/area/f13/underground/enclave_base{
-	outdoors = 1
-	})
+/area/f13/wasteland/city)
 "otY" = (
 /obj/item/clothing/under/dress/wedding,
 /turf/open/floor/wood_fancy{
@@ -43434,9 +43166,7 @@
 	pixel_x = 4
 	},
 /turf/open/floor/wood_fancy/wood_fancy_light,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "oXX" = (
 /obj/structure/wreck/trash/machinepiletwo,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
@@ -44119,9 +43849,7 @@
 /turf/open/floor/wood_fancy/wood_fancy_light{
 	icon_state = "fancy_light-broken3"
 	},
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "pjo" = (
 /obj/effect/decal/marking{
 	icon_state = "dottedhorizontalcorroded";
@@ -45433,9 +45161,7 @@
 	sunlight_state = 1;
 	name = "rusted Docks"
 	},
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "pIo" = (
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	name = "Old Docks";
@@ -46088,9 +45814,7 @@
 /turf/open/floor/wood_wide/wood_wide_dark{
 	icon_state = "wide_dark-broken5"
 	},
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "pTa" = (
 /obj/structure/sign/departments/medbay/alt,
 /turf/closed/wall/f13/store/constructed{
@@ -46390,9 +46114,7 @@
 /turf/open/floor/plating/dirt/dirt_maryland{
 	icon_state = "dirt_original"
 	},
-/area/f13/underground/enclave_base{
-	outdoors = 1
-	})
+/area/f13/underground/enclave_base)
 "pZc" = (
 /turf/open/indestructible/ground/outside/desert,
 /area/f13/wasteland/city)
@@ -46965,9 +46687,7 @@
 /turf/open/floor/plating/dirt/dirt_maryland{
 	icon_state = "dirt_original"
 	},
-/area/f13/underground/enclave_base{
-	outdoors = 1
-	})
+/area/f13/wasteland/city)
 "qkb" = (
 /obj/item/trash/pistachios,
 /turf/open/floor/plating/f13/outside/road/baltimore{
@@ -47361,9 +47081,7 @@
 /turf/open/indestructible/ground/outside/desert{
 	icon_state = "wasteland32"
 	},
-/area/f13/underground/enclave_base{
-	outdoors = 1
-	})
+/area/f13/wasteland/city)
 "qrr" = (
 /obj/structure/barricade/wooden,
 /turf/open/floor/plating/rust{
@@ -47630,9 +47348,7 @@
 /area/f13/wasteland/city)
 "qwM" = (
 /turf/closed/wall/f13/sunset/brick_small_dark,
-/area/f13/underground/enclave_base{
-	outdoors = 1
-	})
+/area/f13/underground/enclave_base)
 "qwN" = (
 /obj/effect/turf_decal/road_end{
 	dir = 4
@@ -48185,9 +47901,7 @@
 /turf/open/floor/plating/dirt/dirt_maryland{
 	icon_state = "dirt_original"
 	},
-/area/f13/underground/enclave_base{
-	outdoors = 1
-	})
+/area/f13/wasteland/city)
 "qFX" = (
 /obj/effect/decal/cleanable/blood,
 /obj/structure/stairs/east{
@@ -48320,9 +48034,7 @@
 /turf/open/floor/wood_wide{
 	icon_state = "wide_light-broken5"
 	},
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "qHC" = (
 /obj/machinery/light/small{
 	name = "aqua light fixture";
@@ -48339,9 +48051,7 @@
 /turf/open/floor/wood_wide{
 	icon_state = "wide_light1"
 	},
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "qHR" = (
 /obj/structure/table/wood,
 /obj/structure/barricade/sandbags,
@@ -49011,9 +48721,7 @@
 	sunlight_state = 1;
 	name = "rusted Docks"
 	},
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "qTd" = (
 /obj/effect/turf_decal/stripes/asteroid/line,
 /turf/open/floor/wood_common{
@@ -49110,9 +48818,7 @@
 	sunlight_state = 1;
 	name = "rusted Docks"
 	},
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "qUp" = (
 /obj/structure/railing/wood{
 	pixel_y = 7;
@@ -49303,9 +49009,7 @@
 /turf/open/floor/wood_wide{
 	icon_state = "wide_light1"
 	},
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "qXn" = (
 /obj/item/ammo_casing/c45/improvised,
 /turf/open/floor/plating/f13/outside/road/baltimore{
@@ -51275,14 +50979,6 @@
 	icon_state = "dirt_original"
 	},
 /area/f13/wasteland/city/citycenter)
-"rCv" = (
-/obj/structure/flora/grass/wasteland,
-/turf/open/floor/plating/dirt/dirt_maryland{
-	icon_state = "dirt_original"
-	},
-/area/f13/underground/enclave_base{
-	outdoors = 1
-	})
 "rCz" = (
 /obj/structure/bed/mattress{
 	icon_state = "mattress4"
@@ -51486,9 +51182,7 @@
 	anchored = 1
 	},
 /turf/open/floor/wood_wide/wood_wide_dark,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "rFQ" = (
 /obj/effect/decal/fakelattice,
 /obj/structure/debris/v3,
@@ -51523,9 +51217,7 @@
 	layer = 1
 	},
 /turf/open/floor/wood_fancy/wood_fancy_light,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "rGc" = (
 /obj/structure/fence/corner{
 	dir = 4
@@ -51785,9 +51477,7 @@
 "rJx" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/wood_wide/wood_wide_dark,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "rJz" = (
 /obj/item/newspaper,
 /obj/effect/decal/cleanable/dirt,
@@ -51803,9 +51493,7 @@
 /turf/open/floor/wood_fancy/wood_fancy_light{
 	icon_state = "fancy_light-broken3"
 	},
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "rJE" = (
 /obj/structure/lamp_post{
 	dir = 8
@@ -51837,9 +51525,7 @@
 /turf/open/floor/wood_wide{
 	icon_state = "wide_light1"
 	},
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "rKB" = (
 /turf/open/floor/plating/f13/outside/road{
 	icon_state = "road_southeast"
@@ -54100,12 +53786,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/outpost)
-"sys" = (
-/obj/structure/flora/grass/wasteland,
-/turf/open/indestructible/ground/outside/desert,
-/area/f13/underground/enclave_base{
-	outdoors = 1
-	})
 "syz" = (
 /obj/machinery/light/small{
 	dir = 4;
@@ -54318,9 +53998,7 @@
 	sunlight_state = 1;
 	name = "rusted Docks"
 	},
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "sBT" = (
 /obj/structure/disposalpipe/segment{
 	dir = 6
@@ -54551,9 +54229,7 @@
 	name = "Brickwall support"
 	},
 /turf/closed/wall/f13/sunset/brick_small,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "sGt" = (
 /obj/machinery/light/small{
 	dir = 4;
@@ -54828,9 +54504,7 @@
 	sunlight_state = 1;
 	name = "rusted Docks"
 	},
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "sKA" = (
 /obj/structure/shelf_wood,
 /obj/item/gun/ballistic/automatic/l6_saw/toy,
@@ -55207,9 +54881,7 @@
 	name = "Brickwall support"
 	},
 /turf/closed/wall/f13/sunset/brick_small,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "sSz" = (
 /obj/machinery/light/floor{
 	color = "#4b6849";
@@ -55758,9 +55430,7 @@
 /turf/open/floor/plating/dirt/dirt_maryland{
 	icon_state = "grass_9"
 	},
-/area/f13/underground/enclave_base{
-	outdoors = 1
-	})
+/area/f13/underground/enclave_base)
 "tcO" = (
 /obj/structure/cable{
 	icon_state = "1-10";
@@ -55974,9 +55644,7 @@
 "thi" = (
 /obj/structure/chair/stool/retro/black,
 /turf/open/floor/wood_fancy/wood_fancy_light,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "thj" = (
 /obj/effect/decal/riverbank{
 	dir = 9;
@@ -56098,9 +55766,7 @@
 	name = "Brickwall support"
 	},
 /turf/closed/wall/f13/sunset/brick_small,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "tiN" = (
 /obj/structure/car/rubbish4,
 /obj/effect/decal/marking{
@@ -56459,11 +56125,6 @@
 /obj/structure/flora/wasteplant/wild_mutfruit,
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/building/boat)
-"tob" = (
-/turf/open/indestructible/ground/outside/desert,
-/area/f13/underground/enclave_base{
-	outdoors = 1
-	})
 "toc" = (
 /obj/effect/decal/riverbank{
 	color = "#669999";
@@ -57837,9 +57498,7 @@
 /turf/open/floor/plating/dirt/dirt_maryland{
 	icon_state = "dirt_original"
 	},
-/area/f13/underground/enclave_base{
-	outdoors = 1
-	})
+/area/f13/wasteland/city)
 "tPR" = (
 /obj/structure/fence/post,
 /obj/structure/obstacle/barbedwire,
@@ -58092,9 +57751,7 @@
 "tUC" = (
 /obj/structure/simple_door/wood,
 /turf/open/floor/wood_wide,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "tUG" = (
 /obj/structure/junk/small/table,
 /turf/open/floor/wood_mosaic{
@@ -58297,9 +57954,7 @@
 /turf/open/floor/wood_common{
 	icon_state = "common-broken2"
 	},
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "uaf" = (
 /obj/structure/railing/handrail/rusty/underlayer{
 	dir = 9;
@@ -58620,9 +58275,7 @@
 /area/f13/wasteland/city)
 "ueo" = (
 /turf/open/floor/wood_wide,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "ueq" = (
 /obj/structure/simple_door/tentflap_leather,
 /turf/open/indestructible/ground/outside/ruins,
@@ -59040,9 +58693,7 @@
 /area/f13/building/boat)
 "ujw" = (
 /turf/closed/indestructible/f13vaultrusted,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "ujZ" = (
 /obj/structure/table/reinforced,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
@@ -59405,9 +59056,7 @@
 "urc" = (
 /obj/structure/closet/crate/large,
 /turf/open/floor/wood_wide/wood_wide_dark,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "urh" = (
 /obj/structure/chair/comfy/brown{
 	dir = 8
@@ -59437,9 +59086,7 @@
 	sunlight_state = 1;
 	name = "rusted Docks"
 	},
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "urA" = (
 /obj/structure/lattice/catwalk{
 	layer = 30
@@ -59870,13 +59517,6 @@
 	icon_state = "road_north_w"
 	},
 /area/f13/wasteland/city)
-"uzz" = (
-/turf/open/floor/plating/dirt/dirt_maryland{
-	icon_state = "dirt_7"
-	},
-/area/f13/underground/enclave_base{
-	outdoors = 1
-	})
 "uzI" = (
 /obj/structure/flora/ausbushes/ppflowers,
 /turf/open/indestructible/ground/outside/sidewalkdirt,
@@ -60256,9 +59896,7 @@
 /turf/open/floor/wood_wide/wood_wide_dark{
 	icon_state = "wide_dark-broken2"
 	},
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "uGC" = (
 /obj/structure/sink{
 	dir = 8;
@@ -62084,9 +61722,7 @@
 	color = "#FFDDCC"
 	},
 /turf/open/floor/wood_fancy/wood_fancy_light,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "vmN" = (
 /obj/structure/wreck/trash/machinepile,
 /turf/open/floor/plating/f13/outside/road/baltimore{
@@ -62623,9 +62259,7 @@
 "vup" = (
 /obj/structure/simple_door/metal,
 /turf/open/floor/wood_common,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "vuv" = (
 /obj/structure/curtain{
 	color = "#811313";
@@ -63244,9 +62878,7 @@
 	color = "#FFDDCC"
 	},
 /turf/open/floor/wood_fancy/wood_fancy_light,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "vFh" = (
 /obj/structure/fence/end/wooden{
 	dir = 4
@@ -63550,9 +63182,7 @@
 	name = "Brickwall support"
 	},
 /turf/closed/wall/f13/sunset/brick_small,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "vLX" = (
 /obj/structure/flora/wasteplant/wild_punga,
 /turf/open/indestructible/ground/outside/dirt,
@@ -64034,17 +63664,13 @@
 /turf/open/floor/wood_fancy/wood_fancy_light{
 	icon_state = "fancy_light-broken5"
 	},
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "vUu" = (
 /obj/effect/landmark/start/f13/usgysgt,
 /turf/open/floor/plating/dirt/dirt_maryland{
 	icon_state = "dirt_original"
 	},
-/area/f13/underground/enclave_base{
-	outdoors = 1
-	})
+/area/f13/wasteland/city)
 "vUI" = (
 /obj/item/grown/sunflower,
 /turf/open/floor/plating/dirt/dirt_maryland{
@@ -64437,9 +64063,7 @@
 /turf/open/floor/plating/dirt/dirt_maryland{
 	icon_state = "dirt_original"
 	},
-/area/f13/underground/enclave_base{
-	outdoors = 1
-	})
+/area/f13/wasteland/city)
 "wbD" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table/glass,
@@ -64517,9 +64141,7 @@
 "wcW" = (
 /obj/structure/barricade/wooden,
 /turf/closed/wall/f13/sunset/brick_small_light,
-/area/f13/underground/enclave_base{
-	outdoors = 1
-	})
+/area/f13/underground/enclave_base)
 "wde" = (
 /obj/structure/flora/ausbushes/fernybush,
 /turf/open/indestructible/ground/outside/sidewalk{
@@ -64697,9 +64319,7 @@
 /turf/open/floor/wood_wide{
 	icon_state = "wide_light-broken6"
 	},
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "wgc" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 4
@@ -64717,9 +64337,7 @@
 /turf/open/floor/wood_wide/wood_wide_dark{
 	icon_state = "wide_dark-broken2"
 	},
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "wgh" = (
 /obj/structure/table/reinforced,
 /obj/machinery/computer/terminal{
@@ -64785,9 +64403,7 @@
 /turf/open/floor/wood_common{
 	icon_state = "common-broken6"
 	},
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "wht" = (
 /obj/effect/landmark/start/f13/initiate,
 /turf/open/floor/f13/wood{
@@ -65347,9 +64963,7 @@
 /turf/open/floor/wood_wide{
 	icon_state = "wide_light-broken1"
 	},
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "woD" = (
 /obj/structure/flora/ausbushes/brflowers,
 /obj/effect/decal/cleanable/dirt,
@@ -66266,9 +65880,7 @@
 /obj/structure/barricade/bars,
 /obj/structure/table/reinforced,
 /turf/open/floor/wood_wide,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "wIU" = (
 /obj/effect/turf_decal/arrows/white{
 	dir = 8
@@ -66618,9 +66230,7 @@
 	pixel_y = -9
 	},
 /turf/closed/wall/rust,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "wPg" = (
 /obj/structure/sink/kitchen{
 	dir = 8;
@@ -67062,13 +66672,6 @@
 /obj/structure/chair/f13chair1,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/outpost)
-"wXm" = (
-/turf/open/indestructible/ground/outside/desert{
-	icon_state = "wasteland5"
-	},
-/area/f13/underground/enclave_base{
-	outdoors = 1
-	})
 "wXs" = (
 /obj/structure/stone_tile/block,
 /obj/structure/stone_tile/block{
@@ -67301,9 +66904,7 @@
 /turf/open/floor/wood_wide{
 	icon_state = "wide_light-broken4"
 	},
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "xaE" = (
 /turf/open/floor/plating/f13/outside/road{
 	icon_state = "road_southwest_corner"
@@ -67947,9 +67548,7 @@
 /turf/open/floor/plating/dirt/dirt_maryland{
 	icon_state = "dirt_original"
 	},
-/area/f13/underground/enclave_base{
-	outdoors = 1
-	})
+/area/f13/underground/enclave_base)
 "xlC" = (
 /obj/structure/flora/roadplant{
 	icon_state = "rock_decals"
@@ -68225,9 +67824,7 @@
 /turf/open/floor/plating/dirt/dirt_maryland{
 	icon_state = "dirt_original"
 	},
-/area/f13/underground/enclave_base{
-	outdoors = 1
-	})
+/area/f13/wasteland/city)
 "xqT" = (
 /obj/structure/bed/mattress{
 	icon_state = "mattress2"
@@ -68347,9 +67944,7 @@
 /turf/open/floor/wood_common{
 	icon_state = "common-broken3"
 	},
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "xtT" = (
 /obj/structure/flora/ausbushes/sparsegrass,
 /mob/living/simple_animal/hostile/venus_human_trap,
@@ -69049,9 +68644,7 @@
 "xFf" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/wood_fancy/wood_fancy_light,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "xFk" = (
 /obj/structure/shuttle/engine/large{
 	dir = 1;
@@ -70930,9 +70523,7 @@
 /turf/open/floor/wood_wide{
 	icon_state = "wide_light1"
 	},
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "yks" = (
 /obj/structure/reagent_dispensers/barrel/dangerous,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
@@ -70961,9 +70552,7 @@
 /turf/open/floor/wood_common{
 	icon_state = "common-broken6"
 	},
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "ykJ" = (
 /obj/effect/decal/remains/human,
 /turf/open/floor/plating/dirt/dirt_maryland{
@@ -71020,9 +70609,7 @@
 /turf/open/floor/wood_wide{
 	icon_state = "wide_light-broken6"
 	},
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "yly" = (
 /obj/structure/rack/shelf_metal,
 /obj/effect/spawner/lootdrop/f13/weapon/gun/ammo/tier3,
@@ -129285,7 +128872,7 @@ cvb
 mIJ
 qwM
 qFK
-xlu
+icV
 mIJ
 cvb
 cvb
@@ -129306,7 +128893,7 @@ icV
 cvb
 cvb
 mIJ
-xlu
+icV
 klO
 qwM
 mIJ
@@ -129541,9 +129128,9 @@ eax
 wcW
 mIJ
 qwM
-xlu
-xlu
-xlu
+icV
+icV
+icV
 mIJ
 mIJ
 cvb
@@ -129562,9 +129149,9 @@ wcW
 cvb
 mIJ
 mIJ
-xlu
-xlu
-xlu
+icV
+icV
+icV
 qwM
 mIJ
 wcW
@@ -129799,9 +129386,9 @@ icV
 cvb
 mIJ
 mIJ
-pYW
+yas
 aiU
-xlu
+icV
 qwM
 mIJ
 mIJ
@@ -129819,8 +129406,8 @@ mIJ
 mIJ
 qwM
 aiU
-xlu
-pYW
+icV
+yas
 mIJ
 mIJ
 cvb
@@ -130057,9 +129644,9 @@ icV
 cvb
 cvb
 mIJ
-xlu
-xlu
-xlu
+icV
+icV
+icV
 qwM
 qwM
 cia
@@ -130074,9 +129661,9 @@ fdX
 lyK
 qwM
 qwM
-xlu
-rCv
-gsl
+icV
+cRS
+mFt
 mIJ
 cvb
 icV
@@ -130315,11 +129902,11 @@ icV
 cvb
 mIJ
 qwM
-xlu
-gsl
-xlu
+icV
+mFt
+icV
 qjU
-gYl
+vNX
 dLl
 lyK
 ehz
@@ -130329,10 +129916,10 @@ ehz
 lyK
 tUC
 lyK
-xlu
+icV
 hBM
-xlu
-xlu
+icV
+icV
 qwM
 mIJ
 cvb
@@ -130573,23 +130160,23 @@ icV
 wcW
 mIJ
 qwM
-dKw
-xlu
-goA
-xlu
-xlu
-xlu
-xlu
-tob
-xlu
-tob
-xlu
-xlu
-xlu
-xlu
-jKU
-xlu
-xlu
+kUI
+icV
+kTB
+icV
+icV
+icV
+icV
+pZc
+icV
+pZc
+icV
+icV
+icV
+icV
+vYg
+icV
+icV
 mIJ
 wcW
 icV
@@ -130833,16 +130420,16 @@ lyK
 lyK
 lyK
 lyK
-pYW
-tcC
-xlu
-tob
-xlu
-gsl
-tob
-xlu
-xlu
-pYW
+yas
+tkl
+icV
+pZc
+icV
+mFt
+pZc
+icV
+icV
+yas
 dti
 dti
 dti
@@ -131090,16 +130677,16 @@ ewH
 vEX
 rJC
 lyK
-xlu
-xlu
-tob
-tob
-xlu
-xlu
-xlu
-tob
+icV
+icV
+pZc
+pZc
+icV
+icV
+icV
+pZc
 kxo
-xlu
+icV
 dML
 wgd
 kQX
@@ -131347,16 +130934,16 @@ xFf
 rFY
 obG
 jXT
-xlu
-tob
+icV
+pZc
 auN
-xlu
-gze
-xlu
-xlu
+icV
+sce
+icV
+icV
 bWb
-tob
-xlu
+pZc
+icV
 dti
 mSo
 rJx
@@ -131604,16 +131191,16 @@ cht
 mMh
 thi
 sSx
-xlu
-sys
-tob
-xlu
-xlu
-gsl
-xlu
-gze
+icV
+lXt
+pZc
+icV
+icV
+mFt
+icV
+sce
 qrf
-tob
+pZc
 bjH
 kQX
 dyy
@@ -131861,16 +131448,16 @@ xFf
 xFf
 fUF
 kUr
-xlu
-tob
-xlu
-xlu
-xlu
-jml
-xlu
+icV
+pZc
+icV
+icV
+icV
+wkg
+icV
 vUu
-tob
-tob
+pZc
+pZc
 dti
 urc
 klK
@@ -132118,16 +131705,16 @@ hsL
 piW
 lhf
 kQD
-tob
-tob
-xlu
-gsl
-xlu
-jml
-tcC
-xlu
+pZc
+pZc
+icV
+mFt
+icV
+wkg
+tkl
+icV
 tPH
-tob
+pZc
 bjH
 aun
 rJx
@@ -132375,16 +131962,16 @@ vUr
 vmD
 fbu
 jXT
-tob
-wXm
-xlu
-xlu
-xlu
-xlu
-xlu
+pZc
+jIK
+icV
+icV
+icV
+icV
+icV
 dnD
-wXm
-xlu
+jIK
+icV
 dti
 aqU
 uGA
@@ -132632,17 +132219,17 @@ lyK
 lyK
 lyK
 lyK
-tob
-cUL
-xlu
-jml
-xlu
-xlu
-xlu
-tob
-tob
-xlu
-pYW
+pZc
+mEi
+icV
+wkg
+icV
+icV
+icV
+pZc
+pZc
+icV
+yas
 joR
 bsp
 jMc
@@ -132884,22 +132471,22 @@ cvb
 mIJ
 qwM
 mtZ
-xlu
-xlu
-xlu
-goA
-rCv
-tob
-tob
-tob
-xlu
-xlu
-tob
-tob
-xlu
-xlu
-xlu
-tcC
+icV
+icV
+icV
+kTB
+cRS
+pZc
+pZc
+pZc
+icV
+icV
+pZc
+pZc
+icV
+icV
+icV
+tkl
 dIv
 mKg
 urq
@@ -133141,17 +132728,17 @@ cvb
 mIJ
 qwM
 mtZ
-tcC
-xlu
-jml
+tkl
+icV
+wkg
 otE
-gYl
-xlu
-tob
+vNX
+icV
+pZc
 hjo
-tob
+pZc
 eom
-tob
+pZc
 xqH
 lyK
 coS
@@ -133398,7 +132985,7 @@ icV
 cvb
 mIJ
 mtZ
-xlu
+icV
 mtZ
 dti
 vup
@@ -133406,7 +132993,7 @@ dti
 biA
 ctr
 dti
-xlu
+icV
 vLI
 kQD
 lyK
@@ -133655,7 +133242,7 @@ icV
 wcW
 mIJ
 mtZ
-xlu
+icV
 mtZ
 dti
 iEo
@@ -133663,7 +133250,7 @@ iEo
 kUQ
 kKq
 dti
-xlu
+icV
 lyK
 wga
 cte
@@ -133910,9 +133497,9 @@ icV
 icV
 cvb
 mIJ
-pYW
-gsl
-xlu
+yas
+mFt
+icV
 wbu
 dti
 whn
@@ -133920,7 +133507,7 @@ mZV
 iEo
 uad
 dti
-xlu
+icV
 lyK
 hbh
 qHN
@@ -133933,7 +133520,7 @@ urq
 qSZ
 urq
 dIv
-uzz
+bad
 mIJ
 cvb
 icV
@@ -134167,9 +133754,9 @@ icV
 cvb
 cvb
 mIJ
-xlu
-xlu
-xlu
+icV
+icV
+icV
 mtZ
 dti
 fqj
@@ -134177,7 +133764,7 @@ dti
 mab
 fOd
 dti
-xlu
+icV
 lyK
 qHA
 rKy
@@ -134190,7 +133777,7 @@ lsj
 lsj
 lsj
 lsj
-kOy
+gWv
 mIJ
 cvb
 cvb
@@ -134423,9 +134010,9 @@ icV
 cvb
 mIJ
 mIJ
-pYW
-xlu
-xlu
+yas
+icV
+icV
 mIJ
 mIJ
 dti
@@ -134434,7 +134021,7 @@ dti
 ykI
 iqF
 dti
-gsl
+mFt
 lyK
 lyK
 lyK
@@ -134446,9 +134033,9 @@ qwM
 qwM
 mIJ
 mIJ
-pYW
-xlu
-xlu
+yas
+icV
+icV
 mIJ
 mIJ
 uJe
@@ -134679,9 +134266,9 @@ icV
 wcW
 mIJ
 qwM
-xlu
-xlu
-xlu
+icV
+icV
+icV
 mIJ
 mIJ
 wcW
@@ -134691,13 +134278,13 @@ ioV
 ngF
 xtz
 dti
-xlu
-xlu
-xlu
-xlu
-xlu
-xlu
-xlu
+icV
+icV
+icV
+icV
+icV
+icV
+icV
 mIJ
 mIJ
 mIJ
@@ -134705,7 +134292,7 @@ wcW
 mIJ
 mIJ
 cKC
-uzz
+bad
 mYk
 qwM
 dcz
@@ -134937,7 +134524,7 @@ cvb
 mIJ
 qwM
 qFK
-xlu
+icV
 mIJ
 cvb
 cvb

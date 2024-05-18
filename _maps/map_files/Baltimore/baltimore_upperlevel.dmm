@@ -63,9 +63,7 @@
 	pixel_x = -33
 	},
 /turf/open/floor/wood_common,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "afo" = (
 /obj/structure/railing{
 	color = "#A47449"
@@ -90,9 +88,7 @@
 	pixel_y = 25
 	},
 /turf/open/floor/wood_wide/wood_wide_dark,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "agv" = (
 /obj/item/reagent_containers/food/snacks/f13/deathclawegg,
 /obj/effect/decal/cleanable/blood/gibs/human/core,
@@ -563,9 +559,7 @@
 /obj/structure/chair/comfy/shuttle,
 /obj/effect/landmark/start/f13/uscpt,
 /turf/open/floor/wood_wide/wood_wide_dark,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "aFY" = (
 /obj/structure/chair/f13chair2{
 	dir = 8
@@ -624,9 +618,7 @@
 "aGL" = (
 /obj/structure/simple_door/repaired,
 /turf/open/floor/wood_wide/wood_wide_dark,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "aHj" = (
 /obj/structure/chair/wood{
 	dir = 1
@@ -687,9 +679,7 @@
 /turf/open/floor/wood_wide{
 	icon_state = "wide_light-broken3"
 	},
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "aJH" = (
 /obj/machinery/autolathe,
 /turf/open/floor/f13{
@@ -978,9 +968,7 @@
 	name = "Brickwall support"
 	},
 /turf/closed/wall/f13/sunset/brick_small_dark,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "aWn" = (
 /obj/structure/chair/stool/retro/backed,
 /turf/open/floor/f13/wood{
@@ -1264,9 +1252,7 @@
 /turf/open/floor/wood_common{
 	icon_state = "common-broken6"
 	},
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "bjf" = (
 /obj/effect/decal/marking{
 	icon_state = "dottedverticalcorroded"
@@ -1302,9 +1288,7 @@
 /obj/structure/window/fulltile/wood/broken,
 /obj/structure/railing/wood,
 /turf/open/floor/wood_wide/wood_wide_dark,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "bjX" = (
 /obj/structure/window/plasma/reinforced{
 	dir = 4
@@ -1604,9 +1588,7 @@
 /turf/open/floor/wood_wide{
 	icon_state = "wide_light-broken6"
 	},
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "bzg" = (
 /turf/closed/wall/f13/sunset/brick_small_light,
 /area/f13/ruins)
@@ -2427,9 +2409,7 @@
 	pixel_x = 7
 	},
 /turf/open/indestructible/ground/outside/desert,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "cfJ" = (
 /obj/structure/chair/comfy/beige,
 /obj/item/paper_bin{
@@ -2691,9 +2671,7 @@
 /turf/open/floor/wood_wide{
 	icon_state = "wide-broken1"
 	},
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "cpg" = (
 /turf/closed/wall/mineral/concrete{
 	name = "Ship wall"
@@ -2868,9 +2846,7 @@
 	name = "Brickwall support"
 	},
 /turf/closed/wall/f13/sunset/brick_small,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "cCl" = (
 /obj/structure/window/fulltile/store,
 /turf/open/floor/wood_common,
@@ -3318,9 +3294,7 @@
 /area/f13/ruins)
 "cZx" = (
 /turf/open/floor/wood_worn/wood_worn_light,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "cZN" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/wood_mosaic{
@@ -3422,9 +3396,7 @@
 /turf/open/floor/wood_wide/wood_wide_dark{
 	icon_state = "wide_dark-broken1"
 	},
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "dgn" = (
 /obj/structure/dresser,
 /obj/item/kirbyplants{
@@ -4284,9 +4256,7 @@
 /turf/open/floor/wood_fancy/wood_fancy_light{
 	icon_state = "fancy_light-broken2"
 	},
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "dUL" = (
 /obj/structure/barricade/tentleatheredge{
 	dir = 1;
@@ -4384,9 +4354,7 @@
 /area/f13/ruins)
 "dZE" = (
 /turf/open/transparent/openspace,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "dZL" = (
 /obj/structure/destructible/tribal_torch/wall/lit,
 /obj/structure/fence/end/wooden{
@@ -4579,9 +4547,7 @@
 	pixel_y = 32
 	},
 /turf/open/floor/wood_common,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "emI" = (
 /obj/structure/bookcase,
 /obj/effect/decal/cleanable/glass,
@@ -4655,9 +4621,7 @@
 /turf/open/floor/wood_wide{
 	icon_state = "wide_light1"
 	},
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "eqc" = (
 /obj/structure/chair{
 	dir = 4
@@ -4803,9 +4767,7 @@
 /turf/open/floor/wood_fancy/wood_fancy_light{
 	icon_state = "fancy_light-broken4"
 	},
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "ewP" = (
 /obj/effect/decal/remains/human,
 /turf/open/indestructible/ground/outside/ruins,
@@ -4900,9 +4862,7 @@
 "eCi" = (
 /obj/structure/closet/cabinet/anchored,
 /turf/open/floor/wood_fancy/wood_fancy_light,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "eCu" = (
 /obj/structure/rack/shelf_metal,
 /obj/item/storage/belt/utility/full,
@@ -4932,9 +4892,7 @@
 /turf/open/floor/wood_wide/wood_wide_dark{
 	icon_state = "wide_dark-broken5"
 	},
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "eEj" = (
 /obj/structure/rug/big/rug_blue,
 /obj/effect/decal/cleanable/dirt,
@@ -5211,9 +5169,7 @@
 "ePL" = (
 /obj/structure/chair/f13chair1,
 /turf/open/floor/wood_common/wood_common_light,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "ePO" = (
 /obj/structure/chair/bench{
 	dir = 4
@@ -5495,9 +5451,7 @@
 /turf/open/floor/wood_wide/wood_wide_dark{
 	icon_state = "wide_dark-broken1"
 	},
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "fcl" = (
 /obj/structure/railing/corner{
 	color = "#A47449";
@@ -6284,9 +6238,7 @@
 /turf/open/floor/wood_common/wood_common_light{
 	icon_state = "common_light-broken6"
 	},
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "fOD" = (
 /obj/structure/chair/left,
 /turf/open/floor/wood_common{
@@ -6518,9 +6470,7 @@
 	pixel_y = -32
 	},
 /turf/open/floor/wood_common,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "gbD" = (
 /turf/open/floor/wood_common{
 	name = "wooden dock";
@@ -6691,9 +6641,7 @@
 /area/f13/building/boat)
 "ggL" = (
 /turf/open/floor/wood_common/wood_common_light,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "ggO" = (
 /obj/structure/table/booth,
 /obj/structure/junk/small/tv{
@@ -6810,9 +6758,7 @@
 "glP" = (
 /obj/structure/simple_door/repaired,
 /turf/open/floor/wood_common,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "gmt" = (
 /turf/open/floor/wood_mosaic{
 	icon_state = "common1"
@@ -7438,9 +7384,7 @@
 "gPU" = (
 /obj/structure/closet/secure_closet/personal/cabinet,
 /turf/open/floor/wood_wide/wood_wide_dark,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "gQb" = (
 /obj/machinery/atmospherics/components/unary/tank/water_vapor{
 	name = "Fuel tank";
@@ -7677,9 +7621,7 @@
 /area/f13/bar)
 "gYz" = (
 /turf/open/indestructible/ground/inside/dirt,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "gYF" = (
 /obj/structure/flora/grass/jungle/b,
 /obj/item/clothing/under/dress/sundress/white,
@@ -8037,9 +7979,7 @@
 	color = "#FFDDCC"
 	},
 /turf/open/floor/wood_wide/wood_wide_dark,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "hmj" = (
 /obj/structure/bedsheetbin/towel,
 /obj/structure/table/booth,
@@ -8141,9 +8081,7 @@
 /area/f13/office)
 "hsL" = (
 /turf/open/floor/wood_fancy/wood_fancy_light,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "hsO" = (
 /obj/effect/spawner/lootdrop/f13/weapon/energy,
 /obj/effect/decal/cleanable/glass,
@@ -8482,9 +8420,7 @@
 "hHr" = (
 /obj/structure/lattice/catwalk/clockwork,
 /turf/open/transparent/openspace,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "hHC" = (
 /obj/machinery/light/small{
 	dir = 1;
@@ -8625,9 +8561,7 @@
 	layer = 2.8
 	},
 /turf/open/floor/wood_fancy/wood_fancy_light,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "hNP" = (
 /obj/structure/railing{
 	color = "#A47449";
@@ -9308,9 +9242,7 @@
 	color = "#FFDDCC"
 	},
 /turf/open/floor/wood_wide/wood_wide_dark,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "ixz" = (
 /obj/effect/overlay/junk/oldpipes{
 	dir = 2;
@@ -10187,9 +10119,7 @@
 	icon_state = "mattress2"
 	},
 /turf/open/floor/wood_fancy/wood_fancy_light,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "jhF" = (
 /turf/open/floor/wood_wide{
 	icon_state = "wide-broken5"
@@ -10627,9 +10557,7 @@
 /turf/open/floor/wood_wide{
 	icon_state = "wide_light1"
 	},
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "jBr" = (
 /obj/effect/decal/riverbank{
 	dir = 10;
@@ -10813,9 +10741,7 @@
 /turf/open/floor/wood_wide/wood_wide_dark{
 	icon_state = "wide_dark-broken5"
 	},
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "jMr" = (
 /obj/screen/parallax_layer/layer_1,
 /turf/closed/wall/f13/store/constructed,
@@ -11057,9 +10983,7 @@
 /obj/structure/window/fulltile/wood/broken,
 /obj/structure/railing/wood,
 /turf/open/floor/wood_fancy/wood_fancy_light,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "jXY" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
@@ -11925,9 +11849,7 @@
 /area/f13/ruins)
 "kQX" = (
 /turf/open/floor/wood_wide/wood_wide_dark,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "kRb" = (
 /obj/effect/decal/cleanable/oil,
 /obj/machinery/light/small{
@@ -12037,9 +11959,7 @@
 "kUr" = (
 /obj/structure/window/fulltile/wood,
 /turf/open/floor/wood_fancy/wood_fancy_light,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "kUC" = (
 /obj/structure/chair/bench{
 	pixel_y = 10
@@ -12237,9 +12157,7 @@
 /turf/open/floor/wood_fancy/wood_fancy_light{
 	icon_state = "fancy_light-broken6"
 	},
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "lho" = (
 /obj/structure/table/wood,
 /turf/open/floor/wood_mosaic/wood_mosaic_dark,
@@ -12470,9 +12388,7 @@
 /turf/open/floor/wood_wide/wood_wide_light{
 	icon_state = "wide_light-broken2"
 	},
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "lpY" = (
 /obj/item/reagent_containers/food/drinks/bottle/f13nukacola{
 	pixel_y = 49;
@@ -12541,9 +12457,7 @@
 /area/f13/brotherhood)
 "lsj" = (
 /turf/closed/wall/rust,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "lso" = (
 /obj/structure/chair/office/dark{
 	dir = 4
@@ -12694,9 +12608,7 @@
 	name = "Brickwall support"
 	},
 /turf/closed/wall/f13/sunset/brick_small,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "lzx" = (
 /obj/machinery/door/airlock/medical/glass,
 /turf/open/floor/plasteel/f13/vault_floor/plating,
@@ -13576,9 +13488,7 @@
 	name = "Brickwall support"
 	},
 /turf/closed/wall/f13/sunset/brick_small_dark,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "mpD" = (
 /obj/structure/table/booth,
 /obj/item/kirbyplants{
@@ -13765,9 +13675,7 @@
 "mze" = (
 /obj/effect/landmark/start/f13/usscientist,
 /turf/open/floor/wood_fancy/wood_fancy_light,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "mzG" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/chair/bench{
@@ -14006,9 +13914,7 @@
 	color = "#FFDDCC"
 	},
 /turf/open/floor/wood_wide/wood_wide_dark,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "mLe" = (
 /obj/structure/flora/brushwoodalt,
 /obj/effect/decal/cleanable/greenglow,
@@ -14077,9 +13983,7 @@
 /turf/open/floor/wood_wide/wood_wide_dark{
 	icon_state = "wide_dark-broken3"
 	},
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "mNt" = (
 /obj/structure/fence/corner/wooden{
 	pixel_x = 18
@@ -14136,9 +14040,7 @@
 	dir = 4
 	},
 /turf/open/floor/wood_wide,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "mOB" = (
 /obj/structure/toilet{
 	dir = 8
@@ -14538,9 +14440,7 @@
 /area/f13/building/boat)
 "ngF" = (
 /turf/open/floor/wood_common,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "ngL" = (
 /obj/structure/railing{
 	color = "#A47449";
@@ -14819,9 +14719,7 @@
 "nva" = (
 /obj/machinery/telecomms/server/presets/enclave,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "nvu" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/cardboard,
@@ -15966,9 +15864,7 @@
 "oxV" = (
 /obj/effect/landmark/start/f13/uslightduty,
 /turf/open/floor/wood_common,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "oyp" = (
 /obj/effect/decal/marking{
 	icon_state = "dottedverticalcorroded"
@@ -16165,9 +16061,7 @@
 "oLc" = (
 /obj/effect/landmark/start/f13/usgysgt,
 /turf/open/floor/wood_wide/wood_wide_dark,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "oLT" = (
 /obj/structure/railing/corner{
 	color = "#A47449"
@@ -16583,9 +16477,7 @@
 /turf/open/floor/wood_fancy/wood_fancy_light{
 	icon_state = "fancy_light-broken3"
 	},
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "pjD" = (
 /turf/open/floor/wood_fancy/wood_fancy_light,
 /area/f13/ruins)
@@ -16629,9 +16521,7 @@
 	name = "Brickwall support"
 	},
 /turf/closed/wall/f13/sunset/brick_small_dark,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "pkD" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -16833,9 +16723,7 @@
 "pvf" = (
 /obj/structure/table/reinforced,
 /turf/open/floor/wood_wide/wood_wide_dark,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "pvk" = (
 /obj/machinery/light/small{
 	dir = 2;
@@ -16850,9 +16738,7 @@
 /turf/open/floor/wood_wide{
 	icon_state = "wide_light1"
 	},
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "pvH" = (
 /obj/structure/bed/wooden{
 	pixel_y = 16;
@@ -17372,9 +17258,7 @@
 	layer = 2.7
 	},
 /turf/open/floor/wood_wide/wood_wide_dark,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "pXU" = (
 /obj/item/bedsheet/brown{
 	pixel_y = 23
@@ -17562,9 +17446,7 @@
 	color = "#FFDDCC"
 	},
 /turf/open/floor/wood_common,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "qjF" = (
 /obj/structure/chair/booth,
 /turf/open/floor/wood_common{
@@ -17656,9 +17538,7 @@
 	name = "Brickwall support"
 	},
 /turf/closed/wall/f13/sunset/brick_small_dark,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "qok" = (
 /obj/structure/window/fulltile/wood,
 /obj/structure/curtain{
@@ -17894,9 +17774,7 @@
 /turf/open/floor/wood_wide{
 	icon_state = "wide_light1"
 	},
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "qzj" = (
 /obj/structure/rack/shelf_metal,
 /obj/item/storage/firstaid,
@@ -18095,9 +17973,7 @@
 /turf/open/floor/wood_wide{
 	icon_state = "wide_light-broken5"
 	},
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "qHJ" = (
 /obj/structure/railing{
 	color = null;
@@ -18571,9 +18447,7 @@
 	pixel_y = 11
 	},
 /turf/open/floor/wood_wide/wood_wide_light,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "rgV" = (
 /obj/structure/chair/comfy/green,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -18812,9 +18686,7 @@
 	desc = "A metal bedpost."
 	},
 /turf/open/floor/wood_fancy/wood_fancy_light,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "rsF" = (
 /turf/open/floor/wood_fancy{
 	icon_state = "fancy-broken6"
@@ -18911,9 +18783,7 @@
 "rvM" = (
 /obj/effect/landmark/start/f13/usspecialist,
 /turf/open/floor/wood_wide/wood_wide_light,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "rvW" = (
 /turf/closed/wall/f13/tentwall,
 /area/f13/raider_mall)
@@ -19633,9 +19503,7 @@
 	},
 /obj/effect/landmark/start/f13/usai,
 /turf/open/floor/wood_wide/wood_wide_dark,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "sdv" = (
 /obj/structure/reagent_dispensers/rainwater_tank,
 /turf/open/floor/wood_common/wood_common_dark{
@@ -20084,9 +19952,7 @@
 /obj/structure/window/fulltile/wood/broken,
 /obj/structure/railing/wood,
 /turf/open/transparent/openspace,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "szQ" = (
 /obj/structure/railing{
 	color = "#A47449";
@@ -20212,9 +20078,7 @@
 	name = "Brickwall support"
 	},
 /turf/closed/wall/f13/sunset/brick_small,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "sHm" = (
 /turf/open/floor/wood_fancy/wood_fancy_light{
 	icon_state = "fancy_light-broken4"
@@ -20287,9 +20151,7 @@
 /turf/open/floor/wood_wide{
 	icon_state = "wide_light-broken2"
 	},
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "sLY" = (
 /obj/structure/flora/ausbushes/lavendergrass,
 /obj/structure/window/fulltile/ruins{
@@ -20513,9 +20375,7 @@
 	desc = "A metal bedpost."
 	},
 /turf/open/floor/wood_common/wood_common_light,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "sXY" = (
 /obj/structure/railing{
 	color = "#A47449";
@@ -20976,9 +20836,7 @@
 "trh" = (
 /obj/effect/landmark/start/f13/usspecialist,
 /turf/open/floor/wood_worn/wood_worn_light,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "trN" = (
 /obj/structure/barricade/sandbags,
 /turf/open/floor/wood_mosaic{
@@ -21190,9 +21048,7 @@
 	desc = "A metal bedpost."
 	},
 /turf/open/floor/wood_wide/wood_wide_light,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "tyV" = (
 /obj/effect/decal/riverbank{
 	dir = 10;
@@ -21810,9 +21666,7 @@
 /turf/open/floor/wood_common{
 	icon_state = "common-broken2"
 	},
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "uah" = (
 /obj/structure/lattice/catwalk,
 /turf/open/transparent/openspace,
@@ -21864,9 +21718,7 @@
 /area/f13/building)
 "ueo" = (
 /turf/open/floor/wood_wide,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "ues" = (
 /obj/structure/closet/crate/footlocker,
 /obj/effect/spawner/lootdrop/f13/armor/clothes,
@@ -21976,9 +21828,7 @@
 /area/f13/building)
 "ujw" = (
 /turf/closed/indestructible/f13vaultrusted,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "ujT" = (
 /obj/structure/table/wood,
 /obj/item/kirbyplants{
@@ -22136,9 +21986,7 @@
 	dir = 4
 	},
 /turf/open/floor/wood_wide/wood_wide_dark,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "urU" = (
 /obj/structure/window/fulltile/ruins{
 	icon_state = "ruinswindowdestroyed"
@@ -23598,9 +23446,7 @@
 "vEs" = (
 /obj/effect/landmark/start/f13/usspy,
 /turf/open/floor/wood_wide/wood_wide_light,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "vEP" = (
 /obj/structure/simple_door/dirtyglass,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
@@ -23874,9 +23720,7 @@
 /turf/open/floor/wood_wide{
 	icon_state = "wide_light1"
 	},
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "vQz" = (
 /obj/structure/rack/shelf_metal,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
@@ -23955,9 +23799,7 @@
 /turf/open/floor/wood_fancy/wood_fancy_light{
 	icon_state = "fancy_light-broken5"
 	},
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "vUZ" = (
 /obj/structure/junk/locker,
 /turf/open/floor/plating/rust,
@@ -24142,16 +23984,12 @@
 /turf/open/floor/wood_wide{
 	icon_state = "wide_light1"
 	},
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "wgd" = (
 /turf/open/floor/wood_wide/wood_wide_dark{
 	icon_state = "wide_dark-broken2"
 	},
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "wgp" = (
 /obj/effect/spawner/bundle/f13/armor/psycho,
 /turf/open/indestructible/ground/outside/roof,
@@ -24188,9 +24026,7 @@
 /turf/open/floor/wood_common{
 	icon_state = "common-broken6"
 	},
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "wib" = (
 /obj/structure/window/fulltile/ruins{
 	icon_state = "ruinswindowvertical"
@@ -24335,9 +24171,7 @@
 /turf/open/floor/wood_common/wood_common_light{
 	icon_state = "common_light-broken6"
 	},
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "wpd" = (
 /obj/structure/chair/f13chair2{
 	dir = 1
@@ -24367,9 +24201,7 @@
 	name = "Brickwall support"
 	},
 /turf/closed/wall/f13/sunset/brick_small,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "wqd" = (
 /obj/machinery/light{
 	dir = 4
@@ -24665,9 +24497,7 @@
 	name = "Brickwall support"
 	},
 /turf/closed/wall/f13/sunset/brick_small_dark,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "wKN" = (
 /obj/structure/table,
 /obj/machinery/reagentgrinder,
@@ -24973,9 +24803,7 @@
 /turf/open/floor/wood_worn/wood_worn_light{
 	icon_state = "worn_light-broken6"
 	},
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "wVF" = (
 /obj/effect/decal/cleanable/blood,
 /mob/living/simple_animal/hostile/raider/ranged/boss,
@@ -25105,9 +24933,7 @@
 /turf/open/floor/wood_wide{
 	icon_state = "wide_light-broken4"
 	},
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "xaL" = (
 /obj/structure/simple_door/tentflap_cloth,
 /turf/open/floor/wood_worn,
@@ -25295,9 +25121,7 @@
 /turf/open/floor/wood_wide{
 	icon_state = "wide_light1"
 	},
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "xnt" = (
 /obj/structure/railing{
 	color = "#A47449";
@@ -25505,9 +25329,7 @@
 /turf/open/floor/wood_common{
 	icon_state = "common-broken3"
 	},
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "xtJ" = (
 /obj/structure/chair/booth{
 	dir = 1
@@ -25533,9 +25355,7 @@
 	color = "#FFDDCC"
 	},
 /turf/open/floor/wood_fancy/wood_fancy_light,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "xuc" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -25720,9 +25540,7 @@
 	pixel_x = 4
 	},
 /turf/open/floor/wood_wide/wood_wide_dark,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "xFc" = (
 /obj/structure/table/wood,
 /obj/item/toy/figure/lawyer{
@@ -26130,9 +25948,7 @@
 "xXn" = (
 /obj/structure/simple_door/repaired,
 /turf/open/floor/wood_common/wood_common_light,
-/area/f13/enclave{
-	name = "Enclave"
-	})
+/area/f13/enclave)
 "xXO" = (
 /obj/machinery/computer/arcade/amputation,
 /turf/open/floor/wood_worn/wood_worn_dark,
