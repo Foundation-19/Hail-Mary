@@ -1878,6 +1878,12 @@
 	icon_state = "blueshift"
 	item_state = "blueshift"
 
+/obj/item/clothing/suit/armor/medium/vest/atlantic
+	name = "Atlantic Cross guard vest"
+	desc = "A prewar vest, used by some private naval security forces on ships, to fight back against pirates of the mediterean seas, following the European and North African crisis of the 2050's to 2070's."
+	icon_state = "atlanticguard"
+	item_state = "atlanticguard"
+
 /obj/item/clothing/suit/armor/light/vest/russian
 	name = "russian vest"
 	desc = "A bulletproof vest with forest camo. Good thing there's plenty of forests to hide in around here, right?"
@@ -2298,6 +2304,12 @@
 	desc = "(An uncommon suit of pre-war Chinese combat armor. It's a very basic and straightforward piece of armor that covers the front of the user."
 	icon_state = "chicom_armor"
 	item_state = "chicom_armor"
+
+/obj/item/clothing/suit/armor/medium/combat/atlanticmarines
+	name = "Atlantic Cross Marines combat armor"
+	desc = "A balistic vest from prewar times, probably used by some marines."
+	icon_state = "atlanticmarine"
+	item_state = "atlanticmarine"
 
 /obj/item/clothing/suit/armor/medium/combat/desert_ranger
 	name = "desert ranger combat armor"
