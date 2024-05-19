@@ -261,6 +261,13 @@ GLOBAL_LIST_INIT(mutant_positions, list(
 	"Super Mutant",
 ))
 
+GLOBAL_LIST_INIT(atlantic_positions, list(
+	"Atlantic Cross Captain",
+	"Atlantic Cross Doctor",
+	"Atlantic Cross Sailor",
+	"Atlantic Cross Marines",
+))
+
 // job categories for rendering the late join menu
 GLOBAL_LIST_INIT(position_categories, list(
 	EXP_TYPE_NCR = list("jobs" = ncr_positions, "color" = "#ffeeaa"),
@@ -278,6 +285,7 @@ GLOBAL_LIST_INIT(position_categories, list(
 	"Super Mutants" = list("jobs" = mutant_positions, "color" = "#26bf47"),
 	//"debug" = list("jobs" = debug_positions, "color" = "#ff00ee"),
 	// "Redwater" = list("jobs" = redwater_positions, "color" = "#f81717"),
+	"Atlantic Cross" = list("jobs" = atlantic_positions, "color" = "#ffeeaa"),
 ))
 
 GLOBAL_LIST_INIT(exp_jobsmap, list(

@@ -377,7 +377,7 @@
 /obj/item/melee/onehanded/slavewhip,
 /obj/item/melee/onehanded/slavewhip,
 /obj/item/melee/onehanded/slavewhip,
-/turf/open/floor/plating/f13/outside/road{
+/turf/open/floor/plating/f13/outside/road/baltimore{
 	icon_state = "road_center_1"
 	},
 /area/f13/raider_mall)
@@ -735,7 +735,7 @@
 /obj/item/electropack/shockcollar/explosive,
 /obj/item/electropack/shockcollar/explosive,
 /obj/item/electropack/shockcollar/explosive,
-/turf/open/floor/plating/f13/outside/road{
+/turf/open/floor/plating/f13/outside/road/baltimore{
 	icon_state = "road_center_1"
 	},
 /area/f13/raider_mall)
@@ -1258,7 +1258,7 @@
 	icon_state = "dottedverticalcorroded"
 	},
 /obj/effect/mob_spawn/human/corpse/charredskeleton,
-/turf/open/floor/plating/f13/outside/road{
+/turf/open/floor/plating/f13/outside/road/baltimore{
 	icon_state = "road_center_1"
 	},
 /area/f13/raider_mall)
@@ -1350,9 +1350,12 @@
 /turf/closed/wall/f13/sunset/brick_small_dark,
 /area/f13/Ocean)
 "bmH" = (
-/obj/effect/mob_spawn/human/corpse/charredskeleton,
-/turf/open/indestructible/ground/outside/ruins,
-/area/f13/raider_mall)
+/turf/open/floor/wood_common{
+	name = "wooden dock";
+	sunlight_state = 1;
+	icon_state = "common-broken4"
+	},
+/area/f13/wasteland/town)
 "bnG" = (
 /obj/structure/table/wood,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -2175,7 +2178,7 @@
 	icon_state = "dottedverticalcorroded"
 	},
 /obj/effect/decal/cleanable/blood,
-/turf/open/floor/plating/f13/outside/road{
+/turf/open/floor/plating/f13/outside/road/baltimore{
 	icon_state = "road_center_1"
 	},
 /area/f13/raider_mall)
@@ -2349,7 +2352,7 @@
 /obj/effect/decal/marking{
 	icon_state = "dottedverticalcorroded"
 	},
-/turf/open/floor/plating/f13/outside/road{
+/turf/open/floor/plating/f13/outside/road/baltimore{
 	icon_state = "road_center_1"
 	},
 /area/f13/raider_mall)
@@ -2559,9 +2562,7 @@
 /obj/item/storage/box/beakers,
 /obj/item/storage/box/beakers,
 /turf/open/floor/plasteel/f13/vault_floor/plating,
-/area/f13/building/hospital{
-	name = "Atlantic Cross Hospital Ship"
-	})
+/area/f13/building/hospital)
 "ckP" = (
 /mob/living/simple_animal/hostile/ghoul,
 /turf/open/floor/wood_wide/wood_wide_light,
@@ -2747,9 +2748,7 @@
 /obj/item/clothing/mask/gas/explorer,
 /obj/item/clothing/mask/gas/explorer,
 /turf/open/floor/plasteel/f13/vault_floor/plating,
-/area/f13/building/hospital{
-	name = "Atlantic Cross Hospital Ship"
-	})
+/area/f13/building/hospital)
 "cup" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/remains/human,
@@ -4399,7 +4398,11 @@
 	icon_state = "mattress2"
 	},
 /obj/item/fishingrod,
-/turf/open/floor/wood_worn,
+/turf/open/floor/wood_common{
+	name = "wooden dock";
+	sunlight_state = 1;
+	icon_state = "common2"
+	},
 /area/f13/wasteland/town)
 "ebF" = (
 /obj/structure/window/fulltile/wood/broken,
@@ -4560,7 +4563,7 @@
 	icon_state = "dottedverticalcorroded"
 	},
 /obj/structure/car/rubbish3,
-/turf/open/floor/plating/f13/outside/road{
+/turf/open/floor/plating/f13/outside/road/baltimore{
 	icon_state = "road_center_1"
 	},
 /area/f13/raider_mall)
@@ -4846,6 +4849,11 @@
 	on = 1
 	},
 /turf/open/transparent/openspace,
+/area/f13/wasteland/town)
+"eAE" = (
+/turf/open/floor/wood_common{
+	icon_state = "worn-broken2"
+	},
 /area/f13/wasteland/town)
 "eBo" = (
 /obj/structure/table/reinforced,
@@ -5247,7 +5255,7 @@
 /area/f13/ruins)
 "eSY" = (
 /obj/effect/mob_spawn/human/corpse/charredskeleton,
-/turf/open/floor/plating/f13/outside/road{
+/turf/open/floor/plating/f13/outside/road/baltimore{
 	icon_state = "road_center_1"
 	},
 /area/f13/raider_mall)
@@ -5342,6 +5350,9 @@
 	light_color = "#FFDDCC";
 	color = "#FFDDCC"
 	},
+/obj/item/clothing/under/civ/british_soldier,
+/obj/item/clothing/under/civ/dressg,
+/obj/item/clothing/suit/armor/light/kit,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/building/boat)
 "eWT" = (
@@ -5647,9 +5658,7 @@
 "fmh" = (
 /obj/machinery/chem_heater,
 /turf/open/floor/plasteel/f13/vault_floor/plating,
-/area/f13/building/hospital{
-	name = "Atlantic Cross Hospital Ship"
-	})
+/area/f13/building/hospital)
 "fml" = (
 /obj/structure/closet/fridge,
 /turf/open/floor/wood_wide/wood_wide_light,
@@ -5690,10 +5699,9 @@
 	},
 /area/f13/ruins)
 "fnv" = (
-/obj/structure/chair/bench{
-	pixel_y = 10
+/turf/open/floor/wood_common{
+	icon_state = "mosaic2"
 	},
-/turf/open/floor/wood_mosaic,
 /area/f13/wasteland/town)
 "fnw" = (
 /obj/structure/railing{
@@ -6601,6 +6609,13 @@
 	},
 /turf/open/floor/f13/wood,
 /area/f13/ruins)
+"gfX" = (
+/obj/structure/shelf_wood,
+/obj/item/clothing/head/helmet/f13/combat/atlantic,
+/obj/item/clothing/head/helmet/f13/combat/atlantic,
+/obj/item/clothing/head/helmet/f13/combat/atlantic,
+/turf/open/floor/wood_wide/wood_wide_dark,
+/area/f13/building/boat)
 "ggw" = (
 /obj/structure/railing{
 	layer = 8
@@ -7151,7 +7166,11 @@
 /area/f13/building)
 "gFR" = (
 /obj/structure/table/glass,
-/turf/open/floor/wood_worn,
+/turf/open/floor/wood_common{
+	name = "wooden dock";
+	sunlight_state = 1;
+	icon_state = "common2"
+	},
 /area/f13/wasteland/town)
 "gGw" = (
 /obj/machinery/light/small{
@@ -7194,8 +7213,10 @@
 /area/f13/bar)
 "gHI" = (
 /obj/structure/fluff/beach_umbrella,
-/turf/open/floor/wood_worn{
-	icon_state = "worn-broken3"
+/turf/open/floor/wood_common{
+	name = "wooden dock";
+	sunlight_state = 1;
+	icon_state = "common2"
 	},
 /area/f13/wasteland/town)
 "gHZ" = (
@@ -7256,9 +7277,7 @@
 "gKM" = (
 /obj/machinery/bloodbankgen,
 /turf/open/floor/plasteel/f13/vault_floor/plating,
-/area/f13/building/hospital{
-	name = "Atlantic Cross Hospital Ship"
-	})
+/area/f13/building/hospital)
 "gKR" = (
 /obj/machinery/vending/coffee,
 /obj/item/reagent_containers/food/drinks/bottle/instacoffee{
@@ -7319,7 +7338,7 @@
 /area/f13/building/boat)
 "gMA" = (
 /obj/structure/car/rubbish2,
-/turf/open/floor/plating/f13/outside/road{
+/turf/open/floor/plating/f13/outside/road/baltimore{
 	icon_state = "road_center_1"
 	},
 /area/f13/raider_mall)
@@ -7493,7 +7512,7 @@
 	icon_state = "mattress4";
 	pixel_y = -3
 	},
-/turf/open/floor/plating/f13/outside/road{
+/turf/open/floor/plating/f13/outside/road/baltimore{
 	icon_state = "road_center_1"
 	},
 /area/f13/raider_mall)
@@ -8213,7 +8232,7 @@
 	icon_state = "dottedverticalcorroded"
 	},
 /obj/structure/fence,
-/turf/open/floor/plating/f13/outside/road{
+/turf/open/floor/plating/f13/outside/road/baltimore{
 	icon_state = "road_center_1"
 	},
 /area/f13/raider_mall)
@@ -8533,10 +8552,18 @@
 /area/f13/building)
 "hLR" = (
 /obj/structure/closet/cabinet/anchored,
+/obj/item/clothing/under/f13/atlantic/sailor,
+/obj/item/clothing/under/f13/atlantic/sailor,
+/obj/item/clothing/under/f13/atlantic/sailor/nurse,
+/obj/item/clothing/under/f13/atlantic/sailor/nurse,
+/obj/item/clothing/under/f13/atlantic/uniform,
 /turf/open/floor/wood_wide/wood_wide_dark,
 /area/f13/building/boat)
 "hNb" = (
 /obj/structure/closet/cabinet,
+/obj/item/clothing/under/civ/british_soldier,
+/obj/item/clothing/under/civ/dressg,
+/obj/item/clothing/suit/armor/light/kit,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/building/boat)
 "hNi" = (
@@ -8796,6 +8823,22 @@
 /obj/structure/chair/stool/bronze,
 /turf/open/transparent/openspace,
 /area/f13/ruins)
+"iaF" = (
+/obj/structure/closet/crate/footlocker,
+/obj/item/clothing/under/f13/atlantic/sailor/sweater,
+/obj/item/clothing/under/f13/atlantic/sailor/sweater,
+/obj/item/clothing/under/f13/atlantic/sailor/sweater,
+/obj/item/clothing/under/f13/atlantic/sailor/nurse,
+/obj/item/clothing/under/f13/atlantic/sailor/nurse,
+/obj/item/clothing/under/f13/atlantic/sailor/nurse,
+/obj/item/clothing/under/f13/atlantic/uniform,
+/obj/item/clothing/under/f13/atlantic/uniform,
+/obj/item/clothing/under/f13/atlantic/uniform,
+/obj/item/clothing/under/f13/atlantic/sailor,
+/obj/item/clothing/under/f13/atlantic/sailor,
+/obj/item/clothing/under/f13/atlantic/sailor,
+/turf/open/floor/wood_wide/wood_wide_dark,
+/area/f13/building/boat)
 "iaH" = (
 /turf/open/floor/f13{
 	icon_state = "floorrustysolid"
@@ -9079,8 +9122,12 @@
 /turf/open/floor/wood_worn/wood_worn_dark,
 /area/f13/ruins)
 "irA" = (
-/turf/closed/mineral/indestructible,
-/area/f13/building)
+/turf/open/floor/wood_common{
+	name = "wooden dock";
+	sunlight_state = 1;
+	icon_state = "common-broken5"
+	},
+/area/f13/wasteland/town)
 "isl" = (
 /obj/machinery/power/port_gen,
 /obj/structure/cable/white{
@@ -9776,6 +9823,7 @@
 /area/f13/ruins)
 "iUZ" = (
 /obj/machinery/workbench,
+/obj/machinery/cell_charger,
 /turf/open/floor/wood_wide/wood_wide_dark,
 /area/f13/building/boat)
 "iVh" = (
@@ -9999,8 +10047,8 @@
 	},
 /area/f13/ruins)
 "jcL" = (
-/turf/open/floor/wood_worn{
-	icon_state = "worn-broken3"
+/turf/open/floor/wood_common{
+	icon_state = "wide1"
 	},
 /area/f13/wasteland/town)
 "jdv" = (
@@ -10118,6 +10166,7 @@
 /obj/structure/bed/mattress{
 	icon_state = "mattress2"
 	},
+/obj/item/bedsheet/blanket,
 /turf/open/floor/wood_fancy/wood_fancy_light,
 /area/f13/enclave)
 "jhF" = (
@@ -10400,7 +10449,11 @@
 /obj/structure/chair/bench{
 	pixel_y = 10
 	},
-/turf/open/floor/wood_worn,
+/turf/open/floor/wood_common{
+	name = "wooden dock";
+	sunlight_state = 1;
+	icon_state = "common2"
+	},
 /area/f13/wasteland/town)
 "jsC" = (
 /mob/living/simple_animal/hostile/handy{
@@ -10612,7 +10665,7 @@
 	pixel_y = -6;
 	pixel_x = -17
 	},
-/turf/open/floor/plating/f13/outside/road{
+/turf/open/floor/plating/f13/outside/road/baltimore{
 	icon_state = "road_center_1"
 	},
 /area/f13/raider_mall)
@@ -10878,14 +10931,6 @@
 	icon_state = "housewood2"
 	},
 /area/f13/brotherhood)
-"jTq" = (
-/obj/structure/shelf_wood{
-	pixel_y = -5
-	},
-/turf/closed/wall/f13/store/constructed{
-	name = "Hospital ship hull"
-	},
-/area/f13/building/boat)
 "jTw" = (
 /obj/machinery/autolathe/ammo,
 /obj/item/book/granter/crafting_recipe/gunsmith_one,
@@ -11466,7 +11511,8 @@
 /area/f13/ruins)
 "kyk" = (
 /obj/structure/table/reinforced/brass,
-/obj/item/gun/ballistic/automatic/pistol/deagle/elcapitan,
+/obj/item/clothing/head/helmet/f13/combat/atlantic,
+/obj/item/clothing/suit/armor/medium/vest/atlantic,
 /turf/open/floor/wood_wide/wood_wide_dark,
 /area/f13/building/boat)
 "kyt" = (
@@ -11481,7 +11527,7 @@
 /area/f13/building/boat)
 "kyH" = (
 /obj/structure/car/rubbish1,
-/turf/open/floor/plating/f13/outside/road{
+/turf/open/floor/plating/f13/outside/road/baltimore{
 	icon_state = "road_center_1"
 	},
 /area/f13/raider_mall)
@@ -11507,9 +11553,7 @@
 "kBK" = (
 /obj/machinery/chem_dispenser,
 /turf/open/floor/plasteel/f13/vault_floor/plating,
-/area/f13/building/hospital{
-	name = "Atlantic Cross Hospital Ship"
-	})
+/area/f13/building/hospital)
 "kCS" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
@@ -11989,9 +12033,7 @@
 /area/f13/ruins)
 "kXF" = (
 /turf/open/floor/plasteel/f13/vault_floor/plating,
-/area/f13/building/hospital{
-	name = "Atlantic Cross Hospital Ship"
-	})
+/area/f13/building/hospital)
 "kYl" = (
 /obj/structure/bed/mattress{
 	icon_state = "mattress2";
@@ -12099,6 +12141,11 @@
 /obj/structure/barricade/sandbags,
 /turf/open/indestructible/ground/outside/ruins,
 /area/f13/wasteland/city)
+"leB" = (
+/turf/open/floor/wood_common{
+	icon_state = "mosaic-broken6"
+	},
+/area/f13/wasteland/town)
 "leM" = (
 /obj/machinery/light/small{
 	dir = 4;
@@ -12480,7 +12527,7 @@
 /obj/structure/destructible/tribal_torch/wall/lit{
 	dir = 4
 	},
-/turf/open/floor/plating/f13/outside/road{
+/turf/open/floor/plating/f13/outside/road/baltimore{
 	icon_state = "road_center_1"
 	},
 /area/f13/raider_mall)
@@ -12612,9 +12659,7 @@
 "lzx" = (
 /obj/machinery/door/airlock/medical/glass,
 /turf/open/floor/plasteel/f13/vault_floor/plating,
-/area/f13/building/hospital{
-	name = "Atlantic Cross Hospital Ship"
-	})
+/area/f13/building/hospital)
 "lzO" = (
 /obj/machinery/light/small{
 	dir = 8;
@@ -12903,6 +12948,9 @@
 /area/f13/ruins)
 "lMQ" = (
 /obj/structure/closet/crate/footlocker,
+/obj/item/clothing/under/f13/atlantic/sailor,
+/obj/item/clothing/under/f13/atlantic/sailor/nurse,
+/obj/item/clothing/under/f13/atlantic/uniform,
 /turf/open/floor/wood_wide/wood_wide_dark,
 /area/f13/building/boat)
 "lMV" = (
@@ -13081,6 +13129,9 @@
 /area/f13/bar)
 "lVV" = (
 /obj/structure/closet/crate/footlocker,
+/obj/item/clothing/under/f13/atlantic/sailor,
+/obj/item/clothing/under/f13/atlantic/sailor/nurse,
+/obj/item/clothing/under/f13/atlantic/uniform,
 /turf/open/floor/wood_fancy/wood_fancy_dark,
 /area/f13/building/boat)
 "lVY" = (
@@ -13177,7 +13228,7 @@
 /area/f13/wasteland/town)
 "mbo" = (
 /obj/structure/fence,
-/turf/open/floor/plating/f13/outside/road{
+/turf/open/floor/plating/f13/outside/road/baltimore{
 	icon_state = "road_center_1"
 	},
 /area/f13/raider_mall)
@@ -13214,8 +13265,10 @@
 /turf/open/floor/wood_fancy,
 /area/f13/ruins)
 "mcE" = (
-/turf/open/floor/wood_worn{
-	icon_state = "worn-broken1"
+/turf/open/floor/wood_common{
+	name = "wooden dock";
+	sunlight_state = 1;
+	icon_state = "common2"
 	},
 /area/f13/wasteland/town)
 "mdU" = (
@@ -13998,6 +14051,11 @@
 	},
 /turf/open/floor/wood_common/wood_common_dark,
 /area/f13/brotherhood)
+"mNA" = (
+/turf/open/floor/wood_common{
+	icon_state = "worn-broken6"
+	},
+/area/f13/wasteland/town)
 "mNK" = (
 /obj/structure/bed/mattress{
 	icon_state = "mattress1"
@@ -14387,7 +14445,7 @@
 /turf/closed/wall/f13/sunset/brick_small_dark,
 /area/f13/building)
 "ndW" = (
-/turf/open/floor/plating/f13/outside/road{
+/turf/open/floor/plating/f13/outside/road/baltimore{
 	icon_state = "road_center_1"
 	},
 /area/f13/raider_mall)
@@ -14944,9 +15002,7 @@
 /area/f13/ruins)
 "nGz" = (
 /turf/closed/wall/rust,
-/area/f13/building/hospital{
-	name = "Atlantic Cross Hospital Ship"
-	})
+/area/f13/building/hospital)
 "nGI" = (
 /obj/structure/window/fulltile/ruins{
 	icon_state = "ruinswindowvertical"
@@ -15224,6 +15280,10 @@
 /obj/structure/table,
 /turf/open/floor/wood_wide/wood_wide_light,
 /area/f13/ruins)
+"nSK" = (
+/obj/structure/nest/mirelurk,
+/turf/open/floor/plating/rust,
+/area/f13/ruins)
 "nSO" = (
 /obj/structure/junk/cabinet,
 /turf/open/floor/f13/wood{
@@ -15379,6 +15439,11 @@
 /obj/effect/spawner/lootdrop/f13/foodspawner,
 /turf/open/floor/wood_common/wood_common_dark,
 /area/f13/ruins)
+"nZU" = (
+/turf/open/floor/wood_common{
+	icon_state = "wide-broken6"
+	},
+/area/f13/wasteland/town)
 "oaB" = (
 /obj/structure/fence/post{
 	pixel_y = 1
@@ -15751,9 +15816,7 @@
 	pixel_y = 23
 	},
 /turf/open/floor/plasteel/f13/vault_floor/plating,
-/area/f13/building/hospital{
-	name = "Atlantic Cross Hospital Ship"
-	})
+/area/f13/building/hospital)
 "otk" = (
 /obj/structure/table/wood/junk,
 /turf/open/floor/f13/wood,
@@ -15870,7 +15933,7 @@
 	icon_state = "dottedverticalcorroded"
 	},
 /obj/structure/nest/raider/ranged,
-/turf/open/floor/plating/f13/outside/road{
+/turf/open/floor/plating/f13/outside/road/baltimore{
 	icon_state = "road_center_1"
 	},
 /area/f13/raider_mall)
@@ -16431,15 +16494,6 @@
 	icon_state = "fancy_light1"
 	},
 /area/f13/wasteland/city)
-"pfW" = (
-/obj/structure/closet/crate/footlocker,
-/obj/item/kirbyplants{
-	icon_state = "plant-05";
-	pixel_y = 49;
-	pixel_x = 6
-	},
-/turf/open/floor/wood_wide/wood_wide_dark,
-/area/f13/building/boat)
 "pgS" = (
 /obj/item/clothing/shoes/f13/diesel,
 /turf/open/floor/wood_wide,
@@ -16463,7 +16517,7 @@
 	dir = 1;
 	pixel_y = 12
 	},
-/turf/open/floor/plating/f13/outside/road{
+/turf/open/floor/plating/f13/outside/road/baltimore{
 	icon_state = "road_center_1"
 	},
 /area/f13/raider_mall)
@@ -16582,6 +16636,9 @@
 /area/f13/wasteland/city)
 "pmu" = (
 /obj/structure/closet/cabinet,
+/obj/item/clothing/under/civ/british_soldier,
+/obj/item/clothing/under/civ/dressg,
+/obj/item/clothing/suit/armor/light/kit,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustysolid"
 	},
@@ -16976,7 +17033,9 @@
 	},
 /area/f13/ruins)
 "pKC" = (
-/turf/open/floor/wood_wide,
+/turf/open/floor/wood_common{
+	icon_state = "wide-broken1"
+	},
 /area/f13/wasteland/town)
 "pLt" = (
 /turf/closed/wall/f13/wood/house/broken,
@@ -16994,7 +17053,11 @@
 /area/f13/ruins)
 "pNr" = (
 /obj/structure/chair/bench,
-/turf/open/floor/wood_worn,
+/turf/open/floor/wood_common{
+	name = "wooden dock";
+	sunlight_state = 1;
+	icon_state = "common-broken6"
+	},
 /area/f13/wasteland/town)
 "pNQ" = (
 /obj/structure/shelf_wood{
@@ -17117,6 +17180,13 @@
 /obj/structure/rack/shelf_metal,
 /turf/open/floor/plasteel/f13/vault_floor/plating,
 /area/f13/brotherhood)
+"pSL" = (
+/turf/open/floor/wood_common{
+	name = "wooden dock";
+	sunlight_state = 1;
+	icon_state = "common-broken6"
+	},
+/area/f13/wasteland/town)
 "pSR" = (
 /obj/structure/flora/grass/jungle/b,
 /obj/effect/decal/cleanable/greenglow,
@@ -17141,7 +17211,7 @@
 /area/f13/wasteland/city)
 "pTA" = (
 /obj/effect/spawner/bundle/f13/armor/metal,
-/turf/open/floor/plating/f13/outside/road{
+/turf/open/floor/plating/f13/outside/road/baltimore{
 	icon_state = "road_center_1"
 	},
 /area/f13/raider_mall)
@@ -17257,6 +17327,7 @@
 /obj/structure/bed{
 	layer = 2.7
 	},
+/obj/item/bedsheet/blanket,
 /turf/open/floor/wood_wide/wood_wide_dark,
 /area/f13/enclave)
 "pXU" = (
@@ -18141,6 +18212,11 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/wood_common/wood_common_light,
 /area/f13/ruins)
+"qSi" = (
+/turf/open/floor/wood_common{
+	icon_state = "worn1"
+	},
+/area/f13/wasteland/town)
 "qSv" = (
 /obj/structure/flora/brushwoodalt,
 /obj/structure/flora/grass/jungle/b,
@@ -18684,6 +18760,10 @@
 	pixel_x = -14;
 	name = "bedpost";
 	desc = "A metal bedpost."
+	},
+/obj/item/bedsheet/blanket,
+/obj/item/bedsheet/blanket2{
+	pixel_y = 17
 	},
 /turf/open/floor/wood_fancy/wood_fancy_light,
 /area/f13/enclave)
@@ -19316,7 +19396,7 @@
 /area/f13/Ocean)
 "rTz" = (
 /obj/effect/decal/cleanable/blood,
-/turf/open/floor/plating/f13/outside/road{
+/turf/open/floor/plating/f13/outside/road/baltimore{
 	icon_state = "road_center_1"
 	},
 /area/f13/raider_mall)
@@ -19545,12 +19625,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/ruins)
-"sfE" = (
-/obj/structure/shelf_wood{
-	pixel_y = -5
-	},
-/turf/closed/wall/rust,
-/area/f13/building/boat)
 "sfG" = (
 /obj/structure/chair{
 	dir = 8
@@ -19782,13 +19856,13 @@
 /area/f13/brotherhood)
 "sqt" = (
 /obj/structure/table/reinforced,
-/obj/machinery/recharger,
 /obj/machinery/light/small{
 	dir = 4;
 	name = "tan light fixture";
 	light_color = "#FFDDCC";
 	color = "#FFDDCC"
 	},
+/obj/machinery/cell_charger,
 /turf/open/floor/plasteel/dark,
 /area/f13/building/boat)
 "sqG" = (
@@ -20327,6 +20401,10 @@
 	icon_state = "common-broken5"
 	},
 /area/f13/ruins)
+"sVP" = (
+/mob/living/simple_animal/hostile/mirelurk/hunter,
+/turf/open/floor/plating/rust,
+/area/f13/ruins)
 "sWk" = (
 /obj/structure/chair/left{
 	dir = 1
@@ -20373,6 +20451,10 @@
 	pixel_x = -14;
 	name = "bedpost";
 	desc = "A metal bedpost."
+	},
+/obj/item/bedsheet/blanket,
+/obj/item/bedsheet/blanket2{
+	pixel_y = 17
 	},
 /turf/open/floor/wood_common/wood_common_light,
 /area/f13/enclave)
@@ -20804,7 +20886,9 @@
 /turf/open/floor/wood_wide/wood_wide_dark,
 /area/f13/ruins)
 "tpy" = (
-/turf/open/floor/wood_mosaic,
+/turf/open/floor/wood_common{
+	icon_state = "common-broken3"
+	},
 /area/f13/wasteland/town)
 "tpN" = (
 /obj/item/chair,
@@ -20982,7 +21066,7 @@
 /obj/structure/destructible/tribal_torch/wall/lit{
 	dir = 4
 	},
-/turf/open/floor/plating/f13/outside/road{
+/turf/open/floor/plating/f13/outside/road/baltimore{
 	icon_state = "road_center_1"
 	},
 /area/f13/raider_mall)
@@ -21000,9 +21084,7 @@
 "txU" = (
 /obj/structure/sign/directions/science,
 /turf/closed/wall/rust,
-/area/f13/building/hospital{
-	name = "Atlantic Cross Hospital Ship"
-	})
+/area/f13/building/hospital)
 "txW" = (
 /obj/structure/destructible/tribal_torch/lit{
 	pixel_x = -10;
@@ -21046,6 +21128,10 @@
 	pixel_x = -14;
 	name = "bedpost";
 	desc = "A metal bedpost."
+	},
+/obj/item/bedsheet/blanket,
+/obj/item/bedsheet/blanket2{
+	pixel_y = 17
 	},
 /turf/open/floor/wood_wide/wood_wide_light,
 /area/f13/enclave)
@@ -21188,7 +21274,7 @@
 /area/f13/office)
 "tCT" = (
 /mob/living/simple_animal/hostile/raider/ranged/biker,
-/turf/open/floor/plating/f13/outside/road{
+/turf/open/floor/plating/f13/outside/road/baltimore{
 	icon_state = "road_center_1"
 	},
 /area/f13/raider_mall)
@@ -22117,9 +22203,7 @@
 	dir = 8
 	},
 /turf/open/floor/plasteel/f13/vault_floor/plating,
-/area/f13/building/hospital{
-	name = "Atlantic Cross Hospital Ship"
-	})
+/area/f13/building/hospital)
 "uvB" = (
 /obj/effect/decal/cleanable/cobweb{
 	layer = 20
@@ -22446,11 +22530,6 @@
 /area/f13/ruins)
 "uLX" = (
 /obj/structure/bed,
-/obj/item/kirbyplants{
-	icon_state = "plant-02";
-	pixel_y = 50;
-	pixel_x = -8
-	},
 /obj/item/bedsheet/blue{
 	layer = 2
 	},
@@ -22560,6 +22639,14 @@
 	icon_state = "fancy_light-broken3"
 	},
 /area/f13/ruins)
+"uOJ" = (
+/obj/structure/chair/bench,
+/turf/open/floor/wood_common{
+	name = "wooden dock";
+	sunlight_state = 1;
+	icon_state = "common2"
+	},
+/area/f13/wasteland/town)
 "uPI" = (
 /obj/structure/nest/ghoul,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
@@ -22680,9 +22767,7 @@
 /turf/closed/wall/f13/store/constructed{
 	name = "Hospital ship hull"
 	},
-/area/f13/building/hospital{
-	name = "Atlantic Cross Hospital Ship"
-	})
+/area/f13/building/hospital)
 "uWf" = (
 /obj/structure/table,
 /obj/item/stack/sheet/cloth/thirty,
@@ -23105,7 +23190,11 @@
 /area/f13/city/museum)
 "vlw" = (
 /obj/structure/table/wood,
-/turf/open/floor/wood_worn,
+/turf/open/floor/wood_common{
+	name = "wooden dock";
+	sunlight_state = 1;
+	icon_state = "common2"
+	},
 /area/f13/wasteland/town)
 "vmF" = (
 /obj/structure/railing{
@@ -23242,6 +23331,10 @@
 	dir = 8;
 	name = "tan light fixture"
 	},
+/obj/item/clothing/under/f13/atlantic/sailor,
+/obj/item/clothing/under/f13/atlantic/uniform,
+/obj/item/clothing/head/helmet/f13/combat/atlantic,
+/obj/item/clothing/suit/armor/medium/vest/atlantic,
 /turf/open/floor/plasteel/f13/vault_floor/plating,
 /area/f13/building/boat)
 "vsm" = (
@@ -24670,7 +24763,7 @@
 	layer = 5.5;
 	pixel_y = 19
 	},
-/turf/open/floor/plating/f13/outside/road{
+/turf/open/floor/plating/f13/outside/road/baltimore{
 	icon_state = "road_center_1"
 	},
 /area/f13/raider_mall)
@@ -24799,6 +24892,10 @@
 	pixel_x = -14;
 	name = "bedpost";
 	desc = "A metal bedpost."
+	},
+/obj/item/bedsheet/blanket,
+/obj/item/bedsheet/blanket2{
+	pixel_y = 17
 	},
 /turf/open/floor/wood_worn/wood_worn_light{
 	icon_state = "worn_light-broken6"
@@ -25620,6 +25717,10 @@
 	light_color = "#FFDDCC";
 	color = "#FFDDCC"
 	},
+/obj/item/clothing/under/f13/atlantic/sailor,
+/obj/item/clothing/under/f13/atlantic/uniform,
+/obj/item/clothing/head/helmet/f13/combat/atlantic,
+/obj/item/clothing/suit/armor/medium/vest/atlantic,
 /turf/open/floor/plasteel/dark,
 /area/f13/building/boat)
 "xIy" = (
@@ -44250,7 +44351,7 @@ cmH
 pBl
 tVE
 kyH
-bmH
+eSY
 ndW
 ndW
 tgg
@@ -45718,7 +45819,7 @@ dfh
 dfh
 fIO
 sSs
-sSs
+sVP
 sSs
 sSs
 sSs
@@ -45734,7 +45835,7 @@ sSs
 sSs
 sSs
 sSs
-sSs
+nSK
 sSs
 sSs
 sSs
@@ -45977,7 +46078,7 @@ fIO
 sSs
 sSs
 sSs
-sSs
+nSK
 sSs
 sSs
 fIO
@@ -45993,7 +46094,7 @@ sSs
 sSs
 sSs
 sSs
-sSs
+sVP
 sSs
 sSs
 sSs
@@ -46753,7 +46854,7 @@ tDx
 fMX
 sSs
 sSs
-sSs
+sVP
 sSs
 fMX
 tDx
@@ -64813,14 +64914,14 @@ cLZ
 cLZ
 cLZ
 dKw
-xQE
-wOo
-xQE
-xQE
-wOo
+mcE
+mcE
+leB
+mcE
+mcE
+mcE
+nZU
 tpy
-pOI
-xQE
 bJp
 gVH
 hzY
@@ -65072,10 +65173,10 @@ dKw
 jcL
 jsg
 vlw
-pNr
-mcE
-xQE
-xQE
+uOJ
+qSi
+fnv
+bmH
 mcE
 wlQ
 coJ
@@ -65325,14 +65426,14 @@ cLZ
 cLZ
 cLZ
 dKw
-xQE
-xQE
-fnv
+mcE
+eAE
+jsg
 vlw
 pNr
-xQE
+mcE
 jcL
-tpy
+mcE
 lPt
 gWa
 vOZ
@@ -65581,15 +65682,15 @@ cLZ
 cLZ
 cLZ
 cLZ
-xQE
-pOI
-wOo
-xQE
-xQE
-pOI
-xQE
-wOo
-xQE
+fnv
+mcE
+bmH
+mcE
+fnv
+mcE
+nZU
+mcE
+fnv
 lPt
 ibt
 jRa
@@ -65839,14 +65940,14 @@ cLZ
 cLZ
 cLZ
 uJL
-pKC
-xQE
 mcE
-wOo
-xQE
-xQE
-xQE
-xQE
+fnv
+mcE
+mcE
+jcL
+tpy
+mcE
+mcE
 lPt
 nRe
 vOZ
@@ -66097,14 +66198,14 @@ cLZ
 cLZ
 cLZ
 uJL
-xQE
+mcE
 pKC
-xQE
-xQE
-tpy
-ejP
-wOo
-wOo
+bmH
+mcE
+mcE
+irA
+pSL
+bmH
 wlQ
 tJE
 xQy
@@ -66355,14 +66456,14 @@ cLZ
 cLZ
 cLZ
 uJL
-xQE
-xQE
+mcE
+mNA
 gHI
 ebv
 gFR
-xQE
-xQE
-xQE
+mcE
+jcL
+jcL
 wlQ
 hzY
 wlQ
@@ -71519,8 +71620,8 @@ gBo
 jKm
 gVH
 gVH
-cLZ
-cLZ
+cXH
+cXH
 cLZ
 cLZ
 cLZ
@@ -71762,7 +71863,7 @@ gBo
 ylQ
 uJF
 tsk
-jTq
+gBo
 uLX
 kqn
 kqn
@@ -71778,8 +71879,8 @@ gBo
 gBo
 arK
 gVH
-cLZ
-cLZ
+cXH
+cXH
 cLZ
 cLZ
 aOz
@@ -72009,7 +72110,7 @@ cLZ
 cLZ
 cLZ
 cLZ
-sfE
+gVH
 iHv
 iRk
 blO
@@ -72019,7 +72120,7 @@ gBo
 lVV
 rTH
 lMQ
-jTq
+gBo
 heQ
 heQ
 vFX
@@ -72266,7 +72367,7 @@ cLZ
 cLZ
 cLZ
 cLZ
-jTq
+gBo
 hBZ
 hiO
 jPl
@@ -72276,8 +72377,8 @@ gVH
 dgn
 blO
 hLR
-sfE
-pfW
+gVH
+iaF
 hDW
 blO
 gVH
@@ -72294,7 +72395,7 @@ gcB
 vew
 blO
 jKm
-cLZ
+cXH
 cLZ
 aOz
 aOz
@@ -72552,7 +72653,7 @@ blO
 vew
 hvI
 jKm
-cLZ
+cXH
 aOz
 aOz
 aOz
@@ -72808,7 +72909,7 @@ dok
 vew
 vbO
 jKm
-cLZ
+cXH
 cLZ
 aOz
 aOz
@@ -73052,7 +73153,7 @@ blO
 blO
 rTH
 blO
-pVb
+gfX
 blO
 hiO
 blO
@@ -73320,8 +73421,8 @@ nas
 uzC
 gBo
 gVH
-cLZ
-cLZ
+cXH
+cXH
 cLZ
 cLZ
 aOz
@@ -73575,8 +73676,8 @@ gBo
 gBo
 gVH
 gVH
-cLZ
-cLZ
+cXH
+cXH
 cLZ
 cLZ
 cLZ
@@ -74152,9 +74253,9 @@ iDI
 aOz
 aOz
 oQY
-irA
-irA
-irA
+oQY
+oQY
+oQY
 oQY
 dvS
 jnJ
@@ -74409,9 +74510,9 @@ ljR
 aOz
 aOz
 oQY
-irA
-aQG
-irA
+oQY
+oQY
+oQY
 oQY
 dvS
 dvS
@@ -74666,9 +74767,9 @@ gTf
 gTf
 gTf
 gTf
-irA
-irA
-irA
+gTf
+gTf
+gTf
 gTf
 gTf
 gTf

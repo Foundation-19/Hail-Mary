@@ -973,3 +973,19 @@ obj/effect/landmark/start/f13/ncrlogisticsofficer
 /obj/effect/landmark/start/f13/smutant_boss
 	name = "Super Mutant Leader"
 	icon_state = "Captain"
+
+/obj/effect/landmark/start/f13/atlanticsailor
+	name = "Atlantic Cross Sailor"
+	icon_state = "Assistant"
+
+/obj/effect/landmark/start/f13/atlanticdoctor
+	name = "Atlantic Cross Doctor"
+	icon_state = "Medical Doctor"
+
+/obj/effect/landmark/start/f13/atlanticmarines
+	name = "Atlantic Cross Marines"
+	icon_state = "Medical Doctor"
+
+/obj/effect/landmark/start/f13/atlanticcap
+	name = "Atlantic Cross Captain"
+	icon_state = "Captain"

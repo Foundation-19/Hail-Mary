@@ -836,18 +836,21 @@ obj/item/clothing/head/helmet/f13/enclave/usmcriot
 	desc = "Look at you, look at you, you are the captain of a Hospital ship and its escort. Nothing more badass, eh ?"
 	icon_state = "atlanticcap"
 	item_state = "atlanticcap"
+	icon = 'icons/fallout/clothing/hats.dmi'
 	armor = ARMOR_VALUE_MEDIUM
 	armor_tokens = list(ARMOR_MODIFIER_UP_DT_T1, ARMOR_MODIFIER_UP_BULLET_T1)
 
 /obj/item/clothing/head/helmet/f13/combat/atlantic
 	name = "Atlantic Cross Helmet"
 	desc = "A helmet issued to guards, but also available for doctors and other crewmembers. Based on old helmets."
+	icon = 'icons/fallout/clothing/hats.dmi'
 	icon_state = "atlantichelmet"
 	item_state = "atlantichelmet"
 
 /obj/item/clothing/head/helmet/f13/atlanticmarines
 	name = "Atlantic Cross Marines Helmet"
 	desc = "Based on riot gear, there is legends about them. Issued to some combat personel of a private naval security company, those soldier then offered to marines after the great war and losing contact with HQ."
+	icon = 'icons/fallout/clothing/hats.dmi'	
 	icon_state = "atlanticriot"
 	item_state = "atlanticriot"
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEHAIR|HIDEFACIALHAIR|HIDEFACE

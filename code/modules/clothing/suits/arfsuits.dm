@@ -1881,6 +1881,7 @@
 /obj/item/clothing/suit/armor/medium/vest/atlantic
 	name = "Atlantic Cross guard vest"
 	desc = "A prewar vest, used by some private naval security forces on ships, to fight back against pirates of the mediterean seas, following the European and North African crisis of the 2050's to 2070's."
+	icon = 'icons/fallout/clothing/armored_light.dmi'
 	icon_state = "atlanticguard"
 	item_state = "atlanticguard"
 
@@ -2308,6 +2309,7 @@
 /obj/item/clothing/suit/armor/medium/combat/atlanticmarines
 	name = "Atlantic Cross Marines combat armor"
 	desc = "A balistic vest from prewar times, probably used by some marines."
+	icon = 'icons/fallout/clothing/armored_medium.dmi'
 	icon_state = "atlanticmarine"
 	item_state = "atlanticmarine"
 

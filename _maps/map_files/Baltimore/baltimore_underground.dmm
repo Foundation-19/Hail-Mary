@@ -104,10 +104,7 @@
 	sunlight_state = 0;
 	name = "underground ruins"
 	},
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
+/area/f13/ruins)
 "aji" = (
 /obj/effect/mob_spawn/human/corpse/vault/security,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
@@ -299,10 +296,7 @@
 "awF" = (
 /obj/effect/mob_spawn/human/corpse/charredskeleton,
 /turf/open/floor/plating/rust,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
+/area/f13/ruins)
 "awP" = (
 /obj/machinery/requests_console{
 	announcementConsole = 1;
@@ -501,10 +495,7 @@
 /obj/structure/closet/crate/large,
 /obj/item/locked_box/weapon/ammo/tier5,
 /turf/open/floor/plating/rust,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
+/area/f13/ruins)
 "aRM" = (
 /turf/open/floor/wood_mosaic,
 /area/f13/building/tunnel)
@@ -638,10 +629,7 @@
 "bdB" = (
 /obj/effect/mob_spawn/human/corpse/raiderboss,
 /turf/open/floor/wood_common,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
+/area/f13/ruins)
 "bdS" = (
 /obj/structure/stairs/east,
 /turf/open/floor/wood_common,
@@ -819,10 +807,7 @@
 	},
 /obj/effect/decal/cleanable/blood/gibs/limb,
 /turf/open/floor/plating/rust,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
+/area/f13/ruins)
 "bsu" = (
 /obj/structure/chair/right{
 	dir = 4
@@ -1033,10 +1018,7 @@
 "bFY" = (
 /obj/structure/chair/stool/retro,
 /turf/open/floor/wood_common,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
+/area/f13/ruins)
 "bGB" = (
 /obj/structure/debris/v3,
 /turf/open/indestructible/ground/outside/gravel{
@@ -1328,10 +1310,7 @@
 	},
 /obj/structure/wreck/trash/machinepile,
 /turf/open/floor/plating/rust,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
+/area/f13/ruins)
 "cig" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -1405,10 +1384,7 @@
 	},
 /obj/structure/wreck/trash/machinepile,
 /turf/open/floor/plasteel/f13/vault_floor/misc/rarewhite,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
+/area/f13/ruins)
 "cmH" = (
 /turf/open/indestructible/ground/outside/ruins{
 	sunlight_state = 0;
@@ -1511,10 +1487,7 @@
 "cwq" = (
 /obj/effect/decal/cleanable/glass/plasma,
 /turf/open/floor/plasteel/f13/vault_floor/misc/rarewhite,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
+/area/f13/ruins)
 "cwA" = (
 /obj/item/chair/stool/bar,
 /obj/item/chair/stool/bar,
@@ -1619,10 +1592,7 @@
 "cGW" = (
 /mob/living/simple_animal/hostile/radroach,
 /turf/open/floor/wood_common,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
+/area/f13/ruins)
 "cHg" = (
 /turf/closed/indestructible/rock,
 /area/f13/caves)
@@ -1636,10 +1606,7 @@
 "cHV" = (
 /obj/structure/stairs/west,
 /turf/open/floor/wood_common,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
+/area/f13/ruins)
 "cIm" = (
 /mob/living/simple_animal/hostile/raider/junker/creator,
 /turf/open/indestructible/ground/inside/subway,
@@ -1717,10 +1684,7 @@
 	pixel_x = 4
 	},
 /turf/open/floor/wood_common,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
+/area/f13/ruins)
 "cMU" = (
 /obj/structure/spacevine,
 /turf/closed/wall/f13/wood/house,
@@ -1738,10 +1702,7 @@
 "cOw" = (
 /obj/structure/destructible/tribal_torch/lit,
 /turf/open/floor/plasteel/f13/vault_floor/misc/rarewhite,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
+/area/f13/ruins)
 "cOB" = (
 /obj/effect/decal/cleanable/greenglow,
 /turf/open/floor/wood_fancy/wood_fancy_light,
@@ -1789,10 +1750,7 @@
 	dir = 5
 	},
 /turf/open/floor/plating/rust,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
+/area/f13/ruins)
 "cTg" = (
 /obj/structure/ore_box,
 /turf/open/indestructible/ground/outside/gravel{
@@ -1875,20 +1833,14 @@
 	layer = 20
 	},
 /turf/open/floor/wood_common,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
+/area/f13/ruins)
 "cXd" = (
 /turf/open/floor/wood_wide/wood_wide_light,
 /area/f13/tunnel/sub)
 "cYi" = (
 /mob/living/simple_animal/hostile/poison/giant_spider,
 /turf/open/floor/plating/rust,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
+/area/f13/ruins)
 "cYz" = (
 /obj/structure/table/wood/junk,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
@@ -2174,10 +2126,7 @@
 "duH" = (
 /mob/living/simple_animal/hostile/deathclaw/power_armor,
 /turf/open/floor/plasteel/f13/vault_floor/misc/rarewhite,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
+/area/f13/ruins)
 "duL" = (
 /obj/structure/rack/shelf_metal,
 /obj/effect/spawner/lootdrop/breathing_tanks,
@@ -2424,10 +2373,7 @@
 "dQs" = (
 /obj/structure/wreck/trash/machinepiletwo,
 /turf/open/floor/plasteel/f13/vault_floor/misc/rarewhite,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
+/area/f13/ruins)
 "dQv" = (
 /obj/structure/disposalpipe/segment{
 	dir = 9
@@ -2448,10 +2394,7 @@
 	dir = 6
 	},
 /turf/open/floor/plating/rust,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
+/area/f13/ruins)
 "dSy" = (
 /turf/open/floor/wood_common{
 	icon_state = "common-broken6"
@@ -2753,10 +2696,7 @@
 "esW" = (
 /obj/structure/window/plastitanium,
 /turf/open/floor/plating/rust,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
+/area/f13/ruins)
 "euq" = (
 /obj/structure/decoration/vent/rusty{
 	icon_state = "hatchbroken"
@@ -3501,10 +3441,7 @@
 "fLO" = (
 /obj/effect/mob_spawn/human/corpse/charredskeleton,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
+/area/f13/ruins)
 "fLS" = (
 /obj/structure/chair/sofa/corp/left,
 /obj/machinery/light/small/broken{
@@ -3583,10 +3520,7 @@
 	pixel_y = 1
 	},
 /turf/open/floor/wood_common,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
+/area/f13/ruins)
 "fRf" = (
 /obj/machinery/light{
 	dir = 4
@@ -3749,10 +3683,7 @@
 /obj/effect/decal/cleanable/blood/gibs/human/down,
 /obj/structure/destructible/tribal_torch/lit,
 /turf/open/floor/plating/rust,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
+/area/f13/ruins)
 "gjz" = (
 /mob/living/simple_animal/hostile/mirelurk/hunter,
 /turf/open/indestructible/ground/outside/water/running{
@@ -3764,10 +3695,7 @@
 	dir = 1
 	},
 /turf/open/floor/plating/rust,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
+/area/f13/ruins)
 "gkA" = (
 /turf/closed/wall/r_wall/rust,
 /area/f13/building)
@@ -3885,10 +3813,7 @@
 /obj/structure/table/reinforced,
 /obj/machinery/recharger,
 /turf/open/floor/plasteel/f13/vault_floor/misc/rarewhite,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
+/area/f13/ruins)
 "guK" = (
 /obj/structure/cargocrate{
 	color = "#F2222F";
@@ -3945,10 +3870,7 @@
 	dir = 4
 	},
 /turf/closed/wall/r_wall/rust,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
+/area/f13/ruins)
 "gyy" = (
 /obj/structure/simple_door/wood,
 /turf/open/floor/wood_fancy/wood_fancy_light,
@@ -4221,10 +4143,7 @@
 "gSB" = (
 /mob/living/simple_animal/hostile/handy/gutsy,
 /turf/open/floor/plasteel/f13/vault_floor/misc/rarewhite,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
+/area/f13/ruins)
 "gSF" = (
 /turf/closed/indestructible/f13/subway{
 	icon_state = "subwaybottomright"
@@ -4264,10 +4183,7 @@
 "gUQ" = (
 /obj/structure/chair/stool/retro/tan,
 /turf/open/floor/wood_common,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
+/area/f13/ruins)
 "gVv" = (
 /obj/effect/decal/cleanable/greenglow,
 /turf/open/floor/wood_common,
@@ -4320,10 +4236,7 @@
 /area/f13/tunnel/sub)
 "hao" = (
 /turf/closed/wall/rust,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
+/area/f13/ruins)
 "hba" = (
 /obj/structure/table/wood/fancy/cyan,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
@@ -4343,10 +4256,7 @@
 	},
 /obj/structure/simple_door/metal/ventilation,
 /turf/open/floor/plating/rust,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
+/area/f13/ruins)
 "hgo" = (
 /turf/open/floor/wood_fancy{
 	icon_state = "fancy-broken3"
@@ -4513,10 +4423,7 @@
 /obj/structure/closet/crate/large,
 /obj/item/locked_box/weapon/melee/tier5,
 /turf/open/floor/plating/rust,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
+/area/f13/ruins)
 "hve" = (
 /obj/effect/overlay/water/top{
 	color = "#94b8b8"
@@ -4701,10 +4608,7 @@
 "hHn" = (
 /obj/effect/decal/cleanable/blood,
 /turf/open/floor/plasteel/f13/vault_floor/misc/rarewhite,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
+/area/f13/ruins)
 "hHt" = (
 /obj/structure/bed/old,
 /obj/structure/bed/old{
@@ -5015,10 +4919,7 @@
 	layer = 20
 	},
 /turf/open/floor/wood_common,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
+/area/f13/ruins)
 "ieN" = (
 /obj/effect/overlay/junk/curtain,
 /turf/open/floor/wood_common,
@@ -5106,10 +5007,7 @@
 	sunlight_state = 0;
 	name = "underground ruins"
 	},
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
+/area/f13/ruins)
 "ikD" = (
 /obj/structure/cargocrate{
 	icon_state = "cargocrate2"
@@ -5185,10 +5083,7 @@
 /obj/effect/decal/cleanable/blood,
 /mob/living/simple_animal/hostile/handy/gutsy,
 /turf/open/floor/plating/rust,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
+/area/f13/ruins)
 "ioY" = (
 /turf/open/floor/plasteel/stairs{
 	dir = 4
@@ -5518,10 +5413,7 @@
 /obj/structure/table/booth,
 /obj/item/reagent_containers/food/drinks/bottle/f13nukacola,
 /turf/open/floor/wood_common,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
+/area/f13/ruins)
 "iOr" = (
 /obj/item/reagent_containers/food/snacks/f13/deathclawegg,
 /turf/open/indestructible/ground/outside/gravel{
@@ -5633,10 +5525,7 @@
 /area/f13/building)
 "iXK" = (
 /turf/closed/mineral/random/high_chance,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
+/area/f13/ruins)
 "iYm" = (
 /obj/structure/bookcase/random/religion{
 	icon_state = "book-5"
@@ -5699,10 +5588,7 @@
 	dir = 8
 	},
 /turf/open/floor/wood_common,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
+/area/f13/ruins)
 "jbC" = (
 /obj/structure/disposalpipe/segment{
 	dir = 10
@@ -5744,17 +5630,11 @@
 /area/f13/building/tunnel)
 "jgq" = (
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
+/area/f13/ruins)
 "jgt" = (
 /obj/structure/stairs/north,
 /turf/open/floor/plating/rust,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
+/area/f13/ruins)
 "jgU" = (
 /obj/structure/chair/wood/wings,
 /turf/open/floor/plasteel/cult,
@@ -5783,10 +5663,7 @@
 "jic" = (
 /obj/structure/junk/machinery,
 /turf/open/floor/plating/rust,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
+/area/f13/ruins)
 "jie" = (
 /obj/structure/destructible/tribal_torch/wall/lit{
 	dir = 4
@@ -5812,10 +5689,7 @@
 "jje" = (
 /obj/structure/disposalpipe/trunk,
 /turf/open/floor/plating/rust,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
+/area/f13/ruins)
 "jjj" = (
 /obj/structure/chair/folding{
 	dir = 4
@@ -5994,10 +5868,7 @@
 /obj/item/storage/box/drinkingglasses,
 /obj/item/reagent_containers/food/drinks/bottle/f13nukacola,
 /turf/open/floor/wood_common,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
+/area/f13/ruins)
 "jtt" = (
 /obj/machinery/chem_dispenser{
 	pixel_x = -4
@@ -6013,10 +5884,7 @@
 /area/f13/tunnel/sub)
 "juy" = (
 /turf/open/floor/wood_common,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
+/area/f13/ruins)
 "juL" = (
 /obj/structure/sink/greyscale{
 	dir = 4;
@@ -6024,10 +5892,7 @@
 	pixel_x = 13
 	},
 /turf/open/floor/wood_common,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
+/area/f13/ruins)
 "juN" = (
 /obj/effect/mob_spawn/human/corpse/chineseremnant/pistol,
 /turf/open/indestructible/ground/outside/gravel{
@@ -6121,10 +5986,7 @@
 /obj/item/reagent_containers/glass/bowl/wooden_bowl,
 /obj/item/reagent_containers/glass/bowl/wooden_bowl,
 /turf/open/floor/wood_common,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
+/area/f13/ruins)
 "jAO" = (
 /obj/machinery/light/small{
 	light_color = "#FF0000";
@@ -6483,10 +6345,7 @@
 	dir = 4
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/rarewhite,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
+/area/f13/ruins)
 "jXN" = (
 /obj/item/reagent_containers/food/snacks/f13/deathclawegg,
 /obj/item/reagent_containers/food/snacks/f13/deathclawegg,
@@ -6576,20 +6435,14 @@
 "kdj" = (
 /obj/effect/decal/cleanable/blood/gibs/limb,
 /turf/open/floor/plasteel/f13/vault_floor/misc/rarewhite,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
+/area/f13/ruins)
 "keD" = (
 /obj/structure/bed/mattress{
 	icon_state = "mattress1";
 	layer = 5.5
 	},
 /turf/open/floor/wood_common,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
+/area/f13/ruins)
 "keG" = (
 /obj/structure/flora/wasteplant/wild_fungus,
 /turf/open/indestructible/ground/outside/gravel{
@@ -6611,10 +6464,7 @@
 /obj/structure/table/reinforced,
 /obj/machinery/cell_charger,
 /turf/open/floor/plasteel/f13/vault_floor/misc/rarewhite,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
+/area/f13/ruins)
 "khi" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -6667,10 +6517,7 @@
 /area/f13/tunnel)
 "kmr" = (
 /turf/closed/mineral/random/low_chance/underground,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
+/area/f13/ruins)
 "kmI" = (
 /obj/item/storage/firstaid/ancient,
 /turf/open/floor/plating/rust,
@@ -6713,10 +6560,7 @@
 "koU" = (
 /obj/effect/decal/cleanable/glass/plasma,
 /turf/open/floor/plating/rust,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
+/area/f13/ruins)
 "kpZ" = (
 /obj/structure/destructible/tribal_torch/wall/lit{
 	dir = 4
@@ -6831,10 +6675,7 @@
 "kxy" = (
 /obj/structure/junk/machinery,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
+/area/f13/ruins)
 "kze" = (
 /obj/machinery/blackbox_recorder,
 /turf/open/floor/plasteel/dark/telecomms/mainframe,
@@ -6907,10 +6748,7 @@
 "kFD" = (
 /obj/effect/decal/cleanable/blood/gibs/torso,
 /turf/open/floor/plasteel/f13/vault_floor/misc/rarewhite,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
+/area/f13/ruins)
 "kFF" = (
 /obj/structure/table/wood,
 /obj/machinery/microwave,
@@ -7410,10 +7248,7 @@
 	unbreakable = 1;
 	name = "solid ruins"
 	},
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
+/area/f13/ruins)
 "lrp" = (
 /obj/structure/disposalpipe/segment{
 	dir = 9
@@ -7598,10 +7433,7 @@
 /mob/living/simple_animal/hostile/radroach,
 /mob/living/simple_animal/hostile/radroach,
 /turf/open/floor/wood_common,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
+/area/f13/ruins)
 "lGL" = (
 /obj/structure/simple_door/bunker/glass,
 /turf/open/floor/plasteel/f13/vault_floor/green/greenchess,
@@ -7620,10 +7452,7 @@
 "lJT" = (
 /obj/effect/spawner/lootdrop/wmelee_middle,
 /turf/open/floor/plating/rust,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
+/area/f13/ruins)
 "lKe" = (
 /obj/effect/decal/cleanable/greenglow,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
@@ -7760,17 +7589,11 @@
 /obj/structure/barricade/wooden,
 /obj/structure/barricade/wooden,
 /turf/open/indestructible/ground/outside/water,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
+/area/f13/ruins)
 "lTN" = (
 /mob/living/simple_animal/hostile/poison/giant_spider,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
+/area/f13/ruins)
 "lUE" = (
 /obj/structure/destructible/tribal_torch/wall/lit{
 	dir = 8
@@ -7824,10 +7647,7 @@
 /obj/structure/spider/stickyweb,
 /obj/structure/spider/stickyweb,
 /turf/open/floor/plating/rust,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
+/area/f13/ruins)
 "mbz" = (
 /obj/structure/disposalpipe/segment{
 	dir = 9
@@ -7960,10 +7780,7 @@
 /area/f13/citycaves)
 "mlH" = (
 /turf/closed/wall/r_wall/rust,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
+/area/f13/ruins)
 "mlT" = (
 /obj/structure/table/wood,
 /turf/open/floor/wood_common/wood_common_light,
@@ -8198,10 +8015,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating/rust,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
+/area/f13/ruins)
 "mEz" = (
 /obj/structure/rack/large/shelf_rust,
 /obj/item/stock_parts/cell/ammo/ecp,
@@ -8348,10 +8162,7 @@
 "mLG" = (
 /obj/structure/closet/cabinet/anchored,
 /turf/open/floor/wood_common,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
+/area/f13/ruins)
 "mMJ" = (
 /obj/machinery/workbench/advanced,
 /obj/item/locked_box/misc/blueprints/tier2,
@@ -8421,10 +8232,7 @@
 	dir = 4
 	},
 /turf/open/floor/wood_common,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
+/area/f13/ruins)
 "mRB" = (
 /turf/closed/indestructible/riveted,
 /area/space{
@@ -8615,27 +8423,18 @@
 	layer = 20
 	},
 /turf/open/floor/wood_common,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
+/area/f13/ruins)
 "niA" = (
 /obj/structure/simple_door/wood,
 /turf/open/floor/wood_common,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
+/area/f13/ruins)
 "njs" = (
 /obj/structure/decoration/vent/rusty{
 	icon_state = "hatch";
 	dir = 4
 	},
 /turf/closed/wall/r_wall/rust,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
+/area/f13/ruins)
 "njy" = (
 /obj/structure/window,
 /obj/machinery/light/small{
@@ -8919,10 +8718,7 @@
 "nKl" = (
 /mob/living/simple_animal/hostile/enclave/scientist,
 /turf/open/floor/plasteel/f13/vault_floor/misc/rarewhite,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
+/area/f13/ruins)
 "nLQ" = (
 /turf/closed/wall/rust,
 /area/f13/citycaves)
@@ -8960,10 +8756,7 @@
 "nNg" = (
 /mob/living/simple_animal/hostile/poison/giant_spider/tarantula,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
+/area/f13/ruins)
 "nNm" = (
 /obj/structure/chair/right{
 	dir = 1
@@ -9017,10 +8810,7 @@
 	layer = 20
 	},
 /turf/open/floor/wood_common,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
+/area/f13/ruins)
 "nPX" = (
 /obj/structure/table,
 /turf/open/floor/plasteel/yellow/side{
@@ -9089,10 +8879,7 @@
 "nVX" = (
 /obj/effect/decal/cleanable/blood,
 /turf/open/floor/plating/rust,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
+/area/f13/ruins)
 "nWU" = (
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/tunnel)
@@ -9173,10 +8960,7 @@
 "ocN" = (
 /obj/effect/mob_spawn/human/corpse/enclavescientist,
 /turf/open/floor/plasteel/f13/vault_floor/misc/rarewhite,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
+/area/f13/ruins)
 "ocZ" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -9294,10 +9078,7 @@
 	},
 /obj/structure/destructible/tribal_torch/lit,
 /turf/open/floor/plasteel/f13/vault_floor/misc/rarewhite,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
+/area/f13/ruins)
 "omn" = (
 /obj/structure/closet/crate/large{
 	layer = 2.5
@@ -9545,10 +9326,7 @@
 	},
 /obj/structure/simple_door/metal/ventilation,
 /turf/open/floor/plating/rust,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
+/area/f13/ruins)
 "oIV" = (
 /obj/structure/cargocrate{
 	icon_state = "cargocrate2";
@@ -9724,10 +9502,7 @@
 "oRR" = (
 /mob/living/simple_animal/hostile/poison/giant_spider/tarantula,
 /turf/open/floor/plating/rust,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
+/area/f13/ruins)
 "oSq" = (
 /obj/machinery/light/fo13colored/Red{
 	dir = 1
@@ -9840,10 +9615,7 @@
 	icon_state = "mattress2"
 	},
 /turf/open/floor/wood_common,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
+/area/f13/ruins)
 "pdh" = (
 /obj/structure/table,
 /obj/item/locked_box/misc/money/all/medium,
@@ -10094,10 +9866,7 @@
 /obj/structure/table/reinforced,
 /obj/effect/spawner/lootdrop/f13/weapon/energy,
 /turf/open/floor/plasteel/f13/vault_floor/misc/rarewhite,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
+/area/f13/ruins)
 "pCR" = (
 /obj/effect/spawner/lootdrop/wrange_high,
 /turf/open/indestructible/ground/outside/gravel{
@@ -10175,10 +9944,7 @@
 "pKk" = (
 /obj/effect/mob_spawn/human/corpse/raiderboss,
 /turf/open/floor/plasteel/f13/vault_floor/misc/rarewhite,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
+/area/f13/ruins)
 "pKQ" = (
 /obj/structure/frame/computer{
 	dir = 8
@@ -10311,10 +10077,7 @@
 /obj/effect/decal/cleanable/blood,
 /obj/structure/window/plastitanium,
 /turf/open/floor/plating/rust,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
+/area/f13/ruins)
 "pSg" = (
 /obj/structure/flora/grass/jungle/b,
 /turf/open/indestructible/ground/outside/water/running{
@@ -10612,10 +10375,7 @@
 	layer = 20
 	},
 /turf/open/floor/wood_common,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
+/area/f13/ruins)
 "qne" = (
 /obj/structure/flora/junglebush/b,
 /turf/open/indestructible/ground/outside/gravel{
@@ -10970,10 +10730,7 @@
 /area/f13/tunnel/sub)
 "qMq" = (
 /turf/open/floor/plasteel/f13/vault_floor/misc/rarewhite,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
+/area/f13/ruins)
 "qNF" = (
 /obj/structure/barricade/tentclothedge,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
@@ -10981,10 +10738,7 @@
 "qOd" = (
 /obj/structure/spider/stickyweb,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
+/area/f13/ruins)
 "qOm" = (
 /obj/structure/reagent_dispensers/compostbin{
 	pixel_y = -4
@@ -11303,10 +11057,7 @@
 	dir = 4
 	},
 /turf/open/floor/wood_common,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
+/area/f13/ruins)
 "rqV" = (
 /obj/structure/decoration/vent/rusty,
 /turf/closed/wall/r_wall/rust,
@@ -11529,10 +11280,7 @@
 	},
 /obj/structure/wreck/trash/machinepile,
 /turf/open/floor/plasteel/f13/vault_floor/misc/rarewhite,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
+/area/f13/ruins)
 "rGf" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -11972,10 +11720,7 @@
 "svH" = (
 /obj/effect/decal/cleanable/blood/gibs/limb,
 /turf/closed/wall/rust,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
+/area/f13/ruins)
 "svT" = (
 /obj/structure/window/fulltile/ruins,
 /obj/structure/barricade/bars{
@@ -12142,10 +11887,7 @@
 "sIv" = (
 /obj/machinery/workbench/advanced,
 /turf/open/floor/plasteel/f13/vault_floor/misc/rarewhite,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
+/area/f13/ruins)
 "sIH" = (
 /obj/structure/weightmachine/weightlifter,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
@@ -12311,10 +12053,7 @@
 /area/f13/citycaves)
 "sSs" = (
 /turf/open/floor/plating/rust,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
+/area/f13/ruins)
 "sSu" = (
 /obj/effect/spawner/lootdrop/f13/junkspawners,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
@@ -12867,10 +12606,7 @@
 /area/f13/tunnel/sub)
 "tDD" = (
 /turf/closed/wall/f13/wood,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
+/area/f13/ruins)
 "tEz" = (
 /obj/effect/overlay/water/top{
 	color = "#94b8b8"
@@ -13269,10 +13005,7 @@
 /obj/structure/table/reinforced,
 /obj/effect/spawner/bundle/f13/armor/t51b,
 /turf/open/floor/plating/rust,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
+/area/f13/ruins)
 "uhg" = (
 /obj/structure/rack/shelf_metal,
 /obj/item/locked_box/medical/surgical_tool,
@@ -13308,10 +13041,7 @@
 /obj/effect/mob_spawn/human/corpse/raider,
 /obj/effect/decal/cleanable/blood,
 /turf/open/floor/wood_common,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
+/area/f13/ruins)
 "umg" = (
 /obj/effect/overlay/junk/sink{
 	pixel_y = 15
@@ -13378,10 +13108,7 @@
 "uqD" = (
 /obj/effect/spawner/lootdrop/wmelee_middle,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
+/area/f13/ruins)
 "urg" = (
 /obj/machinery/telecomms/server/presets/security,
 /turf/open/floor/plasteel/dark/telecomms/mainframe,
@@ -13598,10 +13325,7 @@
 "uIL" = (
 /obj/structure/spider/stickyweb,
 /turf/open/floor/plating/rust,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
+/area/f13/ruins)
 "uIN" = (
 /obj/structure/table/greyscale,
 /obj/item/reagent_containers/food/drinks/drinkingglass/filled/nukadark,
@@ -13752,10 +13476,7 @@
 "uRI" = (
 /obj/effect/decal/cleanable/blood/gibs/limb,
 /turf/open/floor/plating/rust,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
+/area/f13/ruins)
 "uSl" = (
 /obj/structure/fence,
 /obj/effect/decal/cleanable/greenglow,
@@ -13959,10 +13680,7 @@
 	dir = 4
 	},
 /turf/closed/wall/rust,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
+/area/f13/ruins)
 "vlR" = (
 /obj/item/tank/internals/air,
 /turf/open/floor/plasteel/f13/vault_floor/yellow/whiteyellowfull,
@@ -14008,10 +13726,7 @@
 /obj/structure/closet/crate/large,
 /obj/item/locked_box/armor/tier5,
 /turf/open/floor/plating/rust,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
+/area/f13/ruins)
 "vpn" = (
 /mob/living/simple_animal/hostile/vault/dweller/dweller5,
 /obj/effect/decal/cleanable/blood/gibs,
@@ -14301,10 +14016,7 @@
 	sunlight_state = 0;
 	name = "underground ruins"
 	},
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
+/area/f13/ruins)
 "vRu" = (
 /obj/structure/disposalpipe/broken{
 	dir = 1
@@ -14357,10 +14069,7 @@
 "vVk" = (
 /obj/effect/mob_spawn/human/corpse/raider/ranged,
 /turf/open/floor/plasteel/f13/vault_floor/misc/rarewhite,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
+/area/f13/ruins)
 "vVw" = (
 /obj/machinery/light/broken{
 	dir = 4
@@ -14597,10 +14306,7 @@
 /area/f13/mountain_bunker)
 "wld" = (
 /turf/open/indestructible/ground/outside/water,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
+/area/f13/ruins)
 "wls" = (
 /turf/closed/wall/f13/wood,
 /area/f13/building)
@@ -14619,10 +14325,7 @@
 "woR" = (
 /obj/effect/mob_spawn/human/corpse/raider,
 /turf/open/floor/wood_common,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
+/area/f13/ruins)
 "wpp" = (
 /obj/structure/disposalpipe/segment{
 	dir = 1
@@ -14731,10 +14434,7 @@
 "wzh" = (
 /obj/effect/spawner/lootdrop/crate_spawner,
 /turf/open/floor/wood_common,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
+/area/f13/ruins)
 "wzu" = (
 /obj/effect/turf_decal/stripes/red/line{
 	dir = 8
@@ -15278,10 +14978,7 @@
 "xrA" = (
 /obj/structure/barricade/wooden,
 /turf/open/indestructible/ground/outside/water,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
+/area/f13/ruins)
 "xrG" = (
 /turf/closed/mineral/random/low_chance/underground,
 /area/f13/citycaves)
@@ -15662,10 +15359,7 @@
 "xTJ" = (
 /obj/effect/mob_spawn/human/corpse/raider/ranged,
 /turf/open/floor/plating/rust,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
+/area/f13/ruins)
 "xTQ" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -15678,10 +15372,7 @@
 	dir = 1
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/rarewhite,
-/area/f13/ruins{
-	open_space = 0;
-	name = "Ruins interior"
-	})
+/area/f13/ruins)
 "xUG" = (
 /obj/structure/destructible/tribal_torch/wall/lit{
 	dir = 1;
