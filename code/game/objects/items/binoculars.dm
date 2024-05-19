@@ -74,7 +74,7 @@
 	user.visible_message(span_notice("[user] lowers [src]."), span_notice("You lower [src]."))
 	item_state = "binoculars"
 	user.regenerate_icons()
-	if(user && user.client)
+	if(user && user.client && user == usr)
 		user.regenerate_icons()
 		var/client/C = user.client
 		C.change_view(CONFIG_GET(string/default_view))

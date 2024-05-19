@@ -130,11 +130,14 @@ Weapons		Lever shotgun, Grease gun, Repeater carbines, Revolvers, simple guns al
 	//r_pocket = /obj/item/storage/bag/money/small/legion
 	l_pocket = /obj/item/flashlight/lantern
 	r_hand = /obj/item/melee/powerfist/f13/goliath
-	l_hand = /obj/item/tank/internals/oxygen
-	backpack = null
-	satchel = null
+	l_hand = null
+	backpack = /obj/item/storage/backpack/legionr
 	ears = /obj/item/radio/headset/headset_legion/cent
 	box = /obj/item/storage/box/legate
+	backpack_contents = list(
+		/obj/item/binoculars = 1,
+		/obj/item/reagent_containers/pill/bitterdrink = 2,
+		)
 
 
 // ORATOR
