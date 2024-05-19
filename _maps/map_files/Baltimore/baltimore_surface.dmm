@@ -338,9 +338,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "age" = (
 /obj/structure/rack/shelf_metal,
 /obj/machinery/light/small{
@@ -426,9 +424,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "ahp" = (
 /obj/structure/railing{
 	color = "#A47449";
@@ -546,9 +542,7 @@
 	name = "Old Docks";
 	sunlight_state = 1
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "ajg" = (
 /obj/structure/fence{
 	layer = 10
@@ -929,9 +923,7 @@
 	light_color = "#c1caff"
 	},
 /turf/open/transparent/openspace,
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "apu" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/stone_tile/block{
@@ -1425,9 +1417,7 @@
 	dir = 1
 	},
 /turf/closed/wall/f13/store/constructed,
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "ayc" = (
 /obj/structure/shopping_cart{
 	dir = 4
@@ -2352,9 +2342,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "aOS" = (
 /obj/structure/table,
 /obj/machinery/reagentgrinder,
@@ -2668,9 +2656,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "aUM" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -3172,9 +3158,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "bfp" = (
 /obj/effect/decal/cleanable/glass,
 /obj/structure/chair/sofa/right{
@@ -3462,9 +3446,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "bkf" = (
 /obj/structure/chair/sofa/corp/left{
 	dir = 8
@@ -4578,9 +4560,7 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/nest/securitron,
 /turf/open/transparent/glass,
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "bFd" = (
 /obj/structure/sign/poster/official/twelve_gauge,
 /turf/closed/wall/f13/ruins{
@@ -4751,9 +4731,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "bJm" = (
 /obj/structure/bed/old,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
@@ -4770,9 +4748,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "bKc" = (
 /obj/structure/bed/old,
 /obj/structure/bed/old{
@@ -4975,9 +4951,7 @@
 "bPE" = (
 /obj/effect/decal/fakelattice,
 /turf/open/transparent/openspace,
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "bPK" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 4
@@ -5227,9 +5201,7 @@
 	name = "Old Docks";
 	sunlight_state = 1
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "bUu" = (
 /obj/effect/turf_decal/vg_decals/department/med,
 /obj/effect/decal/cleanable/dirt,
@@ -5545,9 +5517,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "caO" = (
 /obj/structure/stairs/west{
 	dir = 2
@@ -6676,9 +6646,7 @@
 	name = "Old Docks";
 	sunlight_state = 1
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "cxw" = (
 /obj/structure/simple_door/bunker,
 /turf/open/floor/engine,
@@ -7277,9 +7245,7 @@
 "cIu" = (
 /obj/structure/fence/wooden,
 /turf/closed/wall/f13/store/constructed,
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "cIv" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -7382,9 +7348,7 @@
 	name = "Old Docks";
 	sunlight_state = 1
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "cJT" = (
 /obj/effect/spawner/lootdrop/f13/medical/vault/meds,
 /turf/open/floor/plasteel/f13/vault_floor{
@@ -7511,9 +7475,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustyfull"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "cLZ" = (
 /turf/open/indestructible/ground/outside/sidewalkdirt,
 /area/f13/ruins)
@@ -8630,9 +8592,7 @@
 	name = "Old Docks";
 	sunlight_state = 1
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "dex" = (
 /obj/structure/chair/office/dark{
 	dir = 4
@@ -8737,9 +8697,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "dfI" = (
 /obj/structure/flora/junglebush/b,
 /obj/structure/flora/ausbushes/sparsegrass,
@@ -8908,9 +8866,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "dku" = (
 /obj/item/chair/wood,
 /obj/machinery/light/small{
@@ -9102,9 +9058,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "dnD" = (
 /obj/effect/landmark/start/f13/usscientist,
 /turf/open/floor/plating/dirt/dirt_maryland{
@@ -9310,9 +9264,7 @@
 "drl" = (
 /obj/item/reagent_containers/glass/bucket/wood,
 /turf/open/floor/plating/rust,
-/area/f13/vault/security{
-	name = "Atlantic Cross Marines ship"
-	})
+/area/f13/building/boat)
 "drm" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/stone_tile/block{
@@ -9331,9 +9283,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustyfull"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "dru" = (
 /obj/structure/chair/stool/retro/tan,
 /turf/open/floor/wood_worn,
@@ -9621,9 +9571,7 @@
 	id = 757
 	},
 /turf/closed/wall/rust,
-/area/f13/vault/security{
-	name = "Atlantic Cross Marines ship"
-	})
+/area/f13/building/boat)
 "dwA" = (
 /obj/structure/sign/poster/official/report_crimes,
 /turf/closed/wall/f13/store/constructed{
@@ -10363,9 +10311,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "dJL" = (
 /obj/structure/window/plasma/reinforced{
 	dir = 4
@@ -10373,9 +10319,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "dJN" = (
 /turf/open/indestructible/ground/outside/gravel,
 /area/f13/ruins)
@@ -11038,9 +10982,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustyfull"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "dZa" = (
 /obj/structure/cargocrate{
 	color = "#F2BB2F"
@@ -11103,9 +11045,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "eae" = (
 /turf/open/floor/plasteel/f13/vault_floor/yellow/side{
 	dir = 8
@@ -11368,9 +11308,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustyfull"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "eeY" = (
 /obj/item/toy/figure/dsquad,
 /obj/item/projectile/bullet/reusable/foam_dart,
@@ -11561,9 +11499,7 @@
 "eiZ" = (
 /obj/structure/simple_door/metal/barred,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/vault/security{
-	name = "Atlantic Cross Marines ship"
-	})
+/area/f13/building/boat)
 "ejc" = (
 /obj/structure/table/greyscale,
 /obj/item/camera_film,
@@ -11634,9 +11570,7 @@
 "ekv" = (
 /obj/structure/nest/securitron,
 /turf/open/transparent/glass,
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "eky" = (
 /obj/structure/fence/wooden{
 	pixel_y = 15;
@@ -12107,9 +12041,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "eug" = (
 /obj/item/stack/sheet/metal/fifty,
 /turf/open/floor/wood_common{
@@ -13260,9 +13192,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustyfull"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "eQK" = (
 /obj/structure/chair/comfy/green{
 	dir = 1
@@ -13479,9 +13409,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "eVW" = (
 /obj/effect/decal/cleanable/greenglow,
 /turf/open/floor/wood_fancy{
@@ -13581,9 +13509,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "eYb" = (
 /obj/structure/flora/roadplant{
 	icon_state = "grass_decals"
@@ -14126,9 +14052,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "fiE" = (
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/vault/security/armory)
@@ -14538,9 +14462,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "foY" = (
 /obj/effect/turf_decal/road_end{
 	dir = 8
@@ -14634,9 +14556,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "fqW" = (
 /obj/structure/flora/junglebush/large,
 /turf/open/indestructible/ground/outside/sidewalk{
@@ -15842,9 +15762,7 @@
 	name = "Docks";
 	sunlight_state = 1
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "fOj" = (
 /obj/structure/lattice/catwalk{
 	layer = 30
@@ -16564,9 +16482,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "gcu" = (
 /obj/effect/landmark/start/f13/knightcap,
 /turf/open/floor/f13/wood{
@@ -17221,9 +17137,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "goV" = (
 /obj/structure/barricade/sandbags,
 /turf/open/indestructible/ground/outside/sidewalkdirt{
@@ -17838,9 +17752,7 @@
 /turf/open/floor/plasteel/stairs{
 	color = "#B77850"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "gyQ" = (
 /turf/open/floor/plating/dirt/dirt_maryland{
 	icon_state = "dirt_3"
@@ -17914,9 +17826,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "gzG" = (
 /obj/structure/chair/booth,
 /mob/living/simple_animal/hostile/ghoul/soldier{
@@ -17928,9 +17838,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustyfull"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "gzU" = (
 /obj/machinery/vending/snack,
 /turf/open/floor/plating/rust,
@@ -18210,9 +18118,7 @@
 /area/f13/building/center)
 "gFA" = (
 /turf/open/floor/plasteel/f13/vault_floor/blue/whitebluefull,
-/area/f13/vault/security{
-	name = "Atlantic Cross Marines ship"
-	})
+/area/f13/building/boat)
 "gFG" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/wood_fancy{
@@ -18382,9 +18288,7 @@
 /area/f13/wasteland/city)
 "gKb" = (
 /turf/closed/wall/f13/store/constructed,
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "gKl" = (
 /obj/structure/billboard/redrocket1{
 	layer = 3
@@ -18905,11 +18809,6 @@
 	icon_state = "road_center_1"
 	},
 /area/f13/wasteland/city/citycenter)
-"gVH" = (
-/turf/closed/wall/rust,
-/area/f13/vault/security{
-	name = "Atlantic Cross Marines ship"
-	})
 "gVI" = (
 /obj/structure/flora/roadplant,
 /turf/open/floor/plating/f13/outside/road/baltimore{
@@ -19062,9 +18961,7 @@
 	name = "Old Docks";
 	sunlight_state = 1
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "gXY" = (
 /obj/structure/flora/ausbushes/stalkybush,
 /turf/open/pool{
@@ -19155,9 +19052,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "gZo" = (
 /obj/structure/table/wood/fancy,
 /obj/item/toy/cards/deck,
@@ -19239,9 +19134,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustyfull"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "haf" = (
 /obj/effect/overlay/junk/oldpipes{
 	layer = 30
@@ -19382,9 +19275,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustyfull"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "hdi" = (
 /obj/structure/railing/wood{
 	pixel_y = 7;
@@ -19764,9 +19655,7 @@
 	name = "Docks";
 	sunlight_state = 1
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "hkM" = (
 /obj/effect/decal/riverbank{
 	dir = 9;
@@ -19863,9 +19752,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustyfull"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "hlO" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/lootdrop/druggie_pill,
@@ -20519,9 +20406,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "hyG" = (
 /turf/closed/wall/mineral/concrete,
 /area/f13/outpost)
@@ -20924,9 +20809,7 @@
 "hFS" = (
 /obj/item/reagent_containers/glass/bucket/wood,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/vault/security{
-	name = "Atlantic Cross Marines ship"
-	})
+/area/f13/building/boat)
 "hGe" = (
 /obj/structure/window/fulltile/wood/broken,
 /turf/open/floor/wood_wide,
@@ -21132,9 +21015,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustyfull"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "hJW" = (
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	name = "Old Docks";
@@ -21330,9 +21211,7 @@
 "hNe" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/closed/wall/f13/store/constructed,
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "hNg" = (
 /obj/effect/turf_decal/stripes/asteroid/line,
 /obj/structure/railing{
@@ -21852,9 +21731,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustyfull"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "hVw" = (
 /obj/machinery/atmospherics/components/unary/tank{
 	pixel_y = 1;
@@ -22734,9 +22611,7 @@
 	pixel_y = 32
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/vault/security{
-	name = "Atlantic Cross Marines ship"
-	})
+/area/f13/building/boat)
 "ipM" = (
 /obj/machinery/newscaster{
 	pixel_y = 32
@@ -23066,9 +22941,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "iwM" = (
 /obj/effect/spawner/lootdrop/trash,
 /turf/open/floor/plating/f13/outside/road/baltimore{
@@ -23266,9 +23139,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "izH" = (
 /turf/open/floor/f13/wood{
 	icon_state = "housewood4-broken"
@@ -23418,9 +23289,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "iBf" = (
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
@@ -24147,9 +24016,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustyfull"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "iNw" = (
 /obj/structure/chair/sofa/right{
 	dir = 1
@@ -24336,9 +24203,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustyfull"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "iRd" = (
 /turf/open/floor/plating/f13/outside/road/baltimore{
 	icon_state = "road_east"
@@ -24783,9 +24648,7 @@
 "jav" = (
 /obj/structure/barricade/bars,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/vault/security{
-	name = "Atlantic Cross Marines ship"
-	})
+/area/f13/building/boat)
 "jaD" = (
 /obj/machinery/light/small{
 	light_color = "#FF0000";
@@ -25155,9 +25018,7 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/nest/protectron,
 /turf/open/transparent/glass,
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "jgX" = (
 /turf/open/floor/plasteel/f13/vault_floor{
 	icon_state = "floorscorched2"
@@ -25243,9 +25104,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "jip" = (
 /obj/machinery/smartfridge/chemistry/preloaded,
 /turf/open/floor/plasteel/white,
@@ -25602,9 +25461,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "jpC" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -26329,9 +26186,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "jER" = (
 /obj/structure/chair/folding{
 	dir = 8
@@ -26350,9 +26205,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "jFo" = (
 /obj/structure/chair/sofa/right{
 	dir = 1
@@ -26715,9 +26568,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "jLt" = (
 /obj/structure/headpike,
 /turf/open/indestructible/ground/outside/sidewalkdirt,
@@ -26764,9 +26615,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "jLR" = (
 /obj/effect/decal/cleanable/molten_object/large,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
@@ -26889,9 +26738,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustyfull"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "jNU" = (
 /obj/structure/bookshelf,
 /obj/effect/spawner/lootdrop/f13/traitbooks/low,
@@ -27012,11 +26859,6 @@
 	icon_state = "bluerustysolid"
 	},
 /area/f13/ruins)
-"jQj" = (
-/turf/closed/wall/mineral/concrete,
-/area/f13/building/abandoned{
-	light_on = 0
-	})
 "jQn" = (
 /obj/structure/cargocrate{
 	layer = 3;
@@ -27205,9 +27047,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustyfull"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "jUw" = (
 /obj/structure/bed{
 	layer = 2.7
@@ -27234,9 +27074,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "jUO" = (
 /obj/structure/flora/roadplant{
 	icon_state = "dirt_9d"
@@ -27317,9 +27155,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "jWw" = (
 /obj/structure/rack/shelf_metal,
 /obj/effect/spawner/lootdrop/f13/foodspawner,
@@ -27664,9 +27500,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "kdM" = (
 /obj/machinery/light/broken{
 	dir = 4
@@ -27862,9 +27696,7 @@
 	name = "Old Docks";
 	sunlight_state = 1
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "khh" = (
 /mob/living/simple_animal/hostile/bloatfly,
 /turf/open/floor/wood_worn/wood_worn_dark,
@@ -28838,11 +28670,6 @@
 	icon_state = "road_center_1"
 	},
 /area/f13/wasteland/city/citycenter)
-"kAi" = (
-/turf/closed/indestructible/f13vaultrusted,
-/area/f13/vault/security{
-	name = "Atlantic Cross Marines ship"
-	})
 "kAl" = (
 /obj/structure/table/glass,
 /obj/item/kirbyplants/dead{
@@ -29764,9 +29591,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "kRn" = (
 /obj/machinery/workbench/advanced,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
@@ -30105,9 +29930,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "kWJ" = (
 /obj/machinery/portable_atmospherics/canister/water_vapor,
 /turf/open/floor/plating/rust,
@@ -30121,9 +29944,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustyfull"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "kXF" = (
 /turf/open/floor/plasteel/f13/vault_floor/plating,
 /area/f13/building/hospital)
@@ -30132,9 +29953,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustyfull"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "kXI" = (
 /obj/structure/table,
 /obj/item/reagent_containers/hypospray/medipen/stimpak,
@@ -30451,9 +30270,7 @@
 	name = "Old Docks";
 	sunlight_state = 1
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "ldJ" = (
 /obj/item/paper/pamphlet/ruin/spacehotel,
 /turf/open/floor/wood_fancy,
@@ -31151,9 +30968,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "lqM" = (
 /obj/structure/curtain{
 	color = "#811313"
@@ -31956,14 +31771,6 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/outpost)
-"lEi" = (
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
-	name = "Old Docks";
-	sunlight_state = 1
-	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
 "lEn" = (
 /obj/machinery/workbench/bottler,
 /turf/open/floor/plating/rust,
@@ -32510,9 +32317,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "lMx" = (
 /obj/effect/spawner/lootdrop/ammo,
 /obj/effect/decal/cleanable/dirt,
@@ -32557,9 +32362,7 @@
 	name = "Docks";
 	sunlight_state = 1
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "lNo" = (
 /obj/structure/table/wood/fancy/red,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
@@ -32889,9 +32692,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "lTp" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/wreck/trash/engine,
@@ -33004,9 +32805,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustyfull"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "lVh" = (
 /obj/machinery/hydroponics/soil,
 /turf/open/floor/plating/dirt/dirt_maryland{
@@ -33148,9 +32947,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustyfull"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "lXh" = (
 /obj/structure/simple_door/bunker,
 /obj/machinery/door/poddoor/shutters/old{
@@ -33790,9 +33587,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustyfull"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "mkj" = (
 /obj/machinery/conveyor/auto{
 	dir = 4
@@ -34378,9 +34173,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustyfull"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "mwt" = (
 /obj/effect/spawner/lootdrop/trash,
 /turf/open/indestructible/ground/outside/sidewalkdirt{
@@ -34459,9 +34252,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "mxX" = (
 /obj/structure/fence{
 	layer = 10
@@ -34560,9 +34351,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "mzd" = (
 /obj/structure/nest/raider/ranged,
 /turf/open/floor/wood_common,
@@ -35013,9 +34802,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustyfull"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "mFv" = (
 /turf/open/floor/carpet/red,
 /area/f13/building/boat)
@@ -35097,9 +34884,7 @@
 "mGB" = (
 /obj/structure/sign/poster/official/report_crimes,
 /turf/closed/wall/rust,
-/area/f13/vault/security{
-	name = "Atlantic Cross Marines ship"
-	})
+/area/f13/building/boat)
 "mGL" = (
 /obj/effect/decal/cleanable/greenglow,
 /mob/living/simple_animal/hostile/handy{
@@ -35457,9 +35242,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "mNk" = (
 /obj/effect/turf_decal/road_end{
 	icon_state = "road_end_decal"
@@ -35856,9 +35639,7 @@
 	anchored = 1
 	},
 /turf/closed/wall/f13/store/constructed,
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "mVx" = (
 /turf/closed/wall/f13/wood/house/broken,
 /area/f13/ruins)
@@ -36754,9 +36535,7 @@
 	sunlight_state = 1;
 	name = "rusted Docks"
 	},
-/area/f13/vault/security{
-	name = "Atlantic Cross Marines ship"
-	})
+/area/f13/building/boat)
 "nnJ" = (
 /obj/machinery/light/small{
 	color = "#669999";
@@ -38006,9 +37785,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "nMG" = (
 /obj/structure/flora/tree/wasteland{
 	icon_state = "tree_stump"
@@ -38420,9 +38197,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustyfull"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "nVg" = (
 /obj/effect/overlay/junk/oldpipes,
 /obj/effect/decal/cleanable/oil,
@@ -38648,9 +38423,7 @@
 	name = "Old Docks";
 	sunlight_state = 1
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "nYX" = (
 /obj/effect/turf_decal/road_end,
 /obj/item/storage/trash_stack{
@@ -39550,9 +39323,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "ooW" = (
 /obj/item/chair/wood/wings{
 	dir = 4
@@ -39576,9 +39347,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustyfull"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "opl" = (
 /obj/structure/railing{
 	layer = 50
@@ -40070,9 +39839,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "oxW" = (
 /obj/structure/railing/corner{
 	color = "#A47449";
@@ -40501,9 +40268,7 @@
 	name = "Old Docks";
 	sunlight_state = 1
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "oGg" = (
 /obj/structure/debris/v1,
 /obj/effect/turf_decal/road_end{
@@ -40565,9 +40330,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "oHn" = (
 /obj/structure/fence{
 	dir = 8
@@ -40631,9 +40394,7 @@
 	name = "Old Docks";
 	sunlight_state = 1
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "oIe" = (
 /mob/living/simple_animal/hostile/handy/protectron{
 	name = "US Navy protectron";
@@ -40700,9 +40461,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustyfull"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "oJr" = (
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/plating/dirt/dirt_maryland{
@@ -41351,9 +41110,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustyfull"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "oVb" = (
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "blueyellow";
@@ -41597,9 +41354,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustyfull"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "oZx" = (
 /obj/structure/lattice/catwalk,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
@@ -42329,27 +42084,6 @@
 /obj/structure/nest/radroach,
 /turf/open/floor/wood_common/wood_common_light,
 /area/f13/building/center)
-"plc" = (
-/obj/structure/stone_tile/block,
-/obj/structure/stone_tile/block{
-	pixel_x = 15
-	},
-/obj/effect/overlay/water{
-	layer = 20;
-	color = "#94b8b8"
-	},
-/turf/open/pool{
-	icon_state = "riverwater_motion";
-	name = "Sea water";
-	watereffect = 1;
-	baseturf_dir = 1;
-	wet = 1;
-	color = "#AEFFFF";
-	sunlight_state = 1
-	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
 "plk" = (
 /obj/structure/flora/ausbushes/fullgrass,
 /turf/open/indestructible/ground/outside/water/running,
@@ -42599,9 +42333,7 @@
 "pqo" = (
 /obj/structure/barricade/bars,
 /turf/open/floor/plasteel/f13/vault_floor/blue/whitebluefull,
-/area/f13/vault/security{
-	name = "Atlantic Cross Marines ship"
-	})
+/area/f13/building/boat)
 "pqr" = (
 /obj/structure/closet/locker/fridge,
 /obj/effect/spawner/lootdrop/f13/foodspawner,
@@ -42980,9 +42712,7 @@
 /obj/structure/barricade/bars,
 /obj/structure/table,
 /turf/open/floor/plating/rust,
-/area/f13/vault/security{
-	name = "Atlantic Cross Marines ship"
-	})
+/area/f13/building/boat)
 "pxC" = (
 /obj/structure/spacevine,
 /turf/open/floor/plating/rust{
@@ -43584,9 +43314,7 @@
 	name = "Old Docks";
 	sunlight_state = 1
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "pKx" = (
 /obj/structure/railing/corner{
 	color = "#A47449";
@@ -44099,11 +43827,6 @@
 	icon_state = "floorscorched2"
 	},
 /area/f13/wasteland/city/citycenter)
-"pTM" = (
-/turf/open/transparent/openspace,
-/area/f13/building/abandoned{
-	light_on = 0
-	})
 "pTP" = (
 /obj/machinery/microwave/stove,
 /obj/effect/decal/cleanable/dirt,
@@ -44185,14 +43908,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating/rust,
 /area/f13/outpost)
-"pVh" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/stairs{
-	color = "#B77850"
-	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
 "pVi" = (
 /obj/structure/flora/wasteplant/wild_xander,
 /turf/open/indestructible/ground/outside/dirt,
@@ -45302,9 +45017,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "qrf" = (
 /obj/effect/landmark/start/f13/ussgt,
 /turf/open/indestructible/ground/outside/desert{
@@ -45899,9 +45612,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustyfull"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "qCu" = (
 /obj/machinery/light/lampost{
 	layer = 1
@@ -46137,9 +45848,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustyfull"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "qGq" = (
 /obj/structure/flora/tree/jungle,
 /turf/open/indestructible/ground/outside/water/running,
@@ -46250,9 +45959,7 @@
 	dir = 4
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/vault/security{
-	name = "Atlantic Cross Marines ship"
-	})
+/area/f13/building/boat)
 "qHN" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/wood_wide{
@@ -46697,9 +46404,7 @@
 	color = "#AEFFFF";
 	sunlight_state = 1
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "qPb" = (
 /obj/structure/bed/old,
 /obj/item/bedsheet/orange,
@@ -46848,9 +46553,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "qSM" = (
 /obj/effect/decal/marking{
 	icon_state = "dottedverticalcorroded";
@@ -47366,9 +47069,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "qZJ" = (
 /obj/structure/flora/ausbushes/sparsegrass,
 /turf/open/indestructible/ground/outside/sidewalk{
@@ -47646,9 +47347,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustyfull"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "rdI" = (
 /obj/structure/simple_door/bunker,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
@@ -48147,9 +47846,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "rln" = (
 /obj/structure/railing{
 	color = "#A47449";
@@ -48387,9 +48084,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "rpa" = (
 /obj/structure/chair/greyscale{
 	dir = 8
@@ -48699,9 +48394,7 @@
 	name = "Old Docks";
 	sunlight_state = 1
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "rvF" = (
 /obj/structure/simple_door/bunker,
 /turf/open/floor/plasteel/f13/vault_floor/blue/whitebluefull,
@@ -49406,9 +49099,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustyfull"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "rHN" = (
 /obj/structure/junk/locker,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -50071,9 +49762,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "rVS" = (
 /obj/item/chair/wood/wings,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -50119,9 +49808,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "rWy" = (
 /obj/structure/car/rubbish2,
 /obj/effect/turf_decal/road_end{
@@ -50215,23 +49902,12 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "rXC" = (
 /obj/item/stack/spacecash/c10000,
 /obj/structure/junk/locker,
 /turf/open/floor/plasteel/floorgrime,
 /area/f13/building/center)
-"rXE" = (
-/obj/structure/simple_door/brokenglass,
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
-	name = "Old Docks";
-	sunlight_state = 1
-	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
 "rXG" = (
 /obj/structure/barricade/wooden,
 /turf/open/floor/plating/dirt/dirt_maryland{
@@ -51160,9 +50836,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "snU" = (
 /obj/effect/turf_decal/road_end{
 	dir = 1
@@ -51480,9 +51154,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "suh" = (
 /obj/structure/simple_door/repaired,
 /turf/open/floor/wood_wide/wood_wide_dark,
@@ -51577,9 +51249,7 @@
 "svy" = (
 /obj/structure/simple_door/metal,
 /turf/open/floor/plasteel/f13/vault_floor,
-/area/f13/vault/security{
-	name = "Atlantic Cross Marines ship"
-	})
+/area/f13/building/boat)
 "svH" = (
 /obj/structure/railing{
 	dir = 1
@@ -52048,9 +51718,7 @@
 "sDr" = (
 /obj/structure/bed/old,
 /turf/open/floor/plating/rust,
-/area/f13/vault/security{
-	name = "Atlantic Cross Marines ship"
-	})
+/area/f13/building/boat)
 "sDQ" = (
 /obj/structure/closet/cabinet/anchored,
 /obj/effect/spawner/bundle/f13/armor/combatduster,
@@ -53446,9 +53114,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "tfv" = (
 /obj/structure/closet/locker{
 	anchored = 1
@@ -53514,9 +53180,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustyfull"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "thh" = (
 /mob/living/simple_animal/cow/brahmin,
 /turf/open/indestructible/ground/outside/ruins,
@@ -54403,9 +54067,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustyfull"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "twf" = (
 /obj/structure/window/fulltile/house{
 	icon_state = "housewindowbroken"
@@ -54884,11 +54546,6 @@
 	icon_state = "dirt_original"
 	},
 /area/f13/wasteland/city/citycenter)
-"tHo" = (
-/turf/open/floor/plating/rust,
-/area/f13/vault/security{
-	name = "Atlantic Cross Marines ship"
-	})
 "tHp" = (
 /mob/living/simple_animal/hostile/raider/thief{
 	name = "Railway Raider"
@@ -55662,9 +55319,7 @@
 "tXG" = (
 /obj/effect/decal/cleanable/glass,
 /turf/open/transparent/glass,
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "tXK" = (
 /obj/structure/cargocrate{
 	icon_state = "cargocrate4";
@@ -56024,9 +55679,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "udL" = (
 /obj/structure/stone_tile/block,
 /obj/structure/stone_tile/block{
@@ -57596,9 +57249,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "uFY" = (
 /obj/effect/turf_decal/road_end{
 	dir = 2
@@ -57719,9 +57370,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "uIs" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -57938,9 +57587,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "uLX" = (
 /obj/effect/turf_decal/stripes/red/line,
 /obj/effect/turf_decal/stripes/red/line{
@@ -58145,13 +57792,6 @@
 	icon_state = "grass_4"
 	},
 /area/f13/wasteland/city)
-"uQt" = (
-/turf/open/floor/plasteel/stairs{
-	color = "#B77850"
-	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
 "uQA" = (
 /obj/structure/closet/locker/oldstyle,
 /obj/item/clothing/head/helmet/f13/combat{
@@ -58227,9 +57867,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "uRt" = (
 /obj/structure/displaycase_chassis,
 /obj/effect/decal/cleanable/glass,
@@ -58237,9 +57875,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "uRx" = (
 /turf/open/floor/wood_fancy{
 	icon_state = "fancy-broken5"
@@ -58416,9 +58052,7 @@
 	name = "Old Docks";
 	sunlight_state = 1
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "uUZ" = (
 /obj/structure/chair/pew/left{
 	dir = 4
@@ -58584,9 +58218,7 @@
 	name = "Old Docks";
 	sunlight_state = 1
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "uYs" = (
 /obj/structure/flora/roadplant,
 /turf/open/floor/plating/f13/outside/road/baltimore{
@@ -58675,9 +58307,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustyfull"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "vav" = (
 /obj/item/storage/trash_stack,
 /turf/open/floor/plating/rust{
@@ -58895,9 +58525,7 @@
 	name = "Old Docks";
 	sunlight_state = 1
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "vdi" = (
 /obj/effect/overlay/junk/oldpipes,
 /obj/effect/turf_decal/stripes/asteroid/line{
@@ -59493,9 +59121,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "voa" = (
 /obj/machinery/light/small/broken{
 	dir = 2
@@ -60450,9 +60076,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "vEe" = (
 /obj/item/chair,
 /obj/machinery/light/small{
@@ -60673,9 +60297,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "vIQ" = (
 /obj/structure/railing{
 	color = "#A47449"
@@ -61102,9 +60724,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "vRg" = (
 /turf/open/indestructible/ground/outside/ruins,
 /area/f13/ruins)
@@ -61722,9 +61342,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "wcW" = (
 /obj/structure/barricade/wooden,
 /turf/closed/wall/f13/sunset/brick_small_light,
@@ -61925,9 +61543,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustyfull"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "wgo" = (
 /obj/structure/simple_door/glass,
 /turf/open/floor/plasteel/f13/vault_floor/plating,
@@ -63038,9 +62654,7 @@
 /area/f13/building/center)
 "wAV" = (
 /turf/open/transparent/glass,
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "wBg" = (
 /obj/effect/decal/riverbank{
 	dir = 4
@@ -63103,9 +62717,7 @@
 	name = "Old Docks";
 	sunlight_state = 1
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "wCe" = (
 /obj/effect/overlay/junk/oldpipes{
 	layer = 30
@@ -64122,9 +63734,7 @@
 "wVn" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/transparent/glass,
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "wVs" = (
 /obj/effect/decal/riverbank{
 	color = "#669999";
@@ -64450,9 +64060,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "xcx" = (
 /turf/closed/wall/mineral/concrete,
 /area/f13/ruins)
@@ -64735,11 +64343,6 @@
 	icon_state = "housewood2-broken"
 	},
 /area/f13/ruins)
-"xhb" = (
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/vault/security{
-	name = "Atlantic Cross Marines ship"
-	})
 "xhk" = (
 /obj/effect/decal/riverbank{
 	color = "#669999";
@@ -64942,19 +64545,6 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/blue/whitebluefull,
 /area/f13/outpost)
-"xke" = (
-/turf/open/pool{
-	icon_state = "riverwater_motion";
-	name = "Sea water";
-	watereffect = 1;
-	baseturf_dir = 1;
-	wet = 1;
-	color = "#AEFFFF";
-	sunlight_state = 1
-	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
 "xkp" = (
 /obj/effect/overlay/junk/sink{
 	dir = 4;
@@ -65457,9 +65047,7 @@
 /area/f13/wasteland/city)
 "xuJ" = (
 /turf/closed/wall/mineral/concrete,
-/area/f13/vault/security{
-	name = "Atlantic Cross Marines ship"
-	})
+/area/f13/building/boat)
 "xuL" = (
 /obj/structure/bed/oldalt,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -65484,9 +65072,7 @@
 	name = "Docks";
 	sunlight_state = 1
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "xuW" = (
 /mob/living/simple_animal/hostile/raider/ranged/boss,
 /turf/open/floor/wood_fancy,
@@ -65904,9 +65490,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "xCJ" = (
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "bluerustyfull"
@@ -66100,9 +65684,7 @@
 	},
 /obj/structure/fence/wooden,
 /turf/closed/wall/f13/store/constructed,
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "xGd" = (
 /obj/structure/flora/tree/wasteland{
 	icon_state = "deadtree_3"
@@ -66320,9 +65902,7 @@
 	name = "Docks";
 	sunlight_state = 1
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "xJN" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -67000,9 +66580,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
+/area/f13/ruins)
 "xVQ" = (
 /obj/item/storage/trash_stack,
 /turf/open/floor/f13/wood/outside,
@@ -67121,9 +66699,7 @@
 "xXF" = (
 /obj/structure/simple_door/metal,
 /turf/open/floor/plasteel/f13/vault_floor/blue/whitebluefull,
-/area/f13/vault/security{
-	name = "Atlantic Cross Marines ship"
-	})
+/area/f13/building/boat)
 "xXT" = (
 /obj/structure/car/rubbish1,
 /turf/open/floor/plating/f13/outside/road/baltimore{
@@ -67497,11 +67073,6 @@
 	icon_state = "dirt_original"
 	},
 /area/f13/building/center)
-"yeT" = (
-/turf/closed/indestructible/f13/matrix,
-/area/f13/vault/security{
-	name = "Atlantic Cross Marines ship"
-	})
 "yeV" = (
 /obj/structure/table/snooker{
 	dir = 10
@@ -67552,15 +67123,6 @@
 	icon_state = "road_center_1"
 	},
 /area/f13/wasteland/city)
-"yfH" = (
-/obj/effect/decal/cleanable/glass,
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
-	name = "Old Docks";
-	sunlight_state = 1
-	},
-/area/f13/building/abandoned{
-	light_on = 0
-	})
 "yfK" = (
 /obj/item/trash/f13/k_ration,
 /turf/open/floor/plating/f13/outside/road/baltimore{
@@ -67943,9 +67505,7 @@
 	dir = 4
 	},
 /turf/open/transparent/openspace,
-/area/f13/vault/security{
-	name = "Atlantic Cross Marines ship"
-	})
+/area/f13/building/boat)
 "ylT" = (
 /obj/structure/curtain,
 /turf/open/floor/plasteel/f13/vault_floor/plating,
@@ -84927,8 +84487,8 @@ gKb
 hkL
 qSI
 lqJ
-pTM
-pTM
+tDx
+tDx
 dJw
 lqJ
 qSI
@@ -85184,7 +84744,7 @@ gKb
 hkL
 nMy
 lqJ
-pTM
+tDx
 apt
 lqJ
 lqJ
@@ -86467,13 +86027,13 @@ roU
 gKb
 iRc
 lqJ
-pVh
-uQt
-pVh
-uQt
+jdB
+vVp
+jdB
+vVp
 gyP
-pVh
-uQt
+jdB
+vVp
 qSI
 qGm
 gKb
@@ -96927,17 +96487,17 @@ mMd
 wwR
 oEs
 yfD
-jQj
+xcx
 bUh
 ajf
-jQj
-jQj
-jQj
-jQj
-jQj
-jQj
-jQj
-jQj
+xcx
+xcx
+xcx
+xcx
+xcx
+xcx
+xcx
+xcx
 kxr
 kxr
 fuT
@@ -97184,32 +96744,32 @@ mMd
 lxx
 oEs
 oEs
-jQj
-yfH
+xcx
+sZF
 rvE
 uUV
 uUV
 uYf
 oHZ
-jQj
-lEi
-lEi
-jQj
-xke
-xke
-jQj
-xke
-xke
-xke
-jQj
-xke
-xke
-xke
-jQj
-xke
-xke
-xke
-jQj
+xcx
+sqU
+sqU
+xcx
+lKF
+lKF
+xcx
+lKF
+lKF
+lKF
+xcx
+lKF
+lKF
+lKF
+xcx
+lKF
+lKF
+lKF
+xcx
 fNw
 lqQ
 lqQ
@@ -97441,32 +97001,32 @@ feA
 qAQ
 oEs
 oEs
-rXE
+hdz
 kgX
 kgX
 pKw
 pKw
 ldF
 cJN
-jQj
-lEi
-lEi
-plc
-xke
-xke
-xke
-xke
-xke
-xke
-xke
-xke
-xke
-xke
-xke
-xke
-xke
-xke
-xke
+xcx
+sqU
+sqU
+xyb
+lKF
+lKF
+lKF
+lKF
+lKF
+lKF
+lKF
+lKF
+lKF
+lKF
+lKF
+lKF
+lKF
+lKF
+lKF
 lqQ
 lqQ
 lqQ
@@ -97698,32 +97258,32 @@ fZL
 lxx
 oEs
 oEs
-rXE
-yfH
+hdz
+sZF
 wBV
 vdf
 oHZ
 uUV
 dep
-jQj
-lEi
-lEi
+xcx
+sqU
+sqU
 qOW
-xke
-xke
-xke
-xke
-xke
-xke
-xke
-xke
-xke
-xke
-xke
-xke
-xke
-xke
-xke
+lKF
+lKF
+lKF
+lKF
+lKF
+lKF
+lKF
+lKF
+lKF
+lKF
+lKF
+lKF
+lKF
+lKF
+lKF
 lqQ
 lqQ
 lqQ
@@ -97955,32 +97515,32 @@ fZL
 wwR
 oEs
 oEs
-jQj
+xcx
 cxs
-lEi
+sqU
 pKw
 oGd
 gXR
 nYQ
-jQj
-lEi
-lEi
-jQj
-xke
-xke
-jQj
-xke
-xke
-xke
-jQj
-xke
-xke
-xke
-jQj
-xke
-xke
-xke
-jQj
+xcx
+sqU
+sqU
+xcx
+lKF
+lKF
+xcx
+lKF
+lKF
+lKF
+xcx
+lKF
+lKF
+lKF
+xcx
+lKF
+lKF
+lKF
+xcx
 fNw
 lqQ
 lqQ
@@ -98212,17 +97772,17 @@ fZL
 qAQ
 oEs
 oEs
-jQj
-jQj
-jQj
-jQj
-jQj
-jQj
-jQj
-jQj
-jQj
-jQj
-jQj
+xcx
+xcx
+xcx
+xcx
+xcx
+xcx
+xcx
+xcx
+xcx
+xcx
+xcx
 kxr
 kxr
 myo
@@ -98234,9 +97794,9 @@ lqQ
 lqQ
 lqQ
 fNw
-xke
-xke
-xke
+lKF
+lKF
+lKF
 fNw
 lqQ
 lqQ
@@ -98491,9 +98051,9 @@ lqQ
 lqQ
 lqQ
 lqQ
-xke
-xke
-xke
+lKF
+lKF
+lKF
 lqQ
 lqQ
 lqQ
@@ -98748,9 +98308,9 @@ lqQ
 lqQ
 lqQ
 lqQ
-xke
-xke
-xke
+lKF
+lKF
+lKF
 lqQ
 lqQ
 lqQ
@@ -116133,7 +115693,7 @@ rIa
 frr
 hbJ
 dNO
-gVH
+iRQ
 xuJ
 svy
 xuJ
@@ -116144,7 +115704,7 @@ xuJ
 xuJ
 xuJ
 xuJ
-gVH
+iRQ
 fHV
 fHV
 fHV
@@ -116391,10 +115951,10 @@ kcy
 jxO
 gjU
 xXF
-xhb
-tHo
+dOk
+vNq
 gFA
-xhb
+dOk
 nnG
 vPV
 vPV
@@ -116648,11 +116208,11 @@ ylc
 nvO
 jTh
 xXF
-tHo
-xhb
-tHo
-xhb
-xhb
+vNq
+dOk
+vNq
+dOk
+dOk
 fiE
 fiE
 ltj
@@ -116909,7 +116469,7 @@ pqo
 eiZ
 pxB
 jav
-xhb
+dOk
 vPV
 hJW
 ksq
@@ -117163,10 +116723,10 @@ ahn
 fJk
 dwt
 drl
-xhb
+dOk
 hFS
 pqo
-xhb
+dOk
 vPV
 mtB
 fiE
@@ -117418,7 +116978,7 @@ uqR
 oBJ
 qOk
 oiF
-kAi
+xoj
 ipF
 qHC
 sDr
@@ -117675,12 +117235,12 @@ nNU
 qWz
 gTf
 gpl
-kAi
-kAi
-yeT
-kAi
-kAi
-kAi
+xoj
+xoj
+gky
+xoj
+xoj
+xoj
 vPV
 vPV
 vPV

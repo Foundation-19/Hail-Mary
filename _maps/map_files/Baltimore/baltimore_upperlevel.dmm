@@ -1164,7 +1164,7 @@
 /turf/open/floor/wood_fancy{
 	icon_state = "fancy-broken3"
 	},
-/area/f13/Ocean)
+/area/f13/building/boat)
 "bgK" = (
 /obj/effect/decal/remains/human,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
@@ -1371,7 +1371,7 @@
 	color = "#FFDDCC"
 	},
 /turf/open/floor/wood_wide,
-/area/f13/Ocean)
+/area/f13/building/boat)
 "bod" = (
 /obj/structure/chair/sofa/corner{
 	dir = 4
@@ -2455,7 +2455,7 @@
 /turf/open/floor/wood_wide{
 	icon_state = "wide-broken6"
 	},
-/area/f13/Ocean)
+/area/f13/building/boat)
 "cgz" = (
 /obj/structure/lattice/catwalk,
 /mob/living/simple_animal/hostile/raider/ranged/biker{
@@ -2578,7 +2578,7 @@
 /turf/open/floor/wood_fancy{
 	icon_state = "fancy-broken1"
 	},
-/area/f13/Ocean)
+/area/f13/building/boat)
 "clM" = (
 /obj/structure/table/wood/settler,
 /obj/structure/bedsheetbin/towel,
@@ -4785,7 +4785,7 @@
 "exO" = (
 /obj/structure/barricade/tentclothedge,
 /turf/open/floor/wood_fancy,
-/area/f13/Ocean)
+/area/f13/building/boat)
 "eyg" = (
 /obj/structure/table,
 /obj/item/reagent_containers/food/drinks/coffee,
@@ -7578,7 +7578,7 @@
 /turf/open/floor/wood_wide{
 	icon_state = "wide-broken1"
 	},
-/area/f13/Ocean)
+/area/f13/building/boat)
 "gVX" = (
 /obj/item/reagent_containers/food/drinks/bottle/sake/empty{
 	pixel_y = 11;
@@ -7690,7 +7690,7 @@
 /area/f13/ruins)
 "hbo" = (
 /turf/open/floor/wood_common,
-/area/f13/Ocean)
+/area/f13/building/boat)
 "hbs" = (
 /obj/structure/rack/large/shelf{
 	dir = 8;
@@ -8035,7 +8035,7 @@
 	pixel_x = 13
 	},
 /turf/open/floor/wood_wide,
-/area/f13/Ocean)
+/area/f13/building/boat)
 "hoI" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -8142,7 +8142,7 @@
 	},
 /obj/structure/barricade/wooden,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/Ocean)
+/area/f13/building/boat)
 "htQ" = (
 /obj/structure/closet/secure_closet/personal/cabinet,
 /turf/open/floor/plasteel/f13/vault_floor/blue/whitebluefull,
@@ -9659,7 +9659,7 @@
 /turf/open/floor/wood_common{
 	icon_state = "common-broken2"
 	},
-/area/f13/Ocean)
+/area/f13/building/boat)
 "iNv" = (
 /obj/effect/decal/riverbank{
 	dir = 10;
@@ -10173,7 +10173,7 @@
 /turf/open/floor/wood_wide{
 	icon_state = "wide-broken5"
 	},
-/area/f13/Ocean)
+/area/f13/building/boat)
 "jhR" = (
 /obj/structure/simple_door/repaired,
 /turf/open/floor/wood_common/wood_common_dark,
@@ -10729,7 +10729,7 @@
 /turf/open/floor/wood_fancy{
 	icon_state = "fancy-broken5"
 	},
-/area/f13/Ocean)
+/area/f13/building/boat)
 "jHK" = (
 /obj/structure/table/wood,
 /obj/effect/spawner/bundle/f13/armor/supafly,
@@ -10795,10 +10795,6 @@
 	icon_state = "wide_dark-broken5"
 	},
 /area/f13/enclave)
-"jMr" = (
-/obj/screen/parallax_layer/layer_1,
-/turf/closed/wall/f13/store/constructed,
-/area/f13/city/museum)
 "jMy" = (
 /obj/structure/simple_door/room{
 	name = "Sailor dorms"
@@ -11273,7 +11269,7 @@
 "kjd" = (
 /obj/structure/barricade/tentclothcorner,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/Ocean)
+/area/f13/building/boat)
 "kjK" = (
 /obj/structure/window/fulltile/wood_window{
 	icon_state = "housewindowvertical"
@@ -11749,7 +11745,7 @@
 	dir = 8
 	},
 /turf/open/floor/wood_wide,
-/area/f13/Ocean)
+/area/f13/building/boat)
 "kIy" = (
 /obj/structure/flora/grass/jungle/b,
 /obj/item/paper/pamphlet/ruin/spacehotel,
@@ -13058,7 +13054,7 @@
 /obj/structure/barricade/tentclothedge,
 /obj/structure/barricade/wooden,
 /turf/open/floor/wood_wide,
-/area/f13/Ocean)
+/area/f13/building/boat)
 "lPG" = (
 /obj/structure/railing{
 	color = "#A47449";
@@ -13838,7 +13834,7 @@
 	dir = 4
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/Ocean)
+/area/f13/building/boat)
 "mFo" = (
 /obj/structure/railing{
 	color = "#A47449";
@@ -14639,7 +14635,7 @@
 /area/f13/wasteland/town)
 "nqH" = (
 /turf/open/floor/wood_wide,
-/area/f13/Ocean)
+/area/f13/building/boat)
 "nqS" = (
 /obj/machinery/light/broken,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
@@ -15090,7 +15086,7 @@
 	dir = 1
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/Ocean)
+/area/f13/building/boat)
 "nKd" = (
 /obj/structure/simple_door/metal/barred,
 /turf/open/floor/wood_wide/wood_wide_dark,
@@ -15374,7 +15370,7 @@
 	dir = 4
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/Ocean)
+/area/f13/building/boat)
 "nXc" = (
 /obj/structure/table,
 /obj/item/melee/coyote/harpoon,
@@ -15603,7 +15599,7 @@
 	dir = 8
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/Ocean)
+/area/f13/building/boat)
 "ogE" = (
 /obj/structure/chair/stool/retro,
 /turf/open/floor/wood_mosaic/wood_mosaic_dark,
@@ -17807,7 +17803,7 @@
 	dir = 4
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/Ocean)
+/area/f13/building/boat)
 "qwP" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/chair/office/light{
@@ -18250,7 +18246,7 @@
 /turf/open/floor/wood_wide{
 	icon_state = "wide-broken3"
 	},
-/area/f13/Ocean)
+/area/f13/building/boat)
 "qUR" = (
 /obj/structure/chair/folding{
 	dir = 1;
@@ -19446,7 +19442,7 @@
 	dir = 8
 	},
 /turf/open/floor/wood_common,
-/area/f13/Ocean)
+/area/f13/building/boat)
 "rVB" = (
 /obj/structure/railing{
 	color = "#A47449";
@@ -22045,7 +22041,7 @@
 /obj/effect/spawner/lootdrop/food,
 /obj/effect/spawner/lootdrop/food,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/Ocean)
+/area/f13/building/boat)
 "upZ" = (
 /obj/structure/junk/small/bed,
 /obj/structure/junk/small/bed{
@@ -22723,7 +22719,7 @@
 	dir = 4
 	},
 /turf/open/floor/wood_wide,
-/area/f13/Ocean)
+/area/f13/building/boat)
 "uSZ" = (
 /obj/machinery/atmospherics/components/unary/tank/nitrous{
 	volume = 2
@@ -23339,7 +23335,7 @@
 /area/f13/building/boat)
 "vsm" = (
 /turf/open/floor/wood_fancy,
-/area/f13/Ocean)
+/area/f13/building/boat)
 "vsu" = (
 /obj/structure/rack/shelf_metal{
 	pixel_y = -9
@@ -44065,7 +44061,7 @@ gKb
 gKb
 gKb
 gKb
-jMr
+gKb
 qFK
 qFK
 qFK
@@ -74650,7 +74646,7 @@ vQz
 nJK
 nWY
 mFi
-eRy
+xhb
 qwN
 cLZ
 cLZ
@@ -75161,7 +75157,7 @@ cLZ
 cLZ
 cLZ
 eRy
-cLZ
+wNP
 vsm
 hbo
 nqH
@@ -75934,7 +75930,7 @@ lcS
 cLZ
 ogr
 htJ
-eRy
+xhb
 upW
 kjd
 cLZ
