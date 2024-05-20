@@ -41,7 +41,7 @@
 		. += "cactus"
 
 	if(reagents.total_volume && open)
-		var/mutable_appearance/filling = mutable_appearance('modular_BD2/general/icons/barrel.dmi', "[icon_state]10", color = mix_color_from_reagents(reagents.reagent_list))
+		var/mutable_appearance/filling = mutable_appearance('icons/fallout/farming/farming_structures.dmi', "[icon_state]10", color = mix_color_from_reagents(reagents.reagent_list))
 		switch (reagents.total_volume)
 			if (0 to 40)
 				filling.icon_state = "[icon_state]-10"
@@ -133,7 +133,7 @@
 /obj/structure/fermenting_barrel/broc // for bitter production without having to label
 	name = "broc fermenting barrel"
 	desc = "A large wooden barrel with a painted broc flower on it. You can ferment fruits and such inside it, or just use it to hold liquid."
-	icon = 'modular_BD2/general/icons/barrel.dmi'
+	icon = 'icons/fallout/farming/farming_structures.dmi'
 	broc = TRUE
 	xander = FALSE
 	cactus = FALSE
