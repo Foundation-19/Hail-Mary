@@ -45,7 +45,7 @@ Administrator
 	spawn_positions = 1
 	supervisors = "You one of the many leaders of the Atlantic Cross. You are in charge. But it happends that a Fleet Captain have to come down. You also work with the dockmaster."
 	description = "You are the captain of the ACS Aegis, and its escort. You make sure your hospital runs well, make sure people pay, make sure your doctors ain't doing mad shit or unethical things, provide education for the new people, organise the ressources of the ship. You also make sure there is no competition to your business, by sending Marines or Guards."
-	enforces = "Based on a christan association, and remants of the navy, the Atlantic Cross tries to fight against drugs and slavery."
+	enforces = "Based on a christan association, and remants of the navy, the Atlantic Cross tries to fight against drugs and raiders."
 	selection_color = "#FF95FF"
 	exp_requirements = 0
 
@@ -109,7 +109,7 @@ Doctor
 	spawn_positions = 3
 	supervisors = "The Atlantic Cross Captain."
 	description = "You are a doctor on board the Atlantic Cross Ship Aegis. Your goal is to help people."
-	enforces = "Based on a christan association, and remants of the navy, the Atlantic Cross tries to fight against drugs and slavery. Don't forget to ask for a pay ! Revival is arround 100 caps, And healing people arround 50 caps. Why ? Maintaining those ship are a pain !."
+	enforces = "Based on a christan association, and remants of the navy, the Atlantic Cross tries to fight against drugs and raiders. Don't forget to ask for a pay ! Revival is arround 100 caps, And healing people arround 50 caps. Why ? Maintaining those ship are a pain !."
 	selection_color = "#FFDDFF"
 	exp_requirements = 0
 
@@ -188,7 +188,7 @@ Follower Volunteer
 	spawn_positions = 4
 	supervisors = "The Atlantic Cross captain, the Atlantic Cross Doctors, and the Atlantic Cross Marines."
 	description = "You are one of the many sailors of the Atlantic Cross Fleet. Either born in fleet, or joined when they started good deeds. As a Sailor, you have options : Be guard, focusing more on defences. Be a nurse, assisting doctors. Be a Expeditioner, salvaging for the ship, and rescue people far from the coast. Or even somethings completly else. Obey the captain, doctors and the marines tho."
-	enforces = "Based on a christan association, and remants of the navy, the Atlantic Cross tries to fight against drugs and slavery. Don't forget to ask for a pay ! Revival is arround 100 caps, And healing people arround 50 caps. Why ? Maintaining those ship are a pain !
+	enforces = "Based on a christan association, and remants of the navy, the Atlantic Cross tries to fight against drugs and raiders. Don't forget to ask for a pay ! Revival is arround 100 caps, And healing people arround 50 caps. Why ? Maintaining those ship are a pain !
 	selection_color = "#FFDDFF"
 	outfit = /datum/outfit/job/atlantic/f13atlanticsailor
 	loadout_options = list(
@@ -280,7 +280,7 @@ Follower Volunteer
 	spawn_positions = 3
 	supervisors = "The Captain orders takes priority, but for town security, the Dockmaster and the Port Councelor."
 	description = "You are a Atlantic Cross Marines. The elite soldiers of the fleet, that must defend town and the hospital ship, and also work for the interses of the Atlantic Cross."
-	enforces = "Based on a christan association, and remants of the navy, the Atlantic Cross tries to fight against drugs and slavery."
+	enforces = "Based on a christan association, and remants of the navy, the Atlantic Cross tries to fight against drugs and raiders."
 	selection_color = "#FFDDFF"
 
 	outfit = /datum/outfit/job/atlantic/f13atlanticmarines

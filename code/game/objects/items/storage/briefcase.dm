@@ -66,7 +66,7 @@
 
 /obj/item/storage/briefcase/secretary/PopulateContents()
 	new /obj/item/gun_upgrade/muzzle/silencer(src)
-	new /obj/item/gun/ballistic/automatic/pistol/sig(src)
+	new /obj/item/gun/ballistic/automatic/pistol/sig/trusty(src)
 	new /obj/item/paper_bin/bundlenatural(src)
 	new /obj/item/clothing/under/suit/black/skirt(src)
 	new /obj/item/pen(src)

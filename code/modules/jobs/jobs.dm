@@ -63,6 +63,9 @@ GLOBAL_LIST_INIT(command_positions, list(
 
 	"Noyan",
 	"Steward",
+
+	"Dockmaster of Locust Point",
+	"Atlantic Cross Captain",
 	))
 
 GLOBAL_LIST_INIT(silicon_whitelist_positions, list(
@@ -268,6 +271,20 @@ GLOBAL_LIST_INIT(atlantic_positions, list(
 	"Atlantic Cross Marines",
 ))
 
+GLOBAL_LIST_INIT(locust_positions, list(
+	"Dockmaster of Locust Point",
+	"Port Councelor",
+	"Locust Point Police Officer",
+	"Servant workers of town",
+	"Casablanca Barkeep",
+	"Locust Point Citizen",
+	"Pirate Radio Host",
+	"Locust Point Priest",
+	"Big's Bill Mechanics",
+	"Dealmaker Shopclec",
+	"Vertibird Pilot",
+))
+
 // job categories for rendering the late join menu
 GLOBAL_LIST_INIT(position_categories, list(
 	EXP_TYPE_NCR = list("jobs" = ncr_positions, "color" = "#ffeeaa"),
@@ -286,6 +303,7 @@ GLOBAL_LIST_INIT(position_categories, list(
 	//"debug" = list("jobs" = debug_positions, "color" = "#ff00ee"),
 	// "Redwater" = list("jobs" = redwater_positions, "color" = "#f81717"),
 	"Atlantic Cross" = list("jobs" = atlantic_positions, "color" = "#ffeeaa"),
+	"Locust Point" = list("jobs" = locust_positions, "color" = "#d7b088"),
 ))
 
 GLOBAL_LIST_INIT(exp_jobsmap, list(

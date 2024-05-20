@@ -6840,11 +6840,6 @@
 	icon_state = "housewood2"
 	},
 /area/f13/brotherhood)
-"goc" = (
-/obj/structure/chair/right,
-/obj/effect/landmark/start/f13/followersvolunteer,
-/turf/open/floor/wood_wide/wood_wide_dark,
-/area/f13/building/boat)
 "goK" = (
 /obj/structure/simple_door/room,
 /turf/open/floor/wood_fancy,
@@ -7435,7 +7430,7 @@
 /area/f13/ruins)
 "gQv" = (
 /obj/structure/chair/office/dark,
-/obj/effect/landmark/start/f13/followersadministrator,
+/obj/effect/landmark/start/f13/atlanticcap,
 /turf/open/floor/wood_wide/wood_wide_dark,
 /area/f13/building/boat)
 "gQP" = (
@@ -7781,7 +7776,7 @@
 /turf/closed/wall/f13/ruins,
 /area/f13/bar)
 "heQ" = (
-/obj/effect/landmark/start/f13/followersdoctor,
+/obj/effect/landmark/start/f13/atlanticdoctor,
 /turf/open/floor/wood_wide/wood_wide_dark,
 /area/f13/building/boat)
 "hfy" = (
@@ -8471,6 +8466,11 @@
 	icon_state = "housewood2"
 	},
 /area/f13/brotherhood)
+"hIN" = (
+/obj/structure/chair/right,
+/obj/effect/landmark/start/f13/atlanticsailor,
+/turf/open/floor/wood_wide/wood_wide_dark,
+/area/f13/building/boat)
 "hIV" = (
 /obj/item/mine/shrapnel,
 /turf/open/floor/wood_mosaic{
@@ -11533,6 +11533,10 @@
 	},
 /turf/open/floor/f13/wood/outside,
 /area/f13/wasteland/town)
+"kzL" = (
+/obj/effect/landmark/start/f13/atlanticmarines,
+/turf/open/floor/plasteel/dark,
+/area/f13/building/boat)
 "kAi" = (
 /turf/open/floor/wood_mosaic/wood_mosaic_dark,
 /area/f13/wasteland/city)
@@ -16022,11 +16026,6 @@
 	icon_state = "mosaic_dark-broken6"
 	},
 /area/f13/wasteland/city)
-"oEh" = (
-/obj/structure/chair/left,
-/obj/effect/landmark/start/f13/followersvolunteer,
-/turf/open/floor/wood_wide/wood_wide_dark,
-/area/f13/building/boat)
 "oEm" = (
 /obj/structure/simple_door/metal,
 /turf/open/floor/wood_wide/wood_wide_light,
@@ -19942,6 +19941,11 @@
 	},
 /turf/open/floor/wood_worn,
 /area/f13/wasteland/town)
+"suB" = (
+/obj/structure/chair/comfy/shuttle,
+/obj/effect/landmark/start/f13/atlanticsailor,
+/turf/open/floor/wood_wide/wood_wide_dark,
+/area/f13/building/boat)
 "suQ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -21486,6 +21490,13 @@
 	icon_state = "fancy_light1"
 	},
 /area/f13/wasteland/city)
+"tMQ" = (
+/obj/structure/chair/right{
+	dir = 1
+	},
+/obj/effect/landmark/start/f13/atlanticsailor,
+/turf/open/floor/wood_wide/wood_wide_dark,
+/area/f13/building/boat)
 "tNu" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/transparent/openspace,
@@ -21566,6 +21577,10 @@
 	},
 /turf/closed/wall/f13/sunset/brick_small,
 /area/f13/building)
+"tQU" = (
+/obj/effect/landmark/start/f13/atlanticsailor,
+/turf/open/floor/wood_wide/wood_wide_dark,
+/area/f13/building/boat)
 "tRZ" = (
 /obj/effect/spawner/lootdrop/f13/medical/wasteland/meds/drug,
 /turf/open/floor/plating/rust,
@@ -22464,7 +22479,7 @@
 /turf/open/floor/wood_mosaic/wood_mosaic_dark,
 /area/f13/wasteland/city)
 "uJF" = (
-/obj/effect/landmark/start/f13/followersvolunteer,
+/obj/effect/landmark/start/f13/atlanticsailor,
 /turf/open/floor/wood_fancy/wood_fancy_dark,
 /area/f13/building/boat)
 "uJL" = (
@@ -23544,12 +23559,8 @@
 /obj/machinery/door/unpowered/securedoor,
 /turf/open/floor/wood_common/wood_common_dark,
 /area/f13/building)
-"vFU" = (
-/obj/effect/landmark/start/f13/followersguard,
-/turf/open/floor/plasteel/dark,
-/area/f13/building/boat)
 "vFX" = (
-/obj/effect/landmark/start/f13/followersdoctor,
+/obj/effect/landmark/start/f13/atlanticdoctor,
 /turf/open/floor/wood_fancy/wood_fancy_dark,
 /area/f13/building/boat)
 "vGo" = (
@@ -25061,6 +25072,10 @@
 /obj/item/folder/syndicate/red,
 /turf/open/floor/wood_common/wood_common_light,
 /area/f13/office)
+"xdl" = (
+/obj/effect/landmark/start/f13/atlanticmarines,
+/turf/open/floor/plasteel/f13/vault_floor/plating,
+/area/f13/building/boat)
 "xdx" = (
 /obj/structure/window/fulltile/ruins,
 /turf/open/floor/wood_common/wood_common_light,
@@ -72371,7 +72386,7 @@ frx
 blO
 gVH
 dgn
-blO
+tQU
 hLR
 gVH
 iaF
@@ -72388,7 +72403,7 @@ jAt
 pBL
 wNP
 gcB
-vew
+suB
 blO
 jKm
 cXH
@@ -73137,10 +73152,10 @@ cLZ
 gVH
 sEP
 fdK
-pUP
+hIN
 ocx
 wCd
-goc
+pUP
 ujT
 rxz
 vxr
@@ -73394,9 +73409,9 @@ cLZ
 cLZ
 gBo
 gBo
-oEh
+kZj
 jCt
-bJS
+tMQ
 kZj
 jCt
 bJS
@@ -76221,12 +76236,12 @@ gVH
 dNf
 nWO
 vwK
-qik
+xdl
 uLk
 uLk
 qik
 vwK
-vFU
+gpD
 gpD
 rgw
 tzQ
@@ -76481,7 +76496,7 @@ gVH
 aGf
 uMw
 pCZ
-qik
+xdl
 gVH
 apY
 cbo
@@ -76735,7 +76750,7 @@ gVH
 dNf
 bdH
 vwK
-gpD
+kzL
 eXj
 eXj
 qik
@@ -76997,7 +77012,7 @@ enY
 mKJ
 tAa
 gBo
-vFU
+gpD
 sqt
 jqB
 tzQ
