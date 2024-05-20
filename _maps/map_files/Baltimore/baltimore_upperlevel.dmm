@@ -2011,6 +2011,7 @@
 	pixel_y = 34;
 	pixel_x = 8
 	},
+/obj/item/clothing/under/civ/dress3,
 /turf/open/floor/wood_wide/wood_wide_dark{
 	icon_state = "wide_dark-broken3"
 	},
@@ -8322,6 +8323,12 @@
 "hCf" = (
 /obj/structure/closet/cabinet/anchored,
 /obj/item/melee/coyote/harpoon,
+/obj/item/clothing/under/civ/dressr,
+/obj/item/clothing/under/civ/dress2,
+/obj/item/clothing/under/rank/civilian/lawyer/black/alt/skirt,
+/obj/item/clothing/under/rank/civilian/victorian_purple,
+/obj/item/clothing/under/rank/civilian/victorianreddress,
+/obj/item/clothing/under/rank/civilian/victorianblackdress,
 /turf/open/floor/wood_common/wood_common_light,
 /area/f13/building)
 "hDv" = (
@@ -8356,6 +8363,9 @@
 /area/f13/wasteland/city)
 "hEh" = (
 /obj/structure/closet/secure_closet/personal/cabinet,
+/obj/item/clothing/under/f13/cowboyb,
+/obj/item/clothing/head/f13/cowboy,
+/obj/item/clothing/under/dress/skirt/blue,
 /turf/open/floor/wood_wide/wood_wide_dark{
 	icon_state = "wide_dark-broken2"
 	},
@@ -9767,8 +9777,6 @@
 /obj/structure/rack/shelf_metal,
 /obj/item/gun/ballistic/rifle/hobo/lasmusket,
 /obj/item/gun/ballistic/rifle/hobo/lasmusket,
-/obj/item/gun/ballistic/rifle/hobo/lasmusket,
-/obj/item/gun/ballistic/rifle/hobo/lasmusket,
 /turf/open/indestructible/ground/outside/roof,
 /area/f13/ruins)
 "iRQ" = (
@@ -10211,6 +10219,9 @@
 	light_color = "#FFDDCC";
 	color = "#FFDDCC"
 	},
+/obj/item/clothing/under/f13/cowboyb,
+/obj/item/clothing/head/f13/cowboy,
+/obj/item/clothing/under/stripeddress,
 /turf/open/floor/wood_fancy,
 /area/f13/ruins)
 "jjt" = (
@@ -11320,6 +11331,10 @@
 /obj/structure/shelf_wood{
 	pixel_y = 4
 	},
+/obj/item/clothing/under/civ/dress2,
+/obj/item/clothing/under/civ/dressg,
+/obj/item/clothing/under/civ/british_soldier,
+/obj/item/clothing/under/civ/portuguese_sailor1,
 /turf/open/floor/wood_common/wood_common_dark{
 	icon_state = "common_dark-broken2"
 	},
@@ -12502,6 +12517,10 @@
 	icon_state = "floorrustysolid"
 	},
 /area/f13/brotherhood)
+"lse" = (
+/obj/item/clothing/under/civ/dressr,
+/turf/open/floor/wood_common/wood_common_dark,
+/area/f13/building)
 "lsj" = (
 /turf/closed/wall/rust,
 /area/f13/enclave)
@@ -16839,6 +16858,9 @@
 /area/f13/wasteland/town)
 "pyP" = (
 /obj/structure/closet/secure_closet/personal/cabinet,
+/obj/item/clothing/under/f13/cowboyg,
+/obj/item/clothing/head/burma/cowboy/black/ribbon,
+/obj/item/clothing/under/f13/bluedress,
 /turf/open/floor/wood_fancy/wood_fancy_dark{
 	icon_state = "fancy_dark-broken5"
 	},
@@ -17329,6 +17351,7 @@
 /obj/item/bedsheet/brown{
 	pixel_y = 23
 	},
+/obj/item/clothing/under/civ/dress2,
 /turf/open/floor/wood_fancy/wood_fancy_dark,
 /area/f13/building)
 "pYF" = (
@@ -18193,6 +18216,10 @@
 	icon_state = "horizontaloutermain1"
 	},
 /area/f13/brotherhood)
+"qRi" = (
+/obj/item/clothing/under/civ/dress3,
+/turf/open/floor/wood_mosaic,
+/area/f13/building)
 "qRw" = (
 /obj/structure/dresser,
 /turf/open/floor/wood_wide/wood_wide_light,
@@ -18944,6 +18971,11 @@
 	light_color = "#FFDDCC";
 	color = "#FFDDCC"
 	},
+/obj/item/clothing/under/suit/charcoal,
+/obj/item/clothing/under/suit/white,
+/obj/item/clothing/under/suit_jacket/navy,
+/obj/item/clothing/under/suit/burgundy,
+/obj/item/clothing/under/suit/black/skirt,
 /turf/open/floor/wood_common/wood_common_light,
 /area/f13/building)
 "rxF" = (
@@ -20095,6 +20127,9 @@
 	light_color = "#FFDDCC";
 	color = "#FFDDCC"
 	},
+/obj/item/clothing/under/civ/dress2,
+/obj/item/clothing/under/civ/dress3,
+/obj/item/clothing/under/rank/civilian/lawyer/bluesuit,
 /turf/open/floor/wood_wide/wood_wide_dark{
 	icon_state = "wide_dark-broken5"
 	},
@@ -21559,6 +21594,13 @@
 /area/f13/outpost)
 "tQd" = (
 /obj/structure/closet/secure_closet/personal/cabinet,
+/obj/item/clothing/under/suit/white_on_white,
+/obj/item/clothing/under/suit/white_on_white/skirt,
+/obj/item/clothing/under/suit_jacket/burgundy,
+/obj/item/clothing/under/suit_jacket/checkered,
+/obj/item/clothing/under/suit_jacket/female,
+/obj/item/clothing/under/suit/black_really,
+/obj/item/clothing/under/suit/black/skirt,
 /turf/open/floor/wood_common/wood_common_light,
 /area/f13/office)
 "tQp" = (
@@ -23537,6 +23579,9 @@
 /area/f13/outpost)
 "vBV" = (
 /obj/structure/closet/secure_closet/personal/cabinet,
+/obj/item/clothing/under/f13/cowboyg,
+/obj/item/clothing/head/burma/cowboy/black/ribbon,
+/obj/item/clothing/under/civ/dress2,
 /turf/open/floor/wood_fancy,
 /area/f13/ruins)
 "vCy" = (
@@ -73459,11 +73504,11 @@ gvU
 vYD
 kRb
 ggA
-uVR
+qRi
 fxJ
 nEn
 dds
-ekY
+lse
 tAJ
 aVy
 dye
