@@ -323,10 +323,10 @@ GLOBAL_LIST_INIT(desolate_plant_spawn_list, list(
 /turf/open/indestructible/ground/outside/road/attackby(obj/item/C, mob/user, params)
 	if(..())
 		return
-	if(istype(C, /obj/item/stack/tile))
+	if(istype(C, /obj/item/stack/tile/road))
 		if(icon_state == "innermiddle")
 			to_chat(user, span_warning("The road already looks fixed!"))
-		. = ..()
+	. = ..()
 
 /turf/open/floor/road
 	name = "\proper road"
