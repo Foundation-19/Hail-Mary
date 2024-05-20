@@ -1885,6 +1885,16 @@
 	icon_state = "atlanticguard"
 	item_state = "atlanticguard"
 
+/obj/item/clothing/suit/armor/medium/duster/trenchcoat/minutemen
+	name = "minutemen coat"
+	desc = "An armoured trenchcoat, modified and branded with Minutemen insignias and designs."
+	icon = 'fallout/icons/obj/clothing/minutemen.dmi'
+	mob_overlay_icon = 'fallout/icons/mob/clothing/minutemen.dmi'
+	icon_state = "mm_coat"
+	item_state = "mm_coat"
+	mutantrace_variation = NONE
+	body_parts_covered = CHEST|ARMS|LEGS
+
 /obj/item/clothing/suit/armor/light/vest/russian
 	name = "russian vest"
 	desc = "A bulletproof vest with forest camo. Good thing there's plenty of forests to hide in around here, right?"
