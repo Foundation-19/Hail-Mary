@@ -481,6 +481,16 @@
 /obj/item/locked_box/weapon/ammo/tier5,
 /turf/open/floor/plating/rust,
 /area/f13/ruins)
+"aRg" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/structure/railing{
+	color = "#A47449";
+	dir = 4
+	},
+/turf/open/floor/plating/tunnel,
+/area/f13/tunnel/sub)
 "aRM" = (
 /turf/open/floor/wood_mosaic,
 /area/f13/building/tunnel)
@@ -1712,6 +1722,29 @@
 	icon_state = "tunnel10"
 	},
 /area/f13/tunnel/sub)
+"cSC" = (
+/obj/structure/railing/wood{
+	pixel_y = 7;
+	name = "wooden docks";
+	color = "#669999"
+	},
+/obj/structure/railing/wood{
+	pixel_y = 4;
+	name = "wooden docks";
+	color = "#669999"
+	},
+/obj/structure/railing/wood{
+	pixel_y = -9;
+	name = "wooden docks";
+	color = "#669999"
+	},
+/obj/structure/railing/wood{
+	pixel_y = -13;
+	name = "wooden docks";
+	color = "#669999"
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
+/area/f13/citycaves)
 "cSH" = (
 /obj/structure/disposalpipe/segment{
 	dir = 6
@@ -2155,6 +2188,12 @@
 	sunlight_state = 0
 	},
 /area/space)
+"dAc" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/open/indestructible/ground/inside/subway,
+/area/f13/citycaves)
 "dBi" = (
 /turf/open/indestructible/ground/outside/gravel{
 	name = "underground gravel";
@@ -3617,6 +3656,11 @@
 "glb" = (
 /turf/open/floor/plasteel/f13/vault_floor/red/whiteredfull,
 /area/f13/mountain_bunker)
+"gmA" = (
+/turf/open/floor/plasteel/stairs{
+	dir = 8
+	},
+/area/f13/tunnel/sub)
 "gmD" = (
 /obj/machinery/door/airlock/public/glass,
 /obj/structure/barricade/wooden/planks,
@@ -5585,6 +5629,13 @@
 	},
 /turf/open/water,
 /area/f13/tunnel)
+"jkZ" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/structure/railing{
+	color = "#A47449"
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
+/area/f13/tunnel/sub)
 "jlz" = (
 /obj/structure/chair/wood,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -5736,6 +5787,11 @@
 /obj/structure/table/reinforced,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/tunnel)
+"jud" = (
+/turf/closed/wall/f13/supermart{
+	name = "Concret wall"
+	},
+/area/f13/citycaves)
 "jur" = (
 /obj/structure/chair/sofa/right{
 	dir = 8
@@ -6787,6 +6843,13 @@
 /obj/item/clothing/under/trek/command,
 /turf/open/floor/circuit/f13_blue,
 /area/f13/citycaves)
+"kUB" = (
+/obj/machinery/light{
+	dir = 8;
+	pixel_y = -16
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
+/area/f13/tunnel/sub)
 "kWt" = (
 /obj/structure/cargocrate{
 	color = "#F2222F";
@@ -6991,12 +7054,6 @@
 	},
 /turf/open/floor/wood_common,
 /area/f13/building/tunnel)
-"llK" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
-/area/f13/tunnel/sub)
 "llZ" = (
 /obj/item/storage/trash_stack{
 	icon_state = "trash_2"
@@ -7252,6 +7309,17 @@
 "lGL" = (
 /obj/structure/simple_door/bunker/glass,
 /turf/open/floor/plasteel/f13/vault_floor/green/greenchess,
+/area/f13/tunnel/sub)
+"lGZ" = (
+/obj/docking_port/stationary{
+	area_type = /area/f13/wasteland;
+	dir = 4;
+	height = 6;
+	id = "emergency_home";
+	name = "BoxStation emergency evac bay";
+	width = 25
+	},
+/turf/open/indestructible/ground/inside/subway,
 /area/f13/tunnel/sub)
 "lIp" = (
 /obj/structure/reagent_dispensers/barrel/dangerous{
@@ -8052,6 +8120,12 @@
 	icon_state = "bluerustysolid"
 	},
 /area/f13/vault)
+"mTj" = (
+/obj/structure/fluff/rails{
+	dir = 4
+	},
+/turf/open/indestructible/ground/inside/subway,
+/area/f13/citycaves)
 "mUn" = (
 /obj/structure/flora/grass/jungle,
 /turf/open/indestructible/ground/outside/water/running{
@@ -9452,6 +9526,16 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/tunnel/sub)
+"plE" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/structure/railing{
+	color = "#A47449";
+	dir = 4
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
+/area/f13/tunnel/sub)
 "plY" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -9754,6 +9838,9 @@
 /obj/effect/turf_decal/stripes/line,
 /obj/item/storage/trash_stack{
 	icon_state = "trash_2"
+	},
+/obj/structure/railing{
+	color = "#A47449"
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
 /area/f13/tunnel/sub)
@@ -10395,6 +10482,29 @@
 /obj/machinery/light,
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/f13/tcoms)
+"qIO" = (
+/obj/structure/railing/wood{
+	pixel_y = 4;
+	name = "wooden docks";
+	color = "#669999"
+	},
+/obj/structure/railing/wood{
+	pixel_y = 7;
+	name = "wooden docks";
+	color = "#669999"
+	},
+/obj/structure/railing/wood{
+	pixel_y = -9;
+	name = "wooden docks";
+	color = "#669999"
+	},
+/obj/structure/railing/wood{
+	pixel_y = -13;
+	name = "wooden docks";
+	color = "#669999"
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
+/area/f13/citycaves)
 "qJn" = (
 /obj/effect/overlay/water/top{
 	color = "#94b8b8"
@@ -13141,6 +13251,11 @@
 	icon_state = "darkrustysolid"
 	},
 /area/f13/building/tunnel)
+"uSR" = (
+/turf/open/floor/plasteel/stairs{
+	dir = 8
+	},
+/area/f13/citycaves)
 "uSV" = (
 /obj/structure/simple_door/bunker/glass,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
@@ -65684,7 +65799,7 @@ iJF
 aRU
 fWh
 eJg
-nsa
+jkZ
 uAE
 ppk
 sSx
@@ -65941,7 +66056,7 @@ iJF
 aRU
 fWh
 sSx
-nsa
+jkZ
 uAE
 ppk
 sSx
@@ -66198,7 +66313,7 @@ aRU
 aRU
 fWh
 iFr
-nsa
+jkZ
 uAE
 ppk
 sSx
@@ -66455,7 +66570,7 @@ wez
 wez
 nVA
 sSx
-nsa
+jkZ
 uAE
 ppk
 sSx
@@ -66700,19 +66815,19 @@ fWh
 bBd
 bBd
 iFr
-sSx
-sSx
-sSx
-bBd
+kUB
 sSx
 sSx
 bBd
+sSx
+kUB
+bBd
 bBd
 bBd
 bBd
 sSx
 sSx
-nsa
+jkZ
 uAE
 ppk
 sSx
@@ -66957,17 +67072,17 @@ fWh
 dmI
 sSx
 sSx
-fRf
-bBd
-sSx
-sSx
-sSx
-llK
-sSx
 bBd
 bBd
-sSx
-sSx
+plE
+plE
+plE
+plE
+plE
+aRg
+aRg
+plE
+plE
 sSx
 pNU
 uAE
@@ -67214,19 +67329,19 @@ fWh
 sSx
 hRs
 fkC
-wez
-wez
-wez
-wez
-wez
-wez
-wez
-wez
-wez
-wez
-uNa
-sSx
-nsa
+gmA
+gmA
+uAE
+ppk
+ppk
+uAE
+ppk
+uAE
+ppk
+uAE
+ppk
+gmA
+gmA
 uAE
 ppk
 sSx
@@ -67471,19 +67586,19 @@ fWh
 fRf
 hRs
 msD
-xrG
-xrG
-xrG
-xrG
-xrG
-xrG
-xrG
-xrG
-xrG
-xrG
-fWh
-sSx
-nsa
+uSR
+uSR
+qIO
+cSC
+cSC
+qIO
+cSC
+qIO
+cSC
+qIO
+ppk
+gmA
+gmA
 uAE
 ppk
 sSx
@@ -67728,19 +67843,19 @@ cSm
 wez
 wez
 msD
-xrG
-xrG
-xrG
-xrG
-xrG
-xrG
-xrG
-xrG
-xrG
-xrG
-fWh
-sSx
-nsa
+uSR
+uSR
+qIO
+cSC
+cSC
+qIO
+cSC
+qIO
+cSC
+qIO
+ppk
+gmA
+gmA
 uAE
 ppk
 sSx
@@ -67977,29 +68092,29 @@ nLQ
 lru
 uvI
 tzC
-xrG
-xrG
-xrG
-xrG
-xrG
-xrG
-xrG
-xrG
-xrG
-xrG
-xrG
-xrG
-xrG
-xrG
-xrG
-xrG
-xrG
-xrG
-fWh
-eJg
-nsa
-uAE
-ppk
+jud
+jud
+jud
+jud
+jud
+jud
+jud
+jud
+hSv
+hSv
+hSv
+hSv
+hSv
+hSv
+hSv
+hSv
+hSv
+hSv
+sSx
+sSx
+sSx
+sSx
+sSx
 sSx
 plY
 tWf
@@ -68234,30 +68349,30 @@ nLQ
 lru
 uvI
 nLQ
-xrG
-xrG
-xrG
-xrG
-xrG
-xrG
-xrG
-xrG
-xrG
-xrG
-xrG
-xrG
-xrG
-wcB
-wcB
-xrG
-xrG
-xrG
-fWh
-sSx
-sSx
-nnA
-nnA
-nnA
+jud
+shh
+shh
+shh
+shh
+shh
+shh
+shh
+dAc
+dAc
+dAc
+dAc
+dAc
+dAc
+dAc
+dAc
+dAc
+dAc
+tjH
+tjH
+tjH
+tjH
+tjH
+tjH
 bvn
 tWf
 tWf
@@ -68491,30 +68606,30 @@ nLQ
 hIt
 uvI
 nLQ
-xrG
-xrG
-xrG
-xrG
-xrG
-xrG
-xrG
-xrG
-xrG
-xrG
-xrG
-xrG
-xrG
-wcB
-wcB
-xrG
-xrG
-xrG
-cSm
-wez
-wez
-wez
-wez
-nqV
+jud
+shh
+shh
+shh
+shh
+shh
+shh
+shh
+shh
+shh
+shh
+shh
+shh
+shh
+shh
+shh
+shh
+shh
+bvn
+bvn
+bvn
+bvn
+bvn
+lGZ
 bvn
 tWf
 tWf
@@ -68748,31 +68863,31 @@ nLQ
 lru
 uDY
 nLQ
-xrG
-xrG
-xrG
-xrG
-xrG
-xrG
-xrG
-xrG
-xrG
-xrG
-xrG
-xrG
-xrG
-xrG
-xrG
-xrG
-xrG
-xrG
-xrG
-xrG
-xrG
-xrG
-xrG
-qVb
-bvn
+jud
+mTj
+mTj
+mTj
+mTj
+mTj
+mTj
+mTj
+mTj
+mTj
+mTj
+mTj
+mTj
+mTj
+mTj
+mTj
+mTj
+mTj
+mTj
+mTj
+mTj
+mTj
+mTj
+qtj
+qtj
 tWf
 tWf
 bvn
@@ -69005,30 +69120,30 @@ nLQ
 tzC
 tzC
 tzC
-xrG
-xrG
-wcB
-wcB
-xrG
-wcB
-wcB
-wcB
-wcB
-wcB
-wcB
-wcB
-xrG
-xrG
-xrG
-wcB
-wcB
-xrG
-xrG
-xrG
-xrG
-xrG
-xrG
-qVb
+jud
+shh
+shh
+shh
+shh
+shh
+shh
+shh
+shh
+shh
+shh
+shh
+shh
+shh
+shh
+shh
+shh
+shh
+shh
+shh
+shh
+shh
+shh
+bvn
 bvn
 tWf
 tWf
@@ -69262,30 +69377,30 @@ nLQ
 xrG
 xrG
 xrG
-xrG
-xrG
-wcB
-wcB
-xrG
-wcB
-wcB
-xrG
-xrG
-xrG
-xrG
-xrG
-xrG
-xrG
-xrG
-wcB
-wcB
-xrG
-xrG
-xrG
-xrG
-xrG
-xrG
-qVb
+jud
+shh
+shh
+shh
+shh
+shh
+shh
+shh
+shh
+shh
+shh
+shh
+shh
+shh
+shh
+shh
+shh
+shh
+shh
+shh
+shh
+shh
+shh
+bvn
 bvn
 tWf
 tWf
@@ -69519,31 +69634,31 @@ nLQ
 xrG
 xrG
 xrG
-xrG
-wcB
-wcB
-wcB
-xrG
-xrG
-xrG
-xrG
-wcB
-wcB
-wcB
-xrG
-xrG
-xrG
-xrG
-wcB
-wcB
-xrG
-xrG
-xrG
-xrG
-xrG
-xrG
-qVb
-bvn
+jud
+mTj
+mTj
+mTj
+mTj
+mTj
+mTj
+mTj
+mTj
+mTj
+mTj
+mTj
+mTj
+mTj
+mTj
+mTj
+mTj
+mTj
+mTj
+mTj
+mTj
+mTj
+mTj
+qtj
+qtj
 tWf
 tWf
 bvn
@@ -69776,30 +69891,30 @@ nLQ
 xrG
 xrG
 xrG
-xrG
-wcB
-wcB
-wcB
-xrG
-xrG
-xrG
-xrG
-wcB
-wcB
-wcB
-xrG
-xrG
-wcB
-wcB
-wcB
-xrG
-xrG
-xrG
-xrG
-xrG
-xrG
-xrG
-qVb
+jud
+shh
+shh
+shh
+shh
+shh
+shh
+shh
+shh
+shh
+shh
+shh
+shh
+shh
+shh
+shh
+shh
+shh
+shh
+shh
+shh
+shh
+shh
+bvn
 bvn
 tWf
 tWf
@@ -70033,30 +70148,30 @@ nLQ
 tzC
 tzC
 tzC
-xrG
-wcB
-wcB
-wcB
-xrG
-xrG
-xrG
-xrG
-wcB
-wcB
-wcB
-xrG
-xrG
-wcB
-wcB
-wcB
-xrG
-xrG
-xrG
-xrG
-xrG
-xrG
-xrG
-qVb
+jud
+jud
+jud
+jud
+jud
+jud
+jud
+jud
+jud
+jud
+jud
+jud
+jud
+jud
+jud
+jud
+jud
+jud
+jud
+jud
+jud
+jud
+jud
+tIN
 bvn
 tWf
 tWf
@@ -70291,21 +70406,21 @@ tzC
 tzC
 tzC
 xrG
-wcB
-wcB
-wcB
 xrG
 xrG
 xrG
 xrG
-wcB
-wcB
-wcB
 xrG
 xrG
-wcB
-wcB
-wcB
+xrG
+xrG
+xrG
+xrG
+xrG
+xrG
+xrG
+xrG
+xrG
 xrG
 xrG
 ylc
