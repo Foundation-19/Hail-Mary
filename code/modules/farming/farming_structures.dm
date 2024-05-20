@@ -17,15 +17,45 @@
 	pressure_resistance = 2 * ONE_ATMOSPHERE
 	max_integrity = 300
 	proj_pass_rate = 70
-	pass_flags = LETPASSTHROW
 	pass_flags_self = PASSTABLE | LETPASSTHROW
 	climbable = TRUE
 	var/open = FALSE
 	var/speed_multiplier = 4 //How fast it distills. Defaults to 100% (1.0). Lower is better.
 
+	var/broc = FALSE // Overlay var
+	var/xander = FALSE // Overlay var
+	var/cactus = FALSE // Overlay var
+
 /obj/structure/fermenting_barrel/Initialize()
-	create_reagents(300, DRAINABLE | AMOUNT_VISIBLE) //Bluespace beakers, but without the portability or efficiency in circuits.
+	create_reagents(500, DRAINABLE | AMOUNT_VISIBLE) //Bluespace beakers, but without the portability or efficiency in circuits.
+	update_icon()
 	. = ..()
+
+/obj/structure/fermenting_barrel/update_overlays()
+	. = ..()
+	if(broc)
+		. += "broc"
+	if(xander)
+		. += "xander"
+	if(cactus)
+		. += "cactus"
+
+	if(reagents.total_volume && open)
+		var/mutable_appearance/filling = mutable_appearance('modular_BD2/general/icons/barrel.dmi', "[icon_state]10", color = mix_color_from_reagents(reagents.reagent_list))
+		switch (reagents.total_volume)
+			if (0 to 40)
+				filling.icon_state = "[icon_state]-10"
+			if (40 to 70)
+				filling.icon_state = "[icon_state]10"
+			if (70 to 140)
+				filling.icon_state = "[icon_state]25"
+			if (140 to 250)
+				filling.icon_state = "[icon_state]50"
+			if (251 to 400)
+				filling.icon_state = "[icon_state]75"
+			if (409 to 500)
+				filling.icon_state = "[icon_state]100"
+		. += filling
 
 /obj/structure/fermenting_barrel/examine(mob/user)
 	. = ..()
@@ -47,6 +77,7 @@
 				data["tastes"] = list(fruit.tastes[1] = 1)
 			reagents.add_reagent(/datum/reagent/consumable/ethanol/fruit_wine, amount, data)
 		qdel(fruit)
+		update_icon() // new
 	playsound(src, 'sound/effects/bubbles.ogg', 50, TRUE)
 
 /obj/structure/fermenting_barrel/attackby(obj/item/I, mob/user, params)
@@ -59,7 +90,7 @@
 			to_chat(user, span_warning("[I] is stuck to your hand!"))
 			return TRUE
 		to_chat(user, span_notice("You place [I] into [src] to start the fermentation process."))
-		addtimer(CALLBACK(src, PROC_REF(makeWine), list(fruit)), rand(8 SECONDS, 12 SECONDS) * speed_multiplier)
+		addtimer(CALLBACK(src, .proc/makeWine, list(fruit)), rand(8 SECONDS, 12 SECONDS) * speed_multiplier)
 		return TRUE
 	else if(SEND_SIGNAL(I, COMSIG_CONTAINS_STORAGE) && do_after(user, 2 SECONDS, target = src))
 		var/list/storage_contents = list()
@@ -71,7 +102,7 @@
 				continue
 			fruits += fruit
 		if (length(fruits))
-			addtimer(CALLBACK(src, PROC_REF(makeWine), fruits), rand(8 SECONDS, 12 SECONDS) * speed_multiplier)
+			addtimer(CALLBACK(src, .proc/makeWine, fruits), rand(8 SECONDS, 12 SECONDS) * speed_multiplier)
 			to_chat(user, span_notice("You fill \the [src] from \the [I] and start the fermentation process."))
 		else
 			to_chat(user, span_warning("There's nothing in \the [I] that you can ferment!"))
@@ -98,6 +129,26 @@
 		icon_state = "barrel_open"
 	else
 		icon_state = "barrel"
+
+/obj/structure/fermenting_barrel/broc // for bitter production without having to label
+	name = "broc fermenting barrel"
+	desc = "A large wooden barrel with a painted broc flower on it. You can ferment fruits and such inside it, or just use it to hold liquid."
+	icon = 'modular_BD2/general/icons/barrel.dmi'
+	broc = TRUE
+	xander = FALSE
+	cactus = FALSE
+
+/obj/structure/fermenting_barrel/broc/xander // for bitter production without having to label
+	name = "xander fermenting barrel"
+	desc = "A large wooden barrel with a painted xander root on it. You can ferment fruits and such inside it, or just use it to hold liquid."
+	broc = FALSE
+	xander = TRUE
+
+/obj/structure/fermenting_barrel/broc/cactus // for bitter production without having to label
+	name = "cactus fermenting barrel"
+	desc = "A large wooden barrel with a painted barrel cactus on it. You can ferment fruits and such inside it, or just use it to hold liquid."
+	broc = FALSE
+	cactus = TRUE
 
 
 //////////
