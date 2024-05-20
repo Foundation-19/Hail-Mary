@@ -16,3 +16,6 @@ endmap
 map pahrump-only
     default
 endmap
+
+map baltimore
+endmap
