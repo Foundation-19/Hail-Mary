@@ -15,6 +15,7 @@
 #define FACTION_BIKER "Hells Nomads"
 #define FACTION_SMUTANT "Super Mutants"
 #define FACTION_ATLANTIC "Atlantic Cross"
+#define FACTION_LOCUST "Locust Point town"
 
 #define ENGSEC			(1<<0)
 
