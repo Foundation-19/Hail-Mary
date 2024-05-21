@@ -1,4 +1,4 @@
-	/mob/dead/observer/Login()
+/mob/dead/observer/Login()
 	..()
 
 	ghost_accs = client.prefs.ghost_accs
