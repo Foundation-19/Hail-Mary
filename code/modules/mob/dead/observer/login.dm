@@ -1,4 +1,4 @@
-/mob/dead/observer/Login()
+	/mob/dead/observer/Login()
 	..()
 
 	ghost_accs = client.prefs.ghost_accs
@@ -16,5 +16,5 @@
 	if (isturf(T))
 		update_z(T.z)
 
-	update_icon(preferred_form)
+	update_icon(new_form = preferred_form)
 	updateghostimages()
