@@ -20433,10 +20433,8 @@
 /area/f13/wasteland)
 "cqf" = (
 /obj/structure/rack/shelf_metal,
-/obj/item/gun/energy/laser/pistol{
-	pixel_y = 10
-	},
 /obj/item/gun/energy/laser/pistol,
+/obj/item/gun/energy/laser/plasma/pistol,
 /turf/open/floor/f13{
 	icon_state = "reddirtyfull"
 	},
