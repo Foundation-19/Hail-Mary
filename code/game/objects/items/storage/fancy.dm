@@ -306,6 +306,18 @@
 	icon_state = "greytort"
 	spawn_type = /obj/item/clothing/mask/cigarette/greytort
 
+/obj/item/storage/fancy/cigarettes/cigpack_jellboro
+	name = "\improper Jellboro Blues"
+	desc = "Imported famous cigarettes."
+	icon_state = "jellboro"
+	spawn_type = /obj/item/clothing/mask/cigarette/jellboro
+
+/obj/item/storage/fancy/cigarettes/cigpack_newports
+	name = "\improper Newportss"
+	desc = "Famous menthol cigarettes."
+	icon_state = "newports"
+	spawn_type = /obj/item/clothing/mask/cigarette/newports
+
 /obj/item/storage/fancy/rollingpapers
 	name = "rolling paper pack"
 	desc = "A pack of Big Boss brand rolling papers."

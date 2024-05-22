@@ -7,6 +7,8 @@
 	products = list(/obj/item/storage/fancy/cigarettes/cigpack_bigboss = 5,
 					/obj/item/storage/fancy/cigarettes/cigpack_pyramid = 5,
 					/obj/item/storage/fancy/cigarettes/cigpack_greytort = 5,
+					/obj/item/storage/fancy/cigarettes/cigpack_jellboro = 5,
+					/obj/item/storage/fancy/cigarettes/cigpack_newports = 5,
 					/obj/item/storage/box/matches = 10,
 					/obj/item/lighter/greyscale = 4,
 					/obj/item/storage/fancy/rollingpapers = 5)

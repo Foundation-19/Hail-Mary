@@ -1291,4 +1291,4 @@ obj/item/clothing/suit/armor/exile/cust0m
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/small
 	body_parts_covered = CHEST|GROIN|LEGS|ARMS|HANDS
 	slowdown = 0.05
- */
+*/

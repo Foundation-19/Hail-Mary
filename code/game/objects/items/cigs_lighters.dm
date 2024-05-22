@@ -309,6 +309,16 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	desc = "A Grey Tortoise brand cigarette."
 	list_reagents = list(/datum/reagent/drug/nicotine = 15, /datum/reagent/medicine/omnizine = 5)
 
+/obj/item/clothing/mask/cigarette/jellboro
+	name = "Jellboro Blue Cigarette"
+	desc = "A Jellboro Blue brand cigarette."
+	list_reagents = list(/datum/reagent/drug/nicotine = 15, /datum/reagent/medicine/regen_jelly = 1.5, /datum/reagent/consumable/cherryjelly = 1, /datum/reagent/consumable/bluecherryjelly = 2.5)
+
+/obj/item/clothing/mask/cigarette/newports
+	name = "Newports Cigarette"
+	desc = "A Newports brand menthol cigarette."
+	list_reagents = list(/datum/reagent/drug/nicotine = 15, /datum/reagent/consumable/menthol = 30)
+
 // Rollies.
 
 /obj/item/clothing/mask/cigarette/rollie

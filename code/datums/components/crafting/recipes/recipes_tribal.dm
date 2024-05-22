@@ -27,6 +27,24 @@
 				/obj/item/stack/sheet/sinew = 1)
 	always_available = FALSE
 
+/datum/crafting_recipe/tribalwar/tribalcombat
+	name = "Tribalized Combat Armor"
+	result = /obj/item/clothing/suit/armor/medium/combat/tribal
+	time = 40
+	reqs = list(/obj/item/clothing/suit/armor/medium/combat = 1,
+	/obj/item/stack/sheet/sinew = 2,
+	/obj/item/stack/sheet/bone = 3)
+	always_available = FALSE
+
+/datum/crafting_recipe/tribalwar/tribalcombathelmet
+	name = "Tribalized Combat Helmet"
+	result = /obj/item/clothing/head/helmet/f13/combat/tribal
+	time = 40
+	reqs = list(/obj/item/clothing/head/helmet/f13/combat = 1,
+	/obj/item/stack/sheet/sinew = 2,
+	/obj/item/stack/sheet/bone = 3)
+	always_available = FALSE
+
 //WEAPONS//
 
 /datum/crafting_recipe/tribalwar/blowgun
