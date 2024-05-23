@@ -1,6 +1,6 @@
 {
 	"map_name": "Baltimore",
-	"map_path": "map_files/baltimore",
+	"map_path": "map_files/Baltimore",
 	"map_file": [
 		"baltimore_surface.dmm",
 		"baltimore_underground.dmm",
