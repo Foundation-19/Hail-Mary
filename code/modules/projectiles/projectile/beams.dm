@@ -422,7 +422,7 @@
 
 /obj/item/projectile/beam/laser/pistol/wattz //Wattz pistol
 	name = "laser beam"
-	damage = 23
+	damage = 30
 	icon_state = "laser"
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/red_laser
 	light_color = LIGHT_COLOR_RED
@@ -437,7 +437,7 @@
 
 /obj/item/projectile/beam/laser/pistol/wattz/magneto //upgraded Wattz
 	name = "penetrating laser beam"
-	damage = 23
+	damage = 30
 	armour_penetration = 0.3
 	icon_state = "heavylaser"
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/red_laser
@@ -453,7 +453,7 @@
 
 /obj/item/projectile/beam/laser/pistol/wattzs //Wattz 1000s pistol
 	name = "laser beam"
-	damage = 23
+	damage = 30
 	icon_state = "omnilaser"
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/blue_laser
 	light_color = LIGHT_COLOR_BLUE
