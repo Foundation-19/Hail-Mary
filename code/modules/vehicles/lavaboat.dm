@@ -15,7 +15,6 @@
 	var/datum/component/riding/D = LoadComponent(/datum/component/riding)
 	D.keytype = /obj/item/oar
 	D.allowed_turf_typecache = typecacheof(/turf/open/pool)
-	D.adjustStaminaLoss (2)
 
 /obj/item/oar
 	name = "oar"
