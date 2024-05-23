@@ -3,6 +3,7 @@
 	name = "poolwater"
 	desc = "You're safer here than in the deep."
 	icon_state = "pool_tile"
+	slowdown = 4
 	heat_capacity = INFINITY
 	var/filled = TRUE
 	var/next_splash = 0
@@ -165,7 +166,7 @@
 					H.DefaultCombatKnockdown(40)
 					playsound(src, 'sound/effects/woodhit.ogg', 60, TRUE, 1)
 		else if(filled)
-			victim.adjustStaminaLoss(1)
+			victim.adjustStaminaLoss(4)
 			playsound(src, "water_wade", 20, TRUE)
 	return ..()
 

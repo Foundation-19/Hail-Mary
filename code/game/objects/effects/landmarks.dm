@@ -989,3 +989,55 @@ obj/effect/landmark/start/f13/ncrlogisticsofficer
 /obj/effect/landmark/start/f13/atlanticcap
 	name = "Atlantic Cross Captain"
 	icon_state = "Captain"
+
+// Locust
+
+/obj/effect/landmark/start/f13/f13baltimoredockmaster
+	name = "Dockmaster of Locust Point"
+	icon_state = "Banker"
+
+/obj/effect/landmark/start/f13/f13baltimorecouncil
+	name = "Port Councelor"
+	icon_state = "Lawyer"
+
+/obj/effect/landmark/start/f13/f13baltimoreconstable
+	name = "Police Constable"
+	icon_state = "Chief of Police"
+
+/obj/effect/landmark/start/f13/f13baltimorepolice
+	name = "Locust Point Police Officer"
+	icon_state = "Officer"
+
+/obj/effect/landmark/start/f13/f13baltimorefarmer
+	name = "Servant workers of town"
+	icon_state = "Settler"
+
+/obj/effect/landmark/start/f13/f13baltimorebarkeep
+	name = "Casablanca Barkeep"
+	icon_state = "Barkeep"
+
+/obj/effect/landmark/start/f13/baltimorecitizen
+	name = "Locust Point Citizen"
+	icon_state = "Settler"
+
+/obj/effect/landmark/start/f13/f13baltimoreradiohort
+	name = "Independant Radio Host"
+	icon_state = "Radio-Host"
+
+/obj/effect/landmark/start/f13/f13baltimoremechanic
+	name = "Gas station Mechanics"
+	icon_state = "Scribe"
+
+/obj/effect/landmark/start/f13/f13baltimorepilot
+	name = "Airpoint Transport Pilot"
+	icon_state = "Scribe"
+
+/obj/effect/landmark/start/f13/f13baltimoreshopclerc
+	name = "Dealmaker Shopclerc"
+	icon_state = "Shopkeeper"
+
+/obj/effect/landmark/start/f13/f13baltimorepreacher
+	name = "Locust Point Priest"
+	icon_state = "Banker"
+
+

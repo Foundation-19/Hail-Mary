@@ -36,10 +36,9 @@
 Administrator
 */
 /datum/job/atlantic/f13atlanticcap
-	title = "Atlantic Cross Doctor"
+	title = "Atlantic Cross Captain"
 	flag = F13ATLANTICCAP
 	department_flag = ATLANTIC
-	head_announce = list("Security")
 	faction = "Atlantic"
 	total_positions = 1
 	spawn_positions = 1
@@ -47,7 +46,6 @@ Administrator
 	description = "You are the captain of the ACS Aegis, and its escort. You make sure your hospital runs well, make sure people pay, make sure your doctors ain't doing mad shit or unethical things, provide education for the new people, organise the ressources of the ship. You also make sure there is no competition to your business, by sending Marines or Guards."
 	enforces = "Based on a christan association, and remants of the navy, the Atlantic Cross tries to fight against drugs and raiders."
 	selection_color = "#FF95FF"
-	exp_requirements = 0
 
 	outfit = /datum/outfit/job/atlantic/f13atlanticcap
 
@@ -92,8 +90,7 @@ Administrator
 		/obj/item/reagent_containers/medspray/synthflesh = 2,
 		/obj/item/book/granter/trait/techno = 1,
 		/obj/item/healthanalyzer/advanced = 1,
-		/obj/item/storage/wallet/stash/high = 1,
-		/obj/item/hypospray/mkii/CMO = 1
+		/obj/item/storage/wallet/stash/high = 1
 	)
 
 
@@ -122,7 +119,7 @@ Doctor
 			/datum/job/atlantic/f13atlanticdoc,
 		),
 		/datum/matchmaking_pref/mentor = list(
-			/datum/job/atlantic/f13followervolunteer,
+			/datum/job/atlantic/f13atlanticdoc,
 		),
 	)
 
@@ -188,12 +185,13 @@ Follower Volunteer
 	spawn_positions = 4
 	supervisors = "The Atlantic Cross captain, the Atlantic Cross Doctors, and the Atlantic Cross Marines."
 	description = "You are one of the many sailors of the Atlantic Cross Fleet. Either born in fleet, or joined when they started good deeds. As a Sailor, you have options : Be guard, focusing more on defences. Be a nurse, assisting doctors. Be a Expeditioner, salvaging for the ship, and rescue people far from the coast. Or even somethings completly else. Obey the captain, doctors and the marines tho."
-	enforces = "Based on a christan association, and remants of the navy, the Atlantic Cross tries to fight against drugs and raiders. Don't forget to ask for a pay ! Revival is arround 100 caps, And healing people arround 50 caps. Why ? Maintaining those ship are a pain !
+	enforces = "Based on a christan association, and remants of the navy, the Atlantic Cross tries to fight against drugs and raiders. Don't forget to ask for a pay ! Revival is arround 100 caps, And healing people arround 50 caps. Why ? Maintaining those ship are a pain !"
 	selection_color = "#FFDDFF"
 	outfit = /datum/outfit/job/atlantic/f13atlanticsailor
+
 	loadout_options = list(
 	/datum/outfit/loadout/sailor_guard,
-	/datum/outfit/loadout/sailor_expedition,
+	/datum/outfit/loadout/sailor_mechanic,
 	/datum/outfit/loadout/sailor_nurse,
 	/datum/outfit/loadout/sailor_student
 	)
@@ -302,10 +300,11 @@ Follower Volunteer
 	uniform =	/obj/item/clothing/under/f13/atlantic/uniform
 	suit =	/obj/item/clothing/suit/armor/medium/combat/atlanticmarines
 	head =	/obj/item/clothing/head/helmet/f13/atlanticmarines
+	gloves = /obj/item/clothing/gloves/f13/military
 	glasses =	/obj/item/clothing/glasses/sunglasses
 	shoes =	/obj/item/clothing/shoes/combat
-	l_pocket =	/obj/item/storage/belt/shoulderholster
-	backpack =	/obj/item/storage/backpack/explorer
+	neck =	/obj/item/storage/belt/shoulderholster
+	backpack =	/obj/item/storage/backpack
 	satchel =	/obj/item/storage/backpack/satchel/explorer
 	backpack_contents = list(
 		/obj/item/storage/survivalkit/medical/follower = 1,
@@ -318,15 +317,15 @@ Follower Volunteer
 	)
 
 
-/datum/outfit/loadout/guard_ranged
+/datum/outfit/loadout/marines_ranged
 	name = "Rifle"
-	suit_store = /obj/item/gun/ballistic/automatic/service/alr
+	suit_store = /obj/item/gun/ballistic/automatic/service/carbine
 	backpack_contents = list(
 		/obj/item/ammo_box/magazine/m556/rifle = 3,
 		/obj/item/gun_upgrade/scope/watchman = 1,
 	)
 
-/datum/outfit/loadout/guard_energy
+/datum/outfit/loadout/marines_energy
 	name = "Laser"
 	suit_store = /obj/item/gun/energy/laser/wattz2k
 	backpack_contents = list(

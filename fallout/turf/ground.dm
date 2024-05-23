@@ -561,6 +561,14 @@ GLOBAL_LIST_INIT(desolate_plant_spawn_list, list(
 	barefootstep = FOOTSTEP_HARD_BAREFOOT
 //	step_sounds = list("human" = "erikafootsteps")
 
+/turf/open/indestructible/ground/outside/baltimore
+	name = "\proper Road"
+	desc = "A stretch of road."
+	icon = 'icons/turf/road_and_dirt.dmi'
+	icon_state = "road_northsouth_y"
+	footstep = FOOTSTEP_ROAD
+	barefootstep = FOOTSTEP_HARD_BAREFOOT
+
 //Obsolete but used in yucky Pahrump
 /turf/open/indestructible/ground/outside/graveldirt
 	name = "gravel"

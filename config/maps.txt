@@ -15,4 +15,9 @@ endmap
 
 map pahrump-only
     default
+	voteweight 1
+
+map baltimore
+    voteweight 1
+	
 endmap

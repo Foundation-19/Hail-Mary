@@ -194,7 +194,6 @@ GLOBAL_LIST_INIT(wasteland_positions, list(
 	"Vigilante",
 	"Preacher",
 	"Wastelander",
-	"Minutemen",
 ))
 
 GLOBAL_LIST_INIT(redwater_positions, list(
@@ -281,9 +280,10 @@ GLOBAL_LIST_INIT(locust_positions, list(
 	"Locust Point Citizen",
 	"Pirate Radio Host",
 	"Locust Point Priest",
-	"Big's Bill Mechanics",
-	"Dealmaker Shopclec",
-	"Vertibird Pilot",
+	"Gas station Mechanics",
+	"Dealmaker Shopclerc",
+	"Airpoint Transport Pilot",
+	"Minuteman",
 ))
 
 // job categories for rendering the late join menu
