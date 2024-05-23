@@ -969,7 +969,7 @@ Mayor
 
 /datum/outfit/job/locust/f13minutemen
 	ears = /obj/item/radio/headset/headset_town
-	shoes = /obj/item/clothing/shoes/jackboots
+	shoes = /obj/item/clothing/shoes/f13/minutemen
 	head = /obj/item/clothing/head/helmet/f13/rustedcowboyhat/minutemen
 	l_pocket = /obj/item/storage/belt/legholster
 	backpack = /obj/item/storage/backpack/satchel/explorer

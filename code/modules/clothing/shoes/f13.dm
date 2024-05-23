@@ -334,7 +334,7 @@
 
 	//Minutemens
 
-	/obj/item/clothing/shoes/f13/minutemen
+/obj/item/clothing/shoes/f13/minutemen
 	name = "minutemen boots"
 	desc = "Stylish padded boots."
 	icon = 'fallout/icons/obj/clothing/minutemen.dmi'
