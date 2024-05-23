@@ -319,9 +319,10 @@ Follower Volunteer
 
 /datum/outfit/loadout/marines_ranged
 	name = "Rifle"
-	suit_store = /obj/item/gun/ballistic/automatic/marksman
+	suit_store = /obj/item/gun/ballistic/automatic/service/carbine
 	backpack_contents = list(
 		/obj/item/ammo_box/magazine/m556/rifle = 3,
+		/obj/item/gun_upgrade/scope/watchman = 1,
 	)
 
 /datum/outfit/loadout/marines_energy

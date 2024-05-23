@@ -266,18 +266,16 @@ Mayor
 	r_pocket = /obj/item/flashlight/flare
 	shoes = /obj/item/clothing/shoes/f13/explorer
 	head = /obj/item/clothing/head/helmet/f13/goner/officer/blue
-	uniform = /obj/item/clothing/under/f13/police
-	suit = /obj/item/clothing/suit/armor/medium/duster/trenchcoat
+	uniform = /obj/item/clothing/under/f13/police/officer
+	suit_store = /obj/item/gun/ballistic/automatic/marksman/policerifle
 	backpack_contents = list(
 		/obj/item/storage/pill_bottle/chem_tin/radx = 1,
 		/obj/item/restraints/handcuffs = 1,
-		/obj/item/gun/ballistic/revolver/police =1,
+		/obj/item/gun/ballistic/revolver/police/webley =1,
 		/obj/item/ammo_box/a357box =1,
 		/obj/item/melee/onehanded/knife/bowie = 1,
 		/obj/item/grenade/flashbang = 1,
-		/obj/item/flashlight/seclite = 1,
-		/obj/item/gun/ballistic/automatic/marksman/policerifle = 1,
-		/obj/item/ammo_box/magazine/m556/rifle =2,
+		/obj/item/flashlight/seclite = 2,
 		/obj/item/storage/belt/army/assault = 1
 		)
 
@@ -769,7 +767,7 @@ Mayor
 	total_positions = 3
 	spawn_positions = 3
 	supervisors = "No one !"
-	description = "While you are linked to town... You aren't infact in town. You are a Big's Bill Mechanics, and have a car garage south of town. Previously a band of raider yelling insults at ... Everything related to baltimore, you are now... A member of society, yelling insults."
+	description = "While you are linked to town... You aren't infact in town. You are a Big's Bill Mechanics, and have a car garage south of town. Previously a band of raider yelling insults at ... Everything related to Baltimore, you are now... A member of society, yelling insults."
 	enforces = "Your shop is a private business and you are not under direct control of local governance. You have the right to yell insults tho. And sell cars."
 	selection_color = "#dcba97"
 	outfit = /datum/outfit/job/locust/f13baltimoremechanic

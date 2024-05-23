@@ -2,4 +2,4 @@
 
 <h1>Welcome to Project Hail Mary!</h1>
 <br>
-Locust Point, baltimore - 2278 - Operation: Hail Mary<br>
+Locust Point, Baltimore - 2278 - Operation: Hail Mary<br>

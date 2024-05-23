@@ -1,6 +1,6 @@
 {
-	"map_name": "baltimore",
-	"map_path": "map_files/baltimore",
+	"map_name": "Baltimore",
+	"map_path": "map_files/Baltimore",
 	"map_file": [
 		"baltimore_surface.dmm",
 		"baltimore_underground.dmm",
@@ -37,7 +37,7 @@
 			"Down": -1,
 			"No Parallax": true,
 			"Linkage" : "Cross",
-			"Name": "baltimore Underground",
+			"Name": "Baltimore Underground",
 			"Force X": 2,
 			"Force Y": 2,
 			"Force Z": 0
@@ -51,7 +51,7 @@
 			"No Parallax": true,
 			"Linkage" : "Cross",
 			"Above": true,
-			"Name": "baltimore Upper",
+			"Name": "Baltimore Upper",
 			"Force X": 2,
 			"Force Y": 2,
 			"Force Z": 2
