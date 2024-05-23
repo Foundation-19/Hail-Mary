@@ -1,49 +1,125 @@
-"a" = (/turf/template_noop,/area/template_noop)
-"b" = (/obj/structure/chair/sofa/corp/right{dir = 8},/obj/structure/railing{dir = 4},/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{icon_state = "bluerustyfull"},/area/shuttle/escape)
-"c" = (/obj/structure/window/fulltile/house{icon_state = "housewindow"},/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,/area/shuttle/escape)
-"d" = (/obj/structure/table/booth,/obj/machinery/chem_dispenser/drinks/fullupgrade{layer = 8},/obj/item/reagent_containers/food/drinks/drinkingglass{pixel_y = 35; pixel_x = -9},/obj/item/reagent_containers/food/drinks/drinkingglass{pixel_y = 35; pixel_x = -9},/obj/item/reagent_containers/food/drinks/drinkingglass{pixel_y = 35; pixel_x = -7},/obj/item/reagent_containers/food/drinks/drinkingglass{pixel_y = 35; pixel_x = -5},/obj/item/reagent_containers/food/drinks/drinkingglass{pixel_y = 35; pixel_x = -3},/obj/item/reagent_containers/food/drinks/drinkingglass{pixel_y = 35; pixel_x = -1},/obj/item/reagent_containers/food/drinks/drinkingglass{pixel_y = 35; pixel_x = 4},/obj/item/reagent_containers/food/drinks/drinkingglass{pixel_y = 35; pixel_x = 3},/obj/item/reagent_containers/food/drinks/drinkingglass{pixel_y = 35; pixel_x = 2},/obj/item/reagent_containers/food/drinks/drinkingglass{pixel_y = 35; pixel_x = 1},/obj/item/reagent_containers/glass/beaker/big_red{pixel_y = 35; pixel_x = 10},/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,/area/shuttle/escape)
-"e" = (/obj/structure/window/fulltile/house{icon_state = "housewindow"; layer = 1},/obj/structure/curtain{color = "#811313"; icon_state = "closed"},/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,/area/shuttle/escape)
-"f" = (/obj/structure/table/booth{layer = 6},/obj/structure/railing/wood/post{pixel_y = 18; layer = 5},/obj/machinery/light/small{dir = 1; name = "tan light fixture"; light_color = "#FFDDCC"; color = "#FFDDCC"; layer = 10; pixel_x = 1; pixel_y = 9},/obj/item/reagent_containers/food/snacks/burger/superbite,/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{icon_state = "bluerustyfull"},/area/shuttle/escape)
-"g" = (/obj/structure/window/fulltile/house{icon_state = "housewindow"; layer = 1},/obj/structure/curtain{color = "#811313"; icon_state = "closed"},/obj/structure/shelf_wood{pixel_y = -16; layer = 7},/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,/area/shuttle/escape)
-"h" = (/obj/machinery/door/airlock/wood,/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{icon_state = "bluerustysolid"},/area/shuttle/escape)
-"i" = (/obj/structure/chair/sofa/corp/right{dir = 1},/obj/structure/railing{layer = 50},/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{icon_state = "bluerustyfull"},/area/shuttle/escape)
-"k" = (/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{icon_state = "bluerustysolid"},/area/shuttle/escape)
-"l" = (/obj/machinery/light/small{dir = 2; name = "tan light fixture"; light_color = "#FFDDCC"; color = "#FFDDCC"},/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,/area/shuttle/escape)
-"m" = (/obj/structure/chair/sofa/corp/right{dir = 8},/obj/structure/railing{dir = 4},/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,/area/shuttle/escape)
-"n" = (/obj/structure/chair/sofa/corp/left{dir = 8},/obj/structure/railing{dir = 4},/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{icon_state = "bluerustyfull"},/area/shuttle/escape)
-"p" = (/obj/structure/table/booth{layer = 6},/obj/structure/railing/wood/post{pixel_y = 18; layer = 5},/obj/machinery/light/small{dir = 1; name = "tan light fixture"; light_color = "#FFDDCC"; color = "#FFDDCC"; layer = 10; pixel_x = 1; pixel_y = 9},/obj/item/reagent_containers/food/snacks/burger/bigbite,/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,/area/shuttle/escape)
-"q" = (/obj/structure/chair/sofa/corp/left{dir = 8},/obj/structure/railing{dir = 4},/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,/area/shuttle/escape)
-"s" = (/obj/structure/railing/wood/post,/obj/structure/table/booth,/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{icon_state = "bluerustyfull"},/area/shuttle/escape)
-"v" = (/obj/structure/chair/sofa/corp/right{dir = 4},/obj/structure/railing{dir = 8},/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,/area/shuttle/escape)
-"w" = (/obj/structure/railing/wood/post,/obj/structure/table/booth,/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,/area/shuttle/escape)
-"y" = (/obj/structure/chair/sofa/corp/right,/obj/structure/railing{dir = 1},/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{icon_state = "bluerustyfull"},/area/shuttle/escape)
-"C" = (/obj/structure/table/booth,/obj/machinery/chem_dispenser/drinks/beer/fullupgrade{layer = 8},/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,/area/shuttle/escape)
-"D" = (/turf/closed/wall/rust,/area/shuttle/escape)
-"E" = (/obj/machinery/light/small{dir = 2; name = "tan light fixture"; light_color = "#FFDDCC"; color = "#FFDDCC"},/obj/structure/table/booth,/obj/item/reagent_containers/food/snacks/f13/wastelandwellington,/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,/area/shuttle/escape)
-"F" = (/obj/structure/chair/sofa/corp/right{dir = 4},/obj/structure/railing{dir = 8},/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{icon_state = "bluerustyfull"},/area/shuttle/escape)
-"G" = (/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{icon_state = "bluerustyfull"},/area/shuttle/escape)
-"H" = (/obj/structure/chair/sofa/corp/left,/obj/structure/railing{dir = 1},/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{icon_state = "bluerustyfull"},/area/shuttle/escape)
-"I" = (/obj/structure/chair/sofa/corp/left{dir = 4},/obj/structure/railing{dir = 8},/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{icon_state = "bluerustyfull"},/area/shuttle/escape)
-"J" = (/obj/structure/shelf_wood{pixel_y = -16; layer = 7},/turf/closed/wall/rust,/area/shuttle/escape)
-"K" = (/obj/structure/shuttle/engine/propulsion/left{dir = 8; name = "ship engine"},/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,/area/shuttle/escape)
-"L" = (/obj/structure/table/reinforced,/obj/machinery/computer/terminal{dir = 8},/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{icon_state = "bluerustyfull"},/area/shuttle/escape)
-"N" = (/obj/structure/window/fulltile/house{icon_state = "housewindowvertical"},/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,/area/shuttle/escape)
-"O" = (/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,/area/shuttle/escape)
-"P" = (/obj/structure/chair/comfy/shuttle{dir = 4},/mob/living/simple_animal/hostile/handy{name = "mr. ferryman"; peaceful = 1; melee_attack_cooldown = 500; unarmed_attack_speed = 1; harm_intent_damage = 0; melee_damage_upper = 0; melee_damage_lower = 0; obj_damage = 0; damage_coeff = list("brute" = 0, "fire" = 0, "tox" = 0, "clone" = 0, "stamina" = 0, "oxy" = 0); buckled = 1},/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{icon_state = "bluerustysolid"},/area/shuttle/escape)
-"Q" = (/obj/structure/chair/sofa/corp{dir = 1},/obj/structure/railing{layer = 50},/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{icon_state = "bluerustyfull"},/area/shuttle/escape)
-"S" = (/obj/machinery/atmospherics/components/unary/tank{pixel_y = 1; pixel_x = -6; volume = 0},/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,/area/shuttle/escape)
-"T" = (/obj/structure/chair/sofa/corp,/obj/structure/railing{dir = 1},/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{icon_state = "bluerustyfull"},/area/shuttle/escape)
-"U" = (/obj/structure/table/booth{layer = 6},/obj/structure/railing/wood/post{pixel_y = 18; layer = 5},/obj/machinery/light/small{dir = 1; name = "tan light fixture"; light_color = "#FFDDCC"; color = "#FFDDCC"; layer = 10; pixel_x = 1; pixel_y = 9},/obj/item/reagent_containers/food/snacks/burger,/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{icon_state = "bluerustyfull"},/area/shuttle/escape)
-"W" = (/obj/structure/chair/sofa/corp/left{dir = 1},/obj/structure/railing{layer = 50},/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{icon_state = "bluerustyfull"},/area/shuttle/escape)
-"X" = (/obj/structure/chair/sofa/corp/left{dir = 4},/obj/structure/railing{dir = 8},/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,/area/shuttle/escape)
-"Y" = (/obj/structure/table/booth,/obj/item/reagent_containers/food/snacks/baconlettucetomato,/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,/area/shuttle/escape)
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/closed/wall/mineral/titanium/survival,
+/area/shuttle/escape)
+"b" = (
+/obj/effect/spawner/structure/window/survival_pod,
+/turf/open/floor/plasteel/f13/vault_floor/plating,
+/area/shuttle/escape)
+"c" = (
+/obj/structure/chair{
+	dir = 4
+	},
+/turf/open/floor/f13{
+	icon_state = "floorrustysolid"
+	},
+/area/shuttle/escape)
+"d" = (
+/turf/open/floor/f13{
+	icon_state = "floorrustysolid"
+	},
+/area/shuttle/escape)
+"e" = (
+/obj/structure/chair{
+	dir = 8
+	},
+/turf/open/floor/f13{
+	icon_state = "floorrustysolid"
+	},
+/area/shuttle/escape)
+"f" = (
+/obj/structure/chair{
+	dir = 4
+	},
+/obj/machinery/light/small{
+	dir = 8;
+	light_color = "#d8b1b1"
+	},
+/turf/open/floor/f13{
+	icon_state = "floorrustysolid"
+	},
+/area/shuttle/escape)
+"g" = (
+/obj/structure/chair{
+	dir = 8
+	},
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/open/floor/f13{
+	icon_state = "floorrustysolid"
+	},
+/area/shuttle/escape)
+"h" = (
+/obj/structure/simple_door/bunker/glass,
+/turf/open/floor/f13{
+	icon_state = "floorrustysolid"
+	},
+/area/shuttle/escape)
 
 (1,1,1) = {"
-aaDDDDeDDgJDeDDeDDeDDaaaa
-aDOOyTTTHdCIUbXpmIfbDDcca
-DKSOGGGGGOOFsnvwqFsnDGPLN
-DKSkkkkkkkkkkkkkkkkkkkkkN
-DKSkGGGGGkOYbIObIObIDGPLN
-aDOkiQQQWkOEnFlnFlnFDDcca
-aaDhDDeDDhDDeDDeDDeDDaaaa
+a
+a
+a
+h
+a
+h
+a
+a
+a
+"}
+(2,1,1) = {"
+a
+c
+f
+c
+d
+c
+f
+c
+a
+"}
+(3,1,1) = {"
+b
+d
+d
+d
+d
+d
+d
+d
+b
+"}
+(4,1,1) = {"
+b
+d
+d
+d
+d
+d
+d
+d
+b
+"}
+(5,1,1) = {"
+a
+e
+g
+e
+d
+e
+g
+e
+a
+"}
+(6,1,1) = {"
+a
+a
+a
+h
+a
+h
+a
+a
+a
 "}
