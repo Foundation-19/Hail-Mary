@@ -7763,7 +7763,7 @@
 	name = "red light fixture";
 	dir = 4
 	},
-/obj/effect/spawner/lootdrop/f13/bomb/tier2,
+/obj/effect/spawner/lootdrop/f13/armor/random,
 /obj/effect/spawner/lootdrop/wmelee_legend,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/outpost)
@@ -15433,8 +15433,8 @@
 /area/f13/ruins)
 "nOi" = (
 /obj/structure/rack/shelf_metal,
-/obj/effect/spawner/lootdrop/f13/bomb/tier2,
-/obj/effect/spawner/lootdrop/f13/bomb/tier2,
+/obj/effect/spawner/lootdrop/f13/armor/random,
+/obj/effect/spawner/lootdrop/f13/armor/random,
 /turf/open/floor/wood_fancy/wood_fancy_dark,
 /area/f13/ruins)
 "nOy" = (
@@ -17235,7 +17235,7 @@
 	},
 /area/f13/wasteland/town)
 "pGb" = (
-/obj/effect/spawner/lootdrop/f13/bomb/tier2,
+/obj/effect/spawner/lootdrop/f13/armor/random,
 /obj/structure/junk/machinery,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/wood_mosaic{
@@ -21225,7 +21225,6 @@
 	name = "red light fixture";
 	dir = 8
 	},
-/obj/effect/spawner/lootdrop/f13/bomb/top_tier,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/outpost)
 "tps" = (

@@ -159,6 +159,12 @@
 /obj/structure/weightmachine/stacklifter,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/tunnel/sub)
+"apg" = (
+/obj/effect/decal/waste{
+	icon_state = "goo12"
+	},
+/turf/closed/wall/f13/wood/house,
+/area/f13/building/tunnel)
 "aph" = (
 /obj/structure/simple_door/bunker,
 /turf/open/floor/plasteel/f13/vault_floor/red/whiteredfull,
@@ -588,6 +594,15 @@
 	sunlight_state = 0
 	},
 /area/f13/tunnel/sub)
+"baL" = (
+/obj/effect/decal/waste{
+	icon_state = "goo12"
+	},
+/turf/open/indestructible/ground/outside/gravel{
+	name = "underground gravel";
+	sunlight_state = 0
+	},
+/area/f13/building/tunnel)
 "baZ" = (
 /obj/machinery/smartfridge/bottlerack/drug_storage,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
@@ -963,6 +978,12 @@
 	},
 /turf/open/floor/plating/rust,
 /area/f13/citycaves)
+"bDF" = (
+/obj/effect/decal/waste{
+	icon_state = "goo12"
+	},
+/turf/open/floor/wood_wide,
+/area/f13/building/tunnel)
 "bEy" = (
 /obj/structure/table,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
@@ -1976,6 +1997,12 @@
 	sunlight_state = 0
 	},
 /area/f13/vault)
+"dhH" = (
+/obj/effect/decal/waste{
+	icon_state = "goo12"
+	},
+/turf/open/floor/wood_fancy/wood_fancy_light,
+/area/f13/building/tunnel)
 "djz" = (
 /obj/structure/window/plastitanium,
 /turf/open/floor/plasteel/f13/vault_floor/green/whitegreenfull,
@@ -2121,6 +2148,7 @@
 /area/f13/mountain_bunker)
 "duH" = (
 /mob/living/simple_animal/hostile/deathclaw/power_armor,
+/obj/effect/spawner/lootdrop/f13/armor/tier5,
 /turf/open/floor/plasteel/f13/vault_floor/misc/rarewhite,
 /area/f13/ruins)
 "duL" = (
@@ -2651,6 +2679,9 @@
 	light_color = "#FFDDCC";
 	color = "#FFDDCC"
 	},
+/obj/effect/decal/waste{
+	icon_state = "goo12"
+	},
 /turf/open/floor/wood_common{
 	icon_state = "common-broken2"
 	},
@@ -2947,6 +2978,9 @@
 /area/f13/city/museum)
 "eRa" = (
 /mob/living/simple_animal/hostile/ghoul/zombie/reaver,
+/obj/effect/decal/waste{
+	icon_state = "goo12"
+	},
 /turf/open/floor/wood_fancy/wood_fancy_light{
 	icon_state = "fancy_light-broken2"
 	},
@@ -3289,6 +3323,13 @@
 /mob/living/simple_animal/hostile/handy/gutsy,
 /turf/open/floor/plating/rust,
 /area/f13/tunnel)
+"fsn" = (
+/mob/living/simple_animal/hostile/supermutant{
+	faction = list("wastebot");
+	name = "institute super mutant"
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/rarewhite,
+/area/f13/ruins)
 "fvk" = (
 /obj/effect/turf_decal/stripes/red/line{
 	dir = 8
@@ -3556,6 +3597,12 @@
 	sunlight_state = 0
 	},
 /area/f13/tunnel/sub)
+"fVm" = (
+/obj/effect/decal/waste{
+	icon_state = "goo12"
+	},
+/turf/open/floor/wood_common,
+/area/f13/building/tunnel)
 "fWh" = (
 /turf/closed/wall/f13/tunnel{
 	icon_state = "tunnel12"
@@ -4961,6 +5008,7 @@
 "igb" = (
 /obj/item/storage/box/tools/surgery,
 /obj/structure/table/wood,
+/obj/item/storage/box/medicine/stimpaks/stimpaks5,
 /turf/open/floor/wood_fancy/wood_fancy_light,
 /area/f13/building/tunnel)
 "igt" = (
@@ -5826,6 +5874,13 @@
 	},
 /turf/open/floor/plating/f13/inside/gravel,
 /area/f13/tunnel)
+"jqV" = (
+/obj/effect/decal/cleanable/blood/gibs/torso,
+/mob/living/simple_animal/hostile/gorilla{
+	faction = list("wastebot")
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/rarewhite,
+/area/f13/ruins)
 "jsl" = (
 /obj/structure/table/wood/fancy/blackred,
 /turf/open/floor/plasteel/chapel{
@@ -7252,6 +7307,13 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/citycaves)
+"lrE" = (
+/obj/effect/decal/cleanable/greenglow,
+/obj/effect/decal/waste{
+	icon_state = "goo12"
+	},
+/turf/open/floor/wood_common,
+/area/f13/building/tunnel)
 "lsI" = (
 /obj/machinery/plantgenes/seedvault,
 /turf/open/floor/plating/rust,
@@ -7419,6 +7481,7 @@
 /area/f13/tunnel/sub)
 "lJL" = (
 /obj/structure/closet/secure_closet/medical1,
+/obj/item/storage/box/medicine/stimpaks/stimpaks5,
 /turf/open/floor/wood_common,
 /area/f13/building/tunnel)
 "lJT" = (
@@ -8643,7 +8706,11 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/tunnel/sub)
 "nKl" = (
-/mob/living/simple_animal/hostile/enclave/scientist,
+/mob/living/simple_animal/hostile/enclave/scientist{
+	faction = list("wastebot");
+	name = "rogue institude scientist";
+	loot = list(/obj/effect/mob_spawn/human/corpse)
+	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/rarewhite,
 /area/f13/ruins)
 "nLQ" = (
@@ -8786,6 +8853,15 @@
 	},
 /turf/open/floor/plating/f13/inside/gravel,
 /area/f13/tunnel/sub)
+"nTn" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/waste{
+	icon_state = "goo12"
+	},
+/turf/open/floor/plasteel/f13/vault_floor/dark/darksolid{
+	icon_state = "darkrustysolid"
+	},
+/area/f13/building/tunnel)
 "nTw" = (
 /obj/structure/chair/bench{
 	dir = 4
@@ -9308,6 +9384,13 @@
 /obj/structure/destructible/tribal_torch/lit,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
 /area/f13/citycaves)
+"oMc" = (
+/obj/effect/spawner/lootdrop/f13/medical/surgical/blood,
+/obj/effect/decal/waste{
+	icon_state = "goo12"
+	},
+/turf/open/floor/wood_common,
+/area/f13/building/tunnel)
 "oMe" = (
 /mob/living/simple_animal/hostile/supermutant/meleemutant,
 /obj/structure/chair/booth{
@@ -10134,6 +10217,16 @@
 /obj/effect/mob_spawn/human/corpse/chineseremnant,
 /turf/open/floor/plasteel/f13/vault_floor/misc/cafeteria,
 /area/f13/city/museum)
+"pZC" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/mob/living/simple_animal/hostile/supermutant{
+	faction = list("wastebot");
+	name = "institute super mutant"
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/rarewhite,
+/area/f13/ruins)
 "pZL" = (
 /turf/open/floor/plating/f13/outside/road/baltimore{
 	icon_state = "road_north_w";
@@ -10400,6 +10493,14 @@
 	sunlight_state = 0
 	},
 /area/f13/citycaves)
+"qtd" = (
+/obj/effect/decal/waste{
+	icon_state = "goo12"
+	},
+/turf/open/floor/wood_common{
+	icon_state = "common-broken2"
+	},
+/area/f13/building/tunnel)
 "qtj" = (
 /obj/structure/fluff/rails{
 	dir = 4
@@ -11434,6 +11535,12 @@
 	},
 /turf/open/floor/wood_fancy/wood_fancy_light,
 /area/f13/building/tunnel)
+"rZw" = (
+/mob/living/simple_animal/hostile/gorilla{
+	faction = list("wastebot")
+	},
+/turf/open/floor/plating/rust,
+/area/f13/ruins)
 "rZZ" = (
 /obj/structure/barricade/tentleatheredge,
 /obj/structure/barricade/wooden,
@@ -11993,6 +12100,12 @@
 /obj/effect/spawner/lootdrop/wmelee_high,
 /turf/open/indestructible/ground/inside/subway,
 /area/f13/tunnel/sub)
+"sTj" = (
+/obj/effect/decal/waste{
+	icon_state = "goo12"
+	},
+/turf/open/floor/wood_mosaic,
+/area/f13/building/tunnel)
 "sTU" = (
 /turf/open/floor/plating/f13/outside/road/baltimore{
 	icon_state = "road_northsouth_y_2";
@@ -12855,6 +12968,15 @@
 	icon_state = "darkrustysolid"
 	},
 /area/f13/building/tunnel)
+"ucL" = (
+/obj/effect/decal/waste{
+	icon_state = "goo12"
+	},
+/obj/effect/decal/waste{
+	icon_state = "goo12"
+	},
+/turf/open/floor/wood_mosaic,
+/area/f13/building/tunnel)
 "ucU" = (
 /obj/structure/barricade/wooden,
 /obj/effect/particle_effect/water{
@@ -13584,6 +13706,16 @@
 	icon_state = "bluerustysolid"
 	},
 /area/f13/city/museum)
+"vmO" = (
+/mob/living/simple_animal/hostile/ghoul/zombie,
+/obj/effect/decal/waste{
+	icon_state = "goo12"
+	},
+/turf/open/indestructible/ground/outside/gravel{
+	name = "underground gravel";
+	sunlight_state = 0
+	},
+/area/f13/building/tunnel)
 "vnv" = (
 /obj/structure/debris/v4,
 /obj/structure/barricade/sandbags,
@@ -33556,7 +33688,7 @@ nrR
 nrR
 eIu
 nmR
-nmR
+baL
 nmR
 nmR
 hRa
@@ -33566,7 +33698,7 @@ hRa
 nmR
 nmR
 nmR
-kaB
+vmO
 hUz
 nmR
 nmR
@@ -34069,7 +34201,7 @@ aPK
 nrR
 nrR
 eIu
-nmR
+baL
 nmR
 nmR
 nmR
@@ -35359,7 +35491,7 @@ rhT
 dOX
 pfI
 dND
-nrR
+fVm
 jme
 nmR
 nmR
@@ -35624,7 +35756,7 @@ nrR
 cMU
 uHg
 gVv
-uHg
+bDF
 flL
 bNS
 aPK
@@ -36124,7 +36256,7 @@ hVx
 tzV
 tzV
 xwB
-tzV
+nTn
 uwI
 uwI
 iTL
@@ -37158,15 +37290,15 @@ esG
 rRR
 svT
 nrR
-uHg
+bDF
 jme
 nmR
-nmR
+baL
 nrR
 aPK
 dIG
 nJd
-hAS
+qtd
 nrR
 aPK
 dcX
@@ -37684,7 +37816,7 @@ dcX
 bNS
 aPK
 rbJ
-gVv
+lrE
 aPK
 xrG
 xrG
@@ -38408,7 +38540,7 @@ kmr
 hao
 cOw
 pKk
-qMq
+fsn
 sSs
 sSs
 nVX
@@ -38433,7 +38565,7 @@ rZi
 ejI
 aPK
 dwM
-aRM
+sTj
 aPK
 qCz
 nJd
@@ -38695,11 +38827,11 @@ aPK
 uKQ
 qfb
 aPK
-aRM
+ucL
 bHK
 uHg
 cMU
-gVv
+lrE
 uHg
 xrG
 xrG
@@ -38927,7 +39059,7 @@ qMq
 ioG
 sSs
 sSs
-sSs
+rZw
 qMq
 mEk
 sSs
@@ -38956,7 +39088,7 @@ nJd
 pxn
 hAS
 jQc
-nrR
+fVm
 nrR
 nrR
 nrR
@@ -38965,7 +39097,7 @@ vaS
 aPK
 vyF
 flL
-uHg
+bDF
 wJJ
 aPK
 uHg
@@ -39186,7 +39318,7 @@ gug
 ocN
 qMq
 woR
-jVV
+pZC
 qMq
 qMq
 hao
@@ -39471,7 +39603,7 @@ sSy
 hAS
 aPK
 dND
-nrR
+fVm
 xrG
 xrG
 xrG
@@ -39717,11 +39849,11 @@ nCv
 wax
 nrR
 aPK
-chF
-gau
+dhH
+oMc
 iJW
 cOB
-aPK
+apg
 nrR
 cxx
 rmw
@@ -39951,7 +40083,7 @@ hao
 bdB
 dQs
 dQs
-kFD
+jqV
 sSs
 ugT
 sSs

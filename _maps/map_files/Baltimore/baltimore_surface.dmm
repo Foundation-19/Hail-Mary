@@ -30545,6 +30545,7 @@
 "kXI" = (
 /obj/structure/table,
 /obj/item/reagent_containers/hypospray/medipen/stimpak,
+/obj/item/storage/box/medicine/stimpaks/stimpaks5,
 /turf/open/floor/plasteel/f13/vault_floor{
 	icon_state = "panelscorched"
 	},
@@ -66294,6 +66295,12 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/outpost)
+"xyG" = (
+/obj/item/storage/box/medicine/stimpaks/stimpaks5,
+/turf/open/floor/plasteel/f13/vault_floor{
+	icon_state = "panelscorched"
+	},
+/area/f13/clinic)
 "xyL" = (
 /obj/structure/sign/poster/official/the_owl,
 /obj/effect/decal/riverbank{
@@ -100362,7 +100369,7 @@ khq
 jDD
 rrk
 iQE
-jDD
+xyG
 hoX
 hgY
 lME
@@ -102161,7 +102168,7 @@ hlP
 cKR
 hgY
 mkM
-jDD
+xyG
 cJT
 hgY
 lME
