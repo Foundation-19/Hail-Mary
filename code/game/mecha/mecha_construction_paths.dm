@@ -41,7 +41,7 @@
 		return
 	// Remove default mech power cell, as we replace it with a new one.
 	var/obj/mecha/M = new result(drop_location())
-	QDEL_NULL(M.cell)
+	QDEL_NULL(M.fuel_holder)
 
 	var/obj/item/mecha_parts/chassis/parent_chassis = parent
 	M.CheckParts(parent_chassis.contents)

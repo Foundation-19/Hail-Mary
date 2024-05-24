@@ -226,6 +226,11 @@
 	path = /obj/item/clothing/head/f13/pot
 	cost = 4
 
+/datum/gear/head/outlaw_bandana
+	name = "Outlaw bandana"
+	path = /obj/item/clothing/head/helmet/f13/khan/bandana
+	cost = 2
+
 //POLICE
 
 /datum/gear/head/police
@@ -415,21 +420,19 @@
 							"NCR Heavy Trooper"
 						)
 
-/datum/gear/head/khan_bandana
-	name = "Great Khan bandana"
-	path = /obj/item/clothing/head/helmet/f13/khan/bandana
+/datum/gear/head/khan
+	name = "Great Khan helmet"
+	path = /obj/item/clothing/head/helmet/f13/khan
 	subcategory = LOADOUT_SUBCATEGORY_HEAD_FACTIONS
 	cost = 2
-	restricted_desc = "Outlaw"
-	restricted_roles = list("Outlaw")
+	restricted_desc = "Wastelanders"
+	restricted_roles = list("Outlaw",
+							"Wastelander"
+						)
 
-/datum/gear/head/khan_furtrimmed
+/datum/gear/head/khan/khan_furtrimmed
 	name = "Great Khan fur-trimmed helmet"
 	path = /obj/item/clothing/head/helmet/f13/khan/pelt
-	subcategory = LOADOUT_SUBCATEGORY_HEAD_FACTIONS
-	cost = 2
-	restricted_desc = "Outlaw"
-	restricted_roles = list("Outlaw")
 
 /datum/gear/head/oasishelmet
 	name = "light security helmet"
