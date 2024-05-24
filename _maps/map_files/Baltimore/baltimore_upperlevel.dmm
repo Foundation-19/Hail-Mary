@@ -211,7 +211,9 @@
 /turf/open/floor/f13/wood/outside,
 /area/f13/wasteland/town)
 "aim" = (
-/obj/structure/reagent_dispensers/cooking_oil,
+/obj/structure/reagent_dispensers/cooking_oil{
+	name = "vat of fuel"
+	},
 /turf/open/floor/wood_fancy/wood_fancy_dark,
 /area/f13/building)
 "ajp" = (
@@ -466,6 +468,14 @@
 /turf/open/floor/wood_mosaic{
 	icon_state = "common-broken4"
 	},
+/area/f13/ruins)
+"axd" = (
+/obj/effect/turf_decal/delivery/white,
+/obj/machinery/mech_bay_recharge_port{
+	on = 1;
+	name = "Vertibird Refueling station"
+	},
+/turf/open/indestructible/ground/outside/roof,
 /area/f13/ruins)
 "axC" = (
 /obj/structure/chair/bench{
@@ -3164,6 +3174,13 @@
 /obj/effect/spawner/lootdrop/f13/cash_random_high,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/building/boat)
+"cRE" = (
+/obj/structure/flora/branch_broken,
+/obj/effect/decal/waste{
+	icon_state = "goo5"
+	},
+/turf/open/floor/wood_fancy,
+/area/f13/ruins)
 "cRQ" = (
 /obj/structure/barricade/tentclothedge{
 	dir = 4
@@ -3692,7 +3709,9 @@
 /turf/open/floor/wood_common,
 /area/f13/ruins)
 "dsC" = (
-/obj/structure/reagent_dispensers/cooking_oil,
+/obj/structure/reagent_dispensers/cooking_oil{
+	name = "vat of fuel"
+	},
 /obj/effect/decal/cleanable/oil,
 /turf/open/floor/wood_fancy/wood_fancy_dark,
 /area/f13/building)
@@ -4342,6 +4361,13 @@
 	},
 /turf/open/floor/wood_wide/wood_wide_light,
 /area/f13/ruins)
+"dUp" = (
+/obj/machinery/button/door{
+	pixel_x = -24;
+	id = "enclavebird"
+	},
+/turf/open/floor/wood_common,
+/area/f13/wasteland/city)
 "dUr" = (
 /obj/machinery/light/small{
 	name = "aqua light fixture";
@@ -4607,6 +4633,10 @@
 /obj/effect/decal/cleanable/ash,
 /turf/open/floor/plating/rust,
 /area/f13/ruins)
+"eiy" = (
+/obj/structure/barricade/wooden,
+/turf/closed/wall/mineral/wood,
+/area/f13/wasteland/city)
 "ejJ" = (
 /turf/open/floor/wood_common{
 	name = "wooden dock";
@@ -5521,6 +5551,9 @@
 /obj/effect/decal/cleanable/greenglow,
 /obj/effect/decal/cleanable/greenglow,
 /obj/effect/decal/cleanable/greenglow,
+/obj/effect/decal/waste{
+	icon_state = "goo12"
+	},
 /turf/open/floor/wood_fancy{
 	icon_state = "fancy-broken1"
 	},
@@ -5752,6 +5785,15 @@
 /obj/machinery/chem_heater,
 /turf/open/floor/plasteel/f13/vault_floor/plating,
 /area/f13/building/hospital)
+"fmi" = (
+/obj/structure/barricade/wooden{
+	layer = 5
+	},
+/turf/closed/wall/f13/ruins{
+	unbreakable = 1;
+	name = "solid ruins"
+	},
+/area/f13/wasteland/town)
 "fml" = (
 /obj/structure/closet/fridge,
 /turf/open/floor/wood_wide/wood_wide_light,
@@ -6307,7 +6349,9 @@
 /turf/open/floor/f13/wood/outside,
 /area/f13/wasteland/town)
 "fNp" = (
-/obj/structure/reagent_dispensers/cooking_oil,
+/obj/structure/reagent_dispensers/cooking_oil{
+	name = "vat of fuel"
+	},
 /turf/open/floor/wood_fancy/wood_fancy_dark{
 	icon_state = "fancy_dark-broken2"
 	},
@@ -6524,6 +6568,10 @@
 /obj/machinery/microwave/stove,
 /turf/open/floor/wood_fancy,
 /area/f13/ruins)
+"fXE" = (
+/obj/structure/barricade/wooden,
+/turf/open/floor/wood_wide/wood_wide_dark,
+/area/f13/wasteland/city)
 "fYd" = (
 /turf/open/indestructible/ground/outside/roaddirt,
 /area/f13/Ocean)
@@ -7347,12 +7395,6 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/floor,
 /area/f13/ruins)
-"gKG" = (
-/obj/machinery/atmospherics/components/unary/tank/water_vapor{
-	volume = 2
-	},
-/turf/open/floor/f13/wood/outside,
-/area/f13/wasteland/town)
 "gKM" = (
 /obj/machinery/bloodbankgen,
 /turf/open/floor/plasteel/f13/vault_floor/plating,
@@ -7434,9 +7476,8 @@
 /turf/open/floor/wood_wide/wood_wide_dark,
 /area/f13/enclave)
 "gQb" = (
-/obj/machinery/atmospherics/components/unary/tank/water_vapor{
-	name = "Fuel tank";
-	volume = 2
+/obj/structure/reagent_dispensers/cooking_oil{
+	name = "vat of fuel"
 	},
 /obj/effect/overlay/junk/oldpipes{
 	dir = 1;
@@ -8083,9 +8124,8 @@
 /obj/structure/window/reinforced/clockwork/unanchored{
 	dir = 4
 	},
-/obj/machinery/atmospherics/components/unary/tank/water_vapor{
-	name = "Fuel tank";
-	volume = 2
+/obj/structure/reagent_dispensers/cooking_oil{
+	name = "vat of fuel"
 	},
 /obj/effect/overlay/junk/oldpipes{
 	dir = 1;
@@ -8338,6 +8378,20 @@
 	},
 /turf/open/transparent/openspace,
 /area/f13/Ocean)
+"hBS" = (
+/obj/item/flashlight/lantern{
+	on = 1;
+	light_on = 1;
+	icon_state = "lantern-on";
+	pixel_x = 5;
+	pixel_y = 13
+	},
+/obj/machinery/door/poddoor/shutters{
+	name = "Enclave shutters";
+	id = "enclavebird"
+	},
+/turf/open/indestructible/ground/inside/dirt,
+/area/f13/wasteland/city)
 "hBZ" = (
 /turf/open/floor/wood_wide/wood_wide_dark{
 	icon_state = "wide_dark-broken2"
@@ -8354,6 +8408,13 @@
 /obj/item/clothing/under/rank/civilian/victorianblackdress,
 /turf/open/floor/wood_common/wood_common_light,
 /area/f13/building)
+"hDm" = (
+/obj/machinery/door/poddoor/shutters{
+	name = "Enclave shutters";
+	id = "enclavebird"
+	},
+/turf/open/indestructible/ground/inside/dirt,
+/area/f13/wasteland/city)
 "hDv" = (
 /turf/open/floor/plasteel/f13/vault_floor/neutral/white,
 /area/f13/outpost)
@@ -9008,6 +9069,9 @@
 /obj/structure/bookcase,
 /turf/open/floor/plating/rust,
 /area/f13/ruins)
+"ija" = (
+/turf/closed/wall/mineral/wood,
+/area/f13/wasteland/city)
 "ijz" = (
 /obj/structure/window/fulltile/ruins,
 /turf/closed/wall/rust,
@@ -9267,9 +9331,8 @@
 /turf/open/floor/wood_worn/wood_worn_dark,
 /area/f13/ruins)
 "ivW" = (
-/obj/machinery/atmospherics/components/unary/tank/water_vapor{
-	name = "Oil tank";
-	volume = 2
+/obj/structure/reagent_dispensers/cooking_oil{
+	name = "vat of fuel"
 	},
 /obj/effect/overlay/junk/oldpipes{
 	dir = 1;
@@ -9360,6 +9423,15 @@
 	dir = 8
 	},
 /area/f13/city/museum)
+"iyO" = (
+/obj/machinery/computer/mech_bay_power_console{
+	name = "Vertibird bay power control console";
+	dir = 8
+	},
+/turf/open/floor/wood_mosaic{
+	icon_state = "mosaic-broken3"
+	},
+/area/f13/ruins)
 "iyU" = (
 /obj/structure/railing{
 	color = "#A47449";
@@ -13134,9 +13206,8 @@
 /turf/open/floor/plating/f13/outside/roof,
 /area/f13/building/boat)
 "lOx" = (
-/obj/machinery/atmospherics/components/unary/tank/water_vapor{
-	name = "Oil tank";
-	volume = 2
+/obj/structure/reagent_dispensers/cooking_oil{
+	name = "vat of fuel"
 	},
 /turf/open/floor/f13/wood/outside,
 /area/f13/wasteland/town)
@@ -14274,6 +14345,9 @@
 "mRN" = (
 /obj/structure/flora/tree/jungle/small,
 /obj/effect/decal/cleanable/greenglow,
+/obj/effect/decal/waste{
+	icon_state = "goo12"
+	},
 /turf/open/floor/wood_fancy{
 	icon_state = "fancy-broken5"
 	},
@@ -14918,10 +14992,6 @@
 	},
 /turf/open/floor/wood_common/wood_common_dark,
 /area/f13/ruins)
-"nva" = (
-/obj/machinery/telecomms/server/presets/enclave,
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/enclave)
 "nvu" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/cardboard,
@@ -16452,6 +16522,9 @@
 /obj/structure/flora/rock/pile/largejungle,
 /obj/effect/decal/cleanable/greenglow,
 /obj/effect/decal/cleanable/greenglow,
+/obj/effect/decal/waste{
+	icon_state = "goo12"
+	},
 /turf/open/floor/wood_fancy{
 	icon_state = "fancy-broken6"
 	},
@@ -16840,13 +16913,6 @@
 	icon_state = "bluerustysolid"
 	},
 /area/f13/building/boat)
-"pmy" = (
-/obj/machinery/atmospherics/components/unary/tank/water_vapor{
-	name = "Fuel tank";
-	volume = 2
-	},
-/turf/open/floor/f13/wood/outside,
-/area/f13/wasteland/town)
 "pmI" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/f13/vault_floor/misc/cmo,
@@ -16888,6 +16954,9 @@
 "poK" = (
 /obj/structure/flora/ausbushes/ywflowers,
 /obj/effect/decal/cleanable/greenglow,
+/obj/effect/decal/waste{
+	icon_state = "goo12"
+	},
 /turf/open/floor/wood_fancy,
 /area/f13/ruins)
 "ppa" = (
@@ -17249,6 +17318,11 @@
 	icon_state = "common_light-broken2"
 	},
 /area/f13/ruins)
+"pKB" = (
+/turf/closed/wall/mineral/concrete{
+	name = "Ship wall"
+	},
+/area/f13/wasteland/town)
 "pKC" = (
 /turf/open/floor/wood_common{
 	icon_state = "wide-broken1"
@@ -17674,6 +17748,10 @@
 	icon_state = "wide_light-broken2"
 	},
 /area/f13/ruins)
+"qhu" = (
+/obj/structure/barricade/wooden,
+/turf/open/floor/wood_common,
+/area/f13/wasteland/city)
 "qhE" = (
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/wood_worn{
@@ -20585,9 +20663,8 @@
 /obj/structure/window/reinforced/clockwork/unanchored{
 	dir = 4
 	},
-/obj/machinery/atmospherics/components/unary/tank/water_vapor{
-	name = "Oil tank";
-	volume = 2
+/obj/structure/reagent_dispensers/cooking_oil{
+	name = "vat of fuel"
 	},
 /obj/effect/overlay/junk/oldpipes{
 	dir = 1;
@@ -20651,6 +20728,9 @@
 /area/f13/outpost)
 "sUi" = (
 /obj/structure/flora/grass/jungle/b,
+/obj/effect/decal/waste{
+	icon_state = "goo12"
+	},
 /turf/open/floor/wood_fancy{
 	icon_state = "fancy-broken3"
 	},
@@ -22317,6 +22397,12 @@
 	},
 /turf/open/floor/f13/wood/outside,
 /area/f13/wasteland/town)
+"umL" = (
+/turf/closed/wall/f13/ruins{
+	unbreakable = 1;
+	name = "solid ruins"
+	},
+/area/f13/wasteland/town)
 "una" = (
 /obj/structure/barricade/wooden{
 	layer = 5
@@ -23304,6 +23390,9 @@
 /area/f13/ruins)
 "vcW" = (
 /obj/effect/decal/cleanable/greenglow,
+/obj/effect/decal/waste{
+	icon_state = "goo12"
+	},
 /turf/open/indestructible/ground/outside/ruins,
 /area/f13/ruins)
 "vdl" = (
@@ -23392,6 +23481,10 @@
 "vgg" = (
 /turf/open/floor/wood_wide/wood_wide_dark,
 /area/f13/ruins)
+"vgj" = (
+/obj/structure/simple_door/repaired,
+/turf/open/indestructible/ground/inside/dirt,
+/area/f13/wasteland/city)
 "vgl" = (
 /obj/structure/chair/wood{
 	dir = 8
@@ -24585,7 +24678,7 @@
 	},
 /area/f13/ruins)
 "woC" = (
-/obj/machinery/chem_dispenser/apothecary,
+/obj/machinery/chem_dispenser/fullupgrade,
 /turf/open/floor/wood_common/wood_common_light{
 	icon_state = "common_light-broken6"
 	},
@@ -32039,7 +32132,7 @@ eaI
 eaI
 eaI
 eaI
-eaI
+opW
 eaI
 wKd
 eaI
@@ -32051,7 +32144,7 @@ eaI
 eaI
 nrh
 eaI
-eaI
+opW
 eaI
 eaI
 eaI
@@ -32296,6 +32389,7 @@ cLZ
 cLZ
 cLZ
 cLZ
+eaI
 cLZ
 cLZ
 cLZ
@@ -32307,8 +32401,7 @@ cLZ
 cLZ
 cLZ
 cLZ
-cLZ
-cLZ
+eaI
 cLZ
 cLZ
 cLZ
@@ -32553,6 +32646,7 @@ cLZ
 cLZ
 cLZ
 cLZ
+eaI
 cLZ
 cLZ
 cLZ
@@ -32564,8 +32658,7 @@ cLZ
 cLZ
 cLZ
 cLZ
-cLZ
-cLZ
+eaI
 cLZ
 cLZ
 cLZ
@@ -32810,6 +32903,7 @@ cLZ
 cLZ
 cLZ
 cLZ
+eaI
 cLZ
 cLZ
 cLZ
@@ -32821,8 +32915,7 @@ cLZ
 cLZ
 cLZ
 cLZ
-cLZ
-cLZ
+eaI
 cLZ
 cLZ
 cLZ
@@ -33067,6 +33160,7 @@ cLZ
 cLZ
 cLZ
 cLZ
+eaI
 cLZ
 cLZ
 cLZ
@@ -33078,8 +33172,7 @@ cLZ
 cLZ
 cLZ
 cLZ
-cLZ
-cLZ
+eaI
 cLZ
 cLZ
 cLZ
@@ -33324,6 +33417,7 @@ cLZ
 cLZ
 cLZ
 cLZ
+eaI
 cLZ
 cLZ
 cLZ
@@ -33335,8 +33429,7 @@ cLZ
 cLZ
 cLZ
 cLZ
-cLZ
-cLZ
+eaI
 cLZ
 cLZ
 cLZ
@@ -33581,19 +33674,19 @@ cLZ
 cLZ
 cLZ
 cLZ
-cLZ
-cLZ
-cLZ
-cLZ
-cLZ
-cLZ
-cLZ
-cLZ
-cLZ
-cLZ
-cLZ
-cLZ
-cLZ
+opW
+eaI
+eaI
+eaI
+eaI
+eaI
+eaI
+eaI
+eaI
+eaI
+eaI
+eaI
+opW
 cLZ
 cLZ
 cLZ
@@ -50659,7 +50752,7 @@ eWD
 fIZ
 jCs
 kEO
-gBm
+cRE
 jNp
 gxt
 xvB
@@ -66566,10 +66659,10 @@ aOz
 aOz
 aOz
 aOz
-bLN
-xqE
-bLN
-bLN
+fmi
+umL
+pKB
+pKB
 nNl
 nNl
 nNl
@@ -66827,11 +66920,11 @@ aOz
 aOz
 aOz
 aOz
-bLN
-bLN
-bLN
-bLN
-bLN
+fmi
+umL
+pKB
+pKB
+pKB
 una
 cpg
 cpg
@@ -68943,8 +69036,8 @@ pOI
 xQE
 uWg
 cnl
-pmy
-pmy
+lOx
+lOx
 wje
 uQb
 aFb
@@ -69200,8 +69293,8 @@ wxw
 ejP
 xQE
 tmo
-gKG
-gKG
+lOx
+lOx
 wje
 uQb
 kaa
@@ -74628,7 +74721,7 @@ qFK
 xcx
 qMh
 lIH
-kkb
+iyO
 lBK
 tmc
 tmc
@@ -74885,7 +74978,7 @@ qFK
 xcx
 juy
 juy
-kJp
+axd
 kJp
 tmc
 tmc
@@ -89798,7 +89891,7 @@ xaD
 mze
 lyK
 lsj
-nva
+lsj
 lsj
 lsj
 lsj
@@ -90306,9 +90399,9 @@ wJE
 kOP
 jnT
 eEk
-jnT
+dUp
 ouk
-jnT
+qhu
 rsF
 dWw
 dWw
@@ -90557,7 +90650,7 @@ dWw
 dWw
 dWw
 dWw
-dWw
+vgj
 dWw
 mCX
 dWw
@@ -90565,7 +90658,7 @@ bsq
 gup
 dWw
 dWw
-mCX
+hBS
 dWw
 dWw
 dWw
@@ -90822,8 +90915,8 @@ gNA
 qpM
 dWw
 dWw
+hDm
 dWw
-wcW
 qFK
 qFK
 qFK
@@ -91072,14 +91165,14 @@ qFK
 qFK
 qFK
 qFK
-dWw
+eiy
 dWw
 ovy
 qhE
 atl
 sNI
 dWw
-dWw
+hDm
 qFK
 qFK
 qFK
@@ -91329,14 +91422,14 @@ qFK
 qFK
 qFK
 qFK
-dWw
+eiy
 mCX
 sNI
 qFK
 vdM
 kOP
 dWw
-mCX
+hBS
 qFK
 qFK
 qFK
@@ -91586,14 +91679,14 @@ qFK
 qFK
 qFK
 qFK
-qFK
+fXE
 dWw
 dWw
 dWw
 dWw
 dWw
 dWw
-qFK
+fXE
 qFK
 qFK
 qFK
@@ -91844,12 +91937,12 @@ qFK
 qFK
 qFK
 qFK
-dWw
-dWw
-dWw
-dWw
-dWw
-dWw
+ija
+ija
+ija
+ija
+ija
+ija
 qFK
 qFK
 qFK
