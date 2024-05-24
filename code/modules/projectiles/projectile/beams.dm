@@ -545,8 +545,8 @@
 	name = "plasma bolt"
 	icon_state = "plasma_clot"
 	damage_type = BURN
-	damage = 35 //fucc you normies
-	armour_penetration = 0 //no AP, armor shouldnt have more than 20 resist against plasma unless its specialized
+	damage = 40 //fucc you normies
+	armour_penetration = 0
 	flag = "energy" //checks vs. energy protection
 	wound_bonus = 80 //being hit with plasma is horrific
 	eyeblur = 0
@@ -589,7 +589,7 @@
 		M.gets_drilled(firer)
 
 /obj/item/projectile/f13plasma/pistol //Plasma pistol
-	damage = 30
+	damage = 35
 	wound_bonus = 70 //being hit with plasma is horrific
 	pixels_per_second = TILES_TO_PIXELS(12)
 
@@ -618,9 +618,9 @@
 	damage = 30
 
 /obj/item/projectile/f13plasma/pistol/glock //Glock (streamlined plasma pistol)
-	damage = 40
+	damage = 45
 	wound_bonus = 90 //being hit with plasma is horrific
-	pixels_per_second = TILES_TO_PIXELS(12)
+	pixels_per_second = TILES_TO_PIXELS(13)
 
 /obj/item/projectile/f13plasma/scatter //Multiplas, fires 3 shots, will melt you
 	damage = 30
