@@ -839,13 +839,13 @@
 /turf/open/floor/wood_wide/wood_wide_dark,
 /area/f13/building)
 "aQu" = (
-/obj/structure/rack/shelf_metal,
 /obj/machinery/light/small{
 	dir = 4;
 	name = "tan light fixture";
 	light_color = "#FFDDCC";
 	color = "#FFDDCC"
 	},
+/obj/structure/reagent_dispensers/fueltank,
 /turf/open/floor/wood_mosaic{
 	icon_state = "mosaic-broken2"
 	},
@@ -6604,7 +6604,6 @@
 /turf/open/floor/wood_wide/wood_wide_dark,
 /area/f13/building/boat)
 "gbp" = (
-/obj/structure/table/reinforced/brass,
 /obj/structure/sign/plaques{
 	desc = "Here, you can see a TOYOTO COROLO, the first car that could go 80 miles pro hours... IN THE WATER ?";
 	pixel_y = -32
@@ -6907,8 +6906,7 @@
 	},
 /area/f13/ruins)
 "glP" = (
-/obj/structure/simple_door/repaired,
-/turf/open/floor/wood_common,
+/turf/closed/wall/f13/sunset/brick_small_dark,
 /area/f13/enclave)
 "gmt" = (
 /turf/open/floor/wood_mosaic{
@@ -11866,6 +11864,7 @@
 	},
 /obj/item/reagent_containers/jerrycan,
 /obj/item/reagent_containers/jerrycan,
+/obj/item/reagent_containers/fuel_tank/upgraded,
 /turf/open/floor/wood_common/wood_common_dark,
 /area/f13/building)
 "kIp" = (
@@ -15946,6 +15945,10 @@
 	icon_state = "mosaic_dark1"
 	},
 /area/f13/wasteland/city)
+"omu" = (
+/obj/item/reagent_containers/fuel_tank/hyper,
+/turf/open/indestructible/ground/inside/dirt,
+/area/f13/wasteland/city)
 "omW" = (
 /obj/machinery/door/unpowered/securedoor{
 	req_access_txt = "281";
@@ -18161,6 +18164,10 @@
 	icon_state = "housebase"
 	},
 /area/f13/ruins)
+"qCU" = (
+/obj/effect/mob_spawn/human/corpse/enclave/soldier,
+/turf/open/floor/wood_common,
+/area/f13/enclave)
 "qDW" = (
 /obj/structure/bed/wooden{
 	pixel_y = 16;
@@ -18300,7 +18307,6 @@
 /area/f13/wasteland/town)
 "qHA" = (
 /obj/structure/bed/roller,
-/obj/effect/mob_spawn/human/corpse/enclave/soldier,
 /turf/open/floor/wood_wide{
 	icon_state = "wide_light-broken5"
 	},
@@ -20444,6 +20450,22 @@
 	icon_state = "wide_dark-broken5"
 	},
 /area/f13/building)
+"sCW" = (
+/obj/effect/decal/riverbank{
+	dir = 10;
+	layer = 20;
+	color = "#edd077";
+	name = "Brickwall support"
+	},
+/obj/effect/decal/riverbank{
+	dir = 9;
+	layer = 20;
+	color = "#edd077";
+	name = "Brickwall support"
+	},
+/obj/structure/simple_door/repaired,
+/turf/open/indestructible/ground/inside/dirt,
+/area/f13/enclave)
 "sDr" = (
 /obj/structure/window/fulltile/wood/broken,
 /turf/open/floor/wood_common,
@@ -21061,6 +21083,12 @@
 /mob/living/simple_animal/hostile/raider/ranged/boss/junker,
 /turf/open/floor/wood_mosaic/wood_mosaic_dark,
 /area/f13/wasteland/city)
+"tho" = (
+/obj/item/reagent_containers/fuel_tank/hyper,
+/turf/open/floor/f13/wood{
+	icon_state = "housewood2"
+	},
+/area/f13/brotherhood)
 "thv" = (
 /obj/structure/railing{
 	color = "#A47449";
@@ -22931,6 +22959,17 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/f13/building/boat)
+"uLv" = (
+/obj/item/flashlight/lantern{
+	on = 1;
+	light_on = 1;
+	icon_state = "lantern-on";
+	pixel_x = 5;
+	pixel_y = 13
+	},
+/obj/structure/reagent_dispensers/fueltank,
+/turf/open/indestructible/ground/inside/dirt,
+/area/f13/wasteland/city)
 "uLF" = (
 /mob/living/simple_animal/hostile/ghoul/glowing/strong,
 /obj/effect/decal/cleanable/dirt,
@@ -52050,7 +52089,7 @@ qFK
 qFK
 qFK
 gvC
-kry
+tho
 gqr
 kry
 gZI
@@ -89621,7 +89660,7 @@ qFK
 wJE
 whn
 oxV
-ngF
+qCU
 uad
 wJE
 qFK
@@ -90393,7 +90432,7 @@ ujw
 wJE
 glP
 wJE
-wJE
+sCW
 wJE
 kOP
 jnT
@@ -91422,7 +91461,7 @@ qFK
 qFK
 qFK
 eiy
-mCX
+uLv
 sNI
 qFK
 vdM
@@ -91679,7 +91718,7 @@ qFK
 qFK
 qFK
 fXE
-dWw
+omu
 dWw
 dWw
 dWw
