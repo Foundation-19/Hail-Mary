@@ -296,7 +296,7 @@ GLOBAL_PROTECT(exp_to_update)
 	var/bull = living_faction_player_count(FACTION_LEGION)
 	if(AutoBalanceMode == AUTO_BALANCING_DISABLED)
 		return TRUE	
-	if(world.time <= 30 MINUTES)
+	if(bear <= 4 && bull <= 4) //So it doesn't activate until one side has four players
 		return TRUE
 	if(title in GLOB.ncr_positions && bear >= bull*2)
 		return FALSE
