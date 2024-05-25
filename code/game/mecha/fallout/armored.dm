@@ -4,6 +4,8 @@
 	icon = 'icons/mecha/armoredjeep.dmi'
 	icon_state = "armoredjeep"
 	max_integrity = 400
+	step_energy_drain = 1.5
+	step_in = 1.5
 	armor = ARMOR_VALUE_VEHICLE_ARMORED
 	wreckage = /obj/structure/mecha_wreckage/buggy
 	max_utility_equip = 2

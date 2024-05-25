@@ -5,9 +5,10 @@
 	desc = "A truck running on powercells. Nice eh ? still a wreck."
 	icon = 'icons/mecha/ncrtruck.dmi'
 	icon_state = "ncrtruck"
-	pixel_x = -15
-	pixel_y = 0
+	pixel_x = -22
+	pixel_y = -5
 	max_integrity = 600
+	step_in = 1
 	armor = ARMOR_VALUE_VEHICLE_TRUCK
 	max_weapons_equip = 1
 	max_utility_equip = 8
@@ -77,6 +78,7 @@
 	icon = 'icons/mecha/ncrtruck-mp.dmi'
 	icon_state = "ncrtruck"
 	max_integrity = 600
+	step_in = 0.8
 	armor = ARMOR_VALUE_VEHICLE_TRUCK
 	wreckage = /obj/structure/mecha_wreckage/ncrtruck
 

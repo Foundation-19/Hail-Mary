@@ -18,7 +18,7 @@
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg/hobo
 	name = "\improper Improvised HMG"
 	desc = "A automatic machine gun make with scraps."
-	icon_state = "mecha_uac2"
+	icon_state = "mecha_lmg_fo"
 	fire_sound = 'sound/f13weapons/boltfire.ogg'
 	equip_cooldown = 5
 	projectile = /obj/item/projectile/bullet/lmg/hobo

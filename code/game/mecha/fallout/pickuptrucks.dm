@@ -5,7 +5,11 @@
 	desc = "A old vehicule, runing on powercell."
 	icon = 'icons/mecha/pickuptruck.dmi'
 	icon_state = "pickuptruck"
+	pixel_x = -17
+	pixel_y = -3
 	max_integrity = 300
+	step_in = 1.4
+	step_energy_drain = 1.5
 	armor = ARMOR_VALUE_VEHICLE_CAR
 	stepsound = 'sound/f13machines/buggy_loop.ogg'
 	turnsound = 'sound/f13machines/buggy_loop.ogg'
@@ -87,7 +91,7 @@
 
 /obj/mecha/combat/phazon/pickuptruck/bos/armed
 	name = "\improper BoS pickup truck with gunner"
-	desc = "A old vehicule, runing on powercell. Its a A modified brotherhood truck, with the addition of a laser rifle at the back, maned by Paladin Kiana Davberg. Consumes more and is a more fragile."
+	desc = "A old vehicule, runing on powercell. Its a A modified brotherhood truck, with the addition of a laser rifle at the back, maned by Paladin Kiana Davberg."
 	icon = 'icons/mecha/pickuptruck-gunbos.dmi'
 	icon_state = "pickuptruck"
 	max_integrity = 300

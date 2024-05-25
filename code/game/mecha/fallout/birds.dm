@@ -8,24 +8,17 @@
 	pixel_x = -138
 	pixel_y = -138
 	layer = ABOVE_MOB_LAYER
-	can_be_locked = TRUE
-	dna_lock
 	step_in = 0.6
 	dir_in = 2
 	step_energy_drain = 0.75
 	max_integrity = 150
-	deflect_chance = 30
-	armor = ARMOR_VALUE_LIGHT
-	max_temperature = 25000
-	infra_luminosity = 1
+	armor = ARMOR_VALUE_VEHICLE_CAR
 	wreckage = /obj/structure/mecha_wreckage/vertibird
 	add_req_access = 1
 	internal_damage_threshold = 25
-	force = 15
 	max_utility_equip = 4
 	max_weapons_equip = 4
 	max_misc_equip = 2
-	opacity = 1
 	canstrafe = TRUE
 	movement_type = FLYING
 	stepsound = 'sound/f13machines/vertibird_loop.ogg'
@@ -73,7 +66,7 @@
 
 /obj/mecha/combat/phazon/vertibird/loaded/Initialize()
 	. = ..()
-	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg
+	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg/auto
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/seat
 	ME.attach(src)
@@ -95,16 +88,10 @@
 	step_in = 0.8
 	step_energy_drain = 0.7
 	max_integrity = 200
-	deflect_chance = 30
-	armor = ARMOR_VALUE_LIGHT
 	wreckage = /obj/structure/mecha_wreckage/vertibird
 	add_req_access = 1
 	max_utility_equip = 8
 	max_weapons_equip = 1
-	canstrafe = TRUE
-	movement_type = FLYING
-	stepsound = 'sound/f13machines/vertibird_loop.ogg'
-	turnsound = 'sound/f13machines/vertibird_loop.ogg'
 
 /obj/mecha/combat/phazon/vertibird/ncr/GrantActions(mob/living/user, human_occupant = 0)
 	internals_action.Grant(user, src)
@@ -130,7 +117,7 @@
 
 /obj/mecha/combat/phazon/vertibird/ncr/loaded/Initialize()
 	. = ..()
-	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg
+	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg/auto
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/seat
 	ME.attach(src)
@@ -156,17 +143,11 @@
 	step_in = 0.6
 	step_energy_drain = 0.75
 	max_integrity = 150
-	deflect_chance = 30
-	armor = ARMOR_VALUE_LIGHT
 	wreckage = /obj/structure/mecha_wreckage/vertibird
 	add_req_access = 1
 	max_utility_equip = 4
 	max_weapons_equip = 4
 	max_misc_equip = 2
-	canstrafe = TRUE
-	movement_type = FLYING
-	stepsound = 'sound/f13machines/vertibird_loop.ogg'
-	turnsound = 'sound/f13machines/vertibird_loop.ogg'
 
 /obj/mecha/combat/phazon/vertibird/enclave/GrantActions(mob/living/user, human_occupant = 0)
 	internals_action.Grant(user, src)
@@ -198,7 +179,7 @@
 
 /obj/mecha/combat/phazon/vertibird/enclave/loaded/Initialize()
 	. = ..()
-	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg
+	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg/auto
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/seat
 	ME.attach(src)
@@ -218,18 +199,11 @@
 	step_in = 0.6
 	step_energy_drain = 0.75
 	max_integrity = 150
-	deflect_chance = 30
-	armor = ARMOR_VALUE_LIGHT
 	wreckage = /obj/structure/mecha_wreckage/vertibird
 	add_req_access = 1
-	internal_damage_threshold = 25
 	max_utility_equip = 4
 	max_weapons_equip = 4
 	max_misc_equip = 2
-	canstrafe = TRUE
-	movement_type = FLYING
-	stepsound = 'sound/f13machines/vertibird_loop.ogg'
-	turnsound = 'sound/f13machines/vertibird_loop.ogg'
 
 /obj/mecha/combat/phazon/vertibird/brotherhood/GrantActions(mob/living/user, human_occupant = 0)
 	internals_action.Grant(user, src)
@@ -261,7 +235,7 @@
 
 /obj/mecha/combat/phazon/vertibird/brotherhood/loaded/Initialize()
 	. = ..()
-	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg
+	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg/auto
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/seat
 	ME.attach(src)

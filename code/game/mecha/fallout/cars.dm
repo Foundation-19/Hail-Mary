@@ -5,11 +5,12 @@
 	desc = "A fast vehicule, runing on powercell. YUP ! ITS THE HIGHWAYMAN ! Kinda. Its not the original, but a budget version."
 	icon = 'icons/mecha/highwayman.dmi'
 	icon_state = "highwayman"
-	pixel_x = -15
-	pixel_y = 0
+	pixel_x = -16
+	pixel_y = -5
 	max_integrity = 250
+	step_energy_drain = 1
+	step_in = 0.7
 	armor = ARMOR_VALUE_VEHICLE_CAR
-	armor = list("melee" = 30, "bullet" = 25, "laser" = 20, "energy" = 20, "bomb" = 40, "bio" = 0, "rad" = 100, "fire" = 100, "acid" = 100)
 	stepsound = 'sound/f13machines/buggy_loop.ogg'
 	turnsound = 'sound/f13machines/buggy_loop.ogg'
 	wreckage = /obj/structure/mecha_wreckage/buggy
@@ -69,6 +70,7 @@
 	icon = 'icons/mecha/corvega-police.dmi'
 	icon_state = "corvega"
 	max_integrity = 280
+	step_energy_drain = 1.3
 	armor = ARMOR_VALUE_VEHICLE_ARMORED_LIGHT
 	wreckage = /obj/structure/mecha_wreckage/buggy
 

@@ -6,8 +6,9 @@
 	icon = 'icons/mecha/buggy.dmi'
 	icon_state = "buggygreen"
 	pixel_x = -15
-	pixel_y = 0
+	pixel_y = -5
 	max_integrity = 200
+	step_in = 0.8
 	armor = ARMOR_VALUE_VEHICLE_BUGGY
 	stepsound = 'sound/f13machines/buggy_loop.ogg'
 	turnsound = 'sound/f13machines/buggy_loop.ogg'
