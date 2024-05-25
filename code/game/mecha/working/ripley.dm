@@ -6,7 +6,9 @@
 	max_temperature = 20000
 	max_integrity = 300
 	armor = ARMOR_VALUE_MEDIUM
-	max_equip = 6
+	max_utility_equip = 4
+	max_weapons_equip = 2
+	max_misc_equip = 2
 	wreckage = /obj/structure/mecha_wreckage/ripley
 	var/list/cargo = new
 	var/cargo_capacity = 15
@@ -41,7 +43,9 @@
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	lights_power = 7
 	armor = ARMOR_VALUE_MEDIUM
-	max_equip = 5 // More armor, less tools
+	max_utility_equip = 3
+	max_weapons_equip = 1
+	max_misc_equip = 2
 	wreckage = /obj/structure/mecha_wreckage/ripley/firefighter
 
 
@@ -85,7 +89,9 @@
 	lights_power = 7
 	step_energy_drain = 30 //slightly higher energy drain since you movin those wheels FAST
 	armor = ARMOR_VALUE_MEDIUM
-	max_equip = 5
+	max_utility_equip = 3
+	max_weapons_equip = 1
+	max_misc_equip = 2
 	wreckage = /obj/structure/mecha_wreckage/clarke
 	cargo_capacity = 10
 	canstrafe = FALSE

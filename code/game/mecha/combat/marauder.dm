@@ -52,7 +52,6 @@
 	wreckage = /obj/structure/mecha_wreckage/seraph
 	internal_damage_threshold = 20
 	force = 65
-	max_equip = 5
 
 /obj/mecha/combat/marauder/seraph/Initialize()
 	. = ..()
@@ -74,8 +73,6 @@
 	name = "\improper Mauler"
 	icon_state = "mauler"
 	wreckage = /obj/structure/mecha_wreckage/mauler
-	max_equip = 5
-
 /obj/mecha/combat/marauder/mauler/loaded/Initialize()
 	. = ..()
 	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg(src)

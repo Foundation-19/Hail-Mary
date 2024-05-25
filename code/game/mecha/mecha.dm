@@ -92,7 +92,15 @@
 
 	var/list/equipment = new
 	var/obj/item/mecha_parts/mecha_equipment/selected
-	var/max_equip = 3
+
+	var/max_utility_equip = 3 // Seats, clamps, etc.
+	var/max_weapons_equip = 1 // Weapons, duh.
+	var/max_misc_equip = 1 // Anything that isn't a utility or a weapon.
+
+	var/list/weapon_equipment = new
+	var/list/utility_equipment = new
+	var/list/misc_equipment = new
+
 	var/datum/events/events
 
 	var/stepsound = 'sound/mecha/mechstep.ogg'
@@ -189,7 +197,7 @@
 			c.reagents.trans_id_to(fuel_holder, /datum/reagent/fuel, min((fuel_holder.volume - fuel_holder.reagents.total_volume), c.amount_per_transfer_from_this))
 			return TRUE
 	. = ..()
-	
+
 
 /obj/mecha/proc/get_fuel_tank()
 	return fuel_holder

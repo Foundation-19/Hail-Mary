@@ -1,6 +1,10 @@
 //DO NOT ADD MECHA PARTS TO THE GAME WITH THE DEFAULT "SPRITE ME" SPRITE!
 //I'm annoyed I even have to tell you this! SPRITE FIRST, then commit.
 
+#define EQUIP_WEAPON	"weapon"
+#define EQUIP_UTILITY	"utility"
+#define EQUIP_MISC	    "misc"
+
 /obj/item/mecha_parts/mecha_equipment
 	name = "mecha equipment"
 	icon = 'icons/mecha/mecha_equipment.dmi'
@@ -20,6 +24,7 @@
 	var/selectable = 1	// Set to 0 for passive equipment such as mining scanner or armor plates
 	var/harmful = FALSE //Controls if equipment can be used to attack by a pacifist.
 	//var/destroy_sound = 'sound/mecha/critdestr.ogg'
+	var/equip_type = EQUIP_UTILITY
 
 /obj/item/mecha_parts/mecha_equipment/proc/update_chassis_page()
 	if(chassis)
@@ -118,11 +123,26 @@
 	if(!chassis || 	chassis.loc != C || src != chassis.selected || !(get_dir(chassis, target)&chassis.dir))
 		return 0
 
-/obj/item/mecha_parts/mecha_equipment/proc/can_attach(obj/mecha/M)
-	if(M.equipment.len<M.max_equip)
+/obj/item/mecha_parts/mecha_equipment/proc/can_attach(obj/mecha/M as obj)
+	if(equip_type == EQUIP_MISC && M.misc_equipment.len < M.max_misc_equip)
 		return 1
+	if(equip_type == EQUIP_WEAPON && M.weapon_equipment.len < M.max_weapons_equip)
+		return 1
+	if(equip_type == EQUIP_UTILITY && M.utility_equipment.len < M.max_utility_equip)
+		return 1
+	return 0
 
 /obj/item/mecha_parts/mecha_equipment/proc/attach(obj/mecha/M)
+	var/has_equipped = 0
+	if(equip_type == EQUIP_MISC && M.misc_equipment.len < M.max_misc_equip && !has_equipped)
+		M.misc_equipment += src
+		has_equipped = 1
+	if(equip_type == EQUIP_WEAPON && M.weapon_equipment.len < M.max_weapons_equip && !has_equipped)
+		M.weapon_equipment += src
+		has_equipped = 1
+	if(equip_type == EQUIP_UTILITY && M.utility_equipment.len < M.max_utility_equip && !has_equipped)
+		M.utility_equipment += src
+		has_equipped = 1
 	M.equipment += src
 	chassis = M
 	forceMove(M)
@@ -131,15 +151,25 @@
 	return
 
 /obj/item/mecha_parts/mecha_equipment/proc/detach(atom/moveto=null)
+	if(!chassis)
+		return
 	moveto = moveto || get_turf(chassis)
-	if(src.Move(moveto))
-		chassis.equipment -= src
-		if(chassis.selected == src)
-			chassis.selected = null
-		update_chassis_page()
-		chassis.mecha_log_message("[src] removed from equipment.")
-		chassis = null
-		set_ready_state(1)
+	forceMove(moveto)
+	chassis.equipment -= src
+	if(equip_type)
+		switch(equip_type)
+			if(EQUIP_MISC)
+				chassis.misc_equipment -= src
+			if(EQUIP_WEAPON)
+				chassis.weapon_equipment -= src
+			if(EQUIP_UTILITY)
+				chassis.utility_equipment -= src
+	if(chassis.selected == src)
+		chassis.selected = null
+	update_chassis_page()
+	chassis.mecha_log_message("[src] removed from equipment.")
+	chassis = null
+	set_ready_state(TRUE)
 	return
 
 

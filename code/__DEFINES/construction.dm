@@ -120,6 +120,8 @@
 //#define CAT_EXPLOSIVE "Explosives"
 #define CAT_VEHICLES "Vehicles"
 #define CAT_VEHICLEPARTS "Vehicle Parts"
+#define CAT_VEHICLEWEAPONS "Vehicle Weapons"
+#define CAT_VEHICLEAMMO "Vehicle Ammo"
 
 #define RCD_FLOORWALL 1
 #define RCD_AIRLOCK 2

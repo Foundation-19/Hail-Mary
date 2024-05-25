@@ -11,6 +11,7 @@
 	var/firing_effect_type = /obj/effect/temp_visual/dir_setting/firing_effect	//the visual effect appearing when the weapon is fired.
 	var/kickback = TRUE //Will using this weapon in no grav push mecha back.
 	mech_flags = EXOSUIT_MODULE_COMBAT
+	equip_type = EQUIP_WEAPON
 
 /obj/item/mecha_parts/mecha_equipment/weapon/can_attach(obj/mecha/combat/M)
 	if(..())
@@ -72,25 +73,6 @@
 	chassis.use_power(energy_drain*get_shot_amount())
 	addtimer(CALLBACK(src, PROC_REF(set_ready_state), 1), equip_cooldown)
 
-/obj/item/mecha_parts/mecha_equipment/weapon/energy/laser
-	equip_cooldown = 7
-	name = "\improper CH-PS \"Immolator\" laser"
-	desc = "A weapon for combat exosuits. Shoots basic lasers."
-	icon_state = "mecha_laser"
-	energy_drain = 50
-	projectile = /obj/item/projectile/beam/laser/mech/light
-	fire_sound = 'sound/weapons/laser.ogg'
-	harmful = TRUE
-
-/obj/item/mecha_parts/mecha_equipment/weapon/energy/laser/heavy
-	equip_cooldown = 14
-	name = "\improper CH-LC \"Solaris\" laser cannon"
-	desc = "A weapon for combat exosuits. Shoots heavy lasers."
-	icon_state = "mecha_laser"
-	energy_drain = 100
-	projectile = /obj/item/projectile/beam/laser/mech/heavy
-	fire_sound = 'sound/weapons/lasercannonfire.ogg'
-
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/ion
 	equip_cooldown = 16
 	name = "\improper MKIV ion heavy cannon"
@@ -132,13 +114,6 @@
 	projectile = /obj/item/projectile/plasma/adv/mech
 	fire_sound = 'sound/weapons/plasma_cutter.ogg'
 	harmful = TRUE
-
-/obj/item/mecha_parts/mecha_equipment/weapon/energy/plasma/can_attach(obj/mecha/working/M)
-	if(..()) //combat mech
-		return 1
-	else if(M.equipment.len < M.max_equip && istype(M))
-		return 1
-	return 0
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/taser
 	name = "\improper PBT \"Pacifier\" mounted taser"
@@ -271,40 +246,6 @@
 	variance = 6
 	randomspread = 1
 	projectile_delay = 2
-	harmful = TRUE
-	ammo_type = "lmg"
-
-/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg/auto
-	name = "\improper AC AUTO"
-	desc = "A weapon for combat exosuits. Automatic."
-	icon_state = "mecha_uac2"
-	fire_sound = 'sound/f13weapons/bozar_fire.ogg'
-	equip_cooldown = 10
-	projectile = /obj/item/projectile/bullet/lmg/auto
-	projectiles = 150
-	projectiles_cache = 150
-	projectiles_cache_max = 1200
-	projectiles_per_shot = 4
-	variance = 6
-	is_automatic = TRUE
-	randomspread = 1.08
-	harmful = TRUE
-	ammo_type = "lmg"
-
-/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg/hobo
-	name = "\improper Improvised HMG"
-	desc = "A automatic machine gun make with scraps."
-	icon_state = "mecha_uac2"
-	fire_sound = 'sound/f13weapons/boltfire.ogg'
-	equip_cooldown = 10
-	projectile = /obj/item/projectile/bullet/lmg/hobo
-	projectiles = 25
-	projectiles_cache = 25
-	projectiles_cache_max = 1200
-	projectiles_per_shot = 2
-	variance = 6
-	is_automatic = TRUE
-	randomspread = 1.2
 	harmful = TRUE
 	ammo_type = "lmg"
 

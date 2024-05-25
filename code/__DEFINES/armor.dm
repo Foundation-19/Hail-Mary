@@ -1055,3 +1055,107 @@ GLOBAL_LIST_INIT(all_armor_types, list(
 		"acid" = 0, \
 		"wound" = 0, \
 		"damage_threshold" = 10)
+
+/* VEHICLE ARMOR VALUES
+*
+*
+********/
+
+/*
+ * Uncovered vehicle 'armor', for buggies or bicycles
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_VEHICLE_BUGGY list(\
+		"melee" = 20, \
+		"bullet" = 10, \
+		"laser" = 10, \
+		"energy" = 5, \
+		"bomb" = 0, \
+		"bio" = 50, \
+		"rad" = 25, \
+		"fire" = 50, \
+		"acid" = 50, \
+		"wound" = 50, \
+		"damage_threshold" = 0)
+
+/*
+ * Light duty vehicles like regular cars
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_VEHICLE_CAR list(\
+		"melee" = 30, \
+		"bullet" = 15, \
+		"laser" = 15, \
+		"energy" = 5, \
+		"bomb" = 10, \
+		"bio" = 50, \
+		"rad" = 25, \
+		"fire" = 50, \
+		"acid" = 50, \
+		"wound" = 50, \
+		"damage_threshold" = 3)
+
+/*
+ * Heavy-duty vehicles like trucks
+ * Built tough to withstand more abuse
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_VEHICLE_TRUCK list(\
+		"melee" = 45, \
+		"bullet" = 20, \
+		"laser" = 20, \
+		"energy" = 10, \
+		"bomb" = 25, \
+		"bio" = 50, \
+		"rad" = 25, \
+		"fire" = 50, \
+		"acid" = 50, \
+		"wound" = 50, \
+		"damage_threshold" = 5)
+
+/*
+ * Light vehicles with DIY armor added to vulnerable areas
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_VEHICLE_ARMORED_LIGHT list(\
+		"melee" = 50, \
+		"bullet" = 25, \
+		"laser" = 20, \
+		"energy" = 20, \
+		"bomb" = 35, \
+		"bio" = 50, \
+		"rad" = 50, \
+		"fire" = 50, \
+		"acid" = 50, \
+		"wound" = 50, \
+		"damage_threshold" = 8)
+
+/*
+ * Heavy vehicles with a significant amount of armor added
+ * Generally, purpose-built to withstand a decent amount of attacks
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_VEHICLE_ARMORED list(\
+		"melee" = 65, \
+		"bullet" = 40, \
+		"laser" = 40, \
+		"energy" = 35, \
+		"bomb" = 35, \
+		"bio" = 50, \
+		"rad" = 50, \
+		"fire" = 50, \
+		"acid" = 50, \
+		"wound" = 50, \
+		"damage_threshold" = 10)
+
+/*
+ * Very sturdy vehicles designed for frontline combat
+ * Expected to survive a lot of attacks and dish out punishment
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_VEHICLE_TANK list(\
+		"melee" = 75, \
+		"bullet" = 55, \
+		"laser" = 55, \
+		"energy" = 50, \
+		"bomb" = 50, \
+		"bio" = 50, \
+		"rad" = 50, \
+		"fire" = 50, \
+		"acid" = 50, \
+		"wound" = 50, \
+		"damage_threshold" = 12)

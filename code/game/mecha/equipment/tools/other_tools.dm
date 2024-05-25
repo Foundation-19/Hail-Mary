@@ -218,7 +218,7 @@
 	if(href_list["eject"])
 		go_out()
 		return
-	
+
 /obj/item/mecha_parts/mecha_equipment/seat/container_resist(mob/living/user)
 	go_out()
 
@@ -256,6 +256,7 @@
 //	var/deflect_coeff = 1.15
 	var/damage_coeff = 0.7
 	selectable = 0
+	equip_type = EQUIP_MISC
 
 /obj/item/mecha_parts/mecha_equipment/anticcw_armor_booster/proc/attack_react()
 	if(action_checks(src))
@@ -274,6 +275,7 @@
 //	var/deflect_coeff = 1.15
 	var/damage_coeff = 0.75
 	selectable = 0
+	equip_type = EQUIP_MISC
 
 /obj/item/mecha_parts/mecha_equipment/antiproj_armor_booster/proc/projectile_react()
 	if(action_checks(src))
@@ -294,6 +296,7 @@
 	var/icon/droid_overlay
 	var/list/repairable_damage = list(MECHA_INT_TEMP_CONTROL,MECHA_INT_TANK_BREACH)
 	selectable = 0
+	equip_type = EQUIP_MISC
 
 /obj/item/mecha_parts/mecha_equipment/repair_droid/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -378,6 +381,7 @@
 	var/coeff = 100
 	var/list/use_channels = list(EQUIP,ENVIRON,LIGHT)
 	selectable = 0
+	equip_type = EQUIP_MISC
 
 /obj/item/mecha_parts/mecha_equipment/tesla_energy_relay/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -465,6 +469,7 @@
 	var/fuel_per_cycle_idle = 25
 	var/fuel_per_cycle_active = 200
 	var/power_per_cycle = 50
+	equip_type = EQUIP_MISC
 
 /obj/item/mecha_parts/mecha_equipment/generator/Initialize()
 	. = ..()
@@ -576,6 +581,7 @@
 	fuel_per_cycle_active = 30
 	power_per_cycle = 100
 	var/rad_per_cycle = 30
+	equip_type = EQUIP_MISC
 
 /obj/item/mecha_parts/mecha_equipment/generator/nuclear/generator_init()
 	fuel = new /obj/item/stack/sheet/mineral/uranium(src, 0)

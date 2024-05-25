@@ -59,7 +59,7 @@
 	name = "handmade machine gun ammo"
 	desc = "A box of linked ammunition, designed for multiple LMGs."
 	icon_state = "lmg"
-	rounds = 150
+	rounds = 25
 	ammo_type = "lmg"
 
 /obj/item/mecha_ammo/missiles_br
