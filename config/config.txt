@@ -557,3 +557,7 @@ BORDER_CONTROL 1
 # DISCORDIMAGE_P https://media.discordapp.net/attachments/
 # DISCORDIMAGE_S .png
 
+## Whether or not faction auto balancing will be used
+## 0 Disables auto balancing
+## 1 Enables auto balancing
+AUTO_BALANCING 1

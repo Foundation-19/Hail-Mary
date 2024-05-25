@@ -436,6 +436,8 @@
 		return JOB_UNAVAILABLE_WHITELIST
 	if(latejoin && !job.special_check_latejoin(client))
 		return JOB_UNAVAILABLE_GENERIC
+	if(latejoin && !job.auto_balance(job.title))
+		return JOB_UNAVAILABLE_GENERIC
 	if(!client.prefs.pref_species.qualifies_for_rank(rank, client.prefs.features))
 		return JOB_UNAVAILABLE_SPECIESLOCK
 	if(LAZYLEN(SSmapping?.config?.removed_jobs))

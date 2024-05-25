@@ -763,6 +763,15 @@ GLOBAL_LIST_INIT(WALLITEMS_INVERSE, typecacheof(list(
 			living_player_count += 1
 	return living_player_count
 
+/proc/living_faction_player_count(faction = "faction")
+	var/living_faction_player_count = 0
+	for(var/mob in GLOB.player_list)
+		if(mob in GLOB.alive_mob_list)
+			var/mob/dude = mob
+			if(faction in dude.faction)
+				living_faction_player_count += 1
+	return living_faction_player_count
+
 /proc/randomColor(mode = 0)	//if 1 it doesn't pick white, black or gray
 	switch(mode)
 		if(0)

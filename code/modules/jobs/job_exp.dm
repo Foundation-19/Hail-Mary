@@ -289,3 +289,17 @@ GLOBAL_PROTECT(exp_to_update)
 		prefs.db_flags = 0	//This PROBABLY won't happen, but better safe than sorry.
 	qdel(flags_read)
 	return TRUE
+
+/datum/job/proc/auto_balance(title)
+	var/AutoBalanceMode = CONFIG_GET(number/auto_balancing)
+	var/bear = living_faction_player_count(FACTION_NCR)
+	var/bull = living_faction_player_count(FACTION_LEGION)
+	if(AutoBalanceMode == AUTO_BALANCING_DISABLED)
+		return TRUE	
+	if(world.time <= 30 MINUTES)
+		return TRUE
+	if(title in GLOB.ncr_positions && bear >= bull*2)
+		return FALSE
+	if(title in GLOB.legion_positions && bull >= bear*2)
+		return FALSE	
+	return TRUE

@@ -337,6 +337,8 @@
 
 /datum/config_entry/number/border_control // If border control is enabled
 
+/datum/config_entry/number/auto_balancing //If auto balancing factions is enabled
+
 /datum/config_entry/number/panic_bunker_living // living time in minutes that a player needs to pass the panic bunker
 
 /// Flag for requiring players who would otherwise be denied access by the panic bunker to complete a written interview
