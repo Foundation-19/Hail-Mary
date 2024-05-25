@@ -71,6 +71,15 @@
 	if(HAS_TRAIT(H, TRAIT_PIERCEIMMUNE))
 		return
 
+	if(HAS_TRAIT(H, TRAIT_BARBEDWIRENODMG) && (flags & CALTROP_BYPASS_SHOES))
+		(H.Paralyze(30))
+			(H.visible_message(
+				span_danger("[H] trips into [parent] unharmed."),
+				span_userdanger("You trip into [parent], but you manage to avoid getting cut!"))
+			)
+		return
+		
+
 	if((flags & CALTROP_IGNORE_WALKERS) && H.m_intent == MOVE_INTENT_WALK)
 		return
 
