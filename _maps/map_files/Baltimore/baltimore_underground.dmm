@@ -10286,7 +10286,8 @@
 /area/f13/vault)
 "pmM" = (
 /obj/structure/ladder/unbreakable{
-	icon_state = "ladder10"
+	icon_state = "ladder10";
+	id = "tunnelmchenry"
 	},
 /turf/open/indestructible/ground/outside/gravel{
 	name = "underground gravel";
