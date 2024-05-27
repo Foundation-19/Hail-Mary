@@ -1176,6 +1176,16 @@
 	},
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/bunker)
+"baF" = (
+/obj/machinery/light/small,
+/obj/structure/rack,
+/obj/effect/spawner/lootdrop/f13/weapon/melee/random_mid,
+/obj/effect/spawner/lootdrop/f13/weapon/melee/random_high,
+/obj/effect/spawner/lootdrop/f13/weapon/melee/random_mid,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	name = "metal plating"
+	},
+/area/f13/city)
 "baJ" = (
 /obj/structure/fluff/rails{
 	dir = 1
@@ -3854,6 +3864,17 @@
 	},
 /turf/open/floor/f13/wood,
 /area/f13/caves)
+"bNX" = (
+/obj/structure/rack,
+/obj/effect/spawner/lootdrop/f13/bomb/tier1,
+/obj/effect/spawner/lootdrop/f13/bomb/tier1,
+/obj/effect/spawner/lootdrop/f13/bomb/tier1,
+/obj/effect/spawner/lootdrop/f13/bomb/tier1,
+/obj/effect/spawner/lootdrop/f13/bomb/tier1,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	name = "metal plating"
+	},
+/area/f13/city)
 "bNY" = (
 /obj/item/storage/trash_stack,
 /turf/open/floor/f13{
@@ -13501,6 +13522,18 @@
 	},
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/bunker)
+"jvj" = (
+/obj/structure/rack,
+/obj/effect/spawner/lootdrop/f13/armor/tier2,
+/obj/effect/spawner/lootdrop/f13/armor/tier2,
+/obj/effect/spawner/lootdrop/f13/armor/tier1,
+/obj/effect/spawner/lootdrop/f13/armor/tier1,
+/obj/effect/spawner/lootdrop/f13/armor/tier1,
+/obj/effect/spawner/lootdrop/f13/armor/tier3,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	name = "metal plating"
+	},
+/area/f13/city)
 "jvv" = (
 /mob/living/simple_animal/hostile/supermutant/nightkin/rangedmutant,
 /turf/open/indestructible/ground/inside/subway,
@@ -23169,6 +23202,20 @@
 /obj/effect/spawner/lootdrop/f13/weapon/melee/random_high,
 /turf/open/floor/plasteel/f13/vault_floor/red,
 /area/f13/caves)
+"sCW" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/structure/rack,
+/obj/effect/spawner/lootdrop/f13/medical/wasteland/meds/drug,
+/obj/effect/spawner/lootdrop/f13/medical/wasteland/meds/drug,
+/obj/effect/spawner/lootdrop/f13/medical/wasteland/meds/drug,
+/obj/effect/spawner/lootdrop/f13/medical/wasteland/meds/drug,
+/obj/effect/spawner/lootdrop/f13/medical/wasteland/meds/drug,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	name = "metal plating"
+	},
+/area/f13/city)
 "sCX" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -23385,18 +23432,6 @@
 	icon_state = "reddirtysolid"
 	},
 /area/f13/bunker)
-"sOr" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/machinery/light/small{
-	dir = 1;
-	light_color = "red"
-	},
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
-	name = "metal plating"
-	},
-/area/f13/city)
 "sOw" = (
 /obj/effect/decal/cleanable/dirt{
 	color = "#363636"
@@ -23615,7 +23650,16 @@
 /turf/open/indestructible/ground/inside/subway,
 /area/f13/caves)
 "sXe" = (
-/obj/effect/turf_decal/vg_decals/numbers/zero,
+/obj/machinery/light/small{
+	dir = 1;
+	light_color = "red"
+	},
+/obj/structure/rack,
+/obj/effect/spawner/lootdrop/f13/attachments,
+/obj/effect/spawner/lootdrop/f13/attachments,
+/obj/effect/spawner/lootdrop/f13/attachments,
+/obj/effect/spawner/lootdrop/f13/attachments,
+/obj/effect/spawner/lootdrop/f13/attachments,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	name = "metal plating"
 	},
@@ -24021,7 +24065,12 @@
 /turf/open/indestructible/ground/inside/subway,
 /area/f13/sewer)
 "tpB" = (
-/obj/effect/turf_decal/vg_decals/numbers/nine,
+/obj/structure/rack,
+/obj/effect/spawner/lootdrop/f13/medical/wasteland/meds,
+/obj/effect/spawner/lootdrop/f13/medical/wasteland/meds,
+/obj/effect/spawner/lootdrop/f13/medical/wasteland/meds,
+/obj/effect/spawner/lootdrop/f13/medical/wasteland/meds,
+/obj/effect/spawner/lootdrop/f13/medical/wasteland/meds,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	name = "metal plating"
 	},
@@ -25295,14 +25344,6 @@
 /obj/item/ammo_casing/shotgun/improvised,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/bunker)
-"uzo" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
-	name = "metal plating"
-	},
-/area/f13/city)
 "uzY" = (
 /obj/effect/spawner/lootdrop/crate_spawner,
 /obj/machinery/light/small{
@@ -25564,6 +25605,11 @@
 "uJx" = (
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/f13/blueprintLowMid,
+/obj/effect/spawner/lootdrop/f13/blueprintMid,
+/obj/effect/spawner/lootdrop/f13/blueprintHigh,
+/obj/effect/spawner/lootdrop/f13/blueprintMid,
+/obj/effect/spawner/lootdrop/f13/blueprintLow,
+/obj/effect/spawner/lootdrop/f13/blueprintLow,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	name = "metal plating"
 	},
@@ -25735,17 +25781,6 @@
 	icon_state = "greenrustyfull"
 	},
 /area/f13/clinic)
-"uSK" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/machinery/computer/cargo{
-	dir = 4
-	},
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
-	name = "metal plating"
-	},
-/area/f13/city)
 "uTP" = (
 /obj/structure/chair/stool/bar,
 /mob/living/simple_animal/hostile/supermutant/legendary,
@@ -25759,17 +25794,6 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/dark/darksolid,
 /area/f13/caves)
-"uUw" = (
-/obj/docking_port/stationary{
-	dir = 8;
-	dwidth = 5;
-	height = 7;
-	id = "supply_home";
-	name = "Cargo Bay";
-	width = 12
-	},
-/turf/open/indestructible/ground/inside/subway,
-/area/f13/tunnel)
 "uUU" = (
 /obj/structure/barricade/wooden/strong,
 /turf/open/indestructible/ground/outside/ruins{
@@ -25839,12 +25863,6 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/dark/darksolid,
 /area/f13/caves)
-"uWL" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/city)
 "uXj" = (
 /obj/structure/lattice/catwalk,
 /turf/closed/wall/rust,
@@ -26570,15 +26588,6 @@
 "vDJ" = (
 /turf/open/floor/plating/tunnel,
 /area/f13/caves)
-"vEh" = (
-/obj/machinery/door/airlock/grunge{
-	name = "shop airlock";
-	req_access_txt = "276"
-	},
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
-	name = "metal plating"
-	},
-/area/f13/city)
 "vEk" = (
 /obj/structure/reagent_dispensers/watertank/high,
 /obj/item/crafting/abraxo,
@@ -26998,15 +27007,6 @@
 	name = "metal plating"
 	},
 /area/f13/enclave)
-"vWX" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/machinery/light/small,
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
-	name = "metal plating"
-	},
-/area/f13/city)
 "vXe" = (
 /turf/open/floor/carpet/vault,
 /area/f13/den)
@@ -27104,19 +27104,21 @@
 /area/f13/caves)
 "wbo" = (
 /obj/structure/rack,
-/obj/item/export_scanner,
-/obj/item/export_scanner,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/energy/midhigh,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/energy/midhigh,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/energy/midhigh,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	name = "metal plating"
 	},
 /area/f13/city)
 "wbM" = (
 /obj/structure/rack,
-/obj/item/export_scanner,
-/obj/item/export_scanner,
-/obj/effect/turf_decal/weather/dirt{
-	dir = 4
-	},
+/obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/high,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/mid,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/mid,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/mid,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/lowmid,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/lowmid,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	name = "metal plating"
 	},
@@ -27539,6 +27541,17 @@
 	},
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/caves)
+"wxq" = (
+/obj/structure/rack,
+/obj/effect/spawner/lootdrop/f13/traitbooks/cargo,
+/obj/effect/spawner/lootdrop/f13/traitbooks/cargo,
+/obj/effect/spawner/lootdrop/f13/traitbooks/cargo,
+/obj/effect/spawner/lootdrop/f13/traitbooks/cargo,
+/obj/effect/spawner/lootdrop/f13/traitbooks/cargo,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	name = "metal plating"
+	},
+/area/f13/city)
 "wxL" = (
 /obj/structure/chair/f13chair1{
 	dir = 8
@@ -63044,7 +63057,7 @@ aah
 aah
 aah
 aah
-uUw
+aah
 aah
 aah
 aah
@@ -63298,14 +63311,14 @@ aab
 aab
 aab
 epv
-sOr
-uzo
-uzo
-uSK
-uzo
-uzo
-vWX
-aab
+epv
+epv
+epv
+epv
+epv
+epv
+epv
+epv
 aab
 aab
 aab
@@ -63561,7 +63574,7 @@ uuN
 uuN
 uuN
 uuN
-uuN
+baF
 sKr
 aae
 aae
@@ -63812,7 +63825,7 @@ wzU
 vny
 wsg
 sMz
-sXe
+bNX
 uuN
 uuN
 uuN
@@ -64326,13 +64339,13 @@ wsg
 wsg
 tTx
 iCR
-uuN
+sCW
 vTP
 vTP
-uWL
+vTP
 uuN
-iCR
-iCR
+uuN
+wxq
 xgj
 xgj
 xgj
@@ -64583,14 +64596,14 @@ jzU
 wsg
 jzU
 iCR
-iCR
-sKr
-iCR
-sKr
-vEh
-iCR
+jvj
 uuN
 uuN
+uuN
+uuN
+uuN
+uuN
+uFB
 uuN
 xhE
 xgj
@@ -64842,7 +64855,7 @@ fIe
 iCR
 cZi
 uuN
-uFB
+uuN
 uuN
 uuN
 uuN
