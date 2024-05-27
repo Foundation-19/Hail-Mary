@@ -152,6 +152,7 @@
 	icon_state = "horror"
 	icon_living = "horror"
 	icon_dead = "horror_dead"
+	sentience_type = SENTIENCE_BOSS
 
 	speed = -0.5
 	maxHealth = 700

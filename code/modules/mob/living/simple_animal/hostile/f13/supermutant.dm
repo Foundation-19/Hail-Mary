@@ -543,6 +543,7 @@
 	melee_damage_upper = 62
 	extra_projectiles = 1
 
+
 /mob/living/simple_animal/hostile/supermutant/nightkin/elitemutant/rain/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/glow_heal, chosen_targets = /mob/living/simple_animal/hostile/supermutant, allow_revival = TRUE, restrict_faction = null, type_healing = BRUTELOSS | FIRELOSS)
+	AddComponent(/datum/component/glow_heal, chosen_targets = /mob/living/simple_animal/hostile/supermutant, allow_revival = FALSE, restrict_faction = null, type_healing = BRUTELOSS | FIRELOSS)
