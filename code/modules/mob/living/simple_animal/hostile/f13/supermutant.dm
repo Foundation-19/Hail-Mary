@@ -10,6 +10,7 @@
 	icon_dead = "hulk_113_s"
 	mob_biotypes = MOB_ORGANIC|MOB_HUMANOID
 	mob_armor = ARMOR_VALUE_SUPERMUTANT_BASE
+	sentience_type = SENTIENCE_BOSS
 	maxHealth = 130 
 	health = 130
 	speak_chance = 10
