@@ -54,10 +54,7 @@
 	if(indestructible) //fortuna edit. RNG rocks that dont budge
 		return
 	var/stored_dir = user.dir
-	if (!user.IsAdvancedToolUser())
-		to_chat(usr, span_warning("You don't have the dexterity to do this!"))
-		return
-
+	
 	if(I.tool_behaviour == TOOL_MINING)
 		var/turf/T = user.loc
 		if (!isturf(T))

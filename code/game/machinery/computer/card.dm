@@ -515,6 +515,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		"Legate",
 		"Legion Centurion",
 		"Legion Veteran Decanus",
+		"Legion Orator",
 		)
 
 /obj/machinery/computer/card/enclave
