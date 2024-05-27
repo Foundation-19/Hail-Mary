@@ -141,8 +141,8 @@
 							iter_wound.blood_flow -= clot_rate
 
 		//Actual healing part starts here
-		M.adjustBruteLoss(-damage_offset * 1.5 * REAGENTS_EFFECT_MULTIPLIER, FALSE)	
-		M.adjustFireLoss(-damage_offset * 1.5 * REAGENTS_EFFECT_MULTIPLIER, FALSE)	
+		M.adjustBruteLoss(-damage_offset * 1.7 * REAGENTS_EFFECT_MULTIPLIER, FALSE)	
+		M.adjustFireLoss(-damage_offset * 1.7 * REAGENTS_EFFECT_MULTIPLIER, FALSE)	
 		M.AdjustStun(-damage_offset * 0.90 * REAGENTS_EFFECT_MULTIPLIER, FALSE)	
 		M.AdjustKnockdown(-damage_offset * 0.90 * REAGENTS_EFFECT_MULTIPLIER, FALSE)	
 		M.adjustStaminaLoss(-damage_offset * 0.90 * REAGENTS_EFFECT_MULTIPLIER, FALSE)	
