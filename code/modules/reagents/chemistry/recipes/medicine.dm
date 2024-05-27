@@ -415,7 +415,7 @@ datum/chemical_reaction/rezadone
 	id = /datum/reagent/medicine/hemostatic
 	results = list(/datum/reagent/medicine/hemostatic = 20)
 	required_reagents = list(
-		/datum/reagent/medicine/brocjuice = 5,
-		/datum/reagent/medicine/xanderjuice = 5,
+		/datum/reagent/consumable/brocjuice = 5,
+		/datum/reagent/consumable/xanderjuice = 5,
 		/datum/reagent/medicine/styptic_powder = 10
 	)
