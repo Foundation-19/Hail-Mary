@@ -44,7 +44,8 @@
 	name = "Ocean"
 	icon_state = "blue"
 	ambience_area = list(
-	)
+		/datum/looping_sound/ambient/ocean_a,
+		)
 	outdoors = 1
 	open_space = 1
 	blob_allowed = 0
@@ -56,10 +57,7 @@
 	name = "Ruined City Coast"
 	icon_state = "city"
 	ambience_area = list(
-		/datum/looping_sound/ambient/critters,
-		/datum/looping_sound/ambient/general,
-		/datum/looping_sound/ambient/critters/birds,
-		/datum/looping_sound/ambient/critters/birds/crow,
+		/datum/looping_sound/ambient/ocean_b,
 		)
 	ambientmusic = null
 	grow_chance = 45
@@ -82,7 +80,7 @@
 	name = "Town"
 	icon_state = "green"
 	ambience_area = list(
-		/datum/looping_sound/ambient/general,
+		/datum/looping_sound/ambient/harbor_b,
 		)
 	ambientmusic = null
 	grow_chance = 5
@@ -92,8 +90,7 @@
 	name = "Building"
 	icon_state = "building"
 	ambience_area = list(
-		/datum/looping_sound/ambient/general,
-		/datum/looping_sound/ambient/woodcreak,
+		/datum/looping_sound/ambient/harbor_interior,
 		)
 	weather_tags = null
 	outdoors = FALSE
@@ -113,7 +110,7 @@
 	name = "Boat"
 	icon_state = "red"
 	ambience_area = list(
-		/datum/looping_sound/ambient/general,
+		/datum/looping_sound/ambient/ship_interior,
 		)
 	weather_tags = null
 	outdoors = FALSE

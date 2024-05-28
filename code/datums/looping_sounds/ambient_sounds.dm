@@ -347,3 +347,61 @@
 	)
 // Radio Pahrump End//
 
+
+//baltimore
+
+/datum/looping_sound/ambient/ocean_a
+	chance = 100
+	vary = FALSE
+	vary_direction = TRUE
+	volume = SOUND_LOOP_VOL_RANGE(20, 20)
+	direct = TRUE
+	loop_delay = 0 SECONDS
+	mid_sounds = list(
+		SOUND_LOOP_ENTRY('sound/f13ambience/baltimore-Ocean.ogg', 171 SECONDS, 1),
+	)
+
+/datum/looping_sound/ambient/ocean_b
+	chance = 100
+	vary = FALSE
+	vary_direction = TRUE
+	volume = SOUND_LOOP_VOL_RANGE(200, 200)
+	direct = TRUE
+	loop_delay = 0 SECONDS
+	mid_sounds = list(
+		SOUND_LOOP_ENTRY('sound/f13ambience/baltimore-Ocean-music.ogg', 229 SECONDS, 1),
+	)
+
+/datum/looping_sound/ambient/harbor_b
+	chance = 100
+	vary = FALSE
+	vary_direction = TRUE
+	volume = SOUND_LOOP_VOL_RANGE(200, 200)
+	direct = TRUE
+	loop_delay = 0 SECONDS
+	mid_sounds = list(
+		SOUND_LOOP_ENTRY('sound/f13ambience/baltimore-Harbor-music.ogg', 343 SECONDS, 1),
+	)
+
+/datum/looping_sound/ambient/harbor_interior
+	chance = 100
+	vary = FALSE
+	vary_direction = TRUE
+	volume = SOUND_LOOP_VOL_RANGE(20, 20)
+	direct = TRUE
+	loop_delay = 0 SECONDS
+	mid_sounds = list(
+		SOUND_LOOP_ENTRY('sound/f13ambience/baltimore-Harbor-Interior.ogg', 343 SECONDS, 1),
+	)
+
+/datum/looping_sound/ambient/ship_interior
+	chance = 100
+	vary = FALSE
+	vary_direction = TRUE
+	volume = SOUND_LOOP_VOL_RANGE(20, 20)
+	direct = TRUE
+	loop_delay = 0 SECONDS
+	mid_sounds = list(
+		SOUND_LOOP_ENTRY('sound/f13ambience/baltimore-Ship-Interior.ogg', 171 SECONDS, 1),
+	)
+

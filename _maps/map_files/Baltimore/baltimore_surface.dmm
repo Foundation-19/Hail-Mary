@@ -194,7 +194,7 @@
 /turf/open/indestructible/ground/outside/baltimore{
 	icon_state = "road_center"
 	},
-/area/f13/building)
+/area/f13/wasteland/town)
 "acV" = (
 /obj/structure/table/glass,
 /obj/item/pda/lawyer,
@@ -210,7 +210,7 @@
 /obj/item/storage/toolbox/electrical,
 /obj/item/storage/toolbox/mechanical/old,
 /turf/open/floor/plasteel/dark,
-/area/f13/building/hospital)
+/area/f13/building/boat)
 "ada" = (
 /obj/structure/railing{
 	color = "#A47449";
@@ -341,7 +341,7 @@
 "afM" = (
 /obj/structure/musician/piano/unanchored,
 /turf/open/floor/wood_common/wood_common_dark,
-/area/f13/bar)
+/area/f13/building/boat)
 "afN" = (
 /obj/structure/fluff/rails{
 	dir = 4
@@ -1086,12 +1086,6 @@
 	},
 /turf/open/indestructible/ground/outside/sidewalkdirt,
 /area/f13/wasteland/city)
-"arK" = (
-/obj/structure/barricade/wooden,
-/turf/closed/wall/f13/store/constructed{
-	name = "Hospital ship hull"
-	},
-/area/f13/building/hospital)
 "arM" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -2624,7 +2618,7 @@
 	color = "#FFDDCC"
 	},
 /turf/open/floor/wood_common/wood_common_dark,
-/area/f13/bar)
+/area/f13/building/boat)
 "aTS" = (
 /obj/structure/flora/grass/wasteland,
 /obj/item/storage/trash_stack{
@@ -3088,7 +3082,7 @@
 /obj/item/storage/briefcase/medical,
 /obj/item/clothing/suit/hooded/surgical,
 /turf/open/floor/plasteel/f13/vault_floor/plating,
-/area/f13/building/hospital)
+/area/f13/building/boat)
 "bcv" = (
 /obj/effect/decal/waste{
 	pixel_x = -5;
@@ -3726,7 +3720,7 @@
 	color = "#FFDDCC"
 	},
 /turf/open/floor/plasteel/f13/vault_floor/plating,
-/area/f13/building/hospital)
+/area/f13/building/boat)
 "bnE" = (
 /obj/structure/billboard/superduper2,
 /turf/open/indestructible/ground/outside/sidewalkdirt,
@@ -3910,7 +3904,7 @@
 	},
 /obj/effect/spawner/bundle/f13/pirate,
 /turf/open/floor/carpet/royalblack,
-/area/f13/bar)
+/area/f13/building/boat)
 "brc" = (
 /obj/structure/sink/greyscale{
 	pixel_y = 20;
@@ -4102,7 +4096,7 @@
 "buF" = (
 /obj/structure/chalkboard,
 /turf/open/floor/plasteel/f13/vault_floor/plating,
-/area/f13/building/hospital)
+/area/f13/building/boat)
 "buL" = (
 /obj/structure/flora/ausbushes/fernybush,
 /turf/open/indestructible/ground/outside/sidewalk{
@@ -4115,7 +4109,7 @@
 	pixel_x = 9
 	},
 /turf/open/floor/plasteel/f13/vault_floor/plating,
-/area/f13/building/hospital)
+/area/f13/building/boat)
 "buZ" = (
 /obj/structure/rack/shelf_metal{
 	pixel_y = -8
@@ -4411,7 +4405,7 @@
 "bzY" = (
 /obj/structure/chair/f13foldupchair,
 /turf/open/floor/plasteel/f13/vault_floor/plating,
-/area/f13/building/hospital)
+/area/f13/building/boat)
 "bAb" = (
 /obj/structure/car/rubbish2,
 /turf/open/floor/plating/dirt/dirt_maryland{
@@ -4607,7 +4601,7 @@
 "bEl" = (
 /obj/structure/chair/sofa/corp,
 /turf/open/floor/carpet/royalblack,
-/area/f13/bar)
+/area/f13/building/boat)
 "bEs" = (
 /obj/structure/flora/tree/tall,
 /turf/open/floor/plating/dirt/dirt_maryland{
@@ -6582,7 +6576,7 @@
 "cqG" = (
 /obj/structure/table/booth,
 /turf/open/floor/carpet/royalblack,
-/area/f13/bar)
+/area/f13/building/boat)
 "crF" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 8
@@ -8788,7 +8782,7 @@
 "dcR" = (
 /obj/effect/landmark/start/f13/f13baltimorebarkeep,
 /turf/open/floor/wood_common/wood_common_dark,
-/area/f13/bar)
+/area/f13/building/boat)
 "ddm" = (
 /obj/structure/stone_tile/block,
 /obj/structure/stone_tile/block{
@@ -8834,7 +8828,7 @@
 	dir = 1
 	},
 /turf/open/floor/carpet/royalblack,
-/area/f13/bar)
+/area/f13/building/boat)
 "ddO" = (
 /obj/structure/railing{
 	color = "#A47449";
@@ -9725,7 +9719,7 @@
 "duh" = (
 /obj/structure/barricade/wooden,
 /turf/closed/wall/mineral/wood,
-/area/f13/bar)
+/area/f13/building/boat)
 "dun" = (
 /obj/structure/junk/small/bed,
 /obj/effect/decal/cleanable/dirt,
@@ -10217,7 +10211,7 @@
 "dBc" = (
 /obj/effect/turf_decal/vg_decals/numbers/one,
 /turf/open/floor/plasteel/f13/vault_floor/plating,
-/area/f13/building/hospital)
+/area/f13/building/boat)
 "dBj" = (
 /obj/structure/railing{
 	color = "#A47449";
@@ -11005,7 +10999,7 @@
 	pixel_x = 16
 	},
 /turf/open/floor/carpet/royalblack,
-/area/f13/bar)
+/area/f13/building/boat)
 "dRx" = (
 /obj/structure/cargocrate{
 	icon_state = "cargocrate4";
@@ -11253,7 +11247,7 @@
 "dXz" = (
 /obj/effect/turf_decal/vg_decals/numbers/two,
 /turf/open/floor/plasteel/f13/vault_floor/plating,
-/area/f13/building/hospital)
+/area/f13/building/boat)
 "dXD" = (
 /obj/structure/barricade/sandbags,
 /turf/open/floor/plating/dirt/dirt_maryland{
@@ -11293,7 +11287,7 @@
 /turf/open/indestructible/ground/outside/baltimore{
 	icon_state = "road_center"
 	},
-/area/f13/building)
+/area/f13/wasteland/town)
 "dYB" = (
 /obj/structure/reagent_dispensers/barrel/four,
 /turf/open/indestructible/ground/outside/baltimore{
@@ -12846,7 +12840,7 @@
 /turf/open/indestructible/ground/outside/baltimore{
 	icon_state = "road_center"
 	},
-/area/f13/building)
+/area/f13/wasteland/town)
 "eDj" = (
 /obj/structure/chair/stool/bar,
 /obj/machinery/light/small{
@@ -13125,7 +13119,7 @@
 	dir = 4
 	},
 /turf/open/floor/carpet/royalblack,
-/area/f13/bar)
+/area/f13/building/boat)
 "eHS" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/nest/radroach,
@@ -13210,7 +13204,7 @@
 	color = "#FFDDCC"
 	},
 /turf/open/floor/plasteel/f13/vault_floor/plating,
-/area/f13/building/hospital)
+/area/f13/building/boat)
 "eJX" = (
 /obj/structure/debris/v4,
 /turf/open/pool{
@@ -13295,7 +13289,7 @@
 	color = "#811313"
 	},
 /turf/open/floor/wood_common/wood_common_light,
-/area/f13/bar)
+/area/f13/building/boat)
 "eLl" = (
 /obj/structure/stone_tile/block,
 /obj/structure/stone_tile/block{
@@ -14045,16 +14039,6 @@
 	icon_state = "horizontaloutermain1"
 	},
 /area/f13/wasteland/city/citycenter)
-"eZf" = (
-/obj/structure/reagent_dispensers/cooking_oil{
-	name = "vat of oil"
-	},
-/obj/machinery/atmospherics/components/unary/outlet_injector/atmos/engine_waste{
-	dir = 8;
-	pixel_y = -1
-	},
-/turf/open/floor/plasteel/f13/vault_floor/plating,
-/area/f13/building/hospital)
 "eZg" = (
 /obj/structure/cable{
 	icon_state = "4-9";
@@ -15334,7 +15318,7 @@
 	name = "Atlantic Cross Airlock"
 	},
 /turf/open/floor/plasteel/dark,
-/area/f13/building/hospital)
+/area/f13/building/boat)
 "fwZ" = (
 /obj/structure/flora/ausbushes/sparsegrass,
 /obj/structure/fence/end/wooden{
@@ -17293,7 +17277,7 @@
 	pixel_x = 8
 	},
 /turf/closed/wall/f13/ruins,
-/area/f13/bar)
+/area/f13/building/boat)
 "gig" = (
 /obj/structure/chair/comfy/brown{
 	dir = 8
@@ -17487,7 +17471,7 @@
 	color = "#FFDDCC"
 	},
 /turf/open/floor/plasteel/f13/vault_floor/plating,
-/area/f13/building/hospital)
+/area/f13/building/boat)
 "gmk" = (
 /obj/structure/chair/wood{
 	dir = 8
@@ -17706,7 +17690,7 @@
 	color = "#FFDDCC"
 	},
 /turf/open/floor/carpet/royalblack,
-/area/f13/bar)
+/area/f13/building/boat)
 "gpl" = (
 /obj/structure/railing/corner{
 	color = "#A47449";
@@ -18086,7 +18070,7 @@
 /turf/closed/wall/f13/store/constructed{
 	name = "Hospital ship hull"
 	},
-/area/f13/building/hospital)
+/area/f13/building/boat)
 "guO" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -18107,7 +18091,7 @@
 	color = "#FFDDCC"
 	},
 /turf/open/floor/wood_common/wood_common_dark,
-/area/f13/bar)
+/area/f13/building/boat)
 "guY" = (
 /obj/structure/stone_tile/block,
 /obj/structure/stone_tile/block{
@@ -18296,7 +18280,7 @@
 	name = "Hospital Ship Surgery windowed shutters"
 	},
 /turf/open/floor/plasteel/dark,
-/area/f13/building/hospital)
+/area/f13/building/boat)
 "gyP" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -18440,7 +18424,7 @@
 	layer = 20
 	},
 /turf/open/floor/wood_common/wood_common_dark,
-/area/f13/bar)
+/area/f13/building/boat)
 "gAV" = (
 /obj/structure/simple_door/repaired,
 /obj/structure/barricade/wooden/planks,
@@ -18715,7 +18699,7 @@
 "gGt" = (
 /obj/effect/turf_decal/vg_decals/numbers/three,
 /turf/open/floor/plasteel/f13/vault_floor/plating,
-/area/f13/building/hospital)
+/area/f13/building/boat)
 "gGu" = (
 /obj/effect/decal/cleanable/blood/footprints{
 	icon_state = "blood2";
@@ -18756,7 +18740,7 @@
 	dir = 1
 	},
 /turf/open/floor/plasteel/f13/vault_floor/plating,
-/area/f13/building/hospital)
+/area/f13/building/boat)
 "gHk" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/closed/wall/f13/wood/house,
@@ -19322,7 +19306,7 @@
 	pixel_y = -1
 	},
 /turf/open/floor/plasteel/f13/vault_floor/plating,
-/area/f13/building/hospital)
+/area/f13/building/boat)
 "gTf" = (
 /turf/closed/indestructible/f13vaultrusted,
 /area/f13/building)
@@ -19444,20 +19428,6 @@
 	icon_state = "dirt_original"
 	},
 /area/f13/wasteland/city/citycenter)
-"gWt" = (
-/obj/structure/shuttle/engine/large{
-	dir = 1;
-	pixel_y = 16;
-	pixel_x = 15;
-	name = "boat engine"
-	},
-/obj/structure/shuttle/engine/heater{
-	dir = 4;
-	pixel_y = 17;
-	pixel_x = -13
-	},
-/turf/open/floor/plasteel/f13/vault_floor/plating,
-/area/f13/building/hospital)
 "gWv" = (
 /turf/open/floor/plasteel/stairs{
 	color = "#B77850";
@@ -19879,7 +19849,7 @@
 "hcx" = (
 /obj/structure/chair/sofa/corp/corner,
 /turf/open/floor/carpet/royalblack,
-/area/f13/bar)
+/area/f13/building/boat)
 "hde" = (
 /turf/open/floor/wood_common{
 	icon_state = "common-broken3"
@@ -20467,7 +20437,7 @@
 	pixel_x = -28
 	},
 /turf/open/floor/plasteel/f13/vault_floor/plating,
-/area/f13/building/hospital)
+/area/f13/building/boat)
 "hng" = (
 /obj/machinery/trading_machine/ammo{
 	id = 1
@@ -20501,7 +20471,7 @@
 	id = 87
 	},
 /turf/open/floor/plasteel/dark,
-/area/f13/building/hospital)
+/area/f13/building/boat)
 "hnL" = (
 /obj/structure/rack/shelf_metal,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
@@ -20666,7 +20636,7 @@
 	layer = 20
 	},
 /turf/open/floor/wood_common/wood_common_dark,
-/area/f13/bar)
+/area/f13/building/boat)
 "hqh" = (
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
 /area/f13/building/center)
@@ -21420,7 +21390,7 @@
 	id = 86
 	},
 /turf/open/floor/plasteel/dark,
-/area/f13/building/hospital)
+/area/f13/building/boat)
 "hEs" = (
 /obj/item/chair/wood/modern,
 /turf/open/floor/wood_fancy/wood_fancy_light{
@@ -21727,7 +21697,7 @@
 	desc = "There is a Legend inside the Atlantic Cross, that this cat is 300 years old, and survived 13 shipwrecks. But to be honnest, those legend might be confusing him with a other cat."
 	},
 /turf/open/floor/plasteel/f13/vault_floor/plating,
-/area/f13/building/hospital)
+/area/f13/building/boat)
 "hKm" = (
 /obj/structure/railing/wood{
 	pixel_y = 7;
@@ -21944,7 +21914,7 @@
 	dir = 8
 	},
 /turf/open/floor/carpet/royalblack,
-/area/f13/bar)
+/area/f13/building/boat)
 "hND" = (
 /obj/structure/table_frame,
 /turf/open/floor/plasteel/f13/vault_floor/floor/floorsolid,
@@ -21959,7 +21929,7 @@
 	can_be_unanchored = 1
 	},
 /turf/open/floor/plasteel/f13/vault_floor/plating,
-/area/f13/building/hospital)
+/area/f13/building/boat)
 "hNG" = (
 /obj/structure/railing/wood/post{
 	pixel_x = -16;
@@ -22593,7 +22563,7 @@
 "hZN" = (
 /obj/effect/turf_decal/vg_decals/department/bar,
 /turf/closed/wall/f13/ruins,
-/area/f13/bar)
+/area/f13/building/boat)
 "hZO" = (
 /obj/structure/chair/bench{
 	icon_state = "dropshipleft"
@@ -23212,7 +23182,7 @@
 	pixel_x = 27
 	},
 /turf/open/floor/plasteel/dark,
-/area/f13/building/hospital)
+/area/f13/building/boat)
 "imm" = (
 /obj/effect/turf_decal/road_end{
 	icon_state = "road_end_decal_2";
@@ -23686,7 +23656,7 @@
 /turf/open/floor/plasteel/stairs{
 	color = "#B77850"
 	},
-/area/f13/bar)
+/area/f13/building/boat)
 "iuZ" = (
 /obj/structure/barricade/wooden,
 /turf/open/indestructible/ground/outside/gravel,
@@ -24598,7 +24568,7 @@
 "iJz" = (
 /obj/structure/chair/booth,
 /turf/open/floor/carpet/royalblack,
-/area/f13/bar)
+/area/f13/building/boat)
 "iJD" = (
 /obj/structure/window/fulltile/wood/broken,
 /obj/structure/barricade/wooden/planks,
@@ -25637,7 +25607,7 @@
 	name = "The NCS Casabanca Bar door"
 	},
 /turf/open/floor/wood_common/wood_common_dark,
-/area/f13/bar)
+/area/f13/building/boat)
 "jdB" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plasteel/stairs{
@@ -27150,7 +27120,7 @@
 	id = 81
 	},
 /turf/open/floor/wood_common/wood_common_dark,
-/area/f13/bar)
+/area/f13/building/boat)
 "jGT" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -28248,7 +28218,7 @@
 	color = "#FFDDCC"
 	},
 /turf/open/floor/plasteel/f13/vault_floor/plating,
-/area/f13/building/hospital)
+/area/f13/building/boat)
 "kbI" = (
 /obj/structure/stairs{
 	dir = 4
@@ -28274,7 +28244,7 @@
 	},
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
 /turf/open/floor/carpet/royalblack,
-/area/f13/bar)
+/area/f13/building/boat)
 "kcu" = (
 /obj/effect/turf_decal/stripes,
 /obj/structure/railing{
@@ -28410,7 +28380,7 @@
 /obj/item/storage/fancy/candle_box,
 /obj/machinery/vending/dinnerware,
 /turf/open/floor/wood_common/wood_common_dark,
-/area/f13/bar)
+/area/f13/building/boat)
 "keT" = (
 /obj/effect/overlay/water{
 	layer = 20;
@@ -28568,7 +28538,7 @@
 /obj/structure/table/booth,
 /obj/structure/flora/chomp/potplant1,
 /turf/open/floor/carpet/royalblack,
-/area/f13/bar)
+/area/f13/building/boat)
 "khq" = (
 /obj/effect/spawner/lootdrop/f13/medical/wasteland/meds/drug,
 /turf/open/floor/plasteel/f13/vault_floor{
@@ -28692,7 +28662,7 @@
 	dir = 4
 	},
 /turf/open/floor/wood_common/wood_common_dark,
-/area/f13/bar)
+/area/f13/building/boat)
 "kjK" = (
 /obj/effect/decal/cleanable/blood,
 /turf/open/indestructible/ground/outside/desert,
@@ -29516,7 +29486,7 @@
 /turf/open/indestructible/ground/outside/baltimore{
 	icon_state = "road_north_w"
 	},
-/area/f13/building)
+/area/f13/wasteland/town)
 "kzB" = (
 /obj/structure/junk/drawer,
 /turf/open/floor/plasteel/f13/vault_floor/blue/whitebluefull,
@@ -29767,7 +29737,7 @@
 	pixel_y = -6
 	},
 /turf/open/floor/carpet/royalblack,
-/area/f13/bar)
+/area/f13/building/boat)
 "kEH" = (
 /obj/structure/window/fulltile/ruins{
 	icon_state = "ruinswindowbrokenvertical"
@@ -29945,7 +29915,7 @@
 "kIm" = (
 /obj/effect/landmark/start/f13/f13baltimorebarkeep,
 /turf/open/floor/carpet/royalblack,
-/area/f13/bar)
+/area/f13/building/boat)
 "kIn" = (
 /obj/machinery/light/small{
 	light_color = "#FF0000";
@@ -30344,7 +30314,7 @@
 "kPv" = (
 /obj/machinery/microwave/stove,
 /turf/open/floor/wood_common/wood_common_dark,
-/area/f13/bar)
+/area/f13/building/boat)
 "kPz" = (
 /obj/structure/destructible/tribal_torch/wall/lit{
 	dir = 8
@@ -30810,9 +30780,6 @@
 	icon_state = "bluerustyfull"
 	},
 /area/f13/ruins)
-"kXF" = (
-/turf/open/floor/plasteel/f13/vault_floor/plating,
-/area/f13/building/hospital)
 "kXH" = (
 /obj/structure/table/reinforced,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
@@ -31621,7 +31588,7 @@
 	pixel_x = -29
 	},
 /turf/open/floor/wood_common/wood_common_dark,
-/area/f13/bar)
+/area/f13/building/boat)
 "llS" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/wood_mosaic{
@@ -31971,9 +31938,6 @@
 /obj/structure/table,
 /turf/open/floor/plasteel/f13/vault_floor/floor,
 /area/f13/raider_mall)
-"lsa" = (
-/turf/closed/wall/mineral/wood,
-/area/f13/bar)
 "lsb" = (
 /obj/effect/turf_decal/road_end{
 	icon_state = "road_end_decal_2";
@@ -32629,7 +32593,7 @@
 /obj/item/folder/yellow,
 /obj/item/reagent_containers/spray/pepper,
 /turf/open/floor/plasteel/f13/vault_floor/plating,
-/area/f13/building/hospital)
+/area/f13/building/boat)
 "lCC" = (
 /obj/effect/decal/fakelattice,
 /obj/effect/turf_decal/stripes/asteroid/line,
@@ -32870,7 +32834,7 @@
 "lGC" = (
 /obj/structure/chair/sofa/corp/right,
 /turf/open/floor/carpet/royalblack,
-/area/f13/bar)
+/area/f13/building/boat)
 "lGR" = (
 /turf/open/floor/plasteel/f13/vault_floor/green/whitegreenfull,
 /area/f13/ruins)
@@ -32917,7 +32881,7 @@
 /turf/open/indestructible/ground/outside/baltimore{
 	icon_state = "road_center"
 	},
-/area/f13/building)
+/area/f13/wasteland/town)
 "lHg" = (
 /obj/item/chair/wood/wings,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -33647,7 +33611,7 @@
 	layer = 20
 	},
 /turf/open/floor/plasteel/f13/vault_floor/plating,
-/area/f13/building/hospital)
+/area/f13/building/boat)
 "lSK" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -33692,7 +33656,7 @@
 /turf/closed/wall/f13/store/constructed{
 	name = "Hospital ship hull"
 	},
-/area/f13/building/hospital)
+/area/f13/building/boat)
 "lTA" = (
 /obj/structure/flora/tree/jungle/small{
 	pixel_x = -20
@@ -34428,7 +34392,7 @@
 "mgu" = (
 /obj/machinery/smartfridge/chemistry/preloaded,
 /turf/open/floor/plasteel/f13/vault_floor/plating,
-/area/f13/building/hospital)
+/area/f13/building/boat)
 "mgx" = (
 /obj/structure/simple_door/metal/store{
 	icon_state = "brokenstore";
@@ -34459,7 +34423,7 @@
 /area/f13/wasteland/city/citycenter)
 "mgA" = (
 /turf/open/floor/wood_common/wood_common_dark,
-/area/f13/bar)
+/area/f13/building/boat)
 "mgJ" = (
 /obj/effect/turf_decal/road_end{
 	icon_state = "road_end_decal_2";
@@ -34937,7 +34901,7 @@
 	layer = 20
 	},
 /turf/open/floor/wood_common/wood_common_dark,
-/area/f13/bar)
+/area/f13/building/boat)
 "mqy" = (
 /obj/structure/closet/crate/large,
 /obj/item/locked_box/weapon/range/tier3_5,
@@ -35876,7 +35840,7 @@
 	id = 86
 	},
 /turf/open/floor/plasteel/dark,
-/area/f13/building/hospital)
+/area/f13/building/boat)
 "mGp" = (
 /obj/structure/rack/shelf_metal,
 /obj/effect/spawner/lootdrop/f13/weapon/combloc,
@@ -37507,7 +37471,7 @@
 	color = "#FFDDCC"
 	},
 /turf/open/floor/wood_common/wood_common_light,
-/area/f13/bar)
+/area/f13/building/boat)
 "nmQ" = (
 /obj/effect/decal/riverbank{
 	dir = 4
@@ -37739,7 +37703,7 @@
 "nso" = (
 /obj/effect/turf_decal/vg_decals/radiation,
 /turf/open/floor/wood_common/wood_common_dark,
-/area/f13/bar)
+/area/f13/building/boat)
 "nst" = (
 /obj/structure/curtain{
 	color = "#811313";
@@ -38233,13 +38197,6 @@
 	icon_state = "whitedirtysolid"
 	},
 /area/f13/outpost)
-"nAv" = (
-/obj/machinery/atmospherics/components/unary/outlet_injector/atmos/engine_waste{
-	dir = 4;
-	pixel_y = -1
-	},
-/turf/open/floor/plasteel/f13/vault_floor/plating,
-/area/f13/building/hospital)
 "nAJ" = (
 /obj/structure/railing{
 	color = "#A47449";
@@ -38327,7 +38284,7 @@
 "nCS" = (
 /obj/machinery/sleeper,
 /turf/open/floor/plasteel/f13/vault_floor/plating,
-/area/f13/building/hospital)
+/area/f13/building/boat)
 "nCU" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/junk/cabinet,
@@ -38513,9 +38470,6 @@
 /obj/structure/wreck/trash/three_barrels,
 /turf/open/indestructible/ground/outside/gravel,
 /area/f13/wasteland/city)
-"nGz" = (
-/turf/closed/wall/rust,
-/area/f13/building/hospital)
 "nGI" = (
 /obj/structure/window/fulltile/ruins{
 	icon_state = "ruinswindowvertical"
@@ -38543,7 +38497,7 @@
 /obj/structure/rack/shelf_metal,
 /obj/effect/spawner/lootdrop/minor/pirate_or_bandana,
 /turf/open/floor/plasteel/dark,
-/area/f13/building/hospital)
+/area/f13/building/boat)
 "nHn" = (
 /turf/open/floor/wood_fancy/wood_fancy_dark,
 /area/f13/ruins)
@@ -38707,7 +38661,7 @@
 "nKJ" = (
 /obj/effect/decal/cleanable/greenglow,
 /turf/open/floor/wood_common/wood_common_dark,
-/area/f13/bar)
+/area/f13/building/boat)
 "nKN" = (
 /obj/machinery/vending/coffee{
 	pixel_y = -8
@@ -38888,7 +38842,7 @@
 /turf/open/indestructible/ground/outside/baltimore{
 	icon_state = "road_center"
 	},
-/area/f13/building)
+/area/f13/wasteland/town)
 "nNX" = (
 /obj/structure/closet/locker{
 	anchored = 1
@@ -39673,7 +39627,7 @@
 "ocT" = (
 /obj/machinery/vending/medical/free,
 /turf/open/floor/plasteel/f13/vault_floor/plating,
-/area/f13/building/hospital)
+/area/f13/building/boat)
 "ode" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /mob/living/simple_animal/hostile/ghoul,
@@ -40473,7 +40427,7 @@
 	id = 88
 	},
 /turf/open/floor/plasteel/f13/vault_floor/plating,
-/area/f13/building/hospital)
+/area/f13/building/boat)
 "oqy" = (
 /obj/structure/railing{
 	color = "#A47449"
@@ -40630,7 +40584,7 @@
 	layer = 1
 	},
 /turf/open/floor/plasteel/f13/vault_floor/plating,
-/area/f13/building/hospital)
+/area/f13/building/boat)
 "osY" = (
 /obj/item/storage/belt/utility/full/engi,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -40887,7 +40841,7 @@
 /obj/effect/spawner/lootdrop/f13/foodspawner,
 /obj/effect/spawner/lootdrop/f13/foodspawner,
 /turf/open/floor/wood_common/wood_common_dark,
-/area/f13/bar)
+/area/f13/building/boat)
 "oxO" = (
 /obj/machinery/light/small{
 	light_color = "#FF0000";
@@ -41178,7 +41132,7 @@
 "oEl" = (
 /obj/machinery/vending/boozeomat,
 /turf/open/floor/wood_common/wood_common_dark,
-/area/f13/bar)
+/area/f13/building/boat)
 "oEr" = (
 /obj/effect/spawner/lootdrop/crate_spawner,
 /turf/closed/wall/rust,
@@ -41812,7 +41766,7 @@
 	},
 /obj/item/clothing/suit/hooded/surgical,
 /turf/open/floor/plasteel/f13/vault_floor/plating,
-/area/f13/building/hospital)
+/area/f13/building/boat)
 "oNg" = (
 /obj/item/stack/sheet/metal/fifty,
 /turf/open/floor/wood_worn,
@@ -42060,7 +42014,7 @@
 	pixel_x = 16
 	},
 /turf/open/floor/carpet/royalblack,
-/area/f13/bar)
+/area/f13/building/boat)
 "oQY" = (
 /obj/structure/barricade/wooden,
 /turf/closed/wall/f13/tentwall,
@@ -42152,7 +42106,7 @@
 /obj/structure/table,
 /obj/structure/butter_churn,
 /turf/open/floor/wood_common/wood_common_dark,
-/area/f13/bar)
+/area/f13/building/boat)
 "oTF" = (
 /obj/structure/flora/ausbushes/ywflowers,
 /turf/open/floor/wood_fancy,
@@ -43355,9 +43309,6 @@
 	},
 /turf/open/floor/plasteel/stairs,
 /area/f13/brotherhood)
-"pnK" = (
-/turf/closed/wall/rust,
-/area/f13/bar)
 "pnM" = (
 /obj/structure/flora/tree/jungle{
 	pixel_y = -15;
@@ -43477,7 +43428,7 @@
 /obj/effect/spawner/lootdrop/f13/foodspawner,
 /obj/effect/spawner/lootdrop/f13/foodspawner,
 /turf/open/floor/wood_common/wood_common_dark,
-/area/f13/bar)
+/area/f13/building/boat)
 "pqA" = (
 /obj/structure/closet/locker{
 	anchored = 1
@@ -43653,7 +43604,7 @@
 	pixel_x = 15
 	},
 /turf/open/floor/carpet/royalblack,
-/area/f13/bar)
+/area/f13/building/boat)
 "puP" = (
 /obj/structure/chair/sofa/corp/right{
 	dir = 4
@@ -44132,7 +44083,7 @@
 "pDU" = (
 /obj/item/storage/money_stack,
 /turf/open/floor/plasteel/dark,
-/area/f13/building/hospital)
+/area/f13/building/boat)
 "pEl" = (
 /obj/item/toy/figure/syndie,
 /turf/open/floor/wood_mosaic,
@@ -44668,7 +44619,7 @@
 "pOT" = (
 /obj/effect/turf_decal/delivery/white,
 /turf/open/floor/plasteel/dark,
-/area/f13/building/hospital)
+/area/f13/building/boat)
 "pOV" = (
 /obj/structure/railing/wood{
 	pixel_y = 7;
@@ -44952,7 +44903,7 @@
 /turf/closed/wall/f13/store/constructed{
 	name = "Hospital ship hull"
 	},
-/area/f13/building/hospital)
+/area/f13/building/boat)
 "pTs" = (
 /obj/structure/flora/roadplant{
 	icon_state = "grass_decals"
@@ -45352,7 +45303,7 @@
 	name = "Bar secure door"
 	},
 /turf/open/floor/wood_common/wood_common_dark,
-/area/f13/bar)
+/area/f13/building/boat)
 "qcl" = (
 /turf/open/floor/wood_common{
 	icon_state = "common-broken3"
@@ -45474,7 +45425,7 @@
 /area/f13/ruins)
 "qei" = (
 /turf/closed/wall/f13/ruins,
-/area/f13/bar)
+/area/f13/building/boat)
 "qek" = (
 /obj/effect/decal/cleanable/oil,
 /turf/open/indestructible/ground/outside/sidewalkdirt,
@@ -45612,7 +45563,7 @@
 	color = "#FFDDCC"
 	},
 /turf/open/floor/wood_common/wood_common_dark,
-/area/f13/bar)
+/area/f13/building/boat)
 "qgH" = (
 /obj/structure/chair/booth{
 	icon_state = "booth_west_south"
@@ -45708,7 +45659,7 @@
 	color = "#FFDDCC"
 	},
 /turf/open/floor/carpet/royalblack,
-/area/f13/bar)
+/area/f13/building/boat)
 "qiB" = (
 /obj/structure/flora/grass/wasteland,
 /obj/structure/nest/gecko,
@@ -46535,7 +46486,7 @@
 	name = "Bar ship table shutters"
 	},
 /turf/open/floor/carpet/royalblack,
-/area/f13/bar)
+/area/f13/building/boat)
 "qyw" = (
 /obj/structure/railing/handrail/rusty{
 	dir = 1;
@@ -47212,7 +47163,7 @@
 "qJn" = (
 /obj/structure/barricade/wooden,
 /turf/closed/wall/f13/ruins,
-/area/f13/bar)
+/area/f13/building/boat)
 "qJx" = (
 /obj/item/cardboard_cutout{
 	pixel_y = 5;
@@ -48028,7 +47979,7 @@
 /turf/open/indestructible/ground/outside/baltimore{
 	icon_state = "road_south_w"
 	},
-/area/f13/building)
+/area/f13/wasteland/town)
 "qWF" = (
 /obj/structure/fence/door,
 /obj/effect/turf_decal/road_end,
@@ -48080,7 +48031,7 @@
 	name = "vat of oil"
 	},
 /turf/open/floor/wood_common/wood_common_dark,
-/area/f13/bar)
+/area/f13/building/boat)
 "qXy" = (
 /obj/item/storage/trash_stack{
 	icon_state = "trash_2"
@@ -48571,10 +48522,6 @@
 	},
 /turf/open/indestructible/ground/outside/ruins,
 /area/f13/building/center)
-"reb" = (
-/obj/structure/barricade/wooden,
-/turf/closed/wall/rust,
-/area/f13/bar)
 "rec" = (
 /obj/machinery/door/airlock/medical/glass{
 	req_access_txt = "124";
@@ -48603,7 +48550,7 @@
 	name = "Bar ship table shutters"
 	},
 /turf/open/floor/carpet/royalblack,
-/area/f13/bar)
+/area/f13/building/boat)
 "ren" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -49466,7 +49413,7 @@
 "rso" = (
 /obj/structure/simple_door/metal,
 /turf/open/floor/plasteel/dark,
-/area/f13/building/hospital)
+/area/f13/building/boat)
 "rsr" = (
 /obj/structure/stairs/north{
 	dir = 4
@@ -50780,7 +50727,7 @@
 /obj/structure/table/rolling,
 /obj/item/defibrillator/primitive,
 /turf/open/floor/plasteel/f13/vault_floor/plating,
-/area/f13/building/hospital)
+/area/f13/building/boat)
 "rRD" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -50825,7 +50772,7 @@
 /turf/closed/wall/f13/store/constructed{
 	name = "Hospital ship hull"
 	},
-/area/f13/building/hospital)
+/area/f13/building/boat)
 "rSD" = (
 /obj/effect/decal/remains/human,
 /turf/open/floor/wood_wide,
@@ -50872,7 +50819,7 @@
 	name = "ACHS Aegis Doors"
 	},
 /turf/open/floor/plasteel/dark,
-/area/f13/building/hospital)
+/area/f13/building/boat)
 "rTL" = (
 /obj/structure/rack/shelf_metal,
 /obj/effect/spawner/lootdrop/f13/armor/clothes,
@@ -50917,7 +50864,7 @@
 	},
 /obj/effect/spawner/lootdrop/minor/pirate_or_bandana,
 /turf/open/floor/plasteel/dark,
-/area/f13/building/hospital)
+/area/f13/building/boat)
 "rUq" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/floorgrime,
@@ -52706,7 +52653,7 @@
 /turf/closed/wall/f13/store/constructed{
 	name = "Hospital ship hull"
 	},
-/area/f13/building/hospital)
+/area/f13/building/boat)
 "szv" = (
 /obj/item/chair,
 /obj/effect/decal/cleanable/dirt,
@@ -52791,10 +52738,6 @@
 	},
 /turf/open/floor/wood_common,
 /area/f13/building/boat)
-"sAv" = (
-/obj/structure/barricade/wooden,
-/turf/closed/wall/rust,
-/area/f13/building/hospital)
 "sAE" = (
 /obj/effect/spawner/lootdrop/trash,
 /turf/open/floor/plating/rust{
@@ -53092,7 +53035,7 @@
 	layer = 20
 	},
 /turf/open/floor/wood_common/wood_common_dark,
-/area/f13/bar)
+/area/f13/building/boat)
 "sGl" = (
 /obj/structure/barricade/wooden,
 /obj/effect/decal/riverbank{
@@ -53249,7 +53192,7 @@
 	dir = 8
 	},
 /turf/open/floor/plasteel/f13/vault_floor/plating,
-/area/f13/building/hospital)
+/area/f13/building/boat)
 "sIM" = (
 /obj/structure/simple_door/bunker/glass,
 /obj/machinery/door/poddoor/shutters/old{
@@ -53496,7 +53439,7 @@
 /obj/structure/chair/f13foldupchair,
 /obj/effect/landmark/start/f13/followersguard,
 /turf/open/floor/plasteel/f13/vault_floor/plating,
-/area/f13/building/hospital)
+/area/f13/building/boat)
 "sOq" = (
 /obj/structure/chair/stool/retro/tan,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
@@ -54781,7 +54724,7 @@
 /obj/structure/table,
 /obj/machinery/reagentgrinder,
 /turf/open/floor/wood_common/wood_common_dark,
-/area/f13/bar)
+/area/f13/building/boat)
 "tlI" = (
 /obj/structure/simple_door/wood,
 /obj/effect/decal/cleanable/dirt,
@@ -55202,10 +55145,6 @@
 	},
 /turf/open/indestructible/ground/outside/gravel,
 /area/f13/wasteland/city)
-"tsY" = (
-/obj/structure/stairs/south,
-/turf/open/floor/plasteel/dark,
-/area/f13/building/hospital)
 "ttj" = (
 /obj/structure/window/fulltile/house/broken,
 /turf/open/floor/plating/rust,
@@ -55520,7 +55459,7 @@
 "tAk" = (
 /obj/machinery/deepfryer,
 /turf/open/floor/wood_common/wood_common_dark,
-/area/f13/bar)
+/area/f13/building/boat)
 "tAq" = (
 /obj/structure/simple_door/room/dirty,
 /turf/open/floor/wood_mosaic,
@@ -56500,7 +56439,7 @@
 /turf/open/indestructible/ground/outside/baltimore{
 	icon_state = "road_south_w"
 	},
-/area/f13/building)
+/area/f13/wasteland/town)
 "tTH" = (
 /obj/structure/sink/greyscale{
 	dir = 4;
@@ -56903,7 +56842,7 @@
 /turf/closed/wall/f13/store/constructed{
 	name = "Hospital ship hull"
 	},
-/area/f13/building/hospital)
+/area/f13/building/boat)
 "ucb" = (
 /obj/structure/table,
 /turf/open/floor/plating/rust{
@@ -57290,7 +57229,7 @@
 	dir = 8
 	},
 /turf/open/floor/wood_common/wood_common_dark,
-/area/f13/bar)
+/area/f13/building/boat)
 "uhw" = (
 /obj/effect/decal/cleanable/blood,
 /turf/open/indestructible/ground/outside/ruins,
@@ -57384,7 +57323,7 @@
 	pixel_x = -13
 	},
 /turf/open/floor/plasteel/f13/vault_floor/plating,
-/area/f13/building/hospital)
+/area/f13/building/boat)
 "uiI" = (
 /turf/open/floor/wood_wide/wood_wide_light,
 /area/f13/wasteland/town)
@@ -57974,7 +57913,7 @@
 /obj/item/organ_storage,
 /obj/item/organ_storage,
 /turf/open/floor/plasteel/f13/vault_floor/plating,
-/area/f13/building/hospital)
+/area/f13/building/boat)
 "uuq" = (
 /obj/structure/chair/f13chair2{
 	dir = 8
@@ -58319,7 +58258,7 @@
 	color = "#FFDDCC"
 	},
 /turf/open/floor/plasteel/f13/vault_floor/plating,
-/area/f13/building/hospital)
+/area/f13/building/boat)
 "uBO" = (
 /mob/living/simple_animal/hostile/radroach,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
@@ -58852,7 +58791,7 @@
 "uKb" = (
 /obj/vehicle/ridden/wheelchair,
 /turf/open/floor/plasteel/f13/vault_floor/plating,
-/area/f13/building/hospital)
+/area/f13/building/boat)
 "uKe" = (
 /turf/closed/wall/f13/store/constructed{
 	name = "cruise ship hull"
@@ -59101,7 +59040,7 @@
 "uPf" = (
 /obj/machinery/vending/dinnerware,
 /turf/open/floor/wood_common/wood_common_dark,
-/area/f13/bar)
+/area/f13/building/boat)
 "uPg" = (
 /obj/effect/turf_decal/stripes/red/line{
 	dir = 2
@@ -59412,7 +59351,7 @@
 	name = "Atlantic Cross Airlock"
 	},
 /turf/open/floor/plasteel/dark,
-/area/f13/building/hospital)
+/area/f13/building/boat)
 "uUm" = (
 /obj/structure/flora/wasteplant/wild_xander,
 /turf/open/floor/plating/dirt/dirt_maryland{
@@ -59464,7 +59403,7 @@
 	pixel_x = 16
 	},
 /turf/open/floor/carpet/royalblack,
-/area/f13/bar)
+/area/f13/building/boat)
 "uVr" = (
 /obj/effect/decal/cleanable/robot_debris,
 /turf/open/floor/plasteel/f13/vault_floor/plating,
@@ -59496,11 +59435,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/closed/wall/f13/wood/house,
 /area/f13/ruins)
-"uWd" = (
-/turf/closed/wall/f13/store/constructed{
-	name = "Hospital ship hull"
-	},
-/area/f13/building/hospital)
 "uWi" = (
 /obj/item/reagent_containers/food/snacks/f13/canned/ncr/vegetable_soup,
 /obj/item/reagent_containers/food/snacks/f13/canned/ncr/vegetable_soup,
@@ -59819,7 +59753,7 @@
 	pixel_x = 27
 	},
 /turf/open/floor/carpet/royalblack,
-/area/f13/bar)
+/area/f13/building/boat)
 "vcs" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/wood_mosaic{
@@ -60040,7 +59974,7 @@
 	dir = 8
 	},
 /turf/open/floor/carpet/royalblack,
-/area/f13/bar)
+/area/f13/building/boat)
 "vfO" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/indestructible/ground/outside/baltimore{
@@ -60061,7 +59995,7 @@
 	},
 /obj/structure/table,
 /turf/open/floor/plasteel/f13/vault_floor/plating,
-/area/f13/building/hospital)
+/area/f13/building/boat)
 "vfY" = (
 /obj/structure/railing/corner{
 	color = "#A47449";
@@ -60534,7 +60468,7 @@
 	color = "#FFDDCC"
 	},
 /turf/open/floor/carpet/royalblack,
-/area/f13/bar)
+/area/f13/building/boat)
 "vnV" = (
 /obj/structure/table/reinforced,
 /obj/effect/decal/cleanable/robot_debris/gib,
@@ -60791,7 +60725,7 @@
 "vru" = (
 /obj/structure/table/wood/poker,
 /turf/open/floor/carpet/royalblack,
-/area/f13/bar)
+/area/f13/building/boat)
 "vrw" = (
 /obj/structure/nest/ghoul,
 /turf/open/floor/carpet/green,
@@ -61816,7 +61750,7 @@
 /area/f13/wasteland/city/citycenter)
 "vLp" = (
 /turf/open/floor/carpet/royalblack,
-/area/f13/bar)
+/area/f13/building/boat)
 "vLz" = (
 /obj/structure/table/wood,
 /obj/effect/decal/cleanable/greenglow,
@@ -61959,7 +61893,7 @@
 	color = "#FFDDCC"
 	},
 /turf/open/floor/plasteel/f13/vault_floor/plating,
-/area/f13/building/hospital)
+/area/f13/building/boat)
 "vNR" = (
 /obj/structure/flora/roadplant{
 	icon_state = "grass_8d"
@@ -62293,7 +62227,7 @@
 	pixel_x = 27
 	},
 /turf/open/floor/carpet/royalblack,
-/area/f13/bar)
+/area/f13/building/boat)
 "vTI" = (
 /mob/living/simple_animal/hostile/raider{
 	name = "Chill Raider";
@@ -62409,7 +62343,7 @@
 	},
 /obj/structure/barricade/wooden,
 /turf/open/floor/wood_common/wood_common_dark,
-/area/f13/bar)
+/area/f13/building/boat)
 "vVU" = (
 /turf/open/floor/plasteel/f13/vault_floor/plating,
 /area/f13/outpost)
@@ -62938,7 +62872,7 @@
 	pixel_y = 32
 	},
 /turf/open/floor/carpet/royalblack,
-/area/f13/bar)
+/area/f13/building/boat)
 "wfI" = (
 /obj/structure/closet/locker/oldstyle,
 /obj/item/clothing/under/f13/navy,
@@ -64590,7 +64524,7 @@
 "wKm" = (
 /obj/structure/sign/directions/medical,
 /turf/closed/wall/rust,
-/area/f13/building/hospital)
+/area/f13/building/boat)
 "wKA" = (
 /obj/structure/lamp_post{
 	dir = 4
@@ -64779,7 +64713,7 @@
 	dir = 1
 	},
 /turf/open/floor/wood_common/wood_common_dark,
-/area/f13/bar)
+/area/f13/building/boat)
 "wOs" = (
 /obj/structure/flora/roadplant{
 	icon_state = "shrub_decals_1"
@@ -64868,7 +64802,7 @@
 /obj/item/clothing/mask/surgical,
 /obj/item/storage/backpack/duffelbag/med/surgery/primitive,
 /turf/open/floor/plasteel/f13/vault_floor/plating,
-/area/f13/building/hospital)
+/area/f13/building/boat)
 "wPV" = (
 /obj/structure/debris/v3,
 /turf/open/indestructible/ground/outside/sidewalkdirt{
@@ -65017,14 +64951,14 @@
 	dir = 8
 	},
 /turf/open/floor/wood_common/wood_common_dark,
-/area/f13/bar)
+/area/f13/building/boat)
 "wSp" = (
 /obj/machinery/door/poddoor/shutters{
 	id = 81;
 	name = "Bar Ship Counter shutters"
 	},
 /turf/open/floor/wood_common/wood_common_dark,
-/area/f13/bar)
+/area/f13/building/boat)
 "wSx" = (
 /obj/structure/rack/shelf_metal,
 /obj/item/storage/box/engineer/radio,
@@ -65486,7 +65420,7 @@
 	color = "#FFDDCC"
 	},
 /turf/open/floor/carpet/royalblack,
-/area/f13/bar)
+/area/f13/building/boat)
 "xaD" = (
 /obj/structure/closet/crate/medical,
 /obj/item/storage/box/bodybags,
@@ -66636,7 +66570,7 @@
 /obj/structure/table,
 /obj/structure/fermenting_barrel,
 /turf/open/floor/wood_common/wood_common_dark,
-/area/f13/bar)
+/area/f13/building/boat)
 "xvA" = (
 /obj/effect/overlay/water{
 	layer = 20;
@@ -66715,7 +66649,7 @@
 	pixel_x = 16
 	},
 /turf/open/floor/wood_common/wood_common_dark,
-/area/f13/bar)
+/area/f13/building/boat)
 "xwU" = (
 /obj/item/toy/eightball,
 /obj/item/projectile/bullet/reusable/foam_dart,
@@ -67198,7 +67132,7 @@
 	layer = 10
 	},
 /turf/closed/wall/f13/ruins,
-/area/f13/bar)
+/area/f13/building/boat)
 "xFq" = (
 /obj/effect/mob_spawn/human/corpse/raider/ranged,
 /turf/open/indestructible/ground/outside/graveldirt,
@@ -67326,7 +67260,7 @@
 	},
 /obj/machinery/processor,
 /turf/open/floor/wood_common/wood_common_dark,
-/area/f13/bar)
+/area/f13/building/boat)
 "xHR" = (
 /obj/structure/chair/f13chair1{
 	dir = 1
@@ -67681,7 +67615,7 @@
 "xOH" = (
 /obj/structure/table/optable,
 /turf/open/floor/plasteel/f13/vault_floor/plating,
-/area/f13/building/hospital)
+/area/f13/building/boat)
 "xOL" = (
 /obj/machinery/light/small/broken{
 	dir = 4
@@ -67766,7 +67700,7 @@
 "xQe" = (
 /obj/structure/chair/comfy/beige,
 /turf/open/floor/plasteel/f13/vault_floor/plating,
-/area/f13/building/hospital)
+/area/f13/building/boat)
 "xQj" = (
 /obj/structure/flora/tree/wasteland{
 	icon_state = "tree_stump"
@@ -68025,7 +67959,7 @@
 	name = "Medical Vending Machine Key"
 	},
 /turf/open/floor/plasteel/f13/vault_floor/plating,
-/area/f13/building/hospital)
+/area/f13/building/boat)
 "xUH" = (
 /obj/structure/table/greyscale,
 /obj/item/camera,
@@ -68119,7 +68053,7 @@
 /obj/structure/bed/roller,
 /obj/item/bedsheet/medical,
 /turf/open/floor/plasteel/f13/vault_floor/plating,
-/area/f13/building/hospital)
+/area/f13/building/boat)
 "xVO" = (
 /obj/structure/railing{
 	color = "#A47449"
@@ -68478,9 +68412,6 @@
 	},
 /turf/closed/wall/f13/sunset/brick_small,
 /area/f13/building/center)
-"ycF" = (
-/turf/open/floor/plasteel/dark,
-/area/f13/building/hospital)
 "ycH" = (
 /obj/item/cardboard_cutout{
 	pixel_y = 8;
@@ -68980,7 +68911,7 @@
 /turf/open/indestructible/ground/outside/baltimore{
 	icon_state = "road_south_w"
 	},
-/area/f13/building)
+/area/f13/wasteland/town)
 "yjZ" = (
 /obj/structure/curtain{
 	color = "#808080"
@@ -69089,11 +69020,11 @@
 "ylT" = (
 /obj/structure/curtain,
 /turf/open/floor/plasteel/f13/vault_floor/plating,
-/area/f13/building/hospital)
+/area/f13/building/boat)
 "ylZ" = (
 /obj/structure/chair/stool/retro,
 /turf/open/floor/wood_common/wood_common_dark,
-/area/f13/bar)
+/area/f13/building/boat)
 "ymd" = (
 /obj/effect/spawner/lootdrop/f13/traitbooks/low,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
@@ -111038,29 +110969,29 @@ rsn
 rsn
 rsn
 rsn
-reb
+hzY
 qei
-reb
-reb
+hzY
+hzY
 qei
 qJn
-reb
+hzY
 duh
 duh
 duh
-lsa
-lsa
+rGm
+rGm
 hZN
 jdr
 ghr
-pnK
-pnK
-reb
+iRQ
+iRQ
+hzY
 qJn
 qJn
 qJn
-pnK
-pnK
+iRQ
+iRQ
 qei
 qei
 rsn
@@ -111293,7 +111224,7 @@ rsn
 rsn
 rsn
 rsn
-reb
+hzY
 qJn
 qei
 qei
@@ -111547,7 +111478,7 @@ rsn
 rsn
 rsn
 rsn
-pnK
+iRQ
 qei
 qei
 qei
@@ -111570,7 +111501,7 @@ ylZ
 qyf
 vLp
 bqP
-lsa
+rGm
 pqr
 dcR
 keN
@@ -111803,13 +111734,13 @@ rsn
 rsn
 rsn
 qei
-pnK
+iRQ
 qei
 qei
 qei
-pnK
-pnK
-lsa
+iRQ
+iRQ
+rGm
 mgA
 lGC
 vLp
@@ -111827,7 +111758,7 @@ ylZ
 qyf
 kIm
 kck
-lsa
+rGm
 kPv
 mgA
 oxC
@@ -112064,9 +111995,9 @@ rsn
 qJn
 qei
 qei
-reb
-pnK
-lsa
+hzY
+iRQ
+rGm
 guW
 bEl
 vLp
@@ -112084,7 +112015,7 @@ ylZ
 qyf
 vLp
 kEG
-lsa
+rGm
 tlF
 mgA
 xvy
@@ -112324,7 +112255,7 @@ rsn
 qei
 qei
 qei
-pnK
+iRQ
 hcx
 hNy
 uVh
@@ -112341,7 +112272,7 @@ aTO
 ref
 vTB
 wfB
-lsa
+rGm
 oEl
 kjH
 mgA
@@ -112582,27 +112513,27 @@ rsn
 rsn
 qei
 qJn
-lsa
-lsa
-lsa
-lsa
-reb
+rGm
+rGm
+rGm
+rGm
+hzY
 qJn
 qei
 qJn
-reb
+hzY
 qJn
 hZN
 jdr
 qJn
-lsa
-lsa
-lsa
+rGm
+rGm
+rGm
 qei
-pnK
-pnK
-pnK
-reb
+iRQ
+iRQ
+iRQ
+hzY
 qJn
 qei
 rsn
@@ -114379,29 +114310,29 @@ rsn
 rsn
 rsn
 rsn
-nGz
-uWd
-uWd
-arK
-nGz
+iRQ
+gBo
+gBo
+pBQ
+iRQ
 wKm
 rTm
 rTm
 pTa
-uWd
-arK
-uWd
-uWd
-uWd
-nGz
-sAv
-sAv
-arK
-uWd
-nGz
-nGz
-nGz
-uWd
+gBo
+pBQ
+gBo
+gBo
+gBo
+iRQ
+hzY
+hzY
+pBQ
+gBo
+iRQ
+iRQ
+iRQ
+gBo
 rsn
 rsn
 rsn
@@ -114634,16 +114565,16 @@ rsn
 rsn
 rsn
 rsn
-uWd
-uWd
+gBo
+gBo
 buF
 uBD
 gHh
 gHh
 rSz
 sOl
-ycF
-ycF
+gpD
+gpD
 szq
 uKb
 bnz
@@ -114656,10 +114587,10 @@ ocT
 uum
 gmh
 rRr
-uWd
-arK
-uWd
-uWd
+gBo
+pBQ
+gBo
+gBo
 rsn
 rsn
 rsn
@@ -114890,32 +114821,32 @@ rsn
 rsn
 rsn
 rsn
-nGz
-nGz
-uWd
-kXF
-kXF
+iRQ
+iRQ
+gBo
+qik
+qik
 gHh
 gHh
-uWd
+gBo
 kbH
-ycF
-ycF
+gpD
+gpD
 gyN
-ycF
-ycF
-ycF
-ycF
-ycF
-ycF
-ycF
-ycF
-ycF
-ycF
-ycF
-tsY
-uWd
-uWd
+gpD
+gpD
+gpD
+gpD
+gpD
+gpD
+gpD
+gpD
+gpD
+gpD
+gpD
+lPG
+gBo
+gBo
 rsn
 rsn
 rsn
@@ -115147,34 +115078,34 @@ rsn
 rsn
 rsn
 rsn
-uWd
-kXF
-gWt
+gBo
+qik
+xbt
 xQe
-kXF
+qik
 gHh
 gHh
 lTu
 bzY
-ycF
-ycF
+gpD
+gpD
 fwB
-ycF
+gpD
 pOT
-ycF
+gpD
 imh
-ycF
+gpD
 pOT
-ycF
-ycF
-ycF
+gpD
+gpD
+gpD
 pOT
-ycF
-tsY
-uWd
-nGz
-uWd
-uWd
+gpD
+lPG
+gBo
+iRQ
+gBo
+gBo
 rsn
 rsn
 cVa
@@ -115404,35 +115335,35 @@ rsn
 rsn
 rsn
 rsn
-uWd
-kXF
-nAv
-ycF
-ycF
-ycF
-ycF
+gBo
+qik
+siM
+gpD
+gpD
+gpD
+gpD
 hnu
-kXF
-kXF
+qik
+qik
 vfT
-uWd
+gBo
 oqw
 ylT
 ylT
-uWd
+gBo
 ylT
 ylT
 ylT
-uWd
+gBo
 ylT
 ylT
 ylT
-uWd
-uWd
-uWd
-uWd
-uWd
-uWd
+gBo
+gBo
+gBo
+gBo
+gBo
+gBo
 rsn
 cVa
 lTp
@@ -115661,34 +115592,34 @@ rsn
 rsn
 rsn
 rsn
-uWd
+gBo
 gSX
-eZf
+hVw
 acZ
 pDU
-ycF
+gpD
 gur
-uWd
+gBo
 hEr
 mGm
-uWd
-uWd
+gBo
+gBo
 oNe
 dBc
-kXF
-arK
+qik
+pBQ
 bct
 dXz
-kXF
-uWd
+qik
+gBo
 bct
 gGt
-kXF
-uWd
-nGz
-nGz
-nGz
-uWd
+qik
+gBo
+iRQ
+iRQ
+iRQ
+gBo
 rsn
 rsn
 iGE
@@ -115918,32 +115849,32 @@ rsn
 rsn
 rsn
 rsn
-nGz
-nGz
-uWd
-uWd
+iRQ
+iRQ
+gBo
+gBo
 nHl
-ycF
-uWd
+gpD
+gBo
 osR
 hJY
 hne
 xUE
 ubU
 xVN
-kXF
-kXF
+qik
+qik
 ubU
 xVN
-kXF
-kXF
+qik
+qik
 ubU
 xVN
-kXF
-kXF
-arK
-nGz
-nGz
+qik
+qik
+pBQ
+iRQ
+iRQ
 rsn
 rsn
 rsn
@@ -116176,32 +116107,32 @@ rsn
 rsn
 rsn
 rsn
-uWd
-uWd
-nGz
+gBo
+gBo
+iRQ
 rUl
-ycF
+gpD
 rso
 eJO
-kXF
+qik
 buY
 lCB
-uWd
+gBo
 wPJ
 xOH
 sIt
-uWd
+gBo
 wPJ
 xOH
 sIt
-uWd
+gBo
 wPJ
 xOH
 sIt
-uWd
-uWd
-uWd
-uWd
+gBo
+gBo
+gBo
+gBo
 rsn
 rsn
 rsn
@@ -116435,29 +116366,29 @@ rsn
 rsn
 rsn
 rsn
-nGz
-arK
+iRQ
+pBQ
 uUj
-arK
-sAv
+pBQ
+hzY
 lSy
-sAv
-uWd
-uWd
-uWd
+hzY
+gBo
+gBo
+gBo
 lSy
-uWd
-nGz
-nGz
+gBo
+iRQ
+iRQ
 lSy
-uWd
-uWd
-uWd
+gBo
+gBo
+gBo
 lSy
-nGz
-nGz
-uWd
-uWd
+iRQ
+iRQ
+gBo
+gBo
 rsn
 rsn
 rsn
