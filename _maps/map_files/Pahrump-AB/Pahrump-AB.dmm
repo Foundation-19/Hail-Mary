@@ -18706,7 +18706,7 @@
 	dir = 4
 	},
 /turf/closed/indestructible/f13/matrix,
-/area/f13/caves)
+/area/f13/brotherhood)
 "bTK" = (
 /obj/structure/flora/grass/coyote/seven,
 /turf/open/indestructible/ground/outside/desert,
@@ -24047,13 +24047,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/closed/wall/f13/supermart,
 /area/f13/building/mall)
-"dMG" = (
-/obj/structure/fluff/railing{
-	dir = 8;
-	pixel_x = 31
-	},
-/turf/open/floor/f13/wood,
-/area/f13/wasteland)
 "dMQ" = (
 /obj/structure/wreck/bus/rusted/segmented18,
 /turf/open/indestructible/ground/outside/desert,
@@ -24752,15 +24745,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/water,
 /area/f13/building/mall)
-"ecn" = (
-/obj/structure/fluff/railing{
-	dir = 4;
-	pixel_x = -32
-	},
-/turf/open/floor/f13/wood{
-	icon_state = "housewood4-broken"
-	},
-/area/f13/caves)
 "ecU" = (
 /turf/open/indestructible/ground/outside/dirt{
 	icon_state = "dirt";
@@ -25995,15 +25979,6 @@
 	icon_state = "floorrustysolid"
 	},
 /area/f13/building/mall)
-"eBW" = (
-/obj/structure/fluff/railing{
-	dir = 4;
-	pixel_x = -32
-	},
-/turf/open/floor/f13/wood{
-	icon_state = "housewood2-broken"
-	},
-/area/f13/wasteland)
 "eBY" = (
 /obj/item/radio/intercom/retro/kebob,
 /turf/closed/wall/f13/store{
@@ -32131,6 +32106,12 @@
 	icon_state = "verticalinnermain0"
 	},
 /area/f13/wasteland)
+"gYn" = (
+/obj/structure/fluff/railing{
+	dir = 8
+	},
+/turf/open/indestructible/ground/outside/river,
+/area/f13/wasteland)
 "gYo" = (
 /obj/structure/railing{
 	layer = 4.1
@@ -32875,7 +32856,7 @@
 	dir = 8
 	},
 /turf/closed/indestructible/f13/matrix,
-/area/f13/caves)
+/area/f13/brotherhood)
 "hrh" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -41143,15 +41124,6 @@
 	icon_state = "darkrusty"
 	},
 /area/f13/building/massfusion)
-"kNF" = (
-/obj/structure/fluff/railing{
-	dir = 8;
-	pixel_x = 31
-	},
-/turf/open/floor/f13/wood{
-	icon_state = "housewood1-broken"
-	},
-/area/f13/wasteland)
 "kNK" = (
 /obj/structure/flora/tree/joshua,
 /obj/structure/flora/ausbushes/sparsegrass,
@@ -42345,6 +42317,15 @@
 /turf/open/indestructible/ground/outside/road{
 	icon_state = "horizontaltopborderbottom3"
 	},
+/area/f13/wasteland)
+"lmm" = (
+/obj/effect/turf_decal/weather/dirt{
+	dir = 4
+	},
+/obj/structure/fluff/railing{
+	dir = 8
+	},
+/turf/open/indestructible/ground/outside/river,
 /area/f13/wasteland)
 "lmq" = (
 /obj/structure/flora/tree/jungle/small{
@@ -44049,6 +44030,9 @@
 "lVt" = (
 /obj/effect/turf_decal/weather/dirt{
 	dir = 9
+	},
+/obj/structure/fluff/railing{
+	dir = 4
 	},
 /turf/open/indestructible/ground/outside/river,
 /area/f13/wasteland)
@@ -61875,6 +61859,15 @@
 	dir = 8
 	},
 /area/f13/building/mall)
+"tss" = (
+/obj/effect/turf_decal/weather/dirt{
+	dir = 10
+	},
+/obj/structure/fluff/railing{
+	dir = 4
+	},
+/turf/open/indestructible/ground/outside/river,
+/area/f13/wasteland)
 "tsH" = (
 /turf/open/indestructible/ground/outside/water/running{
 	color = " A6635D"
@@ -62887,6 +62880,15 @@
 	icon_state = "darkdirtysolid"
 	},
 /area/f13/ncr)
+"tML" = (
+/obj/effect/turf_decal/weather/dirt{
+	dir = 8
+	},
+/obj/structure/fluff/railing{
+	dir = 4
+	},
+/turf/open/indestructible/ground/outside/river,
+/area/f13/wasteland)
 "tMM" = (
 /obj/structure/reagent_dispensers/compostbin,
 /turf/open/floor/f13/wood,
@@ -64261,6 +64263,16 @@
 	pixel_y = 8
 	},
 /turf/open/indestructible/ground/outside/desert,
+/area/f13/wasteland)
+"ure" = (
+/obj/effect/decal/riverbank,
+/obj/effect/turf_decal/weather/dirt{
+	dir = 5
+	},
+/obj/structure/fluff/railing{
+	dir = 8
+	},
+/turf/open/indestructible/ground/outside/river,
 /area/f13/wasteland)
 "url" = (
 /obj/structure/flora/tree/cactus,
@@ -67978,9 +67990,6 @@
 	icon_state = "desertsmooth4"
 	},
 /area/f13/wasteland)
-"vWK" = (
-/turf/open/floor/f13/wood,
-/area/f13/caves)
 "vWM" = (
 /obj/structure/table/reinforced,
 /obj/machinery/computer/terminal{
@@ -68485,13 +68494,6 @@
 /obj/structure/barricade/wooden/planks/pregame,
 /turf/open/floor/f13/wood,
 /area/f13/building)
-"wiv" = (
-/obj/structure/fluff/railing{
-	dir = 4;
-	pixel_x = -32
-	},
-/turf/open/floor/f13/wood,
-/area/f13/wasteland)
 "wiK" = (
 /obj/structure/fence{
 	dir = 4
@@ -72480,15 +72482,6 @@
 	dir = 9
 	},
 /turf/open/indestructible/ground/outside/dirt,
-/area/f13/wasteland)
-"xPu" = (
-/obj/structure/fluff/railing{
-	dir = 8;
-	pixel_x = 31
-	},
-/turf/open/floor/f13/wood{
-	icon_state = "housewood2-broken"
-	},
 /area/f13/wasteland)
 "xPA" = (
 /obj/structure/closet/locker,
@@ -110045,10 +110038,10 @@ aaa
 aaa
 aae
 lVt
-qhg
-qhg
-iZL
-aae
+tML
+tML
+tss
+tPB
 gZN
 gZN
 rUr
@@ -110301,13 +110294,13 @@ aaa
 (144,1,1) = {"
 aaa
 hrg
-wiv
-wiv
-eBW
-wiv
-ecn
-vWK
-vWK
+gZN
+gZN
+itC
+gZN
+qVg
+gZN
+gZN
 aae
 alW
 alW
@@ -110558,13 +110551,13 @@ aaa
 (145,1,1) = {"
 aaa
 bTH
-kNF
-dMG
-dMG
-dMG
-xPu
-dMG
-kNF
+evU
+gZN
+gZN
+gZN
+itC
+gZN
+evU
 rNG
 qhg
 qhg
@@ -110815,13 +110808,13 @@ aaa
 (146,1,1) = {"
 aaa
 aae
-vzm
-uwh
-nyE
-nyE
-nyE
-nyE
-uwh
+ure
+lmm
+gYn
+gYn
+gYn
+gYn
+lmm
 tqB
 nyE
 nyE
