@@ -68,6 +68,12 @@
 	icon_state = "common-broken4"
 	},
 /area/f13/wasteland/city)
+"aaZ" = (
+/obj/structure/flora/tree/med_pine_dead,
+/turf/open/floor/plating/dirt/dirt_maryland{
+	icon_state = "grass_4"
+	},
+/area/f13/wasteland/city)
 "abH" = (
 /obj/structure/flora/roadplant{
 	icon_state = "grass_7d"
@@ -215,7 +221,7 @@
 /area/f13/ruins)
 "adc" = (
 /obj/structure/table/wood/fancy/royalblack,
-/obj/item/gun/ballistic/shotgun/hunting,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/energy/midhigh,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/building/boat)
 "add" = (
@@ -249,7 +255,7 @@
 /area/f13/wasteland/city)
 "aeq" = (
 /obj/structure/table/greyscale,
-/obj/structure/flora/tree/jungle/small,
+/obj/structure/flora/tree/med_pine_dead,
 /turf/open/floor/plasteel/f13/vault_floor/misc/rarewhite,
 /area/f13/ruins)
 "aeF" = (
@@ -268,7 +274,10 @@
 /turf/open/floor/wood_mosaic,
 /area/f13/building/center)
 "aeU" = (
-/obj/machinery/vending/dinnerware,
+/obj/machinery/chem_dispenser/drinks{
+	dir = 4;
+	pixel_x = -19
+	},
 /turf/open/floor/wood_fancy,
 /area/f13/building)
 "afb" = (
@@ -457,16 +466,6 @@
 	icon_state = "mosaic_light-broken3"
 	},
 /area/f13/building/boat)
-"ahD" = (
-/obj/structure/flora/tree/jungle{
-	pixel_y = -15;
-	pixel_x = -38;
-	layer = 9
-	},
-/turf/open/floor/plating/dirt/dirt_maryland{
-	icon_state = "dirt_original"
-	},
-/area/f13/wasteland/city)
 "ahK" = (
 /obj/machinery/light/fo13colored/Red{
 	dir = 8;
@@ -810,7 +809,8 @@
 /area/f13/wasteland/town)
 "aoh" = (
 /obj/structure/simple_door/metal/store{
-	icon_state = "brokenstore"
+	icon_state = "brokenstore";
+	name = "USS Dealmaker metal door"
 	},
 /turf/open/floor/plating/tunnel,
 /area/f13/ruins)
@@ -2212,7 +2212,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/outpost)
 "aLn" = (
-/obj/structure/flora/tree/jungle/small,
+/obj/structure/flora/tree/med_pine_dead,
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/building)
 "aLo" = (
@@ -2501,10 +2501,7 @@
 	},
 /area/f13/wasteland/city)
 "aRm" = (
-/obj/structure/reagent_dispensers/barrel/old,
-/turf/open/indestructible/ground/outside/baltimore{
-	icon_state = "road_center"
-	},
+/turf/closed/wall/mineral/concrete/blastproof,
 /area/f13/wasteland/city/citycenter)
 "aRq" = (
 /obj/structure/flora/wasteplant/wild_tato,
@@ -2710,10 +2707,12 @@
 /area/f13/ruins)
 "aUN" = (
 /obj/structure/simple_door/metal/store{
-	icon_state = "brokenstore"
+	icon_state = "brokenstore";
+	name = "USS Dealmaker metal door"
 	},
 /obj/structure/simple_door/metal/store{
-	icon_state = "brokenstore"
+	icon_state = "brokenstore";
+	name = "USS Dealmaker metal door"
 	},
 /turf/open/floor/wood_common,
 /area/f13/ruins)
@@ -3624,7 +3623,9 @@
 /area/f13/ruins)
 "bmo" = (
 /obj/structure/barricade/wooden/planks,
-/obj/structure/simple_door/metal/store,
+/obj/structure/simple_door/metal/store{
+	name = "USS Dealmaker metal door"
+	},
 /turf/open/floor/plasteel/f13/vault_floor/floor,
 /area/f13/ruins)
 "bmv" = (
@@ -3666,7 +3667,9 @@
 	},
 /area/f13/wasteland/city/citycenter)
 "bmV" = (
-/obj/structure/simple_door/metal/store,
+/obj/structure/simple_door/metal/store{
+	name = "Rusted Beckett Doors"
+	},
 /turf/open/floor/f13/wood,
 /area/f13/building/boat)
 "bmX" = (
@@ -3828,7 +3831,9 @@
 /turf/open/floor/plating/rust,
 /area/f13/ruins)
 "bpU" = (
-/obj/structure/simple_door/metal/store,
+/obj/structure/simple_door/metal/store{
+	name = "USS Dealmaker metal door"
+	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "bluerustysolid"
 	},
@@ -4278,6 +4283,12 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/wood_fancy,
 /area/f13/ruins)
+"byk" = (
+/obj/machinery/door/unpowered/secure_bos,
+/turf/open/indestructible/ground/outside/ruins{
+	icon_state = "rubbleslab"
+	},
+/area/f13/brotherhood)
 "byw" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -4598,7 +4609,7 @@
 /turf/open/floor/carpet/royalblack,
 /area/f13/bar)
 "bEs" = (
-/obj/structure/flora/tree/jungle,
+/obj/structure/flora/tree/tall,
 /turf/open/floor/plating/dirt/dirt_maryland{
 	icon_state = "grass_5"
 	},
@@ -5296,6 +5307,14 @@
 /obj/structure/barricade/wooden/planks,
 /turf/open/floor/wood_worn/wood_worn_dark,
 /area/f13/building/center)
+"bTX" = (
+/mob/living/simple_animal/hostile/renegade{
+	desc = "A raider heavely armed."
+	},
+/turf/open/indestructible/ground/outside/baltimore{
+	icon_state = "road_center"
+	},
+/area/f13/wasteland/city/citycenter)
 "bUe" = (
 /obj/structure/timeddoor/sixtyminute,
 /turf/open/floor/plating/rust,
@@ -6896,11 +6915,6 @@
 	sunlight_state = 1
 	},
 /area/f13/wasteland/city)
-"cyy" = (
-/obj/item/chair/stool/retro,
-/obj/effect/mob_spawn/human/corpse/charredskeleton,
-/turf/open/floor/plating/rust,
-/area/f13/building/center)
 "cyA" = (
 /obj/structure/fence/corner{
 	dir = 8
@@ -6950,7 +6964,7 @@
 /turf/open/floor/wood_fancy,
 /area/f13/building/center)
 "czh" = (
-/obj/structure/flora/tree/jungle,
+/obj/structure/flora/tree/tall,
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/building)
 "czp" = (
@@ -7010,6 +7024,10 @@
 	sunlight_state = 1
 	},
 /area/f13/wasteland/town)
+"cAl" = (
+/obj/structure/rack/shelf_metal,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/building/boat)
 "cAt" = (
 /obj/structure/table,
 /turf/open/floor/plating/rust,
@@ -7291,10 +7309,6 @@
 /obj/structure/nest/molerat,
 /turf/open/floor/wood_fancy,
 /area/f13/building/center)
-"cFJ" = (
-/obj/structure/nest,
-/turf/open/floor/plasteel/f13/vault_floor/floor/floorsolid,
-/area/f13/raider_mall)
 "cFL" = (
 /obj/structure/simple_door/brokenglass,
 /turf/open/floor/plating/rust{
@@ -7812,7 +7826,8 @@
 	color = "#A47449"
 	},
 /obj/structure/simple_door/metal/store{
-	icon_state = "brokenstore"
+	icon_state = "brokenstore";
+	name = "USS Dealmaker metal door"
 	},
 /obj/structure/barricade/wooden/planks,
 /turf/open/floor/wood_fancy,
@@ -7958,7 +7973,9 @@
 	},
 /area/f13/wasteland/town)
 "cOS" = (
-/obj/structure/simple_door/metal/store,
+/obj/structure/simple_door/metal/store{
+	name = "USS Dealmaker metal door"
+	},
 /turf/open/floor/plasteel/f13/vault_floor/floor,
 /area/f13/ruins)
 "cOT" = (
@@ -8016,6 +8033,8 @@
 /area/f13/wasteland/city/citycenter)
 "cPz" = (
 /obj/structure/closet/crate,
+/obj/item/stack/f13Cash/caps/threezerozero,
+/obj/item/stack/f13Cash/caps/onefivezero,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
 /area/f13/building/boat)
 "cPG" = (
@@ -8286,6 +8305,9 @@
 "cUA" = (
 /obj/machinery/newscaster{
 	pixel_y = 31
+	},
+/obj/structure/simple_door/metal/store{
+	name = "USS Dealmaker metal door"
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	name = "Docks";
@@ -9983,6 +10005,17 @@
 	sunlight_state = 1
 	},
 /area/f13/wasteland/city)
+"dyr" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/item/gun/energy/laser/aer9,
+/obj/item/gun/energy/laser/aer9,
+/obj/item/gun/energy/laser/aer9,
+/turf/open/floor/plating/rust{
+	sunlight_state = 1;
+	name = "rusted Docks"
+	},
+/area/f13/enclave)
 "dyy" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -11054,6 +11087,9 @@
 	icon_state = "floorscorched2"
 	},
 /area/f13/wasteland/city/citycenter)
+"dUh" = (
+/turf/closed/indestructible/opshuttle,
+/area/f13/ruins)
 "dUi" = (
 /obj/structure/table,
 /obj/machinery/computer/terminal{
@@ -11116,6 +11152,9 @@
 "dVF" = (
 /obj/structure/flora/ausbushes/pointybush,
 /turf/open/floor/plasteel/f13/vault_floor/misc/rarewhite,
+/area/f13/ruins)
+"dVG" = (
+/turf/closed/indestructible/fakeglass,
 /area/f13/ruins)
 "dWd" = (
 /obj/structure/bed/old,
@@ -11405,6 +11444,13 @@
 	name = "rusted Docks"
 	},
 /area/f13/ruins)
+"ebc" = (
+/obj/machinery/mineral/wasteland_vendor/weapons,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
+	name = "Docks";
+	sunlight_state = 1
+	},
+/area/f13/wasteland/town)
 "ebh" = (
 /obj/structure/table/reinforced,
 /obj/structure/barricade/bars,
@@ -11854,14 +11900,6 @@
 /obj/item/defibrillator/primitive,
 /turf/open/indestructible/ground/outside/ruins,
 /area/f13/ruins)
-"ejH" = (
-/obj/structure/flora/tree/jungle{
-	pixel_y = -15;
-	pixel_x = -38;
-	layer = 9
-	},
-/turf/open/indestructible/ground/outside/gravel,
-/area/f13/wasteland/city/citycenter)
 "ejM" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -13602,6 +13640,9 @@
 /obj/item/lockpick_set,
 /obj/item/lockpick_set,
 /obj/item/lockpick_set,
+/obj/item/lockpick_set,
+/obj/item/lockpick_set,
+/obj/item/lockpick_set,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/building/boat)
 "eRB" = (
@@ -13830,7 +13871,7 @@
 /turf/open/floor/plating/rust,
 /area/f13/ruins)
 "eWV" = (
-/obj/structure/flora/tree/jungle/small,
+/obj/structure/flora/tree/med_pine_dead,
 /turf/open/floor/plating/dirt/dirt_maryland{
 	icon_state = "dirt_7"
 	},
@@ -14213,6 +14254,14 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/dark,
 /area/f13/ruins)
+"fcT" = (
+/mob/living/simple_animal/hostile/renegade/doc{
+	desc = "A raider heavely armed."
+	},
+/turf/open/floor/plasteel/f13/vault_floor{
+	icon_state = "panelscorched"
+	},
+/area/f13/clinic)
 "fdd" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/f13/wood,
@@ -15620,7 +15669,9 @@
 /turf/open/floor/wood_common,
 /area/f13/building/center)
 "fDW" = (
-/obj/structure/simple_door/dirtyglass,
+/obj/structure/simple_door/dirtyglass{
+	name = "The NCS Casabanca Bar door"
+	},
 /obj/structure/barricade/wooden/planks,
 /turf/open/floor/plasteel/bar,
 /area/f13/building/center)
@@ -15659,7 +15710,8 @@
 /area/f13/ruins)
 "fEq" = (
 /obj/structure/simple_door/metal/store{
-	icon_state = "brokenstore"
+	icon_state = "brokenstore";
+	name = "USS Dealmaker metal door"
 	},
 /obj/effect/decal/cleanable/blood/footprints{
 	icon_state = "blood2";
@@ -15809,7 +15861,7 @@
 	},
 /area/f13/wasteland/town)
 "fGm" = (
-/obj/structure/flora/tree/jungle,
+/obj/structure/flora/tree/tall,
 /turf/open/floor/plating/dirt/dirt_maryland{
 	icon_state = "grass_9"
 	},
@@ -16020,7 +16072,7 @@
 	},
 /area/f13/building/boat)
 "fJQ" = (
-/obj/structure/flora/tree/jungle/small,
+/obj/structure/flora/tree/med_pine_dead,
 /obj/structure/stone_tile/block,
 /obj/structure/stone_tile/block{
 	pixel_x = 15
@@ -16590,16 +16642,6 @@
 	icon_state = "horizontaloutermain1"
 	},
 /area/f13/wasteland/city/citycenter)
-"fVd" = (
-/obj/structure/barricade/bars,
-/obj/structure/table/wood,
-/obj/structure/obstacle/barbedwire/end{
-	dir = 4
-	},
-/turf/open/indestructible/ground/outside/baltimore{
-	icon_state = "road_center"
-	},
-/area/f13/wasteland/city/citycenter)
 "fVt" = (
 /obj/effect/overlay/junk/oldpipes{
 	dir = 8;
@@ -17025,6 +17067,13 @@
 	name = "sea water"
 	},
 /area/f13/wasteland/town)
+"gdS" = (
+/obj/machinery/microwave/stove,
+/obj/machinery/vending/dinnerware{
+	pixel_x = 19
+	},
+/turf/open/floor/wood_fancy,
+/area/f13/building)
 "gdW" = (
 /obj/structure/closet/crate/large,
 /obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/highmid,
@@ -17824,6 +17873,7 @@
 /obj/item/storage/box/ingredients/exotic,
 /obj/item/storage/box/ingredients/sushi,
 /obj/item/storage/box/ingredients/carnivore,
+/obj/item/storage/box/drinkingglasses,
 /turf/open/floor/wood_fancy,
 /area/f13/building)
 "grs" = (
@@ -18129,12 +18179,6 @@
 "gwq" = (
 /turf/closed/wall/mineral/wood,
 /area/f13/raider_mall)
-"gwt" = (
-/obj/structure/debris/v1,
-/turf/open/indestructible/ground/outside/baltimore{
-	icon_state = "road_center"
-	},
-/area/f13/wasteland/city/citycenter)
 "gxh" = (
 /obj/structure/chair/bench{
 	dir = 1
@@ -18279,7 +18323,13 @@
 /area/f13/building/boat)
 "gyT" = (
 /obj/structure/rack/shelf_metal,
-/obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic,
+/obj/effect/spawner/lootdrop/f13/weapon/melee/tier1,
+/obj/effect/spawner/lootdrop/f13/weapon/melee/tier1,
+/obj/effect/spawner/lootdrop/f13/weapon/melee/tier2,
+/obj/effect/spawner/lootdrop/f13/weapon/melee/tier2,
+/obj/effect/spawner/lootdrop/f13/weapon/melee/tier2,
+/obj/effect/spawner/lootdrop/f13/weapon/melee/tier2,
+/obj/effect/spawner/lootdrop/f13/weapon/melee/tier3,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
 /area/f13/building/boat)
 "gyV" = (
@@ -18766,7 +18816,7 @@
 	},
 /area/f13/building/center)
 "gIL" = (
-/obj/structure/flora/tree/jungle,
+/obj/structure/flora/tree/tall,
 /turf/open/floor/plating/dirt/dirt_maryland{
 	icon_state = "dirt_8"
 	},
@@ -18824,6 +18874,10 @@
 /turf/open/indestructible/ground/outside/gravel,
 /area/f13/wasteland/city/citycenter)
 "gKq" = (
+/obj/structure/simple_door/metal/store{
+	icon_state = "brokenstore";
+	name = "USS Dealmaker metal door"
+	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	name = "Docks";
 	sunlight_state = 1
@@ -18892,7 +18946,8 @@
 /area/f13/wasteland/city/citycenter)
 "gLQ" = (
 /obj/structure/simple_door/metal/store{
-	icon_state = "brokenstore"
+	icon_state = "brokenstore";
+	name = "USS Dealmaker metal door"
 	},
 /turf/open/floor/wood_mosaic,
 /area/f13/ruins)
@@ -20527,7 +20582,9 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
 /area/f13/building/boat)
 "hpl" = (
-/obj/structure/simple_door/dirtyglass,
+/obj/structure/simple_door/dirtyglass{
+	name = "The NCS Casabanca Bar door"
+	},
 /obj/structure/barricade/wooden/planks,
 /turf/open/floor/wood_fancy/wood_fancy_dark,
 /area/f13/ruins)
@@ -21645,7 +21702,9 @@
 	},
 /area/f13/wasteland/city)
 "hJH" = (
-/obj/structure/simple_door/dirtyglass,
+/obj/structure/simple_door/dirtyglass{
+	name = "The NCS Casabanca Bar door"
+	},
 /turf/open/floor/wood_mosaic/wood_mosaic_dark,
 /area/f13/building/center)
 "hJU" = (
@@ -21818,7 +21877,7 @@
 	},
 /area/f13/ruins)
 "hMv" = (
-/obj/structure/flora/tree/jungle/small,
+/obj/structure/flora/tree/med_pine_dead,
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/wasteland/city)
 "hMx" = (
@@ -21996,7 +22055,7 @@
 /area/f13/wasteland/city)
 "hPg" = (
 /obj/structure/table/wood/fancy/royalblack,
-/obj/item/gun/ballistic/revolver/colt357,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/high,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/building/boat)
 "hPp" = (
@@ -22196,6 +22255,9 @@
 /obj/item/clipboard,
 /turf/open/floor/wood_worn,
 /area/f13/building)
+"hSB" = (
+/turf/open/floor/plating/f13/inside,
+/area/f13/ruins)
 "hSD" = (
 /obj/structure/flora/grass/jungle,
 /turf/open/indestructible/ground/outside/dirt,
@@ -22296,7 +22358,8 @@
 "hTW" = (
 /obj/structure/flora/ausbushes/ppflowers,
 /obj/structure/simple_door/metal/store{
-	icon_state = "brokenstore"
+	icon_state = "brokenstore";
+	name = "USS Dealmaker metal door"
 	},
 /turf/open/floor/wood_wide/wood_wide_dark,
 /area/f13/building/center)
@@ -23351,7 +23414,9 @@
 	},
 /area/f13/Ocean)
 "iqk" = (
-/obj/structure/simple_door/metal/store,
+/obj/structure/simple_door/metal/store{
+	name = "USS Dealmaker metal door"
+	},
 /turf/open/floor/plating/rust,
 /area/f13/ruins)
 "iqn" = (
@@ -23392,6 +23457,12 @@
 	icon_state = "road_center"
 	},
 /area/f13/wasteland/city)
+"ird" = (
+/obj/structure/campfire/barrel,
+/turf/open/indestructible/ground/outside/baltimore{
+	icon_state = "road_east_w"
+	},
+/area/f13/wasteland/city/citycenter)
 "iro" = (
 /obj/effect/turf_decal/road_end{
 	dir = 1
@@ -23488,12 +23559,6 @@
 /obj/structure/closet/crate/bin/trashbin,
 /turf/open/floor/wood_fancy,
 /area/f13/ruins)
-"isD" = (
-/obj/structure/debris/v2,
-/turf/open/indestructible/ground/outside/baltimore{
-	icon_state = "road_center"
-	},
-/area/f13/wasteland/city/citycenter)
 "isP" = (
 /obj/effect/decal/cleanable/cobweb,
 /obj/structure/timeddoor/sixtyminute,
@@ -24419,7 +24484,8 @@
 /area/f13/Ocean)
 "iHR" = (
 /obj/structure/simple_door/metal/store{
-	icon_state = "brokenstore"
+	icon_state = "brokenstore";
+	name = "USS Dealmaker metal door"
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "bluerustysolid"
@@ -25099,7 +25165,8 @@
 	id = 932
 	},
 /obj/structure/simple_door/metal/store{
-	icon_state = "brokenstore"
+	icon_state = "brokenstore";
+	name = "USS Dealmaker metal door"
 	},
 /turf/open/floor/plasteel/f13/vault_floor/floor,
 /area/f13/raider_mall)
@@ -25566,7 +25633,9 @@
 	id = 80;
 	name = "Bar ship shutters"
 	},
-/obj/structure/simple_door/glass,
+/obj/structure/simple_door/dirtyglass{
+	name = "The NCS Casabanca Bar door"
+	},
 /turf/open/floor/wood_common/wood_common_dark,
 /area/f13/bar)
 "jdB" = (
@@ -25947,13 +26016,6 @@
 	icon_state = "horizontaloutermain1"
 	},
 /area/f13/brotherhood)
-"jkP" = (
-/obj/structure/barricade/sandbags,
-/obj/structure/table/wood,
-/turf/open/indestructible/ground/outside/baltimore{
-	icon_state = "road_center"
-	},
-/area/f13/wasteland/city/citycenter)
 "jkQ" = (
 /obj/structure/shopping_cart{
 	pixel_x = -7;
@@ -26555,8 +26617,8 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/lootdrop/f13/armor/tier4PA,
-/obj/effect/spawner/lootdrop/f13/armor/tier5,
 /mob/living/simple_animal/hostile/deathclaw/power_armor,
+/obj/effect/spawner/lootdrop/f13/armor/tier5,
 /turf/open/floor/engine,
 /area/f13/building/boat)
 "jxO" = (
@@ -26720,7 +26782,7 @@
 	},
 /area/f13/wasteland/city)
 "jzR" = (
-/obj/structure/flora/tree/jungle/small,
+/obj/structure/flora/tree/med_pine_dead,
 /turf/open/floor/plating/dirt/dirt_maryland{
 	icon_state = "dirt_original"
 	},
@@ -27574,7 +27636,8 @@
 /area/f13/ruins)
 "jOz" = (
 /obj/structure/simple_door/metal/store{
-	icon_state = "brokenstore"
+	icon_state = "brokenstore";
+	name = "USS Dealmaker metal door"
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	name = "Old Docks";
@@ -27806,6 +27869,26 @@
 	},
 /turf/open/indestructible/ground/outside/gravel,
 /area/f13/wasteland/city)
+"jUm" = (
+/obj/effect/decal/riverbank{
+	dir = 9;
+	layer = 20;
+	color = "#edd077";
+	name = "Brickwall support"
+	},
+/obj/effect/decal/riverbank{
+	dir = 10;
+	layer = 20;
+	color = "#edd077";
+	name = "Brickwall support"
+	},
+/obj/machinery/chem_dispenser/drinks/beer{
+	dir = 4;
+	pixel_y = 0;
+	pixel_x = 13
+	},
+/turf/closed/wall/f13/sunset/brick_small,
+/area/f13/building)
 "jUo" = (
 /obj/structure/chair/booth,
 /obj/structure/stone_tile/block,
@@ -28814,7 +28897,7 @@
 /turf/open/indestructible/ground/outside/gravel,
 /area/f13/wasteland/city/citycenter)
 "knD" = (
-/obj/structure/flora/tree/jungle/small,
+/obj/structure/flora/tree/med_pine_dead,
 /turf/open/floor/plating/dirt/dirt_maryland{
 	icon_state = "grass_9"
 	},
@@ -31760,12 +31843,6 @@
 /obj/machinery/recharge_station,
 /turf/open/floor/plating/rust,
 /area/f13/outpost)
-"lpI" = (
-/obj/structure/wreck/bus/rusted,
-/turf/open/indestructible/ground/outside/baltimore{
-	icon_state = "road_center"
-	},
-/area/f13/wasteland/city)
 "lpT" = (
 /turf/open/floor/wood_mosaic{
 	icon_state = "common_light-broken1"
@@ -31803,6 +31880,12 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plasteel/darkbrown,
 /area/f13/ruins)
+"lqz" = (
+/obj/structure/flora/tree/med_pine_dead,
+/turf/open/floor/plating/dirt/dirt_maryland{
+	icon_state = "grass_4"
+	},
+/area/f13/wasteland/city/citycenter)
 "lqJ" = (
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustysolid"
@@ -31845,7 +31928,9 @@
 	},
 /area/f13/wasteland/city)
 "lqY" = (
-/obj/structure/ladder/unbreakable,
+/obj/structure/ladder/unbreakable{
+	id = "tunnel"
+	},
 /turf/open/floor/plating/dirt/dirt_maryland{
 	icon_state = "dirt_original"
 	},
@@ -33551,8 +33636,7 @@
 /area/f13/building/boat)
 "lSu" = (
 /obj/structure/table/wood/fancy/royalblack,
-/obj/item/gun/ballistic/automatic/pistol/m1911,
-/obj/item/gun/ballistic/automatic/pistol/m1911,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/energy/mid,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/building/boat)
 "lSy" = (
@@ -34347,7 +34431,8 @@
 /area/f13/building/hospital)
 "mgx" = (
 /obj/structure/simple_door/metal/store{
-	icon_state = "brokenstore"
+	icon_state = "brokenstore";
+	name = "USS Dealmaker metal door"
 	},
 /obj/machinery/door/poddoor/shutters{
 	name = "Big Bill's Shop shutters";
@@ -34993,7 +35078,9 @@
 /area/f13/building/boat)
 "mur" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/simple_door/metal/store,
+/obj/structure/simple_door/metal/store{
+	name = "USS Dealmaker metal door"
+	},
 /turf/open/floor/plasteel/f13/vault_floor/floor,
 /area/f13/ruins)
 "mut" = (
@@ -35244,9 +35331,13 @@
 /area/f13/ruins)
 "myX" = (
 /obj/structure/rack/shelf_metal,
-/obj/item/gun/ballistic/automatic/m1garand,
-/obj/item/gun/ballistic/automatic/marksman/policerifle,
-/obj/item/gun/ballistic/automatic/combat,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/low,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/low,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/low,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/low,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/low,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/lowmid,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/lowmid,
 /turf/open/floor/plating/rust,
 /area/f13/building/boat)
 "myZ" = (
@@ -36341,6 +36432,12 @@
 /obj/effect/mob_spawn/human/corpse/charredskeleton,
 /turf/open/floor/plasteel/floorgrime,
 /area/f13/building/center)
+"mPB" = (
+/mob/living/simple_animal/hostile/renegade{
+	desc = "A raider heavely armed."
+	},
+/turf/open/floor/plasteel/f13/vault_floor/floor/floorsolid,
+/area/f13/raider_mall)
 "mPF" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 4
@@ -36687,10 +36784,6 @@
 /obj/effect/decal/remains/human,
 /turf/open/floor/wood_fancy/wood_fancy_light,
 /area/f13/building/center)
-"mXX" = (
-/obj/structure/nest,
-/turf/open/floor/plasteel/f13/vault_floor/floor/floorsolid,
-/area/f13/clinic)
 "mYd" = (
 /obj/effect/overlay/junk/oldpipes{
 	dir = 8;
@@ -37180,6 +37273,9 @@
 /area/f13/building/center)
 "nhR" = (
 /obj/item/trash/f13/tin,
+/mob/living/simple_animal/hostile/renegade/grunt{
+	desc = "A raider heavely armed."
+	},
 /turf/open/floor/plasteel/f13/vault_floor{
 	icon_state = "panelscorched"
 	},
@@ -37640,6 +37736,10 @@
 /obj/structure/simple_door/house,
 /turf/open/floor/wood_fancy/wood_fancy_dark,
 /area/f13/ruins)
+"nso" = (
+/obj/effect/turf_decal/vg_decals/radiation,
+/turf/open/floor/wood_common/wood_common_dark,
+/area/f13/bar)
 "nst" = (
 /obj/structure/curtain{
 	color = "#811313";
@@ -37767,6 +37867,13 @@
 	pixel_y = -3;
 	pixel_x = -15
 	},
+/obj/machinery/light/small{
+	dir = 8;
+	name = "tan light fixture";
+	light_color = "#FFDDCC";
+	color = "#FFDDCC";
+	pixel_x = -13
+	},
 /turf/open/indestructible/ground/outside/baltimore{
 	icon_state = "road_center"
 	},
@@ -37817,7 +37924,8 @@
 /area/f13/office)
 "nvk" = (
 /obj/structure/simple_door/metal/store{
-	icon_state = "brokenstore"
+	icon_state = "brokenstore";
+	name = "USS Dealmaker metal door"
 	},
 /turf/open/floor/plating/rust{
 	sunlight_state = 1;
@@ -37956,16 +38064,6 @@
 	},
 /turf/open/floor/f13/wood/outside,
 /area/f13/wasteland/city)
-"nxr" = (
-/obj/machinery/iv_drip,
-/obj/machinery/light/small{
-	color = "#669999";
-	light_color = "#669999"
-	},
-/turf/open/indestructible/ground/outside/sidewalk{
-	icon_state = "horizontaloutermain1"
-	},
-/area/f13/brotherhood)
 "nxt" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/f13/vault_floor/misc/rarewhite,
@@ -38004,8 +38102,10 @@
 	},
 /area/f13/building/center)
 "nxE" = (
-/obj/structure/bed,
-/obj/item/bedsheet/medical,
+/obj/machinery/light/small{
+	color = "#669999";
+	light_color = "#669999"
+	},
 /turf/open/indestructible/ground/outside/sidewalk{
 	icon_state = "horizontaloutermain1"
 	},
@@ -38053,10 +38153,8 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/rarewhite,
 /area/f13/building/boat)
 "nyR" = (
-/obj/structure/flora/tree/jungle/small{
-	pixel_x = -20
-	},
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/flora/tree/med_pine_dead,
 /turf/open/indestructible/ground/outside/gravel,
 /area/f13/wasteland/town)
 "nzb" = (
@@ -38606,6 +38704,10 @@
 	},
 /turf/open/floor/f13/wood,
 /area/f13/building/boat)
+"nKJ" = (
+/obj/effect/decal/cleanable/greenglow,
+/turf/open/floor/wood_common/wood_common_dark,
+/area/f13/bar)
 "nKN" = (
 /obj/machinery/vending/coffee{
 	pixel_y = -8
@@ -39477,7 +39579,6 @@
 /area/f13/building)
 "obG" = (
 /obj/effect/decal/cleanable/glass,
-/obj/structure/closet/crate/large,
 /obj/item/reagent_containers/food/drinks/bottle/f13nukacola{
 	pixel_y = 10;
 	pixel_x = -6
@@ -39486,6 +39587,7 @@
 	pixel_x = 5;
 	pixel_y = 5
 	},
+/obj/structure/table/wood,
 /turf/open/floor/wood_fancy/wood_fancy_light{
 	icon_state = "fancy_light-broken3"
 	},
@@ -39732,16 +39834,6 @@
 /obj/structure/spider/stickyweb,
 /turf/open/floor/wood_fancy,
 /area/f13/ruins)
-"ofF" = (
-/obj/structure/window{
-	dir = 4
-	},
-/obj/structure/nest,
-/turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
-	name = "Docks";
-	sunlight_state = 1
-	},
-/area/f13/raider_mall)
 "ofK" = (
 /obj/structure/closet/crate/goldcrate,
 /obj/effect/spawner/lootdrop/f13/bomb/tier1,
@@ -39824,6 +39916,14 @@
 /obj/structure/decoration/vent,
 /turf/open/floor/plasteel/floorgrime,
 /area/f13/building/center)
+"ohF" = (
+/mob/living/simple_animal/hostile/renegade{
+	desc = "A raider heavely armed."
+	},
+/turf/open/floor/plasteel/f13/vault_floor{
+	icon_state = "panelscorched"
+	},
+/area/f13/raider_mall)
 "ohG" = (
 /obj/structure/cargocrate{
 	color = "#F2BB2F"
@@ -40564,12 +40664,10 @@
 /obj/structure/destructible/tribal_torch/lit{
 	pixel_x = -11
 	},
-/obj/structure/table/booth,
-/obj/item/reagent_containers/jerrycan,
-/obj/item/reagent_containers/jerrycan,
-/obj/item/reagent_containers/jerrycan,
-/obj/item/reagent_containers/jerrycan,
-/obj/item/reagent_containers/jerrycan,
+/obj/structure/railing{
+	color = "#A47449";
+	dir = 10
+	},
 /turf/open/floor/plating/dirt/dirt_maryland{
 	icon_state = "grass_6"
 	},
@@ -40625,7 +40723,7 @@
 	},
 /area/f13/building/center)
 "ouP" = (
-/obj/structure/flora/tree/jungle,
+/obj/structure/flora/tree/tall,
 /turf/open/floor/plating/dirt/dirt_maryland{
 	icon_state = "grass_4"
 	},
@@ -40862,7 +40960,7 @@
 	},
 /area/f13/wasteland/city)
 "oyW" = (
-/obj/structure/flora/tree/jungle/small,
+/obj/structure/flora/tree/med_pine_dead,
 /turf/open/floor/plating/dirt/dirt_maryland{
 	icon_state = "dirt_9"
 	},
@@ -41118,7 +41216,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
 /area/f13/building/boat)
 "oEL" = (
-/obj/structure/flora/tree/jungle/small,
+/obj/structure/flora/tree/med_pine_dead,
 /turf/open/indestructible/ground/outside/sidewalk{
 	icon_state = "horizontaloutermain2"
 	},
@@ -41609,6 +41707,28 @@
 	sunlight_state = 1
 	},
 /area/f13/wasteland/city)
+"oMc" = (
+/obj/machinery/gear_painter,
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/plating/rust{
+	sunlight_state = 1;
+	name = "rusted Docks"
+	},
+/area/f13/enclave)
+"oMg" = (
+/obj/effect/decal/marking{
+	icon_state = "dottedhorizontalcorroded"
+	},
+/obj/machinery/light/small{
+	dir = 4;
+	name = "tan light fixture";
+	light_color = "#FFDDCC";
+	color = "#FFDDCC"
+	},
+/turf/open/indestructible/ground/outside/baltimore{
+	icon_state = "road_center"
+	},
+/area/f13/wasteland/city/citycenter)
 "oMj" = (
 /obj/structure/chair/stool/f13stool,
 /turf/open/floor/plating/rust,
@@ -41751,7 +41871,7 @@
 /turf/open/indestructible/ground/outside/ruins,
 /area/f13/building/center)
 "oOh" = (
-/obj/structure/flora/tree/jungle/small,
+/obj/structure/flora/tree/med_pine_dead,
 /turf/open/floor/plating/dirt/dirt_maryland{
 	icon_state = "grass_2"
 	},
@@ -41914,7 +42034,7 @@
 	},
 /area/f13/building/center)
 "oQi" = (
-/obj/structure/flora/tree/jungle/small,
+/obj/structure/flora/tree/med_pine_dead,
 /obj/structure/stone_tile/block,
 /obj/structure/stone_tile/block{
 	pixel_x = 15
@@ -41950,12 +42070,6 @@
 /obj/effect/decal/cleanable/greenglow,
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/building/boat)
-"oRq" = (
-/obj/structure/barricade/wooden,
-/turf/open/indestructible/ground/outside/sidewalkdirt{
-	icon_state = "horizontaltopbordertop2"
-	},
-/area/f13/wasteland/city)
 "oRv" = (
 /obj/effect/spawner/lootdrop/f13/junkspawners,
 /turf/open/floor/plasteel/f13/stone/rugged,
@@ -43263,7 +43377,8 @@
 "poi" = (
 /obj/structure/barricade/wooden/planks,
 /obj/structure/simple_door/metal/store{
-	icon_state = "brokenstore"
+	icon_state = "brokenstore";
+	name = "USS Dealmaker metal door"
 	},
 /turf/open/floor/wood_fancy,
 /area/f13/building/center)
@@ -43482,6 +43597,13 @@
 	sunlight_state = 1
 	},
 /area/f13/ruins)
+"ptF" = (
+/obj/structure/wreck/bus/rusted,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	name = "Old Docks";
+	sunlight_state = 1
+	},
+/area/f13/wasteland/city)
 "ptT" = (
 /obj/effect/decal/fakelattice,
 /obj/effect/turf_decal/road_end{
@@ -45441,7 +45563,7 @@
 	},
 /area/f13/wasteland/city)
 "qfN" = (
-/obj/structure/flora/tree/jungle/small,
+/obj/structure/flora/tree/med_pine_dead,
 /turf/open/floor/plating/dirt/dirt_maryland{
 	icon_state = "dirt_7"
 	},
@@ -46052,7 +46174,8 @@
 /area/f13/building/boat)
 "qrt" = (
 /obj/structure/simple_door/metal/store{
-	icon_state = "brokenstore"
+	icon_state = "brokenstore";
+	name = "USS Dealmaker metal door"
 	},
 /turf/open/floor/wood_mosaic{
 	icon_state = "common-broken1"
@@ -46560,6 +46683,10 @@
 	icon_state = "rubbleslab"
 	},
 /area/f13/brotherhood)
+"qBj" = (
+/obj/machinery/mineral/wasteland_vendor/weapons,
+/turf/open/floor/plating/f13/inside,
+/area/f13/ruins)
 "qBn" = (
 /turf/open/indestructible/ground/outside/sidewalkdirt,
 /area/f13/city/museum)
@@ -46869,7 +46996,7 @@
 	},
 /area/f13/ruins)
 "qGq" = (
-/obj/structure/flora/tree/jungle,
+/obj/structure/flora/tree/tall,
 /turf/open/indestructible/ground/outside/water/running,
 /area/f13/wasteland/town)
 "qGx" = (
@@ -47042,6 +47169,32 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/ruins)
+"qJc" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/closet/crate/wooden{
+	anchored = 1;
+	can_be_unanchored = 1
+	},
+/obj/item/stock_parts/cell/ammo/ec,
+/obj/item/stock_parts/cell/ammo/ec,
+/obj/item/stock_parts/cell/ammo/ec,
+/obj/item/stock_parts/cell/ammo/ec,
+/obj/item/stock_parts/cell/ammo/ec,
+/obj/item/stock_parts/cell/ammo/ec,
+/obj/item/stock_parts/cell/ammo/ecp/bad,
+/obj/item/stock_parts/cell/ammo/ecp/bad,
+/obj/item/stock_parts/cell/ammo/ecp/bad,
+/obj/item/stock_parts/cell/ammo/ecp/bad,
+/obj/item/stock_parts/cell/ammo/mfc,
+/obj/item/stock_parts/cell/ammo/mfc,
+/obj/item/stock_parts/cell/ammo/mfc,
+/obj/item/stock_parts/cell/ammo/mfc,
+/obj/item/stock_parts/cell/ammo/mfc,
+/turf/open/floor/plating/rust{
+	sunlight_state = 1;
+	name = "rusted Docks"
+	},
+/area/f13/enclave)
 "qJg" = (
 /obj/structure/simple_door/metal/fence/wooden,
 /turf/open/floor/wood_fancy,
@@ -47525,7 +47678,8 @@
 /area/f13/ruins)
 "qRL" = (
 /obj/structure/simple_door/metal/store{
-	icon_state = "brokenstore"
+	icon_state = "brokenstore";
+	name = "USS Dealmaker metal door"
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "bluerustysolid"
@@ -47740,7 +47894,8 @@
 /area/f13/wasteland/city)
 "qUG" = (
 /obj/structure/simple_door/metal/store{
-	icon_state = "brokenstore"
+	icon_state = "brokenstore";
+	name = "USS Dealmaker metal door"
 	},
 /obj/structure/barricade/wooden/planks,
 /turf/open/floor/wood_common,
@@ -47960,6 +48115,13 @@
 /area/f13/wasteland/town)
 "qXF" = (
 /obj/structure/wreck/trash/three_barrels,
+/obj/machinery/light/small{
+	dir = 8;
+	name = "tan light fixture";
+	light_color = "#FFDDCC";
+	color = "#FFDDCC";
+	pixel_x = -13
+	},
 /turf/open/indestructible/ground/outside/baltimore{
 	icon_state = "road_center"
 	},
@@ -48082,12 +48244,6 @@
 	icon_state = "fancy-broken6"
 	},
 /area/f13/ruins)
-"qZd" = (
-/obj/structure/flora/tree/jungle,
-/turf/open/floor/plating/dirt/dirt_maryland{
-	icon_state = "dirt_original"
-	},
-/area/f13/wasteland/city)
 "qZv" = (
 /obj/effect/overlay/junk/oldpipes/manifold{
 	dir = 8;
@@ -48422,7 +48578,7 @@
 "rec" = (
 /obj/machinery/door/airlock/medical/glass{
 	req_access_txt = "124";
-	name = "Atlantic Cross Airlock"
+	name = "ACS Enterprising Airlock"
 	},
 /turf/open/floor/plasteel/f13/vault_floor/plating,
 /area/f13/building/boat)
@@ -49764,6 +49920,18 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/f13/vault_floor/yellow,
 /area/f13/ruins)
+"rBs" = (
+/obj/machinery/light/small{
+	dir = 4;
+	name = "tan light fixture";
+	light_color = "#FFDDCC";
+	color = "#FFDDCC";
+	pixel_x = 14
+	},
+/turf/open/indestructible/ground/outside/baltimore{
+	icon_state = "road_center"
+	},
+/area/f13/wasteland/city/citycenter)
 "rBu" = (
 /obj/effect/decal/riverbank{
 	dir = 10;
@@ -50003,6 +50171,7 @@
 	pixel_x = 2;
 	anchored = 1
 	},
+/obj/item/storage/backpack/duffelbag/med/surgery,
 /turf/open/floor/wood_wide/wood_wide_dark,
 /area/f13/enclave)
 "rFQ" = (
@@ -50019,14 +50188,6 @@
 	},
 /area/f13/ruins)
 "rFY" = (
-/obj/structure/closet/crate/large{
-	layer = 2.7;
-	pixel_y = -18
-	},
-/obj/structure/closet/crate/large{
-	layer = 2.5;
-	pixel_y = -3
-	},
 /obj/item/reagent_containers/food/drinks/bottle/f13nukacola{
 	pixel_y = 16
 	},
@@ -50038,6 +50199,7 @@
 	pixel_y = -10;
 	layer = 1
 	},
+/obj/structure/table/wood,
 /turf/open/floor/wood_fancy/wood_fancy_light,
 /area/f13/enclave)
 "rGc" = (
@@ -50604,6 +50766,10 @@
 	},
 /turf/open/indestructible/ground/outside/gravel,
 /area/f13/wasteland/city)
+"rQS" = (
+/obj/machinery/mineral/wasteland_vendor/ammo,
+/turf/open/floor/plating/f13/inside,
+/area/f13/ruins)
 "rRb" = (
 /obj/structure/barricade/tentclothcorner{
 	dir = 1
@@ -50702,6 +50868,9 @@
 	id = 85;
 	layer = 20
 	},
+/obj/machinery/door/airlock/public/glass{
+	name = "ACHS Aegis Doors"
+	},
 /turf/open/floor/plasteel/dark,
 /area/f13/building/hospital)
 "rTL" = (
@@ -50709,12 +50878,6 @@
 /obj/effect/spawner/lootdrop/f13/armor/clothes,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/building/boat)
-"rTM" = (
-/obj/structure/curtain,
-/turf/open/indestructible/ground/outside/sidewalk{
-	icon_state = "horizontaloutermain1"
-	},
-/area/f13/brotherhood)
 "rTR" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small{
@@ -51301,12 +51464,6 @@
 "seL" = (
 /mob/living/simple_animal/hostile/deathclaw,
 /turf/open/floor/wood_wide/wood_wide_light,
-/area/f13/wasteland/city/citycenter)
-"seP" = (
-/obj/structure/flora/tree/jungle,
-/turf/open/floor/plating/dirt/dirt_maryland{
-	icon_state = "dirt_original"
-	},
 /area/f13/wasteland/city/citycenter)
 "seX" = (
 /obj/machinery/light/small{
@@ -52856,6 +53013,12 @@
 /obj/structure/table/booth,
 /turf/open/floor/wood_fancy,
 /area/f13/office)
+"sEv" = (
+/mob/living/simple_animal/hostile/renegade/doc{
+	desc = "A raider heavely armed."
+	},
+/turf/open/floor/plasteel/f13/vault_floor/floor/floorsolid,
+/area/f13/clinic)
 "sEy" = (
 /obj/structure/table/wood,
 /obj/item/kirbyplants{
@@ -53427,9 +53590,14 @@
 /area/f13/raider_mall)
 "sPB" = (
 /obj/structure/rack/shelf_metal,
-/obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic,
-/obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic,
-/obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic,
+/obj/effect/spawner/lootdrop/f13/armor/tier3,
+/obj/effect/spawner/lootdrop/f13/armor/tier2,
+/obj/effect/spawner/lootdrop/f13/armor/tier2,
+/obj/effect/spawner/lootdrop/f13/armor/tier2,
+/obj/effect/spawner/lootdrop/f13/armor/tier2,
+/obj/effect/spawner/lootdrop/f13/armor/tier1,
+/obj/effect/spawner/lootdrop/f13/armor/tier1,
+/obj/effect/spawner/lootdrop/f13/armor/tier1,
 /turf/open/floor/plating/rust,
 /area/f13/building/boat)
 "sPG" = (
@@ -53694,16 +53862,6 @@
 	icon_state = "road_north_w"
 	},
 /area/f13/wasteland/city)
-"sUl" = (
-/obj/structure/flora/tree/jungle{
-	pixel_y = -15;
-	pixel_x = -38;
-	layer = 9
-	},
-/turf/open/floor/plating/dirt/dirt_maryland{
-	icon_state = "grass_4"
-	},
-/area/f13/wasteland/city/citycenter)
 "sUD" = (
 /obj/structure/chair/stool/retro/backed{
 	dir = 8
@@ -53992,6 +54150,13 @@
 	icon_state = "common-broken3"
 	},
 /area/f13/ruins)
+"taz" = (
+/obj/machinery/door/unpowered/securedoor{
+	name = "Town secure door";
+	req_access_txt = "274"
+	},
+/turf/open/floor/wood_fancy,
+/area/f13/building)
 "taH" = (
 /turf/open/floor/plasteel/f13/vault_floor/yellow/corner{
 	dir = 8
@@ -56530,12 +56695,6 @@
 /obj/machinery/vending/boozeomat,
 /turf/open/floor/f13/wood,
 /area/f13/ruins)
-"tZw" = (
-/obj/structure/campfire/barrel,
-/turf/open/indestructible/ground/outside/baltimore{
-	icon_state = "road_center"
-	},
-/area/f13/wasteland/city/citycenter)
 "tZz" = (
 /obj/structure/barricade/wooden,
 /obj/effect/turf_decal/road_end{
@@ -56869,15 +57028,6 @@
 /obj/structure/simple_door/tentflap_leather,
 /turf/open/indestructible/ground/outside/ruins,
 /area/f13/building/center)
-"uer" = (
-/obj/structure/barricade/bars,
-/obj/structure/obstacle/barbedwire/end{
-	dir = 8
-	},
-/turf/open/indestructible/ground/outside/baltimore{
-	icon_state = "road_center"
-	},
-/area/f13/wasteland/city/citycenter)
 "ueT" = (
 /obj/structure/barricade/wooden,
 /turf/open/floor/plating/dirt/dirt_maryland{
@@ -57133,6 +57283,12 @@
 /obj/item/reagent_containers/glass/bucket/plastic,
 /obj/item/mop,
 /obj/item/storage/bag/trash,
+/obj/machinery/light/small{
+	name = "aqua light fixture";
+	color = "#00FFFF";
+	light_color = "#00FFFF";
+	dir = 8
+	},
 /turf/open/floor/wood_common/wood_common_dark,
 /area/f13/bar)
 "uhw" = (
@@ -57331,7 +57487,8 @@
 /area/f13/building/boat)
 "ulK" = (
 /obj/structure/simple_door/metal/store{
-	icon_state = "brokenstore"
+	icon_state = "brokenstore";
+	name = "USS Dealmaker metal door"
 	},
 /turf/open/floor/wood_fancy,
 /area/f13/building/center)
@@ -57619,7 +57776,6 @@
 	},
 /area/f13/building/boat)
 "urc" = (
-/obj/structure/closet/crate/large,
 /obj/machinery/light/small{
 	dir = 1;
 	name = "tan light fixture";
@@ -58299,7 +58455,7 @@
 	},
 /area/f13/building/center)
 "uDJ" = (
-/obj/structure/flora/tree/jungle/small,
+/obj/structure/flora/tree/med_pine_dead,
 /obj/effect/decal/cleanable/greenglow,
 /obj/effect/decal/cleanable/greenglow,
 /obj/effect/decal/cleanable/greenglow,
@@ -58397,7 +58553,9 @@
 	},
 /area/f13/wasteland/city/citycenter)
 "uFE" = (
-/obj/structure/simple_door/metal/store,
+/obj/structure/simple_door/metal/store{
+	name = "USS Dealmaker metal door"
+	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	name = "Docks";
 	sunlight_state = 1
@@ -58465,6 +58623,9 @@
 /area/f13/wasteland/city)
 "uGA" = (
 /obj/effect/decal/cleanable/dirt/dust,
+/obj/item/gun/energy/laser/pistol,
+/obj/item/gun/energy/laser/pistol,
+/obj/item/gun/energy/laser/pistol,
 /turf/open/floor/wood_wide/wood_wide_dark{
 	icon_state = "wide_dark-broken2"
 	},
@@ -58937,6 +59098,10 @@
 	icon_state = "dirt_original"
 	},
 /area/f13/wasteland/city)
+"uPf" = (
+/obj/machinery/vending/dinnerware,
+/turf/open/floor/wood_common/wood_common_dark,
+/area/f13/bar)
 "uPg" = (
 /obj/effect/turf_decal/stripes/red/line{
 	dir = 2
@@ -59092,6 +59257,14 @@
 /obj/structure/closet/crate/wooden,
 /obj/item/toy/katana,
 /obj/effect/spawner/lootdrop/wmelee_low,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	name = "Old Docks";
+	sunlight_state = 1
+	},
+/area/f13/wasteland/town)
+"uSh" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/mineral/wasteland_vendor/ammo,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	name = "Old Docks";
 	sunlight_state = 1
@@ -59683,7 +59856,7 @@
 "vcB" = (
 /obj/machinery/door/airlock/medical/glass{
 	req_access_txt = "124";
-	name = "Atlantic Cross Airlock"
+	name = "ACS Enterprising Airlock"
 	},
 /turf/open/floor/plasteel/dark,
 /area/f13/building/boat)
@@ -60008,7 +60181,7 @@
 /area/f13/wasteland/city)
 "vhJ" = (
 /obj/structure/table/wood/fancy/royalblack,
-/obj/item/gun/ballistic/revolver/shotpistol,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/highmid,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
 /area/f13/building/boat)
 "vhT" = (
@@ -60923,7 +61096,8 @@
 /area/f13/raider_mall)
 "vwL" = (
 /obj/structure/simple_door/metal/store{
-	icon_state = "brokenstore"
+	icon_state = "brokenstore";
+	name = "USS Dealmaker metal door"
 	},
 /turf/open/floor/f13,
 /area/f13/ruins)
@@ -61028,7 +61202,8 @@
 "vxV" = (
 /obj/effect/spawner/lootdrop/f13/junkspawners,
 /obj/structure/simple_door/metal/store{
-	icon_state = "brokenstore"
+	icon_state = "brokenstore";
+	name = "USS Dealmaker metal door"
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	name = "Docks";
@@ -61576,15 +61751,6 @@
 	icon_state = "mosaic_dark1"
 	},
 /area/f13/building/center)
-"vJs" = (
-/obj/effect/turf_decal/road_end{
-	icon_state = "road_end_decal_2";
-	dir = 1
-	},
-/obj/structure/table/wood,
-/obj/structure/barricade/wooden,
-/turf/open/indestructible/ground/outside/gravel,
-/area/f13/wasteland/city)
 "vJw" = (
 /turf/closed/wall/mineral/brick,
 /area/f13/building/center)
@@ -61715,6 +61881,17 @@
 	name = "rusted Docks"
 	},
 /area/f13/ruins)
+"vME" = (
+/obj/item/chair/stool/retro,
+/obj/effect/mob_spawn/human/corpse/charredskeleton,
+/obj/machinery/light/small{
+	dir = 4;
+	name = "tan light fixture";
+	light_color = "#FFDDCC";
+	color = "#FFDDCC"
+	},
+/turf/open/floor/plating/rust,
+/area/f13/building/center)
 "vNa" = (
 /obj/structure/table,
 /obj/machinery/button/door{
@@ -61839,7 +62016,8 @@
 /area/f13/wasteland/town)
 "vOM" = (
 /obj/structure/simple_door/metal/store{
-	icon_state = "brokenstore"
+	icon_state = "brokenstore";
+	name = "USS Dealmaker metal door"
 	},
 /turf/open/floor/wood_common{
 	icon_state = "common-broken6"
@@ -62207,7 +62385,7 @@
 	},
 /area/f13/ruins)
 "vVu" = (
-/obj/structure/flora/tree/jungle,
+/obj/structure/flora/tree/tall,
 /turf/open/floor/plating/dirt/dirt_maryland{
 	icon_state = "dirt_original"
 	},
@@ -63768,7 +63946,8 @@
 /area/f13/brotherhood)
 "www" = (
 /obj/structure/simple_door/metal/store{
-	icon_state = "brokenstore"
+	icon_state = "brokenstore";
+	name = "USS Dealmaker metal door"
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/wood_fancy/wood_fancy_light,
@@ -64435,7 +64614,8 @@
 /area/f13/wasteland/town)
 "wLd" = (
 /obj/structure/simple_door/metal/store{
-	icon_state = "brokenstore"
+	icon_state = "brokenstore";
+	name = "USS Dealmaker metal door"
 	},
 /turf/open/indestructible/ground/outside/ruins,
 /area/f13/building/center)
@@ -64641,7 +64821,7 @@
 	color = "#A47449";
 	dir = 6
 	},
-/obj/structure/flora/tree/jungle/small,
+/obj/structure/flora/tree/med_pine_dead,
 /turf/open/floor/plating/dirt/dirt_maryland{
 	icon_state = "dirt_original"
 	},
@@ -65222,7 +65402,7 @@
 /turf/open/floor/vault,
 /area/f13/ruins)
 "wZx" = (
-/obj/structure/flora/tree/jungle,
+/obj/structure/flora/tree/tall,
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/wasteland/town)
 "wZD" = (
@@ -65272,7 +65452,7 @@
 /area/f13/wasteland/city/citycenter)
 "xaf" = (
 /obj/structure/flora/grass/wasteland,
-/obj/structure/flora/tree/jungle/small,
+/obj/structure/flora/tree/med_pine_dead,
 /obj/effect/turf_decal/road_end{
 	icon_state = "road_end_decal";
 	dir = 1
@@ -65457,6 +65637,13 @@
 	sunlight_state = 1;
 	name = "rusted Docks"
 	},
+/area/f13/ruins)
+"xdK" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/mob/living/simple_animal/pet/dog/protectron,
+/turf/open/floor/plating/f13/inside,
 /area/f13/ruins)
 "xdR" = (
 /obj/effect/turf_decal/stripes/line,
@@ -65710,7 +65897,8 @@
 /area/f13/wasteland/city)
 "xhO" = (
 /obj/structure/simple_door/metal/store{
-	icon_state = "brokenstore"
+	icon_state = "brokenstore";
+	name = "USS Dealmaker metal door"
 	},
 /turf/open/floor/plasteel/yellowsiding{
 	dir = 1
@@ -65723,6 +65911,18 @@
 	icon_state = "wide_light-broken2"
 	},
 /area/f13/building/center)
+"xhZ" = (
+/obj/machinery/light/small{
+	dir = 8;
+	name = "tan light fixture";
+	light_color = "#FFDDCC";
+	color = "#FFDDCC";
+	pixel_x = -13
+	},
+/turf/open/indestructible/ground/outside/baltimore{
+	icon_state = "road_center"
+	},
+/area/f13/wasteland/city/citycenter)
 "xiu" = (
 /obj/structure/junk/cabinet,
 /turf/open/floor/wood_mosaic{
@@ -66683,7 +66883,7 @@
 	},
 /area/f13/wasteland/city)
 "xAy" = (
-/obj/structure/flora/tree/jungle/small,
+/obj/structure/flora/tree/med_pine_dead,
 /turf/open/floor/plating/dirt/dirt_maryland{
 	icon_state = "dirt_original"
 	},
@@ -68384,12 +68584,6 @@
 /obj/structure/chair/comfy/black,
 /turf/open/floor/plasteel/f13/vault_floor/dark/darksolid,
 /area/f13/building/boat)
-"yei" = (
-/obj/structure/car/rubbish4,
-/turf/open/indestructible/ground/outside/baltimore{
-	icon_state = "road_west_w"
-	},
-/area/f13/wasteland/city/citycenter)
 "yeq" = (
 /obj/structure/flora/grass/coyote/ten,
 /obj/structure/flora/roadplant{
@@ -68479,7 +68673,7 @@
 	},
 /area/f13/wasteland/city/citycenter)
 "yfz" = (
-/obj/structure/flora/tree/jungle/small,
+/obj/structure/flora/tree/med_pine_dead,
 /obj/structure/flora/wasteplant/wild_broc,
 /turf/open/floor/plating/dirt/dirt_maryland{
 	icon_state = "dirt_original"
@@ -72853,7 +73047,7 @@ tjV
 tDx
 tDx
 pZv
-qZd
+ror
 icV
 icV
 icV
@@ -74873,7 +75067,7 @@ siv
 xac
 iXT
 wOb
-seP
+eNi
 mYZ
 ahq
 lME
@@ -74975,7 +75169,7 @@ icV
 fsK
 icV
 sce
-qZd
+ror
 icV
 icV
 bVI
@@ -77034,7 +77228,7 @@ icV
 iuv
 icV
 jpX
-qZd
+ror
 icV
 jJe
 jMU
@@ -77093,7 +77287,7 @@ skz
 icV
 icV
 kfe
-qZd
+ror
 icV
 icV
 icV
@@ -78359,7 +78553,7 @@ sce
 bad
 icV
 icV
-qZd
+ror
 icV
 bUX
 icV
@@ -79638,7 +79832,7 @@ sSs
 qcM
 tWS
 icV
-qZd
+ror
 cRS
 icV
 icV
@@ -79648,7 +79842,7 @@ icV
 icV
 icV
 icV
-qZd
+ror
 icV
 mFt
 icV
@@ -79917,7 +80111,7 @@ mFt
 icV
 icV
 icV
-qZd
+ror
 icV
 icV
 bad
@@ -84475,7 +84669,7 @@ hRd
 dpc
 siv
 siv
-seP
+eNi
 mGS
 siv
 dpc
@@ -85340,7 +85534,7 @@ cVt
 icV
 icV
 icV
-qZd
+ror
 icV
 jGN
 jGN
@@ -85823,7 +86017,7 @@ wjr
 uzv
 oEs
 uHh
-qZd
+ror
 qQy
 quJ
 qiB
@@ -86109,7 +86303,7 @@ uUm
 icV
 icV
 icV
-qZd
+ror
 icV
 icV
 icV
@@ -86347,7 +86541,7 @@ icV
 icV
 icV
 icV
-qZd
+ror
 icV
 icV
 quJ
@@ -86370,7 +86564,7 @@ icV
 icV
 icV
 icV
-qZd
+ror
 icV
 cVt
 icV
@@ -86600,7 +86794,7 @@ sce
 uON
 icV
 icV
-qZd
+ror
 icV
 mFt
 icV
@@ -86615,7 +86809,7 @@ mKM
 icV
 icV
 icV
-qZd
+ror
 icV
 eax
 icV
@@ -86799,7 +86993,7 @@ nPX
 ebH
 dtl
 siv
-seP
+eNi
 pcQ
 mBD
 kFY
@@ -88085,7 +88279,7 @@ bdq
 eLJ
 eHb
 siv
-seP
+eNi
 lXn
 nFZ
 bna
@@ -88111,7 +88305,7 @@ eNi
 siv
 siv
 siv
-seP
+eNi
 qLm
 cEn
 bVI
@@ -88202,7 +88396,7 @@ fSX
 icV
 mMd
 icV
-qZd
+ror
 icV
 mFt
 jpX
@@ -89077,13 +89271,13 @@ lgb
 hMY
 lgb
 lgb
-jkP
-rHY
-xAQ
-fVd
 lgb
-gwt
-isD
+lgb
+lgb
+lgb
+lgb
+lgb
+lgb
 lgb
 bLr
 ryR
@@ -89110,7 +89304,7 @@ suy
 suy
 snL
 pdY
-seP
+eNi
 dtl
 sGv
 siv
@@ -89158,7 +89352,7 @@ jpX
 jpX
 icV
 icV
-qZd
+ror
 jpX
 jpX
 icV
@@ -89334,13 +89528,13 @@ lgb
 hMY
 lgb
 lgb
-mYX
-jkP
-rHY
-uer
 lgb
 lgb
-gwt
+lgb
+lgb
+lgb
+lgb
+lgb
 lgb
 emv
 ryR
@@ -89359,7 +89553,7 @@ xAy
 fjA
 fjA
 siv
-seP
+eNi
 suy
 rOX
 jNC
@@ -91290,7 +91484,7 @@ ror
 icV
 icV
 icV
-qZd
+ror
 icV
 bad
 lqV
@@ -91320,7 +91514,7 @@ cdu
 ulU
 eky
 icV
-qZd
+ror
 icV
 wkg
 icV
@@ -92741,7 +92935,7 @@ sbI
 gtu
 jpX
 jpX
-qZd
+ror
 qcp
 jpX
 jpX
@@ -92942,7 +93136,7 @@ mKs
 lgb
 emv
 siv
-seP
+eNi
 iTz
 eLJ
 eLJ
@@ -93224,7 +93418,7 @@ siv
 siv
 dtl
 cDn
-seP
+eNi
 aLy
 dtl
 sVO
@@ -94016,7 +94210,7 @@ gtu
 gtu
 gtu
 qcM
-ncs
+ptF
 iIt
 jfG
 hfR
@@ -94531,7 +94725,7 @@ pcq
 qcK
 gtu
 oEs
-lpI
+oEs
 oEs
 xrw
 oEs
@@ -95537,7 +95731,7 @@ iKL
 iQB
 siv
 siv
-seP
+eNi
 dtl
 mBD
 jVC
@@ -95558,9 +95752,9 @@ agf
 kbM
 kbM
 gtu
-oEs
-oEs
-wlm
+dUh
+dUh
+dUh
 oEs
 oEs
 wvR
@@ -95815,9 +96009,9 @@ wHT
 qcK
 oYk
 gtu
-oEs
-oEs
-wlm
+dUh
+hSB
+qBj
 oEs
 oEs
 oEs
@@ -96072,9 +96266,9 @@ wHT
 qcK
 wHT
 gtu
-wvR
-wvR
-oEs
+dUh
+xdK
+dVG
 oEs
 oEs
 wvR
@@ -96265,7 +96459,7 @@ dbL
 gvC
 qHR
 qYy
-vJs
+mgJ
 sUk
 wjr
 uzv
@@ -96329,9 +96523,9 @@ wHT
 wHT
 vhx
 qcM
-oEs
-dcx
-oEs
+dUh
+hSB
+rQS
 oEs
 oEs
 oEs
@@ -96586,9 +96780,9 @@ liy
 gtu
 qcM
 qcM
-wvR
-wvR
-oEs
+dUh
+dUh
+dUh
 oEs
 oEs
 wvR
@@ -98321,7 +98515,7 @@ cyW
 dbL
 mWm
 hYF
-oRq
+jsh
 dDj
 wjr
 uzv
@@ -98830,7 +99024,7 @@ dbL
 ric
 ric
 dbL
-aKN
+dbL
 dbL
 dbL
 cHV
@@ -98871,7 +99065,7 @@ jVC
 rOE
 lgb
 lgb
-lgb
+bTX
 lgb
 lgb
 lgb
@@ -99648,7 +99842,7 @@ vJx
 lgb
 vJx
 lgb
-lgb
+bTX
 lgb
 lgb
 hMY
@@ -99853,8 +100047,8 @@ dbL
 gvC
 mwU
 lFK
-rTM
-nxr
+aIg
+aIg
 dbL
 qBf
 hrq
@@ -100110,9 +100304,9 @@ dbL
 gvC
 gQP
 lFK
-rTM
+aIg
 nxE
-dbL
+byk
 eoM
 aIg
 aIg
@@ -101184,12 +101378,12 @@ iQV
 jVC
 hgY
 vnc
-jDD
+fcT
 hoX
 rrk
 jDD
 eBY
-mXX
+rrk
 rrk
 ydV
 hgY
@@ -101960,7 +102154,7 @@ bHa
 cRz
 qMk
 cGF
-rrk
+sEv
 wks
 jDD
 hgY
@@ -102213,8 +102407,8 @@ jVC
 hgY
 bak
 khq
-mXX
 rrk
+sEv
 hAs
 hgY
 jDD
@@ -102952,7 +103146,7 @@ oEs
 oEs
 tWS
 mMd
-ahD
+ror
 tWS
 fZL
 gtu
@@ -103726,8 +103920,8 @@ val
 val
 qcK
 val
+lqz
 mbN
-sUl
 eLJ
 eLJ
 wmC
@@ -104013,7 +104207,7 @@ wwX
 wwX
 ppH
 wwX
-cFJ
+fhl
 xWX
 mCZ
 mCZ
@@ -104276,9 +104470,9 @@ mCZ
 eoG
 mCZ
 mCZ
-ofF
+vqi
 mCZ
-oyX
+ohF
 vqi
 oyX
 oyX
@@ -104783,7 +104977,7 @@ jVC
 eLJ
 wwX
 jjH
-fhl
+mPB
 oyX
 oyX
 ufR
@@ -105273,7 +105467,7 @@ eLJ
 eLJ
 eLJ
 eLJ
-ejH
+qYN
 tyi
 lfn
 sSl
@@ -106071,7 +106265,7 @@ siv
 eLJ
 dcF
 lME
-lgb
+bTX
 lCb
 vJx
 lgb
@@ -108043,7 +108237,7 @@ lye
 sPB
 jJF
 tFP
-dOk
+cAl
 lSu
 tFP
 waO
@@ -110122,7 +110316,7 @@ qpO
 qpO
 qpO
 qpO
-qpO
+jUm
 gTf
 qpO
 qpO
@@ -110378,7 +110572,7 @@ jvP
 eBV
 lnm
 hch
-oAk
+taz
 jvP
 aeU
 gro
@@ -110635,7 +110829,7 @@ jvP
 vXN
 svo
 jvP
-xrB
+wJn
 jvP
 jvP
 jvP
@@ -110892,11 +111086,11 @@ jvP
 wyZ
 uLC
 uRx
-wJn
+xrB
 oqB
 rlQ
 nLV
-usS
+gdS
 jdM
 gos
 qpO
@@ -111125,7 +111319,7 @@ wSl
 oTE
 qei
 uhs
-mgA
+nKJ
 qei
 rsn
 rsn
@@ -111638,8 +111832,8 @@ kPv
 mgA
 oxC
 qJn
-mgA
-mgA
+nKJ
+uPf
 mgA
 qei
 rsn
@@ -112151,8 +112345,8 @@ lsa
 oEl
 kjH
 mgA
-mgA
-mgA
+nso
+nKJ
 xHK
 qei
 rsn
@@ -112756,10 +112950,10 @@ snd
 snd
 snd
 snd
-yei
+snd
 nth
 snd
-yei
+snd
 snd
 snd
 snd
@@ -113271,7 +113465,7 @@ lgb
 bGX
 lgb
 lgb
-tZw
+lgb
 lgb
 lgb
 lgb
@@ -113526,7 +113720,7 @@ fhh
 fhh
 fhh
 fhh
-fhh
+ird
 fhh
 fhh
 fhh
@@ -114219,7 +114413,7 @@ dRf
 dUx
 bnq
 mut
-bnq
+uSh
 qpO
 ekY
 guZ
@@ -114300,7 +114494,7 @@ uBA
 uBA
 frK
 lgb
-lgb
+xhZ
 lgb
 lgb
 lgb
@@ -114476,7 +114670,7 @@ wur
 mFD
 nyR
 jBp
-nwm
+ebc
 qpO
 ekY
 bUM
@@ -115066,17 +115260,17 @@ mBD
 mBD
 mbN
 uBA
-ooo
-hoW
-uBA
+bNp
+kHq
+kHq
 lgb
 lgb
 nuo
 lgb
-lgb
+xhZ
 nEO
 lgb
-nEO
+lgb
 lgb
 qGf
 bna
@@ -115323,14 +115517,14 @@ tVQ
 dtl
 bEe
 uBA
-bNp
+uIX
+sJF
 kHq
-kHq
 lgb
 lgb
+rBs
 lgb
-lgb
-lgb
+rBs
 lgb
 lgb
 lgb
@@ -115580,8 +115774,8 @@ mBD
 mBD
 siv
 uBA
-uIX
-sJF
+qOI
+vME
 kHq
 kzX
 lgb
@@ -115837,9 +116031,9 @@ dtl
 mBD
 siv
 uBA
-qOI
-cyy
-kHq
+uBA
+uBA
+uBA
 lgb
 lgb
 lgb
@@ -116093,10 +116287,10 @@ iXT
 mBD
 mBD
 mhP
-uBA
-uBA
-uBA
-uBA
+vQj
+vQj
+vQj
+vQj
 aRm
 lgb
 nEO
@@ -116351,10 +116545,10 @@ mBD
 mBD
 siv
 vQj
-vQj
-vQj
-vQj
-vQj
+sbK
+uPB
+hoW
+duO
 lgb
 lgb
 lgb
@@ -116608,8 +116802,8 @@ mBD
 kDu
 siv
 vQj
-sbK
-uPB
+hoW
+hoW
 hoW
 duO
 lgb
@@ -117384,11 +117578,11 @@ urS
 opv
 vQj
 gSE
-vJx
+oMg
 lgb
 vJx
 fjw
-vJx
+oMg
 lgb
 eeT
 jQB
@@ -121741,7 +121935,7 @@ mMd
 hTq
 icV
 sce
-icV
+jzR
 tkl
 eQp
 icV
@@ -122261,7 +122455,7 @@ icV
 icV
 mFt
 icV
-icV
+jzR
 icV
 cRS
 mHx
@@ -124077,7 +124271,7 @@ oEs
 irw
 soW
 qeD
-toV
+oEs
 toV
 oEs
 iuZ
@@ -125588,7 +125782,7 @@ cIS
 hIR
 hyG
 icV
-icV
+jzR
 icV
 icV
 cRS
@@ -127678,7 +127872,7 @@ bnp
 icV
 hTq
 icV
-icV
+jzR
 icV
 jGN
 jGN
@@ -130470,7 +130664,7 @@ jGN
 jGN
 jGN
 icV
-icV
+jzR
 mFt
 icV
 icV
@@ -130495,10 +130689,10 @@ kUI
 icV
 yas
 joR
-mKg
+dyr
 jMc
 jPD
-lsj
+oMc
 wcW
 mIJ
 bnp
@@ -131009,7 +131203,7 @@ coS
 lyK
 snJ
 lsj
-jPD
+qJc
 urq
 jPD
 sKt
@@ -133323,7 +133517,7 @@ mFt
 icV
 icV
 icV
-sce
+aaZ
 icV
 icV
 bnp

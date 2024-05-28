@@ -15,15 +15,6 @@
 	},
 /turf/open/floor/wood_common,
 /area/f13/ruins)
-"abG" = (
-/obj/effect/decal/riverbank{
-	dir = 9;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/turf/closed/wall/f13/sunset/brick_small_dark,
-/area/f13/ruins)
 "abT" = (
 /obj/effect/spawner/bundle/f13/armor/sadist,
 /turf/open/indestructible/ground/outside/roof,
@@ -252,7 +243,10 @@
 /turf/open/floor/wood_common/wood_common_light,
 /area/f13/building)
 "akI" = (
-/obj/structure/closet/fridge,
+/obj/structure/closet/fridge{
+	anchored = 1;
+	can_be_unanchored = 1
+	},
 /obj/effect/spawner/lootdrop/f13/foodspawner,
 /obj/effect/spawner/lootdrop/f13/foodspawner,
 /obj/effect/spawner/lootdrop/f13/foodspawner,
@@ -409,18 +403,6 @@
 	},
 /area/f13/building/boat)
 "arO" = (
-/obj/effect/decal/riverbank{
-	dir = 9;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/obj/effect/decal/riverbank{
-	dir = 10;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
 /turf/closed/wall/f13/sunset/brick_small_light,
 /area/f13/wasteland/town)
 "ash" = (
@@ -701,24 +683,12 @@
 	},
 /area/f13/enclave)
 "aJu" = (
-/obj/structure/table/reinforced/brass,
 /obj/structure/sign/plaques{
 	pixel_x = -33
 	},
 /obj/item/gun/flintlock/musketoon/mosquete,
 /obj/item/gun/flintlock/musket,
-/obj/item/clothing/suit/det_suit/forensicsred/long{
-	name = "long red british coat"
-	},
-/obj/item/clothing/suit/det_suit/forensicsred/long{
-	name = "long red british coat"
-	},
-/obj/item/clothing/suit/det_suit/forensicsred/long{
-	name = "long red british coat"
-	},
-/obj/item/clothing/suit/det_suit/forensicsred/long{
-	name = "long red british coat"
-	},
+/obj/structure/table/reinforced/brass,
 /turf/open/floor/wood_common,
 /area/f13/enclave)
 "aJH" = (
@@ -998,27 +968,6 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/outpost)
-"aWi" = (
-/obj/effect/decal/riverbank{
-	dir = 10;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/obj/effect/decal/riverbank{
-	dir = 9;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/obj/effect/decal/riverbank{
-	dir = 9;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/turf/closed/wall/f13/sunset/brick_small_dark,
-/area/f13/enclave)
 "aWn" = (
 /obj/structure/chair/stool/retro/backed,
 /turf/open/floor/f13/wood{
@@ -1170,26 +1119,6 @@
 "beW" = (
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/ruins)
-"bfy" = (
-/obj/structure/shelf_wood{
-	pixel_y = -14;
-	layer = 5
-	},
-/obj/item/clothing/head/hopcap,
-/obj/effect/decal/riverbank{
-	dir = 10;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/obj/effect/decal/riverbank{
-	dir = 9;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/turf/closed/wall/f13/sunset/brick_small_dark,
-/area/f13/building)
 "bfJ" = (
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
@@ -1228,16 +1157,17 @@
 /turf/open/floor/wood_common/wood_common_dark,
 /area/f13/ruins)
 "bho" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-02";
-	pixel_y = 33;
-	pixel_x = -6
-	},
 /obj/machinery/light/small{
 	dir = 4;
 	name = "tan light fixture";
 	light_color = "#FFDDCC";
 	color = "#FFDDCC"
+	},
+/obj/structure/shelf_wood,
+/obj/item/kirbyplants{
+	icon_state = "plant-02";
+	pixel_y = 24;
+	pixel_x = -6
 	},
 /turf/open/floor/wood_common/wood_common_light,
 /area/f13/office)
@@ -1637,7 +1567,8 @@
 	},
 /area/f13/ruins)
 "byz" = (
-/obj/structure/chair/wood,
+/obj/machinery/chem_heater,
+/obj/structure/table/reinforced,
 /turf/open/floor/wood_wide{
 	icon_state = "wide_light-broken6"
 	},
@@ -2054,18 +1985,10 @@
 /turf/open/floor/wood_mosaic,
 /area/f13/ruins)
 "bSg" = (
-/obj/item/reagent_containers/food/drinks/bottle/hooch{
-	pixel_y = 34;
-	pixel_x = -8
-	},
-/obj/item/reagent_containers/food/drinks/bottle/rotgut{
-	pixel_y = 37
-	},
-/obj/item/reagent_containers/food/drinks/bottle/tequila{
-	pixel_y = 34;
-	pixel_x = 8
-	},
 /obj/item/clothing/under/civ/dress3,
+/obj/structure/shelf_wood{
+	pixel_y = 4
+	},
 /turf/open/floor/wood_wide/wood_wide_dark{
 	icon_state = "wide_dark-broken3"
 	},
@@ -2223,7 +2146,10 @@
 /turf/open/floor/wood_common/wood_common_dark,
 /area/f13/wasteland/city)
 "bXo" = (
-/obj/structure/closet/fridge,
+/obj/structure/closet/fridge{
+	anchored = 1;
+	can_be_unanchored = 1
+	},
 /obj/machinery/light/small{
 	dir = 2;
 	name = "tan light fixture";
@@ -2278,15 +2204,6 @@
 	icon_state = "housewood2"
 	},
 /area/f13/brotherhood)
-"bZc" = (
-/obj/effect/decal/riverbank{
-	dir = 10;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/turf/closed/wall/f13/wood/house/broken,
-/area/f13/ruins)
 "bZD" = (
 /obj/structure/barricade/tentclothedge,
 /turf/open/floor/wood_common{
@@ -2474,20 +2391,6 @@
 /area/f13/enclave)
 "cfJ" = (
 /obj/structure/chair/comfy/beige,
-/obj/item/paper_bin{
-	pixel_y = 23
-	},
-/obj/item/pen{
-	pixel_y = 23
-	},
-/obj/item/clipboard{
-	pixel_y = 27;
-	pixel_x = 9
-	},
-/obj/item/kirbyplants{
-	pixel_y = 48;
-	pixel_x = -5
-	},
 /turf/open/floor/wood_fancy/wood_fancy_dark,
 /area/f13/building/boat)
 "cfO" = (
@@ -2870,21 +2773,6 @@
 	},
 /turf/open/indestructible/ground/outside/roof,
 /area/f13/ruins)
-"cvB" = (
-/obj/effect/decal/riverbank{
-	dir = 9;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/obj/effect/decal/riverbank{
-	dir = 10;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/turf/closed/wall/f13/sunset/brick_small_dark,
-/area/f13/ruins)
 "cwq" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -2896,6 +2784,15 @@
 	},
 /turf/open/floor/plating/rust,
 /area/f13/outpost)
+"cyJ" = (
+/obj/machinery/vending/medical,
+/obj/item/storage/backpack/duffelbag/med/surgery/primitive{
+	pixel_y = 21
+	},
+/turf/open/floor/wood_wide{
+	icon_state = "wide_light1"
+	},
+/area/f13/enclave)
 "cyW" = (
 /obj/structure/chair/wood{
 	dir = 1
@@ -2934,27 +2831,6 @@
 	},
 /turf/open/floor/wood_fancy,
 /area/f13/office)
-"cCh" = (
-/obj/effect/decal/riverbank{
-	dir = 10;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/obj/effect/decal/riverbank{
-	dir = 10;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/obj/effect/decal/riverbank{
-	dir = 9;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/turf/closed/wall/f13/sunset/brick_small,
-/area/f13/enclave)
 "cCl" = (
 /obj/structure/window/fulltile/store,
 /turf/open/floor/wood_common,
@@ -3032,6 +2908,16 @@
 /obj/structure/table,
 /turf/open/indestructible/ground/outside/roof,
 /area/f13/ruins)
+"cIJ" = (
+/obj/item/kirbyplants{
+	icon_state = "plant-18";
+	pixel_x = -5;
+	pixel_y = 56
+	},
+/turf/open/floor/wood_wide/wood_wide_light{
+	icon_state = "wide_light-broken2"
+	},
+/area/f13/office)
 "cIT" = (
 /obj/structure/window/fulltile/wood,
 /turf/open/floor/wood_wide,
@@ -3123,7 +3009,6 @@
 /obj/structure/rug/big/rug_red{
 	layer = 1
 	},
-/obj/structure/table/wood/fancy/red,
 /obj/machinery/light/small{
 	dir = 8;
 	name = "tan light fixture";
@@ -3186,26 +3071,21 @@
 /obj/structure/wreck/trash/four_barrels,
 /turf/open/floor/plating/f13/outside/roof,
 /area/f13/ruins)
-"cPB" = (
-/obj/effect/decal/riverbank{
-	dir = 9;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/obj/effect/decal/riverbank{
-	dir = 10;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/turf/closed/wall/f13/sunset/brick_small_dark,
-/area/f13/wasteland/city)
 "cPO" = (
+/obj/structure/rack/shelf_metal,
+/obj/item/clipboard,
 /obj/item/toy/plush/beeplushie{
-	pixel_y = 33;
-	pixel_x = -1
+	pixel_y = 17
 	},
+/obj/item/kirbyplants{
+	pixel_y = 23;
+	pixel_x = -5
+	},
+/obj/item/paper_bin,
+/obj/item/pen{
+	pixel_y = 23
+	},
+/obj/item/pen,
 /turf/open/floor/wood_wide/wood_wide_dark,
 /area/f13/building/boat)
 "cRb" = (
@@ -3232,6 +3112,16 @@
 	icon_state = "fancy_light1"
 	},
 /area/f13/wasteland/city)
+"cSh" = (
+/obj/structure/shelf_wood{
+	pixel_y = 4
+	},
+/obj/item/lock_construct,
+/obj/item/key,
+/turf/open/floor/wood_fancy/wood_fancy_dark{
+	icon_state = "fancy_dark-broken2"
+	},
+/area/f13/building)
 "cSj" = (
 /obj/structure/rack/large/shelf{
 	dir = 8;
@@ -3452,15 +3342,6 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/wood_wide/wood_wide_light,
 /area/f13/ruins)
-"dds" = (
-/obj/structure/shelf_wood{
-	pixel_y = -14;
-	layer = 5
-	},
-/obj/item/bedsheet/grey,
-/obj/item/bedsheet/grey,
-/turf/closed/wall/f13/sunset/brick_small_dark,
-/area/f13/building)
 "ddz" = (
 /obj/structure/simple_door/room/dirty,
 /turf/open/floor/wood_common/wood_common_light,
@@ -3699,12 +3580,6 @@
 /area/f13/ruins)
 "dqn" = (
 /obj/structure/decoration/warning,
-/obj/effect/decal/riverbank{
-	dir = 10;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
 /turf/closed/wall/f13/sunset/brick_small,
 /area/f13/building)
 "dqB" = (
@@ -3802,12 +3677,6 @@
 /obj/structure/sink/kitchen{
 	pixel_y = -9;
 	layer = 1
-	},
-/obj/effect/decal/riverbank{
-	dir = 10;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
 	},
 /turf/closed/wall/f13/sunset/brick_small_dark,
 /area/f13/ruins)
@@ -4059,24 +3928,6 @@
 	dir = 4
 	},
 /area/f13/wasteland/town)
-"dGa" = (
-/obj/structure/bookcase/manuals/engineering{
-	pixel_y = -8
-	},
-/obj/effect/decal/riverbank{
-	dir = 9;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/obj/effect/decal/riverbank{
-	dir = 10;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/turf/closed/wall/f13/sunset/brick_small,
-/area/f13/building)
 "dGf" = (
 /obj/structure/table,
 /obj/machinery/computer/terminal,
@@ -4321,12 +4172,11 @@
 /turf/open/floor/wood_mosaic,
 /area/f13/ruins)
 "dRv" = (
-/obj/item/lock_construct{
-	pixel_y = 22
+/obj/structure/shelf_wood{
+	pixel_y = 4
 	},
-/obj/item/key{
-	pixel_y = 18
-	},
+/obj/item/lock_construct,
+/obj/item/key,
 /turf/open/floor/wood_fancy/wood_fancy_dark{
 	icon_state = "fancy_dark-broken5"
 	},
@@ -4664,6 +4514,7 @@
 /area/f13/ruins)
 "eib" = (
 /obj/structure/rack/shelf_metal,
+/obj/item/storage/toolbox/syndicate,
 /turf/open/floor/wood_common,
 /area/f13/ruins)
 "ein" = (
@@ -5344,7 +5195,10 @@
 /turf/open/floor/plasteel/f13/vault_floor/blue/whitebluefull,
 /area/f13/building)
 "ePL" = (
-/obj/structure/chair/f13chair1,
+/obj/structure/table/reinforced,
+/obj/item/reagent_containers/blood/radaway,
+/obj/item/reagent_containers/blood/radaway,
+/obj/item/reagent_containers/blood/radaway,
 /turf/open/floor/wood_common/wood_common_light,
 /area/f13/enclave)
 "ePO" = (
@@ -5533,21 +5387,6 @@
 /obj/item/clothing/suit/armor/light/kit,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/building/boat)
-"eWT" = (
-/obj/effect/decal/riverbank{
-	dir = 10;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/obj/effect/decal/riverbank{
-	dir = 9;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/turf/closed/wall/f13/sunset/brick_small,
-/area/f13/wasteland/town)
 "eXj" = (
 /obj/structure/chair/bench{
 	dir = 4
@@ -5843,7 +5682,10 @@
 	},
 /area/f13/wasteland/town)
 "fml" = (
-/obj/structure/closet/fridge,
+/obj/structure/closet/fridge{
+	anchored = 1;
+	can_be_unanchored = 1
+	},
 /turf/open/floor/wood_wide/wood_wide_light,
 /area/f13/ruins)
 "fmz" = (
@@ -5865,16 +5707,6 @@
 	},
 /turf/open/floor/wood_fancy,
 /area/f13/ruins)
-"fmE" = (
-/obj/structure/sink/greyscale{
-	dir = 8;
-	pixel_x = -13
-	},
-/obj/structure/chair/wood{
-	dir = 1
-	},
-/turf/open/floor/wood_common/wood_common_light,
-/area/f13/building)
 "fnh" = (
 /obj/item/mine/stun,
 /turf/open/floor/wood_mosaic{
@@ -5992,7 +5824,10 @@
 /area/f13/brotherhood)
 "fpt" = (
 /obj/effect/decal/cleanable/oil,
-/obj/structure/closet/fridge,
+/obj/structure/closet/fridge{
+	anchored = 1;
+	can_be_unanchored = 1
+	},
 /obj/machinery/microwave{
 	pixel_y = 16;
 	pixel_x = -1
@@ -6516,15 +6351,6 @@
 	icon_state = "mosaic-broken3"
 	},
 /area/f13/ruins)
-"fRT" = (
-/obj/effect/decal/riverbank{
-	dir = 10;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/turf/closed/wall/f13/sunset/brick_small_dark,
-/area/f13/ruins)
 "fSb" = (
 /obj/structure/stairs/east{
 	color = "#A47449";
@@ -6570,6 +6396,18 @@
 	},
 /turf/open/floor/wood_fancy,
 /area/f13/ruins)
+"fUX" = (
+/obj/structure/displaycase{
+	pixel_y = 61;
+	layer = 20
+	},
+/obj/item/gun/flintlock{
+	pixel_y = 58;
+	layer = 1;
+	anchored = 1
+	},
+/turf/open/floor/wood_common/wood_common_light,
+/area/f13/office)
 "fVk" = (
 /obj/structure/filingcabinet,
 /obj/structure/filingcabinet{
@@ -6644,7 +6482,10 @@
 	},
 /area/f13/ruins)
 "gaF" = (
-/obj/structure/closet/fridge,
+/obj/structure/closet/fridge{
+	anchored = 1;
+	can_be_unanchored = 1
+	},
 /obj/effect/spawner/lootdrop/organ_spawner,
 /turf/open/floor/wood_common{
 	icon_state = "common-broken6"
@@ -6812,27 +6653,6 @@
 	},
 /turf/open/floor/plating/rust,
 /area/f13/outpost)
-"ggA" = (
-/obj/structure/shelf_wood{
-	pixel_y = -14;
-	layer = 5
-	},
-/obj/item/bedsheet/brown,
-/obj/item/bedsheet/brown,
-/obj/effect/decal/riverbank{
-	dir = 10;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/obj/effect/decal/riverbank{
-	dir = 9;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/turf/closed/wall/f13/sunset/brick_small_dark,
-/area/f13/building)
 "ggD" = (
 /obj/structure/bookcase/manuals/medical{
 	pixel_y = -8
@@ -6939,18 +6759,6 @@
 	pixel_x = 1;
 	anchored = 1
 	},
-/obj/effect/decal/riverbank{
-	dir = 9;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/obj/effect/decal/riverbank{
-	dir = 10;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
 /turf/closed/wall/f13/sunset/brick_small,
 /area/f13/building)
 "glD" = (
@@ -7032,6 +6840,13 @@
 /area/f13/building)
 "gpe" = (
 /turf/open/floor/plating/wooden,
+/area/f13/building/boat)
+"gph" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/rack/shelf_metal,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
+	icon_state = "bluerustysolid"
+	},
 /area/f13/building/boat)
 "gpl" = (
 /turf/open/indestructible/ground/outside/roof,
@@ -7720,13 +7535,6 @@
 	},
 /turf/open/floor/wood_fancy/wood_fancy_dark,
 /area/f13/building)
-"gVZ" = (
-/obj/structure/stone_tile/slab{
-	pixel_y = -4;
-	layer = 10
-	},
-/turf/closed/indestructible/f13vaultrusted,
-/area/f13/building)
 "gWa" = (
 /obj/structure/table/reinforced,
 /obj/item/melee/coyote/oldcutlass,
@@ -8028,36 +7836,6 @@
 /mob/living/simple_animal/hostile/handy/protectron,
 /turf/open/floor/plating,
 /area/f13/ruins)
-"hkw" = (
-/obj/structure/shelf_wood{
-	pixel_y = -14;
-	layer = 5
-	},
-/obj/structure/flora/chomp/potplant0{
-	pixel_y = 7;
-	pixel_x = 4;
-	layer = 5
-	},
-/obj/item/key{
-	pixel_y = -10
-	},
-/obj/item/lock_construct{
-	pixel_y = -10
-	},
-/obj/effect/decal/riverbank{
-	dir = 10;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/obj/effect/decal/riverbank{
-	dir = 9;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/turf/closed/wall/f13/sunset/brick_small_dark,
-/area/f13/building)
 "hkF" = (
 /obj/structure/sink/kitchen{
 	dir = 4;
@@ -8082,18 +7860,6 @@
 /area/f13/wasteland/city)
 "hlN" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/riverbank{
-	dir = 9;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/obj/effect/decal/riverbank{
-	dir = 10;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
 /turf/closed/wall/f13/sunset/brick_small,
 /area/f13/building)
 "hlR" = (
@@ -8201,16 +7967,6 @@
 	icon_state = "wide_light-broken2"
 	},
 /area/f13/wasteland/city)
-"hrP" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-18";
-	pixel_x = -5;
-	pixel_y = 28
-	},
-/turf/open/floor/wood_wide/wood_wide_light{
-	icon_state = "wide_light-broken2"
-	},
-/area/f13/office)
 "hsL" = (
 /turf/open/floor/wood_fancy/wood_fancy_light,
 /area/f13/enclave)
@@ -8371,7 +8127,10 @@
 /turf/open/floor/plasteel/f13/vault_floor/red/redchess,
 /area/f13/ruins)
 "hyx" = (
-/obj/structure/closet/fridge,
+/obj/structure/closet/fridge{
+	anchored = 1;
+	can_be_unanchored = 1
+	},
 /turf/open/floor/wood_common/wood_common_light,
 /area/f13/office)
 "hyN" = (
@@ -8663,41 +8422,6 @@
 "hLG" = (
 /turf/closed/wall/f13/wood/house,
 /area/f13/ruins)
-"hLO" = (
-/obj/structure/shelf_wood{
-	pixel_y = -5
-	},
-/obj/item/clothing/head/frenchberet{
-	pixel_x = -3;
-	pixel_y = 11
-	},
-/obj/item/folder,
-/obj/item/folder/red,
-/obj/item/folder/yellow,
-/obj/item/folder/blue,
-/obj/item/pen,
-/obj/item/pen,
-/obj/item/pen,
-/obj/item/pen,
-/obj/item/pen,
-/obj/item/paper_bin,
-/obj/item/paper_bin,
-/obj/item/paper_bin,
-/obj/item/paper_bin,
-/obj/effect/decal/riverbank{
-	dir = 10;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/obj/effect/decal/riverbank{
-	dir = 9;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/turf/closed/wall/f13/sunset/brick_small,
-/area/f13/building)
 "hLR" = (
 /obj/structure/closet/cabinet/anchored,
 /obj/item/clothing/under/f13/atlantic/sailor,
@@ -8841,18 +8565,6 @@
 	},
 /turf/open/floor/f13/wood/outside,
 /area/f13/wasteland/town)
-"hSD" = (
-/obj/structure/window/fulltile/ruins/broken,
-/obj/effect/decal/riverbank{
-	dir = 10;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
-	icon_state = "whitedirtysolid"
-	},
-/area/f13/ruins)
 "hSJ" = (
 /obj/structure/nest/scorpion,
 /turf/open/floor/plating/rust,
@@ -9412,18 +9124,6 @@
 /obj/structure/sign/directions/dorms{
 	dir = 4
 	},
-/obj/effect/decal/riverbank{
-	dir = 9;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/obj/effect/decal/riverbank{
-	dir = 10;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
 /turf/closed/wall/f13/sunset/brick_small,
 /area/f13/building)
 "iwd" = (
@@ -9432,12 +9132,6 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/blue/whitebluefull,
 /area/f13/building)
-"iwP" = (
-/obj/structure/rack/shelf_metal{
-	pixel_y = -8
-	},
-/turf/closed/wall/rust,
-/area/f13/bar)
 "ixl" = (
 /obj/machinery/light/small{
 	dir = 4;
@@ -9826,21 +9520,6 @@
 	icon_state = "common-broken2"
 	},
 /area/f13/building/boat)
-"iNv" = (
-/obj/effect/decal/riverbank{
-	dir = 10;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/obj/effect/decal/riverbank{
-	dir = 9;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/turf/closed/wall/f13/sunset/brick_small_dark,
-/area/f13/ruins)
 "iND" = (
 /obj/structure/table,
 /obj/machinery/microwave,
@@ -9860,25 +9539,6 @@
 	},
 /turf/open/floor/wood_wide/wood_wide_dark,
 /area/f13/building/boat)
-"iPc" = (
-/obj/structure/shelf_wood{
-	pixel_y = -14;
-	layer = 5
-	},
-/obj/effect/decal/riverbank{
-	dir = 9;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/obj/effect/decal/riverbank{
-	dir = 10;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/turf/closed/wall/f13/sunset/brick_small,
-/area/f13/building)
 "iPg" = (
 /obj/machinery/light/small/broken{
 	dir = 4
@@ -10094,7 +9754,10 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/closet/fridge,
+/obj/structure/closet/fridge{
+	anchored = 1;
+	can_be_unanchored = 1
+	},
 /obj/effect/decal/cleanable/glass,
 /turf/open/floor/wood_fancy/wood_fancy_light,
 /area/f13/ruins)
@@ -10177,18 +9840,6 @@
 /area/f13/wasteland/city)
 "jcn" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/riverbank{
-	dir = 9;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/obj/effect/decal/riverbank{
-	dir = 10;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
 /turf/closed/wall/f13/sunset/brick_small_light,
 /area/f13/ruins)
 "jcz" = (
@@ -10316,21 +9967,6 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "whitedirtysolid"
 	},
-/area/f13/ruins)
-"jhk" = (
-/obj/effect/decal/riverbank{
-	dir = 10;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/obj/effect/decal/riverbank{
-	dir = 9;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/turf/closed/wall/f13/sunset/brick_small,
 /area/f13/ruins)
 "jhC" = (
 /obj/structure/bed/mattress{
@@ -10521,33 +10157,6 @@
 /obj/structure/chair/sofa,
 /turf/open/floor/wood_wide,
 /area/f13/building)
-"jmL" = (
-/obj/effect/decal/riverbank{
-	dir = 10;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/obj/effect/decal/riverbank{
-	dir = 10;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/obj/effect/decal/riverbank{
-	dir = 9;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/obj/effect/decal/riverbank{
-	dir = 9;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/turf/closed/wall/f13/sunset/brick_small_dark,
-/area/f13/ruins)
 "jmM" = (
 /obj/structure/rug/big/rug_red{
 	layer = 1
@@ -10643,6 +10252,12 @@
 /obj/effect/spawner/lootdrop/f13/blueprintLowPartsWeighted,
 /turf/open/floor/plasteel/f13/vault_floor/yellow,
 /area/f13/ruins)
+"jtg" = (
+/obj/structure/bookcase/manuals/engineering,
+/turf/open/floor/wood_wide/wood_wide_dark{
+	icon_state = "wide_dark-broken6"
+	},
+/area/f13/building)
 "jtr" = (
 /obj/structure/table/glass,
 /obj/effect/spawner/lootdrop/f13/medical/wasteland/meds/drug,
@@ -10793,21 +10408,6 @@
 	icon_state = "wide_light1"
 	},
 /area/f13/enclave)
-"jBr" = (
-/obj/effect/decal/riverbank{
-	dir = 10;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/obj/effect/decal/riverbank{
-	dir = 9;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/turf/closed/wall/f13/sunset/brick_small,
-/area/f13/wasteland/city)
 "jBy" = (
 /obj/structure/railing{
 	color = "#A47449";
@@ -10885,11 +10485,6 @@
 	icon_state = "housewood2"
 	},
 /area/f13/ruins)
-"jFE" = (
-/turf/open/floor/wood_common/wood_common_light{
-	icon_state = "common_light-broken6"
-	},
-/area/f13/building)
 "jFT" = (
 /obj/structure/chair/comfy/beige{
 	dir = 8;
@@ -11483,15 +11078,6 @@
 	},
 /turf/open/floor/f13/wood/outside,
 /area/f13/wasteland/town)
-"kkZ" = (
-/obj/effect/decal/riverbank{
-	dir = 10;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/turf/closed/wall/f13/sunset/brick_small,
-/area/f13/ruins)
 "klh" = (
 /obj/item/lock_construct{
 	pixel_y = 22
@@ -11874,25 +11460,6 @@
 	},
 /turf/open/transparent/openspace,
 /area/f13/wasteland/town)
-"kGi" = (
-/obj/structure/shelf_wood{
-	pixel_y = -14;
-	layer = 5
-	},
-/obj/effect/decal/riverbank{
-	dir = 10;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/obj/effect/decal/riverbank{
-	dir = 9;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/turf/closed/wall/f13/sunset/brick_small_dark,
-/area/f13/building)
 "kGn" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -12110,18 +11677,6 @@
 /area/f13/brotherhood)
 "kSb" = (
 /obj/structure/sign/poster/prewar/poster68,
-/obj/effect/decal/riverbank{
-	dir = 9;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/obj/effect/decal/riverbank{
-	dir = 10;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
 /turf/closed/wall/f13/sunset/brick_small,
 /area/f13/building)
 "kSm" = (
@@ -12151,6 +11706,10 @@
 	pixel_x = 8;
 	pixel_y = 30
 	},
+/obj/structure/stone_tile/slab{
+	pixel_y = 30;
+	layer = 10
+	},
 /turf/open/floor/wood_fancy,
 /area/f13/building)
 "kSA" = (
@@ -12167,16 +11726,19 @@
 	},
 /area/f13/wasteland/city)
 "kSN" = (
-/obj/structure/closet/fridge,
-/obj/machinery/microwave{
-	pixel_y = 16;
-	pixel_x = -1
-	},
 /obj/machinery/light/small{
 	dir = 8;
 	name = "tan light fixture";
 	light_color = "#FFDDCC";
 	color = "#FFDDCC"
+	},
+/obj/structure/closet/fridge{
+	anchored = 1;
+	can_be_unanchored = 1
+	},
+/obj/machinery/microwave{
+	pixel_y = 16;
+	pixel_x = -1
 	},
 /turf/open/floor/wood_mosaic,
 /area/f13/building)
@@ -12298,24 +11860,6 @@
 	},
 /turf/open/indestructible/ground/outside/ruins,
 /area/f13/raider_mall)
-"lcg" = (
-/obj/structure/bookcase/manuals/engineering{
-	pixel_y = -8
-	},
-/obj/effect/decal/riverbank{
-	dir = 9;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/obj/effect/decal/riverbank{
-	dir = 10;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/turf/closed/wall/f13/sunset/brick_small_dark,
-/area/f13/building)
 "lci" = (
 /obj/structure/lattice,
 /turf/open/transparent/openspace,
@@ -12428,28 +11972,6 @@
 /obj/structure/table/wood,
 /turf/open/floor/wood_mosaic/wood_mosaic_dark,
 /area/f13/wasteland/city)
-"lhx" = (
-/obj/structure/stone_tile/slab{
-	pixel_y = -4;
-	layer = 10
-	},
-/obj/effect/decal/riverbank{
-	dir = 9;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/turf/closed/wall/f13/sunset/brick_small,
-/area/f13/building)
-"lhL" = (
-/obj/structure/rack/shelf_metal{
-	pixel_y = -9
-	},
-/turf/closed/wall/f13/ruins{
-	unbreakable = 1;
-	name = "solid ruins"
-	},
-/area/f13/building/boat)
 "lia" = (
 /obj/machinery/mech_bay_recharge_port{
 	on = 1;
@@ -12754,6 +12276,11 @@
 /area/f13/brotherhood)
 "lse" = (
 /obj/item/clothing/under/civ/dressr,
+/obj/structure/shelf_wood{
+	pixel_y = 4
+	},
+/obj/item/lock_construct,
+/obj/item/key,
 /turf/open/floor/wood_common/wood_common_dark,
 /area/f13/building)
 "lsj" = (
@@ -12861,10 +12388,9 @@
 /area/f13/wasteland/town)
 "lwC" = (
 /obj/structure/bookshelf{
-	pixel_y = -8;
-	icon_state = "book-5"
+	icon_state = "book-3"
 	},
-/turf/closed/indestructible/f13vaultrusted,
+/turf/open/floor/wood_common/wood_common_light,
 /area/f13/building)
 "lwG" = (
 /obj/structure/simple_door/room,
@@ -12903,18 +12429,6 @@
 	},
 /area/f13/city/museum)
 "lyK" = (
-/obj/effect/decal/riverbank{
-	dir = 10;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/obj/effect/decal/riverbank{
-	dir = 9;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
 /turf/closed/wall/f13/sunset/brick_small,
 /area/f13/enclave)
 "lzx" = (
@@ -12932,7 +12446,10 @@
 /turf/open/floor/wood_fancy,
 /area/f13/building)
 "lzW" = (
-/obj/structure/closet/fridge,
+/obj/structure/closet/fridge{
+	anchored = 1;
+	can_be_unanchored = 1
+	},
 /turf/open/floor/wood_common{
 	icon_state = "common-broken3"
 	},
@@ -13218,21 +12735,6 @@
 /obj/item/clothing/under/f13/atlantic/uniform,
 /turf/open/floor/wood_wide/wood_wide_dark,
 /area/f13/building/boat)
-"lMV" = (
-/obj/effect/decal/riverbank{
-	dir = 9;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/obj/effect/decal/riverbank{
-	dir = 10;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/turf/closed/wall/f13/sunset/brick_small_light,
-/area/f13/ruins)
 "lMY" = (
 /obj/structure/cargocrate{
 	icon_state = "cargocrate2";
@@ -13652,18 +13154,6 @@
 /obj/structure/sign/directions/dorms{
 	dir = 1
 	},
-/obj/effect/decal/riverbank{
-	dir = 9;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/obj/effect/decal/riverbank{
-	dir = 10;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
 /turf/closed/wall/f13/sunset/brick_small,
 /area/f13/building)
 "mkO" = (
@@ -13676,7 +13166,10 @@
 	},
 /area/f13/brotherhood)
 "mlb" = (
-/obj/structure/closet/fridge,
+/obj/structure/closet/fridge{
+	anchored = 1;
+	can_be_unanchored = 1
+	},
 /turf/open/floor/plasteel/f13/vault_floor/red/corner{
 	dir = 1
 	},
@@ -13809,18 +13302,6 @@
 /area/f13/wasteland/town)
 "mpB" = (
 /obj/structure/sign/poster/prewar/poster69,
-/obj/effect/decal/riverbank{
-	dir = 10;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/obj/effect/decal/riverbank{
-	dir = 9;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
 /turf/closed/wall/f13/sunset/brick_small_dark,
 /area/f13/enclave)
 "mpD" = (
@@ -14046,7 +13527,10 @@
 /turf/open/transparent/openspace,
 /area/f13/Ocean)
 "mAY" = (
-/obj/structure/closet/fridge,
+/obj/structure/closet/fridge{
+	anchored = 1;
+	can_be_unanchored = 1
+	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/Ocean)
 "mBu" = (
@@ -14074,15 +13558,6 @@
 	icon_state = "common-broken6"
 	},
 /area/f13/ruins)
-"mCN" = (
-/obj/structure/shelf_wood{
-	pixel_y = -14;
-	layer = 5
-	},
-/turf/closed/wall/f13/store/constructed{
-	name = "Hospital ship hull"
-	},
-/area/f13/building/boat)
 "mCX" = (
 /obj/item/flashlight/lantern{
 	on = 1;
@@ -14183,13 +13658,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/wood_wide/wood_wide_light,
 /area/f13/ruins)
-"mHp" = (
-/obj/structure/shelf_wood{
-	pixel_y = -14;
-	layer = 5
-	},
-/turf/closed/wall/mineral/concrete,
-/area/f13/office)
 "mHr" = (
 /obj/machinery/light/small{
 	dir = 8;
@@ -14581,14 +14049,8 @@
 	},
 /area/f13/ruins)
 "mXL" = (
-/obj/structure/displaycase{
-	pixel_y = 32;
-	layer = 20
-	},
-/obj/item/gun/flintlock{
-	pixel_y = 32;
-	layer = 1;
-	anchored = 1
+/obj/structure/bookshelf{
+	icon_state = "book-3"
 	},
 /turf/open/floor/wood_common/wood_common_light,
 /area/f13/office)
@@ -14745,21 +14207,6 @@
 	},
 /turf/open/floor/wood_common/wood_common_light,
 /area/f13/office)
-"ndB" = (
-/obj/effect/decal/riverbank{
-	dir = 10;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/obj/effect/decal/riverbank{
-	dir = 9;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/turf/closed/wall/f13/sunset/brick_small_dark,
-/area/f13/building)
 "ndW" = (
 /turf/open/floor/plating/f13/outside/road/baltimore{
 	icon_state = "road_center_1"
@@ -14940,18 +14387,6 @@
 /turf/open/floor/wood_fancy/wood_fancy_dark,
 /area/f13/building)
 "nql" = (
-/obj/effect/decal/riverbank{
-	dir = 9;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/obj/effect/decal/riverbank{
-	dir = 10;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
 /turf/closed/wall/f13/sunset/brick_small,
 /area/f13/wasteland/town)
 "nqH" = (
@@ -14976,13 +14411,6 @@
 	sunlight_state = 1
 	},
 /area/f13/Ocean)
-"nrB" = (
-/obj/structure/shelf_wood{
-	pixel_y = -14;
-	layer = 5
-	},
-/turf/closed/wall/f13/coyote/tavern_wall,
-/area/f13/office)
 "nrI" = (
 /obj/structure/dresser,
 /obj/item/flashlight/lamp{
@@ -15130,21 +14558,6 @@
 	},
 /turf/open/floor/plating/f13/outside/roof,
 /area/f13/wasteland/city)
-"nwd" = (
-/obj/effect/decal/riverbank{
-	dir = 10;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/obj/effect/decal/riverbank{
-	dir = 9;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/turf/closed/wall/f13/sunset/brick_small,
-/area/f13/building)
 "nws" = (
 /obj/structure/campfire,
 /turf/open/indestructible/ground/outside/ruins,
@@ -15249,18 +14662,6 @@
 /obj/structure/barricade/wooden/planks,
 /turf/open/floor/wood_wide/wood_wide_light,
 /area/f13/ruins)
-"nCQ" = (
-/obj/structure/bookcase/manuals/engineering{
-	pixel_y = -8
-	},
-/obj/effect/decal/riverbank{
-	dir = 9;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/turf/closed/wall/f13/sunset/brick_small,
-/area/f13/building)
 "nDK" = (
 /obj/structure/rack/shelf_metal,
 /obj/item/mecha_parts/mecha_equipment/anticcw_armor_booster,
@@ -16056,7 +15457,7 @@
 	},
 /area/f13/wasteland/city)
 "omu" = (
-/obj/item/reagent_containers/fuel_tank/hyper,
+/obj/item/reagent_containers/fuel_tank/upgraded,
 /turf/open/indestructible/ground/inside/dirt,
 /area/f13/wasteland/city)
 "omW" = (
@@ -16304,24 +15705,17 @@
 	},
 /area/f13/ruins)
 "oza" = (
-/obj/structure/stone_tile/slab{
-	pixel_y = -4;
-	layer = 10
-	},
 /obj/item/kirbyplants{
 	icon_state = "plant-18";
 	pixel_x = 8
 	},
-/obj/effect/decal/riverbank{
-	dir = 9;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
 /turf/closed/wall/f13/sunset/brick_small,
 /area/f13/building)
 "ozd" = (
-/obj/structure/closet/fridge,
+/obj/structure/closet/fridge{
+	anchored = 1;
+	can_be_unanchored = 1
+	},
 /turf/open/floor/f13/wood,
 /area/f13/building/boat)
 "ozk" = (
@@ -16361,7 +15755,10 @@
 /turf/open/floor/plasteel/f13/vault_floor/plating,
 /area/f13/bar)
 "oCm" = (
-/obj/structure/closet/fridge,
+/obj/structure/closet/fridge{
+	anchored = 1;
+	can_be_unanchored = 1
+	},
 /obj/effect/spawner/lootdrop/f13/foodspawner,
 /obj/effect/spawner/lootdrop/f13/foodspawner,
 /obj/effect/spawner/lootdrop/f13/foodspawner,
@@ -16713,6 +16110,9 @@
 	},
 /obj/item/pen/fountain,
 /obj/item/folder/blue,
+/obj/structure/shelf_wood{
+	pixel_y = 23
+	},
 /turf/open/floor/wood_common/wood_common_light,
 /area/f13/office)
 "oXK" = (
@@ -16757,10 +16157,10 @@
 	},
 /area/f13/ruins)
 "paR" = (
-/obj/structure/shelf_wood{
-	pixel_y = -5
+/obj/structure/shelf_wood,
+/turf/open/floor/wood_wide/wood_wide_light{
+	icon_state = "wide_light-broken2"
 	},
-/turf/closed/indestructible/f13vaultrusted,
 /area/f13/building)
 "pbd" = (
 /obj/machinery/light/small/broken{
@@ -16955,22 +16355,6 @@
 /area/f13/wasteland/city)
 "pko" = (
 /obj/structure/railing/wood,
-/obj/structure/bookcase/manuals/engineering{
-	pixel_y = -8;
-	layer = 5
-	},
-/obj/effect/decal/riverbank{
-	dir = 10;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/obj/effect/decal/riverbank{
-	dir = 9;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
 /turf/closed/wall/f13/sunset/brick_small_dark,
 /area/f13/enclave)
 "pkD" = (
@@ -17133,7 +16517,10 @@
 	},
 /area/f13/ruins)
 "psP" = (
-/obj/structure/closet/fridge,
+/obj/structure/closet/fridge{
+	anchored = 1;
+	can_be_unanchored = 1
+	},
 /turf/open/floor/wood_mosaic{
 	icon_state = "common-broken1"
 	},
@@ -17480,26 +16867,6 @@
 	icon_state = "common-broken6"
 	},
 /area/f13/wasteland/town)
-"pNQ" = (
-/obj/structure/shelf_wood{
-	pixel_y = -14;
-	layer = 5
-	},
-/obj/item/bedsheet/brown,
-/obj/effect/decal/riverbank{
-	dir = 10;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/obj/effect/decal/riverbank{
-	dir = 9;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/turf/closed/wall/f13/sunset/brick_small_dark,
-/area/f13/building)
 "pOI" = (
 /turf/open/floor/wood_worn{
 	icon_state = "worn-broken4"
@@ -17718,10 +17085,10 @@
 /turf/open/floor/wood_wide/wood_wide_dark,
 /area/f13/enclave)
 "pXU" = (
-/obj/item/bedsheet/brown{
-	pixel_y = 23
-	},
 /obj/item/clothing/under/civ/dress2,
+/obj/structure/shelf_wood{
+	pixel_y = 4
+	},
 /turf/open/floor/wood_fancy/wood_fancy_dark,
 /area/f13/building)
 "pYF" = (
@@ -17828,31 +17195,6 @@
 	icon_state = "whitedirtysolid"
 	},
 /area/f13/ruins)
-"qfI" = (
-/obj/structure/shelf_wood{
-	pixel_y = -14;
-	layer = 5
-	},
-/obj/item/lock_construct{
-	pixel_y = -10
-	},
-/obj/item/key{
-	pixel_y = -10
-	},
-/obj/effect/decal/riverbank{
-	dir = 10;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/obj/effect/decal/riverbank{
-	dir = 9;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/turf/closed/wall/f13/sunset/brick_small_dark,
-/area/f13/building)
 "qgI" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 8
@@ -17908,8 +17250,6 @@
 	light_color = "#FFDDCC";
 	color = "#FFDDCC"
 	},
-/obj/item/ammo_box/musketbag,
-/obj/item/ammo_box/musketbag,
 /obj/structure/table/reinforced/brass,
 /turf/open/floor/wood_common,
 /area/f13/enclave)
@@ -17940,18 +17280,6 @@
 	},
 /turf/open/floor/f13/wood,
 /area/f13/wasteland/town)
-"qkU" = (
-/obj/structure/bookcase/manuals/medical{
-	pixel_y = -8
-	},
-/obj/effect/decal/riverbank{
-	dir = 9;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/turf/closed/wall/f13/sunset/brick_small,
-/area/f13/building)
 "qla" = (
 /obj/machinery/light/small{
 	dir = 1;
@@ -17991,18 +17319,6 @@
 /area/f13/ruins)
 "qmx" = (
 /obj/structure/sign/poster/ripped,
-/obj/effect/decal/riverbank{
-	dir = 10;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/obj/effect/decal/riverbank{
-	dir = 9;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
 /turf/closed/wall/f13/sunset/brick_small_dark,
 /area/f13/enclave)
 "qok" = (
@@ -18131,27 +17447,6 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/building/boat)
-"qtj" = (
-/obj/effect/decal/riverbank{
-	dir = 10;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/obj/effect/decal/riverbank{
-	dir = 9;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/obj/effect/decal/riverbank{
-	dir = 10;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/turf/closed/wall/f13/sunset/brick_small_dark,
-/area/f13/ruins)
 "qtI" = (
 /obj/effect/decal/cleanable/blood/gibs/human/down,
 /turf/open/floor/f13/wood{
@@ -18234,7 +17529,9 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/outpost)
 "qyA" = (
-/obj/structure/chair/folding,
+/obj/machinery/chem_dispenser/chem_synthesizer,
+/obj/item/stock_parts/chem_cartridge/garbage,
+/obj/structure/table/reinforced,
 /turf/open/floor/wood_wide{
 	icon_state = "wide_light1"
 	},
@@ -18250,6 +17547,17 @@
 	sunlight_state = 1
 	},
 /area/f13/wasteland/city)
+"qAy" = (
+/obj/structure/reagent_dispensers/fueltank/vehicle_gas_station{
+	icon_state = "vat";
+	tank_volume = 1500;
+	name = "Gas Tank"
+	},
+/turf/open/floor/plating/rust{
+	sunlight_state = 1;
+	name = "rusted Docks"
+	},
+/area/f13/Ocean)
 "qAG" = (
 /obj/effect/overlay/junk/oldpipes{
 	dir = 4;
@@ -18294,10 +17602,6 @@
 	icon_state = "housebase"
 	},
 /area/f13/ruins)
-"qCU" = (
-/obj/effect/mob_spawn/human/corpse/enclave/soldier,
-/turf/open/floor/wood_common,
-/area/f13/enclave)
 "qDW" = (
 /obj/structure/bed/wooden{
 	pixel_y = 16;
@@ -18376,10 +17680,6 @@
 	},
 /turf/open/floor/plating/f13/outside/roof,
 /area/f13/building/boat)
-"qGf" = (
-/obj/structure/chair/comfy/brown,
-/turf/open/floor/wood_common/wood_common_light,
-/area/f13/building)
 "qGi" = (
 /obj/structure/cargocrate{
 	layer = 3;
@@ -18436,7 +17736,8 @@
 /turf/open/transparent/openspace,
 /area/f13/wasteland/town)
 "qHA" = (
-/obj/structure/bed/roller,
+/obj/machinery/chem_master/advanced,
+/obj/structure/table/reinforced,
 /turf/open/floor/wood_wide{
 	icon_state = "wide_light-broken5"
 	},
@@ -18619,6 +17920,11 @@
 /area/f13/brotherhood)
 "qRi" = (
 /obj/item/clothing/under/civ/dress3,
+/obj/structure/shelf_wood{
+	pixel_y = 4
+	},
+/obj/item/lock_construct,
+/obj/item/key,
 /turf/open/floor/wood_mosaic,
 /area/f13/building)
 "qRw" = (
@@ -18710,35 +18016,12 @@
 	},
 /turf/open/floor/wood_common,
 /area/f13/ruins)
-"qYq" = (
-/obj/effect/decal/riverbank{
-	dir = 9;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/obj/effect/decal/riverbank{
-	dir = 10;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/turf/closed/wall/f13/sunset/brick_small_dark,
-/area/f13/building)
 "qYx" = (
 /obj/structure/railing/corner{
 	color = "#A47449"
 	},
 /turf/open/transparent/openspace,
 /area/f13/Ocean)
-"qYM" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-23";
-	pixel_y = 50;
-	pixel_x = 7
-	},
-/turf/open/floor/wood_fancy/wood_fancy_light,
-/area/f13/building)
 "qYV" = (
 /turf/open/floor/wood_fancy{
 	icon_state = "fancy-broken6"
@@ -18879,18 +18162,6 @@
 /area/f13/building/boat)
 "rek" = (
 /obj/structure/sign/poster/prewar/poster71,
-/obj/effect/decal/riverbank{
-	dir = 9;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/obj/effect/decal/riverbank{
-	dir = 10;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
 /turf/closed/wall/f13/sunset/brick_small,
 /area/f13/building)
 "reo" = (
@@ -19085,7 +18356,10 @@
 /turf/open/transparent/openspace,
 /area/f13/ruins)
 "rmK" = (
-/obj/structure/closet/fridge,
+/obj/structure/closet/fridge{
+	anchored = 1;
+	can_be_unanchored = 1
+	},
 /turf/open/floor/wood_mosaic,
 /area/f13/ruins)
 "rnk" = (
@@ -19095,6 +18369,21 @@
 	},
 /turf/open/transparent/openspace,
 /area/f13/wasteland/city)
+"rnC" = (
+/obj/item/kirbyplants{
+	icon_state = "plant-02";
+	pixel_y = 24;
+	pixel_x = -6
+	},
+/obj/machinery/light/small{
+	dir = 4;
+	name = "tan light fixture";
+	light_color = "#FFDDCC";
+	color = "#FFDDCC"
+	},
+/obj/structure/shelf_wood,
+/turf/open/floor/wood_common/wood_common_light,
+/area/f13/office)
 "rnV" = (
 /obj/structure/junk/small/bed,
 /obj/effect/spawner/lootdrop/f13/armor/tier1,
@@ -19411,27 +18700,6 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/wood_common/wood_common_light,
 /area/f13/ruins)
-"rza" = (
-/obj/effect/decal/riverbank{
-	dir = 10;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/obj/effect/decal/riverbank{
-	dir = 10;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/obj/effect/decal/riverbank{
-	dir = 9;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/turf/closed/wall/f13/sunset/brick_small_dark,
-/area/f13/ruins)
 "rzD" = (
 /obj/structure/cargocrate{
 	color = "#AAAAAA";
@@ -19690,13 +18958,6 @@
 	icon_state = "housebase"
 	},
 /area/f13/wasteland/city)
-"rMt" = (
-/obj/structure/bookshelf{
-	pixel_y = -8;
-	icon_state = "book-5"
-	},
-/turf/closed/wall/f13/coyote/tavern_wall,
-/area/f13/office)
 "rMy" = (
 /obj/structure/closet/cardboard,
 /obj/effect/spawner/lootdrop/clothing_middle,
@@ -19880,21 +19141,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/closed/wall/r_wall,
 /area/f13/brotherhood)
-"rTY" = (
-/obj/effect/decal/riverbank{
-	dir = 9;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/obj/effect/decal/riverbank{
-	dir = 10;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/turf/closed/wall/f13/sunset/brick_small_light,
-/area/f13/building)
 "rUz" = (
 /obj/structure/chair/comfy/beige,
 /turf/open/floor/wood_mosaic{
@@ -20457,10 +19703,9 @@
 /area/f13/ruins)
 "syO" = (
 /obj/structure/bookshelf{
-	pixel_y = -8;
-	icon_state = "book-4"
+	icon_state = "book-3"
 	},
-/turf/closed/indestructible/f13vaultrusted,
+/turf/open/floor/wood_fancy/wood_fancy_light,
 /area/f13/building)
 "syT" = (
 /mob/living/simple_animal/hostile/wolf/alpha,
@@ -20476,18 +19721,6 @@
 /area/f13/wasteland/town)
 "szh" = (
 /obj/structure/sign/poster/prewar/poster82,
-/obj/effect/decal/riverbank{
-	dir = 9;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/obj/effect/decal/riverbank{
-	dir = 10;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
 /turf/closed/wall/f13/sunset/brick_small,
 /area/f13/building)
 "szo" = (
@@ -20577,18 +19810,6 @@
 	},
 /area/f13/building)
 "sCW" = (
-/obj/effect/decal/riverbank{
-	dir = 10;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/obj/effect/decal/riverbank{
-	dir = 9;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
 /obj/structure/simple_door/repaired,
 /turf/open/indestructible/ground/inside/dirt,
 /area/f13/enclave)
@@ -20638,12 +19859,6 @@
 /area/f13/ruins)
 "sGl" = (
 /obj/structure/barricade/wooden,
-/obj/effect/decal/riverbank{
-	dir = 10;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
 /turf/closed/wall/f13/sunset/brick_small,
 /area/f13/enclave)
 "sHm" = (
@@ -20845,6 +20060,22 @@
 	},
 /turf/open/indestructible/ground/outside/roof,
 /area/f13/wasteland/town)
+"sRY" = (
+/obj/structure/shelf_wood,
+/obj/item/paper_bin,
+/obj/item/paper_bin,
+/obj/item/pen,
+/obj/item/pen,
+/obj/item/pen,
+/obj/item/folder/yellow,
+/obj/item/folder/yellow,
+/obj/item/folder/red,
+/obj/item/clothing/head/frenchberet{
+	pixel_x = -3;
+	pixel_y = 11
+	},
+/turf/open/floor/wood_fancy,
+/area/f13/building)
 "sSs" = (
 /turf/open/floor/plating/rust,
 /area/f13/ruins)
@@ -21018,18 +20249,6 @@
 /area/f13/outpost)
 "sZg" = (
 /obj/structure/sign/poster/prewar/poster94,
-/obj/effect/decal/riverbank{
-	dir = 9;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/obj/effect/decal/riverbank{
-	dir = 10;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
 /turf/closed/wall/f13/sunset/brick_small,
 /area/f13/building)
 "sZw" = (
@@ -21068,29 +20287,6 @@
 "tbt" = (
 /turf/open/floor/plasteel/f13/vault_floor/yellow/corner,
 /area/f13/wasteland/city)
-"tbw" = (
-/obj/structure/shelf_wood{
-	pixel_y = -5
-	},
-/obj/item/clothing/under/sailor,
-/obj/item/clothing/under/sailor,
-/obj/item/clothing/under/sailor,
-/obj/item/clothing/under/sailor,
-/obj/item/clothing/under/sailor,
-/obj/effect/decal/riverbank{
-	dir = 10;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/obj/effect/decal/riverbank{
-	dir = 9;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/turf/closed/wall/f13/sunset/brick_small,
-/area/f13/building)
 "tbB" = (
 /obj/structure/chair/comfy,
 /turf/open/floor/wood_mosaic,
@@ -21146,6 +20342,10 @@
 	pixel_x = -14;
 	name = "bedpost";
 	desc = "A metal bedpost."
+	},
+/obj/structure/stone_tile/slab{
+	pixel_y = 30;
+	layer = 10
 	},
 /turf/open/floor/wood_fancy,
 /area/f13/building)
@@ -21216,7 +20416,7 @@
 /turf/open/floor/wood_mosaic/wood_mosaic_dark,
 /area/f13/wasteland/city)
 "tho" = (
-/obj/item/reagent_containers/fuel_tank/hyper,
+/obj/item/reagent_containers/fuel_tank/upgraded,
 /turf/open/floor/f13/wood{
 	icon_state = "housewood2"
 	},
@@ -21635,30 +20835,6 @@
 	},
 /turf/open/floor/wood_wide/wood_wide_light,
 /area/f13/enclave)
-"tyV" = (
-/obj/effect/decal/riverbank{
-	dir = 10;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/obj/effect/decal/riverbank{
-	dir = 9;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/turf/closed/wall/f13/sunset/brick_small_dark,
-/area/f13/wasteland/city)
-"tyW" = (
-/obj/effect/decal/riverbank{
-	dir = 10;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/turf/closed/wall/f13/sunset/brick_small_light,
-/area/f13/ruins)
 "tzi" = (
 /turf/open/floor/wood_fancy/wood_fancy_light,
 /area/f13/building)
@@ -21697,7 +20873,10 @@
 /turf/open/floor/plasteel/dark,
 /area/f13/building/boat)
 "tAa" = (
-/obj/structure/closet/fridge,
+/obj/structure/closet/fridge{
+	anchored = 1;
+	can_be_unanchored = 1
+	},
 /obj/machinery/light/small{
 	dir = 4;
 	name = "tan light fixture";
@@ -21820,7 +20999,10 @@
 	},
 /area/f13/ruins)
 "tFK" = (
-/obj/structure/closet/fridge,
+/obj/structure/closet/fridge{
+	anchored = 1;
+	can_be_unanchored = 1
+	},
 /turf/open/floor/plasteel/f13/vault_floor/blue/whitebluefull,
 /area/f13/building)
 "tFP" = (
@@ -21859,7 +21041,10 @@
 	color = "#808080";
 	pixel_y = 32
 	},
-/obj/structure/closet/fridge,
+/obj/structure/closet/fridge{
+	anchored = 1;
+	can_be_unanchored = 1
+	},
 /turf/open/floor/wood_mosaic,
 /area/f13/ruins)
 "tGF" = (
@@ -22025,18 +21210,6 @@
 /area/f13/ruins)
 "tOz" = (
 /obj/effect/decal/cleanable/blood,
-/obj/effect/decal/riverbank{
-	dir = 9;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/obj/effect/decal/riverbank{
-	dir = 10;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
 /turf/closed/wall/f13/sunset/brick_small_light,
 /area/f13/ruins)
 "tOA" = (
@@ -22074,18 +21247,6 @@
 /area/f13/office)
 "tQp" = (
 /obj/structure/sign/directions/dorms,
-/obj/effect/decal/riverbank{
-	dir = 9;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/obj/effect/decal/riverbank{
-	dir = 10;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
 /turf/closed/wall/f13/sunset/brick_small,
 /area/f13/building)
 "tQU" = (
@@ -22134,6 +21295,10 @@
 "tUd" = (
 /obj/structure/rug/big/rug_red{
 	layer = 1
+	},
+/obj/structure/sink/greyscale{
+	dir = 8;
+	pixel_x = -13
 	},
 /turf/open/floor/wood_common/wood_common_light{
 	icon_state = "common_light-broken4"
@@ -22276,15 +21441,17 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/ruins)
 "tZb" = (
-/obj/structure/shelf_wood{
-	pixel_y = -5
-	},
 /obj/item/kirbyplants{
 	icon_state = "plant-10";
 	pixel_y = 22;
 	pixel_x = -34
 	},
-/turf/closed/indestructible/f13vaultrusted,
+/obj/structure/bookshelf{
+	icon_state = "book-3"
+	},
+/turf/open/floor/wood_fancy/wood_fancy_light{
+	icon_state = "fancy_light-broken5"
+	},
 /area/f13/building)
 "uad" = (
 /turf/open/floor/wood_common{
@@ -22692,15 +21859,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/building/boat)
-"utf" = (
-/obj/effect/decal/riverbank{
-	dir = 9;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/turf/closed/wall/f13/sunset/brick_small_dark,
-/area/f13/wasteland/city)
 "utu" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
@@ -22763,6 +21921,12 @@
 	name = "tan light fixture";
 	light_color = "#FFDDCC";
 	color = "#FFDDCC"
+	},
+/obj/structure/bookcase/manuals/engineering,
+/obj/item/kirbyplants{
+	icon_state = "plant-23";
+	pixel_y = 26;
+	pixel_x = 7
 	},
 /turf/open/floor/wood_common/wood_common_light{
 	icon_state = "common_light-broken4"
@@ -22950,7 +22114,10 @@
 	},
 /area/f13/ruins)
 "uDI" = (
-/obj/structure/closet/fridge,
+/obj/structure/closet/fridge{
+	anchored = 1;
+	can_be_unanchored = 1
+	},
 /turf/open/floor/wood_fancy/wood_fancy_dark,
 /area/f13/building)
 "uEf" = (
@@ -22999,21 +22166,6 @@
 	icon_state = "bluerustysolid"
 	},
 /area/f13/building/boat)
-"uFJ" = (
-/obj/effect/decal/riverbank{
-	dir = 9;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/obj/effect/decal/riverbank{
-	dir = 10;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/turf/closed/wall/f13/sunset/brick_small,
-/area/f13/building)
 "uFV" = (
 /obj/effect/spawner/lootdrop/grille_or_trash,
 /turf/open/floor/wood_wide,
@@ -23180,18 +22332,6 @@
 /obj/structure/sign/directions/dorms{
 	dir = 8
 	},
-/obj/effect/decal/riverbank{
-	dir = 9;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/obj/effect/decal/riverbank{
-	dir = 10;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
 /turf/closed/wall/f13/sunset/brick_small,
 /area/f13/building)
 "uOc" = (
@@ -23258,53 +22398,12 @@
 /turf/open/floor/wood_worn,
 /area/f13/ruins)
 "uQb" = (
-/obj/effect/decal/riverbank{
-	dir = 10;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/obj/effect/decal/riverbank{
-	dir = 9;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
 /turf/closed/wall/f13/sunset/brick_small_light,
-/area/f13/building)
-"uQI" = (
-/obj/effect/decal/riverbank{
-	dir = 9;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/obj/effect/decal/riverbank{
-	dir = 10;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/obj/effect/decal/riverbank{
-	dir = 10;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/turf/closed/wall/f13/sunset/brick_small,
 /area/f13/building)
 "uQY" = (
 /obj/machinery/mineral/wasteland_vendor/crafting,
 /turf/open/indestructible/ground/outside/roof,
 /area/f13/wasteland/town)
-"uRq" = (
-/obj/structure/rack/shelf_metal{
-	pixel_y = -9
-	},
-/turf/closed/wall/mineral/concrete{
-	name = "Ship wall"
-	},
-/area/f13/building/boat)
 "uSb" = (
 /obj/effect/turf_decal/stripes{
 	dir = 8
@@ -23394,19 +22493,6 @@
 /obj/item/assembly/signaler/receiver,
 /turf/open/indestructible/ground/outside/ruins,
 /area/f13/raider_mall)
-"uWM" = (
-/obj/structure/shelf_wood{
-	pixel_y = -14;
-	layer = 5
-	},
-/obj/item/lock_construct{
-	pixel_y = -10
-	},
-/obj/item/key{
-	pixel_y = -10
-	},
-/turf/closed/wall/f13/sunset/brick_small_dark,
-/area/f13/building)
 "uWO" = (
 /obj/structure/window/plasma/reinforced,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
@@ -23613,18 +22699,6 @@
 	},
 /area/f13/ruins)
 "ves" = (
-/obj/effect/decal/riverbank{
-	dir = 9;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/obj/effect/decal/riverbank{
-	dir = 10;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
 /turf/closed/wall/f13/sunset/brick_small_dark,
 /area/f13/wasteland/town)
 "vew" = (
@@ -23706,7 +22780,10 @@
 /turf/open/transparent/openspace,
 /area/f13/ruins)
 "vhY" = (
-/obj/structure/closet/fridge,
+/obj/structure/closet/fridge{
+	anchored = 1;
+	can_be_unanchored = 1
+	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/lootdrop/f13/cash_random_med,
 /turf/open/floor/wood_mosaic{
@@ -23758,12 +22835,6 @@
 /area/f13/ruins)
 "vjd" = (
 /obj/structure/window/fulltile/wood,
-/obj/effect/decal/riverbank{
-	dir = 10;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
 /turf/open/floor/wood_common/wood_common_dark,
 /area/f13/building)
 "vjr" = (
@@ -23797,9 +22868,6 @@
 	icon_state = "common2"
 	},
 /area/f13/wasteland/town)
-"vlQ" = (
-/turf/open/indestructible/ground/outside/desert,
-/area/f13/building)
 "vmF" = (
 /obj/structure/railing{
 	color = "#A47449";
@@ -24048,29 +23116,6 @@
 	icon_state = "mosaic-broken3"
 	},
 /area/f13/ruins)
-"vuZ" = (
-/obj/structure/shelf_wood{
-	pixel_y = -5
-	},
-/obj/item/clothing/under/sailordress,
-/obj/item/clothing/under/sailordress,
-/obj/item/clothing/under/sailordress,
-/obj/item/clothing/under/sailordress,
-/obj/item/clothing/under/sailordress,
-/obj/effect/decal/riverbank{
-	dir = 10;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/obj/effect/decal/riverbank{
-	dir = 9;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/turf/closed/wall/f13/sunset/brick_small,
-/area/f13/building)
 "vvf" = (
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
@@ -24320,24 +23365,6 @@
 /obj/structure/simple_door/room,
 /turf/open/floor/wood_fancy/wood_fancy_light,
 /area/f13/building)
-"vNT" = (
-/obj/structure/sink/kitchen{
-	pixel_y = -9
-	},
-/obj/effect/decal/riverbank{
-	dir = 10;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/obj/effect/decal/riverbank{
-	dir = 9;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/turf/closed/wall/f13/sunset/brick_small_dark,
-/area/f13/building)
 "vNW" = (
 /obj/structure/railing{
 	color = "#A47449";
@@ -24411,11 +23438,6 @@
 	},
 /area/f13/wasteland/town)
 "vQg" = (
-/obj/machinery/chem_master{
-	pixel_y = 16;
-	layer = 20
-	},
-/obj/structure/closet/crate/large,
 /obj/machinery/light/small{
 	name = "aqua light fixture";
 	color = "#00FFFF";
@@ -24490,6 +23512,8 @@
 	light_color = "#FFDDCC";
 	color = "#FFDDCC"
 	},
+/obj/structure/shelf_wood,
+/obj/item/clothing/under/sailor,
 /turf/open/floor/wood_fancy,
 /area/f13/building)
 "vSZ" = (
@@ -24593,6 +23617,11 @@
 	icon_state = "fancy-broken3"
 	},
 /area/f13/ruins)
+"vZJ" = (
+/obj/structure/shelf_wood,
+/obj/item/storage/photo_album,
+/turf/open/floor/wood_wide,
+/area/f13/building)
 "vZT" = (
 /obj/structure/barricade/sandbags,
 /turf/open/floor/wood_mosaic{
@@ -24616,6 +23645,12 @@
 	icon_state = "housebase"
 	},
 /area/f13/ruins)
+"wbw" = (
+/obj/structure/rack/shelf_metal,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
+	icon_state = "bluerustysolid"
+	},
+/area/f13/building/boat)
 "wcd" = (
 /obj/item/chair/stool/retro,
 /obj/effect/decal/cleanable/dirt,
@@ -24686,6 +23721,11 @@
 /area/f13/wasteland/town)
 "wga" = (
 /obj/structure/table/rolling,
+/obj/item/surgical_drapes,
+/obj/item/hemostat,
+/obj/item/scalpel,
+/obj/item/retractor,
+/obj/item/cautery,
 /turf/open/floor/wood_wide{
 	icon_state = "wide_light1"
 	},
@@ -24703,18 +23743,6 @@
 /obj/structure/sink/kitchen{
 	pixel_y = -9;
 	layer = 1
-	},
-/obj/effect/decal/riverbank{
-	dir = 10;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/obj/effect/decal/riverbank{
-	dir = 9;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
 	},
 /turf/closed/wall/f13/sunset/brick_small_light,
 /area/f13/ruins)
@@ -24872,7 +23900,7 @@
 	},
 /area/f13/ruins)
 "woC" = (
-/obj/machinery/chem_dispenser/fullupgrade,
+/obj/structure/closet/crate/freezer/blood,
 /turf/open/floor/wood_common/wood_common_light{
 	icon_state = "common_light-broken6"
 	},
@@ -24891,22 +23919,6 @@
 	},
 /turf/open/floor/wood_common/wood_common_light,
 /area/f13/office)
-"wpU" = (
-/obj/structure/barricade/wooden,
-/obj/effect/decal/riverbank{
-	dir = 10;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/obj/effect/decal/riverbank{
-	dir = 9;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/turf/closed/wall/f13/sunset/brick_small,
-/area/f13/enclave)
 "wqd" = (
 /obj/machinery/light{
 	dir = 4
@@ -24984,7 +23996,10 @@
 /turf/open/indestructible/ground/outside/roof,
 /area/f13/building)
 "wwR" = (
-/obj/structure/closet/fridge,
+/obj/structure/closet/fridge{
+	anchored = 1;
+	can_be_unanchored = 1
+	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustysolid"
 	},
@@ -25122,13 +24137,6 @@
 "wEr" = (
 /turf/open/floor/plating/f13/outside/roof/metal/corrugated/red,
 /area/f13/wasteland/city)
-"wEN" = (
-/obj/structure/bookshelf{
-	pixel_y = -8;
-	icon_state = "book-3"
-	},
-/turf/closed/wall/f13/coyote/tavern_wall,
-/area/f13/office)
 "wET" = (
 /obj/structure/flora/tree/jungle/small,
 /turf/open/floor/wood_fancy{
@@ -25195,21 +24203,6 @@
 	icon_state = "fancy_dark-broken6"
 	},
 /area/f13/ruins)
-"wJE" = (
-/obj/effect/decal/riverbank{
-	dir = 10;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/obj/effect/decal/riverbank{
-	dir = 9;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/turf/closed/wall/f13/sunset/brick_small_dark,
-/area/f13/enclave)
 "wKd" = (
 /obj/effect/turf_decal/stripes/asteroid/line,
 /obj/structure/timeddoor/sixtyminute,
@@ -25642,7 +24635,10 @@
 	},
 /area/f13/building)
 "wZP" = (
-/obj/structure/closet/fridge,
+/obj/structure/closet/fridge{
+	anchored = 1;
+	can_be_unanchored = 1
+	},
 /turf/open/floor/wood_common/wood_common_dark,
 /area/f13/building)
 "wZV" = (
@@ -25718,6 +24714,10 @@
 	icon_state = "bluerustyfull"
 	},
 /area/f13/city/museum)
+"xeb" = (
+/obj/structure/rack/shelf_metal,
+/turf/open/floor/wood_common/wood_common_dark,
+/area/f13/bar)
 "xei" = (
 /obj/structure/barricade/sandbags,
 /turf/open/indestructible/ground/outside/roof,
@@ -26068,11 +25068,13 @@
 /obj/structure/curtain{
 	color = "#811313"
 	},
+/obj/structure/stone_tile/slab{
+	pixel_y = 30;
+	layer = 10
+	},
 /turf/open/floor/wood_fancy,
 /area/f13/building)
 "xtz" = (
-/obj/item/ammo_box/musketbag,
-/obj/item/ammo_box/musketbag,
 /obj/structure/table/reinforced/brass,
 /turf/open/floor/wood_common{
 	icon_state = "common-broken3"
@@ -26423,6 +25425,11 @@
 	},
 /turf/open/floor/f13/wood,
 /area/f13/wasteland/town)
+"xJl" = (
+/obj/structure/shelf_wood,
+/obj/item/clothing/under/sailordress,
+/turf/open/floor/wood_fancy,
+/area/f13/building)
 "xJN" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/wood_common/wood_common_light,
@@ -26533,21 +25540,6 @@
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/wood_common/wood_common_light,
-/area/f13/ruins)
-"xRu" = (
-/obj/effect/decal/riverbank{
-	dir = 9;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/obj/effect/decal/riverbank{
-	dir = 10;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/turf/closed/wall/f13/sunset/brick_small,
 /area/f13/ruins)
 "xSg" = (
 /obj/structure/railing{
@@ -26672,25 +25664,6 @@
 /obj/structure/barricade/wooden/planks,
 /turf/open/floor/wood_common/wood_common_light,
 /area/f13/ruins)
-"xWT" = (
-/obj/structure/shelf_wood{
-	pixel_y = -5
-	},
-/obj/item/storage/photo_album,
-/obj/effect/decal/riverbank{
-	dir = 10;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/obj/effect/decal/riverbank{
-	dir = 9;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/turf/closed/wall/f13/sunset/brick_small,
-/area/f13/building)
 "xXk" = (
 /obj/structure/bed/mattress{
 	icon_state = "mattress4"
@@ -26898,21 +25871,6 @@
 	},
 /turf/open/floor/f13/wood,
 /area/f13/wasteland/town)
-"yjV" = (
-/obj/effect/decal/riverbank{
-	dir = 10;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/obj/effect/decal/riverbank{
-	dir = 9;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/turf/closed/wall/f13/sunset/brick_small_light,
-/area/f13/ruins)
 "ykz" = (
 /obj/structure/chair/comfy/green,
 /turf/open/floor/wood_common/wood_common_light,
@@ -52802,15 +51760,15 @@ qFK
 qFK
 qFK
 qFK
-jhk
+rSa
 pLt
 pLt
 pLt
-jhk
-jhk
-jhk
+rSa
+rSa
+rSa
 pLt
-jhk
+rSa
 qFK
 qFK
 qFK
@@ -53067,7 +52025,7 @@ hIV
 gmt
 mCM
 qdH
-jhk
+rSa
 qFK
 qFK
 qFK
@@ -53316,7 +52274,7 @@ qFK
 qFK
 qFK
 qFK
-xRu
+rSa
 gmt
 pwQ
 hLi
@@ -53324,7 +52282,7 @@ nSe
 nSe
 ehX
 nSe
-jhk
+rSa
 qFK
 qFK
 qFK
@@ -53581,7 +52539,7 @@ tNu
 jqu
 hIV
 ehX
-jhk
+rSa
 qFK
 qFK
 qFK
@@ -53630,9 +52588,9 @@ uEf
 xfm
 ifb
 eYD
-qFK
-qFK
-qFK
+qOY
+qOY
+qOY
 qFK
 qFK
 qFK
@@ -53830,15 +52788,15 @@ qFK
 qFK
 qFK
 qFK
-jhk
-jhk
-jhk
-jhk
-jhk
-jhk
-jhk
-jhk
-jhk
+rSa
+rSa
+rSa
+rSa
+rSa
+rSa
+rSa
+rSa
+rSa
 qFK
 qFK
 qFK
@@ -53887,9 +52845,9 @@ sjp
 xSL
 xfm
 rSa
-qFK
-qFK
-qFK
+qOY
+qOY
+qOY
 qFK
 qFK
 qFK
@@ -54086,25 +53044,25 @@ qFK
 qFK
 qFK
 qFK
-cPB
-cvB
-cvB
-cvB
-cvB
-cvB
+qSG
+val
+val
+val
+val
+val
 pLt
-cvB
-pLt
-pLt
-rza
-rza
-pLt
-iNv
-iNv
+val
 pLt
 pLt
-iNv
-iNv
+val
+val
+pLt
+val
+val
+pLt
+pLt
+val
+val
 qFK
 qFK
 dOY
@@ -54144,9 +53102,9 @@ cNr
 tYU
 uEf
 rSa
-qFK
-qFK
-qFK
+qOY
+qOY
+qOY
 qFK
 qFK
 qFK
@@ -54347,21 +53305,21 @@ cLn
 sdz
 gmt
 ehX
-yjV
+bzg
 pFk
 oxk
 bNF
 bNF
-iNv
+val
 bNF
 sSs
 iJH
-fRT
+val
 bjm
 geJ
 gRm
 oDM
-iNv
+val
 qFK
 qFK
 dOY
@@ -54401,9 +53359,9 @@ rvu
 rRz
 fiN
 qcM
-qFK
-qFK
-qFK
+qOY
+qOY
+qOY
 qFK
 qFK
 qFK
@@ -54604,16 +53562,16 @@ cLn
 jSY
 juj
 tmL
-yjV
+bzg
 bNF
 sSs
 tDx
 tDx
-iNv
+val
 sSs
 hSJ
 qeX
-iNv
+val
 oPv
 geJ
 oPv
@@ -54658,9 +53616,9 @@ gKC
 rSa
 qcM
 qcM
-qFK
-qFK
-qFK
+qOY
+qOY
+qOY
 qFK
 qFK
 qFK
@@ -54857,20 +53815,20 @@ qFK
 qFK
 qFK
 qFK
-utf
+qSG
 wiG
 onk
 sSs
-yjV
+bzg
 qEi
 bNF
 tDx
 tDx
-iNv
+val
 imp
 bNF
 fxc
-iNv
+val
 bvR
 bNF
 rfq
@@ -55118,12 +54076,12 @@ cLn
 dQP
 qdH
 sSs
-yjV
+bzg
 sSs
 vtX
 bNF
 sSs
-bZc
+pLt
 bNF
 bNF
 ihA
@@ -55380,16 +54338,16 @@ bNF
 bNF
 sSs
 bNF
-iNv
+val
 bNF
 bNF
 qeX
-iNv
+val
 nhR
 qeX
 bNF
 bNF
-iNv
+val
 qFK
 qFK
 dOY
@@ -55628,25 +54586,25 @@ qFK
 qFK
 qFK
 qFK
-tyV
-iNv
-abG
+qSG
+val
+val
 jcn
 jcn
 jcn
-lMV
+bzg
 hSJ
 qaj
-iNv
+val
 sSs
 pFk
 qFG
-iNv
+val
 rom
 bFb
 lHE
 mYG
-iNv
+val
 qFK
 qFK
 dOY
@@ -55886,24 +54844,24 @@ qFK
 qFK
 qFK
 qFK
-fRT
+val
 qWD
 sSs
 pOX
 pda
-lMV
+bzg
 sSs
 cJP
-iNv
+val
 bNF
 sSs
 fxc
-rza
-iNv
-iNv
-iNv
-iNv
-jmL
+val
+val
+val
+val
+val
+val
 qFK
 qFK
 dOY
@@ -56148,10 +55106,10 @@ hYT
 tRZ
 bax
 kqc
-lMV
+bzg
 iGk
 bNF
-iNv
+val
 qla
 sSs
 bNF
@@ -56160,7 +55118,7 @@ bNF
 uwS
 okT
 qeX
-iNv
+val
 qFK
 qFK
 dOY
@@ -56400,24 +55358,24 @@ qFK
 qFK
 qFK
 qFK
-fRT
+val
 uwM
 rsT
 pOX
 qqB
-lMV
+bzg
 cJP
 bNF
-iNv
+val
 bNF
 sSs
-iNv
+val
 ihb
 pFk
 ljB
 bNF
 sDT
-hSD
+lCw
 qFK
 qFK
 dOY
@@ -56662,19 +55620,19 @@ sOq
 pOX
 bax
 ihA
-lMV
+bzg
 bNF
 bNF
-iNv
+val
 bNF
 bNF
-iNv
+val
 ljB
 bNF
 nrT
 pFk
 qeX
-qtj
+val
 qFK
 qFK
 qFK
@@ -56919,13 +55877,13 @@ saB
 jVI
 pOX
 pOX
-lMV
+bzg
 sSs
 sSs
 cyX
 bNF
 xBy
-iNv
+val
 ljB
 bNF
 iin
@@ -57176,13 +56134,13 @@ bTT
 hib
 sSs
 bVI
-lMV
+bzg
 pFk
 bNF
 sSs
 ihA
 xBy
-iNv
+val
 giI
 bNF
 jhg
@@ -57433,13 +56391,13 @@ obv
 eVo
 pOX
 lvT
-lMV
+bzg
 bNF
 cJP
-iNv
+val
 sSs
 bNF
-iNv
+val
 aWv
 qeX
 pUj
@@ -57693,16 +56651,16 @@ bax
 jcn
 jjL
 bNF
-iNv
-iNv
-iNv
-iNv
-iNv
+val
+val
+val
+val
+val
 pLt
 pLt
-cvB
-cvB
-cvB
+val
+val
+val
 qFK
 qFK
 qFK
@@ -57950,7 +56908,7 @@ sSs
 jcn
 pFk
 bNF
-yjV
+bzg
 hLG
 kkb
 dQQ
@@ -58207,7 +57165,7 @@ vug
 smV
 bNF
 sSs
-yjV
+bzg
 hLG
 tDx
 gTR
@@ -58464,7 +57422,7 @@ vug
 smV
 bNF
 pFk
-yjV
+bzg
 hLG
 wEi
 dQQ
@@ -58713,12 +57671,12 @@ qFK
 qFK
 qFK
 qFK
-yjV
+bzg
 hEF
 fHN
 sSs
 pOX
-yjV
+bzg
 cJP
 bNF
 pLt
@@ -58970,15 +57928,15 @@ qFK
 qFK
 qFK
 qFK
-yjV
-yjV
-yjV
-yjV
-yjV
-yjV
-yjV
-yjV
-yjV
+bzg
+bzg
+bzg
+bzg
+bzg
+bzg
+bzg
+bzg
+bzg
 qFK
 qFK
 qFK
@@ -59741,15 +58699,15 @@ qFK
 qFK
 qFK
 qFK
-kkZ
-kkZ
-tyW
-kkZ
+rSa
+rSa
+bzg
+rSa
 pLt
 pLt
-tyW
-kkZ
-tyW
+bzg
+rSa
+bzg
 qFK
 qFK
 qFK
@@ -60001,12 +58959,12 @@ qFK
 pLt
 eQX
 rKx
-kkZ
+rSa
 wGe
 rtg
 eYw
 eYw
-kkZ
+rSa
 qFK
 qFK
 qFK
@@ -60258,7 +59216,7 @@ qFK
 pLt
 rnV
 oek
-kkZ
+rSa
 pbv
 oek
 rKx
@@ -60520,7 +59478,7 @@ aUG
 llT
 jFC
 eqn
-kkZ
+rSa
 qFK
 qFK
 qFK
@@ -60777,7 +59735,7 @@ rKx
 bMc
 tDx
 oek
-tyW
+bzg
 qFK
 qFK
 qFK
@@ -61026,15 +59984,15 @@ qFK
 qFK
 qFK
 qFK
-tyW
-kkZ
-kkZ
+bzg
+rSa
+rSa
 xbk
 xbk
 xbk
-kkZ
-kkZ
-kkZ
+rSa
+rSa
+rSa
 qFK
 qFK
 qFK
@@ -61500,7 +60458,7 @@ cLZ
 cLZ
 tTD
 tTD
-tTD
+qAy
 tTD
 tTD
 tTD
@@ -63587,14 +62545,14 @@ qFK
 qFK
 qFK
 tOz
-lMV
+bzg
 pLt
-lMV
-lMV
-lMV
+bzg
+bzg
+bzg
 pLt
 pLt
-lMV
+bzg
 qFK
 qFK
 qFK
@@ -63851,7 +62809,7 @@ sSs
 fMz
 dpD
 srN
-lMV
+bzg
 qFK
 jGJ
 jGJ
@@ -64108,7 +63066,7 @@ tks
 sSs
 sSs
 sSs
-lMV
+bzg
 qFK
 jGJ
 jGJ
@@ -64363,9 +63321,9 @@ bwW
 nPj
 lBK
 dfV
-lMV
+bzg
 lBK
-lMV
+bzg
 qFK
 jGJ
 jGJ
@@ -64619,10 +63577,10 @@ gGQ
 nvV
 oxS
 lEa
-lMV
+bzg
 uvB
 lBK
-lMV
+bzg
 qFK
 jGJ
 jGJ
@@ -64871,15 +63829,15 @@ qFK
 qFK
 qFK
 qFK
-lMV
+bzg
 pLt
 pLt
-lMV
+bzg
 hLG
-lMV
+bzg
 pLt
 pLt
-lMV
+bzg
 qFK
 jGJ
 jGJ
@@ -66372,8 +65330,8 @@ nNl
 asT
 ili
 mak
-uRq
-rVD
+cpg
+gph
 dOk
 peM
 rVD
@@ -66629,8 +65587,8 @@ nNl
 nNl
 shz
 shz
-lhL
-ylB
+kds
+wbw
 ylB
 tnT
 xhb
@@ -67167,12 +66125,12 @@ pyp
 oQo
 wBc
 gTf
-uFJ
-uFJ
-uFJ
-uFJ
+vAb
+vAb
+vAb
+vAb
 lwG
-uFJ
+vAb
 gTf
 wwA
 gTf
@@ -67184,14 +66142,14 @@ gTf
 gTf
 gTf
 gTf
-qYq
-qYq
-qYq
-qYq
-qYq
-qYq
-qYq
-qYq
+lcY
+lcY
+lcY
+lcY
+lcY
+lcY
+lcY
+lcY
 gTf
 gTf
 gTf
@@ -67424,12 +66382,12 @@ pyp
 oQo
 wBc
 gTf
-iPc
+vAb
 hEH
 iYq
 jVJ
 jvP
-uFJ
+vAb
 eWz
 pxJ
 whg
@@ -67449,7 +66407,7 @@ wlR
 wZx
 qhi
 gnO
-qYq
+lcY
 gTf
 gTf
 qFK
@@ -67681,7 +66639,7 @@ pyp
 wBc
 wBc
 gTf
-iPc
+vAb
 jmB
 tqQ
 lQt
@@ -67699,14 +66657,14 @@ aOz
 jot
 mgT
 fGI
-ehi
+jtg
 bHO
 naw
-qYq
+lcY
 naw
 xPN
 aQt
-qYq
+lcY
 gTf
 gTf
 qFK
@@ -67938,12 +66896,12 @@ gTf
 gTf
 gTf
 gTf
-iPc
+vAb
 aqQ
 jvP
 jvP
 fdB
-uFJ
+vAb
 eWz
 xTK
 cJq
@@ -67955,15 +66913,15 @@ aOz
 aOz
 jot
 smt
-lcg
+lcY
 tlC
 naw
 naw
-qYq
+lcY
 tja
 fPy
 hgx
-qYq
+lcY
 gTf
 gTf
 qFK
@@ -68187,20 +67145,20 @@ gTf
 gTf
 gTf
 glg
-uFJ
+vAb
 rek
-uFJ
-uFJ
+vAb
+vAb
 kSb
-uFJ
-uFJ
+vAb
+vAb
 szh
 hlN
 owL
 jFT
 gkd
 jvP
-uFJ
+vAb
 eWz
 xTK
 rVB
@@ -68216,11 +67174,11 @@ wlR
 naw
 sBz
 nxy
-qYq
+lcY
 dZZ
 aNT
 tlC
-qYq
+lcY
 gTf
 gTf
 qFK
@@ -68437,10 +67395,10 @@ aOz
 huq
 xTK
 lvZ
-uQI
-uFJ
-uFJ
-uFJ
+vAb
+vAb
+vAb
+vAb
 tQp
 sZg
 jvP
@@ -68469,15 +67427,15 @@ aOz
 doe
 kTt
 ves
-qYq
-qYq
-qYq
-qYq
-qYq
-qYq
-qYq
-qYq
-qYq
+lcY
+lcY
+lcY
+lcY
+lcY
+lcY
+lcY
+lcY
+lcY
 gTf
 gTf
 dcz
@@ -68714,7 +67672,7 @@ jvP
 jvP
 hmj
 gCG
-uFJ
+vAb
 eWz
 xTK
 jVw
@@ -68726,15 +67684,15 @@ aOz
 xGz
 wWk
 nql
-uFJ
-uFJ
-uFJ
-uFJ
-uFJ
-uFJ
-uFJ
-uFJ
-uFJ
+vAb
+vAb
+vAb
+vAb
+vAb
+vAb
+vAb
+vAb
+vAb
 gTf
 gTf
 gTf
@@ -68951,27 +67909,27 @@ aOz
 bIV
 xTK
 lvZ
-nCQ
+vAb
 mmw
 jvP
 jvP
-hLO
-jvP
+vAb
+sRY
 qaS
 jvP
 mky
 oPK
-uFJ
-uFJ
+vAb
+vAb
 ivY
 oPK
-uFJ
-uFJ
+vAb
+vAb
 uNQ
 oPK
-uFJ
-uFJ
-uFJ
+vAb
+vAb
+vAb
 eWz
 xTK
 obU
@@ -68991,7 +67949,7 @@ vND
 tzi
 tzi
 jFf
-uFJ
+vAb
 tNE
 mpo
 isl
@@ -69195,7 +68153,7 @@ pnK
 lMo
 aLL
 oAL
-iwP
+pnK
 qKM
 mgA
 lVS
@@ -69212,23 +68170,23 @@ oza
 xtd
 tqQ
 fdB
-xWT
-tqQ
+vAb
+vZJ
 rlN
 aNT
-uFJ
+vAb
 naw
 xPN
 mpD
-uFJ
+vAb
 xPN
 xPN
 hlR
-uFJ
+vAb
 xPN
 naw
 bRk
-uFJ
+vAb
 eWz
 aOz
 obU
@@ -69244,11 +68202,11 @@ rQx
 sqN
 slu
 lNX
-dGa
+vAb
 jUR
 caa
 lmF
-uFJ
+vAb
 suu
 pOI
 xQE
@@ -69465,23 +68423,23 @@ aOz
 wic
 xTK
 lvZ
-qkU
+vAb
 jvP
 wVT
 pGG
-vuZ
-jvP
+vAb
+xJl
 jvP
 aNT
-uFJ
+vAb
 rRP
 toP
 qJj
-uFJ
+vAb
 bQG
 eEj
 qJc
-uFJ
+vAb
 rRP
 npU
 xPN
@@ -69497,15 +68455,15 @@ aOz
 aOz
 eQc
 jer
-lhx
+vAb
 tdz
 cfO
 sQi
-dGa
-qYM
+vAb
+tzi
 tzi
 jUR
-uFJ
+vAb
 gkk
 wxw
 ejP
@@ -69726,23 +68684,23 @@ hZi
 gdp
 jvP
 gSV
-tbw
+vAb
 vSX
 tqQ
 qHM
-uFJ
+vAb
 cbI
 xPN
 mMj
-uFJ
+vAb
 cbI
 xPN
 mMj
-uFJ
+vAb
 cjs
 xPN
 mMj
-uFJ
+vAb
 eWz
 xTK
 rVB
@@ -69758,11 +68716,11 @@ vND
 tzi
 drL
 hCf
-dGa
+vAb
 uuY
 aNT
 tzi
-uFJ
+vAb
 cdS
 xQE
 xQE
@@ -69979,27 +68937,27 @@ aOz
 wic
 xTK
 lvZ
-uFJ
-uFJ
+vAb
+vAb
 cLq
-uFJ
-uFJ
-uFJ
+vAb
+vAb
+vAb
 nHK
-uFJ
-uFJ
-uFJ
+vAb
+vAb
+vAb
 nHK
-uFJ
-uFJ
-uFJ
+vAb
+vAb
+vAb
 nHK
-uFJ
-uFJ
-uFJ
+vAb
+vAb
+vAb
 nHK
-uFJ
-uFJ
+vAb
+vAb
 eWz
 xTK
 rVB
@@ -70011,15 +68969,15 @@ aOz
 doe
 kTt
 nql
-uFJ
-uFJ
-uFJ
-uFJ
-uFJ
-uFJ
-uFJ
-uFJ
-uFJ
+vAb
+vAb
+vAb
+vAb
+vAb
+vAb
+vAb
+vAb
+vAb
 uhg
 fCK
 qER
@@ -70223,8 +69181,8 @@ qei
 kfg
 uYK
 nIt
-iwP
-mgA
+pnK
+xeb
 vnL
 lVS
 cLZ
@@ -72292,29 +71250,29 @@ aOz
 hQE
 xTK
 pxJ
-uFJ
+vAb
 dqn
 eve
 nTR
 vAb
 jhR
-ndB
+lcY
 iMc
-ndB
+lcY
 iMc
-ndB
-ndB
-ndB
-ndB
-nwd
-nwd
+lcY
+lcY
+lcY
+lcY
+vAb
+vAb
 sfS
-nwd
+vAb
 uQb
 uQb
-nwd
+vAb
 sfS
-nwd
+vAb
 uQb
 eWz
 xTK
@@ -72529,7 +71487,7 @@ gBo
 cki
 uvi
 cuo
-mCN
+gBo
 cfJ
 blO
 pBE
@@ -72549,21 +71507,21 @@ aOz
 odn
 xTK
 pxJ
-uFJ
+vAb
 prk
 vqY
 ujf
 iZf
 dmN
-ndB
+lcY
 ize
 naw
 xPN
 fDo
-ndB
+lcY
 iEY
 vgn
-nwd
+vAb
 alQ
 tse
 gQb
@@ -72786,7 +71744,7 @@ gVH
 kBK
 kXF
 fmh
-mCN
+gBo
 cPO
 vxr
 brv
@@ -72806,21 +71764,21 @@ aOz
 mFF
 xTK
 pxJ
-uFJ
+vAb
 sdv
 eBP
 rNx
 aNT
 ekY
-kGi
+lcY
 dRv
 cNs
 xPN
 uDI
-ndB
+lcY
 naw
 dsC
-ndB
+lcY
 fOY
 ued
 hqI
@@ -72829,7 +71787,7 @@ fpt
 bCd
 dFM
 sQB
-nwd
+vAb
 eWz
 xTK
 xUr
@@ -72845,7 +71803,7 @@ wPx
 auj
 iJF
 rNh
-nrB
+qKK
 bho
 kpJ
 wpO
@@ -73063,13 +72021,13 @@ aOz
 umA
 xTK
 pxJ
-uFJ
+vAb
 prk
 oiM
 ohr
 smm
 evm
-bfy
+lcY
 pXU
 nXc
 lBl
@@ -73077,7 +72035,7 @@ aQG
 gvU
 xPN
 aim
-vNT
+lEN
 wMd
 vAb
 aNT
@@ -73086,7 +72044,7 @@ gBH
 iVs
 lcY
 aNT
-nwd
+vAb
 eWz
 xTK
 bhA
@@ -73320,21 +72278,21 @@ aOz
 ncv
 xTK
 sPI
-uFJ
-nwd
-nwd
-nwd
-nwd
+vAb
+vAb
+vAb
+vAb
+vAb
 cFn
-ndB
-ndB
-ndB
-ndB
-ndB
-ndB
+lcY
+lcY
+lcY
+lcY
+lcY
+lcY
 xPN
 fNp
-nwd
+vAb
 aSU
 vAb
 tSt
@@ -73583,15 +72541,15 @@ lso
 pbd
 gyD
 ekY
-ndB
+lcY
 gcc
 vYD
 gVX
 uDI
-ndB
+lcY
 dUR
 ehi
-ndB
+lcY
 xUR
 kSN
 fQA
@@ -73609,15 +72567,15 @@ aOz
 iuz
 xTK
 lvZ
-mHp
+caI
 oWU
 pDR
 iJF
 qKK
 bCC
 fGJ
-nrB
-bho
+qKK
+rnC
 aTY
 iQu
 onp
@@ -73829,30 +72787,30 @@ cLZ
 aOz
 aOz
 dTY
-eWT
-eWT
-eWT
+nql
+nql
+nql
 gkr
 pqx
-uFJ
+vAb
 klh
 evm
 ekY
 ekY
 fNr
-qfI
+lcY
 bSg
 bIu
 bHO
 dCo
-ndB
+lcY
 xPN
 aNT
-hkw
+lcY
 fQA
 uVR
 jvP
-uWM
+lcY
 ogE
 rIw
 ekY
@@ -74086,30 +73044,30 @@ cLZ
 aOz
 aOz
 dTY
-eWT
+nql
 lpM
 rHo
 bGp
 vrk
-uFJ
+vAb
 idl
 ekY
 dwu
 oSF
 wZP
-pNQ
-tlC
+lcY
+cSh
 xPN
 naw
 xPN
 gvU
 vYD
 kRb
-ggA
+lcY
 qRi
 fxJ
 nEn
-dds
+lcY
 lse
 tAJ
 aVy
@@ -74130,11 +73088,11 @@ olT
 qKK
 mMI
 iJF
-rMt
+qKK
 mXL
+fUX
 idm
 lpg
-iJF
 rcs
 lof
 aOz
@@ -74343,35 +73301,35 @@ cLZ
 aOz
 aOz
 dTY
-eWT
+nql
 wOo
 gMD
 wOo
 wOo
-uFJ
+vAb
 kIf
 ekY
 nEz
 wvV
 kNd
-qYq
-qYq
-qYq
-qYq
-qYq
-qYq
-qYq
-qYq
-qYq
-uFJ
-qYq
-qYq
-uFJ
-uFJ
+lcY
+lcY
+lcY
+lcY
+lcY
+lcY
+lcY
+lcY
+lcY
+vAb
+lcY
+lcY
+vAb
+vAb
 vLc
 vLc
-rTY
-uFJ
+uQb
+vAb
 eWz
 xTK
 jlS
@@ -74387,11 +73345,11 @@ pEI
 qKK
 rcb
 tCS
-rMt
+qKK
+mXL
 cJb
 rWG
 lpg
-jJJ
 rcs
 iDI
 aOz
@@ -74600,8 +73558,8 @@ sIO
 riU
 riU
 rNd
-eWT
-eWT
+nql
+nql
 gkr
 gkr
 xdC
@@ -74637,18 +73595,18 @@ aOz
 iuz
 xTK
 lvZ
-mHp
+caI
 oWU
 pDR
 iJF
 qKK
 qTT
 iJF
-wEN
-hrP
+qKK
+mXL
+cIJ
 xcD
 lpg
-auj
 rcs
 iDI
 aOz
@@ -75415,11 +74373,11 @@ cAo
 scR
 aNT
 gFA
-vlQ
+gTf
 paR
-gRc
+cfO
 cLV
-fmE
+cfO
 tUd
 gTf
 gTf
@@ -75672,7 +74630,7 @@ pIo
 gFA
 grL
 pvk
-vlQ
+gTf
 tZb
 gRc
 wrz
@@ -75929,11 +74887,11 @@ iwd
 iwd
 pIo
 tFK
-vlQ
+gTf
 lwC
-bXS
-jFE
-cfO
+gRc
+wrz
+akm
 bXo
 gTf
 hPd
@@ -76186,9 +75144,9 @@ ezj
 ezj
 lMK
 eRc
-vlQ
+gTf
 syO
-qGf
+tzi
 inB
 ask
 cmq
@@ -76443,8 +75401,8 @@ aFY
 apb
 gFA
 nrJ
-vlQ
-gVZ
+gTf
+syO
 kSz
 rxA
 uUn
@@ -85474,7 +84432,7 @@ wcW
 qFK
 lyK
 lyK
-wpU
+sGl
 hHr
 hHr
 sGl
@@ -85728,7 +84686,7 @@ qFK
 dWw
 jnT
 jnT
-jBr
+gBZ
 ueo
 ueo
 ueo
@@ -86242,13 +85200,13 @@ qFK
 qFK
 qFK
 qFK
-jBr
+gBZ
 lyK
 lyK
-wpU
+sGl
 hHr
 hHr
-wpU
+sGl
 lyK
 lyK
 lyK
@@ -86766,9 +85724,9 @@ qFK
 qFK
 qFK
 qFK
-wJE
-wJE
-wJE
+glP
+glP
+glP
 aGL
 ujw
 gYz
@@ -87794,12 +86752,12 @@ qFK
 qFK
 qFK
 qFK
-wJE
+glP
 sdq
 kQX
 mMZ
 urq
-wJE
+glP
 dWw
 dWw
 qFK
@@ -88056,7 +87014,7 @@ eCN
 oLc
 kQX
 fbL
-wJE
+glP
 dWw
 dWw
 qFK
@@ -88308,12 +87266,12 @@ qFK
 qFK
 qFK
 qFK
-wJE
-wJE
+glP
+glP
 aGL
-wJE
-wJE
-wJE
+glP
+glP
+glP
 dWw
 mCX
 qFK
@@ -89076,7 +88034,7 @@ qFK
 lyK
 lyK
 xlu
-cCh
+lyK
 coS
 lyK
 lyK
@@ -89323,12 +88281,12 @@ dWw
 qFK
 qFK
 qFK
-aWi
-wJE
+glP
+glP
 mpB
 biA
-wJE
-wJE
+glP
+glP
 qFK
 lyK
 qyA
@@ -89336,7 +88294,7 @@ ggL
 dZE
 vQg
 woC
-lyK
+cyJ
 lsj
 gPU
 ixl
@@ -89580,12 +88538,12 @@ jnT
 qFK
 qFK
 qFK
-wJE
+glP
 aJu
 qiw
 xtz
 afl
-wJE
+glP
 qFK
 lyK
 byz
@@ -89593,7 +88551,7 @@ pvy
 hsL
 aIV
 epF
-lyK
+epF
 lsj
 lsj
 lsj
@@ -89837,12 +88795,12 @@ dWw
 qFK
 qFK
 qFK
-wJE
+glP
 xiz
 oxV
-qCU
+ngF
 uad
-wJE
+glP
 qFK
 lyK
 ePL
@@ -89850,7 +88808,7 @@ aIV
 jBq
 sLM
 wga
-lyK
+epF
 lsj
 lsj
 lsj
@@ -90094,7 +89052,7 @@ dWw
 wJa
 tIf
 jnT
-wJE
+glP
 ems
 ngF
 vJm
@@ -90107,7 +89065,7 @@ dUr
 epF
 xaD
 mze
-lyK
+epF
 lsj
 lsj
 lsj
@@ -90351,16 +89309,16 @@ dWw
 dWw
 jnT
 dWw
-wJE
+glP
 dZE
 ngF
 whn
 gbp
-wJE
+glP
 qFK
 lyK
 lyK
-cCh
+lyK
 xXn
 lyK
 lyK
@@ -90609,11 +89567,11 @@ dWw
 jnT
 dWw
 ujw
-wJE
 glP
-wJE
+glP
+glP
 sCW
-wJE
+glP
 kOP
 jnT
 eEk

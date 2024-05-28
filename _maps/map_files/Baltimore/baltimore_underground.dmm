@@ -365,6 +365,13 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/vault)
+"aGQ" = (
+/obj/structure/table/wood/fancy/blackred,
+/obj/item/clothing/suit/armor/medium/duster/cloak_armored,
+/turf/open/floor/plasteel/chapel{
+	icon_state = "clockwork_floor"
+	},
+/area/f13/mountain_bunker)
 "aJf" = (
 /obj/structure/rack/shelf_metal,
 /turf/open/floor/wood_common,
@@ -741,6 +748,7 @@
 /area/f13/vault)
 "bla" = (
 /obj/structure/closet/cabinet,
+/obj/effect/spawner/lootdrop/f13/armor/tier1,
 /turf/open/indestructible/ground/inside/subway,
 /area/f13/tunnel/sub)
 "blJ" = (
@@ -1484,6 +1492,7 @@
 "cpj" = (
 /obj/structure/rack/shelf_metal,
 /obj/effect/spawner/lootdrop/f13/weapon/gun/ammo/tier3,
+/obj/effect/spawner/lootdrop/f13/armor/tier4,
 /turf/open/floor/plasteel/f13/vault_floor/red,
 /area/f13/city/museum)
 "cqb" = (
@@ -1605,6 +1614,11 @@
 /obj/machinery/workbench,
 /turf/open/floor/wood_common,
 /area/f13/building)
+"cBn" = (
+/obj/structure/shelf_wood,
+/obj/item/gun/ballistic/automatic/varmint,
+/turf/open/indestructible/ground/inside/subway,
+/area/f13/tunnel/sub)
 "cCo" = (
 /obj/machinery/light/small/broken{
 	dir = 8
@@ -5037,6 +5051,7 @@
 /area/f13/building/tunnel)
 "hUf" = (
 /obj/structure/table/wood/fancy/blackred,
+/obj/item/lockpick_set,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
 /area/f13/citycaves)
 "hUw" = (
@@ -5413,6 +5428,7 @@
 /area/f13/vault)
 "irv" = (
 /obj/structure/closet/cabinet,
+/obj/effect/spawner/lootdrop/f13/armor/tier2,
 /turf/open/floor/wood_wide,
 /area/f13/tunnel/sub)
 "irF" = (
@@ -6380,6 +6396,15 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/vault)
+"jBd" = (
+/obj/structure/table,
+/obj/item/lockpick_set,
+/obj/item/lockpick_set,
+/turf/open/indestructible/ground/outside/gravel{
+	name = "underground gravel";
+	sunlight_state = 0
+	},
+/area/f13/wasteland/city)
 "jBm" = (
 /turf/open/floor/plasteel/cult,
 /area/f13/citycaves)
@@ -9292,6 +9317,11 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/vault)
+"nQR" = (
+/obj/structure/shelf_wood,
+/obj/item/gun/ballistic/automatic/varmint,
+/turf/open/floor/wood_wide,
+/area/f13/tunnel/sub)
 "nRs" = (
 /obj/structure/railing/wood{
 	pixel_y = 7;
@@ -10213,6 +10243,7 @@
 /obj/item/storage/book/bible/syndicate,
 /obj/structure/table/wood/fancy/blackred,
 /obj/effect/spawner/lootdrop/f13/weapon/energy,
+/obj/effect/spawner/lootdrop/f13/armor/tier4,
 /turf/open/floor/plasteel/cult,
 /area/f13/mountain_bunker)
 "pir" = (
@@ -10286,7 +10317,8 @@
 /area/f13/vault)
 "pmM" = (
 /obj/structure/ladder/unbreakable{
-	icon_state = "ladder10"
+	icon_state = "ladder10";
+	id = "tunnel"
 	},
 /turf/open/indestructible/ground/outside/gravel{
 	name = "underground gravel";
@@ -10522,6 +10554,7 @@
 /obj/structure/destructible/tribal_torch/wall/lit{
 	dir = 8
 	},
+/obj/item/lockpick_set,
 /turf/open/floor/f13/wood,
 /area/f13/building)
 "pKk" = (
@@ -10756,6 +10789,11 @@
 /obj/structure/simple_door/wood,
 /turf/open/floor/wood_wide/wood_wide_light,
 /area/f13/tunnel/sub)
+"pXm" = (
+/obj/structure/shelf_wood,
+/obj/item/twohanded/fireaxe/bmprsword,
+/turf/open/indestructible/ground/inside/subway,
+/area/f13/tunnel/sub)
 "pXp" = (
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/f13/resourcespawner,
@@ -10820,6 +10858,11 @@
 /obj/structure/destructible/tribal_torch/wall/lit,
 /turf/open/floor/wood_common/wood_common_light,
 /area/f13/tunnel/sub)
+"qbL" = (
+/obj/structure/table/booth,
+/obj/item/lockpick_set,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
+/area/f13/citycaves)
 "qca" = (
 /turf/open/floor/wood_common/wood_common_light{
 	icon_state = "common_light-broken6"
@@ -13637,6 +13680,11 @@
 	icon_state = "bluerustysolid"
 	},
 /area/f13/vault)
+"uiG" = (
+/obj/structure/closet/cabinet,
+/obj/effect/spawner/lootdrop/f13/armor/tier1,
+/turf/open/floor/wood_wide,
+/area/f13/tunnel/sub)
 "ujw" = (
 /obj/structure/simple_door/metal/ventilation,
 /turf/open/floor/plating/rust,
@@ -13765,6 +13813,11 @@
 	pixel_x = 1
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/tunnel/sub)
+"uuy" = (
+/obj/structure/shelf_wood,
+/obj/item/twohanded/fireaxe/bmprsword,
+/turf/open/floor/wood_wide,
 /area/f13/tunnel/sub)
 "uvy" = (
 /obj/effect/turf_decal/stripes/line{
@@ -14868,6 +14921,10 @@
 /obj/structure/spider/stickyweb,
 /turf/open/floor/wood_common,
 /area/f13/building)
+"wch" = (
+/obj/item/lockpick_set,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
+/area/f13/citycaves)
 "wcu" = (
 /obj/machinery/light/fo13colored/Red{
 	dir = 4
@@ -16874,9 +16931,9 @@ bvn
 hOg
 sTi
 bvn
-uIE
+nQR
 bzF
-uIE
+uuy
 bzF
 bzF
 hOg
@@ -17131,9 +17188,9 @@ bvn
 ctT
 fIc
 bvn
-fIc
+cBn
 bzF
-fIc
+pXm
 bzF
 eam
 hOg
@@ -17388,9 +17445,9 @@ bvn
 hOg
 uIE
 bvn
-uIE
+nQR
 bvn
-uIE
+uuy
 bzF
 bzF
 hOg
@@ -18161,7 +18218,7 @@ bvn
 bzF
 qju
 bvn
-irv
+uiG
 bzF
 bzF
 hOg
@@ -30293,7 +30350,7 @@ qEt
 qEt
 qEt
 qEt
-jsl
+aGQ
 mKB
 mKB
 oYD
@@ -39921,7 +39978,7 @@ hSv
 iwd
 hSv
 nLQ
-hSv
+wch
 hSv
 tIo
 hrR
@@ -42224,7 +42281,7 @@ mgN
 dqV
 qWI
 ybM
-bsv
+qbL
 qXv
 koj
 hSv
@@ -57883,7 +57940,7 @@ ejt
 qIj
 ejt
 oxY
-wWL
+jBd
 wWL
 gwW
 ejt
