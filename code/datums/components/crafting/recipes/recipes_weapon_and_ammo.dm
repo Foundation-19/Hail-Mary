@@ -567,19 +567,6 @@
 	category = CAT_WEAPONRY
 	subcategory = CAT_AMMO
 
-/datum/crafting_recipe/lmgammo
-	name = "LMG Ammo for vehicles"
-	result = /obj/item/mecha_ammo/lmg/craftable
-	reqs = list(/obj/item/stack/crafting/metalparts = 5,
-	/obj/item/stack/sheet/prewar = 5,
-	/obj/item/ammo_box/a556 = 2,
-	/obj/item/stack/sheet/mineral/titanium = 1,
-	)
-	tools = list(TOOL_AWORKBENCH)
-	time = 5
-	category = CAT_WEAPONRY
-	subcategory = CAT_AMMO
-
 /////////////////
 ///GUN CRAFTING//
 /////////////////
@@ -678,19 +665,6 @@
 	/obj/item/stack/sheet/mineral/wood = 2)
 	tools = list(TOOL_WORKBENCH)
 	time = 120
-	category = CAT_WEAPONRY
-	subcategory = CAT_WEAPON
-
-/datum/crafting_recipe/gun/HMGvehicle
-	name = "Improvised HMG (for vehicles)"
-	result = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg/hobo
-	reqs = list(/obj/item/gun/ballistic/automatic/autopipe = 2,
-	/obj/item/stack/crafting/metalparts = 10,
-	/obj/item/stack/sheet/prewar = 8,
-	/obj/item/stack/sheet/mineral/titanium = 8,
-	/obj/item/stack/rods = 2)
-	tools = list(TOOL_WORKBENCH)
-	time = 180
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
 
