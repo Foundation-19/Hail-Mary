@@ -34303,18 +34303,6 @@
 	name = "stagnant water"
 	},
 /area/f13/wasteland)
-"hXI" = (
-/obj/effect/turf_decal/weather/dirt{
-	dir = 8
-	},
-/obj/structure/fluff/railing{
-	dir = 8;
-	pixel_x = 31
-	},
-/turf/open/floor/f13/wood{
-	icon_state = "housewood1-broken"
-	},
-/area/f13/wasteland)
 "hXR" = (
 /obj/structure/flora/tallgrass7,
 /turf/open/indestructible/ground/outside/desert,
@@ -58279,16 +58267,6 @@
 	icon_state = "outerpavementdirt"
 	},
 /area/f13/building)
-"rPF" = (
-/obj/effect/turf_decal/weather/dirt{
-	dir = 8
-	},
-/obj/structure/fluff/railing{
-	dir = 8;
-	pixel_x = 31
-	},
-/turf/open/floor/f13/wood,
-/area/f13/wasteland)
 "rPP" = (
 /obj/structure/simple_door/house{
 	icon_state = "interioropening"
@@ -63639,14 +63617,6 @@
 /turf/open/indestructible/ground/outside/road{
 	icon_state = "horizontalinnermain0"
 	},
-/area/f13/wasteland)
-"ubT" = (
-/obj/effect/turf_decal/weather/dirt,
-/obj/structure/fluff/railing{
-	dir = 4;
-	pixel_x = -32
-	},
-/turf/open/floor/f13/wood,
 /area/f13/wasteland)
 "ucd" = (
 /obj/structure/flora/grass/jungle,
@@ -72512,9 +72482,6 @@
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/wasteland)
 "xPu" = (
-/obj/effect/turf_decal/weather/dirt{
-	dir = 8
-	},
 /obj/structure/fluff/railing{
 	dir = 8;
 	pixel_x = 31
@@ -110337,7 +110304,7 @@ hrg
 wiv
 wiv
 eBW
-ubT
+wiv
 ecn
 vWK
 vWK
@@ -110596,8 +110563,8 @@ dMG
 dMG
 dMG
 xPu
-rPF
-hXI
+dMG
+kNF
 rNG
 qhg
 qhg

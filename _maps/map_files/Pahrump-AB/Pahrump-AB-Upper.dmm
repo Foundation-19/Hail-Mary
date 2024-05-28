@@ -1868,9 +1868,6 @@
 /area/f13/wasteland)
 "dAd" = (
 /obj/structure/rack/shelf_metal,
-/obj/effect/spawner/lootdrop/clothing_middle,
-/obj/effect/spawner/lootdrop/clothing_middle,
-/obj/effect/spawner/lootdrop/clothing_middle,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/brotherhood)
 "dAm" = (
@@ -10499,7 +10496,6 @@
 /obj/structure/rack/shelf_metal,
 /obj/effect/spawner/lootdrop/f13/weapon/melee/random_mid,
 /obj/effect/spawner/lootdrop/f13/weapon/melee/random_mid,
-/obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/mid,
 /obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/mid,
 /obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/mid,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
