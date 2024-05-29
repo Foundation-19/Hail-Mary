@@ -147,6 +147,7 @@ Concrete = Cement 1u + Water 2u + Silicon 7u
 
 GLOBAL_LIST_INIT(concrete_recipes, list ( \
 	new/datum/stack_recipe("concrete barricade", /obj/structure/barricade/concrete, 2, time = 30, one_per_turf = 1, on_floor = 1), \
+	new/datum/stack_recipe("road tile", /obj/item/stack/tile/road, 1, 4, 20), \
 	))
 
 /////////

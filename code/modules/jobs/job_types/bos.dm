@@ -545,13 +545,7 @@ Senior Scribe
 	..()
 	if(visualsOnly)
 		return
-	H.mind.teach_crafting_recipe(/datum/crafting_recipe/jet)
-	H.mind.teach_crafting_recipe(/datum/crafting_recipe/turbo)
-	H.mind.teach_crafting_recipe(/datum/crafting_recipe/psycho)
-	H.mind.teach_crafting_recipe(/datum/crafting_recipe/medx)
-	H.mind.teach_crafting_recipe(/datum/crafting_recipe/medx/chemistry)
-	H.mind.teach_crafting_recipe(/datum/crafting_recipe/buffout)
-	H.mind.teach_crafting_recipe(/datum/crafting_recipe/steady)
+	H.mind.teach_crafting_recipe(GLOB.chemwhiz_recipes)
 	ADD_TRAIT(H, TRAIT_CHEMWHIZ, src)
 	ADD_TRAIT(H, TRAIT_SURGERY_HIGH, src)
 	ADD_TRAIT(H, TRAIT_CYBERNETICIST, src)
@@ -560,13 +554,13 @@ Senior Scribe
 	name =	"Senior Scribe"
 	jobtype = /datum/job/bos/f13seniorscribe
 	chemwhiz =	TRUE
+	belt = /obj/item/storage/belt/utility/full/engi
 	shoes =	/obj/item/clothing/shoes/combat
 	accessory =	/obj/item/clothing/accessory/bos/seniorscribe
 	suit = /obj/item/clothing/suit/armor/light/duster/bos/scribe/seniorscribe
 	suit_store = /obj/item/gun/ballistic/automatic/pistol/ninemil
 	glasses = /obj/item/clothing/glasses/sunglasses/big
 	backpack_contents = list(
-		/obj/item/storage/belt/utility/full/engi = 1,
 		/obj/item/ammo_box/magazine/m9mm = 2,
 		/obj/item/melee/onehanded/knife/survival = 1,
 		/obj/item/storage/firstaid/regular = 1,
@@ -616,11 +610,11 @@ Scribe
 	name = "Scribe"
 	jobtype = /datum/job/bos/f13scribe
 	chemwhiz = TRUE
+	belt = /obj/item/storage/belt/utility/full/engi
 	shoes = /obj/item/clothing/shoes/combat
 	suit = /obj/item/clothing/suit/armor/light/duster/bos/scribe
 	glasses = /obj/item/clothing/glasses/sunglasses/big
 	backpack_contents = list(
-		/obj/item/storage/belt/utility/full/engi = 1,
 		/obj/item/melee/onehanded/knife/survival = 1,
 		/obj/item/storage/firstaid/regular = 1,
 		/obj/item/gun/energy/laser/pistol = 1,
@@ -645,13 +639,7 @@ Scribe
 	..()
 	if(visualsOnly)
 		return
-	H.mind.teach_crafting_recipe(/datum/crafting_recipe/jet)
-	H.mind.teach_crafting_recipe(/datum/crafting_recipe/turbo)
-	H.mind.teach_crafting_recipe(/datum/crafting_recipe/psycho)
-	H.mind.teach_crafting_recipe(/datum/crafting_recipe/medx)
-	H.mind.teach_crafting_recipe(/datum/crafting_recipe/medx/chemistry)
-	H.mind.teach_crafting_recipe(/datum/crafting_recipe/buffout)
-	H.mind.teach_crafting_recipe(/datum/crafting_recipe/steady)
+	H.mind.teach_crafting_recipe(GLOB.chemwhiz_recipes)
 	ADD_TRAIT(H, TRAIT_CHEMWHIZ, src)
 	ADD_TRAIT(H, TRAIT_SURGERY_HIGH, src)
 	ADD_TRAIT(H, TRAIT_CYBERNETICIST, src)
