@@ -77,7 +77,8 @@ GLOBAL_LIST_INIT(former_tribal_recipes, list(
 	//datum/crafting_recipe/bluepotion,
 	//datum/crafting_recipe/greenpotion,
 	/datum/crafting_recipe/food/pemmican,
-	/datum/crafting_recipe/tribal/bonebag))
+	/datum/crafting_recipe/tribal/bonebag,
+	/datum/crafting_recipe/warpaint))
 
 GLOBAL_LIST_INIT(energyweapon_crafting, list(
 	/datum/crafting_recipe/aer9_hotwired))

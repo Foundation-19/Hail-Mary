@@ -637,7 +637,7 @@
 	..()
 	. = TRUE
 
-/datum/reagent/consumable/ethanol/bbrew/on_mob_delete(mob/living/M)
+/datum/reagent/consumable/ethanol/bbock/on_mob_delete(mob/living/M)
 	if(rage)
 		QDEL_NULL(rage)
 	if(iscarbon(M))
