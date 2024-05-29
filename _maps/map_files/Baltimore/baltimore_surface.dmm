@@ -10434,9 +10434,7 @@
 	},
 /area/f13/wasteland/city/citycenter)
 "dEQ" = (
-/obj/machinery/portable_atmospherics/canister/air{
-	volume = 1
-	},
+/obj/structure/reagent_dispensers/cooking_oil,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/citycaves)
 "dFa" = (
@@ -25264,12 +25262,6 @@
 	},
 /turf/open/indestructible/ground/outside/sidewalkdirt,
 /area/f13/wasteland/city/citycenter)
-"iXn" = (
-/obj/machinery/portable_atmospherics/canister/air{
-	volume = 1
-	},
-/turf/open/floor/plating/rust,
-/area/f13/citycaves)
 "iXw" = (
 /obj/effect/spawner/lootdrop/f13/weapon/police,
 /obj/structure/closet/locker/oldstyle,
@@ -30767,7 +30759,7 @@
 	},
 /area/f13/ruins)
 "kWJ" = (
-/obj/machinery/portable_atmospherics/canister/water_vapor,
+/obj/machinery/portable_atmospherics/canister,
 /turf/open/floor/plating/rust,
 /area/f13/ruins)
 "kWP" = (
@@ -37106,12 +37098,6 @@
 /obj/effect/turf_decal/stripes,
 /turf/open/floor/plasteel/f13/vault_floor/plating,
 /area/f13/ruins)
-"neL" = (
-/obj/machinery/portable_atmospherics/canister/miasma{
-	volume = 1
-	},
-/turf/open/floor/plating/rust,
-/area/f13/citycaves)
 "neT" = (
 /turf/open/floor/wood_fancy,
 /area/f13/building/center)
@@ -44514,12 +44500,6 @@
 	sunlight_state = 1
 	},
 /area/f13/ruins)
-"pMu" = (
-/obj/machinery/portable_atmospherics/canister/nitryl{
-	volume = 1
-	},
-/turf/open/floor/plating/rust,
-/area/f13/citycaves)
 "pMD" = (
 /obj/structure/fence{
 	dir = 8
@@ -47832,9 +47812,7 @@
 /turf/open/floor/plating/rust,
 /area/f13/citycaves)
 "qUq" = (
-/obj/machinery/portable_atmospherics/canister/proto{
-	volume = 1
-	},
+/obj/structure/reagent_dispensers/cooking_oil,
 /turf/open/floor/plating/rust,
 /area/f13/citycaves)
 "qUB" = (
@@ -78926,9 +78904,9 @@ nsz
 jRa
 bTO
 rRI
-pMu
-iXn
-pMu
+qUq
+qUq
+qUq
 qUq
 tHD
 sBW
@@ -79186,7 +79164,7 @@ bTO
 aiO
 pJf
 dEQ
-neL
+qUq
 tHD
 oom
 sSl
@@ -79442,8 +79420,8 @@ xSg
 wTI
 pJf
 pJf
-neL
-iXn
+qUq
+qUq
 tHD
 lME
 lJc
@@ -79699,8 +79677,8 @@ pJf
 aHY
 bTO
 rRI
-iXn
-pMu
+qUq
+qUq
 tHD
 lME
 sSl
@@ -80213,8 +80191,8 @@ bTO
 rRI
 uvI
 qEo
-pMu
-neL
+qUq
+qUq
 tHD
 qFI
 sRL
