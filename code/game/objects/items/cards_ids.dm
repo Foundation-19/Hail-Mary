@@ -830,7 +830,7 @@
 	assignment = "Jannie"
 
 /obj/item/card/id/debug/Initialize()
-	access = get_all_accesses()+get_all_centcom_access()+get_all_syndicate_access()
+	access = get_all_accesses()+get_all_centcom_access()+get_all_syndicate_access()+get_all_enclave_access()+get_all_legion_access()+get_all_ncr_access()+get_all_bos_access()
 	registered_account = SSeconomy.get_dep_account(ACCOUNT_CAR)
 	. = ..()
 

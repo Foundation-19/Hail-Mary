@@ -598,3 +598,13 @@
 	category = CAT_PRIMAL
 	tools = list(TOOL_WORKBENCH)
 */
+/datum/crafting_recipe/warpaint //So tribals can paint themselves once more
+	name = "Body Paint"
+	result = /obj/item/warpaint_bowl
+	time = 30
+	reqs = list(/obj/item/reagent_containers/food/snacks/grown/mutfruit = 2,
+				/obj/item/stack/ore/glass = 1,
+				/obj/item/pestle = 1,
+				/obj/item/reagent_containers/glass/mortar = 1)
+	category = CAT_PRIMAL
+	always_available = FALSE

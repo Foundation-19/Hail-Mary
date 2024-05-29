@@ -199,19 +199,19 @@ They *could* go in their appropriate files, but this is supposed to be modular
 	var/drain = 0 //Drain amount
 	. = 0
 
-	occupant_message(span_danger("Warning: Unauthorized access through sub-route 4, block H, detected."))
+	occupant_message(span_danger("Warning: Unauthorized access emergency fuel storage access detected!."))
 	if(get_charge())
-		while(G.candrain && cell.charge > 0 && !maxcapacity)
+		while(G.candrain && fuel_holder.reagents.total_volume > 0 && !maxcapacity)
 			drain = rand(G.mindrain,G.maxdrain)
-			if(cell.charge < drain)
-				drain = cell.charge
+			if(fuel_holder.reagents.total_volume < drain)
+				drain = fuel_holder.reagents.total_volume
 			if(S.cell.charge + drain > S.cell.maxcharge)
 				drain = S.cell.maxcharge - S.cell.charge
 				maxcapacity = 1
 			if (do_after(H,10, target = src))
 				spark_system.start()
 				playsound(loc, "sparks", 50, 1)
-				cell.use(drain)
+				fuel_holder.use(drain)
 				S.cell.charge += drain
 				. += drain
 			else
