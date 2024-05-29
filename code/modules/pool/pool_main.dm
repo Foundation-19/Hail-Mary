@@ -127,7 +127,8 @@
 		var/mob/living/victim = AM
 		if(!HAS_TRAIT(victim, TRAIT_SWIMMING))		//poor guy not swimming time to dunk them!
 			victim.AddElement(/datum/element/swimming)
-			controller.mobs_in_pool += victim
+			if(controller)
+				controller.mobs_in_pool += victim
 			if(locate(/obj/structure/pool/ladder) in src)		//safe climbing
 				return
 			if(iscarbon(AM))		//FUN TIME!
