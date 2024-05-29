@@ -7218,7 +7218,6 @@
 	pixel_x = -24;
 	layer = 9
 	},
-/obj/effect/spawner/lootdrop/f13/medical/random_fev,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustysolid"
 	},
@@ -14059,7 +14058,6 @@
 "uLZ" = (
 /obj/structure/table/reinforced,
 /obj/structure/flora/ausbushes/ywflowers,
-/obj/effect/spawner/lootdrop/f13/medical/random_fev,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustysolid"
 	},

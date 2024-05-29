@@ -14435,8 +14435,6 @@
 /obj/effect/decal/cleanable/greenglow,
 /obj/effect/decal/cleanable/greenglow,
 /obj/effect/spawner/lootdrop/f13/weapon/energy,
-/obj/effect/spawner/lootdrop/f13/medical/random_fev,
-/obj/effect/spawner/lootdrop/f13/medical/random_fev,
 /turf/open/floor/wood_fancy,
 /area/f13/ruins)
 "nsm" = (
