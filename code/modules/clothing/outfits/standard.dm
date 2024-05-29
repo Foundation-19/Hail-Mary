@@ -169,7 +169,7 @@
 	pda.update_label()
 
 	var/obj/item/card/id/syndicate/W = H.wear_id
-	W.access = get_all_accesses()
+	W.access = get_all_accesses()+get_all_centcom_access()+get_all_syndicate_access()+get_all_enclave_access()+get_all_legion_access()+get_all_ncr_access()+get_all_bos_access()+get_all_centcom_access()+get_all_syndicate_access()+get_all_enclave_access()+get_all_legion_access()+get_all_ncr_access()+get_all_bos_access()
 	W.assignment = "Reaper"
 	W.registered_name = H.real_name
 	W.update_label(H.real_name)
@@ -197,7 +197,7 @@
 
 	var/obj/item/card/id/W = H.wear_id
 	W.icon_state = "centcom"
-	W.access = get_all_accesses()
+	W.access = get_all_accesses()+get_all_centcom_access()+get_all_syndicate_access()+get_all_enclave_access()+get_all_legion_access()+get_all_ncr_access()+get_all_bos_access()
 	W.access += get_centcom_access("CentCom Commander")
 	W.assignment = "CentCom Commander"
 	W.registered_name = H.real_name
@@ -225,7 +225,7 @@
 
 	var/obj/item/card/id/W = H.wear_id
 	W.icon_state = "centcom"
-	W.access = get_all_accesses()
+	W.access = get_all_accesses()+get_all_centcom_access()+get_all_syndicate_access()+get_all_enclave_access()+get_all_legion_access()+get_all_ncr_access()+get_all_bos_access()
 	W.access += get_centcom_access("Special Ops Officer")
 	W.assignment = "Special Ops Officer"
 	W.registered_name = H.real_name
@@ -306,7 +306,7 @@
 
 	var/obj/item/card/id/W = H.wear_id
 	W.icon_state = "centcom"
-	W.access = get_all_accesses()
+	W.access = get_all_accesses()+get_all_centcom_access()+get_all_syndicate_access()+get_all_enclave_access()+get_all_legion_access()+get_all_ncr_access()+get_all_bos_access()
 	W.access += get_centcom_access("Admiral")
 	W.assignment = "Admiral"
 	W.registered_name = H.real_name
@@ -379,7 +379,7 @@
 
 	var/obj/item/card/id/W = H.wear_id
 	W.icon_state = "centcom"
-	W.access = get_all_accesses()//They get full station access.
+	W.access = get_all_accesses()+get_all_centcom_access()+get_all_syndicate_access()+get_all_enclave_access()+get_all_legion_access()+get_all_ncr_access()+get_all_bos_access()//They get full station access.
 	W.access += get_centcom_access("Death Commando")//Let's add their alloted CentCom access.
 	W.assignment = "Death Commando"
 	W.registered_name = H.real_name
@@ -453,7 +453,7 @@
 
 	var/obj/item/card/id/W = H.wear_id
 	W.icon_state = "centcom"
-	W.access = get_all_accesses()//Obviously
+	W.access = get_all_accesses()+get_all_centcom_access()+get_all_syndicate_access()+get_all_enclave_access()+get_all_legion_access()+get_all_ncr_access()+get_all_bos_access()//Obviously
 	W.assignment = "Chronicler"
 	W.registered_name = H.real_name
 	W.update_label(W.registered_name, W.assignment)

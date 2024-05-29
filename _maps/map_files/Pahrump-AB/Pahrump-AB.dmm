@@ -23016,6 +23016,10 @@
 	icon_state = "horizontalbottomborderbottom0"
 	},
 /area/f13/wasteland)
+"doX" = (
+/obj/effect/landmark/start/f13/secretary,
+/turf/open/floor/f13/wood,
+/area/f13/city)
 "dpf" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -29612,6 +29616,11 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
 /area/f13/brotherhood)
+"fXB" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/start/f13/slavemaster,
+/turf/open/floor/wood_fancy,
+/area/f13/legion)
 "fXJ" = (
 /obj/effect/turf_decal/weather/dirt{
 	dir = 4
@@ -31457,6 +31466,10 @@
 /obj/structure/destructible/tribal_torch/lit,
 /turf/open/indestructible/ground/outside/desert,
 /area/f13/wasteland/khans)
+"gJa" = (
+/obj/effect/landmark/start/f13/auxilia,
+/turf/open/indestructible/ground/outside/gravel,
+/area/f13/wasteland)
 "gJi" = (
 /obj/structure/sink/deep_water,
 /obj/structure/flora/grass/wasteland{
@@ -49738,6 +49751,10 @@
 	},
 /turf/open/floor/f13/wood,
 /area/f13/village)
+"oiK" = (
+/obj/effect/landmark/start/f13/immune,
+/turf/open/indestructible/ground/outside/gravel,
+/area/f13/wasteland)
 "oiV" = (
 /obj/machinery/vending/sovietsoda,
 /obj/effect/decal/cleanable/dirt,
@@ -57426,7 +57443,7 @@
 /area/f13/wasteland)
 "rqV" = (
 /obj/structure/bed/mattress,
-/obj/effect/landmark/start/f13/explorer,
+/obj/effect/landmark/start/f13/venator,
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/caves)
 "rrt" = (
@@ -95230,7 +95247,7 @@ xhd
 jeh
 iht
 yco
-jeh
+doX
 tQn
 iht
 aiO
@@ -127678,7 +127695,7 @@ xav
 oNf
 kvX
 cYw
-aii
+gJa
 vDY
 voq
 eHo
@@ -133851,7 +133868,7 @@ kRW
 vTx
 aii
 aii
-aii
+oiK
 qqE
 beg
 jeT
@@ -136147,7 +136164,7 @@ qqE
 iGo
 vBU
 hBl
-sMp
+fXB
 sMp
 tBc
 sMp

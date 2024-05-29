@@ -199,10 +199,9 @@ GLOBAL_LIST_EMPTY(loadout_boxes)
 /obj/item/kit_spawner/preacher
 	name = "Spiritual survival kit"
 	desc = "Packed with the essentials: Some kind of weapon, and a cool holy stick."
-	allowed_flags = LOADOUT_FLAG_WASTER | LOADOUT_FLAG_TRIBAL | LOADOUT_FLAG_PREACHER
+	allowed_flags = LOADOUT_FLAG_WASTER | LOADOUT_FLAG_TRIBAL
 	multiple_choice = list(
 		"Primary" = LOADOUT_ROOT_ENTRIES,
-		"Rod" = list(LOADOUT_CAT_NULLROD)
 	)
 
 /obj/item/kit_spawner/lawman
