@@ -190,8 +190,8 @@
 	icon_living = "combatclaw"
 	icon_dead = "combatclaw_dead"
 	mob_armor = ARMOR_VALUE_DEATHCLAW_PA // ha get fucked
-	maxHealth = 1000 // ha get turbofucked
-	health = 1000
+	maxHealth = 3000 // ha get turbofucked
+	health = 3000
 	stat_attack = CONSCIOUS
 	melee_damage_lower = 40
 	melee_damage_upper = 60
