@@ -17779,12 +17779,6 @@
 /turf/open/indestructible/ground/outside/water,
 /area/f13/wasteland)
 "bCg" = (
-/obj/effect/turf_decal/stripes/red/line{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/red/line{
-	dir = 1
-	},
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -22833,17 +22827,6 @@
 	icon_state = "plating"
 	},
 /area/f13/village)
-"dmv" = (
-/obj/effect/turf_decal/stripes/red/line{
-	dir = 1
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/open/floor/f13{
-	icon_state = "reddirtyfull"
-	},
-/area/f13/brotherhood)
 "dmw" = (
 /obj/structure/flora/twig2{
 	pixel_x = 7;
@@ -24651,7 +24634,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/open/floor/plating/f13/inside,
+/turf/open/floor/carpet/black,
 /area/f13/brotherhood)
 "eaJ" = (
 /obj/effect/decal/cleanable/dirt,
@@ -26022,7 +26005,7 @@
 	pixel_y = 15;
 	pixel_x = -6
 	},
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/turf/open/floor/carpet/black,
 /area/f13/brotherhood)
 "eDQ" = (
 /obj/structure/bonfire,
@@ -27200,7 +27183,7 @@
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/turf/open/floor/carpet/black,
 /area/f13/brotherhood)
 "eZl" = (
 /obj/effect/spawner/lootdrop/f13/junkspawners,
@@ -28475,6 +28458,7 @@
 "fzD" = (
 /obj/structure/table/reinforced,
 /obj/effect/spawner/lootdrop/f13/medical,
+/obj/item/storage/box/medicine/stimpaks/stimpaks5,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "whitedirtysolid"
 	},
@@ -32688,6 +32672,7 @@
 /obj/effect/landmark/start/f13/seniorknight,
 /obj/effect/landmark/start/f13/seniorscribe,
 /obj/item/bedsheet/grey,
+/obj/effect/decal/cleanable/cobweb/cobweb2,
 /turf/open/floor/f13{
 	icon_state = "reddirtyfull"
 	},
@@ -39098,6 +39083,19 @@
 	icon_state = "verticalinnermain2top"
 	},
 /area/f13/wasteland)
+"jUW" = (
+/obj/structure/bed,
+/obj/effect/landmark/start/f13/Knight,
+/obj/effect/landmark/start/f13/initiate,
+/obj/effect/landmark/start/f13/scribe,
+/obj/effect/landmark/start/f13/seniorknight,
+/obj/effect/landmark/start/f13/seniorscribe,
+/obj/item/bedsheet/grey,
+/obj/effect/decal/cleanable/cobweb,
+/turf/open/floor/f13{
+	icon_state = "reddirtyfull"
+	},
+/area/f13/brotherhood)
 "jVd" = (
 /obj/structure/wreck/bus/rusted/segmented13{
 	layer = 6
@@ -46835,7 +46833,7 @@
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/turf/open/floor/carpet/black,
 /area/f13/brotherhood)
 "nba" = (
 /turf/open/indestructible/ground/outside/sidewalk{
@@ -52136,7 +52134,7 @@
 /obj/structure/cable{
 	icon_state = "1-4"
 	},
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/turf/open/floor/carpet/black,
 /area/f13/brotherhood)
 "pjL" = (
 /obj/machinery/hydroponics/soil,
@@ -54709,6 +54707,12 @@
 	name = "rocky dirt"
 	},
 /area/f13/wasteland)
+"qji" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/open/floor/carpet/black,
+/area/f13/brotherhood)
 "qjl" = (
 /obj/effect/landmark/start/f13/kheshig,
 /turf/open/indestructible/ground/outside/dirt{
@@ -59445,7 +59449,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/turf/open/floor/carpet/black,
 /area/f13/brotherhood)
 "soV" = (
 /obj/structure/flora/brushwoodalt,
@@ -69674,6 +69678,9 @@
 	icon_state = "bluedirtychess2"
 	},
 /area/f13/building)
+"wHF" = (
+/turf/open/floor/carpet/black,
+/area/f13/brotherhood)
 "wHJ" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/indestructible/ground/outside/road{
@@ -71497,6 +71504,12 @@
 	icon_state = "innershade"
 	},
 /area/f13/tunnel/northeast)
+"xut" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/open/floor/carpet/black,
+/area/f13/brotherhood)
 "xuD" = (
 /obj/effect/decal/cleanable/oil/streak{
 	pixel_x = -10
@@ -104388,7 +104401,7 @@ aaB
 aae
 aaa
 pxe
-tDy
+jUW
 drq
 qwe
 ghW
@@ -105170,7 +105183,7 @@ pjK
 bWA
 dgg
 hCt
-vNZ
+xut
 eDF
 xqs
 pxe
@@ -105423,12 +105436,12 @@ drq
 iFl
 vTp
 xCf
-vNZ
-oYF
-oYF
-oYF
-vNZ
-oYF
+xut
+wHF
+wHF
+wHF
+xut
+wHF
 sfd
 dxu
 fId
@@ -105674,7 +105687,7 @@ aak
 aaa
 tVu
 drq
-dmv
+bCg
 drq
 drq
 iwX
@@ -105941,8 +105954,8 @@ uQv
 uQv
 uQv
 vts
-oYF
-oYF
+wHF
+wHF
 mcP
 oxZ
 fId
@@ -106198,8 +106211,8 @@ ktX
 ktX
 chE
 nmm
-oYF
-oYF
+wHF
+wHF
 ivn
 pxe
 dCm
@@ -106455,8 +106468,8 @@ nmm
 nmm
 hUO
 nmm
-iml
-iml
+qji
+qji
 abI
 pxe
 dHf
