@@ -23,8 +23,62 @@ GLOBAL_LIST_INIT(mutant_reference_list, list())
 //references wag types to regular types, wings open to wings, etc
 GLOBAL_LIST_INIT(mutant_transform_list, list())
 
-GLOBAL_LIST_INIT(ghost_forms_with_directions_list, list("ghost")) //stores the ghost forms that support directional sprites
-GLOBAL_LIST_INIT(ghost_forms_with_accessories_list, list("ghost")) //stores the ghost forms that support hair and other such things
+GLOBAL_LIST_INIT(ghost_forms_with_directions_list, list(
+	"ghost",
+	"ghostian",
+	"ghostian2",
+	"ghostking",
+	"ghost_red",
+	"ghost_black",
+	"ghost_blue",
+	"ghost_yellow",
+	"ghost_green",
+	"ghost_pink",
+	"ghost_cyan",
+	"ghost_dblue",
+	"ghost_dred",
+	"ghost_dgreen",
+	"ghost_dcyan",
+	"ghost_grey",
+	"ghost_dyellow",
+	"ghost_dpink",
+	"skeleghost",
+	"ghost_purpleswirl",
+	"ghost_rainbow",
+	"ghost_fire",
+	"ghost_funkypurp",
+	"ghost_pinksherbert",
+	"ghost_blazeit",
+	"ghost_mellow",
+	"ghost_camo",
+	"catghost")) //stores the ghost forms that support directional sprites
+
+GLOBAL_LIST_INIT(ghost_forms_with_accessories_list, list(
+	"ghost",
+	"ghost_red",
+	"ghost_black",
+	"ghost_blue",
+	"ghost_yellow",
+	"ghost_green",
+	"ghost_pink",
+	"ghost_cyan",
+	"ghost_dblue",
+	"ghost_dred",
+	"ghost_dgreen",
+	"ghost_dcyan",
+	"ghost_grey",
+	"ghost_dyellow",
+	"ghost_dpink",
+	"skeleghost",
+	"ghost_purpleswirl",
+	"ghost_rainbow",
+	"ghost_fire",
+	"ghost_funkypurp",
+	"ghost_pinksherbert",
+	"ghost_blazeit",
+	"ghost_mellow",
+	"ghost_camo",))
+	//stores the ghost forms that support hair and other such things
 
 GLOBAL_LIST_INIT(ai_core_display_screens, list(
 	":thinking:",

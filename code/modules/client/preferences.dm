@@ -1426,6 +1426,9 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						var/new_form = input(user, "Thanks for supporting BYOND - Choose your ghostly form:","Thanks for supporting BYOND",null) as null|anything in GLOB.ghost_forms
 						if(new_form)
 							ghost_form = new_form
+							if(isobserver(user))
+								var/mob/dead/observer/dude = user
+								dude.Login()
 				if("ghostorbit")
 					if(unlock_content)
 						var/new_orbit = input(user, "Thanks for supporting BYOND - Choose your ghostly orbit:","Thanks for supporting BYOND", null) as null|anything in GLOB.ghost_orbits
