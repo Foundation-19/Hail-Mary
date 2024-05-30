@@ -204,7 +204,7 @@
 	if(is_healing)
 		user.show_message(span_alert("You're already doing something with this!"))
 		return
-	if(!user.can_inject(C, TRUE))
+	if(!user.can_inject(C, TRUE, bypass_immunity = TRUE)) //We bypass immunity for people with berserker's rights -Pokee
 		return
 
 	var/list/output_list = pick_a_bodypart(C, user)
