@@ -422,6 +422,7 @@
 /atom
 	var/icon_type_smooth
 	var/junction
+	var/bypass_interactions = FALSE
 
 /atom/proc/recalculate_junction()
 	junction = 0

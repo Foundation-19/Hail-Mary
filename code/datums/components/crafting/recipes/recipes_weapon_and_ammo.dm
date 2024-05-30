@@ -807,17 +807,6 @@
 	category = CAT_WEAPONRY
 	subcategory = CAT_AMMO
 
-/datum/crafting_recipe/mech_ammo/carbine
-	name = "Hades ammo pack"
-	result = /obj/item/mecha_ammo/incendiary
-	reqs = list(/obj/item/ammo_box/a762box = 1,
-	/datum/reagent/fuel = 40,
-	/obj/item/stack/crafting/powder = 10)
-	tools = list(TOOL_WORKBENCH)
-	time = 180
-	category = CAT_WEAPONRY
-	subcategory = CAT_AMMO
-
 /datum/crafting_recipe/mech_ammo/srm8_missiles
 	name = "SRM-8 missile pack"
 	result = /obj/item/mecha_ammo/missiles_he
@@ -861,8 +850,8 @@
 	/obj/item/stack/crafting/powder = 30)
 	tools = list(TOOL_WELDER)
 	time = 180
-	category = CAT_CARPARTS
-	subcategory = CAT_CAREQUIP
+	category = CAT_VEHICLES
+	subcategory = CAT_VEHICLEPARTS
 
 /datum/crafting_recipe/mech_ammo/antomelee_armor
 	name = "armor booster module (Melee Weaponry)"
@@ -873,8 +862,8 @@
 	/obj/item/stack/crafting/powder = 30)
 	tools = list(TOOL_WELDER)
 	time = 180
-	category = CAT_CARPARTS
-	subcategory = CAT_CAREQUIP
+	category = CAT_VEHICLES
+	subcategory = CAT_VEHICLEPARTS
 
 /datum/crafting_recipe/gun/HMGvehicule
 	name = "Improvised HMG (for vehicules)"
