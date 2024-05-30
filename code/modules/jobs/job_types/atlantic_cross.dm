@@ -152,7 +152,7 @@ Doctor
 
 
 /datum/outfit/job/atlantic/f13atlanticdoc
-	name =	"Town Doctor"
+	name =	"Doctor"
 	jobtype =	/datum/job/atlantic/f13atlanticdoc
 	uniform =	/obj/item/clothing/under/f13/atlantic/sailor/sweater
 	id =	/obj/item/card/id/silver
@@ -229,10 +229,11 @@ Follower Volunteer
 		/obj/item/clothing/suit/armor/medium/vest/atlantic = 1,
 		/obj/item/clothing/head/helmet/f13/combat/atlantic = 1,
 		/obj/item/healthanalyzer = 1,
+		/obj/item/restraints/handcuffs = 2,
 		/obj/item/reagent_containers/medspray/synthflesh = 1,
 		/obj/item/gun/ballistic/rifle/salvaged_eastern_rifle = 1,
-		/obj/item/ammo_box/a556/rubber = 1,
-		/obj/item/ammo_box/a556 = 2,
+		/obj/item/ammo_box/a556/rubber = 3,
+		/obj/item/ammo_box/a556 = 1,
 	)
 
 /datum/outfit/loadout/sailor_mechanic

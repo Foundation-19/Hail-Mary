@@ -1883,7 +1883,7 @@
 	desc = "A prewar vest, used by some private naval security forces on ships, to fight back against pirates of the mediterean seas, following the European and North African crisis of the 2050's to 2070's."
 	icon = 'icons/fallout/clothing/armored_light.dmi'
 	mob_overlay_icon = 'icons/fallout/onmob/clothes/armor_medium.dmi'
-	icon_state = "atlanticlightarmor"
+	icon_state = "atlanticguard"
 	item_state = "atlanticlightarmor"
 
 /obj/item/clothing/suit/armor/medium/duster/trenchcoat/minutemen

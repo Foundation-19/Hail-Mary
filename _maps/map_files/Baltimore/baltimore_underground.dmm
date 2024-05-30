@@ -65,6 +65,12 @@
 	sunlight_state = 0
 	},
 /area/space)
+"afk" = (
+/obj/structure/spacevine{
+	name = "sea radvines"
+	},
+/turf/closed/wall/r_wall/rust,
+/area/space)
 "afM" = (
 /obj/structure/window/plastitanium,
 /obj/structure/debris/v1,
@@ -127,6 +133,13 @@
 /obj/effect/decal/cleanable/glass,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/vault)
+"akE" = (
+/obj/effect/landmark/start/f13/smutant,
+/turf/open/indestructible/ground/outside/ruins{
+	sunlight_state = 0;
+	name = "underground ruins"
+	},
+/area/f13/tunnel/sub)
 "and" = (
 /turf/open/floor/plasteel/stairs{
 	dir = 8
@@ -311,7 +324,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/red/whiteredfull,
 /area/f13/mountain_bunker)
 "aAI" = (
-/obj/structure/shelf_wood,
+/obj/structure/rack/shelf_wood,
 /obj/item/kirbyplants{
 	icon_state = "plant-02";
 	pixel_y = 23
@@ -535,6 +548,22 @@
 	sunlight_state = 0
 	},
 /area/f13/tunnel/sub)
+"aUy" = (
+/obj/effect/overlay/junk/oldpipes/manifold,
+/obj/effect/overlay/junk/oldpipes{
+	dir = 4;
+	layer = 1;
+	can_be_z_moved = 0
+	},
+/obj/effect/overlay/junk/oldpipes{
+	dir = 5;
+	layer = 1;
+	can_be_z_moved = 0
+	},
+/turf/open/indestructible/ground/outside/water/running{
+	sunlight_state = 0
+	},
+/area/space)
 "aUM" = (
 /obj/structure/flora/wasteplant/wild_fungus,
 /turf/open/indestructible/ground/outside/gravel{
@@ -889,7 +918,7 @@
 /area/f13/tunnel/sub)
 "bvC" = (
 /obj/structure/spacevine{
-	name = "vines"
+	name = "sea radvines"
 	},
 /turf/closed/wall/f13/wood,
 /area/f13/building)
@@ -1615,7 +1644,7 @@
 /turf/open/floor/wood_common,
 /area/f13/building)
 "cBn" = (
-/obj/structure/shelf_wood,
+/obj/structure/rack/shelf_wood,
 /obj/item/gun/ballistic/automatic/varmint,
 /turf/open/indestructible/ground/inside/subway,
 /area/f13/tunnel/sub)
@@ -1664,6 +1693,9 @@
 "cHg" = (
 /turf/closed/indestructible/rock,
 /area/f13/caves)
+"cHI" = (
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/space)
 "cHR" = (
 /obj/structure/simple_door/metal/ventilation,
 /obj/structure/disposalpipe/segment{
@@ -1795,11 +1827,6 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/vault)
-"cPW" = (
-/obj/structure/simple_door/metal/ventilation,
-/obj/structure/debris/v2,
-/turf/open/floor/plating/rust,
-/area/f13/tunnel/sub)
 "cQl" = (
 /obj/structure/flora/junglebush/c,
 /turf/open/indestructible/ground/outside/gravel{
@@ -2213,6 +2240,10 @@
 	color = "#FFDDCC"
 	},
 /turf/open/floor/wood_common/wood_common_dark,
+/area/space)
+"dqq" = (
+/obj/effect/overlay/junk/oldpipes,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/space)
 "dqF" = (
 /obj/structure/flora/ausbushes/fullgrass,
@@ -3142,6 +3173,20 @@
 "ePD" = (
 /turf/open/floor/plasteel/f13/vault_floor/red,
 /area/f13/city/museum)
+"ePN" = (
+/obj/effect/overlay/junk/oldpipes/manifold,
+/obj/effect/overlay/junk/oldpipes{
+	dir = 4;
+	layer = 1;
+	can_be_z_moved = 0
+	},
+/obj/effect/overlay/junk/oldpipes{
+	dir = 5;
+	layer = 1;
+	can_be_z_moved = 0
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/space)
 "eRa" = (
 /mob/living/simple_animal/hostile/ghoul/zombie/reaver,
 /obj/effect/decal/waste{
@@ -3624,7 +3669,7 @@
 /turf/open/indestructible/ground/inside/subway,
 /area/f13/tunnel/sub)
 "fIc" = (
-/obj/structure/shelf_wood,
+/obj/structure/rack/shelf_wood,
 /turf/open/indestructible/ground/inside/subway,
 /area/f13/tunnel/sub)
 "fId" = (
@@ -3677,7 +3722,7 @@
 	},
 /area/f13/city/museum)
 "fMo" = (
-/obj/structure/shelf_wood,
+/obj/structure/rack/shelf_wood,
 /obj/item/reagent_containers/food/drinks/bottle/cognac{
 	pixel_y = 16;
 	pixel_x = -8
@@ -4083,6 +4128,10 @@
 	sunlight_state = 0
 	},
 /area/f13/wasteland/city)
+"gxk" = (
+/obj/structure/ore_box,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/tunnel/sub)
 "gxq" = (
 /obj/structure/closet/crate/large,
 /obj/item/clothing/suit/hooded/robes/grey,
@@ -4163,6 +4212,14 @@
 /obj/structure/destructible/tribal_torch/lit,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/tunnel/sub)
+"gGa" = (
+/obj/effect/overlay/junk/oldpipes{
+	dir = 4;
+	layer = 1;
+	can_be_z_moved = 0
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/citycaves)
 "gGh" = (
 /obj/structure/wreck/trash/secway{
 	layer = 1
@@ -4944,6 +5001,14 @@
 	},
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/f13/tcoms)
+"hJm" = (
+/obj/effect/overlay/junk/oldpipes{
+	dir = 2;
+	layer = 1;
+	can_be_z_moved = 0
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/space)
 "hKb" = (
 /obj/item/kirbyplants{
 	icon_state = "plant-21";
@@ -4971,7 +5036,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
 /area/f13/tunnel/sub)
 "hLG" = (
-/obj/structure/shelf_wood,
+/obj/structure/rack/shelf_wood,
 /obj/item/reagent_containers/food/drinks/bottle/tequila{
 	pixel_y = 15;
 	pixel_x = -8
@@ -5129,6 +5194,10 @@
 	icon_state = "bluerustyfull"
 	},
 /area/f13/city/museum)
+"hXg" = (
+/obj/effect/landmark/start/f13/smutant,
+/turf/open/floor/wood_wide,
+/area/f13/tunnel/sub)
 "hXD" = (
 /obj/structure/simple_door/bunker,
 /turf/open/floor/plating/rust,
@@ -6495,6 +6564,22 @@
 	name = "underground ruins"
 	},
 /area/f13/vault)
+"jIM" = (
+/obj/effect/overlay/junk/oldpipes{
+	dir = 9;
+	layer = 1;
+	can_be_z_moved = 0
+	},
+/obj/effect/overlay/junk/oldpipes{
+	dir = 2;
+	layer = 1;
+	can_be_z_moved = 0
+	},
+/obj/effect/overlay/junk/oldpipes/manifold{
+	dir = 4
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/citycaves)
 "jJi" = (
 /obj/effect/overlay/water/top{
 	color = "#94b8b8"
@@ -6793,10 +6878,6 @@
 /obj/machinery/workbench/forge,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
 /area/f13/tunnel/sub)
-"kbc" = (
-/obj/structure/debris/v2,
-/turf/closed/wall/rust,
-/area/f13/citycaves)
 "kbu" = (
 /obj/machinery/telecomms/hub/preset,
 /turf/open/floor/plasteel/vault/telecomms/mainframe{
@@ -6885,6 +6966,14 @@
 /obj/effect/decal/cleanable/glass,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/vault)
+"kij" = (
+/obj/effect/overlay/junk/oldpipes{
+	dir = 2;
+	layer = 1;
+	can_be_z_moved = 0
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/citycaves)
 "kiU" = (
 /turf/open/floor/wood_common/wood_common_light,
 /area/f13/citycaves)
@@ -7264,14 +7353,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/f13/tcoms)
-"kMZ" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/structure/debris/v3,
-/obj/structure/debris/v4,
-/turf/open/floor/plating/rust,
-/area/f13/tunnel)
 "kNL" = (
 /obj/structure/disposalpipe/segment{
 	dir = 9
@@ -7335,6 +7416,13 @@
 	},
 /turf/open/floor/wood_wide,
 /area/f13/building/tunnel)
+"kRG" = (
+/obj/structure/wreck/trash/machinepile{
+	name = "broken mini g.e.c.k";
+	desc = "Looks like a broken g.e.c.k, used at least 2 centuries ago. And seeing how the worlds is upstairs, it didn't work at full capacity... Least the water is drinkable..."
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/space)
 "kRZ" = (
 /obj/structure/table/booth,
 /obj/effect/spawner/lootdrop/f13/weapon/police,
@@ -7628,10 +7716,6 @@
 /obj/machinery/telecomms/processor/preset_two,
 /turf/open/floor/plasteel/dark/telecomms/mainframe,
 /area/f13/tcoms)
-"lmJ" = (
-/mob/living/simple_animal/hostile/radroach,
-/turf/closed/mineral/random/low_chance/underground,
-/area/f13/tunnel/sub)
 "lmZ" = (
 /obj/effect/spawner/lootdrop/f13/armor/tier4,
 /turf/open/indestructible/ground/outside/gravel{
@@ -8140,6 +8224,12 @@
 /obj/structure/table/glass,
 /turf/open/floor/wood_common,
 /area/f13/building)
+"mep" = (
+/obj/structure/spacevine{
+	name = "sea radvines"
+	},
+/turf/closed/wall/r_wall/rust,
+/area/f13/tunnel/sub)
 "mex" = (
 /obj/structure/flora/wasteplant/fever_blossom,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
@@ -8629,7 +8719,7 @@
 /turf/open/floor/wood_common,
 /area/f13/ruins)
 "mLR" = (
-/obj/structure/shelf_wood,
+/obj/structure/rack/shelf_wood,
 /turf/open/floor/carpet/black,
 /area/f13/building)
 "mMJ" = (
@@ -8662,6 +8752,11 @@
 	name = "underground dirt";
 	sunlight_state = 0
 	},
+/area/f13/tunnel/sub)
+"mOK" = (
+/obj/structure/simple_door/metal/ventilation,
+/obj/structure/barricade/wooden/planks,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/tunnel/sub)
 "mOX" = (
 /obj/effect/overlay/water{
@@ -9317,7 +9412,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/vault)
 "nQR" = (
-/obj/structure/shelf_wood,
+/obj/structure/rack/shelf_wood,
 /obj/item/gun/ballistic/automatic/varmint,
 /turf/open/floor/wood_wide,
 /area/f13/tunnel/sub)
@@ -9379,7 +9474,7 @@
 	},
 /area/f13/tunnel/sub)
 "nVJ" = (
-/obj/structure/shelf_wood,
+/obj/structure/rack/shelf_wood,
 /obj/effect/spawner/bundle/f13/armor/riot,
 /turf/open/floor/wood_common,
 /area/f13/building/tunnel)
@@ -9529,7 +9624,7 @@
 /turf/open/floor/carpet,
 /area/f13/building)
 "ofi" = (
-/obj/structure/shelf_wood,
+/obj/structure/rack/shelf_wood,
 /obj/effect/spawner/lootdrop/f13/weapon/western,
 /turf/open/floor/wood_common,
 /area/f13/building/tunnel)
@@ -9677,7 +9772,7 @@
 	},
 /area/f13/vault)
 "opO" = (
-/obj/structure/shelf_wood,
+/obj/structure/rack/shelf_wood,
 /obj/effect/spawner/lootdrop/f13/weapon/gun/ammo/tier2,
 /turf/open/floor/wood_common,
 /area/f13/building/tunnel)
@@ -10115,6 +10210,22 @@
 "oYD" = (
 /turf/closed/wall/mineral/cult,
 /area/f13/mountain_bunker)
+"oZb" = (
+/obj/effect/overlay/junk/oldpipes/manifold{
+	dir = 1
+	},
+/obj/effect/overlay/junk/oldpipes{
+	dir = 4;
+	layer = 1;
+	can_be_z_moved = 0
+	},
+/obj/effect/overlay/junk/oldpipes{
+	dir = 6;
+	layer = 1;
+	can_be_z_moved = 0
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/space)
 "oZG" = (
 /obj/structure/fence/handrail{
 	dir = 4;
@@ -10789,7 +10900,7 @@
 /turf/open/floor/wood_wide/wood_wide_light,
 /area/f13/tunnel/sub)
 "pXm" = (
-/obj/structure/shelf_wood,
+/obj/structure/rack/shelf_wood,
 /obj/item/twohanded/fireaxe/bmprsword,
 /turf/open/indestructible/ground/inside/subway,
 /area/f13/tunnel/sub)
@@ -10986,6 +11097,10 @@
 "qjS" = (
 /obj/structure/fluff/rails,
 /obj/item/storage/trash_stack,
+/turf/open/indestructible/ground/inside/subway,
+/area/f13/tunnel/sub)
+"qkf" = (
+/obj/effect/landmark/start/f13/smutant_boss,
 /turf/open/indestructible/ground/inside/subway,
 /area/f13/tunnel/sub)
 "qkg" = (
@@ -11296,7 +11411,7 @@
 	},
 /area/f13/tunnel/sub)
 "qIj" = (
-/obj/structure/shelf_wood,
+/obj/structure/rack/shelf_wood,
 /obj/item/reagent_containers/food/snacks/sosjerky/ration,
 /obj/item/reagent_containers/glass/beaker/waterbottle,
 /turf/open/indestructible/ground/outside/gravel{
@@ -11459,7 +11574,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/tunnel/sub)
 "qRz" = (
-/obj/structure/shelf_wood,
+/obj/structure/rack/shelf_wood,
 /turf/open/floor/plasteel/f13/vault_floor/dark/darksolid{
 	icon_state = "darkrustysolid"
 	},
@@ -11655,6 +11770,12 @@
 	icon_state = "bluerustyfull"
 	},
 /area/f13/vault)
+"rkk" = (
+/obj/structure/spacevine{
+	name = "sea radvines"
+	},
+/turf/closed/wall/r_wall/rust,
+/area/f13/citycaves)
 "rlf" = (
 /obj/structure/destructible/tribal_torch/wall/lit,
 /turf/open/floor/plasteel/cult,
@@ -12141,6 +12262,10 @@
 	},
 /turf/open/floor/plating/rust,
 /area/f13/tunnel)
+"rYZ" = (
+/obj/item/clothing/under/f13/exile/vault,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/space)
 "rZi" = (
 /obj/machinery/light/small{
 	dir = 4;
@@ -12425,7 +12550,7 @@
 	},
 /area/f13/city/museum)
 "syu" = (
-/obj/structure/shelf_wood,
+/obj/structure/rack/shelf_wood,
 /turf/open/floor/wood_common,
 /area/f13/building/tunnel)
 "szl" = (
@@ -12711,7 +12836,7 @@
 /turf/open/floor/wood_common,
 /area/f13/building/tunnel)
 "sTi" = (
-/obj/structure/shelf_wood,
+/obj/structure/rack/shelf_wood,
 /obj/effect/spawner/lootdrop/wmelee_high,
 /turf/open/indestructible/ground/inside/subway,
 /area/f13/tunnel/sub)
@@ -12881,7 +13006,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/citycaves)
 "tcx" = (
-/obj/structure/shelf_wood,
+/obj/structure/rack/shelf_wood,
 /obj/item/reagent_containers/food/drinks/bottle/nukashine{
 	pixel_y = 15;
 	pixel_x = -6
@@ -13653,6 +13778,19 @@
 /obj/effect/mob_spawn/human/corpse/raider,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
 /area/f13/citycaves)
+"ugI" = (
+/obj/item/target/vaultie{
+	name = "Vault boy statue";
+	pixel_y = 16;
+	desc = "A statue crudly made. Underneath, a plaque saying 'In the memory of the Vault Ark and its gift to Mary's fleet.'";
+	pixel_x = 1
+	},
+/obj/structure/table/reinforced,
+/obj/structure/spacevine{
+	name = "sea radvines"
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/space)
 "ugT" = (
 /obj/effect/decal/cleanable/blood,
 /obj/structure/table/reinforced,
@@ -13814,7 +13952,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/tunnel/sub)
 "uuy" = (
-/obj/structure/shelf_wood,
+/obj/structure/rack/shelf_wood,
 /obj/item/twohanded/fireaxe/bmprsword,
 /turf/open/floor/wood_wide,
 /area/f13/tunnel/sub)
@@ -14015,7 +14153,7 @@
 /turf/open/indestructible/ground/inside/subway,
 /area/f13/tunnel/sub)
 "uIE" = (
-/obj/structure/shelf_wood,
+/obj/structure/rack/shelf_wood,
 /turf/open/floor/wood_wide,
 /area/f13/tunnel/sub)
 "uIL" = (
@@ -14470,6 +14608,10 @@
 	},
 /turf/open/floor/wood_common,
 /area/f13/building/tunnel)
+"vpO" = (
+/obj/structure/rack/shelf_wood,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/tunnel/sub)
 "vqa" = (
 /obj/effect/turf_decal/stripes/white/line,
 /obj/structure/destructible/tribal_torch/lit,
@@ -14765,6 +14907,11 @@
 	dir = 8
 	},
 /area/f13/tcoms)
+"vQf" = (
+/turf/open/indestructible/ground/outside/water/running{
+	sunlight_state = 0
+	},
+/area/space)
 "vQT" = (
 /obj/structure/table,
 /obj/machinery/light{
@@ -15124,6 +15271,12 @@
 "wqw" = (
 /turf/open/floor/wood_common,
 /area/f13/tunnel/sub)
+"wtd" = (
+/obj/effect/overlay/junk/oldpipes,
+/turf/open/indestructible/ground/outside/water/running{
+	sunlight_state = 0
+	},
+/area/space)
 "wtf" = (
 /obj/structure/flora/junglebush/large,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
@@ -15392,7 +15545,7 @@
 	},
 /area/f13/vault)
 "wNx" = (
-/obj/structure/shelf_wood,
+/obj/structure/rack/shelf_wood,
 /obj/item/reagent_containers/food/drinks/bottle/wine{
 	pixel_y = 18;
 	pixel_x = -8
@@ -15440,13 +15593,6 @@
 	sunlight_state = 0
 	},
 /area/f13/tunnel/sub)
-"wRQ" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/structure/debris/v4,
-/turf/open/floor/plating/rust,
-/area/f13/tunnel)
 "wTu" = (
 /obj/structure/table/wood,
 /turf/open/floor/wood_wide,
@@ -16047,6 +16193,10 @@
 	name = "underground gravel";
 	sunlight_state = 0
 	},
+/area/f13/tunnel/sub)
+"xLX" = (
+/obj/effect/landmark/start/f13/smutant,
+/turf/open/indestructible/ground/inside/subway,
 /area/f13/tunnel/sub)
 "xMN" = (
 /obj/structure/chair/stool/retro/black,
@@ -16675,7 +16825,7 @@ bvn
 bzF
 bvn
 bzF
-bzF
+hXg
 qCC
 hOg
 xrG
@@ -17700,10 +17850,10 @@ bvn
 lXJ
 bvn
 bzF
-bvn
+qkf
 bzF
 bzF
-bvn
+xLX
 bzF
 hOg
 xrG
@@ -17947,7 +18097,7 @@ weH
 (7,1,1) = {"
 tIN
 vBa
-vBa
+akE
 tIN
 tIN
 itY
@@ -18472,7 +18622,7 @@ lXJ
 qCC
 bvn
 qju
-bzF
+hXg
 bla
 qCC
 isH
@@ -20009,7 +20159,7 @@ ppk
 itY
 bvn
 tWf
-bvn
+xLX
 wAy
 bvn
 qju
@@ -54537,7 +54687,7 @@ tzC
 tzC
 nLQ
 ylc
-ctJ
+ccs
 ylc
 xrG
 xrG
@@ -54794,7 +54944,7 @@ tzC
 tzC
 nLQ
 ylc
-kMZ
+ccs
 ylc
 xrG
 xrG
@@ -55051,7 +55201,7 @@ tzC
 tzC
 nLQ
 ylc
-wRQ
+ccs
 oJd
 xrG
 xrG
@@ -55875,7 +56025,7 @@ ipG
 aRU
 aRU
 ylc
-ccs
+sPo
 ylc
 aRU
 aRU
@@ -56136,7 +56286,7 @@ ccs
 ylc
 aRU
 aRU
-lmJ
+aRU
 aRU
 aRU
 aRU
@@ -56650,8 +56800,8 @@ ccs
 ylc
 aRU
 aRU
-xHq
-fFC
+aRU
+dhq
 bPk
 fFC
 fAb
@@ -56907,8 +57057,8 @@ ccs
 ylc
 aRU
 fFC
-iLV
 fFC
+iLV
 fFC
 fFC
 fFC
@@ -58393,7 +58543,7 @@ uvI
 nLQ
 kWt
 dcT
-kbc
+nLQ
 xrG
 xrG
 tzC
@@ -58649,7 +58799,7 @@ vbi
 kjn
 iJF
 sNW
-cPW
+kOz
 szZ
 iJF
 iJF
@@ -58665,11 +58815,11 @@ kjn
 kjn
 kjn
 gEE
-szZ
-szZ
-aRU
-aRU
-aRU
+kjn
+gxk
+vpO
+vpO
+kjn
 fFC
 fFC
 xHq
@@ -58922,10 +59072,10 @@ kjn
 kjn
 kjn
 kjn
-szZ
-szZ
-szZ
-szZ
+kjn
+kjn
+kjn
+kjn
 fFC
 fFC
 fFC
@@ -59182,7 +59332,7 @@ fFC
 fFC
 kjn
 kjn
-szZ
+kjn
 fFC
 fFC
 szZ
@@ -61718,7 +61868,7 @@ lmh
 tzC
 tzC
 szZ
-szZ
+mep
 kjn
 kjn
 kjn
@@ -61971,11 +62121,11 @@ lmh
 lmh
 lmh
 lmh
-lmh
+afk
 tzC
-tzC
-szZ
-iJF
+gGa
+kjn
+mOK
 kjn
 oiE
 sSu
@@ -62224,13 +62374,13 @@ saR
 saR
 snd
 lmh
-lmh
+afk
 lmh
 lmh
 lmh
 lmh
 tzC
-tzC
+gGa
 szZ
 iJF
 kjn
@@ -62486,8 +62636,8 @@ lmh
 lmh
 lmh
 lmh
-tzC
-tzC
+rkk
+gGa
 szZ
 szZ
 kjn
@@ -62742,10 +62892,10 @@ lmh
 lmh
 lmh
 lmh
-lmh
+afk
 tzC
-tzC
-szZ
+gGa
+mep
 szZ
 szZ
 tbt
@@ -62996,12 +63146,12 @@ saR
 snd
 lmh
 lmh
-lmh
-lmh
-lmh
-lmh
+afk
+dqq
+ePN
+cHI
 tzC
-tzC
+gGa
 szZ
 szZ
 iJF
@@ -63251,14 +63401,14 @@ saR
 saR
 saR
 snd
+afk
 lmh
-lmh
-lmh
-lmh
-lmh
-lmh
-tzC
-tzC
+cHI
+vQf
+oZb
+hJm
+kij
+jIM
 szZ
 szZ
 iJF
@@ -63509,15 +63659,15 @@ saR
 saR
 snd
 lmh
-lmh
-lmh
-lmh
-lmh
-lmh
-tzC
-tzC
-szZ
-szZ
+dqq
+dqq
+wtd
+ePN
+vQf
+mXi
+uvI
+kjn
+mep
 iJF
 kYo
 kjn
@@ -63766,14 +63916,14 @@ saR
 saR
 snd
 lmh
-lmh
-lmh
-lmh
-lmh
-lmh
-tzC
-tzC
-szZ
+cHI
+ugI
+rYZ
+kRG
+vQf
+uvI
+uvI
+kjn
 szZ
 szZ
 aXr
@@ -64023,14 +64173,14 @@ saR
 saR
 snd
 lmh
-lmh
-lmh
-lmh
-lmh
-lmh
-tzC
-tzC
-szZ
+dqq
+dqq
+dqq
+aUy
+vQf
+uvI
+uvI
+xmC
 szZ
 szZ
 iJF
@@ -64281,12 +64431,12 @@ snd
 snd
 lmh
 lmh
-lmh
-lmh
-lmh
-lmh
-tzC
-tzC
+vQf
+cHI
+oZb
+hJm
+kij
+rkk
 szZ
 szZ
 szZ
@@ -64539,10 +64689,10 @@ lmh
 lmh
 lmh
 lmh
-lmh
-lmh
-lmh
-tzC
+dqq
+ePN
+cHI
+rkk
 tzC
 szZ
 szZ
@@ -64796,7 +64946,7 @@ lmh
 lmh
 lmh
 lmh
-lmh
+afk
 lmh
 lmh
 tzC
@@ -65055,7 +65205,7 @@ lmh
 lmh
 lmh
 lmh
-lmh
+afk
 tzC
 tzC
 tzC

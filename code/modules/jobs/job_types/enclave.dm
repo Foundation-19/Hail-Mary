@@ -233,8 +233,8 @@
 	exp_requirements = 700
 
 	loadout_options = list(
-		/datum/outfit/loadout/combatmedic, // Medical Equipment
-		/datum/outfit/loadout/combatengie, // Grenade Launcher
+		/datum/outfit/loadout/enccombatmedic, // Medical Equipment
+		/datum/outfit/loadout/enccombatengie, // Grenade Launcher
 		)
 
 /datum/outfit/job/enclave/peacekeeper/f13specialist
@@ -251,19 +251,18 @@
 		/obj/item/melee/onehanded/knife/survival = 1
 		)
 
-/datum/outfit/loadout/combatmedic
+/datum/outfit/loadout/enccombatmedic
 	name = "Combat Medic"
 	mask = /obj/item/clothing/mask/surgical
 	gloves = /obj/item/clothing/gloves/color/latex/nitrile
 	head = /obj/item/clothing/head/beret/enclave/science
 	backpack_contents = list(
 		/obj/item/storage/firstaid/ancient = 1,
-		/obj/item/gun/medbeam = 1,
 		/obj/item/book/granter/trait/chemistry = 1,
 		/obj/item/book/granter/trait/midsurgery = 1
 		)
 
-/datum/outfit/loadout/combatengie
+/datum/outfit/loadout/enccombatengie
 	name = "Combat Engineer"
 	mask = /obj/item/clothing/mask/gas/welding
 	gloves = /obj/item/clothing/gloves/color/yellow

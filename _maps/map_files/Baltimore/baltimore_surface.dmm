@@ -3573,7 +3573,7 @@
 	},
 /area/f13/wasteland/town)
 "bla" = (
-/obj/structure/shelf_wood,
+/obj/structure/rack/shelf_wood,
 /turf/open/floor/wood_fancy,
 /area/f13/ruins)
 "bll" = (
@@ -3887,9 +3887,7 @@
 	},
 /area/f13/building)
 "bqP" = (
-/obj/structure/shelf_wood{
-	pixel_y = -5
-	},
+/obj/structure/rack/shelf_wood,
 /obj/item/reagent_containers/food/drinks/bottle/champagne{
 	pixel_y = 19;
 	pixel_x = -4
@@ -5206,7 +5204,7 @@
 	},
 /area/f13/wasteland/city)
 "bRR" = (
-/obj/structure/shelf_wood,
+/obj/structure/rack/shelf_wood,
 /obj/item/lock_construct,
 /obj/item/key{
 	pixel_y = -10
@@ -5945,7 +5943,7 @@
 /area/f13/building/center)
 "cfW" = (
 /obj/structure/rack/shelf_metal,
-/obj/structure/shelf_wood,
+/obj/structure/rack/shelf_wood,
 /obj/item/fishingrod,
 /turf/open/floor/f13/wood/outside,
 /area/f13/wasteland/city)
@@ -7652,7 +7650,7 @@
 /turf/open/indestructible/ground/outside/ruins,
 /area/f13/building/center)
 "cLk" = (
-/obj/structure/shelf_wood,
+/obj/structure/rack/shelf_wood,
 /obj/item/storage/box/drinkingglasses,
 /turf/open/floor/wood_fancy,
 /area/f13/ruins)
@@ -8413,7 +8411,7 @@
 	},
 /area/f13/wasteland/city)
 "cWs" = (
-/obj/structure/shelf_wood,
+/obj/structure/rack/shelf_wood,
 /obj/effect/spawner/lootdrop/f13/seedspawner,
 /obj/item/locked_box/misc/seed,
 /obj/item/storage/belt/utility/gardener,
@@ -14877,9 +14875,8 @@
 	},
 /area/f13/wasteland/city/citycenter)
 "foU" = (
-/obj/structure/shelf_wood{
-	pixel_y = -8;
-	layer = 5
+/obj/structure/rack/shelf_wood{
+	pixel_y = -10
 	},
 /obj/item/lock_construct{
 	pixel_y = -10
@@ -15241,7 +15238,7 @@
 	},
 /area/f13/wasteland/town)
 "fvN" = (
-/obj/structure/shelf_wood,
+/obj/structure/rack/shelf_wood,
 /obj/item/melee/onehanded/slavewhip,
 /turf/open/indestructible/ground/outside/baltimore{
 	icon_state = "road_center"
@@ -19256,6 +19253,12 @@
 	icon_state = "road_north_w"
 	},
 /area/f13/wasteland/city)
+"gRf" = (
+/obj/effect/turf_decal/road_end{
+	icon_state = "road_end_decal"
+	},
+/turf/open/indestructible/ground/outside/ruins,
+/area/f13/wasteland/city/citycenter)
 "gRh" = (
 /obj/machinery/atmospherics/components/unary/outlet_injector/atmos/engine_waste{
 	dir = 4;
@@ -20877,12 +20880,6 @@
 	icon_state = "plant-22";
 	pixel_y = -8;
 	pixel_x = 4
-	},
-/obj/item/lock_construct{
-	pixel_y = 24
-	},
-/obj/item/key{
-	pixel_y = 21
 	},
 /turf/open/floor/wood_mosaic,
 /area/f13/building)
@@ -24405,7 +24402,7 @@
 /turf/open/floor/wood_common,
 /area/f13/building/center)
 "iFZ" = (
-/obj/structure/shelf_wood,
+/obj/structure/rack/shelf_wood,
 /obj/item/gun/energy/pumpaction/toy{
 	pixel_y = -6
 	},
@@ -25024,7 +25021,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/floor/floorsolid,
 /area/f13/clinic)
 "iQJ" = (
-/obj/structure/shelf_wood,
+/obj/structure/rack/shelf_wood,
 /obj/item/stack/sheet/metal/fifty,
 /obj/item/stack/sheet/glass/fifty,
 /obj/item/stack/ore/blackpowder/fifty,
@@ -25050,7 +25047,7 @@
 	},
 /area/f13/wasteland/city)
 "iRl" = (
-/obj/structure/shelf_wood,
+/obj/structure/rack/shelf_wood,
 /obj/item/gun/ballistic/shotgun/toy,
 /obj/item/toy/spinningtoy,
 /turf/open/floor/wood_mosaic,
@@ -25526,6 +25523,9 @@
 /obj/structure/wreck/trash/secway,
 /turf/open/indestructible/ground/outside/gravel,
 /area/f13/wasteland/city)
+"jbQ" = (
+/turf/closed/indestructible/f13/matrix,
+/area/f13/brotherhood)
 "jbR" = (
 /obj/machinery/microwave/stove,
 /turf/open/floor/wood_common/wood_common_light,
@@ -28559,8 +28559,11 @@
 /obj/effect/turf_decal/road_end{
 	dir = 4
 	},
-/turf/open/floor/plating/f13/outside/road{
-	icon_state = "road_southeast"
+/obj/effect/turf_decal/road_end{
+	icon_state = "road_end_decal"
+	},
+/turf/open/indestructible/ground/outside/baltimore{
+	icon_state = "road_east"
 	},
 /area/f13/wasteland/city/citycenter)
 "kgX" = (
@@ -28791,7 +28794,7 @@
 /turf/closed/wall/f13/sunset/brick_small_dark,
 /area/f13/ruins)
 "kln" = (
-/obj/structure/shelf_wood,
+/obj/structure/rack/shelf_wood,
 /obj/item/gun/ballistic/automatic/toy/pistol,
 /obj/item/toy/plush/mammal/fox/fuzzy{
 	pixel_y = 15
@@ -29588,7 +29591,7 @@
 	},
 /area/f13/building/center)
 "kAY" = (
-/obj/structure/shelf_wood,
+/obj/structure/rack/shelf_wood,
 /obj/machinery/hydroponics/soil/pot{
 	pixel_y = 16
 	},
@@ -29922,6 +29925,7 @@
 "kHr" = (
 /obj/structure/closet/fridge,
 /obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/spawner/lootdrop/f13/medical/wasteland/meds,
 /turf/open/floor/plating/rust,
 /area/f13/building/center)
 "kHu" = (
@@ -30720,7 +30724,7 @@
 	},
 /area/f13/raider_mall)
 "kUW" = (
-/obj/structure/shelf_wood,
+/obj/structure/rack/shelf_wood,
 /obj/item/electropack/shockcollar/explosive,
 /obj/item/electropack/shockcollar,
 /obj/item/key/bcollar,
@@ -35851,8 +35855,6 @@
 /obj/structure/guncase,
 /obj/item/gun/ballistic/shotgun/police,
 /obj/item/gun/ballistic/shotgun/police,
-/obj/item/gun/ballistic/revolver/police/webley,
-/obj/item/gun/ballistic/revolver/police/webley,
 /obj/item/gun/ballistic/automatic/marksman/policerifle,
 /obj/item/gun/ballistic/automatic/marksman/policerifle,
 /turf/open/floor/plasteel/f13/vault_floor/blue/whitebluefull,
@@ -36949,7 +36951,7 @@
 /obj/machinery/hydroponics/soil/pot{
 	pixel_y = 16
 	},
-/obj/structure/shelf_wood,
+/obj/structure/rack/shelf_wood,
 /obj/item/storage/belt/utility/gardener,
 /obj/structure/stone_tile/block{
 	pixel_x = 15
@@ -38191,6 +38193,9 @@
 	},
 /turf/open/floor/plating/rust,
 /area/f13/vault/security/armory)
+"nzs" = (
+/turf/closed/indestructible/f13/matrix,
+/area/f13/underground/enclave_base)
 "nzE" = (
 /obj/structure/barricade/tentleatheredge{
 	dir = 8
@@ -38600,13 +38605,6 @@
 	icon_state = "whitedirtysolid"
 	},
 /area/f13/outpost)
-"nIs" = (
-/obj/item/kirbyplants{
-	pixel_y = 34;
-	pixel_x = 5
-	},
-/turf/open/floor/wood_mosaic,
-/area/f13/building)
 "nIx" = (
 /obj/machinery/light/small{
 	dir = 1;
@@ -38778,7 +38776,7 @@
 	},
 /area/f13/wasteland/city)
 "nLV" = (
-/obj/structure/shelf_wood,
+/obj/structure/rack/shelf_wood,
 /obj/item/key,
 /obj/item/key,
 /obj/item/key,
@@ -40780,7 +40778,7 @@
 	},
 /area/f13/wasteland/city)
 "owc" = (
-/obj/effect/spawner/lootdrop/f13/medical/wasteland,
+/obj/effect/spawner/lootdrop/f13/medical/wasteland/meds,
 /turf/open/floor/plating/rust,
 /area/f13/citycaves)
 "owh" = (
@@ -42705,9 +42703,18 @@
 /turf/open/floor/plating/rust,
 /area/f13/ruins)
 "pdG" = (
-/obj/structure/shelf_wood,
+/obj/structure/rack/shelf_wood,
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/ruins)
+"pdV" = (
+/obj/structure/shuttle/engine/large{
+	dir = 1;
+	name = "boat engine";
+	layer = 5;
+	pixel_x = -16
+	},
+/turf/open/floor/wood_common/wood_common_dark,
+/area/f13/building/boat)
 "pdY" = (
 /obj/structure/fence/wooden{
 	dir = 8
@@ -43006,7 +43013,7 @@
 	},
 /area/f13/wasteland/city)
 "pih" = (
-/obj/structure/shelf_wood,
+/obj/structure/rack/shelf_wood,
 /obj/item/gun/ballistic/automatic/c20r/toy,
 /obj/item/toy/poolnoodle/yellow,
 /turf/open/floor/wood_mosaic,
@@ -44293,7 +44300,7 @@
 /turf/open/floor/carpet/red,
 /area/f13/building/boat)
 "pHz" = (
-/obj/structure/shelf_wood,
+/obj/structure/rack/shelf_wood,
 /obj/effect/spawner/lootdrop/f13/seedspawner,
 /obj/item/circuitboard/machine/seed_extractor,
 /turf/open/floor/wood_wide/wood_wide_dark,
@@ -45717,7 +45724,7 @@
 	},
 /area/f13/wasteland/city/citycenter)
 "qjd" = (
-/obj/structure/shelf_wood,
+/obj/structure/rack/shelf_wood,
 /obj/machinery/hydroponics/soil/pot{
 	pixel_y = 16
 	},
@@ -50322,6 +50329,7 @@
 "rHN" = (
 /obj/structure/junk/locker,
 /obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/spawner/lootdrop/f13/medical/wasteland/meds,
 /turf/open/floor/wood_mosaic{
 	icon_state = "common_light1"
 	},
@@ -51271,19 +51279,6 @@
 	},
 /turf/open/indestructible/ground/outside/gravel,
 /area/f13/wasteland/city/citycenter)
-"sac" = (
-/obj/structure/shelf_wood{
-	pixel_y = -8;
-	layer = 5
-	},
-/obj/effect/decal/riverbank{
-	dir = 10;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/turf/closed/wall/f13/sunset/brick_small,
-/area/f13/building)
 "sah" = (
 /obj/effect/decal/fakelattice,
 /obj/structure/railing/corner{
@@ -53371,7 +53366,7 @@
 /turf/open/floor/plating/rust,
 /area/f13/citycaves)
 "sKl" = (
-/obj/structure/shelf_wood,
+/obj/structure/rack/shelf_wood,
 /obj/machinery/hydroponics/soil/pot{
 	pixel_y = 16
 	},
@@ -53394,7 +53389,7 @@
 	},
 /area/f13/enclave)
 "sKA" = (
-/obj/structure/shelf_wood,
+/obj/structure/rack/shelf_wood,
 /obj/item/gun/ballistic/automatic/l6_saw/toy,
 /obj/item/toy/poolnoodle/blue,
 /turf/open/floor/wood_mosaic,
@@ -53428,7 +53423,7 @@
 	},
 /area/f13/ruins)
 "sKI" = (
-/obj/structure/shelf_wood,
+/obj/structure/rack/shelf_wood,
 /obj/item/toy/figure/lawyer{
 	pixel_y = 9;
 	pixel_x = 8
@@ -53661,7 +53656,7 @@
 	},
 /area/f13/Ocean)
 "sQS" = (
-/obj/structure/shelf_wood,
+/obj/structure/rack/shelf_wood,
 /obj/item/gun/ballistic/shotgun/toy/mag,
 /obj/item/toy/katana,
 /obj/item/toy/plush/mothplushie{
@@ -55045,7 +55040,6 @@
 	},
 /area/f13/wasteland/city)
 "toY" = (
-/obj/item/clothing/under/f13/mechanic,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/stairs/east{
 	color = "#A47449";
@@ -55436,6 +55430,8 @@
 /obj/structure/table,
 /obj/item/clothing/under/sailordress,
 /obj/item/clothing/under/sailor,
+/obj/item/lock_construct,
+/obj/item/key,
 /turf/open/floor/wood_mosaic,
 /area/f13/building)
 "txB" = (
@@ -62922,9 +62918,7 @@
 /turf/open/floor/wood_fancy,
 /area/f13/ruins)
 "wfB" = (
-/obj/structure/shelf_wood{
-	pixel_y = -5
-	},
+/obj/structure/rack/shelf_wood,
 /obj/item/storage/box/drinkingglasses{
 	pixel_y = -6
 	},
@@ -64414,7 +64408,7 @@
 /turf/open/indestructible/ground/outside/sidewalk,
 /area/f13/wasteland/city)
 "wGu" = (
-/obj/structure/shelf_wood,
+/obj/structure/rack/shelf_wood,
 /obj/item/fishingrod/spearfisher,
 /turf/open/floor/f13/wood/outside,
 /area/f13/wasteland/city)
@@ -67199,16 +67193,6 @@
 	icon_state = "road_center"
 	},
 /area/f13/wasteland/city)
-"xFk" = (
-/obj/structure/shuttle/engine/large{
-	dir = 1;
-	pixel_y = 16;
-	pixel_x = 15;
-	name = "boat engine";
-	layer = 10
-	},
-/turf/closed/wall/f13/ruins,
-/area/f13/building/boat)
 "xFq" = (
 /obj/effect/mob_spawn/human/corpse/raider/ranged,
 /turf/open/indestructible/ground/outside/graveldirt,
@@ -68282,19 +68266,6 @@
 	},
 /turf/open/floor/wood_fancy/wood_fancy_light,
 /area/f13/ruins)
-"xYp" = (
-/obj/structure/shelf_wood{
-	pixel_y = -8;
-	layer = 5
-	},
-/obj/effect/decal/riverbank{
-	dir = 10;
-	layer = 20;
-	color = "#edd077";
-	name = "Brickwall support"
-	},
-/turf/closed/wall/f13/sunset/brick_small_dark,
-/area/f13/building)
 "xYr" = (
 /obj/machinery/light/lampost,
 /turf/open/indestructible/ground/outside/sidewalkdirt{
@@ -72199,7 +72170,7 @@ nPX
 vGJ
 tBZ
 gPR
-bLr
+gRf
 nPX
 hmA
 dHC
@@ -96712,8 +96683,8 @@ dsK
 rAC
 wRJ
 dbL
-bNc
-kry
+ric
+jbQ
 ric
 dbL
 izH
@@ -96969,7 +96940,7 @@ dbL
 gvC
 dbL
 dbL
-kry
+bNc
 aIg
 jmB
 dbL
@@ -111586,7 +111557,7 @@ qJn
 mgA
 qXx
 qXx
-xFk
+qei
 rsn
 rsn
 rsn
@@ -111842,7 +111813,7 @@ oxC
 qJn
 nKJ
 uPf
-mgA
+pdV
 qei
 rsn
 rsn
@@ -114950,7 +114921,7 @@ xPN
 xPN
 mLM
 cfO
-xYp
+cfC
 uVR
 oAk
 hqI
@@ -115207,8 +115178,8 @@ qtH
 wqV
 eGt
 cfO
-xYp
-nIs
+cfC
+uVR
 rBu
 omx
 cfC
@@ -115464,7 +115435,7 @@ foU
 xPN
 mLM
 qeP
-sac
+rBu
 htV
 eLm
 rBu
@@ -134031,7 +134002,7 @@ icV
 bnp
 mIJ
 cvb
-cvb
+nzs
 mIJ
 bnp
 icV

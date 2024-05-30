@@ -1163,7 +1163,7 @@
 	light_color = "#FFDDCC";
 	color = "#FFDDCC"
 	},
-/obj/structure/shelf_wood,
+/obj/structure/rack/shelf_wood,
 /obj/item/kirbyplants{
 	icon_state = "plant-02";
 	pixel_y = 24;
@@ -1986,9 +1986,7 @@
 /area/f13/ruins)
 "bSg" = (
 /obj/item/clothing/under/civ/dress3,
-/obj/structure/shelf_wood{
-	pixel_y = 4
-	},
+/obj/structure/rack/shelf_wood,
 /turf/open/floor/wood_wide/wood_wide_dark{
 	icon_state = "wide_dark-broken3"
 	},
@@ -2419,9 +2417,7 @@
 	},
 /area/f13/building/boat)
 "cgK" = (
-/obj/structure/shelf_wood{
-	pixel_y = -5
-	},
+/obj/structure/rack/shelf_wood,
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
 	pixel_y = 14;
 	pixel_x = -8
@@ -2733,6 +2729,11 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/wood_wide,
 /area/f13/building)
+"cuj" = (
+/obj/structure/table/wood,
+/obj/effect/spawner/lootdrop/f13/blueprintMid,
+/turf/open/floor/plating/f13/outside/roof,
+/area/f13/building/boat)
 "cuo" = (
 /obj/structure/closet/locker/fridge,
 /obj/item/clothing/suit/armor/ncrarmor/labcoat{
@@ -3106,9 +3107,7 @@
 	},
 /area/f13/wasteland/city)
 "cSh" = (
-/obj/structure/shelf_wood{
-	pixel_y = 4
-	},
+/obj/structure/rack/shelf_wood,
 /obj/item/lock_construct,
 /obj/item/key,
 /turf/open/floor/wood_fancy/wood_fancy_dark{
@@ -3590,6 +3589,10 @@
 	name = "Hospital ship hull"
 	},
 /area/f13/building/boat)
+"dqU" = (
+/obj/effect/spawner/lootdrop/f13/blueprintMid,
+/turf/open/floor/f13/wood,
+/area/f13/wasteland/city)
 "dri" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/chair/folding,
@@ -3799,7 +3802,8 @@
 /obj/item/clothing/under/rank/security/detective,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/item/gun/ballistic/revolver/police/webley,
+/obj/effect/spawner/lootdrop/f13/medical/wasteland/meds,
+/obj/effect/spawner/lootdrop/f13/weapon/police,
 /turf/open/floor/wood_mosaic{
 	icon_state = "common_light1"
 	},
@@ -4164,9 +4168,7 @@
 /turf/open/floor/wood_mosaic,
 /area/f13/ruins)
 "dRv" = (
-/obj/structure/shelf_wood{
-	pixel_y = 4
-	},
+/obj/structure/rack/shelf_wood,
 /obj/item/lock_construct,
 /obj/item/key,
 /turf/open/floor/wood_fancy/wood_fancy_dark{
@@ -4495,7 +4497,7 @@
 /turf/open/floor/wood_common/wood_common_light,
 /area/f13/ruins)
 "ehV" = (
-/obj/structure/shelf_wood,
+/obj/structure/rack/shelf_wood,
 /obj/effect/spawner/lootdrop/f13/cash_random_low,
 /turf/open/floor/engine,
 /area/f13/outpost)
@@ -5637,6 +5639,7 @@
 /area/f13/ruins)
 "fkT" = (
 /obj/structure/closet/cardboard,
+/obj/effect/spawner/lootdrop/f13/medical/wasteland/meds,
 /turf/open/floor/wood_wide/wood_wide_light,
 /area/f13/ruins)
 "flN" = (
@@ -5656,7 +5659,7 @@
 	},
 /area/f13/brotherhood)
 "fmb" = (
-/obj/structure/shelf_wood,
+/obj/structure/rack/shelf_wood,
 /obj/effect/spawner/lootdrop/f13/weapon/junk,
 /turf/open/floor/wood_common/wood_common_dark,
 /area/f13/ruins)
@@ -6630,7 +6633,7 @@
 /turf/open/floor/f13/wood,
 /area/f13/ruins)
 "gfX" = (
-/obj/structure/shelf_wood,
+/obj/structure/rack/shelf_wood,
 /obj/item/clothing/head/helmet/f13/combat/atlantic,
 /obj/item/clothing/head/helmet/f13/combat/atlantic,
 /obj/item/clothing/head/helmet/f13/combat/atlantic,
@@ -6665,6 +6668,7 @@
 	name = "pre-war advertising television";
 	pixel_y = 7
 	},
+/obj/effect/spawner/lootdrop/f13/medical/wasteland/meds,
 /turf/open/floor/wood_fancy,
 /area/f13/ruins)
 "gio" = (
@@ -6954,6 +6958,7 @@
 	},
 /obj/structure/closet/cabinet/anchored,
 /obj/effect/spawner/lootdrop/f13/armor/tier1,
+/obj/effect/spawner/lootdrop/f13/medical/wasteland/meds,
 /turf/open/floor/wood_fancy,
 /area/f13/ruins)
 "guW" = (
@@ -7302,6 +7307,7 @@
 "gNu" = (
 /obj/structure/junk/small/bed,
 /obj/effect/spawner/lootdrop/f13/cash_random_low,
+/obj/effect/spawner/lootdrop/f13/medical/wasteland/meds,
 /turf/open/floor/plating/rust,
 /area/f13/ruins)
 "gNA" = (
@@ -7316,6 +7322,7 @@
 	color = "#808080";
 	pixel_y = -32
 	},
+/obj/effect/spawner/lootdrop/f13/cash_random_low,
 /turf/open/floor/wood_wide,
 /area/f13/ruins)
 "gPv" = (
@@ -7396,6 +7403,7 @@
 /area/f13/building/boat)
 "gST" = (
 /obj/structure/simple_door/wood,
+/obj/effect/spawner/lootdrop/f13/cash_random_low,
 /turf/open/floor/wood_common,
 /area/f13/ruins)
 "gSV" = (
@@ -7612,6 +7620,7 @@
 	},
 /obj/effect/spawner/lootdrop/f13/armor/random,
 /obj/effect/spawner/lootdrop/wmelee_legend,
+/obj/effect/spawner/lootdrop/f13/blueprintVHigh,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/outpost)
 "hcp" = (
@@ -8444,6 +8453,11 @@
 	pixel_y = 12;
 	layer = 2.8
 	},
+/obj/item/kirbyplants{
+	icon_state = "plant-02";
+	pixel_y = 55;
+	pixel_x = -2
+	},
 /turf/open/floor/wood_fancy/wood_fancy_light,
 /area/f13/enclave)
 "hNP" = (
@@ -8453,6 +8467,14 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/floor,
 /area/f13/ruins)
+"hOy" = (
+/obj/effect/turf_decal/arrows{
+	dir = 4
+	},
+/turf/open/floor/wood_wide/wood_wide_dark{
+	icon_state = "wide_dark-broken5"
+	},
+/area/f13/building/boat)
 "hPd" = (
 /turf/closed/indestructible/f13vaultrusted,
 /area/f13/ruins)
@@ -8738,9 +8760,7 @@
 	desc = "Thats the cap of someone that fought waves and nature."
 	},
 /obj/item/melee/coyote/harpoon,
-/obj/structure/shelf_wood{
-	pixel_y = 4
-	},
+/obj/structure/rack/shelf_wood,
 /turf/open/floor/wood_common/wood_common_dark,
 /area/f13/building)
 "idm" = (
@@ -9124,6 +9144,11 @@
 	light_color = "#FFDDCC";
 	color = "#FFDDCC"
 	},
+/obj/item/kirbyplants{
+	icon_state = "plant-02";
+	pixel_y = -8;
+	pixel_x = -2
+	},
 /turf/open/floor/wood_wide/wood_wide_dark,
 /area/f13/enclave)
 "ixz" = (
@@ -9425,6 +9450,7 @@
 	pixel_x = 16;
 	layer = 5
 	},
+/obj/effect/spawner/lootdrop/f13/medical/wasteland/meds,
 /turf/open/floor/wood_wide/wood_wide_light,
 /area/f13/ruins)
 "iKN" = (
@@ -9622,7 +9648,8 @@
 	},
 /area/f13/building)
 "iUw" = (
-/obj/structure/shelf_wood,
+/obj/structure/rack/shelf_wood,
+/obj/effect/spawner/lootdrop/f13/cash_random_low,
 /turf/open/floor/wood_worn/wood_worn_dark,
 /area/f13/ruins)
 "iUZ" = (
@@ -11065,9 +11092,7 @@
 /obj/item/key{
 	pixel_y = 18
 	},
-/obj/structure/shelf_wood{
-	pixel_y = 4
-	},
+/obj/structure/rack/shelf_wood,
 /obj/item/clothing/under/civ/dress2,
 /obj/item/clothing/under/civ/dressg,
 /obj/item/clothing/under/civ/british_soldier,
@@ -11475,9 +11500,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/yellow/side,
 /area/f13/ruins)
 "kIf" = (
-/obj/structure/shelf_wood{
-	pixel_y = 4
-	},
+/obj/structure/rack/shelf_wood,
 /obj/item/storage/toolbox/mechanical{
 	pixel_x = -2;
 	pixel_y = 20
@@ -11818,7 +11841,8 @@
 /area/f13/building/boat)
 "lan" = (
 /obj/item/instrument/guitar,
-/obj/structure/shelf_wood,
+/obj/structure/rack/shelf_wood,
+/obj/effect/spawner/lootdrop/f13/medical/wasteland/meds,
 /turf/open/floor/wood_common/wood_common_dark,
 /area/f13/ruins)
 "laC" = (
@@ -11832,6 +11856,7 @@
 /obj/item/clothing/shoes/singery,
 /obj/item/clothing/shoes/galoshes,
 /obj/item/clothing/shoes/galoshes,
+/obj/effect/spawner/lootdrop/f13/cash_random_low,
 /turf/open/floor/wood_wide,
 /area/f13/ruins)
 "laY" = (
@@ -12256,9 +12281,7 @@
 /area/f13/brotherhood)
 "lse" = (
 /obj/item/clothing/under/civ/dressr,
-/obj/structure/shelf_wood{
-	pixel_y = 4
-	},
+/obj/structure/rack/shelf_wood,
 /obj/item/lock_construct,
 /obj/item/key,
 /turf/open/floor/wood_common/wood_common_dark,
@@ -12812,6 +12835,12 @@
 	},
 /turf/open/transparent/openspace,
 /area/f13/wasteland/town)
+"lQf" = (
+/obj/effect/turf_decal/arrows{
+	dir = 4
+	},
+/turf/open/floor/wood_wide/wood_wide_dark,
+/area/f13/building/boat)
 "lQt" = (
 /obj/structure/rug/big/rug_blue,
 /turf/open/floor/wood_fancy,
@@ -12837,6 +12866,41 @@
 "lQH" = (
 /turf/open/floor/plating/f13/outside/roof,
 /area/f13/Ocean)
+"lQK" = (
+/obj/structure/table/reinforced,
+/obj/machinery/button/door{
+	pixel_y = 7;
+	pixel_x = -9;
+	name = "Hospital Ship door button";
+	id = 85
+	},
+/obj/machinery/button/door{
+	pixel_y = -1;
+	pixel_x = 1;
+	name = "Hospital Ship Classroom button";
+	id = 87
+	},
+/obj/machinery/button/door{
+	pixel_y = 7;
+	pixel_x = 1;
+	name = "Hospital Ship Counter button";
+	id = 86
+	},
+/obj/machinery/button/door{
+	pixel_y = -1;
+	pixel_x = -9;
+	name = "Hospital Ship Surgery button";
+	id = 88
+	},
+/obj/item/key/vending{
+	pixel_y = 12;
+	pixel_x = 9;
+	id = 598;
+	color = "#00FFFF";
+	name = "Medical Vending Machine Key"
+	},
+/turf/open/floor/wood_wide/wood_wide_dark,
+/area/f13/building/boat)
 "lTd" = (
 /obj/structure/reagent_dispensers/fueltank/vehicle_gas_station{
 	icon_state = "vat";
@@ -12936,6 +13000,10 @@
 /obj/structure/barricade/wooden/planks,
 /turf/open/floor/wood_mosaic,
 /area/f13/ruins)
+"lZv" = (
+/obj/effect/landmark/start/f13/enclavecpl,
+/turf/open/floor/wood_fancy/wood_fancy_light,
+/area/f13/enclave)
 "mak" = (
 /obj/structure/bed/wooden{
 	pixel_y = 16;
@@ -13460,7 +13528,7 @@
 /area/f13/ruins)
 "mxA" = (
 /obj/structure/closet/cardboard,
-/obj/effect/spawner/lootdrop/f13/medical/wasteland,
+/obj/effect/spawner/lootdrop/f13/medical/wasteland/meds,
 /turf/open/floor/wood_fancy{
 	icon_state = "fancy-broken6"
 	},
@@ -13998,9 +14066,7 @@
 	},
 /area/f13/wasteland/city)
 "mWr" = (
-/obj/structure/shelf_wood{
-	pixel_y = -5
-	},
+/obj/structure/rack/shelf_wood,
 /turf/closed/indestructible/f13vaultrusted,
 /area/f13/building)
 "mWv" = (
@@ -15861,6 +15927,13 @@
 /obj/effect/landmark/start/f13/usgysgt,
 /turf/open/floor/wood_wide/wood_wide_dark,
 /area/f13/enclave)
+"oLC" = (
+/obj/structure/closet/cabinet/anchored,
+/obj/effect/spawner/lootdrop/f13/medical/wasteland/meds,
+/turf/open/floor/wood_mosaic{
+	icon_state = "common1"
+	},
+/area/f13/ruins)
 "oLT" = (
 /obj/structure/railing/corner{
 	color = "#A47449"
@@ -16087,8 +16160,8 @@
 	},
 /obj/item/pen/fountain,
 /obj/item/folder/blue,
-/obj/structure/shelf_wood{
-	pixel_y = 23
+/obj/structure/rack/shelf_wood{
+	pixel_y = 25
 	},
 /turf/open/floor/wood_common/wood_common_light,
 /area/f13/office)
@@ -16134,7 +16207,7 @@
 	},
 /area/f13/ruins)
 "paR" = (
-/obj/structure/shelf_wood,
+/obj/structure/rack/shelf_wood,
 /turf/open/floor/wood_wide/wood_wide_light{
 	icon_state = "wide_light-broken2"
 	},
@@ -16685,6 +16758,11 @@
 /obj/effect/decal/cleanable/blood,
 /turf/open/floor/plating,
 /area/f13/ruins)
+"pDQ" = (
+/obj/structure/table/wood/bar,
+/obj/effect/spawner/lootdrop/f13/medical/wasteland/meds,
+/turf/open/transparent/glass,
+/area/f13/ruins)
 "pDR" = (
 /obj/structure/table,
 /obj/machinery/computer/terminal{
@@ -16978,7 +17056,7 @@
 /turf/open/floor/wood_wide/wood_wide_dark,
 /area/f13/building/boat)
 "pVb" = (
-/obj/structure/shelf_wood,
+/obj/structure/rack/shelf_wood,
 /turf/open/floor/wood_wide/wood_wide_dark,
 /area/f13/building/boat)
 "pVi" = (
@@ -17060,9 +17138,7 @@
 /area/f13/enclave)
 "pXU" = (
 /obj/item/clothing/under/civ/dress2,
-/obj/structure/shelf_wood{
-	pixel_y = 4
-	},
+/obj/structure/rack/shelf_wood,
 /turf/open/floor/wood_fancy/wood_fancy_dark,
 /area/f13/building)
 "pYF" = (
@@ -17510,6 +17586,17 @@
 	icon_state = "wide_light1"
 	},
 /area/f13/enclave)
+"qyG" = (
+/obj/structure/window/fulltile/wood_window{
+	icon_state = "housewindowvertical"
+	},
+/obj/machinery/door/poddoor/shutters{
+	name = "Hospital Ship door shutters";
+	id = 85;
+	layer = 20
+	},
+/turf/open/floor/wood_wide/wood_wide_dark,
+/area/f13/building/boat)
 "qzj" = (
 /obj/structure/rack/shelf_metal,
 /obj/item/storage/firstaid,
@@ -17846,6 +17933,7 @@
 "qJy" = (
 /obj/structure/table/glass,
 /obj/effect/spawner/lootdrop/f13/medical/wasteland/meds/drug,
+/obj/effect/spawner/lootdrop/f13/medical/wasteland/meds,
 /turf/open/floor/wood_common/wood_common_dark,
 /area/f13/ruins)
 "qKy" = (
@@ -17892,9 +17980,7 @@
 /area/f13/brotherhood)
 "qRi" = (
 /obj/item/clothing/under/civ/dress3,
-/obj/structure/shelf_wood{
-	pixel_y = 4
-	},
+/obj/structure/rack/shelf_wood,
 /obj/item/lock_construct,
 /obj/item/key,
 /turf/open/floor/wood_mosaic,
@@ -17913,6 +17999,10 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/wood_common/wood_common_light,
 /area/f13/ruins)
+"qRK" = (
+/obj/effect/landmark/start/f13/enclavecpl,
+/turf/open/floor/wood_common/wood_common_light,
+/area/f13/enclave)
 "qSi" = (
 /turf/open/floor/wood_common{
 	icon_state = "worn1"
@@ -17975,7 +18065,7 @@
 "qYk" = (
 /obj/item/instrument/glockenspiel,
 /obj/item/instrument/piano_synth,
-/obj/structure/shelf_wood,
+/obj/structure/rack/shelf_wood,
 /turf/open/floor/wood_common/wood_common_dark{
 	icon_state = "common_dark-broken2"
 	},
@@ -18347,7 +18437,7 @@
 	light_color = "#FFDDCC";
 	color = "#FFDDCC"
 	},
-/obj/structure/shelf_wood,
+/obj/structure/rack/shelf_wood,
 /turf/open/floor/wood_common/wood_common_light,
 /area/f13/office)
 "rnV" = (
@@ -19660,6 +19750,7 @@
 /area/f13/ruins)
 "syM" = (
 /obj/structure/rack/shelf_metal,
+/obj/effect/spawner/lootdrop/f13/blueprintMid,
 /turf/open/floor/wood_wide,
 /area/f13/ruins)
 "syO" = (
@@ -20022,7 +20113,7 @@
 /turf/open/indestructible/ground/outside/roof,
 /area/f13/wasteland/town)
 "sRY" = (
-/obj/structure/shelf_wood,
+/obj/structure/rack/shelf_wood,
 /obj/item/paper_bin,
 /obj/item/paper_bin,
 /obj/item/pen,
@@ -20541,6 +20632,7 @@
 	name = "red light fixture";
 	dir = 8
 	},
+/obj/effect/spawner/lootdrop/f13/blueprintMid,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/outpost)
 "tps" = (
@@ -21290,7 +21382,7 @@
 /turf/open/indestructible/ground/outside/ruins,
 /area/f13/raider_mall)
 "tVH" = (
-/obj/structure/shelf_wood,
+/obj/structure/rack/shelf_wood,
 /obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/high,
 /obj/effect/spawner/lootdrop/f13/weapon/gun/energy/high,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
@@ -21976,9 +22068,7 @@
 /turf/open/floor/f13/wood,
 /area/f13/building/boat)
 "uzq" = (
-/obj/structure/shelf_wood{
-	pixel_y = -5
-	},
+/obj/structure/rack/shelf_wood,
 /obj/item/reagent_containers/food/drinks/bottle/whiskey{
 	pixel_y = 14;
 	pixel_x = 5
@@ -22631,7 +22721,7 @@
 /turf/open/floor/wood_worn,
 /area/f13/wasteland/city)
 "vdO" = (
-/obj/structure/shelf_wood,
+/obj/structure/rack/shelf_wood,
 /obj/effect/spawner/lootdrop/f13/armor/tier4PA,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/outpost)
@@ -23460,7 +23550,7 @@
 	light_color = "#FFDDCC";
 	color = "#FFDDCC"
 	},
-/obj/structure/shelf_wood,
+/obj/structure/rack/shelf_wood,
 /obj/item/clothing/under/sailor,
 /turf/open/floor/wood_fancy,
 /area/f13/building)
@@ -23566,7 +23656,7 @@
 	},
 /area/f13/ruins)
 "vZJ" = (
-/obj/structure/shelf_wood,
+/obj/structure/rack/shelf_wood,
 /obj/item/storage/photo_album,
 /turf/open/floor/wood_wide,
 /area/f13/building)
@@ -24618,7 +24708,7 @@
 /obj/item/clothing/suit/det_suit/grey,
 /obj/item/clothing/under/rank/security/detective/grey,
 /obj/effect/decal/cleanable/dirt,
-/obj/item/gun/ballistic/revolver/revolver45/gunslinger,
+/obj/effect/spawner/lootdrop/f13/weapon/police,
 /turf/open/floor/wood_mosaic{
 	icon_state = "common_light1"
 	},
@@ -24907,8 +24997,8 @@
 /area/f13/ruins)
 "xqp" = (
 /obj/machinery/door/unpowered/securedoor{
-	req_access_txt = "281";
-	name = "Police Station secure door"
+	req_access_txt = "52";
+	name = "Mechanic secure door"
 	},
 /turf/open/floor/wood_common,
 /area/f13/ruins)
@@ -25037,11 +25127,6 @@
 /area/f13/city/museum)
 "xtY" = (
 /obj/structure/closet/cabinet/anchored,
-/obj/item/kirbyplants{
-	icon_state = "plant-02";
-	pixel_y = 25;
-	pixel_x = -2
-	},
 /obj/machinery/light/small{
 	dir = 1;
 	name = "tan light fixture";
@@ -25227,15 +25312,6 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/wood_common,
 /area/f13/ruins)
-"xFa" = (
-/obj/structure/closet/secure_closet/personal/cabinet,
-/obj/item/kirbyplants{
-	icon_state = "plant-22";
-	pixel_y = 24;
-	pixel_x = 4
-	},
-/turf/open/floor/wood_wide/wood_wide_dark,
-/area/f13/enclave)
 "xFc" = (
 /obj/structure/table/wood,
 /obj/item/toy/figure/lawyer{
@@ -25370,7 +25446,7 @@
 /turf/open/floor/f13/wood,
 /area/f13/wasteland/town)
 "xJl" = (
-/obj/structure/shelf_wood,
+/obj/structure/rack/shelf_wood,
 /obj/item/clothing/under/sailordress,
 /turf/open/floor/wood_fancy,
 /area/f13/building)
@@ -25450,7 +25526,7 @@
 "xOW" = (
 /obj/item/instrument/eguitar,
 /obj/item/instrument/saxophone,
-/obj/structure/shelf_wood,
+/obj/structure/rack/shelf_wood,
 /turf/open/floor/wood_common/wood_common_dark,
 /area/f13/ruins)
 "xPt" = (
@@ -30558,7 +30634,7 @@ qcM
 dwV
 dgu
 jnB
-sdM
+pDQ
 rDx
 dgu
 qcM
@@ -43995,7 +44071,7 @@ qFK
 qFK
 qFK
 rSa
-szo
+oLC
 syL
 jqu
 jqu
@@ -52403,7 +52479,7 @@ sgw
 mIF
 rWh
 tNz
-jPq
+dqU
 hEq
 qFK
 qFK
@@ -52633,7 +52709,7 @@ qFK
 qFK
 qFK
 qFK
-ovo
+cuj
 ovo
 ovo
 qFK
@@ -71160,24 +71236,24 @@ cLZ
 cLZ
 cLZ
 gBo
-jKm
+qyG
 gBo
 gBo
 gBo
-jKm
-gBo
-gVH
-gBo
-jKm
-gVH
-gVH
-gVH
-gBo
+qyG
 gBo
 gVH
 gBo
+qyG
+gVH
+gVH
+gVH
 gBo
-jKm
+gBo
+gVH
+gBo
+gBo
+qyG
 gVH
 gVH
 cXH
@@ -71953,7 +72029,7 @@ pBL
 wNP
 gcB
 suB
-blO
+lQK
 jKm
 cXH
 cLZ
@@ -72450,7 +72526,7 @@ blO
 blO
 afv
 blO
-blO
+lQf
 blO
 gaL
 blO
@@ -72707,7 +72783,7 @@ wCd
 pUP
 ujT
 rxz
-vxr
+hOy
 lGs
 blO
 blO
@@ -73218,18 +73294,18 @@ cLZ
 gVH
 gBo
 gBo
-jKm
+qyG
 hzY
 gBo
 hzY
 gBo
 gBo
 gBo
-jKm
+qyG
 gBo
 gVH
 gVH
-jKm
+qyG
 gBo
 gBo
 gBo
@@ -86169,7 +86245,7 @@ dWw
 ujw
 dZE
 ggL
-hsL
+lZv
 fOv
 jXT
 qFK
@@ -86683,7 +86759,7 @@ dWw
 lyK
 eCi
 hsL
-ggL
+qRK
 jhC
 kUr
 qFK
@@ -88242,7 +88318,7 @@ cyJ
 lsj
 gPU
 ixl
-xFa
+gPU
 lsj
 dWw
 jnT

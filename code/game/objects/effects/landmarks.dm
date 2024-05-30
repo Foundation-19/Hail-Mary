@@ -845,6 +845,10 @@ obj/effect/landmark/start/f13/ncrlogisticsofficer
 	name = "Enclave Private"
 	icon_state = "uspvt"
 
+/obj/effect/landmark/start/f13/enclavecpl
+	name = "Enclave Corporal"
+	icon_state = "uspvt"
+
 /obj/effect/landmark/start/f13/uslt
 	name = "Enclave Lieutenant"
 	icon_state = "uslt"
