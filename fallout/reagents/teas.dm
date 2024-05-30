@@ -137,7 +137,7 @@
 	description = "A engaging herbal remedy steeped from blitzed Xander root. Detoxifies and replenishes the body's blood supply."
 	color = "#FF6347"
 	nutriment_factor = 0
-	taste_description = "earthy"
+	taste_description = "something earthy"
 	glass_icon_state = "coffee"
 	glass_name = "Xander Tea"
 	glass_desc = "A engaging herbal remedy steeped from blitzed Xander root. Detoxifies and replenishes the body's blood supply."
@@ -163,7 +163,7 @@
 	description = "A vibrant and invigorating herbal infusion known for its deep red color and earthy flavor profile."
 	color = "#850101"
 	nutriment_factor = 0 
-	taste_description = 0
+	taste_description = "diluted blood"
 	glass_icon_state = "bloodtea"
 	glass_name = "Bloodleaf Tea"
 	glass_desc = "A vibrant and invigorating herbal infusion known for its deep red color and earthy flavor profile."
