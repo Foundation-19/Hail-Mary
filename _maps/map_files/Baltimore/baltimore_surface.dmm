@@ -6203,6 +6203,8 @@
 /area/f13/wasteland/city)
 "cky" = (
 /obj/structure/closet/crate/large,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/ammo/tier3,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/ammo/tier3,
 /turf/open/floor/plating/rust{
 	sunlight_state = 1;
 	name = "rusted Docks"
@@ -7022,6 +7024,11 @@
 /obj/structure/rack/shelf_metal,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/building/boat)
+"cAm" = (
+/obj/structure/closet/crate/large,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/ammo/tier3,
+/turf/open/floor/plating/rust,
+/area/f13/ruins)
 "cAt" = (
 /obj/structure/table,
 /turf/open/floor/plating/rust,
@@ -8821,6 +8828,7 @@
 "ddD" = (
 /obj/structure/rack/shelf_metal,
 /obj/effect/spawner/lootdrop/f13/weapon/gun/ammo/tier4,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/ammo/tier3,
 /turf/open/floor/plating/rust,
 /area/f13/outpost)
 "ddE" = (
@@ -9835,6 +9843,8 @@
 /area/f13/raider_mall)
 "dwf" = (
 /obj/structure/table/reinforced,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/ammo/tier3,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/ammo/tier3,
 /turf/open/floor/plasteel/f13/vault_floor/yellow/whiteyellowfull,
 /area/f13/ruins)
 "dwm" = (
@@ -9954,6 +9964,10 @@
 	sunlight_state = 1
 	},
 /area/f13/Ocean)
+"dxL" = (
+/obj/effect/spawner/lootdrop/f13/weapon/gun/ammo/tier3,
+/turf/open/floor/wood_wide,
+/area/f13/ruins)
 "dxO" = (
 /obj/structure/bed/mattress{
 	icon_state = "mattress1"
@@ -12541,6 +12555,16 @@
 	icon_state = "verticalrightborderright2top"
 	},
 /area/f13/wasteland/town)
+"ewG" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/ammo/tier3,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	name = "Old Docks";
+	sunlight_state = 1
+	},
+/area/f13/ruins)
 "ewH" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/wood_fancy/wood_fancy_light{
@@ -13406,6 +13430,7 @@
 /obj/structure/chair/bench{
 	dir = 8
 	},
+/obj/effect/spawner/lootdrop/f13/weapon/gun/ammo/tier3,
 /turf/open/floor/wood_common,
 /area/f13/building/center)
 "eNp" = (
@@ -16178,6 +16203,13 @@
 	},
 /turf/open/floor/plating/rust,
 /area/f13/ruins)
+"fML" = (
+/obj/effect/overlay/junk/oldpipes{
+	dir = 8
+	},
+/obj/effect/spawner/lootdrop/f13/weapon/gun/ammo/tier3,
+/turf/open/floor/plating/rust,
+/area/f13/ruins)
 "fMX" = (
 /turf/open/indestructible/ground/outside/water/running,
 /area/f13/ruins)
@@ -17122,6 +17154,8 @@
 /obj/effect/spawner/lootdrop/f13/blueprintLow,
 /obj/effect/spawner/lootdrop/f13/weapon/gun/ammo/tier4,
 /obj/effect/spawner/lootdrop/f13/weapon/gun/ammo/tier4,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/ammo/tier3,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/ammo/tier3,
 /turf/open/floor/plasteel/f13/vault_floor/plating,
 /area/f13/outpost)
 "geQ" = (
@@ -18403,6 +18437,7 @@
 /obj/structure/rack/shelf_metal,
 /obj/effect/spawner/lootdrop/f13/weapon/gun/ammo/tier4,
 /obj/effect/spawner/lootdrop/f13/weapon/gun/ammo/tier4,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/ammo/tier3,
 /turf/open/floor/engine,
 /area/f13/outpost)
 "gAs" = (
@@ -19795,6 +19830,10 @@
 /obj/effect/spawner/lootdrop/f13/cash_random_med,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/building/boat)
+"hbu" = (
+/obj/effect/spawner/lootdrop/f13/weapon/gun/ammo/tier3,
+/turf/open/floor/wood_common,
+/area/f13/building/center)
 "hbC" = (
 /obj/structure/fence/corner,
 /turf/open/indestructible/ground/outside/graveldirt,
@@ -20472,6 +20511,10 @@
 /area/f13/building/boat)
 "hnL" = (
 /obj/structure/rack/shelf_metal,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/ammo/tier3,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/ammo/tier3,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/ammo/tier3,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/ammo/tier3,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
 /area/f13/building/boat)
 "hnT" = (
@@ -20582,6 +20625,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/ammo/tier3,
 /turf/open/floor/plasteel/f13/vault_floor{
 	icon_state = "floorscorched1"
 	},
@@ -20746,6 +20790,9 @@
 /area/f13/building/center)
 "hsB" = (
 /obj/structure/closet/crate/large,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/ammo/tier3,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/ammo/tier3,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/ammo/tier3,
 /turf/open/floor/f13,
 /area/f13/ruins)
 "hsD" = (
@@ -21835,6 +21882,7 @@
 /obj/structure/rack/shelf_metal,
 /obj/effect/spawner/lootdrop/f13/weapon/milsurplus,
 /obj/effect/spawner/lootdrop/ammo/shotgun,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/ammo/tier3,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "whitedirtysolid"
 	},
@@ -23639,6 +23687,12 @@
 	},
 /turf/open/floor/wood_fancy,
 /area/f13/office)
+"iuM" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/snacks/kebab/human,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/ammo/tier3,
+/turf/open/floor/wood_fancy/wood_fancy_light,
+/area/f13/ruins)
 "iuT" = (
 /obj/structure/chair/wood{
 	dir = 4
@@ -26604,6 +26658,7 @@
 "jxY" = (
 /obj/structure/rack/shelf_metal,
 /obj/effect/spawner/lootdrop/f13/weapon/combloc,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/ammo/tier3,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
 /area/f13/building/boat)
 "jye" = (
@@ -27503,6 +27558,7 @@
 	pixel_y = 14;
 	anchored = 1
 	},
+/obj/effect/spawner/lootdrop/f13/weapon/gun/ammo/tier3,
 /turf/open/floor/f13/wood{
 	icon_state = "housewood2"
 	},
@@ -34080,6 +34136,7 @@
 /area/f13/wasteland/city)
 "maw" = (
 /obj/machinery/workbench/advanced,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/ammo/tier3,
 /turf/open/floor/plasteel/f13/vault_floor/plating,
 /area/f13/outpost)
 "maH" = (
@@ -37569,6 +37626,7 @@
 /obj/structure/rack/shelf_metal,
 /obj/effect/spawner/lootdrop/f13/weapon/energy,
 /obj/effect/spawner/lootdrop/f13/weapon/gun/ammo/tier4,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/ammo/tier3,
 /turf/open/floor/engine,
 /area/f13/outpost)
 "npq" = (
@@ -38179,6 +38237,7 @@
 /obj/effect/spawner/lootdrop/f13/armor/tier3,
 /obj/effect/spawner/lootdrop/f13/blueprintLow,
 /obj/effect/spawner/lootdrop/ammo/shotgun,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/ammo/tier3,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "whitedirtysolid"
 	},
@@ -41969,6 +42028,7 @@
 	pixel_x = 11;
 	layer = 5
 	},
+/obj/effect/spawner/lootdrop/f13/weapon/gun/ammo/tier3,
 /turf/open/floor/f13/wood{
 	icon_state = "housewood2"
 	},
@@ -45611,6 +45671,7 @@
 /obj/structure/reagent_dispensers/barrel/three{
 	layer = 1
 	},
+/obj/effect/spawner/lootdrop/f13/weapon/gun/ammo/tier3,
 /turf/open/floor/f13/wood{
 	icon_state = "housewood2"
 	},
@@ -46327,6 +46388,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/ammo/tier3,
 /turf/open/floor/plating/rust,
 /area/f13/ruins)
 "qwa" = (
@@ -47396,6 +47458,7 @@
 "qNx" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/ammo/tier3,
 /turf/open/floor/wood_fancy/wood_fancy_dark{
 	icon_state = "fancy_dark-broken6"
 	},
@@ -48601,6 +48664,7 @@
 /area/f13/ruins)
 "reS" = (
 /mob/living/simple_animal/hostile/supermutant/rangedmutant/varmint,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/ammo/tier3,
 /turf/open/floor/wood_common/wood_common_dark,
 /area/f13/building/center)
 "reU" = (
@@ -49445,6 +49509,10 @@
 	icon_state = "common_light-broken6"
 	},
 /area/f13/building/center)
+"rtE" = (
+/obj/effect/spawner/lootdrop/f13/weapon/gun/ammo/tier3,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/citycaves)
 "ruc" = (
 /obj/structure/railing{
 	color = "#A47449";
@@ -50170,6 +50238,12 @@
 	icon_state = "housebase"
 	},
 /area/f13/brotherhood)
+"rGF" = (
+/obj/structure/table,
+/obj/item/reagent_containers/food/snacks/meat/slab/human/ghoul,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/ammo/tier3,
+/turf/open/indestructible/ground/outside/ruins,
+/area/f13/building/center)
 "rGN" = (
 /obj/structure/chair/f13chair1{
 	dir = 1
@@ -50466,6 +50540,10 @@
 /obj/structure/simple_door/metal/dirtystore,
 /obj/structure/barricade/wooden/planks,
 /turf/open/floor/wood_mosaic/wood_mosaic_light,
+/area/f13/building/center)
+"rKX" = (
+/obj/effect/spawner/lootdrop/f13/weapon/gun/ammo/tier3,
+/turf/open/floor/wood_common/wood_common_dark,
 /area/f13/building/center)
 "rLh" = (
 /obj/structure/rug/big/rug_red,
@@ -50871,6 +50949,14 @@
 	},
 /turf/closed/indestructible/f13vaultrusted,
 /area/f13/wasteland/city)
+"rUZ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/ammo/tier3,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	name = "Old Docks";
+	sunlight_state = 1
+	},
+/area/f13/ruins)
 "rVk" = (
 /obj/structure/bonfire/dense,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
@@ -55223,6 +55309,8 @@
 /obj/structure/rack/shelf_metal,
 /obj/effect/spawner/lootdrop/f13/weapon/milsurplus,
 /obj/effect/spawner/lootdrop/f13/weapon/gun/ammo/tier4,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/ammo/tier3,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/ammo/tier3,
 /turf/open/floor/plasteel/f13/vault_floor/plating,
 /area/f13/outpost)
 "tvc" = (
@@ -56785,6 +56873,7 @@
 /obj/structure/closet/crate/footlocker,
 /obj/item/clothing/under/f13/navy,
 /obj/item/clothing/head/soft/f13/utility/navy,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/ammo/tier3,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/outpost)
 "ubr" = (
@@ -58196,6 +58285,7 @@
 /obj/structure/rack/shelf_metal,
 /obj/effect/spawner/lootdrop/f13/bomb/top_tier,
 /obj/effect/spawner/lootdrop/f13/weapon/gun/ammo/tier4,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/ammo/tier3,
 /turf/open/floor/engine,
 /area/f13/outpost)
 "uBj" = (
@@ -59924,6 +60014,12 @@
 	},
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/building)
+"vfj" = (
+/obj/structure/rack/shelf_metal,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/ammo/tier4,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/ammo/tier3,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/building/boat)
 "vfm" = (
 /obj/machinery/light/lampost{
 	dir = 1;
@@ -62775,6 +62871,7 @@
 	name = "red light fixture";
 	dir = 2
 	},
+/obj/effect/spawner/lootdrop/f13/weapon/gun/ammo/tier3,
 /turf/open/floor/plating/rust,
 /area/f13/outpost)
 "weM" = (
@@ -66138,6 +66235,7 @@
 /obj/structure/rack/shelf_metal,
 /obj/effect/spawner/lootdrop/f13/weapon/gun/ammo/tier4,
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/ammo/tier3,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/outpost)
 "xnF" = (
@@ -67363,6 +67461,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/ammo/tier3,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/ruins)
 "xJY" = (
@@ -70840,7 +70939,7 @@ iiN
 tMS
 vtc
 skg
-juy
+hbu
 juy
 ybJ
 juy
@@ -71900,7 +71999,7 @@ lgb
 gkL
 lME
 ihc
-rWT
+cAm
 set
 beW
 amw
@@ -73395,7 +73494,7 @@ iFW
 jbe
 rXf
 oOb
-kvF
+rKX
 sRl
 oOb
 oOb
@@ -74170,7 +74269,7 @@ onu
 oOb
 ntw
 oOb
-juy
+hbu
 juy
 oOb
 tEm
@@ -74765,7 +74864,7 @@ goR
 aYp
 bTO
 pJf
-pJf
+rtE
 pJf
 yjr
 bTO
@@ -83626,7 +83725,7 @@ nOT
 evd
 cSE
 tLs
-mam
+iuM
 lCR
 djT
 mam
@@ -86115,7 +86214,7 @@ bQD
 lpq
 yaJ
 aVd
-cLh
+rGF
 xzD
 wln
 rVE
@@ -89037,7 +89136,7 @@ xPK
 bNA
 fjT
 sni
-ahP
+fML
 aFQ
 tqY
 bSi
@@ -90001,7 +90100,7 @@ fZo
 klP
 qNR
 nhe
-bQh
+rUZ
 vYB
 gtu
 wmG
@@ -90771,7 +90870,7 @@ sSl
 xJy
 eLJ
 rEK
-rZK
+ewG
 hQo
 sOq
 lLN
@@ -92444,7 +92543,7 @@ wsD
 mOT
 hGe
 hwr
-ovw
+dxL
 ovw
 riQ
 mOT
@@ -102506,7 +102605,7 @@ iRQ
 ntS
 icq
 dXY
-lQi
+vfj
 uyq
 hRo
 iRQ
