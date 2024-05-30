@@ -329,6 +329,8 @@
 		if(!no_move && !(I.item_flags & DROPDEL))	//item may be moved/qdel'd immedietely, don't bother moving it
 			if (isnull(newloc))
 				I.moveToNullspace()
+			if(ismecha(loc))
+				I.forceMove(loc)
 			else
 				I.forceMove(newloc)
 		on_item_dropped(I)
