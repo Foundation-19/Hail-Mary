@@ -351,7 +351,7 @@
 	step_energy_drain = 0.2
 	max_integrity = 100
 	deflect_chance = 0
-	armor = ARMOR_VALUE_HEAVY
+	armor = ARMOR_VALUE_SALVAGE
 	max_temperature = 25000
 	infra_luminosity = 1
 	wreckage = /obj/structure/mecha_wreckage/vertibird
@@ -414,7 +414,7 @@
 	pixel_y = 0
 	can_be_locked = TRUE
 	dna_lock
-	step_in = 1
+	step_in = 0.9
 	opacity = 0
 	dir_in = 8
 	step_energy_drain = 1
@@ -491,7 +491,7 @@
 	pixel_y = 0
 	can_be_locked = TRUE
 	dna_lock
-	step_in = 1
+	step_in = 0.9
 	opacity = 0
 	dir_in = 8
 	step_energy_drain = 1
@@ -925,7 +925,7 @@
 	step_in = 1.2
 	opacity = 0
 	dir_in = 8
-	step_energy_drain = 0.8
+	step_energy_drain = 0.2
 	max_temperature = 20000
 	max_integrity = 250
 	armor = ARMOR_VALUE_MEDIUM
@@ -976,7 +976,7 @@
 	step_in = 1.2
 	opacity = 0
 	dir_in = 8
-	step_energy_drain = 0.8
+	step_energy_drain = 0.2
 	max_temperature = 20000
 	max_integrity = 250
 	armor = ARMOR_VALUE_MEDIUM
