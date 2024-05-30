@@ -23,7 +23,7 @@
 // Left-4-Zed Tribal edition
 /datum/reagent/reactive_compost
 	name = "reactive compost"
-	description = "Compost mixed with mutfruit juice and datura tea. The resulting mixture is capable of drawing forth the inner potential of a plant, at the expense of its well being."
+	description = "Compost mixed with mutjuice and daturatea. The resulting mixture is capable of drawing forth the inner potential of plants, at the expense of it's well being."
 	reagent_state = "LIQUID"
 	color = "#8181E9"
 	taste_description = "sizzling rot"
@@ -45,7 +45,7 @@
 // Enduro Grow Tribal Edition
 /datum/reagent/fortifying_compost
 	name = "fortifying compost"
-	description = "Compost mixed with tato juice and yucca juice. The resulting mixture will fortify the plant against weed infestations, toxins, and the toils of gardening."
+	description = "Compost mixed with tatojuice and yucca juice. The resulting mixture will fortify the plant from weed infestations, toxins and the toils of gardening."
 	reagent_state = "LIQUID"
 	color = "#AD462C"
 	taste_description = "earthy rot"
@@ -55,7 +55,7 @@
 	id = /datum/reagent/fortifying_compost
 	results = list(/datum/reagent/fortifying_compost = 3)
 	required_reagents = list(/datum/reagent/compost = 1, /datum/reagent/consumable/yuccajuice = 1, /datum/reagent/consumable/tato_juice = 1)
-	mix_message = "The compost emits an earthy aroma"
+	mix_message = "The compost emits an earthy armora"
 	
 //If used on trays
 /datum/reagent/fortifying_compost/on_hydroponics_apply(obj/item/seeds/myseed, datum/reagents/chems, obj/machinery/hydroponics/mytray)
@@ -93,7 +93,7 @@
 // Stabilizing Compost
 /datum/reagent/stabilizing_compost
 	name = "stabilizing compost"
-	description = "A soothing mixture of compost, milk, and honey. The resulting mixture will stabilize a plant at the cost of potency."
+	description = "A soothing mixture of compost, milk and honey. The resulting mixture will stabilize a soil at the cost of potency."
 	reagent_state = "LIQUID"
 	color = "#B5ABAB"
 	taste_description = "sweet rot"
@@ -103,7 +103,7 @@
 	id = /datum/reagent/stabilizing_compost
 	results = list(/datum/reagent/stabilizing_compost = 3)
 	required_reagents = list(/datum/reagent/compost = 1, /datum/reagent/consumable/honey = 1, /datum/reagent/consumable/milk = 1)
-	mix_message= "The compost emits a sweet smell"
+	mix_message= "A sweet smell comes over the compost"
 	
 // If added to tray
 /datum/reagent/stabilizing_compost/on_hydroponics_apply(obj/item/seeds/myseed, datum/reagents/chems, obj/machinery/hydroponics/mytray)
