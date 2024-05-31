@@ -358,29 +358,29 @@
 	direct = TRUE
 	loop_delay = 0 SECONDS
 	mid_sounds = list(
-		SOUND_LOOP_ENTRY('sound/f13ambience/baltimore-Ocean.ogg', 171 SECONDS, 1),
+		SOUND_LOOP_ENTRY('sound/f13ambience/baltimore-Ocean.ogg', 343 SECONDS, 1),
 	)
 
 /datum/looping_sound/ambient/ocean_b
 	chance = 100
 	vary = FALSE
 	vary_direction = TRUE
-	volume = SOUND_LOOP_VOL_RANGE(200, 200)
+	volume = SOUND_LOOP_VOL_RANGE(25, 25)
 	direct = TRUE
 	loop_delay = 0 SECONDS
 	mid_sounds = list(
-		SOUND_LOOP_ENTRY('sound/f13ambience/baltimore-Ocean-music.ogg', 229 SECONDS, 1),
+		SOUND_LOOP_ENTRY('sound/f13ambience/baltimore-Ocean.ogg', 343 SECONDS, 1),
 	)
 
 /datum/looping_sound/ambient/harbor_b
 	chance = 100
 	vary = FALSE
 	vary_direction = TRUE
-	volume = SOUND_LOOP_VOL_RANGE(200, 200)
+	volume = SOUND_LOOP_VOL_RANGE(20, 20)
 	direct = TRUE
 	loop_delay = 0 SECONDS
 	mid_sounds = list(
-		SOUND_LOOP_ENTRY('sound/f13ambience/baltimore-Harbor-music.ogg', 343 SECONDS, 1),
+		SOUND_LOOP_ENTRY('sound/f13ambience/baltimore-Harbor.ogg', 343 SECONDS, 1),
 	)
 
 /datum/looping_sound/ambient/harbor_interior

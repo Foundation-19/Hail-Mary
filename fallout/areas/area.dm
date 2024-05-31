@@ -44,7 +44,7 @@
 	name = "Ocean"
 	icon_state = "blue"
 	ambience_area = list(
-		/datum/looping_sound/ambient/ocean_a,
+		/datum/looping_sound/ambient/ocean_b,
 		)
 	outdoors = 1
 	open_space = 1
@@ -57,9 +57,9 @@
 	name = "Ruined City Coast"
 	icon_state = "city"
 	ambience_area = list(
-		/datum/looping_sound/ambient/ocean_b,
+		/datum/looping_sound/ambient/ocean_a,
 		)
-	ambientmusic = null
+	ambientmusic = list('sound/f13music/thecoastpart1fo4.ogg')
 	grow_chance = 45
 	environment = 10
 
@@ -72,7 +72,7 @@
 		/datum/looping_sound/ambient/critters/birds,
 		/datum/looping_sound/ambient/critters/birds/crow,
 		)
-	ambientmusic = null
+	ambientmusic = list('sound/f13music/nomoresailsfo4.ogg')
 	grow_chance = 45
 	environment = 10
 
@@ -82,7 +82,7 @@
 	ambience_area = list(
 		/datum/looping_sound/ambient/harbor_b,
 		)
-	ambientmusic = null
+	ambientmusic = list('sound/f13music/endlessoceanfo4.ogg')
 	grow_chance = 5
 
 

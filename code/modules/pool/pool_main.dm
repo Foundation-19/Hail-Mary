@@ -31,7 +31,7 @@
 		QDEL_NULL(watereffect)
 		QDEL_NULL(watertop)
 	else
-		name = "poolwater"
+		name = "Sea water"
 		desc = "You're safer here than in the deep."
 		watereffect = new /obj/effect/overlay/water(src)
 		watertop = new /obj/effect/overlay/water/top(src)
@@ -42,7 +42,7 @@
 	icon_state = "bottom"
 	density = FALSE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	layer = ABOVE_MOB_LAYER
+	layer = ABOVE_ALL_MOB_LAYER
 	anchored = TRUE
 	resistance_flags = INDESTRUCTIBLE
 
@@ -53,17 +53,17 @@
 /obj/effect/overlay/water/watersidehorizontal
 	icon = 'icons/turf/pool.dmi'
 	icon_state = "riverwater_motion_side"
-	layer = BELOW_MOB_LAYER
+	layer = ABOVE_ALL_MOB_LAYER
 
 /obj/effect/overlay/water/watersidevertical
 	icon = 'icons/turf/pool.dmi'
 	icon_state = "riverwater_motion_down"
-	layer = BELOW_MOB_LAYER
+	layer = ABOVE_ALL_MOB_LAYER
 
 /obj/effect/overlay/water/watercorner
 	icon = 'icons/turf/pool.dmi'
 	icon_state = "riverwater_motion_corner"
-	layer = BELOW_MOB_LAYER
+	layer = ABOVE_ALL_MOB_LAYER
 
 // Mousedrop hook to normal turfs to get out of pools.
 /turf/open/MouseDrop_T(atom/from, mob/living/user)

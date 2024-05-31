@@ -1040,12 +1040,10 @@
 /turf/open/floor/wood_common,
 /area/f13/building/tunnel)
 "bCK" = (
-/obj/structure/chair/bench{
-	dir = 4
-	},
 /obj/machinery/light/fo13colored/Red{
 	dir = 4
 	},
+/obj/machinery/autolathe/ammo,
 /turf/open/floor/plating/rust,
 /area/f13/citycaves)
 "bDF" = (
@@ -2281,6 +2279,14 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/red/whiteredfull,
 /area/f13/mountain_bunker)
+"duB" = (
+/obj/machinery/autolathe,
+/obj/item/stack/sheet/metal/ten,
+/obj/item/stack/sheet/metal/ten,
+/obj/item/stack/sheet/glass/ten,
+/obj/item/stack/sheet/glass/ten,
+/turf/open/floor/plating/rust,
+/area/f13/citycaves)
 "duH" = (
 /mob/living/simple_animal/hostile/deathclaw/power_armor,
 /obj/effect/spawner/lootdrop/f13/armor/tier5,
@@ -2675,6 +2681,7 @@
 "edN" = (
 /obj/structure/rack/shelf_metal,
 /obj/effect/spawner/lootdrop/f13/weapon/gun/ammo/tier2,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/low,
 /turf/open/floor/plating/rust,
 /area/f13/citycaves)
 "edT" = (
@@ -7274,6 +7281,10 @@
 /obj/structure/destructible/tribal_torch/lit,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
 /area/f13/tunnel/sub)
+"kGr" = (
+/obj/machinery/workbench,
+/turf/open/floor/plating/rust,
+/area/f13/citycaves)
 "kHv" = (
 /obj/structure/fence/corner/wooden,
 /obj/effect/overlay/water{
@@ -56075,7 +56086,7 @@ tzC
 rJX
 rJX
 rJX
-tzC
+tQi
 oSq
 laI
 czE
@@ -56329,10 +56340,10 @@ rJX
 rJX
 rJX
 tzC
-wYq
+duB
 bCK
-rJX
-tQi
+kGr
+tzC
 laI
 laI
 czE
