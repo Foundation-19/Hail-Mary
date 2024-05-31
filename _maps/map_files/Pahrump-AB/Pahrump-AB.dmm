@@ -39373,6 +39373,12 @@
 	icon_state = "floorrusty"
 	},
 /area/f13/building)
+"jYS" = (
+/obj/machinery/smartfridge/bottlerack/grownbin,
+/turf/open/indestructible/ground/outside/desert/sonora/rough{
+	icon_state = "desertcracked4"
+	},
+/area/f13/wasteland)
 "jZg" = (
 /obj/structure/window/fulltile/house{
 	icon_state = "housewindowbroken"
@@ -128742,7 +128748,7 @@ xWo
 aii
 vaD
 ejT
-uWK
+jYS
 pYM
 ohp
 cwV
