@@ -20416,6 +20416,10 @@
 	icon_state = "outerbordercorner"
 	},
 /area/f13/building)
+"cpU" = (
+/obj/effect/landmark/start/f13/secretary,
+/turf/open/floor/f13/wood,
+/area/f13/city)
 "cpV" = (
 /obj/structure/fence,
 /turf/open/indestructible/ground/outside/sidewalk{
@@ -95260,7 +95264,7 @@ xhd
 jeh
 iht
 yco
-jeh
+cpU
 tQn
 iht
 aiO

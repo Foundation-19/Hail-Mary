@@ -350,6 +350,8 @@
 	if(HAS_TRAIT(user, TRAIT_FREERUNNING))
 		if(user.restrained())
 			return
+		if(get_dist	(user,	src)	>	1)
+			return
 		var/turf/aboveT = get_step_multiz(get_turf(user), UP)
 		if(!istype(aboveT, /turf/open/transparent/openspace))
 			to_chat(user, "You can't climb there, there is a ceiling!")
