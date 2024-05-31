@@ -69021,10 +69021,6 @@
 	icon_state = "reddirtyfull"
 	},
 /area/f13/city)
-"wpt" = (
-/obj/item/reagent_containers/food/snacks/meat/slab,
-/turf/closed/mineral/random/low_chance,
-/area/f13/caves)
 "wpv" = (
 /obj/structure/flora/grass/jungle/b,
 /turf/open/indestructible/ground/outside/dirt,
@@ -105893,7 +105889,7 @@ aaa
 (126,1,1) = {"
 aaa
 aaa
-wpt
+aae
 aak
 aak
 aae
