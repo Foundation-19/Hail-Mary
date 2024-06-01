@@ -287,8 +287,8 @@ Mayor
 	title = "Servant workers of town"
 	flag = F13BALTIMOREFARMER
 	department_flag = DEP_LOCUST
-	total_positions = 6
-	spawn_positions = 6
+	total_positions = -1
+	spawn_positions = -1
 	supervisors = "Dockmaster, Portcouncelor, Shopclercs, bartender, even citizens..."
 	description = "A case of... voluntary service, where you get paid next to nothing to live in a relatively safe town. You are the very lowest point in the social hierachy. Not totaly and legaly a slave, since you have some form of freedom of movement... If it ain't too far from town."
 	enforces = "You are under control of local governance, and you are expected to produce food or be used in labor task. If you try to flee away, the police can try to get you back."
@@ -802,8 +802,8 @@ Mayor
 	title = "Dealmaker Shopclerc"
 	flag = F13BALTIMORESHOPCLERC
 	department_flag = DEP_LOCUST
-	total_positions = 2
-	spawn_positions = 2
+	total_positions = 3
+	spawn_positions = 3
 	supervisors = "the free market and locust point's laws"
 	description = "Welcome onboard the Dealmaker. Your task is to main the shop. Resupply is a job for the servants, but you can get the deal down. You can also craft guns."
 	enforces = "The Locust Point store is part of your workplace, but it is not your workplace alone. You should try work with the other trade workers to try and turn a profit."
