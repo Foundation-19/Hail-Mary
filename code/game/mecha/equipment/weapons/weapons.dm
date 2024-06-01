@@ -477,7 +477,7 @@
 	log_game("[key_name(chassis.occupant)] fired a [src] in [AREACOORD(T)]")
 	if(istype(ammo, /obj/item/grenade/))
 		var/obj/item/grenade/payload = ammo
-		addtimer(CALLBACK(payload, TYPE_PROC_REF(/obj/item/grenade, prime), det_time))
+		addtimer(CALLBACK(payload, TYPE_PROC_REF(/obj/item/grenade, prime)), det_time)
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/launcher/anykind/attackby(obj/item/W, mob/user, params)
 	if(open)
