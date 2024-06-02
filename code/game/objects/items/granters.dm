@@ -1043,9 +1043,7 @@
 	granted_trait = TRAIT_EXPLOSIVE_CRAFTING
 	traitname = "explosive crafting"
 	remarks = list("If you want to get started making bombs, you're going to need a lot of igniters and black powder.", "Did a Follower write this book, or something?", "All thermite takes is some aluminum and iron.", "Coconut shells make acceptable grenade casings in a pinch.")
-	crafting_recipe_types = list(/datum/crafting_recipe/frag_shrapnel, /datum/crafting_recipe/stinger, /datum/crafting_recipe/flashbang,
-	/datum/crafting_recipe/smokebomb, /datum/crafting_recipe/explosive/shrapnelmine, /datum/crafting_recipe/explosive/stingmine, /datum/crafting_recipe/explosive/stunmine,
- 	/datum/crafting_recipe/rocket_base, /datum/crafting_recipe/weakrocket)
+	crafting_recipe_types = list(/datum/crafting_recipe/frag_shrapnel, /datum/crafting_recipe/stinger, /datum/crafting_recipe/flashbang, /datum/crafting_recipe/smokebomb, /datum/crafting_recipe/explosive/shrapnelmine, /datum/crafting_recipe/explosive/stingmine, /datum/crafting_recipe/explosive/stunmine, /datum/crafting_recipe/rocket_base, /datum/crafting_recipe/weakrocket)
 
 /obj/item/book/granter/trait/explosives_advanced
 	name = "Advanced Techniques for Winning at Postal Chess"
@@ -1054,8 +1052,7 @@
 	granted_trait = TRAIT_ADVANCED_EXPLOSIVE_CRAFTING
 	traitname = "advanced explosive crafting"
 	remarks = list("Is this actually a legal chess move...?", "If you hook electronic parts up to a flux capacitor-oh, that makes a lot of sense, actually.", "Radium? What would you use radium f-oh no.", "Why would anyone actually publish this?")
-	crafting_recipe_types = list(/datum/crafting_recipe/incendiary, /datum/crafting_recipe/concussion, /datum/crafting_recipe/radgrenade, /datum/crafting_recipe/empgrenade, /datum/crafting_recipe/incendiaryrocket, /datum/crafting_recipe/strongrocket, /datum/crafting_recipe/frag_shrapnel, /datum/crafting_recipe/stinger, /datum/crafting_recipe/flashbang,
-/datum/crafting_recipe/smokebomb, /datum/crafting_recipe/explosive/shrapnelmine, /datum/crafting_recipe/explosive/stingmine, /datum/crafting_recipe/explosive/stunmine, /datum/crafting_recipe/explosive/pulsemine, /datum/crafting_recipe/explosive/explomine, /datum/crafting_recipe/rocket_base, /datum/crafting_recipe/weakrocket)
+	crafting_recipe_types = list(/datum/crafting_recipe/incendiary, /datum/crafting_recipe/concussion, /datum/crafting_recipe/radgrenade, /datum/crafting_recipe/empgrenade, /datum/crafting_recipe/incendiaryrocket, /datum/crafting_recipe/strongrocket, /datum/crafting_recipe/frag_shrapnel, /datum/crafting_recipe/stinger, /datum/crafting_recipe/flashbang, /datum/crafting_recipe/smokebomb, /datum/crafting_recipe/explosive/shrapnelmine, /datum/crafting_recipe/explosive/stingmine, /datum/crafting_recipe/explosive/stunmine, /datum/crafting_recipe/explosive/pulsemine, /datum/crafting_recipe/explosive/explomine, /datum/crafting_recipe/rocket_base, /datum/crafting_recipe/weakrocket)
 
 /obj/item/book/granter/trait/gunslinger
 	name = "Tycho: Life of a Lawman"
