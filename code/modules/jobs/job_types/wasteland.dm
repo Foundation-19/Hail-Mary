@@ -1415,7 +1415,7 @@ Raider
 		/obj/item/storage/box/holy/hospitaller = 1,
 		/obj/item/melee/coyote/mauler = 1,
 		/obj/item/restraints/legcuffs/bola/tactical = 3
-	)
+		)
 
 /datum/outfit/loadout/samaritan
 	name = "Samaritan"
@@ -1427,7 +1427,7 @@ Raider
 		/obj/item/gun/energy/laser/wattz/sacred = 1,
 		/obj/item/stock_parts/cell/ammo/ec = 2,
 		/obj/item/storage/box/medicine/stimpaks/stimpaks5 = 2
-    )	
+		)	
     
 		//Matthew 14:17 RSVCE and KJV - Kitsunemitsu
 			//Nerd shit, wataur time. ~TK
@@ -1450,7 +1450,7 @@ Raider
 		/obj/item/gun/ballistic/automatic/pistol/m1911/custom = 1,
 		/obj/item/ammo_box/magazine/m45 = 5,
 		/obj/item/clothing/suit/armor/medium/vest/bulletproof = 1
-	)
+		)
 
 /datum/outfit/loadout/zealot
 	name = "Zealot"
@@ -1458,7 +1458,7 @@ Raider
 		/obj/item/clothing/head/helmet/f13/ncr/rangercombat/zealot = 1,
 		/obj/item/clothing/suit/armor/medium/duster/zealot = 1,
 		/obj/item/gun/ballistic/shotgun/automatic/combat/auto5/sacred = 1
-	)
+		)
 
 /datum/job/wasteland/f13preacher/after_spawn(mob/living/H, mob/M)
 	. = ..()
