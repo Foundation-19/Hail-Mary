@@ -964,8 +964,8 @@
 /obj/item/gun/ballistic/automatic/combat
 	name = "American Commonwealth Carbine"
 	desc = "A .45 semi-automatic combat carbine, produced pre-war for National Guard forces."
-	icon = 'icons/obj/guns/projectile.dmi'
-	icon_state = "c_rifle"
+	icon = 'icons/fallout/objects/guns/AMERICAN_COMMONWEALTH_CARBINE.dmi'
+	icon_state = "combat_rifle"
 	item_state = "combatrifle"
 	icon_prefix = "combatrifle"
 	mag_type = /obj/item/ammo_box/magazine/tommygunm45/stick

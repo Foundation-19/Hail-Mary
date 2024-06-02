@@ -1427,7 +1427,9 @@ Raider
 		/obj/item/gun/energy/laser/wattz/sacred = 1,
 		/obj/item/stock_parts/cell/ammo/ec = 2,
 		/obj/item/storage/box/medicine/stimpaks/stimpaks5 = 2
-	)	//Matthew 14:17 RSVCE and KJV - Kitsunemitsu
+    )	
+    
+		//Matthew 14:17 RSVCE and KJV - Kitsunemitsu
 			//Nerd shit, wataur time. ~TK
 				//Wataur is forbidden. - Yuffels
 					//Both of you need to be reduced to ash. No more furry shit. - Hangyul
@@ -1457,7 +1459,6 @@ Raider
 		/obj/item/clothing/suit/armor/medium/duster/zealot = 1,
 		/obj/item/gun/ballistic/shotgun/automatic/combat/auto5/sacred = 1
 	)
-
 
 /datum/job/wasteland/f13preacher/after_spawn(mob/living/H, mob/M)
 	. = ..()
