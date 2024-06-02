@@ -903,7 +903,7 @@ obj/item/melee/unarmed/punchdagger/cyborg
 	icon_state = "entrenching_tool"
 	item_state = "trench"
 	w_class = WEIGHT_CLASS_NORMAL
-	force = 30
+	force = 35
 	throwforce = 15
 	toolspeed = 0.7
 	sharpness = SHARP_EDGED

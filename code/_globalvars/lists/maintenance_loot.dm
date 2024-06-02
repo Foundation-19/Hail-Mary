@@ -254,11 +254,10 @@ GLOBAL_LIST_INIT(trash_gun, list(
 	/obj/item/melee/onehanded/machete/scrapsabre = 5,
 	/obj/item/melee/onehanded/knife/cosmicdirty = 5,
 	/obj/item/melee/onehanded/club/tireiron = 10,
-	/obj/item/twohanded/fireaxe/bmprsword = 5,
+	/obj/item/twohanded/fireaxe/bmprsword = 1,
 	/obj/item/melee/onehanded/club = 10,
 	/obj/item/twohanded/spear/scrapspear = 10,
 	/obj/item/melee/unarmed/lacerator = 5,
-	/obj/item/shishkebabpack = 1
 ))
 
 GLOBAL_LIST_INIT(trash_money, list(

@@ -1701,11 +1701,13 @@
 	name = "Glock 86A Plasma Pistol"
 	result = /obj/item/gun/energy/laser/plasma/glock/extended
 	reqs = list(/obj/item/gun/energy/laser/plasma/glock = 1,
-				/obj/item/stack/crafting/metalparts = 3,
-				/obj/item/stack/sheet/metal = 1,
-				/obj/item/stack/crafting/electronicparts = 3)
+				/obj/item/stack/crafting/metalparts = 5,
+				/obj/item/stack/sheet/metal = 5,
+				/obj/item/advanced_crafting_components/conductors = 1,
+				/obj/item/advanced_crafting_components/lenses = 1,
+				/obj/item/stack/crafting/electronicparts = 15)
 	tools = list(TOOL_AWORKBENCH)
-	time = 120
+	time = 130
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
 

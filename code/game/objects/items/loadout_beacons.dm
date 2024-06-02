@@ -817,10 +817,6 @@ GLOBAL_LIST_EMPTY(loadout_boxes)
 /obj/item/storage/box/gun/melee/pitchfork/PopulateContents()
 	new /obj/item/pitchfork(src)
 
-/obj/item/storage/box/gun/melee/chainsaw
-	name = "chainsaw case"
-	w_class = WEIGHT_CLASS_BULKY
-
 /obj/item/storage/box/gun/melee/chainsaw/PopulateContents()
 	new /obj/item/twohanded/chainsaw(src)
 
@@ -859,9 +855,6 @@ GLOBAL_LIST_EMPTY(loadout_boxes)
 
 /obj/item/storage/box/gun/melee/oldkanobo/PopulateContents()
 	new /obj/item/melee/coyote/oldkanobo(src)
-
-/obj/item/storage/box/gun/melee/mauler/PopulateContents()
-	new /obj/item/melee/coyote/mauler(src)
 
 /obj/item/storage/box/gun/melee/club/PopulateContents()
 	new /obj/item/melee/coyote/club(src)
@@ -1217,18 +1210,6 @@ GLOBAL_LIST_EMPTY(loadout_boxes)
 /obj/item/storage/box/gun/tribal/forgedmachete/PopulateContents()
 	new /obj/item/melee/onehanded/machete/forgedmachete(src)
 
-/obj/item/storage/box/gun/tribal/bmprsword
-	name = "bumpersword case"
-
-/obj/item/storage/box/gun/tribal/bmprsword/PopulateContents()
-	new /obj/item/twohanded/fireaxe/bmprsword(src)
-
-/obj/item/storage/box/gun/tribal/warmace
-	name = "warmace case"
-
-/obj/item/storage/box/gun/tribal/warmace/PopulateContents()
-	new /obj/item/twohanded/sledgehammer/warmace(src)
-
 /obj/item/storage/box/gun/tribal/spearquiver
 	name = "spear quiver case"
 
@@ -1309,6 +1290,13 @@ GLOBAL_LIST_EMPTY(loadout_boxes)
 	new /obj/item/gun/energy/laser/pistol/worn(src)
 	new /obj/item/stock_parts/cell/ammo/ec(src)
 
+/obj/item/storage/box/gun/energy/wornplasmapistol
+	name = "worn Plasma Pistol case"
+
+/obj/item/storage/box/gun/energy/wornplasmapistol/PopulateContents()
+	new /obj/item/gun/energy/laser/plasma/pistol/worn(src)
+	new /obj/item/stock_parts/cell/ammo/ec(src)
+
 /obj/item/choice_beacon/box/gun //template for sprites
 	name = "weapon case"
 	desc = "a sturdy case keeping your weapon of choice safe until you pop it open."
@@ -1369,6 +1357,12 @@ GLOBAL_LIST_EMPTY(loadout_boxes)
 	entry_flags = LOADOUT_FLAG_WASTER
 	entry_class = LOADOUT_CAT_ENERGY
 	spawn_thing = /obj/item/storage/box/gun/energy/wornaep7
+
+/datum/loadout_box/wornplasmapistol
+	entry_tag = "Worn Plasma Pistol"
+	entry_flags = LOADOUT_FLAG_WASTER
+	entry_class = LOADOUT_CAT_ENERGY
+	spawn_thing = /obj/item/storage/box/gun/energy/wornplasmapistol
 
 /// Fancyguns
 
@@ -1888,12 +1882,6 @@ GLOBAL_LIST_EMPTY(loadout_boxes)
 	entry_class = LOADOUT_CAT_MELEE_TWO
 	spawn_thing = /obj/item/storage/box/gun/melee/pitchfork
 
-/datum/loadout_box/chainsaw
-	entry_tag = "Chainsaw"
-	entry_flags = LOADOUT_FLAG_WASTER
-	entry_class = LOADOUT_CAT_MELEE_TWO
-	spawn_thing = /obj/item/storage/box/gun/melee/chainsaw
-
 /datum/loadout_box/oldclaymore //FOR SCOTLAND
 	entry_tag = "Old Claymore"
 	entry_flags = LOADOUT_FLAG_WASTER
@@ -1947,12 +1935,6 @@ GLOBAL_LIST_EMPTY(loadout_boxes)
 	entry_flags = LOADOUT_FLAG_WASTER
 	entry_class = LOADOUT_CAT_MELEE_TWO
 	spawn_thing = /obj/item/melee/coyote/crudeblade
-
-/datum/loadout_box/mauler
-	entry_tag = "Mauler"
-	entry_flags = LOADOUT_FLAG_WASTER
-	entry_class = LOADOUT_CAT_MELEE_TWO
-	spawn_thing = /obj/item/melee/coyote/mauler
 
 /datum/loadout_box/club
 	entry_tag = "Club"
@@ -2034,18 +2016,6 @@ GLOBAL_LIST_EMPTY(loadout_boxes)
 	entry_class = LOADOUT_CAT_MELEE_ONE
 	spawn_thing = /obj/item/storage/box/gun/tribal/forgedmachete
 
-/datum/loadout_box/bmprsword
-	entry_tag = "Bumper Sword"
-	entry_flags = LOADOUT_FLAG_TRIBAL
-	entry_class = LOADOUT_CAT_MELEE_TWO
-	spawn_thing = /obj/item/storage/box/gun/tribal/bmprsword
-
-/datum/loadout_box/warmace
-	entry_tag = "Warmace"
-	entry_flags = LOADOUT_FLAG_TRIBAL
-	entry_class = LOADOUT_CAT_MELEE_TWO
-	spawn_thing = /obj/item/storage/box/gun/tribal/warmace
-
 /datum/loadout_box/spear_quiver
 	entry_tag = "Spear Quiver"
 	entry_flags = LOADOUT_FLAG_TRIBAL
@@ -2079,14 +2049,6 @@ GLOBAL_LIST_EMPTY(loadout_boxes)
 	entry_class = LOADOUT_CAT_BOW
 	spawn_thing = /obj/item/storage/box/gun/bow/crossbow
 */
-
-/// Preacher Stuff
-
-/datum/loadout_box/nullrod
-	entry_tag = "Spiritual Device"
-	entry_flags = LOADOUT_FLAG_PREACHER
-	entry_class = LOADOUT_CAT_NULLROD
-	spawn_thing = /obj/item/storage/box/gun/preacher/nullrod
 
 /// misc Stuff
 

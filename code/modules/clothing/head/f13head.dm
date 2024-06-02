@@ -750,6 +750,14 @@
 	icon_state = "price_ranger"
 	item_state = "price_ranger"
 
+/obj/item/clothing/head/helmet/f13/ncr/rangercombat/zealot
+	name = "Zealot's Mask"
+	desc = "Dominus illuminatio mea"
+	icon_state = "zealot_ranger"
+	item_state = "zealot_ranger"
+	mob_overlay_icon = 'icons/fallout/onmob/clothes/head.dmi'
+	icon = 'icons/fallout/onmob/clothes/head.dmi'
+
 /obj/item/clothing/head/helmet/f13/ncr/rangercombat/foxcustom
 	name = "reclaimed ranger-hunter combat helmet"
 	desc = "A reclaimed Ranger-Hunter centurion helmet, carefully and lovingly restored to working condition with a sniper's veil wrapped around the neck. 'DE OPPRESSO LIBER' is stenciled on the front."

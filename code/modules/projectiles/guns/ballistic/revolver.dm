@@ -493,6 +493,7 @@
 	init_recoil = HANDGUN_RECOIL(1.2)
 	gun_accuracy_zone_type = ZONE_WEIGHT_PRECISION
 	can_scope = TRUE
+	zoom_factor = 1
 	scope_state = "revolver_scope"
 	scope_x_offset = 9
 	scope_y_offset = 20

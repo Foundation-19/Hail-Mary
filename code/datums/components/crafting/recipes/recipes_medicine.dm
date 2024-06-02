@@ -113,8 +113,7 @@
 /datum/crafting_recipe/bitterdrink5
 	name = "Batch of bitterdrink (x5)"
 	result = /obj/item/storage/box/medicine/bitterdrink5
-	reqs = list(/datum/reagent/medicine/bitter_drink = 25,
-				/obj/item/reagent_containers/food/drinks = 5)
+	reqs = list(/datum/reagent/medicine/bitter_drink = 25)
 	tools = list(TOOL_ALCHEMY_TABLE)
 	time = 20
 	category = CAT_MEDICAL
@@ -200,7 +199,7 @@
 /datum/crafting_recipe/stimpak/chemistry // Purely chemistry recipe
 	name = "Stimpak (from chems)"
 	result = /obj/item/reagent_containers/hypospray/medipen/stimpak
-	reqs = list(/datum/reagent/medicine/stimpak = 20,
+	reqs = list(/datum/reagent/medicine/stimpak = 15,
 				/obj/item/reagent_containers/syringe = 1)
 	tools = list(TOOL_CHEMMASTER)
 	time = 10
@@ -221,7 +220,7 @@
 /datum/crafting_recipe/stimpak5/chemistry // Purely chemistry recipe
 	name = "Stimpak x5 (from chems)"
 	result = /obj/item/storage/box/medicine/stimpaks/stimpaks5
-	reqs = list(/datum/reagent/medicine/stimpak = 100,
+	reqs = list(/datum/reagent/medicine/stimpak = 75,
 				/obj/item/reagent_containers/syringe = 5)
 	tools = list(TOOL_CHEMMASTER)
 	time = 20

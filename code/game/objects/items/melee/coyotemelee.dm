@@ -238,7 +238,7 @@
 	flags_1 = CONDUCT_1
 	slot_flags = ITEM_SLOT_BACK
 	force = 10 //Needs to be wielded
-	force_wielded = 65
+	force_wielded = 60
 	throwforce = 25
 	wound_bonus = 20
 	bare_wound_bonus = 10

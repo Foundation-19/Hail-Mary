@@ -549,7 +549,7 @@
 /obj/item/projectile/bullet/a308
 	name = ".308 bullet"
 	damage = BULLET_DAMAGE_RIFLE_308
-	armour_penetration = 0.2
+	armour_penetration = 0.3
 	stamina = BULLET_STAMINA_RIFLE_308
 	spread = BULLET_SPREAD_SURPLUS
 	recoil = BULLET_RECOIL_RIFLE_308
@@ -654,7 +654,7 @@
 /obj/item/projectile/bullet/a3006
 	name = ".30-06 bullet"
 	damage = BULLET_DAMAGE_RIFLE_3006
-	armour_penetration = 0.3
+	armour_penetration = 0.4
 	stamina = BULLET_STAMINA_RIFLE_3006
 	spread = BULLET_SPREAD_SURPLUS
 	recoil = BULLET_RECOIL_RIFLE_3006

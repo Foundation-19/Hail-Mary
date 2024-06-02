@@ -160,14 +160,14 @@
 	REMOVE_TRAIT(src, TRAIT_NODROP, SABRE_SUICIDE_TRAIT)
 
 /obj/item/melee/rapier
-	name = "plastitanium rapier"
-	desc = "A thin blade made of plastitanium with a diamond tip. It appears to be coated in a persistent layer of an unknown substance."
+	name = "titanium rapier"
+	desc = "A thin blade made of titanium with a diamond tip. It appears to be coated in a persistent layer of an unknown substance."
 	icon = 'icons/obj/items_and_weapons.dmi'
 	icon_state = "rapier"
 	item_state = "rapier"
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
-	force = 15
+	force = 25
 	throwforce = 25
 	armour_penetration = 1
 	flags_1 = CONDUCT_1

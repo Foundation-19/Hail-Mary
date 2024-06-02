@@ -99,12 +99,11 @@
 	/obj/item/melee/onehanded/machete/scrapsabre = 10,
 	/obj/item/melee/onehanded/knife/cosmicdirty = 5,
 	/obj/item/melee/onehanded/club/tireiron = 10,
-	/obj/item/twohanded/fireaxe/bmprsword = 5,
+	/obj/item/twohanded/fireaxe/bmprsword = 1,
 	/obj/item/melee/onehanded/club = 10,
 	/obj/item/twohanded/spear/scrapspear = 10,
 	/obj/item/gun/ballistic/automatic/hobo/destroyer = 1,
 	/obj/item/melee/unarmed/lacerator = 10,
-	/obj/item/shishkebabpack = 5,
 	/obj/item/gun/ballistic/automatic/smg/mini_uzi/rockwell = 10,
 )
 

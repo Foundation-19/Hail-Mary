@@ -1379,7 +1379,8 @@ Raider
 	/datum/outfit/loadout/crusader, 	//This is kinda a given. You bet.
 	/datum/outfit/loadout/samaritan, 	//Water and food to share with the wastes.
 	/datum/outfit/loadout/cleanser,		//Just some bombs.
-	/datum/outfit/loadout/newcanaan		//10 M1911s for the funny gun table.
+	/datum/outfit/loadout/newcanaan,	//10 M1911s for the funny gun table.
+	/datum/outfit/loadout/zealot
 	)
 
 	access = list()		//we can expand on this and make alterations as people suggest different loadouts
@@ -1410,9 +1411,10 @@ Raider
 /datum/outfit/loadout/crusader
 	name = "Crusader"
 	backpack_contents = list(
-		/obj/item/clothing/suit/armor/light/knight = 1,
-		/obj/item/clothing/head/helmet/f13/knighthelmet = 1,
 		///obj/item/melee/onehanded/machete = 1,
+		/obj/item/storage/box/holy/hospitaller = 1,
+		/obj/item/melee/coyote/mauler = 1,
+		/obj/item/restraints/legcuffs/bola/tactical = 3
 	)
 
 /datum/outfit/loadout/samaritan
@@ -1421,6 +1423,10 @@ Raider
 		/obj/item/reagent_containers/food/snacks/store/bread/plain = 5,
 		/obj/item/reagent_containers/food/snacks/fishmeat/salmon = 2,
 		/obj/item/reagent_containers/glass/beaker/waterbottle = 2,
+		/obj/item/storage/box/holy/follower = 1,
+		/obj/item/gun/energy/laser/wattz/sacred = 1,
+		/obj/item/stock_parts/cell/ammo/ec = 2,
+		/obj/item/storage/box/medicine/stimpaks/stimpaks5 = 2
 	)	//Matthew 14:17 RSVCE and KJV - Kitsunemitsu
 			//Nerd shit, wataur time. ~TK
 				//Wataur is forbidden. - Yuffels
@@ -1429,15 +1435,27 @@ Raider
 /datum/outfit/loadout/cleanser
 	name = "Cleanser"
 	backpack_contents = list(
-		/obj/item/grenade/homemade/coffeepotbomb = 2,	//This is funny. I swear guys.
-		///obj/item/gun/ballistic/revolver/m29 = 1,		//Moved here for more *variety*
-		///obj/item/ammo_box/m44 = 2
+		/obj/item/grenade/chem_grenade/holy = 10,
+		/obj/item/gun/flintlock/musketoon = 1,
+		/obj/item/ammo_box/flintlock = 1,
+		/obj/item/storage/box/holy/witchhunter = 1
 	)
 
 /datum/outfit/loadout/newcanaan
 	name = "New Canaanite"
 	backpack_contents = list(
-		/obj/item/gun/ballistic/automatic/pistol/m1911 = 10	//We can't expect God to do all the work.
+		/obj/item/gun/ballistic/automatic/pistol/m1911 = 10,	//We can't expect God to do all the work
+		/obj/item/gun/ballistic/automatic/pistol/m1911/custom = 1,
+		/obj/item/ammo_box/magazine/m45 = 5,
+		/obj/item/clothing/suit/armor/medium/vest/bulletproof = 1
+	)
+
+/datum/outfit/loadout/zealot
+	name = "Zealot"
+	backpack_contents = list(
+		/obj/item/clothing/head/helmet/f13/ncr/rangercombat/zealot = 1,
+		/obj/item/clothing/suit/armor/medium/duster/zealot = 1,
+		/obj/item/gun/ballistic/shotgun/automatic/combat/auto5/sacred = 1
 	)
 
 
@@ -1539,7 +1557,6 @@ Raider
 	jobtype = /datum/job/wasteland/f13preacher
 
 	id = /obj/item/card/id/dogtag/town
-	belt = /obj/item/kit_spawner/preacher
 	uniform = 		/obj/item/clothing/under/f13/chaplain
 	gloves =		/obj/item/clothing/gloves/fingerless
 	shoes = 		/obj/item/clothing/shoes/jackboots

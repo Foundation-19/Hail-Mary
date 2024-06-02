@@ -44,7 +44,7 @@
 	icon_prefix = "legionaxe"
 	force = 30
 	throwforce = 15
-	wound_bonus = 10
+	wound_bonus = 20
 	bare_wound_bonus = 10
 	sharpness = SHARP_EDGED
 	resistance_flags = FIRE_PROOF
@@ -52,7 +52,7 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	wielded_icon = "legionaxe2"
 	force_unwielded = 30
-	force_wielded = 65
+	force_wielded = 50
 	attack_speed = CLICK_CD_MELEE * 1.3  //10.4
 
 /obj/item/twohanded/legionaxe/ComponentInitialize()
@@ -88,7 +88,7 @@
 	icon_prefix = "fireaxe"
 	force = 28
 	throwforce = 15
-	wound_bonus = 10
+	wound_bonus = 15
 	bare_wound_bonus = 10
 	sharpness = SHARP_EDGED
 	resistance_flags = FIRE_PROOF
@@ -96,7 +96,7 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	wielded_icon = "fireaxe2"
 	force_unwielded = 28
-	force_wielded = 55
+	force_wielded = 43
 	attack_speed = CLICK_CD_MELEE * 1.25 //10
 
 /obj/item/twohanded/fireaxe/ComponentInitialize()
@@ -160,7 +160,9 @@
 	desc = "It was too big to be called a sword. Massive, thick, heavy, and far too rough. Indeed, it was more like a heap of raw iron."
 	icon_prefix = "bumper"
 	icon_state = "bumper"
-	wound_bonus = null
+	force_unwielded = 25
+	force_wielded = 48
+	wound_bonus = 10
 	sharpness = SHARP_EDGED
 	resistance_flags = null
 	wielded_icon = "bumper2"
@@ -191,7 +193,7 @@
 	icon_state = "spear-metal"
 	icon_prefix = "spear-metal"
 	force = 13
-	throwforce = 30
+	throwforce = 40
 	throw_speed = 4
 	embedding = list("embed_chance" = 0)
 	max_reach = 2
@@ -204,7 +206,7 @@
 	bare_wound_bonus = 15
 	wielded_icon = "spear-metal2"
 	force_unwielded = 13
-	force_wielded = 32
+	force_wielded = 35
 	var/obj/item/grenade/explosive = null
 	var/war_cry = "AAAAARGH!!!"
 
@@ -293,7 +295,7 @@
 	wielded_icon = "spear-lance2"
 	force = 25
 	force_unwielded = 25
-	force_wielded = 40
+	force_wielded = 42
 
 // Scrap spear		Keywords: Damage 17/28, Reach, Throw bonus
 /obj/item/twohanded/spear/scrapspear
@@ -393,11 +395,11 @@
 	icon_prefix = "baseballspike"
 	force = 26
 	throwforce = 15
-	wound_bonus = 5
+	wound_bonus = 10
 	sharpness = SHARP_POINTY
 	wielded_icon = "baseballspike2"
 	force_unwielded = 26
-	force_wielded = 40
+	force_wielded = 39
 
 /obj/item/twohanded/baseball/spiked/attack(mob/living/M, mob/living/user)
 	. = ..()
@@ -433,7 +435,7 @@
 	wielded_icon = "golfclub2"
 	force = 22
 	force_unwielded = 22
-	force_wielded = 32
+	force_wielded = 35
 
 /obj/item/twohanded/baseball/golfclub/attack(mob/living/M, mob/living/user)
 	. = ..()
@@ -470,7 +472,7 @@
 	icon_prefix = "hammer-sledge"
 	var/qualitymod = 0
 	wielded_icon = "hammer-sledge2"
-	force_wielded = 65
+	force_wielded = 45
 
 /obj/item/twohanded/sledgehammer/simple/afterattack(atom/A, mob/living/user, proximity)
 	. = ..()
@@ -505,7 +507,7 @@
 	hitsound = 'sound/items/welder2.ogg'
 	wielded_icon = "thermiclance2"
 	force_unwielded = 5
-	force_wielded = 69
+	force_wielded = 65
 
 /obj/item/twohanded/thermic_lance/afterattack(atom/A, mob/living/user, proximity)
 	. = ..()
@@ -567,7 +569,7 @@
 	force = 25
 	wielded_icon = "hammer-super2"
 	force_unwielded = 25
-	force_wielded = 68
+	force_wielded = 56
 
 /obj/item/twohanded/sledgehammer/supersledge/afterattack(atom/A, mob/living/user, proximity)
 	. = ..()
@@ -600,7 +602,7 @@
 	var/sound = "sound/f13effects/explosion_distant_2.ogg"
 	wielded_icon = "hammer-rocket2"
 	force_unwielded = 20
-	force_wielded = 56
+	force_wielded = 60
 
 /obj/item/twohanded/sledgehammer/rockethammer/ComponentInitialize()
 	. = ..()
@@ -668,11 +670,11 @@
 	icon_prefix = "hammer-war"
 	force = 25
 	throwforce = 20
-	armour_penetration = 0.2
+	armour_penetration = 0.1
 	attack_verb = list("bashed", "pounded", "bludgeoned", "pummeled", "thrashed")
 	wielded_icon = "hammer-war2"
 	force_unwielded = 34
-	force_wielded = 55
+	force_wielded = 48
 	attack_speed = CLICK_CD_MELEE
 
 // Shaman staff				Keywords: Damage 15/30, Big stamina damage buff
@@ -747,7 +749,7 @@
 	hitsound = 'sound/weapons/chainsawhit.ogg'
 	wielded_icon = "chainsaw2"
 	force_unwielded = 8
-	force_wielded = 55
+	force_wielded = 51
 
 /obj/item/twohanded/chainsaw/ComponentInitialize()
 	. = ..()

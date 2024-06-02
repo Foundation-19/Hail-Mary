@@ -443,14 +443,14 @@
 /obj/item/book/granter/martial/carp
 	martial = /datum/martial_art/the_sleeping_carp
 	name = "mysterious scroll"
-	martialname = "sleeping carp"
+	martialname = "iron wall"
 	desc = "A scroll filled with strange markings. It seems to be drawings of some sort of martial art."
-	greet = "<span class='sciradio'>You have learned the ancient martial art of the Sleeping Carp! Your hand-to-hand combat has become much more effective, and you are now able to deflect any projectiles \
+	greet = "<span class='sciradio'>You have learned the ancient martial art of the Iron Wall! Your hand-to-hand combat has become much more effective, and you are now able to deflect any projectiles \
 	directed toward you while in Throw Mode. Your body is also honed to protect you from damage and punctures, and even briefly survive space. \
-	However, you are also unable to use any ranged weaponry, and some medical supplies will prove useless to you. You can learn more about your newfound art by using the Recall Teachings verb in the Sleeping Carp tab.</span>"
+	However, you are also unable to use any ranged weaponry, and some medical supplies will prove useless to you. You can learn more about your newfound art by using the Recall Teachings verb in the Iron Wall tab.</span>"
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "scroll2"
-	remarks = list("Wait, a high protein diet is really all it takes to become bulletproof...?", "Overwhelming force, immovable object...", "Focus... And you'll be able to incapacitate any foe in seconds...", "I must pierce armor for maximum damage...", "I don't think this would combine with other martial arts...", "Become one with the carp...", "Glub...")
+	remarks = list("Wait, a high protein diet is really all it takes to become bulletproof...?", "Overwhelming force, immovable object...", "Focus... And you'll be able to overwhelm any foe in seconds...", "I never thought about just blocking the bullets...", "I don't think this would combine with other martial arts...", "Become one with my armor...", "Tink...")
 
 /obj/item/book/granter/martial/carp/onlearned(mob/living/carbon/user)
 	..()
@@ -1044,7 +1044,8 @@
 	traitname = "explosive crafting"
 	remarks = list("If you want to get started making bombs, you're going to need a lot of igniters and black powder.", "Did a Follower write this book, or something?", "All thermite takes is some aluminum and iron.", "Coconut shells make acceptable grenade casings in a pinch.")
 	crafting_recipe_types = list(/datum/crafting_recipe/frag_shrapnel, /datum/crafting_recipe/stinger, /datum/crafting_recipe/flashbang,
-/datum/crafting_recipe/smokebomb, /datum/crafting_recipe/rocket_base, /datum/crafting_recipe/weakrocket)
+	/datum/crafting_recipe/smokebomb, /datum/crafting_recipe/explosive/shrapnelmine, /datum/crafting_recipe/explosive/stingmine, /datum/crafting_recipe/explosive/stunmine,
+ 	/datum/crafting_recipe/rocket_base, /datum/crafting_recipe/weakrocket)
 
 /obj/item/book/granter/trait/explosives_advanced
 	name = "Advanced Techniques for Winning at Postal Chess"
@@ -1054,7 +1055,7 @@
 	traitname = "advanced explosive crafting"
 	remarks = list("Is this actually a legal chess move...?", "If you hook electronic parts up to a flux capacitor-oh, that makes a lot of sense, actually.", "Radium? What would you use radium f-oh no.", "Why would anyone actually publish this?")
 	crafting_recipe_types = list(/datum/crafting_recipe/incendiary, /datum/crafting_recipe/concussion, /datum/crafting_recipe/radgrenade, /datum/crafting_recipe/empgrenade, /datum/crafting_recipe/incendiaryrocket, /datum/crafting_recipe/strongrocket, /datum/crafting_recipe/frag_shrapnel, /datum/crafting_recipe/stinger, /datum/crafting_recipe/flashbang,
-/datum/crafting_recipe/smokebomb, /datum/crafting_recipe/rocket_base, /datum/crafting_recipe/weakrocket)
+/datum/crafting_recipe/smokebomb, /datum/crafting_recipe/explosive/shrapnelmine, /datum/crafting_recipe/explosive/stingmine, /datum/crafting_recipe/explosive/stunmine, /datum/crafting_recipe/explosive/pulsemine, /datum/crafting_recipe/explosive/explomine, /datum/crafting_recipe/rocket_base, /datum/crafting_recipe/weakrocket)
 
 /obj/item/book/granter/trait/gunslinger
 	name = "Tycho: Life of a Lawman"

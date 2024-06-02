@@ -497,6 +497,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		"NCR Colonel",
 		"NCR Captain",
 		"NCR Lieutenant",
+		"NCR Brahmin Baron",
 		)
 
 /obj/machinery/computer/card/legion
@@ -515,6 +516,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		"Legate",
 		"Legion Centurion",
 		"Legion Veteran Decanus",
+		"Legion Orator",
 		)
 
 /obj/machinery/computer/card/enclave

@@ -2521,6 +2521,7 @@
 /obj/structure/chair/office{
 	dir = 1
 	},
+/obj/effect/landmark/start/f13/orator,
 /turf/open/floor/wood_fancy,
 /area/f13/legion)
 "fgx" = (
@@ -10437,6 +10438,14 @@
 	icon_state = "greenrustychess"
 	},
 /area/f13/building/massfusion)
+"wKs" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/table/wood,
+/obj/item/card/id/dogtag/legrecruit,
+/obj/item/card/id/dogtag/legrecruit,
+/obj/item/card/id/dogtag/legrecruit,
+/turf/open/floor/wood_fancy,
+/area/f13/legion)
 "wLE" = (
 /obj/structure/campfire,
 /turf/open/indestructible/ground/inside/mountain,
@@ -74277,7 +74286,7 @@ oQP
 fxn
 qnx
 qTd
-qTd
+wKs
 rCg
 jxl
 oez

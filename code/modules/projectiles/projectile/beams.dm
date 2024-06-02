@@ -304,11 +304,11 @@
 	name = "plasma bolt"
 	icon_state = "plasma_clot"
 	damage_type = BURN
-	damage = 60
+	damage = 40
 	flag = "energy"
 	eyeblur = 0
 	is_reflectable = TRUE
-	pixels_per_second = TILES_TO_PIXELS(50)
+	pixels_per_second = TILES_TO_PIXELS(15)
 
 //Securitrons Beam
 /obj/item/projectile/beam/laser/pistol/ultraweak
@@ -613,7 +613,7 @@
 	light_color = LIGHT_COLOR_RED
 
 /obj/item/projectile/f13plasma/pistol/worn
-	damage = 30
+	damage = 33
 
 /obj/item/projectile/f13plasma/pistol/glock //Glock (streamlined plasma pistol)
 	damage = 40

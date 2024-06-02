@@ -2101,6 +2101,15 @@
 	icon_state = "hosbluejacket"
 	item_state = "hosbluejacket"
 
+/obj/item/clothing/suit/armor/medium/duster/zealot
+	name = "Zealot's Duster"
+	desc = "Dominus fortitudo nostra"
+	icon_state = "zealot_riot"
+	item_state = "zealot_riot"
+	mob_overlay_icon = 'icons/fallout/onmob/clothes/armor_medium.dmi'
+	icon = 'icons/fallout/onmob/clothes/armor_medium.dmi'
+	slowdown = ARMOR_SLOWDOWN_HEAVY * ARMOR_SLOWDOWN_LESS_T2 * ARMOR_SLOWDOWN_GLOBAL_MULT
+
 /obj/item/clothing/suit/armor/medium/duster/trenchcoat
 	name = "armored trenchcoat"
 	desc = "A trenchcoat enhanced with a special lightweight kevlar. The epitome of tactical plainclothes."
