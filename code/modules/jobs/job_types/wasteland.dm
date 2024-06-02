@@ -1406,8 +1406,6 @@ Raider
 		),
 	)
 
-
-
 /datum/outfit/loadout/crusader
 	name = "Crusader"
 	backpack_contents = list(
@@ -1416,7 +1414,7 @@ Raider
 		/obj/item/melee/coyote/mauler = 1,
 		/obj/item/restraints/legcuffs/bola/tactical = 3
 		)
-
+		
 /datum/outfit/loadout/samaritan
 	name = "Samaritan"
 	backpack_contents = list(
@@ -1427,12 +1425,11 @@ Raider
 		/obj/item/gun/energy/laser/wattz/sacred = 1,
 		/obj/item/stock_parts/cell/ammo/ec = 2,
 		/obj/item/storage/box/medicine/stimpaks/stimpaks5 = 2
-		)	
-    
+		)
 		//Matthew 14:17 RSVCE and KJV - Kitsunemitsu
 			//Nerd shit, wataur time. ~TK
 				//Wataur is forbidden. - Yuffels
-					//Both of you need to be reduced to ash. No more furry shit. - Hangyul
+					//Both of you need to be reduced to ash. No more furry shit. - Hangyul	
 
 /datum/outfit/loadout/cleanser
 	name = "Cleanser"
@@ -1441,7 +1438,7 @@ Raider
 		/obj/item/gun/flintlock/musketoon = 1,
 		/obj/item/ammo_box/flintlock = 1,
 		/obj/item/storage/box/holy/witchhunter = 1
-	)
+		)
 
 /datum/outfit/loadout/newcanaan
 	name = "New Canaanite"
