@@ -385,6 +385,11 @@
 	icon_state = "clockwork_floor"
 	},
 /area/f13/mountain_bunker)
+"aHF" = (
+/obj/structure/table/wood/poker,
+/obj/machinery/cell_charger,
+/turf/open/floor/carpet,
+/area/f13/building)
 "aJf" = (
 /obj/structure/rack/shelf_metal,
 /turf/open/floor/wood_common,
@@ -971,6 +976,10 @@
 	icon_state = "bluerustysolid"
 	},
 /area/f13/vault)
+"byo" = (
+/obj/machinery/cell_charger,
+/turf/open/floor/plating/f13/inside/gravel,
+/area/f13/citycaves)
 "byA" = (
 /obj/structure/chair/f13chair2{
 	dir = 4
@@ -1544,7 +1553,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/debris/v3,
+/obj/structure/barricade/wooden,
 /turf/open/floor/plating/rust,
 /area/f13/tunnel)
 "ctT" = (
@@ -2001,6 +2010,7 @@
 /obj/item/clothing/head/f13/chinese,
 /obj/item/clothing/suit/armor/medium/combat/chinese,
 /obj/effect/spawner/lootdrop/f13/weapon/combloc,
+/obj/machinery/cell_charger,
 /turf/open/floor/plasteel/f13/vault_floor/red/whiteredfull,
 /area/f13/mountain_bunker)
 "dbg" = (
@@ -3992,8 +4002,10 @@
 	},
 /area/f13/tunnel/sub)
 "gmD" = (
-/obj/machinery/door/airlock/public/glass,
 /obj/structure/barricade/wooden/planks,
+/obj/machinery/door/airlock/grunge/abandoned{
+	locked = 1
+	},
 /turf/open/floor/plasteel/f13/vault_floor/red/whiteredfull,
 /area/f13/vault)
 "gmG" = (
@@ -5649,6 +5661,7 @@
 /area/f13/mountain_bunker)
 "iyE" = (
 /obj/machinery/workbench/advanced,
+/obj/machinery/cell_charger,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "bluerustysolid"
 	},
@@ -7829,14 +7842,6 @@
 /obj/structure/curtain,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/tunnel/sub)
-"lvR" = (
-/obj/structure/debris/v3,
-/obj/structure/table/reinforced,
-/turf/open/indestructible/ground/outside/gravel{
-	name = "underground gravel";
-	sunlight_state = 0
-	},
-/area/f13/tunnel/sub)
 "lwg" = (
 /obj/structure/chair/wood/wings,
 /turf/open/floor/plating/f13/inside/gravel,
@@ -7847,6 +7852,11 @@
 	name = "underground gravel";
 	sunlight_state = 0
 	},
+/area/f13/tunnel/sub)
+"lwT" = (
+/obj/structure/disposalpipe/segment,
+/obj/structure/barricade/wooden,
+/turf/open/floor/plating/rust,
 /area/f13/tunnel/sub)
 "lxq" = (
 /obj/machinery/workbench/advanced,
@@ -8179,6 +8189,12 @@
 	icon_state = "common-broken2"
 	},
 /area/f13/building/tunnel)
+"maW" = (
+/obj/machinery/door/airlock/grunge/abandoned{
+	locked = 1
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/vault)
 "maX" = (
 /obj/machinery/light/small{
 	light_color = "#FF0000";
@@ -10101,13 +10117,6 @@
 	},
 /turf/open/floor/plating/rust,
 /area/f13/citycaves)
-"oQn" = (
-/obj/structure/debris/v4,
-/turf/open/indestructible/ground/outside/gravel{
-	name = "underground gravel";
-	sunlight_state = 0
-	},
-/area/f13/tunnel/sub)
 "oQx" = (
 /obj/structure/closet/crate/large{
 	pixel_y = 17;
@@ -10361,10 +10370,12 @@
 /area/f13/bunker)
 "phm" = (
 /obj/structure/table/reinforced/brass,
-/obj/item/storage/book/bible/syndicate,
 /obj/structure/table/wood/fancy/blackred,
 /obj/effect/spawner/lootdrop/f13/weapon/energy,
 /obj/effect/spawner/lootdrop/f13/armor/tier4,
+/obj/item/storage/book/bible{
+	icon_state = "necronomicon"
+	},
 /turf/open/floor/plasteel/cult,
 /area/f13/mountain_bunker)
 "pir" = (
@@ -11680,11 +11691,11 @@
 	},
 /area/f13/tunnel/sub)
 "rdI" = (
-/obj/item/stock_parts/cell/ammo/breeder,
-/obj/item/stock_parts/cell/ammo/breeder,
-/obj/item/stock_parts/cell/ammo/breeder,
-/obj/item/stock_parts/cell/ammo/breeder,
-/obj/item/stock_parts/cell/ammo/breeder,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/ammo/tier2,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/ammo/tier2,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/ammo/tier2,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/ammo/tier2,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/ammo/tier2,
 /turf/open/floor/plasteel/f13/vault_floor/red/whiteredfull,
 /area/f13/vault)
 "rdN" = (
@@ -13273,12 +13284,6 @@
 "tve" = (
 /turf/closed/wall/r_wall,
 /area/f13/tcoms)
-"tvj" = (
-/obj/structure/disposalpipe/segment,
-/obj/structure/simple_door/metal/ventilation,
-/obj/structure/debris/v4,
-/turf/open/floor/plating/rust,
-/area/f13/tunnel/sub)
 "txd" = (
 /obj/structure/table/reinforced,
 /obj/item/clothing/shoes/f13/swimfins,
@@ -13433,6 +13438,7 @@
 "tIo" = (
 /obj/structure/table/booth,
 /obj/effect/spawner/lootdrop/f13/weapon/melee/tier3,
+/obj/machinery/cell_charger,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
 /area/f13/citycaves)
 "tIN" = (
@@ -13874,6 +13880,14 @@
 	dir = 10
 	},
 /area/f13/tcoms)
+"unr" = (
+/obj/structure/table,
+/obj/machinery/cell_charger,
+/turf/open/indestructible/ground/outside/gravel{
+	name = "underground gravel";
+	sunlight_state = 0
+	},
+/area/f13/wasteland/city)
 "unw" = (
 /obj/structure/simple_door/bunker,
 /obj/structure/barricade/wooden/planks,
@@ -18647,7 +18661,7 @@ luy
 kTW
 kAV
 mGf
-hEn
+byo
 ylc
 ccs
 ylc
@@ -39727,7 +39741,7 @@ eRP
 eRP
 eRP
 ncs
-ekQ
+maW
 ncs
 ncs
 ncs
@@ -44680,7 +44694,7 @@ xrG
 xrG
 xrG
 ylc
-ctJ
+ccs
 ylc
 ylc
 ylc
@@ -45451,7 +45465,7 @@ xrG
 xrG
 xrG
 ylc
-ccs
+ctJ
 iJF
 aRU
 aRU
@@ -57280,7 +57294,7 @@ kaa
 kaa
 off
 tTG
-qJO
+aHF
 eqh
 tTG
 wls
@@ -57809,7 +57823,7 @@ fFC
 fFC
 fFC
 fFC
-xHq
+aRU
 aRU
 aRU
 aRU
@@ -58357,7 +58371,7 @@ ejt
 ejt
 ibB
 wWL
-wWL
+unr
 sNn
 ejt
 gHK
@@ -60902,7 +60916,7 @@ kjn
 vJw
 irF
 btp
-oQn
+fFC
 fFC
 fFC
 fFC
@@ -61158,7 +61172,7 @@ kjn
 sqY
 ivb
 btp
-lvR
+kje
 fFC
 fFC
 keG
@@ -64251,7 +64265,7 @@ iJF
 iJF
 iJF
 iJF
-ycc
+iJF
 bvn
 tWf
 tWf
@@ -64506,9 +64520,9 @@ iIq
 iIq
 iIq
 iIq
-iIq
-iIq
-tvj
+lwT
+lwT
+lPF
 dwe
 tWf
 tWf

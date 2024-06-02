@@ -884,14 +884,11 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/ruins)
 "aoH" = (
-/obj/machinery/recharger{
-	layer = 20;
-	pixel_y = 6
-	},
 /obj/structure/closet/crate/large,
 /obj/structure/table/booth,
 /obj/item/stack/sheet/leather,
 /obj/item/stack/sheet/plastic,
+/obj/machinery/cell_charger,
 /turf/open/floor/plating/rust{
 	sunlight_state = 1;
 	name = "rusted Docks"
@@ -2254,6 +2251,14 @@
 	},
 /turf/open/indestructible/ground/outside/sidewalkdirt,
 /area/f13/wasteland/city)
+"aMo" = (
+/obj/machinery/door/unpowered/securedoor{
+	req_access_txt = "52"
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	icon_state = "bluerustysolid"
+	},
+/area/f13/building/center)
 "aMy" = (
 /obj/structure/railing/wood{
 	pixel_y = 7;
@@ -4931,6 +4936,7 @@
 /obj/structure/closet/cabinet,
 /obj/effect/spawner/lootdrop/costume,
 /obj/effect/spawner/lootdrop/clothing_legend,
+/obj/effect/spawner/lootdrop/f13/cash_random_low,
 /turf/open/floor/wood_common/wood_common_light,
 /area/f13/building/boat)
 "bLr" = (
@@ -5527,6 +5533,10 @@
 	icon_state = "horizontaloutermain1"
 	},
 /area/f13/wasteland/city)
+"bWY" = (
+/obj/machinery/autolathe,
+/turf/open/floor/plating/rust,
+/area/f13/ruins)
 "bXb" = (
 /obj/item/stack/spacecash/c500,
 /turf/open/floor/plasteel/floorgrime,
@@ -11038,6 +11048,11 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor,
 /area/f13/office)
+"dQy" = (
+/obj/structure/table/reinforced,
+/obj/machinery/cell_charger,
+/turf/open/floor/plasteel/f13/vault_floor/plating,
+/area/f13/ruins)
 "dQz" = (
 /obj/structure/gallow,
 /turf/open/floor/plating/rust{
@@ -15591,7 +15606,8 @@
 /obj/structure/reagent_dispensers/fueltank/vehicle_gas_station{
 	icon_state = "vat";
 	tank_volume = 1500;
-	name = "Gas Tank"
+	name = "Gas Tank";
+	color = "#FF0000"
 	},
 /turf/open/floor/f13/wood{
 	icon_state = "housewood2"
@@ -19119,6 +19135,7 @@
 "gMx" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/snacks/meat/slab/human,
+/obj/item/reagent_containers/jerrycan,
 /turf/open/floor/wood_fancy/wood_fancy_light,
 /area/f13/ruins)
 "gME" = (
@@ -25785,10 +25802,6 @@
 	},
 /area/f13/wasteland/city/citycenter)
 "jdr" = (
-/obj/machinery/door/poddoor/shutters{
-	id = 80;
-	name = "Bar ship shutters"
-	},
 /obj/structure/simple_door/dirtyglass{
 	name = "The NCS Casabanca Bar door"
 	},
@@ -25933,6 +25946,7 @@
 	pixel_y = 16;
 	pixel_x = -1
 	},
+/obj/effect/spawner/lootdrop/f13/cash_random_low,
 /turf/open/floor/plasteel/f13/vault_floor/dark/darksolid,
 /area/f13/building/boat)
 "jfL" = (
@@ -26319,6 +26333,13 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/engine,
 /area/f13/building/boat)
+"jnT" = (
+/obj/item/reagent_containers/jerrycan,
+/obj/item/reagent_containers/jerrycan,
+/turf/open/floor/plating/dirt/dirt_maryland{
+	icon_state = "dirt_original"
+	},
+/area/f13/wasteland/city)
 "job" = (
 /obj/effect/overlay/water{
 	layer = 20;
@@ -27294,12 +27315,6 @@
 	},
 /area/f13/wasteland/city)
 "jGQ" = (
-/obj/machinery/button/door{
-	pixel_y = 10;
-	pixel_x = -23;
-	name = "Bar ship door button";
-	id = 80
-	},
 /obj/machinery/button/door{
 	pixel_y = -8;
 	pixel_x = -23;
@@ -35124,6 +35139,15 @@
 /obj/structure/car/rubbish4,
 /turf/open/indestructible/ground/outside/gravel,
 /area/f13/wasteland/city/citycenter)
+"mqX" = (
+/obj/machinery/door/poddoor/shutters{
+	name = "Big Bill's shutters";
+	id = s
+	},
+/turf/open/indestructible/ground/outside/baltimore{
+	icon_state = "road_center"
+	},
+/area/f13/building/center)
 "mra" = (
 /obj/effect/spawner/lootdrop/trash,
 /turf/open/floor/wood_mosaic{
@@ -37602,12 +37626,6 @@
 /obj/effect/spawner/lootdrop/f13/armor/clothes,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
 /area/f13/building/boat)
-"nkU" = (
-/obj/machinery/rnd/experimentor{
-	pixel_y = -12
-	},
-/turf/closed/wall/f13/sunset/brick_small_dark,
-/area/f13/building/center)
 "nli" = (
 /obj/structure/simple_door/metal/fence{
 	dir = 4
@@ -38094,7 +38112,8 @@
 /obj/structure/reagent_dispensers/fueltank/vehicle_gas_station{
 	icon_state = "vat";
 	tank_volume = 1500;
-	name = "Gas Tank"
+	name = "Gas Tank";
+	color = "#FF0000"
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	name = "Old Docks";
@@ -38535,6 +38554,14 @@
 	},
 /turf/open/floor/vault,
 /area/f13/ruins)
+"nDm" = (
+/obj/item/reagent_containers/jerrycan,
+/obj/item/reagent_containers/jerrycan,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	name = "Old Docks";
+	sunlight_state = 1
+	},
+/area/f13/wasteland/town)
 "nDu" = (
 /obj/structure/reagent_dispensers/water_cooler,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
@@ -40695,7 +40722,6 @@
 /obj/structure/chair/office/dark{
 	dir = 4
 	},
-/obj/effect/landmark/start/librarian,
 /turf/open/floor/wood_fancy,
 /area/f13/building)
 "oqD" = (
@@ -48596,6 +48622,8 @@
 	pixel_y = -8
 	},
 /obj/structure/closet/crate/wooden,
+/obj/effect/spawner/lootdrop/f13/cash_random_low,
+/obj/effect/spawner/lootdrop/f13/cash_random_low,
 /turf/open/floor/wood_common{
 	name = "wooden dock";
 	sunlight_state = 1
@@ -48839,7 +48867,8 @@
 /obj/structure/reagent_dispensers/fueltank/vehicle_gas_station{
 	icon_state = "vat";
 	tank_volume = 1500;
-	name = "Gas Tank"
+	name = "Gas Tank";
+	color = "#FF0000"
 	},
 /turf/open/floor/plating/dirt/dirt_maryland{
 	icon_state = "dirt_original"
@@ -52210,6 +52239,7 @@
 "smI" = (
 /obj/structure/table,
 /obj/effect/spawner/lootdrop/f13/cash_random_low,
+/obj/machinery/cell_charger,
 /turf/open/floor/plating/rust,
 /area/f13/ruins)
 "smJ" = (
@@ -55452,7 +55482,8 @@
 /obj/structure/reagent_dispensers/fueltank/vehicle_gas_station{
 	icon_state = "vat";
 	tank_volume = 1500;
-	name = "Gas Tank"
+	name = "Gas Tank";
+	color = "#FF0000"
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/ruins)
@@ -58105,7 +58136,7 @@
 	},
 /obj/machinery/button/door{
 	pixel_x = 25;
-	id = "Bigbill2"
+	id = "Bigbill1"
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	name = "Old Docks";
@@ -61839,6 +61870,7 @@
 "vFZ" = (
 /obj/structure/table/reinforced,
 /obj/effect/spawner/lootdrop/f13/weapon/milsurplus,
+/obj/machinery/cell_charger,
 /turf/open/floor/engine,
 /area/f13/outpost)
 "vGb" = (
@@ -83892,7 +83924,7 @@ vtF
 kHn
 dtG
 dtG
-nkU
+jbe
 edV
 rwZ
 law
@@ -95205,7 +95237,7 @@ dBu
 hPd
 tIf
 hSr
-sSs
+bWY
 hPd
 siv
 eLJ
@@ -96007,7 +96039,7 @@ goy
 wHT
 qcK
 agf
-kbM
+dQy
 kbM
 gtu
 dUh
@@ -115185,7 +115217,7 @@ wur
 wZT
 lqO
 bnq
-wur
+nDm
 qpO
 vYc
 ekY
@@ -117320,7 +117352,7 @@ vQj
 hoW
 hoW
 hoW
-duO
+mqX
 vik
 lgb
 lgb
@@ -120658,7 +120690,7 @@ hLG
 jDm
 hLG
 vQj
-iHR
+aMo
 fjA
 ccE
 ccE
@@ -132215,7 +132247,7 @@ bnp
 mIJ
 yas
 mFt
-icV
+jnT
 wbu
 dti
 whn

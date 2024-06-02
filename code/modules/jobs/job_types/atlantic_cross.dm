@@ -275,8 +275,8 @@ Follower Volunteer
 	flag = F13ATLANTICMARINES
 	department_flag = ATLANTIC
 	faction = "Atlantic"
-	total_positions = 3
-	spawn_positions = 3
+	total_positions = 2
+	spawn_positions = 2
 	supervisors = "The Captain orders takes priority, but for town security, the Dockmaster and the Port Councelor."
 	description = "You are a Atlantic Cross Marines. The elite soldiers of the fleet, that must defend town and the hospital ship, and also work for the interses of the Atlantic Cross."
 	enforces = "Based on a christan association, and remants of the navy, the Atlantic Cross tries to fight against drugs and raiders."
@@ -296,7 +296,6 @@ Follower Volunteer
 /datum/outfit/job/atlantic/f13atlanticmarines
 	name =	"Atlantic Cross Marines"
 	jobtype =	/datum/job/atlantic/f13atlanticmarines
-	belt = /obj/item/kit_spawner/follower/guard
 	id =	/obj/item/card/id/silver
 	uniform =	/obj/item/clothing/under/f13/atlantic/uniform
 	suit =	/obj/item/clothing/suit/armor/medium/combat/atlanticmarines

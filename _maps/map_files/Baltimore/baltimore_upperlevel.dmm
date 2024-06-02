@@ -1336,6 +1336,12 @@
 	icon_state = "common-broken4"
 	},
 /area/f13/wasteland/town)
+"bnd" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/remains/human,
+/obj/structure/table/reinforced,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/building/boat)
 "bnG" = (
 /obj/structure/table/wood,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -2417,34 +2423,32 @@
 	},
 /area/f13/building/boat)
 "cgK" = (
-/obj/structure/rack/shelf_wood,
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
-	pixel_y = 14;
+	pixel_y = 11;
 	pixel_x = -8
 	},
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
-	pixel_y = 13;
+	pixel_y = 4;
 	pixel_x = -1
 	},
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
-	pixel_y = 13;
+	pixel_y = 7;
 	pixel_x = 9
 	},
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
-	pixel_y = 15;
+	pixel_y = 7;
 	pixel_x = 5
+	},
+/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+	pixel_y = 7;
+	pixel_x = -8
 	},
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
 	pixel_y = 14;
 	pixel_x = -8
 	},
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
-	pixel_y = 23;
-	pixel_x = -8
-	},
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
-	pixel_y = 18;
-	pixel_x = -8
+/obj/structure/rack/shelf_wood{
+	pixel_y = -14
 	},
 /turf/closed/indestructible/f13vaultrusted,
 /area/f13/building)
@@ -6401,6 +6405,9 @@
 	layer = 1;
 	anchored = 1
 	},
+/obj/structure/sign/poster/official/fruit_bowl{
+	pixel_x = -32
+	},
 /turf/open/floor/wood_common/wood_common_light,
 /area/f13/office)
 "fVk" = (
@@ -7710,30 +7717,30 @@
 /area/f13/ruins)
 "hfZ" = (
 /obj/item/reagent_containers/food/drinks/beer{
-	pixel_y = 46;
+	pixel_y = 39;
 	pixel_x = -8
 	},
 /obj/item/reagent_containers/food/drinks/beer{
-	pixel_y = 44;
+	pixel_y = 38;
 	pixel_x = -10
 	},
 /obj/item/reagent_containers/food/drinks/beer{
-	pixel_y = 46;
+	pixel_y = 39;
 	pixel_x = 10
 	},
 /obj/item/reagent_containers/food/drinks/beer{
-	pixel_y = 45;
+	pixel_y = 38;
 	pixel_x = 7
 	},
 /obj/item/reagent_containers/food/drinks/beer{
-	pixel_y = 47;
+	pixel_y = 38;
 	pixel_x = 1
 	},
 /obj/item/reagent_containers/food/drinks/beer{
-	pixel_y = 45
+	pixel_y = 37
 	},
 /obj/item/reagent_containers/food/drinks/beer{
-	pixel_y = 44;
+	pixel_y = 36;
 	pixel_x = -4
 	},
 /turf/open/floor/wood_fancy/wood_fancy_dark{
@@ -8253,10 +8260,11 @@
 /turf/open/floor/wood_common,
 /area/f13/ruins)
 "hEh" = (
-/obj/structure/closet/secure_closet/personal/cabinet,
-/obj/item/clothing/under/f13/cowboyb,
-/obj/item/clothing/head/f13/cowboy,
-/obj/item/clothing/under/dress/skirt/blue,
+/obj/structure/rack/shelf_metal,
+/obj/item/clothing/suit/armor/medium/duster/trenchcoat/minutemen,
+/obj/item/clothing/suit/armor/medium/duster/trenchcoat/minutemen,
+/obj/item/clothing/head/helmet/f13/rustedcowboyhat/minutemen,
+/obj/item/clothing/head/helmet/f13/rustedcowboyhat/minutemen,
 /turf/open/floor/wood_wide/wood_wide_dark{
 	icon_state = "wide_dark-broken2"
 	},
@@ -8777,9 +8785,6 @@
 	},
 /obj/structure/rug/big/rug_fancy{
 	layer = 1
-	},
-/obj/structure/sign/poster/official/fruit_bowl{
-	pixel_x = -32
 	},
 /turf/open/floor/wood_common/wood_common_light,
 /area/f13/office)
@@ -10017,7 +10022,6 @@
 /turf/open/floor/plating/rust,
 /area/f13/ruins)
 "jjh" = (
-/obj/structure/closet/secure_closet/personal/cabinet,
 /obj/machinery/light/small{
 	dir = 4;
 	name = "tan light fixture";
@@ -10027,6 +10031,7 @@
 /obj/item/clothing/under/f13/cowboyb,
 /obj/item/clothing/head/f13/cowboy,
 /obj/item/clothing/under/stripeddress,
+/obj/structure/closet/cabinet/anchored,
 /turf/open/floor/wood_fancy,
 /area/f13/building)
 "jjt" = (
@@ -10634,18 +10639,18 @@
 	color = "#FFDDCC"
 	},
 /obj/item/reagent_containers/food/drinks/bottle/hcider{
-	pixel_y = 45;
+	pixel_y = 37;
 	pixel_x = -9
 	},
 /obj/item/reagent_containers/food/drinks/bottle/hcider{
-	pixel_y = 47;
+	pixel_y = 38;
 	pixel_x = 4
 	},
 /obj/item/reagent_containers/food/drinks/bottle/hcider{
-	pixel_y = 45
+	pixel_y = 37
 	},
 /obj/item/reagent_containers/food/drinks/bottle/hcider{
-	pixel_y = 44;
+	pixel_y = 36;
 	pixel_x = -5
 	},
 /turf/open/floor/wood_fancy/wood_fancy_dark,
@@ -11305,6 +11310,7 @@
 "kyy" = (
 /obj/structure/table/reinforced,
 /obj/effect/spawner/lootdrop/f13/armor/tier3,
+/obj/machinery/cell_charger,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/building/boat)
 "kyH" = (
@@ -12215,12 +12221,8 @@
 /area/f13/wasteland/town)
 "lpY" = (
 /obj/item/reagent_containers/food/drinks/bottle/f13nukacola{
-	pixel_y = 49;
+	pixel_y = 37;
 	pixel_x = -4
-	},
-/obj/item/reagent_containers/food/drinks/bottle/f13nukacola{
-	pixel_y = 46;
-	pixel_x = -7
 	},
 /turf/open/floor/wood_worn/wood_worn_dark,
 /area/f13/building)
@@ -12905,7 +12907,8 @@
 /obj/structure/reagent_dispensers/fueltank/vehicle_gas_station{
 	icon_state = "vat";
 	tank_volume = 1500;
-	name = "Gas Tank"
+	name = "Gas Tank";
+	color = "#FF0000"
 	},
 /turf/open/floor/f13/wood/outside,
 /area/f13/wasteland/town)
@@ -14066,7 +14069,9 @@
 	},
 /area/f13/wasteland/city)
 "mWr" = (
-/obj/structure/rack/shelf_wood,
+/obj/structure/rack/shelf_wood{
+	pixel_y = -14
+	},
 /turf/closed/indestructible/f13vaultrusted,
 /area/f13/building)
 "mWv" = (
@@ -16629,10 +16634,6 @@
 /area/f13/enclave)
 "pvH" = (
 /obj/structure/bed/wooden{
-	pixel_y = 16;
-	layer = 3.1
-	},
-/obj/structure/bed/wooden{
 	layer = 2.7
 	},
 /obj/structure/railing/wood{
@@ -16652,6 +16653,9 @@
 	color = "#C4897D";
 	desc = "A wooden bedpost.";
 	name = "bedpost"
+	},
+/obj/structure/junk/small/bed2{
+	pixel_y = 17
 	},
 /turf/open/floor/wood_wide/wood_wide_dark,
 /area/f13/building)
@@ -16677,10 +16681,10 @@
 /turf/open/indestructible/ground/outside/roof,
 /area/f13/wasteland/town)
 "pyP" = (
-/obj/structure/closet/secure_closet/personal/cabinet,
 /obj/item/clothing/under/f13/cowboyg,
 /obj/item/clothing/head/burma/cowboy/black/ribbon,
 /obj/item/clothing/under/f13/bluedress,
+/obj/structure/closet/cabinet/anchored,
 /turf/open/floor/wood_fancy/wood_fancy_dark{
 	icon_state = "fancy_dark-broken5"
 	},
@@ -17579,7 +17583,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/outpost)
 "qyA" = (
-/obj/machinery/chem_dispenser/chem_synthesizer,
+/obj/machinery/chem_dispenser,
 /obj/item/stock_parts/chem_cartridge/garbage,
 /obj/structure/table/reinforced,
 /turf/open/floor/wood_wide{
@@ -17612,7 +17616,8 @@
 /obj/structure/reagent_dispensers/fueltank/vehicle_gas_station{
 	icon_state = "vat";
 	tank_volume = 1500;
-	name = "Gas Tank"
+	name = "Gas Tank";
+	color = "#FF0000"
 	},
 /turf/open/floor/plating/rust{
 	sunlight_state = 1;
@@ -18196,6 +18201,7 @@
 	layer = 1;
 	pixel_y = -4
 	},
+/obj/item/storage/box/bowls,
 /turf/open/floor/wood_mosaic/wood_mosaic_dark,
 /area/f13/building)
 "rdj" = (
@@ -21145,10 +21151,6 @@
 	icon_state = "wide_dark-broken5"
 	},
 /area/f13/building/boat)
-"tIL" = (
-/obj/machinery/mineral/wasteland_vendor/bank,
-/turf/open/indestructible/ground/outside/roof,
-/area/f13/wasteland/town)
 "tIS" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/barricade/sandbags,
@@ -21233,6 +21235,11 @@
 	},
 /obj/effect/landmark/start/f13/atlanticsailor,
 /turf/open/floor/wood_wide/wood_wide_dark,
+/area/f13/building/boat)
+"tNl" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/table/reinforced,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/building/boat)
 "tNu" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -22067,14 +22074,6 @@
 	},
 /turf/open/floor/f13/wood,
 /area/f13/building/boat)
-"uzq" = (
-/obj/structure/rack/shelf_wood,
-/obj/item/reagent_containers/food/drinks/bottle/whiskey{
-	pixel_y = 14;
-	pixel_x = 5
-	},
-/turf/closed/indestructible/f13vaultrusted,
-/area/f13/building)
 "uzC" = (
 /obj/structure/toilet{
 	dir = 8
@@ -22877,6 +22876,10 @@
 /area/f13/building)
 "vjr" = (
 /obj/structure/table,
+/obj/item/reagent_containers/glass/bowl,
+/obj/item/reagent_containers/glass/bowl,
+/obj/item/reagent_containers/glass/bowl,
+/obj/item/reagent_containers/glass/bowl,
 /turf/open/floor/wood_fancy/wood_fancy_dark,
 /area/f13/building)
 "vjW" = (
@@ -23217,10 +23220,10 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/outpost)
 "vBV" = (
-/obj/structure/closet/secure_closet/personal/cabinet,
 /obj/item/clothing/under/f13/cowboyg,
 /obj/item/clothing/head/burma/cowboy/black/ribbon,
 /obj/item/clothing/under/civ/dress2,
+/obj/structure/closet/cabinet/anchored,
 /turf/open/floor/wood_fancy,
 /area/f13/building)
 "vCy" = (
@@ -58690,7 +58693,7 @@ xhb
 pZc
 bPI
 xhb
-pZc
+xri
 pZc
 xhb
 rRf
@@ -58944,12 +58947,12 @@ xhb
 sml
 ebs
 pZc
-pZc
+xri
 xhb
 xhb
 gvF
 pZc
-pZc
+xri
 sml
 gVH
 cLZ
@@ -59829,7 +59832,7 @@ kSA
 jlI
 hcK
 vyE
-tnT
+tNl
 tnT
 tnT
 xhb
@@ -59974,7 +59977,7 @@ tTD
 tTD
 gUh
 xhb
-xhb
+tnN
 xhb
 gVH
 gVH
@@ -60086,12 +60089,12 @@ fJo
 xhb
 xhb
 vyE
-xhb
-xhb
+rgw
+rgw
 xhb
 tnT
-cup
-xhb
+bnd
+rgw
 vyE
 uCi
 gmy
@@ -66649,7 +66652,7 @@ xTK
 pxJ
 gpl
 pnu
-tIL
+gpl
 slW
 uQY
 oZN
@@ -75942,7 +75945,7 @@ gTf
 gTf
 gTf
 gTf
-uzq
+mWr
 lpY
 dVN
 nhw
@@ -79543,7 +79546,7 @@ fsn
 fsn
 dJe
 smu
-kcA
+naw
 pvH
 dJe
 xgE

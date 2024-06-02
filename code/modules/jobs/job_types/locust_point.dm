@@ -985,7 +985,5 @@ Mayor
 	backpack_contents = list(
 		/obj/item/reagent_containers/food/snacks/f13/mre = 1,
 		/obj/item/reagent_containers/hypospray/medipen/stimpak = 2,
-		/obj/item/storage/survivalkit = 1,
-		/obj/item/storage/survivalkit/medical = 1,
 		/obj/item/ammo_box/lasmusket = 3
 	)

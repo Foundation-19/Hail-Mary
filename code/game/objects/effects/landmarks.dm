@@ -1025,7 +1025,7 @@ obj/effect/landmark/start/f13/ncrlogisticsofficer
 	icon_state = "Settler"
 
 /obj/effect/landmark/start/f13/f13baltimoreradiohort
-	name = "Independant Radio Host"
+	name = "Pirate Radio Host"
 	icon_state = "Radio-Host"
 
 /obj/effect/landmark/start/f13/f13baltimoremechanic
