@@ -35139,15 +35139,6 @@
 /obj/structure/car/rubbish4,
 /turf/open/indestructible/ground/outside/gravel,
 /area/f13/wasteland/city/citycenter)
-"mqX" = (
-/obj/machinery/door/poddoor/shutters{
-	name = "Big Bill's shutters";
-	id = s
-	},
-/turf/open/indestructible/ground/outside/baltimore{
-	icon_state = "road_center"
-	},
-/area/f13/building/center)
 "mra" = (
 /obj/effect/spawner/lootdrop/trash,
 /turf/open/floor/wood_mosaic{
@@ -117352,7 +117343,7 @@ vQj
 hoW
 hoW
 hoW
-mqX
+duO
 vik
 lgb
 lgb
