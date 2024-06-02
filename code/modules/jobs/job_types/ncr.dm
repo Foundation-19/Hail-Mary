@@ -516,7 +516,7 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 	backpack = /obj/item/storage/backpack/satchel/leather
 	backpack_contents = list(
 		/obj/item/stack/medical/gauze/bloodleaf = 2,
-		/obj/item/stack/f13Cash/ncr	=	1000
+		/obj/item/stack/f13Cash/ncr	=	1000,
 		/obj/item/storage/bag/money/small/ncr = 1,
 		)
 
