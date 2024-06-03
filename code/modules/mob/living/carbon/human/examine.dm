@@ -418,9 +418,9 @@
 				msg += span_deadsay("[t_He] [t_is] totally catatonic. The stresses of the Wasteland must have been too much for [t_him]. Any recovery is unlikely.")
 			else if(!client)
 				msg += "[t_He] [t_has] a blank, absent-minded stare and appears completely unresponsive to anything. [t_He] may snap out of it soon.\n"
-			else if(client && ((client.inactivity / 10) / 60 > 10)) //10 Minutes
+			if(client && ((client.inactivity / 10) / 60 > 10)) //10 Minutes
 				msg += "\[Inactive for [round((client.inactivity/10)/60)] minutes\]"
-			else if(disconnect_time)
+			if(disconnect_time)
 				msg += "\[Disconnected/ghosted [round(((world.realtime - disconnect_time)/10)/60)] minutes ago\]"
 
 		if(digitalcamo)
