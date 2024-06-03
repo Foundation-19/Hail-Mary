@@ -1884,7 +1884,7 @@
 	icon = 'icons/fallout/clothing/armored_light.dmi'
 	mob_overlay_icon = 'icons/fallout/onmob/clothes/armor_medium.dmi'
 	icon_state = "atlanticguard"
-	item_state = "atlanticlightarmor"
+	item_state = "atlanticguard"
 
 /obj/item/clothing/suit/armor/medium/duster/trenchcoat/minutemen
 	name = "minutemen coat"
