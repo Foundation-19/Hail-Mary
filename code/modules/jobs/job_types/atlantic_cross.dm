@@ -232,8 +232,7 @@ Follower Volunteer
 		/obj/item/restraints/handcuffs = 2,
 		/obj/item/reagent_containers/medspray/synthflesh = 1,
 		/obj/item/gun/ballistic/rifle/salvaged_eastern_rifle = 1,
-		/obj/item/ammo_box/a556/rubber = 3,
-		/obj/item/ammo_box/a556 = 1,
+		/obj/item/ammo_box/a556 = 2,
 	)
 
 /datum/outfit/loadout/sailor_mechanic
