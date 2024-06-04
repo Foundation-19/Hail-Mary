@@ -106,9 +106,18 @@ SUBSYSTEM_DEF(jukeboxes)
 			if(!(M.client.prefs.toggles & SOUND_INSTRUMENTS) || !M.can_hear())
 				M.stop_sound_channel(jukeinfo[2])
 				continue
-
-			if(jukebox.z == M.z)	//todo - expand this to work with mining planet z-levels when robust jukebox audio gets merged to master
+			var/turf/juketurf = get_turf(jukebox)
+			var/turf/mturf = get_turf(M)
+			if(juketurf.z == mturf.z)	//todo - expand this to work with mining planet z-levels when robust jukebox audio gets merged to master
 				song_played.status = SOUND_UPDATE
+			else if(juketurf.z == mturf.z -1)
+				var/turf/juketurf_above = SSmapping.get_turf_above(juketurf)
+				if(istype(juketurf_above, /turf/open/transparent))
+					song_played.status = SOUND_UPDATE
+			else if(juketurf.z == mturf.z +1)
+				var/turf/mturf_above = SSmapping.get_turf_above(mturf)
+				if(istype(mturf_above, /turf/open/transparent) || istype(juketurf,/turf/open/transparent))
+					song_played.status = SOUND_UPDATE
 			else
 				song_played.status = SOUND_MUTE | SOUND_UPDATE	//Setting volume = 0 doesn't let the sound properties update at all, which is lame.
 
