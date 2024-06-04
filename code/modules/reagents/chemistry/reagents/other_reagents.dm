@@ -943,7 +943,7 @@
 	randomize_human(H)
 
 
-/datum/reagent/aslimetoxin
+/*/datum/reagent/aslimetoxin
 	name = "Advanced Mutation Toxin"
 	description = "An advanced corruptive toxin produced by slimes."
 	color = "#13BC5E" // rgb: 19, 188, 94
@@ -965,7 +965,7 @@
 	ghoulfriendly = TRUE
 
 /datum/reagent/gluttonytoxin/reaction_mob(mob/living/L, method=TOUCH, reac_volume)
-	L.ForceContractDisease(new /datum/disease/transformation/morph(), FALSE, TRUE)
+	L.ForceContractDisease(new /datum/disease/transformation/morph(), FALSE, TRUE)*/
 
 /datum/reagent/serotrotium
 	name = "Serotrotium"

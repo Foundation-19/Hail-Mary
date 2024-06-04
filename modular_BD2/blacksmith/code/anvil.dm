@@ -115,7 +115,7 @@ GLOBAL_LIST_INIT(anvil_recipes, list(
 
 /obj/structure/blacksmith/anvil/Initialize(mapload)
 	. = ..()
-	RegisterSignal(src, COMSIG_CLICK_ALT, .proc/ResetAnvil) // emergency way to reset the anvil incase something goes wrong.
+	RegisterSignal(src, COMSIG_CLICK_ALT, PROC_REF(ResetAnvil)) // emergency way to reset the anvil incase something goes wrong.
 	currentquality = anvilquality
 
 /obj/structure/blacksmith/anvil/attackby(obj/item/I, mob/user)
