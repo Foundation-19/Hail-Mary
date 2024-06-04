@@ -425,13 +425,13 @@
 
 //Black
 
-/datum/chemical_reaction/slime/slimemutate2
+/*/datum/chemical_reaction/slime/slimemutate2
 	name = "Advanced Mutation Toxin"
 	id = /datum/reagent/aslimetoxin
 	results = list(/datum/reagent/aslimetoxin = 1)
 	required_reagents = list(/datum/reagent/toxin/plasma = 1)
 	required_other = TRUE
-	required_container = /obj/item/slime_extract/black
+	required_container = /obj/item/slime_extract/black*/
 
 
 //Oil

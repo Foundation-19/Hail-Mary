@@ -446,19 +446,18 @@
 			to_chat(user, "<span class='robot'><b>[src]</b> your preferences stopped <i>[music_name]</i> from playing!.' </span>")
 			return
 	music_playing = TRUE
-	playsound(user, music_filepath, music_volume, channel = music_channel) //plays the music to the user
+	playsound(user, music_filepath, music_volume, channel = music_channel, extrarange = -15) //plays the music to the user
 	update_icon()
 
 /obj/item/radio/proc/playmusic(music_filepath, name_of_music, music_volume) //Plays music at src using the filepath to the audio file. This proc is directly working with the bluespace radio station at radio_station.dm
 	radio_music_file = music_filepath
 
 	var/atom/loc_layer = loc
-	while(istype(loc_layer, /atom/movable))
+	if(istype(loc_layer, /atom/movable))
 		if(!istype(loc_layer, /mob/living))
 			loc_layer = loc_layer.loc
 		else
 			radio_holder = loc_layer
-			break
 	if(!loc_layer) //if loc is null then this proc doesn't need to continue
 		return
 	if(!istype(loc_layer, /mob/living)) //doesn't need to continue if not on a mob
@@ -470,7 +469,7 @@
 			if(!(wearer.ears == src)) //only want headsets to play music if they're equipped
 				return
 		stopmusic(radio_holder) //stop the previously playing song to make way for the new one
-		addtimer(CALLBACK(src, .proc/avoiding_a_sleep, radio_holder, music_filepath, name_of_music, music_volume), 10)
+		addtimer(CALLBACK(src, PROC_REF(avoiding_a_sleep), radio_holder, music_filepath, name_of_music, music_volume), 10)
 
 /obj/item/radio/proc/stopmusic(mob/living/user, music_turnoff_message_type)
 	if(music_playing)
@@ -490,7 +489,7 @@
 
 /obj/item/radio/dropped(mob/user)
 	..()
-	addtimer(CALLBACK(src, .proc/droppedStopMusic, user), 3)
+	addtimer(CALLBACK(src, PROC_REF(droppedStopMusic), user), 3)
 
 /obj/item/radio/proc/droppedStopMusic(mob/user)
 	var/i
