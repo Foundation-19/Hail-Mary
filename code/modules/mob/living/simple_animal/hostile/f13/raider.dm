@@ -213,6 +213,7 @@
 	loot_amount_random = FALSE
 	random_trash_loot = FALSE
 	footstep_type = FOOTSTEP_MOB_SHOE
+	sentience_type = SENTIENCE_BOSS
 	move_to_delay = 4.0 //faster than average, but not a lot
 	retreat_distance = 4 //mob retreats 1 tile when in min distance
 	minimum_distance = 2 //Mob pushes up to melee, then backs off to avoid player attack?

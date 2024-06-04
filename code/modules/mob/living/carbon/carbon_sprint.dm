@@ -3,12 +3,12 @@
 	doSprintBufferRegen(FALSE)		//first regen.
 	if(sprint_buffer)
 		var/use = min(tiles, sprint_buffer)
-		use *= calc_sprint_stamina_mod_from_special(tiles) // S.P.E.C.I.A.L.
+		var/special_discount = calc_sprint_stamina_mod_from_special(tiles) // S.P.E.C.I.A.L.
 		if(HAS_TRAIT(src, TRAIT_SPEED))
-			sprint_buffer -= use * 0.5
+			sprint_buffer -= (use * 0.5) * special_discount
 		else
-			sprint_buffer -= use
-		tiles -= use
+			sprint_buffer -= (use * special_discount)
+			tiles -= use
 	update_hud_sprint_bar()
 	if(!tiles)		//we had enough, we're done!
 		return
