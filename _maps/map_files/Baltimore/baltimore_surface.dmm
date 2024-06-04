@@ -209,6 +209,12 @@
 	},
 /obj/item/storage/toolbox/electrical,
 /obj/item/storage/toolbox/mechanical/old,
+/obj/machinery/light/small{
+	dir = 4;
+	name = "tan light fixture";
+	light_color = "#FFDDCC";
+	color = "#FFDDCC"
+	},
 /turf/open/floor/plasteel/dark,
 /area/f13/building/boat)
 "ada" = (
@@ -884,10 +890,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/ruins)
 "aoH" = (
-/obj/structure/closet/crate/large,
 /obj/structure/table/booth,
-/obj/item/stack/sheet/leather,
-/obj/item/stack/sheet/plastic,
 /obj/machinery/cell_charger,
 /turf/open/floor/plating/rust{
 	sunlight_state = 1;
@@ -3963,6 +3966,10 @@
 /turf/open/floor/plating/dirt/dirt_maryland{
 	icon_state = "dirt_original"
 	},
+/area/f13/wasteland/city/citycenter)
+"brg" = (
+/mob/living/simple_animal/hostile/raider/junker,
+/turf/open/indestructible/ground/outside/dirt/harsh,
 /area/f13/wasteland/city/citycenter)
 "brm" = (
 /turf/open/floor/f13/wood,
@@ -15435,17 +15442,6 @@
 /obj/structure/table/wood,
 /turf/open/indestructible/ground/outside/sidewalkdirt,
 /area/f13/wasteland/city)
-"fwB" = (
-/obj/machinery/door/poddoor/shutters/window{
-	id = 88;
-	name = "Hospital Ship Surgery windowed shutters"
-	},
-/obj/machinery/door/airlock/medical/glass{
-	req_access_txt = "124";
-	name = "Atlantic Cross Airlock"
-	},
-/turf/open/floor/plasteel/dark,
-/area/f13/building/boat)
 "fwZ" = (
 /obj/structure/flora/ausbushes/sparsegrass,
 /obj/structure/fence/end/wooden{
@@ -16333,6 +16329,11 @@
 	dir = 1
 	},
 /area/f13/wasteland/city/citycenter)
+"fNu" = (
+/obj/structure/table/reinforced,
+/obj/item/stack/f13Cash/caps/onezerozero,
+/turf/open/floor/plasteel/f13/vault_floor/blue/white,
+/area/f13/brotherhood)
 "fNw" = (
 /turf/closed/wall/mineral/concrete,
 /area/f13/Ocean)
@@ -18432,13 +18433,14 @@
 	},
 /area/f13/ruins)
 "gyN" = (
-/obj/machinery/door/airlock/medical/glass{
-	req_access_txt = "124";
-	name = "Atlantic Cross Airlock"
-	},
 /obj/machinery/door/poddoor/shutters/window{
 	id = 88;
 	name = "Hospital Ship Surgery windowed shutters"
+	},
+/obj/machinery/door/airlock/medical/glass{
+	req_access_txt = "280";
+	name = "Atlantic Cross ER Airlock";
+	id_tag = "Medbay"
 	},
 /turf/open/floor/plasteel/dark,
 /area/f13/building/boat)
@@ -20946,6 +20948,7 @@
 	},
 /area/f13/wasteland/city/citycenter)
 "hsL" = (
+/obj/effect/landmark/start/f13/uslightduty,
 /turf/open/floor/wood_fancy/wood_fancy_light,
 /area/f13/enclave)
 "hsT" = (
@@ -21412,6 +21415,12 @@
 /obj/item/clothing/suit/armor/light/leather/tanvest,
 /obj/item/clothing/suit/armor/medium/duster/follower,
 /turf/open/floor/plasteel/dark,
+/area/f13/ruins)
+"hBy" = (
+/obj/structure/closet/crate/large,
+/obj/effect/spawner/lootdrop/f13/armor/tier4PA,
+/obj/item/stack/f13Cash/caps/twofivezero,
+/turf/open/floor/plating/rust,
 /area/f13/ruins)
 "hBM" = (
 /obj/structure/destructible/tribal_torch/lit,
@@ -23443,6 +23452,11 @@
 	sunlight_state = 1
 	},
 /area/f13/wasteland/town)
+"inD" = (
+/obj/structure/closet/crate/large,
+/obj/effect/spawner/lootdrop/f13/armor/tier5,
+/turf/open/floor/plating/rust,
+/area/f13/ruins)
 "inR" = (
 /obj/effect/decal/fakelattice,
 /obj/effect/decal/cleanable/dirt,
@@ -26422,11 +26436,6 @@
 	},
 /turf/open/indestructible/ground/outside/ruins,
 /area/f13/building/center)
-"joN" = (
-/turf/open/floor/plating/f13/outside/road{
-	icon_state = "road_northeast_corner"
-	},
-/area/f13/wasteland/city)
 "joR" = (
 /obj/structure/sign/directions/supply{
 	pixel_y = 12;
@@ -27192,6 +27201,12 @@
 	sunlight_state = 1
 	},
 /area/f13/ruins)
+"jEK" = (
+/obj/structure/closet/crate/large,
+/obj/item/stack/sheet/leather,
+/obj/item/stack/sheet/plastic,
+/turf/open/floor/plasteel/f13/vault_floor/blue/white,
+/area/f13/brotherhood)
 "jEQ" = (
 /obj/structure/chair/booth,
 /obj/structure/stone_tile/block,
@@ -30227,14 +30242,6 @@
 	sunlight_state = 1
 	},
 /area/f13/outpost)
-"kJI" = (
-/mob/living/simple_animal/hostile/raider/ranged/boss/junker{
-	name = "Railway Dweller Footman"
-	},
-/turf/open/floor/plating/dirt/dirt_maryland{
-	icon_state = "grass_2"
-	},
-/area/f13/wasteland/city/citycenter)
 "kJN" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/wood_mosaic{
@@ -35212,6 +35219,11 @@
 /obj/effect/spawner/lootdrop/f13/junkspawners,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/building/boat)
+"mtq" = (
+/obj/structure/fluff/rails,
+/mob/living/simple_animal/hostile/raider/junker,
+/turf/open/indestructible/ground/outside/dirt/harsh,
+/area/f13/wasteland/city/citycenter)
 "mtz" = (
 /obj/effect/decal/marking{
 	icon_state = "dottedhorizontalcorroded";
@@ -36041,6 +36053,12 @@
 	icon_state = "panelscorched"
 	},
 /area/f13/clinic)
+"mFS" = (
+/mob/living/simple_animal/hostile/raider/ranged/boss/junker{
+	name = "Railway Dweller Footman"
+	},
+/turf/open/floor/plating/rust,
+/area/f13/ruins)
 "mGk" = (
 /obj/structure/table,
 /obj/machinery/computer/terminal{
@@ -39038,6 +39056,12 @@
 	},
 /turf/open/floor/wood_fancy,
 /area/f13/building)
+"nMh" = (
+/mob/living/simple_animal/hostile/raider/junker/creator{
+	name = "Railway Dweller Gunman"
+	},
+/turf/open/floor/plating/rust,
+/area/f13/ruins)
 "nMy" = (
 /obj/machinery/light/broken{
 	dir = 4
@@ -40690,6 +40714,12 @@
 	name = "Hospital Ship Surgery button";
 	id = 88
 	},
+/obj/machinery/button/door{
+	pixel_y = 31;
+	pixel_x = 1;
+	name = "Hospital Ship Surgery button";
+	id = "Medbay"
+	},
 /turf/open/floor/plasteel/f13/vault_floor/plating,
 /area/f13/building/boat)
 "oqy" = (
@@ -42204,14 +42234,6 @@
 	sunlight_state = 1
 	},
 /area/f13/ruins)
-"oPH" = (
-/mob/living/simple_animal/hostile/raider/ranged/boss/junker{
-	name = "Railway Dweller Footman"
-	},
-/turf/open/floor/plating/dirt/dirt_maryland{
-	icon_state = "dirt_3"
-	},
-/area/f13/wasteland/city/citycenter)
 "oPI" = (
 /turf/open/indestructible/ground/outside/sidewalkdirt{
 	icon_state = "verticalleftborderleft2top"
@@ -47992,6 +48014,9 @@
 /turf/open/floor/wood_mosaic/wood_mosaic_light,
 /area/f13/building/boat)
 "qSZ" = (
+/obj/structure/closet/crate/large,
+/obj/item/stack/sheet/leather,
+/obj/item/stack/sheet/plastic,
 /obj/machinery/light/small{
 	dir = 4;
 	name = "tan light fixture";
@@ -48805,7 +48830,7 @@
 /area/f13/building/center)
 "rec" = (
 /obj/machinery/door/airlock/medical/glass{
-	req_access_txt = "124";
+	req_access_txt = "280";
 	name = "ACS Enterprising Airlock"
 	},
 /turf/open/floor/plasteel/f13/vault_floor/plating,
@@ -49827,6 +49852,19 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/citycaves)
+"ruF" = (
+/obj/effect/decal/marking{
+	icon_state = "dottedhorizontalcorroded"
+	},
+/obj/effect/turf_decal/road_end{
+	dir = 4;
+	pixel_y = 11;
+	pixel_x = -18
+	},
+/turf/open/indestructible/ground/outside/baltimore{
+	icon_state = "road_east"
+	},
+/area/f13/wasteland/city)
 "ruT" = (
 /obj/effect/turf_decal/stripes/asteroid/line,
 /obj/structure/railing/corner{
@@ -51329,6 +51367,7 @@
 /area/f13/building/boat)
 "rWT" = (
 /obj/structure/closet/crate/large,
+/obj/item/stack/f13Cash/caps/onezerozero,
 /turf/open/floor/plating/rust,
 /area/f13/ruins)
 "rWU" = (
@@ -59678,12 +59717,8 @@
 	},
 /area/f13/building/center)
 "uUj" = (
-/obj/machinery/door/poddoor/shutters/window{
-	name = "Hospital ship Classroom windowed shutters";
-	id = 87
-	},
 /obj/machinery/door/airlock/medical/glass{
-	req_access_txt = "124";
+	req_access_txt = "280";
 	name = "Atlantic Cross Airlock"
 	},
 /turf/open/floor/plasteel/dark,
@@ -60125,7 +60160,7 @@
 /area/f13/wasteland/city/citycenter)
 "vcB" = (
 /obj/machinery/door/airlock/medical/glass{
-	req_access_txt = "124";
+	req_access_txt = "280";
 	name = "ACS Enterprising Airlock"
 	},
 /turf/open/floor/plasteel/dark,
@@ -60137,6 +60172,14 @@
 	},
 /turf/open/floor/wood_fancy,
 /area/f13/ruins)
+"vcM" = (
+/obj/effect/turf_decal/road_end{
+	dir = 2;
+	pixel_y = 11;
+	pixel_x = -18
+	},
+/turf/open/indestructible/ground/outside/gravel,
+/area/f13/wasteland/city)
 "vcQ" = (
 /obj/structure/fluff/rails{
 	dir = 4;
@@ -60698,7 +60741,6 @@
 /turf/open/floor/plasteel/f13/stone/rugged,
 /area/f13/wasteland/city)
 "vmD" = (
-/obj/structure/closet/crate/large,
 /obj/item/toy/cards/deck/cas{
 	pixel_y = 13;
 	pixel_x = 6
@@ -60714,6 +60756,7 @@
 	light_color = "#FFDDCC";
 	color = "#FFDDCC"
 	},
+/obj/structure/table/wood,
 /turf/open/floor/wood_fancy/wood_fancy_light,
 /area/f13/enclave)
 "vmN" = (
@@ -62228,13 +62271,13 @@
 /area/f13/wasteland/city/citycenter)
 "vNJ" = (
 /obj/structure/table/wood/settler,
-/obj/machinery/recharger,
 /obj/machinery/light/small{
 	dir = 8;
 	name = "tan light fixture";
 	light_color = "#FFDDCC";
 	color = "#FFDDCC"
 	},
+/obj/machinery/cell_charger,
 /turf/open/floor/plasteel/f13/vault_floor/plating,
 /area/f13/building/boat)
 "vNR" = (
@@ -94712,7 +94755,7 @@ qsY
 qsY
 qsY
 hPd
-rWT
+inD
 gdW
 sSs
 hPd
@@ -94969,7 +95012,7 @@ lME
 lME
 lME
 hPd
-rWT
+hBy
 sSs
 hrX
 hPd
@@ -95741,7 +95784,7 @@ eLJ
 mYn
 hPd
 jwc
-wbg
+sSs
 sSs
 hPd
 eLJ
@@ -96512,7 +96555,7 @@ qsY
 kqd
 hPd
 hPd
-qcK
+gXn
 hPd
 hPd
 eLJ
@@ -97025,8 +97068,8 @@ mUp
 eLJ
 eLJ
 diZ
-sSs
-sSs
+nMh
+mFS
 sSs
 hPd
 eLJ
@@ -97540,7 +97583,7 @@ eLJ
 eLJ
 hPd
 sSs
-wbg
+sSs
 sSs
 hPd
 hAS
@@ -98777,7 +98820,7 @@ fPq
 bEh
 jUw
 dbL
-qtA
+jEK
 qtA
 krw
 qtA
@@ -99034,7 +99077,7 @@ gvC
 rAH
 gvC
 dbL
-qtA
+tMR
 qtA
 qtA
 gvC
@@ -99291,9 +99334,9 @@ dbL
 dbL
 dbL
 dbL
-eqo
-qtA
-qtA
+fNu
+tMR
+tMR
 dbL
 dbL
 dbL
@@ -100366,7 +100409,7 @@ siv
 siv
 mBD
 dtl
-oPH
+rEo
 wOb
 mBD
 dtl
@@ -100879,7 +100922,7 @@ aVx
 siv
 oqj
 siv
-mBD
+mtq
 dtl
 oqj
 siv
@@ -101397,7 +101440,7 @@ dtl
 iQV
 siv
 rEo
-dtl
+brg
 cDn
 jVC
 hgY
@@ -101906,7 +101949,7 @@ xIx
 tCZ
 dKh
 nPX
-kJI
+wOb
 mBD
 dtl
 rWU
@@ -115439,7 +115482,7 @@ lTu
 bzY
 gpD
 gpD
-fwB
+gyN
 gpD
 pOT
 gpD
@@ -124799,14 +124842,14 @@ xDY
 piT
 uCC
 icV
-joN
-ork
+icV
+ruF
 iRd
 fbi
 owP
 ork
 nkz
-tWS
+vcM
 myo
 tWS
 icV

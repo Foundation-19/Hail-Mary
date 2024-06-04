@@ -1,8 +1,8 @@
 /datum/job/atlantic //do NOT use this for anything, it's just to store faction datums
 	department_flag = ATLANTIC
 	selection_color = "#ffeeaa"
-	access = list(ACCESS_FOLLOWER)
-	minimal_access = list(ACCESS_FOLLOWER)
+	access = list(ACCESS_TOWN_DOC)
+	minimal_access = list(ACCESS_TOWN_DOC)
 	forbids = null
 	enforces = "You are a member of the Atlantic Cross fleet. A fleet of hospital ship that helps people on the northen eastcoast. You are good people, but require payment."
 	objectivesList = null
@@ -49,8 +49,8 @@ Administrator
 
 	outfit = /datum/outfit/job/atlantic/f13atlanticcap
 
-	access = list(ACCESS_FOLLOWER, ACCESS_COMMAND, ACCESS_MILITARY, ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_ATMOSPHERICS)
-	minimal_access = list(ACCESS_FOLLOWER, ACCESS_COMMAND, ACCESS_MILITARY, ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_ATMOSPHERICS)
+	access = list(ACCESS_TOWN_DOC, ACCESS_COMMAND, ACCESS_MILITARY, ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_ATMOSPHERICS)
+	minimal_access = list(ACCESS_TOWN_DOC, ACCESS_COMMAND, ACCESS_MILITARY, ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_ATMOSPHERICS)
 
 
 /datum/outfit/job/atlantic/f13atlanticcap/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -289,8 +289,8 @@ Follower Volunteer
 		/datum/outfit/loadout/marines_energy
 	)
 	
-	access = list(ACCESS_FOLLOWER, ACCESS_MILITARY)
-	minimal_access = list(ACCESS_FOLLOWER, ACCESS_MILITARY)
+	access = list(ACCESS_TOWN_DOC, ACCESS_MILITARY)
+	minimal_access = list(ACCESS_TOWN_DOC, ACCESS_MILITARY)
 
 /datum/outfit/job/atlantic/f13atlanticmarines
 	name =	"Atlantic Cross Marines"

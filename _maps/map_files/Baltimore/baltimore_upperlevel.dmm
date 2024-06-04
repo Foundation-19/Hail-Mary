@@ -3291,6 +3291,16 @@
 /obj/structure/sign/poster/ripped,
 /turf/closed/wall/mineral/brick,
 /area/f13/ruins)
+"cZu" = (
+/obj/structure/table,
+/obj/item/advanced_crafting_components/lenses{
+	pixel_y = 3;
+	pixel_x = -5
+	},
+/turf/open/floor/f13{
+	icon_state = "floorrustysolid"
+	},
+/area/f13/brotherhood)
 "cZx" = (
 /turf/open/floor/wood_worn/wood_worn_light,
 /area/f13/enclave)
@@ -3992,6 +4002,12 @@
 /obj/machinery/reagentgrinder,
 /turf/open/floor/wood_wide/wood_wide_dark,
 /area/f13/building/boat)
+"dIK" = (
+/obj/structure/table,
+/turf/open/floor/f13{
+	icon_state = "floorrustysolid"
+	},
+/area/f13/brotherhood)
 "dIX" = (
 /obj/structure/barricade/tentleathercorner{
 	dir = 8
@@ -4573,11 +4589,7 @@
 /obj/structure/sign/poster/prewar/poster81{
 	pixel_y = 32
 	},
-/obj/structure/bed/mattress{
-	icon_state = "mattress2"
-	},
-/obj/item/bedsheet/blanket,
-/turf/open/floor/wood_common,
+/turf/open/transparent/openspace,
 /area/f13/enclave)
 "emI" = (
 /obj/structure/bookcase,
@@ -8064,6 +8076,10 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
+/obj/item/stack/sheet/glass/fifty,
+/obj/item/stack/sheet/metal/fifty,
+/obj/item/stack/sheet/metal/fifty,
+/obj/item/stack/ore/blackpowder/fifty,
 /turf/open/floor/f13{
 	icon_state = "floorrustysolid"
 	},
@@ -9866,10 +9882,10 @@
 	},
 /area/f13/wasteland/city)
 "jcE" = (
-/obj/machinery/autolathe/ammo,
 /obj/machinery/light/small{
 	dir = 1
 	},
+/obj/machinery/autolathe/ammo/unlocked,
 /turf/open/floor/f13{
 	icon_state = "floorrustysolid"
 	},
@@ -10712,15 +10728,6 @@
 /obj/structure/junk/arcade,
 /turf/open/floor/wood_worn/wood_worn_dark,
 /area/f13/ruins)
-"jTm" = (
-/obj/structure/table,
-/obj/item/gun/energy/laser/pistol{
-	pixel_y = 3
-	},
-/turf/open/floor/f13/wood{
-	icon_state = "housewood2"
-	},
-/area/f13/brotherhood)
 "jTw" = (
 /obj/machinery/autolathe/ammo,
 /obj/item/book/granter/crafting_recipe/gunsmith_one,
@@ -10734,9 +10741,8 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/building)
 "jTB" = (
-/obj/machinery/door/airlock/grunge{
-	name = "Fargo Outpost";
-	req_access_txt = "265"
+/obj/machinery/light/small{
+	dir = 4
 	},
 /turf/open/floor/f13{
 	icon_state = "floorrustysolid"
@@ -12368,16 +12374,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/indestructible/ground/outside/ruins,
 /area/f13/wasteland/city)
-"lvF" = (
-/obj/structure/table,
-/obj/item/advanced_crafting_components/lenses{
-	pixel_y = 3;
-	pixel_x = -5
-	},
-/turf/open/floor/f13/wood{
-	icon_state = "housewood2"
-	},
-/area/f13/brotherhood)
 "lvT" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -12609,7 +12605,6 @@
 	pixel_y = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/light/small,
 /turf/open/floor/f13{
 	icon_state = "floorrustysolid"
 	},
@@ -12740,6 +12735,15 @@
 /obj/item/clothing/under/f13/atlantic/uniform,
 /turf/open/floor/wood_wide/wood_wide_dark,
 /area/f13/building/boat)
+"lMW" = (
+/obj/structure/table,
+/obj/item/gun/energy/laser/pistol{
+	pixel_y = 3
+	},
+/turf/open/floor/f13{
+	icon_state = "floorrustysolid"
+	},
+/area/f13/brotherhood)
 "lMY" = (
 /obj/structure/cargocrate{
 	icon_state = "cargocrate2";
@@ -12938,12 +12942,6 @@
 /obj/structure/bookcase/manuals/research_and_development,
 /turf/open/floor/wood_common/wood_common_light,
 /area/f13/ruins)
-"lVO" = (
-/obj/structure/table,
-/turf/open/floor/f13/wood{
-	icon_state = "housewood2"
-	},
-/area/f13/brotherhood)
 "lVS" = (
 /obj/structure/window/fulltile/wood_window,
 /turf/open/floor/wood_common/wood_common_dark,
@@ -15730,10 +15728,6 @@
 /obj/structure/chair/sofa/left,
 /turf/open/floor/wood_fancy,
 /area/f13/ruins)
-"oxV" = (
-/obj/effect/landmark/start/f13/uslightduty,
-/turf/open/floor/wood_common,
-/area/f13/enclave)
 "oyp" = (
 /obj/effect/decal/marking{
 	icon_state = "dottedverticalcorroded"
@@ -15780,7 +15774,7 @@
 /area/f13/ruins)
 "ozF" = (
 /obj/machinery/door/airlock/medical/glass{
-	req_access_txt = "124";
+	req_access_txt = "280";
 	name = "Atlantic Cross Airlock"
 	},
 /turf/open/floor/wood_wide/wood_wide_dark,
@@ -15960,7 +15954,7 @@
 /area/f13/wasteland/town)
 "oMJ" = (
 /obj/machinery/door/airlock/medical/glass{
-	req_access_txt = "124";
+	req_access_txt = "280";
 	name = "Atlantic Cross Airlock"
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
@@ -18038,7 +18032,9 @@
 /area/f13/office)
 "qTZ" = (
 /obj/structure/simple_door/room/dirty,
-/turf/closed/wall/mineral/brick,
+/turf/open/indestructible/ground/outside/sidewalk{
+	icon_state = "horizontaloutermain1"
+	},
 /area/f13/brotherhood)
 "qUn" = (
 /obj/structure/barricade/tentclothedge,
@@ -20734,15 +20730,6 @@
 	},
 /turf/open/floor/wood_wide/wood_wide_dark,
 /area/f13/building/boat)
-"tsK" = (
-/obj/machinery/door/airlock/grunge{
-	name = "Fargo Outpost";
-	req_access_txt = "265"
-	},
-/turf/open/floor/f13/wood{
-	icon_state = "housewood2"
-	},
-/area/f13/brotherhood)
 "tsP" = (
 /mob/living/simple_animal/hostile/ghoul/reaver,
 /turf/open/floor/wood_wide/wood_wide_dark{
@@ -21192,16 +21179,6 @@
 	},
 /turf/open/indestructible/ground/outside/roof,
 /area/f13/wasteland/town)
-"tKy" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/door/airlock/grunge{
-	name = "Fargo Outpost";
-	req_access_txt = "265"
-	},
-/turf/open/floor/f13{
-	icon_state = "floorrustysolid"
-	},
-/area/f13/brotherhood)
 "tKX" = (
 /obj/effect/turf_decal/bot_white,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
@@ -22192,8 +22169,8 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/turf/open/floor/f13/wood{
-	icon_state = "housewood2"
+/turf/open/floor/f13{
+	icon_state = "floorrustysolid"
 	},
 /area/f13/brotherhood)
 "uFn" = (
@@ -22452,6 +22429,15 @@
 /obj/machinery/mineral/wasteland_vendor/crafting,
 /turf/open/indestructible/ground/outside/roof,
 /area/f13/wasteland/town)
+"uRn" = (
+/obj/machinery/light/small{
+	light_color = "blue";
+	pixel_x = -8
+	},
+/turf/open/floor/f13/wood{
+	icon_state = "housewood2"
+	},
+/area/f13/brotherhood)
 "uSb" = (
 /obj/effect/turf_decal/stripes{
 	dir = 8
@@ -23293,7 +23279,6 @@
 /turf/open/transparent/openspace,
 /area/f13/ruins)
 "vJm" = (
-/obj/effect/landmark/start/f13/uslightduty,
 /obj/structure/bed/mattress{
 	icon_state = "mattress2"
 	},
@@ -25117,6 +25102,7 @@
 /area/f13/building)
 "xtz" = (
 /obj/structure/table/reinforced/brass,
+/obj/item/stack/f13Cash/caps/onezerozero,
 /turf/open/floor/wood_common{
 	icon_state = "common-broken3"
 	},
@@ -54591,7 +54577,7 @@ iaH
 gvC
 dbL
 gvC
-kry
+nxr
 kry
 ylu
 mOF
@@ -55876,7 +55862,7 @@ eIY
 eoM
 kUC
 gvC
-kry
+nxr
 kry
 kry
 kry
@@ -56133,13 +56119,13 @@ dbL
 dbL
 dbL
 dbL
-tKy
+dbL
 dbL
 hvp
-kry
-kry
-kry
-kry
+nxr
+spk
+uRn
+dbL
 dbL
 dbL
 dbL
@@ -56392,10 +56378,10 @@ dbL
 vah
 jhT
 eOL
-rTM
-kry
-kry
-kry
+dIK
+iaH
+jhT
+iaH
 dbL
 vOS
 fJW
@@ -56649,11 +56635,11 @@ dbL
 hvv
 jhT
 nus
-rTM
-spk
-kry
-kry
-tsK
+lMW
+iaH
+jhT
+jhT
+rHd
 vOS
 vbn
 dbL
@@ -56906,10 +56892,10 @@ dbL
 iie
 jhT
 lFK
-rTM
-nxr
-lVO
-kry
+cZu
+iaH
+iaH
+jhT
 dbL
 bUY
 aBo
@@ -57163,10 +57149,10 @@ dbL
 aJH
 jhT
 jhT
-tKy
-kry
-jTm
-kry
+jhT
+iaH
+iaH
+iaH
 iND
 dbL
 dbL
@@ -57421,9 +57407,9 @@ jcE
 jhT
 jhT
 jTB
-kry
-lvF
-gQP
+iaH
+iaH
+jhT
 fud
 aHJ
 yla
@@ -57679,9 +57665,9 @@ jhT
 bfJ
 rTM
 uFc
-kry
-kry
-gQP
+iaH
+iaH
+jhT
 gQP
 oEO
 gvC
@@ -88820,7 +88806,7 @@ qFK
 qFK
 glP
 xiz
-oxV
+ngF
 ngF
 uad
 glP
@@ -89077,7 +89063,7 @@ tIf
 jnT
 glP
 ems
-ngF
+vJm
 vJm
 xdv
 qmx
@@ -89333,7 +89319,7 @@ dWw
 jnT
 dWw
 glP
-dZE
+ngF
 ngF
 whn
 gbp
