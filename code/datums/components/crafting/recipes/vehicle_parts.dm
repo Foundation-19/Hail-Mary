@@ -94,6 +94,51 @@
 	category = CAT_VEHICLES
 	subcategory = CAT_VEHICLEPARTS
 
+/*/datum/crafting_recipe/gun/minigunVehicle
+	name = "Minigun"
+	result = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/minigun
+	reqs = list(/obj/item/stack/crafting/metalparts = 10,
+	/obj/item/stack/crafting/goodparts = 5,
+	/obj/item/stack/crafting/electronicparts = 5,
+	/obj/item/stack/sheet/metal = 10,
+	/obj/item/stack/sheet/mineral/titanium = 20,
+	/obj/item/stack/rods = 6,
+	/obj/item/advanced_crafting_components/assembly = 1,
+	/obj/item/advanced_crafting_components/receiver = 1,
+	/obj/item/advanced_crafting_components/alloys = 1)
+	tools = list(TOOL_WORKBENCH)
+	time = 180
+	category = CAT_WEAPONRY
+	subcategory = CAT_WEAPON*/
+
+/datum/crafting_recipe/gun/PheumonicLauncherVehicle
+	name = "Mounted Pheumonic launcher"
+	result = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/launcher/anykind
+	reqs = list(/obj/item/stack/crafting/metalparts = 20,
+	/obj/item/stack/crafting/goodparts = 10,
+	/obj/item/stack/crafting/electronicparts = 5,
+	/obj/item/stack/sheet/metal = 30,
+	/obj/item/stack/sheet/mineral/titanium = 20,
+	/obj/item/stack/rods = 8,
+	/obj/item/advanced_crafting_components/assembly = 1,
+	/obj/item/advanced_crafting_components/receiver = 1)
+	tools = list(TOOL_WORKBENCH)
+	time = 180
+	category = CAT_WEAPONRY
+	subcategory = CAT_WEAPON
+
+/*/datum/crafting_recipe/mech_ammo/brm8_missiles
+	name = "Minigun Ammo Pack"
+	result = /obj/item/mecha_ammo/minigun
+	reqs = list(/obj/item/ammo_box/magazine/ammobelt/m1919 = 3,
+	/obj/item/stack/sheet/metal = 10,
+	/obj/item/stack/sheet/mineral/titanium = 20,
+	/obj/item/stack/crafting/powder = 30)
+	tools = list(TOOL_WORKBENCH)
+	time = 180
+	category = CAT_WEAPONRY
+	subcategory = CAT_AMMO*/
+
 //shotgun
 
 /datum/crafting_recipe/gun/shotgunvehicle
