@@ -3476,6 +3476,7 @@
 #include "code\modules\spells\spell_types\lichdom.dm"
 #include "code\modules\spells\spell_types\lightning.dm"
 #include "code\modules\spells\spell_types\projectile.dm"
+#include "code\modules\spells\spell_types\return_spell.dm"
 #include "code\modules\spells\spell_types\rightandwrong.dm"
 #include "code\modules\spells\spell_types\rod_form.dm"
 #include "code\modules\spells\spell_types\santa.dm"
@@ -3876,6 +3877,7 @@
 #include "modular_BD2\blacksmith\code\smithed_items.dm"
 #include "modular_BD2\general\code\modular_BD2.dm"
 #include "modular_BD2\legio_invicta\code\legio_invicta.dm"
+#include "modular_big-iron\code\game\tracks.dm"
 #include "modular_big-iron\code\game\machinery\radio_station.dm"
 #include "modular_big-iron\code\game\objects\circuitboards\radio_station.dm"
 // END_INCLUDE

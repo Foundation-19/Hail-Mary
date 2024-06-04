@@ -112,7 +112,7 @@
 	dir = 4
 	},
 /turf/open/floor/f13/wood,
-/area/f13/building/khanfort)
+/area/f13/radiation)
 "aem" = (
 /obj/effect/turf_decal/shadow/floor,
 /turf/open/floor/carpet/red,
@@ -137,13 +137,10 @@
 /turf/open/floor/f13/wood{
 	icon_state = "housewood3-broken"
 	},
-/area/f13/building/khanfort)
+/area/f13/radiation)
 "afG" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/f13/wood{
-	icon_state = "housewood2-broken"
-	},
-/area/f13/building/khanfort)
+/turf/open/floor/plating/tunnel,
+/area/f13/radiation)
 "ahs" = (
 /obj/structure/fluff/railing/corner,
 /turf/open/transparent/openspace,
@@ -181,7 +178,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/f13/wood,
-/area/f13/building/khanfort)
+/area/f13/radiation)
 "aiY" = (
 /obj/structure/destructible/tribal_torch/wall/lit{
 	dir = 1;
@@ -204,7 +201,7 @@
 /obj/structure/chair/stool/retro/backed,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/f13/wood,
-/area/f13/wasteland/khans)
+/area/f13/radiation)
 "akR" = (
 /obj/structure/railing{
 	dir = 4
@@ -306,7 +303,7 @@
 /turf/open/floor/f13/wood{
 	icon_state = "housewood1-broken"
 	},
-/area/f13/wasteland/khans)
+/area/f13/radiation)
 "axq" = (
 /obj/structure/barricade/wooden,
 /turf/open/transparent/openspace,
@@ -405,7 +402,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
 /turf/open/floor/f13/wood,
-/area/f13/building/khanfort)
+/area/f13/radiation)
 "aQp" = (
 /obj/structure/chair/sofa/corp,
 /turf/open/floor/plasteel/f13/vault_floor/dark,
@@ -602,7 +599,7 @@
 /obj/structure/destructible/tribal_torch/wall/lit,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/f13/wood,
-/area/f13/wasteland/khans)
+/area/f13/radiation)
 "bfJ" = (
 /obj/effect/decal/cleanable/robot_debris,
 /obj/effect/decal/cleanable/oil/slippery,
@@ -620,7 +617,7 @@
 	pixel_y = 4
 	},
 /turf/open/floor/f13/wood,
-/area/f13/building/khanfort)
+/area/f13/radiation)
 "bgI" = (
 /turf/closed/wall/rust,
 /area/f13/city)
@@ -797,7 +794,7 @@
 /turf/open/floor/f13/wood{
 	icon_state = "housewood2-broken"
 	},
-/area/f13/wasteland/khans)
+/area/f13/radiation)
 "bsh" = (
 /obj/structure/window/fulltile/house{
 	dir = 2;
@@ -850,7 +847,7 @@
 	icon_state = "bench_center"
 	},
 /turf/open/floor/f13/wood,
-/area/f13/wasteland/khans)
+/area/f13/radiation)
 "byO" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table/wood,
@@ -1025,7 +1022,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/bed/wooden,
 /turf/open/floor/f13/wood,
-/area/f13/wasteland/khans)
+/area/f13/radiation)
 "bPf" = (
 /obj/effect/turf_decal/shadow/floor{
 	dir = 4
@@ -1034,10 +1031,13 @@
 /area/f13/legion)
 "bPK" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/f13/wood{
-	icon_state = "housewood4-broken"
+/obj/structure/destructible/tribal_torch/lit,
+/obj/structure/railing{
+	color = "#A47449";
+	dir = 10
 	},
-/area/f13/wasteland/khans)
+/turf/open/floor/f13/wood,
+/area/f13/radiation)
 "bRj" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/fence/handrail{
@@ -1050,7 +1050,7 @@
 "bSp" = (
 /obj/structure/railing/corner,
 /turf/open/transparent/openspace,
-/area/f13/wasteland/khans)
+/area/f13/radiation)
 "bSK" = (
 /obj/structure/sign/legion/radio,
 /turf/closed/wall/rust,
@@ -1205,10 +1205,6 @@
 	icon_state = "darkrusty"
 	},
 /area/f13/building/massfusion)
-"cmR" = (
-/obj/structure/lattice/catwalk,
-/turf/open/transparent/openspace,
-/area/f13/wasteland/khans)
 "cng" = (
 /obj/structure/noticeboard/captain{
 	desc = "The second Evidence Board shows a small amount of what looks to be crime scenes with corpses all connected to eachother.";
@@ -1403,16 +1399,6 @@
 	icon_state = "darkrusty"
 	},
 /area/f13/building/massfusion)
-"cFr" = (
-/obj/structure/railing{
-	dir = 6;
-	layer = 4.1
-	},
-/turf/open/transparent/openspace{
-	name = "air";
-	sunlight_state = 1
-	},
-/area/f13/wasteland/khans)
 "cGx" = (
 /obj/structure/sign/poster/prewar/poster82,
 /turf/closed/wall/f13/store,
@@ -1529,7 +1515,7 @@
 	name = "air";
 	sunlight_state = 1
 	},
-/area/f13/building/khanfort)
+/area/f13/radiation)
 "cTy" = (
 /obj/structure/table,
 /obj/machinery/computer/terminal{
@@ -1569,7 +1555,7 @@
 /area/f13/wasteland)
 "cVV" = (
 /turf/closed/wall/f13/wood/house,
-/area/f13/building/khanfort)
+/area/f13/radiation)
 "cWQ" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/drinks/bottle/f13nukacola,
@@ -1638,7 +1624,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/f13/wood,
-/area/f13/wasteland/khans)
+/area/f13/radiation)
 "dfb" = (
 /obj/structure/table/wood,
 /turf/open/floor/wood_fancy/wood_fancy_dark,
@@ -1661,7 +1647,7 @@
 	icon_state = "skin"
 	},
 /turf/closed/wall/f13/wood/house,
-/area/f13/building/khanfort)
+/area/f13/radiation)
 "dhi" = (
 /obj/structure/table,
 /obj/machinery/light/small{
@@ -1736,7 +1722,7 @@
 /area/f13/wasteland)
 "dnE" = (
 /turf/closed/wall/f13/tentwall,
-/area/f13/building/khanfort)
+/area/f13/radiation)
 "dof" = (
 /obj/effect/decal/cleanable/dirt{
 	color = "#363636"
@@ -1844,7 +1830,7 @@
 	dir = 1
 	},
 /turf/open/floor/f13/wood,
-/area/f13/wasteland/khans)
+/area/f13/radiation)
 "dGM" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/f13/wood{
@@ -1914,8 +1900,11 @@
 /area/f13/building)
 "dQr" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/railing{
+	color = "#A47449"
+	},
 /turf/open/floor/f13/wood,
-/area/f13/wasteland/khans)
+/area/f13/radiation)
 "dRi" = (
 /obj/structure/bed/roller,
 /turf/open/floor/plasteel/f13{
@@ -1971,7 +1960,7 @@
 	pixel_y = -4
 	},
 /turf/open/indestructible/ground/inside/mountain,
-/area/f13/wasteland/khans)
+/area/f13/radiation)
 "dVz" = (
 /obj/structure/sink{
 	pixel_y = 20
@@ -2104,7 +2093,7 @@
 	name = "air";
 	sunlight_state = 1
 	},
-/area/f13/wasteland/khans)
+/area/f13/radiation)
 "eiE" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/fence/handrail{
@@ -2293,10 +2282,13 @@
 	},
 /area/f13/wasteland)
 "eIa" = (
-/obj/structure/destructible/tribal_torch/wall/lit,
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/railing{
+	color = "#A47449";
+	dir = 4
+	},
 /turf/open/floor/f13/wood,
-/area/f13/building/khanfort)
+/area/f13/radiation)
 "eIR" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/f13/vault_floor/dark,
@@ -2307,7 +2299,7 @@
 "eJE" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/f13/wood,
-/area/f13/building/khanfort)
+/area/f13/radiation)
 "eLn" = (
 /obj/structure/window/fulltile/house{
 	dir = 2;
@@ -2322,7 +2314,7 @@
 	dir = 8
 	},
 /turf/open/floor/f13/wood,
-/area/f13/building/khanfort)
+/area/f13/radiation)
 "eMl" = (
 /obj/structure/chair/office{
 	dir = 4
@@ -2406,7 +2398,7 @@
 	name = "air";
 	sunlight_state = 1
 	},
-/area/f13/wasteland/khans)
+/area/f13/radiation)
 "eWC" = (
 /obj/structure/simple_door/room,
 /turf/open/floor/wood_fancy/wood_fancy_light,
@@ -2487,7 +2479,7 @@
 /turf/open/floor/f13/wood{
 	icon_state = "housewood2-broken"
 	},
-/area/f13/wasteland/khans)
+/area/f13/radiation)
 "fex" = (
 /obj/structure/table/optable,
 /obj/effect/decal/cleanable/dirt{
@@ -2575,7 +2567,7 @@
 /obj/structure/dresser,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/f13/wood,
-/area/f13/wasteland/khans)
+/area/f13/radiation)
 "fra" = (
 /obj/structure/fluff/railing/corner{
 	dir = 4
@@ -2588,7 +2580,7 @@
 	dir = 4
 	},
 /turf/open/floor/f13/wood,
-/area/f13/building/khanfort)
+/area/f13/radiation)
 "ftv" = (
 /obj/structure/table,
 /obj/machinery/computer/security/bos{
@@ -2760,7 +2752,7 @@
 /obj/structure/barricade/wooden/planks/pregame,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/f13/wood,
-/area/f13/building/khanfort)
+/area/f13/radiation)
 "fSI" = (
 /obj/structure/table/wood,
 /obj/effect/turf_decal/shadow/floor{
@@ -3241,12 +3233,16 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/f13/wood,
-/area/f13/building/khanfort)
+/area/f13/radiation)
 "gZe" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/destructible/tribal_torch/lit,
+/obj/structure/railing{
+	color = "#A47449";
+	dir = 6
+	},
 /turf/open/floor/f13/wood,
-/area/f13/wasteland/khans)
+/area/f13/radiation)
 "gZj" = (
 /turf/open/floor/f13/wood{
 	icon_state = "housewood1-broken"
@@ -3399,7 +3395,7 @@
 /obj/structure/chair/bench,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/f13/wood,
-/area/f13/wasteland/khans)
+/area/f13/radiation)
 "hqA" = (
 /obj/structure/table,
 /obj/machinery/computer/terminal{
@@ -3453,7 +3449,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/f13/wood,
-/area/f13/wasteland/khans)
+/area/f13/radiation)
 "hwG" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 1
@@ -3644,7 +3640,7 @@
 	name = "air";
 	sunlight_state = 1
 	},
-/area/f13/wasteland/khans)
+/area/f13/radiation)
 "hYA" = (
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/city)
@@ -4248,13 +4244,13 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/simple_door/repaired,
 /turf/open/floor/f13/wood,
-/area/f13/building/khanfort)
+/area/f13/radiation)
 "jjC" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/f13/wood{
 	icon_state = "housewood2"
 	},
-/area/f13/wasteland/khans)
+/area/f13/radiation)
 "jkw" = (
 /obj/structure/reagent_dispensers/water_cooler,
 /turf/open/floor/plasteel/f13/vault_floor/floor,
@@ -4330,7 +4326,7 @@
 /obj/item/shard,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/f13/wood,
-/area/f13/building/khanfort)
+/area/f13/radiation)
 "jse" = (
 /obj/structure/barricade/sandbags,
 /obj/structure/barricade/wooden,
@@ -4439,7 +4435,7 @@
 	icon_state = "skin"
 	},
 /turf/closed/wall/f13/wood/house,
-/area/f13/building/khanfort)
+/area/f13/radiation)
 "jFy" = (
 /obj/structure/simple_door/interior,
 /turf/open/floor/wood_fancy,
@@ -4486,17 +4482,12 @@
 "jJr" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/bed/dogbed,
-/mob/living/simple_animal/hostile/wolf/alpha{
-	desc = "Sheepdogs are known for their intelligence and have worked alongside humans for thousands of years. This one has a dopey smile and smells of barbecue sauce.";
-	faction = list("neutral");
-	health = 200;
-	icon_dead = "tippen_dead";
-	icon_living = "tippen";
-	icon_state = "tippen";
-	name = "Dreams-of-Moonlight"
-	},
+/obj/item/reagent_containers/food/snacks/meat/slab/wolf,
+/obj/item/reagent_containers/food/snacks/meat/slab/wolf,
+/obj/item/reagent_containers/food/snacks/meat/slab/wolf,
+/obj/effect/decal/cleanable/blood,
 /turf/open/floor/f13/wood,
-/area/f13/building/khanfort)
+/area/f13/radiation)
 "jME" = (
 /obj/machinery/computer/arcade/orion_trail,
 /turf/open/floor/carpet/arcade,
@@ -4548,7 +4539,7 @@
 /obj/structure/chair/stool/bar,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/f13/wood,
-/area/f13/wasteland/khans)
+/area/f13/radiation)
 "jRC" = (
 /turf/open/floor/wood_mosaic,
 /area/f13/city)
@@ -4754,7 +4745,7 @@
 	name = "air";
 	sunlight_state = 1
 	},
-/area/f13/building/khanfort)
+/area/f13/radiation)
 "ksl" = (
 /obj/machinery/door/airlock/hatch,
 /turf/open/floor/plasteel/f13{
@@ -4773,7 +4764,7 @@
 /obj/structure/table/wood/settler,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/f13/wood,
-/area/f13/wasteland/khans)
+/area/f13/radiation)
 "kur" = (
 /turf/closed/wall,
 /area/f13/ncr)
@@ -5248,7 +5239,7 @@
 	name = "skulls"
 	},
 /turf/closed/wall/f13/wood/house,
-/area/f13/building/khanfort)
+/area/f13/radiation)
 "lwT" = (
 /obj/structure/railing,
 /turf/open/transparent/openspace,
@@ -5827,7 +5818,7 @@
 	pixel_y = 16
 	},
 /turf/open/floor/f13/wood,
-/area/f13/building/khanfort)
+/area/f13/radiation)
 "mvq" = (
 /obj/structure/chair/stool/f13stool{
 	pixel_y = 8
@@ -5899,9 +5890,6 @@
 	icon_state = "redmark"
 	},
 /area/f13/city)
-"mCO" = (
-/turf/open/transparent/openspace,
-/area/f13/wasteland/khans)
 "mDE" = (
 /obj/effect/turf_decal/shadow/floor{
 	dir = 8
@@ -6462,7 +6450,7 @@
 	dir = 8
 	},
 /turf/open/floor/f13/wood,
-/area/f13/building/khanfort)
+/area/f13/radiation)
 "nLV" = (
 /obj/structure/railing{
 	dir = 8
@@ -6491,7 +6479,7 @@
 	name = "skulls"
 	},
 /turf/closed/wall/f13/wood/house,
-/area/f13/building/khanfort)
+/area/f13/radiation)
 "nQq" = (
 /obj/structure/railing/corner{
 	color = "#A47449";
@@ -6671,7 +6659,7 @@
 	icon_state = "skin"
 	},
 /turf/closed/wall/f13/wood/house,
-/area/f13/building/khanfort)
+/area/f13/radiation)
 "odS" = (
 /obj/structure/bed,
 /obj/item/bedsheet/rd,
@@ -6713,7 +6701,7 @@
 	icon_state = "skin"
 	},
 /turf/closed/wall/f13/wood/house,
-/area/f13/building/khanfort)
+/area/f13/radiation)
 "ojh" = (
 /turf/closed/wall/f13/supermart,
 /area/f13/ncr)
@@ -6881,7 +6869,7 @@
 /obj/structure/chair/sofa/left,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/f13/wood,
-/area/f13/building/khanfort)
+/area/f13/radiation)
 "oIu" = (
 /obj/structure/table/reinforced,
 /obj/item/flashlight/lamp{
@@ -6926,7 +6914,7 @@
 	dir = 4
 	},
 /turf/open/floor/f13/wood,
-/area/f13/wasteland/khans)
+/area/f13/radiation)
 "oOo" = (
 /turf/closed/indestructible/f13/matrix,
 /area/f13/city)
@@ -7175,7 +7163,7 @@
 	icon_state = "bench"
 	},
 /turf/open/floor/f13/wood,
-/area/f13/wasteland/khans)
+/area/f13/radiation)
 "psY" = (
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
@@ -7192,7 +7180,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/f13/wood,
-/area/f13/building/khanfort)
+/area/f13/radiation)
 "pur" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/sink{
@@ -7608,7 +7596,7 @@
 	dir = 4
 	},
 /turf/open/transparent/openspace,
-/area/f13/wasteland/khans)
+/area/f13/radiation)
 "qtF" = (
 /obj/structure/railing{
 	dir = 4
@@ -7886,7 +7874,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/bed/wooden,
 /turf/open/floor/f13/wood,
-/area/f13/wasteland/khans)
+/area/f13/radiation)
 "rba" = (
 /obj/structure/railing,
 /turf/open/floor/plating/rust,
@@ -7935,7 +7923,7 @@
 /turf/open/floor/f13/wood{
 	icon_state = "housewood1-broken"
 	},
-/area/f13/wasteland/khans)
+/area/f13/radiation)
 "rma" = (
 /obj/structure/fluff/railing{
 	dir = 8
@@ -8089,7 +8077,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/bonfire,
 /turf/open/floor/f13/wood,
-/area/f13/building/khanfort)
+/area/f13/radiation)
 "rHE" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/lootdrop/f13/junkspawners,
@@ -8172,7 +8160,7 @@
 /turf/open/floor/f13/wood{
 	icon_state = "housewood4-broken"
 	},
-/area/f13/building/khanfort)
+/area/f13/radiation)
 "rRp" = (
 /obj/structure/fluff/railing/corner{
 	dir = 1
@@ -8529,7 +8517,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/f13/wood,
-/area/f13/building/khanfort)
+/area/f13/radiation)
 "sAH" = (
 /obj/structure/rack,
 /obj/item/storage/toolbox/electrical{
@@ -8627,7 +8615,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/f13/wood,
-/area/f13/building/khanfort)
+/area/f13/radiation)
 "sLn" = (
 /obj/structure/table,
 /obj/structure/railing{
@@ -8702,7 +8690,7 @@
 	icon_state = "bench"
 	},
 /turf/open/floor/f13/wood,
-/area/f13/wasteland/khans)
+/area/f13/radiation)
 "sRA" = (
 /obj/structure/window/fulltile/house{
 	icon_state = "storewindowhorizontal";
@@ -8718,10 +8706,12 @@
 /area/f13/ncr)
 "sRU" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/f13/wood{
-	icon_state = "housewood3-broken"
+/obj/structure/railing{
+	color = "#A47449";
+	dir = 8
 	},
-/area/f13/wasteland/khans)
+/turf/open/floor/f13/wood,
+/area/f13/radiation)
 "sSu" = (
 /obj/effect/overlay/junk/curtain{
 	layer = 4
@@ -8750,7 +8740,7 @@
 /obj/structure/rack,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/f13/wood,
-/area/f13/wasteland/khans)
+/area/f13/radiation)
 "sVC" = (
 /obj/structure/railing/corner{
 	dir = 4
@@ -8774,7 +8764,7 @@
 	name = "air";
 	sunlight_state = 1
 	},
-/area/f13/building/khanfort)
+/area/f13/radiation)
 "sXq" = (
 /obj/structure/bed/wooden,
 /obj/effect/landmark/start/f13/vexillarius,
@@ -8915,7 +8905,7 @@
 	name = "air";
 	sunlight_state = 1
 	},
-/area/f13/wasteland/khans)
+/area/f13/radiation)
 "tiP" = (
 /turf/open/floor/wood_fancy,
 /area/f13/ncr)
@@ -9121,7 +9111,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table/wood/settler,
 /turf/open/floor/f13/wood,
-/area/f13/wasteland/khans)
+/area/f13/radiation)
 "tGt" = (
 /obj/structure/table,
 /obj/machinery/light/small{
@@ -9202,7 +9192,7 @@
 "tST" = (
 /obj/structure/decoration/rag,
 /turf/closed/wall/f13/wood/house,
-/area/f13/building/khanfort)
+/area/f13/radiation)
 "tTA" = (
 /obj/structure/railing/corner{
 	dir = 4
@@ -9276,12 +9266,12 @@
 	name = "air";
 	sunlight_state = 1
 	},
-/area/f13/building/khanfort)
+/area/f13/radiation)
 "tYb" = (
 /obj/structure/chair/sofa,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/f13/wood,
-/area/f13/building/khanfort)
+/area/f13/radiation)
 "tYl" = (
 /turf/open/floor/plasteel/f13/vault_floor/blue/side{
 	dir = 8
@@ -9408,7 +9398,7 @@
 	},
 /obj/item/warpaint_bowl,
 /turf/open/floor/f13/wood,
-/area/f13/building/khanfort)
+/area/f13/radiation)
 "uoR" = (
 /obj/structure/chair/booth{
 	dir = 8;
@@ -9571,7 +9561,7 @@
 	dir = 4
 	},
 /turf/closed/wall/f13/wood/house,
-/area/f13/building/khanfort)
+/area/f13/radiation)
 "uFV" = (
 /obj/structure/barricade/sandbags,
 /turf/open/floor/f13/wood{
@@ -9739,7 +9729,7 @@
 /area/f13/city)
 "uYs" = (
 /turf/closed/wall/f13/wood,
-/area/f13/wasteland/khans)
+/area/f13/radiation)
 "uZB" = (
 /obj/structure/holosign/barrier/engineering,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
@@ -9832,7 +9822,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/f13/wood,
-/area/f13/wasteland/khans)
+/area/f13/radiation)
 "vqz" = (
 /turf/open/transparent/openspace{
 	name = "air";
@@ -9927,7 +9917,7 @@
 	name = "air";
 	sunlight_state = 1
 	},
-/area/f13/wasteland/khans)
+/area/f13/radiation)
 "vDZ" = (
 /obj/machinery/light/small,
 /mob/living/simple_animal/hostile/ghoul,
@@ -10037,7 +10027,7 @@
 "vMW" = (
 /obj/structure/barricade/wooden,
 /turf/closed/wall/f13/wood,
-/area/f13/wasteland/khans)
+/area/f13/radiation)
 "vNT" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/toolbox/mechanical,
@@ -10065,7 +10055,7 @@
 	dir = 4
 	},
 /turf/open/transparent/openspace,
-/area/f13/wasteland/khans)
+/area/f13/radiation)
 "vSp" = (
 /obj/structure/rack/shelf_metal,
 /obj/item/tank/internals/anesthetic,
@@ -10080,7 +10070,7 @@
 	},
 /obj/structure/decoration/rag,
 /turf/closed/wall/f13/wood/house,
-/area/f13/building/khanfort)
+/area/f13/radiation)
 "vTD" = (
 /obj/structure/table,
 /turf/open/floor/wood_fancy/wood_fancy_dark,
@@ -10109,7 +10099,7 @@
 	},
 /obj/structure/barricade/wooden/planks/pregame,
 /turf/open/floor/f13/wood,
-/area/f13/building/khanfort)
+/area/f13/radiation)
 "vYs" = (
 /obj/structure/chair/f13chair1{
 	dir = 8
@@ -10167,7 +10157,7 @@
 	},
 /obj/item/radio/tribal,
 /turf/open/floor/f13/wood,
-/area/f13/building/khanfort)
+/area/f13/radiation)
 "wec" = (
 /turf/closed/wall/f13/tunnel,
 /area/f13/tunnel)
@@ -11033,7 +11023,7 @@
 	name = "skulls"
 	},
 /turf/open/indestructible/ground/inside/mountain,
-/area/f13/wasteland/khans)
+/area/f13/radiation)
 "ybS" = (
 /obj/machinery/light/small,
 /obj/structure/toilet{
@@ -16364,13 +16354,13 @@ vLb
 vLb
 vLb
 vLb
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
+tik
+tik
+tik
+tik
+tik
+tik
+tik
 vLb
 vLb
 vLb
@@ -16621,13 +16611,13 @@ vLb
 vLb
 vLb
 vLb
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
+tik
+tik
+tik
+tik
+tik
+tik
+tik
 vLb
 vLb
 vLb
@@ -16872,19 +16862,19 @@ vLb
 vLb
 vLb
 vLb
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
 vLb
 vLb
 vLb
@@ -17129,20 +17119,20 @@ vLb
 vLb
 vLb
 vLb
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
 vLb
 vLb
 vLb
@@ -17378,28 +17368,28 @@ vLb
 vLb
 uYs
 foW
-dQr
+eJE
 rlg
 uYs
 vLb
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
 vLb
 vLb
 vLb
@@ -17636,31 +17626,31 @@ vLb
 uYs
 hqx
 hvE
-dQr
+eJE
 yaC
 eWb
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
 vLb
 vLb
 vLb
@@ -17892,32 +17882,32 @@ vLb
 vLb
 uYs
 ktd
-sRU
-dQr
+afb
+eJE
 dUZ
 eWb
-dnE
-dnE
-dnE
-dnE
-dnE
 eWb
 eWb
 eWb
 eWb
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
+eWb
+eWb
+eWb
+eWb
+eWb
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
 vLb
 vLb
 vLb
@@ -18149,36 +18139,36 @@ vLb
 vLb
 uYs
 sUD
-dQr
+eJE
 raE
 vMW
 eWb
-dnE
-dnE
-dnE
-dnE
-dnE
 eWb
 eWb
 eWb
 eWb
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
+eWb
+eWb
+eWb
+eWb
+eWb
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
 vLb
 vLb
 rwk
@@ -18410,32 +18400,32 @@ ddf
 uYs
 uYs
 eWb
-dnE
-dnE
-dnE
-dnE
-dnE
 eWb
 eWb
 eWb
 eWb
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
+eWb
+eWb
+eWb
+eWb
+eWb
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
 vLb
 vLb
 rwk
@@ -18660,39 +18650,39 @@ vLb
 uYs
 oNs
 vpi
-bPK
-dQr
+rRa
+eJE
 uYs
 awU
 uYs
 vLb
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
 vLb
 vLb
 rwk
@@ -18917,39 +18907,39 @@ vLb
 uYs
 tFP
 dDZ
-dQr
-dQr
+eJE
+eJE
 ddf
-dQr
+eJE
 yaC
 eWb
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
 vLb
 vLb
 rwk
@@ -19174,39 +19164,39 @@ vLb
 uYs
 bOS
 brR
-dQr
-dQr
+eJE
+eJE
 vMW
 bfF
 uYs
 vLb
-dQr
-dQr
-dQr
-gZe
-mCO
-mCO
+sRU
+sRU
+sRU
+bPK
+tik
+tik
 eWb
 eWb
 eWb
 eWb
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
 vLb
 vLb
 vLb
@@ -19434,36 +19424,36 @@ uYs
 uYs
 uYs
 uYs
-dQr
+eJE
 uYs
 vLb
+eJE
+eJE
+rRa
 dQr
-dQr
-bPK
-dQr
-mCO
-mCO
-dnE
-dnE
-dnE
+tik
+tik
+afG
+afG
+afG
 eWb
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
 vLb
 vLb
 vLb
@@ -19689,39 +19679,39 @@ laB
 vLb
 vLb
 uoC
-afG
+brR
 eLX
 eJE
 eJE
 eLX
-dQr
-dQr
+eJE
+eJE
 sRu
 dQr
-mCO
-mCO
-dnE
-dnE
-dnE
+tik
+tik
+afG
+afG
+afG
 eWb
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
 vLb
 rwk
 rwk
@@ -19951,34 +19941,34 @@ eJE
 eJE
 eJE
 eJE
-dQr
-sRU
+eJE
+afb
 byD
 dQr
-mCO
-mCO
-dnE
-dnE
-dnE
+tik
+tik
+afG
+afG
+afG
 eWb
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
 vLb
 rwk
 rwk
@@ -20208,34 +20198,34 @@ aec
 eJE
 afb
 aec
-dQr
-dQr
+eJE
+eJE
 byD
 dQr
-mCO
-mCO
+tik
+tik
 eWb
 eWb
 eWb
 eWb
 eWb
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
 vLb
 rwk
 rwk
@@ -20465,34 +20455,34 @@ uFT
 jDW
 tST
 ojc
-dQr
-dQr
+eJE
+eJE
 psz
 dQr
-mCO
-mCO
+tik
+tik
 eWb
 eWb
 eWb
 eWb
 eWb
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
 vLb
 rwk
 rwk
@@ -20722,35 +20712,35 @@ eJE
 nLw
 aPE
 vTB
+eJE
+eJE
+eJE
 dQr
-dQr
-dQr
-dQr
-mCO
-mCO
+tik
+tik
 eWb
 eWb
 eWb
 eWb
 eWb
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
 vLb
 vLb
 vLb
@@ -20977,37 +20967,37 @@ tYb
 aiG
 eJE
 eJE
-afG
-jiT
-dQr
 brR
+jiT
+eJE
+brR
+eJE
 dQr
-dQr
-mCO
-mCO
+tik
+tik
 eWb
 eWb
 eWb
 eWb
 eWb
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
 laB
 laB
 laB
@@ -21234,37 +21224,37 @@ oIp
 puj
 eJE
 eJE
-eIa
+bfF
 tST
-dQr
-dQr
-dQr
+eIa
+eIa
+eIa
 gZe
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
 dnE
 dnE
 dnE
 dnE
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
 vLb
 vLb
 vLb
@@ -21493,35 +21483,35 @@ eJE
 rRa
 eJE
 fSd
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
 dnE
 dnE
 dnE
 dnE
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
 eWb
 vLb
 vLb
@@ -21743,42 +21733,42 @@ vLb
 vLb
 tST
 eJE
-afG
+brR
 eJE
 afb
 eJE
 eJE
 eJE
 vYm
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
 dnE
 dnE
 dnE
 dnE
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
 eWb
 eWb
 vLb
@@ -22007,33 +21997,33 @@ eJE
 eJE
 eJE
 nPQ
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
 dnE
 dnE
 dnE
 dnE
-mCO
-mCO
-mCO
-mCO
-mCO
+tik
+tik
+tik
+tik
+tik
 bSp
 vPk
 vPk
 qsA
-mCO
+tik
 bSp
 tiu
 ehG
@@ -22264,19 +22254,19 @@ jrX
 bgh
 odJ
 dgj
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
 eWb
 eWb
 eWb
@@ -22286,7 +22276,7 @@ tot
 vLb
 eWb
 eWb
-cFr
+cTb
 hWV
 hWV
 hWV
@@ -22520,19 +22510,19 @@ vLb
 hWV
 hWV
 eWb
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
 vLb
 vLb
 vLb
@@ -22774,22 +22764,22 @@ vLb
 vLb
 vLb
 vLb
-dQr
-dQr
+eJE
+eJE
 aju
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
 vLb
 vLb
 vLb
@@ -23031,22 +23021,22 @@ vLb
 vLb
 vLb
 tot
-dQr
+eJE
 jjC
 fdK
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
 vLb
 vLb
 vLb
@@ -23288,20 +23278,20 @@ vLb
 vLb
 tot
 tot
-dQr
-dQr
+eJE
+eJE
 jQX
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
 vLb
 vLb
 vLb
@@ -23546,19 +23536,19 @@ dmE
 cHe
 tot
 tot
-cmR
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
+dbF
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
+tik
 vLb
 vLb
 vLb
@@ -23803,13 +23793,13 @@ oez
 oez
 aqU
 tot
-cmR
-mCO
-mCO
-mCO
-mCO
-mCO
-mCO
+dbF
+tik
+tik
+tik
+tik
+tik
+tik
 tot
 tot
 tot
@@ -24061,7 +24051,7 @@ oez
 tot
 tot
 tot
-cmR
+dbF
 hWV
 hWV
 hWV
@@ -24318,7 +24308,7 @@ oez
 oez
 tot
 tot
-cmR
+dbF
 hWV
 hWV
 tot
