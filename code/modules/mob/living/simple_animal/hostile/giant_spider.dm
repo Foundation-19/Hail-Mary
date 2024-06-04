@@ -203,6 +203,7 @@
 	icon_dead = "midwife_dead"
 	maxHealth = 40
 	health = 40
+	sentience_type = SENTIENCE_BOSS
 	var/datum/action/innate/spider/comm/letmetalkpls
 	gold_core_spawnable = NO_SPAWN
 
