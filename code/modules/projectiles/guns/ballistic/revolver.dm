@@ -12,6 +12,7 @@
 	weapon_weight = GUN_ONE_HAND_AKIMBO
 	damage_multiplier = GUN_EXTRA_DAMAGE_0
 	init_recoil = HANDGUN_RECOIL(1)
+	dualwield_spread_mult = 2
 	init_firemodes = list(
 		/datum/firemode/semi_auto
 	)
@@ -224,7 +225,7 @@
  * Unique
  * * * * * * * * * * */
 
-/obj/item/gun/ballistic/revolver/colt357/mateba //this is a skin that rigbe wanted
+/obj/item/gun/ballistic/revolver/colt357/mateba
 	name = "\improper Unica 6 auto-revolver"
 	desc = "A pre-war high-power autorevolver commonly used by people who think they look cool."
 	icon_state = "mateba"
@@ -320,7 +321,7 @@
 	icon_state = "magnum44"
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rev44
 	weapon_class = WEAPON_CLASS_SMALL
-	weapon_weight = GUN_ONE_HAND_AKIMBO
+	weapon_weight = GUN_ONE_HAND_ONLY
 	damage_multiplier = GUN_EXTRA_DAMAGE_0
 	can_scope = TRUE
 	scope_state = "revolver_scope"
@@ -342,7 +343,7 @@
 	desc = "Powerful handgun with a bit of a kick. This one has nickled finish and pearly grip, and has been kept in good condition by its owner."
 	icon_state = "widowmaker44"
 	weapon_class = WEAPON_CLASS_SMALL
-	weapon_weight = GUN_ONE_HAND_AKIMBO
+	weapon_weight = GUN_ONE_HAND_ONLY
 	damage_multiplier = GUN_EXTRA_DAMAGE_0
 	can_scope = TRUE
 	init_firemodes = list(
@@ -365,7 +366,7 @@
 	item_state = "m29peace"
 	icon_state = "m29peace"
 	weapon_class = WEAPON_CLASS_SMALL
-	weapon_weight = GUN_ONE_HAND_AKIMBO
+	weapon_weight = GUN_ONE_HAND_ONLY
 	damage_multiplier = GUN_EXTRA_DAMAGE_0
 	init_firemodes = list(
 		/datum/firemode/semi_auto/slow
@@ -416,7 +417,7 @@
 	icon_state = "44colt"
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rev44
 	weapon_class = WEAPON_CLASS_SMALL
-	weapon_weight = GUN_ONE_HAND_AKIMBO
+	weapon_weight = GUN_ONE_HAND_ONLY
 	damage_multiplier = GUN_EXTRA_DAMAGE_T1
 	init_recoil = HANDGUN_RECOIL(0.8)
 	gun_accuracy_zone_type = ZONE_WEIGHT_PRECISION
@@ -441,7 +442,7 @@
 	name = "desert ranger revolver"
 	desc = "I hadn't noticed, but there on his hip, was a really spiffy looking iron..."
 	weapon_class = WEAPON_CLASS_SMALL
-	weapon_weight = GUN_ONE_HAND_AKIMBO
+	weapon_weight = GUN_ONE_HAND_ONLY
 	damage_multiplier = GUN_EXTRA_DAMAGE_T1
 	init_recoil = HANDGUN_RECOIL(0.8)
 	gun_accuracy_zone_type = ZONE_WEIGHT_PRECISION
@@ -488,7 +489,7 @@
 	icon_state = "hunting_revolver"
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rev4570
 	weapon_class = WEAPON_CLASS_NORMAL
-	weapon_weight = GUN_ONE_HAND_AKIMBO
+	weapon_weight = GUN_ONE_HAND_ONLY
 	damage_multiplier = GUN_LESS_DAMAGE_T1
 	init_recoil = HANDGUN_RECOIL(1.2)
 	gun_accuracy_zone_type = ZONE_WEIGHT_PRECISION
@@ -512,7 +513,7 @@
 	name = "degraded hunting revolver"
 	desc = "A scoped double action revolver chambered in 45-70. This one is very worn."
 	weapon_class = WEAPON_CLASS_NORMAL
-	weapon_weight = GUN_ONE_HAND_AKIMBO
+	weapon_weight = GUN_ONE_HAND_ONLY
 	damage_multiplier = GUN_EXTRA_DAMAGE_T2
 	init_firemodes = list(
 		/datum/firemode/semi_auto/slower
@@ -535,8 +536,8 @@
 	item_state = "sequoia"
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rev4570
 	weapon_class = WEAPON_CLASS_NORMAL
-	weapon_weight = GUN_ONE_HAND_AKIMBO
-	damage_multiplier = GUN_EXTRA_DAMAGE_0 //it does plenty of damage without a boost >.>
+	weapon_weight = GUN_ONE_HAND_ONLY
+	damage_multiplier = GUN_EXTRA_DAMAGE_0 //if i see one more stupid furry comment i will send you to Jesus
 	init_recoil = HANDGUN_RECOIL(1.2)
 	gun_accuracy_zone_type = ZONE_WEIGHT_PRECISION
 	init_firemodes = list(
@@ -552,7 +553,7 @@
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rev4570
 	force = GUN_MELEE_FORCE_PISTOL_HEAVY * 1.5
 	weapon_class = WEAPON_CLASS_NORMAL
-	weapon_weight = GUN_ONE_HAND_AKIMBO
+	weapon_weight = GUN_ONE_HAND_ONLY
 	damage_multiplier = GUN_EXTRA_DAMAGE_0
 	init_firemodes = list(
 		/datum/firemode/semi_auto/slow
@@ -611,11 +612,11 @@
 	icon_state = "thatgun"
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/thatgun
 	weapon_class = WEAPON_CLASS_SMALL
-	weapon_weight = GUN_ONE_HAND_AKIMBO
+	weapon_weight = GUN_ONE_HAND_ONLY
 	damage_multiplier = GUN_EXTRA_DAMAGE_0
 	gun_accuracy_zone_type = ZONE_WEIGHT_AUTOMATIC
 	init_firemodes = list(
-		/datum/firemode/semi_auto/fast
+		/datum/firemode/semi_auto/slow
 	)
 	fire_sound = 'sound/f13weapons/magnum_fire.ogg'
 
@@ -655,6 +656,29 @@
 		/datum/firemode/semi_auto/faster
 	)
 	fire_sound = 'sound/weapons/gunshot_silenced.ogg'
+
+/* * * * * * * * * * *
+ * Rusted Revolver
+ * High damage revolver that uses shotgun shells
+ * Uses shotgun shells
+ * Unique
+ * Based off of the Ghoul's revolver from the Fallout show
+ * * * * * * * * * * */
+
+/obj/item/gun/ballistic/revolver/ghoulgun
+	name = "rusted revolver"
+	desc = "A worn but well-maintained revolver. Uses shotgun rounds, with a heavy barrel for greater velocity."
+	icon = 'icons/fallout/objects/guns/ballistic.dmi'
+	icon_state = "ghoulgun"
+	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/ghoulgun
+	weapon_class = WEAPON_CLASS_SMALL
+	weapon_weight = GUN_ONE_HAND_ONLY
+	damage_multiplier = GUN_EXTRA_DAMAGE_T2
+	gun_accuracy_zone_type = ZONE_WEIGHT_AUTOMATIC
+	init_firemodes = list(
+		/datum/firemode/semi_auto/fast
+	)
+	fire_sound = 'sound/f13weapons/ghoulgun_fire.ogg'
 
 // LEGACY STUFF
 

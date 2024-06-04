@@ -3,7 +3,7 @@
 	id = "dwarf" //Also called Homo sapiens pumilionis
 	default_color = "FFFFFF"
 
-	species_traits = list(EYECOLOR,HAIR,FACEHAIR,LIPS,MUTCOLORS,HORNCOLOR,WINGCOLOR,HAS_FLESH,HAS_BONE)
+	species_traits = list(EYECOLOR,HAIR,FACEHAIR,LIPS,MUTCOLORS,WINGCOLOR,HAS_FLESH,HAS_BONE)
 	inherent_traits = list(TRAIT_DWARF)
 	limbs_id = "human"
 	mutant_bodyparts = list("mcolor" = "FFFFFF","mcolor2" = "FFFFFF","mcolor3" = "FFFFFF", "mam_snouts" = "Husky", "mam_tail" = "Husky", "mam_ears" = "Husky", "deco_wings" = "None", "mam_body_markings" = "Husky", "taur" = "None", "horns" = "None", "legs" = "Plantigrade", "meat_type" = "Mammalian")

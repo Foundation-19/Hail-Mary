@@ -13,7 +13,7 @@
 
 /obj/item/binoculars/wield(mob/living/user)
 	. = ..()
-	RegisterSignal(user, COMSIG_ATOM_DIR_CHANGE, .proc/rotate)
+	RegisterSignal(user, COMSIG_ATOM_DIR_CHANGE, PROC_REF(rotate))
 	listeningTo = user
 	user.visible_message(span_notice("[user] holds [src] up to [user.p_their()] eyes."), span_notice("You hold [src] up to your eyes."))
 	item_state = "binoculars_wielded"
@@ -74,7 +74,7 @@
 	user.visible_message(span_notice("[user] lowers [src]."), span_notice("You lower [src]."))
 	item_state = "binoculars"
 	user.regenerate_icons()
-	if(user && user.client)
+	if(user && user.client && user == usr)
 		user.regenerate_icons()
 		var/client/C = user.client
 		C.change_view(CONFIG_GET(string/default_view))

@@ -118,6 +118,8 @@
 //#define CAT_MISCCLOTHING "Misc Clothing"
 #define CAT_DRINK "Drinks"
 //#define CAT_EXPLOSIVE "Explosives"
+#define CAT_VEHICLES "Vehicles"
+#define CAT_VEHICLEPARTS "Vehicle Parts"
 
 #define RCD_FLOORWALL 1
 #define RCD_AIRLOCK 2

@@ -490,7 +490,7 @@
 #define HIDE_OFFLINE_INDICATOR (1<<0)
 
 //Respawn timer
-#define RESPAWN_TIMER 1
+#define RESPAWN_TIMER 6000
 
 ///Define for spawning megafauna instead of a mob for cave gen
 #define SPAWN_MEGAFAUNA "bluh bluh huge boss"
@@ -594,7 +594,7 @@
 #define MOB_EMP_SCRAMBLE "mob_gets_geckoed"
 
 /// cooldown for being spammed with projectile messages
-#define ATTACK_MESSAGE_ANTISPAM_TIME 0.5 SECONDS
+#define ATTACK_MESSAGE_ANTISPAM_TIME 3 SECONDS
 /// cooldown for making the DING
 #define SIMPLE_MOB_DING_COOLDOWN 3 SECONDS
 

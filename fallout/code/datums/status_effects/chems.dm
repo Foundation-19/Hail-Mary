@@ -121,13 +121,12 @@
 	master = get_mob_by_key(enthrallID)
 	//if(M.ckey == enthrallID)
 	//	owner.remove_status_effect(src)//At the moment, a user can enthrall themselves, toggle this back in if that should be removed.
-	RegisterSignal(owner, COMSIG_LIVING_RESIST, .proc/owner_resist) //Do resistance calc if resist is pressed#
-	RegisterSignal(owner, COMSIG_MOVABLE_HEAR, .proc/owner_hear)
+	RegisterSignal(owner, COMSIG_LIVING_RESIST, PROC_REF(owner_resist)) //Do resistance calc if resist is pressed#
+	RegisterSignal(owner, COMSIG_MOVABLE_HEAR, PROC_REF(owner_hear))
 	mental_capacity = 500 - M.getOrganLoss(ORGAN_SLOT_BRAIN)//It's their brain!
-	lewd = (owner.client?.prefs.cit_toggles & HYPNO) && (master.client?.prefs.cit_toggles & HYPNO)
-	var/message = "[(lewd ? "I am a good pet for [enthrallGender]." : "[master] is a really inspirational person!")]"
+	var/message = "[master] is a really inspirational person!"
 	SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "enthrall", /datum/mood_event/enthrall, message)
-	to_chat(owner, "<span class='[(lewd ?"big velvet":"big warning")]'><b>You feel inexplicably drawn towards [master], their words having a demonstrable effect on you. It seems the closer you are to them, the stronger the effect is. However you aren't fully swayed yet and can resist their effects by repeatedly resisting as much as you can!</b></span>")
+	to_chat(owner, "<span class='big warning'><b>You feel inexplicably drawn towards [master], their words having a demonstrable effect on you. It seems the closer you are to them, the stronger the effect is. However you aren't fully swayed yet and can resist their effects by repeatedly resisting as much as you can!</b></span>")
 	log_reagent("FERMICHEM: MKULTRA: Status applied on [owner] ckey: [owner.key] with a master of [master] ckey: [enthrallID].")
 	SSblackbox.record_feedback("tally", "fermi_chem", 1, "Enthrall attempts")
 	return ..()
@@ -305,7 +304,7 @@
 			if(67 to 89) //anger
 				if(prob(10))
 					addtimer(CALLBACK(M, /mob/verb/a_intent_change, INTENT_HARM), 2)
-					addtimer(CALLBACK(M, /mob/proc/click_random_mob), 2)
+					addtimer(CALLBACK(M, TYPE_PROC_REF(/mob, click_random_mob)), 2)
 					if(lewd)
 						to_chat(owner, span_warning("You are overwhelmed with anger at the lack of [enthrallGender]'s presence and suddenly lash out!"))
 					else
@@ -477,14 +476,14 @@
 			//Speak (Forces player to talk)
 			if (lowertext(customTriggers[trigger][1]) == "speak")//trigger2
 				var/saytext = "Your mouth moves on it's own before you can even catch it."
-				addtimer(CALLBACK(GLOBAL_PROC, .proc/to_chat, C, "<span class='notice'><i>[saytext]</i></span>"), 5)
+				addtimer(CALLBACK(GLOBAL_PROC,GLOBAL_PROC_REF(to_chat), C, "<span class='notice'><i>[saytext]</i></span>"), 5)
 				addtimer(CALLBACK(C, /atom/movable/proc/say, "[customTriggers[trigger][2]]"), 5)
 				log_reagent("FERMICHEM: MKULTRA: [owner] ckey: [owner.key] has been forced to say: \"[customTriggers[trigger][2]]\" from previous trigger.")
 
 
 			//Echo (repeats message!) allows customisation, but won't display var calls! Defaults to hypnophrase.
 			else if (lowertext(customTriggers[trigger][1]) == "echo")//trigger2
-				addtimer(CALLBACK(GLOBAL_PROC, .proc/to_chat, C, "<span class='velvet'><i>[customTriggers[trigger][2]]</i></span>"), 5)
+				addtimer(CALLBACK(GLOBAL_PROC,GLOBAL_PROC_REF(to_chat), C, "<span class='velvet'><i>[customTriggers[trigger][2]]</i></span>"), 5)
 				//(to_chat(owner, "<span class='hypnophrase'><i>[customTriggers[trigger][2]]</i></span>"))//trigger3
 
 			//Shocking truth!

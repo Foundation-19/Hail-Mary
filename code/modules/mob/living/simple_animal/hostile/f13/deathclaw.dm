@@ -12,8 +12,9 @@
 	icon_dead = "deathclaw_dead"
 	icon_gib = "deathclaw_gib"
 	mob_armor = ARMOR_VALUE_DEATHCLAW_COMMON
-	maxHealth = 250
-	health = 250
+	sentience_type = SENTIENCE_BOSS
+	maxHealth = 600
+	health = 600
 	reach = 2
 	speed = 1
 	obj_damage = 200
@@ -141,8 +142,8 @@
 	desc = "A massive, reptilian creature with powerful muscles, razor-sharp claws, and aggression to match. This one is an angry mother."
 	gender = FEMALE
 	mob_armor = ARMOR_VALUE_DEATHCLAW_MOTHER
-	maxHealth = 300
-	health = 300
+	maxHealth = 1500
+	health = 1500
 	stat_attack = CONSCIOUS
 	melee_damage_lower = 25
 	melee_damage_upper = 55
@@ -167,8 +168,8 @@
 	name = "legendary deathclaw"
 	desc = "A massive, reptilian creature with powerful muscles, razor-sharp claws, and aggression to match. This one is a legendary enemy."
 	mob_armor = ARMOR_VALUE_DEATHCLAW_MOTHER
-	maxHealth = 400
-	health = 400
+	maxHealth = 2400
+	health = 2400
 	color = "#FFFF00"
 	color_mad = rgb(133, 98, 87)
 	stat_attack = CONSCIOUS
@@ -190,8 +191,8 @@
 	icon_living = "combatclaw"
 	icon_dead = "combatclaw_dead"
 	mob_armor = ARMOR_VALUE_DEATHCLAW_PA // ha get fucked
-	maxHealth = 1000 // ha get turbofucked
-	health = 1000
+	maxHealth = 3000 // ha get turbofucked
+	health = 3000
 	stat_attack = CONSCIOUS
 	melee_damage_lower = 40
 	melee_damage_upper = 60
@@ -204,7 +205,7 @@
 		return
 	if(!charging)
 		visible_message(span_danger("\The [src] growls, enraged!"))
-		addtimer(CALLBACK(src, .proc/Charge), 3)
+		addtimer(CALLBACK(src, PROC_REF(Charge)), 3)
 	. = ..() // I swear I looked at this like 10 times before, never once noticed this wasnt here, fmdakm
 
 /mob/living/simple_animal/hostile/deathclaw/do_attack_animation(atom/A, visual_effect_icon, obj/item/used_item, no_effect)
@@ -230,7 +231,7 @@
 	setDir(get_dir(src, T))
 	var/obj/effect/temp_visual/decoy/D = new /obj/effect/temp_visual/decoy(loc,src)
 	animate(D, alpha = 0, color = "#FF0000", transform = matrix()*2, time = 1)
-	throw_at(T, get_dist(src, T), 1, src, 0, callback = CALLBACK(src, .proc/charge_end))
+	throw_at(T, get_dist(src, T), 1, src, 0, callback = CALLBACK(src, PROC_REF(charge_end)))
 
 /mob/living/simple_animal/hostile/deathclaw/proc/charge_end(list/effects_to_destroy)
 	charging = FALSE

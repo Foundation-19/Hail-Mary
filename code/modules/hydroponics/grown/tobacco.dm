@@ -46,7 +46,6 @@
 		/datum/reagent/consumable/nutriment = 0.03
 	)
 	rarity = 20
-	genes = list(/datum/plant_gene/trait/smoke) //get it? because you smoke tobacco? i'm hilarious.
 
 /obj/item/reagent_containers/food/snacks/grown/tobacco/space
 	seed = /obj/item/seeds/tobacco/space

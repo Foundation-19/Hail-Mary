@@ -567,6 +567,19 @@
 	category = CAT_WEAPONRY
 	subcategory = CAT_AMMO
 
+/datum/crafting_recipe/lmgammo
+	name = "LMG Ammo for vehicles"
+	result = /obj/item/mecha_ammo/lmg/craftable
+	reqs = list(/obj/item/stack/crafting/metalparts = 5,
+	/obj/item/stack/sheet/prewar = 5,
+	/obj/item/ammo_box/a556 = 2,
+	/obj/item/stack/sheet/mineral/titanium = 1,
+	)
+	tools = list(TOOL_AWORKBENCH)
+	time = 5
+	category = CAT_WEAPONRY
+	subcategory = CAT_AMMO
+
 /////////////////
 ///GUN CRAFTING//
 /////////////////
@@ -668,6 +681,65 @@
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
 
+/*/datum/crafting_recipe/gun/minigunVehicle
+	name = "Minigun"
+	result = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/minigun
+	reqs = list(/obj/item/stack/crafting/metalparts = 10,
+	/obj/item/stack/crafting/goodparts = 5,
+	/obj/item/stack/crafting/electronicparts = 5,
+	/obj/item/stack/sheet/metal = 10,
+	/obj/item/stack/sheet/mineral/titanium = 20,
+	/obj/item/stack/rods = 6,
+	/obj/item/advanced_crafting_components/assembly = 1,
+	/obj/item/advanced_crafting_components/receiver = 1,
+	/obj/item/advanced_crafting_components/alloys = 1)
+	tools = list(TOOL_WORKBENCH)
+	time = 180
+	category = CAT_WEAPONRY
+	subcategory = CAT_WEAPON*/
+
+/datum/crafting_recipe/gun/PheumonicLauncherVehicle
+	name = "Mounted Pheumonic launcher"
+	result = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/launcher/anykind
+	reqs = list(/obj/item/stack/crafting/metalparts = 20,
+	/obj/item/stack/crafting/goodparts = 10,
+	/obj/item/stack/crafting/electronicparts = 5,
+	/obj/item/stack/sheet/metal = 30,
+	/obj/item/stack/sheet/mineral/titanium = 20,
+	/obj/item/stack/rods = 8,
+	/obj/item/advanced_crafting_components/assembly = 1,
+	/obj/item/advanced_crafting_components/receiver = 1)
+	tools = list(TOOL_WORKBENCH)
+	time = 180
+	category = CAT_WEAPONRY
+	subcategory = CAT_WEAPON
+
+/*/datum/crafting_recipe/mech_ammo/brm8_missiles
+	name = "Minigun Ammo Pack"
+	result = /obj/item/mecha_ammo/minigun
+	reqs = list(/obj/item/ammo_box/magazine/ammobelt/m1919 = 3,
+	/obj/item/stack/sheet/metal = 10,
+	/obj/item/stack/sheet/mineral/titanium = 20,
+	/obj/item/stack/crafting/powder = 30)
+	tools = list(TOOL_WORKBENCH)
+	time = 180
+	category = CAT_WEAPONRY
+	subcategory = CAT_AMMO*/
+
+
+/datum/crafting_recipe/gun/HMGvehicle
+	name = "Improvised HMG (for vehicles)"
+	result = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg/hobo
+	reqs = list(/obj/item/gun/ballistic/automatic/autopipe = 2,
+	/obj/item/stack/crafting/metalparts = 10,
+	/obj/item/stack/sheet/prewar = 8,
+	/obj/item/stack/sheet/mineral/titanium = 8,
+	/obj/item/stack/rods = 2)
+	tools = list(TOOL_WORKBENCH)
+	time = 180
+	category = CAT_WEAPONRY
+	subcategory = CAT_WEAPON
+
 /datum/crafting_recipe/gun/shotgunbat
 	name = "Shotgun bat"
 	result = /obj/item/gun/ballistic/revolver/hobo/single_shotgun
@@ -728,7 +800,7 @@
 
 /datum/crafting_recipe/gun/autoshock
 	name = "Autoshock tesla pistol"
-	result = /obj/item/gun/energy/laser/auto/oasis
+	result = /obj/item/gun/energy/laser/auto/eastwood
 	reqs = list(/obj/item/gun/energy/laser/auto = 1,
 				/obj/item/stock_parts/capacitor/adv = 1,
 				/obj/item/stack/crafting/electronicparts = 10,

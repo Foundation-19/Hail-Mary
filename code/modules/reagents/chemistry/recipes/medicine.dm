@@ -387,7 +387,7 @@ datum/chemical_reaction/rezadone
 /datum/chemical_reaction/stimfluid
 	name = "stimfluid"
 	id = /datum/reagent/medicine/stimpak
-	results = list(/datum/reagent/medicine/stimpak = 5)
+	results = list(/datum/reagent/medicine/stimpak = 25)
 	required_reagents = list(
 		/datum/reagent/medicine/bicaridine = 5,
 		/datum/reagent/medicine/kelotane = 5,
@@ -396,3 +396,26 @@ datum/chemical_reaction/rezadone
 		/datum/reagent/medicine/morphine = 5,
 		)
 	required_temp = 451
+
+/datum/chemical_reaction/bitterdrink
+	name = "Bitter drink"
+	id = /datum/reagent/medicine/bitter_drink
+	results = list(/datum/reagent/medicine/bitter_drink = 25)
+	required_reagents = list(
+		/datum/reagent/consumable/ethanol/salgam = 5,
+		/datum/reagent/consumable/ethanol/brocbrew = 5,
+		/datum/reagent/consumable/ethanol/yellowpulque = 5,
+		/datum/reagent/consumable/sunset = 5,
+		/datum/reagent/consumable/tea/bloodtea = 5
+		)
+	required_temp = 451
+
+/datum/chemical_reaction/hemostatic
+	name = "Hemostatic"
+	id = /datum/reagent/medicine/hemostatic
+	results = list(/datum/reagent/medicine/hemostatic = 20)
+	required_reagents = list(
+		/datum/reagent/consumable/brocjuice = 5,
+		/datum/reagent/consumable/xanderjuice = 5,
+		/datum/reagent/medicine/styptic_powder = 10
+	)

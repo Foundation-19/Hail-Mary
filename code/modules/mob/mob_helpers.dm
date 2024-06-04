@@ -210,6 +210,26 @@
 		. += letter
 	return sanitize(.)
 
+/proc/lisp_replace(message)
+	var/static/regex/replace_s = new("s+h?h?", "g")
+	var/static/regex/replace_S = new("S+H?H?", "g")
+	var/static/regex/replace_z = new("z+h?h?", "g")
+	var/static/regex/replace_Z = new("Z+H?H?", "g")
+	var/static/regex/replace_x = new("x+h?h?", "g")
+	var/static/regex/replace_X = new("X+H?H?", "g")
+	var/static/regex/replace_ceci = new("ceh?|cih?", "g")
+	var/static/regex/replace_CECI = new("CEH?|CIH?", "g")
+	if(message[1] != "*")
+		message = replace_s.Replace(message, "th")
+		message = replace_S.Replace(message, "TH")
+		message = replace_z.Replace(message, "th")
+		message = replace_Z.Replace(message, "TH")
+		message = replace_ceci.Replace(message, "th")
+		message = replace_CECI.Replace(message, "TH")
+		message = replace_x.Replace(message, "ckth")
+		message = replace_X.Replace(message, "CKTH")
+	return message
+
 /*
 The difference with stutter is that this proc can stutter more than 1 letter
 The issue here is that anything that does not have a space is treated as one word (in many instances). For instance, "LOOKING," is a word, including the comma.

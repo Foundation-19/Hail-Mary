@@ -47,6 +47,12 @@
 	var/linked_faction = FALSE // Which faction the radio is linked to.
 	var/mob/living/carbon/linked_mob = null // Which mob the radio is checked out to.
 	//fortuna addition end. radio management.
+	var/music_channel = null //The sound channel the music is playing on.
+	var/radio_music_file = "" //The file path to the music's audio file
+	var/music_toggle = TRUE //Toggles whether music will play or not.
+	var/music_name = "" //Used to display the name of currently playing music.
+	var/music_playing = FALSE
+	var/mob/living/radio_holder //stopmusic() will apply to this person
 
 /obj/item/radio/suicide_act(mob/living/user)
 	user.visible_message(span_suicide("[user] starts bouncing [src] off [user.p_their()] head! It looks like [user.p_theyre()] trying to commit suicide!"))
@@ -95,6 +101,7 @@
 				LAZYREMOVE(GLOB.legion_radios, src)
 			if(FACTION_BROTHERHOOD)
 				LAZYREMOVE(GLOB.bos_radios, src)
+	GLOB.radio_list -= src //Big-Iron, removes radio from radio list lmao
 	remove_radio_all(src) //Just to be sure
 	QDEL_NULL(wires)
 	QDEL_NULL(keyslot)
@@ -102,6 +109,18 @@
 
 /obj/item/radio/Initialize()
 	wires = new /datum/wires/radio(src)
+	var/obj/item/pda/pdloc = loc
+	if(!istype(src, /obj/item/radio/intercom) && !istype(pdloc)) //Intercoms playing music is useless
+		GLOB.radio_list += src //Big iron. Adds the radio to the global radio list for usage in radio_station.dm
+	var/i
+	for(i = 1; i <= GLOB.radio_list.len; i++)
+		if(GLOB.radio_list[i] == src)
+			music_channel = i //I hope that over 1,000 radios are never initialized.
+								/*  Allow me to explain why. There are 1,024 usable channels. The top ~10
+									are preserved for ambience, admin music, etc. The other 1,000 are unused (to my knowledge)
+									and so to allow radios to play their own music without inferefering with other sounds, I give
+									each radio their own channel to play music on. This way the user can also stop the music
+									playing from their radio (headsets, etc.) without stopping the music of someone else's radio. */
 	if(prison_radio)
 		wires.cut(WIRE_TX) // OH GOD WHY
 	secure_radio_connections = new
@@ -157,6 +176,7 @@
 
 	data["broadcasting"] = broadcasting
 	data["listening"] = listening
+	data["music_toggle"] = music_toggle
 	data["frequency"] = frequency
 	data["minFrequency"] = freerange ? MIN_FREE_FREQ : MIN_FREQ
 	data["maxFrequency"] = freerange ? MAX_FREE_FREQ : MAX_FREQ
@@ -228,13 +248,17 @@
 				else
 					recalculateChannels()
 				. = TRUE
+		if("streammusic")
+			music_toggle = !music_toggle
+			stopmusic(radio_holder)
+			. = TRUE
 
 /obj/item/radio/talk_into(atom/movable/M, message, channel, list/spans, datum/language/language)
 	if(!spans)
 		spans = list(M.speech_span)
 	if(!language)
 		language = M.get_selected_language()
-	INVOKE_ASYNC(src, .proc/talk_into_impl, M, message, channel, spans.Copy(), language)
+	INVOKE_ASYNC(src, PROC_REF(talk_into_impl), M, message, channel, spans.Copy(), language)
 	return ITALICS | REDUCE_RANGE
 
 /obj/item/radio/proc/talk_into_impl(atom/movable/M, message, channel, list/spans, datum/language/language)
@@ -309,7 +333,7 @@
 
 	// Non-subspace radios will check in a couple of seconds, and if the signal
 	// was never received, send a mundane broadcast (no headsets).
-	addtimer(CALLBACK(src, .proc/backup_transmission, signal), 20)
+	addtimer(CALLBACK(src, PROC_REF(backup_transmission), signal), 20)
 
 /obj/item/radio/proc/backup_transmission(datum/signal/subspace/vocal/signal)
 	var/turf/T = get_turf(src)
@@ -397,6 +421,101 @@
 			to_chat(user, span_notice("The radio can no longer be modified or attached!"))
 	else
 		return ..()
+
+/obj/item/radio/AltClick(mob/user) //Big Iron
+	..()
+	if(!istype(user) || !Adjacent(user) || user.incapacitated())
+		return
+	if(user.a_intent == INTENT_HARM)
+		if(music_toggle)
+			music_toggle = 0
+			stopmusic(radio_holder)
+			to_chat(user, "<span class ='notice'>[src]'s music player is now <b>OFF</b>. </span>")
+		else
+			music_toggle = 1
+			to_chat(user, "<span class ='notice'>[src]'s music player is now <b>ON</b>. </span>")
+		return
+
+/obj/item/radio/proc/avoiding_a_sleep(mob/living/user, music_filepath, name_of_music, music_volume)
+	music_name = name_of_music
+	to_chat(user, "<span class='robot'><b>[src]</b> beeps into your ears, 'Now playing: <i>[music_name]</i>.' </span>")
+	if(user.client)
+		var/mob/M = user
+		var/client/C = M.client
+		if(!(C.prefs.toggles & MUSIC_RADIO))
+			to_chat(user, "<span class='robot'><b>[src]</b> your preferences stopped <i>[music_name]</i> from playing!.' </span>")
+			return
+	music_playing = TRUE
+	playsound(user, music_filepath, music_volume, channel = music_channel, extrarange = -15) //plays the music to the user
+	update_icon()
+
+/obj/item/radio/proc/playmusic(music_filepath, name_of_music, music_volume) //Plays music at src using the filepath to the audio file. This proc is directly working with the bluespace radio station at radio_station.dm
+	radio_music_file = music_filepath
+
+	var/atom/loc_layer = loc
+	if(istype(loc_layer, /atom/movable))
+		if(!istype(loc_layer, /mob/living))
+			loc_layer = loc_layer.loc
+		else
+			radio_holder = loc_layer
+	if(!loc_layer) //if loc is null then this proc doesn't need to continue
+		return
+	if(!istype(loc_layer, /mob/living)) //doesn't need to continue if not on a mob
+		return
+
+	if(music_toggle == 1) //Music player is on
+		if(istype(src, /obj/item/radio/headset))
+			var/mob/living/carbon/wearer = radio_holder
+			if(!(wearer.ears == src)) //only want headsets to play music if they're equipped
+				return
+		stopmusic(radio_holder) //stop the previously playing song to make way for the new one
+		addtimer(CALLBACK(src, PROC_REF(avoiding_a_sleep), radio_holder, music_filepath, name_of_music, music_volume), 10)
+
+/obj/item/radio/proc/stopmusic(mob/living/user, music_turnoff_message_type)
+	if(music_playing)
+		music_playing = FALSE
+		update_icon()
+		playsound(user, null, channel = music_channel)
+		playsound(user, 'sound/machines/buzz-sigh.ogg', 50, channel = music_channel)
+		music_name = ""
+		switch(music_turnoff_message_type)
+			if(1)
+				audible_message("<span class='robot'><b>[src]</b> beeps, '[src] removed, turning off music.' </span>")
+			if(2)
+				src.audible_message("<span class='robot'><b>[src]</b> beeps, 'Music toggled off.' </span>") //Unused message
+			if(3)
+				src.audible_message("<span class='robot'><b>[src]</b> beeps, 'Signal interrupted.' </span>")
+		music_playing = FALSE
+
+/obj/item/radio/dropped(mob/user)
+	..()
+	addtimer(CALLBACK(src, PROC_REF(droppedStopMusic), user), 3)
+
+/obj/item/radio/proc/droppedStopMusic(mob/user)
+	var/i
+	for(i = 1, i <= user.contents.len, i++)
+		if(user.contents[i] == src)
+			return
+	if(item_flags & IN_INVENTORY)
+		return
+	if(determineIfInMob(user) == TRUE)
+		return
+	stopmusic(user, 1)
+
+/obj/item/radio/proc/determineIfInMob(mob/user)
+	var/obj/itemholder = src
+	var/mob/M = src.loc
+	while(M && !istype(M, /mob/living))
+		M = itemholder
+		if(!M)
+			return FALSE
+		itemholder = itemholder.loc
+	if(M == user)
+		return TRUE
+	else
+		return FALSE
+
+//Big-iron end
 /*
 /obj/item/radio/emp_act(severity)
 	. = ..()

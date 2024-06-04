@@ -67,7 +67,7 @@
 	. = ..()
 	if(istype(master))
 		my_blender = WEAKREF(master)
-		RegisterSignal(master, COMSIG_ITEM_RECYCLED, .proc/crushed)
+		RegisterSignal(master, COMSIG_ITEM_RECYCLED, PROC_REF(crushed))
 	my_name = pick(GLOB.first_names_female)
 
 
@@ -155,7 +155,7 @@
 /datum/blender_brain/proc/preprocess_speech(mob/speaker, message)
 	if(!should_listen_to(speaker))
 		return // only listen to whos holding you, if held. Unless its the owner!
-	INVOKE_ASYNC(src, .proc/process_speech, speaker, message)
+	INVOKE_ASYNC(src, PROC_REF(process_speech), speaker, message)
 
 /datum/blender_brain/proc/process_speech(mob/speaker, message)
 	if(!speaker || !message)
@@ -895,7 +895,7 @@
 
 /obj/item/persona_core/ComponentInitialize()
 	. = ..()
-	//RegisterSignal(src, COMSIG_PARENT_EXAMINE, .proc/on_examine)
+	//RegisterSignal(src, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
 
 /obj/item/persona_core/proc/register_master(atom/newmaster)
 	//if(brain)

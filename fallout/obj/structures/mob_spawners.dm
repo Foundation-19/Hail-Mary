@@ -139,7 +139,7 @@ GLOBAL_LIST_EMPTY(player_made_nests)
 	var/image/overlay_image = image(icon, icon_state = cover_state)
 	add_overlay(overlay_image)
 	if(timer)
-		addtimer(CALLBACK(src, .proc/do_unseal), timer)
+		addtimer(CALLBACK(src, PROC_REF(do_unseal)), timer)
 
 /obj/structure/nest/proc/try_unseal(mob/user = null, obj/item/I = null)
 	if(!istype(user))
@@ -188,6 +188,9 @@ GLOBAL_LIST_EMPTY(player_made_nests)
 	max_mobs = 3
 	swarm_size = 3
 	mob_types = list(/mob/living/simple_animal/hostile/radroach = 15)
+
+/obj/structure/nest/radroach/jungle
+	mob_types = list(/mob/living/simple_animal/hostile/radroach/jungle = 15)
 
 /obj/structure/nest/fireant
 	name = "fireant nest"

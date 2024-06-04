@@ -207,7 +207,7 @@
 	R.module = RM
 	R.update_module_innate()
 	RM.rebuild_modules()
-	INVOKE_ASYNC(RM, .proc/do_transform_animation)
+	INVOKE_ASYNC(RM, PROC_REF(do_transform_animation))
 	R.maxHealth = borghealth
 	R.health = min(borghealth, R.health)
 	qdel(src)
@@ -268,7 +268,6 @@
 /obj/item/robot_module/standard
 	name = "Standard"
 	basic_modules = list(
-		/obj/item/assembly/flash/cyborg,
 		/obj/item/extinguisher/mini,
 		/obj/item/crowbar/cyborg,
 		/obj/item/reagent_containers/borghypo/epi,
@@ -294,7 +293,6 @@
 /obj/item/robot_module/medical
 	name = "Medical"
 	basic_modules = list(
-		/obj/item/assembly/flash/cyborg,
 		/obj/item/extinguisher/mini,
 		/obj/item/crowbar/cyborg,
 		/obj/item/healthanalyzer,
@@ -334,7 +332,7 @@
 		"Default" = image(icon = 'icons/mob/robots.dmi', icon_state = "medical")
 		)
 		med_icons = sortList(med_icons)
-	var/med_borg_icon = show_radial_menu(R, R , med_icons, custom_check = CALLBACK(src, .proc/check_menu, R), radius = 42, require_near = TRUE)
+	var/med_borg_icon = show_radial_menu(R, R , med_icons, custom_check = CALLBACK(src, PROC_REF(check_menu), R), radius = 42, require_near = TRUE)
 	switch(med_borg_icon)
 		if("Default")
 			cyborg_base_icon = "medical"
@@ -345,7 +343,6 @@
 /obj/item/robot_module/engineering
 	name = "Engineering"
 	basic_modules = list(
-		/obj/item/assembly/flash/cyborg,
 		/obj/item/borg/sight/meson,
 		/obj/item/construction/rcd/borg,
 		/obj/item/extinguisher,
@@ -371,7 +368,6 @@
 		/obj/item/stack/rods/cyborg,
 		/obj/item/stack/tile/plasteel/cyborg,
 		/obj/item/stack/cable_coil/cyborg)
-	emag_modules = list(/obj/item/borg/stun)
 	ratvar_modules = list(
 		/obj/item/clockwork/slab/cyborg/engineer,
 		/obj/item/clockwork/replica_fabricator/cyborg)
@@ -388,7 +384,7 @@
 		"Default" = image(icon = 'icons/mob/robots.dmi', icon_state = "engineer")
 		)
 		engi_icons = sortList(engi_icons)
-	var/engi_borg_icon = show_radial_menu(R, R , engi_icons, custom_check = CALLBACK(src, .proc/check_menu, R), radius = 42, require_near = TRUE)
+	var/engi_borg_icon = show_radial_menu(R, R , engi_icons, custom_check = CALLBACK(src, PROC_REF(check_menu), R), radius = 42, require_near = TRUE)
 	switch(engi_borg_icon)
 		if("Default")
 			cyborg_base_icon = "engineer"
@@ -399,11 +395,9 @@
 /obj/item/robot_module/security
 	name = "Security"
 	basic_modules = list(
-		/obj/item/assembly/flash/cyborg,
 		/obj/item/extinguisher/mini,
 		/obj/item/crowbar/cyborg,
 		/obj/item/restraints/handcuffs/cable/zipties,
-		/obj/item/melee/classic_baton/police,
 		/obj/item/gun/energy/disabler/cyborg,
 		/obj/item/clothing/mask/gas/sechailer/cyborg,
 		/obj/item/pinpointer/crew)
@@ -427,7 +421,7 @@
 		"Default" = image(icon = 'icons/mob/robots.dmi', icon_state = "sec"),
 		)
 		sec_icons = sortList(sec_icons)
-	var/sec_borg_icon = show_radial_menu(R, R , sec_icons, custom_check = CALLBACK(src, .proc/check_menu, R), radius = 42, require_near = TRUE)
+	var/sec_borg_icon = show_radial_menu(R, R , sec_icons, custom_check = CALLBACK(src, PROC_REF(check_menu), R), radius = 42, require_near = TRUE)
 	switch(sec_borg_icon)
 		if("Default")
 			cyborg_base_icon = "sec"
@@ -446,7 +440,6 @@
 /obj/item/robot_module/peacekeeper
 	name = "Peacekeeper"
 	basic_modules = list(
-		/obj/item/assembly/flash/cyborg,
 		/obj/item/extinguisher/mini,
 		/obj/item/crowbar/cyborg,
 		/obj/item/cookiesynth,
@@ -475,7 +468,7 @@
 	var/static/list/peace_icons = sortList(list(
 		"Default" = image(icon = 'icons/mob/robots.dmi', icon_state = "peace")
 		))
-	var/peace_borg_icon = show_radial_menu(R, R , peace_icons, custom_check = CALLBACK(src, .proc/check_menu, R), radius = 42, require_near = TRUE)
+	var/peace_borg_icon = show_radial_menu(R, R , peace_icons, custom_check = CALLBACK(src, PROC_REF(check_menu), R), radius = 42, require_near = TRUE)
 	switch(peace_borg_icon)
 		if("Default")
 			cyborg_base_icon = "peace"
@@ -488,7 +481,6 @@
 /obj/item/robot_module/janitor
 	name = "Janitor"
 	basic_modules = list(
-		/obj/item/assembly/flash/cyborg,
 		/obj/item/screwdriver/cyborg,
 		/obj/item/crowbar/cyborg,
 		/obj/item/stack/tile/plasteel/cyborg,
@@ -521,7 +513,6 @@
 /obj/item/robot_module/butler
 	name = "Service"
 	basic_modules = list(
-		/obj/item/assembly/flash/cyborg,
 		/obj/item/extinguisher/mini,
 		/obj/item/crowbar/cyborg,
 		/obj/item/reagent_containers/food/drinks/drinkingglass,
@@ -580,7 +571,7 @@
 		"(Service) Can" = image(icon = 'icons/mob/robots.dmi', icon_state = "kent"),
 		"(Service) Tophat" = image(icon = 'icons/mob/robots.dmi', icon_state = "tophat"),
 		)
-	var/service_robot_icon = show_radial_menu(R, R , service_icons, custom_check = CALLBACK(src, .proc/check_menu, R), radius = 42, require_near = TRUE)
+	var/service_robot_icon = show_radial_menu(R, R , service_icons, custom_check = CALLBACK(src, PROC_REF(check_menu), R), radius = 42, require_near = TRUE)
 	switch(service_robot_icon)
 		if("(Service) Waitress")
 			cyborg_base_icon = "service_f"
@@ -606,7 +597,6 @@
 /obj/item/robot_module/miner
 	name = "Miner"
 	basic_modules = list(
-		/obj/item/assembly/flash/cyborg,
 		/obj/item/extinguisher/mini,
 		/obj/item/crowbar/cyborg,
 		/obj/item/borg/sight/meson,
@@ -641,7 +631,7 @@
 		"Lavaland" = image(icon = 'icons/mob/robots.dmi', icon_state = "miner"),
 		"Asteroid" = image(icon = 'icons/mob/robots.dmi', icon_state = "minerOLD")
 		)
-	var/mining_borg_icon = show_radial_menu(R, R , mining_icons, custom_check = CALLBACK(src, .proc/check_menu, R), radius = 42, require_near = TRUE)
+	var/mining_borg_icon = show_radial_menu(R, R , mining_icons, custom_check = CALLBACK(src, PROC_REF(check_menu), R), radius = 42, require_near = TRUE)
 	switch(mining_borg_icon)
 		if("Lavaland")
 			cyborg_base_icon = "miner"
@@ -655,13 +645,11 @@
 /obj/item/robot_module/gutsy
 	name = "Gutsy"
 	basic_modules = list( //Security borg
-		/obj/item/assembly/flash/cyborg,
 		/obj/item/extinguisher/mini,
 		/obj/item/crowbar/cyborg,
 		/obj/item/restraints/handcuffs/cable/zipties,
 		/obj/item/borg/cyborghug,
 		/obj/item/megaphone,
-		/obj/item/melee/classic_baton/police,
 		/obj/item/gun/energy/laser/pistol/cyborg/gutsy,
 		/obj/item/clothing/mask/gas/sechailer/cyborg,
 		/obj/item/pinpointer/crew)
@@ -705,7 +693,6 @@ obj/item/robot_module/assaultron/remove_module(obj/item/I, delete_after)
 /obj/item/robot_module/assaultron/medical
 	name = "Medical Assaultron"
 	basic_modules = list(
-		/obj/item/assembly/flash/cyborg,
 		/obj/item/extinguisher/mini,
 		/obj/item/crowbar/cyborg,
 		/obj/item/healthanalyzer,

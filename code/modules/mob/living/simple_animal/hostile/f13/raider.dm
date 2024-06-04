@@ -213,6 +213,7 @@
 	loot_amount_random = FALSE
 	random_trash_loot = FALSE
 	footstep_type = FOOTSTEP_MOB_SHOE
+	sentience_type = SENTIENCE_BOSS
 	move_to_delay = 4.0 //faster than average, but not a lot
 	retreat_distance = 4 //mob retreats 1 tile when in min distance
 	minimum_distance = 2 //Mob pushes up to melee, then backs off to avoid player attack?
@@ -773,11 +774,11 @@
 	vision_range = 8 //will see the player at max view range, and communicate that they've been seen but won't aggro unless they get closer.
 	ranged_cooldown_time = 2 SECONDS
 	auto_fire_delay = GUN_AUTOFIRE_DELAY_FAST
-	projectiletype = /obj/item/projectile/energy/teslacannon/oasis
+	projectiletype = /obj/item/projectile/energy/teslacannon/eastwood
 	projectilesound = 'sound/weapons/resonator_fire.ogg'
 	sound_after_shooting = 'sound/f13weapons/rcwfire.ogg'
 	extra_projectiles = 2
-	loot = list(/obj/item/gun/energy/laser/auto/oasis, /obj/item/stack/f13Cash/random/high)
+	loot = list(/obj/item/gun/energy/laser/auto/eastwood, /obj/item/stack/f13Cash/random/high)
 	loot_drop_amount = 8
 	footstep_type = FOOTSTEP_MOB_SHOE
 	projectile_sound_properties = list(

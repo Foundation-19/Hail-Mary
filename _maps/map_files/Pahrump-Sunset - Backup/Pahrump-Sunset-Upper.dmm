@@ -2359,7 +2359,7 @@
 /obj/structure/nest/randomized{
 	randomizer_difficulty = 1;
 	randomizer_kind = "mid level mobs";
-	randomizer_tag = "Texarkana Tigers"
+	randomizer_tag = "Pahrump Tigers"
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/wood_common,
@@ -10036,7 +10036,7 @@
 /obj/structure/nest/randomized{
 	randomizer_difficulty = 1;
 	randomizer_kind = "mid level mobs";
-	randomizer_tag = "Texarkana Tigers"
+	randomizer_tag = "Pahrump Tigers"
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/wood_common,
@@ -11890,7 +11890,7 @@
 /obj/structure/nest/randomized{
 	randomizer_difficulty = 1;
 	randomizer_kind = "mid level mobs";
-	randomizer_tag = "Texarkana Tigers"
+	randomizer_tag = "Pahrump Tigers"
 	},
 /obj/machinery/light/small/broken{
 	dir = 1

@@ -146,7 +146,7 @@
 	var/turf/T = get_ranged_target_turf(M, send_dir, pull_power)
 	owner.newtonian_move(send_dir) // Bounce back in 0 G
 	M.throw_at(T, pull_power, TRUE, owner, FALSE) // Throw distance based on grab state! Harder grabs punished more aggressively.
-	// /proc/log_combat(atom/user, atom/target, what_done, atom/object=null, addition=null)
+	// GLOBAL_PROC_REF(log_combat)(atom/user, atom/target, what_done, atom/object=null, addition=null)
 	log_combat(owner, M, "used Brawn power")
 	owner.visible_message(span_warning("[owner] tears free of [M]'s grasp!"), \
 						span_warning("You shrug off [M]'s grasp!"))

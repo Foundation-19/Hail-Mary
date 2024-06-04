@@ -562,6 +562,11 @@
 	if(spread_override)
 		setAngle(Angle + rand(-spread_override, spread_override))
 	var/turf/starting = get_turf(src)
+	if(original)
+		if(starting.z > original?.z)
+			starting  = SSmapping.get_turf_below(starting)
+		if(starting.z < original?.z)
+			starting  = SSmapping.get_turf_above(starting)
 	if(isnull(Angle))	//Try to resolve through offsets if there's no angle set.
 		if(isnull(xo) || isnull(yo))
 			stack_trace("WARNING: Projectile [type] deleted due to being unable to resolve a target after angle was null!")
@@ -582,7 +587,7 @@
 	trajectory = new(starting.x, starting.y, starting.z, pixel_x, pixel_y, Angle, pixel_increment_amount)
 	fired = TRUE
 	var/static/list/loc_connections = list(
-		COMSIG_ATOM_ENTERED = .proc/on_entered,
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 	if(hitscan)

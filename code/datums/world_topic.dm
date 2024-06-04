@@ -244,10 +244,10 @@
 	var/list/command = list()
 	var/list/ncr = list()
 	var/list/legion = list()
-	var/list/oasis = list()
+	var/list/eastwood = list()
 	var/list/brotherhood = list()
 	var/list/wastelanders = list()
-	var/list/followers = list()
+	//var/list/followers = list()
 	var/list/misc = list()
 	for(var/datum/data/record/R in GLOB.data_core.general)
 		var/name = R.fields["name"]
@@ -255,12 +255,12 @@
 		var/real_rank = rank // make_list_rank(R.fields["real_rank"])
 		if(real_rank in GLOB.ncr_positions)
 			ncr[name] = rank
-		else if(real_rank in GLOB.followers_positions)
-			followers[name] = rank
+		/*else if(real_rank in GLOB.followers_positions)
+			followers[name] = rank*/
 		else if(real_rank in GLOB.legion_positions)
 			legion[name] = rank
-		else if(real_rank in GLOB.oasis_positions)
-			oasis[name] = rank
+		else if(real_rank in GLOB.eastwood_positions)
+			eastwood[name] = rank
 		else if(real_rank in GLOB.brotherhood_positions)
 			brotherhood[name] = rank
 		else if(real_rank in GLOB.command_positions)
@@ -277,9 +277,9 @@
 	.["Command"] = command
 	.["New California Republic"] = ncr
 	.["Legion"] = legion
-	.["Nash Clinic"] = followers
+	//.["Eastwood Clinic"] = followers
 	.["Brotherhood of Steel"] = brotherhood
-	.["Nash"] = oasis
+	.["Eastwood"] = eastwood
 	.["Wastelanders"] = wastelanders
 	.["Other"] = misc
 	return json_encode(.)

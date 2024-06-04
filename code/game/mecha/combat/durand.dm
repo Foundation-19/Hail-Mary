@@ -10,7 +10,7 @@
 	step_in = 4
 	dir_in = 1 //Facing North.
 	max_integrity = 400
-	armor = ARMOR_VALUE_PA
+	armor = ARMOR_VALUE_HEAVY
 	max_temperature = 30000
 	infra_luminosity = 8
 	force = 30
@@ -25,8 +25,8 @@
 	shield = new/obj/durand_shield
 	shield.chassis = src
 	shield.layer = layer
-	RegisterSignal(src, COMSIG_MECHA_ACTION_ACTIVATE, .proc/relay)
-	RegisterSignal(src, COMSIG_PROJECTILE_PREHIT, .proc/prehit)
+	RegisterSignal(src, COMSIG_MECHA_ACTION_ACTIVATE, PROC_REF(relay))
+	RegisterSignal(src, COMSIG_PROJECTILE_PREHIT, PROC_REF(prehit))
 	. = ..()
 
 /obj/mecha/combat/durand/Destroy()
@@ -91,7 +91,7 @@ Expects a turf. Returns true if the attack should be blocked, false if not.*/
 				. = TRUE
 	return
 
-obj/mecha/combat/durand/attack_generic(mob/user, damage_amount = 0, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, armor_penetration = 0)
+/obj/mecha/combat/durand/attack_generic(mob/user, damage_amount = 0, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, armor_penetration = 0)
 	if(defense_check(user.loc))
 //		log_message("Attack absorbed by defense field. Attacker - [user].", LOG_MECHA, color="orange")
 		shield.attack_generic(user, damage_amount, damage_type, damage_flag, sound_effect, armor_penetration)
@@ -144,7 +144,7 @@ own integrity back to max. Shield is automatically dropped if we run out of powe
 
 /obj/durand_shield/Initialize()
 	. = ..()
-	RegisterSignal(src, COMSIG_MECHA_ACTION_ACTIVATE, .proc/activate)
+	RegisterSignal(src, COMSIG_MECHA_ACTION_ACTIVATE, PROC_REF(activate))
 
 /obj/durand_shield/Destroy()
 	if(chassis)
@@ -161,14 +161,14 @@ the shield is disabled by means other than the action button (like running out o
 		return
 	if(switching && !signal_args[1])
 		return
-	if(!chassis.defense_mode && (!chassis.cell || chassis.cell.charge < 100)) //If it's off, and we have less than 100 units of power
+	if(!chassis.defense_mode && (!chassis.fuel_holder || chassis.fuel_holder.reagents.total_volume < 100)) //If it's off, and we have less than 100 units of power
 		chassis.occupant_message(span_warning("Insufficient power; cannot activate defense mode."))
 		return
 	switching = TRUE
 	chassis.defense_mode = !chassis.defense_mode
 	chassis.defense_action.button_icon_state = "mech_defense_mode_[chassis.defense_mode ? "on" : "off"]" //This is backwards because we haven't changed the var yet
 	if(!signal_args[1])
-		chassis.occupant_message(span_notice("Defense mode [chassis.defense_mode?"enabled":"disabled"]."))
+		chassis.occupant_message(span_warning("<span class='notice'>Defense mode [chassis.defense_mode?"enabled":"disabled"]."))
 //		chassis.log_message("User has toggled defense mode -- now [chassis.defense_mode?"enabled":"disabled"].", LOG_MECHA)
 //	else
 //		chassis.log_message("defense mode state changed -- now [chassis.defense_mode?"enabled":"disabled"].", LOG_MECHA)
@@ -199,7 +199,7 @@ the shield is disabled by means other than the action button (like running out o
 	. = ..()
 	flick("shield_impact", src)
 	if(!chassis.use_power((max_integrity - obj_integrity) * 35))
-		chassis.cell?.charge = 0
+		chassis.fuel_holder?.reagents?.total_volume = 0
 		chassis.defense_action.Activate(forced_state = TRUE)
 	obj_integrity = 10000
 

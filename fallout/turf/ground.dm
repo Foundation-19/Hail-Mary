@@ -84,6 +84,7 @@ GLOBAL_LIST_INIT(lush_plant_spawn_list, list(
 	/obj/structure/flora/wasteplant/wild_pinyon = 3,
 	/obj/structure/flora/wasteplant/wild_xander = 5,
 	/obj/structure/flora/wasteplant/wild_agave = 5,
+	/obj/structure/flora/wasteplant/wild_bloodleaf = 5,
 	/obj/structure/flora/tree/joshua = 3,
 	/obj/structure/flora/tree/cactus = 2,
 	/obj/structure/flora/tree/wasteland = 2
@@ -318,6 +319,37 @@ GLOBAL_LIST_INIT(desolate_plant_spawn_list, list(
 	footstep = FOOTSTEP_ROAD
 	barefootstep = FOOTSTEP_HARD_BAREFOOT
 //	step_sounds = list("human" = "erikafootsteps")
+
+/turf/open/indestructible/ground/outside/road/attackby(obj/item/C, mob/user, params)
+	if(..())
+		return
+	if(istype(C, /obj/item/stack/tile))
+		if(icon_state == "innermiddle")
+			to_chat(user, span_warning("The road already looks fixed!"))
+		. = ..()
+
+/turf/open/floor/road
+	name = "\proper road"
+	desc = "a stretch of road that looks freshly built"
+	icon_state = "innermiddle"
+	icon = 'icons/fallout/turfs/asphalt.dmi'
+	floor_tile = /obj/item/stack/tile/road
+	sunlight_state = SUNLIGHT_SOURCE
+	footstep = FOOTSTEP_ROAD
+	barefootstep = FOOTSTEP_HARD_BAREFOOT
+
+/obj/item/stack/tile/road
+	name = "road tile"
+	singular_name = "road floor tile"
+	desc = "a piece of road, not from asphalt but from concrete mixed with black coloring"
+	icon = 'icons/fallout/turfs/asphalt.dmi'
+	icon_state = "road-tile"
+	turf_type = /turf/open/floor/road
+	resistance_flags = FIRE_PROOF
+	merge_type = /obj/item/stack/tile/road
+
+/obj/item/stack/tile/road/thirty
+	amount = 30
 
 /turf/open/indestructible/ground/outside/road_s
 	name = "\proper road"

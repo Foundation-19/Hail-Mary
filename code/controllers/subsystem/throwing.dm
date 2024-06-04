@@ -92,7 +92,7 @@ SUBSYSTEM_DEF(throwing)
 /datum/thrownthing/New(thrownthing, target, init_dir, maxrange, speed, thrower, diagonals_first, force, gentle, callback, target_zone)
 	. = ..()
 	src.thrownthing = thrownthing
-	RegisterSignal(thrownthing, COMSIG_PARENT_QDELETING, .proc/on_thrownthing_qdel)
+	RegisterSignal(thrownthing, COMSIG_PARENT_QDELETING, PROC_REF(on_thrownthing_qdel))
 	src.target_turf = get_turf(target)
 	if(target_turf != target)
 		src.initial_target = WEAKREF(target)
@@ -147,7 +147,14 @@ SUBSYSTEM_DEF(throwing)
 			if (obstacle == actual_target || (obstacle.density && !(obstacle.flags_1 & ON_BORDER_1)))
 				finalize(TRUE, obstacle)
 				return
-
+	var/turf/starting_turf = get_turf(AM)
+	if(AM.z < target_turf.z)
+		var/turf/new_turf = SSmapping.get_turf_above(starting_turf)
+		AM.forceMove(new_turf)
+	if(starting_turf.z > target_turf.z)
+		var/turf/new_turf = SSmapping.get_turf_below(starting_turf)
+		AM.forceMove(new_turf)
+	
 	var/atom/step
 
 	last_move = world.time

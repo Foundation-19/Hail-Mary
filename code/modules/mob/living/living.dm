@@ -1,7 +1,7 @@
 /mob/living/Initialize()
 	. = ..()
 	var/static/list/loc_connections = list(
-		COMSIG_ATOM_ENTERED = .proc/on_entered,
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
@@ -432,6 +432,9 @@
 	set category = "IC"
 	if(src.incapacitated())
 		to_chat(src, span_warning("You can't look up right now!"))
+	if(client.eye != src && !istype(client.eye, /obj/mecha))
+		stop_looking()
+		return
 	var/turf/T = SSmapping.get_turf_above(get_turf(src))
 	if(!istype(T, /turf/open/transparent/openspace))
 		if(istype(T, /turf/open) || istype(T, /turf/closed))
@@ -439,17 +442,83 @@
 		return
 	else
 		src.reset_perspective(T)
-		RegisterSignal(src, COMSIG_MOB_CLIENT_CHANGE_VIEW, .proc/stop_looking_up) //no binos/scops
-		RegisterSignal(src, COMSIG_MOVABLE_MOVED, .proc/stop_looking_up)
-		RegisterSignal(src, COMSIG_LIVING_STATUS_KNOCKDOWN, .proc/stop_looking_up)
-		RegisterSignal(src, COMSIG_LIVING_STATUS_PARALYZE, .proc/stop_looking_up)
-		RegisterSignal(src, COMSIG_LIVING_STATUS_UNCONSCIOUS, .proc/stop_looking_up)
-		RegisterSignal(src, COMSIG_LIVING_STATUS_SLEEP, .proc/stop_looking_up)
+		RegisterSignal(src, COMSIG_MOB_CLIENT_CHANGE_VIEW, PROC_REF(stop_looking_up)) //no binos/scops
+		RegisterSignal(src, COMSIG_MOVABLE_MOVED,PROC_REF(followcameraup))
+		if(istype(loc, /obj/mecha))
+			RegisterSignal(loc, COMSIG_MOVABLE_MOVED,PROC_REF(followcameraup))
+		RegisterSignal(src, COMSIG_LIVING_STATUS_KNOCKDOWN, PROC_REF(stop_looking_up))
+		RegisterSignal(src, COMSIG_LIVING_STATUS_PARALYZE, PROC_REF(stop_looking_up))
+		RegisterSignal(src, COMSIG_LIVING_STATUS_UNCONSCIOUS, PROC_REF(stop_looking_up))
+		RegisterSignal(src, COMSIG_LIVING_STATUS_SLEEP, PROC_REF(stop_looking_up))
+
+/mob/living/verb/stop_looking()
+	set name = "Stop Looking"
+	set category = "IC"
+	src.stop_looking_up(null)
 
 /mob/living/proc/stop_looking_up()
+	if(istype(loc, /obj/mecha))
+		UnregisterSignal(loc, COMSIG_MOVABLE_MOVED)
 	reset_perspective(null)
 	UnregisterSignal(src, list(COMSIG_LIVING_STATUS_PARALYZE, COMSIG_LIVING_STATUS_UNCONSCIOUS, COMSIG_LIVING_STATUS_SLEEP, COMSIG_LIVING_STATUS_KNOCKDOWN, COMSIG_MOVABLE_MOVED, COMSIG_MOB_CLIENT_CHANGE_VIEW))
 
+/mob/living/verb/lookdown()
+	set name = "Look down"
+	set category = "IC"
+	if(src.incapacitated())
+		to_chat(src, "<span class='warning'>You can't look down right now!</span>")
+	if(client.eye != src && !istype(client.eye, /obj/mecha))
+		stop_looking()
+		return
+	var/turf/T = get_turf(src)
+	if(!istype(T, /turf/open/transparent/openspace))
+		var/turf/nt = get_step(T, dir)
+		if(!istype(nt, /turf/open/transparent/openspace))
+			if(istype(nt, /turf/open) || istype(nt, /turf/closed))
+				to_chat(src, "<span class='notice'>You look up at the floor. You can see floor.</span>")
+				return
+		else
+			var/turf/nl = SSmapping.get_turf_below(nt)
+			src.reset_perspective(nl)
+			RegisterSignal(src, COMSIG_MOB_CLIENT_CHANGE_VIEW,PROC_REF(stop_looking_down)) //no binos/scops
+			RegisterSignal(src, COMSIG_MOVABLE_MOVED,PROC_REF(followcameradown))
+			if(istype(loc, /obj/mecha))
+				RegisterSignal(loc, COMSIG_MOVABLE_MOVED,PROC_REF(followcameradown))
+			RegisterSignal(src, COMSIG_LIVING_STATUS_KNOCKDOWN,PROC_REF(stop_looking_down))
+			RegisterSignal(src, COMSIG_LIVING_STATUS_PARALYZE,PROC_REF(stop_looking_down))
+			RegisterSignal(src, COMSIG_LIVING_STATUS_UNCONSCIOUS,PROC_REF(stop_looking_down))
+			RegisterSignal(src, COMSIG_LIVING_STATUS_SLEEP,PROC_REF(stop_looking_down))
+	else
+		var/turf/nl = SSmapping.get_turf_below(T)
+		src.reset_perspective(nl)
+		RegisterSignal(src, COMSIG_MOB_CLIENT_CHANGE_VIEW,PROC_REF(stop_looking_down)) //no binos/scops
+		RegisterSignal(src, COMSIG_MOVABLE_MOVED,PROC_REF(followcameradown))
+		if(istype(loc, /obj/mecha))
+			RegisterSignal(loc, COMSIG_MOVABLE_MOVED,PROC_REF(followcameradown))
+		RegisterSignal(src, COMSIG_LIVING_STATUS_KNOCKDOWN,PROC_REF(stop_looking_down))
+		RegisterSignal(src, COMSIG_LIVING_STATUS_PARALYZE,PROC_REF(stop_looking_down))
+		RegisterSignal(src, COMSIG_LIVING_STATUS_UNCONSCIOUS,PROC_REF(stop_looking_down))
+		RegisterSignal(src, COMSIG_LIVING_STATUS_SLEEP,PROC_REF(stop_looking_down))
+
+/mob/living/proc/stop_looking_down()
+	reset_perspective(null)
+	UnregisterSignal(src, list(COMSIG_LIVING_STATUS_PARALYZE, COMSIG_LIVING_STATUS_UNCONSCIOUS, COMSIG_LIVING_STATUS_SLEEP, COMSIG_LIVING_STATUS_KNOCKDOWN, COMSIG_MOVABLE_MOVED, COMSIG_MOB_CLIENT_CHANGE_VIEW))
+
+/mob/living/proc/followcameraup()
+	var/turf/T = get_turf(src)
+	var/turf/nl = SSmapping.get_turf_above(T)
+	if(istype(nl, /turf/open/transparent/openspace))
+		reset_perspective(nl)
+	else
+		reset_perspective(null)
+
+/mob/living/proc/followcameradown()
+	var/turf/T = get_turf(src)
+	var/turf/nl = SSmapping.get_turf_below(T)
+	if(istype(T, /turf/open/transparent/openspace))
+		reset_perspective(nl)
+	else
+		reset_perspective(null)
 
 /mob/living/incapacitated(ignore_restraints = FALSE, ignore_grab = FALSE, check_immobilized = FALSE)
 	if(stat || IsUnconscious() || IsStun() || IsParalyzed() || (combat_flags & COMBAT_FLAG_HARD_STAMCRIT) || (check_immobilized && IsImmobilized()) || (!ignore_restraints && restrained(ignore_grab)))
@@ -863,7 +932,7 @@
 	else
 		throw_alert("gravity", /obj/screen/alert/weightless)
 	if(!override && !is_flying())
-		INVOKE_ASYNC(src, /atom/movable.proc/float, !has_gravity)
+		INVOKE_ASYNC(src, TYPE_PROC_REF(/atom/movable,float), !has_gravity)
 
 /mob/living/float(on)
 	if(throwing)
@@ -1345,7 +1414,7 @@
 	return ..() && CHECK_MOBILITY(src, MOBILITY_MOVE)
 
 /mob/living/proc/set_gender(ngender = NEUTER, silent = FALSE, update_icon = TRUE, forced = FALSE)
-	if(forced || (!ckey || client?.prefs.cit_toggles & (ngender == FEMALE ? FORCED_FEM : FORCED_MASC)))
+	if(forced)
 		gender = ngender
 		return TRUE
 	return FALSE

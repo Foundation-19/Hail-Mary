@@ -10,6 +10,7 @@
 	icon_dead = "hulk_113_s"
 	mob_biotypes = MOB_ORGANIC|MOB_HUMANOID
 	mob_armor = ARMOR_VALUE_SUPERMUTANT_BASE
+	sentience_type = SENTIENCE_BOSS
 	maxHealth = 130 
 	health = 130
 	speak_chance = 10
@@ -440,7 +441,7 @@
 	var/obj/effect/temp_visual/decoy/D = new /obj/effect/temp_visual/decoy(loc,src)
 	animate(D, alpha = 0, color = "#FF0000", transform = matrix()*2, time = 1)
 	addtimer(3)
-	throw_at(T, get_dist(src, T), 1, src, 0, callback = CALLBACK(src, .proc/charge_end))
+	throw_at(T, get_dist(src, T), 1, src, 0, callback = CALLBACK(src, PROC_REF(charge_end)))
 
 /mob/living/simple_animal/hostile/supermutant/nightkin/rain/proc/charge_end(list/effects_to_destroy)
 	charging = FALSE
@@ -508,7 +509,7 @@
 	playsound(get_turf(src),'sound/magic/fireball.ogg', 200, 1)
 
 	for(var/d in GLOB.cardinals)
-		INVOKE_ASYNC(src, .proc/fire_release_wall, d)
+		INVOKE_ASYNC(src, PROC_REF(fire_release_wall), d)
 
 /mob/living/simple_animal/hostile/supermutant/nightkin/rangedmutant/rain/proc/fire_release_wall(dir)
 	var/list/hit_things = list(src)
@@ -543,6 +544,7 @@
 	melee_damage_upper = 62
 	extra_projectiles = 1
 
+
 /mob/living/simple_animal/hostile/supermutant/nightkin/elitemutant/rain/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/glow_heal, chosen_targets = /mob/living/simple_animal/hostile/supermutant, allow_revival = TRUE, restrict_faction = null, type_healing = BRUTELOSS | FIRELOSS)
+	AddComponent(/datum/component/glow_heal, chosen_targets = /mob/living/simple_animal/hostile/supermutant, allow_revival = FALSE, restrict_faction = null, type_healing = BRUTELOSS | FIRELOSS)

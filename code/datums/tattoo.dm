@@ -1,5 +1,5 @@
-/* 
- * Tattoos! 
+/*
+ * Tattoos!
  */
 // Mutable appearances are children of images, just so you know. just a fun fact
 
@@ -45,7 +45,7 @@
 
 /datum/tattoo/proc/on_apply(mob/user)
 	if(fade_time)
-		addtimer(CALLBACK(src, .proc/fade_tattoo), fade_time)
+		addtimer(CALLBACK(src, PROC_REF(fade_tattoo)), fade_time)
 
 /datum/tattoo/Destroy(force, ...)
 	if(isweakref(owner_limb))
@@ -81,7 +81,7 @@
 	if(fadedness++ > TATTOO_VERY_FADED)
 		qdel(src)
 		return
-	addtimer(CALLBACK(src, .proc/fade_tattoo), fade_time)
+	addtimer(CALLBACK(src, PROC_REF(fade_tattoo)), fade_time)
 
 /// Is the tattoo somewhere really private? So you dont examine someone in power armor and find FOXYGRANDMA above their ass
 /// A really in-depth check through a person's privates to see if their relevant bits are, in fact, visible
@@ -124,18 +124,6 @@
 	switch(tat_location)
 		if(TATTOO_FUCKUP)
 			return "misapplied over [ishuman(person) ? "[person.p_their()]" : "the"] bepis. There's a bit more written there:[span_phobia("hey this tattoo didnt set the location right, tell superlagg their shit broke.")]."
-		if(TATTOO_TRAMP_STAMP)
-			return "positioned over [ishuman(person) ? "[person.p_their()]" : "the"] [person.getorganslot(ORGAN_SLOT_TAIL) ? "tail" : "buttcrack"]."
-		if(TATTOO_WOMB_TATTOO)
-			return "positioned over [ishuman(person) ? "[person.p_their()]" : "the"] lower groin."
-		if(TATTOO_LEFT_ASS)
-			return "situated on [ishuman(person) ? "[person.p_their()]" : "the"] left buttcheek."
-		if(TATTOO_RIGHT_ASS)
-			return "situated on [ishuman(person) ? "[person.p_their()]" : "the"] right buttcheek."
-		if(TATTOO_LEFT_BOOB)
-			return "printed across [ishuman(person) ? "[person.p_their()]" : "the"] left [prob(1) ? "boobie" : "breast"]."
-		if(TATTOO_RIGHT_BOOB)
-			return "printed across [ishuman(person) ? "[person.p_their()]" : "the"] right [prob(1) ? "boobie" : "breast"]."
 		if(TATTOO_CHEST)
 			return "printed across [ishuman(person) ? "[person.p_their()]" : "the"] chest."
 		if(TATTOO_BELLY)
@@ -708,7 +696,7 @@
 		victim.emote("scream")
 	owie.receive_damage(brute = owie.brute_dam < 30 ? brute_d : 0, stamina = stamina_d, wound_bonus = bleed_d, sharpness = SHARP_EDGED, damage_coverings = FALSE)
 	if(engraving)
-		addtimer(CALLBACK(src, .proc/make_noises_and_pain, victim, user, tat_loc, part), next_time)
+		addtimer(CALLBACK(src, PROC_REF(make_noises_and_pain), victim, user, tat_loc, part), next_time)
 
 /obj/item/storage/backpack/debug_tattoo
 	name = "Bag of Gunstuff 4 tattoos"

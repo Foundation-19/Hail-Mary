@@ -88,15 +88,15 @@ const dm = async (dmeFile, options = {}) => {
     const injectedContent = defines
       .map(x => `#define ${x}\n`)
       .join('');
-    fs.writeFileSync(`${dmeBaseName}.mdme`, injectedContent);
+    fs.writeFileSync(`${dmeBaseName}.m.dme`, injectedContent);
     const dmeContent = fs.readFileSync(`${dmeBaseName}.dme`);
-    fs.appendFileSync(`${dmeBaseName}.mdme`, dmeContent);
-    await Juke.exec(dmPath, [`${dmeBaseName}.mdme`]);
-    fs.writeFileSync(`${dmeBaseName}.dmb`, fs.readFileSync(`${dmeBaseName}.mdme.dmb`));
-    fs.writeFileSync(`${dmeBaseName}.rsc`, fs.readFileSync(`${dmeBaseName}.mdme.rsc`));
-    fs.unlinkSync(`${dmeBaseName}.mdme.dmb`);
-    fs.unlinkSync(`${dmeBaseName}.mdme.rsc`);
-    fs.unlinkSync(`${dmeBaseName}.mdme`);
+    fs.appendFileSync(`${dmeBaseName}.m.dme`, dmeContent);
+    await Juke.exec(dmPath, [`${dmeBaseName}.m.dme`]);
+    fs.writeFileSync(`${dmeBaseName}.dmb`, fs.readFileSync(`${dmeBaseName}.m.dmb`));
+    fs.writeFileSync(`${dmeBaseName}.rsc`, fs.readFileSync(`${dmeBaseName}.m.rsc`));
+    fs.unlinkSync(`${dmeBaseName}.m.dmb`);
+    fs.unlinkSync(`${dmeBaseName}.m.rsc`);
+    fs.unlinkSync(`${dmeBaseName}.m.dme`);
   }
   else {
     await Juke.exec(dmPath, [dmeFile]);

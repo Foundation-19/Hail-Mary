@@ -3,6 +3,7 @@
 	desc = "Don't cross the streams!"
 	icon = 'icons/obj/chronos.dmi'
 	icon_state = "chronogun"
+	icon_prefix = "chronogun"
 	item_state = "chronogun"
 	weapon_class = WEAPON_CLASS_NORMAL
 	weapon_weight = GUN_ONE_HAND_ONLY
@@ -52,7 +53,7 @@
 	current_target = target
 	active = TRUE
 	current_beam = new(user,current_target,time=6000,beam_icon_state="medbeam",btype=/obj/effect/ebeam/medical)
-	INVOKE_ASYNC(current_beam, /datum/beam.proc/Start)
+	INVOKE_ASYNC(current_beam, TYPE_PROC_REF(/datum/beam,Start))
 
 	SSblackbox.record_feedback("tally", "gun_fired", 1, type)
 

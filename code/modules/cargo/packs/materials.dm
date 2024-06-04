@@ -67,9 +67,9 @@
 	name = "4 Pre-War Ingots"
 	desc = "Ingots salvaged from a Pre-War factory, valuable in the right hands."
 	cost = 2775
-	contains = list(/obj/item/ingot/adamantine,
-					/obj/item/ingot/adamantine,
-					/obj/item/ingot/adamantine
+	contains = list(/obj/item/blacksmith/ingot/adamantine,
+					/obj/item/blacksmith/ingot/adamantine,
+					/obj/item/blacksmith/ingot/adamantine
 					)
 
 /datum/supply_pack/materials/weaponparts

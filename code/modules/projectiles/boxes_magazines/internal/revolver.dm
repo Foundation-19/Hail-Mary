@@ -162,3 +162,9 @@
 	ammo_type = /obj/item/ammo_casing/a3006
 	caliber = list(CALIBER_3006)
 	max_ammo = 1
+
+/obj/item/ammo_box/magazine/internal/cylinder/ghoulgun
+	name = "rusted revolver cylinder"
+	ammo_type = /obj/item/ammo_casing/shotgun
+	caliber = list(CALIBER_SHOTGUN)
+	max_ammo = 5

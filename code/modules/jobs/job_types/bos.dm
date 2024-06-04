@@ -12,7 +12,7 @@ Main doors: ACCESS_BOS 120
 	access = list(ACCESS_ROBOTICS, ACCESS_BOS, ACCESS_ENGINE_EQUIP, ACCESS_ENGINE, ACCESS_HYDROPONICS, ACCESS_KITCHEN, ACCESS_BAR, ACCESS_SEC_DOORS)
 	minimal_access = list(ACCESS_ROBOTICS, ACCESS_BOS, ACCESS_ENGINE_EQUIP, ACCESS_ENGINE, ACCESS_HYDROPONICS, ACCESS_KITCHEN, ACCESS_BAR, ACCESS_SEC_DOORS)
 	forbids = "The Brotherhood of Steel Forbids: Unethical human experimentation. Violence beyond what is needed to accomplish Brotherhood goals, and cruel torture or experiments on the minds or bodies of prisoners."
-	enforces = "The Brotherhood of Steel Expects: Obeying the Chain That - Binds your direct superior. Collection and safeguarding of technology from the wasteland. Experimentation and research."
+	enforces = "The Brotherhood of Steel Expects: Obeying the Paladin in charge of this expedition. Collection and safeguarding of technology from the wasteland. Experimentation and research."
 	outfit = /datum/outfit/job/bos/
 
 	objectivesList = list(
@@ -142,11 +142,11 @@ Sentinel
 	suit = /obj/item/clothing/suit/armor/light/duster/bos/scribe/elder
 	glasses = /obj/item/clothing/glasses/night
 	accessory = /obj/item/clothing/accessory/bos/elder
-	suit_store = /obj/item/gun/energy/laser/pistol
+	suit_store = /obj/item/gun/energy/laser/solar
 	neck = /obj/item/clothing/neck/mantle/bos/right
 	ears = /obj/item/radio/headset/headset_bos/command
 	backpack_contents = list(
-		/obj/item/stock_parts/cell/ammo/mfc = 2,
+		//obj/item/melee/powerfist/f13 = 1,
 		/obj/item/melee/onehanded/knife/hunting = 1
 
 	)
@@ -159,8 +159,8 @@ Paladin Commander
 	title = "Head Paladin"
 	flag = F13PALADINCOMMANDER
 	head_announce = list("Security")
-	total_positions = 1
-	spawn_positions = 1
+	total_positions = 0
+	spawn_positions = 0
 	description = "You are the acting field commander until the Brotherhood regains its strength enough to place an Elder for the bunker. You are a veteran of many battles and sorties in pursuit of Brotherhood goals; your only weakness may just be your hubris. Your main goals are defense of the Chapter and surveillance of the surrounding region for technology."
 	supervisors = "the Elders"
 	selection_color = "#7f8c8d"
@@ -173,17 +173,21 @@ Paladin Commander
 	/datum/outfit/loadout/sentmini //Minigun
 	)
 
+	min_required_special = list(
+		"special_c" = 4,
+		)
+
 
 	access = list(ACCESS_BROTHERHOOD_COMMAND, ACCESS_ROBOTICS, ACCESS_BOS, ACCESS_ENGINE_EQUIP, ACCESS_ENGINE, ACCESS_HYDROPONICS, ACCESS_KITCHEN, ACCESS_BAR, ACCESS_SEC_DOORS, ACCESS_CHANGE_IDS)
 	minimal_access = list(ACCESS_BROTHERHOOD_COMMAND, ACCESS_ROBOTICS, ACCESS_BOS, ACCESS_ENGINE_EQUIP, ACCESS_ENGINE, ACCESS_HYDROPONICS, ACCESS_KITCHEN, ACCESS_BAR, ACCESS_SEC_DOORS, ACCESS_CHANGE_IDS)
 
-/datum/outfit/job/bos/f13sentinel/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+/datum/outfit/job/bos/f13commander/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
 	if(visualsOnly)
 		return
 	ADD_TRAIT(H, TRAIT_PA_WEAR, src)
 
-/datum/outfit/job/bos/f13sentinel/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+/datum/outfit/job/bos/f13commander/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
 	if(visualsOnly)
 		return
@@ -328,6 +332,10 @@ Knight-Captain
 	access = list(ACCESS_BROTHERHOOD_COMMAND, ACCESS_ROBOTICS, ACCESS_BOS, ACCESS_ENGINE_EQUIP, ACCESS_ENGINE, ACCESS_HYDROPONICS, ACCESS_KITCHEN, ACCESS_BAR, ACCESS_SEC_DOORS, ACCESS_ARMORY, ACCESS_BRIG, ACCESS_CHANGE_IDS)
 	minimal_access = list(ACCESS_BROTHERHOOD_COMMAND, ACCESS_ROBOTICS, ACCESS_BOS, ACCESS_ENGINE_EQUIP, ACCESS_ENGINE, ACCESS_HYDROPONICS, ACCESS_KITCHEN, ACCESS_BAR, ACCESS_SEC_DOORS, ACCESS_ARMORY, ACCESS_BRIG, ACCESS_CHANGE_IDS)
 
+	min_required_special = list(
+		"special_c" = 4,
+		)
+
 /datum/outfit/job/bos/f13knightcap/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
 	if(visualsOnly)
@@ -434,8 +442,8 @@ Paladin
 	flag = F13PALADIN
 	total_positions = 1
 	spawn_positions = 1
-	description = "You are this Chapter's main line of defense and offense; highly trained in combat and weaponry though with little practical field experience, you are eager to prove your worth to the Brotherhood. Your primary duties are defense and surface operations. You may also be assigned a trainee Initiate."
-	supervisors = "the Head and Senior Paladin"
+	description = "You are this Chapter's main line of defense and offense, and the leader of this expedition; highly trained in combat and weaponry though with little practical field experience, you are eager to prove your worth to the Brotherhood. Your primary duties are defense and surface operations. You may also be assigned a trainee Initiate."
+	supervisors = "the Elders"
 	display_order = JOB_DISPLAY_ORDER_PALADIN
 	outfit = /datum/outfit/job/bos/f13paladin
 	exp_requirements = 1200
@@ -462,6 +470,10 @@ Paladin
 		),
 	)
 
+	min_required_special = list(
+		"special_c" = 4,
+		)
+
 /datum/outfit/job/bos/f13paladin/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
 	if(visualsOnly)
@@ -479,7 +491,7 @@ Paladin
 	mask =	/obj/item/clothing/mask/gas/sechailer
 	neck =	/obj/item/clothing/neck/mantle/bos/paladin
 	backpack_contents = list(
-		/obj/item/reagent_containers/hypospray/medipen/stimpak= 4,
+		/obj/item/reagent_containers/hypospray/medipen/stimpak = 4,
 		/obj/item/melee/onehanded/knife/hunting = 1,
 		/obj/item/stock_parts/cell/ammo/mfc = 5
 	)
@@ -533,13 +545,7 @@ Senior Scribe
 	..()
 	if(visualsOnly)
 		return
-	H.mind.teach_crafting_recipe(/datum/crafting_recipe/jet)
-	H.mind.teach_crafting_recipe(/datum/crafting_recipe/turbo)
-	H.mind.teach_crafting_recipe(/datum/crafting_recipe/psycho)
-	H.mind.teach_crafting_recipe(/datum/crafting_recipe/medx)
-	H.mind.teach_crafting_recipe(/datum/crafting_recipe/medx/chemistry)
-	H.mind.teach_crafting_recipe(/datum/crafting_recipe/buffout)
-	H.mind.teach_crafting_recipe(/datum/crafting_recipe/steady)
+	H.mind.teach_crafting_recipe(GLOB.chemwhiz_recipes)
 	ADD_TRAIT(H, TRAIT_CHEMWHIZ, src)
 	ADD_TRAIT(H, TRAIT_SURGERY_HIGH, src)
 	ADD_TRAIT(H, TRAIT_CYBERNETICIST, src)
@@ -548,13 +554,13 @@ Senior Scribe
 	name =	"Senior Scribe"
 	jobtype = /datum/job/bos/f13seniorscribe
 	chemwhiz =	TRUE
+	belt = /obj/item/storage/belt/utility/full/engi
 	shoes =	/obj/item/clothing/shoes/combat
 	accessory =	/obj/item/clothing/accessory/bos/seniorscribe
 	suit = /obj/item/clothing/suit/armor/light/duster/bos/scribe/seniorscribe
 	suit_store = /obj/item/gun/ballistic/automatic/pistol/ninemil
 	glasses = /obj/item/clothing/glasses/sunglasses/big
 	backpack_contents = list(
-		/obj/item/storage/belt/utility/full/engi = 1,
 		/obj/item/ammo_box/magazine/m9mm = 2,
 		/obj/item/melee/onehanded/knife/survival = 1,
 		/obj/item/storage/firstaid/regular = 1,
@@ -604,11 +610,11 @@ Scribe
 	name = "Scribe"
 	jobtype = /datum/job/bos/f13scribe
 	chemwhiz = TRUE
+	belt = /obj/item/storage/belt/utility/full/engi
 	shoes = /obj/item/clothing/shoes/combat
 	suit = /obj/item/clothing/suit/armor/light/duster/bos/scribe
 	glasses = /obj/item/clothing/glasses/sunglasses/big
 	backpack_contents = list(
-		/obj/item/storage/belt/utility/full/engi = 1,
 		/obj/item/melee/onehanded/knife/survival = 1,
 		/obj/item/storage/firstaid/regular = 1,
 		/obj/item/gun/energy/laser/pistol = 1,
@@ -633,13 +639,7 @@ Scribe
 	..()
 	if(visualsOnly)
 		return
-	H.mind.teach_crafting_recipe(/datum/crafting_recipe/jet)
-	H.mind.teach_crafting_recipe(/datum/crafting_recipe/turbo)
-	H.mind.teach_crafting_recipe(/datum/crafting_recipe/psycho)
-	H.mind.teach_crafting_recipe(/datum/crafting_recipe/medx)
-	H.mind.teach_crafting_recipe(/datum/crafting_recipe/medx/chemistry)
-	H.mind.teach_crafting_recipe(/datum/crafting_recipe/buffout)
-	H.mind.teach_crafting_recipe(/datum/crafting_recipe/steady)
+	H.mind.teach_crafting_recipe(GLOB.chemwhiz_recipes)
 	ADD_TRAIT(H, TRAIT_CHEMWHIZ, src)
 	ADD_TRAIT(H, TRAIT_SURGERY_HIGH, src)
 	ADD_TRAIT(H, TRAIT_CYBERNETICIST, src)
@@ -746,8 +746,8 @@ Knight
 /datum/job/bos/f13knight
 	title = "Knight"
 	flag = F13KNIGHT
-	total_positions = 3
-	spawn_positions = 3
+	total_positions = 5
+	spawn_positions = 5
 	description = "You are the Brotherhood Knight, the veritable lifeblood of your organization. You are a versatile and adaptably trained person: from your primary duties of weapon & armor repair to basic combat, survival and stealth skills, the only thing you lack is proper experience. You are also in charge of Initiates."
 	supervisors = "the Head and Knight-Sergeant"
 	display_order = JOB_DISPLAY_ORDER_KNIGHT
@@ -828,8 +828,8 @@ Initiate
 /datum/job/bos/f13initiate
 	title = "Initiate"
 	flag = F13INITIATE
-	total_positions = 4
-	spawn_positions = 4
+	total_positions = 5
+	spawn_positions = 5
 	description = "Either recently inducted or born into the Brotherhood, you have since proven yourself worthy of assignment to the Chapter. You are to assist your superiors and receive training how they deem fit. You are NEVER allowed to leave the bunker without the direct supervision of a superior; doing so may result in exile."
 	supervisors = "the Scribes, Knights, or Paladins"
 	display_order = JOB_DISPLAY_ORDER_INITIATE

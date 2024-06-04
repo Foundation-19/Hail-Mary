@@ -111,7 +111,6 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 	if(visualsOnly)
 		return
 	ADD_TRAIT(H, TRAIT_GENERIC, src)
-	ADD_TRAIT(H, TRAIT_HARD_YARDS, src)
 
 /datum/outfit/job/ncr/f13aide	// NCR Flag, Desert Eagle
 	name = "NCR Personal Aide"
@@ -154,6 +153,10 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 	loadout_options = list(
 		/datum/outfit/loadout/captainbackline,	// Deagle
 		/datum/outfit/loadout/captainfrontline, // AR Service Rifle
+		)
+
+	min_required_special = list(
+		"special_c" = 4,
 		)
 
 /datum/outfit/job/ncr/f13captain/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -235,6 +238,10 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 			/datum/job/ncr,
 		),
 	)
+
+	min_required_special = list(
+		"special_c" = 4,
+		)
 
 /datum/outfit/job/ncr/f13lieutenant		// AR Service Rifle, Binoculars, Bayonet, M1911 custom
 	name = "NCR Lieutenant"
@@ -475,6 +482,7 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 		/obj/item/gun/ballistic/revolver/revolver45 = 1,
 		/obj/item/ammo_box/c45rev = 2,
 		/obj/item/stack/medical/gauze/bloodleaf = 2,
+		/obj/item/stack/f13Cash/ncr	=	1000
 	//	/obj/item/storage/bag/money/small/ncr = 2,
 		)
 
@@ -530,10 +538,14 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 	exp_requirements = 1750
 
 	loadout_options = list( // ALL: Binoculars, Bowie knife
-		/datum/outfit/loadout/vrclassic, // AMR, Sequoia
-		/datum/outfit/loadout/vrlite, // Brush, Sequoia
-		/datum/outfit/loadout/vrshotgunner, // Winchester City-Killer, Sequoia
+		/datum/outfit/loadout/vrclassic, // Sequoia
+		/datum/outfit/loadout/vrlite, // Brush
+		/datum/outfit/loadout/vrshotgunner, // Unique Lever-Action
 		/datum/outfit/loadout/vrcqc // 2 x .45 Long colt revolvers
+		)
+
+	min_required_special = list(
+		"special_c" = 4,
 		)
 
 /datum/outfit/job/ncr/f13vetranger/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -809,7 +821,6 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/tribalradio)
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/durathread_vest)
 	ADD_TRAIT(H, TRAIT_TECHNOPHREAK, src)
-	ADD_TRAIT(H, TRAIT_HARD_YARDS, src)
 
 /datum/outfit/job/ncr/f13combatengineer
 	name = "NCR Combat Engineer"
@@ -973,7 +984,6 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/steady)
 	ADD_TRAIT(H, TRAIT_CHEMWHIZ, src)
 	ADD_TRAIT(H, TRAIT_SURGERY_MID, src)
-	ADD_TRAIT(H, TRAIT_HARD_YARDS, src)
 */
 
 
@@ -1038,7 +1048,9 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 	backpack_contents = list(
 		/obj/item/ammo_box/magazine/m556/rifle = 2,
 		/obj/item/stack/ore/blackpowder/twenty = 1,
-		/obj/item/book/granter/crafting_recipe/blueprint/r82 = 1
+		/obj/item/book/granter/crafting_recipe/blueprint/r82 = 1,
+		/obj/item/clothing/head/beret/ncr/ncr_sapper = 1,
+		/obj/item/book/granter/trait/techno = 1,
 		)
 
 /datum/outfit/loadout/combatmedic
@@ -1051,7 +1063,8 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 		/obj/item/clothing/gloves/color/latex/nitrile = 1,
 		/obj/item/clothing/head/f13/ncr/steelpot_med = 1,
 		/obj/item/book/granter/trait/midsurgery = 1,
-		/obj/item/book/granter/trait/chemistry = 1
+		/obj/item/book/granter/trait/chemistry = 1,
+		/obj/item/clothing/head/beret/ncr/ncr_medic = 1,
 		)
 
 // TROOPER
@@ -1178,8 +1191,8 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 /datum/job/ncr/f13medicalofficer
 	title = "NCR Medical Officer"
 	flag = F13MEDICALOFFICER
-	total_positions = 0
-	spawn_positions = 0
+	total_positions = 1
+	spawn_positions = 1
 	description = "You are the lead medical professional in Camp Miller, you do not have any command authority unless it is of medical nature. Your duties are to ensure your troopers are in good health and that medical supplies are stocked for troopers."
 	supervisors = "Captain and Above"
 	selection_color = "#fff5cc"

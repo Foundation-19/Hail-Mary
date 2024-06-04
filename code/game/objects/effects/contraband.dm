@@ -30,7 +30,7 @@
 
 		name = "[name] - [poster_structure.original_name]"
 		//If the poster structure is being deleted something has gone wrong, kill yourself off too
-		RegisterSignal(poster_structure, COMSIG_PARENT_QDELETING, .proc/react_to_deletion)
+		RegisterSignal(poster_structure, COMSIG_PARENT_QDELETING, PROC_REF(react_to_deletion))
 
 
 /obj/item/poster/Destroy()
@@ -558,7 +558,7 @@
 
 /obj/structure/sign/poster/prewar/poster68
 	name = "General Store Policy"
-	desc = "By decree of the Oasis Town Hall, the general store has the right to refuse any and all refunds to customers for any reason."
+	desc = "By decree of the Eastwood Town Hall, the general store has the right to refuse any and all refunds to customers for any reason."
 	icon_state = "poster68"
 
 /obj/structure/sign/poster/prewar/poster69

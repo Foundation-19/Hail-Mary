@@ -173,7 +173,7 @@
 	item_state = "eng_hardsuit"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/engine
 	resistance_flags = FIRE_PROOF
-	mutantrace_variation = STYLE_DIGITIGRADE|STYLE_ALL_TAURIC
+	mutantrace_variation = STYLE_DIGITIGRADE
 
 	//Atmospherics
 /obj/item/clothing/head/helmet/space/hardsuit/engine/atmos
@@ -239,7 +239,7 @@
 	resistance_flags = FIRE_PROOF
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/mining
 	heat_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
-	mutantrace_variation = STYLE_DIGITIGRADE|STYLE_ALL_TAURIC
+	mutantrace_variation = STYLE_DIGITIGRADE
 
 /obj/item/clothing/suit/space/hardsuit/mining/Initialize()
 	. = ..()
@@ -332,7 +332,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/syndi
 	jetpack = /obj/item/tank/jetpack/suit
-	mutantrace_variation = STYLE_DIGITIGRADE|STYLE_ALL_TAURIC
+	mutantrace_variation = STYLE_DIGITIGRADE
 
 //Elite Syndie suit
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/elite
@@ -346,10 +346,14 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/elite/debug
+	name = "chronicler helmet"
+	armor = list("melee" = 99, "bullet" = 95, "laser" = 95, "energy" = 95, "bomb" = 95, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100, "wound" = 100)
 
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/elite/debug/Initialize()
 	. = ..()
-	soundloop.volume = 0
+	do_sparks(7, FALSE, src)//spawns in, lightning effect also produced, what this mean is upto you
+	playsound(src, "sparks", 100, 1)
+	soundloop.volume = 0.5
 
 /obj/item/clothing/suit/space/hardsuit/syndi/elite
 	name = "elite syndicate hardsuit"
@@ -361,11 +365,13 @@
 	heat_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF | ACID_PROOF
-	mutantrace_variation = STYLE_DIGITIGRADE|STYLE_SNEK_TAURIC|STYLE_PAW_TAURIC
+	mutantrace_variation = STYLE_DIGITIGRADE
 
 /obj/item/clothing/suit/space/hardsuit/syndi/elite/debug
+	name = "chronicler hardsuit"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/syndi/elite/debug
 	slowdown = 0
+	armor = list("melee" = 99, "bullet" = 95, "laser" = 95, "energy" = 95, "bomb" = 95, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100, "wound" = 100)
 
 //The Owl Hardsuit
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/owl
@@ -451,7 +457,7 @@
 	item_state = "medical_hardsuit"
 	slowdown = 0.8
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/medical
-	mutantrace_variation = STYLE_DIGITIGRADE|STYLE_ALL_TAURIC
+	mutantrace_variation = STYLE_DIGITIGRADE
 
 	//Research Director hardsuit
 /obj/item/clothing/head/helmet/space/hardsuit/rd
@@ -504,7 +510,7 @@
 	desc = "A special suit that protects against hazardous, low pressure environments. Has an additional layer of armor."
 	item_state = "sec_hardsuit"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/security
-	mutantrace_variation = STYLE_DIGITIGRADE|STYLE_ALL_TAURIC
+	mutantrace_variation = STYLE_DIGITIGRADE
 
 /obj/item/clothing/suit/space/hardsuit/security/Initialize()
 	. = ..()
@@ -637,7 +643,7 @@
 		return
 	if(listeningTo)
 		UnregisterSignal(listeningTo, COMSIG_MOVABLE_MOVED)
-	RegisterSignal(user, COMSIG_MOVABLE_MOVED, .proc/on_mob_move)
+	RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(on_mob_move))
 	listeningTo = user
 
 /obj/item/clothing/suit/space/hardsuit/ancient/dropped(mob/user)
@@ -757,7 +763,7 @@
 	hardsuit_type = "syndi"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/shielded/syndi
 	slowdown = 0
-	mutantrace_variation = STYLE_DIGITIGRADE|STYLE_ALL_TAURIC
+	mutantrace_variation = STYLE_DIGITIGRADE
 
 /obj/item/clothing/suit/space/hardsuit/shielded/syndi/Initialize()
 	jetpack = new /obj/item/tank/jetpack/suit(src)

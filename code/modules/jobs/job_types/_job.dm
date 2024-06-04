@@ -100,6 +100,33 @@
 	/// the value should be something like "strings/names/cow.txt"
 	var/whitelist_path
 
+	var/list/min_required_special
+
+	/* //!Template for pasting into job defines, leave only needed fields:
+	min_required_special = list(
+		"special_s" = 0,
+		"special_p" = 0,
+		"special_e" = 0,
+		"special_c" = 0,
+		"special_i" = 0,
+		"special_a" = 0,
+		"special_l" = 0,
+		)
+	*/
+
+	var/list/modify_special
+
+	/* //!Template for pasting into job defines, leave only needed fields:
+	modify_special = list(
+		"special_s" = 0,
+		"special_p" = 0,
+		"special_e" = 0,
+		"special_c" = 0,
+		"special_i" = 0,
+		"special_a" = 0,
+		"special_l" = 0,
+		)
+	*/
 
 /datum/job/proc/after_spawn(mob/living/spawner, mob/client_holder, latejoin = FALSE)
 	SHOULD_CALL_PARENT(TRUE)
@@ -170,6 +197,15 @@
 	//Equip the rest of the gear
 	H.dna.species.before_equip_job(src, H, visualsOnly)
 
+	if(islist(modify_special))
+		H.special_s = clamp(H.special_s + modify_special["special_s"], SPECIAL_MIN_ATTR_VALUE, SPECIAL_MAX_ATTR_VALUE)
+		H.special_p = clamp(H.special_p + modify_special["special_p"], SPECIAL_MIN_ATTR_VALUE, SPECIAL_MAX_ATTR_VALUE)
+		H.special_e = clamp(H.special_e + modify_special["special_e"], SPECIAL_MIN_ATTR_VALUE, SPECIAL_MAX_ATTR_VALUE)
+		H.special_c = clamp(H.special_c + modify_special["special_c"], SPECIAL_MIN_ATTR_VALUE, SPECIAL_MAX_ATTR_VALUE)
+		H.special_i = clamp(H.special_i + modify_special["special_i"], SPECIAL_MIN_ATTR_VALUE, SPECIAL_MAX_ATTR_VALUE)
+		H.special_a = clamp(H.special_a + modify_special["special_a"], SPECIAL_MIN_ATTR_VALUE, SPECIAL_MAX_ATTR_VALUE)
+		H.special_l = clamp(H.special_l + modify_special["special_l"], SPECIAL_MIN_ATTR_VALUE, SPECIAL_MAX_ATTR_VALUE)
+
 	var/datum/outfit/job/O = outfit_override || outfit
 	if(O)
 		H.equipOutfit(O, visualsOnly, preference_source) //mob doesn't have a client yet.
@@ -210,7 +246,7 @@
 /datum/job/proc/announce_head(mob/living/carbon/human/H, channels) //tells the given channel that the given mob is the new department head. See communications.dm for valid channels.
 	if(H && GLOB.announcement_systems.len)
 		//timer because these should come after the captain announcement
-		SSticker.OnRoundstart(CALLBACK(GLOBAL_PROC, .proc/_addtimer, CALLBACK(pick(GLOB.announcement_systems), /obj/machinery/announcement_system/proc/announce, "NEWHEAD", H.real_name, H.job, channels), 1))
+		SSticker.OnRoundstart(CALLBACK(GLOBAL_PROC,GLOBAL_PROC_REF(_addtimer), CALLBACK(pick(GLOB.announcement_systems), TYPE_PROC_REF(/obj/machinery/announcement_system, announce), "NEWHEAD", H.real_name, H.job, channels), 1))
 
 //If the configuration option is set to require players to be logged as old enough to play certain jobs, then this proc checks that they are, otherwise it just returns 1
 /datum/job/proc/player_old_enough(client/C)
@@ -383,3 +419,27 @@
 	if(CONFIG_GET(flag/security_has_maint_access))
 		return list(ACCESS_MAINT_TUNNELS)
 	return list()
+
+/datum/job/proc/special_stat_check(datum/preferences/prefs)
+	var/output = ""
+	var/sum = prefs.special_s + prefs.special_p + prefs.special_e + prefs.special_c + prefs.special_i + prefs.special_a + prefs.special_l
+	if(sum > SPECIAL_MAX_POINT_SUM_CAP)
+		return "\[SPECIAL CAP\]"
+	if(islist(min_required_special))
+		if(min_required_special["special_s"] && min_required_special["special_s"] > prefs.special_s)
+			output += "S: [min_required_special["special_s"]], "
+		if(min_required_special["special_p"] && min_required_special["special_p"] > prefs.special_p)
+			output += "P: [min_required_special["special_p"]], "
+		if(min_required_special["special_e"] && min_required_special["special_e"] > prefs.special_e)
+			output += "E: [min_required_special["special_e"]], "
+		if(min_required_special["special_c"] && min_required_special["special_c"] > prefs.special_c)
+			output += "C: [min_required_special["special_c"]], "
+		if(min_required_special["special_i"] && min_required_special["special_i"] > prefs.special_i)
+			output += "I: [min_required_special["special_i"]], "
+		if(min_required_special["special_a"] && min_required_special["special_a"] > prefs.special_a)
+			output += "A: [min_required_special["special_a"]], "
+		if(min_required_special["special_l"] && min_required_special["special_l"] > prefs.special_l)
+			output += "L: [min_required_special["special_l"]], "
+	if(length(output))
+		output = copytext_char(output, 1, length(output) - 1)
+	return output

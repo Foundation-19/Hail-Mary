@@ -1,7 +1,7 @@
-/obj/machinery/light/sign/nash
-	name = "nash sign"
-	icon_state = "nash_on"
-	base_state = "nash_on"
+/obj/machinery/light/sign/eastwood
+	name = "eastwood sign"
+	icon_state = "eastwood_on"
+	base_state = "eastwood_on"
 	icon = 'fallout/icons/objects/sign.dmi'
 	density = 0
 	desc = "So awful..."

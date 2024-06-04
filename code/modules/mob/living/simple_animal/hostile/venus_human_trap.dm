@@ -21,7 +21,7 @@
 	for(var/turf/T in anchors)
 		var/datum/beam/B = Beam(T, "vine", time=INFINITY, maxdistance=5, beam_type=/obj/effect/ebeam/vine)
 		B.sleep_time = 10 //these shouldn't move, so let's slow down updates to 1 second (any slower and the deletion of the vines would be too slow)
-	addtimer(CALLBACK(src, .proc/bear_fruit), growth_time)
+	addtimer(CALLBACK(src, PROC_REF(bear_fruit)), growth_time)
 
 /**
  * Spawns a venus human trap, then qdels itself.
@@ -41,7 +41,7 @@
 /obj/effect/ebeam/vine/Initialize()
 	. = ..()
 	var/static/list/loc_connections = list(
-		COMSIG_ATOM_ENTERED = .proc/on_entered,
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
@@ -87,7 +87,7 @@
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	unsuitable_atmos_damage = 0
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
-	faction = list("hostile","vines","plants")
+	faction = list("hostile","vines","plants","jungle")
 	initial_language_holder = /datum/language_holder/venus
 	del_on_death = TRUE
 	/// A list of all the plant's vines
@@ -130,7 +130,7 @@
 				return
 
 	var/datum/beam/newVine = Beam(the_target, "vine", time=INFINITY, maxdistance = vine_grab_distance, beam_type=/obj/effect/ebeam/vine)
-	RegisterSignal(newVine, COMSIG_PARENT_QDELETING, .proc/remove_vine, newVine)
+	RegisterSignal(newVine, COMSIG_PARENT_QDELETING, PROC_REF(remove_vine), newVine)
 	vines += newVine
 	if(isliving(the_target))
 		var/mob/living/L = the_target
