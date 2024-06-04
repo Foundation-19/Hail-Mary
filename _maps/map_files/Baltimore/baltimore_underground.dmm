@@ -5802,6 +5802,10 @@
 "iKN" = (
 /turf/closed/mineral/random/low_chance/underground,
 /area/f13/mountain_bunker)
+"iLi" = (
+/obj/machinery/vending/medical/redwater,
+/turf/open/floor/plating/rust,
+/area/f13/citycaves)
 "iLo" = (
 /obj/structure/barricade/tentclothedge{
 	pixel_y = -4
@@ -7767,11 +7771,6 @@
 	sunlight_state = 0
 	},
 /area/f13/tunnel/sub)
-"lnD" = (
-/obj/structure/table/greyscale,
-/obj/machinery/portable_atmospherics/scrubber/huge,
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/vault)
 "lqe" = (
 /turf/open/floor/plasteel/chapel{
 	icon_state = "cultdamage5"
@@ -9112,6 +9111,10 @@
 /turf/open/floor/wood_wide{
 	icon_state = "wide-broken6"
 	},
+/area/f13/building/tunnel)
+"noL" = (
+/obj/machinery/vending/medical/redwater,
+/turf/open/floor/wood_common,
 /area/f13/building/tunnel)
 "noW" = (
 /obj/effect/overlay/junk/toilet{
@@ -13987,10 +13990,6 @@
 /obj/effect/decal/cleanable/greenglow,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
 /area/f13/citycaves)
-"usM" = (
-/obj/machinery/iv_drip,
-/turf/closed/wall/rust,
-/area/f13/tunnel)
 "usU" = (
 /obj/structure/table/wood,
 /obj/item/stack/f13Cash/caps/onezerozero,
@@ -38051,7 +38050,7 @@ xrG
 xrG
 ylc
 ccs
-usM
+ylc
 aPK
 pZN
 hAS
@@ -39595,7 +39594,7 @@ ylc
 ccs
 ylc
 aPK
-nrR
+noL
 iJW
 rZi
 ejI
@@ -47228,7 +47227,7 @@ aSv
 wOy
 ssh
 ssh
-lnD
+kLn
 xuO
 obY
 obY
@@ -56645,7 +56644,7 @@ aRU
 riG
 ccs
 riG
-rJX
+iLi
 rJX
 rJX
 tzC
@@ -69957,8 +69956,8 @@ bvn
 bvn
 bvn
 bvn
-lGZ
 bvn
+lGZ
 tWf
 tWf
 bvn

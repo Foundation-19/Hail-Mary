@@ -22939,7 +22939,7 @@
 /turf/open/indestructible/ground/outside/sidewalkdirt,
 /area/f13/wasteland/city)
 "ich" = (
-/obj/structure/nest/raider/boss,
+/obj/structure/nest/raider,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	name = "Old Docks";
 	sunlight_state = 1
@@ -35695,7 +35695,7 @@
 /turf/open/floor/f13/wood,
 /area/f13/wasteland/city)
 "mAV" = (
-/mob/living/simple_animal/hostile/supermutant/meleemutant,
+/mob/living/simple_animal/hostile/raider,
 /turf/open/floor/plating/dirt/dirt_maryland{
 	icon_state = "grass_3"
 	},
@@ -39909,7 +39909,7 @@
 	},
 /area/f13/ruins)
 "ocG" = (
-/mob/living/simple_animal/hostile/supermutant/meleemutant,
+/mob/living/simple_animal/hostile/raider,
 /turf/open/indestructible/ground/outside/ruins,
 /area/f13/building/center)
 "ocT" = (
@@ -41387,7 +41387,7 @@
 	},
 /area/f13/raider_mall)
 "oDh" = (
-/mob/living/simple_animal/hostile/supermutant/rangedmutant/varmint,
+/mob/living/simple_animal/hostile/raider/ranged,
 /turf/open/floor/wood_common,
 /area/f13/building/center)
 "oDn" = (
@@ -48929,7 +48929,7 @@
 /turf/open/floor/wood_fancy,
 /area/f13/ruins)
 "reS" = (
-/mob/living/simple_animal/hostile/supermutant/rangedmutant/varmint,
+/mob/living/simple_animal/hostile/raider/ranged,
 /obj/effect/spawner/lootdrop/f13/weapon/gun/ammo/tier3,
 /turf/open/floor/wood_common/wood_common_dark,
 /area/f13/building/center)
@@ -53959,7 +53959,7 @@
 /obj/structure/flora/roadplant{
 	icon_state = "dirt_4d"
 	},
-/mob/living/simple_animal/hostile/supermutant/meleemutant,
+/mob/living/simple_animal/hostile/raider,
 /turf/open/floor/wood_common/wood_common_dark,
 /area/f13/building/center)
 "sRL" = (
@@ -62492,7 +62492,7 @@
 "vRm" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/nest/raider/boss,
+/obj/structure/nest/raider,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	name = "Old Docks";
 	sunlight_state = 1
@@ -68415,7 +68415,7 @@
 /turf/open/indestructible/ground/outside/gravel,
 /area/f13/wasteland/city/citycenter)
 "xVs" = (
-/obj/structure/nest/raider/boss,
+/obj/structure/nest/raider,
 /turf/open/indestructible/ground/outside/gravel,
 /area/f13/wasteland/city/citycenter)
 "xVI" = (
