@@ -1045,7 +1045,7 @@
 /area/f13/tunnel/sub)
 "bCA" = (
 /obj/effect/overlay/junk/curtain,
-/mob/living/simple_animal/hostile/ghoul/zombie/reaver,
+/mob/living/simple_animal/hostile/ghoul/reaver,
 /turf/open/floor/wood_common,
 /area/f13/building/tunnel)
 "bCK" = (
@@ -1101,7 +1101,7 @@
 	},
 /area/f13/vault)
 "bHK" = (
-/mob/living/simple_animal/hostile/ghoul/zombie,
+/mob/living/simple_animal/hostile/ghoul,
 /turf/open/floor/wood_fancy,
 /area/f13/building/tunnel)
 "bHQ" = (
@@ -1934,7 +1934,7 @@
 /area/f13/citycaves)
 "cVc" = (
 /obj/effect/decal/cleanable/dirt/dust,
-/mob/living/simple_animal/hostile/ghoul/zombie,
+/mob/living/simple_animal/hostile/ghoul,
 /turf/open/floor/plasteel/f13/vault_floor/dark/darksolid{
 	icon_state = "darkrustysolid"
 	},
@@ -3215,7 +3215,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/space)
 "eRa" = (
-/mob/living/simple_animal/hostile/ghoul/zombie/reaver,
+/mob/living/simple_animal/hostile/ghoul/reaver,
 /obj/effect/decal/waste{
 	icon_state = "goo12"
 	},
@@ -3464,7 +3464,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/tunnel/sub)
 "flL" = (
-/mob/living/simple_animal/hostile/ghoul/zombie/reaver,
+/mob/living/simple_animal/hostile/ghoul/reaver,
 /turf/open/floor/wood_wide,
 /area/f13/building/tunnel)
 "fmn" = (
@@ -5934,7 +5934,7 @@
 	},
 /area/f13/bunker)
 "iTL" = (
-/mob/living/simple_animal/hostile/ghoul/zombie,
+/mob/living/simple_animal/hostile/ghoul,
 /turf/open/floor/plasteel/f13/vault_floor/dark/darksolid{
 	icon_state = "darkrustysolid"
 	},
@@ -6908,7 +6908,7 @@
 	},
 /area/f13/citycaves)
 "kaB" = (
-/mob/living/simple_animal/hostile/ghoul/zombie,
+/mob/living/simple_animal/hostile/ghoul,
 /turf/open/indestructible/ground/outside/gravel{
 	name = "underground gravel";
 	sunlight_state = 0
@@ -9479,7 +9479,7 @@
 	pixel_y = 4;
 	name = "wooden docks"
 	},
-/mob/living/simple_animal/hostile/ghoul/zombie,
+/mob/living/simple_animal/hostile/ghoul,
 /turf/open/indestructible/ground/outside/gravel{
 	name = "underground gravel";
 	sunlight_state = 0
@@ -12239,7 +12239,7 @@
 /obj/effect/overlay/junk/toilet{
 	dir = 4
 	},
-/mob/living/simple_animal/hostile/ghoul/zombie/reaver,
+/mob/living/simple_animal/hostile/ghoul/reaver,
 /turf/open/floor/wood_fancy,
 /area/f13/building/tunnel)
 "rRj" = (
@@ -12893,7 +12893,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
 /area/f13/tunnel/sub)
 "sSy" = (
-/mob/living/simple_animal/hostile/ghoul/zombie/reaver,
+/mob/living/simple_animal/hostile/ghoul/reaver,
 /turf/open/floor/wood_common,
 /area/f13/building/tunnel)
 "sTi" = (
@@ -14609,7 +14609,7 @@
 	},
 /area/f13/city/museum)
 "vmO" = (
-/mob/living/simple_animal/hostile/ghoul/zombie,
+/mob/living/simple_animal/hostile/ghoul,
 /obj/effect/decal/waste{
 	icon_state = "goo12"
 	},

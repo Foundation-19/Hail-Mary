@@ -8,7 +8,7 @@
 	icon = 'icons/obj/lavaland/dragonboat.dmi'
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
 	can_buckle = TRUE
-	layer = ABOVE_ALL_MOB_LAYER
+	layer = SPACEVINE_MOB_LAYER
 
 /obj/vehicle/ridden/lavaboat/Initialize()
 	. = ..()

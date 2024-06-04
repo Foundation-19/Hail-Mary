@@ -48,10 +48,6 @@
 /obj/structure/simple_door/room,
 /turf/open/floor/wood_worn/wood_worn_dark,
 /area/f13/ruins)
-"aei" = (
-/obj/structure/fence,
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/wasteland/town)
 "afl" = (
 /obj/structure/table/reinforced/brass,
 /obj/structure/sign/plaques{
@@ -6026,8 +6022,8 @@
 /area/f13/brotherhood)
 "fAD" = (
 /obj/machinery/door/airlock/medical/glass{
-	req_access_txt = "124";
-	name = "Atlantic Cross Airlock"
+	req_access_txt = "280";
+	name = "ACS Enterprising Airlock"
 	},
 /turf/open/floor/plasteel/dark,
 /area/f13/building/boat)
@@ -6651,16 +6647,6 @@
 	},
 /turf/open/floor/f13/wood,
 /area/f13/ruins)
-"gfX" = (
-/obj/structure/rack/shelf_wood,
-/obj/item/clothing/head/helmet/f13/combat/atlantic,
-/obj/item/clothing/head/helmet/f13/combat/atlantic,
-/obj/item/clothing/head/helmet/f13/combat/atlantic,
-/obj/item/reagent_containers/blood/radaway,
-/obj/item/reagent_containers/blood/radaway,
-/obj/item/reagent_containers/blood/radaway,
-/turf/open/floor/wood_wide/wood_wide_dark,
-/area/f13/building/boat)
 "ggw" = (
 /obj/structure/railing{
 	layer = 8
@@ -9567,6 +9553,7 @@
 	pixel_y = 25;
 	pixel_x = 1
 	},
+/obj/item/storage/box/ration,
 /turf/open/floor/wood_wide/wood_wide_dark,
 /area/f13/building/boat)
 "iPg" = (
@@ -10411,10 +10398,6 @@
 /area/f13/Ocean)
 "jAt" = (
 /obj/structure/dresser,
-/obj/item/toy/plush/mammal/fox/squishfox{
-	pixel_y = 16;
-	pixel_x = -6
-	},
 /obj/item/flashlight/lamp/green{
 	pixel_y = 15;
 	pixel_x = 8
@@ -15958,7 +15941,7 @@
 "oMJ" = (
 /obj/machinery/door/airlock/medical/glass{
 	req_access_txt = "280";
-	name = "Atlantic Cross Airlock"
+	name = "ACS Enterprising Airlock"
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/building/boat)
@@ -17058,6 +17041,16 @@
 /area/f13/building/boat)
 "pVb" = (
 /obj/structure/rack/shelf_wood,
+/obj/item/reagent_containers/blood/radaway,
+/obj/item/reagent_containers/blood/radaway,
+/obj/item/reagent_containers/blood/radaway,
+/obj/item/reagent_containers/blood/radaway,
+/obj/item/reagent_containers/blood/radaway,
+/obj/item/storage/box/medicine/stimpaks/superstimpaks5,
+/obj/item/storage/box/medicine/powder5,
+/obj/item/storage/backpack/duffelbag/med/surgery/primitive{
+	pixel_y = 16
+	},
 /turf/open/floor/wood_wide/wood_wide_dark,
 /area/f13/building/boat)
 "pVi" = (
@@ -63798,9 +63791,9 @@ cLZ
 cLZ
 cLZ
 cLZ
-cLZ
-cLZ
-cLZ
+grP
+grP
+grP
 cLZ
 cLZ
 cLZ
@@ -64051,13 +64044,13 @@ cLZ
 cLZ
 aOz
 aOz
-aOz
-aOz
-aOz
-aOz
-aei
-aei
-aei
+lPG
+lPG
+lPG
+wWk
+bLN
+bLN
+bLN
 uOv
 uOv
 cpg
@@ -64307,11 +64300,11 @@ aOz
 aOz
 aOz
 aOz
-aOz
+wWk
 bLN
-aei
-aei
-aei
+bLN
+bLN
+bLN
 nNl
 bLN
 asT
@@ -64563,7 +64556,7 @@ aOz
 aOz
 aOz
 aOz
-aOz
+wWk
 bLN
 nNl
 nNl
@@ -64819,7 +64812,7 @@ gVH
 aOz
 aOz
 aOz
-aOz
+hhc
 bLN
 nNl
 nNl
@@ -65076,7 +65069,7 @@ saO
 gVH
 aOz
 aOz
-aOz
+hhc
 xqE
 nNl
 nNl
@@ -65333,7 +65326,7 @@ nkF
 gVH
 aOz
 aOz
-aOz
+hhc
 bLN
 nNl
 nNl
@@ -65591,7 +65584,7 @@ gVH
 aOz
 aOz
 aOz
-aOz
+kTt
 bLN
 nNl
 aOz
@@ -65849,7 +65842,7 @@ aOz
 aOz
 aOz
 aOz
-aOz
+kTt
 fmi
 umL
 pKB
@@ -72784,7 +72777,7 @@ blO
 blO
 rTH
 blO
-gfX
+blO
 blO
 hiO
 blO

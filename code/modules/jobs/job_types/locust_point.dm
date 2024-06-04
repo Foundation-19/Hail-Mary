@@ -84,7 +84,6 @@ Mayor
 	backpack = /obj/item/storage/backpack/satchel/explorer
 	satchel = /obj/item/storage/backpack/satchel/explorer
 	l_pocket = /obj/item/storage/wallet/stash/high
-	belt = /obj/item/kit_spawner/townie/mayor
 	r_pocket = /obj/item/flashlight/seclite
 	shoes = /obj/item/clothing/shoes/f13/fancy
 	uniform = /obj/item/clothing/under/rank/civilian/victorian_vest
@@ -128,7 +127,6 @@ Mayor
 	name = "Port Councelor"
 	jobtype = /datum/job/locust_point/f13baltimorecouncil
 	id = /obj/item/card/id/silver
-	belt = /obj/item/kit_spawner/townie/mayor
 	ears = /obj/item/radio/headset/headset_town/mayor
 	glasses = /obj/item/clothing/glasses/sunglasses/big
 	gloves = /obj/item/clothing/gloves/combat

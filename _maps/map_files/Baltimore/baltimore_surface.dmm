@@ -3097,6 +3097,7 @@
 /obj/structure/closet/locker/oldstyle,
 /obj/item/storage/briefcase/medical,
 /obj/item/clothing/suit/hooded/surgical,
+/obj/item/storage/box/gloves,
 /turf/open/floor/plasteel/f13/vault_floor/plating,
 /area/f13/building/boat)
 "bcv" = (
@@ -7433,7 +7434,9 @@
 	},
 /area/f13/building/center)
 "cGF" = (
-/obj/machinery/door/airlock/medical,
+/obj/machinery/door/airlock/medical{
+	req_access_txt = "280"
+	},
 /turf/open/floor/plasteel/f13/vault_floor/floor/floorsolid,
 /area/f13/clinic)
 "cGI" = (
@@ -25006,7 +25009,9 @@
 /turf/open/floor/wood_common,
 /area/f13/ruins)
 "iNj" = (
-/obj/machinery/door/airlock/medical,
+/obj/machinery/door/airlock/medical{
+	req_access_txt = "280"
+	},
 /turf/open/floor/plasteel/f13/vault_floor{
 	icon_state = "panelscorched"
 	},
@@ -38802,8 +38807,13 @@
 	},
 /area/f13/ruins)
 "nHl" = (
+/obj/item/clothing/head/helmet/f13/combat/atlantic,
+/obj/item/clothing/head/helmet/f13/combat/atlantic,
+/obj/item/clothing/head/helmet/f13/combat/atlantic,
+/obj/item/clothing/suit/armor/medium/vest/atlantic,
+/obj/item/clothing/suit/armor/medium/vest/atlantic,
+/obj/item/clothing/suit/armor/medium/vest/atlantic,
 /obj/structure/rack/shelf_metal,
-/obj/effect/spawner/lootdrop/minor/pirate_or_bandana,
 /turf/open/floor/plasteel/dark,
 /area/f13/building/boat)
 "nHn" = (
@@ -42094,6 +42104,7 @@
 	pixel_y = 31
 	},
 /obj/item/clothing/suit/hooded/surgical,
+/obj/item/storage/box/gloves,
 /turf/open/floor/plasteel/f13/vault_floor/plating,
 /area/f13/building/boat)
 "oNg" = (
@@ -45432,7 +45443,7 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/ghoul/zombie/reaver,
+/mob/living/simple_animal/hostile/ghoul/reaver,
 /turf/open/floor/wood_worn,
 /area/f13/building/center)
 "pXy" = (
@@ -51237,14 +51248,13 @@
 /turf/open/indestructible/ground/outside/sidewalkdirt,
 /area/f13/wasteland/city/citycenter)
 "rUl" = (
-/obj/structure/rack/shelf_metal,
 /obj/machinery/light/small{
 	dir = 4;
 	name = "tan light fixture";
 	light_color = "#FFDDCC";
 	color = "#FFDDCC"
 	},
-/obj/effect/spawner/lootdrop/minor/pirate_or_bandana,
+/obj/structure/rack/shelf_metal,
 /turf/open/floor/plasteel/dark,
 /area/f13/building/boat)
 "rUq" = (
@@ -59760,9 +59770,9 @@
 	},
 /area/f13/building/center)
 "uUj" = (
-/obj/machinery/door/airlock/medical/glass{
+/obj/machinery/door/airlock/medical{
 	req_access_txt = "280";
-	name = "Atlantic Cross Airlock"
+	name = "ACHS service airlock"
 	},
 /turf/open/floor/plasteel/dark,
 /area/f13/building/boat)
@@ -65237,7 +65247,7 @@
 /obj/structure/table/rolling,
 /obj/machinery/iv_drip,
 /obj/item/clothing/mask/surgical,
-/obj/item/storage/backpack/duffelbag/med/surgery/primitive,
+/obj/item/storage/backpack/duffelbag/med/surgery,
 /turf/open/floor/plasteel/f13/vault_floor/plating,
 /area/f13/building/boat)
 "wPV" = (
@@ -65624,10 +65634,6 @@
 	icon_state = "grass_4"
 	},
 /area/f13/wasteland/city/citycenter)
-"wWU" = (
-/obj/structure/beebox/premade,
-/turf/open/indestructible/ground/outside/dirt,
-/area/f13/wasteland/town)
 "wWW" = (
 /obj/effect/decal/cleanable/cobweb,
 /obj/structure/chair/f13chair1,
@@ -117626,7 +117632,7 @@ gKA
 nsY
 jkS
 vBb
-wWU
+fHV
 tHf
 mFD
 xaf
