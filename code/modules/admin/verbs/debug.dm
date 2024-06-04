@@ -183,10 +183,10 @@
 			id = worn.GetID()
 		if(id)
 			id.icon_state = "gold"
-			id.access = get_all_accesses()+get_all_centcom_access()+get_all_syndicate_access()
+			id.access = get_all_accesses()+get_all_centcom_access()+get_all_syndicate_access()+get_all_enclave_access()+get_all_legion_access()+get_all_ncr_access()+get_all_bos_access()
 		else
 			id = new /obj/item/card/id/gold(H.loc)
-			id.access = get_all_accesses()+get_all_centcom_access()+get_all_syndicate_access()
+			id.access = get_all_accesses()+get_all_centcom_access()+get_all_syndicate_access()+get_all_enclave_access()+get_all_legion_access()+get_all_ncr_access()+get_all_bos_access()
 			id.registered_name = H.real_name
 			id.assignment = "Captain"
 			id.update_label()
