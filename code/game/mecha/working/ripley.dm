@@ -117,8 +117,8 @@
 
 /obj/mecha/working/ripley/mining/Initialize()
 	. = ..()
-	if(cell)
-		cell.charge = FLOOR(cell.charge * 0.25, 1) //Starts at very low charge
+	if(fuel_holder)
+		fuel_holder.reagents.remove_reagent("welding_fuel", fuel_holder.reagents.total_volume*0.25) //Starts at very low fuel
 	if(prob(70)) //Maybe add a drill
 		if(prob(15)) //Possible diamond drill... Feeling lucky?
 			var/obj/item/mecha_parts/mecha_equipment/drill/diamonddrill/D = new

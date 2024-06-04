@@ -71,6 +71,15 @@
 	if(HAS_TRAIT(H, TRAIT_PIERCEIMMUNE))
 		return
 
+	if(HAS_TRAIT(H, TRAIT_BARBEDWIRENODMG) && (flags & CALTROP_BYPASS_SHOES))
+		H.Paralyze(30)
+		H.visible_message(
+			span_danger("[H] trips into [parent] without receiving a cut."),
+			span_userdanger("You trip into [parent], narrowly avoiding getting cut!"))
+			
+		return
+		
+
 	if((flags & CALTROP_IGNORE_WALKERS) && H.m_intent == MOVE_INTENT_WALK)
 		return
 
@@ -104,8 +113,8 @@
 	if(!(flags & CALTROP_SILENT) && !H.has_status_effect(/datum/status_effect/caltropped))
 		H.apply_status_effect(/datum/status_effect/caltropped)
 		H.visible_message(
-			span_danger("[H] steps on [parent]."),
-			span_userdanger("You step on [parent]!")
+			span_danger("[H] steps on [parent] like a dipshit."),
+			span_userdanger("You step on [parent] like a moron!")
 		)
 
 	INVOKE_ASYNC(H, TYPE_PROC_REF(/mob/living/carbon/human, apply_damage), damage, BRUTE, picked_def_zone, FALSE, FALSE, FALSE, CANT_WOUND)

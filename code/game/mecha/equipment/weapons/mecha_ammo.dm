@@ -50,9 +50,16 @@
 
 /obj/item/mecha_ammo/lmg
 	name = "machine gun ammo"
-	desc = "A box of linked ammunition, designed for the Ultra AC 2 exosuit weapon."
+	desc = "A box of linked ammunition, designed for multiple LMGs."
 	icon_state = "lmg"
 	rounds = 300
+	ammo_type = "lmg"
+
+/obj/item/mecha_ammo/lmg/craftable
+	name = "handmade machine gun ammo"
+	desc = "A box of linked ammunition, designed for multiple LMGs."
+	icon_state = "lmg"
+	rounds = 150
 	ammo_type = "lmg"
 
 /obj/item/mecha_ammo/missiles_br
