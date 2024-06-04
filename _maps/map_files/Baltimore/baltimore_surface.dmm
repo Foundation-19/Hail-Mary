@@ -227,7 +227,7 @@
 /area/f13/ruins)
 "adc" = (
 /obj/structure/table/wood/fancy/royalblack,
-/obj/effect/spawner/lootdrop/f13/weapon/gun/energy/midhigh,
+/obj/effect/spawner/lootdrop/f13/weapon/melee/tier4,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/building/boat)
 "add" = (
@@ -2133,10 +2133,6 @@
 /area/f13/ruins)
 "aJU" = (
 /obj/structure/table/reinforced,
-/obj/structure/fence{
-	dir = 8;
-	pixel_y = 15
-	},
 /obj/machinery/door/poddoor/shutters/old{
 	pixel_y = 13;
 	name = "Shop ship counter strong shutters";
@@ -3743,13 +3739,13 @@
 	},
 /area/f13/ruins)
 "bnz" = (
-/obj/vehicle/ridden/wheelchair,
 /obj/machinery/light/small{
 	dir = 8;
 	name = "tan light fixture";
 	light_color = "#FFDDCC";
 	color = "#FFDDCC"
 	},
+/obj/structure/closet/crate/freezer/blood,
 /turf/open/floor/plasteel/f13/vault_floor/plating,
 /area/f13/building/boat)
 "bnE" = (
@@ -7080,6 +7076,15 @@
 /area/f13/wasteland/town)
 "cAl" = (
 /obj/structure/rack/shelf_metal,
+/obj/item/book/granter/crafting_recipe/gunsmith_one,
+/obj/item/book/granter/crafting_recipe/gunsmith_three,
+/obj/item/book/granter/crafting_recipe/gunsmith_two,
+/obj/item/book/granter/crafting_recipe/gunsmith_one,
+/obj/item/book/granter/crafting_recipe/gunsmith_one,
+/obj/item/book/granter/crafting_recipe/gunsmith_two,
+/obj/item/book/granter/crafting_recipe/gunsmith_four,
+/obj/item/book/granter/crafting_recipe/gunsmith_four,
+/obj/item/book/granter/crafting_recipe/gunsmith_three,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/building/boat)
 "cAm" = (
@@ -12613,6 +12618,12 @@
 /obj/structure/nest/molerat,
 /turf/open/floor/wood_common,
 /area/f13/building/center)
+"evO" = (
+/obj/effect/decal/fakelattice,
+/turf/open/indestructible/ground/outside/water{
+	name = "sea water"
+	},
+/area/f13/building/boat)
 "evU" = (
 /obj/effect/overlay/junk/urinal{
 	pixel_x = 16
@@ -14798,10 +14809,6 @@
 /area/f13/building/center)
 "flj" = (
 /obj/structure/table/reinforced,
-/obj/structure/fence{
-	dir = 8;
-	pixel_y = 15
-	},
 /obj/machinery/door/poddoor/shutters/old{
 	pixel_y = 13;
 	name = "Shop ship counter strong shutters";
@@ -22219,7 +22226,7 @@
 /area/f13/wasteland/city)
 "hPg" = (
 /obj/structure/table/wood/fancy/royalblack,
-/obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/high,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/superhigh,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/building/boat)
 "hPp" = (
@@ -24312,6 +24319,12 @@
 	icon_state = "verticalleftborderleft1"
 	},
 /area/f13/raider_mall)
+"iBt" = (
+/obj/structure/closet/crate/freezer/blood,
+/turf/open/floor/plating/dirt/dirt_maryland{
+	icon_state = "dirt_original"
+	},
+/area/f13/wasteland/city)
 "iBu" = (
 /turf/open/indestructible/ground/outside/sidewalkdirt{
 	icon_state = "verticalrightborderright0"
@@ -25198,6 +25211,15 @@
 /obj/item/stack/sheet/metal/fifty,
 /obj/item/stack/sheet/glass/fifty,
 /obj/item/circuitboard/machine/autolathe/ammo,
+/obj/item/book/granter/crafting_recipe/blueprint/rangemaster,
+/obj/item/book/granter/crafting_recipe/blueprint/rangerrepeater,
+/obj/item/book/granter/crafting_recipe/blueprint/scoutcarbine,
+/obj/item/book/granter/crafting_recipe/blueprint/trailcarbine,
+/obj/item/book/granter/crafting_recipe/blueprint/greasegun,
+/obj/item/book/granter/crafting_recipe/blueprint/aer9,
+/obj/item/book/granter/crafting_recipe/blueprint/combatrifle,
+/obj/item/book/granter/crafting_recipe/blueprint/m1garand,
+/obj/item/book/granter/crafting_recipe/blueprint/leveraction,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
 /area/f13/building/boat)
 "iQV" = (
@@ -27459,6 +27481,9 @@
 /area/f13/outpost)
 "jJF" = (
 /obj/structure/rack/shelf_metal,
+/obj/effect/spawner/lootdrop/f13/attachments,
+/obj/effect/spawner/lootdrop/f13/attachments,
+/obj/effect/spawner/lootdrop/f13/attachments,
 /obj/effect/spawner/lootdrop/f13/attachments,
 /obj/effect/spawner/lootdrop/f13/attachments,
 /obj/effect/spawner/lootdrop/f13/attachments,
@@ -33834,7 +33859,7 @@
 /area/f13/building/boat)
 "lSu" = (
 /obj/structure/table/wood/fancy/royalblack,
-/obj/effect/spawner/lootdrop/f13/weapon/gun/energy/mid,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/energy/high,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/building/boat)
 "lSy" = (
@@ -34708,6 +34733,12 @@
 	icon_state = "dirt_original"
 	},
 /area/f13/wasteland/city/citycenter)
+"mhW" = (
+/obj/structure/barricade/wooden,
+/turf/open/indestructible/ground/outside/water{
+	name = "sea water"
+	},
+/area/f13/building/boat)
 "mif" = (
 /obj/structure/fluff/rails{
 	dir = 4;
@@ -35535,13 +35566,14 @@
 /area/f13/ruins)
 "myX" = (
 /obj/structure/rack/shelf_metal,
-/obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/low,
-/obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/low,
-/obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/low,
-/obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/low,
-/obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/low,
-/obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/lowmid,
-/obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/lowmid,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/highmid,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/highmid,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/highmid,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/mid,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/mid,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/energy/mid,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/energy/mid,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/energy/low,
 /turf/open/floor/plating/rust,
 /area/f13/building/boat)
 "myZ" = (
@@ -37631,6 +37663,10 @@
 /area/f13/wasteland/city)
 "nkN" = (
 /obj/structure/rack/shelf_metal,
+/obj/effect/spawner/lootdrop/f13/armor/clothes,
+/obj/effect/spawner/lootdrop/f13/armor/clothes,
+/obj/effect/spawner/lootdrop/f13/armor/clothes,
+/obj/effect/spawner/lootdrop/f13/armor/clothes,
 /obj/effect/spawner/lootdrop/f13/armor/clothes,
 /obj/effect/spawner/lootdrop/f13/armor/clothes,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
@@ -42860,10 +42896,6 @@
 /area/f13/ruins)
 "pbS" = (
 /obj/structure/table/reinforced,
-/obj/structure/fence{
-	dir = 8;
-	pixel_y = 15
-	},
 /obj/machinery/door/poddoor/shutters/old{
 	pixel_y = 13;
 	name = "Shop ship counter strong shutters";
@@ -51071,6 +51103,11 @@
 "rRr" = (
 /obj/structure/table/rolling,
 /obj/item/defibrillator/primitive,
+/obj/item/reagent_containers/blood/radaway,
+/obj/item/reagent_containers/blood/radaway,
+/obj/item/reagent_containers/blood/radaway,
+/obj/item/reagent_containers/blood/radaway,
+/obj/item/reagent_containers/blood/radaway,
 /turf/open/floor/plasteel/f13/vault_floor/plating,
 /area/f13/building/boat)
 "rRD" = (
@@ -52475,9 +52512,15 @@
 "sqm" = (
 /obj/structure/rack/shelf_metal,
 /obj/effect/spawner/lootdrop/f13/weapon/western,
-/obj/item/blueprint/weapon,
-/obj/item/blueprint/weapon,
-/obj/item/blueprint/weapon,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/energy/low,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/energy/low,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/low,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/low,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/hobo,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/energy/hobo,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/energy/hobo,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/energy/hobo,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/hobo,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
 /area/f13/building/boat)
 "sqn" = (
@@ -53877,9 +53920,9 @@
 /obj/structure/rack/shelf_metal,
 /obj/effect/spawner/lootdrop/f13/armor/tier3,
 /obj/effect/spawner/lootdrop/f13/armor/tier2,
-/obj/effect/spawner/lootdrop/f13/armor/tier2,
-/obj/effect/spawner/lootdrop/f13/armor/tier2,
-/obj/effect/spawner/lootdrop/f13/armor/tier2,
+/obj/effect/spawner/lootdrop/f13/armor/tier3,
+/obj/effect/spawner/lootdrop/f13/armor/tier3,
+/obj/effect/spawner/lootdrop/f13/armor/tier4,
 /obj/effect/spawner/lootdrop/f13/armor/tier1,
 /obj/effect/spawner/lootdrop/f13/armor/tier1,
 /obj/effect/spawner/lootdrop/f13/armor/tier1,
@@ -60500,7 +60543,7 @@
 /area/f13/wasteland/city)
 "vhJ" = (
 /obj/structure/table/wood/fancy/royalblack,
-/obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/highmid,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/high,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
 /area/f13/building/boat)
 "vhT" = (
@@ -63004,10 +63047,6 @@
 /area/f13/office)
 "waO" = (
 /obj/structure/table/reinforced,
-/obj/structure/fence{
-	dir = 8;
-	pixel_y = 15
-	},
 /obj/machinery/door/poddoor/shutters/old{
 	pixel_y = 13;
 	name = "Shop ship counter strong shutters";
@@ -107799,7 +107838,7 @@ kkf
 nIa
 prn
 nqN
-qGF
+mhW
 rsn
 rsn
 xcx
@@ -108313,8 +108352,8 @@ bzm
 dOk
 dOk
 vNq
-pmq
-qGF
+evO
+mhW
 rsn
 xcx
 kvy
@@ -108571,7 +108610,7 @@ hPD
 vNq
 bzm
 okC
-qGF
+mhW
 rsn
 qcM
 kvy
@@ -133066,7 +133105,7 @@ icV
 icV
 icV
 icV
-icV
+iBt
 mIJ
 mIJ
 mIJ

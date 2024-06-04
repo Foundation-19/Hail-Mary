@@ -6656,6 +6656,9 @@
 /obj/item/clothing/head/helmet/f13/combat/atlantic,
 /obj/item/clothing/head/helmet/f13/combat/atlantic,
 /obj/item/clothing/head/helmet/f13/combat/atlantic,
+/obj/item/reagent_containers/blood/radaway,
+/obj/item/reagent_containers/blood/radaway,
+/obj/item/reagent_containers/blood/radaway,
 /turf/open/floor/wood_wide/wood_wide_dark,
 /area/f13/building/boat)
 "ggw" = (
@@ -24682,6 +24685,9 @@
 	},
 /area/f13/ruins)
 "xaD" = (
+/obj/machinery/defibrillator_mount/loaded{
+	pixel_x = 26
+	},
 /turf/open/floor/wood_wide{
 	icon_state = "wide_light-broken4"
 	},
