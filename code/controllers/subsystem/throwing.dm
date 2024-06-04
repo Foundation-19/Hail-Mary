@@ -147,7 +147,14 @@ SUBSYSTEM_DEF(throwing)
 			if (obstacle == actual_target || (obstacle.density && !(obstacle.flags_1 & ON_BORDER_1)))
 				finalize(TRUE, obstacle)
 				return
-
+	var/turf/starting_turf = get_turf(AM)
+	if(AM.z < target_turf.z)
+		var/turf/new_turf = SSmapping.get_turf_above(starting_turf)
+		AM.forceMove(new_turf)
+	if(starting_turf.z > target_turf.z)
+		var/turf/new_turf = SSmapping.get_turf_below(starting_turf)
+		AM.forceMove(new_turf)
+	
 	var/atom/step
 
 	last_move = world.time
