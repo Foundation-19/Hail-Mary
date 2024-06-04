@@ -72,11 +72,11 @@
 		return
 
 	if(HAS_TRAIT(H, TRAIT_BARBEDWIRENODMG) && (flags & CALTROP_BYPASS_SHOES))
-		(H.Paralyze(30))
-			(H.visible_message(
-				span_danger("[H] trips into [parent] without receiving a cut."),
-				span_userdanger("You trip into [parent], narrowly avoiding getting cut!"))
-			)
+		H.Paralyze(30)
+		H.visible_message(
+			span_danger("[H] trips into [parent] without receiving a cut."),
+			span_userdanger("You trip into [parent], narrowly avoiding getting cut!"))
+			
 		return
 		
 
