@@ -96,7 +96,7 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	wielded_icon = "fireaxe2"
 	force_unwielded = 28
-	force_wielded = 43
+	force_wielded = 44
 	attack_speed = CLICK_CD_MELEE * 1.25 //10
 
 /obj/item/twohanded/fireaxe/ComponentInitialize()
@@ -161,7 +161,7 @@
 	icon_prefix = "bumper"
 	icon_state = "bumper"
 	force_unwielded = 25
-	force_wielded = 48
+	force_wielded = 49
 	wound_bonus = 10
 	sharpness = SHARP_EDGED
 	resistance_flags = null
@@ -472,7 +472,7 @@
 	icon_prefix = "hammer-sledge"
 	var/qualitymod = 0
 	wielded_icon = "hammer-sledge2"
-	force_wielded = 45
+	force_wielded = 48
 
 /obj/item/twohanded/sledgehammer/simple/afterattack(atom/A, mob/living/user, proximity)
 	. = ..()
