@@ -80,7 +80,7 @@ Administrator
 	uniform =	/obj/item/clothing/under/f13/atlantic/uniform/captain
 	head = /obj/item/clothing/head/beret/atlantic
 	suit= /obj/item/clothing/suit/armor/light/leather/rig
-	shoes =	/obj/item/clothing/shoes/jackboots
+	shoes =	/obj/item/clothing/shoes/jackboots 
 	backpack_contents = list(
 		/obj/item/storage/firstaid/ancient = 1,
 		/obj/item/gun/ballistic/automatic/pistol/automag = 1,

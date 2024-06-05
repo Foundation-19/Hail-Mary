@@ -796,6 +796,7 @@
 	icon_state = "cargocrate5";
 	layer = 1
 	},
+/obj/structure/timeddoor,
 /turf/open/transparent/openspace,
 /area/f13/wasteland/city)
 "aNI" = (
@@ -879,6 +880,7 @@
 	color = "#ffd300";
 	pixel_y = 6
 	},
+/obj/structure/timeddoor,
 /turf/closed/wall/rust,
 /area/f13/Ocean)
 "aSl" = (
@@ -4078,6 +4080,7 @@
 /obj/structure/cargocrate{
 	icon_state = "cargocrate2"
 	},
+/obj/structure/timeddoor,
 /turf/open/floor/plating/rust,
 /area/f13/Ocean)
 "dNF" = (
@@ -4464,6 +4467,10 @@
 	icon_state = "common_light1"
 	},
 /area/f13/ruins)
+"edD" = (
+/obj/structure/timeddoor,
+/turf/open/floor/plating/rust,
+/area/f13/Ocean)
 "edI" = (
 /obj/structure/table/reinforced,
 /obj/effect/spawner/lootdrop/f13/bomb/tier1,
@@ -4859,6 +4866,10 @@
 	},
 /turf/open/floor/f13/wood/outside,
 /area/f13/wasteland/town)
+"ezh" = (
+/obj/structure/timeddoor,
+/turf/open/transparent/openspace,
+/area/f13/wasteland/city)
 "ezj" = (
 /obj/structure/table,
 /turf/open/floor/plasteel/f13/vault_floor/blue/whitebluefull,
@@ -6023,7 +6034,8 @@
 "fAD" = (
 /obj/machinery/door/airlock/medical/glass{
 	req_access_txt = "280";
-	name = "ACS Enterprising Airlock"
+	name = "ACS Enterprising Airlock";
+	req_one_access_txt = "280"
 	},
 /turf/open/floor/plasteel/dark,
 /area/f13/building/boat)
@@ -7109,6 +7121,7 @@
 	icon_state = "cargocrate3";
 	layer = 1
 	},
+/obj/structure/timeddoor,
 /turf/open/floor/plating/rust{
 	sunlight_state = 1;
 	name = "rusted Docks"
@@ -11630,6 +11643,13 @@
 /obj/structure/window/fulltile/ruins,
 /turf/open/floor/wood_common,
 /area/f13/ruins)
+"kOs" = (
+/obj/structure/timeddoor,
+/turf/open/floor/plating/rust{
+	sunlight_state = 1;
+	name = "rusted Docks"
+	},
+/area/f13/Ocean)
 "kOL" = (
 /obj/structure/simple_door/bunker/glass,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
@@ -14230,6 +14250,7 @@
 /obj/structure/cargocrate{
 	color = "#F2222F"
 	},
+/obj/structure/timeddoor,
 /turf/open/floor/plating/rust,
 /area/f13/Ocean)
 "ndk" = (
@@ -15941,7 +15962,8 @@
 "oMJ" = (
 /obj/machinery/door/airlock/medical/glass{
 	req_access_txt = "280";
-	name = "ACS Enterprising Airlock"
+	name = "ACS Enterprising Airlock";
+	req_one_access_txt = "280"
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/building/boat)
@@ -16472,6 +16494,7 @@
 	icon_state = "cargocrate3";
 	layer = 4.2
 	},
+/obj/structure/timeddoor,
 /turf/open/transparent/openspace,
 /area/f13/Ocean)
 "poo" = (
@@ -18379,6 +18402,10 @@
 	icon_state = "common_light1"
 	},
 /area/f13/ruins)
+"rkL" = (
+/obj/structure/timeddoor,
+/turf/open/transparent/openspace,
+/area/f13/Ocean)
 "rlM" = (
 /obj/effect/decal/remains/human,
 /obj/structure/table_frame,
@@ -19503,6 +19530,10 @@
 	layer = 5
 	},
 /turf/open/floor/wood_worn,
+/area/f13/wasteland/town)
+"skU" = (
+/obj/structure/railing,
+/turf/open/transparent/openspace,
 /area/f13/wasteland/town)
 "slu" = (
 /obj/structure/rug/big/rug_blue_shag{
@@ -21459,6 +21490,10 @@
 	icon_state = "housewood2"
 	},
 /area/f13/brotherhood)
+"tYB" = (
+/obj/structure/timeddoor,
+/turf/closed/wall/rust,
+/area/f13/building/boat)
 "tYD" = (
 /turf/open/floor/wood_worn/wood_worn_dark,
 /area/f13/building)
@@ -22409,6 +22444,11 @@
 	icon_state = "common2"
 	},
 /area/f13/wasteland/town)
+"uPw" = (
+/obj/structure/timeddoor,
+/obj/structure/timeddoor,
+/turf/closed/wall,
+/area/f13/building/boat)
 "uPI" = (
 /obj/structure/nest/ghoul,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
@@ -23555,6 +23595,10 @@
 /obj/structure/junk/locker,
 /turf/open/floor/plating/rust,
 /area/f13/ruins)
+"vVd" = (
+/obj/structure/timeddoor,
+/turf/closed/wall,
+/area/f13/building/boat)
 "vVU" = (
 /obj/effect/decal/marking{
 	icon_state = "dottedverticalcorroded"
@@ -23698,6 +23742,11 @@
 /obj/structure/chair/f13chair2,
 /turf/open/transparent/openspace,
 /area/f13/ruins)
+"wdJ" = (
+/obj/structure/timeddoor,
+/obj/structure/timeddoor,
+/turf/open/transparent/openspace,
+/area/f13/Ocean)
 "wdK" = (
 /obj/structure/railing{
 	color = "#A47449"
@@ -24800,6 +24849,10 @@
 /obj/structure/window/fulltile/wood/broken,
 /turf/open/floor/wood_wide,
 /area/f13/wasteland/city)
+"xhO" = (
+/obj/structure/timeddoor,
+/turf/open/transparent/openspace,
+/area/f13/ruins)
 "xhY" = (
 /turf/open/floor/wood_wide/wood_wide_light{
 	icon_state = "wide_light-broken2"
@@ -57881,34 +57934,34 @@ qFK
 qFK
 qFK
 qFK
-qFK
-cLZ
-cLZ
+ezh
+rkL
+wdJ
 pnW
 gCS
-tTD
-cLZ
-tTD
-cLZ
-cLZ
+kOs
+rkL
+kOs
+rkL
+rkL
 aRr
-him
-him
-him
+edD
+edD
+edD
 dNy
-him
-him
+edD
+edD
 ndg
-him
-tTD
-cLZ
-gVH
-gVH
-cLZ
-gVH
-gVH
-gVH
-dXY
+edD
+kOs
+rkL
+tYB
+tYB
+rkL
+tYB
+tYB
+tYB
+vVd
 cLZ
 cLZ
 cLZ
@@ -58133,12 +58186,12 @@ qFK
 qFK
 qFK
 qFK
-qFK
-qFK
-qFK
-qFK
-qFK
-qFK
+ezh
+ezh
+ezh
+ezh
+ezh
+ezh
 tTD
 xYr
 tTD
@@ -58165,9 +58218,9 @@ wnY
 pUr
 nFa
 dXY
-dXY
-dXY
-dXY
+uPw
+vVd
+vVd
 cLZ
 cLZ
 qFK
@@ -58390,8 +58443,8 @@ qFK
 qFK
 qFK
 qFK
-qFK
-cLZ
+ezh
+rkL
 cOq
 wrX
 him
@@ -58424,8 +58477,8 @@ xhb
 xhb
 xhb
 sml
-dXY
-dXY
+vVd
+vVd
 cLZ
 qFK
 dbL
@@ -58682,7 +58735,7 @@ xri
 pZc
 xhb
 rRf
-dXY
+vVd
 cLZ
 qFK
 qFK
@@ -58904,7 +58957,7 @@ qFK
 qFK
 qFK
 qFK
-qFK
+ezh
 tTD
 tTD
 tTD
@@ -58939,7 +58992,7 @@ gvF
 pZc
 xri
 sml
-gVH
+tYB
 cLZ
 qFK
 qFK
@@ -59161,7 +59214,7 @@ cLZ
 cLZ
 cLZ
 cLZ
-cLZ
+rkL
 tTD
 tTD
 tTD
@@ -59196,7 +59249,7 @@ xhb
 bPI
 pZc
 lGT
-gVH
+tYB
 cLZ
 qFK
 qFK
@@ -59418,7 +59471,7 @@ cLZ
 cLZ
 cLZ
 cLZ
-cLZ
+rkL
 aId
 tTD
 dTv
@@ -59453,7 +59506,7 @@ xhb
 xhb
 iBr
 lGT
-gVH
+tYB
 cLZ
 qFK
 qFK
@@ -59675,7 +59728,7 @@ cLZ
 cLZ
 cLZ
 cLZ
-cLZ
+rkL
 tTD
 gBh
 tTD
@@ -59710,7 +59763,7 @@ xhb
 gVH
 xhb
 sml
-gVH
+tYB
 cLZ
 qFK
 qFK
@@ -59932,8 +59985,8 @@ cLZ
 cLZ
 cLZ
 cLZ
-cLZ
-cLZ
+rkL
+rkL
 tTD
 tTD
 tTD
@@ -59967,7 +60020,7 @@ xhb
 gVH
 gVH
 dXY
-dXY
+vVd
 cLZ
 qFK
 qFK
@@ -60189,12 +60242,12 @@ cLZ
 cLZ
 cLZ
 cLZ
-cLZ
-cLZ
-cLZ
-cLZ
-cLZ
-cLZ
+rkL
+rkL
+rkL
+rkL
+rkL
+rkL
 him
 him
 him
@@ -60224,7 +60277,7 @@ xhb
 gVH
 gVH
 dXY
-cLZ
+rkL
 cLZ
 qFK
 qFK
@@ -60451,10 +60504,10 @@ cLZ
 cLZ
 cLZ
 cLZ
-cLZ
-cLZ
-cLZ
-cLZ
+rkL
+rkL
+rkL
+rkL
 tTD
 tTD
 tTD
@@ -60479,8 +60532,8 @@ gVH
 gVH
 gVH
 dXY
-cLZ
-cLZ
+rkL
+rkL
 cLZ
 cLZ
 qFK
@@ -60711,31 +60764,31 @@ cLZ
 cLZ
 cLZ
 cLZ
-cLZ
-cLZ
-cLZ
-cLZ
-cLZ
-tDx
-cLZ
-cLZ
-cLZ
-cLZ
-cLZ
-cLZ
-cLZ
-cLZ
-cLZ
-cLZ
-cLZ
-cLZ
-cLZ
-cLZ
-cLZ
-cLZ
-cLZ
-cLZ
-cLZ
+rkL
+rkL
+rkL
+rkL
+rkL
+xhO
+rkL
+rkL
+rkL
+rkL
+rkL
+rkL
+rkL
+rkL
+rkL
+rkL
+rkL
+rkL
+rkL
+rkL
+rkL
+rkL
+rkL
+rkL
+rkL
 cLZ
 cLZ
 cLZ
@@ -77137,14 +77190,14 @@ aOz
 aOz
 aOz
 aOz
-doe
 aOz
+skU
 xTK
 xTK
 xTK
 xTK
+iDI
 aOz
-qsa
 aOz
 aOz
 aOz
