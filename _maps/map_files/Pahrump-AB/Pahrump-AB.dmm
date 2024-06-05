@@ -20783,10 +20783,6 @@
 	icon_state = "yellowrustysolid"
 	},
 /area/f13/building/massfusion)
-"cBI" = (
-/mob/living/simple_animal/cow/brahmin/nightstalker,
-/turf/open/indestructible/ground/outside/desert/sonora/coarse,
-/area/f13/wasteland)
 "cBK" = (
 /obj/structure/chair/f13chair2{
 	dir = 4
@@ -21799,13 +21795,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/indestructible/ground/outside/sidewalk{
 	icon_state = "horizontaloutermain1"
-	},
-/area/f13/wasteland)
-"ddh" = (
-/mob/living/simple_animal/cow/brahmin/nightstalker,
-/turf/open/indestructible/ground/outside/desert/sonora{
-	dir = 4;
-	icon_state = "desertsmooth1"
 	},
 /area/f13/wasteland)
 "ddk" = (
@@ -68151,16 +68140,6 @@
 	icon_state = "floorrustysolid"
 	},
 /area/f13/building)
-"wdQ" = (
-/obj/structure/flora/grass/wasteland{
-	icon_state = "tall_grass_4"
-	},
-/mob/living/simple_animal/cow/brahmin/nightstalker,
-/turf/open/indestructible/ground/outside/desert/sonora{
-	dir = 4;
-	icon_state = "desertsmooth3"
-	},
-/area/f13/wasteland)
 "wea" = (
 /obj/effect/turf_decal/stripes/white/line{
 	dir = 8
@@ -136157,7 +136136,7 @@ hrE
 sVE
 sWC
 xLC
-ddh
+ccj
 fPm
 fnz
 ccj
@@ -136926,10 +136905,10 @@ sMp
 sMp
 gvW
 dJF
-wdQ
+oDu
 ccj
 ccj
-cBI
+sWC
 ccj
 vNP
 eov
