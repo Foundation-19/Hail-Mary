@@ -562,6 +562,11 @@
 	if(spread_override)
 		setAngle(Angle + rand(-spread_override, spread_override))
 	var/turf/starting = get_turf(src)
+	if(original)
+		if(starting.z > original?.z)
+			starting  = SSmapping.get_turf_below(starting)
+		if(starting.z < original?.z)
+			starting  = SSmapping.get_turf_above(starting)
 	if(isnull(Angle))	//Try to resolve through offsets if there's no angle set.
 		if(isnull(xo) || isnull(yo))
 			stack_trace("WARNING: Projectile [type] deleted due to being unable to resolve a target after angle was null!")
