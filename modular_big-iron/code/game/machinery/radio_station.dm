@@ -101,11 +101,7 @@
 	..()
 
 /obj/machinery/radio_station/proc/playMusicToRadios(mob/living/user)
-	//disabling temporary to for lag diagnostics
-	to_chat(user, "<span class ='warning'>The broadcasting antenna is disabled for now!].</span>")
-	return
-	
-	/*if(stat & (NOPOWER|BROKEN) || . & EMP_PROTECT_SELF)
+	if(stat & (NOPOWER|BROKEN) || . & EMP_PROTECT_SELF)
 		update_icon()
 		return
 	if(cooldowntime > world.time)
@@ -119,8 +115,6 @@
 	cooldowntime = world.time + 500
 	for(var/obj/item/radio/R in GLOB.radio_list) //Calls the playmusic() proc for every radio in radio_list (everyone)
 		R.playmusic(selectedtrack, selectedtrackname, volume)
-	for(var/obj/item/pda/R in GLOB.radio_list) //Calls the playmusic() proc for every radio in radio_list (everyone)
-		R.playmusic(selectedtrack, selectedtrackname, volume)
 
 	src.audible_message("<span class='robot'><b>[src]</b> beeps, 'Now broadcasting: <i>[selectedtrackname]</i>' </span>")
 
@@ -130,7 +124,7 @@
 	if(stat & (NOPOWER|BROKEN) || . & EMP_PROTECT_SELF) //Need to check again in case the radio station is destroyed while this proc is in progress
 		update_icon()
 		stopRadioMusic()
-		return*/
+		return
 
 
 /obj/machinery/radio_station/proc/stopRadioMusic()
