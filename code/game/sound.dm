@@ -43,6 +43,9 @@
 
 		if(below_turf && istransparentturf(turf_source))
 			listeners += hearers(maxdistance,below_turf)
+		if(ismecha(source))
+			var/obj/mecha/mechasound = source
+			listeners += mechasound?.occupant
 
 	else
 		if(above_turf && istransparentturf(above_turf))

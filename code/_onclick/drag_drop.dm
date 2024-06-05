@@ -65,8 +65,18 @@ GLOBAL_VAR_INIT(use_experimental_clickdrag_thing, TRUE)
 	if(!object.IsAutoclickable())
 		return
 	var/obj/item/h = get_active_held_item()
-	if(h)
+	if(istype(loc, /obj/mecha))
+		var/obj/mecha/piloting = loc
+		if(piloting.selected && istype(piloting.selected, /obj/item/mecha_parts/mecha_equipment/weapon))
+			var/obj/item/mecha_parts/mecha_equipment/weapon/selectedweapon = piloting.selected
+			. = selectedweapon.is_automatic
+	else if(h)
 		. = h.CanItemAutoclick(object, location, params)
+		if(istype(loc, /obj/mecha))
+			var/obj/mecha/piloting = loc
+			if(piloting.selected && istype(piloting.selected, /obj/item/mecha_parts/mecha_equipment/weapon))
+				var/obj/item/mecha_parts/mecha_equipment/weapon/selectedweapon = piloting.selected
+				. = selectedweapon.is_automatic
 
 /mob/proc/canMobMousedown(atom/object, location, params)
 
