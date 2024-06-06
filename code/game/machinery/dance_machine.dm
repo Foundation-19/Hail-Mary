@@ -559,7 +559,7 @@
 				dance(M)
 
 /obj/item/record_disk //BIG IRON EDIT START- the objets used in the creation o music
-	name = "record disk" //used to store tracks to add to the jukeboxes
+	name = "Generic Record disk" //used to store tracks to add to the jukeboxes
 	desc = "A disk for storing music. Dear god."
 	icon = 'icons/obj/machines/disk_recorder.dmi'
 	icon_state = "record_disk"
@@ -578,7 +578,8 @@
 
 /obj/item/record_disk/Initialize() //moves them a bit so they are not all accumulated on the same pixel
 	. = ..()
-	name = "Generic record disk" // the name changes with music
+	if(R)
+		name = "[R.song_name] record disk" // the name changes with music
 	pixel_x = rand(-3, 3)
 	pixel_y = rand(-3, 3)
 
@@ -678,7 +679,7 @@
 	src.visible_message("<span class='warning'> music library has been updated.")
 
 /obj/machinery/gramophone_recorder/proc/diskProcess() //its an old piece of tech and it takes it's time
-	addtimer(CALLBACK(src, .proc/burnDisk), 40)
+	addtimer(CALLBACK(src, PROC_REF(burnDisk)), 40)
 	inuse = TRUE
 	src.visible_message("<span class='warning'>your disk is being burned, please stand by.")
 
