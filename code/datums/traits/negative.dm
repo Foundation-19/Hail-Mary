@@ -37,7 +37,7 @@
 	value = -1
 	gain_text = span_danger("You start feeling depressed.")
 	lose_text = span_notice("You no longer feel depressed.") //if only it were that easy!
-	medical_record_text = "Patient has a mood disorder, causing them to experience episodes of depression like symptoms."
+	medical_record_text = "Patient has a mood disorder, causing them to experience extreme episodes of depression."
 	mood_quirk = TRUE
 
 /datum/quirk/pessimist/on_process()
@@ -134,7 +134,7 @@ GLOBAL_LIST_EMPTY(family_heirlooms)
 	desc = "You are nearsighted without prescription glasses, but spawn with a pair."
 	value = -1
 	gain_text = span_danger("Things far away from you start looking blurry.")
-	lose_text = span_notice("You start seeing faraway things normally again.")
+	lose_text = span_notice("You start seeing far-away things normally again.")
 	medical_record_text = "Patient requires prescription glasses in order to counteract nearsightedness."
 
 /datum/quirk/nearsighted/add()
@@ -148,10 +148,10 @@ GLOBAL_LIST_EMPTY(family_heirlooms)
 
 /datum/quirk/noglasses
 	name = "Nearsighted - No Glasses"
-	desc = "You are nearsighted and without prescription glasses, you might could find a pair."
+	desc = "You are nearsighted and spawn without prescription glasses, though you might find a pair."
 	value = -2
 	gain_text = span_danger("Things far away from you start looking blurry.")
-	lose_text = span_notice("You start seeing faraway things normally again.")
+	lose_text = span_notice("You start seeing far-away things normally again.")
 	medical_record_text = "Patient requires prescription glasses in order to counteract nearsightedness."
 
 /datum/quirk/noglasses/add()
@@ -159,10 +159,10 @@ GLOBAL_LIST_EMPTY(family_heirlooms)
 
 /datum/quirk/badeyes
 	name = "Nearsighted - Trashed Vision"
-	desc = "You are badly nearsighted without prescription glasses, so much so that it's kind of a miracle you're still alive. You defintiely don't have any corrective lenses, but they would help."
+	desc = "You are badly nearsighted without prescription glasses, so much so that it's kind of a miracle you're still alive. You definitely don't have any corrective lenses, but they would help."
 	value = -3
 	gain_text = span_danger("Things far away from you start looking VERY blurry.")
-	lose_text = span_notice("You start seeing faraway things normally again.")
+	lose_text = span_notice("You start seeing far-away things normally again.")
 	medical_record_text = "Patient requires prescription glasses in order to counteract sort of ridiculous levels of nearsightedness."
 
 /datum/quirk/badeyes/add()
@@ -216,7 +216,7 @@ GLOBAL_LIST_EMPTY(family_heirlooms)
 
 /datum/quirk/paraplegic
 	name = "Paraplegic"
-	desc = "Your legs do not function. Nothing will ever fix this. Luckily you found a wheelchair."
+	desc = "Your legs do not function. Nothing will ever fix this. Luckily, you found a wheelchair."
 	value = -3
 	mob_trait = TRAIT_PARA
 	human_only = TRUE
@@ -297,7 +297,7 @@ GLOBAL_LIST_EMPTY(family_heirlooms)
 	value = -1
 	gain_text = span_danger("You start worrying about what you're saying.")
 	lose_text = span_notice("You feel easier about talking again.") //if only it were that easy!
-	medical_record_text = "Patient is usually anxious in social encounters and prefers to avoid them."
+	medical_record_text = "Patient is unusually anxious in social encounters and prefers to avoid them."
 	var/dumb_thing = TRUE
 
 /datum/quirk/social_anxiety/add()
@@ -411,7 +411,7 @@ Edit: TK~  This is the dumbest fucking shit I've ever seen in my life.  This isn
 	desc = "You've had a traumatic past, one that has scarred you for life, and it had something to do with spiders."
 	value = -1
 	mob_trait = TRAIT_SPIDERPHOBIA
-	gain_text = span_danger("You begin to tremble as an immeasurable fear of eight legged monsters grips your mind.")
+	gain_text = span_danger("You begin to tremble as an immeasurable fear of eight-legged monsters grips your mind.")
 	lose_text = span_notice("Your confidence wipes away the fear that had been plaguing you.")
 	medical_record_text = "Patient has an extreme or irrational fear and aversion to an undefined stimuli."
 	locked = FALSE
@@ -448,7 +448,7 @@ Edit: TK~  This is the dumbest fucking shit I've ever seen in my life.  This isn
 /datum/quirk/robotphobia
 	name = "Phobia - Robots/Synths"
 	desc = "You've had a traumatic past, one that has scarred you for life, and it had something to do with robot or synthetics."
-	value = -2 // I do this because there's many enemy mobs which fit in this category, which effects a lot of gameplay.
+	value = -2 // I do this because there's many enemy mobs which fit in this category, which affects a lot of gameplay.
 	mob_trait = TRAIT_ROBOTPHOBIA
 	gain_text = span_danger("You begin to tremble as an immeasurable fear of not understanding what x=x<<1 even means...Those robots are too scary to understand that, the fear grips your mind.")
 	lose_text = span_notice("Your confidence wipes away the fear that had been plaguing you. You've learnt bitshifting!")
@@ -488,7 +488,7 @@ Edit: TK~  This is the dumbest fucking shit I've ever seen in my life.  This isn
 	desc = "You've had a traumatic past, one that has scarred you for life, and it had something to do with dogs."
 	value = -1
 	mob_trait = TRAIT_DOGPHOBIA
-	gain_text = span_danger("You begin to tremble as an immeasurable fear of loud bork borks, which grips your mind.")
+	gain_text = span_danger("You begin to tremble as an immeasurable fear of loud bork borks grips your mind.")
 	lose_text = span_notice("Your confidence wipes away the fear that had been plaguing you. Bork bork!")
 	medical_record_text = "Patient has an extreme or irrational fear and aversion to undefined stimuli."
 	locked = FALSE
@@ -547,7 +547,7 @@ Edit: TK~  This is the dumbest fucking shit I've ever seen in my life.  This isn
 	desc = "You've had a traumatic past, one that has scarred you for life, and it had something to do with doctors."
 	value = -3
 	mob_trait = TRAIT_DOCTORPHOBIA
-	gain_text = span_danger("You begin to tremble as an immeasurable fear of the doctors grips your mind.")
+	gain_text = span_danger("You begin to tremble as an immeasurable fear of doctors grips your mind.")
 	lose_text = span_notice("Your confidence wipes away the fear that had been plaguing you.")
 	medical_record_text = "Patient has an extreme or irrational fear and aversion to an undefined stimuli."
 	locked = FALSE
@@ -605,7 +605,7 @@ Edit: TK~  This is the dumbest fucking shit I've ever seen in my life.  This isn
 
 /datum/quirk/mute
 	name = "Mute"
-	desc = "Due to some accident, medical condition, or simply by choice, you are completely unable to speak."
+	desc = "Due to some accident, a medical condition, or simply by choice, you are completely unable to speak."
 	value = 0 //HALP MAINTS
 	gain_text = span_danger("You find yourself unable to speak!")
 	lose_text = span_notice("You feel a growing strength in your vocal chords.")
@@ -699,7 +699,7 @@ Edit: TK~  This is the dumbest fucking shit I've ever seen in my life.  This isn
 
 /datum/quirk/illiterate
 	name = "Illiterate"
-	desc = "You can't read nor write, plain and simple."
+	desc = "You can't read or write, plain and simple."
 	value = -1
 	mob_trait = TRAIT_ILLITERATE
 	gain_text = "<span class='notice'>The knowledge of how to read seems to escape from you.</span>"
@@ -707,7 +707,7 @@ Edit: TK~  This is the dumbest fucking shit I've ever seen in my life.  This isn
 
 /datum/quirk/flimsy
 	name = "Health - Flimsy"
-	desc = "Your body is a little more fragile then most, decreasing total health some."
+	desc = "Your body is a little more fragile then most, decreasing total health by 10."
 	value = -1
 	mob_trait = TRAIT_FLIMSY
 	medical_record_text = "Patient has low capacity for injury."
@@ -721,7 +721,7 @@ Edit: TK~  This is the dumbest fucking shit I've ever seen in my life.  This isn
 
 /datum/quirk/veryflimsy
 	name = "Health - Very Flimsy"
-	desc = "Your body is a lot more fragile then most, decreasing total health."
+	desc = "Your body is a lot more fragile then most, decreasing total health by 20."
 	value = -3
 	mob_trait = TRAIT_VERYFLIMSY
 	medical_record_text = "Patient has abnormally low capacity for injury."
@@ -738,7 +738,7 @@ Edit: TK~  This is the dumbest fucking shit I've ever seen in my life.  This isn
 	name = "Masked Mook"
 	desc = "For some reason you don't feel... right without wearing some kind of gas mask."
 	gain_text = "<span class='danger'>You start feeling unwell without any gas mask on.</span>"
-	lose_text = "<span class='notice'>You no longer have a need to wear some gas mask.</span>"
+	lose_text = "<span class='notice'>You no longer have a need to wear a gas mask.</span>"
 	value = -1
 	mood_quirk = TRUE
 	medical_record_text = "Patient feels more secure when wearing a gas mask."
@@ -785,8 +785,8 @@ Edit: TK~  This is the dumbest fucking shit I've ever seen in my life.  This isn
 	desc = "Your bones are far more brittle, and more vulnerable to breakage."
 	value = -1
 	mob_trait = TRAIT_GLASS_BONES
-	gain_text = "<span class='notice'>Your bones feels weak!</span>"
-	lose_text = "<span class='notice'>Your bones feels more durable!</span>"
+	gain_text = "<span class='notice'>Your bones feel weak!</span>"
+	lose_text = "<span class='notice'>Your bones feel more durable!</span>"
 	medical_record_text = "Patient suffers from brittle bones, resulting in them receiving breakages far more easily."
 
 /datum/quirk/noodle_fist
@@ -795,7 +795,7 @@ Edit: TK~  This is the dumbest fucking shit I've ever seen in my life.  This isn
 	value = -1
 	mob_trait = TRAIT_NOODLEFIST
 	gain_text = span_notice("Your fists feel weak and worthless!")
-	lose_text = span_danger("Your fists strong again.")
+	lose_text = span_danger("Your fists feel strong again.")
 	locked = FALSE
 
 /datum/quirk/noodle_fist/on_spawn()
@@ -808,13 +808,13 @@ Edit: TK~  This is the dumbest fucking shit I've ever seen in my life.  This isn
 	desc = "Something about your strikes in melee is just... below average. You deal slightly less damage with melee weapons."
 	value = -1
 	mob_trait = TRAIT_GENTLE
-	gain_text = span_notice("You feel like you don't really like smacking stuff.")
+	gain_text = span_notice("You don't really feel like smacking stuff.")
 	lose_text = span_danger("You feel like slapping the mess out of a gecko.")
 	locked = FALSE
 
 /datum/quirk/wimpy
 	name = "Melee - Wimpy"
-	desc = "For some reason you're just really bad at hitting things agianst things. Your melee damage is much lower than average."
+	desc = "For some reason you're just really bad at hitting things against things. Your melee damage is much lower than average."
 	value = -3
 	mob_trait = TRAIT_WIMPY
 	gain_text = span_notice("You feel like smacking things is just a waste of time.")
@@ -823,7 +823,7 @@ Edit: TK~  This is the dumbest fucking shit I've ever seen in my life.  This isn
 
 /datum/quirk/slow
 	name = "Mobility - Wasteland Slug"
-	desc = "You've spent some time in the wastes, you don't get around great."
+	desc = "You've spent little time in the wastes, you don't get around great."
 	value = -1
 	mob_trait = TRAIT_SLUG
 	gain_text = span_notice("Rain or shine, you might get there eventually.")
@@ -854,15 +854,15 @@ Edit: TK~  This is the dumbest fucking shit I've ever seen in my life.  This isn
 	value = -2
 	mob_trait = TRAIT_DUMB
 	gain_text = span_notice("You brain just about shuts off, and for the first time in your life you feel truly free.")
-	lose_text = span_danger("Your brain turns back on, and you remember that Taxes are a thing.")
+	lose_text = span_danger("Your brain turns back on, and you remember that taxes are a thing.")
 	locked = FALSE
 
 /datum/quirk/primitive
 	name = "Primitive"
-	desc = "You were raised in a barn, by monkeys. Or so it may seem to others. Lacking the ability to use guns, or any sort of advanced tools you've still managed to survive, and you're probably hot to boot."
+	desc = "You were raised in a barn, by monkeys - or so it may seem to others. Lacking the ability to use guns or any sort of advanced tools, you've still managed to survive, and you're probably hot to boot."
 	value = -2
 	mob_trait = TRAIT_MONKEYLIKE
-	gain_text = span_notice("yOu reTurN tO MonKE")
+	gain_text = span_notice("yOu reTurN tO MonKE!")
 	lose_text = span_danger("I think, there for... I am?")
 	locked = FALSE
 
@@ -889,7 +889,7 @@ Edit: TK~  This is the dumbest fucking shit I've ever seen in my life.  This isn
 	desc = "For whatever reason you just can't muster up the go to run."
 	value = -3
 	mob_trait = TRAIT_NORUNNING
-	gain_text = span_notice("Running just isnt' worth the effort!")
+	gain_text = span_notice("Running just isn't worth the effort!")
 	lose_text = span_danger("You really feel like running all of a sudden!")
 	locked = FALSE
 
