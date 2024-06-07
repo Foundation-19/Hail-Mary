@@ -251,7 +251,7 @@
 	desc = "Boosts exosuit armor against armed melee attacks. Requires energy to operate."
 	icon_state = "mecha_abooster_ccw"
 	equip_cooldown = 0
-	energy_drain = 125
+	energy_drain = 65
 	range = 0
 //	var/deflect_coeff = 1.15
 	var/damage_coeff = 0.7
@@ -269,7 +269,7 @@
 	desc = "Boosts exosuit armor against ranged attacks. Completely blocks taser shots. Requires energy to operate."
 	icon_state = "mecha_abooster_proj"
 	equip_cooldown = 0
-	energy_drain = 125
+	energy_drain = 65
 	range = 0
 //	var/deflect_coeff = 1.15
 	var/damage_coeff = 0.75
@@ -285,10 +285,11 @@
 
 
 /obj/item/mecha_parts/mecha_equipment/repair_droid
-	name = "exosuit repair droid"
-	desc = "An automated repair droid for exosuits. Scans for damage and repairs it. Can fix almost all types of external or internal damage."
-	icon_state = "repair_droid"
-	energy_drain = 150
+	name = "Vehicule Repair Eyebot"
+	desc = "An automated repair Eyebot for exosuits. Scans for damage and repairs it. Can fix almost all types of external or internal damage."
+	icon = 'icons/fallout/mobs/robots/eyebots.dmi'
+	icon_state = "eyebot"
+	energy_drain = 50
 	range = 0
 	var/health_boost = 2
 	var/icon/droid_overlay
