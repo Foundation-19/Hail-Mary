@@ -32,11 +32,16 @@
 //
 // The explosion cannot insta-kill anyone with 30% or more health.
 
+// The lighting system
+//
+// consists of light fixtures (/obj/machinery/light) and light tube/bulb items (/obj/item/light)
+
+#define LIGHT_EMERGENCY_POWER_USE 0.2 //How much power emergency lights will consume per tick
+// status values shared between lighting fixtures and items
 #define LIGHT_OK 0
 #define LIGHT_EMPTY 1
 #define LIGHT_BROKEN 2
 #define LIGHT_BURNED 3
-
 
 /obj/item/lightreplacer
 

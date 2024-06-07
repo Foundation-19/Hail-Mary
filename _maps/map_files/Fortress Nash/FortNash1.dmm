@@ -1185,7 +1185,7 @@
 	},
 /area/f13/wasteland)
 "aeZ" = (
-/obj/structure/lamp_post{
+/obj/machinery/light/lamp_post{
 	pixel_x = -15
 	},
 /turf/open/indestructible/ground/outside/sidewalk{
@@ -9252,7 +9252,7 @@
 	},
 /area/f13/wasteland)
 "aJf" = (
-/obj/structure/lamp_post,
+/obj/machinery/light/lamp_post,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/indestructible/ground/outside/sidewalk{
 	icon_state = "horizontaltopbordertop0"
@@ -11748,7 +11748,7 @@
 /area/f13/building/abandoned)
 "aRP" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/lamp_post,
+/obj/machinery/light/lamp_post,
 /turf/open/indestructible/ground/outside/roaddirt{
 	icon_state = "innerpavement"
 	},
@@ -13500,7 +13500,7 @@
 	},
 /area/f13/wasteland)
 "aZE" = (
-/obj/structure/lamp_post/quadra,
+/obj/machinery/light/lamp_post/quadra,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/indestructible/ground/outside/sidewalk,
@@ -16359,7 +16359,7 @@
 	},
 /area/f13/building/abandoned)
 "bof" = (
-/obj/structure/lamp_post/doubles/bent{
+/obj/machinery/light/lamp_post/doubles/bent{
 	density = 0;
 	dir = 8
 	},
@@ -16667,7 +16667,7 @@
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/wasteland)
 "bqT" = (
-/obj/structure/lamp_post{
+/obj/machinery/light/lamp_post{
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -17455,7 +17455,7 @@
 	},
 /area/f13/building/abandoned)
 "byi" = (
-/obj/structure/lamp_post{
+/obj/machinery/light/lamp_post{
 	dir = 8
 	},
 /turf/open/indestructible/ground/outside/sidewalk{
@@ -18311,7 +18311,7 @@
 /turf/closed/wall/f13/wood,
 /area/f13/building)
 "bLM" = (
-/obj/structure/lamp_post,
+/obj/machinery/light/lamp_post,
 /turf/open/indestructible/ground/outside/sidewalk{
 	icon_state = "horizontaltopbordertop2"
 	},
@@ -19663,7 +19663,7 @@
 /turf/closed/wall/f13/wood,
 /area/f13/building)
 "cje" = (
-/obj/structure/lamp_post,
+/obj/machinery/light/lamp_post,
 /turf/open/indestructible/ground/outside/sidewalk{
 	icon_state = "horizontaltopbordertop0"
 	},
@@ -20506,7 +20506,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/neutral/neutralsolid,
 /area/f13/building/abandoned)
 "coT" = (
-/obj/structure/lamp_post{
+/obj/machinery/light/lamp_post{
 	dir = 1
 	},
 /turf/open/indestructible/ground/outside/sidewalk{
@@ -20609,7 +20609,7 @@
 	},
 /area/f13/wasteland)
 "cqb" = (
-/obj/structure/lamp_post/doubles/bent{
+/obj/machinery/light/lamp_post/doubles/bent{
 	dir = 8
 	},
 /turf/open/indestructible/ground/outside/sidewalk{
@@ -21041,7 +21041,7 @@
 /turf/open/floor/f13/wood,
 /area/f13/building/abandoned)
 "ctc" = (
-/obj/structure/lamp_post,
+/obj/machinery/light/lamp_post,
 /turf/open/indestructible/ground/outside/sidewalk{
 	icon_state = "horizontaltopbordertop1"
 	},
@@ -24062,7 +24062,7 @@
 	},
 /area/f13/building/abandoned)
 "dvq" = (
-/obj/structure/lamp_post/doubles/bent{
+/obj/machinery/light/lamp_post/doubles/bent{
 	dir = 8
 	},
 /turf/open/indestructible/ground/outside/roaddirt{
@@ -24534,7 +24534,7 @@
 	},
 /area/f13/wasteland/city)
 "dEk" = (
-/obj/structure/lamp_post{
+/obj/machinery/light/lamp_post{
 	dir = 8
 	},
 /turf/open/indestructible/ground/outside/sidewalk,
@@ -25828,7 +25828,7 @@
 	},
 /area/f13/building/abandoned)
 "eex" = (
-/obj/structure/lamp_post/quadra,
+/obj/machinery/light/lamp_post/quadra,
 /turf/open/indestructible/ground/outside/sidewalk{
 	dir = 8;
 	icon_state = "outerborder"
@@ -33089,7 +33089,7 @@
 	},
 /area/f13/wasteland)
 "gRH" = (
-/obj/structure/lamp_post/doubles/bent,
+/obj/machinery/light/lamp_post/doubles/bent,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/indestructible/ground/outside/sidewalk{
 	icon_state = "verticalleftborderleft0"
@@ -37364,7 +37364,7 @@
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/wasteland/city)
 "izc" = (
-/obj/structure/lamp_post,
+/obj/machinery/light/lamp_post,
 /turf/open/indestructible/ground/outside/roaddirt{
 	icon_state = "innerpavement"
 	},
@@ -41081,7 +41081,7 @@
 /turf/open/floor/f13/wood,
 /area/f13/building/abandoned)
 "jVk" = (
-/obj/structure/lamp_post/doubles/bent{
+/obj/machinery/light/lamp_post/doubles/bent{
 	density = 0;
 	dir = 8
 	},
@@ -50512,7 +50512,7 @@
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/wasteland)
 "nrO" = (
-/obj/structure/lamp_post/doubles/bent{
+/obj/machinery/light/lamp_post/doubles/bent{
 	dir = 8
 	},
 /turf/open/indestructible/ground/outside/sidewalk{
@@ -52067,7 +52067,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/dark/darksolid,
 /area/f13/building)
 "nWm" = (
-/obj/structure/lamp_post{
+/obj/machinery/light/lamp_post{
 	dir = 8
 	},
 /turf/open/indestructible/ground/outside/sidewalk{
@@ -53089,7 +53089,7 @@
 /obj/structure/flora/grass/wasteland{
 	icon_state = "tall_grass_3"
 	},
-/obj/structure/lamp_post,
+/obj/machinery/light/lamp_post,
 /turf/open/indestructible/ground/outside/roaddirt{
 	icon_state = "innerpavement"
 	},
@@ -57245,7 +57245,7 @@
 /turf/open/indestructible/ground/outside/water,
 /area/f13/wasteland/city)
 "pQQ" = (
-/obj/structure/lamp_post/doubles/bent{
+/obj/machinery/light/lamp_post/doubles/bent{
 	dir = 8
 	},
 /turf/open/indestructible/ground/outside/sidewalk{
@@ -58133,7 +58133,7 @@
 	},
 /area/f13/building)
 "qkH" = (
-/obj/structure/lamp_post/doubles/bent{
+/obj/machinery/light/lamp_post/doubles/bent{
 	density = 0;
 	dir = 8
 	},
@@ -58420,7 +58420,7 @@
 /turf/open/indestructible/ground/inside/dirt,
 /area/f13/caves)
 "qqS" = (
-/obj/structure/lamp_post/doubles/bent{
+/obj/machinery/light/lamp_post/doubles/bent{
 	dir = 8
 	},
 /turf/open/indestructible/ground/outside/sidewalk{
@@ -59177,7 +59177,7 @@
 /turf/open/floor/wood_common,
 /area/f13/building/abandoned)
 "qGn" = (
-/obj/structure/lamp_post/doubles/bent,
+/obj/machinery/light/lamp_post/doubles/bent,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/indestructible/ground/outside/sidewalk{
 	icon_state = "outerborder"
@@ -62689,7 +62689,7 @@
 	},
 /area/f13/building/abandoned)
 "rWi" = (
-/obj/structure/lamp_post,
+/obj/machinery/light/lamp_post,
 /turf/open/indestructible/ground/outside/sidewalk{
 	icon_state = "horizontaltopbordertop3"
 	},
@@ -65756,7 +65756,7 @@
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/wasteland/city)
 "ter" = (
-/obj/structure/lamp_post/doubles/bent{
+/obj/machinery/light/lamp_post/doubles/bent{
 	density = 0;
 	dir = 1
 	},
@@ -66068,7 +66068,7 @@
 /turf/open/floor/wood_common,
 /area/f13/building/abandoned)
 "tke" = (
-/obj/structure/lamp_post/doubles/bent{
+/obj/machinery/light/lamp_post/doubles/bent{
 	density = 0;
 	dir = 8
 	},
@@ -70004,7 +70004,7 @@
 	},
 /area/f13/building/abandoned)
 "uLw" = (
-/obj/structure/lamp_post{
+/obj/machinery/light/lamp_post{
 	dir = 1
 	},
 /turf/open/indestructible/ground/outside/roaddirt{
@@ -71208,7 +71208,7 @@
 	},
 /area/f13/building/abandoned)
 "vjK" = (
-/obj/structure/lamp_post,
+/obj/machinery/light/lamp_post,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/indestructible/ground/outside/sidewalk{
 	icon_state = "horizontaltopbordertop2"
@@ -74985,7 +74985,7 @@
 	},
 /area/f13/wasteland/city)
 "wHm" = (
-/obj/structure/lamp_post/doubles/bent,
+/obj/machinery/light/lamp_post/doubles/bent,
 /turf/open/indestructible/ground/outside/sidewalk{
 	icon_state = "outerborder"
 	},
@@ -75041,7 +75041,7 @@
 /turf/closed/wall/f13/wood/house,
 /area/f13/building/abandoned)
 "wIk" = (
-/obj/structure/lamp_post/doubles/bent,
+/obj/machinery/light/lamp_post/doubles/bent,
 /turf/open/indestructible/ground/outside/sidewalk{
 	icon_state = "outerborder"
 	},
@@ -77576,7 +77576,7 @@
 /turf/open/floor/f13/wood,
 /area/f13/building/abandoned)
 "xJJ" = (
-/obj/structure/lamp_post/doubles/bent{
+/obj/machinery/light/lamp_post/doubles/bent{
 	dir = 8
 	},
 /turf/open/indestructible/ground/outside/sidewalk{

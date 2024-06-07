@@ -1664,7 +1664,7 @@
 	},
 /area/f13/bar)
 "aVU" = (
-/obj/structure/lamp_post{
+/obj/machinery/light/lamp_post{
 	dir = 4
 	},
 /turf/open/indestructible/ground/outside/sidewalk{
@@ -7366,7 +7366,7 @@
 /turf/open/floor/wood_common,
 /area/f13/wasteland/town)
 "dAz" = (
-/obj/structure/lamp_post/doubles/bent{
+/obj/machinery/light/lamp_post/doubles/bent{
 	dir = 2
 	},
 /turf/open/indestructible/ground/outside/sidewalk{
@@ -21936,7 +21936,7 @@
 /turf/open/floor/wood_common,
 /area/f13/building)
 "kwi" = (
-/obj/structure/lamp_post{
+/obj/machinery/light/lamp_post{
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -24589,7 +24589,7 @@
 /turf/open/indestructible/ground/outside/gravel,
 /area/f13/wasteland/town)
 "lOM" = (
-/obj/structure/lamp_post/doubles/bent{
+/obj/machinery/light/lamp_post/doubles/bent{
 	dir = 8
 	},
 /turf/open/indestructible/ground/outside/sidewalk{
@@ -38849,7 +38849,7 @@
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/wasteland)
 "sOb" = (
-/obj/structure/lamp_post{
+/obj/machinery/light/lamp_post{
 	dir = 1
 	},
 /turf/open/indestructible/ground/outside/sidewalk{
@@ -44585,7 +44585,7 @@
 	},
 /area/f13/building)
 "vEw" = (
-/obj/structure/lamp_post,
+/obj/machinery/light/lamp_post,
 /turf/open/indestructible/ground/outside/sidewalk{
 	icon_state = "horizontaltopbordertop0"
 	},

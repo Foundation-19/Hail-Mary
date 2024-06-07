@@ -5702,7 +5702,7 @@
 	},
 /area/f13/wasteland)
 "dmv" = (
-/obj/structure/lamp_post/doubles{
+/obj/machinery/light/lamp_post/doubles{
 	dir = 4
 	},
 /turf/open/indestructible/ground/outside/sidewalk{
@@ -7548,7 +7548,7 @@
 /area/f13/wasteland/city)
 "emA" = (
 /obj/structure/barricade/wooden,
-/obj/structure/lamp_post{
+/obj/machinery/light/lamp_post{
 	dir = 4
 	},
 /turf/closed/wall/f13/wood/house,
@@ -13090,7 +13090,7 @@
 	},
 /area/f13/wasteland)
 "hIp" = (
-/obj/structure/lamp_post{
+/obj/machinery/light/lamp_post{
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -16172,7 +16172,7 @@
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/wasteland)
 "juz" = (
-/obj/structure/lamp_post,
+/obj/machinery/light/lamp_post,
 /turf/open/indestructible/ground/outside/sidewalk{
 	icon_state = "horizontaltopbordertop0"
 	},
@@ -19488,7 +19488,7 @@
 	},
 /area/f13/wasteland/city)
 "lmR" = (
-/obj/structure/lamp_post{
+/obj/machinery/light/lamp_post{
 	dir = 8;
 	pixel_y = 7
 	},
@@ -25499,7 +25499,7 @@
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/caves)
 "oVr" = (
-/obj/structure/lamp_post{
+/obj/machinery/light/lamp_post{
 	dir = 4
 	},
 /turf/open/indestructible/ground/outside/sidewalk{
@@ -30043,7 +30043,7 @@
 /turf/open/floor/f13/wood,
 /area/f13/building)
 "rHx" = (
-/obj/structure/lamp_post/quadra,
+/obj/machinery/light/lamp_post/quadra,
 /turf/open/indestructible/ground/outside/sidewalk{
 	icon_state = "verticalleftborderleft0"
 	},
@@ -35956,7 +35956,7 @@
 	},
 /area/f13/wasteland/city)
 "vdX" = (
-/obj/structure/lamp_post{
+/obj/machinery/light/lamp_post{
 	dir = 1
 	},
 /turf/open/indestructible/ground/outside/sidewalk{

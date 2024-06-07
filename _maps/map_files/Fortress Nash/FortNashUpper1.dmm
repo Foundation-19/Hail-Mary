@@ -16326,7 +16326,7 @@
 	},
 /area/f13/building/tribal)
 "vTk" = (
-/obj/structure/lamp_post/doubles/bent{
+/obj/machinery/light/lamp_post/doubles/bent{
 	dir = 8
 	},
 /turf/open/indestructible/ground/outside/roaddirt{

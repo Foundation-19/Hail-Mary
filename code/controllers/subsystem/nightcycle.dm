@@ -109,9 +109,6 @@ SUBSYSTEM_DEF(nightcycle)
 			message_admins("Transitioning into midmorning...")
 			current_sun_color = morning_sun_color
 			current_sun_power = morning_sun_power
-			for(var/obj/structure/lamp_post/lamp as anything in GLOB.lamppost)
-				lamp.icon_state = "[initial(lamp.icon_state)]"
-				lamp.set_light_on(FALSE)
 		if (LATEMORN)
 			current_sun_color = latemorn_sun_color
 			current_sun_power = latemorn_sun_power
@@ -135,9 +132,6 @@ SUBSYSTEM_DEF(nightcycle)
 			message_admins("Transitioning into full sunset...")
 			current_sun_color = fullsunset_sun_color
 			current_sun_power = fullsunset_sun_power
-			for(var/obj/structure/lamp_post/lamp as anything in GLOB.lamppost)
-				lamp.icon_state = "[initial(lamp.icon_state)]-on"
-				lamp.set_light_on(TRUE)
 		if(NIGHTTIME)
 			message_admins("Transitioning into night...")
 			current_sun_color = nighttime_sun_color

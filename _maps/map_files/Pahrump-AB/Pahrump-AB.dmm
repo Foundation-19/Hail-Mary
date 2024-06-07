@@ -1054,7 +1054,7 @@
 	},
 /area/f13/wasteland)
 "aeZ" = (
-/obj/structure/lamp_post{
+/obj/machinery/light/lamp_post{
 	pixel_x = -15
 	},
 /turf/open/indestructible/ground/outside/sidewalk{
@@ -9026,7 +9026,7 @@
 	},
 /area/f13/wasteland)
 "aJf" = (
-/obj/structure/lamp_post,
+/obj/machinery/light/lamp_post,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/indestructible/ground/outside/sidewalk{
 	icon_state = "horizontaltopbordertop0"
@@ -13211,7 +13211,7 @@
 	},
 /area/f13/wasteland)
 "aZE" = (
-/obj/structure/lamp_post/quadra,
+/obj/machinery/light/lamp_post/quadra,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/indestructible/ground/outside/sidewalk,
@@ -16316,7 +16316,7 @@
 	},
 /area/f13/ncr)
 "bqT" = (
-/obj/structure/lamp_post{
+/obj/machinery/light/lamp_post{
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -16601,7 +16601,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/structure/lamp_post/doubles/bent{
+/obj/machinery/light/lamp_post/doubles/bent{
 	dir = 8
 	},
 /turf/open/indestructible/ground/outside/sidewalk{
@@ -17001,7 +17001,7 @@
 	},
 /area/f13/building)
 "byi" = (
-/obj/structure/lamp_post{
+/obj/machinery/light/lamp_post{
 	dir = 8
 	},
 /turf/open/indestructible/ground/outside/sidewalk{
@@ -17726,7 +17726,7 @@
 "bKh" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/lamp_post/doubles/bent,
+/obj/machinery/light/lamp_post/doubles/bent,
 /turf/open/indestructible/ground/outside/sidewalk{
 	dir = 8;
 	icon_state = "outerborder"
@@ -17831,7 +17831,7 @@
 /turf/open/indestructible/ground/outside/desert,
 /area/f13/wasteland)
 "bLM" = (
-/obj/structure/lamp_post,
+/obj/machinery/light/lamp_post,
 /turf/open/indestructible/ground/outside/sidewalk{
 	icon_state = "horizontaltopbordertop2"
 	},
@@ -19100,7 +19100,7 @@
 /turf/closed/wall/f13/ruins,
 /area/f13/building)
 "cje" = (
-/obj/structure/lamp_post,
+/obj/machinery/light/lamp_post,
 /turf/open/indestructible/ground/outside/sidewalk{
 	icon_state = "horizontaltopbordertop0"
 	},
@@ -19858,7 +19858,7 @@
 /turf/open/floor/f13/wood,
 /area/f13/city)
 "coT" = (
-/obj/structure/lamp_post{
+/obj/machinery/light/lamp_post{
 	dir = 1
 	},
 /turf/open/indestructible/ground/outside/sidewalk{
@@ -19975,7 +19975,7 @@
 	},
 /area/f13/wasteland)
 "cqb" = (
-/obj/structure/lamp_post/doubles/bent{
+/obj/machinery/light/lamp_post/doubles/bent{
 	dir = 8
 	},
 /turf/open/indestructible/ground/outside/sidewalk{
@@ -20364,7 +20364,7 @@
 /turf/open/floor/f13/wood,
 /area/f13/village)
 "ctc" = (
-/obj/structure/lamp_post,
+/obj/machinery/light/lamp_post,
 /turf/open/indestructible/ground/outside/sidewalk{
 	icon_state = "horizontaltopbordertop1"
 	},
@@ -23232,7 +23232,7 @@
 	},
 /area/f13/wasteland)
 "dEk" = (
-/obj/structure/lamp_post{
+/obj/machinery/light/lamp_post{
 	dir = 8
 	},
 /turf/open/indestructible/ground/outside/sidewalk,
@@ -24455,7 +24455,7 @@
 /turf/open/indestructible/ground/outside/road,
 /area/f13/wasteland)
 "eex" = (
-/obj/structure/lamp_post/quadra,
+/obj/machinery/light/lamp_post/quadra,
 /turf/open/indestructible/ground/outside/sidewalk{
 	dir = 8;
 	icon_state = "outerborder"
@@ -26742,7 +26742,7 @@
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/radiation)
 "eXM" = (
-/obj/structure/lamp_post/doubles/bent{
+/obj/machinery/light/lamp_post/doubles/bent{
 	dir = 8
 	},
 /turf/open/indestructible/ground/outside/sidewalk{
@@ -31460,7 +31460,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/rarewhite/rarecyan,
 /area/f13/building)
 "gRH" = (
-/obj/structure/lamp_post/doubles/bent,
+/obj/machinery/light/lamp_post/doubles/bent,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/indestructible/ground/outside/sidewalk{
 	icon_state = "verticalleftborderleft0"
@@ -37320,7 +37320,7 @@
 /turf/open/indestructible/ground/outside/sidewalk,
 /area/f13/city)
 "jkL" = (
-/obj/structure/lamp_post/doubles/bent{
+/obj/machinery/light/lamp_post/doubles/bent{
 	dir = 8
 	},
 /obj/effect/turf_decal/gravel_edge,
@@ -40117,7 +40117,7 @@
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/wasteland)
 "kyR" = (
-/obj/structure/lamp_post/doubles/bent{
+/obj/machinery/light/lamp_post/doubles/bent{
 	dir = 8
 	},
 /obj/effect/turf_decal/weather/dirt{
@@ -42724,7 +42724,7 @@
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/wasteland)
 "lDy" = (
-/obj/structure/lamp_post/doubles/bent{
+/obj/machinery/light/lamp_post/doubles/bent{
 	dir = 8
 	},
 /turf/open/indestructible/ground/outside/sidewalk{
@@ -42962,7 +42962,7 @@
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/legion)
 "lHx" = (
-/obj/structure/lamp_post/doubles/bent{
+/obj/machinery/light/lamp_post/doubles/bent{
 	dir = 8
 	},
 /turf/open/indestructible/ground/outside/sidewalk{
@@ -46683,7 +46683,7 @@
 	},
 /area/f13/building/mall)
 "ndX" = (
-/obj/structure/lamp_post/doubles/bent,
+/obj/machinery/light/lamp_post/doubles/bent,
 /obj/effect/turf_decal/gravel_edge{
 	dir = 10
 	},
@@ -48676,7 +48676,7 @@
 /turf/closed/mineral/random/low_chance,
 /area/f13/caves)
 "nWm" = (
-/obj/structure/lamp_post{
+/obj/machinery/light/lamp_post{
 	dir = 8
 	},
 /turf/open/indestructible/ground/outside/sidewalk{
@@ -49529,7 +49529,7 @@
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/wasteland)
 "ooY" = (
-/obj/structure/lamp_post/doubles/bent{
+/obj/machinery/light/lamp_post/doubles/bent{
 	dir = 8
 	},
 /turf/open/indestructible/ground/outside/sidewalk{
@@ -53639,7 +53639,7 @@
 	},
 /area/f13/wasteland)
 "pQQ" = (
-/obj/structure/lamp_post/doubles/bent{
+/obj/machinery/light/lamp_post/doubles/bent{
 	dir = 8
 	},
 /turf/open/indestructible/ground/outside/sidewalk{
@@ -55347,7 +55347,7 @@
 	},
 /area/f13/building/massfusion)
 "qGn" = (
-/obj/structure/lamp_post/doubles/bent,
+/obj/machinery/light/lamp_post/doubles/bent,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/indestructible/ground/outside/sidewalk{
 	icon_state = "outerborder"
@@ -57639,7 +57639,7 @@
 	},
 /area/f13/wasteland)
 "rIb" = (
-/obj/structure/lamp_post/doubles/bent{
+/obj/machinery/light/lamp_post/doubles/bent{
 	dir = 8
 	},
 /turf/open/indestructible/ground/outside/sidewalk{
@@ -66088,7 +66088,7 @@
 	},
 /area/f13/radiation)
 "vjK" = (
-/obj/structure/lamp_post,
+/obj/machinery/light/lamp_post,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/indestructible/ground/outside/sidewalk{
 	icon_state = "horizontaltopbordertop2"
@@ -69528,7 +69528,7 @@
 	},
 /area/f13/wasteland)
 "wHm" = (
-/obj/structure/lamp_post/doubles/bent,
+/obj/machinery/light/lamp_post/doubles/bent,
 /turf/open/indestructible/ground/outside/sidewalk{
 	icon_state = "outerborder"
 	},
