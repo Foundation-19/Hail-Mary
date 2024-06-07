@@ -151,6 +151,7 @@
 	name = "blacksmith apron"
 	desc = "A heavy leather apron designed for protecting the user when metalforging."
 	icon = 'icons/fallout/clothing/aprons.dmi'
+	mob_overlay_icon = 'icons/fallout/onmob/clothes/apron.dmi'
 	icon_state = "forge"
 	item_state = "forge"
 	blood_overlay_type = "armor"

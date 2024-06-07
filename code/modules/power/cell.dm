@@ -479,13 +479,13 @@
 	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/stock_parts/cell/ammo/mfc/update_icon()
-	if(charge)
-		if (charge >= (maxcharge/2)+1)
+	switch(charge)
+		if (1001 to 2000)
 			icon_state = "mfc-full"
-		if (charge >= ((maxcharge/4)+1) && charge <= (maxcharge/2))
+		if (51 to 1000)
 			icon_state = "mfc-half"
-	else
-		icon_state = "mfc-empty"
+		if (0 to 50)
+			icon_state = "mfc-empty"
 	. = ..()
 
 // Enhanced Microfusion cell - large energy weapons
@@ -522,15 +522,15 @@
 	maxcharge = 1500
 
 /obj/item/stock_parts/cell/ammo/ec/update_icon()
-	if(charge)
-		if (charge >= (((maxcharge/3)*2)+1))
+	switch(charge)
+		if (1001 to 1500)
 			icon_state = "ec-full"
-		if (charge >= ((maxcharge/3)+1) && charge <= ((maxcharge/3)*2))
+		if (501 to 1000)
 			icon_state = "ec-twothirds"
-		if (charge >= ((maxcharge/4)+1) && charge <= (maxcharge/3))
+		if (51 to 500)
 			icon_state = "ec-onethirds"
-	else
-		icon_state = "ec-empty"
+		if (0 to 50)
+			icon_state = "ec-empty"
 	. = ..()
 
 // Enhanced energy cell - small energy weapons
@@ -574,13 +574,13 @@
 	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/stock_parts/cell/ammo/ecp/update_icon()
-	if(charge)
-		if (charge >= ((maxcharge/2)+1))
+	switch(charge)
+		if (1501 to 2400)
 			icon_state = "ecp-full"
-		if (charge >= ((maxcharge/4)+1) && charge <= (maxcharge/2))
+		if (101 to 1500)
 			icon_state = "ecp-half"
-	else
-		icon_state = "ecp-empty"
+		if (0 to 100)
+			icon_state = "ecp-empty"
 	. = ..()
 
 // Enhanced electron charge pack - rapid fire energy
