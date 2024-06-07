@@ -19,7 +19,7 @@
 	taste_description = "sand and bunker-air"
 	glass_icon_state = "banana"
 	glass_name = "glass of yucca juice"
-	glass_desc = "A wastelanders favourite."
+	glass_desc = "A wastelander's favourite."
 
 /datum/reagent/consumable/tato_juice
 	name = "Tato Juice"
