@@ -15728,6 +15728,14 @@
 	icon_state = "yellowrustysolid"
 	},
 /area/f13/building/massfusion)
+"bme" = (
+/obj/structure/rack/shelf_metal,
+/obj/item/gun/energy/laser/pistol,
+/obj/item/gun/energy/laser/plasma/pistol,
+/turf/open/floor/f13{
+	icon_state = "reddirtyfull"
+	},
+/area/f13/brotherhood)
 "bmg" = (
 /obj/effect/turf_decal/weather/dirt{
 	dir = 4
@@ -19975,16 +19983,6 @@
 	icon_state = "outerborder"
 	},
 /area/f13/wasteland)
-"cqf" = (
-/obj/structure/rack/shelf_metal,
-/obj/item/gun/energy/laser/pistol{
-	pixel_y = 10
-	},
-/obj/item/gun/energy/laser/pistol,
-/turf/open/floor/f13{
-	icon_state = "reddirtyfull"
-	},
-/area/f13/brotherhood)
 "cqg" = (
 /obj/structure/table/wood,
 /obj/item/kitchen/rollingpin,
@@ -22558,10 +22556,6 @@
 	icon_state = "horizontalbottomborderbottom0"
 	},
 /area/f13/wasteland)
-"doX" = (
-/obj/effect/landmark/start/f13/secretary,
-/turf/open/floor/f13/wood,
-/area/f13/city)
 "dpf" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -39360,6 +39354,10 @@
 /obj/effect/decal/cleanable/generic,
 /turf/open/floor/plasteel/f13/vault_floor/blue/white,
 /area/f13/building/museum)
+"kje" = (
+/obj/effect/landmark/start/f13/secretary,
+/turf/open/floor/f13/wood,
+/area/f13/city)
 "kjm" = (
 /obj/structure/rack/shelf_metal{
 	dir = 4
@@ -94915,7 +94913,7 @@ xhd
 jeh
 iht
 yco
-doX
+kje
 tQn
 iht
 aiO
@@ -105551,7 +105549,7 @@ aae
 tVu
 waP
 dmv
-cqf
+bme
 drq
 iwX
 dTD
