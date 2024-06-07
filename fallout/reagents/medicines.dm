@@ -31,7 +31,7 @@
 		var/datum/job/job = SSjob.GetJob(M.mind.assigned_role)
 		if(istype(job))
 			if(job.faction == FACTION_LEGION)
-				SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "betrayed caesar", /datum/mood_event/betrayed_caesar, name)
+				SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "betrayed Caesar", /datum/mood_event/betrayed_caesar, name)
 	..()
 
 /datum/reagent/medicine/stimpak/on_mob_life(mob/living/carbon/M)
@@ -154,11 +154,11 @@
 
 /datum/reagent/medicine/longpork_stew
 	name = "Longpork stew"
-	description = "A dish sworn by some to have unusual healing properties. To most it just tastes disgusting. What even is longpork anyways?..."
+	description = "A dish sworn by some to have unusual healing properties. To most, it just tastes disgusting. What even is longpork, anyways...?"
 	reagent_state = LIQUID
 	color =  "#915818"
 	taste_description = "oily water, with bits of raw-tasting tender meat."
-	metabolization_rate = 0.15 * REAGENTS_METABOLISM //slow, weak heal that lasts a while. Metabolizies much faster if you are not hurt.
+	metabolization_rate = 0.15 * REAGENTS_METABOLISM //slow, weak heal that lasts a while. Metabolizes much faster if you are not hurt.
 	overdose_threshold = 50 //If you eat too much you get poisoned from all the human flesh you're eating
 	var/longpork_hurting = 0
 	var/longpork_lover_healing = -2
@@ -265,7 +265,7 @@
 
 /datum/reagent/medicine/bitter_drink
 	name = "Bitter drink"
-	description = "An herbal healing concoction which enables wounded soldiers and travelers to tend to their wounds without stopping during journeys."
+	description = "A herbal healing concoction which enables wounded soldiers and travelers to tend to their wounds without stopping during journeys."
 	reagent_state = LIQUID
 	color ="#A9FBFB"
 	taste_description = "bitterness"
@@ -405,7 +405,7 @@
 
 /datum/reagent/medicine/medx/on_mob_end_metabolize(mob/living/carbon/human/M)
 	if(isliving(M))
-		to_chat(M, span_danger("The warmth fades, and every injury you you had slams into you like a truck."))
+		to_chat(M, span_danger("The warmth fades, and every injury you had slams into you like a truck."))
 		M.maxHealth -= 30
 		M.health -= 30
 	..()
@@ -430,7 +430,7 @@
 		if(istype(job))
 			switch(job.faction)
 				if(FACTION_LEGION)
-					SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "betrayed caesar", /datum/mood_event/betrayed_caesar, name)
+					SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "betrayed Caesar", /datum/mood_event/betrayed_caesar, name)
 	. = TRUE
 
 /datum/reagent/medicine/medx/overdose_process(mob/living/carbon/human/M)
@@ -443,7 +443,7 @@
 		switch(od_strikes)
 			if(0)
 				od_next_strike = od_strike_cooldown + world.time // give a delay before the next strike check
-				to_chat(M, span_danger("The numbing warmth attacks your senses, your body feeling like its in a dream, masking the sensation of your organs disintegrating under all that Med-X strain!"))
+				to_chat(M, span_danger("The numbing warmth attacks your senses, your body feeling like it's in a dream, masking the sensation of your organs disintegrating under all that Med-X strain!"))
 				od_strikes = 1
 			if(1 to 3)
 				M.confused = clamp(M.confused + 1, 1, 20)
@@ -701,13 +701,13 @@
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	ghoulfriendly = TRUE
 	var/list/misery_message = list(
-		"You feel miserable",
+		"You feel miserable...",
 		"A war wages on in your gut!",
 		"What have you put in your body?",
 		"It's working, but at what cost?",
 		"You feel ill.",
 		"Your insides hate you.",
-		"everything hurts.",
+		"Everything hurts.",
 		"You feel like you ate firecrackers.",
 		"It will all be over soon.",
 		"You feel like your intestines are dying.",
