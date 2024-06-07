@@ -2,13 +2,13 @@
 
 /datum/reagent/consumable/tea/agavetea
 	name = "Agave Tea"
-	description = "A soothing herbal rememedy steeped from the Agave Plant. Inhibits increased healing of burns and sores."
+	description = "A soothing herbal rememedy steeped from the Agave Plant. Induces increased healing of burns and sores."
 	color = "#FFFF91"
 	nutriment_factor = 0
 	taste_description = "bitterness"
 	glass_icon_state = "tea"
 	glass_name = "Agave Tea"
-	glass_desc = "A soothing herbal rememedy steeped from the Agave Plant. Inhibits increased healing of burns and sores."
+	glass_desc = "A soothing herbal remedy steeped from the Agave Plant. Induces increased healing of burns and sores."
 
 /datum/reagent/consumable/tea/agavetea/on_mob_life(mob/living/carbon/M)
 	M.adjustFireLoss(-3*REAGENTS_EFFECT_MULTIPLIER, 0)
@@ -25,13 +25,13 @@
 
 /datum/reagent/consumable/tea/broctea
 	name = "Broc Tea"
-	description = "A soothing herbal rememedy steeped from the Broc Flower. Increases the clearance and flow of airways."
+	description = "A soothing herbal remedy steeped from the Broc Flower. Increases the clearance and flow of airways."
 	color = "#FF6347"
 	nutriment_factor = 0
 	taste_description = "bitterness"
 	glass_icon_state = "tea"
 	glass_name = "Broc Tea"
-	glass_desc = "A soothing herbal rememedy steeped from the Broc Flower. Increases the clearance and flow of airways."
+	glass_desc = "A soothing herbal remedy steeped from the Broc Flower. Increases the clearance and flow of airways."
 
 /datum/reagent/consumable/tea/broctea/on_mob_life(mob/living/carbon/M)
 	M.adjustOxyLoss(-4*REAGENTS_EFFECT_MULTIPLIER, 0)
@@ -50,13 +50,13 @@
 
 /datum/reagent/consumable/tea/coyotetea
 	name = "Coyote Tea"
-	description = "A smokey herbal rememedy steeped from coyote tobacco stems. Natural caffeines keep the drinker alert and awake while numbing the senses."
+	description = "A smokey herbal remedy steeped from coyote tobacco stems. Natural caffeines keep the drinker alert and awake while numbing the senses."
 	color = "#008000"
 	nutriment_factor = 0
 	taste_description = "smoke"
 	glass_icon_state = "coyotetea"
 	glass_name = "Coyote Tea"
-	glass_desc = "A smokey herbal rememedy steeped from coyote tobacco stems. Natural caffeines keep the drinker alert and awake while numbing the senses."
+	glass_desc = "A smokey herbal remedy steeped from coyote tobacco stems. Natural caffeines keep the drinker alert and awake while numbing the senses."
 
 /datum/reagent/consumable/tea/coyotetea/on_mob_life(mob/living/carbon/M)
 	if(prob(10))
@@ -78,13 +78,13 @@
 
 /datum/reagent/consumable/tea/feratea
 	name = "Barrel Tea"
-	description = "A sour and dry rememedy steeped from barrel cactus fruit. Detoxifies the user through natural filteration and dehydration."
+	description = "A sour and dry remedy steeped from barrel cactus fruit. Detoxifies the user through natural filtration and dehydration."
 	color = "#FF6347"
 	nutriment_factor = 0
 	taste_description = "bitterness"
 	glass_icon_state = "tea"
 	glass_name = "Barrel Tea"
-	glass_desc = "A sour and dry rememedy steeped from barrel cactus fruit. Detoxifies the user through natural filteration and dehydration."
+	glass_desc = "A sour and dry remedy steeped from barrel cactus fruit. Detoxifies the user through natural filtration and dehydration."
 
 /datum/reagent/consumable/tea/feratea/on_mob_life(mob/living/carbon/M)
 	if(prob(80))
@@ -109,13 +109,13 @@
 
 /datum/reagent/consumable/tea/pricklytea
 	name = "Prickly Tea"
-	description = "A sweet and fruity rememedy steeped from prickly pear fruit. Keeps you on edge."
+	description = "A sweet and fruity remedy steeped from prickly pear fruit. Keeps you on edge."
 	color = "#FF6347"
 	nutriment_factor = 0
 	taste_description = "sweetness"
 	glass_icon_state = "cafe_latte"
 	glass_name = "Prickly Tea"
-	glass_desc = "A sweet and fruity rememedy steeped from prickly pear fruit. Keeps you on edge."
+	glass_desc = "A sweet and fruity remedy steeped from prickly pear fruit. Keeps you on edge."
 
 /datum/reagent/consumable/tea/pricklytea/on_mob_life(mob/living/carbon/M)
 	if(prob(33))
@@ -134,13 +134,13 @@
 
 /datum/reagent/consumable/tea/xandertea
 	name = "Xander Tea"
-	description = "A engaging herbal rememedy steeped from blitzed Xander root. Detoxifies and replenishes the bodies blood supply."
+	description = "A engaging herbal remedy steeped from blitzed Xander root. Detoxifies and replenishes the body's blood supply."
 	color = "#FF6347"
 	nutriment_factor = 0
-	taste_description = "earthy"
+	taste_description = "something earthy"
 	glass_icon_state = "coffee"
 	glass_name = "Xander Tea"
-	glass_desc = "A engaging herbal rememedy steeped from blitzed Xander root. Detoxifies and replenishes the bodies blood supply."
+	glass_desc = "A engaging herbal remedy steeped from blitzed Xander root. Detoxifies and replenishes the body's blood supply."
 	effective_blood_max = 400
 	effective_blood_multiplier = 10
 
@@ -163,7 +163,7 @@
 	description = "A vibrant and invigorating herbal infusion known for its deep red color and earthy flavor profile."
 	color = "#850101"
 	nutriment_factor = 0 
-	taste_description = 0
+	taste_description = "diluted blood"
 	glass_icon_state = "bloodtea"
 	glass_name = "Bloodleaf Tea"
 	glass_desc = "A vibrant and invigorating herbal infusion known for its deep red color and earthy flavor profile."
