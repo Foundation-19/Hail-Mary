@@ -296,7 +296,7 @@
 	weapon_class = WEAPON_CLASS_SMALL
 	weapon_weight = GUN_ONE_HAND_AKIMBO
 	init_firemodes = list(
-		/datum/firemode/semi_auto
+		/datum/firemode/semi_auto/fast
 	)
 
 // starter kit havin ass
@@ -619,7 +619,7 @@
 	weapon_weight = GUN_TWO_HAND_ONLY
 	can_scope = TRUE
 	init_firemodes = list(
-		/datum/firemode/semi_auto/slow
+		/datum/firemode/semi_auto/fast
 	)
 /obj/item/gun/energy/laser/aer9/focused
 	name = "\improper Hot-wired AER9 laser rifle"
@@ -678,7 +678,7 @@
 	weapon_class = WEAPON_CLASS_RIFLE
 	weapon_weight = GUN_TWO_HAND_ONLY
 	init_firemodes = list(
-		/datum/firemode/semi_auto/slower
+		/datum/firemode/semi_auto/slow
 	)
 /obj/item/gun/energy/laser/scatter/nonlethal
 	name = "tribeam stunrifle"
@@ -725,7 +725,7 @@
 	weapon_weight = GUN_TWO_HAND_ONLY
 	can_scope = TRUE
 	init_firemodes = list(
-		/datum/firemode/semi_auto/slow
+		/datum/firemode/semi_auto/fast
 	)
 
 //AER14 Laser rifle
@@ -744,7 +744,7 @@
 	weapon_weight = GUN_TWO_HAND_ONLY
 	can_scope = TRUE
 	init_firemodes = list(
-		/datum/firemode/semi_auto/slow
+		/datum/firemode/semi_auto/fast
 	)
 
 //LAER Energy rifle
