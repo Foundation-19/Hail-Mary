@@ -591,12 +591,12 @@
 	mob_overlay_icon = 'modular_BD2/legio_invicta/icons/onmob_legion.dmi'
 	icon_state = "helmet_recruit"
 
-/obj/item/clothing/head/helmet/f13/legion/prime
+/*/obj/item/clothing/head/helmet/f13/legion/prime
 	icon = 'modular_BD2/legio_invicta/icons/icons_legion.dmi'
 	righthand_file = 'modular_BD2/legio_invicta/icons/onmob_legion_righthand.dmi'
 	lefthand_file = 'modular_BD2/legio_invicta/icons/onmob_legion_lefthand.dmi'
 	mob_overlay_icon = 'modular_BD2/legio_invicta/icons/onmob_legion.dmi'
-	icon_state = "helmet_prime"
+	icon_state = "helmet_prime"*/
 
 /obj/item/clothing/head/helmet/f13/legion/explorer
 	icon = 'modular_BD2/legio_invicta/icons/icons_legion.dmi'

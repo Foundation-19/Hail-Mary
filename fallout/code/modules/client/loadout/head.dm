@@ -290,9 +290,9 @@
 	cost = 4
 	subcategory = LOADOUT_SUBCATEGORY_HEAD_FACTIONS
 	restricted_desc = "NCR"
-	restricted_roles = list("NCR Combat Engineer",
+/*	restricted_roles = list("NCR Combat Engineer",
 							"NCR Off-Duty"
-						)
+						)*/
 
 /datum/gear/head/ncr_cap
 	name = "NCR garrison cap"

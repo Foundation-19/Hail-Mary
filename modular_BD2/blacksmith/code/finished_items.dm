@@ -26,7 +26,7 @@
 	var/quality
 	var/overlay_state = "woodenrod"
 	var/mutable_appearance/overlay
-	var/wield_force = 15
+	force_wielded = 15
 
 /obj/item/melee/smith/Initialize()
 	. = ..()
@@ -54,7 +54,7 @@
 	total_mass = (TOTAL_MASS_MEDIEVAL_WEAPON * 1.5)
 	max_integrity = 200
 	flags_1 = CONDUCT_1
-	var/wield_force
+	force_wielded
 	wielded_mult = 1.5
 	var/mutable_appearance/overlay
 	var/overlay_state = "woodenrod"

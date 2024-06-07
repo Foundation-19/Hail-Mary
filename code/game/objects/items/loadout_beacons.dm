@@ -54,6 +54,7 @@ GLOBAL_LIST_EMPTY(loadout_boxes)
 	var/list/multiple_choice = list()
 	/// Just to limit how many things can be taken out, cus apparently thats a thing
 	var/max_items
+	var/spawned_thing = FALSE
 
 /obj/item/kit_spawner/waster
 	name = "Wasteland survival kit"
@@ -388,12 +389,15 @@ GLOBAL_LIST_EMPTY(loadout_boxes)
 
 /obj/item/kit_spawner/proc/spawn_the_thing(mob/user, atom/the_thing)
 	hax_check()
+	if(spawned_thing)
+		return
 	max_items--
 	var/turf/spawn_here
 	spawn_here = user ? get_turf(user) : get_turf(src)
 	var/obj/item/new_thing = new the_thing(spawn_here)
 	if(istype(new_thing))
 		user.show_message(span_green("You pull \a [new_thing.name] out of [src]."))
+		spawned_thing = TRUE
 		return TRUE
 
 /obj/item/storage/box/gun
