@@ -8439,6 +8439,9 @@
 /obj/effect/spawner/lootdrop/f13/weapon/gun/ammo/tier5,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/outpost)
+"hLF" = (
+/turf/closed/indestructible/rock,
+/area/f13/Ocean)
 "hLG" = (
 /turf/closed/wall/f13/wood/house,
 /area/f13/ruins)
@@ -90497,11 +90500,11 @@ cLZ
 cLZ
 cLZ
 cLZ
-fVN
-fVN
-cLZ
-cLZ
-roU
+hLF
+hLF
+hLF
+hLF
+hLF
 "}
 (252,1,1) = {"
 roU
@@ -90754,11 +90757,11 @@ cLZ
 cLZ
 cLZ
 fVN
-fVN
-cLZ
-cLZ
-cLZ
-roU
+hLF
+hLF
+hLF
+hLF
+hLF
 "}
 (253,1,1) = {"
 roU
@@ -91011,11 +91014,11 @@ fVN
 fVN
 fVN
 fVN
-cLZ
-cLZ
-cLZ
-cLZ
-roU
+hLF
+hLF
+hLF
+hLF
+hLF
 "}
 (254,1,1) = {"
 roU
@@ -91268,11 +91271,11 @@ cLZ
 cLZ
 cLZ
 cLZ
-cLZ
-cLZ
-cLZ
-cLZ
-roU
+hLF
+hLF
+hLF
+hLF
+hLF
 "}
 (255,1,1) = {"
 roU
@@ -91525,9 +91528,9 @@ roU
 roU
 roU
 roU
-roU
-roU
-roU
-roU
-roU
+hLF
+hLF
+hLF
+hLF
+hLF
 "}
