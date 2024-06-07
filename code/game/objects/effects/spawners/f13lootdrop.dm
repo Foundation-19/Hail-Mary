@@ -780,48 +780,46 @@
 
 /obj/effect/spawner/lootdrop/f13/weapon/gun/energy/hobo
 	name = "very low tier energy gun"
-	loot = list(/obj/effect/spawner/bundle/f13/wattz,
-					/obj/item/gun/energy/laser/wattz/recharger,
-					/obj/item/gun/ballistic/rifle/hobo/lasmusket,
+	loot = list(/obj/effect/spawner/bundle/f13/wattz = 25,
+					/obj/item/gun/energy/laser/wattz/recharger = 15,
+					/obj/item/gun/ballistic/rifle/hobo/lasmusket = 15,
 					)
 
 /obj/effect/spawner/lootdrop/f13/weapon/gun/energy/low
 	name = "low tier energy gun"
-	loot = list(/obj/effect/spawner/bundle/f13/wattz = 25,
-				/obj/effect/spawner/bundle/f13/wattzm = 15,
+	loot = list(/obj/effect/spawner/bundle/f13/wattzm = 25,
 				/obj/effect/spawner/bundle/f13/laserpistol = 20,
+				/obj/effect/spawner/bundle/f13/plasmapistol = 20,
 				/obj/item/gun/energy/laser/wattz/recharger = 15,
-				/obj/item/gun/energy/laser/wattz/magneto = 25
 				)
 
 /obj/effect/spawner/lootdrop/f13/weapon/gun/energy/mid
 	name = "mid tier energy gun"
 	loot = list(/obj/effect/spawner/bundle/f13/aer9 = 26,
 				/obj/effect/spawner/bundle/f13/wattz2k = 26,
-				/obj/effect/spawner/bundle/f13/plasmapistol = 15,
+				/obj/effect/spawner/bundle/f13/plasmarifle = 26,
 				)
 
 /obj/effect/spawner/lootdrop/f13/weapon/gun/energy/midhigh //overlaps with midtier / Why does this exist like why
 	name = "mid-high tier energy gun"
-	loot = list(/obj/effect/spawner/bundle/f13/aer12,
-				/obj/effect/spawner/bundle/f13/plasmapistol,
-				/obj/effect/spawner/bundle/f13/wattz2kext,
+	loot = list(/obj/effect/spawner/bundle/f13/aer12 = 25,
+				/obj/effect/spawner/bundle/f13/plasmaglock = 25,
+				/obj/effect/spawner/bundle/f13/wattz2kext = 25,
 				)
 
 /obj/effect/spawner/lootdrop/f13/weapon/gun/energy/high
 	name = "high tier energy gun"
-	loot = list(/obj/effect/spawner/bundle/f13/plasmarifle = 25,
-				/obj/effect/spawner/bundle/f13/rcw = 20,
-				/obj/effect/spawner/bundle/f13/aer14 = 20,
-				/obj/effect/spawner/bundle/f13/plasmaglock = 25,
+	loot = list(/obj/effect/spawner/bundle/f13/rcw = 20,
+				/obj/effect/spawner/bundle/f13/aer14 = 25,
+				/obj/item/gun/energy/laser/plasma/glock/extended = 25,
 				/obj/effect/spawner/bundle/f13/ionrifle = 20
 				)
 
 /obj/effect/spawner/lootdrop/f13/weapon/gun/energy/superhigh
 	name = "superhigh tier energy gun"
-	loot = list(/obj/effect/spawner/bundle/f13/multiplas,
-				/obj/effect/spawner/bundle/f13/tribeam,
-				/obj/item/gun/energy/laser/plasma/pistol/alien
+	loot = list(/obj/effect/spawner/bundle/f13/multiplas = 25,
+				/obj/effect/spawner/bundle/f13/tribeam = 25,
+				/obj/item/gun/energy/laser/laer = 20
 				)
 
 /obj/effect/spawner/lootdrop/f13/weapon/gun/energy/unique
