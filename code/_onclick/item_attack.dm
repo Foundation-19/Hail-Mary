@@ -114,7 +114,7 @@
 			force_modifier += (force * 0.35)
 
 		if(HAS_TRAIT(user, TRAIT_SMUTANT))
-			force_modifier += (force * 5)
+			force_modifier += (force * 2)
 
 		if(HAS_TRAIT(user, TRAIT_GHOULMELEE)) //negative trait
 			force_modifier += (-force * 0.25)
