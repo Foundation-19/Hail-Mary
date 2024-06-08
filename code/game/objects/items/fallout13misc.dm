@@ -224,14 +224,14 @@
 
 
 
-/// Locust flag but renamed to bandit.
+/// Locust flag but renamed to Super mutant.
 
-/obj/item/flag/locust
-	name = "Bandit flag"
-	desc = "A flag with a skull, maybe it marking where the cemetary is."
+/obj/item/flag/supermutant
+	name = "Super Mutant flag"
+	desc = "A flag with a skull, Used by the Sub-divion of Shale's Warband in the region."
 	icon_state = "locustflag"
 	item_state = "locustflag"
-	faction = "Locust"
+	faction = FACTION_SMUTANT
 
 /// Gunner flag but renamed to Outlaw.
 
@@ -275,15 +275,15 @@
 		if(do_after(user, 60, target = src))
 			var/obj/item/stack/sheet/leather/H = I
 			if(H.use(1))
-				var/list/choices = list("Bandit", "Outlaw", "BOS", "BOS Snow", "NCR", "NCR Snow", "Legion", "Legion Snow", "Eastwood", "Eastwood Snow", "Enclave", "Kebab")
+				var/list/choices = list("Super Mutant", "Outlaw", "BOS", "BOS Snow", "NCR", "NCR Snow", "Legion", "Legion Snow", "Eastwood", "Eastwood Snow", "Enclave", "Kebab")
 				var/flag = input("Please choose which faction flag you wish to create.") in choices
 				switch(flag)
-					if("Bandit")
-						name = "Bandit flag"
-						desc = "A flag with a skull, maybe it marking where the cemetary is."
+					if("Super Mutant")
+						name = "Super Mutant flag"
+						desc = "A flag with a skull, Used by the Sub-divion of Shale's Warband in the region."
 						icon_state = "locustflag"
 						item_state = "locustflag"
-						faction = "Locust"
+						faction = FACTION_SMUTANT
 					if("Outlaw")
 						name = "Outlaw flag"
 						desc = "A ragged flag with a skull emblazoned on it, commonly used by the local raider gangs."

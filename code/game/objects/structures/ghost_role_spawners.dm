@@ -904,19 +904,19 @@
 	mob_name = "Mutant"
 	job_description = "Mutant"
 	short_desc = "You are a mutant, risen from the FEV vat stronger and faster than before!"
-	flavour_text = "Folow your leader; and melt more disgusting humans into the pit."
+	flavour_text = "Follow your new masters, and melt more disgusting humans into the pit."
 	assignedrole = "Mutant"
 	icon = 'icons/fallout/machines/64x32.dmi'
 	icon_state = "reactoroff"
 	pixel_x = -16
 	mob_type = /mob/living/carbon/human/species/smutant
-	uses = 3	//Starts with 3, gets more as you put more goobers in here
+	uses = 0	//Starts with 0, gets more as you put more goobers in here
 	can_buckle = TRUE
 	density = FALSE
 	death = FALSE
 	roundstart = FALSE
 	permanent = TRUE
-	uniform = /obj/item/clothing/under/f13/vaultmutie
+	uniform = /obj/item/clothing/under/f13/raiderrags
 
 /obj/effect/mob_spawn/human/fev_pit/buckle_mob(mob/living/carbon/human/species/M, force = FALSE, check_loc = TRUE)
 	if (!istype(M, /mob/living/carbon/human))
