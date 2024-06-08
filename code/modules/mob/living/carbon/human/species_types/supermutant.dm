@@ -5,11 +5,11 @@
 	limbs_id = "smutant"
 	inherent_traits = list(TRAIT_RADIMMUNE,TRAIT_VIRUSIMMUNE,TRAIT_SMUTANT,)
 	inherent_biotypes = list(MOB_INORGANIC, MOB_HUMANOID)
-	speedmod = -0.6
+	speedmod = -0.5
 	siemens_coeff = 0
 	punchdamagelow = 20
 	punchdamagehigh = 30
-	armor = 3
+	armor = 2
 	use_skintones = 0
 	sexes = 0
 	liked_food = JUNKFOOD | FRIED | RAW 
