@@ -9,7 +9,7 @@
 	siemens_coeff = 0
 	punchdamagelow = 20
 	punchdamagehigh = 30
-	armor = 2
+	armor = 3
 	use_skintones = 0
 	sexes = 0
 	liked_food = JUNKFOOD | FRIED | RAW 
