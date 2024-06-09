@@ -32053,6 +32053,13 @@
 	icon_state = "horizontaltopborderbottom2"
 	},
 /area/f13/wasteland)
+"hdz" = (
+/obj/structure/fermenting_barrel/broc/xander,
+/turf/open/indestructible/ground/outside/desert/sonora{
+	dir = 4;
+	icon_state = "desertsmooth5"
+	},
+/area/f13/wasteland)
 "hdP" = (
 /obj/structure/flora/grass/wasteland{
 	icon_state = "tall_grass_4"
@@ -36427,6 +36434,13 @@
 "iTl" = (
 /turf/open/indestructible/ground/outside/road{
 	icon_state = "shadowleft"
+	},
+/area/f13/wasteland)
+"iTp" = (
+/obj/structure/fermenting_barrel/broc/cactus,
+/turf/open/indestructible/ground/outside/desert/sonora{
+	dir = 4;
+	icon_state = "desertsmooth4"
 	},
 /area/f13/wasteland)
 "iTu" = (
@@ -59677,6 +59691,13 @@
 	dir = 1
 	},
 /turf/open/indestructible/ground/outside/dirt,
+/area/f13/wasteland)
+"sBh" = (
+/obj/structure/fermenting_barrel/broc,
+/turf/open/indestructible/ground/outside/desert/sonora{
+	dir = 4;
+	icon_state = "desertsmooth3"
+	},
 /area/f13/wasteland)
 "sBr" = (
 /obj/effect/decal/cleanable/dirt{
@@ -127620,7 +127641,7 @@ fcR
 xaY
 sQy
 vDY
-sVE
+sBh
 oXX
 skv
 xwz
@@ -127877,7 +127898,7 @@ xBX
 xWo
 qqE
 vDY
-xJd
+hdz
 eov
 skv
 xwz
@@ -128134,7 +128155,7 @@ xaY
 aii
 qqE
 vDY
-dJF
+iTp
 uVZ
 skv
 xwz

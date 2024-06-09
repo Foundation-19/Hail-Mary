@@ -691,9 +691,9 @@
 	var/static/list/alchemyrack_typecache = typecacheof(list(
 		/obj/item/reagent_containers/pill/patch,
 		/obj/item/reagent_containers/glass/bottle/primitive,
-		/obj/item/stack/medical/poultice,
+		/obj/item/stack/medical,
 		/obj/item/smelling_salts,
-		/obj/item/reagent_containers/pill/healingpowder
+		/obj/item/reagent_containers/pill
 	))
 	if(is_type_in_typecache(O, alchemyrack_typecache))
 		return TRUE
