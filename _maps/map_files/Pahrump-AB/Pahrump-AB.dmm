@@ -42074,6 +42074,7 @@
 /turf/open/floor/f13/wood,
 /area/f13/building)
 "ldy" = (
+/obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/start/f13/seniorknight,
 /turf/open/floor/f13{
 	icon_state = "reddirtyfull"
