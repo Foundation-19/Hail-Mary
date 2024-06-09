@@ -125,12 +125,6 @@
 "aaB" = (
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/caves)
-"aaC" = (
-/obj/effect/landmark/start/f13/seniorknight,
-/turf/open/floor/f13{
-	icon_state = "reddirtyfull"
-	},
-/area/f13/brotherhood)
 "aaD" = (
 /turf/closed/wall/r_wall/rust,
 /area/f13/bunker)
@@ -39372,12 +39366,6 @@
 	icon_state = "floorrusty"
 	},
 /area/f13/building)
-"jYS" = (
-/obj/machinery/smartfridge/bottlerack/grownbin,
-/turf/open/indestructible/ground/outside/desert/sonora/rough{
-	icon_state = "desertcracked4"
-	},
-/area/f13/wasteland)
 "jZg" = (
 /obj/structure/window/fulltile/house{
 	icon_state = "housewindowbroken"
@@ -42092,6 +42080,12 @@
 /mob/living/simple_animal/hostile/bloatfly,
 /turf/open/floor/f13/wood,
 /area/f13/building)
+"ldy" = (
+/obj/effect/landmark/start/f13/seniorknight,
+/turf/open/floor/f13{
+	icon_state = "reddirtyfull"
+	},
+/area/f13/brotherhood)
 "ldA" = (
 /obj/structure/barricade/wooden,
 /obj/structure/spacevine,
@@ -72443,6 +72437,10 @@
 	icon_state = "floorrustysolid"
 	},
 /area/f13/building/museum)
+"xJy" = (
+/obj/item/reagent_containers/food/snacks/meat/slab,
+/turf/closed/mineral/random/low_chance,
+/area/f13/caves)
 "xJB" = (
 /obj/structure/chair/comfy{
 	dir = 4
@@ -105649,7 +105647,7 @@ pxe
 eAo
 bCg
 tDy
-aaC
+ldy
 iFl
 vTp
 xCf
@@ -105898,7 +105896,7 @@ aaa
 (126,1,1) = {"
 aaa
 aaa
-aae
+xJy
 aak
 aak
 aae
@@ -128747,7 +128745,7 @@ xWo
 aii
 vaD
 ejT
-jYS
+uWK
 pYM
 ohp
 cwV
