@@ -39373,12 +39373,6 @@
 	icon_state = "floorrusty"
 	},
 /area/f13/building)
-"jYS" = (
-/obj/machinery/smartfridge/bottlerack/grownbin,
-/turf/open/indestructible/ground/outside/desert/sonora/rough{
-	icon_state = "desertcracked4"
-	},
-/area/f13/wasteland)
 "jZg" = (
 /obj/structure/window/fulltile/house{
 	icon_state = "housewindowbroken"
@@ -41101,6 +41095,10 @@
 	},
 /turf/open/floor/f13/wood,
 /area/f13/building)
+"kKV" = (
+/obj/item/reagent_containers/food/snacks/meat/slab,
+/turf/closed/mineral/random/low_chance,
+/area/f13/caves)
 "kLb" = (
 /obj/effect/decal/cleanable/blood,
 /obj/effect/decal/cleanable/blood/gibs/human/up,
@@ -105899,7 +105897,7 @@ aaa
 (126,1,1) = {"
 aaa
 aaa
-aae
+kKV
 aak
 aak
 aae
@@ -128748,7 +128746,7 @@ xWo
 aii
 vaD
 ejT
-jYS
+uWK
 pYM
 ohp
 cwV
