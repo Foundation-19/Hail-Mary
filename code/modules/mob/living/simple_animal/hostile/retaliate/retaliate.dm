@@ -54,3 +54,16 @@
 	. = ..()
 	if(. > 0 && stat == CONSCIOUS)
 		Retaliate()
+
+/mob/living/simple_animal/hostile/retaliate/attackby(obj/item/I, mob/living/user, params, attackchain_flags, damage_multiplier)
+	. = ..()
+	if(istype(I, /obj/item/melee/onehanded/dogprod))
+	if("critter-friend" in faction)
+		LoseTarget()
+		LoseAggro()
+		peaceful = TRUE
+		
+/mob/living/simple_animal/hostile/retaliate/attackby(obj/item/I, mob/living/user, params, attackchain_flags, damage_multiplier)
+	. = ..()
+	if(istype(I, /obj/item/melee/onehanded/dogwhip))
+		peaceful = FALSE

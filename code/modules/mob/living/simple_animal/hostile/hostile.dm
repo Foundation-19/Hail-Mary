@@ -927,3 +927,16 @@ mob/living/simple_animal/hostile/proc/DestroySurroundings() // for use with mega
 	minimum_distance = rand(0, 10)
 	LoseTarget()
 	visible_message(span_notice("[src] jerks around wildly and starts acting strange!"))
+
+/mob/living/simple_animal/hostile/attackby(obj/item/I, mob/living/user, params, attackchain_flags, damage_multiplier)
+	. = ..()
+	if(istype(I, /obj/item/melee/onehanded/dogprod))
+	if("critter-friend" in faction)
+		LoseTarget()
+		LoseAggro()
+		peaceful = TRUE
+		
+/mob/living/simple_animal/hostile/attackby(obj/item/I, mob/living/user, params, attackchain_flags, damage_multiplier)
+	. = ..()
+	if(istype(I, /obj/item/melee/onehanded/dogwhip))
+		peaceful = FALSE

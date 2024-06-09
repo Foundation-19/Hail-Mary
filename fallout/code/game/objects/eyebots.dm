@@ -1,7 +1,28 @@
 var/list/eyebots = list()
 
 /mob/living/simple_animal/hostile/eyebot/virtual
+	name = "Brotherhood Eyebot"
+	desc = "An eyebot reprogrammed and repurposed by brotherhood scribes for Reconnaissance work, Useful in a skirmish."
+	maxHealth = 65
+	health = 65
+	peaceful = TRUE
+	faction = list(FACTION_BROTHERHOOD)
+	turns_per_move = -1
 	var/mob/living/carbon/human/pilot
+
+/mob/living/simple_animal/hostile/eyebot/virtual/floatingeye
+	name = "Brotherhood Floating Eyebot"
+	desc = "A quick-observation robot reprogrammed and repurposed by brotherhood scribes, Not very deadly, And not very tough, But is armed with a debilitating ranged electrode taser."
+	maxHealth = 35
+	health = 35
+	peaceful = TRUE
+	faction = list(FACTION_BROTHERHOOD)
+	icon = 'icons/fallout/mobs/robots/eyebots.dmi'
+	icon_state = "floatingeye"
+	icon_living = "floatingeye"
+	icon_dead = "floatingeye_d"
+	projectiletype = /obj/item/projectile/energy/electrode
+	projectilesound = 'sound/weapons/resonator_blast.ogg'
 
 /mob/living/simple_animal/hostile/eyebot/virtual/New()
 	. = ..()
@@ -36,10 +57,10 @@ var/list/eyebots = list()
 
 /obj/machinery/computer/eyebots
 	name = "eyebot console"
-	desc = "Used to access eyebots."
+	desc = "Used to access eyebots. (Type stop-control to leave an eyebot.)"
 	icon = 'icons/fallout/machines/terminals.dmi'
-	icon_state = "enclave"
-	icon_screen = "enclave_on"
+	icon_state = "advanced"
+	icon_screen = "advanced_on"
 	var/datum/browser/popup
 
 /obj/machinery/computer/eyebots/New()

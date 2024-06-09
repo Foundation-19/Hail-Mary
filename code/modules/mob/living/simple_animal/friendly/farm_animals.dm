@@ -222,7 +222,7 @@
 	if(saddle || bridle)
 		. += "<br>Feeding this beast will let it move quickly for longer! You'll need to remove their bridle and saddle to get them pregnant."
 	else
-		. += "<br>Feeding this beast will get it pregnant! You'll need to give them a bridle and/or a saddle to feed their hunger."
+		. += "<br>Feeding this beast will get it pregnant! You'll need to give them a bridle and/or a saddle to use them as a mount."
 	switch(hunger)
 		if(1)
 			. += "<br>They look well fed."
@@ -918,6 +918,528 @@
 		)
 	butcher_difficulty = 1
 
+/mob/living/simple_animal/cow/brahmin/Valeria
+	name = "Valeria"
+	desc = "Vita's older sister, Still has a lot of fight left in her."
+	icon = 'icons/fallout/mobs/animals/dogs.dmi'
+	icon_state = "legiondog"
+	icon_living = "legiondog"
+	icon_dead = "legiondog_dead"
+	icon_gib = "gib"
+	speak = list("*gnarl","*bark")
+	speak_emote = list("barks","growls")
+	emote_hear = list("perks its head up.")
+	emote_see = list("stares.")
+	speak_chance = 1
+	turns_per_move = 5
+	see_in_dark = 6
+	health = 90
+	maxHealth = 90
+	ride_move_delay = 1.8
+	can_ghost_into = FALSE
+	response_help_continuous  = "pat"
+	response_help_simple = "pet"
+	response_disarm_continuous = "gently pushes aside"
+	response_disarm_simple = "gently push aside"
+	response_harm_continuous = "bites"
+	response_harm_simple = "bites"
+	attack_verb_continuous = "bites"
+	attack_verb_simple = "bite"
+	waddle_amount = 3
+	waddle_up_time = 1
+	waddle_side_time = 2
+	attack_sound = 'sound/weapons/punch1.ogg'
+	young_type = /mob/living/simple_animal/hostile/retaliate/legionhound
+	food_types = list(
+		/obj/item/reagent_containers/food/snacks/meat/slab,
+		/obj/item/reagent_containers/food/snacks/meat/slab/gecko,
+		/obj/item/reagent_containers/food/snacks/meat/slab/human,
+		/obj/item/reagent_containers/food/snacks/meat/slab/human/mutant,
+		/obj/item/reagent_containers/food/snacks/meat/slab/chicken,
+		/obj/item/reagent_containers/food/snacks/meat/slab/molerat,
+		/obj/item/reagent_containers/food/snacks/meat/slab/mirelurk,
+		/obj/item/reagent_containers/food/snacks/meat/slab/ant_meat,
+		/obj/item/reagent_containers/food/snacks/meat/slab/fireant_meat,
+		/obj/item/reagent_containers/food/snacks/meat/slab/bloatfly_meat,
+		/obj/item/reagent_containers/food/snacks/meat/slab/radscorpion_meat,
+		/obj/item/reagent_containers/food/snacks/meat/slab/cazador_meat,
+		/obj/item/reagent_containers/food/snacks/f13/canned/dog
+		)
+	milk_reagent = /datum/reagent/toxin
+	ride_offsets = list(
+		"1" = list(15, 8),
+		"2" = list(15, 8),
+		"4" = list(15, 8),
+		"8" = list(15, 8)
+		)
+	guaranteed_butcher_results = list(
+		/obj/item/reagent_containers/food/snacks/meat/slab/wolf = 2,
+		/obj/item/stack/sheet/sinew = 2,
+		/obj/item/stack/sheet/bone = 2
+		)
+	butcher_results = list(
+		/obj/item/stack/sheet/animalhide/wolf = 1,
+		/obj/item/reagent_containers/food/snacks/meat/slab/wolf = 1
+		)
+	butcher_difficulty = 1
+
+/mob/living/simple_animal/cow/brahmin/Ronda
+	name = "Ronda"
+	desc = "A Young female nightstalker adopted by the legion, Has plenty of potential."
+	icon = 'icons/fallout/mobs/animals/nightstalker.dmi'
+	icon_state = "nightstalker-legion"
+	icon_living = "nightstalker-legion"
+	icon_dead = "nightstalker-legion-dead"
+	speak = list("*shiss","*gnarl","*bark")
+	speak_emote = list("barks","hisses")
+	emote_hear = list("perks its head up.")
+	emote_see = list("stares.")
+	speak_chance = 1
+	turns_per_move = -1 //no random movement
+	see_in_dark = 6
+	health = 120
+	maxHealth = 120
+	ride_move_delay = 1.8
+	can_ghost_into = FALSE
+	response_help_continuous  = "pets"
+	response_help_simple = "pet"
+	response_disarm_continuous = "gently pushes aside"
+	response_disarm_simple = "gently push aside"
+	response_harm_continuous = "bites"
+	response_harm_simple = "bites"
+	attack_verb_continuous = "bites"
+	attack_verb_simple = "bite"
+	waddle_amount = 3
+	waddle_up_time = 1
+	waddle_side_time = 2
+	attack_sound = 'sound/weapons/punch1.ogg'
+	young_type = /mob/living/simple_animal/hostile/retaliate/legionstalker
+	food_types = list(
+		/obj/item/reagent_containers/food/snacks/meat/slab,
+		/obj/item/reagent_containers/food/snacks/meat/slab/gecko,
+		/obj/item/reagent_containers/food/snacks/meat/slab/human,
+		/obj/item/reagent_containers/food/snacks/meat/slab/human/mutant,
+		/obj/item/reagent_containers/food/snacks/meat/slab/chicken,
+		/obj/item/reagent_containers/food/snacks/meat/slab/molerat,
+		/obj/item/reagent_containers/food/snacks/meat/slab/mirelurk,
+		/obj/item/reagent_containers/food/snacks/meat/slab/ant_meat,
+		/obj/item/reagent_containers/food/snacks/meat/slab/fireant_meat,
+		/obj/item/reagent_containers/food/snacks/meat/slab/bloatfly_meat,
+		/obj/item/reagent_containers/food/snacks/meat/slab/radscorpion_meat,
+		/obj/item/reagent_containers/food/snacks/meat/slab/cazador_meat,
+		/obj/item/reagent_containers/food/snacks/f13/canned/dog
+		)
+	milk_reagent = /datum/reagent/toxin
+	ride_offsets = list(
+		"1" = list(15, 8),
+		"2" = list(15, 8),
+		"4" = list(15, 8),
+		"8" = list(15, 8)
+		)
+	guaranteed_butcher_results = list(
+		/obj/item/reagent_containers/food/snacks/meat/slab/nightstalker_meat = 2,
+		/obj/item/stack/sheet/sinew = 2,
+		/obj/item/stack/sheet/bone = 2
+		)
+	butcher_results = list(
+		/obj/item/clothing/head/f13/stalkerpelt = 1,
+		/obj/item/reagent_containers/food/snacks/meat/slab/nightstalker_meat = 1
+		)
+	butcher_difficulty = 1
+
+/mob/living/simple_animal/cow/brahmin/Vita
+	name = "Vita"
+	desc = "The legion's premiere breeding hound, One tough bitch."
+	icon = 'icons/fallout/mobs/animals/dogs.dmi'
+	icon_state = "legiondog"
+	icon_living = "legiondog"
+	icon_dead = "legiondog_dead"
+	icon_gib = "gib"
+	speak = list("*gnarl","*bark")
+	speak_emote = list("barks","growls")
+	emote_hear = list("perks its head up.")
+	emote_see = list("stares.")
+	speak_chance = 1
+	turns_per_move = 2
+	see_in_dark = 4
+	health = 150
+	maxHealth = 150
+	ride_move_delay = 1.8
+	can_ghost_into = FALSE
+	response_help_continuous  = "pat"
+	response_help_simple = "pet"
+	response_disarm_continuous = "gently pushes aside"
+	response_disarm_simple = "gently push aside"
+	response_harm_continuous = "bites"
+	response_harm_simple = "bites"
+	attack_verb_continuous = "bites"
+	attack_verb_simple = "bite"
+	waddle_amount = 3
+	waddle_up_time = 1
+	waddle_side_time = 2
+	attack_sound = 'sound/weapons/punch1.ogg'
+	young_type = /mob/living/simple_animal/hostile/retaliate/legionhound
+	food_types = list(
+		/obj/item/reagent_containers/food/snacks/meat/slab,
+		/obj/item/reagent_containers/food/snacks/meat/slab/gecko,
+		/obj/item/reagent_containers/food/snacks/meat/slab/human,
+		/obj/item/reagent_containers/food/snacks/meat/slab/human/mutant,
+		/obj/item/reagent_containers/food/snacks/meat/slab/chicken,
+		/obj/item/reagent_containers/food/snacks/meat/slab/molerat,
+		/obj/item/reagent_containers/food/snacks/meat/slab/mirelurk,
+		/obj/item/reagent_containers/food/snacks/meat/slab/ant_meat,
+		/obj/item/reagent_containers/food/snacks/meat/slab/fireant_meat,
+		/obj/item/reagent_containers/food/snacks/meat/slab/bloatfly_meat,
+		/obj/item/reagent_containers/food/snacks/meat/slab/radscorpion_meat,
+		/obj/item/reagent_containers/food/snacks/meat/slab/cazador_meat,
+		/obj/item/reagent_containers/food/snacks/f13/canned/dog
+		)
+	milk_reagent = /datum/reagent/toxin
+	ride_offsets = list(
+		"1" = list(15, 8),
+		"2" = list(15, 8),
+		"4" = list(15, 8),
+		"8" = list(15, 8)
+		)
+	guaranteed_butcher_results = list(
+		/obj/item/reagent_containers/food/snacks/meat/slab/wolf = 2,
+		/obj/item/stack/sheet/sinew = 2,
+		/obj/item/stack/sheet/bone = 2
+		)
+	butcher_results = list(
+		/obj/item/stack/sheet/animalhide/wolf = 1,
+		/obj/item/reagent_containers/food/snacks/meat/slab/wolf = 1
+		)
+	butcher_difficulty = 1
+
+/mob/living/simple_animal/cow/brahmin/mary
+	name = "Mary"
+	desc = "A retired guard dog, Now helps the army by making more like herself."
+	icon = 'icons/fallout/mobs/animals/dogs.dmi'
+	icon_state = "tippen"
+	icon_living = "tippen"
+	icon_dead = "tippen_dead"
+	icon_gib = "gib"
+	speak = list("*gnarl","*bark")
+	speak_emote = list("barks","growls")
+	emote_hear = list("perks its head up.")
+	emote_see = list("stares.")
+	speak_chance = 1
+	turns_per_move = -1
+	see_in_dark = 6
+	health = 60
+	maxHealth = 60
+	ride_move_delay = 1.8
+	can_ghost_into = FALSE
+	response_help_continuous  = "pat"
+	response_help_simple = "pet"
+	response_disarm_continuous = "gently pushes aside"
+	response_disarm_simple = "gently push aside"
+	response_harm_continuous = "bites"
+	response_harm_simple = "bites"
+	attack_verb_continuous = "bites"
+	attack_verb_simple = "bite"
+	waddle_amount = 3
+	waddle_up_time = 1
+	waddle_side_time = 2
+	attack_sound = 'sound/weapons/punch1.ogg'
+	young_type = /mob/living/simple_animal/hostile/retaliate/ncrguarddog
+	food_types = list(
+		/obj/item/reagent_containers/food/snacks/meat/slab,
+		/obj/item/reagent_containers/food/snacks/meat/slab/gecko,
+		/obj/item/reagent_containers/food/snacks/meat/slab/human,
+		/obj/item/reagent_containers/food/snacks/meat/slab/human/mutant,
+		/obj/item/reagent_containers/food/snacks/meat/slab/chicken,
+		/obj/item/reagent_containers/food/snacks/meat/slab/molerat,
+		/obj/item/reagent_containers/food/snacks/meat/slab/mirelurk,
+		/obj/item/reagent_containers/food/snacks/meat/slab/ant_meat,
+		/obj/item/reagent_containers/food/snacks/meat/slab/fireant_meat,
+		/obj/item/reagent_containers/food/snacks/meat/slab/bloatfly_meat,
+		/obj/item/reagent_containers/food/snacks/meat/slab/radscorpion_meat,
+		/obj/item/reagent_containers/food/snacks/meat/slab/cazador_meat,
+		/obj/item/reagent_containers/food/snacks/f13/canned/dog
+		)
+	milk_reagent = /datum/reagent/toxin
+	ride_offsets = list(
+		"1" = list(15, 8),
+		"2" = list(15, 8),
+		"4" = list(15, 8),
+		"8" = list(15, 8)
+		)
+	guaranteed_butcher_results = list(
+		/obj/item/reagent_containers/food/snacks/meat/slab/wolf = 2,
+		/obj/item/stack/sheet/sinew = 2,
+		/obj/item/stack/sheet/bone = 2
+		)
+	butcher_results = list(
+		/obj/item/stack/sheet/animalhide/wolf = 1,
+		/obj/item/reagent_containers/food/snacks/meat/slab/wolf = 1
+		)
+	butcher_difficulty = 1
+
+/mob/living/simple_animal/cow/brahmin/luna
+	name = "Luna"
+	desc = "One of the NCRA's most capable breeding dogs, Mother of many decorated guard dogs."
+	icon = 'icons/fallout/mobs/animals/dogs.dmi'
+	icon_state = "tippen"
+	icon_living = "tippen"
+	icon_dead = "tippen_dead"
+	icon_gib = "gib"
+	speak = list("*gnarl","*bark")
+	speak_emote = list("barks","growls")
+	emote_hear = list("perks its head up.")
+	emote_see = list("stares.")
+	speak_chance = 1
+	turns_per_move = 4
+	see_in_dark = 6
+	health = 70
+	maxHealth = 70
+	ride_move_delay = 1.8
+	can_ghost_into = FALSE
+	response_help_continuous  = "pat"
+	response_help_simple = "pet"
+	response_disarm_continuous = "gently pushes aside"
+	response_disarm_simple = "gently push aside"
+	response_harm_continuous = "bites"
+	response_harm_simple = "bites"
+	attack_verb_continuous = "bites"
+	attack_verb_simple = "bite"
+	waddle_amount = 3
+	waddle_up_time = 1
+	waddle_side_time = 2
+	attack_sound = 'sound/weapons/punch1.ogg'
+	young_type = /mob/living/simple_animal/hostile/retaliate/ncrguarddog
+	food_types = list(
+		/obj/item/reagent_containers/food/snacks/meat/slab,
+		/obj/item/reagent_containers/food/snacks/meat/slab/gecko,
+		/obj/item/reagent_containers/food/snacks/meat/slab/human,
+		/obj/item/reagent_containers/food/snacks/meat/slab/human/mutant,
+		/obj/item/reagent_containers/food/snacks/meat/slab/chicken,
+		/obj/item/reagent_containers/food/snacks/meat/slab/molerat,
+		/obj/item/reagent_containers/food/snacks/meat/slab/mirelurk,
+		/obj/item/reagent_containers/food/snacks/meat/slab/ant_meat,
+		/obj/item/reagent_containers/food/snacks/meat/slab/fireant_meat,
+		/obj/item/reagent_containers/food/snacks/meat/slab/bloatfly_meat,
+		/obj/item/reagent_containers/food/snacks/meat/slab/radscorpion_meat,
+		/obj/item/reagent_containers/food/snacks/meat/slab/cazador_meat,
+		/obj/item/reagent_containers/food/snacks/f13/canned/dog
+		)
+	milk_reagent = /datum/reagent/toxin
+	ride_offsets = list(
+		"1" = list(15, 8),
+		"2" = list(15, 8),
+		"4" = list(15, 8),
+		"8" = list(15, 8)
+		)
+	guaranteed_butcher_results = list(
+		/obj/item/reagent_containers/food/snacks/meat/slab/wolf = 2,
+		/obj/item/stack/sheet/sinew = 2,
+		/obj/item/stack/sheet/bone = 2
+		)
+	butcher_results = list(
+		/obj/item/stack/sheet/animalhide/wolf = 1,
+		/obj/item/reagent_containers/food/snacks/meat/slab/wolf = 1
+		)
+	butcher_difficulty = 1
+
+/mob/living/simple_animal/cow/brahmin/abigail
+	name = "Abigail"
+	desc = "The ranger's one and only sweetheart, The toughest bitch you'll ever see."
+	icon = 'icons/fallout/mobs/animals/dogs.dmi'
+	icon_state = "shepherd"
+	icon_living = "shepherd"
+	icon_dead = "shepherd_dead"
+	icon_gib = "gib"
+	speak = list("*gnarl","*bark")
+	speak_emote = list("barks","growls")
+	emote_hear = list("perks its head up.")
+	emote_see = list("stares.")
+	speak_chance = 1
+	turns_per_move = 5
+	see_in_dark = 6
+	health = 200
+	maxHealth = 200
+	ride_move_delay = 1.8
+	can_ghost_into = FALSE
+	response_help_continuous  = "pat"
+	response_help_simple = "pet"
+	response_disarm_continuous = "gently pushes aside"
+	response_disarm_simple = "gently push aside"
+	response_harm_continuous = "bites"
+	response_harm_simple = "bites"
+	attack_verb_continuous = "bites"
+	attack_verb_simple = "bite"
+	waddle_amount = 3
+	waddle_up_time = 1
+	waddle_side_time = 2
+	attack_sound = 'sound/weapons/punch1.ogg'
+	young_type = /mob/living/simple_animal/hostile/retaliate/ncrattackdog
+	food_types = list(
+		/obj/item/reagent_containers/food/snacks/meat/slab,
+		/obj/item/reagent_containers/food/snacks/meat/slab/gecko,
+		/obj/item/reagent_containers/food/snacks/meat/slab/human,
+		/obj/item/reagent_containers/food/snacks/meat/slab/human/mutant,
+		/obj/item/reagent_containers/food/snacks/meat/slab/chicken,
+		/obj/item/reagent_containers/food/snacks/meat/slab/molerat,
+		/obj/item/reagent_containers/food/snacks/meat/slab/mirelurk,
+		/obj/item/reagent_containers/food/snacks/meat/slab/ant_meat,
+		/obj/item/reagent_containers/food/snacks/meat/slab/fireant_meat,
+		/obj/item/reagent_containers/food/snacks/meat/slab/bloatfly_meat,
+		/obj/item/reagent_containers/food/snacks/meat/slab/radscorpion_meat,
+		/obj/item/reagent_containers/food/snacks/meat/slab/cazador_meat,
+		/obj/item/reagent_containers/food/snacks/f13/canned/dog
+		)
+	milk_reagent = /datum/reagent/toxin
+	ride_offsets = list(
+		"1" = list(15, 8),
+		"2" = list(15, 8),
+		"4" = list(15, 8),
+		"8" = list(15, 8)
+		)
+	guaranteed_butcher_results = list(
+		/obj/item/reagent_containers/food/snacks/meat/slab/wolf = 2,
+		/obj/item/stack/sheet/sinew = 2,
+		/obj/item/stack/sheet/bone = 2
+		)
+	butcher_results = list(
+		/obj/item/stack/sheet/animalhide/wolf = 1,
+		/obj/item/reagent_containers/food/snacks/meat/slab/wolf = 1
+		)
+	butcher_difficulty = 1
+
+/mob/living/simple_animal/cow/brahmin/camilla
+	name = "Camilla"
+	desc = "One cute gal, here to give you and your army everything you need."
+	icon = 'icons/fallout/mobs/monsters/freaks.dmi'
+	icon_state = "centaur"
+	icon_living = "centaur"
+	icon_dead = "centaur_dead"
+	icon_gib = "centaur_g"
+	speak = list("*growl")
+	speak_emote = list("gurgles","growls")
+	emote_hear = list("perks its head up.")
+	emote_see = list("stares.")
+	speak_chance = 1
+	turns_per_move = 8
+	see_in_dark = 6
+	health = 70
+	maxHealth = 70
+	ride_move_delay = 1.8
+	can_ghost_into = FALSE
+	response_help_continuous  = "pat"
+	response_help_simple = "pet"
+	response_disarm_continuous = "gently pushes aside"
+	response_disarm_simple = "gently push aside"
+	response_harm_continuous = "bites"
+	response_harm_simple = "bites"
+	attack_verb_continuous = "bites"
+	attack_verb_simple = "bite"
+	waddle_amount = 3
+	waddle_up_time = 1
+	waddle_side_time = 2
+	attack_sound = 'sound/weapons/punch1.ogg'
+	young_type = /mob/living/simple_animal/hostile/retaliate/tamedcentaur
+	food_types = list(
+		/obj/item/reagent_containers/food/snacks/meat/slab,
+		/obj/item/reagent_containers/food/snacks/meat/slab/gecko,
+		/obj/item/reagent_containers/food/snacks/meat/slab/human,
+		/obj/item/reagent_containers/food/snacks/meat/slab/human/mutant,
+		/obj/item/reagent_containers/food/snacks/meat/slab/chicken,
+		/obj/item/reagent_containers/food/snacks/meat/slab/molerat,
+		/obj/item/reagent_containers/food/snacks/meat/slab/mirelurk,
+		/obj/item/reagent_containers/food/snacks/meat/slab/ant_meat,
+		/obj/item/reagent_containers/food/snacks/meat/slab/fireant_meat,
+		/obj/item/reagent_containers/food/snacks/meat/slab/bloatfly_meat,
+		/obj/item/reagent_containers/food/snacks/meat/slab/radscorpion_meat,
+		/obj/item/reagent_containers/food/snacks/meat/slab/cazador_meat,
+		/obj/item/reagent_containers/food/snacks/f13/canned/dog
+		)
+	milk_reagent = /datum/reagent/toxin
+	ride_offsets = list(
+		"1" = list(15, 8),
+		"2" = list(15, 8),
+		"4" = list(15, 8),
+		"8" = list(15, 8)
+		)
+	guaranteed_butcher_results = list(
+		/obj/item/reagent_containers/food/snacks/meat/slab/human/centaur = 3,
+		/obj/item/stack/sheet/sinew = 4,
+		/obj/item/stack/sheet/bone = 4
+		)
+	butcher_results = list(
+		/obj/item/stack/sheet/animalhide/human = 1,
+		/obj/item/reagent_containers/food/snacks/meat/slab/human/centaur = 1
+		)
+	butcher_difficulty = 1
+
+/mob/living/simple_animal/cow/brahmin/rochelle
+	name = "Rochelle"
+	desc = "The town's big mama, Some say that 1 in every 3 radroaches in Pahrump are related to her."
+	icon = 'icons/fallout/mobs/animals/insects.dmi'
+	icon_state = "radroach"
+	icon_living = "radroach"
+	icon_dead = "radroach_dead"
+	icon_gib = "radroach_gib"
+	speak = list("*flickers","*skitters")
+	speak_emote = list("hisses")
+	emote_hear = list("perks its head up.")
+	emote_see = list("stares.")
+	speak_chance = 1
+	turns_per_move = 6
+	see_in_dark = 6
+	health = 70
+	maxHealth = 70
+	ride_move_delay = 1.8
+	can_ghost_into = FALSE
+	response_help_continuous  = "pat"
+	response_help_simple = "pet"
+	response_disarm_continuous = "gently pushes aside"
+	response_disarm_simple = "gently push aside"
+	response_harm_continuous = "bites"
+	response_harm_simple = "bites"
+	attack_verb_continuous = "bites"
+	attack_verb_simple = "bite"
+	waddle_amount = 3
+	waddle_up_time = 1
+	waddle_side_time = 2
+	attack_sound = 'sound/weapons/punch1.ogg'
+	young_type = /mob/living/simple_animal/hostile/retaliate/tamedradroach
+	food_types = list(
+		/obj/item/reagent_containers/food/snacks/meat/slab,
+		/obj/item/reagent_containers/food/snacks/meat/slab/gecko,
+		/obj/item/reagent_containers/food/snacks/meat/slab/human,
+		/obj/item/reagent_containers/food/snacks/meat/slab/human/mutant,
+		/obj/item/reagent_containers/food/snacks/meat/slab/chicken,
+		/obj/item/reagent_containers/food/snacks/meat/slab/molerat,
+		/obj/item/reagent_containers/food/snacks/meat/slab/mirelurk,
+		/obj/item/reagent_containers/food/snacks/meat/slab/ant_meat,
+		/obj/item/reagent_containers/food/snacks/meat/slab/fireant_meat,
+		/obj/item/reagent_containers/food/snacks/meat/slab/bloatfly_meat,
+		/obj/item/reagent_containers/food/snacks/meat/slab/radscorpion_meat,
+		/obj/item/reagent_containers/food/snacks/meat/slab/cazador_meat,
+		/obj/item/reagent_containers/food/snacks/f13/canned/dog
+		)
+	milk_reagent = /datum/reagent/toxin
+	ride_offsets = list(
+		"1" = list(15, 8),
+		"2" = list(15, 8),
+		"4" = list(15, 8),
+		"8" = list(15, 8)
+		)
+	guaranteed_butcher_results = list(
+		/obj/item/reagent_containers/food/snacks/meat/slab/radroach_meat = 2,
+		)
+	butcher_results = list(
+		/obj/item/stack/sheet/animalhide/chitin = 3,
+		/obj/item/reagent_containers/food/snacks/meat/slab/radroach_meat = 1
+		)
+	butcher_difficulty = 1
+
+/mob/living/simple_animal/cow/brahmin/rochelle/roachmother
+	name = "Radroach Broodmother"
+	desc = "One of Rochelle's daughters, Following in their mother's example."
+	health = 50
+	maxHealth = 50
 
 	/*
 /obj/item/brahminbags

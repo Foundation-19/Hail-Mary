@@ -1126,9 +1126,9 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 
 /datum/quirk/crittermaster
 	name = "Beast Master - Small Critters"
-	desc = "Whenever by psychic means or not, you gained ability to control roaches, most geckos and molerats (last ones will be initially hostile and needs to be tamed).\
-	<br>Taming will make them passive toward other players and tamed fauna. Young and adult nightstalkers can be also tamed, but not controlled."
-	value = 4
+	desc = "Whenever by psychic means or not, you gained ability to control roaches, Bloatflies, Feral dogs, Geckos and molerats\
+	<br>You will need to use your Cattle Prod to make them passive toward other players and tamed fauna, Young and adult nightstalkers can be also tamed, But adults not controlled, You can also use this to control Faction-Aligned Beasts, But only if you share said alignment"
+	value = 5
 	mob_trait = TRAIT_BEASTMASTER_SMALLCRITTER
 	gain_text = span_notice("You tapped to potentials of the critter horde!")
 	lose_text = span_danger("Small critters refuse to obey your commands now.")
@@ -1136,6 +1136,16 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	var/obj/effect/proc_holder/mob_common/taming_mobs/small_critter/tame
 	var/obj/effect/proc_holder/mob_common/summon_backup/beastmaster/small_critter/gather
 	var/obj/effect/proc_holder/mob_common/direct_mobs/beastmaster/small_critter/moveto
+
+/datum/quirk/crittermaster/on_spawn()
+	var/mob/living/carbon/human/H = quirk_holder
+	var/obj/item/melee/onehanded/dogwhip/dogwhip = new(get_turf(H))
+	H.put_in_hands(dogwhip)
+	H.equip_to_slot_if_possible(dogwhip, SLOT_IN_BACKPACK)
+	var/obj/item/melee/onehanded/dogprod/dogprod = new(get_turf(H))
+	H.put_in_hands(dogprod)
+	H.equip_to_slot_if_possible(dogprod, SLOT_IN_BACKPACK)
+	H.regenerate_icons()
 
 /datum/quirk/crittermaster/add()
 	var/mob/living/carbon/human/H = quirk_holder

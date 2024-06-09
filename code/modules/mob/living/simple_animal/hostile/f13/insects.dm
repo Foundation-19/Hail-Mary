@@ -574,3 +574,57 @@
 
 /mob/living/simple_animal/hostile/radroach/jungle
 	faction = list("gecko", "critter-friend", "jungle")
+
+/mob/living/simple_animal/hostile/retaliate/tamedradroach
+	name = "Tamed radroach"
+	desc = "Easy to find, Easy to mass-produce, The APEX of cannon-foddery."
+	icon = 'icons/fallout/mobs/animals/insects.dmi'
+	icon_state = "radroach"
+	icon_living = "radroach"
+	icon_dead = "radroach_dead"
+	icon_gib = "radroach_gib"
+	can_ghost_into = TRUE
+	waddle_amount = 1
+	waddle_up_time = 1
+	waddle_side_time = 1
+	speed = 2
+	maxHealth = 35
+	health = 35
+	harm_intent_damage = 8
+	obj_damage = 20
+	melee_damage_lower = 5
+	melee_damage_upper = 10
+	mob_biotypes = MOB_ORGANIC|MOB_BEAST
+	speak_chance = 0
+	turns_per_move = 5
+	guaranteed_butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab/radroach_meat = 2, /obj/item/stack/sheet/sinew = 1)
+	butcher_results = list(/obj/item/stack/sheet/animalhide/chitin = 1)
+	butcher_difficulty = 1.5
+	response_help_simple = "pet"
+	response_disarm_simple = "gently pushes aside"
+	response_harm_simple = "hits"
+	attack_verb_simple = "nips"
+	attack_sound = 'sound/creatures/radroach_attack.ogg'
+	speak_emote = list("skitters")
+	atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0)
+	faction = list(FACTION_EASTWOOD)
+	a_intent = INTENT_HARM
+	pass_flags = PASSTABLE | PASSMOB
+	density = FALSE
+	gold_core_spawnable = HOSTILE_SPAWN
+	randpixel = 12
+	variation_list = list(
+		MOB_COLOR_VARIATION(50, 50, 50, 255, 255, 255),
+		MOB_SPEED_LIST(2.2, 2.3, 2.4, 2.5, 2.6, 2.7, 2.8),
+		MOB_SPEED_CHANGE_PER_TURN_CHANCE(100),
+		MOB_RETREAT_DISTANCE_LIST(0, 2, 3),
+		MOB_RETREAT_DISTANCE_CHANGE_PER_TURN_CHANCE(100),
+		MOB_MINIMUM_DISTANCE_LIST(0, 1, 1),
+		MOB_MINIMUM_DISTANCE_CHANGE_PER_TURN_CHANCE(5),
+	)
+	aggrosound = list('sound/creatures/radroach_chitter.ogg',)
+	idlesound = list('sound/f13npc/roach/idle1.ogg', 'sound/f13npc/roach/idle2.ogg', 'sound/f13npc/roach/idle3.ogg',)
+	death_sound = 'sound/f13npc/roach/roach_death.ogg'
+	desc_short = "One of countless bugs that move in gross hordes."
+	pop_required_to_jump_into = SMALL_MOB_MIN_PLAYERS
+
