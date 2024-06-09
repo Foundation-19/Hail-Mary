@@ -24491,13 +24491,6 @@
 	icon_state = "dirt"
 	},
 /area/f13/wasteland)
-"dVw" = (
-/obj/structure/fermenting_barrel/broc/xander,
-/turf/open/indestructible/ground/outside/desert/sonora{
-	dir = 4;
-	icon_state = "desertsmooth5"
-	},
-/area/f13/wasteland)
 "dVU" = (
 /obj/machinery/light/small,
 /turf/open/indestructible/ground/outside/water{
@@ -49906,13 +49899,6 @@
 	},
 /turf/open/indestructible/ground/outside/desert,
 /area/f13/wasteland)
-"olN" = (
-/obj/structure/fermenting_barrel/broc,
-/turf/open/indestructible/ground/outside/desert/sonora{
-	dir = 4;
-	icon_state = "desertsmooth3"
-	},
-/area/f13/wasteland)
 "omb" = (
 /turf/open/indestructible/ground/outside/dirt{
 	dir = 8;
@@ -50052,13 +50038,6 @@
 /obj/item/storage/lockbox,
 /turf/open/floor/plasteel/vault,
 /area/f13/ncr)
-"opr" = (
-/obj/structure/fermenting_barrel/broc/cactus,
-/turf/open/indestructible/ground/outside/desert/sonora{
-	dir = 4;
-	icon_state = "desertsmooth4"
-	},
-/area/f13/wasteland)
 "opv" = (
 /obj/structure/simple_door/house,
 /obj/effect/decal/cleanable/dirt{
@@ -127974,7 +127953,7 @@ fcR
 xaY
 sQy
 vDY
-olN
+sVE
 oXX
 skv
 xwz
@@ -128231,7 +128210,7 @@ xBX
 xWo
 qqE
 vDY
-dVw
+xJd
 eov
 skv
 xwz
@@ -128488,7 +128467,7 @@ xaY
 aii
 qqE
 vDY
-opr
+dJF
 uVZ
 skv
 xwz
