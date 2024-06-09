@@ -26,15 +26,31 @@
 		/mob/living/simple_animal/hostile/gecko,\
 		/mob/living/simple_animal/hostile/gecko/legacy,\
 		/mob/living/simple_animal/hostile/gecko/fire,\
+		/mob/living/simple_animal/hostile/gecko/legacy/alpha,\
+		/mob/living/simple_animal/hostile/gecko/big,\
 		/mob/living/simple_animal/hostile/molerat,\
+		/mob/living/simple_animal/hostile/bloatfly,\
+		/mob/living/simple_animal/hostile/wolf, \
+		/mob/living/simple_animal/hostile/wolf/alpha, \
 		/mob/living/simple_animal/hostile/radroach)
 
 #define CONTROL_SMALLCRITTER_ALLOWED list(\
 		/mob/living/simple_animal/hostile/gecko,\
-		/mob/living/simple_animal/hostile/gecko,\
+		/mob/living/simple_animal/hostile/stalkeryoung,\
 		/mob/living/simple_animal/hostile/gecko/legacy,\
 		/mob/living/simple_animal/hostile/gecko/fire,\
+		/mob/living/simple_animal/hostile/gecko/legacy/alpha,\
+		/mob/living/simple_animal/hostile/gecko/big,\
 		/mob/living/simple_animal/hostile/molerat,\
+		/mob/living/simple_animal/hostile/bloatfly,\
+		/mob/living/simple_animal/hostile/wolf, \
+		/mob/living/simple_animal/hostile/wolf/alpha, \
+		/mob/living/simple_animal/hostile/retaliate/legionstalker, \
+		/mob/living/simple_animal/hostile/retaliate/legionhound, \
+		/mob/living/simple_animal/hostile/retaliate/ncrguarddog, \
+		/mob/living/simple_animal/hostile/retaliate/ncrattackdog, \
+		/mob/living/simple_animal/hostile/retaliate/tamedcentaur, \
+		/mob/living/simple_animal/hostile/retaliate/tamedradroach, \
 		/mob/living/simple_animal/hostile/radroach)
 
 
@@ -480,14 +496,14 @@
 				M.do_alert_animation(M)
 				user.show_message(span_notice("The <i><b>[M.name]</b></i> ain't that simple..."))
 				continue
-			if("neutral" in M.faction) // Mob is already tamed, or just don't need to be (e.g. curious mice)
+			if("critter-friend" in M.faction) // Mob is already tamed, or just don't need to be (e.g. curious mice)
 				continue
 			if(prob(35)) // Failure chance
 				M.do_alert_animation(M)
 				user.show_message(span_red("The <b>[M.name]</b> wasn't tamed."))
 				COOLDOWN_START(src, taming_cooldown, 30 SECONDS)
 				continue
-			M.faction |= "neutral" // Kinda want to perserve some of F3/NV behavior of tamed not helping with other/same-faction animal
+			M.faction |= "critter-friend" 
 			user.show_message(span_green("The <b>[M.name]</b> is tamed!"))
 			M.name = "tamed [initial(M.name)]"
 			M.desc = "[initial(M.desc)] This one appears to be tame."

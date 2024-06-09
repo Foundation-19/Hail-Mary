@@ -426,7 +426,7 @@
 	aggro_vision_range = 7
 	vision_range = 9
 	
-	faction = list("gecko")
+	faction = list("gecko", "critter-friend")
 	a_intent = INTENT_HARM
 	gold_core_spawnable = HOSTILE_SPAWN
 	footstep_type = FOOTSTEP_MOB_CLAW
@@ -494,7 +494,7 @@
 	vision_range = 4
 
 
-	faction = list("gecko")
+	faction = list("gecko", "critter-friend")
 	a_intent = INTENT_HARM
 	gold_core_spawnable = HOSTILE_SPAWN
 	footstep_type = FOOTSTEP_MOB_HEAVY
@@ -642,7 +642,7 @@
 	attack_sound = 'sound/creatures/nightstalker_bite.ogg'
 	speak_emote = list("growls")
 	atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0)
-	faction = list("nightstalkers")
+	faction = list("nightstalkers", "critter-friend")
 	gold_core_spawnable = HOSTILE_SPAWN
 	a_intent = INTENT_HARM
 	footstep_type = FOOTSTEP_MOB_CLAW
@@ -675,6 +675,64 @@
 	icon_state = "nightstalker-legion"
 	icon_living = "nightstalker-legion"
 	icon_dead = "nightstalker-legion-dead"
+
+/mob/living/simple_animal/hostile/retaliate/legionstalker
+	name = "Legionstalker"
+	desc = "A nightstalker bred specifically for the legion under the use of combat and companionship. legionstalkers have the body and loyalty of a canine but the agility and deadlyness of rattlesnake."
+	icon = 'icons/fallout/mobs/animals/nightstalker.dmi'
+	icon_state = "nightstalker-legion"
+	icon_living = "nightstalker-legion"
+	icon_dead = "nightstalker-legion-dead"
+	icon_gib = null
+	mob_biotypes = MOB_ORGANIC|MOB_BEAST
+	speak_chance = 0
+	stat_attack = UNCONSCIOUS
+	turns_per_move = 3
+	move_to_delay = 1
+	retreat_distance = 0
+	minimum_distance = 0
+	aggro_vision_range = 7
+	vision_range = 8
+	guaranteed_butcher_results = list(
+		/obj/item/reagent_containers/food/snacks/meat/slab/nightstalker_meat = 2,
+		/obj/item/stack/sheet/sinew = 2,
+		/obj/item/stack/sheet/bone = 2
+		)
+	butcher_results = list(
+		/obj/item/clothing/head/f13/stalkerpelt = 1,
+		/obj/item/reagent_containers/food/snacks/meat/slab/nightstalker_meat = 1
+		)
+	butcher_difficulty = 3
+	response_help_simple = "pet"
+	response_disarm_simple = "gently pushes aside"
+	response_harm_simple = "bites"
+	emote_taunt = list("growls")
+	taunt_chance = 30
+	speed = 1
+	maxHealth = 110
+	health = 110
+	harm_intent_damage = 8
+	obj_damage = 15
+	melee_damage_lower = 15
+	melee_damage_upper = 20
+	attack_verb_simple = "bites"
+	attack_sound = 'sound/creatures/nightstalker_bite.ogg'
+	speak_emote = list("growls")
+	atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0)
+	faction = list(FACTION_LEGION)
+	friends = list(FACTION_LEGION)
+	gold_core_spawnable = HOSTILE_SPAWN
+	a_intent = INTENT_HARM
+	footstep_type = FOOTSTEP_MOB_CLAW
+	waddle_amount = 2
+	waddle_up_time = 1
+	waddle_side_time = 1
+
+/mob/living/simple_animal/hostile/retaliate/legionstalker/AttackingTarget()
+	. = ..()
+	if(. && ishuman(target))
+		var/mob/living/carbon/human/H = target
+		H.reagents.add_reagent(/datum/reagent/toxin/cazador_venom, 6)
 
 // NIGHTSTALKER CUB
 /mob/living/simple_animal/hostile/stalkeryoung
@@ -802,7 +860,7 @@
 	attack_sound = 'sound/creatures/molerat_attack.ogg'
 	speak_emote = list("chitters")
 	atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0)
-	faction = list("hostile", "gecko")
+	faction = list("hostile", "gecko", "critter-friend")
 	gold_core_spawnable = HOSTILE_SPAWN
 	a_intent = INTENT_HARM
 

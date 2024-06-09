@@ -664,6 +664,28 @@ obj/item/melee/onehanded/knife/switchblade
 		return
 	M.apply_damage(20, STAMINA, null, 0)
 
+/obj/item/melee/onehanded/dogwhip
+	name = "Dog whip"
+	desc = "Used to get beasts into action."
+	icon_state = "whip"
+	item_state = "chain"
+	force = 1
+	attack_verb = list("riled", "encouraged")
+	hitsound = 'sound/weapons/whip.ogg'
+
+/obj/item/melee/onehanded/dogprod
+	name = "Cattle prod"
+	desc = "Used to get beasts in line, Will make them hesitant until you encourage them again, Doesn't really work on people."
+	icon = 'icons/fallout/objects/melee/melee.dmi'
+	icon_state = "stunprod"
+	item_state = "stunprod"
+	force = 1
+	attack_verb = list("shocked", "zapped", "prodded")
+	hitsound = 'sound/weapons/egloves.ogg'
+	lefthand_file = 'icons/mob/inhands/weapons/melee_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons/melee_righthand.dmi'
+
+
 ///////////////////
 // GLOVE WEAPONS //
 ///////////////////		-faster attack speed

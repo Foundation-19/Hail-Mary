@@ -76,6 +76,58 @@
 	armour_penetration = 0.1
 
 
+/mob/living/simple_animal/hostile/retaliate/tamedcentaur
+	name = "tamed centaur"
+	desc = "A super mutant's best friend, Will only obey the leader or one of his soldiers."
+	icon = 'icons/fallout/mobs/monsters/freaks.dmi'
+	icon_state = "centaur"
+	icon_living = "centaur"
+	icon_dead = "centaur_dead"
+	icon_gib = "centaur_g"
+	tastes = list("sadness" = 1, "nastyness" = 1)
+	can_ghost_into = TRUE
+	maxHealth = 130
+	sentience_type = SENTIENCE_BOSS
+	health = 130
+	speed = 3
+	harm_intent_damage = 8
+	melee_damage_lower = 15
+	melee_damage_upper = 20 
+	ranged = TRUE
+	wound_bonus = 0
+	footstep_type = FOOTSTEP_MOB_CRAWL
+	mob_biotypes = MOB_ORGANIC|MOB_HUMANOID
+	robust_searching = TRUE
+	move_to_delay = 4
+	retreat_distance = 0
+	minimum_distance = 0 
+	aggro_vision_range = 7 
+	vision_range = 7 
+	turns_per_move = 5
+	speak_emote = list("growls")
+	emote_see = list("screeches", "screams", "howls", "bellows", "flails", "fidgets", "festers")
+	a_intent = INTENT_HARM
+	attack_verb_simple = list("whipped", "whacked", "whomped", "wailed on", "smacked", "smashed", "bapped")
+	atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0)
+	unsuitable_atmos_damage = 20
+	stat_attack = CONSCIOUS
+	gold_core_spawnable = HOSTILE_SPAWN
+	faction = list(FACTION_SMUTANT)
+	guaranteed_butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab/human/centaur = 3,
+							/obj/item/stack/sheet/animalhide/human = 2,
+							/obj/item/stack/sheet/bone = 2)
+	projectiletype = /obj/item/projectile/neurotox
+	projectilesound = 'sound/f13npc/centaur/spit.ogg'
+	emote_taunt_sound = list('sound/f13npc/centaur/taunt.ogg')
+	emote_taunt = list("grunts", "gurgles", "wheezes", "flops", "scrabbles")
+	taunt_chance = 30
+	aggrosound = list('sound/f13npc/centaur/aggro1.ogg', )
+	idlesound = list('sound/f13npc/centaur/idle1.ogg', 'sound/f13npc/centaur/idle2.ogg')
+	death_sound = 'sound/f13npc/centaur/centaur_death.ogg'
+	attack_sound = 'sound/f13npc/centaur/lash.ogg'
+
+
+
 // -----------------------------------
 // ABOMINATION
 
