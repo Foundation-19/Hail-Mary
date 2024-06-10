@@ -215,7 +215,7 @@ Paladin Commander
 	mask = /obj/item/clothing/mask/gas/sechailer
 	ears = /obj/item/radio/headset/headset_bos/command
 	suit = /obj/item/clothing/suit/armor/power_armor/t51b/palcomm
-	head = /obj/item/clothing/head/helmet/f13/power_armor/t51b/palcommhelm
+	head = /obj/item/clothing/head/helmet/f13/power_armor/t51b/palcomm
 	neck = /obj/item/clothing/neck/mantle/bos/paladin
 	backpack_contents = list(
 		/obj/item/melee/onehanded/knife/hunting = 1,
@@ -225,7 +225,7 @@ Paladin Commander
 		/obj/item/reagent_containers/hypospray/medipen/stimpak = 8,
 		)
 
-
+/*
 /datum/outfit/loadout/palcomheavy
 	name = "Heavy Paladin Commander"
 	backpack_contents = list(
@@ -246,7 +246,7 @@ Paladin Commander
 		/obj/item/twohanded/sledgehammer/supersledge = 1,
 		/obj/item/reagent_containers/hypospray/medipen/stimpak/super = 3,
 	)
-
+*/
 /*
 Proctor
 */
