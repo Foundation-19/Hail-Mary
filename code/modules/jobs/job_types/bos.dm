@@ -166,12 +166,12 @@ Paladin Commander
 	selection_color = "#7f8c8d"
 	display_order = JOB_DISPLAY_ORDER_COMMANDER
 	outfit = /datum/outfit/job/bos/f13commander
-	exp_requirements = 2400
+	exp_requirements = 3200
 
-	loadout_options = list(
+	/*loadout_options = list(
 	/datum/outfit/loadout/sentheavy, //Gauss + Glock
 	/datum/outfit/loadout/sentmini //Minigun
-	)
+	)*/
 
 	min_required_special = list(
 		"special_c" = 4,
