@@ -414,6 +414,13 @@
 	name = "T-51b power helmet"
 	desc = "It's a T-51b power helmet, typically used by the Brotherhood. It looks somewhat charming."
 
+/obj/item/clothing/head/helmet/f13/power_armor/t51b/palcomm
+	name = "T-51b Paladin Commander Helmet"
+	desc = "It's a T-51b power helmet, modified uniquely for the Paladin Commander"
+	icon_state = "palcommhelm"
+	item_state = "palcommhelm"
+	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T3, ARMOR_MODIFIER_UP_BULLET_T3, ARMOR_MODIFIER_UP_LASER_T3, ARMOR_MODIFIER_UP_DT_T3)
+
 /obj/item/clothing/head/helmet/f13/power_armor/t51b/bos/update_icon_state()
 	icon_state = "t51bhelmet[light_on]"
 	item_state = "t51bhelmet[light_on]"

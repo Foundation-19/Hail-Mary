@@ -3338,6 +3338,12 @@
 	item_state = "t51green"
 	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T2, ARMOR_MODIFIER_UP_BULLET_T2, ARMOR_MODIFIER_UP_LASER_T2, ARMOR_MODIFIER_UP_DT_T2)
 
+/obj/item/clothing/suit/armor/power_armor/t51b/palcomm
+	name = "T-51b Paladin Commander Armor"
+	desc = "The pinnacle of pre-war technology. This suit of power armor is customised heavily to fit the Paladin Commander."
+	icon_state = "t51palcomm"
+	item_state = "t51palcomm"
+	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T3, ARMOR_MODIFIER_UP_BULLET_T3, ARMOR_MODIFIER_UP_LASER_T3, ARMOR_MODIFIER_UP_DT_T3)
 
 /obj/item/clothing/suit/armor/power_armor/t51b/bos
 	name = "Brotherhood T-51b Power Armour"

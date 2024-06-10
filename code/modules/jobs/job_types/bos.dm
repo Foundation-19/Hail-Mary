@@ -156,13 +156,13 @@ Paladin Commander
 */
 
 /datum/job/bos/f13paladincommander
-	title = "Head Paladin"
+	title = "Paladin Commander"
 	flag = F13PALADINCOMMANDER
 	head_announce = list("Security")
 	total_positions = 0
 	spawn_positions = 0
-	description = "You are the acting field commander until the Brotherhood regains its strength enough to place an Elder for the bunker. You are a veteran of many battles and sorties in pursuit of Brotherhood goals; your only weakness may just be your hubris. Your main goals are defense of the Chapter and surveillance of the surrounding region for technology."
-	supervisors = "the Elders"
+	description = "You are the Paladin Commander, leader of the expedition. Work with your small expeditionary force to secure the land and remove the enemy. You are in charge of the expedition and as such you are in-charge of the faction. You should not attempt to fight everyone you see but rather use your rank and skill to secure the land and remove your enemy. "
+	supervisors = "the Elders or their Envoys"
 	selection_color = "#7f8c8d"
 	display_order = JOB_DISPLAY_ORDER_COMMANDER
 	outfit = /datum/outfit/job/bos/f13commander
@@ -206,7 +206,7 @@ Paladin Commander
 		H.mind.AddSpell(S)
 
 /datum/outfit/job/bos/f13commander
-	name = "Head Paladin"
+	name = "Paladin Commander"
 	jobtype = /datum/job/bos/f13paladincommander
 	uniform = /obj/item/clothing/under/f13/recon
 	belt = /obj/item/storage/belt/army/assault
@@ -214,31 +214,38 @@ Paladin Commander
 	glasses = /obj/item/clothing/glasses/sunglasses
 	mask = /obj/item/clothing/mask/gas/sechailer
 	ears = /obj/item/radio/headset/headset_bos/command
-	suit = /obj/item/clothing/suit/armor/power_armor/t51b
-	head = /obj/item/clothing/head/helmet/f13/power_armor/t51b
+	suit = /obj/item/clothing/suit/armor/power_armor/t51b/palcomm
+	head = /obj/item/clothing/head/helmet/f13/power_armor/t51b/palcommhelm
 	neck = /obj/item/clothing/neck/mantle/bos/paladin
 	backpack_contents = list(
 		/obj/item/melee/onehanded/knife/hunting = 1,
 		/obj/item/melee/powerfist/f13 = 1,
 		/obj/item/gun/ballistic/automatic/pistol/n99/crusader = 1,
 		/obj/item/ammo_box/magazine/m10mm/adv/simple = 2,
-		/obj/item/reagent_containers/hypospray/medipen/stimpak = 6,
+		/obj/item/reagent_containers/hypospray/medipen/stimpak = 8,
 		)
 
 
-/datum/outfit/loadout/sentheavy
+/datum/outfit/loadout/palcomheavy
 	name = "Heavy Paladin Commander"
 	backpack_contents = list(
-		/obj/item/gun/ballistic/automatic/m72 = 1,
-		/obj/item/ammo_box/magazine/m2mm = 3
+		/obj/item/gun/ballistic/automatic/lewis = 1,
+		/obj/item/ammo_box/magazine/lewis/l47 = 3
 	)
 
-/datum/outfit/loadout/sentmini
-	name = "Minigun Paladin Commander"
+/datum/outfit/loadout/palcomlaser
+	name = "Energy Paladin Commander"
 	backpack_contents = list(
-		/obj/item/minigunpackbal5mm = 1,
+		/obj/item/gun/energy/laser/aer12 = 1,
+		/obj/item/stock_parts/cell/ammo/mfc = 3
 	)
 
+/datum/outfit/loadout/palcomhitter
+	name = "Heavy Force Paladin Commander"
+	backpack_contents = list(
+		/obj/item/twohanded/sledgehammer/supersledge = 1,
+		/obj/item/reagent_containers/hypospray/medipen/stimpak/super = 3,
+	)
 
 /*
 Proctor
