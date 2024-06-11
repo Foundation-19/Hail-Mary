@@ -166,7 +166,7 @@ Paladin Commander
 	selection_color = "#7f8c8d"
 	display_order = JOB_DISPLAY_ORDER_COMMANDER
 	outfit = /datum/outfit/job/bos/f13commander
-	exp_requirements = 3200
+	exp_requirements = 4800
 
 	/*loadout_options = list(
 	/datum/outfit/loadout/sentheavy, //Gauss + Glock
@@ -219,10 +219,10 @@ Paladin Commander
 	neck = /obj/item/clothing/neck/mantle/bos/paladin
 	backpack_contents = list(
 		/obj/item/melee/onehanded/knife/hunting = 1,
-		/obj/item/melee/powerfist/f13 = 1,
-		/obj/item/gun/ballistic/automatic/pistol/n99/crusader = 1,
 		/obj/item/ammo_box/magazine/m10mm/adv/simple = 2,
 		/obj/item/reagent_containers/hypospray/medipen/stimpak = 8,
+		/obj/item/gun/ballistic/automatic/lewis = 1,
+		/obj/item/ammo_box/magazine/lewis/l47 = 3
 		)
 
 /*
@@ -324,7 +324,7 @@ Knight-Captain
 */
 
 /datum/job/bos/f13knightcap
-	title = "Knight-Captai"
+	title = "Knight-Captain"
 	flag = F13KNIGHTCAPTAIN
 	head_announce = list("Security")
 	total_positions = 0
@@ -651,6 +651,73 @@ Scribe
 	ADD_TRAIT(H, TRAIT_SURGERY_HIGH, src)
 	ADD_TRAIT(H, TRAIT_CYBERNETICIST, src)
 
+/* 
+Knight Sarge
+*/
+
+/datum/job/bos/f13knightsarge
+	title = "Senior Knight"
+	flag = F13KNIGHTSARGE
+	total_positions = 2
+	spawn_positions = 2
+	description = " You are the Knight Sergeant of the Brotherhood Of Steel Expeditionary force, your goal is to maintain order within the ranks, above the scribes and knights you are below the paladin. Your duty is to maintain order within the knights, infantry work and primary grunt work as well as train the lower ranking knights and aspirants."
+	supervisors = "the Knight-Captain and Paladin Commander"
+	display_order = JOB_DISPLAY_ORDER_KNIGHTSARGE
+	outfit = /datum/outfit/job/bos/f13knightsarge
+	exp_requirements = 1200
+/*
+	loadout_options = list(
+	/datum/outfit/loadout/sknightb, //Police Shotgun
+	/datum/outfit/loadout/sknightc, //R93
+	/datum/outfit/loadout/sknightd, //Pre-war Ripper
+	)
+*/
+	access = list(ACCESS_BROTHERHOOD_COMMAND, ACCESS_ROBOTICS, ACCESS_BOS, ACCESS_ENGINE_EQUIP, ACCESS_ENGINE, ACCESS_HYDROPONICS, ACCESS_KITCHEN, ACCESS_BAR, ACCESS_SEC_DOORS)
+	minimal_access = list(ACCESS_BROTHERHOOD_COMMAND, ACCESS_ROBOTICS, ACCESS_BOS, ACCESS_ENGINE_EQUIP, ACCESS_ENGINE, ACCESS_HYDROPONICS, ACCESS_KITCHEN, ACCESS_BAR, ACCESS_SEC_DOORS)
+	matchmaking_allowed = list(
+		/datum/matchmaking_pref/friend = list(
+			/datum/job/bos,
+		),
+		/datum/matchmaking_pref/rival = list(
+			/datum/job/bos,
+		),
+		/datum/matchmaking_pref/mentor = list(
+			/datum/job/bos/f13knight,
+		),
+	)
+
+/datum/outfit/job/bos/f13knightsarge/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	..()
+	if(visualsOnly)
+		return
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/AER9)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/AEP7)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/R93)
+
+/datum/outfit/job/bos/f13knightsarge
+	name = "Senior Knight"
+	jobtype = /datum/job/bos/f13knightsarge
+	suit = /obj/item/clothing/suit/armor/medium/combat/brotherhood/sarge
+	suit_store = /obj/item/gun/energy/laser/aer9
+	accessory = /obj/item/clothing/accessory/bos/knightsarge
+	glasses = /obj/item/clothing/glasses/night
+	mask = /obj/item/clothing/mask/gas/sechailer
+	belt = /obj/item/storage/belt/army/assault
+	l_pocket = /obj/item/storage/belt/shoulderholster
+	head = /obj/item/clothing/head/helmet/f13/combat/brotherhood/senior
+	gunsmith_one = TRUE
+	gunsmith_two = TRUE
+	gunsmith_three = TRUE
+	gunsmith_four = TRUE
+	backpack_contents = list(
+		/obj/item/melee/onehanded/knife/hunting = 1,
+		/obj/item/reagent_containers/hypospray/medipen/stimpak = 3,
+		/obj/item/storage/box/bos/senior = 1,
+		/obj/item/book/granter/crafting_recipe/gunsmith_one = 1,
+		/obj/item/book/granter/crafting_recipe/gunsmith_two = 1,
+		/obj/item/book/granter/crafting_recipe/gunsmith_three = 1,
+		/obj/item/book/granter/crafting_recipe/gunsmith_four = 1,
+		)
 /*
 Senior Knight
 */
