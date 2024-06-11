@@ -191,6 +191,20 @@
 	entry_class = LOADOUT_CAT_MEDICAL
 	spawn_thing = /obj/item/storage/box/tools/surgery
 
+/obj/item/storage/box/tools/tribalsurgery
+	name = "tribal surgery tools"
+
+/obj/item/storage/box/tools/tribalsurgery/PopulateContents()
+	new /obj/item/storage/backpack/duffelbag/med/surgery/primitive(src)
+	new /obj/item/healthanalyzer/tribal(src)
+	new /obj/item/stack/sheet/cloth/ten(src)
+
+/datum/loadout_box/tribalsurgery
+	entry_tag = "tribal surgery tools"
+	entry_flags = LOADOUT_FLAG_TOOL_WASTER
+	entry_class = LOADOUT_CAT_MEDICAL
+	spawn_thing = /obj/item/storage/box/tools/tribalsurgery
+
 /obj/item/storage/box/tools/triage
 	name = "triage tools"
 

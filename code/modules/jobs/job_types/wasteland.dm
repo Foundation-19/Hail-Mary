@@ -1378,7 +1378,8 @@ Raider
 	loadout_options = list(
 	/datum/outfit/loadout/crusader, 	//This is kinda a given. You bet.
 	/datum/outfit/loadout/samaritan, 	//Water and food to share with the wastes.
-	/datum/outfit/loadout/cleanser		//Just some bombs.
+	/datum/outfit/loadout/cleanser,		//Just some bombs.
+	/datum/outfit/loadout/newcanaan		//10 M1911s for the funny gun table.
 	)
 
 	access = list()		//we can expand on this and make alterations as people suggest different loadouts
@@ -1411,6 +1412,8 @@ Raider
 	backpack_contents = list(
 		/obj/item/clothing/suit/armor/light/knight = 1,
 		/obj/item/clothing/head/helmet/f13/knighthelmet = 1,
+		/obj/item/clothing/gloves/legion/plated	=	1,
+		/obj/item/clothing/shoes/f13/military/plated	=	1
 		///obj/item/melee/onehanded/machete = 1,
 	)
 
@@ -1420,17 +1423,27 @@ Raider
 		/obj/item/reagent_containers/food/snacks/store/bread/plain = 5,
 		/obj/item/reagent_containers/food/snacks/fishmeat/salmon = 2,
 		/obj/item/reagent_containers/glass/beaker/waterbottle = 2,
+		/obj/item/reagent_containers/hypospray/medipen/stimpak=	5
 	)	//Matthew 14:17 RSVCE and KJV - Kitsunemitsu
-				//Nerd shit, wataur time. ~TK
+			//Nerd shit, wataur time. ~TK
+				//Wataur is forbidden. - Yuffels
 					//Both of you need to be reduced to ash. No more furry shit. - Hangyul
 
 /datum/outfit/loadout/cleanser
 	name = "Cleanser"
 	backpack_contents = list(
 		/obj/item/grenade/homemade/coffeepotbomb = 2,	//This is funny. I swear guys.
+		/obj/item/bottlecap_mine = 1
 		///obj/item/gun/ballistic/revolver/m29 = 1,		//Moved here for more *variety*
 		///obj/item/ammo_box/m44 = 2
 	)
+
+/datum/outfit/loadout/newcanaan
+	name = "New Canaanite"
+	backpack_contents = list(
+		/obj/item/gun/ballistic/automatic/pistol/m1911 = 10,	//We can't expect God to do all the work.
+		/obj/item/clothing/suit/armor/medium/vest/kevlar	=	1
+			)
 
 
 /datum/job/wasteland/f13preacher/after_spawn(mob/living/H, mob/M)

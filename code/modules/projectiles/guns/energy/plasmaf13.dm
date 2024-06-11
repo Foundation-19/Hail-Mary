@@ -176,6 +176,3 @@
 		/datum/firemode/semi_auto/slower
 	)
 
-/obj/item/gun/energy/laser/plasma/spear/ComponentInitialize()
-	. = ..()
-	AddElement(/datum/element/update_icon_updates_onmob)

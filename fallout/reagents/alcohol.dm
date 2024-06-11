@@ -42,13 +42,13 @@
 
 /datum/reagent/consumable/ethanol/pungajuice
 	name = "punga juice"
-	description = "The fermented juice of the punga fruit, used to treat radiation sickness"
+	description = "The fermented juice of the punga fruit, used to treat radiation sickness."
 	color = "#1B2E24"
 	boozepwr = 80
 	taste_description = "acidic slime"
 	glass_icon_state = "Space_mountain_wind_glass"
 	glass_name = "glass of punga juice"
-	glass_desc = "The glass contain punga juice, used to treat radiation sickness"
+	glass_desc = "The glass contain punga juice, used to treat radiation sickness."
 
 /datum/reagent/consumable/ethanol/pungajuice/on_mob_life(mob/living/carbon/M)
 	M.radiation = max(M.radiation-14,0)
@@ -57,14 +57,14 @@
 
 /datum/reagent/consumable/ethanol/purplecider
 	name = "Purple Cider"
-	description = "Refined and pressurised mutfruit cider."
+	description = "Refined and pressurized mutfruit cider."
 	color = "#570197"
 	nutriment_factor = 1 * REAGENTS_METABOLISM
 	boozepwr = 25
 	taste_description = "sweetness and nuclear winter"
 	glass_icon_state = "mutfruitglass"
 	glass_name = "purple cider"
-	glass_desc = "Refined and pressurised mutfruit cider."
+	glass_desc = "Refined and pressurized mutfruit cider."
 
 /datum/reagent/consumable/ethanol/purplecider/on_mob_life(mob/living/carbon/M)
 	if(M.getBruteLoss() && prob(10))
@@ -108,13 +108,13 @@
 
 /datum/reagent/consumable/ethanol/yellowpulque
 	name = "Yellow pulque"
-	description = "An awful smelling yellow, thick pulque."
+	description = "An awful-smelling, thick yellow pulque."
 	color = "#fdff73"
 	boozepwr = 50
 	taste_description = "puke and dirt"
 	glass_icon_state = "cognacglass"
 	glass_name = "yellow pulque"
-	glass_desc = "An awful smelling yellow, thick pulque."
+	glass_desc = "An awful-smelling, thick yellow pulque."
 	effective_blood_max = 400
 	effective_blood_multiplier = 10
 	//var/last_added = 0
@@ -163,13 +163,13 @@
 
 /datum/reagent/consumable/ethanol/daturatea
 	name = "Datura Tea"
-	description = "A potent tea used for rites of passage rituals and ceremonies."
+	description = "A potent tea used for rites of passage, rituals, and ceremonies."
 	color = "#E5E2D4"
 	boozepwr = 10
 	taste_description = "divine intervention"
 	glass_icon_state = "daturatea"
 	glass_name = "datura tea"
-	glass_desc = "A potent tea used for rites of passage rituals and ceremonies."
+	glass_desc = "A potent tea used for rites of passage, rituals, and ceremonies."
 
 /datum/reagent/consumable/ethanol/daturatea/on_mob_add(mob/living/M) //spiritual shizzle, also admemes getting booled on
 	ADD_TRAIT(M, TRAIT_SPIRITUAL, "[type]")
@@ -249,7 +249,7 @@
 	taste_description = "Blood and Metal"
 	glass_icon_state = "cognacglass"
 	glass_name = "blood wine"
-	glass_desc = "A Strong beverage brewed from the blood leaves."
+	glass_desc = "A strong beverage brewed from the blood leaves."
 	effective_blood_multiplier = 40 // Mostly water, also the healy stuff
 	effective_blood_max = 600
 	//var/last_added = 0
@@ -263,14 +263,14 @@
 //nuka
 
 /datum/reagent/consumable/ethanol/nukadark
-	name = "Nuka Dark"
-	description = "Nuka Cola with a alcoholic twist."
+	name = "Nuka-Cola Dark"
+	description = "Nuka-Cola with a alcoholic twist."
 	color = "#1C2118"
 	boozepwr = 80
 	taste_description = "bitter and toxic cola"
 	glass_icon_state = "nukadarkglass"
-	glass_name = "Nuka Dark"
-	glass_desc = "Nuka Cola with a alcoholic twist."
+	glass_name = "Nuka-Cola Dark"
+	glass_desc = "Nuka-Cola with a alcoholic twist."
 
 /datum/reagent/consumable/ethanol/nukadark/on_mob_life(mob/living/carbon/M)
 	M.drowsyness = 0
@@ -280,14 +280,14 @@
 	. = TRUE
 
 /datum/reagent/consumable/ethanol/nukavictory
-	name = "Nuka Victory"
-	description = "Nuka Cola with an <BIG>AMERICAN<BIG> twist."
+	name = "Nuka-Cola Victory"
+	description = "Nuka-Cola with an <BIG>AMERICAN<BIG> twist."
 	color = "#FAEBD7"
 	boozepwr = 45
 	taste_description = "freedom"
 	glass_icon_state = "nukavictoryglass"
-	glass_name = "Nuka Victory"
-	glass_desc = "Nuka Cola with an AMERICAN twist."
+	glass_name = "Nuka-Cola Victory"
+	glass_desc = "Nuka-Cola with an AMERICAN twist."
 	ghoulfriendly = TRUE //too american for ghouls not to taste it
 
 /datum/reagent/consumable/ethanol/nukavictory/on_mob_life(mob/living/carbon/M)
@@ -304,13 +304,13 @@
 	..()
 
 /datum/reagent/consumable/ethanol/nukabomb
-	name = "Nuka Bombdrop"
+	name = "Nuka-Cola Bombdrop"
 	description = "More spirit than Nuka at this Rate."
 	color = "#FAEBD7"
 	boozepwr = 200
 	taste_description = "pure alcohol"
 	glass_icon_state = "nukabombglass"
-	glass_name = "Nuka Bombdrop"
+	glass_name = "Nuka-Cola Bombdrop"
 	glass_desc = "More spirit than Nuka at this Rate."
 
 /datum/reagent/consumable/ethanol/nukabomb/on_mob_life(mob/living/carbon/M)
@@ -330,13 +330,13 @@
 	..()
 
 /datum/reagent/consumable/ethanol/nukacide
-	name = "Nukacide"
+	name = "Nuka-Cide"
 	description = "The drink of a goddamn madman, say your sorrows when you drink this."
 	color = "#000000"
 	boozepwr = 300
 	taste_description = "nuclear annihilation"
 	glass_icon_state = "nukacideglass"
-	glass_name = "Nukacide"
+	glass_name = "Nuka-Cide"
 	glass_desc = "The drink of a goddamn madman, say your sorrows when you drink this."
 
 /datum/reagent/consumable/ethanol/nukacide/on_mob_life(mob/living/carbon/M)
@@ -349,13 +349,13 @@
 	. = TRUE
 
 /datum/reagent/consumable/ethanol/nukafancy
-	name = "Nuka Fancy"
+	name = "Nuka-Fancy"
 	description = "A mixture of both Wild and cherry, making something absolutely tasty."
 	color = "#11111E"
 	boozepwr = 30
 	taste_description = "cherry rootbeer"
 	glass_icon_state = "nukafancyglass"
-	glass_name = "Nuka Fancy"
+	glass_name = "Nuka-Fancy"
 	glass_desc = "A mixture of both Wild and cherry, making something absolutely tasty."
 
 /datum/reagent/consumable/ethanol/nukafancy/on_mob_life(mob/living/carbon/M)
@@ -370,13 +370,13 @@
 	. = TRUE
 
 /datum/reagent/consumable/ethanol/nukalove
-	name = "Nuka Love"
+	name = "Nuka-Love"
 	description = "A Nuka-Cola twist on a passionate classic."
 	color = "#8F4096"
 	boozepwr = 60
 	taste_description = "sweet cherry"
 	glass_icon_state = "nukaloveglass"
-	glass_name = "Nuka Love"
+	glass_name = "Nuka-Love"
 	glass_desc = "A Nuka-Cola twist on a passionate classic."
 
 /datum/reagent/consumable/ethanol/nukalove/on_mob_life(mob/living/carbon/M)
@@ -388,14 +388,14 @@
 	. = TRUE
 
 /datum/reagent/consumable/ethanol/nukapunch
-	name = "Nuka Punch"
+	name = "Nuka-Punch"
 	description = "A fruit punch mixture with a nuka kick."
 	color = "#4A261B"
 	boozepwr = 150
 	taste_description = "fruit punch"
 	glass_icon_state = "nukapunchglass"
-	glass_name = "Nuka Punch"
-	glass_desc = "A fruit punch mixture with a nuka kick."
+	glass_name = "Nuka-Punch"
+	glass_desc = "A fruit punch mixture with a Nuka kick."
 
 /datum/reagent/consumable/ethanol/nukapunch/on_mob_life(mob/living/carbon/M)
 	M.adjustBruteLoss(-4*REAGENTS_EFFECT_MULTIPLIER)
@@ -412,13 +412,13 @@
 	. = TRUE
 
 /datum/reagent/consumable/ethanol/nukasunrise
-	name = "Nuka Sunrise"
+	name = "Nuka-Sunrise"
 	description = "A Nuka-Cola original drink, totally original and first of its kind!"
 	color = "#D82E04"
 	boozepwr = 30
 	taste_description = "sweetness and funshine"
 	glass_icon_state = "nukasunriseglass"
-	glass_name = "Nuka Sunrise"
+	glass_name = "Nuka-Sunrise"
 	glass_desc = "A Nuka-Cola original drink, totally original and first of its kind!"
 
 /datum/reagent/consumable/ethanol/nukasunrise/on_mob_life(mob/living/carbon/M)
@@ -430,13 +430,13 @@
 	. = TRUE
 
 /datum/reagent/consumable/ethanol/nukaquantum
-	name = "Nuka Quantum"
+	name = "Nuka-Cola Quantum"
 	description = "An extremely blue and glowing combination of Nuka-Cola and (REDACTED)."
 	color = "#6AFFFF"
 	boozepwr = 10
 	taste_description = "the eighteenth flavour"
 	glass_icon_state = "nukaquantumglass"
-	glass_name = "Nuka Quantum"
+	glass_name = "Nuka-Cola Quantum"
 	glass_desc = "An extremely blue and glowing combination of Nuka-Cola and (REDACTED)"
 	var/datum/brain_trauma/special/psychotic_brawling/bath_salts/rage
 	ghoulfriendly = TRUE
@@ -477,13 +477,13 @@
 	..()
 
 /datum/reagent/consumable/ethanol/nukaxtreme //this is hell
-	name = "Nuka X-Treme"
+	name = "Nuka-Xtreme"
 	description = "Like Quantum, but <BIG>EXTREME<BIG>."
 	color = "#72E070"
 	boozepwr = 50
 	taste_description = "sugary grape"
 	glass_icon_state = "nukaxtremeglass"
-	glass_name = "Nuka X-Treme"
+	glass_name = "Nuka-Xtreme"
 	glass_desc = "Like Quantum, but <BIG>EXTREME<BIG>."
 	var/datum/brain_trauma/special/psychotic_brawling/bath_salts/rage
 	ghoulfriendly = TRUE
@@ -567,14 +567,14 @@
 //vim
 
 /datum/reagent/consumable/ethanol/vimcap
-	name = "Vim Captains Blend"
-	description = "The taste of the sea, Far from here."
+	name = "Vim Captain's Blend"
+	description = "The taste of the sea, far from here."
 	color = "#52849A"
 	boozepwr = 30
 	taste_description = "the sea"
 	glass_icon_state = "vimcapglass"
-	glass_name = "Vim Captains Blend"
-	glass_desc = "A glass of special vim holding the taste of the sea, Far from here."
+	glass_name = "Vim Captain's Blend"
+	glass_desc = "A glass of special Vim holding the taste of the sea, far from here."
 
 /datum/reagent/consumable/ethanol/vimcap/on_mob_life(mob/living/carbon/M)
 	M.drowsyness = 0
@@ -612,7 +612,7 @@
 	glass_name = "Alcohol-Z"
 	glass_desc = "An potent generic spirit, distilled through tacky radiation and intense stirring."
 
-/*/datum/reagent/consumable/ethanol/bbock //TDM Begone
+/datum/reagent/consumable/ethanol/bbock //TDM Begone //Reenabled because furry HATE
 	name = "Ballistic Bock"
 	description = "An explosive cocktail that probably shouldn't be ingested. Fills you with <BIG>BALLISTIC RAGE<BIG>."
 	color = "#333333"
@@ -620,7 +620,7 @@
 	taste_description = "rioting"
 	glass_icon_state = "bbockglass"
 	glass_name = "Ballistic Bock"
-	glass_desc = "An explosive cocktail that probably shouldn' be ingested. Fills you with <BIG>BALLISTIC RAGE<BIG>."
+	glass_desc = "An explosive cocktail that probably shouldn't be ingested. Fills you with <BIG>BALLISTIC RAGE<BIG>."
 	var/datum/brain_trauma/special/psychotic_brawling/bath_salts/rage
 
 /datum/reagent/consumable/ethanol/bbock/on_mob_life(mob/living/carbon/M)
@@ -637,13 +637,13 @@
 	..()
 	. = TRUE
 
-/datum/reagent/consumable/ethanol/bbrew/on_mob_delete(mob/living/M)
+/datum/reagent/consumable/ethanol/bbock/on_mob_delete(mob/living/M)
 	if(rage)
 		QDEL_NULL(rage)
 	if(iscarbon(M))
 		var/mob/living/carbon/C = M
 		C.cure_trauma_type(rage, TRAUMA_RESILIENCE_ABSOLUTE)
-	..()*/
+	..()
 
 /datum/reagent/consumable/ethanol/bbrew
 	name = "Battle Brew"
@@ -692,13 +692,13 @@
 
 /datum/reagent/consumable/ethanol/dwastelander
 	name = "Dirty Wastelander"
-	description = "A wastelanders second favourite."
+	description = "A wastelander's second favourite."
 	color = "#6E597B"
 	boozepwr = 80
 	taste_description = "scavenging air"
 	glass_icon_state = "dwastelanderglass"
 	glass_name = "Dirty Wastelander"
-	glass_desc = "A wastelanders second favourite."
+	glass_desc = "A wastelander's second favourite."
 
 /datum/reagent/consumable/ethanol/dwastelander/on_mob_life(mob/living/carbon/M)
 	M.adjustBruteLoss(-0.3*REAGENTS_EFFECT_MULTIPLIER, 0)
@@ -744,13 +744,13 @@
 
 /datum/reagent/consumable/ethanol/firecracker
 	name = "Firecracker"
-	description = "An warming mixture of wasteland homebrews."
+	description = "A warming mixture of wasteland homebrews."
 	color = "#612B2F"
 	boozepwr = 40
 	taste_description = "country roads"
 	glass_icon_state = "firecrackerglass"
 	glass_name = "Firecracker"
-	glass_desc = "An warming mixture of wasteland homebrews."
+	glass_desc = "A warming mixture of wasteland homebrews."
 
 /datum/reagent/consumable/ethanol/firecracker/on_mob_life(mob/living/carbon/M)
 	if(prob(33))
@@ -779,13 +779,13 @@
 
 /datum/reagent/consumable/ethanol/jakejuice
 	name = "Jake Juice"
-	description = "Who is Jake, why is this his Juice?"
+	description = "Who is Jake, and why is this his Juice?"
 	color = "#8EC577"
 	boozepwr = 50
 	taste_description = "patented juice"
 	glass_icon_state = "greenbeerglass"
 	glass_name = "Jake Juice"
-	glass_desc = "Patented Jake Juice, Mixable at users own legal discretion."
+	glass_desc = "Patented Jake Juice, mixable at user's own legal discretion."
 
 /datum/reagent/consumable/ethanol/jakejuice/on_mob_life(mob/living/carbon/M)
 	M.AdjustStun(-20, 0)
@@ -825,13 +825,13 @@
 
 /datum/reagent/consumable/ethanol/olflakey
 	name = "Ol' Flakey"
-	description = "So smooth its flakey, leaves your throat confused and your body numb."
+	description = "So smooth it's flakey, leaves your throat confused and your body numb."
 	color = "#DEE05E"
 	boozepwr = 80
 	taste_description = "dryness and warmth"
 	glass_icon_state = "olflakeyglass"
 	glass_name = "Ol' Flakey"
-	glass_desc = "So smooth its flakey, leaves your throat confused and your body numb."
+	glass_desc = "So smooth it's flakey, leaves your throat confused and your body numb."
 
 /datum/reagent/consumable/ethanol/olflakey/on_mob_life(mob/living/carbon/M)
 	if(prob(10))
@@ -847,7 +847,7 @@
 	taste_description = "possum"
 	glass_icon_state = "oldpossumglass"
 	glass_name = "Old Possum"
-	glass_desc = "A ratmans classic, chalky and privelaged."
+	glass_desc = "A ratman's classic, chalky and privelaged."
 
 /datum/reagent/consumable/ethanol/oldpossum/on_mob_life(mob/living/carbon/M)
 	var/high_message = pick("<br><font color='#FF0000'><b>eat the possum</b></font>")
@@ -909,13 +909,13 @@
 
 /datum/reagent/consumable/ethanol/sweetwater
 	name = "Sweet Water"
-	description = "For those hot irradiated days on the ranch."
+	description = "For those hot, irradiated days on the ranch."
 	color = "#BAC488"
 	boozepwr = 40
 	taste_description = "sweetness and relaxation"
 	glass_icon_state = "sweetwaterglass"
 	glass_name = "Sweet Water"
-	glass_desc = "For those hot irradiated days on the ranch."
+	glass_desc = "For those hot, irradiated days on the ranch."
 
 /datum/reagent/consumable/ethanol/sweetwater/on_mob_life(mob/living/carbon/M)
 	M.adjust_bodytemperature(-5 * TEMPERATURE_DAMAGE_COEFFICIENT, BODYTEMP_NORMAL)
@@ -935,13 +935,13 @@
 
 /datum/reagent/consumable/ethanol/atombomb //metadrink :flushed:
 	name = "Atom Bomb"
-	description = "War, War never changes."
+	description = "War, war never changes."
 	color = "#6A8216"
 	boozepwr = 150
 	taste_description = "fallout"
 	glass_icon_state = "atombombglass"
 	glass_name = "Atom Bomb"
-	glass_desc = "War, War never changes."
+	glass_desc = "War, war never changes."
 
 /datum/reagent/consumable/ethanol/atombomb/on_mob_life(mob/living/carbon/M)
 	var/high_message = pick("<br><font color='#FF0000'><b>You hear the /SIRENS BLAZING/</b></font>, <br><font color='#FF0000'><b>You feel the /RADIOACTIVE HELLFIRE/</b></font>")
@@ -959,13 +959,13 @@
 	. = TRUE
 
 /datum/reagent/consumable/ethanol/henessey
-	name = "Henessey"
+	name = "Hennessey"
 	description = "For the truly robust."
 	color = "#CB686B"
 	boozepwr = 100
 	taste_description = "robust"
 	glass_icon_state = "henesseyglass"
-	glass_name = "Henessey"
+	glass_name = "Hennessey"
 	glass_desc = "For the truly robust."
 	var/datum/brain_trauma/special/psychotic_brawling/bath_salts/rage
 
@@ -1013,14 +1013,14 @@
 	..()
 
 /datum/reagent/consumable/ethanol/vaulttech
-	name = "Vault-Tech Special"
-	description = "The only brew, Certified to be drank on duty!"
+	name = "Vault-Tec Special"
+	description = "The only brew certified to be drank on duty!"
 	color = "#315585"
 	boozepwr = 30
 	taste_description = "blue and yellow"
 	glass_icon_state = "vaulttechglass"
-	glass_name = "Vault-Tech Special"
-	glass_desc = "The only brew, Certified to be drank on duty!"
+	glass_name = "Vault-Tec Special"
+	glass_desc = "The only brew certified to be drank on duty!"
 
 /datum/reagent/consumable/ethanol/vaulttech/on_mob_life(mob/living/carbon/M)
 	M.dizziness = max(0,M.dizziness-5)
@@ -1035,14 +1035,14 @@
 
 /datum/reagent/consumable/ethanol/vaultboy //yeah this turns you into vault boy if you OD, very HRP
 	name = "Vault Boy"
-	description = "The beloved mascot of the Vault-Tech corporation in brew form!"
+	description = "The beloved mascot of the Vault-Tec corporation in brew form!"
 	color = "#315585"
 	boozepwr = 40
 	taste_description = "your intelligience stat decreasing"
 	overdose_threshold = 60
 	glass_icon_state = "vaultboyglass"
 	glass_name = "Vault Boy"
-	glass_desc = "The beloved mascot of the Vault-Tech corporation in brew form!"
+	glass_desc = "The beloved mascot of the Vault-Tec corporation in brew form!"
 
 /datum/reagent/consumable/ethanol/vaultboy/on_mob_life(mob/living/carbon/M)
 	M.dizziness = max(0,M.dizziness-5)
@@ -1105,12 +1105,12 @@
 
 /datum/reagent/consumable/ethanol/fernet_cola
 	name = "Fernet Cola"
-	description = "A very popular and bittersweet digestif, ideal after a heavy meal. Best served on a sawed-off cola bottle as per tradition."
+	description = "A very popular and bittersweet digestif, ideal after a heavy meal. Best served in a sawed-off cola bottle as per tradition."
 	color = "#390600"
 	boozepwr = 30
 	taste_description = "smooth caramel, fizzy cola, and bitter herbs"
 	glass_icon_state = "godlyblend"
-	glass_name = "glass of fernet cola"
+	glass_name = "glass of Fernet Cola"
 	glass_desc = "A sawed-off cola bottle filled with Fernet Cola. Nothing better after eating like a lardass."
 
 /datum/reagent/consumable/ethanol/fernet_cola/on_mob_life(mob/living/carbon/M)
@@ -1152,13 +1152,13 @@
 	. = TRUE
 
 /datum/reagent/consumable/ethanol/ranchwhiskey
-	name = "Ranchers Whiskey"
+	name = "Ranchers' Whiskey"
 	description = "For them /hard days/ on the ranch."
 	color = "#9C5C3A"
 	boozepwr = 80
 	taste_description = "cowboys"
 	glass_icon_state = "rancherwhiskeyglass"
-	glass_name = "Ranchers Whiskey"
+	glass_name = "Ranchers' Whiskey"
 	glass_desc = "For them /hard days/ on the ranch."
 
 /datum/reagent/consumable/ethanol/ranchwhiskey/on_mob_life(mob/living/carbon/M)
@@ -1200,3 +1200,29 @@
 	M.set_drugginess(0)
 	M.hallucination += 0
 	..()
+
+/datum/reagent/consumable/ethanol/feverdream
+	name = "Fever Dream"
+	description = "Life could be a dream."
+	color = "#70D7FF"
+	boozepwr = 100
+	taste_description = "fantasy"
+	glass_icon_state = "glass_brown"
+	glass_name = "Fever Dream"
+	glass_desc = "Life could be a dream."
+	var/datum/brain_trauma/special/imaginary_friend/fren
+	var/datum/brain_trauma/severe/hypnotic_stupor/alice
+
+/datum/reagent/consumable/ethanol/feverdream/on_mob_life(mob/living/carbon/M)
+	var/high_message = pick("<br><font color='#70D7FF'><b>Am I dreaming?...</b></font>", "<br><font color='#70D7FF'><b>Is this real?...</b></font>", "<br><font color='#70D7FF'><b>It's like I'm swimming in fog...</b></font>")
+	if(prob(10))
+		to_chat(M, span_notice("[high_message]"))
+	M.AdjustKnockdown(-10, 0)
+	if(iscarbon(M))
+		var/mob/living/carbon/C = M
+		fren = new()
+		alice = new()
+		C.gain_trauma(fren, TRAUMA_RESILIENCE_SURGERY)
+		C.gain_trauma(alice, TRAUMA_RESILIENCE_SURGERY)
+	..()
+	. = TRUE

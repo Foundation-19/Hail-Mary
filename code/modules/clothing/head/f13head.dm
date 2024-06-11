@@ -67,6 +67,8 @@
 /obj/item/clothing/head/helmet/f13/combat/Initialize()
 	. = ..()
 	AddComponent(/datum/component/spraycan_paintable)
+	AddComponent(/datum/component/armor_plate)
+	
 	START_PROCESSING(SSobj, src)
 
 /obj/item/clothing/head/helmet/f13/combat/Destroy()
@@ -158,6 +160,13 @@
 	desc = "It's a fancy dark metal helmet with orange spray painted flames."
 	icon_state = "rider"
 	item_state = "rider"
+
+/obj/item/clothing/head/helmet/knight/f13/rider/riderw
+	name = "Reinforced Rider Helmet" //Not raider. Rider. //Count up your sins
+	desc = "It's a fancy two-tone metal helmet. It's been lined with additional plating and given a fresh coat of paint."
+	icon_state = "riderw"
+	item_state = "riderw"
+	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T3, ARMOR_MODIFIER_UP_LASER_T2)
 
 /obj/item/clothing/head/helmet/f13/metalmask
 	name = "metal mask"
@@ -404,6 +413,13 @@
 /obj/item/clothing/head/helmet/f13/power_armor/t51b/bos
 	name = "T-51b power helmet"
 	desc = "It's a T-51b power helmet, typically used by the Brotherhood. It looks somewhat charming."
+
+/obj/item/clothing/head/helmet/f13/power_armor/t51b/palcomm
+	name = "T-51b Paladin Commander Helmet"
+	desc = "It's a T-51b power helmet, modified uniquely for the Paladin Commander"
+	icon_state = "palcommhelm"
+	item_state = "palcommhelm"
+	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T3, ARMOR_MODIFIER_UP_BULLET_T3, ARMOR_MODIFIER_UP_LASER_T3, ARMOR_MODIFIER_UP_DT_T3)
 
 /obj/item/clothing/head/helmet/f13/power_armor/t51b/bos/update_icon_state()
 	icon_state = "t51bhelmet[light_on]"
@@ -686,11 +702,7 @@
 	color = "#999999"
 	dynamic_hair_suffix = ""
 
-/obj/item/clothing/head/f13/riderw
-	name = "Reinforced Rider Helmet" //Not raider. Rider. //Count up your sins
-	desc = "It's a fancy two-tone metal helmet. It's been lined with additional plating and given a fresh coat of paint."
-	icon_state = "riderw"
-	item_state = "riderw"
+
 
 //Soft caps
 /obj/item/clothing/head/soft/f13
@@ -865,6 +877,17 @@
 	desc = "A set of heavy bandages wrapped around the head. Made to protect the eye from whatever injury occured."
 	icon_state = "eyepatch_white_r"
 	item_state = "eyepatch_white_r"
+
+/obj/item/clothing/glasses/f13/tribaleyepatch/AltClick(mob/user, modifiers)
+	. = ..()
+	icon_state = (icon_state == initial(icon_state)) ? "[icon_state]_flipped" : initial(icon_state)
+	item_state = (icon_state == initial(item_state)) ? "[item_state]_flipped" : initial(item_state)
+	user.update_inv_glasses()
+
+/obj/item/clothing/glasses/f13/tribaleyepatch/examine(mob/user)
+	. = ..()
+	. += "Alt-click on [src] to flip it around."
+
 
 /obj/item/clothing/head/helmet/skull/bone
 	name = "Reinforced skull helmet"

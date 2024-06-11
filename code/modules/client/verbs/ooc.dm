@@ -302,7 +302,8 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 	init_verbs()
 
 /client/proc/GetOOCName()
-	if(iscarbon(mob)) // If mob is null I'll be very surprised, worse case, add a sanity check if this becomes an issue in the future.
+	return key
+	/*if(iscarbon(mob)) // If mob is null I'll be very surprised, worse case, add a sanity check if this becomes an issue in the future.
 		return mob.real_name
 	else
-		return prefs.real_name
+		return prefs.real_name*/

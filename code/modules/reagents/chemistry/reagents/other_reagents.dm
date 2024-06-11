@@ -743,7 +743,7 @@
 		to_chat(H, span_danger("The pain vanishes suddenly. You feel no different."))
 
 
-/datum/reagent/mutationtoxin/classic //The one from plasma on green slimes
+/*/datum/reagent/mutationtoxin/classic //The one from plasma on green slimes
 	name = "Mutation Toxin"
 	description = "A corruptive toxin."
 	color = "#13BC5E" // rgb: 19, 188, 94
@@ -923,7 +923,7 @@
 			H.set_species(species_type)
 			H.reagents.del_reagent(type)
 			to_chat(H, span_warning("You've become \a jellyperson!"))
-
+*/
 
 /datum/reagent/mulligan
 	name = "Mulligan Toxin"
@@ -943,7 +943,7 @@
 	randomize_human(H)
 
 
-/datum/reagent/aslimetoxin
+/*/datum/reagent/aslimetoxin
 	name = "Advanced Mutation Toxin"
 	description = "An advanced corruptive toxin produced by slimes."
 	color = "#13BC5E" // rgb: 19, 188, 94
@@ -965,7 +965,7 @@
 	ghoulfriendly = TRUE
 
 /datum/reagent/gluttonytoxin/reaction_mob(mob/living/L, method=TOUCH, reac_volume)
-	L.ForceContractDisease(new /datum/disease/transformation/morph(), FALSE, TRUE)
+	L.ForceContractDisease(new /datum/disease/transformation/morph(), FALSE, TRUE)*/
 
 /datum/reagent/serotrotium
 	name = "Serotrotium"

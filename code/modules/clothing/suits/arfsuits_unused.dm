@@ -65,6 +65,10 @@ Suits. 0-10 in its primary value, slowdown 0, various utility
 	icon = 'icons/fallout/clothing/armored_medium.dmi'
 	mob_overlay_icon = 'icons/fallout/onmob/clothes/armor_medium.dmi'
 
+/obj/item/clothing/suit/armor/exile/Initialize()
+	. = ..()
+	AddComponent(/datum/component/armor_plate)
+
 /obj/item/clothing/suit/armor/exile/ncrexile
 	name = "modified NCR armor"
 	desc = "A modified detoriated armor kit consisting of NCR gear and scrap metal."
@@ -93,6 +97,10 @@ Suits. 0-10 in its primary value, slowdown 0, various utility
 	armor_tier_desc = ARMOR_CLOTHING_LIGHT
 	slowdown = ARMOR_SLOWDOWN_LIGHT * ARMOR_SLOWDOWN_LESS_T1 * ARMOR_SLOWDOWN_GLOBAL_MULT
 	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T1)
+
+/obj/item/clothing/suit/armor/legion/Initialize()
+	. = ..()
+	AddComponent(/datum/component/armor_plate)
 
 /datum/component/storage/concrete/pockets/tiny/legion
 	max_items = 3
@@ -429,6 +437,8 @@ Suits. 0-10 in its primary value, slowdown 0, various utility
 	slowdown = ARMOR_SLOWDOWN_MEDIUM * ARMOR_SLOWDOWN_LESS_T3 * ARMOR_SLOWDOWN_GLOBAL_MULT
 	armor_tokens = list(ARMOR_MODIFIER_UP_DT_T2)
 	salvage_loot = list(/obj/item/stack/crafting/armor_plate = 8)
+
+
 
 //Great Khan
 /obj/item/clothing/suit/armor/khan_jacket
@@ -778,15 +788,6 @@ Suits. 0-10 in its primary value, slowdown 0, various utility
 ///////////////////////
 // GREAT KHANS ARMOR //
 ///////////////////////
-
-//Basic Jacket
-/obj/item/clothing/suit/toggle/labcoat/khan_jacket
-	name = "Great Khan jacket"
-	desc = "A black leather jacket. <br>There is an illustration on the back - an aggressive, red-eyed skull wearing a fur hat with horns.<br>The skull has a mongoloid moustache - it's obviously a Great Khans emblem."
-	icon = 'icons/fallout/clothing/khans.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/khaans.dmi'
-	icon_state = "khan_jacket"
-	item_state = "khan_jacket"
 
 //Armored jacket
 /obj/item/clothing/suit/toggle/labcoat/khan_jacket/armored

@@ -317,7 +317,7 @@
 					/obj/item/grenade/clusterbuster/syndieminibomb,
 					/obj/item/grenade/clusterbuster/teargas,
 					/obj/item/grenade/clusterbuster/clf3,
-					/obj/item/grenade/clusterbuster/slime,
+				//	/obj/item/grenade/clusterbuster/slime, No. ~Pokee
 					/obj/item/grenade/clusterbuster/facid)
 	crate_name = "clusterbang grenade pack crate"
 
@@ -327,7 +327,7 @@
 	cost = 1500
 	contains = list(/obj/item/storage/box/stingbangs)
 	crate_name = "stingbang grenade pack crate"
-
+/*
 /datum/supply_pack/security/crossbreeddangerous
 	name = "Dangerous Crossbreeds Pack"
 	desc = "Contains five of a various selection of slime cross breed items that are dangerous to use."
@@ -431,7 +431,7 @@
 					/obj/item/slimecross/recurring/pyrite,
 					/obj/item/slimecross/recurring/pink)
 	crate_name = "utility crossbreed crate"
-
+*/
 /datum/supply_pack/security/traitbooks
 	name = "Technical manuals"
 	desc = "A box crammed full of manuals, for reading. SCAV issues, Guns and Ammo, how to operate chem-machines, it's all here! Come in groups of three."
@@ -654,7 +654,7 @@
 
 /datum/supply_pack/security/energy
 	name = "Weapons - Energy"
-	desc = "A crate containing four laser weapons, because sometimes you want your gecko pre-seared. Order now and you might just get that Plasma Rifle you always wanted!"
+	desc = "A crate containing four laser weapons, because sometimes you want your gecko pre-seared. Order now and you might just get that RCW you always wanted!"
 	cost = 4000
 	num_contained = 4
 	contains = list(

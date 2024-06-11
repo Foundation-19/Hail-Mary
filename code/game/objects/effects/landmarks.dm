@@ -552,7 +552,7 @@ obj/effect/landmark/start/f13/ncrlogisticsofficer
 	icon_state = "NCR Trooper"
 
 /obj/effect/landmark/start/f13/ncrrep
-	name = "NCR Representative"
+	name = "NCR Brahmin Baron"
 	icon_state = "NCR Trooper"
 
 /obj/effect/landmark/start/f13/ncrmp
