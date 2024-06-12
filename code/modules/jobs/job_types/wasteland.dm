@@ -1449,14 +1449,6 @@ Raider
 		/obj/item/clothing/suit/armor/medium/vest/bulletproof = 1
 		)
 
-/datum/outfit/loadout/zealot
-	name = "Zealot"
-	backpack_contents = list(
-		/obj/item/clothing/head/helmet/f13/ncr/rangercombat/zealot = 1,
-		/obj/item/clothing/suit/armor/medium/duster/zealot = 1,
-		/obj/item/gun/ballistic/shotgun/automatic/combat/auto5/sacred = 1
-		)
-
 /datum/job/wasteland/f13preacher/after_spawn(mob/living/H, mob/M)
 	. = ..()
 	if(H.mind)
