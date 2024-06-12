@@ -1380,7 +1380,6 @@ Raider
 	/datum/outfit/loadout/samaritan, 	//Water and food to share with the wastes.
 	/datum/outfit/loadout/cleanser,		//Just some bombs.
 	/datum/outfit/loadout/newcanaan,	//10 M1911s for the funny gun table.
-	/datum/outfit/loadout/zealot
 	)
 
 	access = list()		//we can expand on this and make alterations as people suggest different loadouts
