@@ -2537,7 +2537,7 @@
 /mob/living/simple_animal/hostile/deathclaw/mother,
 /obj/item/reagent_containers/food/snacks/f13/deathclawegg,
 /obj/effect/decal/cleanable/blood/gibs/human/limb,
-/obj/effect/spawner/lootdrop/f13/armor/tier5,
+/obj/effect/spawner/lootdrop/f13/armor/tier4,
 /turf/open/floor/f13/wood{
 	icon_state = "housebase"
 	},
@@ -6032,10 +6032,9 @@
 	},
 /area/f13/brotherhood)
 "fAD" = (
-/obj/machinery/door/airlock/medical/glass{
-	req_access_txt = "280";
-	name = "ACS Enterprising Airlock";
-	req_one_access_txt = "280"
+/obj/machinery/door/unpowered/secure_steeldoor{
+	name = "Atlantic Cross locked steel door";
+	req_access_txt = "280"
 	},
 /turf/open/floor/plasteel/dark,
 /area/f13/building/boat)
@@ -6251,6 +6250,9 @@
 /obj/structure/railing/wood/post{
 	pixel_y = 19;
 	pixel_x = 15
+	},
+/obj/structure/railing{
+	color = "#A47449"
 	},
 /turf/open/floor/f13/wood/outside,
 /area/f13/wasteland/town)
@@ -8699,6 +8701,9 @@
 	},
 /obj/effect/turf_decal/stripes/white/line{
 	dir = 1
+	},
+/obj/structure/railing{
+	color = "#A47449"
 	},
 /turf/open/floor/f13/wood,
 /area/f13/wasteland/town)
@@ -13940,6 +13945,9 @@
 	pixel_y = 19;
 	pixel_x = -15
 	},
+/obj/structure/railing{
+	color = "#A47449"
+	},
 /turf/open/floor/f13/wood/outside,
 /area/f13/wasteland/town)
 "mPj" = (
@@ -15783,9 +15791,9 @@
 	},
 /area/f13/ruins)
 "ozF" = (
-/obj/machinery/door/airlock/medical/glass{
-	req_access_txt = "280";
-	name = "Atlantic Cross Airlock"
+/obj/machinery/door/unpowered/secure_steeldoor{
+	name = "Atlantic Cross locked steel door";
+	req_access_txt = "280"
 	},
 /turf/open/floor/wood_wide/wood_wide_dark,
 /area/f13/building/boat)
@@ -15963,10 +15971,9 @@
 /turf/open/floor/f13/wood/outside,
 /area/f13/wasteland/town)
 "oMJ" = (
-/obj/machinery/door/airlock/medical/glass{
-	req_access_txt = "280";
-	name = "ACS Enterprising Airlock";
-	req_one_access_txt = "280"
+/obj/machinery/door/unpowered/secure_steeldoor{
+	name = "Atlantic Cross locked steel door";
+	req_access_txt = "280"
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/building/boat)
@@ -21397,8 +21404,8 @@
 /area/f13/raider_mall)
 "tVH" = (
 /obj/structure/rack/shelf_wood,
-/obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/high,
 /obj/effect/spawner/lootdrop/f13/weapon/gun/energy/high,
+/obj/effect/spawner/lootdrop/f13/medical/vault/meds,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/outpost)
 "tVR" = (
@@ -22746,7 +22753,7 @@
 /area/f13/wasteland/city)
 "vdO" = (
 /obj/structure/rack/shelf_wood,
-/obj/effect/spawner/lootdrop/f13/armor/tier4PA,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/superhigh,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/outpost)
 "veg" = (

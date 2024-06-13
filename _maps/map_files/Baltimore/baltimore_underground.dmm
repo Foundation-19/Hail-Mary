@@ -172,10 +172,6 @@
 	},
 /turf/closed/wall/f13/wood/house,
 /area/f13/building/tunnel)
-"aph" = (
-/obj/structure/simple_door/bunker,
-/turf/open/floor/plasteel/f13/vault_floor/red/whiteredfull,
-/area/f13/mountain_bunker)
 "apw" = (
 /obj/structure/rack/shelf_metal,
 /obj/effect/spawner/lootdrop/f13/weapon/milsurplus,
@@ -1497,6 +1493,12 @@
 /obj/structure/wreck/trash/machinepile,
 /turf/open/floor/plasteel/f13/vault_floor/misc/rarewhite,
 /area/f13/ruins)
+"clo" = (
+/turf/open/indestructible/ground/outside/desert{
+	color = "#A47449";
+	sunlight_state = 0
+	},
+/area/f13/tunnel/sub)
 "cmH" = (
 /turf/open/indestructible/ground/outside/ruins{
 	sunlight_state = 0;
@@ -1757,6 +1759,13 @@
 /mob/living/simple_animal/hostile/raider/junker/creator,
 /turf/open/indestructible/ground/inside/subway,
 /area/f13/tunnel/sub)
+"cIA" = (
+/obj/structure/disposalpipe/segment,
+/turf/open/indestructible/ground/outside/desert{
+	color = "#A47449";
+	sunlight_state = 0
+	},
+/area/f13/tunnel)
 "cIY" = (
 /obj/machinery/light/small{
 	light_color = "#FF0000";
@@ -1990,6 +1999,11 @@
 	},
 /obj/structure/barricade/wooden,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/tunnel/sub)
+"cVZ" = (
+/obj/structure/table/wood,
+/obj/item/storage/backpack/duffelbag/med/surgery/primitive/anchored,
+/turf/open/indestructible/ground/inside/subway,
 /area/f13/tunnel/sub)
 "cWV" = (
 /obj/item/clothing/suit/space/syndicate/blue{
@@ -2505,12 +2519,6 @@
 	sunlight_state = 0
 	},
 /area/space)
-"dFP" = (
-/obj/structure/simple_door/metal/ventilation,
-/turf/open/floor/plasteel/stairs{
-	dir = 4
-	},
-/area/f13/tunnel)
 "dFZ" = (
 /obj/structure/disposalpipe/segment{
 	dir = 1
@@ -5240,6 +5248,10 @@
 "hOg" = (
 /turf/closed/wall/mineral/wood,
 /area/f13/tunnel/sub)
+"hOU" = (
+/obj/structure/destructible/tribal_torch/lit,
+/turf/open/floor/wood_wide,
+/area/f13/tunnel/sub)
 "hPh" = (
 /obj/machinery/autolathe,
 /turf/open/floor/plasteel/cult,
@@ -5363,7 +5375,7 @@
 /area/f13/tunnel/sub)
 "hXD" = (
 /obj/structure/simple_door/bunker,
-/turf/open/floor/plating/rust,
+/turf/open/floor/plasteel/f13/vault_floor/yellow/whiteyellowfull,
 /area/f13/mountain_bunker)
 "hXR" = (
 /obj/effect/spawner/lootdrop/trash,
@@ -5695,7 +5707,25 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/vault)
 "isH" = (
-/obj/structure/bed/wooden,
+/obj/structure/bed{
+	layer = 2.7
+	},
+/obj/structure/bed{
+	pixel_y = 16;
+	layer = 3
+	},
+/obj/structure/railing/corner{
+	icon_state = "straight";
+	pixel_x = 14;
+	name = "bedpost";
+	desc = "A metal bedpost."
+	},
+/obj/structure/railing/corner{
+	icon_state = "straight";
+	pixel_x = -14;
+	name = "bedpost";
+	desc = "A metal bedpost."
+	},
 /turf/open/floor/wood_wide,
 /area/f13/tunnel/sub)
 "itz" = (
@@ -5791,6 +5821,10 @@
 	},
 /turf/closed/mineral/random/low_chance/underground,
 /area/f13/citycaves)
+"iya" = (
+/obj/structure/simple_door/repaired,
+/turf/open/indestructible/ground/inside/subway,
+/area/f13/tunnel/sub)
 "iyh" = (
 /obj/structure/spacevine,
 /turf/closed/wall/rust,
@@ -6024,6 +6058,28 @@
 	icon_state = "redrustyfull"
 	},
 /area/f13/bunker)
+"iRi" = (
+/obj/structure/bed{
+	layer = 2.7
+	},
+/obj/structure/bed{
+	pixel_y = 16;
+	layer = 3
+	},
+/obj/structure/railing/corner{
+	icon_state = "straight";
+	pixel_x = 14;
+	name = "bedpost";
+	desc = "A metal bedpost."
+	},
+/obj/structure/railing/corner{
+	icon_state = "straight";
+	pixel_x = -14;
+	name = "bedpost";
+	desc = "A metal bedpost."
+	},
+/turf/open/floor/wood_wide,
+/area/f13/citycaves)
 "iRD" = (
 /obj/machinery/light/small{
 	dir = 8;
@@ -9352,6 +9408,11 @@
 "nth" = (
 /turf/open/floor/plasteel/f13/vault_floor/plating,
 /area/f13/tunnel/sub)
+"ntV" = (
+/obj/structure/table/optable/primitive,
+/obj/machinery/defibrillator_mount/primitive,
+/turf/open/indestructible/ground/inside/subway,
+/area/f13/tunnel/sub)
 "nuy" = (
 /obj/machinery/microwave/stove,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
@@ -11519,6 +11580,9 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/vault)
+"qtE" = (
+/turf/open/floor/wood_wide,
+/area/f13/citycaves)
 "quS" = (
 /obj/structure/simple_door/wood,
 /turf/open/floor/wood_common/wood_common_light,
@@ -13192,7 +13256,7 @@
 /turf/open/floor/plating/rust,
 /area/f13/tunnel)
 "sVY" = (
-/obj/machinery/door/unpowered/secure_legion,
+/obj/structure/simple_door/metal/barred,
 /turf/open/indestructible/ground/inside/subway,
 /area/f13/tunnel/sub)
 "sWN" = (
@@ -14398,6 +14462,13 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/citycaves)
+"uBl" = (
+/obj/machinery/hydroponics/soil,
+/turf/open/indestructible/ground/outside/desert{
+	color = "#A47449";
+	sunlight_state = 0
+	},
+/area/f13/tunnel/sub)
 "uDu" = (
 /obj/effect/spawner/lootdrop/trash,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
@@ -15309,6 +15380,13 @@
 "vUa" = (
 /turf/closed/wall/rust,
 /area/f13/mountain_bunker)
+"vUz" = (
+/obj/structure/barricade/wooden,
+/turf/open/indestructible/ground/outside/desert{
+	color = "#A47449";
+	sunlight_state = 0
+	},
+/area/f13/tunnel/sub)
 "vUL" = (
 /obj/structure/fence/handrail{
 	pixel_y = -14;
@@ -15697,6 +15775,12 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/tunnel/sub)
+"wxO" = (
+/turf/open/indestructible/ground/outside/desert{
+	color = "#A47449";
+	sunlight_state = 0
+	},
+/area/f13/tunnel)
 "wxZ" = (
 /turf/closed/wall/f13/tunnel{
 	icon_state = "tunnel2"
@@ -18222,8 +18306,8 @@ bzF
 bvn
 bzF
 hOg
-xrG
-xrG
+tnG
+tnG
 xrG
 xrG
 xrG
@@ -18478,9 +18562,9 @@ bvn
 bzF
 bzF
 isH
-hOg
-xrG
-wcB
+bzF
+iRi
+tnG
 wcB
 xrG
 hEn
@@ -18728,16 +18812,16 @@ tWf
 bvn
 bvn
 lXJ
-bvn
+ntV
 bzF
 bvn
 bvn
 bzF
 bzF
 bzF
-hOg
-xrG
-xrG
+bzF
+qtE
+tnG
 xrG
 wcB
 hEn
@@ -18986,15 +19070,15 @@ wAy
 veU
 lXJ
 qCC
-bvn
+cVZ
 bla
 hXg
 bla
-qCC
+bvn
 isH
-hOg
-xrG
-xrG
+hOU
+iRi
+tnG
 xrG
 wcB
 xrG
@@ -19247,11 +19331,11 @@ ptH
 hOg
 ctT
 hOg
-ptH
-ptH
+iya
 hOg
-xrG
-xrG
+hOg
+tnG
+tnG
 xrG
 xrG
 wcB
@@ -40728,13 +40812,13 @@ sLM
 glb
 glb
 glb
-aph
+hXD
 nro
 glb
 glb
 glb
 glb
-aph
+hXD
 dsE
 fQb
 fQb
@@ -41240,7 +41324,7 @@ vUa
 qts
 hAC
 glb
-aph
+hXD
 oHY
 vUa
 pdh
@@ -41496,7 +41580,7 @@ xrG
 vUa
 vUa
 vUa
-aph
+hXD
 vUa
 vUa
 vUa
@@ -42270,7 +42354,7 @@ wkG
 ubo
 ubo
 glb
-aph
+hXD
 glb
 umP
 cTp
@@ -44803,7 +44887,7 @@ cqH
 cqH
 kPz
 cqH
-cqH
+cIA
 cqH
 cqH
 cqH
@@ -45060,8 +45144,8 @@ ylc
 ylc
 ylc
 ylc
-ylc
-ylc
+wxO
+wxO
 ylc
 ylc
 ylc
@@ -45316,10 +45400,10 @@ aRU
 aRU
 aRU
 aRU
-aRU
-aRU
-aRU
-aRU
+vUz
+clo
+clo
+vUz
 aRU
 aRU
 aRU
@@ -45571,12 +45655,12 @@ aRU
 aRU
 aRU
 aRU
-aRU
-aRU
-aRU
-aRU
-aRU
-aRU
+clo
+clo
+clo
+clo
+clo
+clo
 aRU
 aRU
 aRU
@@ -45827,15 +45911,15 @@ aRU
 aRU
 aRU
 aRU
-aRU
-aRU
-aRU
-aRU
-aRU
-aRU
-aRU
-aRU
-aRU
+vUz
+clo
+clo
+clo
+clo
+clo
+clo
+vUz
+clo
 aRU
 aRU
 aRU
@@ -46084,16 +46168,16 @@ aRU
 tOm
 tOm
 tOm
-tOm
-tOm
-aRU
-aRU
-aRU
-aRU
-aRU
-aRU
-aRU
-aRU
+clo
+uBl
+clo
+clo
+clo
+clo
+uBl
+clo
+clo
+vUz
 aRU
 aRU
 aRU
@@ -46340,17 +46424,17 @@ aRU
 aRU
 aRU
 aRU
-aRU
-aRU
-aRU
-aRU
-aRU
-aRU
-aRU
-aRU
-aRU
-aRU
-aRU
+clo
+clo
+clo
+clo
+clo
+clo
+clo
+clo
+clo
+clo
+clo
 aRU
 aRU
 aRU
@@ -46597,15 +46681,15 @@ aRU
 aRU
 aRU
 aRU
-aRU
-aRU
-aRU
-aRU
-aRU
-aRU
-tOm
-aRU
-aRU
+vUz
+clo
+clo
+clo
+clo
+uBl
+clo
+clo
+clo
 aRU
 aRU
 aRU
@@ -46854,14 +46938,14 @@ aRU
 aRU
 aRU
 aRU
-aRU
-aRU
-aRU
-aRU
-aRU
-aRU
-aRU
-aRU
+clo
+clo
+clo
+clo
+clo
+clo
+clo
+vUz
 aRU
 aRU
 aRU
@@ -47111,13 +47195,13 @@ aRU
 aRU
 aRU
 aRU
-aRU
-aRU
-aRU
-aRU
-aRU
-aRU
-aRU
+clo
+clo
+clo
+clo
+clo
+clo
+clo
 aRU
 tOm
 tOm
@@ -47369,11 +47453,11 @@ aRU
 aRU
 aRU
 aRU
-aRU
-aRU
-aRU
-aRU
-aRU
+vUz
+uBl
+clo
+clo
+clo
 aRU
 aRU
 tOm
@@ -47627,11 +47711,11 @@ aRU
 aRU
 aRU
 aRU
-aRU
-aRU
-aRU
-aRU
-aRU
+clo
+clo
+clo
+clo
+vUz
 aRU
 tOm
 tOm
@@ -47885,10 +47969,10 @@ aRU
 aRU
 aRU
 aRU
-aRU
-aRU
-aRU
-aRU
+clo
+vUz
+clo
+clo
 aRU
 tOm
 tOm
@@ -75681,7 +75765,7 @@ ylc
 ylc
 ylc
 ylc
-dFP
+ylc
 ylc
 ylc
 ylc

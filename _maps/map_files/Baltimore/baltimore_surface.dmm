@@ -4961,6 +4961,9 @@
 	},
 /turf/open/indestructible/ground/outside/sidewalkdirt,
 /area/f13/wasteland/city/citycenter)
+"bKy" = (
+/turf/open/floor/plating/rust,
+/area/f13/vault/security/armory)
 "bLa" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/remains/human,
@@ -9138,7 +9141,7 @@
 /turf/open/floor/plating,
 /area/f13/building/boat)
 "dgx" = (
-/obj/machinery/door/airlock/grunge,
+/obj/machinery/door/unpowered/secure_bos,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	name = "Old Docks";
 	sunlight_state = 1
@@ -9677,7 +9680,7 @@
 "drl" = (
 /obj/item/reagent_containers/glass/bucket/wood,
 /turf/open/floor/plating/rust,
-/area/f13/building/boat)
+/area/f13/vault/security/armory)
 "drm" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/stone_tile/block{
@@ -9985,7 +9988,7 @@
 	id = 757
 	},
 /turf/closed/wall/rust,
-/area/f13/building/boat)
+/area/f13/vault/security/armory)
 "dwA" = (
 /obj/structure/sign/poster/official/report_crimes,
 /turf/closed/wall/f13/store/constructed{
@@ -12021,7 +12024,7 @@
 "eiZ" = (
 /obj/structure/simple_door/metal/barred,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/building/boat)
+/area/f13/vault/security/armory)
 "ejc" = (
 /obj/structure/table/greyscale,
 /obj/item/camera_film,
@@ -18528,15 +18531,13 @@
 	},
 /area/f13/ruins)
 "gyN" = (
+/obj/machinery/door/unpowered/secure_steeldoor{
+	name = "Atlantic Cross locked steel door";
+	req_access_txt = "280"
+	},
 /obj/machinery/door/poddoor/shutters/window{
 	id = 88;
 	name = "Hospital Ship Surgery windowed shutters"
-	},
-/obj/machinery/door/airlock/medical/glass{
-	req_access_txt = "280";
-	name = "Atlantic Cross ER Airlock";
-	id_tag = "Medbay";
-	req_one_access_txt = "280"
 	},
 /turf/open/floor/plasteel/dark,
 /area/f13/building/boat)
@@ -18926,9 +18927,6 @@
 	},
 /turf/open/floor/wood_fancy/wood_fancy_light,
 /area/f13/building/center)
-"gFA" = (
-/turf/open/floor/plasteel/f13/vault_floor/blue/whitebluefull,
-/area/f13/building/boat)
 "gFG" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/wood_fancy{
@@ -20693,8 +20691,8 @@
 	pixel_y = 11;
 	pixel_x = 11
 	},
-/turf/open/floor/plating/dirt/dirt_maryland{
-	icon_state = "dirt_original"
+/turf/open/indestructible/ground/outside/desert{
+	color = "#A47449"
 	},
 /area/f13/wasteland/city)
 "hmO" = (
@@ -20759,10 +20757,13 @@
 /turf/open/floor/plating/rust,
 /area/f13/building/center)
 "hnu" = (
-/obj/machinery/door/airlock/wood,
 /obj/machinery/door/poddoor/shutters/window{
 	name = "Hospital ship Classroom windowed shutters";
 	id = 87
+	},
+/obj/machinery/door/unpowered/secure_steeldoor{
+	name = "Atlantic Cross locked steel door";
+	req_access_txt = "280"
 	},
 /turf/open/floor/plasteel/dark,
 /area/f13/building/boat)
@@ -21795,7 +21796,7 @@
 "hFS" = (
 /obj/item/reagent_containers/glass/bucket/wood,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/building/boat)
+/area/f13/vault/security/armory)
 "hGe" = (
 /obj/structure/window/fulltile/wood/broken,
 /turf/open/floor/wood_wide,
@@ -22570,8 +22571,8 @@
 /area/f13/building)
 "hSR" = (
 /obj/item/pickaxe,
-/turf/open/floor/plating/dirt/dirt_maryland{
-	icon_state = "dirt_original"
+/turf/open/indestructible/ground/outside/desert{
+	color = "#A47449"
 	},
 /area/f13/wasteland/city)
 "hTi" = (
@@ -23720,7 +23721,7 @@
 	pixel_y = 32
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/building/boat)
+/area/f13/vault/security/armory)
 "ipM" = (
 /obj/machinery/newscaster{
 	pixel_y = 32
@@ -23838,6 +23839,9 @@
 /obj/structure/table/reinforced,
 /turf/open/floor/plating/rust,
 /area/f13/outpost)
+"irD" = (
+/turf/closed/indestructible/f13/matrix,
+/area/f13/vault/security/armory)
 "irL" = (
 /obj/structure/fence/corner{
 	dir = 8
@@ -25814,7 +25818,7 @@
 "jav" = (
 /obj/structure/barricade/bars,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/building/boat)
+/area/f13/vault/security/armory)
 "jaD" = (
 /obj/machinery/light/small{
 	light_color = "#FF0000";
@@ -30835,7 +30839,6 @@
 "kQq" = (
 /obj/structure/flora/ausbushes/fullgrass,
 /obj/structure/flora/ausbushes/ywflowers,
-/obj/structure/nest/fireant,
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/ruins)
 "kQy" = (
@@ -31052,7 +31055,7 @@
 /area/f13/ruins)
 "kTT" = (
 /obj/structure/closet/crate/footlocker,
-/obj/effect/spawner/lootdrop/f13/armor/tier5,
+/obj/effect/spawner/lootdrop/f13/armor/tier4,
 /turf/open/floor/plating/rust,
 /area/f13/citycaves)
 "kTW" = (
@@ -31973,6 +31976,9 @@
 	},
 /area/f13/wasteland/city/citycenter)
 "lkc" = (
+/obj/structure/stairs{
+	dir = 1
+	},
 /turf/open/floor/plasteel/stairs,
 /area/f13/citycaves)
 "lkq" = (
@@ -34279,12 +34285,6 @@
 	icon_state = "bluerustyfull"
 	},
 /area/f13/building/boat)
-"lVu" = (
-/obj/structure/nest/radroach,
-/turf/open/indestructible/ground/outside/ruins{
-	icon_state = "rubbleslab"
-	},
-/area/f13/brotherhood)
 "lVF" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/pool{
@@ -36401,7 +36401,7 @@
 "mGB" = (
 /obj/structure/sign/poster/official/report_crimes,
 /turf/closed/wall/rust,
-/area/f13/building/boat)
+/area/f13/vault/security/armory)
 "mGL" = (
 /obj/effect/decal/cleanable/greenglow,
 /mob/living/simple_animal/hostile/handy{
@@ -37198,6 +37198,9 @@
 /obj/item/stack/sheet/lead,
 /turf/open/floor/plasteel/f13/vault_floor/plating,
 /area/f13/ruins)
+"mWl" = (
+/turf/closed/wall/rust,
+/area/f13/vault/security/armory)
 "mWm" = (
 /obj/structure/stone_tile/block,
 /obj/structure/stone_tile/block{
@@ -38048,7 +38051,7 @@
 	sunlight_state = 1;
 	name = "rusted Docks"
 	},
-/area/f13/building/boat)
+/area/f13/vault/security/armory)
 "nnI" = (
 /obj/structure/railing/wood{
 	pixel_y = -21;
@@ -44039,7 +44042,7 @@
 "pqo" = (
 /obj/structure/barricade/bars,
 /turf/open/floor/plasteel/f13/vault_floor/blue/whitebluefull,
-/area/f13/building/boat)
+/area/f13/vault/security/armory)
 "pqr" = (
 /obj/structure/closet/locker/fridge,
 /obj/effect/spawner/lootdrop/f13/foodspawner,
@@ -44431,7 +44434,7 @@
 /obj/structure/barricade/bars,
 /obj/structure/table,
 /turf/open/floor/plating/rust,
-/area/f13/building/boat)
+/area/f13/vault/security/armory)
 "pxC" = (
 /obj/structure/spacevine,
 /turf/open/floor/plating/rust{
@@ -46423,8 +46426,8 @@
 	color = "#A47449";
 	dir = 4
 	},
-/turf/open/floor/plating/dirt/dirt_maryland{
-	icon_state = "grass_7"
+/turf/open/indestructible/ground/outside/desert{
+	color = "#A47449"
 	},
 /area/f13/wasteland/city)
 "qkE" = (
@@ -47426,6 +47429,17 @@
 	icon_state = "grass_2"
 	},
 /area/f13/wasteland/city/citycenter)
+"qDN" = (
+/obj/machinery/door/poddoor/shutters/window{
+	id = 88;
+	name = "Hospital Ship Surgery windowed shutters"
+	},
+/obj/machinery/door/unpowered/secure_steeldoor{
+	name = "Atlantic Cross locked steel door";
+	req_access_txt = "280"
+	},
+/turf/open/floor/plasteel/dark,
+/area/f13/building/boat)
 "qDS" = (
 /obj/structure/fence/corner/wooden,
 /obj/structure/fence/corner/wooden{
@@ -47712,7 +47726,7 @@
 	dir = 4
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/building/boat)
+/area/f13/vault/security/armory)
 "qHN" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/wood_wide{
@@ -49194,10 +49208,9 @@
 /turf/open/indestructible/ground/outside/ruins,
 /area/f13/building/center)
 "rec" = (
-/obj/machinery/door/airlock/medical/glass{
-	req_access_txt = "280";
-	name = "ACS Enterprising Airlock";
-	req_one_access_txt = "280"
+/obj/machinery/door/unpowered/secure_steeldoor{
+	name = "Atlantic Cross locked steel door";
+	req_access_txt = "280"
 	},
 /turf/open/floor/plasteel/f13/vault_floor/plating,
 /area/f13/building/boat)
@@ -53190,7 +53203,7 @@
 	name = "Police Station secure door"
 	},
 /turf/open/floor/plasteel/f13/vault_floor,
-/area/f13/building/boat)
+/area/f13/vault/security/armory)
 "svH" = (
 /obj/structure/railing{
 	dir = 1
@@ -53660,7 +53673,7 @@
 "sDr" = (
 /obj/structure/bed/old,
 /turf/open/floor/plating/rust,
-/area/f13/building/boat)
+/area/f13/vault/security/armory)
 "sDQ" = (
 /obj/structure/closet/cabinet/anchored,
 /obj/effect/spawner/bundle/f13/armor/combatduster,
@@ -54019,6 +54032,12 @@
 /obj/structure/junk/drawer,
 /turf/open/indestructible/ground/outside/gravel,
 /area/f13/wasteland/city)
+"sJO" = (
+/obj/machinery/gear_painter,
+/turf/open/indestructible/ground/outside/sidewalk{
+	icon_state = "horizontaloutermain1"
+	},
+/area/f13/brotherhood)
 "sJU" = (
 /obj/machinery/light/small{
 	dir = 2;
@@ -54714,7 +54733,7 @@
 /turf/open/floor/plating/rust,
 /area/f13/building/center)
 "sYF" = (
-/obj/machinery/door/airlock/grunge,
+/obj/machinery/door/unpowered/secure_bos,
 /turf/open/floor/plating/dirt/dirt_maryland{
 	icon_state = "dirt_original"
 	},
@@ -60133,10 +60152,9 @@
 	},
 /area/f13/building/center)
 "uUj" = (
-/obj/machinery/door/airlock/medical{
-	req_access_txt = "280";
-	name = "ACHS service airlock";
-	req_one_access_txt = "280"
+/obj/machinery/door/unpowered/secure_steeldoor{
+	name = "Atlantic Cross locked steel door";
+	req_access_txt = "280"
 	},
 /turf/open/floor/plasteel/dark,
 /area/f13/building/boat)
@@ -60257,10 +60275,6 @@
 /obj/effect/decal/cleanable/blood,
 /turf/open/floor/wood_wide,
 /area/f13/ruins)
-"uWT" = (
-/obj/machinery/door/unpowered/secure_legion,
-/turf/open/indestructible/ground/outside/ruins,
-/area/f13/building/center)
 "uWZ" = (
 /obj/structure/closet/crate/large,
 /obj/effect/spawner/lootdrop/f13/traitbooks/low,
@@ -60600,14 +60614,6 @@
 	icon_state = "horizontaltopbordertop2left"
 	},
 /area/f13/wasteland/city/citycenter)
-"vcB" = (
-/obj/machinery/door/airlock/medical/glass{
-	req_access_txt = "280";
-	name = "ACS Enterprising Airlock";
-	req_one_access_txt = "280"
-	},
-/turf/open/floor/plasteel/dark,
-/area/f13/building/boat)
 "vcF" = (
 /obj/structure/table/wood,
 /obj/machinery/computer/terminal{
@@ -63267,15 +63273,6 @@
 	icon_state = "road_center"
 	},
 /area/f13/wasteland/city/citycenter)
-"vXj" = (
-/obj/effect/turf_decal/road_end{
-	icon_state = "road_end_decal_2";
-	dir = 4
-	},
-/turf/open/floor/plating/dirt/dirt_maryland{
-	icon_state = "grass_2"
-	},
-/area/f13/wasteland/city)
 "vXn" = (
 /obj/structure/chair/bench{
 	dir = 4
@@ -63978,15 +63975,6 @@
 	},
 /turf/open/indestructible/ground/outside/baltimore{
 	icon_state = "road_east_w"
-	},
-/area/f13/wasteland/city)
-"wiP" = (
-/obj/structure/railing{
-	color = "#A47449";
-	dir = 4
-	},
-/turf/open/floor/plating/dirt/dirt_maryland{
-	icon_state = "dirt_original"
 	},
 /area/f13/wasteland/city)
 "wiZ" = (
@@ -65945,15 +65933,11 @@
 "wTI" = (
 /obj/effect/mob_spawn/human/corpse/charredskeleton,
 /obj/item/clothing/under/f13/navy/officer,
-/obj/item/clothing/head/beret/sec/navyhos{
-	anchored = 1;
-	name = "Navy Beret";
-	pixel_y = 14;
-	layer = 8;
-	desc = "A special beret, symbol of excellence, a badge of courage, a mark of distinction."
-	},
 /obj/item/clothing/suit/armor/medium/duster/navyblue,
 /obj/item/clothing/shoes/jackboots,
+/obj/item/clothing/head/beret/sec/navyhos{
+	name = "Navy Beret"
+	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/citycaves)
 "wTX" = (
@@ -66632,6 +66616,15 @@
 	},
 /turf/open/floor/wood_fancy,
 /area/f13/building)
+"xfA" = (
+/obj/effect/turf_decal/road_end{
+	icon_state = "road_end_decal_2";
+	dir = 4
+	},
+/turf/open/indestructible/ground/outside/desert{
+	color = "#A47449"
+	},
+/area/f13/wasteland/city)
 "xfG" = (
 /obj/effect/spawner/lootdrop/f13/junkspawners,
 /turf/open/indestructible/ground/outside/baltimore{
@@ -67433,7 +67426,7 @@
 /area/f13/wasteland/city)
 "xuJ" = (
 /turf/closed/wall/mineral/concrete,
-/area/f13/building/boat)
+/area/f13/vault/security/armory)
 "xuL" = (
 /obj/structure/bed/oldalt,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -69129,7 +69122,7 @@
 	name = "Police Station secure door"
 	},
 /turf/open/floor/plasteel/f13/vault_floor/blue/whitebluefull,
-/area/f13/building/boat)
+/area/f13/vault/security/armory)
 "xXT" = (
 /obj/structure/car/rubbish1,
 /turf/open/indestructible/ground/outside/baltimore{
@@ -69968,7 +69961,7 @@
 	dir = 4
 	},
 /turf/open/transparent/openspace,
-/area/f13/building/boat)
+/area/f13/vault/security/armory)
 "ylT" = (
 /obj/structure/curtain,
 /turf/open/floor/plasteel/f13/vault_floor/plating,
@@ -72556,7 +72549,7 @@ roU
 njk
 amO
 amO
-uWT
+vXy
 cmH
 lgb
 gkL
@@ -80382,7 +80375,7 @@ pJf
 sBD
 xKr
 xmg
-vsW
+sBD
 xKr
 tHD
 hmv
@@ -82803,8 +82796,8 @@ oEs
 oEs
 oEs
 hmB
-vXj
-gcs
+xfA
+xfA
 flE
 kxr
 kxr
@@ -83057,10 +83050,10 @@ oEs
 oEs
 hPe
 bQv
-gcs
-gcs
-bad
-icV
+xfA
+xfA
+fsH
+fsH
 jGN
 jGN
 kxr
@@ -83314,7 +83307,7 @@ xXT
 sTc
 hDA
 pxj
-wiP
+qkB
 qkB
 azP
 jGN
@@ -84823,7 +84816,7 @@ eLJ
 tWS
 icV
 tWS
-icV
+fsH
 tWS
 uGd
 uGd
@@ -85079,8 +85072,8 @@ eLJ
 eLJ
 tWS
 tWS
-cRS
-bad
+rDA
+fsH
 uGd
 uGd
 uGd
@@ -85848,7 +85841,7 @@ eLJ
 eLJ
 mYZ
 eLJ
-kUI
+fsH
 tWS
 tWS
 voW
@@ -85865,7 +85858,7 @@ voW
 voW
 tWS
 tWS
-icV
+fsH
 nHx
 oEs
 wjr
@@ -86105,8 +86098,8 @@ wDh
 eLJ
 eLJ
 eLJ
-icV
-tkl
+fsH
+fsH
 tWS
 voW
 voW
@@ -86634,7 +86627,7 @@ voW
 voW
 tWS
 tWS
-icV
+fsH
 icV
 cbN
 ksd
@@ -87134,8 +87127,8 @@ siv
 eLJ
 eLJ
 tWS
-icV
-icV
+fsH
+fsH
 tWS
 tWS
 cCP
@@ -94509,9 +94502,9 @@ ric
 qJx
 pCM
 jxb
-fpm
+sJO
 ric
-lVu
+eoM
 eoM
 gHN
 tWS
@@ -100665,7 +100658,7 @@ kxr
 kxr
 szZ
 szZ
-oFJ
+szZ
 szZ
 wZa
 gXg
@@ -116041,7 +116034,7 @@ lTu
 bzY
 gpD
 gpD
-gyN
+qDN
 gpD
 pOT
 gpD
@@ -118156,7 +118149,7 @@ rIa
 frr
 hbJ
 dNO
-iRQ
+mWl
 xuJ
 svy
 xuJ
@@ -118167,7 +118160,7 @@ xuJ
 xuJ
 xuJ
 xuJ
-iRQ
+mWl
 fHV
 fHV
 fHV
@@ -118414,10 +118407,10 @@ kcy
 jxO
 gjU
 xXF
-dOk
-vNq
-gFA
-dOk
+fiE
+bKy
+vyE
+fiE
 nnG
 vPV
 vPV
@@ -118671,11 +118664,11 @@ ylc
 nvO
 jTh
 xXF
-vNq
-dOk
-vNq
-dOk
-dOk
+bKy
+fiE
+bKy
+fiE
+fiE
 jhd
 fiE
 ltj
@@ -118932,7 +118925,7 @@ pqo
 eiZ
 pxB
 jav
-dOk
+fiE
 vPV
 hJW
 ksq
@@ -119186,10 +119179,10 @@ ahn
 fJk
 dwt
 drl
-dOk
+fiE
 hFS
 pqo
-dOk
+fiE
 vPV
 mtB
 fiE
@@ -119373,7 +119366,7 @@ rsn
 rsn
 rsn
 dwA
-vcB
+uUj
 rec
 iRQ
 tzQ
@@ -119441,7 +119434,7 @@ uqR
 oBJ
 qOk
 oiF
-xoj
+vPV
 ipF
 qHC
 sDr
@@ -119698,12 +119691,12 @@ nNU
 qWz
 gTf
 gpl
-xoj
-xoj
-gky
-xoj
-xoj
-xoj
+vPV
+vPV
+irD
+vPV
+vPV
+vPV
 vPV
 vPV
 vPV
@@ -127470,7 +127463,7 @@ bnp
 bnp
 icV
 icV
-icV
+fsH
 fsH
 fsH
 fsH
@@ -127984,7 +127977,7 @@ mIJ
 bnp
 icV
 icV
-icV
+fsH
 fsH
 fsH
 jGN
@@ -128241,7 +128234,7 @@ mIJ
 bnp
 icV
 uUm
-icV
+fsH
 fsH
 fsH
 jGN
