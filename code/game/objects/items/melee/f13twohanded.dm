@@ -530,7 +530,7 @@
 	else if(istype(A, /turf/closed))
 		playsound(loc, hitsound, 70, TRUE)
 
-// Proton axe			Keywords: Damage 28/55 fire axe but with a twist, if this works. I've either given it a cool gimmick, or broken everything
+// Proton axe			Keywords: Damage 28/55 fire axe but blue
 /obj/item/melee/transforming/energy/axe/protonaxe
 	name = "proton axe"
 	desc = "The experimental proton axe resembles a futuristic war-axe with a glowing blue blade of electrical energy at its head."
@@ -550,13 +550,11 @@
 	attack_speed = CLICK_CD_MELEE * 1.25
 	var/emp_radius = 1
 
-/obj/item/melee/transforming/energy/axe/protonaxe/afterattack(atom/A, mob/living/user, proximity)
+/*/obj/item/melee/transforming/energy/axe/protonaxe/afterattack(atom/A, mob/living/user, proximity)
 	. = ..()
 	if(!active)
 		return
-	empulse_using_range(A, emp_radius, log=0) //fox go a (A)
-
-//dan kelly is a nerd NO YOU ARE!!!
+	empulse_using_range(A, emp_radius, log=0)*/ //Commented out due to admin log spam -Pokee
 
 // Super Sledge			Keywords: Damage 25/60
 /obj/item/twohanded/sledgehammer/supersledge
