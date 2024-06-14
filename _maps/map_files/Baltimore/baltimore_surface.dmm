@@ -60055,6 +60055,10 @@
 	},
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/wasteland/city/citycenter)
+"uSQ" = (
+/obj/effect/landmark/start/f13/preacher,
+/turf/open/floor/wood_common,
+/area/f13/building)
 "uSX" = (
 /obj/effect/decal/cleanable/blood/footprints,
 /obj/effect/decal/cleanable/blood/footprints,
@@ -117653,7 +117657,7 @@ gTI
 fHV
 sJx
 kaa
-kaa
+uSQ
 kaa
 hSD
 dvS

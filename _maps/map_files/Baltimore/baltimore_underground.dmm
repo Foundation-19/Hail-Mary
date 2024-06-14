@@ -1468,10 +1468,6 @@
 	pixel_y = 8;
 	layer = 3
 	},
-/obj/item/megaphone/cornu,
-/obj/item/storage/book/bible{
-	pixel_y = 15
-	},
 /turf/open/floor/wood_mosaic/wood_mosaic_light,
 /area/f13/tunnel/sub)
 "ckI" = (
@@ -10123,6 +10119,12 @@
 	},
 /turf/open/floor/plating/rust,
 /area/f13/tunnel)
+"otj" = (
+/obj/effect/landmark/start/f13/f13baltimorepreacher,
+/turf/open/floor/wood_common/wood_common_light{
+	icon_state = "common_light-broken4"
+	},
+/area/f13/tunnel/sub)
 "ouc" = (
 /obj/machinery/telecomms/bus/preset_four,
 /turf/open/floor/plasteel/dark/telecomms/mainframe,
@@ -13515,7 +13517,6 @@
 /area/f13/citycaves)
 "toA" = (
 /obj/structure/table/wood,
-/obj/effect/landmark/start/f13/f13baltimorepreacher,
 /turf/open/floor/wood_fancy/wood_fancy_light{
 	icon_state = "fancy_light-broken3"
 	},
@@ -65426,7 +65427,7 @@ gEE
 iJF
 dOM
 hQC
-aEa
+otj
 uEK
 vKT
 iJF
