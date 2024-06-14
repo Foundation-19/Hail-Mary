@@ -829,6 +829,43 @@ obj/item/clothing/head/helmet/f13/enclave/usmcriot
 	icon_state = "bos_beret"
 	item_state = "bos_beret"
 
+//Atlantic Cross
+
+/obj/item/clothing/head/beret/atlantic
+	name = "Atlantic Cross Captain Cap"
+	desc = "Look at you, look at you, you are the captain of a Hospital ship and its escort. Nothing more badass, eh ?"
+	icon_state = "atlanticcap"
+	item_state = "atlanticcap"
+	icon = 'icons/fallout/clothing/hats.dmi'
+	mob_overlay_icon = 'icons/fallout/onmob/clothes/head.dmi' 
+	armor = ARMOR_VALUE_MEDIUM
+	armor_tokens = list(ARMOR_MODIFIER_UP_DT_T1, ARMOR_MODIFIER_UP_BULLET_T1)
+
+/obj/item/clothing/head/helmet/f13/combat/atlantic
+	name = "Atlantic Cross Helmet"
+	desc = "A helmet issued to guards, but also available for doctors and other crewmembers. Based on old helmets."
+	icon = 'icons/fallout/clothing/hats.dmi'
+	mob_overlay_icon = 'icons/fallout/onmob/clothes/head.dmi'	
+	icon_state = "atlantichelmet"
+	item_state = "atlantichelmet"
+
+/obj/item/clothing/head/helmet/f13/atlanticmarines
+	name = "Atlantic Cross Marines Helmet"
+	desc = "Based on riot gear, there is legends about them. Issued to some combat personel of a private naval security company, those soldier then offered to marines after the great war and losing contact with HQ."
+	icon = 'icons/fallout/clothing/hats.dmi'
+	mob_overlay_icon = 'icons/fallout/onmob/clothes/head.dmi'	
+	icon_state = "atlanticriot"
+	item_state = "atlanticriot"
+	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEHAIR|HIDEFACIALHAIR|HIDEFACE
+	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
+	resistance_flags = LAVA_PROOF | FIRE_PROOF
+	dynamic_hair_suffix = ""
+	dynamic_fhair_suffix = ""
+	flash_protect = 1
+	salvage_loot = list(/obj/item/stack/crafting/armor_plate = 3, /obj/item/clothing/glasses/night/polarizing = 1)
+	armor = ARMOR_VALUE_MEDIUM
+	armor_tokens = list(ARMOR_MODIFIER_UP_DT_T2)
+
 //Eastwood/Town
 
 /obj/item/clothing/head/f13/town

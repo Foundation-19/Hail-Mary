@@ -3,6 +3,7 @@
 	name = "poolwater"
 	desc = "You're safer here than in the deep."
 	icon_state = "pool_tile"
+	slowdown = 4
 	heat_capacity = INFINITY
 	var/filled = TRUE
 	var/next_splash = 0
@@ -30,7 +31,7 @@
 		QDEL_NULL(watereffect)
 		QDEL_NULL(watertop)
 	else
-		name = "poolwater"
+		name = "Sea water"
 		desc = "You're safer here than in the deep."
 		watereffect = new /obj/effect/overlay/water(src)
 		watertop = new /obj/effect/overlay/water/top(src)
@@ -41,13 +42,28 @@
 	icon_state = "bottom"
 	density = FALSE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	layer = ABOVE_MOB_LAYER
+	layer = ABOVE_ALL_MOB_LAYER
 	anchored = TRUE
 	resistance_flags = INDESTRUCTIBLE
 
 /obj/effect/overlay/water/top
 	icon_state = "top"
 	layer = BELOW_MOB_LAYER
+
+/obj/effect/overlay/water/watersidehorizontal
+	icon = 'icons/turf/pool.dmi'
+	icon_state = "riverwater_motion_side"
+	layer = ABOVE_ALL_MOB_LAYER
+
+/obj/effect/overlay/water/watersidevertical
+	icon = 'icons/turf/pool.dmi'
+	icon_state = "riverwater_motion_down"
+	layer = ABOVE_ALL_MOB_LAYER
+
+/obj/effect/overlay/water/watercorner
+	icon = 'icons/turf/pool.dmi'
+	icon_state = "riverwater_motion_corner"
+	layer = ABOVE_ALL_MOB_LAYER
 
 // Mousedrop hook to normal turfs to get out of pools.
 /turf/open/MouseDrop_T(atom/from, mob/living/user)
@@ -111,7 +127,8 @@
 		var/mob/living/victim = AM
 		if(!HAS_TRAIT(victim, TRAIT_SWIMMING))		//poor guy not swimming time to dunk them!
 			victim.AddElement(/datum/element/swimming)
-			controller.mobs_in_pool += victim
+			if(controller)
+				controller.mobs_in_pool += victim
 			if(locate(/obj/structure/pool/ladder) in src)		//safe climbing
 				return
 			if(iscarbon(AM))		//FUN TIME!
@@ -150,7 +167,7 @@
 					H.DefaultCombatKnockdown(40)
 					playsound(src, 'sound/effects/woodhit.ogg', 60, TRUE, 1)
 		else if(filled)
-			victim.adjustStaminaLoss(1)
+			victim.adjustStaminaLoss(4)
 			playsound(src, "water_wade", 20, TRUE)
 	return ..()
 

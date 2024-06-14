@@ -1,8 +1,5 @@
-#define JOB_MODIFICATION_MAP_NAME "Yuma"
+#define JOB_MODIFICATION_MAP_NAME "Central Pahrump"
 
-/datum/job/New()
-	..()
-	MAP_JOB_CHECK
-
-//MAP_REMOVE_JOB()
-
+MAP_REMOVE_JOB(atlantic) //job_types/captain.dm
+MAP_REMOVE_JOB(locust) //job_types/cargo_service.dm
+MAP_REMOVE_JOB(enclave) 

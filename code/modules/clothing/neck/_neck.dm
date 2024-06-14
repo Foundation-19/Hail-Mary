@@ -398,3 +398,11 @@ obj/item/clothing/neck/neckerchief
 	desc = "A black synthleather collar with spikey studs."
 	icon_state = "spikecollar"
 	item_state = "spikecollar"
+
+/obj/item/clothing/neck/scarf/f13/minutemen
+	name = "worn blue scarf"
+	desc = "A worn, ragged and old blue-tinted scarf, dotted with insignias of the Minutemen."
+	icon = 'fallout/icons/obj/clothing/minutemen.dmi'
+	mob_overlay_icon = 'fallout/icons/mob/clothing/minutemen.dmi'
+	item_state = "mm_scarf"
+	icon_state = "mm_scarf"

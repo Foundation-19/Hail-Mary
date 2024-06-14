@@ -28,7 +28,6 @@
 	icon_state = "wasteland"
 	ambience_area = list(
 		/datum/looping_sound/ambient/critters,
-		/datum/looping_sound/ambient/swamp,
 		/datum/looping_sound/ambient/critters/birds,
 		/datum/looping_sound/ambient/critters/birds/crow,
 		/datum/looping_sound/ambient/critters/frogs,
@@ -41,31 +40,49 @@
 	grow_chance = 45
 	weather_tags = list(WEATHER_ALL)
 
-/area/f13/wasteland/city
-	name = "City"
-	icon_state = "yellow"
+/area/f13/Ocean
+	name = "Ocean"
+	icon_state = "blue"
 	ambience_area = list(
-		/datum/looping_sound/ambient/city,
+		/datum/looping_sound/ambient/ocean_b,
+		)
+	outdoors = 1
+	open_space = 1
+	blob_allowed = 0
+	environment = 0
+	grow_chance = 0
+	weather_tags = list(WEATHER_ALL)
+
+/area/f13/wasteland/city
+	name = "Ruined City Coast"
+	icon_state = "city"
+	ambience_area = list(
+		/datum/looping_sound/ambient/ocean_a,
+		)
+	ambientmusic = list('sound/f13music/thecoastpart1fo4.ogg')
+	grow_chance = 45
+	environment = 10
+
+/area/f13/wasteland/city/citycenter
+	name = "Ruined Center City"
+	icon_state = "citycaves"
+	ambience_area = list(
 		/datum/looping_sound/ambient/critters,
 		/datum/looping_sound/ambient/general,
-		/datum/looping_sound/ambient/swamp/quiet,
 		/datum/looping_sound/ambient/critters/birds,
 		/datum/looping_sound/ambient/critters/birds/crow,
 		)
-	ambientmusic = null
-	grow_chance = 5
+	ambientmusic = list('sound/f13music/nomoresailsfo4.ogg')
+	grow_chance = 45
+	environment = 10
 
 /area/f13/wasteland/town
 	name = "Town"
 	icon_state = "green"
 	ambience_area = list(
-		/datum/looping_sound/ambient/town,
-		/datum/looping_sound/ambient/general,
-		/datum/looping_sound/ambient/swamp/quiet,
-		/datum/looping_sound/ambient/critters/birds,
-		/datum/looping_sound/ambient/critters/birds/crow,
+		/datum/looping_sound/ambient/harbor_b,
 		)
-	ambientmusic = null
+	ambientmusic = list('sound/f13music/endlessoceanfo4.ogg')
 	grow_chance = 5
 
 
@@ -73,8 +90,27 @@
 	name = "Building"
 	icon_state = "building"
 	ambience_area = list(
+		/datum/looping_sound/ambient/harbor_interior,
+		)
+	weather_tags = null
+	outdoors = FALSE
+
+/area/f13/building/center
+	name = "Ruined city center Building"
+	icon_state = "yellow"
+	ambience_area = list(
 		/datum/looping_sound/ambient/general,
 		/datum/looping_sound/ambient/woodcreak,
+		/datum/looping_sound/ambient/lightbulb,
+		)
+	weather_tags = null
+	outdoors = FALSE
+
+/area/f13/building/boat
+	name = "Boat"
+	icon_state = "red"
+	ambience_area = list(
+		/datum/looping_sound/ambient/ship_interior,
 		)
 	weather_tags = null
 	outdoors = FALSE
@@ -95,7 +131,6 @@
 	ambience_area = list(
 		/datum/looping_sound/ambient/general,
 		/datum/looping_sound/ambient/woodcreak,
-		/datum/looping_sound/ambient/building/hospital,
 		)
 	weather_tags = null
 
@@ -105,7 +140,6 @@
 	ambience_area = list(
 		/datum/looping_sound/ambient/general,
 		/datum/looping_sound/ambient/woodcreak,
-		/datum/looping_sound/ambient/building/church,
 		)
 
 /area/f13/building/tribal
@@ -115,7 +149,6 @@
 		/datum/looping_sound/ambient/general,
 		/datum/looping_sound/ambient/woodcreak,
 		/datum/looping_sound/ambient/torch,
-		/datum/looping_sound/ambient/building/sulphurtribe,
 		)
 
 /area/f13/building/tribal/cave
@@ -125,7 +158,6 @@
 		/datum/looping_sound/ambient/general,
 		/datum/looping_sound/ambient/woodcreak,
 		/datum/looping_sound/ambient/torch,
-		/datum/looping_sound/ambient/building/sulphurtribe,
 		/datum/looping_sound/ambient/cave,
 		/datum/looping_sound/ambient/swamp/quiet,
 		/datum/looping_sound/ambient/critters/birds,
@@ -163,7 +195,6 @@
 	grow_chance = 25
 	ambience_area = list(
 		/datum/looping_sound/ambient/general,
-		/datum/looping_sound/ambient/building,
 		/datum/looping_sound/ambient/cave,
 		/datum/looping_sound/ambient/tunnel,
 	)
@@ -176,7 +207,6 @@
 		///datum/looping_sound/ambient/radiomusic,
 		///datum/looping_sound/ambient/radiostatic,
 		///datum/looping_sound/ambient/djswampass,
-		/datum/looping_sound/ambient/town,
 		/datum/looping_sound/ambient/woodcreak,
 	)
 	weather_tags = null

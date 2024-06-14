@@ -21,7 +21,7 @@
 	var/map_path = "map_files/Pahrump-AB"
 	var/map_file = list("Dungeons.dmm","Pahrump-AB-Lower.dmm", "Pahrump-AB.dmm", "Pahrump-AB-Upper.dmm")
 	var/list/added_jobs = list()     //Overrides the "none" faction using job name
-	var/list/removed_jobs = list()   //Removes the "none" faction using job name - can also use #all# (case sensitive)
+	var/list/removed_jobs = list("enclave.dm","atlantic_cross.dm","locust_point.dm")   //Removes the "none" faction using job name - can also use #all# (case sensitive)
 
 	var/traits = list(
 					list(
