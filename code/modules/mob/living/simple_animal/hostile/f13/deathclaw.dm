@@ -12,6 +12,7 @@
 	icon_dead = "deathclaw_dead"
 	icon_gib = "deathclaw_gib"
 	mob_armor = ARMOR_VALUE_DEATHCLAW_COMMON
+	sentience_type = SENTIENCE_BOSS
 	maxHealth = 600
 	health = 600
 	reach = 2
