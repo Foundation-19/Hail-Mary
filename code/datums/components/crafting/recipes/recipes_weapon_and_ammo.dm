@@ -345,7 +345,7 @@
 	time = 5
 	category = CAT_WEAPONRY
 	subcategory = CAT_AMMO
-
+/*
 /datum/crafting_recipe/c38boxincin
 	name = ".38 incendiary-tipped ammo box"
 	result = /obj/item/ammo_box/c38box/incendiary
@@ -358,7 +358,7 @@
 	time = 5
 	category = CAT_WEAPONRY
 	subcategory = CAT_AMMO
-
+*/
 /datum/crafting_recipe/c10mmincin
 	name = "10mm incendiary-tipped ammo box"
 	result = /obj/item/ammo_box/c10mm/fire
@@ -494,7 +494,7 @@
 	category = CAT_WEAPONRY
 	subcategory = CAT_AMMO
 */
-
+/*
 /datum/crafting_recipe/a762boxshrap
 	name = "7.62mm micro-shrapnel ammo box"
 	result = /obj/item/ammo_box/a762box/microshrapnel
