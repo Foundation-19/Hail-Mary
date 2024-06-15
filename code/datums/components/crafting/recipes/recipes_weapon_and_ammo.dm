@@ -305,7 +305,7 @@
 	time = 5
 	category = CAT_WEAPONRY
 	subcategory = CAT_AMMO
-/*
+
 /datum/crafting_recipe/shotgunammo3p
 	name = "12g 3p trainshot box"
 	result = /obj/item/ammo_box/shotgun/trainshot
@@ -507,7 +507,6 @@
 	time = 5
 	category = CAT_WEAPONRY
 	subcategory = CAT_AMMO
-*/
 
 /*
 /datum/crafting_recipe/a50MGboxuranium
@@ -524,7 +523,7 @@
 	category = CAT_WEAPONRY
 	subcategory = CAT_AMMO
 */
-/*
+
 /datum/crafting_recipe/a50MGboxcontaminated
 	name = "12.7mm contaminated ammo box"
 	result = /obj/item/ammo_box/a50MGbox/contam
@@ -553,7 +552,7 @@
 	time = 5
 	category = CAT_WEAPONRY
 	subcategory = CAT_AMMO
-*/
+
 /datum/crafting_recipe/m2mmblender
 	name = "2mm \"Blender\" magazine"
 	result = /obj/item/ammo_box/magazine/m2mm/blender
