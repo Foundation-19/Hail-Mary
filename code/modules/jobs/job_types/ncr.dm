@@ -1291,7 +1291,7 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 	name = "Support"
 	suit_store = /obj/item/gun/ballistic/rifle/hunting
 	backpack_contents = list(
-		/obj/item/ammo_box/a308 = 1,
+		/obj/item/ammo_box/a3006 = 1,
 		/obj/item/gun_upgrade/scope/watchman = 1,
 		/obj/item/storage/box/ration/menu_eight = 1
 		)
