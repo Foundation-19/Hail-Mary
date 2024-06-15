@@ -507,7 +507,7 @@
 	time = 5
 	category = CAT_WEAPONRY
 	subcategory = CAT_AMMO
-
+*/
 /*
 /datum/crafting_recipe/a50MGboxuranium
 	name = "12.7mm U-235 ammo box"
