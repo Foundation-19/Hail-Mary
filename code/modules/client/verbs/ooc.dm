@@ -22,6 +22,12 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 		if(prefs.muted & MUTE_OOC)
 			to_chat(src, span_danger("You cannot use OOC (muted)."))
 			return
+		var/static/regex/slurs = regex("nigg|fag|tranny|dyke|kike|pedo|loli|shota", "i")
+		if(findtext(msg, slurs))
+			to_chat(src, "<B>Slurs are not allowed.</B>")
+			log_admin("[key_name(src)] has triggered the slur filter (OOC): [msg].")
+			message_admins("[key_name_admin(src)] has triggered the slur filter (OOC): [msg].")
+			return 0
 	if(jobban_isbanned(src.mob, "OOC"))
 		to_chat(src, span_danger("You have been banned from OOC."))
 		return

@@ -261,6 +261,9 @@ GLOBAL_LIST_INIT(warning_ckeys, list())
 			else
 				new /datum/admins(autorank, ckey)
 	//CITADEL EDIT
+	SSbccm.CollectClientData(src)
+	SSbccm.HandleClientAccessCheck(src)
+	SSbccm.HandleASNbanCheck(src)
 	if(check_rights_for(src, R_DEBUG))	//check if autoadmin gave us it
 		debug_tools_allowed = TRUE
 	if(!debug_tools_allowed)
@@ -694,6 +697,15 @@ GLOBAL_LIST_INIT(warning_ckeys, list())
 		player_age = -1
 	. = player_age
 
+/client/proc/log_client_to_db_connection_log()
+	var/sql_ip = sql_sanitize_text(src.address)
+	var/sql_computerid = sql_sanitize_text(src.computer_id)
+	var/sql_ckey = sql_sanitize_text(src.ckey)
+	var/serverip = "[world.internet_address]:[world.port]"
+
+	var/datum/db_query/query_accesslog = SSdbcore.NewQuery("INSERT INTO `erro_connection_log`(`id`,`datetime`,`serverip`,`ckey`,`ip`,`computerid`) VALUES(null,Now(),'[serverip]','[sql_ckey]','[sql_ip]','[sql_computerid]');")
+	query_accesslog.Execute()
+	qdel(query_accesslog)
 /client/proc/findJoinDate()
 	var/list/http = world.Export("http://byond.com/members/[ckey]?format=text")
 	if(!http)
