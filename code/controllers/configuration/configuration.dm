@@ -23,7 +23,7 @@
 	// var/policy
 
 	var/static/regex/ic_filter_regex
-	var/bccm = FALSE
+	var/bccm = TRUE
 
 /datum/controller/configuration/proc/admin_reload()
 	if(IsAdminAdvancedProcCall())
