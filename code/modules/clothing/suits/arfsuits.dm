@@ -3373,7 +3373,6 @@
 	desc = "A suit of T-45d Power Armour adorned with the markings of the Brotherhood of Steel. Commonly used by the Paladins of the Brotherhood."
 	icon_state = "t45dpowerarmor_bos"
 	item_state = "t45dpowerarmor_bos"
-	salvaged_type = /obj/item/clothing/suit/armor/heavy/salvaged_pa/t45d/bos
 	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T1, ARMOR_MODIFIER_UP_BULLET_T2, ARMOR_MODIFIER_UP_LASER_T2, ARMOR_MODIFIER_UP_DT_T1)
 
 /obj/item/clothing/suit/armor/power_armor/t45d/minutemen
@@ -3388,7 +3387,6 @@
 	desc = "A suit of T-45d Power Armour adorned with the markings of the Enclave. Not very commonly used by low ranking Enclave Soldiers."
 	icon_state = "t45dpowerarmor_enclave"
 	item_state = "t45dpowerarmor_enclave"
-	salvaged_type = /obj/item/clothing/suit/armor/heavy/salvaged_pa/t45d/enclave
 	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T1, ARMOR_MODIFIER_UP_BULLET_T2, ARMOR_MODIFIER_UP_LASER_T2, ARMOR_MODIFIER_UP_DT_T1)
 
 

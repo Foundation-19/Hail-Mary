@@ -458,12 +458,10 @@
 /obj/item/clothing/head/helmet/f13/power_armor/t51b/bos
 	name = "T-51b power helmet"
 	desc = "It's a T-51b power helmet, typically used by the Brotherhood. It looks somewhat charming."
-	salvaged_type = /obj/item/clothing/head/helmet/f13/heavy/salvaged_pa/t51b/bos
 
 /obj/item/clothing/head/helmet/f13/power_armor/t51b/enclave
 	name = "T-51b power helmet"
 	desc = "It's a T-51b power helmet, typically used by the Brotherhood. It looks somewhat charming."
-	salvaged_type = /obj/item/clothing/head/helmet/f13/heavy/salvaged_pa/t51b/enclave
 
 /obj/item/clothing/head/helmet/f13/power_armor/t51b/palcomm
 	name = "T-51b Paladin Commander Helmet"
