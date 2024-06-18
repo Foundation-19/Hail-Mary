@@ -17,7 +17,7 @@
 	category = CAT_WEAPONRY
 	subcategory = CAT_AMMO
 
-/datum/crafting_recipe/chemical_payload
+/*/datum/crafting_recipe/chemical_payload
 	name = "Chemical Payload (C4)"
 	result = /obj/item/bombcore/chemical
 	reqs = list(
@@ -25,10 +25,10 @@
 		/obj/item/grenade/plastic/c4 = 1,
 		/obj/item/grenade/chem_grenade = 2
 	)
-	parts = list(/obj/item/stock_parts/matter_bin = 1, /obj/item/grenade/chem_grenade = 2)
 	time = 30
 	category = CAT_WEAPONRY
 	subcategory = CAT_AMMO
+*/
 
 /datum/crafting_recipe/explosive/molotov
 	name = "Molotov Cocktail (empty)"
@@ -44,7 +44,7 @@
 	name = "Stick of Dynamite"
 	result = /obj/item/grenade/f13/dynamite
 	reqs = list(/datum/reagent/fuel = 10,
-				/obj/item/paper = 2,
+				/obj/item/paper = 1,
 				/obj/item/stack/ore/blackpowder = 2)
 	time = 5
 	category = CAT_WEAPONRY
@@ -106,6 +106,7 @@
 	time = 15
 	category = CAT_WEAPONRY
 	subcategory = CAT_AMMO
+
 /datum/crafting_recipe/explosive/shrapnelmine
 	name = "Shrapnel Mine"
 	result = /obj/item/mine/shrapnel/random

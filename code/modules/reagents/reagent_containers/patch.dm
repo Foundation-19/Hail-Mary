@@ -148,3 +148,16 @@
 	icon_state = "patch_hydra"
 	list_reagents = list(/datum/reagent/medicine/hydra = 20)
 	self_delay = 0
+
+//thingy i made for vex berserkers -NETNICK
+
+/obj/item/reagent_containers/pill/healingpowder/bbock
+	name = "Ballistic Bock"
+	desc = "Helps you make things die, Not very good for your brain."
+	list_reagents = list(/datum/reagent/consumable/ethanol/bbock = 10)
+	icon = 'icons/fallout/objects/medicine/drugs.dmi'
+	icon_state = "patch_healingpowder"
+	self_delay = 5
+	color = COLOR_PALE_GREEN_GRAY
+
+

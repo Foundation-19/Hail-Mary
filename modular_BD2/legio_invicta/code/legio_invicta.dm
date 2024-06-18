@@ -678,17 +678,17 @@
 // Preloaded Legion wardrobe
 /obj/machinery/smartfridge/bottlerack/wardrobe/legion
 	initial_contents = list(
-		/obj/item/clothing/under/f13/legskirt = 3,
-		/obj/item/clothing/mask/bandana/legion/dark  = 2,
+		/obj/item/clothing/under/f13/legskirt = 5,
+		/obj/item/clothing/mask/bandana/legion/dark  = 3,
 		/obj/item/clothing/head/f13/servant/auxilia = 1,
 		/obj/item/clothing/head/f13/servant = 1,
-		/obj/item/clothing/gloves/legion = 2,
+		/obj/item/clothing/gloves/legion = 3,
 		/obj/item/clothing/gloves/blacksmith_mittens = 1,
 		/obj/item/clothing/neck/apron/labor = 1,
 		/obj/item/clothing/shoes/f13/military/legion = 3,
 		/obj/item/clothing/shoes/sandals_leather = 1,
-		/obj/item/storage/belt/military/legion = 1,
-		/obj/item/clothing/glasses/f13/goggles_sandstorm = 1)
+		/obj/item/storage/belt/military/legion = 3,
+		/obj/item/clothing/glasses/f13/goggles_sandstorm = 3)
 
 
 // -------------- ARMORDROBE ----------------- 
@@ -729,8 +729,8 @@
 // Preloaded Legion armor rack
 /obj/machinery/smartfridge/bottlerack/wardrobe/armor/legion
 	initial_contents = list(
-		/obj/item/clothing/suit/armor/light/legion/recruit = 2,
-		/obj/item/clothing/head/helmet/f13/legion/recruit = 2)
+		/obj/item/clothing/suit/armor/light/legion/recruit = 3,
+		/obj/item/clothing/head/helmet/f13/legion/recruit = 3)
 
 
 // -------------- MELEE RACK ----------------- 

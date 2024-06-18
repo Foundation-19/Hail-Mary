@@ -32,7 +32,7 @@
 	for(var/i = 0, i < 5, i++)
 		new /obj/item/stack/spacecash/c1000(src)
 
-/*
+
 /obj/item/storage/bag/money/small
 	name = "money stash"
 	icon_state = "moneypouch"
@@ -58,7 +58,7 @@
 // Legion reserves. Spawns with the Centurion.
 /obj/item/storage/bag/money/small/legion/PopulateContents()
 	// ~450ish worth of legion money
-	new /obj/item/stack/f13Cash/random/low(src)
+	new /obj/item/stack/f13Cash/random/high(src)
 	
 // Legion enlisted. Spawns with the Legionnaires. Average 12 caps.
 /obj/item/storage/bag/money/small/legenlisted/PopulateContents()
@@ -66,12 +66,12 @@
 
 // Legion officers. Spawns with the Decanii. Average 175 caps.
 /obj/item/storage/bag/money/small/legofficers/PopulateContents()
-	new /obj/item/stack/f13Cash/random/low(src)
+	new /obj/item/stack/f13Cash/random/med(src)
 	
 // NCR reserves. Spawns with the Captain.
 /obj/item/storage/bag/money/small/ncr/PopulateContents()
 	// ~450 worth of ncr money
-	new /obj/item/stack/f13Cash/random/low(src)
+	new /obj/item/stack/f13Cash/random/high(src)
 
 // NCR enlisted. Spawns with the non officers.
 /obj/item/storage/bag/money/small/ncrenlisted/PopulateContents()
@@ -81,7 +81,7 @@
 // NCR officers. Spawns with the officers and Rangers.
 /obj/item/storage/bag/money/small/ncrofficers/PopulateContents()
 	// ~75 worth of ncr money
-	new /obj/item/stack/f13Cash/random/low(src)
+	new /obj/item/stack/f13Cash/random/med(src)
 
 // Den reserves. Spawns with the Sheriff.
 /obj/item/storage/bag/money/small/den/PopulateContents()
@@ -109,9 +109,9 @@
 // Standard Settler money bag. They are pretty wealthy, with NCR bucks and caps, no Legion money.
 /obj/item/storage/bag/money/small/settler/PopulateContents()
 	// ~162 worth of non legion money
-	new /obj/item/stack/f13Cash/random/low(src)
-	new /obj/item/stack/f13Cash/random/low(src)	
-	new /obj/item/stack/f13Cash/random/low(src)
+	new /obj/item/stack/f13Cash/random/med(src)
+	new /obj/item/stack/f13Cash/random/med(src)	
+	new /obj/item/stack/f13Cash/random/med(src)
 
 // Standard Banker money bag. They are insanely wealthy, Caps only and only for RP purposes.
 /obj/item/storage/bag/money/small/banker/PopulateContents()
@@ -126,4 +126,4 @@
 /obj/item/storage/bag/money/small/raider/mobboss/PopulateContents()
 	new /obj/item/stack/f13Cash/random/low(src)
 	//mob boss, reasonably wealthy
-*/
+

@@ -1039,7 +1039,7 @@
 
 /mob/living/simple_animal/cow/brahmin/sgtsillyhorn
 	name = "Sergeant Sillyhorn"
-	desc = "A distinguished war veteran alongside his junior enlisted sidekick, Corporal McCattle. The two of them wear a set of golden rings, smelted from captured Centurions."
+	desc = "A distinguished war veteran, She wears a set of golden rings, smelted from captured Centurions."
 	emote_see = list("shakes its head.","swishes its tail eagerly.")
 	speak_chance = 2
 

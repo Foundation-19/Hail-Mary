@@ -105,7 +105,7 @@
 	new /obj/item/weldingtool/basic(src)
 	new /obj/item/wirecutters/basic(src)
 	new /obj/item/melee/smith/hammer/premade(src)
-	new /obj/item/twohanded/chainsaw(src)
+	new /obj/item/twohanded/steelsaw(src)
 
 /obj/item/storage/belt/durathread
 	name = "durathread toolbelt"

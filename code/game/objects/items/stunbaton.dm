@@ -9,18 +9,18 @@
 	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
 	slot_flags = ITEM_SLOT_BELT
-	force = 30
+	force = 20
 	throwforce = 21
 	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("beaten")
 	armor = ARMOR_VALUE_GENERIC_ITEM
 	attack_speed = CLICK_CD_MELEE
 
-	var/stamforce = 35
+	var/stamforce = 25
 	var/turned_on = FALSE
 	var/knockdown = TRUE
 	var/obj/item/stock_parts/cell/cell
-	var/hitcost = 750
+	var/hitcost = 1500
 	var/throw_hit_chance = 35
 	var/preload_cell_type //if not empty the baton starts with this type of cell
 

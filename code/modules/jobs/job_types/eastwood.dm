@@ -381,8 +381,8 @@ Mayor
 	title = "Deputy"
 	flag = F13DEPUTY
 	department_flag = DEP_EASTWOOD
-	total_positions = 4
-	spawn_positions = 4
+	total_positions = 2
+	spawn_positions = 2
 	supervisors = "The Sheriff"
 	description = "You are a loyal protector of Eastwood, keeping the settlement within firm control under the authority of the Mayor. The sheriff is your direct superior, and you should expect to take your day-to-day orders from them. Maintain your claim to authority by keeping the peace, managing disputes, and protecting the citizens from threats within and without. Never leave Eastwood undefended, and don't let its people die out."
 	enforces = "You may be elected temporary Sheriff if one does not exist. This may make you the stand-in leader of Eastwood if a Mayor or Secretary does not exist."
@@ -722,7 +722,7 @@ Mayor
 /datum/outfit/loadout/rescueranger
 	name = "Search and Rescue"
 	backpack_contents = list(/obj/item/clothing/head/f13/police/sergeant = 1,
-		/obj/item/gun/ballistic/shotgun/automatic/combat/auto5 = 1,
+		/obj/item/gun/ballistic/shotgun/hunting = 1,
 		/obj/item/ammo_box/shotgun/buck = 1,
 		/obj/item/clothing/suit/toggle/labcoat/paramedic = 1,
 		/obj/item/folder/white = 1,

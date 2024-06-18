@@ -720,6 +720,7 @@
 				/obj/item/melee/unarmed/maceglove,
 				/obj/item/melee/unarmed/punchdagger,
 				/obj/item/twohanded/baseball/louisville,
+				/obj/item/twohanded/baseball/spiked,
 				/obj/item/shishkebabpack,
 				/obj/item/shield/riot,
 				)
@@ -780,10 +781,11 @@
 
 /obj/effect/spawner/lootdrop/f13/weapon/gun/energy/hobo
 	name = "very low tier energy gun"
-	loot = list(/obj/effect/spawner/bundle/f13/wattz = 25,
-					/obj/item/gun/energy/laser/wattz/recharger = 15,
-					/obj/item/gun/ballistic/rifle/hobo/lasmusket = 15,
-					)
+	loot = list(/obj/effect/spawner/bundle/f13/wattz = 30,
+				/obj/item/gun/energy/laser/wattz/recharger = 15,
+				/obj/item/gun/ballistic/rifle/hobo/lasmusket = 20,
+				/obj/item/gun/ballistic/rifle/hobo/plasmacaster = 20,
+				)
 
 /obj/effect/spawner/lootdrop/f13/weapon/gun/energy/low
 	name = "low tier energy gun"

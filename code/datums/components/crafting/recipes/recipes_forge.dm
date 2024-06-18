@@ -76,10 +76,10 @@
 /datum/crafting_recipe/tools/forged/sledge
 	name = "Sledgehammer"
 	result = /obj/item/twohanded/sledgehammer/simple
-	time = 700
+	time = 500
 	reqs = list(
-		/obj/item/stack/sheet/metal = 15,
-		/obj/item/stack/sheet/mineral/wood = 5,
+		/obj/item/stack/sheet/metal = 30,
+		/obj/item/stack/sheet/mineral/wood = 10,
 		)
 	tools = list(TOOL_WORKBENCH, TOOL_WELDER)
 	category = CAT_CRAFTING
@@ -214,10 +214,11 @@
 	name = "Bumper Sword"
 	result = /obj/item/twohanded/fireaxe/bmprsword
 	reqs = list(
-		/obj/item/stack/sheet/metal = 25,
-		/obj/item/stack/sheet/cloth = 2,
+		/obj/item/stack/sheet/metal = 50,
+		/obj/item/stack/sheet/cloth = 5,
+		/obj/item/stack/sheet/leather = 5,
 		)
-	time = 400
+	time = 700
 	tools = list(TOOL_FORGE)
 	category = CAT_WEAPONRY
 	subcategory = CAT_MELEE
