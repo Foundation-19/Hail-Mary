@@ -214,6 +214,7 @@
 	icon_living = "enclave_armored"
 	maxHealth = 560
 	health = 650
+	stat_attack = UNCONSCIOUS
 	melee_damage_lower = 20
 	melee_damage_upper = 47
 	extra_projectiles = 2
@@ -344,6 +345,7 @@
 	loot = list(/obj/effect/mob_spawn/human/corpse/bs/paladin)
 	maxHealth = 480
 	health = 480
+	stat_attack = UNCONSCIOUS
 	healable = 1
 	ranged = 1
 	projectiletype = /obj/item/projectile/beam/laser/lasgun/hitscan

@@ -16,6 +16,7 @@ using ant armor b/c it just kinda works here and i don't want it to be super bee
 	mob_armor = ARMOR_VALUE_ANTS
 	maxHealth = 150
 	health = 150
+	stat_attack = UNCONSCIOUS
 	reach = 2
 	speed = -1
 	move_to_delay = 2.1

@@ -115,6 +115,7 @@
 	mob_armor = ARMOR_VALUE_ROBOT_MILITARY
 	maxHealth = 100 
 	health = 100
+	stat_attack = UNCONSCIOUS
 	melee_damage_lower = 18
 	melee_damage_upper = 64
 	attack_sound = 'sound/items/welder.ogg'
@@ -254,6 +255,7 @@
 	mob_armor = ARMOR_VALUE_ROBOT_SECURITY
 	maxHealth = 110 
 	health = 110
+	stat_attack = UNCONSCIOUS
 	can_ghost_into = FALSE
 	melee_damage_lower = 15
 	melee_damage_upper = 37
@@ -310,6 +312,7 @@
 	mob_armor = ARMOR_VALUE_ROBOT_CIVILIAN
 	maxHealth = 100 
 	health = 100
+	stat_attack = UNCONSCIOUS
 	speed = 4
 	can_ghost_into = TRUE
 	melee_damage_lower = 5 //severely reduced melee damage here because its silly to have a ranged mob also be a cqc master
@@ -488,6 +491,7 @@
 	mob_armor = ARMOR_VALUE_ROBOT_MILITARY
 	maxHealth = 100 
 	health = 100
+	stat_attack = UNCONSCIOUS
 	can_ghost_into = FALSE
 	mob_biotypes = MOB_ROBOTIC|MOB_INORGANIC
 	speed = 1

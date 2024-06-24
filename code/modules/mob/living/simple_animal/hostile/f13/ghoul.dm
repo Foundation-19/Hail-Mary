@@ -248,6 +248,7 @@
 	can_ghost_into = FALSE
 	maxHealth = 200
 	health = 200
+	stat_attack = UNCONSCIOUS
 	speed = 2.5
 	harm_intent_damage = 8
 	melee_damage_lower = 20

@@ -13,6 +13,7 @@
 	sentience_type = SENTIENCE_BOSS
 	maxHealth = 130 
 	health = 130
+	stat_attack = UNCONSCIOUS
 	speak_chance = 10
 	speak = list(
 		"GRRRRRR!",

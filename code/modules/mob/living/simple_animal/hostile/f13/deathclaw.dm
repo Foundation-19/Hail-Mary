@@ -15,6 +15,7 @@
 	sentience_type = SENTIENCE_BOSS
 	maxHealth = 600
 	health = 600
+	stat_attack = UNCONSCIOUS
 	reach = 2
 	speed = 1
 	obj_damage = 200
