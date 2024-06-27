@@ -648,3 +648,70 @@
 	category = CAT_CRAFTING
 	subcategory = CAT_SCAVENGING
 	always_available = FALSE
+////////////////////////////////////
+///////Faction Crafting/////////////
+////////////////////////////////////
+
+////////////////////////////////////
+//////////////BOS///////////////////
+////////////////////////////////////
+
+/datum/crafting_recipe/bos_t45helm_convert
+	name = "Converted T-45b Power Armor Helmet"
+	result = /obj/item/clothing/head/helmet/f13/power_armor/t45d/bos
+	reqs = list(/obj/item/clothing/head/helmet/f13/heavy/salvaged_pa/t45b = 1,
+				/obj/item/stack/cable_coil = 15,
+				/obj/item/stack/crafting/electronicparts = 30,
+				/obj/item/stack/sheet/metal = 20,
+				/obj/item/stack/sheet/mineral/titanium = 15,
+				/obj/item/stack/crafting/goodparts = 5,
+				/obj/item/stack/crafting/metalparts = 20)
+	time = 30
+	category = CAT_CRAFTING
+	subcategory = CAT_SCAVENGING
+	always_available = FALSE
+
+/datum/crafting_recipe/bos_t45_convert
+	name = "Converted T-45b Power Armor"
+	result = /obj/item/clothing/suit/armor/power_armor/t45d/bos
+	reqs = list(/obj/item/clothing/head/helmet/f13/heavy/salvaged_pa/t45b = 1,
+				/obj/item/stack/cable_coil = 15,
+				/obj/item/stack/crafting/electronicparts = 30,
+				/obj/item/stack/sheet/metal = 20,
+				/obj/item/stack/sheet/mineral/titanium = 15,
+				/obj/item/stack/crafting/goodparts = 5,
+				/obj/item/stack/crafting/metalparts = 20)
+	time = 30
+	category = CAT_CRAFTING
+	subcategory = CAT_SCAVENGING
+	always_available = FALSE
+
+/datum/crafting_recipe/bos_t51_convert
+	name = "Converted T-51b Power Armor"
+	result = /obj/item/clothing/suit/armor/power_armor/t51b/bos
+	reqs = list(/obj/item/clothing/head/helmet/f13/heavy/salvaged_pa/t51b = 1,
+				/obj/item/stack/cable_coil = 30,
+				/obj/item/stack/crafting/electronicparts = 35,
+				/obj/item/stack/sheet/metal = 40,
+				/obj/item/stack/sheet/mineral/titanium = 20,
+				/obj/item/stack/crafting/goodparts = 10,
+				/obj/item/stack/crafting/metalparts = 30)
+	time = 30
+	category = CAT_CRAFTING
+	subcategory = CAT_SCAVENGING
+	always_available = FALSE
+
+/datum/crafting_recipe/bos_t51helm_convert
+	name = "Converted T-51b Power Armor"
+	result = /obj/item/clothing/head/helmet/f13/power_armor/t51b/bos
+	reqs = list(/obj/item/clothing/head/helmet/f13/heavy/salvaged_pa/t51b = 1,
+				/obj/item/stack/cable_coil = 30,
+				/obj/item/stack/crafting/electronicparts = 35,
+				/obj/item/stack/sheet/metal = 40,
+				/obj/item/stack/sheet/mineral/titanium = 20,
+				/obj/item/stack/crafting/goodparts = 10,
+				/obj/item/stack/crafting/metalparts = 30)
+	time = 30
+	category = CAT_CRAFTING
+	subcategory = CAT_SCAVENGING
+	always_available = FALSE

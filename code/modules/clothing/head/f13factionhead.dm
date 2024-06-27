@@ -792,6 +792,12 @@ obj/item/clothing/head/helmet/f13/enclave/usmcriot
 	icon_state = "brotherhood_helmet_senior"
 	item_state = "brotherhood_helmet_senior"
 
+/obj/item/clothing/head/helmet/f13/combat/brotherhood/sarge
+	name = "brotherhood Knight Sargeant helmet"
+	desc = "An improved combat helmet, bearing the symbol of a Sargeant."
+	icon_state = "brotherhood_helmet_senior"
+	item_state = "brotherhood_helmet_senior"
+
 /obj/item/clothing/head/helmet/f13/combat/brotherhood/captain
 	name = "brotherhood head knight helmet"
 	desc = "An improved combat helmet, bearing the symbol of the Head Knight."
