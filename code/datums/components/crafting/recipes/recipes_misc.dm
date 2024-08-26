@@ -820,7 +820,7 @@
 
 /datum/crafting_recipe/enclave_t45helm_convert
 	name = "Converted T-45b Power Armor Helmet"
-	result = /obj/item/clothing/head/helmet/f13/power_armor/t45d/enclave/obj/item/clothing/suit/armor/heavy/salvaged_pa/t45b/enclave
+	result = /obj/item/clothing/head/helmet/f13/power_armor/t45d/enclave
 	reqs = list(/obj/item/clothing/head/helmet/f13/power_armor/t45d = 1,
 				/obj/item/stack/cable_coil = 30,
 				/obj/item/stack/crafting/electronicparts = 35,
