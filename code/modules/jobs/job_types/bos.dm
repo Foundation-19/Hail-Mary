@@ -142,6 +142,18 @@ Sentinel
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/medx/chemistry)
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/buffout)
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/steady)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_t45helm_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_t45_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_st45helm_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_st45_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_t51_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_t51helm_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_ca_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_ca_helm_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_rca_helm_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_rca_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_riot_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_riot_helm_convert)
 	ADD_TRAIT(H, TRAIT_CHEMWHIZ, src)
 
 /datum/outfit/job/bos/f13sentinel
@@ -205,7 +217,18 @@ Paladin Commander
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/medx)
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/medx/chemistry)
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/buffout)
-	H.mind.teach_crafting_recipe(/datum/crafting_recipe/steady)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_t45helm_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_t45_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_st45helm_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_st45_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_t51_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_t51helm_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_ca_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_ca_helm_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_rca_helm_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_rca_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_riot_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_riot_helm_convert)
 	ADD_TRAIT(H, TRAIT_CHEMWHIZ, src)
 	ADD_TRAIT(H, TRAIT_LIFEGIVER, src)
 	ADD_TRAIT(H, TRAIT_IRONFIST, src)
@@ -291,6 +314,18 @@ Proctor
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/medx/chemistry)
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/buffout)
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/steady)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_t45helm_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_t45_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_st45helm_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_st45_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_t51_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_t51helm_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_ca_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_ca_helm_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_rca_helm_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_rca_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_riot_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_riot_helm_convert)
 	ADD_TRAIT(H, TRAIT_MEDICALEXPERT, src)
 	ADD_TRAIT(H, TRAIT_CYBERNETICIST_EXPERT, src)
 	ADD_TRAIT(H, TRAIT_CYBERNETICIST, src)
@@ -355,6 +390,14 @@ Knight-Captain
 	..()
 	if(visualsOnly)
 		return
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_st45helm_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_st45_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_ca_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_ca_helm_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_rca_helm_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_rca_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_riot_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_riot_helm_convert)
 	ADD_TRAIT(H, TRAIT_PA_WEAR, src)
 
 
@@ -415,6 +458,12 @@ Star Paladin
 	..()
 	if(visualsOnly)
 		return
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_ca_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_ca_helm_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_rca_helm_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_rca_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_riot_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_riot_helm_convert)
 	ADD_TRAIT(H, TRAIT_PA_WEAR, src)
 
 /datum/outfit/job/bos/f13seniorpaladin
@@ -493,6 +542,12 @@ Paladin
 	..()
 	if(visualsOnly)
 		return
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_ca_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_ca_helm_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_rca_helm_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_rca_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_riot_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_riot_helm_convert)
 	ADD_TRAIT(H, TRAIT_PA_WEAR, src)
 
 /datum/outfit/job/bos/f13paladin
@@ -560,6 +615,12 @@ Senior Scribe
 	..()
 	if(visualsOnly)
 		return
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_ca_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_ca_helm_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_rca_helm_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_rca_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_riot_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_riot_helm_convert)
 	H.mind.teach_crafting_recipe(GLOB.chemwhiz_recipes)
 	ADD_TRAIT(H, TRAIT_CHEMWHIZ, src)
 	ADD_TRAIT(H, TRAIT_SURGERY_HIGH, src)
@@ -654,6 +715,12 @@ Scribe
 	..()
 	if(visualsOnly)
 		return
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_ca_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_ca_helm_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_rca_helm_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_rca_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_riot_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_riot_helm_convert)
 	H.mind.teach_crafting_recipe(GLOB.chemwhiz_recipes)
 	ADD_TRAIT(H, TRAIT_CHEMWHIZ, src)
 	ADD_TRAIT(H, TRAIT_SURGERY_HIGH, src)
@@ -701,6 +768,12 @@ Knight Sarge
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/AER9)
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/AEP7)
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/R93)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_ca_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_ca_helm_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_rca_helm_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_rca_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_riot_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_riot_helm_convert)
 
 /datum/outfit/job/bos/f13knightsarge
 	name = "Senior Knight"
@@ -765,6 +838,12 @@ Senior Knight
 	..()
 	if(visualsOnly)
 		return
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_ca_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_ca_helm_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_rca_helm_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_rca_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_riot_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_riot_helm_convert)
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/AER9)
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/AEP7)
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/R93)
@@ -853,15 +932,20 @@ Knight
 		),
 	)
 
-/*
+
 /datum/outfit/job/bos/f13knight/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
 	if(visualsOnly)
 		return
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/AER9)
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/AEP7)
-	H.mind.teach_crafting_recipe(/datum/crafting_recipe/dks)
-*/
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_ca_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_ca_helm_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_rca_helm_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_rca_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_riot_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_riot_helm_convert)
+
 
 /datum/outfit/job/bos/f13knight
 	name = "Knight"
