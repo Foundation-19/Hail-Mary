@@ -656,7 +656,7 @@
 //////////////BOS///////////////////
 ////////////////////////////////////
 
-/datum/crafting_recipe/enclave_t45helm_convert
+/datum/crafting_recipe/bos_t45helm_convert
 	name = "Converted T-45b Power Armor Helmet"
 	result = /obj/item/clothing/head/helmet/f13/power_armor/t45d/bos
 	reqs = list(/obj/item/clothing/head/helmet/f13/power_armor/t45d = 1,
@@ -670,7 +670,7 @@
 	subcategory = CAT_CONVERT
 	always_available = FALSE
 
-/datum/crafting_recipe/enclave_t45_convert
+/datum/crafting_recipe/bos_t45_convert
 	name = "Converted T-45b Power Armor"
 	result = /obj/item/clothing/suit/armor/power_armor/t45d/bos
 	reqs = list(/obj/item/clothing/suit/armor/power_armor/t45d = 1,
