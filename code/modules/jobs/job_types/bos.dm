@@ -251,7 +251,7 @@ Paladin Commander
 	backpack_contents = list(
 		/obj/item/melee/onehanded/knife/hunting = 1,
 		/obj/item/ammo_box/magazine/m10mm/adv/simple = 2,
-		/obj/item/reagent_containers/hypospray/medipen/stimpak = 8,
+		/obj/item/reagent_containers/hypospray/medipen/stimpak = 4,
 		/obj/item/gun/ballistic/automatic/lewis = 1,
 		/obj/item/ammo_box/magazine/lewis/l47 = 3
 		)
