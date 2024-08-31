@@ -179,8 +179,8 @@ Paladin Commander
 	title = "Paladin Commander"
 	flag = F13PALADINCOMMANDER
 	head_announce = list("Security")
-	total_positions = 0
-	spawn_positions = 0
+	total_positions = 1
+	spawn_positions = 1
 	description = "You are the Paladin Commander, leader of the expedition. Work with your small expeditionary force to secure the land and remove the enemy. You are in charge of the expedition and as such you are in-charge of the faction. You should not attempt to fight everyone you see but rather use your rank and skill to secure the land and remove your enemy. "
 	supervisors = "the Elders or their Envoys"
 	selection_color = "#7f8c8d"
@@ -370,8 +370,8 @@ Knight-Captain
 	title = "Knight-Captain"
 	flag = F13KNIGHTCAPTAIN
 	head_announce = list("Security")
-	total_positions = 0
-	spawn_positions = 0
+	total_positions = 1
+	spawn_positions = 1
 	description = "You are the Knight-Captain, one of the leaders of your group of outcasts. After the attempted coup by the late Paladin Commander Wossner, you have been wandering the wastes, looking for a new home, and have now found a barely-acceptable place to construct your new chapters' bunker. Your knowledge of pre-war materials and engineering is almost unparalleled, and you have basic combat training and experience. You are in charge of establishing a working foothold, and your Knights and initiates. Delegate to them as necessary. As Chief Armorer, you are also in charge of the armory."
 	supervisors = "The Paladin Commander"
 	selection_color = "#7f8c8d"
@@ -733,8 +733,8 @@ Knight Sarge
 /datum/job/bos/f13knightsarge
 	title = "Knight Sergeant"
 	flag = F13KNIGHTSARGE
-	total_positions = 0
-	spawn_positions = 0
+	total_positions = 2
+	spawn_positions = 2
 	description = " You are the Knight Sergeant of the Brotherhood Of Steel Expeditionary force, your goal is to maintain order within the ranks, above the scribes and knights you are below the paladin. Your duty is to maintain order within the knights, infantry work and primary grunt work as well as train the lower ranking knights and aspirants."
 	supervisors = "the Knight-Captain and Paladin Commander"
 	display_order = JOB_DISPLAY_ORDER_KNIGHTSARGE
@@ -806,8 +806,8 @@ Senior Knight
 /datum/job/bos/f13seniorknight
 	title = "Senior Knight"
 	flag = F13SENIORKNIGHT
-	total_positions = 2
-	spawn_positions = 2
+	total_positions = 0
+	spawn_positions = 0
 	description = "You report directly to the Knight-Captain. You are the Brotherhood Knight-Sergeant. Having served the Knight Caste for some time now, you are versatile and experienced in both basic combat and repairs, and also a primary maintainer of the Bunker's facilities. As your seniormost Knight, you may be assigned initiates or Junior Knights to mentor."
 	supervisors = "the Knight-Captain"
 	display_order = JOB_DISPLAY_ORDER_SENIORKNIGHT
