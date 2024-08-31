@@ -702,7 +702,7 @@
 /datum/crafting_recipe/bos_st45_convert
 	name = "Converted Salvaged T-45b Power Armor"
 	result = /obj/item/clothing/suit/armor/heavy/salvaged_pa/t45b/bos
-	reqs = list(/obj/item/clothing/head/helmet/f13/heavy/salvaged_pa/t45b = 1,
+	reqs = list(/obj/item/clothing/suit/armor/heavy/salvaged_pa/t45b/bos = 1,
 				/obj/item/stack/cable_coil = 15,
 				/obj/item/stack/crafting/electronicparts = 30,
 				/obj/item/stack/sheet/metal = 20,
@@ -717,7 +717,7 @@
 /datum/crafting_recipe/bos_t51_convert
 	name = "Converted T-51b Power Armor"
 	result = /obj/item/clothing/suit/armor/power_armor/t51b/bos
-	reqs = list(/obj/item/clothing/head/helmet/f13/heavy/salvaged_pa/t51b = 1,
+	reqs = list(/obj/item/clothing/suit/armor/power_armor/t51b = 1,
 				/obj/item/stack/cable_coil = 30,
 				/obj/item/stack/crafting/electronicparts = 35,
 				/obj/item/stack/sheet/metal = 40,
@@ -732,7 +732,7 @@
 /datum/crafting_recipe/bos_t51helm_convert
 	name = "Converted T-51b Power Armor"
 	result = /obj/item/clothing/head/helmet/f13/power_armor/t51b/bos
-	reqs = list(/obj/item/clothing/head/helmet/f13/heavy/salvaged_pa/t51b = 1,
+	reqs = list(/obj/item/clothing/head/helmet/f13/power_armor/t51b = 1,
 				/obj/item/stack/cable_coil = 30,
 				/obj/item/stack/crafting/electronicparts = 35,
 				/obj/item/stack/sheet/metal = 40,
