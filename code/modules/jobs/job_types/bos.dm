@@ -186,7 +186,7 @@ Paladin Commander
 	selection_color = "#7f8c8d"
 	display_order = JOB_DISPLAY_ORDER_COMMANDER
 	outfit = /datum/outfit/job/bos/f13commander
-	exp_requirements = 1920
+	exp_requirements = 2280
 
 	/*loadout_options = list(
 	/datum/outfit/loadout/sentheavy, //Gauss + Glock
@@ -247,7 +247,7 @@ Paladin Commander
 	ears = /obj/item/radio/headset/headset_bos/command
 	suit = /obj/item/clothing/suit/armor/power_armor/t51b/palcomm
 	head = /obj/item/clothing/head/helmet/f13/power_armor/t51b/palcomm
-	neck = /obj/item/storage/belt/shoulderholster
+	neck = /obj/item/clothing/neck/mantle/bos/paladin
 	backpack_contents = list(
 		/obj/item/melee/onehanded/knife/hunting = 1,
 		/obj/item/ammo_box/magazine/m10mm/adv/simple = 2,
