@@ -62257,14 +62257,6 @@
 /obj/effect/decal/cleanable/dirt{
 	color = "000000"
 	},
-/obj/effect/landmark/start/f13/knightsarge,
-/obj{
-	name = "---Merge conflict marker---"
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt{
-	color = "000000"
-	},
 /turf/open/floor/f13{
 	icon_state = "reddirtyfull"
 	},
@@ -68330,15 +68322,6 @@
 	},
 /turf/open/indestructible/ground/inside/dirt/stamped/outside,
 /area/f13/wasteland)
-"wgT" = (
-/obj/effect/landmark/start/f13/knightsarge,
-/obj{
-	name = "---Merge conflict marker---"
-	},
-/turf/open/floor/f13{
-	icon_state = "reddirtyfull"
-	},
-/area/f13/brotherhood)
 "wgV" = (
 /obj/structure/table/wood/settler,
 /obj/item/shovel,
@@ -104796,7 +104779,7 @@ pxe
 vTN
 tHV
 eSe
-wgT
+drq
 drq
 ocl
 dgg
@@ -105567,7 +105550,7 @@ tVu
 waP
 dmv
 bme
-wgT
+drq
 iwX
 dTD
 jSY
