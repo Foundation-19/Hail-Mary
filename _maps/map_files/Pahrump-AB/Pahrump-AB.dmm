@@ -18629,7 +18629,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/caves)
 "caW" = (
-/obj/effect/landmark/start/f13/f13knightsarge,
+/obj/effect/landmark/start/f13/knightsarge,
 /turf/open/floor/f13{
 	icon_state = "reddirtyfull"
 	},
@@ -49825,7 +49825,7 @@
 /obj/effect/decal/cleanable/dirt{
 	color = "000000"
 	},
-/obj/effect/landmark/start/f13/f13knightsarge,
+/obj/effect/landmark/start/f13/knightsarge,
 /turf/open/floor/f13{
 	icon_state = "reddirtyfull"
 	},
