@@ -683,6 +683,10 @@ obj/effect/landmark/start/f13/ncrlogisticsofficer
 	name = "Knight-Captain"
 	icon_state = "Knight"
 
+/obj/effect/landmark/start/f13/f13knightsarge
+	name = "Knight Sergeant"
+	icon_state = "Knight"
+
 /obj/effect/landmark/start/f13/seniorknight
 	name = "Senior Knight"
 	icon_state = "Knight"

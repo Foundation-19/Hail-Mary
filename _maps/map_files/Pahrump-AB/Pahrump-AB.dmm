@@ -18628,6 +18628,12 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/caves)
+"caW" = (
+/obj/effect/landmark/start/f13/f13knightsarge,
+/turf/open/floor/f13{
+	icon_state = "reddirtyfull"
+	},
+/area/f13/brotherhood)
 "cbl" = (
 /obj/structure/barricade/wooden,
 /turf/open/indestructible/ground/outside/sidewalk{
@@ -49819,6 +49825,7 @@
 /obj/effect/decal/cleanable/dirt{
 	color = "000000"
 	},
+/obj/effect/landmark/start/f13/f13knightsarge,
 /turf/open/floor/f13{
 	icon_state = "reddirtyfull"
 	},
@@ -104789,7 +104796,7 @@ pxe
 vTN
 tHV
 eSe
-drq
+caW
 drq
 ocl
 dgg
@@ -105560,7 +105567,7 @@ tVu
 waP
 dmv
 bme
-drq
+caW
 iwX
 dTD
 jSY
