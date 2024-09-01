@@ -776,7 +776,7 @@ Knight Sarge
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_riot_helm_convert)
 
 /datum/outfit/job/bos/f13knightsarge
-	name = "Knight Sargeant"
+	name = "Senior Knight"
 	jobtype = /datum/job/bos/f13knightsarge
 	suit = /obj/item/clothing/suit/armor/medium/combat/brotherhood/sarge
 	suit_store = /obj/item/gun/energy/laser/aer9

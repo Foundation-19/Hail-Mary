@@ -18628,12 +18628,6 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/caves)
-"caW" = (
-/obj/effect/landmark/start/f13/knightsarge,
-/turf/open/floor/f13{
-	icon_state = "reddirtyfull"
-	},
-/area/f13/brotherhood)
 "cbl" = (
 /obj/structure/barricade/wooden,
 /turf/open/indestructible/ground/outside/sidewalk{
@@ -49820,16 +49814,6 @@
 /obj/structure/reagent_dispensers/barrel/explosive,
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/wasteland)
-"otY" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt{
-	color = "000000"
-	},
-/obj/effect/landmark/start/f13/knightsarge,
-/turf/open/floor/f13{
-	icon_state = "reddirtyfull"
-	},
-/area/f13/brotherhood)
 "oue" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -54259,6 +54243,16 @@
 	},
 /turf/open/floor/grass,
 /area/f13/wasteland)
+"qeh" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	color = "000000"
+	},
+/obj/effect/landmark/start/f13/knightsarge,
+/turf/open/floor/f13{
+	icon_state = "reddirtyfull"
+	},
+/area/f13/brotherhood)
 "qev" = (
 /obj/structure/flora/grass/wasteland{
 	icon_state = "tall_grass_6"
@@ -63483,6 +63477,12 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/f13/vault_floor/misc,
 /area/f13/city)
+"ueX" = (
+/obj/effect/landmark/start/f13/knightsarge,
+/turf/open/floor/f13{
+	icon_state = "reddirtyfull"
+	},
+/area/f13/brotherhood)
 "uff" = (
 /obj/structure/flora/grass/wasteland{
 	icon_state = "tall_grass_3"
@@ -66965,16 +66965,6 @@
 	},
 /turf/open/indestructible/ground/outside/savannah/topcenter,
 /area/f13/wasteland)
-"vBy" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/effect/landmark/start/f13/paladincommander,
-/turf/open/floor/f13{
-	icon_state = "reddirtyfull"
-	},
-/area/f13/brotherhood)
 "vBB" = (
 /obj/effect/turf_decal/weather/dirt{
 	dir = 8
@@ -104539,7 +104529,7 @@ pxe
 oHF
 tHV
 abg
-otY
+qeh
 wka
 jcI
 hRy
@@ -104796,7 +104786,7 @@ pxe
 vTN
 tHV
 eSe
-caW
+ueX
 drq
 ocl
 dgg
@@ -105053,7 +105043,7 @@ pxe
 raI
 owY
 sdI
-vBy
+xHy
 xHy
 eaF
 soF
@@ -105567,7 +105557,7 @@ tVu
 waP
 dmv
 bme
-caW
+ueX
 iwX
 dTD
 jSY
