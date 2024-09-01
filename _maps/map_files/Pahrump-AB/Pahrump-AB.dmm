@@ -66958,6 +66958,16 @@
 	},
 /turf/open/indestructible/ground/outside/savannah/topcenter,
 /area/f13/wasteland)
+"vBy" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/effect/landmark/start/f13/paladincommander,
+/turf/open/floor/f13{
+	icon_state = "reddirtyfull"
+	},
+/area/f13/brotherhood)
 "vBB" = (
 /obj/effect/turf_decal/weather/dirt{
 	dir = 8
@@ -105036,7 +105046,7 @@ pxe
 raI
 owY
 sdI
-xHy
+vBy
 xHy
 eaF
 soF
