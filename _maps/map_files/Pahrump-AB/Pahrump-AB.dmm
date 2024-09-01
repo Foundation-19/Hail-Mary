@@ -15872,6 +15872,9 @@
 /area/f13/radiation)
 "bmT" = (
 /obj/effect/landmark/start/f13/knightsarge,
+/obj{
+	name = "---Merge conflict marker---"
+	},
 /turf/open/floor/f13{
 	icon_state = "reddirtyfull"
 	},
@@ -38675,6 +38678,13 @@
 	color = "000000"
 	},
 /obj/effect/landmark/start/f13/knightsarge,
+/obj{
+	name = "---Merge conflict marker---"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	color = "000000"
+	},
 /turf/open/floor/f13{
 	icon_state = "reddirtyfull"
 	},
