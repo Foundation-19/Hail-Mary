@@ -15870,15 +15870,6 @@
 	icon_state = "dirt"
 	},
 /area/f13/radiation)
-"bmT" = (
-/obj/effect/landmark/start/f13/knightsarge,
-/obj{
-	name = "---Merge conflict marker---"
-	},
-/turf/open/floor/f13{
-	icon_state = "reddirtyfull"
-	},
-/area/f13/brotherhood)
 "bmW" = (
 /obj/structure/bookcase,
 /turf/open/floor/wood_common,
@@ -38672,23 +38663,6 @@
 	icon_state = "floorrusty"
 	},
 /area/f13/city)
-"jRE" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt{
-	color = "000000"
-	},
-/obj/effect/landmark/start/f13/knightsarge,
-/obj{
-	name = "---Merge conflict marker---"
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt{
-	color = "000000"
-	},
-/turf/open/floor/f13{
-	icon_state = "reddirtyfull"
-	},
-/area/f13/brotherhood)
 "jRM" = (
 /obj/structure/chair/sofa/corp/left{
 	dir = 8
@@ -62278,6 +62252,23 @@
 	dir = 1
 	},
 /area/f13/wasteland)
+"tFw" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	color = "000000"
+	},
+/obj/effect/landmark/start/f13/knightsarge,
+/obj{
+	name = "---Merge conflict marker---"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt{
+	color = "000000"
+	},
+/turf/open/floor/f13{
+	icon_state = "reddirtyfull"
+	},
+/area/f13/brotherhood)
 "tFG" = (
 /obj/structure/flora/grass/wasteland{
 	icon_state = "tall_grass_6"
@@ -68339,6 +68330,15 @@
 	},
 /turf/open/indestructible/ground/inside/dirt/stamped/outside,
 /area/f13/wasteland)
+"wgT" = (
+/obj/effect/landmark/start/f13/knightsarge,
+/obj{
+	name = "---Merge conflict marker---"
+	},
+/turf/open/floor/f13{
+	icon_state = "reddirtyfull"
+	},
+/area/f13/brotherhood)
 "wgV" = (
 /obj/structure/table/wood/settler,
 /obj/item/shovel,
@@ -104539,7 +104539,7 @@ pxe
 oHF
 tHV
 abg
-jRE
+tFw
 wka
 jcI
 hRy
@@ -104796,7 +104796,7 @@ pxe
 vTN
 tHV
 eSe
-bmT
+wgT
 drq
 ocl
 dgg
@@ -105567,7 +105567,7 @@ tVu
 waP
 dmv
 bme
-bmT
+wgT
 iwX
 dTD
 jSY
