@@ -108,6 +108,16 @@
 		if(!findname(.))
 			break
 
+/proc/random_unique_legion_name(gender, attempts_to_find_unique_name=10)
+	for(var/i in 1 to attempts_to_find_unique_name)
+		if(gender==FEMALE)
+			. = capitalize(pick(GLOB.first_names_female_legion)) + " " + capitalize(pick(GLOB.last_names_legion))
+		else
+			. = capitalize(pick(GLOB.first_names_male_legion)) + " " + capitalize(pick(GLOB.last_names_legion))
+
+		if(!findname(.))
+			break
+
 /proc/random_unique_lizard_name(gender, attempts_to_find_unique_name=10)
 	for(var/i in 1 to attempts_to_find_unique_name)
 		. = capitalize(lizard_name(gender))
