@@ -871,6 +871,17 @@
 	icon_state = "eyepatch_white_r"
 	item_state = "eyepatch_white_r"
 
+/obj/item/clothing/glasses/f13/tribaleyepatch/AltClick(mob/user, modifiers)
+	. = ..()
+	icon_state = (icon_state == initial(icon_state)) ? "[icon_state]_flipped" : initial(icon_state)
+	item_state = (icon_state == initial(item_state)) ? "[item_state]_flipped" : initial(item_state)
+	user.update_inv_glasses()
+
+/obj/item/clothing/glasses/f13/tribaleyepatch/examine(mob/user)
+	. = ..()
+	. += "Alt-click on [src] to flip it around."
+
+
 /obj/item/clothing/head/helmet/skull/bone
 	name = "Reinforced skull helmet"
 	desc = "An intimidating tribal helmet reinforced with leather and cloth parts on the inside for more comfort, while styling it on the Bone dancers way."

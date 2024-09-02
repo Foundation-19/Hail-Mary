@@ -156,7 +156,7 @@ GLOBAL_LIST_INIT(ncr_positions, list(
 	"NCR Captain",
 	"NCR Lieutenant",
 	"NCR Veteran Ranger",
-	"NCR Representative",
+	"NCR Brahmin Baron",
 	"NCR Ranger",
 	"NCR Sergeant First Class",
 	"NCR Heavy Trooper",

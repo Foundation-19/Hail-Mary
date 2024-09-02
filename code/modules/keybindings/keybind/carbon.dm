@@ -72,3 +72,39 @@
 	var/mob/living/carbon/C = user.mob
 	C.do_wield()
 	return TRUE
+
+/datum/keybinding/carbon/lookup
+	hotkey_keys = list(",")
+	name = "Look_up"
+	full_name = "Look up"
+	description = "looks up"
+	category = CATEGORY_CARBON
+
+/datum/keybinding/carbon/lookup/down(client/user)
+	var/mob/living/carbon/C = user.mob
+	C.lookup()
+	return TRUE
+
+/datum/keybinding/carbon/lookdown
+	hotkey_keys = list(".")
+	name = "Look_down"
+	full_name = "looks down"
+	description = "looks down your feet"
+	category = CATEGORY_CARBON
+
+/datum/keybinding/carbon/lookdown/down(client/user)
+	var/mob/living/carbon/C = user.mob
+	C.lookdown()
+	return TRUE
+
+/datum/keybinding/carbon/lookstop
+	hotkey_keys = list("-")
+	name = "Look_stop"
+	full_name = "stop looking"
+	description = "stop looking around and see foward"
+	category = CATEGORY_CARBON
+
+/datum/keybinding/carbon/lookstop/down(client/user)
+	var/mob/living/carbon/C = user.mob
+	C.stop_looking()
+	return TRUE
