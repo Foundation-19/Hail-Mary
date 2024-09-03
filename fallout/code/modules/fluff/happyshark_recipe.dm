@@ -7,7 +7,7 @@
 
 //Happy Sharky Bittercola: 2 parts Bitter Drink, 2 Parts Nuka Cola, 1 Part Soda water, 1 part sugar
 //--
-
+/*
 /datum/crafting_recipe/food/sunset/happyshark/jerky
 	name = "Wasteland Mesquite Smoked Jerky"
 	time = 40
@@ -56,3 +56,4 @@
 		/datum/reagent/consumable/sodawater = 5,
 		/datum/reagent/consumable/sugar = 5
 	)
+*/
