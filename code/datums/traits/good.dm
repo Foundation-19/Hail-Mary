@@ -169,10 +169,10 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 
 /datum/quirk/tribal
 	name = "Former Tribal"
-	desc = "You used to be part of one of the tribes scattered throughout the wasteland. You may have some additional skills as a result. Allowing you to make some tribal medical supplies. Advanced tech still confuses you though."
+	desc = "You used to be part of one of the tribes scattered throughout the wasteland. You may have some additional skills as a result, allowing you to make some tribal medical supplies. Advanced tech still confuses you, though."
 	value = 1
-	gain_text = span_notice("You remember the old ways of your tribe..")
-	lose_text = span_notice("You've forgotten the ways of your ancestors..")
+	gain_text = span_notice("You remember the old ways of your tribe...")
+	lose_text = span_notice("You've forgotten the ways of your ancestors...")
 
 /datum/quirk/tribal/add()
 	var/mob/living/carbon/human/H = quirk_holder
@@ -210,7 +210,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 
 /datum/quirk/drunkhealing
 	name = "Drunken Resilience"
-	desc = "Nothing like a good drink to make you feel on top of the world. Whenever you're drunk, you slowly recover from damage. Not wounds or bloodloss though."
+	desc = "Nothing like a good drink to make you feel on top of the world. Whenever you're drunk, you slowly recover from damage, but not wounds or blood loss."
 	value = 1
 	mob_trait = TRAIT_DRUNK_HEALING
 	gain_text = span_notice("You feel like a drink would do you good.")
@@ -219,7 +219,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 
 /datum/quirk/empath
 	name = "Empath"
-	desc = "Whether it's a sixth sense or careful study of body language, it only takes you a quick glance at someone to understand how they feel. This lets you see their mood, damage, and intent. As well as seeing if they're experience oxyloss/toxloss and if they're in a high or low mood."
+	desc = "Whether it's a sixth sense or careful study of body language, it only takes you a quick glance at someone to understand how they feel. This lets you see their mood, damage, and intent - as well as seeing if they're experiencing oxyloss/toxloss, and if they're in a high or low mood."
 	value = 1
 	mob_trait = TRAIT_EMPATH
 	gain_text = span_notice("You feel in tune with those around you.")
@@ -243,7 +243,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	gain_text = span_notice("You want to hug someone.")
 	lose_text = span_danger("You no longer feel compelled to hug others.")
 	mood_quirk = TRUE
-	medical_record_text = "Patient demonstrates low-inhibitions for physical contact and well-developed arms. Requesting another doctor take over this case."
+	medical_record_text = "Patient demonstrates low inhibitions for physical contact and well-developed arms. Requesting another doctor take over this case."
 
 /datum/quirk/jolly
 	name = "Mood - Sanguine"
@@ -272,7 +272,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 
 /datum/quirk/light_step
 	name = "Light Step"
-	desc = "You walk with a gentle step; stepping on sharp objects is quieter, less painful and you won't leave footprints behind you."
+	desc = "You walk with a gentle step; stepping on sharp objects is quieter & less painful, and you won't leave footprints behind you."
 	value = 1
 	mob_trait = TRAIT_LIGHT_STEP
 	gain_text = span_notice("You walk with a little more litheness.")
@@ -282,7 +282,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 
 /datum/quirk/quick_step
 	name = "Speed Walker"
-	desc = "You walk with determined strides, and out-pace most people, at least, if you're both walking."
+	desc = "You walk with determined strides, and out-pace most people - at least, if you're both walking."
 	value = 3
 	mob_trait = TRAIT_SPEEDY_STEP
 	gain_text = span_notice("You feel determined. No time to lose.")
@@ -292,12 +292,12 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 
 /datum/quirk/musician
 	name = "Musician"
-	desc = "You can tune instruments to play melodies that clear certain negative effects and soothe the soul and even get one of your choice for free!"
+	desc = "You can tune instruments to play melodies that clear certain negative effects and soothe the soul - and even get one of your choice for free!"
 	value = 1
 	mob_trait = TRAIT_MUSICIAN
 	gain_text = span_notice("You know everything about musical instruments.")
 	lose_text = span_danger("You forget how musical instruments work.")
-	medical_record_text = "Patient brain scans show a highly-developed auditory pathway."
+	medical_record_text = "Patient brain scans show a highly developed auditory pathway."
 
 /datum/quirk/musician/on_spawn()
 	var/mob/living/carbon/human/H = quirk_holder
@@ -350,7 +350,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 
 /datum/quirk/technophreak
 	name = "Technophreak"
-	desc = "You're skilled at breaking down old-war rubble more precisely and therefor you gain more salvage from cars and piles than before. Your time with understanding complex technology also \
+	desc = "You're skilled at breaking down old-war rubble more precisely, and therefore you gain more salvage from cars and piles than before. Your time with understanding complex technology also \
 	allows you to craft more complex machine parts."
 	value = 2
 	mob_trait = TRAIT_TECHNOPHREAK
@@ -381,7 +381,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	value = 2
 	mob_trait = TRAIT_WEAPONSMITH
 	gain_text = span_notice("You are adept at crafting makeshift weapons.")
-	lose_text = span_danger("You seem less adept at crafting makeshift weapons.")
+	lose_text = span_danger("You feel less adept at crafting makeshift weapons.")
 
 /datum/quirk/gunsmith/add()
 	var/mob/living/carbon/human/H = quirk_holder
@@ -407,7 +407,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 /datum/quirk/bloodpressure
 	name = "Extra Blood"
 	desc = "You've a treated form of Polycythemia vera that increases the total blood volume inside of you as well as the rate of replenishment!"
-	value = 2 //I honeslty dunno if this is a good trait? I just means you use more of medbays blood and make janitors madder, but you also regen blood a lil faster.
+	value = 2 //I honestly dunno if this is a good trait? It just means you use more of medbay's blood and make janitors madder, but you also regen blood a lil faster.
 	mob_trait = TRAIT_HIGH_BLOOD
 	gain_text = span_notice("You feel full of blood!")
 	lose_text = span_notice("You feel like your blood pressure went down.")
@@ -445,11 +445,11 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 
 /datum/quirk/nukalover
 	name = "Nuka Fiend"
-	desc = "You are a fan of America's most popular pre-war soft drink. Your body simply loves the sugary drink so much, it rejects healthier alternatives. Nuka Cola heals you, sort of."
+	desc = "You are a fan of America's most popular pre-war soft drink. Your body simply loves the sugary drink so much, it rejects healthier alternatives. Nuka-Cola heals you, sort of."
 	value = 1
 	mob_trait = TRAIT_NUKA_LOVER
-	gain_text = span_notice("You want to buy the whole world a nuka-cola!")
-	lose_text = span_danger("What's the big deal about nuka-cola?")
+	gain_text = span_notice("You want to buy the whole world a Nuka-Cola!")
+	lose_text = span_danger("What's the big deal about Nuka-Cola?")
 	medical_record_text = "Patient has an addiction to the soft drink Nuka-Cola. Somehow, their metabolism has adapted to the sugars and artifical flavorings."
 
 /datum/quirk/nukalover/add()
@@ -534,7 +534,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 
 /datum/quirk/soft_yards
 	name = "Mobility - Wasteland Wanderer"
-	desc = "You've spent some time in the wastes, and can move a bit better around them for it."
+	desc = "You've spent some time in the wastes, and can move around them a bit more easily for it."
 	value = 2
 	mob_trait = TRAIT_SOFT_YARDS
 	gain_text = span_notice("Rain or shine only slow you down a little.")
@@ -587,7 +587,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 /*
 /datum/quirk/steel_fist
 	name = "Fists of Steel"
-	desc = "You have MASSIVE fists of kung-fury! Even MORE increases unarmed damage."
+	desc = "You have MASSIVE fists of kung-fury! Increases unarmed damage even MORE."
 	value = 2
 	mob_trait = TRAIT_STEELFIST
 	gain_text = span_notice("Your fists feel MASSIVELY furious!")
@@ -602,7 +602,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 
 /datum/quirk/light_step
 	name = "Glass Walker"
-	desc = "When it comes to stepping on glass, you're pretty die hard.  You'll make less noise when you do so, but it'd still suck without shoes."
+	desc = "When it comes to stepping on glass, you're pretty die hard.  You'll make less noise when you do so, but it'll still suck without shoes."
 	value = 1
 	mob_trait = TRAIT_LIGHT_STEP
 	gain_text = span_notice("You walk with a little more litheness.")
@@ -610,7 +610,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 
 /datum/quirk/surgerylow
 	name = "Minor Surgery"
-	desc = "You are a somewhat adequate medical practicioner, capable of performing minor surgery in a pinch."
+	desc = "You are a somewhat adequate medical practitioner, capable of performing minor surgery in a pinch."
 	value = 3
 	mob_trait = TRAIT_SURGERY_LOW
 	gain_text = span_notice("You feel yourself discovering the basics of the human body.")
@@ -696,7 +696,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 /*
 /datum/quirk/advanced_explosive_crafting
 	name = "Advanced Explosive Crafting"
-	desc = "Decades of engineering knowledge have taught you to make all kinds of horrible explosives."
+	desc = "Decades of engineering knowledge have taught you how to make all kinds of horrible explosives."
 	value = 1
 	mob_trait = TRAIT_ADVANCED_EXPLOSIVE_CRAFTING
 	gain_text = span_notice("You're on the no-fly list.'")
@@ -720,11 +720,11 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 
 /datum/quirk/whitelegstraditions
 	name = "White Legs traditions"
-	desc = "You remember how to make your peoples ancient garments after all this time."
+	desc = "You remember how to make your people's ancient garments after all this time."
 	value = 1
 	mob_trait = TRAIT_WHITELEGS_TRAD
 	gain_text = span_notice("The mysteries of your ancestors are revealed to you.")
-	lose_text = span_danger("You forget how your ancestors have created their garments.")
+	lose_text = span_danger("You forget how your ancestors created their garments.")
 	locked =  FALSE
 
 /datum/quirk/whitelegstraditions/add()
@@ -740,11 +740,11 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 
 /datum/quirk/deadhorsestraditions
 	name = "Dead Horses traditions"
-	desc = "You remember how to make your peoples ancient garments after all this time."
+	desc = "You remember how to make your people's ancient garments after all this time."
 	value = 1
 	mob_trait = TRAIT_DEADHORSES_TRAD
 	gain_text = span_notice("The mysteries of your ancestors are revealed to you.")
-	lose_text = span_danger("You forget how your ancestors have created their garments.")
+	lose_text = span_danger("You forget how your ancestors created their garments.")
 	locked =  FALSE
 
 /datum/quirk/deadhorsestraditions/add()
@@ -760,11 +760,11 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 
 /datum/quirk/rustwalkerstraditions
 	name = "Rust Walkers traditions"
-	desc = "You remember how to make your peoples ancient garments after all this time."
+	desc = "You remember how to make your people's ancient garments after all this time."
 	value = 1
 	mob_trait = TRAIT_RUSTWALKERS_TRAD
 	gain_text = span_notice("The mysteries of your ancestors are revealed to you.")
-	lose_text = span_danger("You forget how your ancestors have created their garments.")
+	lose_text = span_danger("You forget how your ancestors created their garments.")
 	locked =  FALSE
 
 /datum/quirk/rustwalkerstraditions/add()
@@ -780,11 +780,11 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 
 /datum/quirk/eightiestraditions
 	name = "Eighties traditions"
-	desc = "You remember how to make your peoples ancient garments after all this time."
+	desc = "You remember how to make your people's ancient garments after all this time."
 	value = 1
 	mob_trait = TRAIT_EIGHTIES_TRAD
 	gain_text = span_notice("The mysteries of your ancestors are revealed to you.")
-	lose_text = span_danger("You forget how your ancestors have created their garments.")
+	lose_text = span_danger("You forget how your ancestors created their garments.")
 	locked =  FALSE
 
 /datum/quirk/eightiestraditions/add()
@@ -800,11 +800,11 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 
 /datum/quirk/sorrowstraditions
 	name = "Sorrows traditions"
-	desc = "You remember how to make your peoples ancient garments after all this time."
+	desc = "You remember how to make your people's ancient garments after all this time."
 	value = 1
 	mob_trait = TRAIT_SORROWS_TRAD
 	gain_text = span_notice("The mysteries of your ancestors are revealed to you.")
-	lose_text = span_danger("You forget how your ancestors have created their garments.")
+	lose_text = span_danger("You forget how your ancestors created their garments.")
 	locked =  FALSE
 
 /datum/quirk/sorrowstraditions/add()
@@ -820,11 +820,11 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 
 /datum/quirk/wayfarertraditions
 	name = "Wayfarer traditions"
-	desc = "You remember how to make your peoples ancient garments after all this time."
+	desc = "You remember how to make your people's ancient garments after all this time."
 	value = 1
 	mob_trait = TRAIT_WAYFARER_TRAD
 	gain_text = span_notice("The mysteries of your ancestors are revealed to you.")
-	lose_text = span_danger("You forget how your ancestors have created their garments.")
+	lose_text = span_danger("You forget how your ancestors created their garments.")
 	locked =  FALSE
 
 /datum/quirk/wayfarertraditions/add()
@@ -840,11 +840,11 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 
 /datum/quirk/bonedancertraditions
 	name = "Bone Dancer traditions"
-	desc = "You remember how to make your peoples ancient garments after all this time."
+	desc = "You remember how to make your people's ancient garments after all this time."
 	value = 1
 	mob_trait = TRAIT_BONEDANCER_TRAD
 	gain_text = span_notice("The mysteries of your ancestors are revealed to you.")
-	lose_text = span_danger("You forget how your ancestors have created their garments.")
+	lose_text = span_danger("You forget how your ancestors created their garments.")
 	locked =  FALSE
 
 /datum/quirk/bonedancertraditions/add()
@@ -888,16 +888,16 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 /*
 /* /datum/quirk/radimmune
 	name = "Radiation - Immune"
-	desc = "Gieger Counters are for suckers."
+	desc = "Geiger Counters are for suckers."
 	value = 5
 	mob_trait = TRAIT_RADIMMUNE
 	gain_text = span_notice("You've decided radiation just doesn't matter.")
-	lose_text = span_danger("You no longer feel like you could probably live in a microwave while its on.")
+	lose_text = span_danger("You no longer feel like you could probably live in a microwave while it's on.")
 	locked =  FALSE */
 
 /datum/quirk/radimmuneish
 	name = "Radiation - Mostly Immune"
-	desc = "Gieger Counters are for suckers, mostly. Gives 75% innate rad resist."
+	desc = "Geiger Counters are for suckers, mostly. Gives 75% innate rad resist."
 	value = 4
 	mob_trait = TRAIT_75_RAD_RESIST
 	gain_text = span_notice("You've decided radiation just doesn't matter much.")
@@ -907,7 +907,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 
 /datum/quirk/radimmunesorta
 	name = "Radiation - Sorta Immune"
-	desc = "Gieger Counters are for suckers, sorta. Gives 50% innate rad resist."
+	desc = "Geiger Counters are for suckers, sorta. Gives 50% innate rad resist."
 	value = 3
 	mob_trait = TRAIT_50_RAD_RESIST
 	gain_text = span_notice("You've decided radiation only kind of matters.")
@@ -926,7 +926,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 
 /datum/quirk/thickskin
 	name = "Thick Skin"
-	desc = "You just don't get splinters, or shrapnel for that matter."
+	desc = "You just don't get splinters, or fragmentation for that matter."
 	value = 3
 	mob_trait = TRAIT_PIERCEIMMUNE
 	gain_text = span_notice("Your skin feels way stronger.")
@@ -949,7 +949,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	value = 2
 	mob_trait = TRAIT_QUICKER_CARRY
 	gain_text = span_notice("You feel like a MASTER fireman!")
-	lose_text = span_danger("You're ability to carry folk seems massively diminished.")
+	lose_text = span_danger("Your ability to carry folk seems massively diminished.")
 	locked =  FALSE
 
 /datum/quirk/quickcarry
@@ -958,7 +958,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	value = 1
 	mob_trait = TRAIT_QUICK_CARRY
 	gain_text = span_notice("You feel like an ACCEPTABLE fireman!")
-	lose_text = span_danger("You're ability to carry folk seems a bit diminished.")
+	lose_text = span_danger("Your ability to carry folk seems a bit diminished.")
 	locked =  FALSE
 
 /datum/quirk/builder
@@ -1005,7 +1005,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	value = 3
 	mob_trait = TRAIT_SILENT_STEP
 	gain_text = span_notice("Your footsteps fade away.")
-	lose_text = span_danger("You're pretty sure that's the sound of your asscheeks clapping, but it might be footsteps.")
+	lose_text = span_danger("You find yourself surprised by the sound of your own footsteps.")
 	locked =  FALSE
 /*
 /datum/quirk/deadeye
@@ -1037,16 +1037,16 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 
 /datum/quirk/masterrifleman
 	name = "Bolt Worker"
-	desc = "You've spent a lot of time working the bolt of a rifle, or the pump action of a shotgun. Your skill allows you to click to work the action instead of doing it manually."
+	desc = "You've spent a lot of time working the bolt of a rifle, or the pump of a shotgun. Your skill allows you to click to work the action instead of doing it manually."
 	value = 2
 	mob_trait = TRAIT_FAST_PUMP
-	gain_text = span_notice("In a sudden haze you realize that the Mosin Nagant was Gods gift to mankind.")
-	lose_text = span_danger("After picking some 250 year old cosmoline out from under one of your nails you realize that... Uh, no, the Mosin Nagant is a piece of shit.")
+	gain_text = span_notice("In a sudden haze you realize that the Mosin-Nagant was God's gift to mankind.")
+	lose_text = span_danger("After picking some 250 year old cosmoline out from under one of your nails you realize that... Uh, no, the Mosin-Nagant is a piece of shit.")
 	locked =  FALSE
 
 /datum/quirk/playdead
 	name = "Class Act"
-	desc = "You're good at acting! *deathgasp will be extra convincing to rudimentary tests, such as healthhuds and examine, doing so may deal a small quantity of toxin damage."
+	desc = "You're good at acting! *deathgasp will be extra convincing to rudimentary tests, such as health-H.U.D.s and examine - though doing so may deal a small quantity of toxin damage."
 	value = 1
 	mob_trait = TRAIT_PLAY_DEAD
 	gain_text = span_notice("You feel confident at playing dead.")
@@ -1073,7 +1073,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 
 /datum/quirk/ratmaster
 	name = "Beast Master - Rats"
-	desc = "Whenever by psychic means or not, you gained ability to control the rats of Wasteland.\
+	desc = "Whether by psychic means or otherwise, you've gained the ability to control the rats of the wasteland.\
 	<br>Taming will make them passive toward other players and tamed fauna (but also makes them a target for wild rats)."
 	value = 4
 	mob_trait = TRAIT_BEASTMASTER_RAT
@@ -1108,11 +1108,11 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 
 /datum/quirk/critterfriend
 	name = "Beast Friend - Small Critters"
-	desc = "Roaches, most types of geckos and young nightstalkers outright ignore you now."
+	desc = "Roaches, young nightstalkers, and most types of geckos outright ignore you now."
 	value = 2
 	mob_trait = TRAIT_BEASTFRIEND_SMALLCRITTER
-	gain_text = span_notice("Some if not all wasteland critters doesn't seem to mind you now!")
-	lose_text = span_danger("You feel critters of wasteland wouldn't be so friendly with you anymore...")
+	gain_text = span_notice("Some (if not all) wasteland critters doesn't seem to mind you now!")
+	lose_text = span_danger("You feel critters of the wasteland wouldn't be so friendly with you anymore...")
 	locked = FALSE
 
 /datum/quirk/critterfriend/add()
@@ -1126,11 +1126,11 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 
 /datum/quirk/crittermaster
 	name = "Beast Master - Small Critters"
-	desc = "Whenever by psychic means or not, you gained ability to control roaches, most geckos and molerats (last ones will be initially hostile and needs to be tamed).\
+	desc = "Whether by psychic means or otherwise, you've gained the ability to control roaches, most geckos and molerats (last ones will be initially hostile and needs to be tamed).\
 	<br>Taming will make them passive toward other players and tamed fauna. Young and adult nightstalkers can be also tamed, but not controlled."
 	value = 4
 	mob_trait = TRAIT_BEASTMASTER_SMALLCRITTER
-	gain_text = span_notice("You tapped to potentials of the critter horde!")
+	gain_text = span_notice("You've tapped into the potential of the critter horde!")
 	lose_text = span_danger("Small critters refuse to obey your commands now.")
 	locked = FALSE
 	var/obj/effect/proc_holder/mob_common/taming_mobs/small_critter/tame
