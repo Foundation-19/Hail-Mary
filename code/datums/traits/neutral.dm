@@ -17,14 +17,14 @@
 	value = 0
 	mob_trait = TRAIT_NO_CHOCOLATE
 	gain_text = span_notice("You feel like eating chocolate is a bad idea.")
-	lose_text = span_notice("You feel like it's safe to eat chocolate again")
+	lose_text = span_notice("You feel like it's safe to eat chocolate again.")
 	medical_record_text = "Patient has an aversion to theobromine, and therefore cannot have chocolate."
 */
 
 /*
 /datum/quirk/white_woman
 	name = "Peanutbutter difficulties"
-	desc = "Your tongue has difficulty handling the adhesiveness of peanut butter"
+	desc = "Your tongue has difficulty handling the adhesiveness of peanut butter."
 	value = 0
 	mob_trait = TRAIT_WHITE_WOMAN
 	gain_text = span_notice("Your tongue lacks the manipulation to properly eat peanut butter.")
@@ -34,7 +34,7 @@
 
 /datum/quirk/autobrew //sugary foods create ethanol
 	name = "Autobrewery syndrome"
-	desc = "Your natural gut flora ferments many sugary foods and drinks into alcohol. taking penicillin or eating healthy prevents this."
+	desc = "Your natural gut flora ferments many sugary foods and drinks into alcohol. Taking penicillin or eating healthy prevents this."
 	value = 0
 	mob_trait = TRAIT_AUTOBREW
 	gain_text = span_notice("you feel rather fuzzy.")
@@ -43,11 +43,11 @@
 
 /datum/quirk/snob
 	name = "Snob"
-	desc = "You care about the finer things, if a room doesn't look nice its just not really worth it, is it?"
+	desc = "You care about the finer things, if a room doesn't look nice it's just not really worth it, is it?"
 	value = 0
 	gain_text = span_notice("You feel like you understand what things should look like.")
 	lose_text = span_notice("Well who cares about deco anyways?")
-	medical_record_text = "Patient seems to be rather stuck up."
+	medical_record_text = "Patient seems to be rather stuck-up."
 	mob_trait = TRAIT_SNOB
 
 /* Temporarily removed for reworking, god this thing is WAY too busy. ~TK
@@ -55,7 +55,7 @@
 	name = "FEV Exposure"
 	desc = " "
 	value = 4
-	gain_text = span_notice("You feel a burning pain as your DNA is ripped apart, and sewn back together.")
+	gain_text = span_notice("You feel a burning pain as your DNA is ripped apart, and sewn back together!")
 	lose_text = span_notice("The dull metronome of pain that defined your existence has faded.")
 	medical_record_text = "Patient appears to have 'perfect' DNA."
 	mob_trait = TRAIT_FEV
@@ -90,7 +90,7 @@
 
 /datum/quirk/pineapple_hater
 	name = "Ananas Aversion"
-	desc = "You find yourself greatly detesting fruits of the ananas genus. Serious, how the hell can anyone say these things are good? And what kind of madman would even dare putting it on a pizza!?"
+	desc = "You find yourself greatly detesting fruits of the ananas genus. Seriously, how the hell can anyone say these things are good? And what kind of madman would even dare putting it on a pizza!?"
 	value = 0
 	gain_text = span_notice("You find yourself pondering what kind of idiot actually enjoys pineapples...")
 	lose_text = span_notice("Your feelings towards pineapples seem to return to a lukewarm state.")
@@ -133,7 +133,7 @@
 	name = "Monochromacy"
 	desc = "You suffer from full colorblindness, and perceive nearly the entire world in blacks and whites."
 	value = 0
-	medical_record_text = "Patient is afflicted with almost complete color blindness."
+	medical_record_text = "Patient is afflicted with almost-complete color blindness."
 
 /datum/quirk/monochromatic/add()
 	quirk_holder.add_client_colour(/datum/client_colour/monochrome)
@@ -202,7 +202,7 @@
 	desc = "You find the idea of eating meat morally and/or physically repulsive."
 	value = 0
 	gain_text = "<span class='notice'>You feel repulsion at the idea of eating meat.</span>"
-	lose_text = "<span class='notice'>You feel like eating meat isn't that bad.  Might could even go for a cheeseburger.</span>"
+	lose_text = "<span class='notice'>You feel like eating meat isn't that bad.  Might even go for a cheeseburger.</span>"
 	medical_record_text = "Patient reports a vegetarian diet."
 
 /datum/quirk/vegetarian/add()
@@ -271,7 +271,7 @@
 
 /datum/quirk/sheltered
 	name = "Sheltered"
-	desc = "For one reason or another, you either can't or haven't learned English."
+	desc = "For one reason or another, you either can't learn or haven't learned English."
 	value = 0
 	mob_trait = TRAIT_SHELTERED
 	gain_text = "<span class='danger'>The words of others begin to blur together...</span>"
@@ -291,8 +291,8 @@
 	name = "Tribal Language Comprehension"
 	desc = "You're somehow capable of understanding and speaking the common tribal languages in the area."
 	value = 0
-	gain_text = span_notice("You remember the old ways of your tribe..")
-	lose_text = span_notice("You've forgotten the ways of your ancestors..")
+	gain_text = span_notice("You remember the old ways of your tribe...")
+	lose_text = span_notice("You've forgotten the ways of your ancestors...")
 
 
 /datum/quirk/tribespeak/add()
@@ -370,7 +370,7 @@
 			cam.forceMove(get_turf(cam))
 /datum/quirk/journalist
 	name = "Journalist"
-	desc = "You carry yourself a pen and a personal folder around, you are known to be the one who records everything."
+	desc = "You carry a pen and a personal folder around, you are known to be the one who records everything."
 	value = 0
 	mob_trait = TRAIT_JOURNALIST
 	gain_text = span_notice("You feel like you need to harrass politicians.")
