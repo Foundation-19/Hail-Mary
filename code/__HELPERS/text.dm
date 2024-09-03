@@ -24,7 +24,7 @@
 	text = replacetext(text, "&", "")
 	return text
 
-/proc/new_sql_sanitize_text(var/text)
+/proc/new_sql_sanitize_text(text)
 	text = replacetext(text, "'", "")
 	text = replacetext(text, ";", "")
 	text = replacetext(text, "&", "")
