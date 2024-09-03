@@ -87,7 +87,7 @@
 	name = "\improper CH-LC \"Solaris\" laser cannon"
 	desc = "A weapon for combat exosuits. Shoots heavy lasers."
 	icon_state = "mecha_laser"
-	energy_drain = 100
+	energy_drain = 75
 	projectile = /obj/item/projectile/beam/laser/mech/heavy
 	fire_sound = 'sound/weapons/lasercannonfire.ogg'
 
@@ -228,9 +228,11 @@
 	harmful = TRUE
 	ammo_type = "incendiary"
 
+//Shotgun
+
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/scattershot
 	name = "\improper LBX AC 10 \"Scattershot\""
-	desc = "A weapon for combat exosuits. Shoots a spread of pellets."
+	desc = "A weapon for vehicules. Usualy carried by a pilot of the passengers. Shoots a spread of pellets."
 	icon_state = "mecha_scatter"
 	fire_sound = 'sound/weapons/sound_weapons_mech_shotgun.ogg'
 	equip_cooldown = 20
@@ -240,6 +242,37 @@
 	projectiles_cache_max = 160
 	projectiles_per_shot = 4
 	variance = 25
+	harmful = TRUE
+	ammo_type = "scattershot"
+
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/scattershot/hobo
+	name = "\improper Hobot vehicule Shotgun"
+	desc = "A modified shotgun used to kick some ass from a vehicule."
+	icon_state = "mecha_scatter"
+	fire_sound = 'sound/f13weapons/auto5.ogg'
+	equip_cooldown = 20
+	projectile = /obj/item/projectile/bullet/scattershot
+	projectiles = 20
+	projectiles_cache = 20
+	projectiles_cache_max = 130
+	projectiles_per_shot = 3
+	variance = 25
+	harmful = TRUE
+	ammo_type = "scattershot"
+
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/scattershot/auto
+	name = "\improper Upgraded vehicule Shotgun"
+	desc = "A modified shotgun used to kick some ass from a vehicule."
+	icon_state = "mecha_scatter"
+	fire_sound = 'sound/weapons/sound_weapons_mech_mortar.ogg'
+	equip_cooldown = 8
+	projectile = /obj/item/projectile/bullet/scattershot
+	projectiles = 15
+	projectiles_cache = 15
+	projectiles_cache_max = 250
+	projectiles_per_shot = 5
+	variance = 25
+	is_automatic = TRUE
 	harmful = TRUE
 	ammo_type = "scattershot"
 
@@ -256,6 +289,8 @@
 	variance = 25
 	harmful = TRUE
 	ammo_type = "scattershot"
+
+//HMG
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg
 	name = "\improper Ultra AC 2"
@@ -280,14 +315,13 @@
 	desc = "A weapon for combat exosuits. Automatic."
 	icon_state = "mecha_uac2"
 	fire_sound = 'sound/f13weapons/bozar_fire.ogg'
-	equip_cooldown = 10
+	equip_cooldown = 2
 	projectile = /obj/item/projectile/bullet/lmg/auto
 	projectiles = 150
 	projectiles_cache = 150
 	projectiles_cache_max = 1200
-	projectiles_per_shot = 4
 	variance = 6
-	is_automatic = TRUE
+	projectiles_per_shot = 3
 	randomspread = 1.08
 	harmful = TRUE
 	ammo_type = "lmg"
