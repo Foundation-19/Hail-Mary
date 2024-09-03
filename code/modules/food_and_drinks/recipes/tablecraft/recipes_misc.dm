@@ -368,7 +368,7 @@
 	)
 	result = /obj/item/reagent_containers/food/drinks/sunset/happyshark/bittercola
 	subcategory = CAT_MISCFOOD
-
+/*
 /datum/crafting_recipe/food/sunset/happyshark/bittercola/alt
 	reqs = list(
 		/datum/reagent/consumable/nuka_cola = 10,
@@ -376,3 +376,4 @@
 		/datum/reagent/consumable/sodawater = 5,
 		/datum/reagent/consumable/sugar = 5
 	)
+*/
