@@ -54,7 +54,7 @@
 				filling.icon_state = "[icon_state]50"
 			if (251 to 400)
 				filling.icon_state = "[icon_state]75"
-			if (409 to 500)
+			if (409 to 501)
 				filling.icon_state = "[icon_state]100"
 		. += filling
 
