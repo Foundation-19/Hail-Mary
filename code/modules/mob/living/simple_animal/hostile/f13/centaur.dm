@@ -14,6 +14,7 @@
 	tastes = list("sadness" = 1, "nastyness" = 1)
 	can_ghost_into = TRUE
 	maxHealth = 80
+	sentience_type = SENTIENCE_BOSS
 	health = 80
 	speed = 2
 	harm_intent_damage = 8

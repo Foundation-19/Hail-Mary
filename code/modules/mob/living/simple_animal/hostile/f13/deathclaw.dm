@@ -12,8 +12,9 @@
 	icon_dead = "deathclaw_dead"
 	icon_gib = "deathclaw_gib"
 	mob_armor = ARMOR_VALUE_DEATHCLAW_COMMON
-	maxHealth = 250
-	health = 250
+	sentience_type = SENTIENCE_BOSS
+	maxHealth = 600
+	health = 600
 	reach = 2
 	speed = 1
 	obj_damage = 200
@@ -141,8 +142,8 @@
 	desc = "A massive, reptilian creature with powerful muscles, razor-sharp claws, and aggression to match. This one is an angry mother."
 	gender = FEMALE
 	mob_armor = ARMOR_VALUE_DEATHCLAW_MOTHER
-	maxHealth = 300
-	health = 300
+	maxHealth = 1500
+	health = 1500
 	stat_attack = CONSCIOUS
 	melee_damage_lower = 25
 	melee_damage_upper = 55
@@ -167,8 +168,8 @@
 	name = "legendary deathclaw"
 	desc = "A massive, reptilian creature with powerful muscles, razor-sharp claws, and aggression to match. This one is a legendary enemy."
 	mob_armor = ARMOR_VALUE_DEATHCLAW_MOTHER
-	maxHealth = 400
-	health = 400
+	maxHealth = 2400
+	health = 2400
 	color = "#FFFF00"
 	color_mad = rgb(133, 98, 87)
 	stat_attack = CONSCIOUS
@@ -190,8 +191,8 @@
 	icon_living = "combatclaw"
 	icon_dead = "combatclaw_dead"
 	mob_armor = ARMOR_VALUE_DEATHCLAW_PA // ha get fucked
-	maxHealth = 1000 // ha get turbofucked
-	health = 1000
+	maxHealth = 3000 // ha get turbofucked
+	health = 3000
 	stat_attack = CONSCIOUS
 	melee_damage_lower = 40
 	melee_damage_upper = 60

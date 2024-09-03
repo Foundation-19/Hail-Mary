@@ -58,7 +58,7 @@ Weapons		Lever shotgun, Grease gun, Repeater carbines, Revolvers, simple guns al
 		return
 	if(H.gender == FEMALE)
 		H.gender = MALE
-		H.real_name = random_unique_name(MALE)
+		H.real_name = random_unique_legion_name(MALE)
 		H.name = H.real_name
 		if(H.wear_id)
 			var/obj/item/card/id/dogtag/L = H.wear_id
@@ -130,11 +130,14 @@ Weapons		Lever shotgun, Grease gun, Repeater carbines, Revolvers, simple guns al
 	//r_pocket = /obj/item/storage/bag/money/small/legion
 	l_pocket = /obj/item/flashlight/lantern
 	r_hand = /obj/item/melee/powerfist/f13/goliath
-	l_hand = /obj/item/tank/internals/oxygen
-	backpack = null
-	satchel = null
+	l_hand = null
+	backpack = /obj/item/storage/backpack/legionr
 	ears = /obj/item/radio/headset/headset_legion/cent
 	box = /obj/item/storage/box/legate
+	backpack_contents = list(
+		/obj/item/binoculars = 1,
+		/obj/item/reagent_containers/pill/bitterdrink = 2,
+		)
 
 
 // ORATOR
@@ -171,6 +174,7 @@ Weapons		Lever shotgun, Grease gun, Repeater carbines, Revolvers, simple guns al
 		/obj/item/binoculars = 1,
 		/obj/item/ammo_box/a357 = 2,
 		/obj/item/reagent_containers/pill/bitterdrink = 2,
+		/obj/item/stack/f13Cash/aureus	=	3
 		)
 
 /datum/outfit/job/CaesarsLegion/Legionnaire/f13orator/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -1229,7 +1233,7 @@ Weapons		Lever shotgun, Grease gun, Repeater carbines, Revolvers, simple guns al
 		return
 	if(H.gender == MALE)
 		H.gender = FEMALE
-		H.real_name = random_unique_name(FEMALE)
+		H.real_name = random_unique_legion_name(FEMALE)
 		H.name = H.real_name
 		if(H.wear_id)
 			var/obj/item/card/id/dogtag/L = H.wear_id
