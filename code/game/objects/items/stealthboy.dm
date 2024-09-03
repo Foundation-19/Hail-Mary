@@ -19,10 +19,12 @@
 /obj/item/stealthboy/makeshift
 	name = "Makeshift Stealth Boy"
 	icon_state = "makeshift_stealth"
+	use_per_tick = 800
 
 /obj/item/stealthboy/mk2
 	name = "Stealth Boy MK2"
 	icon_state = "stealth_boy_mk"
+	use_per_tick = 200
 
 /obj/item/stealthboy/Initialize()
 	. = ..()
