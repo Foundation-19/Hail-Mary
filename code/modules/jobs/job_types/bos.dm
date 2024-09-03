@@ -546,6 +546,8 @@ Senior Scribe
 	if(visualsOnly)
 		return
 	H.mind.teach_crafting_recipe(GLOB.chemwhiz_recipes)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/boseyebot)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bosfloat)
 	ADD_TRAIT(H, TRAIT_CHEMWHIZ, src)
 	ADD_TRAIT(H, TRAIT_SURGERY_HIGH, src)
 	ADD_TRAIT(H, TRAIT_CYBERNETICIST, src)
@@ -640,6 +642,8 @@ Scribe
 	if(visualsOnly)
 		return
 	H.mind.teach_crafting_recipe(GLOB.chemwhiz_recipes)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/boseyebot)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bosfloat)
 	ADD_TRAIT(H, TRAIT_CHEMWHIZ, src)
 	ADD_TRAIT(H, TRAIT_SURGERY_HIGH, src)
 	ADD_TRAIT(H, TRAIT_CYBERNETICIST, src)

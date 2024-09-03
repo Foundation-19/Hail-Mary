@@ -12,6 +12,30 @@
 	subcategory = CAT_MISCELLANEOUS
 	category = CAT_MISC
 
+/datum/crafting_recipe/boseyebot
+	name = "Brotherhood Eyebot"
+	result = /mob/living/simple_animal/hostile/eyebot/virtual
+	reqs = list(/obj/item/stack/crafting/electronicparts = 25,
+				/obj/item/stack/crafting/metalparts = 20,
+				/obj/item/stack/crafting/goodparts = 15)
+	tools = list(TOOL_WORKBENCH)
+	time = 60
+	subcategory = CAT_MISCELLANEOUS
+	category = CAT_MISC
+	always_available = FALSE
+
+/datum/crafting_recipe/bosfloat
+	name = "Brotherhood Floating Eyebot"
+	result = /mob/living/simple_animal/hostile/eyebot/virtual/floatingeye
+	reqs = list(/obj/item/stack/crafting/electronicparts = 30,
+				/obj/item/stack/crafting/metalparts = 25,
+				/obj/item/stack/crafting/goodparts = 20)
+	tools = list(TOOL_WORKBENCH)
+	time = 70
+	subcategory = CAT_MISCELLANEOUS
+	category = CAT_MISC
+	always_available = FALSE
+
 /datum/crafting_recipe/trading_machine
 	name = "Vending machine"
 	result = /obj/machinery/trading_machine

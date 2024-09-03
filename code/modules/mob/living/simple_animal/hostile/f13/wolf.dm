@@ -16,7 +16,7 @@
 	response_harm_simple = "kicks"
 	maxHealth = 50
 	health = 50
-	faction = list("hostile", "wolf")
+	faction = list("hostile", "wolf", "critter-friend")
 	environment_smash = 0
 	guaranteed_butcher_results = list(/obj/item/stack/sheet/animalhide/wolf = 1, /obj/item/reagent_containers/food/snacks/meat/slab/wolf = 1,/obj/item/stack/sheet/bone = 1)
 	melee_damage_lower = 8
@@ -110,3 +110,119 @@
 	icon_living = "shepherd"
 	icon_dead = "shepherd_dead"
 	icon_gib = "gib"
+
+/mob/living/simple_animal/hostile/retaliate/legionhound
+	name = "Legion Hound"
+	desc = "War Hounds Hailing from Denver, This breed is slightly smaller then the popular Mongrel, But they're just as deadly, And don't leave around as much fur."
+	icon = 'icons/fallout/mobs/animals/dogs.dmi'
+	icon_state = "legiondog"
+	icon_living = "legiondog"
+	icon_dead = "legiondog_dead"
+	icon_gib = "gib"
+	can_ghost_into = TRUE
+	mob_biotypes = MOB_ORGANIC|MOB_BEAST
+	turns_per_move = 3
+	response_help_simple = "pet"
+	response_disarm_simple = "push aside"
+	response_harm_simple = "kick"
+	maxHealth = 85
+	health = 85
+	faction = list(FACTION_LEGION)
+	friends = list(FACTION_LEGION)
+	environment_smash = 1
+	guaranteed_butcher_results = list(/obj/item/stack/sheet/animalhide/wolf = 1, /obj/item/reagent_containers/food/snacks/meat/slab/wolf = 1,/obj/item/stack/sheet/bone = 1)
+	melee_damage_lower = 8
+	melee_damage_upper = 20
+	aggro_vision_range = 25
+	waddle_amount = 2
+	waddle_up_time = 0 
+	waddle_side_time = 1
+	aggro_vision_range = 7
+	attack_verb_simple = "bites"
+	attack_sound = 'sound/weapons/bite.ogg'
+	move_to_delay = 2
+	footstep_type = FOOTSTEP_MOB_BAREFOOT
+	emote_taunt_sound = list('sound/f13npc/dog/dog_charge1.ogg', 'sound/f13npc/dog/dog_charge2.ogg', 'sound/f13npc/dog/dog_charge3.ogg', 'sound/f13npc/dog/dog_charge4.ogg', 'sound/f13npc/dog/dog_charge5.ogg', 'sound/f13npc/dog/dog_charge6.ogg', 'sound/f13npc/dog/dog_charge7.ogg',)
+	emote_taunt = list("growls", "barks", "snarls")
+	taunt_chance = 30
+	aggrosound = list('sound/f13npc/dog/dog_alert1.ogg', 'sound/f13npc/dog/dog_alert2.ogg', 'sound/f13npc/dog/dog_alert3.ogg')
+	idlesound = list('sound/f13npc/dog/dog_bark1.ogg', 'sound/f13npc/dog/dog_bark2.ogg', 'sound/f13npc/dog/dog_bark3.ogg')
+	death_sound = 'sound/f13npc/centaur/centaur_death.ogg'
+
+/mob/living/simple_animal/hostile/retaliate/ncrguarddog
+	name = "NCR Guard Dog"
+	desc = "NCR Sheepdogs used for guard duty, Law enforcement, And escort missions, They are known for their intelligence and have worked alongside humans for thousands of years."
+	icon = 'icons/fallout/mobs/animals/dogs.dmi'
+	icon_state = "tippen"
+	icon_living = "tippen"
+	icon_dead = "tippen_dead"
+	icon_gib = "gib"
+	can_ghost_into = TRUE
+	mob_biotypes = MOB_ORGANIC|MOB_BEAST
+	turns_per_move = 2
+	response_help_simple = "pet"
+	response_disarm_simple = "push aside"
+	response_harm_simple = "kick"
+	maxHealth = 70
+	health = 70
+	faction = list(FACTION_NCR)
+	friends = list(FACTION_NCR)
+	environment_smash = 1
+	guaranteed_butcher_results = list(/obj/item/stack/sheet/animalhide/wolf = 1, /obj/item/reagent_containers/food/snacks/meat/slab/wolf = 1,/obj/item/stack/sheet/bone = 1)
+	melee_damage_lower = 15
+	melee_damage_upper = 20
+	aggro_vision_range = 10
+	waddle_amount = 3
+	waddle_up_time = 0 
+	waddle_side_time = 1
+	aggro_vision_range = 7
+	attack_verb_simple = "bites"
+	attack_sound = 'sound/weapons/bite.ogg'
+	move_to_delay = 2
+	footstep_type = FOOTSTEP_MOB_BAREFOOT
+	emote_taunt_sound = list('sound/f13npc/dog/dog_charge1.ogg', 'sound/f13npc/dog/dog_charge2.ogg', 'sound/f13npc/dog/dog_charge3.ogg', 'sound/f13npc/dog/dog_charge4.ogg', 'sound/f13npc/dog/dog_charge5.ogg', 'sound/f13npc/dog/dog_charge6.ogg', 'sound/f13npc/dog/dog_charge7.ogg',)
+	emote_taunt = list("growls", "barks", "snarls")
+	taunt_chance = 30
+	aggrosound = list('sound/f13npc/dog/dog_alert1.ogg', 'sound/f13npc/dog/dog_alert2.ogg', 'sound/f13npc/dog/dog_alert3.ogg')
+	idlesound = list('sound/f13npc/dog/dog_bark1.ogg', 'sound/f13npc/dog/dog_bark2.ogg', 'sound/f13npc/dog/dog_bark3.ogg')
+	death_sound = 'sound/f13npc/centaur/centaur_death.ogg'
+
+/mob/living/simple_animal/hostile/retaliate/ncrattackdog
+	name = "NCR Attack Dog"
+	desc = "NCR Attack Dogs are purpose-built for war, They were brought into the NCRA along with the rangers, Loyal and ferocious."
+	icon = 'icons/fallout/mobs/animals/dogs.dmi'
+	icon_state = "shepherd"
+	icon_living = "shepherd"
+	icon_dead = "shepherd_dead"
+	icon_gib = "gib"
+	can_ghost_into = TRUE
+	mob_biotypes = MOB_ORGANIC|MOB_BEAST
+	turns_per_move = 3
+	response_help_simple = "pet"
+	response_disarm_simple = "push aside"
+	response_harm_simple = "kick"
+	maxHealth = 90
+	health = 90
+	faction = list(FACTION_NCR)
+	friends = list(FACTION_NCR)
+	environment_smash = 1
+	guaranteed_butcher_results = list(/obj/item/stack/sheet/animalhide/wolf = 1, /obj/item/reagent_containers/food/snacks/meat/slab/wolf = 1,/obj/item/stack/sheet/bone = 1)
+	melee_damage_lower = 25
+	melee_damage_upper = 30
+	aggro_vision_range = 15
+	waddle_amount = 2
+	waddle_up_time = 0 
+	waddle_side_time = 1
+	aggro_vision_range = 7
+	attack_verb_simple = "bites"
+	attack_sound = 'sound/weapons/bite.ogg'
+	move_to_delay = 2
+	footstep_type = FOOTSTEP_MOB_BAREFOOT
+	emote_taunt_sound = list('sound/f13npc/dog/dog_charge1.ogg', 'sound/f13npc/dog/dog_charge2.ogg', 'sound/f13npc/dog/dog_charge3.ogg', 'sound/f13npc/dog/dog_charge4.ogg', 'sound/f13npc/dog/dog_charge5.ogg', 'sound/f13npc/dog/dog_charge6.ogg', 'sound/f13npc/dog/dog_charge7.ogg',)
+	emote_taunt = list("growls", "barks", "snarls")
+	taunt_chance = 30
+	aggrosound = list('sound/f13npc/dog/dog_alert1.ogg', 'sound/f13npc/dog/dog_alert2.ogg', 'sound/f13npc/dog/dog_alert3.ogg')
+	idlesound = list('sound/f13npc/dog/dog_bark1.ogg', 'sound/f13npc/dog/dog_bark2.ogg', 'sound/f13npc/dog/dog_bark3.ogg')
+	death_sound = 'sound/f13npc/centaur/centaur_death.ogg'
+
+
