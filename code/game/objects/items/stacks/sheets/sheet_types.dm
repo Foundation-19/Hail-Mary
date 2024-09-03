@@ -108,6 +108,13 @@ GLOBAL_LIST_INIT(metal_recipes, list ( \
 	null, \
 	new/datum/stack_recipe("large light fixture frame", /obj/item/wallframe/light_fixture, 2), \
 	new/datum/stack_recipe("small light fixture frame", /obj/item/wallframe/light_fixture/small, 1), \
+	new /datum/stack_recipe_list("lamp posts", list( \
+		new /datum/stack_recipe("lamp post (singles)", /obj/structure/light_construct/lamp_post, 10, time = 40, one_per_turf = TRUE, on_floor = TRUE), \
+		new /datum/stack_recipe("lamp post (doubles)", /obj/structure/light_construct/lamp_post/doubles, 10, time = 40, one_per_turf = TRUE, on_floor = TRUE), \
+		new /datum/stack_recipe("lamp post (doubles/corner)", /obj/structure/light_construct/lamp_post/doubles/bent, 10, time = 40, one_per_turf = TRUE, on_floor = TRUE), \
+		new /datum/stack_recipe("lamp post (triples)", /obj/structure/light_construct/lamp_post/triples, 10, time = 40, one_per_turf = TRUE, on_floor = TRUE), \
+		new /datum/stack_recipe("lamp post (quadra)", /obj/structure/light_construct/lamp_post/quadra, 10, time = 40, one_per_turf = TRUE, on_floor = TRUE), \
+	)), \
 	null, \
 	new/datum/stack_recipe("extinguisher cabinet frame", /obj/item/wallframe/extinguisher_cabinet, 2), \
 	new/datum/stack_recipe("button frame", /obj/item/wallframe/button, 1), \
