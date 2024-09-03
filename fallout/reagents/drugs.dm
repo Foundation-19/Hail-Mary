@@ -38,7 +38,7 @@
 				if(FACTION_NCR, FACTION_ENCLAVE, FACTION_BROTHERHOOD)
 					SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "used drugs", /datum/mood_event/used_drugs, name)
 				if(FACTION_LEGION)
-					SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "betrayed caesar", /datum/mood_event/betrayed_caesar, name)
+					SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "betrayed Caesar", /datum/mood_event/betrayed_caesar, name)
 	SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "jet euphoria", /datum/mood_event/jet_euphoria, name)
 	..()
 	. = TRUE
@@ -93,7 +93,7 @@
 
 /datum/reagent/drug/turbo
 	name = "Turbo Inhalant"
-	description = "A chemical compound that, when inhaled, vastly increases the user's reflexes and slows their perception of time. Carries a risk of addiction and extreme nausea and toxin damage if overdosed."
+	description = "A chemical compound that, when inhaled, vastly increases the user's reflexes and slows their perception of time. Carries a risk of addiction, as well as extreme toxin damage & nausea, if overdosed."
 	reagent_state = LIQUID
 	color = "#FAFAFA"
 	overdose_threshold = 14
@@ -130,7 +130,7 @@
 				if(FACTION_NCR, FACTION_ENCLAVE, FACTION_BROTHERHOOD)
 					SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "used drugs", /datum/mood_event/used_drugs, name)
 				if(FACTION_LEGION)
-					SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "betrayed caesar", /datum/mood_event/betrayed_caesar, name)
+					SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "betrayed Caesar", /datum/mood_event/betrayed_caesar, name)
 	SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "jet euphoria", /datum/mood_event/jet_euphoria, name)
 	..()
 	. = TRUE
@@ -215,7 +215,7 @@
 				if(FACTION_NCR, FACTION_ENCLAVE, FACTION_BROTHERHOOD)
 					SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "used drugs", /datum/mood_event/used_drugs, name)
 				if(FACTION_LEGION)
-					SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "betrayed caesar", /datum/mood_event/betrayed_caesar, name)
+					SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "betrayed Caesar", /datum/mood_event/betrayed_caesar, name)
 	SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "jet euphoria", /datum/mood_event/jet_euphoria, name)
 	..()
 	. = TRUE
@@ -244,7 +244,7 @@
 	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 2)
 	M.set_heartattack(TRUE)
 	M.visible_message(span_userdanger("[M] clutches at their chest as if their heart stopped!"))
-	to_chat(M, span_danger("Your vision goes black and your heart stops beating as the amount of drugs in your system shut down your organs one by one. Say hello to Elvis in the afterlife. "))
+	to_chat(M, span_danger("Your vision goes black and your heart stops beating as the amount of drugs in your system shuts down your organs one by one. Say hello to Elvis in the afterlife. "))
 	..()
 	return TRUE
 
@@ -306,7 +306,7 @@
 	..()
 	if(isliving(M))
 		if(NODRUGS(M))
-			to_chat(M, span_userdanger("Steriods have been linked to heart attacks and infertility! Oh no!"))
+			to_chat(M, span_userdanger("Steroids have been linked to heart attacks and infertility! Oh no!"))
 			return
 		to_chat(M, span_notice("You feel stronger, and like you're able to endure more."))
 		ADD_TRAIT(M, TRAIT_BUFFOUT_BUFF, "buffout")
@@ -337,7 +337,7 @@
 				if(FACTION_NCR, FACTION_ENCLAVE, FACTION_BROTHERHOOD)
 					SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "used drugs", /datum/mood_event/used_drugs, name)
 				if(FACTION_LEGION)
-					SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "betrayed caesar", /datum/mood_event/betrayed_caesar, name)
+					SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "betrayed Caesar", /datum/mood_event/betrayed_caesar, name)
 	SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "jet euphoria", /datum/mood_event/jet_euphoria, name)
 	..()
 	. = TRUE
@@ -427,7 +427,7 @@
 
 /datum/reagent/drug/steady/overdose_process(mob/living/M)
 	if(prob(33))
-		M.visible_message(span_danger("[M]'s fingers twitch incontrollably, making them drop what they were holding!"))
+		M.visible_message(span_danger("[M]'s fingers twitch uncontrollably, making them drop what they were holding!"))
 		M.drop_all_held_items()
 	M.adjustOrganLoss(ORGAN_SLOT_EYES, 2)
 	..()

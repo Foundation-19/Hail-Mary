@@ -295,7 +295,7 @@
 //musket
 /obj/item/projectile/beam/laser/musket //musket
 	name = "laser beam"
-	damage = 45
+	damage = 35
 	hitscan = TRUE
 	pixels_per_second = TILES_TO_PIXELS(50)
 
@@ -332,7 +332,7 @@
 
 /obj/item/projectile/beam/laser/lasgun/hitscan //hitscan aer9 test
 	name = "laser beam"
-	damage = 24
+	damage = 25
 	hitscan = TRUE
 	tracer_type = /obj/effect/projectile/tracer/laser
 	muzzle_type = /obj/effect/projectile/muzzle/laser
@@ -394,7 +394,7 @@
 
 /obj/item/projectile/beam/laser/recharger/hitscan //hitscan recharger pistol
 	name = "recharger beam"
-	damage = 15
+	damage = 17
 	hitscan = TRUE
 	tracer_type = /obj/effect/projectile/tracer/pulse
 	muzzle_type = /obj/effect/projectile/muzzle/pulse
@@ -437,7 +437,8 @@
 
 /obj/item/projectile/beam/laser/pistol/wattz/magneto //upgraded Wattz
 	name = "penetrating laser beam"
-	damage = 35
+	damage = 30
+	armour_penetration = 0.3
 	icon_state = "heavylaser"
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/red_laser
 	light_color = LIGHT_COLOR_RED
@@ -452,7 +453,7 @@
 
 /obj/item/projectile/beam/laser/pistol/wattzs //Wattz 1000s pistol
 	name = "laser beam"
-	damage = 25
+	damage = 30
 	icon_state = "omnilaser"
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/blue_laser
 	light_color = LIGHT_COLOR_BLUE
@@ -516,11 +517,11 @@
 
 /obj/item/projectile/beam/laser/tribeam //Tribeam laser, fires 3 shots, will melt you
 	name = "tribeam laser"
-	damage = 21
+	damage = 20
 
 /obj/item/projectile/beam/laser/tribeam/hitscan
 	name = "tribeam laser"
-	damage = 25 //if all bullets connect, this will do 75.
+	damage = 20 //if all bullets connect, this will do 75.
 	hitscan = TRUE
 	bare_wound_bonus = -30 //tribeam is bad at wounding, as basically its only real downside
 	tracer_type = /obj/effect/projectile/tracer/laser
@@ -544,13 +545,13 @@
 	name = "plasma bolt"
 	icon_state = "plasma_clot"
 	damage_type = BURN
-	damage = 30 //fucc you normies
-	armour_penetration = 0 //no AP, armor shouldnt have more than 20 resist against plasma unless its specialized
+	damage = 40 //fucc you normies
+	armour_penetration = 0
 	flag = "energy" //checks vs. energy protection
-	wound_bonus = 90 //being hit with plasma is horrific
+	wound_bonus = 80 //being hit with plasma is horrific
 	eyeblur = 0
 	is_reflectable = TRUE
-	pixels_per_second =  TILES_TO_PIXELS(10) //same as 40mm grenade
+	pixels_per_second =  TILES_TO_PIXELS(12) //same as 40mm grenade
 
 /obj/item/projectile/plasmacarbine //Plasma carbine
 	name = "plasma bolt"
@@ -590,6 +591,7 @@
 /obj/item/projectile/f13plasma/pistol //Plasma pistol
 	damage = 35
 	wound_bonus = 70 //being hit with plasma is horrific
+	pixels_per_second = TILES_TO_PIXELS(12)
 
 /obj/item/projectile/f13plasma/pistol/eve //Eve
 	icon = 'icons/fallout/objects/guns/projectiles.dmi'
@@ -616,11 +618,12 @@
 	damage = 30
 
 /obj/item/projectile/f13plasma/pistol/glock //Glock (streamlined plasma pistol)
-	damage = 40
-	wound_bonus = 75 //being hit with plasma is horrific
+	damage = 45
+	wound_bonus = 90 //being hit with plasma is horrific
+	pixels_per_second = TILES_TO_PIXELS(13)
 
 /obj/item/projectile/f13plasma/scatter //Multiplas, fires 3 shots, will melt you
-	damage = 35
+	damage = 30
 
 /obj/item/projectile/beam/laser/rcw //RCW
 	name = "rapidfire beam"
@@ -632,7 +635,7 @@
 /obj/item/projectile/beam/laser/rcw/hitscan //RCW
 	name = "rapidfire beam"
 	icon_state = "emitter"
-	damage = 19
+	damage = 20
 	hitscan = TRUE
 	muzzle_type = /obj/effect/projectile/muzzle/laser/emitter
 	tracer_type = /obj/effect/projectile/tracer/laser/emitter
@@ -640,7 +643,7 @@
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/green_laser
 
 /obj/item/projectile/beam/laser/rcw/hitscan/autolaser //Compact RCW
-	damage = 9 //Good for piercing armor, terrible damage
+	damage = 10 //Good for piercing armor, terrible damage
 	bare_wound_bonus = -20 //The intensity of the beams are no where near enough to cause lasting prolonged trauma.
 
 /obj/item/projectile/beam/laser/rcw/hitscan/autolaser/worn //Compact RCW
@@ -677,8 +680,8 @@
 	light_color = LIGHT_COLOR_BLUE
 
 /obj/item/projectile/beam/laser/aer14/hitscan
-	damage = 32
-	wound_bonus = 20
+	damage = 35
+	wound_bonus = 30
 	tracer_type = /obj/effect/projectile/tracer/pulse
 	muzzle_type = /obj/effect/projectile/muzzle/pulse
 	impact_type = /obj/effect/projectile/impact/pulse
@@ -702,7 +705,7 @@
 
 /obj/item/projectile/beam/laser/aer12/hitscan
 	name = "laser beam"
-	damage = 36
+	damage = 30
 	hitscan = TRUE
 	tracer_type = /obj/effect/projectile/tracer/xray
 	muzzle_type = /obj/effect/projectile/muzzle/xray
@@ -723,7 +726,7 @@
 
 /obj/item/projectile/beam/laser/wattz2k/hitscan
 	name = "sniper laser bolt"
-	damage = 52
+	damage = 33
 	wound_bonus = 10
 	bare_wound_bonus = 20
 	tracer_type = /obj/effect/projectile/tracer/heavy_laser
@@ -733,7 +736,7 @@
 
 /obj/item/projectile/beam/laser/wattz2k/hitscan/weak //Hits less than the main wattz2k with less AP but has more shots comparable to an aer9
 	name = "weak sniper laser bolt"
-	damage = 40
+	damage = 30
 	wound_bonus = 10
 	bare_wound_bonus = 20
 	tracer_type = /obj/effect/projectile/tracer/heavy_laser
@@ -747,7 +750,7 @@
 
 /obj/item/projectile/beam/laser/wattz2ks/hitscan
 	name = "sniper laser bolt"
-	damage = 45
+	damage = 35
 	wound_bonus = 5
 	bare_wound_bonus = 15
 	tracer_type = /obj/effect/projectile/tracer/heavy_laser
@@ -757,7 +760,7 @@
 
 /obj/item/projectile/beam/laser/musket //musket
 	name = "laser bolt"
-	damage = 40
+	damage = 35
 
 
 

@@ -145,7 +145,17 @@
 	desc = "Avast ye wasteys!"
 	icon_state = "eyepatch"
 	item_state = "eyepatch"
-	
+
+/obj/item/clothing/glasses/eyepatch/AltClick(mob/user, modifiers)
+	. = ..()
+	icon_state = (icon_state == initial(icon_state)) ? "[icon_state]_flipped" : initial(icon_state)
+	item_state = (icon_state == initial(item_state)) ? "[item_state]_flipped" : initial(item_state)
+	user.update_inv_glasses()
+
+/obj/item/clothing/glasses/eyepatch/examine(mob/user)
+	. = ..()
+	. += "Alt-click on [src] to flip it around."
+
 /obj/item/clothing/glasses/eyepatch/goji
 	name = "emblazoned eyepatch"
 	desc = "You have the eye of a mad dog!"
