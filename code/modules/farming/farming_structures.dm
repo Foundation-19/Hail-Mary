@@ -136,19 +136,15 @@
 	desc = "A large wooden barrel with a painted broc flower on it. You can ferment fruits and such inside it, or just use it to hold liquid."
 	icon = 'icons/fallout/farming/farming_structures.dmi'
 	broc = TRUE
-	xander = FALSE
-	cactus = FALSE
 
 /obj/structure/fermenting_barrel/broc/xander // for bitter production without having to label
 	name = "xander fermenting barrel"
 	desc = "A large wooden barrel with a painted xander root on it. You can ferment fruits and such inside it, or just use it to hold liquid."
-	broc = FALSE
 	xander = TRUE
 
 /obj/structure/fermenting_barrel/broc/cactus // for bitter production without having to label
 	name = "cactus fermenting barrel"
 	desc = "A large wooden barrel with a painted barrel cactus on it. You can ferment fruits and such inside it, or just use it to hold liquid."
-	broc = FALSE
 	cactus = TRUE
 
 
