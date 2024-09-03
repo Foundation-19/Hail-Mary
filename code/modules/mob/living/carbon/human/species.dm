@@ -180,6 +180,23 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 
 	return randname
 
+/datum/species/proc/random_name_legion(gender,unique,lastname)
+	if(unique)
+		return random_unique_legion_name(gender)
+
+	var/randnameleg
+	if(gender == MALE)
+		randnameleg = pick(GLOB.first_names_male_legion)
+	else
+		randnameleg = pick(GLOB.first_names_female_legion)
+
+	if(lastname)
+		randnameleg += " [lastname]"
+	else
+		randnameleg += " [pick(GLOB.last_names_legion)]"
+
+	return randnameleg
+
 //Called when cloning, copies some vars that should be kept
 /datum/species/proc/copy_properties_from(datum/species/old_species)
 	mutant_bodyparts["limbs_id"] = old_species.mutant_bodyparts["limbs_id"]

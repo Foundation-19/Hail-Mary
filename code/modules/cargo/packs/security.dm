@@ -654,7 +654,7 @@
 
 /datum/supply_pack/security/energy
 	name = "Weapons - Energy"
-	desc = "A crate containing four laser weapons, because sometimes you want your gecko pre-seared. Order now and you might just get that Plasma Rifle you always wanted!"
+	desc = "A crate containing four laser weapons, because sometimes you want your gecko pre-seared. Order now and you might just get that RCW you always wanted!"
 	cost = 4000
 	num_contained = 4
 	contains = list(

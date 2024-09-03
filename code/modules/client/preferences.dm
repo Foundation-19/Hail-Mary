@@ -227,7 +227,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	if(istype(C))
 		if(!IsGuestKey(C.key))
 			load_path(C.ckey)
-			unlock_content = C.IsByondMember()
+			unlock_content = C.IsByondMember() || C.is_staff()
 			if(unlock_content)
 				max_save_slots = 30
 	var/loaded_preferences_successfully = load_preferences()
@@ -305,6 +305,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			if(jobban_isbanned(user, "appearance"))
 				dat += "<b>You are banned from using custom names and appearances. You can continue to adjust your characters, but you will be randomised once you join the game.</b><br>"
 			dat += "<a style='display:block;width:100px' href='?_src_=prefs;preference=name;task=random'>Random Name</A> "
+			dat += "<a style='display:block;width:150px' href='?_src_=prefs;preference=romanname;task=random'>Random Roman Name</A> "			
 			dat += "<b>Always Random Name:</b><a style='display:block;width:30px' href='?_src_=prefs;preference=name'>[be_random_name ? "Yes" : "No"]</a><BR>"
 
 			dat += "<b>Name:</b> "
@@ -1341,6 +1342,11 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					if(isnewplayer(parent.mob)) // Update the player panel with the new name.
 						var/mob/dead/new_player/player_mob = parent.mob
 						player_mob.new_player_panel()
+				if("romanname")
+					real_name = pref_species.random_name_legion(gender,1)
+					if(isnewplayer(parent.mob)) // Update the player panel with the new name.
+						var/mob/dead/new_player/player_mob = parent.mob
+						player_mob.new_player_panel()				
 				if("age")
 					age = rand(AGE_MIN, AGE_MAX)
 				if("hair")
