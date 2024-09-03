@@ -31,7 +31,7 @@
 		var/datum/job/job = SSjob.GetJob(M.mind.assigned_role)
 		if(istype(job))
 			if(job.faction == FACTION_LEGION)
-				SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "betrayed caesar", /datum/mood_event/betrayed_caesar, name)
+				SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "betrayed Caesar", /datum/mood_event/betrayed_caesar, name)
 	..()
 
 /datum/reagent/medicine/stimpak/on_mob_life(mob/living/carbon/M)
@@ -39,7 +39,7 @@
 	var/is_blocked = FALSE
 	if(!is_blocked)
 		//Clotting properties for pierce/slash wounds
-		if(current_cycle > 0 && current_cycle % 6 == 0 && M.all_wounds && M.all_wounds.len >= 1)	//Every 6th cycle, reduce blood_flow for all pierce/slash wounds by clot_rate.
+		if(current_cycle > 0 && current_cycle % 6 == 0 && M.all_wounds && M.all_wounds.len >= 2)	//Every 6th cycle, reduce blood_flow for all pierce/slash wounds by clot_rate.
 			for(var/datum/wound/iter_wound in M.all_wounds)
 				var/affected_limb_name = iter_wound.limb.name
 				switch(iter_wound.severity)
@@ -108,16 +108,57 @@
 	var/damage_offset = 6.75	//How much damage will be offset in one tick
 	var/clot_rate = 0.65	
 
+/datum/reagent/medicine/super_stimpak/on_mob_life(mob/living/carbon/M)
+
+	. = ..()
+	var/is_blocked = FALSE
+	if(!is_blocked)
+		//Clotting properties for pierce/slash wounds
+		if(current_cycle > 0 && current_cycle % 6 == 0 && M.all_wounds && M.all_wounds.len >= 1)	//Every 6th cycle, reduce blood_flow for all pierce/slash wounds by clot_rate.
+			for(var/datum/wound/iter_wound in M.all_wounds)
+				var/affected_limb_name = iter_wound.limb.name
+				switch(iter_wound.severity)
+					if (WOUND_SEVERITY_CRITICAL)
+						if (iter_wound.wound_type == WOUND_PIERCE)
+							iter_wound.blood_flow -= clot_rate
+							M.visible_message("<span class='notice'>The bleeding hole in [M]'s [affected_limb_name] fills with fresh tissue!</span>", \
+											  "<span class='notice'>You feel the cavity in your [affected_limb_name] weaving back together.</span>")
+						else if (iter_wound.wound_type == WOUND_SLASH)
+							iter_wound.blood_flow -= clot_rate
+							M.visible_message("<span class='notice'>The deep gashes on [M]'s [affected_limb_name] close up!</span>", \
+											  "<span class='notice'>You feel the deep gashes on your [affected_limb_name] close up.</span>")
+					if (WOUND_SEVERITY_SEVERE)
+						if (iter_wound.wound_type == WOUND_PIERCE)
+							iter_wound.blood_flow -= clot_rate
+							M.visible_message("<span class='notice'>The puncture wound on [M]'s [affected_limb_name] shrinks!</span>", \
+											  "<span class='notice'>You feel the puncture wound on your [affected_limb_name] shrinking.</span>")
+						else if (iter_wound.wound_type == WOUND_SLASH)
+							iter_wound.blood_flow -= clot_rate
+							M.visible_message("<span class='notice'>The large cuts on [M]'s [affected_limb_name] mend!</span>", \
+											  "<span class='notice'>You feel the large cuts on your [affected_limb_name] mending.</span>")
+					if (WOUND_SEVERITY_MODERATE)
+						if (iter_wound.wound_type == WOUND_PIERCE || iter_wound.wound_type == WOUND_SLASH)
+							iter_wound.blood_flow -= clot_rate
+
+		//Actual healing part starts here
+		M.adjustBruteLoss(-damage_offset * 1.7 * REAGENTS_EFFECT_MULTIPLIER, FALSE)	
+		M.adjustFireLoss(-damage_offset * 1.7 * REAGENTS_EFFECT_MULTIPLIER, FALSE)	
+		M.AdjustStun(-damage_offset * 0.90 * REAGENTS_EFFECT_MULTIPLIER, FALSE)	
+		M.AdjustKnockdown(-damage_offset * 0.90 * REAGENTS_EFFECT_MULTIPLIER, FALSE)	
+		M.adjustStaminaLoss(-damage_offset * 0.90 * REAGENTS_EFFECT_MULTIPLIER, FALSE)	
+		M.heal_bodypart_damage(damage_offset, damage_offset * 3, only_robotic = TRUE, only_organic = FALSE)	
+		. = TRUE
+
 // ---------------------------
 // LONGPORK STEW REAGENT
 
 /datum/reagent/medicine/longpork_stew
 	name = "Longpork stew"
-	description = "A dish sworn by some to have unusual healing properties. To most it just tastes disgusting. What even is longpork anyways?..."
+	description = "A dish sworn by some to have unusual healing properties. To most, it just tastes disgusting. What even is longpork, anyways...?"
 	reagent_state = LIQUID
 	color =  "#915818"
 	taste_description = "oily water, with bits of raw-tasting tender meat."
-	metabolization_rate = 0.15 * REAGENTS_METABOLISM //slow, weak heal that lasts a while. Metabolizies much faster if you are not hurt.
+	metabolization_rate = 0.15 * REAGENTS_METABOLISM //slow, weak heal that lasts a while. Metabolizes much faster if you are not hurt.
 	overdose_threshold = 50 //If you eat too much you get poisoned from all the human flesh you're eating
 	var/longpork_hurting = 0
 	var/longpork_lover_healing = -2
@@ -224,7 +265,7 @@
 
 /datum/reagent/medicine/bitter_drink
 	name = "Bitter drink"
-	description = "An herbal healing concoction which enables wounded soldiers and travelers to tend to their wounds without stopping during journeys."
+	description = "A herbal healing concoction which enables wounded soldiers and travelers to tend to their wounds without stopping during journeys."
 	reagent_state = LIQUID
 	color ="#A9FBFB"
 	taste_description = "bitterness"
@@ -364,7 +405,7 @@
 
 /datum/reagent/medicine/medx/on_mob_end_metabolize(mob/living/carbon/human/M)
 	if(isliving(M))
-		to_chat(M, span_danger("The warmth fades, and every injury you you had slams into you like a truck."))
+		to_chat(M, span_danger("The warmth fades, and every injury you had slams into you like a truck."))
 		M.maxHealth -= 30
 		M.health -= 30
 	..()
@@ -389,7 +430,7 @@
 		if(istype(job))
 			switch(job.faction)
 				if(FACTION_LEGION)
-					SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "betrayed caesar", /datum/mood_event/betrayed_caesar, name)
+					SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "betrayed Caesar", /datum/mood_event/betrayed_caesar, name)
 	. = TRUE
 
 /datum/reagent/medicine/medx/overdose_process(mob/living/carbon/human/M)
@@ -402,7 +443,7 @@
 		switch(od_strikes)
 			if(0)
 				od_next_strike = od_strike_cooldown + world.time // give a delay before the next strike check
-				to_chat(M, span_danger("The numbing warmth attacks your senses, your body feeling like its in a dream, masking the sensation of your organs disintegrating under all that Med-X strain!"))
+				to_chat(M, span_danger("The numbing warmth attacks your senses, your body feeling like it's in a dream, masking the sensation of your organs disintegrating under all that Med-X strain!"))
 				od_strikes = 1
 			if(1 to 3)
 				M.confused = clamp(M.confused + 1, 1, 20)
@@ -660,13 +701,13 @@
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	ghoulfriendly = TRUE
 	var/list/misery_message = list(
-		"You feel miserable",
+		"You feel miserable...",
 		"A war wages on in your gut!",
 		"What have you put in your body?",
 		"It's working, but at what cost?",
 		"You feel ill.",
 		"Your insides hate you.",
-		"everything hurts.",
+		"Everything hurts.",
 		"You feel like you ate firecrackers.",
 		"It will all be over soon.",
 		"You feel like your intestines are dying.",

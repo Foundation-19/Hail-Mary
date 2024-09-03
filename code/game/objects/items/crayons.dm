@@ -645,6 +645,9 @@
 	if(!proximity)
 		return
 
+	if(istype(target, /turf/closed/wall/f13/wood/house/broken) || istype(target, /turf/closed/wall/f13/wood/house) || istype(target, /turf/closed/wall/f13/wood/house/clean) || istype(target, /turf/closed/wall/f13/wood/house/clean/broken))
+		return
+
 	if(is_capped)
 		to_chat(user, span_warning("Take the cap off first!"))
 		return

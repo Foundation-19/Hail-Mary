@@ -77,7 +77,8 @@ GLOBAL_LIST_INIT(former_tribal_recipes, list(
 	//datum/crafting_recipe/bluepotion,
 	//datum/crafting_recipe/greenpotion,
 	/datum/crafting_recipe/food/pemmican,
-	/datum/crafting_recipe/tribal/bonebag))
+	/datum/crafting_recipe/tribal/bonebag,
+	/datum/crafting_recipe/warpaint))
 
 GLOBAL_LIST_INIT(energyweapon_crafting, list(
 	/datum/crafting_recipe/aer9_hotwired))
@@ -922,16 +923,25 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	gain_text = span_notice("Your need for food has left you.")
 	lose_text = span_danger("GOD YOU WANT A BURGER SO BAD.")
 	locked =  FALSE
-*/
 
 /datum/quirk/thickskin
 	name = "Thick Skin"
-	desc = "You just don't get splinters, or shrapnel for that matter.  BROKEN AS OF 2/9/23, TAKE LICK HEALING TO CLOSE WOUNDS."
+	desc = "You just don't get splinters, or shrapnel for that matter."
 	value = 3
 	mob_trait = TRAIT_PIERCEIMMUNE
 	gain_text = span_notice("Your skin feels way stronger.")
 	lose_text = span_danger("You feel like your skin is about as tough as tissue paper.")
 	locked =  TRUE
+*/
+
+/datum/quirk/barbedwire
+	name = "Wire Monkey"
+	desc = "You know how to walk through barbed wire without pain, halves the stun too."
+	value = 2
+	mob_trait = TRAIT_BARBEDWIRENODMG
+	gain_text = span_notice("You feel at home in the trenches.")
+	lose_text = span_danger("The thought of barbed wire horrifies you.")
+	locked = FALSE
 
 /datum/quirk/quickercarry
 	name = "Quicker Carry"
