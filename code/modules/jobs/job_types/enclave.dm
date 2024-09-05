@@ -198,8 +198,8 @@
 /datum/outfit/job/enclave/peacekeeper/enclavecpl
 	name = "Enclave Corporal"
 	jobtype = /datum/job/enclave/enclavecpl
-	head = /obj/item/clothing/head/helmet/f13/combat/swat
-	suit = /obj/item/clothing/suit/armor/medium/combat/swat
+	head = /obj/item/clothing/head/helmet/f13/combat/enclave
+	suit = /obj/item/clothing/suit/armor/medium/combat/enclave
 	suit_store = /obj/item/gun/ballistic/automatic/assault_carbine
 	accessory = /obj/item/clothing/accessory/enclave/specialist
 
@@ -291,8 +291,8 @@
 /datum/outfit/job/enclave/peacekeeper/enclavespy
 	name = "Enclave Private"
 	jobtype = /datum/job/enclave/enclavespy
-	head = /obj/item/clothing/head/helmet/f13/combat/swat
-	suit = /obj/item/clothing/suit/armor/medium/combat/swat
+	head = /obj/item/clothing/head/helmet/f13/combat/enclave
+	suit = /obj/item/clothing/suit/armor/medium/combat/enclave
 	suit_store =  /obj/item/gun/ballistic/automatic/assault_carbine/worn
 	accessory = /obj/item/clothing/accessory/enclave
 

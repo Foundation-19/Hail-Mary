@@ -4843,7 +4843,7 @@
 /turf/open/floor/plating/f13/inside,
 /area/f13/building)
 "bTp" = (
-/obj/structure/lamp_post/quadra{
+/obj/machinery/light/lamp_post/quadra{
 	pixel_y = 12
 	},
 /turf/open/indestructible/ground/outside/sidewalk{
@@ -12996,7 +12996,7 @@
 	},
 /area/f13/village)
 "frZ" = (
-/obj/structure/lamp_post/doubles,
+/obj/machinery/light/lamp_post/doubles,
 /turf/open/indestructible/ground/outside/sidewalk{
 	icon_state = "horizontaltopbordertop2left"
 	},
@@ -13326,7 +13326,7 @@
 /area/f13/building)
 "fzB" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/lamp_post/quadra,
+/obj/machinery/light/lamp_post/quadra,
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/building)
 "fzD" = (
@@ -20239,7 +20239,7 @@
 	},
 /area/f13/wasteland)
 "ilo" = (
-/obj/structure/lamp_post/doubles/bent{
+/obj/machinery/light/lamp_post/doubles/bent{
 	pixel_x = -49
 	},
 /turf/open/indestructible/ground/outside/sidewalk{
@@ -22150,7 +22150,7 @@
 	},
 /area/f13/wasteland)
 "iXi" = (
-/obj/structure/lamp_post{
+/obj/machinery/light/lamp_post{
 	dir = 1
 	},
 /turf/open/indestructible/ground/outside/sidewalk{
@@ -27748,7 +27748,7 @@
 /turf/open/indestructible/ground/outside/savannah,
 /area/f13/caves)
 "lpz" = (
-/obj/structure/lamp_post/quadra,
+/obj/machinery/light/lamp_post/quadra,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/indestructible/ground/outside/sidewalk,
@@ -29268,7 +29268,7 @@
 	},
 /area/f13/village)
 "lXI" = (
-/obj/structure/lamp_post/doubles/bent{
+/obj/machinery/light/lamp_post/doubles/bent{
 	dir = 8
 	},
 /turf/open/indestructible/ground/outside/sidewalk{
@@ -29750,7 +29750,7 @@
 /turf/closed/wall/f13/wood,
 /area/f13/caves)
 "mih" = (
-/obj/structure/lamp_post{
+/obj/machinery/light/lamp_post{
 	dir = 4
 	},
 /turf/open/indestructible/ground/outside/sidewalk{
@@ -32001,7 +32001,7 @@
 /turf/closed/wall/f13/wood/house/broken,
 /area/f13/building)
 "ndE" = (
-/obj/structure/lamp_post,
+/obj/machinery/light/lamp_post,
 /turf/open/indestructible/ground/outside/sidewalk{
 	icon_state = "horizontaltopbordertop1"
 	},
@@ -38517,7 +38517,7 @@
 /turf/open/indestructible/ground/outside/road,
 /area/f13/wasteland)
 "qck" = (
-/obj/structure/lamp_post,
+/obj/machinery/light/lamp_post,
 /turf/open/indestructible/ground/outside/sidewalk{
 	icon_state = "horizontaltopbordertop2"
 	},
@@ -38918,7 +38918,7 @@
 /turf/open/floor/f13/wood,
 /area/f13/building)
 "qjv" = (
-/obj/structure/lamp_post/doubles/bent,
+/obj/machinery/light/lamp_post/doubles/bent,
 /turf/open/indestructible/ground/outside/sidewalk{
 	icon_state = "outerborder"
 	},
@@ -40685,7 +40685,7 @@
 	},
 /area/f13/building)
 "qUV" = (
-/obj/structure/lamp_post,
+/obj/machinery/light/lamp_post,
 /turf/open/indestructible/ground/outside/sidewalk{
 	icon_state = "horizontaltopbordertop0"
 	},
@@ -41374,7 +41374,7 @@
 /turf/closed/mineral/random/low_chance,
 /area/f13/caves)
 "rlo" = (
-/obj/structure/lamp_post/doubles,
+/obj/machinery/light/lamp_post/doubles,
 /turf/open/indestructible/ground/outside/sidewalk{
 	icon_state = "horizontaltopbordertop2right"
 	},
@@ -41947,7 +41947,7 @@
 	},
 /area/f13/village)
 "rAp" = (
-/obj/structure/lamp_post/quadra{
+/obj/machinery/light/lamp_post/quadra{
 	pixel_y = 12
 	},
 /turf/open/indestructible/ground/outside/sidewalk{
@@ -42936,7 +42936,7 @@
 /turf/open/floor/wood_common,
 /area/f13/ncr)
 "rZe" = (
-/obj/structure/lamp_post/doubles/bent{
+/obj/machinery/light/lamp_post/doubles/bent{
 	dir = 8
 	},
 /turf/open/indestructible/ground/outside/sidewalk{
@@ -43159,7 +43159,7 @@
 	},
 /area/f13/building)
 "scO" = (
-/obj/structure/lamp_post{
+/obj/machinery/light/lamp_post{
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -47541,7 +47541,7 @@
 /turf/open/indestructible/ground/outside/ruins,
 /area/f13/wasteland)
 "tYt" = (
-/obj/structure/lamp_post{
+/obj/machinery/light/lamp_post{
 	dir = 4
 	},
 /turf/open/indestructible/ground/outside/sidewalk{
@@ -47810,7 +47810,7 @@
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/building)
 "uda" = (
-/obj/structure/lamp_post{
+/obj/machinery/light/lamp_post{
 	dir = 4
 	},
 /turf/open/indestructible/ground/outside/sidewalk{
@@ -48134,7 +48134,7 @@
 /turf/open/indestructible/ground/outside/water,
 /area/f13/wasteland)
 "uiA" = (
-/obj/structure/lamp_post/doubles/bent{
+/obj/machinery/light/lamp_post/doubles/bent{
 	dir = 8
 	},
 /turf/open/indestructible/ground/outside/sidewalk{
@@ -48457,7 +48457,7 @@
 	},
 /area/f13/wasteland)
 "upg" = (
-/obj/structure/lamp_post/doubles/bent{
+/obj/machinery/light/lamp_post/doubles/bent{
 	dir = 8
 	},
 /turf/open/indestructible/ground/outside/sidewalk{
@@ -48842,7 +48842,7 @@
 	},
 /area/f13/building)
 "uyp" = (
-/obj/structure/lamp_post/doubles/bent{
+/obj/machinery/light/lamp_post/doubles/bent{
 	dir = 8
 	},
 /turf/open/indestructible/ground/outside/sidewalk{
@@ -49099,7 +49099,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/white,
 /area/f13/building)
 "uEK" = (
-/obj/structure/lamp_post{
+/obj/machinery/light/lamp_post{
 	dir = 8
 	},
 /turf/open/indestructible/ground/outside/sidewalk{
@@ -51171,7 +51171,7 @@
 	},
 /area/f13/caves)
 "vCp" = (
-/obj/structure/lamp_post/quadra{
+/obj/machinery/light/lamp_post/quadra{
 	pixel_y = 12
 	},
 /turf/open/indestructible/ground/outside/sidewalk{
@@ -52674,7 +52674,7 @@
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/caves)
 "wqs" = (
-/obj/structure/lamp_post{
+/obj/machinery/light/lamp_post{
 	dir = 8
 	},
 /turf/open/indestructible/ground/outside/sidewalk{
@@ -54476,7 +54476,7 @@
 	},
 /area/f13/wasteland)
 "xcN" = (
-/obj/structure/lamp_post/quadra,
+/obj/machinery/light/lamp_post/quadra,
 /turf/open/indestructible/ground/outside/sidewalk{
 	dir = 8;
 	icon_state = "outerborder"
@@ -55170,7 +55170,7 @@
 	},
 /area/f13/wasteland)
 "xrZ" = (
-/obj/structure/lamp_post/doubles/bent,
+/obj/machinery/light/lamp_post/doubles/bent,
 /turf/open/indestructible/ground/outside/sidewalk{
 	icon_state = "verticalleftborderleft0"
 	},
@@ -56775,7 +56775,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/floor/floorsolid,
 /area/f13/building)
 "yfo" = (
-/obj/structure/lamp_post{
+/obj/machinery/light/lamp_post{
 	dir = 8
 	},
 /turf/open/indestructible/ground/outside/sidewalk,
