@@ -63047,6 +63047,9 @@
 "tTf" = (
 /obj/effect/decal/cleanable/oil,
 /obj/effect/decal/cleanable/dirt,
+/obj/mecha/combat/phazon/jeep/loaded{
+	dir = 8
+	},
 /turf/open/indestructible/ground/outside/road{
 	icon_state = "verticalinnermain0"
 	},
