@@ -6801,6 +6801,9 @@
 /turf/open/floor/plasteel/f13/vault_floor/red/white,
 /area/f13/building/mall)
 "aBG" = (
+/obj/mecha/combat/phazon/ambulance{
+	dir = 1
+	},
 /turf/open/indestructible/ground/outside/road{
 	icon_state = "horizontalbottombordertop0"
 	},
@@ -19721,7 +19724,7 @@
 	},
 /obj/effect/decal/cleanable/generic,
 /obj/effect/decal/cleanable/dirt,
-/obj/mecha/combat/phazon/pickuptruck/loaded{
+/obj/mecha/combat/phazon/pickuptruck/mechanic{
 	dir = 4
 	},
 /turf/open/floor/f13{
@@ -20383,6 +20386,15 @@
 	icon_state = "verticalrightborderright0"
 	},
 /area/f13/wasteland)
+"ctm" = (
+/obj/mecha/combat/phazon/jeep/loaded{
+	dir = 8
+	},
+/turf/open/indestructible/ground/outside/dirt{
+	dir = 8;
+	icon_state = "dirtcorner"
+	},
+/area/f13/radiation)
 "ctn" = (
 /obj/machinery/vending/cola/random,
 /turf/open/indestructible/ground/outside/sidewalk{
@@ -25027,6 +25039,11 @@
 	icon_state = "outerpavementdirt"
 	},
 /area/f13/wasteland)
+"epN" = (
+/obj/effect/decal/cleanable/oil,
+/obj/mecha/combat/phazon/jeep/bos,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/brotherhood)
 "eqf" = (
 /obj/item/reagent_containers/food/drinks/bottle/instacoffee,
 /obj/item/crafting/coffee_pot,
@@ -28914,6 +28931,13 @@
 	icon_state = "yellowrustyfull"
 	},
 /area/f13/building/museum)
+"fPf" = (
+/obj/structure/cross,
+/turf/open/indestructible/ground/outside/desert/sonora{
+	dir = 4;
+	icon_state = "desertsmooth5"
+	},
+/area/f13/wasteland)
 "fPm" = (
 /turf/open/indestructible/ground/outside/desert/sonora{
 	dir = 4;
@@ -40735,6 +40759,13 @@
 	},
 /turf/open/floor/f13/wood,
 /area/f13/building)
+"kKM" = (
+/obj/structure/cross,
+/turf/open/indestructible/ground/outside/desert/sonora{
+	dir = 4;
+	icon_state = "desertsmooth1"
+	},
+/area/f13/wasteland)
 "kLb" = (
 /obj/effect/decal/cleanable/blood,
 /obj/effect/decal/cleanable/blood/gibs/human/up,
@@ -52982,6 +53013,7 @@
 	pixel_x = 12;
 	pixel_y = 6
 	},
+/obj/structure/cross,
 /turf/open/indestructible/ground/outside/desert/sonora{
 	dir = 4;
 	icon_state = "desertsmooth3"
@@ -64752,6 +64784,15 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/closed/wall/f13/wood/house,
 /area/f13/brotherhood)
+"uFF" = (
+/obj/mecha/combat/phazon/ambulance{
+	dir = 4
+	},
+/turf/open/indestructible/ground/outside/sidewalk{
+	dir = 1;
+	icon_state = "outerpavementdirt"
+	},
+/area/f13/wasteland)
 "uFP" = (
 /obj/effect/decal/cleanable/dirt{
 	color = "#363636"
@@ -66907,7 +66948,7 @@
 /obj/effect/decal/cleanable/dirt{
 	color = "#363636"
 	},
-/obj/mecha/combat/phazon/pickuptruck/blue/loaded{
+/obj/mecha/combat/phazon/pickuptruck/mechanic{
 	dir = 4
 	},
 /turf/open/floor/f13{
@@ -69285,6 +69326,12 @@
 	icon_state = "reddirtyfull"
 	},
 /area/f13/city)
+"wCj" = (
+/obj/structure/stairs/east{
+	color = "#A47449"
+	},
+/turf/open/indestructible/ground/inside/mountain,
+/area/f13/caves)
 "wCs" = (
 /obj/effect/turf_decal/arrows{
 	dir = 4
@@ -85936,7 +85983,7 @@ hop
 hiX
 bGM
 koF
-shj
+ctm
 olP
 jrJ
 eBJ
@@ -102142,7 +102189,7 @@ kPz
 kxH
 ahQ
 hEG
-anR
+uFF
 qba
 xLy
 wqL
@@ -115878,7 +115925,7 @@ aaa
 aaa
 pxe
 oYF
-oYF
+xYD
 oYF
 oYF
 gBV
@@ -116135,7 +116182,7 @@ aaa
 aaa
 pxe
 oYF
-xYD
+oYF
 oYF
 ubv
 gBV
@@ -116392,7 +116439,7 @@ aaa
 aaa
 pxe
 dGJ
-gnj
+epN
 oYF
 oYF
 xfy
@@ -129464,7 +129511,7 @@ aaB
 sdA
 tIG
 yju
-ccj
+kKM
 xaY
 aii
 qqE
@@ -129718,10 +129765,10 @@ sMp
 npa
 aae
 aaB
-aaB
-aae
+wCj
+wCj
 fYQ
-xJd
+fPf
 xaY
 qqE
 aii
@@ -129978,7 +130025,7 @@ aaB
 fYQ
 aae
 fYQ
-ccj
+kKM
 xaY
 aii
 sQy
