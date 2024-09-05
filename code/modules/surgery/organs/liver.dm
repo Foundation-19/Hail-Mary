@@ -14,7 +14,7 @@
 	healing_factor = STANDARD_ORGAN_HEALING
 	decay_factor = STANDARD_ORGAN_DECAY
 
-	high_threshold_passed = span_warning("You feel a stange ache in your abdomen, almost like a stitch. This pain is encumbering your movements.")
+	high_threshold_passed = span_warning("You feel a strange ache in your abdomen, almost like a stitch. This pain is encumbering your movements.")
 	high_threshold_cleared = span_notice("The stitching ache in your abdomen passes away, unencumbering your movements.")
 	now_fixed = span_notice("The stabbing pain in your abdomen slowly calms down into a more tolerable ache.")
 
