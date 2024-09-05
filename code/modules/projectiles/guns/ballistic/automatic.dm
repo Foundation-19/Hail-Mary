@@ -1974,9 +1974,9 @@
 	name = "Handmade Assault Rifle"
 	desc = "A handmade assault rifle, created with a mixture of pre-war and improvised parts. Reliable and trusty, although it tends to kick more than normal. Perfect for raider, scavver and militia alike."
 	icon = 'icons/obj/guns/projectile.dmi'
-	icon_state = "handmade_rifle"
-	item_state = "handmade_rifle"
-	icon_prefix = "handmade_rifle"
+	icon_state = "handmade_assault_rifle"
+	item_state = "handmade_ar"
+	icon_prefix = "handmade_assault_rifle"
 	mag_type = /obj/item/ammo_box/magazine/m556/rifle
 	init_mag_type = /obj/item/ammo_box/magazine/m556/rifle
 	weapon_class = WEAPON_CLASS_RIFLE
@@ -1990,8 +1990,8 @@
 	)
 	can_suppress = TRUE
 	suppressor_state = "rifle_suppressor"
-	suppressor_x_offset = 27
-	suppressor_y_offset = 27
+	suppressor_x_offset = 31
+	suppressor_y_offset = 31
 	fire_sound = 'sound/f13weapons/assaultrifle_fire.ogg'
 
 
@@ -1999,9 +1999,9 @@
 	name = "Handmade Assault Rifle"
 	desc = "A handmade battle rifle, created with a mixture of pre-war and improvised parts. Kicks like a mule but is accurate hits targets hard. A favorite amongst veteran raiders and some mercenaries."
 	icon = 'icons/obj/guns/projectile.dmi'
-	icon_state = "handmade_rifle"
-	item_state = "handmade_rifle"
-	icon_prefix = "handmade_rifle"
+	icon_state = "handmade_battle_rifle"
+	item_state = "handmade_ar"
+	icon_prefix = "handmade_battle_rifle"
 	mag_type = /obj/item/ammo_box/magazine/m308
 	init_mag_type = /obj/item/ammo_box/magazine/m308
 	weapon_class = WEAPON_CLASS_RIFLE
@@ -2022,9 +2022,9 @@
 	name = "Handmade Marksman Rifle"
 	desc = "A handmade Marksman Rifle, created with a mixture of pre-war and improvised parts. Heavy, but is quite accurate and fires .30-06. It is somewhat among mercenary, raider, and militia marksmen."
 	icon = 'icons/obj/guns/projectile.dmi'
-	icon_state = "handmade_rifle"
-	item_state = "handmade_rifle"
-	icon_prefix = "handmade_rifle"
+	icon_state = "handmade_marksman_rifle"
+	item_state = "handmade_ar"
+	icon_prefix = "handmade_marksman_rifle"
 	weapon_class = WEAPON_CLASS_CARBINE
 	weapon_weight = GUN_TWO_HAND_ONLY
 	damage_multiplier = GUN_EXTRA_DAMAGE_T2
@@ -2042,9 +2042,9 @@
 	name = "Handmade Carbine"
 	desc = "This handmade carbine looks like its made out of rotting wood and scrap metal, and is a favorite among raider gangs for its ease of production and maintenance."
 	icon = 'icons/obj/guns/projectile.dmi'
-	icon_state = "handmade_rifle"
-	item_state = "handmade_rifle"
-	icon_prefix = "handmade_rifle"
+	icon_state = "handmade_assault_carbine"
+	item_state = "handmade_ar"
+	icon_prefix = "handmade_assault_carbine"
 	mag_type = /obj/item/ammo_box/magazine/m556/rifle
 	init_mag_type = /obj/item/ammo_box/magazine/m556/rifle
 	weapon_class = WEAPON_CLASS_CARBINE
