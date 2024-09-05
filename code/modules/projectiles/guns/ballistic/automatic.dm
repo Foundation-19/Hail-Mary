@@ -1931,6 +1931,137 @@
 	can_suppress = FALSE
 
 /* * * * * * * * * * *
+ * Handmade Carbine
+ * Uses Nukaworld AK Sprite
+ * .223 / 5.56mm
+ * Less damage
+ * Less accuracy
+ * Slower to shoot
+ * Craftable By Anyone
+ * * * * * * * * * * */
+
+/obj/item/gun/ballistic/automatic/handmade_carbine
+	name = "Handmade Carbine"
+	desc = "This handmade carbine looks like its made out of rotting wood and scrap metal, and is a favorite among raider gangs for its ease of production and maintenance."
+	icon = 'icons/obj/guns/projectile.dmi'
+	icon_state = "handmade_rifle"
+	item_state = "handmade_rifle"
+	icon_prefix = "handmade_rifle"
+	mag_type = /obj/item/ammo_box/magazine/m556/rifle
+	init_mag_type = /obj/item/ammo_box/magazine/m556/rifle
+	weapon_class = WEAPON_CLASS_CARBINE
+	weapon_weight = GUN_ONE_HAND_ONLY
+	damage_multiplier = GUN_LESS_DAMAGE_T2
+	cock_delay = GUN_COCK_RIFLE_BASE
+	init_recoil = RIFLE_RECOIL(2.2)
+	init_firemodes = list(
+		/datum/firemode/automatic/rpm200,
+	)
+	can_suppress = FALSE
+	fire_sound = 'sound/f13weapons/assaultrifle_fire.ogg'
+
+/* * * * * * * * * * *
+ * Handmade Assault Rifle
+ * Handmade AK-101
+ * .223 / 5.56mm
+ * Less damage
+ * Less accuracy
+ * Slower to shoot
+ * Craftable By Anyone
+ * * * * * * * * * * */
+
+/obj/item/gun/ballistic/automatic/handmade_rifle
+	name = "Handmade Assault Rifle"
+	desc = "A handmade assault rifle, created with a mixture of pre-war and improvised parts. Reliable and trusty, although it tends to kick more than normal. Perfect for raider, scavver and militia alike."
+	icon = 'icons/obj/guns/projectile.dmi'
+	icon_state = "handmade_rifle"
+	item_state = "handmade_rifle"
+	icon_prefix = "handmade_rifle"
+	mag_type = /obj/item/ammo_box/magazine/m556/rifle
+	init_mag_type = /obj/item/ammo_box/magazine/m556/rifle
+	weapon_class = WEAPON_CLASS_RIFLE
+	weapon_weight = GUN_ONE_HAND_ONLY
+	damage_multiplier = GUN_EXTRA_DAMAGE_0
+	cock_delay = GUN_COCK_RIFLE_BASE
+	init_recoil = RIFLE_RECOIL(1.2)
+	init_firemodes = list(
+		/datum/firemode/automatic/rpm200,
+		/datum/firemode/burst/three
+	)
+	can_suppress = TRUE
+	suppressor_state = "rifle_suppressor"
+	suppressor_x_offset = 27
+	suppressor_y_offset = 27
+	fire_sound = 'sound/f13weapons/assaultrifle_fire.ogg'
+
+
+/obj/item/gun/ballistic/automatic/handmade_battle_rifle
+	name = "Handmade Assault Rifle"
+	desc = "A handmade battle rifle, created with a mixture of pre-war and improvised parts. Kicks like a mule but is accurate hits targets hard. A favorite amongst veteran raiders and some mercenaries."
+	icon = 'icons/obj/guns/projectile.dmi'
+	icon_state = "handmade_rifle"
+	item_state = "handmade_rifle"
+	icon_prefix = "handmade_rifle"
+	mag_type = /obj/item/ammo_box/magazine/m308
+	init_mag_type = /obj/item/ammo_box/magazine/m308
+	weapon_class = WEAPON_CLASS_RIFLE
+	weapon_weight = GUN_TWO_HAND_ONLY
+	damage_multiplier = GUN_EXTRA_DAMAGE_T1
+	accuracy
+	cock_delay = GUN_COCK_RIFLE_BASE
+	init_recoil = RIFLE_RECOIL(1.5)
+	init_firemodes = list(
+		/datum/firemode/automatic/rpm150,
+	)
+	gun_accuracy_zone_type = ZONE_WEIGHT_PRECISION
+	can_suppress = FALSE
+	fire_sound = 'sound/f13weapons/automaticrifle_BAR.ogg'
+
+
+/obj/item/gun/ballistic/automatic/handmade_dmr
+	name = "Handmade Marksman Rifle"
+	desc = "A handmade Marksman Rifle, created with a mixture of pre-war and improvised parts. Heavy, but is quite accurate and fires .30-06. It is somewhat among mercenary, raider, and militia marksmen."
+	icon = 'icons/obj/guns/projectile.dmi'
+	icon_state = "handmade_rifle"
+	item_state = "handmade_rifle"
+	icon_prefix = "handmade_rifle"
+	weapon_class = WEAPON_CLASS_CARBINE
+	weapon_weight = GUN_TWO_HAND_ONLY
+	damage_multiplier = GUN_EXTRA_DAMAGE_T2
+	accuracy
+	cock_delay = GUN_COCK_RIFLE_BASE
+	init_recoil = RIFLE_RECOIL(1.3)
+	init_firemodes = list(
+		/datum/firemode/semi_auto,
+	)
+	gun_accuracy_zone_type = ZONE_WEIGHT_PRECISION
+	can_suppress = FALSE
+	fire_sound = 'sound/f13weapons/hunting_rifle.ogg'
+
+/obj/item/gun/ballistic/automatic/handmade_assault_carbine
+	name = "Handmade Carbine"
+	desc = "This handmade carbine looks like its made out of rotting wood and scrap metal, and is a favorite among raider gangs for its ease of production and maintenance."
+	icon = 'icons/obj/guns/projectile.dmi'
+	icon_state = "handmade_rifle"
+	item_state = "handmade_rifle"
+	icon_prefix = "handmade_rifle"
+	mag_type = /obj/item/ammo_box/magazine/m556/rifle
+	init_mag_type = /obj/item/ammo_box/magazine/m556/rifle
+	weapon_class = WEAPON_CLASS_CARBINE
+	weapon_weight = GUN_ONE_HAND_ONLY
+	damage_multiplier = GUN_EXTRA_DAMAGE_0
+	cock_delay = GUN_COCK_RIFLE_BASE
+	init_recoil = RIFLE_RECOIL(1.7)
+	init_firemodes = list(
+		/datum/firemode/automatic/rpm300
+	)
+	can_suppress = TRUE
+	suppressor_state = "rifle_suppressor"
+	suppressor_x_offset = 27
+	suppressor_y_offset = 27
+	fire_sound = 'sound/f13weapons/assaultrifle_fire.ogg'
+
+/* * * * * * * * * * *
  * BOZAR
  * Heavy 5.56mm autorifle
  * .223 / 5.56mm

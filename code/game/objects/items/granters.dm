@@ -649,7 +649,7 @@
 	icon_state = "gab3"
 	oneuse = TRUE
 	remarks = list("Always keep your gun well lubricated...", "Keep your barrel free of grime...", "Perfect fitment is the key to a good firearm...", "Maintain a proper trigger pull length...", "Keep your sights zeroed to proper range...")
-	crafting_recipe_types = list(/datum/crafting_recipe/scope, /datum/crafting_recipe/suppressor, /datum/crafting_recipe/ergonomic_grip, /datum/crafting_recipe/metal_guard, /datum/crafting_recipe/forged_barrel, /datum/crafting_recipe/booster, /datum/crafting_recipe/laserguide, /datum/crafting_recipe/gigalens, /datum/crafting_recipe/battshunt, /datum/crafting_recipe/overdrivemod, /datum/crafting_recipe/ai_tool)
+	crafting_recipe_types = list(/datum/crafting_recipe/scope, /datum/crafting_recipe/suppressor, /datum/crafting_recipe/ergonomic_grip, /datum/crafting_recipe/metal_guard, /datum/crafting_recipe/forged_barrel, /datum/crafting_recipe/booster, /datum/crafting_recipe/laserguide, /datum/crafting_recipe/gigalens, /datum/crafting_recipe/battshunt, /datum/crafting_recipe/overdrivemod, /datum/crafting_recipe/ai_tool, /datum/crafting_recipe/handmade_rifle, /datum/crafting_recipe/handmade_battle_rifle, /datum/crafting_recipe/handmade_dmr, /datum/crafting_recipe/handmade_assault_carbine)
 
 /obj/item/book/granter/crafting_recipe/gunsmith_four
 	name = "Guns and Bullets, Part 4"
@@ -657,7 +657,7 @@
 	icon_state = "gab4"
 	oneuse = TRUE
 	remarks = list("Always keep your gun well lubricated...", "Keep your barrel free of grime...", "Perfect fitment is the key to a good firearm...", "Maintain a proper trigger pull length...", "Keep your sights zeroed to proper range...")
-	crafting_recipe_types = list(/datum/crafting_recipe/flux, /datum/crafting_recipe/lenses, /datum/crafting_recipe/conductors, /datum/crafting_recipe/receiver, /datum/crafting_recipe/assembly, /datum/crafting_recipe/alloys)
+	crafting_recipe_types = list(/datum/crafting_recipe/flux, /datum/crafting_recipe/lenses, /datum/crafting_recipe/conductors, /datum/crafting_recipe/receiver, /datum/crafting_recipe/assembly, /datum/crafting_recipe/alloys, /datum/crafting_recipe/a556extended)
 
 /obj/item/book/granter/crafting_recipe/scav_one
 	name = "SCAV! Issue 1"
