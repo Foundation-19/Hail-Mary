@@ -475,8 +475,8 @@
 	item_state = "t51bhelmet[light_on]"
 
 /obj/item/clothing/head/helmet/f13/power_armor/t51b/palcomm/update_icon_state()
-	icon_state = "palcommhelm[light_on]"
-	item_state = "palcommhelm[light_on]"
+	icon_state = "palcommhelm"
+	item_state = "palcommhelm"
 
 /obj/item/clothing/head/helmet/f13/power_armor/t60
 	name = "T-60a power helmet"
