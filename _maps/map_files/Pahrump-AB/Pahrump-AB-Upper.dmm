@@ -279,6 +279,14 @@
 	icon_state = "darkrusty"
 	},
 /area/f13/building/massfusion)
+"auH" = (
+/obj/structure/curtain{
+	color = "#845f58"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/simple_door/room,
+/turf/open/floor/f13/wood,
+/area/f13/radiation)
 "auN" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/bodypart/l_arm,
@@ -1018,11 +1026,6 @@
 /obj/machinery/light/small,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/city)
-"bOS" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/bed/wooden,
-/turf/open/floor/f13/wood,
-/area/f13/radiation)
 "bPf" = (
 /obj/effect/turf_decal/shadow/floor{
 	dir = 4
@@ -1562,6 +1565,11 @@
 /obj/effect/turf_decal/shadow/floor,
 /turf/open/floor/wood_fancy,
 /area/f13/legion)
+"cWT" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/rack/shelf_wood,
+/turf/open/floor/f13/wood,
+/area/f13/radiation)
 "cXp" = (
 /obj/structure/window/fulltile/house{
 	icon_state = "housewindowbrokenvertical"
@@ -1618,13 +1626,6 @@
 /obj/effect/turf_decal/shadow/floor,
 /turf/open/floor/wood_fancy,
 /area/f13/legion)
-"ddf" = (
-/obj/structure/curtain{
-	color = "#845f58"
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/f13/wood,
-/area/f13/radiation)
 "dfb" = (
 /obj/structure/table/wood,
 /turf/open/floor/wood_fancy/wood_fancy_dark,
@@ -1824,13 +1825,6 @@
 "dDq" = (
 /turf/open/floor/plasteel/f13/vault_floor/misc/cmo,
 /area/f13/ncr)
-"dDZ" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/chair/wood{
-	dir = 1
-	},
-/turf/open/floor/f13/wood,
-/area/f13/radiation)
 "dGM" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/f13/wood{
@@ -2217,6 +2211,10 @@
 	icon_state = "housewood2"
 	},
 /area/f13/building)
+"eBb" = (
+/obj/item/storage/secure/safe,
+/turf/closed/wall/f13/wood,
+/area/f13/radiation)
 "eCw" = (
 /obj/item/kirbyplants/random,
 /turf/open/floor/plasteel/f13/vault_floor/dark,
@@ -2308,6 +2306,11 @@
 /obj/structure/barricade/wooden/planks/pregame,
 /turf/closed/wall/f13/wood/house,
 /area/f13/building)
+"eLN" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/cabinet/anchored,
+/turf/open/floor/f13/wood,
+/area/f13/radiation)
 "eLX" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/destructible/tribal_torch/wall/lit{
@@ -2393,6 +2396,16 @@
 	icon_state = "whitedirtysolid"
 	},
 /area/f13/building/hospital)
+"eTO" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/chair/comfy/black,
+/turf/open/floor/f13/wood,
+/area/f13/radiation)
+"eVG" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/dresser,
+/turf/open/floor/f13/wood,
+/area/f13/radiation)
 "eWb" = (
 /turf/open/transparent/openspace{
 	name = "air";
@@ -6533,6 +6546,9 @@
 /obj/structure/lattice/catwalk,
 /turf/closed/wall/f13/wood/house,
 /area/f13/brotherhood)
+"nTh" = (
+/turf/closed/mineral/random/low_chance,
+/area/f13/radiation)
 "nTu" = (
 /obj/structure/chair/wood{
 	dir = 8
@@ -6908,13 +6924,6 @@
 	icon_state = "greenrustychess"
 	},
 /area/f13/building/massfusion)
-"oNs" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/chair/wood{
-	dir = 4
-	},
-/turf/open/floor/f13/wood,
-/area/f13/radiation)
 "oOo" = (
 /turf/closed/indestructible/f13/matrix,
 /area/f13/city)
@@ -7145,6 +7154,14 @@
 	},
 /turf/closed/wall/f13/store,
 /area/f13/wasteland)
+"pmK" = (
+/obj/structure/curtain{
+	color = "#845f58"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/simple_door/room/dirty,
+/turf/open/floor/f13/wood,
+/area/f13/radiation)
 "poV" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/cabinet/anchored,
@@ -7358,6 +7375,16 @@
 	icon_state = "darkrusty"
 	},
 /area/f13/wasteland)
+"pMu" = (
+/obj/machinery/door/airlock/medical/glass{
+	armor = list("melee"=75,"bullet"=75,"laser"=75,"energy"=75,"bomb"=30,"bio"=25,"rad"=25,"fire"=25,"acid"=25,"wound"=25,"damage_threshold"=3);
+	desc = "It opens and closes. This one looks heavily fortified";
+	id_tag = "MedbayFoyer";
+	name = "Clinic Director";
+	req_access_txt = "281"
+	},
+/turf/open/floor/plasteel/f13/vault_floor/blue/whitebluefull,
+/area/f13/city)
 "pOn" = (
 /obj/effect/decal/remains/human,
 /obj/effect/decal/cleanable/dirt,
@@ -7857,6 +7884,12 @@
 /obj/structure/barricade/wooden/planks/pregame,
 /turf/open/floor/f13/wood,
 /area/f13/building)
+"qWL" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/bed/wooden,
+/obj/item/bedsheet/black,
+/turf/open/floor/f13/wood,
+/area/f13/radiation)
 "qYF" = (
 /turf/open/indestructible,
 /area/f13/tcoms)
@@ -8736,11 +8769,6 @@
 	},
 /turf/open/floor/carpet/vault,
 /area/f13/city)
-"sUD" = (
-/obj/structure/rack,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/f13/wood,
-/area/f13/radiation)
 "sVC" = (
 /obj/structure/railing/corner{
 	dir = 4
@@ -8856,6 +8884,11 @@
 	icon_state = "housewood4-broken"
 	},
 /area/f13/building)
+"teW" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/start/f13/smutant,
+/turf/open/floor/f13/wood,
+/area/f13/radiation)
 "tfd" = (
 /obj/structure/fluff/railing{
 	dir = 8
@@ -9107,11 +9140,6 @@
 	icon_state = "housewood4-broken"
 	},
 /area/f13/wasteland)
-"tFP" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/table/wood/settler,
-/turf/open/floor/f13/wood,
-/area/f13/radiation)
 "tGt" = (
 /obj/structure/table,
 /obj/machinery/light/small{
@@ -9153,6 +9181,13 @@
 	icon_state = "housewood2-broken"
 	},
 /area/f13/wasteland)
+"tMV" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/start/f13/smutant_boss,
+/turf/open/floor/f13/wood{
+	icon_state = "housewood2-broken"
+	},
+/area/f13/radiation)
 "tPa" = (
 /obj/structure/fluff/railing{
 	dir = 4
@@ -9283,16 +9318,6 @@
 	density = 0
 	},
 /turf/open/floor/plasteel/f13/vault_floor/neutral/neutralchess/neutralchess2,
-/area/f13/city)
-"ubK" = (
-/obj/machinery/door/airlock/medical/glass{
-	armor = list("melee"=75,"bullet"=75,"laser"=75,"energy"=75,"bomb"=30,"bio"=25,"rad"=25,"fire"=25,"acid"=25,"wound"=25,"damage_threshold"=3);
-	desc = "It opens and closes. This one looks heavily fortified";
-	id_tag = "MedbayFoyer";
-	name = "Clinic Director";
-	req_access_txt = "281"
-	},
-/turf/open/floor/plasteel/f13/vault_floor/blue/whitebluefull,
 /area/f13/city)
 "ucd" = (
 /obj/machinery/light/small{
@@ -9457,6 +9482,11 @@
 	icon_state = "housewood4-broken"
 	},
 /area/f13/caves)
+"uuG" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/kitchenspike,
+/turf/open/floor/f13/wood,
+/area/f13/radiation)
 "uuO" = (
 /obj/structure/barricade/wooden,
 /turf/closed/wall/f13/tentwall,
@@ -9872,6 +9902,12 @@
 	},
 /turf/open/floor/f13/wood,
 /area/f13/city)
+"vvW" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/table/wood,
+/obj/item/twohanded/baseball/spiked,
+/turf/open/floor/f13/wood,
+/area/f13/radiation)
 "vwd" = (
 /obj/structure/chair/comfy/black{
 	dir = 4
@@ -10114,6 +10150,11 @@
 	icon_state = "darkrusty"
 	},
 /area/f13/building/massfusion)
+"waA" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/crate/footlocker,
+/turf/open/floor/f13/wood,
+/area/f13/radiation)
 "wbt" = (
 /obj/structure/destructible/tribal_torch/wall/lit{
 	dir = 8;
@@ -17368,7 +17409,7 @@ vLb
 vLb
 uYs
 foW
-eJE
+teW
 rlg
 uYs
 vLb
@@ -17626,7 +17667,7 @@ vLb
 uYs
 hqx
 hvE
-eJE
+waA
 yaC
 eWb
 tik
@@ -17883,7 +17924,7 @@ vLb
 uYs
 ktd
 afb
-eJE
+waA
 dUZ
 eWb
 eWb
@@ -18138,8 +18179,8 @@ vLb
 vLb
 vLb
 uYs
-sUD
-eJE
+cWT
+teW
 raE
 vMW
 eWb
@@ -18396,7 +18437,7 @@ uYs
 uYs
 uYs
 uYs
-ddf
+pmK
 uYs
 uYs
 eWb
@@ -18648,10 +18689,10 @@ vLb
 vLb
 vLb
 uYs
-oNs
+eVG
 vpi
 rRa
-eJE
+uuG
 uYs
 awU
 uYs
@@ -18905,11 +18946,11 @@ vLb
 vLb
 vLb
 uYs
-tFP
-dDZ
+eLN
 eJE
 eJE
-ddf
+eJE
+auH
 eJE
 yaC
 eWb
@@ -19162,10 +19203,10 @@ vLb
 vLb
 vLb
 uYs
-bOS
-brR
-eJE
-eJE
+qWL
+tMV
+eTO
+vvW
 vMW
 bfF
 uYs
@@ -19420,7 +19461,7 @@ vLb
 vLb
 uYs
 uYs
-uYs
+eBb
 uYs
 uYs
 uYs
@@ -22271,7 +22312,7 @@ eWb
 eWb
 eWb
 eWb
-eWb
+nTh
 tot
 vLb
 eWb
@@ -40010,7 +40051,7 @@ anv
 anv
 anv
 anv
-ubK
+pMu
 hhd
 anv
 uNh
@@ -40522,7 +40563,7 @@ oez
 anv
 iqB
 iqB
-ubK
+pMu
 iqB
 iqB
 qni
