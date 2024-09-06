@@ -2039,8 +2039,8 @@
 	fire_sound = 'sound/f13weapons/hunting_rifle.ogg'
 
 /obj/item/gun/ballistic/automatic/handmade_assault_carbine
-	name = "Handmade Carbine"
-	desc = "This handmade carbine looks like its made out of rotting wood and scrap metal, and is a favorite among raider gangs for its ease of production and maintenance."
+	name = "Handmade Assault Carbine"
+	desc = "A refinement of the usual handmade carbine, this Assault Carbine is significantly better bored and has a wire stock attached. A muzzle booster has been added to increase fire rate and reliability. It is also a surprising favorite amongst post-war vehicle crews, especially vertibird pilots."
 	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "handmade_assault_carbine"
 	item_state = "handmade_ar"
