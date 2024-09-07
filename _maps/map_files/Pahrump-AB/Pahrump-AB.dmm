@@ -4612,6 +4612,7 @@
 "atV" = (
 /mob/living/simple_animal/hostile/gecko/legacy,
 /obj/effect/spawner/lootdrop/f13/junkspawners,
+/obj/effect/spawner/lootdrop/f13/junkspawners,
 /turf/open/floor/f13/wood,
 /area/f13/building)
 "atY" = (
