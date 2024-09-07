@@ -1990,13 +1990,13 @@
 	)
 	can_suppress = TRUE
 	suppressor_state = "rifle_suppressor"
-	suppressor_x_offset = 31
-	suppressor_y_offset = 31
+	suppressor_x_offset = 28
+	suppressor_y_offset = 28
 	fire_sound = 'sound/f13weapons/assaultrifle_fire.ogg'
 
 
 /obj/item/gun/ballistic/automatic/handmade_battle_rifle
-	name = "Handmade Assault Rifle"
+	name = "Handmade Battle Rifle"
 	desc = "A handmade battle rifle, created with a mixture of pre-war and improvised parts. Kicks like a mule but is accurate hits targets hard. A favorite amongst veteran raiders and some mercenaries."
 	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "handmade_battle_rifle"
@@ -2020,11 +2020,13 @@
 
 /obj/item/gun/ballistic/automatic/handmade_dmr
 	name = "Handmade Marksman Rifle"
-	desc = "A handmade Marksman Rifle, created with a mixture of pre-war and improvised parts. Heavy, but is quite accurate and fires .30-06. It is somewhat among mercenary, raider, and militia marksmen."
+	desc = "A handmade Marksman Rifle, created with a mixture of pre-war and improvised parts. Heavy, but is quite accurate and fires .30-06. It is somewhat popular among mercenary, raider, and militia marksmen."
 	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "handmade_marksman_rifle"
 	item_state = "handmade_ar"
 	icon_prefix = "handmade_marksman_rifle"
+	mag_type = /obj/item/ammo_box/magazine/w3006
+	init_mag_type = /obj/item/ammo_box/magazine/w3006
 	weapon_class = WEAPON_CLASS_CARBINE
 	weapon_weight = GUN_TWO_HAND_ONLY
 	damage_multiplier = GUN_EXTRA_DAMAGE_T2
@@ -2034,13 +2036,18 @@
 	init_firemodes = list(
 		/datum/firemode/semi_auto,
 	)
+	gun_tags = list(GUN_FA_MODDABLE, GUN_SCOPE)
+	can_scope = TRUE
+	scope_state = "scope_medium"
+	scope_x_offset = 5
+	scope_y_offset = 14
 	gun_accuracy_zone_type = ZONE_WEIGHT_PRECISION
 	can_suppress = FALSE
 	fire_sound = 'sound/f13weapons/hunting_rifle.ogg'
 
 /obj/item/gun/ballistic/automatic/handmade_assault_carbine
 	name = "Handmade Assault Carbine"
-	desc = "A refinement of the usual handmade carbine, this Assault Carbine is significantly better bored and has a wire stock attached. A muzzle booster has been added to increase fire rate and reliability. It is also a surprising favorite amongst post-war vehicle crews, especially vertibird pilots."
+	desc = "A refinement of the usual handmade carbine, this Assault Carbine is significantly better bored and has a wire stock attached. A muzzle booster also has been added to increase fire rate and reliability. It is a surprising favorite amongst post-war vehicle crews, especially vertibird pilots."
 	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "handmade_assault_carbine"
 	item_state = "handmade_ar"
@@ -2049,7 +2056,7 @@
 	init_mag_type = /obj/item/ammo_box/magazine/m556/rifle
 	weapon_class = WEAPON_CLASS_CARBINE
 	weapon_weight = GUN_ONE_HAND_ONLY
-	damage_multiplier = GUN_EXTRA_DAMAGE_0
+	damage_multiplier = GUN_LESS_DAMAGE_T1
 	cock_delay = GUN_COCK_RIFLE_BASE
 	init_recoil = RIFLE_RECOIL(1.7)
 	init_firemodes = list(
@@ -2057,8 +2064,8 @@
 	)
 	can_suppress = TRUE
 	suppressor_state = "rifle_suppressor"
-	suppressor_x_offset = 27
-	suppressor_y_offset = 27
+	suppressor_x_offset = 24
+	suppressor_y_offset = 24
 	fire_sound = 'sound/f13weapons/assaultrifle_fire.ogg'
 
 /* * * * * * * * * * *
