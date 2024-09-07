@@ -1974,8 +1974,10 @@
 	name = "Handmade Assault Rifle"
 	desc = "A handmade assault rifle, created with a mixture of pre-war and improvised parts. Reliable and trusty, although it tends to kick more than normal. Perfect for raider, scavver and militia alike."
 	icon = 'icons/obj/guns/projectile.dmi'
+	lefthand_file = 'icons/fallout/onmob/weapons/guns_lefthand.dmi'
+	righthand_file = 'icons/fallout/onmob/weapons/guns_righthand.dmi'
 	icon_state = "handmade_assault_rifle"
-	item_state = "handmade_ar"
+	item_state = "handmade-ar"
 	icon_prefix = "handmade_assault_rifle"
 	mag_type = /obj/item/ammo_box/magazine/m556/rifle
 	init_mag_type = /obj/item/ammo_box/magazine/m556/rifle
@@ -1999,8 +2001,10 @@
 	name = "Handmade Battle Rifle"
 	desc = "A handmade battle rifle, created with a mixture of pre-war and improvised parts. Kicks like a mule but is accurate hits targets hard. A favorite amongst veteran raiders and some mercenaries."
 	icon = 'icons/obj/guns/projectile.dmi'
+	lefthand_file = 'icons/fallout/onmob/weapons/guns_lefthand.dmi'
+	righthand_file = 'icons/fallout/onmob/weapons/guns_righthand.dmi'
 	icon_state = "handmade_battle_rifle"
-	item_state = "handmade_ar"
+	item_state = "handmade-ar"
 	icon_prefix = "handmade_battle_rifle"
 	mag_type = /obj/item/ammo_box/magazine/m308
 	init_mag_type = /obj/item/ammo_box/magazine/m308
@@ -2022,8 +2026,10 @@
 	name = "Handmade Marksman Rifle"
 	desc = "A handmade Marksman Rifle, created with a mixture of pre-war and improvised parts. Heavy, but is quite accurate and fires .30-06. It is somewhat popular among mercenary, raider, and militia marksmen."
 	icon = 'icons/obj/guns/projectile.dmi'
+	lefthand_file = 'icons/fallout/onmob/weapons/guns_lefthand.dmi'
+	righthand_file = 'icons/fallout/onmob/weapons/guns_righthand.dmi'
 	icon_state = "handmade_marksman_rifle"
-	item_state = "handmade_ar"
+	item_state = "handmade-ar"
 	icon_prefix = "handmade_marksman_rifle"
 	mag_type = /obj/item/ammo_box/magazine/w3006
 	init_mag_type = /obj/item/ammo_box/magazine/w3006
@@ -2049,8 +2055,10 @@
 	name = "Handmade Assault Carbine"
 	desc = "A refinement of the usual handmade carbine, this Assault Carbine is significantly better bored and has a wire stock attached. A muzzle booster also has been added to increase fire rate and reliability. It is a surprising favorite amongst post-war vehicle crews, especially vertibird pilots."
 	icon = 'icons/obj/guns/projectile.dmi'
+	lefthand_file = 'icons/fallout/onmob/weapons/guns_lefthand.dmi'
+	righthand_file = 'icons/fallout/onmob/weapons/guns_righthand.dmi'
 	icon_state = "handmade_assault_carbine"
-	item_state = "handmade_ar"
+	item_state = "handmade-ar"
 	icon_prefix = "handmade_assault_carbine"
 	mag_type = /obj/item/ammo_box/magazine/m556/rifle
 	init_mag_type = /obj/item/ammo_box/magazine/m556/rifle
