@@ -159,8 +159,8 @@ Paladin Commander
 	title = "Head Paladin"
 	flag = F13PALADINCOMMANDER
 	head_announce = list("Security")
-	total_positions = 0
-	spawn_positions = 0
+	total_positions = 1
+	spawn_positions = 1
 	description = "You are the acting field commander until the Brotherhood regains its strength enough to place an Elder for the bunker. You are a veteran of many battles and sorties in pursuit of Brotherhood goals; your only weakness may just be your hubris. Your main goals are defense of the Chapter and surveillance of the surrounding region for technology."
 	supervisors = "the Elders"
 	selection_color = "#7f8c8d"
@@ -317,7 +317,7 @@ Knight-Captain
 */
 
 /datum/job/bos/f13knightcap
-	title = "Knight-Captai"
+	title = "Knight-Captain"
 	flag = F13KNIGHTCAPTAIN
 	head_announce = list("Security")
 	total_positions = 0

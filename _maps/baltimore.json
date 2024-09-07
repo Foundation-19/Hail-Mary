@@ -58,5 +58,19 @@
 		}
 
 	],
-	"minetype": "none"
+	"minetype": "none",
+	"added_jobs": [
+		"enclave.dm",
+		"atlantic_cross.dm",
+		"locust_point.dm",
+		"Redwater Resident",
+		"Redwater Watcher",
+		"Redwater Resident"
+	],
+	"removed_jobs": [
+		"eastwood.dm",
+		"ncr.dm",
+		"legion.dm",
+		"vault.dm"
+	]
 }

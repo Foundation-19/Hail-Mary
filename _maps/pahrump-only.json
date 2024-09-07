@@ -66,5 +66,12 @@
 			"Force Z": 2
 		}
 	],
-	"minetype": "none"
+	"minetype": "none",
+	"removed_jobs": [
+		"enclave.dm",
+		"atlantic_cross.dm",
+		"locust_point.dm",
+		"Redwater Resident",
+		"Redwater Watcher",
+		"Redwater Resident"]
 }
