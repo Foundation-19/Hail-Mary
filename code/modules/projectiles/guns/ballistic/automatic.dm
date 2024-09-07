@@ -1990,6 +1990,11 @@
 		/datum/firemode/automatic/rpm200,
 		/datum/firemode/burst/three
 	)
+	
+	can_bayonet = TRUE
+	bayonet_state = "bayonet"
+	knife_x_offset = 23
+	knife_y_offset = 22
 	can_suppress = TRUE
 	suppressor_state = "rifle_suppressor"
 	suppressor_x_offset = 28
