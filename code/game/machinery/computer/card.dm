@@ -544,7 +544,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		)
 	job_req = list(
 		"Elder",
-		"Head Paladin",
+		"Paladin Commander",
 		"Head Scribe",
 		"Head Knight",
 		)

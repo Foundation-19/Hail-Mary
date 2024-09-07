@@ -676,7 +676,7 @@ obj/effect/landmark/start/f13/ncrlogisticsofficer
 	icon_state = "Scribe"
 
 /obj/effect/landmark/start/f13/paladincommander
-	name = "Head Paladin"
+	name = "Paladin Commander"
 	icon_state = "Paladin"
 
 /obj/effect/landmark/start/f13/knightcap
