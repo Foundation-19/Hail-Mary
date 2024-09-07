@@ -69,6 +69,7 @@
 	guaranteed_butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab/mirelurk = 4, /obj/item/stack/sheet/sinew = 2)
 	maxHealth = 160
 	health = 160
+	stat_attack = UNCONSCIOUS
 	melee_damage_lower = 15
 	melee_damage_upper = 28
 	gold_core_spawnable = HOSTILE_SPAWN
