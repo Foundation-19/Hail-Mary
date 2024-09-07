@@ -1977,7 +1977,7 @@
 	lefthand_file = 'icons/fallout/onmob/weapons/guns_lefthand.dmi'
 	righthand_file = 'icons/fallout/onmob/weapons/guns_righthand.dmi'
 	icon_state = "handmade_assault_rifle"
-	item_state = "handmade-ar"
+	item_state = "handmadear"
 	icon_prefix = "handmade_assault_rifle"
 	mag_type = /obj/item/ammo_box/magazine/m556/rifle
 	init_mag_type = /obj/item/ammo_box/magazine/m556/rifle
@@ -2004,7 +2004,7 @@
 	lefthand_file = 'icons/fallout/onmob/weapons/guns_lefthand.dmi'
 	righthand_file = 'icons/fallout/onmob/weapons/guns_righthand.dmi'
 	icon_state = "handmade_battle_rifle"
-	item_state = "handmade-ar"
+	item_state = "handmadear"
 	icon_prefix = "handmade_battle_rifle"
 	mag_type = /obj/item/ammo_box/magazine/m308
 	init_mag_type = /obj/item/ammo_box/magazine/m308
@@ -2029,7 +2029,7 @@
 	lefthand_file = 'icons/fallout/onmob/weapons/guns_lefthand.dmi'
 	righthand_file = 'icons/fallout/onmob/weapons/guns_righthand.dmi'
 	icon_state = "handmade_marksman_rifle"
-	item_state = "handmade-ar"
+	item_state = "handmadear"
 	icon_prefix = "handmade_marksman_rifle"
 	mag_type = /obj/item/ammo_box/magazine/w3006
 	init_mag_type = /obj/item/ammo_box/magazine/w3006
@@ -2058,7 +2058,7 @@
 	lefthand_file = 'icons/fallout/onmob/weapons/guns_lefthand.dmi'
 	righthand_file = 'icons/fallout/onmob/weapons/guns_righthand.dmi'
 	icon_state = "handmade_assault_carbine"
-	item_state = "handmade-ar"
+	item_state = "handmadear"
 	icon_prefix = "handmade_assault_carbine"
 	mag_type = /obj/item/ammo_box/magazine/m556/rifle
 	init_mag_type = /obj/item/ammo_box/magazine/m556/rifle
