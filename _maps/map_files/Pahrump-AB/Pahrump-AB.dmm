@@ -23468,6 +23468,7 @@
 	icon_state = "tall_grass_4"
 	},
 /obj/structure/obstacle/barbedwire/end,
+/obj/effect/decal/cleanable/dirt,
 /turf/open/indestructible/ground/outside/desert,
 /area/f13/wasteland)
 "dIq" = (
