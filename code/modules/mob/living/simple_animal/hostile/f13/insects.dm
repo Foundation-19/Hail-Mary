@@ -151,6 +151,7 @@
 	speed = 5
 	maxHealth = 560
 	health = 560
+	stat_attack = UNCONSCIOUS
 	ranged = 1
 	harm_intent_damage = 8
 	obj_damage = 20
