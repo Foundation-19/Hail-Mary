@@ -71,6 +71,7 @@
 /mob/living/simple_animal/hostile/centaur/strong // Mostly for FEV mutation
 	maxHealth = 400
 	health = 400
+	stat_attack = UNCONSCIOUS
 	melee_damage_lower = 35
 	melee_damage_upper = 35
 	armour_penetration = 0.1
@@ -108,6 +109,7 @@
 
 	maxHealth = 1000
 	health = 1000
+	stat_attack = UNCONSCIOUS
 	speed = -0.5
 	harm_intent_damage = 8
 	melee_damage_lower = 30
@@ -176,6 +178,7 @@
 	speed = -0.5
 	maxHealth = 700
 	health = 700
+	stat_attack = UNCONSCIOUS
 	harm_intent_damage = 8
 	melee_damage_lower = 30
 	melee_damage_upper = 40
