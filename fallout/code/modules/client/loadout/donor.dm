@@ -22,10 +22,11 @@
 	ckeywhitelist = list("midgetdragon")
 
 // SUNSET EDIT
-
+/*
 /datum/gear/donator/exoticjazz
 	name = "Happy Sharky Company Cuisine Book"
 	slot = SLOT_IN_BACKPACK
 	path = /obj/item/book/granter/crafting_recipe/happysharky
 	ckeywhitelist = list ("ExoticJazz")
 	cost = 0
+*/

@@ -806,7 +806,7 @@ GLOBAL_LIST_INIT(storage_tray_can_hold, typecacheof(list(
  * * * */
 
 /// How many items total fit in a bag thing
-#define STORAGE_BAG_MAX_ITEMS STORAGE_BELT_SPECIALIZED_MAX_ITEMS * 2 //14
+#define STORAGE_BAG_MAX_ITEMS 20
 /// How big a thing can fit in a bag thing
 #define STORAGE_BAG_MAX_SIZE WEIGHT_CLASS_SMALL
 /// How much volume fits in a bag thing
@@ -860,6 +860,13 @@ GLOBAL_LIST_INIT(storage_tray_can_hold, typecacheof(list(
 #define STORAGE_QUIVER_HEAVY_MAX_SIZE WEIGHT_CLASS_NORMAL
 /// How much volume fits in a casing quiver
 #define STORAGE_QUIVER_HEAVY_TOTAL_SPACE STORAGE_QUIVER_HEAVY_MAX_ITEMS * WEIGHT_CLASS_TINY
+
+/// How many items total fit in a produce bag
+#define STORAGE_PRODUCE_BAG_MAX_ITEMS 100
+/// How big a thing can fit in a produce bag
+#define STORAGE_PRODUCE_BAG_MAX_SIZE WEIGHT_CLASS_NORMAL
+/// How much volume fits in a produce bag 
+#define STORAGE_PRODUCE_BAG_MAX_TOTAL_SPACE STORAGE_PRODUCE_BAG_MAX_ITEMS * STORAGE_PRODUCE_BAG_MAX_SIZE
 
 /* * * *
  * Boxes

@@ -321,11 +321,14 @@ GLOBAL_LIST_INIT(desolate_plant_spawn_list, list(
 //	step_sounds = list("human" = "erikafootsteps")
 
 /turf/open/indestructible/ground/outside/road/attackby(obj/item/C, mob/user, params)
-	if(..())
-		return
-	if(istype(C, /obj/item/stack/tile))
+	if(istype(C, /obj/item/stack/tile/road))
 		if(icon_state == "innermiddle")
 			to_chat(user, span_warning("The road already looks fixed!"))
+			return
+		C.use(1)
+		icon_state = "innermiddle"
+		return
+	else
 		. = ..()
 
 /turf/open/floor/road
@@ -591,6 +594,14 @@ GLOBAL_LIST_INIT(desolate_plant_spawn_list, list(
 	footstep = FOOTSTEP_ROAD
 	barefootstep = FOOTSTEP_HARD_BAREFOOT
 //	step_sounds = list("human" = "erikafootsteps")
+
+/turf/open/indestructible/ground/outside/baltimore
+	name = "\proper Road"
+	desc = "A stretch of road."
+	icon = 'icons/turf/road_and_dirt.dmi'
+	icon_state = "road_northsouth_y"
+	footstep = FOOTSTEP_ROAD
+	barefootstep = FOOTSTEP_HARD_BAREFOOT
 
 //Obsolete but used in yucky Pahrump
 /turf/open/indestructible/ground/outside/graveldirt

@@ -43,6 +43,12 @@
 	icon = 'icons/turf/f13road.dmi'
 	icon_state = "outermiddle"
 
+/turf/open/floor/plating/f13/outside/road/baltimore
+	name = "\proper Road"
+	desc = "A stretch of road."
+	icon = 'icons/turf/road_and_dirt.dmi'
+	icon_state = "road_northsouth_y"
+
 /turf/open/floor/plating/f13/outside/road/harsh
 	icon = 'icons/fallout/turfs/f13roadharsh.dmi'
 	icon_state = "outerpavement"

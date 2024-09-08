@@ -49,6 +49,10 @@
 		return 0
 	if(rank in GLOB.enclave_positions) 
 		return 0
+	if(rank in GLOB.locust_positions) 
+		return 0
+	if(rank in GLOB.atlantic_positions) 
+		return 0
 /*	if(rank in GLOB.followers_positions) 
 		return 0*/
 	/*
