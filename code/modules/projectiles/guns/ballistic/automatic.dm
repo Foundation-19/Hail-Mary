@@ -1964,10 +1964,10 @@
  * Handmade Assault Rifle
  * Handmade AK-101
  * .223 / 5.56mm
- * Less damage
- * Less accuracy
- * Slower to shoot
- * Craftable By Anyone
+ * Decent damage
+ * Decent accuracy
+ * Okay RPM
+ * Requires G&B 3
  * * * * * * * * * * */
 
 /obj/item/gun/ballistic/automatic/handmade_rifle
@@ -2001,6 +2001,15 @@
 	suppressor_y_offset = 28
 	fire_sound = 'sound/f13weapons/assaultrifle_fire.ogg'
 
+/* * * * * * * * * * *
+ * Handmade Battle Rifle
+ * Handmade Zas M77
+ * .308
+ * Good damage
+ * Decent accuracy
+ * Slow-ish RPM
+ * Requires G&B 3
+ * * * * * * * * * * */
 
 /obj/item/gun/ballistic/automatic/handmade_battle_rifle
 	name = "Handmade Battle Rifle"
@@ -2016,7 +2025,6 @@
 	weapon_class = WEAPON_CLASS_RIFLE
 	weapon_weight = GUN_TWO_HAND_ONLY
 	damage_multiplier = GUN_EXTRA_DAMAGE_T1
-	accuracy
 	cock_delay = GUN_COCK_RIFLE_BASE
 	init_recoil = RIFLE_RECOIL(1.5)
 	init_firemodes = list(
@@ -2026,6 +2034,15 @@
 	can_suppress = FALSE
 	fire_sound = 'sound/f13weapons/automaticrifle_BAR.ogg'
 
+/* * * * * * * * * * *
+ * Handmade Marksman Rifle
+ * Handmade Vepr
+ * .30-06
+ * Good damage
+ * Good accuracy
+ * Slow RPM
+ * Requires G&B 3
+ * * * * * * * * * * */
 
 /obj/item/gun/ballistic/automatic/handmade_dmr
 	name = "Handmade Marksman Rifle"
@@ -2041,11 +2058,10 @@
 	weapon_class = WEAPON_CLASS_RIFLE
 	weapon_weight = GUN_TWO_HAND_ONLY
 	damage_multiplier = GUN_EXTRA_DAMAGE_T1
-	accuracy
 	cock_delay = GUN_COCK_RIFLE_BASE
 	init_recoil = RIFLE_RECOIL(1.3)
 	init_firemodes = list(
-		/datum/firemode/semi_auto,
+		/datum/firemode/semi_auto/slow
 	)
 	gun_tags = list(GUN_FA_MODDABLE, GUN_SCOPE)
 	can_scope = TRUE
@@ -2055,6 +2071,16 @@
 	gun_accuracy_zone_type = ZONE_WEIGHT_PRECISION
 	can_suppress = FALSE
 	fire_sound = 'sound/f13weapons/hunting_rifle.ogg'
+
+/* * * * * * * * * * *
+ * Handmade Assault Carbine
+ * Handmade based on the AKS-74U
+ * .223 / 5.56
+ * Less damage
+ * High Recoil
+ * Fast RPM
+ * Requires G&B 3
+ * * * * * * * * * * */
 
 /obj/item/gun/ballistic/automatic/handmade_assault_carbine
 	name = "Handmade Assault Carbine"
