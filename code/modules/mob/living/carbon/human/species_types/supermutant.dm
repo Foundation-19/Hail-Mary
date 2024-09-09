@@ -5,13 +5,14 @@
 	limbs_id = "smutant"
 	inherent_traits = list(TRAIT_RADIMMUNE,TRAIT_VIRUSIMMUNE,TRAIT_SMUTANT,)
 	inherent_biotypes = list(MOB_INORGANIC, MOB_HUMANOID)
-	speedmod = 0.90
+	speedmod = -0.5
 	siemens_coeff = 0
-	punchdamagelow = 25
+	punchdamagelow = 20
 	punchdamagehigh = 30
+	armor = 5
 	use_skintones = 0
 	sexes = 0
-	liked_food = JUNKFOOD | FRIED | RAW
+	liked_food = JUNKFOOD | FRIED | RAW 
 
 /datum/species/smutant/on_species_gain(mob/living/carbon/C, datum/species/old_species)
 	..()
@@ -47,6 +48,10 @@
 	if(rank in GLOB.khan_positions) 
 		return 0
 	if(rank in GLOB.enclave_positions) 
+		return 0
+	if(rank in GLOB.locust_positions) 
+		return 0
+	if(rank in GLOB.atlantic_positions) 
 		return 0
 /*	if(rank in GLOB.followers_positions) 
 		return 0*/

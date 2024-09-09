@@ -570,9 +570,6 @@
 	// render each category's available jobs
 	for(var/category in GLOB.position_categories)
 		// position_categories contains category names mapped to available jobs and an appropriate color
-		var/cat_color = GLOB.position_categories[category]["color"]
-		dat += "<fieldset style='width: 185px; border: 2px solid [cat_color]; display: inline'>"
-		dat += "<legend align='center' style='color: [cat_color]'>[category]</legend>"
 		var/list/dept_dat = list()
 		for(var/job in GLOB.position_categories[category]["jobs"])
 			var/datum/job/job_datum = SSjob.name_occupations[job]
@@ -581,11 +578,13 @@
 				if(job in GLOB.command_positions)
 					command_bold = " command"
 				dept_dat += "<a class='job[command_bold]' href='byond://?src=[REF(src)];SelectedJob=[job_datum.title]'>[job_datum.title] ([job_datum.current_positions])</a>"
-		if(!dept_dat.len)
-			dept_dat += "<span class='nopositions'>No positions open.</span>"
-		dat += jointext(dept_dat, "")
-		dat += "</fieldset><br>"
-		column_counter++
+		if(dept_dat.len)
+			var/cat_color = GLOB.position_categories[category]["color"]
+			dat += "<fieldset style='width: 185px; border: 2px solid [cat_color]; display: inline'>"
+			dat += "<legend align='center' style='color: [cat_color]'>[category]</legend>"
+			dat += jointext(dept_dat, "")
+			dat += "</fieldset><br>"
+			column_counter++
 		if(column_counter > 0 && (column_counter % 3 == 0))
 			dat += "</td><td valign='top'>"
 	dat += "</td></tr></table></center>"

@@ -71,9 +71,29 @@
 /mob/living/simple_animal/hostile/centaur/strong // Mostly for FEV mutation
 	maxHealth = 400
 	health = 400
+	stat_attack = UNCONSCIOUS
 	melee_damage_lower = 35
 	melee_damage_upper = 35
 	armour_penetration = 0.1
+
+/mob/living/simple_animal/pet/dog/centaur  //Cutie
+	name = "Doug"
+	desc = "A docile centaur. Was brought here along with the warband, Isn't he adorable?"
+	icon = 'icons/fallout/mobs/monsters/freaks.dmi'
+	icon_state = "centaur"
+	icon_living = "centaur"
+	icon_dead = "centaur_dead"
+	icon_gib = "centaur_g"
+	maxHealth = 200
+	health = 200
+	turns_per_move = 5
+	speak_emote = list("growls")
+	emote_see = list("screeches", "screams", "howls", "bellows", "flails", "fidgets", "festers")
+	idlesound = list('sound/f13npc/centaur/idle1.ogg', 'sound/f13npc/centaur/idle2.ogg')
+	death_sound = 'sound/f13npc/centaur/centaur_death.ogg'
+	response_help_simple = "pet"
+	response_disarm_simple = "push"
+	response_harm_simple = "punch"
 
 
 // -----------------------------------
@@ -89,6 +109,7 @@
 
 	maxHealth = 1000
 	health = 1000
+	stat_attack = UNCONSCIOUS
 	speed = -0.5
 	harm_intent_damage = 8
 	melee_damage_lower = 30
@@ -157,6 +178,7 @@
 	speed = -0.5
 	maxHealth = 700
 	health = 700
+	stat_attack = UNCONSCIOUS
 	harm_intent_damage = 8
 	melee_damage_lower = 30
 	melee_damage_upper = 40

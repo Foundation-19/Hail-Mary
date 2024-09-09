@@ -13,6 +13,7 @@
 	sentience_type = SENTIENCE_BOSS
 	maxHealth = 130 
 	health = 130
+	stat_attack = UNCONSCIOUS
 	speak_chance = 10
 	speak = list(
 		"GRRRRRR!",
@@ -101,10 +102,11 @@
 
 /mob/living/simple_animal/pet/dog/mutant    //This is a supermutant, totally not a dog, and he is friendly
 	name = "Brah-Min"
-	desc = "A large, docile supermutant. Adopted by Kebab-town as a sort of watch dog for their brahmin herd."
+	desc = "A large, docile supermutant. Adopted by Shale's Army as a sort of watch dog for their brahmin herd."
 	icon = 'icons/fallout/mobs/supermutant.dmi'
-	icon_state = "hulk_brahmin_s"
-	icon_dead = "hulk_brahmin_s"
+	icon_state = "hulk_113_s"
+	icon_living = "hulk_113_s"
+	icon_dead = "hulk_113_s"
 	maxHealth = 240
 	health = 240
 	speak_chance = 7 //30 //Oh my god he never shuts up.
@@ -114,9 +116,9 @@
 	speak_emote = list("shouts", "yells")
 	emote_hear = list("yawns", "mumbles","sighs")
 	emote_see = list("raises his shovel", "shovels some dirt away", "waves his shovel above his head angrily")
-	response_help_simple = "touches"
-	response_disarm_simple = "pushes"
-	response_harm_simple = "punches"
+	response_help_simple = "pat"
+	response_disarm_simple = "push"
+	response_harm_simple = "punch"
 //	butcher_results = list(/obj/item/weapon/reagent_containers/food/snacks/bearsteak = 3)
 
 /mob/living/simple_animal/pet/dog/mutant/death(gibbed)
