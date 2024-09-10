@@ -746,11 +746,11 @@
 	category = list("initial", "Advanced Ammo")
 	autocalc_material_values = FALSE
 
-/datum/design/ammolathe/a308/warsaw
-	name = "7.62 ammo box"
-	id = "a308warsaw"
+/datum/design/ammolathe/a308/soviet
+	name = "7.62 steel tip ammo box"
+	id = "a308soviet"
 	materials = list(/datum/material/iron = 16000, /datum/material/blackpowder = 2500)
-	build_path = /obj/item/ammo_box/a308box/warsaw
+	build_path = /obj/item/ammo_box/a308box/soviet
 	category = list("initial", "Advanced Ammo")
 /*
 /datum/design/ammolathe/a762

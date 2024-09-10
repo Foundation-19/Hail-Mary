@@ -587,15 +587,15 @@
 * MORE DAMAGE
 * MORE COST
 */
-/obj/item/projectile/bullet/a308/warsaw
-	name = "7.62 bullet"
-	damage = BULLET_DAMAGE_RIFLE_308_WARSAW
+/obj/item/projectile/bullet/a308/soviet
+	name = "7.62 steel tip bullet"
+	damage = BULLET_DAMAGE_RIFLE_308_SOVIET
 	armour_penetration = 0.3
 	stamina = BULLET_STAMINA_RIFLE_308
 	spread = BULLET_SPREAD_SURPLUS
-	recoil = BULLET_RECOIL_RIFLE_308_WARSAW
+	recoil = BULLET_RECOIL_RIFLE_308_SOVIET
 
-	wound_bonus = BULLET_WOUND_RIFLE_308_WARSAW
+	wound_bonus = BULLET_WOUND_RIFLE_308_SOVIET
 	bare_wound_bonus = BULLET_WOUND_RIFLE_308_NAKED_MULT
 	wound_falloff_tile = BULLET_WOUND_FALLOFF_PISTOL_LIGHT
 

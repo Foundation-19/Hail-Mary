@@ -457,13 +457,13 @@
 	max_ammo = 20
 	multiple_sprites = 3
 
-/obj/item/ammo_box/a308box/warsaw
-	name = "ammo box (7.62)"
+/obj/item/ammo_box/a308box/soviet
+	name = "ammo box (7.62 steel tip)"
 	icon = 'icons/fallout/objects/guns/ammo.dmi'
 	icon_state = "762box"
 	multiple_sprites = 2
 	caliber = list(CALIBER_308)
-	ammo_type = /obj/item/ammo_casing/a308/warsaw
+	ammo_type = /obj/item/ammo_casing/a308/soviet
 	max_ammo = 20
 
 //7.62x51, .30-06

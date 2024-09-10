@@ -23,10 +23,10 @@
 		/datum/material/blackpowder = MATS_RIFLE_MEDIUM_POWDER * MATS_AMMO_POWDER_HANDLOAD_MULT)
 	fire_power = CASING_POWER_MEDIUM_RIFLE * CASING_POWER_MOD_HANDLOAD
 
-/obj/item/ammo_casing/a308/warsaw
-	name = "7.62 bullet casing"
+/obj/item/ammo_casing/a308/soviet
+	name = "7.62 steel tip bullet casing"
 	desc = "A 7.62 imported bullet casing, compatible with .308 weapons."
-	projectile_type = /obj/item/projectile/bullet/a308/warsaw
+	projectile_type = /obj/item/projectile/bullet/a308/soviet
 	material_class = BULLET_IS_MEDIUM_RIFLE
 	custom_materials = list(
 		/datum/material/iron = MATS_RIFLE_MEDIUM_CASING + MATS_RIFLE_MEDIUM_BULLET,
