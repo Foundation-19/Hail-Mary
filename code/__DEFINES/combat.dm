@@ -1000,7 +1000,7 @@ GLOBAL_LIST_INIT(main_body_parts, list(
 #define GUN_FULL_OTHER_HAND_RECOIL_MOD 2
 
 // Global recoil modifier
-#define GUN_RECOIL_GLOBAL_MULT 1
+#define GUN_RECOIL_GLOBAL_MULT 0.9
 
 /// Gun recoil modifier per shot defines
 #define GUN_RECOIL_NONE (GUN_RECOIL_GLOBAL_MULT * 0.1)

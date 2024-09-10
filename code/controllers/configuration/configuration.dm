@@ -478,17 +478,6 @@ Example config:
 			continue
 		in_character_filter += REGEX_QUOTE(line)
 	ic_filter_regex = in_character_filter.len ? regex("\\b([jointext(in_character_filter, "|")])\\b", "i") : null
-	var/list/ooc_filter = list()
-	if(!fexists("[directory]/ooc_filter.txt"))
-		return
-	log_config("Loading config file ooc_filter.txt...")
-	for(var/line in world.file2list("[directory]/ooc_filter.txt"))
-		if(!line)
-			continue
-		if(findtextEx(line,"#",1,2))
-			continue
-		ooc_filter += REGEX_QUOTE(line)
-	ic_filter_regex = ooc_filter.len ? regex("\\b([jointext(ooc_filter, "|")])\\b", "i") : null
 
 //Message admins when you can.
 /datum/controller/configuration/proc/DelayedMessageAdmins(text)
