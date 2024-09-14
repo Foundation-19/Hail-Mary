@@ -1512,7 +1512,6 @@ list(/obj/item/stack/sheet/metal = 20,
 							/obj/item/book/granter/crafting_recipe/blueprint/scoutcarbine,
 							/obj/item/book/granter/crafting_recipe/blueprint/sniper,
 							/obj/item/book/granter/crafting_recipe/blueprint/deagle,
-							/obj/item/book/granter/crafting_recipe/blueprint/riotshotgun,
 							/obj/item/book/granter/crafting_recipe/blueprint/trapper,
 							)
 		new randomgun(src)

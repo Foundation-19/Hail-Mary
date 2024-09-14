@@ -248,11 +248,10 @@ Paladin Commander
 	suit = /obj/item/clothing/suit/armor/power_armor/t51b/palcomm
 	suit_store = /obj/item/gun/ballistic/automatic/lewis
 	head = /obj/item/clothing/head/helmet/f13/power_armor/t51b/palcomm
-	neck = /obj/item/clothing/neck/mantle/bos/paladin
+	neck = /obj/item/storage/belt/shoulderholster
 	backpack_contents = list(
 		/obj/item/melee/onehanded/knife/hunting = 1,
-		/obj/item/ammo_box/magazine/m10mm/adv/simple = 2,
-		/obj/item/reagent_containers/hypospray/medipen/stimpak = 4,
+		/obj/item/reagent_containers/hypospray/medipen/stimpak = 3,
 		/obj/item/ammo_box/magazine/lewis/l47 = 3
 		)
 
@@ -412,14 +411,15 @@ Knight-Captain
 	suit_store = /obj/item/gun/energy/laser/aer12
 	glasses = /obj/item/clothing/glasses/night
 	accessory =	/obj/item/clothing/accessory/bos/knightcaptain
-	l_pocket = /obj/item/storage/belt/shoulderholster
+	l_pocket = /obj/item/storage/belt/sabre/heavy
 	mask = /obj/item/clothing/mask/gas/sechailer
 	head = /obj/item/clothing/head/helmet/f13/combat/brotherhood/captain
 	backpack_contents = list(
 		/obj/item/melee/onehanded/knife/hunting = 1,
-		/obj/item/reagent_containers/hypospray/medipen/stimpak = 5,
+		/obj/item/reagent_containers/hypospray/medipen/stimpak = 3,
 		/obj/item/storage/belt/army/security/full = 1,
-		/obj/item/stock_parts/cell/ammo/mfc = 5
+		/obj/item/stock_parts/cell/ammo/mfc = 3,
+		/obj/item/melee/powered/ripper/prewar = 1,
 		)
 /*
 /datum/outfit/loadout/capalt
@@ -792,12 +792,14 @@ Knight Sarge
 	gunsmith_four = TRUE
 	backpack_contents = list(
 		/obj/item/melee/onehanded/knife/hunting = 1,
-		/obj/item/reagent_containers/hypospray/medipen/stimpak = 3,
+		/obj/item/reagent_containers/hypospray/medipen/stimpak = 2,
 		/obj/item/storage/box/bos/senior = 1,
 		/obj/item/book/granter/crafting_recipe/gunsmith_one = 1,
 		/obj/item/book/granter/crafting_recipe/gunsmith_two = 1,
 		/obj/item/book/granter/crafting_recipe/gunsmith_three = 1,
 		/obj/item/book/granter/crafting_recipe/gunsmith_four = 1,
+		/obj/item/gun/ballistic/automatic/pistol/mk23 = 1,
+		/obj/item/ammo_box/magazine/m45/socom = 3,
 		)
 /*
 Senior Knight
