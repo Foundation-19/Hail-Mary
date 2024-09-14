@@ -148,6 +148,7 @@
 	mob_armor = ARMOR_VALUE_RAIDER_LEATHER_JACKET
 	maxHealth = 300
 	health = 300
+	stat_attack = UNCONSCIOUS
 	speed = 1.2
 	obj_damage = 300
 	rapid_melee = 1
@@ -165,6 +166,7 @@
 	mob_armor = ARMOR_VALUE_RAIDER_LEATHER_JACKET
 	maxHealth = 240
 	health = 240
+	stat_attack = UNCONSCIOUS
 	retreat_distance = 1
 	minimum_distance = 2
 	rapid_melee = 1
@@ -200,6 +202,7 @@
 	mob_armor = ARMOR_VALUE_RAIDER_COMBAT_ARMOR_BOSS
 	maxHealth = 150
 	health = 150
+	stat_attack = UNCONSCIOUS
 	extra_projectiles = 2
 	rapid_melee = 1
 	waddle_amount = 4
@@ -590,6 +593,7 @@
 	mob_armor = ARMOR_VALUE_RAIDER_COMBAT_ARMOR_BOSS
 	maxHealth = 165
 	health = 165
+	stat_attack = UNCONSCIOUS
 	ranged = TRUE
 	rapid_melee = 1
 	retreat_distance = 4

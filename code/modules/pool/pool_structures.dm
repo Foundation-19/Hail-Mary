@@ -8,7 +8,7 @@
 	name = "Ladder"
 	icon_state = "ladder"
 	desc = "Are you getting in or are you getting out?."
-	layer = ABOVE_MOB_LAYER
+	layer = ABOVE_ALL_MOB_LAYER
 	dir = EAST
 
 /obj/structure/pool/ladder/on_attack_hand(mob/living/user, act_intent = user.a_intent, unarmed_attack_flags)
