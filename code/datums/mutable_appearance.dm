@@ -4,10 +4,16 @@
 
 // Mutable appearances are children of images, just so you know.
 
-/mutable_appearance/New()
-	..()
-	plane = FLOAT_PLANE // No clue why this is 0 by default yet images are on FLOAT_PLANE
-						// And yes this does have to be in the constructor, BYOND ignores it if you set it as a normal var
+#if DM_BUILD > 1642
+/mutable_appearance/proc/New(mutable_appearance/to_copy)
+    if(!to_copy)
+        plane = FLOAT_PLANE
+#else
+/mutable_appearance/New(mutable_appearance/to_copy)
+    ..()
+    if(!to_copy)
+        plane = FLOAT_PLANE
+#endif //Fix for broken proc on latest version of BYOND.
 
 // Helper similar to image()
 /proc/mutable_appearance(icon, icon_state = "", layer = FLOAT_LAYER, plane = FLOAT_PLANE, color = "#FFFFFF")
