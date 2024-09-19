@@ -190,7 +190,7 @@ SUBSYSTEM_DEF(nightcycle)
 	luminosity = 1
 	for(var/dir in GLOB.alldirs)
 		var/turf/neighbor = get_step(src, dir)
-		if(!neighbor || neighbor.sunlight_state != NO_SUNLIGHT)
+		if(!neighbor || neighbor?.sunlight_state && neighbor?.sunlight_state != NO_SUNLIGHT)
 			continue
 		neighbor.sunlight_state = SUNLIGHT_BORDER
 		if(neighbor.flags_1 & INITIALIZED_1)
