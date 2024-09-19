@@ -5,6 +5,7 @@
 	var/fire_sound
 	var/projectiles_per_shot = 1
 	var/variance = 0
+	var/is_automatic = FALSE
 	var/randomspread = 0 //use random spread for machineguns, instead of shotgun scatter
 	var/projectile_delay = 0
 	var/firing_effect_type = /obj/effect/temp_visual/dir_setting/firing_effect	//the visual effect appearing when the weapon is fired.
@@ -64,7 +65,7 @@
 	firing_effect_type = /obj/effect/temp_visual/dir_setting/firing_effect/energy
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/get_shot_amount()
-	return min(round(chassis.cell.charge / energy_drain), projectiles_per_shot)
+	return min(round(chassis.fuel_holder.volume / energy_drain), projectiles_per_shot)
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/start_cooldown()
 	set_ready_state(0)
@@ -86,7 +87,7 @@
 	name = "\improper CH-LC \"Solaris\" laser cannon"
 	desc = "A weapon for combat exosuits. Shoots heavy lasers."
 	icon_state = "mecha_laser"
-	energy_drain = 100
+	energy_drain = 75
 	projectile = /obj/item/projectile/beam/laser/mech/heavy
 	fire_sound = 'sound/weapons/lasercannonfire.ogg'
 
@@ -227,9 +228,11 @@
 	harmful = TRUE
 	ammo_type = "incendiary"
 
+//Shotgun
+
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/scattershot
 	name = "\improper LBX AC 10 \"Scattershot\""
-	desc = "A weapon for combat exosuits. Shoots a spread of pellets."
+	desc = "A weapon for vehicules. Usualy carried by a pilot of the passengers. Shoots a spread of pellets."
 	icon_state = "mecha_scatter"
 	fire_sound = 'sound/weapons/sound_weapons_mech_shotgun.ogg'
 	equip_cooldown = 20
@@ -239,6 +242,37 @@
 	projectiles_cache_max = 160
 	projectiles_per_shot = 4
 	variance = 25
+	harmful = TRUE
+	ammo_type = "scattershot"
+
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/scattershot/hobo
+	name = "\improper Hobot vehicule Shotgun"
+	desc = "A modified shotgun used to kick some ass from a vehicule."
+	icon_state = "mecha_scatter"
+	fire_sound = 'sound/f13weapons/auto5.ogg'
+	equip_cooldown = 20
+	projectile = /obj/item/projectile/bullet/scattershot
+	projectiles = 20
+	projectiles_cache = 20
+	projectiles_cache_max = 130
+	projectiles_per_shot = 3
+	variance = 25
+	harmful = TRUE
+	ammo_type = "scattershot"
+
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/scattershot/auto
+	name = "\improper Upgraded vehicule Shotgun"
+	desc = "A modified shotgun used to kick some ass from a vehicule."
+	icon_state = "mecha_scatter"
+	fire_sound = 'sound/weapons/sound_weapons_mech_mortar.ogg'
+	equip_cooldown = 8
+	projectile = /obj/item/projectile/bullet/scattershot
+	projectiles = 15
+	projectiles_cache = 15
+	projectiles_cache_max = 250
+	projectiles_per_shot = 5
+	variance = 25
+	is_automatic = TRUE
 	harmful = TRUE
 	ammo_type = "scattershot"
 
@@ -256,6 +290,8 @@
 	harmful = TRUE
 	ammo_type = "scattershot"
 
+//HMG
+
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg
 	name = "\improper Ultra AC 2"
 	desc = "A weapon for combat exosuits. Shoots a rapid, three shot burst."
@@ -267,11 +303,127 @@
 	projectiles_cache = 300
 	projectiles_cache_max = 1200
 	projectiles_per_shot = 3
+	is_automatic = TRUE
 	variance = 6
 	randomspread = 1
 	projectile_delay = 2
 	harmful = TRUE
 	ammo_type = "lmg"
+
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg/auto
+	name = "\improper AC AUTO"
+	desc = "A weapon for combat exosuits. Automatic."
+	icon_state = "mecha_uac2"
+	fire_sound = 'sound/f13weapons/bozar_fire.ogg'
+	equip_cooldown = 2
+	projectile = /obj/item/projectile/bullet/lmg/auto
+	projectiles = 150
+	projectiles_cache = 150
+	projectiles_cache_max = 1200
+	variance = 6
+	projectiles_per_shot = 3
+	randomspread = 1.08
+	harmful = TRUE
+	ammo_type = "lmg"
+
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg/hobo
+	name = "\improper Improvised HMG"
+	desc = "A automatic machine gun make with scraps."
+	icon_state = "mecha_uac2"
+	fire_sound = 'sound/f13weapons/boltfire.ogg'
+	equip_cooldown = 10
+	projectile = /obj/item/projectile/bullet/lmg/hobo
+	projectiles = 25
+	projectiles_cache = 25
+	projectiles_cache_max = 1200
+	projectiles_per_shot = 2
+	variance = 6
+	is_automatic = TRUE
+	randomspread = 1.2
+	harmful = TRUE
+	ammo_type = "lmg"
+
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/minigun
+	name = "\improper Minigun"
+	desc = "A heavy machine gun capable of rapidly firing 7.62mm rounds. ready for vehicle mounting, with internal ammo box."
+	icon_state = "mecha_uac2"
+	fire_sound = 'sound/f13weapons/antimaterielfire.ogg'
+	equip_cooldown = 1
+	projectile = /obj/item/projectile/bullet/a762
+	projectiles = 300
+	projectiles_cache = 300
+	projectiles_cache_max = 600
+	projectiles_per_shot = 1
+	variance = 6
+	is_automatic = TRUE
+	randomspread = 112
+	harmful = TRUE
+	ammo_type = "minigun"
+	var/overheat = 0
+	var/overheat_max = 160
+	var/heat_diffusion = 2.5 //How much heat is lost per tick
+	var/damage = 25
+
+
+
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/minigun/Initialize()
+	. = ..()
+	START_PROCESSING(SSobj, src)
+
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/minigun/Destroy()
+	STOP_PROCESSING(SSobj, src)
+	return ..()
+
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/minigun/process()
+	overheat = max(0, overheat - heat_diffusion)
+
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/minigun/action(atom/target, params)
+	if(!action_checks(target))
+		return 0
+	var/turf/curloc = get_turf(chassis)
+	var/turf/targloc = get_turf(target)
+	if (!targloc || !istype(targloc) || !curloc)
+		return 0
+	if (targloc == curloc)
+		return 0
+	if(overheat < overheat_max)
+		overheat += projectiles_per_shot
+	else
+		chassis.occupant_message("The gun's heat sensor locked the trigger to prevent barrel damage.")
+		return
+	chassis.occupant.DelayNextAction(3)
+	set_ready_state(0)
+	for(var/i=1 to get_shot_amount())
+		var/obj/item/projectile/A = new projectile(curloc)
+		A.firer = chassis.occupant
+		A.original = target
+		A.damage = damage
+		if(!A.suppressed && firing_effect_type)
+			new firing_effect_type(get_turf(src), chassis.dir)
+
+		var/spread = 0
+		if(variance)
+			if(randomspread)
+				spread = round((rand() - 0.5) * variance)
+			else
+				spread = round((i / projectiles_per_shot - 0.5) * variance)
+		A.preparePixelProjectile(target, chassis.occupant, params, spread)
+
+		A.fire()
+		overheat++
+		projectiles--
+		playsound(chassis, fire_sound, 50, 1)
+		chassis.occupant.DelayNextAction(1)
+
+	if(kickback)
+		chassis.newtonian_move(turn(chassis.dir,180))
+
+	return 1
+
+
+
+
+
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack
 	name = "\improper SRM-8 missile rack"
@@ -320,6 +472,89 @@
 //used for projectile initilisation (priming flashbang) and additional logging
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/launcher/proc/proj_init(obj/O)
 	return
+
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/launcher/anykind
+	name = "\improper Pheumonic launcher"
+	desc = "A weapon for combat exosuits. anything loaded in it."
+	icon_state = "mecha_grenadelnchr"
+	projectile = null
+	fire_sound = 'sound/weapons/grenadelaunch.ogg'
+	projectiles = 0
+	projectiles_cache = 15
+	projectiles_cache_max = 20
+	missile_speed = 1.5
+	equip_cooldown = 10
+	var/det_time = 20
+	ammo_type = "Anything"
+	var/list/obj/stuffs = new
+	var/open = FALSE
+
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/launcher/anykind/action(target)
+	if(!action_checks(target))
+		return
+	if(!stuffs.len)
+		chassis.occupant_message("Nothing to shoot!")
+		return
+	var/obj/O = stuffs[1]
+	playsound(chassis, fire_sound, 50, 1)
+	mecha_log_message("Launched a [O.name] from [name], targeting [target].")
+	stuffs -= stuffs[1]
+	proj_init(O)
+	var/turf/nextt = (get_turf(src))
+	O.forceMove(nextt)
+	O.throw_at(target, missile_range, missile_speed, chassis.occupant, FALSE, diagonals_first = diags_first)
+	return 1
+
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/launcher/anykind/proj_init(obj/ammo)
+	var/turf/T = get_turf(src)
+	message_admins("[ADMIN_LOOKUPFLW(chassis.occupant)] fired a [src] in [ADMIN_VERBOSEJMP(T)]")
+	log_game("[key_name(chassis.occupant)] fired a [src] in [AREACOORD(T)]")
+	if(istype(ammo, /obj/item/grenade/))
+		var/obj/item/grenade/payload = ammo
+		addtimer(CALLBACK(payload, TYPE_PROC_REF(/obj/item/grenade, prime)), det_time)
+
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/launcher/anykind/attackby(obj/item/W, mob/user, params)
+	if(open)
+		if(stuffs.len < projectiles_cache_max)
+			W.forceMove(src)
+			stuffs += W
+			projectiles++
+		else
+			to_chat(user, "The [src] is full!")
+		return
+	. = ..()
+
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/launcher/anykind/screwdriver_act(mob/living/carbon/user, obj/item/I)
+	if(user.a_intent != INTENT_DISARM)
+		if(open)
+			to_chat(user, "<span class='notice'>You close the [src]!.</span>")
+		else
+			to_chat(user, "<span class='notice'>You open the [src]!.</span>")
+		open = !open
+		return TRUE
+	. = ..()
+
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/launcher/anykind/attack_self(mob/user)
+	if(open && stuffs.len)
+		var/obj/selectedthing = input(user, "Chosee an item to take out.", "Stuffs inside") as null|anything in stuffs
+		if(!selectedthing)
+			return
+		stuffs -= selectedthing
+		projectiles--
+		selectedthing.forceMove(get_turf(src))
+		user.put_in_hand(selectedthing)
+		return
+	. = ..()
+
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/launcher/anykind/AltClick(mob/user)
+	if(open && stuffs.len)
+		for(var/obj/I in stuffs)
+			I.forceMove(get_turf(src))
+			stuffs -= I
+			projectiles--
+		to_chat(user, "<span class='notice'>You empty the [src]!.</span>")
+		return
+	. = ..()
 
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/launcher/flashbang

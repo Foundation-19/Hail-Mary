@@ -1111,6 +1111,49 @@ obj/item/storage/box/stingbangs
 	new /obj/item/stock_parts/matter_bin/simple(src)
 	new /obj/item/stock_parts/matter_bin/simple(src)
 
+/obj/item/storage/box/stockparts/improved
+	name = "box of advanced stock parts"
+	desc = "Contains a variety of improved stock parts."
+
+/obj/item/storage/box/stockparts/improved/PopulateContents()
+	new /obj/item/stock_parts/capacitor/adv(src)
+	new /obj/item/stock_parts/capacitor/adv(src)
+	new /obj/item/stock_parts/capacitor/adv(src)
+	new /obj/item/stock_parts/scanning_module/adv(src)
+	new /obj/item/stock_parts/scanning_module/adv(src)
+	new /obj/item/stock_parts/scanning_module/adv(src)
+	new /obj/item/stock_parts/manipulator/nano(src)
+	new /obj/item/stock_parts/manipulator/nano(src)
+	new /obj/item/stock_parts/manipulator/nano(src)
+	new /obj/item/stock_parts/micro_laser/high(src)
+	new /obj/item/stock_parts/micro_laser/high(src)
+	new /obj/item/stock_parts/micro_laser/high(src)
+	new /obj/item/stock_parts/matter_bin/adv(src)
+	new /obj/item/stock_parts/matter_bin/adv(src)
+	new /obj/item/stock_parts/matter_bin/adv(src)
+
+/obj/item/storage/box/stockparts/advanced
+	name = "box of advanced stock parts"
+	desc = "Contains a variety of advanced stock parts."
+
+/obj/item/storage/box/stockparts/advanced/PopulateContents()
+	new /obj/item/stock_parts/capacitor/super(src)
+	new /obj/item/stock_parts/capacitor/super(src)
+	new /obj/item/stock_parts/capacitor/super(src)
+	new /obj/item/stock_parts/scanning_module/phasic(src)
+	new /obj/item/stock_parts/scanning_module/phasic(src)
+	new /obj/item/stock_parts/scanning_module/phasic(src)
+	new /obj/item/stock_parts/manipulator/pico(src)
+	new /obj/item/stock_parts/manipulator/pico(src)
+	new /obj/item/stock_parts/manipulator/pico(src)
+	new /obj/item/stock_parts/micro_laser/ultra(src)
+	new /obj/item/stock_parts/micro_laser/ultra(src)
+	new /obj/item/stock_parts/micro_laser/ultra(src)
+	new /obj/item/stock_parts/matter_bin/super(src)
+	new /obj/item/stock_parts/matter_bin/super(src)
+	new /obj/item/stock_parts/matter_bin/super(src)
+
+
 /obj/item/storage/box/stockparts/deluxe
 	name = "box of deluxe stock parts"
 	desc = "Contains a variety of deluxe stock parts."
@@ -1132,7 +1175,7 @@ obj/item/storage/box/stingbangs
 	new /obj/item/stock_parts/matter_bin/bluespace(src)
 	new /obj/item/stock_parts/matter_bin/bluespace(src)
 	new /obj/item/stock_parts/matter_bin/bluespace(src)
-	
+
 /obj/item/storage/box/sparelimbs
 	name = "box of prosthethic limbs"
 	desc = "Contains superior prosthethic limbs, one of each type."
@@ -1144,7 +1187,7 @@ obj/item/storage/box/stingbangs
 	new /obj/item/bodypart/r_arm/robot(src)
 	new /obj/item/bodypart/l_leg/robot(src)
 	new /obj/item/bodypart/r_leg/robot(src)
-	
+
 //Colored boxes.
 /obj/item/storage/box/green
 	icon_state = "box_green"
@@ -1407,7 +1450,7 @@ list(/obj/item/stack/sheet/metal = 20,
 /obj/item/storage/box/shopkeeper
 	name = "Shopkeeper's blueprints"
 	desc = "a box of the shopkeeper's blueprints"
-	
+
 
 /obj/item/storage/box/shopkeeper/PopulateContents()
 	for(var/i in 1 to 4)
@@ -1423,7 +1466,7 @@ list(/obj/item/stack/sheet/metal = 20,
 							/obj/item/book/granter/crafting_recipe/blueprint/brushgun,
 							)
 		new randomgun(src)
-	
+
 /obj/item/storage/box/debug/huge_volume_four_item
 	name = "debug box"
 	desc = "a box!"
@@ -1444,7 +1487,7 @@ list(/obj/item/stack/sheet/metal = 20,
 /obj/item/storage/box/bos
 	name = "Knight Blueprints"
 	desc = "A box used by the BoS to store Blueprints."
-	
+
 /obj/item/storage/box/bos/PopulateContents()
 	for(var/i in 1 to 2)
 		var/randomgun = pick(
@@ -1460,7 +1503,7 @@ list(/obj/item/stack/sheet/metal = 20,
 /obj/item/storage/box/bos/senior
 	name = "Senior Knight Blueprints"
 	desc = "A box used by the BoS to store Blueprints. This one seems robust."
-	
+
 /obj/item/storage/box/bos/senior/PopulateContents()
 	for(var/i in 1 to 3)
 		var/randomgun = pick(
@@ -1471,12 +1514,12 @@ list(/obj/item/stack/sheet/metal = 20,
 							/obj/item/book/granter/crafting_recipe/blueprint/leveraction,
 							/obj/item/book/granter/crafting_recipe/blueprint/sniper,
 							)
-		new randomgun(src)	
+		new randomgun(src)
 
 /obj/item/storage/box/bos/scribe
 	name = "Scribe Blueprints"
 	desc = "A box used by the BoS to store Blueprints."
-	
+
 /obj/item/storage/box/bos/scribe/PopulateContents()
 	for(var/i in 1 to 2)
 		var/randomgun = pick(
@@ -1489,11 +1532,11 @@ list(/obj/item/stack/sheet/metal = 20,
 /obj/item/storage/box/bos/scribe/senior
 	name = "Senior Scribe Blueprints"
 	desc = "A box used by the BoS to store Blueprints. This one seems robust."
-	
+
 /obj/item/storage/box/bos/scribe/senior/PopulateContents()
 		var/randomgun = pick(
 							/obj/item/book/granter/crafting_recipe/blueprint/tribeam,
 							/obj/item/book/granter/crafting_recipe/blueprint/rcw,
 							/obj/item/book/granter/crafting_recipe/blueprint/plasmarifle,
 							)
-		new randomgun(src)	
+		new randomgun(src)

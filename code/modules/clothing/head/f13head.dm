@@ -871,6 +871,17 @@
 	icon_state = "eyepatch_white_r"
 	item_state = "eyepatch_white_r"
 
+/obj/item/clothing/glasses/f13/tribaleyepatch/AltClick(mob/user, modifiers)
+	. = ..()
+	icon_state = (icon_state == initial(icon_state)) ? "[icon_state]_flipped" : initial(icon_state)
+	item_state = (icon_state == initial(item_state)) ? "[item_state]_flipped" : initial(item_state)
+	user.update_inv_glasses()
+
+/obj/item/clothing/glasses/f13/tribaleyepatch/examine(mob/user)
+	. = ..()
+	. += "Alt-click on [src] to flip it around."
+
+
 /obj/item/clothing/head/helmet/skull/bone
 	name = "Reinforced skull helmet"
 	desc = "An intimidating tribal helmet reinforced with leather and cloth parts on the inside for more comfort, while styling it on the Bone dancers way."
@@ -890,3 +901,11 @@
 	armor = ARMOR_VALUE_LIGHT
 	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T3, ARMOR_MODIFIER_DOWN_BULLET_T1, ARMOR_MODIFIER_DOWN_LASER_T1, ARMOR_MODIFIER_UP_ENV_T2, ARMOR_MODIFIER_UP_DT_T1)
 
+/obj/item/clothing/head/helmet/f13/rustedcowboyhat/minutemen
+	name = "minutemen hat"
+	desc = "A stylish and slightly protective hat, made in the style of the Minutemen."
+	icon = 'fallout/icons/obj/clothing/minutemen.dmi'
+	mob_overlay_icon = 'fallout/icons/mob/clothing/minutemen.dmi'
+	icon_state = "mm_hat"
+	item_state = "mm_hat"
+	mutantrace_variation = NONE

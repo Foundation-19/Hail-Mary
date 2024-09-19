@@ -457,6 +457,15 @@
 	max_ammo = 20
 	multiple_sprites = 3
 
+/obj/item/ammo_box/a308box/soviet
+	name = "ammo box (7.62 steel tip)"
+	icon = 'icons/fallout/objects/guns/ammo.dmi'
+	icon_state = "762box"
+	multiple_sprites = 2
+	caliber = list(CALIBER_308)
+	ammo_type = /obj/item/ammo_casing/a308/soviet
+	max_ammo = 20
+
 //7.62x51, .30-06
 /obj/item/ammo_box/a3006box
 	name = "ammo box (.30-06)"
@@ -475,7 +484,6 @@
 	icon_state = "improvshotbag"
 	max_ammo = 15
 	multiple_sprites = 3
-
 /*
 /obj/item/ammo_box/a762box
 	name = "ammo box (7.62x51 FMJ Match)"
@@ -487,8 +495,7 @@
 	max_ammo = 20
 	w_class = WEIGHT_CLASS_SMALL
 	custom_materials = list(/datum/material/iron = MATS_RIFLE_MEDIUM_BOX)
-*/
-/*
+
 /obj/item/ammo_box/a762box/uraniumtipped
 	name = "ammo box (7.62x51 uranium tipped)"
 	ammo_type = /obj/item/ammo_casing/a762/uraniumtipped
@@ -502,7 +509,6 @@
 /obj/item/ammo_box/a762box/uraniumtipped/Destroy()
 	STOP_PROCESSING(SSradiation,src)
 	..()
-*/
 
 /obj/item/ammo_box/a308box/microshrapnel
 	name = "ammo box (.308 microshrapnel)"
@@ -515,7 +521,7 @@
 	icon_state = "762box"
 	multiple_sprites = 2
 	ammo_type = /obj/item/ammo_casing/a308/rubber
-
+*/
 
 //.50 MG and 14mm
 /obj/item/ammo_box/a50MGbox
@@ -711,10 +717,10 @@
 /obj/item/ammo_box/l10mm
 	name = "speed loader (10mm)"
 	desc = "Designed to quickly reload revolvers."
-	icon_state = "10mm2"
+	icon_state = "10mm"
 	caliber = list(CALIBER_10MM)
 	ammo_type = /obj/item/ammo_casing/c10mm
-	max_ammo = 12
+	max_ammo = 7
 	multiple_sprites = 1
 	w_class = WEIGHT_CLASS_TINY
 	custom_materials = list(/datum/material/iron = 2000)

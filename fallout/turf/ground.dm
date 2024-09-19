@@ -320,6 +320,40 @@ GLOBAL_LIST_INIT(desolate_plant_spawn_list, list(
 	barefootstep = FOOTSTEP_HARD_BAREFOOT
 //	step_sounds = list("human" = "erikafootsteps")
 
+/turf/open/indestructible/ground/outside/road/attackby(obj/item/C, mob/user, params)
+	if(istype(C, /obj/item/stack/tile/road))
+		if(icon_state == "innermiddle")
+			to_chat(user, span_warning("The road already looks fixed!"))
+			return
+		C.use(1)
+		icon_state = "innermiddle"
+		return
+	else
+		. = ..()
+
+/turf/open/floor/road
+	name = "\proper road"
+	desc = "a stretch of road that looks freshly built"
+	icon_state = "innermiddle"
+	icon = 'icons/fallout/turfs/asphalt.dmi'
+	floor_tile = /obj/item/stack/tile/road
+	sunlight_state = SUNLIGHT_SOURCE
+	footstep = FOOTSTEP_ROAD
+	barefootstep = FOOTSTEP_HARD_BAREFOOT
+
+/obj/item/stack/tile/road
+	name = "road tile"
+	singular_name = "road floor tile"
+	desc = "a piece of road, not from asphalt but from concrete mixed with black coloring"
+	icon = 'icons/fallout/turfs/asphalt.dmi'
+	icon_state = "road-tile"
+	turf_type = /turf/open/floor/road
+	resistance_flags = FIRE_PROOF
+	merge_type = /obj/item/stack/tile/road
+
+/obj/item/stack/tile/road/thirty
+	amount = 30
+
 /turf/open/indestructible/ground/outside/road_s
 	name = "\proper road"
 	icon_state = "innermiddle"
@@ -560,6 +594,14 @@ GLOBAL_LIST_INIT(desolate_plant_spawn_list, list(
 	footstep = FOOTSTEP_ROAD
 	barefootstep = FOOTSTEP_HARD_BAREFOOT
 //	step_sounds = list("human" = "erikafootsteps")
+
+/turf/open/indestructible/ground/outside/baltimore
+	name = "\proper Road"
+	desc = "A stretch of road."
+	icon = 'icons/turf/road_and_dirt.dmi'
+	icon_state = "road_northsouth_y"
+	footstep = FOOTSTEP_ROAD
+	barefootstep = FOOTSTEP_HARD_BAREFOOT
 
 //Obsolete but used in yucky Pahrump
 /turf/open/indestructible/ground/outside/graveldirt

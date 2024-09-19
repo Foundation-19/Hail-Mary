@@ -8,8 +8,8 @@
 	var/fuel = 600
 	var/max_fuel = 600
 	var/obj/item/reagent_containers/fuel_tank/fuel_holder
-	var/idle_wasting = 0.5
-	var/move_wasting = 0.1
+	//var/idle_wasting = 0.5
+	//var/move_wasting = 0.1
 	var/engine_on = null
 
 /obj/vehicle/ridden/fuel/New()
@@ -24,14 +24,14 @@
 
 /obj/vehicle/ridden/fuel/Move(NewLoc,Dir=0,step_x=0,step_y=0)
 	. = ..()
-	if(engine_on && move_wasting)
-		fuel_holder.reagents.remove_reagent("welding_fuel",move_wasting)
+	if(engine_on && fuel_holder.move_wasting)
+		fuel_holder.reagents.remove_reagent("welding_fuel",fuel_holder.move_wasting)
 
 /obj/vehicle/ridden/fuel/process() //If process begining you can sure that engine is on
 	. = ..()
 	var/fuel_wasting
 
-	fuel_wasting += idle_wasting
+	fuel_wasting += fuel_holder.idle_wasting
 
 //Health check
 	var/health = (obj_integrity/max_integrity)
@@ -81,16 +81,45 @@
 
 
 
+/obj/item/reagent_containers/jerrycan
+	name = "Jerrycan"
+	amount_per_transfer_from_this = 50
+	volume = 500
+	w_class = WEIGHT_CLASS_NORMAL
+	list_reagents = list(/datum/reagent/fuel)
+	icon = 'icons/mecha/mech_bay.dmi'
+	icon_state = "jerrycan"
+	reagent_flags = OPENCONTAINER
+
 /obj/item/reagent_containers/fuel_tank
 	name = "fuel tank"
-
+	var/idle_wasting = 0.5
+	var/move_wasting = 0.1
 	amount_per_transfer_from_this = 25
 	var/inside = 1
+	volume = 1000
+	w_class = WEIGHT_CLASS_BULKY
+	icon = 'icons/mecha/mech_bay.dmi'
+	icon_state = "fuel_tank"
+	reagent_flags = DRAWABLE
 
-/obj/item/reagent_containers/fuel_tank/New(volume, fuel)
+/obj/item/reagent_containers/fuel_tank/upgraded
+	name = "Upgraded fuel tank"
+	idle_wasting = 0.2
+	move_wasting = 0.05
+	volume = 1500
+	icon_state = "fuel_tank_u"
+/obj/item/reagent_containers/fuel_tank/hyper
+	name = "Hyper fuel tank"
+	idle_wasting = 0.1
+	move_wasting = 0.025
+	volume = 2000
+	icon_state = "fuel_tank_h"
+
+/*/obj/item/reagent_containers/fuel_tank/New(volume, fuel)
 	src.volume = volume
 	list_reagents = list(/datum/reagent/fuel = fuel)
-	..()
+	..()*/
 
 /obj/item/reagent_containers/fuel_tank/attackby(obj/item/weapon/W, mob/user, params)
 	if(W.is_open_container() && W.reagents)
@@ -118,3 +147,17 @@
 
 			var/trans = src.reagents.trans_to(W, amount_per_transfer_from_this)
 			to_chat(user, "<span class='notice'>You transfer [trans] units of the solution to [W].</span>")
+	. = ..()
+
+/obj/item/reagent_containers/fuel_tank/use(amount = 0)
+	if(reagents.total_volume <= 0)
+		return 0
+	var/used = min(reagents.total_volume,amount)
+	reagents.remove_reagent("welding_fue", used)
+	if(!istype(loc, /obj/machinery/power/apc))
+		SSblackbox.record_feedback("tally", "cell_used", 1, type)
+	return used
+
+/obj/item/reagent_containers/fuel_tank/proc/percent()		// return % charge of cell
+	return 100*reagents.total_volume/volume
+

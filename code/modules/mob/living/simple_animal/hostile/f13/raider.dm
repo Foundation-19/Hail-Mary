@@ -148,6 +148,7 @@
 	mob_armor = ARMOR_VALUE_RAIDER_LEATHER_JACKET
 	maxHealth = 300
 	health = 300
+	stat_attack = UNCONSCIOUS
 	speed = 1.2
 	obj_damage = 300
 	rapid_melee = 1
@@ -165,6 +166,7 @@
 	mob_armor = ARMOR_VALUE_RAIDER_LEATHER_JACKET
 	maxHealth = 240
 	health = 240
+	stat_attack = UNCONSCIOUS
 	retreat_distance = 1
 	minimum_distance = 2
 	rapid_melee = 1
@@ -200,6 +202,7 @@
 	mob_armor = ARMOR_VALUE_RAIDER_COMBAT_ARMOR_BOSS
 	maxHealth = 150
 	health = 150
+	stat_attack = UNCONSCIOUS
 	extra_projectiles = 2
 	rapid_melee = 1
 	waddle_amount = 4
@@ -213,6 +216,7 @@
 	loot_amount_random = FALSE
 	random_trash_loot = FALSE
 	footstep_type = FOOTSTEP_MOB_SHOE
+	sentience_type = SENTIENCE_BOSS
 	move_to_delay = 4.0 //faster than average, but not a lot
 	retreat_distance = 4 //mob retreats 1 tile when in min distance
 	minimum_distance = 2 //Mob pushes up to melee, then backs off to avoid player attack?
@@ -589,6 +593,7 @@
 	mob_armor = ARMOR_VALUE_RAIDER_COMBAT_ARMOR_BOSS
 	maxHealth = 165
 	health = 165
+	stat_attack = UNCONSCIOUS
 	ranged = TRUE
 	rapid_melee = 1
 	retreat_distance = 4
