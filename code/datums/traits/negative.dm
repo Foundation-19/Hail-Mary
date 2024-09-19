@@ -767,7 +767,12 @@ Edit: TK~  This is the dumbest fucking shit I've ever seen in my life.  This isn
 /datum/quirk/masked_mook/on_spawn()
 	. = ..()
 	var/mob/living/carbon/human/H = quirk_holder
-	var/obj/item/clothing/mask/gas = new(get_turf(quirk_holder))
+	var/list/obj/item/clothing/masks = subtypesof(/obj/item/clothing/mask)
+	var/obj/item/clothing/mask/chosen = pick(masks)
+	var/list/ciggies = subtypesof(/obj/item/clothing/mask/cigarette)
+	while(chosen in ciggies)
+		chosen = pick(masks)
+	var/obj/item/clothing/mask/gas = new chosen(get_turf(quirk_holder))
 	H.equip_to_slot(gas, SLOT_WEAR_MASK)
 	H.regenerate_icons()
 

@@ -55,15 +55,15 @@ proc/get_top_level_mob(mob/S)
 /// STRENGTH
 
 /obj/item/proc/calc_melee_dam_mod_from_special(mob/living/user)
-	return ((user.special_s - SPECIAL_DEFAULT_ATTR_VALUE) * 1.5)
+	return ((user.special_s - SPECIAL_DEFAULT_ATTR_VALUE) * 1.1)
 
 /datum/species/proc/calc_unarmed_dam_mod_from_special(mob/living/user)
-	return ((user.special_s - SPECIAL_DEFAULT_ATTR_VALUE) * 1.5)
+	return ((user.special_s - SPECIAL_DEFAULT_ATTR_VALUE) * 1.1)
 
 /// PERCEPTION
 
 /obj/item/ammo_casing/proc/calc_bullet_spread_mod_from_special(mob/living/user)
-	return ((user.special_p - SPECIAL_DEFAULT_ATTR_VALUE) * 5) // +/- 5 degrees of innate spread per lvl
+	return ((user.special_p - SPECIAL_DEFAULT_ATTR_VALUE) * 2) // +/- 5 degrees of innate spread per lvl
 
 /// ENDURANCE
 

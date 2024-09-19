@@ -279,6 +279,14 @@
 	icon_state = "darkrusty"
 	},
 /area/f13/building/massfusion)
+"auH" = (
+/obj/structure/curtain{
+	color = "#845f58"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/simple_door/room,
+/turf/open/floor/f13/wood,
+/area/f13/radiation)
 "auN" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/bodypart/l_arm,
@@ -1018,12 +1026,6 @@
 /obj/machinery/light/small,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/city)
-"bOS" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/bed/wooden,
-/obj/item/bedsheet/black,
-/turf/open/floor/f13/wood,
-/area/f13/radiation)
 "bPf" = (
 /obj/effect/turf_decal/shadow/floor{
 	dir = 4
@@ -1563,6 +1565,11 @@
 /obj/effect/turf_decal/shadow/floor,
 /turf/open/floor/wood_fancy,
 /area/f13/legion)
+"cWT" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/rack/shelf_wood,
+/turf/open/floor/f13/wood,
+/area/f13/radiation)
 "cXp" = (
 /obj/structure/window/fulltile/house{
 	icon_state = "housewindowbrokenvertical"
@@ -1619,14 +1626,6 @@
 /obj/effect/turf_decal/shadow/floor,
 /turf/open/floor/wood_fancy,
 /area/f13/legion)
-"ddf" = (
-/obj/structure/curtain{
-	color = "#845f58"
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/simple_door/room/dirty,
-/turf/open/floor/f13/wood,
-/area/f13/radiation)
 "dfb" = (
 /obj/structure/table/wood,
 /turf/open/floor/wood_fancy/wood_fancy_dark,
@@ -1801,11 +1800,6 @@
 	icon_state = "neutralrustyfull"
 	},
 /area/f13/wasteland)
-"dxN" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/closet/crate/footlocker,
-/turf/open/floor/f13/wood,
-/area/f13/radiation)
 "dAm" = (
 /obj/structure/bed/wooden,
 /obj/item/bedsheet/wiz,
@@ -2137,14 +2131,6 @@
 	icon_state = "neutralrustyfull"
 	},
 /area/f13/wasteland)
-"enJ" = (
-/obj/structure/curtain{
-	color = "#845f58"
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/simple_door/room,
-/turf/open/floor/f13/wood,
-/area/f13/radiation)
 "erm" = (
 /obj/machinery/seed_extractor,
 /turf/open/floor/plasteel/f13/vault_floor/neutral/neutralchess/neutralchess2,
@@ -2225,6 +2211,10 @@
 	icon_state = "housewood2"
 	},
 /area/f13/building)
+"eBb" = (
+/obj/item/storage/secure/safe,
+/turf/closed/wall/f13/wood,
+/area/f13/radiation)
 "eCw" = (
 /obj/item/kirbyplants/random,
 /turf/open/floor/plasteel/f13/vault_floor/dark,
@@ -2316,6 +2306,11 @@
 /obj/structure/barricade/wooden/planks/pregame,
 /turf/closed/wall/f13/wood/house,
 /area/f13/building)
+"eLN" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/cabinet/anchored,
+/turf/open/floor/f13/wood,
+/area/f13/radiation)
 "eLX" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/destructible/tribal_torch/wall/lit{
@@ -2401,6 +2396,16 @@
 	icon_state = "whitedirtysolid"
 	},
 /area/f13/building/hospital)
+"eTO" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/chair/comfy/black,
+/turf/open/floor/f13/wood,
+/area/f13/radiation)
+"eVG" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/dresser,
+/turf/open/floor/f13/wood,
+/area/f13/radiation)
 "eWb" = (
 /turf/open/transparent/openspace{
 	name = "air";
@@ -3189,11 +3194,6 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/white,
 /area/f13/city)
-"gRi" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/start/f13/smutant,
-/turf/open/floor/f13/wood,
-/area/f13/radiation)
 "gRD" = (
 /obj/structure/railing{
 	color = "#A47449"
@@ -3594,10 +3594,6 @@
 /obj/structure/barricade/wooden/planks/pregame,
 /turf/open/floor/f13/wood,
 /area/f13/building)
-"hQc" = (
-/obj/item/storage/secure/safe,
-/turf/closed/wall/f13/wood,
-/area/f13/radiation)
 "hQv" = (
 /obj/structure/decoration/legion/chains,
 /obj/structure/railing/handrail/legion/end,
@@ -4634,12 +4630,6 @@
 	},
 /turf/open/floor/f13/wood,
 /area/f13/legion)
-"kcd" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/table/wood,
-/obj/item/twohanded/baseball/spiked,
-/turf/open/floor/f13/wood,
-/area/f13/radiation)
 "kdI" = (
 /obj/structure/simple_door/room,
 /turf/open/floor/plasteel/f13/vault_floor/white,
@@ -6556,6 +6546,9 @@
 /obj/structure/lattice/catwalk,
 /turf/closed/wall/f13/wood/house,
 /area/f13/brotherhood)
+"nTh" = (
+/turf/closed/mineral/random/low_chance,
+/area/f13/radiation)
 "nTu" = (
 /obj/structure/chair/wood{
 	dir = 8
@@ -6931,11 +6924,6 @@
 	icon_state = "greenrustychess"
 	},
 /area/f13/building/massfusion)
-"oNs" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/dresser,
-/turf/open/floor/f13/wood,
-/area/f13/radiation)
 "oOo" = (
 /turf/closed/indestructible/f13/matrix,
 /area/f13/city)
@@ -7166,6 +7154,14 @@
 	},
 /turf/closed/wall/f13/store,
 /area/f13/wasteland)
+"pmK" = (
+/obj/structure/curtain{
+	color = "#845f58"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/simple_door/room/dirty,
+/turf/open/floor/f13/wood,
+/area/f13/radiation)
 "poV" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/cabinet/anchored,
@@ -7379,6 +7375,16 @@
 	icon_state = "darkrusty"
 	},
 /area/f13/wasteland)
+"pMu" = (
+/obj/machinery/door/airlock/medical/glass{
+	armor = list("melee"=75,"bullet"=75,"laser"=75,"energy"=75,"bomb"=30,"bio"=25,"rad"=25,"fire"=25,"acid"=25,"wound"=25,"damage_threshold"=3);
+	desc = "It opens and closes. This one looks heavily fortified";
+	id_tag = "MedbayFoyer";
+	name = "Clinic Director";
+	req_access_txt = "281"
+	},
+/turf/open/floor/plasteel/f13/vault_floor/blue/whitebluefull,
+/area/f13/city)
 "pOn" = (
 /obj/effect/decal/remains/human,
 /obj/effect/decal/cleanable/dirt,
@@ -7424,13 +7430,6 @@
 /obj/machinery/button/door,
 /turf/open/floor/wood_mosaic,
 /area/f13/city)
-"pWk" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/start/f13/smutant_boss,
-/turf/open/floor/f13/wood{
-	icon_state = "housewood2-broken"
-	},
-/area/f13/radiation)
 "pWV" = (
 /obj/effect/decal/cleanable/dirt{
 	color = "#363636"
@@ -7672,9 +7671,6 @@
 /obj/effect/turf_decal/shadow/floor,
 /turf/open/floor/wood_fancy,
 /area/f13/legion)
-"qzF" = (
-/turf/closed/mineral/random/low_chance,
-/area/f13/radiation)
 "qzP" = (
 /turf/open/floor/wood_fancy/wood_fancy_dark{
 	icon_state = "fancy_dark-broken4"
@@ -7888,6 +7884,12 @@
 /obj/structure/barricade/wooden/planks/pregame,
 /turf/open/floor/f13/wood,
 /area/f13/building)
+"qWL" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/bed/wooden,
+/obj/item/bedsheet/black,
+/turf/open/floor/f13/wood,
+/area/f13/radiation)
 "qYF" = (
 /turf/open/indestructible,
 /area/f13/tcoms)
@@ -8042,11 +8044,6 @@
 	icon_state = "darkrusty"
 	},
 /area/f13/wasteland)
-"ryo" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/chair/comfy/black,
-/turf/open/floor/f13/wood,
-/area/f13/radiation)
 "rza" = (
 /obj/effect/decal/cleanable/robot_debris,
 /obj/effect/decal/cleanable/dirt,
@@ -8772,11 +8769,6 @@
 	},
 /turf/open/floor/carpet/vault,
 /area/f13/city)
-"sUD" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/rack/shelf_wood,
-/turf/open/floor/f13/wood,
-/area/f13/radiation)
 "sVC" = (
 /obj/structure/railing/corner{
 	dir = 4
@@ -8892,6 +8884,11 @@
 	icon_state = "housewood4-broken"
 	},
 /area/f13/building)
+"teW" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/start/f13/smutant,
+/turf/open/floor/f13/wood,
+/area/f13/radiation)
 "tfd" = (
 /obj/structure/fluff/railing{
 	dir = 8
@@ -9143,11 +9140,6 @@
 	icon_state = "housewood4-broken"
 	},
 /area/f13/wasteland)
-"tFP" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/closet/cabinet/anchored,
-/turf/open/floor/f13/wood,
-/area/f13/radiation)
 "tGt" = (
 /obj/structure/table,
 /obj/machinery/light/small{
@@ -9189,6 +9181,13 @@
 	icon_state = "housewood2-broken"
 	},
 /area/f13/wasteland)
+"tMV" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/start/f13/smutant_boss,
+/turf/open/floor/f13/wood{
+	icon_state = "housewood2-broken"
+	},
+/area/f13/radiation)
 "tPa" = (
 /obj/structure/fluff/railing{
 	dir = 4
@@ -9228,11 +9227,6 @@
 "tST" = (
 /obj/structure/decoration/rag,
 /turf/closed/wall/f13/wood/house,
-/area/f13/radiation)
-"tSU" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/kitchenspike,
-/turf/open/floor/f13/wood,
 /area/f13/radiation)
 "tTA" = (
 /obj/structure/railing/corner{
@@ -9324,16 +9318,6 @@
 	density = 0
 	},
 /turf/open/floor/plasteel/f13/vault_floor/neutral/neutralchess/neutralchess2,
-/area/f13/city)
-"ubK" = (
-/obj/machinery/door/airlock/medical/glass{
-	armor = list("melee"=75,"bullet"=75,"laser"=75,"energy"=75,"bomb"=30,"bio"=25,"rad"=25,"fire"=25,"acid"=25,"wound"=25,"damage_threshold"=3);
-	desc = "It opens and closes. This one looks heavily fortified";
-	id_tag = "MedbayFoyer";
-	name = "Clinic Director";
-	req_access_txt = "287"
-	},
-/turf/open/floor/plasteel/f13/vault_floor/blue/whitebluefull,
 /area/f13/city)
 "ucd" = (
 /obj/machinery/light/small{
@@ -9498,6 +9482,11 @@
 	icon_state = "housewood4-broken"
 	},
 /area/f13/caves)
+"uuG" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/kitchenspike,
+/turf/open/floor/f13/wood,
+/area/f13/radiation)
 "uuO" = (
 /obj/structure/barricade/wooden,
 /turf/closed/wall/f13/tentwall,
@@ -9913,6 +9902,12 @@
 	},
 /turf/open/floor/f13/wood,
 /area/f13/city)
+"vvW" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/table/wood,
+/obj/item/twohanded/baseball/spiked,
+/turf/open/floor/f13/wood,
+/area/f13/radiation)
 "vwd" = (
 /obj/structure/chair/comfy/black{
 	dir = 4
@@ -10155,6 +10150,11 @@
 	icon_state = "darkrusty"
 	},
 /area/f13/building/massfusion)
+"waA" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/crate/footlocker,
+/turf/open/floor/f13/wood,
+/area/f13/radiation)
 "wbt" = (
 /obj/structure/destructible/tribal_torch/wall/lit{
 	dir = 8;
@@ -17409,7 +17409,7 @@ vLb
 vLb
 uYs
 foW
-gRi
+teW
 rlg
 uYs
 vLb
@@ -17667,7 +17667,7 @@ vLb
 uYs
 hqx
 hvE
-dxN
+waA
 yaC
 eWb
 tik
@@ -17924,7 +17924,7 @@ vLb
 uYs
 ktd
 afb
-dxN
+waA
 dUZ
 eWb
 eWb
@@ -18179,8 +18179,8 @@ vLb
 vLb
 vLb
 uYs
-sUD
-gRi
+cWT
+teW
 raE
 vMW
 eWb
@@ -18437,7 +18437,7 @@ uYs
 uYs
 uYs
 uYs
-ddf
+pmK
 uYs
 uYs
 eWb
@@ -18689,10 +18689,10 @@ vLb
 vLb
 vLb
 uYs
-oNs
+eVG
 vpi
 rRa
-tSU
+uuG
 uYs
 awU
 uYs
@@ -18946,11 +18946,11 @@ vLb
 vLb
 vLb
 uYs
-tFP
+eLN
 eJE
 eJE
 eJE
-enJ
+auH
 eJE
 yaC
 eWb
@@ -19203,10 +19203,10 @@ vLb
 vLb
 vLb
 uYs
-bOS
-pWk
-ryo
-kcd
+qWL
+tMV
+eTO
+vvW
 vMW
 bfF
 uYs
@@ -19461,7 +19461,7 @@ vLb
 vLb
 uYs
 uYs
-hQc
+eBb
 uYs
 uYs
 uYs
@@ -22312,7 +22312,7 @@ eWb
 eWb
 eWb
 eWb
-qzF
+nTh
 tot
 vLb
 eWb
@@ -40051,7 +40051,7 @@ anv
 anv
 anv
 anv
-ubK
+pMu
 hhd
 anv
 uNh
@@ -40563,7 +40563,7 @@ oez
 anv
 iqB
 iqB
-ubK
+pMu
 iqB
 iqB
 qni
