@@ -83,6 +83,17 @@
 	var/internal_damage_threshold = 50 //health percentage below which internal damage is possible
 	var/internal_damage = 0 //contains bitflags
 
+	/// FRONT , left side , right side , behind
+	var/list/directional_mults = list(1,1,1,1)
+	/// List of internal components per direction , will cause increased mech damge incase of mech AP and block shots from hitting the driver
+	// internal list should be list[ref] = list(hitChance, hitMult, APthreshold)
+	var/list/directional_comps = list(
+		list(),
+		list(),
+		list(),
+		list()
+	)
+
 	var/list/operation_req_access = list()//required access level for mecha operation
 	var/list/internals_req_access = list()//REQUIRED ACCESS LEVEL TO OPEN CELL COMPARTMENT
 
