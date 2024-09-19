@@ -460,6 +460,12 @@
 
 //Jungle bushes
 
+/obj/structure/flora/roadplant
+	name = "roadplant"
+	desc = "A wild plant."
+	icon = 'icons/turf/road_and_dirt_decal_grass.dmi'
+	icon_state = "grass_decals_1"
+
 /obj/structure/flora/junglebush
 	name = "bush"
 	desc = "A wild plant that is found in jungles."

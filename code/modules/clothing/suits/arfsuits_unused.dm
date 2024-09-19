@@ -274,6 +274,10 @@ Suits. 0-10 in its primary value, slowdown 0, various utility
 	icon_state = "legion-explorercustom"
 	item_state = "legion-explorercustom"
 
+//////////////
+//	 NCR	//
+//////////////
+
 /obj/item/clothing/suit/armor/ncrarmor
 	name = "NCR patrol vest"
 	desc = "A standard issue NCR Infantry vest."
