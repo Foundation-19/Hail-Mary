@@ -949,6 +949,58 @@
 	icon_state = "army_general"
 	item_state = "army_general"
 
+//Minutemen
+
+/obj/item/clothing/under/f13/minutemen
+	name = "minutemen uniform"
+	desc = "A neat, stylish pair of shirt and trousers, the signature outift of the Minutemen."
+	icon = 'fallout/icons/obj/clothing/minutemen.dmi'
+	mob_overlay_icon = 'fallout/icons/mob/clothing/minutemen.dmi'
+	icon_state = "mm_uniform"
+	item_state = "mm_uniform"
+
+//Atlantic Cross
+
+/obj/item/clothing/under/f13/atlantic/uniform
+	name = "Atlantic Cross Uniform"
+	desc = "A uniform derived from old world war 1 US Navy uniforms. Used and made by the Atlantic Cross. This one was with combat more in mind, and loved by marines, but everyone can wear it really."
+	icon_state = "atlanticuniform"
+	icon = 'icons/fallout/clothing/uniforms.dmi'
+	mob_overlay_icon = 'icons/fallout/onmob/clothes/uniform.dmi'
+	item_color = "atlanticuniform"
+
+/obj/item/clothing/under/f13/atlantic/uniform/captain
+	name = "Atlantic Cross Captain Uniform"
+	desc = "A uniform derived from old world war 1 US Navy uniforms. Shoulder rank insignia have been added, to denote who is the captain."
+	icon_state = "atlanticuniform_captain"
+	icon = 'icons/fallout/clothing/uniforms.dmi'
+	mob_overlay_icon = 'icons/fallout/onmob/clothes/uniform.dmi'
+	item_color = "atlanticuniform_captain"
+
+/obj/item/clothing/under/f13/atlantic/sailor
+	name = "Atlantic Cross Sailor outfit"
+	desc = "The typical sailor outfit. A bit clicher, with this stripped marcel, its still loved by the crewmembers on board."
+	mob_overlay_icon = 'icons/fallout/onmob/clothes/uniform.dmi'
+	icon = 'icons/fallout/clothing/uniforms.dmi'
+	icon_state = "atlanticsailor"
+	item_color = "atlanticsailor"
+
+/obj/item/clothing/under/f13/atlantic/sailor/sweater
+	name = "Atlantic Cross warm outfit"
+	desc = "A utilitarian sweater put on when the weather gets cold. Some even find it comfy, and liked by doctors."
+	icon_state = "atlanticdoc"
+	icon = 'icons/fallout/clothing/uniforms.dmi'
+	mob_overlay_icon = 'icons/fallout/onmob/clothes/uniform.dmi'
+	item_color = "atlanticdoc"
+
+/obj/item/clothing/under/f13/atlantic/sailor/nurse
+	name = "Atlantic Cross nurse dress"
+	desc = "Probably the clothes worn by the founders of the Atlantic Cross. Those nurse dress are based on the World war 1 by those same nurses."
+	icon_state = "atlanticnurse"
+	icon = 'icons/fallout/clothing/uniforms.dmi'
+	mob_overlay_icon = 'icons/fallout/onmob/clothes/uniform.dmi'
+	item_color = "atlanticnurse"
+
 //US Navy
 
 /obj/item/clothing/under/f13/navy

@@ -27,10 +27,10 @@
 
 /// Produce bag
 /datum/component/storage/concrete/bag/produce
-	max_items = STORAGE_TRASH_BAG_MAX_ITEMS
+	max_items = STORAGE_PRODUCE_BAG_MAX_ITEMS
 	max_w_class = WEIGHT_CLASS_NORMAL
-	max_combined_w_class = STORAGE_TRASH_BAG_MAX_TOTAL_SPACE
-	max_volume = STORAGE_TRASH_BAG_MAX_TOTAL_SPACE
+	max_combined_w_class = STORAGE_PRODUCE_BAG_MAX_TOTAL_SPACE
+	max_volume = STORAGE_PRODUCE_BAG_MAX_TOTAL_SPACE
 	display_numerical_stacking = TRUE
 	limited_random_access = FALSE
 
