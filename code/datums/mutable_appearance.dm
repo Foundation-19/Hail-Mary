@@ -6,14 +6,14 @@
 
 #if DM_BUILD > 1642
 /mutable_appearance/proc/New(mutable_appearance/to_copy)
-    if(!to_copy)
-        plane = FLOAT_PLANE
+	if(!to_copy)
+		plane = FLOAT_PLANE
 #else
 /mutable_appearance/New(mutable_appearance/to_copy)
-    ..()
-    if(!to_copy)
-        plane = FLOAT_PLANE
-#endif //Fix for broken proc on latest version of BYOND.
+	..()
+	if(!to_copy)
+		plane = FLOAT_PLANE
+#endif	// Fix for broken proc on latest version of BYOND.
 
 // Helper similar to image()
 /proc/mutable_appearance(icon, icon_state = "", layer = FLOAT_LAYER, plane = FLOAT_PLANE, color = "#FFFFFF")
