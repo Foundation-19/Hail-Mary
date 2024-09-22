@@ -152,6 +152,14 @@
 "bu" = (
 /turf/open/floor/plasteel/f13/vault_floor/plating,
 /area/f13/wasteland)
+"bv" = (
+/obj/structure/bookcase/manuals/research_and_development{
+	allowed_books = list(/obj/item/book,/obj/item/book,/obj/item/storage/book,/obj/item/book,/obj/item/book,/obj/item/book);
+	desc = "A collection of scrolls, archives and relics.";
+	name = "Brotherhood Historical Archives"
+	},
+/turf/open/floor/carpet/black,
+/area/f13/wasteland)
 "bx" = (
 /obj/structure/table,
 /obj/effect/spawner/lootdrop/stock_parts,
@@ -664,6 +672,12 @@
 	icon_state = "verticalinnermain1"
 	},
 /area/f13/wasteland)
+"eW" = (
+/obj/structure/stairs/south{
+	dir = 1
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/wasteland)
 "eX" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -683,6 +697,13 @@
 	},
 /turf/open/floor/plasteel/f13{
 	icon_state = "darkrusty"
+	},
+/area/f13/wasteland)
+"ff" = (
+/obj/structure/table/wood,
+/obj/item/scrap/research,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	icon_state = "casino"
 	},
 /area/f13/wasteland)
 "fg" = (
@@ -942,6 +963,12 @@
 	icon_state = "darkrustysolid"
 	},
 /area/f13/wasteland)
+"gU" = (
+/obj/structure/chair/bench{
+	icon_state = "dropshipright"
+	},
+/turf/open/floor/carpet/black,
+/area/f13/wasteland)
 "gZ" = (
 /turf/open/floor/light/colour_cycle/dancefloor_a,
 /area/f13/wasteland)
@@ -1166,6 +1193,11 @@
 	pixel_x = -10
 	},
 /turf/open/indestructible/ground/outside/road,
+/area/f13/wasteland)
+"ip" = (
+/obj/structure/table/reinforced,
+/obj/structure/barricade/bars,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/wasteland)
 "iq" = (
 /obj/structure/table/wood,
@@ -1397,6 +1429,16 @@
 	icon_state = "verticalinnermain0"
 	},
 /area/f13/wasteland)
+"jX" = (
+/obj/structure/bookcase/manuals/research_and_development{
+	allowed_books = list(/obj/item/book,/obj/item/book,/obj/item/storage/book,/obj/item/book,/obj/item/book,/obj/item/book);
+	desc = "A collection of scrolls, archives and relics.";
+	name = "Brotherhood Historical Archives"
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	icon_state = "casino"
+	},
+/area/f13/wasteland)
 "jY" = (
 /obj/structure/chair/office,
 /turf/open/floor/plasteel/f13{
@@ -1407,6 +1449,12 @@
 /turf/open/indestructible/ground/outside/dirt{
 	dir = 1;
 	icon_state = "dirt"
+	},
+/area/f13/wasteland)
+"kf" = (
+/obj/machinery/rnd/server/bos,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	icon_state = "casino"
 	},
 /area/f13/wasteland)
 "kg" = (
@@ -1630,6 +1678,15 @@
 	icon_state = "topshadowleft"
 	},
 /area/f13/wasteland)
+"lf" = (
+/obj/item/gps/computer{
+	desc = "A large, central database of currently-transmitting GPS signals.";
+	name = "GPS Ping Grabber."
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	icon_state = "casino"
+	},
+/area/f13/wasteland)
 "lg" = (
 /obj/structure/chair/stool/bar,
 /turf/open/floor/carpet,
@@ -1810,6 +1867,12 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "whitedirtysolid"
 	},
+/area/f13/wasteland)
+"mL" = (
+/obj/structure/fluff/railing{
+	dir = 4
+	},
+/turf/open/floor/carpet/black,
 /area/f13/wasteland)
 "mM" = (
 /obj/structure/chair/folding{
@@ -2396,6 +2459,11 @@
 	icon_state = "darkrustysolid"
 	},
 /area/f13/wasteland)
+"qY" = (
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	icon_state = "casino"
+	},
+/area/f13/wasteland)
 "rd" = (
 /obj/structure/table,
 /obj/effect/spawner/lootdrop/stock_parts,
@@ -2435,15 +2503,6 @@
 /obj/machinery/vending/wardrobe/chef_wardrobe,
 /turf/open/floor/plasteel/cafeteria,
 /area/f13/wasteland)
-"rq" = (
-/obj/structure/table/reinforced,
-/obj/structure/barricade/bars{
-	layer = 5
-	},
-/turf/open/floor/f13{
-	icon_state = "reddirtyfull"
-	},
-/area/f13/wasteland)
 "rt" = (
 /turf/open/indestructible/ground/outside/road{
 	dir = 8;
@@ -2452,6 +2511,17 @@
 /area/f13/wasteland)
 "ru" = (
 /turf/open/floor/plasteel/f13/vault_floor/misc,
+/area/f13/wasteland)
+"rw" = (
+/obj/machinery/workbench/forge{
+	desc = "A reactor-heated megafurnace used for forging metal items such as swords, spears and shields and more.";
+	icon_state = "generator_on";
+	name = "superheating forge";
+	pixel_x = 11
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	icon_state = "casino"
+	},
 /area/f13/wasteland)
 "rB" = (
 /obj/item/reagent_containers/glass/bucket{
@@ -2541,6 +2611,12 @@
 	pixel_x = -15
 	},
 /turf/open/floor/f13/wood,
+/area/f13/wasteland)
+"sb" = (
+/obj/structure/filingcabinet/chestdrawer,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	icon_state = "casino"
+	},
 /area/f13/wasteland)
 "sj" = (
 /obj/structure/barricade/wooden,
@@ -3183,6 +3259,16 @@
 /obj/effect/spawner/lootdrop/f13/junkspawners,
 /turf/open/floor/plasteel/f13/vault_floor/floor/floorsolid,
 /area/f13/wasteland)
+"wG" = (
+/obj/machinery/computer/camera_advanced/abductor{
+	desc = "One day, we'll get that dish working. Not today.";
+	name = "Inactive Radar Console";
+	pixel_y = 17
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	icon_state = "casino"
+	},
+/area/f13/wasteland)
 "wI" = (
 /obj/effect/turf_decal/stripes/asteroid/corner{
 	dir = 4
@@ -3601,9 +3687,19 @@
 /obj/effect/decal/cleanable/blood/gibs/human,
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/wasteland)
+"zB" = (
+/obj/item/kirbyplants/photosynthetic,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/wasteland)
 "zG" = (
 /obj/structure/rack,
 /turf/open/floor/plasteel/f13/vault_floor/floor,
+/area/f13/wasteland)
+"zN" = (
+/obj/structure/chair/bench{
+	icon_state = "dropshipleft"
+	},
+/turf/open/floor/carpet/black,
 /area/f13/wasteland)
 "zO" = (
 /obj/structure/toilet{
@@ -3784,6 +3880,7 @@
 	id = "bosgateshutters";
 	name = "bos safety shutters"
 	},
+/obj/structure/barricade/bars,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/wasteland)
 "Bb" = (
@@ -4116,15 +4213,6 @@
 	icon_state = "stagestairs2"
 	},
 /area/f13/wasteland)
-"DJ" = (
-/obj/structure/ladder/unbreakable{
-	height = 2;
-	icon_state = "manhole_open";
-	id = "boslower";
-	pixel_y = 0
-	},
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/wasteland)
 "DK" = (
 /obj/structure/closet,
 /obj/item/clothing/under/suit/burgundy,
@@ -4196,6 +4284,9 @@
 /obj/structure/flora/ausbushes,
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/wasteland)
+"Ej" = (
+/turf/open/floor/wood_common,
+/area/f13/wasteland)
 "Ek" = (
 /obj/structure/closet/cardboard,
 /obj/item/storage/briefcase,
@@ -4220,6 +4311,17 @@
 /turf/open/indestructible/ground/outside/road{
 	icon_state = "horizontalinnermain2right"
 	},
+/area/f13/wasteland)
+"Ex" = (
+/obj/structure/fluff/railing{
+	dir = 1
+	},
+/obj/structure/table/wood/fancy/blackred,
+/obj/item/candle{
+	pixel_x = -6;
+	pixel_y = 13
+	},
+/turf/open/floor/wood_common,
 /area/f13/wasteland)
 "ED" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
@@ -4274,6 +4376,14 @@
 /turf/open/floor/f13{
 	icon_state = "floorrusty"
 	},
+/area/f13/wasteland)
+"ET" = (
+/obj/item/projectile/magic/animate{
+	layer = 2.5;
+	name = "weird light"
+	},
+/obj/structure/destructible/clockwork/wall_gear,
+/turf/closed/wall/r_wall/rust,
 /area/f13/wasteland)
 "EW" = (
 /obj/structure/simple_door/metal/barred,
@@ -4790,12 +4900,6 @@
 	icon_state = "shadowleft"
 	},
 /area/f13/wasteland)
-"IX" = (
-/obj/effect/turf_decal/stripes/red/corner{
-	dir = 2
-	},
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/wasteland)
 "IZ" = (
 /obj/effect/turf_decal/weather/dirt{
 	dir = 1
@@ -5134,6 +5238,10 @@
 	icon_state = "floorrusty"
 	},
 /area/f13/wasteland)
+"Lf" = (
+/obj/structure/table/wood/fancy/blackred,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/wasteland)
 "Lg" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -5282,6 +5390,10 @@
 "Ma" = (
 /obj/structure/kitchenspike,
 /turf/open/floor/plasteel/cafeteria,
+/area/f13/wasteland)
+"Mb" = (
+/obj/item/flag/bos,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/wasteland)
 "Mc" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
@@ -5572,6 +5684,12 @@
 	icon_state = "verticalrightborderright2"
 	},
 /area/f13/wasteland)
+"Nx" = (
+/obj/effect/turf_decal/stripes/red/end{
+	dir = 8
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/wasteland)
 "Ny" = (
 /obj/structure/closet/crate/bin/trashbin,
 /turf/open/floor/f13/wood,
@@ -5800,6 +5918,12 @@
 /obj/structure/closet/anchored,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/wasteland)
+"Pd" = (
+/obj/machinery/vending/robotics,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	icon_state = "casino"
+	},
+/area/f13/wasteland)
 "Pf" = (
 /obj/structure/rack,
 /obj/item/reagent_containers/food/snacks/meatsalted,
@@ -5833,6 +5957,14 @@
 	},
 /turf/open/floor/plasteel/f13{
 	icon_state = "darkrusty"
+	},
+/area/f13/wasteland)
+"Pt" = (
+/obj/structure/chair/office/dark{
+	dir = 4
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	icon_state = "casino"
 	},
 /area/f13/wasteland)
 "Pv" = (
@@ -5874,6 +6006,16 @@
 /obj/structure/curtain,
 /turf/open/floor/plasteel/f13/vault_floor/misc/rarewhite,
 /area/f13/wasteland)
+"PB" = (
+/obj/structure/table/wood,
+/obj/item/ship_in_a_bottle{
+	pixel_x = -5;
+	pixel_y = 5
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	icon_state = "casino"
+	},
+/area/f13/wasteland)
 "PH" = (
 /obj/effect/spawner/lootdrop/f13/junkspawners,
 /turf/open/floor/plasteel/f13/vault_floor/floor/floorsolid,
@@ -5895,6 +6037,17 @@
 /turf/open/indestructible/ground/outside/road{
 	icon_state = "horizontalinnermain2"
 	},
+/area/f13/wasteland)
+"PX" = (
+/obj/structure/fluff/railing{
+	dir = 1
+	},
+/obj/structure/table/wood/fancy/blackred,
+/obj/item/candle{
+	pixel_x = 7;
+	pixel_y = 13
+	},
+/turf/open/floor/wood_common,
 /area/f13/wasteland)
 "PY" = (
 /obj/structure/wreck/trash/two_barrels,
@@ -5959,6 +6112,14 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/indestructible/ground/outside/sidewalk,
 /area/f13/wasteland)
+"Qo" = (
+/obj/item/storage/money_stack{
+	pixel_x = 8
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	icon_state = "casino"
+	},
+/area/f13/wasteland)
 "Qp" = (
 /obj/structure/simple_door/metal/dirtystore,
 /obj/structure/barricade/wooden/planks/pregame,
@@ -6008,6 +6169,16 @@
 /obj/structure/rack,
 /obj/item/clothing/shoes/workboots/mining,
 /turf/open/floor/f13/wood,
+/area/f13/wasteland)
+"QJ" = (
+/obj/machinery/bookbinder{
+	icon_state = "bigscanner";
+	pixel_y = 7
+	},
+/obj/structure/table/wood,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	icon_state = "casino"
+	},
 /area/f13/wasteland)
 "QK" = (
 /obj/machinery/reagentgrinder,
@@ -6199,13 +6370,6 @@
 /obj/structure/pondlily_small,
 /turf/open/indestructible/ground/outside/water,
 /area/f13/wasteland)
-"Sc" = (
-/obj/structure/ladder/unbreakable{
-	height = 2;
-	id = "bosupper"
-	},
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/wasteland)
 "Sg" = (
 /turf/open/indestructible/ground/outside/dirt{
 	dir = 8;
@@ -6227,6 +6391,16 @@
 /turf/open/indestructible/ground/outside/sidewalk{
 	dir = 1;
 	icon_state = "outerborder"
+	},
+/area/f13/wasteland)
+"Sv" = (
+/obj/machinery/computer/libraryconsole/bookmanagement{
+	desc = "A console that is capable of accessing the whole of the Brotherhood of Steel's archives. A very important aspect of their organization, this machine is not to be tampered with. Unless sabotage is your goal.";
+	name = "archive database"
+	},
+/obj/structure/table/wood,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	icon_state = "casino"
 	},
 /area/f13/wasteland)
 "SA" = (
@@ -6607,6 +6781,15 @@
 	icon_state = "horizontalbottomborderbottom2"
 	},
 /area/f13/wasteland)
+"Vh" = (
+/turf/open/floor/carpet/black,
+/area/f13/wasteland)
+"Vj" = (
+/obj/structure/fluff/railing{
+	dir = 8
+	},
+/turf/open/floor/carpet/black,
+/area/f13/wasteland)
 "Vm" = (
 /turf/open/indestructible/ground/outside/road{
 	icon_state = "shadowright"
@@ -6770,6 +6953,12 @@
 	pixel_y = 24
 	},
 /turf/open/floor/plasteel/cafeteria,
+/area/f13/wasteland)
+"Wz" = (
+/obj/machinery/vending/tool,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	icon_state = "casino"
+	},
 /area/f13/wasteland)
 "WA" = (
 /obj/structure/closet/cardboard,
@@ -7056,6 +7245,12 @@
 /obj/structure/closet/crate/bin/trashbin,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/wasteland)
+"Zo" = (
+/obj/structure/table/survival_pod,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	icon_state = "casino"
+	},
+/area/f13/wasteland)
 "Zr" = (
 /obj/structure/chair,
 /turf/open/floor/f13/wood,
@@ -7095,6 +7290,33 @@
 	dir = 10;
 	icon_state = "dirt"
 	},
+/area/f13/wasteland)
+"ZH" = (
+/obj/structure/closet{
+	anchored = 1;
+	name = "formal attire closet"
+	},
+/obj/item/clothing/gloves/color/white/bos,
+/obj/item/clothing/gloves/color/white/bos,
+/obj/item/clothing/gloves/color/white/bos,
+/obj/item/clothing/gloves/color/white/bos,
+/obj/item/clothing/head/f13/boscap,
+/obj/item/clothing/head/f13/boscap,
+/obj/item/clothing/head/f13/boscap,
+/obj/item/clothing/head/f13/boscap,
+/obj/item/clothing/under/f13/bosform_f,
+/obj/item/clothing/under/f13/bosform_f,
+/obj/item/clothing/under/f13/bosform_f,
+/obj/item/clothing/under/f13/bosform_f,
+/obj/item/clothing/under/f13/bosform_m,
+/obj/item/clothing/under/f13/bosform_m,
+/obj/item/clothing/under/f13/bosform_m,
+/obj/item/clothing/under/f13/bosform_m,
+/obj/item/clothing/under/f13/bosformsilver_m,
+/obj/item/clothing/under/f13/bosformsilver_m,
+/obj/item/clothing/under/f13/bosformsilver_m,
+/obj/item/clothing/under/f13/bosformsilver_m,
+/turf/open/floor/carpet/black,
 /area/f13/wasteland)
 "ZJ" = (
 /obj/structure/table/reinforced,
@@ -11351,7 +11573,7 @@ UJ
 UJ
 UJ
 Sj
-UJ
+Xa
 ah
 be
 gZ
@@ -20966,9 +21188,9 @@ Of
 eL
 Rq
 Rq
-eL
-eL
-eL
+Rq
+Rq
+Rq
 fH
 eL
 eL
@@ -21123,9 +21345,9 @@ Of
 Rq
 Rq
 Rq
+kf
+kf
 Rq
-eL
-eL
 fH
 fH
 fH
@@ -21278,10 +21500,10 @@ Of
 (91,1,1) = {"
 Of
 Rq
-mu
-mu
 Rq
-Rq
+QJ
+qY
+qY
 Rq
 Rq
 Rq
@@ -21435,12 +21657,12 @@ Of
 (92,1,1) = {"
 Of
 Rq
-mu
-mu
-mu
-mu
-mu
-mu
+rw
+qY
+qY
+qY
+qY
+jX
 Rq
 Rq
 eL
@@ -21592,12 +21814,12 @@ Of
 (93,1,1) = {"
 Of
 Rq
-mu
-mu
-mu
-mu
-mu
-mu
+qY
+qY
+qY
+qY
+qY
+jX
 Rq
 Rq
 Rq
@@ -21749,12 +21971,12 @@ Of
 (94,1,1) = {"
 Of
 Rq
-mu
-mu
-mu
-mu
-mu
-mu
+lf
+qY
+qY
+jX
+jX
+Rq
 Rq
 Tb
 YE
@@ -21906,12 +22128,12 @@ Of
 (95,1,1) = {"
 Of
 Rq
-mu
-mu
-mu
-mu
-mu
-mu
+Zo
+wG
+qY
+qY
+qY
+Wz
 Rq
 sG
 sG
@@ -22063,12 +22285,12 @@ Of
 (96,1,1) = {"
 Of
 Rq
-mu
-mu
-mu
-mu
-mu
-mu
+Sv
+qY
+qY
+qY
+qY
+Pd
 Rq
 xX
 sG
@@ -22220,12 +22442,12 @@ Of
 (97,1,1) = {"
 Of
 Rq
-mu
-mu
-mu
-mu
-mu
-mu
+PB
+qY
+qY
+jX
+jX
+Rq
 Rq
 xX
 sG
@@ -22377,12 +22599,12 @@ Of
 (98,1,1) = {"
 Of
 Rq
-mu
-mu
-mu
-mu
-mu
-mu
+ff
+qY
+qY
+qY
+qY
+jX
 Rq
 Hf
 sG
@@ -22534,12 +22756,12 @@ Of
 (99,1,1) = {"
 Of
 Rq
-mu
-mu
-mu
-mu
-mu
-mu
+jX
+qY
+qY
+jX
+jX
+Rq
 Rq
 fh
 sG
@@ -22691,12 +22913,12 @@ Of
 (100,1,1) = {"
 Of
 Rq
-mu
-mu
-mu
-mu
-mu
-mu
+jX
+qY
+qY
+qY
+qY
+sb
 Rq
 Qg
 sG
@@ -22848,12 +23070,12 @@ Of
 (101,1,1) = {"
 Of
 Rq
-mu
-mu
-mu
-mu
-mu
-mu
+qY
+qY
+Qo
+qY
+qY
+Pt
 Rq
 Hf
 sG
@@ -23005,12 +23227,12 @@ Of
 (102,1,1) = {"
 Of
 Rq
-mu
-mu
-mu
-mu
-mu
-mu
+qY
+qY
+Rq
+Rq
+ip
+ip
 Rq
 fh
 sG
@@ -23162,10 +23384,10 @@ Of
 (103,1,1) = {"
 Of
 Rq
-mu
-mu
-mu
-mu
+qY
+qY
+Rq
+zB
 mu
 mu
 Rq
@@ -23319,9 +23541,9 @@ Of
 (104,1,1) = {"
 Of
 Rq
-mu
-mu
-mu
+qY
+qY
+VL
 mu
 mu
 mu
@@ -23476,9 +23698,9 @@ Of
 (105,1,1) = {"
 Of
 Rq
-mu
-mu
-mu
+qY
+qY
+VL
 mu
 mu
 mu
@@ -23633,10 +23855,10 @@ Of
 (106,1,1) = {"
 Of
 Rq
-mu
-mu
-mu
-mu
+Rq
+Rq
+Rq
+zB
 mu
 mu
 Rq
@@ -23789,10 +24011,10 @@ Of
 "}
 (107,1,1) = {"
 Of
+eL
+eL
+eL
 Rq
-mu
-mu
-mu
 mu
 mu
 mu
@@ -23946,10 +24168,10 @@ Of
 "}
 (108,1,1) = {"
 Of
+eL
+eL
+eL
 Rq
-mu
-mu
-mu
 mu
 mu
 mu
@@ -24103,11 +24325,11 @@ Of
 "}
 (109,1,1) = {"
 Of
+eL
+eL
+eL
 Rq
-mu
-mu
-mu
-mu
+Rq
 mu
 mu
 Rq
@@ -24260,17 +24482,17 @@ Of
 "}
 (110,1,1) = {"
 Of
+eL
+eL
+eL
+eL
 Rq
 mu
 mu
 mu
 mu
 mu
-mu
-mu
-mu
-mu
-mu
+VL
 mu
 mu
 mu
@@ -24417,22 +24639,22 @@ Of
 "}
 (111,1,1) = {"
 Of
+eL
+eL
+eL
+eL
 Rq
 mu
 mu
 mu
 mu
 mu
+VL
 mu
 mu
 mu
 mu
-mu
-mu
-mu
-mu
-mu
-mu
+Mb
 Rq
 mu
 mu
@@ -24574,17 +24796,17 @@ Of
 "}
 (112,1,1) = {"
 Of
+eL
+eL
+eL
+eL
 Rq
 mu
 mu
 mu
 mu
 mu
-mu
-mu
-mu
-mu
-mu
+Rq
 mu
 mu
 mu
@@ -24731,18 +24953,18 @@ Of
 "}
 (113,1,1) = {"
 Of
+eL
+eL
+eL
+eL
 Rq
 mu
 mu
 mu
 mu
-mu
-mu
-mu
-mu
-mu
-mu
-mu
+Rq
+Rq
+Mb
 mu
 mu
 mu
@@ -24888,22 +25110,22 @@ Of
 "}
 (114,1,1) = {"
 Of
+eL
+eL
+eL
+eL
 Rq
+eW
+mu
+mu
+Rq
+Rq
+Rq
+eW
 mu
 mu
 mu
-mu
-mu
-mu
-mu
-mu
-mu
-DJ
-mu
-mu
-mu
-mu
-mu
+Mb
 Rq
 mu
 mu
@@ -25045,18 +25267,18 @@ Of
 "}
 (115,1,1) = {"
 Of
+eL
+eL
+eL
+eL
 Rq
+eW
 mu
 mu
-mu
-mu
-mu
-mu
-mu
-mu
-mu
-Sc
-mu
+Rq
+eL
+Rq
+eW
 mu
 mu
 mu
@@ -25202,18 +25424,18 @@ Of
 "}
 (116,1,1) = {"
 Of
+eL
+eL
+eL
+eL
 Rq
 mu
 mu
-mu
-mu
-mu
-mu
-mu
-mu
-mu
-mu
-mu
+Rq
+Rq
+eL
+Rq
+Mb
 mu
 mu
 mu
@@ -25359,17 +25581,17 @@ Of
 "}
 (117,1,1) = {"
 Of
+eL
+eL
+eL
+Rq
 Rq
 mu
 mu
-mu
-mu
-mu
-mu
-mu
-mu
-mu
-mu
+Rq
+Rq
+eL
+Rq
 mu
 mu
 mu
@@ -25516,17 +25738,17 @@ Of
 "}
 (118,1,1) = {"
 Of
+eL
+eL
+Rq
 Rq
 mu
 mu
 mu
 mu
-mu
-mu
-mu
-mu
-mu
-mu
+Rq
+Rq
+Rq
 mu
 mu
 mu
@@ -25673,17 +25895,17 @@ Of
 "}
 (119,1,1) = {"
 Of
+eL
+eL
 Rq
+Lf
+Nx
 mu
 mu
-mu
-mu
-mu
-mu
-mu
-mu
-IX
-ik
+Nx
+Lf
+Rq
+Rq
 ik
 ik
 ik
@@ -25831,17 +26053,17 @@ Of
 (120,1,1) = {"
 Of
 Rq
-mu
-mu
-mu
-mu
-mu
-mu
+Rq
+Rq
+Rq
+ET
+VL
+VL
+ET
 Rq
 Rq
 Rq
 TH
-rq
 VL
 VL
 Rq
@@ -25988,17 +26210,17 @@ Of
 (121,1,1) = {"
 Of
 Rq
-mu
-mu
-mu
-mu
-mu
-mu
+zN
+zN
+zN
+Vh
+Vh
+Vh
 Rq
 ac
 ih
-JT
 Uu
+JT
 Uu
 Uu
 og
@@ -26145,12 +26367,12 @@ Of
 (122,1,1) = {"
 Of
 Rq
-mu
-mu
-mu
-mu
-mu
-mu
+gU
+gU
+gU
+Vh
+mL
+mL
 Rq
 EQ
 pO
@@ -26302,12 +26524,12 @@ Of
 (123,1,1) = {"
 Of
 Rq
-mu
-mu
-mu
-mu
-mu
-mu
+Vh
+Vh
+Vh
+Vh
+YF
+Ej
 Rq
 DR
 Uu
@@ -26459,12 +26681,12 @@ Of
 (124,1,1) = {"
 Of
 Rq
-mu
-mu
-mu
-mu
-mu
-mu
+zN
+zN
+zN
+Vh
+Ex
+Ej
 Rq
 Ub
 Uu
@@ -26616,12 +26838,12 @@ Of
 (125,1,1) = {"
 Of
 Rq
-mu
-mu
-mu
-mu
-mu
-mu
+gU
+gU
+gU
+Vh
+PX
+Ej
 Rq
 ia
 Uu
@@ -26773,12 +26995,12 @@ Of
 (126,1,1) = {"
 Of
 Rq
-mu
-mu
-mu
-mu
-mu
-mu
+Vh
+Vh
+Vh
+Vh
+YF
+Ej
 Rq
 Jz
 Uu
@@ -26930,12 +27152,12 @@ Of
 (127,1,1) = {"
 Of
 Rq
-mu
-mu
-mu
-mu
-mu
-mu
+zN
+zN
+zN
+Vh
+Vj
+Vj
 Rq
 Cc
 Uu
@@ -27087,12 +27309,12 @@ Of
 (128,1,1) = {"
 Of
 Rq
-mu
-mu
-mu
-mu
-mu
-mu
+gU
+gU
+gU
+Vh
+Vh
+bv
 Rq
 Rq
 Rq
@@ -27244,11 +27466,11 @@ Of
 (129,1,1) = {"
 Of
 Rq
-mu
-mu
-mu
-mu
-mu
+Vh
+Vh
+Vh
+Vh
+bv
 Rq
 Rq
 eL
@@ -27401,10 +27623,10 @@ Of
 (130,1,1) = {"
 Of
 Rq
-mu
-mu
-mu
-mu
+Vh
+Vh
+Vh
+Vh
 Rq
 Rq
 eL
@@ -27558,9 +27780,9 @@ Of
 (131,1,1) = {"
 Of
 Rq
-mu
-mu
-mu
+ZH
+ZH
+ZH
 Rq
 Rq
 eL
