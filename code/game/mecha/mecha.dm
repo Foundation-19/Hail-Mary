@@ -204,6 +204,15 @@
 	if(internal_wiring.is_cut(WIRE_MECH_VISUALDATA))
 		return
 	for(var/mode in vision_modes)
+		ADD_TRAIT(occupant, mode, TRAIT_GENERIC)
+	occupant.update_sight()
+
+/obj/mecha/proc/remove_vision()
+	if(!occupant)
+		return
+	for(var/mode in vision_modes)
+		REMOVE_TRAIT(occupant, mode, TRAIT_GENERIC)
+	occupant.update_sight()
 
 /obj/mecha/attacked_by(obj/item/I, mob/living/user, attackchain_flags, damage_multiplier)
 	if(istype(I, /obj/item/reagent_containers) && fuel_holder)
