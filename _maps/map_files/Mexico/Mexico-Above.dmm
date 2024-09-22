@@ -115,6 +115,9 @@
 	},
 /turf/open/floor/wood_common,
 /area/f13/farmhouse)
+"aJ" = (
+/turf/closed/wall/f13/wood/house,
+/area/f13/underground/cave)
 "aK" = (
 /obj/structure/destructible/tribal_torch/wall/lit{
 	dir = 8
@@ -473,6 +476,10 @@
 "cY" = (
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/enclave)
+"df" = (
+/obj/effect/decal/cleanable/blood/gibs,
+/turf/open/floor/wood_fancy,
+/area/f13/underground/cave)
 "dh" = (
 /obj/structure/bed/old,
 /obj/machinery/iv_drip,
@@ -1004,6 +1011,10 @@
 /obj/item/trash/f13/c_ration_1,
 /turf/open/floor/wood_common,
 /area/f13/farmhouse)
+"gj" = (
+/obj/effect/decal/cleanable/blood,
+/turf/open/floor/wood_fancy,
+/area/f13/underground/cave)
 "gm" = (
 /turf/closed/wall/r_wall/f13superstore{
 	icon_state = "supermart0"
@@ -1647,6 +1658,12 @@
 	},
 /turf/open/transparent/openspace,
 /area/f13/wasteland)
+"jR" = (
+/obj/structure/decoration/legion/chains2{
+	pixel_y = 26
+	},
+/turf/open/floor/wood_fancy,
+/area/f13/underground/cave)
 "jS" = (
 /obj/structure/bed,
 /obj/structure/bed{
@@ -2255,6 +2272,9 @@
 	icon_state = "wide-broken4"
 	},
 /area/f13/legion)
+"mu" = (
+/turf/open/floor/wood_fancy,
+/area/f13/wasteland)
 "mv" = (
 /obj/structure/table_frame,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -3251,6 +3271,11 @@
 	},
 /turf/open/floor/wood_common,
 /area/f13/farmhouse)
+"rR" = (
+/turf/open/floor/wood_fancy{
+	icon_state = "fancy-broken5"
+	},
+/area/f13/underground/cave)
 "rS" = (
 /obj/structure/chair/f13chair2{
 	dir = 4
@@ -3320,6 +3345,12 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/carpet/black,
 /area/f13/building/abandoned)
+"sm" = (
+/obj/effect/decal/cleanable/blood,
+/obj/structure/kitchenspike,
+/obj/effect/decal/cleanable/blood/gibs,
+/turf/open/floor/wood_fancy,
+/area/f13/underground/cave)
 "sn" = (
 /obj/effect/decal/cleanable/dirt{
 	color = "#363636"
@@ -3342,16 +3373,6 @@
 	},
 /turf/open/floor/carpet,
 /area/f13/legioncamp)
-"st" = (
-/obj/structure/window/fulltile/house{
-	dir = 2;
-	icon_state = "housewindowbroken"
-	},
-/obj/structure/decoration/rag{
-	icon_state = "skin"
-	},
-/turf/open/floor/f13/wood,
-/area/f13/legion)
 "su" = (
 /obj/structure/dresser,
 /turf/open/floor/wood_fancy,
@@ -3744,6 +3765,11 @@
 /obj/item/melee/onehanded/machete/training,
 /turf/open/floor/wood_wide/wood_wide_dark,
 /area/f13/legion)
+"us" = (
+/obj/effect/mob_spawn/human/corpse/ncr,
+/obj/structure/kitchenspike,
+/turf/open/floor/wood_fancy,
+/area/f13/wasteland)
 "uu" = (
 /turf/open/floor/wood_wide{
 	icon_state = "wide-broken6"
@@ -3927,6 +3953,13 @@
 /obj/effect/spawner/lootdrop/f13/medical/wasteland/meds,
 /turf/open/floor/plasteel/f13/vault_floor/white,
 /area/f13/enclave)
+"vL" = (
+/obj/structure/chair/wood,
+/obj/effect/decal/cleanable/blood,
+/turf/open/floor/wood_fancy{
+	icon_state = "fancy-broken5"
+	},
+/area/f13/underground/cave)
 "vN" = (
 /obj/structure/destructible/tribal_torch/lit{
 	pixel_x = -3
@@ -4086,6 +4119,12 @@
 /obj/item/clothing/under/suit/red,
 /turf/open/floor/carpet/black,
 /area/f13/legioncamp)
+"wt" = (
+/obj/structure/table,
+/obj/item/storage/backpack/duffelbag/med/surgery/primitive/anchored,
+/obj/machinery/defibrillator_mount/primitive,
+/turf/open/floor/wood_fancy,
+/area/f13/underground/cave)
 "wu" = (
 /obj/structure/barricade/wooden/strong,
 /turf/open/floor/plating/f13/outside/roof/wood,
@@ -4414,6 +4453,15 @@
 	icon_state = "neutralrustyfull"
 	},
 /area/f13/building/abandoned)
+"yx" = (
+/obj/effect/decal/cleanable/blood{
+	icon_state = "gib2";
+	pixel_y = 4
+	},
+/turf/open/floor/wood_fancy{
+	icon_state = "fancy-broken4"
+	},
+/area/f13/wasteland)
 "yy" = (
 /obj/structure/chair/wood,
 /obj/effect/turf_decal/shadow/floor{
@@ -4455,6 +4503,11 @@
 	},
 /turf/open/floor/wood_common,
 /area/f13/city)
+"yC" = (
+/turf/open/floor/wood_fancy{
+	icon_state = "fancy-broken3"
+	},
+/area/f13/underground/cave)
 "yD" = (
 /obj/structure/rack/large/shelf_rust,
 /obj/effect/spawner/lootdrop/f13/blueprintVHigh,
@@ -6032,6 +6085,15 @@
 /obj/item/radio/headset/headset_legion,
 /turf/open/floor/wood_fancy,
 /area/f13/legion)
+"Hr" = (
+/obj/structure/decoration/legion/chains2{
+	pixel_y = 26
+	},
+/obj/effect/decal/cleanable/blood,
+/turf/open/floor/wood_fancy{
+	icon_state = "fancy-broken2"
+	},
+/area/f13/underground/cave)
 "Ht" = (
 /turf/closed/wall/rust,
 /area/f13/legion)
@@ -7933,6 +7995,15 @@
 /obj/machinery/telecomms/server/presets/supply,
 /turf/open/floor/plasteel/dark/telecomms/mainframe,
 /area/f13/underground/cave)
+"RX" = (
+/obj/structure/rack/shelf_metal,
+/obj/item/melee/classic_baton/police,
+/obj/item/restraints/handcuffs,
+/obj/item/restraints/handcuffs,
+/obj/item/melee/onehanded/knife/bone,
+/obj/item/twohanded/baseball/spiked,
+/turf/open/floor/wood_fancy,
+/area/f13/underground/cave)
 "Sa" = (
 /obj/structure/rack/shelf_metal,
 /obj/item/stack/f13Cash/random/ncr/high,
@@ -8020,6 +8091,10 @@
 /area/f13/legioncamp)
 "St" = (
 /turf/open/floor/plasteel/dark/telecomms/mainframe,
+/area/f13/underground/cave)
+"Sw" = (
+/obj/structure/chair/wood,
+/turf/open/floor/wood_fancy,
 /area/f13/underground/cave)
 "Sy" = (
 /obj/structure/railing/handrail/legion/underlayer,
@@ -8980,6 +9055,9 @@
 	icon_state = "worn-broken6"
 	},
 /area/f13/farmhouse)
+"WZ" = (
+/turf/open/floor/wood_fancy,
+/area/f13/underground/cave)
 "Xa" = (
 /obj/structure/railing{
 	color = "#A47449";
@@ -39055,12 +39133,12 @@ dI
 dI
 dI
 dI
-Ln
-Ln
-dI
-dI
-dI
-dR
+aJ
+aJ
+aJ
+aJ
+aJ
+TF
 dR
 dR
 dR
@@ -39257,12 +39335,12 @@ dI
 dI
 dI
 dI
-Ln
-Ln
-dI
-dI
-dI
-dR
+aJ
+Hr
+wt
+df
+RX
+TF
 dR
 dR
 dR
@@ -39459,11 +39537,11 @@ dI
 dI
 dI
 dI
-dI
-dI
-dI
-dI
-dI
+aJ
+jR
+vL
+rR
+Sw
 TF
 TF
 rd
@@ -39661,11 +39739,11 @@ dI
 dI
 dI
 dI
-dI
-dI
-dI
-dI
-dI
+aJ
+yC
+WZ
+gj
+WZ
 TF
 if
 RG
@@ -39863,12 +39941,12 @@ Ln
 Ln
 dI
 dI
-dI
-dI
-sS
-sS
-sS
-MC
+aJ
+sm
+us
+mu
+yx
+lk
 SO
 AC
 AC
@@ -40065,12 +40143,12 @@ Ln
 Ln
 dI
 dI
-dI
-dI
-sS
-IT
-IT
-st
+aJ
+aJ
+jY
+jY
+jY
+MC
 SO
 AC
 xr

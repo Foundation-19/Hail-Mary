@@ -46,8 +46,8 @@
 /datum/job/rebels/soldier
 	title = "Roguewave Rebel Soldier"
 	flag = F13REBELSOLDIER
-	total_positions = 4
-	spawn_positions = 4
+	total_positions = 5
+	spawn_positions = 5
 	access = list(ACCESS_ENCLAVE)
 	display_order = 
 	description = "When the Legion arrived and conquered the region, you knew that you had to do something. Maybe you are a NCR soldier wanting to bring the fight to their soil. Maybe raider wanting to spill some legion blood. Maybe you are Enclave Remnant crewing the ship and assuring your survival. What ever you are, your ennemy is the legion."

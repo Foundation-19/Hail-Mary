@@ -10773,6 +10773,8 @@
 /obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/lowmid,
 /obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/lowmid,
 /obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/lowmid,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/high,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/high,
 /turf/open/floor/wood_common/wood_common_dark,
 /area/f13/legioncamp)
 "krh" = (
@@ -16010,6 +16012,7 @@
 	},
 /obj/item/clothing/neck/apron/housewife,
 /obj/item/clothing/neck/apron/housewife,
+/obj/item/storage/backpack/duffelbag/med/surgery/primitive/anchored,
 /turf/open/floor/wood_wide{
 	icon_state = "wide-broken4"
 	},
@@ -17407,9 +17410,6 @@
 /area/f13/city)
 "qAw" = (
 /obj/structure/table/optable/primitive,
-/obj/item/storage/backpack/duffelbag/med/surgery/primitive/anchored{
-	pixel_x = -24
-	},
 /turf/open/floor/wood_wide,
 /area/f13/legioncamp)
 "qAU" = (
@@ -22279,6 +22279,8 @@
 /obj/effect/spawner/lootdrop/f13/weapon/melee/random_mid,
 /obj/effect/spawner/lootdrop/f13/weapon/melee/random_mid,
 /obj/effect/spawner/lootdrop/f13/weapon/melee/random_mid,
+/obj/effect/spawner/lootdrop/f13/weapon/melee/tier4,
+/obj/effect/spawner/lootdrop/f13/weapon/melee/tier4,
 /turf/open/floor/wood_common/wood_common_dark,
 /area/f13/legioncamp)
 "vgf" = (
