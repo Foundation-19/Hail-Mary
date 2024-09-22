@@ -13,7 +13,7 @@
 		return 2
 	else if(relative_dir > 45 && relative_dir < 135)
 		return 3
-	else if(relative_dir > -135 && relative_dir < 135)
+	else if(relative_dir >= -180 && relative_dir <= 180)
 		return 4
 
 /obj/mecha/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, armour_penetration = 0, atom/attacked_by)
@@ -123,23 +123,26 @@
 	mecha_log_message("Hit by projectile. Type: [Proj.name]([Proj.flag]).", color="red")
 	if(!(Proj.damage_type in list(BRUTE, BURN)))
 		return BULLET_ACT_BLOCK	
-	var/attack_dir = get_Dir(Proj, src)
+	var/attack_dir = get_dir(src, Proj)
 	var/facing_modifier = get_armour_facing(abs(dir2angle(dir) - dir2angle(attack_dir)))
-	var/true_armor = armor["linebullet"] * facing_modifiers / 100
-	if(true_armor > 50 && prob(true_armor))
-		handle_projectile_attack_redirection(Proj, REDIRECT_METHOD_DEFLECT)
-		return BULLET_ACT_FORCE_PIERCE
+	var/true_armor = min(0,armor["linebullet"] * facing_modifier - Proj.armour_penetration)
 	var/true_damage = Proj.damage * (1 - true_armor)
+	if(true_armor > 50 && prob(true_armor))
+		Proj.setAngle(SIMPLIFY_DEGREES(Proj.Angle + rand(40,150)))
+		return BULLET_ACT_FORCE_PIERCE
 	if(true_damage < 1)
 		return BULLET_ACT_BLOCK
-	var/modules_index = attack_dir_for_modules(dir2angle(get_dir(Proj,src)) - dir2angle(dir))
+	Proj.damage = true_damage
+	var/modules_index = attack_dir_for_modules(dir2angle(attack_dir) - dir2angle(dir))
 	for(var/i=1 to length(directional_comps[modules_index]))
 		if(!prob(directional_comps[modules_index][1]))
 			continue
 		var/damage_mult = directional_comps[modules_index][2]
 		var/ap_threshold = directional_comps[modules_index][3]
-		if(damage_mult > 0)
-			take_damage(true_damage * damage_mult, Proj.damage_type, null, null, attack_dir, Proj.armour_penetration, Proj)
+		var/armor_rating = directional_comps[modules_index][4]
+		damage_mult = min(0.15,(Proj.damage + Proj.armour_penetration) / (Proj.damage + armor_rating))
+		directional_comps[modules_index][4] -= damage_mult * Proj.damage
+		take_damage(true_damage * damage_mult, Proj.damage_type, null, null, attack_dir, Proj.armour_penetration, Proj)
 		if(Proj.armour_penetration < ap_threshold)
 			return BULLET_ACT_BLOCK
 		else

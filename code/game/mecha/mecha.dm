@@ -86,10 +86,18 @@
 	/// List of internal components per direction , will cause increased mech damge incase of mech AP and block shots from hitting the driver
 	// internal list should be list[ref] = list(hitChance, hitMult, APthreshold)
 	var/list/directional_comps = list(
-		list(),
-		list(),
-		list(),
-		list()
+		list(
+			list(100,2, 30, 50)
+		),
+		list(
+			list(30,2, 30, 50)
+		),
+		list(
+			list(30,2, 30, 50)
+		),
+		list(
+			list(5,2, 30, 50)
+		)
 	)
 
 	var/list/operation_req_access = list()//required access level for mecha operation
