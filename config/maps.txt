@@ -21,3 +21,7 @@ endmap
 map baltimore
     voteweight 1
 endmap
+
+map mexico
+    voteweight 1
+endmap

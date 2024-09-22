@@ -66,6 +66,9 @@ GLOBAL_LIST_INIT(command_positions, list(
 
 	"Dockmaster of Locust Point",
 	"Atlantic Cross Captain",
+
+	"Roguewave Rebel Captain",
+	"Legion governor of Ostia",
 	))
 
 GLOBAL_LIST_INIT(silicon_whitelist_positions, list(
@@ -286,6 +289,18 @@ GLOBAL_LIST_INIT(locust_positions, list(
 	"Minuteman",
 ))
 
+GLOBAL_LIST_INIT(ostia_positions, list(
+	"Legion Subject",
+	"Ostia Radio Host",
+	"Ostia Shopkeeper",
+	"Legion governor of Ostia",
+))
+
+GLOBAL_LIST_INIT(rebel_positions, list(
+	"Roguewave Rebel Soldier",
+	"Roguewave Rebel Captain",
+))
+
 // job categories for rendering the late join menu
 GLOBAL_LIST_INIT(position_categories, list(
 	EXP_TYPE_NCR = list("jobs" = ncr_positions, "color" = "#ffeeaa"),
@@ -305,6 +320,8 @@ GLOBAL_LIST_INIT(position_categories, list(
 	// "Redwater" = list("jobs" = redwater_positions, "color" = "#f81717"),
 	"Atlantic Cross" = list("jobs" = atlantic_positions, "color" = "#ffeeaa"),
 	"Locust Point" = list("jobs" = locust_positions, "color" = "#d7b088"),
+	"Legion Port of Ostia"= list("jobs" = ostia_positions, "color" = "#c30f0f"),
+	"Roguewave Rebels"= list("jobs" = rebel_positions, "color" = "#235923"),
 ))
 
 GLOBAL_LIST_INIT(exp_jobsmap, list(

@@ -1044,4 +1044,28 @@ obj/effect/landmark/start/f13/ncrlogisticsofficer
 	name = "Locust Point Priest"
 	icon_state = "Banker"
 
+/obj/effect/landmark/start/f13/f13legionsubject
+	name = "Legion Subject"
+	icon_state = "Legionary"
+
+/obj/effect/landmark/start/f13/f13governor
+	name = "Legion governor of Ostia"
+	icon_state = "Legionary"
+
+/obj/effect/landmark/start/f13/f13legionshopkeeper
+	name = "Ostia Shopkeeper"
+	icon_state = "Legionary"
+
+/obj/effect/landmark/start/f13/f13legionradiohost
+	name = "Ostia Radio Host"
+	icon_state = "Legionary"
+
+/obj/effect/landmark/start/f13/f13rebelsoldier
+	name = "Roguewave Rebel Soldier"
+	icon_state = "ussgt"
+
+/obj/effect/landmark/start/f13/f13rebelcaptain
+	name = "Roguewave Rebel Captain"
+	icon_state = "ussgt"
+
 
