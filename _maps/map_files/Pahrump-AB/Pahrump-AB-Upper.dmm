@@ -2843,14 +2843,6 @@
 	icon_state = "greenrustychess"
 	},
 /area/f13/building/massfusion)
-"fXR" = (
-/obj/structure/fluff/railing{
-	dir = 8
-	},
-/turf/open/floor/f13{
-	icon_state = "darkdirtysolid"
-	},
-/area/f13/ncr)
 "fXW" = (
 /obj/structure/railing/corner{
 	color = "#A47449";
@@ -3399,14 +3391,6 @@
 	},
 /turf/open/transparent/openspace,
 /area/f13/wasteland)
-"hkV" = (
-/obj/structure/fluff/railing{
-	dir = 1
-	},
-/turf/open/floor/f13{
-	icon_state = "darkdirtysolid"
-	},
-/area/f13/ncr)
 "hlz" = (
 /obj/structure/closet/cabinet,
 /turf/open/floor/wood_fancy/wood_fancy_dark{
@@ -3771,14 +3755,6 @@
 	dir = 4
 	},
 /area/f13/building/hospital)
-"ifi" = (
-/obj/structure/fluff/railing{
-	dir = 4
-	},
-/turf/open/floor/f13{
-	icon_state = "darkdirtysolid"
-	},
-/area/f13/ncr)
 "iga" = (
 /obj/structure/rack/shelf_metal,
 /obj/effect/turf_decal/stripes/white/box,
@@ -3832,15 +3808,6 @@
 	icon_state = "greenrustychess"
 	},
 /area/f13/building/massfusion)
-"imL" = (
-/obj/structure/railing{
-	dir = 8
-	},
-/turf/closed/wall/f13/store{
-	desc = "A pre-War wall made of solid concrete.";
-	name = "concrete wall"
-	},
-/area/f13/wasteland/ncr)
 "imX" = (
 /obj/structure/chair/office/dark{
 	dir = 1
@@ -8702,10 +8669,6 @@
 /obj/effect/decal/cleanable/glass,
 /turf/open/floor/f13/wood,
 /area/f13/city)
-"sIa" = (
-/obj/structure/flora/grass/coyote/eight,
-/turf/open/indestructible/ground/inside/mountain,
-/area/f13/caves)
 "sIn" = (
 /obj/structure/destructible/tribal_torch/wall/lit{
 	dir = 4
@@ -9252,6 +9215,10 @@
 	},
 /turf/open/floor/carpet/red,
 /area/f13/city)
+"tJR" = (
+/obj/machinery/door/unpowered/secure_NCR,
+/turf/open/indestructible/ground/outside/roof,
+/area/f13/wasteland/ncr)
 "tKy" = (
 /obj/structure/table,
 /obj/machinery/light/small{
@@ -19014,7 +18981,7 @@ hHO
 hHO
 hHO
 hHO
-hHO
+xSN
 hHO
 hHO
 hHO
@@ -19270,9 +19237,9 @@ cAO
 hHO
 dTc
 jdQ
-jdQ
 wUC
-jdQ
+ixY
+wUC
 jdQ
 dTc
 hHO
@@ -19527,7 +19494,7 @@ cAO
 hHO
 vbL
 mdq
-ifi
+lbC
 qQT
 qQT
 xWs
@@ -19785,7 +19752,7 @@ hHO
 vbL
 lbC
 sGc
-hkV
+lbC
 bov
 cTy
 jdQ
@@ -20041,7 +20008,7 @@ cAO
 hHO
 vbL
 lbC
-fXR
+lbC
 lbC
 qQT
 avO
@@ -20811,7 +20778,7 @@ rLB
 cAO
 hHO
 hHO
-hHO
+tJR
 hHO
 hHO
 hHO
@@ -21068,7 +21035,7 @@ rLB
 ggY
 ntT
 ntT
-imL
+xSN
 ntT
 ntT
 pYi
@@ -67244,8 +67211,8 @@ vLb
 vLb
 vLb
 tot
-jQz
-jQz
+tot
+tot
 spS
 spS
 gRM
@@ -67501,8 +67468,8 @@ shW
 shW
 vLb
 tot
-sIa
-tot
+jQz
+jQz
 spS
 spS
 gRM
