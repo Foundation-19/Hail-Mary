@@ -106,6 +106,40 @@
 	dynamic_fhair_suffix = ""
 	flash_protect = 1
 
+/obj/item/clothing/head/helmet/f13/combat/rangerbroken/enclave
+	name = "Enclave Riot Armor"
+	icon_state = "enclave_broken_riot"
+	desc = "An old riot police helmet, out of use around the time of the war. This one has been modified to show the enclave insignia as well as a new coat of pain."
+	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEHAIR|HIDEFACIALHAIR|HIDEFACE
+	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
+	resistance_flags = LAVA_PROOF | FIRE_PROOF
+	dynamic_hair_suffix = ""
+	dynamic_fhair_suffix = ""
+	flash_protect = 1
+
+/obj/item/clothing/head/helmet/f13/combat/rangerbroken/tribal
+	name = "Tribal riot helmet"
+	icon_state = "broken_riot_tribal"
+	desc = "An old riot police helmet, out of use around the time of the war. This one has been stripped and modified heavily to fit bones and dirt all over it."
+	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEHAIR|HIDEFACIALHAIR|HIDEFACE
+	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
+	resistance_flags = LAVA_PROOF | FIRE_PROOF
+	dynamic_hair_suffix = ""
+	dynamic_fhair_suffix = ""
+	flash_protect = 1
+
+/obj/item/clothing/head/helmet/f13/combat/rangerbroken/bos
+	name = "Brotherhood riot helmet"
+	icon_state = "broken_riot_bos"
+	desc = "An old riot police helmet, out of use around the time of the war. This one has been adjusted to have some adjusted armor platings and a brotherhood symbol upon it."
+	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEHAIR|HIDEFACIALHAIR|HIDEFACE
+	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
+	resistance_flags = LAVA_PROOF | FIRE_PROOF
+	dynamic_hair_suffix = ""
+	dynamic_fhair_suffix = ""
+	flash_protect = 1
+
+
 /obj/item/clothing/head/helmet/f13/combat/swat
 	name = "SWAT combat helmet"
 	desc = "A prewar combat helmet issued to S.W.A.T. personnel."
@@ -392,10 +426,21 @@
 /obj/item/clothing/head/helmet/f13/power_armor/t45d/bos
 	name = "Brotherhood T-45d power helmet"
 	desc = "It's an old pre-War power armor helmet. It's pretty hot inside of it."
+	salvaged_type = /obj/item/clothing/head/helmet/f13/heavy/salvaged_pa/t45b/bos
 
 /obj/item/clothing/head/helmet/f13/power_armor/t45d/bos/update_icon_state()
 	icon_state = "t45dhelmet[light_on]"
 	item_state = "t45dhelmet[light_on]"
+
+/obj/item/clothing/head/helmet/f13/power_armor/t45d/enclave
+	name = "Enclave T-45d power helmet"
+	desc = "It's an old pre-War power armor helmet. It's pretty hot inside of it."
+	salvaged_type = /obj/item/clothing/head/helmet/f13/heavy/salvaged_pa/t45b/enclave
+
+/obj/item/clothing/head/helmet/f13/power_armor/t45d/enclave/update_icon_state()
+	icon_state = "t45dhelmet[light_on]"
+	item_state = "t45dhelmet[light_on]"
+
 
 /obj/item/clothing/head/helmet/f13/power_armor/t51b
 	name = "T-51b power helmet"
@@ -414,9 +459,24 @@
 	name = "T-51b power helmet"
 	desc = "It's a T-51b power helmet, typically used by the Brotherhood. It looks somewhat charming."
 
+/obj/item/clothing/head/helmet/f13/power_armor/t51b/enclave
+	name = "T-51b power helmet"
+	desc = "It's a T-51b power helmet, typically used by the Brotherhood. It looks somewhat charming."
+
+/obj/item/clothing/head/helmet/f13/power_armor/t51b/palcomm
+	name = "T-51b Paladin Commander Helmet"
+	desc = "It's a T-51b power helmet, modified uniquely for the Paladin Commander"
+	icon_state = "palcommhelm"
+	item_state = "palcommhelm"
+	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T3, ARMOR_MODIFIER_UP_BULLET_T3, ARMOR_MODIFIER_UP_LASER_T3, ARMOR_MODIFIER_UP_DT_T3)
+
 /obj/item/clothing/head/helmet/f13/power_armor/t51b/bos/update_icon_state()
 	icon_state = "t51bhelmet[light_on]"
 	item_state = "t51bhelmet[light_on]"
+
+/obj/item/clothing/head/helmet/f13/power_armor/t51b/palcomm/update_icon_state()
+	icon_state = "palcommhelm"
+	item_state = "palcommhelm"
 
 /obj/item/clothing/head/helmet/f13/power_armor/t60
 	name = "T-60a power helmet"
@@ -901,3 +961,11 @@
 	armor = ARMOR_VALUE_LIGHT
 	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T3, ARMOR_MODIFIER_DOWN_BULLET_T1, ARMOR_MODIFIER_DOWN_LASER_T1, ARMOR_MODIFIER_UP_ENV_T2, ARMOR_MODIFIER_UP_DT_T1)
 
+/obj/item/clothing/head/helmet/f13/rustedcowboyhat/minutemen
+	name = "minutemen hat"
+	desc = "A stylish and slightly protective hat, made in the style of the Minutemen."
+	icon = 'fallout/icons/obj/clothing/minutemen.dmi'
+	mob_overlay_icon = 'fallout/icons/mob/clothing/minutemen.dmi'
+	icon_state = "mm_hat"
+	item_state = "mm_hat"
+	mutantrace_variation = NONE

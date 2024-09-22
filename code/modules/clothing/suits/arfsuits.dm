@@ -1879,6 +1879,24 @@
 	icon_state = "blueshift"
 	item_state = "blueshift"
 
+/obj/item/clothing/suit/armor/medium/vest/atlantic
+	name = "Atlantic Cross guard vest"
+	desc = "A prewar vest, used by some private naval security forces on ships, to fight back against pirates of the mediterean seas, following the European and North African crisis of the 2050's to 2070's."
+	icon = 'icons/fallout/clothing/armored_light.dmi'
+	mob_overlay_icon = 'icons/fallout/onmob/clothes/armor_medium.dmi'
+	icon_state = "atlanticguard"
+	item_state = "atlanticguard"
+
+/obj/item/clothing/suit/armor/medium/duster/trenchcoat/minutemen
+	name = "minutemen coat"
+	desc = "An armoured trenchcoat, modified and branded with Minutemen insignias and designs."
+	icon = 'fallout/icons/obj/clothing/minutemen.dmi'
+	mob_overlay_icon = 'fallout/icons/mob/clothing/minutemen.dmi'
+	icon_state = "mm_coat"
+	item_state = "mm_coat"
+	mutantrace_variation = NONE
+	body_parts_covered = CHEST|ARMS|LEGS
+
 /obj/item/clothing/suit/armor/light/vest/russian
 	name = "russian vest"
 	desc = "A bulletproof vest with forest camo. Good thing there's plenty of forests to hide in around here, right?"
@@ -2300,6 +2318,14 @@
 	icon_state = "chicom_armor"
 	item_state = "chicom_armor"
 
+/obj/item/clothing/suit/armor/medium/combat/atlanticmarines
+	name = "Atlantic Cross Marines combat armor"
+	desc = "A balistic vest from prewar times, probably used by some marines."
+	icon = 'icons/fallout/clothing/armored_medium.dmi'
+	mob_overlay_icon = 'icons/fallout/onmob/clothes/armor_medium.dmi'
+	icon_state = "atlanticmarine"
+	item_state = "atlanticmarine"
+
 /obj/item/clothing/suit/armor/medium/combat/desert_ranger
 	name = "desert ranger combat armor"
 	desc = "A suit of combat armor styled after those used by the Desert Rangers. It smells like red mist."
@@ -2404,6 +2430,13 @@
 	desc = "A renforced combat armor set made by the Brotherhood of Steel, standard issue for all Senior Knights. It bears a silver stripe."
 	icon_state = "brotherhood_armor_senior"
 	item_state = "brotherhood_armor_senior"
+
+/obj/item/clothing/suit/armor/medium/combat/brotherhood/sarge
+	name = "brotherhood Knight Sarge Armor"
+	desc = "A renforced combat armor set made by the Brotherhood of Steel, standard issue for all Knight Sarge. It bears a silver stripe."
+	icon_state = "brotherhood_armor_senior"
+	item_state = "brotherhood_armor_senior"
+	armor_tokens = list(ARMOR_MODIFIER_UP_LASER_T2, ARMOR_MODIFIER_DOWN_ENV_T2, ARMOR_MODIFIER_UP_DT_T1, ARMOR_MODIFIER_UP_MELEE_T1)
 
 /obj/item/clothing/suit/armor/medium/combat/brotherhood/captain
 	name = "brotherhood head knight armor"
@@ -2835,6 +2868,24 @@
 	item_state = "combat_coat"
 	desc = "A heavy armor with ballistic inserts, sewn into a padded riot police coat."
 
+/obj/item/clothing/suit/armor/heavy/riot/bos
+	name = "combat riot armor"
+	icon_state = "broken_riot_bos"
+	item_state = "broken_riot_bos"
+	desc = "A heavy armor with ballistic inserts, sewn into a padded riot police coat."
+
+/obj/item/clothing/suit/armor/heavy/riot/tribal
+	name = "combat riot armor"
+	icon_state = "broken_riot_tribal"
+	item_state = "broken_riot_tribal"
+	desc = "A heavy armor with ballistic inserts, sewn into a padded riot police coat."
+
+/obj/item/clothing/suit/armor/heavy/riot/enclave
+	name = "combat riot armor"
+	icon_state = "enclave_broken_riot"
+	item_state = "enclave_broken_riot"
+	desc = "A heavy armor with ballistic inserts, sewn into a padded riot police coat."
+
 /obj/item/clothing/suit/armor/heavy/riot/police
 	name = "riot police armor"
 	icon_state = "bulletproof_heavy"
@@ -2926,6 +2977,34 @@
 	// body_parts_covered = CHEST|GROIN|ARMS|LEGS
 	slowdown = ARMOR_SLOWDOWN_SALVAGE * ARMOR_SLOWDOWN_LESS_T3 * ARMOR_SLOWDOWN_GLOBAL_MULT // zooom
 	armor_tokens = list(ARMOR_MODIFIER_DOWN_MELEE_T1, ARMOR_MODIFIER_DOWN_BULLET_T1, ARMOR_MODIFIER_DOWN_LASER_T2)
+
+/obj/item/clothing/suit/armor/heavy/salvaged_pa/t45b/bos
+	name = "salvaged Brotherhood T45-b power armor"
+	desc = "A set of salvaged power armor, with certain bits of plating stripped out to retain more freedom of movement. It holds some paint upon it showing it belonging to the brotherhood."
+	icon_state = "t45b_salvaged_bos"
+	item_state = "t45b_salvaged_bos"
+	// body_parts_covered = CHEST|GROIN|ARMS|LEGS
+	slowdown = ARMOR_SLOWDOWN_SALVAGE * ARMOR_SLOWDOWN_LESS_T3 * ARMOR_SLOWDOWN_GLOBAL_MULT // zooom
+	armor_tokens = list(ARMOR_MODIFIER_DOWN_MELEE_T1, ARMOR_MODIFIER_DOWN_BULLET_T1, ARMOR_MODIFIER_DOWN_LASER_T2)
+
+/obj/item/clothing/suit/armor/heavy/salvaged_pa/t45b/enclave
+	name = "salvaged Enclave T45-b power armor"
+	desc = "A set of salvaged power armor, with certain bits of plating stripped out to retain more freedom of movement. It holds some paint upon it showing it belonging to the enclave."
+	icon_state = "t45b_salvaged_enclave"
+	item_state = "t45b_salvaged_enclave"
+	// body_parts_covered = CHEST|GROIN|ARMS|LEGS
+	slowdown = ARMOR_SLOWDOWN_SALVAGE * ARMOR_SLOWDOWN_LESS_T3 * ARMOR_SLOWDOWN_GLOBAL_MULT // zooom
+	armor_tokens = list(ARMOR_MODIFIER_DOWN_MELEE_T1, ARMOR_MODIFIER_DOWN_BULLET_T1, ARMOR_MODIFIER_DOWN_LASER_T2)
+
+/obj/item/clothing/suit/armor/heavy/salvaged_pa/t45b/mutant
+	name = "salvaged Mutant T45-b power armor"
+	desc = "A set of salvaged power armor, with certain bits of plating stripped out to retain more freedom of movement. It's been heavily stripped apart, additional metal has been added so a super-mutant can fit within it."
+	icon_state = "t45b_salvaged_sm"
+	item_state = "t45b_salvaged_sm"
+	// body_parts_covered = CHEST|GROIN|ARMS|LEGS
+	slowdown = ARMOR_SLOWDOWN_SALVAGE * ARMOR_SLOWDOWN_LESS_T3 * ARMOR_SLOWDOWN_GLOBAL_MULT // zooom
+	armor_tokens = list(ARMOR_MODIFIER_DOWN_MELEE_T1, ARMOR_MODIFIER_DOWN_BULLET_T1, ARMOR_MODIFIER_DOWN_LASER_T2)
+
 
 /obj/item/clothing/suit/armor/heavy/salvaged_pa/t45b/tribal/junk
 	name = "salvaged weathered tribal T45-b power armor"
@@ -3321,6 +3400,22 @@
 	desc = "A suit of T-45d Power Armour adorned with the markings of the Brotherhood of Steel. Commonly used by the Paladins of the Brotherhood."
 	icon_state = "t45dpowerarmor_bos"
 	item_state = "t45dpowerarmor_bos"
+	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T1, ARMOR_MODIFIER_UP_BULLET_T2, ARMOR_MODIFIER_UP_LASER_T2, ARMOR_MODIFIER_UP_DT_T1)
+
+/obj/item/clothing/suit/armor/power_armor/t45d/minutemen
+	name = "minutemen T-45d Power Armour"
+	desc = "A suit of T-45d Power Armour adorned with the markings of the Minutemen. Though rare to see, sometimes it can be seen in the minutemen."
+	icon_state = "t45dpowerarmor_minutemen"
+	item_state = "t45dpowerarmor_minutemen"
+	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T1, ARMOR_MODIFIER_UP_BULLET_T2, ARMOR_MODIFIER_UP_LASER_T2, ARMOR_MODIFIER_UP_DT_T1)
+
+/obj/item/clothing/suit/armor/power_armor/t45d/enclave
+	name = "Brotherhood T-45d Power Armour"
+	desc = "A suit of T-45d Power Armour adorned with the markings of the Enclave. Not very commonly used by low ranking Enclave Soldiers."
+	icon_state = "t45dpowerarmor_enclave"
+	item_state = "t45dpowerarmor_enclave"
+	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T1, ARMOR_MODIFIER_UP_BULLET_T2, ARMOR_MODIFIER_UP_LASER_T2, ARMOR_MODIFIER_UP_DT_T1)
+
 
 /obj/item/clothing/suit/armor/power_armor/t51b
 	name = "T-51b power armor"
@@ -3339,12 +3434,33 @@
 	item_state = "t51green"
 	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T2, ARMOR_MODIFIER_UP_BULLET_T2, ARMOR_MODIFIER_UP_LASER_T2, ARMOR_MODIFIER_UP_DT_T2)
 
+/obj/item/clothing/suit/armor/power_armor/t51b/palcomm
+	name = "T-51b Paladin Commander Armor"
+	desc = "The pinnacle of pre-war technology. This suit of power armor is customised heavily to fit the Paladin Commander."
+	icon_state = "palcomm"
+	item_state = "palcomm"
+	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T2, ARMOR_MODIFIER_UP_BULLET_T3, ARMOR_MODIFIER_UP_LASER_T3, ARMOR_MODIFIER_UP_DT_T2)
 
 /obj/item/clothing/suit/armor/power_armor/t51b/bos
 	name = "Brotherhood T-51b Power Armour"
 	desc = "The pinnacle of pre-war technology, appropriated by the Brotherhood of Steel. Commonly worn by Head Paladins."
 	icon_state = "t51bpowerarmor_bos"
 	item_state = "t51bpowerarmor_bos"
+	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T2, ARMOR_MODIFIER_UP_BULLET_T2, ARMOR_MODIFIER_UP_LASER_T2, ARMOR_MODIFIER_UP_DT_T1)
+
+/obj/item/clothing/suit/armor/power_armor/t51b/minutemen
+	name = "Brotherhood T-51b Power Armour"
+	desc = "The pinnacle of pre-war technology, appropriated by the Brotherhood of Steel. Commonly worn by Head Paladins."
+	icon_state = "t51bpowerarmor_minutemen"
+	item_state = "t51bpowerarmor_minutemen"
+	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T2, ARMOR_MODIFIER_UP_BULLET_T2, ARMOR_MODIFIER_UP_LASER_T2, ARMOR_MODIFIER_UP_DT_T1)
+
+/obj/item/clothing/suit/armor/power_armor/t51b/enclave
+	name = "Enclave T-51b Power Armour"
+	desc = "The pinnacle of pre-war technology, appropriated by the Enclave. Commonly worn by the Enclave Armored Corp."
+	icon_state = "t51bpowerarmor_enclave"
+	item_state = "t51bpowerarmor_enclave"
+	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T2, ARMOR_MODIFIER_UP_BULLET_T2, ARMOR_MODIFIER_UP_LASER_T2, ARMOR_MODIFIER_UP_DT_T1)
 
 /obj/item/clothing/suit/armor/power_armor/excavator
 	name = "excavator power armor"

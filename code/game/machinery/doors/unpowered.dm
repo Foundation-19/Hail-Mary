@@ -174,7 +174,7 @@
 	visible = FALSE
 	explosion_block = FALSE
 	proj_pass_rate = 95
-	req_access_txt = null
+	req_access_txt = "123"
 
 /obj/machinery/door/unpowered/secure_legion/update_icon()
 	if(density)
