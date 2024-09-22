@@ -4,7 +4,10 @@
 	deflect_chance = 0
 	light_power = 9
 	light_range = 10
-	max_equip = 4
+
+	max_utility_equip = 3
+	max_weapons_equip = 1
+	max_misc_equip = 3
 
 /obj/mecha/medical/mechturn(direction)
 	setDir(direction)

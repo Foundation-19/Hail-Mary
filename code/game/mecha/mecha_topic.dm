@@ -122,25 +122,32 @@
 
 
 /obj/mecha/proc/get_equipment_menu() //outputs mecha html equipment menu
-	. = ""
+	var/output
 	if(equipment.len)
-		. += {"<div class='wr'>
+		output += {"<div class='wr'>
 						<div class='header'>Equipment</div>
 						<div class='links'>"}
-		for(var/X in equipment)
-			var/obj/item/mecha_parts/mecha_equipment/W = X
-			. += "[W.name] <a href='?src=[REF(W)];detach=1'>Detach</a><br>"
-		. += "<b>Available equipment slots:</b> [max_equip-equipment.len]"
-		. += "</div></div>"
-
+		for(var/obj/item/mecha_parts/mecha_equipment/W in weapon_equipment)
+			output += "Weapon Module: [W.name] <a href='?src=\ref[W];detach=1'>Detach</a><br>"
+		for(var/obj/item/mecha_parts/mecha_equipment/W in utility_equipment)
+			output += "Utility Module: [W.name] <a href='?src=\ref[W];detach=1'>Detach</a><br>"
+		for(var/obj/item/mecha_parts/mecha_equipment/W in misc_equipment)
+			output += "Miscellaneous Module: [W.name] <a href='?src=\ref[W];detach=1'>Detach</a><br>"
+	output += {"<b>Available weapon slots:</b> [max_weapons_equip-weapon_equipment.len]<br>
+	 <b>Available utility slots:</b> [max_utility_equip-utility_equipment.len]<br>
+	 <b>Available miscellaneous slots:</b> [max_misc_equip-misc_equipment.len]<br>
+	 </div></div>
+	 "}
+	return output
 
 /obj/mecha/proc/get_equipment_list() //outputs mecha equipment list in html
 	if(!equipment.len)
 		return
-	. = "<b>Equipment:</b><div style=\"margin-left: 15px;\">"
+	var/output = "<b>Equipment:</b><div style=\"margin-left: 15px;\">"
 	for(var/obj/item/mecha_parts/mecha_equipment/MT in equipment)
-		. += "<div id='[REF(MT)]'>[MT.get_equip_info()]</div>"
-	. += "</div>"
+		output += "<div id='\ref[MT]'>[MT.get_equip_info()]</div>"
+	output += "</div>"
+	return output
 
 
 
@@ -355,4 +362,3 @@
 			else
 				occupant_message(span_warning("Recalibration failed!"))
 				mecha_log_message("Recalibration of coordination system failed with 1 error.", color="red")
-

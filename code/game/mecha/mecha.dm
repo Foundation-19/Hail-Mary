@@ -92,8 +92,15 @@
 
 	var/list/equipment = new
 	var/obj/item/mecha_parts/mecha_equipment/selected
-	var/max_equip = 3
 	var/datum/events/events
+
+	var/max_utility_equip = 3 // Seats, clamps, etc.
+	var/max_weapons_equip = 1 // Weapons, duh.
+	var/max_misc_equip = 1 // Anything that isn't a utility or a weapon.
+
+	var/list/weapon_equipment = new
+	var/list/utility_equipment = new
+	var/list/misc_equipment = new
 
 	var/stepsound = 'sound/mecha/mechstep.ogg'
 	var/turnsound = 'sound/mecha/mechturn.ogg'
@@ -195,7 +202,7 @@
 	return fuel_holder
 
 /obj/mecha/rust_heretic_act()
-	take_damage(50,  BRUTE)
+	take_damage(50, BRUTE)
 
 /obj/mecha/Destroy()
 	if(occupant)

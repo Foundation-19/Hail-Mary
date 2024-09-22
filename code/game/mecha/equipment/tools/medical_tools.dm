@@ -7,11 +7,6 @@
 	. = ..()
 	START_PROCESSING(SSobj, src)
 
-/obj/item/mecha_parts/mecha_equipment/medical/can_attach(obj/mecha/medical/M)
-	if(..() && istype(M))
-		return 1
-
-
 /obj/item/mecha_parts/mecha_equipment/medical/attach(obj/mecha/M)
 	..()
 	START_PROCESSING(SSobj, src)
@@ -277,12 +272,6 @@
 	..()
 	if(reagents)
 		DISABLE_BITFIELD(reagents.reagents_holder_flags, NO_REACT)
-
-/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/can_attach(obj/mecha/medical/M)
-	if(..())
-		if(istype(M))
-			return 1
-	return 0
 
 /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/get_equip_info()
 	var/output = ..()

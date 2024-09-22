@@ -234,13 +234,6 @@
 /obj/item/mecha_parts/mecha_equipment/extinguisher/get_equip_info()
 	return "[..()] \[[src.reagents.total_volume]\]"
 
-/obj/item/mecha_parts/mecha_equipment/extinguisher/can_attach(obj/mecha/working/M as obj)
-	if(..())
-		if(istype(M))
-			return 1
-	return 0
-
-
 
 /obj/item/mecha_parts/mecha_equipment/rcd
 	name = "mounted RCD"
@@ -358,12 +351,6 @@
 /obj/item/mecha_parts/mecha_equipment/cable_layer/Initialize()
 	. = ..()
 	cable = new(src, 0)
-
-/obj/item/mecha_parts/mecha_equipment/cable_layer/can_attach(obj/mecha/working/M)
-	if(..())
-		if(istype(M))
-			return 1
-	return 0
 
 /obj/item/mecha_parts/mecha_equipment/cable_layer/attach()
 	..()

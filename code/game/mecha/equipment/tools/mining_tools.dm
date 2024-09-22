@@ -93,12 +93,6 @@
 		var/obj/mecha/working/ripley/R = chassis //we could assume that it's a ripley because it has a clamp, but that's ~unsafe~ and ~bad practice~
 		R.collect_ore()
 
-/obj/item/mecha_parts/mecha_equipment/drill/can_attach(obj/mecha/M as obj)
-	if(..())
-		if(istype(M, /obj/mecha/working) || istype(M, /obj/mecha/combat))
-			return 1
-	return 0
-
 /obj/item/mecha_parts/mecha_equipment/drill/attach(obj/mecha/M)
 	..()
 	var/datum/component/butchering/butchering = src.GetComponent(/datum/component/butchering)

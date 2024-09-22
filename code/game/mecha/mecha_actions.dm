@@ -8,9 +8,8 @@
 	if(haslights)
 		lights_action.Grant(user, src)
 	stats_action.Grant(user, src)
-	if(canstrafe)
+	if(strafing_flags)
 		strafing_action.Grant(user, src)
-
 
 /obj/mecha/proc/RemoveActions(mob/living/user, human_occupant = 0)
 	if(human_occupant)
@@ -160,10 +159,10 @@
 		return TRUE
 
 /obj/mecha/proc/toggle_strafe()
-	strafe = !strafe
+	strafing = !strafing
 
-	occupant_message("Toggled strafing mode [strafe?"on":"off"].")
-	mecha_log_message("Toggled strafing mode [strafe?"on":"off"].")
+	occupant_message("Toggled strafing mode [strafing?"on":"off"].")
+	mecha_log_message("Toggled strafing mode [strafing?"on":"off"].")
 	strafing_action.UpdateButtonIcon()
 
 //////////////////////////////////////// Specific Ability Actions  ///////////////////////////////////////////////

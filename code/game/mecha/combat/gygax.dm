@@ -29,7 +29,6 @@
 	max_temperature = 35000
 	leg_overload_coeff = 100
 	wreckage = /obj/structure/mecha_wreckage/gygax/dark
-	max_equip = 4
 
 /obj/mecha/combat/gygax/dark/loaded/Initialize()
 	. = ..()
