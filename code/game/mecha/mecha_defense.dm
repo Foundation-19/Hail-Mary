@@ -6,7 +6,18 @@
 			return facing_modifiers[FRONT_ARMOUR]
 	return facing_modifiers[SIDE_ARMOUR] //if its not a front hit or back hit then assume its from the side
 
+/obj/mecha/proc/attack_dir_for_modules(relative_dir)
+	if(relative_dir  > -45 && relative_dir < 45)
+		return 1
+	else if(relative_dir < -45 && relative_dir > -135)
+		return 2
+	else if(relative_dir > 45 && relative_dir < 135)
+		return 3
+	else if(relative_dir > -135 && relative_dir < 135)
+		return 4
+
 /obj/mecha/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, armour_penetration = 0, atom/attacked_by)
+
 	. = ..()
 	if(. && obj_integrity > 0)
 		spark_system.start()
@@ -46,6 +57,7 @@
 
 	if(attack_dir)
 		var/facing_modifier = get_armour_facing(abs(dir2angle(dir) - dir2angle(attack_dir)))
+			
 		booster_damage_modifier /= facing_modifier
 		booster_deflection_modifier *= facing_modifier
 	if(prob(deflect_chance * booster_deflection_modifier) && damage_flag != "bomb")
@@ -109,6 +121,33 @@
 
 /obj/mecha/bullet_act(obj/item/projectile/Proj) //wrapper
 	mecha_log_message("Hit by projectile. Type: [Proj.name]([Proj.flag]).", color="red")
+	if(!(Proj.damage_type in list(BRUTE, BURN)))
+		return BULLET_ACT_BLOCK	
+	var/attack_dir = get_Dir(Proj, src)
+	var/facing_modifier = get_armour_facing(abs(dir2angle(dir) - dir2angle(attack_dir)))
+	var/true_armor = armor["linebullet"] * facing_modifiers / 100
+	if(true_armor > 50 && prob(true_armor))
+		handle_projectile_attack_redirection(Proj, REDIRECT_METHOD_DEFLECT)
+		return BULLET_ACT_FORCE_PIERCE
+	var/true_damage = Proj.damage * (1 - true_armor)
+	if(true_damage < 1)
+		return BULLET_ACT_BLOCK
+	var/modules_index = attack_dir_for_modules(dir2angle(get_dir(Proj,src)) - dir2angle(dir))
+	for(var/i=1 to length(directional_comps[modules_index]))
+		if(!prob(directional_comps[modules_index][1]))
+			continue
+		var/damage_mult = directional_comps[modules_index][2]
+		var/ap_threshold = directional_comps[modules_index][3]
+		if(damage_mult > 0)
+			take_damage(true_damage * damage_mult, Proj.damage_type, null, null, attack_dir, Proj.armour_penetration, Proj)
+		if(Proj.armour_penetration < ap_threshold)
+			return BULLET_ACT_BLOCK
+		else
+			Proj.armour_penetration -= ap_threshold
+
+	if(prob(80) && occupant)
+		. = occupant.bullet_act(Proj, Proj.def_zone)
+
 	. = ..()
 
 /obj/mecha/ex_act(severity, target)

@@ -82,9 +82,7 @@
 	var/max_temperature = 25000
 	var/internal_damage_threshold = 50 //health percentage below which internal damage is possible
 	var/internal_damage = 0 //contains bitflags
-
-	/// FRONT , left side , right side , behind
-	var/list/directional_mults = list(1,1,1,1)
+	// FRONT, LEFT , RIGHT, BACK
 	/// List of internal components per direction , will cause increased mech damge incase of mech AP and block shots from hitting the driver
 	// internal list should be list[ref] = list(hitChance, hitMult, APthreshold)
 	var/list/directional_comps = list(
