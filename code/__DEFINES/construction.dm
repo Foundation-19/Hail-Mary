@@ -80,6 +80,7 @@
 #define CAT_CRAFTING	"Crafting"
 //#define CAT_ROBOT	"Electronics & Robots"
 #define CAT_FORGING	"Forging & Smithing"
+#define CAT_CONVERT "Armor Conversion"
 #define CAT_MISC	"Misc"
 #define CAT_SCAVENGING	"Scavenging & Tinkering"
 #define CAT_MISCELLANEOUS	"Miscellaneous"
