@@ -48,6 +48,7 @@
 	armor = ARMOR_VALUE_HEAVY
 	var/list/facing_modifiers = list(FRONT_ARMOUR = 1.5, SIDE_ARMOUR = 1, BACK_ARMOUR = 0.5)
 	//var/obj/item/stock_parts/cell/cell
+	var/datum/wires/mech/internal_wiring
 	var/obj/item/reagent_containers/fuel_tank/fuel_holder
 	var/state = 0
 	var/list/log = new
@@ -87,6 +88,7 @@
 	var/list/internals_req_access = list()//REQUIRED ACCESS LEVEL TO OPEN CELL COMPARTMENT
 
 	var/wreckage
+	var/repairing = FALSE
 
 	var/canZmove = TRUE
 
@@ -101,6 +103,12 @@
 	var/list/weapon_equipment = new
 	var/list/utility_equipment = new
 	var/list/misc_equipment = new
+
+	/// a list of all vision traits to give to the occupant.
+	var/list/vision_modes = list()
+	/// The current status of the mech maintenance panel , theres 5 states of progression (welder ,crowbar, welder ,crowbar , wirecutter) to forcing it open.
+	/// Having maintenance permitted cuts this down to the normal wrench + crowbar
+	var/maintenance_panel_status = MECHA_PANEL_0
 
 	var/stepsound = 'sound/mecha/mechstep.ogg'
 	var/turnsound = 'sound/mecha/mechturn.ogg'
@@ -188,6 +196,14 @@
 	diag_hud_set_mechhealth()
 	diag_hud_set_mechcell()
 	diag_hud_set_mechstat()
+	internal_wiring = new(src)
+
+/obj/mecha/proc/grant_vision()
+	if(!occupant)
+		return
+	if(internal_wiring.is_cut(WIRE_MECH_VISUALDATA))
+		return
+	for(var/mode in vision_modes)
 
 /obj/mecha/attacked_by(obj/item/I, mob/living/user, attackchain_flags, damage_multiplier)
 	if(istype(I, /obj/item/reagent_containers) && fuel_holder)
@@ -196,7 +212,7 @@
 			c.reagents.trans_id_to(fuel_holder, /datum/reagent/fuel, min((fuel_holder.volume - fuel_holder.reagents.total_volume), c.amount_per_transfer_from_this))
 			return TRUE
 	. = ..()
-	
+
 
 /obj/mecha/proc/get_fuel_tank()
 	return fuel_holder
@@ -207,6 +223,7 @@
 /obj/mecha/Destroy()
 	if(occupant)
 		occupant.SetSleeping(destruction_sleep_duration)
+		remove_vision()
 	go_out()
 	var/mob/living/silicon/ai/AI
 	for(var/mob/M in src) //Let's just be ultra sure
@@ -401,6 +418,8 @@
 	if(occupant)
 		if(fuel_holder)
 			var/fuelamount = fuel_holder.reagents.total_volume/fuel_holder.volume
+			if(internal_wiring.is_cut(WIRE_MECH_POWER))
+				fuelamount = 0
 			switch(fuelamount)
 				if(0.75 to INFINITY)
 					occupant.clear_alert("charge")
@@ -453,6 +472,8 @@
 
 /obj/mecha/Hear(message, atom/movable/speaker, message_language, raw_message, radio_freq, list/spans, message_mode, atom/movable/source)
 	. = ..()
+	if(internal_wiring.is_cut(WIRE_MECH_RADIO))
+		return
 	if(speaker == occupant)
 		if(radio.broadcasting)
 			radio.talk_into(speaker, text, , spans, message_language)
@@ -481,6 +502,9 @@
 		occupant_message("Unable to interact with objects while phasing")
 		return
 	if(user.incapacitated())
+		return
+	if(internal_wiring.is_cut(WIRE_MECH_USE_MODULE))
+		occupant_message("<span class='warning'>Error transmitting command to module")
 		return
 	if(state)
 		occupant_message("<span class='warning'>Maintenance protocols in effect.</span>")
@@ -560,6 +584,9 @@
 /obj/mecha/relaymove(mob/user,direction)
 	if(completely_disabled)
 		return
+	if(internal_wiring.is_cut(WIRE_MECH_WALK))
+		to_chat(user , "<span class='notice'>Error transmitting command to actuators.")
+		return
 	if(!direction)
 		return
 	if(user != occupant) //While not "realistic", this piece is player friendly.
@@ -595,6 +622,11 @@
 		set_glide_size(DELAY_TO_GLIDE_SIZE(step_in))
 		move_result = mechsteprand()
 	else if(dir != direction && (!strafe || occupant.client.keys_held["Alt"]))
+		if(internal_wiring.is_cut(WIRE_MECH_DIRECTION))
+			if(world.time - last_message > 2 SECONDS)
+				to_chat(occupant, "<span class='notice'>Error transmitting direction-switch command to actuators.")
+				last_message = world.time
+			return
 		move_result = mechturn(direction)
 	else
 		set_glide_size(DELAY_TO_GLIDE_SIZE(step_in))
@@ -809,7 +841,7 @@
 			if(AI.stat || !AI.client)
 				to_chat(user, "<span class='warning'>[AI.name] is currently unresponsive, and cannot be uploaded.</span>")
 				return
-			if(occupant || dna_lock) //Normal AIs cannot steal mechs!
+			if(occupant || (dna_lock && !internal_wiring.is_cut(WIRE_MECH_DNA))) //Normal AIs cannot steal mechs!
 				to_chat(user, "<span class='warning'>Access denied. [name] is [occupant ? "currently occupied" : "secured with a DNA lock"].</span>")
 				return
 			AI.control_disabled = 0
@@ -907,7 +939,7 @@
 		to_chat(usr, "<span class='warning'>The [name] is already occupied!</span>")
 		log_append_to_last("Permission denied.")
 		return
-	if(dna_lock)
+	if(dna_lock && !internal_wiring.is_cut(WIRE_MECH_DNA))
 		var/passed = FALSE
 		if(user.has_dna())
 			var/mob/living/carbon/C = user
@@ -953,6 +985,7 @@
 		H.update_mouse_pointer()
 		add_fingerprint(H)
 		GrantActions(H, human_occupant=1)
+		grant_vision()
 		forceMove(loc)
 		log_append_to_last("[H] moved in as pilot.")
 		icon_state = initial(icon_state)
@@ -974,7 +1007,7 @@
 	else if(occupant)
 		to_chat(user, "<span class='warning'>Occupant detected!</span>")
 		return FALSE
-	else if(dna_lock && (!mmi_as_oc.brainmob.stored_dna || (dna_lock != mmi_as_oc.brainmob.stored_dna.unique_enzymes)))
+	else if(dna_lock && !internal_wiring.is_cut(WIRE_MECH_DNA) &&  (!mmi_as_oc.brainmob.stored_dna || (dna_lock != mmi_as_oc.brainmob.stored_dna.unique_enzymes)))
 		to_chat(user, "<span class='warning'>Access denied. [name] is secured with a DNA lock.</span>")
 		return FALSE
 
@@ -1016,6 +1049,7 @@
 	if(!internal_damage)
 		SEND_SOUND(occupant, sound('sound/mecha/nominal.ogg',volume=50))
 	GrantActions(brainmob)
+	grant_vision()
 	return TRUE
 
 /obj/mecha/container_resist(mob/living/user)
@@ -1030,6 +1064,7 @@
 /obj/mecha/proc/go_out(forced, atom/newloc = loc)
 	if(!occupant)
 		return
+	remove_vision()
 	var/atom/movable/mob_container
 	occupant.clear_alert("charge")
 	occupant.clear_alert("mech damage")
@@ -1128,6 +1163,8 @@
 	return (get_charge()>=amount)
 
 /obj/mecha/proc/get_charge()
+	if(internal_wiring.is_cut(WIRE_MECH_POWER))
+		return 0
 	for(var/obj/item/mecha_parts/mecha_equipment/tesla_energy_relay/R in equipment)
 		var/relay_charge = R.get_charge()
 		if(relay_charge)
@@ -1136,12 +1173,16 @@
 		return max(0, fuel_holder.reagents.total_volume)
 
 /obj/mecha/proc/use_power(amount)
+	if(internal_wiring.is_cut(WIRE_MECH_POWER))
+		return FALSE
 	amount = amount*0.5 //cut it in half since gasoline is expensive
 	if(get_charge() && fuel_holder.reagents.remove_reagent(/datum/reagent/fuel, amount))
 		return 1
 	return 0
 
 /obj/mecha/proc/give_power(amount)
+	if(internal_wiring.is_cut(WIRE_MECH_POWER))
+		return FALSE
 	if(!isnull(get_charge()))
 		fuel_holder.reagents.add_reagent(/datum/reagent/fuel, amount)
 		return 1

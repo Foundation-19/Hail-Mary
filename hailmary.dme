@@ -14,6 +14,7 @@
 // END_PREFERENCES
 
 // BEGIN_INCLUDE
+#include "code\__DEFINES\mecha_defines.dm"
 #include "_maps\_basemap.dm"
 #include "code\_byond_version_compat.dm"
 #include "code\_compile_options.dm"
@@ -759,6 +760,7 @@
 #include "code\datums\wires\autolathe.dm"
 #include "code\datums\wires\emitter.dm"
 #include "code\datums\wires\explosive.dm"
+#include "code\datums\wires\mech_wires.dm"
 #include "code\datums\wires\microwave.dm"
 #include "code\datums\wires\mulebot.dm"
 #include "code\datums\wires\particle_accelerator.dm"
@@ -1001,6 +1003,7 @@
 #include "code\game\mecha\equipment\tools\medical_tools.dm"
 #include "code\game\mecha\equipment\tools\mining_tools.dm"
 #include "code\game\mecha\equipment\tools\other_tools.dm"
+#include "code\game\mecha\equipment\tools\vision_tools.dm"
 #include "code\game\mecha\equipment\tools\work_tools.dm"
 #include "code\game\mecha\equipment\weapons\mecha_ammo.dm"
 #include "code\game\mecha\equipment\weapons\weapons.dm"

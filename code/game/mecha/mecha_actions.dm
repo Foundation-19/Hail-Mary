@@ -8,7 +8,7 @@
 	if(haslights)
 		lights_action.Grant(user, src)
 	stats_action.Grant(user, src)
-	if(strafing_flags)
+	if(canstrafe)
 		strafing_action.Grant(user, src)
 
 /obj/mecha/proc/RemoveActions(mob/living/user, human_occupant = 0)
@@ -75,6 +75,10 @@
 
 /datum/action/innate/mecha/mech_cycle_equip/Activate()
 	if(!owner || !chassis || chassis.occupant != owner)
+		return
+
+	if(chassis.internal_wiring.is_cut(WIRE_MECH_SELECT_MODULE))
+		chassis.occupant_message("<span class='notice'>Error, no response from module.</span>")
 		return
 
 	var/list/available_equipment = list()
@@ -159,10 +163,10 @@
 		return TRUE
 
 /obj/mecha/proc/toggle_strafe()
-	strafing = !strafing
+	strafe = !strafe
 
-	occupant_message("Toggled strafing mode [strafing?"on":"off"].")
-	mecha_log_message("Toggled strafing mode [strafing?"on":"off"].")
+	occupant_message("Toggled strafing mode [strafe?"on":"off"].")
+	mecha_log_message("Toggled strafing mode [strafe?"on":"off"].")
 	strafing_action.UpdateButtonIcon()
 
 //////////////////////////////////////// Specific Ability Actions  ///////////////////////////////////////////////

@@ -245,6 +245,7 @@
 #define TRAIT_FREESPRINT		"free_sprinting"
 #define TRAIT_XRAY_VISION       "xray_vision"
 #define TRAIT_THERMAL_VISION    "thermal_vision"
+#define TRAIT_MESON_VISION      "meson_vision"
 #define TRAIT_NO_TELEPORT		"no-teleport" //you just can't
 #define TRAIT_NO_INTERNALS		"no-internals"
 #define TRAIT_NO_ALCOHOL		"alcohol_intolerance"
