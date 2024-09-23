@@ -3,8 +3,8 @@
 	"map_path": "map_files/Mexico",
 	"map_file": [
 		"mexico_surface.dmm",
-		"mexico_above.dmm",
-		"mexico_underground.dmm"
+		"mexico_underground.dmm",
+		"mexico_above.dmm"
 	],
 	"station_ruin_budget":0,
 	"space_ruin_levels":0,
@@ -23,7 +23,7 @@
 			"Down": -1,
 			"No Parallax": true,
 			"Linkage" : "Cross",
-			"Name": "Mexico Surface",
+			"Name": "Surface",
 			"Force X": 2,
 			"Force Y": 2,
 			"Force Z": 1
@@ -37,7 +37,7 @@
 			"Down": -1,
 			"No Parallax": true,
 			"Linkage" : "Cross",
-			"Name": "Mexcio Underground",
+			"Name": "Underground",
 			"Force X": 2,
 			"Force Y": 2,
 			"Force Z": 0
@@ -52,7 +52,7 @@
 			"No Parallax": true,
 			"Linkage" : "Cross",
 			"Above": true,
-			"Name": "Mexico Upper",
+			"Name": "Above",
 			"Force X": 2,
 			"Force Y": 2,
 			"Force Z": 2
