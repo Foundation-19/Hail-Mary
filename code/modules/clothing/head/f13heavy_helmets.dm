@@ -43,6 +43,34 @@
 	slowdown = 0
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
 
+/obj/item/clothing/head/helmet/f13/heavy/salvaged_pa/t45b/bos
+	name = "tribal t-45b headdress"
+	desc = "A salvaged T-45b powered armor, with the servos removed and additional paint applied to show that it belongs to the brotherhood of steel"
+	icon_state = "t45bhelmet_bos"
+	item_state = "t45bhelmet_bos"
+	armor_tokens = list(ARMOR_MODIFIER_DOWN_MELEE_T2, ARMOR_MODIFIER_DOWN_BULLET_T2, ARMOR_MODIFIER_DOWN_LASER_T2)
+	slowdown = 0
+	resistance_flags = LAVA_PROOF | FIRE_PROOF
+
+/obj/item/clothing/head/helmet/f13/heavy/salvaged_pa/t45b/enclave
+	name = "tribal t-45b headdress"
+	desc = "A salvaged T-45b powered armor, with the servos removed and additional paint applied to show that it belongs to the enclave."
+	icon_state = "t45bhelmet_enclave"
+	item_state = "t45bhelmet_enclave"
+	armor_tokens = list(ARMOR_MODIFIER_DOWN_MELEE_T2, ARMOR_MODIFIER_DOWN_BULLET_T2, ARMOR_MODIFIER_DOWN_LASER_T2)
+	slowdown = 0
+	resistance_flags = LAVA_PROOF | FIRE_PROOF
+
+/obj/item/clothing/head/helmet/f13/heavy/salvaged_pa/t45b/sm
+	name = "tribal t-45b headdress"
+	desc = "A salvaged T-45b powered armor, with the servos removed and additional paint applied to show that it belongs to the super mutants. That as well as the additional armor allowing it to fit upon their heads."
+	icon_state = "t45bhelmet_sm"
+	item_state = "t45bhelmet_sm"
+	armor_tokens = list(ARMOR_MODIFIER_DOWN_MELEE_T2, ARMOR_MODIFIER_DOWN_BULLET_T2, ARMOR_MODIFIER_DOWN_LASER_T2)
+	slowdown = 0
+	resistance_flags = LAVA_PROOF | FIRE_PROOF
+
+
 // T-45D
 /obj/item/clothing/head/helmet/f13/heavy/salvaged_pa/t45d
 	name = "salvaged T-45d helmet"
