@@ -1,5 +1,5 @@
 /datum/job/CaesarsLegiontown
-	name = "OStia Default Template"
+	name = "Ostia Default Template"
 	faction = FACTION_LEGIONTOWN
 	total_positions = 0
 	spawn_positions = 0
@@ -20,8 +20,8 @@
 	department_flag = OSTIA
 	total_positions = -1
 	spawn_positions = -1
-	description = "A citizen of the Legion port of Ostia. You are not a slave, but freedom is a concept quite far from you. You are not part of the legion military (ain't a off duty role), and live a comfy life. You can manage the shop, the café, or just help the legion arround. You can also become a Gladiator in the arena. As a subject, you must have a latin name."
-	supervisors = "You obey the governor, and the legion military, whom you are also loyal too."
+	description = "A citizen of the Legion port of Ostia. You are not a slave, but freedom is a concept quite far from you. You are not part of the legion military (ain't an off duty role), and live a comfy life. You can manage the shop, the inn, or just help the legion arround. You can also become a Gladiator in the arena. As a subject, you must have a Latin name."
+	supervisors = "You obey the Governor, and the legion military, whom you are also loyal to."
 	display_order = JOB_DISPLAY_ORDER_F13OSTIASUBJECT 
 	exp_requirements = 0
 	outfit = /datum/outfit/job/CaesarsLegiontown/subject
@@ -84,7 +84,7 @@
 		)
 
 /datum/outfit/loadout/legionbarkeep
-	name = "Legion Restaurant"
+	name = "Legion Innkeeper"
 	backpack_contents = list(
 		/obj/item/clothing/head/f13/servant = 2,
 		/obj/item/clothing/under/civ/spanish_sailor = 2,
@@ -99,11 +99,11 @@
 		)
 
 /datum/job/CaesarsLegiontown/governor
-	title = "Legion governor of Ostia"
+	title = "Legion Governor of Ostia"
 	flag = F13LEGIONGOVERNOR
 	total_positions = 1
 	spawn_positions = 1
-	description = "The Civilian Leader of the Legion port of Ostia. You organise this city, make sure everything is in order, lead arrestation of troublemaker, organise slavesales with the slave master... You have only a limited power over the subject, and have no say in the military. You must have a latin name."
+	description = "The Civilian Leader of the Legion port of Ostia. You organize this city, make sure everything is in order, arrest troublemakers, organize slave sales with the Slave Master... You have only a limited power over slaves, and have no say in the military. You must have a Latin name."
 	supervisors = "You have authority over non military matters."
 	display_order = JOB_DISPLAY_ORDER_F13OSTIAGOVERNOR
 	exp_requirements = 0

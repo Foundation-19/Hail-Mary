@@ -1053,7 +1053,7 @@ obj/effect/landmark/start/f13/ncrlogisticsofficer
 	icon_state = "Legionary"
 
 /obj/effect/landmark/start/f13/f13governor
-	name = "Legion governor of Ostia"
+	name = "Legion Governor of Ostia"
 	icon_state = "Legionary"
 
 /obj/effect/landmark/start/f13/f13legionshopkeeper
