@@ -4080,6 +4080,14 @@
 /obj/structure/spacevine,
 /turf/closed/wall/mineral/wood,
 /area/f13/legioncamp)
+"dRC" = (
+/obj/structure/table/reinforced{
+	color = "#c1b6a5"
+	},
+/obj/item/paper_bin,
+/obj/item/pen/fountain,
+/turf/open/indestructible/ground/outside/ruins,
+/area/f13/outpost)
 "dRI" = (
 /obj/item/stock_parts/cell/super,
 /obj/effect/particle_effect/smoke/chem/smoke_machine,
@@ -8509,6 +8517,13 @@
 /obj/structure/billboard/robco,
 /turf/open/indestructible/ground/outside/desert,
 /area/f13/wasteland)
+"ibW" = (
+/obj/structure/table/reinforced{
+	color = "#c1b6a5"
+	},
+/obj/item/paper_bin,
+/turf/open/indestructible/ground/outside/ruins,
+/area/f13/outpost)
 "icc" = (
 /obj/structure/chair/bench{
 	dir = 1
@@ -8995,6 +9010,11 @@
 	dir = 8
 	},
 /area/f13/wasteland)
+"iBx" = (
+/obj/structure/table/reinforced,
+/obj/item/paper_bin,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/city)
 "iBQ" = (
 /obj/machinery/hydroponics/soil,
 /turf/open/indestructible/ground/outside/dirt{
@@ -9186,6 +9206,25 @@
 /obj/effect/turf_decal/stripes,
 /turf/open/floor/plating/rust,
 /area/f13/building/abandoned)
+"iJl" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/glass/bowl/wooden_bowl,
+/obj/item/reagent_containers/glass/bowl/wooden_bowl,
+/obj/item/key,
+/obj/item/key,
+/obj/item/lock_construct,
+/obj/item/lock_construct,
+/obj/item/lock_construct,
+/obj/item/lock_construct,
+/obj/item/lock_construct,
+/obj/item/lock_construct,
+/obj/item/key,
+/obj/item/key,
+/obj/item/key,
+/obj/item/key,
+/obj/item/key,
+/turf/open/floor/wood_fancy,
+/area/f13/legioncamp)
 "iJo" = (
 /turf/open/floor/wood_fancy{
 	icon_state = "fancy-broken4"
@@ -10016,6 +10055,15 @@
 	},
 /turf/open/floor/plasteel/f13/stone/rugged,
 /area/f13/wasteland)
+"jCP" = (
+/obj/structure/table/reinforced{
+	color = "#c1b6a5"
+	},
+/obj/item/grenade/homemade/coffeepotbomb,
+/obj/item/paper_bin,
+/obj/item/pen/fountain,
+/turf/open/indestructible/ground/outside/ruins,
+/area/f13/outpost)
 "jDd" = (
 /obj/mecha/combat/phazon/buggy/loaded,
 /turf/open/indestructible/ground/outside/dirt/dark{
@@ -11731,6 +11779,13 @@
 /obj/item/stack/sheet/glass/fifty,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/farmhouse)
+"lih" = (
+/obj/structure/table/reinforced{
+	color = "#c1b6a5"
+	},
+/obj/item/paper_bin,
+/turf/open/floor/plasteel/f13/vault_floor/green/whitegreenfull,
+/area/f13/outpost)
 "liE" = (
 /obj/structure/flora/grass/wasteland{
 	icon_state = "tall_grass_6"
@@ -34459,7 +34514,7 @@ aMi
 aMi
 aMi
 aMi
-myu
+dRC
 cpS
 jCd
 eCU
@@ -35267,7 +35322,7 @@ oCL
 aMi
 aMi
 wwe
-eAs
+jCP
 xrb
 myu
 woS
@@ -38269,7 +38324,7 @@ yar
 rzQ
 rzQ
 aMi
-myu
+ibW
 aMi
 aMi
 aMi
@@ -39079,7 +39134,7 @@ gZs
 gZs
 gZs
 gZs
-kSs
+lih
 kSs
 gZs
 ihB
@@ -40565,7 +40620,7 @@ ceu
 sSb
 duq
 wNQ
-bMq
+iBx
 fEK
 jyP
 iHT
@@ -50702,7 +50757,7 @@ epR
 qyr
 ewu
 ewu
-mZy
+iJl
 qyr
 iID
 ewu

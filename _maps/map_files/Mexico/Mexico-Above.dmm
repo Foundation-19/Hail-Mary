@@ -200,6 +200,15 @@
 	},
 /turf/open/floor/wood_wide,
 /area/f13/legioncamp)
+"bq" = (
+/obj/structure/destructible/tribal_torch/wall/lit{
+	dir = 8;
+	light_power = 0.8;
+	pixel_x = -1
+	},
+/obj/structure/chair/stool/retro/tan,
+/turf/open/floor/wood_fancy/wood_fancy_dark,
+/area/f13/legioncamp)
 "br" = (
 /obj/structure/spacevine,
 /turf/closed/wall/f13/wood/house,
@@ -489,6 +498,10 @@
 /obj/effect/spawner/lootdrop/low_tools,
 /turf/open/indestructible/ground/outside/ruins,
 /area/f13/outpost)
+"dm" = (
+/obj/structure/table/wood,
+/turf/open/floor/wood_wide/wood_wide_dark,
+/area/f13/legioncamp)
 "do" = (
 /obj/item/kirbyplants{
 	icon_state = "plant-21"
@@ -1276,6 +1289,22 @@
 	dir = 1
 	},
 /area/f13/farmhouse)
+"hv" = (
+/obj/structure/rug/big/rug_blue_shag,
+/turf/open/floor/wood_fancy/wood_fancy_dark,
+/area/f13/legioncamp)
+"hw" = (
+/obj/structure/table/wood,
+/turf/open/floor/wood_common/wood_common_dark,
+/area/f13/legioncamp)
+"hy" = (
+/obj/structure/destructible/tribal_torch/wall/lit{
+	dir = 8;
+	light_power = 0.8;
+	pixel_x = -1
+	},
+/turf/open/transparent/openspace,
+/area/f13/legioncamp)
 "hz" = (
 /obj/structure/closet/crate/wooden,
 /obj/effect/spawner/lootdrop/f13/armor/tier2,
@@ -1331,6 +1360,8 @@
 /obj/item/stamp/captain{
 	name = "military rubber stamp"
 	},
+/obj/item/paper_bin,
+/obj/item/pen/fountain,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/enclave)
 "hL" = (
@@ -1645,6 +1676,10 @@
 	},
 /turf/open/transparent/openspace,
 /area/f13/legioncamp)
+"jO" = (
+/obj/item/pen/fountain,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/outpost)
 "jP" = (
 /obj/structure/mecha_wreckage/vertibird,
 /turf/open/indestructible/ground/outside/roaddirt{
@@ -2360,6 +2395,10 @@
 	},
 /turf/open/floor/wood_fancy,
 /area/f13/legion)
+"mV" = (
+/obj/structure/rug/carpet2,
+/turf/open/floor/wood_wide/wood_wide_dark,
+/area/f13/legioncamp)
 "mZ" = (
 /obj/structure/simple_door/metal/barred,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
@@ -2428,6 +2467,10 @@
 "nw" = (
 /turf/closed/indestructible/riveted,
 /area/f13/underground/cave)
+"nx" = (
+/obj/structure/table/wood,
+/turf/open/floor/wood_fancy/wood_fancy_dark,
+/area/f13/legioncamp)
 "nA" = (
 /turf/closed/indestructible/f13/matrix,
 /area/f13/wasteland)
@@ -3684,6 +3727,8 @@
 "tW" = (
 /obj/structure/table/wood,
 /obj/item/stack/f13Cash/random/aureus/med,
+/obj/item/paper_bin,
+/obj/item/pen/charcoal,
 /turf/open/floor/carpet/red,
 /area/f13/legion)
 "tZ" = (
@@ -3759,6 +3804,8 @@
 /area/f13/city)
 "uo" = (
 /obj/structure/table/wood/fancy/red,
+/obj/item/paper_bin,
+/obj/item/pen/charcoal,
 /turf/open/floor/carpet/black,
 /area/f13/legioncamp)
 "uq" = (
@@ -4593,6 +4640,13 @@
 /obj/structure/lattice,
 /turf/open/indestructible/ground/outside/ruins,
 /area/f13/building/abandoned)
+"yV" = (
+/obj/structure/window/fulltile/wood,
+/obj/structure/curtain{
+	color = "#5c131b"
+	},
+/turf/open/floor/wood_wide/wood_wide_dark,
+/area/f13/legioncamp)
 "ze" = (
 /obj/structure/table,
 /obj/item/paper_bin,
@@ -4866,6 +4920,10 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/enclave)
+"AH" = (
+/obj/structure/rug/big/rug_yellow,
+/turf/open/floor/wood_fancy/wood_fancy_dark,
+/area/f13/legioncamp)
 "AK" = (
 /obj/structure/closet/crate/wooden,
 /obj/effect/spawner/lootdrop/f13/blueprintVHigh,
@@ -5391,6 +5449,10 @@
 	},
 /turf/open/floor/plating,
 /area/f13/underground/cave)
+"DC" = (
+/obj/structure/simple_door/repaired,
+/turf/open/floor/wood_fancy/wood_fancy_dark,
+/area/f13/legioncamp)
 "DD" = (
 /obj/machinery/camera/all{
 	dir = 1;
@@ -5573,6 +5635,15 @@
 	dir = 2
 	},
 /area/f13/outpost)
+"EF" = (
+/obj/structure/destructible/tribal_torch/wall/lit{
+	dir = 8;
+	light_power = 0.8;
+	pixel_x = -1
+	},
+/obj/structure/chair/stool/retro,
+/turf/open/floor/wood_common/wood_common_dark,
+/area/f13/legioncamp)
 "EH" = (
 /obj/structure/rack/shelf_metal,
 /obj/effect/spawner/lootdrop/f13/ncr_ration,
@@ -5715,6 +5786,15 @@
 	},
 /turf/open/floor/wood_fancy/wood_fancy_light,
 /area/f13/legioncamp)
+"Fn" = (
+/obj/structure/destructible/tribal_torch/wall/lit{
+	dir = 8;
+	light_power = 0.8;
+	pixel_x = -1
+	},
+/obj/structure/chair/stool/retro/black,
+/turf/open/floor/wood_fancy/wood_fancy_dark,
+/area/f13/legioncamp)
 "Fp" = (
 /obj/structure/railing/handrail/legion/entrance{
 	dir = 1
@@ -5852,6 +5932,10 @@
 	pixel_x = 2
 	},
 /turf/open/floor/carpet/black,
+/area/f13/legioncamp)
+"FY" = (
+/obj/structure/rug/big/rug_red,
+/turf/open/floor/wood_common/wood_common_dark,
 /area/f13/legioncamp)
 "FZ" = (
 /obj/structure/shelf_wood,
@@ -6006,6 +6090,16 @@
 "GS" = (
 /turf/closed/wall/f13/ruins,
 /area/f13/building/abandoned)
+"GT" = (
+/obj/structure/destructible/tribal_torch/wall/lit{
+	dir = 8;
+	light_power = 0.8;
+	pixel_x = -1
+	},
+/obj/structure/table/wood,
+/obj/structure/bedsheetbin,
+/turf/open/floor/wood_wide/wood_wide_dark,
+/area/f13/legioncamp)
 "GV" = (
 /obj/structure/closet/crate/bin/trashbin{
 	pixel_y = 10
@@ -6056,6 +6150,8 @@
 "Hi" = (
 /obj/structure/table/wood,
 /obj/item/taperecorder,
+/obj/item/paper_bin,
+/obj/item/pen/charcoal,
 /turf/open/floor/wood_fancy,
 /area/f13/legion)
 "Hj" = (
@@ -6749,6 +6845,10 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/white,
 /area/f13/enclave)
+"Lg" = (
+/obj/structure/window/fulltile/wood,
+/turf/open/floor/wood_wide/wood_wide_dark,
+/area/f13/legioncamp)
 "Lh" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -6935,6 +7035,11 @@
 	},
 /turf/open/transparent/openspace,
 /area/f13/building/abandoned)
+"ME" = (
+/obj/structure/bed/wooden,
+/obj/item/bedsheet/blanket,
+/turf/open/floor/wood_fancy/wood_fancy_dark,
+/area/f13/legioncamp)
 "MG" = (
 /obj/effect/spawner/lootdrop/f13/medical/vault/meds,
 /obj/item/clothing/suit/toggle/labcoat/emt/highvis,
@@ -7510,6 +7615,13 @@
 "PG" = (
 /turf/closed/wall/f13/wood/house,
 /area/f13/city)
+"PI" = (
+/obj/structure/bed/wooden,
+/obj/structure/bed/wooden{
+	pixel_y = 14
+	},
+/turf/open/floor/wood_fancy/wood_fancy_dark,
+/area/f13/legioncamp)
 "PK" = (
 /obj/structure/chair/sofa/left{
 	dir = 4
@@ -7984,6 +8096,12 @@
 /obj/item/flag/followers,
 /turf/open/indestructible/ground/outside/ruins,
 /area/f13/outpost)
+"RT" = (
+/obj/structure/table/wood/settler,
+/obj/item/paper_bin,
+/obj/item/pen/charcoal,
+/turf/open/floor/wood_fancy,
+/area/f13/legioncamp)
 "RV" = (
 /obj/structure/fluff/railing{
 	dir = 8;
@@ -8527,6 +8645,10 @@
 /obj/effect/mob_spawn/human/corpse,
 /turf/open/floor/wood_common,
 /area/f13/farmhouse)
+"Up" = (
+/obj/structure/dresser,
+/turf/open/floor/wood_wide/wood_wide_dark,
+/area/f13/legioncamp)
 "Ut" = (
 /obj/structure/spacevine,
 /turf/closed/wall/f13/wood,
@@ -9565,6 +9687,10 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/enclave)
+"Zi" = (
+/obj/structure/closet/cabinet,
+/turf/open/floor/wood_common/wood_common_dark,
+/area/f13/legioncamp)
 "Zk" = (
 /obj/structure/table/wood/fancy/red,
 /obj/item/kirbyplants{
@@ -9623,6 +9749,8 @@
 	name = "aircraft carrier intercom";
 	pixel_y = 10
 	},
+/obj/item/paper_bin,
+/obj/item/pen/fountain/captain,
 /turf/open/floor/engine,
 /area/f13/enclave)
 "ZC" = (
@@ -20474,7 +20602,7 @@ NG
 NG
 NS
 lr
-lr
+jO
 lr
 vq
 NS
@@ -33683,7 +33811,7 @@ oX
 BF
 xZ
 GN
-qe
+RT
 qe
 se
 YY
@@ -33881,7 +34009,7 @@ lz
 Cq
 Ut
 af
-qe
+RT
 qe
 lE
 YY
@@ -34290,7 +34418,7 @@ Ut
 Ut
 Ut
 sT
-kj
+hy
 Ut
 qo
 il
@@ -34488,10 +34616,10 @@ Dy
 Dy
 Dy
 se
-sT
-sT
-sT
-sT
+GT
+mV
+mV
+mV
 sT
 Ut
 se
@@ -34690,6 +34818,7 @@ Dy
 Dy
 Dy
 se
+dm
 sT
 sT
 sT
@@ -34700,8 +34829,7 @@ sT
 sT
 sT
 sT
-sT
-sT
+Lg
 NG
 NG
 NG
@@ -34892,18 +35020,18 @@ NG
 NG
 Dy
 se
-sT
-sT
-sT
-sT
-sT
-sT
-sT
-sT
-sT
-sT
-sT
-sT
+se
+se
+DC
+xD
+se
+se
+DC
+xD
+se
+se
+DC
+xD
 NG
 NG
 NG
@@ -35094,18 +35222,18 @@ NG
 NG
 Dy
 se
+dm
+Fn
+FY
+xD
+dm
+EF
 sT
-sT
-sT
-sT
-sT
-sT
-sT
-sT
-sT
-sT
-sT
-sT
+xD
+dm
+bq
+YY
+Lg
 NG
 NG
 NG
@@ -35296,18 +35424,18 @@ NG
 NG
 Dy
 se
-sT
-sT
-sT
-sT
-sT
-sT
-sT
-sT
-sT
-sT
-sT
-sT
+nx
+qo
+qo
+xD
+nx
+qo
+AH
+xD
+hw
+qo
+hv
+xD
 NG
 NG
 NG
@@ -35498,18 +35626,18 @@ NG
 NG
 Dy
 se
+qo
+YY
+YY
+xD
+qo
 sT
-sT
-sT
-sT
-sT
-sT
-sT
-sT
-sT
-sT
-sT
-sT
+YY
+xD
+qo
+YY
+YY
+xD
 NG
 NG
 NG
@@ -35700,18 +35828,18 @@ NG
 NG
 Dy
 se
-sT
-sT
-sT
-sT
-sT
-sT
-sT
-sT
-sT
-sT
-sT
-sT
+Zi
+ME
+Up
+xD
+Zi
+ME
+Up
+xD
+Zi
+PI
+Up
+xD
 NG
 NG
 NG
@@ -35902,18 +36030,18 @@ Dy
 Dy
 Dy
 se
-sT
-sT
-sT
-sT
-sT
-sT
-sT
-sT
-sT
-sT
-sT
-sT
+yV
+yV
+se
+xD
+yV
+yV
+se
+se
+yV
+yV
+se
+se
 NG
 NG
 NG
