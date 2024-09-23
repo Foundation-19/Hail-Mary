@@ -1343,6 +1343,16 @@
 	icon_state = "darkrusty"
 	},
 /area/f13/wasteland)
+"iu" = (
+/mob/living/simple_animal/hostile/supermutant/nightkin/elitemutant{
+	name = "Service Chief Langston";
+	health = 350;
+	desc = "A blue variant of the standard Super Mutant, a name-tag reading service chief langston on their armor"
+	},
+/turf/open/floor/plasteel/f13{
+	icon_state = "darkrusty"
+	},
+/area/f13/wasteland)
 "iC" = (
 /obj/structure/flora/grass/wasteland{
 	icon_state = "tall_grass_2"
@@ -1494,6 +1504,16 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/cardboard,
 /turf/open/indestructible/ground/outside/road,
+/area/f13/wasteland)
+"jy" = (
+/mob/living/simple_animal/hostile/supermutant/nightkin/elitemutant{
+	name = "Nuclear Project Manager";
+	desc = "A large blue super-mutant, making use of a heavily damage pip-boy. They have a poorly kept name-tag attached to their chest though the name is faded. Nuclear Project Manager";
+	health = 500
+	},
+/turf/open/floor/plasteel/f13{
+	icon_state = "darkrusty"
+	},
 /area/f13/wasteland)
 "jA" = (
 /obj/item/newspaper,
@@ -9810,7 +9830,7 @@ Cm
 jY
 kS
 bM
-Cm
+jy
 mF
 ho
 ho
@@ -12956,7 +12976,7 @@ fF
 Cm
 BE
 Cm
-Cm
+iu
 hw
 Cm
 OH
