@@ -1,5 +1,5 @@
 /datum/job/rebels
-	department_flag = REBEL
+	department_flag = REBELS
 	selection_color = "#323232"
 	faction = FACTION_REBEL
 
@@ -49,12 +49,12 @@
 	total_positions = 5
 	spawn_positions = 5
 	access = list(ACCESS_ENCLAVE)
-	display_order = 
+	display_order = JOB_DISPLAY_ORDER_F13REBELSOLDIER
 	description = "When the Legion arrived and conquered the region, you knew that you had to do something. Maybe you are a NCR soldier wanting to bring the fight to their soil. Maybe raider wanting to spill some legion blood. Maybe you are Enclave Remnant crewing the ship and assuring your survival. What ever you are, your ennemy is the legion."
 	supervisors = "The captain."
 	outfit = /datum/outfit/job/rebels
 
-loadout_options = list(
+	loadout_options = list(
 		/datum/outfit/loadout/ncrfunded,		
 		/datum/outfit/loadout/survivingenclave,	
 		/datum/outfit/loadout/stolenraider,	
@@ -122,10 +122,15 @@ loadout_options = list(
 	total_positions = 1
 	spawn_positions = 1
 	access = list(ACCESS_ENCLAVE, ACCESS_CHANGE_IDS)
-	display_order = 
+	display_order = JOB_DISPLAY_ORDER_F13REBELCAPTAIN
 	description = "You lead this team of soldiers of fortune. Your gear is from old enclave supply, and gifts from the NCR... And a few stolen goods."
-	outfit = /datum/outfit/job/enclave/peacekeeper/enclavecpt
-	exp_requirements = 1500
+	outfit = /datum/outfit/job/rebels/captain
+
+	loadout_options = list(
+		/datum/outfit/loadout/capncrfunded,		
+		/datum/outfit/loadout/capsurvivingenclave,	
+		/datum/outfit/loadout/capstolenraider,	
+		)
 
 /datum/outfit/job/rebels/captain
 	name = "Roguewave Rebel Captain"
@@ -143,12 +148,6 @@ loadout_options = list(
 		/obj/item/ammo_box/magazine/m308 = 2,
 		/obj/item/gun/ballistic/automatic/pistol/deagle = 1,
 		/obj/item/ammo_box/magazine/m44 = 2
-		)
-
-	loadout_options = list(
-		/datum/outfit/loadout/capncrfunded,		
-		/datum/outfit/loadout/capsurvivingenclave,	
-		/datum/outfit/loadout/capstolenraider,	
 		)
 
 /datum/outfit/job/rebels/captain/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)

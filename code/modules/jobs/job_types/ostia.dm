@@ -1,18 +1,10 @@
 /datum/job/CaesarsLegiontown
-	name = "Ostia Default Template"
 	faction = FACTION_LEGIONTOWN
 	total_positions = 0
 	spawn_positions = 0
 	selection_color = "#810505"
 
 	forbids = "The Legion forbids: Using drugs such as stimpacks. Subject are allowed to drink alcohol, depending of who is in charge. Ostia aren't fans of ghouls. Slaves carrying weapons. Killing Legion members in secret, only if according to law and in public is it acceptable, only if a Decanus, Centurion, or Governor accept it. You are to respect your fellow subjects."
-
-/datum/job/CaesarsLegiontown/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	..()
-	if(visualsOnly)
-		return
-	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bloodleaf)
-	
 
 /datum/job/CaesarsLegiontown/subject
 	title = "Legion Subject"
@@ -28,17 +20,16 @@
 
 	loadout_options = list(
 		/datum/outfit/loadout/subjectoflegion,
-		/datum/outfit/loadout/legionshopkeeper,
 		/datum/outfit/loadout/legiongladiator,
 		/datum/outfit/loadout/legionbarkeep,
 		)
 
 	matchmaking_allowed = list(
 		/datum/matchmaking_pref/friend = list(
-			/datum/job/CaesarsLegiontown/slave,
+			/datum/job/CaesarsLegion,
 		),
 		/datum/matchmaking_pref/rival = list(
-			/datum/job/CaesarsLegiontown/slave,
+			/datum/job/CaesarsLegion,
 		),
 	)
 
@@ -100,7 +91,7 @@
 
 /datum/job/CaesarsLegiontown/governor
 	title = "Legion Governor of Ostia"
-	flag = F13LEGIONGOVERNOR
+	flag = F13OSTIAGOVERNOR
 	total_positions = 1
 	spawn_positions = 1
 	description = "The Civilian Leader of the Legion port of Ostia. You organize this city, make sure everything is in order, arrest troublemakers, organize slave sales with the Slave Master... You have only a limited power over slaves, and have no say in the military. You must have a Latin name."
@@ -151,17 +142,17 @@
 	selection_color = "#dcba97"
 	exp_requirements = 0
 	display_order = JOB_DISPLAY_ORDER_F13OSTIASHOPKEEP
-
-	outfit = datum/outfit/job/CaesarsLegiontown/legionshopkeeper
+	outfit = /datum/outfit/job/CaesarsLegiontown/legionshopkeeper
+	
 	access = list(ACCESS_CARGO_BOT, ACCESS_TOWN, ACCESS_TOWN_CIV, ACCESS_TOWN_MERCH)
 	minimal_access = list(ACCESS_CARGO_BOT, ACCESS_TOWN, ACCESS_TOWN_CIV, ACCESS_TOWN_MERCH)
 
 	matchmaking_allowed = list(
 		/datum/matchmaking_pref/friend = list(
-			/datum/job/CaesarsLegiontown/slave,
+			/datum/job/CaesarsLegion,
 		),
 		/datum/matchmaking_pref/rival = list(
-			/datum/job/CaesarsLegiontown/slave,
+			/datum/job/CaesarsLegion,
 		),
 	)
 
