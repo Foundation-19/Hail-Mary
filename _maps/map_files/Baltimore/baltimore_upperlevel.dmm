@@ -2675,12 +2675,6 @@
 	},
 /turf/open/floor/wood_common/wood_common_dark,
 /area/f13/building)
-"cqc" = (
-/obj/structure/barricade/bars,
-/turf/open/floor/f13/wood{
-	icon_state = "housewood2-broken"
-	},
-/area/f13/brotherhood)
 "cqD" = (
 /obj/structure/stone_tile/slab{
 	pixel_y = -4;
@@ -7595,11 +7589,6 @@
 	icon_state = "mosaic-broken6"
 	},
 /area/f13/ruins)
-"gZI" = (
-/turf/open/floor/f13/wood{
-	icon_state = "housebase"
-	},
-/area/f13/brotherhood)
 "gZM" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/closed/wall/f13/sunset/brick_small,
@@ -11659,12 +11648,6 @@
 /obj/effect/spawner/lootdrop/f13/traitbooks/low,
 /turf/open/floor/plasteel/f13/vault_floor/yellow,
 /area/f13/ruins)
-"kRL" = (
-/obj/item/reagent_containers/glass/bucket/wood,
-/turf/open/floor/f13/wood{
-	icon_state = "housebase"
-	},
-/area/f13/brotherhood)
 "kSb" = (
 /obj/structure/sign/poster/prewar/poster68,
 /turf/closed/wall/f13/sunset/brick_small,
@@ -52489,14 +52472,14 @@ qOY
 qOY
 gvC
 kry
-kRL
+ejd
 enH
 pes
-pes
+kry
 fzP
 kry
-pes
-gZI
+kry
+kry
 dbL
 qFK
 qFK
@@ -52745,9 +52728,9 @@ qOY
 qOY
 qOY
 gvC
-gZI
-pes
-cqc
+kry
+kry
+jYr
 kry
 kry
 jYr
@@ -53009,7 +52992,7 @@ kry
 gGw
 dGI
 kry
-gZI
+kry
 sNv
 dbL
 qFK

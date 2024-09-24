@@ -3453,13 +3453,6 @@
 	icon_state = "common-broken6"
 	},
 /area/f13/building/center)
-"bkm" = (
-/obj/structure/bodycontainer/morgue,
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
-	name = "Old Docks";
-	sunlight_state = 1
-	},
-/area/f13/brotherhood)
 "bkp" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -3482,6 +3475,15 @@
 /obj/effect/turf_decal/stripes/full,
 /obj/structure/reagent_dispensers/watertank,
 /turf/open/floor/plating/rust,
+/area/f13/ruins)
+"bkB" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/mob/living/simple_animal/hostile/radroach,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	name = "Old Docks";
+	sunlight_state = 1
+	},
 /area/f13/ruins)
 "bkC" = (
 /obj/structure/sign/poster/contraband/pinup_vixen,
@@ -9867,17 +9869,6 @@
 	sunlight_state = 1
 	},
 /area/f13/wasteland/city)
-"dyr" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
-/area/f13/enclave)
-"dyy" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/enclave)
 "dyB" = (
 /obj/structure/flora/wasteplant/wild_xander,
 /turf/open/floor/plating/dirt/dirt_maryland{
@@ -10431,13 +10422,6 @@
 	},
 /turf/open/indestructible/ground/outside/gravel,
 /area/f13/wasteland/town)
-"dIK" = (
-/obj/structure/nest/raider/melee,
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
-	name = "Old Docks";
-	sunlight_state = 1
-	},
-/area/f13/wasteland/city/citycenter)
 "dIL" = (
 /obj/structure/destructible/tribal_torch/lit,
 /turf/open/indestructible/ground/outside/baltimore{
@@ -19727,6 +19711,9 @@
 /obj/structure/railing{
 	color = "#A47449"
 	},
+/obj/mecha/combat/phazon/buggy/blue/loaded{
+	dir = 8
+	},
 /turf/open/indestructible/ground/outside/gravel,
 /area/f13/wasteland/town)
 "hbR" = (
@@ -22652,13 +22639,6 @@
 	},
 /turf/open/indestructible/ground/outside/sidewalkdirt,
 /area/f13/wasteland/city)
-"ich" = (
-/obj/structure/nest/raider,
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
-	name = "Old Docks";
-	sunlight_state = 1
-	},
-/area/f13/ruins)
 "icj" = (
 /obj/effect/decal/cleanable/blood,
 /turf/open/floor/wood_fancy,
@@ -22948,6 +22928,15 @@
 	},
 /turf/open/indestructible/ground/outside/sidewalkdirt,
 /area/f13/wasteland/city/citycenter)
+"ijG" = (
+/obj/structure/bodycontainer/morgue{
+	dir = 2
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	name = "Old Docks";
+	sunlight_state = 1
+	},
+/area/f13/brotherhood)
 "ijK" = (
 /turf/open/indestructible/ground/outside/baltimore{
 	icon_state = "road_center"
@@ -23777,10 +23766,6 @@
 	icon_state = "road_west_w"
 	},
 /area/f13/wasteland/city)
-"iyR" = (
-/obj/machinery/washing_machine,
-/turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
-/area/f13/brotherhood)
 "iyW" = (
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plating/rust{
@@ -24256,6 +24241,14 @@
 /obj/machinery/recycler,
 /turf/open/floor/wood_mosaic/wood_mosaic_light,
 /area/f13/building/boat)
+"iFr" = (
+/obj/mecha/combat/phazon/buggy/blue/loaded{
+	dir = 8
+	},
+/turf/open/indestructible/ground/outside/sidewalkdirt{
+	icon_state = "horizontalbottomborderbottom1"
+	},
+/area/f13/wasteland/town)
 "iFu" = (
 /obj/effect/mob_spawn/human/corpse/vault,
 /turf/open/floor/wood_wide/wood_wide_dark,
@@ -32631,6 +32624,13 @@
 	icon_state = "carpetstar"
 	},
 /area/f13/building/boat)
+"lDr" = (
+/mob/living/simple_animal/hostile/radroach,
+/turf/open/floor/plating/rust{
+	sunlight_state = 1;
+	name = "rusted Docks"
+	},
+/area/f13/wasteland/city/citycenter)
 "lDw" = (
 /obj/structure/fence{
 	dir = 8
@@ -38892,6 +38892,7 @@
 /obj/effect/spawner/lootdrop/trash,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
+/mob/living/simple_animal/hostile/radroach,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	name = "Old Docks";
 	sunlight_state = 1
@@ -46456,11 +46457,6 @@
 	},
 /area/f13/building)
 "qzi" = (
-/obj/machinery/light/small{
-	dir = 1;
-	light_color = "blue";
-	pixel_x = -8
-	},
 /obj/machinery/door/airlock/grunge,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "whitedirtysolid"
@@ -49275,6 +49271,13 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/wood_worn/wood_worn_dark,
 /area/f13/building/center)
+"rrj" = (
+/obj/structure/fluff/rails{
+	dir = 4
+	},
+/mob/living/simple_animal/hostile/radroach,
+/turf/open/indestructible/ground/outside/dirt/harsh,
+/area/f13/ruins)
 "rrk" = (
 /turf/open/floor/plasteel/f13/vault_floor/floor/floorsolid,
 /area/f13/clinic)
@@ -51969,6 +51972,10 @@
 	icon_state = "bluerustysolid"
 	},
 /area/f13/ruins)
+"snP" = (
+/obj/machinery/washing_machine,
+/turf/open/floor/plasteel/f13/vault_floor/blue/white,
+/area/f13/brotherhood)
 "snU" = (
 /obj/effect/turf_decal/road_end{
 	dir = 1
@@ -59285,6 +59292,7 @@
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 1
 	},
+/obj/item/flag/bos,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
 /area/f13/brotherhood)
 "uUV" = (
@@ -62029,15 +62037,6 @@
 	icon_state = "dirt_original"
 	},
 /area/f13/wasteland/city/citycenter)
-"vRm" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/nest/raider,
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
-	name = "Old Docks";
-	sunlight_state = 1
-	},
-/area/f13/ruins)
 "vRn" = (
 /obj/structure/fluff/rails,
 /turf/open/indestructible/ground/outside/baltimore{
@@ -67792,6 +67791,17 @@
 /obj/effect/decal/cleanable/blood/gibs/human/limb,
 /turf/open/floor/wood_wide/wood_wide_dark,
 /area/f13/ruins)
+"xTR" = (
+/obj/machinery/light/small{
+	dir = 1;
+	light_color = "blue";
+	pixel_x = -8
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	name = "Old Docks";
+	sunlight_state = 1
+	},
+/area/f13/brotherhood)
 "xUb" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -67900,10 +67910,6 @@
 /obj/effect/decal/waste{
 	icon_state = "goo10"
 	},
-/turf/open/indestructible/ground/outside/gravel,
-/area/f13/wasteland/city/citycenter)
-"xVs" = (
-/obj/structure/nest/raider,
 /turf/open/indestructible/ground/outside/gravel,
 /area/f13/wasteland/city/citycenter)
 "xVI" = (
@@ -96268,7 +96274,7 @@ nYG
 gyt
 mQI
 nYG
-iyR
+nYG
 vLt
 uTQ
 gvC
@@ -98836,7 +98842,7 @@ dbL
 dbL
 dbL
 fNu
-tMR
+snP
 dbL
 dbL
 dbL
@@ -100640,7 +100646,7 @@ kxr
 szZ
 ncs
 dbL
-iIH
+xTR
 iIH
 dbL
 jpA
@@ -100897,7 +100903,7 @@ kxr
 ncs
 ncs
 dbL
-iIH
+ijG
 iIH
 dbL
 qPb
@@ -101153,8 +101159,8 @@ kxr
 kxr
 ncs
 dbL
-bkm
-iIH
+dbL
+ijG
 iIH
 dbL
 dbL
@@ -101410,8 +101416,8 @@ rWR
 kxr
 ncs
 dbL
-iIH
-iIH
+dbL
+dbL
 dbL
 dbL
 bmv
@@ -116325,7 +116331,7 @@ diW
 aas
 uqR
 jbE
-eYp
+iFr
 mdu
 caI
 ipM
@@ -118661,7 +118667,7 @@ sqU
 qcM
 skH
 rhL
-dIK
+snL
 suy
 cmH
 suy
@@ -118918,7 +118924,7 @@ sqU
 qcM
 suy
 suy
-suy
+lDr
 snL
 suy
 snL
@@ -119176,7 +119182,7 @@ oGo
 dtl
 dtl
 eLJ
-xVs
+eLJ
 xub
 iQB
 dtl
@@ -119427,7 +119433,7 @@ dOU
 dOU
 oGo
 oGo
-oGo
+rrj
 oGo
 oGo
 dtl
@@ -119680,7 +119686,7 @@ tWS
 aFU
 qcM
 pQF
-ich
+sqU
 jxS
 sqU
 aRU
@@ -121481,7 +121487,7 @@ mMd
 qcM
 qcM
 uCo
-vRm
+guO
 qcM
 qcM
 qcM
@@ -121743,7 +121749,7 @@ jxS
 yjw
 sqU
 rZK
-guO
+bkB
 bQh
 bQh
 kuy
@@ -129486,7 +129492,7 @@ qrf
 icV
 bjH
 kQX
-dyy
+rJx
 klK
 kQX
 ujw
@@ -129743,8 +129749,8 @@ icV
 icV
 dti
 urc
-klK
-klK
+rJx
+rJx
 qUg
 dti
 mIJ
@@ -130514,7 +130520,7 @@ kUI
 icV
 yas
 joR
-dyr
+tdC
 jMc
 tdC
 oMc
@@ -130771,7 +130777,7 @@ icV
 icV
 tkl
 dIv
-dyr
+tdC
 oVE
 tdC
 aoH
