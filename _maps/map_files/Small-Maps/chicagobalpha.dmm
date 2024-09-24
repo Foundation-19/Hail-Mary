@@ -3687,12 +3687,6 @@
 	},
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/wasteland)
-"no" = (
-/obj/machinery/ammobench,
-/turf/open/floor/f13{
-	icon_state = "floorrusty"
-	},
-/area/f13/city)
 "np" = (
 /obj/structure/window/reinforced/fulltile,
 /obj/structure/grille,
@@ -10638,8 +10632,6 @@
 	},
 /obj/machinery/light/small,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/red/line,
-/obj/machinery/light,
 /turf/open/floor/f13{
 	icon_state = "reddirtyfull"
 	},
@@ -22789,7 +22781,7 @@ Rq
 eF
 Lm
 Rj
-no
+Rj
 Rj
 rP
 eF
