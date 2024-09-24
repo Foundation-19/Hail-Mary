@@ -1,6 +1,6 @@
 {
 	"map_name": "Mexico",
-	"map_path": "_maps/map_files/Mexico",
+	"map_path": "/map_files/Mexico",
 	"map_file": [
 		"mexico_surface.dmm",
 		"mexico_underground.dmm",
