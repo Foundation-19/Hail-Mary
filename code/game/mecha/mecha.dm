@@ -87,16 +87,16 @@
 	// internal list should be list[ref] = list(hitChance, hitMult, APthreshold)
 	var/list/directional_comps = list(
 		list(
-			list(100,2, 30, 50)
+			list(100,2, 30)
 		),
 		list(
-			list(30,2, 30, 50)
+			list(30,2, 30)
 		),
 		list(
-			list(30,2, 30, 50)
+			list(30,2, 30)
 		),
 		list(
-			list(5,2, 30, 50)
+			list(5,2, 30)
 		)
 	)
 
