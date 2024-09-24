@@ -125,7 +125,12 @@
 		return BULLET_ACT_BLOCK	
 	var/attack_dir = get_dir(src, Proj)
 	var/facing_modifier = get_armour_facing(abs(dir2angle(dir) - dir2angle(attack_dir)))
-	var/true_armor = min(0,armor["linebullet"] * facing_modifier - Proj.armour_penetration - Proj.damage / 4)
+	var/true_armor = 0
+	if(armor.linebullet)
+		true_armor = min(0,armor["linebullet"] * facing_modifier - Proj.armour_penetration - Proj.damage / 4)
+	else if(armor.bullet)
+		true_armor = min(0,armor["bullet"] * facing_modifier - Proj.armour_penetration - Proj.damage / 4)
+
 	var/true_damage = Proj.damage * (1 - true_armor)
 	if(prob(true_armor/2))
 		Proj.setAngle(SIMPLIFY_DEGREES(Proj.Angle + rand(40,150)))
