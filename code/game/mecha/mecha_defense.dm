@@ -153,10 +153,19 @@
 		else
 			Proj.armour_penetration -= ap_threshold
 
-	if(prob(80) && occupant)
-		. = occupant.bullet_act(Proj, Proj.def_zone)
+	var/list/hittable_occupants = list()
+	if(occupant)
+		hittable_occupants[occupant] = 80
+	for(var/obj/item/mecha_parts/mecha_equipment/seat/other_occupant in src)
+		if(other_occupant.patient && other_occupant.patient.stat != DEAD)
+			hittable_occupants[other_occupant.patient] = 70
 
-	. = ..()
+	var/mob/living/true_target = pickweight(hittable_occupants, 50)
+	if(true_target)
+		. = true_target.bullet_act(Proj, Proj.def_zone)
+	else
+		. = ..()
+
 
 /obj/mecha/ex_act(severity, target)
 	severity-- // MORE DAMAGE
