@@ -11830,10 +11830,16 @@
 /turf/open/floor/wood_common/wood_common_dark,
 /area/f13/ruins)
 "laC" = (
+/obj/item/cultivator/rake,
+/obj/item/cultivator/rake,
+/obj/item/reagent_containers/glass/bucket,
+/obj/item/reagent_containers/glass/bucket,
+/obj/item/storage/bag/plants,
+/obj/item/storage/bag/plants,
+/obj/item/hatchet,
+/obj/item/hatchet,
 /obj/machinery/smartfridge/bottlerack/gardentool/primitive,
-/turf/open/floor/f13/wood{
-	icon_state = "housewood2"
-	},
+/turf/open/floor/wood_common,
 /area/f13/brotherhood)
 "laW" = (
 /obj/structure/table/reinforced,
@@ -21083,7 +21089,15 @@
 /turf/open/floor/plasteel/f13/vault_floor/white,
 /area/f13/outpost)
 "tIf" = (
-/obj/machinery/smartfridge/bottlerack/gardentool,
+/obj/item/cultivator/rake,
+/obj/item/cultivator/rake,
+/obj/item/reagent_containers/glass/bucket,
+/obj/item/reagent_containers/glass/bucket,
+/obj/item/storage/bag/plants,
+/obj/item/storage/bag/plants,
+/obj/item/hatchet,
+/obj/item/hatchet,
+/obj/machinery/smartfridge/bottlerack/gardentool/primitive,
 /turf/open/floor/wood_common,
 /area/f13/wasteland/city)
 "tIl" = (
@@ -88754,7 +88768,7 @@ gzY
 dWw
 jnT
 dWw
-wyZ
+qFK
 wyZ
 wyZ
 glP
