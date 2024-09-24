@@ -1,10 +1,10 @@
 {
 	"map_name": "Mexico",
-	"map_path": "map_files/Mexico",
+	"map_path": "_maps/map_files/Mexico",
 	"map_file": [
-		"mexico-surface.dmm",
-		"mexico-underground.dmm",
-		"mexico-above.dmm"
+		"mexico_surface.dmm",
+		"mexico_underground.dmm",
+		"mexico_above.dmm"
 	],
 	"station_ruin_budget":0,
 	"space_ruin_levels":0,
