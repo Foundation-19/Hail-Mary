@@ -115,9 +115,6 @@
 	},
 /turf/open/floor/wood_common,
 /area/f13/farmhouse)
-"aJ" = (
-/turf/closed/wall/f13/wood/house,
-/area/f13/underground/cave)
 "aK" = (
 /obj/structure/destructible/tribal_torch/wall/lit{
 	dir = 8
@@ -126,7 +123,7 @@
 /area/f13/legioncamp)
 "aM" = (
 /obj/structure/barricade/wooden,
-/turf/closed/wall/f13/tentwall,
+/turf/open/floor/plating/f13/outside/roof/wood/old,
 /area/f13/legion)
 "aN" = (
 /obj/machinery/vending/coffee,
@@ -398,7 +395,7 @@
 	sunlight_state = 1;
 	name = "deck"
 	},
-/area/f13/enclave)
+/area/f13/wasteland)
 "cq" = (
 /obj/structure/closet/cabinet/anchored,
 /turf/open/floor/wood_wide/wood_wide_dark,
@@ -440,15 +437,6 @@
 /obj/structure/table/wood,
 /turf/open/floor/plasteel/f13/vault_floor/neutral/white,
 /area/f13/outpost)
-"cL" = (
-/obj/effect/turf_decal/stripes/asteroid/line{
-	dir = 1
-	},
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
-	sunlight_state = 1;
-	name = "deck"
-	},
-/area/f13/enclave)
 "cR" = (
 /obj/structure/barricade/tentleatheredge{
 	dir = 8
@@ -488,7 +476,7 @@
 "df" = (
 /obj/effect/decal/cleanable/blood/gibs,
 /turf/open/floor/wood_fancy,
-/area/f13/underground/cave)
+/area/f13/legion)
 "dh" = (
 /obj/structure/bed/old,
 /obj/machinery/iv_drip,
@@ -606,7 +594,7 @@
 "dP" = (
 /obj/effect/spawner/lootdrop/low_tools,
 /turf/open/indestructible/ground/outside/roaddirt,
-/area/f13/enclave)
+/area/f13/wasteland)
 "dQ" = (
 /obj/machinery/light/fo13colored/Red,
 /obj/machinery/button/door{
@@ -617,7 +605,7 @@
 /turf/open/indestructible/ground/outside/ruins,
 /area/f13/outpost)
 "dR" = (
-/turf/open/floor/plating/f13/outside/roof/tent_leather,
+/turf/open/floor/plating/f13/outside/roof,
 /area/f13/legion)
 "dS" = (
 /obj/effect/turf_decal/stripes/line{
@@ -673,11 +661,19 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /turf/open/floor/plasteel,
 /area/f13/underground/cave)
+"ef" = (
+/obj/structure/rack/large/shelf_rust,
+/obj/effect/spawner/lootdrop/f13/traitbooks,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/outpost)
 "eg" = (
 /turf/open/floor/plasteel/f13/vault_floor/blue/white/side{
 	dir = 9
 	},
 /area/f13/farmhouse)
+"eh" = (
+/turf/closed/wall/f13/vault,
+/area/f13/wasteland)
 "el" = (
 /turf/open/floor/wood_worn{
 	icon_state = "worn-broken5"
@@ -778,7 +774,7 @@
 /turf/open/indestructible/ground/outside/roaddirt{
 	icon_state = "horizontalinnermain2right"
 	},
-/area/f13/enclave)
+/area/f13/wasteland)
 "eS" = (
 /turf/open/floor/wood_fancy/wood_fancy_dark,
 /area/f13/legion)
@@ -1027,7 +1023,7 @@
 "gj" = (
 /obj/effect/decal/cleanable/blood,
 /turf/open/floor/wood_fancy,
-/area/f13/underground/cave)
+/area/f13/legion)
 "gm" = (
 /turf/closed/wall/r_wall/f13superstore{
 	icon_state = "supermart0"
@@ -1152,7 +1148,7 @@
 	sunlight_state = 1;
 	name = "deck"
 	},
-/area/f13/enclave)
+/area/f13/wasteland)
 "gT" = (
 /obj/effect/decal/marking{
 	icon_state = "dottedverticalcorroded"
@@ -1160,7 +1156,7 @@
 /obj/effect/decal/fakelattice,
 /obj/mecha/combat/phazon/vertibird/enclave/loaded,
 /turf/open/floor/f13/wood,
-/area/f13/enclave)
+/area/f13/wasteland)
 "gV" = (
 /obj/effect/turf_decal/stripes/asteroid/line,
 /turf/open/floor/plasteel/f13/vault_floor/red/whiteredfull,
@@ -1180,7 +1176,7 @@
 	sunlight_state = 1;
 	name = "deck"
 	},
-/area/f13/enclave)
+/area/f13/wasteland)
 "hc" = (
 /turf/open/floor/f13/wood{
 	sunlight_state = 1;
@@ -1259,7 +1255,7 @@
 	sunlight_state = 1;
 	name = "deck"
 	},
-/area/f13/enclave)
+/area/f13/wasteland)
 "hp" = (
 /obj/structure/closet/locker/oldstyle{
 	anchored = 1
@@ -1444,7 +1440,7 @@
 "ik" = (
 /obj/effect/decal/marking,
 /turf/open/indestructible/ground/outside/roaddirt,
-/area/f13/enclave)
+/area/f13/wasteland)
 "il" = (
 /obj/structure/destructible/tribal_torch/wall/lit{
 	dir = 4;
@@ -1475,7 +1471,7 @@
 "ix" = (
 /obj/item/reagent_containers/fuel_tank/upgraded,
 /turf/open/indestructible/ground/outside/roaddirt,
-/area/f13/enclave)
+/area/f13/wasteland)
 "iz" = (
 /obj/machinery/light/small{
 	dir = 4;
@@ -1548,9 +1544,6 @@
 /obj/effect/spawner/lootdrop/f13/cash_random_low,
 /turf/open/floor/wood_common,
 /area/f13/city)
-"jj" = (
-/turf/open/floor/plating/f13/outside/roof/tent_leather,
-/area/f13/wasteland)
 "jl" = (
 /obj/structure/closet/cabinet/anchored,
 /obj/effect/spawner/lootdrop/f13/armor/tier2,
@@ -1606,7 +1599,7 @@
 	sunlight_state = 1;
 	name = "deck"
 	},
-/area/f13/enclave)
+/area/f13/wasteland)
 "jC" = (
 /obj/machinery/camera/all{
 	dir = 6;
@@ -1616,7 +1609,7 @@
 	sunlight_state = 1;
 	name = "deck"
 	},
-/area/f13/enclave)
+/area/f13/wasteland)
 "jE" = (
 /obj/structure/table/wood,
 /obj/item/statuebust/legion,
@@ -1685,7 +1678,7 @@
 /turf/open/indestructible/ground/outside/roaddirt{
 	icon_state = "horizontalinnermain2right"
 	},
-/area/f13/enclave)
+/area/f13/wasteland)
 "jQ" = (
 /obj/structure/railing/corner{
 	color = "#A47449";
@@ -1698,7 +1691,7 @@
 	pixel_y = 26
 	},
 /turf/open/floor/wood_fancy,
-/area/f13/underground/cave)
+/area/f13/legion)
 "jS" = (
 /obj/structure/bed,
 /obj/structure/bed{
@@ -1928,14 +1921,14 @@
 	dir = 6
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/enclave)
+/area/f13/wasteland)
 "kN" = (
 /obj/effect/decal/marking{
 	icon_state = "dottedverticalcorroded"
 	},
 /obj/effect/turf_decal/stripes/asteroid/line,
 /turf/open/indestructible/ground/outside/roaddirt,
-/area/f13/enclave)
+/area/f13/wasteland)
 "kO" = (
 /obj/item/radio/intercom{
 	frequency = 1363;
@@ -1946,7 +1939,7 @@
 	sunlight_state = 1;
 	name = "deck"
 	},
-/area/f13/enclave)
+/area/f13/wasteland)
 "kP" = (
 /obj/structure/bed/old,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
@@ -2244,7 +2237,7 @@
 /area/f13/enclave)
 "mh" = (
 /turf/open/indestructible/ground/outside/roaddirt,
-/area/f13/enclave)
+/area/f13/wasteland)
 "mj" = (
 /obj/structure/chair/office/dark,
 /mob/living/simple_animal/hostile/securitron{
@@ -2307,9 +2300,6 @@
 	icon_state = "wide-broken4"
 	},
 /area/f13/legion)
-"mu" = (
-/turf/open/floor/wood_fancy,
-/area/f13/wasteland)
 "mv" = (
 /obj/structure/table_frame,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -2361,7 +2351,7 @@
 	sunlight_state = 1;
 	name = "deck"
 	},
-/area/f13/enclave)
+/area/f13/wasteland)
 "mL" = (
 /obj/structure/fluff/railing{
 	color = "#A47449";
@@ -2419,7 +2409,7 @@
 	sunlight_state = 1;
 	name = "deck"
 	},
-/area/f13/enclave)
+/area/f13/wasteland)
 "nf" = (
 /turf/open/transparent/openspace,
 /area/f13/outpost)
@@ -2482,7 +2472,7 @@
 	sunlight_state = 1;
 	name = "deck"
 	},
-/area/f13/enclave)
+/area/f13/wasteland)
 "nD" = (
 /obj/structure/table,
 /obj/machinery/computer/terminal{
@@ -2528,7 +2518,7 @@
 "nP" = (
 /obj/effect/turf_decal/stripes/asteroid/line,
 /turf/open/indestructible/ground/outside/roaddirt,
-/area/f13/enclave)
+/area/f13/wasteland)
 "nR" = (
 /obj/machinery/computer/message_monitor{
 	dir = 4
@@ -2822,7 +2812,7 @@
 /area/f13/legion)
 "pm" = (
 /obj/structure/spacevine,
-/turf/closed/wall/f13/tentwall,
+/turf/open/floor/plating/f13/outside/roof/wood/old,
 /area/f13/legion)
 "pn" = (
 /obj/machinery/light/fo13colored/Red{
@@ -3031,7 +3021,7 @@
 /turf/open/indestructible/ground/outside/roaddirt{
 	icon_state = "horizontalinnermain2left"
 	},
-/area/f13/enclave)
+/area/f13/wasteland)
 "qt" = (
 /obj/structure/fence/wooden{
 	dir = 8;
@@ -3081,7 +3071,7 @@
 	},
 /obj/effect/decal/fakelattice,
 /turf/open/floor/f13/wood,
-/area/f13/enclave)
+/area/f13/wasteland)
 "qK" = (
 /obj/structure/window/plastitanium,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
@@ -3132,7 +3122,7 @@
 /turf/open/indestructible/ground/outside/roaddirt{
 	icon_state = "horizontalinnermain3"
 	},
-/area/f13/enclave)
+/area/f13/wasteland)
 "qZ" = (
 /obj/structure/chair/bench,
 /obj/structure/destructible/tribal_torch/wall/lit{
@@ -3181,7 +3171,7 @@
 	dir = 4;
 	pixel_y = 8
 	},
-/turf/open/floor/plating/f13/outside/roof/tent_leather,
+/turf/open/floor/plating/f13/outside/roof,
 /area/f13/wasteland)
 "rf" = (
 /obj/item/trash/f13/c_ration_3,
@@ -3318,7 +3308,7 @@
 /turf/open/floor/wood_fancy{
 	icon_state = "fancy-broken5"
 	},
-/area/f13/underground/cave)
+/area/f13/legion)
 "rS" = (
 /obj/structure/chair/f13chair2{
 	dir = 4
@@ -3393,7 +3383,7 @@
 /obj/structure/kitchenspike,
 /obj/effect/decal/cleanable/blood/gibs,
 /turf/open/floor/wood_fancy,
-/area/f13/underground/cave)
+/area/f13/legion)
 "sn" = (
 /obj/effect/decal/cleanable/dirt{
 	color = "#363636"
@@ -3598,7 +3588,7 @@
 	sunlight_state = 1;
 	name = "deck"
 	},
-/area/f13/enclave)
+/area/f13/wasteland)
 "tm" = (
 /obj/structure/bookshelf{
 	icon_state = "book-2"
@@ -3775,6 +3765,7 @@
 /obj/structure/sign/poster/prewar/corporate_espionage{
 	pixel_y = 35
 	},
+/obj/effect/spawner/lootdrop/f13/traitbooks,
 /turf/open/floor/carpet/black,
 /area/f13/building/abandoned)
 "ul" = (
@@ -3816,7 +3807,7 @@
 /obj/effect/mob_spawn/human/corpse/ncr,
 /obj/structure/kitchenspike,
 /turf/open/floor/wood_fancy,
-/area/f13/wasteland)
+/area/f13/legion)
 "uu" = (
 /turf/open/floor/wood_wide{
 	icon_state = "wide-broken6"
@@ -3922,7 +3913,7 @@
 "vi" = (
 /obj/effect/spawner/lootdrop/f13/junkspawners,
 /turf/open/indestructible/ground/outside/roaddirt,
-/area/f13/enclave)
+/area/f13/wasteland)
 "vq" = (
 /obj/machinery/light/fo13colored/Red,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
@@ -3981,7 +3972,7 @@
 	pixel_x = -19
 	},
 /obj/item/documents{
-	desc = "\"Top Secret\" documents. This state that this facility was a slave labor camp. Prisoner would be brought here, outside NCR territory to work like slave to in turn a hudge profit. Altho looking like NCRA Soldiers, the men here a nothing but mercs.";
+	desc = "Secrets documents. This state that this facility was a slave labor camp. Prisoner would be brought here, outside NCR territory to work like slave to in turn a hudge profit. Altho looking like NCRA Soldiers, the men here a nothing but mercs disguised as true military too fool rangers.";
 	name = "Labor Camp secret documents"
 	},
 /turf/open/floor/carpet/royalblack,
@@ -4006,7 +3997,7 @@
 /turf/open/floor/wood_fancy{
 	icon_state = "fancy-broken5"
 	},
-/area/f13/underground/cave)
+/area/f13/legion)
 "vN" = (
 /obj/structure/destructible/tribal_torch/lit{
 	pixel_x = -3
@@ -4043,7 +4034,7 @@
 	sunlight_state = 1;
 	name = "deck"
 	},
-/area/f13/enclave)
+/area/f13/wasteland)
 "vT" = (
 /obj/structure/fence/wooden{
 	dir = 8;
@@ -4171,7 +4162,7 @@
 /obj/item/storage/backpack/duffelbag/med/surgery/primitive/anchored,
 /obj/machinery/defibrillator_mount/primitive,
 /turf/open/floor/wood_fancy,
-/area/f13/underground/cave)
+/area/f13/legion)
 "wu" = (
 /obj/structure/barricade/wooden/strong,
 /turf/open/floor/plating/f13/outside/roof/wood,
@@ -4508,7 +4499,7 @@
 /turf/open/floor/wood_fancy{
 	icon_state = "fancy-broken4"
 	},
-/area/f13/wasteland)
+/area/f13/legion)
 "yy" = (
 /obj/structure/chair/wood,
 /obj/effect/turf_decal/shadow/floor{
@@ -4550,11 +4541,6 @@
 	},
 /turf/open/floor/wood_common,
 /area/f13/city)
-"yC" = (
-/turf/open/floor/wood_fancy{
-	icon_state = "fancy-broken3"
-	},
-/area/f13/underground/cave)
 "yD" = (
 /obj/structure/rack/large/shelf_rust,
 /obj/effect/spawner/lootdrop/f13/blueprintVHigh,
@@ -4568,7 +4554,7 @@
 	sunlight_state = 1;
 	name = "deck"
 	},
-/area/f13/enclave)
+/area/f13/wasteland)
 "yG" = (
 /obj/structure/destructible/tribal_torch/wall/lit{
 	dir = 1;
@@ -4729,7 +4715,7 @@
 "zJ" = (
 /obj/effect/decal/fakelattice,
 /turf/open/floor/f13/wood,
-/area/f13/enclave)
+/area/f13/wasteland)
 "zK" = (
 /obj/structure/fluff/railing{
 	dir = 4;
@@ -4985,9 +4971,8 @@
 /area/f13/building/abandoned)
 "AZ" = (
 /obj/structure/window/fulltile/wood,
-/obj/structure/simple_door/tentflap_leather{
-	layer = 8;
-	pixel_y = -3
+/obj/structure/curtain{
+	color = "#845f58"
 	},
 /turf/open/indestructible/ground/outside/dirt/dark{
 	icon_state = "dirtfull_dark"
@@ -5081,10 +5066,6 @@
 	icon_state = "fancy_light-broken3"
 	},
 /area/f13/legioncamp)
-"Bu" = (
-/obj/effect/decal/fakelattice,
-/turf/open/floor/f13/wood/outside,
-/area/f13/enclave)
 "BA" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/light/small{
@@ -5173,6 +5154,10 @@
 "BT" = (
 /obj/structure/barricade/bars,
 /turf/open/indestructible/ground/outside/ruins,
+/area/f13/outpost)
+"BU" = (
+/obj/effect/spawner/lootdrop/f13/traitbooks,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/outpost)
 "BW" = (
 /obj/structure/weightmachine/stacklifter,
@@ -5276,12 +5261,22 @@
 	sunlight_state = 1;
 	name = "deck"
 	},
-/area/f13/enclave)
+/area/f13/wasteland)
 "Cw" = (
 /obj/item/kirbyplants/random,
 /obj/effect/turf_decal/shadow/floor,
 /turf/open/floor/wood_fancy,
 /area/f13/legion)
+"Cy" = (
+/obj/machinery/door/airlock/highsecurity{
+	req_access = list(134);
+	req_one_access = list(134)
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	sunlight_state = 1;
+	name = "deck"
+	},
+/area/f13/wasteland)
 "Cz" = (
 /obj/machinery/telecomms/server/presets/medical,
 /turf/open/floor/plasteel/dark/telecomms/mainframe,
@@ -5430,7 +5425,7 @@
 	sunlight_state = 1;
 	name = "deck"
 	},
-/area/f13/enclave)
+/area/f13/wasteland)
 "Dy" = (
 /turf/open/floor/plating/f13/outside/roof/red,
 /area/f13/legioncamp)
@@ -5481,7 +5476,7 @@
 	sunlight_state = 1;
 	name = "deck"
 	},
-/area/f13/enclave)
+/area/f13/wasteland)
 "DJ" = (
 /obj/effect/spawner/lootdrop/trash,
 /obj/structure/sign/poster/prewar/corporate_espionage{
@@ -5583,7 +5578,7 @@
 /turf/open/indestructible/ground/outside/roaddirt{
 	icon_state = "horizontalinnermain1"
 	},
-/area/f13/enclave)
+/area/f13/wasteland)
 "Eo" = (
 /obj/structure/closet/crate/wooden,
 /obj/item/reagent_containers/food/snacks/grown/cannabis,
@@ -5674,7 +5669,7 @@
 	sunlight_state = 1;
 	name = "deck"
 	},
-/area/f13/enclave)
+/area/f13/wasteland)
 "EO" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/backpack/security,
@@ -5810,7 +5805,7 @@
 	icon_state = "dottedverticalcorroded"
 	},
 /turf/open/indestructible/ground/outside/roaddirt,
-/area/f13/enclave)
+/area/f13/wasteland)
 "Fy" = (
 /obj/structure/fence{
 	dir = 8
@@ -5917,10 +5912,10 @@
 /obj/structure/window/fulltile/ruins{
 	icon_state = "ruinswindowdestroyed"
 	},
-/obj/structure/simple_door/tentflap_leather{
-	layer = 8;
-	pixel_y = -3
+/obj/structure/curtain{
+	color = "#845f58"
 	},
+/obj/structure/barricade/wooden/planks/pregame,
 /turf/open/floor/wood_fancy,
 /area/f13/legioncamp)
 "FX" = (
@@ -6123,7 +6118,7 @@
 	sunlight_state = 1;
 	name = "deck"
 	},
-/area/f13/enclave)
+/area/f13/wasteland)
 "GZ" = (
 /obj/effect/particle_effect/smoke/transparent,
 /turf/open/floor/wood_wide/wood_wide_dark,
@@ -6189,7 +6184,7 @@
 /turf/open/floor/wood_fancy{
 	icon_state = "fancy-broken2"
 	},
-/area/f13/underground/cave)
+/area/f13/legion)
 "Ht" = (
 /turf/closed/wall/rust,
 /area/f13/legion)
@@ -6341,7 +6336,7 @@
 /turf/open/indestructible/ground/outside/roaddirt{
 	icon_state = "horizontalinnermain2right"
 	},
-/area/f13/enclave)
+/area/f13/wasteland)
 "Iz" = (
 /obj/structure/destructible/tribal_torch/wall/lit{
 	dir = 8
@@ -6381,6 +6376,10 @@
 	name = "tan light fixture";
 	light_color = "#FFDDCC";
 	color = "#FFDDCC"
+	},
+/obj/structure/pool/ladder{
+	dir = 2;
+	pixel_x = -8
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/enclave)
@@ -6500,7 +6499,7 @@
 	sunlight_state = 1;
 	name = "deck"
 	},
-/area/f13/enclave)
+/area/f13/wasteland)
 "Jr" = (
 /obj/structure/dresser,
 /obj/structure/destructible/tribal_torch/wall/lit{
@@ -6574,7 +6573,7 @@
 	icon_state = "dottedverticalcorroded"
 	},
 /turf/open/floor/f13/wood/outside,
-/area/f13/enclave)
+/area/f13/wasteland)
 "JE" = (
 /obj/structure/closet/secure_closet/personal/cabinet,
 /obj/effect/spawner/lootdrop/f13/armor/costumes,
@@ -6649,6 +6648,12 @@
 "JT" = (
 /obj/structure/bed/old,
 /obj/item/bedsheet/purple,
+/obj/machinery/light/small{
+	dir = 8;
+	name = "tan light fixture";
+	light_color = "#FFDDCC";
+	color = "#FFDDCC"
+	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/enclave)
 "JU" = (
@@ -6730,7 +6735,7 @@
 	sunlight_state = 1;
 	name = "deck"
 	},
-/area/f13/enclave)
+/area/f13/wasteland)
 "Ks" = (
 /turf/open/floor/wood_common{
 	icon_state = "common-broken3"
@@ -6798,8 +6803,8 @@
 	},
 /obj/structure/decoration/hatch,
 /obj/item/documents/syndicate/blue{
-	name = "Rebel Secret documents";
-	desc = "\"Top Secret\" documents detailing sensitive Syndicate operational intelligence. These documents are verified with a blue wax seal... Its a ledger too, detailing the names of multiple NCR officials that funds the Roguewave Rebels operation."
+	name = "Rebels Secret documents";
+	desc = "Secrets NCR documents detailing sensitive NCR operational intelligence. These documents are verified with a blue wax seal... Its a ledger too, detailing the names of multiple NCR officials that funds the Roguewave Rebels operation, and the promise of a Temporary pardon for any raiders and Enclave fighting in the Roguewave Rebellion."
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/enclave)
@@ -6808,12 +6813,19 @@
 /turf/open/floor/plasteel/dark/telecomms/mainframe,
 /area/f13/underground/cave)
 "KV" = (
-/obj/structure/simple_door/bunker/glass,
+/obj/machinery/door/airlock/highsecurity{
+	req_access = list(134);
+	req_one_access = list(134)
+	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/enclave)
 "KX" = (
 /obj/structure/table/reinforced,
 /obj/machinery/nuclearbomb/beer,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/outpost)
+"KZ" = (
+/obj/machinery/autolathe/ammo,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/outpost)
 "La" = (
@@ -6888,7 +6900,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/enclave)
 "Lr" = (
-/turf/closed/wall/f13/tentwall,
+/turf/open/floor/plating/f13/outside/roof/wood/old,
 /area/f13/legion)
 "Ls" = (
 /obj/structure/statue/mars,
@@ -6940,6 +6952,7 @@
 /obj/structure/curtain{
 	color = "#5c131b"
 	},
+/obj/structure/barricade/wooden/planks/pregame,
 /turf/open/floor/wood_fancy,
 /area/f13/legion)
 "LV" = (
@@ -6985,9 +6998,8 @@
 /area/f13/wasteland)
 "Ms" = (
 /obj/structure/window/fulltile/ruins,
-/obj/structure/simple_door/tentflap_leather{
-	layer = 8;
-	pixel_y = -3
+/obj/structure/curtain{
+	color = "#845f58"
 	},
 /turf/open/floor/wood_fancy,
 /area/f13/legioncamp)
@@ -7086,7 +7098,7 @@
 	sunlight_state = 1;
 	name = "deck"
 	},
-/area/f13/enclave)
+/area/f13/wasteland)
 "MW" = (
 /turf/open/floor/plasteel/f13/vault_floor/red/whiteredfull,
 /area/f13/outpost)
@@ -7100,6 +7112,13 @@
 	},
 /turf/open/transparent/openspace,
 /area/f13/legioncamp)
+"MY" = (
+/obj/structure/window/fulltile/ruins{
+	icon_state = "ruinswindowvertical"
+	},
+/obj/structure/barricade/wooden/planks/pregame,
+/turf/open/floor/wood_fancy,
+/area/f13/legion)
 "Na" = (
 /obj/structure/table/wood,
 /obj/item/radio/tribal{
@@ -7166,7 +7185,7 @@
 	sunlight_state = 1;
 	name = "deck"
 	},
-/area/f13/enclave)
+/area/f13/wasteland)
 "Nn" = (
 /obj/item/gun/ballistic/shotgun/toy/mag,
 /turf/open/floor/carpet/arcade,
@@ -7388,7 +7407,7 @@
 	sunlight_state = 1;
 	name = "deck"
 	},
-/area/f13/enclave)
+/area/f13/wasteland)
 "Oy" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/lattice/catwalk,
@@ -7514,7 +7533,7 @@
 	sunlight_state = 1;
 	name = "deck"
 	},
-/area/f13/enclave)
+/area/f13/wasteland)
 "Pm" = (
 /obj/structure/destructible/tribal_torch/wall/lit{
 	dir = 4;
@@ -7540,14 +7559,17 @@
 /obj/structure/bed/old{
 	pixel_y = 15
 	},
+/obj/structure/pool/ladder{
+	dir = 2;
+	pixel_x = -8
+	},
 /turf/open/floor/plasteel/f13/vault_floor/blue/whitebluefull,
 /area/f13/enclave)
 "Pp" = (
 /obj/structure/window/fulltile/ruins,
 /obj/structure/window/fulltile/wood,
-/obj/structure/simple_door/tentflap_leather{
-	layer = 8;
-	pixel_y = -3
+/obj/structure/curtain{
+	color = "#845f58"
 	},
 /turf/open/floor/wood_fancy,
 /area/f13/legioncamp)
@@ -7588,6 +7610,15 @@
 /obj/item/clothing/under/fancy_red_formaldress,
 /obj/item/clothing/under/suit/burgundy,
 /turf/open/floor/wood_fancy,
+/area/f13/legioncamp)
+"Pz" = (
+/obj/structure/destructible/tribal_torch/wall/lit{
+	dir = 4;
+	light_power = 0.7;
+	light_range = 5;
+	pixel_x = 2
+	},
+/turf/open/floor/wood_wide/wood_wide_dark,
 /area/f13/legioncamp)
 "PB" = (
 /obj/structure/destructible/tribal_torch/wall/lit{
@@ -7886,7 +7917,7 @@
 	sunlight_state = 1;
 	name = "deck"
 	},
-/area/f13/enclave)
+/area/f13/wasteland)
 "Ra" = (
 /obj/structure/destructible/tribal_torch/wall/lit{
 	dir = 4;
@@ -7948,6 +7979,10 @@
 /obj/structure/bed/old{
 	pixel_y = 15
 	},
+/obj/structure/pool/ladder{
+	dir = 2;
+	pixel_x = -8
+	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/enclave)
 "Rp" = (
@@ -7969,9 +8004,8 @@
 /area/f13/farmhouse)
 "Rs" = (
 /obj/structure/window/fulltile/wood,
-/obj/structure/simple_door/tentflap_leather{
-	layer = 8;
-	pixel_y = -3
+/obj/structure/curtain{
+	color = "#845f58"
 	},
 /turf/open/floor/wood_fancy,
 /area/f13/legioncamp)
@@ -8042,7 +8076,7 @@
 /turf/open/indestructible/ground/outside/roaddirt{
 	icon_state = "horizontalinnermain2"
 	},
-/area/f13/enclave)
+/area/f13/wasteland)
 "RI" = (
 /obj/item/reagent_containers/food/snacks/f13/canned/dog,
 /obj/machinery/light/fo13colored/Red,
@@ -8121,10 +8155,11 @@
 /obj/item/melee/onehanded/knife/bone,
 /obj/item/twohanded/baseball/spiked,
 /turf/open/floor/wood_fancy,
-/area/f13/underground/cave)
+/area/f13/legion)
 "Sa" = (
 /obj/structure/rack/shelf_metal,
 /obj/item/stack/f13Cash/random/ncr/high,
+/obj/effect/spawner/lootdrop/f13/traitbooks,
 /turf/open/floor/plasteel/f13/vault_floor/blue/white/corner{
 	dir = 1
 	},
@@ -8210,13 +8245,9 @@
 "St" = (
 /turf/open/floor/plasteel/dark/telecomms/mainframe,
 /area/f13/underground/cave)
-"Sw" = (
-/obj/structure/chair/wood,
-/turf/open/floor/wood_fancy,
-/area/f13/underground/cave)
 "Sy" = (
 /obj/structure/railing/handrail/legion/underlayer,
-/turf/open/floor/plating/f13/outside/roof/tent_leather,
+/turf/open/floor/plating/f13/outside/roof,
 /area/f13/wasteland)
 "Sz" = (
 /obj/item/radio/intercom/retro{
@@ -8647,6 +8678,12 @@
 /area/f13/farmhouse)
 "Up" = (
 /obj/structure/dresser,
+/obj/structure/destructible/tribal_torch/wall/lit{
+	dir = 4;
+	light_power = 0.7;
+	light_range = 5;
+	pixel_x = 2
+	},
 /turf/open/floor/wood_wide/wood_wide_dark,
 /area/f13/legioncamp)
 "Ut" = (
@@ -8669,6 +8706,10 @@
 /obj/effect/spawner/lootdrop/f13/bomb/tier1,
 /turf/open/floor/plasteel/f13/vault_floor/blue/white/side,
 /area/f13/farmhouse)
+"Uz" = (
+/obj/structure/rug/big/rug_red,
+/turf/open/floor/wood_fancy,
+/area/f13/legioncamp)
 "UB" = (
 /obj/item/reagent_containers/food/snacks/f13/mre,
 /obj/machinery/camera/all{
@@ -8769,7 +8810,7 @@
 /obj/structure/table/wood,
 /obj/item/documents{
 	name = "instructions from Caesar";
-	desc = "\"Top Secret\" documents. Those details military operation here, but also in the Paphrum and Yuma region.Letting this fall in the hands of the ennemy can bring the destruction of the camp by Ceasar himself."
+	desc = "Secrets Legion documents. Those details military operation here, but also in the Paphrum and Yuma region.Letting this fall in the hands of the ennemy can bring the destruction of the camp by Ceasar himself."
 	},
 /turf/open/floor/carpet,
 /area/f13/legion)
@@ -8788,13 +8829,6 @@
 	icon_state = "neutralrustyfull"
 	},
 /area/f13/building/abandoned)
-"Vh" = (
-/obj/machinery/camera/all{
-	dir = 4;
-	network = list("ss13-Enclave")
-	},
-/turf/open/transparent/openspace,
-/area/f13/enclave)
 "Vi" = (
 /obj/item/radio/intercom/retro{
 	frequency = 1455;
@@ -8899,12 +8933,19 @@
 "Vx" = (
 /turf/open/floor/plasteel/f13/vault_floor/yellow/whiteyellowfull,
 /area/f13/outpost)
+"Vz" = (
+/obj/machinery/button/door{
+	id = "Citygate";
+	pixel_x = -27
+	},
+/turf/open/floor/wood_common/wood_common_dark,
+/area/f13/legioncamp)
 "VA" = (
 /obj/effect/decal/marking,
 /turf/open/indestructible/ground/outside/roaddirt{
 	icon_state = "horizontalinnermain2right"
 	},
-/area/f13/enclave)
+/area/f13/wasteland)
 "VE" = (
 /obj/structure/barricade/sandbags,
 /obj/machinery/light/small{
@@ -8997,6 +9038,12 @@
 "VT" = (
 /obj/structure/bed/old,
 /obj/item/bedsheet/enclave,
+/obj/machinery/light/small{
+	dir = 8;
+	name = "tan light fixture";
+	light_color = "#FFDDCC";
+	color = "#FFDDCC"
+	},
 /turf/open/floor/plasteel/f13/vault_floor/blue/whitebluefull,
 /area/f13/enclave)
 "VW" = (
@@ -9007,18 +9054,6 @@
 /obj/machinery/status_display,
 /turf/closed/wall,
 /area/f13/underground/cave)
-"VZ" = (
-/turf/open/indestructible/ground/outside/roaddirt{
-	icon_state = "horizontalinnermain2left"
-	},
-/area/f13/enclave)
-"Wa" = (
-/obj/effect/turf_decal/stripes/asteroid/line,
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
-	sunlight_state = 1;
-	name = "deck"
-	},
-/area/f13/enclave)
 "Wc" = (
 /obj/item/grenade/homemade/firebomb,
 /turf/open/floor/f13/wood{
@@ -9177,9 +9212,6 @@
 	icon_state = "worn-broken6"
 	},
 /area/f13/farmhouse)
-"WZ" = (
-/turf/open/floor/wood_fancy,
-/area/f13/underground/cave)
 "Xa" = (
 /obj/structure/railing{
 	color = "#A47449";
@@ -9196,12 +9228,6 @@
 	icon_state = "worn-broken2"
 	},
 /area/f13/farmhouse)
-"Xd" = (
-/obj/effect/turf_decal/stripes/asteroid/line,
-/turf/open/indestructible/ground/outside/roaddirt{
-	icon_state = "horizontalinnermain2left"
-	},
-/area/f13/enclave)
 "Xe" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -9411,7 +9437,7 @@
 	sunlight_state = 1;
 	name = "deck"
 	},
-/area/f13/enclave)
+/area/f13/wasteland)
 "XT" = (
 /obj/structure/railing/handrail/legion{
 	dir = 4
@@ -9465,7 +9491,7 @@
 	sunlight_state = 1;
 	name = "deck"
 	},
-/area/f13/enclave)
+/area/f13/wasteland)
 "Yi" = (
 /turf/open/floor/f13/wood,
 /area/f13/outpost)
@@ -9559,14 +9585,6 @@
 	},
 /turf/open/transparent/openspace,
 /area/f13/wasteland)
-"YK" = (
-/obj/structure/simple_door/tentflap_leather{
-	layer = 8;
-	pixel_y = -3
-	},
-/obj/structure/window/fulltile/wood,
-/turf/open/floor/wood_fancy,
-/area/f13/legioncamp)
 "YM" = (
 /obj/item/clothing/suit/armor/medium/vest/followers,
 /obj/item/clothing/suit/armor/medium/duster/follower,
@@ -9772,7 +9790,7 @@
 	sunlight_state = 1;
 	name = "deck"
 	},
-/area/f13/enclave)
+/area/f13/wasteland)
 "ZJ" = (
 /obj/machinery/door/airlock/grunge,
 /turf/open/floor/plating/rust,
@@ -9782,6 +9800,16 @@
 /obj/structure/lattice,
 /turf/open/transparent/openspace,
 /area/f13/building/abandoned)
+"ZL" = (
+/obj/structure/decoration/rag{
+	icon_state = "skin"
+	},
+/obj/structure/window/fulltile/ruins{
+	icon_state = "ruinswindowbrokenvertical"
+	},
+/obj/structure/barricade/wooden/planks/pregame,
+/turf/open/floor/wood_fancy,
+/area/f13/legion)
 "ZM" = (
 /turf/closed/wall/f13/wood/house/broken,
 /area/f13/city)
@@ -10736,7 +10764,7 @@ ER
 EY
 Ye
 XS
-XS
+Cy
 NG
 Kj
 Kj
@@ -10938,8 +10966,8 @@ EX
 Dp
 XS
 XS
-XS
-XS
+eh
+eh
 Dv
 Cv
 Dv
@@ -11304,7 +11332,7 @@ Cl
 cY
 cY
 He
-cY
+AG
 WB
 Cl
 OP
@@ -12541,9 +12569,9 @@ RD
 EY
 XS
 MR
-VZ
-VZ
-VZ
+jX
+jX
+jX
 zJ
 mh
 mh
@@ -12551,21 +12579,21 @@ zJ
 mh
 mh
 mh
-VZ
+jX
 mh
 mh
-VZ
-VZ
-VZ
+jX
+jX
+jX
 El
 mh
 mh
 mh
 dP
-VZ
-VZ
-VZ
-Xd
+jX
+jX
+jX
+Nb
 tl
 XS
 XS
@@ -12742,7 +12770,7 @@ cY
 pO
 EY
 XS
-Wa
+Xr
 eP
 eP
 eP
@@ -12759,9 +12787,9 @@ mh
 eP
 eP
 qY
-Bu
-Bu
-Bu
+cU
+cU
+cU
 mh
 mh
 eP
@@ -12944,8 +12972,8 @@ KI
 ol
 EY
 EN
-Wa
-VZ
+Xr
+jX
 Fu
 Fu
 Fu
@@ -13146,9 +13174,9 @@ ZW
 AM
 EY
 gR
-Wa
+Xr
 RH
-VZ
+jX
 ix
 mh
 mh
@@ -13160,13 +13188,13 @@ El
 dP
 mh
 El
-VZ
+jX
 mh
-Bu
+cU
 qY
-Bu
+cU
 mh
-Bu
+cU
 mh
 vi
 mh
@@ -13359,15 +13387,15 @@ zJ
 eP
 RH
 mh
-VZ
+jX
 mh
 mh
 eP
 mh
 mh
-Bu
+cU
 mh
-Bu
+cU
 qY
 mh
 mh
@@ -13552,10 +13580,10 @@ EY
 jC
 mJ
 nB
-VZ
-VZ
-VZ
-VZ
+jX
+jX
+jX
+jX
 mh
 mh
 mh
@@ -13563,13 +13591,13 @@ mh
 mh
 eP
 mh
-VZ
-VZ
-VZ
-VZ
-VZ
-VZ
-Bu
+jX
+jX
+jX
+jX
+jX
+jX
+cU
 cU
 jX
 jX
@@ -13758,10 +13786,10 @@ yE
 yE
 yE
 ZI
-VZ
-VZ
-VZ
-VZ
+jX
+jX
+jX
+jX
 mh
 mh
 mh
@@ -13959,7 +13987,7 @@ XS
 XS
 XS
 XS
-Wa
+Xr
 eP
 eP
 eP
@@ -13967,7 +13995,7 @@ eP
 mh
 mh
 mh
-cL
+TC
 XS
 IH
 NG
@@ -14140,11 +14168,11 @@ NG
 NG
 NG
 NG
-Vh
-mg
-mg
-mg
-mg
+YD
+NG
+NG
+NG
+NG
 NG
 NG
 NG
@@ -19185,7 +19213,7 @@ MW
 MW
 rF
 TV
-lr
+BU
 lr
 Uj
 NS
@@ -19993,7 +20021,7 @@ hY
 MW
 wY
 Ob
-lr
+KZ
 Dn
 fN
 gr
@@ -24615,7 +24643,7 @@ OZ
 TV
 uw
 lr
-JQ
+ef
 FJ
 JQ
 Eo
@@ -31035,12 +31063,12 @@ NG
 NG
 NG
 NG
-jj
-jj
-jj
-jj
-jj
-jj
+lf
+lf
+lf
+lf
+lf
+lf
 NG
 NG
 NG
@@ -31209,9 +31237,9 @@ NG
 NG
 NG
 xD
-YK
+Rs
 xD
-YK
+Rs
 xD
 NG
 NG
@@ -31219,12 +31247,12 @@ NG
 NG
 NG
 NG
-jj
-jj
-jj
-jj
-jj
-jj
+lf
+lf
+lf
+lf
+lf
+lf
 NG
 NG
 NG
@@ -31237,12 +31265,12 @@ NG
 NG
 NG
 NG
-jj
-jj
-jj
-jj
-jj
-jj
+lf
+lf
+lf
+lf
+lf
+lf
 NG
 NG
 NG
@@ -31392,19 +31420,19 @@ xZ
 se
 tA
 YY
-YY
+Vz
 qo
 gy
 Ut
 NG
 NG
 NG
-jj
-jj
-jj
-jj
-jj
-jj
+lf
+lf
+lf
+lf
+lf
+lf
 NG
 NG
 NG
@@ -31421,12 +31449,12 @@ NG
 NG
 NG
 NG
-jj
-jj
-jj
-jj
-jj
-jj
+lf
+lf
+lf
+lf
+lf
+lf
 NG
 NG
 NG
@@ -31439,12 +31467,12 @@ NG
 NG
 NG
 NG
-jj
-jj
-jj
-jj
-jj
-jj
+lf
+lf
+lf
+lf
+lf
+lf
 NG
 NG
 NG
@@ -31601,12 +31629,12 @@ Ei
 NG
 NG
 NG
-jj
-jj
-jj
-jj
-jj
-jj
+lf
+lf
+lf
+lf
+lf
+lf
 NG
 NG
 NG
@@ -31623,12 +31651,12 @@ NG
 NG
 NG
 NG
-jj
-jj
-jj
-jj
-jj
-jj
+lf
+lf
+lf
+lf
+lf
+lf
 NG
 NG
 NG
@@ -31641,12 +31669,12 @@ NG
 NG
 NG
 NG
-jj
-jj
-jj
-jj
-jj
-jj
+lf
+lf
+lf
+lf
+lf
+lf
 NG
 NG
 NG
@@ -31803,12 +31831,12 @@ Ei
 NG
 NG
 NG
-jj
-jj
-jj
-jj
-jj
-jj
+lf
+lf
+lf
+lf
+lf
+lf
 NG
 NG
 NG
@@ -31825,12 +31853,12 @@ NG
 NG
 NG
 NG
-jj
-jj
-jj
-jj
-jj
-jj
+lf
+lf
+lf
+lf
+lf
+lf
 NG
 NG
 NG
@@ -31843,12 +31871,12 @@ NG
 NG
 NG
 NG
-jj
-jj
-jj
-jj
-jj
-jj
+lf
+lf
+lf
+lf
+lf
+lf
 NG
 NG
 NG
@@ -32005,12 +32033,12 @@ se
 NG
 NG
 NG
-jj
-jj
-jj
-jj
-jj
-jj
+lf
+lf
+lf
+lf
+lf
+lf
 NG
 NG
 NG
@@ -32027,12 +32055,12 @@ NG
 NG
 NG
 NG
-jj
-jj
-jj
-jj
-jj
-jj
+lf
+lf
+lf
+lf
+lf
+lf
 NG
 NG
 NG
@@ -32045,12 +32073,12 @@ NG
 NG
 NG
 NG
-jj
-jj
-jj
-jj
-jj
-jj
+lf
+lf
+lf
+lf
+lf
+lf
 NG
 NG
 NG
@@ -32207,12 +32235,12 @@ Ut
 NG
 NG
 NG
-jj
-jj
-jj
-jj
-jj
-jj
+lf
+lf
+lf
+lf
+lf
+lf
 NG
 NG
 NG
@@ -32229,12 +32257,12 @@ NG
 NG
 NG
 NG
-jj
-jj
-jj
-jj
-jj
-jj
+lf
+lf
+lf
+lf
+lf
+lf
 NG
 NG
 NG
@@ -32409,12 +32437,12 @@ hd
 NG
 NG
 NG
-jj
-jj
-jj
-jj
-jj
-jj
+lf
+lf
+lf
+lf
+lf
+lf
 NG
 NG
 NG
@@ -32593,7 +32621,7 @@ se
 aE
 xZ
 xZ
-xZ
+Uz
 xZ
 BD
 od
@@ -32835,12 +32863,12 @@ NG
 NG
 NG
 NG
-jj
-jj
-jj
-jj
-jj
-jj
+lf
+lf
+lf
+lf
+lf
+lf
 NG
 NG
 NG
@@ -33037,25 +33065,25 @@ NG
 NG
 NG
 NG
-jj
-jj
-jj
-jj
-jj
-jj
+lf
+lf
+lf
+lf
+lf
+lf
 NG
 NG
 NG
 NG
 NG
 NG
-jj
-jj
-jj
-jj
-jj
-jj
-jj
+lf
+lf
+lf
+lf
+lf
+lf
+lf
 NG
 IT
 IT
@@ -33239,25 +33267,25 @@ NG
 NG
 NG
 NG
-jj
-jj
-jj
-jj
-jj
-jj
+lf
+lf
+lf
+lf
+lf
+lf
 NG
 NG
 NG
 NG
 NG
 NG
-jj
-jj
-jj
-jj
-jj
-jj
-jj
+lf
+lf
+lf
+lf
+lf
+lf
+lf
 NG
 IT
 IT
@@ -33441,25 +33469,25 @@ NG
 NG
 NG
 NG
-jj
-jj
-jj
-jj
-jj
-jj
+lf
+lf
+lf
+lf
+lf
+lf
 NG
 NG
 NG
 NG
 NG
 NG
-jj
-jj
-jj
-jj
-jj
-jj
-jj
+lf
+lf
+lf
+lf
+lf
+lf
+lf
 NG
 IT
 IT
@@ -33643,25 +33671,25 @@ NG
 NG
 NG
 NG
-jj
-jj
-jj
-jj
-jj
-jj
+lf
+lf
+lf
+lf
+lf
+lf
 NG
 NG
 NG
 NG
 NG
 NG
-jj
-jj
-jj
-jj
-jj
-jj
-jj
+lf
+lf
+lf
+lf
+lf
+lf
+lf
 NG
 IT
 IT
@@ -33845,25 +33873,25 @@ NG
 NG
 NG
 NG
-jj
-jj
-jj
-jj
-jj
-jj
+lf
+lf
+lf
+lf
+lf
+lf
 NG
 NG
 NG
 NG
 NG
 NG
-jj
-jj
-jj
-jj
-jj
-jj
-jj
+lf
+lf
+lf
+lf
+lf
+lf
+lf
 NG
 IT
 IT
@@ -34059,13 +34087,13 @@ YQ
 YQ
 YQ
 Pb
-jj
-jj
-jj
-jj
-jj
-jj
-jj
+lf
+lf
+lf
+lf
+lf
+lf
+lf
 NG
 NG
 NG
@@ -34654,7 +34682,7 @@ NG
 bz
 YQ
 YQ
-mL
+NG
 lf
 lf
 lf
@@ -34821,11 +34849,11 @@ se
 dm
 sT
 sT
+Pz
 sT
 sT
 sT
-sT
-sT
+Pz
 sT
 sT
 sT
@@ -37852,10 +37880,10 @@ dI
 dI
 dI
 dI
-oD
-oD
-oD
-oD
+IT
+IT
+IT
+IT
 NG
 NG
 NG
@@ -38054,10 +38082,10 @@ dI
 dI
 dI
 dI
-oD
-oD
-oD
-oD
+IT
+IT
+IT
+IT
 NG
 NG
 NG
@@ -38256,10 +38284,10 @@ dI
 dI
 dI
 dI
-oD
-oD
-oD
-oD
+IT
+IT
+IT
+IT
 NG
 NG
 NG
@@ -38458,10 +38486,10 @@ dI
 dI
 dI
 dI
-oD
-oD
-oD
-oD
+IT
+IT
+IT
+IT
 NG
 NG
 NG
@@ -39261,11 +39289,11 @@ dI
 dI
 dI
 dI
-aJ
-aJ
-aJ
-aJ
-aJ
+TF
+TF
+TF
+TF
+TF
 TF
 dR
 dR
@@ -39463,7 +39491,7 @@ dI
 dI
 dI
 dI
-aJ
+TF
 Hr
 wt
 df
@@ -39665,11 +39693,11 @@ dI
 dI
 dI
 dI
-aJ
+TF
 jR
 vL
 rR
-Sw
+Nq
 TF
 TF
 rd
@@ -39867,11 +39895,11 @@ dI
 dI
 dI
 dI
-aJ
-yC
-WZ
+TF
+rU
+AC
 gj
-WZ
+AC
 TF
 if
 RG
@@ -40069,10 +40097,10 @@ Ln
 Ln
 dI
 dI
-aJ
+TF
 sm
 us
-mu
+AC
 yx
 lk
 SO
@@ -40271,11 +40299,11 @@ Ln
 Ln
 dI
 dI
-aJ
-aJ
-jY
-jY
-jY
+TF
+TF
+TF
+TF
+TF
 MC
 SO
 AC
@@ -41281,11 +41309,11 @@ Ln
 Ln
 dI
 NG
-oD
-oD
-oD
-oD
-oD
+IT
+IT
+IT
+IT
+IT
 TF
 VI
 AC
@@ -41483,11 +41511,11 @@ Ln
 Ln
 dI
 NG
-oD
-oD
-oD
-oD
-oD
+IT
+IT
+IT
+IT
+IT
 Jv
 IZ
 AC
@@ -41685,11 +41713,11 @@ Ln
 Ln
 dI
 NG
-oD
-oD
-oD
-oD
-oD
+IT
+IT
+IT
+IT
+IT
 TF
 cG
 JV
@@ -41887,11 +41915,11 @@ Ln
 Ln
 dI
 NG
-oD
-oD
-oD
-oD
-oD
+IT
+IT
+IT
+IT
+IT
 TF
 Jk
 Jk
@@ -42089,11 +42117,11 @@ Ln
 Ln
 dI
 NG
-oD
-oD
-oD
-oD
-oD
+IT
+IT
+IT
+IT
+IT
 NG
 NG
 NG
@@ -43107,12 +43135,12 @@ IT
 IT
 IT
 IT
-IT
-IT
-IT
-IT
-IT
-IT
+wx
+wx
+wx
+wx
+NG
+NG
 NG
 NG
 Ht
@@ -43309,12 +43337,12 @@ IT
 IT
 IT
 IT
-IT
-IT
-IT
-IT
-IT
-IT
+wx
+wx
+wx
+wx
+NG
+NG
 NG
 NG
 GI
@@ -43511,12 +43539,12 @@ IT
 IT
 IT
 IT
-IT
-IT
-IT
-IT
-IT
-IT
+wx
+wx
+wx
+wx
+NG
+NG
 NG
 NG
 Sn
@@ -43713,12 +43741,12 @@ IT
 IT
 IT
 IT
-IT
-IT
-IT
-IT
-IT
-IT
+wx
+wx
+wx
+wx
+NG
+NG
 NG
 NG
 Ht
@@ -43915,12 +43943,12 @@ IT
 IT
 IT
 IT
-IT
-IT
-IT
-IT
-IT
-IT
+wx
+wx
+wx
+wx
+NG
+NG
 NG
 NG
 xl
@@ -44117,12 +44145,12 @@ IT
 IT
 IT
 IT
-IT
-IT
-IT
-IT
-IT
-IT
+NG
+NG
+NG
+NG
+NG
+NG
 NG
 NG
 Qq
@@ -44319,12 +44347,12 @@ IT
 IT
 IT
 IT
-IT
-IT
-IT
-IT
-IT
-IT
+NG
+NG
+NG
+NG
+NG
+NG
 NG
 NG
 Ou
@@ -44521,12 +44549,12 @@ IT
 IT
 IT
 IT
-IT
-IT
-IT
-IT
-IT
-IT
+NG
+NG
+NG
+NG
+NG
+NG
 NG
 NG
 GI
@@ -44723,12 +44751,12 @@ IT
 IT
 IT
 IT
-IT
-IT
-IT
-IT
-IT
-IT
+NG
+NG
+NG
+NG
+NG
+NG
 NG
 NG
 AX
@@ -44925,12 +44953,12 @@ IT
 IT
 IT
 IT
-IT
-IT
-IT
-IT
-IT
-IT
+NG
+NG
+NG
+NG
+NG
+NG
 NG
 NG
 AX
@@ -44945,8 +44973,8 @@ bO
 bO
 bO
 vd
-Ht
-Qq
+MY
+ZL
 Qq
 Qq
 AX
@@ -45142,15 +45170,15 @@ NG
 NG
 NG
 NG
-jj
-jj
-jj
+lf
+lf
+lf
 Sy
 vg
 re
-jj
-jj
-jj
+lf
+lf
+lf
 NG
 NG
 NG
@@ -45344,15 +45372,15 @@ NG
 NG
 NG
 NG
-jj
-jj
-jj
+lf
+lf
+lf
 Sy
 vg
 re
-jj
-jj
-jj
+lf
+lf
+lf
 NG
 NG
 NG
@@ -45546,15 +45574,15 @@ NG
 NG
 NG
 NG
-jj
-jj
-jj
+lf
+lf
+lf
 Sy
 vg
 re
-jj
-jj
-jj
+lf
+lf
+lf
 NG
 NG
 NG
@@ -45748,15 +45776,15 @@ NG
 NG
 NG
 NG
-jj
-jj
-jj
+lf
+lf
+lf
 Sy
 vg
 re
-jj
-jj
-jj
+lf
+lf
+lf
 NG
 NG
 NG
@@ -45950,15 +45978,15 @@ NG
 NG
 NG
 NG
-jj
-jj
-jj
+lf
+lf
+lf
 Sy
 vg
 re
-jj
-jj
-jj
+lf
+lf
+lf
 NG
 NG
 NG
@@ -46152,15 +46180,15 @@ GF
 AC
 Ht
 Ht
-jj
-jj
-jj
+lf
+lf
+lf
 Sy
 vg
 re
-jj
-jj
-jj
+lf
+lf
+lf
 NG
 NG
 NG
@@ -46354,15 +46382,15 @@ dL
 dL
 yA
 Ht
-jj
-jj
-jj
+lf
+lf
+lf
 Sy
 vg
 re
-jj
-jj
-jj
+lf
+lf
+lf
 NG
 NG
 NG
@@ -46556,15 +46584,15 @@ dL
 dL
 qq
 Ht
-jj
-jj
-jj
+lf
+lf
+lf
 Sy
 vg
 re
-jj
-jj
-jj
+lf
+lf
+lf
 NG
 NG
 NG
@@ -46764,9 +46792,9 @@ Ht
 Ht
 BZ
 Ht
-jj
-jj
-jj
+lf
+lf
+lf
 NG
 NG
 NG

@@ -1,4 +1,4 @@
-#define JOB_MODIFICATION_MAP_NAME "Central Pahrump"
+#define JOB_MODIFICATION_MAP_NAME "Mexico"
 
 /datum/job/New()
 	..()

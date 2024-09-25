@@ -297,7 +297,7 @@ GLOBAL_LIST_INIT(ostia_positions, list(
 	"Legion governor of Ostia",
 ))
 
-GLOBAL_LIST_INIT(rebel_positions, list(
+GLOBAL_LIST_INIT(rebels_positions, list(
 	"Roguewave Rebel Soldier",
 	"Roguewave Rebel Captain",
 ))
@@ -322,7 +322,7 @@ GLOBAL_LIST_INIT(position_categories, list(
 	"Atlantic Cross" = list("jobs" = atlantic_positions, "color" = "#ffeeaa"),
 	"Locust Point" = list("jobs" = locust_positions, "color" = "#d7b088"),
 	"Legion Port of Ostia"= list("jobs" = ostia_positions, "color" = "#c30f0f"),
-	"Roguewave Rebels"= list("jobs" = rebel_positions, "color" = "#235923"),
+	"Roguewave Rebels"= list("jobs" = rebels_positions, "color" = "#235923"),
 ))
 
 GLOBAL_LIST_INIT(exp_jobsmap, list(

@@ -28,4 +28,6 @@ MAP_REMOVE_JOB(f13redwaterslave)
 MAP_REMOVE_JOB(watcher)
 MAP_REMOVE_JOB(resident)
 MAP_REMOVE_JOB(enclave)
+MAP_REMOVE_JOB(rebels)
+MAP_REMOVE_JOB(ostia)
 
