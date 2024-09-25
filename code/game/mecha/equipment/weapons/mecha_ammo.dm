@@ -101,7 +101,7 @@
 
 /obj/item/mecha_ammo/fragmentation
 	name = "launchable flashbang clusters"
-	desc = "A box of clustered flashbangs, for use with a specialized exosuit cluster launcher. Cannot be primed by hand."
+	desc = "A box of clustered fragmentation grenades, for use with a vehicle's launcher. Cannot be primed by hand."
 	icon_state = "fragmentation"
 	rounds = 8
 	round_term = "frag grenade"

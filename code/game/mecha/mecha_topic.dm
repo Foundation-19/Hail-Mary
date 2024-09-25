@@ -272,9 +272,6 @@
 
 	if(href_list["select_equip"])
 		var/obj/item/mecha_parts/mecha_equipment/equip = locate(href_list["select_equip"]) in src
-		if(internal_wiring.is_cut(WIRE_MECH_SELECT_MODULE))
-			to_chat(occupant, "<span class='danger'>Error communicating with installed equipment!</span>")
-			return
 		if(equip && equip.selectable)
 			selected = equip
 			occupant_message("You switch to [equip]")
@@ -282,17 +279,14 @@
 			send_byjax(usr, "exosuit.browser","eq_list", get_equipment_list())
 
 	if(href_list["rmictoggle"])
-		if(internal_wiring.is_cut(WIRE_MECH_RADIO)) return
 		radio.broadcasting = !radio.broadcasting
 		send_byjax(usr,"exosuit.browser","rmicstate",(radio.broadcasting?"Engaged":"Disengaged"))
 
 	if(href_list["rspktoggle"])
-		if(internal_wiring.is_cut(WIRE_MECH_RADIO)) return
 		radio.listening = !radio.listening
 		send_byjax(usr,"exosuit.browser","rspkstate",(radio.listening?"Engaged":"Disengaged"))
 
 	if(href_list["rfreq"])
-		if(internal_wiring.is_cut(WIRE_MECH_RADIO)) return
 		var/new_frequency = (radio.frequency + text2num(href_list["rfreq"]))
 		if (!radio.freerange || (radio.frequency < MIN_FREE_FREQ || radio.frequency > MAX_FREE_FREQ))
 			new_frequency = sanitize_frequency(new_frequency)
@@ -346,9 +340,6 @@
 		if(!istype(C) || !C.dna)
 			to_chat(C, span_danger(" You do not have any DNA!"))
 			return
-		if(internal_wiring.is_cut(WIRE_MECH_DNA))
-			to_chat(occupant, "<span class='danger'>Error communicating with DNA machinery!</span>")
-			return
 		if(can_be_locked)
 			dna_lock = C.dna.unique_enzymes
 			occupant_message("You feel a prick as the needle takes your DNA sample.")
@@ -357,9 +348,6 @@
 			return
 
 	if(href_list["reset_dna"])
-		if(internal_wiring.is_cut(WIRE_MECH_DNA))
-			to_chat(occupant, "<span class='danger'>Error communicating with DNA machinery!</span>")
-			return
 		dna_lock = null
 
 	if(href_list["repair_int_control_lost"])

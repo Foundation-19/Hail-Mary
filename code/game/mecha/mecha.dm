@@ -106,9 +106,6 @@
 
 	/// a list of all vision traits to give to the occupant.
 	var/list/vision_modes = list()
-	/// The current status of the mech maintenance panel , theres 5 states of progression (welder ,crowbar, welder ,crowbar , wirecutter) to forcing it open.
-	/// Having maintenance permitted cuts this down to the normal wrench + crowbar
-	var/maintenance_panel_status = MECHA_PANEL_0
 
 	var/stepsound = 'sound/mecha/mechstep.ogg'
 	var/turnsound = 'sound/mecha/mechturn.ogg'
@@ -196,12 +193,9 @@
 	diag_hud_set_mechhealth()
 	diag_hud_set_mechcell()
 	diag_hud_set_mechstat()
-	internal_wiring = new(src)
 
 /obj/mecha/proc/grant_vision()
 	if(!occupant)
-		return
-	if(internal_wiring.is_cut(WIRE_MECH_VISUALDATA))
 		return
 	for(var/mode in vision_modes)
 		ADD_TRAIT(occupant, mode, TRAIT_GENERIC)
@@ -427,8 +421,6 @@
 	if(occupant)
 		if(fuel_holder)
 			var/fuelamount = fuel_holder.reagents.total_volume/fuel_holder.volume
-			if(internal_wiring.is_cut(WIRE_MECH_POWER))
-				fuelamount = 0
 			switch(fuelamount)
 				if(0.75 to INFINITY)
 					occupant.clear_alert("charge")
@@ -481,8 +473,6 @@
 
 /obj/mecha/Hear(message, atom/movable/speaker, message_language, raw_message, radio_freq, list/spans, message_mode, atom/movable/source)
 	. = ..()
-	if(internal_wiring.is_cut(WIRE_MECH_RADIO))
-		return
 	if(speaker == occupant)
 		if(radio.broadcasting)
 			radio.talk_into(speaker, text, , spans, message_language)
@@ -511,9 +501,6 @@
 		occupant_message("Unable to interact with objects while phasing")
 		return
 	if(user.incapacitated())
-		return
-	if(internal_wiring.is_cut(WIRE_MECH_USE_MODULE))
-		occupant_message("<span class='warning'>Error transmitting command to module")
 		return
 	if(state)
 		occupant_message("<span class='warning'>Maintenance protocols in effect.</span>")
@@ -593,9 +580,6 @@
 /obj/mecha/relaymove(mob/user,direction)
 	if(completely_disabled)
 		return
-	if(internal_wiring.is_cut(WIRE_MECH_WALK))
-		to_chat(user , "<span class='notice'>Error transmitting command to actuators.")
-		return
 	if(!direction)
 		return
 	if(user != occupant) //While not "realistic", this piece is player friendly.
@@ -631,11 +615,6 @@
 		set_glide_size(DELAY_TO_GLIDE_SIZE(step_in))
 		move_result = mechsteprand()
 	else if(dir != direction && (!strafe || occupant.client.keys_held["Alt"]))
-		if(internal_wiring.is_cut(WIRE_MECH_DIRECTION))
-			if(world.time - last_message > 2 SECONDS)
-				to_chat(occupant, "<span class='notice'>Error transmitting direction-switch command to actuators.")
-				last_message = world.time
-			return
 		move_result = mechturn(direction)
 	else
 		set_glide_size(DELAY_TO_GLIDE_SIZE(step_in))
@@ -850,9 +829,6 @@
 			if(AI.stat || !AI.client)
 				to_chat(user, "<span class='warning'>[AI.name] is currently unresponsive, and cannot be uploaded.</span>")
 				return
-			if(occupant || (dna_lock && !internal_wiring.is_cut(WIRE_MECH_DNA))) //Normal AIs cannot steal mechs!
-				to_chat(user, "<span class='warning'>Access denied. [name] is [occupant ? "currently occupied" : "secured with a DNA lock"].</span>")
-				return
 			AI.control_disabled = 0
 			AI.radio_enabled = 1
 			to_chat(user, "<span class='boldnotice'>Transfer successful</span>: [AI.name] ([rand(1000,9999)].exe) installed and executed successfully. Local copy has been removed.")
@@ -948,7 +924,7 @@
 		to_chat(usr, "<span class='warning'>The [name] is already occupied!</span>")
 		log_append_to_last("Permission denied.")
 		return
-	if(dna_lock && !internal_wiring.is_cut(WIRE_MECH_DNA))
+	if(dna_lock)
 		var/passed = FALSE
 		if(user.has_dna())
 			var/mob/living/carbon/C = user
@@ -1016,7 +992,7 @@
 	else if(occupant)
 		to_chat(user, "<span class='warning'>Occupant detected!</span>")
 		return FALSE
-	else if(dna_lock && !internal_wiring.is_cut(WIRE_MECH_DNA) &&  (!mmi_as_oc.brainmob.stored_dna || (dna_lock != mmi_as_oc.brainmob.stored_dna.unique_enzymes)))
+	else if(dna_lock && (!mmi_as_oc.brainmob.stored_dna || (dna_lock != mmi_as_oc.brainmob.stored_dna.unique_enzymes)))
 		to_chat(user, "<span class='warning'>Access denied. [name] is secured with a DNA lock.</span>")
 		return FALSE
 
@@ -1172,8 +1148,6 @@
 	return (get_charge()>=amount)
 
 /obj/mecha/proc/get_charge()
-	if(internal_wiring.is_cut(WIRE_MECH_POWER))
-		return 0
 	for(var/obj/item/mecha_parts/mecha_equipment/tesla_energy_relay/R in equipment)
 		var/relay_charge = R.get_charge()
 		if(relay_charge)
@@ -1182,16 +1156,12 @@
 		return max(0, fuel_holder.reagents.total_volume)
 
 /obj/mecha/proc/use_power(amount)
-	if(internal_wiring.is_cut(WIRE_MECH_POWER))
-		return FALSE
 	amount = amount*0.5 //cut it in half since gasoline is expensive
 	if(get_charge() && fuel_holder.reagents.remove_reagent(/datum/reagent/fuel, amount))
 		return 1
 	return 0
 
 /obj/mecha/proc/give_power(amount)
-	if(internal_wiring.is_cut(WIRE_MECH_POWER))
-		return FALSE
 	if(!isnull(get_charge()))
 		fuel_holder.reagents.add_reagent(/datum/reagent/fuel, amount)
 		return 1

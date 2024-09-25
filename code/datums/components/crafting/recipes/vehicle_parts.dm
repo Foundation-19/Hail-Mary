@@ -334,4 +334,3 @@
 	time = 180
 	subcategory = CAT_VEHICLES
 	category = CAT_VEHICLEPARTS
-

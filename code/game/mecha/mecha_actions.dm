@@ -77,10 +77,6 @@
 	if(!owner || !chassis || chassis.occupant != owner)
 		return
 
-	if(chassis.internal_wiring.is_cut(WIRE_MECH_SELECT_MODULE))
-		chassis.occupant_message("<span class='notice'>Error, no response from module.</span>")
-		return
-
 	var/list/available_equipment = list()
 	for(var/obj/item/mecha_parts/mecha_equipment/M in chassis.equipment)
 		if(M.selectable)

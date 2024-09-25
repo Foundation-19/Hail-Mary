@@ -197,14 +197,44 @@
 				to_chat(user, span_warning("Invalid ID: Access denied."))
 		else
 			to_chat(user, span_warning("Maintenance protocols disabled by operator."))
-/*	else if(istype(W, /obj/item/wrench))
+	else if(istype(W, /obj/item/wrench))
 		if(state==1)
 			state = 2
 			to_chat(user, span_notice("You undo the securing bolts."))
 		else if(state==2)
 			state = 1
 			to_chat(user, span_notice("You tighten the securing bolts."))
-		return*/
+		return
+	else if(istype(W, /obj/item/crowbar))
+		if(state==2)
+			state = 3
+			to_chat(user, span_notice("You open the hatch to the power unit."))
+		else if(state==3)
+			state=2
+			to_chat(user, span_notice("You close the hatch to the power unit."))
+		return
+	else if(istype(W, /obj/item/stack/cable_coil))
+		if(state == 3 && (internal_damage & MECHA_INT_SHORT_CIRCUIT))
+			if(W.use_tool(src, user, 0, 2))
+				clearInternalDamage(MECHA_INT_SHORT_CIRCUIT)
+				to_chat(user, span_notice("You replace the fused wires."))
+			else
+				to_chat(user, span_warning("You need two lengths of cable to fix this mech!"))
+		return
+	else if(istype(W, /obj/item/screwdriver) && user.a_intent != INTENT_HARM)
+		if(internal_damage & MECHA_INT_TEMP_CONTROL)
+			clearInternalDamage(MECHA_INT_TEMP_CONTROL)
+			to_chat(user, span_notice("You repair the damaged temperature controller."))
+		else if(state==3 && fuel_holder)
+			fuel_holder.forceMove(loc)
+			fuel_holder = null
+			state = 4
+			to_chat(user, span_notice("You unsecure the fuel tank."))
+			mecha_log_message("Fuel tank removed")
+		else if(state==4 && fuel_holder)
+			state=3
+			to_chat(user, span_notice("You secure the fuel_tank in place."))
+		return
 
 	else if(istype(W, /obj/item/reagent_containers/fuel_tank))
 		if(state==4)
@@ -242,179 +272,6 @@
 		return
 	else
 		return ..()
-
-/obj/mecha/crowbar_act(mob/user, obj/item/I)
-	if(user.a_intent != INTENT_HELP)
-		switch(maintenance_panel_status)
-			if(MECHA_PANEL_1)
-				to_chat(user, "<span class='notice'>You begin bending the hatches on \the [src] out of place</span>")
-				if(I.use_tool(src, user, 12 SECONDS, volume = 50))
-					to_chat(user, "<span class='notice'>You bend the hatches on \the [src], you can now heat up the security screws.</span>")
-					maintenance_panel_status = MECHA_PANEL_2
-					return TRUE
-			if(MECHA_PANEL_2)
-				to_chat(user, "<span class='notice'>You begin repairing the hatches on \the [src]</span>")
-				if(I.use_tool(src, user, 12 SECONDS, volume = 50))
-					to_chat(user, "<span class='notice'>You repair the hatches on \the [src].</span>")
-					maintenance_panel_status = MECHA_PANEL_0
-					return TRUE
-			if(MECHA_PANEL_3)
-				to_chat(user, "<span class='notice'>You begin removing the security pins on [src]'s hatch</span>")
-				if(I.use_tool(src, user, 12 SECONDS, volume = 50))
-					to_chat(user, "<span class='notice'>You remove the security pins on \the [src].</span>")
-					maintenance_panel_status = MECHA_PANEL_5
-					return TRUE
-			if(MECHA_PANEL_4)
-				to_chat(user, "<span class='notice'>You begin replacing the security pins on [src]'s hatch</span>")
-				if(I.use_tool(src, user, 12 SECONDS, volume = 50))
-					to_chat(user, "<span class='notice'>You replace the security pins on \the [src]'s hatch.</span>")
-					maintenance_panel_status = MECHA_PANEL_2
-					return TRUE
-			if(MECHA_PANEL_6)
-				if(state != MECHA_OPEN_HATCH && state != MECHA_BATTERY_UNSCREW)
-					to_chat(user, "<span class='notice'>You begin opening [src]'s hatch</span>")
-					if(I.use_tool(src, user, 3 SECONDS, volume = 50))
-						to_chat(user, "<span class='notice'>You open [src]'s hatch.</span>")
-						state = MECHA_OPEN_HATCH
-						return TRUE
-				else if(state == MECHA_OPEN_HATCH)
-					to_chat(user, "<span class='notice'>You begin closing [src]'s hatch</span>")
-					if(I.use_tool(src, user, 3 SECONDS, volume = 50))
-						to_chat(user, "<span class='notice'>You close [src]'s hatch.</span>")
-						state = MECHA_MAINT_OFF
-						return TRUE
-
-	if(state != MECHA_BOLTS_UP && state != MECHA_OPEN_HATCH && !(state == MECHA_BATTERY_UNSCREW && occupant))
-		return
-	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = 50))
-		return
-	if(state == MECHA_BOLTS_UP)
-		state = MECHA_OPEN_HATCH
-		to_chat(user, "You open the hatch to the power unit")
-	else if(state == MECHA_OPEN_HATCH)
-		state = MECHA_BOLTS_UP
-		to_chat(user, "You close the hatch to the power unit")
-	else if(ishuman(occupant))
-		user.visible_message("<span class='notice'>[user] begins levering out the driver from the [src].</span>", "<span class='notice'>You begin to lever out the driver from the [src].</span>")
-		to_chat(occupant, "<span class='warning'>[user] is prying you out of the exosuit!</span>")
-		if(I.use_tool(src, user, 8 SECONDS, volume = 50))
-			user.visible_message("<span class='notice'>[user] pries the driver out of the [src]!</span>", "<span class='notice'>You finish removing the driver from the [src]!</span>")
-			go_out()
-/*
-	else
-		// Since having maint protocols available is controllable by the MMI, I see this as a consensual way to remove an MMI without destroying the mech
-		user.visible_message("<span class='notice'>[user] begins levering out the MMI from [src].</span>", "<span class='notice'>You begin to lever out the MMI from [src].</span>")
-		to_chat(occupant, "<span class='warning'>[user] is prying you out of the exosuit!</span>")
-		if(I.use_tool(src, user, 8 SECONDS, volume = 50) && occupant == mmi_as_oc)
-			user.visible_message("<span class='notice'>[user] pries the MMI out of [src]!</span>", "<span class='notice'>You finish removing the MMI from [src]!</span>")
-			go_out() */
-
-/obj/mecha/screwdriver_act(mob/user, obj/item/I)
-	if(user.a_intent == INTENT_HARM)
-		return
-	if(!(state == MECHA_OPEN_HATCH && fuel_holder) && !(state == MECHA_BATTERY_UNSCREW && fuel_holder))
-		return
-	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = 50))
-		return
-	if(internal_damage & MECHA_INT_TEMP_CONTROL)
-		clearInternalDamage(MECHA_INT_TEMP_CONTROL)
-		to_chat(user, "<span class='notice'>You repair the damaged temperature controller.</span>")
-	else if(state == MECHA_OPEN_HATCH && fuel_holder)
-		fuel_holder.forceMove(loc)
-		fuel_holder = null
-		state = MECHA_BATTERY_UNSCREW
-		to_chat(user, "<span class='notice'>You unscrew and pry out the fuel holder.</span>")
-		log_message("Fuel cell removed")
-	else if(state == MECHA_BATTERY_UNSCREW && fuel_holder)
-		state = MECHA_OPEN_HATCH
-		to_chat(user, "<span class='notice'>You screw the fuel holder in place.</span>")
-/obj/mecha/wrench_act(mob/user, obj/item/I)
-	if(state != MECHA_MAINT_ON && state != MECHA_BOLTS_UP)
-		return
-	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = 50))
-		return
-	if(state == MECHA_MAINT_ON)
-		state = MECHA_BOLTS_UP
-		to_chat(user, "You undo the securing bolts.")
-	else
-		state = MECHA_MAINT_ON
-		to_chat(user, "You tighten the securing bolts.")
-/obj/mecha/welder_act(mob/user, obj/item/I)
-	if(user.a_intent == INTENT_HARM)
-		return
-	if(user.a_intent != INTENT_HELP)
-		switch(maintenance_panel_status)
-			if(MECHA_PANEL_0)
-				to_chat(user, "<span class='notice'>You begin heating up the hatches on \the [src]</span>")
-				if(I.use_tool(src, user, 12 SECONDS, volume = 50))
-					to_chat(user, "<span class='notice'>You heat up the hatches on \the [src], they can now be pried out of place.</span>")
-					maintenance_panel_status = MECHA_PANEL_1
-					return TRUE
-			if(MECHA_PANEL_2)
-				to_chat(user, "<span class='notice'>You begin softening the security pins on \the [src]</span>")
-				if(I.use_tool(src, user, 12 SECONDS, volume = 50))
-					to_chat(user, "<span class='notice'>You soften the security pins on \the [src], they can now be pried out</span>")
-					maintenance_panel_status = MECHA_PANEL_3
-					return TRUE
-	. = TRUE
-	if(!I.tool_use_check(user, 0))
-		return
-	if((obj_integrity >= max_integrity) && !internal_damage)
-		to_chat(user, "<span class='notice'>[src] is at full integrity!</span>")
-		return
-	if(repairing)
-		to_chat(user, "<span class='notice'>[src] is currently being repaired!</span>")
-		return
-	if(state == MECHA_MAINT_OFF) // If maint protocols are not active, the state is zero
-		to_chat(user, "<span class='warning'>[src] can not be repaired without maintenance protocols active!</span>")
-		return
-	WELDER_ATTEMPT_REPAIR_MESSAGE
-	repairing = TRUE
-	if(I.use_tool(src, user, 15, volume = 50))
-		if(internal_damage & MECHA_INT_TANK_BREACH)
-			clearInternalDamage(MECHA_INT_TANK_BREACH)
-			user.visible_message("<span class='notice'>[user] repairs the damaged gas tank.</span>", "<span class='notice'>You repair the damaged gas tank.</span>")
-		else if(obj_integrity < max_integrity)
-			user.visible_message("<span class='notice'>[user] repairs some damage to [name].</span>", "<span class='notice'>You repair some damage to [name].</span>")
-			obj_integrity += min(10, max_integrity - obj_integrity)
-		else
-			to_chat(user, "<span class='notice'>[src] is at full integrity!</span>")
-	repairing = FALSE
-
-/obj/mecha/wirecutter_act(mob/living/user, obj/item/I)
-	if(user.a_intent != INTENT_HELP)
-		switch(maintenance_panel_status)
-			if(MECHA_PANEL_5)
-				to_chat(user, "<span class='notice'>You begin cutting the [src]'s locking mechanism.</span>")
-				if(I.use_tool(src, user, 12 SECONDS, volume = 50))
-					to_chat(user, "<span class='notice'>You cut \the [src]'s locking mechanism apart. The maintenance hatch can be opened by prying it!</span>")
-					maintenance_panel_status = MECHA_PANEL_6
-					return TRUE
-			if(MECHA_PANEL_6)
-				to_chat(user, "<span class='notice'>You begin repairing the [src]'s locking mechanism.</span>")
-				if(I.use_tool(src, user, 12 SECONDS, volume = 50))
-					to_chat(user, "<span class='notice'>You repair \the [src]'s locking mechanism . The maintenance hatch is no longer openable by prying.</span>")
-					maintenance_panel_status = MECHA_PANEL_4
-					return TRUE
-
-	if(state != MECHA_OPEN_HATCH && maintenance_panel_status != MECHA_PANEL_6)
-		return
-//	internal_wiring.attempt_wire_interaction(user)
-	return TRUE
-
-/obj/mecha/multitool_act(mob/living/user, obj/item/I)
-	if(state != MECHA_OPEN_HATCH && maintenance_panel_status != MECHA_PANEL_6)
-		return
-//	internal_wiring.attempt_wire_interaction(user)
-	return TRUE
-
-/obj/mecha/_try_interact(mob/user)
-	if(state == MECHA_OPEN_HATCH && maintenance_panel_status != MECHA_PANEL_6)
-		return TRUE
-	return ..()
 
 /obj/mecha/attacked_by(obj/item/I, mob/living/user, attackchain_flags = NONE, damage_multiplier = 1)
 	mecha_log_message("Attacked by [I]. Attacker - [user]")
