@@ -424,7 +424,7 @@
 "wj" = (
 /obj/machinery/telecomms/relay/preset/telecomms,
 /turf/open/indestructible,
-/area/f13/wasteland)
+/area/f13/tcoms)
 "wG" = (
 /obj/structure/rack,
 /obj/item/flashlight/seclite,
@@ -626,7 +626,7 @@
 /area/f13/wasteland)
 "DZ" = (
 /turf/open/indestructible,
-/area/f13/wasteland)
+/area/f13/tcoms)
 "Ex" = (
 /turf/open/floor/carpet/red,
 /area/f13/wasteland)
@@ -976,7 +976,7 @@
 /area/f13/wasteland)
 "WL" = (
 /turf/closed/indestructible/riveted,
-/area/f13/wasteland)
+/area/f13/tcoms)
 "WM" = (
 /turf/closed/wall/mineral/concrete,
 /area/f13/wasteland)
