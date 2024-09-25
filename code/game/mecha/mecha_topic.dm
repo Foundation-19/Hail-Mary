@@ -134,10 +134,10 @@
 		for(var/obj/item/mecha_parts/mecha_equipment/W in misc_equipment)
 			output += "Miscellaneous Module: [W.name] <a href='?src=\ref[W];detach=1'>Detach</a><br>"
 	output += {"<b>Available weapon slots:</b> [max_weapons_equip-weapon_equipment.len]<br>
-	 <b>Available utility slots:</b> [max_utility_equip-utility_equipment.len]<br>
-	 <b>Available miscellaneous slots:</b> [max_misc_equip-misc_equipment.len]<br>
-	 </div></div>
-	 "}
+	<b>Available utility slots:</b> [max_utility_equip-utility_equipment.len]<br>
+	<b>Available miscellaneous slots:</b> [max_misc_equip-misc_equipment.len]<br>
+	</div></div>
+	"}
 	return output
 
 /obj/mecha/proc/get_equipment_list() //outputs mecha equipment list in html
