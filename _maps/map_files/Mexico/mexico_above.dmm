@@ -1673,12 +1673,6 @@
 /obj/item/pen/fountain,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/outpost)
-"jP" = (
-/obj/structure/mecha_wreckage/vertibird,
-/turf/open/indestructible/ground/outside/roaddirt{
-	icon_state = "horizontalinnermain2right"
-	},
-/area/f13/wasteland)
 "jQ" = (
 /obj/structure/railing/corner{
 	color = "#A47449";
@@ -2856,9 +2850,11 @@
 /area/f13/farmhouse)
 "pB" = (
 /obj/structure/closet/crate/wooden/toy,
-/turf/open/floor/wood_fancy{
-	icon_state = "fancy-broken2"
+/obj/structure/fluff/railing/corner{
+	color = "#A47449";
+	dir = 4
 	},
+/turf/open/floor/wood_wide,
 /area/f13/legioncamp)
 "pD" = (
 /obj/structure/bed/old,
@@ -3899,10 +3895,6 @@
 	dir = 1
 	},
 /area/f13/farmhouse)
-"vd" = (
-/obj/machinery/door/unpowered/securedoor/legion/warroom,
-/turf/open/floor/wood_fancy,
-/area/f13/legion)
 "vf" = (
 /obj/item/stealthboy,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
@@ -4399,6 +4391,15 @@
 "xL" = (
 /turf/closed/wall/f13/wood/house,
 /area/f13/building)
+"xM" = (
+/obj/machinery/door/unpowered/secure_steeldoor{
+	req_access_txt = "134"
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	sunlight_state = 1;
+	name = "deck"
+	},
+/area/f13/wasteland)
 "xQ" = (
 /obj/structure/junk/small/bed2,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
@@ -5169,7 +5170,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/blue,
 /area/f13/enclave)
 "BZ" = (
-/obj/machinery/door/unpowered/securedoor/legion/warroom,
+/obj/structure/simple_door/glass,
 /turf/open/floor/wood_common,
 /area/f13/legion)
 "Cb" = (
@@ -5267,16 +5268,6 @@
 /obj/effect/turf_decal/shadow/floor,
 /turf/open/floor/wood_fancy,
 /area/f13/legion)
-"Cy" = (
-/obj/machinery/door/airlock/highsecurity{
-	req_access = list(134);
-	req_one_access = list(134)
-	},
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
-	sunlight_state = 1;
-	name = "deck"
-	},
-/area/f13/wasteland)
 "Cz" = (
 /obj/machinery/telecomms/server/presets/medical,
 /turf/open/floor/plasteel/dark/telecomms/mainframe,
@@ -5444,6 +5435,12 @@
 	},
 /turf/open/floor/plating,
 /area/f13/underground/cave)
+"DB" = (
+/obj/machinery/door/unpowered/secure_steeldoor{
+	req_access_txt = "134"
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/enclave)
 "DC" = (
 /obj/structure/simple_door/repaired,
 /turf/open/floor/wood_fancy/wood_fancy_dark,
@@ -5708,6 +5705,14 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/enclave)
+"ET" = (
+/obj/structure/fluff/railing{
+	dir = 1;
+	color = "#A47449";
+	layer = 5
+	},
+/turf/open/floor/wood_wide,
+/area/f13/legioncamp)
 "EU" = (
 /obj/effect/decal/cleanable/dirt{
 	color = "#363636"
@@ -6762,6 +6767,14 @@
 /obj/structure/dresser,
 /turf/open/floor/wood_common,
 /area/f13/legioncamp)
+"Kz" = (
+/obj/structure/fluff/railing{
+	dir = 4;
+	color = "#A47449";
+	layer = 5
+	},
+/turf/open/floor/wood_wide,
+/area/f13/legioncamp)
 "KA" = (
 /turf/open/floor/plasteel/f13/vault_floor/blue/white/corner{
 	dir = 4
@@ -6812,13 +6825,6 @@
 /obj/machinery/telecomms/processor/preset_four,
 /turf/open/floor/plasteel/dark/telecomms/mainframe,
 /area/f13/underground/cave)
-"KV" = (
-/obj/machinery/door/airlock/highsecurity{
-	req_access = list(134);
-	req_one_access = list(134)
-	},
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/enclave)
 "KX" = (
 /obj/structure/table/reinforced,
 /obj/machinery/nuclearbomb/beer,
@@ -7190,6 +7196,13 @@
 /obj/item/gun/ballistic/shotgun/toy/mag,
 /turf/open/floor/carpet/arcade,
 /area/f13/farmhouse)
+"No" = (
+/obj/structure/fluff/railing{
+	dir = 8;
+	color = "#A47449"
+	},
+/turf/open/floor/wood_wide,
+/area/f13/legioncamp)
 "Np" = (
 /obj/structure/table/wood,
 /obj/machinery/computer/security/wooden_tv{
@@ -7757,7 +7770,7 @@
 /turf/open/indestructible/ground/outside/ruins,
 /area/f13/building/abandoned)
 "Qo" = (
-/obj/machinery/door/unpowered/securedoor/legion/centurion,
+/obj/structure/simple_door/room,
 /turf/open/floor/wood_fancy,
 /area/f13/legion)
 "Qp" = (
@@ -9778,6 +9791,13 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/enclave)
+"ZE" = (
+/obj/structure/fluff/railing/corner{
+	color = "#A47449";
+	dir = 1
+	},
+/turf/open/floor/wood_common,
+/area/f13/legioncamp)
 "ZI" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 10
@@ -10763,8 +10783,8 @@ Yr
 ER
 EY
 Ye
+xM
 XS
-Cy
 NG
 Kj
 Kj
@@ -10965,7 +10985,7 @@ gM
 EX
 Dp
 XS
-XS
+eh
 eh
 eh
 Dv
@@ -11354,7 +11374,7 @@ bR
 Gh
 Gh
 Yr
-nL
+DB
 zi
 bR
 bR
@@ -11556,7 +11576,7 @@ tH
 cY
 Gh
 Yr
-nL
+DB
 zi
 hF
 UN
@@ -11960,7 +11980,7 @@ Sp
 ce
 EY
 cY
-KV
+DB
 kO
 XS
 XS
@@ -12162,7 +12182,7 @@ cY
 cY
 EY
 cY
-KV
+DB
 XS
 XS
 XS
@@ -12381,7 +12401,7 @@ eP
 eP
 eP
 eP
-jP
+eP
 eP
 eP
 eP
@@ -19008,7 +19028,7 @@ NS
 NS
 NS
 MW
-VW
+MW
 OX
 TV
 Gi
@@ -31642,7 +31662,7 @@ NG
 NG
 nu
 Wd
-kj
+Kz
 pB
 Rs
 NG
@@ -31844,8 +31864,8 @@ NG
 NG
 nu
 FD
-cE
-Xk
+kj
+ET
 xD
 NG
 NG
@@ -32046,8 +32066,8 @@ NG
 NG
 nu
 TU
-Xk
-TU
+No
+ZE
 nu
 NG
 NG
@@ -40102,7 +40122,7 @@ sm
 us
 AC
 yx
-lk
+xi
 SO
 AC
 AC
@@ -44162,7 +44182,7 @@ Bl
 Ht
 Ht
 Ht
-vd
+lk
 Ht
 Ht
 Li
@@ -44563,7 +44583,7 @@ uH
 eS
 eS
 eS
-Qb
+Qo
 eS
 AC
 eS
@@ -44972,7 +44992,7 @@ Ht
 bO
 bO
 bO
-vd
+Qb
 MY
 ZL
 Qq
