@@ -2054,6 +2054,12 @@
 	icon_state = "outerborder"
 	},
 /area/f13/wasteland)
+"hA" = (
+/obj/structure/ladder/unbreakable,
+/turf/open/indestructible/ground/outside/road{
+	icon_state = "horizontalinnermain2left"
+	},
+/area/f13/wasteland)
 "hB" = (
 /obj/machinery/light/small/broken{
 	dir = 1
@@ -2363,6 +2369,13 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/indestructible/ground/outside/road{
 	icon_state = "hole"
+	},
+/area/f13/wasteland)
+"iD" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/ladder/unbreakable,
+/turf/open/indestructible/ground/outside/road{
+	icon_state = "horizontalinnermain1"
 	},
 /area/f13/wasteland)
 "iE" = (
@@ -3847,6 +3860,12 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/floor/floorsolid,
 /area/f13/building/mall)
+"nT" = (
+/obj/structure/ladder/unbreakable,
+/turf/open/indestructible/ground/outside/road{
+	icon_state = "verticalinnermain0"
+	},
+/area/f13/wasteland)
 "nU" = (
 /obj/structure/filingcabinet,
 /obj/effect/decal/cleanable/dirt,
@@ -5188,6 +5207,9 @@
 	icon_state = "floorrusty"
 	},
 /area/f13/building)
+"sR" = (
+/turf/open/transparent/openspace,
+/area/f13/brotherhood)
 "sS" = (
 /obj/structure/spacevine,
 /turf/closed/wall/f13/wood/house,
@@ -7093,6 +7115,12 @@
 /obj/structure/rack,
 /turf/open/floor/plasteel/f13/vault_floor/floor,
 /area/f13/city)
+"zH" = (
+/obj/structure/ladder/unbreakable,
+/turf/open/indestructible/ground/outside/road{
+	icon_state = "horizontalbottombordertop2"
+	},
+/area/f13/wasteland)
 "zI" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -10082,7 +10110,8 @@
 "KW" = (
 /mob/living/simple_animal/hostile/securitron/sentrybot{
 	name = "Gun Galore Gunny";
-	desc = "A tall robot with a Gunnery Sarges insignia painted on its front plate. Next to it is a name-tag, "GunsGaloreGunny"  with a line next to it saying "ThreeGscangetyoualot!""
+	desc = "A tall robot with a Gunnery Sarges insignia painted on its front plate. Next to it is a name-tag, "GunsGaloreGunny"  with a line next to it saying "ThreeGscangetyoualot!"";
+	health = 3250
 	},
 /turf/open/floor/plasteel/f13/vault_floor/red{
 	icon_state = "redrustyfull"
@@ -13910,6 +13939,13 @@
 	icon_state = "whitegreenrustychess"
 	},
 /area/f13/building)
+"Za" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/ladder/unbreakable,
+/turf/open/indestructible/ground/outside/road{
+	icon_state = "horizontalinnermain0"
+	},
+/area/f13/wasteland)
 "Zb" = (
 /obj/structure/rack,
 /obj/item/clothing/head/fedora/det_hat,
@@ -22265,7 +22301,7 @@ cS
 rg
 cr
 tb
-ct
+hA
 Cv
 Zw
 wv
@@ -23441,7 +23477,7 @@ Ez
 nw
 RQ
 xk
-xk
+zH
 Cv
 uZ
 CT
@@ -29748,7 +29784,7 @@ cS
 rg
 jE
 tb
-Wx
+iD
 fS
 sL
 yp
@@ -30731,7 +30767,7 @@ fB
 Ow
 NG
 yZ
-LN
+Za
 OQ
 uZ
 Vd
@@ -31067,7 +31103,7 @@ JH
 JH
 JH
 JH
-JH
+nT
 SZ
 TR
 qS
@@ -31600,7 +31636,7 @@ Co
 Co
 Co
 OB
-Ac
+sR
 Ac
 Ac
 Ac
@@ -31757,7 +31793,7 @@ Co
 Co
 Co
 OB
-Ac
+sR
 Ac
 Ac
 Ac
