@@ -829,6 +829,9 @@
 			if(AI.stat || !AI.client)
 				to_chat(user, "<span class='warning'>[AI.name] is currently unresponsive, and cannot be uploaded.</span>")
 				return
+			if(occupant || dna_lock) //Normal AIs cannot steal mechs!
+				to_chat(user, "<span class='warning'>Access denied. [name] is [occupant ? "currently occupied" : "secured with a DNA lock"].</span>")
+				return
 			AI.control_disabled = 0
 			AI.radio_enabled = 1
 			to_chat(user, "<span class='boldnotice'>Transfer successful</span>: [AI.name] ([rand(1000,9999)].exe) installed and executed successfully. Local copy has been removed.")
