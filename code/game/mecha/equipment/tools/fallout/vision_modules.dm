@@ -18,15 +18,15 @@
 	chassis.grant_vision()
 
 /obj/item/mecha_parts/mecha_equipment/vision/meson_scanner
-	name = "exosuit meson scanner"
-	desc = "An exosuit module that integrates a meson scanner."
+	name = "vehicle meson scanner"
+	desc = "A vehicle module that integrates a meson scanner."
 	icon_state = "mecha_meson"
 	energy_drain = 100
 	vision_traits = list(TRAIT_MESON_VISION, TRAIT_NIGHT_VISION)
 
 /obj/item/mecha_parts/mecha_equipment/vision/thermal_scanner
-	name = "exosuit thermal scanner"
-	desc = "An exosuit module that integrates a thermal scanner."
+	name = "vehicle thermal scanner"
+	desc = "A vehicle module that integrates a thermal scanner."
 	icon_state = "mecha_thermal"
 	energy_drain = 100
 	vision_traits = list(TRAIT_THERMAL_VISION, TRAIT_NIGHT_VISION)

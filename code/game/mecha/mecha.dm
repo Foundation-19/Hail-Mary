@@ -48,7 +48,6 @@
 	armor = ARMOR_VALUE_HEAVY
 	var/list/facing_modifiers = list(FRONT_ARMOUR = 1.5, SIDE_ARMOUR = 1, BACK_ARMOUR = 0.5)
 	//var/obj/item/stock_parts/cell/cell
-	var/datum/wires/mech/internal_wiring
 	var/obj/item/reagent_containers/fuel_tank/fuel_holder
 	var/state = 0
 	var/list/log = new
@@ -88,7 +87,6 @@
 	var/list/internals_req_access = list()//REQUIRED ACCESS LEVEL TO OPEN CELL COMPARTMENT
 
 	var/wreckage
-	var/repairing = FALSE
 
 	var/canZmove = TRUE
 
