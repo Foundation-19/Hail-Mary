@@ -219,7 +219,7 @@
 	name = "\improper pickup truck"
 	desc = "A old military vehicule, runing on fuel., and recolored"
 	icon = 'icons/mecha/jeepenclave.dmi'
-	icon_state = "jeepenclave"
+	icon_state = "jeepenclave.dmi"
 
 ///jeep BOS
 
