@@ -125,12 +125,14 @@
 		return BULLET_ACT_BLOCK	
 	var/attack_dir = get_dir(src, Proj)
 	var/facing_modifier = get_armour_facing(abs(dir2angle(dir) - dir2angle(attack_dir)))
-	var/true_armor = round(armor.bullet - Proj.ap - Proj.damage/4, 0.01)
+	var/true_armor = clamp(round(armor.bullet*facing_modifier/100 - Proj.armour_penetration ,0.01), 0, 1)
 	var/true_damage = round(Proj.damage * (1 - true_armor))
+	var/minimum_damage_to_penetrate = round(armor.bullet/3*(1 -Proj.armour_penetration), 0.01)
 	if(prob(true_armor/2))
 		Proj.setAngle(SIMPLIFY_DEGREES(Proj.Angle + rand(40,150)))
 		return BULLET_ACT_FORCE_PIERCE
-	if(true_damage < 1)
+	if(true_damage < minimum_damage_to_penetrate)
+		. = ..()
 		return BULLET_ACT_BLOCK
 	Proj.damage = true_damage
 	var/modules_index = attack_dir_for_modules(dir2angle(attack_dir) - dir2angle(dir))
