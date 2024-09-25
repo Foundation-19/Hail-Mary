@@ -14,7 +14,6 @@
 // END_PREFERENCES
 
 // BEGIN_INCLUDE
-#include "code\__DEFINES\mecha_defines.dm"
 #include "_maps\_basemap.dm"
 #include "code\_byond_version_compat.dm"
 #include "code\_compile_options.dm"
@@ -78,6 +77,7 @@
 #include "code\__DEFINES\materials.dm"
 #include "code\__DEFINES\maths.dm"
 #include "code\__DEFINES\MC.dm"
+#include "code\__DEFINES\mecha_defines.dm"
 #include "code\__DEFINES\medal.dm"
 #include "code\__DEFINES\melee.dm"
 #include "code\__DEFINES\menu.dm"
@@ -1005,8 +1005,12 @@
 #include "code\game\mecha\equipment\tools\other_tools.dm"
 #include "code\game\mecha\equipment\tools\vision_tools.dm"
 #include "code\game\mecha\equipment\tools\work_tools.dm"
+#include "code\game\mecha\equipment\tools\fallout\vision_modules.dm"
 #include "code\game\mecha\equipment\weapons\mecha_ammo.dm"
 #include "code\game\mecha\equipment\weapons\weapons.dm"
+#include "code\game\mecha\equipment\weapons\fallout\ballistics.dm"
+#include "code\game\mecha\equipment\weapons\fallout\lasers.dm"
+#include "code\game\mecha\equipment\weapons\fallout\launchers.dm"
 #include "code\game\mecha\fallout\armoured.dm"
 #include "code\game\mecha\fallout\birds.dm"
 #include "code\game\mecha\fallout\buggies.dm"

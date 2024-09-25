@@ -80,7 +80,7 @@
 			var/turf/real_target
 			var/x = A.dir & NORTH - A.dir & SOUTH
 			var/y = A.dir & EAST - A.dir & WEST
-			if(A.selected.range == RANGED)
+			if(A.selected.range != 1)
 				real_target = locate(A.x + round(rand(1,5)*x), A.y + round(rand(1,5)*y), A.z)
 				// why shoot map edge..
 				if(!real_target)

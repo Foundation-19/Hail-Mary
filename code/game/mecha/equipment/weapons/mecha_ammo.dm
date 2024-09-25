@@ -82,7 +82,6 @@
 	load_audio = "sound/weapons/bulletinsert.ogg"
 	ammo_type = "missiles_he"
 
-
 /obj/item/mecha_ammo/flashbang
 	name = "launchable flashbangs"
 	desc = "A box of smooth flashbangs, for use with a large exosuit launcher. Cannot be primed by hand."
@@ -99,6 +98,14 @@
 	round_term = "cluster"
 	direct_load = TRUE
 	ammo_type = "clusterbang"
+
+/obj/item/mecha_ammo/fragmentation
+	name = "launchable flashbang clusters"
+	desc = "A box of clustered flashbangs, for use with a specialized exosuit cluster launcher. Cannot be primed by hand."
+	icon_state = "fragmentation"
+	rounds = 8
+	round_term = "frag grenade"
+	ammo_type = "fragmentation"
 
 /obj/item/mecha_ammo/minigun
 	name = "Minigun ammo pack"

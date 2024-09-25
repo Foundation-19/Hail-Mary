@@ -301,13 +301,14 @@
 		if(I.use_tool(src, user, 8 SECONDS, volume = 50))
 			user.visible_message("<span class='notice'>[user] pries the driver out of the [src]!</span>", "<span class='notice'>You finish removing the driver from the [src]!</span>")
 			go_out()
+/*
 	else
 		// Since having maint protocols available is controllable by the MMI, I see this as a consensual way to remove an MMI without destroying the mech
 		user.visible_message("<span class='notice'>[user] begins levering out the MMI from [src].</span>", "<span class='notice'>You begin to lever out the MMI from [src].</span>")
 		to_chat(occupant, "<span class='warning'>[user] is prying you out of the exosuit!</span>")
 		if(I.use_tool(src, user, 8 SECONDS, volume = 50) && occupant == mmi_as_oc)
 			user.visible_message("<span class='notice'>[user] pries the MMI out of [src]!</span>", "<span class='notice'>You finish removing the MMI from [src]!</span>")
-			go_out()
+			go_out() */
 
 /obj/mecha/screwdriver_act(mob/user, obj/item/I)
 	if(user.a_intent == INTENT_HARM)

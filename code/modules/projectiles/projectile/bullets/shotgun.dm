@@ -15,7 +15,7 @@
 	wound_bonus = BULLET_WOUND_SHOTGUN_PELLET
 	bare_wound_bonus = BULLET_WOUND_SHOTGUN_PELLET_NAKED_MULT
 	wound_falloff_tile = BULLET_WOUND_FALLOFF_PISTOL_LIGHT
-	
+
 	pixels_per_second = BULLET_SPEED_SHOTGUN_PELLET
 	damage_falloff = BULLET_FALLOFF_DEFAULT_PISTOL_LIGHT
 
@@ -33,7 +33,7 @@
 	wound_bonus = BULLET_WOUND_SHOTGUN_PELLET
 	bare_wound_bonus = BULLET_WOUND_SHOTGUN_PELLET_NAKED_MULT
 	wound_falloff_tile = BULLET_WOUND_FALLOFF_PISTOL_LIGHT
-	
+
 	pixels_per_second = BULLET_SPEED_SHOTGUN_PELLET
 	damage_falloff = BULLET_FALLOFF_DEFAULT_PISTOL_LIGHT
 
@@ -56,10 +56,10 @@
 	wound_bonus = RUBBERY_WOUND_SHOTGUN_PELLET
 	bare_wound_bonus = BULLET_WOUND_SHOTGUN_PELLET_NAKED_MULT
 	wound_falloff_tile = BULLET_WOUND_FALLOFF_PISTOL_LIGHT
-	
+
 	pixels_per_second = BULLET_SPEED_SHOTGUN_PELLET
 	damage_falloff = BULLET_FALLOFF_DEFAULT_PISTOL_LIGHT
-	
+
 	zone_accuracy_type = ZONE_WEIGHT_SHOTGUN
 	sharpness = SHARP_NONE
 	embedding = null
@@ -80,7 +80,7 @@
 	wound_bonus = BULLET_WOUND_SHOTGUN_PELLET
 	bare_wound_bonus = BULLET_WOUND_SHOTGUN_PELLET_NAKED_MULT
 	wound_falloff_tile = BULLET_WOUND_FALLOFF_PISTOL_LIGHT
-	
+
 	pixels_per_second = BULLET_SPEED_SHOTGUN_PELLET
 	damage_falloff = BULLET_FALLOFF_DEFAULT_PISTOL_LIGHT
 
@@ -117,7 +117,7 @@
 	wound_bonus = BULLET_WOUND_SHOTGUN_SLUG
 	bare_wound_bonus = BULLET_WOUND_SHOTGUN_SLUG_NAKED_MULT
 	wound_falloff_tile = BULLET_WOUND_FALLOFF_PISTOL_LIGHT
-	
+
 	pixels_per_second = BULLET_SPEED_SHOTGUN_SLUG
 	damage_falloff = BULLET_FALLOFF_DEFAULT_PISTOL_LIGHT
 
@@ -164,7 +164,7 @@
 	wound_bonus = RUBBERY_WOUND_SHOTGUN_SLUG
 	bare_wound_bonus = BULLET_WOUND_SHOTGUN_SLUG_NAKED_MULT
 	wound_falloff_tile = BULLET_WOUND_FALLOFF_PISTOL_LIGHT
-	
+
 	pixels_per_second = BULLET_SPEED_SHOTGUN_SLUG
 	damage_falloff = BULLET_FALLOFF_DEFAULT_PISTOL_LIGHT
 
@@ -187,7 +187,7 @@
 	wound_bonus = BULLET_WOUND_SHOTGUN_TRAIN
 	bare_wound_bonus = BULLET_WOUND_SHOTGUN_TRAIN_NAKED_MULT
 	wound_falloff_tile = BULLET_WOUND_FALLOFF_PISTOL_LIGHT
-	
+
 	pixels_per_second = BULLET_SPEED_SHOTGUN_TRAIN
 	damage_falloff = BULLET_FALLOFF_DEFAULT_PISTOL_LIGHT
 
@@ -218,7 +218,7 @@
 	wound_bonus = BULLET_WOUND_SHOTGUN_SLUG * BULLET_WOUND_FIRE
 	bare_wound_bonus = BULLET_WOUND_SHOTGUN_SLUG_NAKED_MULT * BULLET_NAKED_WOUND_FIRE
 	wound_falloff_tile = BULLET_WOUND_FALLOFF_PISTOL_LIGHT
-	
+
 	pixels_per_second = BULLET_SPEED_SHOTGUN_SLUG
 	damage_falloff = BULLET_FALLOFF_DEFAULT_PISTOL_LIGHT
 
@@ -242,7 +242,7 @@
 	wound_bonus = BULLET_WOUND_SHOTGUN_PELLET * BULLET_WOUND_FIRE
 	bare_wound_bonus = BULLET_WOUND_SHOTGUN_PELLET_NAKED_MULT * BULLET_NAKED_WOUND_FIRE
 	wound_falloff_tile = BULLET_WOUND_FALLOFF_PISTOL_LIGHT
-	
+
 	pixels_per_second = BULLET_SPEED_SHOTGUN_PELLET
 	damage_falloff = BULLET_FALLOFF_DEFAULT_PISTOL_LIGHT
 
@@ -271,7 +271,7 @@
 	wound_bonus = BULLET_WOUND_SHOTGUN_PELLET * BULLET_WOUND_FIRE
 	bare_wound_bonus = BULLET_WOUND_SHOTGUN_PELLET_NAKED_MULT * BULLET_NAKED_WOUND_FIRE
 	wound_falloff_tile = BULLET_WOUND_FALLOFF_PISTOL_LIGHT
-	
+
 	pixels_per_second = BULLET_SPEED_SHOTGUN_PELLET
 	damage_falloff = BULLET_FALLOFF_DEFAULT_PISTOL_LIGHT
 
@@ -302,7 +302,7 @@
 	wound_bonus = RUBBERY_WOUND_SHOTGUN_SLUG
 	bare_wound_bonus = BULLET_WOUND_SHOTGUN_SLUG_NAKED_MULT
 	wound_falloff_tile = BULLET_WOUND_FALLOFF_PISTOL_LIGHT
-	
+
 	pixels_per_second = BULLET_SPEED_SHOTGUN_SLUG
 	damage_falloff = BULLET_FALLOFF_DEFAULT_PISTOL_LIGHT
 
@@ -349,7 +349,7 @@
 	wound_bonus = BULLET_WOUND_SHOTGUN_SLUG
 	bare_wound_bonus = BULLET_WOUND_SHOTGUN_SLUG_NAKED_MULT
 	wound_falloff_tile = BULLET_WOUND_FALLOFF_PISTOL_LIGHT
-	
+
 	pixels_per_second = BULLET_SPEED_SHOTGUN_SLUG
 	damage_falloff = BULLET_FALLOFF_DEFAULT_PISTOL_LIGHT
 
@@ -387,7 +387,7 @@
 	wound_bonus = BULLET_WOUND_SHOTGUN_SLUG * BULLET_WOUND_EXPLOSIVE
 	bare_wound_bonus = BULLET_WOUND_SHOTGUN_SLUG_NAKED_MULT * BULLET_NAKED_WOUND_EXPLOSIVE
 	wound_falloff_tile = BULLET_WOUND_FALLOFF_PISTOL_LIGHT
-	
+
 	pixels_per_second = BULLET_SPEED_SHOTGUN_SLUG
 	damage_falloff = BULLET_FALLOFF_DEFAULT_PISTOL_LIGHT
 
@@ -429,3 +429,19 @@
 /obj/item/projectile/bullet/pellet/shotgun_buckshot/test
 	name = "buckshot pellet"
 	damage = 0
+
+// Tracer ammo! For vehicles.
+
+/obj/item/projectile/bullet/pellet/shotgun_buckshot/tracer
+	name = "tracer pellet"
+
+	light_range = 1.5
+	light_power = 0.3
+	light_color = "#FF7F01"
+
+/obj/item/projectile/bullet/pellet/shotgun_trainshot/tracer
+	name = "trainshot tracer pellet"
+
+	light_range = 1.5
+	light_power = 0.3
+	light_color = "#FF7F01"

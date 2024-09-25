@@ -66,7 +66,7 @@
 
 /obj/mecha/combat/phazon/vertibird/loaded/Initialize()
 	. = ..()
-	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg/auto
+	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg/rapid
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/seat
 	ME.attach(src)
@@ -117,7 +117,7 @@
 
 /obj/mecha/combat/phazon/vertibird/ncr/loaded/Initialize()
 	. = ..()
-	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg/auto
+	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg/rapid
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/seat
 	ME.attach(src)
@@ -179,7 +179,7 @@
 
 /obj/mecha/combat/phazon/vertibird/enclave/loaded/Initialize()
 	. = ..()
-	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg/auto
+	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg/rapid
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/seat
 	ME.attach(src)
@@ -235,7 +235,7 @@
 
 /obj/mecha/combat/phazon/vertibird/brotherhood/loaded/Initialize()
 	. = ..()
-	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg/auto
+	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg/rapid
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/seat
 	ME.attach(src)
