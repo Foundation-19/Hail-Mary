@@ -461,6 +461,13 @@
 	item_color = "seniorknight"
 	minimize_when_attached = TRUE
 
+/obj/item/clothing/accessory/bos/knightsarge
+	name = "Knight Sargeant pins"
+	desc = "A silver pin with one device gilded in gold, little notches at the top end, and a golden sword in the center of purple cloth; worn by the high-ranking Knight Sargeant."
+	icon_state = "seniorknight"
+	item_color = "seniorknight"
+	minimize_when_attached = TRUE
+
 /obj/item/clothing/accessory/bos/juniorknight
 	name = "Junior Knight pins"
 	desc = "A silver pin with one device, and blue coloring. Worn by the Knight-in-Training of the Brotherhood."

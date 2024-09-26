@@ -290,9 +290,9 @@
 	cost = 4
 	subcategory = LOADOUT_SUBCATEGORY_HEAD_FACTIONS
 	restricted_desc = "NCR"
-	restricted_roles = list("NCR Combat Engineer",
+/*	restricted_roles = list("NCR Combat Engineer",
 							"NCR Off-Duty"
-						)
+						)*/
 
 /datum/gear/head/ncr_cap
 	name = "NCR garrison cap"
@@ -454,11 +454,12 @@
 	path = /obj/item/clothing/head/f13/boscap/beret
 	restricted_desc = "BoS"
 	restricted_roles = list(
-							"Head Paladin",
+							"Paladin Commander",
 							"Head Captain",
 							"Head Scribe",
 							"Senior Paladin",
 							"Senior Knight",
+							"Knight Sergeant",
 							"Senior Scribe",
 							"Paladin",
 							"Knight",
