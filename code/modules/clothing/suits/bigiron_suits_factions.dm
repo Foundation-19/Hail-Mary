@@ -274,6 +274,10 @@ Suits. 0-10 in its primary value, slowdown 0, various utility
 	icon_state = "legion-explorercustom"
 	item_state = "legion-explorercustom"
 
+//////////////
+//	 NCR	//
+//////////////
+
 /obj/item/clothing/suit/armor/ncrarmor
 	name = "NCR patrol vest"
 	desc = "A standard issue NCR Infantry vest."
@@ -420,6 +424,8 @@ Suits. 0-10 in its primary value, slowdown 0, various utility
 /obj/item/clothing/suit/armor/medium/combat/desert_ranger/patrol
 	name = "desert ranger patrol armor"
 	desc = "A set of desert ranger patrol armor, modified to be light and breezy here in the swamps, perfect for making blood sausage."
+	icon = 'icons/fallout/clothing/armored_medium.dmi'
+	mob_overlay_icon = 'icons/fallout/onmob/clothes/armor_medium.dmi'
 	icon_state = "ncr_patrol"
 	item_state = "ncr_patrol"
 	stiffness = LIGHT_STIFFNESS

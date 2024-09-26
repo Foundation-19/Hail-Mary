@@ -762,14 +762,6 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/plating,
 /area/f13/building/boat)
-"aLU" = (
-/obj/structure/nest/ghoul,
-/turf/open/floor/wood_common{
-	name = "wooden dock";
-	sunlight_state = 1;
-	icon_state = "mosaic_light1"
-	},
-/area/f13/wasteland/city)
 "aLZ" = (
 /obj/effect/spawner/lootdrop/wmelee_middle,
 /turf/open/floor/wood_mosaic{
@@ -3315,6 +3307,14 @@
 	icon_state = "common1"
 	},
 /area/f13/ruins)
+"dbh" = (
+/obj/structure/lattice/catwalk,
+/obj/machinery/door/poddoor/shutters{
+	name = "Big Bill's Vertibird hangar shutters";
+	id = "Bigbill3"
+	},
+/turf/open/floor/wood_common,
+/area/f13/ruins)
 "dbL" = (
 /turf/closed/wall/r_wall,
 /area/f13/brotherhood)
@@ -4406,15 +4406,6 @@
 	icon_state = "common1"
 	},
 /area/f13/ruins)
-"ebo" = (
-/obj/structure/nest/ghoul,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/wood_common{
-	name = "wooden dock";
-	sunlight_state = 1;
-	icon_state = "fancy_light1"
-	},
-/area/f13/wasteland/city)
 "ebs" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
@@ -5531,7 +5522,6 @@
 /turf/open/floor/wood_wide/wood_wide_dark,
 /area/f13/building/boat)
 "fdS" = (
-/obj/structure/nest/raider/ranged,
 /obj/structure/destructible/tribal_torch/wall/lit{
 	dir = 4
 	},
@@ -6917,19 +6907,6 @@
 	icon_state = "bluerustysolid"
 	},
 /area/f13/building/boat)
-"grf" = (
-/obj/effect/turf_decal/stripes/asteroid/line{
-	dir = 4
-	},
-/mob/living/simple_animal/hostile/handy{
-	color = "#4c7093";
-	name = "US Navy mr. handy"
-	},
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
-	name = "Old Docks";
-	sunlight_state = 1
-	},
-/area/f13/Ocean)
 "grL" = (
 /obj/effect/landmark/start/f13/f13baltimorepolice,
 /turf/open/floor/plasteel/f13/vault_floor/blue/whitebluefull,
@@ -8979,14 +8956,6 @@
 /obj/structure/table/reinforced,
 /turf/open/floor/plasteel/f13/vault_floor/plating,
 /area/f13/building/boat)
-"ipu" = (
-/obj/effect/decal/cleanable/blood/footprints{
-	icon_state = "trails_1";
-	dir = 4
-	},
-/mob/living/simple_animal/hostile/raider/ranged/boss/junker,
-/turf/open/floor/wood_mosaic/wood_mosaic_dark,
-/area/f13/wasteland/city)
 "ipL" = (
 /obj/structure/junk/small/bed2,
 /obj/effect/decal/cleanable/dirt,
@@ -10276,13 +10245,6 @@
 	icon_state = "common2"
 	},
 /area/f13/wasteland/town)
-"jsC" = (
-/mob/living/simple_animal/hostile/handy{
-	color = "#4c7093";
-	name = "US Navy mr. handy"
-	},
-/turf/open/indestructible/ground/outside/roaddirt,
-/area/f13/Ocean)
 "jsQ" = (
 /obj/structure/chair{
 	dir = 4
@@ -10362,7 +10324,7 @@
 	light_color = "#FFDDCC";
 	color = "#FFDDCC"
 	},
-/turf/open/indestructible/ground/outside/roof,
+/turf/open/floor/wood_common,
 /area/f13/ruins)
 "jxb" = (
 /obj/machinery/light/small{
@@ -10832,16 +10794,6 @@
 /obj/structure/railing/wood,
 /turf/open/floor/wood_fancy/wood_fancy_light,
 /area/f13/enclave)
-"jXY" = (
-/obj/structure/chair/comfy/shuttle{
-	dir = 4
-	},
-/mob/living/simple_animal/hostile/handy{
-	color = "#4c7093";
-	name = "US Navy mr. handy"
-	},
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/outpost)
 "jYr" = (
 /obj/structure/barricade/bars,
 /turf/open/floor/f13/wood{
@@ -11243,12 +11195,6 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/wood_common/wood_common_light,
-/area/f13/ruins)
-"kvD" = (
-/mob/living/simple_animal/hostile/ghoul,
-/turf/open/floor/wood_wide/wood_wide_dark{
-	icon_state = "wide_dark-broken5"
-	},
 /area/f13/ruins)
 "kvF" = (
 /turf/open/floor/wood_common/wood_common_dark,
@@ -15130,10 +15076,6 @@
 	icon_state = "bluerustysolid"
 	},
 /area/f13/building/boat)
-"nVc" = (
-/obj/structure/nest/raider/ranged,
-/turf/open/floor/wood_mosaic/wood_mosaic_dark,
-/area/f13/wasteland/city)
 "nVT" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -15658,15 +15600,6 @@
 	},
 /turf/closed/wall/f13/ruins,
 /area/f13/ruins)
-"ovf" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/nest/radroach,
-/turf/open/floor/plasteel/f13/vault_floor/yellow/side{
-	dir = 4
-	},
-/area/f13/ruins)
 "ovh" = (
 /obj/structure/closet/cabinet,
 /obj/effect/spawner/lootdrop/f13/armor/tier3,
@@ -15746,15 +15679,6 @@
 /obj/structure/chair/sofa/left,
 /turf/open/floor/wood_fancy,
 /area/f13/ruins)
-"oyp" = (
-/obj/effect/decal/marking{
-	icon_state = "dottedverticalcorroded"
-	},
-/obj/structure/nest/raider/ranged,
-/turf/open/floor/plating/f13/outside/road/baltimore{
-	icon_state = "road_center_1"
-	},
-/area/f13/raider_mall)
 "oyD" = (
 /obj/structure/chair/comfy/green{
 	dir = 4
@@ -15837,12 +15761,6 @@
 	},
 /turf/open/floor/plating/rust,
 /area/f13/ruins)
-"oDT" = (
-/obj/structure/nest/raider/ranged,
-/turf/open/floor/wood_mosaic/wood_mosaic_dark{
-	icon_state = "mosaic_dark-broken6"
-	},
-/area/f13/wasteland/city)
 "oEm" = (
 /obj/structure/simple_door/metal,
 /turf/open/floor/wood_wide/wood_wide_light,
@@ -19020,12 +18938,6 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/ruins)
-"rKx" = (
-/mob/living/simple_animal/hostile/fireant,
-/turf/open/floor/f13/wood{
-	icon_state = "housewood2"
-	},
-/area/f13/ruins)
 "rKP" = (
 /obj/structure/railing{
 	color = "#A47449";
@@ -19707,13 +19619,6 @@
 /obj/structure/barricade/tentleatheredge,
 /turf/open/indestructible/ground/outside/roof,
 /area/f13/raider_mall)
-"ssk" = (
-/obj/structure/lattice/catwalk/clockwork,
-/mob/living/simple_animal/hostile/raider/ranged/biker{
-	name = "Portmaster guard"
-	},
-/turf/open/transparent/openspace,
-/area/f13/wasteland/city)
 "ssB" = (
 /obj/item/storage/backpack{
 	pixel_y = 23
@@ -20767,12 +20672,6 @@
 	},
 /turf/open/floor/wood_wide/wood_wide_dark,
 /area/f13/building/boat)
-"tsP" = (
-/mob/living/simple_animal/hostile/ghoul/reaver,
-/turf/open/floor/wood_wide/wood_wide_dark{
-	icon_state = "wide_dark-broken5"
-	},
-/area/f13/ruins)
 "tsY" = (
 /obj/structure/railing{
 	color = "#A47449";
@@ -21830,10 +21729,6 @@
 "unK" = (
 /turf/open/floor/f13/wood,
 /area/f13/ruins)
-"unQ" = (
-/mob/living/simple_animal/hostile/ghoul,
-/turf/open/floor/wood_wide/wood_wide_dark,
-/area/f13/ruins)
 "uoi" = (
 /obj/machinery/light/small{
 	dir = 4;
@@ -22306,13 +22201,6 @@
 /obj/structure/simple_door/bunker,
 /turf/open/floor/plasteel/f13/vault_floor/dark/darksolid,
 /area/f13/ruins)
-"uKC" = (
-/mob/living/simple_animal/hostile/ghoul/scorched,
-/turf/open/floor/plating/rust{
-	sunlight_state = 1;
-	name = "rusted Docks"
-	},
-/area/f13/Ocean)
 "uKK" = (
 /obj/structure/junk/micro,
 /turf/open/floor/wood_mosaic{
@@ -22458,10 +22346,6 @@
 /obj/structure/timeddoor,
 /obj/structure/timeddoor,
 /turf/closed/wall,
-/area/f13/building/boat)
-"uPI" = (
-/obj/structure/nest/ghoul,
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/building/boat)
 "uPP" = (
 /obj/effect/decal/cleanable/dirt,
@@ -24045,11 +23929,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/indestructible/ground/outside/ruins,
 /area/f13/ruins)
-"wuX" = (
-/obj/structure/nest/radroach,
-/obj/effect/decal/cleanable/glass,
-/turf/open/floor/plating/rust,
-/area/f13/ruins)
 "wvc" = (
 /obj/effect/decal/cleanable/blood,
 /turf/open/floor/f13/wood{
@@ -24241,11 +24120,6 @@
 /obj/structure/chair/comfy/shuttle,
 /obj/item/clothing/head/caphat/formal/fedcover{
 	name = "US Navy Officer's Cap"
-	},
-/mob/living/simple_animal/hostile/handy/gutsy{
-	name = "US navy mr. gutsy";
-	color = "#4c7093";
-	health = 70
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/outpost)
@@ -25299,16 +25173,6 @@
 /obj/effect/decal/cleanable/greenglow,
 /turf/open/floor/wood_fancy,
 /area/f13/ruins)
-"xzD" = (
-/mob/living/simple_animal/hostile/raider/sulphite{
-	name = "Captain Burned Portmaster champion";
-	speak = list("FIGHT ME !");
-	speak_chance = 5;
-	speak_emote = list("screams");
-	peaceful = 1
-	},
-/turf/open/floor/f13/wood,
-/area/f13/wasteland/city)
 "xAf" = (
 /obj/structure/flora/grass/jungle,
 /turf/open/floor/wood_fancy{
@@ -25647,11 +25511,6 @@
 	icon_state = "housewindowbroken"
 	},
 /turf/open/floor/wood_fancy/wood_fancy_light,
-/area/f13/ruins)
-"xTH" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/nest/radroach,
-/turf/open/floor/plasteel/f13/vault_floor/floor,
 /area/f13/ruins)
 "xTK" = (
 /obj/structure/lattice/catwalk,
@@ -27781,7 +27640,7 @@ fRe
 fWp
 fWp
 kCS
-jXY
+kCS
 kCS
 qxI
 utu
@@ -27849,7 +27708,7 @@ qwh
 nYj
 dyW
 rSa
-unQ
+vgg
 rSa
 bzg
 iXW
@@ -28827,7 +28686,7 @@ hrf
 hrf
 hrf
 hrf
-grf
+hrf
 hrf
 cXH
 cXH
@@ -28877,7 +28736,7 @@ qJy
 aIh
 jtr
 rSa
-tsP
+wQn
 rSa
 bzg
 rgV
@@ -30094,7 +29953,7 @@ fYd
 fYd
 fYd
 fYd
-jsC
+fYd
 fYd
 fYd
 fYd
@@ -30162,7 +30021,7 @@ qFK
 qFK
 qFK
 rSa
-kvD
+wQn
 rSa
 bzg
 veg
@@ -30619,7 +30478,7 @@ fYd
 fYd
 fYd
 fYd
-jsC
+fYd
 fYd
 fYd
 fYd
@@ -31447,7 +31306,7 @@ fZA
 kvF
 kvF
 rSa
-unQ
+vgg
 rSa
 qcM
 bzg
@@ -41217,7 +41076,7 @@ arF
 iCj
 xvN
 xei
-bVL
+qon
 qon
 qon
 xeC
@@ -42751,7 +42610,7 @@ cmH
 cmH
 lIR
 pBl
-oyp
+cdJ
 tVE
 ndW
 ndW
@@ -44302,7 +44161,7 @@ srn
 xvN
 qFK
 kAi
-nVc
+kAi
 kAi
 jKa
 jKa
@@ -44330,9 +44189,9 @@ nho
 sSs
 pOX
 rSa
-xTH
+vPU
 sJk
-ovf
+pel
 niu
 jln
 rSa
@@ -44565,7 +44424,7 @@ lho
 lxV
 lho
 lho
-ipu
+hFc
 kAi
 cmF
 tDx
@@ -45605,7 +45464,7 @@ duz
 rSa
 egb
 sSs
-wuX
+hYT
 egb
 nho
 rSa
@@ -45844,7 +45703,7 @@ cmH
 cmH
 ldI
 kAi
-oDT
+iFm
 kAi
 iZw
 iZw
@@ -50984,7 +50843,7 @@ rnk
 mvh
 hEq
 hEq
-ssk
+hEq
 hEq
 hEq
 mvh
@@ -53301,7 +53160,7 @@ tDx
 bzg
 mOb
 dEK
-xzD
+jPq
 jPq
 tgb
 qFK
@@ -54664,7 +54523,7 @@ jcn
 jcn
 jcn
 bzg
-hSJ
+sSs
 qaj
 val
 sSs
@@ -57587,9 +57446,9 @@ tiG
 ejJ
 ejJ
 tVU
+tVU
+tVU
 kvU
-tVU
-tVU
 pfT
 tVU
 ffk
@@ -57819,7 +57678,7 @@ gVH
 xhb
 tnT
 tnT
-uPI
+xhb
 xhb
 xhb
 ayJ
@@ -57835,7 +57694,7 @@ iJf
 nOy
 gTa
 ycF
-ebo
+ycF
 tVU
 ycF
 ium
@@ -58461,7 +58320,7 @@ him
 tTD
 tTD
 tTD
-poo
+tTD
 bQN
 tTD
 tTD
@@ -58478,7 +58337,7 @@ iFK
 tTD
 avl
 iBr
-tnN
+xhb
 xhb
 xhb
 pZc
@@ -58615,7 +58474,7 @@ sXP
 nOy
 cby
 tVU
-qov
+ejJ
 tVU
 nOy
 nOy
@@ -58623,7 +58482,7 @@ iDU
 biv
 tVU
 nOy
-aLU
+nOy
 qFK
 tVU
 rVK
@@ -58736,7 +58595,7 @@ avl
 sml
 ebs
 xhb
-tnN
+xhb
 xhb
 pZc
 bPI
@@ -58875,7 +58734,7 @@ iIU
 xwz
 foX
 ahz
-aLU
+nOy
 nkq
 lOI
 tVU
@@ -58995,7 +58854,7 @@ xhb
 sml
 ebs
 pZc
-xri
+pZc
 xhb
 xhb
 gvF
@@ -59029,7 +58888,7 @@ qFK
 qFK
 pLt
 eQX
-rKx
+oek
 rSa
 wGe
 rtg
@@ -59129,7 +58988,7 @@ sTk
 tVU
 cby
 tVU
-qov
+ejJ
 tVU
 tVU
 ejJ
@@ -59231,7 +59090,7 @@ tTD
 tTD
 tTD
 tTD
-poo
+tTD
 tTD
 tTD
 tTD
@@ -59290,7 +59149,7 @@ oek
 rSa
 pbv
 oek
-rKx
+oek
 gyZ
 pLt
 qFK
@@ -59499,14 +59358,14 @@ tTD
 tTD
 tTD
 bwO
-poo
+tTD
 tTD
 tTD
 tTD
 tTD
 rbl
 kVt
-xri
+pZc
 xhb
 pZc
 vKD
@@ -59801,8 +59660,8 @@ qFK
 kng
 lqC
 oek
-rKx
-rKx
+oek
+oek
 bMc
 tDx
 oek
@@ -60020,12 +59879,12 @@ tTD
 tTD
 tTD
 tTD
-uKC
+tTD
 tTD
 tTD
 gUh
 xhb
-tnN
+xhb
 xhb
 gVH
 gVH
@@ -60275,7 +60134,7 @@ dQx
 tTD
 tTD
 tTD
-poo
+tTD
 tTD
 tTD
 tTD
@@ -60407,7 +60266,7 @@ pmf
 tVU
 oit
 tVU
-kvU
+tVU
 tVU
 tVU
 cby
@@ -73715,7 +73574,7 @@ gTR
 juy
 tmc
 jxa
-ekw
+dbh
 qFK
 qFK
 qFK
@@ -73972,7 +73831,7 @@ iyO
 lBK
 tmc
 tmc
-ekw
+dbh
 qFK
 qFK
 qFK

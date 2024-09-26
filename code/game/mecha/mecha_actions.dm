@@ -318,7 +318,7 @@
 			chassis.landing_mode = 1
 			chassis.bumpsmash = 1
 			chassis.step_in = 7
-			chassis.step_energy_drain = 0.8
+			chassis.step_energy_drain = 0.4
 			chassis.occupant_message(span_danger("You are landing."))
 	else
 		if(chassis.mechazmove(UP))
