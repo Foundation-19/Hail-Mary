@@ -3,7 +3,7 @@
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/scattershot
 	name = "\improper Heavy vehicular shotgun"
 	desc = "A shotgun that's modified to be mounted on a vehicle, fires a volley of heavy pellets."
-	icon_state = "mecha_scatter"
+	icon_state = "vehicle_scatter"
 	fire_sound = 'sound/weapons/sound_weapons_mech_shotgun.ogg'
 	equip_cooldown = 15
 	projectile = /obj/item/projectile/bullet/pellet/shotgun_trainshot/tracer
@@ -18,7 +18,7 @@
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/scattershot/improvised
 	name = "\improper Improvised vehicular shotgun"
 	desc = "A shotgun built from scrap metal, fits to a combat vehicle, fires a volley of pellets."
-	icon_state = "mecha_scatter"
+	icon_state = "vehicle_scatter_makeshift"
 	fire_sound = 'sound/f13weapons/auto5.ogg'
 	equip_cooldown = 20
 	projectile = /obj/item/projectile/bullet/pellet/shotgun_buckshot/tracer
@@ -33,7 +33,7 @@
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/scattershot/rapid
 	name = "\improper Rapid-fire vehicular shotgun"
 	desc = "A rapid-fire shotgun fitted for mounting on a combat vehicle, fires fewer heavy pellets, but faster."
-	icon_state = "mecha_scatter"
+	icon_state = "vehicle_scatter_rapid"
 	fire_sound = 'sound/weapons/sound_weapons_mech_mortar.ogg'
 	equip_cooldown = 8
 	projectile = /obj/item/projectile/bullet/pellet/shotgun_trainshot/tracer
@@ -51,7 +51,7 @@
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg
 	name = "\improper Vehicular LMG"
 	desc = "A machinegun chambered in 9mm to be mounted on combat vehicles. Fires a two-round burst."
-	icon_state = "mecha_uac2"
+	icon_state = "vehicle_lmg"
 	fire_sound = 'sound/weapons/sound_weapons_mech_autocannon.ogg'
 	equip_cooldown = 8
 	projectile = /obj/item/projectile/bullet/c9mm/tracer
@@ -69,7 +69,7 @@
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg/rapid
 	name = "\improper Rapid-fire vehicular LMG"
 	desc = "A machinegun that's a real machinegun. Can be fired in full-auto by holding down the trigger, for combat vehicles."
-	icon_state = "mecha_uac2"
+	icon_state = "vehicle_lmg_rapid"
 	fire_sound = 'sound/f13weapons/bozar_fire.ogg'
 	equip_cooldown = 1
 	projectile_delay = 1
@@ -86,7 +86,7 @@
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg/improvised
 	name = "\improper Improvised vehicular LMG"
 	desc = "A improvised machinegun chambered in 9mm, fitted for combat vehicles."
-	icon_state = "mecha_uac2"
+	icon_state = "vehicle_lmg_makeshift"
 	fire_sound = 'sound/f13weapons/boltfire.ogg'
 	equip_cooldown = 10
 	projectile = /obj/item/projectile/bullet/c9mm/improvised/tracer
@@ -105,7 +105,7 @@
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/minigun
 	name = "\improper Vehicular minigun"
 	desc = "A minigun, capable of firing in full-auto but builds up heat rapidly. fitted for combat vehicles."
-	icon_state = "mecha_uac2"
+	icon_state = "vehicle_lmg_minigun"
 	fire_sound = 'sound/f13weapons/antimaterielfire.ogg'
 	equip_cooldown = 1
 	projectile = /obj/item/projectile/bullet/c9mm/improvised/tracer

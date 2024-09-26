@@ -1378,6 +1378,39 @@ obj/item/storage/box/stingbangs
 		)
 	generate_items_inside(items_inside, src)
 
+/obj/item/box/debugmaterials
+	name = "good box"
+
+/obj/item/storage/box/debugmaterials/PopulateContents() 	//less uranium because radioactive
+	var/static/items_inside = list(
+		/obj/item/stack/sheet/metal/fifty=1,\
+		/obj/item/stack/sheet/glass/fifty=1,\
+		/obj/item/stack/sheet/rglass=50,\
+		/obj/item/stack/sheet/plasmaglass=50,\
+		/obj/item/stack/sheet/titaniumglass=50,\
+		/obj/item/stack/sheet/plastitaniumglass=50,\
+		/obj/item/stack/sheet/plasteel=50,\
+		/obj/item/stack/sheet/mineral/plastitanium=50,\
+		/obj/item/stack/sheet/mineral/titanium=50,\
+		/obj/item/stack/sheet/mineral/gold=50,\
+		/obj/item/stack/sheet/mineral/silver=50,\
+		/obj/item/stack/sheet/mineral/plasma=50,\
+		/obj/item/stack/sheet/mineral/uranium=50,\
+		/obj/item/stack/sheet/mineral/diamond=50,\
+		/obj/item/stack/sheet/mineral/wood=50,\
+		/obj/item/stack/sheet/plastic/fifty=1,\
+		/obj/item/stack/sheet/runed_metal/fifty=1,
+		/obj/item/stack/sheet/prewar = 50,
+		/obj/item/stack/crafting/metalparts = 50,
+		/obj/item/stack/sheet/prewar = 50,
+		/obj/item/stack/crafting/goodparts = 50,
+		/obj/item/stack/crafting/electronicparts = 50,
+		/obj/item/stack/rods = 50,
+		/obj/item/stack/ore/blackpowder = 50,
+		/obj/item/advanced_crafting_components/alloys = 50
+		)
+	generate_items_inside(items_inside, src)
+
 /obj/item/storage/box/beakers/variety
 	name = "beaker variety box"
 

@@ -73,9 +73,10 @@
 	result = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg/rapid
 	reqs = list(/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg = 1,
 	/obj/item/stack/crafting/metalparts = 5,
-	/obj/item/stack/sheet/prewar = 8,
+	/obj/item/stack/crafting/goodparts = 5,
+	/obj/item/stack/sheet/prewar = 5,
 	/obj/item/stack/sheet/mineral/titanium = 8,
-	/obj/item/stack/rods = 2)
+	/obj/item/stack/rods = 10)
 	tools = list(TOOL_AWORKBENCH)
 	time = 180
 	category = CAT_VEHICLES
@@ -104,12 +105,10 @@
 	/obj/item/stack/crafting/electronicparts = 5,
 	/obj/item/stack/sheet/metal = 10,
 	/obj/item/stack/sheet/mineral/titanium = 20,
-	/obj/item/stack/rods = 6,
-	/obj/item/advanced_crafting_components/assembly = 1,
-	/obj/item/advanced_crafting_components/receiver = 1,
-	/obj/item/advanced_crafting_components/alloys = 1)
-	tools = list(TOOL_WORKBENCH)
-	time = 180 // test test!!
+	/obj/item/stack/rods = 10,
+	/obj/item/gun/ballistic/automatic/smg/mini_uzi = 3)
+	tools = list(TOOL_AWORKBENCH)
+	time = 180
 	category = CAT_VEHICLES
 	subcategory = CAT_VEHICLEPARTS
 
@@ -120,53 +119,10 @@
 	/obj/item/stack/sheet/metal = 5,
 	/obj/item/stack/sheet/mineral/titanium = 5,
 	/obj/item/stack/ore/blackpowder = 5)
-	tools = list(TOOL_WORKBENCH)
+	tools = list(TOOL_AWORKBENCH)
 	time = 5
 	category = CAT_VEHICLES
 	subcategory = CAT_VEHICLEPARTS
-
-
-/datum/crafting_recipe/box/lotsofgoodstuff
-	name = "testing box o truth and goodies"
-	result = /obj/item/box/allsortsofgoodstuff
-	reqs = list(/obj/item/stack/rods = 1)
-	tools = list(TOOL_WORKBENCH)
-	time = 1
-	category = CAT_WEAPONRY
-	subcategory = CAT_WEAPON
-
-/obj/item/box/allsortsofgoodstuff #warn // remove this
-	name = "good box"
-
-/obj/item/storage/box/allsortsofgoodstuff/PopulateContents() 	//less uranium because radioactive
-	var/static/items_inside = list(
-		/obj/item/stack/sheet/metal/fifty=1,\
-		/obj/item/stack/sheet/glass/fifty=1,\
-		/obj/item/stack/sheet/rglass=50,\
-		/obj/item/stack/sheet/plasmaglass=50,\
-		/obj/item/stack/sheet/titaniumglass=50,\
-		/obj/item/stack/sheet/plastitaniumglass=50,\
-		/obj/item/stack/sheet/plasteel=50,\
-		/obj/item/stack/sheet/mineral/plastitanium=50,\
-		/obj/item/stack/sheet/mineral/titanium=50,\
-		/obj/item/stack/sheet/mineral/gold=50,\
-		/obj/item/stack/sheet/mineral/silver=50,\
-		/obj/item/stack/sheet/mineral/plasma=50,\
-		/obj/item/stack/sheet/mineral/uranium=50,\
-		/obj/item/stack/sheet/mineral/diamond=50,\
-		/obj/item/stack/sheet/mineral/wood=50,\
-		/obj/item/stack/sheet/plastic/fifty=1,\
-		/obj/item/stack/sheet/runed_metal/fifty=1,
-		/obj/item/stack/sheet/prewar = 50,
-		/obj/item/stack/crafting/metalparts = 50,
-		/obj/item/stack/sheet/prewar = 50,
-		/obj/item/stack/crafting/goodparts = 50,
-		/obj/item/stack/crafting/electronicparts = 50,
-		/obj/item/stack/rods = 50,
-		/obj/item/stack/ore/blackpowder = 50,
-		/obj/item/advanced_crafting_components/alloys = 1
-		)
-	generate_items_inside(items_inside, src)
 
 // Pneumatic launcher
 
@@ -214,14 +170,15 @@
 	category = CAT_VEHICLES
 	subcategory = CAT_VEHICLEPARTS
 
-/datum/crafting_recipe/gun/vehicle/shotgun_upgraded
+/datum/crafting_recipe/gun/vehicle/shotgun_rapid
 	name = "Rapid-fire vehicular shotgun"
 	result = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/scattershot/rapid
 	reqs = list(/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/scattershot = 1,
 	/obj/item/stack/crafting/metalparts = 5,
-	/obj/item/stack/sheet/prewar = 8,
-	/obj/item/stack/sheet/mineral/titanium = 8,
-	/obj/item/stack/rods = 2)
+	/obj/item/stack/crafting/goodparts = 5,
+	/obj/item/stack/sheet/prewar = 10,
+	/obj/item/stack/sheet/mineral/titanium = 10,
+	/obj/item/stack/rods = 10)
 	tools = list(TOOL_AWORKBENCH)
 	time = 180
 	category = CAT_VEHICLES

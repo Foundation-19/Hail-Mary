@@ -110,6 +110,6 @@
 /obj/item/mecha_ammo/minigun
 	name = "Minigun ammo pack"
 	desc = "A box of high caliber ammo, ready to be consumed in nano seconds. Cannot be primed by hand."
-	icon_state = "lmg"
+	icon_state = "minigun"
 	rounds = 600
 	ammo_type = "minigun"
