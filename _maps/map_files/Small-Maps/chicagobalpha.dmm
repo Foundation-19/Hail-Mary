@@ -4405,6 +4405,9 @@
 /obj/effect/turf_decal/stripes/red/corner{
 	dir = 1
 	},
+/obj/machinery/light/small{
+	dir = 4
+	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "floorrustysolid"
 	},
@@ -10735,7 +10738,7 @@
 "KW" = (
 /mob/living/simple_animal/hostile/securitron/sentrybot{
 	name = "Gun Galore Gunny";
-	desc = "A tall robot with a Gunnery Sarges insignia painted on its front plate. Next to it is a name-tag, "GunsGaloreGunny"  with a line next to it saying "ThreeGscangetyoualot!"";
+	desc = "A tall robot with a Gunnery Sarges insignia painted on its front plate. Next to it is a name-tag, GunsGaloreGunny  with a line next to it saying "ThreeGscangetyoualot!"";
 	health = 3250
 	},
 /turf/open/floor/plasteel/f13/vault_floor/red{
@@ -14517,6 +14520,15 @@
 	dir = 5
 	},
 /area/f13/building)
+"XL" = (
+/obj/machinery/light/small{
+	brightness = 3;
+	dir = 8
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	icon_state = "floorrustysolid"
+	},
+/area/f13/brotherhood)
 "XN" = (
 /obj/machinery/light/small,
 /obj/effect/overlay/junk/toilet{
@@ -14953,6 +14965,12 @@
 	},
 /turf/open/floor/f13/wood,
 /area/f13/building)
+"Zl" = (
+/obj/machinery/light/small,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	icon_state = "floorrustysolid"
+	},
+/area/f13/brotherhood)
 "Zm" = (
 /obj/structure/closet/crate/bin/trashbin,
 /obj/machinery/light/small{
@@ -32284,7 +32302,7 @@ uF
 Ac
 Ac
 Ac
-Ac
+XL
 OB
 OB
 VL
@@ -32432,7 +32450,7 @@ Co
 Co
 Co
 OB
-Ac
+YO
 Ac
 Ac
 Ac
@@ -32749,7 +32767,7 @@ OB
 sR
 Ac
 Ac
-Ac
+Zl
 OB
 OB
 Mb
@@ -33217,7 +33235,7 @@ Co
 Co
 Co
 OB
-Ac
+YO
 Ac
 OB
 OB
@@ -33530,10 +33548,10 @@ Co
 Co
 OB
 OB
+XL
 Ac
 Ac
-Ac
-Ac
+XL
 OB
 OB
 OB
