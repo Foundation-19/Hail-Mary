@@ -10738,7 +10738,7 @@
 "KW" = (
 /mob/living/simple_animal/hostile/securitron/sentrybot{
 	name = "Gun Galore Gunny";
-	desc = "A tall robot with a Gunnery Sarges insignia painted on its front plate. Next to it is a name-tag, GunsGaloreGunny  with a line next to it saying "ThreeGscangetyoualot!"";
+	desc = "A tall robot with a Gunnery Sarges insignia painted on its front plate. Next to it is a name-tag, GunsGaloreGunny  with a line next to it saying ThreeGscangetyoualot!";
 	health = 3250
 	},
 /turf/open/floor/plasteel/f13/vault_floor/red{
