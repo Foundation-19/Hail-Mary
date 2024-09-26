@@ -625,6 +625,12 @@
 /obj/item/bedsheet/black,
 /turf/open/floor/carpet/black,
 /area/f13/wasteland)
+"qN" = (
+/obj/effect/landmark/start/f13/seniorpaladin,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	icon_state = "floorrustysolid"
+	},
+/area/f13/wasteland)
 "qV" = (
 /turf/open/indestructible/ground/outside/roof,
 /area/f13/wasteland)
@@ -706,6 +712,12 @@
 	icon_state = "floorrustysolid"
 	},
 /area/f13/wasteland)
+"tT" = (
+/obj/effect/landmark/start/f13/knightcap,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	icon_state = "floorrustysolid"
+	},
+/area/f13/wasteland)
 "uc" = (
 /turf/open/floor/carpet/black,
 /area/f13/wasteland)
@@ -730,6 +742,12 @@
 	dir = 4
 	},
 /turf/open/floor/plasteel/f13/vault_floor/blue/whitebluefull,
+/area/f13/wasteland)
+"vS" = (
+/obj/effect/landmark/start/f13/seniorscribe,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	icon_state = "floorrustysolid"
+	},
 /area/f13/wasteland)
 "vV" = (
 /obj/structure/rack,
@@ -1113,6 +1131,12 @@
 "DZ" = (
 /turf/open/indestructible,
 /area/f13/tcoms)
+"Ea" = (
+/obj/effect/landmark/start/f13/seniorknight,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	icon_state = "floorrustysolid"
+	},
+/area/f13/wasteland)
 "Ex" = (
 /turf/open/floor/carpet/red,
 /area/f13/wasteland)
@@ -1156,6 +1180,12 @@
 	dir = 4;
 	light_color = "red"
 	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	icon_state = "floorrustysolid"
+	},
+/area/f13/wasteland)
+"FI" = (
+/obj/effect/landmark/start/f13/paladin,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "floorrustysolid"
 	},
@@ -1365,6 +1395,12 @@
 /obj/structure/chair/sofa/corp/left,
 /turf/open/floor/plasteel/f13/vault_floor/dark,
 /area/f13/wasteland)
+"KQ" = (
+/obj/effect/landmark/start/f13/paladincommander,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	icon_state = "floorrustysolid"
+	},
+/area/f13/wasteland)
 "La" = (
 /obj/structure/curtain,
 /turf/open/floor/carpet/red,
@@ -1526,6 +1562,12 @@
 "NN" = (
 /obj/structure/chair/f13foldupchair,
 /turf/open/floor/plasteel/f13/vault_floor/misc,
+/area/f13/wasteland)
+"Oc" = (
+/obj/effect/landmark/start/f13/scribe,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	icon_state = "floorrustysolid"
+	},
 /area/f13/wasteland)
 "Oq" = (
 /obj/structure/timeddoor/sixtyminute,
@@ -1760,6 +1802,15 @@
 "UF" = (
 /obj/item/kirbyplants/random,
 /turf/open/floor/plasteel/f13/vault_floor/floor,
+/area/f13/wasteland)
+"Vf" = (
+/obj/structure/chair/f13foldupchair{
+	dir = 1
+	},
+/obj/effect/landmark/start/f13/headscribe,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	icon_state = "floorrustysolid"
+	},
 /area/f13/wasteland)
 "Vs" = (
 /obj/structure/rack,
@@ -16689,7 +16740,7 @@ pn
 RD
 tg
 NH
-NH
+tT
 NH
 RD
 RD
@@ -17327,7 +17378,7 @@ NH
 bh
 NH
 NH
-NH
+Ea
 NH
 RD
 Tp
@@ -17475,7 +17526,7 @@ RD
 nm
 NH
 NH
-NH
+KQ
 RD
 XP
 NH
@@ -17955,7 +18006,7 @@ NH
 Jc
 NH
 NH
-NH
+FI
 XP
 BM
 Cq
@@ -18270,7 +18321,7 @@ bm
 RD
 RD
 RD
-NH
+qN
 NH
 NH
 NH
@@ -19536,8 +19587,8 @@ NH
 ix
 RD
 Jj
-Ig
-NH
+Vf
+Oc
 DW
 RD
 Tp
@@ -19693,7 +19744,7 @@ RD
 RD
 RD
 ix
-NH
+vS
 NH
 EI
 RD

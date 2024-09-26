@@ -1,0 +1,86 @@
+{
+	"map_name": "Chicago",
+	"map_path": "map_files/Small-Maps",
+	"map_file": [
+		"chicagobalpha.dmm",
+		"chicagobalphaupper.dmm",
+		"chicagolower.dmm"
+	],
+	"station_ruin_budget":0,
+	"space_ruin_levels":0,
+	"space_empty_levels":0,
+	"shuttles": {
+		"cargo":"cargo_pahrump",
+		"emergency": "emergency_pahrump",
+		"ferry": "ferry_fancy"
+	},
+	"traits":[
+		{
+			"Gravity": true,
+			"Baseturf": "/turf/open/indestructible/ground/inside/mountain",
+			"Up": 1,
+			"No Parallax": true,
+			"Linkage" : null,
+			"Name": "Dungeons"
+		},
+
+		{
+			"Gravity": true,
+			"Baseturf": "/turf/open/indestructible/ground/inside/mountain",
+			"Dungeons": true,
+			"Up": 1,
+			"Down": -1,
+			"No Parallax": true,
+			"Linkage" : "Cross",
+			"Name": "Lower Chicago",
+			"Force X": 1,
+			"Force Y": 1,
+			"Force Z": 0
+		},
+
+		{
+			"Gravity": true,
+			"Baseturf": "/turf/open/indestructible/ground/inside/mountain",
+			"Station": 1,
+			"Up": 1,
+			"Down": -1,
+			"No Parallax": true,
+			"Linkage" : "Cross",
+			"Name": "Chicago",
+			"Force X": 1,
+			"Force Y": 1,
+			"Force Z": 1
+		},
+
+		{
+			"Gravity": true,
+			"Baseturf": "/turf/open/transparent/openspace",
+			"Down": -1,
+			"No Parallax": true,
+			"Linkage" : "Cross",
+			"Above": true,
+			"Name": "Chicago - Upper",
+			"Force X": 1,
+			"Force Y": 1,
+			"Force Z": 2
+		}
+	],
+	"minetype": "none",
+	"added_jobs": [
+		"bos.dm",
+		"eastwood.dm",
+		"Redwater Resident",
+		"Redwater Watcher",
+		"Redwater Resident"
+	],
+	"removed_jobs": [
+		"enclave.dm",
+		"atlantic_cross.dm",
+		"ncr.dm",
+		"legion.dm",
+		"vault.dm",
+		"locust_point.dm",
+		"Redwater Resident",
+		"Redwater Watcher",
+		"Redwater Resident"]
+}
