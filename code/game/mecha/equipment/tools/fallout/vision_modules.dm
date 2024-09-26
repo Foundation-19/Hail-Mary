@@ -4,6 +4,7 @@
 	desc = "you shouldn't be seeing this."
 	selectable = FALSE
 	var/list/vision_traits
+	equip_type = EQUIP_MISC
 
 /obj/item/mecha_parts/mecha_equipment/vision/attach(obj/mecha/M)
 	. = ..()

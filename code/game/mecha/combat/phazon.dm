@@ -10,11 +10,21 @@
 	armor = ARMOR_VALUE_HEAVY
 	max_temperature = 25000
 	infra_luminosity = 3
-	wreckage = /obj/structure/mecha_wreckage/phazon
+	wreckage = /obj/structure/mecha_wreckage/fallout
 	add_req_access = 1
 	internal_damage_threshold = 25
 	force = 15
 	phase_state = "phazon-phase"
+
+	max_utility_equip = 3
+	max_weapons_equip = 1
+	max_misc_equip = 1
+
+/obj/structure/mecha_wreckage/fallout
+	name = "\improper vehicle wreckage"
+	desc = "A destroyed vehicle."
+	icon = 'icons/fallout/vehicles/medium_vehicles.dmi'
+	icon_state = "derelict"
 
 /obj/mecha/combat/phazon/GrantActions(mob/living/user, human_occupant = 0)
 	..()

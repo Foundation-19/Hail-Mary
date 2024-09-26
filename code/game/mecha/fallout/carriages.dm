@@ -15,6 +15,10 @@
 	turnsound = 'sound/effects/footstep/gallop1.ogg'
 	wreckage = /obj/structure/mecha_wreckage/buggy
 
+	max_utility_equip = 3
+	max_weapons_equip = 1
+	max_misc_equip = 1
+
 /obj/mecha/combat/phazon/buggy/legion/go_out()
 	..()
 	update_icon()
@@ -93,6 +97,10 @@
 	step_in = 1.6
 	step_energy_drain = 0.8
 	armor = ARMOR_VALUE_HEAVY
+
+	max_utility_equip = 4
+	max_weapons_equip = 1
+	max_misc_equip = 1
 
 /obj/mecha/combat/phazon/truckcaravan/loaded/Initialize()
 	. = ..()

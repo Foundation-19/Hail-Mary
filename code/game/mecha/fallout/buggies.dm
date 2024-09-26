@@ -14,6 +14,10 @@
 	turnsound = 'sound/f13machines/buggy_loop.ogg'
 	wreckage = /obj/structure/mecha_wreckage/buggy
 
+	max_utility_equip = 2
+	max_weapons_equip = 1
+	max_misc_equip = 1
+
 /obj/structure/mecha_wreckage/buggy
 	name = "\improper Buggy wreckage"
 	desc = "Its a buggy ! Won't bug you anymore."
