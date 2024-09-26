@@ -320,6 +320,8 @@
 	subcategory = CAT_VEHICLES
 	category = CAT_VEHICLEPARTS
 
+// Vision modules! Grants NVGs plus either thermals or mesons.
+
 /datum/crafting_recipe/vehicle_sensors_thermals
 	name = "vehicular thermal imager"
 	result = /obj/item/mecha_parts/mecha_equipment/vision/thermal_scanner

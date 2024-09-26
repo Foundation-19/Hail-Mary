@@ -94,7 +94,6 @@
 	projectiles_cache_max = 8
 	missile_speed = 1.5
 	equip_cooldown = 10
-	disabledreload = TRUE
 	projectile = /obj/item/grenade/f13/frag
 	equip_cooldown = 90
 	ammo_type = "fragmentation"

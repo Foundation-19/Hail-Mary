@@ -1378,10 +1378,11 @@ obj/item/storage/box/stingbangs
 		)
 	generate_items_inside(items_inside, src)
 
-/obj/item/box/debugmaterials
+/obj/item/storage/box/materials_debug
 	name = "good box"
+	icon_state = "syndiebox"
 
-/obj/item/storage/box/debugmaterials/PopulateContents() 	//less uranium because radioactive
+/obj/item/storage/box/debugmaterials/PopulateContents()
 	var/static/items_inside = list(
 		/obj/item/stack/sheet/metal/fifty=1,\
 		/obj/item/stack/sheet/glass/fifty=1,\
