@@ -8,7 +8,7 @@
 	pixel_x = -16
 	pixel_y = -5
 	max_integrity = 250
-	step_energy_drain = 1
+	step_energy_drain = 0.5
 	step_in = 0.7
 	armor = ARMOR_VALUE_MEDIUM
 	stepsound = 'sound/f13machines/buggy_loop.ogg'
@@ -70,7 +70,6 @@
 	icon = 'icons/mecha/corvega-police.dmi'
 	icon_state = "corvega"
 	max_integrity = 280
-	step_energy_drain = 1.3
 	armor = ARMOR_VALUE_MEDIUM
 	wreckage = /obj/structure/mecha_wreckage/buggy
 

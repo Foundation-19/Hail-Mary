@@ -8,8 +8,8 @@
 	pixel_x = -17
 	pixel_y = -3
 	max_integrity = 300
-	step_in = 1.4
-	step_energy_drain = 1.5
+	step_in = 1.2
+	step_energy_drain = 0.5
 	armor = ARMOR_VALUE_MEDIUM
 	stepsound = 'sound/f13machines/buggy_loop.ogg'
 	turnsound = 'sound/f13machines/buggy_loop.ogg'
@@ -119,7 +119,7 @@
 	desc = "A old vehicule, with a crane runing on fuel."
 	icon = 'icons/mecha/pickuptruck-mechanics.dmi'
 	icon_state = "pickuptruckmechanic"
-	step_in = 1.4
+	step_in = 1.2
 	step_energy_drain = 0.6
 	max_integrity = 150
 	armor = ARMOR_VALUE_HEAVY
@@ -169,7 +169,7 @@
 	icon_state = "jeep"
 	pixel_x = -15
 	pixel_y = 0
-	step_in = 1.35
+	step_in = 1.2
 	step_energy_drain = 0.6
 	max_integrity = 200
 	armor = ARMOR_VALUE_HEAVY

@@ -8,7 +8,7 @@
 	pixel_x = -22
 	pixel_y = -5
 	max_integrity = 600
-	step_in = 1
+	step_in = 1.2
 	armor = ARMOR_VALUE_MEDIUM
 	step_energy_drain = 0.6
 	stepsound = 'sound/f13machines/buggy_loop.ogg'
@@ -83,9 +83,14 @@
 	icon = 'icons/mecha/ncrtruck-mp.dmi'
 	icon_state = "ncrtruck"
 	max_integrity = 600
-	step_in = 0.8
+	step_in = 1
+	step_energy_drain = 0.6
 	armor = ARMOR_VALUE_MEDIUM
 	wreckage = /obj/structure/mecha_wreckage/ncrtruck
+
+	max_weapons_equip = 1
+	max_utility_equip = 3
+	max_misc_equip = 1
 
 /obj/mecha/combat/phazon/ncrtruck/mp/GrantActions(mob/living/user, human_occupant = 0)
 	cycle_action.Grant(user, src)
@@ -120,8 +125,9 @@
 	desc = "A Modified vehicule made to carry people in need to a hospital."
 	icon = 'icons/mecha/ambulance.dmi'
 	icon_state = "ambulance"
-	step_in = 1.15
+	step_in = 1
 	max_integrity = 300
+	step_energy_drain = 0.5
 
 	max_weapons_equip = 1
 	max_utility_equip = 5

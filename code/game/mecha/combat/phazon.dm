@@ -16,6 +16,8 @@
 	force = 15
 	phase_state = "phazon-phase"
 
+	facing_modifiers = list(FRONT_ARMOUR = 0.85, SIDE_ARMOUR = 1, BACK_ARMOUR = 1.15) // experimental: weaker at the front because that's where the engine is..
+
 	max_utility_equip = 3
 	max_weapons_equip = 1
 	max_misc_equip = 1

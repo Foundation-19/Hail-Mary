@@ -197,34 +197,6 @@
 	category = CAT_VEHICLES
 	subcategory = CAT_VEHICLEPARTS
 
-// Frag launcher!
-
-/datum/crafting_recipe/gun/vehicle/fragmentation_launcher
-	name = "Vehicular grenade launcher"
-	result = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/launcher/flashbang/fragmentation
-	reqs = list(/obj/item/stack/crafting/goodparts = 10,
-	/obj/item/stack/crafting/metalparts = 5,
-	/obj/item/stack/sheet/prewar = 5,
-	/obj/item/stack/sheet/mineral/titanium = 8,
-	/obj/item/stack/rods = 10)
-	tools = list(TOOL_AWORKBENCH)
-	time = 180
-	category = CAT_VEHICLES
-	subcategory = CAT_VEHICLEPARTS
-
-/datum/crafting_recipe/frag_ammo
-	name = "Fragmentation grenade ammunition"
-	result = /obj/item/mecha_ammo/fragmentation
-	reqs = list(/obj/item/stack/crafting/metalparts = 2,
-	/obj/item/stack/sheet/prewar = 2,
-	/obj/item/stack/ore/blackpowder = 5,
-	/obj/item/stack/sheet/mineral/titanium = 2,
-	)
-	tools = list(TOOL_AWORKBENCH)
-	time = 5
-	category = CAT_VEHICLES
-	subcategory = CAT_VEHICLEPARTS
-
 //laser weaponery
 
 /datum/crafting_recipe/gun/laserlight
@@ -325,12 +297,12 @@
 /datum/crafting_recipe/vehicle_sensors_thermals
 	name = "vehicular thermal imager"
 	result = /obj/item/mecha_parts/mecha_equipment/vision/thermal_scanner
-	reqs = list(/obj/item/stack/sheet/mineral/gold=4,
-				/obj/item/stack/sheet/mineral/silver=4,
-				/obj/item/stack/sheet/mineral/uranium=2,
-				/obj/item/stack/crafting/metalparts = 4,
+	reqs = list(/obj/item/stack/sheet/mineral/gold=5,
+				/obj/item/stack/sheet/mineral/silver=5,
+				/obj/item/stack/sheet/mineral/uranium=5,
+				/obj/item/stack/crafting/metalparts = 5,
 				/obj/item/advanced_crafting_components/alloys = 2,
-				/obj/item/stack/crafting/goodparts = 4)
+				/obj/item/stack/crafting/goodparts = 5)
 	tools = list(TOOL_AWORKBENCH)
 	time = 180
 	subcategory = CAT_VEHICLES

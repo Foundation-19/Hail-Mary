@@ -24,6 +24,8 @@
 	stepsound = 'sound/f13machines/vertibird_loop.ogg'
 	turnsound = 'sound/f13machines/vertibird_loop.ogg'
 
+	facing_modifiers = list(FRONT_ARMOUR = 1, SIDE_ARMOUR = 1, BACK_ARMOUR = 1)
+
 /obj/structure/mecha_wreckage/vertibird
 	name = "\improper Vertibird Wreck"
 	desc = "Mayday, Mayday, Vertibird going down... IN STYLE."

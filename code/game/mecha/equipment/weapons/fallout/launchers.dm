@@ -82,18 +82,3 @@
 		to_chat(user, "<span class='notice'>You empty the [src]!.</span>")
 		return
 	. = ..()
-
-// Frag-grenade launcher!
-
-/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/launcher/flashbang/fragmentation
-	name = "\improper SHRP-8 grenade launcher"
-	desc = "A weapon for combat vehicles. Launches primed fragmentation grenades."
-	fire_sound = 'sound/weapons/grenadelaunch.ogg'
-	projectiles = 8
-	projectiles_cache = 8
-	projectiles_cache_max = 8
-	missile_speed = 1.5
-	equip_cooldown = 10
-	projectile = /obj/item/grenade/f13/frag
-	equip_cooldown = 90
-	ammo_type = "fragmentation"
