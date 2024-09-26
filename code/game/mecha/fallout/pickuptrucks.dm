@@ -120,7 +120,7 @@
 	icon = 'icons/mecha/pickuptruck-mechanics.dmi'
 	icon_state = "pickuptruckmechanic"
 	step_in = 1.2
-	step_energy_drain = 0.6
+	step_energy_drain = 0.5
 	max_integrity = 150
 	armor = ARMOR_VALUE_HEAVY
 
@@ -170,7 +170,7 @@
 	pixel_x = -15
 	pixel_y = 0
 	step_in = 1.2
-	step_energy_drain = 0.6
+	step_energy_drain = 0.4
 	max_integrity = 200
 	armor = ARMOR_VALUE_HEAVY
 	stepsound = 'sound/f13machines/buggy_loop.ogg'
