@@ -33,7 +33,7 @@
 /obj/structure/mecha_wreckage/armoured_jeep
 	name = "\improper M38 wreckage"
 	desc = "Wreckage of a M38 jeep, it's completely destroyed."
-	icon = "icons/mecha/armoured_jeep.dmi"
+	icon = 'icons/mecha/armoured_jeep.dmi'
 	icon_state = "armoured_jeep-broken"
 
 /obj/mecha/combat/phazon/armoured_jeep/loaded/Initialize()
