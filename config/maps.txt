@@ -18,11 +18,11 @@ map pahrump-only
 	voteweight 1
 endmap
 
-map baltimore
+map chicago-small
     voteweight 1
 endmap
 
-map chicago-small
+map baltimore
     voteweight 1
 endmap
 
