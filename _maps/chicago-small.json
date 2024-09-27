@@ -15,6 +15,7 @@
 		"ferry": "ferry_fancy"
 	},
 	"traits":[
+		
 		{
 			"Gravity": true,
 			"Baseturf": "/turf/open/indestructible/ground/inside/mountain",
