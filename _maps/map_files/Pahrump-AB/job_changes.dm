@@ -27,5 +27,5 @@ MAP_REMOVE_JOB(f13minutemen)
 MAP_REMOVE_JOB(f13redwaterslave)
 MAP_REMOVE_JOB(watcher)
 MAP_REMOVE_JOB(resident)
-
+MAP_REMOVE_JOB(enclave)
 
