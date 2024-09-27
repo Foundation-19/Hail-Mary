@@ -126,6 +126,7 @@
 	icon = 'icons/mecha/ambulance.dmi'
 	icon_state = "ambulance"
 	step_in = 1
+	armor = ARMOR_VALUE_MEDIUM
 	max_integrity = 300
 	step_energy_drain = 0.5
 

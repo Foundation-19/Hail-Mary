@@ -9,7 +9,7 @@
 	pixel_y = -3
 	max_integrity = 300
 	step_in = 1.2
-	step_energy_drain = 0.5
+	step_energy_drain = 0.4
 	armor = ARMOR_VALUE_MEDIUM
 	stepsound = 'sound/f13machines/buggy_loop.ogg'
 	turnsound = 'sound/f13machines/buggy_loop.ogg'
@@ -120,9 +120,8 @@
 	icon = 'icons/mecha/pickuptruck-mechanics.dmi'
 	icon_state = "pickuptruckmechanic"
 	step_in = 1.2
-	step_energy_drain = 0.5
-	max_integrity = 150
-	armor = ARMOR_VALUE_HEAVY
+	step_energy_drain = 0.6
+	armor = ARMOR_VALUE_MEDIUM
 
 	max_weapons_equip = 1
 	max_utility_equip = 4
@@ -172,7 +171,7 @@
 	step_in = 1.2
 	step_energy_drain = 0.4
 	max_integrity = 200
-	armor = ARMOR_VALUE_HEAVY
+	armor = ARMOR_VALUE_MEDIUM
 	stepsound = 'sound/f13machines/buggy_loop.ogg'
 	turnsound = 'sound/f13machines/buggy_loop.ogg'
 	wreckage = /obj/structure/mecha_wreckage/buggy

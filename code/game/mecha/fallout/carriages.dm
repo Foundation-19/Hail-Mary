@@ -8,7 +8,7 @@
 	pixel_x = -18
 	pixel_y = 0
 	max_integrity = 250
-	step_energy_drain = 0.8
+	step_energy_drain = 0.6
 	step_in = 1.2
 	armor = ARMOR_VALUE_HEAVY
 	stepsound = 'sound/effects/footstep/gallop2.ogg'
@@ -55,7 +55,7 @@
 	icon = 'icons/mecha/buggy-legiongun.dmi'
 	icon_state = "legiongun"
 	max_integrity = 250
-	step_energy_drain = 0.8
+	step_energy_drain = 0.6
 	step_in = 1.2
 	armor = ARMOR_VALUE_HEAVY
 
@@ -95,7 +95,7 @@
 	pixel_y = 0
 	max_integrity = 250
 	step_in = 1.6
-	step_energy_drain = 0.8
+	step_energy_drain = 0.6
 	armor = ARMOR_VALUE_HEAVY
 
 	max_utility_equip = 4
