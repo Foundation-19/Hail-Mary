@@ -22,7 +22,7 @@ map baltimore
     voteweight 1
 endmap
 
-map chicago-small
+map chicago
     voteweight 1
 endmap
 
