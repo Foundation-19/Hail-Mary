@@ -1,10 +1,10 @@
 {
 	"map_name": "Chicago",
-	"map_path": "map_files/Small-Maps",
+	"map_path": "map_files/Chicago",
 	"map_file": [
-		"chicagobalpha.dmm",
+		"chicagoalpha.dmm",
 		"chicagolower.dmm",
-		"chicagobalphaupper.dmm"
+		"chicagoalphaupper.dmm"
 		
 	],
 	"station_ruin_budget":0,
