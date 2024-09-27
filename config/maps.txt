@@ -14,7 +14,6 @@ Format:
 endmap
 
 map pahrump-only
-    default
 	voteweight 1
 endmap
 
@@ -23,6 +22,7 @@ map baltimore
 endmap
 
 map chicago-small
-    voteweight 1
+	default
+	voteweight 1
 endmap
 
