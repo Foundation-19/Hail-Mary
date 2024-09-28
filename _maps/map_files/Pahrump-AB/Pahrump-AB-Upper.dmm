@@ -9914,9 +9914,6 @@
 /obj/structure/simple_door/wood,
 /turf/open/floor/wood_fancy/wood_fancy_light,
 /area/f13/city)
-"oPd" = (
-/turf/open/floor/f13/wood,
-/area/f13/wasteland/ncr)
 "oPT" = (
 /turf/closed/wall/f13/tunnel,
 /area/f13/tunnel/southeast)
@@ -11787,7 +11784,7 @@
 /obj/structure/bed,
 /obj/item/bedsheet,
 /turf/open/floor/f13/wood,
-/area/f13/wasteland/ncr)
+/area/f13/ncr)
 "rRr" = (
 /obj/structure/bookcase,
 /obj/item/book/manual/wiki/surgery,
@@ -14268,9 +14265,6 @@
 /obj/effect/landmark/start/f13/initiate,
 /turf/open/floor/carpet/black,
 /area/f13/brotherhood/dorms)
-"vyU" = (
-/turf/closed/wall/r_wall/rust,
-/area/f13/wasteland/ncr)
 "vAd" = (
 /obj/structure/railing/corner{
 	dir = 1
@@ -15871,7 +15865,7 @@
 	dir = 4
 	},
 /turf/open/floor/f13/wood,
-/area/f13/wasteland/ncr)
+/area/f13/ncr)
 "yku" = (
 /obj/structure/guncase,
 /turf/open/floor/f13{
@@ -18800,12 +18794,12 @@ pEr
 rma
 rma
 aQo
-vyU
-oPd
+noP
+eHj
 rRp
 yjB
 rRp
-vyU
+noP
 xSN
 oez
 oez
@@ -19057,12 +19051,12 @@ hHO
 hHO
 qJB
 kst
-vyU
-vyU
-vyU
-vyU
-vyU
-vyU
+noP
+noP
+noP
+noP
+noP
+noP
 xSN
 oez
 oez
