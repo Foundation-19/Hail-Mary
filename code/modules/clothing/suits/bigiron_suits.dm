@@ -2311,6 +2311,7 @@
 	desc = "A custom version of the pre-war combat armor, slimmed down and minimalist for domestic S.W.A.T. teams."
 	icon_state = "armoralt"
 	item_state = "armoralt"
+	clothing_flags = CUSHIONED_ARMOR
 
 /obj/item/clothing/suit/armor/medium/combat/chinese
 	name = "chinese combat armor"
