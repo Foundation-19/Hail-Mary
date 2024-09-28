@@ -127,7 +127,7 @@
 	var/facing_modifier = get_armour_facing(abs(dir2angle(dir) - dir2angle(attack_dir)))
 	var/true_armor = clamp(round(armor.bullet*facing_modifier/100 - Proj.armour_penetration ,0.01), 0, 1)
 	var/true_damage = round(Proj.damage * (1 - true_armor))
-	var/minimum_damage_to_penetrate = round(armor.bullet/3*(1 -Proj.armour_penetration), 0.01)
+	var/minimum_damage_to_penetrate = round(armor.bullet/3*(1 - Proj.armour_penetration), 0.01)
 	if(prob(true_armor/2))
 		Proj.setAngle(SIMPLIFY_DEGREES(Proj.Angle + rand(40,150)))
 		return BULLET_ACT_FORCE_PIERCE
