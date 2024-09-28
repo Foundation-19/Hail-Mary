@@ -21033,6 +21033,17 @@
 /obj/structure/destructible/tribal_torch/lit,
 /turf/open/indestructible/ground/outside/desert,
 /area/f13/wasteland)
+"cIg" = (
+/obj/structure/reagent_dispensers/fueltank/vehicle_gas_station{
+	icon_state = "vat";
+	tank_volume = 1500;
+	name = "Gas Tank";
+	color = "#FF0000"
+	},
+/turf/open/indestructible/ground/outside/gravel/corner{
+	dir = 4
+	},
+/area/f13/wasteland)
 "cIk" = (
 /obj/item/bedsheet,
 /obj/structure/bed/old,
@@ -22937,7 +22948,6 @@
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
-/obj/effect/landmark/start/f13/scribe,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/brotherhood)
 "dzg" = (
@@ -23740,10 +23750,6 @@
 /obj/structure/sign/poster/prewar/poster74,
 /turf/closed/wall/f13/supermart,
 /area/f13/building/mall)
-"dRl" = (
-/obj/effect/landmark/start/f13/scribe,
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/brotherhood)
 "dRq" = (
 /obj/item/reagent_containers/rag/towel/random{
 	pixel_x = 15;
@@ -28203,13 +28209,6 @@
 /obj/structure/table/wood,
 /turf/open/floor/plasteel/cafeteria,
 /area/f13/city)
-"fCA" = (
-/obj/effect/landmark/start/f13/seniorscribe,
-/obj/effect/landmark/start/f13/headscribe,
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
-	icon_state = "whitedirtysolid"
-	},
-/area/f13/brotherhood/chemistry)
 "fCH" = (
 /obj/item/screwdriver{
 	pixel_y = 10
@@ -31354,6 +31353,19 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/f13/wood,
 /area/f13/village)
+"gPZ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/reagent_dispensers/fueltank/vehicle_gas_station{
+	icon_state = "vat";
+	tank_volume = 1500;
+	name = "Gas Tank";
+	color = "#FF0000"
+	},
+/turf/open/indestructible/ground/outside/sidewalk{
+	icon_state = "verticalrightborderright0"
+	},
+/area/f13/wasteland)
 "gQA" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -32362,6 +32374,17 @@
 /mob/living/simple_animal/hostile/raider/ranged/biker,
 /turf/open/floor/plasteel/f13/vault_floor/blue/side,
 /area/f13/building/hospital)
+"hnE" = (
+/obj/structure/table,
+/obj/item/reagent_containers/jerrycan,
+/obj/item/reagent_containers/jerrycan,
+/obj/item/reagent_containers/jerrycan,
+/obj/item/reagent_containers/jerrycan,
+/obj/item/reagent_containers/jerrycan,
+/turf/open/indestructible/ground/outside/sidewalk{
+	icon_state = "horizontaltopbordertop0"
+	},
+/area/f13/wasteland)
 "hnO" = (
 /obj/effect/spawner/lootdrop/f13/junkspawners,
 /obj/structure/flora/grass/wasteland{
@@ -33633,16 +33656,6 @@
 	icon_state = "verticalleftborderright0"
 	},
 /area/f13/building)
-"hRZ" = (
-/obj/item/reagent_containers/jerrycan,
-/obj/item/reagent_containers/jerrycan,
-/obj/item/reagent_containers/jerrycan,
-/obj/item/reagent_containers/jerrycan,
-/obj/item/reagent_containers/jerrycan,
-/turf/open/indestructible/ground/outside/sidewalk{
-	icon_state = "verticaloutermain0"
-	},
-/area/f13/wasteland)
 "hSb" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/f13/wood{
@@ -44409,6 +44422,15 @@
 	icon_state = "bluedirtychess2"
 	},
 /area/f13/village)
+"mki" = (
+/obj/structure/reagent_dispensers/fueltank/vehicle_gas_station{
+	icon_state = "vat";
+	tank_volume = 1500;
+	name = "Gas Tank";
+	color = "#FF0000"
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/brotherhood)
 "mkx" = (
 /obj/structure/timeddoor,
 /turf/open/floor/f13{
@@ -77700,7 +77722,7 @@ xLa
 xLa
 xLa
 xLa
-jGR
+dgL
 xLa
 xLa
 tHb
@@ -77956,7 +77978,7 @@ xLa
 anb
 abE
 abE
-dgL
+jGR
 hmu
 hmu
 hmu
@@ -78998,7 +79020,7 @@ xLa
 apX
 aqi
 arY
-hRZ
+lpo
 hmz
 hmz
 lpo
@@ -80801,7 +80823,7 @@ mHp
 gBa
 oXi
 jIk
-hax
+gPZ
 khV
 mHp
 evq
@@ -81059,7 +81081,7 @@ apQ
 ahQ
 hEG
 aZE
-aQZ
+hnE
 mHp
 bMM
 fiV
@@ -109325,7 +109347,7 @@ eBH
 eEQ
 wXj
 trK
-fCA
+iuN
 iuN
 rbN
 aae
@@ -111618,7 +111640,7 @@ aaa
 aaa
 aae
 pxe
-dRl
+oYF
 vUO
 vgm
 vgm
@@ -114701,7 +114723,7 @@ aaa
 (162,1,1) = {"
 aaa
 woD
-oYF
+mki
 oYF
 oYF
 oYF
@@ -125981,7 +126003,7 @@ uYK
 fEW
 npa
 cwz
-eJI
+cIg
 ufF
 ccj
 sWC
