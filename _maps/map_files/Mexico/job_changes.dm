@@ -1,9 +1,5 @@
 #define JOB_MODIFICATION_MAP_NAME "Mexico"
 
-/datum/job/New()
-	..()
-	MAP_JOB_CHECK
-
 MAP_REMOVE_JOB(atlantic)
 MAP_REMOVE_JOB(f13followers)
 MAP_REMOVE_JOB(f13atlanticcap)
@@ -11,6 +7,7 @@ MAP_REMOVE_JOB(f13atlanticdoc)
 MAP_REMOVE_JOB(f13atlanticsailor)
 MAP_REMOVE_JOB(f13atlanticmarines)
 MAP_REMOVE_JOB(locust_point)
+MAP_REMOVE_JOB(locust)
 MAP_REMOVE_JOB(f13baltimoredockmaster)
 MAP_REMOVE_JOB(f13baltimorecouncil)
 MAP_REMOVE_JOB(f13baltimoreconstable)
@@ -30,5 +27,6 @@ MAP_REMOVE_JOB(resident)
 MAP_REMOVE_JOB(enclave)
 MAP_REMOVE_JOB(ncr)
 MAP_REMOVE_JOB(eastwood) 
+MAP_REMOVE_JOB(bos) 
 
 
