@@ -216,8 +216,8 @@
 	name = "Chinese Counterfeit Sentrybot"
 	desc = "A sentrybot copy made by China. This one has the markings of the submarine 'Hui'."
 	extra_projectiles = 2
-	health = 1200
-	maxHealth = 1200 //CHONK
+	health = 900
+	maxHealth = 900 //CHONK
 	obj_damage = 300
 	retreat_distance = 0
 	environment_smash = ENVIRONMENT_SMASH_RWALLS //wall-obliterator. perish.
@@ -261,7 +261,7 @@
 	if (!warned)
 		if (health <= 50)
 			warned = TRUE
-			playsound(src, 'sound/f13npc/sentry/systemfailurec2.ogg', 75, FALSE)
+			playsound(src, 'sound/f13npc/sentry/systemfailurec2.ogg', 100, FALSE)
 
 //Raider friendly Sentry bot
 /mob/living/simple_animal/hostile/securitron/sentrybot/nsb

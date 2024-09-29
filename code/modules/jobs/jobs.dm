@@ -68,7 +68,7 @@ GLOBAL_LIST_INIT(command_positions, list(
 	"Atlantic Cross Captain",
 
 	"Roguewave Rebel Captain",
-	"Legion governor of Ostia",
+	"Legion Governor of Ostia",
 	))
 
 GLOBAL_LIST_INIT(silicon_whitelist_positions, list(
@@ -294,7 +294,7 @@ GLOBAL_LIST_INIT(ostia_positions, list(
 	"Legion Subject",
 	"Ostia Radio Host",
 	"Ostia Shopkeeper",
-	"Legion governor of Ostia",
+	"Legion Governor of Ostia",
 ))
 
 GLOBAL_LIST_INIT(rebels_positions, list(
