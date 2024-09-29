@@ -711,6 +711,16 @@
 	},
 /turf/open/floor/wood_fancy/wood_fancy_dark,
 /area/f13/legioncamp)
+"ev" = (
+/obj/structure/railing/wood/post/underlayer{
+	pixel_x = -14
+	},
+/obj/structure/destructible/tribal_torch/wall/lit{
+	dir = 8;
+	pixel_x = 5
+	},
+/turf/open/floor/wood_fancy,
+/area/f13/legioncamp)
 "ew" = (
 /obj/machinery/light{
 	dir = 8
@@ -787,6 +797,12 @@
 	},
 /turf/open/indestructible/ground/outside/ruins,
 /area/f13/outpost)
+"eX" = (
+/obj/effect/landmark/start/f13/f13legionradiohost,
+/turf/open/floor/wood_fancy{
+	icon_state = "fancy-broken6"
+	},
+/area/f13/legioncamp)
 "eY" = (
 /obj/structure/rack/shelf_metal,
 /obj/effect/spawner/lootdrop/f13/ncr_ration,
@@ -949,6 +965,10 @@
 	},
 /turf/open/floor/plating/rust,
 /area/f13/building/abandoned)
+"fG" = (
+/mob/living/simple_animal/hostile/raider/ranged,
+/turf/open/floor/plasteel/f13/vault_floor/neutral/white,
+/area/f13/outpost)
 "fM" = (
 /obj/structure/chair/wood{
 	dir = 8
@@ -1024,6 +1044,13 @@
 /obj/effect/decal/cleanable/blood,
 /turf/open/floor/wood_fancy,
 /area/f13/legion)
+"gk" = (
+/obj/structure/table/wood,
+/obj/item/pda,
+/turf/open/floor/wood_mosaic{
+	icon_state = "mosaic-broken1"
+	},
+/area/f13/legioncamp)
 "gm" = (
 /turf/closed/wall/r_wall/f13superstore{
 	icon_state = "supermart0"
@@ -1462,6 +1489,12 @@
 /obj/effect/landmark/start/f13/f13rebelcaptain,
 /turf/open/floor/plasteel/f13/vault_floor/plating,
 /area/f13/enclave)
+"iq" = (
+/obj/machinery/door/unpowered/securedoor/legion/centurion{
+	name = "Gouvernors Room"
+	},
+/turf/open/floor/wood_fancy/wood_fancy_dark,
+/area/f13/legioncamp)
 "is" = (
 /obj/structure/chair/bench{
 	dir = 4
@@ -1893,6 +1926,14 @@
 /obj/effect/turf_decal/shadow/floor,
 /turf/open/floor/wood_fancy/wood_fancy_dark,
 /area/f13/legion)
+"kI" = (
+/obj/structure/destructible/tribal_torch/wall/lit{
+	dir = 8;
+	light_power = 0.7
+	},
+/obj/machinery/door/unpowered/secure_legion,
+/turf/open/floor/carpet/red,
+/area/f13/legioncamp)
 "kJ" = (
 /obj/structure/chair/bench{
 	dir = 4
@@ -2000,7 +2041,7 @@
 /turf/open/floor/plating/f13/outside/roof,
 /area/f13/wasteland)
 "lk" = (
-/obj/machinery/door/unpowered/securedoor/legion,
+/obj/machinery/door/unpowered/securedoor/legion/warroom,
 /turf/open/floor/wood_fancy,
 /area/f13/legion)
 "lm" = (
@@ -2218,6 +2259,13 @@
 	},
 /turf/open/floor/wood_common,
 /area/f13/farmhouse)
+"mc" = (
+/obj/structure/destructible/tribal_torch/wall/lit{
+	dir = 4
+	},
+/obj/structure/table/wood,
+/turf/open/floor/wood_fancy,
+/area/f13/legioncamp)
 "md" = (
 /obj/structure/fence/door/opened,
 /turf/open/indestructible/ground/inside/mountain,
@@ -4435,6 +4483,13 @@
 "xZ" = (
 /turf/open/floor/wood_fancy,
 /area/f13/legioncamp)
+"yb" = (
+/obj/structure/fence/wooden{
+	dir = 1;
+	pixel_x = 13
+	},
+/turf/closed/wall/mineral/wood,
+/area/f13/legioncamp)
 "yc" = (
 /obj/effect/turf_decal/shadow/floor,
 /obj/effect/turf_decal/shadow/floor,
@@ -4933,6 +4988,12 @@
 /obj/structure/bed/wooden,
 /turf/open/floor/carpet/black,
 /area/f13/legioncamp)
+"AP" = (
+/obj/machinery/door/unpowered/securedoor/legion/warroom{
+	name = "Office of the Centurion"
+	},
+/turf/open/floor/wood_fancy,
+/area/f13/legion)
 "AS" = (
 /obj/machinery/porta_turret/f13/turret_9mm/burstfire/robot,
 /obj/machinery/light/fo13colored/Red{
@@ -5062,6 +5123,10 @@
 	icon_state = "mosaic-broken6"
 	},
 /area/f13/legion)
+"Bq" = (
+/obj/structure/nest/raider,
+/turf/open/indestructible/ground/outside/ruins,
+/area/f13/outpost)
 "Bs" = (
 /turf/open/floor/wood_fancy/wood_fancy_light{
 	icon_state = "fancy_light-broken3"
@@ -5367,7 +5432,9 @@
 /turf/open/floor/plasteel/f13/vault_floor/neutral/neutralsolid,
 /area/f13/outpost)
 "Di" = (
-/obj/machinery/door/unpowered/securedoor/legion,
+/obj/machinery/door/unpowered/securedoor/legion/centurion{
+	name = "Gouvernors Office"
+	},
 /turf/open/floor/wood_fancy/wood_fancy_dark,
 /area/f13/legioncamp)
 "Dj" = (
@@ -5657,6 +5724,15 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/enclave)
+"EM" = (
+/obj/structure/bed/wooden,
+/obj/item/bedsheet/blanket{
+	pixel_y = 1
+	},
+/turf/open/floor/wood_fancy{
+	icon_state = "fancy-broken4"
+	},
+/area/f13/legioncamp)
 "EN" = (
 /obj/structure/reagent_dispensers/fueltank/vehicle_gas_station{
 	icon_state = "vat";
@@ -5767,6 +5843,11 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/building/abandoned)
+"Fe" = (
+/turf/open/floor/wood_fancy/wood_fancy_dark{
+	icon_state = "fancy_dark-broken5"
+	},
+/area/f13/legion)
 "Fi" = (
 /turf/open/floor/plasteel/f13/vault_floor/blue/white,
 /area/f13/farmhouse)
@@ -5923,6 +6004,14 @@
 /obj/structure/barricade/wooden/planks/pregame,
 /turf/open/floor/wood_fancy,
 /area/f13/legioncamp)
+"FW" = (
+/obj/structure/chair/office{
+	dir = 8
+	},
+/turf/open/floor/wood_mosaic{
+	icon_state = "mosaic-broken2"
+	},
+/area/f13/legioncamp)
 "FX" = (
 /obj/structure/dresser,
 /obj/structure/destructible/tribal_torch/wall/lit{
@@ -5950,6 +6039,16 @@
 /obj/structure/closet/cabinet,
 /turf/open/floor/f13/wood,
 /area/f13/farmhouse)
+"Gg" = (
+/obj/structure/table/wood,
+/obj/item/kirbyplants{
+	pixel_y = 12;
+	pixel_x = 5
+	},
+/turf/open/floor/wood_mosaic{
+	icon_state = "mosaic-broken1"
+	},
+/area/f13/legioncamp)
 "Gh" = (
 /turf/open/floor/plasteel/f13/vault_floor/blue,
 /area/f13/enclave)
@@ -5982,6 +6081,10 @@
 "Gr" = (
 /turf/open/floor/plating/f13/outside/roof/metal/verdigris,
 /area/f13/wasteland)
+"Gu" = (
+/obj/structure/nest/raider,
+/turf/open/floor/plasteel/f13/vault_floor/neutral/neutralsolid,
+/area/f13/outpost)
 "Gv" = (
 /obj/structure/sign/legion/veteran,
 /turf/closed/wall/rust,
@@ -6422,6 +6525,10 @@
 	},
 /turf/open/floor/wood_fancy,
 /area/f13/legion)
+"IN" = (
+/obj/machinery/door/unpowered/securedoor/legion/centurion,
+/turf/open/floor/wood_fancy,
+/area/f13/legion)
 "IT" = (
 /turf/open/floor/plating/f13/outside/roof/red,
 /area/f13/wasteland)
@@ -6825,6 +6932,10 @@
 /obj/machinery/telecomms/processor/preset_four,
 /turf/open/floor/plasteel/dark/telecomms/mainframe,
 /area/f13/underground/cave)
+"KS" = (
+/mob/living/simple_animal/hostile/raider/ranged,
+/turf/open/floor/plasteel/f13/vault_floor/neutral/neutralsolid,
+/area/f13/outpost)
 "KX" = (
 /obj/structure/table/reinforced,
 /obj/machinery/nuclearbomb/beer,
@@ -6936,6 +7047,11 @@
 /obj/structure/simple_door/metal/barred/right,
 /turf/open/indestructible/ground/outside/ruins,
 /area/f13/outpost)
+"LE" = (
+/turf/open/floor/wood_mosaic{
+	icon_state = "mosaic-broken6"
+	},
+/area/f13/legioncamp)
 "LI" = (
 /obj/structure/window/fulltile/ruins/broken,
 /turf/open/indestructible/ground/outside/ruins,
@@ -7072,6 +7188,13 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/white,
 /area/f13/enclave)
+"MK" = (
+/obj/structure/destructible/tribal_torch/wall/lit{
+	dir = 4;
+	light_power = 0.8
+	},
+/turf/open/floor/carpet/red,
+/area/f13/legion)
 "MM" = (
 /obj/structure/fence{
 	dir = 8
@@ -7282,6 +7405,10 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/enclave)
+"NR" = (
+/obj/machinery/door/unpowered/secure_legion,
+/turf/open/floor/carpet/red,
+/area/f13/legioncamp)
 "NS" = (
 /turf/closed/wall/f13/ruins,
 /area/f13/outpost)
@@ -8139,10 +8266,6 @@
 	dir = 4
 	},
 /area/f13/farmhouse)
-"RR" = (
-/obj/item/flag/followers,
-/turf/open/indestructible/ground/outside/ruins,
-/area/f13/outpost)
 "RT" = (
 /obj/structure/table/wood/settler,
 /obj/item/paper_bin,
@@ -8689,6 +8812,13 @@
 /obj/effect/mob_spawn/human/corpse,
 /turf/open/floor/wood_common,
 /area/f13/farmhouse)
+"Un" = (
+/obj/structure/table/wood,
+/obj/machinery/computer/terminal{
+	dir = 4
+	},
+/turf/open/floor/wood_fancy,
+/area/f13/legioncamp)
 "Up" = (
 /obj/structure/dresser,
 /obj/structure/destructible/tribal_torch/wall/lit{
@@ -8959,6 +9089,11 @@
 	icon_state = "horizontalinnermain2right"
 	},
 /area/f13/wasteland)
+"VD" = (
+/turf/open/floor/wood_fancy/wood_fancy_dark{
+	icon_state = "fancy_dark-broken6"
+	},
+/area/f13/legion)
 "VE" = (
 /obj/structure/barricade/sandbags,
 /obj/machinery/light/small{
@@ -9784,6 +9919,14 @@
 /obj/item/pen/fountain/captain,
 /turf/open/floor/engine,
 /area/f13/enclave)
+"ZA" = (
+/obj/structure/destructible/tribal_torch/wall/lit{
+	dir = 8
+	},
+/turf/open/floor/wood_fancy/wood_fancy_dark{
+	icon_state = "fancy_dark-broken2"
+	},
+/area/f13/legion)
 "ZC" = (
 /obj/structure/urinal{
 	dir = 4;
@@ -24075,10 +24218,10 @@ SB
 rF
 NS
 rF
+Bq
 rF
 rF
-rF
-eN
+KS
 zf
 du
 NG
@@ -24878,7 +25021,7 @@ NG
 NG
 NS
 eN
-eN
+KS
 eN
 rF
 rF
@@ -25083,7 +25226,7 @@ zk
 rF
 NS
 NS
-RR
+rF
 pw
 pw
 nf
@@ -25290,7 +25433,7 @@ pw
 pw
 pw
 rF
-eN
+Gu
 rF
 NS
 NG
@@ -26089,7 +26232,7 @@ NG
 NG
 NG
 NS
-Tu
+fG
 Tu
 qx
 NS
@@ -26296,7 +26439,7 @@ Tu
 Mu
 NS
 Mu
-Tu
+fG
 jS
 NS
 Tu
@@ -32903,11 +33046,11 @@ NG
 NG
 NG
 NG
-IT
-IT
-IT
-IT
-IT
+nu
+Ei
+Ei
+nu
+nu
 NG
 NG
 NG
@@ -33105,11 +33248,11 @@ lf
 lf
 lf
 NG
-IT
-IT
-IT
-IT
-IT
+xD
+EM
+Gg
+Un
+xD
 NG
 NG
 NG
@@ -33255,7 +33398,7 @@ od
 od
 od
 od
-TR
+kI
 od
 od
 od
@@ -33307,11 +33450,11 @@ lf
 lf
 lf
 NG
-IT
-IT
-IT
-IT
-IT
+xD
+xZ
+mc
+FW
+xD
 NG
 NG
 NG
@@ -33457,7 +33600,7 @@ od
 od
 od
 od
-od
+NR
 od
 od
 od
@@ -33509,11 +33652,11 @@ lf
 lf
 lf
 NG
-IT
-IT
-IT
-IT
-IT
+xD
+LE
+ev
+eX
+xD
 NG
 NG
 NG
@@ -33660,7 +33803,7 @@ TU
 BF
 mp
 se
-Di
+iq
 se
 se
 se
@@ -33711,11 +33854,11 @@ lf
 lf
 lf
 NG
-IT
-IT
-IT
-IT
-IT
+xD
+xZ
+kj
+gk
+xD
 NG
 NG
 NG
@@ -33913,11 +34056,11 @@ lf
 lf
 lf
 NG
-IT
-IT
-IT
-IT
-IT
+yb
+yb
+yb
+yb
+yb
 NG
 NG
 NG
@@ -37509,7 +37652,7 @@ lY
 Et
 tW
 ec
-eS
+ZA
 LN
 NG
 NG
@@ -37911,7 +38054,7 @@ NG
 ru
 JC
 Et
-Et
+MK
 Et
 eS
 oK
@@ -38111,8 +38254,8 @@ NG
 NG
 NG
 oK
+VD
 eS
-AC
 ru
 FA
 YP
@@ -38313,8 +38456,8 @@ NG
 NG
 NG
 kS
-AC
 so
+Fe
 ru
 uf
 rb
@@ -40127,7 +40270,7 @@ SO
 AC
 AC
 AC
-lk
+AP
 AC
 wz
 wz
@@ -43785,7 +43928,7 @@ Ht
 Ht
 Ht
 Ht
-Qo
+IN
 AX
 Qb
 YW

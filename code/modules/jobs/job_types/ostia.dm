@@ -100,6 +100,9 @@
 	exp_requirements = 0
 	outfit = /datum/outfit/job/CaesarsLegiontown/governor
 
+	access = list(ACCESS_LEGION, ACCESS_CHANGE_IDS, ACCESS_LEGION_COMMAND, ACCESS_LEGION_CENTURION)
+	minimal_access = list(ACCESS_LEGION, ACCESS_CHANGE_IDS, ACCESS_LEGION_COMMAND, ACCESS_LEGION_CENTURION)
+
 /datum/outfit/job/CaesarsLegiontown/governor
 	id = /obj/item/card/id/dogtag/legion/centurion
 	ears = /obj/item/radio/headset/headset_legion
@@ -144,8 +147,8 @@
 	display_order = JOB_DISPLAY_ORDER_F13OSTIASHOPKEEP
 	outfit = /datum/outfit/job/CaesarsLegiontown/legionshopkeeper
 	
-	access = list(ACCESS_CARGO_BOT, ACCESS_TOWN, ACCESS_TOWN_CIV, ACCESS_TOWN_MERCH)
-	minimal_access = list(ACCESS_CARGO_BOT, ACCESS_TOWN, ACCESS_TOWN_CIV, ACCESS_TOWN_MERCH)
+	access = list(ACCESS_LEGION, ACCESS_TOWN_MERCH, ACCESS_TOWN)
+	minimal_access = list(ACCESS_LEGION, ACCESS_TOWN_MERCH, ACCESS_TOWN)
 
 	matchmaking_allowed = list(
 		/datum/matchmaking_pref/friend = list(
@@ -234,8 +237,8 @@
 
 	outfit = /datum/outfit/job/den/f13radio_host
 
-	access = list(ACCESS_BAR, ACCESS_KITCHEN, ACCESS_TOWN, ACCESS_TOWN_CIV)
-	minimal_access = list(ACCESS_BAR, ACCESS_KITCHEN, ACCESS_TOWN, ACCESS_TOWN_CIV)
+	access = list(ACCESS_TOWN_CIV)
+	minimal_access = list(ACCESS_TOWN_CIV)
 
 /datum/outfit/job/CaesarsLegiontown/legionradiohost
 	name = "Ostia Radio Host"
