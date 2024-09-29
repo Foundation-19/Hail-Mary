@@ -12951,6 +12951,11 @@
 /area/f13/radiation)
 "aXS" = (
 /obj/structure/rack/shelf_metal,
+/obj/item/radio/headset/headset_bos,
+/obj/item/radio/headset/headset_bos,
+/obj/item/radio/headset/headset_bos,
+/obj/item/radio/headset/headset_bos,
+/obj/item/radio/headset/headset_bos,
 /turf/open/floor/f13{
 	icon_state = "reddirtyfull"
 	},
