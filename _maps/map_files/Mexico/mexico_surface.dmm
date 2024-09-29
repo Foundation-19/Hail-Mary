@@ -24685,7 +24685,7 @@
 "xiw" = (
 /obj/structure/ladder/unbreakable{
 	icon_state = "manhole_open";
-	id = chinesessub1
+	id = "chinesessub1"
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/wasteland)
