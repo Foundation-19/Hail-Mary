@@ -25,6 +25,7 @@
 	var/harmful = FALSE //Controls if equipment can be used to attack by a pacifist.
 	//var/destroy_sound = 'sound/mecha/critdestr.ogg'
 	var/equip_type = EQUIP_UTILITY
+	var/detachable = TRUE
 
 /obj/item/mecha_parts/mecha_equipment/proc/update_chassis_page()
 	if(chassis)
@@ -152,6 +153,8 @@
 
 /obj/item/mecha_parts/mecha_equipment/proc/detach(atom/moveto=null)
 	if(!chassis)
+		return
+	if(!detachable)
 		return
 	moveto = moveto || get_turf(chassis)
 	forceMove(moveto)

@@ -14,10 +14,18 @@
 	stepsound = 'sound/f13machines/buggy_loop.ogg'
 	turnsound = 'sound/f13machines/buggy_loop.ogg'
 	wreckage = /obj/structure/mecha_wreckage/buggy
+	cargo_capacity = 2
 
 	max_weapons_equip = 1
-	max_utility_equip = 3
+	max_utility_equip = 5
 	max_misc_equip = 1
+
+	facing_modifiers = list(FRONT_ARMOUR = 0.8, SIDE_ARMOUR = 1, BACK_ARMOUR = 1.25)
+
+/obj/mecha/combat/phazon/pickuptruck/Initialize(mapload)
+	. = ..()
+	var/obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/fallout13/vehicle_straps/ME = new(src)
+	ME.attach(src)
 
 /obj/mecha/combat/phazon/pickuptruck/go_out()
 	..()
@@ -51,7 +59,7 @@
 	ME = new /obj/item/mecha_parts/mecha_equipment/seat
 	ME.attach(src)
 
-//pickuptruck blue
+	//pickuptruck blue
 
 /obj/mecha/combat/phazon/pickuptruck/blue
 	name = "\improper pickup truck"
@@ -101,6 +109,9 @@
 	max_integrity = 300
 	armor = ARMOR_VALUE_MEDIUM
 	wreckage = /obj/structure/mecha_wreckage/buggy
+	cargo_capacity = 1
+
+	facing_modifiers = list(FRONT_ARMOUR = 0.8, SIDE_ARMOUR = 1, BACK_ARMOUR = 1.5) // There's whole ass paladin in the way..
 
 /obj/mecha/combat/phazon/pickuptruck/bos/armed/loaded/Initialize()
 	. = ..()
@@ -114,18 +125,31 @@
 
 //pickuptruck mechanic
 
-/obj/mecha/combat/phazon/pickuptruck/mechanic
+/obj/mecha/combat/phazon/pickuptruck/mechanics_pickuptruck
 	name = "\improper mechanic pickup truck"
 	desc = "A old vehicule, with a crane runing on fuel."
 	icon = 'icons/mecha/pickuptruck-mechanics.dmi'
 	icon_state = "pickuptruckmechanic"
+	stepsound = 'sound/f13machines/buggy_loop.ogg'
+	turnsound = 'sound/f13machines/buggy_loop.ogg'
+	wreckage = /obj/structure/mecha_wreckage/buggy
 	step_in = 1.2
 	step_energy_drain = 0.6
 	armor = ARMOR_VALUE_MEDIUM
+	cargo_capacity = 5
 
 	max_weapons_equip = 1
-	max_utility_equip = 4
+	max_utility_equip = 5
 	max_misc_equip = 1
+
+/obj/mecha/combat/phazon/pickuptruck/mechanics_pickuptruck/Initialize()
+	. = ..()
+	for(var/obj/item/mecha_parts/mecha_equipment/E in equipment)
+		E.detach()
+		qdel(E)
+	equipment.Cut()
+	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/fallout13
+	ME.attach(src)
 
 /obj/mecha/combat/phazon/pickuptruck/mechanic/go_out()
 	..()
@@ -161,7 +185,7 @@
 
 //jeep
 
-/obj/mecha/combat/phazon/jeep
+/obj/mecha/combat/phazon/pickuptruck/jeep
 	name = "\improper pickup truck"
 	desc = "A old vehicule, runing on fuel."
 	icon = 'icons/mecha/jeep.dmi'
@@ -175,9 +199,10 @@
 	stepsound = 'sound/f13machines/buggy_loop.ogg'
 	turnsound = 'sound/f13machines/buggy_loop.ogg'
 	wreckage = /obj/structure/mecha_wreckage/buggy
+	cargo_capacity = 1
 
 	max_weapons_equip = 1
-	max_utility_equip = 3
+	max_utility_equip = 4
 	max_misc_equip = 1
 
 /obj/mecha/combat/phazon/jeep/go_out()
@@ -211,6 +236,7 @@
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/seat
 	ME.attach(src)
+
 
 //jeep Enclave
 

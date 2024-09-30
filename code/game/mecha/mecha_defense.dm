@@ -127,6 +127,12 @@
 	for(var/Y in trackers)
 		var/obj/item/mecha_parts/mecha_tracking/MT = Y
 		MT.ex_act(severity, target)
+	for(var/Z in cargo)
+		var/obj/O = Z
+		if(prob(30/severity))
+			cargo -= O
+			O.forceMove(drop_location())
+	. = ..()
 	if(occupant)
 		occupant.ex_act(severity,target)
 
