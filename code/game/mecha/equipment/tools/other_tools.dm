@@ -145,7 +145,7 @@
 //	var/deflect_coeff = 1.15
 	var/damage_coeff = 0.7
 	selectable = 0
-	equip_type = EQUIP_UTILITY
+	equip_type = EQUIP_MISC
 
 
 /obj/item/mecha_parts/mecha_equipment/anticcw_armor_booster/proc/attack_react()
@@ -165,7 +165,7 @@
 //	var/deflect_coeff = 1.15
 	var/damage_coeff = 0.75
 	selectable = 0
-	equip_type = EQUIP_UTILITY
+	equip_type = EQUIP_MISC
 
 /obj/item/mecha_parts/mecha_equipment/antiproj_armor_booster/proc/projectile_react()
 	if(action_checks(src))
