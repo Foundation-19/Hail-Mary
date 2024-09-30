@@ -106,7 +106,7 @@
 	/obj/item/stack/sheet/metal = 10,
 	/obj/item/stack/sheet/mineral/titanium = 20,
 	/obj/item/stack/rods = 10,
-	/obj/item/gun/ballistic/automatic/smg/mini_uzi = 3)
+	/obj/item/gun/ballistic/automatic/pistol/ninemil = 4)
 	tools = list(TOOL_AWORKBENCH)
 	time = 180
 	category = CAT_VEHICLES
