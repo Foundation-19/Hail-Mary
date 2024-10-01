@@ -5,8 +5,6 @@
 	equip_cooldown = 15
 	energy_drain = 10
 	tool_behaviour = null
-	attack_sentence = "You hear hydraulics."
-	attack_verbs = "lashes"
 	detachable = FALSE
 
 /obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/fallout13/can_attach(obj/mecha/M as obj)
@@ -16,9 +14,8 @@
 	return 1
 
 /obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/fallout13/vehicle_straps
-	name = "tray securing kit"
+	name = "cargo securing kit"
 	desc = "An assortment of cables and straps to secure heavy items on the back of a ute's tray."
-	icon_state = "vehicle_straps"
 	equip_cooldown = 30
 	energy_drain = 0
 	tool_behaviour = null

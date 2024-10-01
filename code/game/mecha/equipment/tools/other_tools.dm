@@ -143,13 +143,12 @@
 	energy_drain = 0
 	range = 0
 	selectable = 0
-	passive_power_drain = 5
+	move_power_drain = 1.5
 	var/list/armor_mod = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "fire" = 0, "acid" = 0)
 
 /obj/item/mecha_parts/mecha_equipment/armor/attach(obj/mecha)
 	. = ..()
 	chassis.armor = chassis.armor.modifyRating(arglist(armor_mod))
-	chassis.passive_power_drain += src.passive_power_drain
 
 
 /obj/item/mecha_parts/mecha_equipment/armor/detach(atom/moveto)
@@ -157,7 +156,6 @@
 	for(var/armor_type in removed_armor)
 		removed_armor[armor_type] = -removed_armor[armor_type]
 	chassis.armor = chassis.armor.modifyRating(arglist(removed_armor))
-	chassis.passive_power_drain -= src.passive_power_drain
 	return ..()
 
 /obj/item/mecha_parts/mecha_equipment/armor/Destroy()
@@ -165,19 +163,18 @@
 	for(var/armor_type in removed_armor)
 		removed_armor[armor_type] = -removed_armor[armor_type]
 	chassis.armor = chassis.armor.modifyRating(arglist(removed_armor))
-	chassis.passive_power_drain -= src.passive_power_drain
 	return ..()
 
 /obj/item/mecha_parts/mecha_equipment/armor/anticcw_armor_booster //what is that noise? A BAWWW from TK mutants.
 	name = "armor booster module (Close Combat Weaponry)"
-	desc = "Boosts vehicle armor against armed melee attacks."
+	desc = "A large plate of hardened steel, can be attached to a vehicle to boost its defense at the cost of miles per gallon. The shape makes it only useful against melee attacks."
 	icon_state = "mecha_abooster_ccw"
 	armor_mod = list("melee" = 15, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 10, "bio" = 0, "fire" = 0, "acid" = 0)
-
+	move_power_drain = 1
 
 /obj/item/mecha_parts/mecha_equipment/armor/antiproj_armor_booster
 	name = "armor booster module (Ranged Weaponry)"
-	desc = "Boosts vehicle armor against ranged attacks."
+	desc = "A large plate of hardened steel, can be attached to a vehicle to boost its defense at the cost of miles per gallon. The shape makes it only useful against ranged attacks."
 	icon_state = "mecha_abooster_proj"
 	armor_mod = list("melee" = 0, "bullet" = 15, "laser" = 10, "energy" = 5, "bomb" = 0, "bio" = 0, "fire" = 0, "acid" = 0)
 

@@ -22,12 +22,12 @@
 	name = "vehicle meson scanner"
 	desc = "A vehicle-mounted viewport that integrates night vision and a mesonic scanner."
 	icon_state = "mecha_meson"
-	energy_drain = 100
 	vision_traits = list(TRAIT_MESON_VISION, TRAIT_NIGHT_VISION)
+	move_power_drain = 0.5
 
 /obj/item/mecha_parts/mecha_equipment/vision/thermal_scanner
 	name = "vehicle thermal scanner"
 	desc = "A vehicle-mounted viewport that integrates night vision and a thermal camera."
 	icon_state = "mecha_thermal"
-	energy_drain = 100
 	vision_traits = list(TRAIT_THERMAL_VISION, TRAIT_NIGHT_VISION)
+	move_power_drain = 1

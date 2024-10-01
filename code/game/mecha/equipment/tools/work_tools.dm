@@ -14,8 +14,6 @@
 	var/obj/mecha/working/ripley/cargo_holder
 	harmful = TRUE
 	mech_flags = EXOSUIT_MODULE_RIPLEY
-	var/attack_sentence = "You hear something crack."
-	var/attack_verbs = "squeezes"
 
 /obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/can_attach(obj/mecha/working/ripley/M as obj)
 	if(..())
@@ -81,9 +79,9 @@
 				return
 			M.adjustOxyLoss(round(dam_force/2))
 			M.updatehealth()
-			target.visible_message(span_danger("[chassis] [attack_verb] [target]."), \
-								span_userdanger("[chassis] [attack_verb] [target]."),\
-								span_italic("[attack_sentence]"))
+			target.visible_message(span_danger("[chassis] slams [target]."), \
+								span_userdanger("[chassis] slams [target]."),\
+								span_italic("You hear hydraulics."))
 			log_combat(chassis.occupant, M, "attacked", "[name]", "(INTENT: [uppertext(chassis.occupant.a_intent)]) (DAMTYE: [uppertext(damtype)])")
 		else
 			step_away(M,chassis)
