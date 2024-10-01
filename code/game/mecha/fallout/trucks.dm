@@ -9,7 +9,7 @@
 	pixel_y = -5
 	max_integrity = 6000 // TEST
 	step_in = 1.2
-	armor = ARMOR_VALUE_VEHICLE_MED
+	armor = ARMOR_VALUE_VEHICLE_MEDIUM
 	step_energy_drain = 0.6
 	stepsound = 'sound/f13machines/buggy_loop.ogg'
 	turnsound = 'sound/f13machines/buggy_loop.ogg'
@@ -86,7 +86,7 @@
 	max_integrity = 600
 	step_in = 1
 	step_energy_drain = 0.6
-	armor = ARMOR_VALUE_VEHICLE_MED
+	armor = ARMOR_VALUE_VEHICLE_MEDIUM
 	wreckage = /obj/structure/mecha_wreckage/ncrtruck
 
 	max_weapons_equip = 1
@@ -127,7 +127,7 @@
 	icon = 'icons/mecha/ambulance.dmi'
 	icon_state = "ambulance"
 	step_in = 1
-	armor = ARMOR_VALUE_VEHICLE_MED
+	armor = ARMOR_VALUE_VEHICLE_MEDIUM
 	max_integrity = 300
 	step_energy_drain = 0.5
 

@@ -149,6 +149,7 @@
 /obj/item/mecha_parts/mecha_equipment/armor/attach(obj/mecha)
 	. = ..()
 	chassis.armor = chassis.armor.modifyRating(arglist(armor_mod))
+	chassis.passive_power_drain += src.passive_power_drain
 
 
 /obj/item/mecha_parts/mecha_equipment/armor/detach(atom/moveto)
@@ -156,6 +157,7 @@
 	for(var/armor_type in removed_armor)
 		removed_armor[armor_type] = -removed_armor[armor_type]
 	chassis.armor = chassis.armor.modifyRating(arglist(removed_armor))
+	chassis.passive_power_drain -= src.passive_power_drain
 	return ..()
 
 /obj/item/mecha_parts/mecha_equipment/armor/Destroy()
@@ -163,6 +165,7 @@
 	for(var/armor_type in removed_armor)
 		removed_armor[armor_type] = -removed_armor[armor_type]
 	chassis.armor = chassis.armor.modifyRating(arglist(removed_armor))
+	chassis.passive_power_drain -= src.passive_power_drain
 	return ..()
 
 /obj/item/mecha_parts/mecha_equipment/armor/anticcw_armor_booster //what is that noise? A BAWWW from TK mutants.
