@@ -45,7 +45,7 @@
 	move_resist = MOVE_FORCE_EXTREMELY_STRONG
 	light_range = 9
 	var/deflect_chance = 10 //chance to deflect the incoming projectiles, hits, or lesser the effect of ex_act.
-	armor = ARMOR_VALUE_HEAVY
+	armor = ARMOR_VALUE_VEHICLE_MED
 	var/list/facing_modifiers = list(FRONT_ARMOUR = 1.5, SIDE_ARMOUR = 1, BACK_ARMOUR = 0.5)
 	//var/obj/item/stock_parts/cell/cell
 	var/obj/item/reagent_containers/fuel_tank/fuel_holder
@@ -87,6 +87,8 @@
 	var/list/internals_req_access = list()//REQUIRED ACCESS LEVEL TO OPEN CELL COMPARTMENT
 
 	var/wreckage
+
+	var/passive_power_drain = 0
 
 	var/canZmove = TRUE
 
@@ -471,9 +473,8 @@
 		var/lights_energy_drain = 2
 		use_power(lights_energy_drain)
 
-	var/obj/item/mecha_parts/mecha_equipment/MEP
-	if(istype(MEP, /obj/item/mecha_parts/mecha_equipment))
-		use_power(MEP.passive_power_drain)
+	if(src.passive_power_drain)
+		use_power(passive_power_drain)
 
 //Diagnostic HUD updates
 	diag_hud_set_mechhealth()

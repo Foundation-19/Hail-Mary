@@ -10,7 +10,7 @@
 	max_integrity = 250
 	step_energy_drain = 0.5
 	step_in = 0.7
-	armor = ARMOR_VALUE_MEDIUM
+	armor = ARMOR_VALUE_VEHICLE_LIGHT
 	stepsound = 'sound/f13machines/buggy_loop.ogg'
 	turnsound = 'sound/f13machines/buggy_loop.ogg'
 	wreckage = /obj/structure/mecha_wreckage/fallout
@@ -51,7 +51,7 @@
 	icon = 'icons/mecha/corvega.dmi'
 	icon_state = "corvega"
 	max_integrity = 280
-	armor = ARMOR_VALUE_MEDIUM
+	armor = ARMOR_VALUE_VEHICLE_MED_LIGHT
 	wreckage = /obj/structure/mecha_wreckage/buggy
 
 /obj/mecha/combat/phazon/corvega/loaded/Initialize()
@@ -70,7 +70,7 @@
 	icon = 'icons/mecha/corvega-police.dmi'
 	icon_state = "corvega"
 	max_integrity = 280
-	armor = ARMOR_VALUE_MEDIUM
+	armor = ARMOR_VALUE_VEHICLE_MEDIUM
 	wreckage = /obj/structure/mecha_wreckage/buggy
 
 /obj/mecha/combat/phazon/corvega/police/GrantActions(mob/living/user, human_occupant = 0)

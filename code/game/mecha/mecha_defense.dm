@@ -30,6 +30,11 @@
 	if(!damage_amount)
 		return 0
 
+	if(attack_dir)
+		var/facing_modifier = get_armour_facing(abs(dir2angle(dir) - dir2angle(attack_dir)))
+		if(.)
+			. *= facing_modifier
+
 /obj/mecha/on_attack_hand(mob/living/user, act_intent = user.a_intent, unarmed_attack_flags)
 	user.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
 	playsound(loc, 'sound/weapons/tap.ogg', 40, 1, -1)

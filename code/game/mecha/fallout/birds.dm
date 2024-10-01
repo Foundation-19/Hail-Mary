@@ -12,7 +12,7 @@
 	dir_in = 2
 	step_energy_drain = 0.75
 	max_integrity = 150
-	armor = ARMOR_VALUE_HEAVY
+	armor = ARMOR_VALUE_VEHICLE_MEDIUM
 	wreckage = /obj/structure/mecha_wreckage/vertibird
 	add_req_access = 1
 	internal_damage_threshold = 25
@@ -259,7 +259,7 @@
 	step_in = 4
 	step_energy_drain = 0.2
 	max_integrity = 100
-	armor = ARMOR_VALUE_SALVAGE
+	armor = ARMOR_VALUE_VEHICLE_HEAVY
 	max_utility_equip = 6
 	max_weapons_equip = 1
 	max_misc_equip = 1

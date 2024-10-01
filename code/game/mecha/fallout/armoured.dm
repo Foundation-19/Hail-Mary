@@ -10,7 +10,7 @@
 	max_integrity = 500
 	step_energy_drain = 1.5
 	step_in = 1.5
-	armor = ARMOR_VALUE_SALVAGE
+	armor = ARMOR_VALUE_VEHICLE_ARMOURED
 	wreckage = /obj/structure/mecha_wreckage/armoured_jeep
 	max_utility_equip = 2
 	max_weapons_equip = 1

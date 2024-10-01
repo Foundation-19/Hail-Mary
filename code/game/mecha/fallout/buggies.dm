@@ -9,7 +9,7 @@
 	pixel_y = -5
 	max_integrity = 200
 	step_in = 0.8
-	armor = ARMOR_VALUE_LIGHT
+	armor = ARMOR_VALUE_VEHICLE_LIGHT
 	stepsound = 'sound/f13machines/buggy_loop.ogg'
 	turnsound = 'sound/f13machines/buggy_loop.ogg'
 	wreckage = /obj/structure/mecha_wreckage/buggy
@@ -61,15 +61,6 @@
 	desc = "A light vehicle, not very powerfull or solid, running on a powercell."
 	icon = 'icons/mecha/buggy.dmi'
 	icon_state = "buggydune"
-	max_integrity = 200
-	armor = ARMOR_VALUE_LIGHT
-	wreckage = /obj/structure/mecha_wreckage/buggy
-
-/obj/mecha/combat/phazon/buggy/dune/loaded/Initialize()
-	. = ..()
-	var/obj/item/mecha_parts/mecha_equipment/ME = new
-	ME = new /obj/item/mecha_parts/mecha_equipment/seat
-	ME.attach(src)
 
 //Buggyred
 
@@ -78,15 +69,6 @@
 	desc = "A light vehicle, not very powerfull or solid, running on a powercell."
 	icon = 'icons/mecha/buggy.dmi'
 	icon_state = "buggyred"
-	max_integrity = 200
-	armor = ARMOR_VALUE_LIGHT
-	wreckage = /obj/structure/mecha_wreckage/buggy
-
-/obj/mecha/combat/phazon/buggy/red/loaded/Initialize()
-	. = ..()
-	var/obj/item/mecha_parts/mecha_equipment/ME = new
-	ME = new /obj/item/mecha_parts/mecha_equipment/seat
-	ME.attach(src)
 
 //Buggyflame
 
@@ -95,15 +77,6 @@
 	desc = "A light vehicle, not very powerfull or solid, running on a powercell."
 	icon = 'icons/mecha/buggy.dmi'
 	icon_state = "buggyflame"
-	max_integrity = 200
-	armor = ARMOR_VALUE_LIGHT
-	wreckage = /obj/structure/mecha_wreckage/buggy
-
-/obj/mecha/combat/phazon/buggy/flamme/loaded/Initialize()
-	. = ..()
-	var/obj/item/mecha_parts/mecha_equipment/ME = new
-	ME = new /obj/item/mecha_parts/mecha_equipment/seat
-	ME.attach(src)
 
 //Buggy Ranger
 
@@ -112,15 +85,7 @@
 	desc = "A light vehicle, not very powerfull or solid, running on a powercell. This one as been recolored by the Rangers."
 	icon = 'icons/mecha/hanlonbuggy.dmi'
 	icon_state = "hanlonbuggy"
-	max_integrity = 200
-	armor = ARMOR_VALUE_LIGHT
-	wreckage = /obj/structure/mecha_wreckage/buggy
-
-/obj/mecha/combat/phazon/buggy/ranger/loaded/Initialize()
-	. = ..()
-	var/obj/item/mecha_parts/mecha_equipment/ME = new
-	ME = new /obj/item/mecha_parts/mecha_equipment/seat
-	ME.attach(src)
+	armor = ARMOR_VALUE_VEHICLE_MED_LIGHT
 
 //Buggy Ranger AND RICO
 
@@ -129,9 +94,7 @@
 	desc = "A light vehicle, not very powerfull or solid, running on a powercell. This one as been recolored by the Rangers... And Ranger Rico ''Gunner'' Davberger is gonna shoot with his shotgun."
 	icon = 'icons/mecha/buggyrangergun.dmi'
 	icon_state = "rangergun"
-	max_integrity = 200
-	armor = ARMOR_VALUE_LIGHT
-	wreckage = /obj/structure/mecha_wreckage/buggy
+	armor = ARMOR_VALUE_VEHICLE_MED_LIGHT
 
 /obj/mecha/combat/phazon/buggy/rangerarmed/go_out()
 	..()
@@ -173,20 +136,6 @@
 	desc = "A light vehicle, not very powerful or solid, running on fuel."
 	icon = 'icons/mecha/buggy.dmi'
 	icon_state = "buggyblue"
-	pixel_x = -15
-	pixel_y = 0
-	can_be_locked = TRUE
-	dna_lock
-	step_in = 0.8
-	opacity = 0
-	dir_in = 8
-	step_energy_drain = 1
-	max_temperature = 20000
-	max_integrity = 200
-	armor = ARMOR_VALUE_LIGHT
-	stepsound = 'sound/f13machines/buggy_loop.ogg'
-	turnsound = 'sound/f13machines/buggy_loop.ogg'
-	wreckage = /obj/structure/mecha_wreckage/buggy
 
 /obj/mecha/combat/phazon/buggy/blue/go_out()
 	..()

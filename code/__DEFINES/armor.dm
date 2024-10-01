@@ -1055,3 +1055,133 @@ GLOBAL_LIST_INIT(all_armor_types, list(
 		"acid" = 0, \
 		"wound" = 0, \
 		"damage_threshold" = 10)
+
+
+/// VEHICLE ARMOR ///
+
+
+/* Very light vehicle - small car or canopy covered bike
+ * Basically no armor
+ * Weak to everything
+ * ~0.5mm+ metal/plastic or canopy skin
+ * * * * * * * * * * * */
+
+#define ARMOR_VALUE_VEHICLE_VLIGHT list(\
+		"melee" = 20, \
+		"bullet" = 5, \
+		"laser" = 0, \
+		"energy" = 0, \
+		"bomb" = 0, \
+		"bio" = 100, \
+		"rad" = 25, \
+		"fire" = 0, \
+		"acid" = 0, \
+		"wound" = 0, \
+		"damage_threshold" = 0)
+
+/* Basic car, unarmored but the metal skin protects a little
+ * ~1mm mild steel skin
+ * * * * * * * * * * * */
+
+#define ARMOR_VALUE_VEHICLE_LIGHT list(\
+		"melee" = 30, \
+		"bullet" = 10, \
+		"laser" = 5, \
+		"energy" = 0, \
+		"bomb" = 10, \
+		"bio" = 100, \
+		"rad" = 25, \
+		"fire" = 0, \
+		"acid" = 0, \
+		"wound" = 0, \
+		"damage_threshold" = 0)
+
+/* Ruggedized old car - pickuptruck or small truck
+ * Made to be durable, so more thicker construction, especially for Fallout vintage cars
+ * 1-3mm mild steel
+ * * * * * * * * * * * */
+
+#define ARMOR_VALUE_VEHICLE_MED_LIGHT list(\
+		"melee" = 40, \
+		"bullet" = 20, \
+		"laser" = 15, \
+		"energy" = 0, \
+		"bomb" = 10, \
+		"bio" = 100, \
+		"rad" = 25, \
+		"fire" = 0, \
+		"acid" = 0, \
+		"wound" = 0, \
+		"damage_threshold" = 0)
+
+/* A heavy pickuptruck, or regular truck
+ * Thick construction, and probably has some aftermarked armor modded on
+ * 2-5mm RHA (mil-LARPer moment alert.)
+ * * * * * * * * * * * */
+
+#define ARMOR_VALUE_VEHICLE_MEDIUM list(\
+		"melee" = 45, \
+		"bullet" = 30, \
+		"laser" = 20, \
+		"energy" = 5, \
+		"bomb" = 10, \
+		"bio" = 100, \
+		"rad" = 25, \
+		"fire" = 0, \
+		"acid" = 0, \
+		"wound" = 0, \
+		"damage_threshold" = 0)
+
+/* Heavy vehicle, has been designed, or modded to have beefed-up armor
+ * 10mm+ RHA (the LARP continues.)
+ * * * * * * * * * * * */
+
+#define ARMOR_VALUE_VEHICLE_HEAVY list(\
+		"melee" = 60, \
+		"bullet" = 40, \
+		"laser" = 40, \
+		"energy" = 15, \
+		"bomb" = 25, \
+		"bio" = 100, \
+		"rad" = 50, \
+		"fire" = 0, \
+		"acid" = 0, \
+		"wound" = 0, \
+		"damage_threshold" = 0)
+
+/* Vehicle that's purpose built to be armoured, or has excessive modded armor
+ * Could be - armored car, armored tractor/bulldozer or light tank
+ * 15mm+ RHA
+ * * * * * * * * * * * */
+
+#define ARMOR_VALUE_VEHICLE_ARMOURED list(\
+		"melee" = 75, \
+		"bullet" = 50, \
+		"laser" = 50, \
+		"energy" = 25, \
+		"bomb" = 35, \
+		"bio" = 100, \
+		"rad" = 50, \
+		"fire" = 0, \
+		"acid" = 0, \
+		"wound" = 0, \
+		"damage_threshold" = 0)
+
+/* Heavy, armoured vehicle that's built to withstand a lot of direct punishment
+ * Could be - medium tanks, large combat walker, or over-armoured utility vehicle
+ * A RHA rating would be silly here, as it doesn't replicate what happens in-game
+ * 25mm+ RHA
+ * * * * * * * * * * * */
+
+#define ARMOR_VALUE_VEHICLE_ARMOURED_HEAVY list(\
+		"melee" = 85, \
+		"bullet" = 65, \
+		"laser" = 65, \
+		"energy" = 40, \
+		"bomb" = 50, \
+		"bio" = 100, \
+		"rad" = 100, \
+		"fire" = 0, \
+		"acid" = 0, \
+		"wound" = 0, \
+		"damage_threshold" = 0)

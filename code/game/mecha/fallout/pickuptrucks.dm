@@ -10,7 +10,7 @@
 	max_integrity = 300
 	step_in = 1.2
 	step_energy_drain = 0.4
-	armor = ARMOR_VALUE_MEDIUM
+	armor = ARMOR_VALUE_VEHICLE_MEDIUM
 	stepsound = 'sound/f13machines/buggy_loop.ogg'
 	turnsound = 'sound/f13machines/buggy_loop.ogg'
 	wreckage = /obj/structure/mecha_wreckage/fallout
@@ -67,7 +67,7 @@
 	icon = 'icons/mecha/pickuptruck-blue.dmi'
 	icon_state = "pickuptruck"
 	max_integrity = 300
-	armor = ARMOR_VALUE_MEDIUM
+	armor = ARMOR_VALUE_VEHICLE_MEDIUM
 	wreckage = /obj/structure/mecha_wreckage/buggy
 
 /obj/mecha/combat/phazon/pickuptruck/blue/loaded/Initialize()
@@ -88,7 +88,7 @@
 	icon = 'icons/mecha/pickuptruck-bos.dmi'
 	icon_state = "pickuptruck"
 	max_integrity = 300
-	armor = ARMOR_VALUE_MEDIUM
+	armor = ARMOR_VALUE_VEHICLE_MEDIUM
 	wreckage = /obj/structure/mecha_wreckage/buggy
 
 /obj/mecha/combat/phazon/pickuptruck/bos/loaded/Initialize()
@@ -107,11 +107,11 @@
 	icon = 'icons/mecha/pickuptruck-gunbos.dmi'
 	icon_state = "pickuptruck"
 	max_integrity = 300
-	armor = ARMOR_VALUE_MEDIUM
+	armor = ARMOR_VALUE_VEHICLE_MEDIUM
 	wreckage = /obj/structure/mecha_wreckage/buggy
 	cargo_capacity = 1
 
-	facing_modifiers = list(FRONT_ARMOUR = 0.8, SIDE_ARMOUR = 1, BACK_ARMOUR = 1.5) // There's whole ass paladin in the way..
+	facing_modifiers = list(FRONT_ARMOUR = 0.8, SIDE_ARMOUR = 1, BACK_ARMOUR = 2) // There's whole ass paladin in the way..
 
 /obj/mecha/combat/phazon/pickuptruck/bos/armed/loaded/Initialize()
 	. = ..()
@@ -135,11 +135,11 @@
 	wreckage = /obj/structure/mecha_wreckage/buggy
 	step_in = 1.2
 	step_energy_drain = 0.6
-	armor = ARMOR_VALUE_MEDIUM
+	armor = ARMOR_VALUE_VEHICLE_MED_LIGHT // Less armor, more tools
 	cargo_capacity = 5
 
 	max_weapons_equip = 1
-	max_utility_equip = 5
+	max_utility_equip = 6
 	max_misc_equip = 1
 
 /obj/mecha/combat/phazon/pickuptruck/mechanics_pickuptruck/Initialize()
@@ -195,7 +195,7 @@
 	step_in = 1.2
 	step_energy_drain = 0.4
 	max_integrity = 200
-	armor = ARMOR_VALUE_MEDIUM
+	armor = ARMOR_VALUE_VEHICLE_MED_LIGHT
 	stepsound = 'sound/f13machines/buggy_loop.ogg'
 	turnsound = 'sound/f13machines/buggy_loop.ogg'
 	wreckage = /obj/structure/mecha_wreckage/buggy

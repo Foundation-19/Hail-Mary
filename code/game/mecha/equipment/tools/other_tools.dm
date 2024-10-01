@@ -132,46 +132,51 @@
 		send_byjax(chassis.occupant,"exosuit.browser","[REF(src)]",src.get_equip_info())
 	return
 
+
 //////////////////////////// ARMOR BOOSTER MODULES //////////////////////////////////////////////////////////
 
 /obj/item/mecha_parts/mecha_equipment/armor
-	name = "armor booster module (Bad Code)"
-	desc = "Boosts exosuit armor against manatee. Make a bug report if you see this."
-	range = NONE
-	selectable = FALSE
-	equip_ready = TRUE
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
+	name = "Armor"
+	desc = "Boosts exosuit armor against attacks."
+	icon_state = "mecha_abooster_ccw"
+	equip_cooldown = 0
+	energy_drain = 0
+	range = 0
+	selectable = 0
+	passive_power_drain = 5
+	var/list/armor_mod = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "fire" = 0, "acid" = 0)
 
-/obj/item/mecha_parts/mecha_equipment/armor/attach(obj/mecha/new_chassis)
+/obj/item/mecha_parts/mecha_equipment/armor/attach(obj/mecha)
 	. = ..()
-	new_chassis.armor.attachArmor(armor)
+	chassis.armor = chassis.armor.modifyRating(arglist(armor_mod))
+
 
 /obj/item/mecha_parts/mecha_equipment/armor/detach(atom/moveto)
-	chassis.armor.detachArmor(armor)
+	var/list/removed_armor = armor_mod.Copy()
+	for(var/armor_type in removed_armor)
+		removed_armor[armor_type] = -removed_armor[armor_type]
+	chassis.armor = chassis.armor.modifyRating(arglist(removed_armor))
 	return ..()
-/*
-/obj/item/mecha_parts/mecha_equipment/armor/set_ready_state(state)
-	if(equip_ready != state)
-		if(state)
-			chassis.armor.attachArmor(armor)
-		else
-			chassis.armor.detachArmor(armor)
+
+/obj/item/mecha_parts/mecha_equipment/armor/Destroy()
+	var/list/removed_armor = armor_mod.Copy()
+	for(var/armor_type in removed_armor)
+		removed_armor[armor_type] = -removed_armor[armor_type]
+	chassis.armor = chassis.armor.modifyRating(arglist(removed_armor))
 	return ..()
-*/
+
 /obj/item/mecha_parts/mecha_equipment/armor/anticcw_armor_booster //what is that noise? A BAWWW from TK mutants.
 	name = "armor booster module (Close Combat Weaponry)"
-	desc = "Boosts vehicle armor against armed melee attacks. Requires energy to operate."
+	desc = "Boosts vehicle armor against armed melee attacks."
 	icon_state = "mecha_abooster_ccw"
-	passive_power_drain = 100
-	armor = list("melee" = 15, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 10, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
+	armor_mod = list("melee" = 15, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 10, "bio" = 0, "fire" = 0, "acid" = 0)
+
 
 /obj/item/mecha_parts/mecha_equipment/armor/antiproj_armor_booster
 	name = "armor booster module (Ranged Weaponry)"
-	desc = "Boosts vehicle armor against ranged attacks. Requires energy to operate."
+	desc = "Boosts vehicle armor against ranged attacks."
 	icon_state = "mecha_abooster_proj"
-	passive_power_drain = 100
-	armor = list("melee" = 0, "bullet" = 15, "laser" = 10, "energy" = 5, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
-
+	armor_mod = list("melee" = 0, "bullet" = 15, "laser" = 10, "energy" = 5, "bomb" = 0, "bio" = 0, "fire" = 0, "acid" = 0)
 
 ////////////////////////////////// REPAIR DROID //////////////////////////////////////////////////
 

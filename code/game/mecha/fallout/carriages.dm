@@ -10,7 +10,7 @@
 	max_integrity = 250
 	step_energy_drain = 0.6
 	step_in = 1.2
-	armor = ARMOR_VALUE_HEAVY
+	armor = ARMOR_VALUE_VEHICLE_MED_LIGHT
 	stepsound = 'sound/effects/footstep/gallop2.ogg'
 	turnsound = 'sound/effects/footstep/gallop1.ogg'
 	wreckage = /obj/structure/mecha_wreckage/fallout
@@ -57,7 +57,7 @@
 	max_integrity = 250
 	step_energy_drain = 0.6
 	step_in = 1.2
-	armor = ARMOR_VALUE_HEAVY
+	armor = ARMOR_VALUE_VEHICLE_MED_LIGHT
 
 /obj/mecha/combat/phazon/buggy/legionarmed/GrantActions(mob/living/user, human_occupant = 0)
 	cycle_action.Grant(user, src)
@@ -96,7 +96,7 @@
 	max_integrity = 250
 	step_in = 1.6
 	step_energy_drain = 0.6
-	armor = ARMOR_VALUE_HEAVY
+	armor = ARMOR_VALUE_VEHICLE_HEAVY
 
 	max_utility_equip = 4
 	max_weapons_equip = 1
