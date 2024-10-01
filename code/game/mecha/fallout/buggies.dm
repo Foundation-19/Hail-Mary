@@ -78,6 +78,12 @@
 	icon = 'icons/mecha/buggy.dmi'
 	icon_state = "buggyflame"
 
+/obj/mecha/combat/phazon/buggy/flamme/loaded/Initialize()
+	. = ..()
+	var/obj/item/mecha_parts/mecha_equipment/ME = new
+	ME = new /obj/item/mecha_parts/mecha_equipment/seat
+	ME.attach(src)
+
 //Buggy Ranger
 
 /obj/mecha/combat/phazon/buggy/ranger
