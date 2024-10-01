@@ -62,6 +62,12 @@
 	icon = 'icons/mecha/buggy.dmi'
 	icon_state = "buggydune"
 
+/obj/mecha/combat/phazon/buggy/dune/loaded/Initialize()
+	. = ..()
+	var/obj/item/mecha_parts/mecha_equipment/ME = new
+	ME = new /obj/item/mecha_parts/mecha_equipment/seat
+	ME.attach(src)
+
 //Buggyred
 
 /obj/mecha/combat/phazon/buggy/red
@@ -69,6 +75,12 @@
 	desc = "A light vehicle, not very powerfull or solid, running on a powercell."
 	icon = 'icons/mecha/buggy.dmi'
 	icon_state = "buggyred"
+
+/obj/mecha/combat/phazon/buggy/red/loaded/Initialize()
+	. = ..()
+	var/obj/item/mecha_parts/mecha_equipment/ME = new
+	ME = new /obj/item/mecha_parts/mecha_equipment/seat
+	ME.attach(src)
 
 //Buggyflame
 
@@ -92,6 +104,12 @@
 	icon = 'icons/mecha/hanlonbuggy.dmi'
 	icon_state = "hanlonbuggy"
 	armor = ARMOR_VALUE_VEHICLE_MED_LIGHT
+
+/obj/mecha/combat/phazon/buggy/ranger/loaded/Initialize()
+	. = ..()
+	var/obj/item/mecha_parts/mecha_equipment/ME = new
+	ME = new /obj/item/mecha_parts/mecha_equipment/seat
+	ME.attach(src)
 
 //Buggy Ranger AND RICO
 
