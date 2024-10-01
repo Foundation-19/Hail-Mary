@@ -45,7 +45,7 @@
 	move_resist = MOVE_FORCE_EXTREMELY_STRONG
 	light_range = 9
 	var/deflect_chance = 10 //chance to deflect the incoming projectiles, hits, or lesser the effect of ex_act.
-	armor = ARMOR_VALUE_VEHICLE_MED
+	armor = ARMOR_VALUE_VEHICLE_MEDIUM
 	var/list/facing_modifiers = list(FRONT_ARMOUR = 1.5, SIDE_ARMOUR = 1, BACK_ARMOUR = 0.5)
 	//var/obj/item/stock_parts/cell/cell
 	var/obj/item/reagent_containers/fuel_tank/fuel_holder
