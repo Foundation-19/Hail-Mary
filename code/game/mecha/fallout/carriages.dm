@@ -13,7 +13,7 @@
 	armor = ARMOR_VALUE_HEAVY
 	stepsound = 'sound/effects/footstep/gallop2.ogg'
 	turnsound = 'sound/effects/footstep/gallop1.ogg'
-	wreckage = /obj/structure/mecha_wreckage/buggy
+	wreckage = /obj/structure/mecha_wreckage/fallout
 
 	max_utility_equip = 3
 	max_weapons_equip = 1

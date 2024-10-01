@@ -13,7 +13,7 @@
 	armor = ARMOR_VALUE_MEDIUM
 	stepsound = 'sound/f13machines/buggy_loop.ogg'
 	turnsound = 'sound/f13machines/buggy_loop.ogg'
-	wreckage = /obj/structure/mecha_wreckage/buggy
+	wreckage = /obj/structure/mecha_wreckage/fallout
 
 /obj/mecha/combat/phazon/highwayman/go_out()
 	..()

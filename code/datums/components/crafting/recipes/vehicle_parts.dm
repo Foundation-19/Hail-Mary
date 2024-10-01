@@ -270,7 +270,7 @@
 
 /datum/crafting_recipe/vehiculearmor
 	name = "Armor booster module (Close Combat Weaponry)"
-	result = /obj/item/mecha_parts/mecha_equipment/anticcw_armor_booster
+	result = /obj/item/mecha_parts/mecha_equipment/armor/anticcw_armor_booster
 	reqs = list(/obj/item/stack/sheet/prewar = 10,
 				/obj/item/stack/crafting/metalparts = 10,
 				/obj/item/advanced_crafting_components/alloys = 2,
@@ -282,7 +282,7 @@
 
 /datum/crafting_recipe/vehiculearmor/distance
 	name = "Armor booster module (Ranged Weaponry)"
-	result = /obj/item/mecha_parts/mecha_equipment/antiproj_armor_booster
+	result = /obj/item/mecha_parts/mecha_equipment/armor/antiproj_armor_booster
 	reqs = list(/obj/item/stack/sheet/prewar = 10,
 				/obj/item/stack/crafting/metalparts = 10,
 				/obj/item/advanced_crafting_components/alloys = 2,
@@ -318,5 +318,29 @@
 				/obj/item/stack/crafting/goodparts = 4)
 	tools = list(TOOL_AWORKBENCH)
 	time = 180
+	subcategory = CAT_VEHICLES
+	category = CAT_VEHICLEPARTS
+
+/datum/crafting_recipe/carpart/trunk
+	name = "Modular Trunk"
+	result = /obj/item/mecha_parts/mecha_equipment/trunk
+	reqs = list(/obj/item/stack/sheet/metal = 5,
+	/obj/item/stack/crafting/metalparts = 10,
+	/obj/item/stack/sheet/plastic = 5,
+	/obj/item/stack/rods = 2)
+	tools = list(TOOL_WORKBENCH)
+	time = 90
+	subcategory = CAT_VEHICLES
+	category = CAT_VEHICLEPARTS
+
+/datum/crafting_recipe/carpart/seat
+	name = "Mounted Seat"
+	result = /obj/item/mecha_parts/mecha_equipment/seat
+	reqs = list(/obj/item/stack/sheet/metal = 5,
+	/obj/item/stack/crafting/metalparts = 10,
+	/obj/item/stack/sheet/leather = 5,
+	/obj/item/stack/rods = 5)
+	tools = list(TOOL_WORKBENCH)
+	time = 90
 	subcategory = CAT_VEHICLES
 	category = CAT_VEHICLEPARTS

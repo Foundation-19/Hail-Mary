@@ -91,6 +91,15 @@
 						[phasing_action.owner ? "<b>Phase Modulator: </b> [phasing ? "Enabled" : "Disabled"]<br>" : ""]
 					"}
 
+	if(cargo_capacity)
+		. += "<b>Cargo Compartment Contents:</b><div style=\"margin-left: 15px;\">"
+		if(cargo.len)
+			for(var/obj/O in cargo)
+				. += "<a href='?src=[REF(src)];drop_from_cargo=[REF(O)]'>Unload</a> : [O]</br>"
+		else
+			. += "Nothing"
+		. += "</div>"
+	return
 
 /obj/mecha/proc/get_commands()
 	. = {"<div class='wr'>
@@ -122,32 +131,31 @@
 
 
 /obj/mecha/proc/get_equipment_menu() //outputs mecha html equipment menu
-	var/output
+	. = ""
 	if(equipment.len)
-		output += {"<div class='wr'>
+		. += {"<div class='wr'>
 						<div class='header'>Equipment</div>
 						<div class='links'>"}
 		for(var/obj/item/mecha_parts/mecha_equipment/W in weapon_equipment)
-			output += "Weapon Module: [W.name] <a href='?src=\ref[W];detach=1'>Detach</a><br>"
+			. += "Weapon Module: [W.name] <a href='?src=\ref[W];detach=1'>Detach</a><br>"
 		for(var/obj/item/mecha_parts/mecha_equipment/W in utility_equipment)
-			output += "Utility Module: [W.name] <a href='?src=\ref[W];detach=1'>Detach</a><br>"
+			. += "Utility Module: [W.name] <a href='?src=\ref[W];detach=1'>Detach</a><br>"
 		for(var/obj/item/mecha_parts/mecha_equipment/W in misc_equipment)
-			output += "Miscellaneous Module: [W.name] <a href='?src=\ref[W];detach=1'>Detach</a><br>"
-	output += {"<b>Available weapon slots:</b> [max_weapons_equip-weapon_equipment.len]<br>
+			. += "Miscellaneous Module: [W.name] <a href='?src=\ref[W];detach=1'>Detach</a><br>"
+	. += {"<b>Available weapon slots:</b> [max_weapons_equip-weapon_equipment.len]<br>
 	<b>Available utility slots:</b> [max_utility_equip-utility_equipment.len]<br>
 	<b>Available miscellaneous slots:</b> [max_misc_equip-misc_equipment.len]<br>
 	</div></div>
 	"}
-	return output
+	return .
 
 /obj/mecha/proc/get_equipment_list() //outputs mecha equipment list in html
 	if(!equipment.len)
 		return
-	var/output = "<b>Equipment:</b><div style=\"margin-left: 15px;\">"
+	. = "<b>Equipment:</b><div style=\"margin-left: 15px;\">"
 	for(var/obj/item/mecha_parts/mecha_equipment/MT in equipment)
-		output += "<div id='\ref[MT]'>[MT.get_equip_info()]</div>"
-	output += "</div>"
-	return output
+		. += "<div id='\ref[MT]'>[MT.get_equip_info()]</div>"
+	. += "</div>"
 
 
 
@@ -333,6 +341,20 @@
 				return
 		send_byjax(occupant,"exosuit.browser","t_port_connection","[internal_tank.connected_port?"Disconnect from":"Connect to"] gas port")
 */
+
+	if(href_list["repair_int_control_lost"])
+		occupant_message("Recalibrating coordination system...")
+		mecha_log_message("Recalibration of coordination system started.")
+		var/T = loc
+		spawn(100)
+			if(T == loc)
+				clearInternalDamage(MECHA_INT_CONTROL_LOST)
+				occupant_message(span_notice("Recalibration successful."))
+				mecha_log_message("Recalibration of coordination system finished with 0 errors.")
+			else
+				occupant_message(span_warning("Recalibration failed!"))
+				mecha_log_message("Recalibration of coordination system failed with 1 error.", color="red")
+
 	if(href_list["dna_lock"])
 		if(!occupant)
 			return
@@ -350,15 +372,12 @@
 	if(href_list["reset_dna"])
 		dna_lock = null
 
-	if(href_list["repair_int_control_lost"])
-		occupant_message("Recalibrating coordination system...")
-		mecha_log_message("Recalibration of coordination system started.")
-		var/T = loc
-		spawn(100)
-			if(T == loc)
-				clearInternalDamage(MECHA_INT_CONTROL_LOST)
-				occupant_message(span_notice("Recalibration successful."))
-				mecha_log_message("Recalibration of coordination system finished with 0 errors.")
-			else
-				occupant_message(span_warning("Recalibration failed!"))
-				mecha_log_message("Recalibration of coordination system failed with 1 error.", color="red")
+
+	if(href_list["drop_from_cargo"])
+		var/obj/O = locate(href_list["drop_from_cargo"])
+		if(O && (O in cargo))
+			occupant_message(span_notice("You unload [O]."))
+			O.forceMove(drop_location())
+			cargo -= O
+			mecha_log_message("Unloaded [O]. Cargo compartment capacity: [cargo_capacity - src.cargo.len]")
+	return

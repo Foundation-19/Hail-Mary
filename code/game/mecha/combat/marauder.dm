@@ -37,7 +37,7 @@
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/tesla_energy_relay(src)
 	ME.attach(src)
-	ME = new /obj/item/mecha_parts/mecha_equipment/antiproj_armor_booster(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/armor/antiproj_armor_booster(src)
 	ME.attach(src)
 	max_ammo()
 
@@ -68,7 +68,7 @@
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/tesla_energy_relay(src)
 	ME.attach(src)
-	ME = new /obj/item/mecha_parts/mecha_equipment/antiproj_armor_booster(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/armor/antiproj_armor_booster(src)
 	ME.attach(src)
 	max_ammo()
 
@@ -93,7 +93,7 @@
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/tesla_energy_relay(src)
 	ME.attach(src)
-	ME = new /obj/item/mecha_parts/mecha_equipment/antiproj_armor_booster(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/armor/antiproj_armor_booster(src)
 	ME.attach(src)
 	max_ammo()
 

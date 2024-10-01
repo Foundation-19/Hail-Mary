@@ -29,34 +29,6 @@
 	. = ..()
 	if(!damage_amount)
 		return 0
-	var/booster_deflection_modifier = 1
-	var/booster_damage_modifier = 1
-	if(damage_flag == "bullet" || damage_flag == "laser" || damage_flag == "energy")
-		for(var/obj/item/mecha_parts/mecha_equipment/antiproj_armor_booster/B in equipment)
-			if(B.projectile_react())
-//				booster_deflection_modifier = B.deflect_coeff
-				booster_damage_modifier = B.damage_coeff
-				break
-	else if(damage_flag == "melee")
-		for(var/obj/item/mecha_parts/mecha_equipment/anticcw_armor_booster/B in equipment)
-			if(B.attack_react())
-//				booster_deflection_modifier *= B.deflect_coeff
-				booster_damage_modifier *= B.damage_coeff
-				break
-
-	if(attack_dir)
-		var/facing_modifier = get_armour_facing(abs(dir2angle(dir) - dir2angle(attack_dir)))
-		booster_damage_modifier /= facing_modifier
-		booster_deflection_modifier *= facing_modifier
-	if(prob(deflect_chance * booster_deflection_modifier) && damage_flag != "bomb")
-		visible_message(span_danger("[src]'s armour deflects the attack!"))
-		log_append_to_last("Armor saved.")
-		return 0
-	/*if(damage_flag == "bomb")
-		. *= (booster_damage_modifier*1.25)*/
-	if(.)
-		. *= booster_damage_modifier
-
 
 /obj/mecha/on_attack_hand(mob/living/user, act_intent = user.a_intent, unarmed_attack_flags)
 	user.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
@@ -127,6 +99,12 @@
 	for(var/Y in trackers)
 		var/obj/item/mecha_parts/mecha_tracking/MT = Y
 		MT.ex_act(severity, target)
+	for(var/Z in cargo)
+		var/obj/O = Z
+		if(prob(30/severity))
+			cargo -= O
+			O.forceMove(drop_location())
+	. = ..()
 	if(occupant)
 		occupant.ex_act(severity,target)
 

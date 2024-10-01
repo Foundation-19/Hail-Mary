@@ -102,6 +102,9 @@
 	var/list/utility_equipment = new
 	var/list/misc_equipment = new
 
+	var/list/cargo = new
+	var/cargo_capacity = 0 // for now, copy attributes from ripley so don't have to remap // lazy
+
 	/// a list of all vision traits to give to the occupant.
 	var/list/vision_modes = list()
 
@@ -234,11 +237,11 @@
 		else
 			M.forceMove(loc)
 	if(wreckage)
-		if(prob(85))
+		if(prob(1))
 			explosion(get_turf(src), 0, 1, 2, 3)
 		var/obj/structure/mecha_wreckage/WR = new wreckage(loc, AI)
 		for(var/obj/item/mecha_parts/mecha_equipment/E in equipment)
-			if(E.salvageable && prob(30))
+			if(E.salvageable)
 				WR.crowbar_salvage += E
 				E.detach(WR) //detaches from src into WR
 				E.equip_ready = 1
@@ -252,6 +255,7 @@
 		if(internal_tank)
 			WR.crowbar_salvage += internal_tank
 			internal_tank.forceMove(WR)
+
 	else
 		for(var/obj/item/mecha_parts/mecha_equipment/E in equipment)
 			E.detach(loc)
@@ -262,6 +266,12 @@
 			qdel(internal_tank)
 		if(AI)
 			AI.gib() //No wreck, no AI to recover
+
+		for(var/atom/movable/A in cargo)
+			A.forceMove(drop_location())
+			step_rand(A)
+			cargo.Cut()
+
 	STOP_PROCESSING(SSobj, src)
 	GLOB.poi_list.Remove(src)
 	equipment.Cut()
@@ -460,6 +470,10 @@
 	if(lights)
 		var/lights_energy_drain = 2
 		use_power(lights_energy_drain)
+
+	var/obj/item/mecha_parts/mecha_equipment/MEP
+	if(istype(MEP, /obj/item/mecha_parts/mecha_equipment))
+		use_power(MEP.passive_power_drain)
 
 //Diagnostic HUD updates
 	diag_hud_set_mechhealth()
@@ -1222,3 +1236,20 @@
 		else
 			to_chat(user, "<span class='notice'>None of the equipment on this exosuit can use this ammo!</span>")
 	return FALSE
+
+/obj/mecha/Exit(atom/movable/O)
+	if(O in cargo)
+		return 0
+	return ..()
+
+/obj/mecha/relay_container_resist(mob/living/user, obj/O)
+	to_chat(user, span_notice("You lean on the back of [O] and start pushing so it falls out of [src]."))
+	if(do_after(user, 300, target = O))
+		if(!user || user.stat != CONSCIOUS || user.loc != src || O.loc != src )
+			return
+		to_chat(user, span_notice("You successfully pushed [O] out of [src]!"))
+		O.forceMove(drop_location())
+		cargo -= O
+	else
+		if(user.loc == src) //so we don't get the message if we resisted multiple times and succeeded.
+			to_chat(user, span_warning("You fail to push [O] out of [src]!"))

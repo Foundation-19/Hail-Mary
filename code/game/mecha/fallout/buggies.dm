@@ -23,6 +23,7 @@
 /obj/structure/mecha_wreckage/buggy
 	name = "\improper Buggy wreckage"
 	desc = "Its a buggy ! Won't bug you anymore."
+	icon = 'icons/fallout/vehicles/medium_vehicles.dmi'
 	icon_state = "buggy-broken"
 
 /obj/mecha/combat/phazon/buggy/go_out()

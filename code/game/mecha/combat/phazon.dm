@@ -15,6 +15,7 @@
 	internal_damage_threshold = 25
 	force = 15
 	phase_state = "phazon-phase"
+	can_be_locked = TRUE
 
 	facing_modifiers = list(FRONT_ARMOUR = 0.8, SIDE_ARMOUR = 1, BACK_ARMOUR = 1.15) // experimental: weaker at the front because that's where the engine is..
 

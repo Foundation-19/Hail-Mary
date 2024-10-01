@@ -1041,7 +1041,7 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 /datum/outfit/loadout/combatengineerbuilder
 	name = "Combat Engineer"
 	head = /obj/item/clothing/head/hardhat/ncr
-	belt = /obj/item/storage/belt/army/assault/ncr/engineer
+	belt = /obj/item/storage/belt/utility/full
 	glasses = /obj/item/clothing/glasses/welding
 	suit = /obj/item/clothing/suit/armor/ncrarmor/reinforced/engineer
 	suit_store = /obj/item/gun/ballistic/automatic/service
