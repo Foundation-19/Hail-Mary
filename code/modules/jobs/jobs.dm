@@ -300,6 +300,7 @@ GLOBAL_LIST_INIT(ostia_positions, list(
 GLOBAL_LIST_INIT(rebels_positions, list(
 	"Roguewave Rebel Soldier",
 	"Roguewave Rebel Captain",
+	"Roguewave Rebel Medic",
 ))
 
 // job categories for rendering the late join menu

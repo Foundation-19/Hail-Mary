@@ -117,11 +117,11 @@
 
 /datum/job/rebels/medic
 	title = "Roguewave Rebel medic"
-	flag = F13REBELSOLDIER
+	flag = F13REBELMEDIC
 	total_positions = 2
 	spawn_positions = 2
 	access = list(ACCESS_ENCLAVE)
-	display_order = JOB_DISPLAY_ORDER_F13REBELSOLDIER
+	display_order = JOB_DISPLAY_ORDER_F13REBELMEDIC
 	description = "When the Legion arrived and conquered the region, you knew that you had to do something. Maybe you are a NCR medic wanting to bring the fight to their soil. Maybe raider wanting to spill some legion blood. Maybe you are Enclave Remnant crewing the ship and assuring your survival. What ever you are, your ennemy is the legion."
 	supervisors = "The captain."
 	outfit = /datum/outfit/job/rebels/medic
