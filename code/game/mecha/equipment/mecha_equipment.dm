@@ -26,7 +26,6 @@
 	//var/destroy_sound = 'sound/mecha/critdestr.ogg'
 	var/equip_type = EQUIP_UTILITY
 	var/detachable = TRUE
-	var/move_power_drain = 0
 
 /obj/item/mecha_parts/mecha_equipment/proc/update_chassis_page()
 	if(chassis)
@@ -44,7 +43,6 @@
 /obj/item/mecha_parts/mecha_equipment/Destroy()
 	if(chassis)
 		chassis.equipment -= src
-		chassis.move_power_drain -= src.move_power_drain
 		if(chassis.selected == src)
 			chassis.selected = null
 		src.update_chassis_page()
@@ -147,7 +145,6 @@
 		M.utility_equipment += src
 		has_equipped = 1
 	M.equipment += src
-	chassis.move_power_drain += src.move_power_drain
 	chassis = M
 	forceMove(M)
 	M.mecha_log_message("[src] initialized.")
@@ -162,7 +159,6 @@
 	moveto = moveto || get_turf(chassis)
 	forceMove(moveto)
 	chassis.equipment -= src
-	chassis.move_power_drain -= src.move_power_drain
 	if(equip_type)
 		switch(equip_type)
 			if(EQUIP_MISC)
