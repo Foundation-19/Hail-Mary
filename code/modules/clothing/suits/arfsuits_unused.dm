@@ -588,6 +588,18 @@ Suits. 0-10 in its primary value, slowdown 0, various utility
 	icon_state = "palacent_excess"
 	item_state = "palacent_excess"
 
+/obj/item/clothing/suit/armor/legion/palacent/ostia
+	name = "Champion of Ostia Armor"
+	desc = "Once the armors of a Centurion, now the armor of a Governor, a civilian leader. The armor is made up of pieces of Power Armor and pre-war Riot Gear."
+	icon_state = "palacent_excess"
+	item_state = "palacent_excess"
+
+/obj/item/clothing/suit/armor/legion/praetorian 
+	name = "Trusted Praetorian Armor"
+	desc = "A token of the past. This armor worn by the Praetorian guard is now just a relic of they days served to protect caesar, now greatly rewarded."
+	icon_state = "legion_vex"
+	item_state = "legion_vex"
+
 /obj/item/clothing/suit/donor/soldier
 	name = "Soldier's Greatcoat"
 	desc = "A resistant, tan greatcoat, typically worn by pre-War Generals."

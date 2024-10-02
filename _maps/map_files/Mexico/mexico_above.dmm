@@ -41,6 +41,14 @@
 /obj/machinery/telecomms/server/presets/science,
 /turf/open/floor/plasteel/dark/telecomms/mainframe,
 /area/f13/underground/cave)
+"aq" = (
+/obj/structure/table/wood,
+/obj/structure/sink/kitchen{
+	dir = 8;
+	pixel_x = 11
+	},
+/turf/open/floor/wood_fancy/wood_fancy_dark,
+/area/f13/legioncamp)
 "ar" = (
 /obj/structure/destructible/tribal_torch/wall/lit{
 	dir = 1;
@@ -1501,6 +1509,11 @@
 	},
 /turf/open/floor/wood_common/wood_common_dark,
 /area/f13/legioncamp)
+"iw" = (
+/obj/structure/rug/big/rug_yellow,
+/obj/structure/dresser,
+/turf/open/floor/wood_fancy/wood_fancy_dark,
+/area/f13/legioncamp)
 "ix" = (
 /obj/item/reagent_containers/fuel_tank/upgraded,
 /turf/open/indestructible/ground/outside/roaddirt,
@@ -1572,6 +1585,15 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/farmhouse)
+"jg" = (
+/obj/structure/closet/cabinet/anchored,
+/obj/effect/spawner/lootdrop/clothing_low,
+/obj/effect/spawner/bundle/f13/pistol22,
+/obj/structure/decoration/legion{
+	pixel_y = 30
+	},
+/turf/open/floor/wood_fancy/wood_fancy_dark,
+/area/f13/legioncamp)
 "ji" = (
 /obj/structure/rack/shelf_wood,
 /obj/effect/spawner/lootdrop/f13/cash_random_low,
@@ -2029,6 +2051,12 @@
 	},
 /turf/open/transparent/openspace,
 /area/f13/wasteland)
+"ld" = (
+/obj/structure/decoration/legion{
+	pixel_y = 30
+	},
+/turf/open/floor/wood_fancy/wood_fancy_dark,
+/area/f13/legioncamp)
 "le" = (
 /obj/structure/table/wood,
 /obj/effect/decal/cleanable/dirt,
@@ -2186,6 +2214,11 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/enclave)
+"lS" = (
+/turf/open/floor/wood_fancy/wood_fancy_dark{
+	icon_state = "fancy_dark-broken1"
+	},
+/area/f13/legioncamp)
 "lT" = (
 /obj/effect/decal/cleanable/blood/footprints{
 	icon_state = "trails_2";
@@ -2415,6 +2448,12 @@
 	},
 /obj/structure/chair/sofa/right,
 /turf/open/floor/wood_fancy/wood_fancy_light,
+/area/f13/legioncamp)
+"mR" = (
+/obj/structure/closet/cabinet,
+/obj/effect/spawner/lootdrop/clothing_low,
+/obj/effect/spawner/lootdrop/clothing_low,
+/turf/open/floor/wood_fancy/wood_fancy_dark,
 /area/f13/legioncamp)
 "mT" = (
 /obj/structure/destructible/tribal_torch/wall/lit,
@@ -3020,6 +3059,10 @@
 	},
 /turf/open/floor/wood_fancy/wood_fancy_dark,
 /area/f13/legion)
+"qd" = (
+/obj/structure/chair/stool/retro,
+/turf/open/floor/wood_fancy/wood_fancy_dark,
+/area/f13/legioncamp)
 "qe" = (
 /obj/structure/table/wood/settler,
 /turf/open/floor/wood_fancy,
@@ -3034,6 +3077,21 @@
 	icon_state = "housewood3-broken"
 	},
 /area/f13/building)
+"ql" = (
+/obj/structure/bed/wooden,
+/obj/structure/bed/wooden{
+	pixel_y = 11;
+	layer = 2.8
+	},
+/obj/item/bedsheet/blanket{
+	pixel_y = 1
+	},
+/obj/item/bedsheet/blanket{
+	pixel_y = 13;
+	layer = 3.9
+	},
+/turf/open/floor/wood_fancy/wood_fancy_dark,
+/area/f13/legioncamp)
 "qm" = (
 /turf/open/floor/f13/wood{
 	icon_state = "housewood2-broken"
@@ -3651,6 +3709,10 @@
 /obj/structure/bookshelf,
 /turf/open/floor/engine,
 /area/f13/enclave)
+"tr" = (
+/obj/machinery/microwave/stove,
+/turf/open/floor/wood_fancy/wood_fancy_dark,
+/area/f13/legioncamp)
 "ts" = (
 /obj/structure/chair/sofa/right{
 	color = "#800000";
@@ -4653,6 +4715,10 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/enclave)
+"yN" = (
+/obj/structure/rack/shelf_metal,
+/turf/open/floor/wood_fancy/wood_fancy_dark,
+/area/f13/legioncamp)
 "yO" = (
 /obj/structure/closet/locker/oldstyle{
 	anchored = 1
@@ -4731,6 +4797,14 @@
 /obj/structure/barricade/sandbags,
 /turf/open/floor/plating/f13/outside/roof,
 /area/f13/wasteland)
+"zw" = (
+/obj/structure/closet/fridge/standard,
+/obj/structure/railing{
+	color = "#A47449";
+	dir = 1
+	},
+/turf/open/floor/wood_fancy/wood_fancy_dark,
+/area/f13/legioncamp)
 "zx" = (
 /obj/effect/decal/cleanable/dirt{
 	color = "#363636"
@@ -5057,6 +5131,13 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/white,
 /area/f13/enclave)
+"Bc" = (
+/obj/structure/window/fulltile/wood,
+/obj/structure/curtain{
+	color = "#845f58"
+	},
+/turf/open/floor/wood_fancy/wood_fancy_dark,
+/area/f13/legioncamp)
 "Bd" = (
 /obj/structure/railing{
 	color = "#A47449";
@@ -5196,6 +5277,24 @@
 	},
 /turf/open/floor/wood_common,
 /area/f13/city)
+"BO" = (
+/obj/structure/closet/crate/wooden,
+/obj/item/clothing/accessory/ncr/TPR,
+/obj/item/clothing/accessory/ncr/TPR,
+/obj/item/clothing/accessory/ncr/SPC,
+/obj/item/clothing/accessory/ncr/SPC,
+/obj/item/clothing/accessory/ncr/SGT,
+/obj/item/clothing/accessory/ncr/SGT,
+/obj/item/clothing/accessory/ncr/REC,
+/obj/item/clothing/accessory/ncr/REC,
+/obj/item/clothing/accessory/ncr/MCPL,
+/obj/item/clothing/accessory/ncr/MCPL,
+/obj/item/clothing/accessory/ncr/FSGT,
+/obj/item/clothing/accessory/ncr/FSGT,
+/obj/item/clothing/accessory/ncr/CPL,
+/obj/item/clothing/accessory/ncr/CPL,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/enclave)
 "BQ" = (
 /obj/structure/chair/bench{
 	dir = 4
@@ -5643,6 +5742,13 @@
 	icon_state = "horizontalinnermain1"
 	},
 /area/f13/wasteland)
+"En" = (
+/obj/structure/railing{
+	color = "#A47449";
+	dir = 8
+	},
+/turf/open/floor/wood_fancy/wood_fancy_dark,
+/area/f13/legioncamp)
 "Eo" = (
 /obj/structure/closet/crate/wooden,
 /obj/item/reagent_containers/food/snacks/grown/cannabis,
@@ -6341,6 +6447,11 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/enclave)
+"HT" = (
+/obj/structure/table/wood,
+/obj/machinery/processor/chopping_block,
+/turf/open/floor/wood_fancy/wood_fancy_dark,
+/area/f13/legioncamp)
 "HW" = (
 /obj/machinery/light/small{
 	dir = 4;
@@ -6575,6 +6686,11 @@
 	dir = 4
 	},
 /turf/open/pool,
+/area/f13/legioncamp)
+"Jh" = (
+/turf/open/floor/wood_fancy/wood_fancy_dark{
+	icon_state = "fancy_dark-broken5"
+	},
 /area/f13/legioncamp)
 "Jj" = (
 /turf/open/floor/wood_wide/wood_wide_dark,
@@ -6917,6 +7033,13 @@
 /obj/item/reagent_containers/jerrycan,
 /turf/open/floor/wood_fancy,
 /area/f13/legion)
+"KK" = (
+/obj/structure/closet/cabinet/anchored,
+/obj/structure/decoration/legion{
+	pixel_y = 30
+	},
+/turf/open/floor/wood_fancy/wood_fancy_dark,
+/area/f13/legioncamp)
 "KM" = (
 /obj/structure/table/reinforced{
 	color = "#c1b6a5"
@@ -6928,6 +7051,11 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/enclave)
+"KN" = (
+/turf/open/floor/wood_fancy/wood_fancy_dark{
+	icon_state = "fancy_dark-broken2"
+	},
+/area/f13/legioncamp)
 "KO" = (
 /obj/machinery/telecomms/processor/preset_four,
 /turf/open/floor/plasteel/dark/telecomms/mainframe,
@@ -7749,6 +7877,7 @@
 /obj/structure/closet/cabinet/anchored,
 /obj/item/clothing/under/fancy_red_formaldress,
 /obj/item/clothing/under/suit/burgundy,
+/obj/effect/spawner/lootdrop/clothing_low,
 /turf/open/floor/wood_fancy,
 /area/f13/legioncamp)
 "Pz" = (
@@ -7967,6 +8096,8 @@
 /area/f13/building/abandoned)
 "QB" = (
 /obj/structure/closet/cabinet/anchored,
+/obj/effect/spawner/lootdrop/clothing_low,
+/obj/effect/spawner/lootdrop/clothing_low,
 /turf/open/floor/wood_fancy,
 /area/f13/legioncamp)
 "QD" = (
@@ -8369,7 +8500,6 @@
 /area/f13/building/abandoned)
 "Sr" = (
 /obj/structure/table/wood/fancy/red,
-/obj/item/stack/f13Cash/random/aureus/high,
 /turf/open/floor/carpet/black,
 /area/f13/legioncamp)
 "Ss" = (
@@ -12096,7 +12226,7 @@ tq
 Qk
 EJ
 Qk
-cY
+BO
 Cl
 nJ
 Cl
@@ -33215,13 +33345,13 @@ NG
 NG
 NG
 NG
-IT
-IT
-IT
-IT
-IT
-IT
-IT
+nu
+nu
+nu
+nu
+nu
+nu
+nu
 NG
 NG
 NG
@@ -33417,13 +33547,13 @@ NG
 NG
 NG
 NG
-IT
-IT
-IT
-IT
-IT
-IT
-IT
+nu
+KK
+qo
+qo
+kj
+zw
+nu
 NG
 NG
 NG
@@ -33619,13 +33749,13 @@ NG
 NG
 NG
 NG
-IT
-IT
-IT
-IT
-IT
-IT
-IT
+Bc
+qo
+KN
+Jh
+En
+qo
+nu
 NG
 NG
 NG
@@ -33821,13 +33951,13 @@ NG
 NG
 NG
 NG
-IT
-IT
-IT
-IT
-IT
-IT
-IT
+Bc
+qd
+lS
+HT
+aq
+tr
+nu
 NG
 NG
 NG
@@ -34023,13 +34153,13 @@ NG
 NG
 NG
 NG
-IT
-IT
-IT
-IT
-IT
-IT
-IT
+Bc
+nx
+qo
+nu
+nu
+nu
+nu
 NG
 NG
 NG
@@ -34225,13 +34355,13 @@ NG
 NG
 NG
 NG
-IT
-IT
-IT
-IT
-IT
-IT
-IT
+Bc
+qd
+qo
+DC
+qo
+iw
+nu
 NG
 NG
 NG
@@ -34427,13 +34557,13 @@ NG
 NG
 NG
 NG
-IT
-IT
-IT
-IT
-IT
-IT
-IT
+Bc
+Jh
+qo
+nu
+ld
+qo
+nu
 NG
 NG
 NG
@@ -34629,13 +34759,13 @@ NG
 NG
 NG
 NG
-IT
-IT
-IT
-IT
-IT
-IT
-IT
+nu
+jg
+yN
+nu
+mR
+ql
+nu
 NG
 NG
 NG
@@ -34831,13 +34961,13 @@ NG
 NG
 NG
 NG
-IT
-IT
-IT
-IT
-IT
-IT
-IT
+nu
+nu
+nu
+nu
+Bc
+nu
+nu
 NG
 NG
 NG

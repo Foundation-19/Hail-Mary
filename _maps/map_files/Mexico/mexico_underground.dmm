@@ -2987,7 +2987,8 @@
 "oE" = (
 /obj/structure/ladder/unbreakable{
 	icon_state = "ladder10";
-	id = "chinesessub1"
+	id = "chinesessub1";
+	height = 1
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
 /area/f13/bunker)
@@ -9871,7 +9872,7 @@
 /area/f13/citycaves)
 "Xm" = (
 /obj/structure/ladder/unbreakable{
-	height = 1;
+	height = 2;
 	id = "Vault1"
 	},
 /turf/open/floor/plasteel/f13/vault_floor/dark/darksolid,

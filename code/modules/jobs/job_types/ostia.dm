@@ -100,8 +100,13 @@
 	exp_requirements = 0
 	outfit = /datum/outfit/job/CaesarsLegiontown/governor
 
-	access = list(ACCESS_LEGION, ACCESS_CHANGE_IDS, ACCESS_LEGION_COMMAND, ACCESS_LEGION_CENTURION)
-	minimal_access = list(ACCESS_LEGION, ACCESS_CHANGE_IDS, ACCESS_LEGION_COMMAND, ACCESS_LEGION_CENTURION)
+	loadout_options = list(
+		/datum/outfit/loadout/legionhero,
+		/datum/outfit/loadout/legiontrust,
+		)
+
+	access = list(ACCESS_LEGION, ACCESS_CHANGE_IDS, ACCESS_LEGION_COMMAND, ACCESS_LEGION_CENTURION, ACCESS_TOWN_MERCH, ACCESS_TOWN)
+	minimal_access = list(ACCESS_LEGION, ACCESS_CHANGE_IDS, ACCESS_LEGION_COMMAND, ACCESS_LEGION_CENTURION, ACCESS_TOWN_MERCH, ACCESS_TOWN)
 
 /datum/outfit/job/CaesarsLegiontown/governor
 	id = /obj/item/card/id/dogtag/legion/centurion
@@ -116,10 +121,36 @@
 	backpack_contents = list(
 		/obj/item/restraints/legcuffs/bola = 1,
 		/obj/item/warpaint_bowl = 1,
-		/obj/item/ammo_box/a357 = 1,
-		/obj/item/gun/ballistic/revolver/colt357 = 1,
-		/obj/item/stack/f13Cash/random/denarius/high = 1,
+		/obj/item/ammo_box/c4570box = 2,
+		/obj/item/gun/ballistic/revolver/hunting = 1,
+		/obj/item/stack/f13Cash/aureus = 5,
 		/obj/item/binoculars = 1,
+		)
+
+/datum/outfit/loadout/legionhero
+	name = "Legion Hero"
+	backpack_contents = list(
+		/obj/item/clothing/suit/armor/legion/palacent/ostia = 1,
+		/obj/item/flashlight/lantern = 1,
+		/obj/item/twohanded/spear/lance = 1,
+		/obj/item/book/granter/trait/bigleagues = 1,
+		/obj/item/gun/ballistic/shotgun/automatic/combat/shotgunlever = 1,
+		/obj/item/ammo_box/shotgun/improvised = 2,
+		/obj/item/shield/riot/legion = 1,
+		/obj/item/clothing/neck/mantle/legion = 1,
+		/obj/item/lighter = 1,
+		)
+
+/datum/outfit/loadout/legiontrust
+	name = "Trusted by Caesar"
+	backpack_contents = list(
+		/obj/item/clothing/suit/armor/legion/praetorian = 1,
+		/obj/item/flashlight/lantern = 1,
+		/obj/item/melee/powerfist/f13 = 1,
+		/obj/item/book/granter/trait/bigleagues = 1,
+		/obj/item/clothing/neck/mantle/legion = 1,
+		/obj/item/lighter = 1,
+		/obj/item/clothing/glasses/sunglasses/big = 1,
 		)
 
 /datum/outfit/job/CaesarsLegiontown/governor/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -132,6 +163,8 @@
 	if(H.mind)
 		var/obj/effect/proc_holder/spell/terrifying_presence/S = new /obj/effect/proc_holder/spell/terrifying_presence
 		H.mind.AddSpell(S)
+
+//Shopkeep
 
 /datum/job/CaesarsLegiontown/legionshopkeeper
 	title = "Ostia Shopkeeper"

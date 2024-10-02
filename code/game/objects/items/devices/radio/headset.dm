@@ -128,6 +128,14 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	item_state = "sec_headset_alt"
 	bowman = TRUE
 
+/obj/item/radio/headset/headset_sec/com
+	name = "security radio headset"
+	desc = "This is used by your elite security force."
+	icon_state = "sec_headset"
+	keyslot = new /obj/item/encryptionkey/headset_sec
+	bowman = TRUE
+	command = TRUE
+
 /obj/item/radio/headset/headset_eng
 	name = "engineering radio headset"
 	desc = "When the engineers wish to chat like girls."
