@@ -88,7 +88,7 @@
 
 	var/wreckage
 
-	var/passive_power_drain = 0
+	var/move_power_drain = 0
 
 	var/canZmove = TRUE
 
@@ -473,9 +473,6 @@
 		var/lights_energy_drain = 2
 		use_power(lights_energy_drain)
 
-	if(src.passive_power_drain)
-		use_power(passive_power_drain)
-
 //Diagnostic HUD updates
 	diag_hud_set_mechhealth()
 	diag_hud_set_mechcell()
@@ -633,7 +630,7 @@
 		set_glide_size(DELAY_TO_GLIDE_SIZE(step_in))
 		move_result = mechstep(direction)
 	if(move_result || loc != oldloc)// halfway done diagonal move still returns false
-		use_power(step_energy_drain)
+		use_power(step_energy_drain + move_power_drain)
 		can_move = world.time + step_in
 		return 1
 	return 0
@@ -741,7 +738,7 @@
 	if(prob(5))
 		if(ignore_threshold || obj_integrity*100/max_integrity < internal_damage_threshold)
 			var/obj/item/mecha_parts/mecha_equipment/ME = safepick(equipment)
-			if(ME)
+			if(ME && ME.detachable)
 				qdel(ME)
 	return
 
