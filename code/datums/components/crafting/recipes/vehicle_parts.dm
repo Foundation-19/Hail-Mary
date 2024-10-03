@@ -40,6 +40,48 @@
 	category = CAT_VEHICLES
 	subcategory = CAT_VEHICLEPARTS
 
+// Le classic sherman tank
+
+/datum/crafting_recipe/sherman
+	name = "Sherman M4-CEM(X)"
+	result = /obj/mecha/combat/phazon/m4sherman_cemx
+	reqs = list(/obj/item/stack/sheet/metal = 75,
+				/obj/item/stack/sheet/plasteel = 50,
+				/obj/item/stack/sheet/mineral/titanium = 25,
+				/obj/item/stack/sheet/mineral/uranium = 15,
+				/obj/item/stack/sheet/mineral/diamond = 5,
+				/obj/item/stack/sheet/plastic = 15,
+				/obj/item/stack/crafting/metalparts = 15,
+				/obj/item/stack/crafting/goodparts = 10,
+				/obj/item/stack/crafting/electronicparts = 15,
+				/obj/item/advanced_crafting_components/alloys = 2
+				)
+	tools = list(TOOL_AWORKBENCH, TOOL_WELDER, TOOL_WRENCH)
+	time = 180
+	category = CAT_VEHICLES
+	subcategory = CAT_VEHICLEPARTS
+
+// Jeep
+
+/datum/crafting_recipe/armoured_jeep
+	name = "armoured M8 jeep"
+	result = /obj/mecha/combat/phazon/armoured_jeep
+	reqs = list(/obj/item/stack/sheet/metal = 100,
+				/obj/item/stack/sheet/plasteel = 25,
+				/obj/item/stack/sheet/mineral/titanium = 15,
+				/obj/item/stack/sheet/mineral/uranium = 10,
+				/obj/item/stack/sheet/mineral/diamond = 3,
+				/obj/item/stack/sheet/plastic = 15,
+				/obj/item/stack/crafting/metalparts = 15,
+				/obj/item/stack/crafting/goodparts = 10,
+				/obj/item/stack/crafting/electronicparts = 5,
+				/obj/item/advanced_crafting_components/alloys = 2
+				)
+	tools = list(TOOL_AWORKBENCH, TOOL_WELDER, TOOL_WRENCH)
+	time = 180
+	category = CAT_VEHICLES
+	subcategory = CAT_VEHICLEPARTS
+
 //LMG
 
 /datum/crafting_recipe/gun/vehicle/lmg_improvised
