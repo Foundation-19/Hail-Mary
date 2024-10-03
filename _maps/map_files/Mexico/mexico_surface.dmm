@@ -1582,6 +1582,15 @@
 	},
 /turf/open/floor/wood_common,
 /area/f13/city)
+"bwm" = (
+/obj/effect/spawner/lootdrop/f13/junkspawners,
+/obj/effect/turf_decal/gravel_edge{
+	dir = 4
+	},
+/turf/open/indestructible/ground/outside/dirt/dark{
+	icon_state = "dirtfull_dark"
+	},
+/area/f13/wasteland)
 "bwq" = (
 /obj/machinery/door/poddoor/shutters,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
@@ -8320,6 +8329,13 @@
 /obj/structure/fence/wooden,
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/legion)
+"hFM" = (
+/obj/effect/turf_decal/gravel_edge/corner,
+/turf/open/indestructible/ground/outside/dirt/dark{
+	icon_state = "dirt_dark";
+	dir = 1
+	},
+/area/f13/wasteland)
 "hGh" = (
 /obj/structure/table/wood/bar,
 /turf/open/floor/wood_common,
@@ -9886,6 +9902,14 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/neutral/neutralsolid,
 /area/f13/outpost)
+"jjO" = (
+/obj/effect/turf_decal/gravel_edge{
+	dir = 4
+	},
+/turf/open/indestructible/ground/outside/dirt/dark{
+	icon_state = "dirtfull_dark"
+	},
+/area/f13/wasteland)
 "jjV" = (
 /turf/closed/wall/f13/wood/house,
 /area/f13/farmhouse)
@@ -20119,6 +20143,10 @@
 	},
 /turf/open/indestructible/ground/outside/desert,
 /area/f13/wasteland)
+"sIm" = (
+/obj/effect/landmark/observer_start,
+/turf/open/floor/plasteel/f13/stone/rugged,
+/area/f13/wasteland)
 "sIr" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/destructible/tribal_torch/wall/lit{
@@ -25954,6 +25982,14 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/wood_common,
 /area/f13/city)
+"ydG" = (
+/obj/effect/turf_decal/gravel_edge/corner{
+	dir = 8
+	},
+/turf/open/indestructible/ground/outside/dirt/dark{
+	icon_state = "dirt_dark"
+	},
+/area/f13/wasteland)
 "ydU" = (
 /obj/structure/railing{
 	color = "#A47449"
@@ -40581,10 +40617,10 @@ iHT
 wsb
 oDW
 sML
-eMZ
-mmA
-grU
-lNn
+ydG
+jjO
+bwm
+hFM
 wsb
 wsb
 wsb
@@ -52347,7 +52383,7 @@ wBv
 wBv
 wBv
 wBv
-wBv
+sIm
 wBv
 wBv
 wBv

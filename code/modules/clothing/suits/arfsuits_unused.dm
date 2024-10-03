@@ -140,6 +140,18 @@ Suits. 0-10 in its primary value, slowdown 0, various utility
 	icon_state = "legion-master"
 	item_state = "legion-master"
 
+/obj/item/clothing/suit/armor/legion/palacent/ostia
+	name = "Champion of Ostia Armor"
+	desc = "Once the armors of a Centurion, now the armor of a Governor, a civilian leader. The armor is made up of pieces of Power Armor and pre-war Riot Gear."
+	icon_state = "legion_gov"
+	item_state = "legion_gov"
+
+/obj/item/clothing/suit/armor/legion/praetorian 
+	name = "Trusted Praetorian Armor"
+	desc = "A token of the past. This armor worn by the Praetorian guard is now just a relic of they days served to protect caesar, now greatly rewarded."
+	icon_state = "legion_preatorian"
+	item_state = "legion_preatorian"
+
 /obj/item/clothing/suit/armor/legion/vet
 	name = "legion veteran armor"
 	desc = "Armor worn by veterans, salvaged bits of enemy armor and scrap metal often reinforcing the armor."
@@ -587,18 +599,6 @@ Suits. 0-10 in its primary value, slowdown 0, various utility
 	desc = "The armor of the Champion and Conqueror of the city in Utah named Kanab. The armor is made up of pieces of Power Armor and pre-war Riot Gear, the shin guards are spraypainted a dark crimson and the Power Armour pauldron has a red trim. The symbol of a Pheonix is carefully engraved and painted upon the chest piece... I wonder what it means.."
 	icon_state = "palacent_excess"
 	item_state = "palacent_excess"
-
-/obj/item/clothing/suit/armor/legion/palacent/ostia
-	name = "Champion of Ostia Armor"
-	desc = "Once the armors of a Centurion, now the armor of a Governor, a civilian leader. The armor is made up of pieces of Power Armor and pre-war Riot Gear."
-	icon_state = "palacent_excess"
-	item_state = "palacent_excess"
-
-/obj/item/clothing/suit/armor/legion/praetorian 
-	name = "Trusted Praetorian Armor"
-	desc = "A token of the past. This armor worn by the Praetorian guard is now just a relic of they days served to protect caesar, now greatly rewarded."
-	icon_state = "legion_vex"
-	item_state = "legion_vex"
 
 /obj/item/clothing/suit/donor/soldier
 	name = "Soldier's Greatcoat"

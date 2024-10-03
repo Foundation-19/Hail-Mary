@@ -314,12 +314,6 @@
 	},
 /turf/open/floor/wood_fancy,
 /area/f13/legioncamp)
-"bT" = (
-/obj/effect/decal/cleanable/dirt{
-	color = "#363636"
-	},
-/turf/closed/wall/f13/wood/house,
-/area/f13/wasteland)
 "bV" = (
 /obj/structure/fence{
 	dir = 1;
@@ -687,13 +681,6 @@
 	icon_state = "worn-broken5"
 	},
 /area/f13/farmhouse)
-"em" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt{
-	color = "#363636"
-	},
-/turf/closed/wall/f13/wood/house,
-/area/f13/wasteland)
 "eo" = (
 /turf/open/floor/wood_common,
 /area/f13/city)
@@ -1787,9 +1774,6 @@
 /turf/open/indestructible/ground/outside/roaddirt{
 	icon_state = "horizontalinnermain2left"
 	},
-/area/f13/wasteland)
-"jY" = (
-/turf/closed/wall/f13/wood/house,
 /area/f13/wasteland)
 "jZ" = (
 /obj/effect/turf_decal/stripes/white/line,
@@ -4026,13 +4010,6 @@
 	},
 /turf/open/floor/wood_common/wood_common_dark,
 /area/f13/farmhouse)
-"vt" = (
-/obj/structure/barricade/wooden/planks,
-/obj/effect/decal/cleanable/dirt{
-	color = "#363636"
-	},
-/turf/closed/wall/f13/wood/house,
-/area/f13/wasteland)
 "vu" = (
 /obj/machinery/light/small{
 	light_color = "#FF0000";
@@ -4294,10 +4271,6 @@
 	dir = 5
 	},
 /area/f13/underground/cave)
-"wB" = (
-/obj/structure/window/fulltile/wood/broken,
-/turf/open/floor/wood_common,
-/area/f13/wasteland)
 "wD" = (
 /obj/machinery/telecomms/server/presets/khans,
 /turf/open/floor/plasteel/dark/telecomms/mainframe,
@@ -4332,6 +4305,12 @@
 "wQ" = (
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/building/abandoned)
+"wU" = (
+/obj/effect/decal/cleanable/dirt{
+	color = "#363636"
+	},
+/turf/closed/wall/f13/wood/house,
+/area/f13/city)
 "wV" = (
 /obj/structure/fence/wooden{
 	dir = 8;
@@ -6220,11 +6199,6 @@
 	},
 /turf/open/floor/wood_common,
 /area/f13/city)
-"GB" = (
-/turf/open/floor/wood_worn{
-	icon_state = "worn-broken2"
-	},
-/area/f13/wasteland)
 "GC" = (
 /obj/structure/chair/office/dark{
 	dir = 8
@@ -6291,11 +6265,6 @@
 /obj/item/bedsheet/sneedclave,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/enclave)
-"GQ" = (
-/turf/open/floor/wood_worn{
-	icon_state = "worn-broken4"
-	},
-/area/f13/wasteland)
 "GS" = (
 /turf/closed/wall/f13/ruins,
 /area/f13/building/abandoned)
@@ -6490,6 +6459,13 @@
 /obj/effect/mob_spawn/human/corpse,
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/farmhouse)
+"Ig" = (
+/obj/structure/barricade/wooden/planks,
+/obj/effect/decal/cleanable/dirt{
+	color = "#363636"
+	},
+/turf/closed/wall/f13/wood/house,
+/area/f13/city)
 "Ih" = (
 /obj/structure/bed/old,
 /obj/item/bedsheet/patriot,
@@ -6900,8 +6876,10 @@
 /turf/open/floor/wood_common,
 /area/f13/farmhouse)
 "JY" = (
-/turf/open/floor/wood_worn,
-/area/f13/wasteland)
+/turf/open/floor/wood_worn{
+	icon_state = "worn-broken2"
+	},
+/area/f13/city)
 "Ka" = (
 /obj/machinery/light{
 	dir = 1
@@ -7241,11 +7219,6 @@
 	},
 /turf/open/floor/carpet/red,
 /area/f13/farmhouse)
-"Mq" = (
-/turf/open/floor/wood_worn{
-	icon_state = "worn-broken3"
-	},
-/area/f13/wasteland)
 "Ms" = (
 /obj/structure/window/fulltile/ruins,
 /obj/structure/curtain{
@@ -8220,11 +8193,6 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/building/abandoned)
-"Rf" = (
-/turf/open/floor/wood_worn{
-	icon_state = "worn-broken5"
-	},
-/area/f13/wasteland)
 "Rg" = (
 /obj/item/book/granter/crafting_recipe/gunsmith_three,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
@@ -8462,11 +8430,6 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/outpost)
-"Sm" = (
-/turf/closed/wall/mineral/sandstone{
-	color = "#A47449"
-	},
-/area/f13/wasteland)
 "Sn" = (
 /obj/structure/window/fulltile/ruins{
 	icon_state = "ruinswindowdestroyed"
@@ -24573,8 +24536,8 @@ NG
 NG
 wi
 oC
-ja
 Yd
+ja
 oC
 oC
 hc
@@ -29034,8 +28997,8 @@ hQ
 hQ
 hQ
 hQ
-hQ
 Pb
+NG
 NG
 NG
 NG
@@ -29234,10 +29197,10 @@ AW
 AW
 AW
 AW
+AW
 JY
-JY
-GB
 GG
+NG
 NG
 NG
 NG
@@ -29433,13 +29396,13 @@ rk
 AW
 AW
 AW
+XM
 AW
-XM
-XM
-JY
-JY
-JY
+AW
+AW
+AW
 GG
+NG
 NG
 NG
 NG
@@ -29638,10 +29601,10 @@ PG
 Wo
 Xl
 Xl
-Sm
-JY
-JY
+AW
+AW
 GG
+NG
 NG
 NG
 NG
@@ -29839,11 +29802,11 @@ Xe
 Xe
 CN
 qC
-qC
-Sm
-JY
-JY
+Xl
+AW
+AW
 GG
+NG
 NG
 NG
 NG
@@ -30041,11 +30004,11 @@ dO
 Jz
 Jz
 fw
-fw
-jY
-JY
-JY
+PG
+AW
+AW
 GG
+NG
 NG
 NG
 NG
@@ -30243,11 +30206,11 @@ le
 wM
 Jz
 Db
-Db
-wB
-JY
-JY
+Wo
+AW
+AW
 GG
+NG
 NG
 NG
 NG
@@ -30445,11 +30408,11 @@ fw
 fw
 fw
 Db
-Db
-bT
-Mq
-JY
+wU
+Wk
+AW
 GG
+NG
 NG
 NG
 NG
@@ -30647,11 +30610,11 @@ fw
 YB
 Za
 Db
-Db
-vt
-JY
-JY
+Ig
+AW
+AW
 Xa
+NG
 NG
 NG
 NG
@@ -30849,11 +30812,11 @@ Io
 PG
 PG
 PG
-PG
-bT
-JY
-JY
+wU
+AW
+AW
 GG
+NG
 NG
 NG
 NG
@@ -31051,14 +31014,14 @@ fw
 fw
 Qa
 am
-am
-em
-JY
-GQ
+TI
+AW
+bx
 Wt
 hQ
 hP
 Pb
+NG
 NG
 NG
 NG
@@ -31253,14 +31216,14 @@ Xi
 un
 qX
 Gn
-Gn
 TI
 AW
 sw
 AW
-JY
-JY
+AW
+AW
 GG
+NG
 NG
 NG
 NG
@@ -31455,14 +31418,14 @@ PG
 PG
 PG
 PG
-PG
 WI
 iZ
 Wk
 AW
-JY
-NG
+XM
+AW
 GG
+NG
 NG
 NG
 NG
@@ -31659,12 +31622,12 @@ PG
 PG
 PG
 PG
-PG
 Xl
 Xl
-JY
-JY
+AW
+AW
 GG
+NG
 NG
 NG
 NG
@@ -31859,14 +31822,14 @@ fu
 fw
 ls
 fw
-fw
 aO
 eb
 gF
 Xl
-JY
-JY
+AW
+AW
 GG
+NG
 NG
 NG
 NG
@@ -32061,14 +32024,14 @@ Qa
 Kl
 PG
 fw
-fw
 fu
 fu
 fu
 ls
-JY
-JY
+AW
+AW
 GG
+NG
 NG
 NG
 NG
@@ -32263,14 +32226,14 @@ NC
 lI
 PG
 zO
-zO
 qC
 fw
 CX
 Wo
-JY
-JY
+AW
+AW
 GG
+NG
 NG
 NG
 NG
@@ -32468,11 +32431,11 @@ PG
 PG
 PG
 PG
-PG
 WI
-JY
-Rf
+AW
+AW
 GG
+NG
 NG
 NG
 NG
@@ -32667,14 +32630,14 @@ fu
 fw
 ls
 eo
-eo
 fw
 fw
 eo
 ls
-JY
-JY
+AW
+AW
 GG
+NG
 NG
 NG
 NG
@@ -32869,14 +32832,14 @@ fd
 Qa
 PG
 do
-do
 fw
 fw
 NJ
 PG
-JY
-JY
+AW
+AW
 GG
+NG
 NG
 NG
 NG
@@ -33071,14 +33034,14 @@ Gn
 Lh
 PG
 Ne
-Ne
 pP
 eo
 fm
 Wo
-JY
-JY
+AW
+AW
 GG
+NG
 NG
 NG
 NG
@@ -33277,10 +33240,10 @@ PG
 PG
 PG
 PG
-PG
-JY
-JY
+AW
+AW
 GG
+NG
 NG
 NG
 NG
@@ -33476,13 +33439,13 @@ fw
 ls
 fw
 fw
-fw
 yg
 GA
 Wo
-JY
-JY
+AW
+AW
 GG
+NG
 NG
 NG
 NG
@@ -33677,14 +33640,14 @@ Qa
 Qa
 PG
 fw
-fw
 fu
 fu
 fw
 ls
-GQ
-JY
+bx
+AW
 GG
+NG
 NG
 NG
 NG
@@ -33879,14 +33842,14 @@ NC
 Lh
 PG
 Ne
-Ne
 pP
 NJ
 NJ
 Xl
-JY
-NG
+XM
+AW
 GG
+NG
 NG
 NG
 NG
@@ -34083,12 +34046,12 @@ PG
 PG
 PG
 PG
-PG
 Xl
 Xl
-JY
-JY
+AW
+AW
 GG
+NG
 NG
 NG
 NG
@@ -34287,10 +34250,10 @@ NG
 NG
 NG
 NG
-NG
 qU
 qU
 jQ
+NG
 NG
 NG
 NG
