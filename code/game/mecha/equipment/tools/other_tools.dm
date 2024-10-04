@@ -179,7 +179,7 @@
 	name = "armor booster module (Ranged Weaponry)"
 	desc = "A large plate of hardened steel, can be attached to a vehicle to boost its defense at the cost of miles per gallon. The shape makes it only useful against ranged attacks."
 	icon_state = "mecha_abooster_proj"
-	armor_mod = list("melee" = 0, "bullet" = 15, "laser" = 10, "energy" = 5, "bomb" = 0, "bio" = 0, "fire" = 0, "acid" = 0)
+	armor_mod = list("melee" = 0, "bullet" = 12.5, "laser" = 10, "energy" = 5, "bomb" = 0, "bio" = 0, "fire" = 0, "acid" = 0)
 	move_power_drain = 1.5
 
 ////////////////////////////////// REPAIR DROID //////////////////////////////////////////////////

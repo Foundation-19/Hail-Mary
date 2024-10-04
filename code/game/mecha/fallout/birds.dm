@@ -16,6 +16,7 @@
 	wreckage = /obj/structure/mecha_wreckage/vertibird
 	add_req_access = 1
 	internal_damage_threshold = 25
+	deflect_chance = 30
 	max_utility_equip = 4
 	max_weapons_equip = 4
 	max_misc_equip = 2

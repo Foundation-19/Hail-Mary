@@ -6,7 +6,7 @@
 	dir_in = 2 //Facing South.
 	step_energy_drain = 3
 	max_integrity = 200
-	deflect_chance = 30
+	deflect_chance = 5
 	armor = ARMOR_VALUE_HEAVY
 	max_temperature = 25000
 	infra_luminosity = 3
