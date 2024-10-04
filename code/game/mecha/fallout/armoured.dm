@@ -16,7 +16,6 @@
 	max_weapons_equip = 1
 	max_misc_equip = 1
 	facing_modifiers = list(FRONT_ARMOUR = 1.25, SIDE_ARMOUR = 1, BACK_ARMOUR = 0.85)
-	cramped_cabin = TRUE
 
 /obj/mecha/combat/phazon/buggy/GrantActions(mob/living/user, human_occupant = 0)
 	cycle_action.Grant(user, src)
@@ -65,7 +64,6 @@
 	max_weapons_equip = 2
 	max_misc_equip = 1
 	facing_modifiers = list(FRONT_ARMOUR = 1.5, SIDE_ARMOUR = 1, BACK_ARMOUR = 0.7)
-	cramped_cabin = TRUE
 
 /obj/mecha/combat/phazon/m4sherman_cemx/GrantActions(mob/living/user, human_occupant = 0)
 	cycle_action.Grant(user, src)
