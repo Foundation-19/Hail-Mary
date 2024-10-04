@@ -145,6 +145,7 @@
 	desc = "A prewar combat helmet issued to S.W.A.T. personnel."
 	icon_state = "swatsyndie"
 	item_state = "swatsyndie"
+	clothing_flags = CUSHIONED_ARMOR
 	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T2)
 
 

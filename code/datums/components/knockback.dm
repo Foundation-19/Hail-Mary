@@ -31,6 +31,12 @@
 /datum/component/knockback/proc/item_afterattack(obj/item/source, atom/target, mob/user, proximity_flag, click_parameters)
 	if(!proximity_flag)
 		return
+	if(iscarbon(target))
+		var/mob/living/carbon/C = target
+		var/obj/item/clothing/S = C.get_item_by_slot(SLOT_WEAR_SUIT)
+		var/obj/item/clothing/H = C.get_item_by_slot(SLOT_HEAD)
+		if(S && S.clothing_flags & CUSHIONED_ARMOR || H && H.clothing_flags & CUSHIONED_ARMOR)
+			return
 	do_knockback(target, user, get_dir(source, target))
 
 /// triggered after a hostile simplemob attacks something
