@@ -7,14 +7,13 @@
 	icon_state = "ncrtruck"
 	pixel_x = -22
 	pixel_y = -5
-	max_integrity = 600
+	max_integrity = 300
 	step_in = 1.2
 	armor = ARMOR_VALUE_VEHICLE_MEDIUM
 	step_energy_drain = 0.6
 	stepsound = 'sound/f13machines/buggy_loop.ogg'
 	turnsound = 'sound/f13machines/buggy_loop.ogg'
 	wreckage = /obj/structure/mecha_wreckage/ncrtruck
-	var/hides = 0
 
 	max_weapons_equip = 1
 	max_utility_equip = 8
