@@ -10,7 +10,7 @@
 	max_integrity = 500
 	step_energy_drain = 1.25
 	step_in = 1.5
-	armor = ARMOR_VALUE_VEHICLE_ARMOURED
+	armor = ARMOR_VALUE_VEHICLE_ARMORED
 	wreckage = /obj/structure/mecha_wreckage/armoured_jeep
 	max_utility_equip = 3
 	max_weapons_equip = 1
@@ -54,10 +54,12 @@
 	desc = "A authentic Sherman, this prototype model is part of the Compact Enhanced Mobility lineage and has been fitted with a quadruped propulsion system, the main 75mm cannon has been replaced with twin light sponsons, and much of the orignal armour has been removed. Much of the interior space is occupied by advanced electronics designed to allow a single occupant to command, gun and drive at the same time. The Sherman CEM(x) program was  discontinued shortly after the creation of only a few prototypes for unknown reasons."
 	icon = 'icons/mecha/sherman.dmi'
 	icon_state = "sherman"
+	pixel_x = -8
+	pixel_y = -4
 	max_integrity = 700 // its a tank!
 	step_in = 3 // its a tank..
 	step_energy_drain = 1.5
-	armor = ARMOR_VALUE_VEHICLE_ARMOURED_HEAVY
+	armor = ARMOR_VALUE_VEHICLE_ARMORED_HEAVY
 	wreckage = /obj/structure/mecha_wreckage/sherman
 	max_utility_equip = 2
 	max_weapons_equip = 2

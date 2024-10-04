@@ -1257,8 +1257,10 @@ SOPORIFIC ROUND CODE
 
 // Tracer rounds! For vehicles.
 
-/obj/item/projectile/bullet/c9mm/improvised/tracer
+/obj/item/projectile/bullet/c9mm/tracer/minigun
 	name = "9mm improvised tracer bullet"
+	damage = BULLET_DAMAGE_PISTOL_9MM_HANDLOAD
+	armour_penetration = 0.2
 
 	light_range = 3
 	light_power = 0.7
@@ -1270,3 +1272,12 @@ SOPORIFIC ROUND CODE
 	light_range = 2
 	light_power = 0.5
 	light_color = "#FF7F01"
+
+
+/obj/item/projectile/bullet/c9mm/improvised/tracer
+	name = "9mm tracer bullet"
+
+	light_range = 2
+	light_power = 0.5
+	light_color = "#FF7F01"
+

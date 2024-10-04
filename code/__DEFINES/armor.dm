@@ -1154,11 +1154,11 @@ GLOBAL_LIST_INIT(all_armor_types, list(
  * 15mm+ RHA
  * * * * * * * * * * * */
 
-#define ARMOR_VALUE_VEHICLE_ARMOURED list(\
+#define ARMOR_VALUE_VEHICLE_ARMORED list(\
 		"melee" = 75, \
 		"bullet" = 50, \
-		"laser" = 50, \
-		"energy" = 25, \
+		"laser" = 30, \
+		"energy" = 20, \
 		"bomb" = 35, \
 		"bio" = 100, \
 		"rad" = 50, \
@@ -1173,11 +1173,11 @@ GLOBAL_LIST_INIT(all_armor_types, list(
  * 25mm+ RHA
  * * * * * * * * * * * */
 
-#define ARMOR_VALUE_VEHICLE_ARMOURED_HEAVY list(\
-		"melee" = 85, \
-		"bullet" = 65, \
-		"laser" = 65, \
-		"energy" = 40, \
+#define ARMOR_VALUE_VEHICLE_ARMORED_HEAVY list(\
+		"melee" = 80, \
+		"bullet" = 60, \
+		"laser" = 50, \
+		"energy" = 30, \
 		"bomb" = 50, \
 		"bio" = 100, \
 		"rad" = 100, \
