@@ -41,7 +41,7 @@
 //Don't set this very much higher then 1024 unless you like inviting people in to dos your server with message spam
 #define MAX_MESSAGE_LEN			4096		//Citadel edit: What's the WORST that could happen?
 #define MAX_FLAVOR_LEN			4096
-#define MIN_FLAVOR_LEN			100
+#define MIN_FLAVOR_LEN			75
 #define MIN_OOC_LEN				20 // Will not allow just smileys to be on OOC notes.
 #define MAX_TASTE_LEN			40
 #define MAX_NAME_LEN			42
