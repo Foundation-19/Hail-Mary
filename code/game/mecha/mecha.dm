@@ -106,7 +106,6 @@
 
 	var/list/cargo = new
 	var/cargo_capacity = 0 // for now, copy attributes from ripley so don't have to remap // lazy
-	var/cramped_cabin = FALSE
 
 	/// a list of all vision traits to give to the occupant.
 	var/list/vision_modes = list()
@@ -959,9 +958,6 @@
 	if(user.has_buckled_mobs()) //mob attached to us
 		to_chat(user, "<span class='warning'>You can't enter the exosuit with other creatures attached to you!</span>")
 		return
-	if(cramped_cabin && check_clothing())
-		to_chat(user, "<span class='warning'>This vehicle's cabin is too cramped when you have a helmet or outer suit on!</span>")
-		return
 
 	visible_message("[user] starts to climb into [name].")
 
@@ -1052,11 +1048,6 @@
 		SEND_SOUND(occupant, sound('sound/mecha/nominal.ogg',volume=50))
 	GrantActions(brainmob)
 	grant_vision()
-	return TRUE
-
-/obj/mecha/proc/check_clothing(mob/living/carbon/human/user)
-	if(user.wear_suit && (user.wear_suit != src))
-		return FALSE
 	return TRUE
 
 /obj/mecha/container_resist(mob/living/user)
