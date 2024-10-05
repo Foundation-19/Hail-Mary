@@ -81,7 +81,7 @@
 	desc = "A truck running on powercells. Nice eh ? still a wreck. This Truck has been given to the NCR MPs, the running gear has been improved."
 	icon = 'icons/mecha/ncrtruck-mp.dmi'
 	icon_state = "ncrtruck"
-	max_integrity = 600
+	max_integrity = 400
 	step_in = 1
 	step_energy_drain = 0.6
 	armor = ARMOR_VALUE_VEHICLE_MEDIUM
