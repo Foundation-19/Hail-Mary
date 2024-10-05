@@ -97,10 +97,29 @@
 	step_in = 1.6
 	step_energy_drain = 0.6
 	armor = ARMOR_VALUE_VEHICLE_HEAVY
+	stepsound = 'sound/effects/footstep/gallop2.ogg'
+	turnsound = 'sound/effects/footstep/gallop1.ogg'
+	wreckage = /obj/structure/mecha_wreckage/fallout
 
 	max_utility_equip = 4
 	max_weapons_equip = 1
 	max_misc_equip = 1
+
+/obj/mecha/combat/phazon/truckcaravan/GrantActions(mob/living/user, human_occupant = 0)
+	cycle_action.Grant(user, src)
+	lights_action.Grant(user, src)
+	stats_action.Grant(user, src)
+	eject_action.Grant(user, src)
+	klaxon_action.Grant(user, src)
+	smoke_action.Grant(user, src)
+
+/obj/mecha/combat/phazon/truckcaravan/RemoveActions(mob/living/user, human_occupant = 0)
+	cycle_action.Remove(user)
+	lights_action.Remove(user)
+	stats_action.Remove(user)
+	eject_action.Remove(user)
+	klaxon_action.Remove(user)
+	smoke_action.Remove(user)
 
 /obj/mecha/combat/phazon/truckcaravan/loaded/Initialize()
 	. = ..()
