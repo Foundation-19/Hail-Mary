@@ -541,7 +541,7 @@
 	category = list("initial", "Intermediate Magazines")
 
 /datum/design/ammolathe/w308
-	name = "empty sniper rifle magazine (.308)"
+	name = "empty sniper rifle magazine (.30-06)"
 	id = "w308"
 	materials = list(/datum/material/iron = 6000)
 	build_path = /obj/item/ammo_box/magazine/w3006/empty

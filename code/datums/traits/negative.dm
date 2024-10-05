@@ -60,7 +60,7 @@ GLOBAL_LIST_EMPTY(family_heirlooms)
 	var/mob/living/carbon/human/H = quirk_holder
 	var/obj/item/heirloom_type
 	if(quirk_holder.mind.assigned_role)
-		if(quirk_holder.mind.assigned_role in list("Head Paladin", "Paladin", "Head Knight", "Senior Knight", "Knight", "Senior Scribe", "Scribe", "Initiate"))
+		if(quirk_holder.mind.assigned_role in list("Paladin Commander", "Paladin", "Head Knight", "Senior Knight", "Knight Sergeant", "Knight", "Senior Scribe", "Scribe", "Initiate"))
 			heirloom_type = pick(/obj/item/card/id/rusted/brokenholodog, /obj/item/trash/f13/electronic/toaster)	
 		if(quirk_holder.mind.assigned_role in list("NCR Captain", "NCR Lieutenant", "NCR Veteran Ranger", "NCR Brahmin Baron", "NCR Ranger", "NCR Heavy Trooper", "NCR Sergeant", "NCR Corporal", "NCR Conscript ", "NCR Trooper", "NCR Military Police", "NCR Rear Echelon"))
 			heirloom_type = pick(/obj/item/melee/onehanded/knife/bayonet, /obj/item/lighter, /obj/item/toy/cards/deck, /obj/item/card/id/rusted)
