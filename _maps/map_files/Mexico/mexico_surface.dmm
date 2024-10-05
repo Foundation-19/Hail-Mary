@@ -2827,7 +2827,7 @@
 /turf/open/floor/wood_common,
 /area/f13/city)
 "cHY" = (
-/mob/living/simple_animal/hostile/ghoul/soldier/armored,
+/mob/living/simple_animal/hostile/ghoul/reaver,
 /turf/open/floor/wood_fancy,
 /area/f13/city)
 "cJM" = (
@@ -3324,7 +3324,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/ghoul/soldier/armored,
+/mob/living/simple_animal/hostile/ghoul/reaver,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/city)
 "dfO" = (
@@ -3991,7 +3991,7 @@
 /turf/open/indestructible/ground/outside/desert,
 /area/f13/wasteland)
 "dIj" = (
-/mob/living/simple_animal/hostile/ghoul/scorched,
+/mob/living/simple_animal/hostile/ghoul,
 /turf/open/indestructible/ground/outside/dirt/dark{
 	icon_state = "dirt_dark";
 	dir = 4
@@ -4494,7 +4494,7 @@
 /area/f13/wasteland)
 "eje" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/ghoul/soldier/armored,
+/mob/living/simple_animal/hostile/ghoul/reaver,
 /turf/open/floor/wood_common,
 /area/f13/city)
 "ejo" = (
@@ -5795,7 +5795,7 @@
 /obj/effect/decal/cleanable/dirt{
 	color = "#363636"
 	},
-/mob/living/simple_animal/hostile/ghoul/soldier,
+/mob/living/simple_animal/hostile/ghoul,
 /turf/open/floor/wood_common,
 /area/f13/city)
 "flr" = (
@@ -6302,7 +6302,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/ghoul/soldier,
+/mob/living/simple_animal/hostile/ghoul,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/city)
 "fEP" = (
@@ -6390,7 +6390,7 @@
 /turf/open/floor/wood_fancy,
 /area/f13/farmhouse)
 "fJL" = (
-/mob/living/simple_animal/hostile/ghoul/scorched,
+/mob/living/simple_animal/hostile/ghoul,
 /turf/open/indestructible/ground/outside/road{
 	icon_state = "horizontalinnermain1"
 	},
@@ -6542,7 +6542,7 @@
 /obj/effect/decal/cleanable/dirt{
 	color = "#363636"
 	},
-/mob/living/simple_animal/hostile/ghoul/soldier,
+/mob/living/simple_animal/hostile/ghoul,
 /turf/open/floor/f13/wood{
 	sunlight_state = 1;
 	name = "Wooden docks"
@@ -7233,7 +7233,7 @@
 "gyg" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/ghoul/soldier,
+/mob/living/simple_animal/hostile/ghoul,
 /turf/open/floor/f13/wood{
 	sunlight_state = 1;
 	name = "Wooden docks"
@@ -7459,12 +7459,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/city)
-"gKR" = (
-/obj/mecha/combat/phazon/buggy/legionarmed/loaded{
-	dir = 8
-	},
-/turf/open/indestructible/ground/outside/desert,
-/area/f13/wasteland)
 "gLe" = (
 /obj/structure/destructible/tribal_torch/wall/lit,
 /turf/open/indestructible/ground/outside/desert,
@@ -7500,7 +7494,7 @@
 "gNd" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/ghoul/soldier/armored,
+/mob/living/simple_animal/hostile/ghoul/reaver,
 /turf/open/floor/f13/wood{
 	sunlight_state = 1;
 	name = "Wooden docks"
@@ -7824,7 +7818,7 @@
 "hfV" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/ghoul/soldier/armored,
+/mob/living/simple_animal/hostile/ghoul/reaver,
 /turf/open/floor/wood_common,
 /area/f13/city)
 "hgc" = (
@@ -8206,7 +8200,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/ghoul/soldier,
+/mob/living/simple_animal/hostile/ghoul,
 /turf/open/floor/plasteel/f13/vault_floor/misc/rarewhite,
 /area/f13/city)
 "hAi" = (
@@ -8633,10 +8627,6 @@
 	icon_state = "horizontalinnermain1"
 	},
 /area/f13/wasteland)
-"hVC" = (
-/mob/living/simple_animal/hostile/ghoul/zombie/glowing,
-/turf/closed/wall/f13/ruins,
-/area/f13/city)
 "hWx" = (
 /obj/structure/window/fulltile/ruins/broken{
 	icon_state = "storewindowvertical"
@@ -9222,7 +9212,7 @@
 	},
 /area/f13/legioncamp)
 "iyc" = (
-/mob/living/simple_animal/hostile/ghoul/scorched,
+/mob/living/simple_animal/hostile/ghoul,
 /turf/open/indestructible/ground/outside/desert,
 /area/f13/wasteland)
 "iyz" = (
@@ -11965,12 +11955,6 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/plating,
 /area/f13/enclave)
-"ldg" = (
-/obj/mecha/combat/phazon/buggy/legion{
-	dir = 8
-	},
-/turf/open/indestructible/ground/outside/desert,
-/area/f13/wasteland)
 "ldw" = (
 /obj/structure/table/rolling,
 /obj/effect/spawner/bundle/f13/mexican,
@@ -13686,7 +13670,7 @@
 /obj/effect/decal/cleanable/dirt{
 	color = "#363636"
 	},
-/mob/living/simple_animal/hostile/ghoul/soldier/armored,
+/mob/living/simple_animal/hostile/ghoul/reaver,
 /turf/open/floor/wood_common,
 /area/f13/city)
 "mIa" = (
@@ -14620,7 +14604,7 @@
 /obj/effect/decal/cleanable/dirt{
 	color = "#363636"
 	},
-/mob/living/simple_animal/hostile/ghoul/soldier,
+/mob/living/simple_animal/hostile/ghoul,
 /turf/open/floor/wood_common,
 /area/f13/city)
 "nAT" = (
@@ -14722,7 +14706,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/ghoul/scorched,
+/mob/living/simple_animal/hostile/ghoul,
 /turf/open/floor/plating/rust,
 /area/f13/city)
 "nGd" = (
@@ -16266,7 +16250,7 @@
 	},
 /area/f13/legioncamp)
 "oZE" = (
-/mob/living/simple_animal/hostile/ghoul/scorched,
+/mob/living/simple_animal/hostile/ghoul,
 /turf/open/indestructible/ground/outside/dirt/dark{
 	icon_state = "dirtfull_dark"
 	},
@@ -17412,6 +17396,13 @@
 /obj/structure/barricade/wooden/planks,
 /turf/open/floor/wood_common,
 /area/f13/city)
+"qci" = (
+/obj/structure/flora/grass/jungle/b,
+/mob/living/simple_animal/hostile/ghoul/zombie/glowing,
+/turf/open/indestructible/ground/outside/dirt/dark{
+	icon_state = "dirtfull_dark"
+	},
+/area/f13/wasteland)
 "qck" = (
 /obj/effect/turf_decal/weather/dirt,
 /obj/effect/turf_decal/weather/dirt{
@@ -17858,7 +17849,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/ghoul/soldier/armored,
+/mob/living/simple_animal/hostile/ghoul/reaver,
 /turf/open/floor/wood_common,
 /area/f13/city)
 "qBu" = (
@@ -19090,8 +19081,8 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/ghoul/soldier/armored,
-/mob/living/simple_animal/hostile/ghoul/soldier/armored,
+/mob/living/simple_animal/hostile/ghoul/reaver,
+/mob/living/simple_animal/hostile/ghoul/reaver,
 /turf/open/floor/carpet,
 /area/f13/city)
 "rIy" = (
@@ -19239,7 +19230,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/ghoul/scorched,
+/mob/living/simple_animal/hostile/ghoul,
 /turf/open/floor/plasteel/f13/vault_floor/misc/bar,
 /area/f13/city)
 "rOK" = (
@@ -19560,7 +19551,7 @@
 /area/f13/wasteland)
 "sfL" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/ghoul/soldier,
+/mob/living/simple_animal/hostile/ghoul,
 /turf/open/floor/plasteel/f13/vault_floor/misc/bar,
 /area/f13/city)
 "sgo" = (
@@ -23166,7 +23157,7 @@
 	color = "#363636"
 	},
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/ghoul/soldier,
+/mob/living/simple_animal/hostile/ghoul,
 /turf/open/floor/wood_common,
 /area/f13/city)
 "vyG" = (
@@ -24476,7 +24467,7 @@
 "wRq" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/ghoul/scorched,
+/mob/living/simple_animal/hostile/ghoul,
 /turf/open/floor/plasteel/f13/vault_floor/misc/bar,
 /area/f13/city)
 "wRs" = (
@@ -49718,7 +49709,7 @@ mmA
 mmA
 mmA
 mmA
-aXt
+qci
 mmA
 mmA
 mmA
@@ -49920,7 +49911,7 @@ iHT
 iHT
 iHT
 iHT
-hVC
+iHT
 iHT
 iHT
 iHT
@@ -50015,7 +50006,7 @@ eQA
 eQA
 eQA
 jnY
-jnY
+eQA
 eQA
 eQA
 eQA
@@ -50828,8 +50819,8 @@ mKx
 ylF
 mKx
 mLR
-eQA
-eQA
+ylF
+ylF
 wsb
 doy
 nnV
@@ -52010,7 +52001,7 @@ mmA
 crO
 eaw
 jMg
-rii
+kKH
 kKH
 njE
 rZg
@@ -54607,7 +54598,7 @@ eMZ
 mmA
 lNn
 hBk
-ldg
+wsb
 tTR
 ubR
 ewu
@@ -55415,7 +55406,7 @@ eMZ
 mmA
 lNn
 wsb
-ldg
+wsb
 ekt
 lwo
 mDh
@@ -56021,7 +56012,7 @@ mIm
 uGb
 mmA
 lNn
-gKR
+wsb
 bIB
 bIY
 mDh

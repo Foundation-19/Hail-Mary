@@ -1298,7 +1298,7 @@
 /obj/effect/decal/cleanable/dirt{
 	color = "#363636"
 	},
-/mob/living/simple_animal/hostile/ghoul/soldier/armored,
+/mob/living/simple_animal/hostile/ghoul/reaver,
 /turf/open/floor/wood_common,
 /area/f13/city)
 "hu" = (
@@ -4792,7 +4792,7 @@
 	color = "#363636"
 	},
 /obj/structure/chair/office/light,
-/mob/living/simple_animal/hostile/ghoul/soldier/armored,
+/mob/living/simple_animal/hostile/ghoul/reaver,
 /obj/effect/spawner/lootdrop/f13/weapon/gun/ammo/tier3,
 /turf/open/floor/wood_common,
 /area/f13/city)
@@ -7058,7 +7058,7 @@
 /obj/effect/decal/cleanable/dirt{
 	color = "#363636"
 	},
-/mob/living/simple_animal/hostile/ghoul/soldier/armored,
+/mob/living/simple_animal/hostile/ghoul/reaver,
 /turf/open/floor/wood_common,
 /area/f13/city)
 "Lc" = (
