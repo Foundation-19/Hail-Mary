@@ -151,33 +151,31 @@
 	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/fallout13
 	ME.attach(src)
 
-/obj/mecha/combat/phazon/pickuptruck/mechanic/go_out()
+/obj/mecha/combat/phazon/pickuptruck/mechanics_pickuptruck/go_out()
 	..()
 	update_icon()
 
-/obj/mecha/combat/phazon/pickuptruck/mechanic/moved_inside(mob/living/carbon/human/H)
+/obj/mecha/combat/phazon/pickuptruck/mechanics_pickuptruck/moved_inside(mob/living/carbon/human/H)
 	..()
 	update_icon()
 
-/obj/mecha/combat/phazon/pickuptruck/mechanic/GrantActions(mob/living/user, human_occupant = 0)
+/obj/mecha/combat/phazon/pickuptruck/mechanics_pickuptruck/GrantActions(mob/living/user, human_occupant = 0)
 	cycle_action.Grant(user, src)
 	lights_action.Grant(user, src)
 	stats_action.Grant(user, src)
 	eject_action.Grant(user, src)
 	klaxon_action.Grant(user, src)
 
-/obj/mecha/combat/phazon/pickuptruck/mechanic/RemoveActions(mob/living/user, human_occupant = 0)
+/obj/mecha/combat/phazon/pickuptruck/mechanics_pickuptruck/RemoveActions(mob/living/user, human_occupant = 0)
 	cycle_action.Remove(user)
 	lights_action.Remove(user)
 	stats_action.Remove(user)
 	eject_action.Remove(user)
 	klaxon_action.Remove(user)
 
-/obj/mecha/combat/phazon/pickuptruck/mechanic/loaded/Initialize()
+/obj/mecha/combat/phazon/pickuptruck/mechanics_pickuptruck/loaded/Initialize()
 	. = ..()
 	var/obj/item/mecha_parts/mecha_equipment/ME = new
-	ME = new /obj/item/mecha_parts/mecha_equipment/seat
-	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/seat
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/seat
@@ -205,29 +203,29 @@
 	max_utility_equip = 4
 	max_misc_equip = 1
 
-/obj/mecha/combat/phazon/jeep/go_out()
+/obj/mecha/combat/phazon/pickuptruck/jeep/go_out()
 	..()
 	update_icon()
 
-/obj/mecha/combat/phazon/jeep/moved_inside(mob/living/carbon/human/H)
+/obj/mecha/combat/phazon/pickuptruck/jeep/moved_inside(mob/living/carbon/human/H)
 	..()
 	update_icon()
 
-/obj/mecha/combat/phazon/jeep/GrantActions(mob/living/user, human_occupant = 0)
+/obj/mecha/combat/phazon/pickuptruck/jeep/GrantActions(mob/living/user, human_occupant = 0)
 	cycle_action.Grant(user, src)
 	lights_action.Grant(user, src)
 	stats_action.Grant(user, src)
 	eject_action.Grant(user, src)
 	klaxon_action.Grant(user, src)
 
-/obj/mecha/combat/phazon/jeep/RemoveActions(mob/living/user, human_occupant = 0)
+/obj/mecha/combat/phazon/pickuptruck/jeep/RemoveActions(mob/living/user, human_occupant = 0)
 	cycle_action.Remove(user)
 	lights_action.Remove(user)
 	stats_action.Remove(user)
 	eject_action.Remove(user)
 	klaxon_action.Remove(user)
 
-/obj/mecha/combat/phazon/jeep/loaded/Initialize()
+/obj/mecha/combat/phazon/pickuptruck/jeep/loaded/Initialize()
 	. = ..()
 	var/obj/item/mecha_parts/mecha_equipment/ME = new
 	ME = new /obj/item/mecha_parts/mecha_equipment/seat
@@ -240,7 +238,7 @@
 
 //jeep Enclave
 
-/obj/mecha/combat/phazon/jeep/enclave
+/obj/mecha/combat/phazon/pickuptruck/jeep/enclave
 	name = "\improper pickup truck"
 	desc = "A old military vehicule, runing on fuel., and recolored"
 	icon = 'icons/mecha/jeepenclave.dmi'
@@ -248,7 +246,7 @@
 
 ///jeep BOS
 
-/obj/mecha/combat/phazon/jeep/bos
+/obj/mecha/combat/phazon/pickuptruck/jeep/bos
 	name = "\improper pickup truck"
 	desc = "A old military vehicule, runing on fuel, and recolored"
 	icon = 'icons/mecha/jeepbos.dmi'

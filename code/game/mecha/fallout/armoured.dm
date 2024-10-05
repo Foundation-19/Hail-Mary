@@ -17,14 +17,14 @@
 	max_misc_equip = 1
 	facing_modifiers = list(FRONT_ARMOUR = 1.25, SIDE_ARMOUR = 1, BACK_ARMOUR = 0.85)
 
-/obj/mecha/combat/phazon/buggy/GrantActions(mob/living/user, human_occupant = 0)
+/obj/mecha/combat/phazon/armoured_jeep/GrantActions(mob/living/user, human_occupant = 0)
 	cycle_action.Grant(user, src)
 	lights_action.Grant(user, src)
 	stats_action.Grant(user, src)
 	eject_action.Grant(user, src)
 	klaxon_action.Grant(user, src)
 
-/obj/mecha/combat/phazon/buggy/RemoveActions(mob/living/user, human_occupant = 0)
+/obj/mecha/combat/phazon/armoured_jeep/RemoveActions(mob/living/user, human_occupant = 0)
 	cycle_action.Remove(user)
 	lights_action.Remove(user)
 	stats_action.Remove(user)
