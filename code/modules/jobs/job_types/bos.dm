@@ -47,10 +47,17 @@ Main doors: ACCESS_BOS 120
 		return
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/tribalradio)
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/durathread_vest)
-	H.mind.teach_crafting_recipe(/datum/crafting_recipe/boscombatarmor)
-	H.mind.teach_crafting_recipe(/datum/crafting_recipe/boscombathelmet)
-	H.mind.teach_crafting_recipe(/datum/crafting_recipe/boscombatarmormk2)
-	H.mind.teach_crafting_recipe(/datum/crafting_recipe/boscombathelmetmk2)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_t45helm_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_t45_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_st45helm_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_st45_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_t51_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_ca_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_ca_helm_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_rca_helm_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_rca_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_riot_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_riot_helm_convert)
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/set_vrboard/bos)
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/gate_bos)
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bosoutcastlight)
@@ -70,6 +77,7 @@ Elder Envoy
 	spawn_positions = 0
 	selection_color = "#7f8c8d"
 	outfit = /datum/outfit/job/bos/f13envoy
+	req_admin_notify = 1
 
 	access = list(ACCESS_BROTHERHOOD_COMMAND, ACCESS_ROBOTICS, ACCESS_BOS, ACCESS_ENGINE_EQUIP, ACCESS_ENGINE, ACCESS_HYDROPONICS, ACCESS_MINERAL_STOREROOM, ACCESS_KITCHEN, ACCESS_BAR, ACCESS_SEC_DOORS, ACCESS_CHANGE_IDS)
 	minimal_access = list(ACCESS_BROTHERHOOD_COMMAND, ACCESS_ROBOTICS, ACCESS_BOS, ACCESS_ENGINE_EQUIP, ACCESS_ENGINE, ACCESS_HYDROPONICS, ACCESS_MINERAL_STOREROOM, ACCESS_KITCHEN, ACCESS_BAR, ACCESS_SEC_DOORS, ACCESS_CHANGE_IDS)
@@ -134,6 +142,18 @@ Sentinel
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/medx/chemistry)
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/buffout)
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/steady)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_t45helm_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_t45_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_st45helm_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_st45_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_t51_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_t51helm_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_ca_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_ca_helm_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_rca_helm_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_rca_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_riot_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_riot_helm_convert)
 	ADD_TRAIT(H, TRAIT_CHEMWHIZ, src)
 
 /datum/outfit/job/bos/f13sentinel
@@ -146,7 +166,7 @@ Sentinel
 	neck = /obj/item/clothing/neck/mantle/bos/right
 	ears = /obj/item/radio/headset/headset_bos/command
 	backpack_contents = list(
-		//obj/item/melee/powerfist/f13 = 1,
+		/obj/item/melee/powerfist/f13 = 1,
 		/obj/item/melee/onehanded/knife/hunting = 1
 
 	)
@@ -156,22 +176,22 @@ Paladin Commander
 */
 
 /datum/job/bos/f13paladincommander
-	title = "Head Paladin"
+	title = "Paladin Commander"
 	flag = F13PALADINCOMMANDER
 	head_announce = list("Security")
-	total_positions = 0
-	spawn_positions = 0
-	description = "You are the acting field commander until the Brotherhood regains its strength enough to place an Elder for the bunker. You are a veteran of many battles and sorties in pursuit of Brotherhood goals; your only weakness may just be your hubris. Your main goals are defense of the Chapter and surveillance of the surrounding region for technology."
-	supervisors = "the Elders"
+	total_positions = 1
+	spawn_positions = 1
+	description = "You are the Paladin Commander, leader of the expedition. Work with your small expeditionary force to secure the land and remove the enemy. You are in charge of the expedition and as such you are in-charge of the faction. You should not attempt to fight everyone you see but rather use your rank and skill to secure the land and remove your enemy. "
+	supervisors = "the Elders or their Envoys"
 	selection_color = "#7f8c8d"
 	display_order = JOB_DISPLAY_ORDER_COMMANDER
 	outfit = /datum/outfit/job/bos/f13commander
-	exp_requirements = 2400
+	exp_requirements = 2280
 
-	loadout_options = list(
+	/*loadout_options = list(
 	/datum/outfit/loadout/sentheavy, //Gauss + Glock
 	/datum/outfit/loadout/sentmini //Minigun
-	)
+	)*/
 
 	min_required_special = list(
 		"special_c" = 4,
@@ -197,7 +217,18 @@ Paladin Commander
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/medx)
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/medx/chemistry)
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/buffout)
-	H.mind.teach_crafting_recipe(/datum/crafting_recipe/steady)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_t45helm_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_t45_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_st45helm_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_st45_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_t51_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_t51helm_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_ca_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_ca_helm_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_rca_helm_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_rca_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_riot_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_riot_helm_convert)
 	ADD_TRAIT(H, TRAIT_CHEMWHIZ, src)
 	ADD_TRAIT(H, TRAIT_LIFEGIVER, src)
 	ADD_TRAIT(H, TRAIT_IRONFIST, src)
@@ -206,7 +237,7 @@ Paladin Commander
 		H.mind.AddSpell(S)
 
 /datum/outfit/job/bos/f13commander
-	name = "Head Paladin"
+	name = "Paladin Commander"
 	jobtype = /datum/job/bos/f13paladincommander
 	uniform = /obj/item/clothing/under/f13/recon
 	belt = /obj/item/storage/belt/army/assault
@@ -214,32 +245,38 @@ Paladin Commander
 	glasses = /obj/item/clothing/glasses/sunglasses
 	mask = /obj/item/clothing/mask/gas/sechailer
 	ears = /obj/item/radio/headset/headset_bos/command
-	suit = /obj/item/clothing/suit/armor/power_armor/t51b
-	head = /obj/item/clothing/head/helmet/f13/power_armor/t51b
-	neck = /obj/item/clothing/neck/mantle/bos/paladin
+	suit = /obj/item/clothing/suit/armor/power_armor/t51b/palcomm
+	suit_store = /obj/item/gun/ballistic/automatic/lewis
+	head = /obj/item/clothing/head/helmet/f13/power_armor/t51b/palcomm
+	neck = /obj/item/storage/belt/shoulderholster
 	backpack_contents = list(
 		/obj/item/melee/onehanded/knife/hunting = 1,
-		/obj/item/melee/powerfist/f13 = 1,
-		/obj/item/gun/ballistic/automatic/pistol/n99/crusader = 1,
-		/obj/item/ammo_box/magazine/m10mm/adv/simple = 2,
-		/obj/item/reagent_containers/hypospray/medipen/stimpak = 6,
+		/obj/item/reagent_containers/hypospray/medipen/stimpak = 3,
+		/obj/item/ammo_box/magazine/lewis/l47 = 3
 		)
 
-
-/datum/outfit/loadout/sentheavy
+/*
+/datum/outfit/loadout/palcomheavy
 	name = "Heavy Paladin Commander"
 	backpack_contents = list(
-		/obj/item/gun/ballistic/automatic/m72 = 1,
-		/obj/item/ammo_box/magazine/m2mm = 3
+		/obj/item/gun/ballistic/automatic/lewis = 1,
+		/obj/item/ammo_box/magazine/lewis/l47 = 3
 	)
 
-/datum/outfit/loadout/sentmini
-	name = "Minigun Paladin Commander"
+/datum/outfit/loadout/palcomlaser
+	name = "Energy Paladin Commander"
 	backpack_contents = list(
-		/obj/item/minigunpackbal5mm = 1,
+		/obj/item/gun/energy/laser/aer12 = 1,
+		/obj/item/stock_parts/cell/ammo/mfc = 3
 	)
 
-
+/datum/outfit/loadout/palcomhitter
+	name = "Heavy Force Paladin Commander"
+	backpack_contents = list(
+		/obj/item/twohanded/sledgehammer/supersledge = 1,
+		/obj/item/reagent_containers/hypospray/medipen/stimpak/super = 3,
+	)
+*/
 /*
 Proctor
 */
@@ -276,6 +313,18 @@ Proctor
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/medx/chemistry)
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/buffout)
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/steady)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_t45helm_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_t45_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_st45helm_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_st45_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_t51_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_t51helm_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_ca_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_ca_helm_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_rca_helm_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_rca_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_riot_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_riot_helm_convert)
 	ADD_TRAIT(H, TRAIT_MEDICALEXPERT, src)
 	ADD_TRAIT(H, TRAIT_CYBERNETICIST_EXPERT, src)
 	ADD_TRAIT(H, TRAIT_CYBERNETICIST, src)
@@ -317,17 +366,17 @@ Knight-Captain
 */
 
 /datum/job/bos/f13knightcap
-	title = "Knight-Captai"
+	title = "Knight-Captain"
 	flag = F13KNIGHTCAPTAIN
 	head_announce = list("Security")
-	total_positions = 0
-	spawn_positions = 0
+	total_positions = 1
+	spawn_positions = 1
 	description = "You are the Knight-Captain, one of the leaders of your group of outcasts. After the attempted coup by the late Paladin Commander Wossner, you have been wandering the wastes, looking for a new home, and have now found a barely-acceptable place to construct your new chapters' bunker. Your knowledge of pre-war materials and engineering is almost unparalleled, and you have basic combat training and experience. You are in charge of establishing a working foothold, and your Knights and initiates. Delegate to them as necessary. As Chief Armorer, you are also in charge of the armory."
-	supervisors = "the Sentinel"
+	supervisors = "The Paladin Commander"
 	selection_color = "#7f8c8d"
 	display_order = JOB_DISPLAY_ORDER_KNIGHTCAPTAIN
 	outfit = /datum/outfit/job/bos/f13knightcap
-	exp_requirements = 60
+	exp_requirements = 1920
 
 	access = list(ACCESS_BROTHERHOOD_COMMAND, ACCESS_ROBOTICS, ACCESS_BOS, ACCESS_ENGINE_EQUIP, ACCESS_ENGINE, ACCESS_HYDROPONICS, ACCESS_KITCHEN, ACCESS_BAR, ACCESS_SEC_DOORS, ACCESS_ARMORY, ACCESS_BRIG, ACCESS_CHANGE_IDS)
 	minimal_access = list(ACCESS_BROTHERHOOD_COMMAND, ACCESS_ROBOTICS, ACCESS_BOS, ACCESS_ENGINE_EQUIP, ACCESS_ENGINE, ACCESS_HYDROPONICS, ACCESS_KITCHEN, ACCESS_BAR, ACCESS_SEC_DOORS, ACCESS_ARMORY, ACCESS_BRIG, ACCESS_CHANGE_IDS)
@@ -340,6 +389,14 @@ Knight-Captain
 	..()
 	if(visualsOnly)
 		return
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_st45helm_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_st45_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_ca_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_ca_helm_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_rca_helm_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_rca_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_riot_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_riot_helm_convert)
 	ADD_TRAIT(H, TRAIT_PA_WEAR, src)
 
 
@@ -354,14 +411,15 @@ Knight-Captain
 	suit_store = /obj/item/gun/energy/laser/aer12
 	glasses = /obj/item/clothing/glasses/night
 	accessory =	/obj/item/clothing/accessory/bos/knightcaptain
-	l_pocket = /obj/item/storage/belt/shoulderholster
+	l_pocket = /obj/item/storage/belt/sabre/heavy
 	mask = /obj/item/clothing/mask/gas/sechailer
 	head = /obj/item/clothing/head/helmet/f13/combat/brotherhood/captain
 	backpack_contents = list(
 		/obj/item/melee/onehanded/knife/hunting = 1,
-		/obj/item/reagent_containers/hypospray/medipen/stimpak = 5,
+		/obj/item/reagent_containers/hypospray/medipen/stimpak = 3,
 		/obj/item/storage/belt/army/security/full = 1,
-		/obj/item/stock_parts/cell/ammo/mfc = 5
+		/obj/item/stock_parts/cell/ammo/mfc = 3,
+		/obj/item/melee/powered/ripper/prewar = 1,
 		)
 /*
 /datum/outfit/loadout/capalt
@@ -400,6 +458,12 @@ Star Paladin
 	..()
 	if(visualsOnly)
 		return
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_ca_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_ca_helm_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_rca_helm_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_rca_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_riot_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_riot_helm_convert)
 	ADD_TRAIT(H, TRAIT_PA_WEAR, src)
 
 /datum/outfit/job/bos/f13seniorpaladin
@@ -442,11 +506,11 @@ Paladin
 	flag = F13PALADIN
 	total_positions = 1
 	spawn_positions = 1
-	description = "You are this Chapter's main line of defense and offense, and the leader of this expedition; highly trained in combat and weaponry though with little practical field experience, you are eager to prove your worth to the Brotherhood. Your primary duties are defense and surface operations. You may also be assigned a trainee Initiate."
-	supervisors = "the Elders"
+	description = "You are a paladin. Assigned to the expeditionary force through sheer luck or skill. You're one of two power-armor wearers within the force and as such you're to treat it with care. Your posting as a paladin allows you rank over the senior knights and senior scribes. But the Head-Knight, as assigned Second In Command, is above you in rank."
+	supervisors = "the Elders or the Paladin Commander if he is present"
 	display_order = JOB_DISPLAY_ORDER_PALADIN
 	outfit = /datum/outfit/job/bos/f13paladin
-	exp_requirements = 1200
+	exp_requirements = 1680
 /*
 	loadout_options = list(
 	/datum/outfit/loadout/paladina, //Minigun
@@ -478,14 +542,20 @@ Paladin
 	..()
 	if(visualsOnly)
 		return
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_ca_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_ca_helm_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_rca_helm_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_rca_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_riot_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_riot_helm_convert)
 	ADD_TRAIT(H, TRAIT_PA_WEAR, src)
 
 /datum/outfit/job/bos/f13paladin
 	name =	"Paladin"
 	jobtype =	/datum/job/bos/f13paladin
-	suit =	/obj/item/clothing/suit/armor/power_armor/t45d
+	suit =	/obj/item/clothing/suit/armor/power_armor/t45d/bos
 	suit_store = /obj/item/gun/energy/laser/aer12
-	head =	/obj/item/clothing/head/helmet/f13/power_armor/t45d
+	head =	/obj/item/clothing/head/helmet/f13/power_armor/t45d/bos
 	uniform =	/obj/item/clothing/under/f13/recon
 	belt = /obj/item/storage/belt/army/assault
 	mask =	/obj/item/clothing/mask/gas/sechailer
@@ -525,7 +595,7 @@ Senior Scribe
 	supervisors = "the Proctor"
 	display_order = JOB_DISPLAY_ORDER_SENIORSCRIBE
 	outfit = /datum/outfit/job/bos/f13seniorscribe
-	exp_requirements = 900
+	exp_requirements = 1200
 
 	access = list(ACCESS_BROTHERHOOD_COMMAND, ACCESS_ROBOTICS, ACCESS_BOS, ACCESS_ENGINE_EQUIP, ACCESS_ENGINE, ACCESS_HYDROPONICS, ACCESS_KITCHEN, ACCESS_BAR, ACCESS_SEC_DOORS)
 	minimal_access = list(ACCESS_BROTHERHOOD_COMMAND, ACCESS_ROBOTICS, ACCESS_BOS, ACCESS_ENGINE_EQUIP, ACCESS_ENGINE, ACCESS_HYDROPONICS, ACCESS_KITCHEN, ACCESS_BAR, ACCESS_SEC_DOORS)
@@ -545,6 +615,12 @@ Senior Scribe
 	..()
 	if(visualsOnly)
 		return
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_ca_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_ca_helm_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_rca_helm_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_rca_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_riot_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_riot_helm_convert)
 	H.mind.teach_crafting_recipe(GLOB.chemwhiz_recipes)
 	ADD_TRAIT(H, TRAIT_CHEMWHIZ, src)
 	ADD_TRAIT(H, TRAIT_SURGERY_HIGH, src)
@@ -639,11 +715,92 @@ Scribe
 	..()
 	if(visualsOnly)
 		return
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_ca_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_ca_helm_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_rca_helm_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_rca_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_riot_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_riot_helm_convert)
 	H.mind.teach_crafting_recipe(GLOB.chemwhiz_recipes)
 	ADD_TRAIT(H, TRAIT_CHEMWHIZ, src)
 	ADD_TRAIT(H, TRAIT_SURGERY_HIGH, src)
 	ADD_TRAIT(H, TRAIT_CYBERNETICIST, src)
 
+/* 
+Knight Sarge
+*/
+
+/datum/job/bos/f13knightsarge
+	title = "Knight Sergeant"
+	flag = F13KNIGHTSARGE
+	total_positions = 2
+	spawn_positions = 2
+	description = " You are the Knight Sergeant of the Brotherhood Of Steel Expeditionary force, your goal is to maintain order within the ranks, above the scribes and knights you are below the paladin. Your duty is to maintain order within the knights, infantry work and primary grunt work as well as train the lower ranking knights and aspirants."
+	supervisors = "the Knight-Captain and Paladin Commander"
+	display_order = JOB_DISPLAY_ORDER_KNIGHTSARGE
+	outfit = /datum/outfit/job/bos/f13knightsarge
+	exp_requirements = 1440
+/*
+	loadout_options = list(
+	/datum/outfit/loadout/sknightb, //Police Shotgun
+	/datum/outfit/loadout/sknightc, //R93
+	/datum/outfit/loadout/sknightd, //Pre-war Ripper
+	)
+*/
+	access = list(ACCESS_BROTHERHOOD_COMMAND, ACCESS_ROBOTICS, ACCESS_BOS, ACCESS_ENGINE_EQUIP, ACCESS_ENGINE, ACCESS_HYDROPONICS, ACCESS_KITCHEN, ACCESS_BAR, ACCESS_SEC_DOORS)
+	minimal_access = list(ACCESS_BROTHERHOOD_COMMAND, ACCESS_ROBOTICS, ACCESS_BOS, ACCESS_ENGINE_EQUIP, ACCESS_ENGINE, ACCESS_HYDROPONICS, ACCESS_KITCHEN, ACCESS_BAR, ACCESS_SEC_DOORS)
+	matchmaking_allowed = list(
+		/datum/matchmaking_pref/friend = list(
+			/datum/job/bos,
+		),
+		/datum/matchmaking_pref/rival = list(
+			/datum/job/bos,
+		),
+		/datum/matchmaking_pref/mentor = list(
+			/datum/job/bos/f13knight,
+		),
+	)
+
+/datum/outfit/job/bos/f13knightsarge/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	..()
+	if(visualsOnly)
+		return
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/AER9)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/AEP7)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/R93)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_ca_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_ca_helm_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_rca_helm_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_rca_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_riot_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_riot_helm_convert)
+
+/datum/outfit/job/bos/f13knightsarge
+	name = "Senior Knight"
+	jobtype = /datum/job/bos/f13knightsarge
+	suit = /obj/item/clothing/suit/armor/medium/combat/brotherhood/sarge
+	suit_store = /obj/item/gun/energy/laser/aer9
+	accessory = /obj/item/clothing/accessory/bos/knightsarge
+	glasses = /obj/item/clothing/glasses/night
+	mask = /obj/item/clothing/mask/gas/sechailer
+	belt = /obj/item/storage/belt/army/assault
+	l_pocket = /obj/item/storage/belt/shoulderholster
+	head = /obj/item/clothing/head/helmet/f13/combat/brotherhood/senior
+	gunsmith_one = TRUE
+	gunsmith_two = TRUE
+	gunsmith_three = TRUE
+	gunsmith_four = TRUE
+	backpack_contents = list(
+		/obj/item/melee/onehanded/knife/hunting = 1,
+		/obj/item/reagent_containers/hypospray/medipen/stimpak = 2,
+		/obj/item/storage/box/bos/senior = 1,
+		/obj/item/book/granter/crafting_recipe/gunsmith_one = 1,
+		/obj/item/book/granter/crafting_recipe/gunsmith_two = 1,
+		/obj/item/book/granter/crafting_recipe/gunsmith_three = 1,
+		/obj/item/book/granter/crafting_recipe/gunsmith_four = 1,
+		/obj/item/gun/ballistic/automatic/pistol/mk23 = 1,
+		/obj/item/ammo_box/magazine/m45/socom = 3,
+		)
 /*
 Senior Knight
 */
@@ -651,8 +808,8 @@ Senior Knight
 /datum/job/bos/f13seniorknight
 	title = "Senior Knight"
 	flag = F13SENIORKNIGHT
-	total_positions = 2
-	spawn_positions = 2
+	total_positions = 0
+	spawn_positions = 0
 	description = "You report directly to the Knight-Captain. You are the Brotherhood Knight-Sergeant. Having served the Knight Caste for some time now, you are versatile and experienced in both basic combat and repairs, and also a primary maintainer of the Bunker's facilities. As your seniormost Knight, you may be assigned initiates or Junior Knights to mentor."
 	supervisors = "the Knight-Captain"
 	display_order = JOB_DISPLAY_ORDER_SENIORKNIGHT
@@ -683,6 +840,12 @@ Senior Knight
 	..()
 	if(visualsOnly)
 		return
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_ca_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_ca_helm_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_rca_helm_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_rca_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_riot_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_riot_helm_convert)
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/AER9)
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/AEP7)
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/R93)
@@ -771,15 +934,20 @@ Knight
 		),
 	)
 
-/*
+
 /datum/outfit/job/bos/f13knight/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
 	if(visualsOnly)
 		return
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/AER9)
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/AEP7)
-	H.mind.teach_crafting_recipe(/datum/crafting_recipe/dks)
-*/
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_ca_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_ca_helm_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_rca_helm_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_rca_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_riot_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_riot_helm_convert)
+
 
 /datum/outfit/job/bos/f13knight
 	name = "Knight"

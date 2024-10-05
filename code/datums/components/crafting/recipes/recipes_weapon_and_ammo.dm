@@ -2117,3 +2117,101 @@ Not implemented due to balance at the moment
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
 	always_available = FALSE
+
+//Handmade Carbine
+/datum/crafting_recipe/handmade_carbine
+	name = "Handmade Carbine"
+	result = /obj/item/gun/ballistic/automatic/handmade_carbine
+	reqs = list(/obj/item/stack/sheet/metal = 10,
+				/obj/item/stack/sheet/mineral/wood = 10,
+				/obj/item/stack/rods = 1,
+				/obj/item/stack/crafting/metalparts = 10,
+				)
+	tools = list(TOOL_WORKBENCH)
+	time = 120
+	category = CAT_WEAPONRY
+	subcategory = CAT_WEAPON
+
+//Handmade Assault Rifle
+/datum/crafting_recipe/handmade_rifle
+	name = "Handmade Assault Rifle"
+	result = /obj/item/gun/ballistic/automatic/handmade_rifle
+	reqs = list(/obj/item/gun/ballistic/automatic/handmade_carbine = 1,
+				/obj/item/stack/sheet/metal = 15,
+				/obj/item/stack/sheet/mineral/wood = 10,
+				/obj/item/advanced_crafting_components/receiver = 1,
+				/obj/item/advanced_crafting_components/alloys = 1,
+				/obj/item/stack/rods = 1,
+				/obj/item/stack/crafting/goodparts = 5,
+				)
+	tools = list(TOOL_WORKBENCH)
+	time = 120
+	category = CAT_WEAPONRY
+	subcategory = CAT_WEAPON
+	always_available = FALSE
+
+//Handmade Battle Rifle
+/datum/crafting_recipe/handmade_battle_rifle
+	name = "Handmade Battle Rifle"
+	result = /obj/item/gun/ballistic/automatic/handmade_battle_rifle
+	reqs = list(/obj/item/gun/ballistic/automatic/handmade_carbine = 1,
+				/obj/item/stack/sheet/metal = 20,
+				/obj/item/stack/sheet/mineral/wood = 15,
+				/obj/item/advanced_crafting_components/receiver = 1,
+				/obj/item/advanced_crafting_components/assembly = 1,
+				/obj/item/stack/rods = 3,
+				/obj/item/stack/crafting/goodparts = 5,
+				)
+	tools = list(TOOL_WORKBENCH)
+	time = 120
+	category = CAT_WEAPONRY
+	subcategory = CAT_WEAPON
+	always_available = FALSE
+
+//Handmade Marksman Rifle
+/datum/crafting_recipe/handmade_dmr
+	name = "Handmade Marksman Rifle"
+	result = /obj/item/gun/ballistic/automatic/handmade_dmr
+	reqs = list(/obj/item/gun/ballistic/automatic/handmade_carbine = 1,
+				/obj/item/stack/sheet/metal = 15,
+				/obj/item/stack/sheet/mineral/wood = 20,
+				/obj/item/advanced_crafting_components/receiver = 1,
+				/obj/item/advanced_crafting_components/alloys = 1,
+				/obj/item/stack/rods = 2,
+				/obj/item/stack/crafting/goodparts = 10,
+				)
+	tools = list(TOOL_WORKBENCH)
+	time = 120
+	category = CAT_WEAPONRY
+	subcategory = CAT_WEAPON
+	always_available = FALSE
+
+//Handmade Assault Carbine
+/datum/crafting_recipe/handmade_assault_carbine
+	name = "Handmade Assault Carbine"
+	result = /obj/item/gun/ballistic/automatic/handmade_assault_carbine
+	reqs = list(/obj/item/gun/ballistic/automatic/handmade_carbine = 1,
+				/obj/item/stack/sheet/metal = 10,
+				/obj/item/stack/sheet/mineral/wood = 10,
+				/obj/item/advanced_crafting_components/receiver = 1,
+				/obj/item/advanced_crafting_components/alloys = 1,
+				/obj/item/stack/crafting/goodparts = 5,
+				)
+	tools = list(TOOL_WORKBENCH)
+	time = 120
+	category = CAT_WEAPONRY
+	subcategory = CAT_WEAPON
+	always_available = FALSE
+
+//50 Round 5.56 Magazine
+/datum/crafting_recipe/a556extended
+	name = "Extended Rifle Magazine (5.56)"
+	result = /obj/item/ammo_box/magazine/m556/rifle/extended/empty
+	reqs = list(/obj/item/stack/sheet/metal = 30,
+				/obj/item/stack/crafting/goodparts = 5,
+				)
+	tools = list(TOOL_WORKBENCH)
+	time = 120
+	category = CAT_WEAPONRY
+	subcategory = CAT_AMMO
+	always_available = FALSE
