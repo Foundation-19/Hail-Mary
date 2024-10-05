@@ -1,19 +1,10 @@
 
 ////////////////////////////////////////////EGGS////////////////////////////////////////////
 
-/obj/item/reagent_containers/food/snacks/chocolateegg
-	name = "chocolate egg"
-	desc = "Such, sweet, fattening food."
-	icon_state = "chocolateegg"
-	bonus_reagents = list(/datum/reagent/consumable/nutriment = 1, /datum/reagent/consumable/nutriment/vitamin = 1)
-	list_reagents = list(/datum/reagent/consumable/nutriment = 4, /datum/reagent/consumable/sugar = 2, /datum/reagent/consumable/coco = 2)
-	filling_color = "#A0522D"
-	tastes = list("chocolate" = 4, "sweetness" = 1)
-	foodtype = JUNKFOOD | SUGAR
-
 /obj/item/reagent_containers/food/snacks/egg
 	name = "egg"
 	desc = "An egg!"
+	icon = 'icons/obj/food/egg.dmi'
 	icon_state = "egg"
 	list_reagents = list(/datum/reagent/consumable/eggyolk = 2, /datum/reagent/consumable/eggwhite = 4)
 	cooked_type = /obj/item/reagent_containers/food/snacks/boiledegg
@@ -76,6 +67,7 @@
 /obj/item/reagent_containers/food/snacks/friedegg
 	name = "fried egg"
 	desc = "A fried egg, with a touch of salt and pepper."
+	icon = 'icons/obj/food/egg.dmi'
 	icon_state = "friedegg"
 	bonus_reagents = list(/datum/reagent/consumable/nutriment = 1, /datum/reagent/consumable/nutriment/vitamin = 1)
 	bitesize = 1
@@ -87,6 +79,7 @@
 /obj/item/reagent_containers/food/snacks/baconegg
 	name = "bacon and eggs"
 	desc = "A fried egg with a side of bacon. Delicious!"
+	icon = 'icons/obj/food/egg.dmi'
 	icon_state = "baconegg"
 	bonus_reagents = list(/datum/reagent/consumable/nutriment = 1, /datum/reagent/consumable/nutriment/vitamin = 1)
 	bitesize = 2
@@ -97,6 +90,7 @@
 /obj/item/reagent_containers/food/snacks/boiledegg
 	name = "boiled egg"
 	desc = "A hard boiled egg."
+	icon = 'icons/obj/food/egg.dmi'
 	icon_state = "egg"
 	bonus_reagents = list(/datum/reagent/consumable/nutriment = 1, /datum/reagent/consumable/nutriment/vitamin = 1)
 	filling_color = "#FFFFF0"
@@ -107,6 +101,7 @@
 /obj/item/reagent_containers/food/snacks/omelette	//FUCK THIS
 	name = "omelette du fromage"
 	desc = "That's all you can say!"
+	icon = 'icons/obj/food/egg.dmi'
 	icon_state = "omelette"
 	bonus_reagents = list(/datum/reagent/consumable/nutriment = 1, /datum/reagent/consumable/nutriment/vitamin = 2)
 	list_reagents = list(/datum/reagent/consumable/nutriment = 8, /datum/reagent/consumable/nutriment/vitamin = 1)
@@ -136,6 +131,7 @@
 /obj/item/reagent_containers/food/snacks/benedict
 	name = "eggs benedict"
 	desc = "There is only one egg on this, how rude."
+	icon = 'icons/obj/food/egg.dmi'
 	icon_state = "benedict"
 	bonus_reagents = list(/datum/reagent/consumable/nutriment/vitamin = 4)
 	w_class = WEIGHT_CLASS_NORMAL
@@ -146,8 +142,22 @@
 /obj/item/reagent_containers/food/snacks/scotchegg
 	name = "scotch egg"
 	desc = "A boiled egg wrapped in a delicious, seasoned meatball."
+	icon = 'icons/obj/food/egg.dmi'
 	icon_state = "scotchegg"
 	bonus_reagents = list(/datum/reagent/consumable/nutriment = 2, /datum/reagent/consumable/nutriment/vitamin = 2)
 	bitesize = 3
 	filling_color = "#FFFFF0"
 	list_reagents = list(/datum/reagent/consumable/nutriment = 6)
+
+
+/// Sweets Candy Eggs
+
+/obj/item/reagent_containers/food/snacks/chocolateegg
+	name = "chocolate egg"
+	desc = "Such, sweet, fattening food."
+	icon_state = "chocolateegg"
+	bonus_reagents = list(/datum/reagent/consumable/nutriment = 1, /datum/reagent/consumable/nutriment/vitamin = 1)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 4, /datum/reagent/consumable/sugar = 2, /datum/reagent/consumable/coco = 2)
+	filling_color = "#A0522D"
+	tastes = list("chocolate" = 4, "sweetness" = 1)
+	foodtype = JUNKFOOD | SUGAR

@@ -5,6 +5,7 @@
 /obj/item/reagent_containers/food/snacks/meat/slab/gecko
 	name = "gecko fillet"
 	desc = "A tasty fillet of gecko meat.<br>If you cook it, it tastes like chicken!"
+	icon = 'icons/obj/food/meat.dmi'
 	icon_state = "fishfillet"
 	list_reagents = list(
 		/datum/reagent/consumable/nutriment = 6,
@@ -21,6 +22,7 @@
 /obj/item/reagent_containers/food/snacks/meat/slab/molerat
 	name = "molerat meat"
 	desc = "A slab of smelly molerat meat."
+	icon = 'icons/obj/food/meat.dmi'
 	icon_state = "bearmeat"
 	list_reagents = list(
 		/datum/reagent/consumable/nutriment = 3,
@@ -50,6 +52,7 @@
 /obj/item/reagent_containers/food/snacks/meat/slab/deathclaw
 	name = "deathclaw meat"
 	desc = "A slab of hard but delicious deathclaw meat."
+	icon = 'icons/obj/food/meat.dmi'
 	icon_state = "goliathmeat"
 	list_reagents = list(
 		/datum/reagent/consumable/nutriment = 9,
@@ -101,6 +104,7 @@
 /obj/item/reagent_containers/food/snacks/meat/slab/radroach_meat
 	name = "radroach meat"
 	desc = "A hunk of still quivering radroach meat, gross."
+	icon = 'icons/obj/food/meat.dmi'
 	icon_state = "mothmeat"
 	list_reagents = list(
 		/datum/reagent/consumable/nutriment = 2,
@@ -164,6 +168,7 @@
 /obj/item/reagent_containers/food/snacks/meat/slab/cazador_meat
 	name = "cazador meat"
 	desc = "Meat extracted from the lean hide of cazador wasp."
+	icon = 'icons/obj/food/meat.dmi'
 	icon_state = "mothmeat"
 	list_reagents = list(
 		/datum/reagent/consumable/nutriment = 3,
@@ -197,6 +202,7 @@
 /obj/item/reagent_containers/food/snacks/meat/slab/human/ghoul
 	name = "ghoul meat"
 	desc = "Nothing says tasty like necrotic, radioactive mutant flesh"
+	icon = 'icons/obj/food/meat.dmi'
 	icon_state = "flymeat"
 	list_reagents = list(
 		/datum/reagent/consumable/nutriment = 3,
@@ -210,6 +216,7 @@
 
 /obj/item/reagent_containers/food/snacks/meat/slab/human/centaur
 	name = "centaur meat"
+	icon = 'icons/obj/food/meat.dmi'
 	icon_state = "flymeat"
 	desc = "Absolutely disgusting"
 	list_reagents = list(
@@ -619,6 +626,7 @@
 /obj/item/reagent_containers/food/snacks/meatsalted
 	name = "salted meat"
 	desc = "Slab of meat preserved in salt. Makes you thirsty."
+	icon = 'icons/obj/food/meat.dmi'
 	icon_state = "meatsalted"
 	bitesize = 5
 	filling_color = "#800000"
@@ -633,6 +641,7 @@
 /obj/item/reagent_containers/food/snacks/meatsmoked
 	name = "smoked meat"
 	desc = "Slab of meat dried by smoking. Leathery consistency."
+	icon = 'icons/obj/food/meat.dmi'
 	icon_state = "meatsmoked"
 	bitesize = 5
 	filling_color = "#800000"
@@ -706,7 +715,7 @@
 /obj/item/reagent_containers/food/snacks/f13/crispysquirrel
 	name = "crispy squirrel bits"
 	desc = "Bits of squirrel meat roasted on a skewer. Tasty."
-	icon = 'icons/fallout/objects/food&drinks/food.dmi'
+	icon = 'icons/obj/food/meat.dmi'
 	icon_state = "squrrielbits"
 	list_reagents = list(/datum/reagent/consumable/nutriment = 12)
 	filling_color = "B#22222"
@@ -715,7 +724,7 @@
 /obj/item/reagent_containers/food/snacks/f13/squirrelstick
 	name = "squirrel on a stick"
 	desc = "It's a whole squirrel roasted on a stick. Tastes of home on the wastes."
-	icon = 'icons/fallout/objects/food&drinks/food.dmi'
+	icon = 'icons/obj/food/meat.dmi'
 	icon_state = "squrrielstick"
 	list_reagents = list(/datum/reagent/consumable/nutriment = 24)
 	filling_color = "B#22222"
@@ -771,7 +780,7 @@
 /obj/item/reagent_containers/food/snacks/soup/squirrelstew
 	name = "squirrel stew"
 	desc = "Stewed squirrel meat with veggies. There's more vegetable than meat."
-	icon = 'icons/fallout/objects/food&drinks/soupsalad.dmi'
+	icon = 'icons/obj/food/meat.dmi'
 	icon_state = "squrrielsoup"
 	bitesize = 4
 	volume = 25
@@ -859,6 +868,7 @@
 /obj/item/reagent_containers/food/snacks/f13/canned/porknbeans
 	name = "can of pork n' beans"
 	desc = "Pork n' Beans come in a small brown and orange tin, with a label that reads \"Greasy Prospector Improved Pork And Beans\".<br>Toward the bottom of the label is printed that the beans come \"With Hickory Smoked Pig Fat Chunks\"."
+	icon = 'icons/obj/food/canned.dmi'
 	icon_state = "porknbeans"
 	bonus_reagents = list(
 		/datum/reagent/radium = 1,
@@ -872,6 +882,7 @@
 /obj/item/reagent_containers/food/snacks/f13/canned/borscht
 	name = "canned borscht"
 	desc = "A faded label says something in Cyrillic, but you can't understand a thing.<br>\"KOHCEPBA BKYCHOTA TOMAT CMETAHA MOCKBA\"<br>\"cynep cyn!\"<br>An image of a plate with some red soup explains a lot."
+	icon = 'icons/obj/food/canned.dmi'
 	icon_state = "borscht"
 	bonus_reagents = list(
 		/datum/reagent/radium = 1,
@@ -885,6 +896,7 @@
 /obj/item/reagent_containers/food/snacks/f13/canned/dog //Max Rockatansky favorite
 	name = "dog food"
 	desc = "A can of greasy meat with a faded cartoon dog on the label.<br>Smells bad, tastes worse, but filling.<br>Not good enough to get bitten over, though." //Mad Max: Road Warrior 1981 dog food scene reference
+	icon = 'icons/obj/food/canned.dmi'
 	icon_state = "dog"
 	bonus_reagents = list(
 		/datum/reagent/radium = 1,
@@ -903,6 +915,7 @@
 		/datum/reagent/consumable/nutriment = 35,
 		/datum/reagent/consumable/nutriment/vitamin = 3
 	)
+	icon = 'icons/obj/food/canned.dmi'
 	icon_state = "c_ration_1"
 
 /obj/item/reagent_containers/food/snacks/f13/canned/ncr/brahmin_chili
@@ -991,6 +1004,7 @@
 /obj/item/reagent_containers/food/snacks/f13/canned/ncr/candied_mutfruit
 	name = "c-ration dessert - 'Candied Mutfruit'"
 	desc = "A canned food product containing the dessert portion of a military combat ration."
+	icon = 'icons/obj/food/canned.dmi'
 	icon_state = "c_ration_3"
 	tastes = list("mutfruit" = 3, "sugar" = 3)
 	foodtype = SUGAR | FRUIT
@@ -998,6 +1012,7 @@
 /obj/item/reagent_containers/food/snacks/f13/canned/ncr/cranberry_cobbler
 	name = "c-ration dessert - 'Cranberry Cobbler'"
 	desc = "A canned food product containing the dessert portion of a military combat ration."
+	icon = 'icons/obj/food/canned.dmi'
 	icon_state = "c_ration_3"
 	tastes = list("perfectly replicated GMO cranberries" = 3, "buttery flakey crust" = 2)
 	foodtype = SUGAR | FRUIT | GRAIN
@@ -1005,6 +1020,7 @@
 /obj/item/reagent_containers/food/snacks/f13/canned/ncr/breakfast
 	name = "k-ration entree - 'Brahmin Chorizo Con Huevos'"
 	desc = "A canned food product containing the entree portion of a military combat ration."
+	icon = 'icons/obj/food/canned.dmi'
 	icon_state = "k_ration_can"
 	tastes = list("rich beef" = 3, "peppers" = 3, "eggs" = 2)
 	foodtype = MEAT | VEGETABLES | BREAKFAST
@@ -1012,6 +1028,7 @@
 /obj/item/reagent_containers/food/snacks/f13/canned/ncr/lunch
 	name = "k-ration entree - 'Baja Enchiladas'"
 	desc = "A canned food product containing the entree portion of a military combat ration, a star with the initials 'A.F' is stamped on the can."
+	icon = 'icons/obj/food/canned.dmi'
 	icon_state = "k_ration_can"
 	tastes = list("corn tortilla" = 2, "stewed brahmin" = 3, "picante salsa" = 3)
 	foodtype = MEAT | GRAIN
@@ -1019,6 +1036,7 @@
 /obj/item/reagent_containers/food/snacks/f13/canned/ncr/dinner
 	name = "k-ration entree - 'Spiced Dinner Luncheon'"
 	desc = "A canned food product containing the entree portion of a military combat ration. Better than Cram."
+	icon = 'icons/obj/food/canned.dmi'
 	icon_state = "k_ration_can"
 	tastes = list("beef luncheon loaf" = 3, "jalapeno peppers and spices" = 2)
 	foodtype = MEAT

@@ -194,6 +194,7 @@
 	ingredients_placement = INGREDIENTS_LINE
 	list_reagents = list(/datum/reagent/consumable/nutriment = 1)
 	ingMax = 6
+	icon = 'icons/obj/food/meat.dmi'
 	icon_state = "rod"
 
 /obj/item/reagent_containers/food/snacks/customizable/pasta
