@@ -186,11 +186,13 @@
 			to_chat(user, span_notice("You undo the securing bolts."))
 		else if(state==2)
 			state = 1
+			move_resist = initial(move_resist)
 			to_chat(user, span_notice("You tighten the securing bolts."))
 		return
 	else if(istype(W, /obj/item/crowbar))
 		if(state==2)
 			state = 3
+			move_resist = MOVE_RESIST_DEFAULT
 			to_chat(user, span_notice("You open the hatch to the power unit."))
 		else if(state==3)
 			state=2
