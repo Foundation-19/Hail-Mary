@@ -3039,7 +3039,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/floor,
 /area/f13/raider_mall)
 "bch" = (
-/obj/mecha/combat/phazon/truckcaravan/loaded{
+/obj/mecha/working/normalvehicle/truckcaravan/loaded{
 	dir = 8
 	},
 /turf/open/floor/f13/wood,
@@ -6445,7 +6445,7 @@
 	name = "red light fixture";
 	dir = 8
 	},
-/obj/mecha/combat/phazon/buggy/red/loaded,
+/obj/mecha/combat/combatvehicle/buggy/red/loaded,
 /turf/open/floor/plasteel/f13/vault_floor/plating,
 /area/f13/ruins)
 "cpw" = (
@@ -15591,10 +15591,10 @@
 /area/f13/ruins)
 "fEi" = (
 /obj/structure/table/wood/fancy/red,
-/obj/mecha/combat/phazon/highwayman/loaded{
+/obj/mecha/combat/combatvehicle/highwayman/loaded{
 	dir = 8
 	},
-/obj/mecha/combat/phazon/highwayman/loaded{
+/obj/mecha/combat/combatvehicle/highwayman/loaded{
 	dir = 8
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
@@ -18306,7 +18306,7 @@
 /turf/open/indestructible/ground/outside/gravel,
 /area/f13/wasteland/town)
 "gzh" = (
-/obj/mecha/combat/phazon/pickuptruck/bos/loaded,
+/obj/mecha/working/normalvehicle/ncrtruck/bos/loaded,
 /turf/open/floor/f13/wood{
 	icon_state = "housewood2"
 	},
@@ -30253,7 +30253,7 @@
 /area/f13/building/boat)
 "kNW" = (
 /obj/structure/table/wood/fancy,
-/obj/mecha/combat/phazon/buggy/red{
+/obj/mecha/combat/combatvehicle/buggy/red{
 	dir = 8
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
@@ -32437,7 +32437,7 @@
 	},
 /area/f13/building/boat)
 "lAv" = (
-/obj/mecha/combat/phazon/pickuptruck/loaded,
+/obj/mecha/working/normalvehicle/ncrtruck/loaded,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	name = "Old Docks";
 	sunlight_state = 1
@@ -39963,7 +39963,7 @@
 /turf/open/indestructible/ground/outside/ruins,
 /area/f13/wasteland/city/citycenter)
 "oiF" = (
-/obj/mecha/combat/phazon/corvega/police/loaded{
+/obj/mecha/combat/combatvehicle/corvega/police/loaded{
 	dir = 8
 	},
 /turf/open/indestructible/ground/outside/sidewalkdirt,
@@ -51287,7 +51287,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/plating,
 /area/f13/ruins)
 "sbK" = (
-/obj/mecha/combat/phazon/buggy/loaded,
+/obj/mecha/combat/combatvehicle/buggy/loaded,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	name = "Old Docks";
 	sunlight_state = 1
@@ -56321,7 +56321,7 @@
 /area/f13/wasteland/city/citycenter)
 "tRY" = (
 /obj/structure/table/wood/fancy,
-/obj/mecha/combat/phazon/corvega{
+/obj/mecha/combat/combatvehicle/corvega{
 	dir = 8
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
@@ -62468,7 +62468,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/plating,
 /area/f13/clinic)
 "vZh" = (
-/obj/mecha/combat/phazon/pickuptruck/bos/armed/loaded,
+/obj/mecha/combat/combatvehicle/pickuptruck/bos/armed/loaded,
 /turf/open/floor/f13/wood{
 	icon_state = "housewood2"
 	},
@@ -63585,7 +63585,7 @@
 /turf/closed/wall/f13/sunset/brick_small_dark,
 /area/f13/wasteland/city/citycenter)
 "wqo" = (
-/obj/mecha/combat/phazon/buggy/flamme/loaded,
+/obj/mecha/combat/combatvehicle/buggy/flamme/loaded,
 /turf/open/floor/plasteel/f13/vault_floor/plating,
 /area/f13/ruins)
 "wqA" = (

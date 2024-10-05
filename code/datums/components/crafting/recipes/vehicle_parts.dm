@@ -288,3 +288,25 @@
 	subcategory = CAT_VEHICLES
 	category = CAT_VEHICLEPARTS
 
+//Core parts
+
+/datum/crafting_recipe/engine
+	name = "Repaired Engine"
+	result = /obj/item/vehiclecorepart/engine
+	reqs = list(/obj/structure/wreck/trash/engine,
+				/obj/item/stack/crafting/metalparts = 10,
+				/obj/item/stack/crafting/goodparts = 4)
+	tools = list(TOOL_WORKBENCH, TOOL_WELDER, TOOL_SCREWDRIVER)
+	time = 100
+	subcategory = CAT_VEHICLES
+	category = CAT_VEHICLECOREPARTS
+
+/datum/crafting_recipe/tires
+	name = "Repaired tires"
+	result = /obj/item/vehiclecorepart/tires
+	reqs = list(/obj/structure/tires,
+				/obj/item/stack/sheet/plastic = 4)
+	tools = list(TOOL_WELDER)
+	time = 20
+	subcategory = CAT_VEHICLES
+	category = CAT_VEHICLECOREPARTS
