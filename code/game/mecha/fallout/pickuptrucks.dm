@@ -125,7 +125,7 @@
 
 //pickuptruck mechanic
 
-/obj/mecha/combat/phazon/mechanic
+/obj/mecha/combat/phazon/pickuptruck/mechanic
 	name = "\improper mechanic pickup truck"
 	desc = "A old vehicule, with a crane runing on fuel."
 	icon = 'icons/mecha/pickuptruck-mechanics.dmi'
@@ -142,7 +142,7 @@
 	max_utility_equip = 6
 	max_misc_equip = 1
 
-/obj/mecha/combat/phazon/mechanic/Initialize()
+/obj/mecha/combat/phazon/pickuptruck/mechanic/Initialize()
 	. = ..()
 	for(var/obj/item/mecha_parts/mecha_equipment/E in equipment)
 		E.detach()
@@ -151,29 +151,29 @@
 	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/fallout13
 	ME.attach(src)
 
-/obj/mecha/combat/phazon/mechanic/go_out()
+/obj/mecha/combat/phazon/pickuptruck/mechanic/go_out()
 	..()
 	update_icon()
 
-/obj/mecha/combat/phazon/mechanic/moved_inside(mob/living/carbon/human/H)
+/obj/mecha/combat/phazon/pickuptruck/mechanic/moved_inside(mob/living/carbon/human/H)
 	..()
 	update_icon()
 
-/obj/mecha/combat/phazon/mechanic/GrantActions(mob/living/user, human_occupant = 0)
+/obj/mecha/combat/phazon/pickuptruck/mechanic/GrantActions(mob/living/user, human_occupant = 0)
 	cycle_action.Grant(user, src)
 	lights_action.Grant(user, src)
 	stats_action.Grant(user, src)
 	eject_action.Grant(user, src)
 	klaxon_action.Grant(user, src)
 
-/obj/mecha/combat/phazon/mechanic/RemoveActions(mob/living/user, human_occupant = 0)
+/obj/mecha/combat/phazon/pickuptruck/mechanic/RemoveActions(mob/living/user, human_occupant = 0)
 	cycle_action.Remove(user)
 	lights_action.Remove(user)
 	stats_action.Remove(user)
 	eject_action.Remove(user)
 	klaxon_action.Remove(user)
 
-/obj/mecha/combat/phazon/mechanic/loaded/Initialize()
+/obj/mecha/combat/phazon/pickuptruck/mechanic/loaded/Initialize()
 	. = ..()
 	var/obj/item/mecha_parts/mecha_equipment/ME = new
 	ME = new /obj/item/mecha_parts/mecha_equipment/seat
