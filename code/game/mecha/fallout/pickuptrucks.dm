@@ -111,7 +111,7 @@
 	wreckage = /obj/structure/mecha_wreckage/buggy
 	cargo_capacity = 1
 
-	facing_modifiers = list(FRONT_ARMOUR = 0.8, SIDE_ARMOUR = 1, BACK_ARMOUR = 2) // There's whole ass paladin in the way..
+	facing_modifiers = list(FRONT_ARMOUR = 0.8, SIDE_ARMOUR = 1, BACK_ARMOUR = 1.5) // There's whole ass paladin in the way..
 
 /obj/mecha/combat/phazon/pickuptruck/bos/armed/loaded/Initialize()
 	. = ..()
@@ -193,7 +193,7 @@
 	step_in = 1.2
 	step_energy_drain = 0.4
 	max_integrity = 200
-	armor = ARMOR_VALUE_VEHICLE_MED_LIGHT
+	armor = ARMOR_VALUE_VEHICLE_MEDIUM
 	stepsound = 'sound/f13machines/buggy_loop.ogg'
 	turnsound = 'sound/f13machines/buggy_loop.ogg'
 	wreckage = /obj/structure/mecha_wreckage/buggy

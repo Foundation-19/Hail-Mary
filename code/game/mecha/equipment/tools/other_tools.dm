@@ -172,7 +172,7 @@
 	name = "armor booster module (Close Combat Weaponry)"
 	desc = "A large plate of hardened steel, can be attached to a vehicle to boost its defense at the cost of miles per gallon. The shape makes it only useful against melee attacks."
 	icon_state = "mecha_abooster_ccw"
-	armor_mod = list("melee" = 15, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 10, "bio" = 0, "fire" = 0, "acid" = 0)
+	armor_mod = list("melee" = 12.5, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 10, "bio" = 0, "fire" = 0, "acid" = 0)
 	move_power_drain = 1
 
 /obj/item/mecha_parts/mecha_equipment/armor/antiproj_armor_booster
