@@ -17396,13 +17396,6 @@
 /obj/structure/barricade/wooden/planks,
 /turf/open/floor/wood_common,
 /area/f13/city)
-"qci" = (
-/obj/structure/flora/grass/jungle/b,
-/mob/living/simple_animal/hostile/ghoul/zombie/glowing,
-/turf/open/indestructible/ground/outside/dirt/dark{
-	icon_state = "dirtfull_dark"
-	},
-/area/f13/wasteland)
 "qck" = (
 /obj/effect/turf_decal/weather/dirt,
 /obj/effect/turf_decal/weather/dirt{
@@ -49709,7 +49702,7 @@ mmA
 mmA
 mmA
 mmA
-qci
+aXt
 mmA
 mmA
 mmA
