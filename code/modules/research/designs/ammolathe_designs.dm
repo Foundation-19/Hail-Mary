@@ -534,14 +534,14 @@
 	category = list("initial", "Intermediate Magazines")
 
 /datum/design/ammolathe/m762
-	name = "empty rifle magazine (7.62x51)"
+	name = "empty rifle magazine (.308)"
 	id = "m762"
 	materials = list(/datum/material/iron = 6000)
 	build_path = /obj/item/ammo_box/magazine/m308/empty
 	category = list("initial", "Intermediate Magazines")
 
 /datum/design/ammolathe/w308
-	name = "empty sniper rifle magazine (7.62x51)"
+	name = "empty sniper rifle magazine (.30-06)"
 	id = "w308"
 	materials = list(/datum/material/iron = 6000)
 	build_path = /obj/item/ammo_box/magazine/w3006/empty
@@ -689,7 +689,7 @@
 	category = list("initial", "Advanced Magazines")
 
 /datum/design/ammolathe/m762ext
-	name = "empty extended rifle magazine (7.62x51)"
+	name = "empty extended rifle magazine (.308)"
 	id = "m762ext"
 	materials = list(/datum/material/iron = 6000)
 	build_path = /obj/item/ammo_box/magazine/m308/ext/empty
@@ -746,13 +746,27 @@
 	category = list("initial", "Advanced Ammo")
 	autocalc_material_values = FALSE
 
+/datum/design/ammolathe/a308/soviet
+	name = "7.62 steel tip ammo box"
+	id = "a308soviet"
+	materials = list(/datum/material/iron = 16000, /datum/material/blackpowder = 2500)
+	build_path = /obj/item/ammo_box/a308box/soviet
+	category = list("initial", "Advanced Ammo")
+/*
+/datum/design/ammolathe/a762
+	name = "7.62 ammo box"
+	id = "a762"
+	materials = list(/datum/material/iron = 16000, /datum/material/blackpowder = 2500)
+	build_path = /obj/item/ammo_box/a762box
+	category = list("initial", "Advanced Ammo")
+
 /datum/design/ammolathe/m473fmj
 	name = "4.73mm caseless ammo box"
 	id = "m473fmj"
 	materials = list(/datum/material/iron = 20000, /datum/material/blackpowder = 2000)
 	build_path = /obj/item/ammo_box/m473
 	category = list("initial", "Advanced Ammo")
-/*
+
 /datum/design/ammolathe/m473rubber
 	name = "4.73mm caseless rubber ammo box"
 	id = "m473rubber"

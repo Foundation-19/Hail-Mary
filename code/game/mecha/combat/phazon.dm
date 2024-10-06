@@ -42,6 +42,7 @@
 	dna_lock
 	step_in = 0.6
 	dir_in = 2
+	normal_step_energy_drain = 0.75
 	step_energy_drain = 0.75
 	max_integrity = 150
 	deflect_chance = 30
@@ -127,6 +128,7 @@
 	dna_lock
 	step_in = 0.8
 	dir_in = 2
+	normal_step_energy_drain = 0.7
 	step_energy_drain = 0.7
 	max_integrity = 200
 	deflect_chance = 30
@@ -206,6 +208,7 @@
 	dna_lock
 	step_in = 0.6
 	dir_in = 2
+	normal_step_energy_drain = 0.75
 	step_energy_drain = 0.75
 	max_integrity = 150
 	deflect_chance = 30
@@ -277,6 +280,7 @@
 	dna_lock
 	step_in = 0.6
 	dir_in = 2
+	normal_step_energy_drain = 0.75
 	step_energy_drain = 0.75
 	max_integrity = 150
 	deflect_chance = 30
@@ -348,7 +352,8 @@
 	dna_lock
 	step_in = 4
 	dir_in = 2
-	step_energy_drain = 0.2
+	step_energy_drain = 0.1
+	normal_step_energy_drain = 0.1
 	max_integrity = 100
 	deflect_chance = 0
 	armor = ARMOR_VALUE_SALVAGE
@@ -414,12 +419,12 @@
 	pixel_y = 0
 	can_be_locked = TRUE
 	dna_lock
-	step_in = 0.9
+	step_in = 1
 	opacity = 0
 	dir_in = 8
 	step_energy_drain = 1
 	max_temperature = 20000
-	max_integrity = 600
+	max_integrity = 300
 	armor = ARMOR_VALUE_HEAVY
 	max_equip = 8
 	stepsound = 'sound/f13machines/buggy_loop.ogg'
@@ -491,12 +496,12 @@
 	pixel_y = 0
 	can_be_locked = TRUE
 	dna_lock
-	step_in = 0.9
+	step_in = 1
 	opacity = 0
 	dir_in = 8
 	step_energy_drain = 1
 	max_temperature = 20000
-	max_integrity = 600
+	max_integrity = 300
 	armor = ARMOR_VALUE_HEAVY
 	max_equip = 4
 	stepsound = 'sound/f13machines/buggy_loop.ogg'

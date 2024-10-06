@@ -1624,6 +1624,7 @@
 				/obj/item/ammo_box/c4570,
 				/obj/item/ammo_box/tube/c4570,
 				/obj/item/ammo_box/a50MG,
+				/obj/item/ammo_box/a308box/soviet,
 				/obj/item/ammo_box/magazine/m308/ext,
 				/obj/item/stock_parts/cell/ammo/mfc,
 				/obj/item/ammo_casing/caseless/rocket,

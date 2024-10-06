@@ -4,6 +4,7 @@
 
 // WHISKEY //
 
+/*
 /obj/item/clothing/suit/armor/medium/combat/desert_ranger
 	name = "weathered ranger combat armor"
 	desc = "An original suit of pre-war combat armor used by elite military units, passed down through generations to where it is today. Though it's not lined with kevlar, this suit's still lightweight and easy to move around in."
@@ -15,6 +16,7 @@
 /obj/item/clothing/suit/armor/medium/combat/desert_ranger/Initialize()
 	. = ..()
 	AddComponent(/datum/component/armor_plate)
+*/
 
 /* New system version replace when switch
 /obj/item/clothing/suit/armor/light/whiskey_desert

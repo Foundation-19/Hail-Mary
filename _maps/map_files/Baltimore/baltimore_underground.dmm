@@ -1751,10 +1751,6 @@
 /obj/structure/stairs/west,
 /turf/open/floor/wood_common,
 /area/f13/ruins)
-"cIm" = (
-/mob/living/simple_animal/hostile/raider/junker/creator,
-/turf/open/indestructible/ground/inside/subway,
-/area/f13/tunnel/sub)
 "cIA" = (
 /obj/structure/disposalpipe/segment,
 /turf/open/indestructible/ground/outside/desert{
@@ -1825,12 +1821,6 @@
 	dir = 8
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/tunnel/sub)
-"cLO" = (
-/mob/living/simple_animal/hostile/raider/ranged/sulphiteranged{
-	health = 40
-	},
-/turf/open/indestructible/ground/inside/subway,
 /area/f13/tunnel/sub)
 "cLR" = (
 /obj/structure/dresser,
@@ -1977,13 +1967,6 @@
 	sunlight_state = 0
 	},
 /area/f13/citycaves)
-"cVc" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/mob/living/simple_animal/hostile/ghoul,
-/turf/open/floor/plasteel/f13/vault_floor/dark/darksolid{
-	icon_state = "darkrustysolid"
-	},
-/area/f13/building/tunnel)
 "cVd" = (
 /obj/structure/destructible/tribal_torch/wall/lit,
 /obj/structure/destructible/tribal_torch/wall/lit,
@@ -2073,14 +2056,6 @@
 /mob/living/simple_animal/hostile/ghoul,
 /turf/open/floor/plating/rust,
 /area/f13/tunnel)
-"dbL" = (
-/mob/living/simple_animal/hostile/wolf{
-	name = "Domesticated Raider dog";
-	faction = list("raider");
-	health = 30
-	},
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/tunnel/sub)
 "dcx" = (
 /turf/open/indestructible/ground/outside/water/running{
 	sunlight_state = 0
@@ -2569,13 +2544,6 @@
 /obj/item/locked_box/misc/skillbook,
 /turf/open/floor/wood_wide,
 /area/f13/building/tunnel)
-"dKw" = (
-/mob/living/simple_animal/hostile/chinese/ranged,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/open/floor/plasteel/f13/vault_floor/red/whiteredfull,
-/area/f13/mountain_bunker)
 "dMz" = (
 /obj/effect/decal/cleanable/blood/gibs/human/body,
 /obj/effect/decal/cleanable/blood/gibs/human/limb,
@@ -2842,12 +2810,6 @@
 /obj/structure/lattice/catwalk,
 /turf/open/floor/plating/rust,
 /area/f13/tunnel)
-"efV" = (
-/mob/living/simple_animal/hostile/raider/firefighter,
-/turf/open/floor/f13{
-	icon_state = "redrustyfull"
-	},
-/area/f13/bunker)
 "egf" = (
 /obj/structure/mecha_wreckage/vertibird,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
@@ -3743,13 +3705,6 @@
 /obj/structure/simple_door/bunker/glass,
 /turf/open/floor/plating/rust,
 /area/f13/citycaves)
-"fEe" = (
-/obj/structure/chair{
-	dir = 8
-	},
-/mob/living/simple_animal/hostile/chinese/ranged,
-/turf/open/floor/plasteel/f13/vault_floor/red/whiteredfull,
-/area/f13/mountain_bunker)
 "fEf" = (
 /obj/structure/barricade/wooden,
 /turf/closed/mineral/random/low_chance/underground,
@@ -4450,10 +4405,6 @@
 	icon_state = "bluerustysolid"
 	},
 /area/f13/city/museum)
-"gMf" = (
-/mob/living/simple_animal/hostile/molerat,
-/turf/open/floor/wood_wide/wood_wide_dark,
-/area/space)
 "gMC" = (
 /obj/structure/chair/f13chair2{
 	dir = 8
@@ -4815,12 +4766,6 @@
 	icon_state = "bluerustysolid"
 	},
 /area/f13/city/museum)
-"hmv" = (
-/mob/living/simple_animal/hostile/raider/baseball,
-/turf/open/floor/f13{
-	icon_state = "reddirtyfull"
-	},
-/area/f13/bunker)
 "hmZ" = (
 /obj/machinery/telecomms/server,
 /turf/open/floor/plasteel/f13/vault_floor/red/whiteredfull,
@@ -6160,13 +6105,6 @@
 	sunlight_state = 0
 	},
 /area/f13/tunnel/sub)
-"iVs" = (
-/obj/effect/decal/cleanable/blood/tracks,
-/mob/living/simple_animal/hostile/raider/tribal,
-/turf/open/floor/f13{
-	icon_state = "reddirtyfull"
-	},
-/area/f13/bunker)
 "iWO" = (
 /obj/machinery/chem_master/advanced,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
@@ -9719,21 +9657,6 @@
 /obj/item/gun/ballistic/automatic/varmint,
 /turf/open/floor/wood_wide,
 /area/f13/tunnel/sub)
-"nRs" = (
-/obj/structure/railing/wood{
-	pixel_y = 7;
-	name = "wooden docks"
-	},
-/obj/structure/railing/wood{
-	pixel_y = 4;
-	name = "wooden docks"
-	},
-/mob/living/simple_animal/hostile/ghoul,
-/turf/open/indestructible/ground/outside/gravel{
-	name = "underground gravel";
-	sunlight_state = 0
-	},
-/area/f13/building/tunnel)
 "nRN" = (
 /mob/living/simple_animal/hostile/chinese,
 /obj/structure/disposalpipe/segment{
@@ -9801,12 +9724,6 @@
 	dir = 8
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
-/area/f13/tunnel/sub)
-"nXD" = (
-/mob/living/simple_animal/hostile/raider/sulphite{
-	health = 90
-	},
-/turf/open/indestructible/ground/inside/subway,
 /area/f13/tunnel/sub)
 "nXR" = (
 /obj/effect/overlay/water{
@@ -10735,6 +10652,7 @@
 /area/f13/tunnel/sub)
 "pmJ" = (
 /obj/structure/vault_door/old{
+	icon_state = "oldclosing";
 	id = "vault60"
 	},
 /turf/open/floor/plating/rust,
@@ -12070,15 +11988,6 @@
 /mob/living/simple_animal/hostile/poison/giant_spider,
 /turf/open/floor/plasteel/f13/vault_floor/plating,
 /area/f13/tunnel/sub)
-"rhO" = (
-/mob/living/simple_animal/hostile/wolf{
-	name = "Domesticated Raider dog";
-	faction = list("raider");
-	health = 30
-	},
-/obj/structure/destructible/tribal_torch/lit,
-/turf/open/indestructible/ground/inside/subway,
-/area/f13/tunnel/sub)
 "rhT" = (
 /obj/structure/table,
 /turf/open/floor/plasteel/f13/vault_floor/dark/darksolid{
@@ -12849,12 +12758,6 @@
 	sunlight_state = 0
 	},
 /area/f13/vault)
-"sud" = (
-/mob/living/simple_animal/hostile/raider/sulphite{
-	health = 90
-	},
-/turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
-/area/f13/citycaves)
 "svx" = (
 /obj/effect/overlay/water/top{
 	color = "#94b8b8"
@@ -16122,12 +16025,6 @@
 	sunlight_state = 0
 	},
 /area/f13/tunnel)
-"xco" = (
-/mob/living/simple_animal/hostile/raider/ranged,
-/turf/open/floor/f13{
-	icon_state = "redrustyfull"
-	},
-/area/f13/bunker)
 "xcu" = (
 /obj/item/circuitboard/machine/seed_extractor,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
@@ -16294,12 +16191,6 @@
 /turf/open/indestructible/ground/outside/gravel{
 	name = "underground gravel";
 	sunlight_state = 0
-	},
-/area/space)
-"xpR" = (
-/mob/living/simple_animal/hostile/molerat,
-/turf/open/floor/wood_common/wood_common_dark{
-	icon_state = "common_dark-broken6"
 	},
 /area/space)
 "xpU" = (
@@ -16953,10 +16844,6 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/citycaves)
-"ygX" = (
-/mob/living/simple_animal/hostile/mirelurk/hunter,
-/turf/open/floor/plasteel/f13/vault_floor/green/whitegreenfull,
-/area/f13/vault)
 "yha" = (
 /obj/structure/barricade/tentleatheredge{
 	dir = 1;
@@ -36403,7 +36290,7 @@ pfI
 gOd
 gOd
 eIu
-kaB
+nmR
 nmR
 gOd
 sqg
@@ -36659,7 +36546,7 @@ rgu
 pfI
 nrR
 nrR
-nRs
+jme
 nmR
 nmR
 nrR
@@ -37683,7 +37570,7 @@ xwB
 nTn
 uwI
 uwI
-iTL
+hVx
 pfI
 knc
 nrR
@@ -38451,7 +38338,7 @@ tyh
 hob
 hob
 psH
-cVc
+tzV
 uwI
 hVx
 aVj
@@ -40560,7 +40447,7 @@ vUa
 omn
 glb
 xgz
-fEe
+xgz
 xgz
 vUa
 tGv
@@ -40814,7 +40701,7 @@ glb
 glb
 glb
 hXD
-nro
+glb
 glb
 glb
 glb
@@ -40835,7 +40722,7 @@ ufM
 oUO
 nGU
 oUO
-sud
+hSv
 hSv
 hSv
 nGU
@@ -41334,7 +41221,7 @@ vQT
 tFJ
 tFJ
 vUa
-dKw
+dsE
 dsE
 cLa
 glb
@@ -42610,7 +42497,7 @@ vUa
 kAc
 glb
 xQm
-umP
+glb
 glb
 vUa
 glb
@@ -43919,7 +43806,7 @@ bvn
 bvn
 rfp
 bvn
-cLO
+bvn
 bvn
 bvn
 bvn
@@ -44140,7 +44027,7 @@ ipG
 msD
 msD
 msD
-lWC
+bvn
 kbG
 bvn
 bvn
@@ -44171,7 +44058,7 @@ bvn
 bvn
 bvn
 bvn
-nXD
+bvn
 bvn
 bvn
 bvn
@@ -44669,7 +44556,7 @@ aUh
 kjn
 kjn
 kjn
-dbL
+kjn
 kjn
 kjn
 iJF
@@ -44935,7 +44822,7 @@ gDF
 gDF
 kCr
 gDF
-fbo
+kjn
 ryo
 iJF
 kjn
@@ -45461,9 +45348,9 @@ rfp
 bvn
 bvn
 bvn
-lWC
 bvn
-cLO
+bvn
+bvn
 bvn
 imj
 riG
@@ -45715,7 +45602,7 @@ qCC
 bvn
 bvn
 bvn
-cLO
+bvn
 teW
 xbj
 nlb
@@ -45811,7 +45698,7 @@ nXR
 xtm
 seM
 hHe
-prt
+ncs
 khY
 bpK
 and
@@ -45977,7 +45864,7 @@ elk
 qCC
 qnX
 bvn
-rhO
+qCC
 bvn
 sGO
 riG
@@ -46327,7 +46214,7 @@ mbB
 ncs
 ncs
 opt
-ygX
+mbB
 ncs
 ssh
 cZZ
@@ -47096,9 +46983,9 @@ mhd
 wUb
 opt
 fEJ
-seM
+ncs
 mbB
-sFw
+ncs
 opt
 ssh
 ssh
@@ -57791,7 +57678,7 @@ aRU
 aRU
 aRU
 fFC
-nyx
+fFC
 fFC
 rcL
 fFC
@@ -65847,7 +65734,7 @@ snd
 btC
 rAP
 iJo
-xpR
+ivO
 btC
 snd
 saR
@@ -66360,7 +66247,7 @@ saR
 snd
 btC
 dyy
-gMf
+iJo
 eXX
 btC
 snd
@@ -69845,9 +69732,9 @@ ylc
 vnI
 urV
 hgd
-hmv
+kxV
 gam
-xco
+iRe
 nyp
 kxV
 kxV
@@ -70107,7 +69994,7 @@ kxV
 iRe
 vuf
 kxV
-efV
+iRe
 igG
 cLs
 urV
@@ -71647,7 +71534,7 @@ vnI
 urV
 bWD
 cNj
-iVs
+cNj
 iSR
 nyp
 lJR
@@ -76003,7 +75890,7 @@ msD
 fGO
 qLT
 bvn
-cIm
+bvn
 bvn
 msD
 msD
@@ -76520,7 +76407,7 @@ kbG
 kbG
 xLb
 aUh
-aBo
+kjn
 kjn
 kjn
 kjn
@@ -76530,7 +76417,7 @@ iJF
 kjn
 kjn
 oIV
-aBo
+kjn
 kjn
 oiE
 kjn
