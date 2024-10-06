@@ -113,3 +113,11 @@
 	icon_state = "minigun"
 	rounds = 600
 	ammo_type = "minigun"
+
+/obj/item/mecha_ammo/cannon
+	name = "Cannon ammo pack"
+	desc = "A handful of cannon balls, for use with a vehicle's cannon."
+	icon_state = "cannon"
+	rounds = 1
+	ammo_type = "cannon"
+	direct_load = TRUE

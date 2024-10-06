@@ -34,7 +34,7 @@
 	name = "\improper Rapid-fire vehicular shotgun"
 	desc = "A rapid-fire shotgun fitted for mounting on a combat vehicle, fires fewer heavy pellets, but faster."
 	icon_state = "vehicle_scatter_rapid"
-	fire_sound = 'sound/weapons/sound_weapons_mech_mortar.ogg'
+	fire_sound = 'sound/weapons/sound_weapons_mech_shotgun.ogg'
 	equip_cooldown = 8
 	projectile = /obj/item/projectile/bullet/pellet/shotgun_trainshot/tracer
 	projectiles = 40
@@ -99,6 +99,25 @@
 	randomspread = 1.2
 	harmful = TRUE
 	ammo_type = "lmg"
+
+// Vehicular minicannon!
+
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/minicannon
+	name = "\improper Vehicular Minicannon"
+	desc = "A small, semi-automatic cannon, adapted for combat vehicles."
+	icon_state = "vehicle_autocannon"
+	fire_sound = 'sound/weapons/sound_weapons_mech_mortar.ogg'
+	equip_cooldown = 30
+	projectile = /obj/item/projectile/rock/cannonball
+	projectiles = 3
+	projectiles_cache = 0
+	projectiles_cache_max = 0
+	projectiles_per_shot = 1
+	variance = 6
+	is_automatic = TRUE
+	randomspread = 1.2
+	harmful = TRUE
+	ammo_type = "cannon"
 
 // Minigun!
 

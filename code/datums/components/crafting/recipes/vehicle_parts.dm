@@ -41,10 +41,10 @@
 	subcategory = CAT_VEHICLEPARTS
 
 // Le classic sherman tank
-
+/*
 /datum/crafting_recipe/sherman
-	name = "Sherman M4-CEM(X)"
-	result = /obj/mecha/combat/phazon/m4sherman_cemx
+	name = "Sherman M4-C(X)"
+	result = /obj/mecha/combat/phazon/m4sherman_cx
 	reqs = list(/obj/item/stack/sheet/metal = 75,
 				/obj/item/stack/sheet/plasteel = 50,
 				/obj/item/stack/sheet/mineral/titanium = 25,
@@ -81,7 +81,7 @@
 	time = 180
 	category = CAT_VEHICLES
 	subcategory = CAT_VEHICLEPARTS
-
+*/
 //LMG
 
 /datum/crafting_recipe/gun/vehicle/lmg_improvised
@@ -166,6 +166,36 @@
 	category = CAT_VEHICLES
 	subcategory = CAT_VEHICLEPARTS
 
+// Autocannon & ammo
+/*
+
+/datum/crafting_recipe/gun/vehicle/cannon
+	name = "Vehicular minicannon"
+	result = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/minicannon
+	reqs = list(/obj/item/stack/sheet/plasteel = 15,
+	/obj/item/stack/crafting/metalparts = 10,
+	/obj/item/stack/crafting/goodparts = 5,
+	/obj/item/stack/sheet/prewar = 5,
+	/obj/item/stack/sheet/mineral/titanium = 10,
+	/obj/item/stack/rods = 10)
+	tools = list(TOOL_WORKBENCH)
+	time = 180
+	category = CAT_VEHICLES
+	subcategory = CAT_VEHICLEPARTS
+
+/datum/crafting_recipe/mech_ammo/cannon_ammo
+	name = "Vehicular Minicannon ammunition"
+	result = /obj/item/mecha_ammo/cannon
+	reqs = list(/obj/item/stack/crafting/metalparts = 5,
+	/obj/item/stack/sheet/metal = 5,
+	/obj/item/stack/sheet/mineral/titanium = 5,
+	/obj/item/stack/ore/blackpowder = 5)
+	tools = list(TOOL_AWORKBENCH)
+	time = 5
+	category = CAT_VEHICLES
+	subcategory = CAT_VEHICLEPARTS
+
+*/
 // Pneumatic launcher
 
 /datum/crafting_recipe/gun/PheumonicLauncherVehicle
