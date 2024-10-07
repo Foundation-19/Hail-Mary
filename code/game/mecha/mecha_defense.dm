@@ -6,7 +6,18 @@
 			return facing_modifiers[FRONT_ARMOUR]
 	return facing_modifiers[SIDE_ARMOUR] //if its not a front hit or back hit then assume its from the side
 
+/obj/mecha/proc/attack_dir_for_modules(relative_dir)
+	if(relative_dir  > -45 && relative_dir < 45)
+		return 1
+	else if(relative_dir < -45 && relative_dir > -135)
+		return 2
+	else if(relative_dir > 45 && relative_dir < 135)
+		return 3
+	else if(relative_dir >= -180 && relative_dir <= 180)
+		return 4
+
 /obj/mecha/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, armour_penetration = 0, atom/attacked_by)
+
 	. = ..()
 	if(. && obj_integrity > 0)
 		spark_system.start()
@@ -32,6 +43,7 @@
 
 	if(attack_dir)
 		var/facing_modifier = get_armour_facing(abs(dir2angle(dir) - dir2angle(attack_dir)))
+
 		if(.)
 			. *= facing_modifier
 
@@ -86,7 +98,48 @@
 
 /obj/mecha/bullet_act(obj/item/projectile/Proj) //wrapper
 	mecha_log_message("Hit by projectile. Type: [Proj.name]([Proj.flag]).", color="red")
-	. = ..()
+	if(!(Proj.damage_type in list(BRUTE, BURN)))
+		return BULLET_ACT_BLOCK
+	var/attack_dir = get_dir(src, Proj)
+	var/facing_modifier = get_armour_facing(abs(dir2angle(dir) - dir2angle(attack_dir)))
+	var/true_armor = clamp(round(armor.bullet*facing_modifier/100 - Proj.armour_penetration ,0.01), 0, 1)
+	var/true_damage = round(Proj.damage * (1 - true_armor))
+	var/minimum_damage_to_penetrate = round(armor.bullet/3*(1 - Proj.armour_penetration), 0.01)
+	if(prob(true_armor/2))
+		Proj.setAngle(SIMPLIFY_DEGREES(Proj.Angle + rand(40,150)))
+		return BULLET_ACT_FORCE_PIERCE
+	Proj.damage = true_damage
+	if(true_damage < minimum_damage_to_penetrate)
+		take_damage(true_damage, Proj.damage_type, null, null, attack_dir, Proj.armour_penetration, Proj)
+		return BULLET_ACT_BLOCK
+	var/modules_index = attack_dir_for_modules(dir2angle(attack_dir) - dir2angle(dir))
+	for(var/i=1 to length(directional_comps[modules_index]))
+		if(!prob(directional_comps[modules_index][1]))
+			continue
+		var/damage_mult = directional_comps[modules_index][2]
+		var/ap_threshold = directional_comps[modules_index][3]
+		var/armor_rating = directional_comps[modules_index][4]
+		damage_mult = min(0.15,(Proj.damage + Proj.armour_penetration) / (Proj.damage + armor_rating))
+		directional_comps[modules_index][4] -= damage_mult * Proj.damage
+		take_damage(true_damage * damage_mult, Proj.damage_type, null, null, attack_dir, Proj.armour_penetration, Proj)
+		if(Proj.armour_penetration < ap_threshold)
+			return BULLET_ACT_BLOCK
+		else
+			Proj.armour_penetration -= ap_threshold
+
+	var/list/hittable_occupants = list()
+	if(occupant)
+		hittable_occupants[occupant] = 80
+	for(var/obj/item/mecha_parts/mecha_equipment/seat/other_occupant in src)
+		if(other_occupant.patient && other_occupant.patient.stat != DEAD)
+			hittable_occupants[other_occupant.patient] = 70
+
+	var/mob/living/true_target = pickweight(hittable_occupants, 50)
+	if(true_target)
+		. = true_target.bullet_act(Proj, Proj.def_zone)
+	else
+		. = ..()
+
 
 /obj/mecha/ex_act(severity, target)
 	severity-- // MORE DAMAGE
@@ -104,12 +157,6 @@
 	for(var/Y in trackers)
 		var/obj/item/mecha_parts/mecha_tracking/MT = Y
 		MT.ex_act(severity, target)
-	for(var/Z in cargo)
-		var/obj/O = Z
-		if(prob(30/severity))
-			cargo -= O
-			O.forceMove(drop_location())
-	. = ..()
 	if(occupant)
 		occupant.ex_act(severity,target)
 
@@ -186,13 +233,11 @@
 			to_chat(user, span_notice("You undo the securing bolts."))
 		else if(state==2)
 			state = 1
-			move_resist = initial(move_resist)
 			to_chat(user, span_notice("You tighten the securing bolts."))
 		return
 	else if(istype(W, /obj/item/crowbar))
 		if(state==2)
 			state = 3
-			move_resist = MOVE_RESIST_DEFAULT
 			to_chat(user, span_notice("You open the hatch to the power unit."))
 		else if(state==3)
 			state=2

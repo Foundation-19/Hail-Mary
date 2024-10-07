@@ -14,12 +14,26 @@
 	stepsound = 'sound/f13machines/buggy_loop.ogg'
 	turnsound = 'sound/f13machines/buggy_loop.ogg'
 	wreckage = /obj/structure/mecha_wreckage/ncrtruck
-
+	awkward_turning = TRUE
 	max_weapons_equip = 1
 	max_utility_equip = 8
 	max_misc_equip = 1
-
 	internal_damage_threshold = 25
+
+	directional_comps = list(
+		list(
+			list(75,1.5,30)
+		),
+		list(
+			list(10,0.5,0)
+		),
+		list(
+			list(10,0.5,0)
+		),
+		list(
+			list(50,0.5,10)
+		)
+	)
 
 /obj/structure/mecha_wreckage/ncrtruck
 	name = "\improper NCR Truck wreckage"
@@ -86,6 +100,7 @@
 	step_energy_drain = 0.6
 	armor = ARMOR_VALUE_VEHICLE_MEDIUM
 	wreckage = /obj/structure/mecha_wreckage/ncrtruck
+	awkward_turning = FALSE
 
 	max_weapons_equip = 1
 	max_utility_equip = 3

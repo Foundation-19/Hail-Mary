@@ -6,6 +6,7 @@
 	stepsound = 'sound/f13machines/buggy_loop.ogg'
 	turnsound = 'sound/f13machines/buggy_loop.ogg'
 	can_be_locked = FALSE
+	static_dir = FALSE
 	enter_delay = 30
 	pixel_x = -7
 	pixel_y = -5
@@ -14,10 +15,25 @@
 	step_in = 1.5
 	armor = ARMOR_VALUE_VEHICLE_ARMORED
 	wreckage = /obj/structure/mecha_wreckage/armoured_jeep
+	awkward_turning = TRUE
 	max_utility_equip = 3
 	max_weapons_equip = 1
 	max_misc_equip = 1
 	facing_modifiers = list(FRONT_ARMOUR = 1.25, SIDE_ARMOUR = 1, BACK_ARMOUR = 0.6)
+	directional_comps = list(
+		list(
+			list(25,0.5,30)
+		),
+		list(
+			list(50,1.25,15)
+		),
+		list(
+			list(50,1.25,15)
+		),
+		list(
+			list(75,1.5,30)
+		)
+	)
 
 /obj/mecha/combat/phazon/armoured_jeep/GrantActions(mob/living/user, human_occupant = 0)
 	cycle_action.Grant(user, src)
@@ -58,7 +74,8 @@
 	stepsound = 'sound/mecha/tanktracks.mp3'
 	turnsound = 'sound/mecha/tanktracks.mp3'
 	can_be_locked = FALSE
-	enter_delay = 50
+	static_dir = FALSE
+	enter_delay = 40
 	pixel_x = -8
 	pixel_y = -4
 	max_integrity = 600 // its a tank!
@@ -66,10 +83,25 @@
 	step_energy_drain = 1.5
 	armor = ARMOR_VALUE_VEHICLE_ARMORED_HEAVY
 	wreckage = /obj/structure/mecha_wreckage/sherman
+	awkward_turning = TRUE
 	max_utility_equip = 2
 	max_weapons_equip = 2
 	max_misc_equip = 1
 	facing_modifiers = list(FRONT_ARMOUR = 1.5, SIDE_ARMOUR = 1, BACK_ARMOUR = 0.6)
+	directional_comps = list(
+		list(
+			list(100,1,50)
+		),
+		list(
+			list(45,1.5,15)
+		),
+		list(
+			list(45,1.5,15)
+		),
+		list(
+			list(75,2,30)
+		)
+	)
 
 /obj/mecha/combat/phazon/m4sherman_cx/GrantActions(mob/living/user, human_occupant = 0)
 	cycle_action.Grant(user, src)
