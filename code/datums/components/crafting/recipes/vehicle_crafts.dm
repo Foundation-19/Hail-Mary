@@ -66,7 +66,7 @@
 //Buggy 
 /datum/crafting_recipe/carbase/buggy
 	name = "Buggy (Final Step)"
-	result = /obj/mecha/combat/combatvehicle/buggy
+	result = /obj/mecha/working/normalvehicle/buggy
 	reqs = list(/obj/structure/mecha_wreckage/ncrtruck/seat,
 				/obj/item/stack/sheet/glass = 5,
 				/obj/item/stack/sheet/metal = 15,
@@ -78,7 +78,7 @@
 //Buggy Dune
 /datum/crafting_recipe/carbase/buggy/dune
 	name = "Dune Buggy (Final Step)"
-	result = /obj/mecha/combat/combatvehicle/buggy/dune
+	result = /obj/mecha/working/normalvehicle/buggy/dune
 	reqs = list(/obj/structure/mecha_wreckage/ncrtruck/seat,
 				/obj/item/stack/sheet/glass = 5,
 				/obj/item/stack/sheet/metal = 15,
@@ -90,7 +90,7 @@
 //Buggy Blue
 /datum/crafting_recipe/carbase/buggy/blue
 	name = "Blue Buggy (Final Step)"
-	result = /obj/mecha/combat/combatvehicle/buggy/blue
+	result = /obj/mecha/working/normalvehicle/buggy/blue
 	reqs = list(/obj/structure/mecha_wreckage/ncrtruck/seat,
 				/obj/item/stack/sheet/glass = 5,
 				/obj/item/stack/sheet/metal = 15,
@@ -102,7 +102,7 @@
 //buggy flamme
 /datum/crafting_recipe/carbase/buggy/flamme
 	name = "Flamme Buggy (Final Step)"
-	result = /obj/mecha/combat/combatvehicle/buggy/flamme
+	result = /obj/mecha/working/normalvehicle/buggy/flamme
 	reqs = list(/obj/structure/mecha_wreckage/ncrtruck/seat,
 				/obj/item/stack/sheet/glass = 5,
 				/obj/item/stack/sheet/metal = 15,
@@ -114,7 +114,7 @@
 //Corvega
 /datum/crafting_recipe/carbase/corvega
 	name = "Corvega (Final Step)"
-	result = /obj/mecha/combat/combatvehicle/corvega
+	result = /obj/mecha/working/normalvehicle/corvega
 	reqs = list(/obj/structure/mecha_wreckage/ncrtruck/seat,
 				/obj/item/stack/sheet/glass = 15,
 				/obj/item/stack/sheet/metal = 35,
@@ -126,7 +126,7 @@
 //Highwayman
 /datum/crafting_recipe/carbase/highwayman
 	name = "Highwayman (Final Step)"
-	result = /obj/mecha/combat/combatvehicle/highwayman
+	result = /obj/mecha/working/normalvehicle/highwayman
 	reqs = list(/obj/structure/mecha_wreckage/ncrtruck/seat,
 				/obj/item/stack/sheet/glass = 15,
 				/obj/item/stack/sheet/metal = 35,
