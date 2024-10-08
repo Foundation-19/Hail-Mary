@@ -498,3 +498,715 @@
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/medical/sleeper
 	ME.attach(src)
+
+//Buggy 
+
+/obj/mecha/working/normalvehicle/buggy
+	name = "\improper Buggy"
+	desc = "A light vehicle, not very powerful or solid, running on fuel."
+	icon = 'icons/mecha/buggy.dmi'
+	icon_state = "buggygreen"
+	pixel_x = -15
+	pixel_y = 0
+	can_be_locked = TRUE
+	dna_lock
+	step_in = 0.8
+	opacity = 0
+	dir_in = 8
+	step_energy_drain = 1
+	max_temperature = 20000
+	max_integrity = 200
+	armor = ARMOR_VALUE_LIGHT
+	max_equip = 2
+	stepsound = 'sound/f13machines/buggy_loop.ogg'
+	turnsound = 'sound/f13machines/buggy_loop.ogg'
+	wreckage = /obj/structure/mecha_wreckage/buggy
+	bound_width = 64
+	bound_height = 64
+
+/obj/structure/mecha_wreckage/buggy
+	name = "\improper Buggy wreckage"
+	desc = "Its a buggy! Won't bug you anymore."
+	icon_state = "buggy-broken"
+
+/obj/mecha/working/normalvehicle/buggy/go_out()
+	..()
+	update_icon()
+
+/obj/mecha/working/normalvehicle/buggy/moved_inside(mob/living/carbon/human/H)
+	..()
+	update_icon()
+
+/obj/mecha/working/normalvehicle/buggy/GrantActions(mob/living/user, human_occupant = 0) 
+	cycle_action.Grant(user, src)
+	lights_action.Grant(user, src)
+	stats_action.Grant(user, src)
+	eject_action.Grant(user, src)
+	klaxon_action.Grant(user, src)
+
+/obj/mecha/working/normalvehicle/buggy/RemoveActions(mob/living/user, human_occupant = 0)
+	cycle_action.Remove(user)
+	lights_action.Remove(user)
+	stats_action.Remove(user)
+	eject_action.Remove(user)
+	klaxon_action.Remove(user)
+
+/obj/mecha/working/normalvehicle/buggy/loaded/Initialize()
+	. = ..()
+	var/obj/item/mecha_parts/mecha_equipment/ME = new
+	ME = new /obj/item/mecha_parts/mecha_equipment/seat
+	ME.attach(src)
+
+//Buggydune
+
+/obj/mecha/working/normalvehicle/buggy/dune
+	name = "\improper Buggy"
+	desc = "A light vehicle, not very powerful or solid, running on fuel."
+	icon = 'icons/mecha/buggy.dmi'
+	icon_state = "buggydune"
+	pixel_x = -15
+	pixel_y = 0
+	can_be_locked = TRUE
+	dna_lock
+	step_in = 0.8
+	opacity = 0
+	dir_in = 8
+	step_energy_drain = 1
+	max_temperature = 20000
+	max_integrity = 200
+	armor = ARMOR_VALUE_LIGHT
+	max_equip = 2
+	stepsound = 'sound/f13machines/buggy_loop.ogg'
+	turnsound = 'sound/f13machines/buggy_loop.ogg'
+	wreckage = /obj/structure/mecha_wreckage/buggy
+	bound_width = 64
+	bound_height = 64
+
+/obj/mecha/working/normalvehicle/buggy/dune/go_out()
+	..()
+	update_icon()
+
+/obj/mecha/working/normalvehicle/buggy/dune/moved_inside(mob/living/carbon/human/H)
+	..()
+	update_icon()
+
+/obj/mecha/working/normalvehicle/buggy/dune/GrantActions(mob/living/user, human_occupant = 0) 
+	cycle_action.Grant(user, src)
+	lights_action.Grant(user, src)
+	stats_action.Grant(user, src)
+	eject_action.Grant(user, src)
+	klaxon_action.Grant(user, src)
+
+/obj/mecha/working/normalvehicle/buggy/dune/RemoveActions(mob/living/user, human_occupant = 0)
+	cycle_action.Remove(user)
+	lights_action.Remove(user)
+	stats_action.Remove(user)
+	eject_action.Remove(user)
+	klaxon_action.Remove(user)
+
+/obj/mecha/working/normalvehicle/buggy/dune/loaded/Initialize()
+	. = ..()
+	var/obj/item/mecha_parts/mecha_equipment/ME = new
+	ME = new /obj/item/mecha_parts/mecha_equipment/seat
+	ME.attach(src)
+
+//Buggyred
+
+/obj/mecha/working/normalvehicle/buggy/red
+	name = "\improper Buggy"
+	desc = "A light vehicle, not very powerful or solid, running on fuel."
+	icon = 'icons/mecha/buggy.dmi'
+	icon_state = "buggyred"
+	pixel_x = -15
+	pixel_y = 0
+	can_be_locked = TRUE
+	dna_lock
+	step_in = 0.8
+	opacity = 0
+	dir_in = 8
+	step_energy_drain = 1
+	max_temperature = 20000
+	max_integrity = 200
+	armor = ARMOR_VALUE_LIGHT
+	max_equip = 2
+	stepsound = 'sound/f13machines/buggy_loop.ogg'
+	turnsound = 'sound/f13machines/buggy_loop.ogg'
+	wreckage = /obj/structure/mecha_wreckage/buggy
+	bound_width = 64
+	bound_height = 64
+
+/obj/mecha/working/normalvehicle/buggy/red/go_out()
+	..()
+	update_icon()
+
+/obj/mecha/working/normalvehicle/buggy/red/moved_inside(mob/living/carbon/human/H)
+	..()
+	update_icon()
+
+/obj/mecha/working/normalvehicle/buggy/red/GrantActions(mob/living/user, human_occupant = 0) 
+	cycle_action.Grant(user, src)
+	lights_action.Grant(user, src)
+	stats_action.Grant(user, src)
+	eject_action.Grant(user, src)
+	klaxon_action.Grant(user, src)
+
+/obj/mecha/working/normalvehicle/buggy/red/RemoveActions(mob/living/user, human_occupant = 0)
+	cycle_action.Remove(user)
+	lights_action.Remove(user)
+	stats_action.Remove(user)
+	eject_action.Remove(user)
+	klaxon_action.Remove(user)
+
+/obj/mecha/working/normalvehicle/buggy/red/loaded/Initialize()
+	. = ..()
+	var/obj/item/mecha_parts/mecha_equipment/ME = new
+	ME = new /obj/item/mecha_parts/mecha_equipment/seat
+	ME.attach(src)
+
+//Buggyblue
+
+/obj/mecha/working/normalvehicle/buggy/blue
+	name = "\improper Minutemen Buggy"
+	desc = "A light vehicle, not very powerful or solid, running on fuel."
+	icon = 'icons/mecha/buggy.dmi'
+	icon_state = "buggyblue"
+	pixel_x = -15
+	pixel_y = 0
+	can_be_locked = TRUE
+	dna_lock
+	step_in = 0.8
+	opacity = 0
+	dir_in = 8
+	step_energy_drain = 1
+	max_temperature = 20000
+	max_integrity = 200
+	armor = ARMOR_VALUE_LIGHT
+	max_equip = 2
+	stepsound = 'sound/f13machines/buggy_loop.ogg'
+	turnsound = 'sound/f13machines/buggy_loop.ogg'
+	wreckage = /obj/structure/mecha_wreckage/buggy
+	bound_width = 64
+	bound_height = 64
+
+/obj/mecha/working/normalvehicle/buggy/blue/go_out()
+	..()
+	update_icon()
+
+/obj/mecha/working/normalvehicle/buggy/blue/moved_inside(mob/living/carbon/human/H)
+	..()
+	update_icon()
+
+/obj/mecha/working/normalvehicle/buggy/blue/GrantActions(mob/living/user, human_occupant = 0) 
+	cycle_action.Grant(user, src)
+	lights_action.Grant(user, src)
+	stats_action.Grant(user, src)
+	eject_action.Grant(user, src)
+	klaxon_action.Grant(user, src)
+
+/obj/mecha/working/normalvehicle/buggy/blue/RemoveActions(mob/living/user, human_occupant = 0)
+	cycle_action.Remove(user)
+	lights_action.Remove(user)
+	stats_action.Remove(user)
+	eject_action.Remove(user)
+	klaxon_action.Remove(user)
+
+/obj/mecha/working/normalvehicle/buggy/blue/loaded/Initialize()
+	. = ..()
+	var/obj/item/mecha_parts/mecha_equipment/ME = new
+	ME = new /obj/item/mecha_parts/mecha_equipment/seat
+	ME.attach(src)
+
+//Buggyflame
+
+/obj/mecha/working/normalvehicle/buggy/flamme
+	name = "\improper Buggy"
+	desc = "A light vehicle, not very powerful or solid, running on fuel."
+	icon = 'icons/mecha/buggy.dmi'
+	icon_state = "buggyflame"
+	pixel_x = -15
+	pixel_y = 0
+	can_be_locked = TRUE
+	dna_lock
+	step_in = 0.8
+	opacity = 0
+	dir_in = 8
+	step_energy_drain = 1
+	max_temperature = 20000
+	max_integrity = 200
+	armor = ARMOR_VALUE_LIGHT
+	max_equip = 2
+	stepsound = 'sound/f13machines/buggy_loop.ogg'
+	turnsound = 'sound/f13machines/buggy_loop.ogg'
+	wreckage = /obj/structure/mecha_wreckage/buggy
+	bound_width = 64
+	bound_height = 64
+
+/obj/mecha/working/normalvehicle/buggy/flamme/go_out()
+	..()
+	update_icon()
+
+/obj/mecha/working/normalvehicle/buggy/flamme/moved_inside(mob/living/carbon/human/H)
+	..()
+	update_icon()
+
+/obj/mecha/working/normalvehicle/buggy/flamme/GrantActions(mob/living/user, human_occupant = 0) 
+	cycle_action.Grant(user, src)
+	lights_action.Grant(user, src)
+	stats_action.Grant(user, src)
+	eject_action.Grant(user, src)
+	klaxon_action.Grant(user, src)
+
+/obj/mecha/working/normalvehicle/buggy/flamme/RemoveActions(mob/living/user, human_occupant = 0)
+	cycle_action.Remove(user)
+	lights_action.Remove(user)
+	stats_action.Remove(user)
+	eject_action.Remove(user)
+	klaxon_action.Remove(user)
+
+/obj/mecha/working/normalvehicle/buggy/flamme/loaded/Initialize()
+	. = ..()
+	var/obj/item/mecha_parts/mecha_equipment/ME = new
+	ME = new /obj/item/mecha_parts/mecha_equipment/seat
+	ME.attach(src)
+
+//Buggy Ranger
+
+/obj/mecha/working/normalvehicle/buggy/ranger
+	name = "\improper Ranger Buggy"
+	desc = "A light vehicle, not very powerful or solid, running on fuel. This one has been recolored by the Rangers."
+	icon = 'icons/mecha/hanlonbuggy.dmi'
+	icon_state = "hanlonbuggy"
+	pixel_x = -15
+	pixel_y = 0
+	can_be_locked = TRUE
+	dna_lock
+	step_in = 0.8
+	opacity = 0
+	dir_in = 8
+	step_energy_drain = 1
+	max_temperature = 20000
+	max_integrity = 200
+	armor = ARMOR_VALUE_LIGHT
+	max_equip = 2
+	stepsound = 'sound/f13machines/buggy_loop.ogg'
+	turnsound = 'sound/f13machines/buggy_loop.ogg'
+	wreckage = /obj/structure/mecha_wreckage/buggy
+	bound_width = 64
+	bound_height = 64
+
+/obj/mecha/working/normalvehicle/buggy/ranger/go_out()
+	..()
+	update_icon()
+
+/obj/mecha/working/normalvehicle/buggy/ranger/moved_inside(mob/living/carbon/human/H)
+	..()
+	update_icon()
+
+/obj/mecha/working/normalvehicle/buggy/ranger/GrantActions(mob/living/user, human_occupant = 0) 
+	cycle_action.Grant(user, src)
+	lights_action.Grant(user, src)
+	stats_action.Grant(user, src)
+	eject_action.Grant(user, src)
+	klaxon_action.Grant(user, src)
+
+/obj/mecha/working/normalvehicle/buggy/ranger/RemoveActions(mob/living/user, human_occupant = 0)
+	cycle_action.Remove(user)
+	lights_action.Remove(user)
+	stats_action.Remove(user)
+	eject_action.Remove(user)
+	klaxon_action.Remove(user)
+
+/obj/mecha/working/normalvehicle/buggy/ranger/loaded/Initialize()
+	. = ..()
+	var/obj/item/mecha_parts/mecha_equipment/ME = new
+	ME = new /obj/item/mecha_parts/mecha_equipment/seat
+	ME.attach(src)
+
+//Legion Chariot
+
+/obj/mecha/working/normalvehicle/buggy/legion
+	name = "\improper Legion Chariot"
+	desc = "A light vehicle, not very powerful or solid, running on fuel... Okay, that's a lie. It's actually run on power generated by the horse... The fuel is here to make sure that some component of the buggy half works."
+	icon = 'icons/mecha/buggy-legion.dmi'
+	icon_state = "legionbuggy"
+	pixel_x = -18
+	pixel_y = 0
+	can_be_locked = TRUE
+	dna_lock
+	step_in = 1.2
+	opacity = 0
+	dir_in = 8
+	step_energy_drain = 0.2
+	max_temperature = 20000
+	max_integrity = 250
+	armor = ARMOR_VALUE_MEDIUM
+	max_equip = 2
+	stepsound = 'sound/effects/footstep/gallop2.ogg'
+	turnsound = 'sound/effects/footstep/gallop1.ogg'
+	wreckage = /obj/structure/mecha_wreckage/buggy
+	bound_width = 64
+	bound_height = 64
+
+/obj/mecha/working/normalvehicle/buggy/legion/go_out()
+	..()
+	update_icon()
+
+/obj/mecha/working/normalvehicle/buggy/legion/moved_inside(mob/living/carbon/human/H)
+	..()
+	update_icon()
+
+/obj/mecha/working/normalvehicle/buggy/legion/GrantActions(mob/living/user, human_occupant = 0) 
+	cycle_action.Grant(user, src)
+	lights_action.Grant(user, src)
+	stats_action.Grant(user, src)
+	eject_action.Grant(user, src)
+	klaxon_action.Grant(user, src)
+
+/obj/mecha/working/normalvehicle/buggy/legion/RemoveActions(mob/living/user, human_occupant = 0)
+	cycle_action.Remove(user)
+	lights_action.Remove(user)
+	stats_action.Remove(user)
+	eject_action.Remove(user)
+	klaxon_action.Remove(user)
+
+/obj/mecha/working/normalvehicle/buggy/legion/loaded/Initialize()
+	. = ..()
+	var/obj/item/mecha_parts/mecha_equipment/ME = new
+	ME = new /obj/item/mecha_parts/mecha_equipment/seat
+	ME.attach(src)
+
+//jeep
+
+/obj/mecha/working/normalvehicle/jeep
+	name = "\improper pickup truck"
+	desc = "A old vehicule, runing on fuel."
+	icon = 'icons/mecha/jeep.dmi'
+	icon_state = "jeep"
+	pixel_x = -15
+	pixel_y = 0
+	can_be_locked = TRUE
+	dna_lock
+	step_in = 1.35
+	opacity = 0
+	dir_in = 8
+	step_energy_drain = 0.6
+	max_temperature = 20000
+	max_integrity = 200
+	armor = ARMOR_VALUE_HEAVY
+	max_equip = 4
+	stepsound = 'sound/f13machines/buggy_loop.ogg'
+	turnsound = 'sound/f13machines/buggy_loop.ogg'
+	wreckage = /obj/structure/mecha_wreckage/buggy
+	bound_width = 64
+	bound_height = 64
+
+/obj/mecha/working/normalvehicle/jeep/go_out()
+	..()
+	update_icon()
+
+/obj/mecha/working/normalvehicle/jeep/moved_inside(mob/living/carbon/human/H)
+	..()
+	update_icon()
+
+/obj/mecha/working/normalvehicle/jeep/GrantActions(mob/living/user, human_occupant = 0) 
+	cycle_action.Grant(user, src)
+	lights_action.Grant(user, src)
+	stats_action.Grant(user, src)
+	eject_action.Grant(user, src)
+	klaxon_action.Grant(user, src)
+
+/obj/mecha/working/normalvehicle/jeep/RemoveActions(mob/living/user, human_occupant = 0)
+	cycle_action.Remove(user)
+	lights_action.Remove(user)
+	stats_action.Remove(user)
+	eject_action.Remove(user)
+	klaxon_action.Remove(user)
+
+/obj/mecha/working/normalvehicle/jeep/loaded/Initialize()
+	. = ..()
+	var/obj/item/mecha_parts/mecha_equipment/ME = new
+	ME = new /obj/item/mecha_parts/mecha_equipment/seat
+	ME.attach(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/seat
+	ME.attach(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/seat
+	ME.attach(src)
+
+//jeep Enclave
+
+/obj/mecha/working/normalvehicle/jeep/enclave
+	name = "\improper pickup truck"
+	desc = "A old military vehicule, runing on fuel., and recolored"
+	icon = 'icons/mecha/jeepenclave.dmi'
+	icon_state = "jeepenclave"
+	pixel_x = -15
+	pixel_y = 0
+	can_be_locked = TRUE
+	dna_lock
+	step_in = 1.35
+	opacity = 0
+	dir_in = 8
+	step_energy_drain = 0.6
+	max_temperature = 20000
+	max_integrity = 200
+	armor = ARMOR_VALUE_HEAVY
+	max_equip = 4
+	stepsound = 'sound/f13machines/buggy_loop.ogg'
+	turnsound = 'sound/f13machines/buggy_loop.ogg'
+	wreckage = /obj/structure/mecha_wreckage/buggy
+	bound_width = 64
+	bound_height = 64
+
+/obj/mecha/working/normalvehicle/jeep/enclave/go_out()
+	..()
+	update_icon()
+
+/obj/mecha/working/normalvehicle/jeep/enclave/moved_inside(mob/living/carbon/human/H)
+	..()
+	update_icon()
+
+/obj/mecha/working/normalvehicle/jeep/enclave/GrantActions(mob/living/user, human_occupant = 0) 
+	cycle_action.Grant(user, src)
+	lights_action.Grant(user, src)
+	stats_action.Grant(user, src)
+	eject_action.Grant(user, src)
+	klaxon_action.Grant(user, src)
+
+/obj/mecha/working/normalvehicle/jeep/enclave/RemoveActions(mob/living/user, human_occupant = 0)
+	cycle_action.Remove(user)
+	lights_action.Remove(user)
+	stats_action.Remove(user)
+	eject_action.Remove(user)
+	klaxon_action.Remove(user)
+
+/obj/mecha/working/normalvehicle/jeep/enclave/loaded/Initialize()
+	. = ..()
+	var/obj/item/mecha_parts/mecha_equipment/ME = new
+	ME = new /obj/item/mecha_parts/mecha_equipment/seat
+	ME.attach(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/seat
+	ME.attach(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/seat
+	ME.attach(src)
+
+///jeep BOS
+
+/obj/mecha/working/normalvehicle/jeep/bos
+	name = "\improper pickup truck"
+	desc = "A old military vehicule, runing on fuel, and recolored"
+	icon = 'icons/mecha/jeepbos.dmi'
+	icon_state = "jeepbos"
+	pixel_x = -15
+	pixel_y = 0
+	can_be_locked = TRUE
+	dna_lock
+	step_in = 1.35
+	opacity = 0
+	dir_in = 8
+	step_energy_drain = 0.6
+	max_temperature = 20000
+	max_integrity = 200
+	armor = ARMOR_VALUE_HEAVY
+	max_equip = 4
+	stepsound = 'sound/f13machines/buggy_loop.ogg'
+	turnsound = 'sound/f13machines/buggy_loop.ogg'
+	wreckage = /obj/structure/mecha_wreckage/buggy
+	bound_width = 64
+	bound_height = 64
+
+/obj/mecha/working/normalvehicle/jeep/bos/go_out()
+	..()
+	update_icon()
+
+/obj/mecha/working/normalvehicle/jeep/bos/moved_inside(mob/living/carbon/human/H)
+	..()
+	update_icon()
+
+/obj/mecha/working/normalvehicle/jeep/bos/GrantActions(mob/living/user, human_occupant = 0) 
+	cycle_action.Grant(user, src)
+	lights_action.Grant(user, src)
+	stats_action.Grant(user, src)
+	eject_action.Grant(user, src)
+	klaxon_action.Grant(user, src)
+
+/obj/mecha/working/normalvehicle/jeep/bos/RemoveActions(mob/living/user, human_occupant = 0)
+	cycle_action.Remove(user)
+	lights_action.Remove(user)
+	stats_action.Remove(user)
+	eject_action.Remove(user)
+	klaxon_action.Remove(user)
+
+/obj/mecha/working/normalvehicle/jeep/bos/loaded/Initialize()
+	. = ..()
+	var/obj/item/mecha_parts/mecha_equipment/ME = new
+	ME = new /obj/item/mecha_parts/mecha_equipment/seat
+	ME.attach(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/seat
+	ME.attach(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/seat
+	ME.attach(src)
+
+//Highwayman
+
+/obj/mecha/working/normalvehicle/highwayman
+	name = "\improper highwayman eco"
+	desc = "A fast vehicle, running on fuel. YUP! IT'S THE HIGHWAYMAN! Kinda. It's not the original, but a budget version."
+	icon = 'icons/mecha/highwayman.dmi'
+	icon_state = "highwayman"
+	pixel_x = -15
+	pixel_y = 0
+	can_be_locked = TRUE
+	dna_lock
+	step_in = 0.7
+	opacity = 0
+	dir_in = 8
+	step_energy_drain = 1
+	max_temperature = 20000
+	max_integrity = 250
+	armor = list("melee" = 30, "bullet" = 25, "laser" = 20, "energy" = 20, "bomb" = 40, "bio" = 0, "rad" = 100, "fire" = 100, "acid" = 100)
+	max_equip = 2
+	stepsound = 'sound/f13machines/buggy_loop.ogg'
+	turnsound = 'sound/f13machines/buggy_loop.ogg'
+	wreckage = /obj/structure/mecha_wreckage/buggy
+	bound_width = 64
+	bound_height = 64
+
+/obj/mecha/working/normalvehicle/highwayman/go_out()
+	..()
+	update_icon()
+
+/obj/mecha/working/normalvehicle/highwayman/moved_inside(mob/living/carbon/human/H)
+	..()
+	update_icon()
+
+/obj/mecha/working/normalvehicle/highwayman/GrantActions(mob/living/user, human_occupant = 0) 
+	cycle_action.Grant(user, src)
+	lights_action.Grant(user, src)
+	stats_action.Grant(user, src)
+	eject_action.Grant(user, src)
+	klaxon_action.Grant(user, src)
+
+/obj/mecha/working/normalvehicle/highwayman/RemoveActions(mob/living/user, human_occupant = 0)
+	cycle_action.Remove(user)
+	lights_action.Remove(user)
+	stats_action.Remove(user)
+	eject_action.Remove(user)
+	klaxon_action.Remove(user)
+
+/obj/mecha/working/normalvehicle/highwayman/loaded/Initialize()
+	. = ..()
+	var/obj/item/mecha_parts/mecha_equipment/ME = new
+	ME = new /obj/item/mecha_parts/mecha_equipment/seat
+	ME.attach(src)
+
+//corvega
+
+/obj/mecha/working/normalvehicle/corvega
+	name = "\improper Corvega"
+	desc = "A old vehicle, running on fuel."
+	icon = 'icons/mecha/corvega.dmi'
+	icon_state = "corvega"
+	pixel_x = -15
+	pixel_y = 0
+	can_be_locked = TRUE
+	dna_lock
+	step_in = 0.75
+	opacity = 0
+	dir_in = 8
+	step_energy_drain = 1
+	max_temperature = 20000
+	max_integrity = 280
+	armor = ARMOR_VALUE_MEDIUM
+	max_equip = 3
+	stepsound = 'sound/f13machines/buggy_loop.ogg'
+	turnsound = 'sound/f13machines/buggy_loop.ogg'
+	wreckage = /obj/structure/mecha_wreckage/buggy
+	bound_width = 64
+	bound_height = 64
+
+/obj/mecha/working/normalvehicle/corvega/go_out()
+	..()
+	update_icon()
+
+/obj/mecha/working/normalvehicle/corvega/moved_inside(mob/living/carbon/human/H)
+	..()
+	update_icon()
+
+/obj/mecha/working/normalvehicle/corvega/GrantActions(mob/living/user, human_occupant = 0) 
+	cycle_action.Grant(user, src)
+	lights_action.Grant(user, src)
+	stats_action.Grant(user, src)
+	eject_action.Grant(user, src)
+	klaxon_action.Grant(user, src)
+
+/obj/mecha/working/normalvehicle/corvega/RemoveActions(mob/living/user, human_occupant = 0)
+	cycle_action.Remove(user)
+	lights_action.Remove(user)
+	stats_action.Remove(user)
+	eject_action.Remove(user)
+	klaxon_action.Remove(user)
+
+/obj/mecha/working/normalvehicle/corvega/loaded/Initialize()
+	. = ..()
+	var/obj/item/mecha_parts/mecha_equipment/ME = new
+	ME = new /obj/item/mecha_parts/mecha_equipment/seat
+	ME.attach(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/seat
+	ME.attach(src)
+
+//corvega police
+
+/obj/mecha/working/normalvehicle/corvega/police
+	name = "\improper Police Corvega"
+	desc = "A old vehicle, running on fuel. Seems to have been the proprety of the pre-war Yuma PD."
+	icon = 'icons/mecha/corvega-police.dmi'
+	icon_state = "corvega"
+	pixel_x = -15
+	pixel_y = 0
+	can_be_locked = TRUE
+	dna_lock
+	step_in = 0.75
+	opacity = 0
+	dir_in = 8
+	step_energy_drain = 1.3
+	max_temperature = 20000
+	max_integrity = 280
+	armor = ARMOR_VALUE_MEDIUM
+	max_equip = 3
+	stepsound = 'sound/f13machines/buggy_loop.ogg'
+	turnsound = 'sound/f13machines/buggy_loop.ogg'
+	wreckage = /obj/structure/mecha_wreckage/buggy
+	bound_width = 64
+	bound_height = 64
+
+/obj/mecha/working/normalvehicle/corvega/police/go_out()
+	..()
+	update_icon()
+
+/obj/mecha/working/normalvehicle/corvega/police/moved_inside(mob/living/carbon/human/H)
+	..()
+	update_icon()
+
+/obj/mecha/working/normalvehicle/corvega/police/GrantActions(mob/living/user, human_occupant = 0) 
+	cycle_action.Grant(user, src)
+	lights_action.Grant(user, src)
+	stats_action.Grant(user, src)
+	eject_action.Grant(user, src)
+	klaxon_action.Grant(user, src)
+	sirens_action.Grant(user, src)
+
+/obj/mecha/working/normalvehicle/corvega/police/RemoveActions(mob/living/user, human_occupant = 0)
+	cycle_action.Remove(user)
+	lights_action.Remove(user)
+	stats_action.Remove(user)
+	eject_action.Remove(user)
+	klaxon_action.Remove(user)
+	sirens_action.Remove(user)
+
+/obj/mecha/working/normalvehicle/corvega/police/loaded/Initialize()
+	. = ..()
+	var/obj/item/mecha_parts/mecha_equipment/ME = new
+	ME = new /obj/item/mecha_parts/mecha_equipment/seat
+	ME.attach(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/seat
+	ME.attach(src)
