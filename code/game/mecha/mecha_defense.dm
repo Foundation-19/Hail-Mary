@@ -132,8 +132,8 @@
 		Proj.setAngle(SIMPLIFY_DEGREES(Proj.Angle + rand(40,150)))
 		return BULLET_ACT_FORCE_PIERCE
 	Proj.damage = true_damage
+	take_damage(true_damage, Proj.damage_type, null, null, attack_dir, Proj.armour_penetration, Proj)
 	if(true_damage < minimum_damage_to_penetrate)
-		take_damage(true_damage, Proj.damage_type, null, null, attack_dir, Proj.armour_penetration, Proj)
 		return BULLET_ACT_BLOCK
 	var/modules_index = attack_dir_for_modules(dir2angle(attack_dir) - dir2angle(dir))
 	for(var/i=1 to length(directional_comps[modules_index]))
