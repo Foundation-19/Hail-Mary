@@ -63,10 +63,22 @@
 	tools = list(TOOL_WELDER, TOOL_WRENCH)
 	time = 100
 
+//BOS Truck
+/datum/crafting_recipe/carbase/truck/bos
+	name = "BOS Pickup Truck (Final Step)"
+	result = /obj/mecha/working/normalvehicle/pickuptruck/bos/loaded
+	reqs = list(/obj/structure/mecha_wreckage/ncrtruck/seat,
+				/obj/item/stack/sheet/glass = 10,
+				/obj/item/stack/sheet/metal = 30,
+				/obj/item/toy/crayon/spraycan = 1,
+				/obj/item/stack/sheet/prewar = 4)
+	tools = list(TOOL_WELDER, TOOL_WRENCH)
+	time = 100
+
 //Buggy 
 /datum/crafting_recipe/carbase/buggy
 	name = "Buggy (Final Step)"
-	result = /obj/mecha/working/normalvehicle/buggy
+	result = /obj/mecha/working/normalvehicle/buggy/loaded
 	reqs = list(/obj/structure/mecha_wreckage/ncrtruck/seat,
 				/obj/item/stack/sheet/glass = 5,
 				/obj/item/stack/sheet/metal = 15,
@@ -78,7 +90,7 @@
 //Buggy Dune
 /datum/crafting_recipe/carbase/buggy/dune
 	name = "Dune Buggy (Final Step)"
-	result = /obj/mecha/working/normalvehicle/buggy/dune
+	result = /obj/mecha/working/normalvehicle/buggy/dune/loaded
 	reqs = list(/obj/structure/mecha_wreckage/ncrtruck/seat,
 				/obj/item/stack/sheet/glass = 5,
 				/obj/item/stack/sheet/metal = 15,
@@ -90,7 +102,7 @@
 //Buggy Blue
 /datum/crafting_recipe/carbase/buggy/blue
 	name = "Blue Buggy (Final Step)"
-	result = /obj/mecha/working/normalvehicle/buggy/blue
+	result = /obj/mecha/working/normalvehicle/buggy/blue/loaded
 	reqs = list(/obj/structure/mecha_wreckage/ncrtruck/seat,
 				/obj/item/stack/sheet/glass = 5,
 				/obj/item/stack/sheet/metal = 15,
@@ -102,7 +114,7 @@
 //buggy flamme
 /datum/crafting_recipe/carbase/buggy/flamme
 	name = "Flamme Buggy (Final Step)"
-	result = /obj/mecha/working/normalvehicle/buggy/flamme
+	result = /obj/mecha/working/normalvehicle/buggy/flamme/loaded
 	reqs = list(/obj/structure/mecha_wreckage/ncrtruck/seat,
 				/obj/item/stack/sheet/glass = 5,
 				/obj/item/stack/sheet/metal = 15,
@@ -114,7 +126,7 @@
 //Corvega
 /datum/crafting_recipe/carbase/corvega
 	name = "Corvega (Final Step)"
-	result = /obj/mecha/working/normalvehicle/corvega
+	result = /obj/mecha/working/normalvehicle/corvega/loaded
 	reqs = list(/obj/structure/mecha_wreckage/ncrtruck/seat,
 				/obj/item/stack/sheet/glass = 15,
 				/obj/item/stack/sheet/metal = 35,
@@ -123,14 +135,149 @@
 	tools = list(TOOL_WELDER, TOOL_WRENCH)
 	time = 100
 
+//Buggy Ranger
+/datum/crafting_recipe/carbase/buggy/ranger
+	name = "NCR Ranger Buggy (Final Step)"
+	result = /obj/mecha/working/normalvehicle/buggy/ranger/loaded
+	reqs = list(/obj/structure/mecha_wreckage/ncrtruck/seat,
+				/obj/item/stack/sheet/glass = 5,
+				/obj/item/stack/sheet/metal = 15,
+				/obj/item/toy/crayon/spraycan = 1,
+				/obj/item/stack/sheet/prewar = 10)
+	tools = list(TOOL_WELDER, TOOL_WRENCH)
+	time = 100
+	always_available = FALSE
+
+//Buggy Ranger
+/datum/crafting_recipe/carbase/buggy/legion
+	name = "Legion Chariot Buggy (Final Step)"
+	result = /obj/mecha/working/normalvehicle/buggy/legion/loaded
+	reqs = list(/obj/structure/mecha_wreckage/ncrtruck/seat,
+				/obj/item/stack/sheet/glass = 5,
+				/obj/item/stack/sheet/metal = 15,
+				/obj/item/toy/crayon/spraycan = 1,
+				/obj/item/stack/sheet/prewar = 10)
+	tools = list(TOOL_WELDER, TOOL_WRENCH)
+	time = 100
+	always_available = FALSE
+
 //Highwayman
 /datum/crafting_recipe/carbase/highwayman
 	name = "Highwayman (Final Step)"
-	result = /obj/mecha/working/normalvehicle/highwayman
+	result = /obj/mecha/working/normalvehicle/highwayman/loaded
 	reqs = list(/obj/structure/mecha_wreckage/ncrtruck/seat,
 				/obj/item/stack/sheet/glass = 15,
 				/obj/item/stack/sheet/metal = 35,
 				/obj/item/toy/crayon/spraycan = 1,
 				/obj/item/stack/sheet/prewar = 15)
+	tools = list(TOOL_WELDER, TOOL_WRENCH)
+	time = 100
+
+
+//Highwayman
+/datum/crafting_recipe/carbase/highwayman
+	name = "Highwayman (Final Step)"
+	result = /obj/mecha/working/normalvehicle/highwayman/loaded
+	reqs = list(/obj/structure/mecha_wreckage/ncrtruck/seat,
+				/obj/item/stack/sheet/glass = 15,
+				/obj/item/stack/sheet/metal = 35,
+				/obj/item/toy/crayon/spraycan = 1,
+				/obj/item/stack/sheet/prewar = 15)
+	tools = list(TOOL_WELDER, TOOL_WRENCH)
+	time = 100
+
+//jeep
+
+/datum/crafting_recipe/carbase/jeep
+	name = "Jeep (Final Step)"
+	result = /obj/mecha/working/normalvehicle/jeep/loaded
+	reqs = list(/obj/structure/mecha_wreckage/ncrtruck/seat,
+				/obj/item/stack/sheet/glass = 10,
+				/obj/item/stack/sheet/metal = 40,
+				/obj/item/toy/crayon/spraycan = 1,
+				/obj/item/stack/sheet/prewar = 25)
+	tools = list(TOOL_WELDER, TOOL_WRENCH)
+	time = 100
+
+//Jeep enclave
+
+/datum/crafting_recipe/carbase/jeep/enclave
+	name = "Enclave Jeep (Final Step)"
+	result = /obj/mecha/working/normalvehicle/jeep/enclave/loaded
+	reqs = list(/obj/structure/mecha_wreckage/ncrtruck/seat,
+				/obj/item/stack/sheet/glass = 10,
+				/obj/item/stack/sheet/metal = 40,
+				/obj/item/toy/crayon/spraycan = 1,
+				/obj/item/stack/sheet/prewar = 25)
+	tools = list(TOOL_WELDER, TOOL_WRENCH)
+	time = 100
+
+//Jeep BOS
+
+/datum/crafting_recipe/carbase/jeep/enclave
+	name = "Enclave Jeep (Final Step)"
+	result = /obj/mecha/working/normalvehicle/jeep/bos/loaded
+	reqs = list(/obj/structure/mecha_wreckage/ncrtruck/seat,
+				/obj/item/stack/sheet/glass = 10,
+				/obj/item/stack/sheet/metal = 40,
+				/obj/item/toy/crayon/spraycan = 1,
+				/obj/item/stack/sheet/prewar = 25)
+	tools = list(TOOL_WELDER, TOOL_WRENCH)
+	time = 100
+	always_available = FALSE
+
+//NCR Truck
+
+/datum/crafting_recipe/carbase/ncrtruck
+	name = "NCR MP Truck (Final Step)"
+	result = /obj/mecha/working/normalvehicle/ncrtruck/mp/loaded
+	reqs = list(/obj/structure/mecha_wreckage/ncrtruck/seat,
+				/obj/item/stack/sheet/glass = 20,
+				/obj/item/stack/sheet/metal = 50,
+				/obj/item/toy/crayon/spraycan = 1,
+				/obj/item/stack/sheet/prewar = 30)
+	tools = list(TOOL_WELDER, TOOL_WRENCH)
+	time = 100
+
+/datum/crafting_recipe/carbase/ncrtruck/mp
+	name = "NCR Truck (Final Step)"
+	result = /obj/mecha/working/normalvehicle/ncrtruck/loaded
+	reqs = list(/obj/structure/mecha_wreckage/ncrtruck/seat,
+				/obj/item/stack/sheet/glass = 20,
+				/obj/item/stack/sheet/metal = 50,
+				/obj/item/toy/crayon/spraycan = 1,
+				/obj/item/stack/sheet/prewar = 30)
+	tools = list(TOOL_WELDER, TOOL_WRENCH)
+	time = 100
+	always_available = FALSE
+
+
+//BOS Truck ARMED
+/datum/crafting_recipe/carbase/truck/bos/armed
+	name = "BOS Truck Gunner station (Arming Step - REMOVE ALL MODULE FROM CAR BEFORE MODIFYING)"
+	result = /obj/mecha/combat/combatvehicle/pickuptruck/bos/armed
+	reqs = list(/obj/mecha/working/normalvehicle/pickuptruck/bos,
+				/obj/item/stack/sheet/metal = 20,
+				/obj/item/stack/sheet/prewar = 4)
+	tools = list(TOOL_WELDER, TOOL_WRENCH)
+	time = 100
+
+//Ranger buggy ARMED
+/datum/crafting_recipe/carbase/buggy/ranger/armed
+	name = "Ranger buggy gunner station (Arming Step - REMOVE ALL MODULE FROM CAR BEFORE MODIFYING)"
+	result = /obj/mecha/combat/combatvehicle/buggy/rangerarmed
+	reqs = list(/obj/mecha/combat/combatvehicle/buggy/ranger,
+				/obj/item/stack/sheet/metal = 20,
+				/obj/item/stack/sheet/prewar = 4)
+	tools = list(TOOL_WELDER, TOOL_WRENCH)
+	time = 100
+
+//Ranger buggy ARMED
+/datum/crafting_recipe/carbase/buggy/legion/armed
+	name = "Legion buggy gunner station (Arming Step - REMOVE ALL MODULE FROM CAR BEFORE MODIFYING)"
+	result = /obj/mecha/combat/combatvehicle/buggy/legionarmed
+	reqs = list(/obj/mecha/combat/combatvehicle/buggy/legion,
+				/obj/item/stack/sheet/metal = 20,
+				/obj/item/stack/sheet/prewar = 4)
 	tools = list(TOOL_WELDER, TOOL_WRENCH)
 	time = 100

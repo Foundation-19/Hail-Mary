@@ -431,11 +431,13 @@
 
 /obj/mecha/combat/combatvehicle/pickuptruck/bos/armed/loaded/Initialize()
 	. = ..()
-	var/obj/item/mecha_parts/mecha_equipment/ME = new
-	ME = new /obj/item/mecha_parts/mecha_equipment/seat
+	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/seat
 	ME.attach(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/seat
+	ME.attach(src)
+	max_ammo()
 
 //Buggy Ranger AND RICO
 
