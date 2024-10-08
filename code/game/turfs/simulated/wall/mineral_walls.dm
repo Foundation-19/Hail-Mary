@@ -21,7 +21,7 @@
 	icon = 'icons/turf/walls/gold_wall.dmi'
 	icon_state = "gold"
 	sheet_type = /obj/item/stack/sheet/mineral/gold
-	explosion_block = 0 //gold is a soft metal you dingus.
+	explosion_block = 3 //gold is a soft metal you dingus.
 	canSmoothWith = list(/turf/closed/wall/mineral/gold, /obj/structure/falsewall/gold)
 
 /turf/closed/wall/mineral/silver
@@ -39,7 +39,7 @@
 	icon_state = "diamond"
 	sheet_type = /obj/item/stack/sheet/mineral/diamond
 	slicing_duration = 200   //diamond wall takes twice as much time to slice
-	explosion_block = 3
+	explosion_block = 1
 	canSmoothWith = list(/turf/closed/wall/mineral/diamond, /obj/structure/falsewall/diamond)
 
 /turf/closed/wall/mineral/sandstone
@@ -48,7 +48,7 @@
 	icon = 'icons/turf/walls/sandstone_wall.dmi'
 	icon_state = "sandstone"
 	sheet_type = /obj/item/stack/sheet/mineral/sandstone
-	explosion_block = 0
+	explosion_block = 3
 	canSmoothWith = list(/turf/closed/wall/mineral/sandstone, /obj/structure/falsewall/sandstone)
 
 /turf/closed/wall/mineral/uranium
@@ -130,7 +130,7 @@
 	icon_state = "wood"
 	sheet_type = /obj/item/stack/sheet/mineral/wood
 	hardness = 70
-	explosion_block = 0
+	explosion_block = 3
 	canSmoothWith = list(/turf/closed/wall/mineral/wood, /obj/structure/falsewall/wood, /turf/closed/wall/mineral/wood/nonmetal)
 
 /turf/closed/wall/mineral/wood/attackby(obj/item/W, mob/user)
@@ -164,7 +164,7 @@
 	icon = 'icons/turf/walls/snow_wall.dmi'
 	icon_state = "snow"
 	hardness = 80
-	explosion_block = 0
+	explosion_block = 3
 	slicing_duration = 30
 	sheet_type = /obj/item/stack/sheet/mineral/snow
 	canSmoothWith = null
@@ -180,7 +180,7 @@
 	smooth = SMOOTH_TRUE|SMOOTH_DIAGONAL
 	sheet_type = /obj/item/stack/sheet/mineral/abductor
 	slicing_duration = 200   //alien wall takes twice as much time to slice
-	explosion_block = 3
+	explosion_block = 1
 	canSmoothWith = list(/turf/closed/wall/mineral/abductor, /obj/structure/falsewall/abductor)
 
 /////////////////////Titanium walls/////////////////////
@@ -190,7 +190,7 @@
 	desc = "A light-weight titanium wall used in shuttles."
 	icon = 'icons/turf/walls/shuttle_wall.dmi'
 	icon_state = "map-shuttle"
-	explosion_block = 3
+	explosion_block = 1
 	flags_1 = CAN_BE_DIRTY_1 | DEFAULT_RICOCHET_1
 	flags_ricochet = RICOCHET_SHINY | RICOCHET_HARD
 	sheet_type = /obj/item/stack/sheet/mineral/titanium
@@ -254,7 +254,7 @@
 	desc = "An evil wall of plasma and titanium."
 	icon = 'icons/turf/walls/plastitanium_wall.dmi'
 	icon_state = "map-shuttle"
-	explosion_block = 4
+	explosion_block = 1
 	sheet_type = /obj/item/stack/sheet/mineral/plastitanium
 	smooth = SMOOTH_MORE|SMOOTH_DIAGONAL
 	canSmoothWith = list(/turf/closed/wall/mineral/plastitanium, /obj/machinery/door/airlock/shuttle, /obj/machinery/door/airlock, /obj/structure/window/plastitanium, /obj/structure/shuttle/engine, /obj/structure/falsewall/plastitanium)
