@@ -11,7 +11,7 @@
 	sheet_type = /obj/item/stack/sheet/plasteel
 	sheet_amount = 1
 	girder_type = /obj/structure/girder/reinforced
-	explosion_block = 2
+	explosion_block = 0
 	rad_insulation = RAD_HEAVY_INSULATION
 	weak_wall = FALSE
 
@@ -248,7 +248,7 @@
 	desc = "The armored hull of an ominous looking ship."
 	icon = 'icons/turf/walls/plastitanium_wall.dmi'
 	icon_state = "map-shuttle"
-	explosion_block = 20
+	explosion_block = 0
 	sheet_type = /obj/item/stack/sheet/mineral/plastitanium
 	smooth = SMOOTH_MORE|SMOOTH_DIAGONAL
 	canSmoothWith = list(/turf/closed/wall/r_wall/syndicate, /turf/closed/wall/mineral/plastitanium, /obj/machinery/door/airlock/shuttle, /obj/machinery/door/airlock, /obj/structure/window/plastitanium, /obj/structure/shuttle/engine, /obj/structure/falsewall/plastitanium)
@@ -273,7 +273,7 @@
 
 /turf/closed/wall/r_wall/syndicate/pirate
 	desc = "Yarr just try to blow this to smithereens!"
-	explosion_block = 30
+	explosion_block = 2
 	canSmoothWith = list(/turf/closed/wall/r_wall/syndicate/pirate, /obj/machinery/door/airlock/shuttle, /obj/machinery/door/airlock, /obj/structure/window/plastitanium/pirate, /obj/structure/shuttle/engine, /obj/structure/falsewall/plastitanium)
 
 /turf/closed/wall/r_wall/syndicate/pirate/nodiagonal

@@ -5,7 +5,7 @@
 	desc = "A huge chunk of metal used to separate rooms."
 	icon = 'icons/turf/walls/wall.dmi'
 	icon_state = "wall"
-	explosion_block = 1
+	explosion_block = 3
 	flags_1 = DEFAULT_RICOCHET_1
 	flags_ricochet = RICOCHET_HARD
 	thermal_conductivity = WALL_HEAT_TRANSFER_COEFFICIENT
@@ -80,17 +80,19 @@
 		return
 	switch(severity)
 		if(1)
-			//SN src = null
-			var/turf/NT = ScrapeAway()
-			NT.contents_explosion(severity, target)
-			return
-		if(2)
-			if (prob(50))
+			if (explosion_block >= 2)
+				var/turf/wall = ScrapeAway()
+				wall.contents_explosion(severity, target)
+				return
+			if (explosion_block == 1 && !prob(hardness/1.5))
 				dismantle_wall(0,1)
-			else
-				dismantle_wall(1,1)
+			if (explosion_block <= 0)
+				return
+		if(2)
+			if (explosion_block > 2 && !prob(hardness/1.5))
+				dismantle_wall(0,1)
 		if(3)
-			if (weak_wall && prob(hardness))
+			if (weak_wall && !prob(hardness/1.5))
 				dismantle_wall(0,1)
 	if(!density)
 		..()
@@ -357,13 +359,13 @@
 			to_chat(user, "You can't climb there, there is a ceiling!")
 			return
 		visible_message(span_warning("[user] attempts to climb the [name]!"), span_warning("You begin climbing the [name]"))
-		
+
 		if(do_mob(user, user, 40 + (user.getStaminaLoss() * 0.25))) // 25% of your stamina loss will effect the speed on climbing.
 			var/turf/targetDest = get_step_multiz(get_turf(src), UP)
 			if(istype(targetDest, /turf/open/transparent/openspace)) // This helps prevent boundary breaking.
 				to_chat(user, span_warning("There's nothing to stand on once you climb up..!"))
 				return
-			
+
 			var/failedPass = FALSE
 			for(var/obj/O in targetDest.contents)
 				if(!O.CanPass(user, get_dir(aboveT, targetDest)))

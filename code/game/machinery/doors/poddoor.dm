@@ -11,7 +11,7 @@
 	heat_proof = TRUE
 	safe = FALSE
 	max_integrity = 1200
-	armor = ARMOR_VALUE_MEDIUM
+	armor = ARMOR_VALUE_SALVAGE
 	resistance_flags = FIRE_PROOF
 	damage_deflection = 73
 	proj_resist = 100
@@ -132,8 +132,16 @@
 
 //"BLAST" doors are obviously stronger than regular doors when it comes to BLASTS.
 /obj/machinery/door/poddoor/ex_act(severity, target)
-	if(severity == 3)
-		return
+	if(density)
+		switch(severity)
+			if(3)
+				return
+			if(2)
+				take_damage(rand(100,200))
+				return
+			if(1)
+				take_damage(rand(300,450))
+				return
 	..()
 
 /obj/machinery/door/poddoor/do_animate(animation)

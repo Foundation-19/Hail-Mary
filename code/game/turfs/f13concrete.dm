@@ -165,7 +165,7 @@ GLOBAL_LIST_INIT(concrete_recipes, list ( \
 	icon_state = "supermart"
 	icon_type_smooth = "supermart"
 	hardness = 90
-	explosion_block = 2
+	explosion_block = 1
 	smooth = SMOOTH_TRUE
 	sheet_type = /obj/item/stack/sheet/mineral/concrete
 	canSmoothWith = list(/turf/closed/wall/f13/supermart, /turf/closed/wall/mineral/concrete, /turf/closed/wall,)
@@ -174,7 +174,7 @@ GLOBAL_LIST_INIT(concrete_recipes, list ( \
 	name = "fortified supermart wall"
 	desc = "A pre-War supermart that has been coated with plastic to reduce cracking from overpressure."
 	hardness = 80
-	explosion_block = 5
+	explosion_block = 0
 	slicing_duration = 150 //50% longer than usual
 
 /turf/closed/wall/mineral/concrete/attackby(obj/item/I, mob/user)
@@ -200,7 +200,7 @@ GLOBAL_LIST_INIT(concrete_recipes, list ( \
 			qdel(src)
 			return
 	return ..()
-	
+
 /obj/structure/barricade/concrete
 	name = "concrete barricade"
 	desc = "A small concrete barricade. Could be turned into a concrete wall with some more concrete."
@@ -245,6 +245,7 @@ GLOBAL_LIST_INIT(concrete_recipes, list ( \
 	icon_state = "store"
 	icon_type_smooth = "store"
 	hardness = 80
+	explosion_block = 2
 	smooth = SMOOTH_TRUE
 	girder_type = /obj/structure/barricade/concrete
 	sheet_type = null

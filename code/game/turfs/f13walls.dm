@@ -3,24 +3,28 @@
 	desc = "A huge chunk of metal used to separate rooms."
 	icon = 'icons/turf/walls/f13vault_reinforced_wall.dmi'
 	hardness = 60
+	explosion_block = 1
 
 /turf/closed/wall/r_wall/f13vaultrusted
 	name = "rusty vault wall"
 	desc = "A rusty chunk of metal used to separate rooms."
 	icon = 'icons/turf/walls/f13vault_rusted_wall.dmi'
 	hardness = 40
+	explosion_block = 2
 
 /turf/closed/wall/r_wall/f13composite
 	name = "composite wall"
 	desc = "A huge chunk of metal used to separate rooms."
 	icon = 'icons/turf/walls/f13composite.dmi'
 	hardness = 50
+	explosion_block = 1
 
 /turf/closed/wall/r_wall/f13superstore
 	name = "store wall"
 	desc = "A huge chunk of metal used to separate rooms."
 	icon = 'icons/turf/walls/f13superstore.dmi'
 	hardness = 50
+	explosion_block = 2
 
 /turf/closed/wall/f13wood
 	name = "wood wall"
