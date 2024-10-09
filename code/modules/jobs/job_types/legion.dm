@@ -1117,7 +1117,7 @@ Weapons		Lever shotgun, Grease gun, Repeater carbines, Revolvers, simple guns al
 		/obj/item/pen/fountain = 1,
 		/obj/item/taperecorder = 1,
 		/obj/item/clothing/under/f13/legauxilia = 1,
-		/obj/item/stack/f13Cash/random/aureus/high = 2,
+		/obj/item/stack/f13Cash/caps/fivezerozero = 1,
 		)
 
 /datum/outfit/loadout/auxmedicus
