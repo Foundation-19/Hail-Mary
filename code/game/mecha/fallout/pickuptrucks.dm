@@ -183,9 +183,9 @@
 
 //jeep
 
-/obj/mecha/combat/phazon/pickuptruck/jeep
+/obj/mecha/combat/phazon/jeep
 	name = "\improper pickup truck"
-	desc = "A old vehicule, runing on fuel."
+	desc = "A old vehicle, runing on fuel."
 	icon = 'icons/mecha/jeep.dmi'
 	icon_state = "jeep"
 	pixel_x = -15
