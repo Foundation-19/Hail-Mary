@@ -24,22 +24,8 @@
 	movement_type = FLYING
 	stepsound = 'sound/f13machines/vertibird_loop.ogg'
 	turnsound = 'sound/f13machines/vertibird_loop.ogg'
-	facing_modifiers = list(FRONT_ARMOUR = 1, SIDE_ARMOUR = 1, BACK_ARMOUR = 1)
 
-	directional_comps = list(
-		list(
-			list(25,1,0)
-		),
-		list(
-			list(50,1,15)
-		),
-		list(
-			list(50,1,15)
-		),
-		list(
-			list(50,1,15)
-		)
-	)
+	facing_modifiers = list(FRONT_ARMOUR = 1, SIDE_ARMOUR = 1, BACK_ARMOUR = 1)
 
 /obj/structure/mecha_wreckage/vertibird
 	name = "\improper Vertibird Wreck"

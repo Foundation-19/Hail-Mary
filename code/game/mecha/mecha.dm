@@ -107,28 +107,6 @@
 	var/list/cargo = new
 	var/cargo_capacity = 0 // for now, copy attributes from ripley so don't have to remap // lazy
 
-	var/static_dir = TRUE
-	var/awkward_turning = FALSE
-
-	// FRONT, LEFT , RIGHT, BACK
-	/// List of internal components per direction , will cause increased mech damge incase of mech AP and block shots from hitting the driver
-	// internal list should be list[ref] = list(hitChance, hitMult, APthreshold)
-	var/list/directional_comps = list(
-		list(
-			list(100,2, 30)
-		),
-		list(
-			list(30,2, 30)
-		),
-		list(
-			list(30,2, 30)
-		),
-		list(
-			list(5,2, 30)
-		)
-	)
-
-
 	/// a list of all vision traits to give to the occupant.
 	var/list/vision_modes = list()
 
@@ -647,12 +625,7 @@
 		set_glide_size(DELAY_TO_GLIDE_SIZE(step_in))
 		move_result = mechsteprand()
 	else if(dir != direction && (!strafe || occupant.client.keys_held["Alt"]))
-
-		if(direction == REVERSE_DIR(dir) && awkward_turning)
-			direction = mechturn(direction, pick(90, -90))
-
-		else
-			move_result = mechturn(direction)
+		move_result = mechturn(direction)
 	else
 		set_glide_size(DELAY_TO_GLIDE_SIZE(step_in))
 		move_result = mechstep(direction)
@@ -1014,9 +987,8 @@
 		forceMove(loc)
 		log_append_to_last("[H] moved in as pilot.")
 		icon_state = initial(icon_state)
+		setDir(dir_in)
 		playsound(src, 'sound/machines/windowdoor.ogg', 50, 1)
-		if(static_dir)
-			setDir(dir_in)
 		if(!internal_damage)
 			SEND_SOUND(occupant, sound('sound/mecha/nominal.ogg',volume=50))
 		return 1
@@ -1070,9 +1042,8 @@
 	brainmob.update_mouse_pointer()
 	icon_state = initial(icon_state)
 	update_icon()
+	setDir(dir_in)
 	mecha_log_message("[mmi_as_oc] moved in as pilot.")
-	if(static_dir)
-		setDir(dir_in)
 	if(!internal_damage)
 		SEND_SOUND(occupant, sound('sound/mecha/nominal.ogg',volume=50))
 	GrantActions(brainmob)
@@ -1138,8 +1109,7 @@
 			mmi.update_icon()
 			L.mobility_flags = NONE
 		icon_state = initial(icon_state)+"-open"
-		if(static_dir)
-			setDir(dir_in)
+		setDir(dir_in)
 
 	if(L && L.client)
 		L.update_mouse_pointer()

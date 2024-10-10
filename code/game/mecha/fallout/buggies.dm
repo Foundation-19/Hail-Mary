@@ -13,22 +13,8 @@
 	stepsound = 'sound/f13machines/buggy_loop.ogg'
 	turnsound = 'sound/f13machines/buggy_loop.ogg'
 	wreckage = /obj/structure/mecha_wreckage/buggy
-	facing_modifiers = list(FRONT_ARMOUR = 1.15, SIDE_ARMOUR = 1, BACK_ARMOUR = 0.85) // Engine's on the back, IG
 
-	directional_comps = list(
-		list(
-			list(25,1.5,15)
-		),
-		list(
-			list(5,1,0)
-		),
-		list(
-			list(5,1,0)
-		),
-		list(
-			list(25,1.5,15)
-		)
-	)
+	facing_modifiers = list(FRONT_ARMOUR = 1.15, SIDE_ARMOUR = 1, BACK_ARMOUR = 0.85) // Engine's on the back, IG
 
 	max_utility_equip = 2
 	max_weapons_equip = 1
