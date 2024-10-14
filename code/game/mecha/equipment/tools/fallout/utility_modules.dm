@@ -59,9 +59,8 @@
 	//STR.storage_flags = STORAGE_FLAGS_VOLUME_DEFAULT
 	STR.max_combined_w_class = 10
 	STR.max_w_class = WEIGHT_CLASS_HUGE
-	STR.max_items = 20
+	STR.max_items = 10
 	storagespace = STR
-
 
 /obj/item/mecha_parts/mecha_equipment/trunk/AllowDrop()
 	return !QDELETED(src)

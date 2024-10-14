@@ -251,6 +251,19 @@
 			to_chat(user, span_warning("The [name] is at full integrity!"))
 		return 1
 
+	else if(istype(W, /obj/item/multitool) && user.a_intent != INTENT_HARM)
+		if(dna_lock || LAZYLEN(operation_req_access) || LAZYLEN(req_access))
+			to_chat(user, span_notice("You start hacking the vehicle's lock system.."))
+			if(W.use_tool(src, user, 150, volume=100))
+				to_chat(user, span_notice("You clear the vehicle's electronic lock."))
+				dna_lock = 0
+				operation_req_access = list()
+				req_access = list()
+		else
+			to_chat(user, span_notice("This vehicle isn't locked."))
+			return 1
+		return 1
+
 	else if(istype(W, /obj/item/mecha_parts/mecha_tracking))
 		var/obj/item/mecha_parts/mecha_tracking/tracker = W
 		tracker.try_attach_part(user, src)
@@ -282,7 +295,7 @@
 /obj/mecha/proc/full_repair(refill_tank)
 	obj_integrity = max_integrity
 	if(fuel_holder && refill_tank)
-		fuel_holder.reagents.add_reagent("welding_fuel", fuel_holder.volume)
+		fuel_holder.reagents.add_reagent(/datum/reagent/fuel, fuel_holder.volume)
 	if(internal_damage & MECHA_INT_FIRE)
 		clearInternalDamage(MECHA_INT_FIRE)
 	if(internal_damage & MECHA_INT_TEMP_CONTROL)

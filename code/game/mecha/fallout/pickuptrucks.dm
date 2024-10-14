@@ -225,11 +225,14 @@
 	eject_action.Remove(user)
 	klaxon_action.Remove(user)
 
+/obj/mecha/combat/phazon/jeep/Initialize(mapload)
+	. = ..()
+	var/obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/fallout13/vehicle_straps/ME = new(src)
+	ME.attach(src)
+
 /obj/mecha/combat/phazon/jeep/loaded/Initialize()
 	. = ..()
 	var/obj/item/mecha_parts/mecha_equipment/ME = new
-	ME = new /obj/item/mecha_parts/mecha_equipment/seat
-	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/seat
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/seat

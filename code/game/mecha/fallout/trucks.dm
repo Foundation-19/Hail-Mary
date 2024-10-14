@@ -48,7 +48,6 @@
 	stats_action.Grant(user, src)
 	eject_action.Grant(user, src)
 	klaxon_action.Grant(user, src)
-	strafing_action.Grant(user, src)
 
 /obj/mecha/combat/phazon/ncrtruck/RemoveActions(mob/living/user, human_occupant = 0)
 	cycle_action.Remove(user)
@@ -56,7 +55,6 @@
 	stats_action.Remove(user)
 	eject_action.Remove(user)
 	klaxon_action.Remove(user)
-	strafing_action.Remove(user, src)
 
 /obj/mecha/combat/phazon/ncrtruck/loaded/Initialize()
 	. = ..()
@@ -124,11 +122,14 @@
 	desc = "A Modified vehicule made to carry people in need to a hospital."
 	icon = 'icons/mecha/ambulance.dmi'
 	icon_state = "ambulance"
+	stepsound = 'sound/f13machines/buggy_loop.ogg'
+	turnsound = 'sound/f13machines/buggy_loop.ogg'
+	pixel_x = -20
+	pixel_y = -5
 	step_in = 1
 	armor = ARMOR_VALUE_VEHICLE_MEDIUM
 	max_integrity = 300
 	step_energy_drain = 0.5
-
 	max_weapons_equip = 1
 	max_utility_equip = 5
 	max_misc_equip = 1

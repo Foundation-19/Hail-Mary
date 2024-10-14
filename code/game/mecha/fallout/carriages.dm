@@ -113,7 +113,6 @@
 	stats_action.Grant(user, src)
 	eject_action.Grant(user, src)
 	klaxon_action.Grant(user, src)
-	smoke_action.Grant(user, src)
 
 /obj/mecha/combat/phazon/truckcaravan/RemoveActions(mob/living/user, human_occupant = 0)
 	cycle_action.Remove(user)
@@ -121,7 +120,6 @@
 	stats_action.Remove(user)
 	eject_action.Remove(user)
 	klaxon_action.Remove(user)
-	smoke_action.Remove(user)
 
 /obj/mecha/combat/phazon/truckcaravan/loaded/Initialize()
 	. = ..()
