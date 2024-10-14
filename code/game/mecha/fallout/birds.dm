@@ -11,6 +11,7 @@
 	step_in = 0.6
 	dir_in = 2
 	step_energy_drain = 0.75
+	normal_step_energy_drain = 0.75
 	max_integrity = 150
 	armor = ARMOR_VALUE_VEHICLE_MEDIUM
 	wreckage = /obj/structure/mecha_wreckage/vertibird
@@ -90,6 +91,7 @@
 	icon_state = "vb"
 	step_in = 0.8
 	step_energy_drain = 0.7
+	normal_step_energy_drain = 0.7
 	max_integrity = 200
 	wreckage = /obj/structure/mecha_wreckage/vertibird
 	add_req_access = 1
@@ -145,6 +147,7 @@
 	icon_state = "vb"
 	step_in = 0.6
 	step_energy_drain = 0.75
+	normal_step_energy_drain = 0.75
 	max_integrity = 150
 	wreckage = /obj/structure/mecha_wreckage/vertibird
 	add_req_access = 1
@@ -201,6 +204,7 @@
 	icon_state = "vb"
 	step_in = 0.6
 	step_energy_drain = 0.75
+	normal_step_energy_drain = 0.75
 	max_integrity = 150
 	wreckage = /obj/structure/mecha_wreckage/vertibird
 	add_req_access = 1
@@ -258,7 +262,8 @@
 	pixel_x = -125
 	pixel_y = 0
 	step_in = 4
-	step_energy_drain = 0.2
+	step_energy_drain = 0.1
+	normal_step_energy_drain = 0.1
 	max_integrity = 100
 	armor = ARMOR_VALUE_VEHICLE_HEAVY
 	max_utility_equip = 6
