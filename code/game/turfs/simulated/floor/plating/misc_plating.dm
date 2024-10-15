@@ -55,6 +55,7 @@
 	clawfootstep = FOOTSTEP_SAND
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 	tiled_dirt = FALSE
+	resistance_flags = INDESTRUCTIBLE
 
 /turf/open/floor/plating/ashplanet/Initialize()
 	if(smooth)

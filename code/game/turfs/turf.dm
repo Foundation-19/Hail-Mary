@@ -68,6 +68,9 @@
 		stack_trace("Warning: [src]([type]) initialized multiple times!")
 	flags_1 |= INITIALIZED_1
 
+	if(integrity == null)
+		integrity = max_integrity
+
 	// by default, vis_contents is inherited from the turf that was here before
 	vis_contents.Cut()
 
@@ -236,23 +239,6 @@
 		if(C.wiring_gui_menu)
 			C.wiringGuiUpdate(user)
 		C.is_empty(user)
-
-/turf/attackby(obj/item/C, mob/user, params)
-	if(..())
-		return TRUE
-	if(can_lay_cable() && istype(C, /obj/item/stack/cable_coil))
-		var/obj/item/stack/cable_coil/coil = C
-		for(var/obj/structure/cable/LC in src)
-			if(!LC.d1 || !LC.d2)
-				LC.attackby(C,user)
-				return
-		coil.place_turf(src, user)
-		return TRUE
-
-	else if(istype(C, /obj/item/rcl))
-		handleRCL(C, user)
-
-	return FALSE
 
 /turf/CanAllowThrough(atom/movable/mover)
 	..()
@@ -423,16 +409,6 @@
 
 ////////////////////////////////////////////////////
 
-/turf/singularity_act()
-	if(intact)
-		for(var/obj/O in contents) //this is for deleting things like wires contained in the turf
-			if(O.level != 1)
-				continue
-			if(O.invisibility == INVISIBILITY_MAXIMUM)
-				O.singularity_act()
-	ScrapeAway(flags = CHANGETURF_INHERIT_AIR)
-	return(2)
-
 /turf/proc/can_have_cabling()
 	return TRUE
 
@@ -450,48 +426,7 @@
 		else
 			vis_contents -= GLOB.cameranet.vis_contents_objects
 
-/turf/proc/burn_tile()
-
 /turf/proc/is_shielded()
-
-/turf/contents_explosion(severity, target)
-	var/affecting_level
-	if(severity == 1)
-		affecting_level = 1
-	else if(is_shielded())
-		affecting_level = 3
-	else if(intact)
-		affecting_level = 2
-	else
-		affecting_level = 1
-
-	for(var/V in contents)
-		var/atom/A = V
-		if(!QDELETED(A) && A.level >= affecting_level)
-			if(ismovable(A))
-				var/atom/movable/AM = A
-				if(!AM.ex_check(explosion_id))
-					continue
-			A.ex_act(severity, target)
-			CHECK_TICK
-
-/turf/narsie_act(force, ignore_mobs, probability = 20)
-	. = (prob(probability) || force)
-	for(var/I in src)
-		var/atom/A = I
-		if(ignore_mobs && ismob(A))
-			continue
-		if(ismob(A) || .)
-			A.narsie_act()
-
-/turf/ratvar_act(force, ignore_mobs, probability = 40)
-	. = (prob(probability) || force)
-	for(var/I in src)
-		var/atom/A = I
-		if(ignore_mobs && ismob(A))
-			continue
-		if(ismob(A) || .)
-			A.ratvar_act()
 
 //called on /datum/species/proc/altdisarm()
 /turf/shove_act(mob/living/target, mob/living/user, pre_act = FALSE)
@@ -528,27 +463,6 @@
 		add_blueprints(AM)
 
 /turf/proc/is_transition_turf()
-	return
-
-/turf/acid_act(acidpwr, acid_volume)
-	. = 1
-	var/acid_type = /obj/effect/acid
-	if(acidpwr >= 200) //alien acid power
-		acid_type = /obj/effect/acid/alien
-	var/has_acid_effect = FALSE
-	for(var/obj/O in src)
-		if(intact && O.level == 1) //hidden under the floor
-			continue
-		if(istype(O, acid_type))
-			var/obj/effect/acid/A = O
-			A.acid_level = min(A.level + acid_volume * acidpwr, 12000)//capping acid level to limit power of the acid
-			has_acid_effect = 1
-			continue
-		O.acid_act(acidpwr, acid_volume)
-	if(!has_acid_effect)
-		new acid_type(src, acidpwr, acid_volume)
-
-/turf/proc/acid_melt()
 	return
 
 /turf/handle_fall(mob/faller, forced)
@@ -602,8 +516,6 @@
 
 //Whatever happens after high temperature fire dies out or thermite reaction works.
 //Should return new turf
-/turf/proc/Melt()
-	return ScrapeAway(flags = CHANGETURF_INHERIT_AIR)
 
 /turf/bullet_act(obj/item/projectile/P)
 	. = ..()

@@ -10,6 +10,8 @@
 	density = TRUE //This will prevent hostile mobs from pathing into chasms, while the canpass override will still let it function like an open turf
 	bullet_bounce_sound = null //abandon all hope ye who enter
 
+	resistance_flags = INDESTRUCTIBLE
+
 /turf/open/chasm/Initialize()
 	. = ..()
 	AddComponent(/datum/component/chasm, SSmapping.get_turf_below(src))

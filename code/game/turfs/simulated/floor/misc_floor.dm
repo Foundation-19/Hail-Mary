@@ -4,10 +4,12 @@
 	desc = "\"This is a plaque in honour of our comrades on the G4407 Stations. Hopefully TG4407 model can live up to your fame and fortune.\" Scratched in beneath that is a crude image of a meteor and a spaceman. The spaceman is laughing. The meteor is exploding."
 	floor_tile = /obj/item/stack/tile/plasteel
 	tiled_dirt = FALSE
+	resistance_flags = INDESTRUCTIBLE
 
 /turf/open/floor/vault
 	icon_state = "rockvault"
 	floor_tile = /obj/item/stack/tile/plasteel
+	resistance_flags = INDESTRUCTIBLE
 
 //Circuit flooring, glows a little
 /turf/open/floor/circuit
@@ -133,6 +135,7 @@
 	icon = 'icons/turf/shuttleold.dmi'
 	icon_state = "floor"
 	floor_tile = /obj/item/stack/tile/plasteel
+	resistance_flags = INDESTRUCTIBLE
 
 //Clockwork floor: Slowly heals toxin damage on nearby servants.
 /turf/open/floor/clockwork
@@ -278,4 +281,4 @@
 	heavyfootstep = FOOTSTEP_RUST
 
 /turf/open/floor/plating/rust/rust_heretic_act()
-	return 
+	return

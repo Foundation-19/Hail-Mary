@@ -152,7 +152,7 @@
 	if(SEND_SIGNAL(src, COMSIG_ITEM_ATTACK_OBJ_NOHIT, O, user) & COMPONENT_NO_ATTACK_OBJ)
 		return
 
-/atom/movable/proc/attacked_by()
+/atom/proc/attacked_by()
 	return
 
 /obj/attacked_by(obj/item/I, mob/living/user, attackchain_flags = NONE, damage_multiplier = 1, damage_addition = 0)

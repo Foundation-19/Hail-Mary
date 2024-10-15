@@ -27,6 +27,8 @@
 	var/scan_state = "" //Holder for the image we display when we're pinged by a mining scanner
 	var/defer_change = 0
 
+	max_integrity = 500
+
 /turf/closed/mineral/Initialize()
 	if (!canSmoothWith)
 		canSmoothWith = list(/turf/closed/mineral, /turf/closed/indestructible)
@@ -99,18 +101,6 @@
 	addtimer(CALLBACK(src, PROC_REF(AfterChange)), 1, TIMER_UNIQUE)
 	playsound(src, 'sound/effects/break_stone.ogg', 50, 1) //beautiful destruction
 
-/turf/closed/mineral/attack_animal(mob/living/simple_animal/user)
-	if((user.environment_smash & ENVIRONMENT_SMASH_WALLS) || (user.environment_smash & ENVIRONMENT_SMASH_RWALLS))
-		gets_drilled()
-	..()
-
-/turf/closed/mineral/attack_alien(mob/living/carbon/alien/M)
-	to_chat(M, span_notice("You start digging into the rock..."))
-	playsound(src, 'sound/effects/break_stone.ogg', 50, 1)
-	if(do_after(M, 40, target = src))
-		to_chat(M, span_notice("You tunnel into the rock."))
-		gets_drilled(M)
-
 /turf/closed/mineral/Bumped(atom/movable/AM)
 	..()
 	if(indestructible) //fortuna edit. RNG rocks that dont budge
@@ -131,11 +121,6 @@
 
 /turf/closed/mineral/acid_melt()
 	ScrapeAway()
-
-/turf/closed/mineral/ex_act(severity, target)
-	..()
-	gets_drilled(null, 1)
-	return
 
 /turf/closed/mineral/Spread(turf/T)
 	T.ChangeTurf(type)

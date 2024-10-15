@@ -23,6 +23,7 @@
 	var/obj/item/stack/digResult = /obj/item/stack/ore/glass/basalt
 	/// Whether the turf has been dug or not
 	var/dug
+	resistance_flags = INDESTRUCTIBLE
 
 /turf/open/floor/plating/asteroid/Initialize()
 	var/proper_name = name

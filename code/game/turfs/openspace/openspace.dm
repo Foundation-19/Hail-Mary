@@ -22,6 +22,8 @@ GLOBAL_DATUM_INIT(openspace_backdrop_one_for_all, /atom/movable/openspace_backdr
 	var/can_build_on = TRUE
 	sunlight_state = 1
 
+	resistance_flags = INDESTRUCTIBLE
+
 /turf/open/transparent/openspace/airless
 	initial_gas_mix = AIRLESS_ATMOS
 

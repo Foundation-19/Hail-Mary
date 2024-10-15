@@ -16,6 +16,8 @@
 	clawfootstep = FOOTSTEP_WATER
 	heavyfootstep = FOOTSTEP_WATER
 
+	resistance_flags = INDESTRUCTIBLE
+
 	//fortuna edit
 	depth = 1 // Higher numbers indicates deeper water.
 
