@@ -54,6 +54,7 @@
 	force_unwielded = 30
 	force_wielded = 65
 	attack_speed = CLICK_CD_MELEE * 1.3  //10.4
+	demolition_mod = 1.25
 
 /obj/item/twohanded/legionaxe/ComponentInitialize()
 	. = ..()
@@ -98,6 +99,7 @@
 	force_unwielded = 28
 	force_wielded = 55
 	attack_speed = CLICK_CD_MELEE * 1.25 //10
+	demolition_mod = 2
 
 /obj/item/twohanded/fireaxe/ComponentInitialize()
 	. = ..()
@@ -136,23 +138,7 @@
 	force_unwielded = 25
 	force_wielded = 40
 	attack_speed = CLICK_CD_MELEE * 1.1 //8.8
-
-/obj/item/twohanded/fireaxe/boneaxe/afterattack(atom/A, mob/living/user, proximity)
-	. = ..()
-	if(!proximity || !wielded || IS_STAMCRIT(user))
-		return
-	if(istype(A, /obj/structure/window)) //destroys windows and grilles in one hit (or more if it has a ton of health like plasmaglass)
-		var/obj/structure/window/W = A
-		W.take_damage(100, BRUTE, "melee", 0, attacked_by = user)
-	else if(istype(A, /obj/structure/grille))
-		var/obj/structure/grille/G = A
-		G.take_damage(20, BRUTE, "melee", 0, attacked_by = user)
-	else if(istype(A, /obj/machinery/door))
-		var/obj/machinery/door/D = A
-		D.take_damage(10, BRUTE, "melee", 0, attacked_by = user)
-	else if(istype(A, /obj/structure/simple_door))
-		var/obj/structure/simple_door/M = A
-		M.take_damage(10, BRUTE, "melee", 0, attacked_by = user)
+	demolition_mod = 1.5
 
 // Bumper Sword		Keywords: Damage 25/45, Bonus vs window, door
 /obj/item/twohanded/fireaxe/bmprsword
@@ -164,21 +150,7 @@
 	sharpness = SHARP_EDGED
 	resistance_flags = null
 	wielded_icon = "bumper2"
-
-/obj/item/twohanded/fireaxe/bmprsword/afterattack(atom/A, mob/living/user, proximity)
-	. = ..()
-	if(!proximity || !wielded || IS_STAMCRIT(user))
-		return
-	if(istype(A, /obj/structure/window))
-		var/obj/structure/window/W = A
-		W.take_damage(200, BRUTE, "melee", 0, attacked_by = user)
-	else if(istype(A, /obj/machinery/door))
-		var/obj/machinery/door/D = A
-		D.take_damage(15, BRUTE, "melee", 0, attacked_by = user)
-	else if(istype(A, /obj/structure/simple_door))
-		var/obj/structure/simple_door/M = A
-		M.take_damage(15, BRUTE, "melee", 0, attacked_by = user)
-
+	demolition_mod = 1.5
 
 ////////////
 // SPEARS //
@@ -207,6 +179,7 @@
 	force_wielded = 32
 	var/obj/item/grenade/explosive = null
 	var/war_cry = "AAAAARGH!!!"
+	demolition_mod = 0.75
 
 /obj/item/twohanded/spear/ComponentInitialize()
 	. = ..()
@@ -339,6 +312,7 @@
 	wielded_icon = "spear-claw2"
 	force_unwielded = 22
 	force_wielded = 48
+	demolition_mod = 1
 
 // Deathclaw Spear-Axe		Keywords: TRIBAL, Damage 25/30, Armor-piercing +0.25, Reach, Wound Bonus
 /obj/item/twohanded/spearaxe
@@ -363,6 +337,7 @@
 	force_unwielded = 25
 	force_wielded = 30
 	attack_speed = CLICK_CD_MELEE * 0.85 // 6.8
+	demolition_mod = 1.25
 
 
 /////////////////
@@ -416,6 +391,7 @@
 	force = 25
 	force_unwielded = 28
 	force_wielded = 42
+	demolition_mod = 1.25
 
 /obj/item/twohanded/baseball/louisville/attack(mob/living/M, mob/living/user)
 	. = ..()
@@ -450,7 +426,7 @@
 // Template hammer, can't be used for crafting/smithing and lacks the demolishing bonus so avoid using it
 /obj/item/twohanded/sledgehammer
 	name = "sledgehammer"
-	desc = "A heavy sledgehammer that lost most of its use besides caving in heads and barricades. Swings incredibly slowly, but with deadly power."
+	desc = "A heavy sledgehammer that lost most of its use besides caving in heads and barricades. Swings incredibly slowly, but with deadly power. This is supposedly a template item."
 	attack_speed = CLICK_CD_MELEE * 1.2
 	force = 25
 	throwforce = 20 // Huge hammers aren't that great for throwing
@@ -471,14 +447,7 @@
 	var/qualitymod = 0
 	wielded_icon = "hammer-sledge2"
 	force_wielded = 65
-
-/obj/item/twohanded/sledgehammer/simple/afterattack(atom/A, mob/living/user, proximity)
-	. = ..()
-	if(!proximity || !wielded || IS_STAMCRIT(user))
-		return
-	if(istype(A, /obj/structure))
-		var/obj/structure/W = A
-		W.take_damage(20, BRUTE, "melee", 0, attacked_by = user)
+	demolition_mod = 2
 
 /////////////////////////////////
 // ADVANCED TWO HANDED WEAPONS //
@@ -506,29 +475,7 @@
 	wielded_icon = "thermiclance2"
 	force_unwielded = 5
 	force_wielded = 69
-
-/obj/item/twohanded/thermic_lance/afterattack(atom/A, mob/living/user, proximity)
-	. = ..()
-	if(!proximity || !wielded || IS_STAMCRIT(user))
-		return
-	if(istype(A, /obj/machinery/door/airlock))
-		var/obj/machinery/door/airlock/M = A
-		M.take_damage(40, BRUTE, "melee", 0, attacked_by = user)
-		playsound(loc, hitsound, 70, TRUE)
-	else if(istype(A, /obj/structure/simple_door/metal))
-		var/obj/structure/simple_door/metal/G = A
-		G.take_damage(30, BRUTE, "melee", 0, attacked_by = user)
-		playsound(loc, hitsound, 70, TRUE)
-	else if(istype(A, /obj/machinery/door/unpowered))
-		var/obj/machinery/door/unpowered/U = A
-		U.take_damage(20, BRUTE, "melee", 0, attacked_by = user)
-		playsound(loc, hitsound, 70, TRUE)
-	else if(istype(A, /obj/structure))
-		playsound(loc, hitsound, 70, TRUE)
-	else if(istype(A, /obj/machinery))
-		playsound(loc, hitsound, 70, TRUE)
-	else if(istype(A, /turf/closed))
-		playsound(loc, hitsound, 70, TRUE)
+	demolition_mod = 3
 
 // Proton axe			Keywords: Damage 28/55 fire axe but with a twist, if this works. I've either given it a cool gimmick, or broken everything
 /obj/item/melee/transforming/energy/axe/protonaxe
@@ -549,6 +496,7 @@
 	throwforce_on = 30
 	attack_speed = CLICK_CD_MELEE * 1.25
 	var/emp_radius = 1
+	demolition_mod = 2
 
 /obj/item/melee/transforming/energy/axe/protonaxe/afterattack(atom/A, mob/living/user, proximity)
 	. = ..()
@@ -568,6 +516,7 @@
 	wielded_icon = "hammer-super2"
 	force_unwielded = 25
 	force_wielded = 68
+	demolition_mod = 3
 
 /obj/item/twohanded/sledgehammer/supersledge/afterattack(atom/A, mob/living/user, proximity)
 	. = ..()
@@ -601,23 +550,11 @@
 	wielded_icon = "hammer-rocket2"
 	force_unwielded = 20
 	force_wielded = 56
+	demolition_mod = 3
 
 /obj/item/twohanded/sledgehammer/rockethammer/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/knockback, 1, FALSE, TRUE)
-
-/obj/item/twohanded/sledgehammer/rockethammer/afterattack(atom/A, mob/living/user, proximity)
-	. = ..()
-	if(!proximity || !wielded || IS_STAMCRIT(user))
-		return
-	if(istype(A, /obj/structure))
-		var/obj/structure/W = A
-		W.take_damage(10, BRUTE, "melee", 0, attacked_by = user)
-		playsound(loc, hitsound, 50, TRUE)
-	else if(istype(A, /obj/machinery))
-		playsound(loc, hitsound, 80, TRUE)
-	else if(istype(A, /turf/closed))
-		playsound(loc, hitsound, 80, TRUE)
 
 // The Court Martial	Keywords: UNIQUE, Damage 20/52, Inferior mining
 /obj/item/twohanded/sledgehammer/rockethammer/courtmartial
@@ -629,19 +566,6 @@
 	icon_prefix = "hammer-courtmartial"
 	toolspeed = 0.8
 
-/obj/item/twohanded/sledgehammer/rockethammer/courtmartial/afterattack(atom/A, mob/living/user, proximity)
-	. = ..()
-	if(!proximity || !wielded || IS_STAMCRIT(user))
-		return
-	if(istype(A, /obj/structure))
-		var/obj/structure/W = A
-		W.take_damage(10, BRUTE, "melee", 0, attacked_by = user)
-		playsound(loc, hitsound, 80, TRUE)
-	else if(istype(A, /obj/machinery))
-		playsound(loc, hitsound, 80, TRUE)
-	else if(istype(A, /turf/closed))
-		playsound(loc, hitsound, 80, TRUE)
-
 // Atom's Judgement			Keywords: UNIQUE, Damage 25/55, Damage bonus Rad
 /obj/item/twohanded/sledgehammer/atomsjudgement
 	name = "atom's judgement"
@@ -652,6 +576,7 @@
 	wielded_icon = "hammer-atom2"
 	force_unwielded = 25
 	force_wielded = 55
+	demolition_mod = 2
 
 /obj/item/twohanded/sledgehammer/atomsjudgement/attack(mob/living/M, mob/living/user)
 	. = ..()
@@ -674,6 +599,7 @@
 	force_unwielded = 34
 	force_wielded = 55
 	attack_speed = CLICK_CD_MELEE
+	demolition_mod = 1.5
 
 // Shaman staff				Keywords: Damage 15/30, Big stamina damage buff
 /obj/item/twohanded/sledgehammer/shamanstaff
@@ -687,6 +613,7 @@
 	force_unwielded = 15
 	force_wielded = 30
 	attack_speed = 8
+	demolition_mod = 1.5
 
 /obj/item/twohanded/sledgehammer/shamanstaff/attack(mob/living/M, mob/living/user)
 	. = ..()
@@ -706,6 +633,7 @@
 	force = 5
 	force_unwielded = 5
 	force_wielded = 10
+	demolition_mod = 1.5
 
 /obj/item/twohanded/sledgehammer/marsstaff/attack(mob/living/M, mob/living/user)
 	. = ..()
@@ -748,6 +676,7 @@
 	wielded_icon = "chainsaw2"
 	force_unwielded = 8
 	force_wielded = 55
+	demolition_mod = 0.75
 
 /obj/item/twohanded/chainsaw/ComponentInitialize()
 	. = ..()
@@ -800,6 +729,7 @@
 	var/force_on = 29 //10 more dps than chainsaw, but less perhit
 	var/force_off = 10
 	var/on_sound = 'sound/weapons/chainsawhit.ogg'
+	demolition_mod = 0.5
 
 /obj/item/twohanded/steelsaw/attack_self(mob/user)
 	on = !on
@@ -809,6 +739,7 @@
 		item_state = on_item_state
 		w_class = weight_class_on
 		force = force_on
+		demolition_mod = 2
 		attack_speed = CLICK_CD_MELEE * 0.5
 		attack_verb = list("sawed", "torn", "cut", "chopped", "diced")
 		playsound(loc, on_sound, 50, TRUE)
@@ -818,6 +749,7 @@
 		item_state = off_item_state
 		w_class = WEIGHT_CLASS_BULKY
 		force = force_off
+		demolition_mod = initial(demolition_mod)
 		attack_verb = list("poked", "scraped")
 		attack_speed = CLICK_CD_MELEE * 1.2
 	add_fingerprint(user)
@@ -827,18 +759,6 @@
 	AddComponent(/datum/component/butchering, 30, 100, 0, 'sound/weapons/chainsawhit.ogg', TRUE)
 	AddComponent(/datum/component/two_handed, require_twohands=TRUE)
 	update_icon()
-
-/obj/item/twohanded/steelsaw/afterattack(atom/A, mob/living/user, proximity)
-	. = ..()
-	if(!proximity || !wielded || IS_STAMCRIT(user))
-		return
-	if(istype(A, /obj/structure)) //hurts structures more (it can cut through i-beams, it can ostensibly cut through weaker shit)
-		var/obj/structure/S = A
-		S.take_damage(structure_bonus_damage, BRUTE, "melee", 0, armour_penetration = src.armour_penetration, attacked_by = user)
-	else if(istype(A, /obj/machinery/door))
-		var/obj/machinery/door/D = A
-		D.take_damage(structure_bonus_damage, BRUTE, "melee", 0, armour_penetration = src.armour_penetration, attacked_by = user)
-
 
 /obj/item/twohanded/steelsaw/suicide_act(mob/living/carbon/user)
 	if(on)
@@ -867,7 +787,7 @@
 	on_item_state = "autoaxe_on"
 	off_item_state = "autoaxe"
 	toolspeed = 2
-	structure_bonus_damage = 40
+	demolition_mod = 3
 
 /obj/item/twohanded/steelsaw/autoaxe/attack_self(mob/user)
 	on = !on

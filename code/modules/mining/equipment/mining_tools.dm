@@ -16,6 +16,7 @@
 	toolspeed = 1
 	usesound = list('sound/effects/picaxe1.ogg', 'sound/effects/picaxe2.ogg', 'sound/effects/picaxe3.ogg')
 	attack_verb = list("hit", "pierced", "sliced", "attacked")
+	demolition_mod = 1.5
 	var/digrange = 1
 
 /obj/item/pickaxe/attack_self(mob/user)
@@ -47,6 +48,7 @@
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	custom_materials = list(/datum/material/iron=1000)
+	demolition_mod = 1
 
 /obj/item/pickaxe/silver
 	name = "silver-plated pickaxe"
@@ -56,6 +58,7 @@
 	desc = "A silver-plated pickaxe that mines slightly faster than standard-issue."
 	force = 17
 	custom_materials = list(/datum/material/silver=4000)
+	demolition_mod = 1
 
 /obj/item/pickaxe/diamond
 	name = "diamond-tipped pickaxe"
@@ -65,6 +68,7 @@
 	desc = "A pickaxe with a diamond pick head. Extremely robust at cracking rock walls and digging up dirt."
 	force = 19
 	custom_materials = list(/datum/material/diamond=4000)
+	demolition_mod = 2
 
 /obj/item/pickaxe/rosegold
 	name = "rose gold pickaxe"
@@ -75,6 +79,7 @@
 	force = 19
 	custom_materials = list(/datum/material/gold=4000)
 	digrange = 3
+	demolition_mod = 0.75
 
 /obj/item/pickaxe/plasteel
 	name = "plasteel-tipped pickaxe"
@@ -83,6 +88,7 @@
 	desc = "A pickaxe with a plasteel pick head. Less robust at cracking rock walls and digging up dirt than the titanium pickaxe, but better at cracking open skulls."
 	force = 19
 	custom_materials = list(/datum/material/iron=2000, /datum/material/plasma=2000)
+	demolition_mod = 2
 
 /obj/item/pickaxe/titanium
 	name = "titanium-tipped pickaxe"
@@ -91,6 +97,7 @@
 	desc = "A pickaxe with a titanium pick head. Extremely robust at cracking rock walls and digging up dirt, but less than the plasteel pickaxe at cracking open skulls."
 	force = 17
 	custom_materials = list(/datum/material/titanium=4000)
+	demolition_mod = 1.5
 
 /obj/item/pickaxe/drill
 	name = "mining drill"
@@ -101,6 +108,7 @@
 	usesound = 'sound/weapons/drill.ogg'
 	hitsound = 'sound/weapons/drill.ogg'
 	desc = "An electric mining drill for the especially scrawny."
+	demolition_mod = 1.5
 
 /obj/item/pickaxe/drill/cyborg
 	name = "cyborg mining drill"
@@ -116,7 +124,9 @@
 	name = "diamond-tipped mining drill"
 	icon_state = "diamonddrill"
 	toolspeed = 0.4
+	force = 20
 	desc = "Yours is the drill that will pierce the heavens!"
+	demolition_mod = 2
 
 /obj/item/pickaxe/drill/cyborg/diamond //This is the BORG version!
 	name = "diamond-tipped cyborg mining drill" //To inherit the NODROP_1 flag, and easier to change borg specific drill mechanics.
@@ -130,10 +140,12 @@
 	item_state = "jackhammer"
 	w_class = WEIGHT_CLASS_HUGE
 	toolspeed = 0.2 //the epitome of powertools. extremely fast mining, laughs at puny walls
+	force = 30
 	usesound = 'sound/weapons/sonic_jackhammer.ogg'
 	hitsound = 'sound/weapons/sonic_jackhammer.ogg'
 	desc = "Cracks rocks with sonic blasts, and doubles as a demolition power tool for smashing walls."
 	digrange = 2
+	demolition_mod = 4
 
 /obj/item/shovel
 	name = "shovel"

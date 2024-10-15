@@ -52,6 +52,7 @@
 	armor = ARMOR_VALUE_GENERIC_ITEM
 	resistance_flags = FIRE_PROOF
 	total_mass = TOTAL_MASS_MEDIEVAL_WEAPON
+	demolition_mod = 1.5
 //	item_flags = ITEM_CAN_PARRY does nothing from what i can tell arghhhggh todo: fix
 
 /obj/item/melee/onehanded/dragonfire/attack(mob/living/M, mob/living/user)
@@ -72,6 +73,7 @@
 	throwforce = 20
 	wound_bonus = 10
 	sharpness = SHARP_EDGED
+	demolition_mod = 0.75
 
 /obj/item/melee/onehanded/machete/forgedmachete
 	name = "machete"
@@ -169,6 +171,7 @@
 	custom_materials = list(/datum/material/iron=6000)
 	resistance_flags = FIRE_PROOF
 	attack_speed = CLICK_CD_MELEE * 0.85 //6.8
+	demolition_mod = 0.5
 
 /obj/item/melee/onehanded/knife/Initialize()
 	. = ..()
@@ -222,6 +225,7 @@
 	throwforce = 25
 	attack_verb = list("slashed", "stabbed", "sliced", "shanked", "ripped", "lacerated")
 	toolspeed = 0.5
+	demolition_mod = 0.75
 
 /obj/item/melee/onehanded/knife/trench
 	name = "trench knife"
@@ -231,6 +235,7 @@
 	force = 30
 	custom_materials = list(/datum/material/iron=8000)
 	attack_verb = list("slashed", "stabbed", "sliced", "shanked", "ripped", "lacerated")
+	demolition_mod = 0.75
 
 /obj/item/melee/onehanded/knife/bone
 	name = "bone dagger"
@@ -329,6 +334,7 @@ obj/item/melee/onehanded/knife/switchblade
 	throwforce = 15
 	armour_penetration = 0.2
 	toolspeed = 0.8
+	demolition_mod = 0.75
 
 // Heat it with a welder
 /obj/item/melee/onehanded/knife/cosmic/welder_act(mob/living/user, obj/item/I)
@@ -351,6 +357,7 @@ obj/item/melee/onehanded/knife/switchblade
 	throwforce = 20
 	armour_penetration = 0.4
 	w_class = WEIGHT_CLASS_NORMAL // Its super hot, not comfy to put back in your pocket.
+	demolition_mod = 1
 
 /obj/item/melee/onehanded/knife/throwing
 	name = "throwing knife"
@@ -457,6 +464,7 @@ obj/item/melee/onehanded/knife/switchblade
 	var/force_on // Damage when on - not stunning
 	var/force_off // Damage when off - not stunning
 	var/weight_class_on // What is the new size class when turned on
+	demolition_mod = 0.75
 
 /obj/item/melee/classic_baton/Initialize()
 	. = ..()
@@ -605,6 +613,7 @@ obj/item/melee/onehanded/knife/switchblade
 	weight_class_on = WEIGHT_CLASS_BULKY
 	total_mass = TOTAL_MASS_NORMAL_ITEM
 	bare_wound_bonus = 5
+	demolition_mod = 0.5
 
 /obj/item/melee/classic_baton/telescopic/suicide_act(mob/user)
 	var/mob/living/carbon/human/H = user
@@ -657,6 +666,7 @@ obj/item/melee/onehanded/knife/switchblade
 	sharpness = SHARP_EDGED
 	attack_verb = list("flogged", "whipped", "lashed", "disciplined")
 	hitsound = 'sound/weapons/whip.ogg'
+	demolition_mod = 0.5
 
 /obj/item/melee/onehanded/slavewhip/attack(mob/living/M, mob/living/user)
 	. = ..()
@@ -830,6 +840,7 @@ obj/item/melee/unarmed/punchdagger/cyborg
 	icon_state = "tiger_claw"
 	item_state = "tiger_claw"
 	force = 40 //Assaultron, so, makes sense.
+	demolition_mod = 0.75
 
 // Deathclaw Gauntlet	Keywords: Damage 35, AP 1
 /obj/item/melee/unarmed/deathclawgauntlet
@@ -844,6 +855,7 @@ obj/item/melee/unarmed/punchdagger/cyborg
 	sharpness = SHARP_EDGED
 	attack_verb = list("slashed", "sliced", "torn", "ripped", "diced", "cut")
 	hitsound = 'sound/weapons/bladeslice.ogg'
+	demolition_mod = 0.75
 
 //Yao Guai Gauntlet	Keywords: Damage 25, Fast, "Saw Bleed" Effect
 /obj/item/melee/unarmed/yaoguaigauntlet
@@ -858,6 +870,7 @@ obj/item/melee/unarmed/punchdagger/cyborg
 	attack_verb = list("slashed", "sliced", "torn", "ripped", "diced", "cut")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_speed = CLICK_CD_MELEE * 0.75 //6
+	demolition_mod = 0.75
 
 /obj/item/melee/unarmed/yaoguaigauntlet/attack(mob/living/target, mob/living/user)
 	. = ..()
@@ -908,6 +921,7 @@ obj/item/melee/unarmed/punchdagger/cyborg
 	toolspeed = 0.7
 	sharpness = SHARP_EDGED
 	attack_verb = list("cleaved", "chopped", "sliced", "slashed")
+	demolition_mod = 1.25
 
 
 // Hatchet				Force 24

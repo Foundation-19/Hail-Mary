@@ -39,6 +39,7 @@
 	var/poddoor = FALSE
 	var/unres_sides = 0 //Unrestricted sides. A bitflag for which direction (if any) can open the door with no access
 	var/proj_resist = 10
+	demolition_mod_resist = 0.75 // Amount of demolition mod reduced
 
 /obj/machinery/door/examine(mob/user)
 	. = ..()

@@ -60,13 +60,13 @@ GLOBAL_VAR_INIT(embedpocalypse, FALSE) // if true, all items will be able to emb
 
 	/// Weight class for how much storage capacity it uses and how big it physically is meaning storages can't hold it if their maximum weight class isn't as high as it.
 	var/w_class = WEIGHT_CLASS_NORMAL
-	
+
 	/// Volume override for the item, otherwise automatically calculated from w_class.
 	var/w_volume
 
 	/// The amount of stamina it takes to swing an item in a normal melee attack do not lie to me and say it's for realism because it ain't. If null it will autocalculate from w_class.
 	var/total_mass //Total mass in arbitrary pound-like values. If there's no balance reasons for an item to have otherwise, this var should be the item's weight in pounds.
-	
+
 	/// How long, in deciseconds, this staggers for, if null it will autocalculate from w_class and force. Unlike total mass this supports 0 and negatives.
 	var/stagger_force
 
@@ -93,7 +93,7 @@ GLOBAL_VAR_INIT(embedpocalypse, FALSE) // if true, all items will be able to emb
 
 	var/body_parts_covered = 0 //see setup.dm for appropriate bit flags
 	/// The bodyparts *hidden* by the item, in case they should be different from what's covered. For things like open jackets and skimpy raider gear that should be a little bit revealing while still protective. Defaults to body_part_covered if not set
-	var/body_parts_hidden 
+	var/body_parts_hidden
 	var/gas_transfer_coefficient = 1 // for leaking gas from turf to mask and vice-versa (for masks right now, but at some point, i'd like to include space helmets)
 	var/permeability_coefficient = 1 // for chemicals/diseases
 	var/siemens_coefficient = 1 // for electrical admittance/conductance (electrocution checks and shit)
@@ -181,6 +181,9 @@ GLOBAL_VAR_INIT(embedpocalypse, FALSE) // if true, all items will be able to emb
 	/// extra special transform
 	var/matrix/special_transform
 
+	/// force multiplier on turfs and structures
+	var/demolition_mod = 1
+
 /obj/item/Initialize()
 
 	if(attack_verb)
@@ -207,10 +210,10 @@ GLOBAL_VAR_INIT(embedpocalypse, FALSE) // if true, all items will be able to emb
 
 	if(w_class <= WEIGHT_CLASS_NORMAL) //pulling small items doesn't slow you down much
 		drag_delay = 0.05 SECONDS
-	
+
 	if(isnull(body_parts_hidden))
 		body_parts_hidden = body_parts_covered
-	
+
 	/// Allows items to preserve their transform when picked up
 	if(!special_transform && transform != initial(transform))
 		special_transform = transform
@@ -297,6 +300,23 @@ GLOBAL_VAR_INIT(embedpocalypse, FALSE) // if true, all items will be able to emb
 	if(item_flags & (ITEM_CAN_BLOCK | ITEM_CAN_PARRY))
 		var/datum/block_parry_data/data = return_block_parry_datum(block_parry_data)
 		. += "[src] has the capacity to be used to block and/or parry. <a href='?src=[REF(data)];name=[name];block=[item_flags & ITEM_CAN_BLOCK];parry=[item_flags & ITEM_CAN_PARRY];render=1'>\[Show Stats\]</a>"
+
+	if(demolition_mod)
+		switch(demolition_mod)
+			if(0.76 to 1)
+				. += "[src] seems around average at breaking things!"
+			if(1.1 to 1.25)
+				.+= "[src] seems slightly better at breaking things!"
+			if(1.26 to 1.75)
+				.+= "[src] seems good at breaking things!"
+			if(1.76 to 2.5)
+				.+= "[src] seems like it'd break things apart without much effort!"
+			if(2.6 to 3)
+				.+= "[src] feels like it can tear things apart with ease!"
+			if(3 to INFINITY)
+				.+= "[src] can blow apart almost anything with a breeze!"
+			if(0 to 0.75)
+				.+= "[src] seems like it'd struggle to break things!"
 
 	if(!user.research_scanner)
 		return
@@ -1202,4 +1222,4 @@ GLOBAL_VAR_INIT(embedpocalypse, FALSE) // if true, all items will be able to emb
 
 /obj/item/proc/refresh_upgrades()
 	return
-	
+

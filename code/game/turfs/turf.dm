@@ -16,6 +16,7 @@
 	var/initial_temperature = T20C
 	var/to_be_destroyed = 0 //Used for fire, if a melting temperature was reached, it will be destroyed
 	var/max_fire_temperature_sustained = 0 //The max temperature of the fire which it was subjected to
+	var/demolition_mod_resist = 1
 
 	var/blocks_air = FALSE
 

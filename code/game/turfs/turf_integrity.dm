@@ -178,7 +178,7 @@
 	if(P.suppressed != SUPPRESSED_VERY)
 		visible_message("<span class='danger'>[src] is hit by \a [P]!</span>", null, null, COMBAT_MESSAGE_RANGE)
 	playsound(src, P.hitsound, 50, 1)
-	take_damage(P.damage, P.damage_type, P.flag, turn(P.dir, 180), P.armour_penetration)
+	take_damage(P.damage * P.demolition_mod, P.damage_type, P.flag, turn(P.dir, 180), P.armour_penetration)
 
 //====================================
 // Generic Attack Chain
@@ -197,7 +197,7 @@
 					"<span class='danger'>You hit [src] with [I]!</span>", null, COMBAT_MESSAGE_RANGE)
 		//only witnesses close by and the victim see a hit message.
 		log_combat(user, src, "attacked", I)
-	take_damage(I.force, I.damtype, "melee", 1)
+	take_damage(max(I.force * I.demolition_mod / demolition_mod_resist, 1), I.damtype, "melee", 1)
 
 /turf/attackby(obj/item/W, mob/user, params)
 	if (!user.IsAdvancedToolUser())

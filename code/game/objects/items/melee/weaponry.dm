@@ -73,6 +73,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	armor = ARMOR_VALUE_GENERIC_ITEM
 	resistance_flags = FIRE_PROOF
 	total_mass = TOTAL_MASS_MEDIEVAL_WEAPON
+	demolition_mod = 0.5
 
 /obj/item/katana/cursed
 	slot_flags = null

@@ -39,6 +39,7 @@
 	var/req_one_access_txt = "0"
 
 	var/renamedByPlayer = FALSE //set when a player uses a pen on a renamable object
+	var/demolition_mod_resist = 1
 
 /obj/vv_edit_var(vname, vval)
 	switch(vname)
@@ -87,6 +88,25 @@
 /obj/proc/setAnchored(anchorvalue)
 	SEND_SIGNAL(src, COMSIG_OBJ_SETANCHORED, anchorvalue)
 	anchored = anchorvalue
+
+/obj/attacked_by(obj/item/attacking_item, mob/living/user)
+	if(!attacking_item.force)
+		return
+
+	var/total_force = (max(attacking_item.force * attacking_item.demolition_mod / demolition_mod_resist, 1))
+
+	var/damage = take_damage(total_force, attacking_item.damtype, MELEE, 1)
+
+	var/damage_verb = "hit"
+
+	if(attacking_item.demolition_mod > 1 && damage)
+		damage_verb = "pulverise"
+	if(attacking_item.demolition_mod < 1)
+		damage_verb = "ineffectively pierce"
+
+	user.visible_message(span_danger("[user] [damage_verb] [src] with [attacking_item][damage ? "." : ", without leaving a mark!"]"), \
+		span_danger("You [damage_verb] [src] with [attacking_item][damage ? "." : ", without leaving a mark!"]"), null, COMBAT_MESSAGE_RANGE)
+	log_combat(user, src, "attacked", attacking_item)
 
 /obj/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback, force, messy_throw = TRUE)
 	. = ..()
@@ -387,7 +407,7 @@
 		return
 	if(length(armor_tokens) < 1)
 		return // all done!
-	
+
 	for(var/list/token in armor_tokens)
 		for(var/modifier in token)
 			switch(GLOB.armor_token_operation_legend[modifier])

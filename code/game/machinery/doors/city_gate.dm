@@ -7,6 +7,7 @@
 	id = 333
 	bound_width = 96
 	ertblast = TRUE
+	demolition_mod_resist = 0.25
 
 /obj/machinery/door/poddoor/gate/preopen
 	icon_state = "open"
