@@ -8,7 +8,7 @@
 	/// Can this turf be hit by players?
 	var/can_hit = TRUE
 	/// Has armour been generated yet?
-	var/armor_generated = FALSE
+	var/armor_generated
 	/// The armour of the turf. Capable of being null for optimisation purposes
 	var/datum/armor/armor
 	/// The integrity that the turf starts at, defaulting to max_integrity
@@ -33,13 +33,6 @@
 				. +=  "<span class='warning'>It's falling apart!</span>"
 	if (!can_hit)
 		return
-	if (istype(user, /mob/living/simple_animal))
-		var/mob/living/simple_animal/attacker = user
-		var/melee_damage = attacker.melee_damage_upper + attacker.melee_damage_lower / 2
-		if ((attacker.obj_damage || melee_damage) >= damage_deflection)
-			. += "<span class='notice'>You are capable of damaging this wall with your attacks!</span>"
-		else
-			. += "<span class='warning'>It doesn't look like you can damage this...</span>"
 
 /// Override this proc to return the armour list
 /turf/proc/get_armour_list()
@@ -118,7 +111,8 @@
 		return
 	// Cascade turf damage downwards on destruction
 	if (additional_damage > 0)
-		take_damage(additional_damage, BRUTE, damage_flag, FALSE)
+		if (damage_flag == "bomb" || damage_flag == "acid" || damage_flag == "fire")
+			take_damage(additional_damage, BRUTE, damage_flag, FALSE)
 
 //====================================
 // Generic Hits
@@ -143,7 +137,7 @@
 		return
 	switch(severity)
 		if(1)
-			take_damage(INFINITY, BRUTE, "bomb", 0)
+			take_damage(rand(0.9, max(3000 / max_integrity, 1.5)) * max_integrity, BRUTE, "bomb", 0)
 		if(2)
 			hotspot_expose(1000,CELL_VOLUME)
 			take_damage(rand(0.5, max(1600 / max_integrity, 1.2)) * max_integrity, BRUTE, "bomb", 0)
@@ -180,10 +174,11 @@
 	if (!can_hit)
 		return ..()
 	. = ..()
-	playsound(src, P.hitsound, 50, 1)
+//	playsound(src, P.hitsound, 50, 1)
 	if(P.suppressed != SUPPRESSED_VERY)
 		visible_message("<span class='danger'>[src] is hit by \a [P]!</span>", null, null, COMBAT_MESSAGE_RANGE)
-	take_damage(P.damage, P.damage_type, 0, turn(P.dir, 180), P.armour_penetration)
+	playsound(src, P.hitsound, 50, 1)
+	take_damage(P.damage, P.damage_type, P.flag, turn(P.dir, 180), P.armour_penetration)
 
 //====================================
 // Generic Attack Chain
@@ -278,10 +273,10 @@
 		return
 	take_damage(400, BRUTE, "melee", 0, get_dir(src, B))
 
-/turf/proc/attack_generic(mob/user, damage_amount = 0, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, armor_penetration = 0) //used by attack_alien, attack_animal, and attack_slime
+/turf/proc/attack_generic(mob/user, damage_amount = 0, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, armour_penetration = 0) //used by attack_alien, attack_animal, and attack_slime
 	user.do_attack_animation(src)
 	user.DelayNextAction(CLICK_CD_MELEE)
-	return take_damage(damage_amount, damage_type, damage_flag, sound_effect, get_dir(src, user), armor_penetration)
+	return take_damage(damage_amount, damage_type, damage_flag, sound_effect, get_dir(src, user), armour_penetration)
 
 /turf/attack_alien(mob/living/carbon/alien/humanoid/user)
 	if (!can_hit)
@@ -298,7 +293,7 @@
 	if (!can_hit)
 		return ..()
 	if(!melee_damage && !M.obj_damage)
-		INVOKE_ASYNC(M, TYPE_PROC_REF(/mob, emote), "custom", null, "[M.response_help_continuous] [src].")
+		M.emote("custom", message = "[M.friendly_verb_continuous] [src].")
 		return 0
 	else
 		var/play_soundeffect = 1
@@ -316,7 +311,7 @@
 		return
 	if(!M.is_adult)
 		return
-	attack_generic(M, 10, "melee", 1)
+	attack_generic(M, 15, "melee", 1)
 
 //====================================
 // Mechs
@@ -350,9 +345,7 @@
 //====================================
 
 /turf/singularity_act()
-	if(resistance_flags & (INDESTRUCTIBLE))
-		return
-	else if(intact)
+	if(intact)
 		for(var/obj/O in contents) //this is for deleting things like wires contained in the turf
 			if(O.level != 1)
 				continue
@@ -360,6 +353,7 @@
 				O.singularity_act()
 	ScrapeAway(flags = CHANGETURF_INHERIT_AIR)
 	return(2)
+
 
 //====================================
 // Acid
@@ -379,7 +373,6 @@
 			A.acid_level = min(acid_volume * acidpwr, 12000)//capping acid level to limit power of the acid
 			has_acid_effect = 1
 			continue
-
 		O.acid_act(acidpwr, acid_volume)
 	if(!has_acid_effect)
 		new acid_type(src, acidpwr, acid_volume)

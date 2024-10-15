@@ -29,6 +29,10 @@
 
 	max_integrity = 500
 
+/turf/closed/mineral/get_armour_list()
+	return list("melee" = 35,  "bullet" = 35, "laser" = 35, "energy" = 15, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 70, "wound" = 0, "damage_threshold" = 0)
+
+
 /turf/closed/mineral/Initialize()
 	if (!canSmoothWith)
 		canSmoothWith = list(/turf/closed/mineral, /turf/closed/indestructible)

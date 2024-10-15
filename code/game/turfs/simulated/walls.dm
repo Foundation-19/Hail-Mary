@@ -22,7 +22,7 @@
 	var/girder_type = /obj/structure/girder
 	var/list/dent_decals
 
-/turf/closed/wall/wall/get_armour_list()
+/turf/closed/wall/get_armour_list()
 	return list("melee" = 75,  "bullet" = 35, "laser" = 35, "energy" = 15, "bomb" = 25, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 70, "wound" = 0, "damage_threshold" = 0)
 
 	canSmoothWith = list(

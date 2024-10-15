@@ -18,7 +18,7 @@
 	damage_deflection = 75
 
 /turf/closed/wall/r_wall/get_armour_list()
-	return list("melee" = 75,  "bullet" = 50, "laser" = 50, "energy" = 50, "bomb" = 50, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 70, "wound" = 0, "damage_threshold" = 0)
+	return list("melee" = 75,  "bullet" = 50, "laser" = 50, "energy" = 50, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 70, "wound" = 0, "damage_threshold" = 0)
 
 /turf/closed/wall/r_wall/deconstruction_hints(mob/user)
 	switch(d_state)
