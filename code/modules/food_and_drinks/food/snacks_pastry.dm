@@ -583,6 +583,7 @@
 /obj/item/reagent_containers/food/snacks/hotdog
 	name = "hotdog"
 	desc = "Fresh footlong ready to go down on."
+	icon = 'icons/obj/food/meat.dmi'
 	icon_state = "hotdog"
 	bitesize = 3
 	bonus_reagents = list(/datum/reagent/consumable/nutriment = 1, /datum/reagent/consumable/nutriment/vitamin = 3)
@@ -594,6 +595,7 @@
 /obj/item/reagent_containers/food/snacks/meatbun
 	name = "meat bun"
 	desc = "Has the potential to not be Dog."
+	icon = 'icons/obj/food/meat.dmi'
 	icon_state = "meatbun"
 	bonus_reagents = list(/datum/reagent/consumable/nutriment = 1, /datum/reagent/consumable/nutriment/vitamin = 2)
 	list_reagents = list(/datum/reagent/consumable/nutriment = 6, /datum/reagent/consumable/nutriment/vitamin = 2)
