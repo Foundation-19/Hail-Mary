@@ -1707,10 +1707,11 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 					H.add_splatter_floor(location)
 				if(get_dist(user, H) <= 1)	//people with TK won't get smeared with blood
 					user.add_mob_blood(H)
-
+		var/obj/item/clothing/S = H.get_item_by_slot(SLOT_WEAR_SUIT)
+		var/obj/item/clothing/He = H.get_item_by_slot(SLOT_HEAD)
 		switch(hit_area)
 			if(BODY_ZONE_HEAD)
-				if(!I.get_sharpness() && armor_block < 50)
+				if(!I.get_sharpness() && armor_block < 50 && !(He?.clothing_flags & CUSHIONED_ARMOR))
 					if(prob(I.force))
 						H.adjustOrganLoss(ORGAN_SLOT_BRAIN, 20)
 						if(H.stat == CONSCIOUS)
@@ -1740,7 +1741,7 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 						H.update_inv_glasses()
 
 			if(BODY_ZONE_CHEST)
-				if(H.stat == CONSCIOUS && !I.get_sharpness() && armor_block < 50)
+				if(H.stat == CONSCIOUS && !I.get_sharpness() && armor_block < 50 && !(S?.clothing_flags & CUSHIONED_ARMOR))
 					if(prob(I.force))
 						H.visible_message(span_danger("[H] has been knocked down!"), \
 									span_userdanger("[H] has been knocked down!"))

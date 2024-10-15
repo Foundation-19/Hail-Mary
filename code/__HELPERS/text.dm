@@ -18,6 +18,23 @@
 /proc/format_table_name(table as text)
 	return CONFIG_GET(string/feedback_tableprefix) + table
 
+/proc/sql_sanitize_text(text)
+	text = replacetext(text, "'", "''")
+	text = replacetext(text, ";", "")
+	text = replacetext(text, "&", "")
+	return text
+
+/proc/new_sql_sanitize_text(text)
+	text = replacetext(text, "'", "")
+	text = replacetext(text, ";", "")
+	text = replacetext(text, "&", "")
+	text = replacetext(text, "`", "")
+	return text
+
+/proc/remove_all_spaces(text)
+	text = replacetext(text, " ", "")
+	return text
+
 /*
  * Text sanitization
  */

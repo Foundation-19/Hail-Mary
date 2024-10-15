@@ -22,6 +22,7 @@
 				),
 				CAT_CRAFTING = list(
 					CAT_SCAVENGING,
+					CAT_CONVERT,
 					CAT_FORGING,
 					CAT_TOOL,
 					//CAT_ROBOT,
