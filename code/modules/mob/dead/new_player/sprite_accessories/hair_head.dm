@@ -178,6 +178,10 @@
 	name = "Coffee House"
 	icon_state = "hair_coffeehouse"
 
+/datum/sprite_accessory/hair/combover
+	name = "Combover"
+	icon_state = "hair_combover"
+
 /datum/sprite_accessory/hair/cornrows1
 	name = "Cornrows"
 	icon_state = "hair_cornrows"
