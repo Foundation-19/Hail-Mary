@@ -82,7 +82,6 @@
 	load_audio = "sound/weapons/bulletinsert.ogg"
 	ammo_type = "missiles_he"
 
-
 /obj/item/mecha_ammo/flashbang
 	name = "launchable flashbangs"
 	desc = "A box of smooth flashbangs, for use with a large exosuit launcher. Cannot be primed by hand."
@@ -100,9 +99,25 @@
 	direct_load = TRUE
 	ammo_type = "clusterbang"
 
+/obj/item/mecha_ammo/fragmentation
+	name = "launchable fragmentation clusters"
+	desc = "A box of clustered fragmentation grenades, for use with a vehicle's launcher. Cannot be primed by hand."
+	icon_state = "fragmentation"
+	rounds = 8
+	round_term = "frag grenade"
+	ammo_type = "fragmentation"
+
 /obj/item/mecha_ammo/minigun
 	name = "Minigun ammo pack"
 	desc = "A box of high caliber ammo, ready to be consumed in nano seconds. Cannot be primed by hand."
-	icon_state = "lmg"
+	icon_state = "minigun"
 	rounds = 600
 	ammo_type = "minigun"
+
+/obj/item/mecha_ammo/cannon
+	name = "Cannon ammo pack"
+	desc = "A handful of cannon balls, for use with a vehicle's cannon."
+	icon_state = "cannon"
+	rounds = 1
+	ammo_type = "cannon"
+	direct_load = TRUE

@@ -40,11 +40,53 @@
 	category = CAT_VEHICLES
 	subcategory = CAT_VEHICLEPARTS
 
-//HMG
+// Le classic sherman tank
+/*
+/datum/crafting_recipe/sherman
+	name = "Sherman M4-C(X)"
+	result = /obj/mecha/combat/phazon/m4sherman_cx
+	reqs = list(/obj/item/stack/sheet/metal = 75,
+				/obj/item/stack/sheet/plasteel = 50,
+				/obj/item/stack/sheet/mineral/titanium = 25,
+				/obj/item/stack/sheet/mineral/uranium = 15,
+				/obj/item/stack/sheet/mineral/diamond = 5,
+				/obj/item/stack/sheet/plastic = 15,
+				/obj/item/stack/crafting/metalparts = 15,
+				/obj/item/stack/crafting/goodparts = 10,
+				/obj/item/stack/crafting/electronicparts = 15,
+				/obj/item/advanced_crafting_components/alloys = 2
+				)
+	tools = list(TOOL_AWORKBENCH, TOOL_WELDER, TOOL_WRENCH)
+	time = 180
+	category = CAT_VEHICLES
+	subcategory = CAT_VEHICLEPARTS
 
-/datum/crafting_recipe/gun/HMGvehicle
-	name = "Improvised HMG (for vehicles)"
-	result = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg/hobo
+// Jeep
+
+/datum/crafting_recipe/armoured_jeep
+	name = "armoured M8 jeep"
+	result = /obj/mecha/combat/phazon/armoured_jeep
+	reqs = list(/obj/item/stack/sheet/metal = 100,
+				/obj/item/stack/sheet/plasteel = 25,
+				/obj/item/stack/sheet/mineral/titanium = 15,
+				/obj/item/stack/sheet/mineral/uranium = 10,
+				/obj/item/stack/sheet/mineral/diamond = 3,
+				/obj/item/stack/sheet/plastic = 15,
+				/obj/item/stack/crafting/metalparts = 15,
+				/obj/item/stack/crafting/goodparts = 10,
+				/obj/item/stack/crafting/electronicparts = 5,
+				/obj/item/advanced_crafting_components/alloys = 2
+				)
+	tools = list(TOOL_AWORKBENCH, TOOL_WELDER, TOOL_WRENCH)
+	time = 180
+	category = CAT_VEHICLES
+	subcategory = CAT_VEHICLEPARTS
+*/
+//LMG
+
+/datum/crafting_recipe/gun/vehicle/lmg_improvised
+	name = "Improvised vehicular LMG"
+	result = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg/improvised
 	reqs = list(/obj/item/gun/ballistic/automatic/autopipe = 2,
 	/obj/item/stack/crafting/metalparts = 5,
 	/obj/item/stack/sheet/prewar = 5,
@@ -55,10 +97,10 @@
 	category = CAT_VEHICLES
 	subcategory = CAT_VEHICLEPARTS
 
-/datum/crafting_recipe/gun/HMGvehicle/normal
-	name = "Normal HMG (for vehicles)"
+/datum/crafting_recipe/gun/vehicle/lmg_normal
+	name = "Standard vehicular LMG"
 	result = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg
-	reqs = list(/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg/hobo = 1,
+	reqs = list(/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg/improvised = 1,
 	/obj/item/stack/crafting/metalparts = 2,
 	/obj/item/stack/sheet/prewar = 6,
 	/obj/item/stack/sheet/mineral/titanium = 6,
@@ -68,24 +110,25 @@
 	category = CAT_VEHICLES
 	subcategory = CAT_VEHICLEPARTS
 
-/datum/crafting_recipe/gun/HMGvehicle/upgraded
-	name = "Upgraded HMG (for vehicles)"
-	result = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg/auto
+/datum/crafting_recipe/gun/vehicle/lmg_rapid
+	name = "Rapid-fire vehicular LMG"
+	result = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg/rapid
 	reqs = list(/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg = 1,
 	/obj/item/stack/crafting/metalparts = 5,
-	/obj/item/stack/sheet/prewar = 8,
+	/obj/item/stack/crafting/goodparts = 5,
+	/obj/item/stack/sheet/prewar = 5,
 	/obj/item/stack/sheet/mineral/titanium = 8,
-	/obj/item/stack/rods = 2)
+	/obj/item/stack/rods = 10)
 	tools = list(TOOL_AWORKBENCH)
 	time = 180
 	category = CAT_VEHICLES
 	subcategory = CAT_VEHICLEPARTS
 
-/datum/crafting_recipe/lmgammo
-	name = "LMG Ammo for vehicles"
+/datum/crafting_recipe/lmg_ammo
+	name = "Vehicular LMG ammunition"
 	result = /obj/item/mecha_ammo/lmg/craftable
-	reqs = list(/obj/item/stack/crafting/metalparts = 5,
-	/obj/item/stack/sheet/prewar = 5,
+	reqs = list(/obj/item/stack/crafting/metalparts = 3,
+	/obj/item/stack/sheet/prewar = 3,
 	/obj/item/stack/ore/blackpowder = 1,
 	/obj/item/stack/sheet/mineral/titanium = 1,
 	)
@@ -94,22 +137,66 @@
 	category = CAT_VEHICLES
 	subcategory = CAT_VEHICLEPARTS
 
-/*/datum/crafting_recipe/gun/minigunVehicle
-	name = "Minigun"
+// Minigun and Ammo
+
+/datum/crafting_recipe/gun/vehicle/minigun
+	name = "Vehicular Minigun"
 	result = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/minigun
 	reqs = list(/obj/item/stack/crafting/metalparts = 10,
 	/obj/item/stack/crafting/goodparts = 5,
 	/obj/item/stack/crafting/electronicparts = 5,
 	/obj/item/stack/sheet/metal = 10,
 	/obj/item/stack/sheet/mineral/titanium = 20,
-	/obj/item/stack/rods = 6,
-	/obj/item/advanced_crafting_components/assembly = 1,
-	/obj/item/advanced_crafting_components/receiver = 1,
-	/obj/item/advanced_crafting_components/alloys = 1)
+	/obj/item/stack/rods = 10,
+	/obj/item/gun/ballistic/automatic/pistol/ninemil = 4)
+	tools = list(TOOL_AWORKBENCH)
+	time = 180
+	category = CAT_VEHICLES
+	subcategory = CAT_VEHICLEPARTS
+
+/datum/crafting_recipe/mech_ammo/minigun_ammo
+	name = "Vehicular Minigun ammunition"
+	result = /obj/item/mecha_ammo/minigun
+	reqs = list(/obj/item/stack/crafting/metalparts = 5,
+	/obj/item/stack/sheet/metal = 5,
+	/obj/item/stack/sheet/mineral/titanium = 5,
+	/obj/item/stack/ore/blackpowder = 5)
+	tools = list(TOOL_AWORKBENCH)
+	time = 5
+	category = CAT_VEHICLES
+	subcategory = CAT_VEHICLEPARTS
+
+// Autocannon & ammo
+/*
+
+/datum/crafting_recipe/gun/vehicle/cannon
+	name = "Vehicular minicannon"
+	result = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/minicannon
+	reqs = list(/obj/item/stack/sheet/plasteel = 15,
+	/obj/item/stack/crafting/metalparts = 10,
+	/obj/item/stack/crafting/goodparts = 5,
+	/obj/item/stack/sheet/prewar = 5,
+	/obj/item/stack/sheet/mineral/titanium = 10,
+	/obj/item/stack/rods = 10)
 	tools = list(TOOL_WORKBENCH)
 	time = 180
-	category = CAT_WEAPONRY
-	subcategory = CAT_WEAPON*/
+	category = CAT_VEHICLES
+	subcategory = CAT_VEHICLEPARTS
+
+/datum/crafting_recipe/mech_ammo/cannon_ammo
+	name = "Vehicular Minicannon ammunition"
+	result = /obj/item/mecha_ammo/cannon
+	reqs = list(/obj/item/stack/crafting/metalparts = 5,
+	/obj/item/stack/sheet/metal = 5,
+	/obj/item/stack/sheet/mineral/titanium = 5,
+	/obj/item/stack/ore/blackpowder = 5)
+	tools = list(TOOL_AWORKBENCH)
+	time = 5
+	category = CAT_VEHICLES
+	subcategory = CAT_VEHICLEPARTS
+
+*/
+// Pneumatic launcher
 
 /datum/crafting_recipe/gun/PheumonicLauncherVehicle
 	name = "Mounted Pheumonic launcher"
@@ -127,23 +214,11 @@
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
 
-/*/datum/crafting_recipe/mech_ammo/brm8_missiles
-	name = "Minigun Ammo Pack"
-	result = /obj/item/mecha_ammo/minigun
-	reqs = list(/obj/item/ammo_box/magazine/ammobelt/m1919 = 3,
-	/obj/item/stack/sheet/metal = 10,
-	/obj/item/stack/sheet/mineral/titanium = 20,
-	/obj/item/stack/crafting/powder = 30)
-	tools = list(TOOL_WORKBENCH)
-	time = 180
-	category = CAT_WEAPONRY
-	subcategory = CAT_AMMO*/
+// Shotgun
 
-//shotgun
-
-/datum/crafting_recipe/gun/shotgunvehicle
-	name = "Improvised Shotgun (for vehicles)"
-	result = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/scattershot/hobo
+/datum/crafting_recipe/gun/vehicle/shotgun_improvised
+	name = "Improvised vehicular shotgun"
+	result = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/scattershot/improvised
 	reqs = list(/obj/item/gun/ballistic/revolver/hobo/single_shotgun = 2,
 	/obj/item/stack/crafting/metalparts = 5,
 	/obj/item/stack/sheet/prewar = 5,
@@ -154,10 +229,10 @@
 	category = CAT_VEHICLES
 	subcategory = CAT_VEHICLEPARTS
 
-/datum/crafting_recipe/gun/shotgunvehicle/normal
-	name = "Shotgun (for vehicles)"
+/datum/crafting_recipe/gun/vehicle/shotgun_normal
+	name = "Standard vehicular shotgun"
 	result = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/scattershot
-	reqs = list(/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/scattershot/hobo = 1,
+	reqs = list(/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/scattershot/improvised = 1,
 	/obj/item/stack/crafting/metalparts = 2,
 	/obj/item/stack/sheet/prewar = 6,
 	/obj/item/stack/sheet/mineral/titanium = 6,
@@ -167,24 +242,25 @@
 	category = CAT_VEHICLES
 	subcategory = CAT_VEHICLEPARTS
 
-/datum/crafting_recipe/gun/HMGvehicle/upgraded
-	name = "Upgraded Shotgun (for vehicles)"
-	result = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/scattershot/auto
+/datum/crafting_recipe/gun/vehicle/shotgun_rapid
+	name = "Rapid-fire vehicular shotgun"
+	result = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/scattershot/rapid
 	reqs = list(/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/scattershot = 1,
 	/obj/item/stack/crafting/metalparts = 5,
-	/obj/item/stack/sheet/prewar = 8,
-	/obj/item/stack/sheet/mineral/titanium = 8,
-	/obj/item/stack/rods = 2)
+	/obj/item/stack/crafting/goodparts = 5,
+	/obj/item/stack/sheet/prewar = 10,
+	/obj/item/stack/sheet/mineral/titanium = 10,
+	/obj/item/stack/rods = 10)
 	tools = list(TOOL_AWORKBENCH)
 	time = 180
 	category = CAT_VEHICLES
 	subcategory = CAT_VEHICLEPARTS
 
-/datum/crafting_recipe/lmgammo
-	name = "Shotgun Ammo for vehicles"
+/datum/crafting_recipe/shotgun_ammo
+	name = "Vehicular shotgun ammunition"
 	result = /obj/item/mecha_ammo/scattershot
-	reqs = list(/obj/item/stack/crafting/metalparts = 5,
-	/obj/item/stack/sheet/prewar = 5,
+	reqs = list(/obj/item/stack/crafting/metalparts = 3,
+	/obj/item/stack/sheet/prewar = 3,
 	/obj/item/stack/ore/blackpowder = 1,
 	/obj/item/stack/sheet/mineral/titanium = 1,
 	)
@@ -266,8 +342,8 @@
 
 /datum/crafting_recipe/vehiculearmor
 	name = "Armor booster module (Close Combat Weaponry)"
-	result = /obj/item/mecha_parts/mecha_equipment/anticcw_armor_booster
-	reqs = list(/obj/item/stack/crafting/electronicparts = 40,
+	result = /obj/item/mecha_parts/mecha_equipment/armor/anticcw_armor_booster
+	reqs = list(/obj/item/stack/sheet/prewar = 10,
 				/obj/item/stack/crafting/metalparts = 10,
 				/obj/item/advanced_crafting_components/alloys = 2,
 				/obj/item/stack/crafting/goodparts = 4)
@@ -278,8 +354,8 @@
 
 /datum/crafting_recipe/vehiculearmor/distance
 	name = "Armor booster module (Ranged Weaponry)"
-	result = /obj/item/mecha_parts/mecha_equipment/antiproj_armor_booster
-	reqs = list(/obj/item/stack/crafting/electronicparts = 40,
+	result = /obj/item/mecha_parts/mecha_equipment/armor/antiproj_armor_booster
+	reqs = list(/obj/item/stack/sheet/prewar = 10,
 				/obj/item/stack/crafting/metalparts = 10,
 				/obj/item/advanced_crafting_components/alloys = 2,
 				/obj/item/stack/crafting/goodparts = 4)
@@ -288,3 +364,55 @@
 	subcategory = CAT_VEHICLES
 	category = CAT_VEHICLEPARTS
 
+// Vision modules! Grants NVGs plus either thermals or mesons.
+
+/datum/crafting_recipe/vehicle_sensors_thermals
+	name = "vehicular thermal imager"
+	result = /obj/item/mecha_parts/mecha_equipment/vision/thermal_scanner
+	reqs = list(/obj/item/stack/sheet/mineral/gold=5,
+				/obj/item/stack/sheet/mineral/silver=5,
+				/obj/item/stack/sheet/mineral/uranium=5,
+				/obj/item/stack/crafting/metalparts = 5,
+				/obj/item/advanced_crafting_components/alloys = 2,
+				/obj/item/stack/crafting/goodparts = 5)
+	tools = list(TOOL_AWORKBENCH)
+	time = 180
+	subcategory = CAT_VEHICLES
+	category = CAT_VEHICLEPARTS
+
+/datum/crafting_recipe/vehicle_sensors_mesons
+	name = "vehicular mesonic scanning system"
+	result = /obj/item/mecha_parts/mecha_equipment/vision/meson_scanner
+	reqs = list(/obj/item/stack/sheet/mineral/gold=2,
+				/obj/item/stack/sheet/mineral/silver=2,
+				/obj/item/stack/crafting/metalparts = 4,
+				/obj/item/advanced_crafting_components/alloys = 2,
+				/obj/item/stack/crafting/goodparts = 4)
+	tools = list(TOOL_AWORKBENCH)
+	time = 180
+	subcategory = CAT_VEHICLES
+	category = CAT_VEHICLEPARTS
+
+/datum/crafting_recipe/carpart/trunk
+	name = "Modular Trunk"
+	result = /obj/item/mecha_parts/mecha_equipment/trunk
+	reqs = list(/obj/item/stack/sheet/metal = 5,
+	/obj/item/stack/crafting/metalparts = 10,
+	/obj/item/stack/sheet/plastic = 5,
+	/obj/item/stack/rods = 2)
+	tools = list(TOOL_WORKBENCH)
+	time = 90
+	subcategory = CAT_VEHICLES
+	category = CAT_VEHICLEPARTS
+
+/datum/crafting_recipe/carpart/seat
+	name = "Mounted Seat"
+	result = /obj/item/mecha_parts/mecha_equipment/seat
+	reqs = list(/obj/item/stack/sheet/metal = 5,
+	/obj/item/stack/crafting/metalparts = 10,
+	/obj/item/stack/sheet/leather = 5,
+	/obj/item/stack/rods = 5)
+	tools = list(TOOL_WORKBENCH)
+	time = 90
+	subcategory = CAT_VEHICLES
+	category = CAT_VEHICLEPARTS

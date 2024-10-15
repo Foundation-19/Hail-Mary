@@ -133,153 +133,54 @@
 	return
 
 
-//////Passenger seat
-
-/obj/item/mecha_parts/mecha_equipment/seat
-	name = "Mounted seat"
-	desc = "A seat. Yup, looks hi-tec eh ? Well, its just a seat"
-	icon = 'icons/obj/bus.dmi'
-	icon_state = "backseat"
-	energy_drain = 5
-	range = MELEE
-	equip_cooldown = 5
-	var/mob/living/carbon/patient = null
-	salvageable = 0
-	mech_flags = EXOSUIT_MODULE_COMBAT
-
-/obj/item/mecha_parts/mecha_equipment/seat/Destroy()
-	for(var/atom/movable/AM in src)
-		AM.forceMove(get_turf(src))
-	return ..()
-
-/obj/item/mecha_parts/mecha_equipment/seat/Exit(atom/movable/O)
-	return 0
-
-/obj/item/mecha_parts/mecha_equipment/seat/action(mob/living/carbon/target)
-	if(!action_checks(target))
-		return
-	if(!istype(target))
-		return
-	if(!patient_insertion_check(target))
-		return
-	occupant_message(span_notice("You start putting [target] into [src]..."))
-	chassis.visible_message(span_warning("[chassis] starts putting [target] into \the [src]."))
-	if(do_after_cooldown(target))
-		if(!patient_insertion_check(target))
-			return
-		target.forceMove(src)
-		patient = target
-		START_PROCESSING(SSobj, src)
-		update_equip_info()
-		occupant_message(span_notice("[target] successfully loaded into [src]. Life support functions engaged... I mean, the seatbelt."))
-		chassis.visible_message(span_warning("[chassis] loads [target] into [src]."))
-		mecha_log_message("[target] loaded. Seatbelt engaged.")
-
-/obj/item/mecha_parts/mecha_equipment/seat/proc/patient_insertion_check(mob/living/carbon/target)
-	if(target.buckled)
-		occupant_message(span_warning("[target] will not fit into the seat because [target.p_theyre()] buckled to [target.buckled]!"))
-		return
-	if(target.has_buckled_mobs())
-		occupant_message(span_warning("[target] will not fit into the seat because of the creatures attached to it!"))
-		return
-	if(patient)
-		occupant_message(span_warning("The seat is already occupied!"))
-		return
-	return 1
-
-/obj/item/mecha_parts/mecha_equipment/seat/proc/go_out()
-	if(!patient)
-		return
-	patient.forceMove(get_turf(src))
-	occupant_message("[patient] is out, removing the seatbelt.")
-	mecha_log_message("[patient] ejected. Seatbelt disabled.")
-	STOP_PROCESSING(SSobj, src)
-	patient = null
-	update_equip_info()
-
-/obj/item/mecha_parts/mecha_equipment/seat/detach()
-	if(patient)
-		occupant_message(span_warning("Unable to detach [src] - equipment occupied!"))
-		return
-	STOP_PROCESSING(SSobj, src)
-	return ..()
-
-/obj/item/mecha_parts/mecha_equipment/seat/get_equip_info()
-	var/output = ..()
-	if(output)
-		var/temp = ""
-		if(patient)
-			temp = "<br />\[Occupant: [patient] ([patient.stat > 1 ? "*DECEASED*" : "Health: [patient.health]%"])\]<br /><a href='?src=[REF(src)];view_stats=1'>View stats</a>|<a href='?src=[REF(src)];eject=1'>Eject</a>"
-		return "[output] [temp]"
-	return
-
-/obj/item/mecha_parts/mecha_equipment/seat/Topic(href,href_list)
-	..()
-	if(href_list["eject"])
-		go_out()
-		return
-	
-/obj/item/mecha_parts/mecha_equipment/seat/container_resist(mob/living/user)
-	go_out()
-
-/obj/item/mecha_parts/mecha_equipment/seat/process()
-	if(..())
-		return
-	if(!chassis.has_charge(energy_drain))
-		set_ready_state(1)
-		mecha_log_message("Deactivated.")
-		occupant_message("[src] deactivated - no power.")
-		STOP_PROCESSING(SSobj, src)
-		return
-	var/mob/living/carbon/M = patient
-	if(!M)
-		return
-	if(M.health > 0)
-		M.adjustOxyLoss(-1)
-	M.AdjustAllImmobility(-80)
-	M.AdjustUnconscious(-80)
-	if(M.reagents.get_reagent_amount(/datum/reagent/medicine/epinephrine) < 5)
-		M.reagents.add_reagent(/datum/reagent/medicine/epinephrine, 5)
-	chassis.use_power(energy_drain)
-	update_equip_info()
-
 //////////////////////////// ARMOR BOOSTER MODULES //////////////////////////////////////////////////////////
 
-
-/obj/item/mecha_parts/mecha_equipment/anticcw_armor_booster //what is that noise? A BAWWW from TK mutants.
-	name = "armor booster module (Close Combat Weaponry)"
-	desc = "Boosts exosuit armor against armed melee attacks. Requires energy to operate."
+/obj/item/mecha_parts/mecha_equipment/armor
+	name = "Armor"
+	desc = "Boosts exosuit armor against attacks."
 	icon_state = "mecha_abooster_ccw"
 	equip_cooldown = 0
-	energy_drain = 65
+	energy_drain = 0
 	range = 0
-//	var/deflect_coeff = 1.15
-	var/damage_coeff = 0.7
 	selectable = 0
+	var/list/armor_mod = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "fire" = 0, "acid" = 0)
+	var/move_power_drain = 1
 
-/obj/item/mecha_parts/mecha_equipment/anticcw_armor_booster/proc/attack_react()
-	if(action_checks(src))
-		start_cooldown()
-		return 1
+/obj/item/mecha_parts/mecha_equipment/armor/attach(obj/mecha)
+	. = ..()
+	chassis.armor = chassis.armor.modifyRating(arglist(armor_mod))
+	chassis.move_power_drain += src.move_power_drain
 
 
+/obj/item/mecha_parts/mecha_equipment/armor/detach(atom/moveto)
+	var/list/removed_armor = armor_mod.Copy()
+	for(var/armor_type in removed_armor)
+		removed_armor[armor_type] = -removed_armor[armor_type]
+	chassis.armor = chassis.armor.modifyRating(arglist(removed_armor))
+	chassis.move_power_drain -= src.move_power_drain
+	return ..()
 
-/obj/item/mecha_parts/mecha_equipment/antiproj_armor_booster
+/obj/item/mecha_parts/mecha_equipment/armor/Destroy()
+	var/list/removed_armor = armor_mod.Copy()
+	for(var/armor_type in removed_armor)
+		removed_armor[armor_type] = -removed_armor[armor_type]
+	chassis.armor = chassis.armor.modifyRating(arglist(removed_armor))
+	chassis.move_power_drain -= src.move_power_drain
+	return ..()
+
+/obj/item/mecha_parts/mecha_equipment/armor/anticcw_armor_booster //what is that noise? A BAWWW from TK mutants.
+	name = "armor booster module (Close Combat Weaponry)"
+	desc = "A large plate of hardened steel, can be attached to a vehicle to boost its defense at the cost of miles per gallon. The shape makes it only useful against melee attacks."
+	icon_state = "mecha_abooster_ccw"
+	armor_mod = list("melee" = 12.5, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 10, "bio" = 0, "fire" = 0, "acid" = 0)
+	move_power_drain = 1
+
+/obj/item/mecha_parts/mecha_equipment/armor/antiproj_armor_booster
 	name = "armor booster module (Ranged Weaponry)"
-	desc = "Boosts exosuit armor against ranged attacks. Completely blocks taser shots. Requires energy to operate."
+	desc = "A large plate of hardened steel, can be attached to a vehicle to boost its defense at the cost of miles per gallon. The shape makes it only useful against ranged attacks."
 	icon_state = "mecha_abooster_proj"
-	equip_cooldown = 0
-	energy_drain = 65
-	range = 0
-//	var/deflect_coeff = 1.15
-	var/damage_coeff = 0.75
-	selectable = 0
-
-/obj/item/mecha_parts/mecha_equipment/antiproj_armor_booster/proc/projectile_react()
-	if(action_checks(src))
-		start_cooldown()
-		return 1
-
+	armor_mod = list("melee" = 0, "bullet" = 12.5, "laser" = 10, "energy" = 5, "bomb" = 0, "bio" = 0, "fire" = 0, "acid" = 0)
+	move_power_drain = 1.5
 
 ////////////////////////////////// REPAIR DROID //////////////////////////////////////////////////
 
@@ -295,6 +196,7 @@
 	var/icon/droid_overlay
 	var/list/repairable_damage = list(MECHA_INT_TEMP_CONTROL,MECHA_INT_TANK_BREACH)
 	selectable = 0
+	equip_type = EQUIP_MISC
 
 /obj/item/mecha_parts/mecha_equipment/repair_droid/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -379,6 +281,7 @@
 	var/coeff = 100
 	var/list/use_channels = list(EQUIP,ENVIRON,LIGHT)
 	selectable = 0
+	equip_type = EQUIP_MISC
 
 /obj/item/mecha_parts/mecha_equipment/tesla_energy_relay/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -466,6 +369,7 @@
 	var/fuel_per_cycle_idle = 25
 	var/fuel_per_cycle_active = 200
 	var/power_per_cycle = 50
+	equip_type = EQUIP_MISC
 
 /obj/item/mecha_parts/mecha_equipment/generator/Initialize()
 	. = ..()
@@ -577,6 +481,7 @@
 	fuel_per_cycle_active = 30
 	power_per_cycle = 100
 	var/rad_per_cycle = 30
+	equip_type = EQUIP_MISC
 
 /obj/item/mecha_parts/mecha_equipment/generator/nuclear/generator_init()
 	fuel = new /obj/item/stack/sheet/mineral/uranium(src, 0)
