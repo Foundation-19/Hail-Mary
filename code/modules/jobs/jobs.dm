@@ -67,7 +67,7 @@ GLOBAL_LIST_INIT(command_positions, list(
 	"Dockmaster of Locust Point",
 	"Atlantic Cross Captain",
 
-	"Roguewave Rebel Captain",
+	"Roguewave Captain",
 	"Legion Governor of Ostia",
 	))
 
@@ -298,9 +298,11 @@ GLOBAL_LIST_INIT(ostia_positions, list(
 ))
 
 GLOBAL_LIST_INIT(rebels_positions, list(
-	"Roguewave Rebel Soldier",
-	"Roguewave Rebel Captain",
-	"Roguewave Rebel Medic",
+	"Roguewave Marines",
+	"Roguewave Captain",
+	"Roguewave Doctor",
+	"Roguewave Guard",
+	"Roguewave Den Citizen"
 ))
 
 // job categories for rendering the late join menu

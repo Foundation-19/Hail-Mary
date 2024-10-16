@@ -77,11 +77,11 @@
 /datum/outfit/loadout/legionbarkeep
 	name = "Legion Innkeeper"
 	backpack_contents = list(
-		/obj/item/clothing/head/f13/servant = 2,
-		/obj/item/clothing/under/civ/spanish_sailor = 2,
-		/obj/item/clothing/gloves/f13/crudemedical = 2,
-		/obj/item/clothing/shoes/roman = 2,
-		/obj/item/flashlight/lantern = 2,
+		/obj/item/clothing/head/f13/servant = 1,
+		/obj/item/clothing/under/civ/spanish_sailor = 1,
+		/obj/item/clothing/gloves/f13/crudemedical = 1,
+		/obj/item/clothing/shoes/roman = 1,
+		/obj/item/flashlight/lantern = 1,
 		/obj/item/reagent_containers/food/condiment/flour = 2,
 		/obj/item/storage/box/bowls = 2,
 		/obj/item/melee/onehanded/knife/cosmicdirty = 1,
