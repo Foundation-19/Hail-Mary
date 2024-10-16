@@ -39,7 +39,7 @@
  * RECOIL: 1
  * WOUNDS: 6.5
  * WNAKED: 3.75
- 
+
 /obj/item/projectile/bullet/a556/sport
 	name = "surplus .223 FMJ bullet"
 	damage = BULLET_DAMAGE_RIFLE_223
@@ -743,6 +743,7 @@
 /obj/item/projectile/bullet/a50MG
 	name = ".50MG slug"
 	damage = BULLET_DAMAGE_RIFLE_50MG
+	demolition_mod = 2.5
 	armour_penetration = 0.8
 	stamina = BULLET_STAMINA_RIFLE_50MG
 	spread = BULLET_SPREAD_SURPLUS

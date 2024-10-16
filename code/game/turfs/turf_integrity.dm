@@ -198,6 +198,7 @@
 		//only witnesses close by and the victim see a hit message.
 		log_combat(user, src, "attacked", I)
 	take_damage(max(I.force * I.demolition_mod / demolition_mod_resist, 1), I.damtype, "melee", 1)
+	playsound(src, I.hitsound, 70, TRUE)
 
 /turf/attackby(obj/item/W, mob/user, params)
 	if (!user.IsAdvancedToolUser())
