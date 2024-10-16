@@ -14,16 +14,6 @@
 	baseturfs = /turf/open/floor/plating
 	flags_ricochet = RICOCHET_HARD
 
-	var/hardness = 40 //lower numbers are harder. Used to determine the probability of a hulk smashing through.
-	var/slicing_duration = 100  //default time taken to slice the wall
-	var/sheet_type = /obj/item/stack/sheet/metal
-	var/sheet_amount = 2
-	var/girder_type = /obj/structure/girder
-	var/list/dent_decals
-
-/turf/closed/wall/get_armour_list()
-	return list("melee" = 75,  "bullet" = 35, "laser" = 35, "energy" = 15, "bomb" = 25, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 70, "wound" = 0, "damage_threshold" = 0)
-
 	canSmoothWith = list(
 	/turf/closed/wall,
 	/turf/closed/wall/r_wall,
@@ -34,6 +24,16 @@
 	/turf/closed/wall/r_wall/rust,
 	/turf/closed/wall/clockwork)
 	smooth = SMOOTH_TRUE
+
+	var/hardness = 40 //lower numbers are harder. Used to determine the probability of a hulk smashing through.
+	var/slicing_duration = 100  //default time taken to slice the wall
+	var/sheet_type = /obj/item/stack/sheet/metal
+	var/sheet_amount = 2
+	var/girder_type = /obj/structure/girder
+	var/list/dent_decals
+
+/turf/closed/wall/get_armour_list()
+	return list("melee" = 75,  "bullet" = 35, "laser" = 35, "energy" = 15, "bomb" = 25, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 70, "wound" = 0, "damage_threshold" = 0)
 
 /turf/closed/wall/Initialize(mapload)
 	. = ..()
