@@ -13,7 +13,6 @@
 	density = TRUE
 	blocks_air = 1
 	layer = EDGED_TURF_LAYER
-	var/indestructible = 0 //fortuna edit
 	initial_temperature = 293.15
 	// base_icon_state = "smoothrocks"
 	smooth_icon = 'icons/turf/smoothrocks.dmi'
@@ -26,6 +25,14 @@
 	var/last_act = 0
 	var/scan_state = "" //Holder for the image we display when we're pinged by a mining scanner
 	var/defer_change = 0
+	hit_sound_brute = 'sound/f13effects/pickaxe.mp4'
+	demolition_mod_resist = 3
+
+	max_integrity = 300
+
+/turf/closed/mineral/get_armour_list()
+	return list("melee" = 10,  "bullet" = 35, "laser" = 35, "energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 70, "wound" = 0, "damage_threshold" = 0)
+
 
 /turf/closed/mineral/Initialize()
 	if (!canSmoothWith)
@@ -49,14 +56,11 @@
 		return TRUE
 	return ..()
 
-
 /turf/closed/mineral/attackby(obj/item/pickaxe/I, mob/user, params)
-	if(indestructible) //fortuna edit. RNG rocks that dont budge
-		return
-	var/stored_dir = user.dir
 	if (!user.IsAdvancedToolUser())
 		to_chat(usr, span_warning("You don't have the dexterity to do this!"))
 		return
+/*
 
 	if(I.tool_behaviour == TOOL_MINING)
 		var/turf/T = user.loc
@@ -83,9 +87,9 @@
 				SSblackbox.record_feedback("tally", "pick_used_mining", 1, I.type)
 	else
 		return attack_hand(user)
-
+*/
 /turf/closed/mineral/proc/gets_drilled()
-	if(indestructible) //fortuna edit. RNG rocks that dont budge
+	if(resistance_flags && INDESTRUCTIBLE) //fortuna edit. RNG rocks that dont budge
 		return
 	if (mineralType && (mineralAmt > 0))
 		new mineralType(src, mineralAmt)
@@ -98,19 +102,7 @@
 	ScrapeAway(null, flags)
 	addtimer(CALLBACK(src, PROC_REF(AfterChange)), 1, TIMER_UNIQUE)
 	playsound(src, 'sound/effects/break_stone.ogg', 50, 1) //beautiful destruction
-
-/turf/closed/mineral/attack_animal(mob/living/simple_animal/user)
-	if((user.environment_smash & ENVIRONMENT_SMASH_WALLS) || (user.environment_smash & ENVIRONMENT_SMASH_RWALLS))
-		gets_drilled()
-	..()
-
-/turf/closed/mineral/attack_alien(mob/living/carbon/alien/M)
-	to_chat(M, span_notice("You start digging into the rock..."))
-	playsound(src, 'sound/effects/break_stone.ogg', 50, 1)
-	if(do_after(M, 40, target = src))
-		to_chat(M, span_notice("You tunnel into the rock."))
-		gets_drilled(M)
-
+/*
 /turf/closed/mineral/Bumped(atom/movable/AM)
 	..()
 	if(indestructible) //fortuna edit. RNG rocks that dont budge
@@ -128,14 +120,9 @@
 			return
 	else
 		return
-
+*/
 /turf/closed/mineral/acid_melt()
 	ScrapeAway()
-
-/turf/closed/mineral/ex_act(severity, target)
-	..()
-	gets_drilled(null, 1)
-	return
 
 /turf/closed/mineral/Spread(turf/T)
 	T.ChangeTurf(type)
@@ -901,9 +888,9 @@
 	desc = "An extremely densely-packed rock, most mining tools or explosives would never get through this."
 	spreadChance = 90
 	spread = 10
-	indestructible = 1
 	smooth = SMOOTH_MORE|SMOOTH_BORDER
 	canSmoothWith = list (/turf/closed/mineral)
+	resistance_flags = INDESTRUCTIBLE
 
 /turf/closed/mineral/random/protective_area
 	mineralChance = 100

@@ -23,8 +23,8 @@
 	baseturfs = /turf/open/indestructible/ground/outside/ruins
 	sheet_type = null
 	canSmoothWith = list(/turf/closed/wall/f13/ruins, /turf/closed/wall)
-	unbreakable = 0
-
+	max_integrity = 400
+	damage_deflection = 35
 
 /turf/closed/wall/f13/wood
 	name = "wooden wall"
@@ -34,12 +34,13 @@
 	icon_type_smooth = "wood"
 	hardness = 60
 	smooth = SMOOTH_OLD
-	unbreakable = 0
 	baseturfs = /turf/open/floor/plating/wooden
 	sheet_type = /obj/item/stack/sheet/mineral/wood
 	sheet_amount = 2
 	girder_type = 0
 	canSmoothWith = list(/turf/closed/wall/f13/wood, /turf/closed/wall)
+	max_integrity = 200
+	damage_deflection = 0
 
 /turf/closed/wall/f13/wood/house
 	name = "house wall"
@@ -55,23 +56,20 @@
 /turf/closed/wall/f13/wood/house/broken
 	desc = "A broken weathered pre-War house wall."
 	broken = TRUE
-	damage = 21
 	icon_state = "house0-broken"
+	max_integrity = 50
 
 /turf/closed/wall/f13/wood/house/clean
 	desc = "A freshly painted pre-War house wall."
 	clean = TRUE
 	icon_state = "house0-clean"
+	max_integrity = 300
 
 /turf/closed/wall/f13/wood/house/clean/broken
 	desc = "A broken freshly painted pre-War house wall."
 	broken = TRUE
 	icon_state = "house0-clean-broken"
-
-/turf/closed/wall/f13/wood/house/take_damage(dam)
-	if(damage + dam > hardness/2)
-		broken = 1
-	..()
+	max_integrity = 50
 
 /turf/closed/wall/f13/wood/house/relative()
 	icon_state = "[icon_type_smooth][junction][clean ? "-clean" : ""][broken ? "-broken" : ""]"
@@ -104,7 +102,7 @@
 		user.visible_message("[user] starts coating [src] with a fresh layer of paint!", span_notice("You start coating [src] with a fresh layer of paint."))
 		if(!do_after(user, 1 SECONDS, FALSE, src))
 			to_chat(user, span_warning("You must stand still to paint the wall!"))
-			return                                      
+			return
 		user.visible_message("[user] coats [src] with a fresh layer of paint!", span_notice("You coat [src] with a fresh layer of paint."))
 		if(!clean)
 			if(broken)
@@ -133,12 +131,12 @@
 	if(broken)
 		set_opacity(0)
 	..()
-
+/*
 turf/closed/wall/f13/wood/house/update_damage_overlay()
 	if(broken)
 		return
 	..()
-
+*/
 /turf/closed/wall/f13/wood/interior
 	name = "interior wall"
 	desc = "Interesting, what kind of material they have used - these wallpapers still look good after all the centuries..."
@@ -148,6 +146,7 @@ turf/closed/wall/f13/wood/house/update_damage_overlay()
 	hardness = 10
 	smooth = SMOOTH_OLD
 	canSmoothWith = list(/turf/closed/wall/f13/wood/interior, /turf/closed/wall)
+	max_integrity = 25
 
 /turf/closed/wall/f13/store
 	name = "store wall"
@@ -162,6 +161,8 @@ turf/closed/wall/f13/wood/house/update_damage_overlay()
 	girder_type = 0
 	sheet_type = null
 	canSmoothWith = list(/turf/closed/wall/f13/store, /turf/closed/wall/f13/store/constructed, /turf/closed/wall,)
+	max_integrity = 600
+	damage_deflection = 50
 
 /turf/closed/wall/f13/tentwall
 	name = "tent wall"
@@ -170,13 +171,14 @@ turf/closed/wall/f13/wood/house/update_damage_overlay()
 	icon_state = "tent0"
 	icon_type_smooth = "tent"
 	hardness = 10
-	unbreakable = 0
 	smooth = SMOOTH_OLD
 	//	disasemblable = 0
 	baseturfs = /turf/open/indestructible/ground/outside/ruins
 	girder_type = 0
 	sheet_type = null
 	canSmoothWith = list(/turf/closed/wall/f13/tentwall, /turf/closed/wall)
+	max_integrity = 25
+	damage_deflection = 0
 
 /turf/closed/wall/f13/scrap
 	name = "scrap wall"
@@ -189,6 +191,8 @@ turf/closed/wall/f13/wood/house/update_damage_overlay()
 	girder_type = 0
 	sheet_type = null
 	canSmoothWith = list(/turf/closed/wall)
+	max_integrity = 400
+	damage_deflection = 35
 
 /turf/closed/wall/f13/scrap/red
 	icon = 'icons/fallout/turfs/walls/scrap_red.dmi'
@@ -226,6 +230,8 @@ turf/closed/wall/f13/wood/house/update_damage_overlay()
 	girder_type = 0
 	sheet_type = null
 	canSmoothWith = list(/turf/closed/wall/f13/supermart, /turf/closed/wall/mineral/concrete, /turf/closed/wall,)
+	max_integrity = 800
+	damage_deflection = 65
 
 /turf/closed/wall/f13/tunnel
 	name = "utility tunnel wall"
@@ -239,6 +245,8 @@ turf/closed/wall/f13/wood/house/update_damage_overlay()
 	girder_type = 0
 	sheet_type = null
 	canSmoothWith = list(/turf/closed/wall/f13/tunnel, /turf/closed/wall)
+	max_integrity = 400
+	damage_deflection = 35
 
 /turf/closed/wall/f13/vault
 	name = "vault wall"
@@ -250,6 +258,9 @@ turf/closed/wall/f13/wood/house/update_damage_overlay()
 	explosion_block = 5
 	smooth = SMOOTH_OLD
 	canSmoothWith = list(/turf/closed/wall/f13/vault, /turf/closed/wall/r_wall/f13/vault, /turf/closed/wall)
+	max_integrity = 500
+	damage_deflection = 50
+
 
 /turf/closed/wall/r_wall/f13
 	name = "glitch"
@@ -267,6 +278,8 @@ turf/closed/wall/f13/wood/house/update_damage_overlay()
 	explosion_block = 5
 	smooth = SMOOTH_OLD
 	canSmoothWith = list(/turf/closed/wall/f13/vault, /turf/closed/wall/r_wall/f13/vault, /turf/closed/wall)
+	max_integrity = 2000
+	damage_deflection = 75
 
 //Sunset custom walls
 
@@ -281,6 +294,8 @@ turf/closed/wall/f13/wood/house/update_damage_overlay()
 	girder_type = 0
 	sheet_type = null
 	canSmoothWith = list(/turf/closed/wall)
+	max_integrity = 400
+	damage_deflection = 35
 
 /turf/closed/wall/f13/sunset/brick_small_dark
 	name = "brick wall"

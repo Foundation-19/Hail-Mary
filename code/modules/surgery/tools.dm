@@ -144,6 +144,7 @@
 	attack_verb = list("drilled")
 	tool_behaviour = TOOL_DRILL
 	toolspeed = 1
+	demolition_mod = 1.25
 
 /obj/item/surgicaldrill/attack(mob/living/L, mob/user)
 	if(user.a_intent == INTENT_HELP)
@@ -159,6 +160,7 @@
 	hitsound = 'sound/items/welder.ogg'
 	light_system = MOVABLE_LIGHT
 	light_range = 1
+	demolition_mod = 1.5
 
 /obj/item/surgicaldrill/advanced/attack_self(mob/user)
 	playsound(get_turf(user), 'sound/weapons/tap.ogg', 50, TRUE)
@@ -209,6 +211,7 @@
 	tool_behaviour = TOOL_SCALPEL
 	toolspeed = 1
 	bare_wound_bonus = 20
+	demolition_mod = 0.5
 
 /obj/item/scalpel/Initialize()
 	. = ..()
@@ -232,6 +235,7 @@
 	sharpness = SHARP_POINTY
 	light_system = MOVABLE_LIGHT
 	light_range = 1
+	demolition_mod = 1.25
 
 /obj/item/scalpel/advanced/attack_self(mob/user)
 	playsound(get_turf(user), 'sound/machines/click.ogg', 50, TRUE)
@@ -268,6 +272,7 @@
 	toolspeed = 0.5
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	sharpness = SHARP_POINTY
+	demolition_mod = 0.25
 
 /obj/item/scalpel/suicide_act(mob/user)
 	user.visible_message(span_suicide("[user] is slitting [user.p_their()] [pick("wrists", "throat", "stomach")] with [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
@@ -295,6 +300,7 @@
 	sharpness = SHARP_EDGED
 	tool_behaviour = TOOL_SAW
 	toolspeed = 1
+	demolition_mod = 1.25
 
 /obj/item/circular_saw
 	name = "circular saw"
@@ -319,6 +325,7 @@
 	toolspeed = 0.9
 	wound_bonus = 5
 	bare_wound_bonus = 10
+	demolition_mod = 0.75
 
 /obj/item/circular_saw/Initialize()
 	. = ..()
@@ -347,6 +354,7 @@
 	toolspeed = 0.5
 	attack_verb = list("attacked", "slashed", "sawed", "cut")
 	sharpness = SHARP_EDGED
+	demolition_mod = 0.25
 
 /obj/item/circular_saw/primitive
 	name = "handsaw"
