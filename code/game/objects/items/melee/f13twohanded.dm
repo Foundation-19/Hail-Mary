@@ -518,19 +518,6 @@
 	force_wielded = 68
 	demolition_mod = 3
 
-/obj/item/twohanded/sledgehammer/supersledge/afterattack(atom/A, mob/living/user, proximity)
-	. = ..()
-	if(!proximity || !wielded || IS_STAMCRIT(user))
-		return
-	if(istype(A, /obj/structure))
-		var/obj/structure/W = A
-		W.take_damage(25, BRUTE, "melee", 0, attacked_by = user)
-		playsound(loc, hitsound, 80, TRUE)
-	else if(istype(A, /obj/machinery))
-		playsound(loc, hitsound, 80, TRUE)
-	else if(istype(A, /turf/closed))
-		playsound(loc, hitsound, 80, TRUE)
-
 // Rocket-assisted Sledgehammer			Keywords: Damage 20/56, Mining  Issues left: mining only when dual wielded, sound to play always on hit
 /obj/item/twohanded/sledgehammer/rockethammer
 	name = "rocket-assisted sledgehammer"
@@ -540,11 +527,8 @@
 	icon_state = "hammer-rocket"
 	icon_prefix = "hammer-rocket"
 	force = 20
-	tool_behaviour = TOOL_MINING
-	toolspeed = 0.5
 	hitsound = "sound/f13effects/explosion_distant_2.ogg"
 	usesound = "sound/f13effects/explosion_distant_2.ogg"
-	var/digrange = 1
 	var/attacksound = "sound/f13effects/explosion_distant_2.ogg"
 	var/sound = "sound/f13effects/explosion_distant_2.ogg"
 	wielded_icon = "hammer-rocket2"

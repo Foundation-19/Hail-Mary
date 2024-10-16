@@ -63,6 +63,9 @@
 	integrity = old_integ - damage_amount
 
 	//DESTROYING SECOND
+	var/turf/closed/mineral/M
+	if(istype(src, /turf/closed/mineral))
+		M.gets_drilled()
 	if(integrity <= 0)
 		turf_destruction(damage_flag, -integrity)
 	else
@@ -91,11 +94,11 @@
 	switch(damage_type)
 		if(BRUTE)
 			if(damage_amount)
-				playsound(src, 'sound/weapons/smash.ogg', 50, 1)
+				playsound(src, hit_sound_brute, 50, 1)
 			else
-				playsound(src, 'sound/weapons/tap.ogg', 50, 1)
+				playsound(src, hit_sound_nodamage, 50, 1)
 		if(BURN)
-			playsound(src, 'sound/items/welder.ogg', 100, 1)
+			playsound(src, hit_sound_burn, 100, 1)
 
 /turf/proc/after_damage(damage_amount, damage_type, damage_flag)
 	return

@@ -9,7 +9,7 @@
 	flags_1 = DEFAULT_RICOCHET_1
 	flags_ricochet = RICOCHET_HARD
 	smooth = SMOOTH_TRUE
-	canSmoothWith = list(/turf/closed/wall/f13/ruins, /turf/closed/wall)
+	canSmoothWith = list(/turf/closed/wall/f13/ruins, /turf/closed/wall, /turf/closed/wall/r_wall)
 	thermal_conductivity = WALL_HEAT_TRANSFER_COEFFICIENT
 	heat_capacity = 312500 //a little over 5 cm thick , 312500 for 1 m by 2.5 m by 0.25 m plasteel wall
 	baseturfs = /turf/open/floor/plating
@@ -231,16 +231,14 @@
 		return
 
 	var/mutable_appearance/decal = mutable_appearance('icons/fallout/turfs/walls_overlay.dmi', "", BULLET_HOLE_LAYER)
-/*
+
 	switch(denttype)
-		if(WALL_DENT_SHOT)
-			decal.icon_state = "bullet_hole"
 		if(WALL_DENT_HIT)
 			decal.icon_state = "impact[rand(1, 3)]"
 
 	decal.pixel_x = x
 	decal.pixel_y = y
-*/
+
 	if(LAZYLEN(dent_decals))
 		cut_overlay(dent_decals)
 		dent_decals += decal

@@ -12,8 +12,6 @@
 /turf/closed/wall/mineral/get_armour_list()
 	return list("melee" = 75,  "bullet" = 35, "laser" = 35, "energy" = 15, "bomb" = 25, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 70, "wound" = 0, "damage_threshold" = 0)
 
-#warn change all thesse values and for all of the walls, reinf, material, misc, mineral AND floors AND platings
-
 /turf/closed/wall/mineral/brick
 	name = "brick wall"
 	desc = "Sturdy wall made of bricks and mortar"

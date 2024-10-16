@@ -5,7 +5,7 @@
 	icon_state = "r_wall"
 	opacity = 1
 	density = TRUE
-
+	canSmoothWith = list(/turf/closed/wall/f13/ruins, /turf/closed/wall, /turf/closed/wall/r_wall, /turf/closed/wall/r_wall/rust)
 	var/d_state = INTACT
 	hardness = 60
 	sheet_type = /obj/item/stack/sheet/plasteel
@@ -14,12 +14,12 @@
 	explosion_block = 0
 	rad_insulation = RAD_HEAVY_INSULATION
 
-	max_integrity = 1000
+	max_integrity = 1200
 	damage_deflection = 75
 	demolition_mod_resist = 0.75
 
 /turf/closed/wall/r_wall/get_armour_list()
-	return list("melee" = 75,  "bullet" = 50, "laser" = 50, "energy" = 50, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 70, "wound" = 0, "damage_threshold" = 0)
+	return list("melee" = 75,  "bullet" = 50, "laser" = 50, "energy" = 50, "bomb" = 75, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 70, "wound" = 0, "damage_threshold" = 0)
 
 /turf/closed/wall/r_wall/deconstruction_hints(mob/user)
 	switch(d_state)

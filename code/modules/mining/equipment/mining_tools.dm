@@ -12,11 +12,10 @@
 	righthand_file = 'icons/mob/inhands/equipment/mining_righthand.dmi'
 	w_class = WEIGHT_CLASS_BULKY
 	custom_materials = list(/datum/material/iron=2000) //one sheet, but where can you make them?
-	tool_behaviour = TOOL_MINING
-	toolspeed = 1
 	usesound = list('sound/effects/picaxe1.ogg', 'sound/effects/picaxe2.ogg', 'sound/effects/picaxe3.ogg')
 	attack_verb = list("hit", "pierced", "sliced", "attacked")
 	demolition_mod = 1.5
+	var/anti_rock_mod = 3
 	var/digrange = 1
 
 /obj/item/pickaxe/attack_self(mob/user)
@@ -49,6 +48,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	custom_materials = list(/datum/material/iron=1000)
 	demolition_mod = 1
+	anti_rock_mod = 2
 
 /obj/item/pickaxe/silver
 	name = "silver-plated pickaxe"
@@ -59,6 +59,7 @@
 	force = 17
 	custom_materials = list(/datum/material/silver=4000)
 	demolition_mod = 1
+	anti_rock_mod = 3
 
 /obj/item/pickaxe/diamond
 	name = "diamond-tipped pickaxe"
@@ -69,6 +70,7 @@
 	force = 19
 	custom_materials = list(/datum/material/diamond=4000)
 	demolition_mod = 2
+	anti_rock_mod = 5
 
 /obj/item/pickaxe/rosegold
 	name = "rose gold pickaxe"
@@ -80,6 +82,7 @@
 	custom_materials = list(/datum/material/gold=4000)
 	digrange = 3
 	demolition_mod = 0.75
+	anti_rock_mod = 2
 
 /obj/item/pickaxe/plasteel
 	name = "plasteel-tipped pickaxe"
@@ -89,6 +92,7 @@
 	force = 19
 	custom_materials = list(/datum/material/iron=2000, /datum/material/plasma=2000)
 	demolition_mod = 2
+	anti_rock_mod = 5
 
 /obj/item/pickaxe/titanium
 	name = "titanium-tipped pickaxe"
@@ -98,6 +102,7 @@
 	force = 17
 	custom_materials = list(/datum/material/titanium=4000)
 	demolition_mod = 1.5
+	anti_rock_mod = 4
 
 /obj/item/pickaxe/drill
 	name = "mining drill"
@@ -109,6 +114,7 @@
 	hitsound = 'sound/weapons/drill.ogg'
 	desc = "An electric mining drill for the especially scrawny."
 	demolition_mod = 1.5
+	anti_rock_mod = 3
 
 /obj/item/pickaxe/drill/cyborg
 	name = "cyborg mining drill"
@@ -127,6 +133,7 @@
 	force = 20
 	desc = "Yours is the drill that will pierce the heavens!"
 	demolition_mod = 2
+	anti_rock_mod = 5
 
 /obj/item/pickaxe/drill/cyborg/diamond //This is the BORG version!
 	name = "diamond-tipped cyborg mining drill" //To inherit the NODROP_1 flag, and easier to change borg specific drill mechanics.
@@ -146,6 +153,7 @@
 	desc = "Cracks rocks with sonic blasts, and doubles as a demolition power tool for smashing walls."
 	digrange = 2
 	demolition_mod = 4
+	anti_rock_mod = 10
 
 /obj/item/shovel
 	name = "shovel"

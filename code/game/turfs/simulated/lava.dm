@@ -17,6 +17,8 @@
 	clawfootstep = FOOTSTEP_LAVA
 	heavyfootstep = FOOTSTEP_LAVA
 
+	resistance_flags = INDESTRUCTIBLE
+
 /turf/open/lava/ex_act(severity, target)
 	contents_explosion(severity, target)
 
