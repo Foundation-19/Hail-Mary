@@ -245,14 +245,15 @@ Paladin Commander
 	glasses = /obj/item/clothing/glasses/sunglasses
 	mask = /obj/item/clothing/mask/gas/sechailer
 	ears = /obj/item/radio/headset/headset_bos/command
-	suit = /obj/item/clothing/suit/armor/power_armor/t51b/palcomm
-	suit_store = /obj/item/gun/ballistic/automatic/lewis
+	suit = /obj/item/clothing/suit/armor/power_armor/t51b/hardened
+	suit_store = /obj/item/gun/energy/laser/plasma/glock/extended
 	head = /obj/item/clothing/head/helmet/f13/power_armor/t51b/palcomm
 	neck = /obj/item/storage/belt/shoulderholster
 	backpack_contents = list(
 		/obj/item/melee/onehanded/knife/hunting = 1,
 		/obj/item/reagent_containers/hypospray/medipen/stimpak = 3,
-		/obj/item/ammo_box/magazine/lewis/l47 = 3
+		/obj/item/stock_parts/cell/ammo/ec = 5,
+		/obj/item/melee/powered/ripper/prewar = 1
 		)
 
 /*
