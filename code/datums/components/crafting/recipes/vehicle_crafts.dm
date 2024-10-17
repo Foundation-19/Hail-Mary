@@ -148,7 +148,7 @@
 	time = 100
 	always_available = FALSE
 
-//Buggy Ranger
+//Buggy legion
 /datum/crafting_recipe/carbase/buggy/legion
 	name = "Legion Chariot Buggy (Final Step)"
 	result = /obj/mecha/working/normalvehicle/buggy/legion/loaded
@@ -266,17 +266,17 @@
 /datum/crafting_recipe/carbase/buggy/ranger/armed
 	name = "Ranger buggy gunner station (Arming Step - REMOVE ALL MODULE FROM CAR BEFORE MODIFYING)"
 	result = /obj/mecha/combat/combatvehicle/buggy/rangerarmed
-	reqs = list(/obj/mecha/combat/combatvehicle/buggy/ranger,
+	reqs = list(/obj/mecha/working/normalvehicle/buggy/ranger,
 				/obj/item/stack/sheet/metal = 20,
 				/obj/item/stack/sheet/prewar = 4)
 	tools = list(TOOL_WELDER, TOOL_WRENCH)
 	time = 100
 
-//Ranger buggy ARMED
+//legion buggy ARMED
 /datum/crafting_recipe/carbase/buggy/legion/armed
 	name = "Legion buggy gunner station (Arming Step - REMOVE ALL MODULE FROM CAR BEFORE MODIFYING)"
 	result = /obj/mecha/combat/combatvehicle/buggy/legionarmed
-	reqs = list(/obj/mecha/combat/combatvehicle/buggy/legion,
+	reqs = list(/obj/mecha/working/normalvehicle/buggy/legion,
 				/obj/item/stack/sheet/metal = 20,
 				/obj/item/stack/sheet/prewar = 4)
 	tools = list(TOOL_WELDER, TOOL_WRENCH)

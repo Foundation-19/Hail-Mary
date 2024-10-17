@@ -1,4 +1,44 @@
-//////////// NCR TRUCK //////////////
+/obj/mecha/working/normalvehicle
+	name = "not supposed to be here"
+	desc = "not supposed to be here.Delete please."
+	anchored = FALSE
+	pixel_x = -32
+	obj_integrity = 600
+	max_integrity = 600
+	max_buckled_mobs = 2 // this does nothing and max occupants allows more mobs to buckle but breaks movement
+	move_force = MOVE_FORCE_VERY_STRONG
+	move_resist = MOVE_FORCE_VERY_STRONG
+	pull_force = MOVE_FORCE_VERY_STRONG
+	var/crash_all = FALSE //CHAOS
+	var/car_traits = NONE //Bitflag for special behavior such as kidnapping
+	var/engine_sound_length = 20 //Set this to the length of the engine sound
+
+/obj/mecha/working/normalvehicle/Bump(atom/movable/A)
+	. = ..()
+	if(A.density && has_buckled_mobs())
+		var/atom/throw_target = get_edge_target_turf(A, dir)
+		if(crash_all)
+			A.throw_at(throw_target, 4, 3)
+			visible_message("<span class='danger'>[src] crashes into [A]!</span>")
+			playsound(src, 'sound/effects/bang.ogg', 50, 1)
+		if(ishuman(A))
+			var/mob/living/carbon/human/H = A
+			H.DefaultCombatKnockdown(50)
+			H.adjustStaminaLoss(15)
+			H.apply_damage(rand(10,15), BRUTE)
+			if(!crash_all)
+				H.throw_at(throw_target, 2, 3)
+				visible_message("<span class='danger'>[src] crashes into [H]!</span>")
+				playsound(src, 'sound/effects/bang.ogg', 50, 1)
+		if(isliving(A))
+			var/mob/living/W = A
+			W.apply_damage(10, BRUTE)
+			if(!crash_all)
+				W.throw_at(throw_target, 1, 2)
+				visible_message("<span class='danger'>[src] crashes into [W]!</span>")
+				playsound(src, 'sound/effects/bang.ogg', 50, 1)
+
+// NCR TRUCK
 
 /obj/mecha/working/normalvehicle/ncrtruck
 	name = "\improper NCR Truck"
@@ -20,11 +60,10 @@
 	stepsound = 'sound/f13machines/buggy_loop.ogg'
 	turnsound = 'sound/f13machines/buggy_loop.ogg'
 	wreckage = /obj/structure/mecha_wreckage/ncrtruck
-	bound_width = 64
-	bound_height = 64
 	var/list/cargo = new
 	var/cargo_capacity = 30
 	var/hides = 0
+	
 
 /obj/structure/mecha_wreckage/ncrtruck
 	name = "\improper Salvageable wreckage"
@@ -90,7 +129,7 @@
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/seat
 	ME.attach(src)
-
+	
 //////////// NCR TRUCK MP //////////////
 
 /obj/mecha/working/normalvehicle/ncrtruck/mp
@@ -113,8 +152,9 @@
 	stepsound = 'sound/f13machines/buggy_loop.ogg'
 	turnsound = 'sound/f13machines/buggy_loop.ogg'
 	wreckage = /obj/structure/mecha_wreckage/ncrtruck
-	bound_width = 64
-	bound_height = 64
+	
+	
+	
 
 /obj/mecha/working/normalvehicle/ncrtruck/mp/go_out()
 	..()
@@ -179,8 +219,9 @@
 	stepsound = 'sound/f13machines/buggy_loop.ogg'
 	turnsound = 'sound/f13machines/buggy_loop.ogg'
 	wreckage = /obj/structure/mecha_wreckage/buggy
-	bound_width = 64
-	bound_height = 64
+	
+	
+	
 
 /obj/mecha/working/normalvehicle/pickuptruck/go_out()
 	..()
@@ -236,8 +277,9 @@
 	stepsound = 'sound/f13machines/buggy_loop.ogg'
 	turnsound = 'sound/f13machines/buggy_loop.ogg'
 	wreckage = /obj/structure/mecha_wreckage/buggy
-	bound_width = 64
-	bound_height = 64
+	
+	
+	
 
 /obj/mecha/working/normalvehicle/pickuptruck/blue/go_out()
 	..()
@@ -293,8 +335,9 @@
 	stepsound = 'sound/f13machines/buggy_loop.ogg'
 	turnsound = 'sound/f13machines/buggy_loop.ogg'
 	wreckage = /obj/structure/mecha_wreckage/buggy
-	bound_width = 64
-	bound_height = 64
+	
+	
+	
 
 /obj/mecha/working/normalvehicle/pickuptruck/bos/go_out()
 	..()
@@ -348,8 +391,9 @@
 	stepsound = 'sound/effects/footstep/gallop2.ogg'
 	turnsound = 'sound/effects/footstep/gallop1.ogg'
 	wreckage = /obj/structure/mecha_wreckage/buggy
-	bound_width = 64
-	bound_height = 64
+	
+	
+	
 
 /obj/mecha/working/normalvehicle/truckcaravan/go_out()
 	..()
@@ -401,8 +445,9 @@
 	stepsound = 'sound/f13machines/buggy_loop.ogg'
 	turnsound = 'sound/f13machines/buggy_loop.ogg'
 	wreckage = /obj/structure/mecha_wreckage/buggy
-	bound_width = 64
-	bound_height = 64
+	
+	
+	
 
 /obj/mecha/working/normalvehicle/pickuptruck/mechanic/go_out()
 	..()
@@ -457,8 +502,9 @@
 	max_equip = 5
 	stepsound = 'sound/f13machines/buggy_loop.ogg'
 	turnsound = 'sound/f13machines/buggy_loop.ogg'
-	bound_width = 64
-	bound_height = 64
+	
+	
+	
 
 /obj/mecha/working/normalvehicle/ambulance/go_out()
 	..()
@@ -521,8 +567,9 @@
 	stepsound = 'sound/f13machines/buggy_loop.ogg'
 	turnsound = 'sound/f13machines/buggy_loop.ogg'
 	wreckage = /obj/structure/mecha_wreckage/buggy
-	bound_width = 64
-	bound_height = 64
+	
+	
+	
 
 /obj/structure/mecha_wreckage/buggy
 	name = "\improper Buggy wreckage"
@@ -579,8 +626,9 @@
 	stepsound = 'sound/f13machines/buggy_loop.ogg'
 	turnsound = 'sound/f13machines/buggy_loop.ogg'
 	wreckage = /obj/structure/mecha_wreckage/buggy
-	bound_width = 64
-	bound_height = 64
+	
+	
+	
 
 /obj/mecha/working/normalvehicle/buggy/dune/go_out()
 	..()
@@ -632,8 +680,9 @@
 	stepsound = 'sound/f13machines/buggy_loop.ogg'
 	turnsound = 'sound/f13machines/buggy_loop.ogg'
 	wreckage = /obj/structure/mecha_wreckage/buggy
-	bound_width = 64
-	bound_height = 64
+	
+	
+	
 
 /obj/mecha/working/normalvehicle/buggy/red/go_out()
 	..()
@@ -685,8 +734,9 @@
 	stepsound = 'sound/f13machines/buggy_loop.ogg'
 	turnsound = 'sound/f13machines/buggy_loop.ogg'
 	wreckage = /obj/structure/mecha_wreckage/buggy
-	bound_width = 64
-	bound_height = 64
+	
+	
+	
 
 /obj/mecha/working/normalvehicle/buggy/blue/go_out()
 	..()
@@ -738,8 +788,9 @@
 	stepsound = 'sound/f13machines/buggy_loop.ogg'
 	turnsound = 'sound/f13machines/buggy_loop.ogg'
 	wreckage = /obj/structure/mecha_wreckage/buggy
-	bound_width = 64
-	bound_height = 64
+	
+	
+	
 
 /obj/mecha/working/normalvehicle/buggy/flamme/go_out()
 	..()
@@ -791,8 +842,9 @@
 	stepsound = 'sound/f13machines/buggy_loop.ogg'
 	turnsound = 'sound/f13machines/buggy_loop.ogg'
 	wreckage = /obj/structure/mecha_wreckage/buggy
-	bound_width = 64
-	bound_height = 64
+	
+	
+	
 
 /obj/mecha/working/normalvehicle/buggy/ranger/go_out()
 	..()
@@ -844,8 +896,9 @@
 	stepsound = 'sound/effects/footstep/gallop2.ogg'
 	turnsound = 'sound/effects/footstep/gallop1.ogg'
 	wreckage = /obj/structure/mecha_wreckage/buggy
-	bound_width = 64
-	bound_height = 64
+	
+	
+	
 
 /obj/mecha/working/normalvehicle/buggy/legion/go_out()
 	..()
@@ -897,8 +950,9 @@
 	stepsound = 'sound/f13machines/buggy_loop.ogg'
 	turnsound = 'sound/f13machines/buggy_loop.ogg'
 	wreckage = /obj/structure/mecha_wreckage/buggy
-	bound_width = 64
-	bound_height = 64
+	
+	
+	
 
 /obj/mecha/working/normalvehicle/jeep/go_out()
 	..()
@@ -954,8 +1008,9 @@
 	stepsound = 'sound/f13machines/buggy_loop.ogg'
 	turnsound = 'sound/f13machines/buggy_loop.ogg'
 	wreckage = /obj/structure/mecha_wreckage/buggy
-	bound_width = 64
-	bound_height = 64
+	
+	
+	
 
 /obj/mecha/working/normalvehicle/jeep/enclave/go_out()
 	..()
@@ -1011,8 +1066,9 @@
 	stepsound = 'sound/f13machines/buggy_loop.ogg'
 	turnsound = 'sound/f13machines/buggy_loop.ogg'
 	wreckage = /obj/structure/mecha_wreckage/buggy
-	bound_width = 64
-	bound_height = 64
+	
+	
+	
 
 /obj/mecha/working/normalvehicle/jeep/bos/go_out()
 	..()
@@ -1068,8 +1124,9 @@
 	stepsound = 'sound/f13machines/buggy_loop.ogg'
 	turnsound = 'sound/f13machines/buggy_loop.ogg'
 	wreckage = /obj/structure/mecha_wreckage/buggy
-	bound_width = 64
-	bound_height = 64
+	
+	
+	
 
 /obj/mecha/working/normalvehicle/highwayman/go_out()
 	..()
@@ -1121,8 +1178,9 @@
 	stepsound = 'sound/f13machines/buggy_loop.ogg'
 	turnsound = 'sound/f13machines/buggy_loop.ogg'
 	wreckage = /obj/structure/mecha_wreckage/buggy
-	bound_width = 64
-	bound_height = 64
+	
+	
+	
 
 /obj/mecha/working/normalvehicle/corvega/go_out()
 	..()
@@ -1176,8 +1234,9 @@
 	stepsound = 'sound/f13machines/buggy_loop.ogg'
 	turnsound = 'sound/f13machines/buggy_loop.ogg'
 	wreckage = /obj/structure/mecha_wreckage/buggy
-	bound_width = 64
-	bound_height = 64
+	
+	
+	
 
 /obj/mecha/working/normalvehicle/corvega/police/go_out()
 	..()

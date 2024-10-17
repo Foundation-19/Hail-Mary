@@ -29,9 +29,9 @@
 	movement_type = FLYING
 	stepsound = 'sound/f13machines/vertibird_loop.ogg'
 	turnsound = 'sound/f13machines/vertibird_loop.ogg'
-	bound_width = 64
-	bound_height = 64
-
+	
+	
+	
 
 /obj/structure/mecha_wreckage/vertibird
 	name = "\improper Vertibird Wreck"
@@ -118,8 +118,9 @@
 	movement_type = FLYING
 	stepsound = 'sound/f13machines/vertibird_loop.ogg'
 	turnsound = 'sound/f13machines/vertibird_loop.ogg'
-	bound_width = 64
-	bound_height = 64
+	
+	
+	
 
 /obj/mecha/combat/combatvehicle/vertibird/ncr/GrantActions(mob/living/user, human_occupant = 0) 
 	internals_action.Grant(user, src)
@@ -404,8 +405,9 @@
 	stepsound = 'sound/f13machines/buggy_loop.ogg'
 	turnsound = 'sound/f13machines/buggy_loop.ogg'
 	wreckage = /obj/structure/mecha_wreckage/buggy
-	bound_width = 64
-	bound_height = 64
+	
+	
+	
 
 /obj/mecha/combat/combatvehicle/pickuptruck/bos/armed/go_out()
 	..()
@@ -461,8 +463,9 @@
 	stepsound = 'sound/f13machines/buggy_loop.ogg'
 	turnsound = 'sound/f13machines/buggy_loop.ogg'
 	wreckage = /obj/structure/mecha_wreckage/buggy
-	bound_width = 64
-	bound_height = 64
+	
+	
+	
 
 /obj/mecha/combat/combatvehicle/buggy/rangerarmed/go_out()
 	..()
@@ -520,8 +523,9 @@
 	stepsound = 'sound/effects/footstep/gallop2.ogg'
 	turnsound = 'sound/effects/footstep/gallop1.ogg'
 	wreckage = /obj/structure/mecha_wreckage/buggy
-	bound_width = 64
-	bound_height = 64
+	
+	
+	
 
 /obj/mecha/combat/combatvehicle/buggy/legionarmed/go_out()
 	..()

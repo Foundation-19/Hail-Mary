@@ -67,6 +67,7 @@
 	var/can_be_locked = FALSE //Whether the mech can be DNA-locked or not.
 	var/stepcooldown = 3
 	var/last_trigger = 0 //Last time step sounded.
+	var/canmove = TRUE
 
 	var/bumpsmash = 0 //Whether or not the mech destroys walls by running into it.
 	//inner atmos
