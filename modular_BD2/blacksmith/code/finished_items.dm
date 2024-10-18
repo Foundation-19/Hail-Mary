@@ -640,8 +640,8 @@
 	wielded_icon = "zwei_smith"
 	icon_prefix = "zwei_smith"
 	overlay_state = "hilt_zwei"
-	attack_speed = MELEE_SPEED_SLOWER
-	force = (FORCE_SMITH_HIGH+1)
+	attack_speed = MELEE_SPEED_SLOWEST
+	force = FORCE_SMITH_HIGH
 	armour_penetration = PIERCING_MAJOR
 	throwforce = THROWING_POOR
 	wound_bonus = WOUNDING_BONUS_HUGE
@@ -650,7 +650,7 @@
 	slot_flags = ITEM_SLOT_BACK
 	item_flags = ITEM_CAN_PARRY
 	total_mass = TOTAL_MASS_MEDIEVAL_WEAPON * 2
-	hitsound = 'modular_BD2/blacksmith/sound/hit_sword.ogg'
+	hitsound = 'modular_BD2/blacksmith/sound/zweihander.ogg'
 	block_chance = 20
 	block_parry_data = /datum/block_parry_data/smithzweihander
 
@@ -810,10 +810,9 @@
 	min_reach = 2
 	max_reach = 3
 	sharpness = SHARP_POINTY
-	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("impaled", "gored", "stabbed")
-	hitsound = 'sound/weapons/slice.ogg'
-	attack_speed = MELEE_SPEED_SLOW
+	hitsound = 'sound/weapons/pike.ogg'
+	attack_speed = MELEE_SPEED_SLOWEST
 	total_mass = TOTAL_MASS_MEDIEVAL_WEAPON * 1.2
 
 
