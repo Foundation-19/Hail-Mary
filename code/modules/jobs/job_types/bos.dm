@@ -247,7 +247,7 @@ Paladin Commander
 	ears = /obj/item/radio/headset/headset_bos/command
 	suit = /obj/item/clothing/suit/armor/power_armor/t51b/hardened
 	suit_store = /obj/item/shield/riot/bullet_proof 
-	head = /obj/item/clothing/head/helmet/f13/power_armor/t51b/palcomm
+	head = /obj/item/clothing/head/helmet/f13/power_armor/t51b/bos
 	neck = /obj/item/storage/belt/shoulderholster
 	backpack_contents = list(
 		/obj/item/melee/onehanded/knife/hunting = 1,
