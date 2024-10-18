@@ -208,9 +208,9 @@ Weapons		Lever shotgun, Grease gun, Repeater carbines, Revolvers, simple guns al
 	minimal_access = list(ACCESS_LEGION, ACCESS_CHANGE_IDS, ACCESS_LEGION_COMMAND, ACCESS_LEGION_CENTURION)
 
 	loadout_options = list(
-		/datum/outfit/loadout/palacent,		// BAR
+		/datum/outfit/loadout/palacent,		// Unique Shotgun
 		/datum/outfit/loadout/rangerhunter,	// Hunting Revolver, Spatha, Unique Sniper
-		/datum/outfit/loadout/centurion,	// 14mm Pistol + Unique Lever-Action
+		/datum/outfit/loadout/centurion,	// 14mm Pistol + Pre-war Ripper + reinf. bolas
 		)
 
 	min_required_special = list(
@@ -255,9 +255,13 @@ Weapons		Lever shotgun, Grease gun, Repeater carbines, Revolvers, simple guns al
 	name = "Paladin-Slayer Centurion"
 	suit = /obj/item/clothing/suit/armor/legion/palacent
 	head = /obj/item/clothing/head/helmet/f13/legion/palacent
-	suit_store = /obj/item/gun/ballistic/automatic/bar
+	suit_store = /obj/item/gun/ballistic/shotgun/automatic/combat/shotgunlever/stock/tribal
 	backpack_contents = list(
-		/obj/item/ammo_box/magazine/m308/ext = 3,
+		/obj/item/storage/belt/holster = 1,
+		/obj/item/gun/ballistic/automatic/pistol/pistol14 = 1,
+		/obj/item/ammo_box/magazine/m14mm = 2,
+		/obj/item/ammo_box/shotgun/slug = 1,
+		/obj/item/ammo_box/shotgun/magnum = 2,
 		)
 
 /datum/outfit/loadout/rangerhunter
@@ -276,13 +280,12 @@ Weapons		Lever shotgun, Grease gun, Repeater carbines, Revolvers, simple guns al
 	name = "Warlord Centurion"
 	suit = /obj/item/clothing/suit/armor/legion/centurion
 	head = /obj/item/clothing/head/helmet/f13/legion/centurion
-	suit_store = /obj/item/gun/ballistic/shotgun/automatic/combat/shotgunlever/stock/tribal
+	suit_store = /obj/item/melee/powered/ripper/prewar
 	backpack_contents = list(
-		/obj/item/storage/belt/holster = 1,
-		/obj/item/gun/ballistic/automatic/pistol/pistol14 = 1,
-		/obj/item/ammo_box/magazine/m14mm = 2,
-		/obj/item/ammo_box/shotgun/slug = 1,
-		/obj/item/ammo_box/shotgun/magnum = 2,
+		/obj/item/restraints/legcuffs/bola/tactical = 3,
+		/obj/item/reagent_containers/pill/bitterdrink = 2,
+		/obj/item/gun/ballistic/automatic/pistol/pistol14/lildevil = 1,
+		/obj/item/ammo_box/magazine/m14mm = 2
 		)
 
 
