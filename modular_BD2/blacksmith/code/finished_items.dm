@@ -649,7 +649,7 @@
 	wielded_mult = 1.4
 	slot_flags = ITEM_SLOT_BACK
 	item_flags = ITEM_CAN_PARRY
-	total_mass = TOTAL_MASS_MEDIEVAL_WEAPON * 2
+	total_mass = TOTAL_MASS_MEDIEVAL_WEAPON * 3
 	hitsound = 'modular_BD2/blacksmith/sound/zweihander.ogg'
 	block_chance = 20
 	block_parry_data = /datum/block_parry_data/smithzweihander
@@ -801,7 +801,7 @@
 	overlay_state = "shaft_pike"
 	wielded_icon = "pike_smith_wield"
 	icon_prefix = "pike_smith"
-	force = (FORCE_SMITH_REACH-1)
+	force = (FORCE_SMITH_REACH-2)
 	wielded_mult = 1.5
 	throwforce = THROWING_POOR
 	wound_bonus = WOUNDING_BONUS_BIG
@@ -813,7 +813,7 @@
 	attack_verb = list("impaled", "gored", "stabbed")
 	hitsound = 'sound/weapons/pike.ogg'
 	attack_speed = MELEE_SPEED_SLOWEST
-	total_mass = TOTAL_MASS_MEDIEVAL_WEAPON * 1.2
+	total_mass = TOTAL_MASS_MEDIEVAL_WEAPON * 2
 
 
 // ------------ TRIDENT ------------ // [Reach Embed]
