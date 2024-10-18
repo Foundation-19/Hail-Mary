@@ -642,7 +642,7 @@
 	overlay_state = "hilt_zwei"
 	attack_speed = MELEE_SPEED_SLOWEST
 	force = FORCE_SMITH_HIGH
-	armour_penetration = PIERCING_MAJOR
+	armour_penetration = PIERCING_MODERATE
 	throwforce = THROWING_POOR
 	wound_bonus = WOUNDING_BONUS_HUGE
 	sharpness = SHARP_EDGED
@@ -806,7 +806,7 @@
 	throwforce = THROWING_POOR
 	wound_bonus = WOUNDING_BONUS_BIG
 	bare_wound_bonus = WOUNDING_BONUS_SMALL
-	armour_penetration = PIERCING_MODERATE
+	armour_penetration = PIERCING_MINOR
 	min_reach = 2
 	max_reach = 3
 	sharpness = SHARP_POINTY
