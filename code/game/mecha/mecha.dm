@@ -196,6 +196,7 @@
 	diag_hud_set_mechhealth()
 	diag_hud_set_mechcell()
 	diag_hud_set_mechstat()
+	full_repair(refill_tank=1)
 
 /obj/mecha/proc/grant_vision()
 	if(!occupant)
@@ -1251,3 +1252,9 @@
 	else
 		if(user.loc == src) //so we don't get the message if we resisted multiple times and succeeded.
 			to_chat(user, span_warning("You fail to push [O] out of [src]!"))
+
+/obj/mecha/proc/max_ammo() //Max the ammo stored for Nuke Ops mechs, or anyone else that calls this
+	for(var/obj/item/I in equipment)
+		if(istype(I, /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/))
+			var/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/gun = I
+			gun.projectiles_cache = gun.projectiles_cache_max

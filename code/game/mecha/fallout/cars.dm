@@ -1,6 +1,6 @@
 //Highwayman
 
-/obj/mecha/combat/phazon/highwayman
+/obj/mecha/base_vehicle/highwayman
 	name = "\improper highwayman eco"
 	desc = "A fast vehicule, runing on powercell. YUP ! ITS THE HIGHWAYMAN ! Kinda. Its not the original, but a budget version."
 	icon = 'icons/mecha/highwayman.dmi'
@@ -15,29 +15,29 @@
 	turnsound = 'sound/f13machines/buggy_loop.ogg'
 	wreckage = /obj/structure/mecha_wreckage/fallout
 
-/obj/mecha/combat/phazon/highwayman/go_out()
+/obj/mecha/base_vehicle/highwayman/go_out()
 	..()
 	update_icon()
 
-/obj/mecha/combat/phazon/highwayman/moved_inside(mob/living/carbon/human/H)
+/obj/mecha/base_vehicle/highwayman/moved_inside(mob/living/carbon/human/H)
 	..()
 	update_icon()
 
-/obj/mecha/combat/phazon/highwayman/GrantActions(mob/living/user, human_occupant = 0)
+/obj/mecha/base_vehicle/highwayman/GrantActions(mob/living/user, human_occupant = 0)
 	cycle_action.Grant(user, src)
 	lights_action.Grant(user, src)
 	stats_action.Grant(user, src)
 	eject_action.Grant(user, src)
 	klaxon_action.Grant(user, src)
 
-/obj/mecha/combat/phazon/highwayman/RemoveActions(mob/living/user, human_occupant = 0)
+/obj/mecha/base_vehicle/highwayman/RemoveActions(mob/living/user, human_occupant = 0)
 	cycle_action.Remove(user)
 	lights_action.Remove(user)
 	stats_action.Remove(user)
 	eject_action.Remove(user)
 	klaxon_action.Remove(user)
 
-/obj/mecha/combat/phazon/highwayman/loaded/Initialize()
+/obj/mecha/base_vehicle/highwayman/loaded/Initialize()
 	. = ..()
 	var/obj/item/mecha_parts/mecha_equipment/ME = new
 	ME = new /obj/item/mecha_parts/mecha_equipment/seat
@@ -45,7 +45,7 @@
 
 //corvega
 
-/obj/mecha/combat/phazon/corvega
+/obj/mecha/base_vehicle/corvega
 	name = "\improper Corvega"
 	desc = "A old vehicule, runing on powercell."
 	icon = 'icons/mecha/corvega.dmi'
@@ -54,7 +54,7 @@
 	armor = ARMOR_VALUE_VEHICLE_MED_LIGHT
 	wreckage = /obj/structure/mecha_wreckage/buggy
 
-/obj/mecha/combat/phazon/corvega/loaded/Initialize()
+/obj/mecha/base_vehicle/corvega/loaded/Initialize()
 	. = ..()
 	var/obj/item/mecha_parts/mecha_equipment/ME = new
 	ME = new /obj/item/mecha_parts/mecha_equipment/seat
@@ -64,7 +64,7 @@
 
 //corvega police
 
-/obj/mecha/combat/phazon/corvega/police
+/obj/mecha/base_vehicle/corvega/police
 	name = "\improper Police Corvega"
 	desc = "A old vehicule, runing on powercell. Seems to have been the proprety of the PreWar Yuma PD."
 	icon = 'icons/mecha/corvega-police.dmi'
@@ -73,7 +73,9 @@
 	armor = ARMOR_VALUE_VEHICLE_MEDIUM
 	wreckage = /obj/structure/mecha_wreckage/buggy
 
-/obj/mecha/combat/phazon/corvega/police/GrantActions(mob/living/user, human_occupant = 0)
+	max_weapons_equip = 1
+
+/obj/mecha/base_vehicle/corvega/police/GrantActions(mob/living/user, human_occupant = 0)
 	cycle_action.Grant(user, src)
 	lights_action.Grant(user, src)
 	stats_action.Grant(user, src)
@@ -81,7 +83,7 @@
 	klaxon_action.Grant(user, src)
 	sirens_action.Grant(user, src)
 
-/obj/mecha/combat/phazon/corvega/police/RemoveActions(mob/living/user, human_occupant = 0)
+/obj/mecha/base_vehicle/corvega/police/RemoveActions(mob/living/user, human_occupant = 0)
 	cycle_action.Remove(user)
 	lights_action.Remove(user)
 	stats_action.Remove(user)
@@ -89,7 +91,7 @@
 	klaxon_action.Remove(user)
 	sirens_action.Remove(user)
 
-/obj/mecha/combat/phazon/corvega/police/loaded/Initialize()
+/obj/mecha/base_vehicle/corvega/police/loaded/Initialize()
 	. = ..()
 	var/obj/item/mecha_parts/mecha_equipment/ME = new
 	ME = new /obj/item/mecha_parts/mecha_equipment/seat

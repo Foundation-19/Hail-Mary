@@ -6798,7 +6798,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/red/white,
 /area/f13/building/mall)
 "aBG" = (
-/obj/mecha/combat/phazon/ambulance{
+/obj/mecha/base_vehicle/ambulance{
 	dir = 1
 	},
 /turf/open/indestructible/ground/outside/road{
@@ -15611,7 +15611,7 @@
 /obj/effect/decal/marking{
 	icon_state = "dottedverticalcorroded"
 	},
-/obj/mecha/combat/phazon/buggy/rangerarmed/loaded,
+/obj/mecha/base_vehicle/buggy/rangerarmed/loaded,
 /turf/open/indestructible/ground/outside/road{
 	icon_state = "horizontalbottombordertop0"
 	},
@@ -19584,7 +19584,7 @@
 	},
 /obj/effect/decal/cleanable/generic,
 /obj/effect/decal/cleanable/dirt,
-/obj/mecha/combat/phazon/pickuptruck/mechanic{
+/obj/mecha/base_vehicle/mechanics_pickuptruck{
 	dir = 4
 	},
 /turf/open/floor/f13{
@@ -19769,7 +19769,7 @@
 /turf/open/indestructible/ground/outside/desert,
 /area/f13/building)
 "cpr" = (
-/obj/mecha/combat/phazon/pickuptruck/bos/armed,
+/obj/mecha/base_vehicle/pickuptruck/bos/armed,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/brotherhood)
 "cpy" = (
@@ -20240,7 +20240,7 @@
 	},
 /area/f13/wasteland)
 "ctm" = (
-/obj/mecha/combat/phazon/jeep/loaded{
+/obj/mecha/base_vehicle/jeep/loaded{
 	dir = 8
 	},
 /turf/open/indestructible/ground/outside/dirt{
@@ -24914,7 +24914,7 @@
 /area/f13/wasteland)
 "epN" = (
 /obj/effect/decal/cleanable/oil,
-/obj/mecha/combat/phazon/jeep/bos,
+/obj/mecha/base_vehicle/jeep/bos,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/brotherhood)
 "epV" = (
@@ -29698,7 +29698,7 @@
 /area/f13/building)
 "gmA" = (
 /obj/structure/flora/grass/coyote/one,
-/obj/mecha/combat/phazon/buggy/flamme/loaded{
+/obj/mecha/base_vehicle/buggy/flamme/loaded{
 	dir = 8
 	},
 /turf/open/indestructible/ground/inside/mountain,
@@ -30450,7 +30450,7 @@
 /area/f13/legion)
 "gBa" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/mecha/combat/phazon/buggy,
+/obj/mecha/base_vehicle/buggy,
 /turf/open/indestructible/ground/outside/road{
 	icon_state = "verticalinnermain1"
 	},
@@ -33955,7 +33955,7 @@
 	},
 /area/f13/building/massfusion)
 "hYW" = (
-/obj/mecha/combat/phazon/buggy/ranger/loaded,
+/obj/mecha/base_vehicle/buggy/ranger/loaded,
 /turf/open/indestructible/ground/outside/road{
 	icon_state = "verticalinnermain1"
 	},
@@ -39764,7 +39764,7 @@
 /turf/open/floor/plating/f13/inside,
 /area/f13/caves)
 "ksL" = (
-/obj/mecha/combat/phazon/buggy/red/loaded{
+/obj/mecha/base_vehicle/buggy/red/loaded{
 	dir = 4
 	},
 /turf/open/indestructible/ground/outside/desert/sonora{
@@ -47997,7 +47997,7 @@
 /area/f13/ncr)
 "nID" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/mecha/combat/phazon/ncrtruck/mp/loaded,
+/obj/mecha/base_vehicle/ncrtruck/mp/loaded,
 /turf/open/indestructible/ground/outside/road,
 /area/f13/wasteland)
 "nIG" = (
@@ -51472,7 +51472,7 @@
 /area/f13/building/museum)
 "pcb" = (
 /obj/effect/turf_decal/trimline/white/line,
-/obj/mecha/combat/phazon/highwayman/loaded{
+/obj/mecha/base_vehicle/highwayman/loaded{
 	dir = 4
 	},
 /turf/open/indestructible/ground/outside/road{
@@ -51909,7 +51909,7 @@
 /turf/open/indestructible/ground/outside/water,
 /area/f13/wasteland)
 "plQ" = (
-/obj/mecha/combat/phazon/buggy/legion/loaded,
+/obj/mecha/base_vehicle/buggy/legion/loaded,
 /turf/open/indestructible/ground/outside/desert/sonora{
 	dir = 4;
 	icon_state = "desertsmooth4"
@@ -53544,7 +53544,7 @@
 /area/f13/building/hospital)
 "pQI" = (
 /obj/effect/turf_decal/trimline/white/line,
-/obj/mecha/combat/phazon/buggy/dune{
+/obj/mecha/base_vehicle/buggy/dune{
 	dir = 4
 	},
 /turf/open/indestructible/ground/outside/road{
@@ -56187,7 +56187,7 @@
 /area/f13/wasteland)
 "qZj" = (
 /obj/structure/flora/branch,
-/obj/mecha/combat/phazon/buggy/legionarmed/loaded,
+/obj/mecha/base_vehicle/buggy/legionarmed/loaded,
 /turf/open/indestructible/ground/outside/dirt{
 	dir = 8;
 	icon_state = "dirtcorner"
@@ -59928,7 +59928,7 @@
 	},
 /area/f13/legion)
 "sIS" = (
-/obj/mecha/combat/phazon/corvega/police/loaded,
+/obj/mecha/base_vehicle/corvega/police/loaded,
 /turf/open/indestructible/ground/outside/sidewalk,
 /area/f13/city)
 "sJn" = (
@@ -62845,7 +62845,7 @@
 "tTf" = (
 /obj/effect/decal/cleanable/oil,
 /obj/effect/decal/cleanable/dirt,
-/obj/mecha/combat/phazon/jeep/loaded{
+/obj/mecha/base_vehicle/jeep/loaded{
 	dir = 8
 	},
 /turf/open/indestructible/ground/outside/road{
@@ -64563,7 +64563,7 @@
 /turf/closed/wall/f13/wood/house,
 /area/f13/brotherhood)
 "uFF" = (
-/obj/mecha/combat/phazon/ambulance{
+/obj/mecha/base_vehicle/ambulance{
 	dir = 4
 	},
 /turf/open/indestructible/ground/outside/sidewalk{
@@ -66762,7 +66762,7 @@
 /obj/effect/decal/cleanable/dirt{
 	color = "#363636"
 	},
-/obj/mecha/combat/phazon/pickuptruck/mechanic{
+/obj/mecha/base_vehicle/mechanics_pickuptruck{
 	dir = 4
 	},
 /turf/open/floor/f13{
@@ -70613,7 +70613,7 @@
 /turf/open/floor/grass,
 /area/f13/wasteland)
 "xfe" = (
-/obj/mecha/combat/phazon/ncrtruck/loaded,
+/obj/mecha/base_vehicle/ncrtruck/loaded,
 /turf/open/indestructible/ground/outside/road{
 	icon_state = "verticalinnermain1"
 	},
@@ -72629,7 +72629,7 @@
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/wasteland)
 "xYD" = (
-/obj/mecha/combat/phazon/pickuptruck/bos/loaded,
+/obj/mecha/base_vehicle/pickuptruck/bos/loaded,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/brotherhood)
 "xYE" = (

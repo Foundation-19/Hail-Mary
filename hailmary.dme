@@ -1013,6 +1013,7 @@
 #include "code\game\mecha\equipment\weapons\fallout\lasers.dm"
 #include "code\game\mecha\equipment\weapons\fallout\launchers.dm"
 #include "code\game\mecha\fallout\armoured.dm"
+#include "code\game\mecha\fallout\base_vehicle.dm"
 #include "code\game\mecha\fallout\birds.dm"
 #include "code\game\mecha\fallout\buggies.dm"
 #include "code\game\mecha\fallout\carriages.dm"

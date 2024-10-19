@@ -1,6 +1,6 @@
 //Buggy
 
-/obj/mecha/combat/phazon/buggy
+/obj/mecha/base_vehicle/buggy
 	name = "\improper Buggy"
 	desc = "A light vehicle, not very powerfull or solid, running on a powercell."
 	icon = 'icons/mecha/buggy.dmi'
@@ -17,7 +17,7 @@
 	facing_modifiers = list(FRONT_ARMOUR = 1.15, SIDE_ARMOUR = 1, BACK_ARMOUR = 0.85) // Engine's on the back, IG
 
 	max_utility_equip = 2
-	max_weapons_equip = 1
+	max_weapons_equip = 0
 	max_misc_equip = 1
 
 /obj/structure/mecha_wreckage/buggy
@@ -26,29 +26,29 @@
 	icon = 'icons/fallout/vehicles/medium_vehicles.dmi'
 	icon_state = "buggy-broken"
 
-/obj/mecha/combat/phazon/buggy/go_out()
+/obj/mecha/base_vehicle/buggy/go_out()
 	..()
 	update_icon()
 
-/obj/mecha/combat/phazon/buggy/moved_inside(mob/living/carbon/human/H)
+/obj/mecha/base_vehicle/buggy/moved_inside(mob/living/carbon/human/H)
 	..()
 	update_icon()
 
-/obj/mecha/combat/phazon/buggy/GrantActions(mob/living/user, human_occupant = 0)
+/obj/mecha/base_vehicle/buggy/GrantActions(mob/living/user, human_occupant = 0)
 	cycle_action.Grant(user, src)
 	lights_action.Grant(user, src)
 	stats_action.Grant(user, src)
 	eject_action.Grant(user, src)
 	klaxon_action.Grant(user, src)
 
-/obj/mecha/combat/phazon/buggy/RemoveActions(mob/living/user, human_occupant = 0)
+/obj/mecha/base_vehicle/buggy/RemoveActions(mob/living/user, human_occupant = 0)
 	cycle_action.Remove(user)
 	lights_action.Remove(user)
 	stats_action.Remove(user)
 	eject_action.Remove(user)
 	klaxon_action.Remove(user)
 
-/obj/mecha/combat/phazon/buggy/loaded/Initialize()
+/obj/mecha/base_vehicle/buggy/loaded/Initialize()
 	. = ..()
 	var/obj/item/mecha_parts/mecha_equipment/ME = new
 	ME = new /obj/item/mecha_parts/mecha_equipment/seat
@@ -56,13 +56,13 @@
 
 //Buggydune
 
-/obj/mecha/combat/phazon/buggy/dune
+/obj/mecha/base_vehicle/buggy/dune
 	name = "\improper Buggy"
 	desc = "A light vehicle, not very powerfull or solid, running on a powercell."
 	icon = 'icons/mecha/buggy.dmi'
 	icon_state = "buggydune"
 
-/obj/mecha/combat/phazon/buggy/dune/loaded/Initialize()
+/obj/mecha/base_vehicle/buggy/dune/loaded/Initialize()
 	. = ..()
 	var/obj/item/mecha_parts/mecha_equipment/ME = new
 	ME = new /obj/item/mecha_parts/mecha_equipment/seat
@@ -70,13 +70,13 @@
 
 //Buggyred
 
-/obj/mecha/combat/phazon/buggy/red
+/obj/mecha/base_vehicle/buggy/red
 	name = "\improper Buggy"
 	desc = "A light vehicle, not very powerfull or solid, running on a powercell."
 	icon = 'icons/mecha/buggy.dmi'
 	icon_state = "buggyred"
 
-/obj/mecha/combat/phazon/buggy/red/loaded/Initialize()
+/obj/mecha/base_vehicle/buggy/red/loaded/Initialize()
 	. = ..()
 	var/obj/item/mecha_parts/mecha_equipment/ME = new
 	ME = new /obj/item/mecha_parts/mecha_equipment/seat
@@ -84,13 +84,13 @@
 
 //Buggyflame
 
-/obj/mecha/combat/phazon/buggy/flamme
+/obj/mecha/base_vehicle/buggy/flamme
 	name = "\improper Buggy"
 	desc = "A light vehicle, not very powerfull or solid, running on a powercell."
 	icon = 'icons/mecha/buggy.dmi'
 	icon_state = "buggyflame"
 
-/obj/mecha/combat/phazon/buggy/flamme/loaded/Initialize()
+/obj/mecha/base_vehicle/buggy/flamme/loaded/Initialize()
 	. = ..()
 	var/obj/item/mecha_parts/mecha_equipment/ME = new
 	ME = new /obj/item/mecha_parts/mecha_equipment/seat
@@ -98,14 +98,14 @@
 
 //Buggy Ranger
 
-/obj/mecha/combat/phazon/buggy/ranger
+/obj/mecha/base_vehicle/buggy/ranger
 	name = "\improper Ranger Buggy"
 	desc = "A light vehicle, not very powerfull or solid, running on a powercell. This one as been recolored by the Rangers."
 	icon = 'icons/mecha/hanlonbuggy.dmi'
 	icon_state = "hanlonbuggy"
 	armor = ARMOR_VALUE_VEHICLE_MED_LIGHT
 
-/obj/mecha/combat/phazon/buggy/ranger/loaded/Initialize()
+/obj/mecha/base_vehicle/buggy/ranger/loaded/Initialize()
 	. = ..()
 	var/obj/item/mecha_parts/mecha_equipment/ME = new
 	ME = new /obj/item/mecha_parts/mecha_equipment/seat
@@ -113,22 +113,24 @@
 
 //Buggy Ranger AND RICO
 
-/obj/mecha/combat/phazon/buggy/rangerarmed
+/obj/mecha/base_vehicle/buggy/rangerarmed
 	name = "\improper Vet Ranger Buggy with gunner"
 	desc = "A light vehicle, not very powerfull or solid, running on a powercell. This one as been recolored by the Rangers... And Ranger Rico ''Gunner'' Davberger is gonna shoot with his shotgun."
 	icon = 'icons/mecha/buggyrangergun.dmi'
 	icon_state = "rangergun"
 	armor = ARMOR_VALUE_VEHICLE_MED_LIGHT
 
-/obj/mecha/combat/phazon/buggy/rangerarmed/go_out()
+	max_weapons_equip = 1
+
+/obj/mecha/base_vehicle/buggy/rangerarmed/go_out()
 	..()
 	update_icon()
 
-/obj/mecha/combat/phazon/buggy/rangerarmed/moved_inside(mob/living/carbon/human/H)
+/obj/mecha/base_vehicle/buggy/rangerarmed/moved_inside(mob/living/carbon/human/H)
 	..()
 	update_icon()
 
-/obj/mecha/combat/phazon/buggy/rangerarmed/GrantActions(mob/living/user, human_occupant = 0)
+/obj/mecha/base_vehicle/buggy/rangerarmed/GrantActions(mob/living/user, human_occupant = 0)
 	cycle_action.Grant(user, src)
 	lights_action.Grant(user, src)
 	stats_action.Grant(user, src)
@@ -136,7 +138,7 @@
 	klaxon_action.Grant(user, src)
 	smoke_action.Grant(user, src)
 
-/obj/mecha/combat/phazon/buggy/rangerarmed/RemoveActions(mob/living/user, human_occupant = 0)
+/obj/mecha/base_vehicle/buggy/rangerarmed/RemoveActions(mob/living/user, human_occupant = 0)
 	cycle_action.Remove(user)
 	lights_action.Remove(user)
 	stats_action.Remove(user)
@@ -144,7 +146,7 @@
 	klaxon_action.Remove(user)
 	smoke_action.Remove(user)
 
-/obj/mecha/combat/phazon/buggy/rangerarmed/loaded/Initialize()
+/obj/mecha/base_vehicle/buggy/rangerarmed/loaded/Initialize()
 	. = ..()
 	var/obj/item/mecha_parts/mecha_equipment/ME = new
 	ME = new /obj/item/mecha_parts/mecha_equipment/seat
@@ -155,35 +157,35 @@
 
 //Buggyblue
 
-/obj/mecha/combat/phazon/buggy/blue
+/obj/mecha/base_vehicle/buggy/blue
 	name = "\improper Minutemen Buggy"
 	desc = "A light vehicle, not very powerful or solid, running on fuel."
 	icon = 'icons/mecha/buggy.dmi'
 	icon_state = "buggyblue"
 
-/obj/mecha/combat/phazon/buggy/blue/go_out()
+/obj/mecha/base_vehicle/buggy/blue/go_out()
 	..()
 	update_icon()
 
-/obj/mecha/combat/phazon/buggy/blue/moved_inside(mob/living/carbon/human/H)
+/obj/mecha/base_vehicle/buggy/blue/moved_inside(mob/living/carbon/human/H)
 	..()
 	update_icon()
 
-/obj/mecha/combat/phazon/buggy/blue/GrantActions(mob/living/user, human_occupant = 0)
+/obj/mecha/base_vehicle/buggy/blue/GrantActions(mob/living/user, human_occupant = 0)
 	cycle_action.Grant(user, src)
 	lights_action.Grant(user, src)
 	stats_action.Grant(user, src)
 	eject_action.Grant(user, src)
 	klaxon_action.Grant(user, src)
 
-/obj/mecha/combat/phazon/buggy/blue/RemoveActions(mob/living/user, human_occupant = 0)
+/obj/mecha/base_vehicle/buggy/blue/RemoveActions(mob/living/user, human_occupant = 0)
 	cycle_action.Remove(user)
 	lights_action.Remove(user)
 	stats_action.Remove(user)
 	eject_action.Remove(user)
 	klaxon_action.Remove(user)
 
-/obj/mecha/combat/phazon/buggy/blue/loaded/Initialize()
+/obj/mecha/base_vehicle/buggy/blue/loaded/Initialize()
 	. = ..()
 	var/obj/item/mecha_parts/mecha_equipment/ME = new
 	ME = new /obj/item/mecha_parts/mecha_equipment/seat

@@ -1,4 +1,4 @@
-/obj/mecha/combat/phazon/armoured_jeep
+/obj/mecha/base_vehicle/armoured_jeep
 	name = "\improper uparmored M38"
 	desc = "A apparently original M38 jeep, modified with a almost fully armored chassis. Much of the interior space is occupied by advanced electronics designed to allow a single occupant to command, gun and drive at the same time."
 	icon = 'icons/mecha/armoured_jeep.dmi'
@@ -19,14 +19,14 @@
 	max_misc_equip = 1
 	facing_modifiers = list(FRONT_ARMOUR = 1.25, SIDE_ARMOUR = 1, BACK_ARMOUR = 0.6)
 
-/obj/mecha/combat/phazon/armoured_jeep/GrantActions(mob/living/user, human_occupant = 0)
+/obj/mecha/base_vehicle/armoured_jeep/GrantActions(mob/living/user, human_occupant = 0)
 	cycle_action.Grant(user, src)
 	lights_action.Grant(user, src)
 	stats_action.Grant(user, src)
 	eject_action.Grant(user, src)
 	klaxon_action.Grant(user, src)
 
-/obj/mecha/combat/phazon/armoured_jeep/RemoveActions(mob/living/user, human_occupant = 0)
+/obj/mecha/base_vehicle/armoured_jeep/RemoveActions(mob/living/user, human_occupant = 0)
 	cycle_action.Remove(user)
 	lights_action.Remove(user)
 	stats_action.Remove(user)
@@ -39,7 +39,7 @@
 	icon = 'icons/mecha/armoured_jeep.dmi'
 	icon_state = "armoured_jeep-broken"
 
-/obj/mecha/combat/phazon/armoured_jeep/loaded/Initialize()
+/obj/mecha/base_vehicle/armoured_jeep/loaded/Initialize()
 	. = ..()
 	var/obj/item/mecha_parts/mecha_equipment/ME = new
 	ME = new /obj/item/mecha_parts/mecha_equipment/seat
@@ -50,7 +50,7 @@
 	ME.attach(src)
 	max_ammo()
 
-/obj/mecha/combat/phazon/m4sherman_cx
+/obj/mecha/base_vehicle/m4sherman_cx
 	name = "\improper West-Tek Sherman M4-CX"
 	desc = "A authentic Sherman, this one is a Pre-War prototype designed by Wesk-Tek to explore the practicality of a significantly downsized tank platform. The 75mm cannon has been replaced by two light, modular weapons sponsons and the cast steel hull has been replaced by a much thinner composite to save on weight and volume. The program was cancelled due to a lack of funding and failure to meet objectives before the War, but the schematics are occasionally still found in the wasteland."
 	icon = 'icons/mecha/sherman.dmi'
@@ -71,7 +71,7 @@
 	max_misc_equip = 1
 	facing_modifiers = list(FRONT_ARMOUR = 1.5, SIDE_ARMOUR = 1, BACK_ARMOUR = 0.6)
 
-/obj/mecha/combat/phazon/m4sherman_cx/GrantActions(mob/living/user, human_occupant = 0)
+/obj/mecha/base_vehicle/m4sherman_cx/GrantActions(mob/living/user, human_occupant = 0)
 	cycle_action.Grant(user, src)
 	lights_action.Grant(user, src)
 	stats_action.Grant(user, src)
@@ -79,7 +79,7 @@
 	klaxon_action.Grant(user, src)
 	zoom_action.Grant(user, src)
 
-/obj/mecha/combat/phazon/m4sherman_cx/RemoveActions(mob/living/user, human_occupant = 0)
+/obj/mecha/base_vehicle/m4sherman_cx/RemoveActions(mob/living/user, human_occupant = 0)
 	cycle_action.Remove(user)
 	lights_action.Remove(user)
 	stats_action.Remove(user)
@@ -87,7 +87,7 @@
 	klaxon_action.Remove(user)
 	zoom_action.Remove(user, src)
 
-/obj/mecha/combat/phazon/m4sherman_cx/loaded/Initialize()
+/obj/mecha/base_vehicle/m4sherman_cx/loaded/Initialize()
 	. = ..()
 	var/obj/item/mecha_parts/mecha_equipment/ME = new
 	ME = new /obj/item/mecha_parts/mecha_equipment/seat

@@ -1,6 +1,6 @@
 //pickuptruck
 
-/obj/mecha/combat/phazon/pickuptruck
+/obj/mecha/base_vehicle/pickuptruck
 	name = "\improper pickup truck"
 	desc = "A old vehicule, runing on powercell."
 	icon = 'icons/mecha/pickuptruck.dmi'
@@ -16,40 +16,40 @@
 	wreckage = /obj/structure/mecha_wreckage/fallout
 	cargo_capacity = 2
 
-	max_weapons_equip = 1
+	max_weapons_equip = 0
 	max_utility_equip = 5
 	max_misc_equip = 1
 
 	facing_modifiers = list(FRONT_ARMOUR = 0.8, SIDE_ARMOUR = 1, BACK_ARMOUR = 1.25)
 
-/obj/mecha/combat/phazon/pickuptruck/Initialize(mapload)
+/obj/mecha/base_vehicle/pickuptruck/Initialize(mapload)
 	. = ..()
 	var/obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/fallout13/vehicle_straps/ME = new(src)
 	ME.attach(src)
 
-/obj/mecha/combat/phazon/pickuptruck/go_out()
+/obj/mecha/base_vehicle/pickuptruck/go_out()
 	..()
 	update_icon()
 
-/obj/mecha/combat/phazon/pickuptruck/moved_inside(mob/living/carbon/human/H)
+/obj/mecha/base_vehicle/pickuptruck/moved_inside(mob/living/carbon/human/H)
 	..()
 	update_icon()
 
-/obj/mecha/combat/phazon/pickuptruck/GrantActions(mob/living/user, human_occupant = 0)
+/obj/mecha/base_vehicle/pickuptruck/GrantActions(mob/living/user, human_occupant = 0)
 	cycle_action.Grant(user, src)
 	lights_action.Grant(user, src)
 	stats_action.Grant(user, src)
 	eject_action.Grant(user, src)
 	klaxon_action.Grant(user, src)
 
-/obj/mecha/combat/phazon/pickuptruck/RemoveActions(mob/living/user, human_occupant = 0)
+/obj/mecha/base_vehicle/pickuptruck/RemoveActions(mob/living/user, human_occupant = 0)
 	cycle_action.Remove(user)
 	lights_action.Remove(user)
 	stats_action.Remove(user)
 	eject_action.Remove(user)
 	klaxon_action.Remove(user)
 
-/obj/mecha/combat/phazon/pickuptruck/loaded/Initialize()
+/obj/mecha/base_vehicle/pickuptruck/loaded/Initialize()
 	. = ..()
 	var/obj/item/mecha_parts/mecha_equipment/ME = new
 	ME = new /obj/item/mecha_parts/mecha_equipment/seat
@@ -61,7 +61,7 @@
 
 	//pickuptruck blue
 
-/obj/mecha/combat/phazon/pickuptruck/blue
+/obj/mecha/base_vehicle/pickuptruck/blue
 	name = "\improper pickup truck"
 	desc = "A old vehicule, runing on powercell."
 	icon = 'icons/mecha/pickuptruck-blue.dmi'
@@ -70,7 +70,7 @@
 	armor = ARMOR_VALUE_VEHICLE_MEDIUM
 	wreckage = /obj/structure/mecha_wreckage/buggy
 
-/obj/mecha/combat/phazon/pickuptruck/blue/loaded/Initialize()
+/obj/mecha/base_vehicle/pickuptruck/blue/loaded/Initialize()
 	. = ..()
 	var/obj/item/mecha_parts/mecha_equipment/ME = new
 	ME = new /obj/item/mecha_parts/mecha_equipment/seat
@@ -82,7 +82,7 @@
 
 //pickuptruck bos
 
-/obj/mecha/combat/phazon/pickuptruck/bos
+/obj/mecha/base_vehicle/pickuptruck/bos
 	name = "\improper BoS pickup truck"
 	desc = "A old vehicule, runing on powercell."
 	icon = 'icons/mecha/pickuptruck-bos.dmi'
@@ -91,7 +91,7 @@
 	armor = ARMOR_VALUE_VEHICLE_MEDIUM
 	wreckage = /obj/structure/mecha_wreckage/buggy
 
-/obj/mecha/combat/phazon/pickuptruck/bos/loaded/Initialize()
+/obj/mecha/base_vehicle/pickuptruck/bos/loaded/Initialize()
 	. = ..()
 	var/obj/item/mecha_parts/mecha_equipment/ME = new
 	ME = new /obj/item/mecha_parts/mecha_equipment/seat
@@ -101,7 +101,7 @@
 
 //pickuptruck bos AND Kiana
 
-/obj/mecha/combat/phazon/pickuptruck/bos/armed
+/obj/mecha/base_vehicle/pickuptruck/bos/armed
 	name = "\improper BoS pickup truck with gunner"
 	desc = "A old vehicule, runing on powercell. Its a A modified brotherhood truck, with the addition of a laser rifle at the back, maned by Paladin Kiana Davberg."
 	icon = 'icons/mecha/pickuptruck-gunbos.dmi'
@@ -111,9 +111,11 @@
 	wreckage = /obj/structure/mecha_wreckage/buggy
 	cargo_capacity = 1
 
+	max_weapons_equip = 1
+
 	facing_modifiers = list(FRONT_ARMOUR = 0.8, SIDE_ARMOUR = 1, BACK_ARMOUR = 1.5) // There's whole ass paladin in the way..
 
-/obj/mecha/combat/phazon/pickuptruck/bos/armed/loaded/Initialize()
+/obj/mecha/base_vehicle/pickuptruck/bos/armed/loaded/Initialize()
 	. = ..()
 	var/obj/item/mecha_parts/mecha_equipment/ME = new
 	ME = new /obj/item/mecha_parts/mecha_equipment/seat
@@ -125,7 +127,7 @@
 
 //pickuptruck mechanic
 
-/obj/mecha/combat/phazon/pickuptruck/mechanic
+/obj/mecha/base_vehicle/mechanics_pickuptruck
 	name = "\improper mechanic pickup truck"
 	desc = "A old vehicule, with a crane runing on fuel."
 	icon = 'icons/mecha/pickuptruck-mechanics.dmi'
@@ -133,47 +135,44 @@
 	stepsound = 'sound/f13machines/buggy_loop.ogg'
 	turnsound = 'sound/f13machines/buggy_loop.ogg'
 	wreckage = /obj/structure/mecha_wreckage/buggy
+	max_integrity = 300
 	step_in = 1.2
 	step_energy_drain = 0.6
 	armor = ARMOR_VALUE_VEHICLE_MED_LIGHT // Less armor, more tools
 	cargo_capacity = 5
 
-	max_weapons_equip = 1
+	max_weapons_equip = 0
 	max_utility_equip = 6
 	max_misc_equip = 1
 
-/obj/mecha/combat/phazon/pickuptruck/mechanic/Initialize()
+/obj/mecha/base_vehicle/mechanics_pickuptruck/Initialize()
 	. = ..()
-	for(var/obj/item/mecha_parts/mecha_equipment/E in equipment)
-		E.detach()
-		qdel(E)
-	equipment.Cut()
 	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/fallout13
 	ME.attach(src)
 
-/obj/mecha/combat/phazon/pickuptruck/mechanic/go_out()
+/obj/mecha/base_vehicle/mechanics_pickuptruck/mechanic/go_out()
 	..()
 	update_icon()
 
-/obj/mecha/combat/phazon/pickuptruck/mechanic/moved_inside(mob/living/carbon/human/H)
+/obj/mecha/base_vehicle/mechanics_pickuptruck/moved_inside(mob/living/carbon/human/H)
 	..()
 	update_icon()
 
-/obj/mecha/combat/phazon/pickuptruck/mechanic/GrantActions(mob/living/user, human_occupant = 0)
+/obj/mecha/base_vehicle/mechanics_pickuptruck/GrantActions(mob/living/user, human_occupant = 0)
 	cycle_action.Grant(user, src)
 	lights_action.Grant(user, src)
 	stats_action.Grant(user, src)
 	eject_action.Grant(user, src)
 	klaxon_action.Grant(user, src)
 
-/obj/mecha/combat/phazon/pickuptruck/mechanic/RemoveActions(mob/living/user, human_occupant = 0)
+/obj/mecha/base_vehicle/mechanics_pickuptruck/RemoveActions(mob/living/user, human_occupant = 0)
 	cycle_action.Remove(user)
 	lights_action.Remove(user)
 	stats_action.Remove(user)
 	eject_action.Remove(user)
 	klaxon_action.Remove(user)
 
-/obj/mecha/combat/phazon/pickuptruck/mechanic/loaded/Initialize()
+/obj/mecha/base_vehicle/mechanics_pickuptruck/loaded/Initialize()
 	. = ..()
 	var/obj/item/mecha_parts/mecha_equipment/ME = new
 	ME = new /obj/item/mecha_parts/mecha_equipment/seat
@@ -183,7 +182,7 @@
 
 //jeep
 
-/obj/mecha/combat/phazon/jeep
+/obj/mecha/base_vehicle/pickuptruck/jeep
 	name = "\improper pickup truck"
 	desc = "A old vehicle, runing on fuel."
 	icon = 'icons/mecha/jeep.dmi'
@@ -199,38 +198,33 @@
 	wreckage = /obj/structure/mecha_wreckage/buggy
 	cargo_capacity = 1
 
-	max_weapons_equip = 1
+	max_weapons_equip = 0
 	max_utility_equip = 4
 	max_misc_equip = 1
 
-/obj/mecha/combat/phazon/jeep/go_out()
+/obj/mecha/base_vehicle/pickuptruck/jeep/go_out()
 	..()
 	update_icon()
 
-/obj/mecha/combat/phazon/jeep/moved_inside(mob/living/carbon/human/H)
+/obj/mecha/base_vehicle/pickuptruck/jeep/moved_inside(mob/living/carbon/human/H)
 	..()
 	update_icon()
 
-/obj/mecha/combat/phazon/jeep/GrantActions(mob/living/user, human_occupant = 0)
+/obj/mecha/base_vehicle/pickuptruck/jeep/GrantActions(mob/living/user, human_occupant = 0)
 	cycle_action.Grant(user, src)
 	lights_action.Grant(user, src)
 	stats_action.Grant(user, src)
 	eject_action.Grant(user, src)
 	klaxon_action.Grant(user, src)
 
-/obj/mecha/combat/phazon/jeep/RemoveActions(mob/living/user, human_occupant = 0)
+/obj/mecha/base_vehicle/pickuptruck/jeep/RemoveActions(mob/living/user, human_occupant = 0)
 	cycle_action.Remove(user)
 	lights_action.Remove(user)
 	stats_action.Remove(user)
 	eject_action.Remove(user)
 	klaxon_action.Remove(user)
 
-/obj/mecha/combat/phazon/jeep/Initialize(mapload)
-	. = ..()
-	var/obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/fallout13/vehicle_straps/ME = new(src)
-	ME.attach(src)
-
-/obj/mecha/combat/phazon/jeep/loaded/Initialize()
+/obj/mecha/base_vehicle/pickuptruck/jeep/loaded/Initialize()
 	. = ..()
 	var/obj/item/mecha_parts/mecha_equipment/ME = new
 	ME = new /obj/item/mecha_parts/mecha_equipment/seat
@@ -241,7 +235,7 @@
 
 //jeep Enclave
 
-/obj/mecha/combat/phazon/jeep/enclave
+/obj/mecha/base_vehicle/pickuptruck/jeep/enclave
 	name = "\improper pickup truck"
 	desc = "A old military vehicule, runing on fuel., and recolored"
 	icon = 'icons/mecha/jeepenclave.dmi'
@@ -249,7 +243,7 @@
 
 ///jeep BOS
 
-/obj/mecha/combat/phazon/jeep/bos
+/obj/mecha/base_vehicle/pickuptruck/jeep/bos
 	name = "\improper pickup truck"
 	desc = "A old military vehicule, runing on fuel, and recolored"
 	icon = 'icons/mecha/jeepbos.dmi'

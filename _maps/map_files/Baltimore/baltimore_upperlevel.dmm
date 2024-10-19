@@ -417,12 +417,12 @@
 	},
 /area/f13/building/boat)
 "atl" = (
-/obj/mecha/combat/phazon/vertibird/enclave/loaded,
+/obj/mecha/base_vehicle/vertibird/enclave/loaded,
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/wood_common/wood_common_light,
 /area/f13/wasteland/city)
 "atz" = (
-/obj/mecha/combat/phazon/buggy/red/loaded,
+/obj/mecha/base_vehicle/buggy/red/loaded,
 /turf/open/floor/plating/rust{
 	sunlight_state = 1;
 	name = "rusted Docks"
@@ -8692,7 +8692,7 @@
 /turf/open/floor/plating/rust,
 /area/f13/outpost)
 "iaa" = (
-/obj/mecha/combat/phazon/vertibird/brotherhood/loaded,
+/obj/mecha/base_vehicle/vertibird/brotherhood/loaded,
 /turf/open/floor/f13/wood{
 	icon_state = "housewood2"
 	},
@@ -11454,7 +11454,7 @@
 	},
 /area/f13/wasteland/city)
 "kHu" = (
-/obj/mecha/combat/phazon/vertibird/loaded,
+/obj/mecha/base_vehicle/vertibird/loaded,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	name = "Docks";
 	sunlight_state = 1
@@ -21230,7 +21230,7 @@
 /turf/open/floor/wood_mosaic,
 /area/f13/building)
 "tSN" = (
-/obj/mecha/combat/phazon/buggy/flamme/loaded,
+/obj/mecha/base_vehicle/buggy/flamme/loaded,
 /turf/open/floor/plating/rust{
 	sunlight_state = 1;
 	name = "rusted Docks"
