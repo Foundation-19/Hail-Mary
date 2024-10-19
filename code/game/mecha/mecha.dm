@@ -239,7 +239,7 @@
 		else
 			M.forceMove(loc)
 	if(wreckage)
-		if(prob(1))
+		if(prob(85))
 			explosion(get_turf(src), 0, 1, 2, 3)
 		var/obj/structure/mecha_wreckage/WR = new wreckage(loc, AI)
 		for(var/obj/item/mecha_parts/mecha_equipment/E in equipment)
