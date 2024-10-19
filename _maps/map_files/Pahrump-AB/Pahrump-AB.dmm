@@ -17864,6 +17864,12 @@
 /obj/structure/simple_door/metal/fence/wooden,
 /turf/open/indestructible/ground/inside/dirt,
 /area/f13/city)
+"bNL" = (
+/obj/machinery/photocopier,
+/turf/open/floor/f13{
+	icon_state = "floorrusty"
+	},
+/area/f13/ncr)
 "bNO" = (
 /obj/effect/decal/marking{
 	icon_state = "doubleverticalcorroded"
@@ -32743,7 +32749,7 @@
 /turf/open/indestructible/ground/outside/desert,
 /area/f13/wasteland)
 "hwV" = (
-/obj/structure/chair/f13foldupchair{
+/obj/structure/chair/folding{
 	dir = 1
 	},
 /turf/open/floor/f13{
@@ -36231,9 +36237,7 @@
 "iQg" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/chair/f13foldupchair{
-	pixel_y = 14
-	},
+/obj/structure/chair/folding,
 /turf/open/floor/f13{
 	icon_state = "floorrusty"
 	},
@@ -39332,7 +39336,7 @@
 /area/f13/building/massfusion)
 "kjE" = (
 /obj/machinery/light,
-/obj/structure/chair/f13foldupchair{
+/obj/structure/chair/folding{
 	dir = 1
 	},
 /turf/open/floor/f13{
@@ -43940,7 +43944,7 @@
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/wasteland)
 "maO" = (
-/obj/structure/chair/f13foldupchair,
+/obj/structure/chair/folding,
 /turf/open/floor/f13{
 	icon_state = "floorrusty"
 	},
@@ -66137,7 +66141,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/red/white,
 /area/f13/building/mall)
 "vkN" = (
-/obj/structure/chair/f13foldupchair{
+/obj/structure/chair/folding{
 	dir = 1
 	},
 /turf/open/floor/f13{
@@ -66395,7 +66399,7 @@
 	dir = 1;
 	light_color = "#e8eaff"
 	},
-/obj/structure/chair/f13foldupchair,
+/obj/structure/chair/folding,
 /turf/open/floor/f13{
 	icon_state = "floorrusty"
 	},
@@ -68938,7 +68942,7 @@
 /area/f13/building/firestation)
 "wvZ" = (
 /obj/effect/landmark/start/f13/prospector,
-/obj/structure/chair/f13foldupchair{
+/obj/structure/chair/folding{
 	dir = 1
 	},
 /obj/machinery/light{
@@ -73911,7 +73915,7 @@ cjh
 cjh
 cmi
 cjh
-cjh
+bNL
 pxI
 rVR
 cmi

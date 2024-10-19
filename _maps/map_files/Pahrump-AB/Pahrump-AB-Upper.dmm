@@ -515,12 +515,6 @@
 /obj/structure/table,
 /turf/open/floor/f13/wood,
 /area/f13/radiation)
-"aQo" = (
-/obj/structure/fluff/railing/corner{
-	dir = 1
-	},
-/turf/open/indestructible/ground/outside/roof,
-/area/f13/wasteland/ncr)
 "aQp" = (
 /obj/structure/chair/sofa/corp,
 /turf/open/floor/plasteel/f13/vault_floor/dark,
@@ -678,10 +672,6 @@
 	icon_state = "housewood2"
 	},
 /area/f13/wasteland)
-"aYz" = (
-/obj/structure/chair/office,
-/turf/open/floor/plasteel/f13/vault_floor/misc/cmo,
-/area/f13/ncr)
 "aZh" = (
 /obj/structure/lattice/catwalk,
 /obj/machinery/light/small{
@@ -5559,6 +5549,11 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/floor,
 /area/f13/city)
+"iuT" = (
+/obj/structure/table,
+/obj/item/pda/heads/cmo,
+/turf/open/floor/plasteel/f13/vault_floor/misc/cmo,
+/area/f13/ncr)
 "ivq" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -5599,12 +5594,8 @@
 	},
 /area/f13/wasteland)
 "ixi" = (
-/obj/structure/sign/poster/ncr/irradiated_food{
-	pixel_y = 32
-	},
-/obj/machinery/light{
-	dir = 1;
-	light_color = "#e8eaff"
+/obj/structure/chair/folding{
+	dir = 4
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/cmo,
 /area/f13/ncr)
@@ -5697,6 +5688,13 @@
 /obj/item/book/manual/wiki/grenades,
 /turf/open/indestructible/ground/outside/desert,
 /area/f13/wasteland)
+"iDv" = (
+/obj/structure/window/fulltile/house{
+	icon_state = "storewindowbottom"
+	},
+/obj/structure/curtain,
+/turf/open/floor/plasteel/f13/vault_floor/misc/cmo,
+/area/f13/ncr)
 "iDO" = (
 /obj/structure/bed/old,
 /turf/open/floor/plasteel/f13/vault_floor/white,
@@ -8795,6 +8793,17 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/closed/wall,
 /area/f13/city)
+"nkH" = (
+/obj/structure/sign/poster/ncr/irradiated_food{
+	pixel_y = 32
+	},
+/obj/machinery/light{
+	dir = 1;
+	light_color = "#e8eaff"
+	},
+/obj/structure/rack/shelf_metal,
+/turf/open/floor/plasteel/f13/vault_floor/misc/cmo,
+/area/f13/ncr)
 "nkX" = (
 /obj/structure/barricade/wooden,
 /turf/open/floor/wood_common,
@@ -10459,12 +10468,6 @@
 	},
 /area/f13/wasteland)
 "pEr" = (
-/obj/structure/fluff/railing/corner{
-	dir = 8
-	},
-/obj/structure/fluff/railing/corner{
-	dir = 1
-	},
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -10534,12 +10537,6 @@
 	},
 /turf/open/floor/wood_fancy,
 /area/f13/legion)
-"pHG" = (
-/obj/machinery/light{
-	dir = 1
-	},
-/turf/closed/wall,
-/area/f13/ncr)
 "pHR" = (
 /obj/structure/table/reinforced/brass,
 /obj/item/book/manual/wiki/medicine,
@@ -10648,6 +10645,10 @@
 	},
 /turf/open/floor/f13/wood,
 /area/f13/caves)
+"pPP" = (
+/obj/structure/simple_door/room,
+/turf/open/floor/wood_fancy,
+/area/f13/ncr)
 "pQg" = (
 /obj/structure/table,
 /obj/machinery/computer/terminal{
@@ -11353,6 +11354,17 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/red/side,
 /area/f13/brotherhood)
+"rey" = (
+/obj/machinery/light{
+	dir = 1;
+	light_color = "#e8eaff"
+	},
+/obj/structure/table,
+/obj/machinery/computer/terminal{
+	termtag = "Business"
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/cmo,
+/area/f13/ncr)
 "rgD" = (
 /turf/open/floor/carpet,
 /area/f13/brotherhood/leisure)
@@ -11431,12 +11443,6 @@
 	icon_state = "greendirtyfull"
 	},
 /area/f13/wasteland)
-"rma" = (
-/obj/structure/fluff/railing{
-	dir = 8
-	},
-/turf/open/indestructible/ground/outside/roof,
-/area/f13/wasteland/ncr)
 "rmX" = (
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/brotherhood/offices2nd)
@@ -11450,15 +11456,6 @@
 /obj/structure/simple_door/house,
 /turf/open/floor/plasteel/f13/vault_floor/white,
 /area/f13/building/hospital)
-"rog" = (
-/obj/structure/fluff/railing/corner{
-	dir = 8
-	},
-/obj/machinery/light/small{
-	dir = 8
-	},
-/turf/open/indestructible/ground/outside/roof,
-/area/f13/wasteland/ncr)
 "roJ" = (
 /obj/structure/closet/crate/bin/trashbin,
 /obj/effect/decal/cleanable/dirt{
@@ -12317,6 +12314,12 @@
 	icon_state = "rubbleplate"
 	},
 /area/f13/wasteland)
+"sye" = (
+/obj/structure/chair/office{
+	dir = 8
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/cmo,
+/area/f13/ncr)
 "szV" = (
 /obj/structure/table,
 /obj/item/healthanalyzer,
@@ -13068,12 +13071,6 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/brotherhood)
-"tvA" = (
-/obj/structure/chair/office{
-	dir = 1
-	},
-/turf/open/floor/plasteel/f13/vault_floor/misc/cmo,
-/area/f13/ncr)
 "twu" = (
 /obj/machinery/door/unpowered/securedoor/legion/centurion,
 /turf/open/floor/wood_fancy,
@@ -18844,13 +18841,13 @@ pfO
 noP
 cqK
 dTc
-rog
-rma
-rma
 pEr
-rma
-rma
-aQo
+hHO
+hHO
+pEr
+hHO
+hHO
+hHO
 noP
 eHj
 rRp
@@ -24203,13 +24200,13 @@ gkT
 gkT
 gkT
 gkT
-kur
+kUW
+iDv
 tSo
 kur
 kur
+pPP
 kur
-kur
-tSo
 kur
 eNH
 rLB
@@ -24458,14 +24455,14 @@ hHO
 hHO
 hHO
 hHO
-hHO
-kur
+kst
+nkH
 ixi
 dDq
 dDq
 kur
 oXG
-tiP
+kWe
 rOR
 wse
 iqu
@@ -24715,14 +24712,14 @@ rLB
 rLB
 rLB
 rLB
-rLB
-kur
-aYz
+kst
+iuT
 dcQ
-tvA
+dcQ
+dDq
 kur
 uOS
-kWe
+tiP
 tiP
 wse
 iqu
@@ -24972,12 +24969,12 @@ rLB
 rLB
 rLB
 rLB
-rLB
+kst
+rey
+sye
+dDq
+dDq
 kur
-nft
-kUW
-kur
-pHG
 pIh
 tiP
 jbS
@@ -25229,10 +25226,10 @@ rLB
 rLB
 rLB
 rLB
-rLB
-ggY
-ntT
-ntT
+kst
+kur
+kUW
+kUW
 kur
 kur
 nft
