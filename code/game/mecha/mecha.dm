@@ -196,7 +196,6 @@
 	diag_hud_set_mechhealth()
 	diag_hud_set_mechcell()
 	diag_hud_set_mechstat()
-	full_repair(refill_tank=1)
 
 /obj/mecha/proc/grant_vision()
 	if(!occupant)
