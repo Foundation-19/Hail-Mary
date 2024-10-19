@@ -15462,6 +15462,13 @@
 	icon_state = "mosaic_dark1"
 	},
 /area/f13/wasteland/city)
+"omn" = (
+/mob/living/simple_animal/hostile/ghoul/reaver,
+/turf/open/floor/plating/rust{
+	sunlight_state = 1;
+	name = "rusted Docks"
+	},
+/area/f13/Ocean)
 "omu" = (
 /obj/item/reagent_containers/fuel_tank/upgraded,
 /turf/open/indestructible/ground/inside/dirt,
@@ -16424,16 +16431,6 @@
 	},
 /obj/structure/timeddoor,
 /turf/open/transparent/openspace,
-/area/f13/Ocean)
-"poo" = (
-/mob/living/simple_animal/hostile/ghoul/scorched/ranged{
-	name = "Crewmember of the Port-Marie with a rifle";
-	speak = list("TUEZ LES !")
-	},
-/turf/open/floor/plating/rust{
-	sunlight_state = 1;
-	name = "rusted Docks"
-	},
 /area/f13/Ocean)
 "poJ" = (
 /obj/structure/chair/right{
@@ -20542,10 +20539,7 @@
 	},
 /area/f13/ruins)
 "tnN" = (
-/mob/living/simple_animal/hostile/ghoul/scorched/ranged{
-	name = "Crewmember of the Port-Marie with a rifle";
-	speak = list("TUEZ LES !")
-	},
+/mob/living/simple_animal/hostile/ghoul/reaver,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/building/boat)
 "tnT" = (
@@ -23913,10 +23907,7 @@
 /turf/open/floor/wood_fancy,
 /area/f13/ruins)
 "wrX" = (
-/mob/living/simple_animal/hostile/ghoul/scorched/ranged{
-	name = "Crewmember of the Port-Marie with a rifle";
-	speak = list("TUEZ LES !")
-	},
+/mob/living/simple_animal/hostile/ghoul/reaver,
 /turf/open/floor/plating/rust,
 /area/f13/Ocean)
 "wtE" = (
@@ -24944,10 +24935,7 @@
 	},
 /area/f13/ruins)
 "xri" = (
-/mob/living/simple_animal/hostile/ghoul/scorched/ranged{
-	name = "Crewmember of the Port-Marie with a rifle";
-	speak = list("TUEZ LES !")
-	},
+/mob/living/simple_animal/hostile/ghoul/glowing,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
 /area/f13/building/boat)
 "xrr" = (
@@ -58585,7 +58573,7 @@ tTD
 tTD
 tTD
 tTD
-poo
+omn
 tTD
 tTD
 tTD
@@ -59865,7 +59853,7 @@ tTD
 tTD
 lMY
 iJY
-poo
+omn
 tTD
 tTD
 tTD
@@ -60134,7 +60122,7 @@ dQx
 tTD
 tTD
 tTD
-tTD
+omn
 tTD
 tTD
 tTD
