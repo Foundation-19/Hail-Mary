@@ -20252,7 +20252,7 @@
 	},
 /area/f13/wasteland)
 "ctm" = (
-/obj/mecha/base_vehicle/jeep/loaded{
+/obj/mecha/base_vehicle/pickuptruck/jeep/loaded{
 	dir = 8
 	},
 /turf/open/indestructible/ground/outside/dirt{
@@ -24938,7 +24938,7 @@
 /area/f13/wasteland)
 "epN" = (
 /obj/effect/decal/cleanable/oil,
-/obj/mecha/base_vehicle/jeep/bos,
+/obj/mecha/base_vehicle/pickuptruck/jeep/bos,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/brotherhood)
 "epV" = (
@@ -62926,7 +62926,7 @@
 "tTf" = (
 /obj/effect/decal/cleanable/oil,
 /obj/effect/decal/cleanable/dirt,
-/obj/mecha/base_vehicle/jeep/loaded{
+/obj/mecha/base_vehicle/pickuptruck/jeep/loaded{
 	dir = 8
 	},
 /turf/open/indestructible/ground/outside/road{
