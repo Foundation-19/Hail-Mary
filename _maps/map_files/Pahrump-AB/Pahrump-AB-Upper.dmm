@@ -6823,8 +6823,7 @@
 /area/f13/wasteland)
 "kpM" = (
 /obj/machinery/door/airlock/grunge{
-	name = "Knight Captain's Room";
-	req_access_txt = "268"
+	name = "Knight Captain's Room"
 	},
 /turf/open/floor/carpet/black,
 /area/f13/brotherhood/dorms)
