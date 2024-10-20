@@ -34,6 +34,22 @@
 		armor_protection = clamp(armor_protection*(1-armour_penetration), 0, 100) //FO13 AP OVERHAUL - just using simple % reduction here instead of full formula
 	return round(damage_amount * (100 - armor_protection)*0.01, DAMAGE_PRECISION)
 
+/obj/attacked_by(obj/item/I, mob/living/user)
+	if(I.force)
+		user.visible_message("<span class='danger'>[user] hits [src] with [I]!</span>", \
+					"<span class='danger'>You hit [src] with [I]!</span>", null, COMBAT_MESSAGE_RANGE)
+		//only witnesses close by and the victim see a hit message.
+		log_combat(user, src, "attacked", I)
+
+	if(ismecha(src))
+		src.demolition_mod_resist = 0.25
+	take_damage(max(I.force * I.demolition_mod * demolition_mod_resist, 1), I.damtype, "melee", 1)
+	user.DelayNextAction(CLICK_CD_MELEE)
+	playsound(src, I.hitsound, 70, TRUE)
+
+///obj/mecha
+//	demolition_mod_resist = 0.25
+
 //the sound played when the obj is damaged.
 /obj/proc/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)
@@ -77,7 +93,7 @@
 	if(P.suppressed != SUPPRESSED_VERY)
 		visible_message(span_danger("[src] is hit by \a [P]!"), null, null, COMBAT_MESSAGE_RANGE)
 	if(!QDELETED(src)) //Bullet on_hit effect might have already destroyed this object
-		take_damage(P.damage, P.damage_type, P.flag, 0, turn(P.dir, 180), P.armour_penetration, attacked_by = P.firer)
+		take_damage(P.damage * P.demolition_mod, P.damage_type, P.flag, 0, turn(P.dir, 180), P.armour_penetration, attacked_by = P.firer)
 
 /obj/proc/hulk_damage()
 	return 150 //the damage hulks do on punches to this object, is affected by melee armor
@@ -302,3 +318,4 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 //returns how much the object blocks an explosion
 /obj/proc/GetExplosionBlock()
 	CRASH("Unimplemented GetExplosionBlock()")
+

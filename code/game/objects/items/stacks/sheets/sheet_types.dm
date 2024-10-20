@@ -1025,9 +1025,10 @@ prewar alloys
 GLOBAL_LIST_INIT(prewar_recipes, list ( \
 	new/datum/stack_recipe("modern chair", /obj/structure/chair/comfy/modern, 2, time = 5, one_per_turf = TRUE, on_floor = TRUE), \
 	new/datum/stack_recipe("gun locker", /obj/structure/guncase, 4, time = 10, one_per_turf = TRUE, on_floor = TRUE), \
+	new/datum/stack_recipe("blast door assembly", /obj/structure/poddoor_assembly, 20, time = 30, one_per_turf = TRUE, on_floor = TRUE), \
+	new/datum/stack_recipe("shutters assembly", /obj/structure/poddoor_assembly/shutters, 10, time = 15, one_per_turf = TRUE, on_floor = TRUE), \
 
 ))
-
 /obj/item/stack/sheet/prewar
 	name = "pre-war alloys"
 	singular_name = "pre war alloy"

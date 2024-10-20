@@ -9,6 +9,8 @@
 	light_on = FALSE
 	var/sword_color
 	total_mass = 0.4 //Survival flashlights typically weigh around 5 ounces.
+	demolition_mod = 0.5
+	tool_behaviour = null
 
 /obj/item/melee/transforming/plasmacutter/Initialize()
 	. = ..()
@@ -46,9 +48,14 @@
 				icon_state = "sword[sword_color]"
 			START_PROCESSING(SSobj, src)
 			set_light_on(TRUE)
+			demolition_mod = 2
+			tool_behaviour = TOOL_WELDER
+			toolspeed = 0.75
 		else
 			STOP_PROCESSING(SSobj, src)
 			set_light_on(FALSE)
+			demolition_mod = initial(demolition_mod)
+			tool_behaviour = initial(tool_behaviour)
 
 /obj/item/melee/transforming/plasmacutter/get_temperature()
 	return active * heat
@@ -257,6 +264,7 @@
 	light_color = "#40ceff"
 	tool_behaviour = TOOL_SAW
 	toolspeed = 0.7
+	demolition_mod = 1
 
 /obj/item/melee/transforming/plasmacutter/sword/cyborg/saw/run_block(mob/living/owner, atom/object, damage, attack_text, attack_type, armour_penetration, mob/attacker, def_zone, final_block_chance, list/block_return)
 	return NONE
