@@ -11,7 +11,6 @@
 	if(canstrafe)
 		strafing_action.Grant(user, src)
 
-
 /obj/mecha/proc/RemoveActions(mob/living/user, human_occupant = 0)
 	if(human_occupant)
 		eject_action.Remove(user)

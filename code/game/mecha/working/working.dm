@@ -5,6 +5,10 @@
 	light_power = 9
 	light_range = 10
 
+	max_weapons_equip = 2
+	max_utility_equip = 2
+	max_misc_equip = 2
+
 /obj/mecha/working/Move()
 	. = ..()
 	if(.)
