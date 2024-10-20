@@ -22597,6 +22597,22 @@
 	icon_state = "yellowrustysolid"
 	},
 /area/f13/building/massfusion)
+"drT" = (
+/obj/structure/closet/locker/oldstyle{
+	anchored = 1
+	},
+/obj/item/card/id/dogtag/town/ncr,
+/obj/item/card/id/dogtag/town/ncr,
+/obj/item/card/id/dogtag/town/ncr,
+/obj/item/card/id/dogtag/town/ncr,
+/obj/item/card/id/dogtag/ncrtrooper,
+/obj/item/card/id/dogtag/ncrtrooper,
+/obj/item/card/id/dogtag/ncrtrooper,
+/obj/item/card/id/dogtag/ncrtrooper,
+/obj/item/card/id/dogtag/ncrsergeant,
+/obj/item/card/id/dogtag/ncrsergeant,
+/turf/open/floor/plasteel/vault,
+/area/f13/ncr)
 "dsi" = (
 /obj/structure/junk/machinery,
 /turf/open/indestructible/ground/outside/sidewalk,
@@ -24785,6 +24801,12 @@
 /obj/item/reagent_containers/hypospray/medipen/medx,
 /turf/open/floor/f13/wood,
 /area/f13/building)
+"enp" = (
+/obj/machinery/msgterminal/ncr{
+	dir = 1
+	},
+/turf/open/floor/plasteel/vault,
+/area/f13/ncr)
 "enu" = (
 /obj/structure/closet/cabinet,
 /turf/open/floor/f13/wood,
@@ -29911,13 +29933,6 @@
 	},
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/wasteland)
-"gpM" = (
-/obj/structure/table,
-/obj/machinery/light,
-/turf/open/floor/f13{
-	icon_state = "floorrusty"
-	},
-/area/f13/ncr)
 "gqe" = (
 /obj/effect/turf_decal/weather/dirt{
 	dir = 8
@@ -31968,6 +31983,15 @@
 	},
 /turf/open/indestructible/ground/inside/dirt/stamped/outside,
 /area/f13/legion)
+"hbZ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/chair/folding{
+	dir = 1
+	},
+/turf/open/floor/f13{
+	icon_state = "floorrusty"
+	},
+/area/f13/ncr)
 "hce" = (
 /obj/structure/flora/grass/wasteland{
 	icon_state = "tall_grass_6"
@@ -32369,6 +32393,23 @@
 	icon_state = "dirt"
 	},
 /area/f13/wasteland)
+"hmP" = (
+/obj/item/clothing/accessory/medal/silver/valor,
+/obj/item/clothing/accessory/medal/silver/valor,
+/obj/item/clothing/accessory/medal/silver/valor,
+/obj/item/clothing/accessory/medal/silver/valor,
+/obj/item/clothing/accessory/medal/gold/captain,
+/obj/item/clothing/accessory/medal/gold/captain,
+/obj/item/clothing/accessory/medal/gold/heroism,
+/obj/item/clothing/accessory/medal/gold/heroism,
+/obj/item/clothing/accessory/medal/bronze_heart,
+/obj/item/clothing/accessory/medal/bronze_heart,
+/obj/item/clothing/accessory/medal/bronze_heart,
+/obj/structure/closet/locker/oldstyle{
+	anchored = 1
+	},
+/turf/open/floor/plasteel/vault,
+/area/f13/ncr)
 "hmT" = (
 /obj/structure/flora/tallgrass8,
 /obj/structure/flora/tallgrass6,
@@ -49696,7 +49737,6 @@
 /obj/item/clothing/accessory/ncr/REC,
 /obj/item/clothing/accessory/ncr/REC,
 /obj/item/clothing/accessory/ncr/REC,
-/obj/item/clothing/accessory/ncr/REC,
 /obj/item/clothing/accessory/ncr/MCPL,
 /obj/item/clothing/accessory/ncr/MCPL,
 /obj/item/clothing/accessory/ncr/MCPL,
@@ -49706,17 +49746,6 @@
 /obj/item/clothing/accessory/ncr/CPL,
 /obj/item/clothing/accessory/ncr/CPL,
 /obj/item/clothing/accessory/ncr/CPL,
-/obj/item/clothing/accessory/medal/silver/valor,
-/obj/item/clothing/accessory/medal/silver/valor,
-/obj/item/clothing/accessory/medal/silver/valor,
-/obj/item/clothing/accessory/medal/silver/valor,
-/obj/item/clothing/accessory/medal/gold/captain,
-/obj/item/clothing/accessory/medal/gold/captain,
-/obj/item/clothing/accessory/medal/gold/heroism,
-/obj/item/clothing/accessory/medal/gold/heroism,
-/obj/item/clothing/accessory/medal/bronze_heart,
-/obj/item/clothing/accessory/medal/bronze_heart,
-/obj/item/clothing/accessory/medal/bronze_heart,
 /turf/open/floor/plasteel/vault,
 /area/f13/ncr)
 "oso" = (
@@ -67032,6 +67061,10 @@
 "vDC" = (
 /obj/structure/filingcabinet/chestdrawer,
 /obj/effect/decal/cleanable/dirt,
+/obj/item/kirbyplants{
+	icon_state = "plant-17";
+	pixel_y = 20
+	},
 /turf/open/floor/plasteel/vault,
 /area/f13/ncr)
 "vDF" = (
@@ -74169,10 +74202,10 @@ uIX
 cmi
 aoo
 bOm
-cjh
 ojV
+fdy
 cjh
-cmi
+hbZ
 uDh
 kOP
 dPt
@@ -74428,8 +74461,8 @@ aon
 lAt
 uVt
 meM
-fdy
-gpM
+cjh
+kjE
 kGV
 fWM
 cmi
@@ -76449,11 +76482,11 @@ anb
 rhA
 bll
 xLa
-rbV
+drT
 anO
 rbV
 rbV
-anb
+enp
 xLa
 djQ
 djQ
@@ -81073,7 +81106,7 @@ azy
 rbV
 rbV
 rbV
-axe
+opm
 xLa
 aLw
 gZe
@@ -81330,7 +81363,7 @@ aJR
 qSH
 abE
 abE
-opm
+hmP
 xLa
 xLa
 xLa
