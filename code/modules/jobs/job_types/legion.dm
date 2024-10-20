@@ -255,7 +255,7 @@ Weapons		Lever shotgun, Grease gun, Repeater carbines, Revolvers, simple guns al
 	name = "Paladin-Slayer Centurion"
 	suit = /obj/item/clothing/suit/armor/legion/palacent
 	head = /obj/item/clothing/head/helmet/f13/legion/palacent
-	suit_store = /obj/item/melee/powered/ripper/prewar
+	suit_store = /obj/item/melee/powerfist/f13/goliath
 	backpack_contents = list(
 		/obj/item/restraints/legcuffs/bola/tactical = 3,
 		/obj/item/reagent_containers/pill/bitterdrink = 2,
