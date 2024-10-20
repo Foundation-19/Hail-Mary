@@ -808,8 +808,9 @@ Weapons		Lever shotgun, Grease gun, Repeater carbines, Revolvers, simple guns al
 	backpack_contents = list(
 		/obj/item/twohanded/spear/lance = 1,
 		/obj/item/gun/ballistic/revolver/colt357 = 1,
-		/obj/item/ammo_box/a357 = 1,
-		/obj/item/reagent_containers/pill/patch/healpoultice = 2,
+		/obj/item/ammo_box/a357 = 2,
+		/obj/item/reagent_containers/pill/patch/healpoultice = 3,
+		/obj/item/restraints/legcuffs/bola = 2,
 		)
 
 /datum/outfit/loadout/vetberserker
@@ -818,7 +819,6 @@ Weapons		Lever shotgun, Grease gun, Repeater carbines, Revolvers, simple guns al
 	backpack_contents = list(
 		/obj/item/ammo_box/shotgun/slug = 1,
 		/obj/item/ammo_box/shotgun/buck = 2,
-		/obj/item/twohanded/spear/lance = 1,
 		/obj/item/melee/onehanded/knife/bayonet = 1,
 		/obj/item/restraints/legcuffs/bola = 2,
 		)
