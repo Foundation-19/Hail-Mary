@@ -904,7 +904,7 @@ GLOBAL_LIST_INIT(armor_token_operation_legend, list(
  * Light Armor
  * Basically clothes, but more
 */
-#define ARMOR_SLOWDOWN_LIGHT 0.1
+#define ARMOR_SLOWDOWN_LIGHT 0.2
 
 /*
  * Medium Armor
