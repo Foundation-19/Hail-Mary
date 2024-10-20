@@ -48,7 +48,6 @@ SUBSYSTEM_DEF(persistence)
 	LoadPanicBunker()
 	SSjob.AddMapJobs() //shut up
 	LoadPaintings() //i am in physical pain
-	LoadFolders()
 	return ..()
 
 /datum/controller/subsystem/persistence/proc/LoadSatchels()
@@ -257,7 +256,6 @@ SUBSYSTEM_DEF(persistence)
 	SavePaintings()
 	SaveScars()
 	SaveNoticeboards()
-	SaveFolders()
 
 /datum/controller/subsystem/persistence/proc/LoadPanicBunker()
 	var/bunker_path = file("data/bunker_passthrough.json")
@@ -349,7 +347,6 @@ SUBSYSTEM_DEF(persistence)
 
 /datum/controller/subsystem/persistence/proc/LoadNoticeboards()
 	var/photo_path = file("data/notice_board_photos.json")
-	var/paper_path = file("data/notice_board_papers.json")
 
 	if(fexists(photo_path)) // Photos!
 		var/list/json = json_decode(file2text(photo_path))
@@ -360,17 +357,6 @@ SUBSYSTEM_DEF(persistence)
 					continue
 				if(json[N.persistenceID])
 					N.PopulatePhotosFromIDList(json[N.persistenceID])
-
-	if(fexists(paper_path)) // Papers!
-		var/list/json = json_decode(file2text(paper_path))
-		if(json.len)
-			for(var/i in noticeBoards)
-				var/obj/structure/noticeboard/N = i
-				if(!N.persistenceID)
-					continue
-				if(json[N.persistenceID])
-					N.PopulatePaperFromList(json[N.persistenceID])
-
 
 /datum/controller/subsystem/persistence/proc/SaveNoticeboards()
 	var/photo_path = file("data/notice_board_photos.json")
@@ -392,8 +378,6 @@ SUBSYSTEM_DEF(persistence)
 			continue
 		var/list/L = F.GetPictureIDList()
 		photo_json[F.persistenceID] = L
-		var/list/savedPapers = F.StorePaperDataList()
-		paper_json[F.persistenceID] = savedPapers
 
 	photo_json = json_encode(photo_json)
 	paper_json = json_encode(paper_json)
@@ -627,44 +611,3 @@ SUBSYSTEM_DEF(persistence)
 		if(!ending_human.client)
 			return
 		ending_human.client.prefs.save_character()
-
-/datum/controller/subsystem/persistence/proc/GetFolders()
-	var/folder_path = file("data/folders.json")
-	if(fexists(folder_path))
-		return json_decode(file2text(folder_path))
-
-/datum/controller/subsystem/persistence/proc/LoadFolders()
-	var/folder_path = file("data/folders.json")
-	var/list/folder_json = list()
-
-	if(!fexists(folder_path))
-		return
-
-	folder_json = json_decode(file2text(folder_path))
-
-	for(var/i in folders)
-		var/obj/item/folder/F = i
-		if(!F.persistenceID)
-			continue
-		if(folder_json[F.persistenceID])
-			F.PopulatePaperFromList(folder_json[F.persistenceID])
-
-
-/datum/controller/subsystem/persistence/proc/SaveFolders()
-	var/folder_path = file("data/folders.json")
-	var/list/folder_json = list()
-
-	if(fexists(folder_path))
-		folder_json = json_decode(file2text(folder_path))
-		fdel(folder_path)
-
-	for(var/i in folders)
-		var/obj/item/folder/F = i
-		if(!istype(F) || !F.persistenceID)
-			continue
-		var/list/savedPapers = F.StorePaperDataList()
-		folder_json[F.persistenceID] = savedPapers
-
-	folder_json = json_encode(folder_json)
-
-	WRITE_FILE(folder_path, folder_json)

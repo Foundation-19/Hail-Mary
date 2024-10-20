@@ -55,7 +55,6 @@
 	/// This is an associated list
 	var/list/form_fields = list()
 	var/field_counter = 1
-	var/pers_id
 
 /obj/item/paper/Destroy()
 	stamps = null
@@ -64,38 +63,6 @@
 	stamped = null
 	. = ..()
 
-/obj/item/paper/proc/SaveData()
-	if(!pers_id)
-		return
-
-	var/list/dat = list()
-	dat["name"] = name
-	//dat["icon"] = icon
-	dat["icon_state"] = icon_state
-	dat["info"] = info
-	dat["color"] = color
-	dat["stamps"] = stamps
-	dat["stamped"] = stamped
-	dat["form_fields"] = form_fields
-	dat["field_counter"] = field_counter
-
-	return dat
-
-/obj/item/paper/proc/LoadData(list/dat)
-	if(!dat.len)
-		return FALSE
-	
-	name = dat["name"]
-	//icon = dat["icon"]
-	icon_state = dat["icon_state"]
-	info = dat["info"]
-	color = dat["color"]
-	stamps = dat["stamps"]
-	stamped = dat["stamped"]
-	form_fields = dat["form_fields"]
-	field_counter = dat["field_counter"]
-
-	return TRUE
 /**
  * This proc copies this sheet of paper to a new
  * sheet,  Makes it nice and easy for carbon and
@@ -153,7 +120,7 @@
 	if(ishuman(usr))
 		var/mob/living/carbon/human/H = usr
 		if(HAS_TRAIT(H, TRAIT_CLUMSY) && prob(25))
-			to_chat(H, span_warning("You cut yourself on the paper! Ahhhh! Ahhhhh!"))
+			to_chat(H, "<span class='warning'>You cut yourself on the paper! Ahhhh! Ahhhhh!</span>")
 			H.damageoverlaytemp = 9001
 			H.update_damage_hud()
 			return
@@ -163,7 +130,7 @@
 	add_fingerprint(usr)
 
 /obj/item/paper/suicide_act(mob/user)
-	user.visible_message(span_suicide("[user] scratches a grid on [user.p_their()] wrist with the paper! It looks like [user.p_theyre()] trying to commit sudoku..."))
+	user.visible_message("<span class='suicide'>[user] scratches a grid on [user.p_their()] wrist with the paper! It looks like [user.p_theyre()] trying to commit sudoku...</span>")
 	return (BRUTELOSS)
 
 /obj/item/paper/proc/clearpaper()
@@ -176,12 +143,12 @@
 /obj/item/paper/examine(mob/user)
 	. = ..()
 	if(!in_range(user, src) && !isobserver(user))
-		. += span_warning("You're too far away to read it!")
+		. += "<span class='warning'>You're too far away to read it!</span>"
 		return
 	if(user.can_read(src))
 		ui_interact(user)
 		return
-	. += span_warning("You cannot read it!")
+	. += "<span class='warning'>You cannot read it!</span>"
 
 /obj/item/paper/ui_status(mob/user,/datum/ui_state/state)
 		// Are we on fire?  Hard ot read if so
@@ -202,7 +169,7 @@
 
 
 /obj/item/paper/can_interact(mob/user)
-	if(in_contents_of(/obj/machinery/door/airlock) || in_contents_of(/obj/structure/noticeboard))
+	if(in_contents_of(/obj/machinery/door/airlock))
 		return TRUE
 	return ..()
 
@@ -213,8 +180,8 @@
 		return
 	. = TRUE
 	if(!bypass_clumsy && HAS_TRAIT(user, TRAIT_CLUMSY) && prob(10) && Adjacent(user))
-		user.visible_message(span_warning("[user] accidentally ignites [user.p_them()]self!"), \
-							span_userdanger("You miss [src] and accidentally light yourself on fire!"))
+		user.visible_message("<span class='warning'>[user] accidentally ignites [user.p_them()]self!</span>", \
+							"<span class='userdanger'>You miss [src] and accidentally light yourself on fire!</span>")
 		if(user.is_holding(I)) //checking if they're holding it in case TK is involved
 			user.dropItemToGround(I)
 		user.adjust_fire_stacks(1)
@@ -234,12 +201,12 @@
 
 	if(istype(P, /obj/item/pen) || istype(P, /obj/item/toy/crayon))
 		if(length(info) >= MAX_PAPER_LENGTH) // Sheet must have less than 1000 charaters
-			to_chat(user, span_warning("This sheet of paper is full!"))
+			to_chat(user, "<span class='warning'>This sheet of paper is full!</span>")
 			return
 		ui_interact(user)
 		return
 	else if(istype(P, /obj/item/stamp))
-		to_chat(user, span_notice("You ready your stamp over the paper! "))
+		to_chat(user, "<span class='notice'>You ready your stamp over the paper! </span>")
 		ui_interact(user)
 		return /// Normaly you just stamp, you don't need to read the thing
 	else
@@ -343,7 +310,7 @@
 					LAZYADD(stamped, stamp_icon_state)
 
 				update_static_data(usr,ui)
-				ui.user.visible_message(span_notice("[ui.user] stamps [src] with [stamp_class]!"), span_notice("You stamp [src] with [stamp_class]!"))
+				ui.user.visible_message("<span class='notice'>[ui.user] stamps [src] with [stamp_class]!</span>", "<span class='notice'>You stamp [src] with [stamp_class]!</span>")
 			else
 				to_chat(usr, pick("You try to stamp but you miss!", "There is no where else you can stamp!"))
 			. = TRUE
