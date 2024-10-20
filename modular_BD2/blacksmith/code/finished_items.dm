@@ -650,7 +650,7 @@
 	slot_flags = ITEM_SLOT_BACK
 	item_flags = ITEM_CAN_PARRY
 	total_mass = TOTAL_MASS_MEDIEVAL_WEAPON * 3
-	hitsound = 'modular_BD2/blacksmith/sound/zweihander.ogg'
+	hitsound = 'sound/weapons/zweihander.ogg'
 	block_chance = 20
 	block_parry_data = /datum/block_parry_data/smithzweihander
 
