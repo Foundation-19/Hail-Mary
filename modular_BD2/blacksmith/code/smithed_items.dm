@@ -353,7 +353,7 @@
 	if(quality > 0)
 		finalforreal.toolspeed = max(0.05,(1-(quality/10)))
 	else
-		finalforreal.toolspeed *= max(1, (quality * -1))	
+		finalforreal.toolspeed *= max(1, (quality * -1))
 	finalitem = finalforreal
 	..()
 
@@ -655,6 +655,25 @@
 	finalitem = finalforreal
 	..()
 
+
+// ------------ ZWEIHANDER ------------ //
+/obj/item/smithing/zweiblade
+	name = "smithed zweihander blade"
+	desc = "Attach a sword handle."
+	icon_state = "zwei_smith"
+	finishingitem = SWORD_HANDLE
+	finalitem = /obj/item/twohanded/smithed/zweihander
+
+/obj/item/smithing/zweiblade/startfinish()
+	var/obj/item/twohanded/smithed/zweihander/finalforreal = new /obj/item/twohanded/smithed/zweihander(src)
+	finalforreal.force += QUALITY_MODIFIER
+	finalforreal.force_wielded = finalforreal.force*finalforreal.wielded_mult
+	finalforreal.force_unwielded = finalforreal.force
+	finalforreal.AddComponent(/datum/component/two_handed, force_unwielded=finalforreal.force_unwielded, force_wielded=finalforreal.force_wielded, icon_wielded="[icon_state]_wield")
+	finalitem = finalforreal
+	..()
+
+
 // ------------ SCRAP BLADE ------------ //
 /obj/item/smithing/scrapblade
 	name = "smithed scrap blade"
@@ -751,6 +770,24 @@
 	finalforreal.throwforce = finalforreal.force
 	finalitem = finalforreal
 	..()
+
+
+// ------------ PIKE ------------ //
+/obj/item/smithing/pikehead
+	name = "smithed pikehead"
+	finalitem = /obj/item/twohanded/smithed/spear/pike
+	icon_state = "pike_smith"
+
+/obj/item/smithing/pikehead/startfinish()
+	var/obj/item/twohanded/smithed/spear/pike/finalforreal = new /obj/item/twohanded/smithed/spear/pike(src)
+	finalforreal.force += QUALITY_MODIFIER
+	finalforreal.force_wielded = finalforreal.force*finalforreal.wielded_mult
+	finalforreal.force_unwielded = finalforreal.force
+	finalforreal.AddComponent(/datum/component/two_handed, force_unwielded=finalforreal.force_unwielded, force_wielded=finalforreal.force_wielded, icon_wielded="[icon_state]_wield")
+	finalforreal.throwforce = finalforreal.force
+	finalitem = finalforreal
+	..()
+
 
 // ------------ LEGION LANCE ------------ //
 /obj/item/smithing/lancehead

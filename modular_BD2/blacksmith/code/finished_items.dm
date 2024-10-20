@@ -630,6 +630,46 @@
 	overlay_state = "hilt_longsword"
 
 
+
+	// ------------ ZWEIHANDER ------------ // SCHEISSE, DAS IST DER GROSS BLADEN
+/obj/item/twohanded/smithed/zweihander
+	name = "zweihander"
+	desc = "Scheiße, das ist ein groß fucking sword!"
+	icon_state = "zwei_smith"
+	icon_prefix = "zwei_smith"
+	wielded_icon = "zwei_smith"
+	icon_prefix = "zwei_smith"
+	overlay_state = "hilt_zwei"
+	attack_speed = MELEE_SPEED_SLOWEST
+	force = FORCE_SMITH_HIGH
+	armour_penetration = PIERCING_MODERATE
+	throwforce = THROWING_POOR
+	wound_bonus = WOUNDING_BONUS_HUGE
+	sharpness = SHARP_EDGED
+	wielded_mult = 1.4
+	slot_flags = ITEM_SLOT_BACK
+	item_flags = ITEM_CAN_PARRY
+	total_mass = TOTAL_MASS_MEDIEVAL_WEAPON * 3
+	hitsound = 'sound/weapons/zweihander.ogg'
+	block_chance = 20
+	block_parry_data = /datum/block_parry_data/smithzweihander
+
+/datum/block_parry_data/smithzweihander
+	parry_stamina_cost = 50
+	parry_time_active = 10
+	parry_time_perfect = 3
+	parry_time_perfect_leeway = 3
+	parry_failed_stagger_duration = 4 SECONDS
+	parry_failed_clickcd_duration = 4 SECONDS
+	parry_time_windup = 1
+	parry_time_spindown = 1
+	parry_imperfect_falloff_percent = 0
+	parry_efficiency_to_counterattack = 100
+	parry_efficiency_considered_successful = 120
+	parry_efficiency_perfect = 120
+	parry_data = list(PARRY_COUNTERATTACK_MELEE_ATTACK_CHAIN = 1)
+
+
 // ------------ SCRAP BLADE ------------ // [AP 0.2 Parry]
 /obj/item/twohanded/smithed/katana/scrapblade
 	name = "scrap blade"
@@ -751,6 +791,29 @@
 	sharpness = SHARP_POINTY
 	inhand_x_dimension = 64
 	inhand_y_dimension = 64
+
+
+// ------------ PIKE ------------ // [Reach+1, armor pen]
+/obj/item/twohanded/smithed/spear/pike
+	name = "pike"
+	desc = "A spear, but more. This very long weapon has even more reach than a normal spear but is a bit unwieldy to use, downright impossible up close."
+	icon_state = "pike_smith"
+	overlay_state = "shaft_pike"
+	wielded_icon = "pike_smith_wield"
+	icon_prefix = "pike_smith"
+	force = (FORCE_SMITH_REACH-2)
+	wielded_mult = 1.5
+	throwforce = THROWING_POOR
+	wound_bonus = WOUNDING_BONUS_BIG
+	bare_wound_bonus = WOUNDING_BONUS_SMALL
+	armour_penetration = PIERCING_MINOR
+	min_reach = 2
+	max_reach = 3
+	sharpness = SHARP_POINTY
+	attack_verb = list("impaled", "gored", "stabbed")
+	hitsound = 'sound/weapons/pike.ogg'
+	attack_speed = MELEE_SPEED_SLOWEST
+	total_mass = TOTAL_MASS_MEDIEVAL_WEAPON * 2
 
 
 // ------------ TRIDENT ------------ // [Reach Embed]
