@@ -752,7 +752,7 @@
 	materials = list(/datum/material/iron = 16000, /datum/material/blackpowder = 2500)
 	build_path = /obj/item/ammo_box/a308box/soviet
 	category = list("initial", "Advanced Ammo")
-/*
+/
 /datum/design/ammolathe/a762
 	name = "7.62 ammo box"
 	id = "a762"
@@ -773,7 +773,7 @@
 	materials = list(/datum/material/iron = 12000, /datum/material/blackpowder = 1000)
 	build_path = /obj/item/ammo_box/m473/rubber
 	category = list("initial", "Advanced Ammo")
-*/
+
 /datum/design/ammolathe/a40mmbuck
 	name = "40mm buckshot ammo box"
 	id = "a40mmbuck"
@@ -781,14 +781,14 @@
 	build_path = /obj/item/ammo_box/a40mm/buck
 	category = list("initial", "Advanced Ammo")
 
-/*
+
 /datum/design/ammolathe/m473incin
 	name = "4.73mm incendiary caseless ammo box"
 	id = "m473incin"
 	materials = list(/datum/material/iron = 20000, /datum/material/blackpowder = 3000)
 	build_path = /obj/item/ammo_box/m473/incendiary
 	category = list("initial", "Advanced Ammo")
-*/
+/
 
 /*
 /datum/design/ammolathe/m473u235
@@ -797,7 +797,7 @@
 	materials = list(/datum/material/titanium = 10000, /datum/material/blackpowder = 2000)
 	build_path = /obj/item/ammo_box/m473/uraniumtipped
 	category = list("initial", "Advanced Ammo")
-
+*/
 
 /datum/design/ammolathe/m473wound
 	name = "4.73mm flat-nose caseless ammo box"
@@ -819,7 +819,7 @@
 	materials = list(/datum/material/iron = 12000, /datum/material/titanium = 15000, /datum/material/blackpowder = 3000)
 	build_path = /obj/item/ammo_box/m473/hv
 	category = list("initial", "Advanced Ammo")
-*/
+/
 
 /datum/design/ammolathe/a357ricochet
 	name = ".357 ricochet ammo"
@@ -832,7 +832,6 @@
 /// Improvised stuff
 //////////
 /// AMMO!
-
 /datum/design/ammolathe/improvised/a22
 	name = ".22lr ammo box"
 	id = "handloader_a22"
