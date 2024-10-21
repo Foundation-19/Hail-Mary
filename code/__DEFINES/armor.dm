@@ -81,9 +81,9 @@
  * +35 effective HP
  * * * * * * * * * * * */
 #define ARMOR_VALUE_MEDIUM list(\
-		"linemelee" = 35, \
-		"linebullet" = 35, \
-		"linelaser" = 35, \
+		"linemelee" = 50, \
+		"linebullet" = 50, \
+		"linelaser" = 50, \
 		"energy" = 10, \
 		"bomb" = 10, \
 		"bio" = 25, \
@@ -102,9 +102,9 @@
  * +45 effective HP
  * * * * * * * * * * * */
 #define ARMOR_VALUE_HEAVY list(\
-		"linemelee" = 45, \
-		"linebullet" = 45, \
-		"linelaser" = 45, \
+		"linemelee" = 75, \
+		"linebullet" = 75, \
+		"linelaser" = 75, \
 		"energy" = 15, \
 		"bomb" = 25, \
 		"bio" = 25, \
@@ -124,8 +124,8 @@
  * +20 laser HP
  * * * * * * * * * * * */
 #define ARMOR_VALUE_SALVAGE list(\
-		"linemelee" = 80, \
-		"linebullet" = 80, \
+		"linemelee" = 90, \
+		"linebullet" = 90, \
 		"linelaser" = 100, \
 		"energy" = 30, \
 		"bomb" = 60, \
@@ -904,7 +904,7 @@ GLOBAL_LIST_INIT(armor_token_operation_legend, list(
  * Light Armor
  * Basically clothes, but more
 */
-#define ARMOR_SLOWDOWN_LIGHT 0.1
+#define ARMOR_SLOWDOWN_LIGHT 0.2
 
 /*
  * Medium Armor
