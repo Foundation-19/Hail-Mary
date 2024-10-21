@@ -22099,6 +22099,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
+/obj/machinery/water_purifier,
 /turf/open/floor/f13{
 	icon_state = "floorrustysolid"
 	},

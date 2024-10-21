@@ -10417,6 +10417,10 @@
 /obj/effect/decal/cleanable/blood/drip,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
 /area/f13/citycaves)
+"oUP" = (
+/obj/machinery/water_purifier,
+/turf/open/floor/plating/rust,
+/area/f13/citycaves)
 "oUS" = (
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustyfull"
@@ -15945,6 +15949,10 @@
 	name = "underground ruins"
 	},
 /area/f13/vault)
+"wOW" = (
+/obj/machinery/water_purifier,
+/turf/open/floor/plasteel/f13/vault_floor/red/whiteredfull,
+/area/f13/mountain_bunker)
 "wPy" = (
 /obj/effect/overlay/water{
 	layer = 20;
@@ -40996,7 +41004,7 @@ bSQ
 bSQ
 bSQ
 bSQ
-bSQ
+glb
 vUa
 ecC
 dsE
@@ -41253,7 +41261,7 @@ pdh
 tFJ
 vQT
 tFJ
-tFJ
+wOW
 vUa
 dsE
 dsE
@@ -56697,7 +56705,7 @@ aRU
 riG
 ccs
 riG
-rJX
+oUP
 rJX
 rJX
 tzC
