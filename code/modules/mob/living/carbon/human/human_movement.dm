@@ -19,7 +19,7 @@
 	if(m_intent == MOVE_INTENT_WALK && HAS_TRAIT(src, TRAIT_SPEEDY_STEP))
 		. -= 1.25
 	if(HAS_TRAIT(src, TRAIT_SMUTANT))
-        . -= 0.5
+		. -= 0.5
 	. += calc_movespeed_mod_from_special() // S.P.E.C.I.A.L.
 
 /mob/living/carbon/human/slip(knockdown_amount, obj/O, lube)
