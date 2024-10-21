@@ -482,8 +482,7 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 		/obj/item/gun/ballistic/revolver/revolver45 = 1,
 		/obj/item/ammo_box/c45rev = 2,
 		/obj/item/stack/medical/gauze/bloodleaf = 2,
-		/obj/item/stack/f13Cash/ncr	=	1000
-	//	/obj/item/storage/bag/money/small/ncr = 2,
+		/obj/item/stack/f13Cash/caps/twofivezero = 2
 		)
 
 /datum/outfit/loadout/repbrahminbaron
