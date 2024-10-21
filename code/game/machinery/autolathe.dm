@@ -31,7 +31,7 @@
 	var/hack_wire
 	var/disable_wire
 	var/shock_wire
-	tooadvanced = FALSE //Used to prevent usage of things that are technophobes. Disabled because autolathes are simple button-presses
+	tooadvanced = TRUE //Used to prevent usage of things that are technophobes. Disabled because autolathes are simple button-presses // Fuck Luddites TRUE.
 	var/busy = FALSE
 	var/prod_coeff = 1
 
