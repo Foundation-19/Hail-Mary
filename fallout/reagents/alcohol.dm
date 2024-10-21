@@ -8,6 +8,7 @@
 	glass_icon_state = "meadglass"
 	glass_name = "waster mead"
 	glass_desc = "A true Wastelander's drink."
+	thirst_factor = THIRST_FACTOR * 15
 
 /datum/reagent/consumable/ethanol/tatovodka
 	name = "Tato Vodka"
@@ -49,6 +50,7 @@
 	glass_icon_state = "Space_mountain_wind_glass"
 	glass_name = "glass of punga juice"
 	glass_desc = "The glass contain punga juice, used to treat radiation sickness."
+	thirst_factor = THIRST_FACTOR * 10
 
 /datum/reagent/consumable/ethanol/pungajuice/on_mob_life(mob/living/carbon/M)
 	M.radiation = max(M.radiation-14,0)
@@ -85,6 +87,8 @@
 	effective_blood_max = 400
 	//var/last_added = 0
 	//var/maximum_reachable = BLOOD_VOLUME_NORMAL - 10
+	thirst_factor = THIRST_FACTOR * 14
+
 
 /datum/reagent/consumable/ethanol/brocbrew/on_mob_life(mob/living/carbon/M)
 	M.adjustOxyLoss(-5*REAGENTS_EFFECT_MULTIPLIER, 0)
@@ -338,6 +342,7 @@
 	glass_icon_state = "nukacideglass"
 	glass_name = "Nuka-Cide"
 	glass_desc = "The drink of a goddamn madman, say your sorrows when you drink this."
+	thirst_factor = THIRST_FACTOR * 5
 
 /datum/reagent/consumable/ethanol/nukacide/on_mob_life(mob/living/carbon/M)
 	if(prob(30))
@@ -357,6 +362,8 @@
 	glass_icon_state = "nukafancyglass"
 	glass_name = "Nuka-Fancy"
 	glass_desc = "A mixture of both Wild and cherry, making something absolutely tasty."
+	thirst_factor = THIRST_FACTOR * 15
+
 
 /datum/reagent/consumable/ethanol/nukafancy/on_mob_life(mob/living/carbon/M)
 	var/high_message = pick("<br>Maybe I too need some Slaves?</b>","<br>Mutfruit for All!</b>","<br>Time to Glorify my Wasteland Castle!</b>","<brNuked, not stirred.</b>")
@@ -378,6 +385,7 @@
 	glass_icon_state = "nukaloveglass"
 	glass_name = "Nuka-Love"
 	glass_desc = "A Nuka-Cola twist on a passionate classic."
+	thirst_factor = THIRST_FACTOR * 13
 
 /datum/reagent/consumable/ethanol/nukalove/on_mob_life(mob/living/carbon/M)
 	M.adjustBruteLoss(-2*REAGENTS_EFFECT_MULTIPLIER, 0)
@@ -396,6 +404,7 @@
 	glass_icon_state = "nukapunchglass"
 	glass_name = "Nuka-Punch"
 	glass_desc = "A fruit punch mixture with a Nuka kick."
+	thirst_factor = THIRST_FACTOR * 14
 
 /datum/reagent/consumable/ethanol/nukapunch/on_mob_life(mob/living/carbon/M)
 	M.adjustBruteLoss(-4*REAGENTS_EFFECT_MULTIPLIER)
@@ -420,6 +429,7 @@
 	glass_icon_state = "nukasunriseglass"
 	glass_name = "Nuka-Sunrise"
 	glass_desc = "A Nuka-Cola original drink, totally original and first of its kind!"
+	thirst_factor = THIRST_FACTOR * 15
 
 /datum/reagent/consumable/ethanol/nukasunrise/on_mob_life(mob/living/carbon/M)
 	M.adjustFireLoss(-2.5*REAGENTS_EFFECT_MULTIPLIER, 0)
@@ -440,7 +450,7 @@
 	glass_desc = "An extremely blue and glowing combination of Nuka-Cola and (REDACTED)"
 	var/datum/brain_trauma/special/psychotic_brawling/bath_salts/rage
 	ghoulfriendly = TRUE
-
+	thirst_factor = THIRST_FACTOR * 18
 
 /datum/reagent/consumable/ethanol/nukaquantum/on_mob_life(mob/living/carbon/M)
 	M.drowsyness = 0
@@ -487,7 +497,8 @@
 	glass_desc = "Like Quantum, but <BIG>EXTREME<BIG>."
 	var/datum/brain_trauma/special/psychotic_brawling/bath_salts/rage
 	ghoulfriendly = TRUE
-
+	thirst_factor = THIRST_FACTOR * 20
+	
 /datum/reagent/consumable/ethanol/nukaxtreme/on_mob_life(mob/living/carbon/M)
 	var/high_message = pick("<br><font color='#FF0000'><b>EXTREME</b></font>", "<br><font color='#FF0000'><b>RAAAAR!</b></font>", "<br><font color='#FF0000'><b>BRING IT!</b></font>")
 	if(prob(100))

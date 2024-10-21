@@ -9113,22 +9113,16 @@
 /area/f13/clinic)
 "dlm" = (
 /obj/structure/closet/crate/large{
-	pixel_y = 15;
+	pixel_y = 27;
 	pixel_x = 16;
 	layer = 4
-	},
-/obj/structure/closet/crate/large{
-	pixel_y = -5
 	},
 /obj/structure/closet/crate/large{
 	pixel_x = 10;
 	pixel_y = 11;
 	layer = 2
 	},
-/obj/item/radio{
-	pixel_x = -3;
-	pixel_y = 4
-	},
+/obj/machinery/water_purifier,
 /turf/open/floor/wood_fancy/wood_fancy_light,
 /area/f13/enclave)
 "dlJ" = (
@@ -60310,6 +60304,10 @@
 	color = "#FFDDCC"
 	},
 /obj/structure/table/wood,
+/obj/item/radio{
+	pixel_x = -3;
+	pixel_y = 4
+	},
 /turf/open/floor/wood_fancy/wood_fancy_light,
 /area/f13/enclave)
 "vmN" = (
@@ -65915,6 +65913,7 @@
 	name = "red light fixture";
 	dir = 1
 	},
+/obj/machinery/water_purifier,
 /turf/open/floor/plasteel/f13/vault_floor/blue/whitebluefull,
 /area/f13/outpost)
 "xkp" = (

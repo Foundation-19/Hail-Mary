@@ -16,6 +16,7 @@
 	pH = 7.33
 	value = REAGENT_VALUE_VERY_COMMON //don't bother tweaking all drinks values, way too many can easily be done roundstart or with an upgraded dispenser.
 	synth_metabolism_use_human = TRUE
+	thirst_factor = THIRST_FACTOR * 6 // Less than water
 
 /*
 Boozepwr Chart

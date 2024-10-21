@@ -203,6 +203,21 @@
 	desc = "ABSOLUTELY DISGUSTIN'"
 	icon_state = "gross3"
 
+/obj/screen/alert/slightly_thirsty
+	name = "Slightly thirsty"
+	desc = "Some water would be a good idea right now."
+	icon_state = "slight_thirst"
+
+/obj/screen/alert/thirsty
+	name = "Thirst"
+	desc = "You seriously need some water right about now."
+	icon_state = "thirst"
+
+/obj/screen/alert/deadly_thirsty
+	name = "Heavy thirst"
+	desc = "You need water right now!"
+	icon_state = "deadly_thirst"
+
 /obj/screen/alert/hot
 	name = "Too Hot"
 	desc = "The air around you is painfully hot! Get somewhere cooler and take off any insulating clothing like a fire suit."
