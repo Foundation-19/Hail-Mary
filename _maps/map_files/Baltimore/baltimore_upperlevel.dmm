@@ -20461,6 +20461,8 @@
 /area/f13/building)
 "tjw" = (
 /obj/item/stack/sheet/metal/fifty,
+/obj/item/stack/sheet/glass/fifty,
+/obj/structure/rack/shelf_metal,
 /turf/open/floor/wood_wide/wood_wide_dark,
 /area/f13/building/boat)
 "tjy" = (
@@ -21058,12 +21060,7 @@
 /turf/open/floor/wood_common,
 /area/f13/wasteland/city)
 "tIl" = (
-/obj/structure/rack/large/shelf{
-	dir = 8;
-	layer = 5;
-	pixel_y = 5
-	},
-/obj/item/stack/sheet/glass/fifty,
+/obj/machinery/water_purifier,
 /turf/open/floor/wood_wide/wood_wide_dark{
 	icon_state = "wide_dark-broken5"
 	},
