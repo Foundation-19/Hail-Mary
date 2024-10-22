@@ -1478,6 +1478,15 @@
 	icon_state = "fancy-broken2"
 	},
 /area/f13/legioncamp)
+"bxx" = (
+/obj/vehicle/ridden/lavaboat,
+/turf/open/pool{
+	icon_state = "shallow_color";
+	color = "#99BB76";
+	name = "Deep water";
+	sunlight_state = 1
+	},
+/area/f13/ruins)
 "bxz" = (
 /obj/structure/legion_extractor,
 /turf/open/indestructible/ground/outside/desert,
@@ -1516,6 +1525,9 @@
 	icon_state = "dirtfull_dark"
 	},
 /area/f13/wasteland)
+"byN" = (
+/turf/open/floor/plating/rust,
+/area/f13/ruins)
 "bzq" = (
 /obj/effect/turf_decal/stripes/white/line,
 /obj/structure/cable/blue{
@@ -2546,6 +2558,13 @@
 	},
 /turf/closed/wall/mineral/sandstone,
 /area/f13/wasteland)
+"cCI" = (
+/obj/structure/railing{
+	color = "#A47449";
+	dir = 1
+	},
+/turf/open/transparent/openspace,
+/area/f13/ruins)
 "cDm" = (
 /obj/structure/rack/shelf_metal,
 /obj/item/clothing/suit/armor/medium/vest/bulletproof/armor,
@@ -3311,6 +3330,21 @@
 	},
 /turf/closed/wall/f13/wood/house,
 /area/f13/farmhouse)
+"dvo" = (
+/obj/structure/fence/wooden{
+	dir = 4;
+	pixel_y = 7
+	},
+/obj/structure/railing/wood/post/underlayer{
+	pixel_x = -14
+	},
+/turf/open/pool{
+	icon_state = "shallow_color";
+	color = "#99BB76";
+	name = "Deep water";
+	sunlight_state = 1
+	},
+/area/f13/ruins)
 "dvA" = (
 /obj/structure/rack/shelf_metal,
 /obj/effect/spawner/lootdrop/f13/medical/vault/meds,
@@ -3964,6 +3998,14 @@
 	dir = 1
 	},
 /area/f13/wasteland)
+"dYZ" = (
+/obj/structure/railing{
+	color = "#A47449";
+	dir = 8;
+	layer = 5
+	},
+/turf/open/transparent/openspace,
+/area/f13/ruins)
 "dZh" = (
 /obj/item/trash/semki,
 /turf/open/indestructible/ground/inside/mountain,
@@ -7014,6 +7056,12 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/enclave)
+"gLc" = (
+/obj/machinery/light/fo13colored/Red{
+	dir = 4
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/ruins)
 "gLe" = (
 /obj/structure/destructible/tribal_torch/wall/lit,
 /turf/open/indestructible/ground/outside/desert,
@@ -7577,6 +7625,12 @@
 	dir = 4
 	},
 /area/f13/wasteland)
+"hrl" = (
+/turf/open/floor/f13{
+	color = "#FFFFFF";
+	icon_state = "rampdowntop"
+	},
+/area/f13/ruins)
 "hrJ" = (
 /obj/effect/turf_decal/gravel_edge{
 	dir = 8
@@ -8650,6 +8704,13 @@
 /obj/machinery/autolathe/ammo/unlocked,
 /turf/open/floor/wood_common/wood_common_dark,
 /area/f13/legioncamp)
+"iww" = (
+/obj/structure/railing{
+	color = "#A47449";
+	dir = 10
+	},
+/turf/open/transparent/openspace,
+/area/f13/ruins)
 "iwB" = (
 /obj/effect/spawner/lootdrop/trash,
 /turf/open/indestructible/ground/outside/dirt,
@@ -8671,6 +8732,13 @@
 	color = "#e4e4e4"
 	},
 /area/f13/legioncamp)
+"ixR" = (
+/obj/structure/railing{
+	color = "#A47449";
+	dir = 9
+	},
+/turf/open/transparent/openspace,
+/area/f13/ruins)
 "ixT" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/jerrycan,
@@ -8680,6 +8748,13 @@
 	name = "Wooden docks"
 	},
 /area/f13/legioncamp)
+"ixU" = (
+/turf/open/floor/f13{
+	color = "#FFFFFF";
+	icon_state = "rampdowntop";
+	dir = 4
+	},
+/area/f13/ruins)
 "iyc" = (
 /mob/living/simple_animal/hostile/ghoul,
 /turf/open/indestructible/ground/outside/desert,
@@ -9968,6 +10043,14 @@
 	dir = 8
 	},
 /area/f13/wasteland)
+"jMZ" = (
+/obj/structure/ladder/unbreakable{
+	icon_state = "ladder10";
+	id = "plateform1";
+	height = 1
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/ruins)
 "jNo" = (
 /obj/structure/flora/tallgrass6,
 /turf/open/indestructible/ground/outside/road{
@@ -13355,6 +13438,14 @@
 /obj/structure/flora/grass/coyote/twentyfour,
 /turf/open/indestructible/ground/outside/desert,
 /area/f13/legioncamp)
+"naB" = (
+/obj/structure/railing{
+	color = "#A47449";
+	dir = 6;
+	layer = 4
+	},
+/turf/open/transparent/openspace,
+/area/f13/ruins)
 "nbe" = (
 /obj/structure/reagent_dispensers/fueltank/vehicle_gas_station,
 /turf/open/indestructible/ground/outside/dirt/dark{
@@ -14020,6 +14111,9 @@
 "nJf" = (
 /turf/closed/wall/f13/tunnel,
 /area/f13/farmhouse)
+"nJj" = (
+/turf/closed/wall/r_wall/rust,
+/area/f13/ruins)
 "nJD" = (
 /obj/effect/decal/marking{
 	icon_state = "dottedverticalcorroded";
@@ -14165,6 +14259,13 @@
 	},
 /turf/open/indestructible/ground/outside/ruins,
 /area/f13/outpost)
+"nRF" = (
+/turf/open/floor/f13{
+	color = "#FFFFFF";
+	icon_state = "rampdowntop";
+	dir = 1
+	},
+/area/f13/ruins)
 "nRV" = (
 /obj/structure/chair/f13chair2,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
@@ -17414,6 +17515,12 @@
 	icon_state = "hole"
 	},
 /area/f13/wasteland)
+"rfH" = (
+/obj/structure/railing/wood/post/underlayer{
+	pixel_x = -14
+	},
+/turf/closed/wall/r_wall/rust,
+/area/f13/ruins)
 "rfI" = (
 /turf/open/indestructible/ground/outside/road{
 	icon_state = "innermaincornerinner - S"
@@ -17525,6 +17632,14 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/carpet/arcade,
 /area/f13/city)
+"rmd" = (
+/obj/structure/ladder/unbreakable{
+	icon_state = "manhole_open";
+	id = "petrol";
+	height = 2
+	},
+/turf/open/floor/plating/rust,
+/area/f13/ruins)
 "rnh" = (
 /obj/effect/decal/remains/human,
 /obj/effect/decal/cleanable/dirt,
@@ -18551,6 +18666,14 @@
 	color = "#e4e4e4"
 	},
 /area/f13/legion)
+"shO" = (
+/turf/open/pool{
+	icon_state = "shallow_color";
+	color = "#99BB76";
+	name = "Deep water";
+	sunlight_state = 1
+	},
+/area/f13/ruins)
 "sij" = (
 /mob/living/simple_animal/hostile/raider/firefighter,
 /turf/open/indestructible/ground/outside/desert,
@@ -18597,6 +18720,13 @@
 	},
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/wasteland)
+"sjN" = (
+/obj/structure/railing{
+	color = "#A47449";
+	layer = 4
+	},
+/turf/open/transparent/openspace,
+/area/f13/ruins)
 "sjX" = (
 /obj/structure/barricade/wooden,
 /turf/closed/wall/f13/wood,
@@ -19113,6 +19243,10 @@
 /obj/effect/turf_decal/shadow/floor,
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/legion)
+"sJK" = (
+/obj/structure/simple_door/bunker,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/ruins)
 "sJN" = (
 /obj/effect/turf_decal/shadow,
 /turf/open/indestructible/ground/outside/dirt/dark{
@@ -19591,6 +19725,13 @@
 	name = "Wooden docks"
 	},
 /area/f13/city)
+"tez" = (
+/obj/structure/railing{
+	color = "#A47449";
+	dir = 5
+	},
+/turf/open/transparent/openspace,
+/area/f13/ruins)
 "tfi" = (
 /obj/structure/chair/folding{
 	dir = 1;
@@ -20052,6 +20193,10 @@
 	icon_state = "dirtcorner_dark"
 	},
 /area/f13/legioncamp)
+"tzX" = (
+/obj/structure/stairs/east,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/ruins)
 "tAk" = (
 /obj/structure/stone_tile/block{
 	pixel_x = 16
@@ -20150,6 +20295,9 @@
 /obj/effect/mob_spawn/human/corpse/ncr,
 /turf/open/indestructible/ground/outside/desert,
 /area/f13/wasteland)
+"tEl" = (
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/ruins)
 "tEJ" = (
 /obj/effect/decal/marking{
 	icon_state = "dottedverticalcorroded";
@@ -21063,6 +21211,9 @@
 	},
 /turf/closed/wall/f13/wood/house,
 /area/f13/farmhouse)
+"uFW" = (
+/turf/open/transparent/openspace,
+/area/f13/ruins)
 "uGb" = (
 /turf/open/indestructible/ground/outside/dirt/dark{
 	icon_state = "dirt_dark";
@@ -22901,6 +23052,14 @@
 "wBv" = (
 /turf/open/floor/plasteel/f13/stone/rugged,
 /area/f13/wasteland)
+"wBy" = (
+/obj/structure/railing{
+	color = "#A47449";
+	dir = 4;
+	layer = 5
+	},
+/turf/open/transparent/openspace,
+/area/f13/ruins)
 "wBP" = (
 /obj/structure/closet/fridge/standard,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
@@ -29698,14 +29857,14 @@ aBY
 aBY
 aBY
 aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
 aBY
 aBY
 aBY
@@ -29900,6 +30059,16 @@ aBY
 aBY
 aBY
 aBY
+shO
+nJj
+nJj
+nJj
+shO
+shO
+shO
+shO
+shO
+shO
 aBY
 aBY
 aBY
@@ -29913,20 +30082,10 @@ aBY
 aBY
 aBY
 aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
+shO
+nJj
+nJj
+nJj
 aBY
 aBY
 aBY
@@ -30102,6 +30261,17 @@ aBY
 aBY
 aBY
 aBY
+shO
+nJj
+nJj
+nJj
+shO
+shO
+shO
+shO
+shO
+shO
+shO
 aBY
 aBY
 aBY
@@ -30113,22 +30283,11 @@ aBY
 aBY
 aBY
 aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
+shO
+shO
+nJj
+nJj
+nJj
 aBY
 aBY
 aBY
@@ -30304,6 +30463,19 @@ aBY
 aBY
 aBY
 aBY
+shO
+nJj
+nJj
+nJj
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
 aBY
 aBY
 aBY
@@ -30312,25 +30484,12 @@ aBY
 aBY
 aBY
 aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
+shO
+shO
+shO
+nJj
+nJj
+nJj
 aBY
 aBY
 aBY
@@ -30506,33 +30665,33 @@ aBY
 aBY
 aBY
 aBY
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
 aBY
 aBY
 aBY
 aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
 aBY
 aBY
 aBY
@@ -30708,33 +30867,33 @@ aBY
 aBY
 aBY
 aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
 aBY
 aBY
 aBY
@@ -30910,33 +31069,33 @@ aBY
 aBY
 aBY
 aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
 aBY
 aBY
 aBY
@@ -31112,32 +31271,32 @@ aBY
 aBY
 aBY
 aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
 aBY
 aBY
 aBY
@@ -31314,32 +31473,32 @@ aBY
 aBY
 aBY
 aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
 aBY
 aBY
 aBY
@@ -31517,30 +31676,30 @@ aBY
 aBY
 aBY
 aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+nJj
+nJj
+nJj
+nJj
+nJj
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
 aBY
 aBY
 aBY
@@ -31720,29 +31879,29 @@ aBY
 aBY
 aBY
 aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+nJj
+tEl
+tEl
+hrl
+tEl
+tEl
+nJj
+shO
+shO
+shO
+shO
+shO
+shO
+shO
 aBY
 aBY
 aBY
@@ -31924,27 +32083,27 @@ aBY
 aBY
 aBY
 aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
+shO
+shO
+shO
+shO
+shO
+shO
+nJj
+tEl
+tEl
+tEl
+hrl
+tEl
+tEl
+tEl
+nJj
+shO
+shO
+shO
+shO
+shO
+shO
 aBY
 aBY
 aBY
@@ -32126,27 +32285,27 @@ aBY
 aBY
 aBY
 aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
+shO
+shO
+shO
+shO
+shO
+nJj
+tEl
+tEl
+tEl
+ixR
+dYZ
+iww
+tEl
+tEl
+tEl
+nJj
+shO
+shO
+shO
+shO
+shO
 aBY
 aBY
 aBY
@@ -32329,26 +32488,26 @@ aBY
 aBY
 aBY
 aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
+shO
+shO
+shO
+shO
+nJj
+tEl
+tEl
+ixR
+uFW
+uFW
+uFW
+iww
+tEl
+tEl
+nJj
+shO
+shO
+shO
+shO
+shO
 aBY
 aBY
 aBY
@@ -32531,27 +32690,27 @@ aBY
 aBY
 aBY
 aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
+shO
+shO
+shO
+shO
+nJj
+tzX
+tzX
+cCI
+uFW
+uFW
+uFW
+sjN
+ixU
+ixU
+nJj
+shO
+shO
+shO
+shO
+shO
+shO
 aBY
 aBY
 aBY
@@ -32732,28 +32891,28 @@ aBY
 aBY
 aBY
 aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
+shO
+shO
+shO
+shO
+shO
+nJj
+nJj
+nJj
+tez
+uFW
+uFW
+uFW
+naB
+tEl
+tEl
+nJj
+shO
+shO
+shO
+shO
+shO
+shO
 aBY
 aBY
 aBY
@@ -32934,29 +33093,29 @@ aBY
 aBY
 aBY
 aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
+shO
+shO
+shO
+shO
+shO
+nJj
+nJj
+nJj
+rmd
+tez
+wBy
+naB
+tEl
+tEl
+tEl
+nJj
+shO
+shO
+shO
+shO
+shO
+shO
+shO
 aBY
 aBY
 aBY
@@ -33136,30 +33295,30 @@ aBY
 aBY
 aBY
 aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
+shO
+shO
+shO
+shO
+shO
+shO
+nJj
+nJj
+byN
+byN
+nRF
+tEl
+tEl
+tEl
+nJj
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
 aBY
 aBY
 aBY
@@ -33337,31 +33496,31 @@ aBY
 aBY
 aBY
 aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+nJj
+byN
+byN
+nRF
+tEl
+tEl
+nJj
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
 aBY
 aBY
 aBY
@@ -33538,32 +33697,32 @@ aBY
 aBY
 aBY
 aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+nJj
+nJj
+nJj
+nJj
+nJj
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
 aBY
 aBY
 aBY
@@ -33739,33 +33898,33 @@ aBY
 aBY
 aBY
 aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
 aBY
 aBY
 aBY
@@ -33940,34 +34099,34 @@ aBY
 aBY
 aBY
 aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+bxx
+tEl
+tEl
+dvo
+shO
 aBY
 aBY
 aBY
@@ -34142,34 +34301,34 @@ aBY
 aBY
 aBY
 aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+tEl
+tEl
+dvo
+shO
 aBY
 aBY
 aBY
@@ -34344,34 +34503,34 @@ aBY
 aBY
 aBY
 aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+bxx
+tEl
+tEl
+dvo
+shO
 aBY
 aBY
 aBY
@@ -34546,34 +34705,34 @@ aBY
 aBY
 aBY
 aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+gLc
+tEl
+dvo
+shO
 aBY
 aBY
 aBY
@@ -34748,34 +34907,34 @@ aBY
 aBY
 aBY
 aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
+shO
+nJj
+nJj
+nJj
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+nJj
+sJK
+rfH
+shO
 aBY
 aBY
 aBY
@@ -34950,34 +35109,34 @@ aBY
 aBY
 aBY
 aBY
+shO
+nJj
+nJj
+nJj
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
 aBY
 aBY
 aBY
 aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
+shO
+shO
+shO
+shO
+shO
+shO
+nJj
+jMZ
+nJj
+shO
 aBY
 aBY
 aBY
@@ -35152,6 +35311,18 @@ aBY
 aBY
 aBY
 aBY
+shO
+nJj
+nJj
+nJj
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
 aBY
 aBY
 aBY
@@ -35160,26 +35331,14 @@ aBY
 aBY
 aBY
 aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
+shO
+shO
+shO
+shO
+nJj
+nJj
+nJj
+shO
 aBY
 aBY
 aBY
@@ -35354,6 +35513,17 @@ aBY
 aBY
 aBY
 aBY
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
+shO
 aBY
 aBY
 aBY
@@ -35364,24 +35534,13 @@ aBY
 aBY
 aBY
 aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
-aBY
+shO
+shO
+shO
+shO
+shO
+shO
+shO
 aBY
 aBY
 aBY
