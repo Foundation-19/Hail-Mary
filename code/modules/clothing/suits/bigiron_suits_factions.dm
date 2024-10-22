@@ -1,5 +1,5 @@
 /*
- * Old armors we dont need or use or anything go here
+ * Armors specific to the various Fallout factions go into this file.
  */
 
 // Metal- Melee, Laser Good, Ballistics Moderate, Energy, Explosion bad
@@ -159,6 +159,7 @@ Suits. 0-10 in its primary value, slowdown 0, various utility
 	mob_overlay_icon = 'icons/fallout/onmob/clothes/armor_medium.dmi'
 	icon_state = "legion_veteran"
 	item_state = "legion_veteran"
+	clothing_flags = CUSHIONED_ARMOR
 	salvage_loot = list(/obj/item/stack/crafting/armor_plate = 4) // Slightly better armor
 	armor = ARMOR_VALUE_MEDIUM
 	armor_tier_desc = ARMOR_CLOTHING_MEDIUM
@@ -172,6 +173,7 @@ Suits. 0-10 in its primary value, slowdown 0, various utility
 	mob_overlay_icon = 'icons/fallout/onmob/clothes/armor_heavy.dmi'
 	icon_state = "legion_heavy"
 	item_state = "legion_heavy"
+	clothing_flags = CUSHIONED_ARMOR
 	salvage_loot = list(/obj/item/stack/crafting/armor_plate = 5)
 	armor = ARMOR_VALUE_MEDIUM
 	armor_tier_desc = ARMOR_CLOTHING_MEDIUM
@@ -201,6 +203,7 @@ Suits. 0-10 in its primary value, slowdown 0, various utility
 	desc = "Explorer armor reinforced with metal plates and chainmail."
 	icon_state = "legion-venator"
 	item_state = "legion-venator"
+	clothing_flags = CUSHIONED_ARMOR
 	salvage_loot = list(/obj/item/stack/crafting/armor_plate = 5)
 	armor = ARMOR_VALUE_HEAVY
 	armor_tier_desc = ARMOR_CLOTHING_MEDIUM
@@ -215,6 +218,7 @@ Suits. 0-10 in its primary value, slowdown 0, various utility
 	mob_overlay_icon = 'icons/fallout/onmob/clothes/armor_heavy.dmi'
 	icon_state = "legion_centurion"
 	item_state = "legion_centurion"
+	clothing_flags = CUSHIONED_ARMOR
 	salvage_loot = list(/obj/item/stack/crafting/armor_plate = 10) // Rest in pieces
 	armor = ARMOR_VALUE_MEDIUM
 	armor_tier_desc = ARMOR_CLOTHING_MEDIUM
@@ -229,6 +233,7 @@ Suits. 0-10 in its primary value, slowdown 0, various utility
 	desc = "A Centurion able to defeat a Brotherhood Paladin gets the honorific title 'Paladin-Slayer', and adds bits of the looted armor to his own."
 	icon_state = "legion_palacent"
 	item_state = "legion_palacent"
+	clothing_flags = CUSHIONED_ARMOR
 	armor = ARMOR_VALUE_MEDIUM
 	armor_tier_desc = ARMOR_CLOTHING_MEDIUM
 	stiffness = LIGHT_STIFFNESS
@@ -242,6 +247,7 @@ Suits. 0-10 in its primary value, slowdown 0, various utility
 	desc = "Centurions who have led many patrols and ambushes against NCR Rangers have a distinct look from the many looted pieces of Ranger armor, and are often experienced in skirmishing."
 	icon_state = "legion_rangercent"
 	item_state = "legion_rangercent"
+	clothing_flags = CUSHIONED_ARMOR
 	armor = ARMOR_VALUE_MEDIUM
 	armor_tier_desc = ARMOR_CLOTHING_MEDIUM
 	stiffness = LIGHT_STIFFNESS
@@ -255,6 +261,7 @@ Suits. 0-10 in its primary value, slowdown 0, various utility
 	mob_overlay_icon = 'icons/fallout/onmob/clothes/armor_heavy.dmi'
 	icon_state = "legion_legate"
 	item_state = "legion_legate"
+	clothing_flags = CUSHIONED_ARMOR
 	salvage_loot = list(/obj/item/stack/crafting/armor_plate = 15) // Wouldn't it be hilarious if we just tore apart Legate's armor?
 	armor = ARMOR_VALUE_HEAVY
 	armor_tier_desc = ARMOR_CLOTHING_MEDIUM
@@ -295,11 +302,12 @@ Suits. 0-10 in its primary value, slowdown 0, various utility
 	desc = "A standard issue NCR Infantry vest."
 	icon_state = "ncr_infantry_vest"
 	item_state = "ncr_infantry_vest"
+	clothing_flags = CUSHIONED_ARMOR
 	salvage_loot = list(/obj/item/stack/crafting/armor_plate = 2)
-	armor = ARMOR_VALUE_LIGHT
-	armor_tier_desc = ARMOR_CLOTHING_LIGHT
-	slowdown = ARMOR_SLOWDOWN_LIGHT * ARMOR_SLOWDOWN_GLOBAL_MULT
-	armor_tokens = list(ARMOR_MODIFIER_UP_DT_T1, ARMOR_MODIFIER_UP_BULLET_T1) // The NCR is more tanky, but slower
+	armor = ARMOR_VALUE_MEDIUM
+	armor_tier_desc = ARMOR_CLOTHING_MEDIUM
+	slowdown = ARMOR_SLOWDOWN_MEDIUM * ARMOR_SLOWDOWN_GLOBAL_MULT
+	armor_tokens = list(ARMOR_MODIFIER_UP_DT_T1) // The NCR is more tanky, but slower
 
 /datum/component/storage/concrete/pockets/bulletbelt/ncr
 	max_items = 2
@@ -329,10 +337,11 @@ Suits. 0-10 in its primary value, slowdown 0, various utility
 	desc = "A standard issue NCR Infantry vest reinforced with a groinpad."
 	icon_state = "ncr_reinforced_vest"
 	item_state = "ncr_reinforced_vest"
+	clothing_flags = CUSHIONED_ARMOR
 	armor = ARMOR_VALUE_MEDIUM
 	armor_tier_desc = ARMOR_CLOTHING_MEDIUM
 	slowdown = ARMOR_SLOWDOWN_MEDIUM * ARMOR_SLOWDOWN_GLOBAL_MULT
-	armor_tokens = list(ARMOR_MODIFIER_UP_DT_T1)
+	armor_tokens = list(ARMOR_MODIFIER_UP_DT_T1, ARMOR_MODIFIER_UP_BULLET_T1)
 	salvage_loot = list(/obj/item/stack/crafting/armor_plate = 3)
 
 /obj/item/clothing/suit/armor/ncrarmor/reinforced/engineer
@@ -362,6 +371,7 @@ Suits. 0-10 in its primary value, slowdown 0, various utility
 	desc = "A reinforced set of NCR mantle armour, with added padding on the groin, neck and shoulders. Intended for use by the officer class."
 	icon_state = "ncr_lt_armour"
 	item_state = "ncr_lt_armour"
+	clothing_flags = CUSHIONED_ARMOR
 	armor = ARMOR_VALUE_MEDIUM
 	armor_tier_desc = ARMOR_CLOTHING_MEDIUM
 	slowdown = ARMOR_SLOWDOWN_MEDIUM * ARMOR_SLOWDOWN_LESS_T1 * ARMOR_SLOWDOWN_GLOBAL_MULT
@@ -372,6 +382,7 @@ Suits. 0-10 in its primary value, slowdown 0, various utility
 	desc = "A special issue NCR officer's armour with an added thick overcoat for protection from the elements."
 	icon_state = "ncr_officer_coat"
 	item_state = "ncr_officer_coat"
+	clothing_flags = CUSHIONED_ARMOR
 	salvage_loot = list(/obj/item/stack/crafting/armor_plate = 5)
 	armor = ARMOR_VALUE_MEDIUM
 	armor_tier_desc = ARMOR_CLOTHING_MEDIUM
@@ -383,6 +394,7 @@ Suits. 0-10 in its primary value, slowdown 0, various utility
 	desc = "A heavily reinforced set of NCR mantle armour, with large ceramic plating fitted to cover the torso and back, with additional plating on the shoulders and arms. Intended for use by high ranking officers."
 	icon_state = "ncr_captain_armour"
 	item_state = "ncr_captain_armour"
+	clothing_flags = CUSHIONED_ARMOR
 	salvage_loot = list(/obj/item/stack/crafting/armor_plate = 10) // Le captain
 	armor = ARMOR_VALUE_MEDIUM
 	armor_tier_desc = ARMOR_CLOTHING_MEDIUM
@@ -440,6 +452,7 @@ Suits. 0-10 in its primary value, slowdown 0, various utility
 	mob_overlay_icon = 'icons/fallout/onmob/clothes/armor_medium.dmi'
 	icon_state = "ncr_patrol"
 	item_state = "ncr_patrol"
+	clothing_flags = CUSHIONED_ARMOR
 	stiffness = LIGHT_STIFFNESS
 	slowdown = ARMOR_SLOWDOWN_MEDIUM * ARMOR_SLOWDOWN_LESS_T2 * ARMOR_SLOWDOWN_GLOBAL_MULT
 	armor_tokens = list(ARMOR_MODIFIER_UP_DT_T1, ARMOR_MODIFIER_UP_BULLET_T1)
@@ -449,6 +462,7 @@ Suits. 0-10 in its primary value, slowdown 0, various utility
 	desc = "The NCR veteran ranger combat armor, or black armor consists of a pre-war L.A.P.D. riot suit under a duster with rodeo jeans. Considered one of the most prestigious suits of armor to earn and wear while in service of the NCR Rangers."
 	icon_state = "ranger"
 	item_state = "ranger"
+	clothing_flags = CUSHIONED_ARMOR
 	armor = ARMOR_VALUE_HEAVY
 	armor_tier_desc = ARMOR_CLOTHING_HEAVY
 	stiffness = LIGHT_STIFFNESS
