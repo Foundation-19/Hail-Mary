@@ -16920,6 +16920,17 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/blue/whitebluefull,
 /area/f13/citycaves)
+"Vj" = (
+/obj/machinery/light/fo13colored/Red{
+	desc = "A lighting fixture.";
+	dir = 8;
+	light_color = "#008000";
+	name = "light tube"
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	icon_state = "bluerustysolid"
+	},
+/area/f13/citycaves)
 "Vk" = (
 /obj/item/radio/intercom{
 	frequency = 1361;
@@ -21877,10 +21888,10 @@ yQ
 cp
 Ii
 La
+Vj
 wR
 wR
-wR
-wR
+Vj
 wR
 Ii
 Ii
@@ -22685,10 +22696,10 @@ yQ
 cp
 Ii
 La
+vb
 wR
 wR
-wR
-wR
+vb
 wR
 Ii
 Ii
@@ -24514,9 +24525,9 @@ cp
 Ii
 Bd
 vj
-qx
+Bd
 UX
-qx
+Bd
 vj
 Bd
 Ii

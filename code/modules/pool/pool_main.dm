@@ -3,7 +3,7 @@
 	name = "poolwater"
 	desc = "You're safer here than in the deep."
 	icon_state = "pool_tile"
-	slowdown = 4
+	slowdown = 7
 	heat_capacity = INFINITY
 	var/filled = TRUE
 	var/next_splash = 0
@@ -167,7 +167,6 @@
 					H.DefaultCombatKnockdown(40)
 					playsound(src, 'sound/effects/woodhit.ogg', 60, TRUE, 1)
 		else if(filled)
-			victim.adjustStaminaLoss(4)
 			playsound(src, "water_wade", 20, TRUE)
 	return ..()
 
@@ -207,4 +206,3 @@
 		for(var/mob/living/carbon/human/H in src)
 			if(!H.wear_mask && (H.stat == CONSCIOUS))
 				H.emote("cough")
-			H.adjustStaminaLoss(4)

@@ -853,10 +853,7 @@
 /obj/machinery/light/floor,
 /obj/structure/barricade/bars,
 /obj/structure/barricade/wooden,
-/obj/structure/curtain{
-	color = "#5c131b"
-	},
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/turf/closed/wall/f13/wood,
 /area/f13/enclave)
 "aSS" = (
 /obj/structure/barricade/tentclothcorner,
@@ -903,6 +900,7 @@
 "aUT" = (
 /obj/structure/table,
 /obj/item/stealthboy,
+/obj/item/lockpick_set,
 /turf/open/floor/plasteel/f13/vault_floor/neutral/neutralsolid,
 /area/f13/outpost)
 "aVk" = (
@@ -1105,6 +1103,16 @@
 /obj/structure/ore_box,
 /turf/open/floor/engine,
 /area/f13/enclave)
+"bcE" = (
+/obj/structure/stairs/east,
+/obj/machinery/light/small{
+	light_color = "#FF0000";
+	color = "#FF0000";
+	name = "red light fixture";
+	dir = 1
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/ruins)
 "bdo" = (
 /obj/structure/flora/grass/wasteland{
 	icon_state = "tall_grass_2";
@@ -2457,6 +2465,10 @@
 "cwF" = (
 /obj/structure/rack/shelf_metal,
 /obj/effect/spawner/lootdrop/f13/weapon/melee/tier2,
+/obj/structure/destructible/tribal_torch/lit{
+	pixel_x = 18;
+	plane = -6
+	},
 /turf/open/floor/mech_bay_recharge_floor{
 	icon_state = "elevatorshaft"
 	},
@@ -2939,6 +2951,10 @@
 "cZw" = (
 /obj/effect/turf_decal/loading_area/white{
 	dir = 4
+	},
+/obj/structure/destructible/tribal_torch/lit{
+	pixel_x = 18;
+	plane = -6
 	},
 /turf/open/floor/plating/rust,
 /area/f13/enclave)
@@ -3583,6 +3599,7 @@
 /area/f13/underground/cave)
 "dBL" = (
 /obj/structure/table,
+/obj/item/lockpick_set,
 /turf/open/indestructible/ground/outside/ruins,
 /area/f13/outpost)
 "dBT" = (
@@ -5579,6 +5596,13 @@
 	},
 /turf/open/indestructible/ground/outside/ruins,
 /area/f13/outpost)
+"foF" = (
+/obj/structure/table/reinforced{
+	color = "#c1b6a5"
+	},
+/obj/item/lockpick_set,
+/turf/open/floor/plasteel/f13/vault_floor/green/whitegreenfull,
+/area/f13/outpost)
 "foQ" = (
 /obj/effect/decal/cleanable/dirt{
 	color = "#363636"
@@ -6090,6 +6114,7 @@
 "fMk" = (
 /obj/structure/table/rolling,
 /obj/item/storage/briefcase/crafted,
+/obj/item/lockpick_set,
 /turf/open/indestructible/ground/outside/ruins,
 /area/f13/outpost)
 "fMr" = (
@@ -6287,6 +6312,11 @@
 	},
 /turf/open/floor/wood_fancy/wood_fancy_dark,
 /area/f13/legion)
+"fSY" = (
+/obj/structure/table/wood,
+/obj/item/lockpick_set,
+/turf/open/floor/wood_common/wood_common_dark,
+/area/f13/farmhouse)
 "fTe" = (
 /obj/structure/table/wood/junk,
 /obj/machinery/chem_master{
@@ -6662,6 +6692,13 @@
 "goN" = (
 /turf/open/indestructible,
 /area/f13/wasteland)
+"gpo" = (
+/obj/structure/destructible/tribal_torch/lit{
+	pixel_x = 18;
+	plane = -6
+	},
+/turf/open/floor/engine,
+/area/f13/enclave)
 "gpw" = (
 /obj/structure/curtain{
 	color = "#5c131b"
@@ -7482,8 +7519,11 @@
 /area/f13/wasteland)
 "hjz" = (
 /obj/structure/closet/locker/oldstyle,
-/obj/effect/spawner/lootdrop/clothing_middle,
-/obj/effect/spawner/lootdrop/clothing_middle,
+/obj/effect/spawner/lootdrop/f13/armor/clothes,
+/obj/effect/spawner/lootdrop/f13/armor/clothes,
+/obj/item/lock_construct,
+/obj/item/key,
+/obj/item/key,
 /turf/open/floor/plating/rust,
 /area/f13/enclave)
 "hjA" = (
@@ -8552,6 +8592,17 @@
 	name = "Wooden docks"
 	},
 /area/f13/city)
+"iof" = (
+/obj/effect/decal/fakelattice,
+/obj/structure/destructible/tribal_torch/lit{
+	pixel_x = 18;
+	plane = -6
+	},
+/turf/open/floor/f13/wood{
+	sunlight_state = 1;
+	name = "Wooden docks"
+	},
+/area/f13/enclave)
 "ioE" = (
 /obj/effect/decal/cleanable/dirt{
 	color = "#363636"
@@ -9038,6 +9089,13 @@
 /obj/structure/table/wood,
 /turf/open/indestructible/ground/outside/desert,
 /area/f13/wasteland)
+"iKI" = (
+/obj/structure/destructible/tribal_torch/lit{
+	pixel_x = 18;
+	plane = -6
+	},
+/turf/open/floor/plasteel/f13/vault_floor/plating,
+/area/f13/enclave)
 "iLj" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/closed/wall/f13/tunnel,
@@ -10483,6 +10541,7 @@
 "kji" = (
 /obj/structure/table/wood,
 /obj/effect/spawner/lootdrop/wmelee_low,
+/obj/item/lockpick_set,
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/raiders)
 "kjt" = (
@@ -11712,6 +11771,12 @@
 /obj/structure/chair/folding{
 	dir = 4
 	},
+/obj/machinery/light/small{
+	dir = 8;
+	name = "tan light fixture";
+	light_color = "#FFDDCC";
+	color = "#FFDDCC"
+	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/enclave)
 "luP" = (
@@ -12669,6 +12734,12 @@
 /obj/machinery/chem_dispenser/drinks/beer/fullupgrade{
 	dir = 1
 	},
+/obj/machinery/light/small{
+	dir = 2;
+	name = "tan light fixture";
+	light_color = "#FFDDCC";
+	color = "#FFDDCC"
+	},
 /turf/open/floor/plasteel/f13/vault_floor/plating,
 /area/f13/enclave)
 "mnx" = (
@@ -13620,8 +13691,11 @@
 /area/f13/enclave)
 "njl" = (
 /obj/structure/closet/locker/oldstyle,
-/obj/effect/spawner/lootdrop/clothing_middle,
-/obj/effect/spawner/lootdrop/clothing_middle,
+/obj/effect/spawner/lootdrop/f13/armor/clothes,
+/obj/effect/spawner/lootdrop/f13/armor/clothes,
+/obj/item/lock_construct,
+/obj/item/key,
+/obj/item/key,
 /turf/open/floor/plasteel/f13/vault_floor/blue/whitebluefull,
 /area/f13/enclave)
 "njn" = (
@@ -14685,6 +14759,12 @@
 /obj/structure/barricade/wooden,
 /turf/closed/mineral/random/low_chance,
 /area/f13/wasteland)
+"oiE" = (
+/obj/structure/table/reinforced,
+/obj/item/lockpick_set,
+/obj/item/lockpick_set,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/city)
 "oiF" = (
 /obj/effect/decal/cleanable/blood/gibs,
 /turf/open/indestructible/ground/outside/desert,
@@ -15088,6 +15168,10 @@
 	},
 /turf/open/floor/wood_fancy,
 /area/f13/farmhouse)
+"oBN" = (
+/obj/structure/window/plastitanium,
+/turf/open/floor/plasteel/f13/vault_floor/blue/whitebluefull,
+/area/f13/enclave)
 "oCb" = (
 /mob/living/simple_animal/hostile/wolf,
 /turf/open/indestructible/ground/outside/dirt/dark{
@@ -15575,6 +15659,12 @@
 /obj/effect/spawner/lootdrop/f13/ncr_ration,
 /obj/effect/spawner/lootdrop/f13/ncr_ration,
 /obj/effect/spawner/lootdrop/f13/ncr_ration,
+/obj/machinery/light/small{
+	dir = 8;
+	name = "tan light fixture";
+	light_color = "#FFDDCC";
+	color = "#FFDDCC"
+	},
 /turf/open/floor/plating/rust,
 /area/f13/enclave)
 "pfl" = (
@@ -15733,6 +15823,12 @@
 "pmZ" = (
 /obj/structure/table,
 /obj/item/trash/tray,
+/obj/machinery/light/small{
+	dir = 4;
+	name = "tan light fixture";
+	light_color = "#FFDDCC";
+	color = "#FFDDCC"
+	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/enclave)
 "pna" = (
@@ -17587,6 +17683,18 @@
 /obj/structure/barricade/wooden/strong,
 /turf/closed/wall/f13/wood,
 /area/f13/legion)
+"riL" = (
+/obj/machinery/light/small{
+	light_color = "#FF0000";
+	color = "#FF0000";
+	name = "red light fixture";
+	dir = 8
+	},
+/turf/open/floor/f13{
+	color = "#FFFFFF";
+	icon_state = "rampdowntop"
+	},
+/area/f13/ruins)
 "rjt" = (
 /obj/effect/decal/cleanable/dirt{
 	color = "#363636"
@@ -17852,6 +17960,10 @@
 /obj/structure/bed/mattress,
 /turf/open/floor/wood_fancy/wood_fancy_dark,
 /area/f13/legion)
+"ruS" = (
+/obj/item/lockpick_set,
+/turf/open/indestructible/ground/outside/dirt,
+/area/f13/raiders)
 "rvt" = (
 /turf/open/indestructible/ground/outside/roaddirt{
 	icon_state = "horizontalbottombordertopleft"
@@ -20077,6 +20189,12 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
 /area/f13/city)
+"tuY" = (
+/obj/structure/table/wood,
+/obj/item/lockpick_set,
+/obj/item/lockpick_set,
+/turf/open/indestructible/ground/outside/gravel,
+/area/f13/legion)
 "tvq" = (
 /obj/structure/barricade/bars,
 /obj/structure/barricade/wooden/strong,
@@ -20857,6 +20975,19 @@
 	icon_state = "dirtfull_dark"
 	},
 /area/f13/legion)
+"unB" = (
+/obj/machinery/light/small{
+	light_color = "#FF0000";
+	color = "#FF0000";
+	name = "red light fixture";
+	dir = 2
+	},
+/turf/open/floor/f13{
+	color = "#FFFFFF";
+	icon_state = "rampdowntop";
+	dir = 4
+	},
+/area/f13/ruins)
 "uoe" = (
 /obj/structure/flora/grass/wasteland{
 	icon_state = "tall_grass_2";
@@ -21753,6 +21884,16 @@
 	},
 /turf/open/floor/wood_common,
 /area/f13/city)
+"vhM" = (
+/obj/item/reagent_containers/jerrycan,
+/obj/item/reagent_containers/jerrycan,
+/obj/item/reagent_containers/jerrycan,
+/obj/item/reagent_containers/jerrycan,
+/obj/item/reagent_containers/jerrycan,
+/obj/item/reagent_containers/jerrycan,
+/obj/structure/table/reinforced,
+/turf/open/floor/plasteel/f13/vault_floor/blue/whitebluefull,
+/area/f13/enclave)
 "vic" = (
 /obj/item/trash/pistachios,
 /turf/open/indestructible/ground/inside/mountain,
@@ -22080,6 +22221,12 @@
 "vyq" = (
 /obj/structure/table,
 /obj/machinery/reagentgrinder,
+/obj/machinery/light/small{
+	dir = 2;
+	name = "tan light fixture";
+	light_color = "#FFDDCC";
+	color = "#FFDDCC"
+	},
 /turf/open/floor/plasteel/f13/vault_floor/plating,
 /area/f13/enclave)
 "vyG" = (
@@ -22912,6 +23059,12 @@
 /obj/item/reagent_containers/glass/bucket/wood,
 /turf/open/floor/wood_common/wood_common_dark,
 /area/f13/legioncamp)
+"wsR" = (
+/obj/structure/table/wood,
+/obj/item/lockpick_set,
+/obj/item/lockpick_set,
+/turf/open/indestructible/ground/outside/ruins,
+/area/f13/outpost)
 "wtc" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/f13/wood,
@@ -24560,6 +24713,19 @@
 	name = "Wooden docks"
 	},
 /area/f13/city)
+"xYi" = (
+/obj/machinery/light/small{
+	light_color = "#FF0000";
+	color = "#FF0000";
+	name = "red light fixture";
+	dir = 4
+	},
+/turf/open/floor/f13{
+	color = "#FFFFFF";
+	icon_state = "rampdowntop";
+	dir = 1
+	},
+/area/f13/ruins)
 "xYo" = (
 /obj/machinery/recharge_station,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
@@ -25872,7 +26038,7 @@ pwg
 pwg
 pwg
 pwg
-aBY
+pwg
 aBY
 aBY
 aBY
@@ -26074,8 +26240,8 @@ pwg
 pwg
 pwg
 pwg
-aBY
-aBY
+pwg
+pwg
 aBY
 luP
 pwg
@@ -26131,7 +26297,7 @@ lFz
 fKL
 sTZ
 lfa
-adW
+iKI
 jVB
 dxC
 cwF
@@ -26139,10 +26305,10 @@ lFz
 uDe
 tFY
 uDe
-lFz
+gpo
 fuz
 lTi
-xfb
+iof
 gfZ
 ycV
 jYX
@@ -26693,7 +26859,7 @@ kCv
 (10,1,1) = {"
 nMa
 qIu
-wsb
+pwg
 rra
 pwg
 pwg
@@ -26718,7 +26884,7 @@ uxQ
 uTJ
 adW
 qRh
-deG
+xrl
 gDU
 lgZ
 cll
@@ -26912,9 +27078,9 @@ uTJ
 uTJ
 uTJ
 tfJ
-uTJ
-uTJ
-uTJ
+oBN
+oBN
+oBN
 tfJ
 uTJ
 uTJ
@@ -26925,9 +27091,9 @@ uTJ
 uTJ
 jhp
 uTJ
-uTJ
-uTJ
-uTJ
+jwL
+jwL
+jwL
 uTJ
 jhp
 uTJ
@@ -27298,9 +27464,9 @@ kCv
 "}
 (13,1,1) = {"
 nMa
-wsb
-aBY
-aBY
+pwg
+pwg
+pwg
 pwg
 pwg
 pwg
@@ -27502,7 +27668,7 @@ kCv
 nMa
 hkI
 aBY
-aBY
+pwg
 pwg
 pwg
 pwg
@@ -27747,7 +27913,7 @@ uTJ
 klN
 uTJ
 uTJ
-xfb
+iof
 lFz
 hjY
 ave
@@ -27761,7 +27927,7 @@ iPg
 qaS
 emA
 emA
-xfb
+iof
 adW
 oQj
 oQj
@@ -28530,7 +28696,7 @@ cmw
 deG
 deG
 sTZ
-jnE
+vhM
 jnE
 jnE
 jnE
@@ -31283,11 +31449,11 @@ shO
 shO
 shO
 shO
-shO
-shO
-shO
-shO
-shO
+nJj
+nJj
+nJj
+nJj
+nJj
 shO
 shO
 shO
@@ -31484,13 +31650,13 @@ shO
 shO
 shO
 shO
-shO
-shO
-shO
-shO
-shO
-shO
-shO
+nJj
+nJj
+nJj
+nJj
+nJj
+nJj
+nJj
 shO
 shO
 shO
@@ -31685,15 +31851,15 @@ shO
 shO
 shO
 shO
-shO
-shO
 nJj
 nJj
 nJj
 nJj
 nJj
-shO
-shO
+nJj
+nJj
+nJj
+nJj
 shO
 shO
 shO
@@ -31886,17 +32052,17 @@ shO
 shO
 shO
 shO
-shO
-shO
+nJj
+nJj
 nJj
 tEl
 tEl
-hrl
+riL
 tEl
 tEl
 nJj
-shO
-shO
+nJj
+nJj
 shO
 shO
 shO
@@ -32087,8 +32253,8 @@ shO
 shO
 shO
 shO
-shO
-shO
+nJj
+nJj
 nJj
 tEl
 tEl
@@ -32098,8 +32264,8 @@ tEl
 tEl
 tEl
 nJj
-shO
-shO
+nJj
+nJj
 shO
 shO
 shO
@@ -32288,8 +32454,8 @@ aBY
 shO
 shO
 shO
-shO
-shO
+nJj
+nJj
 nJj
 tEl
 tEl
@@ -32301,8 +32467,8 @@ tEl
 tEl
 tEl
 nJj
-shO
-shO
+nJj
+nJj
 shO
 shO
 shO
@@ -32490,8 +32656,8 @@ aBY
 aBY
 shO
 shO
-shO
-shO
+nJj
+nJj
 nJj
 tEl
 tEl
@@ -32503,8 +32669,8 @@ iww
 tEl
 tEl
 nJj
-shO
-shO
+nJj
+nJj
 shO
 shO
 shO
@@ -32692,10 +32858,10 @@ aBY
 aBY
 shO
 shO
-shO
-shO
 nJj
-tzX
+nJj
+nJj
+bcE
 tzX
 cCI
 uFW
@@ -32703,10 +32869,10 @@ uFW
 uFW
 sjN
 ixU
-ixU
+unB
 nJj
-shO
-shO
+nJj
+nJj
 shO
 shO
 shO
@@ -32894,8 +33060,8 @@ aBY
 shO
 shO
 shO
-shO
-shO
+nJj
+nJj
 nJj
 nJj
 nJj
@@ -32907,8 +33073,8 @@ naB
 tEl
 tEl
 nJj
-shO
-shO
+nJj
+nJj
 shO
 shO
 shO
@@ -33096,8 +33262,8 @@ aBY
 shO
 shO
 shO
-shO
-shO
+nJj
+nJj
 nJj
 nJj
 nJj
@@ -33109,8 +33275,8 @@ tEl
 tEl
 tEl
 nJj
-shO
-shO
+nJj
+nJj
 shO
 shO
 shO
@@ -33299,8 +33465,8 @@ shO
 shO
 shO
 shO
-shO
-shO
+nJj
+nJj
 nJj
 nJj
 byN
@@ -33310,8 +33476,8 @@ tEl
 tEl
 tEl
 nJj
-shO
-shO
+nJj
+nJj
 shO
 shO
 shO
@@ -33502,17 +33668,17 @@ shO
 shO
 shO
 shO
-shO
-shO
+nJj
+nJj
 nJj
 byN
 byN
-nRF
+xYi
 tEl
 tEl
 nJj
-shO
-shO
+nJj
+nJj
 shO
 shO
 shO
@@ -33705,15 +33871,15 @@ shO
 shO
 shO
 shO
-shO
-shO
 nJj
 nJj
 nJj
 nJj
 nJj
-shO
-shO
+nJj
+nJj
+nJj
+nJj
 shO
 shO
 shO
@@ -33908,13 +34074,13 @@ shO
 shO
 shO
 shO
-shO
-shO
-shO
-shO
-shO
-shO
-shO
+nJj
+nJj
+nJj
+nJj
+nJj
+nJj
+nJj
 shO
 shO
 shO
@@ -34111,11 +34277,11 @@ shO
 shO
 shO
 shO
-shO
-shO
-shO
-shO
-shO
+nJj
+nJj
+nJj
+nJj
+nJj
 shO
 shO
 shO
@@ -39238,7 +39404,7 @@ gZs
 gZs
 gZs
 lih
-kSs
+foF
 gZs
 rzQ
 aMi
@@ -40117,7 +40283,7 @@ dfE
 wNQ
 iHT
 xIe
-bMq
+oiE
 xIe
 iqz
 iHT
@@ -40675,7 +40841,7 @@ lOJ
 nRD
 aMi
 aMi
-kJf
+wsR
 kJf
 kJf
 aMi
@@ -54992,7 +55158,7 @@ wlL
 hHn
 fMA
 hBC
-pCs
+fSY
 vtS
 cQe
 cUR
@@ -59576,7 +59742,7 @@ pZt
 pZt
 mbv
 wOm
-lre
+tuY
 pSi
 pSi
 sOe
@@ -61523,7 +61689,7 @@ wsb
 wsb
 wsb
 mUO
-uSj
+ruS
 kji
 vDu
 fpc

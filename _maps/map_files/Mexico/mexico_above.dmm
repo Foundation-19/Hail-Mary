@@ -1061,6 +1061,12 @@
 /obj/effect/spawner/lootdrop/f13/weapon/melee/tier2,
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/farmhouse)
+"fY" = (
+/obj/structure/chair/office/dark{
+	dir = 4
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/enclave)
 "gb" = (
 /obj/structure/railing/handrail/legion/overlayer,
 /turf/open/floor/wood_fancy,
@@ -4488,6 +4494,21 @@
 /obj/effect/spawner/lootdrop/f13/blueprintHigh,
 /turf/open/floor/wood_common/wood_common_dark,
 /area/f13/farmhouse)
+"wK" = (
+/obj/machinery/camera/all{
+	dir = 9;
+	network = list("ss13-Enclave")
+	},
+/obj/structure/table{
+	color = "#c1b6a5"
+	},
+/obj/machinery/computer/terminal{
+	dir = 8;
+	pixel_x = 6;
+	pixel_y = 5
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/enclave)
 "wL" = (
 /obj/structure/bed/old,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
@@ -7209,6 +7230,14 @@
 	dir = 9;
 	network = list("ss13-Enclave")
 	},
+/obj/structure/table{
+	color = "#c1b6a5"
+	},
+/obj/machinery/computer/terminal{
+	dir = 8;
+	pixel_x = 6;
+	pixel_y = 5
+	},
 /turf/open/floor/plasteel/f13/vault_floor/blue/whitebluefull,
 /area/f13/enclave)
 "JM" = (
@@ -7337,6 +7366,9 @@
 	},
 /obj/item/clothing/head/f13/enclave,
 /obj/effect/spawner/lootdrop/f13/armor/clothes,
+/obj/item/key,
+/obj/item/key,
+/obj/item/lock_construct,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/enclave)
 "Kw" = (
@@ -8142,6 +8174,9 @@
 /obj/item/clothing/head/f13/enclave,
 /obj/item/clothing/head/helmet/f13/enclave/officer,
 /obj/effect/spawner/lootdrop/clothing_middle,
+/obj/item/key,
+/obj/item/key,
+/obj/item/lock_construct,
 /turf/open/floor/plasteel/f13/vault_floor/blue/whitebluefull,
 /area/f13/enclave)
 "OU" = (
@@ -9432,6 +9467,12 @@
 	color = "#FFDDCC"
 	},
 /turf/open/floor/plasteel/f13/vault_floor/blue,
+/area/f13/enclave)
+"Vb" = (
+/obj/structure/chair/office/dark{
+	dir = 4
+	},
+/turf/open/floor/plasteel/f13/vault_floor/blue/whitebluefull,
 /area/f13/enclave)
 "Vc" = (
 /obj/structure/table/wood,
@@ -12167,10 +12208,10 @@ Cl
 oc
 WB
 Cl
-Lj
+Vb
 Lj
 Cl
-cY
+fY
 cY
 Cl
 Rn
@@ -12369,7 +12410,7 @@ Cl
 oo
 WB
 Cl
-tH
+wK
 Lj
 Cl
 JL
