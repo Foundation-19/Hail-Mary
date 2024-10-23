@@ -366,6 +366,7 @@
 	desc = "A lightweight submachine gun that earned its place as one of the most popular SMGs in the world"
 	icon = 'fallout/icons/objects/automatic.dmi'
 	icon_state = "mp5"
+	item_state = "mp5"
 	mag_type = /obj/item/ammo_box/magazine/uzim9mm
 	init_mag_type = /obj/item/ammo_box/magazine/uzim9mm
 	weapon_class = WEAPON_CLASS_NORMAL //high class, one of the few smol smgs
@@ -1831,7 +1832,7 @@
 	desc = "A customized R91 assault rifle, with an integrated suppressor, small scope, cut down stock and polymer furniture. The supressor takes away stopping-power, but a cleaner action allows it to fire faster."
 	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "infiltrator"
-	item_state = "fnfal"
+	item_state = "infiltrator"
 	weapon_class = WEAPON_CLASS_RIFLE
 	weapon_weight = GUN_ONE_HAND_ONLY
 	damage_multiplier = GUN_EXTRA_DAMAGE_T2 //needs a lil edge at least
