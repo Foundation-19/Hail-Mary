@@ -1796,7 +1796,7 @@
 	desc = "The R91 was the standard US Army assault rifle, and so saw wide-spread use after the war. Most are worn out by now."
 	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "assault_rifle"
-	item_state = "fnfal"
+	item_state = "r91"
 	mag_type = /obj/item/ammo_box/magazine/m556/rifle
 	init_mag_type = /obj/item/ammo_box/magazine/m556/rifle
 	weapon_class = WEAPON_CLASS_RIFLE
@@ -2018,7 +2018,7 @@
 	lefthand_file = 'icons/fallout/onmob/weapons/guns_lefthand.dmi'
 	righthand_file = 'icons/fallout/onmob/weapons/guns_righthand.dmi'
 	icon_state = "handmade_battle_rifle"
-	item_state = "handmadear"
+	item_state = "handmadebr"
 	icon_prefix = "handmade_battle_rifle"
 	mag_type = /obj/item/ammo_box/magazine/m308
 	init_mag_type = /obj/item/ammo_box/magazine/m308
@@ -2051,7 +2051,7 @@
 	lefthand_file = 'icons/fallout/onmob/weapons/guns_lefthand.dmi'
 	righthand_file = 'icons/fallout/onmob/weapons/guns_righthand.dmi'
 	icon_state = "handmade_marksman_rifle"
-	item_state = "handmadear"
+	item_state = "handmadedmr"
 	icon_prefix = "handmade_marksman_rifle"
 	mag_type = /obj/item/ammo_box/magazine/w3006
 	init_mag_type = /obj/item/ammo_box/magazine/w3006
@@ -2089,7 +2089,7 @@
 	lefthand_file = 'icons/fallout/onmob/weapons/guns_lefthand.dmi'
 	righthand_file = 'icons/fallout/onmob/weapons/guns_righthand.dmi'
 	icon_state = "handmade_assault_carbine"
-	item_state = "handmadear"
+	item_state = "handmadeacar"
 	icon_prefix = "handmade_assault_carbine"
 	mag_type = /obj/item/ammo_box/magazine/m556/rifle
 	init_mag_type = /obj/item/ammo_box/magazine/m556/rifle
@@ -2632,7 +2632,7 @@
 	desc = "The M72 rifle is of German design. It uses an electromagnetic field to propel rounds at tremendous speed... and pierce almost any obstacle. Its range, accuracy and stopping power is almost unparalleled."
 	icon = 'icons/fallout/objects/guns/ballistic.dmi'
 	icon_state = "gaussf2"
-	item_state = "sniper"
+	item_state = "gaussrifle"
 	slot_flags = ITEM_SLOT_BACK
 	mag_type = /obj/item/ammo_box/magazine/m2mm
 	init_mag_type = /obj/item/ammo_box/magazine/m2mm
