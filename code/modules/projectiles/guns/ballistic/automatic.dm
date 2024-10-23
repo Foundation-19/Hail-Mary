@@ -379,6 +379,7 @@
 	desc = "A compact, lightweight way to put a lot of bullets downrange."
 	icon = 'fallout/icons/objects/automatic.dmi'
 	icon_state = "tec9"
+	item_state = "tec9"
 	mag_type = /obj/item/ammo_box/magazine/m22
 	init_mag_type = /obj/item/ammo_box/magazine/m22
 	disallowed_mags = list(/obj/item/ammo_box/magazine/m22/extended)
