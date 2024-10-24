@@ -146,11 +146,13 @@ Suits. 0-10 in its primary value, slowdown 0, various utility
 	icon_state = "legion_gov"
 	item_state = "legion_gov"
 
-/obj/item/clothing/suit/armor/legion/praetorian 
+/obj/item/clothing/suit/armor/legion/centurion/praetorian 
 	name = "Trusted Praetorian Armor"
 	desc = "A token of the past. This armor worn by the Praetorian guard is now just a relic of they days served to protect caesar, now greatly rewarded."
-	icon_state = "legion_preatorian"
-	item_state = "legion_preatorian"
+	icon = 'icons/fallout/clothing/armored_medium.dmi'
+	mob_overlay_icon = 'icons/fallout/onmob/clothes/armor_medium.dmi'
+	icon_state = "legion_praetorian"
+	item_state = "legion_praetorian"
 
 /obj/item/clothing/suit/armor/legion/vet
 	name = "legion veteran armor"

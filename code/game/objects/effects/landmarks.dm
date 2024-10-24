@@ -1065,15 +1065,15 @@ obj/effect/landmark/start/f13/ncrlogisticsofficer
 	icon_state = "Legionary"
 
 /obj/effect/landmark/start/f13/f13rebelsoldier
-	name = "Roguewave Marines"
+	name = "Roguewave Den Marines"
 	icon_state = "ussgt"
 
 /obj/effect/landmark/start/f13/f13rebelcaptain
-	name = "Roguewave Captain"
+	name = "Roguewave Den Captain"
 	icon_state = "ussgt"
 
 /obj/effect/landmark/start/f13/f13rebel
-	name = "Roguewave Doctor"
+	name = "Roguewave Den Doctor"
 	icon_state = "ussgt"
 
 /obj/effect/landmark/start/f13/f13rebelcitizen
@@ -1081,5 +1081,5 @@ obj/effect/landmark/start/f13/ncrlogisticsofficer
 	icon_state = "ussgt"
 
 /obj/effect/landmark/start/f13/f13rebelguard
-	name = "Roguewave Guard"
+	name = "Roguewave Den Guard"
 	icon_state = "ussgt"

@@ -75,6 +75,8 @@
 		return 0
 	if(rank in GLOB.vault_positions) //purest humans left in america. supposedly.
 		return 0
+	if(rank in GLOB.enclave_positions) 
+		return 0
 	if(rank in GLOB.ostia_positions) 
 		return 0
 	return ..()

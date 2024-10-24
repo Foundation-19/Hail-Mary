@@ -67,7 +67,7 @@ GLOBAL_LIST_INIT(command_positions, list(
 	"Dockmaster of Locust Point",
 	"Atlantic Cross Captain",
 
-	"Roguewave Captain",
+	"Roguewave Den Captain",
 	"Legion Governor of Ostia",
 	))
 
@@ -298,10 +298,10 @@ GLOBAL_LIST_INIT(ostia_positions, list(
 ))
 
 GLOBAL_LIST_INIT(rebels_positions, list(
-	"Roguewave Marines",
-	"Roguewave Captain",
-	"Roguewave Doctor",
-	"Roguewave Guard",
+	"Roguewave Den Marines",
+	"Roguewave Den Captain",
+	"Roguewave Den Doctor",
+	"Roguewave Den Guard",
 	"Roguewave Den Citizen"
 ))
 

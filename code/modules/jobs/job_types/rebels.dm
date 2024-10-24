@@ -44,7 +44,7 @@
 
 //Rebel soldier
 /datum/job/rebels/soldier
-	title = "Roguewave Marines"
+	title = "Roguewave Den Marines"
 	flag = F13REBELSOLDIER
 	total_positions = 5
 	spawn_positions = 5
@@ -76,9 +76,9 @@
 	name = "Surviving Enclave Gear"
 	suit = /obj/item/clothing/suit/armor/medium/vest/enclave
 	head = /obj/item/clothing/head/f13/enclave/peacekeeper
-	suit_store = /obj/item/gun/ballistic/rifle/hobo/plasmacaster
+	suit_store = /obj/item/gun/energy/laser/aer9/focused
 	backpack_contents = list(
-		/obj/item/ammo_box/plasmamusket = 4,
+		/obj/item/stock_parts/cell/ammo/mfc = 3,
 		/obj/item/clothing/shoes/f13/enclave/serviceboots = 1,
 		/obj/item/clothing/under/f13/exile/enclave =1,
 		)
@@ -116,7 +116,7 @@
 
 
 /datum/job/rebels/medic
-	title = "Roguewave Doctor"
+	title = "Roguewave Den Doctor"
 	flag = F13REBELMEDIC
 	total_positions = 2
 	spawn_positions = 2
@@ -206,7 +206,7 @@
 // 
 
 /datum/job/rebels/captain
-	title = "Roguewave Captain"
+	title = "Roguewave Den Captain"
 	flag = F13REBELCAPTAIN
 	total_positions = 1
 	spawn_positions = 1
@@ -265,10 +265,9 @@
 	name = "Raider boss gear"
 	suit = /obj/item/clothing/suit/armor/medium/combat/mk2/raider
 	head = /obj/item/clothing/head/helmet/f13/combat/mk2/raider
-	suit_store = /obj/item/twohanded/chainsaw
+	suit_store = /obj/item/melee/powered/ripper =1,
 	backpack_contents = list(
 		/obj/item/clothing/shoes/f13/military/ncr = 1,
-		/obj/item/melee/powered/ripper =1,
 		)
 
 /datum/outfit/loadout/capncrfunded
@@ -282,7 +281,7 @@
 
 //Rebel Guard
 /datum/job/rebels/guard
-	title = "Roguewave Guard"
+	title = "Roguewave Den Guard"
 	flag = F13REBELGUARD
 	total_positions = 3
 	spawn_positions = 3
@@ -310,16 +309,18 @@
 		/obj/item/stock_parts/cell/ammo/ec = 4,
 		/obj/item/clothing/shoes/f13/enclave/serviceboots = 1,
 		/obj/item/clothing/under/f13/exile/enclave =1,
+		/obj/item/storage/box/handcuffs =1,
 		)
 
 /datum/outfit/loadout/stolencopraider
 	name = "Stolen Raider gear"
-	suit = /obj/item/clothing/suit/armor/medium/raider/rebel
+	suit = /obj/item/clothing/suit/armor/medium/raider/combatduster
 	head = /obj/item/clothing/head/helmet/riot/vaultsec
 	suit_store = /obj/item/gun/ballistic/shotgun/automatic/combat/auto5
 	backpack_contents = list(
 		/obj/item/clothing/shoes/f13/military/ncr = 1,
 		/obj/item/ammo_box/shotgun/improvised =4,
+		/obj/item/storage/box/handcuffs =1
 		)
 
 /datum/outfit/loadout/ncrgardfunded
@@ -330,6 +331,7 @@
 	backpack_contents = list(
 		/obj/item/clothing/shoes/f13/military/ncr = 1,
 		/obj/item/clothing/under/f13/ncr/torn =1,
+		/obj/item/storage/box/handcuffs =1
 		)
 
 /datum/outfit/job/rebels/medic/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -343,8 +345,8 @@
 /datum/job/rebels/citizen
 	title = "Roguewave Den Citizen"
 	flag = F13REBELCITIZEN
-	total_positions = 10
-	spawn_positions = 10
+	total_positions = -1
+	spawn_positions = -1
 	display_order = JOB_DISPLAY_ORDER_F13REBELCITIZEN
 	description = "When the legion arrived, you fled, and started living in the only place safe enough arround, the Roguewave rebel carrier. You are not a fighter, but can defend this Den."
 	supervisors = "The captain, the armed forced."
