@@ -699,13 +699,66 @@ GLOBAL_VAR_INIT(vendor_cash, 0)
 		new /datum/data/wasteland_equipment("Enfield Rifle (.308)",			/obj/item/gun/ballistic/rifle/enfield,								30),
 		new /datum/data/wasteland_equipment("Hunting Shotgun (12 gauge)",	/obj/item/gun/ballistic/shotgun/hunting, 							30),
 		new /datum/data/wasteland_equipment("Shortbow (Arrow)",				/obj/item/gun/ballistic/bow/shortbow,								30),
-		new /datum/data/wasteland_equipment("Guns and Bullets, Part 1",		/obj/item/book/granter/crafting_recipe/gunsmith_one, 				25),
-		new /datum/data/wasteland_equipment("Guns and Bullets, Part 2",		/obj/item/book/granter/crafting_recipe/gunsmith_two,				50),
-		new /datum/data/wasteland_equipment("Guns and Bullets, Part 3",		/obj/item/book/granter/crafting_recipe/gunsmith_three, 				75),
-		new /datum/data/wasteland_equipment("Guns and Bullets, Part 4",		/obj/item/book/granter/crafting_recipe/gunsmith_four, 				100),
+		new /datum/data/wasteland_equipment("Guns and Bullets, Part 1",		/obj/item/book/granter/crafting_recipe/gunsmith_one, 				50),
+		new /datum/data/wasteland_equipment("Guns and Bullets, Part 2",		/obj/item/book/granter/crafting_recipe/gunsmith_two,				100),
+		new /datum/data/wasteland_equipment("Guns and Bullets, Part 3",		/obj/item/book/granter/crafting_recipe/gunsmith_three, 				150),
+		new /datum/data/wasteland_equipment("Guns and Bullets, Part 4",		/obj/item/book/granter/crafting_recipe/gunsmith_four, 				200),
+		)
+/obj/machinery/mineral/wasteland_vendor/ncr
+	name = "NCR Import Machine - Weapons and Armor"
+	icon_state = "weapon_idle"
+	prize_list = list(
+		new /datum/data/wasteland_equipment("Reinforced Mantle Armor",			/obj/item/clothing/suit/armor/ncrarmor/reinforced/mantle,										75),
+		new /datum/data/wasteland_equipment("Mantle Armor",		                /obj/item/clothing/suit/armor/ncrarmor/mantle, 										        	50),
+		new /datum/data/wasteland_equipment("Patrol Ranger Armor",		        /obj/item/clothing/suit/armor/medium/combat/desert_ranger/patrol, 					        	200),
+		new /datum/data/wasteland_equipment("Patrol Ranger Helmet",		        /obj/item/clothing/head/helmet/f13/combat/ncr_patrol, 								        	100),
+		new /datum/data/wasteland_equipment("Heavy Service Rifle",		        /obj/item/gun/ballistic/automatic/service/r82, 										        	75),
+		new /datum/data/wasteland_equipment("Trench Gun",		                /obj/item/gun/ballistic/shotgun/trench, 										                50),
+		new /datum/data/wasteland_equipment("Scout Carbine",		            /obj/item/gun/ballistic/automatic/service/carbine, 									        	25),
+		new /datum/data/wasteland_equipment("Sniper Rifle",		                /obj/item/gun/ballistic/automatic/marksman/sniper, 									        	100),
+		new /datum/data/wasteland_equipment("NCR Flag",		                    /obj/item/melee/onehanded/club/ncrflag, 									                	15),
+		new /datum/data/wasteland_equipment("Anti Material Rifle",	            /obj/item/gun/ballistic/rifle/mag/antimateriel, 									          	1000)
+		)
+	highpop_list = list(
+		new /datum/data/wasteland_equipment("Reinforced Mantle Armor",			/obj/item/clothing/suit/armor/ncrarmor/reinforced/mantle,										75),
+		new /datum/data/wasteland_equipment("Mantle Armor",		                /obj/item/clothing/suit/armor/ncrarmor/mantle, 										        	50),
+		new /datum/data/wasteland_equipment("Patrol Ranger Armor",		        /obj/item/clothing/suit/armor/medium/combat/desert_ranger/patrol, 					        	200),
+		new /datum/data/wasteland_equipment("Patrol Ranger Helmet",		        /obj/item/clothing/head/helmet/f13/combat/ncr_patrol, 								        	100),
+		new /datum/data/wasteland_equipment("Heavy Service Rifle",		        /obj/item/gun/ballistic/automatic/service/r82, 										        	75),
+		new /datum/data/wasteland_equipment("Trench Gun",		                /obj/item/gun/ballistic/shotgun/trench, 										                50),
+		new /datum/data/wasteland_equipment("Scout Carbine",		            /obj/item/gun/ballistic/automatic/service/carbine, 									        	25),
+		new /datum/data/wasteland_equipment("Sniper Rifle",		                /obj/item/gun/ballistic/automatic/marksman/sniper, 									        	100),
+		new /datum/data/wasteland_equipment("NCR Flag",		                    /obj/item/melee/onehanded/club/ncrflag, 									                	15),
+		new /datum/data/wasteland_equipment("Anti Material Rifle",	            /obj/item/gun/ballistic/rifle/mag/antimateriel, 									          	1000)
 		)
 
-
+/obj/machinery/mineral/wasteland_vendor/legion
+	name = "Legion Import Machine - Weapons and Armor"
+	icon_state = "weapon_idle"
+	prize_list = list(
+		new /datum/data/wasteland_equipment("Legion Combat Armor",	     		/obj/item/clothing/suit/armor/medium/combat/legion,									        	125),
+		new /datum/data/wasteland_equipment("Legion Combat Helmet",	            /obj/item/clothing/head/helmet/f13/combat/legion, 										       	75),
+		new /datum/data/wasteland_equipment("Legion Heavy Armor",		        /obj/item/clothing/suit/armor/heavy/metal/smithed/legion, 					                	200),
+		new /datum/data/wasteland_equipment("Roman Helmet",		                /obj/item/clothing/head/helmet/roman/legionnaire, 								            	75),
+		new /datum/data/wasteland_equipment("Healing Poultice Box",		        /obj/item/storage/box/medicine/poultice5, 										            	30),
+		new /datum/data/wasteland_equipment("Lever Action Shotgun",		        /obj/item/gun/ballistic/shotgun/automatic/combat/shotgunlever/stock, 			                50),
+		new /datum/data/wasteland_equipment("Legion Heavy Axe",		            /obj/item/twohanded/legionaxe, 									        	                    75),
+		new /datum/data/wasteland_equipment("Legion Lance",		                /obj/item/twohanded/spear/lance, 									                        	50),
+		new /datum/data/wasteland_equipment("Reinforced Bola",		            /obj/item/restraints/legcuffs/bola/tactical, 								                	100),
+		new /datum/data/wasteland_equipment("Golaith Power Fist",	            /obj/item/melee/powerfist/f13/goliath, 									                    	1000)
+		)
+	highpop_list = list(
+		new /datum/data/wasteland_equipment("Legion Combat Armor",	     		/obj/item/clothing/suit/armor/medium/combat/legion,									        	125),
+		new /datum/data/wasteland_equipment("Legion Combat Helmet",	            /obj/item/clothing/head/helmet/f13/combat/legion, 										       	75),
+		new /datum/data/wasteland_equipment("Legion Heavy Armor",		        /obj/item/clothing/suit/armor/heavy/metal/smithed/legion, 					                	200),
+		new /datum/data/wasteland_equipment("Roman Helmet",		                /obj/item/clothing/head/helmet/roman/legionnaire, 								            	75),
+		new /datum/data/wasteland_equipment("Healing Poultice Box",		        /obj/item/storage/box/medicine/poultice5, 										            	30),
+		new /datum/data/wasteland_equipment("Lever Action Shotgun",		        /obj/item/gun/ballistic/shotgun/automatic/combat/shotgunlever/stock, 			                50),
+		new /datum/data/wasteland_equipment("Legion Heavy Axe",		            /obj/item/twohanded/legionaxe, 									        	                    75),
+		new /datum/data/wasteland_equipment("Legion Lance",		                /obj/item/twohanded/spear/lance, 									                        	50),
+		new /datum/data/wasteland_equipment("Reinforced Bola",		            /obj/item/restraints/legcuffs/bola/tactical, 								                	100),
+		new /datum/data/wasteland_equipment("Golaith Power Fist",	            /obj/item/melee/powerfist/f13/goliath, 									                    	1000)
+	)
 /obj/machinery/mineral/wasteland_vendor/ammo
 	name = "Wasteland Vending Machine - Ammunition"
 	icon_state = "ammo_idle"

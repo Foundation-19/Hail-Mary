@@ -48195,6 +48195,13 @@
 /mob/living/simple_animal/hostile/gecko,
 /turf/open/indestructible/ground/outside/desert,
 /area/f13/wasteland)
+"nLn" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/mineral/wasteland_vendor/ncr,
+/turf/open/indestructible/ground/outside/sidewalk{
+	icon_state = "horizontaloutermain1"
+	},
+/area/f13/wasteland)
 "nLB" = (
 /obj/structure/chair/stool{
 	dir = 1;
@@ -66565,6 +66572,13 @@
 	icon_state = "whitedirtysolid"
 	},
 /area/f13/brotherhood/chemistry)
+"vsu" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/mineral/wasteland_vendor/legion,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	color = "#e4e4e4"
+	},
+/area/f13/legion)
 "vsw" = (
 /obj/effect/decal/marking{
 	icon_state = "doublehorizontal"
@@ -79045,7 +79059,7 @@ kdN
 aya
 bAp
 uDh
-dcy
+nLn
 aQZ
 mHp
 uNJ
@@ -134230,7 +134244,7 @@ ieV
 okB
 tsh
 sMp
-tsh
+vsu
 dKP
 tsh
 hxF
