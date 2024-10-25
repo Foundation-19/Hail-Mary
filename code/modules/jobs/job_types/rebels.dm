@@ -17,13 +17,15 @@
 	satchel = /obj/item/storage/backpack/satchel
 	belt = /obj/item/storage/belt/army/assault/ncr
 	r_pocket = /obj/item/flashlight/seclite
+	uniform = /obj/item/clothing/under/f13/bdu
+	shoes = /obj/item/clothing/shoes/jackboots
 	backpack_contents = list(
 		/obj/item/reagent_containers/food/snacks/f13/mre = 1,
 		/obj/item/storage/survivalkit = 1,
 		/obj/item/storage/survivalkit/medical = 1
 	)
 
-/datum/outfit/job/rebels/pre_equip(mob/living/carbon/human/H)
+/datum/outfit/job/rebels/citizen/pre_equip(mob/living/carbon/human/H)
 	..()
 	uniform = pick(
 		/obj/item/clothing/under/f13/settler, \
@@ -265,7 +267,7 @@
 	name = "Raider boss gear"
 	suit = /obj/item/clothing/suit/armor/medium/combat/mk2/raider
 	head = /obj/item/clothing/head/helmet/f13/combat/mk2/raider
-	suit_store = /obj/item/melee/powered/ripper =1,
+	suit_store = /obj/item/melee/powered/ripper
 	backpack_contents = list(
 		/obj/item/clothing/shoes/f13/military/ncr = 1,
 		)
