@@ -156,48 +156,50 @@
 	return
 
 /obj/attacked_by(obj/item/I, mob/living/user, attackchain_flags = NONE, damage_multiplier = 1, damage_addition = 0)
-	var/totitemdamage = (I.force * damage_multiplier) + damage_addition
+	var/total_item_damage = (I.force * damage_multiplier) + damage_addition
 	var/bad_trait
 
 	var/stamloss = user.getStaminaLoss()
 	if(stamloss > STAMINA_NEAR_SOFTCRIT) //The more tired you are, the less damage you do.
 		var/penalty = (stamloss - STAMINA_NEAR_SOFTCRIT)/(STAMINA_NEAR_CRIT - STAMINA_NEAR_SOFTCRIT)*STAM_CRIT_ITEM_ATTACK_PENALTY
-		totitemdamage *= 1 - penalty
+		total_item_damage *= 1 - penalty
 
 	if(SEND_SIGNAL(user, COMSIG_COMBAT_MODE_CHECK, COMBAT_MODE_INACTIVE))
 		bad_trait = SKILL_COMBAT_MODE //blacklist combat skills.
 
 	if(I.used_skills && user.mind)
-		if(totitemdamage)
-			totitemdamage = user.mind.item_action_skills_mod(I, totitemdamage, I.skill_difficulty, SKILL_ATTACK_OBJ, bad_trait)
+		if(total_item_damage)
+			total_item_damage = user.mind.item_action_skills_mod(I, total_item_damage, I.skill_difficulty, SKILL_ATTACK_OBJ, bad_trait)
 		for(var/skill in I.used_skills)
 			if(!(SKILL_TRAIN_ATTACK_OBJ in I.used_skills[skill]))
 				continue
 			user.mind.auto_gain_experience(skill, I.skill_gain)
 	if(!(attackchain_flags & NO_AUTO_CLICKDELAY_HANDLING))
 		I.ApplyAttackCooldown(user, src, attackchain_flags)
-	if(totitemdamage)
+	if(total_item_damage)
 		visible_message(span_danger("[user] has hit [src] with [I]!"), null, null, COMBAT_MESSAGE_RANGE)
 		//only witnesses close by and the victim see a hit message.
 		log_combat(user, src, "attacked", I)
-	take_damage(totitemdamage, I.damtype, "melee", 1, attacked_by = user)
+	if(ismecha(src))
+		src.demolition_mod_resist = 0.25
+	take_damage(total_item_damage*I.demolition_mod*demolition_mod_resist, I.damtype, "melee", 1, attacked_by = user)
 
 /mob/living/attacked_by(obj/item/I, mob/living/user, attackchain_flags = NONE, damage_multiplier = 1, damage_addition = 0)
 	var/list/block_return = list()
-	var/totitemdamage = max(((pre_attacked_by(I, user) * damage_multiplier) + damage_addition), 0)
-	if((user != src) && mob_run_block(I, totitemdamage, "the [I.name]", ((attackchain_flags & ATTACK_IS_PARRY_COUNTERATTACK)? ATTACK_IS_PARRY_COUNTERATTACK : NONE) | ATTACK_TYPE_MELEE, I.armour_penetration, user, null, block_return) & BLOCK_SUCCESS)
+	var/total_item_damage = max(((pre_attacked_by(I, user) * damage_multiplier) + damage_addition), 0)
+	if((user != src) && mob_run_block(I, total_item_damage, "the [I.name]", ((attackchain_flags & ATTACK_IS_PARRY_COUNTERATTACK)? ATTACK_IS_PARRY_COUNTERATTACK : NONE) | ATTACK_TYPE_MELEE, I.armour_penetration, user, null, block_return) & BLOCK_SUCCESS)
 		return FALSE
-	totitemdamage = block_calculate_resultant_damage(totitemdamage, block_return)
-	send_item_attack_message(I, user, null, totitemdamage)
-	I.do_stagger_action(src, user, totitemdamage)
+	total_item_damage = block_calculate_resultant_damage(total_item_damage, block_return)
+	send_item_attack_message(I, user, null, total_item_damage)
+	I.do_stagger_action(src, user, total_item_damage)
 	if(I.force)
-		apply_damage(totitemdamage, I.damtype)
+		apply_damage(total_item_damage, I.damtype)
 		if(I.damtype == BRUTE)
 			if(prob(33))
 				I.add_mob_blood(src)
 				var/turf/location = get_turf(src)
 				add_splatter_floor(location)
-				if(totitemdamage >= 10 && get_dist(user, src) <= 1)	//people with TK won't get smeared with blood
+				if(total_item_damage >= 10 && get_dist(user, src) <= 1)	//people with TK won't get smeared with blood
 					user.add_mob_blood(src)
 		return TRUE //successful attack
 
