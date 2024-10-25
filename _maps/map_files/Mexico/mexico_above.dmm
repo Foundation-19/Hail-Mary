@@ -390,9 +390,9 @@
 /turf/open/pool,
 /area/f13/legioncamp)
 "co" = (
-/obj/structure/fluff/railing{
-	dir = 8;
-	color = "#A47449"
+/obj/structure/railing{
+	color = "#A47449";
+	dir = 8
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	sunlight_state = 1;
@@ -594,7 +594,7 @@
 /turf/open/floor/plasteel/dark/telecomms/mainframe,
 /area/f13/underground/cave)
 "dH" = (
-/obj/structure/simple_door/bunker,
+/obj/structure/simple_door/repaired,
 /turf/open/floor/plating/rust,
 /area/f13/enclave)
 "dI" = (
@@ -1426,6 +1426,8 @@
 	},
 /obj/item/paper_bin,
 /obj/item/pen/fountain,
+/obj/item/lock_construct,
+/obj/item/key,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/enclave)
 "hL" = (
@@ -5132,13 +5134,6 @@
 /obj/effect/decal/fakelattice,
 /turf/open/floor/f13/wood,
 /area/f13/wasteland)
-"zK" = (
-/obj/structure/fluff/railing{
-	dir = 4;
-	color = "#A47449"
-	},
-/turf/open/transparent/openspace,
-/area/f13/wasteland)
 "zL" = (
 /obj/structure/rack/shelf_metal,
 /turf/open/indestructible/ground/outside/ruins,
@@ -5597,6 +5592,12 @@
 /obj/item/clothing/accessory/ncr/FSGT,
 /obj/item/clothing/accessory/ncr/CPL,
 /obj/item/clothing/accessory/ncr/CPL,
+/obj/machinery/light/small{
+	dir = 2;
+	name = "tan light fixture";
+	light_color = "#FFDDCC";
+	color = "#FFDDCC"
+	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/enclave)
 "BQ" = (
@@ -5739,10 +5740,9 @@
 /turf/open/floor/plasteel/dark/telecomms/mainframe,
 /area/f13/underground/cave)
 "CC" = (
-/obj/structure/fluff/railing{
-	dir = 4;
+/obj/structure/railing{
 	color = "#A47449";
-	layer = 5
+	dir = 4
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	sunlight_state = 1;
@@ -7082,13 +7082,6 @@
 /obj/structure/spacevine,
 /turf/closed/wall/f13/wood/house,
 /area/f13/legion)
-"Jl" = (
-/obj/effect/decal/marking{
-	icon_state = "dottedverticalcorroded"
-	},
-/obj/mecha/combat/phazon/vertibird/enclave/loaded,
-/turf/open/indestructible/ground/outside/roaddirt,
-/area/f13/wasteland)
 "Jo" = (
 /obj/structure/closet/locker/oldstyle{
 	anchored = 1
@@ -7854,9 +7847,9 @@
 /turf/open/floor/carpet/arcade,
 /area/f13/farmhouse)
 "No" = (
-/obj/structure/fluff/railing{
-	dir = 8;
-	color = "#A47449"
+/obj/structure/railing{
+	color = "#A47449";
+	dir = 8
 	},
 /turf/open/floor/wood_wide,
 /area/f13/legioncamp)
@@ -7937,9 +7930,9 @@
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 8
 	},
-/obj/structure/fluff/railing{
-	dir = 8;
-	color = "#A47449"
+/obj/structure/railing{
+	color = "#A47449";
+	dir = 8
 	},
 /turf/open/transparent/openspace,
 /area/f13/wasteland)
@@ -8265,10 +8258,9 @@
 /obj/machinery/door/unpowered/secure_steeldoor{
 	req_access_txt = "134"
 	},
-/obj/structure/fluff/railing{
-	dir = 4;
+/obj/structure/railing{
 	color = "#A47449";
-	layer = 5
+	dir = 4
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	sunlight_state = 1;
@@ -8839,13 +8831,6 @@
 /obj/item/pen/charcoal,
 /turf/open/floor/wood_fancy,
 /area/f13/legioncamp)
-"RV" = (
-/obj/structure/fluff/railing{
-	dir = 8;
-	color = "#A47449"
-	},
-/turf/open/transparent/openspace,
-/area/f13/wasteland)
 "RW" = (
 /obj/machinery/telecomms/server/presets/supply,
 /turf/open/floor/plasteel/dark/telecomms/mainframe,
@@ -11248,16 +11233,16 @@ Dp
 Dp
 Dp
 EY
-zK
-zK
-zK
-zK
-zK
-zK
-zK
-zK
-zK
-zK
+hQ
+hQ
+hQ
+hQ
+hQ
+hQ
+hQ
+hQ
+hQ
+hQ
 Pb
 NG
 NG
@@ -11460,9 +11445,9 @@ XS
 DG
 Pn
 CC
-Kj
-Kj
-Kj
+hQ
+hQ
+hQ
 Kj
 Kj
 NG
@@ -13430,7 +13415,7 @@ lN
 cY
 sW
 cY
-cY
+eK
 Cl
 Cl
 Cl
@@ -13683,7 +13668,7 @@ NG
 up
 Fu
 JD
-Jl
+Fu
 JD
 Fu
 Fu
@@ -14491,7 +14476,7 @@ up
 up
 DG
 Ld
-RV
+qU
 NL
 NG
 NL
@@ -14866,17 +14851,17 @@ NG
 NG
 NG
 YD
-RV
+qU
 eh
-RV
-RV
+qU
+qU
 eh
-RV
-RV
-RV
-RV
-RV
-RV
+qU
+qU
+qU
+qU
+qU
+qU
 kZ
 XS
 XS
@@ -14886,14 +14871,14 @@ XS
 XS
 XS
 Ld
-RV
-RV
-RV
-RV
-RV
-RV
-RV
-RV
+qU
+qU
+qU
+qU
+qU
+qU
+qU
+qU
 NG
 NG
 NG
@@ -15080,13 +15065,13 @@ NG
 NG
 NG
 NG
-RV
-RV
-RV
-RV
-RV
-RV
-RV
+qU
+qU
+qU
+qU
+qU
+qU
+qU
 NG
 NG
 NG

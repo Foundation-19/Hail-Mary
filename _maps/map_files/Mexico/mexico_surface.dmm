@@ -4975,6 +4975,19 @@
 /obj/item/storage/toolbox/mechanical,
 /turf/open/floor/wood_fancy,
 /area/f13/legioncamp)
+"eSP" = (
+/obj/structure/closet/locker/oldstyle,
+/obj/item/clothing/suit/armor/light/leather,
+/obj/item/melee/onehanded/machete/training,
+/obj/item/shield/riot/buckler,
+/obj/structure/destructible/tribal_torch/wall/lit{
+	dir = 8
+	},
+/turf/open/floor/f13/wood{
+	sunlight_state = 1;
+	name = "Wooden docks"
+	},
+/area/f13/legioncamp)
 "eSR" = (
 /mob/living/simple_animal/hostile/wolf{
 	name = "Legion town dog";
@@ -6679,6 +6692,15 @@
 "gnx" = (
 /turf/open/indestructible/ground/outside/savannah/topcenter,
 /area/f13/wasteland)
+"gnC" = (
+/obj/machinery/door/unpowered/securedoor{
+	req_access_txt = "273"
+	},
+/turf/open/floor/f13/wood{
+	sunlight_state = 1;
+	name = "Wooden docks"
+	},
+/area/f13/legioncamp)
 "goB" = (
 /obj/effect/decal/cleanable/greenglow,
 /obj/machinery/light/small{
@@ -7537,12 +7559,6 @@
 /obj/structure/closet/crate/miningcar,
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/underground/cave)
-"hjY" = (
-/obj/machinery/computer/mech_bay_power_console{
-	dir = 8
-	},
-/turf/open/floor/plasteel/f13/vault_floor/plating,
-/area/f13/enclave)
 "hkg" = (
 /obj/structure/flora/chomp/tall_boulder,
 /turf/closed/mineral/random/low_chance,
@@ -8110,6 +8126,12 @@
 	dir = 1
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/enclave)
+"hPa" = (
+/obj/machinery/mech_bay_recharge_port,
+/turf/open/floor/mech_bay_recharge_floor{
+	icon_state = "elevatorshaft"
+	},
 /area/f13/enclave)
 "hQr" = (
 /obj/structure/cable/blue{
@@ -13492,6 +13514,14 @@
 	},
 /turf/open/floor/wood_fancy/wood_fancy_dark,
 /area/f13/wasteland)
+"mZI" = (
+/obj/mecha/combat/phazon/vertibird/enclave/loaded{
+	landing_active = 1
+	},
+/turf/open/floor/mech_bay_recharge_floor{
+	icon_state = "elevatorshaft"
+	},
+/area/f13/enclave)
 "mZL" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -14320,7 +14350,9 @@
 	},
 /area/f13/wasteland)
 "nPy" = (
-/obj/machinery/mech_bay_recharge_port,
+/obj/machinery/computer/mech_bay_power_console{
+	dir = 8
+	},
 /turf/open/floor/engine,
 /area/f13/enclave)
 "nQi" = (
@@ -23005,6 +23037,9 @@
 	color = "#800000";
 	dir = 1
 	},
+/obj/structure/destructible/tribal_torch/wall/lit{
+	dir = 4
+	},
 /turf/open/floor/f13/wood{
 	sunlight_state = 1;
 	name = "Wooden docks"
@@ -27915,7 +27950,7 @@ uTJ
 uTJ
 iof
 lFz
-hjY
+adW
 ave
 lFz
 lFz
@@ -28319,7 +28354,7 @@ uUb
 uTJ
 adW
 lFz
-lTi
+hPa
 lTi
 kZn
 lFz
@@ -28521,7 +28556,7 @@ xEH
 uTJ
 lFz
 gDU
-lTi
+mZI
 kvZ
 rwx
 gDU
@@ -52271,7 +52306,7 @@ fni
 fni
 fni
 dwT
-hQD
+fni
 hQD
 nCb
 hQD
@@ -52473,7 +52508,7 @@ oAW
 oAW
 ubR
 ubR
-hHQ
+gnC
 hHQ
 ekt
 hHQ
@@ -53086,7 +53121,7 @@ jCG
 jCG
 nur
 oAW
-nur
+oAW
 wra
 grK
 oAW
@@ -53288,7 +53323,7 @@ grK
 kri
 grK
 bzK
-kri
+gnC
 kri
 grK
 oAW
@@ -53490,8 +53525,8 @@ kri
 ulF
 uYY
 oAW
-uYY
-fUQ
+oAW
+eSP
 kri
 oAW
 oZA
@@ -53890,13 +53925,13 @@ rqb
 eRO
 ewu
 ewu
-bzK
+gnC
 oAW
 evp
 oAW
 ycJ
 oAW
-bzK
+gnC
 esW
 oZA
 aCd
