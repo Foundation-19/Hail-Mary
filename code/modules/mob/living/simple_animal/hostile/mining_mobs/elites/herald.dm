@@ -220,6 +220,7 @@
 	eyeblur = 0
 	damage_type = BRUTE
 	pass_flags = PASSTABLE
+	demolition_mod = 2
 
 /obj/item/projectile/herald/teleshot
 	name ="golden bolt"
@@ -228,11 +229,7 @@
 
 /obj/item/projectile/herald/on_hit(atom/target, blocked = FALSE)
 	. = ..()
-	if(ismineralturf(target))
-		var/turf/closed/mineral/M = target
-		M.gets_drilled()
-		return
-	else if(isliving(target))
+	if(isliving(target))
 		var/mob/living/L = target
 		var/mob/living/F = firer
 		if(F != null && istype(F, /mob/living/simple_animal/hostile/asteroid/elite) && F.faction_check_mob(L))

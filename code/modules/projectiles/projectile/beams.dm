@@ -552,6 +552,7 @@
 	eyeblur = 0
 	is_reflectable = TRUE
 	pixels_per_second =  TILES_TO_PIXELS(12) //same as 40mm grenade
+	demolition_mod = 3
 
 /obj/item/projectile/plasmacarbine //Plasma carbine
 	name = "plasma bolt"
@@ -581,12 +582,6 @@
 	flag = "energy"
 	eyeblur = 0
 	is_reflectable = FALSE
-
-/obj/item/projectile/f13plasma/repeater/mining/on_hit(atom/target)
-	. = ..()
-	if(ismineralturf(target))
-		var/turf/closed/mineral/M = target
-		M.gets_drilled(firer)
 
 /obj/item/projectile/f13plasma/pistol //Plasma pistol
 	damage = 35

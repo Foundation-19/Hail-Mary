@@ -24,7 +24,7 @@
 	. = ..()
 	if(ismineralturf(target))
 		var/turf/closed/mineral/M = target
-		M.gets_drilled(firer)
+		M.take_damage(damage * 10, BRUTE, "bomb")
 		if(mine_range)
 			mine_range--
 			range++

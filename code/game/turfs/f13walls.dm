@@ -31,3 +31,4 @@
 	desc = "A rotting hunk of wood."
 	icon = 'icons/turf/walls/f13wood_wall.dmi'
 	hardness = 25
+	max_integrity = 200

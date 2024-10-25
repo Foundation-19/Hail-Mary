@@ -14,11 +14,11 @@
 	/// The integrity that the turf starts at, defaulting to max_integrity
 	var/integrity
 	/// The maximum integrity that the turf has
-	var/max_integrity = 450
+	var/max_integrity = 400
 	/// INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ON_FIRE | UNACIDABLE | ACID_PROOF
 	var/resistance_flags = NONE
 	/// If damage is less than this value for melee attacks, it will deal 0 damage
-	var/damage_deflection = 5
+	var/damage_deflection = 15
 
 /turf/examine(mob/user)
 	. = ..()
@@ -51,8 +51,6 @@
 		armor = armour_val
 
 /turf/proc/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, armour_penetration = 0)
-	if(sound_effect)
-		play_attack_sound(damage_amount, damage_type, damage_flag)
 	if((resistance_flags & INDESTRUCTIBLE) || integrity <= 0)
 		return
 	damage_amount = run_obj_armor(damage_amount, damage_type, damage_flag, attack_dir, armour_penetration)
@@ -63,9 +61,6 @@
 	integrity = old_integ - damage_amount
 
 	//DESTROYING SECOND
-	var/turf/closed/mineral/M
-	if(istype(src, /turf/closed/mineral))
-		M.gets_drilled()
 	if(integrity <= 0)
 		turf_destruction(damage_flag, -integrity)
 	else
@@ -88,7 +83,7 @@
 	if(armor_protection)		//Only apply weak-against-armor/hollowpoint effects if there actually IS armor.
 		armor_protection = clamp(armor_protection - armour_penetration, min(armor_protection, 0), 100)
 	return round(damage_amount * (100 - armor_protection)*0.01, DAMAGE_PRECISION)
-
+/*
 //the sound played when the obj is damaged.
 /turf/proc/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)
@@ -99,7 +94,7 @@
 				playsound(src, hit_sound_nodamage, 50, 1)
 		if(BURN)
 			playsound(src, hit_sound_burn, 100, 1)
-
+*/
 /turf/proc/after_damage(damage_amount, damage_type, damage_flag)
 	return
 
@@ -201,7 +196,8 @@
 		//only witnesses close by and the victim see a hit message.
 		log_combat(user, src, "attacked", I)
 	take_damage(max(I.force * I.demolition_mod / demolition_mod_resist, 1), I.damtype, "melee", 1)
-	playsound(src, I.hitsound, 70, TRUE)
+	if(!has_own_sounds)
+		playsound(src, I.hitsound, 70, TRUE)
 
 /turf/attackby(obj/item/W, mob/user, params)
 	if (!user.IsAdvancedToolUser())
@@ -232,6 +228,7 @@
 	else if(istype(W, /obj/item/rcl))
 		handleRCL(W, user)
 
+	playsound(src, 'sound/weapons/tap.ogg', 70, TRUE)
 	return ..() || ((can_hit) && W.attack_turf(src, user))
 
 /turf/proc/try_clean(obj/item/W, mob/user, turf/T)

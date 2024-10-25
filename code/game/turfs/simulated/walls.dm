@@ -168,19 +168,6 @@
 
 	return FALSE
 
-/turf/closed/wall/try_destroy(obj/item/I, mob/user, turf/T)
-	if(istype(I, /obj/item/pickaxe/drill/jackhammer))
-		if(!iswallturf(src))
-			return TRUE
-		if(user.loc == T)
-			I.play_tool_sound(src)
-			dismantle_wall()
-			user.visible_message("<span class='warning'>[user] smashes through [src] with [I]!</span>", \
-								"<span class='warning'>You smash through [src] with [I]!</span>", \
-								"<span class='italics'>You hear the grinding of metal.</span>")
-			return TRUE
-	return FALSE
-
 /turf/closed/wall/singularity_pull(S, current_size)
 	..()
 	wall_singularity_pull(current_size)

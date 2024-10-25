@@ -17,9 +17,7 @@
 	var/to_be_destroyed = 0 //Used for fire, if a melting temperature was reached, it will be destroyed
 	var/max_fire_temperature_sustained = 0 //The max temperature of the fire which it was subjected to
 	var/demolition_mod_resist = 1
-	var/hit_sound_burn = 'sound/items/welder.ogg'
-	var/hit_sound_brute = 'sound/weapons/smash.ogg'
-	var/hit_sound_nodamage = 'sound/weapons/tap.ogg'
+	var/has_own_sounds = FALSE
 
 	var/blocks_air = FALSE
 

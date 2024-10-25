@@ -25,10 +25,9 @@
 	var/last_act = 0
 	var/scan_state = "" //Holder for the image we display when we're pinged by a mining scanner
 	var/defer_change = 0
-	hit_sound_brute = 'sound/f13effects/pickaxe.mp4'
-	demolition_mod_resist = 3
-
-	max_integrity = 300
+	has_own_sounds = TRUE
+	demolition_mod_resist = 0.25
+	max_integrity = 150
 
 /turf/closed/mineral/get_armour_list()
 	return list("melee" = 10,  "bullet" = 35, "laser" = 35, "energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 70, "wound" = 0, "damage_threshold" = 0)
@@ -56,38 +55,9 @@
 		return TRUE
 	return ..()
 
-/turf/closed/mineral/attackby(obj/item/pickaxe/I, mob/user, params)
-	if (!user.IsAdvancedToolUser())
-		to_chat(usr, span_warning("You don't have the dexterity to do this!"))
-		return
-/*
+/turf/closed/mineral/turf_destruction(damage_flag, additional_damage)
+	gets_drilled(null, 1)
 
-	if(I.tool_behaviour == TOOL_MINING)
-		var/turf/T = user.loc
-		if (!isturf(T))
-			return
-
-		if(last_act + (40 * I.toolspeed) > world.time)//prevents message spam
-			return
-		last_act = world.time
-		to_chat(user, span_notice("You start picking..."))
-
-		if(I.use_tool(src, user, 40, volume=50))
-			var/range = I.digrange //Store the current digrange so people don't cheese digspeed swapping for faster mining
-			var/list/dug_tiles = list()
-			if(ismineralturf(src))
-				if(I.digrange > 0)
-					for(var/turf/closed/mineral/M in range(user,range))
-						if(get_dir(user,M)&stored_dir)
-							M.gets_drilled(user)
-							dug_tiles += M
-				to_chat(user, span_notice("You finish cutting into the rock."))
-				if(!(src in dug_tiles))
-					gets_drilled(user)
-				SSblackbox.record_feedback("tally", "pick_used_mining", 1, I.type)
-	else
-		return attack_hand(user)
-*/
 /turf/closed/mineral/proc/gets_drilled()
 	if(resistance_flags && INDESTRUCTIBLE) //fortuna edit. RNG rocks that dont budge
 		return
@@ -102,10 +72,14 @@
 	ScrapeAway(null, flags)
 	addtimer(CALLBACK(src, PROC_REF(AfterChange)), 1, TIMER_UNIQUE)
 	playsound(src, 'sound/effects/break_stone.ogg', 50, 1) //beautiful destruction
-/*
+
+/turf/attacked_by(obj/item/I, mob/living/user)
+	.=..()
+	playsound(src, 'sound/f13effects/pickaxe.mp3', 70, TRUE)
+
 /turf/closed/mineral/Bumped(atom/movable/AM)
 	..()
-	if(indestructible) //fortuna edit. RNG rocks that dont budge
+	if(resistance_flags && INDESTRUCTIBLE) //fortuna edit. RNG rocks that dont budge
 		return
 	if(ishuman(AM))
 		var/mob/living/carbon/human/H = AM
@@ -120,7 +94,7 @@
 			return
 	else
 		return
-*/
+
 /turf/closed/mineral/acid_melt()
 	ScrapeAway()
 
@@ -830,13 +804,16 @@
 */
 /turf/closed/mineral/strong
 	name = "Very strong rock"
-	desc = "Seems to be stronger than the other rocks in the area. Only a master of mining techniques could destroy this."
+	desc = "Seems to be stronger than the other rocks in the area, it'll take a lot of effort to destroy."
 	environment_type = "basalt"
-	turf_type = /turf/open/floor/plating/asteroid/basalt/lava_land_surface
-	baseturfs = /turf/open/floor/plating/asteroid/basalt/lava_land_surface
-	initial_gas_mix = LAVALAND_DEFAULT_ATMOS
 	defer_change = 1
 	smooth_icon = 'icons/turf/walls/rock_wall.dmi'
+	max_integrity = 600
+	demolition_mod_resist = 0.5
+
+/turf/closed/mineral/strong/get_armour_list()
+	return list("melee" = 50,  "bullet" = 50, "laser" = 50, "energy" = 50, "bomb" = 25, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 70, "wound" = 0, "damage_threshold" = 0)
+
 
 /*
 /turf/closed/mineral/strong/attackby(obj/item/I, mob/user, params)
@@ -849,7 +826,7 @@
 	else
 		to_chat(usr, span_warning("The rock seems to be too strong to destroy. Maybe I can break it once I become a master miner."))
 */
-
+/*
 /turf/closed/mineral/strong/gets_drilled(mob/user)
 	if(!ishuman(user))
 		return // see attackby
@@ -867,7 +844,7 @@
 	addtimer(CALLBACK(src, PROC_REF(AfterChange)), 1, TIMER_UNIQUE)
 	playsound(src, 'sound/effects/break_stone.ogg', 50, TRUE) //beautiful destruction
 //	H.mind.adjust_experience(/datum/skill/mining, 100) //yay!
-
+*/
 /turf/closed/mineral/strong/proc/drop_ores()
 	if(prob(10))
 		new /obj/item/stack/sheet/mineral/mythril(src, 5)

@@ -18,6 +18,7 @@
 	var/drill_delay = 7
 	var/drill_level = DRILL_BASIC
 	mech_flags = EXOSUIT_MODULE_WORKING | EXOSUIT_MODULE_COMBAT
+	var/drill_demolition_mod = 10
 
 /obj/item/mecha_parts/mecha_equipment/drill/Initialize()
 	. = ..()
@@ -76,15 +77,15 @@
 /turf/closed/mineral/drill_act(obj/item/mecha_parts/mecha_equipment/drill/drill)
 	for(var/turf/closed/mineral/M in range(drill.chassis,1))
 		if(get_dir(drill.chassis,M)&drill.chassis.dir)
-			M.gets_drilled()
-	drill.mecha_log_message("Drilled through [src]")
+			M.take_damage(drill.force * (drill.drill_demolition_mod/2), BRUTE, "bomb")
+	drill.mecha_log_message("Drilled [src]")
 	drill.move_ores()
 
 /turf/open/floor/plating/asteroid/drill_act(obj/item/mecha_parts/mecha_equipment/drill/drill)
 	for(var/turf/open/floor/plating/asteroid/M in range(1, drill.chassis))
 		if((get_dir(drill.chassis,M)&drill.chassis.dir) && !M.dug)
 			M.getDug()
-	drill.mecha_log_message("Drilled through [src]")
+	drill.mecha_log_message("Drilled [src]")
 	drill.move_ores()
 
 
@@ -143,9 +144,8 @@
 	equip_cooldown = 10
 	drill_delay = 4
 	drill_level = DRILL_HARDENED
-	force = 15
+	force = 30
 	toolspeed = 0.7
-
 
 /obj/item/mecha_parts/mecha_equipment/mining_scanner
 	name = "exosuit mining scanner"

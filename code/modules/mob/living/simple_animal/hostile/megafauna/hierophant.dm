@@ -469,7 +469,7 @@ Difficulty: Normal
 	. = ..()
 	if(ismineralturf(loc))
 		var/turf/closed/mineral/M = loc
-		M.gets_drilled(caster)
+		M.ScrapeAway()
 
 /obj/effect/temp_visual/hierophant/wall //smoothing and pooling were not friends, but pooling is dead.
 	name = "vortex wall"
@@ -611,7 +611,7 @@ Difficulty: Normal
 		hit_things += new_caster
 	if(ismineralturf(loc)) //drill mineral turfs
 		var/turf/closed/mineral/M = loc
-		M.gets_drilled(caster)
+		M.ScrapeAway()
 	INVOKE_ASYNC(src, PROC_REF(blast))
 
 	var/static/list/loc_connections = list(
