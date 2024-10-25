@@ -144,7 +144,7 @@
 /datum/outfit/loadout/legiontrust
 	name = "Trusted by Caesar"
 	backpack_contents = list(
-		/obj/item/clothing/suit/armor/legion/praetorian = 1,
+		/obj/item/clothing/suit/armor/legion/centurion/praetorian = 1,
 		/obj/item/flashlight/lantern = 1,
 		/obj/item/melee/powerfist/f13 = 1,
 		/obj/item/book/granter/trait/bigleagues = 1,
