@@ -1153,6 +1153,7 @@
 	dir = 8;
 	light_power = 0.6
 	},
+/obj/machinery/msgterminal/legion,
 /turf/open/floor/wood_common/wood_common_dark,
 /area/f13/legioncamp)
 "gz" = (
@@ -4507,6 +4508,12 @@
 	pixel_x = 6;
 	pixel_y = 5
 	},
+/obj/machinery/light/small{
+	dir = 4;
+	name = "tan light fixture";
+	light_color = "#FFDDCC";
+	color = "#FFDDCC"
+	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/enclave)
 "wL" = (
@@ -7238,6 +7245,12 @@
 	pixel_x = 6;
 	pixel_y = 5
 	},
+/obj/machinery/light/small{
+	dir = 4;
+	name = "tan light fixture";
+	light_color = "#FFDDCC";
+	color = "#FFDDCC"
+	},
 /turf/open/floor/plasteel/f13/vault_floor/blue/whitebluefull,
 /area/f13/enclave)
 "JM" = (
@@ -9061,6 +9074,11 @@
 	},
 /turf/open/floor/wood_common,
 /area/f13/farmhouse)
+"SY" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/msgterminal/legion,
+/turf/open/floor/wood_fancy,
+/area/f13/legion)
 "Tc" = (
 /obj/structure/barricade/bars,
 /obj/structure/barricade/bars,
@@ -9152,8 +9170,8 @@
 	dir = 6;
 	layer = 8
 	},
-/obj/structure/table/reinforced{
-	color = "#c1b6a5"
+/obj/machinery/msgterminal/command{
+	dir = 1
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/enclave)
@@ -41014,7 +41032,7 @@ Hg
 JG
 SC
 wz
-wz
+SY
 wp
 NG
 NG

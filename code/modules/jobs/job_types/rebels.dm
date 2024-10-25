@@ -329,11 +329,12 @@
 	name = "Embassy Funded Gear"
 	suit = /obj/item/clothing/suit/armor/medium/vest/ncr/mant
 	head = /obj/item/clothing/head/f13/ncr/steelpot_mp
-	suit_store = /obj/item/melee/baton/cattleprod
+	suit_store = /obj/item/gun/ballistic/shotgun/automatic/combat/auto5
 	backpack_contents = list(
 		/obj/item/clothing/shoes/f13/military/ncr = 1,
 		/obj/item/clothing/under/f13/ncr/torn =1,
-		/obj/item/storage/box/handcuffs =1
+		/obj/item/storage/box/handcuffs =1,
+		/obj/item/ammo_box/shotgun/bean =2
 		)
 
 /datum/outfit/job/rebels/medic/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
