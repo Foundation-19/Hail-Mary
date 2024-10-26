@@ -42,6 +42,10 @@
 	max_integrity = 200
 	damage_deflection = 0
 
+/turf/closed/wall/f13/wood/get_armour_list()
+	return list("melee" = 40,  "bullet" = 20, "laser" = 15, "energy" = 0, "bomb" = 15, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 70, "wound" = 0, "damage_threshold" = 0)
+
+
 /turf/closed/wall/f13/wood/house
 	name = "house wall"
 	desc = "A weathered pre-War house wall."
