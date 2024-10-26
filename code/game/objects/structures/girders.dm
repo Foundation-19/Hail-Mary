@@ -62,6 +62,9 @@
 		if (locate(/obj/structure/falsewall) in src.loc.contents)
 			to_chat(user, span_warning("There is already a false wall present!"))
 			return
+		if(obj_integrity < max_integrity)
+			to_chat(user, span_warning("You can't build a wall on a damaged girder!"))
+			return
 
 		if(istype(W, /obj/item/stack/rods))
 			var/obj/item/stack/rods/S = W
@@ -296,6 +299,20 @@
 			transfer_fingerprints_to(D)
 			qdel(src)
 		return TRUE
+
+/obj/structure/girder/crowbar_act(mob/user, obj/item/tool)
+	. = FALSE
+	if(state == GIRDER_NORMAL)
+		if(obj_integrity < max_integrity)
+			to_chat(user, span_notice("You start repairing the girder..."))
+			if(tool.use_tool(src, user, 40, volume=100))
+				to_chat(user, span_notice("You repair the grider."))
+				obj_integrity = max_integrity
+			return TRUE
+	else if(state != GIRDER_NORMAL)
+		to_chat(user, span_warning("You can't repair a unsecured girder! Secure it first."))
+		return
+
 
 /obj/structure/girder/CanAllowThrough(atom/movable/mover, border_dir)
 	..()

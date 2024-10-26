@@ -73,7 +73,7 @@
 	addtimer(CALLBACK(src, PROC_REF(AfterChange)), 1, TIMER_UNIQUE)
 	playsound(src, 'sound/effects/break_stone.ogg', 50, 1) //beautiful destruction
 
-/turf/attacked_by(obj/item/I, mob/living/user)
+/turf/closed/mineral/attacked_by(obj/item/I, mob/living/user)
 	.=..()
 	playsound(src, 'sound/f13effects/pickaxe.mp3', 70, TRUE)
 

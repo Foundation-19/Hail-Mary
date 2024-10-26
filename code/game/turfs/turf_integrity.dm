@@ -83,18 +83,7 @@
 	if(armor_protection)		//Only apply weak-against-armor/hollowpoint effects if there actually IS armor.
 		armor_protection = clamp(armor_protection - armour_penetration, min(armor_protection, 0), 100)
 	return round(damage_amount * (100 - armor_protection)*0.01, DAMAGE_PRECISION)
-/*
-//the sound played when the obj is damaged.
-/turf/proc/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
-	switch(damage_type)
-		if(BRUTE)
-			if(damage_amount)
-				playsound(src, hit_sound_brute, 50, 1)
-			else
-				playsound(src, hit_sound_nodamage, 50, 1)
-		if(BURN)
-			playsound(src, hit_sound_burn, 100, 1)
-*/
+
 /turf/proc/after_damage(damage_amount, damage_type, damage_flag)
 	return
 
@@ -172,7 +161,6 @@
 	if (!can_hit)
 		return ..()
 	. = ..()
-//	playsound(src, P.hitsound, 50, 1)
 	if(P.suppressed != SUPPRESSED_VERY)
 		visible_message("<span class='danger'>[src] is hit by \a [P]!</span>", null, null, COMBAT_MESSAGE_RANGE)
 	playsound(src, P.hitsound, 50, 1)
@@ -196,8 +184,6 @@
 		//only witnesses close by and the victim see a hit message.
 		log_combat(user, src, "attacked", I)
 	take_damage(max(I.force * I.demolition_mod / demolition_mod_resist, 1), I.damtype, "melee", 1)
-	if(!has_own_sounds)
-		playsound(src, I.hitsound, 70, TRUE)
 
 /turf/attackby(obj/item/W, mob/user, params)
 	if (!user.IsAdvancedToolUser())
@@ -228,7 +214,6 @@
 	else if(istype(W, /obj/item/rcl))
 		handleRCL(W, user)
 
-	playsound(src, 'sound/weapons/tap.ogg', 70, TRUE)
 	return ..() || ((can_hit) && W.attack_turf(src, user))
 
 /turf/proc/try_clean(obj/item/W, mob/user, turf/T)

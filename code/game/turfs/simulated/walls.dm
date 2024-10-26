@@ -1,4 +1,4 @@
-#define MAX_DENT_DECALS 15
+#define MAX_DENT_DECALS 20
 
 /turf/closed/wall
 	name = "wall"
@@ -107,12 +107,20 @@
 		new /obj/item/stack/sheet/metal(src)
 
 /turf/closed/wall/after_damage(damage_amount, damage_type, damage_flag)
-	if(damage_amount > 0 && damage_amount >= damage_deflection)
+	if(damage_amount > 0 && damage_amount >= damage_deflection && damage_type == BRUTE)
 		add_dent()
 
 /turf/closed/wall/attack_paw(mob/living/user)
 	user.DelayNextAction(CLICK_CD_MELEE)
 	return attack_hand(user)
+
+/turf/closed/wall/attacked_by(obj/item/I, mob/living/user)
+	.=..()
+	if(I.sharpness == 0 && I.damtype == BRUTE)
+		playsound(src, I.hitsound, 70, TRUE)
+	else
+		playsound(src,  'sound/weapons/smash.ogg', 70, TRUE)
+	add_dent(WALL_DENT_HIT)
 
 /turf/closed/wall/attack_hand(mob/user )
 	. = ..()
@@ -216,9 +224,10 @@
 	if(LAZYLEN(dent_decals) >= MAX_DENT_DECALS)
 		return
 
-	var/mutable_appearance/decal = mutable_appearance('icons/fallout/turfs/walls_overlay.dmi', "", BULLET_HOLE_LAYER)
-
+	var/mutable_appearance/decal = mutable_appearance('icons/effects/effects.dmi', "", BULLET_HOLE_LAYER, ABOVE_WALL_PLANE)
 	switch(denttype)
+		if(WALL_DENT_SHOT)
+			decal.icon_state = "bullet_hole"
 		if(WALL_DENT_HIT)
 			decal.icon_state = "impact[rand(1, 3)]"
 
