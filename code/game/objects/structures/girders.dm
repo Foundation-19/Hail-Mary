@@ -302,14 +302,14 @@
 
 /obj/structure/girder/crowbar_act(mob/user, obj/item/tool)
 	. = FALSE
-	if(state <= GIRDER_NORMAL)
+	if(state <= GIRDER_REINF)
 		if(obj_integrity < max_integrity)
 			to_chat(user, span_notice("You start repairing the girder..."))
 			if(tool.use_tool(src, user, 40, volume=100))
 				to_chat(user, span_notice("You repair the grider."))
 				obj_integrity = max_integrity
 			return TRUE
-	else if(state > GIRDER_NORMAL)
+	else if(state > GIRDER_REINF)
 		to_chat(user, span_warning("You can't repair a unsecured girder! Secure it first."))
 		return
 
