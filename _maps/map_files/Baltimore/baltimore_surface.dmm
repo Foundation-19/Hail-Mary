@@ -6799,7 +6799,7 @@
 /turf/open/indestructible/ground/outside/baltimore{
 	icon_state = "road_center"
 	},
-/area/f13/wasteland/city)
+/area/f13/ruins)
 "cxY" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -7811,7 +7811,7 @@
 /turf/open/indestructible/ground/outside/baltimore{
 	icon_state = "road_center"
 	},
-/area/f13/wasteland/city)
+/area/f13/ruins)
 "cNS" = (
 /turf/open/indestructible/ground/outside/gravel,
 /area/f13/citycaves)
@@ -10010,7 +10010,7 @@
 /turf/open/indestructible/ground/outside/baltimore{
 	icon_state = "road_center"
 	},
-/area/f13/wasteland/city)
+/area/f13/ruins)
 "dAe" = (
 /obj/effect/decal/riverbank{
 	dir = 9;
@@ -11528,7 +11528,7 @@
 /turf/open/indestructible/ground/outside/baltimore{
 	icon_state = "road_center"
 	},
-/area/f13/wasteland/city)
+/area/f13/ruins)
 "edX" = (
 /obj/structure/flora/roadplant{
 	icon_state = "grass_2d"
@@ -20710,6 +20710,12 @@
 	},
 /turf/open/indestructible/ground/outside/sidewalkdirt,
 /area/f13/wasteland/city)
+"htC" = (
+/obj/effect/decal/cleanable/oil,
+/turf/open/indestructible/ground/outside/baltimore{
+	icon_state = "road_center"
+	},
+/area/f13/ruins)
 "htI" = (
 /obj/effect/decal/waste{
 	icon_state = "goo5"
@@ -24344,7 +24350,7 @@
 /turf/open/indestructible/ground/outside/baltimore{
 	icon_state = "road_center"
 	},
-/area/f13/wasteland/city)
+/area/f13/ruins)
 "iGl" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -24831,7 +24837,7 @@
 /turf/open/indestructible/ground/outside/baltimore{
 	icon_state = "road_center"
 	},
-/area/f13/wasteland/city)
+/area/f13/ruins)
 "iOk" = (
 /obj/structure/stairs/east{
 	dir = 8
@@ -34814,7 +34820,7 @@
 /turf/open/indestructible/ground/outside/baltimore{
 	icon_state = "road_center"
 	},
-/area/f13/wasteland/city)
+/area/f13/ruins)
 "mpP" = (
 /turf/open/indestructible/ground/outside/sidewalkdirt{
 	icon_state = "verticalrightborderright2bottom"
@@ -35388,7 +35394,7 @@
 /turf/open/indestructible/ground/outside/baltimore{
 	icon_state = "road_center"
 	},
-/area/f13/wasteland/city)
+/area/f13/ruins)
 "mAy" = (
 /obj/structure/rug/big/rug_yellow,
 /obj/effect/decal/cleanable/greenglow,
@@ -39063,7 +39069,7 @@
 /turf/open/indestructible/ground/outside/baltimore{
 	icon_state = "road_center"
 	},
-/area/f13/wasteland/city)
+/area/f13/ruins)
 "nSG" = (
 /obj/structure/closet/fridge,
 /obj/effect/decal/cleanable/glass,
@@ -43596,7 +43602,7 @@
 /turf/open/indestructible/ground/outside/baltimore{
 	icon_state = "road_center"
 	},
-/area/f13/wasteland/city)
+/area/f13/ruins)
 "pvT" = (
 /obj/structure/railing{
 	color = "#A47449";
@@ -44787,7 +44793,7 @@
 /turf/open/indestructible/ground/outside/baltimore{
 	icon_state = "road_center"
 	},
-/area/f13/wasteland/city)
+/area/f13/ruins)
 "pSh" = (
 /obj/effect/decal/cleanable/glass,
 /turf/open/floor/wood_fancy/wood_fancy_light,
@@ -47182,7 +47188,7 @@
 /turf/open/indestructible/ground/outside/baltimore{
 	icon_state = "road_center"
 	},
-/area/f13/wasteland/city)
+/area/f13/ruins)
 "qKS" = (
 /obj/structure/flora/roadplant{
 	icon_state = "grass_7d"
@@ -51150,7 +51156,7 @@
 /turf/open/indestructible/ground/outside/baltimore{
 	icon_state = "road_center"
 	},
-/area/f13/wasteland/city)
+/area/f13/ruins)
 "rZz" = (
 /obj/structure/rack/shelf_metal,
 /obj/item/radio/headset,
@@ -58513,7 +58519,7 @@
 /turf/open/indestructible/ground/outside/baltimore{
 	icon_state = "road_center"
 	},
-/area/f13/wasteland/city)
+/area/f13/ruins)
 "uHh" = (
 /turf/open/indestructible/ground/outside/sidewalkdirt{
 	icon_state = "horizontalbottomborderbottom2left"
@@ -65518,7 +65524,7 @@
 /turf/open/indestructible/ground/outside/baltimore{
 	icon_state = "road_center"
 	},
-/area/f13/wasteland/city)
+/area/f13/ruins)
 "xep" = (
 /obj/structure/statue/wood/headstonewood,
 /turf/open/floor/plating/dirt/dirt_maryland{
@@ -91904,8 +91910,8 @@ ror
 jIY
 pvQ
 qKA
-xrw
-oEs
+htC
+tpV
 rZy
 oEs
 oEs
