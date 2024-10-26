@@ -1709,6 +1709,7 @@
 	slowdown = ARMOR_SLOWDOWN_MEDIUM * ARMOR_SLOWDOWN_GLOBAL_MULT
 	armor = ARMOR_VALUE_MEDIUM
 	armor_tier_desc = ARMOR_CLOTHING_MEDIUM
+	clothing_flags = CUSHIONED_ARMOR
 	stiffness = MEDIUM_STIFFNESS
 
 ////////////////////////////
@@ -2311,6 +2312,7 @@
 	desc = "A custom version of the pre-war combat armor, slimmed down and minimalist for domestic S.W.A.T. teams."
 	icon_state = "armoralt"
 	item_state = "armoralt"
+	clothing_flags = CUSHIONED_ARMOR
 
 /obj/item/clothing/suit/armor/medium/combat/chinese
 	name = "chinese combat armor"
@@ -2635,6 +2637,7 @@
 	slowdown = ARMOR_SLOWDOWN_HEAVY * ARMOR_SLOWDOWN_GLOBAL_MULT
 	armor = ARMOR_VALUE_HEAVY
 	armor_tier_desc = ARMOR_CLOTHING_HEAVY
+	clothing_flags = CUSHIONED_ARMOR
 	stiffness = HEAVY_STIFFNESS
 
 /////////////////////
@@ -3093,6 +3096,7 @@
 	slowdown = ARMOR_SLOWDOWN_PA * ARMOR_SLOWDOWN_GLOBAL_MULT
 	armor = ARMOR_VALUE_PA
 	armor_tier_desc = ARMOR_CLOTHING_PA
+	clothing_flags = CUSHIONED_ARMOR
 	stiffness = MEDIUM_STIFFNESS
 
 /obj/item/clothing/suit/armor/power_armor/Initialize()
