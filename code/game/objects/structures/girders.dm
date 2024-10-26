@@ -63,7 +63,7 @@
 			to_chat(user, span_warning("There is already a false wall present!"))
 			return
 		if(obj_integrity < max_integrity)
-			to_chat(user, span_warning("You can't build a wall on a damaged girder!"))
+			to_chat(user, span_warning("You can't build a wall on a damaged girder! Pry it back into shape, first."))
 			return
 
 		if(istype(W, /obj/item/stack/rods))
