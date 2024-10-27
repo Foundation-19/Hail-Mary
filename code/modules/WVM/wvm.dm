@@ -742,7 +742,7 @@ GLOBAL_VAR_INIT(vendor_cash, 0)
 		new /datum/data/wasteland_equipment("Roman Helmet",		                /obj/item/clothing/head/helmet/roman/legionnaire, 								            	75),
 		new /datum/data/wasteland_equipment("Healing Poultice Box",		        /obj/item/storage/box/medicine/poultice5, 										            	30),
 		new /datum/data/wasteland_equipment("Lever Action Shotgun",		        /obj/item/gun/ballistic/shotgun/automatic/combat/shotgunlever/stock, 			                50),
-		new /datum/data/wasteland_equipment("Legion Heavy Axe",		            /obj/item/twohanded/legionaxe, 									        	                    75),
+		new /datum/data/wasteland_equipment("Legion Heavy Axe",		            /obj/item/twohanded/legionaxe, 									        	                    150),
 		new /datum/data/wasteland_equipment("Legion Lance",		                /obj/item/twohanded/spear/lance, 									                        	50),
 		new /datum/data/wasteland_equipment("Reinforced Bola",		            /obj/item/restraints/legcuffs/bola/tactical, 								                	100),
 		new /datum/data/wasteland_equipment("Golaith Power Fist",	            /obj/item/melee/powerfist/f13/goliath, 									                    	1000)
@@ -754,7 +754,7 @@ GLOBAL_VAR_INIT(vendor_cash, 0)
 		new /datum/data/wasteland_equipment("Roman Helmet",		                /obj/item/clothing/head/helmet/roman/legionnaire, 								            	75),
 		new /datum/data/wasteland_equipment("Healing Poultice Box",		        /obj/item/storage/box/medicine/poultice5, 										            	30),
 		new /datum/data/wasteland_equipment("Lever Action Shotgun",		        /obj/item/gun/ballistic/shotgun/automatic/combat/shotgunlever/stock, 			                50),
-		new /datum/data/wasteland_equipment("Legion Heavy Axe",		            /obj/item/twohanded/legionaxe, 									        	                    75),
+		new /datum/data/wasteland_equipment("Legion Heavy Axe",		            /obj/item/twohanded/legionaxe, 									        	                    150),
 		new /datum/data/wasteland_equipment("Legion Lance",		                /obj/item/twohanded/spear/lance, 									                        	50),
 		new /datum/data/wasteland_equipment("Reinforced Bola",		            /obj/item/restraints/legcuffs/bola/tactical, 								                	100),
 		new /datum/data/wasteland_equipment("Golaith Power Fist",	            /obj/item/melee/powerfist/f13/goliath, 									                    	1000)
