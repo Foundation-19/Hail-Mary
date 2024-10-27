@@ -594,7 +594,7 @@
 /turf/open/floor/plasteel/dark/telecomms/mainframe,
 /area/f13/underground/cave)
 "dH" = (
-/obj/structure/simple_door/bunker,
+/obj/structure/simple_door/repaired,
 /turf/open/floor/plating/rust,
 /area/f13/enclave)
 "dI" = (

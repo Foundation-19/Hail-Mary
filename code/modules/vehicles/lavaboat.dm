@@ -14,7 +14,7 @@
 	. = ..()
 	var/datum/component/riding/D = LoadComponent(/datum/component/riding)
 	D.keytype = /obj/item/oar
-	D.allowed_turf_typecache = typecacheof(/turf/open/pool,/turf/open/water)
+	D.allowed_turf_typecache = typecacheof(/turf/open/pool)
 
 /obj/item/oar
 	name = "oar"

@@ -6676,6 +6676,10 @@
 	sunlight_state = 1
 	},
 /area/f13/wasteland)
+"gmt" = (
+/obj/item/oar,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/ruins)
 "gnx" = (
 /turf/open/indestructible/ground/outside/savannah/topcenter,
 /area/f13/wasteland)
@@ -34896,7 +34900,7 @@ shO
 shO
 shO
 gLc
-tEl
+gmt
 dvo
 shO
 aBY
