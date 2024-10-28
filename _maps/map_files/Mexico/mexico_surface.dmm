@@ -403,6 +403,18 @@
 	dir = 8
 	},
 /area/f13/wasteland)
+"aAI" = (
+/obj/structure/chair/folding{
+	dir = 8
+	},
+/obj/machinery/light/small{
+	dir = 4;
+	name = "tan light fixture";
+	light_color = "#FFDDCC";
+	color = "#FFDDCC"
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/enclave)
 "aAS" = (
 /obj/item/kitchen/knife,
 /obj/structure/table/wood,
@@ -2804,12 +2816,6 @@
 "cQY" = (
 /turf/open/floor/wood_wide,
 /area/f13/legioncamp)
-"cRQ" = (
-/obj/mecha/combat/phazon/ncrtruck/mp/loaded{
-	dir = 8
-	},
-/turf/open/indestructible/ground/outside/desert,
-/area/f13/wasteland)
 "cSu" = (
 /obj/structure/destructible/tribal_torch/wall/lit{
 	dir = 4
@@ -3979,6 +3985,15 @@
 	},
 /turf/open/floor/wood_common,
 /area/f13/city)
+"dUg" = (
+/obj/effect/decal/marking{
+	icon_state = "doubleverticalcorroded"
+	},
+/obj/structure/car/rubbish3,
+/turf/open/indestructible/ground/outside/road{
+	icon_state = "horizontalinnermain1"
+	},
+/area/f13/wasteland)
 "dUD" = (
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/farmhouse)
@@ -9931,7 +9946,9 @@
 /turf/open/indestructible/ground/outside/ruins,
 /area/f13/outpost)
 "jDd" = (
-/obj/mecha/combat/phazon/buggy/loaded,
+/obj/mecha/combat/phazon/truckcaravan/loaded{
+	dir = 4
+	},
 /turf/open/indestructible/ground/outside/dirt/dark{
 	icon_state = "dirtfull_dark"
 	},
@@ -15770,17 +15787,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/carpet/arcade,
 /area/f13/city)
-"pkq" = (
-/obj/machinery/light/small{
-	dir = 8;
-	name = "tan light fixture";
-	light_color = "#FFDDCC";
-	color = "#FFDDCC"
-	},
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
-	icon_state = "bluerustysolid"
-	},
-/area/f13/enclave)
 "pkx" = (
 /obj/item/seeds/xander,
 /turf/open/floor/wood_common,
@@ -16533,6 +16539,19 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/wood_common,
 /area/f13/city)
+"pRL" = (
+/obj/structure/destructible/tribal_torch/wall/lit{
+	dir = 8
+	},
+/obj/structure/reagent_dispensers/fueltank/vehicle_gas_station{
+	icon_state = "vat";
+	name = "Gas Tank"
+	},
+/turf/open/floor/f13/wood{
+	sunlight_state = 1;
+	name = "Wooden docks"
+	},
+/area/f13/legioncamp)
 "pSi" = (
 /turf/open/indestructible/ground/outside/gravel,
 /area/f13/legion)
@@ -17511,6 +17530,15 @@
 	},
 /turf/closed/wall/f13/ruins,
 /area/f13/outpost)
+"qZe" = (
+/obj/machinery/door/unpowered/securedoor/legion{
+	req_access_txt = "123,273"
+	},
+/turf/open/floor/f13/wood{
+	sunlight_state = 1;
+	name = "Wooden docks"
+	},
+/area/f13/legioncamp)
 "qZr" = (
 /obj/effect/overlay/junk/shower{
 	dir = 8
@@ -17729,6 +17757,12 @@
 /area/f13/wasteland)
 "rkI" = (
 /obj/structure/chair/folding,
+/obj/machinery/light/small{
+	dir = 8;
+	name = "tan light fixture";
+	light_color = "#FFDDCC";
+	color = "#FFDDCC"
+	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "bluerustysolid"
 	},
@@ -19853,6 +19887,12 @@
 	dir = 1;
 	layer = 1
 	},
+/obj/machinery/light/small{
+	dir = 8;
+	name = "tan light fixture";
+	light_color = "#FFDDCC";
+	color = "#FFDDCC"
+	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "bluerustysolid"
 	},
@@ -20460,9 +20500,8 @@
 /area/f13/legioncamp)
 "tGU" = (
 /obj/structure/window/fulltile/ruins,
-/obj/structure/simple_door/tentflap_leather{
-	layer = 8;
-	pixel_y = -3
+/obj/structure/curtain{
+	color = "#5c131b"
 	},
 /turf/open/floor/wood_common/wood_common_dark,
 /area/f13/legioncamp)
@@ -20744,6 +20783,13 @@
 /obj/item/storage/money_stack/legion,
 /turf/open/floor/wood_common,
 /area/f13/legioncamp)
+"tVW" = (
+/obj/structure/car/rubbish2,
+/turf/open/indestructible/ground/outside/road{
+	icon_state = "horizontalbottombordertopleft";
+	dir = 8
+	},
+/area/f13/wasteland)
 "tWs" = (
 /obj/structure/chair/comfy/brown,
 /turf/open/floor/wood_mosaic{
@@ -20777,6 +20823,12 @@
 /obj/structure/fluff/beach_umbrella/security,
 /turf/open/indestructible/ground/outside/desert,
 /area/f13/wasteland)
+"tXR" = (
+/obj/structure/window/fulltile/ruins{
+	icon_state = "ruinswindowvertical"
+	},
+/turf/open/floor/wood_common,
+/area/f13/legioncamp)
 "tXZ" = (
 /mob/living/simple_animal/hostile/handy,
 /turf/open/indestructible/ground/outside/ruins,
@@ -20892,9 +20944,8 @@
 /area/f13/farmhouse)
 "uib" = (
 /obj/structure/window/fulltile/ruins,
-/obj/structure/simple_door/tentflap_leather{
-	layer = 8;
-	pixel_y = -3
+/obj/structure/curtain{
+	color = "#5c131b"
 	},
 /turf/open/floor/plasteel/f13/stone/rugged,
 /area/f13/legioncamp)
@@ -21415,8 +21466,6 @@
 /turf/open/floor/plasteel/f13/vault_floor/plating,
 /area/f13/enclave)
 "uIW" = (
-/obj/structure/simple_door/wood,
-/obj/structure/simple_door/wood,
 /obj/structure/simple_door/wood,
 /turf/open/floor/wood_wide,
 /area/f13/legioncamp)
@@ -21994,10 +22043,6 @@
 "voE" = (
 /obj/structure/window/fulltile/ruins,
 /obj/structure/spacevine,
-/obj/structure/simple_door/tentflap_leather{
-	layer = 8;
-	pixel_y = -3
-	},
 /turf/open/floor/wood_common/wood_common_dark,
 /area/f13/legioncamp)
 "voF" = (
@@ -25038,6 +25083,20 @@
 	icon_state = "verticalrightborderright2top"
 	},
 /area/f13/wasteland)
+"ylj" = (
+/obj/structure/destructible/tribal_torch/wall/lit{
+	dir = 4;
+	light_power = 0.8
+	},
+/obj/structure/reagent_dispensers/fueltank/vehicle_gas_station{
+	icon_state = "vat";
+	name = "Gas Tank"
+	},
+/turf/open/floor/f13/wood{
+	sunlight_state = 1;
+	name = "Wooden docks"
+	},
+/area/f13/legioncamp)
 "ylF" = (
 /turf/open/indestructible/ground/outside/desert,
 /area/f13/underground/cave)
@@ -25893,7 +25952,7 @@ sTZ
 rkI
 rPn
 cgl
-pkq
+rPn
 tfi
 sTZ
 cLO
@@ -26901,9 +26960,9 @@ deG
 sGE
 uTJ
 fKL
-fKL
+aAI
 deG
-fKL
+aAI
 fKL
 sTZ
 jmu
@@ -35824,7 +35883,7 @@ wsb
 wsb
 wsb
 wsb
-wsb
+oGc
 erN
 dai
 gUL
@@ -36615,20 +36674,20 @@ aMi
 wwe
 wwe
 gZs
-nIZ
-nIZ
-nIZ
-nIZ
-nIZ
-dFN
-dFN
-dFN
-dFN
-dFN
-dFN
-dFN
-dFN
-vKb
+wsb
+wsb
+wsb
+wsb
+wsb
+wsb
+wsb
+wsb
+wsb
+wsb
+oGc
+wsb
+wsb
+wsb
 wsb
 wsb
 wsb
@@ -36817,25 +36876,25 @@ ttx
 eKG
 eUL
 gZs
-dai
-dai
-dai
-dai
-dai
-dai
-dai
-dai
-dai
-dai
-dai
-dai
-dai
-noI
-dFN
-dFN
-dFN
-dFN
-dgF
+wsb
+wsb
+wsb
+wsb
+wsb
+wsb
+wsb
+wsb
+wsb
+wsb
+wsb
+wsb
+wsb
+wsb
+wsb
+wsb
+wsb
+wsb
+erN
 dai
 gUL
 wsb
@@ -37019,25 +37078,25 @@ ftF
 ftF
 xNl
 gZs
-gMj
-gMj
-gMj
-gMj
-gMj
-gMj
-gMj
-gMj
-gMj
-gMj
-gMj
-gMj
-gMj
-gMj
-gMj
-gMj
-gMj
-gMj
-dai
+wsb
+wsb
+wsb
+wsb
+wsb
+wsb
+wsb
+wsb
+wsb
+wsb
+wsb
+wsb
+wsb
+wsb
+wsb
+wsb
+wsb
+wsb
+erN
 dai
 gUL
 wsb
@@ -37221,25 +37280,25 @@ aMi
 dxW
 kPI
 gZs
-wfm
-wfm
-wfm
-wfm
-wfm
-wfm
-wfm
-wfm
-wfm
-wfm
-wfm
-wfm
-wfm
-wfm
-wfm
-wfm
-wfm
-wfm
-qba
+wsb
+wsb
+wsb
+wsb
+wsb
+wsb
+wsb
+wsb
+wsb
+wsb
+wsb
+wsb
+wsb
+wsb
+wsb
+wsb
+wsb
+wsb
+erN
 dai
 noI
 jQB
@@ -37423,20 +37482,20 @@ gZs
 gZs
 gZs
 gZs
-wsb
-wsb
-wsb
-wsb
-wsb
-wsb
-wsb
-wsb
-wsb
-wsb
-wsb
-wsb
-wsb
-wsb
+nIZ
+jBY
+tVW
+nIZ
+nIZ
+dFN
+dFN
+dFN
+dFN
+dFN
+dFN
+dFN
+dFN
+vKb
 wsb
 wsb
 wsb
@@ -37625,25 +37684,25 @@ dai
 owB
 dai
 dai
-wsb
-wsb
-wsb
-wsb
-wsb
-wsb
-wsb
-wsb
-wsb
-wsb
-wsb
-wsb
-wsb
-wsb
-wsb
-wsb
-wsb
-wsb
-erN
+dai
+dai
+dai
+dai
+dai
+dai
+dai
+dai
+dai
+dai
+dai
+dai
+dai
+noI
+dFN
+dFN
+dFN
+dFN
+dgF
 dai
 dai
 rfI
@@ -37827,25 +37886,25 @@ dai
 dai
 gMj
 gMj
-wsb
-wsb
-wsb
-wsb
-wsb
-wsb
-wsb
-wsb
-wsb
-gxP
-wsb
-wsb
-wsb
-wsb
-wsb
-wsb
-wsb
-wsb
-erN
+gMj
+gMj
+gMj
+gMj
+gMj
+gMj
+gMj
+gMj
+gMj
+gMj
+gMj
+gMj
+gMj
+gMj
+gMj
+gMj
+gMj
+dUg
+dai
 dai
 dai
 gUL
@@ -38029,25 +38088,25 @@ dai
 dai
 wfm
 wfm
-wsb
-wsb
-wsb
-wsb
-qvP
-wsb
-wsb
-wsb
-wsb
-wsb
-oGc
-wsb
-wsb
-wsb
-qvP
-wsb
-wsb
-wsb
-erN
+wfm
+wfm
+wfm
+wfm
+wfm
+wfm
+wfm
+wfm
+wfm
+wfm
+wfm
+wfm
+wfm
+wfm
+wfm
+wfm
+wfm
+wfm
+qba
 dai
 dai
 gUL
@@ -39043,7 +39102,7 @@ wsb
 oGc
 wsb
 wsb
-wsb
+oGc
 wsb
 wsb
 wsb
@@ -50014,8 +50073,8 @@ kYJ
 qyr
 qyr
 qyr
-qyr
-qyr
+tXR
+tXR
 qyr
 qyr
 ewu
@@ -52678,7 +52737,7 @@ oAW
 oAW
 oAW
 oAW
-bzK
+qZe
 oAW
 jCG
 oww
@@ -52689,11 +52748,11 @@ wcM
 wMH
 oDZ
 qyr
-uYY
+pRL
 pPR
 ppJ
 uYY
-bzK
+qZe
 wsb
 iIU
 gcc
@@ -53291,7 +53350,7 @@ kri
 grK
 kri
 grK
-bzK
+qZe
 kri
 kri
 grK
@@ -53894,13 +53953,13 @@ rqb
 eRO
 ewu
 ewu
-bzK
+qZe
 oAW
 evp
 oAW
 ycJ
 oAW
-bzK
+qZe
 esW
 oZA
 aCd
@@ -54096,7 +54155,7 @@ wyP
 eRO
 ewu
 ewu
-bzK
+qZe
 oAW
 oAW
 oAW
@@ -55517,7 +55576,7 @@ gGD
 gGD
 gGD
 grK
-muf
+ylj
 oAW
 nIF
 muf
@@ -57995,7 +58054,7 @@ mLg
 gvb
 wsb
 wsb
-cRQ
+wsb
 eLS
 paW
 xuV
