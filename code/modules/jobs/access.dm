@@ -451,6 +451,78 @@
 		if(ACCESS_SECURITY)
 			return "Security"
 
+/* Town */
+/proc/get_all_town_access()
+	return list(
+				ACCESS_TOWN, ACCESS_TOWN_CIV, ACCESS_TOWN_BAR,
+				ACCESS_TOWN_MERCH, ACCESS_TOWN_DOC, ACCESS_TOWN_CMO,
+				ACCESS_TOWN_SCIENCE, ACCESS_TOWN_RADIO, ACCESS_TOWN_COMMAND,
+				)
+/proc/get_town_access_desc(A)
+	switch(A)
+		if(ACCESS_TOWN)
+			return "Basic town access"
+		if(ACCESS_TOWN_CIV)
+			return "Citizen access"
+		if(ACCESS_TOWN_BAR)
+			return "Bar access"
+		if(ACCESS_TOWN_MERCH)
+			return "Trade access"
+		if(ACCESS_TOWN_DOC)
+			return "Clinic access"
+		if(ACCESS_TOWN_CMO)
+			return "Chief clinic access"
+		if(ACCESS_TOWN_RADIO)
+			return "Radio access"
+		if(ACCESS_TOWN_SCIENCE)
+			return "Legacy Science Access"
+		if(ACCESS_TOWN_COMMAND)
+			return "Mayoral Access"
+
+/* Locust */
+/proc/get_all_locust_access()
+	return list(
+				ACCESS_BAR,ACCESS_KITCHEN, ACCESS_TOWN, ACCESS_TOWN_CIV,
+				ACCESS_CARGO_BOT, ACCESS_TOWN_MERCH, ACCESS_EVA,
+				ACCESS_TOWN_SEC,
+				)
+
+/proc/get_locust_access_desc(A)
+	switch(A)
+		if(ACCESS_TOWN)
+			return "Basic town access"
+		if(ACCESS_TOWN_CIV)
+			return "Citizen access"
+		if(ACCESS_BAR)
+			return "Bar access"
+		if(ACCESS_KITCHEN)
+			return "Kitchen access"
+		if(ACCESS_TOWN_MERCH)
+			return "Trade access"
+		if(ACCESS_CARGO_BOT)
+			return "Lagacy cargo access"
+		if(ACCESS_TOWN_CMO)
+			return "Chief clinic access"
+		if(ACCESS_EVA)
+			return "Airpoint access"
+		if(ACCESS_TOWN_SEC)
+			return "Police access"
+
+/* Sheriff */
+/proc/get_all_sheriff_access()
+	return list(
+				ACCESS_TOWN_SEC,ACCESS_TOWN_HOS,ACCESS_TOWN_COMMAND,
+				)
+
+/proc/get_sheriff_access_desc(A)
+	switch(A)
+		if(ACCESS_TOWN_SEC)
+			return "Deputy access"
+		if(ACCESS_TOWN_HOS)
+			return "Sheriff access"
+		if(ACCESS_TOWN_COMMAND)
+			return "Mayoral Access"
+
 /proc/get_all_jobs()
 	return list("Centurion", "NCR Captain", "Overseer", "Sheriff",
 				"Sentinel", "Senior Paladin", "Paladin", "Knight-Captain", "Senior Knight", "Knight", "Head Scribe", "Senior Scribe", "Scribe", "Initiate", "Knight Sergeant",

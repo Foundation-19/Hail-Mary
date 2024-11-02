@@ -6420,6 +6420,9 @@
 /obj/structure/sign/poster/official/fruit_bowl{
 	pixel_x = -32
 	},
+/obj/machinery/computer/card/town/locust{
+	dir = 4
+	},
 /turf/open/floor/wood_common/wood_common_light,
 /area/f13/office)
 "fVk" = (
