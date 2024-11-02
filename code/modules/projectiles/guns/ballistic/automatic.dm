@@ -572,7 +572,7 @@
 	name = "MP-5 SD"
 	desc = "An integrally suppressed submachinegun chambered in 9mm."
 	icon_state = "mp5"
-	item_state = "fnfal"
+	item_state = "mp5"
 	mag_type = /obj/item/ammo_box/magazine/uzim9mm
 	init_mag_type = /obj/item/ammo_box/magazine/uzim9mm
 	weapon_class = WEAPON_CLASS_CARBINE
