@@ -37,7 +37,7 @@
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/tesla_energy_relay(src)
 	ME.attach(src)
-	ME = new /obj/item/mecha_parts/mecha_equipment/antiproj_armor_booster(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/armor/antiproj_armor_booster(src)
 	ME.attach(src)
 	max_ammo()
 
@@ -52,7 +52,10 @@
 	wreckage = /obj/structure/mecha_wreckage/seraph
 	internal_damage_threshold = 20
 	force = 65
-	max_equip = 5
+
+	max_weapons_equip = 3
+	max_utility_equip = 2
+	max_misc_equip = 2
 
 /obj/mecha/combat/marauder/seraph/Initialize()
 	. = ..()
@@ -65,7 +68,7 @@
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/tesla_energy_relay(src)
 	ME.attach(src)
-	ME = new /obj/item/mecha_parts/mecha_equipment/antiproj_armor_booster(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/armor/antiproj_armor_booster(src)
 	ME.attach(src)
 	max_ammo()
 
@@ -74,7 +77,11 @@
 	name = "\improper Mauler"
 	icon_state = "mauler"
 	wreckage = /obj/structure/mecha_wreckage/mauler
-	max_equip = 5
+
+	max_weapons_equip = 3
+	max_utility_equip = 2
+	max_misc_equip = 2
+
 
 /obj/mecha/combat/marauder/mauler/loaded/Initialize()
 	. = ..()
@@ -86,7 +93,7 @@
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/tesla_energy_relay(src)
 	ME.attach(src)
-	ME = new /obj/item/mecha_parts/mecha_equipment/antiproj_armor_booster(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/armor/antiproj_armor_booster(src)
 	ME.attach(src)
 	max_ammo()
 

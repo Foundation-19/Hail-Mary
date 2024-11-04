@@ -45,7 +45,7 @@
 	move_resist = MOVE_FORCE_EXTREMELY_STRONG
 	light_range = 9
 	var/deflect_chance = 10 //chance to deflect the incoming projectiles, hits, or lesser the effect of ex_act.
-	armor = ARMOR_VALUE_HEAVY
+	armor = ARMOR_VALUE_VEHICLE_MEDIUM
 	var/list/facing_modifiers = list(FRONT_ARMOUR = 1.5, SIDE_ARMOUR = 1, BACK_ARMOUR = 0.5)
 	//var/obj/item/stock_parts/cell/cell
 	var/obj/item/reagent_containers/fuel_tank/fuel_holder
@@ -88,12 +88,27 @@
 
 	var/wreckage
 
+	var/move_power_drain = 0
+
 	var/canZmove = TRUE
 
 	var/list/equipment = new
 	var/obj/item/mecha_parts/mecha_equipment/selected
-	var/max_equip = 3
 	var/datum/events/events
+
+	var/max_utility_equip = 3 // Seats, clamps, etc.
+	var/max_weapons_equip = 1 // Weapons, duh.
+	var/max_misc_equip = 1 // Anything that isn't a utility or a weapon.
+
+	var/list/weapon_equipment = new
+	var/list/utility_equipment = new
+	var/list/misc_equipment = new
+
+	var/list/cargo = new
+	var/cargo_capacity = 0 // for now, copy attributes from ripley so don't have to remap // lazy
+
+	/// a list of all vision traits to give to the occupant.
+	var/list/vision_modes = list()
 
 	var/stepsound = 'sound/mecha/mechstep.ogg'
 	var/turnsound = 'sound/mecha/mechturn.ogg'
@@ -182,6 +197,20 @@
 	diag_hud_set_mechcell()
 	diag_hud_set_mechstat()
 
+/obj/mecha/proc/grant_vision()
+	if(!occupant)
+		return
+	for(var/mode in vision_modes)
+		ADD_TRAIT(occupant, mode, TRAIT_GENERIC)
+	occupant.update_sight()
+
+/obj/mecha/proc/remove_vision()
+	if(!occupant)
+		return
+	for(var/mode in vision_modes)
+		REMOVE_TRAIT(occupant, mode, TRAIT_GENERIC)
+	occupant.update_sight()
+
 /obj/mecha/attacked_by(obj/item/I, mob/living/user, attackchain_flags, damage_multiplier)
 	if(istype(I, /obj/item/reagent_containers) && fuel_holder)
 		var/obj/item/reagent_containers/c = I
@@ -189,17 +218,18 @@
 			c.reagents.trans_id_to(fuel_holder, /datum/reagent/fuel, min((fuel_holder.volume - fuel_holder.reagents.total_volume), c.amount_per_transfer_from_this))
 			return TRUE
 	. = ..()
-	
+
 
 /obj/mecha/proc/get_fuel_tank()
 	return fuel_holder
 
 /obj/mecha/rust_heretic_act()
-	take_damage(50,  BRUTE)
+	take_damage(50, BRUTE)
 
 /obj/mecha/Destroy()
 	if(occupant)
 		occupant.SetSleeping(destruction_sleep_duration)
+		remove_vision()
 	go_out()
 	var/mob/living/silicon/ai/AI
 	for(var/mob/M in src) //Let's just be ultra sure
@@ -213,7 +243,7 @@
 			explosion(get_turf(src), 0, 1, 2, 3)
 		var/obj/structure/mecha_wreckage/WR = new wreckage(loc, AI)
 		for(var/obj/item/mecha_parts/mecha_equipment/E in equipment)
-			if(E.salvageable && prob(30))
+			if(E.salvageable)
 				WR.crowbar_salvage += E
 				E.detach(WR) //detaches from src into WR
 				E.equip_ready = 1
@@ -227,6 +257,7 @@
 		if(internal_tank)
 			WR.crowbar_salvage += internal_tank
 			internal_tank.forceMove(WR)
+
 	else
 		for(var/obj/item/mecha_parts/mecha_equipment/E in equipment)
 			E.detach(loc)
@@ -237,6 +268,12 @@
 			qdel(internal_tank)
 		if(AI)
 			AI.gib() //No wreck, no AI to recover
+
+		for(var/atom/movable/A in cargo)
+			A.forceMove(drop_location())
+			step_rand(A)
+			cargo.Cut()
+
 	STOP_PROCESSING(SSobj, src)
 	GLOB.poi_list.Remove(src)
 	equipment.Cut()
@@ -593,7 +630,7 @@
 		set_glide_size(DELAY_TO_GLIDE_SIZE(step_in))
 		move_result = mechstep(direction)
 	if(move_result || loc != oldloc)// halfway done diagonal move still returns false
-		use_power(step_energy_drain)
+		use_power(step_energy_drain + move_power_drain)
 		can_move = world.time + step_in
 		return 1
 	return 0
@@ -701,7 +738,7 @@
 	if(prob(5))
 		if(ignore_threshold || obj_integrity*100/max_integrity < internal_damage_threshold)
 			var/obj/item/mecha_parts/mecha_equipment/ME = safepick(equipment)
-			if(ME)
+			if(ME && ME.detachable)
 				qdel(ME)
 	return
 
@@ -946,6 +983,7 @@
 		H.update_mouse_pointer()
 		add_fingerprint(H)
 		GrantActions(H, human_occupant=1)
+		grant_vision()
 		forceMove(loc)
 		log_append_to_last("[H] moved in as pilot.")
 		icon_state = initial(icon_state)
@@ -1009,6 +1047,7 @@
 	if(!internal_damage)
 		SEND_SOUND(occupant, sound('sound/mecha/nominal.ogg',volume=50))
 	GrantActions(brainmob)
+	grant_vision()
 	return TRUE
 
 /obj/mecha/container_resist(mob/living/user)
@@ -1023,6 +1062,7 @@
 /obj/mecha/proc/go_out(forced, atom/newloc = loc)
 	if(!occupant)
 		return
+	remove_vision()
 	var/atom/movable/mob_container
 	occupant.clear_alert("charge")
 	occupant.clear_alert("mech damage")
@@ -1194,3 +1234,26 @@
 		else
 			to_chat(user, "<span class='notice'>None of the equipment on this exosuit can use this ammo!</span>")
 	return FALSE
+
+/obj/mecha/Exit(atom/movable/O)
+	if(O in cargo)
+		return 0
+	return ..()
+
+/obj/mecha/relay_container_resist(mob/living/user, obj/O)
+	to_chat(user, span_notice("You lean on the back of [O] and start pushing so it falls out of [src]."))
+	if(do_after(user, 300, target = O))
+		if(!user || user.stat != CONSCIOUS || user.loc != src || O.loc != src )
+			return
+		to_chat(user, span_notice("You successfully pushed [O] out of [src]!"))
+		O.forceMove(drop_location())
+		cargo -= O
+	else
+		if(user.loc == src) //so we don't get the message if we resisted multiple times and succeeded.
+			to_chat(user, span_warning("You fail to push [O] out of [src]!"))
+
+/obj/mecha/proc/max_ammo() //Max the ammo stored for Nuke Ops mechs, or anyone else that calls this
+	for(var/obj/item/I in equipment)
+		if(istype(I, /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/))
+			var/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/gun = I
+			gun.projectiles_cache = gun.projectiles_cache_max
