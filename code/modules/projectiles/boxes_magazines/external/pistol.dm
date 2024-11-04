@@ -126,6 +126,19 @@
 /obj/item/ammo_box/magazine/m10mm/adv/ext/empty
 	start_empty = 1
 
+//10mm drum
+/obj/item/ammo_box/magazine/m10mm/adv/drum
+	name = "10mm drum magazine (10mm)"
+	icon_state = "drum10mm"
+	ammo_type = /obj/item/ammo_casing/c10mm
+	max_ammo = 48
+	multiple_sprites = 2
+	custom_materials = list(/datum/material/iron = MATS_SMG)
+	w_class = WEIGHT_CLASS_NORMAL
+
+/obj/item/ammo_box/magazine/m10mm/adv/drum/empty
+	start_empty = 1
+
 //.45
 /obj/item/ammo_box/magazine/m45
 	name = "handgun magazine (.45)"
