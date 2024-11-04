@@ -1225,6 +1225,11 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating/tunnel,
 /area/f13/tunnel)
+"beQ" = (
+/obj/item/clothing/under/f13/ncr_formal_uniform,
+/obj/item/clothing/under/f13/ncr_female_officer,
+/turf/open/floor/f13/wood,
+/area/f13/ncr)
 "bgb" = (
 /obj/effect/spawner/lootdrop/f13/junkspawners,
 /obj/effect/decal/cleanable/dirt{
@@ -1428,6 +1433,11 @@
 /obj/structure/flora/junglebush/large,
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/caves)
+"bne" = (
+/obj/structure/table,
+/obj/item/clothing/head/f13/ncr/steelpot_bandolier,
+/turf/open/floor/carpet/orange,
+/area/f13/ncr)
 "bnp" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/paper/crumpled,
@@ -5916,6 +5926,13 @@
 /area/f13/radiation)
 "crR" = (
 /obj/machinery/light/small,
+/obj/structure/rack/large/shelf_rust,
+/obj/item/storage/survivalkit/empty,
+/obj/item/storage/survivalkit/empty,
+/obj/item/storage/survivalkit/empty,
+/obj/item/storage/survivalkit/empty,
+/obj/item/storage/survivalkit/empty,
+/obj/item/storage/survivalkit/empty,
 /turf/open/floor/f13/wood,
 /area/f13/ncr)
 "crT" = (
@@ -7259,6 +7276,7 @@
 /area/f13/tunnel)
 "dFw" = (
 /obj/structure/closet/crate/large,
+/obj/structure/nest/supermutant/nightkin,
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/radiation)
 "dFD" = (
@@ -7949,6 +7967,10 @@
 /obj/structure/reagent_dispensers/barrel/explosive,
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/caves)
+"eju" = (
+/obj/effect/landmark/start/f13/ncrcolonel,
+/turf/open/floor/plasteel/f13/vault_floor/dark,
+/area/f13/ncr)
 "ejI" = (
 /turf/open/indestructible/ground/inside/subway{
 	name = "stone floor"
@@ -11820,10 +11842,6 @@
 	icon_state = "darkrustysolid"
 	},
 /area/f13/tunnel)
-"hMX" = (
-/mob/living/simple_animal/hostile/supermutant/meleemutant/rain,
-/turf/open/indestructible/ground/inside/mountain,
-/area/f13/radiation)
 "hNr" = (
 /obj/effect/turf_decal/weather/dirt,
 /obj/effect/spawner/lootdrop/f13/junkspawners,
@@ -12786,10 +12804,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/f13/vault_floor/yellow,
 /area/f13/tunnel)
-"iIE" = (
-/obj/structure/nest/supermutant/nightkin,
-/turf/open/indestructible/ground/inside/mountain,
-/area/f13/radiation)
 "iIF" = (
 /mob/living/simple_animal/bot/cleanbot,
 /obj/machinery/light/small/broken,
@@ -13495,6 +13509,19 @@
 /obj/item/clothing/head/hardhat,
 /turf/open/floor/plasteel/f13/vault_floor/floor,
 /area/f13/building/museum)
+"jtP" = (
+/obj/structure/closet/crate/footlocker{
+	anchored = 1;
+	density = 0
+	},
+/obj/item/clothing/under/f13/ncr/ncr_dress,
+/obj/item/clothing/under/f13/ncr/conscript,
+/obj/item/clothing/under/f13/ncr,
+/obj/item/clothing/suit/armor/ncrarmor/ncr_dressjack,
+/obj/item/clothing/head/f13/ncr/ncr_flapcap,
+/obj/item/clothing/head/f13/ncr/ncr_cap,
+/turf/open/floor/f13/wood,
+/area/f13/ncr)
 "jtZ" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/darkpurple/side{
@@ -13629,10 +13656,6 @@
 	throw_range = 9
 	},
 /turf/open/indestructible/ground/inside/subway,
-/area/f13/bunker)
-"jAf" = (
-/mob/living/simple_animal/hostile/supermutant/meleemutant/rain,
-/turf/open/indestructible/ground/inside/mountain,
 /area/f13/bunker)
 "jBq" = (
 /obj/effect/turf_decal/stripes/line,
@@ -15442,6 +15465,11 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/indestructible/ground/inside/subway,
 /area/f13/radiation)
+"lkE" = (
+/obj/structure/table,
+/obj/item/clothing/head/f13/ncr/steelpot_gambler,
+/turf/open/floor/carpet/orange,
+/area/f13/ncr)
 "lkI" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/broken,
@@ -16888,10 +16916,6 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/red,
 /area/f13/caves)
-"mAw" = (
-/mob/living/simple_animal/hostile/supermutant/nightkin/rain,
-/turf/open/indestructible/ground/inside/mountain,
-/area/f13/bunker)
 "mAz" = (
 /obj/structure/destructible/tribal_torch/wall/lit{
 	dir = 4
@@ -17234,6 +17258,14 @@
 /obj/structure/wreck/trash/five_tires,
 /turf/open/floor/plasteel/f13/vault_floor/floor,
 /area/f13/caves)
+"mSM" = (
+/obj/structure/destructible/tribal_torch/wall/lit{
+	dir = 1;
+	pixel_y = 12
+	},
+/mob/living/simple_animal/hostile/ghoul/scorched/ranged,
+/turf/open/indestructible/ground/inside/mountain,
+/area/f13/bunker)
 "mTh" = (
 /obj/machinery/door/window/brigdoor/security/cell/left/directional/north{
 	dir = 4
@@ -17288,6 +17320,17 @@
 /obj/item/clothing/glasses/regular,
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/tunnel)
+"mVz" = (
+/obj/structure/closet/crate/footlocker{
+	anchored = 1;
+	density = 0
+	},
+/obj/item/clothing/under/f13/ranger/trail,
+/obj/item/clothing/under/f13/ranger/patrol,
+/obj/item/clothing/under/f13/ranger/modif_ranger,
+/obj/item/clothing/under/f13/ranger/blue,
+/turf/open/floor/f13/wood,
+/area/f13/ncr)
 "mVE" = (
 /turf/open/floor/f13/wood,
 /area/f13/tunnel)
@@ -17953,9 +17996,7 @@
 /turf/open/indestructible/ground/inside/subway,
 /area/f13/caves)
 "nCi" = (
-/obj/structure/chair/f13chair1{
-	pixel_x = 10
-	},
+/obj/structure/chair/folding,
 /turf/open/floor/carpet/orange,
 /area/f13/ncr)
 "nCn" = (
@@ -21172,10 +21213,6 @@
 /obj/item/stack/ore/blackpowder/five,
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/caves)
-"qxq" = (
-/mob/living/simple_animal/hostile/supermutant/rangedmutant/rain,
-/turf/open/indestructible/ground/inside/mountain,
-/area/f13/radiation)
 "qxZ" = (
 /obj/structure/chair/booth{
 	icon_state = "booth_north_middle"
@@ -21574,6 +21611,48 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/f13/vault_floor/yellow/whiteyellowfull,
 /area/f13/bunker)
+"qSe" = (
+/obj/structure/rack/shelf_metal,
+/obj/item/clothing/under/f13/ncr,
+/obj/item/clothing/under/f13/ncr,
+/obj/item/clothing/under/f13/ncr,
+/obj/item/clothing/under/f13/ncr,
+/obj/item/clothing/under/f13/ncr,
+/obj/item/clothing/under/f13/ncr/conscript,
+/obj/item/clothing/under/f13/ncr/conscript,
+/obj/item/clothing/under/f13/ncr/conscript,
+/obj/item/clothing/under/f13/ncr/conscript,
+/obj/item/clothing/under/f13/ncr/conscript,
+/obj/item/clothing/under/f13/ncr/ncr_dress,
+/obj/item/clothing/under/f13/ncr/ncr_dress,
+/obj/item/clothing/under/f13/ncr/ncr_dress,
+/obj/item/clothing/under/f13/ncr/ncr_dress,
+/obj/item/clothing/under/f13/ncr/ncr_dress,
+/obj/item/clothing/under/f13/ncr/ncr_dress,
+/obj/item/clothing/under/f13/ncr/ncr_officer,
+/obj/item/clothing/under/f13/ncr/ncr_officer,
+/obj/item/clothing/under/f13/ncr/ncr_officer,
+/obj/item/clothing/under/f13/ncr/ncr_officer,
+/obj/item/clothing/under/f13/ncr/ncr_officer,
+/obj/item/clothing/under/f13/ncr/ncr_officer,
+/obj/item/clothing/under/f13/ncr/ncr_officer,
+/obj/item/clothing/under/f13/ncr/ncr_shorts,
+/obj/item/clothing/under/f13/ncr/ncr_shorts,
+/obj/item/clothing/under/f13/ncr/ncr_shorts,
+/obj/item/clothing/under/f13/ncr/ncr_shorts,
+/obj/item/clothing/under/f13/ncr/ncr_shorts,
+/obj/item/clothing/under/f13/ncr/ncr_shorts,
+/obj/item/clothing/under/f13/ncr/ncr_shorts,
+/obj/item/clothing/under/f13/ncr/pants,
+/obj/item/clothing/under/f13/ncr/pants,
+/obj/item/clothing/under/f13/ncr/pants,
+/obj/item/clothing/under/f13/ncr/pants,
+/obj/item/clothing/under/f13/ncr/pants,
+/obj/item/clothing/under/f13/ncr/pants,
+/obj/item/clothing/under/f13/ncr/pants,
+/obj/item/clothing/under/f13/ncr/pants,
+/turf/open/floor/f13/wood,
+/area/f13/ncr)
 "qSB" = (
 /obj/structure/curtain{
 	color = "#845f58"
@@ -21843,6 +21922,12 @@
 /area/f13/tunnel)
 "rgC" = (
 /obj/effect/gibspawner/human/bodypartless,
+/turf/open/indestructible/ground/inside/mountain,
+/area/f13/bunker)
+"rhj" = (
+/obj/structure/rack,
+/obj/effect/spawner/lootdrop/f13/foodspawner,
+/mob/living/simple_animal/hostile/ghoul/scorched/ranged,
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/bunker)
 "rhq" = (
@@ -24942,10 +25027,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/water,
 /area/f13/bunker)
-"ueB" = (
-/mob/living/simple_animal/hostile/supermutant/nightkin/elitemutant/rain,
-/turf/open/indestructible/ground/inside/mountain,
-/area/f13/bunker)
 "ueN" = (
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/enclave)
@@ -25876,6 +25957,10 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/dark/darksolid,
 /area/f13/caves)
+"uWS" = (
+/mob/living/simple_animal/hostile/ghoul/soldier,
+/turf/open/indestructible/ground/inside/mountain,
+/area/f13/bunker)
 "uXj" = (
 /obj/structure/lattice/catwalk,
 /turf/closed/wall/rust,
@@ -28388,6 +28473,11 @@
 /obj/effect/spawner/lootdrop/f13/weapon/melee/random,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/bunker)
+"xos" = (
+/obj/structure/table/glass,
+/obj/item/reagent_containers/food/drinks/bottle/hooch,
+/turf/open/floor/carpet/royalblack,
+/area/f13/ncr)
 "xpg" = (
 /obj/effect/turf_decal/weather/dirt{
 	dir = 6
@@ -28512,6 +28602,12 @@
 "xwF" = (
 /turf/closed/mineral/random/low_chance/underground,
 /area/f13/caves)
+"xwL" = (
+/obj/structure/table,
+/obj/item/clothing/under/f13/ncr/torn,
+/obj/item/clothing/head/f13/ncr/ncr_campaign,
+/turf/open/floor/f13/wood,
+/area/f13/ncr)
 "xxp" = (
 /obj/structure/chair/wood,
 /turf/open/floor/f13/wood,
@@ -39009,13 +39105,13 @@ aaa
 (38,1,1) = {"
 aaa
 rJB
-bzD
+mVz
 cHj
-bzD
+mVz
 cHj
-bzD
+mVz
 cHj
-bzD
+mVz
 gZX
 gRk
 nOS
@@ -39780,13 +39876,13 @@ aaa
 (41,1,1) = {"
 aaa
 rJB
-bzD
+mVz
 cHj
-bzD
+mVz
 cHj
-bzD
+mVz
 cHj
-bzD
+mVz
 oGV
 gRk
 nOS
@@ -39794,7 +39890,7 @@ rJB
 uxw
 bzD
 vaz
-bzD
+dIl
 rJB
 aae
 aak
@@ -40051,7 +40147,7 @@ rJB
 uiP
 tRD
 bzD
-bzD
+mVz
 rJB
 aae
 aak
@@ -40558,13 +40654,13 @@ rJB
 aJb
 aJb
 rJB
-gRk
+eju
 gRk
 gRk
 rJB
 xAo
 bzD
-oie
+xos
 vMn
 rJB
 aae
@@ -41849,8 +41945,8 @@ gRk
 nyJ
 bzD
 bzD
-nCi
-bPc
+rbF
+bne
 rJB
 aae
 aae
@@ -42106,8 +42202,8 @@ gRk
 rJB
 xAo
 bzD
-rbF
-bPc
+nCi
+lkE
 rJB
 aae
 aae
@@ -42619,9 +42715,9 @@ gRk
 gRk
 rJB
 ljU
-tRD
+xwL
 bzD
-bzD
+beQ
 rJB
 aae
 aae
@@ -42864,13 +42960,13 @@ aaa
 (53,1,1) = {"
 aaa
 rJB
-bzD
+jtP
 lcq
-bzD
+jtP
 uMO
-bzD
+jtP
 lcq
-bzD
+jtP
 gZX
 gRk
 nOS
@@ -42878,7 +42974,7 @@ rJB
 qYb
 qFM
 bzD
-bzD
+qSe
 rJB
 aae
 aae
@@ -43635,13 +43731,13 @@ aaa
 (56,1,1) = {"
 aaa
 rJB
-bzD
+jtP
 lcq
-bzD
+jtP
 lcq
-bzD
+jtP
 lcq
-bzD
+jtP
 oGV
 gRk
 nOS
@@ -86187,7 +86283,7 @@ cQm
 xWj
 aae
 xWj
-hMX
+bKP
 bKP
 xWj
 nXx
@@ -87216,7 +87312,7 @@ xWj
 xWj
 xWj
 aul
-aul
+uip
 xWj
 wfG
 nXx
@@ -87467,7 +87563,7 @@ bsC
 aaa
 xWj
 wfG
-mAw
+aul
 sWA
 aul
 xWj
@@ -87726,7 +87822,7 @@ xWj
 aul
 aul
 xWj
-mAw
+aul
 xWj
 xWj
 aul
@@ -87986,7 +88082,7 @@ xWj
 aul
 xWj
 xWj
-jAf
+aul
 hwO
 xWj
 lpJ
@@ -89014,8 +89110,8 @@ alR
 rpz
 aul
 xWj
-aul
-aul
+cph
+cph
 xWj
 aae
 aae
@@ -89269,7 +89365,7 @@ aae
 xWj
 gAn
 diT
-mAw
+aul
 xWj
 sWS
 aul
@@ -89776,8 +89872,8 @@ xWj
 aul
 aul
 bNm
-qxq
-aul
+bKP
+uip
 xWj
 aae
 xWj
@@ -90033,8 +90129,8 @@ xWj
 aul
 aul
 bKP
-bKP
-aul
+dEs
+uip
 xWj
 aae
 xWj
@@ -90793,7 +90889,7 @@ aEb
 aul
 rgC
 aul
-aul
+cph
 aul
 oAd
 xWj
@@ -90809,11 +90905,11 @@ aul
 fIE
 aul
 aul
-aul
+cph
 aul
 aul
 fIE
-jAf
+aul
 aul
 xWj
 aae
@@ -91048,7 +91144,7 @@ xuN
 rgC
 kSW
 aul
-ueB
+aul
 sxV
 aul
 rgC
@@ -91066,7 +91162,7 @@ aul
 aul
 pnL
 aul
-aul
+pFA
 aul
 lpJ
 aul
@@ -91306,9 +91402,9 @@ aul
 aEb
 aul
 aul
-sxV
+rhj
+uip
 aul
-ueB
 jKh
 xWj
 xWj
@@ -91320,14 +91416,14 @@ aae
 aae
 xWj
 aul
-jAf
+aul
 xWj
 xWj
 xWj
 xWj
 xWj
 sWS
-aul
+cph
 aul
 xWj
 aae
@@ -91563,9 +91659,9 @@ aEb
 aEb
 aEb
 aul
-sxV
+rhj
 aul
-aul
+pFA
 jKh
 xWj
 aae
@@ -91585,7 +91681,7 @@ aae
 xWj
 aul
 aul
-aul
+pFA
 xWj
 aae
 aae
@@ -91820,7 +91916,7 @@ rgC
 jIq
 aEb
 aul
-aul
+cph
 aul
 aul
 omn
@@ -91842,7 +91938,7 @@ aae
 xWj
 aul
 aul
-jAf
+aul
 xWj
 xWj
 xWj
@@ -92076,10 +92172,10 @@ lTz
 aul
 aul
 aEb
-ueB
+cph
 aul
 rgC
-mAw
+aul
 sTz
 xWj
 aae
@@ -92090,18 +92186,18 @@ aae
 aae
 aae
 xWj
-aul
+uip
 aul
 xWj
 aae
 aae
 aae
 xWj
+uip
+uip
 aul
 aul
-aul
-aul
-aul
+uip
 fIE
 sWA
 vTo
@@ -92336,7 +92432,7 @@ kSW
 aul
 aul
 aul
-aul
+uWS
 xUq
 xWj
 xWj
@@ -92347,7 +92443,7 @@ xWj
 xWj
 xWj
 xWj
-sWS
+mSM
 aul
 xWj
 aae
@@ -92593,8 +92689,8 @@ aEb
 aul
 rgC
 aul
-mAw
 aul
+uip
 sWA
 aul
 aul
@@ -92849,14 +92945,14 @@ fsi
 kSW
 aul
 aul
+pFA
 aul
-aul
-aul
+uip
 sWA
 aul
 aul
 aul
-jAf
+aul
 lpJ
 aul
 aul
@@ -92868,7 +92964,7 @@ aae
 aae
 xWj
 xWj
-iIE
+bKP
 dFw
 bNm
 tJo
@@ -93104,10 +93200,10 @@ gCc
 aul
 rgC
 aEb
-ueB
 aul
-aul
-ueB
+uWS
+uWS
+uWS
 hwO
 xWj
 xWj
@@ -93384,7 +93480,7 @@ gOH
 nji
 bLw
 mad
-iIE
+bKP
 aQF
 xWj
 aae
@@ -93894,7 +93990,7 @@ aae
 aae
 aae
 xWj
-iIE
+bKP
 kpn
 nji
 eWp
