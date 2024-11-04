@@ -22,7 +22,7 @@
 #define CASH_MULT_HIGH 3.1
 
 /// round(AVG * CASH_MULT) +- AVG_SPREAD
-#define AVG_SPEAD 6 / CASH_CAP
+#define AVG_SPREAD 6 / CASH_CAP
 
 // The Bankers Vault-Stash, done like this make it so it only spawns on his person to stop metarushing. Average 8500.
 #define AVG_BANKER 8500 / CASH_CAP
@@ -135,7 +135,7 @@
 /obj/item/stack/f13Cash/random
 	var/money_type = /obj/item/stack/f13Cash/caps
 	var/average_qty = AVG_BASE
-	var/average_spread = AVG_SPEAD
+	var/average_spread = AVG_SPREAD
 	var/average_mult = CASH_MULT_LOW
 	var/spawn_nothing_chance = 0 //chance no money at all spawns
 
@@ -204,7 +204,7 @@
 
 /obj/item/stack/f13Cash/random/denarius
 	average_qty = AVG_BASE / CASH_DEN
-	average_spread = AVG_SPEAD / CASH_DEN
+	average_spread = AVG_SPREAD / CASH_DEN
 	money_type = /obj/item/stack/f13Cash/denarius
 
 /obj/item/stack/f13Cash/random/denarius/low
@@ -238,15 +238,18 @@
 	merge_type = /obj/item/stack/f13Cash/aureus
 
 /obj/item/stack/f13Cash/random/aureus
-	average_qty = 0
-	average_spread = 0
+	average_qty = AVG_BASE / CASH_AUR
+	average_spread = AVG_SPREAD / CASH_AUR
 	money_type = /obj/item/stack/f13Cash/aureus
 
 /obj/item/stack/f13Cash/random/aureus/low
+	average_mult = CASH_MULT_LOW
 
 /obj/item/stack/f13Cash/random/aureus/med
+	average_mult = CASH_MULT_MED
 
 /obj/item/stack/f13Cash/random/aureus/high
+	average_mult = CASH_MULT_HIGH
 
 /obj/item/stack/f13Cash/ncr
 	name = "NCR Dollar"
@@ -278,19 +281,16 @@
 /obj/item/stack/f13Cash/random/ncr
 	money_type = /obj/item/stack/f13Cash/ncr
 	average_qty = AVG_BASE / CASH_NCR
-	average_spread = AVG_SPEAD / CASH_NCR
+	average_spread = AVG_SPREAD / CASH_NCR
 
 /obj/item/stack/f13Cash/random/ncr/low
-	average_qty = 0
-	average_spread = 0
+	average_mult = CASH_MULT_LOW
 
 /obj/item/stack/f13Cash/random/ncr/med
-	average_qty = 0
-	average_spread = 0
+	average_mult = CASH_MULT_MED
 
 /obj/item/stack/f13Cash/random/ncr/high
-	average_qty = 0
-	average_spread = 0
+	average_mult = CASH_MULT_HIGH
 
 /obj/item/stack/f13Cash/random/ncr/ncrpay_basic
 	average_mult = CASH_MULT_LOW
