@@ -473,6 +473,9 @@
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/launcher/proc/proj_init(obj/O)
 	return
 
+//VERTI BOMBING DISABLED HERE
+/*
+
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/launcher/anykind
 	name = "\improper Pheumonic launcher"
 	desc = "A weapon for combat exosuits. anything loaded in it."
@@ -556,6 +559,7 @@
 		return
 	. = ..()
 
+*/
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/launcher/flashbang
 	name = "\improper SGL-6 grenade launcher"
