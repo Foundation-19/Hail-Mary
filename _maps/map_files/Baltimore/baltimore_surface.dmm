@@ -438,7 +438,7 @@
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 10
 	},
-/mob/living/simple_animal/hostile/ghoul/scorched,
+/mob/living/simple_animal/hostile/ghoul/reaver,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
 /area/f13/building/boat)
 "ahn" = (
@@ -2063,11 +2063,7 @@
 /turf/open/floor/plating/rust,
 /area/f13/ruins)
 "aJN" = (
-/mob/living/simple_animal/hostile/ghoul/scorched{
-	name = "Crewmember of the Port-Marie";
-	speak = list("MEURS YANKEE !","VOUS AUREZ PAS NOTRE NAVIRE !");
-	speak_chance = 20
-	},
+/mob/living/simple_animal/hostile/ghoul,
 /obj/structure/timeddoor,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/building/boat)
@@ -2509,11 +2505,7 @@
 	},
 /area/f13/wasteland/city/citycenter)
 "aTu" = (
-/mob/living/simple_animal/hostile/ghoul/scorched{
-	name = "Crewmember of the Port-Marie";
-	speak = list("MEURS YANKEE !","VOUS AUREZ PAS NOTRE NAVIRE !");
-	speak_chance = 20
-	},
+/mob/living/simple_animal/hostile/ghoul,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/ruins)
 "aTw" = (
@@ -4728,7 +4720,7 @@
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 8
 	},
-/mob/living/simple_animal/hostile/ghoul/scorched,
+/mob/living/simple_animal/hostile/ghoul/reaver,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/building/boat)
 "bIU" = (
@@ -15574,11 +15566,7 @@
 	},
 /area/f13/building/center)
 "fEn" = (
-/mob/living/simple_animal/hostile/ghoul/scorched{
-	name = "Crewmember of the Port-Marie";
-	speak = list("MEURS YANKEE !","VOUS AUREZ PAS NOTRE NAVIRE !");
-	speak_chance = 20
-	},
+/mob/living/simple_animal/hostile/ghoul,
 /turf/open/floor/plating/rust,
 /area/f13/ruins)
 "fEq" = (
@@ -18282,18 +18270,6 @@
 /obj/item/circuitboard/computer/powermonitor,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustysolid"
-	},
-/area/f13/ruins)
-"gzG" = (
-/obj/structure/chair/booth,
-/mob/living/simple_animal/hostile/ghoul/soldier{
-	name = "Friendly Older Ghoul";
-	speak = list("Es ist gut. Ich mag der Music.");
-	speak_chance = 4;
-	desc = "This on ghoul look older and more german than the other younger one, probably his son. Seems they like this movie."
-	},
-/turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
-	icon_state = "bluerustyfull"
 	},
 /area/f13/ruins)
 "gzU" = (
@@ -22087,7 +22063,7 @@
 	},
 /area/f13/wasteland/city/citycenter)
 "hRo" = (
-/mob/living/simple_animal/hostile/ghoul/scorched,
+/mob/living/simple_animal/hostile/ghoul/reaver,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
 /area/f13/building/boat)
 "hRD" = (
@@ -24264,10 +24240,7 @@
 	},
 /area/f13/building/center)
 "iFA" = (
-/mob/living/simple_animal/hostile/ghoul/scorched/ranged{
-	name = "Crewmember of the Port-Marie with a rifle";
-	speak = list("TUEZ LES !")
-	},
+/mob/living/simple_animal/hostile/ghoul/glowing,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
 /area/f13/building/boat)
 "iFK" = (
@@ -38516,10 +38489,7 @@
 	},
 /area/f13/wasteland/city)
 "nHG" = (
-/mob/living/simple_animal/hostile/ghoul/scorched/ranged{
-	name = "Crewmember of the Port-Marie with a rifle";
-	speak = list("TUEZ LES !")
-	},
+/mob/living/simple_animal/hostile/ghoul/glowing,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/building/boat)
 "nHJ" = (
@@ -39086,11 +39056,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/floor,
 /area/f13/raider_mall)
 "nSJ" = (
-/mob/living/simple_animal/hostile/ghoul/scorched{
-	name = "Crewmember of the Port-Marie";
-	speak = list("MEURS YANKEE !","VOUS AUREZ PAS NOTRE NAVIRE !");
-	speak_chance = 20
-	},
+/mob/living/simple_animal/hostile/ghoul,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/building/boat)
 "nTk" = (
@@ -39183,11 +39149,7 @@
 "nUJ" = (
 /obj/structure/chair/stool/bar,
 /obj/effect/decal/cleanable/molten_object/large,
-/mob/living/simple_animal/hostile/ghoul/scorched{
-	name = "Crewmember of the Port-Marie";
-	speak = list("MEURS YANKEE !","VOUS AUREZ PAS NOTRE NAVIRE !");
-	speak_chance = 20
-	},
+/mob/living/simple_animal/hostile/ghoul,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/building/boat)
 "nUQ" = (
@@ -42384,19 +42346,6 @@
 	icon_state = "dirt_original"
 	},
 /area/f13/wasteland/city/citycenter)
-"oZv" = (
-/obj/structure/chair/booth,
-/mob/living/simple_animal/hostile/ghoul/scorched{
-	name = "Friendly Ghoul with a Afro";
-	peaceful = 1;
-	speak = list("J'aime bien se film. Tu en pense quoi pa ?");
-	speak_chance = 4;
-	desc = "Looks like a Ghoul from the Port Marie crew that actually never went Feral. He seems enjoy this movie with his father."
-	},
-/turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
-	icon_state = "bluerustyfull"
-	},
-/area/f13/ruins)
 "oZx" = (
 /obj/structure/lattice/catwalk,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
@@ -44513,18 +44462,6 @@
 	},
 /turf/open/floor/f13/wood,
 /area/f13/ruins)
-"pNG" = (
-/obj/effect/turf_decal/stripes/asteroid/line{
-	dir = 4
-	},
-/obj/structure/barricade/sandbags,
-/mob/living/simple_animal/hostile/ghoul/scorched/ranged{
-	name = "Crewmember of the Port-Marie with a rifle";
-	speak = list("TUEZ LES !")
-	},
-/obj/structure/timeddoor,
-/turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
-/area/f13/building/boat)
 "pNV" = (
 /obj/effect/decal/cleanable/blood,
 /turf/open/indestructible/ground/outside/baltimore{
@@ -55656,7 +55593,7 @@
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 4
 	},
-/mob/living/simple_animal/hostile/ghoul/scorched,
+/mob/living/simple_animal/hostile/ghoul/reaver,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/building/boat)
 "tHf" = (
@@ -56763,17 +56700,6 @@
 	icon_state = "road_south_2"
 	},
 /area/f13/wasteland/city/citycenter)
-"ucs" = (
-/obj/effect/overlay/junk/oldpipes,
-/obj/effect/turf_decal/stripes/asteroid/line{
-	dir = 8
-	},
-/mob/living/simple_animal/hostile/ghoul/scorched/ranged{
-	name = "Crewmember of the Port-Marie with a rifle";
-	speak = list("TUEZ LES !")
-	},
-/turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
-/area/f13/building/boat)
 "ucD" = (
 /obj/structure/chair/stool/retro/black,
 /turf/open/floor/carpet/green{
@@ -65133,7 +65059,7 @@
 	},
 /area/f13/building/center)
 "wYb" = (
-/mob/living/simple_animal/hostile/ghoul/scorched,
+/mob/living/simple_animal/hostile/ghoul/reaver,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/building/boat)
 "wYn" = (
@@ -86922,7 +86848,7 @@ roU
 "}
 (71,1,1) = {"
 gKb
-oZv
+iRc
 jpn
 iNs
 oxV
@@ -87179,7 +87105,7 @@ roU
 "}
 (72,1,1) = {"
 gKb
-gzG
+iRc
 lSL
 jUo
 jpn
@@ -101662,7 +101588,7 @@ dOk
 duv
 iRQ
 rTL
-iFA
+bzm
 sSJ
 dXY
 jYf
@@ -102943,7 +102869,7 @@ gIh
 dXt
 gBb
 pxf
-ucs
+cKr
 nVg
 jdk
 bIg
@@ -103204,7 +103130,7 @@ xMU
 oJB
 nHp
 wgc
-pNG
+nHp
 bjK
 xHU
 fbj

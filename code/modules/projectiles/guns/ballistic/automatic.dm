@@ -366,6 +366,7 @@
 	desc = "A lightweight submachine gun that earned its place as one of the most popular SMGs in the world"
 	icon = 'fallout/icons/objects/automatic.dmi'
 	icon_state = "mp5"
+	item_state = "mp5"
 	mag_type = /obj/item/ammo_box/magazine/uzim9mm
 	init_mag_type = /obj/item/ammo_box/magazine/uzim9mm
 	weapon_class = WEAPON_CLASS_NORMAL //high class, one of the few smol smgs
@@ -379,6 +380,7 @@
 	desc = "A compact, lightweight way to put a lot of bullets downrange."
 	icon = 'fallout/icons/objects/automatic.dmi'
 	icon_state = "tec9"
+	item_state = "tec9"
 	mag_type = /obj/item/ammo_box/magazine/m22
 	init_mag_type = /obj/item/ammo_box/magazine/m22
 	disallowed_mags = list(/obj/item/ammo_box/magazine/m22/extended)
@@ -1796,7 +1798,7 @@
 	desc = "The R91 was the standard US Army assault rifle, and so saw wide-spread use after the war. Most are worn out by now."
 	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "assault_rifle"
-	item_state = "fnfal"
+	item_state = "r91"
 	mag_type = /obj/item/ammo_box/magazine/m556/rifle
 	init_mag_type = /obj/item/ammo_box/magazine/m556/rifle
 	weapon_class = WEAPON_CLASS_RIFLE
@@ -1830,7 +1832,7 @@
 	desc = "A customized R91 assault rifle, with an integrated suppressor, small scope, cut down stock and polymer furniture. The supressor takes away stopping-power, but a cleaner action allows it to fire faster."
 	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "infiltrator"
-	item_state = "fnfal"
+	item_state = "infiltrator"
 	weapon_class = WEAPON_CLASS_RIFLE
 	weapon_weight = GUN_ONE_HAND_ONLY
 	damage_multiplier = GUN_EXTRA_DAMAGE_T2 //needs a lil edge at least
@@ -1929,6 +1931,183 @@
 	)
 
 	can_suppress = FALSE
+
+/* * * * * * * * * * *
+ * Handmade Carbine
+ * Uses Nukaworld AK Sprite
+ * .223 / 5.56mm
+ * Less damage
+ * Less accuracy
+ * Slower to shoot
+ * Craftable By Anyone
+ * * * * * * * * * * */
+
+/obj/item/gun/ballistic/automatic/handmade_carbine
+	name = "Handmade Carbine"
+	desc = "This handmade carbine looks like its made out of rotting wood and scrap metal, and is a favorite among raider gangs for its ease of production and maintenance."
+	icon = 'icons/obj/guns/projectile.dmi'
+	icon_state = "handmade_rifle"
+	item_state = "handmade_rifle"
+	icon_prefix = "handmade_rifle"
+	mag_type = /obj/item/ammo_box/magazine/m556/rifle
+	init_mag_type = /obj/item/ammo_box/magazine/m556/rifle
+	weapon_class = WEAPON_CLASS_CARBINE
+	weapon_weight = GUN_ONE_HAND_ONLY
+	damage_multiplier = GUN_LESS_DAMAGE_T2
+	cock_delay = GUN_COCK_RIFLE_BASE
+	init_recoil = RIFLE_RECOIL(1.9)
+	init_firemodes = list(
+		/datum/firemode/automatic/rpm200,
+	)
+	can_suppress = FALSE
+	fire_sound = 'sound/f13weapons/assaultrifle_fire.ogg'
+
+/* * * * * * * * * * *
+ * Handmade Assault Rifle
+ * Handmade AK-101
+ * .223 / 5.56mm
+ * Decent damage
+ * Decent accuracy
+ * Okay RPM
+ * Requires G&B 3
+ * * * * * * * * * * */
+
+/obj/item/gun/ballistic/automatic/handmade_rifle
+	name = "Handmade Assault Rifle"
+	desc = "A handmade assault rifle, created with a mixture of pre-war and improvised parts. Reliable and trusty, although it tends to kick more than normal. Perfect for raider, scavver and militia alike."
+	icon = 'icons/obj/guns/projectile.dmi'
+	lefthand_file = 'icons/fallout/onmob/weapons/guns_lefthand.dmi'
+	righthand_file = 'icons/fallout/onmob/weapons/guns_righthand.dmi'
+	icon_state = "handmade_assault_rifle"
+	item_state = "handmadear"
+	icon_prefix = "handmade_assault_rifle"
+	mag_type = /obj/item/ammo_box/magazine/m556/rifle
+	init_mag_type = /obj/item/ammo_box/magazine/m556/rifle
+	weapon_class = WEAPON_CLASS_RIFLE
+	weapon_weight = GUN_ONE_HAND_ONLY
+	damage_multiplier = GUN_EXTRA_DAMAGE_0
+	cock_delay = GUN_COCK_RIFLE_BASE
+	init_recoil = RIFLE_RECOIL(1.2)
+	init_firemodes = list(
+		/datum/firemode/automatic/rpm200,
+		/datum/firemode/burst/three
+	)
+	
+	can_bayonet = TRUE
+	bayonet_state = "bayonet"
+	knife_x_offset = 23
+	knife_y_offset = 22
+	can_suppress = TRUE
+	suppressor_state = "rifle_suppressor"
+	suppressor_x_offset = 28
+	suppressor_y_offset = 28
+	fire_sound = 'sound/f13weapons/assaultrifle_fire.ogg'
+
+/* * * * * * * * * * *
+ * Handmade Battle Rifle
+ * Handmade Zas M77
+ * .308
+ * Good damage
+ * Decent accuracy
+ * Slow-ish RPM
+ * Requires G&B 3
+ * * * * * * * * * * */
+
+/obj/item/gun/ballistic/automatic/handmade_battle_rifle
+	name = "Handmade Battle Rifle"
+	desc = "A handmade battle rifle, created with a mixture of pre-war and improvised parts. Kicks like a mule but is accurate hits targets hard. A favorite amongst veteran raiders and some mercenaries."
+	icon = 'icons/obj/guns/projectile.dmi'
+	lefthand_file = 'icons/fallout/onmob/weapons/guns_lefthand.dmi'
+	righthand_file = 'icons/fallout/onmob/weapons/guns_righthand.dmi'
+	icon_state = "handmade_battle_rifle"
+	item_state = "handmadebr"
+	icon_prefix = "handmade_battle_rifle"
+	mag_type = /obj/item/ammo_box/magazine/m308
+	init_mag_type = /obj/item/ammo_box/magazine/m308
+	weapon_class = WEAPON_CLASS_RIFLE
+	weapon_weight = GUN_TWO_HAND_ONLY
+	damage_multiplier = GUN_EXTRA_DAMAGE_T1
+	cock_delay = GUN_COCK_RIFLE_BASE
+	init_recoil = RIFLE_RECOIL(1.5)
+	init_firemodes = list(
+		/datum/firemode/automatic/rpm150,
+	)
+	gun_accuracy_zone_type = ZONE_WEIGHT_PRECISION
+	can_suppress = FALSE
+	fire_sound = 'sound/f13weapons/automaticrifle_BAR.ogg'
+
+/* * * * * * * * * * *
+ * Handmade Marksman Rifle
+ * Handmade Vepr
+ * .30-06
+ * Good damage
+ * Good accuracy
+ * Slow RPM
+ * Requires G&B 3
+ * * * * * * * * * * */
+
+/obj/item/gun/ballistic/automatic/handmade_dmr
+	name = "Handmade Marksman Rifle"
+	desc = "A handmade Marksman Rifle, created with a mixture of pre-war and improvised parts. Heavy, but is quite accurate and fires .30-06. It is somewhat popular among mercenary, raider, and militia marksmen."
+	icon = 'icons/obj/guns/projectile.dmi'
+	lefthand_file = 'icons/fallout/onmob/weapons/guns_lefthand.dmi'
+	righthand_file = 'icons/fallout/onmob/weapons/guns_righthand.dmi'
+	icon_state = "handmade_marksman_rifle"
+	item_state = "handmadedmr"
+	icon_prefix = "handmade_marksman_rifle"
+	mag_type = /obj/item/ammo_box/magazine/w3006
+	init_mag_type = /obj/item/ammo_box/magazine/w3006
+	weapon_class = WEAPON_CLASS_RIFLE
+	weapon_weight = GUN_TWO_HAND_ONLY
+	damage_multiplier = GUN_EXTRA_DAMAGE_T1
+	cock_delay = GUN_COCK_RIFLE_BASE
+	init_recoil = RIFLE_RECOIL(1.3)
+	init_firemodes = list(
+		/datum/firemode/semi_auto/slow
+	)
+	gun_tags = list(GUN_FA_MODDABLE, GUN_SCOPE)
+	can_scope = TRUE
+	scope_state = "scope_medium"
+	scope_x_offset = 5
+	scope_y_offset = 14
+	gun_accuracy_zone_type = ZONE_WEIGHT_PRECISION
+	can_suppress = FALSE
+	fire_sound = 'sound/f13weapons/hunting_rifle.ogg'
+
+/* * * * * * * * * * *
+ * Handmade Assault Carbine
+ * Handmade based on the AKS-74U
+ * .223 / 5.56
+ * Less damage
+ * High Recoil
+ * Fast RPM
+ * Requires G&B 3
+ * * * * * * * * * * */
+
+/obj/item/gun/ballistic/automatic/handmade_assault_carbine
+	name = "Handmade Assault Carbine"
+	desc = "A refinement of the usual handmade carbine, this Assault Carbine is significantly better bored and has a wire stock attached. A muzzle booster also has been added to increase fire rate and reliability. It is a surprising favorite amongst post-war vehicle crews, especially vertibird pilots."
+	icon = 'icons/obj/guns/projectile.dmi'
+	lefthand_file = 'icons/fallout/onmob/weapons/guns_lefthand.dmi'
+	righthand_file = 'icons/fallout/onmob/weapons/guns_righthand.dmi'
+	icon_state = "handmade_assault_carbine"
+	item_state = "handmadeacar"
+	icon_prefix = "handmade_assault_carbine"
+	mag_type = /obj/item/ammo_box/magazine/m556/rifle
+	init_mag_type = /obj/item/ammo_box/magazine/m556/rifle
+	weapon_class = WEAPON_CLASS_CARBINE
+	weapon_weight = GUN_ONE_HAND_ONLY
+	damage_multiplier = GUN_LESS_DAMAGE_T1
+	cock_delay = GUN_COCK_RIFLE_BASE
+	init_recoil = RIFLE_RECOIL(1.7)
+	init_firemodes = list(
+		/datum/firemode/automatic/rpm300
+	)
+	can_suppress = TRUE
+	suppressor_state = "rifle_suppressor"
+	suppressor_x_offset = 24
+	suppressor_y_offset = 24
+	fire_sound = 'sound/f13weapons/assaultrifle_fire.ogg'
 
 /* * * * * * * * * * *
  * BOZAR
@@ -2455,7 +2634,7 @@
 	desc = "The M72 rifle is of German design. It uses an electromagnetic field to propel rounds at tremendous speed... and pierce almost any obstacle. Its range, accuracy and stopping power is almost unparalleled."
 	icon = 'icons/fallout/objects/guns/ballistic.dmi'
 	icon_state = "gaussf2"
-	item_state = "sniper"
+	item_state = "gaussrifle"
 	slot_flags = ITEM_SLOT_BACK
 	mag_type = /obj/item/ammo_box/magazine/m2mm
 	init_mag_type = /obj/item/ammo_box/magazine/m2mm
