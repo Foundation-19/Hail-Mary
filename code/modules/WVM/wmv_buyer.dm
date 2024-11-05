@@ -85,16 +85,16 @@
 	dat += "<br>"
 	dat +="<div class='statusDisplay'>"
 	dat += "<b>Accepted goods and prices:</b><br>"
-	dat += "Wheat/Oats/Rice/Hay : 1 caps<br>"
-	dat += "Broc/Xander/Punga Fruit/Barrel Cactus Fruit/Cave Fungus/Agave : 2.5 caps<br>"
-	dat += "Iron Sheets : 0.5 caps<br>"
-	dat += "Silver Bars: 5 caps<br>"
-	dat += "Gold Bars: 10 caps<br>"
-	dat += "Cut Diamonds : 15 caps<br>"
-	dat += "Jet/Psycho/MedX : 10/15 caps<br>"
-	dat += "Healing Powder/Healing Paultice : 5/20 caps<br>"
-	dat += "Stimpak/Super Stimpak : 5/20 caps<br>"
-	dat += "Sealed Bottle of Alcohol: 10-50 caps<br>"
+	dat += "Metal Parts: 1 cap<br>"
+	dat += "High Quality Metal Parts: 1 cap : 2.5 caps<br>"
+	dat += "Combat Helmet: 25 caps<br>"
+	dat += "Combat Armor: 75 caps<br>"
+	dat += "Reinforced Combat Armor: 125 caps<br>"
+	dat += "Reinforced Combat Helmet: 50 caps<br>"
+	dat += "Salvaged t-45b Suit: 175 caps<br>"
+	dat += "Salvaged t-45b Helmet: 100 caps<br>"
+	dat += "Med-x 3 caps<br>"
+	dat += "Stimpack: 5 caps<br>"
 	dat += ""
 	dat += "</div>"
 
@@ -357,3 +357,20 @@ Fence
 	popup.set_content(dat)
 	popup.open()
 	return
+
+/obj/machinery/mineral/wasteland_trader/townexport
+	name = "Town Salvage Export Machine"
+	desc = "Shit you don't want! now easy to sell! Proper value is not taken into account, for proper compensation for your goods, look for a fucking trader you lazy introvert asshole, thank you."
+	goods_list = list(/obj/item/clothing/suit/armor/medium/combat = 75,
+						/obj/item/clothing/head/helmet/f13/combat = 25,
+						/obj/item/clothing/suit/armor/medium/combat/mk2 = 125,
+						/obj/item/clothing/head/helmet/f13/combat/mk2 = 50,
+						/obj/item/clothing/suit/armor/heavy/salvaged_pa/t45b = 175,
+						/obj/item/clothing/head/helmet/f13/heavy/salvaged_pa/t45b = 100,
+						/obj/item/stack/crafting/metalparts = 1,
+						/obj/item/stack/crafting/goodparts = 1,
+						/obj/item/stack/crafting/electronicparts = 1,
+						/obj/item/blueprint/research = 5,
+						/obj/item/reagent_containers/hypospray/medipen/medx = 2,
+						/obj/item/reagent_containers/hypospray/medipen/stimpak = 5,
+						)

@@ -49207,12 +49207,6 @@
 /obj/item/storage/box/disks_plantgene,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/brotherhood)
-"ohD" = (
-/obj/machinery/mineral/wasteland_vendor/crafting,
-/turf/open/indestructible/ground/outside/sidewalk{
-	icon_state = "horizontalbottomborderbottom2left"
-	},
-/area/f13/wasteland)
 "ohW" = (
 /obj/effect/decal/cleanable/dirt{
 	color = "#363636"
@@ -63769,7 +63763,7 @@
 /turf/open/indestructible/ground/outside/desert,
 /area/f13/wasteland)
 "umd" = (
-/obj/structure/frame/machine,
+/obj/machinery/mineral/wasteland_trader/townexport,
 /turf/open/floor/f13{
 	icon_state = "yellowrustychess"
 	},
@@ -68216,13 +68210,6 @@
 	icon_state = "bar"
 	},
 /area/f13/caves)
-"weG" = (
-/obj/machinery/mineral/wasteland_trader/gunbuyer,
-/turf/open/indestructible/ground/outside/sidewalk{
-	dir = 1;
-	icon_state = "outerbordercorner"
-	},
-/area/f13/wasteland)
 "weK" = (
 /obj/effect/turf_decal/shadow,
 /turf/open/indestructible/ground/inside/dirt/stamped/outside{
@@ -108985,7 +108972,7 @@ cNs
 cNs
 cNs
 dXl
-ohD
+eWr
 xLy
 pfM
 pfM
@@ -109242,7 +109229,7 @@ tnZ
 tnZ
 tnZ
 tnZ
-weG
+dVg
 xLy
 peH
 pfM
