@@ -415,7 +415,7 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 	shoes = /obj/item/clothing/shoes/laceup
 	backpack_contents = list(
 		/obj/item/clothing/suit/armor/ncrarmor/ncr_dressjack = 1,
-		/obj/item/gun/ballistic/automatic/service/r82 = 1,
+		/obj/item/gun/ballistic/automatic/service = 1,
 		/obj/item/ammo_box/magazine/m556/rifle/extended = 1,
 		/obj/item/clothing/accessory/ncr/FSGT = 1
 		)
