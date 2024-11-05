@@ -1526,6 +1526,15 @@
 /obj/item/healthanalyzer,
 /turf/open/floor/plasteel/f13/vault_floor/misc/cmo,
 /area/f13/ncr)
+"ccT" = (
+/obj/structure/closet/crate/wooden,
+/obj/item/gun/ballistic/automatic/service,
+/obj/item/gun/ballistic/automatic/service,
+/obj/item/stack/f13Cash/random/ncr/med,
+/turf/open/floor/f13{
+	icon_state = "floorrusty"
+	},
+/area/f13/city)
 "ccV" = (
 /obj/structure/closet/crate/bin/trashbin,
 /turf/open/floor/wood_common,
@@ -8678,6 +8687,13 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/brotherhood/rnd)
+"nbb" = (
+/obj/structure/table,
+/obj/item/stack/f13Cash/random/ncr/med,
+/turf/open/floor/f13{
+	icon_state = "floorrusty"
+	},
+/area/f13/city)
 "nbk" = (
 /obj/effect/decal/cleanable/dirt{
 	color = "#363636"
@@ -28577,7 +28593,7 @@ tiP
 rOR
 ixY
 oXG
-suj
+tiP
 rOR
 ixY
 ixY
@@ -28826,16 +28842,16 @@ vLb
 vLb
 ixY
 uOS
+tiP
 rpR
-tiP
 ixY
 uOS
+tiP
 kWe
-tiP
 ixY
 uOS
 tiP
-tiP
+suj
 ixY
 oeO
 eIR
@@ -51593,7 +51609,7 @@ pZk
 anv
 xnG
 tKy
-vmV
+nbb
 uMx
 wca
 uMx
@@ -52365,7 +52381,7 @@ anv
 xnG
 dhi
 vmV
-wxo
+ccT
 xVl
 nSB
 wxo

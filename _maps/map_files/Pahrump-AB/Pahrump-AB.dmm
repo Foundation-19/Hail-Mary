@@ -25597,6 +25597,12 @@
 	icon_state = "reddirtyfull"
 	},
 /area/f13/building/museum)
+"eCj" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/shadow/floor,
+/obj/item/storage/money_stack/legion,
+/turf/open/floor/wood_fancy,
+/area/f13/legion)
 "eCl" = (
 /obj/structure/closet,
 /obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/lowmid,
@@ -67060,6 +67066,12 @@
 	icon_state = "rubble"
 	},
 /area/f13/wasteland)
+"vEC" = (
+/obj/structure/bed,
+/obj/item/bedsheet/brown,
+/obj/effect/landmark/start/f13/ncrdrillsergeant,
+/turf/open/floor/wood_fancy,
+/area/f13/ncr)
 "vED" = (
 /obj/structure/flora/grass/coyote/sixteen{
 	pixel_x = -17;
@@ -86464,13 +86476,13 @@ aae
 aae
 aae
 xLa
-jDH
+vEC
 djQ
 xtp
 xLa
 jDH
-djQ
 xtp
+jDH
 xLa
 alK
 djQ
@@ -137819,7 +137831,7 @@ ixo
 crt
 sWC
 hrE
-tWI
+eCj
 sMp
 rCi
 hrE
