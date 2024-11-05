@@ -1501,9 +1501,8 @@
 /turf/open/transparent/openspace,
 /area/f13/ncr)
 "cbU" = (
-/obj/machinery/door/poddoor/gate/preopen{
-	id = "legiongate1";
-	name = "outpost gate"
+/obj/machinery/door/poddoor/gate{
+	id = "legiongate1"
 	},
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/wasteland)
@@ -3455,6 +3454,11 @@
 /obj/machinery/button/door{
 	pixel_x = 23;
 	id = "legiongate2"
+	},
+/obj/machinery/button/door{
+	pixel_x = 23;
+	id = "legiongate1";
+	pixel_y = -10
 	},
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/wasteland)
@@ -8687,13 +8691,6 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/brotherhood/rnd)
-"nbb" = (
-/obj/structure/table,
-/obj/item/stack/f13Cash/random/ncr/med,
-/turf/open/floor/f13{
-	icon_state = "floorrusty"
-	},
-/area/f13/city)
 "nbk" = (
 /obj/effect/decal/cleanable/dirt{
 	color = "#363636"
@@ -10583,6 +10580,14 @@
 	},
 /turf/open/floor/carpet/red,
 /area/f13/city)
+"pJt" = (
+/obj/structure/closet/crate/wooden,
+/obj/item/gun/ballistic/automatic/service,
+/obj/item/gun/ballistic/automatic/service,
+/obj/item/stack/f13Cash/random/ncr/med,
+/obj/structure/lattice/catwalk,
+/turf/open/transparent/openspace,
+/area/f13/wasteland)
 "pKw" = (
 /obj/structure/reagent_dispensers/fueltank,
 /obj/machinery/light/small{
@@ -38230,7 +38235,7 @@ oez
 oez
 tAz
 uKh
-uKh
+pJt
 kvJ
 mck
 hYA
@@ -51609,7 +51614,7 @@ pZk
 anv
 xnG
 tKy
-nbb
+vmV
 uMx
 wca
 uMx
