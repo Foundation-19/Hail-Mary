@@ -722,7 +722,7 @@ GLOBAL_VAR_INIT(vendor_cash, 0)
 	highpop_list = list(
 		new /datum/data/wasteland_equipment("Reinforced Mantle Armor",			/obj/item/clothing/suit/armor/ncrarmor/reinforced/mantle,										75),
 		new /datum/data/wasteland_equipment("Mantle Armor",		                /obj/item/clothing/suit/armor/ncrarmor/mantle, 										        	50),
-		new /datum/data/wasteland_equipment("NCR Combat Armor",		        /obj/item/clothing/suit/armor/medium/combat/desert_ranger/combat, 					            	125),
+		new /datum/data/wasteland_equipment("NCR Combat Armor",		        	/obj/item/clothing/suit/armor/medium/combat/desert_ranger/combat, 					            	125),
 		new /datum/data/wasteland_equipment("NCR Combat Helmet",		        /obj/item/clothing/head/helmet/f13/combat/ncr, 			 	  				                	75),
 		new /datum/data/wasteland_equipment("Heavy Service Rifle",		        /obj/item/gun/ballistic/automatic/service/r82, 										        	75),
 		new /datum/data/wasteland_equipment("Trench Gun",		                /obj/item/gun/ballistic/shotgun/trench, 										                50),
