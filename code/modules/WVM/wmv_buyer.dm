@@ -87,10 +87,8 @@
 	dat += "<b>Accepted goods and prices:</b><br>"
 	dat += "Metal Parts: 1 cap<br>"
 	dat += "High Quality Metal Parts: 1 cap : 2.5 caps<br>"
-	dat += "ALL Combat Helmet: 25 caps<br>"
-	dat += "ALL Combat Armor: 75 caps<br>"
-	dat += "ALL Reinforced Combat Armor: 125 caps<br>"
-	dat += "ALL Reinforced Combat Helmet: 50 caps<br>"
+	dat += "ALL Combat Helmets and reinforced ones: 25 caps<br>"
+	dat += "ALL Combat Armor and reinforced ones: 125 caps<br>"
 	dat += "Salvaged t-45b Suit: 175 caps<br>"
 	dat += "Salvaged t-45b Helmet: 100 caps<br>"
 	dat += "Med-x 3 caps<br>"
@@ -361,10 +359,10 @@ Fence
 /obj/machinery/mineral/wasteland_trader/townexport
 	name = "Town Salvage Export Machine"
 	desc = "Shit you don't want! now easy to sell! Proper value is not taken into account, for proper compensation for your goods, look for a fucking trader you lazy introvert asshole, thank you."
-	goods_list = list(/obj/item/clothing/suit/armor/medium/combat = 75,
+	goods_list = list(/obj/item/clothing/suit/armor/medium/combat = 125,
 						/obj/item/clothing/head/helmet/f13/combat = 25,
 						/obj/item/clothing/suit/armor/medium/combat/mk2 = 125,
-						/obj/item/clothing/head/helmet/f13/combat/mk2 = 50,
+						/obj/item/clothing/head/helmet/f13/combat/mk2 = 25,
 						/obj/item/clothing/suit/armor/heavy/salvaged_pa/t45b = 175,
 						/obj/item/clothing/head/helmet/f13/heavy/salvaged_pa/t45b = 100,
 						/obj/item/stack/crafting/metalparts = 1,
