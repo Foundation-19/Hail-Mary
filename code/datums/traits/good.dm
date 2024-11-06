@@ -279,7 +279,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	lose_text = span_danger("You start tromping around like a barbarian.")
 	medical_record_text = "Patient's dexterity belies a strong capacity for stealth."
 
-
+/*
 /datum/quirk/quick_step
 	name = "Speed Walker"
 	desc = "You walk with determined strides, and out-pace most people - at least, if you're both walking."
@@ -288,7 +288,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	gain_text = span_notice("You feel determined. No time to lose.")
 	lose_text = span_danger("You feel less determined. What's the rush, man?")
 	medical_record_text = "Patient scored highly on racewalking tests."
-
+*/
 
 /datum/quirk/musician
 	name = "Musician"
