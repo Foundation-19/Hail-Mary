@@ -1165,6 +1165,7 @@ GLOBAL_LIST_INIT(main_body_parts, list(
 #define GUN_FIRE_RATE_100 6
 #define GUN_FIRE_RATE_150 4
 #define GUN_FIRE_RATE_200 3
+#define GUN_FIRE_RATE_250 2.5
 #define GUN_FIRE_RATE_300 2
 #define GUN_FIRE_RATE_400 1.5
 #define GUN_FIRE_RATE_600 1
