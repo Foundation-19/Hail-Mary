@@ -809,7 +809,7 @@ obj/item/melee/onehanded/knife/switchblade
 	icon_state = "mace_glove"
 	item_state = "mace_glove"
 	w_class = WEIGHT_CLASS_BULKY
-	force = 20
+	force = 10
 	sharpness = SHARP_NONE
 
 // Punch Dagger		Keywords: Damage 24, Pointy
