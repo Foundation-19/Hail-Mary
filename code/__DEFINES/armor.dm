@@ -48,7 +48,7 @@
 		"rad" = 10, \
 		"fire" = 10, \
 		"acid" = 10, \
-		"wound" = 0, \
+		"wound" = 10, \
 		"damage_threshold" = 0)
 
 /* Light armor values
@@ -69,7 +69,7 @@
 		"rad" = 10, \
 		"fire" = 10, \
 		"acid" = 10, \
-		"wound" = 20, \
+		"wound" = 10, \
 		"damage_threshold" = 1)
 
 /* Medium armor values
@@ -90,8 +90,8 @@
 		"rad" = 25, \
 		"fire" = 25, \
 		"acid" = 25, \
-		"wound" = 35, \
-		"damage_threshold" = 3)
+		"wound" = 25, \
+		"damage_threshold" = 2)
 
 /* Heavy armor values
  * Low mobility
@@ -111,8 +111,8 @@
 		"rad" = 25, \
 		"fire" = 35, \
 		"acid" = 35, \
-		"wound" = 45, \
-		"damage_threshold" = 5)
+		"wound" = 35, \
+		"damage_threshold" = 3)
 
 /* Salvaged PA values
  * Next to no mobility
@@ -124,17 +124,17 @@
  * +20 laser HP
  * * * * * * * * * * * */
 #define ARMOR_VALUE_SALVAGE list(\
-		"linemelee" = 90, \
-		"linebullet" = 90, \
-		"linelaser" = 100, \
+		"linemelee" = 100, \
+		"linebullet" = 100, \
+		"linelaser" = 110, \
 		"energy" = 30, \
 		"bomb" = 60, \
 		"bio" = 80, \
 		"rad" = 50, \
 		"fire" = 80, \
 		"acid" = 80, \
-		"wound" = 80, \
-		"damage_threshold" = 10)
+		"wound" = 70, \
+		"damage_threshold" = 3)
 
 /* Power armor values
  * High mobility
@@ -145,17 +145,17 @@
  * +25 laser HP
  * * * * * * * * * * * */
 #define ARMOR_VALUE_PA list(\
-		"linemelee" = 125, \
-		"linebullet" = 125, \
-		"linelaser" = 150, \
+		"linemelee" = 150, \
+		"linebullet" = 150, \
+		"linelaser" = 125, \
 		"energy" = 40, \
 		"bomb" = 90, \
 		"bio" = 100, \
 		"rad" = 50, \
 		"fire" = 95, \
 		"acid" = 95, \
-		"wound" = 100, \
-		"damage_threshold" = 12)
+		"wound" = 90, \
+		"damage_threshold" = 5)
 /* * * * * * * * * * * * * * *
  * MOB SPECIFIC ARMOR VALUES *
  * * * * * * * * * * * * * * */
