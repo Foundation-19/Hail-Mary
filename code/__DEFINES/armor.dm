@@ -155,7 +155,7 @@
 		"fire" = 95, \
 		"acid" = 95, \
 		"wound" = 50, \
-		"damage_threshold" = 10)
+		"damage_threshold" = 8)
 /* * * * * * * * * * * * * * *
  * MOB SPECIFIC ARMOR VALUES *
  * * * * * * * * * * * * * * */
