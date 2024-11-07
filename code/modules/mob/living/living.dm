@@ -59,7 +59,7 @@
 		adjustBruteLoss(5)
 	if(levels <= 2 && HAS_TRAIT(src, TRAIT_FREEFALLER))
 		visible_message(span_danger("[src] smashes into the [T], seemingly unphased!"),
-						span_userdanger("You smash into the [T], ignoring physics!"))
+						span_userdanger("You smash into the [T], ignoring the agony of broken legs!"))
 		user.Knockdown(20)
 	else
 		visible_message(span_danger("[src] crashes into the [T] with a sickening noise!"),
