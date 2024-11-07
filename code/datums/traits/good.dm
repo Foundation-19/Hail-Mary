@@ -240,7 +240,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 /datum/quirk/freefaller
 	name = "Freefaller"
 	desc = "Long drops are nothing but a thrill to you! Take no damage from falling from high places."
-	value = 3
+	value = 2
 	mob_trait = TRAIT_FREEFALLER
 	gain_text = span_notice("You have the urge to jump from high places!")
 	lose_text = span_danger("Heights seem a bit more scary again.")
