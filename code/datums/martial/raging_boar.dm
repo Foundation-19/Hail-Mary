@@ -111,7 +111,7 @@
 	H.AddComponent(/datum/component/tackler/simple, \
 		stamina_cost = 10, \
 		base_knockdown = 0, \
-		range = 6, \
+		range = 2, \
 		speed = 1, \
 		skill_mod = 0, \
 		min_distance = 1\
