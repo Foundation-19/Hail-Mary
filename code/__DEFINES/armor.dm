@@ -48,7 +48,7 @@
 		"rad" = 10, \
 		"fire" = 10, \
 		"acid" = 10, \
-		"wound" = 10, \
+		"wound" = 0, \
 		"damage_threshold" = 0)
 
 /* Light armor values
@@ -69,7 +69,7 @@
 		"rad" = 10, \
 		"fire" = 10, \
 		"acid" = 10, \
-		"wound" = 10, \
+		"wound" = 5, \
 		"damage_threshold" = 1)
 
 /* Medium armor values
@@ -90,7 +90,7 @@
 		"rad" = 25, \
 		"fire" = 25, \
 		"acid" = 25, \
-		"wound" = 25, \
+		"wound" = 10, \
 		"damage_threshold" = 2)
 
 /* Heavy armor values
@@ -111,7 +111,7 @@
 		"rad" = 25, \
 		"fire" = 35, \
 		"acid" = 35, \
-		"wound" = 35, \
+		"wound" = 15, \
 		"damage_threshold" = 3)
 
 /* Salvaged PA values
@@ -133,7 +133,7 @@
 		"rad" = 50, \
 		"fire" = 80, \
 		"acid" = 80, \
-		"wound" = 70, \
+		"wound" = 25, \
 		"damage_threshold" = 3)
 
 /* Power armor values
@@ -154,7 +154,7 @@
 		"rad" = 50, \
 		"fire" = 95, \
 		"acid" = 95, \
-		"wound" = 90, \
+		"wound" = 50, \
 		"damage_threshold" = 5)
 /* * * * * * * * * * * * * * *
  * MOB SPECIFIC ARMOR VALUES *
