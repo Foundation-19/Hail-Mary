@@ -776,9 +776,28 @@ obj/item/melee/onehanded/knife/switchblade
 		return
 	M.apply_damage(10, STAMINA, "chest", M.run_armor_check("chest", "melee"))
 
-// Tiger claws		Keywords: Damage 33, Pointy
+// Dual Sappers			Keywords: Damage 27, fast attack, +3 stam damage
+/obj/item/melee/unarmed/sappers/dual
+	name = "sappers"
+	desc = "Lead filled gloves which are ideal for beating the crap out of opponents. Deals significant stamina damage. I mean, I wouldn't want to get punched in the chest with it..."
+	icon = 'icons/fallout/objects/melee/melee.dmi'
+	lefthand_file = 'icons/fallout/onmob/clothes/hand.dmi'
+	righthand_file = 'icons/fallout/onmob/clothes/hand.dmi'
+	icon_state = "sapper_dual"
+	item_state = "sapper_dual"
+	w_class = WEIGHT_CLASS_BULKY
+	force = 27
+	attack_speed = CLICK_CD_RANGE
+
+/obj/item/melee/unarmed/sappers/dual/attack(mob/living/M, mob/living/user)
+	. = ..()
+	if(!istype(M))
+		return
+	M.apply_damage(13, STAMINA, "chest", M.run_armor_check("chest", "melee"))
+
+// Tiger claws		Keywords: Damage 33, Pointyű
 /obj/item/melee/unarmed/tigerclaw
-	name = "tiger claws"
+	name = "Tiger Claws"
 	desc = "Gloves with short claws built into the palms."
 	icon_state = "tiger_claw"
 	item_state = "tiger_claw"
@@ -788,10 +807,26 @@ obj/item/melee/onehanded/knife/switchblade
 	force = 33
 	hitsound = 'sound/weapons/bladeslice.ogg'
 
+// Dual Tiger claws		Keywords: Damage 33, Pointy, Fast
+/obj/item/melee/unarmed/tigerclaw/dual
+	name = "Dual Tiger Claws"
+	desc = "Gloves with short claws built into the palms."
+	icon = 'icons/fallout/objects/melee/melee.dmi'
+	lefthand_file = 'icons/fallout/onmob/clothes/hand.dmi'
+	righthand_file = 'icons/fallout/onmob/clothes/hand.dmi'
+	icon_state = "tiger_claw_dual"
+	item_state = "tiger_claw_dual"
+	w_class = WEIGHT_CLASS_BULKY
+	attack_verb = list("slashed", "sliced", "torn", "ripped", "diced", "cut")
+	sharpness = SHARP_POINTY
+	force = 33
+	hitsound = 'sound/weapons/bladeslice.ogg'
+	attack_speed = CLICK_CD_RANGE
+
 // Lacerator		Keywords: Damage 29, Edged, Wound bonus
 /obj/item/melee/unarmed/lacerator
-	name = "lacerator"
-	desc = "Leather gloves with razor blades built into the back of the hand."
+	name = "Lacerator"
+	desc = "Leather glove with razor blades built into the back of the hand."
 	icon_state = "lacerator"
 	item_state = "lacerator"
 	w_class = WEIGHT_CLASS_NORMAL
@@ -802,15 +837,47 @@ obj/item/melee/onehanded/knife/switchblade
 	attack_verb = list("slashed", "sliced", "torn", "ripped", "diced", "cut")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 
-// Mace Glove		Keywords: Damage 20
+// Dual Lacerator		Keywords: Damage 29, Edged, Wound bonus, Fast
+/obj/item/melee/unarmed/lacerator/dual
+	name = "Dual Lacerators"
+	desc = "Leather gloves with razor blades built into the back of the hand."
+	icon = 'icons/fallout/objects/melee/melee.dmi'
+	lefthand_file = 'icons/fallout/onmob/clothes/hand.dmi'
+	righthand_file = 'icons/fallout/onmob/clothes/hand.dmi'
+	icon_state = "lacerator_dual"
+	item_state = "lacerator_dual"
+	w_class = WEIGHT_CLASS_BULKY
+	force = 29
+	armour_penetration = 0 //my brother in christ it is razor blades on tape
+	bare_wound_bonus = 5
+	sharpness = SHARP_EDGED
+	attack_verb = list("slashed", "sliced", "torn", "ripped", "diced", "cut")
+	hitsound = 'sound/weapons/bladeslice.ogg'
+	attack_speed = CLICK_CD_RANGE
+
+// Mace Glove		Keywords: amage 10
 /obj/item/melee/unarmed/maceglove
-	name = "mace glove"
-	desc = "Weighted metal gloves that are covered in spikes.  Don't expect to grab things with this."
+	name = "Mace Glove"
+	desc = "Weighted metal glove that is covered in spikes.  Don't expect to grab things with this."
 	icon_state = "mace_glove"
 	item_state = "mace_glove"
 	w_class = WEIGHT_CLASS_BULKY
 	force = 10
 	sharpness = SHARP_NONE
+
+// Dual Mace Glove		Keywords: Damage 15, Fast
+/obj/item/melee/unarmed/maceglove/dual
+	name = "Dual Mace Gloves"
+	desc = "Weighted metal gloves that are covered in spikes.  Don't expect to grab things with this."
+	icon = 'icons/fallout/objects/melee/melee.dmi'
+	lefthand_file = 'icons/fallout/onmob/clothes/hand.dmi'
+	righthand_file = 'icons/fallout/onmob/clothes/hand.dmi'
+	icon_state = "mace_glove_dual"
+	item_state = "mace_glove_dual"
+	w_class = WEIGHT_CLASS_BULKY
+	force = 15
+	sharpness = SHARP_NONE
+	attack_speed = CLICK_CD_RANGE
 
 // Punch Dagger		Keywords: Damage 24, Pointy
 /obj/item/melee/unarmed/punchdagger
@@ -831,9 +898,9 @@ obj/item/melee/unarmed/punchdagger/cyborg
 	item_state = "tiger_claw"
 	force = 40 //Assaultron, so, makes sense.
 
-// Deathclaw Gauntlet	Keywords: Damage 35, AP 1
+// Deathclaw Gauntlet	Keywords: Damage 35, AP 0.15
 /obj/item/melee/unarmed/deathclawgauntlet
-	name = "deathclaw gauntlet"
+	name = "Deathclaw Gauntlet"
 	desc = "The severed hand of a mighty Deathclaw, cured, hollowed out, and given a harness to turn it into the deadliest gauntlet the wastes have ever seen."
 	icon_state = "deathclaw_g"
 	item_state = "deathclaw_g"
@@ -845,9 +912,27 @@ obj/item/melee/unarmed/punchdagger/cyborg
 	attack_verb = list("slashed", "sliced", "torn", "ripped", "diced", "cut")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 
-//Yao Guai Gauntlet	Keywords: Damage 25, Fast, "Saw Bleed" Effect
+// Dual Deathclaw Gauntlet	Keywords: Damage 35, AP 0.2, Fast
+/obj/item/melee/unarmed/deathclawgauntlet/dual
+	name = "Dual Deathclaw Gauntlets"
+	desc = "The severeds hand of a mighty Deathclaw, cured, hollowed out, and given a harness to turn it into the deadliest gauntlet the wastes have ever seen."
+	icon = 'icons/fallout/objects/melee/melee.dmi'
+	lefthand_file = 'icons/fallout/onmob/clothes/hand.dmi'
+	righthand_file = 'icons/fallout/onmob/clothes/hand.dmi'
+	icon_state = "deathclaw_g_dual"
+	item_state = "deathclaw_g_dual"
+	slot_flags = ITEM_SLOT_GLOVES
+	w_class = WEIGHT_CLASS_BULKY
+	force = 35
+	armour_penetration = 0.2
+	sharpness = SHARP_EDGED
+	attack_verb = list("slashed", "sliced", "torn", "ripped", "diced", "cut")
+	hitsound = 'sound/weapons/bladeslice.ogg'
+	attack_speed = CLICK_CD_RANGE
+
+//Yao Guai Gauntlet	Keywords: Damage 23, Fast, "Saw Bleed" Effect
 /obj/item/melee/unarmed/yaoguaigauntlet
-	name = "yao guai gauntlet"
+	name = "Yao Guai Gauntlet"
 	desc = "The severed hand of a yao guai, the hide cured, the muscles and bone removed, and given a harness to turn it into a deadly gauntlet. A weapon worthy of the Sulfurs."
 	icon_state = "yao_guai_g"
 	item_state = "deathclaw_g"
@@ -864,6 +949,23 @@ obj/item/melee/unarmed/punchdagger/cyborg
 	if(!isliving(target))
 		return
 	target.apply_status_effect(/datum/status_effect/stacking/saw_bleed/yaoguaigauntlet)
+
+//Yao Guai Gauntlet	Keywords: Damage 23, Really Fast, "Saw Bleed" Effect
+/obj/item/melee/unarmed/yaoguaigauntlet/dual
+	name = "Dual Yao Guai Gauntlets"
+	desc = "The severed hands of a yao guai, the hide cured, the muscles and bone removed, and given a harness to turn it into a deadly gauntlet. A weapon worthy of the Sulfurs."
+	icon = 'icons/fallout/objects/melee/melee.dmi'
+	lefthand_file = 'icons/fallout/onmob/clothes/hand.dmi'
+	righthand_file = 'icons/fallout/onmob/clothes/hand.dmi'
+	icon_state = "yao_guai_g_dual"
+	item_state = "deathclaw_g_dual"
+	slot_flags = ITEM_SLOT_GLOVES
+	w_class = WEIGHT_CLASS_BULKY
+	force = 23
+	sharpness = SHARP_EDGED
+	attack_verb = list("slashed", "sliced", "torn", "ripped", "diced", "cut")
+	hitsound = 'sound/weapons/bladeslice.ogg'
+	attack_speed = CLICK_CD_RANGE * 0.75 //6
 
 
 ///////////
