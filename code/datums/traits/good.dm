@@ -226,6 +226,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	lose_text = span_danger("You feel isolated from others.")
 	medical_record_text = "Patient is highly perceptive of and sensitive to social cues, or may possibly have ESP. Further testing needed."
 
+/*
 /datum/quirk/freerunning
 	name = "Freerunning"
 	desc = "You're great at quick moves! You climb tables more quickly and land gracefully when falling from one floor up. You can also climb some walls!"
@@ -234,6 +235,16 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	gain_text = span_notice("You feel lithe on your feet! (Alt click walls to climb them!)")
 	lose_text = span_danger("You feel clumsy again.")
 	medical_record_text = "Patient scored highly on cardio tests."
+*/
+
+/datum/quirk/freefaller
+	name = "Freefaller"
+	desc = "Long drops are nothing but a thrill to you! Take no damage from falling from high places."
+	value = 2
+	mob_trait = TRAIT_FREEFALLER
+	gain_text = span_notice("You have the urge to jump from high places!")
+	lose_text = span_danger("Heights seem a bit more scary again.")
+	medical_record_text = "Patient seems to crave isolation on the rooftop, suggest therapy for their thrill-seeking behavior."
 
 /datum/quirk/friendly
 	name = "Friendly"
