@@ -19,6 +19,7 @@
 /obj/item/reagent_containers/food/snacks/tuna
 	name = "Canned Tuna"
 	desc = "A small can of tuna fish."
+	icon = 'icons/obj/food/canned.dmi'
 	icon_state = "tuna_can"
 //trash = /obj/item/trash/tuna_used //I dont know if I like this idea - A Masked Cat
 	list_reagents = list(/datum/reagent/consumable/sodiumchloride = 5, /datum/reagent/mercury = 2)
@@ -79,6 +80,7 @@
 /obj/item/reagent_containers/food/snacks/sashimi
 	name = "carp sashimi"
 	desc = "Celebrate surviving attacks from super mutants by hospitalising yourself."
+	icon = 'icons/obj/food/meat.dmi'
 	icon_state = "sashimi"
 	bonus_reagents = list(/datum/reagent/consumable/nutriment = 1, /datum/reagent/consumable/capsaicin = 4, /datum/reagent/consumable/nutriment/vitamin = 4)
 	list_reagents = list(/datum/reagent/consumable/nutriment = 6, /datum/reagent/consumable/capsaicin = 5)
