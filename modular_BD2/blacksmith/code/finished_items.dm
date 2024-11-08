@@ -743,20 +743,20 @@
 // ------------ GHOUL CRUSHER ------------ // [Ghoul bonus] - for those dry twig like limbs, snap snap..(was meant to dislocate PC ghouls but code did not work properly so removed)
 /obj/item/twohanded/smithed/crusher
 	name = "crusher"
-	desc = "Affectionally known as the ghoul crusher, this club is easiest to swing two handed."
+	desc = "Affectionally known as the ghoul crusher, this club is extremely difficult to swing."
 	icon_state = "crusher_smith"
 	icon_prefix = "crusher_smith"
 	wielded_icon = "crusher_smith"
 	icon_prefix = "crusher_smith"
 	overlay_state = "shaft_crusher"
-	attack_speed = MELEE_SPEED_SLOWER
+	attack_speed = MELEE_SPEED_SLOWEST
 	force = FORCE_SMITH_LOW
 	armour_penetration = PIERCING_MAJOR
 	throwforce = THROWING_PATHETIC
-	wound_bonus = WOUNDING_BONUS_HUGE
+	wound_bonus = WOUNDING_BONUS_BIG
 	sharpness = SHARP_NONE
 	slot_flags = ITEM_SLOT_BACK
-	total_mass = TOTAL_MASS_MEDIEVAL_WEAPON * 2
+	total_mass = TOTAL_MASS_MEDIEVAL_WEAPON * 4
 	hitsound = 'modular_BD2/blacksmith/sound/hit_mace.ogg'
 
 /obj/item/twohanded/smithed/crusher/afterattack(atom/A, mob/living/user, proximity)

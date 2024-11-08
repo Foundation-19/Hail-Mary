@@ -60,16 +60,16 @@
  * +20 effective HP
  * * * * * * * * * * * */
 #define ARMOR_VALUE_LIGHT list(\
-		"linemelee" = 20, \
-		"linebullet" = 20, \
-		"linelaser" = 20, \
+		"linemelee" = 25, \
+		"linebullet" = 25, \
+		"linelaser" = 25, \
 		"energy" = 5, \
 		"bomb" = 0, \
 		"bio" = 10, \
 		"rad" = 10, \
 		"fire" = 10, \
 		"acid" = 10, \
-		"wound" = 20, \
+		"wound" = 10, \
 		"damage_threshold" = 1)
 
 /* Medium armor values
@@ -81,16 +81,16 @@
  * +35 effective HP
  * * * * * * * * * * * */
 #define ARMOR_VALUE_MEDIUM list(\
-		"linemelee" = 50, \
-		"linebullet" = 50, \
-		"linelaser" = 50, \
+		"linemelee" = 75, \
+		"linebullet" = 75, \
+		"linelaser" = 75, \
 		"energy" = 10, \
 		"bomb" = 10, \
 		"bio" = 25, \
 		"rad" = 25, \
 		"fire" = 25, \
 		"acid" = 25, \
-		"wound" = 35, \
+		"wound" = 20, \
 		"damage_threshold" = 3)
 
 /* Heavy armor values
@@ -102,16 +102,16 @@
  * +45 effective HP
  * * * * * * * * * * * */
 #define ARMOR_VALUE_HEAVY list(\
-		"linemelee" = 75, \
-		"linebullet" = 75, \
-		"linelaser" = 75, \
+		"linemelee" = 125, \
+		"linebullet" = 125, \
+		"linelaser" = 125, \
 		"energy" = 15, \
 		"bomb" = 25, \
 		"bio" = 25, \
 		"rad" = 25, \
 		"fire" = 35, \
 		"acid" = 35, \
-		"wound" = 45, \
+		"wound" = 30, \
 		"damage_threshold" = 5)
 
 /* Salvaged PA values
@@ -124,17 +124,17 @@
  * +20 laser HP
  * * * * * * * * * * * */
 #define ARMOR_VALUE_SALVAGE list(\
-		"linemelee" = 90, \
-		"linebullet" = 90, \
-		"linelaser" = 100, \
+		"linemelee" = 200, \
+		"linebullet" = 200, \
+		"linelaser" = 200, \
 		"energy" = 30, \
 		"bomb" = 60, \
 		"bio" = 80, \
 		"rad" = 50, \
 		"fire" = 80, \
 		"acid" = 80, \
-		"wound" = 80, \
-		"damage_threshold" = 10)
+		"wound" = 40, \
+		"damage_threshold" = 8)
 
 /* Power armor values
  * High mobility
@@ -145,17 +145,17 @@
  * +25 laser HP
  * * * * * * * * * * * */
 #define ARMOR_VALUE_PA list(\
-		"linemelee" = 125, \
-		"linebullet" = 125, \
-		"linelaser" = 150, \
+		"linemelee" = 300, \
+		"linebullet" = 300, \
+		"linelaser" = 300, \
 		"energy" = 40, \
 		"bomb" = 90, \
 		"bio" = 100, \
 		"rad" = 50, \
 		"fire" = 95, \
 		"acid" = 95, \
-		"wound" = 100, \
-		"damage_threshold" = 12)
+		"wound" = 50, \
+		"damage_threshold" = 8)
 /* * * * * * * * * * * * * * *
  * MOB SPECIFIC ARMOR VALUES *
  * * * * * * * * * * * * * * */
@@ -904,7 +904,7 @@ GLOBAL_LIST_INIT(armor_token_operation_legend, list(
  * Light Armor
  * Basically clothes, but more
 */
-#define ARMOR_SLOWDOWN_LIGHT 0.1
+#define ARMOR_SLOWDOWN_LIGHT 0.2
 
 /*
  * Medium Armor
