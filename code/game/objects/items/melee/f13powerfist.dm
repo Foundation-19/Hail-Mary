@@ -66,6 +66,7 @@
 	force = 30 //EXPERIMENTAL FOR DUAL MELEES
 	throw_distance = 2
 	attack_speed = CLICK_CD_RANGE
+	w_class = WEIGHT_CLASS_BULKY
 
 // Goliath				Throws targets far. Max damage 50.
 /obj/item/melee/powerfist/f13/goliath
@@ -90,6 +91,7 @@
 	item_state = "goliath_dual"
 	force = 35 //EXPERIMENTAL FOR DUAL MELEES
 	throw_distance = 4
+	w_class = WEIGHT_CLASS_BULKY
 
 // Ballistic Fist			Keywords: Damage max 42, Shotgun
 /obj/item/gun/ballistic/revolver/ballisticfist
@@ -128,6 +130,7 @@
 	item_flags = NEEDS_PERMIT //doesn't slow you down
 	fire_delay = 0
 	var/transfer_prints = TRUE //prevents runtimes with forensics when held in glove slot
+	w_class = WEIGHT_CLASS_BULKY
 
 
 // Mole Miner
