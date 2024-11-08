@@ -360,6 +360,7 @@
 	category = CAT_WEAPONRY
 	subcategory = CAT_MELEE
 
+/*
 /datum/crafting_recipe/melee/forged/maceglove
 	name = "Mace Glove"
 	result = /obj/item/melee/unarmed/maceglove
@@ -368,6 +369,7 @@
 	tools = list(TOOL_FORGE)
 	category = CAT_WEAPONRY
 	subcategory = CAT_MELEE
+*/
 
 
 ///////////
