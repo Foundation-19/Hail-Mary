@@ -110,7 +110,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	item_flags = NEEDS_PERMIT //doesn't slow you down
 	fire_delay = 0
-	var/transfer_prints = TRUE //prevents runtimes with forensics when held in glove slotű
+	var/transfer_prints = TRUE //prevents runtimes with forensics when held in glove slot
 
 // Dual Ballistic Fist			Keywords: Damage max 42, Shotgun
 /obj/item/gun/ballistic/revolver/ballisticfist/dual
@@ -129,7 +129,6 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	item_flags = NEEDS_PERMIT //doesn't slow you down
 	fire_delay = 0
-	var/transfer_prints = TRUE //prevents runtimes with forensics when held in glove slot
 	w_class = WEIGHT_CLASS_BULKY
 
 
