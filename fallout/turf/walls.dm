@@ -390,6 +390,7 @@ turf/closed/wall/f13/wood/house/update_damage_overlay()
 	desc = "Harsh desert rock tempered by the scorching wasteland."
 	icon = 'icons/fallout/turfs/mining.dmi'
 	icon_state = "harshrock"
+	layer = EDGED_TURF_LAYER
 
 //Splashscreen
 /*
