@@ -111,7 +111,7 @@
 	var/transfer_prints = TRUE //prevents runtimes with forensics when held in glove slotű
 
 // Dual Ballistic Fist			Keywords: Damage max 42, Shotgun
-/obj/item/gun/ballistic/revolver/ballisticfist
+/obj/item/gun/ballistic/revolver/ballisticfist/dual
 	name = "Dual ballistic fists"
 	desc = "These powerfists has been modified to have two shotgun barrels welded to it, with the trigger integrated into the knuckle guard. For those times when you want to punch someone and shoot them in the face at the same time."
 	icon = 'icons/fallout/objects/melee/melee.dmi'
