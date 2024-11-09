@@ -44,7 +44,7 @@
 	dir_in = 2
 	normal_step_energy_drain = 0.75
 	step_energy_drain = 0.75
-	max_integrity = 150
+	max_integrity = 70
 	deflect_chance = 30
 	armor = ARMOR_VALUE_LIGHT
 	max_temperature = 25000
