@@ -113,15 +113,14 @@
 
 /obj/mecha/working/normalvehicle/vertibird/loaded/Initialize()
 	. = ..()
-	var/obj/item/mecha_parts/mecha_equipment/ME = new
+	var/obj/item/mecha_parts/mecha_equipment/ME = new 
 	ME = new /obj/item/mecha_parts/mecha_equipment/seat
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/seat
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/seat
 	ME.attach(src)
-	ME = new /obj/item/mecha_parts/mecha_equipment/medical/sleeper
-	ME.attach(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/seat
 
 ///NCR VERTIBIRD
 
@@ -198,11 +197,6 @@
 	ME = new /obj/item/mecha_parts/mecha_equipment/seat
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/seat
-	ME.attach(src)
-	ME = new /obj/item/mecha_parts/mecha_equipment/medical/sleeper
-	ME.attach(src)
-	ME = new /obj/item/mecha_parts/mecha_equipment/medical/sleeper
-	ME.attach(src)
 
 ///VERTIBIRD ENCLAVE
 
@@ -266,6 +260,7 @@
 
 /obj/mecha/working/normalvehicle/vertibird/enclave/loaded/Initialize()
 	. = ..()
+	var/obj/item/mecha_parts/mecha_equipment/ME = new 
 	ME = new /obj/item/mecha_parts/mecha_equipment/seat
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/seat
@@ -273,8 +268,6 @@
 	ME = new /obj/item/mecha_parts/mecha_equipment/seat
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/seat
-	ME.attach(src)
-	max_ammo()
 
 /// BOS Vertibird
 
@@ -338,15 +331,14 @@
 
 /obj/mecha/working/normalvehicle/vertibird/brotherhood/loaded/Initialize()
 	. = ..()
-	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg
-	ME.attach(src)
+	var/obj/item/mecha_parts/mecha_equipment/ME = new 
 	ME = new /obj/item/mecha_parts/mecha_equipment/seat
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/seat
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/seat
 	ME.attach(src)
-	max_ammo()
+	ME = new /obj/item/mecha_parts/mecha_equipment/seat
 
 ///Legion balloon
 
