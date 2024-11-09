@@ -254,6 +254,7 @@
 /obj/structure/window/reinforced/tinted{
 	dir = 4
 	},
+/obj/effect/turf_decal/trimline/blue/line,
 /turf/open/floor/circuit/f13_blue/off,
 /area/f13/vault/medical)
 "abl" = (
@@ -1311,6 +1312,9 @@
 /obj/machinery/chem_dispenser{
 	color = "#c1b6a5"
 	},
+/obj/effect/turf_decal/trimline/blue/line{
+	dir = 1
+	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "bluerustysolid"
 	},
@@ -1818,6 +1822,7 @@
 /area/f13/citycaves)
 "aha" = (
 /obj/structure/sign/poster/official/medical_green_cross,
+/obj/machinery/door/airlock/grunge,
 /turf/closed/wall/r_wall/f13vault{
 	icon_state = "2-i"
 	},
@@ -2563,6 +2568,9 @@
 /area/f13/bunker)
 "ajH" = (
 /obj/machinery/vending/cola/space_up,
+/obj/structure/chair/booth{
+	dir = 8
+	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "bluerustysolid"
 	},
@@ -3996,6 +4004,7 @@
 /obj/structure/window/reinforced/tinted{
 	dir = 8
 	},
+/obj/effect/turf_decal/trimline/blue/line,
 /turf/open/floor/circuit/f13_blue/off,
 /area/f13/vault/medical)
 "app" = (
@@ -4047,6 +4056,9 @@
 	},
 /obj/structure/closet/crate/medical/anchored,
 /obj/machinery/light/small,
+/obj/effect/turf_decal/trimline/blue/corner{
+	dir = 1
+	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/vault/medical)
 "apy" = (
@@ -4116,6 +4128,7 @@
 /area/f13/vault)
 "apO" = (
 /obj/structure/curtain,
+/obj/effect/turf_decal/trimline/blue/line,
 /turf/open/floor/circuit/f13_blue/off,
 /area/f13/vault/medical)
 "apP" = (
@@ -4623,6 +4636,10 @@
 /obj/structure/sign/directions/supply{
 	dir = 1;
 	pixel_y = 40
+	},
+/obj/effect/turf_decal/trimline/neutral/line{
+	dir = 1;
+	color = "#FFFF66"
 	},
 /obj/effect/turf_decal/trimline/neutral/line{
 	dir = 1;
@@ -5543,6 +5560,7 @@
 /obj/structure/chair/f13chair2{
 	dir = 1
 	},
+/obj/effect/turf_decal/trimline/blue/line,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/vault/medical)
 "ave" = (
@@ -5607,6 +5625,7 @@
 "avu" = (
 /obj/structure/closet/locker/oldstyle,
 /obj/item/reagent_containers/glass/beaker/waterbottle/empty,
+/obj/structure/closet/locker/oldstyle,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/vault)
 "avv" = (
@@ -6205,6 +6224,14 @@
 /area/f13/citycaves)
 "axz" = (
 /obj/effect/turf_decal/trimline/blue/line,
+/obj/effect/turf_decal/trimline/blue/line{
+	dir = 6
+	},
+/obj/machinery/light/small{
+	light_color = "#FF0000";
+	color = "#FF0000";
+	name = "red light fixture"
+	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "bluerustysolid"
 	},
@@ -6820,6 +6847,9 @@
 /obj/machinery/light/small{
 	dir = 1;
 	light_color = "#ad1b1b"
+	},
+/obj/effect/turf_decal/trimline/blue/line{
+	dir = 9
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/vault/medical)
@@ -7888,6 +7918,14 @@
 /obj/machinery/light/small,
 /obj/structure/chair/f13chair2{
 	dir = 1
+	},
+/obj/effect/turf_decal/trimline/blue/line{
+	dir = 10
+	},
+/obj/machinery/light/small{
+	light_color = "#FF0000";
+	color = "#FF0000";
+	name = "red light fixture"
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "bluerustysolid"
@@ -8977,6 +9015,9 @@
 	dir = 4;
 	pixel_y = -21
 	},
+/obj/effect/turf_decal/trimline/neutral/line{
+	color = "#FFFF66"
+	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "bluerustysolid"
 	},
@@ -9116,6 +9157,9 @@
 /obj/machinery/light/small,
 /obj/machinery/vending/medical/free{
 	color = "#c1b6a5"
+	},
+/obj/effect/turf_decal/trimline/blue/corner{
+	dir = 4
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "bluerustysolid"
@@ -10195,6 +10239,9 @@
 	},
 /obj/structure/table/reinforced,
 /obj/machinery/chem_master/advanced,
+/obj/effect/turf_decal/trimline/blue/line{
+	dir = 1
+	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "bluerustysolid"
 	},
@@ -13154,6 +13201,9 @@
 	pixel_x = -7;
 	pixel_y = 10
 	},
+/obj/effect/turf_decal/trimline/blue/line{
+	dir = 1
+	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "bluerustysolid"
 	},
@@ -13189,6 +13239,13 @@
 	dir = 4
 	},
 /obj/structure/curtain,
+/obj/effect/turf_decal/trimline/blue/corner,
+/obj/machinery/light/small{
+	light_color = "#FF0000";
+	color = "#FF0000";
+	name = "red light fixture";
+	dir = 1
+	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "bluerustysolid"
 	},
@@ -13920,6 +13977,17 @@
 	color = "#669999"
 	},
 /area/f13/vault)
+"bRO" = (
+/obj/structure/chair/booth{
+	dir = 4
+	},
+/obj/structure/table{
+	color = "#c1b6a5"
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	icon_state = "bluerustysolid"
+	},
+/area/f13/vault)
 "bUv" = (
 /obj/machinery/autolathe,
 /turf/open/floor/plating/rust,
@@ -13946,6 +14014,12 @@
 	dir = 6
 	},
 /turf/open/floor/circuit/f13_blue,
+/area/f13/vault)
+"cmH" = (
+/obj/structure/table{
+	color = "#c1b6a5"
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/vault)
 "cuA" = (
 /obj/effect/turf_decal/trimline/red/line{
@@ -14208,6 +14282,12 @@
 	},
 /turf/closed/indestructible/f13vaultrusted,
 /area/f13/vault)
+"fuS" = (
+/obj/effect/turf_decal/trimline/blue/line{
+	dir = 8
+	},
+/turf/open/floor/circuit/f13_blue/off,
+/area/f13/vault/medical)
 "fxY" = (
 /obj/structure/table/reinforced{
 	color = "#c1b6a5"
@@ -14314,6 +14394,9 @@
 /area/f13/vault)
 "hkX" = (
 /obj/machinery/vending/cola/red,
+/obj/structure/table{
+	color = "#c1b6a5"
+	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "bluerustysolid"
 	},
@@ -14357,6 +14440,7 @@
 /obj/structure/closet/locker/oldstyle,
 /obj/item/reagent_containers/glass/beaker/waterbottle,
 /obj/item/reagent_containers/glass/beaker/waterbottle,
+/obj/structure/closet/locker/oldstyle,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/vault)
 "ifs" = (
@@ -14561,6 +14645,12 @@
 /obj/machinery/vending/games,
 /turf/open/floor/plating/rust,
 /area/f13/vault)
+"kwi" = (
+/obj/effect/turf_decal/trimline/blue/line{
+	dir = 4
+	},
+/turf/open/floor/circuit/f13_blue/off,
+/area/f13/vault/medical)
 "kxZ" = (
 /obj/machinery/light/small{
 	dir = 1;
@@ -14654,6 +14744,9 @@
 	},
 /turf/open/floor/circuit/green/off,
 /area/f13/vault)
+"lBj" = (
+/turf/closed/mineral/random/low_chance,
+/area/f13/vault/medical)
 "lDn" = (
 /obj/structure/bookshelf{
 	icon_state = "book-5"
@@ -14838,6 +14931,9 @@
 /obj/structure/table/reinforced{
 	color = "#c1b6a5"
 	},
+/obj/structure/table/reinforced{
+	color = "#c1b6a5"
+	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/vault)
 "psB" = (
@@ -14882,6 +14978,17 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/blue/whitebluefull,
 /area/f13/vault)
+"qpL" = (
+/obj/structure/table{
+	color = "#c1b6a5"
+	},
+/obj/structure/chair/booth{
+	dir = 8
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	icon_state = "bluerustysolid"
+	},
+/area/f13/vault)
 "qtn" = (
 /obj/structure/table/reinforced,
 /obj/structure/railing{
@@ -14905,6 +15012,7 @@
 "rgR" = (
 /obj/structure/chair/comfy/teal,
 /obj/effect/landmark/start/f13/vaultdweller,
+/obj/structure/chair/comfy/teal,
 /turf/open/floor/plasteel/f13/vault_floor/blue/whitebluefull,
 /area/f13/vault)
 "rnn" = (
@@ -14925,6 +15033,19 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/vault)
+"rua" = (
+/obj/structure/curtain,
+/obj/effect/turf_decal/trimline/blue/corner{
+	dir = 8
+	},
+/obj/machinery/light/small{
+	light_color = "#FF0000";
+	color = "#FF0000";
+	name = "red light fixture";
+	dir = 1
+	},
+/turf/open/floor/circuit/f13_blue/off,
+/area/f13/vault/medical)
 "rGN" = (
 /obj/machinery/computer{
 	dir = 1;
@@ -14941,6 +15062,7 @@
 	},
 /obj/item/reagent_containers/glass/beaker/waterbottle/large,
 /obj/item/reagent_containers/glass/beaker/waterbottle/large,
+/obj/structure/closet/locker/oldstyle,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/vault)
 "sdf" = (
@@ -15107,6 +15229,15 @@
 	},
 /turf/open/floor/circuit/off,
 /area/f13/vault)
+"tSI" = (
+/obj/structure/chair/booth{
+	dir = 4
+	},
+/obj/structure/table{
+	color = "#c1b6a5"
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/vault)
 "tTE" = (
 /obj/effect/landmark/start/f13/overseer,
 /obj/structure/chair/comfy/shuttle,
@@ -15138,6 +15269,9 @@
 /area/f13/vault)
 "uZM" = (
 /obj/machinery/vending/bigredvend,
+/obj/structure/chair/booth{
+	dir = 4
+	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "bluerustysolid"
 	},
@@ -15163,6 +15297,17 @@
 	},
 /turf/open/floor/circuit/off,
 /area/f13/vault)
+"vwb" = (
+/obj/effect/turf_decal/trimline/blue/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/trimline/blue/line{
+	dir = 5
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	icon_state = "bluerustysolid"
+	},
+/area/f13/vault/medical)
 "vUo" = (
 /obj/machinery/vending/boozeomat{
 	color = "#c1b6a5"
@@ -16110,9 +16255,9 @@ aFJ
 aFJ
 aFJ
 aFJ
-aJQ
-aJQ
-aJQ
+aFJ
+aFJ
+aFJ
 aFJ
 aFh
 aFJ
@@ -17919,7 +18064,7 @@ aFJ
 oHn
 afj
 afj
-aJQ
+aFJ
 aSm
 aDh
 anD
@@ -18127,7 +18272,7 @@ aDh
 anD
 aJQ
 aFJ
-aJQ
+aFJ
 aFJ
 aFJ
 aKw
@@ -18721,13 +18866,13 @@ afj
 fYB
 aFJ
 aJQ
-aJQ
-aJQ
+aGB
+aGB
 aGB
 aGB
 aGB
 aFJ
-aJQ
+aFJ
 aeM
 aDh
 anD
@@ -19529,8 +19674,8 @@ afj
 meX
 aFJ
 afj
-aJQ
-aJQ
+aFJ
+aFJ
 aFJ
 aFJ
 eQA
@@ -19928,8 +20073,8 @@ jMS
 nVY
 aFJ
 fYB
-aRP
-aRP
+boJ
+boJ
 fYB
 aRP
 aRP
@@ -20130,12 +20275,12 @@ afj
 afj
 aJv
 aRP
-cEU
-cEU
+tSI
+tSI
 aRP
 boJ
 cEU
-afj
+cEU
 uZM
 aFJ
 avu
@@ -20332,12 +20477,12 @@ afj
 afj
 aJv
 aRP
-aZD
-aZD
+qpL
+qpL
 aRP
 aZD
 ayX
-afj
+cmH
 hkX
 aFJ
 aJv
@@ -20539,7 +20684,7 @@ amG
 aRP
 amG
 aCE
-aRP
+amG
 ajH
 aFJ
 avu
@@ -20736,8 +20881,8 @@ afj
 afj
 aJv
 aRP
-aRP
-aRP
+boJ
+boJ
 aRP
 aRP
 aRP
@@ -20938,12 +21083,12 @@ afj
 afj
 aFJ
 aRP
-boJ
-boJ
+bRO
+bRO
 aRP
 boJ
 boJ
-afj
+cEU
 afj
 aFJ
 aFJ
@@ -21140,12 +21285,12 @@ afj
 afj
 eQA
 afj
-aZD
-aZD
+qpL
+qpL
 aRP
 ayT
 aZD
-afj
+cmH
 aOx
 aFJ
 jKz
@@ -21347,7 +21492,7 @@ amG
 aRP
 aCE
 aCE
-afj
+aCE
 aVG
 aFJ
 eKv
@@ -22771,7 +22916,7 @@ aKw
 aYl
 aDh
 aXc
-aJQ
+aFJ
 avy
 uuO
 aas
@@ -22965,19 +23110,19 @@ acp
 aFJ
 aFJ
 aFJ
-aJQ
-aJQ
+aFJ
+aFJ
 aJQ
 aJQ
 aJQ
 aFJ
 dbQ
 mOs
-aJQ
-aJQ
-aJQ
-aJQ
-aJQ
+aFJ
+aFJ
+aFJ
+afj
+aFJ
 aFJ
 aFJ
 aka
@@ -24591,11 +24736,11 @@ aFJ
 aFJ
 aFJ
 aJQ
+aFJ
 aJQ
 aJQ
 aJQ
-aJQ
-aJQ
+aFJ
 aJQ
 aJQ
 aFJ
@@ -25824,13 +25969,13 @@ ayQ
 awt
 aMT
 aYg
-apO
-aYg
-aYg
+rua
+fuS
+fuS
 apw
 aha
-ash
-aYg
+vwb
+kwi
 axz
 awt
 ayQ
@@ -26023,7 +26168,7 @@ ayQ
 ayQ
 ayQ
 ayQ
-aLz
+lBj
 aBm
 ahz
 aSp
@@ -26228,10 +26373,10 @@ ayQ
 aLz
 awt
 awt
+lBj
 aLz
 aLz
-aLz
-aLz
+lBj
 awt
 axL
 axL

@@ -5438,6 +5438,9 @@
 /obj/structure/spacevine,
 /turf/open/indestructible/ground/outside/desert,
 /area/f13/wasteland)
+"fhR" = (
+/turf/open/floor/plasteel/f13/vault_floor/dark/darksolid,
+/area/f13/wasteland)
 "fhV" = (
 /turf/open/indestructible/ground/outside/sidewalk{
 	icon_state = "horizontalbottomborderbottomright"
@@ -7112,6 +7115,9 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/enclave)
+"gKD" = (
+/turf/open/floor/plasteel/f13/vault_floor/dark/darksolid,
+/area/f13/underground/cave)
 "gLc" = (
 /obj/machinery/light/fo13colored/Red{
 	dir = 4
@@ -10411,6 +10417,10 @@
 	},
 /turf/open/floor/plasteel/f13/stone/rugged,
 /area/f13/wasteland)
+"kbi" = (
+/obj/structure/rack/shelf_metal,
+/turf/open/floor/plasteel/f13/vault_floor/dark/darksolid,
+/area/f13/underground/cave)
 "kci" = (
 /obj/structure/barricade/wooden/strong,
 /obj/structure/spacevine,
@@ -11197,6 +11207,10 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
 /area/f13/city)
+"kPb" = (
+/obj/structure/rack/shelf_metal,
+/turf/open/floor/plasteel/f13/vault_floor/dark/darksolid,
+/area/f13/wasteland)
 "kPI" = (
 /obj/structure/fluff/hedge,
 /turf/open/indestructible/ground/outside/ruins,
@@ -11863,6 +11877,13 @@
 /obj/effect/spawner/lootdrop/trash,
 /turf/open/indestructible/ground/outside/ruins,
 /area/f13/outpost)
+"lzf" = (
+/obj/structure/table/reinforced{
+	color = "#c1b6a5"
+	},
+/obj/structure/barricade/bars,
+/turf/open/floor/plasteel/f13/vault_floor/dark/darksolid,
+/area/f13/wasteland)
 "lzo" = (
 /obj/structure/decoration/vent/rusty,
 /turf/closed/wall/rust,
@@ -12244,6 +12265,9 @@
 	},
 /turf/open/floor/plasteel/f13/stone/rugged,
 /area/f13/wasteland)
+"lQe" = (
+/turf/open/floor/wood_wide,
+/area/f13/underground/cave)
 "lQs" = (
 /obj/structure/rack/shelf_metal,
 /obj/structure/bedsheetbin,
@@ -13220,12 +13244,6 @@
 	name = "Wooden docks"
 	},
 /area/f13/city)
-"mLR" = (
-/obj/structure/stairs/south{
-	color = "#A47449"
-	},
-/turf/open/indestructible/ground/inside/mountain,
-/area/f13/underground/cave)
 "mMc" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
@@ -18002,6 +18020,9 @@
 /obj/item/lockpick_set,
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/raiders)
+"rvp" = (
+/turf/closed/wall/f13/tunnel,
+/area/f13/wasteland)
 "rvt" = (
 /turf/open/indestructible/ground/outside/roaddirt{
 	icon_state = "horizontalbottombordertopleft"
@@ -19281,6 +19302,9 @@
 	},
 /turf/open/floor/wood_common,
 /area/f13/city)
+"sFN" = (
+/turf/closed/wall/f13/tunnel,
+/area/f13/underground/cave)
 "sFR" = (
 /turf/open/indestructible/ground/outside/dirt/dark{
 	icon_state = "dirtfull_dark"
@@ -47935,11 +47959,11 @@ eQA
 eQA
 eQA
 eQA
-eQA
-wsb
-wsb
-wsb
-wsb
+sFN
+rvp
+rvp
+rvp
+rvp
 wsb
 hDr
 jeD
@@ -48137,11 +48161,11 @@ eQA
 eQA
 eQA
 eQA
-eQA
-eQA
-wsb
-wsb
-wsb
+sFN
+kbi
+kPb
+kPb
+rvp
 wsb
 hDr
 jeD
@@ -48339,11 +48363,11 @@ eQA
 eQA
 eQA
 eQA
-eQA
-eQA
-wsb
-wsb
-wsb
+sFN
+gKD
+fhR
+fhR
+lzf
 wsb
 hDr
 jeD
@@ -48541,11 +48565,11 @@ eQA
 eQA
 eQA
 eQA
-eQA
-eQA
-wsb
-wsb
-wsb
+sFN
+gKD
+fhR
+fhR
+lzf
 wsb
 hDr
 jeD
@@ -48743,11 +48767,11 @@ eQA
 jnY
 jnY
 eQA
-eQA
-eQA
-wsb
-wsb
-wsb
+sFN
+gKD
+fhR
+fhR
+rvp
 wsb
 hDr
 jeD
@@ -48945,11 +48969,11 @@ eQA
 jnY
 eQA
 eQA
-eQA
-eQA
-wsb
-wsb
-wsb
+sFN
+mKx
+rvp
+rvp
+rvp
 wsb
 hDr
 jeD
@@ -49148,7 +49172,7 @@ mKx
 mKx
 jSv
 jSv
-eQA
+mKx
 eQA
 wsb
 wsb
@@ -49350,7 +49374,7 @@ eQA
 mKx
 mKx
 jSv
-eQA
+mKx
 eQA
 oGc
 wsb
@@ -49552,7 +49576,7 @@ eQA
 eQA
 mKx
 uKZ
-eQA
+mKx
 eQA
 eQA
 wsb
@@ -49753,9 +49777,9 @@ eQA
 eQA
 eQA
 mKx
-ylF
+lQe
 mKx
-mLR
+mKx
 ylF
 ylF
 wsb
@@ -50964,7 +50988,7 @@ eQA
 eQA
 eQA
 eQA
-ylF
+lQe
 feF
 jSv
 jSv
@@ -51166,7 +51190,7 @@ eQA
 eQA
 iDf
 jSv
-ylF
+lQe
 uYZ
 jSv
 eQA

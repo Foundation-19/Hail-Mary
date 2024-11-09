@@ -46,10 +46,10 @@
 
 //Rebel soldier
 /datum/job/rebels/soldier
-	title = "Roguewave Den Marines"
+	title = "Roguewave Raider"
 	flag = F13REBELSOLDIER
-	total_positions = 5
-	spawn_positions = 5
+	total_positions = 4
+	spawn_positions = 4
 	access = list(ACCESS_ENCLAVE)
 	display_order = JOB_DISPLAY_ORDER_F13REBELSOLDIER
 	description = "When the Legion arrived and conquered the region, you knew that you had to do something. Maybe you are a NCR soldier wanting to bring the fight to their soil. Maybe raider wanting to spill some legion blood. Maybe you are Enclave Remnant crewing the ship and assuring your survival. What ever you are, your ennemy is the legion."
@@ -208,7 +208,7 @@
 // 
 
 /datum/job/rebels/captain
-	title = "Roguewave Den Captain"
+	title = "Roguewave Raider Captain"
 	flag = F13REBELCAPTAIN
 	total_positions = 1
 	spawn_positions = 1
@@ -285,8 +285,8 @@
 /datum/job/rebels/guard
 	title = "Roguewave Den Guard"
 	flag = F13REBELGUARD
-	total_positions = 3
-	spawn_positions = 3
+	total_positions = 2
+	spawn_positions = 2
 	access = list(ACCESS_ENCLAVE)
 	display_order = JOB_DISPLAY_ORDER_F13REBELGUARD
 	description = "While marines head out in the field, you stay inside the carrier and make sure its defended, and in a relative orders. You follow orders from the captain only."
@@ -346,10 +346,10 @@
 
 //Rebel Citizen  
 /datum/job/rebels/citizen
-	title = "Roguewave Den Citizen"
+	title = "Roguewave Den Settlers"
 	flag = F13REBELCITIZEN
-	total_positions = -1
-	spawn_positions = -1
+	total_positions = 5
+	spawn_positions = 5
 	display_order = JOB_DISPLAY_ORDER_F13REBELCITIZEN
 	description = "When the legion arrived, you fled, and started living in the only place safe enough arround, the Roguewave rebel carrier. You are not a fighter, but can defend this Den."
 	supervisors = "The captain, the armed forced."
