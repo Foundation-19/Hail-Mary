@@ -328,7 +328,7 @@
 	dna_lock
 	step_in = 4
 	dir_in = 2
-	step_energy_drain = 0.2
+	step_energy_drain = 0.05
 	max_integrity = 100
 	deflect_chance = 0
 	armor = ARMOR_VALUE_SALVAGE
@@ -397,7 +397,7 @@
 	step_in = 1.4
 	opacity = 0
 	dir_in = 8
-	step_energy_drain = 1.5
+	step_energy_drain = 0.5
 	max_temperature = 20000
 	max_integrity = 300
 	armor = ARMOR_VALUE_MEDIUM
@@ -455,7 +455,7 @@
 	step_in = 1
 	opacity = 0
 	dir_in = 8
-	step_energy_drain = 1
+	step_energy_drain = 0.4
 	max_temperature = 20000
 	max_integrity = 200
 	armor = ARMOR_VALUE_LIGHT

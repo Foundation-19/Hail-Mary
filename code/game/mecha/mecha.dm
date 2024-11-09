@@ -908,7 +908,7 @@
 			if(C.dna.unique_enzymes==dna_lock)
 				passed = TRUE
 		if (!passed)
-			to_chat(user, "<span class='warning'>Access denied. [name] is secured with a DNA lock.</span>")
+			to_chat(user, "<span class='warning'>Access denied. The [name] is secured with a DNA lock.</span>")
 			log_append_to_last("Permission denied.")
 			return
 	if(!operation_allowed(user))
