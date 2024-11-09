@@ -292,6 +292,18 @@
 	subcategory = CAT_VEHICLES
 	category = CAT_VEHICLEPARTS
 
+/datum/crafting_recipe/carpart/trunk
+	name = "Modular Trunk"
+	result = /obj/item/mecha_parts/mecha_equipment/trunk
+	reqs = list(/obj/item/stack/sheet/metal = 5,
+	/obj/item/stack/crafting/metalparts = 10,
+	/obj/item/stack/sheet/plastic = 5,
+	/obj/item/stack/rods = 2)
+	tools = list(TOOL_WORKBENCH)
+	time = 90
+	subcategory = CAT_VEHICLES
+	category = CAT_VEHICLEPARTS
+
 //Core parts
 
 /datum/crafting_recipe/engine

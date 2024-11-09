@@ -207,7 +207,7 @@
 ///VERTIBIRD ENCLAVE
 
 /obj/mecha/working/normalvehicle/vertibird/enclave
-	name = "\improper Enclave Naval CArgo Vertibird"
+	name = "\improper Enclave Naval Cargo Vertibird"
 	desc = "A real useable, and working vertibird, maintained with luck, sweat, and ducktape. This one seems to be more focused toward combat, and be stored in a ship. Thats peak Enclave tech."
 	icon = 'icons/mecha/vb-vertibird-enclave.dmi'
 	icon_state = "vb"
@@ -279,7 +279,7 @@
 /// BOS Vertibird
 
 /obj/mecha/working/normalvehicle/vertibird/brotherhood
-	name = "\improper Brotherhood Vertibird"
+	name = "\improper Brotherhood Cargo Vertibird"
 	desc = "A real useable, and working vertibird, maintained with luck, sweat, and ducktape. This one seems to be more focused toward combat, and marked with brotherhood markings."
 	icon = 'icons/mecha/vb-vertibird-bos.dmi'
 	icon_state = "vb"

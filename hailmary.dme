@@ -583,6 +583,7 @@
 #include "code\datums\components\storage\concrete\necks.dm"
 #include "code\datums\components\storage\concrete\pockets.dm"
 #include "code\datums\components\storage\concrete\rped.dm"
+#include "code\datums\components\storage\concrete\trunk.dm"
 #include "code\datums\components\storage\concrete\special.dm"
 #include "code\datums\components\storage\concrete\stack.dm"
 #include "code\datums\diseases\_disease.dm"
