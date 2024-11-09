@@ -38,7 +38,7 @@
 				visible_message("<span class='danger'>[src] crashes into [W]!</span>")
 				playsound(src, 'sound/effects/bang.ogg', 50, 1)
 
-/obj/mecha/combat/normalvehicle/vertibird
+/obj/mecha/working/normalvehicle/vertibird
 	name = "\improper Cargo Vertibird"
 	desc = "A real useable, and working vertibird, maintained with luck, sweat, and ducktape. This one seems to be more focused toward combat."
 	icon = 'icons/mecha/vb-vertibird.dmi'
@@ -79,7 +79,7 @@
 	pixel_x = -138
 	pixel_y = -138
  
-/obj/mecha/combat/normalvehicle/vertibird/GrantActions(mob/living/user, human_occupant = 0) 
+/obj/mecha/working/normalvehicle/vertibird/GrantActions(mob/living/user, human_occupant = 0) 
 	internals_action.Grant(user, src)
 	cycle_action.Grant(user, src)
 	lights_action.Grant(user, src)
@@ -89,7 +89,7 @@
 	eject_action.Grant(user, src)
 	landing_action.Grant(user, src)
 
-/obj/mecha/combat/normalvehicle/vertibird/RemoveActions(mob/living/user, human_occupant = 0)
+/obj/mecha/working/normalvehicle/vertibird/RemoveActions(mob/living/user, human_occupant = 0)
 	internals_action.Remove(user)
 	cycle_action.Remove(user)
 	lights_action.Remove(user)
@@ -99,7 +99,7 @@
 	eject_action.Remove(user)
 	landing_action.Remove(user)
 
-/obj/mecha/combat/normalvehicle/vertibird/obj_destruction()
+/obj/mecha/working/normalvehicle/vertibird/obj_destruction()
 	for(var/mob/M in src)
 		to_chat(M, span_brass("The vertibird is going to crash!"))
 		M.dust()
@@ -107,11 +107,11 @@
 	src.visible_message(span_userdanger("The reactor has gone critical, its going to blow!"))
 	addtimer(CALLBACK(src,.proc/go_critical),breach_time)
 
-/obj/mecha/combat/normalvehicle/vertibird/proc/go_critical()
+/obj/mecha/working/normalvehicle/vertibird/proc/go_critical()
 	explosion(get_turf(loc))
 	Destroy(src)
 
-/obj/mecha/combat/normalvehicle/vertibird/loaded/Initialize()
+/obj/mecha/working/normalvehicle/vertibird/loaded/Initialize()
 	. = ..()
 	var/obj/item/mecha_parts/mecha_equipment/ME = new
 	ME = new /obj/item/mecha_parts/mecha_equipment/seat
@@ -125,7 +125,7 @@
 
 ///NCR VERTIBIRD
 
-/obj/mecha/combat/normalvehicle/vertibird/ncr
+/obj/mecha/working/normalvehicle/vertibird/ncr
 	name = "\improper NCR Cargo Vertibird"
 	desc = "A real useable, and working vertibird, maintained with luck, sweat, and ducktape. This one seems to be more focused toward Troop transport, and his painted in the colors of the NCR."
 	icon = 'icons/mecha/vb-vertibird-ncr.dmi'
@@ -158,7 +158,7 @@
 	
 	
 
-/obj/mecha/combat/normalvehicle/vertibird/ncr/GrantActions(mob/living/user, human_occupant = 0) 
+/obj/mecha/working/normalvehicle/vertibird/ncr/GrantActions(mob/living/user, human_occupant = 0) 
 	internals_action.Grant(user, src)
 	cycle_action.Grant(user, src)
 	lights_action.Grant(user, src)
@@ -169,7 +169,7 @@
 	smoke_action.Grant(user, src)
 	landing_action.Grant(user, src)
 
-/obj/mecha/combat/normalvehicle/vertibird/ncr/RemoveActions(mob/living/user, human_occupant = 0)
+/obj/mecha/working/normalvehicle/vertibird/ncr/RemoveActions(mob/living/user, human_occupant = 0)
 	internals_action.Remove(user)
 	cycle_action.Remove(user)
 	lights_action.Remove(user)
@@ -180,7 +180,7 @@
 	smoke_action.Remove(user)
 	landing_action.Remove(user)
 
-/obj/mecha/combat/normalvehicle/vertibird/ncr/obj_destruction()
+/obj/mecha/working/normalvehicle/vertibird/ncr/obj_destruction()
 	for(var/mob/M in src)
 		to_chat(M, span_brass("The vertibird is going to crash!"))
 		M.dust()
@@ -188,7 +188,7 @@
 	src.visible_message(span_userdanger("The reactor has gone critical, its going to blow!"))
 	addtimer(CALLBACK(src,.proc/go_critical),breach_time)
 
-/obj/mecha/combat/normalvehicle/vertibird/ncr/loaded/Initialize()
+/obj/mecha/working/normalvehicle/vertibird/ncr/loaded/Initialize()
 	. = ..()
 	var/obj/item/mecha_parts/mecha_equipment/ME = new 
 	ME = new /obj/item/mecha_parts/mecha_equipment/seat
@@ -206,7 +206,7 @@
 
 ///VERTIBIRD ENCLAVE
 
-/obj/mecha/combat/normalvehicle/vertibird/enclave
+/obj/mecha/working/normalvehicle/vertibird/enclave
 	name = "\improper Enclave Naval CArgo Vertibird"
 	desc = "A real useable, and working vertibird, maintained with luck, sweat, and ducktape. This one seems to be more focused toward combat, and be stored in a ship. Thats peak Enclave tech."
 	icon = 'icons/mecha/vb-vertibird-enclave.dmi'
@@ -236,7 +236,7 @@
 	stepsound = 'sound/f13machines/vertibird_loop.ogg'
 	turnsound = 'sound/f13machines/vertibird_loop.ogg'
 
-/obj/mecha/combat/normalvehicle/vertibird/enclave/GrantActions(mob/living/user, human_occupant = 0) 
+/obj/mecha/working/normalvehicle/vertibird/enclave/GrantActions(mob/living/user, human_occupant = 0) 
 	internals_action.Grant(user, src)
 	cycle_action.Grant(user, src)
 	lights_action.Grant(user, src)
@@ -246,7 +246,7 @@
 	eject_action.Grant(user, src)
 	landing_action.Grant(user, src)
 
-/obj/mecha/combat/normalvehicle/vertibird/enclave/RemoveActions(mob/living/user, human_occupant = 0)
+/obj/mecha/working/normalvehicle/vertibird/enclave/RemoveActions(mob/living/user, human_occupant = 0)
 	internals_action.Remove(user)
 	cycle_action.Remove(user)
 	lights_action.Remove(user)
@@ -256,7 +256,7 @@
 	eject_action.Remove(user)
 	landing_action.Remove(user)
 
-/obj/mecha/combat/normalvehicle/vertibird/enclave/obj_destruction()
+/obj/mecha/working/normalvehicle/vertibird/enclave/obj_destruction()
 	for(var/mob/M in src)
 		to_chat(M, span_brass("The vertibird is going to crash!"))
 		M.dust()
@@ -264,7 +264,7 @@
 	src.visible_message(span_userdanger("The reactor has gone critical, its going to blow!"))
 	addtimer(CALLBACK(src,.proc/go_critical),breach_time)
 
-/obj/mecha/combat/normalvehicle/vertibird/enclave/loaded/Initialize()
+/obj/mecha/working/normalvehicle/vertibird/enclave/loaded/Initialize()
 	. = ..()
 	ME = new /obj/item/mecha_parts/mecha_equipment/seat
 	ME.attach(src)
@@ -278,7 +278,7 @@
 
 /// BOS Vertibird
 
-/obj/mecha/combat/normalvehicle/vertibird/brotherhood
+/obj/mecha/working/normalvehicle/vertibird/brotherhood
 	name = "\improper Brotherhood Vertibird"
 	desc = "A real useable, and working vertibird, maintained with luck, sweat, and ducktape. This one seems to be more focused toward combat, and marked with brotherhood markings."
 	icon = 'icons/mecha/vb-vertibird-bos.dmi'
@@ -308,7 +308,7 @@
 	stepsound = 'sound/f13machines/vertibird_loop.ogg'
 	turnsound = 'sound/f13machines/vertibird_loop.ogg'
 
-/obj/mecha/combat/normalvehicle/vertibird/brotherhood/GrantActions(mob/living/user, human_occupant = 0) 
+/obj/mecha/working/normalvehicle/vertibird/brotherhood/GrantActions(mob/living/user, human_occupant = 0) 
 	internals_action.Grant(user, src)
 	cycle_action.Grant(user, src)
 	lights_action.Grant(user, src)
@@ -318,7 +318,7 @@
 	eject_action.Grant(user, src)
 	landing_action.Grant(user, src)
 
-/obj/mecha/combat/normalvehicle/vertibird/brotherhood/RemoveActions(mob/living/user, human_occupant = 0)
+/obj/mecha/working/normalvehicle/vertibird/brotherhood/RemoveActions(mob/living/user, human_occupant = 0)
 	internals_action.Remove(user)
 	cycle_action.Remove(user)
 	lights_action.Remove(user)
@@ -328,7 +328,7 @@
 	eject_action.Remove(user)
 	landing_action.Remove(user)
 
-/obj/mecha/combat/normalvehicle/vertibird/brotherhood/obj_destruction()
+/obj/mecha/working/normalvehicle/vertibird/brotherhood/obj_destruction()
 	for(var/mob/M in src)
 		to_chat(M, span_brass("The vertibird is going to crash!"))
 		M.dust()
@@ -336,7 +336,7 @@
 	src.visible_message(span_userdanger("The reactor has gone critical, it's going to blow!"))
 	addtimer(CALLBACK(src,.proc/go_critical),breach_time)
 
-/obj/mecha/combat/normalvehicle/vertibird/brotherhood/loaded/Initialize()
+/obj/mecha/working/normalvehicle/vertibird/brotherhood/loaded/Initialize()
 	. = ..()
 	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg
 	ME.attach(src)
@@ -350,7 +350,7 @@
 
 ///Legion balloon
 
-/obj/mecha/combat/normalvehicle/vertibird/balloon
+/obj/mecha/working/normalvehicle/vertibird/balloon
 	name = "\improper Legion Transport balloon"
 	desc = "The legion maybe doesn't have fancy birds, but will still by the will of Caesar, get wings... And hot air."
 	icon = 'icons/mecha/legionballoon.dmi'
@@ -379,7 +379,7 @@
 	stepsound = 'sound/f13ambience/ambigen_15.ogg'
 	turnsound = 'sound/f13ambience/ambigen_15.ogg'
 
-/obj/mecha/combat/normalvehicle/vertibird/balloon/GrantActions(mob/living/user, human_occupant = 0) 
+/obj/mecha/working/normalvehicle/vertibird/balloon/GrantActions(mob/living/user, human_occupant = 0) 
 	internals_action.Grant(user, src)
 	cycle_action.Grant(user, src)
 	lights_action.Grant(user, src)
@@ -390,7 +390,7 @@
 	smoke_action.Grant(user, src)
 	landing_action.Grant(user, src)
 
-/obj/mecha/combat/normalvehicle/vertibird/balloon/RemoveActions(mob/living/user, human_occupant = 0)
+/obj/mecha/working/normalvehicle/vertibird/balloon/RemoveActions(mob/living/user, human_occupant = 0)
 	internals_action.Remove(user)
 	cycle_action.Remove(user)
 	lights_action.Remove(user)
@@ -401,7 +401,7 @@
 	smoke_action.Remove(user)
 	landing_action.Remove(user)
 
-/obj/mecha/combat/normalvehicle/vertibird/balloon/obj_destruction()
+/obj/mecha/working/normalvehicle/vertibird/balloon/obj_destruction()
 	for(var/mob/M in src)
 		to_chat(M, "<span class='brass'> The balloon is going to crash!</span>")
 		M.dust()
@@ -409,7 +409,7 @@
 	src.visible_message("<span class = 'userdanger'>The balloon's burner is about to blow!</span>")
 	addtimer(CALLBACK(src,.proc/go_critical),breach_time)
 
-/obj/mecha/combat/normalvehicle/vertibird/balloon/loaded/Initialize()
+/obj/mecha/working/normalvehicle/vertibird/balloon/loaded/Initialize()
 	. = ..()
 	var/obj/item/mecha_parts/mecha_equipment/ME = new 
 	ME = new /obj/item/mecha_parts/mecha_equipment/seat
