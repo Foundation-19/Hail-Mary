@@ -121,6 +121,9 @@
 	ME = new /obj/item/mecha_parts/mecha_equipment/seat
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/seat
+	ME.attach(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/trunk
+	ME.attach(src)
 
 ///NCR VERTIBIRD
 
@@ -197,6 +200,9 @@
 	ME = new /obj/item/mecha_parts/mecha_equipment/seat
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/seat
+	ME.attach(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/trunk
+	ME.attach(src)
 
 ///VERTIBIRD ENCLAVE
 
@@ -268,6 +274,9 @@
 	ME = new /obj/item/mecha_parts/mecha_equipment/seat
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/seat
+	ME.attach(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/trunk
+	ME.attach(src)
 
 /// BOS Vertibird
 
@@ -339,6 +348,9 @@
 	ME = new /obj/item/mecha_parts/mecha_equipment/seat
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/seat
+	ME.attach(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/trunk
+	ME.attach(src)
 
 ///Legion balloon
 
@@ -410,7 +422,8 @@
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/seat
 	ME.attach(src)
-	ME = new /obj/item/mecha_parts/mecha_equipment/seat
+	ME = new /obj/item/mecha_parts/mecha_equipment/trunk
+	ME.attach(src)
 
 // NCR TRUCK
 
@@ -503,6 +516,8 @@
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/seat
 	ME.attach(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/trunk
+	ME.attach(src)
 	
 //////////// NCR TRUCK MP //////////////
 
@@ -569,6 +584,8 @@
 	ME = new /obj/item/mecha_parts/mecha_equipment/seat
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/seat
+	ME.attach(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/trunk
 	ME.attach(src)
 
 	//pickuptruck
@@ -686,6 +703,8 @@
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/seat
 	ME.attach(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/trunk
+	ME.attach(src)
 
 //pickuptruck bos
 
@@ -796,6 +815,8 @@
 	var/obj/item/mecha_parts/mecha_equipment/ME = new
 	ME = new /obj/item/mecha_parts/mecha_equipment/seat
 	ME.attach(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/trunk
+	ME.attach(src)
 
 //pickuptruck mechanic
 
@@ -873,7 +894,7 @@
 	max_temperature = 20000
 	max_integrity = 300
 	armor = ARMOR_VALUE_HEAVY
-	max_equip = 5
+	max_equip = 6
 	stepsound = 'sound/f13machines/buggy_loop.ogg'
 	turnsound = 'sound/f13machines/buggy_loop.ogg'
 	
@@ -917,6 +938,8 @@
 	ME = new /obj/item/mecha_parts/mecha_equipment/medical/sleeper
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/medical/sleeper
+	ME.attach(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/trunk
 	ME.attach(src)
 
 //Buggy 
@@ -977,6 +1000,8 @@
 	var/obj/item/mecha_parts/mecha_equipment/ME = new
 	ME = new /obj/item/mecha_parts/mecha_equipment/seat
 	ME.attach(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/trunk
+	ME.attach(src)
 
 //Buggydune
 
@@ -1030,6 +1055,8 @@
 	. = ..()
 	var/obj/item/mecha_parts/mecha_equipment/ME = new
 	ME = new /obj/item/mecha_parts/mecha_equipment/seat
+	ME.attach(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/trunk
 	ME.attach(src)
 
 //Buggyred
@@ -1139,6 +1166,8 @@
 	var/obj/item/mecha_parts/mecha_equipment/ME = new
 	ME = new /obj/item/mecha_parts/mecha_equipment/seat
 	ME.attach(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/trunk
+	ME.attach(src)
 
 //Buggyflame
 
@@ -1192,6 +1221,8 @@
 	. = ..()
 	var/obj/item/mecha_parts/mecha_equipment/ME = new
 	ME = new /obj/item/mecha_parts/mecha_equipment/seat
+	ME.attach(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/trunk
 	ME.attach(src)
 
 //Buggy Ranger
@@ -1247,6 +1278,8 @@
 	var/obj/item/mecha_parts/mecha_equipment/ME = new
 	ME = new /obj/item/mecha_parts/mecha_equipment/seat
 	ME.attach(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/trunk
+	ME.attach(src)
 
 //Legion Chariot
 
@@ -1300,6 +1333,8 @@
 	. = ..()
 	var/obj/item/mecha_parts/mecha_equipment/ME = new
 	ME = new /obj/item/mecha_parts/mecha_equipment/seat
+	ME.attach(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/trunk
 	ME.attach(src)
 
 //jeep
@@ -1359,6 +1394,8 @@
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/seat
 	ME.attach(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/trunk
+	ME.attach(src)
 
 //jeep Enclave
 
@@ -1416,6 +1453,8 @@
 	ME = new /obj/item/mecha_parts/mecha_equipment/seat
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/seat
+	ME.attach(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/trunk
 	ME.attach(src)
 
 ///jeep BOS
@@ -1475,6 +1514,8 @@
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/seat
 	ME.attach(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/trunk
+	ME.attach(src)
 
 //Highwayman
 
@@ -1528,6 +1569,8 @@
 	. = ..()
 	var/obj/item/mecha_parts/mecha_equipment/ME = new
 	ME = new /obj/item/mecha_parts/mecha_equipment/seat
+	ME.attach(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/trunk
 	ME.attach(src)
 
 //corvega
@@ -1584,6 +1627,8 @@
 	ME = new /obj/item/mecha_parts/mecha_equipment/seat
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/seat
+	ME.attach(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/trunk
 	ME.attach(src)
 
 //corvega police
@@ -1642,4 +1687,6 @@
 	ME = new /obj/item/mecha_parts/mecha_equipment/seat
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/seat
+	ME.attach(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/trunk
 	ME.attach(src)

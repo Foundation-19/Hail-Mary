@@ -7825,7 +7825,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/neutral/neutralchess/neutralchess2,
 /area/f13/city)
 "lNn" = (
-/obj/mecha/combat/combatvehicle/vertibird/loaded,
+/obj/mecha/working/normalvehicle/vertibird/loaded,
 /turf/open/floor/plasteel/airless/white,
 /area/f13/wasteland)
 "lOP" = (
@@ -9731,7 +9731,7 @@
 	},
 /area/f13/wasteland)
 "oqm" = (
-/obj/mecha/combat/combatvehicle/vertibird/brotherhood/loaded,
+/obj/mecha/working/normalvehicle/vertibird/brotherhood/loaded,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/brotherhood/rnd)
 "orG" = (
@@ -10834,7 +10834,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/white,
 /area/f13/city)
 "qhW" = (
-/obj/mecha/combat/combatvehicle/vertibird/balloon/loaded,
+/obj/mecha/working/normalvehicle/vertibird/balloon/loaded,
 /turf/open/floor/wood_common,
 /area/f13/wasteland)
 "qiW" = (
@@ -10899,7 +10899,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/purple,
 /area/f13/building/hospital)
 "qns" = (
-/obj/mecha/combat/combatvehicle/vertibird/ncr/loaded,
+/obj/mecha/working/normalvehicle/vertibird/ncr/loaded,
 /turf/open/floor/f13,
 /area/f13/ncr)
 "qnx" = (
