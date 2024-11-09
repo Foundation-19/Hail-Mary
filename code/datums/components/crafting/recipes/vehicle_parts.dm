@@ -111,6 +111,8 @@
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON*/
 
+/*
+
 /datum/crafting_recipe/gun/PheumonicLauncherVehicle
 	name = "Mounted Pheumonic launcher"
 	result = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/launcher/anykind
@@ -126,6 +128,8 @@
 	time = 180
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
+
+*/
 
 /*/datum/crafting_recipe/mech_ammo/brm8_missiles
 	name = "Minigun Ammo Pack"
