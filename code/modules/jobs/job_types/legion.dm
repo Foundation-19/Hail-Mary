@@ -339,6 +339,8 @@ Weapons		Lever shotgun, Grease gun, Repeater carbines, Revolvers, simple guns al
 	l_pocket = /obj/item/flashlight/lantern
 	
 	backpack_contents = list(
+		/obj/item/gun/ballistic/revolver/ballisticfist = 1,
+		/obj/item/ammo_box/shotgun/buck = 2,
 	//	/obj/item/storage/bag/money/small/legofficers = 1,
 		/obj/item/binoculars = 1,
 		)
