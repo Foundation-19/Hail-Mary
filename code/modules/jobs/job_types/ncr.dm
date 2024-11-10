@@ -1007,8 +1007,8 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 
 	loadout_options = list(
 		/datum/outfit/loadout/combatengineerbuilder, // Service Rifle, X4 explosive, Extra materials, blueprints
-		/datum/outfit/loadout/combatmedic // Service Rifle, Chem / Medicine Knowledge
-		/datum/outfit/loadout/corporalraider				 // Melee Monkey
+		/datum/outfit/loadout/combatmedic, // Service Rifle, Chem / Medicine Knowledge
+		/datum/outfit/loadout/corporalraider,				 // Melee Monkey
 		)
 
 	matchmaking_allowed = list(
