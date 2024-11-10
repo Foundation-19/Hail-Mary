@@ -1008,6 +1008,7 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 	loadout_options = list(
 		/datum/outfit/loadout/combatengineerbuilder, // Service Rifle, X4 explosive, Extra materials, blueprints
 		/datum/outfit/loadout/combatmedic // Service Rifle, Chem / Medicine Knowledge
+		/datum/outfit/loadout/corporalraider				 // Melee Monkey
 		)
 
 	matchmaking_allowed = list(
@@ -1065,6 +1066,16 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 		/obj/item/book/granter/trait/midsurgery = 1,
 		/obj/item/book/granter/trait/chemistry = 1,
 		/obj/item/clothing/head/beret/ncr/ncr_medic = 1,
+		)
+
+/datum/outfit/loadout/corporalraider
+	name = "Prince of the Trenches"
+	backpack_contents = list(
+		/obj/item/clothing/head/helmet/f13/ncr/heavygunner = 1,
+		/obj/item/clothing/suit/armor/ncrarmor/heavygunner = 1,
+		/obj/item/shovel/trench = 1,
+		/obj/item/book/granter/trait/bigleagues = 1,
+		/obj/item/storage/box/ration/menu_seven = 1
 		)
 
 // TROOPER
