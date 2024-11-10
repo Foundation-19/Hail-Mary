@@ -604,6 +604,9 @@ obj/effect/landmark/start/f13/ncrlogisticsofficer
 /obj/effect/landmark/start/f13/orator
 	name = "Legion Orator"
 
+/obj/effect/landmark/start/f13/praetorian
+	name = "Legion Praetorian"
+
 /obj/effect/landmark/start/f13/immune
 	name = "Legion Immune"
 
