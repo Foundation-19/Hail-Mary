@@ -650,7 +650,15 @@
 /area/f13/citycaves)
 "acz" = (
 /obj/structure/closet/locker/oldstyle,
-/turf/open/floor/plasteel/f13/vault_floor/blue/whitebluefull,
+/obj/item/clothing/under/f13/vault/v44/half,
+/obj/item/clothing/under/f13/vault/v44/tribal,
+/obj/item/clothing/under/f13/vault/v44/tribal/female,
+/obj/item/clothing/under/f13/vault,
+/obj/item/clothing/suit/hooded/robes,
+/obj/item/clothing/suit/hooded/cloak/desert,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	icon_state = "bluerustysolid"
+	},
 /area/f13/vault/dormitory)
 "acB" = (
 /obj/effect/decal/cleanable/dirt,
@@ -3066,7 +3074,9 @@
 /turf/open/floor/plasteel/f13/vault_floor/green/whitegreenfull,
 /area/f13/citycaves)
 "alp" = (
-/obj/machinery/door/airlock/grunge,
+/obj/machinery/door/airlock/grunge{
+	req_access_txt = "5"
+	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/vault/medical)
 "als" = (
@@ -3526,7 +3536,9 @@
 /turf/open/floor/wood_fancy,
 /area/f13/citycaves)
 "anz" = (
-/obj/machinery/door/airlock/grunge,
+/obj/machinery/door/airlock/grunge{
+	req_access_txt = "31"
+	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "bluerustysolid"
 	},
@@ -7277,6 +7289,7 @@
 /area/f13/citycaves)
 "aBp" = (
 /obj/structure/closet/locker/oldstyle,
+/obj/item/clothing/suit/hooded/robes/grey,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "bluerustysolid"
 	},
@@ -9897,9 +9910,11 @@
 	},
 /area/f13/citycaves)
 "aKZ" = (
-/obj/machinery/door/airlock/grunge,
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "vaultshutter2"
+	},
+/obj/machinery/door/airlock/grunge{
+	req_access_txt = "31"
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc,
 /area/f13/vault)
@@ -13938,10 +13953,16 @@
 	icon_state = "bluerustysolid"
 	},
 /area/f13/vault/chiefoffice)
+"bef" = (
+/obj/item/trash/f13/cram,
+/turf/open/indestructible/ground/inside/mountain,
+/area/f13/citycaves)
 "bfo" = (
-/obj/machinery/door/airlock/grunge,
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "vaultshutter3"
+	},
+/obj/machinery/door/airlock/grunge{
+	req_access_txt = "31"
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "bluerustysolid"
@@ -14065,6 +14086,9 @@
 /area/f13/vault/science)
 "bNT" = (
 /obj/structure/closet/locker/oldstyle,
+/obj/item/clothing/suit/armor/light/duster/battlecoat/vault/overseer,
+/obj/item/clothing/suit/hooded/robes/grey,
+/obj/item/clothing/suit/hooded/cloak/desert,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "bluerustysolid"
 	},
@@ -14080,13 +14104,17 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/vault)
 "bQn" = (
-/obj/machinery/door/airlock/grunge,
+/obj/machinery/door/airlock/grunge{
+	req_access_txt = "19"
+	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "bluerustysolid"
 	},
 /area/f13/vault/science)
 "bRM" = (
-/obj/machinery/door/airlock/grunge,
+/obj/machinery/door/airlock/grunge{
+	req_access_txt = "31"
+	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/vault/dormitory)
 "bRQ" = (
@@ -14145,6 +14173,9 @@
 /obj/item/clothing/under/f13/vault/v44/tribal,
 /obj/item/clothing/under/f13/vault/v44/tribal/female,
 /obj/item/clothing/suit/armor/light/kit/punk/labcoat,
+/obj/item/clothing/suit/hooded/robes,
+/obj/item/clothing/suit/hooded/robes,
+/obj/item/clothing/suit/hooded/cloak/desert,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "bluerustysolid"
 	},
@@ -14252,7 +14283,9 @@
 	},
 /area/f13/vault)
 "cMX" = (
-/obj/machinery/door/airlock/grunge,
+/obj/machinery/door/airlock/grunge{
+	req_access_txt = "31"
+	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/vault/diner)
 "cOZ" = (
@@ -14272,6 +14305,10 @@
 /obj/structure/decoration/vent/rusty,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/vault)
+"cUa" = (
+/obj/effect/mob_spawn/human/corpse/enclavescientist,
+/turf/open/indestructible/ground/inside/mountain,
+/area/f13/citycaves)
 "cVL" = (
 /obj/machinery/computer{
 	dir = 8;
@@ -14301,7 +14338,9 @@
 /turf/open/floor/plating/rust,
 /area/f13/vault/botcontrol)
 "dbQ" = (
-/obj/machinery/door/airlock/grunge,
+/obj/machinery/door/airlock/grunge{
+	req_access_txt = "31"
+	},
 /turf/open/floor/circuit/red/off,
 /area/f13/vault/security)
 "dbY" = (
@@ -14414,7 +14453,9 @@
 	},
 /area/f13/vault)
 "dPx" = (
-/obj/machinery/door/airlock/grunge,
+/obj/machinery/door/airlock/grunge{
+	req_access_txt = "19"
+	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "bluerustysolid"
 	},
@@ -14636,6 +14677,12 @@
 /obj/structure/flora/chomp/potplant2,
 /turf/open/floor/plating/rust,
 /area/f13/vault)
+"fgW" = (
+/obj/structure/closet/locker/oldstyle,
+/obj/item/clothing/suit/hooded/robes,
+/obj/item/clothing/suit/hooded/cloak/desert,
+/turf/open/floor/plasteel/f13/vault_floor/blue/whitebluefull,
+/area/f13/vault/dormitory)
 "fmH" = (
 /obj/structure/chair/stool/retro/black,
 /turf/open/floor/plating/rust,
@@ -15122,13 +15169,13 @@
 /turf/closed/wall/rust,
 /area/f13/vault/dormitory)
 "iQf" = (
-/obj/machinery/light/small{
-	light_color = "#FF0000";
-	color = "#FF0000";
-	name = "red light fixture";
-	dir = 8
-	},
 /obj/structure/closet/locker/oldstyle,
+/obj/item/clothing/under/f13/vault/v44/half,
+/obj/item/clothing/under/f13/vault/v44/tribal,
+/obj/item/clothing/under/f13/vault/v44/tribal/female,
+/obj/item/clothing/under/f13/vault,
+/obj/item/clothing/suit/hooded/robes,
+/obj/item/clothing/suit/hooded/cloak/desert,
 /turf/open/floor/plating/rust,
 /area/f13/vault)
 "iQG" = (
@@ -15425,6 +15472,16 @@
 "kig" = (
 /turf/closed/indestructible/f13vaultrusted,
 /area/f13/vault/overseer)
+"kjx" = (
+/obj/structure/table/reinforced{
+	color = "#c1b6a5"
+	},
+/obj/item/shield/riot/buckler,
+/obj/item/shield/riot/buckler,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	icon_state = "bluerustysolid"
+	},
+/area/f13/vault/storage)
 "knA" = (
 /obj/effect/turf_decal/trimline/red/line{
 	dir = 8
@@ -15717,6 +15774,7 @@
 /obj/item/melee/classic_baton/telescopic,
 /obj/item/shield/riot/tower/scrap,
 /obj/item/shield/riot/tower/scrap,
+/obj/item/shield/riot,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "bluerustysolid"
 	},
@@ -15744,6 +15802,21 @@
 	icon_state = "bluerustysolid"
 	},
 /area/f13/vault)
+"mcF" = (
+/obj/structure/table/reinforced{
+	color = "#c1b6a5"
+	},
+/obj/item/twohanded/spear/scrapspear,
+/obj/item/twohanded/spear/scrapspear{
+	pixel_y = -8
+	},
+/obj/item/twohanded/spear/scrapspear{
+	pixel_y = 9
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	icon_state = "bluerustysolid"
+	},
+/area/f13/vault/storage)
 "mcP" = (
 /obj/effect/turf_decal/trimline/neutral/line{
 	dir = 1;
@@ -15780,6 +15853,10 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/vault)
+"mjm" = (
+/obj/item/trash/f13/c_ration_2,
+/turf/open/indestructible/ground/inside/mountain,
+/area/f13/citycaves)
 "mkW" = (
 /turf/open/floor/circuit/red/off,
 /area/f13/vault/storage)
@@ -15851,7 +15928,9 @@
 	},
 /area/f13/vault)
 "mGr" = (
-/obj/machinery/door/airlock/grunge,
+/obj/machinery/door/airlock/grunge{
+	req_access_txt = "5"
+	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "bluerustysolid"
 	},
@@ -15925,6 +16004,10 @@
 "nvr" = (
 /obj/structure/bed/old,
 /obj/item/bedsheet/blanket2,
+/turf/open/floor/plating/rust,
+/area/f13/vault)
+"nKE" = (
+/obj/structure/falsewall/rust,
 /turf/open/floor/plating/rust,
 /area/f13/vault)
 "nVY" = (
@@ -16163,6 +16246,12 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/vault/diner)
+"psn" = (
+/obj/machinery/door/airlock/grunge{
+	req_access_txt = "31"
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/vault)
 "psw" = (
 /obj/item/clothing/under/f13/vault/v44/half,
 /obj/structure/closet/locker/oldstyle,
@@ -16172,6 +16261,10 @@
 /obj/item/clothing/under/f13/vault/v44/tribal/female,
 /obj/item/clothing/suit/hazardvest,
 /obj/item/clothing/suit/hazardvest,
+/obj/item/clothing/suit/hooded/robes,
+/obj/item/clothing/suit/hooded/robes,
+/obj/item/clothing/suit/hooded/cloak/desert,
+/obj/item/clothing/suit/hooded/cloak/desert,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "bluerustysolid"
 	},
@@ -16332,6 +16425,7 @@
 /obj/item/clothing/under/f13/vault/v44/half,
 /obj/item/clothing/under/f13/vault/v44/tribal,
 /obj/item/clothing/under/f13/vault/v44/tribal/female,
+/obj/item/clothing/suit/hooded/cloak/desert,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "bluerustysolid"
 	},
@@ -16581,6 +16675,7 @@
 	dir = 4;
 	network = "vault"
 	},
+/obj/item/twohanded/spear/scrapspear,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "bluerustysolid"
 	},
@@ -16628,12 +16723,9 @@
 	},
 /area/f13/vault)
 "sHB" = (
-/obj/item/clothing/under/f13/vault/v44,
 /obj/item/clothing/under/f13/vault/v44/half,
 /obj/item/clothing/under/f13/vault/v44/tribal,
 /obj/item/clothing/under/f13/vault/v44/tribal/female,
-/obj/item/clothing/under/f13/vault/v44,
-/obj/item/clothing/under/f13/vault/v44,
 /obj/item/clothing/under/f13/vault/v44,
 /obj/structure/closet/locker/oldstyle{
 	anchored = 1
@@ -17011,10 +17103,6 @@
 "vZg" = (
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/vault/science)
-"vZU" = (
-/obj/structure/closet/locker/oldstyle,
-/turf/open/floor/plating/rust,
-/area/f13/vault)
 "weY" = (
 /obj/effect/turf_decal/trimline/red/corner,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
@@ -17063,6 +17151,19 @@
 	icon_state = "bluerustysolid"
 	},
 /area/f13/vault/storage)
+"wIX" = (
+/obj/structure/closet/locker/oldstyle,
+/obj/item/clothing/under/f13/vault/v44/half,
+/obj/item/clothing/under/f13/vault/v44/tribal,
+/obj/item/clothing/under/f13/vault/v44/tribal/female,
+/obj/item/clothing/under/f13/vault,
+/obj/item/clothing/suit/hooded/robes,
+/obj/item/clothing/suit/hooded/cloak/desert,
+/obj/item/clothing/suit/hooded/cloak/desert,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	icon_state = "bluerustysolid"
+	},
+/area/f13/vault/dormitory)
 "wJJ" = (
 /obj/effect/landmark/start/f13/vaultscientist,
 /turf/open/floor/plating/rust,
@@ -17114,6 +17215,8 @@
 /obj/structure/closet/locker/oldstyle{
 	anchored = 1
 	},
+/obj/item/clothing/suit/hooded/cloak/desert,
+/obj/item/clothing/suit/hooded/cloak/desert,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "bluerustysolid"
 	},
@@ -17199,6 +17302,14 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/vault/diner)
+"ylz" = (
+/obj/machinery/door/airlock/grunge{
+	req_access_txt = "31"
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	icon_state = "bluerustysolid"
+	},
+/area/f13/vault/dormitory)
 
 (1,1,1) = {"
 acp
@@ -17635,8 +17746,8 @@ ayQ
 ayQ
 ayQ
 ayQ
-ayQ
-ayQ
+mjm
+cUa
 kzI
 aUb
 axt
@@ -17837,8 +17948,8 @@ acp
 acp
 ayQ
 ayQ
-ayQ
-ayQ
+bef
+cUa
 kzI
 uqs
 aux
@@ -18039,7 +18150,7 @@ kEE
 kEE
 kEE
 kEE
-aFJ
+nKE
 kzI
 kzI
 kzI
@@ -19448,7 +19559,7 @@ aFJ
 aeM
 dwn
 anD
-mGr
+ylz
 cec
 iku
 aEu
@@ -19646,7 +19757,7 @@ aFJ
 lDn
 afj
 afj
-eQA
+psn
 edr
 dwn
 rLN
@@ -20663,7 +20774,7 @@ anD
 saS
 aBM
 ssK
-ayH
+kjx
 wus
 aBM
 aQY
@@ -21462,7 +21573,7 @@ aFJ
 aFJ
 aFJ
 aFJ
-eQA
+psn
 aFJ
 aFJ
 kDb
@@ -21472,7 +21583,7 @@ saS
 soL
 dLT
 ayH
-ayH
+mcF
 abl
 saS
 oHW
@@ -28742,7 +28853,7 @@ gUF
 aQR
 aFJ
 nvr
-vZU
+iQf
 iQf
 nvr
 adk
@@ -29548,7 +29659,7 @@ tsP
 ldd
 aby
 uug
-acz
+wIX
 mZr
 wHE
 kEE
@@ -29938,7 +30049,7 @@ aKx
 rAc
 wHE
 psB
-acz
+fgW
 kEE
 aSm
 dwn
@@ -30342,7 +30453,7 @@ mZH
 kEE
 hGC
 wvP
-acz
+fgW
 hGN
 aSm
 dwn
@@ -30553,7 +30664,7 @@ rQf
 ajB
 cdQ
 aqV
-eQA
+psn
 mqc
 dwn
 anD
@@ -31150,7 +31261,7 @@ aKx
 kEE
 acz
 aBt
-acz
+fgW
 oqf
 aSm
 dwn
@@ -31763,7 +31874,7 @@ aFJ
 aKw
 aFJ
 aFJ
-eQA
+psn
 aFJ
 aFJ
 aKx

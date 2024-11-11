@@ -21,7 +21,9 @@ Science: 47 ACCESS_RESEARCH
 	..()
 	uniform = pick(
 		/obj/item/clothing/under/f13/vault/v44,
-		/obj/item/clothing/under/f13/vault/v44/half)
+		/obj/item/clothing/under/f13/vault/v44/half,
+		/obj/item/clothing/under/f13/vault/v44/tribal,
+		/obj/item/clothing/under/f13/vault/v44/tribal/female)
 
 /datum/outfit/job/vault/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
@@ -44,7 +46,7 @@ Overseer
 	forbids = "The Vault forbids: Disobeying the God AI. Deserting the Vault unless it is rendered unhospitable. Killing fellow Vault Dwellers. Betraying the Vault and its people."
 	enforces = "The Vault expects: Contributing to Vault society. Adherence to Vault-tec Corporate Regulations."
 	description = "You are the leader of the Vault, and your word is law. Working with the Security team and your fellow Vault Dwellers, your goal is to ensure the continued prosperity and survival of the vault, through any and all means necessary."
-	supervisors = "God AI"
+	supervisors = "the God AI"
 	selection_color = "#ccffcc"
 	req_admin_notify = 1
 	exp_requirements = 750
@@ -69,12 +71,11 @@ Overseer
 	shoes = 		/obj/item/clothing/shoes/jackboots
 	glasses = 		/obj/item/clothing/glasses/sunglasses
 	ears = 			/obj/item/radio/headset/headset_overseer
-	neck = 			/obj/item/clothing/neck/mantle/overseer
-	suit_store = /obj/item/gun/energy/laser/aer9/vault
+	suit = 			/obj/item/clothing/suit/armor/light/duster/battlecoat/vault/overseer
+	suit_store = 	/obj/item/gun/energy/laser/aer9/vault
 	backpack = 		/obj/item/storage/backpack/satchel/leather
 	backpack_contents = list(
 		/obj/item/storage/box/ids = 1,
-
 		/obj/item/gun/ballistic/automatic/pistol/n99/executive = 1,
 		/obj/item/ammo_box/magazine/m10mm/adv/simple = 3,
 		/obj/item/book/granter/trait/chemistry = 1,
@@ -167,7 +168,7 @@ Medical Doctor
 	shoes = 		/obj/item/clothing/shoes/jackboots
 	suit =			/obj/item/clothing/suit/armor/light/kit/punk/labcoat
 	l_hand = 		/obj/item/storage/firstaid/regular
-	suit_store = 	/obj/item/flashlight/pen
+	suit_store = 	/obj/item/twohanded/spear/scrapspear
 	backpack = 		/obj/item/storage/backpack/medic
 	satchel = 		/obj/item/storage/backpack/satchel/med
 	duffelbag = 	/obj/item/storage/backpack/duffelbag/med
@@ -211,6 +212,7 @@ Scientist
 	uniform = 		/obj/item/clothing/under/f13/vault13
 	ears = 			/obj/item/radio/headset/headset_vault
 	shoes = 		/obj/item/clothing/shoes/jackboots
+	suit_store = 	/obj/item/twohanded/spear/scrapspear
 	suit =			/obj/item/clothing/suit/armor/light/kit/punk/labcoat
 	backpack = 		/obj/item/storage/backpack/science
 	satchel = 		/obj/item/storage/backpack/satchel/tox
@@ -336,6 +338,7 @@ Vault Engineer
 	name = "Vault Dweller"
 	jobtype = /datum/job/vault/f13vaultDweller
 	backpack = 		/obj/item/storage/backpack/satchel/leather
+	suit_store = 	/obj/item/twohanded/spear/scrapspear
 	backpack_contents = list(/obj/item/crowbar = 1)
 
 /datum/outfit/job/vault/f13vaultDweller/pre_equip(mob/living/carbon/human/H)
