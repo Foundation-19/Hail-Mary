@@ -11064,7 +11064,6 @@
 	dir = 8;
 	color = "#FFFF66"
 	},
-/obj/effect/landmark/start/f13/vaultengineer,
 /obj/item/radio/intercom{
 	frequency = 1361;
 	name = "Vault Intercom";
@@ -13948,6 +13947,15 @@
 	icon_state = "bluerustysolid"
 	},
 /area/f13/vault/security)
+"bns" = (
+/obj/structure/table{
+	color = "#c1b6a5"
+	},
+/obj/machinery/computer/security/hos,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	icon_state = "bluerustysolid"
+	},
+/area/f13/vault/chiefoffice)
 "boJ" = (
 /obj/structure/chair/booth{
 	dir = 4
@@ -14092,7 +14100,13 @@
 /turf/open/floor/circuit/f13_blue,
 /area/f13/vault/overseer)
 "bZZ" = (
+/obj/item/clothing/under/f13/vault/v44/half,
 /obj/structure/closet/locker/oldstyle,
+/obj/item/clothing/under/f13/vault/v44/half,
+/obj/item/clothing/under/f13/vault/v44/tribal,
+/obj/item/clothing/under/f13/vault/v44/tribal,
+/obj/item/clothing/under/f13/vault/v44/tribal/female,
+/obj/item/clothing/suit/armor/light/kit/punk/labcoat,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "bluerustysolid"
 	},
@@ -14497,9 +14511,15 @@
 /area/f13/vault/diner)
 "eKv" = (
 /obj/structure/rack/shelf_metal,
-/obj/item/clothing/suit/armor/medium/vest,
 /obj/item/clothing/suit/armor/light/kit,
 /obj/item/clothing/suit/armor/light/kit,
+/obj/item/clothing/suit/armor/light/kit,
+/obj/item/clothing/suit/armor/light/kit/shoulder,
+/obj/item/clothing/suit/armor/light/kit/shoulder,
+/obj/item/clothing/suit/armor/light/kit/shoulder,
+/obj/item/clothing/suit/armor/light/kit/punk,
+/obj/item/clothing/suit/armor/light/kit/punk,
+/obj/item/clothing/suit/armor/light/kit/punk,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "bluerustysolid"
 	},
@@ -14581,6 +14601,12 @@
 /obj/effect/turf_decal/trimline/purple/line{
 	dir = 4
 	},
+/obj/machinery/cell_charger{
+	pixel_y = 3
+	},
+/obj/machinery/cell_charger{
+	pixel_y = 15
+	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "bluerustysolid"
 	},
@@ -14659,6 +14685,21 @@
 	},
 /turf/open/floor/plasteel/elevatorshaft,
 /area/f13/vault)
+"gGP" = (
+/obj/item/ammo_box/magazine/m10mm/adv,
+/obj/item/ammo_box/magazine/m10mm/adv,
+/obj/item/ammo_box/magazine/m10mm/adv,
+/obj/item/ammo_box/magazine/m10mm/adv,
+/obj/item/ammo_box/magazine/m10mm/adv,
+/obj/item/ammo_box/magazine/m10mm/adv,
+/obj/item/ammo_box/magazine/m10mm/adv,
+/obj/structure/closet/locker/oldstyle{
+	anchored = 1
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	icon_state = "bluerustysolid"
+	},
+/area/f13/vault/security/armory)
 "gJU" = (
 /obj/machinery/hydroponics/soil,
 /obj/machinery/light/small{
@@ -14856,7 +14897,7 @@
 /turf/open/floor/plating/rust,
 /area/f13/vault)
 "ieB" = (
-/obj/machinery/door/airlock/grunge,
+/obj/machinery/door/airlock/security/glass,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/vault/security)
 "ifs" = (
@@ -15046,16 +15087,6 @@
 	},
 /turf/closed/indestructible/f13vaultrusted,
 /area/f13/vault/dormitory)
-"jhS" = (
-/obj/effect/turf_decal/trimline/neutral/line{
-	dir = 4;
-	color = "#FFFF66"
-	},
-/obj/effect/landmark/start/f13/vaultengineer,
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
-	icon_state = "bluerustysolid"
-	},
-/area/f13/vault/storage)
 "jjt" = (
 /obj/effect/turf_decal/shadow,
 /obj/effect/turf_decal/shadow,
@@ -15153,6 +15184,8 @@
 /area/f13/vault/storage)
 "jKz" = (
 /obj/structure/guncase,
+/obj/item/gun/ballistic/automatic/pistol/n99,
+/obj/item/gun/ballistic/automatic/pistol/n99,
 /obj/item/gun/ballistic/automatic/pistol/n99,
 /obj/item/gun/ballistic/automatic/pistol/n99,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
@@ -15299,6 +15332,16 @@
 /obj/structure/closet/fridge/standard,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/vault/diner)
+"kzA" = (
+/obj/structure/guncase,
+/obj/item/gun/energy/laser/complianceregulator,
+/obj/item/gun/energy/laser/complianceregulator,
+/obj/item/gun/energy/laser/complianceregulator,
+/obj/item/gun/energy/laser/complianceregulator,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	icon_state = "bluerustysolid"
+	},
+/area/f13/vault/security/armory)
 "kzI" = (
 /turf/closed/indestructible/f13vaultrusted,
 /area/f13/vault/botcontrol)
@@ -15498,13 +15541,19 @@
 	},
 /area/f13/vault/overseer)
 "lLC" = (
-/obj/structure/rack/shelf_metal,
-/obj/item/clothing/suit/armor/medium/vest,
-/obj/item/clothing/suit/armor/light/kit,
-/obj/item/clothing/suit/armor/light/kit,
 /obj/machinery/camera/autoname{
 	dir = 6;
 	network = "vault"
+	},
+/obj/structure/table/reinforced{
+	color = "#c1b6a5"
+	},
+/obj/machinery/cell_charger{
+	pixel_y = 15
+	},
+/obj/machinery/cell_charger{
+	pixel_y = 4;
+	pixel_x = -6
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "bluerustysolid"
@@ -15712,6 +15761,9 @@
 	dir = 9;
 	network = "vault"
 	},
+/obj/machinery/computer/security/hos{
+	dir = 8
+	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "bluerustysolid"
 	},
@@ -15846,6 +15898,19 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/vault/diner)
+"psw" = (
+/obj/item/clothing/under/f13/vault/v44/half,
+/obj/structure/closet/locker/oldstyle,
+/obj/item/clothing/under/f13/vault/v44/half,
+/obj/item/clothing/under/f13/vault/v44/tribal,
+/obj/item/clothing/under/f13/vault/v44/tribal,
+/obj/item/clothing/under/f13/vault/v44/tribal/female,
+/obj/item/clothing/suit/hazardvest,
+/obj/item/clothing/suit/hazardvest,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	icon_state = "bluerustysolid"
+	},
+/area/f13/vault/dormitory)
 "psB" = (
 /obj/structure/chair/comfy/teal{
 	dir = 8
@@ -15969,6 +16034,9 @@
 /area/f13/vault/chiefoffice)
 "qER" = (
 /obj/structure/closet/locker/oldstyle,
+/obj/item/clothing/under/f13/vault/v44/half,
+/obj/item/clothing/under/f13/vault/v44/tribal,
+/obj/item/clothing/under/f13/vault/v44/tribal/female,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "bluerustysolid"
 	},
@@ -16252,9 +16320,16 @@
 	},
 /area/f13/vault)
 "sHB" = (
-/obj/structure/closet/locker/oldstyle,
-/obj/item/clothing/under/f13/vault,
-/obj/item/clothing/under/f13/vault,
+/obj/item/clothing/under/f13/vault/v44,
+/obj/item/clothing/under/f13/vault/v44/half,
+/obj/item/clothing/under/f13/vault/v44/tribal,
+/obj/item/clothing/under/f13/vault/v44/tribal/female,
+/obj/item/clothing/under/f13/vault/v44,
+/obj/item/clothing/under/f13/vault/v44,
+/obj/item/clothing/under/f13/vault/v44,
+/obj/structure/closet/locker/oldstyle{
+	anchored = 1
+	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "bluerustysolid"
 	},
@@ -16263,7 +16338,6 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/structure/closet/locker/oldstyle,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "bluerustysolid"
 	},
@@ -16444,6 +16518,16 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/vault)
+"tZh" = (
+/obj/structure/closet/locker/oldstyle,
+/obj/item/clothing/under/f13/vault/v44/half,
+/obj/item/clothing/under/f13/vault/v44/tribal,
+/obj/item/clothing/under/f13/vault/v44/tribal/female,
+/obj/item/clothing/under/f13/vault,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	icon_state = "bluerustysolid"
+	},
+/area/f13/vault/chiefoffice)
 "tZR" = (
 /obj/structure/table/reinforced,
 /obj/structure/railing{
@@ -16510,6 +16594,22 @@
 	dir = 10;
 	network = "vault"
 	},
+/obj/item/stock_parts/cell/ammo/mfc,
+/obj/item/stock_parts/cell/ammo/mfc,
+/obj/item/stock_parts/cell/ammo/mfc,
+/obj/item/stock_parts/cell/ammo/mfc,
+/obj/item/stock_parts/cell/ammo/mfc,
+/obj/item/stock_parts/cell/ammo/mfc,
+/obj/item/stock_parts/cell/ammo/mfc,
+/obj/structure/closet/locker/oldstyle{
+	anchored = 1
+	},
+/obj/item/stock_parts/cell/ammo/ec,
+/obj/item/stock_parts/cell/ammo/ec,
+/obj/item/stock_parts/cell/ammo/ec,
+/obj/item/stock_parts/cell/ammo/ec,
+/obj/item/stock_parts/cell/ammo/ec,
+/obj/item/stock_parts/cell/ammo/ec,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "bluerustysolid"
 	},
@@ -16673,6 +16773,14 @@
 /obj/structure/railing/wood,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/vault/overseer)
+"xsm" = (
+/obj/structure/closet/locker/oldstyle{
+	anchored = 1
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	icon_state = "bluerustysolid"
+	},
+/area/f13/vault/security/armory)
 "xtQ" = (
 /obj/structure/railing{
 	color = "#1919c8"
@@ -19402,7 +19510,7 @@ jZm
 dwn
 anD
 rAc
-bZZ
+psw
 dKk
 aEu
 kEE
@@ -19809,7 +19917,7 @@ aKw
 aKx
 aKx
 aKx
-aKx
+aIX
 aKx
 aKx
 aKx
@@ -20815,7 +20923,7 @@ aTi
 cJZ
 dwn
 aKJ
-jhS
+pik
 pik
 pik
 pik
@@ -22237,7 +22345,7 @@ jKC
 cid
 qvh
 xVM
-aZD
+bns
 xVM
 qvh
 aKx
@@ -23032,7 +23140,7 @@ uaY
 bRQ
 xDx
 gMR
-gMR
+gGP
 bRQ
 bjP
 dGh
@@ -23448,7 +23556,7 @@ src
 bCA
 acg
 qvh
-aBp
+tZh
 aqA
 aBp
 qvh
@@ -23838,9 +23946,9 @@ aFJ
 aKx
 aKx
 bRQ
-jKz
+kzA
 sYd
-sHB
+xsm
 bRQ
 cuA
 dGh
