@@ -338,6 +338,10 @@ Suits. 0-10 in its primary value, slowdown 0, various utility
 	desc = "A standard issue NCR Infantry vest reinforced with a thin kelvar sheet."
 	icon_state = "ncr_kelvar_vest"
 	item_state = "ncr_kelvar_vest"
+	salvage_loot = list(/obj/item/stack/crafting/armor_plate = 1)
+	armor = ARMOR_VALUE_LIGHT
+	armor_tier_desc = ARMOR_CLOTHING_LIGHT
+	slowdown = ARMOR_SLOWDOWN_LIGHT * ARMOR_SLOWDOWN_GLOBAL_MULT
 	armor_tokens = list()
 
 /obj/item/clothing/suit/armor/ncrarmor/reinforced

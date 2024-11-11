@@ -42,8 +42,6 @@
 	visor_flags_inv = HIDEFACIALHAIR
 	visor_flags_cover = MASKCOVERSMOUTH
 	actions_types = list(/datum/action/item_action/adjust)
-	armor = ARMOR_VALUE_LIGHT
-	armor_tokens = list(ARMOR_MODIFIER_UP_ENV_T4)
 	resistance_flags = FIRE_PROOF
 
 /obj/item/clothing/mask/gas/explorer/attack_self(mob/user)
