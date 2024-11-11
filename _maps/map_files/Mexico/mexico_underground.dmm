@@ -15029,7 +15029,7 @@
 /area/f13/vault)
 "hRQ" = (
 /obj/machinery/door/airlock/highsecurity{
-	req_access_txt = ""63""
+	req_access_txt = "63"
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "bluerustysolid"
