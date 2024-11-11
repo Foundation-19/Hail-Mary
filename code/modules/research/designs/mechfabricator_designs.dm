@@ -61,7 +61,7 @@
 	materials = list(/datum/material/iron=10000)
 	construction_time = 200
 	category = list("Cyborg")
-
+/*
 //Ripley
 /datum/design/ripley_chassis
 	name = "Exosuit Chassis (APLU \"Ripley\")"
@@ -676,6 +676,8 @@
 	materials = list(/datum/material/iron=10000,/datum/material/glass=1000,/datum/material/silver=2000,/datum/material/plasma=5000)
 	construction_time = 100
 	category = list("Exosuit Equipment")
+
+*/
 
 /////////////////////////////////////////
 //////////////Borg Upgrades//////////////

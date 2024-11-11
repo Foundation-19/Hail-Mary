@@ -1413,6 +1413,7 @@
 	name = "red light fixture";
 	dir = 8
 	},
+/obj/machinery/rnd/server/vault,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "bluerustysolid"
 	},
@@ -12451,6 +12452,7 @@
 /obj/effect/turf_decal/trimline/purple/line{
 	dir = 8
 	},
+/obj/effect/landmark/start/cyborg,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "bluerustysolid"
 	},
@@ -14174,6 +14176,7 @@
 /obj/effect/turf_decal/trimline/purple/line{
 	dir = 8
 	},
+/obj/effect/landmark/start/ai/secondary,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/vault/science)
 "cDY" = (
@@ -14257,6 +14260,12 @@
 /obj/machinery/door/airlock/grunge,
 /turf/open/floor/circuit/red/off,
 /area/f13/vault/security)
+"dbY" = (
+/obj/machinery/rnd/destructive_analyzer,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	icon_state = "bluerustysolid"
+	},
+/area/f13/vault/science)
 "djT" = (
 /obj/structure/chair/f13chair2,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
@@ -14397,6 +14406,10 @@
 	icon_state = "bluerustysolid"
 	},
 /area/f13/vault)
+"dVC" = (
+/obj/machinery/mecha_part_fabricator,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/vault/science)
 "dXX" = (
 /obj/structure/railing/corner{
 	icon_state = "straight";
@@ -14607,6 +14620,7 @@
 /obj/machinery/cell_charger{
 	pixel_y = 15
 	},
+/obj/item/drone_shell,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "bluerustysolid"
 	},
@@ -15252,6 +15266,11 @@
 	icon_state = "bluerustysolid"
 	},
 /area/f13/vault)
+"keR" = (
+/obj/effect/landmark/start/f13/overseer,
+/obj/structure/chair/comfy/shuttle,
+/turf/open/floor/plating/rust,
+/area/f13/vault/overseer)
 "kfq" = (
 /obj/effect/turf_decal/trimline/neutral/line{
 	dir = 4;
@@ -15307,6 +15326,10 @@
 /obj/machinery/vending/games,
 /turf/open/floor/plating/rust,
 /area/f13/vault)
+"kvQ" = (
+/obj/item/paper/crumpled/muddy/fluff/elephant_graveyard/rnd_notes,
+/turf/open/floor/plating/rust,
+/area/f13/vault/botcontrol)
 "kwj" = (
 /obj/structure/table{
 	color = "#c1b6a5"
@@ -15555,6 +15578,10 @@
 	pixel_y = 4;
 	pixel_x = -6
 	},
+/obj/item/melee/classic_baton/telescopic,
+/obj/item/melee/classic_baton/telescopic,
+/obj/item/melee/classic_baton/telescopic,
+/obj/item/melee/classic_baton/telescopic,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "bluerustysolid"
 	},
@@ -15792,6 +15819,12 @@
 	},
 /turf/open/floor/plating/rust,
 /area/f13/vault)
+"ogR" = (
+/obj/machinery/rnd/production/protolathe/department/science,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	icon_state = "bluerustysolid"
+	},
+/area/f13/vault/science)
 "oqf" = (
 /obj/structure/sign/directions/rooms{
 	dir = 10
@@ -15921,6 +15954,12 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/blue/whitebluefull,
 /area/f13/vault/dormitory)
+"ptB" = (
+/obj/machinery/rnd/production/circuit_imprinter/department/science,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	icon_state = "bluerustysolid"
+	},
+/area/f13/vault/science)
 "ptC" = (
 /obj/structure/table/wood/fancy/black,
 /turf/open/floor/wood_wide/wood_wide_dark,
@@ -16361,6 +16400,7 @@
 	name = "Vault Intercom";
 	pixel_x = -32
 	},
+/mob/living/silicon/robot/shell,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "bluerustysolid"
 	},
@@ -16504,7 +16544,7 @@
 /area/f13/vault/diner)
 "tTE" = (
 /obj/structure/chair/comfy/shuttle,
-/obj/effect/landmark/start/f13/overseer,
+/obj/effect/landmark/start/ai,
 /turf/open/floor/circuit/f13_blue,
 /area/f13/vault/overseer)
 "tUo" = (
@@ -16574,6 +16614,17 @@
 	icon_state = "bluerustysolid"
 	},
 /area/f13/vault/security)
+"uUa" = (
+/obj/structure/table/reinforced{
+	color = "#c1b6a5"
+	},
+/obj/machinery/computer/terminal{
+	dir = 4
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	icon_state = "bluerustysolid"
+	},
+/area/f13/vault/overseer)
 "uZM" = (
 /obj/machinery/vending/bigredvend,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
@@ -16589,6 +16640,12 @@
 	icon_state = "bluerustysolid"
 	},
 /area/f13/vault)
+"viQ" = (
+/obj/machinery/computer/security/hos{
+	dir = 8
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/vault/overseer)
 "vjx" = (
 /obj/machinery/camera/autoname{
 	dir = 10;
@@ -16804,6 +16861,7 @@
 	dir = 4;
 	network = "vault"
 	},
+/obj/effect/landmark/start/cyborg,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/vault/science)
 "xCf" = (
@@ -18306,7 +18364,7 @@ aRP
 aZV
 eBB
 eBB
-eBB
+kvQ
 wJJ
 eBB
 kzI
@@ -25368,10 +25426,10 @@ pfg
 pfg
 bVe
 jdT
-vZg
-bVe
-bVe
-bVe
+dVC
+ptB
+dbY
+ogR
 aRw
 xPU
 kig
@@ -25980,7 +26038,7 @@ fxY
 abP
 avI
 xPU
-eyo
+uUa
 hII
 eyo
 jsu
@@ -26183,7 +26241,7 @@ bMI
 bMI
 xPU
 jsu
-xIP
+keR
 eyo
 xlo
 xIP
@@ -26385,7 +26443,7 @@ acp
 acp
 luD
 jsu
-jsu
+viQ
 eyo
 xlo
 xIP

@@ -635,7 +635,9 @@
 /obj/item/gun/energy/laser/aer9/vault
 	name = "\improper Vault 44 AER9 laser rifle"
 	desc = "A sturdy pre-war laser rifle that got repaired and repainted. Its a sacred weapon for the Vault 44 warriors. Its automatic, but shoots slowly"
-	ammo_type = list(/obj/item/projectile/beam/laser/lasgun/hitscan)
+	ammo_type = list(/obj/item/ammo_casing/energy/laser/lasgun/hitscan)
+	cell_type = /obj/item/stock_parts/cell/ammo/mfc
+	fire_delay = 1
 	icon = 'icons/fallout/objects/guns/energy.dmi'
 	lefthand_file = 'icons/fallout/onmob/weapons/guns_lefthand.dmi'
 	righthand_file = 'icons/fallout/onmob/weapons/guns_righthand.dmi'
