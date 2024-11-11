@@ -28,11 +28,7 @@
 /datum/outfit/job/rebels/citizen/pre_equip(mob/living/carbon/human/H)
 	..()
 	uniform = pick(
-		/obj/item/clothing/under/f13/settler, \
-		/obj/item/clothing/under/f13/brahminm, \
-		/obj/item/clothing/under/f13/machinist, \
-		/obj/item/clothing/under/f13/lumberjack, \
-		/obj/item/clothing/under/f13/roving)
+		/obj/item/clothing/under/f13/densuit)
 
 /datum/outfit/job/rebels/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
@@ -46,64 +42,44 @@
 
 //Rebel soldier
 /datum/job/rebels/soldier
-	title = "Roguewave Raider"
+	title = "Ironwave Raider"
 	flag = F13REBELSOLDIER
 	total_positions = 4
 	spawn_positions = 4
 	access = list(ACCESS_ENCLAVE)
 	display_order = JOB_DISPLAY_ORDER_F13REBELSOLDIER
-	description = "When the Legion arrived and conquered the region, you knew that you had to do something. Maybe you are a NCR soldier wanting to bring the fight to their soil. Maybe raider wanting to spill some legion blood. Maybe you are Enclave Remnant crewing the ship and assuring your survival. What ever you are, your ennemy is the legion."
+	description = "The Ironwave are a group of Raider that took refuge in a old vertibird carrier. Your job ? What ever you want. Kill some Legionary, or work with them, or ignore them."
 	supervisors = "The captain."
 	outfit = /datum/outfit/job/rebels
 
 	loadout_options = list(
-		/datum/outfit/loadout/ncrfunded,		
-		/datum/outfit/loadout/survivingenclave,	
+		/datum/outfit/loadout/ncrfunded,
 		/datum/outfit/loadout/stolenraider,	
 		)
 
 /datum/outfit/job/rebels/soldier
-	name = "Roguewave Rebel Soldier"
+	name = "Ironwave Soldier"
 	jobtype = /datum/job/rebels/soldier
+	suit = /obj/item/clothing/suit/armor/exile/ncrexile/ironwave
 	backpack_contents = list(
 		/obj/item/reagent_containers/hypospray/medipen/stimpak/super = 3,
 		/obj/item/grenade/flashbang = 1,
-		/obj/item/pda = 1,
-		/obj/item/ammo_box/magazine/m308 = 2,
-		/obj/item/gun/ballistic/automatic/pistol/deagle = 1,
-		/obj/item/ammo_box/magazine/m44 = 2
-		)
-
-/datum/outfit/loadout/survivingenclave
-	name = "Surviving Enclave Gear"
-	suit = /obj/item/clothing/suit/armor/medium/vest/enclave
-	head = /obj/item/clothing/head/f13/enclave/peacekeeper
-	suit_store = /obj/item/gun/energy/laser/aer9/focused
-	backpack_contents = list(
-		/obj/item/stock_parts/cell/ammo/mfc = 3,
-		/obj/item/clothing/shoes/f13/enclave/serviceboots = 1,
-		/obj/item/clothing/under/f13/exile/enclave =1,
 		)
 
 /datum/outfit/loadout/stolenraider
-	name = "Stolen Raider gear"
-	suit = /obj/item/clothing/suit/armor/light/raider/badlands
+	name = "Ripper gear"
 	head = /obj/item/clothing/head/helmet/f13/raidercombathelmet
 	suit_store = /obj/item/shield/riot/tower/scrap
 	backpack_contents = list(
 		/obj/item/clothing/shoes/f13/military/ncr = 1,
-		/obj/item/melee/powered/ripper =1,
 		)
 
 /datum/outfit/loadout/ncrfunded
 	name = "NCR Funded Gear"
-	suit = /obj/item/clothing/suit/armor/medium/vest/ncr/mant
 	head = /obj/item/clothing/head/f13/ncr/goggles
 	suit_store = /obj/item/gun/ballistic/automatic/service/carbine
 	backpack_contents = list(
 		/obj/item/ammo_box/magazine/m556/rifle/assault = 3,
-		/obj/item/clothing/shoes/f13/military/ncr = 1,
-		/obj/item/clothing/under/f13/ncr/torn =1,
 		)
 
 /datum/outfit/job/rebels/medic/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -118,29 +94,29 @@
 
 
 /datum/job/rebels/medic
-	title = "Roguewave Den Doctor"
+	title = "Ironwave Den Doctor"
 	flag = F13REBELMEDIC
-	total_positions = 2
-	spawn_positions = 2
+	total_positions = 1
+	spawn_positions = 1
 	access = list(ACCESS_ENCLAVE)
 	display_order = JOB_DISPLAY_ORDER_F13REBELMEDIC
-	description = "When the Legion arrived and conquered the region, you knew that you had to do something. Maybe you are a NCR medic wanting to bring the fight to their soil. Maybe raider wanting to spill some legion blood. Maybe you are Enclave Remnant crewing the ship and assuring your survival. Your job is to heal people of the carrier."
+	description = "Your diploma isn't reconized anywhere else. Good thing the Den doesn't care. Your job is to heal people of the carrier."
 	supervisors = "The captain."
 	outfit = /datum/outfit/job/rebels/medic
 
 	loadout_options = list(
-		/datum/outfit/loadout/ncrmedicfunded,		
-		/datum/outfit/loadout/survivingmedicenclave,	
+		/datum/outfit/loadout/ncrmedicfunded,	
 		/datum/outfit/loadout/stolenmedicraider,	
 		)
 
 /datum/outfit/job/rebels/medic
-	name = "Roguewave Rebel medic"
+	name = "Ironwave Rebel medic"
 	id = /obj/item/card/id/dogtag/town
 	jobtype = /datum/job/rebels/medic
 	l_pocket = /obj/item/storage/belt/legholster
 	backpack = /obj/item/storage/backpack
 	satchel = /obj/item/storage/backpack/satchel
+	suit = /obj/item/clothing/suit/toggle/labcoat/followers
 	belt = /obj/item/storage/belt/army/assault/ncr
 	r_pocket = /obj/item/flashlight/seclite
 	backpack_contents = list(
@@ -153,36 +129,21 @@
 		/obj/item/melee/onehanded/knife/survival = 1
 		)
 
-/datum/outfit/loadout/survivingmedicenclave
-	name = "Surviving Enclave Medical Gear"
-	suit = /obj/item/clothing/suit/armor/medium/vest/enclave
-	head = /obj/item/clothing/head/f13/enclave/peacekeeper
-	suit_store = /obj/item/gun/energy/laser/plasma/pistol
-	backpack_contents = list(
-		/obj/item/stock_parts/cell/ammo/ec = 4,
-		/obj/item/clothing/shoes/f13/enclave/serviceboots = 1,
-		/obj/item/clothing/under/f13/exile/enclave =1,
-		)
-
 /datum/outfit/loadout/stolenmedicraider
 	name = "Quack Medic"
-	suit = /obj/item/clothing/suit/armor/light/raider/badlands
 	head = /obj/item/clothing/head/helmet/f13/raidercombathelmet
-	suit_store = /obj/item/shield/riot/tower/scrap
+	suit_store = /obj/item/gun/energy/laser/badlands
 	backpack_contents = list(
-		/obj/item/clothing/shoes/f13/military/ncr = 1,
+		/obj/item/stock_parts/cell/ammo/ec = 3,
 		/obj/item/melee/powered/ripper =1,
 		)
 
 /datum/outfit/loadout/ncrmedicfunded
 	name = "NCR CM Gear"
-	suit = /obj/item/clothing/suit/armor/medium/vest/ncr/mant
 	head = /obj/item/clothing/head/f13/ncr/steelpot_med
 	suit_store = /obj/item/gun/ballistic/automatic/service/carbine
 	backpack_contents = list(
-		/obj/item/ammo_box/magazine/m556/rifle/assault = 3,
-		/obj/item/clothing/shoes/f13/military/ncr = 1,
-		/obj/item/clothing/under/f13/ncr/torn =1,
+		/obj/item/ammo_box/magazine/m556/rifle/assault = 3
 		)
 
 /datum/outfit/job/rebels/medic/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -208,7 +169,7 @@
 // 
 
 /datum/job/rebels/captain
-	title = "Roguewave Raider Captain"
+	title = "Ironwave Raider Captain"
 	flag = F13REBELCAPTAIN
 	total_positions = 1
 	spawn_positions = 1
@@ -218,13 +179,12 @@
 	outfit = /datum/outfit/job/rebels/captain
 
 	loadout_options = list(
-		/datum/outfit/loadout/capncrfunded,		
-		/datum/outfit/loadout/capsurvivingenclave,	
+		/datum/outfit/loadout/capncrfunded,	
 		/datum/outfit/loadout/capstolenraider,	
 		)
 
 /datum/outfit/job/rebels/captain
-	name = "Roguewave Rebel Captain"
+	name = "Ironwave Rebel Captain"
 	jobtype = /datum/job/enclave/enclavecpt
 
 	suit_store = /obj/item/gun/ballistic/automatic/fnfal
@@ -252,87 +212,56 @@
 		var/obj/effect/proc_holder/spell/terrifying_presence/S = new /obj/effect/proc_holder/spell/terrifying_presence
 		H.mind.AddSpell(S)
 
-/datum/outfit/loadout/capsurvivingenclave
-	name = "Captain's Heritage"
-	suit = /obj/item/clothing/suit/armor/medium/combat/enclave
-	head = /obj/item/clothing/head/helmet/f13/enclave/usmcriot
-	suit_store = /obj/item/gun/energy/laser/plasma/glock
-	backpack_contents = list(
-		/obj/item/stock_parts/cell/ammo/ec = 4,
-		/obj/item/clothing/shoes/f13/enclave/serviceboots = 1,
-		/obj/item/clothing/under/f13/enclave_officer =1,
-		)
-
 /datum/outfit/loadout/capstolenraider
 	name = "Raider boss gear"
-	suit = /obj/item/clothing/suit/armor/medium/combat/mk2/raider
-	head = /obj/item/clothing/head/helmet/f13/combat/mk2/raider
-	suit_store = /obj/item/melee/powered/ripper
+	suit = /obj/item/clothing/suit/armor/power_armor/t45b/raider
+	head = /obj/item/clothing/head/helmet/f13/power_armor/t45b/raider
+	suit_store = /obj/item/gun/ballistic/automatic/smg/tommygun
 	backpack_contents = list(
-		/obj/item/clothing/shoes/f13/military/ncr = 1,
+		/obj/item/ammo_box/magazine/tommygunm45 = 2,
 		)
 
 /datum/outfit/loadout/capncrfunded
 	name = "Desert Ranger Stash"
 	suit = /obj/item/clothing/suit/armor/rangercombat/foxcustom
 	head = /obj/item/clothing/head/helmet/f13/ncr/rangercombat/desert
+	suit_store = /obj/item/gun/ballistic/rifle/repeater/brush
 	backpack_contents = list(
-		/obj/item/clothing/shoes/f13/military/ncr = 1,
-		/obj/item/clothing/under/f13/ranger/modif_ranger =1,
+		/obj/item/ammo_box/c4570box = 2,
 		)
 
 //Rebel Guard
 /datum/job/rebels/guard
-	title = "Roguewave Den Guard"
+	title = "Ironwave Den Guard"
 	flag = F13REBELGUARD
 	total_positions = 2
 	spawn_positions = 2
 	access = list(ACCESS_ENCLAVE)
 	display_order = JOB_DISPLAY_ORDER_F13REBELGUARD
-	description = "While marines head out in the field, you stay inside the carrier and make sure its defended, and in a relative orders. You follow orders from the captain only."
+	description = "The Ironwave den must be protected. And its your job to do so."
 	supervisors = "The captain."
 	outfit = /datum/outfit/job/rebels
 
 	loadout_options = list(
-		/datum/outfit/loadout/ncrgardfunded,		
-		/datum/outfit/loadout/survivingcopenclave,	
+		/datum/outfit/loadout/ncrgardfunded,	
 		/datum/outfit/loadout/stolencopraider,	
-		)
-
-/datum/outfit/loadout/survivingcopenclave
-	name = "Surviving Enclave Gear"
-	suit = /obj/item/clothing/suit/armor/medium/vest/enclave
-	uniform = /obj/item/clothing/under/f13/police/swat
-	head = /obj/item/clothing/head/beret/enclave
-	suit_store = /obj/item/gun/energy/laser/aer9/focused
-	backpack_contents = list(
-		/obj/item/stock_parts/cell/ammo/mfc = 4,
-		/obj/item/gun/energy/laser/complianceregulator = 2,
-		/obj/item/stock_parts/cell/ammo/ec = 4,
-		/obj/item/clothing/shoes/f13/enclave/serviceboots = 1,
-		/obj/item/clothing/under/f13/exile/enclave =1,
-		/obj/item/storage/box/handcuffs =1,
 		)
 
 /datum/outfit/loadout/stolencopraider
 	name = "Stolen Raider gear"
-	suit = /obj/item/clothing/suit/armor/medium/raider/combatduster
 	head = /obj/item/clothing/head/helmet/riot/vaultsec
-	suit_store = /obj/item/gun/ballistic/shotgun/automatic/combat/auto5
+	suit_store = /obj/item/gun/energy/laser/wattz2k/extended
 	backpack_contents = list(
-		/obj/item/clothing/shoes/f13/military/ncr = 1,
 		/obj/item/ammo_box/shotgun/improvised =4,
 		/obj/item/storage/box/handcuffs =1
 		)
 
 /datum/outfit/loadout/ncrgardfunded
 	name = "Embassy Funded Gear"
-	suit = /obj/item/clothing/suit/armor/medium/vest/ncr/mant
 	head = /obj/item/clothing/head/f13/ncr/steelpot_mp
 	suit_store = /obj/item/gun/ballistic/shotgun/automatic/combat/auto5
 	backpack_contents = list(
-		/obj/item/clothing/shoes/f13/military/ncr = 1,
-		/obj/item/clothing/under/f13/ncr/torn =1,
+		/obj/item/stock_parts/cell/ammo/mfc =3,
 		/obj/item/storage/box/handcuffs =1,
 		/obj/item/ammo_box/shotgun/bean =2
 		)
@@ -346,12 +275,12 @@
 
 //Rebel Citizen  
 /datum/job/rebels/citizen
-	title = "Roguewave Den Settlers"
+	title = "Ironwave Den Settlers"
 	flag = F13REBELCITIZEN
 	total_positions = 5
 	spawn_positions = 5
 	display_order = JOB_DISPLAY_ORDER_F13REBELCITIZEN
-	description = "When the legion arrived, you fled, and started living in the only place safe enough arround, the Roguewave rebel carrier. You are not a fighter, but can defend this Den."
+	description = "When the legion arrived, you fled, and started living in the only place safe enough arround, the Ironwave carrier. You are not a fighter, but can defend this Den."
 	supervisors = "The captain, the armed forced."
 	outfit = /datum/outfit/job/rebels/citizen
 
@@ -366,7 +295,7 @@
 		/datum/outfit/loadout/denremnant,
 	)
 /datum/outfit/job/rebels/citizen
-	name = "Roguewave Civilian"
+	name = "Ironwave Civilian"
 	id = /obj/item/card/id/dogtag/town
 	jobtype = /datum/job/rebels/citizen
 	l_pocket = /obj/item/storage/belt/legholster
@@ -385,7 +314,7 @@
 		)
 
 /datum/outfit/loadout/denshopkeep
-	name = "Den Roguewave shopkeep"
+	name = "Den Ironwave shopkeep"
 	neck = /obj/item/clothing/neck/mantle/treasurer
 	shoes = /obj/item/clothing/shoes/f13/explorer
 	suit = /obj/item/clothing/suit/bomber
@@ -406,7 +335,7 @@
 	)
 
 /datum/outfit/loadout/denforgekeep
-	name = "Den Roguewave forgemaster"
+	name = "Den Ironwave forgemaster"
 	glasses = /obj/item/clothing/glasses/welding
 	belt = /obj/item/storage/belt/utility/waster/forgemaster
 	neck = /obj/item/clothing/neck/apron/labor/forge
@@ -424,7 +353,7 @@
 		)
 
 /datum/outfit/loadout/denbartender
-	name = "Den Roguewave bartender"
+	name = "Den Ironwave bartender"
 	uniform = /obj/item/clothing/under/f13/cowboyg
 	belt = /obj/item/storage/belt/utility/mining/alt
 	gloves = /obj/item/clothing/gloves/f13/blacksmith
@@ -446,7 +375,7 @@
 
 
 /datum/outfit/loadout/dencasnio
-	name = "Roguewave Casino Worker"
+	name = "Ironwave Casino Worker"
 	head = /obj/item/clothing/head/helmet/f13/marlowhat
 	belt = /obj/item/melee/onehanded/knife/bowie
 	uniform = /obj/item/clothing/under/f13/densuit
@@ -460,7 +389,7 @@
 	)
 
 /datum/outfit/loadout/dencivilian
-	name = "Roguewave Civilian"
+	name = "Ironwave Civilian"
 	suit = /obj/item/clothing/suit/armor/medium/vest/breastplate
 	gloves = /obj/item/clothing/gloves/f13/leather
 	shoes = /obj/item/clothing/shoes/f13/military
@@ -472,7 +401,7 @@
 	)
 
 /datum/outfit/loadout/densinger
-	name = "Roguewave Den singer"
+	name = "Ironwave Den singer"
 	shoes = /obj/item/clothing/shoes/laceup
 	backpack_contents = list(/obj/item/clothing/under/f13/classdress = 1,
 	/obj/item/clothing/under/suit/black_really = 1,
@@ -485,7 +414,7 @@
 	)
 
 /datum/outfit/loadout/denfarmer
-	name = "Roguewave Botanist"
+	name = "Ironwave Botanist"
 	backpack_contents = list(/obj/item/clothing/head/helmet/f13/brahmincowboyhat = 1,
 	/obj/item/clothing/under/f13/rustic = 1,
 	/obj/item/clothing/suit/toggle/labcoat/followers = 1,
@@ -502,7 +431,7 @@
 	)
 
 /datum/outfit/loadout/denprospector
-	name = "Roguewave Repairman and Prospector"
+	name = "Ironwave Repairman and Prospector"
 	backpack_contents = list(/obj/item/clothing/head/hardhat = 1,
 	/obj/item/clothing/under/overalls = 1,
 	/obj/item/clothing/suit/armor/light/leather/rig = 1,

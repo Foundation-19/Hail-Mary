@@ -17,6 +17,12 @@ Science: 47 ACCESS_RESEARCH
 /datum/outfit/job/vault
 	gloves = /obj/item/pda
 
+/datum/outfit/job/vault/pre_equip(mob/living/carbon/human/H)
+	..()
+	uniform = pick(
+		/obj/item/clothing/under/f13/vault/v44,
+		/obj/item/clothing/under/f13/vault/v44/half)
+
 /datum/outfit/job/vault/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
 	if(visualsOnly)
@@ -24,34 +30,90 @@ Science: 47 ACCESS_RESEARCH
 	ADD_TRAIT(H, TRAIT_TECHNOPHREAK, src)
 	ADD_TRAIT(H, TRAIT_GENERIC, src)
 
+
+/datum/job/vault/ai
+	title = "Vault-Tec God AI"
+	flag = F13AI
+	department_flag = VAULT
+	total_positions = 1
+	spawn_positions = 1
+	selection_color = "#ccffcc"
+	supervisors = "Protocol Vault-Tec Control ADMIN"
+	req_admin_notify = TRUE
+	minimal_player_age = 30
+	exp_requirements = 1000
+	exp_type = EXP_TYPE_VAULT
+	department_flag = VAULT
+	display_order = JOB_DISPLAY_ORDER_AI
+	var/do_special_check = TRUE
+
+	starting_modifiers = list(/datum/skill_modifier/job/level/wiring/basic)
+
+/datum/job/ai/equip(mob/living/carbon/human/H, visualsOnly, announce, latejoin, datum/outfit/outfit_override, client/preference_source = null)
+	if(visualsOnly)
+		CRASH("dynamic preview is unsupported")
+	. = H.AIize(latejoin,preference_source)
+
+/datum/job/vault/ai/after_spawn(mob/H, mob/M, latejoin)
+	. = ..()
+	if(latejoin)
+		var/obj/structure/AIcore/latejoin_inactive/lateJoinCore
+		for(var/obj/structure/AIcore/latejoin_inactive/P in GLOB.latejoin_ai_cores)
+			if(P.is_available())
+				lateJoinCore = P
+				GLOB.latejoin_ai_cores -= P
+				break
+		if(lateJoinCore)
+			lateJoinCore.available = FALSE
+			H.forceMove(lateJoinCore.loc)
+			qdel(lateJoinCore)
+	var/mob/living/silicon/ai/AI = H
+	AI.apply_pref_name("ai", M.client)			//If this runtimes oh well jobcode is fucked.
+	AI.set_core_display_icon(null, M.client)
+
+	ADD_TRAIT(AI, TRAIT_TECHNOPHREAK, TRAIT_GENERIC)
+
+	//we may have been created after our borg
+	if(SSticker.current_state == GAME_STATE_SETTING_UP)
+		for(var/mob/living/silicon/robot/R in GLOB.silicon_mobs)
+			if(!R.connected_ai)
+				R.TryConnectToAI()
+
+	if(latejoin)
+		announce(AI)
+
+/datum/job/vault/ai/override_latejoin_spawn()
+	return TRUE
+
+/datum/job/vault/ai/config_check()
+	return CONFIG_GET(flag/allow_ai)
+
 /*
 Overseer
 */
-
-/datum/job/vault
-	objectivesList = list("Leadership recommends the following goal for this week: Establish trade with the wasteland","Leadership recommends the following goal for this week: Acquire blueprints and interesting artifacts for research", "Leadership recommends the following goal for this week: Expand operations outside the vault")
 
 /datum/job/vault/f13overseer
 	title = "Overseer"
 	flag = F13OVERSEER
 	head_announce = list("Security")
-	total_positions = 0 //was 1-1
-	spawn_positions = 0
-	forbids = "The Vault forbids: Disobeying the Overseer. Deserting the Vault unless it is rendered unhospitable. Killing fellow Vault Dwellers. Betraying the Vault and its people."
+	total_positions = 1 //was 1-1
+	spawn_positions = 1
+	forbids = "The Vault forbids: Disobeying the God AI. Deserting the Vault unless it is rendered unhospitable. Killing fellow Vault Dwellers. Betraying the Vault and its people."
 	enforces = "The Vault expects: Contributing to Vault society. Adherence to Vault-tec Corporate Regulations."
 	description = "You are the leader of the Vault, and your word is law. Working with the Security team and your fellow Vault Dwellers, your goal is to ensure the continued prosperity and survival of the vault, through any and all means necessary."
-	supervisors = "Vault-tec"
+	supervisors = "God AI"
 	selection_color = "#ccffcc"
 	req_admin_notify = 1
 	exp_requirements = 750
 
 	outfit = /datum/outfit/job/vault/f13overseer
 
-	access = list()			//See get_access()
-	minimal_access = list()	//See get_access()
-
-/datum/job/vault/f13overseer/get_access()
-	return get_all_accesses()
+	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_ARMORY, ACCESS_WEAPONS,ACCESS_FORENSICS_LOCKERS,
+						ACCESS_MORGUE, ACCESS_MAINT_TUNNELS, ACCESS_ALL_PERSONAL_LOCKERS, ACCESS_MINING, ACCESS_MEDICAL,
+						ACCESS_CARGO, ACCESS_HEADS, ACCESS_HOS, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_MINERAL_STOREROOM)
+	minimal_access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_ARMORY, ACCESS_WEAPONS, ACCESS_FORENSICS_LOCKERS,
+						ACCESS_MORGUE, ACCESS_ALL_PERSONAL_LOCKERS, ACCESS_MINING, ACCESS_MEDICAL, ACCESS_CARGO, ACCESS_HEADS,
+						ACCESS_HOS, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_MINERAL_STOREROOM)
 
 /datum/outfit/job/vault/f13overseer
 	name = "Overseer"
@@ -60,11 +122,12 @@ Overseer
 	implants = list(/obj/item/implant/mindshield)
 
 	id = 			/obj/item/card/id/gold
-	uniform = 		/obj/item/clothing/under/f13/vault13
+	uniform = 		/obj/item/clothing/under/f13/vault/v44
 	shoes = 		/obj/item/clothing/shoes/jackboots
 	glasses = 		/obj/item/clothing/glasses/sunglasses
 	ears = 			/obj/item/radio/headset/headset_overseer
 	neck = 			/obj/item/clothing/neck/mantle/overseer
+	suit_store = /obj/item/gun/energy/laser/aer9/vault
 	backpack = 		/obj/item/storage/backpack/satchel/leather
 	backpack_contents = list(
 		/obj/item/storage/box/ids = 1,
@@ -79,17 +142,17 @@ Head of Security
 */
 
 /datum/job/vault/f13hos
-	title = "Chief of Security"
+	title = "Vault 44 Master Warrior"
 	flag = F13HOS
 	department_head = list("Overseer")
 	department_flag = VAULT
 	head_announce = list("Security")
-	total_positions = 0 //was 1-1
-	spawn_positions = 0
-	forbids = "The Vault forbids: Disobeying the Overseer. Deserting the Vault unless it is rendered unhospitable. Killing fellow Vault Dwellers. Betraying the Vault and its people."
-	enforces = "The Vault expects: Contributing to Vault society. Adherence to Vault-tec Corporate Regulations. Participation in special projects, as ordered by the Overseer."
-	description = "You answer directly to the Overseer. You are tasked with organising the safety, security and readiness of the Vault, as well as managing the Security team. It is also your duty to secure the Vault against outside invasion. At your discretion, you are encouraged to train capable dwellers in the usage of firearms and issue weapon permits accordingly."
-	supervisors = "the Overseer"
+	total_positions = 1 //was 1-1
+	spawn_positions = 1
+	forbids = "The Vault forbids: Disobeying the God AI. Deserting the Vault unless it is rendered unhospitable. Killing fellow Vault Dwellers. Betraying the Vault and its people."
+	enforces = "The Vault expects: Contributing to Vault society. Adherence to Vault-tec Corporate Regulations. Participation in special projects, as ordered by the God AI."
+	description = "You answer directly to the God AI. You are tasked with organising the safety, security and readiness of the Tribe, as well as managing the warrior cast. It is also your duty to secure the Vault against outside invasion. At your discretion, you are encouraged to train capable dwellers in the usage of firearms and issue weapon permits accordingly."
+	supervisors = "the God AI"
 	selection_color = "#ccffcc"
 	req_admin_notify = 1
 	exp_requirements = 750
@@ -110,9 +173,10 @@ Head of Security
 	id = /obj/item/card/id/chief
 	//pda
 	ears = 			/obj/item/radio/headset/headset_vault_hos/alt
-	uniform = 		/obj/item/clothing/under/f13/vault13
+	uniform = 		/obj/item/clothing/under/f13/vault/v44/half
 	shoes = 		/obj/item/clothing/shoes/jackboots
 	suit = 			/obj/item/clothing/suit/armor/medium/vest/alt
+	suit_store = /obj/item/gun/energy/laser/aer9/vault
 	head = 			/obj/item/clothing/head/collectable/police/cos
 	belt = 			/obj/item/storage/belt/army/security
 	glasses = 		/obj/item/clothing/glasses/sunglasses
@@ -134,15 +198,15 @@ Head of Security
 Medical Doctor
 */
 /datum/job/vault/f13doctor
-	title = "Vault-tec Doctor"
+	title = "Vault 44 Shaman"
 	flag = F13DOCTOR
 	department_head = list("Overseer")
-	total_positions = 0 //was 5-4
-	spawn_positions = 0
-	forbids = "The Vault forbids: Disobeying the Overseer. Deserting the Vault unless it is rendered unhospitable. Killing fellow Vault Dwellers. Betraying the Vault and its people."
-	enforces = "The Vault expects: Contributing to Vault society. Adherence to Vault-tec Corporate Regulations. Participation in special projects, as ordered by the Overseer."
-	description = "You answer directly to the Overseer. You are tasked with providing medical care to Vault Dwellers and ensuring the medical well-being of everyone in the Vault."
-	supervisors = "the Overseer"
+	total_positions = 2 //was 5-4
+	spawn_positions = 2
+	forbids = "The Vault forbids: Disobeying the God AI. Deserting the Vault unless it is rendered unhospitable. Killing fellow Vault Dwellers. Betraying the Vault and its people."
+	enforces = "The Vault expects: Contributing to Vault society. Adherence to Vault-tec Corporate Regulations. Participation in special projects, as ordered by the God AI."
+	description = "You answer directly to the God AI. You are tasked with providing medical care to Vault Dwellers and ensuring the medical well-being of everyone in the Vault."
+	supervisors = "the God AI"
 	selection_color = "#ddffdd"
 
 	outfit = /datum/outfit/job/vault/f13doctor
@@ -179,15 +243,15 @@ Medical Doctor
 Scientist
 */
 /datum/job/vault/f13vaultscientist
-	title = "Vault-tec Scientist"
+	title = "Vault 44 Scientist"
 	flag = F13VAULTSCIENTIST
 	department_head = list("Overseer")
-	total_positions = 0 //was 5-5
-	spawn_positions = 0
-	forbids = "The Vault forbids: Disobeying the Overseer. Deserting the Vault unless it is rendered unhospitable. Killing fellow Vault Dwellers. Betraying the Vault and its people."
-	enforces = "The Vault expects: Contributing to Vault society. Adherence to Vault-tec Corporate Regulations. Participation in special projects, as ordered by the Overseer."
-	description = "You answer directly to the Overseer. You are tasked with researching new technologies, conducting mining expeditions (with the approval of Security or the Overseer), and upgrading the machinery of the Vault."
-	supervisors = "the Overseer"
+	total_positions = 2 //was 5-5
+	spawn_positions = 2
+	forbids = "The Vault forbids: Disobeying the God AI. Deserting the Vault unless it is rendered unhospitable. Killing fellow Vault Dwellers. Betraying the Vault and its people."
+	enforces = "The Vault expects: Contributing to Vault society. Adherence to Vault-tec Corporate Regulations. Participation in special projects, as ordered by the God AI."
+	description = "You answer directly to the God AI. You are tasked with researching new technologies, conducting mining expeditions (with the approval of Security or the God AI), and upgrading the machinery of the Vault."
+	supervisors = "the God AI"
 	selection_color = "#ddffdd"
 
 	outfit = /datum/outfit/job/vault/f13vaultscientist
@@ -219,15 +283,15 @@ Scientist
 Security Officer
 */
 /datum/job/vault/f13officer
-	title = "Vault-tec Security"
+	title = "Vault 44 Warriors"
 	flag = F13OFFICER
 	department_head = list("Chief of Security")
-	total_positions = 0 //was 5-5 //Handled in /datum/controller/occupations/proc/setup_officer_positions()
-	spawn_positions = 0 //Handled in /datum/controller/occupations/proc/setup_officer_positions()
-	forbids = "The Vault forbids: Disobeying the Overseer. Deserting the Vault unless it is rendered unhospitable. Killing fellow Vault Dwellers. Betraying the Vault and its people."
-	enforces = "The Vault expects: Contributing to Vault society. Adherence to Vault-tec Corporate Regulations. Participation in special projects, as ordered by the Overseer."
-	description = "You answer directly to the Chief of Security, and in their absence, the Overseer. You are the first line of defense against civil unrest and outside intrusion. It is your duty to enforce the laws created by the Overseer and proactively seek out potential threats to the safety of Vault residents."
-	supervisors = "the head of security"
+	total_positions = 4 
+	spawn_positions = 4 
+	forbids = "The Vault forbids: Disobeying the God AI. Deserting the Vault unless it is rendered unhospitable. Killing fellow Vault Dwellers. Betraying the Vault and its people."
+	enforces = "The Vault expects: Contributing to Vault society. Adherence to Vault-tec Corporate Regulations. Participation in special projects, as ordered by the God AI."
+	description = "You answer directly to the Master Warrior, and in their absence, the God AI. You are the first line of defense against civil unrest and outside intrusion. It is your duty to enforce the laws created by the God AI and proactively seek out potential threats to the safety of Vault residents."
+	supervisors = "the Master Warrior"
 	selection_color = "#ddffdd"
 	exp_requirements = 300
 
@@ -246,10 +310,11 @@ Security Officer
 	id = /obj/item/card/id/sec
 	//pda
 	ears = 			/obj/item/radio/headset/headset_vaultsec
-	uniform = 		/obj/item/clothing/under/f13/vault13
+	uniform = 		/obj/item/clothing/under/f13/vault/v44/half
 	head = 			/obj/item/clothing/head/helmet/riot/vaultsec
 	suit =			/obj/item/clothing/suit/armor/medium/vest
 	glasses = 		/obj/item/clothing/glasses/sunglasses
+	suit_store = /obj/item/gun/energy/laser/aer9/vault
 	shoes = 		/obj/item/clothing/shoes/jackboots
 	belt = 			/obj/item/storage/belt/army/security
 	r_hand =		/obj/item/gun/ballistic/automatic/pistol/n99
@@ -267,42 +332,20 @@ Security Officer
 	implants = list(/obj/item/implant/mindshield)
 
 
-/obj/item/radio/headset/headset_sec/alt/department/Initialize()
-	. = ..()
-	wires = new/datum/wires/radio(src)
-	secure_radio_connections = new
-	recalculateChannels()
-
-/obj/item/radio/headset/headset_sec/alt/department/engi
-	keyslot = new /obj/item/encryptionkey/headset_vault_security
-	keyslot2 = new /obj/item/encryptionkey/headset_eng
-
-/obj/item/radio/headset/headset_sec/alt/department/supply
-	keyslot = new /obj/item/encryptionkey/headset_vault_security
-	keyslot2 = new /obj/item/encryptionkey/headset_cargo
-
-/obj/item/radio/headset/headset_sec/alt/department/med
-	keyslot = new /obj/item/encryptionkey/headset_vault_security
-	keyslot2 = new /obj/item/encryptionkey/headset_med
-
-/obj/item/radio/headset/headset_sec/alt/department/sci
-	keyslot = new /obj/item/encryptionkey/headset_vault_security
-	keyslot2 = new /obj/item/encryptionkey/headset_sci
-
 /*
 Vault Engineer
 */
 
 /datum/job/vault/f13vaultengineer
-	title = "Vault-tec Engineer"
+	title = "Vault 44 Engineer"
 	flag = F13VAULTENGINEER
 	department_head = list("Overseer")
-	total_positions = 0 //was 4-4
-	spawn_positions = 0
-	forbids = "The Vault forbids: Disobeying the Overseer. Deserting the Vault unless it is rendered unhospitable. Killing fellow Vault Dwellers. Betraying the Vault and its people."
-	enforces = "The Vault expects: Contributing to Vault society. Adherence to Vault-tec Corporate Regulations. Participation in special projects, as ordered by the Overseer."
-	description = "You answer directly to the Overseer. You are tasked with overseeing the Reactor, maintaining Vault defenses and machinery, and engaging in construction projects to improve the Vault as a whole."
-	supervisors = "the Overseer"
+	total_positions = 2 //was 4-4
+	spawn_positions = 2
+	forbids = "The Vault forbids: Disobeying the God AI. Deserting the Vault unless it is rendered unhospitable. Killing fellow Vault Dwellers. Betraying the Vault and its people."
+	enforces = "The Vault expects: Contributing to Vault society. Adherence to Vault-tec Corporate Regulations. Participation in special projects, as ordered by the God AI."
+	description = "You answer directly to the God AI. You are tasked with overseeing the Reactor, maintaining Vault defenses and machinery, and engaging in construction projects to improve the Vault as a whole."
+	supervisors = "the God AI"
 	selection_color = "#ddffdd"
 
 	outfit = /datum/outfit/job/vault/f13vaultengineer
@@ -328,17 +371,17 @@ Vault Engineer
 	backpack_contents = list(/obj/item/crowbar = 1)
 
 /datum/job/vault/f13vaultDweller
-	title = "Vault Dweller"
+	title = "Vault 44 Dweller"
 	flag = ASSISTANT
-	total_positions = 0 //was 12-11
-	spawn_positions = 0
-	forbids = "The Vault forbids: Disobeying the Overseer. Deserting the Vault unless it is rendered unhospitable. Killing fellow Vault Dwellers. Betraying the Vault and its people."
-	enforces = "The Vault expects: Contributing to Vault society. Adherence to Vault-tec Corporate Regulations. Participation in special projects, as ordered by the Overseer."
-	description = "You answer directly to the Overseer, being assigned to fulfill whatever menial tasks are required. You lack an assignment, but may be given one the Overseer if required or requested. You should otherwise busy yourself with assisting personnel with tasks around the Vault."
+	total_positions = 8 //was 12-11
+	spawn_positions = 8
+	forbids = "The Vault forbids: Disobeying the God AI. Deserting the Vault unless it is rendered unhospitable. Killing fellow Vault Dwellers. Betraying the Vault and its people."
+	enforces = "The Vault expects: Contributing to Vault society. Adherence to Vault-tec Corporate Regulations. Participation in special projects, as ordered by the God AI."
+	description = "You answer directly to the God AI, being assigned to fulfill whatever menial tasks are required. You lack an assignment, but may be given one the God AI if required or requested. You should otherwise busy yourself with assisting personnel with tasks around the Vault."
 	supervisors = "absolutely everyone"
 	selection_color = "#ddffdd"
-	access = list()			//See /datum/job/vault/assistant/get_access()
-	minimal_access = list()	//See /datum/job/vault/assistant/get_access()
+	access = list()			
+	minimal_access = list()	
 
 	outfit = /datum/outfit/job/vault/f13vaultDweller
 
@@ -363,9 +406,3 @@ Vault Engineer
 		ears = /obj/item/radio/headset/headset_vault
 		shoes = /obj/item/clothing/shoes/jackboots
 
-
-/datum/job/vault/New()
-	..()
-//	if(SSmapping.config.map_name == "Pahrump")
-//		total_positions = 0
-//		spawn_positions = 0

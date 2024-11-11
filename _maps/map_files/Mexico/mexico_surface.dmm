@@ -11900,10 +11900,6 @@
 /obj/machinery/door/unpowered/securedoor/legion,
 /turf/open/indestructible/ground/outside/desert,
 /area/f13/legion)
-"lAj" = (
-/obj/effect/landmark/start/f13/wastelander,
-/turf/open/indestructible/ground/outside/desert,
-/area/f13/wasteland)
 "lAA" = (
 /obj/structure/chair/folding{
 	dir = 4
@@ -34217,7 +34213,7 @@ kCv
 "}
 (46,1,1) = {"
 gDo
-lAj
+wsb
 wsb
 wsb
 uXF
@@ -35227,7 +35223,7 @@ kCv
 "}
 (51,1,1) = {"
 gDo
-lAj
+wsb
 wsb
 wsb
 uLc

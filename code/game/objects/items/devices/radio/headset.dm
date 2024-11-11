@@ -275,6 +275,7 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	frequency = FREQ_VAULT
 	freerange = TRUE
 	freqlock = TRUE
+	command = TRUE
 
 /obj/item/radio/headset/headset_vault_hos
 	name = "\proper the chief of security's radio headset"
@@ -284,6 +285,7 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	frequency = FREQ_VAULT
 	freerange = TRUE
 	freqlock = TRUE
+	command = TRUE
 
 /obj/item/radio/headset/headset_vault_hos/ComponentInitialize()
 	. = ..()

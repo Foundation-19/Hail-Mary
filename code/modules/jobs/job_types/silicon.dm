@@ -1,6 +1,6 @@
 /*
 AI
-*/
+
 /datum/job/ai
 	title = "AI"
 	flag = AI_JF
@@ -72,6 +72,8 @@ AI
 
 /datum/job/ai/config_check()
 	return CONFIG_GET(flag/allow_ai)
+
+*/
 
 /*
 Cyborg

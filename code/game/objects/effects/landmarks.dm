@@ -717,32 +717,36 @@ obj/effect/landmark/start/f13/ncrlogisticsofficer
 
 // Vault
 
+/obj/effect/landmark/start/f13/ai
+	name = "Vault-Tec God AI"
+	icon_state = "Overseer"
+
 /obj/effect/landmark/start/f13/overseer
 	name = "Overseer"
 	icon_state = "Overseer"
 
 /obj/effect/landmark/start/f13/vaultheadofsecurity
-	name = "Chief of Security"
+	name = "Vault 44 Master Warrior"
 	icon_state = "Chief of Security"
 
 /obj/effect/landmark/start/f13/vaultdoctor
-	name = "Vault-tec Doctor"
+	name = "Vault 44 Shaman"
 	icon_state = "Vault-tec Doctor"
 
 /obj/effect/landmark/start/f13/vaultscientist
-	name = "Vault-tec Scientist"
+	name = "Vault 44 Scientist"
 	icon_state = "Vault-tec Scientist"
 
 /obj/effect/landmark/start/f13/vaultsecurityofficer
-	name = "Vault-tec Security"
+	name = "Vault 44 Warriors"
 	icon_state = "Vault-tec Security"
 
 /obj/effect/landmark/start/f13/vaultengineer
-	name = "Vault-tec Engineer"
+	name = "Vault 44 Engineer"
 	icon_state = "Vault-tec Engineer"
 
 /obj/effect/landmark/start/f13/vaultdweller
-	name = "Vault Dweller"
+	name = "Vault 44 Dweller"
 	icon_state = "Vault Dweller"
 
 // Eastwood
@@ -1065,21 +1069,21 @@ obj/effect/landmark/start/f13/ncrlogisticsofficer
 	icon_state = "Legionary"
 
 /obj/effect/landmark/start/f13/f13rebelsoldier
-	name = "Roguewave Den Marines"
+	name = "Ironwave Raider"
 	icon_state = "ussgt"
 
 /obj/effect/landmark/start/f13/f13rebelcaptain
-	name = "Roguewave Den Captain"
+	name = "Ironwave Raider Captain"
 	icon_state = "ussgt"
 
 /obj/effect/landmark/start/f13/f13rebel
-	name = "Roguewave Den Doctor"
+	name = "Ironwave Den Doctor"
 	icon_state = "ussgt"
 
 /obj/effect/landmark/start/f13/f13rebelcitizen
-	name = "Roguewave Den Citizen"
+	name = "Ironwave Den Settlers"
 	icon_state = "ussgt"
 
 /obj/effect/landmark/start/f13/f13rebelguard
-	name = "Roguewave Den Guard"
+	name = "Ironwave Den Guard"
 	icon_state = "ussgt"

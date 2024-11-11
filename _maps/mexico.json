@@ -62,16 +62,16 @@
 	"minetype": "none",
 	"added_jobs": [
 		"rebels.dm",
-		"ostia.dm"
+		"ostia.dm",
+		"legion.dm",
+		"vault.dm"
 	],
 	"removed_jobs": [
 		"eastwood.dm",
 		"ncr.dm",
-		"legion.dm",
 		"enclave.dm",
 		"bos.dm",
 		"atlantic_cross.dm",
-		"locust_point.dm",
-		"vault.dm"
+		"locust_point.dm"
 	]
 }

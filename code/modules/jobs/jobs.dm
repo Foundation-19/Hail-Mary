@@ -64,10 +64,13 @@ GLOBAL_LIST_INIT(command_positions, list(
 	"Noyan",
 	"Steward",
 
+	"Overseer",
+	"Vault 44 God AI",
+
 	"Dockmaster of Locust Point",
 	"Atlantic Cross Captain",
 
-	"Roguewave Den Captain",
+	"Ironwave Den Captain",
 	"Legion Governor of Ostia",
 	))
 
@@ -85,13 +88,6 @@ GLOBAL_LIST_INIT(faction_whitelist_positions, list(
 "Enclave Scientist",
 "Enclave Private",
 
-"Cyborg",
-"Overseer",
-"Chief of Security",
-"Vault-tec Doctor",
-"Vault-tec Scientist",
-"Vault-tec Security",
-"Vault-tec Engineer",
 ))
 //Brotherhood
 GLOBAL_LIST_INIT(brotherhood_positions, list(
@@ -180,12 +176,13 @@ GLOBAL_LIST_INIT(ncr_positions, list(
 
 GLOBAL_LIST_INIT(vault_positions, list(
 	"Overseer",
-	"Chief of Security",
-	"Vault-tec Doctor",
-	"Vault-tec Scientist",
-	"Vault-tec Security",
-	"Vault-tec Engineer",
+	"Vault 44 Master Warrior",
+	"Vault 44 Shaman",
+	"Vault 44 Scientist",
+	"Vault 44 Warriors",
+	"Vault 44 Engineer",
 	"Vault Dweller",
+	"Vault 44 God AI",
 	"Cyborg",
 ))
 
@@ -228,7 +225,7 @@ GLOBAL_LIST_INIT(enclave_positions, list(
 ))
 
 GLOBAL_LIST_INIT(security_positions, list(
-	"Vault-tec Security",
+	"Vault 44 Security",
 	"Officer",
 ))
 GLOBAL_LIST_INIT(silicon_positions, list(
@@ -298,17 +295,17 @@ GLOBAL_LIST_INIT(ostia_positions, list(
 ))
 
 GLOBAL_LIST_INIT(rebels_positions, list(
-	"Roguewave Raider",
-	"Roguewave Den Captain",
-	"Roguewave Den Doctor",
-	"Roguewave Den Guard",
-	"Roguewave Den Stellers"
+	"Ironwave Raider",
+	"Ironwave Raider Captain",
+	"Ironwave Den Doctor",
+	"Ironwave Den Guard",
+	"Ironwave Den Settlers"
 ))
 
 // job categories for rendering the late join menu
 GLOBAL_LIST_INIT(position_categories, list(
 	EXP_TYPE_NCR = list("jobs" = ncr_positions, "color" = "#ffeeaa"),
-	// EXP_TYPE_VAULT = list("jobs" = vault_positions, "color" = "##fdee00"),
+	EXP_TYPE_VAULT = list("jobs" = vault_positions, "color" = "##fdee00"),
 	EXP_TYPE_FOLLOWERS = list("jobs" = followers_positions, "color" = "#ffeeaa"),
 	EXP_TYPE_BROTHERHOOD = list("jobs" = brotherhood_positions, "color" = "#95a5a6"),
 	EXP_TYPE_LEGION = list("jobs" = legion_positions, "color" = "#f81717"),
@@ -325,7 +322,7 @@ GLOBAL_LIST_INIT(position_categories, list(
 	"Atlantic Cross" = list("jobs" = atlantic_positions, "color" = "#ffeeaa"),
 	"Locust Point" = list("jobs" = locust_positions, "color" = "#d7b088"),
 	"Legion Port of Ostia"= list("jobs" = ostia_positions, "color" = "#c30f0f"),
-	"Roguewave Rebels"= list("jobs" = rebels_positions, "color" = "#235923"),
+	"Ironwave Rebels"= list("jobs" = rebels_positions, "color" = "#235923"),
 ))
 
 GLOBAL_LIST_INIT(exp_jobsmap, list(

@@ -75,6 +75,12 @@ Suits. 0-10 in its primary value, slowdown 0, various utility
 	icon_state = "ncrexile"
 	item_state = "ncrexile"
 
+/obj/item/clothing/suit/armor/exile/ncrexile/ironwave
+	name = "Ironwave armor"
+	desc = "A modified armor kit consisting of NCR gear and scrap metal."
+	icon_state = "ncrexile"
+	item_state = "ncrexile"
+
 /obj/item/clothing/suit/armor/exile/legexile
 	name = "modified Legion armor"
 	desc = "A modified detoriated armor kit consisting of Legion gear and scrap metal."
