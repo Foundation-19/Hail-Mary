@@ -157,7 +157,7 @@ Head of Security
 	req_admin_notify = 1
 	exp_requirements = 750
 
-	outfit = /datum/outfit/job/vault/f13hos
+	outfit = /datum/outfit/job/vault/f13masterwarrior
 
 	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_ARMORY, ACCESS_WEAPONS,ACCESS_FORENSICS_LOCKERS,
 						ACCESS_MORGUE, ACCESS_MAINT_TUNNELS, ACCESS_ALL_PERSONAL_LOCKERS, ACCESS_MINING, ACCESS_MEDICAL,
@@ -166,18 +166,17 @@ Head of Security
 						ACCESS_MORGUE, ACCESS_ALL_PERSONAL_LOCKERS, ACCESS_MINING, ACCESS_MEDICAL, ACCESS_CARGO, ACCESS_HEADS,
 						ACCESS_HOS, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_MINERAL_STOREROOM)
 
-/datum/outfit/job/vault/f13hos
+/datum/outfit/job/vault/f13masterwarrior
 	name = "Chief of Security"
-	jobtype = /datum/job/vault/f13hos
 
 	id = /obj/item/card/id/chief
 	//pda
 	ears = 			/obj/item/radio/headset/headset_vault_hos/alt
 	uniform = 		/obj/item/clothing/under/f13/vault/v44/half
 	shoes = 		/obj/item/clothing/shoes/jackboots
-	suit = 			/obj/item/clothing/suit/armor/medium/vest/alt
-	suit_store = /obj/item/gun/energy/laser/aer9/vault
-	head = 			/obj/item/clothing/head/collectable/police/cos
+	suit = 			/obj/item/clothing/suit/armor/heavy/salvaged_pa/vault
+	suit_store = 	/obj/item/gun/energy/laser/aer9/vault
+	head = 			/obj/item/clothing/head/helmet/f13/heavy/salvaged_pa/vault
 	belt = 			/obj/item/storage/belt/army/security
 	glasses = 		/obj/item/clothing/glasses/sunglasses
 	r_hand =		/obj/item/gun/ballistic/automatic/pistol/n99
@@ -189,6 +188,7 @@ Head of Security
 	box = 			/obj/item/storage/box/security
 	backpack_contents = list(
 		/obj/item/restraints/handcuffs = 2,
+		/obj/item/stock_parts/cell/ammo/mfc = 3,
 		/obj/item/ammo_box/magazine/m10mm/adv/simple = 2,
 		/obj/item/crowbar = 1)
 
@@ -222,7 +222,7 @@ Medical Doctor
 	uniform = 		/obj/item/clothing/under/f13/vault13
 	ears = 			/obj/item/radio/headset/headset_vault
 	shoes = 		/obj/item/clothing/shoes/jackboots
-	suit =			/obj/item/clothing/suit/toggle/labcoat
+	suit =			/obj/item/clothing/suit/armor/light/kit/punk/labcoat
 	l_hand = 		/obj/item/storage/firstaid/regular
 	suit_store = 	/obj/item/flashlight/pen
 	backpack = 		/obj/item/storage/backpack/medic
@@ -268,7 +268,7 @@ Scientist
 	uniform = 		/obj/item/clothing/under/f13/vault13
 	ears = 			/obj/item/radio/headset/headset_vault
 	shoes = 		/obj/item/clothing/shoes/jackboots
-	suit =			/obj/item/clothing/suit/toggle/labcoat
+	suit =			/obj/item/clothing/suit/armor/light/kit/punk/labcoat
 	backpack = 		/obj/item/storage/backpack/science
 	satchel = 		/obj/item/storage/backpack/satchel/tox
 	backpack_contents = list(/obj/item/crowbar = 1)
@@ -295,7 +295,7 @@ Security Officer
 	selection_color = "#ddffdd"
 	exp_requirements = 300
 
-	outfit = /datum/outfit/job/vault/f13security
+	outfit = /datum/outfit/job/vault/f13vaultwarrior
 
 	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_ARMORY, ACCESS_WEAPONS,ACCESS_FORENSICS_LOCKERS,
 						ACCESS_MORGUE, ACCESS_MAINT_TUNNELS, ACCESS_ALL_PERSONAL_LOCKERS, ACCESS_MINING, ACCESS_MEDICAL,
@@ -303,18 +303,17 @@ Security Officer
 	minimal_access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_ARMORY, ACCESS_WEAPONS, ACCESS_FORENSICS_LOCKERS,
 						ACCESS_MORGUE, ACCESS_ALL_PERSONAL_LOCKERS, ACCESS_MINING, ACCESS_MEDICAL, ACCESS_CARGO,
 						ACCESS_MINERAL_STOREROOM)
-/datum/outfit/job/vault/f13security
-	name = "Vault-tec Security"
-	jobtype = /datum/job/vault/f13officer
 
+/datum/outfit/job/vault/f13vaultwarrior
+	name = "Vault-tec Security"
 	id = /obj/item/card/id/sec
 	//pda
 	ears = 			/obj/item/radio/headset/headset_vaultsec
 	uniform = 		/obj/item/clothing/under/f13/vault/v44/half
 	head = 			/obj/item/clothing/head/helmet/riot/vaultsec
-	suit =			/obj/item/clothing/suit/armor/medium/vest
+	suit =			/obj/item/clothing/suit/armor/medium/vest/bulletproof/armor
 	glasses = 		/obj/item/clothing/glasses/sunglasses
-	suit_store = /obj/item/gun/energy/laser/aer9/vault
+	suit_store = 	/obj/item/gun/energy/laser/aer9/vault
 	shoes = 		/obj/item/clothing/shoes/jackboots
 	belt = 			/obj/item/storage/belt/army/security
 	r_hand =		/obj/item/gun/ballistic/automatic/pistol/n99
@@ -326,6 +325,7 @@ Security Officer
 	box = 			/obj/item/storage/box/security
 	backpack_contents = list(
 		/obj/item/restraints/handcuffs = 1,
+		/obj/item/stock_parts/cell/ammo/mfc = 3,
 		/obj/item/ammo_box/magazine/m10mm/adv/simple = 2,
 		/obj/item/crowbar = 1)
 
