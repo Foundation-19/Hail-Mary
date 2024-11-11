@@ -78,6 +78,7 @@
 	icon_state = "vaultpahelm"
 	item_state = "vaultpahelm"
 	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T1, ARMOR_MODIFIER_UP_BULLET_T1)
+	color = "#e3d2c6"
 
 
 // T-45D

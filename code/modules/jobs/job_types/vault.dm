@@ -117,7 +117,7 @@ Head of Security
 	ears = 			/obj/item/radio/headset/headset_vault_hos/alt
 	uniform = 		/obj/item/clothing/under/f13/vault/v44/half
 	shoes = 		/obj/item/clothing/shoes/jackboots
-	suit = 			/obj/item/clothing/suit/armor/heavy/salvaged_pa/vault
+	suit = 			/obj/item/clothing/suit/armor/power_armor/vault
 	suit_store = 	/obj/item/gun/energy/laser/aer9/vault
 	head = 			/obj/item/clothing/head/helmet/f13/heavy/salvaged_pa/vault
 	belt = 			/obj/item/storage/belt/army/security

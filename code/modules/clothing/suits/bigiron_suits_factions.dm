@@ -1068,6 +1068,13 @@ Just leaving this here for quick copy-pasting, for future contributors.
 	icon_state = "sierra"
 	item_state = "sierra"
 
+/obj/item/clothing/suit/armor/power_armor/vault
+	name = "salvaged Vault-Tec Power Armor"
+	desc = "Normaly used for vault construction, this is now the suit of the Master Warrior."
+	icon_state = "vaultpa"
+	item_state = "vaultpa"
+	color = "#e3d2c6"
+
 // Recipe Firesuit + metal chestplate + 50 welding fuel + 1 HQ + 1 plasteel
 /obj/item/clothing/suit/armor/heavy/metal/sulphite/old
 	name = "sulphite raider suit"

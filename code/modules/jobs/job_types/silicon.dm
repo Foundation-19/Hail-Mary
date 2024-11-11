@@ -2,7 +2,7 @@
 AI
 
 /datum/job/ai
-	title = "AI"
+	title = "Vault 44 God AI"
 	flag = AI_JF
 	department_flag = VAULT
 	//
@@ -82,8 +82,8 @@ Cyborg
 	flag = F13CYBORG
 	department_flag = CYBORG
 	faction = FACTION_WASTELAND
-	total_positions = 5
-	spawn_positions = 1
+	total_positions = 3
+	spawn_positions = 3
 	selection_color = "#ddffdd"
 
 
@@ -104,9 +104,9 @@ Mr. Handy
 	flag = CYBORG
 	department_flag = ENGSEC
 	//
-	total_positions = 5
+	total_positions = 3
 	spawn_positions = 1
-	supervisors = "Your Creators"	//Nodrak
+	supervisors = "Your Creators, Vaut-Tec 44"	//Nodrak
 	selection_color = "#ddffdd"
 
 /datum/job/cyborg/equip(mob/living/carbon/human/H, visualsOnly = FALSE, announce = TRUE, latejoin = FALSE, datum/outfit/outfit_override = null, client/preference_source)

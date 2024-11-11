@@ -3026,14 +3026,6 @@
 	item_state = "t45d_salvaged"
 	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T1, ARMOR_MODIFIER_UP_BULLET_T1)
 
-/obj/item/clothing/suit/armor/heavy/salvaged_pa/vault
-	name = "salvaged Vault-Tec Power Armor"
-	desc = "Normaly used for vault construction, this is now the suit of the Master Warrior."
-	mob_overlay_icon = "icons/fallout/onmob/clothes/armor_power.dmi"
-	icon_state = "vaultpa"
-	item_state = "vaultpa"
-	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T1, ARMOR_MODIFIER_UP_BULLET_T1)
-
 // T-51B
 /obj/item/clothing/suit/armor/heavy/salvaged_pa/t51b
 	name = "salvaged T-51b power armor"
