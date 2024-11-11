@@ -1459,12 +1459,6 @@
 	dir = 8
 	},
 /area/f13/legioncamp)
-"bvs" = (
-/obj/structure/car/rubbish2,
-/turf/open/indestructible/ground/outside/road{
-	icon_state = "innermaincornerouter - E"
-	},
-/area/f13/wasteland)
 "bwl" = (
 /obj/structure/table/wood,
 /obj/machinery/computer/terminal{
@@ -2704,12 +2698,6 @@
 /obj/structure/barricade/wooden/strong,
 /turf/closed/indestructible/rock,
 /area/f13/underground/cave)
-"cLE" = (
-/obj/structure/car/rubbish1,
-/turf/open/indestructible/ground/outside/road{
-	icon_state = "verticalinnermainbottom"
-	},
-/area/f13/wasteland)
 "cLI" = (
 /obj/structure/barricade/wooden{
 	plane = -6
@@ -4817,10 +4805,6 @@
 	name = "Wooden docks"
 	},
 /area/f13/city)
-"eJI" = (
-/obj/structure/car/rubbish3,
-/turf/open/indestructible/ground/outside/dirt,
-/area/f13/wasteland)
 "eJR" = (
 /obj/structure/barricade/bars,
 /obj/structure/barricade/wooden,
@@ -6089,13 +6073,6 @@
 /obj/item/pickaxe/mini,
 /turf/open/floor/wood_fancy,
 /area/f13/farmhouse)
-"fJD" = (
-/obj/structure/car/rubbish3,
-/turf/open/indestructible/ground/outside/road{
-	icon_state = "verticalinnermainbottom";
-	dir = 8
-	},
-/area/f13/wasteland)
 "fJL" = (
 /mob/living/simple_animal/hostile/ghoul,
 /turf/open/indestructible/ground/outside/road{
@@ -7260,13 +7237,6 @@
 	color = "#e4e4e4"
 	},
 /area/f13/legion)
-"gRz" = (
-/obj/structure/car/rubbish2,
-/turf/open/indestructible/ground/outside/road{
-	icon_state = "horizontalinnermainleft";
-	dir = 8
-	},
-/area/f13/wasteland)
 "gSg" = (
 /obj/structure/stairs/east{
 	color = "#A47449"
@@ -7875,12 +7845,6 @@
 	pixel_y = 11
 	},
 /turf/open/floor/wood_fancy,
-/area/f13/wasteland)
-"hzh" = (
-/obj/structure/car/rubbish2,
-/turf/open/indestructible/ground/outside/road{
-	icon_state = "innermaincornerinner - N"
-	},
 /area/f13/wasteland)
 "hzS" = (
 /obj/effect/decal/cleanable/dirt,
@@ -15313,6 +15277,14 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/f13/vault_floor/misc/bar,
 /area/f13/city)
+"oEU" = (
+/obj/mecha/combat/phazon/buggy/red{
+	dir = 4
+	},
+/turf/open/indestructible/ground/outside/road{
+	icon_state = "innermaincornerinner - N"
+	},
+/area/f13/wasteland)
 "oFv" = (
 /obj/structure/barricade/tentclothedge,
 /turf/open/floor/wood_fancy,
@@ -15486,15 +15458,6 @@
 /turf/open/floor/f13/wood{
 	sunlight_state = 1;
 	name = "Wooden docks"
-	},
-/area/f13/wasteland)
-"oOk" = (
-/obj/effect/decal/marking{
-	icon_state = "dottedhorizontalcorroded"
-	},
-/obj/structure/car/rubbish3,
-/turf/open/indestructible/ground/outside/road{
-	icon_state = "horizontalinnermain1"
 	},
 /area/f13/wasteland)
 "oPf" = (
@@ -18556,6 +18519,10 @@
 	icon_state = "horizontalinnermain1"
 	},
 /area/f13/wasteland)
+"rPR" = (
+/obj/mecha/combat/phazon/buggy/flamme,
+/turf/open/indestructible/ground/outside/desert,
+/area/f13/wasteland)
 "rPZ" = (
 /obj/structure/bed/mattress{
 	icon_state = "bedroll_unrolled";
@@ -20967,7 +20934,6 @@
 /obj/item/storage/trash_stack{
 	icon_state = "trash_3"
 	},
-/obj/structure/car/rubbish3,
 /turf/open/indestructible/ground/outside/road{
 	icon_state = "horizontalinnermain1"
 	},
@@ -23810,6 +23776,10 @@
 	name = "Deep water";
 	sunlight_state = 1
 	},
+/area/f13/wasteland)
+"xhp" = (
+/obj/mecha/combat/phazon/pickuptruck/loaded,
+/turf/open/indestructible/ground/outside/desert,
 /area/f13/wasteland)
 "xhH" = (
 /obj/structure/obstacle/barbedwire/end{
@@ -32122,7 +32092,7 @@ wsb
 wsb
 wsb
 wsb
-dRO
+wsb
 wsb
 wsb
 wsb
@@ -34450,9 +34420,9 @@ wsb
 wsb
 uLc
 rHM
-dgF
+oEU
 air
-aqQ
+dai
 osM
 ufm
 air
@@ -34883,7 +34853,7 @@ kwf
 exQ
 xfN
 wsb
-dRO
+wsb
 wsb
 tdQ
 aMi
@@ -35127,7 +35097,7 @@ wsb
 erN
 dai
 noI
-bvs
+vKb
 wsb
 grU
 eMZ
@@ -35864,7 +35834,7 @@ wsb
 wsb
 uLc
 jmb
-wiN
+dai
 jmb
 xZF
 oFD
@@ -36501,7 +36471,7 @@ hNB
 hNB
 hNB
 hNB
-ody
+hNB
 hNB
 hNB
 ody
@@ -37375,7 +37345,7 @@ jQB
 jQB
 jQB
 jQB
-gRz
+jQB
 vKb
 wsb
 wsb
@@ -37576,7 +37546,7 @@ dai
 dai
 dai
 dai
-wiN
+dai
 dai
 vwP
 wsb
@@ -38992,7 +38962,7 @@ viE
 viE
 qba
 dai
-cLE
+vwP
 wsb
 wsb
 wsb
@@ -42404,7 +42374,7 @@ hsR
 nIZ
 nIZ
 jBY
-hzh
+dgF
 seW
 dai
 dai
@@ -42603,7 +42573,7 @@ sVR
 noI
 nIZ
 dgF
-sVR
+seW
 seW
 seW
 seW
@@ -43232,7 +43202,7 @@ ybR
 qba
 seW
 seW
-sVR
+seW
 seW
 seW
 seW
@@ -45847,7 +45817,7 @@ wsb
 erN
 fmR
 dai
-fJD
+gUL
 wsb
 wsb
 eMZ
@@ -51629,7 +51599,7 @@ jtD
 fnZ
 gvb
 hDr
-eJI
+vjk
 vjk
 vjk
 jeD
@@ -52949,7 +52919,7 @@ eQA
 eQA
 eQA
 wsb
-mbz
+wsb
 vGM
 vjk
 vjk
@@ -58979,7 +58949,7 @@ wsb
 wsb
 oGc
 wsb
-wsb
+rPR
 wsb
 wsb
 wsb
@@ -61783,7 +61753,7 @@ taH
 air
 dai
 dai
-oOk
+air
 dai
 dai
 air
@@ -62429,7 +62399,7 @@ wsb
 wsb
 wsb
 wsb
-wsb
+xhp
 bbb
 cpQ
 lFg
