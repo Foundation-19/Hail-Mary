@@ -1,4 +1,4 @@
-/*
+
 AI
 
 /datum/job/ai
@@ -73,7 +73,7 @@ AI
 /datum/job/ai/config_check()
 	return CONFIG_GET(flag/allow_ai)
 
-*/
+
 
 /*
 Cyborg

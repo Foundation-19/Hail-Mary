@@ -31,63 +31,6 @@ Science: 47 ACCESS_RESEARCH
 	ADD_TRAIT(H, TRAIT_GENERIC, src)
 
 
-/datum/job/vault/ai
-	title = "Vault-Tec God AI"
-	flag = F13AI
-	department_flag = VAULT
-	total_positions = 1
-	spawn_positions = 1
-	selection_color = "#ccffcc"
-	supervisors = "Protocol Vault-Tec Control ADMIN"
-	req_admin_notify = TRUE
-	minimal_player_age = 30
-	exp_requirements = 1000
-	exp_type = EXP_TYPE_VAULT
-	department_flag = VAULT
-	display_order = JOB_DISPLAY_ORDER_AI
-	var/do_special_check = TRUE
-
-	starting_modifiers = list(/datum/skill_modifier/job/level/wiring/basic)
-
-/datum/job/ai/equip(mob/living/carbon/human/H, visualsOnly, announce, latejoin, datum/outfit/outfit_override, client/preference_source = null)
-	if(visualsOnly)
-		CRASH("dynamic preview is unsupported")
-	. = H.AIize(latejoin,preference_source)
-
-/datum/job/vault/ai/after_spawn(mob/H, mob/M, latejoin)
-	. = ..()
-	if(latejoin)
-		var/obj/structure/AIcore/latejoin_inactive/lateJoinCore
-		for(var/obj/structure/AIcore/latejoin_inactive/P in GLOB.latejoin_ai_cores)
-			if(P.is_available())
-				lateJoinCore = P
-				GLOB.latejoin_ai_cores -= P
-				break
-		if(lateJoinCore)
-			lateJoinCore.available = FALSE
-			H.forceMove(lateJoinCore.loc)
-			qdel(lateJoinCore)
-	var/mob/living/silicon/ai/AI = H
-	AI.apply_pref_name("ai", M.client)			//If this runtimes oh well jobcode is fucked.
-	AI.set_core_display_icon(null, M.client)
-
-	ADD_TRAIT(AI, TRAIT_TECHNOPHREAK, TRAIT_GENERIC)
-
-	//we may have been created after our borg
-	if(SSticker.current_state == GAME_STATE_SETTING_UP)
-		for(var/mob/living/silicon/robot/R in GLOB.silicon_mobs)
-			if(!R.connected_ai)
-				R.TryConnectToAI()
-
-	if(latejoin)
-		announce(AI)
-
-/datum/job/vault/ai/override_latejoin_spawn()
-	return TRUE
-
-/datum/job/vault/ai/config_check()
-	return CONFIG_GET(flag/allow_ai)
-
 /*
 Overseer
 */
