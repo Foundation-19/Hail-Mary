@@ -167,11 +167,12 @@ Medical Doctor
 	shoes = 		/obj/item/clothing/shoes/jackboots
 	suit =			/obj/item/clothing/suit/armor/light/kit/punk/labcoat
 	l_hand = 		/obj/item/storage/firstaid/regular
-	suit_store = 	/obj/item/flashlight/pen
+	suit_store = 	/obj/item/twohanded/spear/scrapspear
 	backpack = 		/obj/item/storage/backpack/medic
 	satchel = 		/obj/item/storage/backpack/satchel/med
 	duffelbag = 	/obj/item/storage/backpack/duffelbag/med
 	backpack_contents = list(
+		/obj/item/flashlight/pen = 1,
 		/obj/item/crowbar = 1)
 
 /datum/outfit/job/vault/f13doctor/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -211,6 +212,7 @@ Scientist
 	uniform = 		/obj/item/clothing/under/f13/vault13
 	ears = 			/obj/item/radio/headset/headset_vault
 	shoes = 		/obj/item/clothing/shoes/jackboots
+	suit_store = 	/obj/item/twohanded/spear/scrapspear
 	suit =			/obj/item/clothing/suit/armor/light/kit/punk/labcoat
 	backpack = 		/obj/item/storage/backpack/science
 	satchel = 		/obj/item/storage/backpack/satchel/tox
@@ -304,6 +306,7 @@ Vault Engineer
 	ears = 			/obj/item/radio/headset/headset_vault
 	uniform = 		/obj/item/clothing/under/f13/vault13
 	belt = 			/obj/item/storage/belt/utility/full/engi
+	suit_store = 	/obj/item/twohanded/spear/scrapspear
 	shoes = 		/obj/item/clothing/shoes/sneakers/red
 	head = 			/obj/item/clothing/head/hardhat
 	r_pocket = 		/obj/item/t_scanner

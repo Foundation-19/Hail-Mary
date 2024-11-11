@@ -650,7 +650,12 @@
 /area/f13/citycaves)
 "acz" = (
 /obj/structure/closet/locker/oldstyle,
-/turf/open/floor/plasteel/f13/vault_floor/blue/whitebluefull,
+/obj/item/clothing/under/f13/vault/v44/half,
+/obj/item/clothing/under/f13/vault/v44/tribal,
+/obj/item/clothing/under/f13/vault/v44/tribal/female,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	icon_state = "bluerustysolid"
+	},
 /area/f13/vault/dormitory)
 "acB" = (
 /obj/effect/decal/cleanable/dirt,
@@ -727,6 +732,14 @@
 "acM" = (
 /turf/open/floor/plasteel/f13/vault_floor/yellow,
 /area/f13/citycaves)
+"acO" = (
+/obj/structure/chair/comfy/beige{
+	dir = 1
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	icon_state = "bluerustysolid"
+	},
+/area/f13/vault/overseer)
 "acT" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/delivery/red,
@@ -4532,6 +4545,8 @@
 /area/f13/citycaves)
 "arb" = (
 /obj/machinery/autolathe,
+/obj/item/stack/sheet/metal/twenty,
+/obj/item/stack/sheet/glass/ten,
 /turf/open/floor/circuit/red/off,
 /area/f13/vault/storage)
 "are" = (
@@ -6513,6 +6528,13 @@
 /obj/structure/table/reinforced{
 	color = "#c1b6a5"
 	},
+/obj/item/twohanded/spear/scrapspear,
+/obj/item/twohanded/spear/scrapspear{
+	pixel_y = 8
+	},
+/obj/item/twohanded/spear/scrapspear{
+	pixel_y = -7
+	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "bluerustysolid"
 	},
@@ -6591,6 +6613,7 @@
 	color = "#c1b6a5"
 	},
 /obj/item/reagent_containers/food/drinks/bottle/vim,
+/obj/machinery/light/floor,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/vault/diner)
 "ayY" = (
@@ -7854,6 +7877,8 @@
 	name = "red light fixture";
 	dir = 1
 	},
+/obj/item/stack/sheet/cloth,
+/obj/item/stack/sheet/cloth/ten,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "bluerustysolid"
 	},
@@ -8207,9 +8232,10 @@
 /area/f13/citycaves)
 "aEE" = (
 /obj/structure/vaultdoor{
-	name = "vault 113 door";
+	name = "vault 44 door";
 	pixel_x = -32;
-	pixel_y = -32
+	pixel_y = -32;
+	desc = "... Is that vault 113 or vault 44 ?... Its the latter, but huuuh... It seems that vaut tec shipped it the wrong door."
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/vault)
@@ -9897,9 +9923,11 @@
 	},
 /area/f13/citycaves)
 "aKZ" = (
-/obj/machinery/door/airlock/grunge,
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "vaultshutter2"
+	},
+/obj/machinery/door/airlock/grunge{
+	req_access_txt = "31"
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc,
 /area/f13/vault)
@@ -10592,6 +10620,8 @@
 /area/f13/citycaves)
 "aNH" = (
 /obj/machinery/autolathe/ammo/improvised,
+/obj/item/stack/ore/blackpowder/twenty,
+/obj/item/stack/sheet/metal/twenty,
 /turf/open/floor/circuit/red/off,
 /area/f13/vault/storage)
 "aNI" = (
@@ -11081,6 +11111,7 @@
 	name = "Vault Intercom";
 	pixel_x = -32
 	},
+/obj/item/twohanded/spear/scrapspear,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "bluerustysolid"
 	},
@@ -13939,9 +13970,11 @@
 	},
 /area/f13/vault/chiefoffice)
 "bfo" = (
-/obj/machinery/door/airlock/grunge,
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "vaultshutter3"
+	},
+/obj/machinery/door/airlock/grunge{
+	req_access_txt = "31"
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "bluerustysolid"
@@ -14086,7 +14119,9 @@
 	},
 /area/f13/vault/science)
 "bRM" = (
-/obj/machinery/door/airlock/grunge,
+/obj/machinery/door/airlock/grunge{
+	req_access_txt = "31"
+	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/vault/dormitory)
 "bRQ" = (
@@ -14196,6 +14231,7 @@
 	name = "red light fixture";
 	dir = 8
 	},
+/obj/machinery/jukebox,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/vault/diner)
 "cuA" = (
@@ -14252,7 +14288,9 @@
 	},
 /area/f13/vault)
 "cMX" = (
-/obj/machinery/door/airlock/grunge,
+/obj/machinery/door/airlock/grunge{
+	req_access_txt = "31"
+	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/vault/diner)
 "cOZ" = (
@@ -14382,6 +14420,7 @@
 	dir = 9;
 	network = "vault"
 	},
+/obj/item/stack/sheet/cloth/ten,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "bluerustysolid"
 	},
@@ -14629,13 +14668,28 @@
 	dir = 10;
 	network = "vault"
 	},
-/obj/machinery/jukebox,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/vault/diner)
 "eUw" = (
 /obj/structure/flora/chomp/potplant2,
 /turf/open/floor/plating/rust,
 /area/f13/vault)
+"eUZ" = (
+/obj/structure/table/reinforced{
+	color = "#c1b6a5"
+	},
+/obj/item/stack/sheet/mineral/wood/fifty,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	icon_state = "bluerustysolid"
+	},
+/area/f13/vault/storage)
+"ffP" = (
+/obj/structure/table/reinforced{
+	color = "#c1b6a5"
+	},
+/obj/item/storage/box/drinkingglasses,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/vault/diner)
 "fmH" = (
 /obj/structure/chair/stool/retro/black,
 /turf/open/floor/plating/rust,
@@ -14713,6 +14767,12 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/vault)
+"fPj" = (
+/obj/structure/rack/shelf_metal,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	icon_state = "bluerustysolid"
+	},
+/area/f13/vault/overseer)
 "fQI" = (
 /mob/living/simple_animal/hostile/radroach,
 /turf/open/floor/plating/rust,
@@ -14793,6 +14853,9 @@
 /obj/structure/closet/locker/oldstyle{
 	anchored = 1
 	},
+/obj/item/ammo_box/magazine/m10mm/adv,
+/obj/item/ammo_box/magazine/m10mm/adv,
+/obj/item/ammo_box/magazine/m10mm/adv,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "bluerustysolid"
 	},
@@ -14844,7 +14907,6 @@
 /turf/open/floor/plating/rust,
 /area/f13/vault)
 "hkX" = (
-/obj/machinery/vending/cola/red,
 /obj/machinery/camera/autoname{
 	dir = 10;
 	network = "vault"
@@ -14885,6 +14947,8 @@
 /area/f13/vault)
 "hAB" = (
 /obj/machinery/autolathe/ammo/unlocked,
+/obj/item/stack/sheet/metal/twenty,
+/obj/item/stack/ore/blackpowder/twenty,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "bluerustysolid"
 	},
@@ -14908,6 +14972,10 @@
 	},
 /turf/closed/indestructible/f13vaultrusted,
 /area/f13/vault/dormitory)
+"hID" = (
+/obj/structure/rack/shelf_metal,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/vault/overseer)
 "hII" = (
 /obj/structure/table/reinforced{
 	color = "#c1b6a5"
@@ -14995,6 +15063,12 @@
 /obj/machinery/hydroponics/soil/pot,
 /turf/open/floor/plating/rust,
 /area/f13/vault)
+"hVz" = (
+/obj/structure/chair/comfy/beige{
+	dir = 1
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/vault/overseer)
 "hXZ" = (
 /obj/structure/closet/locker/oldstyle,
 /obj/item/reagent_containers/glass/beaker/waterbottle,
@@ -15059,13 +15133,21 @@
 	},
 /area/f13/vault/security)
 "ijK" = (
-/obj/structure/fluff/drake_statue,
+/obj/structure/fluff/drake_statue{
+	name = "wings of the first survivor statue"
+	},
 /obj/structure/statue/mars{
 	layer = 9;
-	pixel_y = 15
+	pixel_y = 15;
+	name = "The first survivor"
 	},
 /obj/structure/cross{
 	layer = 8
+	},
+/obj/item/clothing/under/f13/vault/v44/half{
+	pixel_y = 24;
+	anchored = 1;
+	name = "First survivor Tribal jumpsuit"
 	},
 /turf/open/floor/wood_wide/wood_wide_dark,
 /area/f13/vault)
@@ -15257,6 +15339,12 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/vault)
+"juk" = (
+/obj/machinery/door/airlock/grunge{
+	req_access_txt = "31"
+	},
+/turf/open/floor/circuit/red/off,
+/area/f13/vault/security)
 "juV" = (
 /obj/machinery/deepfryer{
 	color = "#c1b6a5"
@@ -15445,6 +15533,13 @@
 	color = "#B77850"
 	},
 /area/f13/vault)
+"krr" = (
+/obj/structure/table{
+	color = "#c1b6a5"
+	},
+/obj/machinery/light/floor,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/vault/diner)
 "kse" = (
 /obj/machinery/vending/games,
 /turf/open/floor/plating/rust,
@@ -15851,7 +15946,9 @@
 	},
 /area/f13/vault)
 "mGr" = (
-/obj/machinery/door/airlock/grunge,
+/obj/machinery/door/airlock/grunge{
+	req_access_txt = "31"
+	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "bluerustysolid"
 	},
@@ -15927,6 +16024,14 @@
 /obj/item/bedsheet/blanket2,
 /turf/open/floor/plating/rust,
 /area/f13/vault)
+"nyM" = (
+/obj/effect/turf_decal/trimline/neutral/line{
+	dir = 4;
+	color = "#FFFF66"
+	},
+/obj/item/twohanded/spear/scrapspear,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/vault/storage)
 "nVY" = (
 /obj/machinery/vending/wardrobe/chef_wardrobe{
 	color = "#c1b6a5"
@@ -16130,6 +16235,9 @@
 /obj/machinery/light/small{
 	dir = 4;
 	light_color = "#ad1b1b"
+	},
+/obj/item/paper/crumpled/muddy/fluff/elephant_graveyard/rnd_notes{
+	name = "Vault 44 Secret Documents"
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "bluerustysolid"
@@ -16440,6 +16548,15 @@
 	},
 /turf/open/floor/plating/rust,
 /area/f13/vault)
+"roc" = (
+/obj/structure/table{
+	color = "#c1b6a5"
+	},
+/obj/machinery/light/floor,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	icon_state = "bluerustysolid"
+	},
+/area/f13/vault/diner)
 "rrG" = (
 /obj/structure/bookshelf{
 	icon_state = "book-5"
@@ -16581,6 +16698,8 @@
 	dir = 4;
 	network = "vault"
 	},
+/obj/item/stack/sheet/leather/ten,
+/obj/item/stack/sheet/leather/ten,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "bluerustysolid"
 	},
@@ -16907,6 +17026,16 @@
 	icon_state = "bluerustysolid"
 	},
 /area/f13/vault/overseer)
+"uXa" = (
+/obj/structure/table/reinforced{
+	color = "#c1b6a5"
+	},
+/obj/item/fishingrod/spearfisher,
+/obj/item/fishingrod/spearfisher,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	icon_state = "bluerustysolid"
+	},
+/area/f13/vault/storage)
 "uZM" = (
 /obj/machinery/vending/bigredvend,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
@@ -17041,6 +17170,7 @@
 /obj/structure/table/reinforced{
 	color = "#c1b6a5"
 	},
+/obj/item/twohanded/spear,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/vault/storage)
 "wvP" = (
@@ -17077,6 +17207,12 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/vault/security)
+"xbI" = (
+/obj/machinery/door/airlock/grunge{
+	req_access_txt = "31"
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/vault)
 "xdE" = (
 /obj/machinery/camera/autoname{
 	dir = 9;
@@ -17164,6 +17300,9 @@
 /area/f13/vault)
 "xDx" = (
 /obj/machinery/autolathe,
+/obj/item/stack/sheet/metal/twenty,
+/obj/item/stack/sheet/glass/ten,
+/obj/item/stack/sheet/glass/ten,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "bluerustysolid"
 	},
@@ -19646,7 +19785,7 @@ aFJ
 lDn
 afj
 afj
-eQA
+xbI
 edr
 dwn
 rLN
@@ -20663,7 +20802,7 @@ anD
 saS
 aBM
 ssK
-ayH
+uXa
 wus
 aBM
 aQY
@@ -21273,7 +21412,7 @@ pik
 pik
 pik
 pik
-kfw
+nyM
 kfw
 kfw
 saS
@@ -21462,7 +21601,7 @@ aFJ
 aFJ
 aFJ
 aFJ
-eQA
+xbI
 aFJ
 aFJ
 kDb
@@ -21471,7 +21610,7 @@ iTA
 saS
 soL
 dLT
-ayH
+eUZ
 ayH
 abl
 saS
@@ -22059,7 +22198,7 @@ cEU
 cEU
 jpg
 amG
-tSI
+krr
 tSI
 amG
 boJ
@@ -22663,7 +22802,7 @@ uaY
 juV
 cEU
 cEU
-jpg
+ffP
 amG
 amG
 amG
@@ -22678,7 +22817,7 @@ aFJ
 aFJ
 aJQ
 cid
-dbQ
+juk
 cid
 cid
 jKC
@@ -23070,10 +23209,10 @@ cEU
 nlK
 cEU
 eCd
-eCd
+roc
 amG
 ayT
-eCd
+roc
 cEU
 aOx
 bRQ
@@ -25922,8 +26061,8 @@ bQn
 xlo
 xlo
 lJF
-jsu
-xlo
+hID
+fPj
 luD
 acp
 acp
@@ -26326,7 +26465,7 @@ xPU
 uUa
 hII
 qSS
-jsu
+hVz
 qaI
 luD
 acp
@@ -26528,7 +26667,7 @@ xPU
 qZr
 keR
 eyo
-xlo
+acO
 xIP
 luD
 acp

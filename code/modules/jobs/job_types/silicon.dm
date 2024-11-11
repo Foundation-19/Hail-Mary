@@ -3,17 +3,16 @@ AI
 
 /datum/job/ai
 	title = "Vault 44 God AI"
-	flag = AI_JF
+	flag = F13AI
 	department_flag = VAULT
-	//
 	total_positions = 1
 	spawn_positions = 1
 	selection_color = "#ccffcc"
 	supervisors = "your laws"
 	req_admin_notify = TRUE
-	exp_requirements = 180
-	exp_type = EXP_TYPE_CREW
-	exp_type_department = EXP_TYPE_SILICON
+	exp_requirements = 800
+	exp_type = EXP_TYPE_VAULT
+	faction = FACTION_VAULT
 	display_order = JOB_DISPLAY_ORDER_AI
 	var/do_special_check = TRUE
 
@@ -81,7 +80,7 @@ Cyborg
 	title = "Cyborg"
 	flag = F13CYBORG
 	department_flag = CYBORG
-	faction = FACTION_WASTELAND
+	faction = VAULT
 	total_positions = 3
 	spawn_positions = 3
 	selection_color = "#ddffdd"

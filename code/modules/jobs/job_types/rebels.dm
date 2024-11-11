@@ -17,7 +17,7 @@
 	satchel = /obj/item/storage/backpack/satchel
 	belt = /obj/item/storage/belt/army/assault/ncr
 	r_pocket = /obj/item/flashlight/seclite
-	uniform = /obj/item/clothing/under/f13/bdu
+	uniform = /obj/item/clothing/under/f13/raider_leather
 	shoes = /obj/item/clothing/shoes/jackboots
 	backpack_contents = list(
 		/obj/item/reagent_containers/food/snacks/f13/mre = 1,
@@ -28,7 +28,10 @@
 /datum/outfit/job/rebels/citizen/pre_equip(mob/living/carbon/human/H)
 	..()
 	uniform = pick(
-		/obj/item/clothing/under/f13/densuit)
+		/obj/item/clothing/under/f13/densuit,
+		/obj/item/clothing/under/f13/bodyguard,
+		/obj/item/clothing/under/f13/raider_leather,
+		/obj/item/clothing/under/f13/raiderrags)
 
 /datum/outfit/job/rebels/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
