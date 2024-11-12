@@ -3508,7 +3508,9 @@
 /obj/effect/turf_decal/shadow/floor{
 	dir = 8
 	},
-/obj/machinery/door/unpowered/secure_legion,
+/obj/machinery/door/unpowered/secure_legion{
+	opacity = 0
+	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	color = "#e4e4e4"
 	},
@@ -5846,14 +5848,11 @@
 /area/f13/wasteland)
 "fyb" = (
 /obj/structure/table/wood/settler,
-/obj/structure/fence{
-	dir = 8;
-	pixel_y = 17
-	},
 /obj/structure/simple_door/tentflap_cloth{
 	layer = 6;
 	pixel_y = 15
 	},
+/obj/structure/barricade/bars,
 /turf/open/floor/wood_common/wood_common_dark,
 /area/f13/legioncamp)
 "fzQ" = (
@@ -6409,6 +6408,15 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/enclave)
+"fXO" = (
+/obj/structure/table/wood/settler,
+/obj/structure/barricade/bars,
+/obj/structure/simple_door/tentflap_cloth{
+	layer = 6;
+	pixel_y = 15
+	},
+/turf/open/floor/wood_common/wood_common_dark,
+/area/f13/legioncamp)
 "fYx" = (
 /obj/structure/flora/rock/pile/largejungle,
 /turf/open/water,
@@ -7323,7 +7331,9 @@
 /area/f13/legioncamp)
 "gXL" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/door/unpowered/secure_legion,
+/obj/machinery/door/unpowered/secure_legion{
+	opacity = 0
+	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	color = "#e4e4e4"
 	},
@@ -7821,7 +7831,9 @@
 	},
 /area/f13/farmhouse)
 "hym" = (
-/obj/machinery/door/unpowered/secure_legion,
+/obj/machinery/door/unpowered/secure_legion{
+	opacity = 0
+	},
 /obj/machinery/door/poddoor/shutters{
 	name = "Legion main gate shutters";
 	id = "Maingate"
@@ -10369,7 +10381,9 @@
 /turf/open/floor/engine,
 /area/f13/enclave)
 "jZe" = (
-/obj/machinery/door/unpowered/secure_legion,
+/obj/machinery/door/unpowered/secure_legion{
+	opacity = 0
+	},
 /obj/machinery/door/poddoor/shutters{
 	name = "Legion main gate shutters";
 	id = "Maingate"
@@ -12089,7 +12103,9 @@
 /turf/open/indestructible/ground/outside/desert,
 /area/f13/wasteland)
 "lLs" = (
-/obj/machinery/door/unpowered/secure_legion,
+/obj/machinery/door/unpowered/secure_legion{
+	opacity = 0
+	},
 /obj/machinery/door/poddoor/shutters{
 	name = "Legion main gate shutters";
 	id = "Maingate"
@@ -15667,11 +15683,8 @@
 /turf/closed/wall/f13/wood,
 /area/f13/farmhouse)
 "peW" = (
-/obj/structure/fence{
-	climbable = 1;
-	cuttable = 0;
-	dir = 1;
-	resistance_flags = 64
+/obj/structure/fence/door{
+	dir = 8
 	},
 /turf/open/indestructible/ground/outside/gravel/path_desert{
 	dir = 4
@@ -19528,7 +19541,9 @@
 /turf/open/indestructible/ground/outside/desert,
 /area/f13/wasteland)
 "sQy" = (
-/obj/machinery/door/unpowered/secure_legion,
+/obj/machinery/door/unpowered/secure_legion{
+	opacity = 0
+	},
 /turf/open/indestructible/ground/outside/dirt/dark{
 	icon_state = "dirtfull_dark"
 	},
@@ -23513,7 +23528,9 @@
 /turf/open/floor/f13/wood,
 /area/f13/legion)
 "wOT" = (
-/obj/machinery/door/unpowered/secure_legion,
+/obj/machinery/door/unpowered/secure_legion{
+	opacity = 0
+	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	color = "#e4e4e4"
 	},
@@ -47075,7 +47092,7 @@ tKm
 kMX
 aqu
 mDh
-fyb
+fXO
 ewu
 mDh
 qyr
@@ -52757,7 +52774,7 @@ oAW
 oAW
 oAW
 oAW
-qZe
+bzK
 oAW
 jCG
 oww
@@ -52772,7 +52789,7 @@ pRL
 pPR
 ppJ
 uYY
-qZe
+bzK
 wsb
 iIU
 gcc
@@ -53370,7 +53387,7 @@ kri
 grK
 kri
 grK
-qZe
+bzK
 kri
 kri
 grK
@@ -53973,7 +53990,7 @@ rqb
 eRO
 ewu
 ewu
-qZe
+bzK
 oAW
 evp
 oAW
@@ -54175,7 +54192,7 @@ wyP
 eRO
 ewu
 ewu
-qZe
+bzK
 oAW
 oAW
 oAW

@@ -42,44 +42,191 @@
 
 //Rebel soldier
 /datum/job/rebels/soldier
-	title = "Ironwave Raider"
+	title = "Outlaw"
 	flag = F13REBELSOLDIER
-	total_positions = 4
-	spawn_positions = 4
+	total_positions = 8
+	spawn_positions = 8
 	access = list(ACCESS_ENCLAVE)
 	display_order = JOB_DISPLAY_ORDER_F13REBELSOLDIER
-	description = "The Ironwave are a group of Raider that took refuge in a old vertibird carrier. Your job ? What ever you want. Kill some Legionary, or work with them, or ignore them."
-	supervisors = "The captain."
+	description = "Thanks to the Ironwave and other raider groups, crime is still a possibility here, even if the Legion is cracking down on it. You are a indpendant raider, that came here to loot and survive. You aren't part of the Ironwave, but can choose to join it."
+	supervisors = "No one, altho its recommended you obey the Captain and crew of the Ironwave if you stand on their ship."
 	outfit = /datum/outfit/job/rebels
 
 	loadout_options = list(
-		/datum/outfit/loadout/ncrfunded,
-		/datum/outfit/loadout/stolenraider,	
+	/datum/outfit/loadout/raider_sadist,
+	/datum/outfit/loadout/raider_tribal,
+	/datum/outfit/loadout/raider_supafly,
+	/datum/outfit/loadout/raider_yankee,
+	/datum/outfit/loadout/raider_blast,
+	/datum/outfit/loadout/raider_painspike,
+	/datum/outfit/loadout/raider_badlands,
+	/datum/outfit/loadout/raider_vault,
+	/datum/outfit/loadout/raider_ncr,
+	/datum/outfit/loadout/raider_legion,
+	/datum/outfit/loadout/raider_bos,
+	/datum/outfit/loadout/quack_doctor
+	)
+
+/datum/outfit/job/rebels/soldier/pre_equip(mob/living/carbon/human/H)
+	..()
+	H.social_faction = FACTION_RAIDERS
+	add_verb(H, /mob/living/proc/creategang)
+
+/datum/outfit/loadout/raider_sadist
+	name = "Sadist"
+	suit = /obj/item/clothing/suit/armor/light/raider/sadist
+	head = /obj/item/clothing/head/helmet/f13/raider/arclight
+	backpack_contents = list(
+		/obj/item/restraints/legcuffs/bola=5,
+		/obj/item/clothing/mask/gas/explorer/folded=1,
+		/obj/item/storage/belt = 1,
+		/obj/item/restraints/legcuffs/beartrap = 2,
+		/obj/item/reverse_bear_trap = 1,
+		/obj/item/melee/unarmed/lacerator = 1,
 		)
 
-/datum/outfit/job/rebels/soldier
-	name = "Ironwave Soldier"
-	jobtype = /datum/job/rebels/soldier
-	suit = /obj/item/clothing/suit/armor/exile/ncrexile/ironwave
+/datum/outfit/loadout/raider_supafly
+	name = "Supa-fly"
+	suit = /obj/item/clothing/suit/armor/light/raider/supafly
+	head = /obj/item/clothing/head/helmet/f13/raider/supafly
 	backpack_contents = list(
-		/obj/item/reagent_containers/hypospray/medipen/stimpak/super = 3,
-		/obj/item/grenade/flashbang = 1,
+		/obj/item/gun/ballistic/automatic/varmint = 1,
+		/obj/item/ammo_box/magazine/m556/rifle/assault = 1,
+		/obj/item/gun/ballistic/revolver/hobo/knucklegun = 1,
+		/obj/item/ammo_box/c45rev = 2,
+		/obj/item/gun_upgrade/scope/watchman = 1,
+		/obj/item/reagent_containers/food/drinks/bottle/f13nukacola/radioactive = 1,
+		/obj/item/grenade/smokebomb = 2,
 		)
 
-/datum/outfit/loadout/stolenraider
-	name = "Ripper gear"
-	head = /obj/item/clothing/head/helmet/f13/raidercombathelmet
-	suit_store = /obj/item/shield/riot/tower/scrap
+/datum/outfit/loadout/raider_yankee
+	name = "Yankee"
+	suit = /obj/item/clothing/suit/armor/medium/raider/yankee
+	head = /obj/item/clothing/head/helmet/f13/raider/yankee
 	backpack_contents = list(
-		/obj/item/clothing/shoes/f13/military/ncr = 1,
+		/obj/item/shishkebabpack = 1,
+		/obj/item/storage/fancy/cigarettes/cigpack_cannabis=1,
+		/obj/item/megaphone=1,
+		/obj/item/storage/pill_bottle/chem_tin/buffout = 1)
+
+/datum/outfit/loadout/raider_blast
+	name = "Blastmaster"
+	suit = /obj/item/clothing/suit/armor/medium/raider/blastmaster
+	head = /obj/item/clothing/head/helmet/f13/raider/blastmaster
+	backpack_contents = list(
+		/obj/item/kitchen/knife/butcher = 1,
+		/obj/item/grenade/homemade/firebomb = 4,
+		/obj/item/bottlecap_mine = 1,
+		/obj/item/grenade/homemade/coffeepotbomb = 4,
+		/obj/item/book/granter/crafting_recipe/blueprint/trapper = 1,
+		/obj/item/book/granter/trait/explosives = 1
 		)
 
-/datum/outfit/loadout/ncrfunded
-	name = "NCR Funded Gear"
-	head = /obj/item/clothing/head/f13/ncr/goggles
-	suit_store = /obj/item/gun/ballistic/automatic/service/carbine
+/datum/outfit/loadout/raider_badlands
+	name = "Fiend"
+	suit = /obj/item/clothing/suit/armor/medium/raider/badlands
+	head = /obj/item/clothing/head/helmet/f13/fiend
 	backpack_contents = list(
-		/obj/item/ammo_box/magazine/m556/rifle/assault = 3,
+		///obj/item/gun/energy/laser/wattzs = 1,
+		/obj/item/gun/energy/laser/wattz = 1,
+		/obj/item/stock_parts/cell/ammo/ec = 2,
+		/obj/item/reagent_containers/hypospray/medipen/psycho = 3,
+		/obj/item/reagent_containers/pill/patch/turbo = 2,
+		/obj/item/reagent_containers/hypospray/medipen/medx = 1,
+		)
+
+/datum/outfit/loadout/raider_painspike
+	name = "Painspike"
+	suit = /obj/item/clothing/suit/armor/light/raider/painspike
+	head = /obj/item/clothing/head/helmet/f13/raider/psychotic
+	backpack_contents = list(
+		/obj/item/gun/ballistic/shotgun/automatic/combat/shotgunlever = 1,
+		/obj/item/ammo_box/shotgun/buck = 1,
+		/obj/item/ammo_box/shotgun/bean = 1,
+		/obj/item/melee/onehanded/club/fryingpan = 1,
+		/obj/item/grenade/chem_grenade/cleaner = 1,
+		)
+
+/datum/outfit/loadout/quack_doctor
+	name = "Quack Doctor"
+	suit = /obj/item/clothing/suit/toggle/labcoat
+	l_hand = /obj/item/storage/backpack/duffelbag/med/surgery
+	r_hand = /obj/item/book/granter/trait/midsurgery
+	//suit_store = /obj/item/gun/energy/laser/wattzs
+	backpack_contents = list(
+		/obj/item/stock_parts/cell/ammo/ec = 1,
+		/obj/item/reagent_containers/pill/patch/jet = 3,
+		/obj/item/storage/firstaid/ancient = 1,
+		/obj/item/storage/pill_bottle/aranesp = 1,
+		/obj/item/storage/pill_bottle/happy = 1,
+		/obj/item/book/granter/trait/chemistry = 1,
+		/obj/item/stack/sheet/mineral/silver=2,
+		/obj/item/clothing/accessory/pocketprotector/full = 1,
+		)
+
+/datum/outfit/loadout/raider_ncr
+	name = "Outlaw Ranger"
+	suit = /obj/item/clothing/suit/armor/medium/raider/combatduster
+	uniform = /obj/item/clothing/under/f13/raider_leather
+	id = /obj/item/card/id/rusted
+	backpack_contents = list(
+		/obj/item/gun/ballistic/automatic/m1carbine = 1,
+		/obj/item/ammo_box/magazine/m10mm/adv/simple=2,
+		/obj/item/melee/onehanded/knife/bayonet = 1,
+		/obj/item/storage/box/ration/ranger_breakfast = 1,
+		/obj/item/book/granter/crafting_recipe/blueprint/service = 1)
+
+
+/datum/outfit/loadout/raider_legion
+	name = "Disgraced Legionnaire"
+	suit = /obj/item/clothing/suit/armor/exile/legexile
+	uniform = /obj/item/clothing/under/f13/exile/legion
+	id = /obj/item/card/id/rusted/rustedmedallion
+	backpack_contents = list(
+		/obj/item/melee/onehanded/machete/gladius = 1,
+		/obj/item/storage/backpack/spearquiver = 1,
+		/obj/item/gun/ballistic/automatic/smg/greasegun = 1,
+		/obj/item/ammo_box/magazine/greasegun = 1,
+		/obj/item/book/granter/trait/trekking = 1
+		)
+
+/datum/outfit/loadout/raider_bos
+	name = "Brotherhood Exile"
+	suit = /obj/item/clothing/suit/armor/medium/combat/brotherhood/exile
+	id = /obj/item/card/id/rusted/brokenholodog
+	backpack_contents = list(
+		/obj/item/gun/energy/laser/wattzs = 1,
+		/obj/item/stock_parts/cell/ammo/ec = 1,
+		/obj/item/book/granter/crafting_recipe/blueprint/aep7 = 1,
+		/obj/item/grenade/f13/frag = 2,
+		)
+
+
+/datum/outfit/loadout/raider_vault
+	name = "Vault Renegade"
+	suit = /obj/item/clothing/suit/armor/medium/vest/bulletproof/big
+	uniform = /obj/item/clothing/under/f13/exile/vault
+	id = /obj/item/card/id/selfassign
+	gloves = /obj/item/pda
+	backpack_contents = list(
+		/obj/item/gun/ballistic/revolver/thatgun = 1,
+		/obj/item/pda=1,
+		)
+
+/datum/outfit/loadout/raider_tribal
+	name = "Tribal Outcast"
+	uniform = /obj/item/clothing/under/f13/exile/tribal
+	suit = /obj/item/clothing/suit/hooded/outcast/tribal
+	suit_store = /obj/item/twohanded/spear/bonespear
+	shoes = /obj/item/clothing/shoes/sandal
+	belt = /obj/item/storage/backpack/spearquiver
+	back = /obj/item/storage/backpack/satchel/explorer
+	box = /obj/item/storage/survivalkit/tribal
+	box_two = /obj/item/storage/survivalkit/medical/tribal
+	backpack_contents = list(
+		/obj/item/book/granter/trait/tribaltraditions =1,
+		/obj/item/clothing/mask/cigarette/pipe = 1,
+		/obj/item/melee/onehanded/knife/bone = 1,
 		)
 
 /datum/outfit/job/rebels/medic/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -96,8 +243,8 @@
 /datum/job/rebels/medic
 	title = "Ironwave Den Doctor"
 	flag = F13REBELMEDIC
-	total_positions = 1
-	spawn_positions = 1
+	total_positions = 2
+	spawn_positions = 2
 	access = list(ACCESS_ENCLAVE)
 	display_order = JOB_DISPLAY_ORDER_F13REBELMEDIC
 	description = "Your diploma isn't reconized anywhere else. Good thing the Den doesn't care. Your job is to heal people of the carrier."
@@ -175,7 +322,7 @@
 	spawn_positions = 1
 	access = list(ACCESS_ENCLAVE, ACCESS_CHANGE_IDS)
 	display_order = JOB_DISPLAY_ORDER_F13REBELCAPTAIN
-	description = "You lead this team of soldiers of fortune. Your gear is from old enclave supply, and gifts from the NCR... And a few stolen goods."
+	description = "You lead this team of soldiers of fortune. Your gear is from old supplies, and gifts from the NCR... And a few stolen goods."
 	outfit = /datum/outfit/job/rebels/captain
 
 	loadout_options = list(
@@ -232,19 +379,30 @@
 
 //Rebel Guard
 /datum/job/rebels/guard
-	title = "Ironwave Den Guard"
+	title = "Ironwave Den Raider"
 	flag = F13REBELGUARD
-	total_positions = 2
-	spawn_positions = 2
+	total_positions = 10
+	spawn_positions = 10
 	access = list(ACCESS_ENCLAVE)
 	display_order = JOB_DISPLAY_ORDER_F13REBELGUARD
-	description = "The Ironwave den must be protected. And its your job to do so."
+	description = "You are part of the dedicated warriors and that works on the USS Emminant domain. You defend the den, follow the orders of you captain, and kick some ass."
 	supervisors = "The captain."
 	outfit = /datum/outfit/job/rebels
 
 	loadout_options = list(
 		/datum/outfit/loadout/ncrgardfunded,	
-		/datum/outfit/loadout/stolencopraider,	
+		/datum/outfit/loadout/stolencopraider,
+		/datum/outfit/loadout/stolenraider,
+		/datum/outfit/loadout/ncrfunded	
+		)
+
+	/datum/outfit/job/rebels/guard
+	name = "Ironwave Soldier"
+	jobtype = /datum/job/rebels/soldier
+	suit = /obj/item/clothing/suit/armor/exile/ncrexile/ironwave
+	backpack_contents = list(
+		/obj/item/reagent_containers/hypospray/medipen/stimpak/super = 3,
+		/obj/item/grenade/flashbang = 1,
 		)
 
 /datum/outfit/loadout/stolencopraider
@@ -266,6 +424,22 @@
 		/obj/item/ammo_box/shotgun/bean =2
 		)
 
+/datum/outfit/loadout/stolenraider
+	name = "Ripper gear"
+	head = /obj/item/clothing/head/helmet/f13/raidercombathelmet
+	suit_store = /obj/item/shield/riot/tower/scrap
+	backpack_contents = list(
+		/obj/item/clothing/shoes/f13/military/ncr = 1,
+		)
+
+/datum/outfit/loadout/ncrfunded
+	name = "NCR Funded Gear"
+	head = /obj/item/clothing/head/f13/ncr/goggles
+	suit_store = /obj/item/gun/ballistic/automatic/service/carbine
+	backpack_contents = list(
+		/obj/item/ammo_box/magazine/m556/rifle/assault = 3,
+		)
+
 /datum/outfit/job/rebels/medic/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
 	if(visualsOnly)
@@ -277,8 +451,8 @@
 /datum/job/rebels/citizen
 	title = "Ironwave Den Settlers"
 	flag = F13REBELCITIZEN
-	total_positions = 5
-	spawn_positions = 5
+	total_positions = -1
+	spawn_positions = -1
 	display_order = JOB_DISPLAY_ORDER_F13REBELCITIZEN
 	description = "When the legion arrived, you fled, and started living in the only place safe enough arround, the Ironwave carrier. You are not a fighter, but can defend this Den."
 	supervisors = "The captain, the armed forced."

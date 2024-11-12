@@ -33,8 +33,8 @@
 		),
 	)
 
-	access = list(ACCESS_BAR, ACCESS_TOWN)
-	minimal_access = list(ACCESS_BAR, ACCESS_TOWN)
+	access = list(ACCESS_LEGION, ACCESS_BAR, ACCESS_TOWN)
+	minimal_access = list(ACCESS_LEGION, ACCESS_BAR, ACCESS_TOWN)
 
 /datum/outfit/job/CaesarsLegiontown/subject/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
@@ -48,7 +48,7 @@
 	id = /obj/item/card/id/dogtag/legimmune
 	uniform = /obj/item/clothing/under/civ/roman_centurion
 	shoes =	/obj/item/clothing/shoes/roman
-	ears = /obj/item/radio
+	ears = /obj/item/radio/headset/headset_legion
 
 
 /datum/outfit/loadout/subjectoflegion
@@ -196,7 +196,7 @@
 	name = "Ostia Shopkeeper"
 	jobtype = /datum/job/CaesarsLegiontown/legionshopkeeper
 	id = /obj/item/card/id/dogtag/legimmune
-	ears = /obj/item/radio/headset
+	ears = /obj/item/radio/headset/headset_legion
 	belt = /obj/item/kit_spawner/townie
 	uniform = /obj/item/clothing/under/f13/roving
 	backpack = /obj/item/storage/backpack
@@ -270,8 +270,8 @@
 
 	outfit = /datum/outfit/job/den/f13radio_host
 
-	access = list(ACCESS_TOWN_CIV)
-	minimal_access = list(ACCESS_TOWN_CIV)
+	access = list(ACCESS_LEGION, ACCESS_TOWN_CIV)
+	minimal_access = list(ACCESS_LEGION, ACCESS_TOWN_CIV)
 
 /datum/outfit/job/CaesarsLegiontown/legionradiohost
 	name = "Ostia Radio Host"
@@ -280,6 +280,7 @@
 	backpack = /obj/item/storage/backpack/satchel/explorer
 	satchel = /obj/item/storage/backpack/satchel/explorer
 	r_pocket = /obj/item/flashlight/flare
+	ears = /obj/item/radio/headset/headset_legion
 	belt = /obj/item/pda/detective
 	backpack_contents = list(
 		/obj/item/camera, \
