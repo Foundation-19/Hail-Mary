@@ -70,6 +70,7 @@
 	"removed_jobs": [
 		"eastwood.dm",
 		"ncr.dm",
+		"ostia.dm",
 		"legion.dm",
 		"vault.dmm",
 		"rebels.dmm"
