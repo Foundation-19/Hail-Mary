@@ -46,7 +46,6 @@
 	flag = F13REBELSOLDIER
 	total_positions = 8
 	spawn_positions = 8
-	access = list(ACCESS_ENCLAVE)
 	display_order = JOB_DISPLAY_ORDER_F13REBELSOLDIER
 	description = "Thanks to the Ironwave and other raider groups, crime is still a possibility here, even if the Legion is cracking down on it. You are a indpendant raider, that came here to loot and survive. You aren't part of the Ironwave, but can choose to join it."
 	supervisors = "No one, altho its recommended you obey the Captain and crew of the Ironwave if you stand on their ship."
