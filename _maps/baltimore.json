@@ -71,6 +71,7 @@
 		"eastwood.dm",
 		"ncr.dm",
 		"legion.dm",
-		"vault.dm"
+		"vault.dmm",
+		"rebels.dmm"
 	]
 }
