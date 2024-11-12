@@ -395,7 +395,7 @@
 		/datum/outfit/loadout/ncrfunded	
 		)
 
-	/datum/outfit/job/rebels/guard
+/datum/outfit/job/rebels/guard
 	name = "Ironwave Soldier"
 	jobtype = /datum/job/rebels/soldier
 	suit = /obj/item/clothing/suit/armor/exile/ncrexile/ironwave
