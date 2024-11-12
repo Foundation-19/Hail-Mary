@@ -1226,11 +1226,11 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	gain_text = span_notice("You remember the old language of China.")
 	lose_text = span_notice("You forget the old language of China.")
 
-/datum/quirk/chinesespeak/add()
+/datum/quirk/japanesespeak/add()
 	var/mob/living/carbon/human/H = quirk_holder
 	H.grant_language(/datum/language/japanese)
 
-/datum/quirk/chinesespeak/remove()
+/datum/quirk/japanesespeak/remove()
 	var/mob/living/carbon/human/H = quirk_holder
 	if(!QDELETED(H))
 		H.remove_language(/datum/language/japanese)

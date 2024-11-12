@@ -82,9 +82,7 @@
 	whisper_verb = "gestures"
 	key = "9"
 	flags = TONGUELESS_SPEECH
-
 	syllables = list(".")
-
 	icon_state = "ssl"
 	default_priority = 90
 
