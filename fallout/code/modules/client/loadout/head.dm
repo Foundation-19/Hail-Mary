@@ -570,3 +570,13 @@
 							"Initiate",
 							"BoS Off-Duty"
 	)
+
+/datum/gear/head/legion/venator
+	name = "Galerum Lacertarex"
+	path = /obj/item/clothing/head/helmet/f13/legion/venator/diohelmet
+	subcategory = LOADOUT_SUBCATEGORY_HEAD_FACTIONS
+	cost = 1
+	restricted_desc = "CaesarsLegion"
+	restricted_roles = list("Legion Centurion",
+							"Legion Veteran Decanus",
+						)
