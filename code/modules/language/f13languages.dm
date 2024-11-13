@@ -1,4 +1,4 @@
-// INFO: This folder is exclusively for fallout 13 bound languages. .
+// INFO: This folder is exclusively for fallout 13 bound languages.
 
 // Tribal languages for tribals 
 /datum/language/tribal
