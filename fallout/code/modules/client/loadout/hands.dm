@@ -261,5 +261,7 @@
 	path = /obj/item/radio/headset
 	cost = 1
 
-
-
+/datum/gear/storage/box/chinaman
+	name = "Chinese Stealth Suit Costume"
+	path = /obj/item/storage/box/large/custom_kit/mrmannstealthsuit
+	cost = 3
