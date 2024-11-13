@@ -114,6 +114,41 @@
 	path = /obj/item/clothing/mask/bandana/momentobandana
 	cost = 2
 
+/datum/gear/mask/bandana/durathread
+	name = "Durathred Bandana"
+	path = /obj/item/clothing/mask/bandana/durathread
+	cost = 2
+
+/datum/gear/mask/frog
+	name = "Frog Mask"
+	path = /obj/item/clothing/mask/frog
+	cost = 2
+
+/datum/gear/mask/society
+	name = "Golden Facemask"
+	path = /obj/item/clothing/mask/society
+	cost = 2
+
+/datum/gear/mask/gas
+	name = "Gas Mask"
+	path = /obj/item/clothing/mask/gas
+	cost = 3
+
+/datum/gear/mask/gas/glass
+	name = "Glass Gas Mask"
+	path = /obj/item/clothing/mask/gas/glass
+	cost = 3
+
+/datum/gear/mask/gas/clown_hat
+	name = "Clown Wig and Mask"
+	path = /obj/item/clothing/mask/gas/clown_hat
+	cost = 10
+
+/datum/gear/mask/infiltrator
+	name = "Insidious Balaclava"
+	path = /obj/item/clothing/mask/infiltrator
+	cost = 4
+
 /datum/gear/mask/moustache
 	name = "fake moustache"
 	path = /obj/item/clothing/mask/fakemoustache
