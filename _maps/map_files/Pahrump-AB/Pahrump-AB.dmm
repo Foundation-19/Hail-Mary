@@ -26365,6 +26365,13 @@
 /obj/structure/timeddoor,
 /turf/closed/wall/f13/store,
 /area/f13/building/hospital)
+"eRQ" = (
+/obj/machinery/mineral/wasteland_trader/gunbuyer,
+/turf/open/indestructible/ground/outside/sidewalk{
+	dir = 1;
+	icon_state = "outerbordercorner"
+	},
+/area/f13/wasteland)
 "eRS" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/extinguisher_cabinet{
@@ -109229,7 +109236,7 @@ tnZ
 tnZ
 tnZ
 tnZ
-dVg
+eRQ
 xLy
 peH
 pfM
