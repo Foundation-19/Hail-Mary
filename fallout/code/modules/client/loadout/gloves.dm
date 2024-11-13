@@ -42,3 +42,36 @@
 /datum/gear/gloves/midnight
 	name = "Midnight gloves"
 	path = /obj/item/clothing/gloves/evening/black
+
+/datum/gear/gloves/crudemedical
+	name = "Crude Medical Gloves"
+	path = /obj/item/clothing/gloves/f13/crudemedical
+
+/datum/gear/gloves/plated
+	name = "Plated Gloves"
+	path = /obj/item/clothing/gloves/legion/plated
+	cost = 2
+
+/datum/gear/gloves/pugilist
+	name = "Pugilist Armwraps"
+	path = /obj/item/clothing/gloves/fingerless/pugilist
+	cost = 3
+
+/datum/gear/gloves/rifleman
+	name = "Rifleman Gloves"
+	path = /obj/item/clothing/gloves/rifleman
+	cost = 2
+
+/datum/gear/gloves/burnedpatrol
+	name = "Burnt Patrol Gloves"
+	path = /obj/item/clothing/gloves/patrol/burned
+
+/datum/gear/gloves/bracer
+	name = "Bone Bracers"
+	path = /obj/item/clothing/gloves/bracer
+	cost = 2
+
+/datum/gear/gloves/
+	name = ""
+	path = 
+
