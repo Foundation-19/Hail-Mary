@@ -1233,7 +1233,7 @@
 	cost = 1
 	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_WASTELAND
 
-/datum/gear/uniform/jobs/ncr/fatigues
+/datum/gear/uniform/ncr/fatigues
 	name = "Desert Fatigues"
 	path = /obj/item/clothing/under/f13/ncr
 	cost = 1
@@ -1252,7 +1252,7 @@
 							"NCR Off-Duty"
 						)
 
-/datum/gear/uniform/jobs/ncr/officer
+/datum/gear/uniform/ncr/officer
 	name = "Officer Fatigues"
 	path = /obj/item/clothing/under/f13/ncr/ncr_officer
 	cost = 1
@@ -1263,7 +1263,7 @@
 							"NCR Medical Officer",
 						)
 
-/datum/gear/uniform/jobs/ncr/scout
+/datum/gear/uniform/ncr/scout
 	name = "Scout Fatigues"
 	path = /obj/item/clothing/under/f13/ncr/scout
 	cost = 1
@@ -1282,7 +1282,7 @@
 							"NCR Off-Duty"
 						)
 
-/datum/gear/uniform/jobs/ncr/sniper
+/datum/gear/uniform/ncr/sniper
 	name = "Sniper Fatigues"
 	path = /obj/item/clothing/under/f13/ncr/sniper
 	cost = 1
@@ -1301,7 +1301,7 @@
 							"NCR Off-Duty"
 						)
 
-/datum/gear/uniform/jobs/ncr/pants
+/datum/gear/uniform/ncr/pants
 	name = "Fatigue Pants"
 	path = /obj/item/clothing/under/f13/ncr/pants
 	cost = 1
@@ -1320,7 +1320,7 @@
 							"NCR Off-Duty"
 						)
 
-/datum/gear/uniform/jobs/ncr/shorts
+/datum/gear/uniform/ncr/shorts
 	name = "Fatigue Shorts"
 	path = /obj/item/clothing/under/f13/ncr/ncr_shorts
 	cost = 1
