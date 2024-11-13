@@ -70,8 +70,3 @@
 	name = "Bone Bracers"
 	path = /obj/item/clothing/gloves/bracer
 	cost = 2
-
-/datum/gear/gloves/
-	name = ""
-	path = 
-
