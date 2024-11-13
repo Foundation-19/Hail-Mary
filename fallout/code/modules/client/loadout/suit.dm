@@ -205,6 +205,45 @@
 							"Barkeep",
 							"Radio Host"
 							)
+/datum/gear/suit/ncr/ranger/sniper
+	name = "Vet Ranger Sniper Gear"
+	path = /obj/item/clothing/suit/armor/rangercombat/foxcustom
+	subcategory = LOADOUT_SUBCATEGORY_SUIT_ARMOR 	
+	cost = 2
+	restricted_desc = "NCR"
+	restricted_roles = list("NCR Captain",
+							"NCR Veteran Ranger",
+						)
+
+/datum/gear/suit/ncr/ranger/cavalry
+	name = "11th Armored Cavalry Armor"
+	path = /obj/item/clothing/suit/armor/rangercombat/rigscustom
+	subcategory = LOADOUT_SUBCATEGORY_SUIT_ARMOR 	
+	cost = 2
+	restricted_desc = "NCR"
+	restricted_roles = list("NCR Captain",
+							"NCR Veteran Ranger",
+						)
+
+/datum/gear/suit/ncr/ranger/spider
+	name = "Spider Ranger Gear"
+	path = /obj/item/clothing/suit/armor/rangercombat/pricecustom
+	subcategory = LOADOUT_SUBCATEGORY_SUIT_ARMOR 	
+	cost = 2
+	restricted_desc = "NCR"
+	restricted_roles = list("NCR Captain",
+							"NCR Veteran Ranger",
+						)
+
+/datum/gear/suit/legion/venator
+	name = "Reptilia Tenebris"
+	path = /obj/item/clothing/suit/armor/medium/raider/reptiliatenebris
+	subcategory = LOADOUT_SUBCATEGORY_SUIT_ARMOR 	
+	cost = 2
+	restricted_desc = "CaesarsLegion"
+	restricted_roles = list("Legion Centurion",
+							"Legion Veteran Decanus",
+						)
 
 /datum/gear/suit/samurai  //added by TK420634 ~ 5/29/2022 "Samurai Wasteland WeebShit Edition (tm)
 	name = "Rusted Samurai Armor"
