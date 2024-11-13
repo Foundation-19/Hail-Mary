@@ -361,7 +361,7 @@
 /datum/gear/uniform/detbrown/detbrown2
 	name = "Padded Worn Suit"
 	path = /obj/item/clothing/under/rank/security/detective/brown/brown2
-	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_JOBS
+	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_UNIFORMS
 	restricted_desc = "Detective"
 
 // Grey utility
@@ -375,14 +375,14 @@
 /datum/gear/uniform/grey/sec
 	name = "Security Utility Uniform"
 	path = /obj/item/clothing/under/rank/security/officer/util
-	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_JOBS
+	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_UNIFORMS
 	restricted_desc = "Security"
 	restricted_roles = list("Detective", "Security Officer", "Warden", "Head of Security")
 
 /datum/gear/uniform/grey/sci
 	name = "Science Utility Uniform"
 	path = /obj/item/clothing/under/rank/rnd/scientist/util
-	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_JOBS
+	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_UNIFORMS
 	restricted_desc = "Science"
 	restricted_roles = list("Scientist", "Roboticist", "Research Director", "Geneticist")
 */
@@ -391,14 +391,14 @@
 /datum/gear/uniform/grey/supply
 	name = "Supply Utility Uniform"
 	path = /obj/item/clothing/under/rank/cargo/util
-	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_JOBS
+	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_UNIFORMS
 	restricted_desc = "Supply"
 	restricted_roles = list("Shaft Miner", "Cargo Technician", "Quartermaster")
 
 /datum/gear/uniform/grey/com
 	name = "Command Utility Uniform"
 	path = /obj/item/clothing/under/rank/captain/util
-	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_JOBS
+	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_UNIFORMS
 	restricted_desc = "Command"
 	restricted_roles = list("Quartermaster", "Research Director", "Chief Medical Officer", "Head Of Security", "Head Of Personnel", "Captain")
 */
@@ -1237,7 +1237,7 @@
 	name = "Desert Fatigues"
 	path = /obj/item/clothing/under/f13/ncr
 	cost = 1
-	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_JOBS
+	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_UNIFORMS
 	restricted_desc = "NCR"
 	restricted_roles = list("NCR Captain",
 							"NCR Lieutenant",
@@ -1256,7 +1256,7 @@
 	name = "Officer Fatigues"
 	path = /obj/item/clothing/under/f13/ncr/ncr_officer
 	cost = 1
-	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_JOBS
+	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_UNIFORMS
 	restricted_desc = "NCR"
 	restricted_roles = list("NCR Captain",
 							"NCR Lieutenant",
@@ -1267,7 +1267,7 @@
 	name = "Scout Fatigues"
 	path = /obj/item/clothing/under/f13/ncr/scout
 	cost = 1
-	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_JOBS
+	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_UNIFORMS
 	restricted_desc = "NCR"
 	restricted_roles = list("NCR Captain",
 							"NCR Lieutenant",
@@ -1286,7 +1286,7 @@
 	name = "Sniper Fatigues"
 	path = /obj/item/clothing/under/f13/ncr/sniper
 	cost = 1
-	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_JOBS
+	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_UNIFORMS
 	restricted_desc = "NCR"
 	restricted_roles = list("NCR Captain",
 							"NCR Lieutenant",
@@ -1305,7 +1305,7 @@
 	name = "Fatigue Pants"
 	path = /obj/item/clothing/under/f13/ncr/pants
 	cost = 1
-	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_JOBS
+	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_UNIFORMS
 	restricted_desc = "NCR"
 	restricted_roles = list("NCR Captain",
 							"NCR Lieutenant",
@@ -1324,7 +1324,7 @@
 	name = "Fatigue Shorts"
 	path = /obj/item/clothing/under/f13/ncr/ncr_shorts
 	cost = 1
-	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_JOBS
+	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_UNIFORMS
 	restricted_desc = "NCR"
 	restricted_roles = list("NCR Captain",
 							"NCR Lieutenant",
