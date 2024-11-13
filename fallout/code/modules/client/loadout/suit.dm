@@ -284,23 +284,11 @@ datum/gear/suit/ironchestplate	////Armor kit reskin
 	subcategory = LOADOUT_SUBCATEGORY_SUIT_ARMOR
 	cost = 3
 
-datum/gear/suit/scaledarmor
-	name = "Scaled Armor"
-	path= /obj/item/clothing/suit/armor/light/kit/punk/scaledarmor
-	subcategory = LOADOUT_SUBCATEGORY_SUIT_ARMOR
-	cost = 3
-
 datum/gear/suit/roughchainmail
 	name = "Rough Chainmail"
 	path= /obj/item/clothing/suit/armor/light/kit/punk/roughchainmail
 	subcategory = LOADOUT_SUBCATEGORY_SUIT_ARMOR
 	cost = 3
-
-datum/gear/suit/fullchainmail
-	name = "Chainmail Shirt"
-	path= /obj/item/clothing/suit/armor/light/kit/punk/fullchainmail
-	subcategory = LOADOUT_SUBCATEGORY_SUIT_ARMOR
-	cost = 4
 
 datum/gear/suit/ironchestplatered
 	name = "Caped Iron Chestplate (Red)"
@@ -313,12 +301,6 @@ datum/gear/suit/ironchestplateblue
 	path= /obj/item/clothing/suit/armor/light/kit/punk/ironchestplateblue
 	subcategory = LOADOUT_SUBCATEGORY_SUIT_ARMOR
 	cost = 3
-
-datum/gear/suit/oldscalemail
-	name = "Old Scalemail"
-	path= /obj/item/clothing/suit/armor/light/kit/punk/oldscalemail
-	subcategory = LOADOUT_SUBCATEGORY_SUIT_ARMOR
-	cost = 2
 
 datum/gear/suit/chitinbreastplate
 	name = "Chitin Breastplate"
