@@ -1188,10 +1188,10 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 
 /datum/quirk/spanishspeak
 	name = "Spanish Language Comprehension"
-	desc = "You're somehow capable of understanding and speaking the common language of the mexican cartels in the south."
+	desc = "You're somehow capable of understanding and speaking the common language of the Mexican cartels in the south."
 	value = 1
-	gain_text = span_notice("You remember the old ways of the mexican cartels..")
-	lose_text = span_notice("You've forgotten the ways of the mexican cartels..")
+	gain_text = span_notice("You remember the old tongue of the Mexican cartels.")
+	lose_text = span_notice("You've forgotten the tongue of the Mexican cartels.")
 
 
 /datum/quirk/spanishspeak/add()
@@ -1221,10 +1221,10 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 
 /datum/quirk/japanesespeak
 	name = "Japanese Language Comprehension"
-	desc = "You are somehow capable of understanding and speaking the old Chinese language."
+	desc = "You are somehow capable of understanding and speaking the Japanese language."
 	value = 1
-	gain_text = span_notice("You remember the old language of China.")
-	lose_text = span_notice("You forget the old language of China.")
+	gain_text = span_notice("You remember how to speak like a cartoon character.")
+	lose_text = span_notice("You forget how to sound like a weeaboo.")
 
 /datum/quirk/japanesespeak/add()
 	var/mob/living/carbon/human/H = quirk_holder
