@@ -174,6 +174,7 @@ Weapons		Lever shotgun, Grease gun, Repeater carbines, Revolvers, simple guns al
 		/obj/item/binoculars = 1,
 		/obj/item/ammo_box/a357 = 2,
 		/obj/item/reagent_containers/pill/bitterdrink = 2,
+		/obj/item/stack/f13Cash/caps/twozerozero = 2,
 		/obj/item/stack/f13Cash/aureus	=	3
 		)
 
