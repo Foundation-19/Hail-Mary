@@ -46,39 +46,6 @@
 			notices++
 	update_icon()
 
-/obj/structure/noticeboard/proc/PopulatePaperFromList(list/ids)
-	var/list/current_ids = StorePaperDataList()
-	for(var/i in ids)
-		if(i in current_ids)
-			continue
-		var/obj/item/paper/P = new /obj/item/paper()
-		if(P.LoadData(ids[i]))
-			P.pers_id = i
-			P.forceMove(src)
-			notices++
-	update_icon()
-
-/obj/structure/noticeboard/proc/StorePaperDataList()
-	var/list/L = list()
-	for(var/i in contents)
-		if(istype(i, /obj/item/paper))
-			L += i
-
-	if(!L.len)
-		return
-	. = list()
-	var/list/paperData = list()
-	for(var/i in L)
-		var/obj/item/paper/P = i
-		if(!P.pers_id)
-			P.pers_id = "[persistenceID]_[md5(strip_html(P.info))]" // cursed but it'll make it unique at least.
-		var/list/dat = P.SaveData()
-		if(dat.len)
-			paperData[P.pers_id] = dat
-	
-	if(paperData.len)
-		. = paperData
-	
 /obj/structure/noticeboard/proc/GetPictureIDList()
 	var/list/L = list()
 	for(var/i in contents)

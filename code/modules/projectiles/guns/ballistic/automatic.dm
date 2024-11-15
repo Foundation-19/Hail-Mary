@@ -366,6 +366,7 @@
 	desc = "A lightweight submachine gun that earned its place as one of the most popular SMGs in the world"
 	icon = 'fallout/icons/objects/automatic.dmi'
 	icon_state = "mp5"
+	item_state = "mp5"
 	mag_type = /obj/item/ammo_box/magazine/uzim9mm
 	init_mag_type = /obj/item/ammo_box/magazine/uzim9mm
 	weapon_class = WEAPON_CLASS_NORMAL //high class, one of the few smol smgs
@@ -379,6 +380,7 @@
 	desc = "A compact, lightweight way to put a lot of bullets downrange."
 	icon = 'fallout/icons/objects/automatic.dmi'
 	icon_state = "tec9"
+	item_state = "tec9"
 	mag_type = /obj/item/ammo_box/magazine/m22
 	init_mag_type = /obj/item/ammo_box/magazine/m22
 	disallowed_mags = list(/obj/item/ammo_box/magazine/m22/extended)
@@ -1774,9 +1776,9 @@
 	weapon_weight = GUN_ONE_HAND_ONLY
 	damage_multiplier = GUN_EXTRA_DAMAGE_0
 	cock_delay = GUN_COCK_RIFLE_BASE
-	init_recoil = RIFLE_RECOIL(0.8)
+	init_recoil = RIFLE_RECOIL(0.9)
 	init_firemodes = list(
-		/datum/firemode/automatic/rpm150,
+		/datum/firemode/automatic/rpm250,
 		/datum/firemode/semi_auto
 	)
 	can_suppress = TRUE
@@ -1796,7 +1798,7 @@
 	desc = "The R91 was the standard US Army assault rifle, and so saw wide-spread use after the war. Most are worn out by now."
 	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "assault_rifle"
-	item_state = "fnfal"
+	item_state = "r91"
 	mag_type = /obj/item/ammo_box/magazine/m556/rifle
 	init_mag_type = /obj/item/ammo_box/magazine/m556/rifle
 	weapon_class = WEAPON_CLASS_RIFLE
@@ -1830,7 +1832,7 @@
 	desc = "A customized R91 assault rifle, with an integrated suppressor, small scope, cut down stock and polymer furniture. The supressor takes away stopping-power, but a cleaner action allows it to fire faster."
 	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "infiltrator"
-	item_state = "fnfal"
+	item_state = "infiltrator"
 	weapon_class = WEAPON_CLASS_RIFLE
 	weapon_weight = GUN_ONE_HAND_ONLY
 	damage_multiplier = GUN_EXTRA_DAMAGE_T2 //needs a lil edge at least
@@ -2018,13 +2020,13 @@
 	lefthand_file = 'icons/fallout/onmob/weapons/guns_lefthand.dmi'
 	righthand_file = 'icons/fallout/onmob/weapons/guns_righthand.dmi'
 	icon_state = "handmade_battle_rifle"
-	item_state = "handmadear"
+	item_state = "handmadebr"
 	icon_prefix = "handmade_battle_rifle"
 	mag_type = /obj/item/ammo_box/magazine/m308
 	init_mag_type = /obj/item/ammo_box/magazine/m308
 	weapon_class = WEAPON_CLASS_RIFLE
 	weapon_weight = GUN_TWO_HAND_ONLY
-	damage_multiplier = GUN_EXTRA_DAMAGE_T1
+	damage_multiplier = GUN_EXTRA_DAMAGE_0
 	cock_delay = GUN_COCK_RIFLE_BASE
 	init_recoil = RIFLE_RECOIL(1.5)
 	init_firemodes = list(
@@ -2051,7 +2053,7 @@
 	lefthand_file = 'icons/fallout/onmob/weapons/guns_lefthand.dmi'
 	righthand_file = 'icons/fallout/onmob/weapons/guns_righthand.dmi'
 	icon_state = "handmade_marksman_rifle"
-	item_state = "handmadear"
+	item_state = "handmadedmr"
 	icon_prefix = "handmade_marksman_rifle"
 	mag_type = /obj/item/ammo_box/magazine/w3006
 	init_mag_type = /obj/item/ammo_box/magazine/w3006
@@ -2089,7 +2091,7 @@
 	lefthand_file = 'icons/fallout/onmob/weapons/guns_lefthand.dmi'
 	righthand_file = 'icons/fallout/onmob/weapons/guns_righthand.dmi'
 	icon_state = "handmade_assault_carbine"
-	item_state = "handmadear"
+	item_state = "handmadeacar"
 	icon_prefix = "handmade_assault_carbine"
 	mag_type = /obj/item/ammo_box/magazine/m556/rifle
 	init_mag_type = /obj/item/ammo_box/magazine/m556/rifle
@@ -2099,7 +2101,7 @@
 	cock_delay = GUN_COCK_RIFLE_BASE
 	init_recoil = RIFLE_RECOIL(1.7)
 	init_firemodes = list(
-		/datum/firemode/automatic/rpm300
+		/datum/firemode/automatic/rpm250,
 	)
 	can_suppress = TRUE
 	suppressor_state = "rifle_suppressor"
@@ -2632,7 +2634,7 @@
 	desc = "The M72 rifle is of German design. It uses an electromagnetic field to propel rounds at tremendous speed... and pierce almost any obstacle. Its range, accuracy and stopping power is almost unparalleled."
 	icon = 'icons/fallout/objects/guns/ballistic.dmi'
 	icon_state = "gaussf2"
-	item_state = "sniper"
+	item_state = "gaussrifle"
 	slot_flags = ITEM_SLOT_BACK
 	mag_type = /obj/item/ammo_box/magazine/m2mm
 	init_mag_type = /obj/item/ammo_box/magazine/m2mm
