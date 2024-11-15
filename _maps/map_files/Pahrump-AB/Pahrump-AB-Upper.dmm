@@ -1491,9 +1491,8 @@
 /turf/open/transparent/openspace,
 /area/f13/ncr)
 "cbU" = (
-/obj/machinery/door/poddoor/gate/preopen{
-	id = "legiongate1";
-	name = "outpost gate"
+/obj/machinery/door/poddoor/gate{
+	id = "legiongate1"
 	},
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/wasteland)
@@ -1516,6 +1515,15 @@
 /obj/item/healthanalyzer,
 /turf/open/floor/plasteel/f13/vault_floor/misc/cmo,
 /area/f13/ncr)
+"ccT" = (
+/obj/structure/closet/crate/wooden,
+/obj/item/gun/ballistic/automatic/service,
+/obj/item/gun/ballistic/automatic/service,
+/obj/item/stack/f13Cash/random/ncr/med,
+/turf/open/floor/f13{
+	icon_state = "floorrusty"
+	},
+/area/f13/city)
 "ccV" = (
 /obj/structure/closet/crate/bin/trashbin,
 /turf/open/floor/wood_common,
@@ -3446,6 +3454,11 @@
 /obj/machinery/button/door{
 	pixel_x = 23;
 	id = "legiongate2"
+	},
+/obj/machinery/button/door{
+	pixel_x = 23;
+	id = "legiongate1";
+	pixel_y = -10
 	},
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/wasteland)
@@ -10577,6 +10590,14 @@
 	},
 /turf/open/floor/carpet/red,
 /area/f13/city)
+"pJt" = (
+/obj/structure/closet/crate/wooden,
+/obj/item/gun/ballistic/automatic/service,
+/obj/item/gun/ballistic/automatic/service,
+/obj/item/stack/f13Cash/random/ncr/med,
+/obj/structure/lattice/catwalk,
+/turf/open/transparent/openspace,
+/area/f13/wasteland)
 "pKw" = (
 /obj/structure/reagent_dispensers/fueltank,
 /obj/machinery/light/small{
@@ -28613,7 +28634,7 @@ tiP
 rOR
 ixY
 oXG
-suj
+tiP
 rOR
 ixY
 ixY
@@ -28862,16 +28883,16 @@ vLb
 vLb
 ixY
 uOS
+tiP
 rpR
-tiP
 ixY
 uOS
+tiP
 kWe
-tiP
 ixY
 uOS
 tiP
-tiP
+suj
 ixY
 oeO
 eIR
@@ -38250,7 +38271,7 @@ oez
 oez
 tAz
 uKh
-uKh
+pJt
 kvJ
 mck
 hYA
@@ -52401,7 +52422,7 @@ anv
 xnG
 dhi
 vmV
-wxo
+ccT
 xVl
 nSB
 wxo
