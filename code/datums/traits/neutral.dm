@@ -287,23 +287,6 @@
 	var/mob/living/carbon/human/H = quirk_holder
 	H.grant_language(/datum/language/common)
 
-/datum/quirk/tribespeak
-	name = "Tribal Language Comprehension"
-	desc = "You're somehow capable of understanding and speaking the common tribal languages in the area."
-	value = 0
-	gain_text = span_notice("You remember the old ways of your tribe...")
-	lose_text = span_notice("You've forgotten the ways of your ancestors...")
-
-
-/datum/quirk/tribespeak/add()
-	var/mob/living/carbon/human/H = quirk_holder
-	H.grant_language(/datum/language/tribal)
-
-/datum/quirk/tribespeak/remove()
-	var/mob/living/carbon/human/H = quirk_holder
-	if(!QDELETED(H))
-		H.remove_language(/datum/language/tribal)
-
 /*
 /datum/quirk/cat
 	name = "A cat!"

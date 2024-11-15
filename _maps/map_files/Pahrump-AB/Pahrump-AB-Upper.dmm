@@ -10106,6 +10106,9 @@
 /obj/item/radio/intercom/retro/kebob/mayor{
 	pixel_x = 31
 	},
+/obj/machinery/computer/card/town{
+	dir = 8
+	},
 /turf/open/floor/carpet/royalblack,
 /area/f13/city)
 "pcx" = (
@@ -12493,6 +12496,11 @@
 	},
 /turf/open/transparent/openspace,
 /area/f13/wasteland)
+"sLY" = (
+/obj/structure/table/wood,
+/obj/machinery/computer/card/town/sheriff,
+/turf/open/floor/carpet/red,
+/area/f13/city)
 "sNs" = (
 /obj/structure/decoration/rag,
 /obj/structure/decoration/rag{
@@ -39250,7 +39258,7 @@ miU
 bgI
 nnw
 vLw
-oGD
+sLY
 pIy
 wvW
 dYT
