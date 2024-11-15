@@ -27,6 +27,9 @@
 		/datum/language/dwarf,
 		/datum/language/tribal,
 		/datum/language/signlanguage,
+		/datum/language/spanish,
+		/datum/language/chinese,
+		/datum/language/japanese,
 	))
 	healing_factor = STANDARD_ORGAN_HEALING*5 //Fast!!
 	decay_factor = STANDARD_ORGAN_DECAY/2

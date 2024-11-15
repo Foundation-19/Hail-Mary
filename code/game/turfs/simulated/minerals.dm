@@ -905,6 +905,12 @@
 	smooth = SMOOTH_MORE|SMOOTH_BORDER
 	canSmoothWith = list (/turf/closed/mineral)
 
+/turf/closed/mineral/indestructible/harsh
+	name = "cliff"
+	desc = "Harsh desert rock tempered by the scorching wasteland."
+	icon_state = "harshrock"
+	smooth_icon = 'icons/turf/walls/f13rockharsh.dmi'
+
 /turf/closed/mineral/random/protective_area
 	mineralChance = 100
 	mineralSpawnChanceList = list(

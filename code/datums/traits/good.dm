@@ -1168,3 +1168,69 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 		QDEL_NULL(gather)
 		H.RemoveAbility(moveto)
 		QDEL_NULL(moveto)
+
+/datum/quirk/tribespeak
+	name = "Tribal Language Comprehension"
+	desc = "You're somehow capable of understanding and speaking the common tribal languages in the area."
+	value = 1
+	gain_text = span_notice("You remember the old ways of your tribe...")
+	lose_text = span_notice("You've forgotten the ways of your ancestors...")
+
+
+/datum/quirk/tribespeak/add()
+	var/mob/living/carbon/human/H = quirk_holder
+	H.grant_language(/datum/language/tribal)
+
+/datum/quirk/tribespeak/remove()
+	var/mob/living/carbon/human/H = quirk_holder
+	if(!QDELETED(H))
+		H.remove_language(/datum/language/tribal)
+
+/datum/quirk/spanishspeak
+	name = "Spanish Language Comprehension"
+	desc = "You're somehow capable of understanding and speaking the common language of the Mexican cartels in the south."
+	value = 1
+	gain_text = span_notice("You remember the old tongue of the Mexican cartels.")
+	lose_text = span_notice("You've forgotten the tongue of the Mexican cartels.")
+
+
+/datum/quirk/spanishspeak/add()
+	var/mob/living/carbon/human/H = quirk_holder
+	H.grant_language(/datum/language/spanish)
+
+/datum/quirk/spanishspeak/remove()
+	var/mob/living/carbon/human/H = quirk_holder
+	if(!QDELETED(H))
+		H.remove_language(/datum/language/spanish)
+
+/datum/quirk/chinesespeak
+	name = "Chinese Language Comprehension"
+	desc = "You are somehow capable of understanding and speaking the old Chinese language."
+	value = 1
+	gain_text = span_notice("You remember the old language of China.")
+	lose_text = span_notice("You forget the old language of China.")
+
+/datum/quirk/chinesespeak/add()
+	var/mob/living/carbon/human/H = quirk_holder
+	H.grant_language(/datum/language/chinese)
+
+/datum/quirk/chinesespeak/remove()
+	var/mob/living/carbon/human/H = quirk_holder
+	if(!QDELETED(H))
+		H.remove_language(/datum/language/chinese)
+
+/datum/quirk/japanesespeak
+	name = "Japanese Language Comprehension"
+	desc = "You are somehow capable of understanding and speaking the Japanese language."
+	value = 1
+	gain_text = span_notice("You remember how to speak like a cartoon character.")
+	lose_text = span_notice("You forget how to sound like a weeaboo.")
+
+/datum/quirk/japanesespeak/add()
+	var/mob/living/carbon/human/H = quirk_holder
+	H.grant_language(/datum/language/japanese)
+
+/datum/quirk/japanesespeak/remove()
+	var/mob/living/carbon/human/H = quirk_holder
+	if(!QDELETED(H))
+		H.remove_language(/datum/language/japanese)
