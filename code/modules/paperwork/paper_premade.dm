@@ -244,18 +244,14 @@
 	<br>
 	<b>Step 1
 	<br>
-	Aquire Xander root,broc flowers,barrel cactii, bloodleaf and bottles of Sarsaparilla.
+	Aquire Xander root,broc flowers,barrel cactii and empty beakers
 	<br>
 	Step 2
 	<br> 
-	Ferment Xander root,barrel cactii, broc flowers and blood leaf seperate. 
+	Ferment Xander root,barrel cactii and broc flowers seperate. 
 	<br>
 	<b>Step 3
 	<br>
-	Mix Bloodtea with water and heat with a lighter
-	<br>
-	<b>Step 4
-	<br>
-	Mix the fermented results of Xander root, barrel cactii,broc flowers, bloodleaf tea and Sarsaparilla together in a large glass beaker. Heat it up when its all mixed together.</b>
+	Mix the fermented results of Xander root, barrel cactii, broc flowers together in equal parts.</b>
 	<br>
 	Bitter drink should be the result which can then be bottled by crafting. It is a very potent drink, so more than two should not be consumed."}

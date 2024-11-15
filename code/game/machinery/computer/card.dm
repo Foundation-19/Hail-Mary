@@ -235,6 +235,27 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 					accesses += "<a href='?src=[REF(src)];choice=access;access_target=[A];allowed=0'><font color=\"6bc473\">[replacetext(get_bos_access_desc(A), " ", "&nbsp")]</font></a> "
 				else
 					accesses += "<a href='?src=[REF(src)];choice=access;access_target=[A];allowed=1'>[replacetext(get_bos_access_desc(A), " ", "&nbsp")]</a> "
+		else if(istype(src, /obj/machinery/computer/card/town))
+			accesses += "<h5>Town of eastwood:</h5>"
+			for(var/A in get_all_town_access())
+				if(A in inserted_modify_id.access)
+					accesses += "<a href='?src=[REF(src)];choice=access;access_target=[A];allowed=0'><font color=\"6bc473\">[replacetext(get_town_access_desc(A), " ", "&nbsp")]</font></a> "
+				else
+					accesses += "<a href='?src=[REF(src)];choice=access;access_target=[A];allowed=1'>[replacetext(get_town_access_desc(A), " ", "&nbsp")]</a> "
+		else if(istype(src, /obj/machinery/computer/card/town/sheriff))
+			accesses += "<h5>Town of eastwood police:</h5>"
+			for(var/A in get_all_sheriff_access())
+				if(A in inserted_modify_id.access)
+					accesses += "<a href='?src=[REF(src)];choice=access;access_target=[A];allowed=0'><font color=\"6bc473\">[replacetext(get_sheriff_access_desc(A), " ", "&nbsp")]</font></a> "
+				else
+					accesses += "<a href='?src=[REF(src)];choice=access;access_target=[A];allowed=1'>[replacetext(get_sheriff_access_desc(A), " ", "&nbsp")]</a> "
+		else if(istype(src, /obj/machinery/computer/card/town/locust))
+			accesses += "<h5>Town of Loucust Point:</h5>"
+			for(var/A in get_all_locust_access())
+				if(A in inserted_modify_id.access)
+					accesses += "<a href='?src=[REF(src)];choice=access;access_target=[A];allowed=0'><font color=\"6bc473\">[replacetext(get_locust_access_desc(A), " ", "&nbsp")]</font></a> "
+				else
+					accesses += "<a href='?src=[REF(src)];choice=access;access_target=[A];allowed=1'>[replacetext(get_locust_access_desc(A), " ", "&nbsp")]</a> "
 		else
 			accesses += {"<div align='center'><b>Access</b></div>
 				<table style='width:100%'>
@@ -360,6 +381,12 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 						access_types = get_all_enclave_access()
 					else if(istype(src, /obj/machinery/computer/card/bos))
 						access_types = get_all_bos_access()
+					else if(istype(src, /obj/machinery/computer/card/town))
+						access_types = get_all_town_access()
+					else if(istype(src, /obj/machinery/computer/card/town/sheriff))
+						access_types = get_all_sheriff_access()
+					else if(istype(src, /obj/machinery/computer/card/town/locust))
+						access_types = get_all_locust_access()
 					else
 						access_types = get_all_accesses()
 
@@ -547,4 +574,57 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		"Paladin Commander",
 		"Head Scribe",
 		"Head Knight",
+		)
+
+/obj/machinery/computer/card/town
+	name = "\improper Eastwood mayoral identification console"
+	circuit = /obj/item/circuitboard/computer/card/town
+	job_list = list(
+		"Secretary",
+		"Farmer",
+		"Prospector",
+		"Doctor",
+		"Banker",
+		"Quartermaster",
+		"Trade Worker",
+		"Barkeep",
+		"Citizen",
+		"Radio Host",
+		)
+	job_req = list(
+		"Mayor",
+		"Secretary",
+		"Sheriff",
+		)
+
+/obj/machinery/computer/card/town/sheriff
+	name = "\improper Eastwood police identification console"
+	circuit = /obj/item/circuitboard/computer/card/town/sheriff
+	job_list = list(
+		"Detective",
+		"Deputy",
+		)
+	job_req = list(
+		"Mayor",
+		"Secretary",
+		"Sheriff",
+		)
+
+/obj/machinery/computer/card/town/locust
+	name = "\improper Locust point town mayoral identification console"
+	circuit = /obj/item/circuitboard/computer/card/town/locust
+	job_list = list(
+		"Locust Point Police Officer",
+		"Servant workers of town",
+		"Casablanca Barkeep",
+		"Locust Point Citizen",
+		"Pirate Radio Host",
+		"Locust Point Priest",
+		"Gas station Mechanics",
+		"Dealmaker Shopclerc",
+		"Airpoint Transport Pilot",
+		)
+	job_req = list(
+		"Dockmaster of Locust Point",
+		"Port Councelor",
 		)

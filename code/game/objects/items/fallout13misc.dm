@@ -262,6 +262,12 @@
 	item_state = "cornflag"
 	faction = "Eastwood"
 
+/obj/item/flag/waypoint
+	name = "Waypoint flag"
+	desc = "A blue flag adorned with a train symbolising the company town of Waypoint."
+	icon_state = "waypointflag"
+	item_state = "waypointflag"
+
 /obj/item/flag/khan
 	name = "Great Khans flag"
 	desc = "A flag worn and weathered from a long cherished history. A decorated smiling skull smiles mockingly upon those who challenge it."

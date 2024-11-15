@@ -8,54 +8,8 @@
 	resistance_flags = FLAMMABLE
 	var/persistenceID
 
-/obj/item/folder/Initialize()
-	. = ..()
-	LAZYADD(SSpersistence.folders, src)
-
-/obj/item/folder/Destroy()
-	LAZYREMOVE(SSpersistence.folders, src)
-	..()
-
-/obj/item/folder/proc/PersistenceLoad()
-	var/list/data = SSpersistence.GetFolders()
-	if(data)
-		if(data[persistenceID])
-			PopulatePaperFromList(data[persistenceID])
-
-/obj/item/folder/proc/PopulatePaperFromList(list/ids)
-	var/list/current_ids = StorePaperDataList()
-	for(var/i in ids)
-		if(i in current_ids)
-			continue
-		var/obj/item/paper/P = new /obj/item/paper()
-		if(P.LoadData(ids[i]))
-			P.pers_id = i
-			P.forceMove(src)
-	update_icon()
-
-/obj/item/folder/proc/StorePaperDataList()
-	var/list/L = list()
-	for(var/i in contents)
-		if(istype(i, /obj/item/paper))
-			L += i
-
-	if(!L.len)
-		return
-	. = list()
-	var/list/paperData = list()
-	for(var/i in L)
-		var/obj/item/paper/P = i
-		if(!P.pers_id)
-			P.pers_id = "[persistenceID]_[md5(strip_html(P.info))]" // cursed but it'll make it unique at least.
-		var/list/dat = P.SaveData()
-		if(dat.len)
-			paperData[P.pers_id] = dat
-	
-	if(paperData.len)
-		. = paperData
-
 /obj/item/folder/suicide_act(mob/living/user)
-	user.visible_message(span_suicide("[user] begins filing an imaginary death warrant! It looks like [user.p_theyre()] trying to commit suicide!"))
+	user.visible_message("<span class='suicide'>[user] begins filing an imaginary death warrant! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return OXYLOSS
 
 /obj/item/folder/blue
@@ -87,11 +41,11 @@
 	if(istype(W, /obj/item/paper) || istype(W, /obj/item/photo) || istype(W, /obj/item/documents))
 		if(!user.transferItemToLoc(W, src))
 			return
-		to_chat(user, span_notice("You put [W] into [src]."))
+		to_chat(user, "<span class='notice'>You put [W] into [src].</span>")
 		update_icon()
 	else if(istype(W, /obj/item/pen))
 		if(!user.is_literate())
-			to_chat(user, span_notice("You scribble illegibly on the cover of [src]!"))
+			to_chat(user, "<span class='notice'>You scribble illegibly on the cover of [src]!</span>")
 			return
 
 		var/inputvalue = stripped_input(user, "What would you like to label the folder?", "Folder Labelling", "", MAX_NAME_LEN)

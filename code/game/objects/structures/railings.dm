@@ -126,6 +126,23 @@
 	if(anchored == checked_anchored)
 		return TRUE
 
+/// TG Sprites
+
+/obj/structure/railing/tg
+	icon = 'icons/fallout/structures/railings.dmi'
+	icon_state = "railing"
+	layer = ABOVE_MOB_LAYER
+	plane = MOB_PLANE
+
+/obj/structure/railing/tg/corner
+	icon_state = "railing_corner"
+
+/obj/structure/railing/tg/corner/end
+	icon_state = "railing_end"
+
+/obj/structure/railing/tg/corner/end/flip
+	icon_state = "railing_end_flip"
+
 /////////////
 // RAILING //
 /////////////
