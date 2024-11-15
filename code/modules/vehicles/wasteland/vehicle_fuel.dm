@@ -90,6 +90,86 @@
 	icon = 'icons/mecha/mech_bay.dmi'
 	icon_state = "jerrycan"
 	reagent_flags = OPENCONTAINER
+	var/open_tap = FALSE
+	var/raggeted = FALSE
+	var/active = FALSE
+
+/obj/item/reagent_containers/jerrycan/bullet_act(obj/item/projectile/P)
+	. = ..()
+	make_boom()
+	qdel(src)
+
+/obj/item/reagent_containers/jerrycan/ex_act()
+	make_boom()
+	. = ..()
+
+/obj/item/reagent_containers/jerrycan/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
+	if(open_tap)
+		SplashReagents(hit_atom)
+	. = ..()
+
+
+/obj/item/reagent_containers/jerrycan/attackby(obj/item/I, mob/user, params)
+	if(I.get_temperature() && !active && raggeted)
+		active = TRUE
+		var/message = "[ADMIN_LOOKUP(user)] has primed a [name] for detonation at [ADMIN_VERBOSEJMP(user)]."
+		GLOB.bombers += message
+		message_admins(message)
+		log_game("[key_name(user)] has primed a [name] for detonation at [AREACOORD(user)].")
+		to_chat(user, span_info("You light [src] on fire."))
+		icon_state = initial(icon_state) + "_active"
+		addtimer(CALLBACK(src, PROC_REF(splash_and_boom)), 5 SECONDS)
+	if(istype(I, /obj/item/stack/sheet/cloth))
+		if(open_tap)
+			raggeted = TRUE
+			icon_state = initial(icon_state) + "_raggeted"
+			to_chat(usr, span_notice("You insert a cloth rag into the jerrycan."))
+			I.use(1)
+
+/obj/item/reagent_containers/jerrycan/proc/make_boom()
+	var/boomsize
+	var/extra_boom = 1
+	for(var/datum/reagent/reagent_in_bottle as anything in reagents.reagent_list)
+		if(reagent_in_bottle.volume < 1)
+			continue
+		if(!(istype(reagent_in_bottle, /datum/reagent/fuel)))
+			continue
+		boomsize = 5 * (reagent_in_bottle.volume / volume)
+	if(boomsize >= 1 || extra_boom)
+		explosion(get_turf(src),-1, -1, extra_boom, flame_range = (boomsize + extra_boom))
+		reagents.remove_all(reagents.total_volume)
+
+
+/obj/item/reagent_containers/jerrycan/proc/splash_and_boom()
+	if(QDELETED(src) || !active || isnull(loc))
+		return
+	var/atom/target = loc
+	if(!isturf(target) && !isturf(target.loc))
+		for(var/i in 1 to 3)
+			target = target.loc
+			if(isturf(target.loc))
+				break
+	if(!isturf(target))
+		target = get_turf(target) // Too deep, let's just bypass to the end.
+	make_boom()
+	if(!QDELETED(src))
+		SplashReagents(target)
+
+/obj/item/reagent_containers/jerrycan/attack_self(mob/user)
+	if(active)
+		to_chat(user, span_info("You snuff out the flame on [src]."))
+		icon_state = initial(icon_state) + "_raggeted"
+		active = FALSE
+	else if (raggeted)
+		raggeted = FALSE
+		icon_state = initial(icon_state)
+		to_chat(user, span_info("You take out the ruined cloth rag from the [src]."))
+	else
+		open_tap = !open_tap
+		spillable = open_tap
+		to_chat(user, span_info("You [(open_tap)?"remove":"put"] the tap on [src]."))
+	
+
 
 /obj/item/reagent_containers/fuel_tank
 	name = "fuel tank"
