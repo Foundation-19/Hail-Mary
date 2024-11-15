@@ -75,6 +75,18 @@
 	name = "Brotherhood of Steel ID Console (Computer Board)"
 	build_path = /obj/machinery/computer/card/bos
 
+/obj/item/circuitboard/computer/card/town
+	name = "Town ID Console (Computer Board)"
+	build_path = /obj/machinery/computer/card/town
+
+/obj/item/circuitboard/computer/card/town/sheriff
+	name = "Town Sheriff ID Console (Computer Board)"
+	build_path = /obj/machinery/computer/card/town/sheriff
+
+/obj/item/circuitboard/computer/card/town/locust
+	name = "Locust town ID Console (Computer Board)"
+	build_path = /obj/machinery/computer/card/town/locust
+
 /obj/item/circuitboard/computer/card/minor
 	name = "Department Management Console (Computer Board)"
 	build_path = /obj/machinery/computer/card/minor
