@@ -287,23 +287,6 @@
 	var/mob/living/carbon/human/H = quirk_holder
 	H.grant_language(/datum/language/common)
 
-/datum/quirk/tribespeak
-	name = "Tribal Language Comprehension"
-	desc = "You're somehow capable of understanding and speaking the common tribal languages in the area."
-	value = 0
-	gain_text = span_notice("You remember the old ways of your tribe...")
-	lose_text = span_notice("You've forgotten the ways of your ancestors...")
-
-
-/datum/quirk/tribespeak/add()
-	var/mob/living/carbon/human/H = quirk_holder
-	H.grant_language(/datum/language/tribal)
-
-/datum/quirk/tribespeak/remove()
-	var/mob/living/carbon/human/H = quirk_holder
-	if(!QDELETED(H))
-		H.remove_language(/datum/language/tribal)
-
 /*
 /datum/quirk/cat
 	name = "A cat!"
@@ -380,8 +363,6 @@
 /datum/quirk/journalist/on_spawn()
 	var/mob/living/carbon/human/human_holder = quirk_holder
 	var/obj/item/folder/folder = new(get_turf(human_holder))
-	folder.persistenceID = "personal_[lowertext(human_holder.last_mind?.key)]" // this is a persistent album, the ID is tied to the account's key to avoid tampering
-	folder.PersistenceLoad()
 	folder.name = "[human_holder.real_name]'s journal"
 
 	if(!human_holder.equip_to_slot_if_possible(folder, SLOT_IN_BACKPACK, disable_warning = TRUE, bypass_equip_delay_self = TRUE))
