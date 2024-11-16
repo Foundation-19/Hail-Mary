@@ -2449,6 +2449,7 @@
 	light_color = "#FFDDCC";
 	color = "#FFDDCC"
 	},
+/obj/mecha/working/normalvehicle/buggy/dune,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "bluerustysolid"
 	},
@@ -13755,12 +13756,6 @@
 /obj/item/stack/sheet/lead/fifty,
 /turf/open/floor/plating/rust,
 /area/f13/ruins)
-"eYs" = (
-/obj/mecha/combat/combatvehicle/corvega/police/loaded{
-	dir = 8
-	},
-/turf/open/indestructible/ground/outside/sidewalkdirt,
-/area/f13/wasteland/town)
 "eYt" = (
 /obj/structure/barricade/tentleatheredge,
 /obj/structure/barricade/wooden,
@@ -14228,13 +14223,6 @@
 	icon_state = "fancy-broken3"
 	},
 /area/f13/ruins)
-"fgP" = (
-/obj/mecha/combat/phazon/pickuptruck/mechanic,
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
-	name = "Old Docks";
-	sunlight_state = 1
-	},
-/area/f13/building/center)
 "fgY" = (
 /obj/structure/stone_tile/block,
 /obj/structure/stone_tile/block{
@@ -15309,11 +15297,11 @@
 	},
 /area/f13/wasteland/town)
 "fAj" = (
-/obj/mecha/combat/phazon/jeep/bos/loaded,
 /obj/machinery/light/small{
 	dir = 8;
 	name = "tan light fixture"
 	},
+/obj/mecha/working/normalvehicle/jeep/bos,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/brotherhood)
 "fAq" = (
@@ -15530,6 +15518,12 @@
 	icon_state = "common1"
 	},
 /area/f13/building/center)
+"fEu" = (
+/obj/mecha/working/normalvehicle/jeep/enclave/loaded,
+/turf/open/floor/plating/dirt/dirt_maryland{
+	icon_state = "dirt_original"
+	},
+/area/f13/wasteland/city)
 "fEy" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/closed/wall/f13/ruins,
@@ -15825,6 +15819,7 @@
 	color = "#A47449";
 	dir = 4
 	},
+/obj/mecha/working/normalvehicle/corvega/police/loaded,
 /turf/open/indestructible/ground/outside/sidewalkdirt,
 /area/f13/wasteland/town)
 "fJl" = (
@@ -19625,9 +19620,6 @@
 	},
 /obj/structure/railing{
 	color = "#A47449"
-	},
-/obj/mecha/combat/phazon/buggy/blue/loaded{
-	dir = 8
 	},
 /turf/open/indestructible/ground/outside/gravel,
 /area/f13/wasteland/town)
@@ -24177,14 +24169,6 @@
 /obj/machinery/recycler,
 /turf/open/floor/wood_mosaic/wood_mosaic_light,
 /area/f13/building/boat)
-"iFr" = (
-/obj/mecha/combat/phazon/buggy/blue/loaded{
-	dir = 8
-	},
-/turf/open/indestructible/ground/outside/sidewalkdirt{
-	icon_state = "horizontalbottomborderbottom1"
-	},
-/area/f13/wasteland/town)
 "iFu" = (
 /obj/effect/mob_spawn/human/corpse/vault,
 /turf/open/floor/wood_wide/wood_wide_dark,
@@ -24748,13 +24732,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/f13/vault_floor/floor,
 /area/f13/ruins)
-"iOs" = (
-/obj/mecha/combat/combatvehicle/pickuptruck/bos/armed/loaded,
-/obj{
-	name = "---Merge conflict marker---"
-	},
-/turf/closed/wall/r_wall,
-/area/f13/brotherhood)
 "iOA" = (
 /obj/machinery/vending/medical,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
@@ -25723,6 +25700,10 @@
 	},
 /turf/open/indestructible/ground/outside/gravel,
 /area/f13/underground/cave)
+"jhO" = (
+/obj/mecha/working/normalvehicle/pickuptruck/bos/loaded,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/brotherhood)
 "jhT" = (
 /obj/machinery/chem_master/advanced,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
@@ -29545,6 +29526,12 @@
 	icon_state = "road_center"
 	},
 /area/f13/wasteland/town)
+"kCn" = (
+/obj/mecha/working/normalvehicle/ambulance/loaded{
+	dir = 8
+	},
+/turf/open/floor/plasteel/f13/vault_floor/plating,
+/area/f13/clinic)
 "kCx" = (
 /obj/structure/flora/roadplant{
 	icon_state = "shrub_decals"
@@ -32088,7 +32075,6 @@
 	dir = 8;
 	name = "tan light fixture"
 	},
-/obj/mecha/combat/phazon/pickuptruck/bos/armed/loaded,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/brotherhood)
 "lwQ" = (
@@ -33605,15 +33591,6 @@
 	},
 /turf/open/indestructible/ground/outside/gravel,
 /area/f13/wasteland/town)
-"lTN" = (
-/obj/structure/table/wood/fancy,
-/obj/mecha/combat/combatvehicle/corvega{
-	dir = 8
-	},
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
-	icon_state = "bluerustysolid"
-	},
-/area/f13/building/center)
 "lTU" = (
 /obj/structure/flora/roadplant{
 	icon_state = "grass_8d"
@@ -34296,6 +34273,7 @@
 /area/f13/building/center)
 "mfN" = (
 /obj/structure/flora/grass/coyote/ten,
+/obj/mecha/working/normalvehicle/buggy/blue/loaded,
 /turf/open/indestructible/ground/outside/gravel,
 /area/f13/wasteland/town)
 "mfS" = (
@@ -35691,13 +35669,6 @@
 	icon_state = "road_center"
 	},
 /area/f13/wasteland/town)
-"mEY" = (
-/obj/mecha/working/normalvehicle/ncrtruck/loaded,
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
-	name = "Old Docks";
-	sunlight_state = 1
-	},
-/area/f13/building/center)
 "mEZ" = (
 /obj/structure/window/fulltile/wood/broken,
 /obj/effect/overlay/junk/curtain{
@@ -37796,10 +37767,6 @@
 /turf/open/floor/wood_fancy,
 /area/f13/ruins)
 "nuy" = (
-/obj/mecha/working/normalvehicle/ncrtruck/bos/loaded,
-/obj{
-	name = "---Merge conflict marker---"
-	},
 /obj/structure/simple_door/bunker,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/brotherhood)
@@ -39439,7 +39406,7 @@
 /area/f13/wasteland/city)
 "nZD" = (
 /obj/structure/table/wood/fancy,
-/obj/mecha/combat/combatvehicle/buggy/red{
+/obj/mecha/working/normalvehicle/highwayman/loaded{
 	dir = 8
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
@@ -50950,13 +50917,6 @@
 	name = "rusted Docks"
 	},
 /area/f13/building/boat)
-"rXn" = (
-/obj/mecha/combat/combatvehicle/buggy/loaded,
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
-	name = "Old Docks";
-	sunlight_state = 1
-	},
-/area/f13/building/center)
 "rXy" = (
 /obj/structure/table/reinforced,
 /obj/item/tank/jetpack/oxygen/harness,
@@ -51101,6 +51061,13 @@
 /obj/structure/stone_tile/block,
 /turf/open/floor/plating/dirt/dirt_maryland{
 	icon_state = "grass_2"
+	},
+/area/f13/building/center)
+"sbw" = (
+/obj/mecha/working/normalvehicle/pickuptruck/mechanic,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	name = "Old Docks";
+	sunlight_state = 1
 	},
 /area/f13/building/center)
 "sby" = (
@@ -51363,7 +51330,6 @@
 	name = "red light fixture";
 	dir = 8
 	},
-/obj/mecha/combat/combatvehicle/buggy/red/loaded,
 /turf/open/floor/plasteel/f13/vault_floor/plating,
 /area/f13/ruins)
 "sfS" = (
@@ -56046,10 +56012,6 @@
 	icon_state = "dirt_7"
 	},
 /area/f13/wasteland/city)
-"tPA" = (
-/obj/mecha/combat/combatvehicle/buggy/flamme/loaded,
-/turf/open/floor/plasteel/f13/vault_floor/plating,
-/area/f13/ruins)
 "tPB" = (
 /obj/structure/railing{
 	color = "#A47449";
@@ -56725,14 +56687,6 @@
 	name = "rusted Docks"
 	},
 /area/f13/wasteland/city/citycenter)
-"ucV" = (
-/obj/mecha/combat/phazon/jeep/enclave/loaded{
-	dir = 8
-	},
-/turf/open/floor/plating/dirt/dirt_maryland{
-	icon_state = "dirt_original"
-	},
-/area/f13/wasteland/city)
 "udi" = (
 /obj/structure/flora/wasteplant/fever_blossom,
 /turf/open/floor/plating/dirt/dirt_maryland{
@@ -58029,10 +57983,7 @@
 /area/f13/wasteland/city)
 "uAv" = (
 /obj/structure/table/wood/fancy/red,
-/obj/mecha/combat/combatvehicle/highwayman/loaded{
-	dir = 8
-	},
-/obj/mecha/combat/combatvehicle/highwayman/loaded{
+/obj/mecha/working/normalvehicle/corvega{
 	dir = 8
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
@@ -62907,6 +62858,13 @@
 	icon_state = "road_center"
 	},
 /area/f13/ruins)
+"wig" = (
+/obj/mecha/working/normalvehicle/pickuptruck/blue,
+/turf/open/floor/wood_common{
+	name = "wooden dock";
+	sunlight_state = 1
+	},
+/area/f13/wasteland/town)
 "wil" = (
 /obj/structure/barricade/tentclothedge{
 	dir = 8
@@ -78998,7 +78956,7 @@ tvB
 daY
 cOf
 scc
-vYZ
+kCn
 veG
 hNP
 nTk
@@ -79255,7 +79213,7 @@ nTL
 veG
 bkx
 iot
-tvB
+uOA
 hMN
 hNP
 nTk
@@ -95701,8 +95659,8 @@ dbL
 cRl
 cRl
 cRl
-cRl
-iOs
+jhO
+dbL
 nuy
 dbL
 umn
@@ -110948,7 +110906,7 @@ qcM
 ran
 wHT
 tHt
-tPA
+wHT
 wHT
 qDu
 fkX
@@ -116274,7 +116232,7 @@ diW
 aas
 uqR
 jbE
-iFr
+eYp
 mdu
 caI
 ipM
@@ -116319,9 +116277,9 @@ mBD
 mBD
 siv
 vQj
-rXn
+hoW
 uPB
-fgP
+hoW
 duO
 lgb
 lgb
@@ -116576,7 +116534,7 @@ mBD
 kDu
 siv
 vQj
-hoW
+sbw
 hoW
 hoW
 duO
@@ -117090,7 +117048,7 @@ hpn
 mBD
 rEo
 vQj
-mEY
+hoW
 hoW
 aNv
 vQj
@@ -117491,7 +117449,7 @@ rsn
 rsn
 fLW
 ngb
-ngb
+wig
 bdU
 bdU
 bdU
@@ -118331,7 +118289,7 @@ aas
 uqR
 oBJ
 qOk
-eYs
+mdu
 vPV
 ipF
 qHC
@@ -118375,7 +118333,7 @@ eLJ
 eHb
 xep
 vQj
-lTN
+jzr
 qfZ
 qfZ
 qfZ
@@ -129175,7 +129133,7 @@ fsH
 ldb
 bWb
 icV
-ucV
+icV
 dti
 mSo
 rJx
@@ -130194,7 +130152,7 @@ vUr
 vmD
 fbu
 jXT
-ucV
+icV
 icV
 icV
 icV
@@ -131987,7 +131945,7 @@ bnp
 cvb
 mIJ
 icV
-icV
+fEu
 ret
 dcz
 dti

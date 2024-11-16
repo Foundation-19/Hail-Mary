@@ -5621,13 +5621,6 @@
 	},
 /turf/open/transparent/openspace,
 /area/f13/ruins)
-"fjX" = (
-/obj/mecha/combat/combatvehicle/buggy/red/loaded,
-/turf/open/floor/plating/rust{
-	sunlight_state = 1;
-	name = "rusted Docks"
-	},
-/area/f13/Ocean)
 "fke" = (
 /turf/open/floor/wood_common/wood_common_dark,
 /area/f13/brotherhood)
@@ -14189,13 +14182,6 @@
 	},
 /turf/open/floor/f13/wood/outside,
 /area/f13/wasteland/town)
-"ncw" = (
-/obj/mecha/combat/combatvehicle/buggy/flamme/loaded,
-/turf/open/floor/plating/rust{
-	sunlight_state = 1;
-	name = "rusted Docks"
-	},
-/area/f13/Ocean)
 "ncE" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 5
@@ -16427,7 +16413,7 @@
 /turf/open/indestructible/ground/outside/roof,
 /area/f13/wasteland/town)
 "pnC" = (
-/obj/mecha/combat/combatvehicle/vertibird/brotherhood/loaded,
+/obj/mecha/working/normalvehicle/vertibird/brotherhood,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/brotherhood)
 "pnW" = (
@@ -24571,8 +24557,8 @@
 	},
 /area/f13/brotherhood)
 "wYI" = (
-/obj/mecha/combat/combatvehicle/vertibird/enclave/loaded,
 /obj/effect/turf_decal/delivery,
+/obj/mecha/working/normalvehicle/vertibird/enclave/loaded,
 /turf/open/floor/wood_common/wood_common_light,
 /area/f13/wasteland/city)
 "wYO" = (
@@ -25563,7 +25549,7 @@
 /turf/open/floor/wood_mosaic,
 /area/f13/building)
 "xUS" = (
-/obj/mecha/combat/combatvehicle/vertibird/loaded,
+/obj/mecha/working/normalvehicle/vertibird/loaded,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	name = "Docks";
 	sunlight_state = 1
@@ -58096,7 +58082,7 @@ tTD
 tTD
 tTD
 tTD
-ncw
+tTD
 him
 him
 ijz
@@ -60147,7 +60133,7 @@ tTD
 qac
 cjM
 tTD
-fjX
+tTD
 tTD
 eqV
 dQx
