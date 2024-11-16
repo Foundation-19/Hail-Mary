@@ -1,7 +1,7 @@
 // VERTIBIRD 
 
 /obj/mecha/combat/combatvehicle/vertibird
-	name = "\improper Vertibird"
+	name = "\improper Combat Vertibird"
 	desc = "A real useable, and working vertibird, maintained with luck, sweat, and ducktape. This one seems to be more focused toward combat."
 	icon = 'icons/mecha/vb-vertibird.dmi'
 	icon_state = "vb"
@@ -10,7 +10,7 @@
 	layer = ABOVE_MOB_LAYER
 	can_be_locked = TRUE
 	dna_lock
-	step_in = 0.6
+	step_in = 0.8
 	dir_in = 2
 	normal_step_energy_drain = 0.75
 	step_energy_drain = 0.75
@@ -23,7 +23,7 @@
 	add_req_access = 1
 	internal_damage_threshold = 25
 	force = 15
-	max_equip = 6
+	max_equip = 4
 	opacity = 0
 	canstrafe = TRUE
 	movement_type = FLYING
@@ -112,7 +112,7 @@
 	add_req_access = 1
 	internal_damage_threshold = 25
 	force = 15
-	max_equip = 8
+	max_equip = 4
 	opacity = 0
 	canstrafe = TRUE
 	movement_type = FLYING
@@ -195,7 +195,7 @@
 	add_req_access = 1
 	internal_damage_threshold = 25
 	force = 15
-	max_equip = 6
+	max_equip = 4
 	opacity = 0
 	canstrafe = TRUE
 	movement_type = FLYING
@@ -267,7 +267,7 @@
 	add_req_access = 1
 	internal_damage_threshold = 25
 	force = 15
-	max_equip = 6
+	max_equip = 4
 	opacity = 0
 	canstrafe = TRUE
 	movement_type = FLYING

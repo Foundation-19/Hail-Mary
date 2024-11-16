@@ -61,7 +61,7 @@
 	add_req_access = 1
 	internal_damage_threshold = 25
 	force = 15
-	max_equip = 6
+	max_equip = 8
 	opacity = 0
 	canstrafe = TRUE
 	movement_type = FLYING
@@ -139,9 +139,9 @@
 	dna_lock
 	step_in = 0.8
 	dir_in = 2
-	normal_step_energy_drain = 0.7
-	step_energy_drain = 0.7
-	max_integrity = 200
+	normal_step_energy_drain = 0.75
+	step_energy_drain = 0.75
+	max_integrity = 150
 	deflect_chance = 30
 	armor = ARMOR_VALUE_LIGHT
 	max_temperature = 25000
@@ -229,7 +229,7 @@
 	add_req_access = 1
 	internal_damage_threshold = 25
 	force = 15
-	max_equip = 6
+	max_equip = 8
 	opacity = 0
 	canstrafe = TRUE
 	movement_type = FLYING
@@ -303,7 +303,7 @@
 	add_req_access = 1
 	internal_damage_threshold = 25
 	force = 15
-	max_equip = 6
+	max_equip = 8
 	opacity = 0
 	canstrafe = TRUE
 	movement_type = FLYING
@@ -367,7 +367,7 @@
 	step_in = 4
 	dir_in = 2
 	step_energy_drain = 0.05
-	max_integrity = 100
+	max_integrity = 300
 	deflect_chance = 0
 	armor = ARMOR_VALUE_SALVAGE
 	max_temperature = 25000

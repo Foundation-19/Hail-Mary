@@ -258,6 +258,7 @@
 	result = /obj/mecha/combat/combatvehicle/pickuptruck/bos/armed
 	reqs = list(/obj/mecha/working/normalvehicle/pickuptruck/bos,
 				/obj/item/stack/sheet/metal = 20,
+				/obj/item/trash/f13/electronic/toaster =1,
 				/obj/item/stack/sheet/prewar = 4)
 	tools = list(TOOL_WELDER, TOOL_WRENCH)
 	time = 100
@@ -268,6 +269,7 @@
 	result = /obj/mecha/combat/combatvehicle/buggy/rangerarmed
 	reqs = list(/obj/mecha/working/normalvehicle/buggy/ranger,
 				/obj/item/stack/sheet/metal = 20,
+				/obj/item/reagent_containers/food/drinks/bottle/whiskey = 1,
 				/obj/item/stack/sheet/prewar = 4)
 	tools = list(TOOL_WELDER, TOOL_WRENCH)
 	time = 100
@@ -278,6 +280,63 @@
 	result = /obj/mecha/combat/combatvehicle/buggy/legionarmed
 	reqs = list(/obj/mecha/working/normalvehicle/buggy/legion,
 				/obj/item/stack/sheet/metal = 20,
+				/obj/item/reagent_containers/pill/bitterdrink = 1,
 				/obj/item/stack/sheet/prewar = 4)
+	tools = list(TOOL_WELDER, TOOL_WRENCH)
+	time = 100
+
+//Vertibird combat conversion
+/datum/crafting_recipe/carbase/vertibird/armed
+	name = "Combat Vertibird (Arming Step - REMOVE ALL MODULE FROM CAR BEFORE MODIFYING)"
+	result = /obj/mecha/combat/combatvehicle/vertibird
+	reqs = list(/obj/mecha/working/normalvehicle/vertibird,
+				/obj/item/stack/sheet/metal = 100,
+				/obj/item/stack/crafting/electronicparts = 50,
+				/obj/item/stack/sheet/prewar = 50)
+	tools = list(TOOL_WELDER, TOOL_WRENCH)
+	time = 100
+
+//Vertibird NCR combat conversion
+/datum/crafting_recipe/carbase/vertibird/armed
+	name = "Combat NCR Vertibird (Arming Step - REMOVE ALL MODULE FROM CAR BEFORE MODIFYING)"
+	result = /obj/mecha/combat/combatvehicle/vertibird/ncr
+	reqs = list(/obj/mecha/working/normalvehicle/vertibird/ncr,
+				/obj/item/stack/sheet/metal = 100,
+				/obj/item/stack/crafting/electronicparts = 50,
+				/obj/item/stack/sheet/prewar = 50)
+	tools = list(TOOL_WELDER, TOOL_WRENCH)
+	time = 100
+
+//Vertibird BOS combat conversion
+/datum/crafting_recipe/carbase/vertibird/armed
+	name = "Combat BOS Vertibird (Arming Step - REMOVE ALL MODULE FROM CAR BEFORE MODIFYING)"
+	result = /obj/mecha/combat/combatvehicle/vertibird/brotherhood
+	reqs = list(/obj/mecha/working/normalvehicle/vertibird/brotherhood,
+				/obj/item/stack/sheet/metal = 100,
+				/obj/item/stack/crafting/electronicparts = 50,
+				/obj/item/stack/sheet/prewar = 50)
+	tools = list(TOOL_WELDER, TOOL_WRENCH)
+	time = 100
+
+//Vertibird Enclave combat conversion
+/datum/crafting_recipe/carbase/vertibird/armed
+	name = "Combat Enclave Vertibird (Arming Step - REMOVE ALL MODULE FROM CAR BEFORE MODIFYING)"
+	result = /obj/mecha/combat/combatvehicle/vertibird/enclave
+	reqs = list(/obj/mecha/working/normalvehicle/vertibird/enclave,
+				/obj/item/stack/sheet/metal = 100,
+				/obj/item/stack/crafting/electronicparts = 50,
+				/obj/item/stack/sheet/prewar = 50)
+	tools = list(TOOL_WELDER, TOOL_WRENCH)
+	time = 100
+
+//Lebgion balloon combat conversion
+/datum/crafting_recipe/carbase/vertibird/armed
+	name = "Legion Balloon (Arming Step - REMOVE ALL MODULE FROM CAR BEFORE MODIFYING)"
+	result = /obj/mecha/combat/combatvehicle/vertibird/balloon
+	reqs = list(/obj/mecha/working/normalvehicle/vertibird/balloon,
+				/obj/item/stack/sheet/metal = 50,
+				/obj/item/stack/crafting/electronicparts = 25,
+				/obj/item/reagent_containers/pill/bitterdrink = 1,
+				/obj/item/stack/sheet/prewar = 25)
 	tools = list(TOOL_WELDER, TOOL_WRENCH)
 	time = 100
