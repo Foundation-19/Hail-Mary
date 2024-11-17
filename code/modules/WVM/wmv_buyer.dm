@@ -88,11 +88,13 @@
 	dat += "Research Data: 25 caps <br>"
 	dat += "ALL Combat Helmets and reinforced ones: 25 caps<br>"
 	dat += "ALL Combat Armor and reinforced ones: 125 caps<br>"
-	dat += "Salvaged t-45b Suit: 175 caps<br>"
-	dat += "Salvaged t-45b Helmet: 100 caps<br>"
+	dat += "Salvaged t-45b Suit OR NCR Suit: 200 caps<br>"
+	dat += "Salvaged t-45b Helmet OR NCR Suit: 100 caps<br>"
 	dat += "Med-x 5 caps<br>"
 	dat += "Stimpack: 10 caps<br>"
-	dat += ""
+	dat += "Leather, Metal Parts, High Quality Parts, Cloth, Pre War Sheets: 0.5 caps<br>"
+	dat += "Oats, Rice, Wheat: 0.5 Caps<br>"
+	dat += "Stimpack: 10 caps<br>"
 	dat += "</div>"
 
 	var/datum/browser/popup = new(user, "tradingvendor", "Trading point", 400, 500)
@@ -362,7 +364,7 @@ Fence
 						/obj/item/clothing/head/helmet/f13/combat = 25,
 						/obj/item/clothing/suit/armor/medium/combat/mk2 = 125,
 						/obj/item/clothing/head/helmet/f13/combat/mk2 = 25,
-						/obj/item/clothing/suit/armor/heavy/salvaged_pa/t45b = 175,
+						/obj/item/clothing/suit/armor/heavy/salvaged_pa/t45b = 200,
 						/obj/item/clothing/head/helmet/f13/heavy/salvaged_pa/t45b = 100,
 						/obj/item/blueprint/research = 25,
 						/obj/item/reagent_containers/hypospray/medipen/medx = 5,
@@ -380,7 +382,7 @@ Fence
 						/obj/item/clothing/suit/armor/medium/combat/legion = 75,
 						/obj/item/clothing/suit/armor/medium/combat/enclave = 75,
 						/obj/item/clothing/suit/armor/medium/combat/brotherhood/captain = 125,
-						/obj/item/clothing/suit/armor/medium/combat/brotherhood/sarge = 75,
+						/obj/item/clothing/suit/armor/medium/combat/brotherhood/sarge = 125,
 						/obj/item/clothing/suit/armor/medium/combat/tribal = 75,
 						/obj/item/clothing/suit/armor/medium/combat/bos = 75,
 						/obj/item/clothing/suit/armor/medium/combat/brotherhood/initiate/mk2 = 75,
@@ -404,5 +406,20 @@ Fence
 						/obj/item/clothing/head/helmet/f13/combat/enclave = 25,
 						/obj/item/clothing/head/helmet/f13/combat/dark = 25,
 						/obj/item/clothing/suit/armor/medium/combat/desert_ranger/combat = 125,
-
+						/obj/item/stack/sheet/cloth/ten = 0.5,
+						/obj/item/stack/sheet/leather/ten = 0.5,
+						/obj/item/stack/crafting/metalparts/five = 0.5,
+						/obj/item/stack/crafting/goodparts/five = 0.5,
+						/obj/item/stack/sheet/prewar/five = 0.5,
+						/obj/item/stack/sheet/mineral/diamond = 20,
+						/obj/item/stack/sheet/mineral/gold = 10,
+						/obj/item/stack/sheet/mineral/silver = 10,
+						/obj/item/reagent_containers/food/snacks/grown/wheat = 0.5,
+						/obj/item/reagent_containers/food/snacks/grown/rice = 0.5,
+						/obj/item/reagent_containers/food/snacks/grown/oat = 0.5,
+						/obj/item/clothing/suit/armor/heavy/salvaged_pa/t45b/ncr = 200,
+						/obj/item/clothing/head/helmet/f13/heavy/salvaged_pa/t45b/ncr = 100,
+						/obj/item/clothing/suit/armor/medium/combat/brotherhood = 125,
+						/obj/item/clothing/suit/armor/medium/combat/brotherhood/sarge = 125,
+						
 						)
