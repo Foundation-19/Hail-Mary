@@ -7184,7 +7184,8 @@
 "dCJ" = (
 /obj/machinery/door/unpowered/secure_steeldoor{
 	name = "Enclave locked steel door";
-	req_access_txt = "134"
+	req_access = "134";
+	req_one_access = "134"
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	name = "metal plating"
@@ -20463,6 +20464,18 @@
 	icon_state = "bluerustychess2"
 	},
 /area/f13/caves)
+"pRS" = (
+/obj/machinery/door/unpowered/secure_steeldoor{
+	name = "Enclave locked steel door";
+	req_one_access = "134";
+	req_access = "134";
+	req_access_txt = "134";
+	req_one_access_txt = "134"
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	name = "metal plating"
+	},
+/area/f13/den)
 "pSm" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plasteel/f13/vault_floor/floor,
@@ -27764,6 +27777,13 @@
 	},
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/building)
+"wBE" = (
+/obj/structure/table,
+/obj/machinery/cell_charger,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	name = "metal plating"
+	},
+/area/f13/den)
 "wBR" = (
 /obj/structure/decoration/rag{
 	icon_state = "skin"
@@ -29448,6 +29468,16 @@
 	},
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/bunker)
+"yhf" = (
+/obj/machinery/door/unpowered/secure_steeldoor{
+	name = "Enclave locked steel door";
+	req_one_access = "134";
+	req_access = "134"
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	name = "metal plating"
+	},
+/area/f13/den)
 "yhk" = (
 /obj/structure/curtain,
 /obj/structure/grille,
@@ -61610,7 +61640,7 @@ riC
 riC
 riC
 riC
-dCJ
+yhf
 riC
 duv
 xWV
@@ -61870,7 +61900,7 @@ dDJ
 xWV
 riC
 riC
-dCJ
+yhf
 riC
 riC
 jIh
@@ -62131,7 +62161,7 @@ xWV
 cTz
 riC
 qRw
-mce
+wBE
 xWV
 dUl
 riC
@@ -62381,7 +62411,7 @@ bPN
 vyF
 xWV
 gzS
-dCJ
+pRS
 riC
 duv
 xWV
