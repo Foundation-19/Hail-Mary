@@ -7758,7 +7758,6 @@
 "dOt" = (
 /obj/structure/bed,
 /obj/item/bedsheet/black,
-/obj/effect/landmark/start/f13/usspy,
 /mob/living/simple_animal/hostile/enclave,
 /turf/open/floor/plasteel/f13/vault_floor/dark,
 /area/f13/enclave)
@@ -8342,7 +8341,6 @@
 "eeG" = (
 /obj/structure/bed,
 /obj/item/bedsheet/hos,
-/obj/effect/landmark/start/f13/usgysgt,
 /turf/open/floor/carpet/royalblack,
 /area/f13/enclave)
 "eeM" = (
@@ -10817,7 +10815,6 @@
 	desc = "A comfortable, secure seat. It has a futuristic vouge feel.";
 	name = "prewar lounge chair"
 	},
-/obj/effect/landmark/start/f13/uslt,
 /obj/effect/decal/cleanable/dirt/dust,
 /mob/living/simple_animal/hostile/enclave/soldier,
 /turf/open/floor/plasteel/f13/vault_floor/blue,
@@ -18192,12 +18189,6 @@
 /obj/item/storage/box/donkpockets,
 /turf/open/floor/plasteel/f13/vault_floor/plating,
 /area/f13/vault)
-"jjM" = (
-/obj/effect/landmark/start/f13/usspecialist,
-/obj/effect/decal/cleanable/dirt/dust,
-/mob/living/simple_animal/hostile/enclave,
-/turf/open/floor/plasteel/f13/vault_floor/yellow,
-/area/f13/enclave)
 "jjZ" = (
 /obj/machinery/light/sign{
 	desc = "A deep hole, lit with unpowered coils, ready to receive power when activated. Just a nice glowy hole until then.";
@@ -20066,11 +20057,6 @@
 	},
 /turf/open/floor/f13/wood,
 /area/f13/bar)
-"kig" = (
-/obj/structure/chair/stool/retro/black,
-/obj/effect/landmark/start/f13/uslightduty,
-/turf/open/floor/plasteel/f13/vault_floor/misc/cafeteria,
-/area/f13/enclave)
 "kii" = (
 /obj/structure/simple_door/bunker,
 /obj/effect/decal/cleanable/blood/footprints{
@@ -20241,11 +20227,6 @@
 	icon_state = "whitegreenrustychess"
 	},
 /area/f13/building/hospital)
-"kme" = (
-/obj/effect/landmark/start/f13/ussgt,
-/mob/living/simple_animal/hostile/enclave/soldier,
-/turf/open/floor/plasteel/f13/vault_floor/floor,
-/area/f13/enclave)
 "kmf" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -25706,7 +25687,6 @@
 /obj/structure/chair/office/dark{
 	dir = 8
 	},
-/obj/effect/landmark/start/f13/usgysgt,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plasteel/f13/vault_floor/dark,
 /area/f13/enclave)
@@ -35525,7 +35505,6 @@
 /area/f13/wasteland)
 "rLk" = (
 /obj/structure/chair/stool/retro/black,
-/obj/effect/landmark/start/f13/uslightduty,
 /mob/living/simple_animal/hostile/enclave/soldier,
 /turf/open/floor/plasteel/f13/vault_floor/misc/cafeteria,
 /area/f13/enclave)
@@ -42681,7 +42660,6 @@
 	},
 /area/f13/underground/cave)
 "vnq" = (
-/obj/effect/landmark/start/f13/ussgt,
 /obj/effect/decal/cleanable/dirt/dust,
 /mob/living/simple_animal/hostile/enclave/soldier,
 /turf/open/floor/plasteel/f13/vault_floor/floor,
@@ -66354,7 +66332,7 @@ iba
 tot
 bpQ
 vrI
-kme
+fmh
 vYJ
 kUP
 nzX
@@ -69203,7 +69181,7 @@ ekc
 ekc
 bpQ
 nBp
-jjM
+mtP
 taw
 yhL
 bpQ
@@ -71257,7 +71235,7 @@ hob
 iQl
 hob
 vUx
-kig
+uIQ
 mcJ
 jcn
 itA
