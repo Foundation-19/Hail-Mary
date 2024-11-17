@@ -7182,8 +7182,8 @@
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/bunker)
 "dCJ" = (
-/obj/machinery/door/airlock/grunge{
-	req_one_access_txt = "134";
+/obj/machinery/door/unpowered/secure_steeldoor{
+	name = "Enclave locked steel door";
 	req_access_txt = "134"
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
