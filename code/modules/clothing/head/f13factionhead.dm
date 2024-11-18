@@ -596,6 +596,17 @@ obj/item/clothing/head/helmet/f13/enclave/usmcriot
 	armor = ARMOR_VALUE_MEDIUM
 	armor_tokens = list(ARMOR_MODIFIER_UP_DT_T1)
 
+/obj/item/clothing/head/helmet/f13/ncr/heavygunner
+	name = "NCR Trench Raider Helmet"
+	desc = "A heavily reinforced NCR steel-pot helmet. It comes complete with extra leather padding and armored layering."
+	icon = 'icons/fallout/clothing/hats.dmi'
+	mob_overlay_icon = 'icons/fallout/onmob/clothes/head.dmi'
+	icon_state = "ncrarmyhelmetheavy"
+	item_state = "ncrarmyhelmetheavy"
+	flags_cover = HEADCOVERSEYES|HEADCOVERSMOUTH
+	armor_tokens = list(ARMOR_MODIFIER_DOWN_BULLET_T1, ARMOR_MODIFIER_UP_MELEE_T3)
+	salvage_loot = list(/obj/item/stack/crafting/armor_plate = 8)
+
 /obj/item/clothing/head/f13/ncr/standard/conscript
 	name = "NCR conscript helmet"
 	desc = "A standard issue NCR steel helmet. Looks like you can write on it and strap a few items on the helmet band."

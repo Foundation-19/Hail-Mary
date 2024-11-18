@@ -67,6 +67,7 @@
 	var/can_be_locked = FALSE //Whether the mech can be DNA-locked or not.
 	var/stepcooldown = 3
 	var/last_trigger = 0 //Last time step sounded.
+	var/canmove = TRUE
 
 	var/bumpsmash = 0 //Whether or not the mech destroys walls by running into it.
 	//inner atmos
@@ -907,7 +908,7 @@
 			if(C.dna.unique_enzymes==dna_lock)
 				passed = TRUE
 		if (!passed)
-			to_chat(user, "<span class='warning'>Access denied. [name] is secured with a DNA lock.</span>")
+			to_chat(user, "<span class='warning'>Access denied. The [name] is secured with a DNA lock.</span>")
 			log_append_to_last("Permission denied.")
 			return
 	if(!operation_allowed(user))
