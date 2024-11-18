@@ -163,7 +163,7 @@ GLOBAL_LIST_INIT(ncr_positions, list(
 	"NCR Sergeant First Class",
 	"NCR Heavy Trooper",
 	"NCR Military Police",
-	"NCR Senior Enlisted Advisor",
+	"NCR Drill Sergeant",
 	"NCR Sergeant",
 	"NCR Corporal",
 	"NCR Combat Medic",
