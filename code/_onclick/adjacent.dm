@@ -79,7 +79,7 @@
 /obj/item/Adjacent(atom/neighbor, atom/target, atom/movable/mover, recurse = 1)
 	if(neighbor == loc)
 		return 1
-	if(isitem(loc))
+	if(isitem(loc) || istype(loc, /obj/mecha))
 		if(recurse > 0)
 			for(var/obj/item/item_loc as anything in get_locs())
 				if(item_loc.Adjacent(neighbor, target, mover, recurse - 1))
