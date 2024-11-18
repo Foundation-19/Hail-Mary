@@ -348,6 +348,7 @@
 	category = CAT_WEAPONRY
 	subcategory = CAT_MELEE
 
+/*
 /datum/crafting_recipe/melee/forged/sap
 	name = "Sappers"
 	result = /obj/item/melee/unarmed/sappers
@@ -359,6 +360,7 @@
 	tools = list(TOOL_FORGE)
 	category = CAT_WEAPONRY
 	subcategory = CAT_MELEE
+*/
 
 /datum/crafting_recipe/melee/forged/dualsapper
 	name = "Dual Sappers"
