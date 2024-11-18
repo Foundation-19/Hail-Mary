@@ -43135,8 +43135,10 @@
 	},
 /area/f13/bunker)
 "lLS" = (
-/obj/machinery/door/unpowered/secure_steeldoor{
-	req_access_txt = "134"
+/obj/machinery/door/unpowered/securedoor{
+	max_integrity = 300;
+	obj_integrity = 300;
+	req_access_txt = "273"
 	},
 /turf/open/floor/wood_fancy/wood_fancy_dark,
 /area/f13/city)
