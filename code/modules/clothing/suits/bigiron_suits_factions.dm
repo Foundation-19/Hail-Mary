@@ -152,9 +152,9 @@ Suits. 0-10 in its primary value, slowdown 0, various utility
 	item_state = "legion_veteran"
 	clothing_flags = CUSHIONED_ARMOR
 	salvage_loot = list(/obj/item/stack/crafting/armor_plate = 4) // Slightly better armor
-	armor = ARMOR_VALUE_LIGHT
+	armor = ARMOR_VALUE_MEDIUM
 	armor_tier_desc = ARMOR_CLOTHING_MEDIUM
-	slowdown = ARMOR_SLOWDOWN_LIGHT * ARMOR_SLOWDOWN_LESS_T1 * ARMOR_SLOWDOWN_GLOBAL_MULT
+	slowdown = ARMOR_SLOWDOWN_LIGHT * ARMOR_SLOWDOWN_LESS_T3 * ARMOR_SLOWDOWN_GLOBAL_MULT
 	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T3)
 
 /obj/item/clothing/suit/armor/legion/heavy
@@ -188,7 +188,7 @@ Suits. 0-10 in its primary value, slowdown 0, various utility
 	icon_state = "legion_vex"
 	item_state = "legion_vex"
 	armor_tokens = list(ARMOR_MODIFIER_UP_BULLET_T1, ARMOR_MODIFIER_UP_DT_T2)
-	slowdown = ARMOR_SLOWDOWN_LIGHT * ARMOR_SLOWDOWN_LESS_T1 * ARMOR_SLOWDOWN_GLOBAL_MULT
+	slowdown = ARMOR_SLOWDOWN_LIGHT * ARMOR_SLOWDOWN_LESS_T3 * ARMOR_SLOWDOWN_GLOBAL_MULT
 
 /obj/item/clothing/suit/armor/legion/venator // ehh ?
 	name = "legion explorer armor"
@@ -212,7 +212,7 @@ Suits. 0-10 in its primary value, slowdown 0, various utility
 	item_state = "legion_centurion"
 	clothing_flags = CUSHIONED_ARMOR
 	salvage_loot = list(/obj/item/stack/crafting/armor_plate = 10) // Rest in pieces
-	armor = ARMOR_VALUE_LIGHT
+	armor = ARMOR_VALUE_MEDIUM
 	armor_tier_desc = ARMOR_CLOTHING_MEDIUM
 	stiffness = LIGHT_STIFFNESS
 	slowdown = ARMOR_SLOWDOWN_LIGHT * ARMOR_SLOWDOWN_LESS_T3 * ARMOR_SLOWDOWN_GLOBAL_MULT
@@ -240,7 +240,7 @@ Suits. 0-10 in its primary value, slowdown 0, various utility
 	icon_state = "legion_rangercent"
 	item_state = "legion_rangercent"
 	clothing_flags = CUSHIONED_ARMOR
-	armor = ARMOR_VALUE_LIGHT
+	armor = ARMOR_VALUE_MEDIUM
 	armor_tier_desc = ARMOR_CLOTHING_LIGHT
 	stiffness = LIGHT_STIFFNESS
 	slowdown = ARMOR_SLOWDOWN_LIGHT * ARMOR_SLOWDOWN_LESS_T3 * ARMOR_SLOWDOWN_GLOBAL_MULT
