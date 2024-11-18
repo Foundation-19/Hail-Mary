@@ -258,7 +258,7 @@ Weapons		Lever shotgun, Grease gun, Repeater carbines, Revolvers, simple guns al
 	head = /obj/item/clothing/head/helmet/f13/legion/palacent
 	suit_store = /obj/item/gun/ballistic/automatic/lewis/lanoe
 	backpack_contents = list(
-		/obj/item/stack/crafting/armor_plate = 5
+		/obj/item/stack/crafting/armor_plate = 5,
 		/obj/item/ammo_box/magazine/lewis = 2,
 		/obj/item/reagent_containers/pill/bitterdrink = 2,
 		/obj/item/gun/ballistic/automatic/pistol/pistol14/lildevil = 1,
