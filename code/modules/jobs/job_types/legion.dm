@@ -718,7 +718,7 @@ Weapons		Lever shotgun, Grease gun, Repeater carbines, Revolvers, simple guns al
 /datum/outfit/loadout/expambusher
 	name = "Ambusher"
 	glasses = /obj/item/clothing/glasses/sunglasses/big
-	suit_stgore = /obj/item/gun/ballistic/automatic/smg/greasegun
+	suit_store = /obj/item/gun/ballistic/automatic/smg/greasegun
 	backpack_contents = list(
 		/obj/item/bottlecap_mine = 1,
 		/obj/item/ammo_box/magazine/greasegun = 2,
