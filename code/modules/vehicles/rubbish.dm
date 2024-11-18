@@ -94,7 +94,7 @@
 
 /obj/structure/car/rubbish3
 	name = "pre-War rubbish"
-	desc = "A rusty pre-War automobile carcass.<br>This car is damaged beyond repair."
+	desc = "A rusty pre-War automobile carcass.<br>This car might be repairable."
 	icon = 'icons/fallout/objects/structures/rubish.dmi'
 	icon_state = "car_rubish3"
 	anchored = 1

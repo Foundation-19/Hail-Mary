@@ -33,6 +33,12 @@
 					//CAT_FURNITURE,
 					//CAT_BOTTLE,
 				),
+				CAT_VEHICLES = list(
+					CAT_VEHICLEPARTS,
+					CAT_VEHICLECOREPARTS,
+					CAT_CARS,
+					CAT_VERTIBIRD,
+				),
 				CAT_PRIMAL = CAT_NONE,
 				CAT_FOOD = list(
 					CAT_WASTEFOOD,

@@ -414,18 +414,6 @@
 	icon_state = "bluerustysolid"
 	},
 /area/f13/building/boat)
-"atl" = (
-/obj/mecha/combat/phazon/vertibird/enclave/loaded,
-/obj/effect/turf_decal/delivery,
-/turf/open/floor/wood_common/wood_common_light,
-/area/f13/wasteland/city)
-"atz" = (
-/obj/mecha/combat/phazon/buggy/red/loaded,
-/turf/open/floor/plating/rust{
-	sunlight_state = 1;
-	name = "rusted Docks"
-	},
-/area/f13/Ocean)
 "auj" = (
 /turf/open/floor/wood_worn/wood_worn_light,
 /area/f13/office)
@@ -3200,6 +3188,24 @@
 	icon_state = "common_light1"
 	},
 /area/f13/wasteland/town)
+"cUZ" = (
+/obj/structure/displaycase{
+	pixel_y = 61;
+	layer = 20
+	},
+/obj/item/gun/flintlock{
+	pixel_y = 58;
+	layer = 1;
+	anchored = 1
+	},
+/obj/structure/sign/poster/official/fruit_bowl{
+	pixel_x = -32
+	},
+/obj/machinery/computer/card/town/locust{
+	dir = 4
+	},
+/turf/open/floor/wood_common/wood_common_light,
+/area/f13/office)
 "cVG" = (
 /obj/structure/chair/wood{
 	dir = 4
@@ -6412,24 +6418,6 @@
 	},
 /turf/open/floor/wood_fancy,
 /area/f13/ruins)
-"fUX" = (
-/obj/structure/displaycase{
-	pixel_y = 61;
-	layer = 20
-	},
-/obj/item/gun/flintlock{
-	pixel_y = 58;
-	layer = 1;
-	anchored = 1
-	},
-/obj/structure/sign/poster/official/fruit_bowl{
-	pixel_x = -32
-	},
-/obj/machinery/computer/card/town/locust{
-	dir = 4
-	},
-/turf/open/floor/wood_common/wood_common_light,
-/area/f13/office)
 "fVk" = (
 /obj/structure/filingcabinet,
 /obj/structure/filingcabinet{
@@ -8711,10 +8699,6 @@
 	},
 /turf/open/floor/plating/rust,
 /area/f13/outpost)
-"iaa" = (
-/obj/mecha/combat/phazon/vertibird/brotherhood/loaded,
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/brotherhood)
 "iau" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/chair/stool/bronze,
@@ -11457,13 +11441,6 @@
 	icon_state = "fancy_light-broken6"
 	},
 /area/f13/wasteland/city)
-"kHu" = (
-/obj/mecha/combat/phazon/vertibird/loaded,
-/turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
-	name = "Docks";
-	sunlight_state = 1
-	},
-/area/f13/building)
 "kIe" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/f13/vault_floor/yellow/side,
@@ -16435,6 +16412,10 @@
 /obj/machinery/mineral/wasteland_vendor/pipboy,
 /turf/open/indestructible/ground/outside/roof,
 /area/f13/wasteland/town)
+"pnC" = (
+/obj/mecha/working/normalvehicle/vertibird/brotherhood,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/brotherhood)
 "pnW" = (
 /obj/structure/cargocrate{
 	icon_state = "cargocrate3";
@@ -21243,13 +21224,6 @@
 /obj/structure/simple_door/repaired,
 /turf/open/floor/wood_mosaic,
 /area/f13/building)
-"tSN" = (
-/obj/mecha/combat/phazon/buggy/flamme/loaded,
-/turf/open/floor/plating/rust{
-	sunlight_state = 1;
-	name = "rusted Docks"
-	},
-/area/f13/Ocean)
 "tSR" = (
 /obj/item/reagent_containers/food/snacks/f13/deathclawegg,
 /obj/effect/decal/cleanable/blood/gibs/human/down,
@@ -24580,6 +24554,11 @@
 	icon_state = "housewood2"
 	},
 /area/f13/brotherhood)
+"wYI" = (
+/obj/effect/turf_decal/delivery,
+/obj/mecha/working/normalvehicle/vertibird/enclave/loaded,
+/turf/open/floor/wood_common/wood_common_light,
+/area/f13/wasteland/city)
 "wYO" = (
 /obj/structure/table,
 /obj/item/clothing/head/wizard/fake,
@@ -25566,6 +25545,13 @@
 	pixel_y = 33
 	},
 /turf/open/floor/wood_mosaic,
+/area/f13/building)
+"xUS" = (
+/obj/mecha/working/normalvehicle/vertibird/loaded,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
+	name = "Docks";
+	sunlight_state = 1
+	},
 /area/f13/building)
 "xVD" = (
 /obj/machinery/light/small{
@@ -51180,7 +51166,7 @@ gqr
 gqr
 ssg
 bqI
-iaa
+pnC
 ssg
 ssg
 ssg
@@ -58094,7 +58080,7 @@ tTD
 tTD
 tTD
 tTD
-tSN
+tTD
 him
 him
 ijz
@@ -60145,7 +60131,7 @@ tTD
 qac
 cjM
 tTD
-atz
+tTD
 tTD
 eqV
 dQx
@@ -73038,7 +73024,7 @@ mMI
 iJF
 qKK
 mXL
-fUX
+cUZ
 idm
 lpg
 rcs
@@ -74539,7 +74525,7 @@ hhc
 pey
 pey
 pey
-kHu
+xUS
 pey
 pey
 xHm
@@ -90293,7 +90279,7 @@ eiy
 dWw
 ovy
 qhE
-atl
+wYI
 sNI
 dWw
 hDm
