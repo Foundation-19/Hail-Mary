@@ -65,7 +65,7 @@
 	item_state = "powerfist_dual"
 	force = 30 //EXPERIMENTAL FOR DUAL MELEES
 	throw_distance = 2
-	attack_speed = CLICK_CD_RANGE
+	attack_speed = CLICK_CD_MELEE * 0.6
 	w_class = WEIGHT_CLASS_BULKY
 
 // Goliath				Throws targets far. Max damage 50.
