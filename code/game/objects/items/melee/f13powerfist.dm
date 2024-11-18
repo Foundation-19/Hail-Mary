@@ -68,6 +68,15 @@
 	attack_speed = CLICK_CD_MELEE * 0.6
 	w_class = WEIGHT_CLASS_BULKY
 
+/obj/item/melee/powerfist/f13/dual/equipped(mob/user, slot)
+	. = ..()
+	if(ishuman(user) && user.mind && slot == SLOT_HANDS)
+		ADD_TRAIT(user, TRAIT_CLUMSY, CLOTHING_TRAIT)
+
+/obj/item/melee/powerfist/f13/dual/dropped(mob/user)
+	. = ..()
+	REMOVE_TRAIT(user, TRAIT_CLUMSY, CLOTHING_TRAIT)
+
 // Goliath				Throws targets far. Max damage 50.
 /obj/item/melee/powerfist/f13/goliath
 	name = "Goliath"
@@ -92,6 +101,15 @@
 	force = 35 //EXPERIMENTAL FOR DUAL MELEES
 	throw_distance = 4
 	w_class = WEIGHT_CLASS_BULKY
+
+/obj/item/melee/powerfist/f13/dual/goliath/equipped(mob/user, slot)
+	. = ..()
+	if(ishuman(user) && user.mind && slot == SLOT_HANDS)
+		ADD_TRAIT(user, TRAIT_CLUMSY, CLOTHING_TRAIT)
+
+/obj/item/melee/powerfist/f13/dual/goliath/dropped(mob/user)
+	. = ..()
+	REMOVE_TRAIT(user, TRAIT_CLUMSY, CLOTHING_TRAIT)
 
 // Ballistic Fist			Keywords: Damage max 42, Shotgun
 /obj/item/gun/ballistic/revolver/ballisticfist
@@ -130,6 +148,15 @@
 	item_flags = NEEDS_PERMIT //doesn't slow you down
 	fire_delay = 0
 	w_class = WEIGHT_CLASS_BULKY
+
+/obj/item/gun/ballistic/revolver/ballisticfist/dual/equipped(mob/user, slot)
+	. = ..()
+	if(ishuman(user) && user.mind && slot == SLOT_HANDS)
+		ADD_TRAIT(user, TRAIT_CLUMSY, CLOTHING_TRAIT)
+
+/obj/item/gun/ballistic/revolver/ballisticfist/dual/dropped(mob/user)
+	. = ..()
+	REMOVE_TRAIT(user, TRAIT_CLUMSY, CLOTHING_TRAIT)
 
 
 // Mole Miner
