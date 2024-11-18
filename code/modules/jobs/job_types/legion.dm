@@ -309,9 +309,9 @@ Weapons		Lever shotgun, Grease gun, Repeater carbines, Revolvers, simple guns al
 
 	loadout_options = list(
 		/datum/outfit/loadout/decvetbull,	// Supersledge, Carl Gustaf, Smokebomb
-		/datum/outfit/loadout/decvetwolf,	// Thermic lance, Carl Gustaf, Extra Bitter
+		/datum/outfit/loadout/decvetwolf,	// Thermic lance, 45 LC Revolver, Extra Bitter
 		/datum/outfit/loadout/decvetsnake, // Brush Gun + Scope, Ripper, Extra Bitters
-		/datum/outfit/loadout/decvetbrave, // Lever-action Shotgun, 44 revolver, ballistic fist
+		/datum/outfit/loadout/decvetbrave, // Riot shotgun, ballistic fist
 		)
 
 	min_required_special = list(
@@ -365,8 +365,8 @@ Weapons		Lever shotgun, Grease gun, Repeater carbines, Revolvers, simple guns al
 	suit_store = /obj/item/twohanded/thermic_lance
 	backpack_contents = list(
 		/obj/item/melee/onehanded/machete/spatha = 1,
-		/obj/item/gun/ballistic/automatic/smg/cg45 = 1,
-		/obj/item/ammo_box/magazine/cg45 = 2,
+		/obj/item/gun/ballistic/revolver/revolver45/gunslinger = 1,
+		/obj/item/ammo_box/a45lcbox = 1,
 		/obj/item/reagent_containers/pill/bitterdrink = 2,
 		)
 
@@ -389,7 +389,6 @@ Weapons		Lever shotgun, Grease gun, Repeater carbines, Revolvers, simple guns al
 		/obj/item/gun/ballistic/revolver/ballisticfist = 1,
 		/obj/item/ammo_box/magazine/d12g = 2,
 		/obj/item/ammo_box/shotgun/magnum = 1,
-		/obj/item/gun/ballistic/revolver/m29 = 1,
 		)
 
 
@@ -821,7 +820,7 @@ Weapons		Lever shotgun, Grease gun, Repeater carbines, Revolvers, simple guns al
 
 /datum/outfit/loadout/vetberserker
 	name = "Berserker"
-	suit_store = /obj/item/ammo_box/magazine/greasegun
+	suit_store = /obj/item/gun/ballistic/automatic/smg/greasegun
 	backpack_contents = list(
 		/obj/item/ammo_box/magazine/greasegun = 3,
 		/obj/item/melee/onehanded/machete/gladius = 1,
