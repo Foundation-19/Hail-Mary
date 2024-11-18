@@ -1657,9 +1657,9 @@
 "bxo" = (
 /obj/machinery/light/small,
 /obj/structure/rack/shelf_metal,
-/obj/item/gun/ballistic/automatic/delisle/commando,
-/obj/item/gun/ballistic/automatic/delisle/commando,
-/obj/item/gun/ballistic/automatic/delisle/commando,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/energy/hobo,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/energy/hobo,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/energy/hobo,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	name = "metal plating"
 	},
@@ -1778,7 +1778,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	name = "metal plating"
 	},
-/area/f13/den)
+/area/f13/enclave)
 "bBm" = (
 /obj/structure/simple_door/bunker,
 /turf/open/floor/plating/tunnel,
@@ -7181,16 +7181,6 @@
 /obj/structure/barricade/sandbags,
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/bunker)
-"dCJ" = (
-/obj/machinery/door/unpowered/secure_steeldoor{
-	name = "Enclave locked steel door";
-	req_access = "134";
-	req_one_access = "134"
-	},
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
-	name = "metal plating"
-	},
-/area/f13/den)
 "dCS" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/barricade/bars,
@@ -7213,9 +7203,9 @@
 /area/f13/tunnel)
 "dDJ" = (
 /obj/structure/rack/shelf_metal,
-/obj/item/gun/energy/laser/pistol/worn,
-/obj/item/gun/energy/laser/pistol/worn,
-/obj/item/gun/energy/laser/pistol/worn,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/hobo,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/hobo,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/hobo,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	name = "metal plating"
 	},
@@ -9478,23 +9468,13 @@
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/radiation)
 "fEL" = (
-/obj/structure/rack/shelf_metal,
-/obj/effect/spawner/lootdrop/mre,
-/obj/effect/spawner/lootdrop/mre,
-/obj/effect/spawner/lootdrop/mre,
-/obj/effect/spawner/lootdrop/mre,
+/obj/machinery/smartfridge/bottlerack/lootshelf/cans,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	name = "metal plating"
 	},
 /area/f13/den)
 "fET" = (
-/obj/structure/rack/shelf_metal,
-/obj/item/flashlight{
-	icon_state = "seclite"
-	},
-/obj/item/flashlight{
-	icon_state = "seclite"
-	},
+/obj/machinery/smartfridge/bottlerack/lootshelf/construction,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	name = "metal plating"
 	},
@@ -10072,9 +10052,7 @@
 /turf/open/floor/plasteel/freezer,
 /area/f13/bunker)
 "glg" = (
-/obj/structure/bed/old,
-/obj/item/bedsheet/enclave,
-/obj/effect/landmark/start/f13/uslt,
+/obj/machinery/smartfridge/bottlerack/lootshelf,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	name = "metal plating"
 	},
@@ -10409,8 +10387,7 @@
 /area/f13/den)
 "gzT" = (
 /obj/structure/bed/old,
-/obj/item/bedsheet/enclave,
-/obj/effect/landmark/start/f13/usspecialist,
+/obj/item/bedsheet/blanket,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	name = "metal plating"
 	},
@@ -10491,9 +10468,9 @@
 	dir = 1
 	},
 /obj/structure/rack/shelf_metal,
-/obj/item/radio/headset/headset_enclave,
-/obj/item/radio/headset/headset_enclave,
-/obj/item/radio/headset/headset_enclave,
+/obj/item/reagent_containers/food/snacks/f13/mre,
+/obj/item/reagent_containers/food/snacks/f13/mre,
+/obj/item/reagent_containers/food/snacks/f13/mre,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	name = "metal plating"
 	},
@@ -11029,12 +11006,12 @@
 /area/f13/den)
 "hbR" = (
 /obj/structure/rack/shelf_metal,
-/obj/item/stock_parts/cell/ammo/ec,
-/obj/item/stock_parts/cell/ammo/ec,
-/obj/item/stock_parts/cell/ammo/ec,
-/obj/item/stock_parts/cell/ammo/ec,
-/obj/item/stock_parts/cell/ammo/ec,
-/obj/item/stock_parts/cell/ammo/ec,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/ammo/tier1,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/ammo/tier1,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/ammo/tier1,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/ammo/tier1,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/ammo/tier1,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/ammo/tier1,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	name = "metal plating"
 	},
@@ -13086,13 +13063,11 @@
 	},
 /area/f13/bunker)
 "iXS" = (
-/obj/structure/bed/old,
-/obj/item/bedsheet/enclave,
-/obj/effect/landmark/start/f13/usgysgt,
+/obj/effect/landmark/start/f13/uslt,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	name = "metal plating"
 	},
-/area/f13/den)
+/area/f13/enclave)
 "iXV" = (
 /mob/living/simple_animal/hostile/radroach,
 /obj/effect/decal/cleanable/dirt,
@@ -13521,13 +13496,11 @@
 	},
 /area/f13/tunnel)
 "juq" = (
-/obj/structure/bed/old,
-/obj/item/bedsheet/enclave,
-/obj/effect/landmark/start/f13/usscientist,
+/obj/effect/landmark/start/f13/usai,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	name = "metal plating"
 	},
-/area/f13/den)
+/area/f13/enclave)
 "jut" = (
 /obj/structure/simple_door/house,
 /obj/structure/barricade/wooden/planks,
@@ -13561,11 +13534,11 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/cmo,
 /area/f13/building/museum)
 "jvS" = (
-/obj/effect/landmark/start/f13/usai,
+/obj/effect/landmark/start/f13/usgysgt,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	name = "metal plating"
 	},
-/area/f13/den)
+/area/f13/enclave)
 "jwj" = (
 /obj/effect/decal/cleanable/blood/gibs,
 /turf/open/floor/plasteel/f13/vault_floor/red,
@@ -13661,11 +13634,11 @@
 	},
 /area/f13/radiation)
 "jBB" = (
-/obj/effect/landmark/start/f13/usspy,
+/obj/effect/landmark/start/f13/uslightduty,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	name = "metal plating"
 	},
-/area/f13/den)
+/area/f13/enclave)
 "jBD" = (
 /obj/item/bodypart/l_arm,
 /obj/effect/decal/cleanable/blood/old{
@@ -15197,8 +15170,7 @@
 	},
 /area/f13/caves)
 "kXe" = (
-/obj/structure/table,
-/obj/item/clothing/head/helmet/f13/enclave/officer,
+/obj/structure/wreck/trash/machinepiletwo,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	name = "metal plating"
 	},
@@ -15328,15 +15300,8 @@
 /area/f13/bunker)
 "lfa" = (
 /obj/structure/rack/shelf_metal,
-/obj/item/ammo_box/magazine/m45/socom,
-/obj/item/ammo_box/magazine/m45/socom,
-/obj/item/ammo_box/magazine/m45/socom,
-/obj/item/ammo_box/magazine/m45/socom,
-/obj/item/ammo_box/magazine/m45/socom,
-/obj/item/ammo_box/magazine/m45/socom,
-/obj/item/ammo_box/magazine/m45/socom,
-/obj/item/ammo_box/magazine/m45/socom,
-/obj/item/ammo_box/magazine/m45/socom,
+/obj/item/flashlight/lantern,
+/obj/item/flashlight/lantern,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	name = "metal plating"
 	},
@@ -16591,7 +16556,7 @@
 /turf/open/indestructible/ground/inside/subway,
 /area/f13/radiation)
 "mky" = (
-/obj/machinery/radioterminal/eclave,
+/obj/structure/closet/crate/bin/trash_fallout,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	name = "metal plating"
 	},
@@ -18167,9 +18132,9 @@
 /area/f13/radiation)
 "nMi" = (
 /obj/structure/rack/shelf_metal,
-/obj/item/radio/headset/headset_enclave,
-/obj/item/radio/headset/headset_enclave,
-/obj/item/radio/headset/headset_enclave,
+/obj/effect/spawner/lootdrop/f13/medical,
+/obj/effect/spawner/lootdrop/f13/medical,
+/obj/effect/spawner/lootdrop/f13/medical,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	name = "metal plating"
 	},
@@ -20215,9 +20180,7 @@
 /turf/open/indestructible/ground/inside/subway,
 /area/f13/tunnel)
 "pGV" = (
-/obj/effect/landmark/start/f13/uslightduty,
 /obj/effect/landmark/start/f13/usspy,
-/obj/effect/landmark/start/f13/usspecialist,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	name = "metal plating"
 	},
@@ -20465,12 +20428,10 @@
 	},
 /area/f13/caves)
 "pRS" = (
-/obj/machinery/door/unpowered/secure_steeldoor{
-	name = "Enclave locked steel door";
-	req_one_access = "134";
-	req_access = "134";
-	req_access_txt = "134";
-	req_one_access_txt = "134"
+/obj/machinery/door/unpowered/securedoor{
+	max_integrity = 300;
+	obj_integrity = 300;
+	req_access_txt = "273"
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	name = "metal plating"
@@ -24718,12 +24679,8 @@
 /turf/open/indestructible/ground/inside/subway,
 /area/f13/radiation)
 "tPe" = (
-/obj/structure/bed/old,
-/obj/item/bedsheet/enclave,
-/obj/effect/landmark/start/f13/ussgt,
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
-	name = "metal plating"
-	},
+/obj/structure/sign/poster/official/the_owl,
+/turf/closed/wall/r_wall/rust,
 /area/f13/den)
 "tPy" = (
 /obj/structure/barricade/wooden/strong,
@@ -25685,18 +25642,8 @@
 /area/f13/tunnel)
 "uIC" = (
 /obj/structure/rack/shelf_metal,
-/obj/item/clothing/suit/armor/medium/vest/enclave,
-/obj/item/clothing/suit/armor/medium/vest/enclave,
-/obj/item/clothing/suit/armor/medium/vest/enclave,
-/obj/item/clothing/suit/armor/medium/vest/enclave,
-/obj/item/clothing/head/beret/enclave,
-/obj/item/clothing/head/beret/enclave,
-/obj/item/clothing/head/beret/enclave,
-/obj/item/clothing/head/beret/enclave,
-/obj/item/clothing/mask/gas/enclave,
-/obj/item/clothing/mask/gas/enclave,
-/obj/item/clothing/mask/gas/enclave,
-/obj/item/clothing/mask/gas/enclave,
+/obj/effect/spawner/lootdrop/f13/armor/tier1,
+/obj/effect/spawner/lootdrop/f13/armor/tier1,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	name = "metal plating"
 	},
@@ -25788,11 +25735,11 @@
 	},
 /area/f13/building/massfusion)
 "uMN" = (
-/obj/item/flag/enclave,
+/obj/effect/landmark/start/f13/usspecialist,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	name = "metal plating"
 	},
-/area/f13/den)
+/area/f13/enclave)
 "uMO" = (
 /obj/effect/landmark/start/f13/ncrtrooper,
 /obj/effect/landmark/start/f13/ncrtrooper,
@@ -26400,7 +26347,9 @@
 /area/f13/caves)
 "vpg" = (
 /obj/structure/rack/shelf_metal,
-/obj/item/storage/box/medicine/stimpaks/stimpaks5,
+/obj/item/reagent_containers/food/snacks/f13/mre,
+/obj/item/reagent_containers/food/snacks/f13/mre,
+/obj/item/reagent_containers/food/snacks/f13/mre,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	name = "metal plating"
 	},
@@ -26966,12 +26915,8 @@
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/caves)
 "vPx" = (
-/obj/structure/bed/old,
-/obj/item/bedsheet/enclave,
-/obj/effect/landmark/start/f13/uslightduty,
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
-	name = "metal plating"
-	},
+/obj/structure/sign/poster/prewar/protectron,
+/turf/closed/wall/r_wall/rust,
 /area/f13/den)
 "vQn" = (
 /mob/living/simple_animal/hostile/giantantqueen,
@@ -27908,19 +27853,11 @@
 	},
 /area/f13/building/massfusion)
 "wGY" = (
-/obj/structure/table,
-/obj/item/card/id/dogtag/enclave/trooper,
-/obj/item/card/id/dogtag/enclave/trooper,
-/obj/item/card/id/dogtag/enclave/trooper,
-/obj/item/card/id/dogtag/enclave/trooper,
-/obj/item/card/id/dogtag/enclave/trooper,
-/obj/item/card/id/dogtag/enclave/trooper,
-/obj/item/card/id/dogtag/enclave/trooper,
-/obj/item/card/id/dogtag/enclave/trooper,
+/obj/effect/landmark/start/f13/ussgt,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	name = "metal plating"
 	},
-/area/f13/den)
+/area/f13/enclave)
 "wHb" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/lootdrop/f13/junkspawners,
@@ -29469,15 +29406,11 @@
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/bunker)
 "yhf" = (
-/obj/machinery/door/unpowered/secure_steeldoor{
-	name = "Enclave locked steel door";
-	req_one_access = "134";
-	req_access = "134"
-	},
+/obj/effect/landmark/start/f13/usscientist,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	name = "metal plating"
 	},
-/area/f13/den)
+/area/f13/enclave)
 "yhk" = (
 /obj/structure/curtain,
 /obj/structure/grille,
@@ -55572,7 +55505,7 @@ nbF
 mIw
 gPm
 jRc
-jRc
+juq
 jRc
 jRc
 jRc
@@ -55829,8 +55762,8 @@ jRc
 jRc
 jRc
 jRc
-jRc
-jRc
+bBl
+wGY
 jRc
 jRc
 xTx
@@ -56086,9 +56019,9 @@ nbF
 mIw
 gPm
 jRc
-jRc
-jRc
-jRc
+jvS
+uMN
+yhf
 jRc
 xTx
 kQP
@@ -56343,8 +56276,8 @@ jRc
 jRc
 jRc
 jRc
-jRc
-jRc
+jBB
+pGV
 jRc
 jRc
 ajU
@@ -56600,7 +56533,7 @@ nbF
 mIw
 gPm
 jRc
-jRc
+iXS
 jRc
 jRc
 sCw
@@ -57114,10 +57047,10 @@ jRc
 jRc
 jRc
 jRc
-pGV
-pGV
-pGV
-pGV
+jRc
+jRc
+jRc
+jRc
 ajU
 bkQ
 ueN
@@ -61390,10 +61323,10 @@ xWV
 riC
 fEL
 fET
-odO
+glg
 xWV
-iXS
-bBl
+gzT
+riC
 xWV
 bPN
 kKt
@@ -61640,7 +61573,7 @@ riC
 riC
 riC
 riC
-yhf
+pRS
 riC
 duv
 xWV
@@ -61649,8 +61582,8 @@ riC
 riC
 duv
 xWV
-vPx
-jvS
+gzT
+riC
 xWV
 bPN
 kKt
@@ -61900,13 +61833,13 @@ dDJ
 xWV
 riC
 riC
-yhf
+pRS
 riC
 riC
 jIh
 mce
 ggp
-glg
+gzT
 riC
 xWV
 bPN
@@ -62419,7 +62352,7 @@ elV
 riC
 riC
 riC
-dCJ
+pRS
 riC
 riC
 xWV
@@ -62934,7 +62867,7 @@ riC
 riC
 hil
 xWV
-juq
+gzT
 riC
 xWV
 bPN
@@ -63191,7 +63124,7 @@ riC
 riC
 iLX
 xWV
-tPe
+gzT
 riC
 xWV
 bPN
@@ -63438,10 +63371,10 @@ uJr
 sdV
 bPN
 xWV
-uMN
 kXe
-wGY
-mce
+kXe
+jIh
+jIh
 xWV
 fCT
 riC
@@ -63449,7 +63382,7 @@ riC
 vdd
 xWV
 gzT
-jBB
+riC
 xWV
 bPN
 sdV
@@ -63696,13 +63629,13 @@ sdV
 bPN
 xWV
 xWV
+tPe
 xWV
 xWV
 xWV
 xWV
 xWV
-xWV
-xWV
+vPx
 xWV
 xWV
 xWV
