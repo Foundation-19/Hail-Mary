@@ -34,7 +34,7 @@
 	desc = "Equipment for medical exosuits. A mounted sleeper that stabilizes patients and can inject reagents in the exosuit's reserves."
 	icon = 'icons/obj/machines/sleeper.dmi'
 	icon_state = "sleeper"
-	energy_drain = 20
+	energy_drain = 0.5
 	range = MELEE
 	equip_cooldown = 20
 	var/mob/living/carbon/patient = null
