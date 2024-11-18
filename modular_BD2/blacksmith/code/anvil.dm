@@ -29,6 +29,8 @@
 #define RECIPE_KATANA "fffff" //fold fold fold fold fold
 #define RECIPE_WAKI "fffs" //fold fold fold shrink
 
+#define RECIPE_ZWEIHANDER "fffdu" //fold fold fold draw upset
+
 #define RECIPE_MACE "upu"  //upset punch upset
 #define RECIPE_SCRAP "udpp" //upset draw shrink punch
 #define RECIPE_AXE "udsp" //upset draw shrink punch
@@ -36,6 +38,7 @@
 
 #define RECIPE_SPEAR "dddf" //draw draw draw fold
 #define RECIPE_TRIDENT "ddbf" //draw draw bend fold
+#define RECIPE_PIKE "dduf" //draw draw upset fold
 
 #define RECIPE_JAVELIN "sdu" //shrink draw upset
 #define RECIPE_THROWING "sdd" //shrink draw draw
@@ -71,10 +74,12 @@ GLOBAL_LIST_INIT(anvil_recipes, list(
 	RECIPE_SCRAPSAW  = /obj/item/smithing/scrapsaw,
 	RECIPE_MACE = /obj/item/smithing/macehead,
 	RECIPE_SCRAP = /obj/item/smithing/scrapblade,
+	RECIPE_ZWEIHANDER = /obj/item/smithing/zweiblade,
 	RECIPE_AXE = /obj/item/smithing/axehead,
 	RECIPE_CRUSHER = /obj/item/smithing/crusherhead,
 	RECIPE_SPEAR = /obj/item/smithing/spearhead,
 	RECIPE_TRIDENT = /obj/item/smithing/tridenthead,
+	RECIPE_PIKE = /obj/item/smithing/pikehead,
 	RECIPE_JAVELIN = /obj/item/smithing/javelinhead,
 	RECIPE_THROWING = /obj/item/smithing/throwingknife,
 	RECIPE_BOLA = /obj/item/smithing/bola,
