@@ -795,6 +795,15 @@ obj/item/melee/onehanded/knife/switchblade
 		return
 	M.apply_damage(10, STAMINA, "chest", M.run_armor_check("chest", "melee"))
 
+/obj/item/melee/unarmed/sappers/dual/equipped(mob/user, slot)
+	. = ..()
+	if(ishuman(user) && user.mind && slot == SLOT_HANDS)
+		ADD_TRAIT(user, TRAIT_CLUMSY, CLOTHING_TRAIT)
+
+/obj/item/melee/unarmed/sappers/dual/dropped(mob/user)
+	. = ..()
+	REMOVE_TRAIT(user, TRAIT_CLUMSY, CLOTHING_TRAIT)
+
 // Tiger claws		Keywords: Damage 33, Pointyű
 /obj/item/melee/unarmed/tigerclaw
 	name = "Tiger Claws"
@@ -822,6 +831,15 @@ obj/item/melee/onehanded/knife/switchblade
 	force = 35
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_speed = CLICK_CD_MELEE * 0.6
+
+/obj/item/melee/unarmed/tigerclaw/dual/equipped(mob/user, slot)
+	. = ..()
+	if(ishuman(user) && user.mind && slot == SLOT_HANDS)
+		ADD_TRAIT(user, TRAIT_CLUMSY, CLOTHING_TRAIT)
+
+/obj/item/melee/unarmed/tigerclaw/dual/dropped(mob/user)
+	. = ..()
+	REMOVE_TRAIT(user, TRAIT_CLUMSY, CLOTHING_TRAIT)
 
 // Lacerator		Keywords: Damage 29, Edged, Wound bonus
 /obj/item/melee/unarmed/lacerator
@@ -855,6 +873,15 @@ obj/item/melee/onehanded/knife/switchblade
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_speed = CLICK_CD_MELEE * 0.6
 
+/obj/item/melee/unarmed/lacerator/dual/equipped(mob/user, slot)
+	. = ..()
+	if(ishuman(user) && user.mind && slot == SLOT_HANDS)
+		ADD_TRAIT(user, TRAIT_CLUMSY, CLOTHING_TRAIT)
+
+/obj/item/melee/unarmed/lacerator/dual/dropped(mob/user)
+	. = ..()
+	REMOVE_TRAIT(user, TRAIT_CLUMSY, CLOTHING_TRAIT)
+
 // Mace Glove		Keywords: amage 10
 /obj/item/melee/unarmed/maceglove
 	name = "Mace Glove"
@@ -878,6 +905,15 @@ obj/item/melee/onehanded/knife/switchblade
 	force = 12
 	sharpness = SHARP_NONE
 	attack_speed = CLICK_CD_MELEE * 0.6
+
+/obj/item/melee/unarmed/maceglove/dual/equipped(mob/user, slot)
+	. = ..()
+	if(ishuman(user) && user.mind && slot == SLOT_HANDS)
+		ADD_TRAIT(user, TRAIT_CLUMSY, CLOTHING_TRAIT)
+
+/obj/item/melee/unarmed/maceglove/dual/dropped(mob/user)
+	. = ..()
+	REMOVE_TRAIT(user, TRAIT_CLUMSY, CLOTHING_TRAIT)
 
 // Punch Dagger		Keywords: Damage 24, Pointy
 /obj/item/melee/unarmed/punchdagger
@@ -930,6 +966,15 @@ obj/item/melee/unarmed/punchdagger/cyborg
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_speed = CLICK_CD_MELEE * 0.6
 
+/obj/item/melee/unarmed/deathclawgauntlet/dual/equipped(mob/user, slot)
+	. = ..()
+	if(ishuman(user) && user.mind && slot == SLOT_HANDS)
+		ADD_TRAIT(user, TRAIT_CLUMSY, CLOTHING_TRAIT)
+
+/obj/item/melee/unarmed/deathclawgauntlet/dual/dropped(mob/user)
+	. = ..()
+	REMOVE_TRAIT(user, TRAIT_CLUMSY, CLOTHING_TRAIT)
+
 //Yao Guai Gauntlet	Keywords: Damage 23, Fast, "Saw Bleed" Effect
 /obj/item/melee/unarmed/yaoguaigauntlet
 	name = "Yao Guai Gauntlet"
@@ -950,7 +995,7 @@ obj/item/melee/unarmed/punchdagger/cyborg
 		return
 	target.apply_status_effect(/datum/status_effect/stacking/saw_bleed/yaoguaigauntlet)
 
-//Yao Guai Gauntlet	Keywords: Damage 23, Really Fast, "Saw Bleed" Effect
+//Dual Yao Guai Gauntlet	Keywords: Damage 23, Really Fast, "Saw Bleed" Effect
 /obj/item/melee/unarmed/yaoguaigauntlet/dual
 	name = "Dual Yao Guai Gauntlets"
 	desc = "The severed hands of a yao guai, the hide cured, the muscles and bone removed, and given a harness to turn it into a deadly gauntlet. A weapon worthy of the Sulfurs."
@@ -966,6 +1011,15 @@ obj/item/melee/unarmed/punchdagger/cyborg
 	attack_verb = list("slashed", "sliced", "torn", "ripped", "diced", "cut")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_speed = CLICK_CD_MELEE * 0.45 //6
+
+/obj/item/melee/unarmed/yaoguaigauntlet/dual/equipped(mob/user, slot)
+	. = ..()
+	if(ishuman(user) && user.mind && slot == SLOT_HANDS)
+		ADD_TRAIT(user, TRAIT_CLUMSY, CLOTHING_TRAIT)
+
+/obj/item/melee/unarmed/yaoguaigauntlet/dual/dropped(mob/user)
+	. = ..()
+	REMOVE_TRAIT(user, TRAIT_CLUMSY, CLOTHING_TRAIT)
 
 
 ///////////
