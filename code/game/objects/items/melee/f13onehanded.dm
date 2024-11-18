@@ -774,7 +774,7 @@ obj/item/melee/onehanded/knife/switchblade
 	. = ..()
 	if(!istype(M))
 		return
-	M.apply_damage(10, STAMINA, "chest", M.run_armor_check("chest", "melee"))
+	M.apply_damage(7, STAMINA, "chest", M.run_armor_check("chest", "melee"))
 
 // Dual Sappers			Keywords: Damage 27, fast attack, +3 stam damage
 /obj/item/melee/unarmed/sappers/dual
@@ -787,13 +787,13 @@ obj/item/melee/onehanded/knife/switchblade
 	item_state = "sapper_dual"
 	w_class = WEIGHT_CLASS_BULKY
 	force = 27
-	attack_speed = CLICK_CD_RANGE
+	attack_speed = CLICK_CD_MELEE * 0.6
 
 /obj/item/melee/unarmed/sappers/dual/attack(mob/living/M, mob/living/user)
 	. = ..()
 	if(!istype(M))
 		return
-	M.apply_damage(13, STAMINA, "chest", M.run_armor_check("chest", "melee"))
+	M.apply_damage(10, STAMINA, "chest", M.run_armor_check("chest", "melee"))
 
 // Tiger claws		Keywords: Damage 33, Pointyű
 /obj/item/melee/unarmed/tigerclaw
@@ -819,9 +819,9 @@ obj/item/melee/onehanded/knife/switchblade
 	w_class = WEIGHT_CLASS_BULKY
 	attack_verb = list("slashed", "sliced", "torn", "ripped", "diced", "cut")
 	sharpness = SHARP_POINTY
-	force = 33
+	force = 35
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	attack_speed = CLICK_CD_RANGE
+	attack_speed = CLICK_CD_MELEE * 0.6
 
 // Lacerator		Keywords: Damage 29, Edged, Wound bonus
 /obj/item/melee/unarmed/lacerator
@@ -853,7 +853,7 @@ obj/item/melee/onehanded/knife/switchblade
 	sharpness = SHARP_EDGED
 	attack_verb = list("slashed", "sliced", "torn", "ripped", "diced", "cut")
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	attack_speed = CLICK_CD_RANGE
+	attack_speed = CLICK_CD_MELEE * 0.6
 
 // Mace Glove		Keywords: amage 10
 /obj/item/melee/unarmed/maceglove
@@ -862,7 +862,7 @@ obj/item/melee/onehanded/knife/switchblade
 	icon_state = "mace_glove"
 	item_state = "mace_glove"
 	w_class = WEIGHT_CLASS_BULKY
-	force = 10
+	force = 9
 	sharpness = SHARP_NONE
 
 // Dual Mace Glove		Keywords: Damage 15, Fast
@@ -875,9 +875,9 @@ obj/item/melee/onehanded/knife/switchblade
 	icon_state = "mace_glove_dual"
 	item_state = "mace_glove_dual"
 	w_class = WEIGHT_CLASS_BULKY
-	force = 15
+	force = 12
 	sharpness = SHARP_NONE
-	attack_speed = CLICK_CD_RANGE
+	attack_speed = CLICK_CD_MELEE * 0.6
 
 // Punch Dagger		Keywords: Damage 24, Pointy
 /obj/item/melee/unarmed/punchdagger
@@ -928,7 +928,7 @@ obj/item/melee/unarmed/punchdagger/cyborg
 	sharpness = SHARP_EDGED
 	attack_verb = list("slashed", "sliced", "torn", "ripped", "diced", "cut")
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	attack_speed = CLICK_CD_RANGE
+	attack_speed = CLICK_CD_MELEE * 0.6
 
 //Yao Guai Gauntlet	Keywords: Damage 23, Fast, "Saw Bleed" Effect
 /obj/item/melee/unarmed/yaoguaigauntlet
@@ -965,7 +965,7 @@ obj/item/melee/unarmed/punchdagger/cyborg
 	sharpness = SHARP_EDGED
 	attack_verb = list("slashed", "sliced", "torn", "ripped", "diced", "cut")
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	attack_speed = CLICK_CD_RANGE * 0.75 //6
+	attack_speed = CLICK_CD_MELEE * 0.45 //6
 
 
 ///////////
