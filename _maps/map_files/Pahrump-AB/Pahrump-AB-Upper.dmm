@@ -1302,6 +1302,10 @@
 	},
 /turf/open/water,
 /area/f13/brotherhood)
+"bLG" = (
+/obj/mecha/working/normalvehicle/vertibird/balloon/loaded,
+/turf/open/floor/wood_common,
+/area/f13/wasteland)
 "bNC" = (
 /obj/structure/table/reinforced,
 /obj/machinery/computer/terminal{
@@ -1667,10 +1671,6 @@
 /obj/effect/decal/cleanable/blood/drip,
 /turf/open/floor/f13/wood,
 /area/f13/city)
-"cqG" = (
-/obj/mecha/combat/phazon/vertibird/ncr/loaded,
-/turf/open/floor/f13,
-/area/f13/ncr)
 "cqH" = (
 /obj/structure/table/wood,
 /obj/item/folder/red{
@@ -3055,10 +3055,6 @@
 	dir = 4
 	},
 /turf/open/floor/plasteel/f13/vault_floor/white,
-/area/f13/wasteland)
-"ewP" = (
-/obj/mecha/combat/phazon/vertibird/balloon/loaded,
-/turf/open/floor/wood_common,
 /area/f13/wasteland)
 "ext" = (
 /turf/open/floor/plasteel/f13/vault_floor/blue/side{
@@ -8033,12 +8029,6 @@
 /obj/machinery/light/small,
 /turf/open/floor/carpet/royalblack,
 /area/f13/city)
-"mea" = (
-/obj/structure/lattice/catwalk,
-/obj/machinery/light/small,
-/obj/item/kirbyplants/random,
-/turf/open/transparent/openspace,
-/area/f13/wasteland)
 "meB" = (
 /obj/structure/flora/junglebush,
 /turf/open/indestructible/ground/outside/dirt,
@@ -8375,6 +8365,10 @@
 	icon_state = "redmark"
 	},
 /area/f13/city)
+"mDn" = (
+/obj/mecha/working/normalvehicle/vertibird/loaded,
+/turf/open/floor/plasteel/airless/white,
+/area/f13/wasteland)
 "mDp" = (
 /obj/effect/decal/cleanable/dirt{
 	color = "#363636"
@@ -8956,6 +8950,10 @@
 	icon_state = "rubblepillar"
 	},
 /area/f13/wasteland)
+"nsn" = (
+/obj/mecha/working/normalvehicle/vertibird/brotherhood/loaded,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/brotherhood/rnd)
 "nss" = (
 /obj/structure/chair/stool{
 	icon_state = "bench"
@@ -13476,6 +13474,10 @@
 	dir = 8
 	},
 /area/f13/building/hospital)
+"tZB" = (
+/obj/mecha/working/normalvehicle/vertibird/ncr/loaded,
+/turf/open/floor/f13,
+/area/f13/ncr)
 "ubj" = (
 /obj/structure/table,
 /obj/machinery/microwave{
@@ -13872,6 +13874,12 @@
 	},
 /turf/open/floor/f13/wood,
 /area/f13/city)
+"uGI" = (
+/obj/structure/lattice/catwalk,
+/obj/machinery/light/small,
+/obj/item/kirbyplants/random,
+/turf/open/transparent/openspace,
+/area/f13/wasteland)
 "uGJ" = (
 /obj/structure/table/wood,
 /obj/item/statuebust/legion,
@@ -15217,10 +15225,6 @@
 /obj/effect/turf_decal/shadow/floor,
 /turf/open/floor/wood_fancy,
 /area/f13/legion)
-"wUp" = (
-/obj/mecha/combat/phazon/vertibird/loaded,
-/turf/open/floor/plasteel/airless/white,
-/area/f13/wasteland)
 "wUx" = (
 /obj/structure/window/fulltile/house,
 /turf/open/floor/f13{
@@ -15665,10 +15669,6 @@
 	icon_state = "reddirtyfull"
 	},
 /area/f13/city)
-"xHY" = (
-/obj/mecha/combat/phazon/vertibird/brotherhood/loaded,
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/brotherhood/rnd)
 "xIn" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/holosign/barrier,
@@ -23763,7 +23763,7 @@ ssV
 ssV
 cBM
 cBM
-cqG
+tZB
 cBM
 cBM
 ssV
@@ -43381,7 +43381,7 @@ ioD
 rOF
 rOF
 rOF
-wUp
+mDn
 rOF
 rOF
 ymf
@@ -44668,7 +44668,7 @@ pYi
 pYi
 aTK
 wvQ
-mea
+uGI
 dYT
 dYT
 dYT
@@ -57398,7 +57398,7 @@ igk
 ciQ
 ciQ
 ciQ
-xHY
+nsn
 ciQ
 ciQ
 ciQ
@@ -58940,7 +58940,7 @@ igk
 ciQ
 ciQ
 ciQ
-xHY
+nsn
 ciQ
 igk
 igk
@@ -70982,7 +70982,7 @@ xJg
 xJg
 xJg
 spS
-ewP
+bLG
 spS
 oez
 oez

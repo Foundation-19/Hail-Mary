@@ -480,6 +480,111 @@
 	last_piece = NC
 	return 1
 
+/obj/item/mecha_parts/mecha_equipment/trunk
+	name = "Modular Trunk"
+	desc = "Equipment made to hold and transport big ammounts of cargo."
+	icon_state = "car_trunk"
+	equip_cooldown = 15
+	energy_drain = 0
+	harmful = FALSE
+	mech_flags = EXOSUIT_MODULE_PHAZON
+	var/component_type = /datum/component/storage/concrete/trunk
+	var/in_use = FALSE
+	w_class = WEIGHT_CLASS_GIGANTIC
+	resistance_flags = NONE
+	max_integrity = 1000
+	var/datum/component/storage/concrete/trunk/storagespace
+
+/obj/item/mecha_parts/mecha_equipment/trunk/get_dumping_location(/obj/item/mecha_parts/mecha_equipment/trunk/source,mob/user)
+	return src
+
+/obj/item/mecha_parts/mecha_equipment/trunk/Initialize()
+	. = ..()
+	PopulateContents()
+
+/obj/item/mecha_parts/mecha_equipment/trunk/ComponentInitialize()
+	AddComponent(component_type)
+	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
+	//STR.storage_flags = STORAGE_FLAGS_VOLUME_DEFAULT
+	STR.max_combined_w_class = 2100
+	STR.max_w_class = WEIGHT_CLASS_GIGANTIC
+	STR.max_items = 2100
+	storagespace = STR
+
+
+/obj/item/mecha_parts/mecha_equipment/trunk/AllowDrop()
+	return !QDELETED(src)
+
+/obj/item/mecha_parts/mecha_equipment/trunk/contents_explosion(severity, target)
+	var/in_storage = istype(loc, /obj/item/storage)? (max(0, severity - 1)) : (severity)
+	for(var/atom/A in contents)
+		A.ex_act(in_storage, target)
+		CHECK_TICK
+
+//Cyberboss says: "USE THIS TO FILL IT, NOT INITIALIZE OR NEW"
+
+/obj/item/mecha_parts/mecha_equipment/trunk/proc/PopulateContents()
+
+/obj/item/mecha_parts/mecha_equipment/trunk/attach()
+	. = ..()
+	chassis.mouse_drag_pointer = MOUSE_ACTIVE_POINTER
+	storagespace.RegisterSignal(chassis, COMSIG_MOUSEDROP_ONTO, /datum/component/storage/concrete/trunk.proc/mousedrop_onto)
+	storagespace.RegisterSignal(chassis, COMSIG_CONTAINS_STORAGE, /datum/component/storage/concrete/trunk.proc/on_check)
+	storagespace.RegisterSignal(chassis, COMSIG_IS_STORAGE_LOCKED, /datum/component/storage/concrete/trunk.proc/check_locked)
+	storagespace.RegisterSignal(chassis, COMSIG_TRY_STORAGE_SHOW, /datum/component/storage/concrete/trunk.proc/signal_show_attempt)
+	storagespace.RegisterSignal(chassis, COMSIG_TRY_STORAGE_INSERT, /datum/component/storage/concrete/trunk.proc/signal_insertion_attempt)
+	storagespace.RegisterSignal(chassis, COMSIG_TRY_STORAGE_CAN_INSERT, /datum/component/storage/concrete/trunk.proc/signal_can_insert)
+	storagespace.RegisterSignal(chassis, COMSIG_TRY_STORAGE_TAKE_TYPE, /datum/component/storage/concrete/trunk.proc/signal_take_type)
+	storagespace.RegisterSignal(chassis, COMSIG_TRY_STORAGE_FILL_TYPE, /datum/component/storage/concrete/trunk.proc/signal_fill_type)
+	storagespace.RegisterSignal(chassis, COMSIG_TRY_STORAGE_SET_LOCKSTATE, /datum/component/storage/concrete/trunk.proc/set_locked)
+	storagespace.RegisterSignal(chassis, COMSIG_TRY_STORAGE_TAKE, /datum/component/storage/concrete/trunk.proc/signal_take_obj)
+	storagespace.RegisterSignal(chassis, COMSIG_TRY_STORAGE_QUICK_EMPTY, /datum/component/storage/concrete/trunk.proc/signal_quick_empty)
+	storagespace.RegisterSignal(chassis, COMSIG_TRY_STORAGE_HIDE_FROM, /datum/component/storage/concrete/trunk.proc/signal_hide_attempt)
+	storagespace.RegisterSignal(chassis, COMSIG_TRY_STORAGE_HIDE_ALL, /datum/component/storage/concrete/trunk.proc/close_all)
+	storagespace.RegisterSignal(chassis, COMSIG_TRY_STORAGE_RETURN_INVENTORY, /datum/component/storage/concrete/trunk.proc/signal_return_inv)
+	storagespace.RegisterSignal(chassis, COMSIG_PARENT_ATTACKBY, /datum/component/storage/concrete/trunk.proc/attackby)
+	storagespace.RegisterSignal(chassis, COMSIG_ATOM_EMP_ACT, /datum/component/storage/concrete/trunk.proc/emp_act)
+	storagespace.RegisterSignal(chassis, COMSIG_ATOM_ATTACK_GHOST, /datum/component/storage/concrete/trunk.proc/show_to_ghost)
+	storagespace.RegisterSignal(chassis, COMSIG_ATOM_ENTERED, /datum/component/storage/concrete/trunk.proc/refresh_mob_views)
+	storagespace.RegisterSignal(chassis, COMSIG_ATOM_EXITED, /datum/component/storage/concrete/trunk.proc/_remove_and_refresh)
+	storagespace.RegisterSignal(chassis, COMSIG_ITEM_PRE_ATTACK, /datum/component/storage/concrete/trunk.proc/preattack_intercept)
+	storagespace.RegisterSignal(chassis, COMSIG_ITEM_ATTACK_SELF, /datum/component/storage/concrete/trunk.proc/attack_self)
+	storagespace.RegisterSignal(chassis, COMSIG_ITEM_PICKUP, /datum/component/storage/concrete/trunk.proc/signal_on_pickup)
+	storagespace.RegisterSignal(chassis, COMSIG_MOVABLE_POST_THROW, /datum/component/storage/concrete/trunk.proc/close_all)
+	storagespace.RegisterSignal(chassis, COMSIG_MOVABLE_MOVED, /datum/component/storage/concrete/trunk.proc/check_views)
+	storagespace.RegisterSignal(chassis, COMSIG_CLICK_ALT, /datum/component/storage/concrete/trunk.proc/on_alt_click)
+	storagespace.RegisterSignal(chassis, COMSIG_MOUSEDROPPED_ONTO, /datum/component/storage/concrete/trunk.proc/mousedrop_receive)
+
+/obj/item/mecha_parts/mecha_equipment/trunk/detach()
+	storagespace.UnregisterSignal(chassis, COMSIG_MOUSEDROP_ONTO)
+	storagespace.UnregisterSignal(chassis, COMSIG_CONTAINS_STORAGE)
+	storagespace.UnregisterSignal(chassis, COMSIG_IS_STORAGE_LOCKED)
+	storagespace.UnregisterSignal(chassis, COMSIG_TRY_STORAGE_SHOW)
+	storagespace.UnregisterSignal(chassis, COMSIG_TRY_STORAGE_INSERT)
+	storagespace.UnregisterSignal(chassis, COMSIG_TRY_STORAGE_CAN_INSERT)
+	storagespace.UnregisterSignal(chassis, COMSIG_TRY_STORAGE_TAKE_TYPE)
+	storagespace.UnregisterSignal(chassis, COMSIG_TRY_STORAGE_FILL_TYPE)
+	storagespace.UnregisterSignal(chassis, COMSIG_TRY_STORAGE_SET_LOCKSTATE)
+	storagespace.UnregisterSignal(chassis, COMSIG_TRY_STORAGE_TAKE)
+	storagespace.UnregisterSignal(chassis, COMSIG_TRY_STORAGE_QUICK_EMPTY)
+	storagespace.UnregisterSignal(chassis, COMSIG_TRY_STORAGE_HIDE_FROM)
+	storagespace.UnregisterSignal(chassis, COMSIG_TRY_STORAGE_HIDE_ALL)
+	storagespace.UnregisterSignal(chassis, COMSIG_TRY_STORAGE_RETURN_INVENTORY)
+	storagespace.UnregisterSignal(chassis, COMSIG_PARENT_ATTACKBY)
+	storagespace.UnregisterSignal(chassis, COMSIG_ATOM_EMP_ACT)
+	storagespace.UnregisterSignal(chassis, COMSIG_ATOM_ATTACK_GHOST)
+	storagespace.UnregisterSignal(chassis, COMSIG_ATOM_ENTERED)
+	storagespace.UnregisterSignal(chassis, COMSIG_ATOM_EXITED)
+	storagespace.UnregisterSignal(chassis, COMSIG_ITEM_PRE_ATTACK)
+	storagespace.UnregisterSignal(chassis, COMSIG_ITEM_ATTACK_SELF)
+	storagespace.UnregisterSignal(chassis, COMSIG_ITEM_PICKUP)
+	storagespace.UnregisterSignal(chassis, COMSIG_MOVABLE_POST_THROW)
+	storagespace.UnregisterSignal(chassis, COMSIG_MOVABLE_MOVED)
+	storagespace.UnregisterSignal(chassis, COMSIG_CLICK_ALT)
+	storagespace.UnregisterSignal(chassis, COMSIG_MOUSEDROPPED_ONTO)
+	chassis.mouse_drag_pointer = MOUSE_INACTIVE_POINTER
+	. = ..()
+
 
 /obj/item/mecha_parts/mecha_equipment/stereo
 	name = "exosuit Stereo System"

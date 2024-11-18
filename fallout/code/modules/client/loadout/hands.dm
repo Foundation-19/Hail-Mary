@@ -261,5 +261,18 @@
 	path = /obj/item/radio/headset
 	cost = 1
 
+/datum/gear/hands/cars
+	name = "Car beacon"
+	path = /obj/item/choice_beacon/cars 
+	cost = 8
 
+/datum/gear/hands/cars/cheap
+	name = "Cheap Car beacon"
+	path = /obj/item/choice_beacon/cars/cheap
+	cost = 7
+
+/datum/gear/hands/cars/nice
+	name = "Nice Car beacon"
+	path = /obj/item/choice_beacon/cars/nice
+	cost = 9
 
