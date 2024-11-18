@@ -1055,6 +1055,30 @@
 	cost = 1
 
 //Tribal tab stuff
+/datum/gear/uniform/wasteland/loincloth/vault44
+	name = "Vault-tec 44 jumpsuit"
+	path = /obj/item/clothing/under/f13/vault/v44
+	cost = 1
+	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_TRIBAL
+
+/datum/gear/uniform/wasteland/loincloth/vault44half
+	name = "Tribal Vault-tec 44 jumpsuit"
+	path = /obj/item/clothing/under/f13/vault/v44/half
+	cost = 1
+	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_TRIBAL
+
+/datum/gear/uniform/wasteland/loincloth/vault44m
+	name = "Tribal Vault-tec 44 male loincloth"
+	path = /obj/item/clothing/under/f13/vault/v44/tribal
+	cost = 1
+	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_TRIBAL
+
+/datum/gear/uniform/wasteland/loincloth/vault44f
+	name = "Tribal Vault-tec 44 female loincloth"
+	path = /obj/item/clothing/under/f13/vault/v44/tribal/female
+	cost = 1
+	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_TRIBAL
+
 /datum/gear/uniform/wasteland/loincloth
 	name = "Loincloth outfit"
 	path = /obj/item/clothing/under/f13/wayfarer

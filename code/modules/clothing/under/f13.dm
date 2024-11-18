@@ -1403,6 +1403,31 @@
 	icon_state = "vaultcity_skirt"
 	item_state = "vaultcity_skirt"
 
+/obj/item/clothing/under/f13/vault/v44
+	name = "Pristine Vault 44 jumpsuit"
+	desc = "After 200 years, finding those is a bit of a rarity ! Their tribal counterpart are the new trend since a while now. Its a blue jumpsuit with a golden 44 in the back."
+	icon = 'icons/fallout/clothing/uniforms.dmi'
+	icon_state = "vault44"
+	item_color = "vault44"
+
+/obj/item/clothing/under/f13/vault/v44/half
+	name = "Vault 44 Tribal jumpsuit"
+	desc = "A old Vault-tec Jumpsuit with some sleeves and parts missing, but is still wearable. The golden 44 are still in the back."
+	icon_state = "vault44half"
+	item_color = "vault44half"
+
+/obj/item/clothing/under/f13/vault/v44/tribal
+	name = "Vault 44 loincloth"
+	desc = "Loincloth made using the parts of older jumpsuits."
+	icon_state = "vault44tmale"
+	item_color = "vault44tmale"
+
+/obj/item/clothing/under/f13/vault/v44/tribal/female
+	name = "Vault 44 loincloth"
+	desc = "Loincloth made using the parts of older jumpsuits."
+	icon_state = "vault44tfemale"
+	item_color = "vault44tfemale"
+
 /obj/item/clothing/under/f13/followers
 	name = "clinic outfit"
 	desc = "A white shirt with a pair of dark brown cargo pants - an outfit commonly worn by the town clinic workers.<br><i>Nihil boni sine labore.</i>"

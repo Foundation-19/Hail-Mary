@@ -1,10 +1,10 @@
 {
-	"map_name": "Baltimore",
-	"map_path": "map_files/Baltimore",
+	"map_name": "Mexico",
+	"map_path": "/map_files/Mexico",
 	"map_file": [
-		"baltimore_surface.dmm",
-		"baltimore_underground.dmm",
-		"baltimore_upperlevel.dmm"
+		"mexico_surface.dmm",
+		"mexico_underground.dmm",
+		"mexico_above.dmm"
 	],
 	"station_ruin_budget":0,
 	"space_ruin_levels":0,
@@ -37,11 +37,12 @@
 			"Down": -1,
 			"No Parallax": true,
 			"Linkage" : "Cross",
-			"Name": "Baltimore Underground",
+			"Name": "Underground",
 			"Force X": 2,
 			"Force Y": 2,
 			"Force Z": 0
 		},
+
 
 		{
 			"Gravity": true,
@@ -51,7 +52,7 @@
 			"No Parallax": true,
 			"Linkage" : "Cross",
 			"Above": true,
-			"Name": "Baltimore Upper",
+			"Name": "Above",
 			"Force X": 2,
 			"Force Y": 2,
 			"Force Z": 2
@@ -60,19 +61,17 @@
 	],
 	"minetype": "none",
 	"added_jobs": [
-		"enclave.dm",
-		"atlantic_cross.dm",
-		"locust_point.dm",
-		"Redwater Resident",
-		"Redwater Watcher",
-		"Redwater Resident"
+		"rebels.dm",
+		"ostia.dm",
+		"legion.dm",
+		"vault.dm"
 	],
 	"removed_jobs": [
 		"eastwood.dm",
 		"ncr.dm",
-		"ostia.dm",
-		"legion.dm",
-		"vault.dmm",
-		"rebels.dmm"
+		"enclave.dm",
+		"bos.dm",
+		"atlantic_cross.dm",
+		"locust_point.dm"
 	]
 }
