@@ -65,7 +65,9 @@ GLOBAL_LIST_EMPTY(family_heirlooms)
 		if(quirk_holder.mind.assigned_role in list("NCR Captain", "NCR Lieutenant", "NCR Veteran Ranger", "NCR Brahmin Baron", "NCR Ranger", "NCR Heavy Trooper", "NCR Sergeant", "NCR Corporal", "NCR Conscript ", "NCR Trooper", "NCR Military Police", "NCR Rear Echelon"))
 			heirloom_type = pick(/obj/item/melee/onehanded/knife/bayonet, /obj/item/lighter, /obj/item/toy/cards/deck, /obj/item/card/id/rusted)
 		if(quirk_holder.mind.assigned_role in list("Legion Centurion", "Legion Orator", "Legion Veteran Decanus", "Legion Prime Decanus", "Legion Recruit Decanus", "Legion Vexillarius", "Legion Explorer", "Veteran Legionnaire", "Prime Legionnaire", "Recruit Legionnaire", "Legion Slavemaster"))
-			heirloom_type = pick(/obj/item/melee/onehanded/machete, /obj/item/melee/onehanded/club/warclub, /obj/item/card/id/rusted/rustedmedallion, /obj/item/clothing/accessory/talisman,/obj/item/clothing/accessory/skullcodpiece/fake, /obj/item/warpaint_bowl)
+			heirloom_type = pick(/obj/item/melee/onehanded/machete, /obj/item/melee/onehanded/club/warclub, /obj/item/card/id/rusted/rustedmedallion, /obj/item/clothing/accessory/talisman, /obj/item/clothing/accessory/skullcodpiece/fake, /obj/item/warpaint_bowl)
+		if(quirk_holder.mind.assigned_role in list("Legion Slave", "Legion Auxilia"))
+			heirloom_type = pick(/obj/item/clothing/accessory/talisman, /obj/item/pen/charcoal, /obj/item/healthanalyzer/tribal, /obj/item/clothing/neck/stethoscope)
 	if(!heirloom_type)
 		heirloom_type = pick(
 		/obj/item/toy/cards/deck,

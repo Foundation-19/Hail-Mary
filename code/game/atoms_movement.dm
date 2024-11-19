@@ -16,7 +16,7 @@
 	if(set_dir_on_move)
 		setDir(direction)
 
-	var/is_multi_tile_object = bound_width > 32 || bound_height > 32
+	var/is_multi_tile_object = bound_width > 64 || bound_height > 64
 
 	var/list/old_locs
 	if(is_multi_tile_object && isturf(loc))
