@@ -712,9 +712,9 @@ GLOBAL_VAR_INIT(vendor_cash, 0)
 		new /datum/data/wasteland_equipment("Mantle Armor",		                /obj/item/clothing/suit/armor/ncrarmor/mantle, 										        	50),
 		new /datum/data/wasteland_equipment("NCR Combat Armor",		            /obj/item/clothing/suit/armor/medium/combat/desert_ranger/combat, 					        	125),
 		new /datum/data/wasteland_equipment("NCR Combat Helmet",		        /obj/item/clothing/head/helmet/f13/combat/ncr, 								                	25),
-		new /datum/data/wasteland_equipment("Heavy Service Rifle",		        /obj/item/gun/ballistic/automatic/service/r82, 										        	70),
-		new /datum/data/wasteland_equipment("Trench Gun",		                /obj/item/gun/ballistic/shotgun/trench, 										                25),
-		new /datum/data/wasteland_equipment("Scout Carbine",		            /obj/item/gun/ballistic/automatic/service/carbine, 									        	25),
+		new /datum/data/wasteland_equipment("Heavy Service Rifle",		        /obj/item/gun/ballistic/automatic/service/r82, 										        	80),
+		new /datum/data/wasteland_equipment("Trench Gun",		                /obj/item/gun/ballistic/shotgun/trench, 										                55),
+		new /datum/data/wasteland_equipment("Scout Carbine",		            /obj/item/gun/ballistic/automatic/service/carbine, 									        	75),
 		new /datum/data/wasteland_equipment("Brush Gun",		                /obj/item/gun/ballistic/rifle/repeater/brush, 									            	100),
 		new /datum/data/wasteland_equipment("NCR Flag",		                    /obj/item/melee/onehanded/club/ncrflag, 									                	15),
 		new /datum/data/wasteland_equipment("Anti Material Rifle",	            /obj/item/gun/ballistic/rifle/mag/antimateriel, 									          	10000)
@@ -740,11 +740,11 @@ GLOBAL_VAR_INIT(vendor_cash, 0)
 		new /datum/data/wasteland_equipment("Legion Combat Helmet",	            /obj/item/clothing/head/helmet/f13/combat/legion, 										       	25),
 		new /datum/data/wasteland_equipment("Legion Heavy Armor",		        /obj/item/clothing/suit/armor/heavy/metal/smithed/legion, 					                	150),
 		new /datum/data/wasteland_equipment("Roman Helmet",		                /obj/item/clothing/head/helmet/roman/legionnaire, 								            	75),
-		new /datum/data/wasteland_equipment("Healing Poultice Box",		        /obj/item/storage/box/medicine/poultice5, 										            	30),
+		new /datum/data/wasteland_equipment("Bitters Box",		        		/obj/item/storage/box/medicine/bitterdrink5, 										           	50),
 		new /datum/data/wasteland_equipment("Lever Action Shotgun",		        /obj/item/gun/ballistic/shotgun/automatic/combat/shotgunlever/stock, 			                50),
 		new /datum/data/wasteland_equipment("Legion Heavy Axe",		            /obj/item/twohanded/legionaxe, 									        	                    150),
 		new /datum/data/wasteland_equipment("Legion Lance",		                /obj/item/twohanded/spear/lance, 									                        	50),
-		new /datum/data/wasteland_equipment("Reinforced Bola",		            /obj/item/restraints/legcuffs/bola/tactical, 								                	100),
+		new /datum/data/wasteland_equipment("Reinforced Bola",		            /obj/item/restraints/legcuffs/bola/tactical, 								                	50),
 		new /datum/data/wasteland_equipment("Golaith Power Fist",	            /obj/item/melee/powerfist/f13/goliath, 									                    	10000)
 		)
 	highpop_list = list(
@@ -752,7 +752,7 @@ GLOBAL_VAR_INIT(vendor_cash, 0)
 		new /datum/data/wasteland_equipment("Legion Combat Helmet",	            /obj/item/clothing/head/helmet/f13/combat/legion, 										       	25),
 		new /datum/data/wasteland_equipment("Legion Heavy Armor",		        /obj/item/clothing/suit/armor/heavy/metal/smithed/legion, 					                	150),
 		new /datum/data/wasteland_equipment("Roman Helmet",		                /obj/item/clothing/head/helmet/roman/legionnaire, 								            	75),
-		new /datum/data/wasteland_equipment("Healing Poultice Box",		        /obj/item/storage/box/medicine/poultice5, 										            	30),
+		new /datum/data/wasteland_equipment("Bitters Box",		     		    /obj/item/storage/box/medicine/bitterdrink5, 										          	50),
 		new /datum/data/wasteland_equipment("Lever Action Shotgun",		        /obj/item/gun/ballistic/shotgun/automatic/combat/shotgunlever/stock, 			                50),
 		new /datum/data/wasteland_equipment("Legion Heavy Axe",		            /obj/item/twohanded/legionaxe, 									        	                    150),
 		new /datum/data/wasteland_equipment("Legion Lance",		                /obj/item/twohanded/spear/lance, 									                        	50),
