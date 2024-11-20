@@ -1168,7 +1168,7 @@ Weapons		Lever shotgun, Grease gun, Repeater carbines, Revolvers, simple guns al
 	id = /obj/item/card/id/dogtag/legauxilia
 	head = /obj/item/clothing/head/f13/auxilia
 	uniform = /obj/item/clothing/under/f13/legauxiliaf
-	shoes = /obj/item/clothing/shoes/roman
+	shoes = /obj/item/clothing/shoes/sandals_leather
 	ears = /obj/item/radio/headset/headset_legion
 	gloves = null
 	belt = null
@@ -1204,7 +1204,7 @@ Weapons		Lever shotgun, Grease gun, Repeater carbines, Revolvers, simple guns al
 
 /datum/outfit/loadout/auxmedicus
 	name = "Medicus (Surgeon)"
-	neck = /obj/item/clothing/neck/apron/medical
+	neck = /obj/item/clothing/neck/apron/medicus_legion
 	gloves = /obj/item/clothing/gloves/f13/crudemedical
 	belt = /obj/item/storage/belt/medical/primitive
 	backpack_contents = list(
@@ -1214,6 +1214,7 @@ Weapons		Lever shotgun, Grease gun, Repeater carbines, Revolvers, simple guns al
 		/obj/item/stack/medical/bone_gel = 1,
 		/obj/item/book/granter/trait/midsurgery = 1,
 		/obj/item/clothing/under/f13/legauxilia = 1,
+		/obj/item/smelling_salts = 1
 		)
 /datum/outfit/loadout/auxopifex
 	name = "Opifex (Artisan)"
@@ -1295,7 +1296,7 @@ Weapons		Lever shotgun, Grease gun, Repeater carbines, Revolvers, simple guns al
 	head = /obj/item/clothing/head/f13/servant
 	uniform	= /obj/item/clothing/under/f13/campfollowermale
 	gloves = /obj/item/clothing/gloves/f13/crudemedical
-	shoes =	/obj/item/clothing/shoes/roman
+	shoes =	/obj/item/clothing/shoes/sandals_leather
 	r_pocket = /obj/item/flashlight/lantern
 	backpack_contents = list(
 		/obj/item/reagent_containers/pill/healingpowder = 2,
@@ -1403,7 +1404,7 @@ datum/job/CaesarsLegion/Legionnaire/f13slavemaster
 	suit = 			/obj/item/clothing/suit/armor/legion/prime/slavemaster
 	belt = 			/obj/item/melee/onehanded/slavewhip
 	head = 			/obj/item/clothing/head/helmet/f13/legion/prime/slavemaster
-	shoes =			/obj/item/clothing/shoes/roman
+	shoes =			/obj/item/clothing/shoes/sandals_leather
 	suit_store = 	/obj/item/melee/onehanded/machete/forgedmachete
 	backpack_contents = list(
 		/obj/item/reagent_containers/pill/healingpowder = 2,

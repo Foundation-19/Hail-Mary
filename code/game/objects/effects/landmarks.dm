@@ -536,7 +536,7 @@ obj/effect/landmark/start/f13/ncrlogisticsofficer
 	icon_state = "NCR Sergeant"
 
 /obj/effect/landmark/start/f13/ncrdrillsergeant
-	name = "NCR Senior Enlisted Advisor"
+	name = "NCR Drill Sergeant"
 	icon_state = "NCR Drill Sergeant"
 
 /obj/effect/landmark/start/f13/ncrsergeant

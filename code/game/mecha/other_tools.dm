@@ -140,7 +140,7 @@
 	desc = "A seat. Yup, looks hi-tec eh ? Well, its just a seat"
 	icon = 'icons/obj/bus.dmi'
 	icon_state = "backseat"
-	energy_drain = 5
+	energy_drain = 0.1
 	range = MELEE
 	equip_cooldown = 20
 	var/mob/living/carbon/patient = null
@@ -154,7 +154,7 @@
 
 /obj/item/mecha_parts/mecha_equipment/seat/Exit(atom/movable/O)
 	return 0
-
+	
 /obj/item/mecha_parts/mecha_equipment/seat/action(mob/living/carbon/target)
 	if(!action_checks(target))
 		return
