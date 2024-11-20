@@ -289,17 +289,17 @@ Weapons		Lever shotgun, Grease gun, Repeater carbines, Revolvers, simple guns al
 		/obj/item/ammo_box/shotgun/magnum = 2,
 		)
 
-// ----------------- PRAETORIAN ------------------
+// ----------------- LICTOR ------------------
 
-/datum/job/CaesarsLegion/Legionnaire/f13praetorian
-	title = "Legion Praetorian"
-	flag = F13PRAETORIAN
+/datum/job/CaesarsLegion/Legionnaire/f13lictor
+	title = "Legion Lictor"
+	flag = F13LICTOR
 	total_positions = 1
 	spawn_positions = 1
-	description = "A martial arts, unarmed fighter. You answer directly to the Centurion. You will heed to personally protect the high-value noncombatants of the Legion, such as the Orator, the Forgemaster, or any other noncombatants that leave the camp to face the dangers of the wastes."
+	description = "A martial arts, unarmed fighter. You answer directly to the Centurion or the Orator. You will heed to personally protect the high-value noncombatants of the Legion, such as the Orator, the Forgemaster, or any other noncombatants that leave the camp for offiical diplomatic business."
 	supervisors = "the Centurion"
-	display_order = JOB_DISPLAY_ORDER_PRAETORIAN
-	outfit = /datum/outfit/job/CaesarsLegion/Legionnaire/f13praetorian
+	display_order = JOB_DISPLAY_ORDER_LICTOR
+	outfit = /datum/outfit/job/CaesarsLegion/Legionnaire/f13lictor
 	exp_requirements = 450
 
 	access = list(ACCESS_LEGION, ACCESS_CHANGE_IDS, ACCESS_LEGION_COMMAND)
@@ -312,10 +312,10 @@ Weapons		Lever shotgun, Grease gun, Repeater carbines, Revolvers, simple guns al
 		)
 
 	min_required_special = list(
-		"special_s" = 8,
+		"special_s" = 7,
 		)
 
-/datum/outfit/job/CaesarsLegion/Legionnaire/f13praetorian/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+/datum/outfit/job/CaesarsLegion/Legionnaire/f13lictor/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
 	if(visualsOnly)
 		return
@@ -323,9 +323,9 @@ Weapons		Lever shotgun, Grease gun, Repeater carbines, Revolvers, simple guns al
 	ADD_TRAIT(H, TRAIT_IRONFIST, src)
 	ADD_TRAIT(H, TRAIT_LIFEGIVER, src)
 
-/datum/outfit/job/CaesarsLegion/Legionnaire/f13praetorian
-	name = "Legion Praetorian"
-	jobtype = /datum/job/CaesarsLegion/Legionnaire/f13praetorian
+/datum/outfit/job/CaesarsLegion/Legionnaire/f13lictor
+	name = "Legion Lictor"
+	jobtype = /datum/job/CaesarsLegion/Legionnaire/f13lictor
 	id = /obj/item/card/id/dogtag/legveteran
 	suit = /obj/item/clothing/suit/armor/legion/praetorian
 	head = /obj/item/clothing/head/helmet/f13/legion/venator
