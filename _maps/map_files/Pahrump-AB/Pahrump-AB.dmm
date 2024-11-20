@@ -46483,7 +46483,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/dark/darksolid,
 /area/f13/building)
 "mYH" = (
-/obj/effect/landmark/start/f13/praetorian,
+/obj/effect/landmark/start/f13/lictor,
 /turf/open/indestructible/ground/outside/gravel{
 	icon_state = "gravel3"
 	},
