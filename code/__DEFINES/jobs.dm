@@ -89,7 +89,7 @@
 #define F13LEGATE		(1<<0)
 #define F13CENTURION	(1<<1)
 #define F13ORATOR		(1<<2)
-#define F13PRAETORIAN	(1<<3)
+#define F13LICTOR	(1<<3)
 #define F13PRIESTESS 	(1<<4)
 #define F13DECANREC		(1<<5)
 #define F13DECAN		(1<<6)
