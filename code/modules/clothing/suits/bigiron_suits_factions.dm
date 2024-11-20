@@ -351,6 +351,16 @@ Suits. 0-10 in its primary value, slowdown 0, various utility
 	desc = "A standard issue NCR Infantry vest with a really long name and extra melee plating."
 	armor_tokens = list(ARMOR_MODIFIER_UP_DT_T1, ARMOR_MODIFIER_UP_MELEE_T2)
 
+/obj/item/clothing/suit/armor/ncrarmor/heavygunner //NCR Trench Raider Armor
+	name = "NCR Trench Raider Chestplate"
+	desc = "A heavily reinforced NCR vest. Rumors say that the leather for the lining comes from the best-fed Brahmins, and complete with extra armor padding."
+	icon = 'icons/fallout/clothing/armored_medium.dmi'
+	mob_overlay_icon = 'icons/fallout/onmob/clothes/armor_medium.dmi'
+	icon_state = "steel_bib_ncra"
+	item_state = "steel_bib_ncra"
+	armor_tokens = list(ARMOR_MODIFIER_DOWN_BULLET_T1, ARMOR_MODIFIER_UP_MELEE_T3)
+	salvage_loot = list(/obj/item/stack/crafting/armor_plate = 8)
+
 /obj/item/clothing/suit/armor/ncrarmor/labcoat
 	name = "NCR medical labcoat"
 	desc = "An armored labcoat typically issued to NCR Medical Officers. It's a standard white labcoat with the Medical Officer's name stitched into the breast and a two headed bear sewn into the shoulder."
@@ -404,6 +414,7 @@ Suits. 0-10 in its primary value, slowdown 0, various utility
 	desc = "A brown dress uniform jacket for commissioned NCRA personnel."
 	icon_state = "ncr_codressjack"
 	item_state = "ncr_codressjack"
+
 
 //NCR Ranger
 /obj/item/clothing/suit/toggle/armor/rangerrecon
