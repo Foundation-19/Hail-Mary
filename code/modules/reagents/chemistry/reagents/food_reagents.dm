@@ -163,8 +163,8 @@
 	reagent_state = SOLID
 	color = "#FFFFFF" // rgb: 255, 255, 255
 	taste_mult = 1.5 // stop sugar drowning out other flavours
-	nutriment_factor = 3 * REAGENTS_METABOLISM
-	metabolization_rate = 2 * REAGENTS_METABOLISM
+	nutriment_factor = 2 * REAGENTS_METABOLISM
+	metabolization_rate = 5 * REAGENTS_METABOLISM
 	overdose_threshold = 200 // Hyperglycaemic shock
 	taste_description = "sweetness"
 	value = REAGENT_VALUE_NONE
@@ -179,13 +179,13 @@
 
 /datum/reagent/consumable/sugar/overdose_start(mob/living/M)
 	to_chat(M, span_userdanger("You go into hyperglycaemic shock! Lay off the twinkies!"))
-	M.AdjustSleeping(600, FALSE)
-	. = 1
+	M.AdjustSleeping(20 SECONDS)
+	. = TRUE
 
-/datum/reagent/consumable/sugar/overdose_process(mob/living/M)
-	M.AdjustSleeping(40, FALSE)
+/datum/reagent/consumable/sugar/overdose_process(mob/living/M, seconds_per_tick, times_fired)
+	M.drowsyness = max((5 SECONDS * REM * seconds_per_tick), 60 SECONDS)
 	..()
-	. = 1
+	. = TRUE
 
 /datum/reagent/consumable/virus_food
 	name = "Virus Food"
