@@ -59968,6 +59968,14 @@
 	color = " A6635D"
 	},
 /area/f13/wasteland)
+"sFK" = (
+/obj/structure/mirror/standing{
+	pixel_x = -7
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	color = "#e4e4e4"
+	},
+/area/f13/legion)
 "sFQ" = (
 /obj/structure/table,
 /obj/effect/spawner/lootdrop/f13/medical/wasteland/meds,
@@ -135629,7 +135637,7 @@ uiX
 nGq
 wQj
 bXl
-bXl
+sFK
 bIO
 dro
 sWC
