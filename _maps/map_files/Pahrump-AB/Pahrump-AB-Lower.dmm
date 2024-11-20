@@ -18132,9 +18132,10 @@
 /area/f13/radiation)
 "nMi" = (
 /obj/structure/rack/shelf_metal,
-/obj/effect/spawner/lootdrop/f13/medical,
-/obj/effect/spawner/lootdrop/f13/medical,
-/obj/effect/spawner/lootdrop/f13/medical,
+/obj/effect/spawner/lootdrop/f13/medical/wasteland/meds,
+/obj/effect/spawner/lootdrop/f13/medical/wasteland/meds,
+/obj/effect/spawner/lootdrop/f13/medical/wasteland/meds,
+/obj/effect/spawner/lootdrop/f13/medical/wasteland/meds,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	name = "metal plating"
 	},
