@@ -21,7 +21,7 @@
 	time = 40
 
 /datum/crafting_recipe/carbase/step3
-	name = "Add a car seat, and electronics (Step 3)"
+	name = "Add a car seat and electronics (Step 3)"
 	result = /obj/structure/mecha_wreckage/ncrtruck/seat
 	reqs = list(/obj/item/mecha_parts/mecha_equipment/seat = 1,
 				/obj/item/stack/cable_coil = 10,
@@ -35,7 +35,7 @@
 	result = /obj/mecha/working/normalvehicle/truckcaravan
 	reqs = list(/obj/structure/mecha_wreckage/ncrtruck,
 				/obj/item/stack/sheet/metal = 20,
-				/obj/item/stack/cable_coil = 8,)
+				/obj/item/stack/cable_coil = 8)
 	tools = list(TOOL_WELDER, TOOL_WRENCH)
 	time = 100
 
@@ -254,7 +254,7 @@
 
 //BOS Truck ARMED
 /datum/crafting_recipe/carbase/truck/bos/armed
-	name = "BOS Truck Gunner station (Arming Step - REMOVE ALL MODULE FROM CAR BEFORE MODIFYING)"
+	name = "BOS Truck Gunner station (Arming Step - REMOVE ALL MODULES FROM TRUCK BEFORE MODIFYING)"
 	result = /obj/mecha/combat/combatvehicle/pickuptruck/bos/armed
 	reqs = list(/obj/mecha/working/normalvehicle/pickuptruck/bos,
 				/obj/item/stack/sheet/metal = 20,
@@ -265,7 +265,7 @@
 
 //Ranger buggy ARMED
 /datum/crafting_recipe/carbase/buggy/ranger/armed
-	name = "Ranger buggy gunner station (Arming Step - REMOVE ALL MODULE FROM CAR BEFORE MODIFYING)"
+	name = "Ranger Buggy Gunner station (Arming Step - REMOVE ALL MODULES FROM BUGGY BEFORE MODIFYING)"
 	result = /obj/mecha/combat/combatvehicle/buggy/rangerarmed
 	reqs = list(/obj/mecha/working/normalvehicle/buggy/ranger,
 				/obj/item/stack/sheet/metal = 20,
@@ -276,7 +276,7 @@
 
 //legion buggy ARMED
 /datum/crafting_recipe/carbase/buggy/legion/armed
-	name = "Legion buggy gunner station (Arming Step - REMOVE ALL MODULE FROM CAR BEFORE MODIFYING)"
+	name = "Legion Buggy Gunner station (Arming Step - REMOVE ALL MODULES FROM BUGGY BEFORE MODIFYING)"
 	result = /obj/mecha/combat/combatvehicle/buggy/legionarmed
 	reqs = list(/obj/mecha/working/normalvehicle/buggy/legion,
 				/obj/item/stack/sheet/metal = 20,
@@ -287,7 +287,7 @@
 
 //Vertibird combat conversion
 /datum/crafting_recipe/carbase/vertibird/armed
-	name = "Combat Vertibird (Arming Step - REMOVE ALL MODULE FROM CAR BEFORE MODIFYING)"
+	name = "Combat Vertibird (Arming Step - REMOVE ALL MODULES FROM VERTIBIRD BEFORE MODIFYING)"
 	result = /obj/mecha/combat/combatvehicle/vertibird
 	reqs = list(/obj/mecha/working/normalvehicle/vertibird,
 				/obj/item/stack/sheet/metal = 100,
@@ -298,7 +298,7 @@
 
 //Vertibird NCR combat conversion
 /datum/crafting_recipe/carbase/vertibird/armed
-	name = "Combat NCR Vertibird (Arming Step - REMOVE ALL MODULE FROM CAR BEFORE MODIFYING)"
+	name = "NCR Combat Vertibird (Arming Step - REMOVE ALL MODULES FROM VERTIBIRD BEFORE MODIFYING)"
 	result = /obj/mecha/combat/combatvehicle/vertibird/ncr
 	reqs = list(/obj/mecha/working/normalvehicle/vertibird/ncr,
 				/obj/item/stack/sheet/metal = 100,
@@ -309,7 +309,7 @@
 
 //Vertibird BOS combat conversion
 /datum/crafting_recipe/carbase/vertibird/armed
-	name = "Combat BOS Vertibird (Arming Step - REMOVE ALL MODULE FROM CAR BEFORE MODIFYING)"
+	name = "Brotherhood Combat Vertibird (Arming Step - REMOVE ALL MODULES FROM VERTIBIRD BEFORE MODIFYING)"
 	result = /obj/mecha/combat/combatvehicle/vertibird/brotherhood
 	reqs = list(/obj/mecha/working/normalvehicle/vertibird/brotherhood,
 				/obj/item/stack/sheet/metal = 100,
@@ -320,7 +320,7 @@
 
 //Vertibird Enclave combat conversion
 /datum/crafting_recipe/carbase/vertibird/armed
-	name = "Combat Enclave Vertibird (Arming Step - REMOVE ALL MODULE FROM CAR BEFORE MODIFYING)"
+	name = "Enclave Combat Vertibird (Arming Step - REMOVE ALL MODULES FROM VERTIBIRD BEFORE MODIFYING)"
 	result = /obj/mecha/combat/combatvehicle/vertibird/enclave
 	reqs = list(/obj/mecha/working/normalvehicle/vertibird/enclave,
 				/obj/item/stack/sheet/metal = 100,
