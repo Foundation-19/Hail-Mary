@@ -86,10 +86,10 @@
 	dat +="<div class='statusDisplay'>"
 	dat += "<b>Accepted goods and prices:</b><br>"
 	dat += "Research Data: 25 caps <br>"
-	dat += "ALL Combat Helmets and reinforced ones: 25 caps<br>"
-	dat += "ALL Combat Armor and reinforced ones: 125 caps<br>"
-	dat += "Salvaged t-45b Suit OR NCR Suit: 200 caps<br>"
-	dat += "Salvaged t-45b Helmet OR NCR Suit: 100 caps<br>"
+	dat += "Most Helmets, Rewards Varies<br>"
+	dat += "Most Armor, Reward varies<br>"
+	dat += "Salvaged t-45b OR Raider Power Armor: 200 caps<br>"
+	dat += "Salvaged t-45b OR Raider Power Helmet: 100 caps<br>"
 	dat += "Med-x 5 caps<br>"
 	dat += "Stimpack: 10 caps<br>"
 	dat += "Leather, Metal Parts, High Quality Parts, Cloth, Pre War Sheets: 0.5 caps<br>"
@@ -319,20 +319,21 @@ Fence
 						/obj/item/gun/ballistic/revolver/hobo/knifegun = 8,
 						/obj/item/gun/ballistic/revolver/hobo/pepperbox = 8,
 						/obj/item/gun/ballistic/revolver/single_shotgun = 8,
-						/obj/item/gun/ballistic/automatic/pistol/n99 = 8,
-						/obj/item/gun/ballistic/automatic/pistol/pistol22 = 8,
-						/obj/item/gun/ballistic/automatic/pistol/ninemil = 8,
-						/obj/item/gun/ballistic/automatic/pistol/sig = 8,
-						/obj/item/gun/ballistic/automatic/pistol/beretta = 8,
-						/obj/item/gun/ballistic/automatic/pistol/m1911 = 8,
-						/obj/item/gun/ballistic/rifle/hunting = 10,
-						/obj/item/gun/ballistic/revolver/colt357 = 10,
-						/obj/item/gun/ballistic/rifle/mosin = 10,
+						/obj/item/gun/ballistic/automatic/pistol/n99 = 15,
+						/obj/item/gun/ballistic/automatic/pistol/pistol22 = 10,
+						/obj/item/gun/ballistic/automatic/pistol/ninemil = 15,
+						/obj/item/gun/ballistic/automatic/pistol/sig = 15,
+						/obj/item/gun/ballistic/automatic/pistol/beretta = 15,
+						/obj/item/gun/ballistic/automatic/pistol/m1911 = 15,
+						/obj/item/gun/ballistic/rifle/hunting = 20,
+						/obj/item/gun/ballistic/revolver/colt357 = 20,
+						/obj/item/gun/ballistic/rifle/mosin = 25,
 						/obj/item/gun/ballistic/revolver/caravan_shotgun = 10,
 						/obj/item/gun/ballistic/revolver/widowmaker = 10,
 						/obj/item/gun/ballistic/revolver/winchesterrebored = 10,
 						/obj/item/gun/ballistic/automatic/autopipe = 15,
 						/obj/item/gun/ballistic/rifle/hobo/lasmusket = 15,
+
 						)
 
 /obj/machinery/mineral/wasteland_trader/gunbuyer/ui_interact(mob/user)
@@ -437,5 +438,37 @@ Fence
 						/obj/item/reagent_containers/food/snacks/meat/slab/ant_meat = 2,
 						/obj/item/reagent_containers/food/snacks/meat/slab = 1,
 						/obj/item/reagent_containers/food/snacks/meat/slab/nightstalker_meat = 2,
-						/obj/item/reagent_containers/food/snacks/meat/slab/gecko = 2,		
+						/obj/item/reagent_containers/food/snacks/meat/slab/gecko = 2,
+						/obj/item/clothing/suit/armor/light/duster = 15,
+						/obj/item/clothing/suit/armor/medium/raider/blastmaster = 15,
+						/obj/item/clothing/head/helmet/f13/raider/blastmaster = 15,
+						/obj/item/clothing/suit/armor/medium/raider/iconoclast = 15,
+						/obj/item/clothing/suit/armor/light/leather = 15,
+						/obj/item/clothing/suit/armor/light/leather/leather_jacket = 15,
+						/obj/item/clothing/suit/armor/medium/raider/combatduster = 15,
+						/obj/item/clothing/head/helmet/f13/raidercombathelmet = 15,
+						/obj/item/clothing/suit/armor/light/raider/supafly = 15,
+						/obj/item/clothing/head/helmet/f13/raider/supafly = 15,
+						/obj/item/clothing/head/helmet/knight/f13/metal = 25,
+						/obj/item/clothing/suit/armor/heavy/metal  = 25,
+						/obj/item/clothing/suit/armor/medium/vest/alt = 25,
+						/obj/item/clothing/suit/armor/medium/vest = 25,
+						/obj/item/clothing/suit/armor/heavy/metal/polished = 25,
+						/obj/item/clothing/head/helmet/f13/metalmask = 25,
+						/obj/item/clothing/suit/armor/light/leather/leathercoat = 25,
+						/obj/item/clothing/suit/armor/light/leather/leather_jacketmk2 = 25,
+						/obj/item/clothing/head/helmet/f13/combat/swat = 125,
+						/obj/item/clothing/suit/armor/medium/combat/swat = 125,
+						/obj/item/clothing/suit/armor/heavy/vest/bulletproof = 125,
+						/obj/item/clothing/head/helmet/alt = 125,
+						/obj/item/clothing/suit/armor/heavy/metal/sulphite = 125,
+						/obj/item/clothing/head/helmet/f13/sulphitehelm = 125,
+						/obj/item/clothing/suit/armor/heavy/riot/combat = 150,
+						/obj/item/clothing/head/helmet/f13/combat/rangerbroken = 150,
+						/obj/item/clothing/suit/armor/medium/vest/bulletproof/big = 150,
+						/obj/item/clothing/head/helmet/riot = 150,
+						/obj/item/clothing/suit/armor/heavy/salvaged_pa/t45b/raider = 200,
+						/obj/item/clothing/head/helmet/f13/heavy/salvaged_pa/t45b/raider = 100,
+						/obj/item/clothing/suit/armor/heavy/salvaged_pa/t45b/hotrod = 200,
+						/obj/item/clothing/head/helmet/f13/heavy/salvaged_pa/t45b/hotrod = 100,
 						)

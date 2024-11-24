@@ -760,6 +760,26 @@ GLOBAL_VAR_INIT(vendor_cash, 0)
 		new /datum/data/wasteland_equipment("Golaith Power Fist",	            /obj/item/melee/powerfist/f13/goliath, 									                    	10000)
 	)
 
+/obj/machinery/mineral/wasteland_vendor/shopkeep
+	name = "Shopkeep Import Machine - Weapons and Armor"
+	icon_state = "weapon_idle"
+	prize_list = list(
+		new /datum/data/wasteland_equipment("Armor",	     					/obj/effect/spawner/lootdrop/f13/armor/tier2,									        75),
+		new /datum/data/wasteland_equipment("Better Armor",	          			/obj/effect/spawner/lootdrop/f13/armor/tier3, 										   	150),
+		new /datum/data/wasteland_equipment("Ballastic Weapons",				/obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/mid, 					           	50),
+		new /datum/data/wasteland_equipment("Better Ballastic Weapons",		    /obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/highmid, 						   	75),
+		new /datum/data/wasteland_equipment("Energy Weapons",		   			/obj/effect/spawner/lootdrop/f13/weapon/gun/energy/low, 					           	50),
+		new /datum/data/wasteland_equipment("Better Energy Weapons",		    /obj/effect/spawner/lootdrop/f13/weapon/gun/energy/mid,									75),
+		)
+	highpop_list = list(
+		new /datum/data/wasteland_equipment("Armor",	     					/obj/effect/spawner/lootdrop/f13/armor/tier2,									        75),
+		new /datum/data/wasteland_equipment("Better Armor",	          			/obj/effect/spawner/lootdrop/f13/armor/tier3, 										   	150),
+		new /datum/data/wasteland_equipment("Ballastic Weapons",				/obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/mid, 					           	50),
+		new /datum/data/wasteland_equipment("Better Ballastic Weapons",		    /obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/highmid, 						   	75),
+		new /datum/data/wasteland_equipment("Energy Weapons",		   			/obj/effect/spawner/lootdrop/f13/weapon/gun/energy/low, 					           	50),
+		new /datum/data/wasteland_equipment("Better Energy Weapons",		    /obj/effect/spawner/lootdrop/f13/weapon/gun/energy/mid,									75),
+	)
+
 /obj/machinery/mineral/wasteland_vendor/ammo
 	name = "Wasteland Vending Machine - Ammunition"
 	icon_state = "ammo_idle"

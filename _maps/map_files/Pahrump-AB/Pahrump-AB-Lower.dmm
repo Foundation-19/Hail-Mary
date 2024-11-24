@@ -9495,6 +9495,12 @@
 	icon_state = "tunnelchess2"
 	},
 /area/f13/bunker)
+"fHb" = (
+/obj/machinery/mineral/wasteland_vendor/shopkeep,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	name = "metal plating"
+	},
+/area/f13/city)
 "fHO" = (
 /obj/effect/decal/cleanable/blood/old{
 	icon_state = "floor6-old"
@@ -63656,7 +63662,7 @@ iCR
 sXe
 vTP
 uuN
-uuN
+fHb
 uuN
 uuN
 baF
