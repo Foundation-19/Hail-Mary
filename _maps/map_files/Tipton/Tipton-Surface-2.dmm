@@ -8534,8 +8534,7 @@
 /area/f13/tunnel)
 "evc" = (
 /turf/open/indestructible/ground/outside/road{
-	icon_state = "verticalinnermain2";
-	tag = "icon-verticalinnermain2"
+	icon_state = "verticalinnermain2"
 	},
 /area/f13/wasteland/cold)
 "evm" = (
@@ -23238,8 +23237,7 @@
 /area/f13/wasteland/cold)
 "lPJ" = (
 /turf/open/indestructible/ground/outside/road{
-	icon_state = "verticalleftborderright0";
-	tag = "icon-verticalleftborderright0"
+	icon_state = "verticalleftborderright0"
 	},
 /area/f13/wasteland/cold)
 "lPO" = (
