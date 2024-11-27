@@ -61,9 +61,6 @@ GLOBAL_LIST_INIT(command_positions, list(
 
 	"Enclave Captain",
 
-	"Noyan",
-	"Steward",
-
 	"Dockmaster of Locust Point",
 	"Atlantic Cross Captain",
 	))
@@ -206,12 +203,7 @@ GLOBAL_LIST_INIT(redwater_positions, list(
 ))
 
 GLOBAL_LIST_INIT(khan_positions, list(
-	"Noyan",
-	"Steward",
-	"Kheshig",
-	"Khorchin",
-	"Kipchak",
-	"Mangudai",
+	"Great Khan"
 ))
 
 GLOBAL_LIST_INIT(enclave_positions, list(

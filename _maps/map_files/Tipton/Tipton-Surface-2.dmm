@@ -2803,12 +2803,6 @@
 	icon_state = "floorrusty"
 	},
 /area/f13/legioncamp)
-"buh" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
-/turf/closed/mineral/random/no_caves,
-/area/f13/underground/mountain)
 "buJ" = (
 /obj/structure/car/rubbish4,
 /turf/open/indestructible/ground/outside/road,
@@ -16784,11 +16778,6 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/plating,
 /area/f13/ambientlighting/building/d)
-"iBy" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/landmark/start/f13/mangudai,
-/turf/open/floor/f13/wood,
-/area/f13/casino/powered)
 "iBG" = (
 /obj/structure/wreck/bus/rusted,
 /turf/open/indestructible/ground/outside/road{
@@ -18090,6 +18079,13 @@
 /obj/structure/destructible/tribal_torch/wall/lit,
 /turf/open/floor/carpet/red,
 /area/f13/building/powered)
+"jin" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/item/storage/trash_stack,
+/turf/open/floor/f13/wood{
+	icon_state = "housewood2-broken"
+	},
+/area/f13/casino/powered)
 "jiD" = (
 /obj/effect/turf_decal/weather/dirt{
 	dir = 6
@@ -20229,11 +20225,6 @@
 /obj/structure/debris/v2,
 /turf/open/indestructible/ground/outside/snow,
 /area/f13/wasteland/cold)
-"klJ" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/landmark/start/f13/khorchin,
-/turf/open/floor/f13/wood,
-/area/f13/casino/powered)
 "klL" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 6
@@ -39354,10 +39345,10 @@
 /area/f13/ambientlighting/building/c)
 "tTt" = (
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/item/storage/trash_stack,
 /obj/structure/destructible/tribal_torch/wall/lit{
 	dir = 4
 	},
+/obj/effect/landmark/start/f13/greatkhan,
 /turf/open/floor/f13/wood,
 /area/f13/casino/powered)
 "tTy" = (
@@ -41174,11 +41165,6 @@
 	icon_state = "bluerustysolid"
 	},
 /area/f13/ambientlighting/building/g)
-"uOf" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/landmark/start/f13/steward,
-/turf/open/floor/f13/wood,
-/area/f13/casino/powered)
 "uOi" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/weather/snow/corner,
@@ -42289,6 +42275,11 @@
 	},
 /turf/open/floor/plating/dirt,
 /area/f13/legioncamp)
+"vpW" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/landmark/start/f13/greatkhan,
+/turf/open/floor/f13/wood,
+/area/f13/casino/powered)
 "vqf" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 5;
@@ -43141,11 +43132,6 @@
 	icon_state = "horizontalinnermain1"
 	},
 /area/f13/legioncamp)
-"vMe" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/landmark/start/f13/kipchak,
-/turf/open/floor/f13/wood,
-/area/f13/casino/powered)
 "vMk" = (
 /obj/structure/stairs/north{
 	color = "#A47449";
@@ -45433,7 +45419,6 @@
 /obj/structure/destructible/tribal_torch/wall/lit{
 	dir = 4
 	},
-/obj/effect/landmark/start/f13/noyan,
 /turf/open/floor/f13/wood,
 /area/f13/casino/powered)
 "wTG" = (
@@ -47551,7 +47536,6 @@
 /area/f13/wasteland/powered)
 "ybR" = (
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/landmark/start/f13/kheshig,
 /turf/open/floor/f13/wood{
 	icon_state = "housewood1-broken"
 	},
@@ -96625,7 +96609,7 @@ cAd
 cAd
 cAd
 cAd
-buh
+cAd
 cAd
 cAd
 cAd
@@ -120922,13 +120906,13 @@ kTb
 gJI
 emy
 olz
-iBy
-klJ
-uOf
+qlY
+qlY
+qlY
 qlY
 fHg
 ryQ
-qlY
+vpW
 oet
 olz
 vko
@@ -121124,10 +121108,10 @@ mCf
 gJI
 emy
 olz
-vMe
+qlY
 ybR
 wTv
-fHg
+jin
 qlY
 lQn
 tTt
