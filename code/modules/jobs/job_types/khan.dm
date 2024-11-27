@@ -1,6 +1,6 @@
 /datum/job/khan //do NOT use this for anything, it's just to store faction datums
 	department_flag = KHAN
-	selection_color = "#df80af"
+	selection_color = "#ff915e"
 	faction = FACTION_KHAN
 	exp_type = EXP_TYPE_KHAN
 	access = list(ACCESS_KHAN, ACCESS_PUBLIC)
