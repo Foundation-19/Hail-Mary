@@ -315,6 +315,14 @@
 /obj/item/projectile/beam/laser/pistol/ultraweak
 	damage = 15 //quantity over quality
 
+//Big Chews Beam
+/obj/item/projectile/beam/laser/pistol/ultraweak/chew/strong
+	damage = 18 //it fucks
+	icon_state = "gaussstrong"
+	movement_type = FLYING | UNSTOPPABLE //stopping for nothing except its range
+	pixels_per_second = TILES_TO_PIXELS(15) //slow
+	range = 16
+
 //Alrem's plasmacaster
 /obj/item/projectile/f13plasma/plasmacaster/arlem
 	name = "plasma bolt"

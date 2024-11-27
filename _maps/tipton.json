@@ -1,0 +1,77 @@
+{
+	"map_name": "Tipton",
+	"map_path": "map_files/Tipton",
+	"map_file": [
+		"Tipton-Dungeon.dmm",
+		"Tipton-Underground-1.dmm",
+		"Tipton-Surface-2.dmm",
+		"Tipton-Sky-3.dmm"
+	],
+	"station_ruin_budget":0,
+	"space_ruin_levels":0,
+	"space_empty_levels":0,
+	"shuttles": {
+		"cargo":"cargo_pahrump",
+		"emergency": "emergency_pahrump",
+		"ferry": "ferry_fancy"
+	},
+	"traits":[
+		{
+			"Gravity": true,
+			"Baseturf": "/turf/open/indestructible/ground/inside/mountain",
+			"Up": 1,
+			"No Parallax": true,
+			"Linkage" : null,
+			"Name": "Dungeons"
+		},
+
+		{
+			"Gravity": true,
+			"Baseturf": "/turf/open/indestructible/ground/inside/mountain",
+			"Dungeons": true,
+			"Up": 1,
+			"Down": -1,
+			"No Parallax": true,
+			"Linkage" : "Cross",
+			"Name": "Lower Tipton",
+			"Force X": 1,
+			"Force Y": 1,
+			"Force Z": 0
+		},
+
+		{
+			"Gravity": true,
+			"Baseturf": "/turf/open/indestructible/ground/inside/mountain",
+			"Station": 1,
+			"Up": 1,
+			"Down": -1,
+			"No Parallax": true,
+			"Linkage" : "Cross",
+			"Name": "Tipton",
+			"Force X": 1,
+			"Force Y": 1,
+			"Force Z": 1
+		},
+
+		{
+			"Gravity": true,
+			"Baseturf": "/turf/open/transparent/openspace",
+			"Down": -1,
+			"No Parallax": true,
+			"Linkage" : "Cross",
+			"Above": true,
+			"Name": "Tipton - Upper",
+			"Force X": 1,
+			"Force Y": 1,
+			"Force Z": 2
+		}
+	],
+	"minetype": "none",
+	"removed_jobs": [
+		"enclave.dm",
+		"atlantic_cross.dm",
+		"locust_point.dm",
+		"Redwater Resident",
+		"Redwater Watcher",
+		"Redwater Resident"]
+}
