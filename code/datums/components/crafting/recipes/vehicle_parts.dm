@@ -265,8 +265,8 @@
 				/obj/item/stack/crafting/goodparts = 4)
 	tools = list(TOOL_WORKBENCH, TOOL_WELDER, TOOL_SCREWDRIVER)
 	time = 180
-	subcategory = CAT_VEHICLES
-	category = CAT_VEHICLEPARTS
+	category = CAT_VEHICLES
+	subcategory = CAT_VEHICLEPARTS
 
 /datum/crafting_recipe/vehiculearmor
 	name = "Armor booster module (Close Combat Weaponry)"
@@ -277,8 +277,8 @@
 				/obj/item/stack/crafting/goodparts = 4)
 	tools = list(TOOL_WORKBENCH, TOOL_WELDER, TOOL_SCREWDRIVER)
 	time = 180
-	subcategory = CAT_VEHICLES
-	category = CAT_VEHICLEPARTS
+	category = CAT_VEHICLES
+	subcategory = CAT_VEHICLEPARTS
 
 /datum/crafting_recipe/vehiculearmor/distance
 	name = "Armor booster module (Ranged Weaponry)"
@@ -289,8 +289,8 @@
 				/obj/item/stack/crafting/goodparts = 4)
 	tools = list(TOOL_WORKBENCH, TOOL_WELDER, TOOL_SCREWDRIVER)
 	time = 180
-	subcategory = CAT_VEHICLES
-	category = CAT_VEHICLEPARTS
+	category = CAT_VEHICLES
+	subcategory = CAT_VEHICLEPARTS
 
 /datum/crafting_recipe/carpart/trunk
 	name = "Modular Trunk"
@@ -301,8 +301,8 @@
 	/obj/item/stack/rods = 2)
 	tools = list(TOOL_WORKBENCH)
 	time = 90
-	subcategory = CAT_VEHICLES
-	category = CAT_VEHICLEPARTS
+	category = CAT_VEHICLES
+	subcategory = CAT_VEHICLEPARTS
 
 //Core parts
 
@@ -314,8 +314,8 @@
 				/obj/item/stack/crafting/goodparts = 4)
 	tools = list(TOOL_WORKBENCH, TOOL_WELDER, TOOL_SCREWDRIVER)
 	time = 100
-	subcategory = CAT_VEHICLES
-	category = CAT_VEHICLECOREPARTS
+	category = CAT_VEHICLES
+	subcategory = CAT_VEHICLECOREPARTS
 
 /datum/crafting_recipe/tires
 	name = "Repaired tires"
@@ -324,5 +324,5 @@
 				/obj/item/stack/sheet/plastic = 4)
 	tools = list(TOOL_WELDER)
 	time = 20
-	subcategory = CAT_VEHICLES
-	category = CAT_VEHICLECOREPARTS
+	category = CAT_VEHICLES
+	subcategory = CAT_VEHICLECOREPARTS
