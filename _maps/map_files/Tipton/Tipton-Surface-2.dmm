@@ -1888,8 +1888,7 @@
 "aXe" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/indestructible/ground/outside/road{
-	icon_state = "verticalinnermain1";
-	tag = "icon-verticalinnermain1"
+	icon_state = "verticalinnermain1"
 	},
 /area/f13/wasteland/cold)
 "aXh" = (
@@ -28216,8 +28215,7 @@
 /area/f13/wasteland/powered)
 "olS" = (
 /obj/structure/window/fulltile/house{
-	icon_state = "housewindowvertical";
-	tag = "icon-housewindowvertical (NORTHEAST)"
+	icon_state = "housewindowvertical"
 	},
 /obj/structure/curtain{
 	color = "#54575B"
@@ -33218,8 +33216,7 @@
 /area/f13/brotherhood/powered)
 "qOS" = (
 /turf/open/indestructible/ground/outside/road{
-	icon_state = "verticalinnermain2top";
-	tag = "icon-verticalinnermain2top"
+	icon_state = "verticalinnermain2top"
 	},
 /area/f13/wasteland/cold)
 "qPa" = (
@@ -37768,8 +37765,7 @@
 /obj/machinery/shower{
 	dir = 4;
 	pixel_x = -1;
-	pixel_y = 1;
-	tag = "icon-shower (EAST)"
+	pixel_y = 1
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/cafeteria,
 /area/f13/holiday)
@@ -40252,8 +40248,7 @@
 /area/f13/wasteland)
 "uqw" = (
 /turf/open/indestructible/ground/outside/road{
-	icon_state = "verticalinnermain0";
-	tag = "icon-verticalinnermain0"
+	icon_state = "verticalinnermain0"
 	},
 /area/f13/wasteland/cold)
 "uqD" = (
@@ -43563,8 +43558,7 @@
 /obj/structure/sink{
 	dir = 1;
 	icon_state = "sink";
-	pixel_y = 15;
-	tag = "icon-sink (NORTH)"
+	pixel_y = 15
 	},
 /obj/structure/mirror{
 	dir = 8;
@@ -45598,12 +45592,10 @@
 	},
 /obj/effect/decal/cleanable/oil{
 	icon_state = "floor6";
-	pixel_x = -28;
-	tag = "icon-floor6"
+	pixel_x = -28
 	},
 /turf/open/indestructible/ground/outside/road{
-	icon_state = "verticalinnermain0";
-	tag = "icon-verticalinnermain0"
+	icon_state = "verticalinnermain0"
 	},
 /area/f13/wasteland/cold)
 "wXk" = (
@@ -47019,8 +47011,7 @@
 /area/f13/ambientlighting/building/g)
 "xJX" = (
 /turf/open/indestructible/ground/outside/road{
-	icon_state = "verticalinnermain1";
-	tag = "icon-verticalinnermain1"
+	icon_state = "verticalinnermain1"
 	},
 /area/f13/wasteland/cold)
 "xKk" = (
