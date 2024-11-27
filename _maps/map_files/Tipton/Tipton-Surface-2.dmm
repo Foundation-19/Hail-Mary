@@ -313,8 +313,7 @@
 	dir = 1
 	},
 /turf/open/floor/f13{
-	icon_state = "bluedirtychess2";
-	tag = "icon-bluedirtychess2"
+	icon_state = "bluedirtychess2"
 	},
 /area/f13/holiday)
 "agB" = (
@@ -1140,13 +1139,6 @@
 "aEv" = (
 /turf/open/indestructible/ground/inside/subway,
 /area/f13/wasteland)
-"aEw" = (
-/turf/open/indestructible/ground/outside/sidewalk{
-	dir = 4;
-	icon_state = "outerborder";
-	tag = "icon-outerborder (EAST)"
-	},
-/area/f13/wasteland/cold)
 "aEz" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -1365,12 +1357,6 @@
 	icon_state = "room"
 	},
 /turf/open/floor/plating/dirt,
-/area/f13/wasteland/cold)
-"aIU" = (
-/turf/open/indestructible/ground/outside/sidewalk{
-	icon_state = "verticalrightborderright0";
-	tag = "icon-verticalrightborderright0"
-	},
 /area/f13/wasteland/cold)
 "aJd" = (
 /obj/structure/rack,
@@ -3364,13 +3350,6 @@
 	},
 /turf/open/floor/f13/wood,
 /area/f13/ambientlighting/building/i)
-"bJN" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/f13{
-	icon_state = "bluedirtychess2";
-	tag = "icon-bluedirtychess2"
-	},
-/area/f13/holiday)
 "bJX" = (
 /turf/open/indestructible/ground/outside/road{
 	icon_state = "horizontalbottombordertop1"
@@ -3888,8 +3867,7 @@
 "bVS" = (
 /obj/item/twohanded/required/kirbyplants/random,
 /turf/open/floor/f13{
-	icon_state = "bluedirtychess2";
-	tag = "icon-bluedirtychess2"
+	icon_state = "bluedirtychess2"
 	},
 /area/f13/holiday)
 "bVT" = (
@@ -6301,8 +6279,7 @@
 "dnF" = (
 /obj/structure/table/reinforced,
 /turf/open/floor/f13{
-	icon_state = "bluedirtychess2";
-	tag = "icon-bluedirtychess2"
+	icon_state = "bluedirtychess2"
 	},
 /area/f13/holiday)
 "dof" = (
@@ -7392,8 +7369,7 @@
 	pixel_y = 23
 	},
 /turf/open/indestructible/ground/outside/sidewalk{
-	icon_state = "verticalrightborderright0";
-	tag = "icon-verticalrightborderright0"
+	icon_state = "verticalrightborderright0"
 	},
 /area/f13/wasteland/cold)
 "dNM" = (
@@ -9371,8 +9347,7 @@
 	icon_state = "bench"
 	},
 /turf/open/indestructible/ground/outside/sidewalk{
-	icon_state = "verticalleftborderleft2bottom";
-	tag = "icon-verticalleftborderleft2bottom"
+	icon_state = "verticalleftborderleft2bottom"
 	},
 /area/f13/wasteland/cold)
 "eQe" = (
@@ -10569,8 +10544,7 @@
 	pixel_x = 17
 	},
 /turf/open/indestructible/ground/outside/sidewalk{
-	icon_state = "verticalrightborderright1";
-	tag = "icon-verticalrightborderright1"
+	icon_state = "verticalrightborderright1"
 	},
 /area/f13/wasteland/cold)
 "fuV" = (
@@ -11096,8 +11070,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet,
 /turf/open/floor/f13{
-	icon_state = "bluedirtychess2";
-	tag = "icon-bluedirtychess2"
+	icon_state = "bluedirtychess2"
 	},
 /area/f13/holiday)
 "fKc" = (
@@ -11680,8 +11653,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/chair/wood{
 	dir = 1;
-	icon_state = "wooden_chair_settler";
-	tag = "icon-wooden_chair_settler (NORTH)"
+	icon_state = "wooden_chair_settler"
 	},
 /obj/effect/landmark/start/f13/farmer,
 /turf/open/floor/f13/wood,
@@ -13951,8 +13923,7 @@
 "hdE" = (
 /obj/structure/simple_door/wood,
 /turf/open/floor/f13{
-	icon_state = "bluedirtychess2";
-	tag = "icon-bluedirtychess2"
+	icon_state = "bluedirtychess2"
 	},
 /area/f13/holiday)
 "hdF" = (
@@ -14071,8 +14042,7 @@
 	icon_state = "bench"
 	},
 /turf/open/indestructible/ground/outside/sidewalk{
-	icon_state = "verticalrightborderright0";
-	tag = "icon-verticalrightborderright0"
+	icon_state = "verticalrightborderright0"
 	},
 /area/f13/wasteland/cold)
 "hgG" = (
@@ -14398,8 +14368,7 @@
 	dir = 4
 	},
 /turf/open/floor/f13{
-	icon_state = "bluedirtychess2";
-	tag = "icon-bluedirtychess2"
+	icon_state = "bluedirtychess2"
 	},
 /area/f13/holiday)
 "hqN" = (
@@ -15264,8 +15233,7 @@
 "hNJ" = (
 /obj/item/flag/holidayflag,
 /turf/open/indestructible/ground/outside/sidewalk{
-	icon_state = "verticalrightborderright0";
-	tag = "icon-verticalrightborderright0"
+	icon_state = "verticalrightborderright0"
 	},
 /area/f13/wasteland/cold)
 "hNN" = (
@@ -16554,8 +16522,7 @@
 	icon_state = "snow_corner"
 	},
 /turf/open/indestructible/ground/outside/sidewalk{
-	icon_state = "verticalleftborderleft0";
-	tag = "icon-verticalleftborderleft0"
+	icon_state = "verticalleftborderleft0"
 	},
 /area/f13/wasteland/cold)
 "ivb" = (
@@ -16973,8 +16940,7 @@
 /area/f13/wasteland/cold)
 "iGZ" = (
 /turf/open/floor/f13{
-	icon_state = "bluedirtychess2";
-	tag = "icon-bluedirtychess2"
+	icon_state = "bluedirtychess2"
 	},
 /area/f13/holiday)
 "iHc" = (
@@ -17196,8 +17162,7 @@
 /obj/structure/rack,
 /obj/item/storage/box/syringes,
 /turf/open/floor/f13{
-	icon_state = "bluedirtychess2";
-	tag = "icon-bluedirtychess2"
+	icon_state = "bluedirtychess2"
 	},
 /area/f13/holiday)
 "iLB" = (
@@ -18581,8 +18546,7 @@
 	icon_state = "bench"
 	},
 /turf/open/indestructible/ground/outside/sidewalk{
-	icon_state = "verticalleftborderleft0";
-	tag = "icon-verticalleftborderleft0"
+	icon_state = "verticalleftborderleft0"
 	},
 /area/f13/wasteland/cold)
 "jvH" = (
@@ -19544,8 +19508,7 @@
 	},
 /obj/structure/barricade/wooden,
 /turf/open/indestructible/ground/outside/sidewalk{
-	icon_state = "verticalrightborderright1";
-	tag = "icon-verticalrightborderright1"
+	icon_state = "verticalrightborderright1"
 	},
 /area/f13/wasteland/cold)
 "jSj" = (
@@ -20093,12 +20056,6 @@
 	},
 /turf/open/floor/f13/wood,
 /area/f13/ambientlighting/building/f)
-"kgt" = (
-/turf/open/indestructible/ground/outside/sidewalk{
-	icon_state = "verticalleftborderleft0";
-	tag = "icon-verticalleftborderleft0"
-	},
-/area/f13/wasteland/cold)
 "kgQ" = (
 /obj/structure/decoration/hatch{
 	dir = 8
@@ -20428,8 +20385,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/chair/wood{
 	dir = 4;
-	icon_state = "wooden_chair_settler";
-	tag = "icon-wooden_chair_settler (EAST)"
+	icon_state = "wooden_chair_settler"
 	},
 /obj/effect/landmark/start/f13/farmer,
 /turf/open/floor/f13/wood,
@@ -21289,12 +21245,6 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/wood_common,
 /area/f13/holiday)
-"kMM" = (
-/turf/open/indestructible/ground/outside/sidewalk{
-	icon_state = "outerbordercorner";
-	tag = "icon-outerbordercorner"
-	},
-/area/f13/wasteland/cold)
 "kMV" = (
 /obj/structure/statue/sandstone/gravestone,
 /obj/effect/spawner/lootdrop/f13/cash_random_low,
@@ -22482,8 +22432,7 @@
 	pixel_y = 6
 	},
 /turf/open/indestructible/ground/outside/sidewalk{
-	icon_state = "verticalleftborderleft0";
-	tag = "icon-verticalleftborderleft0"
+	icon_state = "verticalleftborderleft0"
 	},
 /area/f13/wasteland/cold)
 "luU" = (
@@ -22778,8 +22727,7 @@
 	icon_state = "bench_center"
 	},
 /turf/open/indestructible/ground/outside/sidewalk{
-	icon_state = "verticalrightborderright0";
-	tag = "icon-verticalrightborderright0"
+	icon_state = "verticalrightborderright0"
 	},
 /area/f13/wasteland/cold)
 "lCY" = (
@@ -24796,12 +24744,6 @@
 	icon_state = "horizontalinnermain3"
 	},
 /area/f13/legioncamp)
-"mBZ" = (
-/turf/open/indestructible/ground/outside/sidewalk{
-	icon_state = "horizontalbottomborderbottom0";
-	tag = "icon-horizontalbottomborderbottom0"
-	},
-/area/f13/wasteland/cold)
 "mCb" = (
 /obj/structure/flora/grass/jungle/b,
 /obj/effect/decal/riverbank{
@@ -24948,8 +24890,7 @@
 "mFe" = (
 /obj/structure/wreck/trash/brokenvendor,
 /turf/open/indestructible/ground/outside/sidewalk{
-	icon_state = "verticalrightborderright1";
-	tag = "icon-verticalrightborderright1"
+	icon_state = "verticalrightborderright1"
 	},
 /area/f13/wasteland/cold)
 "mFi" = (
@@ -25359,8 +25300,7 @@
 	},
 /obj/structure/bonfire,
 /turf/open/indestructible/ground/outside/sidewalk{
-	icon_state = "verticalrightborderright1";
-	tag = "icon-verticalrightborderright1"
+	icon_state = "verticalrightborderright1"
 	},
 /area/f13/wasteland/cold)
 "mQn" = (
@@ -25628,13 +25568,11 @@
 "mYz" = (
 /obj/structure/sink{
 	dir = 1;
-	pixel_y = 16;
-	tag = "icon-sink (NORTH)"
+	pixel_y = 16
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/f13{
-	icon_state = "bluedirtychess2";
-	tag = "icon-bluedirtychess2"
+	icon_state = "bluedirtychess2"
 	},
 /area/f13/holiday)
 "mYG" = (
@@ -26310,8 +26248,7 @@
 /obj/item/pen,
 /obj/structure/table/wood,
 /turf/open/indestructible/ground/outside/sidewalk{
-	icon_state = "verticalrightborderright1";
-	tag = "icon-verticalrightborderright1"
+	icon_state = "verticalrightborderright1"
 	},
 /area/f13/wasteland/cold)
 "nnr" = (
@@ -26765,12 +26702,10 @@
 /area/f13/wasteland)
 "nzo" = (
 /obj/structure/window/fulltile/house{
-	icon_state = "housewindowvertical";
-	tag = "icon-housewindowvertical (NORTHEAST)"
+	icon_state = "housewindowvertical"
 	},
 /turf/open/floor/f13{
-	icon_state = "bluedirtychess2";
-	tag = "icon-bluedirtychess2"
+	icon_state = "bluedirtychess2"
 	},
 /area/f13/holiday)
 "nzA" = (
@@ -27045,8 +26980,7 @@
 	dir = 8
 	},
 /turf/open/floor/f13{
-	icon_state = "bluedirtychess2";
-	tag = "icon-bluedirtychess2"
+	icon_state = "bluedirtychess2"
 	},
 /area/f13/holiday)
 "nEo" = (
@@ -27418,8 +27352,7 @@
 /obj/machinery/iv_drip,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/f13{
-	icon_state = "bluedirtychess2";
-	tag = "icon-bluedirtychess2"
+	icon_state = "bluedirtychess2"
 	},
 /area/f13/holiday)
 "nOV" = (
@@ -28328,8 +28261,7 @@
 /obj/machinery/computer/operating,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/f13{
-	icon_state = "bluedirtychess2";
-	tag = "icon-bluedirtychess2"
+	icon_state = "bluedirtychess2"
 	},
 /area/f13/holiday)
 "omD" = (
@@ -33550,8 +33482,7 @@
 	icon_state = "f13foldupchair"
 	},
 /turf/open/floor/f13{
-	icon_state = "bluedirtychess2";
-	tag = "icon-bluedirtychess2"
+	icon_state = "bluedirtychess2"
 	},
 /area/f13/holiday)
 "qWm" = (
@@ -34078,8 +34009,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/f13{
-	icon_state = "bluedirtychess2";
-	tag = "icon-bluedirtychess2"
+	icon_state = "bluedirtychess2"
 	},
 /area/f13/holiday)
 "rjp" = (
@@ -34119,8 +34049,7 @@
 "rjU" = (
 /obj/structure/window/fulltile/wood,
 /turf/open/floor/f13{
-	icon_state = "bluedirtychess2";
-	tag = "icon-bluedirtychess2"
+	icon_state = "bluedirtychess2"
 	},
 /area/f13/holiday)
 "rkc" = (
@@ -34396,8 +34325,7 @@
 /obj/structure/simple_door/wood,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/f13{
-	icon_state = "bluedirtychess2";
-	tag = "icon-bluedirtychess2"
+	icon_state = "bluedirtychess2"
 	},
 /area/f13/holiday)
 "rrh" = (
@@ -35853,8 +35781,7 @@
 	icon_state = "bench"
 	},
 /turf/open/indestructible/ground/outside/sidewalk{
-	icon_state = "verticalrightborderright0";
-	tag = "icon-verticalrightborderright0"
+	icon_state = "verticalrightborderright0"
 	},
 /area/f13/wasteland/cold)
 "sca" = (
@@ -37322,8 +37249,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/f13{
-	icon_state = "bluedirtychess2";
-	tag = "icon-bluedirtychess2"
+	icon_state = "bluedirtychess2"
 	},
 /area/f13/holiday)
 "sNZ" = (
@@ -40136,8 +40062,7 @@
 /obj/item/clothing/suit/toggle/labcoat,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/f13{
-	icon_state = "bluedirtychess2";
-	tag = "icon-bluedirtychess2"
+	icon_state = "bluedirtychess2"
 	},
 /area/f13/holiday)
 "ull" = (
@@ -40170,8 +40095,7 @@
 	pixel_x = -32
 	},
 /turf/open/indestructible/ground/outside/sidewalk{
-	icon_state = "verticalleftborderleft2bottom";
-	tag = "icon-verticalleftborderleft2bottom"
+	icon_state = "verticalleftborderleft2bottom"
 	},
 /area/f13/wasteland/cold)
 "ulR" = (
@@ -40743,12 +40667,10 @@
 "uAE" = (
 /obj/structure/flora/grass/wasteland{
 	icon_state = "tall_grass_4";
-	layer = 6;
-	tag = "icon-tall_grass_4"
+	layer = 6
 	},
 /turf/open/indestructible/ground/outside/sidewalk{
-	icon_state = "verticalrightborderright0";
-	tag = "icon-verticalrightborderright0"
+	icon_state = "verticalrightborderright0"
 	},
 /area/f13/wasteland/cold)
 "uAI" = (
@@ -43532,8 +43454,7 @@
 /obj/item/healthanalyzer,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/f13{
-	icon_state = "bluedirtychess2";
-	tag = "icon-bluedirtychess2"
+	icon_state = "bluedirtychess2"
 	},
 /area/f13/holiday)
 "vVm" = (
@@ -46494,8 +46415,7 @@
 /obj/item/reagent_containers/hypospray/medipen/stimpak,
 /obj/item/reagent_containers/hypospray/medipen/stimpak,
 /turf/open/floor/f13{
-	icon_state = "bluedirtychess2";
-	tag = "icon-bluedirtychess2"
+	icon_state = "bluedirtychess2"
 	},
 /area/f13/holiday)
 "xvB" = (
@@ -47601,8 +47521,7 @@
 /obj/structure/table/reinforced,
 /obj/machinery/light,
 /turf/open/floor/f13{
-	icon_state = "bluedirtychess2";
-	tag = "icon-bluedirtychess2"
+	icon_state = "bluedirtychess2"
 	},
 /area/f13/holiday)
 "ybb" = (
@@ -77961,10 +77880,10 @@ hNJ
 hgb
 lCL
 sbK
-aIU
+ejS
 vtV
 dNF
-aIU
+ejS
 uAE
 mFe
 jSe
@@ -80770,8 +80689,8 @@ ipe
 cBo
 iGZ
 iGZ
-bJN
-bJN
+mnO
+mnO
 vtV
 ttK
 ttK
@@ -80796,7 +80715,7 @@ lPi
 sEH
 jRd
 jRd
-mBZ
+uQb
 vbU
 vbU
 vbU
@@ -80989,17 +80908,17 @@ ttK
 oRg
 oqt
 ltK
-kMM
-kgt
-kgt
-kgt
+bDz
+vOg
+vOg
+vOg
 gHw
 vbU
 sEH
 jRd
 jRd
-aEw
-kgt
+fQc
+vOg
 gHw
 vbU
 sEH
@@ -81195,14 +81114,14 @@ sEH
 uQQ
 uQQ
 uQQ
-mBZ
+uQb
 vbU
 sEH
 jBq
 jRd
 jRd
 jRd
-mBZ
+uQb
 vbU
 sEH
 fQd
@@ -81376,7 +81295,7 @@ ipe
 cBo
 ulh
 iGZ
-bJN
+mnO
 xuZ
 vtV
 ttK
@@ -81397,14 +81316,14 @@ sEH
 bJq
 lbP
 jRd
-mBZ
+uQb
 vbU
 sEH
 jRd
 jRd
 jRd
 jRd
-mBZ
+uQb
 vbU
 sEH
 fQd
@@ -81596,16 +81515,16 @@ vtV
 sFw
 vbU
 iND
-aIU
-aIU
-aIU
+ejS
+ejS
+ejS
 mSi
 vbU
 iND
-aIU
-aIU
-aIU
-aIU
+ejS
+ejS
+ejS
+ejS
 mSi
 vbU
 sEH
@@ -81779,8 +81698,8 @@ wew
 wew
 wew
 vtV
-bJN
-bJN
+mnO
+mnO
 vVd
 vtV
 dAR
@@ -81982,7 +81901,7 @@ fZX
 wew
 vtV
 mYz
-bJN
+mnO
 nOf
 vtV
 pvl
@@ -81998,20 +81917,20 @@ ttK
 fqA
 aZH
 dTO
-kMM
-kgt
-kgt
-kgt
-kgt
-kgt
-kgt
-kgt
-kgt
-kgt
-kgt
-kgt
-kgt
-kgt
+bDz
+vOg
+vOg
+vOg
+vOg
+vOg
+vOg
+vOg
+vOg
+vOg
+vOg
+vOg
+vOg
+vOg
 fGe
 fQd
 mWE
