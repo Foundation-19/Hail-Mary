@@ -76,6 +76,23 @@
 	name = "joy mask"
 	path = /obj/item/clothing/mask/joy
 
+/datum/gear/mask/payday
+	name = "ncr flag mask"
+	path = /obj/item/clothing/mask/rat/redding
+	cost = 1 // Its cosmetic
+
+/datum/gear/mask/payday/flagstaff
+	name = "legion banner mask"
+	path = /obj/item/clothing/mask/rat/flagstaff
+
+/datum/gear/mask/payday/powerarmor
+	name = "power armor mask"
+	path = /obj/item/clothing/mask/rat/citadel
+
+/datum/gear/mask/payday/vaultboy
+	name = "vault-boy mask"
+	path = /obj/item/clothing/mask/rat/vaultboy
+
 /// Bandanas ///
 
 /datum/gear/mask/bandana/
