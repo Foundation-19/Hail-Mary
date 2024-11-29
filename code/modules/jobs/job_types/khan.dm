@@ -3,8 +3,8 @@
 	selection_color = "#ff915e"
 	faction = FACTION_KHAN
 	exp_type = EXP_TYPE_KHAN
-	access = list(ACCESS_KHAN, ACCESS_PUBLIC)
-	minimal_access = list(ACCESS_KHAN, ACCESS_PUBLIC)
+	access = list(ACCESS_KHAN) 
+	minimal_access = list(ACCESS_KHAN)
 	forbids = "THE KHANATE DISCOURAGES: Dishonorable actions, weakness, abuse of power or status, and sabotaging other Khans."
 	enforces = "THE KHANATE ENCOURAGES: Bravery, honor, displays of strength, and brotherhood."
 
@@ -22,9 +22,9 @@
 	uniform = /obj/item/clothing/under/f13/khan
 	r_pocket = /obj/item/flashlight/flare
 	box = /obj/item/storage/survivalkit/tribal/chief
-	box_two = /obj/item/storage/survivalkit/medical/raider
+	box_two = /obj/item/storage/survivalkit/medical
 	backpack_contents = list(
-		/obj/item/storage/bag/money/small/khan = 1,
+		/obj/item/storage/wallet/stash/mid = 1,
 		)
 
 /datum/outfit/job/khan/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -85,30 +85,30 @@
 /datum/outfit/loadout/khanskirmisher //Mid-range SMG user with an autoloader and a bola
 	name = "Skirmisher"
 	r_hand = /obj/item/gun/ballistic/automatic/smg/mini_uzi
-	neck = /obj/item/storage/belt/holster/leg
+	neck = /obj/item/storage/belt/legholster
 	backpack_contents = list(
 		/obj/item/ammo_box/magazine/uzim9mm = 3,
 		/obj/item/restraints/legcuffs/bola/tactical = 1,
-		/obj/item/gun/ballistic/automatic/pistol/autoloader = 1,
+		/obj/item/gun/ballistic/automatic/pistol/automag = 1,
 		/obj/item/reagent_containers/hypospray/medipen/stimpak = 2
 		)
 
 /datum/outfit/loadout/khanrifler //Long-range Trail with an autoloader
 	name = "Rifler"
 	r_hand = /obj/item/gun/ballistic/rifle/repeater/trail
-	neck = /obj/item/storage/belt/holster/leg
+	neck = /obj/item/storage/belt/legholster
 	backpack_contents = list(
 		/obj/item/ammo_box/tube/m44 = 2,
-		/obj/item/gun/ballistic/automatic/pistol/autoloader = 1,
+		/obj/item/gun/ballistic/automatic/pistol/automag = 1,
 		/obj/item/reagent_containers/hypospray/medipen/stimpak = 2
 		)
 
 /datum/outfit/loadout/khandrug //Pusher with .44 Magnum
 	name = "Drug Pusher"
 	r_hand = /obj/item/gun/ballistic/revolver/m29
-	neck = /obj/item/storage/belt/holster/leg
+	neck = /obj/item/storage/belt/legholster
 	backpack_contents = list(
-		/obj/item/ammo_box/loader/m44 = 2,
+		/obj/item/ammo_box/tube/m44 = 2,
 		/obj/item/book/granter/trait/midsurgery = 1,
 		/obj/item/book/granter/trait/chemistry = 1,
 		/obj/item/storage/pill_bottle/chem_tin/buffout = 1,

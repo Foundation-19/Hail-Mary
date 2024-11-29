@@ -95,6 +95,12 @@
 	},
 /turf/open/floor/plating/dirt,
 /area/f13/wasteland/cold)
+"abB" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/rack/shelf_metal,
+/obj/item/stack/sheet/coke/twenty,
+/turf/open/floor/wood_common,
+/area/f13/legioncamp)
 "abI" = (
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/trash,
@@ -267,6 +273,7 @@
 "aeX" = (
 /obj/structure/rack,
 /obj/item/twohanded/sledgehammer/simple,
+/obj/item/book/manual/advice_blacksmith,
 /turf/open/floor/wood_common,
 /area/f13/legioncamp)
 "afr" = (
@@ -3857,6 +3864,15 @@
 /obj/effect/landmark/start/f13/slavemaster,
 /turf/open/floor/carpet/red,
 /area/f13/legioncamp)
+"bVN" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/rack/shelf_metal,
+/obj/item/stack/sheet/coke/twenty,
+/obj/effect/turf_decal/shadow/floor,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	color = "#e4e4e4"
+	},
+/area/f13/underground/mountain)
 "bVS" = (
 /obj/item/twohanded/required/kirbyplants/random,
 /turf/open/floor/f13{
@@ -6408,6 +6424,12 @@
 	},
 /turf/open/floor/plating/dirt,
 /area/f13/wasteland/cold)
+"drc" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/start/f13/auxilia,
+/turf/open/floor/wood_common/wood_common_dark,
+/area/f13/legioncamp)
 "drh" = (
 /turf/closed/wall/f13/wood,
 /area/f13/underground/mountain)
@@ -6551,6 +6573,16 @@
 /obj/item/reagent_containers/food/snacks/meat/slab/mirelurk,
 /turf/open/floor/plasteel/f13/vault_floor/misc/bar,
 /area/f13/casino/powered)
+"dvF" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/shadow/floor,
+/obj/effect/turf_decal/shadow/floor{
+	dir = 8
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	color = "#e4e4e4"
+	},
+/area/f13/underground/mountain)
 "dvW" = (
 /obj/machinery/iv_drip,
 /obj/effect/decal/cleanable/dirt{
@@ -7753,6 +7785,13 @@
 	icon_state = "floorrusty"
 	},
 /area/f13/ambientlighting/building/c)
+"dXu" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/shadow/floor{
+	dir = 8
+	},
+/turf/open/indestructible/ground/inside/mountain,
+/area/f13/underground/mountain)
 "dYd" = (
 /obj/effect/landmark/start/f13/ncrcorporal,
 /turf/open/floor/plating/dirt/dark,
@@ -8032,6 +8071,23 @@
 	icon_state = "horizontalbottomborderbottom0"
 	},
 /area/f13/ncr/powered)
+"efW" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/crate/footchest{
+	anchored = 1;
+	can_be_unanchored = 1;
+	dir = 8;
+	name = "chest with fittings"
+	},
+/obj/item/stack/sheet/leatherstrips,
+/obj/item/blacksmith/chain,
+/obj/item/blacksmith/swordhandle,
+/obj/item/blacksmith/woodenrod,
+/obj/effect/turf_decal/shadow/floor{
+	dir = 8
+	},
+/turf/open/floor/wood_common,
+/area/f13/legioncamp)
 "egd" = (
 /obj/effect/spawner/lootdrop/f13/crafting,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -8660,6 +8716,10 @@
 /obj/machinery/mineral/wasteland_vendor/advcomponents,
 /turf/open/floor/wood_common,
 /area/f13/holiday)
+"exZ" = (
+/obj/structure/reagent_dispensers/fueltank,
+/turf/open/floor/wood_common,
+/area/f13/legioncamp)
 "eye" = (
 /obj/structure/table/wood,
 /obj/structure/curtain{
@@ -9074,6 +9134,14 @@
 /obj/structure/wreck/trash/machinepiletwo,
 /turf/open/floor/plating/rust,
 /area/f13/tunnel)
+"eIG" = (
+/obj/structure/blacksmith/furnace,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/shadow/floor,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	color = "#e4e4e4"
+	},
+/area/f13/underground/mountain)
 "eIJ" = (
 /obj/effect/mob_spawn/human/corpse,
 /obj/structure/bed/mattress/pregame,
@@ -17246,12 +17314,6 @@
 	icon_state = "dark"
 	},
 /area/f13/brotherhood/powered)
-"iNP" = (
-/obj/structure/destructible/tribal_torch/wall/lit{
-	dir = 4
-	},
-/turf/open/floor/wood_common,
-/area/f13/legioncamp)
 "iOe" = (
 /obj/structure/closet,
 /obj/item/coin/iron,
@@ -17415,6 +17477,25 @@
 	icon_state = "housewood4-broken"
 	},
 /area/f13/building/powered)
+"iSj" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/crate/footchest{
+	anchored = 1;
+	can_be_unanchored = 1;
+	dir = 8;
+	name = "chest with fittings"
+	},
+/obj/item/stack/sheet/leatherstrips,
+/obj/item/blacksmith/chain,
+/obj/item/blacksmith/swordhandle,
+/obj/item/blacksmith/woodenrod,
+/obj/effect/turf_decal/shadow/floor{
+	dir = 8
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	color = "#e4e4e4"
+	},
+/area/f13/underground/mountain)
 "iSn" = (
 /obj/structure/wreck/bus/rusted/segmented19,
 /turf/open/indestructible/ground/outside/sidewalk{
@@ -19517,6 +19598,13 @@
 	icon_state = "verticalrightborderright1"
 	},
 /area/f13/wasteland/cold)
+"jSi" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/shadow/floor,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	color = "#e4e4e4"
+	},
+/area/f13/underground/mountain)
 "jSj" = (
 /obj/structure/rack,
 /turf/open/floor/f13{
@@ -21014,6 +21102,13 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/floor/floorsolid,
 /area/f13/ambientlighting/building/d)
+"kGH" = (
+/obj/structure/blacksmith/quenching,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	color = "#e4e4e4"
+	},
+/area/f13/underground/mountain)
 "kHd" = (
 /obj/structure/table/wood,
 /obj/item/pda,
@@ -24084,10 +24179,10 @@
 /turf/open/floor/carpet/red,
 /area/f13/legioncamp)
 "mmm" = (
-/obj/structure/reagent_dispensers/fueltank,
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/structure/blacksmith/furnace,
 /turf/open/floor/wood_common,
 /area/f13/legioncamp)
 "mmx" = (
@@ -26590,6 +26685,12 @@
 /obj/machinery/light/small,
 /turf/open/floor/f13,
 /area/f13/brotherhood/powered)
+"nwJ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/crate/large,
+/obj/item/stack/sheet/leather/ten,
+/turf/open/indestructible/ground/inside/mountain,
+/area/f13/underground/mountain)
 "nwW" = (
 /obj/structure/fence{
 	dir = 4
@@ -28587,6 +28688,10 @@
 	name = "roughcast asphalt"
 	},
 /area/f13/tunnel)
+"otv" = (
+/obj/structure/blacksmith/anvil/obtainable/legion,
+/turf/open/floor/wood_common,
+/area/f13/legioncamp)
 "otC" = (
 /obj/machinery/microwave/stove,
 /turf/open/floor/f13{
@@ -29684,6 +29789,18 @@
 	},
 /turf/open/indestructible/ground/outside/snow,
 /area/f13/wasteland/cold)
+"oWh" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/destructible/tribal_torch/wall/lit{
+	dir = 4
+	},
+/obj/effect/turf_decal/shadow/floor{
+	dir = 8
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	color = "#e4e4e4"
+	},
+/area/f13/underground/mountain)
 "oWo" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
@@ -30155,7 +30272,7 @@
 /turf/open/indestructible/ground/inside/subway,
 /area/f13/caves)
 "piq" = (
-/obj/machinery/workbench/fbench,
+/obj/structure/blacksmith/quenching,
 /turf/open/floor/wood_common,
 /area/f13/legioncamp)
 "pir" = (
@@ -31038,6 +31155,9 @@
 /area/f13/building/powered)
 "pGu" = (
 /obj/machinery/workbench/forge,
+/obj/structure/decoration/legion/chains2{
+	pixel_y = 26
+	},
 /turf/open/floor/wood_common,
 /area/f13/legioncamp)
 "pGF" = (
@@ -31350,6 +31470,21 @@
 	icon_state = "outerturn"
 	},
 /area/f13/building/powered)
+"pMy" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/crate/large{
+	anchored = 1;
+	name = "blacksmith supplies"
+	},
+/obj/item/blacksmith/ingot/iron,
+/obj/item/blacksmith/ingot/iron,
+/obj/item/blacksmith/ingot/iron,
+/obj/item/blacksmith/ingot/iron,
+/obj/item/blacksmith/ingot/iron,
+/obj/item/stack/sheet/mineral/wood/five,
+/obj/item/stack/sheet/leather/ten,
+/turf/open/indestructible/ground/inside/mountain,
+/area/f13/underground/mountain)
 "pMR" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -31801,6 +31936,17 @@
 	icon_state = "dark"
 	},
 /area/f13/brotherhood/powered)
+"pZA" = (
+/obj/machinery/workbench/forge,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/decoration/legion/chains2{
+	pixel_y = 26
+	},
+/obj/effect/turf_decal/shadow/floor,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	color = "#e4e4e4"
+	},
+/area/f13/underground/mountain)
 "pZL" = (
 /obj/structure/simple_door/house{
 	icon_state = "interior"
@@ -32814,10 +32960,6 @@
 	icon_state = "horizontalinnermain1"
 	},
 /area/f13/tunnel)
-"qBC" = (
-/obj/effect/landmark/start/f13/auxilia,
-/turf/open/floor/wood_common,
-/area/f13/legioncamp)
 "qBD" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light,
@@ -38860,6 +39002,18 @@
 	},
 /turf/open/floor/plating/dirt,
 /area/f13/wasteland/cold)
+"tFn" = (
+/obj/structure/table/wood,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/twohanded/sledgehammer/simple,
+/obj/item/book/manual/advice_blacksmith,
+/obj/effect/turf_decal/shadow/floor{
+	dir = 8
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	color = "#e4e4e4"
+	},
+/area/f13/underground/mountain)
 "tFF" = (
 /obj/structure/toilet{
 	dir = 1;
@@ -40176,6 +40330,12 @@
 "unG" = (
 /obj/structure/spider/stickyweb,
 /obj/effect/spawner/lootdrop/f13/armor/tier3,
+/turf/open/indestructible/ground/inside/mountain,
+/area/f13/underground/mountain)
+"unH" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/table/wood,
+/obj/effect/turf_decal/shadow/floor,
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/underground/mountain)
 "unM" = (
@@ -42250,6 +42410,12 @@
 /obj/item/storage/trash_stack,
 /turf/open/floor/plasteel/f13/vault_floor/floor/floorsolid,
 /area/f13/ambientlighting/building/d)
+"voz" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	color = "#e4e4e4"
+	},
+/area/f13/underground/mountain)
 "voF" = (
 /obj/structure/car,
 /turf/open/indestructible/ground/outside/road{
@@ -42362,6 +42528,20 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/wood_common/wood_common_dark,
+/area/f13/legioncamp)
+"vsv" = (
+/obj/structure/closet/crate/large{
+	anchored = 1;
+	name = "blacksmith supplies"
+	},
+/obj/item/blacksmith/ingot/iron,
+/obj/item/blacksmith/ingot/iron,
+/obj/item/blacksmith/ingot/iron,
+/obj/item/blacksmith/ingot/iron,
+/obj/item/blacksmith/ingot/iron,
+/obj/item/stack/sheet/mineral/wood/five,
+/obj/item/stack/sheet/leather/ten,
+/turf/open/floor/wood_common,
 /area/f13/legioncamp)
 "vsx" = (
 /obj/effect/turf_decal/weather/snow/corner,
@@ -45518,6 +45698,13 @@
 	icon_state = "redmark"
 	},
 /area/f13/brotherhood/powered)
+"wVc" = (
+/obj/structure/blacksmith/anvil/obtainable/legion,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	color = "#e4e4e4"
+	},
+/area/f13/underground/mountain)
 "wVi" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -112584,9 +112771,9 @@ cIs
 puZ
 vBT
 piq
-qBC
 skW
 skW
+otv
 vBT
 ydT
 gwz
@@ -112786,7 +112973,7 @@ uHo
 puZ
 vBT
 pkq
-jPU
+skW
 skW
 skW
 qth
@@ -112988,9 +113175,9 @@ hNt
 puZ
 vBT
 tPw
-qBC
-iNP
 skW
+skW
+vsv
 kFu
 mme
 whQ
@@ -114398,12 +114585,12 @@ azE
 lCy
 xry
 xry
-aEz
+drc
 igg
 kFu
+jPU
 skW
-skW
-skW
+exZ
 skW
 fSW
 kFu
@@ -114605,7 +114792,7 @@ uzk
 kFu
 snU
 skW
-skW
+abB
 skW
 kij
 kFu
@@ -114802,13 +114989,13 @@ wQo
 dSF
 xry
 xry
-aEz
+drc
 ccV
 kFu
 fJA
 skW
 mmm
-skW
+efW
 tBK
 kFu
 icv
@@ -122078,11 +122265,11 @@ cAd
 cAd
 cAd
 cAd
-cAd
-cAd
-cAd
-cAd
-cAd
+unH
+oKV
+oKV
+pMy
+nwJ
 cAd
 cAd
 cAd
@@ -122280,11 +122467,11 @@ cAd
 cAd
 cAd
 cAd
-cAd
-cAd
-cAd
-cAd
-cAd
+bVN
+voz
+oKV
+voz
+kGH
 cAd
 cAd
 cAd
@@ -122482,11 +122669,11 @@ cAd
 cAd
 cAd
 cAd
-cAd
-cAd
-cAd
-cAd
-cAd
+eIG
+voz
+oKV
+voz
+voz
 cAd
 cAd
 cAd
@@ -122684,11 +122871,11 @@ cAd
 cAd
 cAd
 cAd
-cAd
-cAd
-cAd
-cAd
-cAd
+jSi
+voz
+oKV
+voz
+wVc
 cAd
 cAd
 cAd
@@ -122886,11 +123073,11 @@ cAd
 cAd
 cAd
 cAd
-cAd
-cAd
-cAd
-cAd
-cAd
+pZA
+voz
+oKV
+voz
+voz
 cAd
 cAd
 cAd
@@ -123088,11 +123275,11 @@ cAd
 cAd
 cAd
 cAd
-cAd
-cAd
-cAd
-cAd
-cAd
+dvF
+oWh
+dXu
+iSj
+tFn
 cAd
 cAd
 cAd

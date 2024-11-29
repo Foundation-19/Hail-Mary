@@ -89,6 +89,10 @@
 #define RADIO_KEY_LEGION "l"
 #define RADIO_TOKEN_LEGION ":l"
 
+#define RADIO_CHANNEL_KHANS "Khans"
+#define RADIO_KEY_KHANS "k"
+#define RADIO_TOKEN_KHANS ":k"
+
 #define RADIO_CHANNEL_REDWATER "Redwater"
 #define RADIO_KEY_REDWATER "d"
 #define RADIO_TOKEN_REDWATER ":d"
@@ -119,8 +123,9 @@
 #define FREQ_RANGER 1373 //Ranger
 #define FREQ_TOWN_MAYOR 1375 //Den
 #define FREQ_TOWN_COMMERCE 1376 //town merchant
-#define FREQ_BIKER 1379 //Khans
+#define FREQ_BIKER 1379 //Bikers
 #define FREQ_LEGION 1381 //Legion
+#define FREQ_KHANS 1383 //Khans
 
 ///hey guess what, telecomm's a fuckin cock, so im making the list here
 ///update this list with all the frequenties the fuckin bus fuckin listens to (which is all of them, fuck you its all of them)
@@ -144,7 +149,8 @@
 		FREQ_RANGER,\
 		FREQ_TOWN_COMMERCE,\
 		FREQ_BIKER,\
-		FREQ_LEGION
+		FREQ_LEGION,\
+		FREQ_KHANS
 
 #define FREQ_HOLOGRID_SOLUTION 1433
 #define FREQ_STATUS_DISPLAYS 1435
@@ -262,7 +268,8 @@ GLOBAL_LIST_INIT(radiochannels, list(
 	RADIO_CHANNEL_TOWN_MAYOR = FREQ_TOWN_MAYOR,
 	RADIO_CHANNEL_RANGER = FREQ_RANGER,
 	RADIO_CHANNEL_TOWN_COMMERCE = FREQ_TOWN_COMMERCE,
-	RADIO_CHANNEL_LEGION = FREQ_LEGION
+	RADIO_CHANNEL_LEGION = FREQ_LEGION,
+	RADIO_CHANNEL_KHANS = FREQ_KHANS
 	))
 
 GLOBAL_LIST_INIT(reverseradiochannels, list(
@@ -289,7 +296,8 @@ GLOBAL_LIST_INIT(reverseradiochannels, list(
 	"[FREQ_TOWN_PD]" = RADIO_CHANNEL_TOWN_PD,
 	"[FREQ_RANGER]" = RADIO_CHANNEL_RANGER,
 	"[FREQ_TOWN_COMMERCE]" = RADIO_CHANNEL_TOWN_COMMERCE,
-	"[FREQ_LEGION]" = RADIO_CHANNEL_LEGION
+	"[FREQ_LEGION]" = RADIO_CHANNEL_LEGION,
+	"[FREQ_KHANS]" = RADIO_CHANNEL_KHANS
 ))
 
 GLOBAL_LIST_INIT(freqtospan, list(
@@ -315,7 +323,8 @@ GLOBAL_LIST_INIT(freqtospan, list(
 	"[FREQ_TOWN_PD]" = "secradio",
 	"[FREQ_TOWN_MAYOR]" = "comradio",
 	"[FREQ_RANGER]" = "rangerradio",
-	"[FREQ_LEGION]" = "legionradio"
+	"[FREQ_LEGION]" = "legionradio",
+	"[FREQ_KHANS]" = "khansradio"
 	))
 
 GLOBAL_LIST_INIT(department_radio_prefixes, list(":", "."))
@@ -352,6 +361,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	RADIO_KEY_TOWN_MAYOR = RADIO_CHANNEL_TOWN_MAYOR,
 	RADIO_KEY_TOWN_COMMERCE = RADIO_CHANNEL_TOWN_COMMERCE,
 	RADIO_KEY_LEGION = RADIO_CHANNEL_LEGION,
+	RADIO_KEY_KHANS = RADIO_CHANNEL_KHANS,
 
 	// Admin
 	MODE_KEY_ADMIN = MODE_ADMIN,
