@@ -193,3 +193,53 @@
 	name = "knife bandolier" //for lots of small dicks or something IDFK
 	path = /obj/item/storage/belt/sabre/knife
 	cost = 2
+
+/datum/gear/neck/treasurer
+	name = "Treasurers Mantle"
+	path = /obj/item/clothing/neck/mantle/treasurer
+	cost = 1
+
+/datum/gear/neck/mantle/chief
+	name = "Chieftain Mantle"
+	path = /obj/item/clothing/neck/mantle/chief
+	cost = 1
+
+/datum/gear/neck/mantle/commander
+	name = "Commanders Mantle"
+	path = /obj/item/clothing/neck/mantle/commander
+	cost = 2
+
+/datum/gear/neck/mantle/legion
+	name = "Legion Cape"
+	path = /obj/item/clothing/neck/mantle/legion
+	cost = 2
+
+/datum/gear/neck/apron/medical
+	name = "Surgeon Apron"
+	path = /obj/item/clothing/neck/apron/medical/surgical
+	cost = 1
+
+/datum/gear/neck/apron/chef
+	name = "Chef Apron"
+	path = /obj/item/clothing/neck/apron/chef
+	cost = 1
+
+/datum/gear/neck/apron/labor
+	name = "Laborer Apron"
+	path = /obj/item/clothing/neck/apron/labor
+	cost = 1
+
+/datum/gear/neck/apron/housewife ////Why the fuck do we have this lmao
+	name = "50s Housewife Apron"
+	path = /obj/item/clothing/neck/apron/housewife
+	cost = 1
+
+/datum/gear/neck/jamrock
+	name = "Eldritch Tie"
+	path = /obj/item/clothing/neck/jamrock
+	cost = 1
+
+/datum/gear/neck/necklace/dope
+	name = "Pimp Ass Gold Necklace"
+	path = /obj/item/clothing/neck/necklace/dope
+	cost = 3

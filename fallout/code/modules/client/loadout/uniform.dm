@@ -351,7 +351,7 @@
 	name = "grey turtleneck"
 	path = /obj/item/clothing/under/suit/turtle/grey
 	cost = 2
-/*
+
 /datum/gear/uniform/detbrown
 	name = "Brown Worn Suit"
 	path = /obj/item/clothing/under/rank/security/detective/brown
@@ -361,10 +361,8 @@
 /datum/gear/uniform/detbrown/detbrown2
 	name = "Padded Worn Suit"
 	path = /obj/item/clothing/under/rank/security/detective/brown/brown2
-	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_JOBS
+	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_UNIFORMS
 	restricted_desc = "Detective"
-	restricted_roles = list("Detective")
-*/
 
 // Grey utility
 
@@ -377,14 +375,14 @@
 /datum/gear/uniform/grey/sec
 	name = "Security Utility Uniform"
 	path = /obj/item/clothing/under/rank/security/officer/util
-	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_JOBS
+	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_UNIFORMS
 	restricted_desc = "Security"
 	restricted_roles = list("Detective", "Security Officer", "Warden", "Head of Security")
 
 /datum/gear/uniform/grey/sci
 	name = "Science Utility Uniform"
 	path = /obj/item/clothing/under/rank/rnd/scientist/util
-	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_JOBS
+	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_UNIFORMS
 	restricted_desc = "Science"
 	restricted_roles = list("Scientist", "Roboticist", "Research Director", "Geneticist")
 */
@@ -393,14 +391,14 @@
 /datum/gear/uniform/grey/supply
 	name = "Supply Utility Uniform"
 	path = /obj/item/clothing/under/rank/cargo/util
-	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_JOBS
+	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_UNIFORMS
 	restricted_desc = "Supply"
 	restricted_roles = list("Shaft Miner", "Cargo Technician", "Quartermaster")
 
 /datum/gear/uniform/grey/com
 	name = "Command Utility Uniform"
 	path = /obj/item/clothing/under/rank/captain/util
-	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_JOBS
+	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_UNIFORMS
 	restricted_desc = "Command"
 	restricted_roles = list("Quartermaster", "Research Director", "Chief Medical Officer", "Head Of Security", "Head Of Personnel", "Captain")
 */
@@ -1174,3 +1172,169 @@
 	path = /obj/item/clothing/under/f13/female/whitelegs
 	cost = 1
 	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_TRIBAL
+
+/datum/gear/uniform/wasteland/ranger
+	name = "Ranger outfit"
+	path = /obj/item/clothing/under/f13/ranger
+	cost = 1
+	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_WASTELAND
+
+/datum/gear/uniform/wasteland/sheriff
+	name = "Sheriff Outfit"
+	path = /obj/item/clothing/under/f13/sheriff
+	cost = 1
+	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_WASTELAND
+
+/datum/gear/uniform/wasteland/recon/outcast
+	name = "Outcast Recon Bodysuit"
+	path = /obj/item/clothing/under/f13/recon/outcast
+	cost = 1
+	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_WASTELAND
+
+/datum/gear/uniform/wasteland/raiderleather
+	name = "Raider Leathers"
+	path = /obj/item/clothing/under/f13/raider_leather
+	cost = 1
+	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_WASTELAND
+
+/datum/gear/uniform/wasteland/raiderrags
+	name = "Raider Rags"
+	path = /obj/item/clothing/under/f13/raiderrags
+	cost = 1
+	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_WASTELAND
+
+/datum/gear/uniform/wasteland/police/swat
+	name = "SWAT Officer Uniform"
+	path = /obj/item/clothing/under/f13/police/swat
+	cost = 2
+	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_WASTELAND
+
+/datum/gear/uniform/wasteland/ncr/deserter
+	name = "Torn Overcoat"
+	path = /obj/item/clothing/under/f13/ncr/torn
+	cost = 1
+	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_WASTELAND
+
+/datum/gear/uniform/wasteland/militia
+	name = "EDF Fatigues"
+	path = /obj/item/clothing/under/f13/combat/militia
+	cost = 1
+	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_WASTELAND
+
+/datum/gear/uniform/wasteland/detectivealt
+	name = "Fancy Detective Suit"
+	path = /obj/item/clothing/under/f13/detectivealt
+	cost = 1
+	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_WASTELAND
+
+/datum/gear/uniform/wasteland/gunner
+	name = "Gunner Combat Uniform"
+	path = /obj/item/clothing/under/f13/gunner
+	cost = 1
+	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_WASTELAND
+
+/datum/gear/uniform/ncr/fatigues
+	name = "Desert Fatigues"
+	path = /obj/item/clothing/under/f13/ncr
+	cost = 1
+	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_UNIFORMS
+	restricted_desc = "NCR"
+	restricted_roles = list("NCR Captain",
+							"NCR Lieutenant",
+							"NCR Medical Officer",
+							"NCR Heavy Trooper",
+							"NCR Sergeant",
+							"NCR Corporal",
+							"NCR Combat Engineer",
+							"NCR Combat Medic",
+							"NCR Military Police",
+							"NCR Trooper",
+							"NCR Off-Duty"
+						)
+
+/datum/gear/uniform/ncr/officer
+	name = "Officer Fatigues"
+	path = /obj/item/clothing/under/f13/ncr/ncr_officer
+	cost = 1
+	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_UNIFORMS
+	restricted_desc = "NCR"
+	restricted_roles = list("NCR Captain",
+							"NCR Lieutenant",
+							"NCR Medical Officer",
+						)
+
+/datum/gear/uniform/ncr/scout
+	name = "Scout Fatigues"
+	path = /obj/item/clothing/under/f13/ncr/scout
+	cost = 1
+	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_UNIFORMS
+	restricted_desc = "NCR"
+	restricted_roles = list("NCR Captain",
+							"NCR Lieutenant",
+							"NCR Medical Officer",
+							"NCR Heavy Trooper",
+							"NCR Sergeant",
+							"NCR Corporal",
+							"NCR Combat Engineer",
+							"NCR Combat Medic",
+							"NCR Military Police",
+							"NCR Trooper",
+							"NCR Off-Duty"
+						)
+
+/datum/gear/uniform/ncr/sniper
+	name = "Sniper Fatigues"
+	path = /obj/item/clothing/under/f13/ncr/sniper
+	cost = 1
+	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_UNIFORMS
+	restricted_desc = "NCR"
+	restricted_roles = list("NCR Captain",
+							"NCR Lieutenant",
+							"NCR Medical Officer",
+							"NCR Heavy Trooper",
+							"NCR Sergeant",
+							"NCR Corporal",
+							"NCR Combat Engineer",
+							"NCR Combat Medic",
+							"NCR Military Police",
+							"NCR Trooper",
+							"NCR Off-Duty"
+						)
+
+/datum/gear/uniform/ncr/pants
+	name = "Fatigue Pants"
+	path = /obj/item/clothing/under/f13/ncr/pants
+	cost = 1
+	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_UNIFORMS
+	restricted_desc = "NCR"
+	restricted_roles = list("NCR Captain",
+							"NCR Lieutenant",
+							"NCR Medical Officer",
+							"NCR Heavy Trooper",
+							"NCR Sergeant",
+							"NCR Corporal",
+							"NCR Combat Engineer",
+							"NCR Combat Medic",
+							"NCR Military Police",
+							"NCR Trooper",
+							"NCR Off-Duty"
+						)
+
+/datum/gear/uniform/ncr/shorts
+	name = "Fatigue Shorts"
+	path = /obj/item/clothing/under/f13/ncr/ncr_shorts
+	cost = 1
+	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_UNIFORMS
+	restricted_desc = "NCR"
+	restricted_roles = list("NCR Captain",
+							"NCR Lieutenant",
+							"NCR Medical Officer",
+							"NCR Heavy Trooper",
+							"NCR Sergeant",
+							"NCR Corporal",
+							"NCR Combat Engineer",
+							"NCR Combat Medic",
+							"NCR Military Police",
+							"NCR Trooper",
+							"NCR Off-Duty"
+						)

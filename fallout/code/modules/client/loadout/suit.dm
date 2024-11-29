@@ -205,6 +205,45 @@
 							"Barkeep",
 							"Radio Host"
 							)
+/datum/gear/suit/ncr/ranger/sniper
+	name = "Vet Ranger Sniper Gear"
+	path = /obj/item/clothing/suit/armor/rangercombat/foxcustom
+	subcategory = LOADOUT_SUBCATEGORY_SUIT_ARMOR 	
+	cost = 2
+	restricted_desc = "NCR"
+	restricted_roles = list("NCR Captain",
+							"NCR Veteran Ranger",
+						)
+
+/datum/gear/suit/ncr/ranger/cavalry
+	name = "11th Armored Cavalry Armor"
+	path = /obj/item/clothing/suit/armor/rangercombat/rigscustom
+	subcategory = LOADOUT_SUBCATEGORY_SUIT_ARMOR 	
+	cost = 2
+	restricted_desc = "NCR"
+	restricted_roles = list("NCR Captain",
+							"NCR Veteran Ranger",
+						)
+
+/datum/gear/suit/ncr/ranger/spider
+	name = "Spider Ranger Gear"
+	path = /obj/item/clothing/suit/armor/rangercombat/pricecustom
+	subcategory = LOADOUT_SUBCATEGORY_SUIT_ARMOR 	
+	cost = 2
+	restricted_desc = "NCR"
+	restricted_roles = list("NCR Captain",
+							"NCR Veteran Ranger",
+						)
+
+/datum/gear/suit/legion/venator
+	name = "Reptilia Tenebris"
+	path = /obj/item/clothing/suit/armor/medium/raider/reptiliatenebris
+	subcategory = LOADOUT_SUBCATEGORY_SUIT_ARMOR 	
+	cost = 2
+	restricted_desc = "CaesarsLegion"
+	restricted_roles = list("Legion Centurion",
+							"Legion Veteran Decanus",
+						)
 
 /datum/gear/suit/samurai  //added by TK420634 ~ 5/29/2022 "Samurai Wasteland WeebShit Edition (tm)
 	name = "Rusted Samurai Armor"
@@ -218,3 +257,98 @@
 	subcategory = LOADOUT_SUBCATEGORY_SUIT_JACKETS
 	cost = 2
 
+datum/gear/suit/rain_coat
+	name = "Sniper Raincoat"
+	path= /obj/item/clothing/suit/rain_coat
+	subcategory = LOADOUT_SUBCATEGORY_SUIT_JACKETS
+	cost = 2
+
+datum/gear/suit/marlowsuit
+	name = "Marlow Gang Overcoat"
+	path= /obj/item/clothing/suit/armor/light/duster/marlowsuit
+	subcategory = LOADOUT_SUBCATEGORY_SUIT_JACKETS
+	cost = 2
+
+datum/gear/suit/ikesuit
+	name = "Gunfighter Overcoat"
+	path= /obj/item/clothing/suit/armor/light/duster/marlowsuit/ikesuit
+	subcategory = LOADOUT_SUBCATEGORY_SUIT_JACKETS
+	cost = 2
+
+datum/gear/suit/masonsuit
+	name = "Vagabond Vest"
+	path= /obj/item/clothing/suit/armor/light/duster/marlowsuit/masonsuit
+	subcategory = LOADOUT_SUBCATEGORY_SUIT_JACKETS
+	cost = 2
+
+datum/gear/suit/townduster
+	name = "Black Trenchcoat"
+	path= /obj/item/clothing/suit/armor/light/duster/town
+	subcategory = LOADOUT_SUBCATEGORY_SUIT_JACKETS
+	cost = 2
+
+datum/gear/suit/harpercoat
+	name = "Outlaw Coat"
+	path= /obj/item/clothing/suit/armor/harpercoat
+	subcategory = LOADOUT_SUBCATEGORY_SUIT_JACKETS
+	cost = 2
+
+datum/gear/suit/dustervet
+	name = "Merc Veteran Coat"
+	path= /obj/item/clothing/suit/armor/light/duster/vet
+	subcategory = LOADOUT_SUBCATEGORY_SUIT_JACKETS
+	cost = 2
+
+datum/gear/suit/desperado
+	name = "Desperado Duster"
+	path= /obj/item/clothing/suit/armor/light/duster/desperado
+	subcategory = LOADOUT_SUBCATEGORY_SUIT_JACKETS
+	cost = 2
+
+datum/gear/suit/leatherarmor
+	name = "Leather Armor"
+	path= /obj/item/clothing/suit/armor/light/leather
+	subcategory = LOADOUT_SUBCATEGORY_SUIT_ARMOR
+	cost = 3
+
+datum/gear/suit/tanvest
+	name = "Tanned Vest"
+	path= /obj/item/clothing/suit/armor/light/leather/tanvest
+	subcategory = LOADOUT_SUBCATEGORY_SUIT_ARMOR
+	cost = 3
+
+datum/gear/suit/ironchestplate	////Armor kit reskin
+	name = "Old Iron Chestplate"
+	path= /obj/item/clothing/suit/armor/light/kit/punk/ironchestplate
+	subcategory = LOADOUT_SUBCATEGORY_SUIT_ARMOR
+	cost = 3
+
+datum/gear/suit/roughchainmail
+	name = "Rough Chainmail"
+	path= /obj/item/clothing/suit/armor/light/kit/punk/roughchainmail
+	subcategory = LOADOUT_SUBCATEGORY_SUIT_ARMOR
+	cost = 3
+
+datum/gear/suit/ironchestplatered
+	name = "Caped Iron Chestplate (Red)"
+	path= /obj/item/clothing/suit/armor/light/kit/punk/ironchestplatered
+	subcategory = LOADOUT_SUBCATEGORY_SUIT_ARMOR
+	cost = 3
+
+datum/gear/suit/ironchestplateblue
+	name = "Caped Iron Chestplate (Blue)"
+	path= /obj/item/clothing/suit/armor/light/kit/punk/ironchestplateblue
+	subcategory = LOADOUT_SUBCATEGORY_SUIT_ARMOR
+	cost = 3
+
+datum/gear/suit/chitinbreastplate
+	name = "Chitin Breastplate"
+	path= /obj/item/clothing/suit/armor/light/kit/punk/chitinbreastplate
+	subcategory = LOADOUT_SUBCATEGORY_SUIT_ARMOR
+	cost = 2
+
+datum/gear/suit/hazmat
+	name = "Hazmat Suit"
+	path= /obj/item/clothing/suit/bio_suit/hazmat
+	subcategory = LOADOUT_SUBCATEGORY_SUIT_ARMOR
+	cost = 4

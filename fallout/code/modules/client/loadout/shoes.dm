@@ -130,6 +130,11 @@
 	name = "Type three service shoes"
 	path = /obj/item/clothing/shoes/ww2brown
 
+/datum/gear/shoes/galoshes
+	name = "Galoshes"
+	path = /obj/item/clothing/shoes/galoshes
+	cost = 2
+
 /// Military aka Two point boots
 
 /datum/gear/shoes/military
@@ -169,6 +174,11 @@
 /datum/gear/shoes/military/steelpelts
 	name = "steel tipped pelt boots"
 	path = /obj/item/clothing/shoes/f13/military/khan_pelt
+
+/datum/gear/shoes/military/plated
+	name = "Plated War Boots"
+	path = /obj/item/clothing/shoes/f13/military/plated
+
 
 /// Factions Shoes or well NCR boots.
 
