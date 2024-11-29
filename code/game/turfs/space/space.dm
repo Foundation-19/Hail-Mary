@@ -5,6 +5,9 @@
 	intact = 0
 	density = 1
 	opacity = 1
+
+	resistance_flags = INDESTRUCTIBLE
+
 /*lonestar edit. don't need space. so dont initialize it.
 	initial_temperature = TCMB
 	thermal_conductivity = 0
@@ -24,7 +27,7 @@
 /turf/open/space/basic/New()	//Do not convert to Initialize
 	//This is used to optimize the map loader
 	return
-	
+
 /turf/open/space/examine() //nothing, nowhere
 	return
 
@@ -32,7 +35,7 @@
 /turf/open/space/Initialize()
 	..()
 	return
-	
+
 	SHOULD_CALL_PARENT(FALSE)
 	icon_state = SPACE_ICON_STATE
 	if(!space_gas)
@@ -149,7 +152,7 @@
 
 /turf/open/space/Entered(atom/movable/A, atom/OldLoc)
 	. = ..()
-	
+
 	var/turf/old = get_turf(OldLoc)
 	if(!isspaceturf(old) && ismob(A))
 		var/mob/M = A
