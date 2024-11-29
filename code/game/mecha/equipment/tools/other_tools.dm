@@ -587,3 +587,16 @@
 /obj/item/mecha_parts/mecha_equipment/generator/nuclear/process()
 	if(..())
 		radiation_pulse(get_turf(src), rad_per_cycle)
+
+
+/obj/item/vehiclecorepart/engine
+	name = "Repaired Engine"
+	desc = "A repaired fuel engine. Only use is in repairing a vehicle."
+	icon = 'icons/fallout/trash.dmi'
+	icon_state = "engine"
+
+/obj/item/vehiclecorepart/tires
+	name = "Usable tire"
+	desc = "Round and round and round and round. For car repairs."
+	icon = 'icons/fallout/trash.dmi'
+	icon_state = "bus_t"
