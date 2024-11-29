@@ -2590,7 +2590,6 @@
 "jp" = (
 /obj/structure/railing/tg,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/start/f13/dendoc,
 /turf/open/floor/f13{
 	icon_state = "dark"
 	},
@@ -4153,13 +4152,6 @@
 /obj/item/stack/sheet/metal/fifty,
 /turf/open/floor/plating/rust,
 /area/f13/tunnel)
-"oJ" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/start/f13/dendoc,
-/turf/open/floor/f13{
-	icon_state = "dark"
-	},
-/area/f13/holiday)
 "oK" = (
 /obj/structure/girder,
 /obj/effect/decal/cleanable/dirt,
@@ -10918,6 +10910,16 @@
 /obj/structure/flora/tree/pine,
 /turf/open/indestructible/ground/outside/snow,
 /area/f13/wasteland/cold)
+"MF" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/effect/landmark/start/f13/dendoc,
+/turf/open/floor/f13{
+	icon_state = "dark"
+	},
+/area/f13/holiday)
 "MG" = (
 /obj/structure/lattice,
 /obj/machinery/autolathe/constructionlathe,
@@ -12598,7 +12600,7 @@
 /turf/open/floor/wood_common,
 /area/f13/legioncamp)
 "SD" = (
-/turf/closed/mineral/random/low_chance,
+/turf/closed/mineral/random/no_caves,
 /area/f13/underground/mountain)
 "SG" = (
 /obj/machinery/smartfridge/bottlerack/grownbin,
@@ -42289,7 +42291,7 @@ zq
 zq
 eq
 aw
-oJ
+zq
 tV
 zq
 eq
@@ -42490,7 +42492,7 @@ wE
 zq
 zq
 eq
-jg
+MF
 zq
 zq
 TS
@@ -48770,8 +48772,8 @@ ii
 ii
 ii
 No
-ZA
 ii
+ZA
 Aw
 tH
 tH
@@ -48973,7 +48975,7 @@ No
 No
 No
 QV
-ii
+ZA
 No
 tH
 MP
@@ -49174,8 +49176,8 @@ ii
 ii
 ii
 No
-ZA
 ii
+ZA
 Tt
 tH
 tH
@@ -49372,7 +49374,7 @@ Iy
 eq
 No
 NE
-ZA
+ii
 ii
 ii
 Tt
@@ -57274,7 +57276,7 @@ SD
 SD
 SD
 SD
-Vp
+SD
 Wb
 Wb
 Wb
@@ -57476,7 +57478,7 @@ SD
 SD
 SD
 SD
-Vp
+SD
 Wb
 Wb
 Wb
