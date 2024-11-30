@@ -228,6 +228,31 @@
 	icon_state = "bumba"
 	item_state = "bumba"
 
+//Payday Inspired Fallout Masks
+/obj/item/clothing/mask/rat/redding
+	name = "NCR flag mask"
+	desc = "A mask made of soft vinyl and latex. It seems to be a clown's face plastered with the flag of the New California Republic."
+	icon_state = "redding"
+	item_state = "redding"
+
+/obj/item/clothing/mask/rat/flagstaff
+	name = "Legion banner mask"
+	desc = "A mask made of soft vinyl and latex. It has a ghastly expression and is marked with the banner of Caesar's Legion."
+	icon_state = "flagstaff"
+	item_state = "flagstaff"
+
+/obj/item/clothing/mask/rat/citadel
+	name = "power armor mask"
+	desc = "A mask made of soft vinyl and latex. It seems to be patterned after a Brotherhood T-51 helmet, based on the insignia."
+	icon_state = "citadel"
+	item_state = "citadel"
+
+/obj/item/clothing/mask/rat/vaultboy
+	name = "Vault-Boy mask"
+	desc = "A mask made of soft vinyl and latex. This one is the cheerful face of Vault-Boy. Prepared for the future!"
+	icon_state = "vaultboy"
+	item_state = "vaultboy"
+
 /obj/item/clothing/mask/bandana
 	name = "botany bandana"
 	desc = "A fine bandana with nanotech lining and a hydroponics pattern."

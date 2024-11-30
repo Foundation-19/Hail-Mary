@@ -1626,6 +1626,7 @@ GLOBAL_LIST_INIT(gun_yeet_words, list(
 	new /obj/item/gun/ballistic/automatic/pistol/pistol14(src)
 	new /obj/item/ammo_box/magazine/uzim9mm(src)
 	new /obj/item/ammo_box/magazine/m9mm/doublestack(src)
+	new /obj/item/ammo_box/magazine/m10mm/adv/drum(src)
 	new /obj/item/ammo_box/magazine/m10mm/adv/ext(src)
 	new /obj/item/ammo_box/magazine/m10mm/adv(src)
 	new /obj/item/ammo_box/magazine/m10mm_p90(src)
