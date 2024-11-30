@@ -93,9 +93,9 @@
 #define RADIO_KEY_KHANS "k"
 #define RADIO_TOKEN_KHANS ":k"
 
-#define RADIO_CHANNEL_REDWATER "Redwater"
-#define RADIO_KEY_REDWATER "d"
-#define RADIO_TOKEN_REDWATER ":d"
+#define RADIO_CHANNEL_OUTLAW "Outlaw"
+#define RADIO_KEY_OUTLAW "d"
+#define RADIO_TOKEN_OUTLAW ":d"
 
 #define RADIO_CHANNEL_CTF_RED "Red Team"
 #define RADIO_CHANNEL_CTF_BLUE "Blue Team"
