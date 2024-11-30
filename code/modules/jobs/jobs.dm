@@ -198,7 +198,7 @@ GLOBAL_LIST_INIT(outlaw_positions, list(
 ))
 
 GLOBAL_LIST_INIT(khan_positions, list(
-	"Great Khan"
+	"Great Khans"
 ))
 
 GLOBAL_LIST_INIT(enclave_positions, list(

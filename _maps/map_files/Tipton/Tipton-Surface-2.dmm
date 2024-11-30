@@ -6433,6 +6433,14 @@
 "drh" = (
 /turf/closed/wall/f13/wood,
 /area/f13/underground/mountain)
+"drn" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/mob/living/simple_animal/hostile/gecko/legacy{
+	faction = list("neutral");
+	name = "glockles"
+	},
+/turf/open/floor/carpet/red,
+/area/f13/casino/powered)
 "drB" = (
 /obj/structure/wreck/trash/five_tires,
 /turf/open/floor/plating/rust,
@@ -30563,12 +30571,6 @@
 /area/f13/ambientlighting/building/d)
 "pre" = (
 /obj/effect/decal/cleanable/dirt/dust,
-/mob/living/simple_animal/hostile/stalkeryoung{
-	aggro_vision_range = 0;
-	desc = "A juvenile crazed genetic hybrid of rattlesnake and coyote DNA. Awfully cute pet.";
-	faction = list("neutral, Khans");
-	name = "Peanut"
-	},
 /obj/structure/bed/dogbed,
 /turf/open/floor/carpet/red,
 /area/f13/casino/powered)
@@ -34217,6 +34219,12 @@
 	icon_state = "yellowrustyfull"
 	},
 /area/f13/building/powered)
+"rkH" = (
+/mob/living/simple_animal/hostile/handy{
+	faction = list("wastebot, raider")
+	},
+/turf/open/floor/plating/rust,
+/area/f13/tunnel)
 "rkK" = (
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/f13/weapon/gun/energy/low,
@@ -38430,6 +38438,12 @@
 	icon_state = "verticaloutermain2bottom"
 	},
 /area/f13/holiday)
+"toR" = (
+/mob/living/simple_animal/hostile/handy/protectron{
+	faction = list("wastebot, raider")
+	},
+/turf/open/floor/plating/rust,
+/area/f13/tunnel)
 "tpb" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -111250,7 +111264,7 @@ rHS
 vcz
 drB
 nNo
-fkC
+rkH
 nNo
 nNo
 idi
@@ -111264,7 +111278,7 @@ fTF
 ciB
 idi
 uyd
-fkC
+rkH
 eNS
 eNS
 nNo
@@ -113286,7 +113300,7 @@ nNo
 idi
 nNo
 eNS
-xXl
+toR
 vcz
 jcH
 qgt
@@ -113875,7 +113889,7 @@ emy
 vcz
 vcz
 uyd
-xXl
+toR
 eNS
 gme
 idi
@@ -113891,7 +113905,7 @@ idi
 fTF
 gme
 nNo
-fkC
+rkH
 sIo
 vcz
 vcz
@@ -125977,7 +125991,7 @@ qlY
 qlY
 olz
 glL
-bhG
+drn
 lNi
 iVc
 iVc

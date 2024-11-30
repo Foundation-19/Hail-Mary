@@ -14,7 +14,7 @@
 	suit = /obj/item/clothing/suit/toggle/labcoat/khan_jacket
 	id = /obj/item/card/id/khantattoo
 	ears = /obj/item/radio/headset/headset_khans
-	head = /obj/item/clothing/head/helmet/f13/khan/bandana
+	head = /obj/item/clothing/head/helmet/f13/khan
 	shoes = /obj/item/clothing/shoes/f13/military/khan
 	gloves = /obj/item/melee/unarmed/brass/spiked
 	backpack =	/obj/item/storage/backpack/satchel/explorer
@@ -51,7 +51,7 @@
 	jobtype = /datum/job/khan/greatkhan
 
 /datum/job/khan/greatkhan
-	title = "Great Khan"
+	title = "Great Khans"
 	flag = F13GREATKHAN
 	display_order = JOB_DISPLAY_ORDER_PUSHER
 	faction = FACTION_KHAN
