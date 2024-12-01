@@ -16019,7 +16019,7 @@
 	},
 /area/f13/wasteland)
 "boK" = (
-/obj/item/kirbyplants/random,
+/obj/machinery/mineral/wasteland_vendor/ncr,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/ncr)
 "boP" = (
@@ -48316,13 +48316,6 @@
 /mob/living/simple_animal/hostile/gecko,
 /turf/open/indestructible/ground/outside/desert,
 /area/f13/wasteland)
-"nLn" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/mineral/wasteland_vendor/ncr,
-/turf/open/indestructible/ground/outside/sidewalk{
-	icon_state = "horizontaloutermain1"
-	},
-/area/f13/wasteland)
 "nLB" = (
 /obj/structure/chair/stool{
 	dir = 1;
@@ -79187,7 +79180,7 @@ kdN
 aya
 bAp
 uDh
-nLn
+dcy
 aQZ
 mHp
 uNJ
@@ -134372,7 +134365,7 @@ ieV
 okB
 tsh
 sMp
-vsu
+tsh
 dKP
 tsh
 hxF
@@ -134633,7 +134626,7 @@ nko
 leS
 tsh
 wzR
-tsh
+vsu
 tbW
 hIz
 aii
