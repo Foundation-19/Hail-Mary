@@ -67,6 +67,16 @@
 		}
 	],
 	"minetype": "none",
+
+	"added_jobs":[
+		"bos.dm",
+		"ncr.dm",
+		"legion.dm",
+		"eastwood.dm",
+		"khan.dm",
+		"outlaws.dm"
+	],
+
 	"removed_jobs": [
 		"enclave.dm",
 		"atlantic_cross.dm",

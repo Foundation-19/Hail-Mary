@@ -6987,6 +6987,12 @@
 	},
 /turf/open/floor/f13/wood,
 /area/f13/caves)
+"fCh" = (
+/obj/structure/destructible/tribal_torch/wall/lit{
+	dir = 4
+	},
+/turf/open/indestructible/ground/inside/subway,
+/area/f13/den)
 "fCT" = (
 /obj/effect/decal/waste{
 	pixel_x = -4;
@@ -8429,7 +8435,7 @@
 "gNH" = (
 /mob/living/simple_animal/hostile/raider/baseball{
 	name = "Bouncer";
-	faction = list("Wastelander")
+	faction = list("Raiders","Wastelander")
 	},
 /turf/open/indestructible/ground/inside/subway,
 /area/f13/den)
@@ -9385,12 +9391,6 @@
 /mob/living/simple_animal/hostile/deathclaw,
 /turf/open/floor/plating/dirt/dark,
 /area/f13/tunnel)
-"hCZ" = (
-/obj/structure/lattice,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/start/f13/raider,
-/turf/open/floor/plating/tunnel,
-/area/f13/sewer/powered)
 "hDa" = (
 /obj/effect/decal/waste{
 	pixel_x = -5;
@@ -13447,7 +13447,7 @@
 	},
 /mob/living/simple_animal/hostile/raider/baseball{
 	name = "Bouncer";
-	faction = list("Wastelander")
+	faction = list("Raiders","Wastelander")
 	},
 /turf/open/indestructible/ground/inside/subway,
 /area/f13/den)
@@ -26226,6 +26226,12 @@
 	icon_state = "darkrusty"
 	},
 /area/f13/bunker)
+"uXh" = (
+/obj/structure/destructible/tribal_torch/lit{
+	pixel_y = 18
+	},
+/turf/open/indestructible/ground/inside/subway,
+/area/f13/den)
 "uXA" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/rack/shelf_metal,
@@ -30519,7 +30525,7 @@
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/hostile/raider/baseball{
 	name = "Bouncer";
-	faction = list("Wastelander")
+	faction = list("Raiders","Wastelander")
 	},
 /turf/open/indestructible/ground/inside/subway,
 /area/f13/den)
@@ -94228,7 +94234,7 @@ udJ
 udJ
 udJ
 udJ
-hCZ
+kcJ
 nyz
 rUl
 rUl
@@ -94662,7 +94668,7 @@ vuz
 sUW
 neF
 udJ
-jvO
+uXh
 jvO
 hlk
 hlk
@@ -95853,13 +95859,13 @@ xyW
 xyW
 xyW
 jvO
-jvO
+iAF
 xjk
 xyW
 eiF
 eiF
 jvO
-jvO
+iAF
 jvO
 jvO
 jvO
@@ -96257,13 +96263,13 @@ xyW
 xyW
 xyW
 jvO
-jvO
+fCh
 jvO
 xyW
 xyW
 xyW
 jvO
-jvO
+fCh
 jvO
 jvO
 jvO
@@ -97490,7 +97496,7 @@ jvO
 yaX
 jvO
 udJ
-jvO
+uXh
 jvO
 jvO
 jvO

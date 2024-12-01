@@ -6436,7 +6436,7 @@
 "drn" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /mob/living/simple_animal/hostile/gecko/legacy{
-	faction = list("neutral");
+	faction = list("neutral","Great Khans");
 	name = "glockles"
 	},
 /turf/open/floor/carpet/red,
@@ -30572,6 +30572,12 @@
 "pre" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/bed/dogbed,
+/mob/living/simple_animal/hostile/stalkeryoung{
+	aggro_vision_range = 0;
+	desc = "A juvenile crazed genetic hybrid of rattlesnake and coyote DNA. Awfully cute pet.";
+	faction = list("neutral","Great Khans");
+	name = "Peanut"
+	},
 /turf/open/floor/carpet/red,
 /area/f13/casino/powered)
 "prm" = (
@@ -34221,7 +34227,7 @@
 /area/f13/building/powered)
 "rkH" = (
 /mob/living/simple_animal/hostile/handy{
-	faction = list("wastebot, raider")
+	faction = list("wastebot", "raider")
 	},
 /turf/open/floor/plating/rust,
 /area/f13/tunnel)
@@ -38440,7 +38446,7 @@
 /area/f13/holiday)
 "toR" = (
 /mob/living/simple_animal/hostile/handy/protectron{
-	faction = list("wastebot, raider")
+	faction = list("wastebot", "raider")
 	},
 /turf/open/floor/plating/rust,
 /area/f13/tunnel)
@@ -109652,7 +109658,7 @@ sfB
 nNo
 eNS
 eNS
-xXl
+toR
 eNS
 eNS
 eNS
@@ -110462,7 +110468,7 @@ eNS
 idi
 cse
 cse
-xXl
+toR
 cVv
 eNS
 eNS
