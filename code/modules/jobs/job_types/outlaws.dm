@@ -12,7 +12,7 @@
 	head_announce = list("Security")
 	total_positions = 16
 	spawn_positions = 16
-	description = "You are an Outlaw - the choice of why is up to you. You are responsible for making the wasteland unsafe and today is another day to antagonize it. You may be varied in your approaches, but you must have motives that are realistic for your job."
+	description = "You are an Outlaw - the choice of why is up to you. You are responsible for making the wasteland unsafe and today is another day to antagonize it. You may be varied in your approaches, but you must have motives that are realistic for your job.(PS, DO NOT PLAY THIS AS WASTELANDER PLUS. WASTELANDER EXISTS FOR A REASON.)"
 	supervisors = "your conscious if you have one"
 	selection_color = "#df80af"
 	exp_requirements = 0
