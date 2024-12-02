@@ -161,7 +161,7 @@ GLOBAL_LIST_INIT(tribal_recipes, list(
 	/datum/crafting_recipe/tribalwar/bonespear,
 	/datum/crafting_recipe/tribalwar/bonecodpiece,
 	/datum/crafting_recipe/tribalwar/bracers,
-	/datum/crafting_recipe/tribal/bonetalisman,
+	//datum/crafting_recipe/tribal/bonetalisman,
 	/datum/crafting_recipe/spearfisher,
 	/datum/crafting_recipe/bitterdrink,
 	/datum/crafting_recipe/bitterdrink5,
