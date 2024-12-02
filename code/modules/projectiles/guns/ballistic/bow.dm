@@ -283,7 +283,7 @@
 	)
 
 // Special bows?
-/* maybe at some point
+
 /obj/item/gun/ballistic/bow/gold
 	name = "golden bow"
 	desc = "A firm sturdy golden bow created by the earth, its smooth metal and strong grip allows for swift firing rates."
@@ -296,8 +296,8 @@
 	init_firemodes = list(
 			/datum/firemode/semi_auto/slow
 	)
-*/
-/* old bows, stinky, like fenny
+
+
 /obj/item/gun/ballistic/bow/xbow
 	name = "magazine-fed crossbow"
 	desc = "A somewhat primitive projectile weapon. Has a spring-loaded magazine, but still requires drawing back before firing. Fires arrows slightly faster than regular bows, improving damage"
@@ -366,6 +366,7 @@
 	fire_delay = 1.5
 	extra_speed = 100
 
+/*
 //Crossbow
 /obj/item/gun/ballistic/bow/crossbow
 	name = "crossbow"
