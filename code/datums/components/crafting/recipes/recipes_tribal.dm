@@ -212,6 +212,7 @@
 	category = CAT_PRIMAL
 	always_available = TRUE
 
+/*
 datum/crafting_recipe/voodoo
 	name = "Voodoo"
 	result = /obj/item/reagent_containers/pill/patch/voodoo
@@ -223,7 +224,9 @@ datum/crafting_recipe/voodoo
 	category = CAT_PRIMAL
 	subcategory = CAT_PRIMAL
 	always_available = TRUE
+*/
 
+/*
 /datum/crafting_recipe/coyotechew
 	name = "Coyote Tobacco Chew"
 	result = /obj/item/reagent_containers/pill/patch/coyotechew
@@ -233,7 +236,7 @@ datum/crafting_recipe/voodoo
 	category = CAT_PRIMAL
 	subcategory = CAT_PRIMAL
 	always_available = TRUE
-
+*/
 
 //White Legs
 /datum/crafting_recipe/tribalwar/whitelegs
