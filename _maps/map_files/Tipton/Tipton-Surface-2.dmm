@@ -2321,6 +2321,9 @@
 /area/f13/casino/powered)
 "bhH" = (
 /turf/open/floor/plasteel/stairs{
+	barefootstep = "woodbarefoot";
+	color = "#A47449";
+	footstep = "wood";
 	dir = 1
 	},
 /area/f13/wasteland/cold)
@@ -3864,15 +3867,6 @@
 /obj/effect/landmark/start/f13/slavemaster,
 /turf/open/floor/carpet/red,
 /area/f13/legioncamp)
-"bVN" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/rack/shelf_metal,
-/obj/item/stack/sheet/coke/twenty,
-/obj/effect/turf_decal/shadow/floor,
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
-	color = "#e4e4e4"
-	},
-/area/f13/underground/mountain)
 "bVS" = (
 /obj/item/twohanded/required/kirbyplants/random,
 /turf/open/floor/f13{
@@ -6581,16 +6575,6 @@
 /obj/item/reagent_containers/food/snacks/meat/slab/mirelurk,
 /turf/open/floor/plasteel/f13/vault_floor/misc/bar,
 /area/f13/casino/powered)
-"dvF" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/shadow/floor,
-/obj/effect/turf_decal/shadow/floor{
-	dir = 8
-	},
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
-	color = "#e4e4e4"
-	},
-/area/f13/underground/mountain)
 "dvW" = (
 /obj/machinery/iv_drip,
 /obj/effect/decal/cleanable/dirt{
@@ -7793,13 +7777,6 @@
 	icon_state = "floorrusty"
 	},
 /area/f13/ambientlighting/building/c)
-"dXu" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/shadow/floor{
-	dir = 8
-	},
-/turf/open/indestructible/ground/inside/mountain,
-/area/f13/underground/mountain)
 "dYd" = (
 /obj/effect/landmark/start/f13/ncrcorporal,
 /turf/open/floor/plating/dirt/dark,
@@ -9142,14 +9119,6 @@
 /obj/structure/wreck/trash/machinepiletwo,
 /turf/open/floor/plating/rust,
 /area/f13/tunnel)
-"eIG" = (
-/obj/structure/blacksmith/furnace,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/shadow/floor,
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
-	color = "#e4e4e4"
-	},
-/area/f13/underground/mountain)
 "eIJ" = (
 /obj/effect/mob_spawn/human/corpse,
 /obj/structure/bed/mattress/pregame,
@@ -11989,7 +11958,7 @@
 /area/f13/building/powered)
 "gdl" = (
 /obj/structure/simple_door/house,
-/turf/open/indestructible/ground/outside/desert,
+/turf/open/floor/f13/wood,
 /area/f13/holiday)
 "gdu" = (
 /obj/effect/spawner/lootdrop/f13/crafting,
@@ -17485,25 +17454,6 @@
 	icon_state = "housewood4-broken"
 	},
 /area/f13/building/powered)
-"iSj" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/closet/crate/footchest{
-	anchored = 1;
-	can_be_unanchored = 1;
-	dir = 8;
-	name = "chest with fittings"
-	},
-/obj/item/stack/sheet/leatherstrips,
-/obj/item/blacksmith/chain,
-/obj/item/blacksmith/swordhandle,
-/obj/item/blacksmith/woodenrod,
-/obj/effect/turf_decal/shadow/floor{
-	dir = 8
-	},
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
-	color = "#e4e4e4"
-	},
-/area/f13/underground/mountain)
 "iSn" = (
 /obj/structure/wreck/bus/rusted/segmented19,
 /turf/open/indestructible/ground/outside/sidewalk{
@@ -19606,13 +19556,6 @@
 	icon_state = "verticalrightborderright1"
 	},
 /area/f13/wasteland/cold)
-"jSi" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/shadow/floor,
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
-	color = "#e4e4e4"
-	},
-/area/f13/underground/mountain)
 "jSj" = (
 /obj/structure/rack,
 /turf/open/floor/f13{
@@ -21110,13 +21053,6 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/floor/floorsolid,
 /area/f13/ambientlighting/building/d)
-"kGH" = (
-/obj/structure/blacksmith/quenching,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
-	color = "#e4e4e4"
-	},
-/area/f13/underground/mountain)
 "kHd" = (
 /obj/structure/table/wood,
 /obj/item/pda,
@@ -26693,12 +26629,6 @@
 /obj/machinery/light/small,
 /turf/open/floor/f13,
 /area/f13/brotherhood/powered)
-"nwJ" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/closet/crate/large,
-/obj/item/stack/sheet/leather/ten,
-/turf/open/indestructible/ground/inside/mountain,
-/area/f13/underground/mountain)
 "nwW" = (
 /obj/structure/fence{
 	dir = 4
@@ -28373,7 +28303,9 @@
 	},
 /area/f13/tunnel)
 "omn" = (
-/obj/machinery/computer/operating,
+/obj/machinery/computer/operating{
+	dir = 8
+	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/f13{
 	icon_state = "bluedirtychess2"
@@ -29797,18 +29729,6 @@
 	},
 /turf/open/indestructible/ground/outside/snow,
 /area/f13/wasteland/cold)
-"oWh" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/destructible/tribal_torch/wall/lit{
-	dir = 4
-	},
-/obj/effect/turf_decal/shadow/floor{
-	dir = 8
-	},
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
-	color = "#e4e4e4"
-	},
-/area/f13/underground/mountain)
 "oWo" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
@@ -31478,21 +31398,6 @@
 	icon_state = "outerturn"
 	},
 /area/f13/building/powered)
-"pMy" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/closet/crate/large{
-	anchored = 1;
-	name = "blacksmith supplies"
-	},
-/obj/item/blacksmith/ingot/iron,
-/obj/item/blacksmith/ingot/iron,
-/obj/item/blacksmith/ingot/iron,
-/obj/item/blacksmith/ingot/iron,
-/obj/item/blacksmith/ingot/iron,
-/obj/item/stack/sheet/mineral/wood/five,
-/obj/item/stack/sheet/leather/ten,
-/turf/open/indestructible/ground/inside/mountain,
-/area/f13/underground/mountain)
 "pMR" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -31513,7 +31418,7 @@
 /area/f13/building/powered)
 "pNt" = (
 /obj/structure/window/fulltile/wood,
-/turf/open/indestructible/ground/outside/desert,
+/turf/open/floor/f13/wood,
 /area/f13/holiday)
 "pNv" = (
 /obj/structure/window/fulltile/house{
@@ -31944,17 +31849,6 @@
 	icon_state = "dark"
 	},
 /area/f13/brotherhood/powered)
-"pZA" = (
-/obj/machinery/workbench/forge,
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/decoration/legion/chains2{
-	pixel_y = 26
-	},
-/obj/effect/turf_decal/shadow/floor,
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
-	color = "#e4e4e4"
-	},
-/area/f13/underground/mountain)
 "pZL" = (
 /obj/structure/simple_door/house{
 	icon_state = "interior"
@@ -39022,18 +38916,6 @@
 	},
 /turf/open/floor/plating/dirt,
 /area/f13/wasteland/cold)
-"tFn" = (
-/obj/structure/table/wood,
-/obj/effect/decal/cleanable/dirt,
-/obj/item/twohanded/sledgehammer/simple,
-/obj/item/book/manual/advice_blacksmith,
-/obj/effect/turf_decal/shadow/floor{
-	dir = 8
-	},
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
-	color = "#e4e4e4"
-	},
-/area/f13/underground/mountain)
 "tFF" = (
 /obj/structure/toilet{
 	dir = 1;
@@ -40350,12 +40232,6 @@
 "unG" = (
 /obj/structure/spider/stickyweb,
 /obj/effect/spawner/lootdrop/f13/armor/tier3,
-/turf/open/indestructible/ground/inside/mountain,
-/area/f13/underground/mountain)
-"unH" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/table/wood,
-/obj/effect/turf_decal/shadow/floor,
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/underground/mountain)
 "unM" = (
@@ -41958,10 +41834,6 @@
 /obj/effect/spawner/lootdrop/f13/junkspawners,
 /turf/open/floor/f13/wood,
 /area/f13/building/powered)
-"vda" = (
-/obj/structure/window/fulltile/house,
-/turf/open/indestructible/ground/outside/desert,
-/area/f13/holiday)
 "vdj" = (
 /mob/living/simple_animal/hostile/supermutant/nightkin,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
@@ -42430,12 +42302,6 @@
 /obj/item/storage/trash_stack,
 /turf/open/floor/plasteel/f13/vault_floor/floor/floorsolid,
 /area/f13/ambientlighting/building/d)
-"voz" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
-	color = "#e4e4e4"
-	},
-/area/f13/underground/mountain)
 "voF" = (
 /obj/structure/car,
 /turf/open/indestructible/ground/outside/road{
@@ -45718,13 +45584,6 @@
 	icon_state = "redmark"
 	},
 /area/f13/brotherhood/powered)
-"wVc" = (
-/obj/structure/blacksmith/anvil/obtainable/legion,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
-	color = "#e4e4e4"
-	},
-/area/f13/underground/mountain)
 "wVi" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -78669,7 +78528,7 @@ ttK
 waN
 mcD
 lHY
-vda
+lfa
 pMk
 ipe
 ipe
@@ -78871,7 +78730,7 @@ ttK
 ukb
 vJV
 veO
-vda
+lfa
 pMk
 ipe
 ipe
@@ -80083,7 +79942,7 @@ ttK
 ukb
 vJV
 veO
-vda
+lfa
 pMk
 ipe
 ipe
@@ -80285,7 +80144,7 @@ ttK
 nCB
 nVL
 cfc
-vda
+lfa
 ipe
 ipe
 oao
@@ -122285,11 +122144,11 @@ cAd
 cAd
 cAd
 cAd
-unH
-oKV
-oKV
-pMy
-nwJ
+cAd
+cAd
+cAd
+cAd
+cAd
 cAd
 cAd
 cAd
@@ -122487,11 +122346,11 @@ cAd
 cAd
 cAd
 cAd
-bVN
-voz
-oKV
-voz
-kGH
+cAd
+cAd
+cAd
+cAd
+cAd
 cAd
 cAd
 cAd
@@ -122689,11 +122548,11 @@ cAd
 cAd
 cAd
 cAd
-eIG
-voz
-oKV
-voz
-voz
+cAd
+cAd
+cAd
+cAd
+cAd
 cAd
 cAd
 cAd
@@ -122891,11 +122750,11 @@ cAd
 cAd
 cAd
 cAd
-jSi
-voz
-oKV
-voz
-wVc
+cAd
+cAd
+cAd
+cAd
+cAd
 cAd
 cAd
 cAd
@@ -123093,11 +122952,11 @@ cAd
 cAd
 cAd
 cAd
-pZA
-voz
-oKV
-voz
-voz
+cAd
+cAd
+cAd
+cAd
+cAd
 cAd
 cAd
 cAd
@@ -123295,11 +123154,11 @@ cAd
 cAd
 cAd
 cAd
-dvF
-oWh
-dXu
-iSj
-tFn
+cAd
+cAd
+cAd
+cAd
+cAd
 cAd
 cAd
 cAd

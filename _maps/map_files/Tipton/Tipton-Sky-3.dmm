@@ -10938,6 +10938,9 @@
 /obj/structure/flora/wasteplant/wild_horsenettle,
 /turf/open/floor/plating/dirt,
 /area/f13/wasteland/cold)
+"MJ" = (
+/turf/closed/indestructible/f13/matrix,
+/area/f13/legioncamp)
 "MM" = (
 /obj/structure/closet/crate/bin/trashbin,
 /obj/effect/decal/cleanable/dirt,
@@ -13289,6 +13292,9 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/wood_mosaic/wood_mosaic_dark,
 /area/f13/holiday)
+"UO" = (
+/turf/closed/indestructible/rock,
+/area/f13/legioncamp)
 "UP" = (
 /turf/open/indestructible,
 /area/f13/tcoms)
@@ -73975,11 +73981,11 @@ Rc
 "}
 (294,1,1) = {"
 Wb
-Vp
-Vp
-Vp
-Vp
-Vp
+Wb
+Wb
+Wb
+Wb
+Wb
 Vp
 Vp
 Vp
@@ -74177,10 +74183,10 @@ Rc
 "}
 (295,1,1) = {"
 Wb
-Rc
-Rc
-Rc
-Rc
+UO
+TH
+TH
+TH
 Rc
 Rc
 Rc
@@ -74381,7 +74387,7 @@ Rc
 Wb
 TH
 TH
-TH
+MJ
 TH
 TH
 TH

@@ -4296,6 +4296,11 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/purple/side,
 /area/f13/vault/atrium)
+"eYV" = (
+/obj/effect/decal/remains/human,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/superhigh,
+/turf/open/indestructible/ground/inside/mountain,
+/area/f13/caves)
 "eZI" = (
 /obj/structure/dresser,
 /turf/open/floor/carpet/royalblue,
@@ -7433,6 +7438,7 @@
 /obj/structure/rack,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/stack/sheet/mineral/gold/fifty,
+/obj/item/blacksmith/ingot/gold,
 /turf/open/floor/plasteel/f13/vault_floor/dark/darksolid,
 /area/f13/bunker/bunkerthree)
 "iui" = (
@@ -9042,6 +9048,7 @@
 "kvb" = (
 /obj/structure/rack/shelf_metal,
 /obj/machinery/light,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/superhigh,
 /turf/open/floor/f13{
 	color = "#ffe9de";
 	icon_state = "darkrusty";
@@ -20412,6 +20419,12 @@
 	icon_state = "grass3"
 	},
 /area/f13/bunker/bunkertwo)
+"xQv" = (
+/obj/structure/simple_door/bunker,
+/turf/open/floor/f13{
+	icon_state = "reddirtyfull"
+	},
+/area/f13/sewer/powered)
 "xQz" = (
 /obj/structure/flora/grass/jungle,
 /turf/open/floor/f13{
@@ -23448,7 +23461,7 @@ xfm
 xfm
 xfm
 rwU
-fka
+xQv
 rwU
 xfm
 aRH
@@ -29369,7 +29382,7 @@ anl
 axQ
 cRC
 jqw
-mjS
+eYV
 aRH
 aRH
 aRH
