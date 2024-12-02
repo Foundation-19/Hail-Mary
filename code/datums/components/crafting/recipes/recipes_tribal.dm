@@ -17,7 +17,7 @@
 	time = 20
 	reqs = list(/obj/item/stack/sheet/bone = 2,
 				/obj/item/stack/sheet/animalhide/deathclaw = 1) //changed from goliath to deathclaw
-	always_available = FALSE
+	always_available = TRUE
 
 /datum/crafting_recipe/tribalwar/bracers
 	name = "Bone Bracers"
@@ -25,7 +25,7 @@
 	time = 20
 	reqs = list(/obj/item/stack/sheet/bone = 2,
 				/obj/item/stack/sheet/sinew = 1)
-	always_available = FALSE
+	always_available = TRUE
 
 //WEAPONS//
 
@@ -34,7 +34,7 @@
 	result = /obj/item/gun/syringe/blowgun
 	time = 50
 	reqs = list(/obj/item/stack/sheet/mineral/bamboo = 10)
-	always_available = FALSE
+	always_available = TRUE
 
 /datum/crafting_recipe/tribalwar/bow
 	name = "Short Bow"
@@ -92,7 +92,7 @@
 	time = 20
 	reqs = list(/obj/item/stack/sheet/bone = 2,
 				/obj/item/stack/sheet/sinew = 1)
-	always_available = FALSE
+	always_available = TRUE
 */
 /datum/crafting_recipe/tribal/bonebag
 	name = "Tribal Satchel"
@@ -200,7 +200,7 @@
 				/obj/item/pestle = 1,
 				/obj/item/reagent_containers/glass/mortar = 1)
 	category = CAT_PRIMAL
-	always_available = FALSE
+	always_available = TRUE
 
 /datum/crafting_recipe/warmace
 	name = "Carve Wooden Warmace"
@@ -210,9 +210,9 @@
 				/obj/item/stack/sheet/cloth = 3)
 	tools = list(TOOL_WORKBENCH)
 	category = CAT_PRIMAL
-	always_available = FALSE
+	always_available = TRUE
 
-/*datum/crafting_recipe/voodoo
+datum/crafting_recipe/voodoo
 	name = "Voodoo"
 	result = /obj/item/reagent_containers/pill/patch/voodoo
 	time = 20
@@ -222,7 +222,7 @@
 	tools = list(TOOL_WORKBENCH)
 	category = CAT_PRIMAL
 	subcategory = CAT_PRIMAL
-	always_available = FALSE
+	always_available = TRUE
 
 /datum/crafting_recipe/coyotechew
 	name = "Coyote Tobacco Chew"
@@ -232,8 +232,8 @@
 	tools = list(TOOL_WORKBENCH)
 	category = CAT_PRIMAL
 	subcategory = CAT_PRIMAL
-	always_available = FALSE
-*/
+	always_available = TRUE
+
 
 //White Legs
 /datum/crafting_recipe/tribalwar/whitelegs
@@ -474,7 +474,7 @@ datum/crafting_recipe/tribalwar/bone
 // Western' Wayfarers
 
 /datum/crafting_recipe/tribalwar/wayfarers
-	always_available = FALSE
+	always_available = TRUE
 
 /datum/crafting_recipe/tribalwar/wayfarers/lightarmour
 	name = "Wayfarers Light Armour"
