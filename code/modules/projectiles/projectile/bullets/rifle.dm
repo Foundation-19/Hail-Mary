@@ -155,13 +155,13 @@
 	pixels_per_second = BULLET_SPEED_RIFLE_223_HANDLOAD * 0.5
 	damage_falloff = BULLET_FALLOFF_DEFAULT_PISTOL_LIGHT
 
-/*
+
 /obj/item/projectile/bullet/a556/uraniumtipped
 	name = "5.56 uranium-tipped bullet"
-	damage = -9
+	damage = BULLET_DAMAGE_RIFLE_223_HANDLOAD
 	armour_penetration = 0
 	irradiate = 300
-*/
+
 
 //////////////////////
 // 4.73 MM CASELESS //
@@ -228,7 +228,7 @@
  * RECOIL: 1
  * WOUNDS: 6.25
  * WNAKED: 0
- */
+ 
 /obj/item/projectile/bullet/a473/incendiary
 	name = "4.73 tracer bullet"
 	damage = BULLET_DAMAGE_RIFLE_473 * BULLET_DAMAGE_FIRE
@@ -254,13 +254,13 @@
 		M.adjust_fire_stacks(fire_stacks)
 		M.IgniteMob()
 
-/*
+
 /obj/item/projectile/bullet/a473/uraniumtipped
 	name = "4.73 U-235 bullet"
 	damage = -2
 	armour_penetration = 0.3
 	irradiate = 300
-*/
+
 
 /* 4.73 dumdum
  * DAMAGE: 31.25 * 2 vs mobs
@@ -660,13 +660,13 @@
 /obj/item/projectile/bullet/a762/sport/simple //for simple mobs, separate to allow balancing
 	name = ".308 bullet"
 
-/*
+
 /obj/item/projectile/bullet/a762/uraniumtipped
 	name = "7.62 uranium-tipped bullet"
-	damage = -10
+	damage = BULLET_DAMAGE_RIFLE_308_MATCH
 	armour_penetration = 0
 	irradiate = 300
-*/
+
 /* .30-06
 	60 base damage
 */
@@ -904,13 +904,13 @@
 	zone_accuracy_type = ZONE_WEIGHT_PRECISION // Rubbers go where you want
 	movement_type = FLYING | UNSTOPPABLE
 
-/*
+
 /obj/item/projectile/bullet/a50MG/uraniumtipped
 	name = "12.7mm uranium-tipped bullet"
-	damage = -15
+	damage = BULLET_DAMAGE_RIFLE_50MG_HANDLOAD
 	armour_penetration = 0.2
 	irradiate = 500
-*/
+
 
 /* .50MG poison
  * DAMAGE: 30
