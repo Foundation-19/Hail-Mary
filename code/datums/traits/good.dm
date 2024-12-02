@@ -207,7 +207,7 @@ GLOBAL_LIST_INIT(tribal_recipes, list(
 		species.disliked_food |= LONGPORK
 
 /datum/quirk/fulltribal
-	name = "Far-Lands Tribal
+	name = "Far-Lands Tribal"
 	desc = "You are a proud member of a Far-Lands tribe, and have fully maintained their traditions. You do what needs to be done to ensure the survival of yourself and your people while following the laws of the tribe."
 	value = 1
 	gain_text = span_notice("You feel the rush of ancient knowledge rush through your loins...")
