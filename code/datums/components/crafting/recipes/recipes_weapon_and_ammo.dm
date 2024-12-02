@@ -345,6 +345,7 @@
 	time = 5
 	category = CAT_WEAPONRY
 	subcategory = CAT_AMMO
+
 /*
 /datum/crafting_recipe/c38boxincin
 	name = ".38 incendiary-tipped ammo box"
@@ -359,6 +360,7 @@
 	category = CAT_WEAPONRY
 	subcategory = CAT_AMMO
 */
+
 /datum/crafting_recipe/c10mmincin
 	name = "10mm incendiary-tipped ammo box"
 	result = /obj/item/ammo_box/c10mm/fire
@@ -464,7 +466,7 @@
 	time = 5
 	category = CAT_WEAPONRY
 	subcategory = CAT_AMMO
-/*
+
 /datum/crafting_recipe/a556uranium
 	name = "5.56mm uranium-tipped ammo box"
 	result = /obj/item/ammo_box/a556/uraniumtipped
@@ -478,8 +480,7 @@
 	time = 5
 	category = CAT_WEAPONRY
 	subcategory = CAT_AMMO
-*/
-/*
+
 /datum/crafting_recipe/a762boxirr
 	name = "7.62 U-235 ammo box"
 	result = /obj/item/ammo_box/a762box/uraniumtipped
@@ -493,8 +494,7 @@
 	time = 5
 	category = CAT_WEAPONRY
 	subcategory = CAT_AMMO
-*/
-/*
+
 /datum/crafting_recipe/a762boxshrap
 	name = "7.62mm micro-shrapnel ammo box"
 	result = /obj/item/ammo_box/a762box/microshrapnel
@@ -507,8 +507,7 @@
 	time = 5
 	category = CAT_WEAPONRY
 	subcategory = CAT_AMMO
-*/
-/*
+
 /datum/crafting_recipe/a50MGboxuranium
 	name = "12.7mm U-235 ammo box"
 	result = /obj/item/ammo_box/a50MGbox/uraniumtipped
@@ -522,7 +521,6 @@
 	time = 5
 	category = CAT_WEAPONRY
 	subcategory = CAT_AMMO
-*/
 
 /datum/crafting_recipe/a50MGboxcontaminated
 	name = "12.7mm contaminated ammo box"
