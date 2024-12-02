@@ -134,6 +134,45 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	/datum/crafting_recipe/tribalwar/bone/garb,
 	/datum/crafting_recipe/tribalwar/bone/helmet))
 
+GLOBAL_LIST_INIT(tribal_recipes, list(
+	/datum/crafting_recipe/tribal_pa,
+	/datum/crafting_recipe/tribal_pa_helmet,
+	/datum/crafting_recipe/tribal_combat_armor,
+	/datum/crafting_recipe/tribal_combat_armor_helmet,
+	/datum/crafting_recipe/tribal_r_combat_armor,
+	/datum/crafting_recipe/tribal_r_combat_armor_helmet,
+	/datum/crafting_recipe/tribalwar/chitinarmor,
+	/datum/crafting_recipe/tribalwar/lightcloak,
+	/datum/crafting_recipe/warmace,
+	/datum/crafting_recipe/tribalwar/lighttribe,
+	/datum/crafting_recipe/tribalwar/heavytribe,
+	/datum/crafting_recipe/tribalwar/legendaryclawcloak,
+	/datum/crafting_recipe/tribalwar/deathclawspear,
+	/datum/crafting_recipe/warpaint,
+	/datum/crafting_recipe/tribalradio,
+	/datum/crafting_recipe/tribalwar/goliathcloak,
+	/datum/crafting_recipe/tribalwar/bonebow,
+	/datum/crafting_recipe/tribalwar/tribe_bow,
+	/datum/crafting_recipe/tribalwar/sturdybow,
+	/datum/crafting_recipe/tribalwar/warclub,
+	/datum/crafting_recipe/tribalwar/silverbow,
+	/datum/crafting_recipe/tribalwar/arrowbone,
+	/datum/crafting_recipe/tribalwar/arrowemp,
+	/datum/crafting_recipe/tribalwar/bonespear,
+	/datum/crafting_recipe/tribalwar/bonecodpiece,
+	/datum/crafting_recipe/tribalwar/bracers,
+	/datum/crafting_recipe/tribal/bonetalisman,
+	/datum/crafting_recipe/spearfisher,
+	/datum/crafting_recipe/bitterdrink,
+	/datum/crafting_recipe/bitterdrink5,
+	/datum/crafting_recipe/healpoultice,
+	/datum/crafting_recipe/healpoultice5,
+	//datum/crafting_recipe/redpotion,
+	//datum/crafting_recipe/bluepotion,
+	//datum/crafting_recipe/greenpotion,
+	/datum/crafting_recipe/food/pemmican,
+	/datum/crafting_recipe/tribal/bonebag))
+
 //predominantly positive traits
 //this file is named weirdly so that positive traits are listed above negative ones
 
@@ -166,6 +205,28 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 		var/datum/species/species = H.dna.species
 		species.liked_food &= ~LONGPORK
 		species.disliked_food |= LONGPORK
+
+/datum/quirk/fulltribal
+	name = "Far-Lands Tribal
+	desc = "You are a proud member of a Far-Lands tribe, and have fully maintained their traditions. You do what needs to be done to ensure the survival of yourself and your people while following the laws of the tribe."
+	value = 1
+	gain_text = span_notice("You feel the rush of ancient knowledge rush through your loins...")
+	lose_text = span_notice("You suddenly feel a sneering superiority to knuckle-dragging facepainters.")
+
+/datum/quirk/fulltribal/add()
+	var/mob/living/carbon/human/H = quirk_holder
+	ADD_TRAIT(H, TRAIT_MACHINE_SPIRITS, "Former Tribal")
+	ADD_TRAIT(H, TRAIT_FULLTRIBAL, "Former Tribal")
+	if(!H.mind.learned_recipes)
+		H.mind.learned_recipes = list()
+	H.mind.learned_recipes |= GLOB.tribal_recipes
+
+/datum/quirk/fulltribal/remove()
+	var/mob/living/carbon/human/H = quirk_holder
+	if(!QDELETED(H))
+		REMOVE_TRAIT(H, TRAIT_MACHINE_SPIRITS, "Former Tribal")
+		REMOVE_TRAIT(H, TRAIT_TRIBAL, "Former Tribal")
+		H.mind.learned_recipes -= GLOB.weaponcrafting_gun_recipes
 
 /datum/quirk/tribal
 	name = "Former Tribal"
