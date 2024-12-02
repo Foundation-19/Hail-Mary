@@ -719,7 +719,6 @@ GLOBAL_VAR_INIT(vendor_cash, 0)
 		new /datum/data/wasteland_equipment(".308 stripper clip (5 bullets)",			/obj/item/ammo_box/a308,								6),
 		new /datum/data/wasteland_equipment(".30-06 stripper clip (5 bullets)",			/obj/item/ammo_box/a3006,								10),
 		new /datum/data/wasteland_equipment("Buckshot box (12 shells)",					/obj/item/ammo_box/shotgun/buck,						7),
-		new /datum/data/wasteland_equipment("Field Arrow (1 arrow)",					/obj/item/projectile/bullet/reusable/arrow/field,		3),
 		)
 	highpop_list = list(
 		new /datum/data/wasteland_equipment(".22 Pistol magazine (16 bullets)",			/obj/item/ammo_box/magazine/m22,						7),
@@ -731,7 +730,6 @@ GLOBAL_VAR_INIT(vendor_cash, 0)
 		new /datum/data/wasteland_equipment(".308 stripper clip (5 bullets)",			/obj/item/ammo_box/a308,								6),
 		new /datum/data/wasteland_equipment(".30-06 stripper clip (5 bullets)",			/obj/item/ammo_box/a3006,								10),
 		new /datum/data/wasteland_equipment("Buckshot box (12 shells)",					/obj/item/ammo_box/shotgun/buck,						7),
-		new /datum/data/wasteland_equipment("Field Arrow (1 arrow)",					/obj/item/projectile/bullet/reusable/arrow/field,		3),
 	)
 
 /obj/machinery/mineral/wasteland_vendor/clothing
