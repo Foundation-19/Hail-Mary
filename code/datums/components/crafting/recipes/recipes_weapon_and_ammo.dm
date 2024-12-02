@@ -252,6 +252,7 @@
 	category = CAT_WEAPONRY
 	subcategory = CAT_AMMO
 
+/*
 /datum/crafting_recipe/field_arrow
 	name = "Field Arrow"
 	result = /obj/item/stack/arrowhead/field
@@ -291,6 +292,7 @@
 	time = 30
 	category = CAT_WEAPONRY
 	subcategory = CAT_AMMO
+*/
 
 /////////////////
 ///ammo        //
