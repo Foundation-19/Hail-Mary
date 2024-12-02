@@ -511,7 +511,7 @@ obj/item/storage/bag/chemistry/tribal
 
 /obj/item/storage/bag/tribe_quiver/full/PopulateContents()
 	for(var/i in 1 to 12)
-		new /obj/item/ammo_casing/caseless/arrow/field(src)//12 total for now. just need one full one defined, for starting kits
+		new /obj/item/ammo_casing/caseless/arrow(src)//12 total for now. just need one full one defined, for starting kits
 
 /obj/item/storage/bag/tribe_quiver/light
 	name = "light quiver"
@@ -523,7 +523,7 @@ obj/item/storage/bag/chemistry/tribal
 
 /obj/item/storage/bag/tribe_quiver/light/full/PopulateContents()
 	for(var/i in 1 to 12)
-		new /obj/item/ammo_casing/caseless/arrow/field(src)//12 total for now. just need one full one defined, for starting kits
+		new /obj/item/ammo_casing/caseless/arrow(src)//12 total for now. just need one full one defined, for starting kits
 
 /obj/item/storage/bag/tribe_quiver/heavy
 	name = "back quiver"
@@ -536,7 +536,7 @@ obj/item/storage/bag/chemistry/tribal
 
 /obj/item/storage/bag/tribe_quiver/heavy/full/PopulateContents()
 	for(var/i in 1 to 12)
-		new /obj/item/ammo_casing/caseless/arrow/field(src)//12 total for now. just need one full one defined, for starting kits
+		new /obj/item/ammo_casing/caseless/arrow(src)//12 total for now. just need one full one defined, for starting kits
 
 /obj/item/storage/bag/tribe_quiver/AltClick(mob/living/carbon/user)
 	. = ..()
