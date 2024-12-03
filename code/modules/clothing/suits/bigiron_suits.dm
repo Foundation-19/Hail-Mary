@@ -3109,7 +3109,7 @@
 	/// Cell that is currently installed in the suit
 	var/obj/item/stock_parts/cell/cell = /obj/item/stock_parts/cell/high
 	/// How much power the cell consumes each process tick
-	var/usage_cost = 8 // With high-capacity cell it'd run out of charge in ~33 minutes
+	var/usage_cost = 15 // With high-capacity cell it'd run out of charge in ~33 minutes
 	/// If TRUE - suit has ran out of charge and is currently affected by slowdown from it
 	var/no_power = FALSE
 	/// How much slowdown is added when suit is unpowered
