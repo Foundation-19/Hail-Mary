@@ -497,7 +497,7 @@
 
 /datum/crafting_recipe/a762boxshrap
 	name = "7.62mm micro-shrapnel ammo box"
-	result = /obj/item/ammo_box/a762box/microshrapnel
+	result = /obj/item/ammo_box/a308box/microshrapnel
 	reqs = list(/obj/item/stack/crafting/metalparts = 1,
 	/obj/item/stack/sheet/prewar = 2,
 	/obj/item/stack/sheet/mineral/titanium = 1,
