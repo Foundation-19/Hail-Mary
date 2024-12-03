@@ -483,7 +483,7 @@
 
 /datum/crafting_recipe/a762boxirr
 	name = "7.62 U-235 ammo box"
-	result = /obj/item/ammo_box/a762box/uraniumtipped
+	result = /obj/item/ammo_box/a308box/uraniumtipped
 	reqs = list(/obj/item/stack/crafting/metalparts = 1,
 	/obj/item/stack/sheet/mineral/titanium = 1,
 	/obj/item/stack/sheet/prewar = 1,
