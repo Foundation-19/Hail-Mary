@@ -698,15 +698,6 @@
 	item_state = "khan_booty"
 	body_parts_hidden = GROIN|LEGS
 
-/obj/item/clothing/under/f13/khan/Goji
-	name = "Leather Pants"
-	desc = "Clothing marking the wearer as one of the the Great Khans. Most common are denim pants, but this is a pair of tight leather pants."
-	icon = 'icons/fallout/clothing/khans.dmi'
-	icon_state = "Gojipants"
-	item_state = "Gojipants"
-	item_color = "Gojipants"
-	body_parts_hidden = GROIN|LEGS
-
 // Testing fixed toggle uniform so icon updates properly
 /obj/item/clothing/under/f13/khan/AltClick(mob/user)
 	. = ..()

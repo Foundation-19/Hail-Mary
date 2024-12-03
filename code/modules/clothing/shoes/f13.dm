@@ -189,13 +189,6 @@
 	item_state = "khan_boots"
 	var/boottoggled = FALSE
 
-/obj/item/clothing/shoes/f13/military/khan/Goji
-	name = "steel-tipped Snakeskin Loafers"
-	desc = "A pair of Snakeskin Loafers reinforced with metal toe caps."
-	icon = 'icons/fallout/clothing/khans.dmi'
-	icon_state = "Gojishoes"
-	item_state = "Gojishoes"
-
 /obj/item/clothing/shoes/f13/military/khan/AltClick(mob/user)
 	. = ..()
 	if(!user.canUseTopic(src, BE_CLOSE, ismonkey(user)))
