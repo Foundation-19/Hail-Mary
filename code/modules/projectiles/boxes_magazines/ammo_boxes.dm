@@ -496,17 +496,18 @@
 	custom_materials = list(/datum/material/iron = MATS_RIFLE_MEDIUM_BOX)
 */
 
-/obj/item/ammo_box/a762box/uraniumtipped
-	name = "ammo box (7.62x51 uranium tipped)"
-	ammo_type = /obj/item/ammo_casing/a762/uraniumtipped
+/obj/item/ammo_box/a308box/uraniumtipped
+	name = "ammo box (.308 uranium tipped)"
+	ammo_type = /obj/item/ammo_casing/a308/uraniumtipped
 	desc = "Not depleted uranium. Regular uranium."
+	icon_state = "762box"
 
-/obj/item/ammo_box/a762box/uraniumtipped/Initialize()
+/obj/item/ammo_box/a308box/uraniumtipped/Initialize()
 	. = ..()
 	AddComponent(/datum/component/radioactive, 5, src, 0, TRUE, TRUE) //half-life of 0 because we keep on going.
 	START_PROCESSING(SSradiation,src)
 
-/obj/item/ammo_box/a762box/uraniumtipped/Destroy()
+/obj/item/ammo_box/a308box/uraniumtipped/Destroy()
 	STOP_PROCESSING(SSradiation,src)
 	..()
 
