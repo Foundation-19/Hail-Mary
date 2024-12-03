@@ -54,7 +54,7 @@
 	icon_state = "supafly"
 	item_state = "supafly"
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
-	armor_tokens = list(ARMOR_MODIFIER_UP_DT_T1)
+	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T1, ARMOR_MODIFIER_DOWN_BULLET_T3, ARMOR_MODIFIER_DOWN_LASER_T3, ARMOR_MODIFIER_UP_DT_T1)
 	flags_inv = HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
 	slowdown = 0
 
@@ -507,7 +507,7 @@ obj/item/clothing/head/helmet/f13/enclave/usmcriot
 	unique_reskin = list("M1" = "ncr_old")
 	salvage_loot = list(/obj/item/stack/crafting/armor_plate = 1)
 	armor = ARMOR_VALUE_LIGHT
-	armor_tokens = list(ARMOR_MODIFIER_DOWN_MELEE_T2, ARMOR_MODIFIER_DOWN_BULLET_T2, ARMOR_MODIFIER_DOWN_LASER_T3, ARMOR_MODIFIER_UP_DT_T1) // The NCR is more tanky, but slower
+	armor_tokens = list(ARMOR_MODIFIER_DOWN_MELEE_T2, ARMOR_MODIFIER_DOWN_LASER_T3, ARMOR_MODIFIER_DOWN_BULLET_T1) // The NCR is more tanky, but slower
 
 /obj/item/clothing/head/f13/ncr/Initialize()
 	. = ..()	
@@ -619,7 +619,7 @@ obj/item/clothing/head/helmet/f13/enclave/usmcriot
 	visor_flags_cover = HEADCOVERSEYES
 	dog_fashion = null
 	unique_reskin = list("M1" = "ncr_old")
-	armor_tokens = list()
+	armor_tokens = list(ARMOR_MODIFIER_DOWN_MELEE_T3, ARMOR_MODIFIER_DOWN_LASER_T2, ARMOR_MODIFIER_DOWN_BULLET_T1)
 
 /obj/item/clothing/head/f13/ncr/ncr_flapcap
 	name = "NCR field cap"
@@ -703,7 +703,7 @@ obj/item/clothing/head/helmet/f13/enclave/usmcriot
 	item_state = "scoutberet"
 	salvage_loot = list(/obj/item/stack/crafting/armor_plate = 2)
 	armor = ARMOR_VALUE_LIGHT
-	armor_tokens = list(ARMOR_MODIFIER_UP_DT_T2, ARMOR_MODIFIER_UP_BULLET_T2, ARMOR_MODIFIER_DOWN_MELEE_T2)
+	armor_tokens = list(ARMOR_MODIFIER_DOWN_MELEE_T2, ARMOR_MODIFIER_DOWN_LASER_T3, ARMOR_MODIFIER_DOWN_BULLET_T1)
 
 /obj/item/clothing/head/f13/trailranger
 	name = "NCR trail ranger hat"
@@ -712,7 +712,7 @@ obj/item/clothing/head/helmet/f13/enclave/usmcriot
 	item_state = "cowboyrang"
 	salvage_loot = list(/obj/item/stack/crafting/armor_plate = 2)
 	armor = ARMOR_VALUE_LIGHT
-	armor_tokens = list(ARMOR_MODIFIER_UP_DT_T2, ARMOR_MODIFIER_UP_BULLET_T1)
+	armor_tokens = list(ARMOR_MODIFIER_DOWN_MELEE_T2, ARMOR_MODIFIER_DOWN_LASER_T3, ARMOR_MODIFIER_DOWN_BULLET_T1)
 
 /obj/item/clothing/head/f13/ranger
 	name = "NCR ranger campaign hat"
@@ -797,7 +797,7 @@ obj/item/clothing/head/helmet/f13/enclave/usmcriot
 	desc = "An improved combat helmet, bearing the symbol of the Knights."
 	icon_state = "brotherhood_helmet_knight"
 	item_state = "brotherhood_helmet_knight"
-
+	armor_tokens = list(ARMOR_MODIFIER_DOWN_MELEE_T3, ARMOR_MODIFIER_DOWN_LASER_T2, ARMOR_MODIFIER_DOWN_BULLET_T1)
 
 /obj/item/clothing/head/helmet/f13/combat/brotherhood/senior
 	name = "brotherhood senior knight helmet"
@@ -810,12 +810,14 @@ obj/item/clothing/head/helmet/f13/enclave/usmcriot
 	desc = "An improved combat helmet, bearing the symbol of a Sargeant."
 	icon_state = "brotherhood_helmet_senior"
 	item_state = "brotherhood_helmet_senior"
+	armor_tokens = list(ARMOR_MODIFIER_DOWN_MELEE_T3, ARMOR_MODIFIER_DOWN_LASER_T2, ARMOR_MODIFIER_DOWN_BULLET_T1, ARMOR_MODIFIER_UP_DT_T1)
 
 /obj/item/clothing/head/helmet/f13/combat/brotherhood/captain
 	name = "brotherhood head knight helmet"
 	desc = "An improved combat helmet, bearing the symbol of the Head Knight."
 	icon_state = "brotherhood_helmet_captain"
 	item_state = "brotherhood_helmet_captain"
+	armor_tokens = list(ARMOR_MODIFIER_DOWN_MELEE_T3, ARMOR_MODIFIER_DOWN_LASER_T2, ARMOR_MODIFIER_DOWN_BULLET_T1, ARMOR_MODIFIER_UP_DT_T2)
 
 /obj/item/clothing/head/helmet/f13/combat/brotherhood/initiate
 	name = "initiate helmet"
@@ -828,6 +830,7 @@ obj/item/clothing/head/helmet/f13/enclave/usmcriot
 	desc = "An advanced pre-war titanium plated, ceramic coated, kevlar, padded helmet designed to withstand extreme punishment of all forms, repainted to the colour scheme of the Brotherhood of Steel."
 	icon_state = "brotherhood_helmet"
 	item_state = "brotherhood_helmet"
+	armor_tokens = list(ARMOR_MODIFIER_DOWN_MELEE_T3, ARMOR_MODIFIER_DOWN_LASER_T2, ARMOR_MODIFIER_DOWN_BULLET_T1, ARMOR_MODIFIER_UP_DT_T1)
 
 /obj/item/clothing/head/helmet/f13/combat/brotherhood/outcast
 	name = "brotherhood helmet"
