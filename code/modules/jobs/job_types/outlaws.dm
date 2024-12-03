@@ -16,7 +16,7 @@
 	supervisors = "your conscious if you have one"
 	selection_color = "#df80af"
 	exp_requirements = 0
-	exp_type = EXP_TYPE_WASTELAND
+	exp_type = EXP_TYPE_OUTLAW
 
 	outfit = /datum/outfit/job/outlaw
 
