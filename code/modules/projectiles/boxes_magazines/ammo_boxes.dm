@@ -483,6 +483,7 @@
 	max_ammo = 15
 	multiple_sprites = 3
 
+/*
 /obj/item/ammo_box/a762box
 	name = "ammo box (7.62x51 FMJ Match)"
 	icon = 'icons/fallout/objects/guns/ammo.dmi'
@@ -493,6 +494,7 @@
 	max_ammo = 20
 	w_class = WEIGHT_CLASS_SMALL
 	custom_materials = list(/datum/material/iron = MATS_RIFLE_MEDIUM_BOX)
+*/
 
 /obj/item/ammo_box/a762box/uraniumtipped
 	name = "ammo box (7.62x51 uranium tipped)"
