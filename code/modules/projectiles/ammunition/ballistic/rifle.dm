@@ -40,10 +40,10 @@
 	projectile_type = /obj/item/projectile/bullet/a308/microshrapnel
 	fire_power = CASING_POWER_MEDIUM_RIFLE * CASING_POWER_MOD_MATCH
 
-/obj/item/ammo_casing/a762/uraniumtipped
+/obj/item/ammo_casing/a308/uraniumtipped
 	name = "7.62 uranium tipped bullet casing"
 	desc = "Not depleted uranium. Regular uranium."
-	projectile_type = /obj/item/projectile/bullet/a762/uraniumtipped
+	projectile_type = /obj/item/projectile/bullet/a308/uraniumtipped
 
 
 /obj/item/ammo_casing/a308/rubber
