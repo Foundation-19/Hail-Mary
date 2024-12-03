@@ -661,11 +661,11 @@
 	name = ".308 bullet"
 
 
-/obj/item/projectile/bullet/a762/uraniumtipped
+/obj/item/projectile/bullet/a308/uraniumtipped
 	name = "7.62 uranium-tipped bullet"
 	damage = 35
 	armour_penetration = 0
-	irradiate = 300
+	irradiate = 500
 
 /* .30-06
 	60 base damage
