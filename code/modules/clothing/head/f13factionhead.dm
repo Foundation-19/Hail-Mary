@@ -178,7 +178,7 @@
 	desc = "A combat helmet modified with metal plating"
 	icon_state = "raider_combat_helmet"
 	item_state = "raider_combat_helmet"
-	armor_tokens = list(ARMOR_MODIFIER_UP_DT_T2)
+	armor_tokens = list(ARMOR_MODIFIER_DOWN_BULLET_T1, ARMOR_MODIFIER_UP_LASER_T1, ARMOR_MODIFIER_UP_ENV_T1, ARMOR_MODIFIER_UP_DT_T1)
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
 	slowdown = 0.025
 
@@ -507,7 +507,7 @@ obj/item/clothing/head/helmet/f13/enclave/usmcriot
 	unique_reskin = list("M1" = "ncr_old")
 	salvage_loot = list(/obj/item/stack/crafting/armor_plate = 1)
 	armor = ARMOR_VALUE_LIGHT
-	armor_tokens = list(ARMOR_MODIFIER_UP_DT_T1, ARMOR_MODIFIER_UP_BULLET_T1) // The NCR is more tanky, but slower
+	armor_tokens = list(ARMOR_MODIFIER_DOWN_MELEE_T2, ARMOR_MODIFIER_DOWN_BULLET_T2, ARMOR_MODIFIER_DOWN_LASER_T3, ARMOR_MODIFIER_UP_DT_T1) // The NCR is more tanky, but slower
 
 /obj/item/clothing/head/f13/ncr/Initialize()
 	. = ..()	
@@ -551,6 +551,8 @@ obj/item/clothing/head/helmet/f13/enclave/usmcriot
 /obj/item/clothing/head/f13/ncr/steelpot_goggles/trenchraider
 	name = "NCR trench storm helmet"
 	desc = "A standard issue NCR steel helmet, issued with extra steel for close quarters fighting."
+	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T2, ARMOR_MODIFIER_DOWN_BULLET_T2, ARMOR_MODIFIER_DOWN_LASER_T3, ARMOR_MODIFIER_UP_DT_T1) // The NCR is more tanky, but slower
+
 
 /obj/item/clothing/head/f13/ncr/steelpot_med
 	name = "NCR medic helmet"
@@ -594,7 +596,7 @@ obj/item/clothing/head/helmet/f13/enclave/usmcriot
 	flags_inv = HIDEEARS
 	dog_fashion = null
 	armor = ARMOR_VALUE_MEDIUM
-	armor_tokens = list(ARMOR_MODIFIER_UP_DT_T1)
+	armor_tokens = list(ARMOR_MODIFIER_UP_DT_T1, ARMOR_MODIFIER_UP_BOMB_T2)
 
 /obj/item/clothing/head/helmet/f13/ncr/heavygunner
 	name = "NCR Trench Raider Helmet"
@@ -604,7 +606,7 @@ obj/item/clothing/head/helmet/f13/enclave/usmcriot
 	icon_state = "ncrarmyhelmetheavy"
 	item_state = "ncrarmyhelmetheavy"
 	flags_cover = HEADCOVERSEYES|HEADCOVERSMOUTH
-	armor_tokens = list(ARMOR_MODIFIER_DOWN_BULLET_T1, ARMOR_MODIFIER_UP_MELEE_T3)
+	armor_tokens = list(ARMOR_MODIFIER_DOWN_BULLET_T1, ARMOR_MODIFIER_UP_MELEE_T3, ARMOR_MODIFIER_DOWN_LASER_T2, ARMOR_MODIFIER_UP_DT_T3)
 	salvage_loot = list(/obj/item/stack/crafting/armor_plate = 8)
 
 /obj/item/clothing/head/f13/ncr/standard/conscript
@@ -701,7 +703,7 @@ obj/item/clothing/head/helmet/f13/enclave/usmcriot
 	item_state = "scoutberet"
 	salvage_loot = list(/obj/item/stack/crafting/armor_plate = 2)
 	armor = ARMOR_VALUE_LIGHT
-	armor_tokens = list(ARMOR_MODIFIER_UP_DT_T2, ARMOR_MODIFIER_UP_BULLET_T1)
+	armor_tokens = list(ARMOR_MODIFIER_UP_DT_T2, ARMOR_MODIFIER_UP_BULLET_T2, ARMOR_MODIFIER_DOWN_MELEE_T2)
 
 /obj/item/clothing/head/f13/trailranger
 	name = "NCR trail ranger hat"
@@ -728,7 +730,7 @@ obj/item/clothing/head/helmet/f13/enclave/usmcriot
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEHAIR|HIDEFACIALHAIR|HIDEFACE
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	salvage_loot = list(/obj/item/stack/crafting/armor_plate = 2)
-	armor_tokens = list(ARMOR_MODIFIER_UP_DT_T1, ARMOR_MODIFIER_UP_BULLET_T1)
+	armor_tokens = list(ARMOR_MODIFIER_UP_DT_T2, ARMOR_MODIFIER_UP_BULLET_T1, ARMOR_MODIFIER_DOWN_MELEE_T2)
 
 /obj/item/clothing/head/helmet/f13/ncr/rangercombat
 	name = "ranger combat helmet"
@@ -746,7 +748,7 @@ obj/item/clothing/head/helmet/f13/enclave/usmcriot
 	darkness_view = 24
 	salvage_loot = list(/obj/item/stack/crafting/armor_plate = 3, /obj/item/clothing/glasses/night/polarizing = 1)
 	armor = ARMOR_VALUE_HEAVY
-	armor_tokens = list(ARMOR_MODIFIER_UP_DT_T2)
+	armor_tokens = list(ARMOR_MODIFIER_UP_DT_T2, ARMOR_MODIFIER_UP_BULLET_T1, ARMOR_MODIFIER_DOWN_MELEE_T2, ARMOR_MODIFIER_DOWN_LASER_T2)
 
 /* /obj/item/clothing/head/helmet/f13/ncr/rangercombat/Initialize()
 	. = ..()
@@ -1303,12 +1305,14 @@ obj/item/clothing/head/f13/army/beret
 	desc = "A standard issue NCR helmet, with the letters \"MP\" scrawled on the front."
 	icon_state = "ncr_MP"
 	item_state = "ncr_MP"
+	armor_tokens = list(ARMOR_MODIFIER_DOWN_MELEE_T1, ARMOR_MODIFIER_UP_BULLET_T1, ARMOR_MODIFIER_DOWN_LASER_T3, ARMOR_MODIFIER_UP_DT_T1)
 
 /obj/item/clothing/head/f13/ncr/goggles
 	name = "NCR storm helmet"
 	desc = "A standard issue NCR Infantry helmet, with a pair of goggles attached to it."
 	icon_state = "ncr_goggles_helmet"
 	item_state = "ncr_goggles_helmet"
+	armor_tokens = list(ARMOR_MODIFIER_DOWN_MELEE_T1, ARMOR_MODIFIER_UP_BULLET_T1, ARMOR_MODIFIER_DOWN_LASER_T3, ARMOR_MODIFIER_UP_DT_T1)
 	toggle_message = "You pull the goggles down under "
 	alt_toggle_message = "You push the goggles up onto the "
 	can_toggle = 1
