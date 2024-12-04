@@ -33,12 +33,13 @@
 		/datum/material/blackpowder = MATS_RIFLE_MEDIUM_POWDER)
 	fire_power = CASING_POWER_MEDIUM_RIFLE * CASING_POWER_MOD_SURPLUS
 	sound_properties = CSP_RIFLE_MEDIUM
-
+/*
 /obj/item/ammo_casing/a308/microshrapnel
 	name = ".308 microshrapnel bullet casing"
 	desc = "Like shrapnel, but smaller, and thus more annoying."
 	projectile_type = /obj/item/projectile/bullet/a308/microshrapnel
 	fire_power = CASING_POWER_MEDIUM_RIFLE * CASING_POWER_MOD_MATCH
+*/
 
 /obj/item/ammo_casing/a308/uraniumtipped
 	name = "7.62 uranium tipped bullet casing"
@@ -105,13 +106,13 @@
 		/datum/material/iron = (MATS_RIFLE_LIGHT_CASING * MATS_AMMO_CASING_HANDLOAD_MULT) + (MATS_RIFLE_LIGHT_BULLET * MATS_AMMO_BULLET_HANDLOAD_MULT),
 		/datum/material/blackpowder = MATS_RIFLE_LIGHT_POWDER * MATS_AMMO_POWDER_HANDLOAD_MULT)
 	fire_power = CASING_POWER_LIGHT_RIFLE * CASING_POWER_MOD_HANDLOAD
-
+/*
 /obj/item/ammo_casing/a556/microshrapnel
 	name = "5.56mm microshrapnel bullet casing"
 	desc = "Like shrapnel, but smaller, and thus more annoying."
 	projectile_type = /obj/item/projectile/bullet/a556/microshrapnel
 	fire_power = CASING_POWER_LIGHT_RIFLE * CASING_POWER_MOD_MATCH
-
+*/
 
 /obj/item/ammo_casing/a556/uranium_tipped
 	name = "5.56 uranium-tipped bullet casing"
