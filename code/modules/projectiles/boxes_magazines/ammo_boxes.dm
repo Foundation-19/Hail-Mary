@@ -407,12 +407,12 @@
 	icon_state = "556box"
 	multiple_sprites = 2
 	ammo_type = /obj/item/ammo_casing/a556/rubber
-
+/*
 /obj/item/ammo_box/a556/microshrapnel
 	name = "ammo box (5.56 microshrapnel)"
 	desc = "Now with fragments!"
 	ammo_type = /obj/item/ammo_casing/a556/microshrapnel
-
+*/
 /obj/item/ammo_box/a556/uraniumtipped
 	name = "ammo box (5.56 uranium-tipped)"
 	desc = "Not depleted uranium. Regular uranium."
@@ -510,12 +510,12 @@
 /obj/item/ammo_box/a308box/uraniumtipped/Destroy()
 	STOP_PROCESSING(SSradiation,src)
 	..()
-
+/*
 /obj/item/ammo_box/a308box/microshrapnel
 	name = "ammo box (.308 microshrapnel)"
 	desc = "Now with EVEN MORE fragments!"
 	ammo_type = /obj/item/ammo_casing/a308/microshrapnel
-
+*/
 /obj/item/ammo_box/a308box/rubber
 	name = "ammo box (.308 rubber)"
 	icon = 'icons/fallout/objects/guns/ammo.dmi'
