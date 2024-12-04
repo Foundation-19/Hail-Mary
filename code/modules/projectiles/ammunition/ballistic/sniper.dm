@@ -66,10 +66,10 @@
 	projectile_type = /obj/item/projectile/bullet/a50MG/contam
 	fire_power = CASING_POWER_HEAVY_RIFLE * CASING_POWER_MOD_MATCH
 
-/*
+
 /obj/item/ammo_casing/a50MG/uraniumtipped
 	name = "12.7mm uranium-tipped bullet casing"
 	desc = "Enriched uranium-tipped 12.7mm rifle rounds."
 	projectile_type = /obj/item/projectile/bullet/a50MG/uraniumtipped
 	icon_state = "50ap2"
-*/
+

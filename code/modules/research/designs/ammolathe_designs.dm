@@ -400,14 +400,14 @@
 	build_path = /obj/item/ammo_box/m5mmbox
 	category = list("initial", "Basic Ammo")
 
-/*
+
 /datum/design/ammolathe/magnumshot
 	name = "magnum buckshot shotgun box"
 	id = "magnumshot"
-	materials = list(/datum/material/iron = 10000, /datum/material/blackpowder = 1500)
+	materials = list(/datum/material/iron = 50000, /datum/material/blackpowder = 15000)
 	build_path = /obj/item/ammo_box/shotgun/magnum
-	category = list("initial", "Basic Ammo")
-*/
+	category = list("initial", "Advanced Ammo")
+
 /datum/design/ammolathe/slugshot
 	name = "slug shotgun box"
 	id = "slugshot"
@@ -759,6 +759,7 @@
 	materials = list(/datum/material/iron = 16000, /datum/material/blackpowder = 2500)
 	build_path = /obj/item/ammo_box/a762box
 	category = list("initial", "Advanced Ammo")
+*/
 
 /datum/design/ammolathe/m473fmj
 	name = "4.73mm caseless ammo box"
@@ -767,6 +768,7 @@
 	build_path = /obj/item/ammo_box/m473
 	category = list("initial", "Advanced Ammo")
 
+/*
 /datum/design/ammolathe/m473rubber
 	name = "4.73mm caseless rubber ammo box"
 	id = "m473rubber"
@@ -781,23 +783,19 @@
 	build_path = /obj/item/ammo_box/a40mm/buck
 	category = list("initial", "Advanced Ammo")
 
-/*
 /datum/design/ammolathe/m473incin
 	name = "4.73mm incendiary caseless ammo box"
 	id = "m473incin"
 	materials = list(/datum/material/iron = 20000, /datum/material/blackpowder = 3000)
 	build_path = /obj/item/ammo_box/m473/incendiary
 	category = list("initial", "Advanced Ammo")
-*/
 
-/*
 /datum/design/ammolathe/m473u235
 	name = "4.73mm uranium-tipped caseless ammo box"
 	id = "m473u235"
 	materials = list(/datum/material/titanium = 10000, /datum/material/blackpowder = 2000)
 	build_path = /obj/item/ammo_box/m473/uraniumtipped
 	category = list("initial", "Advanced Ammo")
-
 
 /datum/design/ammolathe/m473wound
 	name = "4.73mm flat-nose caseless ammo box"
@@ -819,7 +817,6 @@
 	materials = list(/datum/material/iron = 12000, /datum/material/titanium = 15000, /datum/material/blackpowder = 3000)
 	build_path = /obj/item/ammo_box/m473/hv
 	category = list("initial", "Advanced Ammo")
-*/
 
 /datum/design/ammolathe/a357ricochet
 	name = ".357 ricochet ammo"
