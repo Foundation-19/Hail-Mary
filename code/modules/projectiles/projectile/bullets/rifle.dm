@@ -106,6 +106,7 @@
  * WOUNDS: 12.5
  * WNAKED: 9
  */
+/*
 /obj/item/projectile/bullet/a556/microshrapnel
 	name = "5.56 microshrapnel bullet"
 	damage = BULLET_DAMAGE_RIFLE_223 * BULLET_DAMAGE_MICROSHRAPNEL
@@ -133,7 +134,7 @@
 		embed_chance_turf_mod=100,
 		projectile_payload = /obj/item/shrapnel/bullet/a556/microshrapnel
 		)
-
+*/
 /* 5.56 simple
  * DAMAGE: 25
  * STAMIN: 5
@@ -633,6 +634,7 @@
  * WOUNDS: 12
  * WNAKED: 9
  */
+/*
 /obj/item/projectile/bullet/a308/microshrapnel
 	name = ".308 microshrapnel bullet"
 	damage = BULLET_DAMAGE_RIFLE_308 * BULLET_DAMAGE_MICROSHRAPNEL
@@ -649,7 +651,7 @@
 
 	embed_falloff_tile = BULLET_WOUND_FALLOFF_RIFLE_LIGHT
 	embedding = list(embed_chance=12, fall_chance=1, jostle_chance=1, ignore_throwspeed_threshold=TRUE, pain_stam_pct=0.3, pain_mult=5, jostle_pain_mult=6, rip_time=10, embed_chance_turf_mod=100, projectile_payload = /obj/item/shrapnel/bullet/a762/microshrapnel)
-
+*/
 /* 7.62mm simple
  * DAMAGE: 45
  * STAMIN: 45
