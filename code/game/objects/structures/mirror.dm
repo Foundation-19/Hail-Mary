@@ -280,3 +280,12 @@
 
 /obj/structure/mirror/magic/proc/curse(mob/living/user)
 	return
+
+
+// Hail Mary Mirror Daddo
+
+/obj/structure/mirror/standing
+	name = "standing mirror"
+	desc = "Albion will burn! Everything you've ever done has been for nothing!"
+	icon = 'icons/obj/watercloset.dmi'
+	icon_state = "grandaddy"

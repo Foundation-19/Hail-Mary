@@ -260,6 +260,3 @@
 	name = "headset"
 	path = /obj/item/radio/headset
 	cost = 1
-
-
-
