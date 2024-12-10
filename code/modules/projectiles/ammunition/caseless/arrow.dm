@@ -1,3 +1,4 @@
+/*
 /obj/item/ammo_casing/caseless/arrow
 	name = "arrow"
 	desc = "a simple arrow with a metal head."
@@ -105,8 +106,9 @@
 	custom_materials = list(/datum/material/wood = MINERAL_MATERIAL_AMOUNT) //no sticky tape material type either. i cri
 	w_class = WEIGHT_CLASS_TINY
 
+*/
 
-/* //FO13 arrows
+ //FO13 arrows
 /obj/item/ammo_casing/caseless/arrow
 	name = "metal arrow"
 	desc = "A simple arrow with a metal head."
@@ -201,4 +203,4 @@
 	icon = 'icons/fallout/objects/guns/ammo.dmi'
 	desc = "An arrow with a sturdy cloth sack at the end of it, meant to incapacitate and knock out instead of kill. How merciful you are, aristocrat!"
 	icon_state = "arrow_stam"
-	projectile_type = /obj/item/projectile/bullet/reusable/arrow/blunt */
+	projectile_type = /obj/item/projectile/bullet/reusable/arrow/blunt 
