@@ -37,8 +37,6 @@
 		return 0
 	if(rank in GLOB.vault_positions)
 		return 0
-	if(rank in GLOB.eastwood_positions)
-		return 0
 	if(rank in GLOB.ncr_positions)
 		return 0
 	if(rank in GLOB.wasteland_positions)
