@@ -10,6 +10,7 @@
 	max_integrity = 200
 	proj_resist = 16 //fragile, blocks .22s
 	recipe_type = /datum/crafting_recipe/shutters/old
+	demolition_mod_resist = 0.85
 
 /obj/machinery/door/poddoor/shutters/preopen
 	icon_state = "open"
@@ -30,6 +31,7 @@
 	max_integrity = 350
 	damage_deflection = 36 //stronger, will block most one-handed melee weapons
 	proj_resist = 30 // will block weaker pistol/scattershot projectiles, though most faction weapons will get through
+	demolition_mod_resist = 0.75
 
 /obj/machinery/door/poddoor/shutters/old/preopen
 	icon_state = "open"

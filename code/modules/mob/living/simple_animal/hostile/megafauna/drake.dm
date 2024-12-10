@@ -321,9 +321,6 @@ Difficulty: Medium
 	playsound(T,'sound/magic/fleshtostone.ogg', 80, 1)
 	new /obj/effect/temp_visual/fireball(T)
 	sleep(duration)
-	if(ismineralturf(T))
-		var/turf/closed/mineral/M = T
-		M.gets_drilled()
 	playsound(T, "explosion", 80, 1)
 	new /obj/effect/hotspot(T)
 	T.hotspot_expose(700, 50, 1)

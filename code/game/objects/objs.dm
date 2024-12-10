@@ -39,6 +39,7 @@
 	var/req_one_access_txt = "0"
 
 	var/renamedByPlayer = FALSE //set when a player uses a pen on a renamable object
+	var/demolition_mod_resist = 1
 
 /obj/vv_edit_var(vname, vval)
 	switch(vname)
@@ -387,7 +388,7 @@
 		return
 	if(length(armor_tokens) < 1)
 		return // all done!
-	
+
 	for(var/list/token in armor_tokens)
 		for(var/modifier in token)
 			switch(GLOB.armor_token_operation_legend[modifier])
