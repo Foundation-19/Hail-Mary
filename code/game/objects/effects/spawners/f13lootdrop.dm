@@ -863,13 +863,15 @@
 				/obj/effect/spawner/bundle/f13/colt357,
 				/obj/effect/spawner/bundle/f13/huntingshotgun,
 				/obj/effect/spawner/bundle/f13/police_pistol,
-				/obj/effect/spawner/bundle/f13/m1carbine
+				/obj/effect/spawner/bundle/f13/m1carbine,
+				/obj/item/gun/ballistic/automatic/varmint/bushmaster_arm_gun,
+				/obj/item/gun/ballistic/automatic/m1carbine/m2,
+				/obj/item/gun/ballistic/automatic/smg/mini_uzi/owengun,
 				)
 
 /obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/lowmid
 	name = "low-mid tier ballistic gun"
-	loot = list(/obj/effect/spawner/bundle/f13/n99,
-				/obj/effect/spawner/bundle/f13/cowboy,
+	loot = list(/obj/effect/spawner/bundle/f13/cowboy,
 				/obj/effect/spawner/bundle/f13/mk23,
 				/obj/effect/spawner/bundle/f13/needler,
 				/obj/effect/spawner/bundle/f13/hunting,
@@ -878,7 +880,9 @@
 				/obj/effect/spawner/bundle/f13/m1carbine,
 				/obj/effect/spawner/bundle/f13/huntingshotgun,
 				/obj/effect/spawner/bundle/f13/revolver45,
-				/obj/effect/spawner/bundle/f13/beretta/select
+				/obj/effect/spawner/bundle/f13/beretta/select,
+				/obj/item/gun/ballistic/automatic/sportcarbine/m1_22,
+				/obj/item/gun/ballistic/rifle/mosin
 		)
 
 /obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/mid
@@ -892,7 +896,10 @@
 				/obj/effect/spawner/bundle/f13/automag,
 				/obj/item/gun/ballistic/automatic/smg/american180,
 				/obj/item/gun/ballistic/rifle/repeater/ranger,
-				/obj/item/gun/ballistic/automatic/smg/ppsh
+				/obj/item/gun/ballistic/automatic/smg/ppsh,
+				/obj/item/gun/ballistic/automatic/smg/sidewinder,
+				/obj/item/gun/ballistic/automatic/smg/mini_uzi/mp40,
+				/obj/item/gun/ballistic/automatic/smg/mini_uzi/mac10,
 				)
 
 /obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/highmid
@@ -903,14 +910,17 @@
 				/obj/effect/spawner/bundle/f13/guns/tommygun,
 				/obj/effect/spawner/bundle/f13/shotgunlever,
 				/obj/effect/spawner/bundle/f13/brushgun,
-				/obj/effect/spawner/bundle/f13/ak112
+				/obj/effect/spawner/bundle/f13/ak112,
+				/obj/item/gun/ballistic/automatic/varmint/ratslayer,
+				/obj/item/gun/ballistic/automatic/smg/sidewinder/magnum,
+				/obj/item/gun/ballistic/automatic/wt550,
 				)
 
 /obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/high
 	name = "high tier ballistic gun"
-	loot = list(/obj/effect/spawner/bundle/f13/assault_rifle = 20,
-				/obj/effect/spawner/bundle/f13/r84 = 10,
-				/obj/effect/spawner/bundle/f13/brushgun = 15,
+	loot = list(/obj/effect/spawner/bundle/f13/assault_rifle = 10,
+				/obj/effect/spawner/bundle/f13/riotshotgun = 10,
+				/obj/effect/spawner/bundle/f13/brushgun = 20,
 				/obj/effect/spawner/bundle/f13/m14 = 5,
 				/obj/effect/spawner/bundle/f13/assault_carbine = 5,
 				/obj/effect/spawner/bundle/f13/magnumrevolver = 15,
@@ -920,17 +930,20 @@
 				/obj/item/gun/ballistic/shotgun/automatic/combat/citykiller = 10,
 				/obj/effect/spawner/bundle/f13/guns/p90 = 5,
 				/obj/item/gun/ballistic/automatic/lsw = 5,
-				/obj/item/gun/ballistic/automatic/lewis/lanoe = 5
+				/obj/item/gun/ballistic/automatic/lewis/lanoe = 5,
+				/obj/item/gun/ballistic/automatic/xl70e3 = 5,
+				/obj/item/gun/ballistic/automatic/shotgun/pancor = 10,
 				)
 
 /obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/superhigh
 	name = "superhigh tier ballistic gun"
-	loot = list(/obj/effect/spawner/bundle/f13/riotshotgun = 10,
+	loot = list(/obj/effect/spawner/bundle/f13/r84 = 10,
 				/obj/item/gun/ballistic/automatic/bozar = 10,
 				/obj/effect/spawner/bundle/f13/amr = 10,
 				/obj/effect/spawner/bundle/f13/bar = 10,
 				/obj/item/gun/ballistic/rocketlauncher = 10,
 				/obj/item/gun/ballistic/automatic/g11 = 5,
+				/obj/item/gun/ballistic/automatic/smg/smg14 = 5,
 				)
 
 /obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/unique
@@ -946,7 +959,8 @@
 				/obj/item/gun/ballistic/automatic/m1garand/oldglory,
 				/obj/item/gun/ballistic/automatic/pistol/pistol14/lildevil,
 				/obj/item/gun/ballistic/shotgun/automatic/combat/neostead,
-				/obj/item/gun/ballistic/revolver/ghoulgun
+				/obj/item/gun/ballistic/revolver/ghoulgun,
+				/obj/item/gun/ballistic/automatic/g11/tox
 				)
 
 
