@@ -9576,6 +9576,12 @@
 	},
 /turf/open/indestructible/ground/outside/snow,
 /area/f13/wasteland/cold)
+"eVZ" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/blood/gibs/human,
+/obj/machinery/chem_dispenser,
+/turf/open/floor/plasteel/f13/vault_floor/misc/cmo,
+/area/f13/casino/powered)
 "eWi" = (
 /obj/effect/decal/cleanable/blood/old,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -123026,7 +123032,7 @@ lWt
 tXw
 xaU
 pJm
-icp
+eVZ
 jjS
 olz
 qNA
