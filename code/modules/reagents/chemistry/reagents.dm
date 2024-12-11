@@ -60,6 +60,7 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 	var/chemical_flags // See fermi/readme.dm REAGENT_DEAD_PROCESS, REAGENT_DONOTSPLIT, REAGENT_ONLYINVERSE, REAGENT_ONMOBMERGE, REAGENT_INVISIBLE, REAGENT_FORCEONNEW, REAGENT_SNEAKYNAME
 	var/value = REAGENT_VALUE_NONE //How much does it sell for in cargo?
 	var/datum/material/material //are we made of material?
+	var/thirst_factor = null // How much thirst does it recover/remove on ingestion PER UNIT
 	/// When present in a mob, how much should each unit count as effective blood
 	var/effective_blood_multiplier = 0
 	/// The maximum effective blood to be added from this reagent
@@ -87,6 +88,9 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 			var/amount = round(reac_volume*modifier, 0.1)
 			if(amount >= 0.5)
 				M.reagents.add_reagent(type, amount)
+	if((method == INGEST) && ishuman(M) && thirst_factor != null)
+		var/mob/living/carbon/human/H = M
+		H.adjust_thirst(thirst_factor * reac_volume)
 	return 1
 
 /datum/reagent/proc/reaction_synth(mob/living/M, method=TOUCH, reac_volume, show_message = 1, touch_protection = 0)
@@ -112,6 +116,9 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 	current_cycle++
 	if(holder)
 		holder.remove_reagent(type, metabolization_rate * M.metabolism_efficiency) //By default it slowly disappears.
+	if(ishuman(M) && thirst_factor > 0)
+		var/mob/living/carbon/human/H = M
+		H.adjust_thirst(thirst_factor)
 
 /datum/reagent/proc/on_mob_life_synth(mob/living/carbon/M)
 	current_cycle++

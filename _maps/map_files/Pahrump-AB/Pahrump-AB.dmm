@@ -31948,6 +31948,10 @@
 	icon_state = "housewood2"
 	},
 /area/f13/building)
+"hcX" = (
+/obj/machinery/water_purifier,
+/turf/open/floor/plasteel/freezer,
+/area/f13/city)
 "hda" = (
 /obj/structure/sacrificealtar,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
@@ -109253,7 +109257,7 @@ ayL
 bbs
 aiO
 xvy
-bbV
+hcX
 bbV
 bbV
 dkR
