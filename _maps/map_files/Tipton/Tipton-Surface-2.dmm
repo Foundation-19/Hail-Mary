@@ -5563,6 +5563,12 @@
 /obj/item/clothing/shoes/laceup,
 /turf/open/floor/carpet/blue,
 /area/f13/brotherhood/powered)
+"cTn" = (
+/obj/structure/table/reinforced,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/hot_potato,
+/turf/open/floor/plasteel/f13/vault_floor/green/whitegreenfull,
+/area/f13/building/powered)
 "cTp" = (
 /obj/machinery/hydroponics/soil,
 /obj/structure/flora/wasteplant/wild_buffalogourd,
@@ -24929,10 +24935,10 @@
 /area/f13/wasteland/cold)
 "mFd" = (
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/rack/shelf_metal,
 /obj/structure/destructible/tribal_torch/wall/lit{
 	dir = 4
 	},
+/obj/machinery/gear_painter,
 /turf/open/floor/f13/wood,
 /area/f13/casino/powered)
 "mFe" = (
@@ -36463,26 +36469,14 @@
 "srF" = (
 /obj/structure/closet/fridge/meat,
 /obj/effect/decal/cleanable/dirt,
-/obj/item/hot_potato,
-/obj/item/hot_potato,
-/obj/item/hot_potato,
-/obj/item/hot_potato,
-/obj/item/hot_potato,
-/obj/item/hot_potato,
-/obj/item/hot_potato,
-/obj/item/hot_potato,
-/obj/item/hot_potato,
-/obj/item/hot_potato,
-/obj/item/hot_potato,
-/obj/item/hot_potato,
-/obj/item/hot_potato,
-/obj/item/hot_potato,
-/obj/item/hot_potato,
-/obj/item/hot_potato,
-/obj/item/hot_potato,
-/obj/item/hot_potato,
-/obj/item/hot_potato,
-/obj/item/hot_potato,
+/obj/item/reagent_containers/food/snacks/grown/potato,
+/obj/item/reagent_containers/food/snacks/grown/potato,
+/obj/item/reagent_containers/food/snacks/grown/potato,
+/obj/item/reagent_containers/food/snacks/grown/potato,
+/obj/item/reagent_containers/food/snacks/grown/potato,
+/obj/item/reagent_containers/food/snacks/grown/potato,
+/obj/item/reagent_containers/food/snacks/grown/potato,
+/obj/item/reagent_containers/food/snacks/grown/potato,
 /turf/open/floor/plasteel/f13/vault_floor/neutral/neutralchess/neutralchess2,
 /area/f13/building/powered)
 "sse" = (
@@ -74142,7 +74136,7 @@ lBB
 tBi
 tBi
 pkp
-hAz
+cTn
 ylL
 ylL
 nRS
