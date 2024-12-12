@@ -29118,6 +29118,10 @@
 	name = "roughcast asphalt"
 	},
 /area/f13/wasteland/cold)
+"oHk" = (
+/obj/machinery/microwave/stove,
+/turf/open/floor/plasteel/f13/vault_floor/misc/bar,
+/area/f13/holiday)
 "oHq" = (
 /obj/structure/rack/shelf_metal,
 /obj/item/storage/toolbox/mechanical/old,
@@ -34752,7 +34756,6 @@
 /area/f13/underground/mountain)
 "rzk" = (
 /obj/structure/table/reinforced,
-/obj/machinery/microwave,
 /turf/open/floor/plasteel/f13/vault_floor/misc/bar,
 /area/f13/holiday)
 "rzu" = (
@@ -38982,11 +38985,6 @@
 	icon_state = "bar"
 	},
 /area/f13/ambientlighting/building/a)
-"tHn" = (
-/obj/machinery/smartfridge/bottlerack,
-/obj/effect/spawner/lootdrop/f13/alcoholspawner,
-/turf/open/floor/plasteel/f13/vault_floor/misc/bar,
-/area/f13/holiday)
 "tHs" = (
 /obj/effect/turf_decal/delivery,
 /obj/structure/closet/cardboard,
@@ -87911,9 +87909,9 @@ pMk
 ipe
 ipe
 wew
-tHn
-xHM
 vLu
+xHM
+oHk
 xHM
 xHM
 lci
