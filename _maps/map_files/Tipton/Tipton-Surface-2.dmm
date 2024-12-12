@@ -3145,12 +3145,6 @@
 	},
 /turf/open/indestructible/ground/outside/snow,
 /area/f13/ncr/powered)
-"bEC" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/item/stack/rods/fifty,
-/obj/machinery/autolathe/ammo,
-/turf/open/floor/wood_common,
-/area/f13/holiday)
 "bEL" = (
 /mob/living/simple_animal/hostile/gecko,
 /turf/open/indestructible/ground/outside/snow{
@@ -8707,12 +8701,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/f13/wood,
 /area/f13/building/powered)
-"exY" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/mineral/wasteland_vendor/advcomponents,
-/turf/open/floor/wood_common,
-/area/f13/holiday)
 "exZ" = (
 /obj/structure/reagent_dispensers/fueltank,
 /turf/open/floor/wood_common,
@@ -11629,6 +11617,10 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/rack/shelf_metal,
+/obj/item/flashlight/lantern,
+/obj/item/flashlight/lantern,
+/obj/item/flashlight/lantern,
+/obj/item/flashlight/lantern,
 /turf/open/floor/f13/wood,
 /area/f13/casino/powered)
 "fUJ" = (
@@ -13281,6 +13273,12 @@
 /obj/item/clothing/mask/fakemoustache/italian,
 /turf/open/floor/f13/wood,
 /area/f13/ambientlighting/building/b)
+"gNS" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/machinery/autolathe/ammo,
+/obj/item/stack/rods/fifty,
+/turf/open/floor/wood_common,
+/area/f13/holiday)
 "gNT" = (
 /turf/open/floor/plating/f13/outside/road{
 	icon_state = "verticalleftborderleft0"
@@ -13389,6 +13387,11 @@
 	icon_state = "floorrusty"
 	},
 /area/f13/ambientlighting/building/a)
+"gQV" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/machinery/mineral/wasteland_trader/general,
+/turf/open/floor/wood_common,
+/area/f13/holiday)
 "gRp" = (
 /obj/machinery/door/unpowered/securedoor/legion,
 /turf/open/floor/wood_common,
@@ -19918,7 +19921,7 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/mineral/wasteland_vendor/weapons,
+/obj/structure/table/wood/settler,
 /turf/open/floor/wood_common,
 /area/f13/holiday)
 "kcl" = (
@@ -21397,9 +21400,7 @@
 /area/f13/ambientlighting/building/i)
 "kPk" = (
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/mineral/wasteland_trader/general,
+/obj/machinery/mineral/wasteland_vendor/advcomponents,
 /turf/open/floor/wood_common,
 /area/f13/holiday)
 "kPB" = (
@@ -24072,7 +24073,7 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/mineral/wasteland_vendor/general,
+/obj/machinery/mineral/wasteland_vendor/weapons,
 /turf/open/floor/wood_common,
 /area/f13/holiday)
 "mlv" = (
@@ -25665,6 +25666,13 @@
 	icon_state = "floordirtysolid"
 	},
 /area/f13/building/powered)
+"mZS" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/machinery/mineral/wasteland_vendor/general,
+/turf/open/floor/wood_common,
+/area/f13/holiday)
 "mZX" = (
 /obj/structure/sink{
 	dir = 1;
@@ -87164,12 +87172,12 @@ vtV
 uVR
 dPn
 opD
+dCo
+dCo
 bYF
 dCo
 vtV
 vtV
-vEa
-vEa
 vEa
 vEa
 vEa
@@ -87421,12 +87429,12 @@ dCo
 gHM
 uaY
 nPF
+iIM
+gNS
 cgj
 jUv
 mIf
 vtV
-vEa
-vEa
 vEa
 vEa
 vEa
@@ -87678,12 +87686,12 @@ soW
 xbi
 wmK
 xbi
+iIM
+iIM
 pzu
 tgi
 kDo
 vtV
-vEa
-vEa
 vEa
 vEa
 vEa
@@ -87935,12 +87943,12 @@ iIM
 iIM
 dxy
 xbi
+iIM
+iIM
 xbi
 xbi
 whi
 vtV
-vEa
-vEa
 vEa
 vEa
 vEa
@@ -88191,13 +88199,13 @@ vtV
 kMI
 iIM
 xbi
-gCv
+iIM
+iIM
+iIM
 iIM
 iIM
 ube
 vtV
-vEa
-vEa
 vEa
 vEa
 vEa
@@ -88448,13 +88456,13 @@ vtV
 nPe
 xbi
 iIM
-exY
+iIM
+xbi
+iIM
 xbi
 iIM
 xyM
 vtV
-vEa
-vEa
 vEa
 uHd
 uHd
@@ -88706,12 +88714,12 @@ sJr
 iIM
 xbi
 iIM
+iIM
+iIM
 kMd
 xbi
 lJA
 vtV
-vEa
-vEa
 uHd
 uHd
 dOW
@@ -88963,12 +88971,12 @@ kcc
 oeB
 sJr
 mWV
+iIM
+iIM
 xbi
 iIM
 jnb
 vtV
-uHd
-uHd
 uHd
 dOW
 dOW
@@ -89220,13 +89228,13 @@ ose
 mlm
 uQh
 kVJ
-bEC
+gCv
 kPk
+gQV
+mZS
 dCo
 uVR
 uHd
-dOW
-dOW
 dOW
 dOW
 dOW
@@ -89482,9 +89490,9 @@ roH
 vjR
 dCo
 vtV
+uHd
+uHd
 shN
-dOW
-dOW
 dOW
 dOW
 dOW
