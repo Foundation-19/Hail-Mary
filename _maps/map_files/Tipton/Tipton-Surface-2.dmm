@@ -34346,9 +34346,6 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/closed/wall/r_wall/rust,
 /area/f13/holiday)
-"rpj" = (
-/turf/closed/mineral/random/no_caves,
-/area/f13/ahs)
 "rpt" = (
 /obj/structure/wreck/bus/rusted/segmented11,
 /turf/open/indestructible/ground/outside/road,
@@ -75313,7 +75310,7 @@ cAd
 cAd
 cAd
 cAd
-rpj
+cAd
 cAd
 cAd
 cAd
