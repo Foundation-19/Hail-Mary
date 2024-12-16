@@ -1573,6 +1573,10 @@
 /obj/structure/reagent_dispensers/barrel/dangerous,
 /turf/open/floor/plating/tunnel,
 /area/f13/sewer/powered)
+"bla" = (
+/obj/machinery/water_purifier,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/bunker/bunkerfive)
 "blr" = (
 /obj/structure/table/wood,
 /obj/item/flashlight/lantern,
@@ -17478,7 +17482,10 @@
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/den)
 "oeu" = (
-/obj/machinery/jukebox,
+/obj/structure/sink/kitchen{
+	dir = 8;
+	pixel_x = 12
+	},
 /turf/open/floor/f13/wood,
 /area/f13/den)
 "ofm" = (
@@ -21510,7 +21517,7 @@
 /area/f13/radiation)
 "rsN" = (
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/wreck/trash/two_barrels,
+/obj/machinery/water_purifier,
 /turf/open/floor/plasteel/f13{
 	icon_state = "yellowdirtysolid"
 	},
@@ -28552,6 +28559,15 @@
 "wKk" = (
 /obj/structure/timeddoor,
 /turf/closed/wall/rust,
+/area/f13/sewer/powered)
+"wKR" = (
+/obj/machinery/jukebox{
+	density = 0;
+	pixel_y = 22
+	},
+/turf/open/floor/f13{
+	icon_state = "greenfull"
+	},
 /area/f13/sewer/powered)
 "wLH" = (
 /obj/structure/lattice,
@@ -82715,7 +82731,7 @@ ivp
 ylM
 tjd
 tjd
-bvQ
+bla
 bui
 tyL
 far
@@ -114897,7 +114913,7 @@ kBx
 hBa
 oeu
 udJ
-nyz
+wKR
 kRF
 sKH
 wBj

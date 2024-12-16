@@ -4693,6 +4693,11 @@
 /obj/effect/spawner/lootdrop/f13/armor/tier3,
 /turf/open/water,
 /area/f13/bunker/bunkertwo)
+"fuN" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/gibspawner/human,
+/turf/open/floor/plasteel/airless/floorgrime,
+/area/f13/bunker/bunkerthree)
 "fvm" = (
 /obj/machinery/light{
 	dir = 8
@@ -9516,6 +9521,13 @@
 	icon_state = "yellowsiding"
 	},
 /area/ruin/powered)
+"kTl" = (
+/obj/structure/table/reinforced,
+/obj/machinery/water_purifier,
+/turf/open/floor/f13{
+	icon_state = "dark"
+	},
+/area/f13/sewer/powered)
 "kTn" = (
 /turf/open/floor/wood_mosaic,
 /area/f13/vault/security)
@@ -10092,6 +10104,13 @@
 	icon_state = "grass2"
 	},
 /area/f13/bunker/bunkertwo)
+"lCM" = (
+/obj/machinery/water_purifier,
+/turf/open/floor/f13{
+	dir = 5;
+	icon_state = "yellowsiding"
+	},
+/area/ruin/powered)
 "lCS" = (
 /mob/living/simple_animal/hostile/handy/robobrain{
 	faction = list("hostile");
@@ -15224,6 +15243,12 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/floor,
 /area/f13/vault/atrium)
+"rTc" = (
+/obj/machinery/water_purifier,
+/turf/open/floor/f13{
+	icon_state = "bluedirtychess2"
+	},
+/area/f13/bunker/bunkertwo)
 "rTt" = (
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/vault)
@@ -16720,6 +16745,13 @@
 	icon_state = "floordirty"
 	},
 /area/f13/bunker/bunkerthree)
+"txC" = (
+/obj/machinery/water_purifier,
+/turf/open/floor/f13{
+	dir = 10;
+	icon_state = "yellowsiding"
+	},
+/area/ruin/powered)
 "txS" = (
 /obj/machinery/computer/mech_bay_power_console,
 /obj/effect/decal/cleanable/dirt,
@@ -22925,7 +22957,7 @@ aRH
 aRH
 aRH
 xfm
-toY
+kTl
 ecs
 hQO
 mLH
@@ -31349,7 +31381,7 @@ uRA
 xXQ
 eAa
 eKG
-sZM
+vwK
 vwK
 lkr
 wXn
@@ -31863,7 +31895,7 @@ jok
 ojU
 mey
 sZM
-vwK
+fuN
 vwK
 swp
 wXn
@@ -37648,7 +37680,7 @@ qTc
 jow
 jow
 fnp
-hNx
+txC
 lLc
 lLc
 lLc
@@ -43554,7 +43586,7 @@ aRH
 aRH
 lLc
 lLc
-wWZ
+lCM
 xJy
 jow
 jow
@@ -99448,7 +99480,7 @@ ucj
 vcj
 vcj
 vcj
-vcj
+rTc
 vcj
 tPx
 cUM
