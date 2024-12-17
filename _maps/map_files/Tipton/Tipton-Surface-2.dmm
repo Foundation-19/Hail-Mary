@@ -6397,6 +6397,7 @@
 	dir = 1;
 	pixel_y = 23
 	},
+/obj/item/paper/secretrecipe,
 /turf/open/floor/plasteel/f13/vault_floor/misc/bar,
 /area/f13/casino/powered)
 "dqF" = (
@@ -6726,9 +6727,9 @@
 "dyc" = (
 /obj/structure/table/wood/settler,
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/item/melee/onehanded/machete/swordtesting,
+/obj/item/clothing/suit/armor/light/duster/robe_hubologist,
 /turf/open/floor/carpet/red,
-/area/f13/building/powered)
+/area/f13/ahs)
 "dyD" = (
 /obj/machinery/light{
 	dir = 1;
@@ -7274,6 +7275,10 @@
 	},
 /turf/open/floor/f13/wood,
 /area/f13/building)
+"dKu" = (
+/obj/structure/simple_door/room,
+/turf/open/floor/f13/wood,
+/area/f13/ahs)
 "dKK" = (
 /obj/structure/closet/crate/secure/weapon{
 	anchored = 1
@@ -11020,7 +11025,7 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/space_heater,
 /turf/open/floor/f13/wood,
-/area/f13/building/powered)
+/area/f13/ahs)
 "fHc" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/chair/sofa/right{
@@ -14362,7 +14367,7 @@
 /obj/structure/table/wood/settler,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/f13/wood,
-/area/f13/building/powered)
+/area/f13/ahs)
 "hoH" = (
 /obj/effect/decal/cleanable/dirt{
 	color = "000000"
@@ -17459,6 +17464,10 @@
 	icon_state = "horizontaltopborderbottom2"
 	},
 /area/f13/wasteland/cold)
+"iRZ" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/f13/wood,
+/area/f13/ahs)
 "iSc" = (
 /obj/structure/chair/wood{
 	dir = 8
@@ -18081,7 +18090,7 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/table/wood/settler,
 /turf/open/floor/carpet/red,
-/area/f13/building/powered)
+/area/f13/ahs)
 "jgb" = (
 /obj/structure/table/wood/settler,
 /obj/item/kitchen/knife,
@@ -19097,7 +19106,7 @@
 /obj/machinery/workbench,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/f13/wood,
-/area/f13/building/powered)
+/area/f13/ahs)
 "jHw" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/decoration/rag,
@@ -19649,7 +19658,7 @@
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/carpet/red,
-/area/f13/building/powered)
+/area/f13/ahs)
 "jVc" = (
 /obj/structure/table/wood,
 /obj/machinery/microwave,
@@ -26126,6 +26135,10 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/carpet/red,
 /area/f13/casino/powered)
+"njk" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/carpet/red,
+/area/f13/ahs)
 "njC" = (
 /obj/structure/rack,
 /obj/item/clothing/head/cowboyhat/black{
@@ -27620,6 +27633,11 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/f13/wood,
 /area/f13/building/powered)
+"nUk" = (
+/obj/machinery/microwave/stove,
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/f13/wood,
+/area/f13/ahs)
 "nUy" = (
 /obj/structure/table/wood,
 /turf/open/floor/carpet/green,
@@ -28127,7 +28145,7 @@
 /obj/effect/spawner/lootdrop/three_course_meal,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/carpet/red,
-/area/f13/building/powered)
+/area/f13/ahs)
 "ohL" = (
 /obj/structure/rack,
 /obj/item/clothing/mask/rat/tribal,
@@ -30398,6 +30416,9 @@
 /obj/item/flag/ncr,
 /turf/open/indestructible/ground/outside/snow,
 /area/f13/wasteland/cold)
+"pnY" = (
+/turf/closed/wall/f13/wood,
+/area/f13/ahs)
 "pos" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -33780,6 +33801,11 @@
 	icon_state = "verticalleftborderleft0"
 	},
 /area/f13/wasteland/powered)
+"rbV" = (
+/obj/structure/fireplace,
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/f13/wood,
+/area/f13/ahs)
 "rce" = (
 /obj/structure/window/reinforced/spawner/north,
 /obj/structure/window/reinforced/spawner/east,
@@ -34761,6 +34787,7 @@
 /area/f13/underground/mountain)
 "rzk" = (
 /obj/structure/table/reinforced,
+/obj/item/paper/secretrecipe,
 /turf/open/floor/plasteel/f13/vault_floor/misc/bar,
 /area/f13/holiday)
 "rzu" = (
@@ -36487,6 +36514,11 @@
 /obj/item/reagent_containers/food/snacks/grown/potato,
 /turf/open/floor/plasteel/f13/vault_floor/neutral/neutralchess/neutralchess2,
 /area/f13/building/powered)
+"srS" = (
+/obj/structure/table/wood/settler,
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/carpet/red,
+/area/f13/ahs)
 "sse" = (
 /obj/structure/statue/snow/snowman,
 /turf/open/indestructible/ground/outside/snow,
@@ -36990,7 +37022,7 @@
 /obj/effect/spawner/lootdrop/f13/resourcespawner,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/f13/wood,
-/area/f13/building/powered)
+/area/f13/ahs)
 "sFM" = (
 /obj/structure/table/wood,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -37625,7 +37657,7 @@
 /obj/structure/fans/tiny/invisible,
 /obj/effect/turf_decal/weather/snow/corner,
 /turf/open/floor/f13/wood,
-/area/f13/building/powered)
+/area/f13/ahs)
 "sYu" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/workbench,
@@ -42990,8 +43022,9 @@
 "vFn" = (
 /obj/structure/table/wood/settler,
 /obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/spawner/lootdrop/f13/weapon/melee/tier2,
 /turf/open/floor/carpet/red,
-/area/f13/building/powered)
+/area/f13/ahs)
 "vFW" = (
 /obj/effect/decal/cleanable/generic,
 /obj/effect/decal/cleanable/dirt{
@@ -45714,6 +45747,13 @@
 	name = "rough stone"
 	},
 /area/f13/wasteland/powered)
+"wXN" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/open/floor/f13/wood,
+/area/f13/ahs)
 "wXV" = (
 /obj/structure/table/wood,
 /turf/open/floor/f13/wood,
@@ -46266,6 +46306,11 @@
 	icon_state = "floorrusty"
 	},
 /area/f13/building/powered)
+"xme" = (
+/obj/structure/table/reinforced,
+/obj/item/paper/secretrecipe,
+/turf/open/floor/plasteel/airless/floorgrime,
+/area/f13/brotherhood/powered)
 "xmp" = (
 /obj/machinery/door/airlock/grunge/abandoned,
 /turf/open/floor/plasteel/dark,
@@ -46702,7 +46747,7 @@
 	dir = 8
 	},
 /turf/open/floor/f13/wood,
-/area/f13/building/powered)
+/area/f13/ahs)
 "xBm" = (
 /obj/effect/turf_decal/caution{
 	dir = 4
@@ -47159,7 +47204,7 @@
 /obj/effect/spawner/lootdrop/f13/alcoholspawner,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/f13/wood,
-/area/f13/building/powered)
+/area/f13/ahs)
 "xLT" = (
 /obj/structure/bed/double,
 /obj/item/bedsheet/blanket{
@@ -47910,6 +47955,11 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/carpet/green,
 /area/f13/building/powered)
+"yjT" = (
+/obj/structure/table/wood,
+/obj/item/paper/secretrecipe,
+/turf/open/indestructible/ground/inside/dirt,
+/area/f13/ncr/powered)
 "yjW" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -55849,7 +55899,7 @@ hne
 pYe
 slY
 gwU
-onv
+yjT
 wIg
 xyH
 yhi
@@ -99049,13 +99099,13 @@ jRd
 jRd
 qXQ
 jRd
-xke
-xke
-xke
-xke
-xke
-xke
-xke
+pnY
+pnY
+pnY
+pnY
+pnY
+pnY
+pnY
 jRd
 jRd
 jRd
@@ -99305,14 +99355,14 @@ sof
 jRd
 jRd
 cAJ
-xke
-xke
+pnY
+pnY
 jHt
-jpO
+iRZ
 xBb
-jpO
-jpO
-xke
+iRZ
+iRZ
+pnY
 jRd
 xyH
 jRd
@@ -99562,13 +99612,13 @@ jRd
 jRd
 jRd
 qXQ
-xke
-jpO
-jpO
-jpO
-jpO
-jpO
-jpO
+pnY
+iRZ
+iRZ
+iRZ
+iRZ
+iRZ
+iRZ
 sYt
 jRd
 jRd
@@ -99819,14 +99869,14 @@ jRd
 sof
 jRd
 jRd
-xke
-jpO
-jpO
-ris
-ris
-ris
-jpO
-xke
+pnY
+iRZ
+iRZ
+njk
+njk
+njk
+iRZ
+pnY
 jRd
 jRd
 jRd
@@ -100076,14 +100126,14 @@ jRd
 qXQ
 sof
 cAJ
-xke
-dcy
-jpO
-vFn
-vFn
+pnY
+rbV
+iRZ
 dyc
-jpO
-xke
+dyc
+dyc
+iRZ
+pnY
 jRd
 xTc
 fcA
@@ -100333,14 +100383,14 @@ jRd
 qXQ
 jRd
 jRd
-xke
-jpO
-jpO
+pnY
+iRZ
+iRZ
 ohC
+srS
 vFn
-vFn
-jpO
-xke
+iRZ
+pnY
 jRd
 jRd
 jRd
@@ -100590,14 +100640,14 @@ sof
 jRd
 qXQ
 sof
-xke
-jpO
-jpO
-ris
-ris
-ris
-jpO
-xke
+pnY
+iRZ
+iRZ
+njk
+njk
+njk
+iRZ
+pnY
 jRd
 jRd
 qXQ
@@ -100847,17 +100897,17 @@ jRd
 jRd
 cAJ
 xyH
-xke
-xke
-geE
-jpO
-jpO
-jpO
-jpO
-xke
-xke
-xke
-xke
+pnY
+pnY
+wXN
+iRZ
+iRZ
+iRZ
+iRZ
+pnY
+pnY
+pnY
+pnY
 jRd
 jRd
 jRd
@@ -101105,16 +101155,16 @@ qXQ
 sof
 jRd
 jRd
-xke
+pnY
 sFL
 hoq
 hoq
-jpO
-jpO
-jWX
-ris
-ris
-xke
+iRZ
+iRZ
+dKu
+njk
+njk
+pnY
 jRd
 uHd
 uHd
@@ -101362,16 +101412,16 @@ jRd
 jRd
 jRd
 qXQ
-xke
-jpO
-jpO
+pnY
+iRZ
+iRZ
 xLL
-jpO
-jpO
-xke
+iRZ
+iRZ
+pnY
 jUX
 jfX
-xke
+pnY
 jRd
 uHd
 uHd
@@ -101619,16 +101669,16 @@ cAJ
 sof
 jRd
 jRd
-xke
-ovv
-jpO
-jpO
-jpO
-jpO
-xke
-xke
-xke
-xke
+pnY
+nUk
+iRZ
+iRZ
+iRZ
+iRZ
+pnY
+pnY
+pnY
+pnY
 uHd
 uHd
 uHd
@@ -101876,13 +101926,13 @@ xyH
 jRd
 fcA
 cAJ
-xke
-xke
-xke
-xke
-jpO
+pnY
+pnY
+pnY
+pnY
+iRZ
 fGK
-xke
+pnY
 uHd
 uHd
 uHd
@@ -102136,10 +102186,10 @@ qXQ
 uHd
 uHd
 uHd
-xke
-xke
-xke
-xke
+pnY
+pnY
+pnY
+pnY
 uHd
 uHd
 uHd
@@ -113002,7 +113052,7 @@ dPS
 dPS
 err
 dPS
-gkh
+xme
 sDs
 sDs
 sDs
