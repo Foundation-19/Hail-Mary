@@ -668,8 +668,8 @@
 	item_color = "raiderrags"
 
 /obj/item/clothing/under/f13/khan
-	name = "denim uniform"
-	desc = "Well designed denim pants."
+	name = "great khan uniform"
+	desc = "Clothing marking the wearer as one of the the Great Khans. Most common are denim pants."
 	icon = 'icons/fallout/clothing/khans.dmi'
 	mob_overlay_icon = 'icons/fallout/onmob/clothes/khaans.dmi'
 	icon_state = "khan_uniform"
@@ -678,21 +678,17 @@
 	var/uniformtoggled = FALSE
 	body_parts_hidden = GROIN|LEGS
 
-/obj/item/clothing/under/f13/khan/biker
-	name = "rough ridin' jeans"
-	desc = "Pants designed to be ridden hard and put away wet. Alt-click to convert into considerably less badass highwaters."
-
-/obj/item/clothing/under/f13/khan/shorts
-	name = "denim jorts"
-	desc = "Denim pants, but jorts!"
+/obj/item/clothing/under/f13/khan/shorts //Skirt aswell, if you alt click on it, turns into khan skirt.
+	name = "great khan jorts"
+	desc = "Clothing marking the wearer as one of the the Great Khans. Most common are denim pants, but jorts is a acceptable alternative."
 	icon = 'icons/fallout/clothing/khans.dmi'
 	icon_state = "khan_short"
 	item_state = "khan_short"
 	body_parts_hidden = GROIN|LEGS
 
 /obj/item/clothing/under/f13/khan/booty
-	name = "denim shorts"
-	desc = "Denim pants, But this pair doesn't seem to leave much to the imagination."
+	name = "great khan booty shorts"
+	desc = "Clothing marking the wearer as one of the the Great Khans. Most common are denim pants, But this pair doesn't seem to leave much to the imagination."
 	icon = 'icons/fallout/clothing/khans.dmi'
 	icon_state = "khan_booty"
 	item_state = "khan_booty"
