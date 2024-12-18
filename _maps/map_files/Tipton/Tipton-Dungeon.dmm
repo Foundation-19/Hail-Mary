@@ -2630,6 +2630,11 @@
 	icon_state = "yellowsiding"
 	},
 /area/ruin/powered)
+"diJ" = (
+/obj/effect/decal/cleanable/dirt,
+/mob/living/simple_animal/hostile/handy/assaultron/martha,
+/turf/open/floor/plasteel/f13/vault_floor/floor,
+/area/ruin/powered)
 "diL" = (
 /obj/machinery/telecomms/server/presets/enclave,
 /turf/open/floor/plasteel/dark/telecomms/mainframe,
@@ -5221,7 +5226,7 @@
 "fWy" = (
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/hostile/radroach{
-	faction = list("raider")
+	faction = list("hostile")
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/ruin/powered)
@@ -35662,7 +35667,7 @@ jpR
 jpR
 jpR
 jpR
-jpR
+diJ
 wwZ
 wwZ
 jpR

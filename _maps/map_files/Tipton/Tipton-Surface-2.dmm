@@ -2468,6 +2468,12 @@
 	icon_state = "floorrusty"
 	},
 /area/f13/ambientlighting/building/c)
+"bkY" = (
+/mob/living/simple_animal/hostile/handy/protectron{
+	faction = list("raider","wastebot")
+	},
+/turf/open/floor/plating/rust,
+/area/f13/tunnel)
 "bla" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/drinks/mug{
@@ -47548,7 +47554,9 @@
 	},
 /area/f13/wasteland)
 "xXl" = (
-/mob/living/simple_animal/hostile/handy/protectron,
+/mob/living/simple_animal/hostile/handy/protectron{
+	faction = list("raider")
+	},
 /turf/open/floor/plating/rust,
 /area/f13/tunnel)
 "xXq" = (
@@ -126346,7 +126354,7 @@ sfB
 nNo
 eNS
 eNS
-toR
+bkY
 eNS
 eNS
 eNS
@@ -127376,7 +127384,7 @@ eNS
 idi
 cse
 cse
-toR
+bkY
 cVv
 eNS
 eNS

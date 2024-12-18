@@ -521,6 +521,25 @@
 	obj_damage = 300
 	can_ghost_into = FALSE
 
+/mob/living/simple_animal/hostile/handy/assaultron/nsb //NSB + Raider Bunker specific.
+	name = "assaultron"
+	aggro_vision_range = 15
+	faction = list("raider")
+	obj_damage = 300
+	can_ghost_into = FALSE
+
+/mob/living/simple_animal/hostile/handy/assaultron/martha //Tipton specific
+	name = "lil martha"
+	maxHealth = 500
+	health = 500
+	aggro_vision_range = 15
+	faction = list("hostile")
+	obj_damage = 300
+	can_ghost_into = FALSE
+	color = "#3444C8" //dark blue
+	emp_flags = list() //no emp instakill for you
+
+
 /mob/living/simple_animal/hostile/handy/assaultron/playable
 	see_in_dark = 8
 	force_threshold = 15
