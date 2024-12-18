@@ -217,7 +217,7 @@
 	extra_projectiles = 4 //Fires a bit less
 	health = 1500 //more HP than its smaller brother
 	maxHealth = 1500
-	armour_penetration = 0.8 //Punches harder
+	armour_penetration = 1 //Punches harder
 	move_to_delay = 3.0 //Is deceptively quick
 	retreat_distance = 0 //Is going to punch you
 	rapid_melee = 2 //Punches faster
