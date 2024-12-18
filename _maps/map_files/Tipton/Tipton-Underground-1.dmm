@@ -2247,6 +2247,10 @@
 /obj/structure/reagent_dispensers/barrel/dangerous,
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/radiation)
+"bOT" = (
+/mob/living/simple_animal/hostile/handy/liberator,
+/turf/open/floor/plating/tunnel,
+/area/f13/sewer/powered)
 "bPn" = (
 /obj/structure/chair/stool,
 /obj/effect/decal/cleanable/dirt,
@@ -4145,7 +4149,7 @@
 /turf/open/indestructible/ground/inside/subway,
 /area/f13/sewer/powered)
 "drS" = (
-/turf/open/transparent/openspace,
+/turf/open/floor/plating/tunnel,
 /area/f13/caves)
 "drT" = (
 /obj/structure/table,
@@ -5072,7 +5076,12 @@
 /turf/open/indestructible/ground/inside/subway,
 /area/f13/caves)
 "ebi" = (
-/turf/open/transparent/openspace,
+/obj/structure/ladder/unbreakable{
+	id = "regenadesbandaid";
+	icon_state = "manhole_open";
+	height = 2
+	},
+/turf/open/floor/plating/tunnel,
 /area/f13/sewer/powered)
 "ebY" = (
 /obj/machinery/light/small{
@@ -10597,7 +10606,10 @@
 /turf/open/floor/plating/tunnel,
 /area/f13/sewer/powered)
 "izB" = (
-/turf/open/transparent/openspace,
+/obj/structure/statue/sandstone/gravestone{
+	icon_state = "gravesoldier"
+	},
+/turf/open/floor/plating/tunnel,
 /area/f13/tunnel)
 "izC" = (
 /obj/structure/timeddoor,
@@ -14299,6 +14311,10 @@
 	icon_state = "floorrustysolid"
 	},
 /area/f13/tunnel)
+"lGS" = (
+/obj/item/paper/crumpled/bloody/tipton,
+/turf/open/indestructible/ground/inside/subway,
+/area/f13/sewer/powered)
 "lHa" = (
 /obj/structure/table,
 /obj/item/restraints/handcuffs/cable,
@@ -18714,6 +18730,10 @@
 /obj/structure/table,
 /turf/open/floor/plating/tunnel,
 /area/f13/sewer/powered)
+"pgf" = (
+/obj/item/paper/crumpled/fluff/tipton,
+/turf/open/floor/plating/tunnel,
+/area/f13/caves)
 "pgM" = (
 /obj/item/pickaxe,
 /turf/open/floor/plating/dirt,
@@ -22991,6 +23011,12 @@
 /obj/structure/barricade/concrete,
 /turf/open/indestructible/ground/inside/subway,
 /area/f13/sewer/powered)
+"sEn" = (
+/obj/item/paper/crumpled/fluff/tipton2,
+/turf/open/floor/plasteel/f13/vault_floor/yellow{
+	icon_state = "yellowdirtyfull"
+	},
+/area/f13/tunnel)
 "sEq" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/light/small{
@@ -31898,8 +31924,8 @@ fwH
 tYm
 lfd
 kWB
-ebi
-ebi
+mLD
+mLD
 eXX
 hWH
 iBp
@@ -32155,8 +32181,8 @@ fwH
 wYt
 jKF
 kWB
-ebi
-ebi
+mLD
+mLD
 tec
 hWH
 iBp
@@ -32413,7 +32439,7 @@ ksa
 jKF
 kWB
 ebi
-ebi
+mLD
 tec
 hWH
 iBp
@@ -65042,7 +65068,7 @@ tYm
 rmk
 wpp
 drS
-drS
+pgf
 wpp
 rmk
 dhU
@@ -89183,7 +89209,7 @@ tYm
 krg
 mBU
 vvk
-vvk
+sEn
 vvk
 vXk
 krg
@@ -89439,9 +89465,9 @@ tYm
 tYm
 krg
 nrZ
+iGC
 izB
-izB
-izB
+iGC
 uWC
 krg
 xvl
@@ -89696,9 +89722,9 @@ tYm
 tYm
 krg
 nrZ
-izB
-izB
-izB
+iGC
+iGC
+iGC
 uWC
 krg
 xvl
@@ -89953,9 +89979,9 @@ tYm
 tYm
 krg
 nrZ
-izB
-izB
-izB
+iGC
+iGC
+iGC
 uWC
 krg
 xvl
@@ -90210,9 +90236,9 @@ tYm
 tYm
 krg
 nrZ
-izB
-izB
-izB
+iGC
+iGC
+iGC
 uWC
 krg
 xvl
@@ -90467,9 +90493,9 @@ tYm
 tYm
 krg
 nrZ
-izB
-izB
-izB
+iGC
+iGC
+iGC
 uWC
 krg
 xvl
@@ -98908,7 +98934,7 @@ tYm
 tYm
 klv
 htC
-htC
+lGS
 htC
 bYh
 htC
@@ -99165,7 +99191,7 @@ tYm
 tYm
 klv
 mvM
-htC
+tmS
 klv
 xvl
 htC
@@ -100449,8 +100475,8 @@ tYm
 tYm
 tYm
 klv
-ebi
-ebi
+bOT
+mLD
 klv
 klv
 ieW
@@ -100706,8 +100732,8 @@ tYm
 tYm
 tYm
 klv
-ebi
-ebi
+mLD
+bOT
 klv
 klv
 nyz

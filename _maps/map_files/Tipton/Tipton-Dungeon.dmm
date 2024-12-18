@@ -11253,6 +11253,16 @@
 /obj/structure/chair/sofa/corp/left,
 /turf/open/floor/plasteel/f13/vault_floor/floor,
 /area/f13/vault/atrium)
+"mUc" = (
+/obj/structure/ladder/unbreakable{
+	id = "regenadesbandaid";
+	level = 1;
+	height = 1
+	},
+/turf/open/floor/f13{
+	icon_state = "darkrusty"
+	},
+/area/f13/sewer/powered)
 "mUQ" = (
 /obj/item/storage/belt/utility/full,
 /obj/structure/table,
@@ -16481,6 +16491,10 @@
 	icon_state = "grass2"
 	},
 /area/f13/bunker/bunkertwo)
+"tgT" = (
+/obj/machinery/light/small,
+/turf/closed/indestructible/rock,
+/area/f13/caves)
 "thf" = (
 /turf/open/floor/f13{
 	dir = 1;
@@ -22183,7 +22197,7 @@ aRH
 aRH
 xfm
 fhO
-qnt
+mUc
 qbt
 qbt
 qbt
@@ -45508,7 +45522,7 @@ aRH
 aRH
 aRH
 aRH
-aRH
+tgT
 aRH
 aRH
 aRH

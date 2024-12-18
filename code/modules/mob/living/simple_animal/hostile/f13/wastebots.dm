@@ -196,6 +196,7 @@
 /mob/living/simple_animal/hostile/handy/liberator
 	name = "liberator"
 	desc = "A small pre-War droned used by the People's Liberation Army."
+	icon = 'icons/fallout/mobs/robots/weirdrobots.dmi'
 	icon_state = "liberator"
 	icon_living = "leberator"
 	icon_dead = "liberator_d"
