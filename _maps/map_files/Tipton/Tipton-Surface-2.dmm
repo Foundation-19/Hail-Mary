@@ -23620,12 +23620,6 @@
 "lZe" = (
 /turf/open/floor/f13/wood,
 /area/f13/underground/mountain)
-"lZT" = (
-/obj/structure/chair/stool/bar,
-/obj/effect/spawner/lootdrop/gambling,
-/obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/carpet/red,
-/area/f13/casino/powered)
 "maf" = (
 /turf/open/floor/f13/wood{
 	icon_state = "housewood2-broken"
@@ -34876,7 +34870,7 @@
 /area/f13/building/powered)
 "rBB" = (
 /obj/structure/table/wood/settler,
-/obj/effect/spawner/lootdrop/gambling,
+/obj/item/clothing/head/fluff/gambler,
 /turf/open/floor/f13/wood,
 /area/f13/building/powered)
 "rBO" = (
@@ -40367,11 +40361,11 @@
 	},
 /area/f13/wasteland/cold)
 "uqD" = (
-/obj/item/toy/cards/deck,
-/obj/item/toy/cards/deck,
-/obj/item/toy/cards/deck,
 /obj/structure/table/booth,
 /obj/effect/decal/cleanable/dirt/dust,
+/obj/item/storage/box/dice,
+/obj/item/storage/box/dice,
+/obj/item/storage/box/dice,
 /turf/open/floor/carpet/red,
 /area/f13/casino/powered)
 "uqG" = (
@@ -149975,7 +149969,7 @@ olz
 sEr
 uUi
 oWW
-lZT
+oWW
 oWW
 uUi
 qlY

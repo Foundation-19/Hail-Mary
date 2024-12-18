@@ -5642,8 +5642,12 @@
 /area/f13/building/powered)
 "tU" = (
 /obj/structure/table/wood,
-/obj/item/flashlight/lamp/green,
 /obj/effect/decal/cleanable/dirt/dust,
+/obj/item/paper/secretrecipe,
+/obj/item/flashlight/lamp/green{
+	pixel_y = 8;
+	pixel_x = 6
+	},
 /turf/open/floor/wood_common/wood_common_dark,
 /area/f13/legioncamp)
 "tV" = (
