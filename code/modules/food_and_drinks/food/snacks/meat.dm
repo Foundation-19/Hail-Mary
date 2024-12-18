@@ -276,6 +276,7 @@
 	name = "spider meat"
 	desc = "A slab of spider meat."
 	icon_state = "spidermeat"
+	icon = 'icons/obj/food/meat.dmi'
 	list_reagents = list(/datum/reagent/consumable/nutriment = 3, /datum/reagent/toxin = 3, /datum/reagent/consumable/nutriment/vitamin = 1)
 	filling_color = "#7CFC00"
 	cooked_type = /obj/item/reagent_containers/food/snacks/meat/steak/spider

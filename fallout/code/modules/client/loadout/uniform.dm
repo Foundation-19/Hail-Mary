@@ -986,16 +986,16 @@
 	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_WASTELAND
 
 /datum/gear/uniform/wasteland/khan
-	name = "denim pants"
+	name = "khan pants"
 	path = /obj/item/clothing/under/f13/khan
 	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_WASTELAND
 
 /datum/gear/uniform/wasteland/khan/jorts
-	name = "denim jorts"
+	name = "khan jorts"
 	path = /obj/item/clothing/under/f13/khan/shorts
 
 /datum/gear/uniform/wasteland/khan/booty
-	name = "denim shorts"
+	name = "khan shorts"
 	path = /obj/item/clothing/under/f13/khan/booty
 
 /datum/gear/uniform/kimono/red

@@ -1,4 +1,4 @@
-#define JOB_MODIFICATION_MAP_NAME "Central Pahrump"
+#define JOB_MODIFICATION_MAP_NAME "Tipton"
 
 /datum/job/New()
 	..()
@@ -25,5 +25,5 @@ MAP_REMOVE_JOB(f13baltimoreshopclerc)
 MAP_REMOVE_JOB(f13baltimorepilot)
 MAP_REMOVE_JOB(f13minutemen)
 MAP_REMOVE_JOB(enclave)
-MAP_REMOVE_JOB(khan)
-MAP_REMOVE_JOB(outlaw)
+MAP_REMOVE_JOB(smutant_boss)
+MAP_REMOVE_JOB(smutant)
