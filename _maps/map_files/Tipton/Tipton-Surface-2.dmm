@@ -39391,11 +39391,6 @@
 /obj/effect/spawner/lootdrop/f13/armor/clothes,
 /turf/open/floor/f13/wood,
 /area/f13/building/powered)
-"tRv" = (
-/obj/structure/table/wood/settler,
-/obj/structure/flora/tree/pine/xmas/presents,
-/turf/open/floor/plating/dirt,
-/area/f13/wasteland/cold)
 "tRw" = (
 /obj/effect/turf_decal/weather/snow/corner,
 /obj/effect/turf_decal/weather/snow/corner{
@@ -87470,7 +87465,7 @@ ipe
 ipe
 pMk
 vgr
-tRv
+lbE
 hOY
 pMk
 ipe
@@ -87726,7 +87721,7 @@ ipe
 ipe
 ipe
 pMk
-lbE
+vgr
 vgr
 vgr
 pMk
