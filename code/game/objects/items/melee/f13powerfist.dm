@@ -20,6 +20,7 @@
 	var/transfer_prints = TRUE //prevents runtimes with forensics when held in glove slot
 	var/throw_distance = 1
 	attack_speed = CLICK_CD_MELEE
+	demolition_mod = 1.25
 
 /obj/item/melee/powerfist/f13/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/wrench))
@@ -88,6 +89,7 @@
 	item_state = "goliath"
 	force = 35 //needs to fuckin slapp
 	throw_distance = 3
+	demolition_mod = 1.5
 
 // Dual Goliath			Goliath with lowered attack delay and increased throw distance
 /obj/item/melee/powerfist/f13/dual/goliath
@@ -180,6 +182,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_GLOVES
 	armor = ARMOR_VALUE_GENERIC_ITEM
+	demolition_mod = 1.5
 
 
 /////////////////////
@@ -219,6 +222,7 @@
 	var/on_sound = 'sound/weapons/chainsawhit.ogg'
 	var/description_on = "<span class ='warning'>You thumb the on button, the whining, blurry edge of the Ripper now lethal to touch.</span>"
 	var/description_off = "<span class ='notice'>You turn off the Ripper, the buzz of the cutting teeth ceasing.</span>"
+	demolition_mod = 0.5
 
 /obj/item/melee/powered/ripper/attack_self(mob/user)
 	on = !on
@@ -229,6 +233,7 @@
 		item_state = on_item_state
 		w_class = weight_class_on
 		force = force_on
+		demolition_mod = 0.8
 		slot_flags = null
 		attack_verb = list("sawed", "torn", "cut", "chopped", "diced")
 		playsound(loc, on_sound, 50, TRUE)
@@ -238,6 +243,7 @@
 		item_state = off_item_state
 		w_class = WEIGHT_CLASS_NORMAL
 		force = force_off
+		demolition_mod = initial(demolition_mod)
 		slot_flags = ITEM_SLOT_SUITSTORE | ITEM_SLOT_BELT
 		attack_verb = list("poked", "scraped")
 	add_fingerprint(user)
@@ -254,6 +260,7 @@
 	off_item_state = "prewarrip_off"
 	force_on = 50
 	armour_penetration = 0.15
+	demolition_mod = 1.5
 
 
 // Shishkebab backpack				The shishkebab weapon base unit
