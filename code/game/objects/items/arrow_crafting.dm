@@ -1,5 +1,5 @@
 /// ARROW CRAFTING ~
-
+/*
 /// the stickthing that we're using as a base that everything will be slapped onto
 /obj/item/arrow_shaft
 	name = "arrow shaft"
@@ -228,4 +228,4 @@
 	icon_state = "arrow_head_sticky"
 	merge_type = /obj/item/stack/arrowhead/sticky
 	result_arrow = /obj/item/ammo_casing/caseless/arrow/sticky
-
+*/

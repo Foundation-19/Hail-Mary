@@ -307,7 +307,8 @@
 #define TRAIT_TECHNOPHOBE		"luddite" //Cannot use autolathes/biogens
 #define TRAIT_NODRUGS		"winners_cant_do_drugs" //drugs hurt you!
 #define TRAIT_LONGPORKLOVER		"Cannibal" //guess
-#define TRAIT_TRIBAL			"Tribalistic Person" //has access to tribal crafting recipes
+#define TRAIT_TRIBAL			"Tribalistic Person" //has access to some primal crafting recipes
+#define TRAIT_FULLTRIBAL		"Far-Lands Tribal" //has access to the entire tribal crafting recipes instead of the rudimentary primal ones
 #define TRAIT_BERSERKER			"berserker" //currently unused
 #define TRAIT_TECHNOPHREAK		"technophreak"	//boosts salvage return
 #define TRAIT_WEAPONCRAFTING	"weapon_crafting"	// You spawn with various unlocked gun/armor crafts

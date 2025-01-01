@@ -233,7 +233,7 @@
 	category = CAT_PRIMAL
 	always_available = FALSE
 
-/*
+
 /datum/crafting_recipe/tribalwar/sturdybow
 	name = "Sturdy Bow"
 	result = /obj/item/gun/ballistic/bow/sturdy
@@ -297,7 +297,6 @@
 				/obj/item/advanced_crafting_components/alloys = 1,
 				/obj/item/stack/sheet/glass = 4)
 	category = CAT_PRIMAL
-*/
 
 /datum/crafting_recipe/tribalwar/sling
 	name = "Sling"
@@ -318,7 +317,7 @@
 
 //ARROWS
 
-/* /datum/crafting_recipe/tribalwar/arrowburn
+/datum/crafting_recipe/tribalwar/arrowburn
 	name = "Burning Oil Arrow"
 	result = /obj/item/ammo_casing/caseless/arrow/burning
 	time = 30
@@ -429,7 +428,7 @@
 	category = CAT_PRIMAL
 	tools = list(TOOL_WORKBENCH)
 	always_available = TRUE
- */
+
 //MELEE
 
 /datum/crafting_recipe/tribalwar/bonespear
