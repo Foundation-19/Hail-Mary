@@ -659,8 +659,8 @@
 	},
 /area/f13/brotherhood/powered)
 "cA" = (
-/obj/structure/railing{
-	pixel_y = 30
+/obj/structure/railing/tg{
+	dir = 1
 	},
 /turf/open/floor/f13/wood,
 /area/f13/ncr/powered)
@@ -1164,7 +1164,7 @@
 /turf/open/floor/wood_common/wood_common_dark,
 /area/f13/legioncamp)
 "es" = (
-/obj/structure/railing{
+/obj/structure/railing/tg{
 	color = "#A47449";
 	dir = 5
 	},
@@ -1956,7 +1956,9 @@
 /turf/closed/wall/r_wall,
 /area/f13/building/powered)
 "ht" = (
-/obj/structure/railing/tg,
+/obj/structure/railing/tg{
+	color = "#A47449"
+	},
 /turf/open/transparent/openspace,
 /area/f13/wasteland/cold)
 "hu" = (
@@ -2491,13 +2493,6 @@
 "jc" = (
 /turf/open/floor/wood_common,
 /area/f13/legioncamp)
-"jd" = (
-/obj/structure/fluff/railing/corner{
-	dir = 4;
-	color = "#A47449"
-	},
-/turf/open/transparent/openspace,
-/area/f13/ncr/powered)
 "je" = (
 /obj/structure/barricade/tentclothcorner,
 /turf/open/floor/plating/dirt,
@@ -2588,7 +2583,9 @@
 /turf/open/floor/plating/f13/outside/roof,
 /area/f13/wasteland/cold)
 "jp" = (
-/obj/structure/railing/tg,
+/obj/structure/railing/tg{
+	color = "#A47449"
+	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/f13{
 	icon_state = "dark"
@@ -3863,7 +3860,9 @@
 /turf/open/floor/f13/wood,
 /area/f13/building/powered)
 "nP" = (
-/obj/structure/railing/tg,
+/obj/structure/railing/tg{
+	color = "#A47449"
+	},
 /turf/open/floor/plating/f13/outside/roof/wood,
 /area/f13/wasteland/cold)
 "nQ" = (
@@ -4030,13 +4029,6 @@
 /obj/structure/filingcabinet,
 /turf/open/floor/carpet/red,
 /area/f13/holiday)
-"oo" = (
-/obj/structure/fluff/railing/corner{
-	dir = 1;
-	color = "#A47449"
-	},
-/turf/open/transparent/openspace,
-/area/f13/ncr/powered)
 "op" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/shower{
@@ -6088,7 +6080,7 @@
 /turf/open/floor/wood_common,
 /area/f13/legioncamp)
 "vo" = (
-/obj/structure/railing{
+/obj/structure/railing/tg{
 	color = "#A47449";
 	dir = 9
 	},
@@ -7244,7 +7236,7 @@
 /turf/open/floor/plating/f13/outside/roof/wood/old,
 /area/f13/building/powered)
 "zB" = (
-/obj/structure/railing{
+/obj/structure/railing/tg{
 	color = "#A47449";
 	dir = 1
 	},
@@ -9909,14 +9901,14 @@
 /turf/open/floor/wood_common,
 /area/f13/legioncamp)
 "Jc" = (
-/obj/structure/railing{
-	pixel_y = 30
-	},
 /obj/machinery/light{
 	bulb_colour = "#BC8F8F";
 	dir = 4;
 	light_color = "#BC8F8F";
 	name = "bar light"
+	},
+/obj/structure/railing/tg{
+	dir = 1
 	},
 /turf/open/floor/f13/wood,
 /area/f13/ncr/powered)
@@ -10506,7 +10498,9 @@
 /turf/open/floor/f13/wood,
 /area/f13/ncr/powered)
 "Lh" = (
-/obj/structure/railing/tg,
+/obj/structure/railing/tg{
+	color = "#A47449"
+	},
 /turf/open/floor/f13/wood,
 /area/f13/holiday)
 "Li" = (
@@ -13218,7 +13212,9 @@
 /turf/open/floor/plating/rust,
 /area/f13/tunnel)
 "Uz" = (
-/obj/structure/railing/tg,
+/obj/structure/railing/tg{
+	color = "#A47449"
+	},
 /turf/open/floor/f13/wood,
 /area/f13/wasteland/cold)
 "UA" = (
@@ -27789,7 +27785,7 @@ UU
 Qb
 Qb
 es
-jd
+PS
 PS
 qW
 PS
@@ -29074,7 +29070,7 @@ wb
 wb
 Qb
 vo
-oo
+PS
 PS
 qW
 PS
