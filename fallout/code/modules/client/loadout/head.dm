@@ -530,7 +530,8 @@
 	cost = 2
 	restricted_desc = "Wastelanders"
 	restricted_roles = list("Outlaw",
-							"Wastelander"
+							"Wastelander",
+							"Great Khans"
 						)
 
 /datum/gear/head/khan/khan_furtrimmed

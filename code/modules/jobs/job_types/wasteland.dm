@@ -7,921 +7,6 @@
 		return
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bloodleaf)	
 
-/*
-Raider
-*/
-
-/datum/job/wasteland/f13raider
-	title = "Outlaw"
-	flag = F13RAIDER
-	department_head = list("Captain")
-	head_announce = list("Security")
-	faction = FACTION_WASTELAND
-	social_faction = FACTION_RAIDERS
-	total_positions = 16
-	spawn_positions = 16
-	description = "You are an Outlaw - the choice of why is up to you. You are responsible for making the wasteland unsafe and today is another day to antagonize it. You may be varied in your approaches, but you must have motives that are realistic for your job."
-	supervisors = "your conscious if you have one"
-	selection_color = "#df80af"
-	exp_requirements = 0
-	exp_type = EXP_TYPE_WASTELAND
-
-	outfit = /datum/outfit/job/wasteland/f13raider
-
-	access = list()
-	minimal_access = list()
-	matchmaking_allowed = list(
-		/datum/matchmaking_pref/patron = list(
-			/datum/job/wasteland/f13raider,
-		),
-		/datum/matchmaking_pref/protegee = list(
-			/datum/job/wasteland/f13raider,
-		),
-		/datum/matchmaking_pref/outlaw = list(
-			/datum/job/wasteland/f13raider,
-		),
-		/datum/matchmaking_pref/bounty_hunter = list(
-			/datum/job/wasteland/f13raider,
-		),
-	)
-	loadout_options = list(
-//	/datum/outfit/loadout/raider_sheriff,
-	/datum/outfit/loadout/raider_sadist,
-//	/datum/outfit/loadout/raider_mobster,
-	/datum/outfit/loadout/raider_tribal,
-	/datum/outfit/loadout/raider_supafly,
-	/datum/outfit/loadout/raider_yankee,
-	/datum/outfit/loadout/raider_blast,
-	/datum/outfit/loadout/raider_painspike,
-	/datum/outfit/loadout/raider_badlands,
-	// /datum/outfit/loadout/raider_smith,
-	/datum/outfit/loadout/raider_vault,
-	/datum/outfit/loadout/raider_ncr,
-	// /datum/outfit/loadout/raider_legion,
-	/datum/outfit/loadout/raider_bos,
-	/datum/outfit/loadout/quack_doctor
-	)
-
-
-/datum/outfit/job/wasteland/f13raider
-	name = "Outlaw"
-	jobtype = /datum/job/wasteland/f13raider
-	id = null
-	ears = null
-	belt = /obj/item/kit_spawner/raider
-	backpack = /obj/item/storage/backpack/satchel/explorer
-	satchel = /obj/item/storage/backpack/satchel/explorer
-	gloves = /obj/item/clothing/gloves/f13/handwraps
-	r_pocket = /obj/item/flashlight/flare
-	box = /obj/item/storage/survivalkit/outlaw
-	box_two = /obj/item/storage/survivalkit/medical
-	backpack_contents = list(
-		/obj/item/restraints/handcuffs = 2,
-		/obj/item/melee/onehanded/club = 1,
-		/obj/item/reagent_containers/hypospray/medipen/stimpak = 1,
-	//	/obj/item/storage/bag/money/small/raider = 1,
-		/obj/item/radio = 1,
-		)
-
-/datum/outfit/job/wasteland/f13raider/pre_equip(mob/living/carbon/human/H)
-	. = ..()
-	uniform = pick(
-		/obj/item/clothing/under/f13/merca, \
-		/obj/item/clothing/under/f13/mercc, \
-		/obj/item/clothing/under/f13/cowboyb, \
-		/obj/item/clothing/under/f13/cowboyg, \
-		/obj/item/clothing/under/f13/raider_leather, \
-		/obj/item/clothing/under/f13/raiderrags, \
-		/obj/item/clothing/under/pants/f13/ghoul, \
-		/obj/item/clothing/under/jabroni)
-	suit = pick(
-		/obj/item/clothing/suit/armor/light/raider/supafly,\
-		/obj/item/clothing/suit/armor/medium/raider/yankee, \
-		/obj/item/clothing/suit/armor/light/raider/sadist, \
-		/obj/item/clothing/suit/armor/medium/raider/blastmaster, \
-		/obj/item/clothing/suit/armor/medium/raider/badlands, \
-		/obj/item/clothing/suit/armor/light/raider/painspike)
-	if(prob(10))
-		mask = pick(
-			/obj/item/clothing/mask/bandana/red,\
-			/obj/item/clothing/mask/bandana/blue,\
-			/obj/item/clothing/mask/bandana/green,\
-			/obj/item/clothing/mask/bandana/gold,\
-			/obj/item/clothing/mask/bandana/black,\
-			/obj/item/clothing/mask/bandana/skull)
-	if(prob(50))
-		neck = pick(
-			/obj/item/clothing/neck/mantle/peltfur,\
-			/obj/item/clothing/neck/mantle/peltmountain,\
-			/obj/item/clothing/neck/mantle/poncho,\
-			/obj/item/clothing/neck/mantle/ragged,\
-			/obj/item/clothing/neck/mantle/brown,\
-			/obj/item/clothing/neck/mantle/gecko,\
-			/obj/item/clothing/neck/garlic_necklace)
-	head = pick(
-		/obj/item/clothing/head/sombrero,\
-		/obj/item/clothing/head/helmet/f13/raider,\
-		/obj/item/clothing/head/helmet/f13/raider/eyebot,\
-		/obj/item/clothing/head/helmet/f13/raider/arclight,\
-		/obj/item/clothing/head/helmet/f13/raider/blastmaster,\
-		/obj/item/clothing/head/helmet/f13/raider/yankee,\
-		/obj/item/clothing/head/helmet/f13/raider/psychotic,\
-		/obj/item/clothing/head/helmet/f13/fiend,\
-		/obj/item/clothing/head/helmet/f13/hoodedmask,\
-			/obj/item/clothing/head/helmet/f13/motorcycle,\
-			/obj/item/clothing/head/helmet/f13/wastewarhat,\
-			/obj/item/clothing/head/helmet/f13/fiend,\
-			/obj/item/clothing/head/f13/bandit,\
-			/obj/item/clothing/head/f13/ranger_hat/banded,\
-			/obj/item/clothing/head/helmet/rus_ushanka,\
-			/obj/item/clothing/head/helmet/skull,\
-			/obj/item/clothing/head/collectable/petehat/gang,\
-			/obj/item/clothing/head/hunter,\
-			/obj/item/clothing/head/rice_hat,\
-			/obj/item/clothing/head/papersack/smiley,\
-			/obj/item/clothing/head/f13/pot,\
-			/obj/item/clothing/head/cone,\
-			/obj/item/clothing/head/kabuto,\
-			/obj/item/clothing/head/cowboyhat/sec,\
-			/obj/item/clothing/head/bomb_hood,\
-			/obj/item/clothing/head/cardborg,\
-			/obj/item/clothing/head/assu_helmet,\
-			/obj/item/clothing/head/chefhat,\
-			/obj/item/clothing/head/beret/headband,\
-			/obj/item/clothing/head/fedora,\
-			/obj/item/clothing/head/bowler,\
-		)
-	shoes = pick(
-			/obj/item/clothing/shoes/jackboots,\
-			/obj/item/clothing/shoes/f13/raidertreads)
-
-//	suit_store = pick(
-//		/obj/item/gun/ballistic/revolver/detective,
-//		/obj/item/gun/ballistic/automatic/pistol/ninemil,
-//		/obj/item/gun/ballistic/automatic/pistol/m1911,
-//		/obj/item/gun/ballistic/automatic/pistol/type17,
-//		)
-
-/*
-/datum/outfit/job/wasteland/f13raider/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	..()
-	if(visualsOnly)
-		return
-	ADD_TRAIT(H, TRAIT_LONGPORKLOVER, src)
-*/
-
-	H.social_faction = FACTION_RAIDERS
-	add_verb(H, /mob/living/proc/creategang)
-
-/datum/outfit/loadout/raider_sadist
-	name = "Sadist"
-	suit = /obj/item/clothing/suit/armor/light/raider/sadist
-	head = /obj/item/clothing/head/helmet/f13/raider/arclight
-	backpack_contents = list(
-		/obj/item/restraints/legcuffs/bola=5,
-		/obj/item/clothing/mask/gas/explorer/folded=1,
-		/obj/item/storage/belt = 1,
-		/obj/item/restraints/legcuffs/beartrap = 2,
-		/obj/item/reverse_bear_trap = 1,
-		/obj/item/melee/unarmed/lacerator = 1,
-		)
-
-/datum/outfit/loadout/raider_supafly
-	name = "Supa-fly"
-	suit = /obj/item/clothing/suit/armor/light/raider/supafly
-	head = /obj/item/clothing/head/helmet/f13/raider/supafly
-	backpack_contents = list(
-		///obj/item/gun/ballistic/automatic/varmint = 1,
-		///obj/item/ammo_box/magazine/m556/rifle/assault = 1,
-		/obj/item/gun/ballistic/revolver/hobo/knucklegun = 1,
-		/obj/item/ammo_box/c45rev = 2,
-		/obj/item/gun_upgrade/scope/watchman = 1,
-		/obj/item/reagent_containers/food/drinks/bottle/f13nukacola/radioactive = 1,
-		/obj/item/grenade/smokebomb = 2,
-		)
-
-/datum/outfit/loadout/raider_yankee
-	name = "Yankee"
-	suit = /obj/item/clothing/suit/armor/medium/raider/yankee
-	head = /obj/item/clothing/head/helmet/f13/raider/yankee
-	backpack_contents = list(
-		/obj/item/shishkebabpack = 1,
-		/obj/item/storage/fancy/cigarettes/cigpack_cannabis=1,
-		/obj/item/megaphone=1,
-		/obj/item/storage/pill_bottle/chem_tin/buffout = 1)
-
-/datum/outfit/loadout/raider_blast
-	name = "Blastmaster"
-	suit = /obj/item/clothing/suit/armor/medium/raider/blastmaster
-	head = /obj/item/clothing/head/helmet/f13/raider/blastmaster
-	backpack_contents = list(
-		/obj/item/kitchen/knife/butcher = 1,
-		/obj/item/grenade/homemade/firebomb = 4,
-		/obj/item/bottlecap_mine = 1,
-		/obj/item/grenade/homemade/coffeepotbomb = 4,
-		/obj/item/book/granter/crafting_recipe/blueprint/trapper = 1,
-		/obj/item/book/granter/trait/explosives = 1
-		)
-
-/datum/outfit/loadout/raider_badlands
-	name = "Fiend"
-	suit = /obj/item/clothing/suit/armor/medium/raider/badlands
-	head = /obj/item/clothing/head/helmet/f13/fiend
-	backpack_contents = list(
-		///obj/item/gun/energy/laser/wattzs = 1,
-		///obj/item/gun/energy/laser/wattz = 1,
-		///obj/item/stock_parts/cell/ammo/ec = 2,
-		/obj/item/reagent_containers/hypospray/medipen/psycho = 3,
-		/obj/item/reagent_containers/pill/patch/turbo = 2,
-		/obj/item/reagent_containers/hypospray/medipen/medx = 1,
-		)
-
-/datum/outfit/loadout/raider_painspike
-	name = "Painspike"
-	suit = /obj/item/clothing/suit/armor/light/raider/painspike
-	head = /obj/item/clothing/head/helmet/f13/raider/psychotic
-	backpack_contents = list(
-		///obj/item/gun/ballistic/shotgun/automatic/combat/shotgunlever = 1,
-		///obj/item/ammo_box/shotgun/buck = 1,
-		///obj/item/ammo_box/shotgun/bean = 1,
-		/obj/item/melee/onehanded/club/fryingpan = 1,
-		/obj/item/grenade/chem_grenade/cleaner = 1,
-		)
-
-/datum/outfit/loadout/quack_doctor
-	name = "Quack Doctor"
-	suit = /obj/item/clothing/suit/toggle/labcoat
-	l_hand = /obj/item/storage/backpack/duffelbag/med/surgery
-	r_hand = /obj/item/book/granter/trait/midsurgery
-	//suit_store = /obj/item/gun/energy/laser/wattzs
-	backpack_contents = list(
-		///obj/item/stock_parts/cell/ammo/ec = 1,
-		/obj/item/reagent_containers/pill/patch/jet = 3,
-		/obj/item/storage/firstaid/ancient = 1,
-		/obj/item/storage/pill_bottle/aranesp = 1,
-		/obj/item/storage/pill_bottle/happy = 1,
-		/obj/item/book/granter/trait/chemistry = 1,
-		/obj/item/stack/sheet/mineral/silver=2,
-		/obj/item/clothing/accessory/pocketprotector/full = 1,
-		)
-
-/datum/outfit/loadout/raider_ncr
-	name = "Outlaw Ranger"
-	suit = /obj/item/clothing/suit/armor/medium/raider/combatduster
-	uniform = /obj/item/clothing/under/f13/raider_leather
-	id = /obj/item/card/id/rusted
-	backpack_contents = list(
-		///obj/item/gun/ballistic/automatic/m1carbine = 1,
-		///obj/item/ammo_box/magazine/m10mm/adv/simple=2,
-		/obj/item/melee/onehanded/knife/bayonet = 1,
-		/obj/item/storage/box/ration/ranger_breakfast = 1,
-		/obj/item/book/granter/crafting_recipe/blueprint/service = 1)
-
-/*
-/datum/outfit/loadout/raider_legion
-	name = "Disgraced Legionnaire"
-	suit = /obj/item/clothing/suit/armor/exile/legexile
-	uniform = /obj/item/clothing/under/f13/exile/legion
-	id = /obj/item/card/id/rusted/rustedmedallion
-	backpack_contents = list(
-		/obj/item/melee/onehanded/machete/gladius = 1,
-		/obj/item/storage/backpack/spearquiver = 1,
-		/obj/item/gun/ballistic/automatic/smg/greasegun = 1,
-		/obj/item/ammo_box/magazine/greasegun = 1,
-		/obj/item/book/granter/trait/trekking = 1
-		)
-*/
-
-/datum/outfit/loadout/raider_bos
-	name = "Brotherhood Exile"
-	suit = /obj/item/clothing/suit/armor/medium/combat/brotherhood/exile
-	id = /obj/item/card/id/rusted/brokenholodog
-	backpack_contents = list(
-		///obj/item/gun/energy/laser/wattzs = 1,
-		///obj/item/stock_parts/cell/ammo/ec = 1,
-		/obj/item/book/granter/crafting_recipe/blueprint/aep7 = 1,
-		/obj/item/grenade/f13/frag = 2,
-		)
-
-
-/*
-/datum/outfit/loadout/raider_smith
-	name = "Raider Smith"
-	suit = /obj/item/clothing/suit/armor/heavy/metal/raider
-	uniform = /obj/item/clothing/under/f13/raider_leather
-	head = /obj/item/clothing/head/helmet/f13/raider/arclight
-	gloves = /obj/item/clothing/gloves/f13/blacksmith
-	backpack_contents = list(
-		/obj/item/gun/ballistic/automatic/pistol/m1911/custom = 1,
-		/obj/item/ammo_box/magazine/m45 = 1,
-		/obj/item/twohanded/steelsaw = 1,
-		/obj/item/melee/smith/hammer = 1,
-		/obj/item/stack/sheet/mineral/sandstone = 50,
-		/obj/item/book/granter/trait/techno = 1,
-		/obj/item/book/granter/crafting_recipe/scav_one = 1,
-		)
-*/
-
-/datum/outfit/loadout/raider_vault
-	name = "Vault Renegade"
-	suit = /obj/item/clothing/suit/armor/medium/vest/bulletproof/big
-	uniform = /obj/item/clothing/under/f13/exile/vault
-	id = /obj/item/card/id/selfassign
-	gloves = /obj/item/pda
-	backpack_contents = list(
-		///obj/item/gun/ballistic/revolver/thatgun = 1,
-		/obj/item/pda=1,
-		)
-
-/datum/outfit/loadout/raider_tribal
-	name = "Tribal Outcast"
-	uniform = /obj/item/clothing/under/f13/exile/tribal
-	suit = /obj/item/clothing/suit/hooded/outcast/tribal
-	//suit_store = /obj/item/twohanded/spear/bonespear
-	shoes = /obj/item/clothing/shoes/sandal
-	belt = /obj/item/storage/backpack/spearquiver
-	back = /obj/item/storage/backpack/satchel/explorer
-	box = /obj/item/storage/survivalkit/tribal
-	box_two = /obj/item/storage/survivalkit/medical/tribal
-	backpack_contents = list(
-		/obj/item/book/granter/trait/tribaltraditions =1,
-		/obj/item/clothing/mask/cigarette/pipe = 1,
-		/obj/item/melee/onehanded/knife/bone = 1,
-		)
-
-/datum/job/wasteland/f13raider/watcher
-	title = "Redwater Watcher"
-	flag = F13RAIDER
-	department_head = list("Captain")
-	head_announce = list("Security")
-	faction = FACTION_WASTELAND
-	social_faction = FACTION_RAIDERS
-	total_positions = 10
-	spawn_positions = 10
-	description = "You are an Redwater Watcher - the choice of why is up to you. You have taken up the responsibility to protect and supervise the town of Redwater to ensure that the slaves do not escape and are productive, as well as to protect the towns assets and make sure it has what it needs to thrive. You are only to leave town briefly to gather resources in order to expand and improve upon the current design. Assist the outbound outlaws who venture out for big gains, and protect them if they come home followed by angry victims. Beware, life is cheap in Redwater."
-	supervisors = "The Overboss runs the town, and you are responsible for making sure the town maintains a relative peace and order so that more nasty business can occur. Try to work with other outlaws rather than against them unless there is good reason not to"
-	selection_color = "#df80af"
-	exp_requirements = 0
-	exp_type = EXP_TYPE_WASTELAND
-
-	outfit = /datum/outfit/job/wasteland/f13raider/watcher
-
-	access = list()
-	minimal_access = list()
-	matchmaking_allowed = list(
-		/datum/matchmaking_pref/patron = list(
-			/datum/job/wasteland/f13raider,
-		),
-		/datum/matchmaking_pref/protegee = list(
-			/datum/job/wasteland/f13raider,
-		),
-		/datum/matchmaking_pref/outlaw = list(
-			/datum/job/wasteland/f13raider,
-		),
-		/datum/matchmaking_pref/bounty_hunter = list(
-			/datum/job/wasteland/f13raider,
-		),
-	)
-	loadout_options = list(
-	/datum/outfit/loadout/raider_sheriff,
-	/datum/outfit/loadout/raider_mobster,
-	/datum/outfit/loadout/raider_slavekeeper,
-	/datum/outfit/loadout/raider_sawbones,
-	/datum/outfit/loadout/unethical_practitioner,
-	/datum/outfit/loadout/redwater_maintainer,
-	/datum/outfit/loadout/nefarious_conman,
-	/datum/outfit/loadout/demonness
-	)
-
-/datum/outfit/job/wasteland/f13raider/watcher
-	name = "Redwater Watcher"
-	jobtype = /datum/job/wasteland/f13raider/watcher
-	id = null
-	ears = null
-	belt = /obj/item/kit_spawner/raider/doctor
-	backpack = /obj/item/storage/backpack/satchel/explorer
-	satchel = /obj/item/storage/backpack/satchel/explorer
-	gloves = /obj/item/clothing/gloves/f13/handwraps
-	r_pocket = /obj/item/flashlight/flare
-	backpack_contents = list(
-		/obj/item/restraints/handcuffs = 2,
-		/obj/item/reagent_containers/hypospray/medipen/stimpak = 1,
-	//	/obj/item/storage/bag/money/small/raider = 1,
-		/obj/item/radio/redwater = 1,
-		)
-
-/datum/outfit/job/wasteland/f13raider/watcher/pre_equip(mob/living/carbon/human/H)
-	. = ..()
-	uniform = pick(
-		/obj/item/clothing/under/f13/bennys,\
-		/obj/item/clothing/under/f13/villain,\
-		/obj/item/clothing/under/f13/shiny,\
-		/obj/item/clothing/under/f13/raiderrags,\
-		/obj/item/clothing/under/f13/worn,\
-		/obj/item/clothing/under/jabroni,\
-		/obj/item/clothing/under/f13/raiderharness,\
-		/obj/item/clothing/under/pants/jeanripped,\
-		/obj/item/clothing/under/f13/rag,\
-		/obj/item/clothing/under/costume/pirate,\
-		/obj/item/clothing/under/costume/mummy,\
-		/obj/item/clothing/under/costume/scarecrow,\
-		/obj/item/clothing/under/f13/sleazeball)
-	suit = pick(
-		/obj/item/clothing/suit/armor/light/raider/supafly,\
-		/obj/item/clothing/suit/armor/medium/raider/yankee, \
-		/obj/item/clothing/suit/armor/light/raider/sadist, \
-		/obj/item/clothing/suit/armor/medium/raider/blastmaster, \
-		/obj/item/clothing/suit/armor/medium/raider/badlands, \
-		/obj/item/clothing/suit/armor/light/raider/painspike)
-	if(prob(10))
-		mask = pick(
-			/obj/item/clothing/mask/bandana/red,\
-			/obj/item/clothing/mask/bandana/blue,\
-			/obj/item/clothing/mask/bandana/green,\
-			/obj/item/clothing/mask/bandana/gold,\
-			/obj/item/clothing/mask/bandana/black,\
-			/obj/item/clothing/mask/bandana/skull)
-	shoes = pick(
-			/obj/item/clothing/shoes/jackboots,\
-			/obj/item/clothing/shoes/f13/rag,\
-			/obj/item/clothing/shoes/sandal,\
-			/obj/item/clothing/shoes/f13/raidertreads)
-	//suit_store = pick(
-	//	/obj/item/gun/ballistic/revolver/detective,
-	//	/obj/item/gun/ballistic/automatic/pistol/ninemil,
-	//	/obj/item/gun/ballistic/automatic/pistol/m1911,
-	//	/obj/item/gun/ballistic/automatic/pistol/type17,
-	//	)
-	if(prob(75))
-		head = pick(/obj/item/clothing/head/helmet/f13/hoodedmask,\
-			/obj/item/clothing/head/helmet/f13/motorcycle,\
-			/obj/item/clothing/head/helmet/f13/wastewarhat,\
-			/obj/item/clothing/head/helmet/f13/fiend,\
-			/obj/item/clothing/head/f13/bandit,\
-			/obj/item/clothing/head/f13/ranger_hat/banded,\
-			/obj/item/clothing/head/helmet/rus_ushanka,\
-			/obj/item/clothing/head/helmet/skull,\
-			/obj/item/clothing/head/collectable/petehat/gang,\
-			/obj/item/clothing/head/hunter,\
-			/obj/item/clothing/head/rice_hat,\
-			/obj/item/clothing/head/papersack/smiley,\
-			/obj/item/clothing/head/f13/pot,\
-			/obj/item/clothing/head/cone,\
-			/obj/item/clothing/head/kabuto,\
-			/obj/item/clothing/head/cowboyhat/sec,\
-			/obj/item/clothing/head/bomb_hood,\
-			/obj/item/clothing/head/cardborg,\
-			/obj/item/clothing/head/assu_helmet,\
-			/obj/item/clothing/head/chefhat,\
-			/obj/item/clothing/head/beret/headband,\
-			/obj/item/clothing/head/fedora,\
-			/obj/item/clothing/head/bowler,\
-			/obj/item/clothing/head/sombrero,\
-			/obj/item/clothing/head/helmet/f13/raider,\
-			/obj/item/clothing/head/helmet/f13/raider/eyebot,\
-			/obj/item/clothing/head/helmet/f13/raider/arclight,\
-			/obj/item/clothing/head/helmet/f13/raider/blastmaster,\
-			/obj/item/clothing/head/helmet/f13/raider/yankee,\
-			/obj/item/clothing/head/helmet/f13/raider/psychotic,\
-			/obj/item/clothing/head/helmet/f13/fiend)
-	if(prob(50))
-		neck = pick(
-			/obj/item/clothing/neck/mantle/peltfur,\
-			/obj/item/clothing/neck/mantle/peltmountain,\
-			/obj/item/clothing/neck/mantle/poncho,\
-			/obj/item/clothing/neck/mantle/ragged,\
-			/obj/item/clothing/neck/mantle/brown,\
-			/obj/item/clothing/neck/mantle/gecko,\
-			/obj/item/clothing/neck/garlic_necklace)
-
-/*
-/datum/outfit/job/wasteland/f13raider/watcher/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	..()
-	if(visualsOnly)
-		return
-	ADD_TRAIT(H, TRAIT_LONGPORKLOVER, src)
-*/
-
-	H.social_faction = FACTION_RAIDERS
-	add_verb(H, /mob/living/proc/creategang)
-
-
-/datum/outfit/loadout/raider_sheriff
-	name = "Peacekeeper"
-	suit = /obj/item/clothing/suit/armor/light/duster/desperado
-	uniform = /obj/item/clothing/under/syndicate/tacticool
-	head = /obj/item/clothing/head/f13/town/big
-	shoes = /obj/item/clothing/shoes/laceup
-	backpack_contents = list(
-		///obj/item/gun/ballistic/rifle/hunting/remington = 1,
-		///obj/item/ammo_box/a308 = 1,
-		///obj/item/ammo_box/a308box = 1,
-		/obj/item/gun_upgrade/scope/watchman = 1,
-	//	/obj/item/gun/ballistic/revolver/revolver44=2,
-		/obj/item/storage/belt/shoulderholster=1,
-	//	/obj/item/ammo_box/m44=4,
-	//	/obj/item/book/granter/trait/gunslinger = 1,
-		/obj/item/card/id/dogtag/sheriff = 1)
-
-/datum/outfit/loadout/raider_mobster
-	name = "Strongarm"
-	belt = /obj/item/storage/belt/army/assault
-	shoes = /obj/item/clothing/shoes/laceup
-	uniform = /obj/item/clothing/under/f13/densuit
-	suit = /obj/item/clothing/suit/armor/medium/vest
-	gloves =  /obj/item/clothing/gloves/color/white
-	head = /obj/item/clothing/head/fedora
-	mask =  /obj/item/clothing/mask/bandana/durathread
-	backpack_contents = list(
-	//	/obj/item/gun/ballistic/automatic/smg/greasegun = 1,
-		/obj/item/storage/belt/shoulderholster,
-		/obj/item/melee/onehanded/knife/switchblade = 1,
-	//	/obj/item/ammo_box/magazine/greasegun = 2
-		)
-
-/datum/outfit/loadout/raider_slavekeeper
-	name = "Slavekeeper"
-	belt = /obj/item/storage/belt/bandolier
-	shoes = /obj/item/clothing/shoes/jackboots
-	uniform = /obj/item/clothing/under/costume/pirate
-	suit = /obj/item/clothing/suit/armor/light/duster/rustedcowboy
-	gloves =  /obj/item/clothing/gloves/color/white
-	head = /obj/item/clothing/head/helmet/f13/rustedcowboyhat
-	mask =  /obj/item/clothing/mask/bandana/durathread
-	backpack_contents = list(
-		/obj/item/restraints/legcuffs/bola/tactical = 1,
-		/obj/item/restraints/legcuffs/bola = 2,
-		/obj/item/melee/onehanded/slavewhip = 1,
-		///obj/item/gun/ballistic/shotgun/police = 1,
-		///obj/item/ammo_box/shotgun/bean = 2,
-		/obj/item/restraints/legcuffs/beartrap = 1,
-		/obj/item/restraints/legcuffs = 1,
-		/obj/item/storage/belt/shoulderholster = 1,
-		)
-
-/datum/outfit/loadout/raider_sawbones
-	name = "Sawbones"
-	belt = /obj/item/storage/belt/military/alt
-	shoes = /obj/item/clothing/shoes/sneakers/noslip
-	uniform = /obj/item/clothing/under/f13/lumberjack
-	suit = /obj/item/clothing/suit/armor/medium/combat/rusted
-	gloves =  /obj/item/clothing/gloves/f13/leather
-	head = /obj/item/clothing/head/helmet/f13/motorcycle
-	backpack_contents = list(
-		/obj/item/twohanded/chainsaw = 1,
-		/obj/item/restraints/legcuffs/bola = 2,
-		/obj/item/grenade/f13/stinger = 1,
-		/obj/item/storage/belt/legholster,
-		/obj/item/grenade/smokebomb = 3,
-		)
-
-/datum/outfit/loadout/unethical_practitioner
-	name = "Unethical Practitioner"
-	suit = /obj/item/clothing/suit/hooded/surgical
-	uniform = /obj/item/clothing/under/misc/pj/blue
-	l_hand = /obj/item/storage/backpack/duffelbag/med/surgery
-	r_hand = /obj/item/book/granter/trait/midsurgery
-	//suit_store = /obj/item/gun/energy/laser/wattzs
-	backpack_contents = list(
-	//	/obj/item/stock_parts/cell/ammo/ec = 1,
-		/obj/item/reagent_containers/pill/patch/jet = 3,
-		/obj/item/storage/firstaid/ancient = 1,
-		/obj/item/storage/pill_bottle/aranesp = 1,
-		/obj/item/storage/pill_bottle/happy = 1,
-		/obj/item/book/granter/trait/chemistry = 1,
-		/obj/item/stack/sheet/mineral/silver=2,
-		/obj/item/clothing/accessory/pocketprotector/full = 1,
-		)
-
-/datum/outfit/loadout/redwater_maintainer
-	name = "Maintainer"
-	suit = /obj/item/clothing/suit/armor/medium/vest/kevlar
-	head = /obj/item/clothing/head/welding/weldingfire
-	uniform = /obj/item/clothing/under/syndicate/coldres
-	belt = /obj/item/storage/belt/utility/full/engi
-	shoes = /obj/item/clothing/shoes/plate
-	backpack_contents = list(
-		/obj/item/stack/sheet/metal/fifty = 1,
-		/obj/item/stack/sheet/glass/fifty = 1,
-		/obj/item/stack/sheet/mineral/titanium = 15,
-		/obj/item/stack/ore/blackpowder/twenty = 1,
-	//	/obj/item/gun/ballistic/shotgun/automatic/combat/shotgunlever = 1,
-	//	/obj/item/ammo_box/shotgun/slug = 2
-		)
-
-/datum/outfit/loadout/nefarious_conman
-	name = "Nefarious Conman"
-	suit = /obj/item/clothing/suit/armor/medium/duster/trenchcoat
-	head = /obj/item/clothing/head/collectable/tophat
-	uniform = /obj/item/clothing/under/suit/charcoal
-	//belt = /obj/item/gun/energy/laser/plasma/pistol/worn
-	shoes = /obj/item/clothing/shoes/f13/fancy
-	backpack_contents = list(
-		/obj/item/storage/belt/legholster,
-		/obj/item/lighter/fusion = 1,
-		/obj/item/toy/cards/deck = 1,
-		/obj/item/blacksmith/ingot/gold = 10,
-		/obj/item/storage/fancy/cigarettes/cigars/havana = 1,
-		/obj/item/storage/box/dice = 1,
-		/obj/item/storage/fancy/ringbox/silver = 1,
-		/obj/item/stack/tile/carpet/royalblack/fifty = 1,
-		/obj/item/stack/tile/carpet/black/fifty = 1,
-		/obj/item/stack/f13Cash/caps/onezerozero = 1,
-		)
-
-/datum/outfit/loadout/demonness
-	name = "Demonness"
-	suit = /obj/item/clothing/suit/armor/light/leather/rig
-	uniform = /obj/item/clothing/under/shorts/blackbshorts
-	gloves = /obj/item/clothing/gloves/plate
-	neck = /obj/item/storage/belt/shoulderholster
-	belt = /obj/item/storage/belt/bandolier
-	shoes = /obj/item/clothing/shoes/f13/military/plated
-	backpack_contents = list(
-		/obj/item/throwing_star = 2,
-		///obj/item/gun/ballistic/automatic/marksman/policerifle = 1,
-		/obj/item/melee/classic_baton/militarypolice = 1,
-		///obj/item/ammo_box/magazine/m556/rifle  = 2,
-		/obj/item/seeds/cannabis = 1,
-		/obj/item/storage/fancy/rollingpapers = 1,
-		)
-
-/datum/job/wasteland/f13raider/resident
-	title = "Redwater Resident"
-	flag = F13RAIDER
-	department_head = list("Captain")
-	head_announce = list("Security")
-	faction = FACTION_WASTELAND
-	social_faction = FACTION_RAIDERS
-	total_positions = 10
-	spawn_positions = 10
-	description = "You are a Redwater Resident - the choice of why is up to you. You are a squatter who has taken it upon themselves to call Redwater home and be a part of their ecosystem without responsibility. You are not a slave as you have built a good reputation for yourself, however you are not immune from consequences."
-	supervisors = "The Overboss and the Watchers"
-	selection_color = "#df80af"
-	exp_requirements = 0
-	exp_type = EXP_TYPE_WASTELAND
-
-	outfit = /datum/outfit/job/wasteland/f13raider/resident
-
-	access = list()
-	minimal_access = list()
-	matchmaking_allowed = list(
-		/datum/matchmaking_pref/patron = list(
-			/datum/job/wasteland/f13raider,
-		),
-		/datum/matchmaking_pref/protegee = list(
-			/datum/job/wasteland/f13raider,
-		),
-		/datum/matchmaking_pref/outlaw = list(
-			/datum/job/wasteland/f13raider,
-		),
-		/datum/matchmaking_pref/bounty_hunter = list(
-			/datum/job/wasteland/f13raider,
-		),
-	)
-	loadout_options = list(
-		/datum/outfit/loadout/tribal_drifter,
-		/datum/outfit/loadout/fish_wrangler,
-		/datum/outfit/loadout/tapster,
-		/datum/outfit/loadout/hospitalier,
-		/datum/outfit/loadout/shepherd,
-		/datum/outfit/loadout/fieldhand,
-		/datum/outfit/loadout/mole,
-		/datum/outfit/loadout/seductress,
-		/datum/outfit/loadout/pilferer,
-		/datum/outfit/loadout/trafficker
-	)
-
-/datum/outfit/job/wasteland/f13raider/resident
-	name = "Redwater Resident"
-	jobtype = /datum/job/wasteland/f13raider/resident
-
-	id = null
-	ears = null
-	belt = /obj/item/kit_spawner/raider/civvy
-	backpack = /obj/item/storage/backpack/satchel/explorer
-	satchel = /obj/item/storage/backpack/satchel/explorer
-	gloves = /obj/item/clothing/gloves/f13/handwraps
-	r_pocket = /obj/item/flashlight/flare
-	backpack_contents = list(
-		/obj/item/reagent_containers/hypospray/medipen/stimpak = 1,
-	//	/obj/item/storage/bag/money/small/raider = 1,
-		/obj/item/radio/redwater = 1,
-		)
-
-/datum/outfit/job/wasteland/f13raider/resident/pre_equip(mob/living/carbon/human/H)
-	. = ..()
-	uniform = pick(
-			/obj/item/clothing/under/f13/bennys,\
-			/obj/item/clothing/under/f13/villain,\
-			/obj/item/clothing/under/f13/shiny,\
-			/obj/item/clothing/under/rank/prisoner,\
-			/obj/item/clothing/under/f13/raiderrags,\
-			/obj/item/clothing/under/f13/worn,\
-			/obj/item/clothing/under/jabroni,\
-			/obj/item/clothing/under/f13/raiderharness,\
-			/obj/item/clothing/under/pants/jeanripped,\
-			/obj/item/clothing/under/f13/rag,\
-			/obj/item/clothing/under/costume/mummy,\
-			/obj/item/clothing/under/costume/scarecrow,\
-			/obj/item/clothing/under/misc/gear_harness,\
-			/obj/item/clothing/under/f13/sleazeball,\
-			/obj/item/clothing/under/costume/pirate)
-	if(prob(75))
-		head = pick(/obj/item/clothing/head/helmet/f13/hoodedmask,\
-			/obj/item/clothing/head/helmet/f13/motorcycle,\
-			/obj/item/clothing/head/helmet/f13/wastewarhat,\
-			/obj/item/clothing/head/helmet/f13/fiend,\
-			/obj/item/clothing/head/f13/bandit,\
-			/obj/item/clothing/head/f13/ranger_hat/banded,\
-			/obj/item/clothing/head/helmet/rus_ushanka,\
-			/obj/item/clothing/head/helmet/skull,\
-			/obj/item/clothing/head/collectable/petehat/gang,\
-			/obj/item/clothing/head/hunter,\
-			/obj/item/clothing/head/rice_hat,\
-			/obj/item/clothing/head/papersack/smiley,\
-			/obj/item/clothing/head/f13/pot,\
-			/obj/item/clothing/head/cone,\
-			/obj/item/clothing/head/kabuto,\
-			/obj/item/clothing/head/cowboyhat/sec,\
-			/obj/item/clothing/head/bomb_hood,\
-			/obj/item/clothing/head/cardborg,\
-			/obj/item/clothing/head/assu_helmet,\
-			/obj/item/clothing/head/chefhat,\
-			/obj/item/clothing/head/beret/headband,\
-			/obj/item/clothing/head/fedora,\
-			/obj/item/clothing/head/bowler)
-	shoes = pick(
-			/obj/item/clothing/shoes/sneakers/brown,\
-			/obj/item/clothing/shoes/f13/rag,\
-			/obj/item/clothing/shoes/sandal,\
-			/obj/item/clothing/shoes/f13/raidertreads)
-	if(prob(50))
-		neck = pick(
-			/obj/item/clothing/neck/mantle/peltfur,\
-			/obj/item/clothing/neck/mantle/peltmountain,\
-			/obj/item/clothing/neck/mantle/poncho,\
-			/obj/item/clothing/neck/mantle/ragged,\
-			/obj/item/clothing/neck/mantle/brown,\
-			/obj/item/clothing/neck/mantle/gecko,\
-			/obj/item/clothing/neck/garlic_necklace)
-	suit = pick(
-			/obj/item/clothing/suit/armor/light/kit/punk, \
-			/obj/item/clothing/suit/armor/light/kit/shoulder, \
-			/obj/item/clothing/suit/armor/light/kit)
-
-/*
-/datum/outfit/job/wasteland/f13raider/resident/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	..()
-	if(visualsOnly)
-		return
-	ADD_TRAIT(H, TRAIT_LONGPORKLOVER, src)
-*/
-
-	H.social_faction = FACTION_RAIDERS
-	add_verb(H, /mob/living/proc/creategang)
-
-
-/datum/outfit/loadout/tribal_drifter
-	name = "Tribal Drifter"
-	uniform = /obj/item/clothing/under/pants/f13/ghoul
-	head = /obj/item/clothing/head/f13/headscarf
-	shoes = /obj/item/clothing/shoes/f13/rag
-	//belt = /obj/item/melee/onehanded/machete/forgedmachete
-	gloves = /obj/item/clothing/gloves/bracer
-	//l_hand = /obj/item/twohanded/spear/bonespear
-	neck = /obj/item/clothing/neck/mantle/ragged
-	backpack_contents = list(
-	/obj/item/shovel/serrated = 1,)
-
-/datum/outfit/loadout/fish_wrangler
-	name = "Fish Wrangler"
-	backpack_contents = list(
-		/obj/item/binoculars = 1,
-		/obj/item/fishingrod = 1,
-		/obj/item/crowbar/smithedunitool = 1,
-		///obj/item/gun/ballistic/revolver/winchesterrebored = 1,
-		///obj/item/ammo_box/a762/doublestacked = 2,
-		/obj/item/clothing/under/f13/worn = 1,
-		/obj/item/clothing/head/f13/gambler = 1,
-		/obj/item/clothing/shoes/galoshes  = 1,
-		/obj/item/clothing/gloves/f13/leather = 1,)
-
-/datum/outfit/loadout/tapster
-	name = "Tapster"
-	backpack_contents = list(
-		/obj/item/choice_beacon/ingredients = 1,
-		/obj/item/reagent_containers/food/drinks/shaker = 1,
-		/obj/item/book/granter/action/drink_fling = 1,
-		/obj/item/reagent_containers/spray/cleaner = 1,
-		/obj/item/storage/belt/legholster/police = 1,
-		/obj/item/clothing/under/f13/sleazeball = 1,
-		/obj/item/clothing/head/bowler = 1,
-		/obj/item/clothing/shoes/laceup = 1,
-		/obj/item/clothing/gloves/rifleman = 1,
-		/obj/item/lighter/gold = 1,
-		)
-
-/datum/outfit/loadout/hospitalier
-	name = "Hospitalier"
-	backpack_contents = list(
-		/obj/item/book/granter/trait/medical = 1,
-		/obj/item/storage/medical/ancientfirstaid = 1,
-		/obj/item/storage/briefcase/medical  = 1,
-		/obj/item/storage/belt/shoulderholster/full = 1,
-		/obj/item/clothing/under/pants/tan = 1,
-		/obj/item/clothing/head/fedora/curator = 1,
-		/obj/item/clothing/shoes/cowboyboots/black = 1,
-		/obj/item/clothing/gloves/f13/crudemedical = 1,
-		)
-
-/datum/outfit/loadout/shepherd
-	name = "Shepherd"
-	backpack_contents = list(
-		/obj/item/storage/fancy/candle_box = 1,
-		/obj/item/reagent_containers/food/drinks/bottle/holywater = 1,
-		///obj/item/storage/bag/tribe_quiver = 1,
-		///obj/item/gun/ballistic/bow/crossbow = 1,
-		/obj/item/clothing/suit/bio_suit/plaguedoctorsuit = 1,
-		/obj/item/clothing/head/fluff/bandit = 1,
-		/obj/item/clothing/shoes/f13/fancy = 1,
-		/obj/item/clothing/gloves/evening/black = 1,
-		)
-
-/datum/outfit/loadout/fieldhand
-	name = "Fieldhand"
-	backpack_contents = list(
-		/obj/item/reagent_containers/glass/bottle/nutrient/l4z = 1,
-		/obj/item/seeds/cannabis = 1,
-		/obj/item/shovel/trench = 1,
-		/obj/item/cultivator/rake = 1,
-		///obj/item/gun/ballistic/revolver/single_shotgun = 1,
-		///obj/item/ammo_box/shotgun/buck = 1,
-		/obj/item/clothing/under/f13/jamrock = 1,
-		/obj/item/clothing/head/scarecrow_hat = 1,
-		/obj/item/clothing/shoes/winterboots  = 1,
-		/obj/item/clothing/gloves/botanic_leather = 1,
-		)
-
-/datum/outfit/loadout/mole
-	name = "Mole"
-	backpack_contents = list(
-		/obj/item/book/granter/crafting_recipe/scav_one = 1,
-		/obj/item/pickaxe/mini = 1,
-		/obj/item/weldingtool/largetank = 1,
-		/obj/item/storage/belt/utility = 1,
-		///obj/item/gun/ballistic/automatic/pistol/type17 = 1,
-		///obj/item/ammo_box/magazine/m10mm/adv/simple = 2,
-		/obj/item/clothing/under/rank/civilian/curator/treasure_hunter = 1,
-		/obj/item/clothing/head/radiation = 1,
-		/obj/item/clothing/glasses/welding = 1,
-		/obj/item/clothing/shoes/workboots/mining = 1,
-		/obj/item/clothing/gloves/legion/forgemaster = 1,
-		)
-
-/datum/outfit/loadout/seductress
-	name = "Seductress"
-	backpack_contents = list(
-		/obj/item/grenade/homemade/firebomb = 1,
-		/obj/item/bong/coconut = 1,
-		/obj/item/reagent_containers/glass/bottle/chloralhydrate = 1,
-		/obj/item/melee/classic_baton/telescopic = 1,
-		/obj/item/clothing/under/shorts/jeanbshorts = 1,
-		/obj/item/clothing/head/f13/trilby = 1,
-		/obj/item/clothing/shoes/f13/diesel/alt = 1,
-		/obj/item/clothing/gloves/combat = 1,
-		)
-
-/datum/outfit/loadout/pilferer
-	name = "Pilferer"
-	backpack_contents = list(
-		/obj/item/grenade/smokebomb = 2,
-		/obj/item/melee/onehanded/knife/throwing = 2,
-		/obj/item/storage/backpack/satchel/flat = 1,
-		/obj/item/melee/onehanded/knife/trench = 1,
-		/obj/item/clothing/under/syndicate/tacticool = 1,
-		/obj/item/clothing/mask/balaclava = 1,
-		/obj/item/clothing/shoes/f13/diesel = 1,
-		/obj/item/clothing/gloves/thief = 1,
-		/obj/item/stealthboy = 1,
-		)
-
-/datum/outfit/loadout/trafficker // https://youtu.be/9jROV2H9Sw0
-	name = "Trafficker"
-	backpack_contents = list(
-		/obj/item/reagent_containers/pill/patch/jet = 1,
-		/obj/item/reagent_containers/hypospray/medipen/medx = 1,
-		/obj/item/reagent_containers/hypospray/medipen/psycho = 1,
-		/obj/item/storage/fancy/cigarettes/cigpack_cannabis = 2,
-	//	/obj/item/storage/belt/shoulderholster/ranger357 = 1,
-		/obj/item/clothing/under/pants/f13/warboy = 1,
-		/obj/item/clothing/suit/hooded/parka/grey = 1,
-		/obj/item/clothing/shoes/f13/peltboots = 1,
-		/obj/item/melee/unarmed/sappers = 1,
-		)
-
-
-
 /datum/job/wasteland/f13wastelander
 	title = "Wastelander"
 	flag = F13WASTELANDER
@@ -1561,229 +646,8 @@ Raider
 		)
 //end preacher
 
-/*/datum/outfit/job/wasteland/f13enforcer
-	name = "Den Mob Enforcer"
-	jobtype = /datum/job/wasteland/f13enforcer
-
-	id = /obj/item/card/id/denid
-	belt = /obj/item/storage/belt/army/assault
-	shoes = /obj/item/clothing/shoes/laceup
-	ears = /obj/item/radio/headset/headset_den
-	l_pocket = /obj/item/melee/onehanded/knife/switchblade
-	r_pocket = /obj/item/flashlight/seclite
-	uniform = /obj/item/clothing/under/f13/densuit
-	backpack =	/obj/item/storage/backpack/satchel
-	satchel =  /obj/item/storage/backpack/satchel
-	gloves =  /obj/item/clothing/gloves/color/white
-	head = /obj/item/clothing/head/beret/durathread
-	mask =  /obj/item/clothing/mask/bandana/durathread
-	backpack_contents = list(
-		/obj/item/reagent_containers/hypospray/medipen/stimpak=1, \
-		/obj/item/restraints/handcuffs=1, \
-		/obj/item/storage/bag/money/small/wastelander)
-
-/datum/outfit/job/wasteland/f13enforcer/pre_equip(mob/living/carbon/human/H)
-	..()
-	r_hand = /obj/item/book/granter/trait/selection
-
-/datum/outfit/job/wasteland/f13enforcer/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	..()
-	if(visualsOnly)
-		return
-
-	if(!H.gang)
-		var/datum/gang/denmob/DM = GLOB.denmob
-		GLOB.all_gangs |= DM
-		DM.add_member(H)
-		H.gang = DM
-
-	H.mind.teach_crafting_recipe(/datum/crafting_recipe/set_vrboard/den)
-
-/datum/outfit/loadout/hitman
-	name = "Hitman"
-	r_hand = /obj/item/gun/ballistic/automatic/smg/mini_uzi
-	suit = /obj/item/clothing/suit/armor/medium/vest
-	backpack_contents = list(
-						/obj/item/ammo_box/magazine/uzim9mm=3, \
-						/obj/item/suppressor=1
-						)
-
-/datum/outfit/loadout/bodyguard
-	name = "Bodyguard"
-	r_hand = /obj/item/gun/ballistic/shotgun/police
-	suit = /obj/item/clothing/suit/armor/medium/vest
-	backpack_contents = list(
-		/obj/item/ammo_box/shotgun/buck = 2,
-		/obj/item/melee/onehanded/knife/hunting = 1,
-		)
-
-
-
-
-/datum/job/wasteland/f13mobboss
-	title = "Den Mob Boss"
-	flag = F13MOBBOSS
-	faction = FACTION_WASTELAND
-	social_faction = FACTION_RAIDERS
-	total_positions = 0
-	spawn_positions = 0
-	description = "The mob rules in Yuma, and you're on top. Keeping the loose association of Khans, outlaws, and other no-goods together you maintain order in The Den by force. Ensure that all inhabitants of the Den obey their rules, and spread your influence over the wasteland. Be careful though - even your own men can't be trusted."
-	supervisors = "Whatever god you pray to. Sky's the limit!"
-	selection_color = "#ff4747"
-	exp_requirements = 500
-	exp_type = EXP_TYPE_OUTLAW
-
-	outfit = /datum/outfit/job/wasteland/f13mobboss
-
-	access = list(ACCESS_DEN)
-	minimal_access = list(ACCESS_DEN)
-	matchmaking_allowed = list(
-		/datum/matchmaking_pref/rival = list(
-			/datum/job/eastwood/f13mayor,
-			/datum/job/eastwood/f13sheriff,
-			/datum/job/eastwood/f13detective,
-		),
-		/datum/matchmaking_pref/patron = list(
-			/datum/job/wasteland/f13wastelander,
-		),
-	)
-
-
-/datum/outfit/job/wasteland/f13mobboss
-	name = "Den Mob Boss"
-	jobtype = /datum/job/wasteland/f13mobboss
-
-	id = /obj/item/card/id/denid
-	belt = /obj/item/storage/belt/army/assault
-	ears = /obj/item/radio/headset/headset_den
-	shoes = /obj/item/clothing/shoes/laceup
-	l_pocket = /obj/item/melee/onehanded/knife/switchblade
-	r_pocket = /obj/item/flashlight/seclite
-	uniform = /obj/item/clothing/under/f13/densuit
-	suit = /obj/item/clothing/suit/armor/medium/combat/mk2/raider
-	backpack =	/obj/item/storage/backpack/satchel
-	satchel = 	/obj/item/storage/backpack/satchel
-	gloves = /obj/item/clothing/gloves/color/white
-	head = /obj/item/clothing/head/caphat/beret/white
-	mask = /obj/item/clothing/mask/bandana/durathread
-	suit_store = /obj/item/gun/ballistic/automatic/smg/p90
-	backpack_contents = list(
-		/obj/item/reagent_containers/hypospray/medipen/stimpak=1, \
-		/obj/item/restraints/handcuffs=1, \
-		/obj/item/ammo_box/magazine/m10mm_p90=2, \
-		/obj/item/storage/bag/money/small/raider/mobboss, \
-		/obj/item/book/granter/crafting_recipe/manual/denvr)
-
-/datum/outfit/job/wasteland/f13mobboss/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	..()
-	ADD_TRAIT(H, TRAIT_TECHNOPHREAK, src)
-	ADD_TRAIT(H, TRAIT_LIFEGIVER, src)
-
-
-/datum/outfit/job/wasteland/f13mobboss/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	..()
-	if(visualsOnly)
-		return
-
-	if(!H.gang)
-		var/datum/gang/denmob/DM = GLOB.denmob
-		GLOB.all_gangs |= DM
-		DM.add_member(H)
-		H.gang = DM
-
-datum/job/wasteland/f13dendoctor
-	title = "Den Doctor"
-	flag = F13DENDOCTOR
-	faction = FACTION_WASTELAND
-	social_faction = FACTION_RAIDERS
-	total_positions = 0
-	spawn_positions = 0
-	description = "While you prioritize providing medical treatment in emergency situations, you are still trained in combat and have the additional role as a loyal combanteer to the Den."
-	supervisors = "The Boss."
-	selection_color = "#ff4747"
-	exp_requirements = 500
-	exp_type = EXP_TYPE_OUTLAW
-
-	outfit = /datum/outfit/job/wasteland/f13dendoctor
-
-	access = list(ACCESS_DEN)
-	minimal_access = list(ACCESS_DEN)
-
-	loadout_options = list(
-		/datum/outfit/loadout/dencombatmedic,
-		/datum/outfit/loadout/denchemist,
-		)
-
-/datum/outfit/job/wasteland/f13dendoctor
-	name = "Den Doctor"
-	jobtype = /datum/job/wasteland/f13dendoctor
-
-	id = /obj/item/card/id/denid
-	belt = /obj/item/storage/belt/medical
-	shoes = /obj/item/clothing/shoes/laceup
-	ears = /obj/item/radio/headset/headset_den
-	r_pocket = /obj/item/flashlight/seclite
-	uniform = /obj/item/clothing/under/f13/densuit
-	backpack =	/obj/item/storage/backpack/medic
-	gloves =  /obj/item/clothing/gloves/color/white
-	head = /obj/item/clothing/head/beret/durathread
-	mask =  /obj/item/clothing/mask/bandana/durathread
-	backpack_contents = list(
-		/obj/item/reagent_containers/hypospray/medipen/stimpak=2, \
-		/obj/item/healthanalyzer=1, \
-		/obj/item/storage/bag/money/small/wastelander)
-
-/datum/outfit/job/wasteland/f13dendoctor/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	..()
-	if(visualsOnly)
-		return
-	ADD_TRAIT(H, TRAIT_TECHNOPHREAK, src)
-	ADD_TRAIT(H, TRAIT_CHEMWHIZ, src)
-	ADD_TRAIT(H, TRAIT_MEDICALEXPERT, src)
-	ADD_TRAIT(H, TRAIT_SURGERY_MID, src)
-	H.mind.teach_crafting_recipe(/datum/crafting_recipe/jet)
-	H.mind.teach_crafting_recipe(/datum/crafting_recipe/turbo)
-	H.mind.teach_crafting_recipe(/datum/crafting_recipe/psycho)
-	H.mind.teach_crafting_recipe(/datum/crafting_recipe/medx)
-	H.mind.teach_crafting_recipe(/datum/crafting_recipe/buffout)
-	H.mind.teach_crafting_recipe(/datum/crafting_recipe/set_vrboard/den)
-
-
-/datum/outfit/job/wasteland/f13dendoctor/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	..()
-	if(visualsOnly)
-		return
-
-	if(!H.gang)
-		var/datum/gang/denmob/DM = GLOB.denmob
-		GLOB.all_gangs |= DM
-		DM.add_member(H)
-		H.gang = DM
-
-/datum/outfit/loadout/dencombatmedic
-	name = "Combat medic"
-	r_hand = /obj/item/gun/ballistic/automatic/smg/american180
-	suit = /obj/item/clothing/suit/toggle/labcoat/chemist
-	backpack_contents = list(
-							/obj/item/clothing/glasses/hud/health/f13=1, \
-							/obj/item/ammo_box/magazine/m22smg=1, \
-							)
-
-/datum/outfit/loadout/denchemist
-	name = "Chemist"
-	r_hand = /obj/item/gun/ballistic/automatic/pistol/type17
-	suit = /obj/item/clothing/suit/toggle/labcoat/chemist
-	backpack_contents = list(
-						/obj/item/ammo_box/magazine/m10mm/adv/simple=1, \
-						/obj/item/grenade/chem_grenade=1, \
-						/obj/item/clothing/mask/gas=1, \
-						/obj/item/reagent_containers/glass/beaker/large=2 \
-						)
-*/
-
 
 //vigilante
-
 
 /datum/job/wasteland/f13vigilante
 	title = "Vigilante"
@@ -2134,249 +998,225 @@ datum/job/wasteland/f13dendoctor
 		/obj/item/reagent_containers/pill/patch/healpoultice = 2
 	)
 
-/////////////////
-////Redwater/////
-/////////////////
 
-//Redwater Slave
-/datum/job/wasteland/f13redwaterslave
-	title = "Redwater Slave"
-	flag = F13LEGIONSLAVE
-	faction = FACTION_WASTELAND
-	total_positions = 10
-	spawn_positions = 10
-	supervisors = "the slavers in Redwater, or your personal owner."
-	description = "Either you were captured by the Redwater slavers, or born into servitude.  Either way your life has been one of being treated as property to another human since the explosive collar was fitted to your neck.  Freedom feels like a dream long gone, hidden behind the fear of the signaler that would cause your head to sail off in an arc.  Despite that you've found a place in their society, and are a protected commodity.  Be you a field worker, sex slave, or pack mule.  The good news is, as long as you serve a purpose then you'll probably get to live, and being alive means a chance to escape."
-	selection_color = "#dcba97"
+// Legacy Dennies
 
-	outfit = /datum/outfit/loadout/redwaterslave
+/*/datum/outfit/job/wasteland/f13enforcer
+	name = "Den Mob Enforcer"
+	jobtype = /datum/job/wasteland/f13enforcer
 
-	loadout_options = list(
-	/datum/outfit/loadout/worker,	//Fields or the bar, this is just a generic workman/woman.
-	/datum/outfit/loadout/pack,		//pack mule slave
-	/datum/outfit/loadout/entertainer, //Dancer or musicion slave
-	/datum/outfit/loadout/sex			//p obvs fam
-	)
-
-	access = list()		//we can expand on this and make alterations as people suggest different loadouts
-	minimal_access = list()
-	matchmaking_allowed = list(
-		/datum/matchmaking_pref/friend = list(
-			/datum/job/wasteland/f13wastelander,
-		),
-		/datum/matchmaking_pref/rival = list(
-			/datum/job/wasteland/f13wastelander,
-		),
-		/datum/matchmaking_pref/mentor = list(
-			/datum/job/wasteland/f13wastelander,
-		),
-		/datum/matchmaking_pref/disciple = list(
-			/datum/job/wasteland/f13wastelander,
-		),
-		/datum/matchmaking_pref/patron = list(
-			/datum/job/wasteland/f13wastelander,
-		),
-		/datum/matchmaking_pref/protegee = list(
-			/datum/job/wasteland/f13wastelander,
-		),
-	)
-
-/datum/outfit/loadout/redwaterslave
-	name = "Redwater Slave"
-	uniform = /obj/item/clothing/under/f13/rag
-	back = /obj/item/storage/backpack/satchel/explorer
-	neck = /obj/item/electropack/shockcollar
-
-	backpack_contents =  list(
-		/obj/item/reagent_containers/pill/healingpowder =1)
-
-/datum/outfit/job/wastelander/f13redwaterslave/pre_equip(mob/living/carbon/human/H)
-	. = ..()
-	if(prob(10))
-		head = pick(/obj/item/clothing/head/f13/servant,\
-			/obj/item/clothing/head/f13/hairband)
-
-//Worker
-/datum/outfit/loadout/worker
-	name = "Worker"
+	id = /obj/item/card/id/denid
+	belt = /obj/item/storage/belt/army/assault
+	shoes = /obj/item/clothing/shoes/laceup
+	ears = /obj/item/radio/headset/headset_den
+	l_pocket = /obj/item/melee/onehanded/knife/switchblade
+	r_pocket = /obj/item/flashlight/seclite
+	uniform = /obj/item/clothing/under/f13/densuit
+	backpack =	/obj/item/storage/backpack/satchel
+	satchel =  /obj/item/storage/backpack/satchel
+	gloves =  /obj/item/clothing/gloves/color/white
+	head = /obj/item/clothing/head/beret/durathread
+	mask =  /obj/item/clothing/mask/bandana/durathread
 	backpack_contents = list(
-		/obj/item/clothing/shoes/f13/diesel =1,
-		/obj/item/clothing/gloves/color/brown =1,
-		/obj/item/clothing/head/sombrero = 1)
+		/obj/item/reagent_containers/hypospray/medipen/stimpak=1, \
+		/obj/item/restraints/handcuffs=1, \
+		/obj/item/storage/bag/money/small/wastelander)
 
+/datum/outfit/job/wasteland/f13enforcer/pre_equip(mob/living/carbon/human/H)
+	..()
+	r_hand = /obj/item/book/granter/trait/selection
 
-//Pack Mule
-/datum/outfit/loadout/pack
-	name = "Pack"
+/datum/outfit/job/wasteland/f13enforcer/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	..()
+	if(visualsOnly)
+		return
+
+	if(!H.gang)
+		var/datum/gang/denmob/DM = GLOB.denmob
+		GLOB.all_gangs |= DM
+		DM.add_member(H)
+		H.gang = DM
+
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/set_vrboard/den)
+
+/datum/outfit/loadout/hitman
+	name = "Hitman"
+	r_hand = /obj/item/gun/ballistic/automatic/smg/mini_uzi
+	suit = /obj/item/clothing/suit/armor/medium/vest
 	backpack_contents = list(
-		/obj/item/clothing/shoes/f13/diesel =1,
-		/obj/item/storage/backpack/duffelbag =1,
-		/obj/item/storage/box = 4,
-		/obj/item/book/granter/trait/trekking = 1)
+						/obj/item/ammo_box/magazine/uzim9mm=3, \
+						/obj/item/suppressor=1
+						)
 
-//Entertainer
-/datum/outfit/loadout/entertainer
-	name = "Entertainer"
+/datum/outfit/loadout/bodyguard
+	name = "Bodyguard"
+	r_hand = /obj/item/gun/ballistic/shotgun/police
+	suit = /obj/item/clothing/suit/armor/medium/vest
 	backpack_contents = list(
-		/obj/item/clothing/shoes/f13/diesel =1,
-		/obj/item/choice_beacon/music = 1,
-		/obj/item/musicaltuner = 1)
+		/obj/item/ammo_box/shotgun/buck = 2,
+		/obj/item/melee/onehanded/knife/hunting = 1,
+		)
 
-//Sex
-/datum/outfit/loadout/sex
-	name = "Domestic Slave"
-	backpack_contents = list(
-		///obj/item/storage/bag/money/small = 1,
-		/obj/item/clothing/under/dress/skirt/swept =1,
-		/obj/item/clothing/under/shorts/jeanbshorts =1)
 
-//Redwater Slave Spawn Point code
-/obj/effect/landmark/start/redwaterSlave
-	name = "Redwater Slave"
-	icon_state = "Wastelander"
-	jobspawn_override = TRUE
-	delete_after_roundstart = FALSE
 
-//Redwater Resident Spawn Point code
-/obj/effect/landmark/start/redwateresident
-	name = "Redwater Resident"
-	icon_state = "Wastelander"
-	jobspawn_override = TRUE
-	delete_after_roundstart = FALSE
 
-//Redwater Watcher Spawn Point code
-/obj/effect/landmark/start/redwaterwatcher
-	name = "Redwater Watcher"
-	icon_state = "Wastelander"
-	jobspawn_override = TRUE
-	delete_after_roundstart = FALSE
-
-/datum/job/wasteland/f13overboss
-	title = "Redwater Overboss"
+/datum/job/wasteland/f13mobboss
+	title = "Den Mob Boss"
 	flag = F13MOBBOSS
-	faction = FACTION_WASTELAND
-	department_head = list("Captain")
-	head_announce = list("Security")
 	faction = FACTION_WASTELAND
 	social_faction = FACTION_RAIDERS
 	total_positions = 0
 	spawn_positions = 0
-	description = "You're the big gun here, pardner. As the Overboss of Redwater, you have the unfortunate position of being a mayor to all these hooligans and miscreants. Use your supply of caps and bullets to keep people in order. "
-	supervisors = "Your conscience (HAH), wallet, and constituents."
-	selection_color = "#df80af"
-	exp_requirements = 0
-	exp_type = EXP_TYPE_WASTELAND
+	description = "The mob rules in Yuma, and you're on top. Keeping the loose association of Khans, outlaws, and other no-goods together you maintain order in The Den by force. Ensure that all inhabitants of the Den obey their rules, and spread your influence over the wasteland. Be careful though - even your own men can't be trusted."
+	supervisors = "Whatever god you pray to. Sky's the limit!"
+	selection_color = "#ff4747"
+	exp_requirements = 500
+	exp_type = EXP_TYPE_OUTLAW
 
-	loadout_options = list(
-			/datum/outfit/loadout/overbossmelee,	//goliath
-			/datum/outfit/loadout/overbossamr,		//AMR
-			/datum/outfit/loadout/overbossranged, //moni + drugs
+	outfit = /datum/outfit/job/wasteland/f13mobboss
+
+	access = list(ACCESS_DEN)
+	minimal_access = list(ACCESS_DEN)
+	matchmaking_allowed = list(
+		/datum/matchmaking_pref/rival = list(
+			/datum/job/eastwood/f13mayor,
+			/datum/job/eastwood/f13sheriff,
+			/datum/job/eastwood/f13detective,
+		),
+		/datum/matchmaking_pref/patron = list(
+			/datum/job/wasteland/f13wastelander,
+		),
 	)
 
-	outfit = /datum/outfit/job/wasteland/f13raider/overboss
 
+/datum/outfit/job/wasteland/f13mobboss
+	name = "Den Mob Boss"
+	jobtype = /datum/job/wasteland/f13mobboss
 
-/datum/outfit/job/wasteland/f13raider/overboss
-	name = "Overboss"
-	jobtype = /datum/job/wasteland/f13overboss
-
-	id = null
-	ears = null
+	id = /obj/item/card/id/denid
+	belt = /obj/item/storage/belt/army/assault
+	ears = /obj/item/radio/headset/headset_den
 	shoes = /obj/item/clothing/shoes/laceup
-	uniform = /obj/item/clothing/under/suit/charcoal
-	backpack = /obj/item/storage/backpack/satchel/explorer
-	satchel = /obj/item/storage/backpack/satchel/explorer
-	gloves = /obj/item/clothing/gloves/f13/military
-	belt = /obj/item/kit_spawner/raider/boss
-	r_pocket = /obj/item/flashlight/flare
+	l_pocket = /obj/item/melee/onehanded/knife/switchblade
+	r_pocket = /obj/item/flashlight/seclite
+	uniform = /obj/item/clothing/under/f13/densuit
+	suit = /obj/item/clothing/suit/armor/medium/combat/mk2/raider
+	backpack =	/obj/item/storage/backpack/satchel
+	satchel = 	/obj/item/storage/backpack/satchel
+	gloves = /obj/item/clothing/gloves/color/white
+	head = /obj/item/clothing/head/caphat/beret/white
+	mask = /obj/item/clothing/mask/bandana/durathread
+	suit_store = /obj/item/gun/ballistic/automatic/smg/p90
 	backpack_contents = list(
-		/obj/item/storage/pill_bottle/chem_tin/radx,
-		/obj/item/restraints/handcuffs = 2,
-		/obj/item/reagent_containers/hypospray/medipen/stimpak = 1,
-	//	/obj/item/storage/bag/money/small/raider = 1,
-		/obj/item/radio/redwater = 1,
-		/obj/item/melee/onehanded/knife/bowie = 1,
-		/obj/item/melee/onehanded/knife/hunting = 1,
-		/obj/item/radio/redwater = 1
+		/obj/item/reagent_containers/hypospray/medipen/stimpak=1, \
+		/obj/item/restraints/handcuffs=1, \
+		/obj/item/ammo_box/magazine/m10mm_p90=2, \
+		/obj/item/storage/bag/money/small/raider/mobboss, \
+		/obj/item/book/granter/crafting_recipe/manual/denvr)
+
+/datum/outfit/job/wasteland/f13mobboss/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	..()
+	ADD_TRAIT(H, TRAIT_TECHNOPHREAK, src)
+	ADD_TRAIT(H, TRAIT_LIFEGIVER, src)
+
+
+/datum/outfit/job/wasteland/f13mobboss/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	..()
+	if(visualsOnly)
+		return
+
+	if(!H.gang)
+		var/datum/gang/denmob/DM = GLOB.denmob
+		GLOB.all_gangs |= DM
+		DM.add_member(H)
+		H.gang = DM
+
+datum/job/wasteland/f13dendoctor
+	title = "Den Doctor"
+	flag = F13DENDOCTOR
+	faction = FACTION_WASTELAND
+	social_faction = FACTION_RAIDERS
+	total_positions = 0
+	spawn_positions = 0
+	description = "While you prioritize providing medical treatment in emergency situations, you are still trained in combat and have the additional role as a loyal combanteer to the Den."
+	supervisors = "The Boss."
+	selection_color = "#ff4747"
+	exp_requirements = 500
+	exp_type = EXP_TYPE_OUTLAW
+
+	outfit = /datum/outfit/job/wasteland/f13dendoctor
+
+	access = list(ACCESS_DEN)
+	minimal_access = list(ACCESS_DEN)
+
+	loadout_options = list(
+		/datum/outfit/loadout/dencombatmedic,
+		/datum/outfit/loadout/denchemist,
 		)
 
+/datum/outfit/job/wasteland/f13dendoctor
+	name = "Den Doctor"
+	jobtype = /datum/job/wasteland/f13dendoctor
 
-/datum/outfit/job/wasteland/f13raider/overboss/pre_equip(mob/living/carbon/human/H)
-	. = ..()
-	uniform = pick(
-		/obj/item/clothing/under/f13/merca, \
-		/obj/item/clothing/under/f13/mercc, \
-		/obj/item/clothing/under/f13/cowboyb, \
-		/obj/item/clothing/under/f13/cowboyg, \
-		/obj/item/clothing/under/f13/raider_leather, \
-		/obj/item/clothing/under/f13/raiderrags, \
-		/obj/item/clothing/under/pants/f13/ghoul, \
-		/obj/item/clothing/under/jabroni)
-	suit = pick(
-		/obj/item/clothing/suit/armor/light/raider/supafly,\
-		/obj/item/clothing/suit/armor/medium/raider/yankee, \
-		/obj/item/clothing/suit/armor/light/raider/sadist, \
-		/obj/item/clothing/suit/armor/medium/raider/blastmaster, \
-		/obj/item/clothing/suit/armor/medium/raider/badlands, \
-		/obj/item/clothing/suit/armor/light/raider/painspike)
-	if(prob(10))
-		mask = pick(
-			/obj/item/clothing/mask/bandana/red,\
-			/obj/item/clothing/mask/bandana/blue,\
-			/obj/item/clothing/mask/bandana/green,\
-			/obj/item/clothing/mask/bandana/gold,\
-			/obj/item/clothing/mask/bandana/black,\
-			/obj/item/clothing/mask/bandana/skull)
-	head = pick(
-		/obj/item/clothing/head/sombrero,\
-		/obj/item/clothing/head/helmet/f13/raider,\
-		/obj/item/clothing/head/helmet/f13/raider/eyebot,\
-		/obj/item/clothing/head/helmet/f13/raider/arclight,\
-		/obj/item/clothing/head/helmet/f13/raider/blastmaster,\
-		/obj/item/clothing/head/helmet/f13/raider/yankee,\
-		/obj/item/clothing/head/helmet/f13/raider/psychotic,\
-		/obj/item/clothing/head/helmet/f13/fiend)
-	shoes = pick(
-			/obj/item/clothing/shoes/jackboots,\
-			/obj/item/clothing/shoes/f13/raidertreads)
-
-	//suit_store = pick(
-	//	/obj/item/gun/ballistic/revolver/detective,
-	//	/obj/item/gun/ballistic/automatic/pistol/ninemil,
-	//	/obj/item/gun/ballistic/automatic/pistol/m1911,
-	//	/obj/item/gun/ballistic/automatic/pistol/type17,
-	//	)
-
-/datum/outfit/loadout/overbossmelee
-	name = "Bruteboss"
+	id = /obj/item/card/id/denid
+	belt = /obj/item/storage/belt/medical
+	shoes = /obj/item/clothing/shoes/laceup
+	ears = /obj/item/radio/headset/headset_den
+	r_pocket = /obj/item/flashlight/seclite
+	uniform = /obj/item/clothing/under/f13/densuit
+	backpack =	/obj/item/storage/backpack/medic
+	gloves =  /obj/item/clothing/gloves/color/white
+	head = /obj/item/clothing/head/beret/durathread
+	mask =  /obj/item/clothing/mask/bandana/durathread
 	backpack_contents = list(
-		/obj/item/melee/powerfist/f13/goliath = 1,
-		/obj/item/clothing/suit/armor/medium/combat/mk2 = 1,
-		/obj/item/clothing/head/helmet/f13/raider/arclight = 1,
-		/obj/item/reagent_containers/hypospray/medipen/psycho = 2,
-		/obj/item/reagent_containers/pill/patch/turbo = 2)
+		/obj/item/reagent_containers/hypospray/medipen/stimpak=2, \
+		/obj/item/healthanalyzer=1, \
+		/obj/item/storage/bag/money/small/wastelander)
 
-//AMR
-/datum/outfit/loadout/overbossamr
-	name = "Overpenetration"
+/datum/outfit/job/wasteland/f13dendoctor/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	..()
+	if(visualsOnly)
+		return
+	ADD_TRAIT(H, TRAIT_TECHNOPHREAK, src)
+	ADD_TRAIT(H, TRAIT_CHEMWHIZ, src)
+	ADD_TRAIT(H, TRAIT_MEDICALEXPERT, src)
+	ADD_TRAIT(H, TRAIT_SURGERY_MID, src)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/jet)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/turbo)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/psycho)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/medx)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/buffout)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/set_vrboard/den)
+
+
+/datum/outfit/job/wasteland/f13dendoctor/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	..()
+	if(visualsOnly)
+		return
+
+	if(!H.gang)
+		var/datum/gang/denmob/DM = GLOB.denmob
+		GLOB.all_gangs |= DM
+		DM.add_member(H)
+		H.gang = DM
+
+/datum/outfit/loadout/dencombatmedic
+	name = "Combat medic"
+	r_hand = /obj/item/gun/ballistic/automatic/smg/american180
+	suit = /obj/item/clothing/suit/toggle/labcoat/chemist
 	backpack_contents = list(
-		/obj/item/clothing/suit/armor/light/duster/battlecoat = 1,
-	//	/obj/item/ammo_box/magazine/amr = 1,
-		/obj/item/circuitboard/machine/autolathe/ammo/improvised = 1)
-	//	/obj/item/gun/ballistic/rifle/mag/antimateriel = 1)
+							/obj/item/clothing/glasses/hud/health/f13=1, \
+							/obj/item/ammo_box/magazine/m22smg=1, \
+							)
 
-//Sex
-/datum/outfit/loadout/overbossranged
-	name = "Crooked Mayor"
+/datum/outfit/loadout/denchemist
+	name = "Chemist"
+	r_hand = /obj/item/gun/ballistic/automatic/pistol/type17
+	suit = /obj/item/clothing/suit/toggle/labcoat/chemist
 	backpack_contents = list(
-	//	/obj/item/storage/bag/money/small = 1,
-	//	/obj/item/gun/ballistic/revolver/colt357/mateba = 1,
-		/obj/item/clothing/under/suit/black = 1,
-		/obj/item/reagent_containers/glass/bottle/chloralhydrate = 1,
-		/obj/item/stack/f13Cash/caps/threefivezero = 1)
-
-/obj/effect/landmark/start/overboss
-	name = "Redwater Overboss"
-	icon_state = "Wastelander"
-	jobspawn_override = TRUE
-	delete_after_roundstart = FALSE
+						/obj/item/ammo_box/magazine/m10mm/adv/simple=1, \
+						/obj/item/grenade/chem_grenade=1, \
+						/obj/item/clothing/mask/gas=1, \
+						/obj/item/reagent_containers/glass/beaker/large=2 \
+						)
+*/
