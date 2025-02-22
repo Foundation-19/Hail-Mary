@@ -18253,6 +18253,10 @@
 /area/f13/building/powered)
 "jjS" = (
 /obj/structure/table,
+/obj/item/defibrillator/primitive{
+	desc = "A Delco-brand pre-war car battery, with alligator clips and jumper cables to match. This could probably work as a makeshift defibrillator, in a pinch.";
+	name = "car battery"
+	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/cmo,
 /area/f13/casino/powered)
 "jkq" = (
@@ -28846,6 +28850,15 @@
 	},
 /obj/item/trash/f13/instamash,
 /turf/open/indestructible/ground/outside/snow,
+/area/f13/wasteland/cold)
+"oyO" = (
+/obj/item/defibrillator/primitive{
+	desc = "A Delco-brand pre-war car battery, with alligator clips and jumper cables to match. This could probably work as a makeshift defibrillator, in a pinch.";
+	name = "car battery"
+	},
+/turf/open/indestructible/ground/outside/road{
+	icon_state = "horizontalinnermain2"
+	},
 /area/f13/wasteland/cold)
 "ozl" = (
 /obj/effect/decal/cleanable/robot_debris/gib,
@@ -41728,6 +41741,15 @@
 	icon_state = "verticalrightborderright0"
 	},
 /area/f13/wasteland/powered)
+"uYT" = (
+/obj/item/defibrillator/primitive{
+	desc = "A Delco-brand pre-war car battery, with alligator clips and jumper cables to match. This could probably work as a makeshift defibrillator, in a pinch.";
+	name = "car battery"
+	},
+/turf/open/indestructible/ground/outside/sidewalk{
+	icon_state = "verticalleftborderleft0"
+	},
+/area/f13/wasteland/cold)
 "uYZ" = (
 /obj/structure/rack,
 /obj/item/advanced_crafting_components/receiver,
@@ -85252,7 +85274,7 @@ gMx
 haP
 haP
 gMx
-omb
+oyO
 nJG
 xOb
 jRd
@@ -116514,7 +116536,7 @@ hXC
 hXC
 bFY
 rXF
-vOg
+uYT
 rhN
 mCO
 mCO

@@ -4121,6 +4121,7 @@
 /area/f13/holiday)
 "oD" = (
 /obj/structure/rack/shelf_metal,
+/obj/item/storage/firstaid/bandagekit,
 /turf/open/floor/plasteel/f13/vault_floor/green/white/side{
 	dir = 1
 	},
@@ -5035,8 +5036,11 @@
 	},
 /area/f13/building/powered)
 "rK" = (
-/obj/structure/table/optable,
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/defibrillator_mount/primitive{
+	pixel_x = 6
+	},
+/obj/structure/table/optable/primitive,
 /turf/open/floor/plasteel/f13/vault_floor/green/white/side{
 	dir = 1
 	},
@@ -5430,7 +5434,10 @@
 "tf" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/table/optable,
+/obj/machinery/defibrillator_mount/primitive{
+	pixel_x = 6
+	},
+/obj/structure/table/optable/primitive,
 /turf/open/floor/plasteel/f13/vault_floor/green/white/side{
 	dir = 1
 	},
@@ -6807,6 +6814,13 @@
 	},
 /turf/open/floor/f13/wood,
 /area/f13/holiday)
+"xZ" = (
+/obj/structure/rack/shelf_metal,
+/obj/item/storage/box/syringes,
+/turf/open/floor/plasteel/f13/vault_floor/green/white/side{
+	dir = 1
+	},
+/area/f13/legioncamp)
 "ya" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -12178,8 +12192,10 @@
 /turf/open/floor/carpet,
 /area/f13/ncr/powered)
 "Rf" = (
-/obj/item/storage/box/syringes,
-/obj/structure/rack/shelf_metal,
+/obj/machinery/iv_drip/primitive{
+	pixel_x = 12;
+	pixel_y = 4
+	},
 /turf/open/floor/plasteel/f13/vault_floor/green/white/side{
 	dir = 1
 	},
@@ -13486,12 +13502,6 @@
 	icon_state = "floordirtysolid"
 	},
 /area/f13/building/powered)
-"Vx" = (
-/obj/machinery/iv_drip,
-/turf/open/floor/plasteel/f13/vault_floor/green/white/side{
-	dir = 1
-	},
-/area/f13/legioncamp)
 "Vy" = (
 /obj/structure/simple_door/wood,
 /turf/open/floor/plating/f13/outside/roof/wood/old,
@@ -13720,6 +13730,10 @@
 	pixel_y = 30
 	},
 /obj/effect/landmark/start/f13/auxilia,
+/obj/machinery/iv_drip/primitive{
+	pixel_x = 12;
+	pixel_y = 4
+	},
 /turf/open/floor/plasteel/f13/vault_floor/green/white/side{
 	dir = 1
 	},
@@ -96837,7 +96851,7 @@ Qs
 cJ
 cU
 iu
-oD
+xZ
 oD
 Qs
 FI
@@ -97608,7 +97622,7 @@ Qs
 rK
 iE
 Os
-Vx
+PZ
 tf
 Qs
 tQ
