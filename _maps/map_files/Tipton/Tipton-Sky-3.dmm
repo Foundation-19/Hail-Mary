@@ -5651,7 +5651,8 @@
 /area/f13/legioncamp)
 "tV" = (
 /obj/structure/railing/tg{
-	dir = 8
+	dir = 8;
+	color = "#A47449"
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/f13{
@@ -5676,7 +5677,8 @@
 /area/f13/building/powered)
 "tY" = (
 /obj/structure/railing/tg{
-	dir = 4
+	dir = 4;
+	color = "#A47449"
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/f13{
