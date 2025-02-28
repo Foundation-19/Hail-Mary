@@ -19,8 +19,9 @@
 	attack_verb = list("slashed", "sliced", "have'd at the")
 	hitsound = 'sound/weapons/slice.ogg'
 	block_chance = 5
+	demolition_mod = 0.75
 
-/obj/item/melee/coyote/harpoon 
+/obj/item/melee/coyote/harpoon
 	name = "old harpoon"
 	desc = "White whale, holy grail."
 	icon = 'fallout/icons/objects/weapons.dmi'
@@ -64,8 +65,9 @@
 	hitsound = 'sound/weapons/slice.ogg'
 	attack_speed = CLICK_CD_MELEE * 0.8
 	block_chance = 15
+	demolition_mod = 0.75
 
-/obj/item/melee/coyote/wakazashiold 
+/obj/item/melee/coyote/wakazashiold
 	name = "old wakazashi"
 	desc = "Sharp, and well cared for. Such a strange blade in this land."
 	icon = 'fallout/icons/objects/weapons.dmi'
@@ -87,8 +89,9 @@
 	hitsound = 'sound/weapons/slice.ogg'
 	attack_speed = CLICK_CD_MELEE * 0.8
 	block_chance = 10
+	demolition_mod = 0.75
 
-/obj/item/melee/coyote/tantoold 
+/obj/item/melee/coyote/tantoold
 	name = "old tanto"
 	desc = "Sharp, and well cared for. This small blade carries a lot of weight for its size."
 	icon = 'fallout/icons/objects/weapons.dmi'
@@ -110,8 +113,9 @@
 	hitsound = 'sound/weapons/slice.ogg'
 	attack_speed = CLICK_CD_MELEE * 0.7
 	block_chance = 5
+	demolition_mod = 0.75
 
-/obj/item/melee/coyote/combataxe 
+/obj/item/melee/coyote/combataxe
 	name = "Combat Axe"
 	desc = "An axe made specifically for more modern combats, its got a handguard!"
 	icon = 'fallout/icons/objects/weapons.dmi'
@@ -132,6 +136,7 @@
 	attack_verb = list("slashed", "sliced", "hacked")
 	hitsound = 'sound/weapons/slice.ogg'
 	block_chance = 5
+	demolition_mod = 0.75
 
 /obj/item/melee/coyote/smallsword
 	name = "Small Sword"
@@ -156,6 +161,7 @@
 	hitsound = 'sound/weapons/slice.ogg'
 	attack_speed = CLICK_CD_MELEE * 0.8
 	block_chance = 10
+	demolition_mod = 0.5
 
 /obj/item/melee/coyote/oldcutlass
 	name = "Old Cutlass"
@@ -180,6 +186,7 @@
 	hitsound = 'sound/weapons/slice.ogg'
 	attack_speed = CLICK_CD_MELEE * 0.9
 	block_chance = 8
+	demolition_mod = 0.75
 
 /obj/item/melee/coyote/crudeblade
 	name = "Crude Blade"
@@ -248,6 +255,7 @@
 	attack_verb = list("wrecked", "bashed", "smashed")
 	hitsound = 'sound/weapons/smash.ogg'
 	attack_speed = CLICK_CD_MELEE * 2.5
+	demolition_mod = 1.25
 
 /obj/item/melee/coyote/club
 	name = "club"
@@ -290,6 +298,7 @@
 	attack_verb = list("wrecked", "bashed", "smashed")
 	hitsound = 'sound/weapons/smash.ogg'
 	attack_speed = CLICK_CD_MELEE * 0.9
+	demolition_mod = 1.25
 
 /obj/item/melee/coyote/oldlongsword
 	name = "Old Longsword"
@@ -314,6 +323,7 @@
 	hitsound = 'sound/weapons/slice.ogg'
 	attack_speed = CLICK_CD_MELEE * 0.9
 	block_chance = 8
+	demolition_mod = 0.75
 
 /obj/item/melee/coyote/oldhalberd
 	name = "Old Halberd"
@@ -336,6 +346,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("impaled", "gored", "stabbed")
 	hitsound = 'sound/weapons/slice.ogg'
+	demolition_mod = 0.75
 
 /obj/item/melee/coyote/oldpike
 	name = "Old Pike"
@@ -360,6 +371,7 @@
 	attack_verb = list("impaled", "gored", "stabbed")
 	hitsound = 'sound/weapons/slice.ogg'
 	attack_speed = CLICK_CD_MELEE * 1.5
+	demolition_mod = 0.75
 
 /obj/item/melee/coyote/oldnaginata
 	name = "Old Naginata"
@@ -383,6 +395,7 @@
 	attack_verb = list("impaled", "gored", "stabbed")
 	hitsound = 'sound/weapons/slice.ogg'
 	block_chance = 10
+	demolition_mod = 0.75
 
 /obj/item/melee/coyote/oldashandarei
 	name = "Old Ashandarei"
@@ -407,6 +420,7 @@
 	hitsound = 'sound/weapons/slice.ogg'
 	attack_speed = CLICK_CD_MELEE * 0.8
 	block_chance = 15
+	demolition_mod = 0.75
 
 /obj/item/melee/coyote/macuahuitl
 	name = "Macuahuitl"
@@ -452,6 +466,7 @@
 	hitsound = 'sound/weapons/slice.ogg'
 	attack_speed = CLICK_CD_MELEE * 0.9
 	block_chance = 8
+	demolition_mod = 0.75
 
 /obj/item/melee/classic_baton/coyote/oldquarterstaff
 	name = "Old Quarterstaff"
@@ -505,6 +520,7 @@
 	hitsound = 'sound/weapons/slice.ogg'
 	attack_speed = CLICK_CD_MELEE * 0.9
 	block_chance = 8
+	demolition_mod = 0.75
 
 /obj/item/melee/coyote/oldpike/sarissa
 	name = "Old Sarissa"

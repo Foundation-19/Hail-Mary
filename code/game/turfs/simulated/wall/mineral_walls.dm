@@ -6,6 +6,11 @@
 	var/active = null
 	canSmoothWith = null
 	smooth = SMOOTH_TRUE
+	max_integrity = 500
+	damage_deflection = 25
+
+/turf/closed/wall/mineral/get_armour_list()
+	return list("melee" = 75,  "bullet" = 35, "laser" = 35, "energy" = 15, "bomb" = 25, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 70, "wound" = 0, "damage_threshold" = 0)
 
 /turf/closed/wall/mineral/brick
 	name = "brick wall"
@@ -21,8 +26,10 @@
 	icon = 'icons/turf/walls/gold_wall.dmi'
 	icon_state = "gold"
 	sheet_type = /obj/item/stack/sheet/mineral/gold
-	explosion_block = 0 //gold is a soft metal you dingus.
+	explosion_block = 3 //gold is a soft metal you dingus.
 	canSmoothWith = list(/turf/closed/wall/mineral/gold, /obj/structure/falsewall/gold)
+	max_integrity = 350
+	damage_deflection = 15
 
 /turf/closed/wall/mineral/silver
 	name = "silver wall"
@@ -31,6 +38,8 @@
 	icon_state = "silver"
 	sheet_type = /obj/item/stack/sheet/mineral/silver
 	canSmoothWith = list(/turf/closed/wall/mineral/silver, /obj/structure/falsewall/silver)
+	max_integrity = 350
+	damage_deflection = 15
 
 /turf/closed/wall/mineral/diamond
 	name = "diamond wall"
@@ -39,8 +48,14 @@
 	icon_state = "diamond"
 	sheet_type = /obj/item/stack/sheet/mineral/diamond
 	slicing_duration = 200   //diamond wall takes twice as much time to slice
-	explosion_block = 3
+	explosion_block = 1
 	canSmoothWith = list(/turf/closed/wall/mineral/diamond, /obj/structure/falsewall/diamond)
+	max_integrity = 350
+	damage_deflection = 60
+
+/turf/closed/wall/mineral/diamond/get_armour_list()
+	return list("melee" = 50,  "bullet" = 60, "laser" = 80, "energy" = 80, "bomb" = 10, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100, "wound" = 0, "damage_threshold" = 0)
+
 
 /turf/closed/wall/mineral/sandstone
 	name = "sandstone wall"
@@ -48,8 +63,10 @@
 	icon = 'icons/turf/walls/sandstone_wall.dmi'
 	icon_state = "sandstone"
 	sheet_type = /obj/item/stack/sheet/mineral/sandstone
-	explosion_block = 0
+	explosion_block = 3
 	canSmoothWith = list(/turf/closed/wall/mineral/sandstone, /obj/structure/falsewall/sandstone)
+	max_integrity = 350
+	damage_deflection = 15
 
 /turf/closed/wall/mineral/uranium
 	article = "a"
@@ -59,6 +76,8 @@
 	icon_state = "uranium"
 	sheet_type = /obj/item/stack/sheet/mineral/uranium
 	canSmoothWith = list(/turf/closed/wall/mineral/uranium, /obj/structure/falsewall/uranium)
+	max_integrity = 500
+	damage_deflection = 40
 
 /turf/closed/wall/mineral/uranium/proc/radiate()
 	if(!active)
@@ -92,6 +111,8 @@
 	sheet_type = /obj/item/stack/sheet/mineral/plasma
 	thermal_conductivity = 0.04
 	canSmoothWith = list(/turf/closed/wall/mineral/plasma, /obj/structure/falsewall/plasma)
+	max_integrity = 350
+	damage_deflection = 15
 
 /turf/closed/wall/mineral/plasma/attackby(obj/item/W, mob/user, params)
 	if(W.get_temperature() > 300)//If the temperature of the object is over 300, then ignite
@@ -130,19 +151,10 @@
 	icon_state = "wood"
 	sheet_type = /obj/item/stack/sheet/mineral/wood
 	hardness = 70
-	explosion_block = 0
+	explosion_block = 3
 	canSmoothWith = list(/turf/closed/wall/mineral/wood, /obj/structure/falsewall/wood, /turf/closed/wall/mineral/wood/nonmetal)
-
-/turf/closed/wall/mineral/wood/attackby(obj/item/W, mob/user)
-	if(W.sharpness && W.force)
-		var/duration = (48/W.force) * 2 //In seconds, for now.
-		if(istype(W, /obj/item/hatchet) || istype(W, /obj/item/twohanded/fireaxe))
-			duration /= 4 //Much better with hatchets and axes.
-		var/src_type = type
-		if(do_after(user, duration*10, target=src) && type == src_type) //Into deciseconds.
-			dismantle_wall(FALSE,FALSE)
-			return
-	return ..()
+	max_integrity = 200
+	damage_deflection = 0
 
 /turf/closed/wall/mineral/wood/nonmetal
 	desc = "A solidly wooden wall. It's a bit weaker than a wall made with metal."
@@ -157,6 +169,8 @@
 	icon_state = "iron"
 	sheet_type = /obj/item/stack/rods
 	canSmoothWith = list(/turf/closed/wall/mineral/iron, /obj/structure/falsewall/iron)
+	max_integrity = 400
+	damage_deflection = 25
 
 /turf/closed/wall/mineral/snow
 	name = "packed snow wall"
@@ -164,13 +178,15 @@
 	icon = 'icons/turf/walls/snow_wall.dmi'
 	icon_state = "snow"
 	hardness = 80
-	explosion_block = 0
+	explosion_block = 3
 	slicing_duration = 30
 	sheet_type = /obj/item/stack/sheet/mineral/snow
 	canSmoothWith = null
 	girder_type = null
 	bullet_sizzle = TRUE
 	bullet_bounce_sound = null
+	max_integrity = 150
+	damage_deflection = 0
 
 /turf/closed/wall/mineral/abductor
 	name = "alien wall"
@@ -180,22 +196,34 @@
 	smooth = SMOOTH_TRUE|SMOOTH_DIAGONAL
 	sheet_type = /obj/item/stack/sheet/mineral/abductor
 	slicing_duration = 200   //alien wall takes twice as much time to slice
-	explosion_block = 3
+	explosion_block = 1
 	canSmoothWith = list(/turf/closed/wall/mineral/abductor, /obj/structure/falsewall/abductor)
+	max_integrity = 1000
+	damage_deflection = 75
+
+/turf/closed/wall/mineral/abductor/get_armour_list()
+	return list("melee" = 60,  "bullet" = 60, "laser" = 60, "energy" = 60, "bomb" = 50, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100, "wound" = 0, "damage_threshold" = 0)
+
 
 /////////////////////Titanium walls/////////////////////
 
 /turf/closed/wall/mineral/titanium //has to use this path due to how building walls works
 	name = "wall"
-	desc = "A light-weight titanium wall used in shuttles."
+	desc = "A wall plated with titanium."
 	icon = 'icons/turf/walls/shuttle_wall.dmi'
 	icon_state = "map-shuttle"
-	explosion_block = 3
+	explosion_block = 1
 	flags_1 = CAN_BE_DIRTY_1 | DEFAULT_RICOCHET_1
 	flags_ricochet = RICOCHET_SHINY | RICOCHET_HARD
 	sheet_type = /obj/item/stack/sheet/mineral/titanium
 	smooth = SMOOTH_MORE|SMOOTH_DIAGONAL
 	canSmoothWith = list(/turf/closed/wall/mineral/titanium, /obj/machinery/door/airlock/shuttle, /obj/machinery/door/airlock, /obj/structure/window/shuttle, /obj/structure/shuttle/engine/heater, /obj/structure/falsewall/titanium)
+	max_integrity = 600
+	damage_deflection = 50
+
+/turf/closed/wall/mineral/titanium/get_armour_list()
+	return list("melee" = 75,  "bullet" = 50, "laser" = 50, "energy" = 30, "bomb" = 30, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 70, "wound" = 0, "damage_threshold" = 0)
+
 
 /turf/closed/wall/mineral/titanium/nodiagonal
 	smooth = SMOOTH_MORE
@@ -254,10 +282,17 @@
 	desc = "An evil wall of plasma and titanium."
 	icon = 'icons/turf/walls/plastitanium_wall.dmi'
 	icon_state = "map-shuttle"
-	explosion_block = 4
+	explosion_block = 1
 	sheet_type = /obj/item/stack/sheet/mineral/plastitanium
 	smooth = SMOOTH_MORE|SMOOTH_DIAGONAL
 	canSmoothWith = list(/turf/closed/wall/mineral/plastitanium, /obj/machinery/door/airlock/shuttle, /obj/machinery/door/airlock, /obj/structure/window/plastitanium, /obj/structure/shuttle/engine, /obj/structure/falsewall/plastitanium)
+	max_integrity = 1000
+	damage_deflection = 60
+
+
+/turf/closed/wall/mineral/plastitanium/get_armour_list()
+	return list("melee" = 75,  "bullet" = 60, "laser" = 60, "energy" = 50, "bomb" = 50, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100, "wound" = 0, "damage_threshold" = 0)
+
 
 /turf/closed/wall/mineral/plastitanium/nodiagonal
 	smooth = SMOOTH_MORE
