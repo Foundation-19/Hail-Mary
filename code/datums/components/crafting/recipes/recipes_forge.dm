@@ -348,6 +348,7 @@
 	category = CAT_WEAPONRY
 	subcategory = CAT_MELEE
 
+/*
 /datum/crafting_recipe/melee/forged/sap
 	name = "Sappers"
 	result = /obj/item/melee/unarmed/sappers
@@ -359,12 +360,96 @@
 	tools = list(TOOL_FORGE)
 	category = CAT_WEAPONRY
 	subcategory = CAT_MELEE
+*/
 
+/datum/crafting_recipe/melee/forged/dualsapper
+	name = "Dual Sappers"
+	result = /obj/item/melee/unarmed/sappers/dual
+	time = 240
+	reqs = list(/obj/item/melee/unarmed/sappers = 2)
+	tools = list(TOOL_FORGE)
+	category = CAT_WEAPONRY
+	subcategory = CAT_MELEE
+
+/datum/crafting_recipe/melee/forged/duallacerator
+	name = "Dual Lacerators"
+	result = /obj/item/melee/unarmed/lacerator/dual
+	time = 240
+	reqs = list(/obj/item/melee/unarmed/lacerator = 2)
+	tools = list(TOOL_FORGE)
+	category = CAT_WEAPONRY
+	subcategory = CAT_MELEE
+
+/datum/crafting_recipe/melee/forged/dualtigerclaw
+	name = "Dual Tiger Claws"
+	result = /obj/item/melee/unarmed/tigerclaw/dual
+	time = 240
+	reqs = list(/obj/item/melee/unarmed/tigerclaw = 2)
+	tools = list(TOOL_FORGE)
+	category = CAT_WEAPONRY
+	subcategory = CAT_MELEE
+
+/*
 /datum/crafting_recipe/melee/forged/maceglove
 	name = "Mace Glove"
 	result = /obj/item/melee/unarmed/maceglove
 	time = 240
 	reqs = list(/obj/item/stack/sheet/metal = 20)
+	tools = list(TOOL_FORGE)
+	category = CAT_WEAPONRY
+	subcategory = CAT_MELEE
+*/
+
+/datum/crafting_recipe/melee/forged/dualmaceglove
+	name = "Dual Mace Gloves"
+	result = /obj/item/melee/unarmed/maceglove/dual
+	time = 240
+	reqs = list(/obj/item/melee/unarmed/maceglove = 2)
+	tools = list(TOOL_FORGE)
+	category = CAT_WEAPONRY
+	subcategory = CAT_MELEE
+
+/datum/crafting_recipe/melee/forged/dualpowerfist
+	name = "Dual Powerfists"
+	result = /obj/item/melee/powerfist/f13/dual
+	time = 240
+	reqs = list(/obj/item/melee/powerfist/f13 = 2)
+	tools = list(TOOL_FORGE)
+	category = CAT_WEAPONRY
+	subcategory = CAT_MELEE
+
+/datum/crafting_recipe/melee/forged/dualgoliath
+	name = "Dual Goliaths"
+	result = /obj/item/melee/powerfist/f13/dual/goliath
+	time = 240
+	reqs = list(/obj/item/melee/powerfist/f13/goliath = 2)
+	tools = list(TOOL_FORGE)
+	category = CAT_WEAPONRY
+	subcategory = CAT_MELEE
+
+/datum/crafting_recipe/melee/forged/dualballisticfist
+	name = "Dual ballistic fists"
+	result = /obj/item/gun/ballistic/revolver/ballisticfist/dual
+	time = 240
+	reqs = list(/obj/item/gun/ballistic/revolver/ballisticfist = 2)
+	tools = list(TOOL_FORGE)
+	category = CAT_WEAPONRY
+	subcategory = CAT_MELEE
+
+/datum/crafting_recipe/melee/forged/dualclawgauntlet
+	name = "Dual Deathclaw Gauntlets"
+	result = /obj/item/melee/unarmed/deathclawgauntlet/dual
+	time = 240
+	reqs = list(/obj/item/melee/unarmed/deathclawgauntlet = 2)
+	tools = list(TOOL_FORGE)
+	category = CAT_WEAPONRY
+	subcategory = CAT_MELEE
+
+/datum/crafting_recipe/melee/forged/dualyaoguuai
+	name = "Dual Yao Guai Gauntlets"
+	result = /obj/item/melee/unarmed/yaoguaigauntlet/dual
+	time = 240
+	reqs = list(/obj/item/melee/unarmed/yaoguaigauntlet = 2)
 	tools = list(TOOL_FORGE)
 	category = CAT_WEAPONRY
 	subcategory = CAT_MELEE

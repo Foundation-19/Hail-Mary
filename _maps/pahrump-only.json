@@ -71,7 +71,7 @@
 		"enclave.dm",
 		"atlantic_cross.dm",
 		"locust_point.dm",
-		"Redwater Resident",
-		"Redwater Watcher",
-		"Redwater Resident"]
+		"outlaws.dm",
+		"khan.dm"
+	]
 }

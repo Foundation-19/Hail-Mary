@@ -296,6 +296,7 @@
 /obj/item/projectile/beam/laser/musket //musket
 	name = "laser beam"
 	damage = 35
+	armour_penetration = 0.2
 	hitscan = TRUE
 	pixels_per_second = TILES_TO_PIXELS(50)
 
@@ -313,6 +314,17 @@
 //Securitrons Beam
 /obj/item/projectile/beam/laser/pistol/ultraweak
 	damage = 15 //quantity over quality
+
+//Big Chews Beam
+/obj/item/projectile/beam/laser/pistol/ultraweak/chew/strong
+	damage = 30 //it fucks
+	icon_state = "gaussstrong"
+	sharpness = SHARP_POINTY // Temporary fix for the Wound system. Makes lasers/plasma bleed you out per hit.
+	armour_penetration = 0.8
+	movement_type = FLYING | UNSTOPPABLE //stopping for nothing except its range
+	pixels_per_second = TILES_TO_PIXELS(15) //slow
+	irradiate = 25
+	range = 16
 
 //Alrem's plasmacaster
 /obj/item/projectile/f13plasma/plasmacaster/arlem
@@ -333,6 +345,7 @@
 /obj/item/projectile/beam/laser/lasgun/hitscan //hitscan aer9 test
 	name = "laser beam"
 	damage = 25
+	armour_penetration = 0.2
 	hitscan = TRUE
 	tracer_type = /obj/effect/projectile/tracer/laser
 	muzzle_type = /obj/effect/projectile/muzzle/laser
@@ -340,12 +353,13 @@
 
 /obj/item/projectile/beam/laser/lasgun/hitscan/focused
 	name = "overcharged laser beam"
-	damage = 32
+	damage = 28
+	armour_penetration = 0.3
 
 /obj/item/projectile/beam/laser/gatling/hitscan //Gatling Laser
 	name = "laser beam"
 	damage = 15
-	armour_penetration = 0
+	armour_penetration = 0.2
 	hitscan = TRUE
 	tracer_type = /obj/effect/projectile/tracer/laser
 	muzzle_type = /obj/effect/projectile/muzzle/laser
@@ -395,6 +409,7 @@
 /obj/item/projectile/beam/laser/recharger/hitscan //hitscan recharger pistol
 	name = "recharger beam"
 	damage = 17
+	armour_penetration = 0.2
 	hitscan = TRUE
 	tracer_type = /obj/effect/projectile/tracer/pulse
 	muzzle_type = /obj/effect/projectile/muzzle/pulse
@@ -430,6 +445,7 @@
 /obj/item/projectile/beam/laser/pistol/wattz/hitscan //hitscan wattz
 	name = "laser beam"
 	damage = 26 // Civilian gun hits harder but has less charge now.
+	armour_penetration = 0.1
 	hitscan = TRUE
 	tracer_type = /obj/effect/projectile/tracer/laser
 	muzzle_type = /obj/effect/projectile/muzzle/laser
@@ -438,7 +454,7 @@
 /obj/item/projectile/beam/laser/pistol/wattz/magneto //upgraded Wattz
 	name = "penetrating laser beam"
 	damage = 30
-	armour_penetration = 0.3
+	armour_penetration = 0.2
 	icon_state = "heavylaser"
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/red_laser
 	light_color = LIGHT_COLOR_RED
@@ -446,6 +462,7 @@
 /obj/item/projectile/beam/laser/pistol/wattz/magneto/hitscan
 	name = "penetrating laser beam"
 	damage = 26 // Hits less than the W1K but has innate AP/DT reduction.
+	armour_penetration = 0.2
 	hitscan = TRUE
 	tracer_type = /obj/effect/projectile/tracer/laser
 	muzzle_type = /obj/effect/projectile/muzzle/laser
@@ -461,6 +478,7 @@
 /obj/item/projectile/beam/laser/pistol/wattzs/hitscan //hitscan wattz
 	name = "laser beam"
 	damage = 20 //Less damage but more charge
+	armour_penetration = 0.1
 	hitscan = TRUE
 	tracer_type = /obj/effect/projectile/tracer/laser
 	muzzle_type = /obj/effect/projectile/muzzle/laser
@@ -473,6 +491,7 @@
 /obj/item/projectile/beam/laser/solar/hitscan
 	name = "solar scorcher beam"
 	damage = 27
+	armour_penetration = 0.2
 	hitscan = TRUE
 	tracer_type = /obj/effect/projectile/tracer/laser
 	muzzle_type = /obj/effect/projectile/muzzle/laser
@@ -488,6 +507,7 @@
 /obj/item/projectile/beam/laser/pistol/badlands/hitscan
 	name = "badland's special beam"
 	damage = 24
+	armour_penetration = 0.2
 	hitscan = TRUE
 	tracer_type = /obj/effect/projectile/tracer/laser/badlands
 	muzzle_type = /obj/effect/projectile/muzzle/laser/badlands
@@ -503,6 +523,7 @@
 /obj/item/projectile/beam/laser/pistol/badlands/worn/hitscan
 	name = "badland's special beam"
 	damage = 24
+	armour_penetration = 0.1
 	hitscan = TRUE
 	tracer_type = /obj/effect/projectile/tracer/laser/badlands
 	muzzle_type = /obj/effect/projectile/muzzle/laser/badlands
@@ -522,6 +543,7 @@
 /obj/item/projectile/beam/laser/tribeam/hitscan
 	name = "tribeam laser"
 	damage = 20 //if all bullets connect, this will do 75.
+	armour_penetration = 0.2
 	hitscan = TRUE
 	bare_wound_bonus = -30 //tribeam is bad at wounding, as basically its only real downside
 	tracer_type = /obj/effect/projectile/tracer/laser
@@ -535,6 +557,7 @@
 /obj/item/projectile/beam/laser/tribeam/laserbuss/hitscan
 	name = "tribeam laser"
 	damage = 20
+	armour_penetration = 0.2
 	hitscan = TRUE
 	bare_wound_bonus = -30 //tribeam is bad at wounding, as basically its only real downside
 	tracer_type = /obj/effect/projectile/tracer/laser
@@ -636,6 +659,7 @@
 	name = "rapidfire beam"
 	icon_state = "emitter"
 	damage = 20
+	armour_penetration = 0.1
 	hitscan = TRUE
 	muzzle_type = /obj/effect/projectile/muzzle/laser/emitter
 	tracer_type = /obj/effect/projectile/tracer/laser/emitter
@@ -681,6 +705,7 @@
 
 /obj/item/projectile/beam/laser/aer14/hitscan
 	damage = 35
+	armour_penetration = 0.2
 	wound_bonus = 30
 	tracer_type = /obj/effect/projectile/tracer/pulse
 	muzzle_type = /obj/effect/projectile/muzzle/pulse
@@ -706,6 +731,7 @@
 /obj/item/projectile/beam/laser/aer12/hitscan
 	name = "laser beam"
 	damage = 30
+	armour_penetration = 0.2
 	hitscan = TRUE
 	tracer_type = /obj/effect/projectile/tracer/xray
 	muzzle_type = /obj/effect/projectile/muzzle/xray
@@ -727,6 +753,7 @@
 /obj/item/projectile/beam/laser/wattz2k/hitscan
 	name = "sniper laser bolt"
 	damage = 33
+	armour_penetration = 0.2
 	wound_bonus = 10
 	bare_wound_bonus = 20
 	tracer_type = /obj/effect/projectile/tracer/heavy_laser
@@ -737,6 +764,7 @@
 /obj/item/projectile/beam/laser/wattz2k/hitscan/weak //Hits less than the main wattz2k with less AP but has more shots comparable to an aer9
 	name = "weak sniper laser bolt"
 	damage = 30
+	armour_penetration = 0.1
 	wound_bonus = 10
 	bare_wound_bonus = 20
 	tracer_type = /obj/effect/projectile/tracer/heavy_laser
@@ -751,6 +779,7 @@
 /obj/item/projectile/beam/laser/wattz2ks/hitscan
 	name = "sniper laser bolt"
 	damage = 35
+	armour_penetration = 0.2
 	wound_bonus = 5
 	bare_wound_bonus = 15
 	tracer_type = /obj/effect/projectile/tracer/heavy_laser

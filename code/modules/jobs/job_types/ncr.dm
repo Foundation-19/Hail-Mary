@@ -367,8 +367,8 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 /datum/job/ncr/f13drillsergeant
 	title = "NCR Drill Sergeant"
 	flag = F13DRILLSERGEANT
-	total_positions = 0
-	spawn_positions = 0
+	total_positions = 1
+	spawn_positions = 1
 	description = "The direct superior to all enlisted, you are to provide training exercises, maintain military discipline, and instill orderliness within the ranks. You may also manage the NCOs. You are the pinnacle of the NCR's enlisted ranks, and are to advise the commissioned officers. You are not a frontline trooper, you are camp support."
 	supervisors = "Lieutenant and Above"
 	selection_color = "#fff5cc"
@@ -378,7 +378,6 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 	exp_requirements = 1000
 
 	loadout_options = list( // ALL: Bayonet
-		/datum/outfit/loadout/seatechnical,
 		/datum/outfit/loadout/seacommand,
 		/datum/outfit/loadout/seastaff,
 		)
@@ -410,34 +409,27 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 		/obj/item/stack/crafting/armor_plate = 5
 		)
 
-/datum/outfit/loadout/seatechnical
-	name = "Technical Senior Advisor"
-	suit = /obj/item/clothing/suit/armor/ncrarmor/reinforced/mantle
-	backpack_contents = list(
-		/obj/item/gun/ballistic/automatic/service/r82 = 1,
-		/obj/item/ammo_box/magazine/m556/rifle/extended = 1,
-		/obj/item/clothing/accessory/ncr/FSGT = 1
-		)
-
 /datum/outfit/loadout/seacommand
 	name = "Command Senior Advisor"
-	suit = /obj/item/clothing/suit/armor/ncrarmor/ncr_dressjack
+	suit = /obj/item/clothing/suit/armor/ncrarmor/reinforced/mantle
 	shoes = /obj/item/clothing/shoes/laceup
 	backpack_contents = list(
-		/obj/item/gun/ballistic/revolver/revolver45/gunslinger = 1,
-		/obj/item/ammo_box/a45lcbox = 1,
-		/obj/item/binoculars = 1,
+		/obj/item/clothing/suit/armor/ncrarmor/ncr_dressjack = 1,
+		/obj/item/gun/ballistic/automatic/service = 1,
+		/obj/item/ammo_box/magazine/m556/rifle/extended = 1,
 		/obj/item/clothing/accessory/ncr/FSGT = 1
 		)
 
 /datum/outfit/loadout/seastaff
 	name = "Drill Sergeant"
 	uniform = /obj/item/clothing/under/f13/ncr/ncr_dress
-	suit = /obj/item/clothing/suit/armor/ncrarmor/ncr_dressjack
+	suit = /obj/item/clothing/suit/armor/ncrarmor/reinforced/mantle
 	backpack_contents = list(
-		/obj/item/book/granter/trait/rifleman = 1,
-		/obj/item/gun/ballistic/automatic/pistol/ninemil = 1,
-		/obj/item/ammo_box/magazine/m9mm/doublestack = 2,
+		/obj/item/gun/ballistic/automatic/service = 1,
+		/obj/item/ammo_box/magazine/m556/rifle/extended = 1,
+		/obj/item/gun/ballistic/revolver/revolver45/gunslinger = 1,
+		/obj/item/ammo_box/a45lcbox = 1,
+		/obj/item/binoculars = 1,
 		/obj/item/clothing/accessory/ncr/SSGT = 1
 		)
 
@@ -482,8 +474,7 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 		/obj/item/gun/ballistic/revolver/revolver45 = 1,
 		/obj/item/ammo_box/c45rev = 2,
 		/obj/item/stack/medical/gauze/bloodleaf = 2,
-		/obj/item/stack/f13Cash/ncr	=	1000
-	//	/obj/item/storage/bag/money/small/ncr = 2,
+		/obj/item/stack/f13Cash/caps/twofivezero = 2
 		)
 
 /datum/outfit/loadout/repbrahminbaron
@@ -742,7 +733,7 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 	jobtype	= /datum/job/ncr/f13heavytrooper
 	id = /obj/item/card/id/dogtag/ncrsergeant
 	uniform = /obj/item/clothing/under/f13/ncr
-	accessory =	/obj/item/clothing/accessory/ncr/SGT
+	accessory =	/obj/item/clothing/accessory/ncr/SSGT
 	gloves = /obj/item/clothing/gloves/f13/leather/fingerless
 	head = /obj/item/clothing/head/helmet/f13/heavy/salvaged_pa/t45b/ncr
 	belt = /obj/item/storage/belt/legholster
@@ -1008,7 +999,8 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 
 	loadout_options = list(
 		/datum/outfit/loadout/combatengineerbuilder, // Service Rifle, X4 explosive, Extra materials, blueprints
-		/datum/outfit/loadout/combatmedic // Service Rifle, Chem / Medicine Knowledge
+		/datum/outfit/loadout/combatmedic, // Service Rifle, Chem / Medicine Knowledge
+		/datum/outfit/loadout/corporalraider,				 // Melee Monkey
 		)
 
 	matchmaking_allowed = list(
@@ -1049,6 +1041,7 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 		/obj/item/ammo_box/magazine/m556/rifle = 2,
 		/obj/item/stack/ore/blackpowder/twenty = 1,
 		/obj/item/book/granter/crafting_recipe/blueprint/r82 = 1,
+		/obj/item/book/granter/crafting_recipe/blueprint/marksman = 1,
 		/obj/item/clothing/head/beret/ncr/ncr_sapper = 1,
 		/obj/item/book/granter/trait/techno = 1,
 		)
@@ -1065,6 +1058,16 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 		/obj/item/book/granter/trait/midsurgery = 1,
 		/obj/item/book/granter/trait/chemistry = 1,
 		/obj/item/clothing/head/beret/ncr/ncr_medic = 1,
+		)
+
+/datum/outfit/loadout/corporalraider
+	name = "Prince of the Trenches"
+	backpack_contents = list(
+		/obj/item/clothing/head/helmet/f13/ncr/heavygunner = 1,
+		/obj/item/clothing/suit/armor/ncrarmor/heavygunner = 1,
+		/obj/item/shovel/trench = 1,
+		/obj/item/book/granter/trait/bigleagues = 1,
+		/obj/item/storage/box/ration/menu_seven = 1,
 		)
 
 // TROOPER

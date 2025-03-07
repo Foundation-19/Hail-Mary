@@ -61,9 +61,6 @@ GLOBAL_LIST_INIT(command_positions, list(
 
 	"Enclave Captain",
 
-	"Noyan",
-	"Steward",
-
 	"Dockmaster of Locust Point",
 	"Atlantic Cross Captain",
 	))
@@ -163,7 +160,7 @@ GLOBAL_LIST_INIT(ncr_positions, list(
 	"NCR Sergeant First Class",
 	"NCR Heavy Trooper",
 	"NCR Military Police",
-	"NCR Senior Enlisted Advisor",
+	"NCR Drill Sergeant",
 	"NCR Sergeant",
 	"NCR Corporal",
 	"NCR Combat Medic",
@@ -190,28 +187,18 @@ GLOBAL_LIST_INIT(wasteland_positions, list(
 	"Den Mob Boss",
 	"Den Mob Enforcer",
 	"Den Doctor",
-//	"Outlaw",
 	"Faithful",
 	"Vigilante",
 	"Preacher",
 	"Wastelander",
 ))
 
-GLOBAL_LIST_INIT(redwater_positions, list(
-	"Redwater Slave",
-	"Outlaw",
-	"Redwater Resident",
-	"Redwater Watcher",
-	"Redwater Overboss",
+GLOBAL_LIST_INIT(outlaw_positions, list(
+	"Outlaw"
 ))
 
 GLOBAL_LIST_INIT(khan_positions, list(
-	"Noyan",
-	"Steward",
-	"Kheshig",
-	"Khorchin",
-	"Kipchak",
-	"Mangudai",
+	"Great Khans"
 ))
 
 GLOBAL_LIST_INIT(enclave_positions, list(
@@ -303,7 +290,7 @@ GLOBAL_LIST_INIT(position_categories, list(
 	//EXP_TYPE_BIKER = list("jobs" = biker_positions, "color" = "#eb872f"),
 	"Super Mutants" = list("jobs" = mutant_positions, "color" = "#26bf47"),
 	//"debug" = list("jobs" = debug_positions, "color" = "#ff00ee"),
-	// "Redwater" = list("jobs" = redwater_positions, "color" = "#f81717"),
+	"Outlaw" = list("jobs" = outlaw_positions, "color" = "#e25858"),
 	"Atlantic Cross" = list("jobs" = atlantic_positions, "color" = "#ffeeaa"),
 	"Locust Point" = list("jobs" = locust_positions, "color" = "#d7b088"),
 ))

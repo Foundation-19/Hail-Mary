@@ -262,12 +262,24 @@
 	item_state = "cornflag"
 	faction = "Eastwood"
 
+/obj/item/flag/waypoint
+	name = "Waypoint flag"
+	desc = "A blue flag adorned with a train symbolising the company town of Waypoint."
+	icon_state = "waypointflag"
+	item_state = "waypointflag"
+
 /obj/item/flag/khan
 	name = "Great Khans flag"
 	desc = "A flag worn and weathered from a long cherished history. A decorated smiling skull smiles mockingly upon those who challenge it."
 	icon_state = "khanflag"
 	item_state = "khanflag"
 	faction = "Great Khans"
+
+/obj/item/flag/holidayflag
+	name = "Holiday Town Flag"
+	desc = "A flag with holiday colors!"
+	icon_state = "holidayflag"
+	item_state = "holidayflag"
 
 /obj/item/flag/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/stack/sheet/leather) && item_state == "emptyflag")

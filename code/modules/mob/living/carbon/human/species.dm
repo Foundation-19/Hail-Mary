@@ -1268,6 +1268,10 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 		hunger_rate *= H.physiology.hunger_mod
 		H.adjust_nutrition(-hunger_rate)
 
+	if(H.stat != DEAD)
+		H.adjust_thirst(-THIRST_FACTOR)
+		handle_thirst(H)
+		handle_hunger_damage(H)
 
 	if (H.nutrition > NUTRITION_LEVEL_FULL)
 		if(H.overeatduration < 600) //capped so people don't take forever to unfat
@@ -1305,6 +1309,10 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 			else
 				H.remove_movespeed_modifier(/datum/movespeed_modifier/hunger)
 
+/datum/species/proc/handle_hunger_damage(mob/living/carbon/human/H)
+	if(!H.client || (H.client && (H.client.inactivity / 600 > 5))) // Let's not kill AFK mobs
+		return
+
 	switch(H.nutrition)
 		if(NUTRITION_LEVEL_FULL to INFINITY)
 			H.throw_alert("nutrition", /obj/screen/alert/fat)
@@ -1314,6 +1322,29 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 			H.throw_alert("nutrition", /obj/screen/alert/hungry)
 		if(0 to NUTRITION_LEVEL_STARVING)
 			H.throw_alert("nutrition", /obj/screen/alert/starving)
+
+/datum/species/proc/handle_thirst(mob/living/carbon/human/H)
+	if(!H.client || (H.client && (H.client.inactivity / 600 > 5)))
+		return
+
+	switch(H.thirst)
+		if(THIRST_LEVEL_NORMAL to THIRST_LEVEL_FULL)
+			H.clear_alert("thirst")
+		if(THIRST_LEVEL_THIRSTY to THIRST_LEVEL_NORMAL)
+			H.throw_alert("thirst", /obj/screen/alert/slightly_thirsty)
+		if(THIRST_LEVEL_DEADLY_THIRSTY to THIRST_LEVEL_THIRSTY)
+			H.throw_alert("thirst", /obj/screen/alert/thirsty)
+			if((H.getStaminaLoss() <= 50) && prob(5))
+				to_chat(H, "<span class='warning'>You need some water...</span>")
+				H.adjustStaminaLoss(20, 0)
+		if(0 to THIRST_LEVEL_DEADLY_THIRSTY)
+			H.throw_alert("thirst", /obj/screen/alert/deadly_thirsty)
+			if((H.getStaminaLoss() <= 90) && prob(12))
+				to_chat(H, "<span class='warning'>You feel weak...</span>")
+				H.adjustStaminaLoss(30, 0)
+			if(prob(33))
+				H.adjustToxLoss(2, 0)
+	return
 
 /datum/species/proc/update_health_hud(mob/living/carbon/human/H)
 	return 0
@@ -1707,10 +1738,11 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 					H.add_splatter_floor(location)
 				if(get_dist(user, H) <= 1)	//people with TK won't get smeared with blood
 					user.add_mob_blood(H)
-
+		var/obj/item/clothing/S = H.get_item_by_slot(SLOT_WEAR_SUIT)
+		var/obj/item/clothing/He = H.get_item_by_slot(SLOT_HEAD)
 		switch(hit_area)
 			if(BODY_ZONE_HEAD)
-				if(!I.get_sharpness() && armor_block < 50)
+				if(!I.get_sharpness() && armor_block < 50 && !(He?.clothing_flags & CUSHIONED_ARMOR))
 					if(prob(I.force))
 						H.adjustOrganLoss(ORGAN_SLOT_BRAIN, 20)
 						if(H.stat == CONSCIOUS)
@@ -1740,7 +1772,7 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 						H.update_inv_glasses()
 
 			if(BODY_ZONE_CHEST)
-				if(H.stat == CONSCIOUS && !I.get_sharpness() && armor_block < 50)
+				if(H.stat == CONSCIOUS && !I.get_sharpness() && armor_block < 50 && !(S?.clothing_flags & CUSHIONED_ARMOR))
 					if(prob(I.force))
 						H.visible_message(span_danger("[H] has been knocked down!"), \
 									span_userdanger("[H] has been knocked down!"))

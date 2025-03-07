@@ -76,6 +76,23 @@
 	name = "joy mask"
 	path = /obj/item/clothing/mask/joy
 
+/datum/gear/mask/payday
+	name = "ncr flag mask"
+	path = /obj/item/clothing/mask/rat/redding
+	cost = 1 // Its cosmetic
+
+/datum/gear/mask/payday/flagstaff
+	name = "legion banner mask"
+	path = /obj/item/clothing/mask/rat/flagstaff
+
+/datum/gear/mask/payday/powerarmor
+	name = "power armor mask"
+	path = /obj/item/clothing/mask/rat/citadel
+
+/datum/gear/mask/payday/vaultboy
+	name = "vault-boy mask"
+	path = /obj/item/clothing/mask/rat/vaultboy
+
 /// Bandanas ///
 
 /datum/gear/mask/bandana/
@@ -113,6 +130,41 @@
 	name = "momento bandana"
 	path = /obj/item/clothing/mask/bandana/momentobandana
 	cost = 2
+
+/datum/gear/mask/bandana/durathread
+	name = "Durathred Bandana"
+	path = /obj/item/clothing/mask/bandana/durathread
+	cost = 2
+
+/datum/gear/mask/frog
+	name = "Frog Mask"
+	path = /obj/item/clothing/mask/frog
+	cost = 2
+
+/datum/gear/mask/society
+	name = "Golden Facemask"
+	path = /obj/item/clothing/mask/society
+	cost = 2
+
+/datum/gear/mask/gas
+	name = "Gas Mask"
+	path = /obj/item/clothing/mask/gas
+	cost = 3
+
+/datum/gear/mask/gas/glass
+	name = "Glass Gas Mask"
+	path = /obj/item/clothing/mask/gas/glass
+	cost = 3
+
+/datum/gear/mask/gas/clown_hat
+	name = "Clown Wig and Mask"
+	path = /obj/item/clothing/mask/gas/clown_hat
+	cost = 10
+
+/datum/gear/mask/infiltrator
+	name = "Insidious Balaclava"
+	path = /obj/item/clothing/mask/infiltrator
+	cost = 4
 
 /datum/gear/mask/moustache
 	name = "fake moustache"

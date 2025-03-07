@@ -57,11 +57,15 @@
 		visible_message(span_danger("[src] slams into [T], rolling as they land and keeping their pace!"),
 						span_userdanger("You slam into [T], rolling and keeping your momentum!"))
 		adjustBruteLoss(5)
-	else
-		visible_message(span_danger("[src] crashes into [T] with a sickening noise!"),
-						span_userdanger("You crash into [T] with a sickening noise!"))
-		adjustBruteLoss((levels * 5) ** 1.5)
+	if(levels <= 2 && HAS_TRAIT(src, TRAIT_FREEFALLER))
+		visible_message(span_danger("[src] smashes into the [T], seemingly uninjured!"),
+						span_userdanger("You smash into the [T], no time for pain!"))
 		DefaultCombatKnockdown(levels * 50)
+	else
+		visible_message(span_danger("[src] crashes into the [T] with a sickening noise!"),
+						span_userdanger("You crash into the [T] with a sickening noise!"))
+		adjustBruteLoss((levels * 5) ** 2)
+		DefaultCombatKnockdown(levels * 100)
 
 /mob/living/proc/OpenCraftingMenu()
 	return

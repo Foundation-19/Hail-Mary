@@ -238,6 +238,42 @@
 "Hunter Spider" = /mob/living/simple_animal/cow/brahmin/nightstalker/hunterspider
 )
 
+/obj/item/choice_beacon/cars //beacon for spawning cars!
+	name = "Cars beacon"
+	desc = "Hey you found your keys !"
+	var/list/cars = list(
+"Fully Equipped Blue Pickup" = /obj/mecha/working/normalvehicle/pickuptruck/blue/loaded,
+"Fully Equipped Red Pickup" = /obj/mecha/working/normalvehicle/pickuptruck/loaded,
+"Fully Equipped Dune Buggy" = /obj/mecha/working/normalvehicle/buggy/dune/loaded,
+"Fully Equipped Blue Buggy" = /obj/mecha/working/normalvehicle/buggy/blue/loaded,
+"Fully Equipped Red Buggy" = /obj/mecha/working/normalvehicle/buggy/red/loaded,
+"Fully Equipped Olive Buggy" = /obj/mecha/working/normalvehicle/buggy/loaded,
+"Unequipped Jeep" = /obj/mecha/working/normalvehicle/jeep,
+"Unequipped Corvega" = /obj/mecha/working/normalvehicle/corvega
+)
+
+/obj/item/choice_beacon/cars/cheap //beacon for spawning cars!
+	name = "Cheap Cars beacon"
+	desc = "Hey you found your keys !... Its either a Cheap cravan, or a under equipped vehicle"
+	var/list/carscheap = list(
+"Fully Equipped Caravan Truck" = /obj/mecha/working/normalvehicle/truckcaravan/loaded,
+"Unequipped Blue Pickup" = /obj/mecha/working/normalvehicle/pickuptruck/blue,
+"Unequipped Red Pickup" = /obj/mecha/working/normalvehicle/pickuptruck,
+"Unequipped Dune Buggy" = /obj/mecha/working/normalvehicle/buggy/dune,
+"Unequipped Blue Buggy" = /obj/mecha/working/normalvehicle/buggy/blue,
+"Unequipped Red Buggy" = /obj/mecha/working/normalvehicle/buggy/red,
+"Unequipped Olive Buggy" = /obj/mecha/working/normalvehicle/buggy
+)
+
+/obj/item/choice_beacon/cars/nice //beacon for spawning cars!
+	name = "Nice Cars beacon"
+	desc = "Hey you found your keys !"
+	var/list/carsnice = list(
+"Fully Equipped Jeep" = /obj/mecha/working/normalvehicle/jeep/loaded,
+"Fully Equipped Corvega" = /obj/mecha/working/normalvehicle/corvega/loaded,
+"Fully Equipped Highwayman Eco" =/obj/mecha/working/normalvehicle/highwayman/loaded
+)
+
 /obj/item/choice_beacon/box/carpet //donator carpet beacon
 	name = "choice box (carpet)"
 	desc = "Contains 50 of a selected carpet inside!"

@@ -174,6 +174,7 @@ Weapons		Lever shotgun, Grease gun, Repeater carbines, Revolvers, simple guns al
 		/obj/item/binoculars = 1,
 		/obj/item/ammo_box/a357 = 2,
 		/obj/item/reagent_containers/pill/bitterdrink = 2,
+		/obj/item/stack/f13Cash/caps/twozerozero = 2,
 		/obj/item/stack/f13Cash/aureus	=	3
 		)
 
@@ -208,9 +209,9 @@ Weapons		Lever shotgun, Grease gun, Repeater carbines, Revolvers, simple guns al
 	minimal_access = list(ACCESS_LEGION, ACCESS_CHANGE_IDS, ACCESS_LEGION_COMMAND, ACCESS_LEGION_CENTURION)
 
 	loadout_options = list(
-		/datum/outfit/loadout/palacent,		// BAR
+		/datum/outfit/loadout/palacent,		// 14mm Pistol + Pre-war Ripper + reinf. bolas
 		/datum/outfit/loadout/rangerhunter,	// Hunting Revolver, Spatha, Unique Sniper
-		/datum/outfit/loadout/centurion,	// 14mm Pistol + Unique Lever-Action
+		/datum/outfit/loadout/centurion,	// Unique Shotgun
 		)
 
 	min_required_special = list(
@@ -255,9 +256,13 @@ Weapons		Lever shotgun, Grease gun, Repeater carbines, Revolvers, simple guns al
 	name = "Paladin-Slayer Centurion"
 	suit = /obj/item/clothing/suit/armor/legion/palacent
 	head = /obj/item/clothing/head/helmet/f13/legion/palacent
-	suit_store = /obj/item/gun/ballistic/automatic/bar
+	suit_store = /obj/item/melee/powerfist/f13/goliath
 	backpack_contents = list(
-		/obj/item/ammo_box/magazine/m308/ext = 3,
+		/obj/item/restraints/legcuffs/bola/tactical = 3,
+		/obj/item/reagent_containers/pill/bitterdrink = 2,
+		/obj/item/gun/ballistic/automatic/pistol/pistol14/lildevil = 1,
+		/obj/item/ammo_box/magazine/m14mm = 2,
+		/obj/item/storage/belt/holster = 1
 		)
 
 /datum/outfit/loadout/rangerhunter
@@ -278,7 +283,6 @@ Weapons		Lever shotgun, Grease gun, Repeater carbines, Revolvers, simple guns al
 	head = /obj/item/clothing/head/helmet/f13/legion/centurion
 	suit_store = /obj/item/gun/ballistic/shotgun/automatic/combat/shotgunlever/stock/tribal
 	backpack_contents = list(
-		/obj/item/storage/belt/holster = 1,
 		/obj/item/gun/ballistic/automatic/pistol/pistol14 = 1,
 		/obj/item/ammo_box/magazine/m14mm = 2,
 		/obj/item/ammo_box/shotgun/slug = 1,
@@ -805,8 +809,9 @@ Weapons		Lever shotgun, Grease gun, Repeater carbines, Revolvers, simple guns al
 	backpack_contents = list(
 		/obj/item/twohanded/spear/lance = 1,
 		/obj/item/gun/ballistic/revolver/colt357 = 1,
-		/obj/item/ammo_box/a357 = 1,
-		/obj/item/reagent_containers/pill/patch/healpoultice = 2,
+		/obj/item/ammo_box/a357 = 2,
+		/obj/item/reagent_containers/pill/patch/healpoultice = 3,
+		/obj/item/restraints/legcuffs/bola = 2,
 		)
 
 /datum/outfit/loadout/vetberserker
@@ -815,7 +820,6 @@ Weapons		Lever shotgun, Grease gun, Repeater carbines, Revolvers, simple guns al
 	backpack_contents = list(
 		/obj/item/ammo_box/shotgun/slug = 1,
 		/obj/item/ammo_box/shotgun/buck = 2,
-		/obj/item/twohanded/spear/lance = 1,
 		/obj/item/melee/onehanded/knife/bayonet = 1,
 		/obj/item/restraints/legcuffs/bola = 2,
 		)
@@ -1087,7 +1091,7 @@ Weapons		Lever shotgun, Grease gun, Repeater carbines, Revolvers, simple guns al
 	id = /obj/item/card/id/dogtag/legauxilia
 	head = /obj/item/clothing/head/f13/auxilia
 	uniform = /obj/item/clothing/under/f13/legauxiliaf
-	shoes = /obj/item/clothing/shoes/roman
+	shoes = /obj/item/clothing/shoes/sandals_leather
 	ears = /obj/item/radio/headset/headset_legion
 	gloves = null
 	belt = null
@@ -1117,12 +1121,13 @@ Weapons		Lever shotgun, Grease gun, Repeater carbines, Revolvers, simple guns al
 		/obj/item/pen/fountain = 1,
 		/obj/item/taperecorder = 1,
 		/obj/item/clothing/under/f13/legauxilia = 1,
-		/obj/item/stack/f13Cash/random/aureus/high = 2,
+		/obj/item/stack/f13Cash/aureus = 2,
+		/obj/item/stack/f13Cash/denarius = 8
 		)
 
 /datum/outfit/loadout/auxmedicus
 	name = "Medicus (Surgeon)"
-	neck = /obj/item/clothing/neck/apron/medical
+	neck = /obj/item/clothing/neck/apron/medicus_legion
 	gloves = /obj/item/clothing/gloves/f13/crudemedical
 	belt = /obj/item/storage/belt/medical/primitive
 	backpack_contents = list(
@@ -1132,6 +1137,7 @@ Weapons		Lever shotgun, Grease gun, Repeater carbines, Revolvers, simple guns al
 		/obj/item/stack/medical/bone_gel = 1,
 		/obj/item/book/granter/trait/midsurgery = 1,
 		/obj/item/clothing/under/f13/legauxilia = 1,
+		/obj/item/smelling_salts = 1
 		)
 /datum/outfit/loadout/auxopifex
 	name = "Opifex (Artisan)"
@@ -1213,7 +1219,7 @@ Weapons		Lever shotgun, Grease gun, Repeater carbines, Revolvers, simple guns al
 	head = /obj/item/clothing/head/f13/servant
 	uniform	= /obj/item/clothing/under/f13/campfollowermale
 	gloves = /obj/item/clothing/gloves/f13/crudemedical
-	shoes =	/obj/item/clothing/shoes/roman
+	shoes =	/obj/item/clothing/shoes/sandals_leather
 	r_pocket = /obj/item/flashlight/lantern
 	backpack_contents = list(
 		/obj/item/reagent_containers/pill/healingpowder = 2,
@@ -1321,7 +1327,7 @@ datum/job/CaesarsLegion/Legionnaire/f13slavemaster
 	suit = 			/obj/item/clothing/suit/armor/legion/prime/slavemaster
 	belt = 			/obj/item/melee/onehanded/slavewhip
 	head = 			/obj/item/clothing/head/helmet/f13/legion/prime/slavemaster
-	shoes =			/obj/item/clothing/shoes/roman
+	shoes =			/obj/item/clothing/shoes/sandals_leather
 	suit_store = 	/obj/item/melee/onehanded/machete/forgedmachete
 	backpack_contents = list(
 		/obj/item/reagent_containers/pill/healingpowder = 2,

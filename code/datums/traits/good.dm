@@ -226,6 +226,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	lose_text = span_danger("You feel isolated from others.")
 	medical_record_text = "Patient is highly perceptive of and sensitive to social cues, or may possibly have ESP. Further testing needed."
 
+/*
 /datum/quirk/freerunning
 	name = "Freerunning"
 	desc = "You're great at quick moves! You climb tables more quickly and land gracefully when falling from one floor up. You can also climb some walls!"
@@ -234,6 +235,16 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	gain_text = span_notice("You feel lithe on your feet! (Alt click walls to climb them!)")
 	lose_text = span_danger("You feel clumsy again.")
 	medical_record_text = "Patient scored highly on cardio tests."
+*/
+
+/datum/quirk/freefaller
+	name = "Freefaller"
+	desc = "Long drops are nothing but a thrill to you! Take no damage from falling from high places."
+	value = 2
+	mob_trait = TRAIT_FREEFALLER
+	gain_text = span_notice("You have the urge to jump from high places!")
+	lose_text = span_danger("Heights seem a bit more scary again.")
+	medical_record_text = "Patient seems to crave isolation on the rooftop, suggest therapy for their thrill-seeking behavior."
 
 /datum/quirk/friendly
 	name = "Friendly"
@@ -279,7 +290,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	lose_text = span_danger("You start tromping around like a barbarian.")
 	medical_record_text = "Patient's dexterity belies a strong capacity for stealth."
 
-
+/*
 /datum/quirk/quick_step
 	name = "Speed Walker"
 	desc = "You walk with determined strides, and out-pace most people - at least, if you're both walking."
@@ -288,7 +299,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	gain_text = span_notice("You feel determined. No time to lose.")
 	lose_text = span_danger("You feel less determined. What's the rush, man?")
 	medical_record_text = "Patient scored highly on racewalking tests."
-
+*/
 
 /datum/quirk/musician
 	name = "Musician"
@@ -1157,3 +1168,69 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 		QDEL_NULL(gather)
 		H.RemoveAbility(moveto)
 		QDEL_NULL(moveto)
+
+/datum/quirk/tribespeak
+	name = "Tribal Language Comprehension"
+	desc = "You're somehow capable of understanding and speaking the common tribal languages in the area."
+	value = 1
+	gain_text = span_notice("You remember the old ways of your tribe...")
+	lose_text = span_notice("You've forgotten the ways of your ancestors...")
+
+
+/datum/quirk/tribespeak/add()
+	var/mob/living/carbon/human/H = quirk_holder
+	H.grant_language(/datum/language/tribal)
+
+/datum/quirk/tribespeak/remove()
+	var/mob/living/carbon/human/H = quirk_holder
+	if(!QDELETED(H))
+		H.remove_language(/datum/language/tribal)
+
+/datum/quirk/spanishspeak
+	name = "Spanish Language Comprehension"
+	desc = "You're somehow capable of understanding and speaking the common language of the Mexican cartels in the south."
+	value = 1
+	gain_text = span_notice("You remember the old tongue of the Mexican cartels.")
+	lose_text = span_notice("You've forgotten the tongue of the Mexican cartels.")
+
+
+/datum/quirk/spanishspeak/add()
+	var/mob/living/carbon/human/H = quirk_holder
+	H.grant_language(/datum/language/spanish)
+
+/datum/quirk/spanishspeak/remove()
+	var/mob/living/carbon/human/H = quirk_holder
+	if(!QDELETED(H))
+		H.remove_language(/datum/language/spanish)
+
+/datum/quirk/chinesespeak
+	name = "Chinese Language Comprehension"
+	desc = "You are somehow capable of understanding and speaking the old Chinese language."
+	value = 1
+	gain_text = span_notice("You remember the old language of China.")
+	lose_text = span_notice("You forget the old language of China.")
+
+/datum/quirk/chinesespeak/add()
+	var/mob/living/carbon/human/H = quirk_holder
+	H.grant_language(/datum/language/chinese)
+
+/datum/quirk/chinesespeak/remove()
+	var/mob/living/carbon/human/H = quirk_holder
+	if(!QDELETED(H))
+		H.remove_language(/datum/language/chinese)
+
+/datum/quirk/japanesespeak
+	name = "Japanese Language Comprehension"
+	desc = "You are somehow capable of understanding and speaking the Japanese language."
+	value = 1
+	gain_text = span_notice("You remember how to speak like a cartoon character.")
+	lose_text = span_notice("You forget how to sound like a weeaboo.")
+
+/datum/quirk/japanesespeak/add()
+	var/mob/living/carbon/human/H = quirk_holder
+	H.grant_language(/datum/language/japanese)
+
+/datum/quirk/japanesespeak/remove()
+	var/mob/living/carbon/human/H = quirk_holder
+	if(!QDELETED(H))
+		H.remove_language(/datum/language/japanese)
