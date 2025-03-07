@@ -68,6 +68,7 @@
 	switch(welding)
 		if(0)
 			force = 3
+			demolition_mod = 0.5
 			damtype = BRUTE
 			update_icon()
 			if(!can_off_process)
@@ -76,6 +77,7 @@
 	//Welders left on now use up fuel, but lets not have them run out quite that fast
 		if(1)
 			force = 15
+			demolition_mod = 1.5
 			damtype = BURN
 			++burned_fuel_for
 			if(burned_fuel_for >= WELDER_FUEL_BURN_INTERVAL)

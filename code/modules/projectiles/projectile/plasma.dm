@@ -7,6 +7,7 @@ obj/item/projectile/energy/plasmabolt
 	hitsound_wall = 'sound/weapons/effects/searwall.ogg'
 	light_range = 3
 	light_color = LIGHT_COLOR_GREEN
+	demolition_mod = 1.5
 
 /obj/item/projectile/energy/plasmabolt/on_hit(atom/target, blocked = FALSE)
 	. = ..()
