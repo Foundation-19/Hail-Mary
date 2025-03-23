@@ -62,10 +62,7 @@
 	"added_jobs": [
 		"enclave.dm",
 		"atlantic_cross.dm",
-		"locust_point.dm",
-		"Redwater Resident",
-		"Redwater Watcher",
-		"Redwater Resident"
+		"locust_point.dm"
 	],
 	"removed_jobs": [
 		"eastwood.dm",
@@ -74,5 +71,7 @@
 		"legion.dm",
 		"vault.dmm",
 		"rebels.dmm"
+		"outlaws.dm",
+		"khan.dm"
 	]
 }

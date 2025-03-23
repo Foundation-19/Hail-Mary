@@ -239,10 +239,10 @@
 	channels = list(RADIO_CHANNEL_CENTCOM = 1)
 
 /obj/item/encryptionkey/headset_khans
-	name = "Khan radio encryption key"
-	desc = "An encryption key for a radio headset.  To access the Khan channel, use :h."
+	name = "Khans radio encryption key"
+	desc = "An encryption key for a radio headset.  To access the Khan channel, use :k."
 	icon_state = "cypherkey"
-	channels = list(RADIO_CHANNEL_TOWN_COMMERCE = 1)
+	channels = list(RADIO_CHANNEL_KHANS = 1)
 
 /obj/item/encryptionkey/headset_biker
 	name = "Hell's Nomads radio encryption key"

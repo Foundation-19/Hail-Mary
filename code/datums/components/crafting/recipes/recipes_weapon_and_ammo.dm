@@ -2215,3 +2215,17 @@ Not implemented due to balance at the moment
 	category = CAT_WEAPONRY
 	subcategory = CAT_AMMO
 	always_available = FALSE
+
+//48 Round 10mm Drum Magazine
+/datum/crafting_recipe/drum10mm
+	name = "SMG Drum Magazine (10mm)"
+	result = /obj/item/ammo_box/magazine/m10mm/adv/drum/empty
+	reqs = list(/obj/item/stack/sheet/metal = 20,
+				/obj/item/stack/crafting/goodparts = 3,
+				/obj/item/stack/sheet/plastic = 2,
+				)
+	tools = list(TOOL_WORKBENCH)
+	time = 80
+	category = CAT_WEAPONRY
+	subcategory = CAT_AMMO
+	always_available = FALSE

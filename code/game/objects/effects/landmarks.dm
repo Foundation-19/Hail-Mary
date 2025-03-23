@@ -536,7 +536,7 @@ obj/effect/landmark/start/f13/ncrlogisticsofficer
 	icon_state = "NCR Sergeant"
 
 /obj/effect/landmark/start/f13/ncrdrillsergeant
-	name = "NCR Senior Enlisted Advisor"
+	name = "NCR Drill Sergeant"
 	icon_state = "NCR Drill Sergeant"
 
 /obj/effect/landmark/start/f13/ncrsergeant
@@ -821,6 +821,10 @@ obj/effect/landmark/start/f13/ncrlogisticsofficer
 	name = "Outlaw"
 	icon_state = "Raider"
 
+/obj/effect/landmark/start/f13/greatkhan
+	name = "Great Khans"
+	icon_state = "Pusher"
+
 /obj/effect/landmark/start/f13/enforcer
 	name = "Den Mob Enforcer"
 	icon_state = "Enforcer"
@@ -945,30 +949,6 @@ obj/effect/landmark/start/f13/ncrlogisticsofficer
 
 /obj/effect/landmark/start/f13/followersscientist
 	name = "Town Scientist"
-
-/obj/effect/landmark/start/f13/noyan
-	name = "Noyan"
-	icon_state = "Pusher"
-
-/obj/effect/landmark/start/f13/steward
-	name = "Steward"
-	icon_state = "Pusher"
-
-/obj/effect/landmark/start/f13/kheshig
-	name = "Kheshig"
-	icon_state = "Pusher"
-
-/obj/effect/landmark/start/f13/khorchin
-	name = "Khorchin"
-	icon_state = "Pusher"
-
-/obj/effect/landmark/start/f13/kipchak
-	name = "Kipchak"
-	icon_state = "Pusher"
-
-/obj/effect/landmark/start/f13/mangudai
-	name = "Mangudai"
-	icon_state = "Pusher"
 
 /obj/effect/landmark/start/f13/biker
 	name = "Hells Nomad"

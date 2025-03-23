@@ -231,6 +231,31 @@
 	path = /obj/item/clothing/head/helmet/f13/khan/bandana
 	cost = 2
 
+/datum/gear/head/peakedcap
+	name = "Peaked Cap"
+	path = /obj/item/clothing/head/donor/macarthur
+	cost = 1
+
+/datum/gear/head/tribaleyepatch
+	name = "Bandage Eyepatch"
+	path = /obj/item/clothing/glasses/f13/tribaleyepatch
+	cost = 1
+
+/datum/gear/head/knighthelmet
+	name = "Red Medieval Helmet"
+	path = /obj/item/clothing/head/helmet/f13/knighthelmet
+	cost = 2
+
+/datum/gear/head/stormchaser
+	name = "Stormchaser Hat"
+	path = /obj/item/clothing/head/f13/stormchaser
+	cost = 1
+
+/datum/gear/head/trilbyfeather
+	name = "Feather Trilby"
+	path = /obj/item/clothing/head/f13/trilby
+	cost = 1
+
 //POLICE
 
 /datum/gear/head/police
@@ -269,6 +294,44 @@
 	name = "US Army airborne beret"
 	path = /obj/item/clothing/head/f13/army/beret/airborne
 	cost = 3
+
+//HELMETS
+
+/datum/gear/head/helmet/knight
+	name = "Knight Helmet"
+	path = /obj/item/clothing/head/helmet/knight/greyscale
+	cost = 1
+	subcategory = LOADOUT_SUBCATEGORY_HEAD_HELMETS
+
+/datum/gear/head/helmet/knight/templar
+	name = "Crusader Helmet"
+	path = /obj/item/clothing/head/helmet/knight/templar
+	cost = 1
+	subcategory = LOADOUT_SUBCATEGORY_HEAD_HELMETS
+
+/datum/gear/head/helmet/durathread
+	name = "Makeshift Helmet"
+	path = /obj/item/clothing/head/helmet/durathread
+	cost = 1
+	subcategory = LOADOUT_SUBCATEGORY_HEAD_HELMETS
+
+/datum/gear/head/helmet/old
+	name = "Degrating Helmet"
+	path = /obj/item/clothing/head/helmet/old
+	cost = 1
+	subcategory = LOADOUT_SUBCATEGORY_HEAD_HELMETS
+
+/datum/gear/head/helmet/coifhelmet
+	name = "Chainmail Coif and Helmet"
+	path = /obj/item/clothing/head/coyote/coifhelmet
+	cost = 1
+	subcategory = LOADOUT_SUBCATEGORY_HEAD_HELMETS
+
+/datum/gear/head/helmet/coif
+	name = "Chainmail Coif"
+	path = /obj/item/clothing/head/coyote/coif
+	cost = 1
+	subcategory = LOADOUT_SUBCATEGORY_HEAD_HELMETS
 
 //CHINA
 
@@ -329,6 +392,46 @@
 							"NCR Military Police",
 							"NCR Trooper",
 							"NCR Off-Duty"
+						)
+
+/datum/gear/head/ranger/rigs
+	name = "11th Armored Cavalry Helmet"
+	path = /obj/item/clothing/head/helmet/f13/ncr/rangercombat/rigscustom
+	subcategory = LOADOUT_SUBCATEGORY_HEAD_FACTIONS
+	cost = 1
+	restricted_desc = "NCR"
+	restricted_roles = list("NCR Captain",
+							"NCR Veteran Ranger",
+						)
+
+/datum/gear/head/ranger/price
+	name = "Spider Riot Helmet"
+	path = /obj/item/clothing/head/helmet/f13/ncr/rangercombat/pricecustom
+	subcategory = LOADOUT_SUBCATEGORY_HEAD_FACTIONS
+	cost = 1
+	restricted_desc = "NCR"
+	restricted_roles = list("NCR Captain",
+							"NCR Veteran Ranger",
+						)
+
+/datum/gear/head/fox
+	name = "Reclaimed Ranger-Hunter Helmet"
+	path = /obj/item/clothing/head/helmet/f13/ncr/rangercombat/foxcustom
+	subcategory = LOADOUT_SUBCATEGORY_HEAD_FACTIONS
+	cost = 1
+	restricted_desc = "NCR"
+	restricted_roles = list("NCR Captain",
+							"NCR Veteran Ranger",
+						)
+
+/datum/gear/head/ranger/moss
+	name = "Veteran Patrol Stetson"
+	path = /obj/item/clothing/head/helmet/f13/ncr/rangercombat/mosshelmet
+	subcategory = LOADOUT_SUBCATEGORY_HEAD_FACTIONS
+	cost = 1
+	restricted_desc = "NCR"
+	restricted_roles = list("NCR Captain",
+							"NCR Veteran Ranger",
 						)
 
 /datum/gear/head/steelpot_gambler
@@ -427,7 +530,8 @@
 	cost = 2
 	restricted_desc = "Wastelanders"
 	restricted_roles = list("Outlaw",
-							"Wastelander"
+							"Wastelander",
+							"Great Khans"
 						)
 
 /datum/gear/head/khan/khan_furtrimmed
@@ -467,3 +571,13 @@
 							"Initiate",
 							"BoS Off-Duty"
 	)
+
+/datum/gear/head/legion/venator
+	name = "Galerum Lacertarex"
+	path = /obj/item/clothing/head/helmet/f13/legion/venator/diohelmet
+	subcategory = LOADOUT_SUBCATEGORY_HEAD_FACTIONS
+	cost = 1
+	restricted_desc = "CaesarsLegion"
+	restricted_roles = list("Legion Centurion",
+							"Legion Veteran Decanus",
+						)
