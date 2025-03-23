@@ -14343,14 +14343,6 @@
 	},
 /turf/open/floor/circuit/red/off,
 /area/f13/vault/security)
-"dbY" = (
-/obj/machinery/rnd/destructive_analyzer{
-	color = "#c1b6a5"
-	},
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
-	icon_state = "bluerustysolid"
-	},
-/area/f13/vault/science)
 "djT" = (
 /obj/structure/chair/f13chair2,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
@@ -14503,12 +14495,6 @@
 	icon_state = "bluerustysolid"
 	},
 /area/f13/vault)
-"dVC" = (
-/obj/machinery/mecha_part_fabricator{
-	color = "#c1b6a5"
-	},
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/vault/science)
 "dXX" = (
 /obj/structure/railing/corner{
 	icon_state = "straight";
@@ -16069,14 +16055,6 @@
 	},
 /turf/open/floor/plating/rust,
 /area/f13/vault)
-"ogR" = (
-/obj/machinery/rnd/production/protolathe/department/science{
-	color = "#c1b6a5"
-	},
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
-	icon_state = "bluerustysolid"
-	},
-/area/f13/vault/science)
 "olJ" = (
 /obj/structure/dresser,
 /obj/item/flashlight/lamp{
@@ -16279,14 +16257,6 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/blue/whitebluefull,
 /area/f13/vault/dormitory)
-"ptB" = (
-/obj/machinery/rnd/production/circuit_imprinter/department/science{
-	color = "#c1b6a5"
-	},
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
-	icon_state = "bluerustysolid"
-	},
-/area/f13/vault/science)
 "ptC" = (
 /obj/structure/table/wood/fancy/black,
 /turf/open/floor/wood_wide/wood_wide_dark,
@@ -25822,10 +25792,10 @@ pfg
 pfg
 bVe
 jdT
-dVC
-ptB
-dbY
-ogR
+vZg
+bVe
+bVe
+bVe
 aRw
 xPU
 kig

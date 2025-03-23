@@ -42,7 +42,7 @@
 
 //Rebel soldier
 /datum/job/rebels/soldier
-	title = "Outlaw"
+	title = "Captured Outlaw"
 	flag = F13REBELSOLDIER
 	total_positions = 8
 	spawn_positions = 8
