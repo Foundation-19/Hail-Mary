@@ -402,10 +402,6 @@
 	icon_state = "bluerustysolid"
 	},
 /area/f13/citycaves)
-"abH" = (
-/obj/mecha/combat/phazon/buggy,
-/turf/open/floor/plating/f13/inside/gravel,
-/area/f13/citycaves)
 "abJ" = (
 /obj/effect/spawner/lootdrop/f13/crafting,
 /turf/open/indestructible/ground/inside/mountain,
@@ -51907,7 +51903,7 @@ aEX
 aID
 aeQ
 aEX
-abH
+aEX
 aEX
 aql
 aNE
