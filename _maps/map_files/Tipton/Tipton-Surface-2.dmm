@@ -5728,7 +5728,7 @@
 /turf/closed/wall/r_wall/f13/vault,
 /area/f13/ambientlighting/building/v)
 "cZt" = (
-/obj/item/flag/holidayflag,
+/obj/item/flag/holidayflag/summer,
 /turf/open/indestructible/ground/inside/subway{
 	name = "roughcast asphalt"
 	},
@@ -15252,7 +15252,7 @@
 /turf/closed/mineral/ash_rock,
 /area/f13/wasteland/cold)
 "hNJ" = (
-/obj/item/flag/holidayflag,
+/obj/item/flag/holidayflag/summer,
 /turf/open/indestructible/ground/outside/sidewalk{
 	icon_state = "verticalrightborderright0"
 	},
@@ -16257,7 +16257,7 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 9
 	},
-/obj/item/flag/holidayflag,
+/obj/item/flag/holidayflag/summer,
 /turf/open/floor/plating/dirt,
 /area/f13/wasteland/cold)
 "inM" = (
@@ -36057,7 +36057,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/neutral/white/whitepurplechess/whitepurplechess2,
 /area/f13/building/powered)
 "shN" = (
-/obj/item/flag/holidayflag,
+/obj/item/flag/holidayflag/summer,
 /turf/open/indestructible/ground/inside/subway{
 	name = "roughcast asphalt"
 	},
