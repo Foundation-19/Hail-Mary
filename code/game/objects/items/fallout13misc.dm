@@ -281,6 +281,14 @@
 	icon_state = "holidayflag"
 	item_state = "holidayflag"
 
+/obj/item/flag/holidayflag/summer
+	icon_state = "holidaysummer"
+	item_state = "holidaysummer"
+
+/obj/item/flag/holidayflag/christmas
+	icon_state = "holidaychristmas"
+	item_state = "holidaychristmas"
+
 /obj/item/flag/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/stack/sheet/leather) && item_state == "emptyflag")
 		visible_message(span_notice("[user] begins to make a flag."))
