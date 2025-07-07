@@ -2221,7 +2221,7 @@
 "dfb" = (
 /obj/structure/table/wood,
 /turf/open/floor/wood_fancy/wood_fancy_dark,
-/area/f13/village)
+/area/f13/building)
 "dfR" = (
 /obj/effect/decal/cleanable/dirt{
 	color = "#363636"
@@ -2838,7 +2838,7 @@
 /turf/open/floor/wood_fancy/wood_fancy_dark{
 	icon_state = "fancy_dark-broken5"
 	},
-/area/f13/village)
+/area/f13/building)
 "ebv" = (
 /obj/effect/turf_decal/shadow/floor,
 /turf/open/floor/wood_fancy,
@@ -4178,7 +4178,7 @@
 /area/f13/legion)
 "gmp" = (
 /turf/open/floor/wood_fancy/wood_fancy_dark,
-/area/f13/village)
+/area/f13/building)
 "gnD" = (
 /obj/structure/table,
 /obj/item/reagent_containers/food/drinks/bottle/whiskey{
@@ -4749,7 +4749,7 @@
 /turf/open/floor/wood_fancy/wood_fancy_dark{
 	icon_state = "fancy_dark-broken1"
 	},
-/area/f13/village)
+/area/f13/building)
 "hdk" = (
 /obj/item/trash/sosjerky,
 /obj/structure/lattice/catwalk,
@@ -4828,7 +4828,7 @@
 /turf/open/floor/wood_fancy/wood_fancy_dark{
 	icon_state = "fancy_dark-broken6"
 	},
-/area/f13/village)
+/area/f13/building)
 "hlR" = (
 /obj/structure/decoration/rag{
 	icon_state = "skulls"
@@ -5069,7 +5069,7 @@
 "hHU" = (
 /obj/structure/closet/crate/bin/trashbin,
 /turf/open/floor/wood_fancy/wood_fancy_dark,
-/area/f13/village)
+/area/f13/building)
 "hHW" = (
 /obj/structure/rack,
 /obj/item/storage/toolbox/electrical,
@@ -5696,7 +5696,7 @@
 	dir = 4
 	},
 /turf/open/floor/wood_fancy/wood_fancy_dark,
-/area/f13/village)
+/area/f13/building)
 "iCM" = (
 /obj/structure/bed/oldalt,
 /turf/open/floor/wood_common/wood_common_light,
@@ -8189,7 +8189,7 @@
 "mpf" = (
 /obj/structure/closet/cabinet,
 /turf/open/floor/wood_fancy/wood_fancy_dark,
-/area/f13/village)
+/area/f13/building)
 "mph" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/transparent/openspace,
@@ -9381,7 +9381,7 @@
 	dir = 8
 	},
 /turf/open/floor/wood_fancy/wood_fancy_dark,
-/area/f13/village)
+/area/f13/building)
 "nTU" = (
 /obj/structure/railing{
 	dir = 4
@@ -11022,7 +11022,7 @@
 "qxH" = (
 /obj/structure/bed/wooden,
 /turf/open/floor/wood_fancy/wood_fancy_dark,
-/area/f13/village)
+/area/f13/building)
 "qxN" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/sign/departments/medbay{
@@ -11055,7 +11055,7 @@
 /turf/open/floor/wood_fancy/wood_fancy_dark{
 	icon_state = "fancy_dark-broken4"
 	},
-/area/f13/village)
+/area/f13/building)
 "qzT" = (
 /obj/structure/obstacle/barbedwire,
 /turf/open/floor/plating/rust,
@@ -12476,7 +12476,7 @@
 "sJJ" = (
 /obj/structure/simple_door/repaired,
 /turf/open/floor/wood_fancy/wood_fancy_dark,
-/area/f13/village)
+/area/f13/building)
 "sJR" = (
 /obj/structure/railing,
 /obj/structure/fluff/railing/corner,
@@ -14501,7 +14501,7 @@
 	dir = 4
 	},
 /turf/open/floor/wood_fancy/wood_fancy_dark,
-/area/f13/village)
+/area/f13/building)
 "vKr" = (
 /obj/structure/barricade/wooden/planks/pregame,
 /turf/open/floor/plasteel/f13/vault_floor/plating,
@@ -14828,7 +14828,7 @@
 "wnK" = (
 /obj/structure/window/fulltile/wood,
 /turf/open/floor/wood_fancy/wood_fancy_dark,
-/area/f13/village)
+/area/f13/building)
 "woa" = (
 /turf/closed/wall/f13/wood,
 /area/f13/city)
@@ -15065,9 +15065,6 @@
 /obj/item/clothing/under/f13/bosformgold_f,
 /turf/open/floor/carpet/black,
 /area/f13/brotherhood/dorms)
-"wGG" = (
-/turf/closed/wall/f13/tentwall,
-/area/f13/village)
 "wGY" = (
 /obj/effect/decal/cleanable/dirt{
 	color = "#363636"
@@ -15739,7 +15736,7 @@
 "xKq" = (
 /obj/structure/chair/wood,
 /turf/open/floor/wood_fancy/wood_fancy_dark,
-/area/f13/village)
+/area/f13/building)
 "xKz" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/f13/wood,
@@ -21340,12 +21337,12 @@ vLb
 tot
 tot
 tot
-wGG
-wGG
+cHt
+cHt
 sJJ
-wGG
-wGG
-wGG
+cHt
+cHt
+cHt
 vLb
 vLb
 oez
@@ -21597,12 +21594,12 @@ hrQ
 tot
 tot
 tot
-wGG
+cHt
 mpf
 hcZ
 gmp
 vJy
-wGG
+cHt
 vLb
 vLb
 oez
@@ -21854,7 +21851,7 @@ tot
 tot
 tot
 tot
-wGG
+cHt
 hHU
 gmp
 gmp
@@ -22111,12 +22108,12 @@ tot
 tot
 tot
 vLb
-wGG
+cHt
 qxH
 iCw
 qzP
 nTu
-wGG
+cHt
 oez
 oez
 oez
@@ -22368,12 +22365,12 @@ tot
 vLb
 vLb
 vLb
-wGG
-wGG
-wGG
+cHt
+cHt
+cHt
 sJJ
-wGG
-wGG
+cHt
+cHt
 oez
 oez
 oez
@@ -22622,11 +22619,11 @@ vLb
 tot
 tot
 tot
-wGG
-wGG
-wGG
-wGG
-wGG
+cHt
+cHt
+cHt
+cHt
+cHt
 dtb
 dtb
 dtb
@@ -22879,11 +22876,11 @@ hrQ
 tot
 tot
 tot
-wGG
+cHt
 hlz
 xKq
 dfb
-wGG
+cHt
 dtb
 dtb
 dtb
@@ -23393,11 +23390,11 @@ tot
 tot
 tot
 tot
-wGG
+cHt
 qxH
 iCw
 gmp
-wGG
+cHt
 tiS
 tiS
 tiS
@@ -23650,11 +23647,11 @@ tot
 tot
 nMW
 tca
-wGG
-wGG
-wGG
-wGG
-wGG
+cHt
+cHt
+cHt
+cHt
+cHt
 oez
 oez
 oez
