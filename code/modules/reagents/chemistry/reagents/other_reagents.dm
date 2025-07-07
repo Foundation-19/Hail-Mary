@@ -248,7 +248,7 @@
 		src.data |= data.Copy()
 
 /datum/reagent/water
-	name = "Impure Water"
+	name = "Water (Impure)"
 	description = "An ubiquitous chemical substance that is composed of hydrogen and oxygen."
 	color = "#867f7577" 
 	taste_description = "dirty water"
