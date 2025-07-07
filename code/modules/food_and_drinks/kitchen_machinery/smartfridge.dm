@@ -765,21 +765,23 @@
 
 /obj/machinery/smartfridge/bottlerack/lootshelf/brews
 	chance_initial_contents = list(
-		/obj/item/reagent_containers/food/drinks/bottle/gin = 1,
-		/obj/item/reagent_containers/food/drinks/bottle/whiskey = 1,
-		/obj/item/reagent_containers/food/drinks/bottle/vodka = 1,
-		/obj/item/reagent_containers/food/drinks/bottle/tequila = 1,
-		/obj/item/reagent_containers/food/drinks/bottle/rum = 1,
-		/obj/item/reagent_containers/food/drinks/bottle/vermouth = 1,
-		/obj/item/reagent_containers/food/drinks/bottle/cognac = 1,
-		/obj/item/reagent_containers/food/drinks/bottle/absinthe = 1,
-		/obj/item/reagent_containers/food/drinks/bottle/lizardwine = 1,
-		/obj/item/reagent_containers/food/drinks/bottle/hcider = 1,
-		/obj/item/reagent_containers/food/drinks/bottle/grappa = 1,
-		/obj/item/reagent_containers/food/drinks/bottle/sake = 1,
-		/obj/item/reagent_containers/food/drinks/bottle/fernet = 1,
-		/obj/item/reagent_containers/food/drinks/bottle/amaretto = 1,
-		/obj/item/reagent_containers/food/drinks/bottle/hooch = 1)
+		/obj/item/reagent_containers/food/drinks/bottle/gin = 2,
+		/obj/item/reagent_containers/food/drinks/bottle/whiskey = 2,
+		/obj/item/reagent_containers/food/drinks/bottle/vodka = 2,
+		/obj/item/reagent_containers/food/drinks/bottle/tequila = 2,
+		/obj/item/reagent_containers/food/drinks/bottle/rum = 2,
+		/obj/item/reagent_containers/food/drinks/bottle/vermouth = 2,
+		/obj/item/reagent_containers/food/drinks/bottle/cognac = 2,
+		/obj/item/reagent_containers/food/drinks/bottle/absinthe = 2,
+		/obj/item/reagent_containers/food/drinks/bottle/lizardwine = 2,
+		/obj/item/reagent_containers/food/drinks/bottle/hcider = 2,
+		/obj/item/reagent_containers/food/drinks/bottle/grappa = 2,
+		/obj/item/reagent_containers/food/drinks/bottle/sake = 2,
+		/obj/item/reagent_containers/food/drinks/bottle/fernet = 2,
+		/obj/item/reagent_containers/food/drinks/bottle/amaretto = 2,
+		/obj/item/reagent_containers/food/drinks/bottle/hooch = 2,
+		/obj/item/reagent_containers/food/drinks/bottle/cerveza = 1
+		)
 
 //diy
 
