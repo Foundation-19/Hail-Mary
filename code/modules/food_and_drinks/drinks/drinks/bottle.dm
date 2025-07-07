@@ -154,6 +154,12 @@
 	list_reagents = list(/datum/reagent/consumable/ethanol/whiskey = 1, /datum/reagent/consumable/sunset = 15, /datum/reagent/medicine/salglu_solution = 5)
 	isGlass = TRUE
 
+/obj/item/reagent_containers/food/drinks/bottle/cerveza
+	name = "Cerveza Cristal"
+	desc = "Flavor that unites, freshness that inspires."
+	icon_state = "cervezabottle"
+	list_reagents = list(/datum/reagent/consumable/ethanol/cerveza = 30)
+	isGlass = TRUE
 
 /obj/item/reagent_containers/food/drinks/bottle/patron
 	name = "Wrapp Artiste Patron"

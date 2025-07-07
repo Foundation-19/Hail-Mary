@@ -779,7 +779,9 @@
 		/obj/item/reagent_containers/food/drinks/bottle/sake = 1,
 		/obj/item/reagent_containers/food/drinks/bottle/fernet = 1,
 		/obj/item/reagent_containers/food/drinks/bottle/amaretto = 1,
-		/obj/item/reagent_containers/food/drinks/bottle/hooch = 1)
+		/obj/item/reagent_containers/food/drinks/bottle/hooch = 1,
+		/obj/item/reagent_containers/food/drinks/bottle/cerveza = 1
+		)
 
 //diy
 
