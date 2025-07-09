@@ -428,6 +428,10 @@
 /obj/structure/table/wood,
 /turf/open/floor/plasteel/f13/vault_floor/neutral/white,
 /area/f13/outpost)
+"cM" = (
+/obj/effect/landmark/start/f13/f13rebelguard,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/enclave)
 "cN" = (
 /obj/effect/spawner/lootdrop/f13/blueprintLow,
 /obj/machinery/workbench/advanced,
@@ -1406,16 +1410,6 @@
 	icon_state = "wide-broken5"
 	},
 /area/f13/farmhouse)
-"hF" = (
-/obj/machinery/light/small{
-	dir = 4;
-	name = "tan light fixture";
-	light_color = "#FFDDCC";
-	color = "#FFDDCC"
-	},
-/obj/effect/landmark/start/f13/f13rebelsoldier,
-/turf/open/floor/plasteel/f13/vault_floor/blue,
-/area/f13/enclave)
 "hJ" = (
 /obj/effect/spawner/lootdrop/cigars_cases,
 /obj/structure/table{
@@ -3571,10 +3565,6 @@
 /obj/effect/turf_decal/shadow/floor,
 /turf/open/floor/carpet/red,
 /area/f13/legion)
-"rZ" = (
-/obj/effect/landmark/start/f13/f13rebelsoldier,
-/turf/open/floor/plating/rust,
-/area/f13/enclave)
 "sb" = (
 /obj/structure/table/wood,
 /obj/item/kirbyplants{
@@ -3863,6 +3853,10 @@
 	},
 /turf/open/floor/wood_fancy/wood_fancy_dark,
 /area/f13/legioncamp)
+"tt" = (
+/obj/effect/landmark/start/f13/f13rebelguard,
+/turf/open/floor/plasteel/f13/vault_floor/blue/whitebluefull,
+/area/f13/enclave)
 "tv" = (
 /obj/effect/turf_decal/trimline/neutral/line{
 	dir = 4
@@ -4625,10 +4619,6 @@
 /obj/structure/simple_door/interior,
 /turf/open/floor/wood_fancy,
 /area/f13/legion)
-"xk" = (
-/obj/effect/landmark/start/f13/f13rebelsoldier,
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/enclave)
 "xl" = (
 /obj/structure/decoration/legion/chains2,
 /turf/closed/wall/rust,
@@ -5694,6 +5684,13 @@
 /obj/structure/table,
 /turf/open/indestructible/ground/outside/roof,
 /area/f13/ruins)
+"Co" = (
+/obj/machinery/door/poddoor/shutters{
+	name = "Legion main gate shutters";
+	id = "Maingateballon"
+	},
+/turf/open/floor/wood_fancy,
+/area/f13/legion)
 "Cp" = (
 /obj/structure/bookshelf{
 	icon_state = "book-2"
@@ -5844,10 +5841,6 @@
 /obj/structure/lattice,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/enclave)
-"De" = (
-/obj/mecha/combat/phazon/vertibird/balloon,
-/turf/open/floor/plating/f13/outside/roof/red,
-/area/f13/wasteland)
 "Df" = (
 /obj/structure/destructible/tribal_torch/wall/lit{
 	dir = 4;
@@ -6314,7 +6307,7 @@
 /turf/open/floor/wood_fancy,
 /area/f13/legion)
 "Fr" = (
-/obj/mecha/combat/phazon/vertibird/balloon/loaded,
+/obj/mecha/working/normalvehicle/vertibird/balloon/loaded,
 /turf/open/floor/wood_common/wood_common_dark,
 /area/f13/legion)
 "Fu" = (
@@ -6637,6 +6630,13 @@
 	name = "deck"
 	},
 /area/f13/wasteland)
+"GX" = (
+/obj/machinery/door/poddoor/shutters{
+	name = "Legion main gate shutters";
+	id = "Maingateballon"
+	},
+/turf/open/floor/wood_wide,
+/area/f13/legion)
 "GZ" = (
 /obj/effect/particle_effect/smoke/transparent,
 /turf/open/floor/wood_wide/wood_wide_dark,
@@ -7082,13 +7082,6 @@
 /obj/structure/spacevine,
 /turf/closed/wall/f13/wood/house,
 /area/f13/legion)
-"Jl" = (
-/obj/effect/decal/marking{
-	icon_state = "dottedverticalcorroded"
-	},
-/obj/mecha/combat/phazon/vertibird/enclave/loaded,
-/turf/open/indestructible/ground/outside/roaddirt,
-/area/f13/wasteland)
 "Jo" = (
 /obj/structure/closet/locker/oldstyle{
 	anchored = 1
@@ -7102,10 +7095,6 @@
 /obj/item/clothing/under/rank/engineering/engineer/hazard/white,
 /obj/item/clothing/head/helmet/f13/firefighter,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/enclave)
-"Jp" = (
-/obj/effect/landmark/start/f13/f13rebelsoldier,
-/turf/open/floor/plasteel/f13/vault_floor/blue,
 /area/f13/enclave)
 "Jq" = (
 /obj/effect/spawner/lootdrop/low_tools,
@@ -8603,6 +8592,10 @@
 	icon_state = "lantern-on";
 	on = 1
 	},
+/obj/machinery/button/door{
+	pixel_y = 26;
+	id = "Maingateballon"
+	},
 /turf/open/floor/wood_wide,
 /area/f13/legion)
 "QV" = (
@@ -9131,10 +9124,6 @@
 /obj/machinery/light/fo13colored/Red,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/outpost)
-"Tq" = (
-/obj/effect/landmark/start/f13/f13rebelsoldier,
-/turf/open/floor/plasteel/f13/vault_floor/blue/whitebluefull,
-/area/f13/enclave)
 "Tr" = (
 /obj/structure/decoration/legion/chains2{
 	dir = 4;
@@ -11425,7 +11414,7 @@ iM
 DX
 Cl
 IC
-Lj
+tt
 Rn
 AG
 Cl
@@ -11642,7 +11631,7 @@ Gh
 EY
 bC
 BS
-rZ
+bR
 Dd
 lu
 lu
@@ -11831,7 +11820,7 @@ Cl
 Rn
 cY
 Po
-xk
+cY
 Cl
 Gb
 bR
@@ -12033,12 +12022,12 @@ Cl
 AD
 bR
 hp
-cY
+cM
 Cl
 lb
 Gh
 cY
-Jp
+Gh
 bR
 Gh
 Gh
@@ -12233,7 +12222,7 @@ fY
 cY
 Cl
 Rn
-Tq
+tt
 Rn
 cY
 Cl
@@ -12247,7 +12236,7 @@ Gh
 Yr
 DB
 zi
-hF
+UX
 UN
 Am
 Am
@@ -13683,7 +13672,7 @@ NG
 up
 Fu
 JD
-Jl
+Fu
 JD
 Fu
 Fu
@@ -30361,7 +30350,7 @@ NG
 NG
 NG
 CE
-De
+IT
 IT
 CE
 NG
@@ -46895,9 +46884,9 @@ oD
 oD
 Ht
 Ht
-AC
-GF
-AC
+Co
+GX
+Co
 Ht
 Ht
 lf

@@ -44,32 +44,263 @@
 /datum/job/rebels/soldier
 	title = "Captured Outlaw"
 	flag = F13REBELSOLDIER
-	total_positions = 8
-	spawn_positions = 8
+	total_positions = 5
+	spawn_positions = 5
 	display_order = JOB_DISPLAY_ORDER_F13REBELSOLDIER
-	description = "Thanks to the Ironwave and other raider groups, crime is still a possibility here, even if the Legion is cracking down on it. You are a indpendant raider, that came here to loot and survive. You aren't part of the Ironwave, but can choose to join it."
-	supervisors = "No one, altho its recommended you obey the Captain and crew of the Ironwave if you stand on their ship."
+	description = "Well damnit. You go caught by the legion forces. Now you are at their mercy. Before ? You were a warrior. Rebel, NCR, Legion renegade... Now, you must survive."
+	supervisors = "No one, but you may try to flee toward the rebels or the vault."
+	outfit = /datum/outfit/job/CaesarsLegion/slave
+
+	loadout_options = list(
+		/datum/outfit/loadout/capturedncr,	
+		/datum/outfit/loadout/capturedranger,
+		/datum/outfit/loadout/capturedraider,
+		/datum/outfit/loadout/capturedvaulty,
+		/datum/outfit/loadout/capturedlegion
+		)
+
+/datum/outfit/loadout/capturedncr
+	name = "Captured NCR"
+	head = /obj/item/clothing/head/f13/ncr/standard
+	r_pocket = /obj/item/storage/box/ration/menu_ten
+	l_pocket = /obj/item/melee/onehanded/knife/hunting
+	uniform = /obj/item/clothing/under/f13/ncr
+
+
+/datum/outfit/loadout/capturedncr
+	name = "Captured ranger"
+	head = /obj/item/clothing/head/helmet/f13/ncr/rangercombat
+
+
+/datum/outfit/loadout/capturedraider
+	name = "Captured ranger"
+	head = /obj/item/clothing/head/helmet/f13/raidercombathelmet
+
+/datum/outfit/loadout/capturedvaulty
+	name = "Captured vault dweller"
+	suit = /obj/item/clothing/suit/armor/light/kit
+	uniform = /obj/item/clothing/under/f13/vault
+
+/datum/outfit/loadout/capturedlegion
+	name = "Captured legion renegade"
+	suit = /obj/item/clothing/suit/armor/light/kit
+	uniform = /obj/item/clothing/under/f13/exile/legion
+
+
+// REBEL MEDIC
+
+
+/datum/job/rebels/medic
+	title = "Ironwave Den Doctor"
+	flag = F13REBELMEDIC
+	total_positions = 2
+	spawn_positions = 2
+	access = list(ACCESS_ENCLAVE)
+	display_order = JOB_DISPLAY_ORDER_F13REBELMEDIC
+	description = "Your diploma isn't reconized anywhere else. Good thing the Den doesn't care. Your job is to heal people of the carrier."
+	supervisors = "The captain."
+	outfit = /datum/outfit/job/rebels/medic
+
+	loadout_options = list(
+		/datum/outfit/loadout/ncrmedicfunded,	
+		/datum/outfit/loadout/stolenmedicraider,	
+		)
+
+/datum/outfit/job/rebels/medic
+	name = "Ironwave Rebel medic"
+	id = /obj/item/card/id/dogtag/town
+	jobtype = /datum/job/rebels/medic
+	l_pocket = /obj/item/storage/belt/legholster
+	backpack = /obj/item/storage/backpack
+	satchel = /obj/item/storage/backpack/satchel
+	suit = /obj/item/clothing/suit/toggle/labcoat/followers
+	belt = /obj/item/storage/belt/army/assault/ncr
+	r_pocket = /obj/item/flashlight/seclite
+	backpack_contents = list(
+		/obj/item/reagent_containers/food/snacks/f13/mre = 1,
+		/obj/item/storage/survivalkit = 1,
+		/obj/item/storage/survivalkit/medical = 1,
+		/obj/item/reagent_containers/hypospray/medipen/stimpak/super = 3,
+		/obj/item/grenade/flashbang = 1,
+		/obj/item/pda = 1,
+		/obj/item/melee/onehanded/knife/survival = 1
+		)
+
+/datum/outfit/loadout/stolenmedicraider
+	name = "Quack Medic"
+	head = /obj/item/clothing/head/helmet/f13/raidercombathelmet
+	suit_store = /obj/item/gun/energy/laser/badlands
+	backpack_contents = list(
+		/obj/item/stock_parts/cell/ammo/ec = 3,
+		/obj/item/melee/powered/ripper =1,
+		)
+
+/datum/outfit/loadout/ncrmedicfunded
+	name = "NCR CM Gear"
+	head = /obj/item/clothing/head/f13/ncr/steelpot_med
+	suit_store = /obj/item/gun/ballistic/automatic/service/carbine
+	backpack_contents = list(
+		/obj/item/ammo_box/magazine/m556/rifle/assault = 3
+		)
+
+/datum/outfit/job/rebels/medic/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	..()
+	if(visualsOnly)
+		return
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/jet)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/turbo)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/psycho)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/medx)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/medx/chemistry)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/stimpak/chemistry)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/stimpak5/chemistry)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/buffout)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/steady)
+	ADD_TRAIT(H, TRAIT_CHEMWHIZ, src)
+	ADD_TRAIT(H, TRAIT_SURGERY_MID, src)
+	ADD_TRAIT(H, TRAIT_PA_WEAR, src)
+	ADD_TRAIT(H, TRAIT_LIFEGIVER, src)
+
+// 
+// REBEL CAPTAIN
+// 
+
+/datum/job/rebels/captain
+	title = "Ironwave Raider Captain"
+	flag = F13REBELCAPTAIN
+	total_positions = 1
+	spawn_positions = 1
+	access = list(ACCESS_ENCLAVE, ACCESS_CHANGE_IDS)
+	display_order = JOB_DISPLAY_ORDER_F13REBELCAPTAIN
+	description = "You lead this team of soldiers of fortune. Your gear is from old supplies, and gifts from the NCR... And a few stolen goods."
+	outfit = /datum/outfit/job/rebels/captain
+
+	loadout_options = list(
+		/datum/outfit/loadout/capncrfunded,	
+		/datum/outfit/loadout/capstolenraider,	
+		)
+
+/datum/outfit/job/rebels/captain
+	name = "Ironwave Rebel Captain"
+	jobtype = /datum/job/enclave/enclavecpt
+
+	suit_store = /obj/item/gun/ballistic/automatic/fnfal
+	accessory = /obj/item/clothing/accessory/ncr/CPT
+	id = /obj/item/card/id/dogtag/enclave/officer
+	ears = /obj/item/radio/headset/headset_sec/com
+
+	backpack_contents = list(
+		/obj/item/reagent_containers/hypospray/medipen/stimpak/super = 3,
+		/obj/item/grenade/flashbang = 1,
+		/obj/item/pda = 1,
+		/obj/item/melee/onehanded/knife/survival = 1,
+		/obj/item/ammo_box/magazine/m308 = 2,
+		/obj/item/gun/ballistic/automatic/pistol/deagle = 1,
+		/obj/item/ammo_box/magazine/m44 = 2
+		)
+
+/datum/outfit/job/rebels/captain/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	..()
+	if(visualsOnly)
+		return
+	ADD_TRAIT(H, TRAIT_PA_WEAR, src)
+	ADD_TRAIT(H, TRAIT_LIFEGIVER, src)
+	if(H.mind)
+		var/obj/effect/proc_holder/spell/terrifying_presence/S = new /obj/effect/proc_holder/spell/terrifying_presence
+		H.mind.AddSpell(S)
+
+/datum/outfit/loadout/capstolenraider
+	name = "Raider boss gear"
+	suit = /obj/item/clothing/suit/armor/power_armor/t45b/raider
+	head = /obj/item/clothing/head/helmet/f13/power_armor/t45b/raider
+	suit_store = /obj/item/gun/ballistic/automatic/smg/tommygun
+	backpack_contents = list(
+		/obj/item/ammo_box/magazine/tommygunm45 = 2,
+		)
+
+/datum/outfit/loadout/capncrfunded
+	name = "Desert Ranger Stash"
+	suit = /obj/item/clothing/suit/armor/rangercombat/foxcustom
+	head = /obj/item/clothing/head/helmet/f13/ncr/rangercombat/desert
+	suit_store = /obj/item/gun/ballistic/rifle/repeater/brush
+	backpack_contents = list(
+		/obj/item/ammo_box/c4570box = 2,
+		)
+
+//Rebel Guard
+/datum/job/rebels/guard
+	title = "Ironwave Raider"
+	flag = F13REBELGUARD
+	total_positions = 5
+	spawn_positions = 5
+	access = list(ACCESS_ENCLAVE)
+	display_order = JOB_DISPLAY_ORDER_F13REBELGUARD
+	description = "You are part of the dedicated warriors and that works on the USS Emminant domain. You defend the den, follow the orders of you captain, and kick some ass."
+	supervisors = "The captain."
 	outfit = /datum/outfit/job/rebels
 
 	loadout_options = list(
-	/datum/outfit/loadout/raider_sadist,
-	/datum/outfit/loadout/raider_tribal,
-	/datum/outfit/loadout/raider_supafly,
-	/datum/outfit/loadout/raider_yankee,
-	/datum/outfit/loadout/raider_blast,
-	/datum/outfit/loadout/raider_painspike,
-	/datum/outfit/loadout/raider_badlands,
-	/datum/outfit/loadout/raider_vault,
-	/datum/outfit/loadout/raider_ncr,
-	/datum/outfit/loadout/raider_legion,
-	/datum/outfit/loadout/raider_bos,
-	/datum/outfit/loadout/quack_doctor
-	)
+		/datum/outfit/loadout/ncrgardfunded,	
+		/datum/outfit/loadout/stolencopraider,
+		/datum/outfit/loadout/stolenraider,
+		/datum/outfit/loadout/ncrfunded,
+		/datum/outfit/loadout/raider_sadist,
+		/datum/outfit/loadout/raider_tribal,
+		/datum/outfit/loadout/raider_supafly,
+		/datum/outfit/loadout/raider_yankee,
+		/datum/outfit/loadout/raider_blast,
+		/datum/outfit/loadout/raider_painspike,
+		/datum/outfit/loadout/raider_badlands,
+		/datum/outfit/loadout/raider_vault,
+		/datum/outfit/loadout/raider_ncr,
+		/datum/outfit/loadout/raider_legion,
+		/datum/outfit/loadout/raider_bos,
+		/datum/outfit/loadout/quack_doctor
+		)
 
-/datum/outfit/job/rebels/soldier/pre_equip(mob/living/carbon/human/H)
-	..()
-	H.social_faction = FACTION_RAIDERS
-	add_verb(H, /mob/living/proc/creategang)
+/datum/outfit/job/rebels/guard
+	name = "Ironwave Soldier"
+	jobtype = /datum/job/rebels/soldier
+	suit = /obj/item/clothing/suit/armor/exile/ncrexile/ironwave
+	backpack_contents = list(
+		/obj/item/reagent_containers/hypospray/medipen/stimpak/super = 3,
+		/obj/item/grenade/flashbang = 1,
+		)
+
+/datum/outfit/loadout/stolencopraider
+	name = "Stolen Raider gear"
+	head = /obj/item/clothing/head/helmet/riot/vaultsec
+	suit_store = /obj/item/gun/energy/laser/wattz2k/extended
+	backpack_contents = list(
+		/obj/item/ammo_box/shotgun/improvised =4,
+		/obj/item/storage/box/handcuffs =1
+		)
+
+/datum/outfit/loadout/ncrgardfunded
+	name = "Embassy Funded Gear"
+	head = /obj/item/clothing/head/f13/ncr/steelpot_mp
+	suit_store = /obj/item/gun/ballistic/shotgun/automatic/combat/auto5
+	backpack_contents = list(
+		/obj/item/stock_parts/cell/ammo/mfc =3,
+		/obj/item/storage/box/handcuffs =1,
+		/obj/item/ammo_box/shotgun/bean =2
+		)
+
+/datum/outfit/loadout/stolenraider
+	name = "Ripper gear"
+	head = /obj/item/clothing/head/helmet/f13/raidercombathelmet
+	suit_store = /obj/item/shield/riot/tower/scrap
+	backpack_contents = list(
+		/obj/item/clothing/shoes/f13/military/ncr = 1,
+		)
+
+/datum/outfit/loadout/ncrfunded
+	name = "NCR Funded Gear"
+	head = /obj/item/clothing/head/f13/ncr/goggles
+	suit_store = /obj/item/gun/ballistic/automatic/service/carbine
+	backpack_contents = list(
+		/obj/item/ammo_box/magazine/m556/rifle/assault = 3,
+		)
 
 /datum/outfit/loadout/raider_sadist
 	name = "Sadist"
@@ -235,217 +466,7 @@
 	ADD_TRAIT(H, TRAIT_PA_WEAR, src)
 	ADD_TRAIT(H, TRAIT_LIFEGIVER, src)
 
-
-// REBEL MEDIC
-
-
-/datum/job/rebels/medic
-	title = "Ironwave Den Doctor"
-	flag = F13REBELMEDIC
-	total_positions = 2
-	spawn_positions = 2
-	access = list(ACCESS_ENCLAVE)
-	display_order = JOB_DISPLAY_ORDER_F13REBELMEDIC
-	description = "Your diploma isn't reconized anywhere else. Good thing the Den doesn't care. Your job is to heal people of the carrier."
-	supervisors = "The captain."
-	outfit = /datum/outfit/job/rebels/medic
-
-	loadout_options = list(
-		/datum/outfit/loadout/ncrmedicfunded,	
-		/datum/outfit/loadout/stolenmedicraider,	
-		)
-
-/datum/outfit/job/rebels/medic
-	name = "Ironwave Rebel medic"
-	id = /obj/item/card/id/dogtag/town
-	jobtype = /datum/job/rebels/medic
-	l_pocket = /obj/item/storage/belt/legholster
-	backpack = /obj/item/storage/backpack
-	satchel = /obj/item/storage/backpack/satchel
-	suit = /obj/item/clothing/suit/toggle/labcoat/followers
-	belt = /obj/item/storage/belt/army/assault/ncr
-	r_pocket = /obj/item/flashlight/seclite
-	backpack_contents = list(
-		/obj/item/reagent_containers/food/snacks/f13/mre = 1,
-		/obj/item/storage/survivalkit = 1,
-		/obj/item/storage/survivalkit/medical = 1,
-		/obj/item/reagent_containers/hypospray/medipen/stimpak/super = 3,
-		/obj/item/grenade/flashbang = 1,
-		/obj/item/pda = 1,
-		/obj/item/melee/onehanded/knife/survival = 1
-		)
-
-/datum/outfit/loadout/stolenmedicraider
-	name = "Quack Medic"
-	head = /obj/item/clothing/head/helmet/f13/raidercombathelmet
-	suit_store = /obj/item/gun/energy/laser/badlands
-	backpack_contents = list(
-		/obj/item/stock_parts/cell/ammo/ec = 3,
-		/obj/item/melee/powered/ripper =1,
-		)
-
-/datum/outfit/loadout/ncrmedicfunded
-	name = "NCR CM Gear"
-	head = /obj/item/clothing/head/f13/ncr/steelpot_med
-	suit_store = /obj/item/gun/ballistic/automatic/service/carbine
-	backpack_contents = list(
-		/obj/item/ammo_box/magazine/m556/rifle/assault = 3
-		)
-
-/datum/outfit/job/rebels/medic/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	..()
-	if(visualsOnly)
-		return
-	H.mind.teach_crafting_recipe(/datum/crafting_recipe/jet)
-	H.mind.teach_crafting_recipe(/datum/crafting_recipe/turbo)
-	H.mind.teach_crafting_recipe(/datum/crafting_recipe/psycho)
-	H.mind.teach_crafting_recipe(/datum/crafting_recipe/medx)
-	H.mind.teach_crafting_recipe(/datum/crafting_recipe/medx/chemistry)
-	H.mind.teach_crafting_recipe(/datum/crafting_recipe/stimpak/chemistry)
-	H.mind.teach_crafting_recipe(/datum/crafting_recipe/stimpak5/chemistry)
-	H.mind.teach_crafting_recipe(/datum/crafting_recipe/buffout)
-	H.mind.teach_crafting_recipe(/datum/crafting_recipe/steady)
-	ADD_TRAIT(H, TRAIT_CHEMWHIZ, src)
-	ADD_TRAIT(H, TRAIT_SURGERY_MID, src)
-	ADD_TRAIT(H, TRAIT_PA_WEAR, src)
-	ADD_TRAIT(H, TRAIT_LIFEGIVER, src)
-
-// 
-// REBEL CAPTAIN
-// 
-
-/datum/job/rebels/captain
-	title = "Ironwave Raider Captain"
-	flag = F13REBELCAPTAIN
-	total_positions = 1
-	spawn_positions = 1
-	access = list(ACCESS_ENCLAVE, ACCESS_CHANGE_IDS)
-	display_order = JOB_DISPLAY_ORDER_F13REBELCAPTAIN
-	description = "You lead this team of soldiers of fortune. Your gear is from old supplies, and gifts from the NCR... And a few stolen goods."
-	outfit = /datum/outfit/job/rebels/captain
-
-	loadout_options = list(
-		/datum/outfit/loadout/capncrfunded,	
-		/datum/outfit/loadout/capstolenraider,	
-		)
-
-/datum/outfit/job/rebels/captain
-	name = "Ironwave Rebel Captain"
-	jobtype = /datum/job/enclave/enclavecpt
-
-	suit_store = /obj/item/gun/ballistic/automatic/fnfal
-	accessory = /obj/item/clothing/accessory/ncr/CPT
-	id = /obj/item/card/id/dogtag/enclave/officer
-	ears = /obj/item/radio/headset/headset_sec/com
-
-	backpack_contents = list(
-		/obj/item/reagent_containers/hypospray/medipen/stimpak/super = 3,
-		/obj/item/grenade/flashbang = 1,
-		/obj/item/pda = 1,
-		/obj/item/melee/onehanded/knife/survival = 1,
-		/obj/item/ammo_box/magazine/m308 = 2,
-		/obj/item/gun/ballistic/automatic/pistol/deagle = 1,
-		/obj/item/ammo_box/magazine/m44 = 2
-		)
-
-/datum/outfit/job/rebels/captain/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	..()
-	if(visualsOnly)
-		return
-	ADD_TRAIT(H, TRAIT_PA_WEAR, src)
-	ADD_TRAIT(H, TRAIT_LIFEGIVER, src)
-	if(H.mind)
-		var/obj/effect/proc_holder/spell/terrifying_presence/S = new /obj/effect/proc_holder/spell/terrifying_presence
-		H.mind.AddSpell(S)
-
-/datum/outfit/loadout/capstolenraider
-	name = "Raider boss gear"
-	suit = /obj/item/clothing/suit/armor/power_armor/t45b/raider
-	head = /obj/item/clothing/head/helmet/f13/power_armor/t45b/raider
-	suit_store = /obj/item/gun/ballistic/automatic/smg/tommygun
-	backpack_contents = list(
-		/obj/item/ammo_box/magazine/tommygunm45 = 2,
-		)
-
-/datum/outfit/loadout/capncrfunded
-	name = "Desert Ranger Stash"
-	suit = /obj/item/clothing/suit/armor/rangercombat/foxcustom
-	head = /obj/item/clothing/head/helmet/f13/ncr/rangercombat/desert
-	suit_store = /obj/item/gun/ballistic/rifle/repeater/brush
-	backpack_contents = list(
-		/obj/item/ammo_box/c4570box = 2,
-		)
-
-//Rebel Guard
-/datum/job/rebels/guard
-	title = "Ironwave Den Raider"
-	flag = F13REBELGUARD
-	total_positions = 10
-	spawn_positions = 10
-	access = list(ACCESS_ENCLAVE)
-	display_order = JOB_DISPLAY_ORDER_F13REBELGUARD
-	description = "You are part of the dedicated warriors and that works on the USS Emminant domain. You defend the den, follow the orders of you captain, and kick some ass."
-	supervisors = "The captain."
-	outfit = /datum/outfit/job/rebels
-
-	loadout_options = list(
-		/datum/outfit/loadout/ncrgardfunded,	
-		/datum/outfit/loadout/stolencopraider,
-		/datum/outfit/loadout/stolenraider,
-		/datum/outfit/loadout/ncrfunded	
-		)
-
-/datum/outfit/job/rebels/guard
-	name = "Ironwave Soldier"
-	jobtype = /datum/job/rebels/soldier
-	suit = /obj/item/clothing/suit/armor/exile/ncrexile/ironwave
-	backpack_contents = list(
-		/obj/item/reagent_containers/hypospray/medipen/stimpak/super = 3,
-		/obj/item/grenade/flashbang = 1,
-		)
-
-/datum/outfit/loadout/stolencopraider
-	name = "Stolen Raider gear"
-	head = /obj/item/clothing/head/helmet/riot/vaultsec
-	suit_store = /obj/item/gun/energy/laser/wattz2k/extended
-	backpack_contents = list(
-		/obj/item/ammo_box/shotgun/improvised =4,
-		/obj/item/storage/box/handcuffs =1
-		)
-
-/datum/outfit/loadout/ncrgardfunded
-	name = "Embassy Funded Gear"
-	head = /obj/item/clothing/head/f13/ncr/steelpot_mp
-	suit_store = /obj/item/gun/ballistic/shotgun/automatic/combat/auto5
-	backpack_contents = list(
-		/obj/item/stock_parts/cell/ammo/mfc =3,
-		/obj/item/storage/box/handcuffs =1,
-		/obj/item/ammo_box/shotgun/bean =2
-		)
-
-/datum/outfit/loadout/stolenraider
-	name = "Ripper gear"
-	head = /obj/item/clothing/head/helmet/f13/raidercombathelmet
-	suit_store = /obj/item/shield/riot/tower/scrap
-	backpack_contents = list(
-		/obj/item/clothing/shoes/f13/military/ncr = 1,
-		)
-
-/datum/outfit/loadout/ncrfunded
-	name = "NCR Funded Gear"
-	head = /obj/item/clothing/head/f13/ncr/goggles
-	suit_store = /obj/item/gun/ballistic/automatic/service/carbine
-	backpack_contents = list(
-		/obj/item/ammo_box/magazine/m556/rifle/assault = 3,
-		)
-
-/datum/outfit/job/rebels/medic/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	..()
-	if(visualsOnly)
-		return
-	ADD_TRAIT(H, TRAIT_PA_WEAR, src)
-	ADD_TRAIT(H, TRAIT_LIFEGIVER, src)
-
+/*
 //Rebel Citizen  
 /datum/job/rebels/citizen
 	title = "Ironwave Den Settlers"
@@ -632,3 +653,4 @@
 	if(visualsOnly)
 		return
 	ADD_TRAIT(H, TRAIT_LIFEGIVER, src)
+*/

@@ -183,7 +183,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 	icon_state = "Cyborg"
 
 /obj/effect/landmark/start/ai
-	name = "AI"
+	name = "Vault 44 God AI"
 	icon_state = "AI"
 	delete_after_roundstart = FALSE
 	var/primary_ai = TRUE
@@ -1049,7 +1049,7 @@ obj/effect/landmark/start/f13/ncrlogisticsofficer
 	icon_state = "Legionary"
 
 /obj/effect/landmark/start/f13/f13rebelsoldier
-	name = "Ironwave Raider"
+	name = "Captured Outlaw"
 	icon_state = "ussgt"
 
 /obj/effect/landmark/start/f13/f13rebelcaptain
@@ -1060,10 +1060,12 @@ obj/effect/landmark/start/f13/ncrlogisticsofficer
 	name = "Ironwave Den Doctor"
 	icon_state = "ussgt"
 
+/*
 /obj/effect/landmark/start/f13/f13rebelcitizen
 	name = "Ironwave Den Settlers"
 	icon_state = "ussgt"
+*/
 
 /obj/effect/landmark/start/f13/f13rebelguard
-	name = "Ironwave Den Guard"
+	name = "Ironwave Raider"
 	icon_state = "ussgt"

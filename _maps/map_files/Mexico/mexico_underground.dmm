@@ -14231,6 +14231,10 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/vault/security)
+"cwE" = (
+/obj/mecha/working/normalvehicle/buggy/dune,
+/turf/open/floor/plating/f13/inside/gravel,
+/area/f13/citycaves)
 "cCG" = (
 /obj/effect/turf_decal/stripes/asteroid/full,
 /obj/structure/railing/handrail/blue,
@@ -52508,7 +52512,7 @@ ayQ
 ayQ
 aEX
 aEX
-aEX
+cwE
 aEX
 aEX
 aEX
