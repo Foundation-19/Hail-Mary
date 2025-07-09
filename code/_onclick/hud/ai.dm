@@ -90,11 +90,13 @@
 	name = "Call Train"
 	icon_state = "call_shuttle"
 
+/*
 /obj/screen/ai/call_shuttle/Click()
 	if(..())
 		return
 	var/mob/living/silicon/ai/AI = usr
 	AI.ai_call_shuttle()
+*/
 
 /obj/screen/ai/state_laws
 	name = "State Laws"

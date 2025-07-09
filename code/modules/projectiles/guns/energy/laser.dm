@@ -632,6 +632,25 @@
 		/datum/firemode/burst/two/slow
 	)
 
+/obj/item/gun/energy/laser/aer9/vault
+	name = "\improper Vault 44 AER9 laser rifle"
+	desc = "A sturdy pre-war laser rifle that got repaired and repainted. Its a sacred weapon for the Vault 44 warriors. Its automatic, but shoots slowly"
+	ammo_type = list(/obj/item/ammo_casing/energy/laser/lasgun/hitscan)
+	cell_type = /obj/item/stock_parts/cell/ammo/mfc
+	fire_delay = 1
+	icon = 'icons/fallout/objects/guns/energy.dmi'
+	lefthand_file = 'icons/fallout/onmob/weapons/guns_lefthand.dmi'
+	righthand_file = 'icons/fallout/onmob/weapons/guns_righthand.dmi'
+	mob_overlay_icon = 'icons/fallout/onmob/backslot_weapon.dmi'
+	icon_state = "aer9vault"
+	item_state = "aer9vault"
+	weapon_class = WEAPON_CLASS_RIFLE
+	weapon_weight = GUN_TWO_HAND_ONLY
+	can_scope = TRUE
+	init_firemodes = list(
+		/datum/firemode/automatic/rpm150
+	)
+
 /obj/item/gun/energy/laser/aer9/focused/rynn
 	name = "\improper Hot-wired AER10 laser rifle"
 	desc = "A pre-war laser rifle prototype that has seen better day, known as a failed attempt at competing with the wattz 2000. Part of it's grip seems broken along it's barrel, and it has cloth wrapped around it's stock and grip."
