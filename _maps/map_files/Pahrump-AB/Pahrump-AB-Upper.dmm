@@ -6395,10 +6395,6 @@
 /obj/effect/decal/cleanable/blood,
 /turf/open/floor/f13/wood,
 /area/f13/radiation)
-"jJY" = (
-/obj/mecha/working/normalvehicle/vertibird/ncr/loaded,
-/turf/open/floor/f13,
-/area/f13/ncr)
 "jLE" = (
 /obj/machinery/autolathe/ammo/unlocked_basic,
 /turf/open/floor/f13{
@@ -12810,10 +12806,6 @@
 	icon_state = "housewood2-broken"
 	},
 /area/f13/caves)
-"tcF" = (
-/obj/mecha/working/normalvehicle/vertibird/brotherhood/loaded,
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/brotherhood/rnd)
 "tcW" = (
 /obj/machinery/light/small,
 /turf/open/floor/wood_fancy/wood_fancy_light,
@@ -15324,10 +15316,6 @@
 /obj/structure/railing,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
 /area/f13/brotherhood/dorms)
-"xcf" = (
-/obj/mecha/working/normalvehicle/vertibird/balloon/loaded,
-/turf/open/floor/wood_common,
-/area/f13/wasteland)
 "xcA" = (
 /obj/structure/railing/corner{
 	dir = 1
@@ -23778,7 +23766,7 @@ ssV
 ssV
 cBM
 cBM
-jJY
+hIu
 cBM
 cBM
 ssV
@@ -57413,7 +57401,7 @@ igk
 ciQ
 ciQ
 ciQ
-tcF
+ciQ
 ciQ
 ciQ
 ciQ
@@ -58955,7 +58943,7 @@ igk
 ciQ
 ciQ
 ciQ
-tcF
+ciQ
 ciQ
 igk
 igk
@@ -70997,7 +70985,7 @@ xJg
 xJg
 xJg
 spS
-xcf
+spS
 spS
 oez
 oez

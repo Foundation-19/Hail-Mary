@@ -26999,12 +26999,6 @@
 	},
 /turf/open/floor/f13/wood,
 /area/f13/building)
-"fdT" = (
-/obj/mecha/working/normalvehicle/buggy/ranger/loaded,
-/turf/open/indestructible/ground/outside/road{
-	icon_state = "verticalinnermain1"
-	},
-/area/f13/wasteland)
 "fdY" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/barricade/wooden,
@@ -28808,6 +28802,10 @@
 	},
 /turf/open/floor/f13/wood,
 /area/f13/building/mall)
+"fPE" = (
+/obj/mecha/working/normalvehicle/corvega/loaded,
+/turf/open/indestructible/ground/outside/sidewalk,
+/area/f13/city)
 "fPH" = (
 /obj/effect/decal/cleanable/dirt{
 	color = "000000"
@@ -40463,15 +40461,6 @@
 "kIz" = (
 /turf/closed/indestructible/f13/matrix,
 /area/f13/ncr)
-"kID" = (
-/obj/effect/decal/marking{
-	icon_state = "dottedverticalcorroded"
-	},
-/obj/mecha/combat/combatvehicle/buggy/rangerarmed/loaded,
-/turf/open/indestructible/ground/outside/road{
-	icon_state = "horizontalbottombordertop0"
-	},
-/area/f13/wasteland)
 "kIJ" = (
 /obj/structure/campfire/barrel,
 /turf/open/indestructible/ground/outside/sidewalk{
@@ -47198,6 +47187,10 @@
 	icon_state = "bluedirtychess2"
 	},
 /area/f13/village)
+"nox" = (
+/obj/mecha/working/normalvehicle/buggy/ranger/loaded,
+/turf/open/indestructible/ground/outside/road,
+/area/f13/wasteland)
 "noC" = (
 /obj/effect/turf_decal/loading_area{
 	dir = 8
@@ -48757,7 +48750,7 @@
 	},
 /area/f13/wasteland)
 "nXq" = (
-/obj/mecha/combat/combatvehicle/pickuptruck/bos/armed,
+/obj/mecha/working/normalvehicle/pickuptruck/bos,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/brotherhood)
 "nXv" = (
@@ -61902,7 +61895,6 @@
 /area/f13/city)
 "tzu" = (
 /obj/structure/flora/branch,
-/obj/mecha/combat/combatvehicle/buggy/legionarmed/loaded,
 /turf/open/indestructible/ground/outside/dirt{
 	dir = 8;
 	icon_state = "dirtcorner"
@@ -80368,7 +80360,7 @@ kLl
 esK
 aQZ
 mHp
-uNJ
+nox
 uNJ
 bMM
 qmG
@@ -80882,7 +80874,7 @@ kLl
 aqU
 aQZ
 mHp
-fdT
+bMM
 oXi
 jIk
 gPZ
@@ -81147,7 +81139,7 @@ hnE
 mHp
 bMM
 fiV
-kID
+bnK
 jIk
 tnZ
 tnZ
@@ -98492,7 +98484,7 @@ ueV
 aky
 xCv
 jkB
-jkB
+fPE
 jkB
 iht
 hKI
