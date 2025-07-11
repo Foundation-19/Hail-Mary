@@ -99,9 +99,10 @@
 	damage = 10
 	wound_bonus = 30
 	sharpness = SHARP_EDGED
-
+/*
 /obj/item/shrapnel/bullet/a556/microshrapnel
 	name = "\improper 5.56mm microshrapnel bullet"
 
 /obj/item/shrapnel/bullet/a762/microshrapnel
 	name = "\improper 7.62mm microshrapnel bullet"
+*/
