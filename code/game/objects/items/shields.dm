@@ -406,27 +406,6 @@ obj/item/shield/riot/bullet_proof
 		to_chat(user, span_notice("[src] can now be concealed."))
 	add_fingerprint(user)
 
-/obj/item/shield/riot/tower
-	name = "tower shield"
-	desc = "A heavy metal tower shield. Very unwieldly."
-	icon_state = "shield_tower"
-	item_state = "shield_tower"
-	slot_flags = ITEM_SLOT_BACK
-	shieldbash_cooldown = 8 SECONDS
-	shieldbash_brutedamage = 50//if you close in with this, and land a shieldbash you should deal a good bit of damage
-	shieldbash_stamdmg = 80//and stamina
-	force = 25
-	block_parry_data = /datum/block_parry_data/shield/tower
-	throwforce = 5
-	throw_speed = 1
-	throw_range = 1
-	slowdown = 0.2
-	w_class = WEIGHT_CLASS_HUGE
-	custom_materials = list(/datum/material/iron = 32000)
-	repair_material = /obj/item/stack/sheet/metal
-	shield_flags = SHIELD_FLAGS_HEAVY
-	max_integrity = -1
-
 /datum/block_parry_data/shield/tower
 	block_slowdown = 0.75
 	block_damage_multiplier = 0.7

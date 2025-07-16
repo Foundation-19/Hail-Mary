@@ -70,7 +70,7 @@
 		"fire" = 10, \
 		"acid" = 10, \
 		"wound" = 10, \
-		"damage_threshold" = 1)
+		"damage_threshold" = 0)
 
 /* Medium armor values
  * Decent mobility
@@ -91,7 +91,7 @@
 		"fire" = 25, \
 		"acid" = 25, \
 		"wound" = 20, \
-		"damage_threshold" = 3)
+		"damage_threshold" = 2)
 
 /* Heavy armor values
  * Low mobility
@@ -134,7 +134,7 @@
 		"fire" = 80, \
 		"acid" = 80, \
 		"wound" = 40, \
-		"damage_threshold" = 8)
+		"damage_threshold" = 6)
 
 /* Power armor values
  * High mobility
