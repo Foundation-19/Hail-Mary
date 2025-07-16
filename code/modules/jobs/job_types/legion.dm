@@ -289,6 +289,83 @@ Weapons		Lever shotgun, Grease gun, Repeater carbines, Revolvers, simple guns al
 		/obj/item/ammo_box/shotgun/magnum = 2,
 		)
 
+// ----------------- LICTOR ------------------
+
+/datum/job/CaesarsLegion/Legionnaire/f13lictor
+	title = "Legion Lictor"
+	flag = F13LICTOR
+	total_positions = 1
+	spawn_positions = 1
+	description = "A martial arts, unarmed fighter. You answer directly to the Centurion or the Orator. You will heed to personally protect the high-value noncombatants of the Legion, such as the Orator, the Forgemaster, or any other noncombatants that leave the camp for offiical diplomatic business."
+	supervisors = "the Centurion"
+	display_order = JOB_DISPLAY_ORDER_LICTOR
+	outfit = /datum/outfit/job/CaesarsLegion/Legionnaire/f13lictor
+	exp_requirements = 450
+
+	access = list(ACCESS_LEGION, ACCESS_CHANGE_IDS, ACCESS_LEGION_COMMAND)
+	minimal_access = list(ACCESS_LEGION, ACCESS_CHANGE_IDS, ACCESS_LEGION_COMMAND)
+
+	loadout_options = list(
+		/datum/outfit/loadout/praewrestle,	// Wrestling book
+		/datum/outfit/loadout/praeberserk,	// Berserker rites 
+		/datum/outfit/loadout/praekravmaga, // Krav maga
+		)
+
+	min_required_special = list(
+		"special_s" = 7,
+		)
+
+/datum/outfit/job/CaesarsLegion/Legionnaire/f13lictor/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	..()
+	if(visualsOnly)
+		return
+	ADD_TRAIT(H, TRAIT_BIG_LEAGUES, src)
+	ADD_TRAIT(H, TRAIT_IRONFIST, src)
+	ADD_TRAIT(H, TRAIT_LIFEGIVER, src)
+
+/datum/outfit/job/CaesarsLegion/Legionnaire/f13lictor
+	name = "Legion Lictor"
+	jobtype = /datum/job/CaesarsLegion/Legionnaire/f13lictor
+	id = /obj/item/card/id/dogtag/legveteran
+	suit = /obj/item/clothing/suit/armor/legion/praetorian
+	head = /obj/item/clothing/head/helmet/f13/legion/venator
+	mask = /obj/item/clothing/mask/bandana/legion/
+	neck = /obj/item/storage/belt/shoulderholster
+	gloves = /obj/item/clothing/gloves/legion/plated
+	ears = /obj/item/radio/headset/headset_legion/
+	glasses = /obj/item/clothing/glasses/sunglasses/big
+	shoes = /obj/item/clothing/shoes/f13/military/plated
+	r_pocket = /obj/item/storage/survivalkit/medical/legion
+	l_pocket = /obj/item/flashlight/lantern
+	
+	backpack_contents = list(
+		/obj/item/gun/ballistic/revolver/ballisticfist = 1,
+		/obj/item/ammo_box/shotgun/buck = 2,
+	//	/obj/item/storage/bag/money/small/legofficers = 1,
+		/obj/item/binoculars = 1,
+		)
+
+/datum/outfit/loadout/praewrestle
+	name = "Path of Brawn"
+	backpack_contents = list(
+		/obj/item/book/granter/martial/wrestling = 1,
+		/obj/item/grenade/smokebomb = 2,
+		)
+
+/datum/outfit/loadout/praeberserk
+	name = "Path of Wrath"
+	backpack_contents = list(
+		/obj/item/book/granter/martial/berserker = 1,
+		/obj/item/reagent_containers/pill/bitterdrink = 2,
+		)
+
+/datum/outfit/loadout/praekravmaga
+	name = "Path of the Protectorate"
+	backpack_contents = list(
+		/obj/item/book/granter/martial/krav_maga = 1,
+		/obj/item/reagent_containers/pill/bitterdrink = 2,
+		)
+
 
 // ----------------- VETERAN DECANUS ---------------------
 
