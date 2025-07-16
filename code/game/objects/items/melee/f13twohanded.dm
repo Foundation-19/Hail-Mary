@@ -548,13 +548,6 @@
 	throwforce = 15
 	throwforce_on = 30
 	attack_speed = CLICK_CD_MELEE * 1.25
-	var/emp_radius = 1
-
-/obj/item/melee/transforming/energy/axe/protonaxe/afterattack(atom/A, mob/living/user, proximity)
-	. = ..()
-	if(!active)
-		return
-	empulse_using_range(A, emp_radius, log=0) //fox go a (A)
 
 //dan kelly is a nerd NO YOU ARE!!!
 
