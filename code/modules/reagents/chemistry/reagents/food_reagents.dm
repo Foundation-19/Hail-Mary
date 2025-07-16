@@ -397,6 +397,7 @@
 	nutriment_factor = 1 * REAGENTS_METABOLISM
 	color = "#302000" // rgb: 48, 32, 0
 	taste_description = "flowers"
+	thirst_factor = THIRST_FACTOR * 7
 
 /datum/reagent/consumable/brocjuice/on_mob_life(mob/living/carbon/M)
 	M.adjustOxyLoss(-1*REAGENTS_EFFECT_MULTIPLIER, 0)
@@ -408,6 +409,7 @@
 	nutriment_factor = 1 * REAGENTS_METABOLISM
 	color = "#302000" // rgb: 48, 32, 0
 	taste_description = "dirt"
+	thirst_factor = THIRST_FACTOR * 5
 
 /datum/reagent/consumable/xanderjuice/on_mob_life(mob/living/carbon/M)
 	if(M.blood_volume < BLOOD_VOLUME_NORMAL)
@@ -420,6 +422,7 @@
 	nutriment_factor = 1 * REAGENTS_METABOLISM
 	color = "#BAE3B4"
 	taste_description = "plants"
+	thirst_factor = THIRST_FACTOR * 8
 
 /datum/reagent/consumable/agavejuice/on_mob_life(mob/living/carbon/M)
 	M.adjustFireLoss(-0.5*REAGENTS_EFFECT_MULTIPLIER, 0)
@@ -431,6 +434,7 @@
 	nutriment_factor = 1 * REAGENTS_METABOLISM
 	color = "#E8E67E"
 	taste_description = "bitter"
+	thirst_factor = THIRST_FACTOR * 6
 
 /datum/reagent/consumable/ferajuice/on_mob_life(mob/living/carbon/M)
 	if(M.health > 20)
@@ -443,6 +447,7 @@
 	nutriment_factor = 1 * REAGENTS_METABOLISM
 	color = "#ACDFCE"
 	taste_description = "bitter leaves"
+	thirst_factor = THIRST_FACTOR * 6
 
 /datum/reagent/consumable/daturajuice/on_mob_life(mob/living/carbon/M)
 	M.set_drugginess(5)
@@ -455,6 +460,7 @@
 	nutriment_factor = 1 * REAGENTS_METABOLISM
 	color = "#168B64"
 	taste_description = "leaves"
+	thirst_factor = THIRST_FACTOR * 4
 
 /datum/reagent/consumable/coyotejuice/on_mob_life(mob/living/carbon/M)
 	if(prob(10))
@@ -471,6 +477,7 @@
 	nutriment_factor = 1 * REAGENTS_METABOLISM
 	color = "#274E13"
 	taste_description = "nuts"
+	thirst_factor = THIRST_FACTOR * 4
 
 /datum/reagent/consumable/cavefungusjuice/on_mob_life(mob/living/carbon/M)
 	M.adjustToxLoss(-0.5*REAGENTS_EFFECT_MULTIPLIER, 0)
@@ -482,6 +489,7 @@
 	nutriment_factor = 1 * REAGENTS_METABOLISM
 	color = "#274E13"
 	taste_description = "tato"
+	thirst_factor = THIRST_FACTOR * 4
 
 /datum/reagent/consumable/bloodleafjuice
 	name = "Bloodleaf Juice"
@@ -489,6 +497,7 @@
 	nutriment_factor = 1 * REAGENTS_METABOLISM
 	color = "#990000"
 	taste_description = "bitter"
+	thirst_factor = THIRST_FACTOR * 4
 
 /datum/reagent/consumable/blackpepper
 	name = "Black Pepper"
@@ -562,6 +571,7 @@
 	taste_description = "garlic"
 	metabolization_rate = 0.15 * REAGENTS_METABOLISM
 	value = REAGENT_VALUE_COMMON
+	thirst_factor = THIRST_FACTOR * 4
 
 /datum/reagent/consumable/garlic/on_mob_life(mob/living/carbon/M)
 	if(isvampire(M)) //incapacitating but not lethal. Unfortunately, vampires cannot vomit.
@@ -804,6 +814,7 @@
 	taste_description = "bitterness"
 	pH = 5
 	value = REAGENT_VALUE_COMMON
+	thirst_factor = THIRST_FACTOR * 4
 
 /datum/reagent/consumable/tearjuice/reaction_mob(mob/living/M, method=TOUCH, reac_volume)
 	if(!istype(M))

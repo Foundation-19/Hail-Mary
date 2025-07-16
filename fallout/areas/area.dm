@@ -40,6 +40,15 @@
 	grow_chance = 45
 	weather_tags = list(WEATHER_ALL)
 
+/area/f13/wasteland/powered
+	requires_power = FALSE
+
+/area/f13/wasteland/cold
+	icon_state = "wastelandcold"
+
+/area/f13/wasteland/cold/power
+	requires_power = FALSE
+
 /area/f13/Ocean
 	name = "Ocean"
 	icon_state = "blue"
@@ -176,6 +185,15 @@
 	ambientmusic = null
 	grow_chance = 5
 	weather_tags = null
+
+/area/f13/building/sewers/powered
+	requires_power = FALSE
+
+/area/f13/sewer/powered 
+	requires_power = FALSE
+
+/area/f13/building/powered
+	requires_power = FALSE
 
 /area/f13/caves
 	name = "Caves"
@@ -399,6 +417,9 @@
 	name = "Bighorn Bunker"
 	icon_state = "bighornbunker"
 
+/area/f13/building/powered
+	requires_power = FALSE
+
 /area/f13/farm
 	name = "Farm"
 	icon_state = "farm"
@@ -581,6 +602,9 @@
 	environment = 6
 	grow_chance = 5
 
+/area/f13/casino/powered
+	requires_power = FALSE
+
 /area/f13/clinic
 	name = "Clinic"
 	icon_state = "clinic"
@@ -658,7 +682,26 @@
 	name = "Bighorn Bunker"
 	icon_state = "bighornbunker2"
 
+/area/f13/bunker/bunkerthree
+	name = "Bunker Three"
 
+/area/f13/bunker/bunkerfour
+	name = "Bunker Four"
+
+/area/f13/bunker/bunkerfive
+	name = "Bunker Five"
+
+/area/f13/bunker/bunkersix
+	name = "Bunker Six"
+
+/area/f13/bunker/bunkerseven
+	name = "Bunker Seven"
+
+/area/f13/bunker/bunkereight
+	name = "Bunker Eight"
+
+/area/f13/bunker/bunkernine
+	name = "Bunker Nine"
 
 /area/f13/tunnel/northeast
 	name = "North-Eastern Tunnel"
@@ -980,6 +1023,9 @@
 	name = "Brotherhood of Steel Mining"//Brother Hood
 	icon_state = "brotherhoodmining"
 
+/area/f13/brotherhood/powered
+	requires_power = FALSE
+
 /area/f13/enclave
 	name = "Enclave Bunker"
 	icon_state = "enclave"
@@ -1033,6 +1079,11 @@
 	grow_chance = 5
 	requires_power = FALSE
 
+/area/f13/ncr/powered
+	name = "NCR Outpost"
+	icon_state = "ncr"
+	requires_power = FALSE
+
 /area/f13/legion
 	name = "Legion Fortress"
 	icon_state = "legion"
@@ -1050,6 +1101,11 @@
 	environment = 4
 	grow_chance = 5
 //	weather_tags = list(WEATHER_ALL) tf
+
+/area/f13/legion/powered
+	name = "Legion Fortress"
+	icon_state = "legion"
+	requires_power = FALSE
 
 /area/f13/followers
 	name = "Followers of the Apocalypse Clinic"
@@ -1070,3 +1126,40 @@
 	name = "Great Khan Encampment"
 	icon_state = "tribe"
 	weather_tags = list(WEATHER_ALL)
+
+
+// Holiday Tipton Town
+
+/area/f13/holiday
+	name = "Holiday"
+	icon_state = "holiday"
+
+/area/f13/holiday/mine
+	name = "Holiday mine"
+	icon_state = "holiday_mine"
+
+/area/f13/holiday/powered
+	name = "Holiday"
+	icon_state = "holiday"
+	requires_power = FALSE
+
+/area/f13/holiday/powered/deepmine // deepmines for holiday means no infinite power
+	name = "Holiday deep mine"
+	icon_state = "holiday_mine"
+
+// Zion Valley
+
+/area/f13/wasteland/badlands
+	name = "Badlands"
+	icon_state = "badland"
+//	ambience_area =  list('sound/f13ambience/wasteland.ogg')
+	ambientmusic = list('sound/ambience/wilderness.ogg')
+	ambientsounds = list('sound/f13ambience/bird_1.ogg','sound/f13ambience/bird_2.ogg','sound/f13ambience/bird_3.ogg', \
+	'sound/f13ambience/bird_4.ogg','sound/f13ambience/bird_5.ogg','sound/f13ambience/bird_6.ogg', \
+	'sound/f13ambience/bird_7.ogg','sound/f13ambience/bird_8.ogg', 'sound/f13ambience/rattlesnake_1.ogg', \
+	'sound/f13ambience/rattlesnake_2.ogg','sound/f13ambience/rattlesnake_3.ogg')
+	outdoors = 1
+	open_space = 1
+	blob_allowed = 0
+	environment = 15
+	grow_chance = 75

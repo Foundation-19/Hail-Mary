@@ -255,3 +255,19 @@
 	Mix the fermented results of Xander root, barrel cactii, broc flowers together in equal parts.</b>
 	<br>
 	Bitter drink should be the result which can then be bottled by crafting. It is a very potent drink, so more than two should not be consumed."}
+
+
+//// Hail Mary 13 
+
+/obj/item/paper/crumpled/fluff/tipton
+	name = "diary entry 4"
+	info = "The tunnel shook violently, and within moments, the path behind me was buried beneath tons of rock and debris. I screamed and clawed at the rubble, but the way back to the Vault was gone—sealed forever. Now, there's only darkness ahead and the weight of knowing I can never return."
+
+/obj/item/paper/crumpled/fluff/tipton2
+	name = "diary entry 19"
+	info = "Dear anyone who ever recovers this, this page of my diary is for anyone who finds this to thank the brave people of the vault who are left sealed in forever from this land. They may return but who knows. This grave belongs to one of John Doe and Jane Joe. May they rest in peace."
+
+/obj/item/paper/crumpled/bloody/tipton
+	name = "unfinished paper scrap"
+	desc = "Looks like someone started shakily writing a will in english, but were interrupted by something bloody..."
+	info = "__Objectives #1__: Find out what is hidden in Kongjian zhan 13s Vault"

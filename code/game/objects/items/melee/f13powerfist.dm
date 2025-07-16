@@ -53,6 +53,30 @@
 	target.throw_at(throw_target, 2 * throw_distance, 0.5 + (throw_distance / 2))
 	log_combat(user, target, "power fisted", src)
 
+
+// Dual Powerfist			Powerfist with lowered attack delay and increased throw distance
+/obj/item/melee/powerfist/f13/dual
+	name = "Dual Powerfists"
+	desc = "A pair of metal gauntlets with a piston-powered ram on top for that extra 'oomph' in your punch."
+	icon = 'icons/fallout/objects/melee/melee.dmi'
+	lefthand_file = 'icons/fallout/onmob/clothes/hand.dmi'
+	righthand_file = 'icons/fallout/onmob/clothes/hand.dmi'
+	icon_state = "powerfist_dual"
+	item_state = "powerfist_dual"
+	force = 30 //EXPERIMENTAL FOR DUAL MELEES
+	throw_distance = 2
+	attack_speed = CLICK_CD_MELEE * 0.6
+	w_class = WEIGHT_CLASS_BULKY
+
+/obj/item/melee/powerfist/f13/dual/equipped(mob/user, slot)
+	. = ..()
+	if(ishuman(user) && user.mind && slot == SLOT_HANDS)
+		ADD_TRAIT(user, TRAIT_CLUMSY, CLOTHING_TRAIT)
+
+/obj/item/melee/powerfist/f13/dual/dropped(mob/user)
+	. = ..()
+	REMOVE_TRAIT(user, TRAIT_CLUMSY, CLOTHING_TRAIT)
+
 // Goliath				Throws targets far. Max damage 50.
 /obj/item/melee/powerfist/f13/goliath
 	name = "Goliath"
@@ -65,6 +89,27 @@
 	force = 35 //needs to fuckin slapp
 	throw_distance = 3
 
+// Dual Goliath			Goliath with lowered attack delay and increased throw distance
+/obj/item/melee/powerfist/f13/dual/goliath
+	name = "Dual Goliaths"
+	desc = "A pair of massive, experimental metal gauntlets crafted by some poor bastard in Redwater that since outlived their usefulness. The piston-powered ram on top is designed to throw targets very, very far."
+	icon = 'icons/fallout/objects/melee/melee.dmi'
+	lefthand_file = 'icons/fallout/onmob/clothes/hand.dmi'
+	righthand_file = 'icons/fallout/onmob/clothes/hand.dmi'
+	icon_state = "goliath_dual"
+	item_state = "goliath_dual"
+	force = 35 //EXPERIMENTAL FOR DUAL MELEES
+	throw_distance = 4
+	w_class = WEIGHT_CLASS_BULKY
+
+/obj/item/melee/powerfist/f13/dual/goliath/equipped(mob/user, slot)
+	. = ..()
+	if(ishuman(user) && user.mind && slot == SLOT_HANDS)
+		ADD_TRAIT(user, TRAIT_CLUMSY, CLOTHING_TRAIT)
+
+/obj/item/melee/powerfist/f13/dual/goliath/dropped(mob/user)
+	. = ..()
+	REMOVE_TRAIT(user, TRAIT_CLUMSY, CLOTHING_TRAIT)
 
 // Ballistic Fist			Keywords: Damage max 42, Shotgun
 /obj/item/gun/ballistic/revolver/ballisticfist
@@ -79,11 +124,39 @@
 	armour_penetration = 0
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/dual
 	fire_sound = 'sound/f13weapons/caravan_shotgun.ogg'
-	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_GLOVES
+	slot_flags =  ITEM_SLOT_BELT | ITEM_SLOT_GLOVES
 	w_class = WEIGHT_CLASS_NORMAL
 	item_flags = NEEDS_PERMIT //doesn't slow you down
 	fire_delay = 0
 	var/transfer_prints = TRUE //prevents runtimes with forensics when held in glove slot
+
+// Dual Ballistic Fist			Keywords: Damage max 42, Shotgun
+/obj/item/gun/ballistic/revolver/ballisticfist/dual
+	name = "Dual ballistic fists"
+	desc = "These powerfists has been modified to have two shotgun barrels welded to it, with the trigger integrated into the knuckle guard. For those times when you want to punch someone and shoot them in the face at the same time."
+	icon = 'icons/fallout/objects/melee/melee.dmi'
+	icon_state = "ballisticfist_dual"
+	item_state = "ballisticfist_dual"
+	lefthand_file = 'icons/fallout/onmob/clothes/hand.dmi'
+	righthand_file = 'icons/fallout/onmob/clothes/hand.dmi'
+	force = 30
+	armour_penetration = 0
+	mag_type = /obj/item/ammo_box/magazine/internal/shot
+	fire_sound = 'sound/f13weapons/caravan_shotgun.ogg'
+	slot_flags =  ITEM_SLOT_GLOVES
+	w_class = WEIGHT_CLASS_NORMAL
+	item_flags = NEEDS_PERMIT //doesn't slow you down
+	fire_delay = 0
+	w_class = WEIGHT_CLASS_BULKY
+
+/obj/item/gun/ballistic/revolver/ballisticfist/dual/equipped(mob/user, slot)
+	. = ..()
+	if(ishuman(user) && user.mind && slot == SLOT_HANDS)
+		ADD_TRAIT(user, TRAIT_CLUMSY, CLOTHING_TRAIT)
+
+/obj/item/gun/ballistic/revolver/ballisticfist/dual/dropped(mob/user)
+	. = ..()
+	REMOVE_TRAIT(user, TRAIT_CLUMSY, CLOTHING_TRAIT)
 
 
 // Mole Miner

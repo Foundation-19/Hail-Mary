@@ -196,6 +196,7 @@
 /mob/living/simple_animal/hostile/handy/liberator
 	name = "liberator"
 	desc = "A small pre-War droned used by the People's Liberation Army."
+	icon = 'icons/fallout/mobs/robots/weirdrobots.dmi'
 	icon_state = "liberator"
 	icon_living = "leberator"
 	icon_dead = "liberator_d"
@@ -519,6 +520,18 @@
 	faction = list("raider")
 	obj_damage = 300
 	can_ghost_into = FALSE
+
+/mob/living/simple_animal/hostile/handy/assaultron/martha //Tipton specific
+	name = "lil martha"
+	desc = "A deadly close combat robot developed by RobCo and covered in thick, dark blue armor plating, the name lil martha scratched onto it"
+	maxHealth = 500
+	health = 500
+	aggro_vision_range = 15
+	faction = list("hostile")
+	obj_damage = 300
+	can_ghost_into = FALSE
+	color = "#3444C8" //dark blue
+	emp_flags = list() //no emp instakill for you
 
 /mob/living/simple_animal/hostile/handy/assaultron/playable
 	see_in_dark = 8

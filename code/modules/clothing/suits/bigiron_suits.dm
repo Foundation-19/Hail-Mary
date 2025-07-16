@@ -1283,17 +1283,6 @@
 	armor = ARMOR_VALUE_LIGHT
 	armor_tokens = list(ARMOR_MODIFIER_DOWN_MELEE_T1, ARMOR_MODIFIER_UP_BULLET_T2, ARMOR_MODIFIER_DOWN_LASER_T1, ARMOR_MODIFIER_UP_ENV_T2, ARMOR_MODIFIER_UP_DT_T1)
 
-/obj/item/clothing/suit/armor/light/duster/breastplate/khan
-	name = "Leather battle coat" //NO PIT THIS GAME UNIVERSE AND THAT GAME UNIVERSE HAVE NOTHING TO DO WITH EACH OTHER!!! (Sorry but I'm not keeping the original name of a petfaction) - Blue
-	desc = "Heavy leather coat lined with a patchwork of metal plates on the inside. The plates lining it appear to be just the right metal quality to deflect most physical blunt trauma as well as laser weaponry slightly, but terrible at defending against bullets."
-	icon = 'icons/fallout/clothing/khans.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/khaans.dmi'
-	icon_state = "khan_heavy"
-	item_state = "khan_heavy"
-	pocket_storage_component_path = /datum/component/storage/concrete/pockets/duster/armored
-	armor = ARMOR_VALUE_LIGHT
-	armor_tokens = list(ARMOR_MODIFIER_DOWN_BULLET_T4, ARMOR_MODIFIER_UP_MELEE_T3, ARMOR_MODIFIER_DOWN_ENV_T1, ARMOR_MODIFIER_UP_DT_T2)
-
 /obj/item/clothing/suit/armor/light/duster/armoredformalcoat
 	name = "armored formal overcoat"
 	desc = "A neat black overcoat that's only slightly weathered from a nuclear apocalypse. This one has armor plating..."
@@ -1456,26 +1445,6 @@
 	item_state = "mutie_armorkit"
 	heat_protection = CHEST | GROIN | LEGS| ARMS | HEAD
 	siemens_coefficient = 1.1
-
-// Basic Jacket. Follows its own path since of labcoat. So if you update the armor kit, then update this aswell as its a reskinned armor kit.
-/obj/item/clothing/suit/toggle/labcoat/khan_jacket
-	name = "Great Khan jacket"
-	desc = "A black leather jacket. <br>There is an illustration on the back - an aggressive, red-eyed skull wearing a fur hat with horns.<br>The skull has a mongoloid moustache - it's obviously a Great Khans emblem."
-	icon = 'icons/fallout/clothing/khans.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/khaans.dmi'
-	icon_state = "khan_jacket"
-	item_state = "khan_jacket"
-	min_cold_protection_temperature = ARMOR_MIN_TEMP_PROTECT
-	max_heat_protection_temperature = ARMOR_MAX_TEMP_PROTECT
-	strip_delay = 10
-	equip_delay_other = 10
-	max_integrity = 100
-	pocket_storage_component_path = /datum/component/storage/concrete/pockets/armor
-	slowdown = ARMOR_SLOWDOWN_LIGHT * ARMOR_SLOWDOWN_GLOBAL_MULT
-	armor = ARMOR_VALUE_LIGHT
-	armor_tier_desc = ARMOR_CLOTHING_LIGHT
-	armor_tokens = list(ARMOR_MODIFIER_UP_DT_T1)
-	stiffness = LIGHT_STIFFNESS
 
 ///////////////////////////////////////////////////////////////////
 //Fenis's Snarmor Compendium of Snaggletoothed Snarting Snarmors//

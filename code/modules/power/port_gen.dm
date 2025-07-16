@@ -264,13 +264,22 @@
 				. = TRUE
 
 /obj/machinery/power/port_gen/pacman/super
-	name = "\improper S.U.P.E.R.P.A.C.M.A.N.-type portable generator"
+	name = "\improper Calpower-nuclear portable generator"
 	icon_state = "portgen1_0"
 	base_icon = "portgen1"
 	circuit = /obj/item/circuitboard/machine/pacman/super
 	sheet_path = /obj/item/stack/sheet/mineral/uranium
 	power_gen = 15000
 	time_per_sheet = 85
+
+/obj/machinery/power/port_gen/pacman/super/vault
+	icon_state = "core0"
+	base_icon = "core"
+	icon = 'icons/fallout/machines/power.dmi'
+
+/obj/machinery/power/port_gen/pacman/super/vault/update_icon_state()
+	var/addon = active ? "" : "0"
+	icon_state = "[base_icon][addon]"
 
 /obj/machinery/power/port_gen/pacman/super/overheat()
 	explosion(src.loc, 3, 3, 3, -1)
@@ -286,3 +295,31 @@
 
 /obj/machinery/power/port_gen/pacman/mrs/overheat()
 	explosion(src.loc, 4, 4, 4, -1)
+
+// Diesel aka resprited fuel
+
+/obj/machinery/power/port_gen/pacman/diesel
+	name = "diesel generator"
+	desc = "A portable generator for emergency backup power."
+	icon = 'icons/fallout/machines/power.dmi'
+	icon_state = "diesel-off"
+	base_icon = "diesel"
+
+/obj/machinery/power/port_gen/infinite/diesel
+	name = "diesel generator"
+	desc = "A portable generator for emergency backup power."
+	icon = 'icons/fallout/machines/power.dmi'
+	icon_state = "diesel-off"
+	base_icon = "diesel"
+
+/obj/machinery/power/port_gen/infinite/diesel/Initialize()
+	. = ..()
+	update_icon()
+
+/obj/machinery/power/port_gen/infinite/diesel/update_icon_state()
+	var/addon = active ? "on" : "off"
+	icon_state = "[base_icon]-[addon]"
+
+/obj/machinery/power/port_gen/pacman/diesel/update_icon_state()
+	var/addon = active ? "on" : "off"
+	icon_state = "[base_icon]-[addon]"
