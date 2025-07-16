@@ -31948,6 +31948,10 @@
 	icon_state = "housewood2"
 	},
 /area/f13/building)
+"hcX" = (
+/obj/machinery/water_purifier,
+/turf/open/floor/plasteel/freezer,
+/area/f13/city)
 "hda" = (
 /obj/structure/sacrificealtar,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
@@ -46401,6 +46405,12 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plasteel/f13/vault_floor/dark/darksolid,
 /area/f13/building)
+"mYH" = (
+/obj/effect/landmark/start/f13/lictor,
+/turf/open/indestructible/ground/outside/gravel{
+	icon_state = "gravel3"
+	},
+/area/f13/wasteland)
 "mYU" = (
 /obj/structure/decoration/rag,
 /turf/closed/wall/f13/wood/house,
@@ -109253,7 +109263,7 @@ ayL
 bbs
 aiO
 xvy
-bbV
+hcX
 bbV
 bbV
 dkR
@@ -131456,7 +131466,7 @@ xWo
 qqE
 aii
 aii
-qqE
+mYH
 vDY
 mNn
 xJd

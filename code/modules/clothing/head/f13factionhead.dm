@@ -956,12 +956,13 @@ obj/item/clothing/head/helmet/f13/enclave/usmcriot
 ////////////////////////
 
 /obj/item/clothing/head/helmet/f13/khan
-	name = "horned helmet"
+	name = "Great Khan helmet"
 	desc = "A piece of headwear commonly worn by the horned tribals that appears to resemble stereotypical traditional Mongolian helmets - likely adapted from a pre-War motorcycle helmet.<br>It is black with two horns on either side and a small spike jutting from the top, much like a pickelhaube.<br>A leather covering protects the wearer's neck and ears from sunburn."
 	icon = 'icons/fallout/clothing/khans.dmi'
 	mob_overlay_icon = 'icons/fallout/onmob/clothes/khaans.dmi'
 	icon_state = "khan_helmet"
 	item_state = "khan_helmet"
+	armor = ARMOR_VALUE_LIGHT
 	flags_inv = null
 	flags_cover = null
 	strip_delay = 20
@@ -984,10 +985,11 @@ obj/item/clothing/head/helmet/f13/enclave/usmcriot
  */
 
 /obj/item/clothing/head/helmet/f13/khan/bandana
-	name = "outlaw bandana"
+	name = "Great Khan bandana"
 	desc = "A bandana. Tougher than it looks. One side of the cloth is dark, the other red, so it can be reversed."
 	icon_state = "khan_bandana"
 	item_state = "khan_bandana"
+	armor = ARMOR_VALUE_LIGHT
 	strip_delay = 10
 	dynamic_hair_suffix = null
 	dynamic_fhair_suffix = null
@@ -1032,6 +1034,8 @@ obj/item/clothing/head/helmet/f13/enclave/usmcriot
 	desc = " A Khan helmet modified with steel horns and a full guard comprised of red sunglass lenses and a thick metal plate to conceal the lower face."
 	icon_state = "khan_fullhelmet"
 	item_state = "khan_fullhelmet"
+	armor = ARMOR_VALUE_MEDIUM
+	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T1)
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	strip_delay = 20
