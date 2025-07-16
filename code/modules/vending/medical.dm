@@ -132,7 +132,7 @@
 					/obj/item/storage/belt/medolier = 2)
 	force_free = TRUE
 
-/obj/machinery/vending/medical/redwater
+/obj/machinery/vending/medical/outlaw
 	name = "\improper Jailbroken Super-Duper Medivendor"
 	products = list(/obj/item/reagent_containers/syringe = 12,
 					/obj/item/reagent_containers/dropper = 3,

@@ -1851,6 +1851,10 @@
 /obj/structure/timeddoor/sixtyminute,
 /turf/open/indestructible/ground/inside/subway,
 /area/f13/tunnel/sub)
+"cOk" = (
+/obj/machinery/water_purifier,
+/turf/open/floor/plating/rust,
+/area/f13/tunnel)
 "cOt" = (
 /obj/structure/simple_door/metal/dirtystore,
 /turf/open/floor/wood_wide,
@@ -5092,6 +5096,13 @@
 /obj/structure/cable,
 /turf/open/floor/plating,
 /area/f13/tcoms)
+"hIk" = (
+/obj/structure/lattice/catwalk,
+/obj/machinery/water_purifier,
+/turf/open/indestructible/ground/outside/water/running{
+	sunlight_state = 0
+	},
+/area/f13/tunnel)
 "hIt" = (
 /obj/structure/decoration/vent/rusty,
 /obj/machinery/shower{
@@ -6083,8 +6094,7 @@
 /turf/open/floor/plating/rust,
 /area/f13/citycaves)
 "iVi" = (
-/obj/structure/rack/large/shelf,
-/obj/item/tank/internals/air,
+/obj/machinery/water_purifier,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "bluerustysolid"
 	},
@@ -10407,6 +10417,10 @@
 /obj/effect/decal/cleanable/blood/drip,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
 /area/f13/citycaves)
+"oUP" = (
+/obj/machinery/water_purifier,
+/turf/open/floor/plating/rust,
+/area/f13/citycaves)
 "oUS" = (
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustyfull"
@@ -11372,6 +11386,10 @@
 	sunlight_state = 0
 	},
 /area/f13/tunnel/sub)
+"qlm" = (
+/obj/machinery/water_purifier,
+/turf/open/floor/plating/rust,
+/area/f13/ruins)
 "qlP" = (
 /obj/effect/decal/cleanable/oil/slippery,
 /turf/closed/wall/r_wall/rust,
@@ -11817,6 +11835,10 @@
 /obj/structure/barricade/tentclothedge,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/citycaves)
+"qQC" = (
+/obj/effect/spawner/lootdrop/welder_tools,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/vault)
 "qRa" = (
 /obj/effect/turf_decal/stripes/red/line{
 	dir = 8
@@ -12023,6 +12045,12 @@
 	},
 /turf/closed/wall/r_wall/rust,
 /area/f13/citycaves)
+"rle" = (
+/obj/effect/spawner/lootdrop/high_tools,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	icon_state = "bluerustysolid"
+	},
+/area/f13/vault)
 "rlf" = (
 /obj/structure/destructible/tribal_torch/wall/lit,
 /turf/open/floor/plasteel/cult,
@@ -12406,6 +12434,10 @@
 	icon_state = "cultdamage"
 	},
 /area/f13/mountain_bunker)
+"rNS" = (
+/obj/machinery/water_purifier,
+/turf/open/floor/plasteel/f13/vault_floor/misc/bar,
+/area/f13/vault)
 "rOj" = (
 /obj/structure/target_stake,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
@@ -14748,6 +14780,10 @@
 /obj/structure/timeddoor,
 /turf/closed/wall/mineral/cult,
 /area/f13/mountain_bunker)
+"vdi" = (
+/obj/effect/spawner/lootdrop/high_tools,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/vault)
 "vdj" = (
 /obj/structure/flora/tree/jungle{
 	pixel_y = -15;
@@ -14855,6 +14891,8 @@
 /area/f13/bunker)
 "vlR" = (
 /obj/item/tank/internals/air,
+/obj/structure/rack,
+/obj/effect/spawner/lootdrop/tool_box,
 /turf/open/floor/plasteel/f13/vault_floor/yellow/whiteyellowfull,
 /area/f13/vault)
 "vmL" = (
@@ -15911,6 +15949,10 @@
 	name = "underground ruins"
 	},
 /area/f13/vault)
+"wOW" = (
+/obj/machinery/water_purifier,
+/turf/open/floor/plasteel/f13/vault_floor/red/whiteredfull,
+/area/f13/mountain_bunker)
 "wPy" = (
 /obj/effect/overlay/water{
 	layer = 20;
@@ -21875,7 +21917,7 @@ xrG
 xrG
 xrG
 lro
-sSs
+qlm
 sSs
 wld
 vRg
@@ -37674,7 +37716,7 @@ dhe
 faw
 wCP
 iwr
-wCP
+cOk
 wCP
 iwr
 faw
@@ -38193,7 +38235,7 @@ gou
 faw
 iwr
 iwr
-iwr
+cOk
 faw
 faw
 mkJ
@@ -39731,7 +39773,7 @@ gou
 faw
 dhe
 dhe
-faw
+hIk
 iwr
 iwr
 laI
@@ -40310,7 +40352,7 @@ aqg
 ncs
 ncs
 ncs
-ncs
+vdi
 ssh
 ncs
 ncs
@@ -40962,7 +41004,7 @@ bSQ
 bSQ
 bSQ
 bSQ
-bSQ
+glb
 vUa
 ecC
 dsE
@@ -41077,7 +41119,7 @@ wUA
 fgg
 drV
 opt
-opt
+rle
 gdL
 opt
 opt
@@ -41219,7 +41261,7 @@ pdh
 tFJ
 vQT
 tFJ
-tFJ
+wOW
 vUa
 dsE
 dsE
@@ -41336,7 +41378,7 @@ drV
 opt
 opt
 lDQ
-ncs
+qQC
 opt
 lxq
 ssh
@@ -45213,7 +45255,7 @@ mhd
 ssh
 xnt
 bwZ
-bwZ
+rNS
 ssh
 ncs
 opt
@@ -56663,7 +56705,7 @@ aRU
 riG
 ccs
 riG
-rJX
+oUP
 rJX
 rJX
 tzC

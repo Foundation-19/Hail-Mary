@@ -272,6 +272,8 @@
 	disallowed_mags = list(
 		/obj/item/ammo_box/magazine/m10mm/adv/ext,
 		/obj/item/ammo_box/magazine/m10mm/adv/ext/empty,
+		/obj/item/ammo_box/magazine/m10mm/adv/drum,
+		/obj/item/ammo_box/magazine/m10mm/adv/drum/empty,
 		/obj/item/ammo_box/magazine/m10mm/rifle)
 	weapon_class = WEAPON_CLASS_SMALL
 	weapon_weight = GUN_ONE_HAND_ONLY
