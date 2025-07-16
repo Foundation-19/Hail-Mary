@@ -18,10 +18,6 @@ map pahrump-only
 	voteweight 1
 endmap
 
-map baltimore
-    disabled
-endmap
-
 map tipton
     voteweight 1
 endmap
