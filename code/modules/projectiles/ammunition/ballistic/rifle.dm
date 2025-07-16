@@ -39,12 +39,13 @@
 	desc = "Like shrapnel, but smaller, and thus more annoying."
 	projectile_type = /obj/item/projectile/bullet/a308/microshrapnel
 	fire_power = CASING_POWER_MEDIUM_RIFLE * CASING_POWER_MOD_MATCH
+*/
 
-/obj/item/ammo_casing/a762/uraniumtipped
+/obj/item/ammo_casing/a308/uraniumtipped
 	name = "7.62 uranium tipped bullet casing"
 	desc = "Not depleted uranium. Regular uranium."
-	projectile_type = /obj/item/projectile/bullet/a762/uraniumtipped
-*/
+	projectile_type = /obj/item/projectile/bullet/a308/uraniumtipped
+
 
 /obj/item/ammo_casing/a308/rubber
 	name = ".308 rubber bullet casing"
@@ -105,19 +106,19 @@
 		/datum/material/iron = (MATS_RIFLE_LIGHT_CASING * MATS_AMMO_CASING_HANDLOAD_MULT) + (MATS_RIFLE_LIGHT_BULLET * MATS_AMMO_BULLET_HANDLOAD_MULT),
 		/datum/material/blackpowder = MATS_RIFLE_LIGHT_POWDER * MATS_AMMO_POWDER_HANDLOAD_MULT)
 	fire_power = CASING_POWER_LIGHT_RIFLE * CASING_POWER_MOD_HANDLOAD
-
+/*
 /obj/item/ammo_casing/a556/microshrapnel
 	name = "5.56mm microshrapnel bullet casing"
 	desc = "Like shrapnel, but smaller, and thus more annoying."
 	projectile_type = /obj/item/projectile/bullet/a556/microshrapnel
 	fire_power = CASING_POWER_LIGHT_RIFLE * CASING_POWER_MOD_MATCH
+*/
 
-/*
 /obj/item/ammo_casing/a556/uranium_tipped
 	name = "5.56 uranium-tipped bullet casing"
 	desc = "Tax money well spent."
 	projectile_type = /obj/item/projectile/bullet/a556/uraniumtipped
-*/
+
 /*
 /obj/item/ammo_casing/a556/sport //.223
 	name = ".223 bullet casing"

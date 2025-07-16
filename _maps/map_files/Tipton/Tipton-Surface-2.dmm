@@ -3008,6 +3008,15 @@
 	},
 /turf/open/water,
 /area/f13/legioncamp)
+"bAc" = (
+/obj/structure/table/wood,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/cell_charger{
+	pixel_x = -3;
+	pixel_y = -1
+	},
+/turf/open/floor/f13/wood,
+/area/f13/building/powered)
 "bAy" = (
 /obj/structure/table,
 /obj/machinery/light/small,
@@ -3695,6 +3704,14 @@
 /obj/effect/spawner/lootdrop/f13/weapon/gun/ammo/tier1,
 /obj/effect/spawner/lootdrop/f13/weapon/gun/ammo/tier2,
 /obj/effect/spawner/lootdrop/f13/weapon/gun/ammo/tier3,
+/obj/machinery/cell_charger{
+	pixel_x = -3;
+	pixel_y = -1
+	},
+/obj/machinery/recharger{
+	pixel_x = 8;
+	pixel_y = 9
+	},
 /turf/open/floor/f13{
 	icon_state = "floorrusty"
 	},
@@ -10271,10 +10288,16 @@
 /area/f13/holiday)
 "fmq" = (
 /obj/structure/table/reinforced,
-/obj/item/paper_bin,
-/obj/item/pen,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/cell_charger{
+	pixel_x = -3;
+	pixel_y = -1
+	},
+/obj/machinery/recharger{
+	pixel_x = 8;
+	pixel_y = 9
+	},
 /turf/open/floor/f13/wood,
 /area/f13/holiday)
 "fmw" = (
@@ -13871,6 +13894,10 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
+/obj/machinery/cell_charger{
+	pixel_x = -3;
+	pixel_y = -1
+	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/holiday)
 "hbT" = (
@@ -15699,6 +15726,16 @@
 	icon_state = "darkrusty"
 	},
 /area/f13/ambientlighting/building/v)
+"hXZ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/table/reinforced,
+/obj/structure/barricade/bars,
+/obj/machinery/door/poddoor/shutters{
+	id = "countershutters";
+	name = "counter shutters"
+	},
+/turf/open/floor/f13/wood,
+/area/f13/holiday)
 "hYq" = (
 /obj/structure/chair/f13chair2{
 	dir = 8
@@ -16935,6 +16972,14 @@
 	},
 /turf/open/floor/plating/dirt,
 /area/f13/wasteland/cold)
+"iGK" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/button/door{
+	pixel_y = -25;
+	id = "shopindoorwindow"
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/holiday)
 "iGZ" = (
 /turf/open/floor/f13{
 	icon_state = "bluedirtychess2"
@@ -18039,12 +18084,19 @@
 /area/f13/holiday)
 "jgF" = (
 /obj/structure/table/booth,
-/obj/effect/spawner/lootdrop/f13/alcoholspawner,
 /obj/structure/sign/poster/contraband/shamblers_juice{
 	pixel_y = 32
 	},
 /obj/effect/decal/cleanable/dirt{
 	color = "#363636"
+	},
+/obj/machinery/recharger{
+	pixel_x = 8;
+	pixel_y = 9
+	},
+/obj/machinery/cell_charger{
+	pixel_x = -3;
+	pixel_y = -1
 	},
 /turf/open/floor/f13/wood{
 	icon_state = "housewood3-broken"
@@ -21424,6 +21476,7 @@
 	},
 /obj/effect/spawner/lootdrop/low_tools,
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/workbench/advanced,
 /turf/open/floor/f13{
 	icon_state = "floorrusty"
 	},
@@ -26422,6 +26475,30 @@
 /obj/structure/destructible/tribal_torch/lit,
 /turf/open/indestructible/ground/inside/dirt,
 /area/f13/wasteland/cold)
+"nth" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/barricade/bars{
+	max_integrity = 800;
+	name = "strong metal bars";
+	obj_integrity = 800
+	},
+/obj/structure/window/fulltile/house{
+	dir = 2;
+	icon_state = "housewindowbrokenvertical"
+	},
+/obj/machinery/door/poddoor/shutters{
+	id = "shopindoorwindow";
+	name = "counter shutters";
+	layer = 5
+	},
+/obj/structure/barricade/wooden/planks/pregame{
+	layer = 6
+	},
+/obj/structure/decoration/rag{
+	layer = 7
+	},
+/turf/open/floor/f13/wood,
+/area/f13/holiday)
 "nts" = (
 /obj/structure/closet/fridge,
 /obj/effect/spawner/lootdrop/food,
@@ -27111,6 +27188,18 @@
 	},
 /turf/open/floor/plating/dirt,
 /area/f13/wasteland/cold)
+"nHl" = (
+/obj/machinery/cell_charger{
+	pixel_x = -3;
+	pixel_y = -1
+	},
+/obj/structure/table/wood/settler,
+/obj/machinery/recharger{
+	pixel_x = 8;
+	pixel_y = 9
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/holiday)
 "nHx" = (
 /obj/effect/turf_decal/delivery,
 /obj/structure/rack,
@@ -30824,6 +30913,9 @@
 /obj/item/trash/f13/fancylads{
 	pixel_y = 8
 	},
+/obj/machinery/cell_charger{
+	pixel_y = 6
+	},
 /turf/open/floor/f13{
 	icon_state = "darkdirtysolid"
 	},
@@ -33228,6 +33320,13 @@
 	icon_state = "floorrusty"
 	},
 /area/f13/ambientlighting/building/a)
+"qPs" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/open/floor/f13/wood,
+/area/f13/holiday)
 "qPt" = (
 /obj/structure/fence/corner,
 /obj/effect/turf_decal/weather/snow/corner{
@@ -33276,6 +33375,7 @@
 /obj/effect/decal/cleanable/dirt{
 	color = "#363636"
 	},
+/obj/effect/spawner/lootdrop/f13/alcoholspawner,
 /turf/open/floor/f13/wood{
 	icon_state = "housewood4-broken"
 	},
@@ -34079,6 +34179,10 @@
 /obj/effect/spawner/lootdrop/f13/blueprintMid,
 /obj/effect/spawner/lootdrop/f13/armor/tier3,
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/lootdrop/f13/blueprintMid,
+/obj/effect/spawner/lootdrop/f13/armor/tier3,
+/obj/effect/spawner/lootdrop/f13/seedspawner,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/ammo/tier2,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/holiday)
 "rkN" = (
@@ -38557,6 +38661,9 @@
 "twY" = (
 /obj/structure/table/reinforced,
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/cell_charger{
+	pixel_y = 6
+	},
 /turf/open/floor/f13{
 	icon_state = "yellowrustychess"
 	},
@@ -39398,6 +39505,8 @@
 /obj/structure/table/reinforced,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
+/obj/item/pen,
+/obj/item/paper_bin,
 /turf/open/floor/f13/wood,
 /area/f13/holiday)
 "tUM" = (
@@ -44503,15 +44612,6 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plasteel/f13/vault_floor/floor/floorsolid,
 /area/f13/ambientlighting/building/d)
-"wwT" = (
-/obj/structure/rack,
-/obj/effect/spawner/lootdrop/f13/weapon/gun/ammo/tier2,
-/obj/effect/spawner/lootdrop/f13/seedspawner,
-/obj/effect/spawner/lootdrop/f13/blueprintMid,
-/obj/effect/spawner/lootdrop/f13/armor/tier3,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/holiday)
 "wwZ" = (
 /obj/structure/sink/well,
 /turf/open/indestructible/ground/outside/desert,
@@ -57100,7 +57200,7 @@ vIQ
 eik
 vIQ
 nhc
-hWZ
+bAc
 vIQ
 vty
 nhc
@@ -81150,7 +81250,7 @@ vtV
 ftN
 qgW
 qgW
-qgW
+nHl
 rNV
 sYu
 eLY
@@ -89623,11 +89723,11 @@ ttK
 ttK
 geK
 max
-ttK
+qPs
 dHY
 vtV
 lmw
-ttK
+qPs
 ttK
 uAV
 oqt
@@ -90392,7 +90492,7 @@ vtV
 ttK
 ttK
 ttK
-geK
+hXZ
 ttK
 ttK
 ttK
@@ -90648,7 +90748,7 @@ vtV
 vtV
 vtV
 cBa
-vtV
+nth
 vtV
 vBl
 ttK
@@ -90905,7 +91005,7 @@ vVd
 vtV
 dAR
 oGt
-ihF
+iGK
 vtV
 doL
 ttK
@@ -92445,7 +92545,7 @@ wew
 vtV
 joK
 oGt
-wwT
+ihF
 oGt
 eYq
 vtV

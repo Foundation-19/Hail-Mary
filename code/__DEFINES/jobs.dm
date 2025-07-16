@@ -91,21 +91,22 @@
 #define F13LEGATE		(1<<0)
 #define F13CENTURION	(1<<1)
 #define F13ORATOR		(1<<2)
-#define F13PRIESTESS 	(1<<3)
-#define F13DECANREC		(1<<4)
-#define F13DECAN		(1<<5)
-#define F13DECANVET		(1<<6)
-#define F13VEXILLARIUS	(1<<7)
-#define F13EXPLORER		(1<<8)
-#define F13VENATOR		(1<<9)
-#define F13VETLEGIONARY	(1<<10)
-#define F13LEGIONARY	(1<<11)
-#define F13RECRUITLEG	(1<<12)
-#define F13AUXILIA	(1<<13)
-#define F13LEGIONSLAVE	(1<<14)
-#define F13IMMUNE	(1<<15)
-#define F13CAMPFOLLOWER (1<<16)
-#define F13SLAVEMASTER	(1<<17)
+#define F13LICTOR	(1<<3)
+#define F13PRIESTESS 	(1<<4)
+#define F13DECANREC		(1<<5)
+#define F13DECAN		(1<<6)
+#define F13DECANVET		(1<<7)
+#define F13VEXILLARIUS	(1<<8)
+#define F13EXPLORER		(1<<9)
+#define F13VENATOR		(1<<10)
+#define F13VETLEGIONARY	(1<<11)
+#define F13LEGIONARY	(1<<12)
+#define F13RECRUITLEG	(1<<13)
+#define F13AUXILIA	(1<<14)
+#define F13LEGIONSLAVE	(1<<15)
+#define F13IMMUNE	(1<<16)
+#define F13CAMPFOLLOWER (1<<17)
+#define F13SLAVEMASTER	(1<<18)
 
 #define BOS				(1<<5)
 
@@ -318,6 +319,7 @@
 
 #define JOB_DISPLAY_ORDER_CENTURION 52
 #define JOB_DISPLAY_ORDER_ORATOR 53
+#define JOB_DISPLAY_ORDER_LICTOR 53.9
 #define JOB_DISPLAY_ORDER_PRIESTESS 54
 #define JOB_DISPLAY_ORDER_DECANREC 55
 #define JOB_DISPLAY_ORDER_DECAN 56

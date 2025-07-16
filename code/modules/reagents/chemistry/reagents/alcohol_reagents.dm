@@ -376,6 +376,17 @@ All effects don't start immediately, but rather get worse over time; the rate is
 		M.hallucination += 4 //Reference to the urban myth
 	..()
 
+/datum/reagent/consumable/ethanol/cerveza
+	name = "Cerveza Cristal"
+	description = "Unique, Great and Ours"
+	color = rgb(255, 253, 150)
+	boozepwr = 25
+	taste_description = "advertisement"
+	glass_icon_state = "beerglass"
+	glass_name = "glass of cerveza cristal"
+	glass_desc = "A fine drink originally from norte chico commonwealths."
+	shot_glass_icon_state = "shotglassgreen"
+
 /datum/reagent/consumable/ethanol/hooch
 	name = "Hooch"
 	description = "Either someone's failure at cocktail making or attempt in alcohol production. In any case, do you really want to drink that?"
