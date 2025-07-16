@@ -46390,6 +46390,12 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plasteel/f13/vault_floor/dark/darksolid,
 /area/f13/building)
+"mYH" = (
+/obj/effect/landmark/start/f13/lictor,
+/turf/open/indestructible/ground/outside/gravel{
+	icon_state = "gravel3"
+	},
+/area/f13/wasteland)
 "mYU" = (
 /obj/structure/decoration/rag,
 /turf/closed/wall/f13/wood/house,
@@ -131445,7 +131451,7 @@ xWo
 qqE
 aii
 aii
-qqE
+mYH
 vDY
 mNn
 xJd
