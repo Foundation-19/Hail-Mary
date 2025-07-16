@@ -1,3 +1,4 @@
+/*
 /obj/item/projectile/bullet/reusable/arrow
 	name = "arrow"
 	desc = "a simple arrow."
@@ -168,8 +169,7 @@
 	break_chance = 5 //real sturdy. this is the easy to make and supply "handload" of the arrow world
 	ammo_type = /obj/item/ammo_casing/caseless/arrow/field
 
-/* I...don't really wanna touch this till nonlethal ammo is looked at, or I understand it. but should be sorta equivalent to a .308?
-*/
+
 /obj/item/projectile/bullet/reusable/arrow/blunt
 	name = "blunt arrow"
 	desc = "an arrow with a wrapped leather tip, made for bruising."
@@ -242,7 +242,7 @@
 		)
 
 
-/* 
+*/ 
 
 /obj/item/projectile/bullet/reusable/arrow
 	name = "metal arrow"
@@ -387,4 +387,4 @@
 	emp_radius = 1
 	damage = 20
 	armour_penetration = 0.5
- */
+ 
