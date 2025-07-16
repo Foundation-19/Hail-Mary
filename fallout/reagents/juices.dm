@@ -5,6 +5,7 @@
 	taste_description = "sweet and salty"
 	glass_name = "glass of mutfruit juice"
 	glass_desc = "A glass of sweet-salty mutfruit juice."
+	thirst_factor = THIRST_FACTOR * 12
 
 /datum/reagent/consumable/mutjuice/on_mob_life(mob/living/carbon/M)
 	if(M.getBruteLoss() && prob(50))
@@ -20,6 +21,7 @@
 	glass_icon_state = "banana"
 	glass_name = "glass of yucca juice"
 	glass_desc = "A wastelander's favourite."
+	thirst_factor = THIRST_FACTOR * 12
 
 /datum/reagent/consumable/tato_juice
 	name = "Tato Juice"
@@ -30,6 +32,7 @@
 	glass_icon_state = "glass_brown"
 	glass_name = "glass of tato juice"
 	glass_desc = "Juice of the tato. Smells like bad eggs."
+	thirst_factor = THIRST_FACTOR * 9
 
 /datum/reagent/consumable/fever_blossom_juice
 	name = "Fever Blossom Juice"
@@ -37,6 +40,7 @@
 	nutriment_factor = 1 * REAGENTS_METABOLISM
 	color = "#000000" //same purple
 	taste_description = "pleasant flowers"
+	thirst_factor = THIRST_FACTOR * 5
 
 /datum/reagent/consumable/fever_blossom_juice/on_mob_life(mob/living/carbon/M)
 	M.jitteriness = max(0,M.jitteriness - 5)
