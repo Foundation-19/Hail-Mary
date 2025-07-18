@@ -23332,6 +23332,7 @@
 /area/f13/ncr/powered)
 "lRD" = (
 /obj/structure/bed/old,
+/obj/effect/landmark/start/f13/lictor,
 /turf/open/floor/wood_common/wood_common_dark,
 /area/f13/legioncamp)
 "lRJ" = (
