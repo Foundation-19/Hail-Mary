@@ -1410,6 +1410,10 @@
 	color = "#A47449";
 	dir = 4
 	},
+/obj/structure/campfire/barrel{
+	icon_state = "drumfire-lit";
+	light_range = 6
+	},
 /turf/open/floor/plasteel/f13/stone/rugged,
 /area/f13/wasteland)
 "boL" = (
@@ -1930,8 +1934,7 @@
 /area/f13/legioncamp)
 "bMm" = (
 /obj/machinery/door/unpowered/secure_legion{
-	req_access_txt = null;
-	req_access = list(123,274)
+	opacity = 0
 	},
 /turf/open/indestructible/ground/outside/dirt/dark{
 	icon_state = "dirtfull_dark"
@@ -3008,8 +3011,7 @@
 	color = "#A47449"
 	},
 /obj/machinery/door/unpowered/secure_legion{
-	req_access_txt = null;
-	req_access = list(123,274)
+	opacity = 0
 	},
 /turf/open/indestructible/ground/outside/dirt/dark{
 	icon_state = "dirtfull_dark"
@@ -4343,8 +4345,7 @@
 	},
 /obj/structure/destructible/tribal_torch/wall/lit,
 /obj/machinery/door/unpowered/secure_legion{
-	req_access_txt = null;
-	req_access = list(123,274)
+	opacity = 0
 	},
 /turf/open/floor/plasteel/f13/stone/rugged,
 /area/f13/wasteland)
@@ -18903,6 +18904,10 @@
 	color = "#A47449";
 	dir = 8
 	},
+/obj/structure/campfire/barrel{
+	icon_state = "drumfire-lit";
+	light_range = 6
+	},
 /turf/open/floor/plasteel/f13/stone/rugged,
 /area/f13/wasteland)
 "rHm" = (
@@ -20742,7 +20747,7 @@
 /area/f13/wasteland)
 "tms" = (
 /obj/machinery/door/unpowered/securedoor{
-	req_access_txt = "273"
+	req_access_txt = "274"
 	},
 /turf/open/floor/wood_common,
 /area/f13/legioncamp)
@@ -52120,7 +52125,7 @@ mmA
 mXJ
 rSB
 mmA
-mmA
+dOU
 mmA
 fbi
 mmA
@@ -54941,6 +54946,7 @@ mmA
 mmA
 mmA
 mmA
+kQk
 wBv
 wBv
 wBv
@@ -54948,8 +54954,7 @@ wBv
 wBv
 wBv
 wBv
-wBv
-wBv
+kQk
 mmA
 mmA
 mmA
@@ -59385,6 +59390,7 @@ mmA
 mmA
 mmA
 mmA
+kQk
 wBv
 wBv
 wBv
@@ -59392,8 +59398,7 @@ wBv
 wBv
 wBv
 wBv
-wBv
-wBv
+kQk
 mmA
 mmA
 mmA

@@ -6996,6 +6996,13 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/enclave)
+"ID" = (
+/obj/structure/campfire/barrel{
+	icon_state = "drumfire-lit";
+	light_range = 6
+	},
+/turf/open/floor/wood_common,
+/area/f13/wasteland)
 "IE" = (
 /obj/structure/obstacle/old_locked_door,
 /turf/open/floor/wood_common,
@@ -38089,7 +38096,7 @@ NG
 NG
 NG
 vg
-vg
+ID
 vg
 gL
 NG
@@ -39099,7 +39106,7 @@ NG
 NG
 NG
 vg
-vg
+ID
 vg
 gL
 NG
