@@ -124,7 +124,7 @@
 //Sentry Bot
 /mob/living/simple_animal/hostile/securitron/sentrybot
 	name = "sentry bot"
-	desc = "A pre-war military robot armed with a deadly gatling laser and covered in thick armor plating."
+	desc = "A pre-war military robot, counterfeit of a Sentrybot, yet a bit bigger."
 	icon_state = "sentrybot"
 	icon_living = "sentrybot"
 	icon_dead = "sentrybot_dead"
@@ -211,6 +211,57 @@
 		explosion(get_turf(src),-1,-1,2, flame_range = 4) //perish, mortal - explosion size identical to craftable IED
 	..()
 
+// Chinese Counterfeit Securitron
+/mob/living/simple_animal/hostile/securitron/sentrybot/counterfeit
+	name = "Chinese Counterfeit Sentrybot"
+	desc = "A sentrybot copy made by China. This one has the markings of the submarine 'Hui'."
+	extra_projectiles = 2
+	health = 900
+	maxHealth = 900 //CHONK
+	obj_damage = 300
+	retreat_distance = 0
+	environment_smash = ENVIRONMENT_SMASH_RWALLS //wall-obliterator. perish.
+	color = "#780000"
+	aggro_vision_range = 8
+	flags_1 = PREVENT_CONTENTS_EXPLOSION_1 //cannot self-harm with it's explosion spam
+	faction = list("china")
+	emote_taunt_sound = list(
+		'sound/f13npc/sentry/tauntc1.ogg',
+		'sound/f13npc/sentry/tauntc2.ogg'
+		)
+	emote_taunt = list("spins its barrels")
+	aggrosound = list(
+		'sound/f13npc/sentry/aggroc1.ogg',
+		'sound/f13npc/sentry/aggroc2.ogg'
+		)
+	idlesound = list(
+		'sound/f13npc/sentry/idlec1.ogg',
+		'sound/f13npc/sentry/idlec2.ogg',
+		'sound/f13npc/sentry/idlec3.ogg',
+		'sound/f13npc/sentry/idlec4.ogg'
+		)
+
+/mob/living/simple_animal/hostile/securitron/sentrybot/counterfeit/bullet_act(obj/item/projectile/Proj)
+	if(!Proj)
+		CRASH("[src] sentrybot invoked bullet_act() without a projectile")
+	if(prob(10) && health > 1)
+		visible_message(span_danger("\The [src] releases a defensive explosive!"))
+		explosion(get_turf(src),-1,-1,2, flame_range = 4) //perish, mortal - explosion size identical to craftable IED
+	..()
+
+/mob/living/simple_animal/hostile/securitron/counterfeit/proc/do_death_beep_chinese()
+	playsound(src, 'sound/machines/triple_beep.ogg', 75, TRUE)
+	visible_message(span_warning("You hear an ominous beep coming from [src]!"), span_warning("You hear an ominous beep!"))
+
+/mob/living/simple_animal/hostile/securitron/counterfeit/proc/self_destruct_chinese()
+	explosion(src,1,1,2,2)
+
+/mob/living/simple_animal/hostile/securitron/sentrybot/counterfeit/Life()
+	..()
+	if (!warned)
+		if (health <= 50)
+			warned = TRUE
+			playsound(src, 'sound/f13npc/sentry/systemfailurec2.ogg', 100, FALSE)
 /mob/living/simple_animal/hostile/securitron/sentrybot/chew/strong //For use as a main bunker boss. Essentially a mildly edited OverSEER port
 	name = "big chew-chew"
 	desc = "An oddly scorched pre-war military robot armed with a deadly gatling laser firing high-penetration experimental lasers and covered in thick, dark blue armor plating, the name Big Chew-Chew scratched onto it's front armour crudely, highlighted by small bits of white paint. There seems to be an odd pack on the monstrosity of a sentrie's back, a chute at the bottom of it - there's the most scorch-marks on the robot here, so it's safe to assume this robot is capable of explosions. Better watch out!"
