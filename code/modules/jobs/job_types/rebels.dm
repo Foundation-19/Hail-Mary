@@ -67,7 +67,7 @@
 	uniform = /obj/item/clothing/under/f13/ncr
 
 
-/datum/outfit/loadout/capturedncr
+/datum/outfit/loadout/capturedranger
 	name = "Captured ranger"
 	head = /obj/item/clothing/head/helmet/f13/ncr/rangercombat
 
