@@ -2671,10 +2671,6 @@
 /obj/effect/turf_decal/caution/white,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/enclave)
-"cEy" = (
-/obj/item/shrapnel/bullet/a556,
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/farmhouse)
 "cEC" = (
 /obj/machinery/light{
 	dir = 4
@@ -4198,10 +4194,6 @@
 	name = "Deep water";
 	sunlight_state = 1
 	},
-/area/f13/wasteland)
-"ebL" = (
-/obj/item/shrapnel/bullet/a556,
-/turf/open/indestructible/ground/outside/dirt,
 /area/f13/wasteland)
 "ecK" = (
 /obj/structure/barricade/bars,
@@ -7073,13 +7065,6 @@
 /obj/structure/flora/rock/pile/largejungle,
 /turf/open/indestructible/ground/outside/water,
 /area/f13/wasteland)
-"gCJ" = (
-/obj/item/shrapnel/bullet/a556,
-/turf/open/indestructible/ground/outside/dirt{
-	dir = 1;
-	icon_state = "dirt"
-	},
-/area/f13/wasteland)
 "gDk" = (
 /obj/structure/rack/shelf_metal,
 /obj/effect/spawner/lootdrop/f13/medical/wasteland/meds,
@@ -7507,13 +7492,6 @@
 	icon_state = "wide-broken1"
 	},
 /area/f13/farmhouse)
-"hdm" = (
-/obj/item/shrapnel/bullet/a556,
-/turf/open/indestructible/ground/outside/dirt{
-	dir = 6;
-	icon_state = "dirt"
-	},
-/area/f13/wasteland)
 "hdt" = (
 /obj/structure/fence{
 	dir = 1;
@@ -8425,7 +8403,6 @@
 /area/f13/legion)
 "hZx" = (
 /obj/structure/flora/tallgrass7,
-/obj/item/shrapnel/bullet/a556,
 /turf/open/indestructible/ground/outside/dirt{
 	icon_state = "dirt"
 	},
@@ -9118,15 +9095,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/city)
-"iFX" = (
-/obj/item/shrapnel/bullet/a556,
-/mob/living/simple_animal/hostile/ncr/trooper{
-	name = "AWOL Platoon NCR Trooper";
-	speak = list("HEY ! THIS PLACE IS OUT LIMIT. SCRAM OR DIE !","WE DON'T CARE IF YOU ARE LEGION, THE 3rd M, TINMENS OR TANDY HERSELF, ORDERS ARE ORDERS AND YOU ARE DEAD !","FOR THE BOARD !!!");
-	speak_chance = 5
-	},
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/farmhouse)
 "iGq" = (
 /obj/structure/stairs{
 	dir = 1
@@ -12140,10 +12108,6 @@
 "lEj" = (
 /turf/closed/wall/rust,
 /area/f13/wasteland)
-"lEp" = (
-/obj/item/shrapnel/bullet/a556,
-/turf/open/indestructible/ground/outside/desert,
-/area/f13/wasteland)
 "lEC" = (
 /obj/structure/simple_door/metal/dirtystore,
 /turf/open/indestructible/ground/outside/ruins,
@@ -15131,10 +15095,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
 /area/f13/city)
-"osq" = (
-/obj/effect/landmark/start/f13/f13rebelcitizen,
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/enclave)
 "osM" = (
 /obj/effect/decal/marking{
 	icon_state = "dottedhorizontalcorroded"
@@ -15662,10 +15622,6 @@
 	},
 /turf/open/indestructible/ground/outside/gravel,
 /area/f13/legion)
-"oQj" = (
-/obj/effect/landmark/start/f13/f13rebelcitizen,
-/turf/open/floor/plasteel/f13/vault_floor/plating,
-/area/f13/enclave)
 "oQL" = (
 /obj/structure/railing{
 	color = "#A47449";
@@ -16120,11 +16076,6 @@
 /obj/structure/bed/wooden,
 /turf/open/floor/wood_fancy/wood_fancy_dark,
 /area/f13/legion)
-"prn" = (
-/obj/structure/table,
-/obj/item/shrapnel/bullet/a556,
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/farmhouse)
 "prC" = (
 /mob/living/simple_animal/hostile/wolf{
 	faction = list("NCR");
@@ -16730,13 +16681,6 @@
 	icon_state = "horizontaltopbordertop0"
 	},
 /area/f13/wasteland)
-"pRF" = (
-/obj/item/shrapnel/bullet/a556,
-/turf/open/indestructible/ground/outside/dirt{
-	dir = 9;
-	icon_state = "dirt"
-	},
-/area/f13/wasteland)
 "pRJ" = (
 /obj/structure/closet/cabinet/anchored,
 /obj/effect/decal/cleanable/dirt,
@@ -16926,11 +16870,6 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/plating,
 /area/f13/enclave)
-"qdl" = (
-/obj/item/shrapnel/bullet/a556,
-/mob/living/simple_animal/cow/brahmin,
-/turf/open/indestructible/ground/outside/desert,
-/area/f13/wasteland)
 "qdA" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/jerrycan,
@@ -21542,11 +21481,6 @@
 /mob/living/simple_animal/hostile/raider/ranged,
 /turf/open/indestructible/ground/outside/ruins,
 /area/f13/outpost)
-"uAn" = (
-/obj/structure/flora/tallgrass1,
-/obj/item/shrapnel/bullet/a556,
-/turf/open/indestructible/ground/outside/desert,
-/area/f13/wasteland)
 "uBa" = (
 /obj/structure/simple_door/glass,
 /obj/structure/barricade/wooden/planks/pregame,
@@ -21801,6 +21735,10 @@
 	icon_state = "dirtcorner"
 	},
 /area/f13/legion)
+"uPA" = (
+/obj/effect/landmark/start/f13/lictor,
+/turf/open/indestructible/ground/outside/desert,
+/area/f13/wasteland)
 "uPC" = (
 /turf/open/indestructible/ground/outside/sidewalkdirt{
 	icon_state = "outerbordercorner";
@@ -22012,12 +21950,6 @@
 /obj/item/storage/toolbox/electrical,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/city)
-"vam" = (
-/obj/item/shrapnel/bullet/a556,
-/turf/open/indestructible/ground/outside/dirt{
-	icon_state = "dirt"
-	},
-/area/f13/wasteland)
 "vat" = (
 /obj/structure/junk/small/table,
 /obj/effect/decal/cleanable/dirt,
@@ -23162,12 +23094,6 @@
 	icon_state = "horizontalinnermain1"
 	},
 /area/f13/wasteland)
-"wle" = (
-/obj/item/shrapnel/bullet/a556,
-/turf/open/indestructible/ground/outside/dirt{
-	icon_state = "dirtcorner"
-	},
-/area/f13/wasteland)
 "wlG" = (
 /obj/machinery/camera/all{
 	dir = 5;
@@ -23679,7 +23605,6 @@
 	pixel_x = -19;
 	pixel_y = 7
 	},
-/obj/item/shrapnel/bullet/a556,
 /turf/open/indestructible/ground/outside/dirt{
 	dir = 9;
 	icon_state = "dirt"
@@ -24559,10 +24484,6 @@
 /obj/item/mine/shrapnel,
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/wasteland)
-"xHJ" = (
-/obj/effect/landmark/start/f13/f13rebelcitizen,
-/turf/open/floor/engine,
-/area/f13/enclave)
 "xIe" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -26820,7 +26741,7 @@ cll
 cll
 cll
 cll
-osq
+deG
 deG
 sGE
 uTJ
@@ -27021,7 +26942,7 @@ hXl
 cll
 cll
 cll
-osq
+deG
 deG
 deG
 vpw
@@ -28261,8 +28182,8 @@ sTZ
 emA
 sTZ
 iKI
-oQj
-oQj
+adW
+adW
 lFz
 fYO
 iAZ
@@ -28463,8 +28384,8 @@ ykq
 xfb
 sTZ
 adW
-oQj
-xHJ
+adW
+lFz
 lFz
 aFO
 evl
@@ -50030,7 +49951,7 @@ ylF
 wsb
 doy
 nnV
-ebL
+vjk
 jeD
 wsb
 wsb
@@ -50232,7 +50153,7 @@ eQA
 oGc
 wsb
 hZx
-ebL
+vjk
 efB
 gvb
 wsb
@@ -50432,8 +50353,8 @@ eQA
 eQA
 eQA
 wsb
-uAn
-vam
+ePU
+hDr
 vjk
 vjk
 jeD
@@ -51240,7 +51161,7 @@ jSv
 eQA
 iDf
 wsb
-wle
+jtD
 fnZ
 xFO
 vjk
@@ -52450,7 +52371,7 @@ jtD
 xFO
 vjk
 vjk
-pRF
+ddX
 yhA
 aTK
 jtD
@@ -52464,7 +52385,7 @@ wsb
 wsb
 wsb
 wsb
-qdl
+uRF
 wsb
 wsb
 wsb
@@ -52656,7 +52577,7 @@ aTK
 wsb
 ePU
 hDr
-ebL
+vjk
 vjk
 vjk
 jeD
@@ -52666,7 +52587,7 @@ wsb
 ePU
 wsb
 wsb
-lEp
+wsb
 wsb
 wsb
 wsb
@@ -52865,7 +52786,7 @@ jeD
 wsb
 mOO
 wsb
-lEp
+wsb
 wsb
 aKe
 wsb
@@ -53051,7 +52972,7 @@ mKx
 mKx
 eQA
 wsb
-vam
+hDr
 nZq
 ddX
 aTK
@@ -53255,7 +53176,7 @@ eQA
 wsb
 hDr
 nZq
-gCJ
+jeD
 wsb
 eLS
 lhu
@@ -53460,7 +53381,7 @@ nZq
 jeD
 ePU
 kIc
-prn
+tMc
 dUD
 orI
 dUD
@@ -53665,7 +53586,7 @@ kIc
 pDa
 dUD
 cTN
-iFX
+cTN
 tqK
 dUD
 aTO
@@ -53865,9 +53786,9 @@ jeD
 wsb
 ejo
 czH
-cEy
+dUD
 mRC
-cEy
+dUD
 lnR
 dUD
 xAj
@@ -54060,7 +53981,7 @@ eQA
 eQA
 eQA
 jtD
-hdm
+xFO
 vjk
 ddX
 aTK
@@ -55268,7 +55189,7 @@ oeD
 "}
 (149,1,1) = {"
 kCv
-lEp
+wsb
 wsb
 bVK
 vjk
@@ -55470,7 +55391,7 @@ oeD
 "}
 (150,1,1) = {"
 kCv
-lEp
+wsb
 wsb
 hDr
 vjk
@@ -55623,7 +55544,7 @@ eMZ
 mmA
 mgJ
 wsb
-wsb
+uPA
 ubR
 ewu
 ewu
@@ -55826,7 +55747,7 @@ mmA
 lNn
 wsb
 wsb
-wsb
+uPA
 ubR
 ewu
 fZD
@@ -55876,11 +55797,11 @@ oeD
 kCv
 wsb
 wsb
-vam
+hDr
 vjk
 jeD
 uoU
-lEp
+wsb
 wsb
 wsb
 swl
@@ -56278,14 +56199,14 @@ oeD
 "}
 (154,1,1) = {"
 kCv
-lEp
+wsb
 wsb
 hDr
 ddX
 aTK
 uoU
 wsb
-lEp
+wsb
 wsb
 wsb
 vvT
@@ -56488,7 +56409,7 @@ wsb
 eQA
 wsb
 wsb
-lEp
+wsb
 wsb
 loC
 uFN
@@ -57626,8 +57547,8 @@ iVo
 vqY
 mmA
 lNn
-wsb
-wsb
+uPA
+uPA
 isN
 kSL
 kFZ
