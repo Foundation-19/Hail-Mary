@@ -1691,6 +1691,13 @@
 	icon_state = "dirtfull_dark"
 	},
 /area/f13/legioncamp)
+"jn" = (
+/obj/structure/railing/corner{
+	color = "#A47449";
+	dir = 4
+	},
+/turf/open/floor/wood_fancy,
+/area/f13/legioncamp)
 "jo" = (
 /obj/structure/toilet{
 	dir = 4
@@ -2208,6 +2215,20 @@
 	},
 /turf/open/indestructible/ground/outside/roof,
 /area/f13/wasteland)
+"lB" = (
+/obj/structure/railing{
+	color = "#A47449";
+	dir = 4
+	},
+/obj/structure/railing/wood/post/underlayer{
+	pixel_x = -14
+	},
+/obj/structure/destructible/tribal_torch/wall/lit{
+	dir = 8;
+	pixel_x = 5
+	},
+/turf/open/floor/wood_fancy,
+/area/f13/legioncamp)
 "lC" = (
 /obj/structure/railing{
 	color = "#A47449";
@@ -2609,6 +2630,13 @@
 /area/f13/legioncamp)
 "nu" = (
 /turf/closed/wall/mineral/wood,
+/area/f13/legioncamp)
+"nv" = (
+/obj/structure/railing{
+	color = "#A47449";
+	dir = 1
+	},
+/turf/open/floor/wood_fancy,
 /area/f13/legioncamp)
 "nw" = (
 /turf/closed/indestructible/riveted,
@@ -3136,6 +3164,10 @@
 /obj/machinery/sleeper,
 /turf/open/floor/plasteel/f13/vault_floor/neutral/neutralsolid,
 /area/f13/outpost)
+"pR" = (
+/obj/structure/simple_door/repaired,
+/turf/open/floor/wood_common,
+/area/f13/legioncamp)
 "pT" = (
 /obj/structure/fence/post{
 	pixel_x = -15;
@@ -3229,6 +3261,9 @@
 /obj/item/bedsheet/blanket{
 	pixel_y = 13;
 	layer = 3.9
+	},
+/obj/structure/destructible/tribal_torch/wall/lit{
+	dir = 4
 	},
 /turf/open/floor/wood_fancy/wood_fancy_dark,
 /area/f13/legioncamp)
@@ -3641,6 +3676,11 @@
 /area/f13/ruins)
 "su" = (
 /obj/structure/dresser,
+/obj/item/kirbyplants{
+	icon_state = "plant-18";
+	pixel_x = 9;
+	pixel_y = 24
+	},
 /turf/open/floor/wood_fancy,
 /area/f13/legioncamp)
 "sw" = (
@@ -3844,6 +3884,9 @@
 /area/f13/enclave)
 "tr" = (
 /obj/machinery/microwave/stove,
+/obj/structure/destructible/tribal_torch/wall/lit{
+	dir = 4
+	},
 /turf/open/floor/wood_fancy/wood_fancy_dark,
 /area/f13/legioncamp)
 "ts" = (
@@ -4967,6 +5010,9 @@
 /area/f13/enclave)
 "yN" = (
 /obj/structure/rack/shelf_metal,
+/obj/structure/destructible/tribal_torch/wall/lit{
+	dir = 4
+	},
 /turf/open/floor/wood_fancy/wood_fancy_dark,
 /area/f13/legioncamp)
 "yO" = (
@@ -5063,6 +5109,9 @@
 /obj/structure/railing{
 	color = "#A47449";
 	dir = 1
+	},
+/obj/structure/destructible/tribal_torch/wall/lit{
+	dir = 8
 	},
 /turf/open/floor/wood_fancy/wood_fancy_dark,
 /area/f13/legioncamp)
@@ -7433,6 +7482,9 @@
 /obj/structure/closet/cabinet/anchored,
 /obj/structure/decoration/legion{
 	pixel_y = 30
+	},
+/obj/structure/destructible/tribal_torch/wall/lit{
+	dir = 8
 	},
 /turf/open/floor/wood_fancy/wood_fancy_dark,
 /area/f13/legioncamp)
@@ -32169,7 +32221,7 @@ NG
 NG
 FU
 TU
-kj
+rh
 ow
 Ms
 NG
@@ -32370,9 +32422,9 @@ NG
 NG
 NG
 nu
-FD
-xZ
-xZ
+Lu
+lB
+jn
 xD
 NG
 NG
@@ -32572,10 +32624,10 @@ NG
 NG
 NG
 nu
-xZ
-Lu
-TU
-nu
+FD
+kj
+nv
+xD
 NG
 NG
 NG
@@ -32773,11 +32825,11 @@ lf
 NG
 NG
 NG
-Ms
-jw
-jw
-jw
-Ms
+nu
+nu
+nu
+pR
+nu
 NG
 NG
 NG
@@ -32975,11 +33027,11 @@ lf
 NG
 NG
 NG
-nu
-EV
-sq
-EV
-nu
+Ms
+jw
+jw
+jw
+Ms
 NG
 NG
 NG
@@ -33178,9 +33230,9 @@ NG
 NG
 NG
 nu
-nu
-nu
-nu
+EV
+sq
+EV
 nu
 NG
 NG
@@ -33379,11 +33431,11 @@ NG
 NG
 NG
 NG
-NG
-NG
-NG
-NG
-NG
+nu
+nu
+nu
+nu
+nu
 NG
 NG
 NG

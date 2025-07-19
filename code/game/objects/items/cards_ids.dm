@@ -1108,6 +1108,14 @@
 	item_state = "card-id_leg"
 	assignment = "immune medallion"
 
+/obj/item/card/id/dogtag/legimmune
+	name = "Citizen medallion"
+	desc = "A marked silver disc stamped with the Legion's Bull insignia. Worn by legionnaires on camp duty."
+	icon_state = "legionmedallionprime"
+	item_state = "card-id_leg"
+	assignment = "Legion citizen"
+	access = list(ACCESS_TOWN_CIV)
+
 /obj/item/card/id/dogtag/legveteran
 	name = "veteran medallion"
 	desc = "A heavily marked silver disc stamped with the Legion's Bull insignia. Belongs to a veteran, and reeks of iron."
