@@ -386,6 +386,25 @@
 	else
 		icon_state = "stove"
 
+/obj/machinery/microwave/stove/fancy
+	name = "stove"
+	desc = "A nice white stove for cooking."
+	icon_state = "stove_act"
+
+/obj/machinery/microwave/stove/fancy/update_icon_state()
+	if(broken)
+		icon_state = "stove_open"
+	else if(dirty_anim_playing)
+		icon_state = "stove_open"
+	else if(dirty == 100)
+		icon_state = "stove_open"
+	else if(operating)
+		icon_state = "stove_act"
+	else if(panel_open)
+		icon_state = "stove_open"
+	else
+		icon_state = "stove_act"
+
 #undef MICROWAVE_NORMAL
 #undef MICROWAVE_MUCK
 #undef MICROWAVE_PRE

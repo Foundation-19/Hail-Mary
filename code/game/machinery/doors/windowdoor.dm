@@ -433,3 +433,35 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/door/window/brigdoor/security/holding
 /obj/machinery/door/window/brigdoor/security/holding/right
 	icon_state = "rightsecure"
 	base_state = "rightsecure"
+
+/obj/machinery/door/window/northleft
+	dir = NORTH
+
+/obj/machinery/door/window/eastleft
+	dir = EAST
+
+/obj/machinery/door/window/westleft
+	dir = WEST
+
+/obj/machinery/door/window/southleft
+	dir = SOUTH
+
+/obj/machinery/door/window/northright
+	dir = NORTH
+	icon_state = "right"
+	base_state = "right"
+
+/obj/machinery/door/window/eastright
+	dir = EAST
+	icon_state = "right"
+	base_state = "right"
+
+/obj/machinery/door/window/westright
+	dir = WEST
+	icon_state = "right"
+	base_state = "right"
+
+/obj/machinery/door/window/southright
+	dir = SOUTH
+	icon_state = "right"
+	base_state = "right"

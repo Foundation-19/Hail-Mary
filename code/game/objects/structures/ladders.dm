@@ -408,3 +408,77 @@
 
 /obj/structure/ladder/unbreakable/transition/Cross(atom/movable/AM)
 	use(AM)
+
+/obj/structure/ladder/unbreakable/pool
+	name = "ladder"
+	desc = "A sturdy metal ladder."
+	icon = 'icons/obj/structures.dmi'
+	icon_state = "ladder"
+	height = 0
+
+/obj/structure/ladder/unbreakable/ropetop
+	name = "rope"
+	desc = "You see nothing out of the ordinary."
+	icon = 'icons/obj/Ritas.dmi'
+	icon_state = "ropetop"
+	height = 0
+
+/obj/structure/ladder/unbreakable/ropebottom
+	name = "rope"
+	desc = "You see nothing out of the ordinary."
+	icon = 'icons/obj/Ritas.dmi'
+	icon_state = "ropebottom"
+	height = 0
+
+/obj/structure/ladder/unbreakable/ropeunder
+	name = "rope"
+	desc = "You see nothing out of the ordinary."
+	icon = 'icons/obj/Ritas.dmi'
+	icon_state = "rope"
+	height = 0
+
+/obj/structure/ladder/unbreakable/welltop
+	name = "ladder"
+	desc = "An automatic rappel line to the bottom of the well."
+	icon = 'icons/mecha/mecha_equipment.dmi'
+	icon_state = "mecha_wire"
+	height = 0
+
+/obj/structure/ladder/unbreakable/rvladdertop
+	name = "ladder"
+	desc = "A sturdy metal ladder."
+	icon = 'icons/obj/structures.dmi'
+	icon_state = "rvladder"
+	height = 0
+
+/obj/structure/ladder/unbreakable/rvladderbottom
+	name = "ladder"
+	desc = "A sturdy metal ladder."
+	icon = 'icons/obj/structures.dmi'
+	icon_state = "rvladder2"
+	height = 0
+
+/obj/structure/ladder/unbreakable/manhole
+	name = "manhole"
+	desc = "A sturdy metal ladder."
+	icon = 'icons/obj/structures.dmi'
+	icon_state = "manhole_closed"
+	plane = FLOOR_PLANE
+	height = 0
+
+/obj/structure/ladder/unbreakable/manholeopen
+	name = "manhole"
+	desc = "A sturdy metal ladder."
+	icon = 'icons/obj/structures.dmi'
+	icon_state = "manhole_halfopen"
+	pixel_x = -3
+	pixel_y = -4
+	plane = FLOOR_PLANE
+	height = 0
+
+/obj/structure/ladder/unbreakable/vanilla
+	name = "ladder"
+	desc = "A sturdy metal ladder."
+	icon = 'icons/obj/structures.dmi'
+	icon_state = "ladder10"
+	height = 0

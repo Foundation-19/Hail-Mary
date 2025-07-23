@@ -37,6 +37,11 @@
 	. = ..()
 	flags_2 |= GLOBAL_LIGHT_TURF_2
 
+/turf/open/floor/plating/lit
+	name = "plating"
+	icon_state = "plating"
+	sunlight_state = SUNLIGHT_SOURCE
+
 /turf/open/floor/plating/f13/outside/road
 	name = "\proper road"
 	desc = "A stretch of road."
@@ -121,6 +126,209 @@
 
 //New standard wood floor for most areas, oak for Legion and pure log cabins only, maple for NCR and mayor only, maybe a diner.
 
+/turf/open/floor/wood/f13
+	icon = 'icons/turf/floors.dmi'
+	icon_state = "housewood1"
+
+/turf/open/floor/wood/f13/lit
+	name = "floor"
+	sunlight_state = SUNLIGHT_SOURCE
+
+/turf/open/floor/wood/f13/oak
+	icon = 'icons/turf/floors.dmi'
+	icon_state = "oakfloor1"
+
+/turf/open/floor/wood/f13/oak/Initialize(mapload)
+	. = ..()
+	if(icon_state == "oakfloor1")
+		icon_state = "oakfloor[rand(1,4)]"
+
+/turf/open/floor/wood/f13/housewoodbroken
+	icon_state = "housewood1-broken"
+
+/turf/open/floor/wood/f13/housewoodbroken2
+	icon_state = "housewood2-broken"
+
+/turf/open/floor/wood/f13/housewoodbroken3
+	icon_state = "housewood3-broken"
+
+/turf/open/floor/wood/f13/housewoodbroken4
+	icon_state = "housewood4-broken"
+
+/turf/open/floor/wood/f13/oakbroken
+	icon_state = "oakfloor1-broken"
+
+/turf/open/floor/wood/f13/oakbroken2
+	icon_state = "oakfloor2-broken"
+
+/turf/open/floor/wood/f13/oakbroken3
+	icon_state = "oakfloor3-broken"
+
+/turf/open/floor/wood/f13/oakbroken4
+	icon_state = "oakfloor4-broken"
+
+/turf/open/floor/wood/f13/oakbase
+	icon_state = "housebase"
+
+/turf/open/floor/wood/f13/oak/lit
+	name = "floor"
+	sunlight_state = SUNLIGHT_SOURCE
+
+/turf/open/floor/wood/f13/housewoodbroken/lit
+	icon_state = "housewood1-broken"
+	sunlight_state = SUNLIGHT_SOURCE
+
+/turf/open/floor/wood/f13/housewoodbroken2/lit
+	icon_state = "housewood2-broken"
+	sunlight_state = SUNLIGHT_SOURCE
+
+/turf/open/floor/wood/f13/housewoodbroken3/lit
+	icon_state = "housewood3-broken"
+	sunlight_state = SUNLIGHT_SOURCE
+
+/turf/open/floor/wood/f13/housewoodbroken4/lit
+	icon_state = "housewood4-broken"
+	sunlight_state = SUNLIGHT_SOURCE
+
+/turf/open/floor/wood/housewoodbroken/lit
+	name = "floor"
+	icon_state = "housewood21-broken"
+	sunlight_state = SUNLIGHT_SOURCE
+
+/turf/open/floor/wood/housewoodbroken2/lit
+	name = "floor"
+	icon_state = "housewood22-broken"
+	sunlight_state = SUNLIGHT_SOURCE
+
+/turf/open/floor/wood/housewoodbroken3/lit
+	name = "floor"
+	icon_state = "housewood23-broken"
+	sunlight_state = SUNLIGHT_SOURCE
+
+/turf/open/floor/wood/housewoodbroken4/lit
+	name = "floor"
+	icon_state = "housewood24-broken"
+	sunlight_state = SUNLIGHT_SOURCE
+
+/turf/open/floor/wood/f13/oakbroken/lit
+	icon_state = "oakfloor1-broken"
+	sunlight_state = SUNLIGHT_SOURCE
+
+/turf/open/floor/wood/f13/oakbroken2/lit
+	icon_state = "oakfloor2-broken"
+	sunlight_state = SUNLIGHT_SOURCE
+
+/turf/open/floor/wood/f13/oakbroken3/lit
+	icon_state = "oakfloor3-broken"
+	sunlight_state = SUNLIGHT_SOURCE
+
+/turf/open/floor/wood/f13/oakbroken4/lit
+	icon_state = "oakfloor4-broken"
+	sunlight_state = SUNLIGHT_SOURCE
+
+/turf/open/floor/wood/f13/oakbase/lit
+	icon_state = "housebase"
+	sunlight_state = SUNLIGHT_SOURCE
+
+/turf/open/floor/wood/f13/maple
+	icon_state = "maplefloor1"
+
+/turf/open/floor/wood/f13/maple/lit
+	name = "floor"
+	sunlight_state = SUNLIGHT_SOURCE
+
+/turf/open/floor/wood/f13/carpet
+	icon_state = "carpet"
+
+/turf/open/floor/wood/f13/carpet/lit
+	name = "floor"
+	sunlight_state = SUNLIGHT_SOURCE
+
+/turf/open/floor/wood/f13/old
+	name = "wood planks"
+	desc = "Rotting wooden flooring."
+
+/turf/open/floor/wood/f13/old/ruinedcornerendbr	//WHAT THE FUCK IS THIS
+	name = "wood planks"
+	desc = "Rotting wooden flooring, with a mix of dirt."
+	icon_state = "housewastelandcornerbr"
+
+/turf/open/floor/wood/f13/old/ruinedcornerendbl
+	name = "wood planks"
+	desc = "Rotting wooden flooring, with a mix of dirt."
+	icon_state = "housewastelandcornerbl"
+
+/turf/open/floor/wood/f13/old/ruinedcornerendtr
+	name = "wood planks"
+	desc = "Rotting wooden flooring, with a mix of dirt."
+	icon_state = "housewastelandcornertr"
+
+/turf/open/floor/wood/f13/old/ruinedcornerendtl
+	name = "wood planks"
+	desc = "Rotting wooden flooring, with a mix of dirt."
+	icon_state = "housewastelandcornertl"
+
+/turf/open/floor/wood/f13/old/ruinedcornerbr
+	name = "wood planks"
+	desc = "Rotting wooden flooring, with a mix of dirt."
+	icon_state = "housewastelandmorecornerbr"
+
+/turf/open/floor/wood/f13/old/ruinedcornerbl
+	name = "wood planks"
+	desc = "Rotting wooden flooring, with a mix of dirt."
+	icon_state = "housewastelandmorecornerbl"
+
+/turf/open/floor/wood/f13/old/ruinedcornertr
+	name = "wood planks"
+	desc = "Rotting wooden flooring, with a mix of dirt."
+	icon_state = "housewastelandmorecornertr"
+
+/turf/open/floor/wood/f13/old/ruinedcornertl
+	name = "wood planks"
+	desc = "Rotting wooden flooring, with a mix of dirt."
+	icon_state = "housewastelandmorecornertl"
+
+/turf/open/floor/wood/f13/old/ruinedstraightsouth
+	name = "wood planks"
+	desc = "Rotting wooden flooring, with a mix of dirt."
+	icon_state = "housewastelandsouth"
+
+/turf/open/floor/wood/f13/old/ruinedstraightnorth
+	name = "wood planks"
+	desc = "Rotting wooden flooring, with a mix of dirt."
+	icon_state = "housewastelandnorth"
+
+/turf/open/floor/wood/f13/old/ruinedstraighteast
+	name = "wood planks"
+	desc = "Rotting wooden flooring, with a mix of dirt."
+	icon_state = "housewastelandeast"
+
+/turf/open/floor/wood/f13/old/ruinedstraightwest
+	name = "wood planks"
+	desc = "Rotting wooden flooring, with a mix of dirt."
+	icon_state = "housewastelandwest"
+
+/turf/open/floor/wood/f13/stage_tl
+	icon_state = "housewood_stage_top_left"
+/turf/open/floor/wood/f13/stage_t
+	icon_state = "housewood_stage_top"
+/turf/open/floor/wood/f13/stage_l
+	icon_state = "housewood_stage_left"
+/turf/open/floor/wood/f13/stage_bl
+	icon_state = "housewood_stage_bottom_left"
+/turf/open/floor/wood/f13/stage_b
+	icon_state = "housewood_stage_bottom"
+/turf/open/floor/wood/f13/stage_tr
+	icon_state = "housewood_stage_top_right"
+/turf/open/floor/wood/f13/stage_r
+	icon_state = "housewood_stage_right"
+/turf/open/floor/wood/f13/stage_br
+	icon_state = "housewood_stage_bottom_right"
+
+//WOOD FLOOR FOR BRIDGES ETC, OUTDOORS
+/turf/open/floor/wood/f13/stage_b/outdoors
+	sunlight_state = SUNLIGHT_SOURCE
+
 #define SHROOM_SPAWN	1
 
 /turf/open/floor/plating/f13/inside/mountain
@@ -157,8 +365,25 @@
 	icon_state = "plating"
 	initial_gas_mix = "n2=82;miasma=44;TEMP=293.15"
 
+/turf/open/floor/plasteel/f13/vault_floor/plating/curb
+	name = "floor"
+	icon_state = "platingcurb"
+
+/turf/open/floor/plasteel/f13/vault_floor/plating/lit
+	name = "floor"
+	sunlight_state = SUNLIGHT_SOURCE
+
+/turf/open/floor/plasteel/f13/vault_floor/vrnothing
+	name = "nothing"
+	icon = 'icons/turf/space.dmi'
+	icon_state = "black"
+
 /turf/open/floor/plasteel/f13/vault_floor/floor
 	icon_state = "floor"
+
+/turf/open/floor/plasteel/f13/vault_floor/floor/lit
+	name = "floor"
+	sunlight_state = SUNLIGHT_SOURCE
 
 /turf/open/floor/plasteel/f13/vault_floor/floor/floorsolid
 	icon_state = "floorsolid"
@@ -168,13 +393,44 @@
 /turf/open/floor/plasteel/f13/vault_floor/dark
 	icon_state = "dark"
 
+/turf/open/floor/plasteel/f13/vault_floor/dark/lit
+	name = "floor"
+	sunlight_state = SUNLIGHT_SOURCE
+
 /turf/open/floor/plasteel/f13/vault_floor/dark/darksolid
 	icon_state = "darksolid"
+
+/turf/open/floor/plasteel/f13/vault_floor/dark/darksolid/lit
+	name = "floor"
+	sunlight_state = SUNLIGHT_SOURCE
+
+/turf/open/floor/plasteel/f13/vault_floor/darkrusty
+	icon = 'icons/fallout/turfs/floors.dmi'
+	icon_state = "floorrustysolid"
+
+/turf/open/floor/plasteel/f13/vault_floor/darkrusty/lit
+	name = "floor"
+	sunlight_state = SUNLIGHT_SOURCE
+
+/turf/open/floor/plasteel/f13/vault_floor/darkerrusty/
+	name = "floor"
+	icon = 'icons/fallout/turfs/floors.dmi'
+	icon_state = "floorrustysolid"
+	color = "#818181"
+
+/turf/open/floor/plasteel/f13/vault_floor/darkerrusty/lit
+	name = "floor"
+	sunlight_state = SUNLIGHT_SOURCE
+
 
 	/* WHITE TILES */
 
 /turf/open/floor/plasteel/f13/vault_floor/white
 	icon_state = "white"
+
+/turf/open/floor/plasteel/f13/vault_floor/white/lit
+	name = "floor"
+	sunlight_state = SUNLIGHT_SOURCE
 
 /turf/open/floor/plasteel/f13/vault_floor/white/whitesolid
 	icon_state = "whitesolid"
@@ -211,6 +467,46 @@
 /turf/open/floor/plasteel/f13/vault_floor/red/white/whiteredchess/whiteredchess2
 	icon_state = "whiteredchess2"
 
+/turf/open/floor/plasteel/f13/vault_floor/red/lit
+	icon_state = "redfull"
+	sunlight_state = SUNLIGHT_SOURCE
+
+/turf/open/floor/plasteel/f13/vault_floor/red/whiteredfull/lit
+	icon_state = "whiteredfull"
+	sunlight_state = SUNLIGHT_SOURCE
+
+/turf/open/floor/plasteel/f13/vault_floor/red/side/lit
+	icon_state = "red"
+	sunlight_state = SUNLIGHT_SOURCE
+
+/turf/open/floor/plasteel/f13/vault_floor/red/corner/lit
+	icon_state = "redcorner"
+	sunlight_state = SUNLIGHT_SOURCE
+
+/turf/open/floor/plasteel/f13/vault_floor/red/redchess/lit
+	icon_state = "redchess"
+	sunlight_state = SUNLIGHT_SOURCE
+
+/turf/open/floor/plasteel/f13/vault_floor/red/redchess/redchess2/lit
+	icon_state = "redchess2"
+	sunlight_state = SUNLIGHT_SOURCE
+
+/turf/open/floor/plasteel/f13/vault_floor/red/white/side/lit
+	icon_state = "whitered"
+	sunlight_state = SUNLIGHT_SOURCE
+
+/turf/open/floor/plasteel/f13/vault_floor/red/white/corner/lit
+	icon_state = "whiteredcorner"
+	sunlight_state = SUNLIGHT_SOURCE
+
+/turf/open/floor/plasteel/f13/vault_floor/red/white/whiteredchess/lit
+	icon_state = "whiteredchess"
+	sunlight_state = SUNLIGHT_SOURCE
+
+/turf/open/floor/plasteel/f13/vault_floor/red/white/whiteredchess/whiteredchess2/lit
+	icon_state = "whiteredchess2"
+	sunlight_state = SUNLIGHT_SOURCE
+
 	/* BLUE TILES */
 
 /turf/open/floor/plasteel/f13/vault_floor/blue
@@ -242,6 +538,53 @@
 
 /turf/open/floor/plasteel/f13/vault_floor/blue/white/whitebluechess/whitebluechess2
 	icon_state = "whitebluechess2"
+
+/turf/open/floor/plasteel/f13/vault_floor/blue/lit
+	icon_state = "bluedirtyfull"
+	sunlight_state = SUNLIGHT_SOURCE
+
+/turf/open/floor/plasteel/f13/vault_floor/blue/whitebluefull/lit
+	icon_state = "bluedirtysolid"
+	sunlight_state = SUNLIGHT_SOURCE
+
+/turf/open/floor/plasteel/f13/vault_floor/blue/side/lit
+	icon_state = "bluedirty"
+	sunlight_state = SUNLIGHT_SOURCE
+
+/turf/open/floor/plasteel/f13/vault_floor/blue/corner/lit
+	icon_state = "bluedirtycorner"
+	sunlight_state = SUNLIGHT_SOURCE
+
+/turf/open/floor/plasteel/f13/vault_floor/blue/bluechess/lit
+	icon_state = "bluedirtychess"
+	sunlight_state = SUNLIGHT_SOURCE
+
+/turf/open/floor/plasteel/f13/vault_floor/blue/bluechess/bluechess2/lit
+	icon_state = "bluedirtychess2"
+	sunlight_state = SUNLIGHT_SOURCE
+
+/turf/open/floor/plasteel/f13/vault_floor/blue/white/side/lit
+	icon_state = "whitebluedirty"
+	sunlight_state = SUNLIGHT_SOURCE
+
+/turf/open/floor/plasteel/f13/vault_floor/blue/white/corner/lit
+	icon_state = "whitebluedirtycorner"
+	sunlight_state = SUNLIGHT_SOURCE
+
+/turf/open/floor/plasteel/f13/vault_floor/blue/white/whitebluechess/lit
+	icon_state = "whitebluedirtychess"
+	sunlight_state = SUNLIGHT_SOURCE
+
+/turf/open/floor/plasteel/f13/vault_floor/blue/white/whitebluechess/whitebluechess2/lit
+	icon_state = "whitebluedirtychess2"
+	sunlight_state = SUNLIGHT_SOURCE
+
+/turf/open/floor/plasteel/f13/vault_floor/blueredchess
+	icon_state = "redbluefull"
+
+/turf/open/floor/plasteel/f13/vault_floor/blueredchess/lit
+	icon_state = "redbluefull"
+	sunlight_state = SUNLIGHT_SOURCE
 
 	/* GREEN TILES */
 
@@ -275,6 +618,46 @@
 /turf/open/floor/plasteel/f13/vault_floor/green/white/whitegreenchess/whitegreenchess2
 	icon_state = "whitegreenchess2"
 
+/turf/open/floor/plasteel/f13/vault_floor/green/lit
+	icon_state = "greendirtyfull"
+	sunlight_state = SUNLIGHT_SOURCE
+
+/turf/open/floor/plasteel/f13/vault_floor/green/whitegreenfull/lit
+	icon_state = "greendirtysolid"
+	sunlight_state = SUNLIGHT_SOURCE
+
+/turf/open/floor/plasteel/f13/vault_floor/green/side/lit
+	icon_state = "greendirty"
+	sunlight_state = SUNLIGHT_SOURCE
+
+/turf/open/floor/plasteel/f13/vault_floor/green/corner/lit
+	icon_state = "greendirtycorner"
+	sunlight_state = SUNLIGHT_SOURCE
+
+/turf/open/floor/plasteel/f13/vault_floor/green/greenchess/lit
+	icon_state = "greendirtychess"
+	sunlight_state = SUNLIGHT_SOURCE
+
+/turf/open/floor/plasteel/f13/vault_floor/green/greenchess/greenchess2/lit
+	icon_state = "greendirtychess2"
+	sunlight_state = SUNLIGHT_SOURCE
+
+/turf/open/floor/plasteel/f13/vault_floor/green/white/side/lit
+	icon_state = "whitegreendirty"
+	sunlight_state = SUNLIGHT_SOURCE
+
+/turf/open/floor/plasteel/f13/vault_floor/green/white/corner/lit
+	icon_state = "whitegreencorner"
+	sunlight_state = SUNLIGHT_SOURCE
+
+/turf/open/floor/plasteel/f13/vault_floor/green/white/whitegreenchess/lit
+	icon_state = "whitegreenchessdirty"
+	sunlight_state = SUNLIGHT_SOURCE
+
+/turf/open/floor/plasteel/f13/vault_floor/green/white/whitegreenchess/whitegreenchess2/lit
+	icon_state = "whitegreendirtychess2"
+	sunlight_state = SUNLIGHT_SOURCE
+
 	/* YELLOW TILES */
 
 /turf/open/floor/plasteel/f13/vault_floor/yellow
@@ -307,6 +690,46 @@
 /turf/open/floor/plasteel/f13/vault_floor/yellow/white/whiteyellowchess/whiteyellowchess2
 	icon_state = "whiteyellowchess2"
 
+/turf/open/floor/plasteel/f13/vault_floor/yellow/lit
+	icon_state = "yellowdirtyfull"
+	sunlight_state = SUNLIGHT_SOURCE
+
+/turf/open/floor/plasteel/f13/vault_floor/yellow/whiteyellowfull/lit
+	icon_state = "whiteyellowdirtyfull"
+	sunlight_state = SUNLIGHT_SOURCE
+
+/turf/open/floor/plasteel/f13/vault_floor/yellow/side/lit
+	icon_state = "yellowdirty"
+	sunlight_state = SUNLIGHT_SOURCE
+
+/turf/open/floor/plasteel/f13/vault_floor/yellow/corner/lit
+	icon_state = "yellowdirtycorner"
+	sunlight_state = SUNLIGHT_SOURCE
+
+/turf/open/floor/plasteel/f13/vault_floor/yellow/yellowchess/lit
+	icon_state = "yellowdirtychess"
+	sunlight_state = SUNLIGHT_SOURCE
+
+/turf/open/floor/plasteel/f13/vault_floor/yellow/yellowchess/yellowchess2/lit
+	icon_state = "yellowdirtychess2"
+	sunlight_state = SUNLIGHT_SOURCE
+
+/turf/open/floor/plasteel/f13/vault_floor/yellow/white/side/lit
+	icon_state = "whiteyellowdirty"
+	sunlight_state = SUNLIGHT_SOURCE
+
+/turf/open/floor/plasteel/f13/vault_floor/yellow/white/corner/lit
+	icon_state = "whiteyellowdirtycorner"
+	sunlight_state = SUNLIGHT_SOURCE
+
+/turf/open/floor/plasteel/f13/vault_floor/yellow/white/whiteyellowchess/lit
+	icon_state = "whiteyellowdirtychess"
+	sunlight_state = SUNLIGHT_SOURCE
+
+/turf/open/floor/plasteel/f13/vault_floor/yellow/white/whiteyellowchess/whiteyellowchess2/lit
+	icon_state = "whiteyellowdirtychess2"
+	sunlight_state = SUNLIGHT_SOURCE
+
 	/* PURPLE TILES */
 
 /turf/open/floor/plasteel/f13/vault_floor/purple
@@ -338,6 +761,46 @@
 
 /turf/open/floor/plasteel/f13/vault_floor/purple/white/whitepurplechess/whitepurplechess2
 	icon_state = "whitepurplechess2"
+
+/turf/open/floor/plasteel/f13/vault_floor/purple/lit
+	icon_state = "purpledirtyfull"
+	sunlight_state = SUNLIGHT_SOURCE
+
+/turf/open/floor/plasteel/f13/vault_floor/purple/whitepurplefull/lit
+	icon_state = "purpledirtysolid"
+	sunlight_state = SUNLIGHT_SOURCE
+
+/turf/open/floor/plasteel/f13/vault_floor/purple/side/lit
+	icon_state = "purpledirty"
+	sunlight_state = SUNLIGHT_SOURCE
+
+/turf/open/floor/plasteel/f13/vault_floor/purple/corner/lit
+	icon_state = "purpledirtycorner"
+	sunlight_state = SUNLIGHT_SOURCE
+
+/turf/open/floor/plasteel/f13/vault_floor/purple/purplechess/lit
+	icon_state = "purpledirtychess"
+	sunlight_state = SUNLIGHT_SOURCE
+
+/turf/open/floor/plasteel/f13/vault_floor/purple/purplechess/purplechess2/lit
+	icon_state = "purpledirtychess2"
+	sunlight_state = SUNLIGHT_SOURCE
+
+/turf/open/floor/plasteel/f13/vault_floor/purple/white/side/lit
+	icon_state = "whitepurpledirty"
+	sunlight_state = SUNLIGHT_SOURCE
+
+/turf/open/floor/plasteel/f13/vault_floor/purple/white/corner/lit
+	icon_state = "whitepurpledirtycorner"
+	sunlight_state = SUNLIGHT_SOURCE
+
+/turf/open/floor/plasteel/f13/vault_floor/purple/white/whitepurplechess/lit
+	icon_state = "whitepurpledirtychess"
+	sunlight_state = SUNLIGHT_SOURCE
+
+/turf/open/floor/plasteel/f13/vault_floor/purple/white/whitepurplechess/whitepurplechess2/lit
+	icon_state = "whitepurpledirtychess2"
+	sunlight_state = SUNLIGHT_SOURCE
 
 
 	/* neutral TILES */
@@ -377,14 +840,46 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/bar
 	icon_state = "bar"
 
+/turf/open/floor/plasteel/f13/vault_floor/misc/bar/lit
+	name = "floor"
+	sunlight_state = SUNLIGHT_SOURCE
+
 /turf/open/floor/plasteel/f13/vault_floor/misc/cafeteria
 	icon_state = "cafeteria"
+
+/turf/open/floor/plasteel/f13/vault_floor/misc/cafeteria/lit
+	name = "floor"
+	sunlight_state = SUNLIGHT_SOURCE
 
 /turf/open/floor/plasteel/f13/vault_floor/misc/cmo
 	icon_state = "cmo"
 
+/turf/open/floor/plasteel/f13/vault_floor/misc/cmo/lit
+	name = "floor"
+	sunlight_state = SUNLIGHT_SOURCE
+
+/turf/open/floor/plasteel/f13/vault_floor/misc/freezer
+	icon_state = "freezerfloor"
+
+/turf/open/floor/plasteel/f13/vault_floor/misc/freezer/lit
+	name = "floor"
+	sunlight_state = SUNLIGHT_SOURCE
+
 /turf/open/floor/plasteel/f13/vault_floor/misc/rarewhite
 	icon_state = "rarewhite"
+
+/turf/open/floor/plasteel/f13/vault_floor/misc/rarewhite/lit
+	name = "floor"
+	icon_state = "rarewhite"
+	sunlight_state = SUNLIGHT_SOURCE
+
+/turf/open/floor/plasteel/f13/vault_floor/misc/rarerwhite
+	icon_state = "rarerwhite"
+
+/turf/open/floor/plasteel/f13/vault_floor/misc/rarerwhite/lit
+	name = "floor"
+	icon_state = "rarerwhite"
+	sunlight_state = SUNLIGHT_SOURCE
 
 /turf/open/floor/plasteel/f13/vault_floor/misc/rarewhite/rarecyan
 	icon_state = "rarecyan"
@@ -404,8 +899,22 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust
 	icon_state = "vaultrust"
 
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust/lit
+	name = "floor"
+	sunlight_state = SUNLIGHT_SOURCE
+
+/turf/open/floor/plasteel/f13/vault_floor/misc/reebe
+	name = "carpet"
+	icon = 'icons/turf/floors.dmi'
+	icon_state = "reebe"
+	sunlight_state = SUNLIGHT_SOURCE
+
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1
 	icon_state = "vault1"
+
+/turf/open/floor/plasteel/f13/vault_floor/misc/vault1/lit
+	icon_state = "vault1"
+	sunlight_state = SUNLIGHT_SOURCE
 
 ////Metal Floors////
 

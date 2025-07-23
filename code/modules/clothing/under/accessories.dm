@@ -829,3 +829,13 @@
 	item_state = "ncrcfjacketcrop"
 	icon_state = "ncrcfjacketcrop"
 	minimize_when_attached = FALSE
+
+/obj/item/clothing/accessory/crossnecklace
+	name = "cross necklace"
+	desc = "Forgive them, Father, they know not what they do."
+	icon_state = "cross"
+
+/obj/item/clothing/accessory/fishpendant
+	name = "fish pendant"
+	desc = "You need this pendant like a woman needs a bicycle."
+	icon_state = "fishpendant"

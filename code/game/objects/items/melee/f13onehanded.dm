@@ -144,6 +144,19 @@
 	embedding = list("pain_mult" = 2, "embed_chance" = 40, "fall_chance" = 15)
 	w_class = WEIGHT_CLASS_NORMAL
 
+/obj/item/throwing_star/tomahawk
+	name = "tomahawk"
+	desc = "A lightweight axe for heaving at devil-men."
+	lefthand_file = 'icons/fallout/onmob/tools/farming_lefthand.dmi'
+	righthand_file = 'icons/fallout/onmob/tools/farming_righthand.dmi'
+	icon_state = "tomahawk"
+	item_state = "hatchet_tribal"
+	force = 20
+	throwforce = 15
+	armour_penetration = 0.10
+	max_reach = 1
+	embedding = list("pain_mult" = 2, "embed_chance" = 40, "fall_chance" = 20)
+	w_class = WEIGHT_CLASS_SMALL
 
 
 ////////////

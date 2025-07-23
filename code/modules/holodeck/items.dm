@@ -88,6 +88,23 @@
 			M.DefaultCombatKnockdown(60)
 			visible_message(span_danger("[M] is knocked right off [M.p_their()] feet!"))
 
+/obj/item/toy/beach_ball/holoball/baseball
+	name = "baseball"
+	icon = 'icons/fallout/objects/crafting/parts.dmi'
+	icon_state = "Baseball_ball"
+	item_state = "Baseball_ball"
+	desc = "Batter up."
+
+/obj/item/toy/beach_ball/holoball/baseball/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
+	..()
+	if((ishuman(hit_atom)))
+		var/mob/living/carbon/M = hit_atom
+		playsound(src, 'sound/items/dodgeball.ogg', 50, 1)
+		M.apply_damage(10, STAMINA)
+		if(prob(5))
+			M.DefaultCombatKnockdown(60)
+			visible_message(span_danger("[M] is knocked right off [M.p_their()] feet!"))
+
 //
 // Structures
 //

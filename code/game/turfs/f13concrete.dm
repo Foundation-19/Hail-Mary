@@ -159,7 +159,7 @@ GLOBAL_LIST_INIT(concrete_recipes, list ( \
 //Barricade can't be removed with hands unlike sandbags, needs a welder
 
 /turf/closed/wall/mineral/concrete
-	name = "supermart wall"
+	name = "concrete wall"
 	desc = "A pre-War supermart wall made of reinforced concrete. This one looks newly built"
 	icon = 'icons/turf/walls/f13superstore.dmi'
 	icon_state = "supermart"
@@ -200,7 +200,16 @@ GLOBAL_LIST_INIT(concrete_recipes, list ( \
 			qdel(src)
 			return
 	return ..()
-	
+
+/turf/closed/wall/mineral/concrete/blastproof/moresmooth
+	name = "concrete wall"
+
+/turf/closed/wall/mineral/concrete/blastproof/storewall
+	name = "concrete wall"
+	icon = 'icons/turf/walls/f13store.dmi'
+	icon_state = "store"
+	icon_type_smooth = "store"
+
 /obj/structure/barricade/concrete
 	name = "concrete barricade"
 	desc = "A small concrete barricade. Could be turned into a concrete wall with some more concrete."

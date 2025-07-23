@@ -9,7 +9,7 @@
 	var/next_splash = 0
 	var/obj/machinery/pool/controller/controller
 	var/obj/effect/overlay/water/watereffect
-	var/obj/effect/overlay/water/top/watertop
+	//var/obj/effect/overlay/water/top/watertop
 
 /turf/open/pool/Initialize(mapload)
 	. = ..()
@@ -20,7 +20,7 @@
 		controller.linked_turfs -= src
 		controller = null
 	QDEL_NULL(watereffect)
-	QDEL_NULL(watertop)
+	//QDEL_NULL(watertop)
 	return ..()
 
 /turf/open/pool/update_icon()
@@ -29,12 +29,12 @@
 		name = "drained pool"
 		desc = "No diving!"
 		QDEL_NULL(watereffect)
-		QDEL_NULL(watertop)
+		//QDEL_NULL(watertop)
 	else
 		name = "Sea water"
 		desc = "You're safer here than in the deep."
 		watereffect = new /obj/effect/overlay/water(src)
-		watertop = new /obj/effect/overlay/water/top(src)
+		//watertop = new /obj/effect/overlay/water/top(src)
 
 /obj/effect/overlay/water
 	name = "water"
@@ -208,3 +208,31 @@
 			if(!H.wear_mask && (H.stat == CONSCIOUS))
 				H.emote("cough")
 			H.adjustStaminaLoss(4)
+
+/turf/open/pool/pond
+	icon = 'icons/turf/floors.dmi'
+	name = "water"
+	desc = "You're safer here than in the deep."
+	icon_state = "riverwater"
+	sunlight_state = SUNLIGHT_SOURCE
+
+/turf/open/pool/ponddark
+	icon = 'icons/turf/floors.dmi'
+	name = "water"
+	desc = "You're safer here than in the deep."
+	icon_state = "riverwater"
+	sunlight_state = NO_SUNLIGHT
+
+/turf/open/pool/channel
+	name = "channel"
+	icon = 'icons/fallout/objects/wendover.dmi'
+	icon_state = "evaporationpond1"
+	sunlight_state = SUNLIGHT_SOURCE
+	dir = NORTHWEST
+
+/turf/open/pool/channeldark
+	name = "channel"
+	icon = 'icons/fallout/objects/wendover.dmi'
+	icon_state = "evaporationpond1"
+	sunlight_state = NO_SUNLIGHT
+	dir = NORTHWEST
