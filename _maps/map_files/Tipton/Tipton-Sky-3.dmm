@@ -217,11 +217,11 @@
 /turf/open/floor/f13/wood,
 /area/f13/ncr/powered)
 "aP" = (
-/obj/structure/fluff/railing/corner{
-	dir = 1
-	},
 /obj/structure/chair/f13chair1,
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/railing/corner{
+	dir = 1
+	},
 /turf/open/floor/plasteel/f13/vault_floor/dark/darksolid,
 /area/f13/building)
 "aQ" = (
@@ -1349,6 +1349,11 @@
 	icon_state = "redrustyfull"
 	},
 /area/f13/brotherhood/powered)
+"eR" = (
+/obj/effect/turf_decal/weather/snow/corner,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating/f13/outside/roof,
+/area/f13/building)
 "eT" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 8;
@@ -1991,7 +1996,7 @@
 /turf/open/floor/carpet,
 /area/f13/building/powered)
 "hk" = (
-/obj/structure/fluff/railing/corner{
+/obj/structure/railing/corner{
 	dir = 8
 	},
 /turf/open/floor/plasteel/f13/vault_floor/dark/darksolid,
@@ -4265,10 +4270,10 @@
 /turf/open/floor/plating/rust,
 /area/f13/tunnel)
 "oJ" = (
-/obj/structure/fluff/railing{
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/railing{
 	dir = 8
 	},
-/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/f13/vault_floor/dark/darksolid,
 /area/f13/building)
 "oK" = (
@@ -4827,6 +4832,10 @@
 "qG" = (
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/small/broken{
+	dir = 4
+	},
+/obj/item/toy/cards/deck,
 /turf/open/floor/plasteel/f13/vault_floor/dark/darksolid,
 /area/f13/building)
 "qH" = (
@@ -4863,6 +4872,10 @@
 /obj/structure/dresser,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/carpet/blue,
+/area/f13/building)
+"qO" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating/f13/outside/roof,
 /area/f13/building)
 "qP" = (
 /obj/structure/table/wood,
@@ -5143,6 +5156,11 @@
 /turf/open/floor/f13{
 	icon_state = "bluedirtychess2"
 	},
+/area/f13/building)
+"rD" = (
+/obj/structure/rack/shelf_metal,
+/obj/item/assembly/signaler,
+/turf/open/floor/plasteel/f13/vault_floor/dark/darksolid,
 /area/f13/building)
 "rE" = (
 /obj/structure/railing{
@@ -5491,6 +5509,14 @@
 	},
 /turf/open/floor/f13/wood,
 /area/f13/building)
+"sJ" = (
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 8;
+	icon_state = "snow_corner"
+	},
+/obj/effect/spawner/lootdrop/trash,
+/turf/open/floor/plating/f13/outside/roof,
+/area/f13/building)
 "sK" = (
 /obj/structure/curtain{
 	color = "#845f58";
@@ -5785,6 +5811,13 @@
 	},
 /turf/open/floor/plating/f13/outside/roof,
 /area/f13/building/powered)
+"tO" = (
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating/f13/outside/roof,
+/area/f13/building)
 "tQ" = (
 /obj/structure/closet/fridge,
 /obj/item/reagent_containers/food/condiment/flour,
@@ -7849,6 +7882,12 @@
 	},
 /turf/open/floor/plating/f13/outside/roof,
 /area/f13/brotherhood/powered)
+"AR" = (
+/obj/structure/rack/shelf_metal,
+/obj/effect/spawner/lootdrop/ammo/fiftypercent,
+/obj/effect/spawner/lootdrop/ammo/fiftypercent,
+/turf/open/floor/plasteel/f13/vault_floor/dark/darksolid,
+/area/f13/building)
 "AS" = (
 /turf/closed/indestructible/rock,
 /area/f13/building)
@@ -8276,7 +8315,7 @@
 	},
 /area/f13/building)
 "Cs" = (
-/obj/structure/fluff/railing{
+/obj/structure/railing{
 	dir = 8
 	},
 /turf/open/floor/plasteel/f13/vault_floor/dark/darksolid,
@@ -9066,6 +9105,7 @@
 	pixel_x = -11;
 	pixel_y = -8
 	},
+/mob/living/simple_animal/hostile/raider/legendary,
 /turf/open/floor/plating/f13/outside/roof,
 /area/f13/building)
 "Fk" = (
@@ -10080,6 +10120,11 @@
 	icon_state = "redrustyfull"
 	},
 /area/f13/brotherhood/powered)
+"II" = (
+/obj/structure/table,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/low,
+/turf/open/floor/plasteel/f13/vault_floor/dark/darksolid,
+/area/f13/building)
 "IJ" = (
 /obj/structure/chair/wood{
 	dir = 8
@@ -10326,11 +10371,10 @@
 /turf/open/floor/plating/f13/outside/roof/wood/old,
 /area/f13/wasteland/cold)
 "JF" = (
-/obj/structure/fluff/railing{
-	dir = 1;
-	layer = 0.5
-	},
 /obj/structure/table,
+/obj/structure/railing{
+	dir = 1
+	},
 /turf/open/floor/plasteel/f13/vault_floor/dark/darksolid,
 /area/f13/building)
 "JG" = (
@@ -10927,8 +10971,14 @@
 /obj/item/reagent_containers/glass/bucket/wood,
 /turf/open/floor/wood_common,
 /area/f13/legioncamp)
+"Ly" = (
+/obj/effect/spawner/lootdrop/trash,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating/f13/outside/roof,
+/area/f13/building)
 "Lz" = (
 /obj/structure/rack/shelf_metal,
+/obj/effect/spawner/lootdrop/ammo/fiftypercent,
 /turf/open/floor/plasteel/f13/vault_floor/dark/darksolid,
 /area/f13/building)
 "LA" = (
@@ -11595,6 +11645,11 @@
 	},
 /turf/open/floor/f13/wood,
 /area/f13/holiday)
+"NX" = (
+/obj/effect/spawner/lootdrop/f13/junkspawners,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating/f13/outside/roof,
+/area/f13/building)
 "NY" = (
 /obj/structure/table,
 /obj/item/reagent_containers/blood/radaway{
@@ -13414,10 +13469,10 @@
 /turf/open/floor/wood_wide,
 /area/f13/building/powered)
 "Ua" = (
-/obj/structure/fluff/railing{
+/obj/item/trash/f13/fancylads,
+/obj/structure/railing{
 	dir = 8
 	},
-/obj/item/trash/f13/fancylads,
 /turf/open/floor/plasteel/f13/vault_floor/dark/darksolid,
 /area/f13/building)
 "Ub" = (
@@ -14158,6 +14213,13 @@
 	dir = 5
 	},
 /turf/open/floor/plating/f13/outside/roof,
+/area/f13/building)
+"Wr" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/small/broken{
+	dir = 4
+	},
+/turf/open/floor/plasteel/f13/vault_floor/dark/darksolid,
 /area/f13/building)
 "Ws" = (
 /obj/effect/decal/cleanable/dirt,
@@ -14977,6 +15039,7 @@
 /area/f13/brotherhood/powered)
 "YV" = (
 /mob/living/simple_animal/hostile/raider/ranged,
+/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating/f13/outside/roof,
 /area/f13/building)
 "YW" = (
@@ -82193,8 +82256,8 @@ Pb
 fr
 fr
 fr
-fr
-fr
+qO
+qO
 fr
 fr
 Ph
@@ -82448,12 +82511,12 @@ Pb
 Pb
 Pb
 fr
-fr
-fr
-fr
-fr
-fr
-fr
+qO
+qO
+qO
+qO
+qO
+qO
 fr
 Ph
 Pb
@@ -82705,7 +82768,7 @@ Pb
 Pb
 Pb
 fr
-fr
+qO
 fr
 WP
 fr
@@ -83730,7 +83793,7 @@ Pb
 Pb
 fr
 fr
-fr
+qO
 su
 gt
 ih
@@ -83742,11 +83805,11 @@ Th
 Jd
 fr
 fr
-fr
-fr
-fr
-fr
-fr
+qO
+qO
+qO
+qO
+qO
 fr
 Ph
 Pb
@@ -83986,8 +84049,8 @@ Pb
 Pb
 Pb
 fr
-fr
-fr
+qO
+qO
 su
 gt
 Fi
@@ -84003,8 +84066,8 @@ Sj
 fr
 fr
 fr
-Vb
-fr
+NX
+qO
 kd
 kd
 Pb
@@ -84242,9 +84305,9 @@ Pb
 Pb
 fr
 fr
-fr
-fr
-fr
+qO
+qO
+qO
 su
 gt
 gt
@@ -84252,8 +84315,8 @@ gt
 gt
 gt
 gt
-Ee
-fr
+tO
+qO
 kd
 hT
 gt
@@ -84261,7 +84324,7 @@ DW
 fr
 Nb
 fr
-fr
+qO
 Oy
 EO
 Pb
@@ -84499,10 +84562,10 @@ Pb
 Pb
 fr
 fr
-fr
-fr
-fr
-fr
+qO
+qO
+qO
+qO
 ap
 OK
 gt
@@ -84510,15 +84573,15 @@ gt
 Js
 TV
 fr
-fr
+qO
 fr
 VB
 gt
 gt
 DW
 fr
-fr
-fr
+qO
+qO
 OS
 EO
 Pb
@@ -84768,14 +84831,14 @@ fw
 gt
 Wp
 fr
-su
+eR
 gt
 gt
 gt
 gt
 Ee
-fr
-cX
+qO
+Ly
 fr
 EO
 Pb
@@ -85031,8 +85094,8 @@ gt
 gt
 Js
 fr
-fr
-fr
+qO
+qO
 qn
 kd
 Pb
@@ -85802,8 +85865,8 @@ oM
 Vz
 fg
 fg
-fr
-fr
+qO
+qO
 YV
 EO
 Pb
@@ -86060,7 +86123,7 @@ no
 SN
 He
 fr
-fr
+qO
 Vb
 EO
 Pb
@@ -86316,7 +86379,7 @@ no
 DH
 Yp
 fg
-fr
+qO
 fr
 fr
 kd
@@ -86815,7 +86878,7 @@ gt
 gt
 Wp
 fr
-fr
+qO
 su
 gt
 OQ
@@ -86832,7 +86895,7 @@ Sg
 Sg
 Sg
 JF
-zG
+II
 Vi
 Pb
 Pb
@@ -87072,8 +87135,8 @@ gt
 gt
 gt
 Ee
-fr
-fr
+qO
+qO
 ap
 TL
 Ww
@@ -87081,7 +87144,7 @@ TX
 Th
 ap
 WC
-Lz
+AR
 no
 no
 no
@@ -87327,22 +87390,22 @@ fr
 fr
 ap
 ap
-ap
+sJ
 fr
-fr
-fr
-fr
+qO
+qO
+qO
 JA
 pz
 fr
 JB
-fr
+qO
 fg
 fg
 Lz
 zG
 lw
-no
+Wr
 no
 no
 DH
@@ -87587,22 +87650,22 @@ fr
 fr
 fr
 fr
-fr
-fr
+Ly
+qO
 TL
 aU
 xE
 Th
-fr
-fr
+qO
+qO
 fg
 fg
 He
 fg
 fg
 OG
-Lz
-Lz
+rD
+AR
 fg
 fg
 Pb
@@ -87844,14 +87907,14 @@ Pb
 fr
 fr
 fr
-fr
+qO
 fr
 aB
 cZ
 cZ
 pL
-fr
-fr
+qO
+qO
 Pb
 Pb
 Pb
@@ -88105,9 +88168,9 @@ Pb
 fr
 fr
 fr
-fr
-fr
-fr
+qO
+qO
+qO
 fr
 Pb
 Pb

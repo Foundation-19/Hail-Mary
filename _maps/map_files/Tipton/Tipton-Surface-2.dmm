@@ -1285,7 +1285,7 @@
 /area/f13/tunnel)
 "aGg" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/fluff/railing{
+/obj/structure/railing{
 	dir = 8
 	},
 /turf/open/floor/plasteel/f13/vault_floor/dark,
@@ -3144,6 +3144,14 @@
 	desc = "A pre-War wall made of solid concrete.";
 	name = "concrete wall"
 	},
+/area/f13/ambientlighting/building/i)
+"bAG" = (
+/obj/structure/lattice,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/open/floor/plating/tunnel,
 /area/f13/ambientlighting/building/i)
 "bBs" = (
 /obj/effect/decal/cleanable/dirt{
@@ -11472,7 +11480,7 @@
 /area/f13/holiday)
 "fJR" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/fluff/railing{
+/obj/structure/railing{
 	dir = 8
 	},
 /turf/open/floor/plating/tunnel{
@@ -11628,6 +11636,9 @@
 "fMC" = (
 /obj/structure/decoration/vent/rusty,
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/small/broken{
+	dir = 8
+	},
 /turf/open/floor/f13{
 	icon_state = "black";
 	dir = 8
@@ -15869,7 +15880,7 @@
 	icon_state = "cobweb2"
 	},
 /obj/effect/spawner/lootdrop/f13/bomb/tier1,
-/obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/highmid,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/high,
 /turf/open/floor/pod/dark,
 /area/f13/ambientlighting/building/i)
 "hPU" = (
@@ -18335,6 +18346,7 @@
 	pixel_y = 3;
 	pixel_x = -9
 	},
+/obj/effect/spawner/lootdrop/f13/cash_random_high,
 /turf/open/floor/pod/dark,
 /area/f13/ambientlighting/building/i)
 "iYu" = (
@@ -18777,6 +18789,13 @@
 /obj/structure/destructible/tribal_torch/wall/lit,
 /turf/open/floor/carpet/red,
 /area/f13/building/powered)
+"jim" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/small/broken,
+/turf/open/floor/f13{
+	icon_state = "black"
+	},
+/area/f13/ambientlighting/building/i)
 "jin" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/item/storage/trash_stack,
@@ -19993,6 +20012,9 @@
 "jOi" = (
 /obj/structure/table/reinforced,
 /obj/effect/spawner/lootdrop/f13/attachments,
+/obj/machinery/light/small/broken{
+	dir = 4
+	},
 /turf/open/floor/plasteel/f13/vault_floor/dark/darksolid,
 /area/f13/ambientlighting/building/i)
 "jOk" = (
@@ -20914,7 +20936,7 @@
 /obj/structure/guncase{
 	anchored = 1
 	},
-/obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/lowmid,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/mid,
 /turf/open/floor/plasteel/f13/vault_floor/dark/darksolid,
 /area/f13/ambientlighting/building/i)
 "kjJ" = (
@@ -34572,6 +34594,16 @@
 	icon_state = "horizontalinnermain1"
 	},
 /area/f13/wasteland/cold)
+"qVJ" = (
+/obj/structure/chair/wood{
+	dir = 4;
+	icon_state = "wooden_chair_settler"
+	},
+/obj/machinery/light/small/broken{
+	dir = 8
+	},
+/turf/open/floor/carpet,
+/area/f13/ambientlighting/building/i)
 "qVK" = (
 /obj/structure/sink/kitchen{
 	dir = 8;
@@ -35623,7 +35655,7 @@
 /obj/structure/lattice,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/fluff/railing{
+/obj/structure/railing{
 	dir = 4
 	},
 /turf/open/floor/plating/tunnel,
@@ -43053,6 +43085,14 @@
 /obj/structure/flora/wasteplant/wild_punga,
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/caves)
+"vao" = (
+/obj/machinery/light/small/broken{
+	dir = 8
+	},
+/turf/open/floor/plating/tunnel{
+	icon_state = "tunnelrusty"
+	},
+/area/f13/ambientlighting/building/i)
 "var" = (
 /obj/structure/chair/booth{
 	dir = 1
@@ -43678,6 +43718,9 @@
 "vpa" = (
 /obj/structure/table,
 /obj/machinery/microwave,
+/obj/machinery/light/small{
+	dir = 1
+	},
 /turf/open/floor/f13{
 	icon_state = "bar"
 	},
@@ -44211,6 +44254,9 @@
 	},
 /obj/item/radio/off{
 	pixel_x = 5
+	},
+/obj/machinery/light/small{
+	dir = 1
 	},
 /turf/open/floor/pod/dark,
 /area/f13/ambientlighting/building/i)
@@ -48106,6 +48152,12 @@
 /obj/structure/lattice,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating/tunnel,
+/area/f13/ambientlighting/building/i)
+"xwZ" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/open/floor/carpet,
 /area/f13/ambientlighting/building/i)
 "xxn" = (
 /obj/structure/flora/grass/wasteland{
@@ -118025,7 +118077,7 @@ tgX
 sjb
 pEj
 aXH
-uKe
+jim
 rjp
 kPO
 vDW
@@ -118536,7 +118588,7 @@ rjp
 bAE
 rjp
 rjp
-qYC
+xwZ
 cgc
 tLE
 uKe
@@ -119564,7 +119616,7 @@ rjp
 rjp
 rjp
 rjp
-xwV
+bAG
 bDO
 wsl
 xwV
@@ -120078,7 +120130,7 @@ xqz
 duB
 ieu
 rjp
-tCn
+qVJ
 tCn
 xwV
 ylR
@@ -121108,7 +121160,7 @@ dwN
 rjp
 ffh
 ffh
-pKl
+vao
 acJ
 jIs
 rjp
