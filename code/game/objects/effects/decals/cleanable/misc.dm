@@ -213,6 +213,14 @@
 	icon_state = "salt_pile"
 	gender = NEUTER
 
+/obj/effect/decal/cleanable/stones
+	name = "stones"
+	desc = "You see nothing out of the ordinary."
+	icon = 'icons/fallout/objects/decals.dmi'
+	icon_state = "stones"
+	plane = GAME_PLANE
+	layer = VISIBLE_FROM_ABOVE_LAYER
+
 /obj/effect/decal/cleanable/glitter
 	name = "generic glitter pile"
 	desc = "The herpes of arts and crafts."

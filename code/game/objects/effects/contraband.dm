@@ -631,6 +631,21 @@
 	desc = "A poster advertising the latest RobCo Mk.2 Protectron. Now with laser-targeted laser fire!"
 	icon_state = "poster50"
 
+/obj/structure/sign/poster/prewar/rxcola1
+	name = "Rx Cola poster"
+	desc = "An advertisement for a local soda company. There is a long list of side effects listed in small print at the bottom."
+	icon_state = "rxcolav1"
+
+/obj/structure/sign/poster/prewar/rxcola2
+	name = "Rx Cola poster"
+	desc = "An advertisement for a local soda company. It claims to be the only cola enjoyed and recommended by doctors."
+	icon_state = "rxcolav2"
+
+/obj/structure/sign/poster/prewar/rxcola3
+	name = "Rx Cola poster draft"
+	desc = "A third draft drawn up by the marketing team at RxCola, this one trying to associate the brand with more appetizing imagery."
+	icon_state = "rxcolav3"
+
 /obj/structure/sign/poster/prewar/vault_tec
 	name = "vault-tec poster"
 	desc = "A poster advertising the Vault-Tec Corporation. Vault-Tec: Revolutionizing safety for an uncertain future!"

@@ -11,6 +11,9 @@
 	layer = ABOVE_ALL_MOB_LAYER
 	dir = EAST
 
+/obj/structure/pool/ladder/invisible
+	invisibility = INVISIBILITY_ABSTRACT
+
 /obj/structure/pool/ladder/on_attack_hand(mob/living/user, act_intent = user.a_intent, unarmed_attack_flags)
 	. = ..()
 	if(.)

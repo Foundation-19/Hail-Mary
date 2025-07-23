@@ -524,6 +524,41 @@
 	desc = "Broken, rusted junk."
 	icon_state = "junk_locker"
 
+/obj/structure/junk/locker/gray
+	name = "decayed locker"
+	icon = 'icons/fallout/objects/furniture/closet.dmi'
+	icon_state = "gray"
+	density = FALSE
+
+/obj/structure/junk/foundation
+	name = "foundation"
+	icon = 'icons/obj/smooth_structures/catwalk.dmi'
+	icon_state = "straight"
+	density = FALSE
+	resistance_flags = FIRE_PROOF | ACID_PROOF | UNACIDABLE | FREEZE_PROOF | INDESTRUCTIBLE
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	layer = VEHICLE_OVERLAY_LAYER
+	flags_1 = NODECONSTRUCT_1
+
+/obj/structure/junk/pipe
+	name = "pipe"
+	icon = 'icons/obj/atmospherics/pipes/simple.dmi'
+	icon_state = "pipe11-2"
+	density = FALSE
+
+/obj/structure/junk/disposalpipe
+	name = "pipe"
+	icon = 'icons/obj/atmospherics/pipes/disposal.dmi'
+	icon_state = "pipe"
+
+/obj/structure/junk/ladder
+	name = "ladder"
+	icon = 'icons/obj/structures.dmi'
+	icon_state = "ladder10"
+	density = FALSE
+	layer = ON_EDGED_TURF_LAYER
+	resistance_flags = FIRE_PROOF | ACID_PROOF | UNACIDABLE | FREEZE_PROOF | INDESTRUCTIBLE
+
 /obj/structure/junk/cabinet
 	name = "old rotting furniture"
 	desc = "Time and the elements has degraded this furniture beyond repair."

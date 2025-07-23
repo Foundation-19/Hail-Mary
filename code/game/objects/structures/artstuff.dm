@@ -369,6 +369,10 @@
 /obj/structure/sign/painting/library_private // keep your smut away from prying eyes, or non-librarians at least
 	persistence_id = "library_private"
 
+/obj/structure/sign/painting/followers
+	persistence_id = "followers"
+
+
 /obj/structure/sign/painting/vv_get_dropdown()
 	. = ..()
 	VV_DROPDOWN_OPTION(VV_HK_REMOVE_PAINTING, "Remove Persistent Painting")
