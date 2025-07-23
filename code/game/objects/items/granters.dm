@@ -524,6 +524,15 @@
 		name = "empty scroll"
 		icon_state = "blankscroll"
 
+/obj/item/book/granter/martial/wrestling
+	martial = /datum/martial_art/wrestling
+	name = "pro wrestling magazine"
+	martialname = "wrestling"
+	desc = "A magazine detailing various grapples, holds, suplexes and elbow drops. Oooh yeah, brother."
+	greet = "<span class='sciradio'>You have mastered the power of pro wrestling. Use the buttons at the top of your screen to harm others, grab to initiate a move.</span>"
+	remarks = list("Drop the leg...", "Cream of the crop...", "Hell yeah brother...", "The Macho Man is gonna...", "Warrior nation...", "One two three...")
+
+
 /obj/item/book/granter/martial/plasma_fist
 	martial = /datum/martial_art/plasma_fist
 	name = "frayed scroll"

@@ -27,11 +27,9 @@
 	projectile_type  = /obj/item/projectile/bullet/a473/incendiary
 	fire_power = CASING_POWER_LIGHT_RIFLE * CASING_POWER_MOD_HANDLOAD
 
-/*
 /obj/item/ammo_casing/caseless/g11/uraniumtipped
 	name = "4.73mm U-235 cartridge"
 	projectile_type  = /obj/item/projectile/bullet/a473/uraniumtipped
-*/
 
 /obj/item/ammo_casing/caseless/g11/dumdum
 	name = "4.73mm flat-nose cartridge"
