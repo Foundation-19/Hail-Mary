@@ -109,6 +109,9 @@
 /turf/open/floor/mineral/titanium/white/airless
 	initial_gas_mix = AIRLESS_ATMOS
 
+/turf/open/floor/mineral/titanium/white/lit
+	sunlight_state = SUNLIGHT_SOURCE
+
 /turf/open/floor/mineral/titanium/purple
 	icon_state = "titanium_purple"
 

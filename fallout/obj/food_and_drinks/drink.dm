@@ -25,6 +25,12 @@
 		/datum/reagent/medicine/charcoal = 20
 	)
 
+/obj/item/reagent_containers/food/drinks/flask/vault93
+	name = "Vault 93 flask"
+	desc = "Take a sip from your trusty Vault 93 canteen."
+	icon_state = "flask93"
+	list_reagents = list(/datum/reagent/water = 30, /datum/reagent/medicine/silver_sulfadiazine = 10, /datum/reagent/medicine/charcoal = 20)
+
 /obj/item/reagent_containers/food/drinks/flask/vault113
 	name = "Vault 113 flask"
 	desc = "See this large yellow number? It means it's a Vault 113 canteen. Never forget."

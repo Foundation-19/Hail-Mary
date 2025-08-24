@@ -228,6 +228,270 @@
 	name = "statue of the AI core."
 	icon_state = "ai2"
 
+/obj/structure/statue/diamond/verakeyes
+	name = "holographic statue"
+	desc = "A vision of pre-war elegance, frozen in time."
+	color = "#33b5e5"
+	icon_state = "verakeyesanimated"
+	alpha = 200
+	pixel_x = -2
+	anchored = TRUE
+
+/obj/structure/statue/diamond/indestructible
+	name = "statue of the AI hologram."
+	icon_state = "ai1"
+	flags_1 = NODECONSTRUCT_1
+	resistance_flags = FIRE_PROOF | ACID_PROOF | UNACIDABLE | FREEZE_PROOF | INDESTRUCTIBLE
+
+/obj/structure/statue/diamond/indestructible/artdecofountain
+	name = "weathered statue"
+	desc = "They align with the four cardinal directions, their bowls have long since dried."
+	icon = 'icons/obj/Ritas.dmi'
+	icon_state = "artdecofountain"
+	anchored = TRUE
+	density = FALSE
+
+/obj/structure/statue/diamond/indestructible/artdecofountain/center
+	name = "weathered statue"
+	icon_state = "artdecofountainoverlay"
+
+/obj/structure/statue/diamond/indestructible/artdecowinged
+	name = "weathered statue"
+	desc = "Winged guardians watching over the airport."
+	icon = 'icons/obj/Ritas.dmi'
+	icon_state = "artdecowinged"
+	anchored = TRUE
+	density = FALSE
+
+/obj/structure/statue/diamond/indestructible/artdecohead
+	name = "weathered statue"
+	desc = "Winged guardians watching over the airport."
+	icon = 'icons/obj/artdeco.dmi'
+	icon_state = "head"
+	anchored = TRUE
+	density = FALSE
+
+/obj/structure/statue/diamond/indestructible/artdecoatlas
+	name = "weathered statue"
+	desc = "Winged guardians watching over the airport."
+	icon = 'icons/obj/artdeco.dmi'
+	icon_state = "atlas"
+	anchored = TRUE
+	density = FALSE
+
+/obj/structure/statue/diamond/indestructible/oldworldstatue
+	name = "old world statue"
+	desc = "It is watching over you."
+	icon = 'icons/obj/Ritas.dmi'
+	icon_state = "face"
+	anchored = TRUE
+	density = FALSE
+
+/obj/structure/statue/diamond/indestructible/redrocket
+	name = "Red Rocket"
+	desc = "Drive in, Fly out!"
+	icon = 'icons/obj/Ritas.dmi'
+	icon_state = "rrw"
+	anchored = TRUE
+	density = FALSE
+
+/obj/structure/statue/diamond/indestructible/redrocket/two
+	name = "Red Rocket"
+	icon_state = "rrw2"
+
+/obj/structure/statue/diamond/indestructible/redrocket/three
+	name = "Red Rocket"
+	icon_state = "rrw3"
+	density = TRUE
+
+/obj/structure/statue/diamond/indestructible/redrocket/redux
+	name = "Red Rocket"
+	icon = 'icons/fallout/objects/wendover.dmi'
+	icon_state = "redrocketredux"
+
+/obj/structure/statue/diamond/indestructible/redrocket/bits
+	name = "Red Rocket"
+	icon = 'icons/fallout/objects/redrocketredux.dmi'
+	icon_state = "redrocketbits"
+
+/obj/structure/statue/diamond/indestructible/redrocket/text
+	name = "Red Rocket"
+	icon = 'icons/fallout/objects/wendover.dmi'
+	icon_state = "redrockettext"
+	layer = FLY_LAYER
+	density = TRUE
+
+/obj/structure/statue/diamond/indestructible/carheap
+	name = "car pile"
+	desc = "A stack of cars built up by the 80s."
+	icon = 'icons/fallout/objects/redrocketredux.dmi'
+	icon_state = "carpile_lower"
+	anchored = TRUE
+	layer = VISIBLE_FROM_ABOVE_LAYER
+	bound_width = 288
+
+/obj/structure/statue/diamond/indestructible/carheap/upper
+	name = "car pile"
+	icon_state = "carpile_upper"
+
+/obj/structure/statue/diamond/indestructible/landinggear
+	name = "landing gear"
+	desc = "The landing gear of a plane."
+	icon = 'icons/fallout/trash.dmi'
+	icon_state = "auto_shaft"
+	anchored = TRUE
+	density = FALSE
+
+/obj/structure/statue/diamond/indestructible/teslacoil
+	name = "tesla coil"
+	desc = "You see something out of the ordinary."
+	icon = 'icons/obj/Ritas.dmi'
+	icon_state = "techexhibit"
+	anchored = TRUE
+	pixel_x = -16
+	pixel_y = -15
+
+/obj/structure/statue/diamond/indestructible/tanningbed
+	name = "tanning bed"
+	desc = "You see something out of the ordinary."
+	icon = 'icons/obj/atmospherics/pipes/transit_tube.dmi'
+	icon_state = "open_station0"
+	layer = MOB_LOWER_LAYER
+	anchored = TRUE
+	density = FALSE
+	dir = NORTH
+	pixel_y = -4
+
+/obj/structure/statue/diamond/indestructible/seesaw
+	name = "seesaw"
+	desc = "Alt-click to teeter. Alt-click again to totter."
+	icon = 'icons/fallout/objects/playstructure.dmi'
+	icon_state = "seesaw"
+	layer = VISIBLE_FROM_ABOVE_LAYER
+	pixel_x = -32
+	bound_width = 96
+	anchored = FALSE
+	density = FALSE
+
+/obj/structure/statue/diamond/indestructible/swings
+	name = "swings"
+	desc = "An old pre-war playstructure."
+	icon = 'icons/fallout/objects/playstructure.dmi'
+	icon_state = "swingbottom"
+	layer = VISIBLE_FROM_ABOVE_LAYER
+	pixel_x = -64
+	bound_width = 160
+	anchored = TRUE
+	density = FALSE
+
+/obj/structure/statue/diamond/indestructible/swings/two
+	name = "swings"
+	icon_state = "swingbottom2"
+
+/obj/structure/statue/diamond/indestructible/swings/top
+	name = "swings"
+	icon_state = "swingtop"
+	layer = FLY_LAYER
+
+/obj/structure/statue/diamond/indestructible/rocket
+	name = "Rocket"
+	desc = "An old pre-war playstructure."
+	icon = 'icons/fallout/objects/rocket.dmi'
+	icon_state = "mbottom"
+	layer = VISIBLE_FROM_ABOVE_LAYER
+	pixel_x = -32
+	pixel_y = 16
+	anchored = TRUE
+	density = FALSE
+	dir = SOUTHEAST
+
+/obj/structure/statue/diamond/indestructible/rocket/top
+	name = "Rocket"
+	icon_state = "mtop"
+	layer = FLY_LAYER
+	density = TRUE
+
+/obj/structure/statue/diamond/indestructible/ufo
+	name = "UFO"
+	desc = "An out of this world play structure."
+	icon = 'icons/fallout/objects/playstructure2.dmi'
+	icon_state = "UFObottom"
+	layer = VISIBLE_FROM_ABOVE_LAYER
+	bound_width = 96
+	anchored = TRUE
+	density = FALSE
+
+/obj/structure/statue/diamond/indestructible/ufo/top
+	name = "UFO"
+	icon_state = "UFOtop"
+	layer = FLY_LAYER
+	density = TRUE
+
+/obj/structure/statue/diamond/fishtank
+	name = "derelict fish tank"
+	desc = "A display case for prized possessions."
+	icon = 'icons/obj/fish/fish_items.dmi'
+	icon_state = "tank1"
+	anchored = TRUE
+
+/obj/structure/statue/diamond/overlayable
+
+	flags_1 = NODECONSTRUCT_1
+	resistance_flags = FIRE_PROOF | ACID_PROOF | UNACIDABLE | FREEZE_PROOF | INDESTRUCTIBLE
+	anchored = TRUE
+	var/mutable_appearance/signoverlay
+
+/obj/structure/statue/diamond/overlayable/Initialize()
+	. = ..()
+	signoverlay = mutable_appearance(icon, "[icon_state]overlay", ABOVE_ALL_MOB_LAYER)
+	add_overlay(signoverlay)
+
+/obj/structure/statue/diamond/overlayable/WendoverWill
+	name = "Wendover Will"
+	desc = "Iconic mascot of the Stateline casino. Where the West Begins."
+	icon = 'icons/obj/Ritas.dmi'
+	icon_state = "wendoverwill"
+	density = FALSE
+
+/obj/structure/statue/diamond/overlayable/MontegoBay
+	name = "Montego Bay"
+	desc = "How you wish you were in Sherbrooke now."
+	icon = 'icons/obj/Ritas.dmi'
+	icon_state = "MontegoBay"
+	pixel_x = -2
+	density = FALSE
+
+/obj/structure/statue/diamond/overlayable/MontegoBay/Initialize()
+	. = ..()
+	signoverlay = mutable_appearance(icon, "[icon_state]overlay", SPACEVINE_LAYER)
+	add_overlay(signoverlay)
+
+/obj/structure/statue/diamond/overlayable/palmtree
+	name = "palm tree"
+	desc = "A tree straight from the tropics."
+	icon = 'icons/misc/beach2.dmi'
+	icon_state = "palm1"
+
+/obj/structure/statue/diamond/overlayable/motherofcombustionright
+	name = "The Mother of Combustion"
+	desc = "Ancestor, object of worship or decoration stolen from the Brotherhood, no one can remember. All anyone knows for sure is she is a valuable motif for the compound."
+	icon = 'icons/obj/tomb.dmi'
+	icon_state = "ladystatue-right"
+
+/obj/structure/statue/diamond/overlayable/motherofcombustionleft
+	name = "The Mother of Combustion"
+	desc = "Ancestor, object of worship or decoration stolen from the Brotherhood, no one can remember. All anyone knows for sure is she is a valuable motif for the compound."
+	icon = 'icons/obj/tomb.dmi'
+	icon_state = "ladystatue-left"
+
+/obj/structure/statue/diamond/overlayable/colossalskull
+	name = "collosal skull"
+	desc = "The gaping maw of a dead, titanic monster. This one is cracked in half."
+	icon = 'icons/obj/Ritas.dmi'
+	icon_state = "colossalskull"
+	layer = CLOSED_BLASTDOOR_LAYER
+
+
 /////////////////////sandstone/////////////////////////////////////////
 
 /obj/structure/statue/sandstone
@@ -347,6 +611,21 @@
 		var/icon/O = new('icons/mob/clothing/head.dmi', icon_state = "[Helmet.icon_state]")
 		O.Shift(SOUTH, 6)
 		overlays += O
+
+/obj/structure/statue/wood/whitelegtotem
+	name = "war totem"
+	desc = "A White Leg war totem, superstitiously linked to the tribe's success in war."
+	icon = 'icons/obj/Ritas.dmi'
+	icon_state = "wartotem2"
+	anchored = TRUE
+	pixel_x = -16
+	var/mutable_appearance/totemoverlay
+
+/obj/structure/statue/wood/whitelegtotem/Initialize()
+	. = ..()
+	totemoverlay = mutable_appearance(icon, "[icon_state]overlay", ABOVE_ALL_MOB_LAYER)
+	add_overlay(totemoverlay)
+
 
 //fortuna statues
 

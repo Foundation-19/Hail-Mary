@@ -177,3 +177,81 @@
 		else
 			to_chat(user, span_warning("You need one floor tile to build atop [src]."))
 		return
+
+/obj/structure/lattice/catwalk/invisible
+	invisibility = INVISIBILITY_ABSTRACT
+	smooth = SMOOTH_FALSE
+	resistance_flags = INDESTRUCTIBLE
+
+/obj/structure/lattice/corrugated
+	name = "roof"
+	desc = "Fence turned floor."
+	icon = 'icons/obj/fence.dmi'
+	icon_state = "corrugatedfence"
+
+/obj/structure/lattice/catwalk/wing
+	name = "wing"
+	desc = "The wing of an airplane"
+	icon = 'icons/turf/floors.dmi'
+	icon_state = "airplane"
+	plane = FLOOR_PLANE
+	layer = LATTICE_LAYER
+	smooth = SMOOTH_FALSE
+	dir = WEST
+	resistance_flags = INDESTRUCTIBLE
+
+/obj/structure/lattice/catwalk/wing/flat
+	name = "wing"
+	icon_state = "airplaneflat"
+
+/obj/structure/lattice/catwalk/wing/one
+	name = "wing"
+	icon_state = "airplane1"
+
+/obj/structure/lattice/catwalk/wing/two
+	name = "wing"
+	icon_state = "airplane2"
+
+/obj/structure/lattice/catwalk/wing/three
+	name = "wing"
+	icon_state = "airplane3"
+
+/obj/structure/lattice/catwalk/wing/four
+	name = "wing"
+	icon_state = "airplane4"
+
+/obj/structure/lattice/catwalk/wing/seven
+	name = "wing"
+	icon_state = "airplane7"
+
+/obj/structure/lattice/catwalk/wing/eight
+	name = "wing"
+	icon_state = "airplane8"
+
+/obj/structure/lattice/catwalk/wing/nine
+	name = "wing"
+	icon_state = "airplane9"
+
+/obj/structure/lattice/catwalk/wing/ten
+	name = "wing"
+	icon_state = "airplane10"
+
+/obj/structure/lattice/catwalk/wing/eleven
+	name = "wing"
+	icon_state = "airplane11"
+
+/obj/structure/lattice/catwalk/wing/twelve
+	name = "wing"
+	icon_state = "airplane12"
+
+/obj/structure/lattice/catwalk/wing/thirteen
+	name = "wing"
+	icon_state = "airplane13"
+
+/obj/structure/lattice/catwalk/wing/fourteen
+	name = "wing"
+	icon_state = "airplane14"
+
+/obj/structure/lattice/catwalk/wing/fifteen
+	name = "wing"
+	icon_state = "airplane15"

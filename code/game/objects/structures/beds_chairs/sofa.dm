@@ -51,3 +51,25 @@
 
 /obj/structure/chair/sofa/corp/corner
 	icon_state = "corp_sofacorner"
+
+/obj/structure/chair/sofa/corp/ottoman
+	icon_state = "ottoman"
+
+//Credit to Gary for making these
+
+/obj/structure/chair/sofa/luxury
+	name = "luxury sofa"
+	desc = "A well-preserved sofa with soft, delicate leather cushions and intricate designs coating the surface. You're probably too poor to sit on this."
+	icon_state = "lux_sofamiddle"
+
+/obj/structure/chair/sofa/luxury/left
+	icon_state = "lux_sofaend_left"
+
+/obj/structure/chair/sofa/luxury/right
+	icon_state = "lux_sofaend_right"
+
+/obj/structure/chair/sofa/luxury/corner
+	icon_state = "lux_sofacorner"
+
+/obj/structure/chair/sofa/luxury/ottoman
+	icon_state = "lux_ottoman"

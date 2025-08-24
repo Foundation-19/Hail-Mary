@@ -255,7 +255,8 @@
 	status = LIGHT_EMPTY
 	update(0)
 
-
+/obj/machinery/light/invisible
+	invisibility = INVISIBILITY_ABSTRACT
 
 // create a new lighting fixture
 /obj/machinery/light/Initialize()
@@ -946,6 +947,14 @@
 	layer = WALL_OBJ_LAYER
 	bulb_colour = "#8B0000"
 	light_color = "#FF0000"
+
+/obj/machinery/light/dim
+	name = "light"
+	nightshift_allowed = FALSE
+	no_emergency = TRUE
+	light_range = 5
+	layer = MOB_UPPER_LAYER
+	fitting = "dim"
 
 //Flickering Ported From Hippiestation. credits to yoyobatty
 /obj/machinery/light/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, atom/attacked_by)

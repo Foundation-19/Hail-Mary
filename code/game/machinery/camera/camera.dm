@@ -418,3 +418,9 @@
 		user.sight = 0
 		user.see_in_dark = 2
 	return 1
+
+/obj/machinery/camera/lightscameraaction
+	name = "studio camera"
+	desc = "There's no business like show business."
+	icon = 'icons/obj/Ritas.dmi'
+	icon_state = "camera"

@@ -694,3 +694,9 @@ GLOBAL_LIST_EMPTY(allCasters)
 	else
 		say("Attention! Wanted issue distributed!")
 		playsound(loc, 'sound/machines/warning-buzzer.ogg', 75, 1)
+
+/obj/machinery/newscaster/printingpress
+	name = "printing press"
+	desc = "An old, beaten up, yet still functional terminal for the viewing, writing and printing of news media."
+	icon = 'icons/obj/machines/sheetifier.dmi'
+	icon_state = "base_machine"

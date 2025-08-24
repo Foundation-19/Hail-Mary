@@ -661,6 +661,18 @@ GLOBAL_LIST_EMPTY(electrochromatic_window_lookup)
 /obj/structure/window/plasma/reinforced/fulltile/unanchored
 	anchored = FALSE
 
+/obj/structure/window/reinforced/fulltile/blue
+	icon = 'icons/obj/structures_spawners.dmi'
+	icon_state = "rwindow_spawner"
+	smooth = SMOOTH_FALSE
+
+/obj/structure/window/reinforced/fulltile/airport
+	name = "window"
+	icon = 'icons/fallout/objects/wendover.dmi'
+	icon_state = "window"
+	color = "#e4f7f6"
+	smooth = SMOOTH_FALSE
+
 /obj/structure/window/reinforced/fulltile
 	icon = 'icons/obj/smooth_structures/reinforced_window.dmi'
 	icon_state = "r_window"
@@ -694,6 +706,27 @@ GLOBAL_LIST_EMPTY(electrochromatic_window_lookup)
 	canSmoothWith = list(/obj/structure/window/fulltile, /obj/structure/window/reinforced/fulltile, /obj/structure/window/reinforced/tinted/fulltile, /obj/structure/window/plasma/fulltile, /obj/structure/window/plasma/reinforced/fulltile)
 	level = 3
 	glass_amount = 2
+
+/obj/structure/window/shuttle
+	name = "shuttle window"
+	desc = "A reinforced, air-locked pod window."
+	icon = 'icons/obj/smooth_structures/shuttle_window.dmi'
+	icon_state = "shuttle_window"
+	dir = FULLTILE_WINDOW_DIR
+	max_integrity = 100
+	wtype = "shuttle"
+	fulltile = TRUE
+	flags_1 = PREVENT_CLICK_UNDER_1
+	reinf = TRUE
+	heat_resistance = 1600
+	armor = list("melee" = 50, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 50, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 100)
+	smooth = SMOOTH_TRUE
+	canSmoothWith = null
+	explosion_block = 3
+	level = 3
+	glass_type = /obj/item/stack/sheet/titaniumglass
+	glass_amount = 2
+	ricochet_chance_mod = 0.9
 
 /obj/structure/window/shuttle
 	name = "shuttle window"

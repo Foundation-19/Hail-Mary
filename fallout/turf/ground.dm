@@ -108,6 +108,10 @@ GLOBAL_LIST_INIT(desolate_plant_spawn_list, list(
 	slowdown = 3
 	flags_1 = ADJACENCIES_OVERLAY
 
+/turf/open/indestructible/ground/outside/mountain
+	name = "rocky floor"
+	icon_state = "rockfloor1"
+	icon = 'icons/fallout/turfs/mining.dmi'
 
 //////////////
 // SAVANNAH //
@@ -202,9 +206,17 @@ GLOBAL_LIST_INIT(desolate_plant_spawn_list, list(
 	barefootstep = FOOTSTEP_LOOSE_SAND
 	clawfootstep = FOOTSTEP_LOOSE_SAND
 
+/turf/open/indestructible/ground/outside/desert/sonora/Initialize()
+	. = ..()
+	icon_state = "desertsmooth[rand(1,8)]"
+
 /turf/open/indestructible/ground/outside/desert/sonora/coarse
 	icon_state = "desertcoarse"
 	slowdown = 0.6
+
+/turf/open/indestructible/ground/outside/desert/sonora/coarse/Initialize()
+	. = ..()
+	icon_state = "desertcoarse[rand(1,16)]"
 
 /turf/open/indestructible/ground/outside/desert/sonora/coarse2
 	icon_state = "desertcoarse2"
@@ -268,6 +280,45 @@ GLOBAL_LIST_INIT(desolate_plant_spawn_list, list(
 /obj/effect/overlay/desert/sonora/edge/corner
 	icon_state = "desertcorner"
 
+/obj/effect/overlay/desert/sonora/edge/north
+	name = "desert edge"
+	dir = NORTH
+
+/obj/effect/overlay/desert/sonora/edge/south
+	name = "desert edge"
+	dir = SOUTH
+
+/obj/effect/overlay/desert/sonora/edge/east
+	name = "desert edge"
+	dir = EAST
+
+/obj/effect/overlay/desert/sonora/edge/west
+	name = "desert edge"
+	dir = WEST
+
+/obj/effect/overlay/desert/sonora/saltflats
+	name = "salt flats"
+	icon = 'icons/fallout/turfs/f13flatz.dmi'
+	icon_state = "edgebright"
+	plane = FLOOR_PLANE
+	layer = LOW_OBJ_LAYER
+
+/obj/effect/overlay/desert/sonora/saltflats/north
+	name = "salt flats"
+	dir = NORTH
+
+/obj/effect/overlay/desert/sonora/saltflats/south
+	name = "salt flats"
+	dir = SOUTH
+
+/obj/effect/overlay/desert/sonora/saltflats/east
+	name = "salt flats"
+	dir = EAST
+
+/obj/effect/overlay/desert/sonora/saltflats/west
+	name = "salt flats"
+	dir = WEST
+
 /turf/open/indestructible/ground/outside/desert/MakeSlippery(wet_setting, min_wet_time, wet_time_to_add, max_wet_time, permanent)
 	return //I mean, it makes sense that deserts don't get slippery, I guess... :(
 
@@ -286,6 +337,22 @@ GLOBAL_LIST_INIT(desolate_plant_spawn_list, list(
 
 /turf/open/indestructible/ground/outside/dirt/MakeSlippery(wet_setting, min_wet_time, wet_time_to_add, max_wet_time, permanent)
 	return //same thing here, dirt absorbs the liquid... :(
+
+/turf/open/indestructible/ground/outside/dirt/north
+	icon_state = "dirt"
+	dir = NORTH
+
+/turf/open/indestructible/ground/outside/dirt/south
+	icon_state = "dirt"
+	dir = SOUTH
+
+/turf/open/indestructible/ground/outside/dirt/east
+	icon_state = "dirt"
+	dir = EAST
+
+/turf/open/indestructible/ground/outside/dirt/west
+	icon_state = "dirt"
+	dir = WEST
 
 // DARK DIRT - the legacy one
 /turf/open/indestructible/ground/outside/dirt/dark
@@ -354,11 +421,309 @@ GLOBAL_LIST_INIT(desolate_plant_spawn_list, list(
 /obj/item/stack/tile/road/thirty
 	amount = 30
 
+/turf/open/indestructible/ground/outside/road/horizontaltopborder
+	icon_state = "horizontaltopborderbottom0"
+
+/turf/open/indestructible/ground/outside/road/horizontalbottomborder
+	icon_state = "horizontalbottombordertop0"
+
+/turf/open/indestructible/ground/outside/road/verticalleftborder
+	icon_state = "verticalleftborderright0"
+
+/turf/open/indestructible/ground/outside/road/verticalrightborder
+	icon_state = "verticalrightborderleft0"
+
+/turf/open/indestructible/ground/outside/road/hor
+	icon_state = "horizontalinnermain0"
+
+/turf/open/indestructible/ground/outside/road/damagedhor
+	icon_state = "horizontalinnermain1"
+
+/turf/open/indestructible/ground/outside/road/damagedhor/heavy
+	icon_state = "horizontalinnermain2"
+
+/turf/open/indestructible/ground/outside/road/damagedhor/severe
+	icon_state = "horizontalinnermain3"
+
+/turf/open/indestructible/ground/outside/road/damagedhor/right
+	icon_state = "horizontalinnermain2right"
+
+/turf/open/indestructible/ground/outside/road/damagedhor/left
+	icon_state = "horizontalinnermain2left"
+
+/turf/open/indestructible/ground/outside/road/vert
+	icon_state = "verticalinnermain0"
+
+/turf/open/indestructible/ground/outside/road/damagedvert
+	icon_state = "verticalinnermain1"
+
+/turf/open/indestructible/ground/outside/road/damagedvert/heavy
+	icon_state = "verticalinnermain2"
+
+/turf/open/indestructible/ground/outside/road/damagedvert/top
+	icon_state = "verticalinnermain2top"
+
+/turf/open/indestructible/ground/outside/road/damagedvert/bottom
+	icon_state = "verticalinnermain2bottom"
+
+/turf/open/indestructible/ground/outside/road/stripyroad
+	icon = 'icons/fallout/objects/wendover.dmi'
+	icon_state = "wendoverblvd"
+	dir = SOUTHEAST
+
+/turf/open/indestructible/ground/outside/road/stripyroad/thick
+	icon_state = "doubleyellow2"
+	dir = WEST
+
+/turf/open/indestructible/ground/outside/road/stripyroad/horizontal
+	dir = NORTHWEST
+
+/turf/open/indestructible/ground/outside/road/stripyroad/horizontalthick
+	dir = NORTHEAST
+
+/turf/open/indestructible/ground/outside/road/salt
+	icon = 'icons/fallout/objects/wendover.dmi'
+	icon_state = "saltyroad"
+	dir = EAST
+
+/turf/open/indestructible/ground/outside/road/salt/south
+	dir = SOUTH
+
 /turf/open/indestructible/ground/outside/road_s
 	name = "\proper road"
 	icon_state = "innermiddle"
 	icon = 'icons/fallout/turfs/asphalt_s.dmi'
 //	step_sounds = list("human" = "erikafootsteps")
+
+
+/turf/open/indestructible/ground/outside/roadi80
+	name = "\proper road"
+	icon_state = "outermiddle"
+	icon = 'icons/turf/f13road.dmi'
+	footstep = FOOTSTEP_ROAD
+	barefootstep = FOOTSTEP_HARD_BAREFOOT
+//	step_sounds = list("human" = "erikafootsteps")
+
+/turf/open/indestructible/ground/outside/roadi80/center
+	name = "\proper road"
+	icon_state = "outermiddlestripe"
+	icon = 'icons/fallout/objects/wendover.dmi'
+
+/turf/open/indestructible/ground/outside/roadi80/topyellow
+	name = "\proper road"
+	icon_state = "outerstripe"
+	icon = 'icons/fallout/objects/wendover.dmi'
+	dir = 4
+
+/turf/open/indestructible/ground/outside/roadi80/topwhite
+	name = "\proper road"
+	icon_state = "outerstripe"
+	icon = 'icons/fallout/objects/wendover.dmi'
+	dir = 2
+
+/turf/open/indestructible/ground/outside/roadi80/bottomyellow
+	name = "\proper road"
+	icon_state = "outerstripe"
+	icon = 'icons/fallout/objects/wendover.dmi'
+	dir = 8
+
+/turf/open/indestructible/ground/outside/roadi80/bottomwhite
+	name = "\proper road"
+	icon_state = "outerstripe"
+	icon = 'icons/fallout/objects/wendover.dmi'
+	dir = 1
+
+/turf/open/indestructible/ground/outside/road/parking
+	name = "parking lot"
+	icon = 'icons/fallout/objects/wendover.dmi'
+	icon_state = "bayparking"
+
+/turf/open/indestructible/ground/outside/road/parking/two
+	name = "parking lot"
+	dir = NORTH
+
+/turf/open/indestructible/ground/outside/road/parking/three
+	name = "parking lot"
+	dir = EAST
+
+/turf/open/indestructible/ground/outside/road/parking/four
+	name = "parking lot"
+	dir = WEST
+
+/turf/open/indestructible/ground/outside/road/parking/five
+	name = "parking lot"
+	dir = SOUTHWEST
+
+/turf/open/indestructible/ground/outside/road/parking/six
+	name = "parking lot"
+	icon_state = "bayparkingshaded"
+	dir = EAST
+
+/turf/open/indestructible/ground/outside/road/parking/seven
+	name = "parking lot"
+	icon_state = "bayparkingshaded"
+	dir = WEST
+
+/turf/open/indestructible/ground/outside/road/parking/eight
+	name = "parking lot"
+	icon_state = "bayparkingshaded"
+	dir = NORTHEAST
+
+/turf/open/indestructible/ground/outside/road/parking/nine
+	name = "parking lot"
+	icon_state = "bayparking2shaded"
+	dir = SOUTH
+
+/turf/open/indestructible/ground/outside/road/parkingalt
+	name = "parking lot"
+	icon = 'icons/fallout/objects/wendover.dmi'
+	icon_state = "bayparking2"
+
+/turf/open/indestructible/ground/outside/road/parkingalt/two
+	name = "parking lot"
+	dir = NORTH
+
+/turf/open/indestructible/ground/outside/road/parkingalt/three
+	name = "parking lot"
+	dir = EAST
+
+/turf/open/indestructible/ground/outside/road/parkingalt/four
+	name = "parking lot"
+	dir = WEST
+
+/turf/open/indestructible/ground/outside/road/parkingalt/five
+	name = "parking lot"
+	dir = SOUTHWEST
+
+/turf/open/indestructible/ground/outside/sidewalk
+	name = "\proper sidewalk"
+	icon_state = "outermiddle"
+	icon = 'icons/fallout/turfs/sidewalk.dmi'
+	footstep = FOOTSTEP_ROAD
+	barefootstep = FOOTSTEP_HARD_BAREFOOT
+//	step_sounds = list("human" = "erikafootsteps")
+
+/turf/open/indestructible/ground/outside/sidewalk/innerhorizontal
+	icon_state = "horizontaloutermain0"
+
+/turf/open/indestructible/ground/outside/sidewalk/innervertical
+	icon_state = "verticaloutermain0"
+
+/turf/open/indestructible/ground/outside/sidewalk/left
+	icon_state = "verticalleftborderleft0"
+
+/turf/open/indestructible/ground/outside/sidewalk/right
+	icon_state = "verticalrightborderright0"
+
+/turf/open/indestructible/ground/outside/sidewalk/top
+	icon_state = "horizontaltopbordertop0"
+
+/turf/open/indestructible/ground/outside/sidewalk/bottom
+	icon_state = "horizontalbottomborderbottom0"
+
+/turf/open/indestructible/ground/outside/sidewalk/damaged
+	icon_state = "verticaloutermain1"
+
+/turf/open/indestructible/ground/outside/sidewalk/damaged/heavy
+	icon_state = "verticaloutermain2"
+
+/turf/open/indestructible/ground/outside/sidewalk/damaged/top
+	icon_state = "verticaloutermain2top"
+
+/turf/open/indestructible/ground/outside/sidewalk/damaged/bottom
+	icon_state = "verticaloutermain2bottom"
+
+/turf/open/indestructible/ground/outside/sidewalk/damaged/horlight
+	icon_state = "horizontaloutermain1"
+
+/turf/open/indestructible/ground/outside/sidewalk/damaged/horheavy
+	icon_state = "horizontaloutermain2"
+
+/turf/open/indestructible/ground/outside/sidewalk/damaged/horright
+	icon_state = "horizontaloutermain2right"
+
+/turf/open/indestructible/ground/outside/sidewalk/damaged/horleft
+	icon_state = "horizontaloutermain2left"
+
+/turf/open/indestructible/ground/outside/sidewalk/innerhorizontal/dark
+	name = "\proper sidewalk"
+	sunlight_state = NO_SUNLIGHT
+
+/turf/open/indestructible/ground/outside/sidewalk/innervertical/dark
+	name = "\proper sidewalk"
+	sunlight_state = NO_SUNLIGHT
+
+/turf/open/indestructible/ground/outside/sidewalk/left/dark
+	name = "\proper sidewalk"
+	sunlight_state = NO_SUNLIGHT
+
+/turf/open/indestructible/ground/outside/sidewalk/right/dark
+	name = "\proper sidewalk"
+	sunlight_state = NO_SUNLIGHT
+
+/turf/open/indestructible/ground/outside/sidewalk/top/dark
+	name = "\proper sidewalk"
+	sunlight_state = NO_SUNLIGHT
+
+/turf/open/indestructible/ground/outside/sidewalk/bottom/dark
+	name = "\proper sidewalk"
+	sunlight_state = NO_SUNLIGHT
+
+/turf/open/indestructible/ground/outside/sidewalk/damaged/dark
+	name = "\proper sidewalk"
+	sunlight_state = NO_SUNLIGHT
+
+/turf/open/indestructible/ground/outside/sidewalk/damaged/heavy/dark
+	name = "\proper sidewalk"
+	sunlight_state = NO_SUNLIGHT
+
+/turf/open/indestructible/ground/outside/sidewalk/damaged/top/dark
+	name = "\proper sidewalk"
+	sunlight_state = NO_SUNLIGHT
+
+/turf/open/indestructible/ground/outside/sidewalk/damaged/bottom/dark
+	name = "\proper sidewalk"
+	sunlight_state = NO_SUNLIGHT
+
+/turf/open/indestructible/ground/outside/sidewalk/damaged/horlight/dark
+	name = "\proper sidewalk"
+	sunlight_state = NO_SUNLIGHT
+
+/turf/open/indestructible/ground/outside/sidewalk/damaged/horheavy/dark
+	name = "\proper sidewalk"
+	sunlight_state = NO_SUNLIGHT
+
+/turf/open/indestructible/ground/outside/sidewalk/damaged/horright/dark
+	name = "\proper sidewalk"
+	sunlight_state = NO_SUNLIGHT
+
+/turf/open/indestructible/ground/outside/sidewalk/damaged/horleft/dark
+	name = "\proper sidewalk"
+	sunlight_state = NO_SUNLIGHT
+
+/turf/open/indestructible/ground/outside/sidewalk/pateo
+	name = "pateo"
+	icon = 'icons/turf/floors.dmi'
+	icon_state = "asteroidfloor"
+
+/turf/open/indestructible/ground/outside/sidewalk/walkway
+	name = "walkway"
+	icon = 'icons/turf/floors.dmi'
+	icon_state = "sandstonevault"
+
+/turf/open/indestructible/ground/outside/sidewalk/wastelandedge
+	icon = 'icons/fallout/objects/wendover.dmi'
+	icon_state = "dirtyroad"
+	dir = NORTH
+
+/turf/open/indestructible/ground/outside/sidewalk/wastelandedge/left
+	dir = SOUTH
+
+/turf/open/indestructible/ground/outside/sidewalk/wastelandedge/bottom
+	dir = WEST
+
+/turf/open/indestructible/ground/outside/sidewalk/wastelandedge/top
+	dir = EAST
 
 /turf/open/indestructible/ground/outside/sidewalk
 	name = "\proper sidewalk"
@@ -400,6 +765,27 @@ GLOBAL_LIST_INIT(desolate_plant_spawn_list, list(
 	icon_state = "floorrusty"
 	icon = 'icons/fallout/turfs/floors.dmi'
 	//	step_sounds = list("human" = "woodfootsteps")
+
+/turf/open/indestructible/ground/outside/roof/stairs
+	name = "stairs"
+	icon_state = "stairs"
+	icon = 'icons/obj/stairs.dmi'
+
+/turf/open/indestructible/ground/outside/roof/stairs/north
+	name = "stairs"
+	dir = NORTH
+
+/turf/open/indestructible/ground/outside/roof/stairs/south
+	name = "stairs"
+	dir = SOUTH
+
+/turf/open/indestructible/ground/outside/roof/stairs/east
+	name = "stairs"
+	dir = EAST
+
+/turf/open/indestructible/ground/outside/roof/stairs/west
+	name = "stairs"
+	dir = WEST
 
 /turf/open/indestructible/ground/outside/water
 	gender = PLURAL
@@ -458,6 +844,26 @@ GLOBAL_LIST_INIT(desolate_plant_spawn_list, list(
 
 /turf/open/indestructible/ground/outside/water/update_icon()
 	. = ..()
+
+/turf/open/indestructible/ground/outside/water/still
+	icon_state = "riverwater"
+
+/turf/open/indestructible/ground/outside/water/cavern
+	name = "water"
+	icon_state = "riverwater"
+	sunlight_state = NO_SUNLIGHT
+
+/turf/open/indestructible/ground/outside/water/cavern/noslowdown
+	name = "water"
+	slowdown = FALSE
+
+/turf/open/indestructible/ground/outside/water/sewer
+	name = "canal"
+	icon_state = "riverwatercurb"
+	sunlight_state = NO_SUNLIGHT
+
+/turf/open/indestructible/ground/outside/water/cavernriver
+	sunlight_state = NO_SUNLIGHT
 
 /turf/open/indestructible/ground/outside/snow
 	initial_gas_mix = "o2=22;n2=82;TEMP=285"
@@ -587,6 +993,25 @@ GLOBAL_LIST_INIT(desolate_plant_spawn_list, list(
 	icon = 'icons/fallout/turfs/asphaltdirt.dmi'
 //	step_sounds = list("human" = "erikafootsteps")
 
+/turf/open/indestructible/ground/outside/roaddirt/dark
+	name = "canal"
+	icon_state = "innermiddlecurb"
+
+/turf/open/indestructible/ground/outside/roaddirt/dark/east
+	name = "canal"
+	icon_state = "innermiddlecurb"
+	dir = EAST
+
+/turf/open/indestructible/ground/outside/roaddirt/dark/west
+	name = "canal"
+	icon_state = "innermiddlecurb"
+	dir = WEST
+
+/turf/open/indestructible/ground/outside/roaddirt/dark/north
+	name = "canal"
+	icon_state = "innermiddlecurb"
+	dir = NORTH
+
 /turf/open/indestructible/ground/outside/sidewalkdirt
 	name = "sidewalk"
 	icon_state = "outermiddle"
@@ -610,6 +1035,17 @@ GLOBAL_LIST_INIT(desolate_plant_spawn_list, list(
 	icon = 'icons/fallout/turfs/ground.dmi'
 //	step_sounds = list("human" = "erikafootsteps")
 
+/turf/open/indestructible/ground/outside/graveldirt/pink
+	icon = 'icons/turf/mining.dmi'
+	icon_state = "ash"
+
+/turf/open/indestructible/ground/outside/graveldirt/alt
+	icon = 'icons/fallout/turfs/ground.dmi'
+	icon_state = "gravel"
+
+/turf/open/indestructible/ground/outside/graveldirt/alt/dark
+	sunlight_state = NO_SUNLIGHT
+
 // New gravel, organized. Use directions for control. - Pebbles
 /turf/open/indestructible/ground/outside/gravel
 	name = "gravel"
@@ -630,6 +1066,11 @@ GLOBAL_LIST_INIT(desolate_plant_spawn_list, list(
 /turf/open/indestructible/ground/outside/gravel/path_desert/intersection
 	name = "gravel path"
 	icon_state = "path_desert_intersection"
+
+
+/turf/open/indestructible/ground/outside/gravel/path_desert/intersection/alt
+	name = "gravel path"
+	icon_state = "gravel"
 
 /turf/open/indestructible/ground/outside/gravel/path_desert/end
 	name = "gravel path"
@@ -656,6 +1097,382 @@ GLOBAL_LIST_INIT(desolate_plant_spawn_list, list(
 /obj/effect/overlay/gravel/edge/corner
 	icon_state = "gravelcorner"
 
+/turf/open/indestructible/ground/outside/gravel/northedge
+	icon = 'icons/fallout/objects/wendover.dmi'
+	icon_state = "gravelondesert"
+	dir = 1
+
+/turf/open/indestructible/ground/outside/gravel/southedge
+	icon = 'icons/fallout/objects/wendover.dmi'
+	icon_state = "gravelondesert"
+	dir = 2
+
+/turf/open/indestructible/ground/outside/gravel/roadnorthedge
+	icon = 'icons/fallout/objects/wendover.dmi'
+	icon_state = "gravelsiding"
+	dir = 2
+
+/turf/open/indestructible/ground/outside/gravel/roadsouthedge
+	icon = 'icons/fallout/objects/wendover.dmi'
+	icon_state = "gravelsiding"
+	dir = 1
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80
+	name = "Interstate 80"
+	desc = "The sacred symbol of the 80s. Said to be visible from space."
+	icon = 'icons/fallout/objects/wendover.dmi'
+	icon_state = "crippledome6"
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/letter
+	icon_state = "crippledome3"
+	name = "Interstate 80"
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/letter/i
+	dir = SOUTH
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/letter/n
+	dir = NORTH
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/letter/t
+	dir = EAST
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/letter/e
+	dir = WEST
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/letter/rs
+	dir = SOUTHEAST
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/letter/t2
+	icon_state = "crippledome4"
+	dir = SOUTH
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/letter/a
+	icon_state = "crippledome4"
+	dir = NORTH
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/letter/t3
+	icon_state = "crippledome4"
+	dir = EAST
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/letter/e2
+	icon_state = "crippledome4"
+	dir = WEST
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/c
+	icon_state = "crippledome"
+	name = "Interstate 80"
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/c/south
+	dir = SOUTH
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/c/north
+	dir = NORTH
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/c/east
+	dir = EAST
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/c/west
+	dir = WEST
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/c/northwest
+	dir = NORTHWEST
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/c/northeast
+	dir = NORTHEAST
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/c/southeast
+	dir = SOUTHEAST
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/c/southwest
+	dir = SOUTHWEST
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/c2
+	icon_state = "crippledome2"
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/c2/south
+	dir = SOUTH
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/c2/north
+	dir = NORTH
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/c2/east
+	dir = EAST
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/c2/west
+	dir = WEST
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/c2/northwest
+	dir = NORTHWEST
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/c2/northeast
+	dir = NORTHEAST
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/c2/southeast
+	dir = SOUTHEAST
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/c2/southwest
+	dir = SOUTHWEST
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/c3
+	icon_state = "crippledome3"
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/c3/south
+	dir = SOUTH
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/c3/north
+	dir = NORTH
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/c3/east
+	dir = EAST
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/c3/west
+	dir = WEST
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/c3/northwest
+	dir = NORTHWEST
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/c3/northeast
+	dir = NORTHEAST
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/c3/southeast
+	dir = SOUTHEAST
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/c3/southwest
+	dir = SOUTHWEST
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/c4
+	icon_state = "crippledome4"
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/c4/south
+	dir = SOUTH
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/c4/north
+	dir = NORTH
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/c4/east
+	dir = EAST
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/c4/west
+	dir = WEST
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/c4/northwest
+	dir = NORTHWEST
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/c4/northeast
+	dir = NORTHEAST
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/c4/southeast
+	dir = SOUTHEAST
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/c4/southwest
+	dir = SOUTHWEST
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/c5
+	icon_state = "crippledome5"
+	desc = "Two men enter, one man leaves. That's the way of the road, Bubs."
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/c5/south
+	dir = SOUTH
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/c5/north
+	dir = NORTH
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/c5/east
+	dir = EAST
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/c5/west
+	dir = WEST
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/c5/northwest
+	dir = NORTHWEST
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/c5/northeast
+	dir = NORTHEAST
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/c5/southeast
+	dir = SOUTHEAST
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/c5/southwest
+	dir = SOUTHWEST
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/c6
+	icon_state = "crippledome6"
+	desc = "Dulce et decorum est pro via mori."
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/c6/south
+	dir = SOUTH
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/c6/north
+	dir = NORTH
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/c6/east
+	dir = EAST
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/c6/west
+	dir = WEST
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/c6/northwest
+	dir = NORTHWEST
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/c6/northeast
+	dir = NORTHEAST
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/c6/southeast
+	dir = SOUTHEAST
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/c6/southwest
+	dir = SOUTHWEST
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/c7
+	icon_state = "crippledome7"
+	desc = "We who are about to die salute you."
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/c7/south
+	dir = SOUTH
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/c7/north
+	dir = NORTH
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/c7/east
+	dir = EAST
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/c7/west
+	dir = WEST
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/c7/northwest
+	dir = NORTHWEST
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/c7/northeast
+	dir = NORTHEAST
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/c7/southeast
+	dir = SOUTHEAST
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/c7/southwest
+	dir = SOUTHWEST
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/c8
+	icon_state = "crippledome8"
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/c8/south
+	dir = SOUTH
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/c8/north
+	dir = NORTH
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/c8/east
+	dir = EAST
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/c8/west
+	dir = WEST
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/c8/northwest
+	dir = NORTHWEST
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/c8/northeast
+	dir = NORTHEAST
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/c8/southeast
+	dir = SOUTHEAST
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/c8/southwest
+	dir = SOUTHWEST
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/c9
+	icon_state = "crippledome9"
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/c9/south
+	dir = SOUTH
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/c9/north
+	dir = NORTH
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/c9/east
+	dir = EAST
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/c9/west
+	dir = WEST
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/c9/northwest
+	dir = NORTHWEST
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/c9/northeast
+	dir = NORTHEAST
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/c9/southeast
+	dir = SOUTHEAST
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/c9/southwest
+	dir = SOUTHWEST
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/c10
+	icon_state = "crippledome10"
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/c10/south
+	dir = SOUTH
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/c10/north
+	dir = NORTH
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/c10/east
+	dir = EAST
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/c10/west
+	dir = WEST
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/c10/northwest
+	dir = NORTHWEST
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/c10/northeast
+	dir = NORTHEAST
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/c10/southeast
+	dir = SOUTHEAST
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/c10/southwest
+	dir = SOUTHWEST
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/c11
+	icon_state = "crippledome11"
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/c11/south
+	dir = SOUTH
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/c11/north
+	dir = NORTH
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/c11/east
+	dir = EAST
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/c11/west
+	dir = WEST
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/c11/northwest
+	dir = NORTHWEST
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/c11/northeast
+	dir = NORTHEAST
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/c11/southeast
+	dir = SOUTHEAST
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/c11/southwest
+	dir = SOUTHWEST
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/c12
+	icon_state = "crippledome12"
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/c12/south
+	dir = SOUTH
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/c12/north
+	dir = NORTH
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/c12/east
+	dir = EAST
+
+/turf/open/indestructible/ground/outside/gravel/Interstate80/c12/west
+	dir = WEST
 
 //New Coyote Dirts
 /turf/open/indestructible/ground/outside/dirt/light_grass
@@ -704,3 +1521,647 @@ GLOBAL_LIST_INIT(desolate_plant_spawn_list, list(
 	name = "thick snow"
 	icon = 'fallout/icons/turfs/Big_Snow_turf.dmi'
 	icon_state = null
+
+// Salt Flats
+// Wendover
+
+/turf/open/indestructible/ground/outside/saltflats
+	name = "salt flats"
+	desc = "Flat salt."
+	icon = 'icons/turf/snow.dmi'
+	icon_state = "snow"
+//	step_sounds = list("human" = "dirtfootsteps")
+	slowdown = 0.4
+	footstep = FOOTSTEP_GRAVEL
+	barefootstep = FOOTSTEP_SAND
+	clawfootstep = FOOTSTEP_GRAVEL
+
+/turf/open/indestructible/ground/outside/saltflats/gravleft
+	icon = 'icons/fallout/objects/wendover.dmi'
+	icon_state = "flatzsiding"
+	dir = WEST
+
+/turf/open/indestructible/ground/outside/saltflats/gravright
+	icon = 'icons/fallout/objects/wendover.dmi'
+	icon_state = "flatzsiding"
+	dir = EAST
+
+/turf/open/indestructible/ground/outside/saltflats/gravtop
+	icon = 'icons/fallout/objects/wendover.dmi'
+	icon_state = "flatzsiding"
+	dir = NORTH
+
+/turf/open/indestructible/ground/outside/saltflats/gravbottom
+	icon = 'icons/fallout/objects/wendover.dmi'
+	icon_state = "flatzsiding"
+	dir = SOUTH
+
+/turf/open/indestructible/ground/outside/saltflats/old
+	icon = 'icons/fallout/turfs/f13flatz.dmi'
+	icon_state = "flatz"
+	dir = SOUTH
+
+/turf/open/indestructible/ground/outside/saltflats/crackedcenter
+	icon = 'icons/turf/snow.dmi'
+	icon_state = "saltgrains"
+	dir = SOUTH
+
+/turf/open/indestructible/ground/outside/saltflats/crackedcenteralt
+	icon = 'icons/turf/snow.dmi'
+	icon_state = "saltgrains2"
+	dir = SOUTH
+
+/turf/open/indestructible/ground/outside/saltflats/crackedtopalt
+	icon = 'icons/turf/snow.dmi'
+	icon_state = "saltsides"
+	dir = NORTHWEST
+
+/turf/open/indestructible/ground/outside/saltflats/crackedtop
+	icon = 'icons/turf/snow.dmi'
+	icon_state = "saltsidesmirrored"
+	dir = SOUTH
+
+/turf/open/indestructible/ground/outside/saltflats/crackedbot
+	icon = 'icons/turf/snow.dmi'
+	icon_state = "saltsidesmirrored"
+	dir = NORTH
+
+/turf/open/indestructible/ground/outside/saltflats/crackedright
+	icon = 'icons/turf/snow.dmi'
+	icon_state = "saltsidesmirrored"
+	dir = EAST
+
+/turf/open/indestructible/ground/outside/saltflats/crackedleft
+	icon = 'icons/turf/snow.dmi'
+	icon_state = "saltsidesmirrored"
+	dir = WEST
+
+/turf/open/indestructible/ground/outside/saltflats/altcrackedtop
+	icon = 'icons/turf/snow.dmi'
+	icon_state = "saltsides"
+	dir = SOUTH
+
+/turf/open/indestructible/ground/outside/saltflats/altcrackedbot
+	icon = 'icons/turf/snow.dmi'
+	icon_state = "saltsides"
+	dir = SOUTHWEST
+
+/turf/open/indestructible/ground/outside/saltflats/altcrackedright
+	icon = 'icons/turf/snow.dmi'
+	icon_state = "saltsides"
+	dir = EAST
+
+/turf/open/indestructible/ground/outside/saltflats/altcrackedleft
+	icon = 'icons/turf/snow.dmi'
+	icon_state = "saltsides"
+	dir = WEST
+
+
+/turf/open/indestructible/ground/outside/saltflats/bluetop
+	icon = 'icons/turf/snow.dmi'
+	icon_state = "saltsides"
+	dir = WEST
+
+/turf/open/indestructible/ground/outside/saltflats/bluebot
+	icon = 'icons/turf/snow.dmi'
+	icon_state = "saltsides"
+	dir = NORTH
+
+/turf/open/indestructible/ground/outside/saltflats/blueright
+	icon = 'icons/turf/snow.dmi'
+	icon_state = "saltsides"
+	dir = SOUTH
+
+/turf/open/indestructible/ground/outside/saltflats/blueleft
+	icon = 'icons/turf/snow.dmi'
+	icon_state = "saltsides"
+	dir = EAST
+
+/turf/open/indestructible/ground/outside/saltflats/crackedcornertopleft
+	icon_state = "saltcorners"
+	dir = NORTHWEST
+
+/turf/open/indestructible/ground/outside/saltflats/crackedcornertopright
+	icon_state = "saltcorners"
+	dir = SOUTHEAST
+
+/turf/open/indestructible/ground/outside/saltflats/crackedcornerbottomright
+	icon_state = "saltcorners"
+	dir = SOUTHWEST
+
+/turf/open/indestructible/ground/outside/saltflats/crackedcornerbottomleft
+	icon_state = "saltcorners"
+	dir = NORTHEAST
+
+/turf/open/indestructible/ground/outside/saltflats/bluecornertopleft
+	icon_state = "saltcorners"
+	dir = WEST
+
+/turf/open/indestructible/ground/outside/saltflats/bluecornertopright
+	icon_state = "saltcorners"
+	dir = SOUTH
+
+/turf/open/indestructible/ground/outside/saltflats/bluecornerbottomright
+	icon_state = "saltcorners"
+	dir = NORTH
+
+/turf/open/indestructible/ground/outside/saltflats/bluecornerbottomleft
+	icon_state = "saltcorners"
+	dir = EAST
+
+/turf/open/indestructible/ground/outside/saltflats/corner
+	icon = 'icons/fallout/objects/wendover.dmi'
+	icon_state = "saltdesertangle"
+	dir = NORTH
+
+/turf/open/indestructible/ground/outside/saltflats/innercorner
+	name = "desert"
+	icon = 'icons/fallout/objects/wendover.dmi'
+	icon_state = "saltdesertangle"
+	barefootstep = FOOTSTEP_SAND
+	clawfootstep = FOOTSTEP_SAND
+	dir = SOUTH
+
+/turf/open/indestructible/ground/outside/saltflats/crackedinnertopleft
+	icon_state = "saltcurves"
+	dir = NORTHWEST
+
+/turf/open/indestructible/ground/outside/saltflats/crackedinnertopright
+	icon_state = "saltcurves"
+	dir = SOUTHEAST
+
+/turf/open/indestructible/ground/outside/saltflats/crackedinnerbottomright
+	icon_state = "saltcurves"
+	dir = SOUTHWEST
+
+/turf/open/indestructible/ground/outside/saltflats/crackedinnerbottomleft
+	icon_state = "saltcurves"
+	dir = NORTHEAST
+
+/turf/open/indestructible/ground/outside/saltflats/blueinnertopleft
+	icon_state = "saltcurves"
+	dir = WEST
+
+/turf/open/indestructible/ground/outside/saltflats/blueinnertopright
+	icon_state = "saltcurves"
+	dir = SOUTH
+
+/turf/open/indestructible/ground/outside/saltflats/blueinnerbottomright
+	icon_state = "saltcurves"
+	dir = NORTH
+
+/turf/open/indestructible/ground/outside/saltflats/blueinnerbottomleft
+	icon_state = "saltcurves"
+	dir = EAST
+
+/turf/open/indestructible/ground/outside/saltflats/bluecenter
+	icon = 'icons/turf/snow.dmi'
+	icon_state = "saltstreaks"
+	dir = SOUTH
+
+/turf/open/indestructible/ground/outside/saltflats/path
+	name = "path"
+	icon = 'icons/fallout/objects/wendover.dmi'
+	icon_state = "evaporationpond1"
+	slowdown = 0
+
+/turf/open/indestructible/ground/outside/saltflats/path/hor
+	name = "path"
+	dir = EAST
+
+/turf/open/indestructible/ground/outside/saltflats/path/ver
+	name = "path"
+	dir = NORTH
+
+/turf/open/indestructible/ground/outside/saltflats/path/corner
+	name = "path"
+	icon_state = "evaporationpond2"
+
+/turf/open/indestructible/ground/outside/saltflats/path/corner/topleft
+	name = "path"
+	dir = WEST
+
+/turf/open/indestructible/ground/outside/saltflats/path/corner/topright
+	name = "path"
+	dir = SOUTHEAST
+
+/turf/open/indestructible/ground/outside/saltflats/path/corner/bottomright
+	name = "path"
+	dir = SOUTHWEST
+
+/turf/open/indestructible/ground/outside/saltflats/path/corner/bottomleft
+	name = "path"
+	dir = NORTHEAST
+
+/turf/open/indestructible/ground/outside/saltflats/path/end
+	name = "path"
+	icon_state = "evaporationpond1"
+
+/turf/open/indestructible/ground/outside/saltflats/path/end/right
+	name = "path"
+	icon_state = "evaporationpond4"
+	dir = SOUTHEAST
+
+/turf/open/indestructible/ground/outside/saltflats/path/end/bottom
+	name = "path"
+	dir = WEST
+
+/turf/open/indestructible/ground/outside/saltflats/path/end/left
+	name = "path"
+	icon_state = "evaporationpond4"
+	dir = SOUTHWEST
+
+/turf/open/indestructible/ground/outside/saltflats/path/intersection
+	name = "path"
+	icon_state = "evaporationpond2"
+
+/turf/open/indestructible/ground/outside/saltflats/path/intersection/top
+	name = "path"
+	dir = NORTH
+
+/turf/open/indestructible/ground/outside/saltflats/path/intersection/right
+	name = "path"
+	icon_state = "evaporationpond4"
+	dir = NORTHEAST
+
+/turf/open/indestructible/ground/outside/saltflats/path/intersection/bottom
+	name = "path"
+	icon_state = "evaporationpond2"
+	dir = EAST
+
+/turf/open/indestructible/ground/outside/saltflats/path/intersection/left
+	name = "path"
+	icon_state = "evaporationpond2"
+	dir = NORTHWEST
+
+/turf/open/indestructible/ground/outside/saltflats/evaporationpond
+	icon = 'icons/fallout/objects/wendover.dmi'
+	icon_state = "evaporationpond1"
+	dir = NORTHWEST
+
+/turf/open/indestructible/ground/outside/saltflats/evaporationpondleft
+	icon = 'icons/fallout/objects/wendover.dmi'
+	icon_state = "evaporationpond3"
+	dir = WEST
+
+/turf/open/indestructible/ground/outside/saltflats/evaporationpondright
+	icon = 'icons/fallout/objects/wendover.dmi'
+	icon_state = "evaporationpond3"
+	dir = EAST
+
+/turf/open/indestructible/ground/outside/saltflats/evaporationpondtop
+	icon = 'icons/fallout/objects/wendover.dmi'
+	icon_state = "evaporationpond3"
+	dir = NORTH
+
+/turf/open/indestructible/ground/outside/saltflats/evaporationpondbottom
+	icon = 'icons/fallout/objects/wendover.dmi'
+	icon_state = "evaporationpond3"
+	dir = SOUTH
+
+/turf/open/indestructible/ground/outside/saltflats/evapond
+	name = "salt flats"
+	icon = 'icons/fallout/objects/wendover.dmi'
+	icon_state = "evaporationpond3"
+
+/turf/open/indestructible/ground/outside/saltflats/evapond/topleft
+	name = "salt flats"
+	dir = NORTHEAST
+
+/turf/open/indestructible/ground/outside/saltflats/evapond/topright
+	name = "salt flats"
+	dir = SOUTHEAST
+
+/turf/open/indestructible/ground/outside/saltflats/evapond/bottomright
+	name = "salt flats"
+	dir = NORTHWEST
+
+/turf/open/indestructible/ground/outside/saltflats/evapond/bottomleft
+	name = "salt flats"
+	dir = SOUTHWEST
+
+/turf/open/indestructible/ground/outside/saltflats/evapcorner
+	name = "salt flats"
+	icon = 'icons/fallout/objects/wendover.dmi'
+	icon_state = "evaporationpond4"
+	dir = SOUTH
+
+/turf/open/indestructible/ground/outside/saltflats/evapcorner/topright
+	name = "salt flats"
+	dir = WEST
+
+/turf/open/indestructible/ground/outside/saltflats/evapcorner/bottomright
+	name = "salt flats"
+	dir = EAST
+
+/turf/open/indestructible/ground/outside/saltflats/evapcorner/bottomleft
+	name = "salt flats"
+	dir = NORTH
+
+/turf/open/indestructible/ground/outside/saltflats/diagonal
+	name = "salt flats"
+	icon = 'icons/fallout/objects/wendover.dmi'
+	icon_state = "railroadsalt"
+
+/turf/open/indestructible/ground/outside/saltflats/diagonal/topleft
+	name = "salt flats"
+	dir = NORTH
+
+/turf/open/indestructible/ground/outside/saltflats/diagonal/topright
+	name = "salt flats"
+	dir = WEST
+
+/turf/open/indestructible/ground/outside/saltflats/diagonal/bottomleft
+	name = "salt flats"
+	dir = EAST
+
+/turf/open/indestructible/ground/outside/desert/lifeless // eventually replace the resprited gravel under objects and structures with a desert type that doesn't spawn plants to save loading time
+	flags_1 = ADJACENCIES_OVERLAY
+
+/turf/open/indestructible/ground/outside/lifelessdesert // temporary fix until someone can make proper deserts tile that doesn't spawn plants
+	name = "desert"
+	icon_state = "wasteland"
+	icon = 'icons/fallout/turfs/ground.dmi'
+	footstep = FOOTSTEP_SAND
+	barefootstep = FOOTSTEP_SAND
+	clawfootstep = FOOTSTEP_SAND
+
+/turf/open/indestructible/ground/outside/lifelessdesert/edge
+	name = "desert"
+	icon = 'icons/fallout/objects/wendover.dmi'
+	icon_state = "hills4"
+
+/turf/open/indestructible/ground/outside/lifelessdesert/edge/hills
+	name = "desert"
+	icon_state = "hills"
+
+/turf/open/indestructible/ground/outside/lifelessdesert/edge/hills/one
+	name = "desert"
+	dir = NORTH
+
+/turf/open/indestructible/ground/outside/lifelessdesert/edge/hills/two
+	name = "desert"
+	dir = EAST
+
+/turf/open/indestructible/ground/outside/lifelessdesert/edge/hills/three
+	name = "desert"
+	dir = SOUTH
+
+/turf/open/indestructible/ground/outside/lifelessdesert/edge/hills/four
+	name = "desert"
+	dir = WEST
+
+/turf/open/indestructible/ground/outside/lifelessdesert/edge/hills/five
+	name = "desert"
+	dir = NORTHWEST
+
+/turf/open/indestructible/ground/outside/lifelessdesert/edge/hills/six
+	name = "desert"
+	dir = NORTHEAST
+
+/turf/open/indestructible/ground/outside/lifelessdesert/edge/hills/seven
+	name = "desert"
+	dir = SOUTHEAST
+
+/turf/open/indestructible/ground/outside/lifelessdesert/edge/hills/eight
+	name = "desert"
+	dir = SOUTHWEST
+
+/turf/open/indestructible/ground/outside/lifelessdesert/edge/hillstwo
+	name = "desert"
+	icon_state = "hills2"
+
+/turf/open/indestructible/ground/outside/lifelessdesert/edge/hillstwo/one
+	name = "desert"
+	dir = NORTH
+
+/turf/open/indestructible/ground/outside/lifelessdesert/edge/hillstwo/two
+	name = "desert"
+	dir = EAST
+
+/turf/open/indestructible/ground/outside/lifelessdesert/edge/hillstwo/three
+	name = "desert"
+	dir = SOUTH
+
+/turf/open/indestructible/ground/outside/lifelessdesert/edge/hillstwo/four
+	name = "desert"
+	dir = WEST
+
+/turf/open/indestructible/ground/outside/lifelessdesert/edge/hillstwo/five
+	name = "desert"
+	dir = NORTHWEST
+
+/turf/open/indestructible/ground/outside/lifelessdesert/edge/hillstwo/six
+	name = "desert"
+	dir = NORTHEAST
+
+/turf/open/indestructible/ground/outside/lifelessdesert/edge/hillstwo/seven
+	name = "desert"
+	dir = SOUTHEAST
+
+/turf/open/indestructible/ground/outside/lifelessdesert/edge/hillstwo/eight
+	name = "desert"
+	dir = SOUTHWEST
+
+/turf/open/indestructible/ground/outside/lifelessdesert/edge/hillsthree
+	name = "desert"
+	icon_state = "hills3"
+
+/turf/open/indestructible/ground/outside/lifelessdesert/edge/hillsthree/one
+	name = "desert"
+	dir = NORTH
+
+/turf/open/indestructible/ground/outside/lifelessdesert/edge/hillsthree/two
+	name = "desert"
+	dir = EAST
+
+/turf/open/indestructible/ground/outside/lifelessdesert/edge/hillsthree/three
+	name = "desert"
+	dir = SOUTH
+
+/turf/open/indestructible/ground/outside/lifelessdesert/edge/hillsthree/four
+	name = "desert"
+	dir = WEST
+
+/turf/open/indestructible/ground/outside/lifelessdesert/edge/hillsthree/five
+	name = "desert"
+	dir = NORTHWEST
+
+/turf/open/indestructible/ground/outside/lifelessdesert/edge/hillsthree/six
+	name = "desert"
+	dir = NORTHEAST
+
+/turf/open/indestructible/ground/outside/lifelessdesert/edge/hillsthree/seven
+	name = "desert"
+	dir = SOUTHEAST
+
+/turf/open/indestructible/ground/outside/lifelessdesert/edge/hillsthree/eight
+	name = "desert"
+	dir = SOUTHWEST
+
+/turf/open/indestructible/ground/outside/lifelessdesert/edge/hillsfour
+	name = "desert"
+	icon_state = "hills4"
+
+/turf/open/indestructible/ground/outside/lifelessdesert/edge/hillsfour/one
+	name = "desert"
+	dir = NORTH
+
+/turf/open/indestructible/ground/outside/lifelessdesert/edge/hillsfour/two
+	name = "desert"
+	dir = EAST
+
+/turf/open/indestructible/ground/outside/lifelessdesert/edge/hillsfour/three
+	name = "desert"
+	dir = SOUTH
+
+/turf/open/indestructible/ground/outside/lifelessdesert/edge/hillsfour/four
+	name = "desert"
+	dir = WEST
+
+/turf/open/indestructible/ground/outside/lifelessdesert/edge/hillsfour/five
+	name = "desert"
+	dir = NORTHWEST
+
+/turf/open/indestructible/ground/outside/lifelessdesert/edge/hillsfour/six
+	name = "desert"
+	dir = NORTHEAST
+
+/turf/open/indestructible/ground/outside/lifelessdesert/edge/hillsfour/seven
+	name = "desert"
+	dir = SOUTHEAST
+
+/turf/open/indestructible/ground/outside/lifelessdesert/edge/hillsfour/eight
+	name = "desert"
+	dir = SOUTHWEST
+
+/turf/open/indestructible/ground/outside/lifelessdesert/wendoverwillsafecorner // this is weird code needed to stop the buggy from driving in a way that clips with the statue
+	name = "desert"
+
+/turf/open/indestructible/ground/outside/cavernfloor
+	name = "cave"
+	dir = NORTH
+	icon_state = "cavernfloor"
+	icon = 'icons/fallout/objects/wendover.dmi'
+	sunlight_state = NO_SUNLIGHT
+	footstep = FOOTSTEP_FLOOR
+	barefootstep = FOOTSTEP_HARD_BAREFOOT
+	clawfootstep = FOOTSTEP_HARD_CLAW
+	layer = VISIBLE_FROM_ABOVE_LAYER
+
+/turf/open/indestructible/ground/outside/cavernfloor/east
+	name = "cave"
+	dir = EAST
+
+/turf/open/indestructible/ground/outside/fakeelevation
+	name = "fake elevation"
+	icon = 'icons/fallout/turfs/floors.dmi'
+	icon_state = "stagestairs"
+	var/blocked_direction = list(NORTH, NORTHEAST, NORTHWEST) // as an example
+
+/turf/open/indestructible/ground/outside/fakeelevation/desert
+	name = "desert"
+	icon_state = "wasteland"
+	icon = 'icons/fallout/turfs/ground.dmi'
+	footstep = FOOTSTEP_SAND
+	barefootstep = FOOTSTEP_SAND
+	clawfootstep = FOOTSTEP_SAND
+
+/turf/open/indestructible/ground/outside/fakeelevation/gravel
+	name = "gravel"
+	icon_state = "ash"
+	icon = 'icons/turf/mining.dmi'
+	footstep = FOOTSTEP_GRAVEL
+	barefootstep = FOOTSTEP_SAND
+	clawfootstep = FOOTSTEP_GRAVEL
+
+/turf/open/indestructible/ground/outside/fakeelevation/saltflats
+	name = "salt flats"
+	icon_state = "snow"
+	icon = 'icons/turf/snow.dmi'
+	footstep = FOOTSTEP_GRAVEL
+	barefootstep = FOOTSTEP_SAND
+	clawfootstep = FOOTSTEP_GRAVEL
+
+/turf/open/indestructible/ground/outside/fakeelevation/shallowincline
+	name = "shallow incline"
+	icon_state = "supermart"
+	icon = 'icons/turf/walls/f13superstore.dmi'
+
+/turf/open/indestructible/ground/outside/fakeelevation/shallowincline/west
+	name = "shallow incline"
+	blocked_direction = list(SOUTHWEST, WEST, NORTHWEST)
+
+/turf/open/indestructible/ground/outside/fakeelevation/shallowincline/east
+	name = "shallow incline"
+	blocked_direction = list(NORTHEAST, EAST, SOUTHEAST)
+
+/turf/open/indestructible/ground/outside/fakeelevation/shallowincline/nonblocking
+	name = "shallow incline"
+	blocked_direction = list()
+
+/turf/open/indestructible/ground/outside/fakeelevation/CanPass(atom/movable/mover, border_dir)
+    if(istype(mover) && (mover.pass_flags & PASSTABLE))
+        return !density
+    if(istype(mover) && (mover.dir in blocked_direction))
+        return density
+    else
+        return TRUE
+
+/turf/open/indestructible/ground/outside/fakeelevation/wendoverwillsafecorner
+	name = "desert"
+	icon_state = "wasteland"
+	icon = 'icons/fallout/turfs/ground.dmi'
+	footstep = FOOTSTEP_SAND
+	barefootstep = FOOTSTEP_SAND
+	clawfootstep = FOOTSTEP_SAND
+
+// Two edge smootheners for the new gravel turf
+/obj/effect/overlay/gravel/edge
+	name = "gravel edge"
+	icon = 'icons/fallout/turfs/gravel.dmi'
+	icon_state = "gravel_edge"
+	plane = FLOOR_PLANE
+	layer = LOW_OBJ_LAYER
+
+/obj/effect/overlay/gravel/edge/corner
+	icon_state = "gravel_corner"
+	plane = FLOOR_PLANE
+	layer = LOW_OBJ_LAYER
+
+/obj/effect/overlay/gravel/edge/north
+	name = "gravel edge"
+	dir = NORTH
+
+/obj/effect/overlay/gravel/edge/south
+	name = "gravel edge"
+	dir = SOUTH
+
+/obj/effect/overlay/gravel/edge/east
+	name = "gravel edge"
+	dir = EAST
+
+/obj/effect/overlay/gravel/edge/west
+	name = "gravel edge"
+	dir = WEST
+
+/turf/open/indestructible/ground/outside/lifelessdesert/gravdag
+	name = "desert"
+	icon = 'icons/fallout/objects/wendover.dmi'
+	icon_state = "railroaddesert"
+
+/turf/open/indestructible/ground/outside/lifelessdesert/gravdag/one
+	name = "desert"
+	dir = NORTH
+
+/turf/open/indestructible/ground/outside/lifelessdesert/gravdag/two
+	name = "desert"
+	dir = EAST
+
+/turf/open/indestructible/ground/outside/lifelessdesert/gravdag/three
+	name = "desert"
+	dir = SOUTH
+
+/turf/open/indestructible/ground/outside/lifelessdesert/gravdag/four
+	name = "desert"
+	dir = WEST

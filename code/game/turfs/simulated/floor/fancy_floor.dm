@@ -501,6 +501,14 @@
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 	tiled_dirt = FALSE
 
+/turf/open/floor/carpet/lit
+	name = "carpet"
+	sunlight_state = SUNLIGHT_SOURCE
+
+/turf/open/floor/carpet/nosmooth
+	name = "carpet"
+	smooth =  SMOOTH_FALSE
+
 /turf/open/floor/carpet/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>There's a <b>small crack</b> on the edge of it.</span>"
@@ -526,12 +534,30 @@
 	smooth = SMOOTH_MORE
 	canSmoothWith = list(/turf/open/floor/carpet/black, /turf/open/floor/carpet/blackred, /turf/open/floor/carpet/monochrome)
 
+/turf/open/floor/carpet/black/lit
+	name = "carpet"
+	sunlight_state = SUNLIGHT_SOURCE
+
+/turf/open/floor/carpet/black/nosmooth
+	name = "carpet"
+	smooth = SMOOTH_FALSE
+
+/turf/open/floor/carpet/black/lit/nosmooth
+	name = "carpet"
+	smooth = SMOOTH_FALSE
+	sunlight_state = SUNLIGHT_SOURCE
+
 /turf/open/floor/carpet/arcade
 	icon = 'icons/turf/floors.dmi'
 	icon_state = "arcade"
 	floor_tile = /obj/item/stack/tile/carpet/arcade
 	smooth = SMOOTH_FALSE
 	canSmoothWith = list()
+
+/turf/open/floor/carpet/arcade/lit
+	name = "carpet"
+	sunlight_state = SUNLIGHT_SOURCE
+
 
 /turf/open/floor/carpet/blackred
 	icon = 'icons/turf/floors/carpet_blackred.dmi'
@@ -552,6 +578,15 @@
 	floor_tile = /obj/item/stack/tile/carpet/blue
 	canSmoothWith = list(/turf/open/floor/carpet/blue, /turf/open/floor/carpet/blue/airless)
 
+/turf/open/floor/carpet/blue/lit
+	name = "carpet"
+	sunlight_state = SUNLIGHT_SOURCE
+
+/turf/open/floor/carpet/blue/nosmooth
+	name = "carpet"
+	smooth = SMOOTH_FALSE
+
+
 /turf/open/floor/carpet/cyan
 	icon = 'icons/turf/floors/carpet_cyan.dmi'
 	floor_tile = /obj/item/stack/tile/carpet/cyan
@@ -561,6 +596,19 @@
 	icon = 'icons/turf/floors/carpet_green.dmi'
 	floor_tile = /obj/item/stack/tile/carpet/green
 	canSmoothWith = list(/turf/open/floor/carpet/green, /turf/open/floor/carpet/green/airless)
+
+/turf/open/floor/carpet/green/lit
+	name = "carpet"
+	sunlight_state = SUNLIGHT_SOURCE
+
+/turf/open/floor/carpet/green/nosmooth
+	name = "carpet"
+	smooth = SMOOTH_FALSE
+
+/turf/open/floor/carpet/green/lit/nosmooth
+	name = "carpet"
+	smooth = SMOOTH_FALSE
+	sunlight_state = SUNLIGHT_SOURCE
 
 /turf/open/floor/carpet/orange
 	icon = 'icons/turf/floors/carpet_orange.dmi'
@@ -572,15 +620,35 @@
 	floor_tile = /obj/item/stack/tile/carpet/purple
 	canSmoothWith = list(/turf/open/floor/carpet/purple, /turf/open/floor/carpet/purple/airless)
 
+/turf/open/floor/carpet/purple/lit
+	name = "carpet"
+	sunlight_state = SUNLIGHT_SOURCE
+
 /turf/open/floor/carpet/red
 	icon = 'icons/turf/floors/carpet_red.dmi'
 	floor_tile = /obj/item/stack/tile/carpet/red
 	canSmoothWith = list(/turf/open/floor/carpet/red, /turf/open/floor/carpet/red/airless)
 
+/turf/open/floor/carpet/red/lit
+	name = "carpet"
+	sunlight_state = SUNLIGHT_SOURCE
+
+/turf/open/floor/carpet/red/lit/nosmooth
+	name = "carpet"
+	smooth = SMOOTH_FALSE
+
 /turf/open/floor/carpet/royalblack
 	icon = 'icons/turf/floors/carpet_royalblack.dmi'
 	floor_tile = /obj/item/stack/tile/carpet/royalblack
 	canSmoothWith = list(/turf/open/floor/carpet/royalblack, /turf/open/floor/carpet/royalblack/airless)
+
+/turf/open/floor/carpet/royalblack/nosmooth
+	name = "carpet"
+	smooth = SMOOTH_FALSE
+
+/turf/open/floor/carpet/royalblack/lit/nosmooth
+	name = "carpet"
+	sunlight_state = SUNLIGHT_SOURCE
 
 /turf/open/floor/carpet/royalblue
 	icon = 'icons/turf/floors/carpet_royalblue.dmi'
@@ -590,6 +658,17 @@
 /turf/open/floor/carpet/vault
 	icon = 'icons/turf/floors/carpet_vault.dmi'
 	canSmoothWith = list(/turf/open/floor/carpet/vault)
+
+/turf/open/floor/carpet/brown
+	icon = 'icons/fallout/turfs/floors.dmi'
+	icon_state = "tile-carpet_brown"
+	floor_tile = /obj/item/stack/tile/carpet/brown
+	smooth = SMOOTH_FALSE
+	canSmoothWith = list()
+
+/turf/open/floor/carpet/brown/lit
+	name = "carpet"
+	sunlight_state = SUNLIGHT_SOURCE
 
 //*****Airless versions of all of the above.*****
 /turf/open/floor/carpet/airless
