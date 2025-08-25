@@ -609,15 +609,6 @@
 	loot_amount_random = FALSE
 	
 
-//Outlaw Raiders
-
-/mob/living/simple_animal/hostile/raider/baseball/outlaw
-	name = "Bouncer"
-	faction = list("Raiders","Wastelander")
-	icon_state = "badland_raider"
-	icon_living = "badland_raider"
-	icon_dead = "badland_raider_dead"
-
 // Cultist Stuff
 
 /mob/living/simple_animal/hostile/raider/cultist/melee

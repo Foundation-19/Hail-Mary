@@ -1002,7 +1002,7 @@
 	name = "hunting rifle and ammo spawner"
 	items = list(
 				/obj/item/gun/ballistic/rifle/hunting,
-				/obj/item/ammo_box/a3006
+				/obj/item/ammo_box/a308
 				)
 
 /obj/effect/spawner/bundle/f13/n99

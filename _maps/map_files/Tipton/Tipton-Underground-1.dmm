@@ -8490,7 +8490,10 @@
 	},
 /area/f13/sewer/powered)
 "gNH" = (
-/mob/living/simple_animal/hostile/raider/baseball/outlaw,
+/mob/living/simple_animal/hostile/raider/baseball{
+	name = "Bouncer";
+	faction = list("Raiders","Wastelander")
+	},
 /turf/open/indestructible/ground/inside/subway,
 /area/f13/den)
 "gNO" = (
@@ -8881,7 +8884,6 @@
 	pixel_y = 28
 	},
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/raider/baseball/outlaw,
 /turf/open/indestructible/ground/inside/subway,
 /area/f13/den)
 "heA" = (
@@ -13540,7 +13542,10 @@
 /obj/structure/destructible/tribal_torch/wall/lit{
 	dir = 8
 	},
-/mob/living/simple_animal/hostile/raider/baseball/outlaw,
+/mob/living/simple_animal/hostile/raider/baseball{
+	name = "Bouncer";
+	faction = list("Raiders","Wastelander")
+	},
 /turf/open/indestructible/ground/inside/subway,
 /area/f13/den)
 "kYv" = (
@@ -30667,6 +30672,15 @@
 	},
 /turf/open/water,
 /area/f13/caves)
+"yeW" = (
+/obj/effect/overlay/junk/oldpipes,
+/obj/effect/decal/cleanable/dirt,
+/mob/living/simple_animal/hostile/raider/baseball{
+	name = "Bouncer";
+	faction = list("Raiders","Wastelander")
+	},
+/turf/open/indestructible/ground/inside/subway,
+/area/f13/den)
 "yfr" = (
 /obj/structure/simple_door/metal/fence/wooden,
 /turf/open/floor/f13/wood,
@@ -113231,7 +113245,7 @@ udJ
 udJ
 udJ
 udJ
-epq
+yeW
 epq
 aOc
 aOc

@@ -71,6 +71,7 @@
 		"enclave.dm",
 		"atlantic_cross.dm",
 		"locust_point.dm",
+		"outlaws.dm",
 		"khan.dm"
 	]
 }
