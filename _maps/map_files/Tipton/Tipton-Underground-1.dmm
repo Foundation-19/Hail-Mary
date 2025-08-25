@@ -18935,6 +18935,10 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/carpet/red,
 /area/f13/den)
+"ory" = (
+/obj/effect/landmark/start/f13/prospector,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/holiday)
 "orJ" = (
 /obj/structure/junk/cabinet,
 /turf/open/indestructible/ground/inside/subway,
@@ -24822,6 +24826,11 @@
 /obj/structure/barricade/bars,
 /turf/open/water,
 /area/f13/tunnel)
+"sYu" = (
+/obj/structure/spacevine,
+/obj/structure/barricade/wooden,
+/turf/closed/indestructible/rock,
+/area/f13/caves)
 "sYC" = (
 /obj/structure/closet/decay,
 /turf/open/indestructible/ground/outside/ruins{
@@ -25975,6 +25984,11 @@
 "tNW" = (
 /turf/closed/indestructible/wood,
 /area/f13/ncr)
+"tOd" = (
+/obj/structure/barricade/wooden,
+/obj/structure/spacevine,
+/turf/closed/mineral/random/no_caves,
+/area/f13/caves)
 "tOq" = (
 /mob/living/simple_animal/hostile/ghoul/soldier,
 /turf/open/floor/f13{
@@ -27099,6 +27113,10 @@
 	},
 /turf/open/floor/plating/dirt,
 /area/f13/sewer/powered)
+"uzH" = (
+/obj/effect/landmark/start/f13/prospector,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
+/area/f13/holiday)
 "uzO" = (
 /obj/structure/sink/kitchen{
 	pixel_y = 27
@@ -29460,6 +29478,10 @@
 "wfp" = (
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/bunker)
+"wfw" = (
+/obj/structure/flora/ausbushes/sparsegrass,
+/turf/open/indestructible/ground/inside/mountain,
+/area/f13/caves)
 "wfZ" = (
 /obj/structure/spacevine,
 /turf/closed/wall/rust,
@@ -73181,8 +73203,8 @@ bwx
 keK
 ofp
 nZY
-uPa
-psY
+uzH
+ory
 aUb
 ofp
 ofp
@@ -77257,11 +77279,11 @@ tYm
 tYm
 tYm
 tYm
-iBp
-tYm
-tYm
-tYm
-tYm
+lpV
+aJE
+aJE
+qUa
+cnn
 usg
 aRM
 lXx
@@ -77514,11 +77536,11 @@ tYm
 tYm
 tYm
 tYm
-iBp
-tYm
-tYm
-tYm
-tYm
+sYu
+cnn
+pCU
+pCU
+cnn
 aRM
 lyt
 lXx
@@ -77771,11 +77793,11 @@ tYm
 tYm
 tYm
 tYm
-iBp
-tYm
-tYm
-tYm
-tYm
+hbh
+pCU
+pCU
+cnn
+cnn
 lXx
 lXx
 aRM
@@ -78028,10 +78050,10 @@ tYm
 tYm
 tYm
 tYm
-iBp
-tYm
-tYm
-tYm
+hbh
+wfw
+cnn
+aJE
 tYm
 qUa
 aRM
@@ -78286,8 +78308,8 @@ tYm
 tYm
 tYm
 iBp
-tYm
-tYm
+tOd
+aJE
 tYm
 tYm
 aJE
