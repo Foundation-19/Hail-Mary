@@ -15914,10 +15914,11 @@
 /turf/open/floor/wood_mosaic/wood_mosaic_dark,
 /area/f13/building)
 "fNr" = (
-/obj/structure/wreck/bus/rusted,
-/turf/open/indestructible/ground/outside/road{
-	icon_state = "horizontalbottombordertop1"
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 4
 	},
+/obj/effect/landmark/start/f13/settler,
+/turf/open/indestructible/ground/outside/gravel,
 /area/f13/wasteland/cold)
 "fNw" = (
 /obj/machinery/smartfridge/bottlerack/grownbin,
@@ -25531,10 +25532,13 @@
 	},
 /area/f13/holiday)
 "jhB" = (
-/turf/open/indestructible/ground/outside/sidewalk{
-	icon_state = "horizontalbottomborderbottom0"
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 10;
+	icon_state = "snow_corner"
 	},
-/area/f13/underground/mountain)
+/obj/effect/landmark/start/f13/settler,
+/turf/open/indestructible/ground/outside/gravel,
+/area/f13/wasteland/cold)
 "jhM" = (
 /obj/structure/wreck/trash/two_barrels,
 /turf/open/floor/plating/dirt,
@@ -25574,13 +25578,11 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
 /area/f13/holiday)
 "jiL" = (
-/obj/effect/decal/fakelattice,
-/obj/effect/decal/cleanable/dirt{
-	color = "000000"
+/obj/structure/wreck/bus/rusted,
+/turf/open/indestructible/ground/outside/road{
+	icon_state = "horizontalinnermain0"
 	},
-/mob/living/simple_animal/hostile/radroach,
-/turf/open/floor/plating/rust,
-/area/f13/village)
+/area/f13/wasteland/cold)
 "jiZ" = (
 /obj/structure/table/wood/settler,
 /obj/item/pda,
@@ -30289,10 +30291,14 @@
 	},
 /area/f13/ambientlighting/building/e)
 "kRc" = (
-/obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/radroach,
-/turf/open/floor/plasteel/f13/vault_floor/purple,
-/area/f13/village)
+/obj/item/storage/trash_stack{
+	icon_state = "Junk_8";
+	pixel_y = 8
+	},
+/turf/open/indestructible/ground/outside/sidewalk{
+	icon_state = "horizontaloutermain2"
+	},
+/area/f13/wasteland/cold)
 "kRF" = (
 /obj/effect/turf_decal/delivery,
 /obj/effect/decal/cleanable/dirt{
@@ -32973,12 +32979,6 @@
 	icon_state = "horizontalinnermain2"
 	},
 /area/f13/wasteland/cold)
-"lQc" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/turf/open/indestructible/ground/outside/road{
-	icon_state = "horizontalbottombordertop1"
-	},
-/area/f13/underground/mountain)
 "lQn" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/f13/wood{
@@ -61586,6 +61586,13 @@
 /obj/effect/decal/cleanable/oil,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/decoration/rag{
+	desc = "Writing in your own blood seems like a bad idea.";
+	icon_state = "blood_pic_6";
+	name = "old dried blood";
+	pixel_x = -8;
+	pixel_y = 32
+	},
 /turf/open/floor/f13{
 	icon_state = "floorrusty"
 	},
@@ -66022,6 +66029,7 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/nest/ghoul,
 /turf/open/floor/f13{
 	icon_state = "hydrofloor"
 	},
@@ -99053,8 +99061,8 @@ fyR
 fyR
 fyR
 fyR
-fyR
-fyR
+iqR
+iqR
 fyR
 fyR
 fyR
@@ -99310,7 +99318,7 @@ fyR
 pES
 pzo
 xIz
-fyR
+iqR
 oZg
 bVS
 nxP
@@ -99573,12 +99581,12 @@ mWV
 jOy
 fyR
 wmr
-fyR
-fyR
+iqR
+iqR
 uFR
 nez
-fyR
-fyR
+iqR
+iqR
 fyR
 fyR
 fyR
@@ -99830,11 +99838,11 @@ reY
 mWV
 fyR
 wmr
-fyR
+iqR
 eLY
 mZD
 uFR
-fyR
+iqR
 nvC
 dUt
 oYu
@@ -100087,13 +100095,13 @@ dlc
 uil
 fyR
 krX
-fyR
-fyR
-fyR
+iqR
+iqR
+iqR
 rFR
-fyR
+iqR
 cLo
-kRc
+vJP
 vJP
 vJP
 kuk
@@ -100609,7 +100617,7 @@ vJP
 vJP
 mcD
 mcD
-jiL
+mcD
 jNK
 tCJ
 uRV
@@ -100851,8 +100859,8 @@ tSL
 fyR
 fyR
 iKx
-fyR
-fyR
+iqR
+iqR
 ouI
 rSp
 mcD
@@ -100891,11 +100899,11 @@ cAd
 cAd
 aHr
 exo
-rtN
-eeM
-lQc
-lQc
-jhB
+klp
+rQC
+nSr
+nSr
+oSU
 fkW
 aHr
 cAd
@@ -101109,7 +101117,7 @@ fyR
 iKx
 iKx
 iKx
-fyR
+iqR
 fyR
 fyR
 fyR
@@ -101376,7 +101384,7 @@ tWX
 tWX
 mcD
 mcD
-fyR
+iqR
 fyR
 qcC
 qcC
@@ -101403,7 +101411,7 @@ cAd
 cAd
 cAd
 exo
-hjL
+cSx
 vbU
 sEH
 qgW
@@ -101633,7 +101641,7 @@ vqM
 tWX
 mcD
 fyR
-fyR
+iqR
 urf
 tYY
 xzu
@@ -101660,12 +101668,12 @@ fyR
 fyR
 fyR
 exo
-hjL
+kRc
 vbU
 sEH
 qgW
 iQR
-fNr
+sqd
 kCm
 xbt
 xbt
@@ -102176,7 +102184,7 @@ qVl
 nSS
 wXx
 gyQ
-cuN
+sEH
 fQd
 iQR
 sqd
@@ -102911,14 +102919,14 @@ evo
 chU
 euI
 vVU
-fyR
-fyR
+iqR
+iqR
 fyR
 uOy
 oHr
 uOy
-fyR
-fyR
+iqR
+iqR
 dif
 efe
 uFU
@@ -103168,14 +103176,14 @@ jan
 iMs
 lXv
 gMG
-fyR
+iqR
 rFn
 wXk
 msF
 msF
 msF
 sEl
-fyR
+iqR
 dOt
 viH
 eBa
@@ -103425,7 +103433,7 @@ aCw
 ktB
 chU
 tjF
-fyR
+iqR
 uTf
 fUJ
 mWE
@@ -103462,7 +103470,7 @@ ikk
 fyR
 sEH
 qgW
-mWE
+jiL
 ouP
 gNh
 oYz
@@ -104188,7 +104196,7 @@ cAd
 cAd
 uHd
 uHd
-fyR
+iqR
 xpC
 arC
 sBD
@@ -104445,8 +104453,8 @@ cAd
 uHd
 uHd
 uHd
-fyR
-fyR
+iqR
+iqR
 fyR
 fyR
 fyR
@@ -111637,7 +111645,7 @@ cAd
 cAd
 iew
 eXJ
-awO
+jhB
 bkC
 kwl
 uHd
@@ -111894,7 +111902,7 @@ cAd
 cAd
 iew
 eXJ
-iJC
+fNr
 rgb
 awO
 qXQ
@@ -130993,8 +131001,8 @@ jRd
 cAJ
 jRd
 xdI
-xHz
-xHz
+pMk
+pMk
 gYX
 lFl
 jRd

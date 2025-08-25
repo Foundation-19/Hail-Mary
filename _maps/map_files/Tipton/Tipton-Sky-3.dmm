@@ -2324,6 +2324,7 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 4
 	},
+/obj/effect/landmark/start/f13/settler,
 /turf/open/indestructible/ground/outside/gravel,
 /area/f13/wasteland/cold)
 "cuA" = (
@@ -7757,6 +7758,13 @@
 	icon_state = "reddirtyfull"
 	},
 /area/f13/brotherhood/powered)
+"hJJ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/nest/ghoul,
+/turf/open/floor/f13{
+	icon_state = "hydrofloor"
+	},
+/area/f13/village)
 "hJM" = (
 /obj/effect/decal/cleanable/dirt{
 	color = "000000"
@@ -8419,9 +8427,7 @@
 	},
 /area/f13/building)
 "ivQ" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/item/stack/cable_coil/cut,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "floorrustysolid"
 	},
@@ -11364,6 +11370,12 @@
 	},
 /turf/open/floor/f13{
 	icon_state = "redrustyfull"
+	},
+/area/f13/village)
+"ltL" = (
+/obj/structure/nest/ghoul,
+/turf/open/floor/f13{
+	icon_state = "whitegreenrustychess"
 	},
 /area/f13/village)
 "lue" = (
@@ -15871,7 +15883,6 @@
 /area/f13/tunnel)
 "qhs" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/stack/cable_coil/cut,
 /obj/effect/decal/cleanable/dirt{
 	color = "#363636"
 	},
@@ -22109,6 +22120,7 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 6
 	},
+/obj/effect/landmark/start/f13/settler,
 /turf/open/indestructible/ground/outside/gravel,
 /area/f13/wasteland/cold)
 "wqz" = (
@@ -23695,6 +23707,11 @@
 	icon_state = "housewood1-broken"
 	},
 /area/f13/wasteland/cold)
+"xVw" = (
+/obj/effect/turf_decal/weather/snow/corner,
+/obj/effect/landmark/start/f13/settler,
+/turf/open/indestructible/ground/outside/gravel,
+/area/f13/wasteland/cold)
 "xVx" = (
 /obj/structure/wreck/trash/one_barrel,
 /turf/open/floor/plating/rust,
@@ -23807,6 +23824,14 @@
 	},
 /turf/open/floor/f13/wood,
 /area/f13/building/powered)
+"yag" = (
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 8;
+	icon_state = "snow_corner"
+	},
+/obj/effect/landmark/start/f13/settler,
+/turf/open/indestructible/ground/outside/gravel,
+/area/f13/wasteland/cold)
 "yaI" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 9
@@ -23883,6 +23908,11 @@
 	},
 /turf/open/floor/f13/stairs_platform,
 /area/f13/building/powered)
+"yeC" = (
+/turf/closed/wall/f13/ruins{
+	color = "#d9cdb9"
+	},
+/area/f13/village)
 "yfm" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 6;
@@ -23946,6 +23976,12 @@
 /obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/low,
 /turf/open/floor/plasteel/f13/vault_floor/plating,
 /area/f13/building)
+"ykz" = (
+/obj/structure/nest/ghoul,
+/turf/open/floor/f13{
+	icon_state = "hydrofloor"
+	},
+/area/f13/village)
 "yli" = (
 /obj/structure/railing{
 	layer = 4.1
@@ -53352,9 +53388,9 @@ wlp
 wlp
 wlp
 wlp
-rpm
-rpm
-rpm
+yeC
+yeC
+yeC
 rpm
 rpm
 rpm
@@ -53609,7 +53645,7 @@ wlp
 wlp
 wlp
 wlp
-rpm
+yeC
 djH
 cyE
 uAc
@@ -53866,7 +53902,7 @@ wlp
 wlp
 wlp
 wlp
-rpm
+yeC
 tNs
 vMe
 vMe
@@ -55158,7 +55194,7 @@ uiK
 uiK
 vMe
 hAp
-rpm
+yeC
 uil
 kXe
 ruF
@@ -55167,7 +55203,7 @@ sHk
 nao
 rpm
 xXa
-rpm
+yeC
 ycd
 ycd
 ycd
@@ -55414,17 +55450,17 @@ vUO
 fBe
 fBe
 vUO
-rpm
-rpm
-rpm
+yeC
+yeC
+yeC
 rpm
 qra
 rpm
 rpm
 rpm
 rpm
-rpm
-rpm
+yeC
+yeC
 pUF
 xlh
 rpm
@@ -55664,7 +55700,7 @@ pwY
 gPr
 bvd
 bvd
-pwY
+ltL
 oNm
 txc
 voD
@@ -55680,7 +55716,7 @@ dHe
 voD
 voD
 gbc
-rpm
+yeC
 kxo
 ycd
 ckR
@@ -56173,7 +56209,7 @@ wlp
 wlp
 wlp
 aAv
-rpm
+yeC
 pwY
 pYJ
 mfM
@@ -56187,7 +56223,7 @@ uCF
 uCF
 uCF
 dfG
-voD
+hJJ
 qnN
 uCF
 uCF
@@ -56430,7 +56466,7 @@ wlp
 wlp
 wlp
 aAv
-rpm
+yeC
 pwY
 gPr
 gPr
@@ -57207,7 +57243,7 @@ pwY
 pwY
 pwY
 qRE
-rpm
+yeC
 jlo
 jlo
 jlo
@@ -57224,9 +57260,9 @@ rrE
 jVy
 rpm
 rpm
-rpm
-rpm
-rpm
+yeC
+yeC
+yeC
 dnM
 dnM
 dnM
@@ -57461,10 +57497,10 @@ aAv
 rpm
 rpm
 rpm
-rpm
-rpm
-rpm
-rpm
+yeC
+yeC
+yeC
+yeC
 rpm
 rpm
 rpm
@@ -57483,7 +57519,7 @@ rpm
 osy
 bAa
 osy
-rpm
+yeC
 dnM
 dnM
 dnM
@@ -57992,7 +58028,7 @@ uCF
 uCF
 uCF
 dfG
-kXB
+ykz
 bTY
 bNv
 bNv
@@ -58507,7 +58543,7 @@ wns
 fjy
 voD
 lvt
-rpm
+yeC
 hKo
 bNv
 nvZ
@@ -58745,16 +58781,16 @@ wlp
 aAv
 aXU
 rpm
+yeC
+yeC
 rpm
 rpm
 rpm
-rpm
-rpm
-rpm
-rpm
+yeC
+yeC
 wmS
-rpm
-rpm
+yeC
+yeC
 wmS
 rpm
 rpm
@@ -58763,8 +58799,8 @@ lca
 pHO
 pZO
 gbc
-rpm
-rpm
+yeC
+yeC
 rpm
 bTY
 ldU
@@ -59011,7 +59047,7 @@ nGG
 iai
 iai
 iai
-rpm
+yeC
 iai
 rpm
 rpm
@@ -59020,7 +59056,7 @@ eQG
 eQG
 eQG
 rpm
-rpm
+yeC
 dLg
 gSa
 iRy
@@ -70822,8 +70858,8 @@ wlp
 wlp
 wlp
 liU
-oZI
-vjX
+yag
+xVw
 oTW
 xEi
 wRC
