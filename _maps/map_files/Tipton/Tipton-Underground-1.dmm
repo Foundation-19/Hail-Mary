@@ -10454,6 +10454,11 @@
 	},
 /turf/open/floor/plating/dirt,
 /area/f13/caves)
+"hTf" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/destructible/tribal_torch/wall/lit,
+/turf/open/indestructible/ground/inside/subway,
+/area/f13/caves)
 "hTu" = (
 /obj/effect/spawner/lootdrop/f13/weapon/gun/ammo/tier1,
 /turf/open/floor/plasteel/f13/vault_floor/yellow,
@@ -14461,6 +14466,21 @@
 	dir = 8
 	},
 /turf/open/water,
+/area/f13/sewer/powered)
+"lcw" = (
+/obj/effect/decal/fakelattice,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating/tunnel,
+/area/f13/caves)
+"lcy" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/effect/decal/fakelattice,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating/tunnel,
 /area/f13/sewer/powered)
 "lcG" = (
 /obj/structure/fence/end{
@@ -98229,7 +98249,7 @@ mrJ
 klv
 ihS
 bJB
-teu
+pCU
 gio
 teu
 qCY
@@ -98486,7 +98506,7 @@ pMD
 uJz
 ihS
 bJB
-teu
+pCU
 siJ
 iqU
 eSC
@@ -98743,8 +98763,8 @@ pMD
 uJz
 ihS
 bJB
-teu
 siJ
+hTf
 teu
 aMW
 eSC
@@ -99000,7 +99020,7 @@ pMD
 uJz
 ihS
 bJB
-teu
+siJ
 siJ
 aLq
 aLq
@@ -99256,8 +99276,8 @@ pMD
 pMD
 mlA
 ihS
-wUv
-teu
+bJB
+siJ
 siJ
 aLq
 sxy
@@ -99514,8 +99534,8 @@ pMD
 tuO
 ihS
 bJB
-teu
-eYw
+siJ
+siJ
 teu
 hfX
 fzt
@@ -99770,8 +99790,8 @@ pMD
 pMD
 mfs
 ihS
-bJB
-teu
+lcw
+siJ
 siJ
 nbC
 eSC
@@ -100026,10 +100046,10 @@ pMD
 pMD
 pMD
 jnR
-ihS
-bJB
-teu
+lcy
+lcw
 siJ
+hTf
 teu
 vOc
 eSC
@@ -100284,8 +100304,8 @@ pMD
 pMD
 mlA
 ihS
-wUv
-teu
+bJB
+pCU
 siJ
 iqU
 uvJ
@@ -100542,7 +100562,7 @@ pMD
 uJz
 ihS
 bJB
-teu
+pCU
 siJ
 teu
 bzI
@@ -100799,7 +100819,7 @@ htC
 klv
 ihS
 bJB
-teu
+pCU
 siJ
 nte
 eSC
