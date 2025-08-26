@@ -10452,11 +10452,6 @@
 	},
 /turf/open/floor/plating/dirt,
 /area/f13/caves)
-"hTf" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/destructible/tribal_torch/wall/lit,
-/turf/open/indestructible/ground/inside/subway,
-/area/f13/caves)
 "hTu" = (
 /obj/effect/spawner/lootdrop/f13/weapon/gun/ammo/tier1,
 /turf/open/floor/plasteel/f13/vault_floor/yellow,
@@ -10469,7 +10464,8 @@
 /turf/open/floor/plating/dirt/dark,
 /area/f13/tunnel)
 "hTM" = (
-/mob/living/simple_animal/hostile/raider/ranged,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/destructible/tribal_torch/wall/lit,
 /turf/open/indestructible/ground/inside/subway,
 /area/f13/caves)
 "hTN" = (
@@ -10945,7 +10941,6 @@
 /turf/open/indestructible/ground/inside/subway,
 /area/f13/sewer/powered)
 "ikf" = (
-/mob/living/simple_animal/hostile/raider,
 /obj/structure/destructible/tribal_torch/wall/lit{
 	dir = 4
 	},
@@ -13202,10 +13197,6 @@
 	icon_state = "floorrustysolid"
 	},
 /area/f13/bunker/bunkerseven)
-"kcj" = (
-/mob/living/simple_animal/hostile/raider/firefighter,
-/turf/open/indestructible/ground/outside/ruins,
-/area/f13/caves)
 "kcr" = (
 /obj/effect/decal/cleanable/blood/tracks{
 	dir = 10
@@ -13892,7 +13883,6 @@
 /area/f13/tunnel)
 "kFM" = (
 /obj/effect/decal/cleanable/cobweb,
-/mob/living/simple_animal/hostile/raider/baseball,
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/caves)
 "kFU" = (
@@ -14461,21 +14451,6 @@
 	dir = 8
 	},
 /turf/open/water,
-/area/f13/sewer/powered)
-"lcw" = (
-/obj/effect/decal/fakelattice,
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating/tunnel,
-/area/f13/caves)
-"lcy" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/effect/decal/fakelattice,
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating/tunnel,
 /area/f13/sewer/powered)
 "lcG" = (
 /obj/structure/fence/end{
@@ -21282,9 +21257,10 @@
 /turf/open/indestructible/ground/inside/subway,
 /area/f13/sewer/powered)
 "qmx" = (
-/obj/structure/barricade/sandbags,
+/obj/effect/decal/fakelattice,
+/obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt,
-/turf/open/indestructible/ground/inside/subway,
+/turf/open/floor/plating/tunnel,
 /area/f13/caves)
 "qmH" = (
 /obj/effect/spawner/lootdrop/trash,
@@ -24839,7 +24815,7 @@
 	},
 /area/f13/bunker/bunkernine)
 "sYc" = (
-/mob/living/simple_animal/hostile/raider,
+/obj/structure/destructible/tribal_torch/wall/lit,
 /turf/open/indestructible/ground/inside/subway,
 /area/f13/sewer/powered)
 "sYk" = (
@@ -25415,9 +25391,14 @@
 	},
 /area/f13/tunnel)
 "tth" = (
-/obj/structure/barricade/sandbags,
-/turf/open/indestructible/ground/inside/subway,
-/area/f13/caves)
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/effect/decal/fakelattice,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating/tunnel,
+/area/f13/sewer/powered)
 "tti" = (
 /obj/structure/junk/machinery,
 /turf/open/indestructible/ground/inside/subway,
@@ -68866,7 +68847,7 @@ vKr
 vKr
 xvl
 htC
-htC
+sYc
 xvl
 xvl
 xvl
@@ -68882,7 +68863,7 @@ cnn
 dIa
 tYm
 msR
-kcj
+ciV
 ciV
 jNy
 tYm
@@ -69647,8 +69628,8 @@ oyX
 teu
 gMb
 tCc
-qmx
-hTM
+siJ
+pCU
 dIm
 rRr
 siJ
@@ -69904,13 +69885,13 @@ xvl
 teu
 pCU
 pCU
-qmx
-tth
+siJ
+pCU
 siJ
 dIa
 uFZ
 siJ
-hTM
+pCU
 fzE
 mgV
 siJ
@@ -70162,7 +70143,7 @@ oVp
 rkT
 siJ
 siJ
-tth
+pCU
 pCU
 tYm
 cPm
@@ -72721,7 +72702,7 @@ vKr
 vKr
 xvl
 htC
-htC
+sYc
 dyW
 xvl
 xvl
@@ -73499,7 +73480,7 @@ nee
 riU
 htC
 riU
-sYc
+htC
 xvl
 tYm
 tYm
@@ -98750,7 +98731,7 @@ uJz
 ihS
 bJB
 siJ
-hTf
+hTM
 teu
 aMW
 eSC
@@ -99776,7 +99757,7 @@ pMD
 pMD
 mfs
 ihS
-lcw
+qmx
 siJ
 siJ
 nbC
@@ -100032,10 +100013,10 @@ pMD
 pMD
 pMD
 jnR
-lcy
-lcw
+tth
+qmx
 siJ
-hTf
+hTM
 teu
 vOc
 eSC
