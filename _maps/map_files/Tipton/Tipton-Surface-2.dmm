@@ -16725,6 +16725,13 @@
 /obj/effect/spawner/lootdrop/trash,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/building/powered)
+"fBs" = (
+/obj/effect/landmark/start/f13/wastelander,
+/obj/effect/landmark/start/f13/wastelander,
+/turf/open/indestructible/ground/outside/sidewalk{
+	icon_state = "horizontaltopbordertop0"
+	},
+/area/f13/underground/mountain)
 "fBt" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 6;
@@ -19655,6 +19662,13 @@
 /obj/structure/lattice,
 /turf/open/floor/plating/tunnel,
 /area/f13/brotherhood/powered)
+"gCs" = (
+/obj/structure/flora/tree/pine,
+/obj/structure/flora/grass/brown,
+/turf/open/indestructible/ground/outside/snow{
+	icon_state = "snow3"
+	},
+/area/f13/wasteland/cold)
 "gCv" = (
 /obj/structure/barricade/wooden,
 /turf/closed/wall/mineral/brick,
@@ -22691,6 +22705,12 @@
 	icon_state = "cross2"
 	},
 /area/f13/wasteland/cold)
+"hBh" = (
+/obj/structure/flora/ausbushes/sparsegrass,
+/turf/open/indestructible/ground/outside/snow{
+	icon_state = "snow3"
+	},
+/area/f13/wasteland/cold)
 "hBj" = (
 /turf/open/indestructible/ground/outside/sidewalk{
 	dir = 1;
@@ -24958,6 +24978,7 @@
 /area/f13/wasteland/cold)
 "ipt" = (
 /obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/landmark/start/f13/wastelander,
 /obj/effect/landmark/start/f13/wastelander,
 /turf/open/indestructible/ground/outside/road{
 	icon_state = "horizontalinnermain2";
@@ -32668,14 +32689,6 @@
 /obj/structure/lattice,
 /turf/open/floor/plating/tunnel,
 /area/f13/brotherhood/powered)
-"kNw" = (
-/obj/machinery/vending/wallmed{
-	pixel_x = -30
-	},
-/turf/open/floor/plasteel/f13/vault_floor/neutral/white/side{
-	dir = 8
-	},
-/area/f13/brotherhood/powered)
 "kNz" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt{
@@ -35510,6 +35523,12 @@
 	icon_state = "yellowrustychess"
 	},
 /area/f13/building/powered)
+"lMr" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/observer_start,
+/turf/open/floor/wood_common/wood_common_dark,
+/area/f13/holiday)
 "lMt" = (
 /obj/structure/debris/v4{
 	pixel_x = -17
@@ -38143,6 +38162,13 @@
 	icon_state = "whitegreenrustychess"
 	},
 /area/f13/building/powered)
+"mCn" = (
+/obj/effect/landmark/start/f13/wastelander,
+/obj/effect/landmark/start/f13/wastelander,
+/turf/open/indestructible/ground/outside/road{
+	icon_state = "horizontaltopborderbottom0"
+	},
+/area/f13/underground/mountain)
 "mCF" = (
 /obj/structure/rack,
 /obj/item/radio/headset/headset_ncr,
@@ -44438,12 +44464,6 @@
 "oEi" = (
 /turf/closed/wall/f13/tentwall,
 /area/f13/building/powered)
-"oEk" = (
-/obj/structure/flora/ausbushes/sparsegrass,
-/turf/open/indestructible/ground/outside/snow{
-	icon_state = "snow3"
-	},
-/area/f13/wasteland/cold)
 "oEr" = (
 /obj/structure/simple_door/house{
 	icon_state = "room"
@@ -46834,6 +46854,14 @@
 	},
 /turf/open/indestructible/ground/outside/gravel,
 /area/f13/building)
+"prR" = (
+/obj/machinery/vending/wallmed{
+	pixel_x = -30
+	},
+/turf/open/floor/plasteel/f13/vault_floor/neutral/white/side{
+	dir = 8
+	},
+/area/f13/brotherhood/powered)
 "psq" = (
 /obj/structure/table/wood/settler,
 /obj/item/book/granter/crafting_recipe/gunsmith_one,
@@ -47529,6 +47557,7 @@
 /turf/open/floor/f13/wood,
 /area/f13/building/powered)
 "pDI" = (
+/obj/effect/landmark/start/f13/wastelander,
 /obj/effect/landmark/start/f13/wastelander,
 /turf/open/indestructible/ground/outside/road{
 	icon_state = "horizontalbottombordertop1"
@@ -61650,6 +61679,14 @@
 	icon_state = "floorrusty"
 	},
 /area/f13/building/powered)
+"ukx" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/landmark/start/f13/wastelander,
+/obj/effect/landmark/start/f13/wastelander,
+/turf/open/indestructible/ground/outside/road{
+	icon_state = "horizontalbottombordertop1"
+	},
+/area/f13/underground/mountain)
 "ukB" = (
 /obj/structure/table/wood/settler,
 /obj/machinery/processor/chopping_block{
@@ -65130,13 +65167,6 @@
 	},
 /turf/open/indestructible/ground/outside/road,
 /area/f13/wasteland/cold)
-"vqq" = (
-/obj/structure/flora/tree/pine,
-/obj/structure/flora/grass/brown,
-/turf/open/indestructible/ground/outside/snow{
-	icon_state = "snow3"
-	},
-/area/f13/wasteland/cold)
 "vqy" = (
 /obj/structure/table/wood,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -67160,6 +67190,13 @@
 	icon_state = "outerpavement"
 	},
 /area/f13/wasteland)
+"vXG" = (
+/obj/effect/landmark/start/f13/wastelander,
+/obj/effect/landmark/start/f13/wastelander,
+/turf/open/indestructible/ground/outside/sidewalk{
+	icon_state = "horizontalbottomborderbottom0"
+	},
+/area/f13/underground/mountain)
 "vXI" = (
 /obj/structure/table,
 /turf/open/floor/f13{
@@ -72846,6 +72883,14 @@
 /mob/living/simple_animal/hostile/raider/ranged,
 /turf/open/floor/plasteel/f13/vault_floor/floor/floorsolid,
 /area/f13/ambientlighting/building/d)
+"xQV" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/landmark/start/f13/wastelander,
+/obj/effect/landmark/start/f13/wastelander,
+/turf/open/indestructible/ground/outside/road{
+	icon_state = "horizontaltopborderbottom0"
+	},
+/area/f13/underground/mountain)
 "xQZ" = (
 /obj/effect/landmark/start/f13/legionary,
 /turf/open/floor/carpet/red,
@@ -105771,11 +105816,11 @@ cAd
 cAd
 aHr
 fkW
-klp
-rQC
+fBs
+mCn
 ipt
 pDI
-oSU
+vXG
 fkW
 aHr
 cAd
@@ -106028,11 +106073,11 @@ cAd
 cAd
 aHr
 fkW
-klp
-wXN
-nSr
-nSr
-oSU
+fBs
+xQV
+ukx
+ukx
+vXG
 fkW
 aHr
 cAd
@@ -117588,7 +117633,7 @@ svb
 gfx
 oQt
 oGt
-ihF
+lMr
 ihF
 gkc
 mPe
@@ -122182,7 +122227,7 @@ fJQ
 hoU
 pMk
 vwk
-vqq
+gCs
 bFF
 uDg
 dSr
@@ -124487,7 +124532,7 @@ cAd
 cAd
 cAd
 uZc
-oEk
+hBh
 jRd
 bkC
 uHd
@@ -131596,7 +131641,7 @@ sDF
 jcE
 tPl
 gPV
-kNw
+prR
 mYl
 aFD
 tPl
