@@ -10221,8 +10221,6 @@
 	pixel_x = -2;
 	density = 0
 	},
-/obj/effect/spawner/lootdrop/f13/blueprintLowMid,
-/obj/effect/spawner/lootdrop/f13/blueprintLowMid,
 /turf/open/floor/f13{
 	color = "#ffe9de";
 	icon_state = "darkrusty";
@@ -14685,6 +14683,7 @@
 /obj/structure/noticeboard{
 	pixel_y = 30
 	},
+/obj/effect/spawner/lootdrop/f13/medical/wasteland/meds,
 /turf/open/floor/f13{
 	icon_state = "greendirtyfull"
 	},
@@ -32669,6 +32668,14 @@
 /obj/structure/lattice,
 /turf/open/floor/plating/tunnel,
 /area/f13/brotherhood/powered)
+"kNw" = (
+/obj/machinery/vending/wallmed{
+	pixel_x = -30
+	},
+/turf/open/floor/plasteel/f13/vault_floor/neutral/white/side{
+	dir = 8
+	},
+/area/f13/brotherhood/powered)
 "kNz" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt{
@@ -44431,6 +44438,12 @@
 "oEi" = (
 /turf/closed/wall/f13/tentwall,
 /area/f13/building/powered)
+"oEk" = (
+/obj/structure/flora/ausbushes/sparsegrass,
+/turf/open/indestructible/ground/outside/snow{
+	icon_state = "snow3"
+	},
+/area/f13/wasteland/cold)
 "oEr" = (
 /obj/structure/simple_door/house{
 	icon_state = "room"
@@ -51070,6 +51083,7 @@
 /obj/effect/turf_decal/bot,
 /obj/effect/spawner/lootdrop/f13/medical/wasteland/meds,
 /obj/structure/destructible/tribal_torch/wall/lit,
+/obj/effect/spawner/lootdrop/f13/medical/wasteland/meds,
 /turf/open/floor/f13{
 	icon_state = "greendirtyfull"
 	},
@@ -55130,6 +55144,10 @@
 /obj/item/storage/backpack/duffelbag/med/surgery{
 	pixel_y = 11;
 	pixel_x = 3
+	},
+/obj/machinery/vending/wallmed{
+	force_free = 1;
+	pixel_y = 30
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
 /area/f13/holiday)
@@ -65112,6 +65130,13 @@
 	},
 /turf/open/indestructible/ground/outside/road,
 /area/f13/wasteland/cold)
+"vqq" = (
+/obj/structure/flora/tree/pine,
+/obj/structure/flora/grass/brown,
+/turf/open/indestructible/ground/outside/snow{
+	icon_state = "snow3"
+	},
+/area/f13/wasteland/cold)
 "vqy" = (
 /obj/structure/table/wood,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -69335,6 +69360,9 @@
 /area/f13/building/powered)
 "wJW" = (
 /obj/machinery/vending/cola/starkist,
+/obj/machinery/vending/wallmed{
+	pixel_x = -30
+	},
 /turf/open/floor/plasteel/f13/vault_floor/neutral/neutralsolid,
 /area/f13/brotherhood/powered)
 "wJY" = (
@@ -114210,7 +114238,7 @@ aAH
 uqw
 vRp
 jRd
-jRd
+sof
 uaV
 vkQ
 egX
@@ -114705,7 +114733,7 @@ cgw
 gHL
 njZ
 jOE
-jRd
+sof
 jRd
 kfO
 kzn
@@ -115009,7 +115037,7 @@ uAE
 fnu
 sEH
 gdl
-jRd
+sof
 ikd
 uQb
 vbU
@@ -117144,7 +117172,7 @@ jRd
 jRd
 jRd
 qXQ
-jRd
+sof
 jRd
 jRd
 jRd
@@ -117790,7 +117818,7 @@ wfW
 rSB
 bGs
 jPc
-jRd
+sof
 jjM
 lNp
 eKi
@@ -117836,7 +117864,7 @@ odC
 xhl
 uhr
 jRd
-jRd
+sof
 jRd
 jRd
 aMy
@@ -118548,7 +118576,7 @@ uHd
 uHd
 uHd
 qXQ
-jRd
+sof
 qHA
 rfw
 ygw
@@ -119318,7 +119346,7 @@ aHr
 uHd
 uHd
 fcA
-jRd
+sof
 xyH
 jRd
 xyH
@@ -119469,7 +119497,7 @@ jRd
 jRd
 qXQ
 jRd
-jRd
+sof
 jRd
 jRd
 jRd
@@ -119985,7 +120013,7 @@ jRd
 jRd
 xyH
 jRd
-jRd
+sof
 jRd
 jRd
 xyH
@@ -122154,7 +122182,7 @@ fJQ
 hoU
 pMk
 vwk
-vdk
+vqq
 bFF
 uDg
 dSr
@@ -122802,12 +122830,12 @@ jRd
 xdI
 vwk
 jRd
+sof
 jRd
 jRd
 jRd
 jRd
-jRd
-jRd
+sof
 jRd
 jRd
 jRd
@@ -124089,7 +124117,7 @@ xyH
 sTy
 vwk
 qXQ
-jRd
+sof
 jRd
 jRd
 jRd
@@ -124204,7 +124232,7 @@ cAd
 qXQ
 mTy
 kwl
-xyH
+wEV
 kwl
 uHd
 uHd
@@ -124459,7 +124487,7 @@ cAd
 cAd
 cAd
 uZc
-kwl
+oEk
 jRd
 bkC
 uHd
@@ -125371,7 +125399,7 @@ jRd
 jRd
 jRd
 jRd
-jRd
+sof
 sTy
 pMk
 vwk
@@ -127422,7 +127450,7 @@ omb
 xOb
 jRd
 jRd
-jRd
+sof
 jRd
 qXQ
 jRd
@@ -131568,7 +131596,7 @@ sDF
 jcE
 tPl
 gPV
-mYl
+kNw
 mYl
 aFD
 tPl
