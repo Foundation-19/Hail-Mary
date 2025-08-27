@@ -6547,8 +6547,10 @@
 /turf/open/floor/plating/f13/outside/roof,
 /area/f13/building)
 "fZt" = (
-/obj/structure/rug/big/rug_fancy,
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/rug/big/rug_fancy{
+	layer = 0.9
+	},
 /turf/open/floor/f13/wood,
 /area/f13/building/powered)
 "gbc" = (
@@ -7189,7 +7191,9 @@
 /turf/open/transparent/openspace,
 /area/f13/building/powered)
 "gGx" = (
-/obj/structure/rug/big/rug_fancy,
+/obj/structure/rug/big/rug_fancy{
+	layer = 0.9
+	},
 /turf/open/floor/f13/stairs_platform,
 /area/f13/building/powered)
 "gGG" = (
@@ -12335,7 +12339,9 @@
 /turf/open/floor/plasteel/f13/vault_floor/dark,
 /area/f13/building/powered)
 "lxo" = (
-/obj/structure/rug/big/rug_red,
+/obj/structure/rug/big/rug_red{
+	layer = 0.9
+	},
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/wood_fancy/wood_fancy_dark,
 /area/f13/holiday)
@@ -13358,8 +13364,10 @@
 /turf/open/floor/plasteel/f13/vault_floor/dark,
 /area/f13/village)
 "mAk" = (
-/obj/structure/rug/big/rug_blue,
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/rug/big/rug_blue{
+	layer = 0.9
+	},
 /turf/open/floor/f13/wood{
 	icon_state = "housewood2"
 	},
@@ -14509,7 +14517,9 @@
 /area/f13/legioncamp)
 "nBn" = (
 /obj/structure/destructible/tribal_torch/wall/lit,
-/obj/structure/rug/big/rug_fancy,
+/obj/structure/rug/big/rug_fancy{
+	layer = 0.9
+	},
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/wood_common/wood_common_dark,
 /area/f13/holiday)
@@ -16588,8 +16598,10 @@
 /turf/open/floor/plasteel/f13,
 /area/f13/village)
 "pHw" = (
-/obj/structure/rug/big/rug_blue,
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/rug/big/rug_blue{
+	layer = 0.9
+	},
 /turf/open/floor/wood_worn,
 /area/f13/holiday)
 "pHM" = (
@@ -17949,9 +17961,11 @@
 /turf/open/floor/f13/wood,
 /area/f13/building/powered)
 "qSb" = (
-/obj/structure/rug/big/rug_blue,
 /obj/effect/spawner/lootdrop/trash,
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/rug/big/rug_blue{
+	layer = 0.9
+	},
 /turf/open/floor/f13/wood,
 /area/f13/building/powered)
 "qSf" = (
@@ -22902,8 +22916,10 @@
 /turf/open/indestructible/ground/outside/snow,
 /area/f13/wasteland/cold)
 "vEg" = (
-/obj/structure/rug/big/rug_red,
 /obj/effect/landmark/start/f13/quartermaster,
+/obj/structure/rug/big/rug_red{
+	layer = 0.9
+	},
 /turf/open/floor/wood_common,
 /area/f13/holiday)
 "vEC" = (
