@@ -17046,8 +17046,10 @@
 	},
 /area/f13/sewer/powered)
 "mYy" = (
-/obj/structure/rug/big/rug_fancy,
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/rug/big/rug_fancy{
+	layer = 0.9
+	},
 /turf/open/floor/wood_mosaic/wood_mosaic_dark,
 /area/f13/holiday)
 "mYP" = (

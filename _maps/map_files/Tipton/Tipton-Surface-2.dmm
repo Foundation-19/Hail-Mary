@@ -1616,7 +1616,9 @@
 /area/f13/building)
 "aAA" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/rug/big/rug_blue,
+/obj/structure/rug/big/rug_blue{
+	layer = 0.9
+	},
 /turf/open/floor/wood_common,
 /area/f13/holiday)
 "aAE" = (
@@ -11409,7 +11411,9 @@
 /area/f13/legioncamp)
 "dLX" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/rug/big/rug_fancy,
+/obj/structure/rug/big/rug_fancy{
+	layer = 0.9
+	},
 /turf/open/floor/wood_common,
 /area/f13/holiday)
 "dMC" = (
@@ -16110,8 +16114,10 @@
 	},
 /area/f13/wasteland/cold)
 "foN" = (
-/obj/structure/rug/big/rug_fancy,
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/rug/big/rug_fancy{
+	layer = 0.9
+	},
 /turf/open/floor/wood_mosaic/wood_mosaic_dark,
 /area/f13/holiday)
 "foV" = (
@@ -20068,6 +20074,14 @@
 	icon_state = "horizontalbottomborderbottom0"
 	},
 /area/f13/wasteland/cold)
+"gGV" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/rug/big/rug_blue_shag{
+	layer = 0.9;
+	pixel_y = -16
+	},
+/turf/open/floor/wood_worn,
+/area/f13/building)
 "gGY" = (
 /obj/structure/table/reinforced{
 	color = "#c1b6a5"
@@ -24122,7 +24136,9 @@
 /area/f13/building/powered)
 "hZg" = (
 /obj/structure/chair/wood,
-/obj/structure/rug/big/rug_rubber,
+/obj/structure/rug/big/rug_rubber{
+	layer = 0.9
+	},
 /turf/open/floor/wood_mosaic{
 	icon_state = "common1"
 	},
@@ -30656,6 +30672,14 @@
 	dir = 10
 	},
 /area/f13/ambientlighting/building/d)
+"kfa" = (
+/obj/structure/rug/big/rug_fancy{
+	layer = 0.9
+	},
+/turf/open/floor/f13/wood{
+	icon_state = "housewood1-broken"
+	},
+/area/f13/building)
 "kfj" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/reagent_containers/food/drinks/beer{
@@ -30747,7 +30771,9 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/rarewhite/rarecyan,
 /area/f13/building/powered)
 "kgz" = (
-/obj/structure/rug/big/rug_yellow,
+/obj/structure/rug/big/rug_yellow{
+	layer = 0.9
+	},
 /turf/open/floor/f13/wood{
 	icon_state = "housewood2"
 	},
@@ -32764,12 +32790,14 @@
 /turf/open/floor/plasteel/f13/vault_floor/green,
 /area/f13/village)
 "kMV" = (
-/obj/structure/rug/big/rug_rubber,
 /obj/structure/railing/corner{
 	dir = 1;
 	color = "#A47449"
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/rug/big/rug_rubber{
+	layer = 0.9
+	},
 /turf/open/floor/wood_common,
 /area/f13/building)
 "kNb" = (
@@ -33137,7 +33165,9 @@
 /obj/machinery/light/small/broken{
 	dir = 2
 	},
-/obj/structure/rug/big/rug_fancy,
+/obj/structure/rug/big/rug_fancy{
+	layer = 0.9
+	},
 /turf/open/floor/wood_mosaic{
 	icon_state = "common-broken4"
 	},
@@ -43311,9 +43341,11 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/rarewhite,
 /area/f13/building/powered)
 "ogX" = (
-/obj/structure/rug/big/rug_fancy,
 /obj/effect/spawner/lootdrop/trash,
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/rug/big/rug_fancy{
+	layer = 0.9
+	},
 /turf/open/floor/wood_common{
 	icon_state = "common-broken2"
 	},
@@ -50340,7 +50372,9 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/rug/big/rug_fancy,
+/obj/structure/rug/big/rug_fancy{
+	layer = 0.9
+	},
 /turf/open/floor/f13/wood,
 /area/f13/building)
 "qwT" = (
@@ -51808,7 +51842,9 @@
 /area/f13/building/powered)
 "qWS" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/rug/big/rug_red,
+/obj/structure/rug/big/rug_red{
+	layer = 0.9
+	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/bar,
 /area/f13/building/powered)
 "qWU" = (
@@ -122001,7 +122037,7 @@ eHL
 xTe
 hCJ
 pbR
-vgp
+kfa
 pbR
 pbR
 pbR
@@ -123315,7 +123351,7 @@ pMk
 pMk
 rPI
 voV
-kPM
+gGV
 pwX
 ctq
 lFX
