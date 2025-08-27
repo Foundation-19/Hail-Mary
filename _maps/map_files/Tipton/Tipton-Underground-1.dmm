@@ -11736,15 +11736,7 @@
 "iQm" = (
 /obj/structure/rack,
 /obj/item/stack/sheet/metal/fifty,
-/obj/item/stack/sheet/metal/fifty,
-/obj/item/stack/sheet/metal/fifty,
 /obj/effect/spawner/lootdrop/f13/resourcespawner,
-/obj/effect/spawner/lootdrop/f13/resourcespawner,
-/obj/effect/spawner/lootdrop/f13/resourcespawner,
-/obj/effect/spawner/lootdrop/f13/resourcespawner,
-/obj/effect/spawner/lootdrop/f13/resourcespawner,
-/obj/item/stack/sheet/glass/fifty,
-/obj/item/stack/sheet/glass/fifty,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/holiday)
 "iQq" = (
@@ -18321,11 +18313,6 @@
 "nTF" = (
 /obj/structure/wreck/trash/machinepiletwo,
 /turf/open/floor/plating/dirt,
-/area/f13/caves)
-"nTR" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/simple_door/room,
-/turf/open/indestructible/ground/inside/subway,
 /area/f13/caves)
 "nUk" = (
 /obj/structure/table,
@@ -30759,10 +30746,6 @@
 "xaM" = (
 /obj/structure/rack,
 /obj/item/stack/sheet/plastic/five,
-/obj/item/stack/sheet/plastic/five,
-/obj/effect/spawner/lootdrop/f13/resourcespawner,
-/obj/effect/spawner/lootdrop/f13/resourcespawner,
-/obj/effect/spawner/lootdrop/f13/resourcespawner,
 /obj/effect/spawner/lootdrop/f13/resourcespawner,
 /obj/structure/sign/poster/contraband/pinup_funk{
 	pixel_x = 31
@@ -70165,7 +70148,7 @@ lmp
 siJ
 bos
 siJ
-nTR
+siJ
 ebc
 fzE
 tYm
