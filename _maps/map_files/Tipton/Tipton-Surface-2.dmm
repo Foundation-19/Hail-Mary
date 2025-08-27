@@ -19724,12 +19724,13 @@
 	},
 /area/f13/ambientlighting/building/a)
 "gCm" = (
-/obj/machinery/light/floor,
-/mob/living/simple_animal/hostile/raider/ranged/biker,
-/turf/open/indestructible/ground/outside/sidewalk{
-	icon_state = "horizontalbottomborderbottom0"
+/obj/structure/rug/big/rug_fancy{
+	layer = 0.9
 	},
-/area/f13/wasteland/cold)
+/turf/open/floor/f13/wood{
+	icon_state = "housewood1-broken"
+	},
+/area/f13/building)
 "gCq" = (
 /obj/machinery/light/floor,
 /obj/effect/turf_decal/stripes/asteroid/line{
@@ -20074,14 +20075,6 @@
 	icon_state = "horizontalbottomborderbottom0"
 	},
 /area/f13/wasteland/cold)
-"gGV" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/rug/big/rug_blue_shag{
-	layer = 0.9;
-	pixel_y = -16
-	},
-/turf/open/floor/wood_worn,
-/area/f13/building)
 "gGY" = (
 /obj/structure/table/reinforced{
 	color = "#c1b6a5"
@@ -30672,14 +30665,6 @@
 	dir = 10
 	},
 /area/f13/ambientlighting/building/d)
-"kfa" = (
-/obj/structure/rug/big/rug_fancy{
-	layer = 0.9
-	},
-/turf/open/floor/f13/wood{
-	icon_state = "housewood1-broken"
-	},
-/area/f13/building)
 "kfj" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/reagent_containers/food/drinks/beer{
@@ -73214,6 +73199,11 @@
 /obj/structure/closet,
 /turf/open/floor/f13/wood,
 /area/f13/underground/mountain)
+"xUc" = (
+/obj/effect/decal/cleanable/dirt,
+/mob/living/simple_animal/hostile/raider/ranged/biker,
+/turf/open/floor/plasteel/f13/vault_floor/neutral/neutralchess,
+/area/f13/building/powered)
 "xUg" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /mob/living/simple_animal/hostile/ghoul/glowing,
@@ -73706,6 +73696,14 @@
 /obj/structure/wreck/trash/one_barrel,
 /turf/open/indestructible/ground/outside/snow,
 /area/f13/wasteland/cold)
+"yfq" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/rug/big/rug_blue_shag{
+	layer = 0.9;
+	pixel_y = -16
+	},
+/turf/open/floor/wood_worn,
+/area/f13/building)
 "yfw" = (
 /obj/structure/window/fulltile/house,
 /obj/structure/barricade/wooden/planks,
@@ -77911,7 +77909,7 @@ vuP
 nEv
 cqP
 xit
-xit
+xUc
 cqP
 kHj
 cqP
@@ -82519,7 +82517,7 @@ uqw
 jpH
 mWE
 qnL
-gCm
+kHx
 jwj
 xMM
 jwj
@@ -122037,7 +122035,7 @@ eHL
 xTe
 hCJ
 pbR
-kfa
+gCm
 pbR
 pbR
 pbR
@@ -123351,7 +123349,7 @@ pMk
 pMk
 rPI
 voV
-gGV
+yfq
 pwX
 ctq
 lFX
