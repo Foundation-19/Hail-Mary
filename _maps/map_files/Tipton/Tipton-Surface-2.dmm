@@ -8280,6 +8280,10 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/high,
+/obj/effect/spawner/lootdrop/f13/resourcespawner,
+/obj/effect/spawner/lootdrop/f13/resourcespawner,
+/obj/effect/spawner/lootdrop/f13/resourcespawner,
+/obj/effect/spawner/lootdrop/f13/resourcespawner,
 /turf/open/floor/f13,
 /area/f13/holiday)
 "cML" = (
@@ -12215,6 +12219,10 @@
 /obj/effect/turf_decal/bot,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/lootdrop/f13/advcrafting,
+/obj/effect/spawner/lootdrop/f13/advcrafting,
+/obj/effect/spawner/lootdrop/f13/advcrafting,
+/obj/effect/spawner/lootdrop/f13/crafting,
+/obj/effect/spawner/lootdrop/f13/crafting,
 /turf/open/floor/f13{
 	icon_state = "yellowsiding"
 	},
@@ -32465,6 +32473,9 @@
 	pixel_x = 2
 	},
 /obj/item/stack/rods/twentyfive,
+/obj/item/stack/ore/blackpowder/twenty,
+/obj/item/stack/ore/blackpowder/five,
+/obj/item/stack/ore/blackpowder/five,
 /turf/open/floor/f13/wood{
 	baseturfs = /turf/open/water/river/notdeep
 	},

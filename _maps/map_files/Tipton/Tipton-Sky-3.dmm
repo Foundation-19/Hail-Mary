@@ -800,7 +800,6 @@
 "aRw" = (
 /obj/structure/spider/stickyweb,
 /obj/structure/spider/spiderling,
-/obj/structure/spider/eggcluster,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/f13/vault_floor/dark,
