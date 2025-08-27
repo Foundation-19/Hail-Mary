@@ -1981,6 +1981,14 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/f13/wood,
 /area/f13/building/powered)
+"cbc" = (
+/obj/structure/railing{
+	color = "#A47449"
+	},
+/turf/open/floor/f13/wood{
+	baseturfs = /turf/open/water/river/notdeep
+	},
+/area/f13/wasteland/cold)
 "cbA" = (
 /obj/structure/lattice,
 /obj/structure/spider/stickyweb,
@@ -2114,6 +2122,10 @@
 	pixel_y = -1;
 	pixel_x = 8
 	},
+/obj/structure/railing{
+	color = "#A47449";
+	dir = 4
+	},
 /turf/open/floor/f13/wood{
 	baseturfs = /turf/open/water/river/notdeep
 	},
@@ -2228,6 +2240,16 @@
 	icon_state = "floorrusty"
 	},
 /area/f13/building)
+"ckA" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/railing{
+	color = "#A47449";
+	dir = 8
+	},
+/turf/open/floor/f13/wood{
+	baseturfs = /turf/open/water/river/notdeep
+	},
+/area/f13/wasteland/cold)
 "ckF" = (
 /obj/effect/turf_decal/weather/snow/corner,
 /obj/effect/decal/cleanable/dirt,
@@ -3717,6 +3739,28 @@
 	icon_state = "housebase"
 	},
 /area/f13/building/powered)
+"dvC" = (
+/obj/structure/barricade/wooden/planks{
+	density = 0;
+	pixel_y = -2
+	},
+/obj/structure/barricade/wooden/planks{
+	density = 0;
+	pixel_y = -7
+	},
+/obj/structure/barricade/wooden/planks{
+	density = 0;
+	pixel_y = 3
+	},
+/obj/structure/barricade/wooden/planks{
+	density = 0;
+	pixel_y = 9
+	},
+/obj/structure/railing{
+	color = "#A47449"
+	},
+/turf/open/floor/f13/wood,
+/area/f13/wasteland/cold)
 "dvU" = (
 /obj/structure/loom,
 /turf/open/floor/wood_common,
@@ -3947,6 +3991,10 @@
 "dGo" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/fence/end/wooden{
+	pixel_x = 18;
+	density = 0
+	},
 /turf/open/floor/f13/wood{
 	icon_state = "housewood1-broken"
 	},
@@ -5556,6 +5604,10 @@
 /obj/structure/fence/end/wooden{
 	pixel_x = 13
 	},
+/obj/structure/railing{
+	color = "#A47449";
+	dir = 4
+	},
 /turf/open/floor/f13/wood{
 	baseturfs = /turf/open/water/river/notdeep
 	},
@@ -7089,6 +7141,19 @@
 /obj/machinery/processor/chopping_block,
 /turf/open/floor/f13/wood,
 /area/f13/building/powered)
+"gBQ" = (
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 5;
+	icon_state = "snow_corner"
+	},
+/obj/structure/railing{
+	color = "#A47449";
+	dir = 8
+	},
+/turf/open/floor/f13/wood{
+	baseturfs = /turf/open/water/river/notdeep
+	},
+/area/f13/wasteland/cold)
 "gCl" = (
 /obj/effect/decal/cleanable/dirt{
 	color = "#363636"
@@ -7179,6 +7244,13 @@
 /obj/effect/decal/cleanable/vomit/old,
 /turf/open/floor/plating/f13/outside/roof/wood/old,
 /area/f13/building/powered)
+"gFS" = (
+/obj/structure/railing{
+	color = "#A47449";
+	dir = 10
+	},
+/turf/open/indestructible/ground/outside/snow,
+/area/f13/wasteland/cold)
 "gFV" = (
 /obj/structure/campfire/barrel,
 /turf/open/floor/plating/f13/outside/roof,
@@ -8239,6 +8311,10 @@
 /obj/structure/flora/brushwood{
 	pixel_x = 11
 	},
+/obj/structure/railing{
+	color = "#A47449";
+	dir = 8
+	},
 /turf/open/indestructible/ground/outside/snow,
 /area/f13/wasteland/cold)
 "hGT" = (
@@ -9253,6 +9329,12 @@
 /obj/structure/table/wood/settler,
 /turf/open/floor/wood_common/wood_common_dark,
 /area/f13/building/powered)
+"iGG" = (
+/obj/structure/railing{
+	color = "#A47449"
+	},
+/turf/open/indestructible/ground/outside/snow,
+/area/f13/wasteland/cold)
 "iGU" = (
 /obj/structure/chair/pew/left{
 	dir = 4
@@ -10226,6 +10308,9 @@
 	dir = 10
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/railing{
+	color = "#A47449"
+	},
 /turf/open/floor/f13/wood{
 	baseturfs = /turf/open/water/river/notdeep
 	},
@@ -11507,6 +11592,9 @@
 /obj/structure/destructible/tribal_torch/wall/lit{
 	dir = 4
 	},
+/obj/structure/railing{
+	color = "#A47449"
+	},
 /turf/open/floor/f13/wood{
 	baseturfs = /turf/open/water/river/notdeep
 	},
@@ -12493,6 +12581,16 @@
 	icon_state = "housewood2-broken"
 	},
 /area/f13/ncr/powered)
+"lGb" = (
+/obj/structure/railing/wood{
+	dir = 1;
+	pixel_y = -9
+	},
+/obj/structure/railing{
+	color = "#A47449"
+	},
+/turf/open/transparent/openspace,
+/area/f13/wasteland/cold)
 "lGs" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 10
@@ -13720,6 +13818,9 @@
 	},
 /obj/structure/fence/end/wooden{
 	pixel_x = 13
+	},
+/obj/structure/railing{
+	color = "#A47449"
 	},
 /turf/open/transparent/openspace,
 /area/f13/wasteland/cold)
@@ -15080,6 +15181,10 @@
 	dir = 4;
 	pixel_y = 21
 	},
+/obj/structure/railing{
+	color = "#A47449";
+	dir = 4
+	},
 /turf/open/floor/f13/wood{
 	baseturfs = /turf/open/water/river/notdeep
 	},
@@ -15662,6 +15767,10 @@
 	dir = 1;
 	pixel_x = 18
 	},
+/obj/structure/railing{
+	color = "#A47449";
+	dir = 6
+	},
 /turf/open/floor/f13/wood{
 	baseturfs = /turf/open/water/river/notdeep
 	},
@@ -16140,6 +16249,15 @@
 	icon_state = "housewood2"
 	},
 /area/f13/building)
+"phH" = (
+/obj/structure/fence/end/wooden{
+	pixel_x = 13
+	},
+/obj/structure/railing{
+	color = "#A47449"
+	},
+/turf/open/transparent/openspace,
+/area/f13/wasteland/cold)
 "pie" = (
 /obj/structure/simple_door/wood,
 /turf/open/floor/f13/wood,
@@ -19316,6 +19434,9 @@
 	pixel_y = 9;
 	pixel_x = 6
 	},
+/obj/structure/railing{
+	color = "#A47449"
+	},
 /turf/open/floor/f13/wood,
 /area/f13/wasteland/cold)
 "siW" = (
@@ -19901,6 +20022,15 @@
 	},
 /turf/open/floor/f13/wood,
 /area/f13/building)
+"sJP" = (
+/obj/structure/railing{
+	color = "#A47449";
+	dir = 4
+	},
+/turf/open/floor/f13/wood{
+	icon_state = "housewood2-broken"
+	},
+/area/f13/wasteland/cold)
 "sJT" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 1
@@ -20759,7 +20889,8 @@
 	},
 /obj/structure/fence/wooden{
 	dir = 1;
-	pixel_x = -19
+	pixel_x = -19;
+	density = 0
 	},
 /obj/effect/turf_decal/weather/snow/corner,
 /turf/open/floor/f13/wood{
@@ -21166,6 +21297,15 @@
 	dir = 1
 	},
 /turf/open/transparent/openspace,
+/area/f13/wasteland/cold)
+"tVF" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/railing{
+	color = "#A47449"
+	},
+/turf/open/floor/f13/wood{
+	icon_state = "housewood1-broken"
+	},
 /area/f13/wasteland/cold)
 "tVJ" = (
 /obj/structure/bed/oldalt{
@@ -22049,6 +22189,16 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/dark,
 /area/f13/village)
+"uJl" = (
+/obj/structure/fence/wooden{
+	dir = 1;
+	pixel_x = 18
+	},
+/obj/structure/railing{
+	color = "#A47449"
+	},
+/turf/open/transparent/openspace,
+/area/f13/wasteland/cold)
 "uJw" = (
 /obj/structure/fence/corner/wooden{
 	dir = 4
@@ -22104,6 +22254,16 @@
 	},
 /turf/open/floor/wood_mosaic/wood_mosaic_dark,
 /area/f13/holiday)
+"uLP" = (
+/obj/structure/fence/wooden{
+	dir = 1;
+	pixel_x = -19
+	},
+/obj/structure/railing{
+	color = "#A47449"
+	},
+/turf/open/transparent/openspace,
+/area/f13/wasteland/cold)
 "uMs" = (
 /obj/structure/barricade/wooden/planks/pregame,
 /obj/structure/window/fulltile/house{
@@ -23966,6 +24126,9 @@
 	pixel_x = 13;
 	density = 0
 	},
+/obj/structure/railing{
+	color = "#A47449"
+	},
 /turf/open/floor/f13/wood{
 	baseturfs = /turf/open/water/river/notdeep
 	},
@@ -25156,6 +25319,16 @@
 /obj/structure/table/wood,
 /turf/open/floor/plating/f13/outside/roof/wood,
 /area/f13/wasteland/cold)
+"xLq" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/railing{
+	color = "#A47449"
+	},
+/turf/open/floor/f13/wood{
+	baseturfs = /turf/open/water/river/notdeep
+	},
+/area/f13/wasteland/cold)
 "xLI" = (
 /obj/machinery/light/small{
 	dir = 8;
@@ -25535,6 +25708,15 @@
 	},
 /obj/effect/turf_decal/weather/snow/corner,
 /turf/open/floor/plating/f13/outside/roof/wood,
+/area/f13/wasteland/cold)
+"yaV" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/railing{
+	color = "#A47449"
+	},
+/turf/open/floor/f13/wood{
+	baseturfs = /turf/open/water/river/notdeep
+	},
 /area/f13/wasteland/cold)
 "ybl" = (
 /obj/effect/turf_decal/weather/snow/corner{
@@ -64874,7 +65056,7 @@ vOT
 vOT
 dtU
 rVT
-rVT
+gFS
 cCp
 vfn
 vfn
@@ -65131,7 +65313,7 @@ uMP
 jhM
 uax
 ucg
-rVT
+iGG
 rQh
 gbo
 gbo
@@ -65902,7 +66084,7 @@ xNy
 vOT
 oCV
 ckF
-rVT
+iGG
 jUT
 wlg
 wlg
@@ -66159,7 +66341,7 @@ qcA
 vOT
 iAW
 ckF
-rVT
+iGG
 cCp
 vfn
 vfn
@@ -66673,7 +66855,7 @@ hAP
 hAP
 hAP
 qzw
-liq
+yaV
 cCp
 vfn
 vfn
@@ -66930,7 +67112,7 @@ jLg
 jLg
 sST
 nQj
-eJz
+tVF
 cCp
 vfn
 vfn
@@ -67187,7 +67369,7 @@ jLg
 jLg
 sST
 liq
-nQj
+xLq
 cCp
 vfn
 vfn
@@ -67444,7 +67626,7 @@ jLg
 jLg
 sST
 liq
-nQj
+xLq
 rQh
 gbo
 gbo
@@ -68215,7 +68397,7 @@ cel
 hAP
 hAP
 rbI
-lSL
+cbc
 jUT
 wlg
 wlg
@@ -68728,15 +68910,15 @@ jLg
 jLg
 sST
 lSL
-liq
+yaV
 cCp
 vfn
 vfn
 vfn
 vfn
-cLE
+lGb
 bni
-esZ
+dvC
 vNN
 vfn
 vfn
@@ -68985,15 +69167,15 @@ jLg
 jLg
 sST
 liq
-liq
+yaV
 cCp
 vfn
 vfn
 vfn
 vfn
-cLE
+lGb
 sAL
-esZ
+dvC
 vNN
 vfn
 vfn
@@ -69242,15 +69424,15 @@ hAP
 hAP
 hAP
 xvA
-liq
+yaV
 cCp
 vfn
 vfn
 vfn
 vfn
-cLE
+lGb
 sAL
-esZ
+dvC
 vNN
 vfn
 vfn
@@ -69493,21 +69675,21 @@ vfn
 vfn
 vfn
 mcT
-vfn
+jhb
 ybl
 jvx
 lSL
 liq
 liq
-liq
+yaV
 cCp
 vfn
 vfn
 vfn
 vfn
-cLE
+lGb
 sAL
-esZ
+dvC
 vNN
 vfn
 vfn
@@ -69749,7 +69931,7 @@ vfn
 vfn
 vfn
 vfn
-vfn
+pPh
 tEi
 rVT
 rVT
@@ -69762,9 +69944,9 @@ vfn
 vfn
 vfn
 vfn
-cLE
+lGb
 sAL
-esZ
+dvC
 vNN
 vfn
 vfn
@@ -70006,7 +70188,7 @@ sXS
 sXS
 sXS
 sXS
-sXS
+uJl
 dMo
 rVT
 ecz
@@ -70019,7 +70201,7 @@ vfn
 vfn
 vfn
 vfn
-cLE
+lGb
 wrr
 siV
 vNN
@@ -70260,10 +70442,10 @@ wlp
 wlp
 wlp
 hGt
-uGm
-liq
-liq
-liq
+gBQ
+ckA
+ckA
+ckA
 lSL
 kxF
 kwF
@@ -70519,7 +70701,7 @@ rVT
 xEi
 lGs
 bnL
-qEm
+sJP
 cgT
 liq
 kYi
@@ -70777,7 +70959,7 @@ fBS
 adl
 yfm
 owT
-xKR
+uLP
 dMo
 rVT
 rVT
@@ -71034,7 +71216,7 @@ mKf
 vjX
 jwQ
 lUI
-mcT
+phH
 fgq
 ucg
 wfa
