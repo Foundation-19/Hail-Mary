@@ -6,7 +6,7 @@ source dependencies.sh
 
 BYOND_ROOT="$HOME/BYOND"
 BYOND_VERSION="${BYOND_MAJOR}.${BYOND_MINOR}"
-BYOND_URL="https://github.com/YOURORG/YOURREPO/releases/download/byond/515.1633_byond_linux.zip"
+BYOND_URL="https://github.com/YOURORG/YOURREPO/releases/download/byond/${BYOND_VERSION}_byond_linux.zip"
 
 # Check if BYOND is already installed
 if [ -f "$BYOND_ROOT/byond/bin/dm" ]; then

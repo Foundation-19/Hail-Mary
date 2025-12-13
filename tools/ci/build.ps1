@@ -3,7 +3,7 @@ param()
 
 $BYOND_ROOT = "C:\byond"
 $BYOND_VERSION = "515.1633"
-$BYOND_URL = "https://github.com/YOURORG/YOURREPO/releases/download/byond/515.1633_byond_windows.zip"
+$BYOND_URL = "https://github.com/YOURORG/YOURREPO/releases/download/byond/${BYOND_VERSION}_byond_windows.zip"
 
 # Ensure BYOND folder exists
 if (!(Test-Path "$BYOND_ROOT\bin\dm.exe")) {
