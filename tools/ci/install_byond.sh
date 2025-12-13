@@ -3,30 +3,25 @@ set -euo pipefail
 
 source dependencies.sh
 
-if [ -d "$HOME/BYOND/byond/bin" ] && grep -Fxq "${BYOND_MAJOR}.${BYOND_MINOR}" $HOME/BYOND/version.txt; then
-	echo "Using cached directory."
-else
-	echo "Setting up BYOND."
-	rm -rf "$HOME/BYOND"
-	mkdir -p "$HOME/BYOND"
-	cd "$HOME/BYOND"
+BYOND_ROOT="$HOME/BYOND"
+BYOND_VERSION="${BYOND_MAJOR}.${BYOND_MINOR}"
+BYOND_URL="https://github.com/YOURORG/YOURREPO/releases/download/byond/${BYOND_VERSION}_byond_linux.zip"
 
-	# download
-	curl -L "https://secure.byond.com/download/build/${BYOND_MAJOR}/${BYOND_MAJOR}.${BYOND_MINOR}_byond_linux.zip" -o byond.zip
-
-	# verify
-	if [ ! -s byond.zip ]; then
-		echo "BYOND zip download failed!"
-		exit 1
-	fi
-	unzip -t byond.zip >/dev/null || { echo "BYOND zip is corrupt"; exit 1; }
-
-	# extract
-	unzip byond.zip
-	rm byond.zip
-
-	cd byond
-	make here
-	echo "$BYOND_MAJOR.$BYOND_MINOR" > "$HOME/BYOND/version.txt"
-	cd ~/
+if [ -d "$BYOND_ROOT/byond/bin" ] && grep -Fxq "$BYOND_VERSION" "$BYOND_ROOT/version.txt"; then
+    echo "Using cached BYOND."
+    exit 0
 fi
+
+echo "Installing BYOND $BYOND_VERSION"
+rm -rf "$BYOND_ROOT"
+mkdir -p "$BYOND_ROOT"
+cd "$BYOND_ROOT"
+
+curl -fL "$BYOND_URL" -o byond.zip
+unzip -q byond.zip
+rm byond.zip
+
+cd byond
+make here
+
+echo "$BYOND_VERSION" > "$BYOND_ROOT/version.txt"
