@@ -2823,6 +2823,10 @@
 	icon_state = "fancy-broken2"
 	},
 /area/f13/legioncamp)
+"oz" = (
+/obj/structure/chair/bench,
+/turf/open/floor/wood_common/wood_common_dark,
+/area/f13/legioncamp)
 "oA" = (
 /obj/structure/table/reinforced{
 	color = "#c1b6a5"
@@ -3391,7 +3395,7 @@
 	light_power = 0.8;
 	pixel_y = -5
 	},
-/turf/open/floor/wood_common,
+/turf/open/floor/wood_common/wood_common_dark,
 /area/f13/legioncamp)
 "ra" = (
 /obj/structure/fence/post{
@@ -9009,11 +9013,7 @@
 	chat_color_darkened = "#ff4c4c";
 	chat_color_name = "#ff4c4c"
 	},
-/turf/open/floor/f13{
-	color = "#A47449";
-	icon_state = "rampdowntop";
-	dir = 1
-	},
+/turf/open/floor/wood_common/wood_common_dark,
 /area/f13/legioncamp)
 "SA" = (
 /obj/effect/turf_decal/shadow/floor{
@@ -9257,7 +9257,7 @@
 	dir = 4;
 	light_power = 0.8
 	},
-/turf/open/floor/wood_common,
+/turf/open/floor/wood_common/wood_common_dark,
 /area/f13/legioncamp)
 "TP" = (
 /obj/structure/chair/wood{
@@ -9461,6 +9461,12 @@
 /obj/item/toy/figure/wizard,
 /turf/open/floor/carpet/arcade,
 /area/f13/farmhouse)
+"UK" = (
+/obj/structure/chair/bench{
+	dir = 8
+	},
+/turf/open/floor/wood_common/wood_common_dark,
+/area/f13/legioncamp)
 "UM" = (
 /mob/living/simple_animal/hostile/handy/assaultron{
 	name = "Contraband Lieutnant"
@@ -9567,11 +9573,7 @@
 	chat_color_darkened = "#ff4c4c";
 	chat_color_name = "#ff4c4c"
 	},
-/turf/open/floor/f13{
-	color = "#A47449";
-	icon_state = "rampdowntop";
-	dir = 8
-	},
+/turf/open/floor/wood_common/wood_common_dark,
 /area/f13/legioncamp)
 "Vj" = (
 /obj/machinery/requests_console{
@@ -10042,7 +10044,7 @@
 	dir = 8;
 	light_power = 0.7
 	},
-/turf/open/floor/wood_common,
+/turf/open/floor/wood_common/wood_common_dark,
 /area/f13/legioncamp)
 "Xw" = (
 /obj/structure/bed/old,
@@ -10164,7 +10166,7 @@
 	chat_color_name = "#ff4c4c";
 	pixel_x = -27
 	},
-/turf/open/floor/wood_common,
+/turf/open/floor/wood_common/wood_common_dark,
 /area/f13/legioncamp)
 "XM" = (
 /turf/open/transparent/openspace,
@@ -38674,8 +38676,8 @@ se
 Ut
 se
 se
-TU
-TU
+gP
+gP
 se
 Ut
 Ut
@@ -38873,14 +38875,14 @@ NG
 NG
 Ut
 Ut
-Hh
+UK
 Xv
 XL
 hr
 hr
-Hh
+UK
 Xv
-Hh
+UK
 se
 se
 wx
@@ -39286,7 +39288,7 @@ gP
 gP
 gP
 Ym
-Ym
+oz
 se
 wx
 wx
@@ -39690,7 +39692,7 @@ kj
 dC
 gP
 Ym
-Ym
+oz
 se
 wx
 wx
@@ -40094,7 +40096,7 @@ kj
 dC
 gP
 og
-og
+YY
 Ut
 wx
 wx
@@ -40296,7 +40298,7 @@ kj
 dC
 gP
 Ym
-Ym
+oz
 Ut
 wx
 wx
@@ -40700,7 +40702,7 @@ gP
 gP
 gP
 Ym
-Ym
+oz
 Ut
 wx
 wx
@@ -41095,14 +41097,14 @@ NG
 NG
 NG
 se
-DQ
+is
 TK
-DQ
+is
 Vi
-pW
-DQ
+YY
+is
 TK
-DQ
+is
 se
 wx
 wx

@@ -6631,7 +6631,7 @@
 	dir = 4;
 	color = "#FFFF66"
 	},
-/obj/machinery/door/poddoor/shutters/preopen{
+/obj/machinery/door/poddoor/shutters{
 	id = "vaultshutter1"
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
@@ -7716,15 +7716,6 @@
 	},
 /turf/open/floor/plating/rust,
 /area/f13/bunker)
-"aCE" = (
-/obj/machinery/light/small{
-	light_color = "#ff8000";
-	color = "#ff8000";
-	name = "red light fixture";
-	dir = 4
-	},
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/vault/diner)
 "aCF" = (
 /obj/structure/table,
 /turf/open/floor/plasteel/barber{
@@ -7876,7 +7867,11 @@
 /turf/open/floor/plating/f13/inside/gravel,
 /area/f13/citycaves)
 "aDh" = (
-/obj/machinery/door/poddoor/shutters/preopen{
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/door/poddoor/shutters{
 	id = "vaultshutter1"
 	},
 /turf/open/floor/circuit/red/off,
@@ -8215,10 +8210,16 @@
 	},
 /area/f13/citycaves)
 "aEE" = (
-/obj/structure/vaultdoor{
-	name = "vault 113 door";
-	pixel_x = -32;
-	pixel_y = -32
+/obj/structure/vault_door/old{
+	icon_state = "oldclosing";
+	opacity = 0;
+	density = 0
+	},
+/obj/effect/turf_decal/vg_decals/numbers/four{
+	pixel_x = -6
+	},
+/obj/effect/turf_decal/vg_decals/numbers/four{
+	pixel_x = 6
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/vault)
@@ -11833,7 +11834,7 @@
 	dir = 8;
 	color = "#FFFF66"
 	},
-/obj/machinery/door/poddoor/shutters/preopen{
+/obj/machinery/door/poddoor/shutters{
 	id = "vaultshutter1"
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
@@ -14617,9 +14618,6 @@
 	},
 /turf/open/floor/plating/rust,
 /area/f13/vault)
-"eiq" = (
-/turf/open/floor/plating/rust,
-/area/f13/vault/diner)
 "eyo" = (
 /obj/structure/table/reinforced{
 	color = "#c1b6a5"
@@ -15592,6 +15590,18 @@
 	icon_state = "bluerustysolid"
 	},
 /area/f13/vault/storage)
+"knd" = (
+/obj/structure/chair/booth{
+	dir = 8
+	},
+/obj/machinery/light/small{
+	light_color = "#ff8000";
+	color = "#ff8000";
+	name = "red light fixture";
+	dir = 4
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/vault/diner)
 "knA" = (
 /obj/effect/turf_decal/trimline/red/line{
 	dir = 8
@@ -15652,6 +15662,8 @@
 /obj/item/gun/energy/laser/complianceregulator,
 /obj/item/gun/energy/laser/complianceregulator,
 /obj/item/gun/energy/laser/complianceregulator,
+/obj/item/gun/energy/laser/aer9/vault,
+/obj/item/gun/energy/laser/aer9/vault,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "bluerustysolid"
 	},
@@ -16582,6 +16594,12 @@
 	icon_state = "bluerustysolid"
 	},
 /area/f13/vault/science)
+"pSh" = (
+/obj/structure/sign/poster/prewar/vault_tec,
+/turf/closed/wall/r_wall/f13vault{
+	icon_state = "2-i"
+	},
+/area/f13/vault/science)
 "pSj" = (
 /obj/effect/turf_decal/trimline/neutral/line{
 	dir = 4;
@@ -17486,16 +17504,18 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/vault/diner)
-"wsH" = (
-/obj/machinery/door/poddoor/shutters/old{
-	id = "vault44"
-	},
-/turf/closed/indestructible/vaultdoor,
-/area/f13/vault)
 "wus" = (
 /obj/structure/table/reinforced{
 	color = "#c1b6a5"
 	},
+/obj/item/radio/headset/headset_vault,
+/obj/item/radio/headset/headset_vault,
+/obj/item/radio/headset/headset_vault,
+/obj/item/radio/headset/headset_vault,
+/obj/item/encryptionkey/headset_vault,
+/obj/item/encryptionkey/headset_vault,
+/obj/item/encryptionkey/headset_vault,
+/obj/item/encryptionkey/headset_vault,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/vault/storage)
 "wvP" = (
@@ -23810,8 +23830,8 @@ eGO
 eGO
 uiY
 yeH
-lCa
-aCE
+knd
+cEU
 aVG
 bRQ
 eKv
@@ -24004,7 +24024,7 @@ acp
 acp
 uaY
 uaY
-eiq
+cMX
 uaY
 uaY
 hCm
@@ -24013,7 +24033,7 @@ hCm
 hCm
 hCm
 hCm
-hCm
+cMX
 uaY
 bRQ
 xDx
@@ -25432,7 +25452,7 @@ kig
 kig
 kig
 luD
-bMI
+pSh
 bMI
 cid
 dbQ
@@ -26487,7 +26507,7 @@ aTk
 aMK
 aBO
 aDG
-wsH
+aFJ
 acB
 aiO
 atz
@@ -26692,7 +26712,7 @@ aVW
 aEE
 aTj
 auZ
-aDJ
+afj
 aDJ
 anE
 asC
@@ -26891,7 +26911,7 @@ azt
 aRQ
 aZK
 aCr
-aWt
+aFJ
 acB
 aaB
 afj

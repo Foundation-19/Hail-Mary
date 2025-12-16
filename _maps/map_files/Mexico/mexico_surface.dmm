@@ -70,6 +70,7 @@
 "aeV" = (
 /obj/structure/spacevine,
 /obj/structure/barricade/bars,
+/obj/structure/barricade/wooden/strong,
 /turf/open/floor/wood_fancy/wood_fancy_dark,
 /area/f13/legion)
 "aeY" = (
@@ -5797,6 +5798,11 @@
 	icon_state = "dirtfull_dark"
 	},
 /area/f13/wasteland)
+"fmF" = (
+/obj/structure/barricade/wooden/strong,
+/obj/structure/barricade/sandbags,
+/turf/open/indestructible/ground/outside/desert,
+/area/f13/wasteland)
 "fmR" = (
 /obj/structure/flora/tree/joshua{
 	pixel_x = -19;
@@ -8038,6 +8044,9 @@
 	},
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/wasteland)
+"hsh" = (
+/turf/closed/indestructible/f13/matrix/slave,
+/area/f13/legioncamp)
 "hsv" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/rack,
@@ -8177,6 +8186,16 @@
 	pixel_y = 11
 	},
 /turf/open/floor/wood_fancy,
+/area/f13/wasteland)
+"hza" = (
+/obj/structure/barricade/bars{
+	max_integrity = 800;
+	name = "strong metal bars";
+	obj_integrity = 800
+	},
+/obj/structure/barricade/sandbags,
+/obj/structure/barricade/wooden/strong,
+/turf/open/indestructible/ground/outside/desert,
 /area/f13/wasteland)
 "hzS" = (
 /obj/effect/decal/cleanable/dirt,
@@ -9122,6 +9141,12 @@
 	icon_state = "dirtfull_dark"
 	},
 /area/f13/legioncamp)
+"ius" = (
+/obj/mecha/working/normalvehicle/highwayman{
+	dir = 8
+	},
+/turf/open/indestructible/ground/inside/mountain,
+/area/f13/underground/cave)
 "ivp" = (
 /obj/structure/chair/f13chair2{
 	dir = 1
@@ -12658,6 +12683,10 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/enclave)
+"lNT" = (
+/obj/structure/simple_door/metal,
+/turf/open/indestructible/ground/inside/mountain,
+/area/f13/underground/cave)
 "lOz" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/crate/wicker,
@@ -13462,6 +13491,9 @@
 	},
 /obj/structure/fence/wooden,
 /turf/open/indestructible/ground/outside/desert,
+/area/f13/wasteland)
+"mzd" = (
+/turf/closed/indestructible/f13/matrix/slave,
 /area/f13/wasteland)
 "mzO" = (
 /obj/structure/cargocrate{
@@ -15288,6 +15320,11 @@
 	},
 /turf/open/indestructible/ground/outside/water,
 /area/f13/wasteland)
+"ogr" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/chair/comfy/brown,
+/turf/open/floor/wood_fancy/wood_fancy_dark,
+/area/f13/legion)
 "ogJ" = (
 /obj/effect/turf_decal/vg_decals/numbers/two,
 /turf/open/floor/mech_bay_recharge_floor{
@@ -16477,6 +16514,11 @@
 	},
 /turf/open/indestructible/ground/outside/desert,
 /area/f13/wasteland)
+"prI" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/table/wood,
+/turf/open/floor/f13/wood,
+/area/f13/legion)
 "psg" = (
 /obj/structure/barricade/tentleathercorner,
 /turf/open/indestructible/ground/outside/ruins,
@@ -17186,7 +17228,14 @@
 	},
 /obj/machinery/button/door{
 	pixel_y = 26;
-	id = "Citygate"
+	id = "Citygate";
+	pixel_x = -9
+	},
+/obj/structure/destructible/tribal_torch/wall/lit{
+	dir = 1;
+	light_power = 0.4;
+	light_range = 5;
+	pixel_y = 24
 	},
 /turf/open/floor/wood_common/wood_common_dark,
 /area/f13/legion)
@@ -18322,7 +18371,16 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/barricade/wooden/strong,
-/turf/closed/wall/f13/wood,
+/obj/machinery/door/poddoor/shutters{
+	id = "Maingate2";
+	name = "Gatehouse shutters"
+	},
+/obj/structure/barricade/bars{
+	max_integrity = 800;
+	name = "strong metal bars";
+	obj_integrity = 800
+	},
+/turf/open/indestructible/ground/outside/desert,
 /area/f13/legion)
 "riL" = (
 /obj/machinery/light/small{
@@ -19166,11 +19224,8 @@
 /area/f13/wasteland)
 "rRY" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/destructible/tribal_torch/wall/lit{
-	dir = 1;
-	light_power = 0.4;
-	light_range = 5;
-	pixel_y = 24
+/obj/structure/chair/wood{
+	dir = 8
 	},
 /turf/open/floor/f13/wood{
 	icon_state = "housewood3-broken"
@@ -19581,11 +19636,6 @@
 /obj/structure/chair/bench,
 /turf/open/indestructible/ground/outside/desert,
 /area/f13/wasteland)
-"snb" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/chair/comfy/brown,
-/turf/open/floor/f13/wood,
-/area/f13/legion)
 "snC" = (
 /obj/structure/cable/blue{
 	icon_state = "4-8"
@@ -20110,6 +20160,7 @@
 /area/f13/legioncamp)
 "sMz" = (
 /obj/structure/barricade/bars,
+/obj/structure/barricade/wooden/strong,
 /turf/open/floor/wood_fancy/wood_fancy_dark,
 /area/f13/legion)
 "sML" = (
@@ -22866,6 +22917,18 @@
 	},
 /turf/open/indestructible/ground/outside/ruins,
 /area/f13/outpost)
+"vvd" = (
+/obj/machinery/door/poddoor/shutters{
+	id = "Maingate2";
+	name = "Gatehouse shutters"
+	},
+/obj/structure/barricade/bars{
+	max_integrity = 800;
+	name = "strong metal bars";
+	obj_integrity = 800
+	},
+/turf/open/indestructible/ground/outside/desert,
+/area/f13/legion)
 "vvq" = (
 /obj/structure/flora/grass/wasteland{
 	icon_state = "tall_grass_4";
@@ -24231,9 +24294,6 @@
 /mob/living/simple_animal/hostile/ghoul,
 /turf/open/floor/plasteel/f13/vault_floor/misc/bar,
 /area/f13/city)
-"wRs" = (
-/turf/closed/indestructible/f13/matrix/transition,
-/area/f13/underground/cave)
 "wRx" = (
 /obj/machinery/mineral/ore_redemption,
 /turf/open/indestructible/ground/outside/dirt/dark{
@@ -25886,8 +25946,8 @@ oeD
 oeD
 oeD
 oeD
-oeD
-oeD
+kCv
+kCv
 kCv
 kCv
 kCv
@@ -26084,11 +26144,11 @@ iDD
 iDD
 iDD
 iDD
-oeD
-qIu
-qIu
-qIu
-qIu
+kCv
+kCv
+kCv
+kCv
+kCv
 uwe
 uwe
 uwe
@@ -26286,7 +26346,7 @@ goN
 goN
 goN
 iDD
-oeD
+kCv
 qIu
 qIu
 qIu
@@ -26488,7 +26548,7 @@ goN
 gpU
 goN
 iDD
-oeD
+kCv
 pwg
 pwg
 pwg
@@ -26690,7 +26750,7 @@ goN
 goN
 goN
 iDD
-oeD
+kCv
 pwg
 pwg
 pwg
@@ -26892,7 +26952,7 @@ iDD
 iDD
 iDD
 iDD
-oeD
+kCv
 pwg
 pwg
 pwg
@@ -27092,8 +27152,8 @@ nMa
 oeD
 oeD
 oeD
-oeD
-oeD
+kCv
+kCv
 pwg
 pwg
 pwg
@@ -27291,10 +27351,10 @@ kCv
 "}
 (8,1,1) = {"
 nMa
-qIu
-qIu
-qIu
-qIu
+kCv
+kCv
+kCv
+kCv
 pwg
 pwg
 pwg
@@ -27493,8 +27553,8 @@ kCv
 "}
 (9,1,1) = {"
 nMa
-qIu
-qIu
+kCv
+kCv
 pwg
 pwg
 pwg
@@ -27695,7 +27755,7 @@ kCv
 "}
 (10,1,1) = {"
 nMa
-qIu
+kCv
 pwg
 rra
 pwg
@@ -27897,7 +27957,7 @@ kCv
 "}
 (11,1,1) = {"
 nMa
-qIu
+kCv
 pwg
 pwg
 pwg
@@ -28099,7 +28159,7 @@ kCv
 "}
 (12,1,1) = {"
 nMa
-qIu
+kCv
 pwg
 pwg
 pwg
@@ -28301,7 +28361,7 @@ kCv
 "}
 (13,1,1) = {"
 nMa
-pwg
+kCv
 pwg
 pwg
 pwg
@@ -28503,7 +28563,7 @@ kCv
 "}
 (14,1,1) = {"
 nMa
-hkI
+gDo
 aBY
 pwg
 pwg
@@ -28705,7 +28765,7 @@ kCv
 "}
 (15,1,1) = {"
 nMa
-hkI
+gDo
 hkI
 aBY
 aBY
@@ -53486,13 +53546,13 @@ eTT
 fKv
 bpU
 eTT
-fKv
+fmF
 bpU
 eTT
-fKv
-sLW
+hza
+vvd
 rRY
-wtc
+prI
 ppG
 wtc
 fUR
@@ -53896,7 +53956,7 @@ wsb
 wsb
 sLW
 uLP
-owY
+uLP
 owY
 cFw
 vIg
@@ -54098,8 +54158,8 @@ wsb
 wsb
 tfw
 uLP
-snb
-mbv
+uLP
+ogr
 wtc
 yeu
 vIg
@@ -56348,7 +56408,7 @@ use
 gGD
 gGD
 gGD
-gGD
+hsh
 grK
 ylj
 oAW
@@ -57126,7 +57186,7 @@ bjl
 bjl
 bjl
 bjl
-wsb
+mzd
 wsb
 wsb
 wsb
@@ -60216,7 +60276,7 @@ lNn
 oeD
 "}
 (171,1,1) = {"
-wRs
+gDo
 nkm
 mKx
 itC
@@ -60418,7 +60478,7 @@ dwn
 oeD
 "}
 (172,1,1) = {"
-wRs
+gDo
 mKx
 mKx
 jzN
@@ -60620,7 +60680,7 @@ efv
 oeD
 "}
 (173,1,1) = {"
-wRs
+gDo
 mKx
 len
 mKx
@@ -63449,11 +63509,11 @@ nMa
 "}
 (187,1,1) = {"
 nMa
-eQA
-eQA
-pDY
-gsw
+frp
 mKx
+mKx
+gsw
+pDY
 mKx
 eQA
 eQA
@@ -63651,9 +63711,9 @@ nMa
 "}
 (188,1,1) = {"
 nMa
-eQA
-eQA
-wui
+frp
+mKx
+mKx
 nuO
 eQA
 eQA
@@ -63853,9 +63913,9 @@ nMa
 "}
 (189,1,1) = {"
 nMa
-eQA
-eQA
-eQA
+frp
+lNT
+lNT
 frp
 eQA
 eQA
@@ -64055,9 +64115,9 @@ nMa
 "}
 (190,1,1) = {"
 nMa
-eQA
-eQA
-eQA
+frp
+vpt
+mKx
 eQA
 frp
 ifv
@@ -64257,9 +64317,9 @@ nMa
 "}
 (191,1,1) = {"
 nMa
-eQA
-eQA
-eQA
+frp
+mKx
+vpt
 eQA
 wui
 itC
@@ -64459,9 +64519,9 @@ nMa
 "}
 (192,1,1) = {"
 nMa
-eQA
-eQA
-eQA
+frp
+ius
+mKx
 eQA
 iDf
 aEC
@@ -64661,9 +64721,9 @@ nMa
 "}
 (193,1,1) = {"
 nMa
-eQA
-eQA
-eQA
+frp
+frp
+frp
 eQA
 eQA
 nTR
