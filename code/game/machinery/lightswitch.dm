@@ -66,3 +66,31 @@
 		return
 	if(!(stat & (BROKEN|NOPOWER)))
 		power_change()
+
+/obj/machinery/light_switch/switchboard1
+	name = "switchboard"
+	icon = 'icons/obj/machines/telecomms.dmi'
+	icon_state = "hub"
+
+/obj/machinery/light_switch/switchboard1/update_icon_state()
+	if(stat & NOPOWER)
+		icon_state = "hub_off"
+	else
+		if(on)
+			icon_state = "hub"
+		else
+			icon_state = "hub_off"
+
+/obj/machinery/light_switch/switchboard2
+	name = "switchboard"
+	icon = 'icons/obj/machines/telecomms.dmi'
+	icon_state = "relay"
+
+/obj/machinery/light_switch/switchboard2/update_icon_state()
+	if(stat & NOPOWER)
+		icon_state = "relay_off"
+	else
+		if(on)
+			icon_state = "relay"
+		else
+			icon_state = "relay_off"

@@ -60,6 +60,15 @@
 	/// Reagent blacklisting
 	var/respect_reagent_blacklist = TRUE
 
+/obj/machinery/pool/controller/vent
+	name = "vent"
+	desc = "A trickling stream of water from a source high up in the mountains to the north."
+	icon = 'icons/fallout/objects/decals.dmi'
+	icon_state = "ventblue"
+	density = FALSE
+	layer = WALL_OBJ_LAYER
+	pixel_y = 42
+
 /obj/machinery/pool/controller/examine(mob/user)
 	. = ..()
 	. += span_boldnotice("Alt click to drain reagents.")
@@ -276,17 +285,17 @@
 			if(rcolor)
 				var/thecolor = BlendRGB(rgb(150, 20, 20), rcolor, 0.5)
 				color1.watereffect.add_atom_colour(thecolor, FIXED_COLOUR_PRIORITY)
-				color1.watertop.add_atom_colour(thecolor, FIXED_COLOUR_PRIORITY)
+				//color1.watertop.add_atom_colour(thecolor, FIXED_COLOUR_PRIORITY)
 			else
 				var/thecolor = rgb(150, 20, 20)
 				color1.watereffect.add_atom_colour(thecolor, FIXED_COLOUR_PRIORITY)
-				color1.watertop.add_atom_colour(thecolor, FIXED_COLOUR_PRIORITY)
+				//color1.watertop.add_atom_colour(thecolor, FIXED_COLOUR_PRIORITY)
 		else if(!bloody && rcolor)
 			color1.watereffect.add_atom_colour(rcolor, FIXED_COLOUR_PRIORITY)
-			color1.watertop.add_atom_colour(rcolor, FIXED_COLOUR_PRIORITY)
+			//color1.watertop.add_atom_colour(rcolor, FIXED_COLOUR_PRIORITY)
 		else
 			color1.watereffect.remove_atom_colour(FIXED_COLOUR_PRIORITY)
-			color1.watertop.remove_atom_colour(FIXED_COLOUR_PRIORITY)
+			//(FIXED_COLOUR_PRIORITY)
 
 /obj/machinery/pool/controller/proc/update_temp()
 	if(mist_state)
@@ -422,3 +431,8 @@
 /obj/machinery/pool/controller/proc/mist_off() //Delete all /obj/effect/mist from all linked pool tiles.
 	QDEL_LIST(linked_mist)
 	mist_state = FALSE
+
+/obj/machinery/pool/controller/invisible
+	invisibility = 100
+	density = FALSE
+	resistance_flags = INDESTRUCTIBLE

@@ -117,6 +117,11 @@
 	icon_state = "footlocker"
 	dense_when_open = FALSE
 
+/obj/structure/closet/crate/leftfootlocker
+	desc = "Low metal locker for personal effects."
+	name = "footlocker"
+	icon_state = "leftfootlocker"
+
 /obj/structure/closet/crate/footchest
 	desc = "A wooden chest with iron bands."
 	name = "personal chest"

@@ -181,6 +181,15 @@
 	custom_materials = null
 	break_chance = 50
 
+// Simple wooden chair
+/obj/structure/chair/wood/normal
+	icon_state = "wooden_chair"
+
+/obj/item/chair/wood/normal
+	icon_state = "wooden_chair_toppled"
+	item_state = "wooden_chair"
+	origin_type = /obj/structure/chair/wood/normal
+
 // Simple dining chair
 /obj/structure/chair/wood/dining
 	desc = "A commonplace dining chair with a faded green cushion."
@@ -214,6 +223,40 @@
 	icon_state = "wooden_chair_fancy_toppled"
 	item_state = "wooden_chair_fancy"
 	origin_type = /obj/structure/chair/wood/fancy
+
+/obj/structure/chair/wood/fancy/dark
+	icon_state = "darkchair"
+	name = "fancy wooden chair"
+	desc = "An elegant chair made of luxurious wood."
+	item_chair = /obj/item/chair/wood/fancy/dark
+
+/obj/item/chair/wood/fancy/dark
+	icon_state = "darkchair_toppled"
+	item_state = "darkchair"
+	origin_type = /obj/structure/chair/wood/fancy/dark
+
+/obj/structure/chair/wood/fancy/christmas
+	icon_state = "christmaschair"
+	name = "fancy wooden chair"
+	desc = "An elegant chair made of luxurious wood."
+	item_chair = /obj/item/chair/wood/fancy/christmas
+
+/obj/item/chair/wood/fancy/christmas
+	icon_state = "christmaschair_toppled"
+	item_state = "christmaschair"
+	origin_type = /obj/structure/chair/wood/fancy/christmas
+
+/obj/structure/chair/wood/hitchingpost
+	name = "hitching post"
+	icon = 'icons/fallout/structures/fences.dmi'
+	icon_state = "post_wood"
+	item_chair = /obj/item/chair/wood/hitchingpost
+
+/obj/item/chair/wood/hitchingpost
+	name = "hitching post"
+	icon = 'icons/fallout/structures/fences.dmi'
+	icon_state = "post_wood"
+	origin_type = /obj/structure/chair/wood/hitchingpost
 
 // Folding chair
 /obj/structure/chair/folding
@@ -697,6 +740,9 @@
 	return
 
 //Temporary compilation stuff, obsolete
+/obj/structure/chair/wood/modern
+/obj/structure/chair/wood/worn
+
 
 /obj/structure/chair/old
 	name = "strange chair"

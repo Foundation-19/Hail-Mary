@@ -368,3 +368,15 @@
 	desc = "Roll around on it!"
 	icon = 'fallout/icons/objects/64x64_rugs.dmi'
 	icon_state = "rug_blue"
+
+/obj/structure/rug/mat
+	name = "mat"
+	desc = "Roll around on it!"
+	icon = 'fallout/icons/objects/miscellaneous.dmi'
+	icon_state = "mat_blank"
+
+/obj/structure/rug/mat/welcome
+	name = "welcome mat"
+	desc = "Roll around on it!"
+	icon = 'fallout/icons/objects/miscellaneous.dmi'
+	icon_state = "mat_welcome"

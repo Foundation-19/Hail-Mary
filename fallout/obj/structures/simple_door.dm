@@ -371,6 +371,34 @@
 	proj_pass_rate = 95
 	pass_flags = LETPASSTHROW 
 
+/obj/structure/simple_door/metal/barred/lowerlayer // i don't understand procs well enough to make this override the earlier close proc
+	layer = TABLE_LAYER
+
+/obj/structure/simple_door/metal/barred/lowerlayer/proc/Openlowerlayer(animate)
+	playsound(src.loc, open_sound, 30, 0, 0)
+	if(animate)
+		moving = 1
+		flick("[door_type]opening", src)
+		sleep(opening_time)
+		moving = 0
+	set_opacity(0)
+	density = 0
+	icon_state = "[door_type]open"
+	layer = TABLE_LAYER
+
+/obj/structure/simple_door/metal/barred/lowerlayer/proc/Closelowerlayer(animate)
+	playsound(src.loc, close_sound, 30, 0, 0)
+	manual_opened = 0
+	if(animate)
+		moving = 1
+		flick("[door_type]closing", src)
+		sleep(closing_time)
+	icon_state = door_type
+	set_opacity(base_opacity)
+	density = 1
+	moving = 0
+	layer = TABLE_LAYER
+
 /obj/structure/simple_door/dirtyglass
 	desc = "The glass is dirty, you can't see a thing behind it."
 	icon_state = "dirtyglass"
