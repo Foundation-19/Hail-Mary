@@ -30,7 +30,7 @@
 	d_hud = DATA_HUD_DIAGNOSTIC_ADVANCED
 	mob_size = MOB_SIZE_LARGE
 	has_field_of_vision = FALSE //Vision through cameras.
-	var/list/network = list("ss13")
+	var/list/network = list("vault")
 	var/obj/machinery/camera/current
 	var/list/connected_robots = list()
 	var/aiRestorePowerRoutine = 0
@@ -41,7 +41,7 @@
 	var/icon/holo_icon//Female is assigned when AI is created.
 	var/obj/mecha/controlled_mech //For controlled_mech a mech, to determine whether to relaymove or use the AI eye.
 	var/radio_enabled = TRUE //Determins if a carded AI can speak with its built in radio or not.
-	radiomod = ";" //AIs will, by default, state their laws on the internal radio.
+	radiomod = ":h" //AIs will, by default, state their laws on the internal radio.
 	var/obj/item/pda/ai/aiPDA
 	var/obj/item/multitool/aiMulti
 	var/mob/living/simple_animal/bot/Bot
@@ -113,19 +113,18 @@
 	if(target_ai.mind)
 		target_ai.mind.transfer_to(src)
 		if(mind.special_role)
-			mind.store_memory("As an AI, you must obey your silicon laws above all else. Your objectives will consider you to be dead.")
-			to_chat(src, span_userdanger("You have been installed as an AI! "))
-			to_chat(src, span_danger("You must obey your silicon laws above all else. Your objectives will consider you to be dead."))
+			mind.store_memory("As an AI, You must obey your main programming : Lead and guide the vault.")
+			to_chat(src, span_userdanger("You have been installed as an vault-tec god AI! "))
+			to_chat(src, span_danger("You must obey your main programming : Lead and guide the vault."))
 
-	to_chat(src, "<B>You are playing the station's AI. The AI cannot move, but can interact with many objects while viewing them (through cameras).</B>")
-	to_chat(src, "<B>To look at other parts of the station, click on yourself to get a camera menu.</B>")
-	to_chat(src, "<B>While observing through a camera, you can use most (networked) devices which you can see, such as computers, APCs, intercoms, doors, etc.</B>")
+	to_chat(src, "<B>You are playing the Vault's God AI. The AI cannot move, but can interact with many objects while viewing them (through cameras).</B>")
+	to_chat(src, "<B>To look at other parts of the vault, click on yourself to get a camera menu.</B>")
+	to_chat(src, "<B>While observing through a camera, you can use most (networked) devices which you can see, such as computers, intercoms, doors, etc.</B>")
 	to_chat(src, "To use something, simply click on it.")
-	to_chat(src, "Use say :b to speak to your cyborgs through binary.")
 	to_chat(src, "For department channels, use the following say commands:")
-	to_chat(src, ":o - AI Private, :c - Command, :s - Security, :e - Engineering, :u - Supply, :v - Service, :m - Medical, :n - Science.")
+	to_chat(src, ":h Vault")
 	show_laws()
-	to_chat(src, "<b>These laws may be changed by other players, or by you being the traitor.</b>")
+	to_chat(src, "<b>These laws may not be changed by other players.</b>")
 
 	job = "AI"
 
@@ -164,7 +163,7 @@
 	GLOB.shuttle_caller_list += src
 
 	builtInCamera = new (src)
-	builtInCamera.network = list("ss13")
+	builtInCamera.network = list("vault")
 
 
 /mob/living/silicon/ai/Destroy()
@@ -263,7 +262,7 @@
 
 	viewalerts = 1
 	src << browse(dat, "window=aialerts&can_close=0")
-
+/*
 /mob/living/silicon/ai/proc/ai_call_shuttle()
 	if(control_disabled)
 		to_chat(usr, span_warning("Wireless control is disabled!"))
@@ -282,6 +281,7 @@
 		var/obj/machinery/computer/communications/C = locate() in GLOB.machines
 		if(C)
 			C.post_status("shuttle")
+*/			
 
 /mob/living/silicon/ai/can_interact_with(atom/A)
 	. = ..()
@@ -561,7 +561,7 @@
 
 	for (var/obj/machinery/camera/C in GLOB.cameranet.cameras)
 		var/list/tempnetwork = C.network
-		if(!(is_station_level(C.z) || is_mining_level(C.z) || ("ss13" in tempnetwork)))
+		if(!(is_station_level(C.z) || is_mining_level(C.z) || ("vault" in tempnetwork)))
 			continue
 		if(!C.can_use())
 			continue
@@ -1019,12 +1019,12 @@
 	switch(alert("Would you like to enter cryo? This will ghost you. Remember to AHELP before cryoing out of important roles, even with no admins online.",,"Yes.","No."))
 		if("Yes.")
 			src.ghostize(FALSE, penalize = TRUE)
-			var/announce_rank = "Artificial Intelligence,"
-			if(GLOB.announcement_systems.len)
+			//var/announce_rank = "Artificial Intelligence,"
+			//if(GLOB.announcement_systems.len)
 				// Sends an announcement the AI has cryoed.
-				var/obj/machinery/announcement_system/announcer = pick(GLOB.announcement_systems)
-				announcer.announce("CRYOSTORAGE", src.real_name, announce_rank, list())
-			new /obj/structure/AIcore/latejoin_inactive(loc)
+				//var/obj/machinery/announcement_system/announcer = pick(GLOB.announcement_systems)
+				//announcer.announce("CRYOSTORAGE", src.real_name, announce_rank, list())
+			//new /obj/structure/AIcore/latejoin_inactive(loc)
 			if(src.mind)
 				//Handle job slot/tater cleanup.
 				if(src.mind.assigned_role == "AI")

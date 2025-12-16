@@ -139,19 +139,19 @@
 	name = "\proper the Security encryption key"
 	desc = "An encryption key for a radio headset.  Channels are as follows: :b - vault, :s - security"
 	icon_state = "sec_cypherkey"
-	channels = list(RADIO_CHANNEL_VAULT = 1, RADIO_CHANNEL_SECURITY = 1)
+	channels = list(RADIO_CHANNEL_VAULT = 1, RADIO_CHANNEL_COMMAND = 1)
 
 /obj/item/encryptionkey/headset_overseer
 	name = "\proper the Overseer's encryption key"
 	desc = "An encryption key for a radio headset.  Channels are as follows: :b - vault, :c - command, :s - security, :e - engineering, :m - medical, :n - science."
 	icon_state = "cap_cypherkey"
-	channels = list(RADIO_CHANNEL_VAULT = 1, RADIO_CHANNEL_COMMAND = 1, RADIO_CHANNEL_SECURITY = 1)
+	channels = list(RADIO_CHANNEL_VAULT = 1, RADIO_CHANNEL_COMMAND = 1)
 
 /obj/item/encryptionkey/headset_vault_hos
 	name = "\proper the Head of Security's encryption key"
 	desc = "An encryption key for a radio headset.  Channels are as follows: :b - vault, :c - command, :s - security"
 	icon_state = "hos_cypherkey"
-	channels = list(RADIO_CHANNEL_VAULT = 1, RADIO_CHANNEL_COMMAND = 1, RADIO_CHANNEL_SECURITY = 1)
+	channels = list(RADIO_CHANNEL_VAULT = 1, RADIO_CHANNEL_COMMAND = 1)
 
 /obj/item/encryptionkey/headset_ncr
 	name = "NCR radio encryption key"
